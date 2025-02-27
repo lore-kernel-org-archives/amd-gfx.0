@@ -4,69 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CDA5C19F32
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 19:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 184D6C197BF
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 19:14:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1FC610EB69;
-	Thu, 27 Feb 2025 19:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9B3310E00B;
+	Thu, 27 Feb 2025 19:14:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eHV7TScU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="epbpH4Ft";
 	dkim-atps=neutral
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
- [209.85.221.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 020AA10EB67
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 19:11:39 +0000 (UTC)
-Received: by mail-vk1-f169.google.com with SMTP id
- 71dfb90a1353d-520ac2b9b7bso592957e0c.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 11:11:39 -0800 (PST)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D92010E00B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 19:14:45 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-2fe851fa123so343023a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 11:14:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740683499; x=1741288299; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1740683685; x=1741288485; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7Ud8q/24QIqze3UbOxHqHuaeIXRW53ofNmAXAQmXdHs=;
- b=eHV7TScUd0im1aEIVhclkXVpToecsUEUBHyy/SVySeP6PI1rljl84mK1sFpm/x7s1N
- nQUeABJn6lpv420ZIRbeMsnesdc9m3+4E1TR/YTCZkIlO5wH7SwZUDlZ7uzy31g35vxn
- WB6wYV7jqayScRGVgJo1NAebvLL1kQV/8wch7YNRnl+61/GwoY6jvFsGu37WRUsN3/NY
- hmZPFaR6bkgJZazkuAWG+dEBYfs1LGU20G36hX8udLRM2F7ikTOL1wPzwgkY0L/j7CVM
- C9kvndHI/ka1WKN8mNNzzQibSYy5w3PS5w7Y6jYR3vniAnznD+pbUxsRlmixdoLHjSWV
- Pd7A==
+ bh=r4+avpSbbzWYkNaeDhSuqdxVwdzpBCsCOAQajLWFpJI=;
+ b=epbpH4FtnOehUaKDSpKLFFPa/8q+cmCKpywSJjA1NjYJkDBHdueCCPa2voNkjFJIhi
+ E0K4RCFz0RmDUQYFGfUUIKkhRJtZGy6GQ01qa1mfibuJFpid7sF/C9y+lzEwEx5MGr4V
+ VfInQTD/yWlXrJ/3EBWBie3cDB4Z8aa3/Fe8MsiiQZE/JbWlslHPAKNhfCn8uyNoKtsl
+ C0pb8tb6/UdBXYgCATuLzL3JzdI/zxEXWmx1n5DqWQDhMVeTOztY6GMeycIA2sbOuXp4
+ d8s7UxD2RbEqRVTD11ZbsDpeZeqHmkXek8JShma/RwYs4VrkqNieyXxDpt9ZBtmUkqoJ
+ V6yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740683499; x=1741288299;
+ d=1e100.net; s=20230601; t=1740683685; x=1741288485;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7Ud8q/24QIqze3UbOxHqHuaeIXRW53ofNmAXAQmXdHs=;
- b=OZFCt+B9ayLTLC9FeCqDEo/xHXGIy79ftpCMF2tKhoN7oFld3g4+3OeuiTD+2MQAzu
- mT7rXIXTN/FDSySdmnniAJW18BlZffY3+f2d5EYs3vylOcFYGTHGwl9dWKczGpf4MYah
- qFxgKDg7Nd7czGS4t10TUyFs7fjIfh+wsIvgl+/M0NQ2o+UEIYuhYLtspE9sUcSXQh9W
- BgTeNYeDSVfNIfL2dxYk0ApaipQThYKqq7eGDEpcwNeHWTf/tprycUbzQ3Jy0aQJHBCo
- vJoZAEwedrQuwN3WzIEk02YyuqQkn4cON2zIdroyAx4Pqe+3DIltvIqBKtONVcZi+GG6
- nBlw==
-X-Gm-Message-State: AOJu0YwaN+RmgnvC0/HE1Gm0VGSMXJtwq7rM2wu6CacTvXRR/+WiWpQX
- 3Bl2VsAfX0XQ/SepbG0qiQAUhJoGmmE0QW0aKH9TsZIf80Wjig1j5jMTm5XQBFK+EShlMF5xKP1
- iuI6+q6Bdi2IPaRtyVcnkcLVzQFc=
-X-Gm-Gg: ASbGncugW6qg46gyHHgz9yMwphoO0/lACMrF1pRcdUmbYKGS0Md2gAiYjpImJeCj5+/
- eZrT+M9qAyaAeY/xFsB7DAN7ERUBjxKxjYEX3axE0Pjlb2RCu4h1c2Fstl0lKP0vMUjEkExHeAO
- VMtryrQw==
-X-Google-Smtp-Source: AGHT+IGj8cIJMcmZnt0Z7gGhk8OOVQYJMJl1xYFqwobcxr/KUDnKSJoS0bhBTfnbQM6utafXH9MmTHPg6r2sg0Fycms=
-X-Received: by 2002:a05:6122:d9e:b0:520:5a87:66ed with SMTP id
- 71dfb90a1353d-5235b89104amr196900e0c.5.1740683498839; Thu, 27 Feb 2025
- 11:11:38 -0800 (PST)
+ bh=r4+avpSbbzWYkNaeDhSuqdxVwdzpBCsCOAQajLWFpJI=;
+ b=j3h2DYT7cuzvme+6PstKKDzNY1zBAx0NYglK5QfT0inpRumZF/pHzrfJYmgh4CxUDq
+ mUqqghfMCp4qgyof8Pe5Qcyp/WyX67EpQKTnTPfk6VN8nRFQaw/JHRfyzNz6bRdVj86S
+ eFn+Yp0cAyOUysp12osrmPeCXjkvSZGO4oPt4OcSzLI+c0GoqB65AeFCYSJ1bHH0dU6/
+ Da+/pvDy3pAdggnx0OcPLJUkY9h4ZqThFrzTdbxIwXo+Jtkw4seSic5LM2GStPKrYuMC
+ IB1JKaCwT6sYGQ+200F0wlrSr8ixGELQYeHx8XZdO0LHVlweW0J+pNIkqmGbtudvANSz
+ Nf+w==
+X-Gm-Message-State: AOJu0YzVkAkuOyy8Z+K3o1mLfwMOcNKdN8HfMnhuM9GgZsCraAzN0CWF
+ bTkQIoaSBC/eVB1cPvU7bi5dgoLK347g0thSf4RXfaJVkmWu8ufXl+AOzQPj38N7hD6tXJSCMzq
+ Zoa8eAc0cKUZO0PvCCrxlqNvy94k=
+X-Gm-Gg: ASbGnctBTsjyGr1kIWAm2AiLqLp8E97wBYBWMZS4W4IkEQ/Zz+abrgQ33NhYYgibsqc
+ UHOw2dM8GgM7MnSU83heIPRJR6N5dToS0EXm5S4gP9SYxmJPZJX8onWXdM7hnYvy86lo1UDaI+J
+ 74pmuplfc=
+X-Google-Smtp-Source: AGHT+IFuLF1vTc7pdxIzs6/X0+QtRGdqI7zAOLsJsUmnY+E77ch+YGar20AYzveFzDseXuCkBdS4r65b+XHzJ4Xbnyw=
+X-Received: by 2002:a17:90b:1c0e:b0:2fc:25b3:6a91 with SMTP id
+ 98e67ed59e1d1-2febac0576amr283854a91.5.1740683684742; Thu, 27 Feb 2025
+ 11:14:44 -0800 (PST)
 MIME-Version: 1.0
-References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
- <20250227052241.171102-3-alexandre.f.demers@gmail.com>
- <CADnq5_NkXjnE9ymMxNyoQObB3=PHw5Ed+pYihu_ssCH8d8M6yw@mail.gmail.com>
- <CAPEhTTFDMQwoWjk18LE98MkdMd9skzykf3QTQeF=E6JrPf17eg@mail.gmail.com>
- <CADnq5_PRCvX=PV-jzmQqesxXz2UDOUBJGc4DrzOSaNOcyDvTeg@mail.gmail.com>
- <CADnq5_OUfPPdmoZCPs=c9X5GRor4iy_ThTReWxaRNUBYe8gK6Q@mail.gmail.com>
-In-Reply-To: <CADnq5_OUfPPdmoZCPs=c9X5GRor4iy_ThTReWxaRNUBYe8gK6Q@mail.gmail.com>
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Thu, 27 Feb 2025 14:11:27 -0500
-X-Gm-Features: AQ5f1Jo7A9sdvUJF_gnqQKbzb3asEI_2bxwmnyya9Dy_Ar1YsnCODTDlksvqBz0
-Message-ID: <CAPEhTTHRXVyqi8i7-Di_Xwo5q1c=T=vSJJZKuNxA8Hd0Rnh-rw@mail.gmail.com>
-Subject: Re: [PATCH 2/6] drm/amdgpu: add dce_v6_0_soft_reset() to DCE6
-To: Alex Deucher <alexdeucher@gmail.com>
+References: <20250227050506.167299-1-alexandre.f.demers@gmail.com>
+ <20250227050506.167299-3-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250227050506.167299-3-alexandre.f.demers@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 27 Feb 2025 14:14:32 -0500
+X-Gm-Features: AQ5f1JpULObU2UWce3NfWXKBVneZfe7CRfKh_hBl0064QgTF_jGOk5zEcNnq3mM
+Message-ID: <CADnq5_Ooc=VM3xw3F+FFEiXdNMcGX9eEiZsH3EWH8s91+bjfDg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: fix typos in SI
+To: Alexandre Demers <alexandre.f.demers@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -84,168 +80,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 27, 2025 at 2:05=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
->
-> On Thu, Feb 27, 2025 at 2:01=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
-om> wrote:
-> >
-> > On Thu, Feb 27, 2025 at 1:52=E2=80=AFPM Alexandre Demers
-> > <alexandre.f.demers@gmail.com> wrote:
-> > >
-> > > On Thu, Feb 27, 2025 at 9:23=E2=80=AFAM Alex Deucher <alexdeucher@gma=
-il.com> wrote:
-> > > >
-> > > > On Thu, Feb 27, 2025 at 12:49=E2=80=AFAM Alexandre Demers
-> > > > <alexandre.f.demers@gmail.com> wrote:
-> > > > >
-> > > > > DCE6 was missing soft reset, but it was easily identifiable under=
- radeon.
-> > > > > This should be it, pretty much as it is done under DCE8 and DCE10=
-.
-> > > > >
-> > > > > Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 62 +++++++++++++++++++++=
-+++---
-> > > > >  1 file changed, 57 insertions(+), 5 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/=
-drm/amd/amdgpu/dce_v6_0.c
-> > > > > index bd763fde1c50..254cb73324c6 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > > > > @@ -371,27 +371,58 @@ static u32 dce_v6_0_hpd_get_gpio_reg(struct=
- amdgpu_device *adev)
-> > > > >         return mmDC_GPIO_HPD_A;
-> > > > >  }
-> > > > >
-> > > > > +static bool dce_v6_0_is_display_hung(struct amdgpu_device *adev)
-> > > > > +{
-> > > > > +       u32 crtc_hung =3D 0;
-> > > > > +       u32 crtc_status[6];
-> > > > > +       u32 i, j, tmp;
-> > > > > +
-> > > > > +       for (i =3D 0; i < adev->mode_info.num_crtc; i++) {
-> > > > > +               if (RREG32(mmCRTC_CONTROL + crtc_offsets[i]) & CR=
-TC_CONTROL__CRTC_MASTER_EN_MASK) {
-> > > > > +                       crtc_status[i] =3D RREG32(mmCRTC_STATUS_H=
-V_COUNT + crtc_offsets[i]);
-> > > > > +                       crtc_hung |=3D (1 << i);
-> > > > > +               }
-> > > > > +       }
-> > > > > +
-> > > > > +       for (j =3D 0; j < 10; j++) {
-> > > > > +               for (i =3D 0; i < adev->mode_info.num_crtc; i++) =
-{
-> > > > > +                       if (crtc_hung & (1 << i)) {
-> > > > > +                               tmp =3D RREG32(mmCRTC_STATUS_HV_C=
-OUNT + crtc_offsets[i]);
-> > > > > +                               if (tmp !=3D crtc_status[i])
-> > > > > +                                       crtc_hung &=3D ~(1 << i);
-> > > > > +                       }
-> > > > > +               }
-> > > > > +               if (crtc_hung =3D=3D 0)
-> > > > > +                       return false;
-> > > > > +               udelay(100);
-> > > > > +       }
-> > > > > +
-> > > > > +       return true;
-> > > > > +}
-> > > > > +
-> > > > >  static void dce_v6_0_set_vga_render_state(struct amdgpu_device *=
-adev,
-> > > > >                                           bool render)
-> > > > >  {
-> > > > >         if (!render)
-> > > > >                 WREG32(mmVGA_RENDER_CONTROL,
-> > > > >                         RREG32(mmVGA_RENDER_CONTROL) & VGA_VSTATU=
-S_CNTL);
-> > > > > -
-> > > > >  }
-> > > > >
-> > > > >  static int dce_v6_0_get_num_crtc(struct amdgpu_device *adev)
-> > > > >  {
-> > > > > +       int num_crtc =3D 0;
-> > > > > +
-> > > > >         switch (adev->asic_type) {
-> > > > >         case CHIP_TAHITI:
-> > > > >         case CHIP_PITCAIRN:
-> > > > >         case CHIP_VERDE:
-> > > > > -               return 6;
-> > > > > +               num_crtc =3D 6;
-> > > > >         case CHIP_OLAND:
-> > > > > -               return 2;
-> > > > > +               num_crtc =3D 2;
-> > > > >         default:
-> > > > > -               return 0;
-> > > > > +               num_crtc =3D 0;
-> > > > >         }
-> > > > > +       return num_crtc;
-> > > >
-> > > > Any particular reason for this change?  It just adds an extra varia=
-ble.
-> > > >
-> > > > Alex
-> > >
-> > > Just for uniformisation with DCE8 and DCE10. We could also remove the
-> > > variable and use returns everywhere.
-> > >
-> > > Any preferences?
-> >
-> > ah, ok. I think the direct returns are cleaner.
->
-> I would maybe split up your patches into maybe 3 logical patch sets:
-> one to fix spelling typos and comments, one to make the DCE code more
-> uniform across versions, and another to add new DCE6 functionality.
->
-> Alex
->
-Ok, I'll split them and send new patch sets. Should they be identified as V=
-2?
+Applied this series with some minor changes.
 
-Alexandre
-> >
-> > Alex
-> >
-> > > Alexandre
-> > >
-> > > >
-> > > > >  }
-> > > > >
-> > > > >  void dce_v6_0_disable_dce(struct amdgpu_device *adev)
-> > > > > @@ -2846,7 +2877,28 @@ static bool dce_v6_0_is_idle(void *handle)
-> > > > >
-> > > > >  static int dce_v6_0_soft_reset(struct amdgpu_ip_block *ip_block)
-> > > > >  {
-> > > > > -       DRM_INFO("xxxx: dce_v6_0_soft_reset --- no impl!!\n");
-> > > > > +       u32 srbm_soft_reset =3D 0, tmp;
-> > > > > +       struct amdgpu_device *adev =3D ip_block->adev;
-> > > > > +
-> > > > > +       if (dce_v6_0_is_display_hung(adev))
-> > > > > +               srbm_soft_reset |=3D SRBM_SOFT_RESET__SOFT_RESET_=
-DC_MASK;
-> > > > > +
-> > > > > +       if (srbm_soft_reset) {
-> > > > > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
-> > > > > +               tmp |=3D srbm_soft_reset;
-> > > > > +               dev_info(adev->dev, "SRBM_SOFT_RESET=3D0x%08X\n",=
- tmp);
-> > > > > +               WREG32(mmSRBM_SOFT_RESET, tmp);
-> > > > > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
-> > > > > +
-> > > > > +               udelay(50);
-> > > > > +
-> > > > > +               tmp &=3D ~srbm_soft_reset;
-> > > > > +               WREG32(mmSRBM_SOFT_RESET, tmp);
-> > > > > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
-> > > > > +
-> > > > > +               /* Wait a little for things to settle down */
-> > > > > +               udelay(50);
-> > > > > +       }
-> > > > >         return 0;
-> > > > >  }
-> > > > >
-> > > > > --
-> > > > > 2.48.1
-> > > > >
+Thanks!
+
+Alex
+
+On Thu, Feb 27, 2025 at 12:14=E2=80=AFAM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
+>
+> Fix typos
+>
+> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/si.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu=
+/si.c
+> index d1c06d0d6a2d..68f6f4ec8a47 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -919,7 +919,7 @@ static const u32 hainan_mgcg_cgcg_init[] =3D
+>
+>  /* XXX: update when we support VCE */
+>  #if 0
+> -/* tahiti, pitcarin, verde */
+> +/* tahiti, pitcairn, verde */
+>  static const struct amdgpu_video_codec_info tahiti_video_codecs_encode_a=
+rray[] =3D
+>  {
+>         {
+> @@ -950,7 +950,7 @@ static const struct amdgpu_video_codecs hainan_video_=
+codecs_encode =3D
+>         .codec_array =3D NULL,
+>  };
+>
+> -/* tahiti, pitcarin, verde, oland */
+> +/* tahiti, pitcairn, verde, oland */
+>  static const struct amdgpu_video_codec_info tahiti_video_codecs_decode_a=
+rray[] =3D
+>  {
+>         {
+> @@ -1898,7 +1898,7 @@ static int si_vce_send_vcepll_ctlreq(struct amdgpu_=
+device *adev)
+>         WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~UPLL_CTLREQ_MASK);
+>
+>         if (i =3D=3D SI_MAX_CTLACKS_ASSERTION_WAIT) {
+> -               DRM_ERROR("Timeout setting UVD clocks!\n");
+> +               DRM_ERROR("Timeout setting VCE clocks!\n");
+>                 return -ETIMEDOUT;
+>         }
+>
+> --
+> 2.48.1
+>
