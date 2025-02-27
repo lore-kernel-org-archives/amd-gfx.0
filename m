@@ -4,118 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40046C19F2E
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 13:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05049C19F2E
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 14:22:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1EA910E1C6;
-	Thu, 27 Feb 2025 13:19:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F380610EB05;
+	Thu, 27 Feb 2025 14:22:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xkEUmclK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="frOS4L/e";
 	dkim-atps=neutral
-Received: from outbound.mail.protection.outlook.com
- (mail-mw2nam04on2073.outbound.protection.outlook.com [40.107.101.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C204510E1C6
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 13:19:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f5W9AQIhSuCxCY4DBrE9INKkgJ3K7G3gnCCgjyehz8KNHrkfigsyvsGXM7OK+m8LXLnjVLc4ZaVR64EB/RvnsVbsSnpxcbRSajy5KYejFS5eVUfolYg8MVk4q+6kt4yE8Y82XvWnBTiv5O8jnHugxabG3PBpN7Kmlqmue+A/H5nXNKdwTtZxL0acB//3+sBd/zGY3RGMgmzDSWb4iT2YixN6qmYcpu0WqkryFe2dEssyp1VgdjLFU14kRMAFzQPJFK2/smluEofEPM4DSNmeZpOe9pxbEG5xf6TjT0TFSY+lIefainK4Bo2oN+1h20jyYX4nFqsbEQLb7w/CMRM7Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PHSfW6JIPnkdbE8D5RFwqTcbuEWlgdQUvWTNh5UzCeI=;
- b=YviDfHNlZbBmItANc0OqwCEEskXZUu6P9Omd/SEfVIN8SpHOl3+QFHhTSllJsf1PtmJc5rkB4mzLEfsT/CqvhWGsEaIYDH+f4FtCc69QxK9x9YNWJzE9Hd+dJZfFIrhbhffF00Z0yMehv/Z8iGW/yVyAquVqZX8C1TRsXtVDKc2f8qhkMMyecKQQpzJy0luLQGfc9nHo5BeyXyIAarz6e4CRdhIXXVnSOI6pmF3HDJVhz6qRnoSLlPpZZB2348Nd2Wz1WWfffYfzC5BxSPR+AgWdO0Q8tmOV1xjS4uLjR/pxVsQ8jp4zws7UlaEF9dKJNSlQO8q3+KOTe8Gphps3QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PHSfW6JIPnkdbE8D5RFwqTcbuEWlgdQUvWTNh5UzCeI=;
- b=xkEUmclKKi9ZFYfQho8/gqf+g6eyAF/d6LUjiS8DYzhnlVRc6X76oZj/iS2oPtY2jrzW6yYvO4s9bSABdrfsH3TGsppffFrZY7lEwJNo8r603hPGEXADwX9SNj0mEbm+qtH6eqAxzlJ14Jem3QngEFvra5nauVDyUDNG6BTMKGY=
-Received: from BYAPR11CA0066.namprd11.prod.outlook.com (2603:10b6:a03:80::43)
- by MW4PR12MB7165.namprd12.prod.outlook.com (2603:10b6:303:21b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.18; Thu, 27 Feb
- 2025 13:19:42 +0000
-Received: from CO1PEPF000042AB.namprd03.prod.outlook.com
- (2603:10b6:a03:80:cafe::2a) by BYAPR11CA0066.outlook.office365.com
- (2603:10b6:a03:80::43) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.23 via Frontend Transport; Thu,
- 27 Feb 2025 13:19:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042AB.mail.protection.outlook.com (10.167.243.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8489.16 via Frontend Transport; Thu, 27 Feb 2025 13:19:42 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Feb
- 2025 07:19:39 -0600
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>
-CC: <hawking.zhang@amd.com>, <le.ma@amd.com>, <shiwu.zhang@amd.com>,
- <asad.kamal@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Set PG state to gating for vcn_v_5_0_1
-Date: Thu, 27 Feb 2025 21:19:23 +0800
-Message-ID: <20250227131923.812619-1-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEB9A10EB0B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 14:22:23 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2217ea6d8daso2290085ad.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 06:22:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1740666143; x=1741270943; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HdhnDh/eSaAmw0UrdStUJIKsIu+OKL9GWwc2uK+wZ9o=;
+ b=frOS4L/eyQF0iRCggzB050/bSoCkI7pnHoFIkq9zQzZbyQLfKbQU726PT5id/M2rbQ
+ CC/nBSiEz9Bbon4NSBjGVdj4NxEfpwgssA5Tl+pk40q9ze8kaWdzyGGRP0QVhaBqAc2z
+ IQ9WOSplz6Frx7N5Cx8YI5qT/VkMl61cJJiiJTQPAh8gb0TiWVm1UP6iD3GwL2Rl6k42
+ WNSZGscnJmCF2rgAHxmLlNt0lEhtivi0w0741YBVe4BYL43PxX4yRK7R72CtTiuUmlzc
+ 6p8pH4Ru4v1Mr8xgvFBjUlfyXgTLbERwdpTA5nkM+vIg2l0cBotZ49HeCjfrDVWj+1DM
+ psIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740666143; x=1741270943;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HdhnDh/eSaAmw0UrdStUJIKsIu+OKL9GWwc2uK+wZ9o=;
+ b=oNTKhGn4xlsQTO8LCmZSQFkWeif/e3WPexRIpGkyRf3EoEmPIXzc5SVwpeUlC0OaLQ
+ 7TPRMb0hJ/Cjie8Xskr7ueyS6kANLEklE/lECoECBrzzLWsD3YhcnnpFllETxYNSNAZc
+ 3SlLgbbM0rqo7a+aL71uh/DQnBl/14tDhFcZabexenHtSdCuiqu5kwFPEo3bT6pH+mv3
+ +eB4vHDCHxTgdBftaLrfyf4cjT9A7+At03GEObMTEwIJXEyQUnPLJga0SazoOLK0Hu6G
+ UNbxtAwZW7CWesxMTgY6EE9AqJnked/6vhQGiCwnyzrk237EMV5O7CX+BXMeVrWFi/Wm
+ qWBg==
+X-Gm-Message-State: AOJu0YwOMlxEKdx8Co2pQJBqanMI6yIonDXexMXPzkbitfthwMtnWjnz
+ S5dZbv06n9bn1LYfg+SVpr5mwbtlYORi3piG6wpd99eReQZtcgbn+iHY/VXmmt/2JD2ceuf19uF
+ 8tfH/29MuUrHwLGpoO0nX6Z69988fNg==
+X-Gm-Gg: ASbGncshK32gIsGPt6kQY1VbGLDBgATAE5jQp0QkxDi5Ufahj3pfekp1fqo4Vvf1+y4
+ OmGXF6LA5Mste4lyGMQKvGYEvZmU53ab3k1SmXvzOn/8aCj+QwsRy4evI5kfqwEZiLucXS3nKX1
+ CZb/YyXfo=
+X-Google-Smtp-Source: AGHT+IEE0adjHAD8ilUX0NJomjHxB3S+IxsCAOSUsESWKeyMi0IpClHIL9hKmpv7MizQdw0fdOZJEtb0HJQgZ6PD6Kc=
+X-Received: by 2002:a17:903:40c9:b0:215:b8b6:d2c4 with SMTP id
+ d9443c01a7336-2219ff4f24fmr156929365ad.4.1740666143071; Thu, 27 Feb 2025
+ 06:22:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AB:EE_|MW4PR12MB7165:EE_
-X-MS-Office365-Filtering-Correlation-Id: dfc24ae9-1139-4a3e-4e97-08dd57316589
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?rh/huvxoH3u1MsxeDSUER8bfuTo12dK5tTDTYY3En4k5cTXXKirh/Qtb7PYn?=
- =?us-ascii?Q?f3OjZUDHoxaQfLteUeX+IwiFxa7XwbEMZs/Wf8hEgiKWg4afK/N/OcNUXpyf?=
- =?us-ascii?Q?DEpx44hRiqXmdt0ir6cgHqw097kfqc2SjeYo4G055HBgDv0EUcJusW4dlZJW?=
- =?us-ascii?Q?z6nNbnG8qEVCfRAmo8YOYBIFhEA+uXD0mSPuzEfMcyKfCNgLSOQN3qX8f1iW?=
- =?us-ascii?Q?s+DLKES040Kjt2Jd8e7CVwEvj2fiFavvyoDGIojoR5vB92S661I6jXmPGKyN?=
- =?us-ascii?Q?75yXXDJAOona7TbMrazjLeov2hXkkW7YjsmeldgRUAfGJcJ0rF159Hv2jDiY?=
- =?us-ascii?Q?Dlfhm+yZe8VA2DTiVayHrZVLlIg3R7aiAvjQK1l5xSId16YDE2PUWbMXQJ+z?=
- =?us-ascii?Q?cQJEVBP2aan3BmjaiJ/+5OAEFdUoOXJBaPbYiFHYz8EJVRkpJMk+gv4uld6k?=
- =?us-ascii?Q?QHmaqClQBQbRDR0wBtjC9hri1Yfk9lPnvzCyIiOiBBB/RZP298IgXo9cJvfq?=
- =?us-ascii?Q?OqREXtBixb57+DQfU28k0GAK27JkWI+k2PtplzrsHY22dmw9asAL3VQuXbt7?=
- =?us-ascii?Q?bf6m0uWZbz6Il5L4nzJJEkcHgnvxEdOqr+OwYcJE6yJBUf0HqkSWeZFBRpGd?=
- =?us-ascii?Q?PSTt32+cv2aOB+KGGbZv2+tEbmO3Up3bbF/xv/+un4wWiBnk6Yr2ox8E05dy?=
- =?us-ascii?Q?La6lofsOmu7oMMZdVx7MEqvEDgTZg9rJDipHQ6z/wVhpNgdBtg762u1EyE1L?=
- =?us-ascii?Q?DP2+vbgWFDilBh2CEI+9ikPcTau0+/X3vc6j2XtHPV8XC0iSm4dGzT0BgnT5?=
- =?us-ascii?Q?lgopQr4q9+ls2HEoRfS7fR3snIUdknWcK5aEbPcWwjqdY4Z+RsO8sDk1Vr1k?=
- =?us-ascii?Q?ZRs6sbqVto2KD4/HhvYMPFjeAYu8VTC/RPzHB1QH1dIRT/xZWKFUsS5+MGqC?=
- =?us-ascii?Q?5LKWelbkWZxGcI9ePzU4NjUEAJqfHkI7WDyWJ3h8EGS+JTfdgYIXkTQ5qF0u?=
- =?us-ascii?Q?ChP7eUSYbuQ4ldgEEn6IRRh4pD+fgNrwVtbKoZXAsg2/yUpZE8ubmG0mhBg4?=
- =?us-ascii?Q?XahvpzdPMkWUB7hikfzeruaJc5/oHBtxyjzU6nWRPjjMOxMdXzE8FwcRsffI?=
- =?us-ascii?Q?XWtlnEbROuZVbXlnQ/ZCHd35KqCHPCHdab1acRNKg7Yw9lQmxUnKavphUolK?=
- =?us-ascii?Q?fepBZGnpm8cUNtm8DyHFoqHoQ80RiyLvAnMIJLaCKGJEGVWTmDGH34qZSt7X?=
- =?us-ascii?Q?4F67zannAzx9MOmQ9NPFaSEFXADu83bVLkiR84uOxnCEJtRhtzwIPEBDp/kf?=
- =?us-ascii?Q?Ich3D8BO/wVpsgF/72o+wLGVt8VDHdLRJEEg41vNNIwLuNcON8ub3ieMwcgE?=
- =?us-ascii?Q?dDthyO42aAe7bqxsUxLq0A7og4Yr2wmgX7PgC1JLwPr12PW3uAgJBlhyLAmW?=
- =?us-ascii?Q?1MKfFUJzd18qcgQPw+UE7y1AnIZOWZlPq0tLLIdj8KMsZG4B/POzug=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2025 13:19:42.3427 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfc24ae9-1139-4a3e-4e97-08dd57316589
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7165
+References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
+ <20250227052241.171102-4-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250227052241.171102-4-alexandre.f.demers@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 27 Feb 2025 09:22:11 -0500
+X-Gm-Features: AQ5f1JrX2el5COGfd95nXLMV62RPtL2BSEWetY4HEDi_oVU4jS0JBdic1R3b9Xc
+Message-ID: <CADnq5_MQWOLSm_9=syBagpoQSA6i+D7A=RGtvrbuzCTjn9y2OQ@mail.gmail.com>
+Subject: Re: [PATCH 3/6] drm/amdgpu: complete
+ dce_v6_0_set_crtc_vline_interrupt_state() in DCE6
+To: Alexandre Demers <alexandre.f.demers@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,51 +81,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For vcn_v_5_0_1, set power state to gating during hw fini. Also there may
-be scenario where VCN engine hangs during a job execution, then it's not
-safe to assume that set_pg_state works fine during hw_fini to put the state
-to gated. After a reset, we can assume that it's in the default state,
-therefore reset the driver maintained state. Put the default state as gated
-during reset as per this assumption.
+On Thu, Feb 27, 2025 at 12:23=E2=80=AFAM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
+>
+> dce_v6_0_set_crtc_vline_interrupt_state() was empty without any info to
+> inform the user.
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Doesn't hurt to fill it in, but nothing uses the vline interrupt at
+the moment.  Might be better to just remove it from all of the non-DC
+display code.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-index 900702b1a3bb..0273157c2bfd 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-@@ -224,8 +224,13 @@ static int vcn_v5_0_1_hw_fini(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 	int i;
- 
--	for (i = 0; i < adev->vcn.num_vcn_inst; ++i)
-+	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-+		struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
-+
- 		cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+		if (vinst->cur_state != AMD_PG_STATE_GATE)
-+			vinst->set_pg_state(vinst, AMD_PG_STATE_GATE);
-+	}
- 
- 	return 0;
- }
-@@ -268,6 +273,11 @@ static int vcn_v5_0_1_resume(struct amdgpu_ip_block *ip_block)
- 	int r, i;
- 
- 	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-+		struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
-+
-+		if (amdgpu_in_reset(adev))
-+			vinst->cur_state = AMD_PG_STATE_GATE;
-+
- 		r = amdgpu_vcn_resume(ip_block->adev, i);
- 		if (r)
- 			return r;
--- 
-2.46.0
+Alex
 
+
+>
+> Based on DCE8 and DCE10 code.
+>
+> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 44 +++++++++++++++++++++++++++
+>  1 file changed, 44 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v6_0.c
+> index 254cb73324c6..e805c4f9222c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -2957,7 +2957,51 @@ static void dce_v6_0_set_crtc_vline_interrupt_stat=
+e(struct amdgpu_device *adev,
+>                                                     int crtc,
+>                                                     enum amdgpu_interrupt=
+_state state)
+>  {
+> +       u32 reg_block, lb_interrupt_mask;
+>
+> +       if (crtc >=3D adev->mode_info.num_crtc) {
+> +               DRM_DEBUG("invalid crtc %d\n", crtc);
+> +               return;
+> +       }
+> +
+> +       switch (crtc) {
+> +       case 0:
+> +               reg_block =3D CRTC0_REGISTER_OFFSET;
+> +               break;
+> +       case 1:
+> +               reg_block =3D CRTC1_REGISTER_OFFSET;
+> +               break;
+> +       case 2:
+> +               reg_block =3D CRTC2_REGISTER_OFFSET;
+> +               break;
+> +       case 3:
+> +               reg_block =3D CRTC3_REGISTER_OFFSET;
+> +               break;
+> +       case 4:
+> +               reg_block =3D CRTC4_REGISTER_OFFSET;
+> +               break;
+> +       case 5:
+> +               reg_block =3D CRTC5_REGISTER_OFFSET;
+> +               break;
+> +       default:
+> +               DRM_DEBUG("invalid crtc %d\n", crtc);
+> +               return;
+> +       }
+> +
+> +       switch (state) {
+> +       case AMDGPU_IRQ_STATE_DISABLE:
+> +               lb_interrupt_mask =3D RREG32(mmINT_MASK + reg_block);
+> +               lb_interrupt_mask &=3D ~VLINE_INT_MASK;
+> +               WREG32(mmINT_MASK + reg_block, lb_interrupt_mask);
+> +               break;
+> +       case AMDGPU_IRQ_STATE_ENABLE:
+> +               lb_interrupt_mask =3D RREG32(mmINT_MASK + reg_block);
+> +               lb_interrupt_mask |=3D VLINE_INT_MASK;
+> +               WREG32(mmINT_MASK + reg_block, lb_interrupt_mask);
+> +               break;
+> +       default:
+> +               break;
+> +       }
+>  }
+>
+>  static int dce_v6_0_set_hpd_interrupt_state(struct amdgpu_device *adev,
+> --
+> 2.48.1
+>
