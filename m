@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68233C197BF
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 19:05:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F8F7C197BF
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 19:10:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D64010E15C;
-	Thu, 27 Feb 2025 19:05:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D51F10E27D;
+	Thu, 27 Feb 2025 19:10:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FdtUMG7V";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E7yYEhqi";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84EC610E15C
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 19:05:51 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-216513f8104so2825195ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 11:05:51 -0800 (PST)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com
+ [209.85.222.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3962310E27D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 19:09:53 +0000 (UTC)
+Received: by mail-ua1-f51.google.com with SMTP id
+ a1e0cc1a2514c-868f169bb56so570848241.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 11:09:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740683150; x=1741287950; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1740683392; x=1741288192; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vm0nP1OFJRHbMTeZMGvNXnhATFQ3hEe85dMw9L0AZFM=;
- b=FdtUMG7V48tPUZESjK/kbZPFL6RiYKOh5tDGYNdUbqGwcqUvxmll/xoujaZc0GorC/
- otsnGxCDwQMc56Q6ba28IqWogX2eL7fFM3OzA9JYI/bE4egLheY8eZhMwgamQdBCQNlw
- roRQqUC3BDHechAu+en+LsBencQFnPeYpr07L3tseD81qXwwJRMzxXf8srJHXBo1OwU0
- huJ7PXX5K6tAwSfCFjTk9fmC3V6q9+SAJin+cJy1KvPr9iAcrFJTDlhQJTEA/y2sYlcg
- 6PB9+J8l/+HBJeesHQ1RjRXVuTR4NkAwWtNtbwwtmtwwxcXwhiWrzbe37/CJUr/6u0Vk
- TYqg==
+ bh=4uCi2DtRTgCU/LPqlNfPNpUYuWuWVYtkBQrzsqCF23I=;
+ b=E7yYEhqiALL3E8/SaNM+GWldhpg1a9X2AhHMNO82BHluSaDv8SaAw8s+9Jlwp9CieI
+ oXGdm5GXEUT6gU/G+ZVmNdl5BtihfeXclNlVHqdZvEGN9m0jl1y9NEEiO+N8ABTLDFUG
+ lDrzYsGxB2UTYcuE2v7+GHTVAM8SlSHg5rWMInyJLQP+qfnhW+3mf7y1rljg0/gXSeY2
+ s9TfPM8i24iwv0gF632w6FXQNuQVnslr6ORD9FwC4J3UQwMd26Gjaj+RIMHY3dizX+9t
+ MYDs51iBXBEN45V/xpwqDEhWIXtAtqMFZS8t8bVTShz/xHYLdM30C6R2O3y+UtDnauKR
+ pAqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740683150; x=1741287950;
+ d=1e100.net; s=20230601; t=1740683392; x=1741288192;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vm0nP1OFJRHbMTeZMGvNXnhATFQ3hEe85dMw9L0AZFM=;
- b=urdj48b+5easpwQH8rbpCisr7Iz3Pkm4NrgmEWUQ8gq0Z9v84ToTAKNFQLYe1zVupO
- hFVN5EvuwsbKZl9KdxMfuVPzyvwhPl9vLo62es/xC3Z6HGAxEDxoaSSSOiPXKpvi1z9k
- Jkbjo5+skipAAqBnk7mEx+E616FojxuoKM8SSMHbvgvZ3fuS247EnAzZxmIeZUEAaBVr
- iUJLg+nV7ALyAHbnk2/SEWmUlx/nk2dd3wqGDPRN8g5tJ/RHAFC8N7qqJeLy9GCQbdW9
- nBz5SCMfeR9ALgapFja4b2X4hEOqmbuDvdQMtZazVcx2fxG1LgO4850bR6lUrpO/dktz
- 8T0Q==
-X-Gm-Message-State: AOJu0Yyq5HjEJGxmsjdDBHmmkKgojCVgzlc7mjBXTmQexgme0HinjqIT
- fg/IrERIAp6g8gqCkkJnH28nRjK7AVUUfzu3HmDs57g9ZBLThFm2BW8Y+tC0F9WJ3SW/2QHpSq9
- hEdvvhkIQzYHuzsQZOn0pLFjgsbiumQ==
-X-Gm-Gg: ASbGnctcS/E0zkK4f3fZzUFQ43MXTCakMaK+PjFITCloIadEq157T0sJNo9Fqm28CR0
- 4rYNF4/++0uXZb/+XeX1b5u3BBoO6FZ4sEk+Bq61S9o7hH7SMVEFutouzK5RRezZo1d1UEOelB1
- 6ZYvqyNTY=
-X-Google-Smtp-Source: AGHT+IGETt/b2o1au2QMpy7i0bLWEq2euWNqCQIPOl32C0Lxx7pGMlOJ2w1hn+tSLZvAQFLelGLKU0ul/NJOpJmRTHM=
-X-Received: by 2002:a17:903:32c8:b0:21b:b115:1dd9 with SMTP id
- d9443c01a7336-22368fce12dmr1750455ad.5.1740683149993; Thu, 27 Feb 2025
- 11:05:49 -0800 (PST)
+ bh=4uCi2DtRTgCU/LPqlNfPNpUYuWuWVYtkBQrzsqCF23I=;
+ b=EeeXUIxxj6l8fIicbjYTQ4IHLqCyCtV9lj60Lk/tiiszjEsgRbIPZ6E18baUbqeBsK
+ QRcaPAzc58wHrSJo5nZynHbnc8vjJh93i5vyCR1mGuDbTuZ68I8vL0iI7Hjr4UfoAEYa
+ bfr/2zPLvTyNAtyqny/j9RE6/GJjPsLGKLZ6fFCLgaOOdbi+vop5q6HP2f/uEsqM1gN0
+ uGgE6GnY/BtAdt52JMlpRKRMlyOIhFzB3fw38X3NFtzR4NxpZ2sNSgXd8TabbYd3uLqW
+ uw8OpyvVeDY8G/Q+qyp25yW+RZWgcMGtG55A6JDl0FpZ/p/9DhGTlAoW6xD8LGUHPom8
+ ofdQ==
+X-Gm-Message-State: AOJu0YzQGrzNob/LRLLoLVQrZSQmO8SY2kyvvdhum5Ji4h6uxFkgETNw
+ 1cjOXrS3jQB9X1S5bYlFnXj7geSauYBQI4EK2wKSUS5VwSeaLVVQjIOwaQ79XPagPcjUaJFpOL8
+ Drr4eCELKkAFH+uG4lVpUGuZsN8txDw==
+X-Gm-Gg: ASbGnct48uDE1GMlvUV/JgcTdaGMUv0d0MdG3X72WNRmzww6wpzBYaLwmnwID7V+IJm
+ FQNlTBIFhTG3MQr/LS+4Tj8NhM78KBtBNkhDAlDCA0aLoAjxBXMjjJ+NYatGz5fTYex56ZS4t4Z
+ VYuznlLg==
+X-Google-Smtp-Source: AGHT+IG0RJDvvDXzSIml1P5M/xXMhTF0m71vL30N2jh9AguIAnQAEv42PxCmqnFRexy1/sIa90wG0bP11ZiFMXaAgrY=
+X-Received: by 2002:a05:6102:2d07:b0:4bb:ba51:7d48 with SMTP id
+ ada2fe7eead31-4c044858737mr692556137.5.1740683392150; Thu, 27 Feb 2025
+ 11:09:52 -0800 (PST)
 MIME-Version: 1.0
 References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
  <20250227052241.171102-3-alexandre.f.demers@gmail.com>
@@ -60,12 +60,12 @@ References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
  <CAPEhTTFDMQwoWjk18LE98MkdMd9skzykf3QTQeF=E6JrPf17eg@mail.gmail.com>
  <CADnq5_PRCvX=PV-jzmQqesxXz2UDOUBJGc4DrzOSaNOcyDvTeg@mail.gmail.com>
 In-Reply-To: <CADnq5_PRCvX=PV-jzmQqesxXz2UDOUBJGc4DrzOSaNOcyDvTeg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 27 Feb 2025 14:05:38 -0500
-X-Gm-Features: AQ5f1JpAZpo7Hq5LHAcEFGjrI47oMsqYOdODasy1URn4vZi1wu78rp62jnSY54s
-Message-ID: <CADnq5_OUfPPdmoZCPs=c9X5GRor4iy_ThTReWxaRNUBYe8gK6Q@mail.gmail.com>
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
+Date: Thu, 27 Feb 2025 14:09:40 -0500
+X-Gm-Features: AQ5f1Jpa3j4E1Rbj37nWrRz2Hu51wiiqkvkOBUuMGvjQbVTu5AwHOcsj17eDNHw
+Message-ID: <CAPEhTTF-_CTfErbRGvamWyMS04w=GGDEFQTLGOBM0Yn0Jt9DFg@mail.gmail.com>
 Subject: Re: [PATCH 2/6] drm/amdgpu: add dce_v6_0_soft_reset() to DCE6
-To: Alexandre Demers <alexandre.f.demers@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -188,15 +188,14 @@ e.
 > > Any preferences?
 >
 > ah, ok. I think the direct returns are cleaner.
-
-I would maybe split up your patches into maybe 3 logical patch sets:
-one to fix spelling typos and comments, one to make the DCE code more
-uniform across versions, and another to add new DCE6 functionality.
-
-Alex
-
 >
 > Alex
+
+Ok. Should I submit a new version or should this patch go through and
+be changed everywhere in a different patch?
+
+Alexandre
+
 >
 > > Alexandre
 > >
