@@ -4,119 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A50C3C19776
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 09:07:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF8EC19776
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 09:24:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51A3D10EC23;
-	Fri, 28 Feb 2025 09:07:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A90B110EC28;
+	Fri, 28 Feb 2025 09:24:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sQA6YuZF";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GIWLbqI1";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6194410EC23
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 09:07:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lWKTaamtbO/pcM/vZhnJpIuCFvhTVVPrETSOaz4CJ4ypThgEedfLcv+JFUl/3UR3xPtMW1dpJO86w1hjOtK0R7VNPn9w9TXKnxrK8+vqkf+JeRtZSTQLrjoDBJK0mmsKSLNcD3T1z6U1n8uFOZOWfQ4ggfR7K/aEoOC7Blzjf/ZgAJOT4E43UcpbfoYlj0s4FA8NG4ded2ZFbFOfVll9ldM8MEcyVopmDGPMM5zd+Y7SJB7og8oPkm8yeSWojeXvvrP6zzH7ax9EerAXi0SQSZaMUIp6KPXeJjwhoHq8ejpTrazDah/fah9mp49zpWvqetYLRhi0T04elVqKEdFfSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P3bLowBRuF2/YYieBhcLxvFCd5WXEDap7M+RmLPcjPA=;
- b=ujRa/X2Bb5zjJdFmOMU+nbaVeZEYDRbUD515RniYlapHREvla0YB3RuNRyUhqhXKEtFwTBO4Ux5MKSaOwHikq301eV1OQaBihV04FnN06m6xIfux7McDkzQMt8R4COGobfF43vNG5I5cIjTJZGlYJK/Sfr9FcwQEkgJvybOCID/i9rJyUzFGjVWZfmLfVJOTI0fbyB/z1JhxCcnjhJUGnfte3t5M54SZ29mdDQ8gZP1D0JZxhwSuoTdfM+QVUo2/7HtYHvhFVaDQNk3ZDSZeSdHKSmhgePDiFmMwhIWYzIvfqjasxxTuxEuIQv52tTpBzSfkxQOjqC041JZU7zMFpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P3bLowBRuF2/YYieBhcLxvFCd5WXEDap7M+RmLPcjPA=;
- b=sQA6YuZF76si33afoUhVTQjiq5poxikgLCFPtBSM5Uf2nC0qCQfpCLA1hiveNxbINl4Xkb9C23uhyJnypAv7/CpC2ibjeULoBo49NBWT57G3gczkC6nnnJL6A8HnrRp5mppkCkPjFkFD1151ccccTGHkyGbGFwq1qdvzoA/zOZw=
-Received: from BY5PR17CA0035.namprd17.prod.outlook.com (2603:10b6:a03:1b8::48)
- by SA0PR12MB4461.namprd12.prod.outlook.com (2603:10b6:806:9c::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Fri, 28 Feb
- 2025 09:07:00 +0000
-Received: from SJ5PEPF000001ED.namprd05.prod.outlook.com
- (2603:10b6:a03:1b8:cafe::35) by BY5PR17CA0035.outlook.office365.com
- (2603:10b6:a03:1b8::48) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.22 via Frontend Transport; Fri,
- 28 Feb 2025 09:07:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001ED.mail.protection.outlook.com (10.167.242.201) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8489.16 via Frontend Transport; Fri, 28 Feb 2025 09:07:00 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 28 Feb
- 2025 03:05:35 -0600
-Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Fri, 28 Feb 2025 03:05:21 -0600
-From: Kenneth Feng <kenneth.feng@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <kevinyang.wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
-Subject: [PATCH] drm/amd/pm: always allow ih interrupt from fw
-Date: Fri, 28 Feb 2025 17:05:19 +0800
-Message-ID: <20250228090519.528255-1-kenneth.feng@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A89610EC26;
+ Fri, 28 Feb 2025 09:24:14 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id C4A2844363;
+ Fri, 28 Feb 2025 09:24:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1740734653;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uRl/Zkz9QqAAlkrUnWYCeXTVHRYrAM1QSzBoMcMiOuw=;
+ b=GIWLbqI1+R50rKdPIqzOfJnFW8i2Jd675dJXNIjbgBnGxWlVzLP/addvFilGAeHGF7hXwl
+ gz+Q2tmwavlOOsaycMRawc29tf+YJcAuDKl+MKSybsx4ce5/qi90M5ZNpJVgVwj+kb1rzN
+ RLLQKSmRaWZloEfScAcUJ6KafXd4HRw5GrMW/6xV+lCCptNwtTs5JEOvtS8+tGkWXrquKp
+ kIO7/qtbgtI58nN6b0OKm2LqJNFAO5UZbSCizqOcRRWyVP7moJjW8PgNLqjZ+2Aff4xDQt
+ JrPpFm8ZdBfO86T+h75FtTRGT/oYboPL7KQUzk7PE311aixTbb5mNLQ2J4UmTA==
+Message-ID: <6b791e8a-9b38-44f1-bd6f-ac8eef9962c9@bootlin.com>
+Date: Fri, 28 Feb 2025 10:24:12 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [V7 07/45] drm/colorop: Add 1D Curve subtype
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
+References: <20241220043410.416867-1-alex.hung@amd.com>
+ <20241220043410.416867-8-alex.hung@amd.com>
+ <423ed019-f668-433d-80e0-4018f53c31c0@bootlin.com>
+ <570ad01a-ef15-476e-851d-ee78973fd79d@amd.com>
+Content-Language: en-US
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
+ 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
+In-Reply-To: <570ad01a-ef15-476e-851d-ee78973fd79d@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: kenneth.feng@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001ED:EE_|SA0PR12MB4461:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15ad1488-7233-4df5-06fc-08dd57d7428f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?UoriXeViV3AGAxf/Oa2Su5utls27gvO6pKJZz5Zn71COy9ByNKOzRsiUIeuu?=
- =?us-ascii?Q?bxdBfWUrj/BgZVRL56g54wS32Ra+WFegAy8hP5VNEuRtS3s1jG+6mMan5wxI?=
- =?us-ascii?Q?mrF/i7xa/JVGxwxaS5iy7/BPB1IjpNw3+lpcauJseez98UpFYE4J0w0k1Unu?=
- =?us-ascii?Q?qgRSyTiGEeRdQPj7+xmIxahf2uMI5U38V/iCd6fPHy5IuWiv+LeCx+Fsm7qg?=
- =?us-ascii?Q?ajS0y8SXQ0pKPYz8IMXogFRB+hjtTiVCoYM94lQSnWIFORtgMT8L2cLiyp7o?=
- =?us-ascii?Q?XVID6E6ubSwINM36pHWikFwdcnoyNyThHccPI7bwfspFVWVTe9QxLJLr927O?=
- =?us-ascii?Q?3MZo22dzWVYzp80ft6uiQHzw4kDbSwwHgJopeqVUQ1kIN5rTBSSXZP32QhBH?=
- =?us-ascii?Q?RqZ+RP56H5MNNSsapCQC6CS0Bjoge/9XL1QfPuCmjUwt1j8rwpax2cZU84KC?=
- =?us-ascii?Q?bdf0TTHfTv2qxFxIWZNuJyf1Sr87+kZxKaZQH8bsXqZOsWuAsWkwtfprjlre?=
- =?us-ascii?Q?ZIcEuULpo6qf2u/LeWXfm5wTLQmI+vlGWEZTvHxntym2hu6+NbAwuxb6Dn71?=
- =?us-ascii?Q?C9roQnVafEYdEXpMcf57ouCOaYGpaYZ+VaYj/w1ypvMQ+8VQAoU4EtuuT0oC?=
- =?us-ascii?Q?AA6dx5vo6JI31AX03pYAwm9FkrqZmzzzypZtxpx/lmy6rFy0zb59Ky4/A/8O?=
- =?us-ascii?Q?9w35kLkVzsaFukz/S4zzFliaZWsXIbTDe23TbdRGaItp1U/isEHTsftJZ2Q+?=
- =?us-ascii?Q?MROEqSV38cT0KnJgv84Rc4T5XmhoHkXdUlIAVw3AMz2sZ9+lDUB7UMSkIhQN?=
- =?us-ascii?Q?4J2+7SYYFj9SBdUfE3i8hr+yGCmeSavuSljqaOBhwQANMBYOCsvZyVLhUx56?=
- =?us-ascii?Q?D/e5DzqKCBTL95K4TFvSC1HLfGbuoa7DNBwbgtv1jKLFEI/8qSQpuUzsTij6?=
- =?us-ascii?Q?eBinoJOl0TTzKZ7OYhb5yD9C+TShQz+oGebzoVktbG0fJRnAo/+7Mh3AYQgh?=
- =?us-ascii?Q?rUqYu3jtTAKtFpZNykWgHivDus1CvxfrrpN0DC1Bse2i891eOnfeJoN5fRQs?=
- =?us-ascii?Q?+shX4hXLDhjF1NOBbKPKBDWl4/bOt9Z7dcqemFkGWI6DqiPG7gSTpyBpQ2EM?=
- =?us-ascii?Q?Al5OD8UVZYF63fvwAA1kw+XbLSfVN2zYrl4FNi01hwgvjP+h0IWCQ6AetoCR?=
- =?us-ascii?Q?QS3V5kL/PyZzAfgk1TivdvcV4BUg0yU82u1NdJvt8/xGKJBHGVWFW6WHU5yt?=
- =?us-ascii?Q?xR/DeWiO4Ln61A8VvTVAZOuDv11WLHkgw9/88gO38CRv2glSkpU2rXpY7lqA?=
- =?us-ascii?Q?4PsEhw5FcFxUmPxhrsSXoNiL7mYUtjrYNRXKyBF0gMdtKw/ARvJn7999qROg?=
- =?us-ascii?Q?BQ1KsYZ+Wlxq+0HbcCdEFeEo9j6VA4URJay3ZOZY6Sv4lUCFzaNeAHbh0ZHx?=
- =?us-ascii?Q?syGrdlWGIjeGqpIAiMmneVmCVu54kgYOjgXbP7Dzh2hpzhj+rtdC8w=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2025 09:07:00.1014 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15ad1488-7233-4df5-06fc-08dd57d7428f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001ED.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4461
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeltddtvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepkeeivedtfeegtdekheethedttddtfefhhfegjeeljeejleduvdfhudegvdekheevnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppeeltddrkeelrdduieefrdduvdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepledtrdekledrudeifedruddvjedphhgvlhhopegludelvddrudeikedrtddrvddtngdpmhgrihhlfhhrohhmpehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeehpdhrtghpthhtoheprghlvgigrdhhuhhnghesrghmugdrtghomhdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopeifrgihlhgrnhguqdguvghvvghlsehlihhst
+ hhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohephhgrrhhrhidrfigvnhhtlhgrnhgusegrmhgurdgtohhm
+X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,44 +120,283 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-always allow ih interrupt from fw on smu v14 based on
-the interface requirement
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-index 14a5760082b8..76c1adda83db 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@ -1949,16 +1949,6 @@ static int smu_v14_0_allow_ih_interrupt(struct smu_context *smu)
- 				    NULL);
- }
- 
--static int smu_v14_0_process_pending_interrupt(struct smu_context *smu)
--{
--	int ret = 0;
--
--	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_ACDC_BIT))
--		ret = smu_v14_0_allow_ih_interrupt(smu);
--
--	return ret;
--}
--
- int smu_v14_0_enable_thermal_alert(struct smu_context *smu)
- {
- 	int ret = 0;
-@@ -1970,7 +1960,7 @@ int smu_v14_0_enable_thermal_alert(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	return smu_v14_0_process_pending_interrupt(smu);
-+	return smu_v14_0_allow_ih_interrupt(smu);
- }
- 
- int smu_v14_0_disable_thermal_alert(struct smu_context *smu)
+Le 28/02/2025 à 02:07, Alex Hung a écrit :
+> 
+> 
+> On 2/25/25 03:13, Louis Chauvet wrote:
+>>
+>>
+>> Le 20/12/2024 à 05:33, Alex Hung a écrit :
+>>> From: Harry Wentland <harry.wentland@amd.com>
+>>>
+>>> Add a new drm_colorop with DRM_COLOROP_1D_CURVE with two subtypes:
+>>> DRM_COLOROP_1D_CURVE_SRGB_EOTF and DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF.
+>>>
+>>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>>> Co-developed-by: Alex Hung <alex.hung@amd.com>
+>>> Signed-off-by: Alex Hung <alex.hung@amd.com>
+>>> ---
+>>> v5:
+>>>    - Add drm_get_colorop_curve_1d_type_name in header
+>>>    - Add drm_colorop_init
+>>>    - Set default curve
+>>>    - Add kernel docs
+>>>
+>>> v4:
+>>>    - Use drm_colorop_curve_1d_type_enum_list to get name (Pekka)
+>>>    - Create separate init function for 1D curve
+>>>    - Pass supported TFs into 1D curve init function
+>>>
+>>>    drivers/gpu/drm/drm_atomic_uapi.c |  18 ++--
+>>>    drivers/gpu/drm/drm_colorop.c     | 134 ++++++++++++++++++++++++++++++
+>>>    include/drm/drm_colorop.h         |  60 +++++++++++++
+>>>    3 files changed, 207 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/
+>>> drm_atomic_uapi.c
+>>> index 59fc25b59100..9a5dbf0a1306 100644
+>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>>> @@ -648,11 +648,17 @@ static int
+>>> drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+>>>            struct drm_colorop_state *state, struct drm_file *file_priv,
+>>>            struct drm_property *property, uint64_t val)
+>>>    {
+>>> -    drm_dbg_atomic(colorop->dev,
+>>> -            "[COLOROP:%d] unknown property [PROP:%d:%s]]\n",
+>>> -            colorop->base.id,
+>>> -            property->base.id, property->name);
+>>> -    return -EINVAL;
+>>> +    if (property == colorop->curve_1d_type_property) {
+>>> +        state->curve_1d_type = val;
+>>> +    } else {
+>>> +        drm_dbg_atomic(colorop->dev,
+>>> +                   "[COLOROP:%d:%d] unknown property [PROP:%d:%s]]\n",
+>>> +                   colorop->base.id, colorop->type,
+>>> +                   property->base.id, property->name);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    return 0;
+>>>    }
+>>>    static int
+>>> @@ -662,6 +668,8 @@ drm_atomic_colorop_get_property(struct drm_colorop
+>>> *colorop,
+>>>    {
+>>>        if (property == colorop->type_property) {
+>>>            *val = colorop->type;
+>>> +    } else if (property == colorop->curve_1d_type_property) {
+>>> +        *val = state->curve_1d_type;
+>>>        } else {
+>>>            return -EINVAL;
+>>>        }
+>>> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/
+>>> drm_colorop.c
+>>> index 1459a28c7e7b..a42de0aa48e1 100644
+>>> --- a/drivers/gpu/drm/drm_colorop.c
+>>> +++ b/drivers/gpu/drm/drm_colorop.c
+>>> @@ -31,6 +31,123 @@
+>>>    #include "drm_crtc_internal.h"
+>>> +static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
+>>> +    { DRM_COLOROP_1D_CURVE, "1D Curve" },
+>>> +};
+>>> +
+>>> +static const char * const colorop_curve_1d_type_names[] = {
+>>> +    [DRM_COLOROP_1D_CURVE_SRGB_EOTF] = "sRGB EOTF",
+>>> +    [DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF] = "sRGB Inverse EOTF",
+>>> +};
+>>> +
+>>> +
+>>> +/* Init Helpers */
+>>> +
+>>> +static int drm_colorop_init(struct drm_device *dev, struct
+>>> drm_colorop *colorop,
+>>> +                struct drm_plane *plane, enum drm_colorop_type type)
+>>> +{
+>>> +    struct drm_mode_config *config = &dev->mode_config;
+>>> +    struct drm_property *prop;
+>>> +    int ret = 0;
+>>> +
+>>> +    ret = drm_mode_object_add(dev, &colorop->base,
+>>> DRM_MODE_OBJECT_COLOROP);
+>>> +    if (ret)
+>>> +        return ret;
+>>> +
+>>> +    colorop->base.properties = &colorop->properties;
+>>> +    colorop->dev = dev;
+>>> +    colorop->type = type;
+>>> +    colorop->plane = plane;
+>>> +
+>>> +    list_add_tail(&colorop->head, &config->colorop_list);
+>>> +    colorop->index = config->num_colorop++;
+>>> +
+>>> +    /* add properties */
+>>> +
+>>> +    /* type */
+>>> +    prop = drm_property_create_enum(dev,
+>>> +                    DRM_MODE_PROP_IMMUTABLE,
+>>> +                    "TYPE", drm_colorop_type_enum_list,
+>>> +                    ARRAY_SIZE(drm_colorop_type_enum_list));
+>>
+>> I think this function belongs to the previous patch "Add TYPE property".
+> 
+> This function is only called by the first colorop. Some pieces of the
+> code in this function are introduced with the first colorop (1D curve)
+> so it makes sense to include it here.
+
+True! I did not saw it, you can keep it here indeed
+
+>>
+>>> +
+>>> +    if (!prop)
+>>> +        return -ENOMEM;
+>>> +
+>>> +    colorop->type_property = prop;
+>>> +
+>>> +    drm_object_attach_property(&colorop->base,
+>>> +                   colorop->type_property,
+>>> +                   colorop->type);
+>>> +
+>>> +    return ret;
+>>> +}
+>>> +
+>>> +/**
+>>> + * drm_colorop_curve_1d_init - Initialize a DRM_COLOROP_1D_CURVE
+>>> + *
+>>> + * @dev: DRM device
+>>> + * @colorop: The drm_colorop object to initialize
+>>> + * @plane: The associated drm_plane
+>>> + * @supported_tfs: A bitfield of supported drm_colorop_curve_1d_init
+>>> enum values,
+>>> + *                 created using BIT(curve_type) and combined with
+>>> the OR '|'
+>>> + *                 operator.
+>>> + * @return zero on success, -E value on failure
+>>> + */
+>>> +int drm_colorop_curve_1d_init(struct drm_device *dev, struct
+>>> drm_colorop *colorop,
+>>> +                  struct drm_plane *plane, u64 supported_tfs)
+>>> +{
+>>> +    struct drm_prop_enum_list enum_list[DRM_COLOROP_1D_CURVE_COUNT];
+>>> +    int i, len;
+>>> +
+>>> +    struct drm_property *prop;
+>>> +    int ret;
+>>> +
+>>> +    if (!supported_tfs) {
+>>> +        drm_err(dev,
+>>> +            "No supported TFs for new 1D curve colorop on [PLANE:%d:
+>>> %s]\n",
+>>> +            plane->base.id, plane->name);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    if ((supported_tfs & -BIT(DRM_COLOROP_1D_CURVE_COUNT)) != 0) {
+>>> +        drm_err(dev, "Unknown TF provided on [PLANE:%d:%s]\n",
+>>> +            plane->base.id, plane->name);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    ret = drm_colorop_init(dev, colorop, plane, DRM_COLOROP_1D_CURVE);
+>>> +    if (ret)
+>>> +        return ret;
+>>> +
+>>> +    len = 0;
+>>> +    for (i = 0; i < DRM_COLOROP_1D_CURVE_COUNT; i++) {
+>>> +        if ((supported_tfs & BIT(i)) == 0)
+>>> +            continue;
+>>> +
+>>> +        enum_list[len].type = i;
+>>> +        enum_list[len].name = colorop_curve_1d_type_names[i];
+>>> +        len++;
+>>> +    }
+>>> +
+>>> +    if (WARN_ON(len <= 0))
+>>> +        return -EINVAL;
+>>> +
+>>> +
+>>> +    /* initialize 1D curve only attribute */
+>>> +    prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC,
+>>> "CURVE_1D_TYPE",
+>>> +                    enum_list, len);
+>>> +    if (!prop)
+>>> +        return -ENOMEM;
+>>> +
+>>> +    colorop->curve_1d_type_property = prop;
+>>> +    drm_object_attach_property(&colorop->base, colorop-
+>>>> curve_1d_type_property,
+>>> +                   enum_list[0].type);
+>>> +    drm_colorop_reset(colorop);
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +EXPORT_SYMBOL(drm_colorop_curve_1d_init);
+>>> +
+>>>    static void __drm_atomic_helper_colorop_duplicate_state(struct
+>>> drm_colorop *colorop,
+>>>                                struct drm_colorop_state *state)
+>>>    {
+>>> @@ -70,7 +187,16 @@ void drm_colorop_atomic_destroy_state(struct
+>>> drm_colorop *colorop,
+>>>    static void __drm_colorop_state_reset(struct drm_colorop_state
+>>> *colorop_state,
+>>>                          struct drm_colorop *colorop)
+>>>    {
+>>> +    u64 val;
+>>> +
+>>>        colorop_state->colorop = colorop;
+>>> +
+>>> +    if (colorop->curve_1d_type_property) {
+>>> +        drm_object_property_get_default_value(&colorop->base,
+>>> +                        colorop->curve_1d_type_property,
+>>> +                        &val);
+>>> +        colorop_state->curve_1d_type = val;
+>>> +    }
+>>>    }
+>>>    /**
+>>> @@ -114,3 +240,11 @@ const char *drm_get_colorop_type_name(enum
+>>> drm_colorop_type type
+>>>        return colorop_type_name[type];
+>>
+>> Probably a dumb question: can't we use drm_colorop_type_enum_list
+>> instead of colorop_type_name in the drm_get_colorop_type_name function?
+>> So we will avoid duplicating the string "1D Curve".
+> 
+> Using drm_colorop_type_enum_list in drm_get_colorop_type_name needs
+> enumerating the list every time (extra CPU cycles) unlike using
+> colorop_type_name[].
+
+Why do you want to iterate over the list? See [1]/[2], it seems to be a 
+common patter to simply order the enum list and use the index in it.
+
+Furthermore, I don't expect this function to be called often, so a list 
+enumeration doesn't seem expensive (maybe called almost never? The only 
+usage I found in your series is __drm_state_dump).
+
+I don't have a strong opinion on this, so:
+
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+
+Thanks!
+Louis Chauvet
+
+[1]:https://elixir.bootlin.com/linux/v6.13.4/source/drivers/gpu/drm/drm_connector.c#L1238-L1259
+[2]:https://elixir.bootlin.com/linux/v6.13.4/source/drivers/gpu/drm/drm_connector.c#L972-L994
+
+>>
+>>>    }
+>>
+>> Thanks,
+>> Louis Chauvet
+>>
+>> [...]
+>>
+> 
+
 -- 
-2.34.1
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
