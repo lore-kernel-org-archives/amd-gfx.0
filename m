@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B02ECC282CD
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 13:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F975C19776
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 13:25:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA6510ECA6;
-	Fri, 28 Feb 2025 13:25:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2FE810E2A1;
+	Fri, 28 Feb 2025 13:25:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xb7zA5iF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Dy4XAOC4";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2DD910E2A1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 13:25:45 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2060.outbound.protection.outlook.com [40.107.102.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B380510E2A1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 13:25:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BT6dzCrXYlCXXjYVpa6w2ulSkE4LWxApNONZVI7VWk2CxUZf8e+VeQNsYh4QmsrZMdm+lqrORjlQzsiYy4Vkye+q6SpcLiLi203Rjj8IA8H8GKUF8h+ncK0dN65os8Y1xGIB3sCYtCdpwCkm5dUxaizt3J/Wy0oXB7YW3yrhDU+m6Bu4aLwyp7LPrsomGzSQz4n05wywM3Ku9Bq89MoEst+LsYitwVA9Rg32kkXctzjZFzBklD39yMhWqwtImXu4pkPQcNRI0VeFziqzoItnbNU4jUghRL5dJgp9KaqKd0q+VSKAH5KOeAkFkbklhAnp3iLtyPs72fq2cPNK6HU8MA==
+ b=siK8VkOe4QsRUnba/+SIw85cB4nhiCUPjRzru9NXGVp1qkL3FOVjhTa7dw+UOZ0Jgq9Ip6pyUo6ABS7H304u5RLnn1v/HhvgAOMWYeNYtqMv7Yxx3dsMFu2v0P9gVCw0+Q/UGtFp3asjXTqc9uuMlKAbDLHdlzgPmZsHJQV4f0URJ2xCzavcUajLVmDwIsxK4+1ljfq5yUYZ9LkBlxKXaYQiDh0IeFMmwkcI64BNmenafqrXSGDIdNQXei9OF7u08ewiyL6BHT7HvjYlwLz1/xYk+eNsNxFSETmCjeRAsAe3m+dyT3/PB7KPlwW3tzssKD5yp+ma7o6fCmprAqO+/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pijp1ZD2Z4Mgbqae/o3yKX1G0vHn6u9nNUiToDQaP1w=;
- b=r8uTKJgRgxdPPKxP4+6J9WV9RNY3UgKF9bAGJCiBvTsLD/x89wCK5+YBH2mkmjYcWlMtraRZtBBk/Da1/nVMs7AYD81uY2/F8glqPTmg/e2YPbSWtW4Ukpk3Td+yN0QVBGe4gjVEoBQvhbk9pTp61Ur0CAO+aPGtXZ4NBOhC/FknFAxQlujfAUZHNArMtiADg9CixFV7CruTpbWdD+6JFQ6fHSTx27lyK9F0T6ZYq/0mVMUhZwNFtDPDuFvnV5KXBt4LxdWHthz02Wm40nRCk8H1ewz2HVSbkmOg4GgngxsVHJR2F+Q2qKqKVqM2F6Zn8uSSVIqfr6f2BZ7eQ5c3sw==
+ bh=DYe/R2EIZTmY+jR0hNU0LTCfFDHN0zbNm3HvWm5O3uo=;
+ b=Vxx508rnXh3xk5bGuXyIye/WLlxfh8gAH3APC1GWUdufujYeRJLf07KZSqKDyrsJcV3yAQKETh/ET32kn7x26f9E6vSACY4sxYWg6FsFQwvcCKybPOEO7sFXKQvJ0ijOd5cFzLRET5zU/f5MMOkCPLbf//VLs4i4yeU009AKvTlzG/p5mBxjTpFLS89NDre8mlTig1UwPzzKZr/k8M535iyQFtvMzQzC0GWk0FJq82nbee59RlCaoLvimgT5hFrq28LHDgwoKqERxnVXOMc/fwV4EebhBuEtOxoC2t2ePVZz93wavG3pFNvdeIdOSRmrz/wCFUOVdS2ApDDnWSkgMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pijp1ZD2Z4Mgbqae/o3yKX1G0vHn6u9nNUiToDQaP1w=;
- b=xb7zA5iFbFkrpAAotpgoBkaCKondlhvPdHPntuPmQTq7aw0lWx1dsojeSARGGIjKnjVFwi3AQFmcuj5l4OL7LYRI2UaAp7VdJENHyHJfC7EPJizXN+7a12N5ME9WDIopyLp2Zs/vJJQs1B0glRvfP6qb2DlnMXVfia+BSLsLPxs=
-Received: from SN4PR0501CA0123.namprd05.prod.outlook.com
- (2603:10b6:803:42::40) by DM6PR12MB4449.namprd12.prod.outlook.com
- (2603:10b6:5:2a5::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.23; Fri, 28 Feb
- 2025 13:25:41 +0000
-Received: from SA2PEPF000015CD.namprd03.prod.outlook.com
- (2603:10b6:803:42:cafe::4e) by SN4PR0501CA0123.outlook.office365.com
- (2603:10b6:803:42::40) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.5 via Frontend Transport; Fri,
- 28 Feb 2025 13:25:41 +0000
+ bh=DYe/R2EIZTmY+jR0hNU0LTCfFDHN0zbNm3HvWm5O3uo=;
+ b=Dy4XAOC4CkImkFAsgQxRnPGoxeXD6INlyjGL53agE8740MOdF0lQwT622u4jUewIUSxtEasUaHv1pCQnQ0FYhOIeZdFtadRrfmxwa2BHKz1fjbrpNz4WvR0vsJBc3kHFlbdeaSw0XyXWDSXm27Aiq41xLJTnM0UgrFb9zGdpunY=
+Received: from PH8PR07CA0010.namprd07.prod.outlook.com (2603:10b6:510:2cd::22)
+ by LV3PR12MB9120.namprd12.prod.outlook.com (2603:10b6:408:1a3::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Fri, 28 Feb
+ 2025 13:25:45 +0000
+Received: from SA2PEPF000015C8.namprd03.prod.outlook.com
+ (2603:10b6:510:2cd:cafe::43) by PH8PR07CA0010.outlook.office365.com
+ (2603:10b6:510:2cd::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.21 via Frontend Transport; Fri,
+ 28 Feb 2025 13:25:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015CD.mail.protection.outlook.com (10.167.241.203) with Microsoft
+ SA2PEPF000015C8.mail.protection.outlook.com (10.167.241.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8489.16 via Frontend Transport; Fri, 28 Feb 2025 13:25:41 +0000
+ 15.20.8489.16 via Frontend Transport; Fri, 28 Feb 2025 13:25:44 +0000
 Received: from work.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 28 Feb
- 2025 07:25:40 -0600
+ 2025 07:25:43 -0600
 From: David Rosca <david.rosca@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: David Rosca <david.rosca@amd.com>
-Subject: [PATCH 2/4] drm/amdgpu: Fix JPEG video caps max size for navi1x and
- raven
-Date: Fri, 28 Feb 2025 14:24:30 +0100
-Message-ID: <20250228132429.4842-5-david.rosca@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: Remove JPEG from vega and carrizo video caps
+Date: Fri, 28 Feb 2025 14:24:31 +0100
+Message-ID: <20250228132429.4842-6-david.rosca@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250228132429.4842-4-david.rosca@amd.com>
 References: <20250228132429.4842-4-david.rosca@amd.com>
@@ -73,52 +72,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CD:EE_|DM6PR12MB4449:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc2713b8-229c-4947-808b-08dd57fb65ee
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C8:EE_|LV3PR12MB9120:EE_
+X-MS-Office365-Filtering-Correlation-Id: e13c85e6-1a70-45ea-f673-08dd57fb67fd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?huJ9bNXlEw8aD1XKQu0nMU1NMDhpU1b4hnzpfE3Uyhi5mgEdTaDJ44s2odaZ?=
- =?us-ascii?Q?Wkd+sMbpmQAsz5i5+S9h9lGr2i2uT8FpILnKcqHzF2QLhEOVqnY5S3J6Z0+j?=
- =?us-ascii?Q?uowxuUb0oAz2x6/KjuCJZh3gfh4fSU8sQarcT8yh94CU0iAm7Zj8cnm2uJkZ?=
- =?us-ascii?Q?DOYzWURsQnTpoZsnSznDH3RjgqhGu9JdWmDmNpssu/grkFkIV7flzn6AqxGG?=
- =?us-ascii?Q?TptWMOwYLPbWdYJvsn0PwwHq6gqvTGf5l2E/wy7r4yikeT5pn4vXAJUWhUCA?=
- =?us-ascii?Q?onMDXq5PtpHLSeeNM7xz15Nv6YmSJ+VP8jcRw6DG/3um/BMwzH3TYKECCouj?=
- =?us-ascii?Q?KNmQyNT0Ume3xP1GhqvML6GOELVEN3INw7GjD3pyyybQ/6u0AdpY+fTzsJjw?=
- =?us-ascii?Q?PTZhigXVJZG5nJkVm8M0V9J3lAhNkZRzbQry2T4/mkuQoId/f3qCINvsyGlR?=
- =?us-ascii?Q?JjjH6zc7KD3SuJg7KQ+Lf1jfanoHRXJC63U6WGGNniUkCWpUgTI1U6e85A6H?=
- =?us-ascii?Q?krLfguVuqTSS/sYAHv03WsiggtC5ia+Xe0DmRQe3P+fhkV1cRGLOQVC6D5BF?=
- =?us-ascii?Q?VBRPu4/zi4OWrKjldtxybcpa58UoFRFf4lZYvvXAL7qJS5nILRy5HKFUOBJT?=
- =?us-ascii?Q?KpXXj6TStS6fg9rz5AHQKcCFdswQtTiy1taqpU3YCZU9WeCZ6rvOORUdNaiq?=
- =?us-ascii?Q?qopuDocLim78imxUU30r8/iUTyaTsuJW7EDSNy5xdV05A24eyyaDHrRx3tQq?=
- =?us-ascii?Q?RuJJdSGJrX8EU1xA30MJfep9GweZ5PtrEsPaNSuJyqKhpwVwq7GaMGwfYjGv?=
- =?us-ascii?Q?2AnWVPQdHJgFXu+90SnjQVO0SYyyG1WLE/diZKA5ZlrLBrsizyyH9wz9dfHA?=
- =?us-ascii?Q?cOKCDh8IuF97fBX/04ojNSj9g0R+DPHWMLF/dB0Ws8gNWif7mx6ciXRxCt1F?=
- =?us-ascii?Q?kxfJ4kxmL/A0tLty0EWDHjgvVf5+RDJ4LlGmZLGudXKO5aoSB8cySRX3OJia?=
- =?us-ascii?Q?CTSui2x+lGtKGP+/5833l/sFoC4X3zyrZ3Bcg+jAgSrJBJ4/M9R6KHtGzJkS?=
- =?us-ascii?Q?MAmvkiZ2bFbIUih2QHUTwQl72UJ2gn2B9Rg50veYxOwZtikR1Jh/Itxsr3+I?=
- =?us-ascii?Q?IWb9wp0Pfy7csy78UaF5Us2MQZbfwrF6LZSlIocXA3zjis0aldLAo7/0bVry?=
- =?us-ascii?Q?bov80IWAFZ9eVYI2MjBzMPhvFmfVNqHv/teXwLfC+obUV4bJI8PPMhpt6RYA?=
- =?us-ascii?Q?BYx53KbZuaU0DzA+S8v+35Gk6XvwY7p/5j4IfYKwDO8az9Cei/kwrNHWrWpe?=
- =?us-ascii?Q?65cIBzbbGwKZOCVHGRqIEcX+tOlz6Nx8WHvA+J1GhBHGAJigH4w6XbQjn7Nr?=
- =?us-ascii?Q?wqa6L4C973wAclwv0Sx0VAZ3fSa7Ov76lMk6PTMhhv7pbn0qCcjJ4RrUJMsK?=
- =?us-ascii?Q?Bd9+DrukJYrKwO3Dv/8i0LgrU0VhX+paukeE/bdwLD0df7NpGdtTucl5xDUf?=
- =?us-ascii?Q?o+WnOGg9BExzgMk=3D?=
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NARZau0tLMpC2VFhqZnvfDqumK2NdvWtZxNQ20NRcfGrs+tXzA1ruKBOdUaT?=
+ =?us-ascii?Q?XnjIsYRVU83TVotF7CPtOvTIZMjCq8GpZhcA+QD+BUp720Gs1nc3Rj+rwJLW?=
+ =?us-ascii?Q?3LiwUlj+DMow8a7x7/b87BHAhl8UaWG33OuxMhyJyzj3JCD+i919ZXUxcJVd?=
+ =?us-ascii?Q?orqsCiaUi4AZcGnGovwj8lSROjrtKo1wojgHDR746VrFQCmqter8jNibYQX5?=
+ =?us-ascii?Q?yQcwCh0hNDtULl2P+rtAPE0s1u1FhDu6zBtzbBrwWWHm1swJqrw7CbLa6Mhz?=
+ =?us-ascii?Q?D7Y6VyKZSx+y6cc2RyGZFIt7HsDCRBnfNhXIx9K759JTfx7C6wQRARpEC8gR?=
+ =?us-ascii?Q?bCVv/u8QBvqC4WKedyuuq8+s13bO2DFAwLIseAPE8MIfcBKme+hdC0WlXVM3?=
+ =?us-ascii?Q?6BzK7msSsQs3nDNrMDowQXIn84ytOy1uGE56eL++uS5Kt3vrQUqd1mcLa4dA?=
+ =?us-ascii?Q?Njdo3sM8/ofpwwh+0QhRHNVRxBIH1BkMYzBsRHgTHPy8rDWhiND3P71aTZxu?=
+ =?us-ascii?Q?K5Jg6Pmg+vIeJdZ3bh1bvgQML3bMT55+I6Qs1fsFDQxeZMPSWpY8wPTJs0eQ?=
+ =?us-ascii?Q?4qPZRO6Aj9op+x742UbbjnnFaX6J4hxdCC+ZAuE45+GlZyteA8VZ1kInwBFc?=
+ =?us-ascii?Q?EZCHl52t1eWcx6OkkfCaYPBoppvksuwELIKlQhO3aWDy6T+0bJIIWZ+xGn2P?=
+ =?us-ascii?Q?KG4WBfup0DnosZ7dtGUQNRwIazBOl7tU40M7tbbRWq9L2JIvd706MiSwY7uz?=
+ =?us-ascii?Q?Y2DPgAgsKvfvIkuiRR6iCUs00jPp1DfP08yoYTRBoo0VvQkg8RH0DbeJULJz?=
+ =?us-ascii?Q?xITzpJBjHzVVoqWF/ZAyyA0TOwDWTc2CAP5fApIlqOyFknuQiyC8Vs9SIFxl?=
+ =?us-ascii?Q?paJYmBwmxJulJ3pVq0hbCGDw4KdOpcEk6VkvH/UTAfFlCyb3L6/e2aqN9Ovx?=
+ =?us-ascii?Q?K+JGF+RwsaXg/XSmo1Uon9lt2+aVAYj78P0EIvtgwMQfUDG+zEb6ZSQ1+cVW?=
+ =?us-ascii?Q?x8Zb9EUMFF6Ed2ITjrBJliCtmKbSQk7FMiC/us52udlC68h7pooQqqbV199+?=
+ =?us-ascii?Q?qI9q50+zz1/ZEjp05zgaz6MN1sRLpsmnxbQ6EGuNWimksmptd0rMaQWfHq/k?=
+ =?us-ascii?Q?kWVZg3Z41ZoCr6NO7snXmWcworVhVig6C8kI7zSDu6GLebu2X9QlS3TyCU+k?=
+ =?us-ascii?Q?yW2wIgAsIn2KhWlMx2C07fBNwwfCg4rzBCDqXEwBv2Ah6IGvTCDwhk5iM9aM?=
+ =?us-ascii?Q?mvx345bt5B0pK7dhzkZusjBCH5pqb2GC80iZn2wo/BjSyiF+0VFOUlQVe1h8?=
+ =?us-ascii?Q?OcYRXtmH6R5fl4OFVor2KmeEjyHDQjtq8eSLWLeSFb/MwIXViLGVMLyUi1fO?=
+ =?us-ascii?Q?aVW3+Ng0e9ewMk+h1q3YBASmVB0JHK5iu4ndyHPEtp0Z+KTcYTeJpYZKNu9e?=
+ =?us-ascii?Q?0fK64l4FQvbGMmkmy7Pj2LFUr9iiLcZlAcS1O5bGST0qnfdnzodQNT7HfVLw?=
+ =?us-ascii?Q?fiC1X+W+rqwYEHQ=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2025 13:25:41.4234 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc2713b8-229c-4947-808b-08dd57fb65ee
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2025 13:25:44.8801 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e13c85e6-1a70-45ea-f673-08dd57fb67fd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C8.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4449
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,40 +132,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-8192x8192 is the maximum supported resolution.
+JPEG is only supported for VCN1+.
 
 Signed-off-by: David Rosca <david.rosca@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 1 -
+ drivers/gpu/drm/amd/amdgpu/vi.c    | 7 -------
+ 2 files changed, 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index a18e6fb9fa3f..32b824c3658f 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -83,7 +83,7 @@ static const struct amdgpu_video_codec_info nv_video_codecs_decode_array[] = {
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 1088, 4)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 8192, 8192, 0)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
- };
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 8732f766947e..f01176da8b3e 100644
+index f01176da8b3e..d5d3f9e945c4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -124,7 +124,7 @@ static const struct amdgpu_video_codec_info rv_video_codecs_decode_array[] =
+@@ -107,7 +107,6 @@ static const struct amdgpu_video_codec_info vega_video_codecs_decode_array[] =
  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 186)},
 -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 8192, 8192, 0)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 4096, 4096, 0)},
  };
  
+ static const struct amdgpu_video_codecs vega_video_codecs_decode =
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 9b3510e53112..86d8bc10d90a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -239,13 +239,6 @@ static const struct amdgpu_video_codec_info cz_video_codecs_decode_array[] =
+ 		.max_pixels_per_frame = 4096 * 4096,
+ 		.max_level = 186,
+ 	},
+-	{
+-		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG,
+-		.max_width = 4096,
+-		.max_height = 4096,
+-		.max_pixels_per_frame = 4096 * 4096,
+-		.max_level = 0,
+-	},
+ };
+ 
+ static const struct amdgpu_video_codecs cz_video_codecs_decode =
 -- 
 2.43.0
 
