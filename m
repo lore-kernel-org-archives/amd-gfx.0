@@ -4,143 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B7BC282C5
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 06:25:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2AE5C19776
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 09:03:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F015210E039;
-	Fri, 28 Feb 2025 06:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76A8E10EC20;
+	Fri, 28 Feb 2025 09:03:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DYMO2Utl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G931tNjU";
 	dkim-atps=neutral
 Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2050.outbound.protection.outlook.com [40.107.96.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1BC110E1B2
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 06:25:15 +0000 (UTC)
+ (mail-sn1nam02on2061.outbound.protection.outlook.com [40.107.96.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA1D610EC20
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 09:03:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E8vgUrezxn8ppWhbLJwvaA6ptnC5OW80B6vkIzkiZjHXujldfBr/H6H5KL/tMzZedjx/sGS0BTkpKKH2zO8Rz1i+E0ixFijDE/4cTEBXwknLXKpvB6wkPgzMjKgCg85cOc/bfhkNprNyzprZ4WJdameqkZuT5crhUOmyE8PPYnCkT0Qbw/Oz+HibDlObhUP6qHIlSJsAXHXOXMjL5UAZXC0Uok1FMogym0UnPGnnK3Z33uv8OJ6vMgsbxww7INfKGILnue9HKqzcwqGRa8fFA4QRjUVh3WVJkHT61xI5FZKPd/c/+OpQOmSPSRoxOAOXmCv4QmZDaKWl+wd/BNspjQ==
+ b=H9YnzbVQ/H2G0W0sUw/55xTDZLcWu6rBB/m4HU5N8NN2gi8+usz3zl8Lt5BHLWKrIf0kwexu/1Hd4gMVWe9Sa/G2nVN+ydRCacUi/+WkjEIz7fwbxG6gXdIFhZVTLt/NXEtoUHX+t2EN9n87dPmboQHMi09X1W20t8yQjxoOkKB6AEK5Ffq16Jqx+uhkUwg4ZDnvvf2bn3rM0oHRN7bUWxcrZsFXRwnb8HUqTxU5vxlPwMDbFcpCUn6IPypilA8tv6cbVYGd+cDQ1ttJ4VwubAO/Dvoa769NCHnsMAydxm3nGQLGX91Kk9lIRdvW/Z4k41V7QLnWMKVqvJnWia2P/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bZFQ33khjnAq3YqzQywAF0f6UWC+TrScYIZxzHrkIVE=;
- b=zQSVZjEcThi5SSAp1FVU8BngK6uZhh+bbB7P+ohrujcUw+7Tx8n3LymyLZJUNIneKQHXU0QGKGo/5MKdACSBkkwSwSGuU38cr2Bn6qS+TqcgMRXzqmCduPnq9qi8Y5yTD2+kZTv1jkd76pxrgnsD4vKkgBSpOeceJC2X+b3pXCkhdSPMP0COKu2w3q2TP8COjYV7dGXHiFmx6xu+pTdInmyNp2PvjYMscRSnwd7DSszb8wKoC8do1oI9RRWSHqnJl3ZVg/27DQRVXNukSbYbQ3ZfIF7zW0S6WBLKFzuwzi0hDW8CBTSK9Fa4rwgGHA1YjrMwQVhUmFyHWVMaAHT1Vw==
+ bh=X2Vs0w7s5o3FHA2IfLeSYEF+TBaNSUHpV5Ci/5N89Rw=;
+ b=ZcxMY4ZFnc33TJSgOdXqx++HD1/IZuAQJTmyy/rlLuqGBOCTcv5euY3KxqFlZsdpYgBLsnNDEfTIqrAn6uyl6B95fmBQAYiHeY9E4mLW8tsf+OcnVKf3NpIbPImXVUfMEXdRrdgZ637uclui0BabB+5Hl4bmafDyY10pBy2myMpP+H3X/NEf97lBxX41GiMl6hM/drA7+aLCffyhpjopjBZuhMWadkl8nQYV+tClk35gezO2tp9nWAIkcEGkxo4+aOH+AV3Ey5/iXYyIZiq0eRToMogd6epB8dz/copZKH6EO5aI+0odjX9wfpVsp3OMhYuTWmF3IuHBBu8R/sTilQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bZFQ33khjnAq3YqzQywAF0f6UWC+TrScYIZxzHrkIVE=;
- b=DYMO2Utl6enijEzj2w2zhKXp/GjiR16RgpXrmZPBNRDRWEN/FrynZ/7dtpYpLcCIKPkpJsDQuxH48GXyPhsDINqAKrtpZ0pppHSwUHDC1Wcc5fm5W9MXCTfugFBcRgOKb9yBr/xH5xY0gwdY6ZVwlocTR52KOFBuCK2f0BrtGSc=
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by LV2PR12MB6013.namprd12.prod.outlook.com (2603:10b6:408:171::13)
+ bh=X2Vs0w7s5o3FHA2IfLeSYEF+TBaNSUHpV5Ci/5N89Rw=;
+ b=G931tNjUmcgMLt/SDzFYwPorONf2J/aFuKJRUP/2TQpoA5/ELKz0unNI2QMYFzOEETJVTlb5JKiQCwNYJJTMFluhuAsU/cZeAEYbUF/Kt6Brf4REx1wfjMB4bRgKiLVoRSs6k1G+4X11K/xOrVFHNafkc2WvW9c3Cfkb7NRwFQg=
+Received: from SJ2PR12MB8807.namprd12.prod.outlook.com (2603:10b6:a03:4d0::14)
+ by LV2PR12MB6016.namprd12.prod.outlook.com (2603:10b6:408:14e::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.20; Fri, 28 Feb
- 2025 06:25:12 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%3]) with mapi id 15.20.8489.021; Fri, 28 Feb 2025
- 06:25:12 +0000
-From: "Zhu, Lingshan" <Lingshan.Zhu@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] amdkfd: initialize svm lists at where they are defined
-Thread-Topic: [PATCH] amdkfd: initialize svm lists at where they are defined
-Thread-Index: AQHbhEJfUGo6gmhlr06dmO7TjjtM8rNcSktA
-Date: Fri, 28 Feb 2025 06:25:11 +0000
-Message-ID: <SN7PR12MB7835BC07E71E4B573B31C7EA8CCC2@SN7PR12MB7835.namprd12.prod.outlook.com>
-References: <20250221092355.336312-1-lingshan.zhu@amd.com>
-In-Reply-To: <20250221092355.336312-1-lingshan.zhu@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Fri, 28 Feb
+ 2025 09:03:40 +0000
+Received: from SJ2PR12MB8807.namprd12.prod.outlook.com
+ ([fe80::563a:16e3:6049:53ae]) by SJ2PR12MB8807.namprd12.prod.outlook.com
+ ([fe80::563a:16e3:6049:53ae%6]) with mapi id 15.20.8489.021; Fri, 28 Feb 2025
+ 09:03:40 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Yi, Tony" <Tony.Yi@amd.com>, "Yi, Tony" <Tony.Yi@amd.com>, "Skvortsov,
+ Victor" <Victor.Skvortsov@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Luo, Zhigang" <Zhigang.Luo@amd.com>
+CC: "Yi, Tony" <Tony.Yi@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Add support for CPERs on virtualization
+Thread-Topic: [PATCH 2/2] drm/amdgpu: Add support for CPERs on virtualization
+Thread-Index: AQHbiSo6iXz1azjfEEmDaWakGF6hl7Nca8JQ
+Date: Fri, 28 Feb 2025 09:03:40 +0000
+Message-ID: <SJ2PR12MB880723C02C5A652B7B62A0D4B0CC2@SJ2PR12MB8807.namprd12.prod.outlook.com>
+References: <20250227151217.2620348-1-Tony.Yi@amd.com>
+ <20250227151217.2620348-2-Tony.Yi@amd.com>
+In-Reply-To: <20250227151217.2620348-2-Tony.Yi@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=21a97b8a-0399-4d31-b84b-953bce66ceba;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-02-28T06:25:08Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=a68f39df-31d2-4359-982c-4ebe188373ed;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-28T08:59:15Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN7PR12MB7835:EE_|LV2PR12MB6013:EE_
-x-ms-office365-filtering-correlation-id: 972b5642-f6bc-4577-42b1-08dd57c0a7fb
+x-ms-traffictypediagnostic: SJ2PR12MB8807:EE_|LV2PR12MB6016:EE_
+x-ms-office365-filtering-correlation-id: 708110c5-ffc6-4fea-e48d-08dd57d6cb71
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?o4KKAajzuaiy97g/zvdEn4eFjTbrM0ZVqjcBOvz1EtQJUXJNUIGGbEZnD5fg?=
- =?us-ascii?Q?8iys9FyPRbmCahHsBW7i3HFb9Rp+4X+sq2amsXgYXJzywO1tlx312BgVoDf2?=
- =?us-ascii?Q?CcKeXZizkzIiFlXrJfDwVTGhyA7JmDG8NUg+CQQ2knF4wKJgVGSWAWJ5TwvV?=
- =?us-ascii?Q?DNcAyErJ3wiLHGcV4f0XaSmcbj1hSMnr2mWi7QTXBXP1/yDHaKUefJjY1rE5?=
- =?us-ascii?Q?3LP14CeBZv1BeFdz+sXk8Od/FEZy+ApIZkcEhZkJAWsc4Z2KAc4JNjetBdaD?=
- =?us-ascii?Q?CKfXL3JFFSuBkf45PWDdwSPClUlhoiXfgC0hqT/8EPTwrfWCjBGJ6iKcNFrE?=
- =?us-ascii?Q?RoXFFylQOpQGlV+2xhLxtv4d8mHuAcrxBPaEK30Bk/GxYC9pfEXjleul8KDV?=
- =?us-ascii?Q?XgMRbpTAjMUMaTWraNJ05NsuOuYirGm5q4eMK/+y/Q1rf6Vd4dxxwb+nsLai?=
- =?us-ascii?Q?9iAQB8dUobjOfXI4CDHYJolOK0/BErqZ/Ji3kF1VDl9CmBvubTUVN7uvBrmI?=
- =?us-ascii?Q?gMswAnf0tsVxadIYhNYmotQk6T8b7TjSIVvPQLJePis8ZNXhdwfap31fODc3?=
- =?us-ascii?Q?qbkKWXM4x2WvYgT4WqCNz3lYPL8WrQjam5Vr6uc1oPds9ZDKknlFddcdNLkD?=
- =?us-ascii?Q?/ONxzeu9cRAZrZ7LAU4q3qqpQRMgpxYMcGWVot5mjhIS7MCJDsrsHB6OJsaJ?=
- =?us-ascii?Q?uILeZS9yqeEpTGJYqKhZKBMm5HjIlpkSrWfaETL5PmVVaUMxKQK0d8X0ZfJw?=
- =?us-ascii?Q?B7y8/UrtJcnwybuae/OIceB8+NnORdkx47il073tj2+oO+32F2nd7z+Saqxv?=
- =?us-ascii?Q?eGJE9xZ4JcoBQB82orBtrZhwrR0Rf+CVKds2G7Dme+TpU/XG7Yd//KkN0IbG?=
- =?us-ascii?Q?3Y0vfqh0YfP+E8lpHcF7lHsGGfDeW2Jbjwg9ofTbQLlLgcZd2VRDevXk5LOC?=
- =?us-ascii?Q?0evTFzjjqlH13YI8ocjtFl3tju8xW24HfNjB7VFOZLx2mA1gLKZ7SOI+Tpjv?=
- =?us-ascii?Q?T28uj08W50Dcelqc7rAA+dS2t+DuRI8ONQqSTmvoRKgyHPYZpIneWC30gUM4?=
- =?us-ascii?Q?+U27ouNk0yDIxk7mi22ZrswKkjHmgQB/4R+J4Lk/vHYcV+K6wveaVORJNOu7?=
- =?us-ascii?Q?und+Z2l4P39he6aOLvraelalCy/Uro4yXcr6Ppkz0g2PezJhqtFLVwq/Vm6Q?=
- =?us-ascii?Q?OpnCUnpvwfJALgPvS7vBBip0znXy2EL9L1FU6sqF5usFWleJFzooqsgY8y+g?=
- =?us-ascii?Q?GdEwhXvqb+LqQPxQ1DWqImLbAMZCZ/23LdiSuwIz2sNxCz+Dut/jMxYqN2Ib?=
- =?us-ascii?Q?gKDtELHAfSbtiByHvS6hGf5xAEgpra6N0tWbyLc/uUmAfUw0PwJCaXB4IWdG?=
- =?us-ascii?Q?maZP2gRUO6Jph2Da6WwOMhiE/sA5yNDXJtofUlw2AbWnge+NQGMhUMfd4rhi?=
- =?us-ascii?Q?VEmuyiaQjdlcb2JYRoIDmd/FDdTM1zJA?=
+ ARA:13230040|376014|366016|1800799024|921020|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?1x9a+dNAH53SCzZGhWB+I0PLMRhCbdoXNbIxW1FGO1Y4jJxnKSwCY9COEDJN?=
+ =?us-ascii?Q?0b8lnf/9ER1rcNcVXdMg+62iTn7yyMWAa6J0/LcMZJJEsnb9cHVuuJR8vwbP?=
+ =?us-ascii?Q?CoIAPcxawDEiLcT0biLTDVJV64HyeBiKSuw8bH4KvrQW8BUO0rlUa4f4GlBq?=
+ =?us-ascii?Q?j0QDb3BAuxIpwb9FOXyvbViAnix0sQWs+GxsSQzRsdiz33IhsBcqDkrfqOQa?=
+ =?us-ascii?Q?LJhYSNv5NvC6HbsWUw+DH/rD6kPmOzyrJv0laI7RRgN9m8JxJv4V8dTt+85z?=
+ =?us-ascii?Q?MIaCFupeaLPbYkYuDeSwYcppLidsDWY30d7gQo2ylxjz69nZg9V7HDlRWJAC?=
+ =?us-ascii?Q?/oNhksgXRwmWVchmBq8XaB2np79lOJTNZSr/lbl+xBo3czVVUf2Yy9BykTI+?=
+ =?us-ascii?Q?g0FtYxzqNfsPZtgkJXPRQXJmNyZMJFa8lZHoHnWGNhjscsnRxiOpanEUptru?=
+ =?us-ascii?Q?1KLxpHM8q72c8fGG2zRCUaqjK6TL20olKmSfF72Lwwk+zJMmvhuZZ3jmgmdd?=
+ =?us-ascii?Q?wmRvEucSi9w+oYalNERPZdwmV+PgxaA1/DK3OuicpzlswtdpIOjxMn1E8tRh?=
+ =?us-ascii?Q?iOwKGwFyctagwqJwYzk/lXU0abLN+miIsDSNuUruEXcOedmCk0JGHhEge4S5?=
+ =?us-ascii?Q?HCH0vFwex+ovb+Qnao2/fM76kRRYiWYSXJ1JTTh/MoQlafEp4F2MXksktRxX?=
+ =?us-ascii?Q?TK2tZo/IdB2SKcB4Sc+JedzYSZLuwpjbxsKPhBH2y9SMyobh8GUC8ckYtxdr?=
+ =?us-ascii?Q?fJqb6V4RtNR2+fQew/2CQtduC9guRS5twJuaAkKO6ZXEXQgtuusWGEsPelEx?=
+ =?us-ascii?Q?nRcIgOSCIQwcaU1d6dtkXiV7hm3ra3tHS7+HZF0NglYZpVzjlSW+fs6k4fDg?=
+ =?us-ascii?Q?g2L5Dh4HB4xUsDtgxTlKxMe2frhpzaysJYdVw7Y4d3wAH/2KIpUQsyrAE78d?=
+ =?us-ascii?Q?4NCXLc43BjQolUOwabeL6FVCZSPOqftMqrvWWZIUNrLM2VkPAJHozVcORseb?=
+ =?us-ascii?Q?Iu0908r6uQS8A5zA/qhdENw8vrNENYVGOExtn6mgpHwx5QPSYTE9F3oE9fg5?=
+ =?us-ascii?Q?c3X/BxKXhVwNBTB/9BwjSld1iwjPFlJXD7e/yrkUVPddEtOzqzvJ6lBD4rPd?=
+ =?us-ascii?Q?fc1Rd5Kb7HinEmHzNepYN0Q/Xl/pu1RXIMhgbPQiVH51b7kw1CbMsBRrNCJD?=
+ =?us-ascii?Q?9omzVMDEkWNVwsUOC8QQ4YCeK8vZbcEotRkayzgoCSoFp9a+GY/zXlAPhQsq?=
+ =?us-ascii?Q?XhzZ6he+rqgMaQFHQrp+ukSIYaaZJ6e0pr+otXoPiHL0dQJlIWE41XnIONBG?=
+ =?us-ascii?Q?YKFN2LWnEoe+WkF9eCIs2PgDNRaAQG42IYVqTkwaV/AYz0MwyPezEfff6GQt?=
+ =?us-ascii?Q?DuYew/HhHr8ilfwhH3+WMk8211gNfFjNXSeEhVUI0uYj4W2OL7rFCWYTG28s?=
+ =?us-ascii?Q?NBOnBgKVIpLsxA/sPnRkdOiE6DxExo3AoRYZtYDHQdqZQIftzbb0hg=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB8807.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(921020)(7053199007)(38070700018);
+ DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?irSk3UUMgDkgq4cjipgqdV/8NuIC7XpAlxnjOf/awaZdlPskTsv88a2hJeqB?=
- =?us-ascii?Q?lMEKoyUMxRJ0OG7HNB0Ifxf3FeJfKv4AOc1NVbZGlfaTN51VO1MU7wOPZTJg?=
- =?us-ascii?Q?rHvbF/+H0B5hZb97SDapwWrWWcHa9BbXptb9BUOqt42lDAPmeySF0rr8Oz+J?=
- =?us-ascii?Q?8UfBdGaG+U7Dsk2MZtea2bcf50Xz7QgJv7QlrlKzJ2MJ8IDsn50goiCARd81?=
- =?us-ascii?Q?BARJrZxOfNSnG7c/NQzYlW2lMrFYppm3KXN/W/ZW3UiHKVdU6k5WYiCxv5+1?=
- =?us-ascii?Q?S9EFQMCoOCcdP4R6ToxRsW5rJk5RN3GflxXZ9Bc7UBjKRkWyRy8QzYaMoIDx?=
- =?us-ascii?Q?60KulVF8c0nNfnLql421vSVSg42Q9I6QdNew3A0srJPIt2OWUX7fjGnshGRj?=
- =?us-ascii?Q?Fn/3J8M8JJnDliCVJX77crkRPEnf3uFwB/DXeS+fTaPoRCw8WljhvN6p3L92?=
- =?us-ascii?Q?Yy9WsasU18xDFbNdmn60Zg6rjXadBlHalpn8tLiHWAAbZGm0KlGSkXzW7hgd?=
- =?us-ascii?Q?QHrv3O4Sbru2dKf6DQSV6XHPqRaLChMOhnBKM0r5ZDAsUvembaPmPnQxTi52?=
- =?us-ascii?Q?sVsnmFIAFObxEhS/bPUA7gZH1Y+1HjeXjHMaN6JgnCwYnrZigUby7Socbf0H?=
- =?us-ascii?Q?RNK1zIH1Q4sJ+cB7dKZEnRoizCo4dbPq57BvYoCUxdT004WXiIkYQHTdg7uQ?=
- =?us-ascii?Q?YCDbYsd5JmJ7+q7/TTwsTAyE9TnnjB09JyTfxHDdI1+GC3PAQOpx24vLDwkI?=
- =?us-ascii?Q?JYc2Gs+TRk+UIZnFHCiinN3fbny5PTikSfvxcrHyLA7qc4ZeL7jOMXksmWP3?=
- =?us-ascii?Q?xzaUmO9MuH8rfhGTEUpUB1y6dfrV2lGpdJyCqbcTM5bVZ95WR7VFHpB/+9nj?=
- =?us-ascii?Q?8iMwCX29DbCLjLj7MHkG7XyXaO3Qe164tFaSsw22rb4KlOuIWYOvpTxGQOCL?=
- =?us-ascii?Q?4Ueny0AhzH3CI8cEAKkG4htiiSXE9c7u/c7YEAHvTde0DFRi1q6CR3aZ5rhK?=
- =?us-ascii?Q?LFhlMCZmXnMvC/HW4hHl7czCH5K+AdNQfc24OQC7E3+NPeYdULPGijdVtnxj?=
- =?us-ascii?Q?sBfgsSbBKxymuupqRbceK6xf0OQfbcWfNy7sN4AdK0xh2blISMdesdAj7Spb?=
- =?us-ascii?Q?yG4qdSc3w5VTKXqeblGIl4M/SmeSDuf3199C8mSYxHTO52uumtIBUYQ3Gjtg?=
- =?us-ascii?Q?YrNw2hNL8lVLZWhHxO/yj/ucYrwNNMEsw+rokBwzeqpkW0YKjJBf1uMuGbiA?=
- =?us-ascii?Q?YZKM6+u6ApXlDeuXm8D5xErtikzUEF4Ai8/lZ40EZRbjcyAICrme5/VbGHyQ?=
- =?us-ascii?Q?xrr6UkAaZ4tH+vSSmEGYV53JbOSUiN0DxDGY2+I7aVaTU1sskzUG4i3e6Q3A?=
- =?us-ascii?Q?XBMstVYgIviXJUYuIHcN9FUkzakJd+/dx2Feciy0XPPicHph+BT8G8zlkH8U?=
- =?us-ascii?Q?C8NvnDKIvL0vk0aoPhR52TCO0DO0bke123JJahUEkab7oPISTJmao9nwy4hU?=
- =?us-ascii?Q?JfbNRQTt0CvWik3D+YepNbBW1CMUsLq333qSb+o8bnzF3M/apbIJlkSH/xlx?=
- =?us-ascii?Q?kWaeCvjFdQmkODDTQG8=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5otbdJhup408BHpgaTznaklWfKwCzzweinJg4wr8kF/QsGimC/Lr/J7oEc6V?=
+ =?us-ascii?Q?IVSXFO6aXEG2+TLRCHsKee73HqYhd1MBYPrRTFqPgXDRLcrlzvoxztxfSUdp?=
+ =?us-ascii?Q?rNoFtyOuIiJwrWb4xUdrJTd1NCAiYHvtcsxLLGnJgydSc6eykMZQsFlGz93K?=
+ =?us-ascii?Q?3dDW3jEyoYFhaElL+2DqsTvnbbcdyLRRhDYb1YaMweJcD+Mx5TykKpbDXwXF?=
+ =?us-ascii?Q?csQm+ERpecGE5+lwaDD1UQE3pDJr6igT0hWMn50el9ry/vqA6seHT5xKHjq0?=
+ =?us-ascii?Q?Af4bTGJYxUKTtX755owp2hv8ekLq4HVBVORIbhUoE8mQyX3e4X9GjrQyQQ00?=
+ =?us-ascii?Q?N8Il5t0eMRPnPr5k2zTioLdJ/4kEWN9wvQWF3XzNGmhc249sLYBsW0sVY/mr?=
+ =?us-ascii?Q?sbPdhWEwtodef0o4SZ5+9/F9duOC6C+ECcBDfAYyVVACbNB/txWfjTwzzZ8e?=
+ =?us-ascii?Q?1+zWOCSGdg0jh/51qfU+weA9JP6GMAsuA8KoQEaDsK56Lm5XmaIge7Go8ENE?=
+ =?us-ascii?Q?w8hSo9c3PV/cZqrM2Pt4PAZoyShIG8eQArdeYRT6VIYhxoE/ig7UaWvJZY3B?=
+ =?us-ascii?Q?UK7otZDzB+flnYWFAbk08Wc6V11y0/UDOKeAI/r0kPKbUSk7WZtr15loWjMn?=
+ =?us-ascii?Q?UTxe1dl5hsd8Dxl5qsbQF78AdmRNRyswe+2rx5fnbXhaLmcL18RQy+CP+uKF?=
+ =?us-ascii?Q?fFkwkJX6gnZ7g+5PI0oqfcHOdgwjn0mKjBlXNs0CB3kBijBKxsSivCUNr6ZX?=
+ =?us-ascii?Q?o1VEYpJuQqeb5vgxu0hoySGb5Mvg0W6V3hcnAiwXnHKKoKkYA8DI6KVJmsx9?=
+ =?us-ascii?Q?NeKXS3bQCBSGNZr5pbGQiYWuXZvD8hSP0sj/THUa54uRiIhO2/j8isD0nKWN?=
+ =?us-ascii?Q?aLI7dBhLkIZhtZ3yA+sPn6TiE1sKE9yFJ3SjsRe2/VOl2W45qXInqrFr9APu?=
+ =?us-ascii?Q?CPBFbYWO/3rd+/+vx8THWJ5MbxICRFfE5EodL7SIhgDUoGmUcu8gUUgm0VQi?=
+ =?us-ascii?Q?DAwy9pUm4V8KFRCwBGCs+z3hX5K4j8ebKg9a8ujfno8+MX68peIM9emkipwf?=
+ =?us-ascii?Q?pDOJH8Ui9d2JlWe158vBbO5lGjDvpJcsonJK0ax0uWBOtQ3osme1PLx+BmUD?=
+ =?us-ascii?Q?5ZI8JSlhMsXsUpGnnpiYLUOb8VS5OQZGjsdn81s+c85oxF+UNFDOJC8iDRn6?=
+ =?us-ascii?Q?EvQoU7/HVKosXn4GrJxbq/EpTbyCU+68EsFu/TlVRwh8t7uWHu63S4+api+q?=
+ =?us-ascii?Q?PbvjelttYuMOmsEse6RGoXmkhcRkXMyK3QUZ+/drWdVWO/1v9lYyky2o2itw?=
+ =?us-ascii?Q?2tLUyALlQ+Xzld6BkNu7WdZNudE7fmOyMIvgOjOEWNPCbpymCMV9Etj9Izbj?=
+ =?us-ascii?Q?OQ2FYXSG78GXHoQN0vknfEdbL7zdkGMJCrspxDT/qFD1U/zFMqpsd8fkFvaf?=
+ =?us-ascii?Q?iapJ4mbBBTUXW/Gc1HlLgQlNXsGhg+Gs72ep2V277t/VGyLvrfbCnNlmaF5R?=
+ =?us-ascii?Q?GmF3ag1an05Oe5mi/mfkUaIdKMASauDiaM2DU29WAL/uuHOma44qik0YjXc3?=
+ =?us-ascii?Q?Qgwn277/xdKUZN8mzvY=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 972b5642-f6bc-4577-42b1-08dd57c0a7fb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Feb 2025 06:25:11.9817 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8807.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 708110c5-ffc6-4fea-e48d-08dd57d6cb71
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Feb 2025 09:03:40.4245 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ymRwdcdQMsiIqSQd+WFYiLJR5wOrm9XLWteuezptdeTuYqk3p6zk3o/1QG4AbafMgp0jBQK04iRTw9T5TVC0Qw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6013
+X-MS-Exchange-CrossTenant-userprincipalname: TNBdhI66+gWAWhR9ZpKyoplHvGfOAUsHcLzW1p9txzk2R/8fwoGx4BJTOIMXG6XI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,64 +159,467 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Ping
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tony Y=
+i
+> Sent: Thursday, February 27, 2025 11:12 PM
+> To: Yi, Tony <Tony.Yi@amd.com>; Skvortsov, Victor <Victor.Skvortsov@amd.c=
+om>;
+> amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; Lu=
+o,
+> Zhigang <Zhigang.Luo@amd.com>
+> Cc: Yi, Tony <Tony.Yi@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: Add support for CPERs on virtualization
+>
+> Add support for CPERs on VFs.
+>
+> VFs do not receive PMFW messages directly; as such, they need to query th=
+em
+> from the host. To avoid hitting host event guard, CPER queries need to be=
+ rate
+> limited. CPER queries share the same RAS telemetry buffer as error count =
+query, so
+> a mutex protecting the shared buffer was added as well.
+>
+> For readability, the amdgpu_detect_virtualization was refactored into mul=
+tiple
+> individual functions.
+>
+> Signed-off-by: Tony Yi <Tony.Yi@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   7 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   |  31 ++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 138 ++++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  18 ++-
+>  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  14 +++
+>  5 files changed, 195 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5e1d8f0039d0..198d29faa754 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3099,7 +3099,8 @@ static int amdgpu_device_ip_init(struct amdgpu_devi=
+ce
+> *adev)
+>
+>       amdgpu_fru_get_product_info(adev);
+>
+> -     r =3D amdgpu_cper_init(adev);
+> +     if (!amdgpu_sriov_vf(adev) || amdgpu_sriov_ras_cper_en(adev))
+> +             r =3D amdgpu_cper_init(adev);
+>
+>  init_failed:
+>
+> @@ -4335,10 +4336,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>        * for throttling interrupt) =3D 60 seconds.
+>        */
+>       ratelimit_state_init(&adev->throttling_logging_rs, (60 - 1) * HZ, 1=
+);
+> -     ratelimit_state_init(&adev->virt.ras_telemetry_rs, 5 * HZ, 1);
+>
+>       ratelimit_set_flags(&adev->throttling_logging_rs,
+> RATELIMIT_MSG_ON_RELEASE);
+> -     ratelimit_set_flags(&adev->virt.ras_telemetry_rs,
+> RATELIMIT_MSG_ON_RELEASE);
+>
+>       /* Registers mapping */
+>       /* TODO: block userspace mapping of io register */ @@ -4370,7 +4369=
+,7
+> @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>               return -ENOMEM;
+>
+>       /* detect hw virtualization here */
+> -     amdgpu_detect_virtualization(adev);
+> +     amdgpu_virt_init(adev);
+>
+>       amdgpu_device_get_pcie_info(adev);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index 81a7d4faac9c..d55c8b7fdb59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -578,12 +578,32 @@ static ssize_t amdgpu_debugfs_ring_read(struct file=
+ *f,
+> char __user *buf,
+>       return result;
+>  }
+>
+> +static ssize_t amdgpu_debugfs_virt_ring_read(struct file *f, char __user=
+ *buf,
+> +     size_t size, loff_t *pos)
+> +{
+> +     struct amdgpu_ring *ring =3D file_inode(f)->i_private;
+> +
+> +     if (*pos & 3 || size & 3)
+> +             return -EINVAL;
+> +
+> +     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_CPER)
+> +             amdgpu_virt_req_ras_cper_dump(ring->adev, false);
+> +
+> +     return amdgpu_debugfs_ring_read(f, buf, size, pos); }
+> +
+>  static const struct file_operations amdgpu_debugfs_ring_fops =3D {
+>       .owner =3D THIS_MODULE,
+>       .read =3D amdgpu_debugfs_ring_read,
+>       .llseek =3D default_llseek
+>  };
+>
+> +static const struct file_operations amdgpu_debugfs_virt_ring_fops =3D {
+> +     .owner =3D THIS_MODULE,
+> +     .read =3D amdgpu_debugfs_virt_ring_read,
+> +     .llseek =3D default_llseek
+> +};
+> +
+>  static ssize_t amdgpu_debugfs_mqd_read(struct file *f, char __user *buf,
+>                                      size_t size, loff_t *pos)
+>  {
+> @@ -671,9 +691,14 @@ void amdgpu_debugfs_ring_init(struct amdgpu_device
+> *adev,
+>       char name[32];
+>
+>       sprintf(name, "amdgpu_ring_%s", ring->name);
+> -     debugfs_create_file_size(name, S_IFREG | 0444, root, ring,
+> -                              &amdgpu_debugfs_ring_fops,
+> -                              ring->ring_size + 12);
+> +     if (amdgpu_sriov_vf(adev))
+> +             debugfs_create_file_size(name, S_IFREG | 0444, root, ring,
+> +                                      &amdgpu_debugfs_virt_ring_fops,
+> +                                      ring->ring_size + 12);
+> +     else
+> +             debugfs_create_file_size(name, S_IFREG | 0444, root, ring,
+> +                                      &amdgpu_debugfs_ring_fops,
+> +                                      ring->ring_size + 12);
+>
+>       if (ring->mqd_obj) {
+>               sprintf(name, "amdgpu_mqd_%s", ring->name); diff --git
+> a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index e6f0152e5b08..3832513ec7bf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -739,7 +739,7 @@ void amdgpu_virt_exchange_data(struct amdgpu_device
+> *adev)
+>       }
+>  }
+>
+> -void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+> +static u32 amdgpu_virt_init_detect_asic(struct amdgpu_device *adev)
+>  {
+>       uint32_t reg;
+>
+> @@ -775,8 +775,17 @@ void amdgpu_detect_virtualization(struct amdgpu_devi=
+ce
+> *adev)
+>                       adev->virt.caps |=3D AMDGPU_PASSTHROUGH_MODE;
+>       }
+>
+> +     return reg;
+> +}
+> +
+> +static bool amdgpu_virt_init_req_data(struct amdgpu_device *adev, u32
+> +reg) {
+> +     bool is_sriov =3D false;
+> +
+>       /* we have the ability to check now */
+>       if (amdgpu_sriov_vf(adev)) {
+> +             is_sriov =3D true;
+> +
+>               switch (adev->asic_type) {
+>               case CHIP_TONGA:
+>               case CHIP_FIJI:
+> @@ -805,10 +814,39 @@ void amdgpu_detect_virtualization(struct amdgpu_dev=
+ice
+> *adev)
+>                       amdgpu_virt_request_init_data(adev);
+>                       break;
+>               default: /* other chip doesn't support SRIOV */
+> +                     is_sriov =3D false;
+>                       DRM_ERROR("Unknown asic type: %d!\n", adev-
+> >asic_type);
+>                       break;
+>               }
+>       }
+> +
+> +     return is_sriov;
+> +}
+> +
+> +static void amdgpu_virt_init_ras(struct amdgpu_device *adev) {
+> +     ratelimit_state_init(&adev->virt.ras.ras_error_cnt_rs, 5 * HZ, 1);
+> +     ratelimit_state_init(&adev->virt.ras.ras_cper_dump_rs, 5 * HZ, 1);
+> +
+> +     ratelimit_set_flags(&adev->virt.ras.ras_error_cnt_rs,
+> +                         RATELIMIT_MSG_ON_RELEASE);
+> +     ratelimit_set_flags(&adev->virt.ras.ras_cper_dump_rs,
+> +                         RATELIMIT_MSG_ON_RELEASE);
+> +
+> +     mutex_init(&adev->virt.ras.ras_telemetry_mutex);
+> +
+> +     adev->virt.ras.cper_rptr =3D 0;
+> +}
+> +
+> +void amdgpu_virt_init(struct amdgpu_device *adev) {
+> +     bool is_sriov =3D false;
+> +     uint32_t reg =3D amdgpu_virt_init_detect_asic(adev);
+> +
+> +     is_sriov =3D amdgpu_virt_init_req_data(adev, reg);
+> +
+> +     if (is_sriov)
+> +             amdgpu_virt_init_ras(adev);
+>  }
+>
+>  static bool amdgpu_virt_access_debugfs_is_mmio(struct amdgpu_device *ade=
+v)
+> @@ -1288,10 +1326,12 @@ static int
+> amdgpu_virt_req_ras_err_count_internal(struct amdgpu_device *adev, bo
+>        * will ignore incoming guest messages. Ratelimit the guest message=
+s to
+>        * prevent guest self DOS.
+>        */
+> -     if (__ratelimit(&adev->virt.ras_telemetry_rs) || force_update) {
+> +     if (__ratelimit(&virt->ras.ras_error_cnt_rs) || force_update) {
+> +             mutex_lock(&virt->ras.ras_telemetry_mutex);
+>               if (!virt->ops->req_ras_err_count(adev))
+>                       amdgpu_virt_cache_host_error_counts(adev,
+> -                             adev->virt.fw_reserve.ras_telemetry);
+> +                             virt->fw_reserve.ras_telemetry);
+> +             mutex_unlock(&virt->ras.ras_telemetry_mutex);
+>       }
+>
+>       return 0;
+> @@ -1322,6 +1362,98 @@ int amdgpu_virt_req_ras_err_count(struct
+> amdgpu_device *adev, enum amdgpu_ras_bl
+>       return 0;
+>  }
+>
+> +static int
+> +amdgpu_virt_write_cpers_to_ring(struct amdgpu_device *adev,
+> +                             struct amdsriov_ras_telemetry *host_telemet=
+ry,
+> +                             u32 *more)
+> +{
+> +     struct amd_sriov_ras_cper_dump *cper_dump =3D NULL;
+> +     struct cper_hdr *entry =3D NULL;
+> +     struct amdgpu_ring *ring =3D &adev->cper.ring_buf;
+> +     uint32_t checksum, used_size, i, j;
+> +     int ret =3D 0;
+> +
+> +     checksum =3D host_telemetry->header.checksum;
+> +     used_size =3D host_telemetry->header.used_size;
+> +
+> +     if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
+> +             return 0;
+> +
+> +     cper_dump =3D kmemdup(&host_telemetry->body.cper_dump, used_size,
+> GFP_KERNEL);
+> +     if (!cper_dump)
+> +             return -ENOMEM;
+> +
+> +     if (checksum !=3D amd_sriov_msg_checksum(cper_dump, used_size, 0, 0=
+))
+> +             goto out;
+> +
+> +     *more =3D cper_dump->more;
+> +
+> +     if (cper_dump->wptr < adev->virt.ras.cper_rptr) {
+> +             dev_warn(
+> +                     adev->dev,
+> +                     "guest specified rptr that was too high! guest rptr=
+: 0x%llx, host
+> rptr: 0x%llx\n",
+> +                     adev->virt.ras.cper_rptr, cper_dump->wptr);
+> +
+> +             adev->virt.ras.cper_rptr =3D cper_dump->wptr;
+> +             goto out;
+> +     }
+> +
+> +     entry =3D (struct cper_hdr *)&cper_dump->buf[0];
+> +
+> +     for (i =3D 0; i < cper_dump->count; i++) {
+> +             amdgpu_cper_ring_write(ring, entry, entry->record_length);
+> +             entry =3D (struct cper_hdr *)((char *)entry +
+> +                                         entry->record_length);
+> +     }
+> +
+> +     if (cper_dump->overflow_count)
+> +             dev_warn(adev->dev,
+> +                      "host reported CPER overflow of 0x%llx entries!\n"=
+,
+> +                      cper_dump->overflow_count);
+> +
+> +     adev->virt.ras.cper_rptr =3D cper_dump->wptr;
+> +out:
+> +     kfree(cper_dump);
+> +
+> +     return ret;
+> +}
+> +
+> +static int amdgpu_virt_req_ras_cper_dump_internal(struct amdgpu_device
+> +*adev) {
+> +     struct amdgpu_virt *virt =3D &adev->virt;
+> +     int ret =3D 0;
+> +     uint32_t more =3D 0;
+> +
+> +     if (!amdgpu_sriov_ras_cper_en(adev))
+> +             return -EOPNOTSUPP;
+> +
+> +     do {
+> +             if (!virt->ops->req_ras_cper_dump(adev, virt->ras.cper_rptr=
+))
+> +                     ret =3D amdgpu_virt_write_cpers_to_ring(
+> +                             adev, virt->fw_reserve.ras_telemetry, &more=
+);
+> +             else
+> +                     ret =3D 0;
+> +     } while (more);
+> +
+> +     return ret;
+> +}
+> +
+> +int amdgpu_virt_req_ras_cper_dump(struct amdgpu_device *adev, bool
+> +force_update) {
+> +     struct amdgpu_virt *virt =3D &adev->virt;
+> +     int ret =3D 0;
+> +
+> +     if ((__ratelimit(&virt->ras.ras_cper_dump_rs) || force_update) &&
+> +         down_read_trylock(&adev->reset_domain->sem)) {
+> +             mutex_lock(&virt->ras.ras_telemetry_mutex);
+> +             ret =3D amdgpu_virt_req_ras_cper_dump_internal(adev);
+> +             mutex_unlock(&virt->ras.ras_telemetry_mutex);
+> +             up_read(&adev->reset_domain->sem);
+> +     }
+> +
+> +     return ret;
+> +}
+> +
+>  int amdgpu_virt_ras_telemetry_post_reset(struct amdgpu_device *adev)  {
+>       unsigned long ue_count, ce_count;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index 0f3ccae5c1ab..9f65487e60f5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -96,6 +96,7 @@ struct amdgpu_virt_ops {
+>                                       enum amdgpu_ras_block block);
+>       bool (*rcvd_ras_intr)(struct amdgpu_device *adev);
+>       int (*req_ras_err_count)(struct amdgpu_device *adev);
+> +     int (*req_ras_cper_dump)(struct amdgpu_device *adev, u64 vf_rptr);
+>  };
+>
+>  /*
+> @@ -140,6 +141,7 @@ enum AMDGIM_FEATURE_FLAG {
+>       AMDGIM_FEATURE_MES_INFO_ENABLE =3D (1 << 8),
+>       AMDGIM_FEATURE_RAS_CAPS =3D (1 << 9),
+>       AMDGIM_FEATURE_RAS_TELEMETRY =3D (1 << 10),
+> +     AMDGIM_FEATURE_RAS_CPER =3D (1 << 11),
+>  };
+>
+>  enum AMDGIM_REG_ACCESS_FLAG {
+> @@ -242,6 +244,13 @@ struct amdgpu_virt_ras_err_handler_data {
+>       int last_reserved;
+>  };
+>
+> +struct amdgpu_virt_ras {
+> +     struct ratelimit_state ras_error_cnt_rs;
+> +     struct ratelimit_state ras_cper_dump_rs;
+> +     struct mutex ras_telemetry_mutex;
+> +     uint64_t cper_rptr;
+> +};
+> +
+>  /* GPU virtualization */
+>  struct amdgpu_virt {
+>       uint32_t                        caps;
+> @@ -284,8 +293,7 @@ struct amdgpu_virt {
+>
+>       union amd_sriov_ras_caps ras_en_caps;
+>       union amd_sriov_ras_caps ras_telemetry_en_caps;
+> -
+> -     struct ratelimit_state ras_telemetry_rs;
+> +     struct amdgpu_virt_ras ras;
+>       struct amd_sriov_ras_telemetry_error_count count_cache;  };
+>
+> @@ -340,6 +348,9 @@ struct amdgpu_video_codec_info;  #define
+> amdgpu_sriov_ras_telemetry_block_en(adev, sriov_blk) \
+>  (amdgpu_sriov_ras_telemetry_en((adev)) && (adev)->virt.ras_telemetry_en_=
+caps.all
+> & BIT(sriov_blk))
+>
+> +#define amdgpu_sriov_ras_cper_en(adev) \ ((adev)->virt.gim_feature &
+> +AMDGIM_FEATURE_RAS_CPER)
+> +
+>  static inline bool is_virtual_machine(void)  {  #if defined(CONFIG_X86) =
+@@ -378,7
+> +389,7 @@ void amdgpu_virt_release_ras_err_handler_data(struct amdgpu_dev=
+ice
+> *adev);  void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);=
+  void
+> amdgpu_virt_exchange_data(struct amdgpu_device *adev);  void
+> amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev); -void
+> amdgpu_detect_virtualization(struct amdgpu_device *adev);
+> +void amdgpu_virt_init(struct amdgpu_device *adev);
+>
+>  bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev);  int
+> amdgpu_virt_enable_access_debugfs(struct amdgpu_device *adev); @@ -406,6
+> +417,7 @@ u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 off=
+set,
+> u32 v, u32 f  bool amdgpu_virt_get_ras_capability(struct amdgpu_device *a=
+dev);  int
+> amdgpu_virt_req_ras_err_count(struct amdgpu_device *adev, enum
+> amdgpu_ras_block block,
+>                                 struct ras_err_data *err_data);
+> +int amdgpu_virt_req_ras_cper_dump(struct amdgpu_device *adev, bool
+> +force_update);
+>  int amdgpu_virt_ras_telemetry_post_reset(struct amdgpu_device *adev);  b=
+ool
+> amdgpu_virt_ras_telemetry_block_en(struct amdgpu_device *adev,
+>                                       enum amdgpu_ras_block block);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> index 4dcb72d1bdda..5aadf24cb202 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> @@ -184,6 +184,9 @@ static int
+> xgpu_nv_send_access_requests_with_param(struct amdgpu_device *adev,
+>       case IDH_REQ_RAS_ERROR_COUNT:
+>               event =3D IDH_RAS_ERROR_COUNT_READY;
+>               break;
+> +     case IDH_REQ_RAS_CPER_DUMP:
+> +             event =3D IDH_RAS_CPER_DUMP_READY;
+> +             break;
+>       default:
+>               break;
+>       }
+> @@ -467,6 +470,16 @@ static int xgpu_nv_req_ras_err_count(struct
+> amdgpu_device *adev)
+>       return xgpu_nv_send_access_requests(adev,
+> IDH_REQ_RAS_ERROR_COUNT);  }
+>
+> +static int xgpu_nv_req_ras_cper_dump(struct amdgpu_device *adev, u64
+> +vf_rptr) {
+> +     uint32_t vf_rptr_hi, vf_rptr_lo;
+> +
+> +     vf_rptr_hi =3D (uint32_t)(vf_rptr >> 32);
+> +     vf_rptr_lo =3D (uint32_t)(vf_rptr & 0xFFFFFFFF);
+> +     return xgpu_nv_send_access_requests_with_param(
+> +             adev, IDH_REQ_RAS_CPER_DUMP, vf_rptr_hi, vf_rptr_lo, 0);
 
------Original Message-----
-From: Zhu, Lingshan <Lingshan.Zhu@amd.com>
-Sent: Friday, February 21, 2025 5:24 PM
-To: Kuehling, Felix <Felix.Kuehling@amd.com>; Deucher, Alexander <Alexander=
-.Deucher@amd.com>
-Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx@lists.freedesktop.org; Zhu, Lin=
-gshan <Lingshan.Zhu@amd.com>
-Subject: [PATCH] amdkfd: initialize svm lists at where they are defined
+[Tao] so the cper info will be sent to host? Can host handle cper work by i=
+tself?
 
-This commit initialized svm lists at where they are defined. This is defens=
-ive programing for security and consistency.
-
-Initalizing variables ensures that their states are always valid, avoiding =
-issues caused by uninitialized variables that could lead to unpredictable b=
-ehaviros.
-
-And we should not assume the callee would always initialize them
-
-Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
-kfd/kfd_svm.c
-index bd3e20d981e0..cbc997449379 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2130,11 +2130,7 @@ svm_range_add(struct kfd_process *p, uint64_t start,=
- uint64_t size,
-
-        pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
-
--       INIT_LIST_HEAD(update_list);
--       INIT_LIST_HEAD(insert_list);
--       INIT_LIST_HEAD(remove_list);
-        INIT_LIST_HEAD(&new_list);
--       INIT_LIST_HEAD(remap_list);
-
-        node =3D interval_tree_iter_first(&svms->objects, start, last);
-        while (node) {
-@@ -3635,6 +3631,11 @@ svm_range_set_attr(struct kfd_process *p, struct mm_=
-struct *mm,
-        if (r)
-                return r;
-
-+       INIT_LIST_HEAD(&update_list);
-+       INIT_LIST_HEAD(&insert_list);
-+       INIT_LIST_HEAD(&remove_list);
-+       INIT_LIST_HEAD(&remap_list);
-+
-        svms =3D &p->svms;
-
-        mutex_lock(&process_info->lock);
---
-2.47.1
+}
+> +
+>  const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {
+>       .req_full_gpu   =3D xgpu_nv_request_full_gpu_access,
+>       .rel_full_gpu   =3D xgpu_nv_release_full_gpu_access,
+> @@ -478,4 +491,5 @@ const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {
+>       .ras_poison_handler =3D xgpu_nv_ras_poison_handler,
+>       .rcvd_ras_intr =3D xgpu_nv_rcvd_ras_intr,
+>       .req_ras_err_count =3D xgpu_nv_req_ras_err_count,
+> +     .req_ras_cper_dump =3D xgpu_nv_req_ras_cper_dump,
+>  };
+> --
+> 2.34.1
 
