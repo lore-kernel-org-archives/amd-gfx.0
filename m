@@ -4,143 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFFDC197BF
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 19:47:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87290C19F32
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 01:07:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC38110EB7A;
-	Thu, 27 Feb 2025 19:47:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 073A910EBC6;
+	Fri, 28 Feb 2025 01:07:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vPKLar8M";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="axU6ot+j";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E518410EB75
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 19:47:21 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6A7410E0E4;
+ Fri, 28 Feb 2025 01:07:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lYw7DmZrbJV34e0tGc/f2jBO0wAWenl9mwiFejY5APazmbUbb+w5aVDstM6Oxdyb3JV+lSO0gBGroQEkdPZHS525VIU1k/Oq8ItGsLzSUh+VI062BWi4CynjE87qkUfErC6bByr5A49vS0WR9w8GZR7VO8Wx2oWTNTeSO/uB8WuXnCHoS49TaNdNQWIErLjdcV5yVMNMdUm2C3BmQ7bKaUBF7dAQ+qn5Redd5gO9P9lDV8i5uzNeCIzlNLZVfyzm973Kz8Ot/7h89XLSgcWVFZ5TTwo179dVB2P+1Pk8BYImPbB3fKaAte+wM5yy0WAwXfeoC4N1xv6av27+gun/6g==
+ b=sSxzFuoPm+L0Naf0nFijSwMvXyPk7G9LeNUZ2IfpdM/NDrgjJNKOTJT11Xcyw4enHhc4LhcqVggHUqUmVa1aEtp4SsMREkzX1pBLpLqH4K4tGz4MyXBer7vD4N51W7HR6aVny91gu+xBRiYdZryuwrxCx7GKBdc1i2eYiz6WwT9xWme/rt7woBmo4XQW2saji1a3XfnhhDPNPNlNmJShJ7owkjCzlm6HVlMWuUlvq02cOEkVKK5hBwyWEogGKP0JWMhuFcyDHY9M2vTV9PQBueT0MKfxJAGoQ+nZb2Foitpp5Q8sQadmH+mi7lQilSoFuTSmaECO22lvLav+TdsHZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mQz1cDD5ejmuqOwxPgi1R+nSY4YHQAWYwaUDGKT3LZg=;
- b=EE4ashUnVw/XX+C66IONVMPkOFU5xjxyT98dQSGE/3A+LBsUUtnbF8JFlCMj8m/VT0j32roY4+0ETpTZl7NL56n7Cazmc9X31zX68pMe5QoA4Gjz4K62aWQw6Ckm7RcQzdLWrbyflQjsRhDfyinaf5V9oajAK4wSWXCPjtlyvIPQSLxvye/GNVuk68fsWZN2Karn9EG0cZ6gA1A0ckaeTS0ng/MuuoJ+Sbe3abTU8bvI7N7EyIYwEEo76l5bg6T6hwxxdojP1vWdf05O95cGF+2ufwdsMxrgGU7O1Yroq14IGdmouozOHyZ2u9Gv35tRsuAimDXAB/VaSU0022Flhg==
+ bh=r67vPbsnyPmHxLMiQRd7RIQZkwUN5WPgGufmwefHrxM=;
+ b=zAluiMgw4L8US4APx9n/duvgdOU+XzEiP9z1Ssrh3DBJV/gkyDm++d9LIluwK7WCeNILFmve6KkWmnIf3jG6Bjab9HJIuBwaeZnTU/JKXKUmo8fEVE/DDA2A9Vh4aRJvYPBZUX+ChVCsXtvxKKQG6IMaMuQjA58EV3UM8UAnlFOkQxudnnd3GSyQZs6i1MJYDzrfO559KZC+dcPabaChXcQO85hal3nktQHVqY1SvS33/g/YINDYaaIYHwF1JvoZmDktnVJTJaH4kN5s4LVfnDdjYn2p2LXP4RPlvZaGjxP5vbRHxVF6iOdHR2yJlhSSECS1W5+gPfEBimrpOu/tyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mQz1cDD5ejmuqOwxPgi1R+nSY4YHQAWYwaUDGKT3LZg=;
- b=vPKLar8MxNnPVKn4SevRjnkf8bpsZuNHdN+OUXDFHFwpJO9IpUBXT4UcGNrHMLYbzVm0PcZVwh805kNCwdleYC/CjrREe3ysp/bIIjxz27+cv7ZLRyijdhVADWyK9b+7PeFWKBdHYZ6tC4SZcucw6ZQAWwj2VqfrIoA4GQLUAuU=
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
- by PH7PR12MB6979.namprd12.prod.outlook.com (2603:10b6:510:1b9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Thu, 27 Feb
- 2025 19:47:14 +0000
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::817c:781e:25f1:8210]) by CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::817c:781e:25f1:8210%6]) with mapi id 15.20.8489.018; Thu, 27 Feb 2025
- 19:47:13 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-Subject: RE: [PATCH 1/2] drm/amdkfd: Add pm_config_dequeue_wait_counts API
-Thread-Topic: [PATCH 1/2] drm/amdkfd: Add pm_config_dequeue_wait_counts API
-Thread-Index: AQHbiIPya2asP4O4M0S/VpiDZtE2+rNbht6A
-Date: Thu, 27 Feb 2025 19:47:13 +0000
-Message-ID: <CY8PR12MB7435A4BED4D1DE5C876F5AF085CD2@CY8PR12MB7435.namprd12.prod.outlook.com>
-References: <20250226192303.48552-1-Harish.Kasiviswanathan@amd.com>
-In-Reply-To: <20250226192303.48552-1-Harish.Kasiviswanathan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=8a490587-367a-4bf9-a148-12005f208f08;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-02-27T19:15:30Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
-authentication-results: dkim=none (message not signed)
+ bh=r67vPbsnyPmHxLMiQRd7RIQZkwUN5WPgGufmwefHrxM=;
+ b=axU6ot+j6y5kpmZVFXq4RpdDs0slfYgGULWt20II3YGnDguJvRcx+oToAIwhqVJpvoSCUsG05uEMpFBeHe4VTi4pBr08T7yOE5qzLD7Qp/zQ8yyxF8QSMFAts8Kj14GI+ytdfafTy1bf6iK0e4uVPdwN5sR3B7MATiTLCekAw2w=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|PH7PR12MB6979:EE_
-x-ms-office365-filtering-correlation-id: b6afc945-b674-4544-1b7d-08dd57678878
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?wfI0B1XqoZPjUYVRfsvM0UOWsbLsup5X5dCCyYuxyohG58QSPeqGdouQKMTU?=
- =?us-ascii?Q?m1xoJLdRuHelDxJgClTas01iNi6PF1NdGIFRkYX9yXgC1+VuNw2lMKhcr1PN?=
- =?us-ascii?Q?MmfiRoX2KD6l8e3XZdI8FHDe5PZto8wAg/pTUqJFGGNXU9MxWtsqj89uW5c/?=
- =?us-ascii?Q?f887HhdQty+s6HC4+zFKWr3U3rT+6GOQ4qsM6fMdffYhVth1PtkLZg/7LQ/M?=
- =?us-ascii?Q?cbXSKibPmzBeI8hvxv4FblMMOGbRKniBlfRSq9nvyAgs3gh5sG7Eu+jLqeVu?=
- =?us-ascii?Q?YdzNP8oMWZ3G2j1yOneXIjMEoWWI1wPbQbLlpePWf7NXYAPqRhDtCl+OgD3h?=
- =?us-ascii?Q?WyLMKUrlJiN/2LSCQMnY2FN+xbN3/GtQEKLjyGNaxUz90uIE0bc5ueYCxrSp?=
- =?us-ascii?Q?2qah4znUZc8opAq86VKQxcBQZ0UWyolRYT2Q+4SWQqS/u+G1H9z4/pEhMxzm?=
- =?us-ascii?Q?2U6Hxiau12ah9rofL4GeUln7b4Ue/b6DgW3PTXsnvxIX51XUZbIlw4rLb7pU?=
- =?us-ascii?Q?urvuoNyhC5fj1GD+R8YdHuvQi5Cp6AM3zjURQlu3tRO1Uzj9AiB6tcg7WvJ7?=
- =?us-ascii?Q?rhH2Ps8O0yhCHNkRbSLFyHvsufRrFCtzZK6cJpVqICbkKUyS+qMXJ94yYLox?=
- =?us-ascii?Q?KOqW0Jlz0HwAdWPBLxUejOvA7wNmVafsLK/QumuZcio3+AlejRc+IAeXd6US?=
- =?us-ascii?Q?d7BZGgimz3UzxRrMaOaB0dJBWTfvG9TgQMQmZZdMUlC/4Dl8KcuWT4EnFk16?=
- =?us-ascii?Q?njJIZqfSiWQXoYD6Na563G0lLcAxnoFx22mR45hZs0FJX6XW1eQMK7WTRuMr?=
- =?us-ascii?Q?bXC7q2pwrchUHLZCAb1dyMFzPjMT7Z6xnyIAzxAJNYqHh8x92cAVBvprH6Eq?=
- =?us-ascii?Q?UfAqX11wIxnxhsyMOZo558A2oE5DK3gxTYV/x8fOvENaBA6bldoUWcs55Qjm?=
- =?us-ascii?Q?y87cxxFKN4zhuP7tqrCTWsxkvTFxrnVMWz0Xi8inkjknCwmQ40cEP5qU+mjp?=
- =?us-ascii?Q?KmYNieTLbnSu1/7gVSMGcwxj6fuxe/IG08cWnog09ut62NMWOq7UHhbPHbIb?=
- =?us-ascii?Q?BZtjD5scnPZ16RkgO/vQOqAalXCh8XJB1Yv4DCPM6G13mT6PBjdZaM6H5AX1?=
- =?us-ascii?Q?Xho5RLJ1QrOCNADIHM8z6kGewTkd3ErIn31Y4PhVoorybGspo92IE7HFGxaS?=
- =?us-ascii?Q?E0YGh/LUrXkqQLghfHl9YkiuEclk+/W4/j3b3JymW77a2+j0Bktsbnah2ONZ?=
- =?us-ascii?Q?z++eL/bRKI0xX3pifUMR8Vk7Wr9NT2My5Rxiu2qYdoBiMajLSbdLHorxEGFa?=
- =?us-ascii?Q?vjRDmz2TuZAmxeyniqbcSkzjvjO0EZLY/jY/RqvlH1zQDqwRhug0AR+XF2i2?=
- =?us-ascii?Q?iBdAYo1GNUqgdni7gti3rbrHMWWKR2fH3YtiibMLl33RVq5k+SwskZwT6jZv?=
- =?us-ascii?Q?7FBEGyclrQvOzEkTnM+59iI191cLdguQ?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kQ7tQrYQhlpPhH48dgGtKbOUJBXTe8A7hl/J0qnU0chzAhbZfjfscThtzb4Y?=
- =?us-ascii?Q?WwSoMgwskTm5AFWKUup4tHWsjdYz6wpb0aoIbvRpZ/999UlGvsg1URdleYYH?=
- =?us-ascii?Q?UQEYVC0bNmXJXfk7BmoV8s5CjfXhuoLpKwpO54RVgbzTsVhc7aQdEIkiWTK5?=
- =?us-ascii?Q?iiA0Urtdwuqqt5rObPS2PPDrLOyE9OpF2WiVYX/rxP9j9aR3J65e5JIPOdWb?=
- =?us-ascii?Q?/Mo6aGKr6MsWDtH/vMszK8Zc04Oh/gR4V/MEWMNDp7KI9uEeOiTukEAOOYod?=
- =?us-ascii?Q?PPCi9tVsL3/TeuVEZboFzS/R3HEL7tTXGJ5uffAATkKj3oqGVJoAn2MOUT9M?=
- =?us-ascii?Q?NAVDEZYJEIXb3ML4UQcgSfjpNYPqKkAUFIxYuAwXchyG45tdxIOhcQP6xRml?=
- =?us-ascii?Q?xAmB4+BU4Id6OkswwWiYOZ+rGqa1m/ZIYnGPNpGLRyipflYWQjK8zxYYRrtw?=
- =?us-ascii?Q?3zdjijTqgLTOgBDZtZ/5xTTKZdG8RHvZ21a9bfmcAowovZe+pD9bVl16uAMs?=
- =?us-ascii?Q?1WGPizHIXasPvIg5jZRvPT+XdKrvrMhh7wV8ZZGWv+aR3Q5FNgr0N5UAgftG?=
- =?us-ascii?Q?Iuv3uZfl1LAXrz5f96BaD5QWDB3Tj7J1kFuX/kHvpFTPwz3kPNl460jjZApJ?=
- =?us-ascii?Q?sv47Nlm//cBVmO5Vi00EzLy+X0Smj+6ao/KlBEqBhzYsEv8KQyYA9o/4wznH?=
- =?us-ascii?Q?3k+fgwGvBW/PZrjFm6OikUo4zC4+lm0vwAkQz2zf3XdiXTncBvpHIOfDEDhv?=
- =?us-ascii?Q?G2elTuV84t5xFwZEo4hdsXWqH/uEdU1h6NkISn5m7hI4EywkjVr2WQX5dyUq?=
- =?us-ascii?Q?gP6x0loAeM6OGV4ez35SfeHrVlAmlB02/3d47iyxDkbGDZgHJ184xp3D6Vfc?=
- =?us-ascii?Q?jPgJ7vTU21lghNvzVCb37C6HfX3bI9PE23P/DfRTPC8hT8O72+GCeMz/AIkq?=
- =?us-ascii?Q?TV3+MLCh5YQjMEp0+dPVdecL6oNmTsqI6dtIRYZnElJfDZ9H75xGX7zrAYnx?=
- =?us-ascii?Q?gRD8Pueh/CN0JbIpXLCmevWqn/skYtECi7HElA5qxrTXDUQ3wj6xJbcD240P?=
- =?us-ascii?Q?urglqjnjv1USjlXGm+c6f7RO/Ke5q/uKyPAj0mwPan3idEfiWIT7mNjdjmVg?=
- =?us-ascii?Q?9rEypy0vEtBBCzyHSqaW1htCRLD21YxEpIx87sNK5RvFwgYjBvw77ubwSVcX?=
- =?us-ascii?Q?EZ0QBXnon5OLww4BPhBDQ7YnzxrPs+b+TSZYSzbi+Fexl7g315OSb3YVbtrX?=
- =?us-ascii?Q?gOBQ74NkLCDTYUENvJFVW/UIaUkO0N7EBKXusZIuto8o5yT8PR/yE8geDvYI?=
- =?us-ascii?Q?5/yf+3PSdacgm/ndlIjAtax2bl1CkKKfmuT5EnrlAmtX/Hyiq76vXfzrI8nN?=
- =?us-ascii?Q?ZgieD/noIuYrbI48SY5snSnF/r14k/kcoITKX/dIozBJUmtgLk/7dIRMh+4g?=
- =?us-ascii?Q?+9+0FjRt4WyrtLFjjeuavyenjWetgY+llNQa9NH2xIddradkC5TIcLiKfxz7?=
- =?us-ascii?Q?whfJF8v/wtr7uOV4HJjqjPCrNEnbaDl+OyqpygDJGt0ySStNF+Eb0bI852zH?=
- =?us-ascii?Q?4nJ+QagvuX5ofI1Sv1o=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by SJ1PR12MB6172.namprd12.prod.outlook.com (2603:10b6:a03:459::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.23; Fri, 28 Feb
+ 2025 01:07:27 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8489.019; Fri, 28 Feb 2025
+ 01:07:26 +0000
+Message-ID: <570ad01a-ef15-476e-851d-ee78973fd79d@amd.com>
+Date: Thu, 27 Feb 2025 18:07:24 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [V7 07/45] drm/colorop: Add 1D Curve subtype
+To: Louis Chauvet <louis.chauvet@bootlin.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
+References: <20241220043410.416867-1-alex.hung@amd.com>
+ <20241220043410.416867-8-alex.hung@amd.com>
+ <423ed019-f668-433d-80e0-4018f53c31c0@bootlin.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <423ed019-f668-433d-80e0-4018f53c31c0@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0116.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::16) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SJ1PR12MB6172:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b6e531e-b60b-4ddb-846f-08dd57944412
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QXZLTkZKcm1lVXU0YVRkblJLTUZ0NXdBUXpXZ0l2aVRWSER2VjNJWjIxb3Vh?=
+ =?utf-8?B?dDZ6ZXRmbVhsSndFa0dXbmxtM2xKSzRxSjJtby9HMjE1R0lhTzRYU0htK2gx?=
+ =?utf-8?B?Zk5FL0NhQ3B5Nmd4aFN6Q2FmdEVUbkJwVVRIbTdidTNjc0ZOaDYrcHR4emtJ?=
+ =?utf-8?B?T3RwbzBGYnBITXJNOGt0QlgxUTFyS1ZtQytISkpreGVBV0tNS1pFbmFFT2ll?=
+ =?utf-8?B?ekJIUTV2dHdIVlVhRlJtZzQ5dFoyYXBkWFp3Y2FGZHdhcWRkWmpvMDNLRXEw?=
+ =?utf-8?B?ak1FM242WjhHTWhGa1ZHMjFBY1A0akp3dHcvOHNZanA0MHNpcEhjL0J0ZmJQ?=
+ =?utf-8?B?RnBUcVRLekdSR1pyQWdWOStmWWhBU2p3T2pmUGl6T1VpTDVhdUNBWUZOM2Fy?=
+ =?utf-8?B?SlF1ZS9UTFJGcFdodzc4cWR5VXhiNzN2QUFMa1hDa3ZWYVJzTmVEdmhXQU01?=
+ =?utf-8?B?TnBRa1lyVTVXTHM1YlVGcGlFakMvRUJrYVhvTlV5ekdZT25qd3RSYTFsbG5G?=
+ =?utf-8?B?QXhPU3dxZmkzeU5FMUhZS3NjeXQ4Uitmd3Z1anlDSG1oajZwVHJIS21hWlph?=
+ =?utf-8?B?S2NXN0dtVXliL0U0TVM5dWVEd2tjaGV2S3VsdWgwSHN2UjMyeXhOLzRQWFda?=
+ =?utf-8?B?MFF3UTQ5dUF1OHZsRDU0SGRNK3pJelNOUkNVRVNESUxBb0hydnlGQ3JKOFBU?=
+ =?utf-8?B?TDJJOW43dEc5R21aZjFxNzVCRXpHREhxYmZYcGpSdDVzb0tLVVI2OXE5citz?=
+ =?utf-8?B?WXRJbnJBdVlpckhSWFFseWJyM2J2c241aEtFcVhlRXdzTDFhcElabG1Ca3Jp?=
+ =?utf-8?B?K2dlQmFUSHp4S29CRXJJMURJUFVCR0Z0U1BwRW02eUhCY1BFbGVseGhGaUpu?=
+ =?utf-8?B?a1Y3Q2s1MVN4ZVhUd0JPTUVTNHU5SmlvQm5NZnlXZFFrU2dsOXlGTDBsYU1J?=
+ =?utf-8?B?Qm1XZ2dEL3o2YkV6UkQ3TWQ4cXlobkJ3Wk9NRVRuL2ZwbkdQWERJQjRTM0tQ?=
+ =?utf-8?B?R0tPT05jeXU4U28vSXVXYjgyU1VQTzVaR0xiSndFNTI2RjRCTW5HOTFlSW01?=
+ =?utf-8?B?UFA2eTFONzdYakd0UHRIZGNNbGlPZXlYZE03S1J4cmlrN25rdnFMdUZodnNF?=
+ =?utf-8?B?M1U0ZmVCTlpOUWNSNFRzYjkrTHFqOTJRZm9wRWorb2dGU09EQkxVTk1TcGUr?=
+ =?utf-8?B?VFgwcVlLU1ljKzJoWU1nN0VYcnRzOHVOc0g1Q01rNGhrVXVlcWQxTnFVamRy?=
+ =?utf-8?B?ZEhmVHZLcElRMTBVVFp6TXRDcXQ3a3AzSmN5NjlJdWFmQlg3TkhXRjI5S2xT?=
+ =?utf-8?B?TURSQ0g0SjhaVDBtVkZ2YmlPV0Y2aDROMU45U0g5NjFkaWtHZXdGMk5jMWY4?=
+ =?utf-8?B?QzBPaXR4cEE1dVkxUUtqc0l0Um5PRm5tR0R0NVVWQklwQndoTktIRGNaeGJr?=
+ =?utf-8?B?QWpVa1FtMHl6U3B1M3M1V2NobEpLTUk4eFpKYm9SbEVGK3krdFIwTU16Y1Jq?=
+ =?utf-8?B?Q2RuV3E2WDErWCtZbzVqaVppaFR6Ylp0WUdYN3Q1SVZmZTJ4VTI0SGpOUEVr?=
+ =?utf-8?B?eUI4T21ZVXZSTmZxRlkyK0dxdjlpYWVxTnJYUWRmaXJ1MzlmK3pMa3ZDL01s?=
+ =?utf-8?B?eXFiTUdvRWNjSm1YcXNMQ3piaVYzWjhiakZPT0tRaGhTYXJwMHdZM2huRnRX?=
+ =?utf-8?B?Rk8zdks3L2o0RVd0UE8xRU5BTWc5SFpqQ0wrVTlrZWs1OGxqS1o3R05ac3NZ?=
+ =?utf-8?B?d3NSUmVIV1pncVdLbU9MRERGTWVyQ1U2b1NubGpTMWFSdG1mZlBUdmxzakhP?=
+ =?utf-8?B?b3RLelhKcVlkdnM1dithbTRkeUtJdVFHQUpLUTNENGkyaC9iZDd2c1RKdFFK?=
+ =?utf-8?Q?Z9mC9gNMolqjM?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXd3blpkWStDdG04MEZ1L0xtOVJGcUZNUTVxQkExTkIxNWx2MW1abFBWQ1lR?=
+ =?utf-8?B?VXdySXdVbmw5QXJKY3ZTelZOd250YjJSKzJCd0pWaU1TNWV3TTNwZ0dWSTls?=
+ =?utf-8?B?czdpOVp6OXk4SnNNZWtLRkJEbW93ZklNQnByZnlSTU1LU25lQVVtQnVKMVZz?=
+ =?utf-8?B?YXI3d1B2ZnlPQmlVYXRkNlo0VkU0YWYrZGJIVXZiYjQ1T2VZUnBUWFF0UXFL?=
+ =?utf-8?B?aUFDY081VzhDSTlFc28rZDBRdzhacTJkNVN3ZDhWSnRMNTM3UUhKaVRuMmNv?=
+ =?utf-8?B?MzUyd1RBVzM4VGFtaVZ5L0V6Y2NseWZDVUZ3Q2V0aGszT1ovM1F4cGNsYU1G?=
+ =?utf-8?B?Smg2cTFrQ3pycHVrRk5qci9Oc2M2eEpJUUcxTnR4ckxzWmdqNDd1bUxmRm5R?=
+ =?utf-8?B?dVpnaUZRc1pENVpGZ3lGcXIyWGh2YktPSHlTQUVKUVZvSWx1Q0NVRmszS2c1?=
+ =?utf-8?B?ZjMrdEhnazBONThxWFIvWUwrUjkzdXJ6aUZtUVFtS3RORmVJK3NJV3NYSnBV?=
+ =?utf-8?B?NEFldW5odU9CdWhCcTR4R2lyc203TjZsa1VsSEpHSk5YY1ZSWW82RXZRc3kz?=
+ =?utf-8?B?Z21pSWNPYkFoVWNRcTM5MytXKytEOUk2ZkVTb2JjWjJaWnlnOFFIdWVaS1FO?=
+ =?utf-8?B?c0F5STNOYjJoS3FVVEpoUnRPKzZ4WmhYNUI0bS9WMFNMVStxTE1NWmpkdmxO?=
+ =?utf-8?B?ako1UXk0T01GSkE0V0x1dDN6RDA2Y0VKSHgzazZHU1RtQ0dYSlB6QkFDQ2RL?=
+ =?utf-8?B?U21Qd0pEK2lBb0JuTHZmcDV4NENQcHdnamk3TUZ5U1ZsLzZrdHRSalIrYzVk?=
+ =?utf-8?B?c2NkWjR2WWxITW1NZkxBYy9xOFdQVzdvWjhkbEpvcjJqcXhaNEF5cEI1amNv?=
+ =?utf-8?B?NlFIVTVTSDFXejZLS0xEY01ubUQvTHRzTEVDL0VYeSszcjBsYUVzVkJJN1l4?=
+ =?utf-8?B?a2kxZlZkMG9wOGxBSXBpM0NYMmpDZVNsQ01MYjBCQVpVR0w3bWx5NXExQy9L?=
+ =?utf-8?B?b1g1bGRwUGd3M2toMU1nM09LOVNtS1BuZUs4R3A1dE0zTEhnZmhuL2tvb0hR?=
+ =?utf-8?B?SG9ISmdSaUZJT3BHcXVUd0g2dnVSVW1IbmEwOXJPaU9VMTFlSlcyWDh3dk43?=
+ =?utf-8?B?dnpKczBZSzd3NU5yN0RUNHRjc25ZM1huUHU2azVIbzQ0YzViSDhJOXNBWkNh?=
+ =?utf-8?B?aFBvcUsvYWZ6TFFrbDFwNE1tcmJDMzZYODBhVFRGczFHazBueEpLeTg5S3R3?=
+ =?utf-8?B?T0IrWnFUOFI5eGowNlpxL2Y4T2VrTkUyZHFKYVdLRXZieU5hbEtrbzZ1dHo0?=
+ =?utf-8?B?TjcwNGZEY1ZhNDVpN3FSSWJhaE8vVHVEaitKcCtHZncwcmtPNWovVUZueDd6?=
+ =?utf-8?B?NW52enh1eWkydlVETzl3M3R2Sm0rK2RiQXJ3cFRYTDhxcmdQQ1Ewc0Q4S0Zz?=
+ =?utf-8?B?YnBiRjNzNG9aKzkrT0RyTmtBem1vT1JHNjBrN0MwdEpBeFM2dXhxNGtsN2U4?=
+ =?utf-8?B?Y0J0RExIdzlic2Y1akpHUytUcld4cjR0MTIyS05TQVp4aG1LSE1tTDlOdCt5?=
+ =?utf-8?B?T2lmSTd2UVVqT2M5bkZWQU94REhvWGtSRUYwZkZTSXZHdG1ab0xPMEhDa1Ev?=
+ =?utf-8?B?cjVXM3ZiQnp5QllFVU9nM1ZTa3NqMUhkL0ZqQndZd3o2OFhSQzBXdTF3VkFT?=
+ =?utf-8?B?OE0vQXVXQldCT09BQnVIVnpKMmNYejlvbzNLajhjeWNXRUZhbTNxNDRoYVBW?=
+ =?utf-8?B?RE9MaUFWOGt5aVduK2xvelhLcU53ZS9zN3ZhZGp3RmFWbDZENmRiUVlSVnQw?=
+ =?utf-8?B?L3lObkErR0tMaFhLckdGd0FzNTBSVmIzbE1jWE96UE1BMTRMUElic1hlVmY1?=
+ =?utf-8?B?WUVTZ3dZMnN2YUY5dU9zZHdPeVRGNnFlb2sxVEFHS1NXcjNVdE9JbG8rTlpj?=
+ =?utf-8?B?OFB3SnZIVnB4dDhjTGN3ODd5TDJJQnY3T1FUQXc1eUx2cFFMSWQ0Mkd3ZzBZ?=
+ =?utf-8?B?cTMvTldJRlNYRmNXTDdKSnN2OUtMSVNJVjVvVjdpbHFNZ2l4UC93UnNVSlhm?=
+ =?utf-8?B?NjI4OUJvbXgyaG1PYkZGZVdhaDdhR1pjQnFrWEpPS0t1eWV5aVJMQTZwNHBX?=
+ =?utf-8?Q?+mDX9Q0D4zlu75BMGcKpdsui2?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b6e531e-b60b-4ddb-846f-08dd57944412
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6afc945-b674-4544-1b7d-08dd57678878
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2025 19:47:13.8954 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bDGw2TvLdqHFtqdQWwr4ebRD/w0c9CypOrfkEA1rWaiDkGdhXJICOP2rTW11RDcp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6979
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2025 01:07:26.7162 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3upronuy+bkn/IBYDJdrDf8EeLsDxqguwiSAIYO+mnBoCKYydITc5U7Sdwy0UV53qvOXB3DD/vwDi5pbVoH/Og==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6172
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,472 +162,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
 
-Overall lgtm.
-A comment and nitpick below.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Harish
-> Kasiviswanathan
-> Sent: Wednesday, February 26, 2025 2:23 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-> Subject: [PATCH 1/2] drm/amdkfd: Add pm_config_dequeue_wait_counts API
->
-> Update pm_update_grace_period() to more cleaner
-> pm_config_dequeue_wait_counts(). Previously, grace_period variable was
-> overloaded as a variable and a macro, making it inflexible to configure
-> additional dequeue wait times.
->
-> pm_config_dequeue_wait_counts() now takes in a cmd / variable. This
-> allows flexibility to update different dequeue wait times.
->
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-> ---
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 45 +++++++--------
->  .../drm/amd/amdkfd/kfd_device_queue_manager.h | 11 +++-
->  .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 26 ++++++++-
->  .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 56 ++++++++++++++-----
->  .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |  4 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         | 28 ++++++++--
->  6 files changed, 120 insertions(+), 50 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 94b1ac8a4735..cc7465f9562a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -42,6 +42,8 @@
->  /* Size of the per-pipe EOP queue */
->  #define CIK_HPD_EOP_BYTES_LOG2 11
->  #define CIK_HPD_EOP_BYTES (1U << CIK_HPD_EOP_BYTES_LOG2)
-> +/* See unmap_queues_cpsch() */
-> +#define USE_DEFAULT_GRACE_PERIOD 0xffffffff
->
->  static int set_pasid_vmid_mapping(struct device_queue_manager *dqm,
->                                 u32 pasid, unsigned int vmid);
-> @@ -1745,10 +1747,7 @@ static int initialize_cpsch(struct device_queue_ma=
-nager
-> *dqm)
->
->       init_sdma_bitmaps(dqm);
->
-> -     if (dqm->dev->kfd2kgd->get_iq_wait_times)
-> -             dqm->dev->kfd2kgd->get_iq_wait_times(dqm->dev->adev,
-> -                                     &dqm->wait_times,
-> -                                     ffs(dqm->dev->xcc_mask) - 1);
-> +     update_dqm_wait_times(dqm);
->       return 0;
->  }
->
-> @@ -1844,25 +1843,11 @@ static int start_cpsch(struct device_queue_manage=
-r
-> *dqm)
->       /* clear hang status when driver try to start the hw scheduler */
->       dqm->sched_running =3D true;
->
-> -     if (!dqm->dev->kfd->shared_resources.enable_mes)
-> +     if (!dqm->dev->kfd->shared_resources.enable_mes) {
-> +             if (pm_config_dequeue_wait_counts(&dqm->packet_mgr,
-> +                             KFD_DEQUEUE_WAIT_INIT, 0 /* unused */))
-> +                     dev_err(dev, "Setting optimized dequeue wait failed=
-. Using
-> default values\n");
->               execute_queues_cpsch(dqm,
-> KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0,
-> USE_DEFAULT_GRACE_PERIOD);
-> -
-> -     /* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
-> -     if (amdgpu_emu_mode =3D=3D 0 && dqm->dev->adev->gmc.is_app_apu &&
-> -         (KFD_GC_VERSION(dqm->dev) =3D=3D IP_VERSION(9, 4, 3))) {
-> -             uint32_t reg_offset =3D 0;
-> -             uint32_t grace_period =3D 1;
-> -
-> -             retval =3D pm_update_grace_period(&dqm->packet_mgr,
-> -                                             grace_period);
-> -             if (retval)
-> -                     dev_err(dev, "Setting grace timeout failed\n");
-> -             else if (dqm->dev->kfd2kgd->build_grace_period_packet_info)
-> -                     /* Update dqm->wait_times maintained in software */
-> -                     dqm->dev->kfd2kgd->build_grace_period_packet_info(
-> -                                     dqm->dev->adev, dqm->wait_times,
-> -                                     grace_period, &reg_offset,
-> -                                     &dqm->wait_times);
->       }
->
->       /* setup per-queue reset detection buffer  */
-> @@ -2261,7 +2246,14 @@ static int reset_queues_on_hws_hang(struct
-> device_queue_manager *dqm)
->       return r;
->  }
->
-> -/* dqm->lock mutex has to be locked before calling this function */
-> +/* dqm->lock mutex has to be locked before calling this function
-> + *
-> + * @grace_period: If USE_DEFAULT_GRACE_PERIOD then default wait time
-> + *   for context switch latency. Lower values are used by debugger
-> + *   since context switching are triggered at high frequency.
-> + *   This is configured by setting CP_IQ_WAIT_TIME2.SCH_WAVE
-> + *
-> + */
->  static int unmap_queues_cpsch(struct device_queue_manager *dqm,
->                               enum kfd_unmap_queues_filter filter,
->                               uint32_t filter_param,
-> @@ -2280,7 +2272,8 @@ static int unmap_queues_cpsch(struct
-> device_queue_manager *dqm,
->               return -EIO;
->
->       if (grace_period !=3D USE_DEFAULT_GRACE_PERIOD) {
-> -             retval =3D pm_update_grace_period(&dqm->packet_mgr,
-> grace_period);
-> +             retval =3D pm_config_dequeue_wait_counts(&dqm->packet_mgr,
-> +                             KFD_DEQUEUE_WAIT_SET_SCH_WAVE,
-> grace_period);
->               if (retval)
->                       goto out;
->       }
-> @@ -2324,8 +2317,8 @@ static int unmap_queues_cpsch(struct
-> device_queue_manager *dqm,
->
->       /* We need to reset the grace period value for this device */
->       if (grace_period !=3D USE_DEFAULT_GRACE_PERIOD) {
-> -             if (pm_update_grace_period(&dqm->packet_mgr,
-> -                                     USE_DEFAULT_GRACE_PERIOD))
-> +             if (pm_config_dequeue_wait_counts(&dqm->packet_mgr,
-> +                             KFD_DEQUEUE_WAIT_RESET, 0 /* unused */))
->                       dev_err(dev, "Failed to reset grace period\n");
->       }
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> index 09ab36f8e8c6..917717cfe9c5 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> @@ -37,7 +37,6 @@
->
->  #define KFD_MES_PROCESS_QUANTUM              100000
->  #define KFD_MES_GANG_QUANTUM         10000
-> -#define USE_DEFAULT_GRACE_PERIOD 0xffffffff
->
->  struct device_process_node {
->       struct qcm_process_device *qpd;
-> @@ -359,4 +358,14 @@ static inline int read_sdma_queue_counter(uint64_t _=
-_user
-> *q_rptr, uint64_t *val
->       /* SDMA activity counter is stored at queue's RPTR + 0x8 location. =
-*/
->       return get_user(*val, q_rptr + 1);
->  }
-> +
-> +static inline void update_dqm_wait_times(struct device_queue_manager *dq=
-m)
-> +{
-> +     if (dqm->dev->kfd2kgd->get_iq_wait_times)
-> +             dqm->dev->kfd2kgd->get_iq_wait_times(dqm->dev->adev,
-> +                                     &dqm->wait_times,
-> +                                     ffs(dqm->dev->xcc_mask) - 1);
-> +}
-> +
-> +
->  #endif /* KFD_DEVICE_QUEUE_MANAGER_H_ */
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-> index 4984b41cd372..dd19ae40f0ba 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-> @@ -396,14 +396,29 @@ int pm_send_query_status(struct packet_manager *pm,
-> uint64_t fence_address,
->       return retval;
->  }
->
-> -int pm_update_grace_period(struct packet_manager *pm, uint32_t grace_per=
-iod)
-> +/* pm_config_dequeue_wait_counts: Configure dequeue timer Wait Counts
-> + *  by writing to CP_IQ_WAIT_TIME2 registers.
-> + *
-> + *  @cmd: See emum kfd_config_dequeue_wait_counts_cmd definition
-> + *  @value: Depends on the cmd. This parameter is unused for
-> + *    KFD_DEQUEUE_WAIT_INIT and KFD_DEQUEUE_WAIT_RESET. For
-> + *    KFD_DEQUEUE_WAIT_SET_SCH_WAVE it holds value to be set
-> + *
-> + */
-> +int pm_config_dequeue_wait_counts(struct packet_manager *pm,
-> +             enum kfd_config_dequeue_wait_counts_cmd cmd,
-> +             uint32_t value)
->  {
->       struct kfd_node *node =3D pm->dqm->dev;
->       struct device *dev =3D node->adev->dev;
->       int retval =3D 0;
->       uint32_t *buffer, size;
->
-> -     size =3D pm->pmf->set_grace_period_size;
-> +     if (!pm->pmf->config_dequeue_wait_counts ||
-> +         !pm->pmf->config_dequeue_wait_counts_size)
-> +             return 0;
-> +
-> +     size =3D pm->pmf->config_dequeue_wait_counts_size;
->
->       mutex_lock(&pm->lock);
->
-> @@ -419,13 +434,18 @@ int pm_update_grace_period(struct packet_manager
-> *pm, uint32_t grace_period)
->                       goto out;
->               }
->
-> -             retval =3D pm->pmf->set_grace_period(pm, buffer, grace_peri=
-od);
-> +             retval =3D pm->pmf->config_dequeue_wait_counts(pm, buffer,
-> +                                                          cmd, value);
->               if (!retval)
->                       retval =3D kq_submit_packet(pm->priv_queue);
->               else
->                       kq_rollback_packet(pm->priv_queue);
->       }
->
-> +     /* If default value is modified, cache that value in dqm->wait_time=
-s */
-> +     if (cmd =3D=3D KFD_DEQUEUE_WAIT_INIT)
-> +             update_dqm_wait_times(pm->dqm);
+On 2/25/25 03:13, Louis Chauvet wrote:
+> 
+> 
+> Le 20/12/2024 à 05:33, Alex Hung a écrit :
+>> From: Harry Wentland <harry.wentland@amd.com>
+>>
+>> Add a new drm_colorop with DRM_COLOROP_1D_CURVE with two subtypes:
+>> DRM_COLOROP_1D_CURVE_SRGB_EOTF and DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF.
+>>
+>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>> Co-developed-by: Alex Hung <alex.hung@amd.com>
+>> Signed-off-by: Alex Hung <alex.hung@amd.com>
+>> ---
+>> v5:
+>>   - Add drm_get_colorop_curve_1d_type_name in header
+>>   - Add drm_colorop_init
+>>   - Set default curve
+>>   - Add kernel docs
+>>
+>> v4:
+>>   - Use drm_colorop_curve_1d_type_enum_list to get name (Pekka)
+>>   - Create separate init function for 1D curve
+>>   - Pass supported TFs into 1D curve init function
+>>
+>>   drivers/gpu/drm/drm_atomic_uapi.c |  18 ++--
+>>   drivers/gpu/drm/drm_colorop.c     | 134 ++++++++++++++++++++++++++++++
+>>   include/drm/drm_colorop.h         |  60 +++++++++++++
+>>   3 files changed, 207 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/ 
+>> drm_atomic_uapi.c
+>> index 59fc25b59100..9a5dbf0a1306 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -648,11 +648,17 @@ static int 
+>> drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+>>           struct drm_colorop_state *state, struct drm_file *file_priv,
+>>           struct drm_property *property, uint64_t val)
+>>   {
+>> -    drm_dbg_atomic(colorop->dev,
+>> -            "[COLOROP:%d] unknown property [PROP:%d:%s]]\n",
+>> -            colorop->base.id,
+>> -            property->base.id, property->name);
+>> -    return -EINVAL;
+>> +    if (property == colorop->curve_1d_type_property) {
+>> +        state->curve_1d_type = val;
+>> +    } else {
+>> +        drm_dbg_atomic(colorop->dev,
+>> +                   "[COLOROP:%d:%d] unknown property [PROP:%d:%s]]\n",
+>> +                   colorop->base.id, colorop->type,
+>> +                   property->base.id, property->name);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    return 0;
+>>   }
+>>   static int
+>> @@ -662,6 +668,8 @@ drm_atomic_colorop_get_property(struct drm_colorop 
+>> *colorop,
+>>   {
+>>       if (property == colorop->type_property) {
+>>           *val = colorop->type;
+>> +    } else if (property == colorop->curve_1d_type_property) {
+>> +        *val = state->curve_1d_type;
+>>       } else {
+>>           return -EINVAL;
+>>       }
+>> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/ 
+>> drm_colorop.c
+>> index 1459a28c7e7b..a42de0aa48e1 100644
+>> --- a/drivers/gpu/drm/drm_colorop.c
+>> +++ b/drivers/gpu/drm/drm_colorop.c
+>> @@ -31,6 +31,123 @@
+>>   #include "drm_crtc_internal.h"
+>> +static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
+>> +    { DRM_COLOROP_1D_CURVE, "1D Curve" },
+>> +};
+>> +
+>> +static const char * const colorop_curve_1d_type_names[] = {
+>> +    [DRM_COLOROP_1D_CURVE_SRGB_EOTF] = "sRGB EOTF",
+>> +    [DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF] = "sRGB Inverse EOTF",
+>> +};
+>> +
+>> +
+>> +/* Init Helpers */
+>> +
+>> +static int drm_colorop_init(struct drm_device *dev, struct 
+>> drm_colorop *colorop,
+>> +                struct drm_plane *plane, enum drm_colorop_type type)
+>> +{
+>> +    struct drm_mode_config *config = &dev->mode_config;
+>> +    struct drm_property *prop;
+>> +    int ret = 0;
+>> +
+>> +    ret = drm_mode_object_add(dev, &colorop->base, 
+>> DRM_MODE_OBJECT_COLOROP);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    colorop->base.properties = &colorop->properties;
+>> +    colorop->dev = dev;
+>> +    colorop->type = type;
+>> +    colorop->plane = plane;
+>> +
+>> +    list_add_tail(&colorop->head, &config->colorop_list);
+>> +    colorop->index = config->num_colorop++;
+>> +
+>> +    /* add properties */
+>> +
+>> +    /* type */
+>> +    prop = drm_property_create_enum(dev,
+>> +                    DRM_MODE_PROP_IMMUTABLE,
+>> +                    "TYPE", drm_colorop_type_enum_list,
+>> +                    ARRAY_SIZE(drm_colorop_type_enum_list));
+> 
+> I think this function belongs to the previous patch "Add TYPE property".
 
-Conditionally store the optimized default value for WAIT_INIT only if confi=
-g_dequeue_wait_counts succeeds.
+This function is only called by the first colorop. Some pieces of the 
+code in this function are introduced with the first colorop (1D curve) 
+so it makes sense to include it here.
 
-Also does this permanently leave optimized settings in HW different from in=
-itial golden settings?
-Not sure if this kind of footprint matters in the end.
-I'd assume that anything like a gpu reset, driver reload or dynamic partiti=
-on change would reset those registers back to non-optimized settings anyway=
-s.
-Can't really think of a situation where this would be a problem at the mome=
-nt ...
+> 
+>> +
+>> +    if (!prop)
+>> +        return -ENOMEM;
+>> +
+>> +    colorop->type_property = prop;
+>> +
+>> +    drm_object_attach_property(&colorop->base,
+>> +                   colorop->type_property,
+>> +                   colorop->type);
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +/**
+>> + * drm_colorop_curve_1d_init - Initialize a DRM_COLOROP_1D_CURVE
+>> + *
+>> + * @dev: DRM device
+>> + * @colorop: The drm_colorop object to initialize
+>> + * @plane: The associated drm_plane
+>> + * @supported_tfs: A bitfield of supported drm_colorop_curve_1d_init 
+>> enum values,
+>> + *                 created using BIT(curve_type) and combined with 
+>> the OR '|'
+>> + *                 operator.
+>> + * @return zero on success, -E value on failure
+>> + */
+>> +int drm_colorop_curve_1d_init(struct drm_device *dev, struct 
+>> drm_colorop *colorop,
+>> +                  struct drm_plane *plane, u64 supported_tfs)
+>> +{
+>> +    struct drm_prop_enum_list enum_list[DRM_COLOROP_1D_CURVE_COUNT];
+>> +    int i, len;
+>> +
+>> +    struct drm_property *prop;
+>> +    int ret;
+>> +
+>> +    if (!supported_tfs) {
+>> +        drm_err(dev,
+>> +            "No supported TFs for new 1D curve colorop on [PLANE:%d: 
+>> %s]\n",
+>> +            plane->base.id, plane->name);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    if ((supported_tfs & -BIT(DRM_COLOROP_1D_CURVE_COUNT)) != 0) {
+>> +        drm_err(dev, "Unknown TF provided on [PLANE:%d:%s]\n",
+>> +            plane->base.id, plane->name);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    ret = drm_colorop_init(dev, colorop, plane, DRM_COLOROP_1D_CURVE);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    len = 0;
+>> +    for (i = 0; i < DRM_COLOROP_1D_CURVE_COUNT; i++) {
+>> +        if ((supported_tfs & BIT(i)) == 0)
+>> +            continue;
+>> +
+>> +        enum_list[len].type = i;
+>> +        enum_list[len].name = colorop_curve_1d_type_names[i];
+>> +        len++;
+>> +    }
+>> +
+>> +    if (WARN_ON(len <= 0))
+>> +        return -EINVAL;
+>> +
+>> +
+>> +    /* initialize 1D curve only attribute */
+>> +    prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, 
+>> "CURVE_1D_TYPE",
+>> +                    enum_list, len);
+>> +    if (!prop)
+>> +        return -ENOMEM;
+>> +
+>> +    colorop->curve_1d_type_property = prop;
+>> +    drm_object_attach_property(&colorop->base, colorop- 
+>> >curve_1d_type_property,
+>> +                   enum_list[0].type);
+>> +    drm_colorop_reset(colorop);
+>> +
+>> +    return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_colorop_curve_1d_init);
+>> +
+>>   static void __drm_atomic_helper_colorop_duplicate_state(struct 
+>> drm_colorop *colorop,
+>>                               struct drm_colorop_state *state)
+>>   {
+>> @@ -70,7 +187,16 @@ void drm_colorop_atomic_destroy_state(struct 
+>> drm_colorop *colorop,
+>>   static void __drm_colorop_state_reset(struct drm_colorop_state 
+>> *colorop_state,
+>>                         struct drm_colorop *colorop)
+>>   {
+>> +    u64 val;
+>> +
+>>       colorop_state->colorop = colorop;
+>> +
+>> +    if (colorop->curve_1d_type_property) {
+>> +        drm_object_property_get_default_value(&colorop->base,
+>> +                        colorop->curve_1d_type_property,
+>> +                        &val);
+>> +        colorop_state->curve_1d_type = val;
+>> +    }
+>>   }
+>>   /**
+>> @@ -114,3 +240,11 @@ const char *drm_get_colorop_type_name(enum 
+>> drm_colorop_type type
+>>       return colorop_type_name[type];
+> 
+> Probably a dumb question: can't we use drm_colorop_type_enum_list 
+> instead of colorop_type_name in the drm_get_colorop_type_name function? 
+> So we will avoid duplicating the string "1D Curve".
 
-> +
->  out:
->       mutex_unlock(&pm->lock);
->       return retval;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> index d56525201155..9cb21af1d0af 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> @@ -297,23 +297,51 @@ static int pm_map_queues_v9(struct packet_manager
-> *pm, uint32_t *buffer,
->       return 0;
->  }
->
-> -static int pm_set_grace_period_v9(struct packet_manager *pm,
-> +static inline void pm_build_dequeue_wait_counts_packet_info(struct
-> packet_manager *pm,
-> +                     uint32_t sch_value, uint32_t *reg_offset,
-> +                     uint32_t *reg_data)
-> +{
-> +     pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
-> +             pm->dqm->dev->adev,
-> +             pm->dqm->wait_times,
-> +             sch_value,
-> +             reg_offset,
-> +             reg_data);
-> +}
-> +
-> +static int pm_config_dequeue_wait_counts_v9(struct packet_manager *pm,
->               uint32_t *buffer,
-> -             uint32_t grace_period)
-> +             enum kfd_config_dequeue_wait_counts_cmd cmd,
-> +             uint32_t value)
->  {
->       struct pm4_mec_write_data_mmio *packet;
->       uint32_t reg_offset =3D 0;
->       uint32_t reg_data =3D 0;
->
-> -     pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
-> -                     pm->dqm->dev->adev,
-> -                     pm->dqm->wait_times,
-> -                     grace_period,
-> -                     &reg_offset,
-> -                     &reg_data);
-> -
-> -     if (grace_period =3D=3D USE_DEFAULT_GRACE_PERIOD)
-> +     switch (cmd) {
-> +     case KFD_DEQUEUE_WAIT_INIT:
-> +             /* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU *=
-/
-> +             if (amdgpu_emu_mode =3D=3D 0 && pm->dqm->dev->adev-
-> >gmc.is_app_apu &&
-> +                (KFD_GC_VERSION(pm->dqm->dev) =3D=3D IP_VERSION(9, 4, 3)=
-))
-> +                     pm_build_dequeue_wait_counts_packet_info(pm, 1,
-> &reg_offset, &reg_data);
-> +             else
-> +                     return 0;
-> +             break;
-> +     case KFD_DEQUEUE_WAIT_RESET:
-> +             /* function called only to get reg_offset */
-> +             pm_build_dequeue_wait_counts_packet_info(pm, 0, &reg_offset=
-,
-> &reg_data);
->               reg_data =3D pm->dqm->wait_times;
-> +             break;
-> +
-> +     case KFD_DEQUEUE_WAIT_SET_SCH_WAVE:
-> +             /* The CP cannot handle value 0 and it will result in
-> +              * an infinite grace period being set so set to 1 to preven=
-t this.
-> +              */
-> +             if (!value)
-> +                     value =3D 1;
-> +             pm_build_dequeue_wait_counts_packet_info(pm, value, &reg_of=
-fset,
-> &reg_data);
-> +             break;
+Using drm_colorop_type_enum_list in drm_get_colorop_type_name needs 
+enumerating the list every time (extra CPU cycles) unlike using 
+colorop_type_name[].
 
-Return -EINVAL on default case for safety.
-
-Jon
-
-> +     }
->
->       packet =3D (struct pm4_mec_write_data_mmio *)buffer;
->       memset(buffer, 0, sizeof(struct pm4_mec_write_data_mmio));
-> @@ -415,7 +443,7 @@ const struct packet_manager_funcs kfd_v9_pm_funcs =3D=
- {
->       .set_resources          =3D pm_set_resources_v9,
->       .map_queues             =3D pm_map_queues_v9,
->       .unmap_queues           =3D pm_unmap_queues_v9,
-> -     .set_grace_period       =3D pm_set_grace_period_v9,
-> +     .config_dequeue_wait_counts =3D pm_config_dequeue_wait_counts_v9,
->       .query_status           =3D pm_query_status_v9,
->       .release_mem            =3D NULL,
->       .map_process_size       =3D sizeof(struct pm4_mes_map_process),
-> @@ -423,7 +451,7 @@ const struct packet_manager_funcs kfd_v9_pm_funcs =3D=
- {
->       .set_resources_size     =3D sizeof(struct pm4_mes_set_resources),
->       .map_queues_size        =3D sizeof(struct pm4_mes_map_queues),
->       .unmap_queues_size      =3D sizeof(struct pm4_mes_unmap_queues),
-> -     .set_grace_period_size  =3D sizeof(struct pm4_mec_write_data_mmio),
-> +     .config_dequeue_wait_counts_size  =3D sizeof(struct
-> pm4_mec_write_data_mmio),
->       .query_status_size      =3D sizeof(struct pm4_mes_query_status),
->       .release_mem_size       =3D 0,
->  };
-> @@ -434,7 +462,7 @@ const struct packet_manager_funcs
-> kfd_aldebaran_pm_funcs =3D {
->       .set_resources          =3D pm_set_resources_v9,
->       .map_queues             =3D pm_map_queues_v9,
->       .unmap_queues           =3D pm_unmap_queues_v9,
-> -     .set_grace_period       =3D pm_set_grace_period_v9,
-> +     .config_dequeue_wait_counts =3D pm_config_dequeue_wait_counts_v9,
->       .query_status           =3D pm_query_status_v9,
->       .release_mem            =3D NULL,
->       .map_process_size       =3D sizeof(struct pm4_mes_map_process_aldeb=
-aran),
-> @@ -442,7 +470,7 @@ const struct packet_manager_funcs
-> kfd_aldebaran_pm_funcs =3D {
->       .set_resources_size     =3D sizeof(struct pm4_mes_set_resources),
->       .map_queues_size        =3D sizeof(struct pm4_mes_map_queues),
->       .unmap_queues_size      =3D sizeof(struct pm4_mes_unmap_queues),
-> -     .set_grace_period_size  =3D sizeof(struct pm4_mec_write_data_mmio),
-> +     .config_dequeue_wait_counts_size  =3D sizeof(struct
-> pm4_mec_write_data_mmio),
->       .query_status_size      =3D sizeof(struct pm4_mes_query_status),
->       .release_mem_size       =3D 0,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-> index 347c86e1c378..a1de5d7e173a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-> @@ -304,7 +304,7 @@ const struct packet_manager_funcs kfd_vi_pm_funcs =3D=
- {
->       .set_resources          =3D pm_set_resources_vi,
->       .map_queues             =3D pm_map_queues_vi,
->       .unmap_queues           =3D pm_unmap_queues_vi,
-> -     .set_grace_period       =3D NULL,
-> +     .config_dequeue_wait_counts     =3D NULL,
->       .query_status           =3D pm_query_status_vi,
->       .release_mem            =3D pm_release_mem_vi,
->       .map_process_size       =3D sizeof(struct pm4_mes_map_process),
-> @@ -312,7 +312,7 @@ const struct packet_manager_funcs kfd_vi_pm_funcs =3D=
- {
->       .set_resources_size     =3D sizeof(struct pm4_mes_set_resources),
->       .map_queues_size        =3D sizeof(struct pm4_mes_map_queues),
->       .unmap_queues_size      =3D sizeof(struct pm4_mes_unmap_queues),
-> -     .set_grace_period_size  =3D 0,
-> +     .config_dequeue_wait_counts_size        =3D 0,
->       .query_status_size      =3D sizeof(struct pm4_mes_query_status),
->       .release_mem_size       =3D sizeof(struct pm4_mec_release_mem)
->  };
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 59619f794b6b..4c8026947a73 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -1392,6 +1392,24 @@ int pqm_get_queue_checkpoint_info(struct
-> process_queue_manager *pqm,
->  #define KFD_FENCE_COMPLETED (100)
->  #define KFD_FENCE_INIT   (10)
->
-> +/**
-> + * enum kfd_config_dequeue_wait_counts_cmd - Command for configuring
-> + *  dequeue wait counts.
-> + *
-> + * @KFD_DEQUEUE_WAIT_INIT: Set optimized dequeue wait counts for a
-> + *   certain ASICs. For these ASICs, this is default value used by RESET
-> + * @KFD_DEQUEUE_WAIT_RESET: Reset dequeue wait counts to the optimized
-> value
-> + *   for certain ASICs. For others set it to default hardware reset valu=
-e
-> + * @KFD_DEQUEUE_WAIT_SET_SCH_WAVE: Set context switch latency wait
-> + *
-> + */
-> +enum kfd_config_dequeue_wait_counts_cmd {
-> +     KFD_DEQUEUE_WAIT_INIT =3D 1,
-> +     KFD_DEQUEUE_WAIT_RESET =3D 2,
-> +     KFD_DEQUEUE_WAIT_SET_SCH_WAVE =3D 3
-> +};
-> +
-> +
->  struct packet_manager {
->       struct device_queue_manager *dqm;
->       struct kernel_queue *priv_queue;
-> @@ -1417,8 +1435,8 @@ struct packet_manager_funcs {
->       int (*unmap_queues)(struct packet_manager *pm, uint32_t *buffer,
->                       enum kfd_unmap_queues_filter mode,
->                       uint32_t filter_param, bool reset);
-> -     int (*set_grace_period)(struct packet_manager *pm, uint32_t *buffer=
-,
-> -                     uint32_t grace_period);
-> +     int (*config_dequeue_wait_counts)(struct packet_manager *pm, uint32=
-_t
-> *buffer,
-> +                     enum kfd_config_dequeue_wait_counts_cmd cmd, uint32=
-_t
-> value);
->       int (*query_status)(struct packet_manager *pm, uint32_t *buffer,
->                       uint64_t fence_address, uint64_t fence_value);
->       int (*release_mem)(uint64_t gpu_addr, uint32_t *buffer);
-> @@ -1429,7 +1447,7 @@ struct packet_manager_funcs {
->       int set_resources_size;
->       int map_queues_size;
->       int unmap_queues_size;
-> -     int set_grace_period_size;
-> +     int config_dequeue_wait_counts_size;
->       int query_status_size;
->       int release_mem_size;
->  };
-> @@ -1452,7 +1470,9 @@ int pm_send_unmap_queue(struct packet_manager *pm,
->
->  void pm_release_ib(struct packet_manager *pm);
->
-> -int pm_update_grace_period(struct packet_manager *pm, uint32_t grace_per=
-iod);
-> +int pm_config_dequeue_wait_counts(struct packet_manager *pm,
-> +                     enum kfd_config_dequeue_wait_counts_cmd cmd,
-> +                     uint32_t wait_counts_config);
->
->  /* Following PM funcs can be shared among VI and AI */
->  unsigned int pm_build_pm4_header(unsigned int opcode, size_t packet_size=
-);
-> --
-> 2.34.1
+> 
+>>   }
+> 
+> Thanks,
+> Louis Chauvet
+> 
+> [...]
+> 
 
