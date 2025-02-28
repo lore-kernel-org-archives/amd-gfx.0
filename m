@@ -4,150 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1F2C282C6
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 15:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9171C282D0
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 16:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40CAB10ECE0;
-	Fri, 28 Feb 2025 15:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6459810ECF4;
+	Fri, 28 Feb 2025 16:24:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KLy/mwoV";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="edC3LwA3";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2075.outbound.protection.outlook.com [40.107.220.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5416910E058;
- Fri, 28 Feb 2025 15:55:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o9JaiDGdEvLGBncW8h4xJRXW3RK2SnAbiMWoxnxOjW9Pcsi5kPN7G0bizDOM/MZRpgj9xUT+n3mhgWm9c7wq56HEWei86rMDQdKRwVoEvWp/ht5ylqAxIGsETy4TOjWSjVlHmgsHUFqvGDeX8PtkGyshMHM8NOZY3jh4ULDkmpUCpsf9EdzZgPAvA5pg74nPrybuFqxXYcS/WcMHvv+AJRjieZvu7+JOmIqT/owBx4ZUxmK9by+ILShN0lXRKz558GpGvc1Q0cLoMJ7Wq5hcG9173d6jGE/h4dY7D5EQP6cy56Yv3SfrlS3eNwmY/gdvc0xsBdYYvnY7Y4iM9i1UPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wlnt85PpRBxhIRX6HVvCSQMLP2FPHEdCpZciiQa1QPY=;
- b=SqcDRe4H5fO8wcMKTU1onFKak0EGt9aETReIUD3vR0+wIPb0SzFxGXY593lPgWTpuSLVAID16Wd3679Sb2TvJaXZFgyaUxb95PKVaXgcYbK4+lOUnflIuunlxrc6V1SMdaaJo1568Rd3Ft/5HrGudCVOt0I2r/1E7MloAFdn6Zt5fXI+alRd2ZI4fbXAbPB95RZ5shr6869N1dgRdV2CFSEAKWQUH88XuJbL3ZJy6LVcF2R+mW2MF4wQm5IFDdQ1+Lez0r8aDYEQagNPiiFOYjfmRxeHu6zHcig2qQxSdXSOaB37wlPHkNYzZqZyI5bnRQthKBtkn9YUl4JkAZXhrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wlnt85PpRBxhIRX6HVvCSQMLP2FPHEdCpZciiQa1QPY=;
- b=KLy/mwoVwRbObBhsatWOZtCGCPdcs2DQf7OENuF3ggv3DEBV/lnAsz6qxXRPoBQnjl3reCjkIMyxebhvHWi3YSwGR6s38hLV/ONAlpGKd3XBC8RFHakoQk+rzfv7lLGoBss1XlTgDQT4ecvxikKzTFHO5m5eo4R48/xmridNgV0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CH2PR12MB4056.namprd12.prod.outlook.com (2603:10b6:610:a5::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.23; Fri, 28 Feb
- 2025 15:55:44 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8466.020; Fri, 28 Feb 2025
- 15:55:44 +0000
-Message-ID: <6d2fe1c8-db75-4ecd-aa5a-52eb428569d5@amd.com>
-Date: Fri, 28 Feb 2025 10:55:41 -0500
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDC8810ECF3;
+ Fri, 28 Feb 2025 16:24:22 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 9B54A43209;
+ Fri, 28 Feb 2025 16:24:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1740759861;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Z1IKkm6+PnFpEAaGDs3hByJh2w/s4OJvKkdhV8BI7pE=;
+ b=edC3LwA3ZOzxlMbNW5jOkj/xKOgxgvLzgon2Z/ebWjzgQUi58Dkjm/75rkhuUGW7SpC0tk
+ AHwhVudHAxwtfIIwdBRbKUYUr3evh2KHEQGqlBhZHvVKDTcQP31xiSRZ7lY0wJrEXFxfCv
+ lJt0YEvz3TtNcLkjPIdQbbfiBPBo5WWqoj+msms2+B1B2ptPR0zLFhDPAXhWeB96HSNtGF
+ LTlEob23gTpAc+ul+1YioTJA4xPVxWSq94OfJ1AjOX2OSoOW0uMbOqqdADilVSfoCI+MrK
+ Yk9Erg0FLMROh/6gTe0YXmDEwLNQCctTGAA2eX2VW3FNkLxysdHQhi1Z26eOlA==
+Message-ID: <caba927a-b71b-40bf-96b6-d15418ed705a@bootlin.com>
+Date: Fri, 28 Feb 2025 17:24:17 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [V7 05/45] drm/colorop: Introduce new drm_colorop mode object
-To: Louis Chauvet <louis.chauvet@bootlin.com>, Alex Hung <alex.hung@amd.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org
-References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-6-alex.hung@amd.com>
- <88e05040-b3c8-40b2-a703-74ccf65d8df0@bootlin.com>
+Subject: Re: [PATCH 00/63] Fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+To: Greg KH <gregkh@linuxfoundation.org>, Jim Cromie <jim.cromie@gmail.com>,
+ linux-kernel@vger.kernel.org, jbaron@akamai.com, ukaszb@chromium.org,
+ intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com
+References: <20250125064619.8305-1-jim.cromie@gmail.com>
+ <2025022012-viscous-cringing-bf88@gregkh>
+ <Z7b50rGRA4RuybgC@phenom.ffwll.local>
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <88e05040-b3c8-40b2-a703-74ccf65d8df0@bootlin.com>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
+ 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
+In-Reply-To: <Z7b50rGRA4RuybgC@phenom.ffwll.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXP288CA0002.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c00:41::19) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CH2PR12MB4056:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3cbb6180-9705-4dfd-1afa-08dd58105bda
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?am94MTVEcHpXM3FNWUdZaWtzN1hiY05ITDl6cEo5eDcrSm9wNkJibUZ1M0k5?=
- =?utf-8?B?N1R6Zm1GSVloZWl3RkdhU1h6TGtvTE16K2NaQ04rVzA1VC9WQU9VVVVESFRZ?=
- =?utf-8?B?ci9CeGkyOEdFRkZpc2dGWk8rT0x1ZW1VMEJyT3h1N2hHRWJnWU16OHBpcVhJ?=
- =?utf-8?B?dHBtNUpxTlc5V0lpSVl5UGtPY0FQQ3dXN05SUHdsVi9hU3BpbGFoVVJLT2Nk?=
- =?utf-8?B?TkNCU3RkelA5cW84bmJIbEc3R3B5MWlGMmJPaG5iUGljblhSbjNXQXhsWmRH?=
- =?utf-8?B?aWZ6U0tJM0lyckthUWV0aU83bm0rMEdEUFY2cFUrWjhRWWQzcklMWmZOL2Ur?=
- =?utf-8?B?VFI0cy8xTndDR29raVBidW5kVjBrbEJ6Z1M1TjZnOFNscnE3NGU5bVBUSjNp?=
- =?utf-8?B?TjV2UnJtUUJnWkNFWGdXKzZnNFJKdEtabnZjQThiTzNWMGxXdXUySmdvbTdR?=
- =?utf-8?B?UGNGR1lSRDFDY3RLY1dyYm5WQzMyeXZQOHhjREtGaTFSUGVrejFyeFQxQ0hK?=
- =?utf-8?B?d0tsVlpyZHdYR1dtSUJKM1k5cXJqcldCemlzb0lFTWNKOFl0Yisvajd3Tlgx?=
- =?utf-8?B?YkxvajU4NE5LbUh0WDRGS0RUY2Y5VkwxdGZFbDRjUXJiN0QxaHVTaExpanNM?=
- =?utf-8?B?Q1RuWUl6RGxiVDFpdytaU1RGM2orQ3F3Q3R4YXVTRDlYdENPQkp0K2psZ2pk?=
- =?utf-8?B?VkdaZ3RIUlJmeFNjTzN1cTcrTlRNeEx1SzJ6d1U4SXpyS1BpNFA2VFRleml4?=
- =?utf-8?B?TXVjbDd4RkkxTmxLWnhBVGw1VkxUekQ3UkNOcTFTai9BRkE5MnhEWnhSWnJJ?=
- =?utf-8?B?U083V0I3OGhNakRjOEZDSFRIUEk2dW1Pd3pVdmsrMHlDelNnK0dUaktsaGhp?=
- =?utf-8?B?VVQ1Zk42U242aDVZaVJ2aFdqYUJxbnNoQ2I5ZWZDd2ViK2pFdm85TXN6K05C?=
- =?utf-8?B?S0RKYnZXZEZLU21DdlUrRDNSSEp6M2F6Vk9ONHVFRDJIWHI5bVVHRHVTb2hp?=
- =?utf-8?B?d2VvMFV0RlBYbis3Z3JrOW11WkJxSGtQV2Fhclc1VjZNMXNWU1NVTnZ2YkV3?=
- =?utf-8?B?RHJLK2JjcUFxeWlwV093WjZHTkZkQitFNjFxaEZqcGdLOE5CMjlQSVJ0S0Zx?=
- =?utf-8?B?clJwUGxGbjRWamp4ZnNwbTdLQTVUMm9QMUdHSVhFVmVPbGFCdmhWWjd0NE1R?=
- =?utf-8?B?dWJhWklyYTIrQ294aFR6aU5KZE5BK2YzY0VMZmxqL0dtOVNaVE9mTjNSSUht?=
- =?utf-8?B?TUF2M0o3TkEzZTVYbCtxY1NKOUZheE5CS0xUVi9OVnJBd1o5TFJndGRZREhp?=
- =?utf-8?B?MEFzZEwyd1Q2dGZSclBpYmVTb3FGczh6R055T25Fa3p1MDlVMEh6WVRrSVlW?=
- =?utf-8?B?eUIzSXhEOThJM3RVM2VxT0RXMmpJS3lyTG5OdWtNcFgvaTNhK3RXa2pjUjJj?=
- =?utf-8?B?TE50SG9RUE9xcE93bmFkNTVTc0VDcDdxYjhwVVlUUVBqdTRzS2ppb2grYklm?=
- =?utf-8?B?QzFQdDdrb2FwOG9tTzlGOGphZjEyUHpxK3BvY242Vk1tNWdhTnNYUklxYmJl?=
- =?utf-8?B?ekp3SFF4R1p2TEZEOWdyRDJHb2RnUDhiTVdDQjlsc0taa29FNGZYdk43SGFl?=
- =?utf-8?B?aVpOSDduVUMxNGZzUXk0YXdydFJyaE1SQlJUYTRIa3ZXdEVOWUYzbE0rTVlZ?=
- =?utf-8?B?YkR1ZWdqUHl5WWUrR0xXUjNZaTdUbkZOeXo5NkJ4OVd2dlhGeVZXcXh6NEY0?=
- =?utf-8?B?dVRUVCtjdUphNmxZdEJiajdMRFh5MTBNYXA2Q3NGUHBOcXpPdmcyTEFmQ1Zl?=
- =?utf-8?B?b0sxYSs2TmpHb09ZWUw3YlhRcDdLcHQybXVFbmt0ZGxIcnAvcE8vcTh3aGhh?=
- =?utf-8?Q?8+FTHkD+1/GuS?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0NsQzhKL2ZXVkZ2YkRPU0doVEdSZUVFT0VrUjhqK1FBMC90aDNSaVNSZm5J?=
- =?utf-8?B?K1k0c2N4SHQrNzFVZ3RrbmFuSjduQTNlUm02cjRtNlBLQ0NVZ0JHWm1SZHg2?=
- =?utf-8?B?SG43ZmlHZU9Fa2svc0twbEFIVEpLdlM1akxoSktDK3pCV2lqSEs0enhNNCs1?=
- =?utf-8?B?V3BjS3ZYUVNiaWZ0WUtQM1UvZTlIc1JIMkxLUTJMcjZKbzkxcTZwY3pZN2R5?=
- =?utf-8?B?eEo3SVFLWHVleVJIUldIaUtrNk81Vk5vOVQyeHhlMzRsNkQvRDlSVWVxeUxl?=
- =?utf-8?B?a0VDVjRuS2tEU1JsRzdvOHZKSzZhNnNPQU9IOGZWUHVLSGpNSVY5Zm02MnNn?=
- =?utf-8?B?M1JJK2R1MFUzZWM5d1lOcmtPN1ZDbUdiVUtOTldVbW5FR0hLSXVvSytiMzV5?=
- =?utf-8?B?RWMrRkNpU05kU00wb1dWWFRPcGFDdUR3cnBCd3UyR3R6NDVCMmdBb0d1d0Z2?=
- =?utf-8?B?RXQ4SlQ1dlNES1ZXY3dteHBCVFphU3o0TE9XTDhNYVEzSGExWGh0ZmRQaVdz?=
- =?utf-8?B?Z21Cb09QSW9zYnNPYXIvNlFXS3dmK1hnbWhDQmNwM2U0SWtPZnRaTXJXWVRz?=
- =?utf-8?B?ZXNmRXQ4T1lJTEU4TzFCTjJoN2Q4WmlVRnhZUTU1WktsTVNLa1lodGhQYVJv?=
- =?utf-8?B?S1M4N1R0TkYrcVQycjRMWUhXMjB3M0ZmZEVwamFic1BkaFNNdTF0b1AzWlVB?=
- =?utf-8?B?RnBwbmFHUjNKZno0dWxLcW4zMUVLb21SdlJOM1V0MitEb0xlU0QwM2NmaFJ3?=
- =?utf-8?B?b3podXpkdTZWbzFXZmFMelpZek1DTkV5Y2xQcVFyM1ovRTNyd1BoU1dLWWpG?=
- =?utf-8?B?SG1CTUwyWVkwbk44cXpsdWUyTVpXRHNkay8zbXE1T2JZS3g2MFN5OWwwcWIy?=
- =?utf-8?B?NFpsTVBMWVF2dnI2S3ROQ3U2MEczNVFwSkpjNmgyVEpoeHZQdkN5MFRlOUV2?=
- =?utf-8?B?Vzl2Y3BXNTZLSEtoTTl2RUlEN29WRW5ubVNQRHZsZzFHbE5ZK3hSNnRIMXZS?=
- =?utf-8?B?YkZhTWNzQ1NjcUxRTjhVRVFPbjdxdkhVNEJBL1hhUGNjLzdtSlh3dFhuRE81?=
- =?utf-8?B?MjBtZloxMVNJVmFvRVZTeXEzdlM1dnVqZlpZTWl0RnA0dkxqK2tVUnUyTGho?=
- =?utf-8?B?cjJMMUFSVmFoQnlvVmM4amlGYWVmV05NenFONFF3T1JkbVhvdjYyR3cwb2Js?=
- =?utf-8?B?SVN2RGV6Zy9Zd3NNM3orbmhFZTRLUTlvd2lOTjdTY2NpK01rZ0ppaGZPNWJw?=
- =?utf-8?B?bjAvaS80eG5Cc2xYVkxEKy9PVDZYZmNtWENaQlF5eUZaTytPRUhZV2JDMEtH?=
- =?utf-8?B?MzFtN1dUeTczWExBRVhQaE1ORUxmS0tzS0VBQ2dUdSs5ajZaVzZvMlZ4NHl6?=
- =?utf-8?B?dCsvR3ZyU3ordHJab1NiMDZTalhRT29RbC9pTGtlemlHODNxNE11dThJdi8v?=
- =?utf-8?B?U2hKdmxZOUZmdnJGVTZHZ1BwMWRLR2Q3V1NvclI1cFA5RnhleXAyZWd2K3NQ?=
- =?utf-8?B?M1UwbDNwWjc2QklSOENHUFo0R2J5MWZCaUVVN0pOOE5wbmtJOFZGdysrb0tC?=
- =?utf-8?B?Y1NiSlN1S3ZEN0YyN2lnSjNzR01ROFUwVUdnYXFPYlpaa2FQWkQ1SkFiOVdJ?=
- =?utf-8?B?ek04NHcySm9oT0w1dW8wZWtXRTA0Qy8zN1hrSXlySmkxRkhlYlZUWVdWeXJw?=
- =?utf-8?B?NW1vWXgzQXNkaFVER1R1MHBiTDlWSnRBcktVU0NSejFRZThXR2poMFFHd0Zk?=
- =?utf-8?B?bnhuYXVHRll3VGllcURUZStIN0R2N0dyTFFJaWpFVzV5M1JlaWQvb09EQTFr?=
- =?utf-8?B?OUJYazZMWE1pQnV2b0VwWXFZNHBUWXRLeGdRcTRReit6ZnAxZXdxSVc4UmFS?=
- =?utf-8?B?eFR1Qmhmb3MwV3FNSEgwV3IzSHFjOU1ZcGFwV0duanRSVElscDlIQU9iTzN6?=
- =?utf-8?B?RUVDM2hYcFV6ckErWXY4NkZuN3VLZDZOcU11NEE4ejR3OFhjak9MbURFcnBX?=
- =?utf-8?B?cmxkRElrM1R3SmNJR2J2OVZlK2tMQlQzSkVPdi90MlFsTnRUd3IrTk43Y2py?=
- =?utf-8?B?cXhEclBycEl1cE4zZ0VnQmdBTWpXM0lQNXMvc1NPKzZzNDdmY0JlQ0hSbUs1?=
- =?utf-8?Q?iA+hIfXpLiQC6KWZpS+0tv+Ia?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3cbb6180-9705-4dfd-1afa-08dd58105bda
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2025 15:55:44.2171 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XfGvQzVffwPIoCcs+CMOT978hTpgbIP2CzeuQ6+A9oAxB1fQo0496S7wUoj+S0+HDAiFQ491r0uJzM5G+qmA/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4056
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeltdekiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvfhfhjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeetueetjedtudegtdeftdevtedtgeehhefftdejheduvdfhlefhveekheethfffueenucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghdpkhgvrhhnvghlrdhorhhgpdgsohhothhlihhnrdgtohhmnecukfhppedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhedphhgvlhhopeglkffrggeimedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhegnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudefpdhrtghpthhtohepghhrvghgkhhhsehlihhnu
+ higfhhouhhnuggrthhiohhnrdhorhhgpdhrtghpthhtohepjhhimhdrtghrohhmihgvsehgmhgrihhlrdgtohhmpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtohepjhgsrghrohhnsegrkhgrmhgrihdrtghomhdprhgtphhtthhopehukhgrshiisgestghhrhhomhhiuhhmrdhorhhgpdhrtghpthhtohepihhnthgvlhdqghhfgidqthhrhigsohhtsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,39 +124,128 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2025-02-25 05:05, Louis Chauvet wrote:
-> 
-> 
-> Le 20/12/2024 à 05:33, Alex Hung a écrit :
->> From: Harry Wentland <harry.wentland@amd.com>
+Le 20/02/2025 à 10:45, Simona Vetter a écrit :
+> On Thu, Feb 20, 2025 at 09:31:41AM +0100, Greg KH wrote:
+>> On Fri, Jan 24, 2025 at 11:45:14PM -0700, Jim Cromie wrote:
+>>> This series fixes dynamic-debug's support for DRM debug-categories.
+>>> Classmaps-v1 evaded full review, and got committed in 2 chunks:
+>>>
+>>>    b7b4eebdba7b..6ea3bf466ac6	# core dyndbg changes
+>>>    0406faf25fb1..ee7d633f2dfb	# drm adoption
+>>>
+>>> DRM-CI found a regression during init with drm.debug=<initval>; the
+>>> static-keys under the drm-dbgs in drm.ko got enabled, but those in
+>>> drivers & helpers did not.
+>>>
+>>> Root Problem:
+>>>
+>>> DECLARE_DYNDBG_CLASSMAP violated a K&R rule "define once, refer
+>>> afterwards".  Replace it with DYNDBG_CLASSMAP_DEFINE (invoked once in
+>>> drm-core) and DYNDBG_CLASSMAP_USE (invoked repeatedly, in drivers &
+>>> helpers).
+>>>
+>>> _DEFINE exports the classmap it creates (in drm.ko), other modules
+>>> _USE the classmap.  The _USE adds a record ref'g the _DEFINEd (&
+>>> exported) classmap, in a 2nd __dyndbg_class_users section.
+>>>
+>>> So now at modprobe, dyndbg scans the new section after the 1st
+>>> __dyndbg_class_maps section, follows the linkage to the _DEFINEr
+>>> module, finds the (optional) kernel-param controlling the classmap,
+>>> examines its drm.debug=<initval>, and applies it to the module being
+>>> initialized.
+>>>
+>>> To recapitulate the multi-module problem wo DRM involvement, Add:
+>>>
+>>> A. tools/testing/selftests/dynamic_debug/*
+>>>
+>>> This alters pr_debugs in the test-modules, counts the results and
+>>> checks them against expectations.  It uses this formula to test most
+>>> of the control grammar, including the new class keyword.
+>>>
+>>> B. test_dynamic_debug_submod.ko
+>>>
+>>> This alters the test-module to build both parent & _submod ko's, with
+>>> _DEFINE and _USE inside #if/#else blocks.  This recap's DRM's 2 module
+>>> failure scenario, allowing A to exersize several cases.
+>>>
+>>> The #if/#else puts the 2 macro uses together for clarity, and gives
+>>> the 2 modules identical sets of debugs.
+>>>
+>>> Recent DRM-CI tests are here:
+>>>    https://patchwork.freedesktop.org/series/139147/
+>>>
+>>> Previous rev:
+>>>    https://lore.kernel.org/lkml/20240716185806.1572048-1-jim.cromie@gmail.com/
+>>>
+>>> Noteworthy Additions:
+>>>
+>>> 1- drop class "protection" special case, per JBaron's preference.
+>>>     only current use is marked BROKEN so nobody to affect.
+>>>     now framed as policy-choice:
+>>>     #define ddebug_client_module_protects_classes() false
+>>>     subsystems wanting protection can change this.
+>>>
+>>> 2- compile-time arg-tests in DYNDBG_CLASSMAP_DEFINE
+>>>     implement several required constraints, and fail obviously.
+>>>
+>>> 3- modprobe time check of conflicting class-id reservations
+>>>     only affects 2+classmaps users.
+>>>     compile-time solution not apparent.
+>>>
+>>> 4- dyndbg can now cause modprobe to fail.
+>>>     needed to catch 3.
+>>>     maybe some loose ends here on failure.
+>>>
+>>> 5- refactor & rename ddebug_attach_*module_classes
+>>>     reduce repetetive boilerplate on 2 types: maps, users.
+>>>     rework mostly brought forward in patchset to reduce churn
+>>>     TBD: maybe squash more.
+>>>
+>>> Several recent trybot submissions (against drm-tip) have been passing
+>>> CI.BAT, and failing one or few CI.IGT tests randomly; re-tests do not
+>>> reliably repeat the failures.
+>>>
+>>> its also at github.com:jimc/linux.git
+>>>    dd-fix-9[st]-ontip  &  dd-fix-9-13
+>>>
+>>> Ive been running it on my desktop w/o issues.
+>>>
+>>> The drivers/gpu/drm patches are RFC, I think there might be a single
+>>> place to call DRM_CLASSMAP_USE(drm_dedbug_classes) to replace the
+>>> sprinkling of _USEs in drivers and helpers.  IIRC, I tried adding a
+>>> _DEFINE into drm_drv.c, that didn't do it, so I punted for now.
+>>>
+>>> I think the dyndbg core additions are ready for review and merging
+>>> into a (next-next) test/integration tree.
 >>
->> @@ -249,6 +255,20 @@ void drm_atomic_state_default_clear(struct 
->> drm_atomic_state *state)
->>           state->planes[i].new_state = NULL;
->>       }
->> +    for (i = 0; i < config->num_colorop; i++) {
->> +        struct drm_colorop *colorop = state->colorops[i].ptr;
->> +
->> +        if (!colorop)
->> +            continue;
->> +
->> +        drm_colorop_atomic_destroy_state(colorop,
->> +                         state->colorops[i].state);
->> +        state->colorops[i].ptr = NULL;
->> +        state->colorops[i].state = NULL;
+>> So whose tree should this go through?
 > 
-> There is no risk of use-after-free between the 
-> drm_colorop_atomic_destroy_state and the state->colorops[i].state?
+> I'm trying to get some drm folks to review/test this, but thus far not
+> much success :-/ I think it's good stuff, but I'm somewhat hesitant if no
+
+I tested the VKMS driver with this, and it works!
+
+Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
+
+> one else agrees that it's useful for CI or in-field crash-recording or
+> whatever ...
+> 
+> I guess worst case we can land it and hope it attracts more folks?
+> 
+> Wrt tree I don't care, but I guess we should then also land the drm side
+> too.
+> -Sima
+> 
+>> And I think the last patch in this series isn't correct, it looks like a
+>> 000 email somehow.
+>>
+>> thanks,
+>>
+>> greg k-h
 > 
 
-This is using the same pattern as all the other DRM objects in this
-function. If this was a problem it would've been a problem before this
-change.
+-- 
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-I don't claim to fully understand the calling code but this is called
-from __drm_atomic_state_free and to backoff when an -EDEADLK occurs.
-In the latter case it's followed by drm_modeset_backoff which releases
-locks in drm_modeset_drop_locks. This seems to indicate that callers
-hold the respective locks to protect the state.
-
-Harry
