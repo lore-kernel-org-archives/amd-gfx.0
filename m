@@ -4,124 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8076C282D1
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 13:51:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02DD2C282CD
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 13:58:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC1610E412;
-	Mon,  3 Mar 2025 13:51:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC0410E423;
+	Mon,  3 Mar 2025 13:58:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rEMU43Ow";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="gzCsLIq5";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC6110E40F
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Mar 2025 13:51:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X76Wy3qQN1mxC7F0UYonDo/2oNSaamf8R3R8Ej0tfk7oYwL7BGNet4AtP8Bn3pa/Nvrh65DBoQoOoYBIz7fm29USGt7xKapAEABNzYU4pYMirU+mbf7zGYwuJqM+FxXTm4j+0aPJgh64XYz/xgN0Np0cLyngP3Q+dEsUK6fsDQmsuoAMamMWcCjztE/2SNqrDzUtoay8ueDXNYWKnEWw/iXa+BzDb1X8G+dG19CMVRcIooaIFw62lZWZZCQyabuyxOWXEekz1rq6g2wFGf1/lafkPwtXuogzNmB9Ys4OMhmjjO6QxpCR3tPFobuNaqPv46nUuYC8N85l7o71yh+Vig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YkvaVNRtDvszyOUYw3DCJJXDbxk7ipFZSR2rBFxifrk=;
- b=LZuzvu2j0tMQ3p0Asi9MIGUDnaWn04/7y1Fr3di19PxmnpbB+eftxdlrFmUlq3DawFBIDo9R99GWZlpl9pJZOcMCRx1BjtgZfBnwWijswMAZdSu8GVuVQuJICb7oOElYp1S8BNs0c8SaHeHVDnZvXAqP6seAKHVohLGGIO/yh2YHKt1uGy9c0dgqErpxcgKmPzQIrzQzqBrogpCUpLccQE5oFqtnamCa1PZKJ3ZomXC8Mg4RrS6s80UAkyH0SBWa1srtSFWkPxtNmbqCIglJWa7K6kjmd06MH3vpna5vSaENF0kDpWN+NlLELscmxWBXQz/HmpMbGhb5pKF9fXA7mA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YkvaVNRtDvszyOUYw3DCJJXDbxk7ipFZSR2rBFxifrk=;
- b=rEMU43Ow60/NSp5CYIuyGFPR/QKYlyPnJSDwp/eHfKntELl/0z8EEJwR2HU2KHyxo5eZiz1HSUYxsLqozyiSreYsDIQxmkishgOQuqxmV4rrfl8TIfPnzXnLQTsOpUDBZxPy0TDsr4mTYaU9eCqHx5R5w40fyi10U0TDl6JKK7c=
-Received: from BN9PR03CA0072.namprd03.prod.outlook.com (2603:10b6:408:fc::17)
- by CY8PR12MB8298.namprd12.prod.outlook.com (2603:10b6:930:7c::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.25; Mon, 3 Mar
- 2025 13:51:00 +0000
-Received: from BN2PEPF000055E0.namprd21.prod.outlook.com
- (2603:10b6:408:fc:cafe::d6) by BN9PR03CA0072.outlook.office365.com
- (2603:10b6:408:fc::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.28 via Frontend Transport; Mon,
- 3 Mar 2025 13:51:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000055E0.mail.protection.outlook.com (10.167.245.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.4 via Frontend Transport; Mon, 3 Mar 2025 13:51:00 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 3 Mar
- 2025 07:50:59 -0600
-Received: from aaurabin-cachy.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 3 Mar 2025 07:50:59 -0600
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alex.hung@amd.com>,
- <aurabindo.pillai@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amd/display: use drm_* instead of DRM_ in
- apply_edid_quirks()
-Date: Mon, 3 Mar 2025 08:50:51 -0500
-Message-ID: <20250303135051.1177406-2-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250303135051.1177406-1-aurabindo.pillai@amd.com>
-References: <20250303135051.1177406-1-aurabindo.pillai@amd.com>
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD7510ECB9;
+ Fri, 28 Feb 2025 17:49:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1740764953; x=1741369753; i=natalie.vock@gmx.de;
+ bh=TysCmGGP5Rt/4MMj9mBlLj3WIXNFtvvwb0fijWQQBEs=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=gzCsLIq5mLpcIiVtJIo9uJa0WDhblgB+5wiIy3xTh/0vsJ3I/RSt+zyaYn/++IUU
+ VqzIYI0e6nkqtioBiHP4Svt4TDsr6AJXhZaAr0JgjSEt6IZ2fB0aXvrByS8HYcFeo
+ bDo/i8NKbsYhEr+E8cfj0O+uYmjL1iNxHgVIQvG347P01zXaeyny003e+nHjNBpF/
+ krEE6HcwQSD4zsExoJ0J8ZE7Qj/GgHo0xNnlrmCl7K1K/EyxmloMu42eo1m49iHlb
+ Zvz2cEarSE4/smBnOp67Oy84YBNZZc17FVle5EqXqhEGPL/a4z/hA3QmlZkcZ4esW
+ JQYnGiHF0mw+KkrH9A==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.0.3] ([109.91.201.165]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MRTRH-1tbbdU07oT-00U8Ps; Fri, 28
+ Feb 2025 18:49:13 +0100
+Message-ID: <642022b6-ba71-407c-99d0-fffb58df2be7@gmx.de>
+Date: Fri, 28 Feb 2025 18:49:12 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055E0:EE_|CY8PR12MB8298:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ae52d2d-895e-4ed0-79ea-08dd5a5a6e5f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?t2chRvj/qi124bxTNYF7obkxIY6pSB3i/voptfByJWCOwzQYTlu4adakNWKH?=
- =?us-ascii?Q?XnLIbbl7q4GaYCLyoi0sAMTmCBW1HNZRV8viA6Om21xQFaoTyDAi+wsd35CL?=
- =?us-ascii?Q?3TxO2TeWykZwR2bMWpRBb+onLcJYTnZ+pOdea0mwI+dlsVw68E6gO4gzepe8?=
- =?us-ascii?Q?T4hWM7hJmz1BWnuKJMIuNf51kRa90SaYDgnPUWrJMWmYKDGYYQHdCvhDwkQn?=
- =?us-ascii?Q?+dwj31IzAhs4V+tfsoEs399a3X370Fkp+v07QgTrO4SV5FEmYrzpbR7bm6C2?=
- =?us-ascii?Q?pJ54XeVgLPQKPgNBvyM0TFoIE6lCpFZ24oqEun40mga6uFavROu15pSeGemt?=
- =?us-ascii?Q?8nM+V6Fd2y41DsmbjGJs6v4iq4YgVYs142WoMqdplr9hC0ydO7d/ev1DkJEi?=
- =?us-ascii?Q?CzlXnmBSwBSJxIwKx7TobOcrcUvo5Ts80G4gfeVY13nQjBTwR0tWsJ8PTSst?=
- =?us-ascii?Q?my8/mWXcZiXDqf0PKJsl+znls11Bif5HzMToFdPB42nJmishf1iOEb4tfk2U?=
- =?us-ascii?Q?ZnGuUFPaHMp6M6Go/DKAI5CSsakTR+C3fnHIK+XYyqhsKm20vQs+0TUPqoCU?=
- =?us-ascii?Q?yQTzYJ4o1tN5jiSinV4kgU0rKyAsBRSHMH4Y6XejDa+/Sx/nRdbhweNZjkgn?=
- =?us-ascii?Q?txGYg1junF3W5dk72WeBqIHM5jdhWFjqCnI6TJyEJB4JbQhNQRgUkaIEMGd0?=
- =?us-ascii?Q?5+Ph0e8w68gUeClVMVKIL+7l8j15x8xCiovhR5oCbCYnvyARqFtw4MXr6lEk?=
- =?us-ascii?Q?fb9JKZQ4nSsiLD3oSeUuLaS13F14oqBaou0bFywhqnmFSuuFu37ZpC4eOzE9?=
- =?us-ascii?Q?znvfHpwIlBbw9QF6gsQMpsVVVwUOReaBb+2B33UpgOD9TUW7LUf+7kpXjFRz?=
- =?us-ascii?Q?VuxjKLY7IKZifyPeAboBmTc7NkjzED5BtwGpyad/Ctl/NP6ns+bERGjvZfYi?=
- =?us-ascii?Q?LMBFk9fFtRzZRj/hdlUU7IbEFkcRz6SoUW0ig/fIHcaYuiFI50d9MAipqqVV?=
- =?us-ascii?Q?p0RORsyVhWoryw22tLaATrYXd4EYlr83y12yFU3wSh1qq/EEvQz3SJeTcOyQ?=
- =?us-ascii?Q?kzJgdn3TMYlxza+TER0kfgIAD0lDGL1jCcuqoJ3pa6LIWx/jQJ6kf3Ivfsb+?=
- =?us-ascii?Q?KkcfxWwE+IpexVe6JfOZlboY9dsqrRQeoeAeXuLfSGATAJJH2L9aK7yrfmBC?=
- =?us-ascii?Q?UFQAuMAP6L2Eq4KlX4Wf11Awape5NOI2eincpugPHMShAK7y7QhFwxXSK5q/?=
- =?us-ascii?Q?9aIId2jTDS38PuUfPhFf/Age9/4ie+8mhffqW0fE+BPBTZ36D51unjOgofz6?=
- =?us-ascii?Q?vULtN7KDcSS+aOGDqJ+MW/9evx2xiR7B55lPMRsb1MwbG7OYCiPTLdQakF1e?=
- =?us-ascii?Q?uqIrjq3IQ/hck/nIIymgClWNVVgpDFsqh472BNB+qdpGVReQlkVXaKb3hi5I?=
- =?us-ascii?Q?9Pdk5So1c5Sh+qnQUtiMR4kz4LKJXmyeATZ+isxpJkIATPgiReT0Dl6RvDUz?=
- =?us-ascii?Q?6iN9jUN26psjXUk=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2025 13:51:00.1317 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ae52d2d-895e-4ed0-79ea-08dd5a5a6e5f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055E0.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8298
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/radeon: Simplify maximum determination in
+ radeon_uvd_calc_upll_dividers()
+To: Markus Elfring <Markus.Elfring@web.de>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
+ Qasim Ijaz <qasdev00@gmail.com>
+References: <225be170-472d-40c1-95ed-71b452740ae7@web.de>
+Content-Language: en-US
+From: Natalie Vock <natalie.vock@gmx.de>
+In-Reply-To: <225be170-472d-40c1-95ed-71b452740ae7@web.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:pfjZqJ9EAd9/+f5S1bPNi20hb76HzRttQuCU8sST9HqzSn3C5EQ
+ YEs7SXMxt0jTQWTKzWgcvwRstllrbmjOkBTRP9r0411JXNu3ZiQDzbMwLFF1Ztaibu0bNh7
+ CvIOpWCvo9N/Ac7iGI1c1ITI6zHbPGQLoLE8hizfh2Xd3/zqizzTeXD8CIxbkwvUU0gIepP
+ nvS8WyRp4QRl+dup8enkA==
+UI-OutboundReport: notjunk:1;M01:P0:Uc1rwjwZJ8A=;tsNj3Qj3va+BSO8M3orHrkhF7lM
+ 0gQ4cbk7A6tp5MK6F8nZFkC5ilAnJgcuIcEetDyHMKbQKSZyMFRYy7CU0lA+0Q65TlR8PtbLF
+ 84QHor1XOL27bglb1DoJDSPKqKSnj1fcMjsqbS7cAZv3W6oXbgX1DobiCTc4jc1Oha0vv1yxs
+ 9fPgqUy5UBxge7s//45E9BabSCMMq1y3w33g9fCm/uTfAxdKkxCUvIGP16IL0INy8mE12V/8h
+ TumUxqf3B6xt6ICw+8SFMZxvcNlas6PaF3CnjU1Rr3TfyVdkGSc+pngGEfOjFgagaSiLbU8wz
+ Nzq3aJwk3tVaxEfqyK7C3TUA6nwSrzlfuaAuat8Z5sEkGMtrCaEiYz6Ft4PyCUqK3l4fFiBIO
+ 2cmaOl45duPyx73r1caEFe45cZBJXweQ1N0cqoetP/TpwST3oKi4bXOTqfX0QAXFAgJACvfru
+ GcAXR/Vn03+JybR0Ie08aDIiJ+2SutWtOnqY0Rc1WmOi4IqzzwbKsMMmRwc1ctHMd5p+fycc9
+ nT5LAvzyy12iTydnS5O3FE3NIiwTPU6TM4Gv8yiYRwdFEGmxW6KX2xdVRu+qVln6mF14jctOt
+ Q+LOLHHSqqZhLHFSCnMkP/lGTG+8b5qYZKarKgpDhXIjr6xwLj1bSOkz8qCpkAV5TNCjhhVBK
+ kyFHsGW7xzLsKtiMKf8C+KexbXWP9PZ4XPSq2ycJ89K51xbRnse7bmnC5QkZmzljZcZIJIVXh
+ aFZwwDsJ7Z6zegPWJdEJUUU8jLFnvHKCReQ6QjGHORUzFSIrdhcSJk6DlK6JFQYJ8Am0KLAo7
+ x5/dSdyvMS1NY0pV+/cjPPd6ggWHUw3IU3CHkmZ9ywimEA6ediLmnkZ18e//zkpR9eQgbxiBC
+ AEtyTCoVnZeyXVRqMl/cHRTy2jnvTexBYhrvlcZY7/9SuIv9IeL14SvdQ4o+4xvG0iGQwFWag
+ 949zE1NzkhDwIxA8xmRVjM/gxVmM/u0QdOTwDa96kSnOE5m9wY5g0EkCF50JFChHqbcWdF5GB
+ aoKv8EtHS9J4IYzKRJ2SNgg5YDP4Arn4TSU5vV0VaL7e4Ojtt5FVAcaXjawiE14DmfzXZ6BOU
+ ASOm4hGix7foCrQh+lSs28PWLsqtNDRG73kxc6tPPDjX4DhFSik3Xmhp13nhpn8c1WiyYKOAJ
+ Iay3QoS9vkCUdfyKkz+RmdzOScAscclgyGAGociNcsjA4zvOJZziitlPOL7fuik8Z+DVnGntY
+ Y0WxNre7gb5KOLJdFbic7jRTI4t0Hh3vhPjyuisEFsa5Qc/iM89Zs24T1cuE/mRO5h3gZufot
+ 2UhKTL7FxnaWbTJBPOaSMKzI3wQEoH0KfYRNXYJ/uPB7YUtKXeu4pktrBl2Uk6WvUJOvRrq89
+ Xi9MQN1czbTSKqSXpLfAra/i1SWrTyqxtI8ba1LELYBKlEk9kgd5ONsLWp
+X-Mailman-Approved-At: Mon, 03 Mar 2025 13:58:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,42 +91,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_* macros are more helpful that DRM_* macros since the former
-indicates the associated DRM device that prints the error, which maybe
-helpful when debugging.
+On 28.02.25 17:36, Markus Elfring wrote:
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Fri, 28 Feb 2025 17:32:45 +0100
+>
+> Replace nested max() calls by single max3() call in this
+> function implementation.
+>
+> This issue was transformed by using the Coccinelle software.
 
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+How about something like "this change was made" or "this code was
+transformed"? Coccinelle didn't transform the issue, it transformed the
+code to solve the issue.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 253aac93e3d8..2cd35392e2da 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -69,7 +69,7 @@ static void apply_edid_quirks(struct drm_device *dev, struct edid *edid, struct
- 	case drm_edid_encode_panel_id('S', 'A', 'M', 0x0E5E):
- 	case drm_edid_encode_panel_id('S', 'A', 'M', 0x7053):
- 	case drm_edid_encode_panel_id('S', 'A', 'M', 0x71AC):
--		DRM_DEBUG_DRIVER("Disabling FAMS on monitor with panel id %X\n", panel_id);
-+		drm_dbg_driver(dev, "Disabling FAMS on monitor with panel id %X\n", panel_id);
- 		edid_caps->panel_patch.disable_fams = true;
- 		break;
- 	/* Workaround for some monitors that do not clear DPCD 0x317 if FreeSync is unsupported */
-@@ -78,11 +78,11 @@ static void apply_edid_quirks(struct drm_device *dev, struct edid *edid, struct
- 	case drm_edid_encode_panel_id('B', 'O', 'E', 0x092A):
- 	case drm_edid_encode_panel_id('L', 'G', 'D', 0x06D1):
- 	case drm_edid_encode_panel_id('M', 'S', 'F', 0x1003):
--		DRM_DEBUG_DRIVER("Clearing DPCD 0x317 on monitor with panel id %X\n", panel_id);
-+		drm_dbg_driver(dev, "Clearing DPCD 0x317 on monitor with panel id %X\n", panel_id);
- 		edid_caps->panel_patch.remove_sink_ext_caps = true;
- 		break;
- 	case drm_edid_encode_panel_id('S', 'D', 'C', 0x4154):
--		DRM_DEBUG_DRIVER("Disabling VSC on monitor with panel id %X\n", panel_id);
-+		drm_dbg_driver(dev, "Disabling VSC on monitor with panel id %X\n", panel_id);
- 		edid_caps->panel_patch.disable_colorimetry = true;
- 		break;
- 	default:
--- 
-2.48.1
+Cheers,
+Natalie
+
+>
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+> ---
+>   drivers/gpu/drm/radeon/radeon_uvd.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeo=
+n/radeon_uvd.c
+> index 058a1c8451b2..ded5747a58d1 100644
+> --- a/drivers/gpu/drm/radeon/radeon_uvd.c
+> +++ b/drivers/gpu/drm/radeon/radeon_uvd.c
+> @@ -961,7 +961,7 @@ int radeon_uvd_calc_upll_dividers(struct radeon_devi=
+ce *rdev,
+>   	unsigned optimal_score =3D ~0;
+>
+>   	/* loop through vco from low to high */
+> -	vco_min =3D max(max(vco_min, vclk), dclk);
+> +	vco_min =3D max3(vco_min, vclk, dclk);
+>   	for (vco_freq =3D vco_min; vco_freq <=3D vco_max; vco_freq +=3D 100) =
+{
+>
+>   		uint64_t fb_div =3D (uint64_t)vco_freq * fb_factor;
+> --
+> 2.48.1
+>
 
