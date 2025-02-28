@@ -4,73 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72E29C19776
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 14:32:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C7C6C19776
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 14:51:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CC3810ECCC;
-	Fri, 28 Feb 2025 14:32:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C15010E008;
+	Fri, 28 Feb 2025 14:51:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TCcCFncC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1DVcJMz3";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DB1210ECC7
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 14:32:19 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-2f74e6c6cbcso586498a91.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 06:32:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740753139; x=1741357939; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SxqZPp3MWbB/20sL7gQy1tqy1o2CBUkEtG2KGbDiY08=;
- b=TCcCFncCREE4SfuT2eI2mI/8WVX5jYr+fgcIDJcdcplDpnohNL/SNf7AeEODr4eWXm
- Ww7VjPTmMChZoOWNk8pDvyXFKdhToWniCALBrkHWLXeQWBQFCbg2K6XOlRGtBR0VOkkb
- VX/6bhdmN3UjlGtEoeLyPHwDj0BG5vJ7FQ5aZawxmZ4XgPlAfi0JWSzOukYG2AZLKdNP
- c2oCpsbU0S1UgX4wldnHu2S8u/uE5LRfu4PjyQhnr0sBtNR7vtxALeU0SO2hMLPAUG0f
- 8afCW2pTIP45GoqloDFN1RZ5D/l9ejJAX6xbpiFTe34wxBvk+HpY+4Iqvgm7/Nub8xnV
- hheQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740753139; x=1741357939;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SxqZPp3MWbB/20sL7gQy1tqy1o2CBUkEtG2KGbDiY08=;
- b=A6Bd4bFqPkQcrbnudcEfhU0BwjrkPlN7ibppDLo4ifSUE1zW36/9RXPvZ2MqK4BgMN
- X+7s7myoxLRJrwNga22yllk2IOjnqk6PlrYl9+gqxkEa6rX2fCoZ+PXQ4NqQgoJ250mD
- UV9H2tJMZwnXyDVntogCxrni5ltSFpmN1l0Vn5TTNGCAf7lizjuKikDVCgIwD1P/hZaz
- TicJ0p00XNJXvS72bIX582qAk3iuVlFeDn4I76gMUYtz3ht838/CXjcZj9mD2kYLrlc5
- nMskI16G9hl8m2sAjm2FKQmEdeodtybTGggyq92isHl0SXl0GgjtxsBe1dNJM4h2RtR5
- S/9Q==
-X-Gm-Message-State: AOJu0YyrB/b99gfonORqAO8tUqFFdqEEW+hCxfe0YiNIR26HoB+6gpAd
- zhpdVk3yF1r4mq+6yTc6DBh/9SdQ5IIcY0SM0oYq77NZV/MJgvnktytqmRy7XH5bIlgQ2YiQUWz
- D+ACVBfHlO5foioBvXs1K7SmHxZ8nLA==
-X-Gm-Gg: ASbGnctQNmAQp9nrefmr+g+EreWv6HNenX0aq0CHSLgPQoBKUktNZjbWOmk7NhknYo/
- RYgu2h4QRl5eeJpduRZ3kSiOTxnZq0HU6IErfDPn03brCA177cBPd24sNpjtm7VbxrpS7ENLDc8
- v8sA74Xg8=
-X-Google-Smtp-Source: AGHT+IEOqOnctGeStGiJZHT84zyC6ESOZQTiBNulZOzaB7vczqMXQ1DJEENU87R81e+jGpU0c9OYCRxge4NCNN6SRzw=
-X-Received: by 2002:a17:90b:1805:b0:2ee:acea:9ec4 with SMTP id
- 98e67ed59e1d1-2febabdc1cbmr2234342a91.3.1740753138709; Fri, 28 Feb 2025
- 06:32:18 -0800 (PST)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2070.outbound.protection.outlook.com [40.107.102.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBA510E008
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 14:50:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kAWavwJOZxSqfyTsPjXgTONGEWgXTZvU0NgcorQOdAa7p3yNjaaSH8Gb2D5L3Hr9IcEsCcP9e3uc12ivr4vGCfyl6h8bfOYdGN8NU2gZvSAwL5CRYa5eENyvFyr4iBMNOroSwUyDLeGmTks3BOtBkeihzxbfgntGNuURRQzaM61KcH2dAbxeO//drkmNKsWHDk8oi+bHDOK3XM574FhRWWT7xBWPDQNnWReNhq9BV6r4iyLUvaZaAGt2PAg9q88A4fyVAGnObx29sDF6BClS2Tc9EOh+cAjakvmWrpdL6QAJ5kU2LeSpaMajdECFN5wAWd4te49iwHdg40oQrcemiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SnpYeslVlZgFzfc3zzhnOnzyxJ2V/BgBd8oaloDFiBI=;
+ b=JUP5hEUyoNk9U7amd2AfM0eXGHaE4Fh+hgMVGVWUncgL7NUsyRhzYspGtgNyTmZXlAc6J9Gi+ZdlRBBaZn1/ikOd0g7MLTlC8FuXSwbiBIyD54TRcIHpBCzOcTn/xxyzWT6Te22P3g4HYQvmlcPHrYoo5UVpw7U4DocgQ9g/Wno7jHcMCJcYsqlBw8ZzTJ7iNsnLYtxVCD3bEpQxSUblrO83WS1G/vTrHuxBghhCRHVdrt2+fe92X9vxTOIZ7DkChC7R1YkiHHo+5xV+QL+8W0BZhDpOW1W58hRRxR4wSgliQ/zu9RGHZoK5HPOh0lWOqQYba8KCzeSiMbVd70nMAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SnpYeslVlZgFzfc3zzhnOnzyxJ2V/BgBd8oaloDFiBI=;
+ b=1DVcJMz3JKPbwnk41HLVwojytgjR5kp/IR8JbhZVo6DJO6ZB1ku4oXarRJUP/vDKm5UOQCif9aSjK7vxgvN9LsTmYwhUJa9IjqoBxFZyMNyt7laJm0RuCmX8anQ8U6bQ0SZd9Co/QZC9P1bUxe+K5COSs+GFJ3Q+rckU3kdOAhs=
+Received: from BL0PR0102CA0062.prod.exchangelabs.com (2603:10b6:208:25::39) by
+ CH3PR12MB9316.namprd12.prod.outlook.com (2603:10b6:610:1ce::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Fri, 28 Feb
+ 2025 14:50:52 +0000
+Received: from BL02EPF0001A102.namprd05.prod.outlook.com
+ (2603:10b6:208:25:cafe::4) by BL0PR0102CA0062.outlook.office365.com
+ (2603:10b6:208:25::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.22 via Frontend Transport; Fri,
+ 28 Feb 2025 14:50:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A102.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8489.16 via Frontend Transport; Fri, 28 Feb 2025 14:50:50 +0000
+Received: from work.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 28 Feb
+ 2025 08:50:49 -0600
+From: David Rosca <david.rosca@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Rosca <david.rosca@amd.com>
+Subject: [PATCH v2 1/4] drm/amdgpu: Fix MPEG2,
+ MPEG4 and VC1 video caps max size
+Date: Fri, 28 Feb 2025 15:48:30 +0100
+Message-ID: <20250228144832.50699-2-david.rosca@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
- <20250227052241.171102-3-alexandre.f.demers@gmail.com>
- <CADnq5_NkXjnE9ymMxNyoQObB3=PHw5Ed+pYihu_ssCH8d8M6yw@mail.gmail.com>
- <CAPEhTTFDMQwoWjk18LE98MkdMd9skzykf3QTQeF=E6JrPf17eg@mail.gmail.com>
- <CADnq5_PRCvX=PV-jzmQqesxXz2UDOUBJGc4DrzOSaNOcyDvTeg@mail.gmail.com>
- <CADnq5_OUfPPdmoZCPs=c9X5GRor4iy_ThTReWxaRNUBYe8gK6Q@mail.gmail.com>
- <CAPEhTTHRXVyqi8i7-Di_Xwo5q1c=T=vSJJZKuNxA8Hd0Rnh-rw@mail.gmail.com>
-In-Reply-To: <CAPEhTTHRXVyqi8i7-Di_Xwo5q1c=T=vSJJZKuNxA8Hd0Rnh-rw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Feb 2025 09:32:07 -0500
-X-Gm-Features: AQ5f1Jqg69SXFeud62tBBnGUMrDJaUQXJKBkk0cu3i_kdGhipiNQt1hiYgfljjs
-Message-ID: <CADnq5_M=Q9FhU5MiJxGzM3M85_9d+5kvTy7yKE7G=_wj+1NfnA@mail.gmail.com>
-Subject: Re: [PATCH 2/6] drm/amdgpu: add dce_v6_0_soft_reset() to DCE6
-To: Alexandre Demers <alexandre.f.demers@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A102:EE_|CH3PR12MB9316:EE_
+X-MS-Office365-Filtering-Correlation-Id: c62d7ebb-f611-4d54-bf12-08dd58074b32
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?RamIvPsZEpUsnHFnFZ0obH75LJNawYrovGbQB/JXFm22jMshpQLOD60fBzxr?=
+ =?us-ascii?Q?ovrhxMGjUr2XGecmS4JA6peaAaYU/C0YUNiUgEOq7wFwMqbWwHFFJXZAz5WS?=
+ =?us-ascii?Q?SYx41xEJmKvKxl58EhYqEYXR03yi1zG3PuinyjldtHy8+Kh5eKVZF6nzN6an?=
+ =?us-ascii?Q?w1Tn2KfhPLzG5YGmdiwenpZQHoo6NyXAj0MK5CPvVOpZE4GE6/C/xetmS2re?=
+ =?us-ascii?Q?UNwq/YXFAiHyLeDlPsHE9slWk6r+KwacMG+Ul3q7iTvSsV9lQOPvRPZFPE/V?=
+ =?us-ascii?Q?fVJMaUzULUun0EkS2m+xq+kpfVzKcBc7q8omUAOOERp4sufMuyOVbycjMsKI?=
+ =?us-ascii?Q?l6x+CfSstATU7P/VwIatwsWsv+TtxP2uEhB66B36N70Zwzu8RXAl4+qZm3x4?=
+ =?us-ascii?Q?AvvFx0SWwwWrpnZQoE1FIVP71+wxnaQKNa6pFwjcYRN2UsElDVcMhnbglvVI?=
+ =?us-ascii?Q?gaZfOt7YMruPXA8q7q7ZZrVWUGJgstJlBJtN3Ob9Dsmu8goOOcdq6EESFK2b?=
+ =?us-ascii?Q?4au/s1F8DOYZwx5xS2qkiesfM5eMGAuam+v2PGdcgv/yObyL3cD8+TrgvavQ?=
+ =?us-ascii?Q?yJ1XSxxSSeyzRU9rItpTgn4SYuo1zjIaUDtBIvhnXmaeMv8s4xWDhDX43cTT?=
+ =?us-ascii?Q?ghaGSgn3gxOQOeBfdy/GKNqYlsgAbTERuq4TAUD2yCDWf+65+xL1SLCv9jXo?=
+ =?us-ascii?Q?P8cQynT48mZRwZ4zaoGkT/mw3fZ8QylqHcGriYwKNt/GgMinVQpUOnjGvRg+?=
+ =?us-ascii?Q?nTLauvq/0avmxpwvBobszSPqH8WgvNx5eA3mwum1/45pZzUgetZ1xk0Kl7wz?=
+ =?us-ascii?Q?/fH4/cDNdE/5L+cJysJquTgbGoe62iAkYetu7miOvtdcZtylL8Cpx43fipv2?=
+ =?us-ascii?Q?dyKM6SFwnoQU8fiK7F0C5ahhH/M2RZBYTJZD7nM2TpV4qnq8HPzuNPu0PGYU?=
+ =?us-ascii?Q?pv6Ro4Nmsl55lUWpTVteSyXX1UgsD+fcX9b8BucxI7qLDU8Kzs3hVQY+NdsK?=
+ =?us-ascii?Q?7RrVQ0Z0QDC0Ci5WOJXcDUy7klobWM6pdMXCTddeVNf12r0M3IOPK6/iHx7+?=
+ =?us-ascii?Q?V2eNB5cgHGXydL7MQ7CIqYegaUfV8gEVBvgpy6+vaGRnWzYqrs4EeDIrm5/q?=
+ =?us-ascii?Q?ScY+b0+C2hQnXSpacTMmaCThNsaoB0HCx7TqYR2JL32OQNO2tmcqpk8cO9Fo?=
+ =?us-ascii?Q?emYhKRbT0jhUGoNlqscUbbz1TVw6LktaiXpNgmge/ClH1nRFPm1WcTll3wmL?=
+ =?us-ascii?Q?2DKn/mNsqkLaBPD5kYogmW961UNXj8aqVS1Ne9OUuIXs8d8//DPXUr/g4baR?=
+ =?us-ascii?Q?Trg0hjiOs9RKaP0FCYWqT8ITK9yHxqaD8XAN2h/wYUDVFCHzUarHHGPvpJMU?=
+ =?us-ascii?Q?iyrSHgbGvqMCBNhrvZcLbLBoi3gca8J86POv5KvYbP7/ydo/YGOKuPE5AzB9?=
+ =?us-ascii?Q?cmkQVVGO10HyLImDWd4ADf0smRoeHXh7U44+fdYEDPShsav4oVcHlE8oYz+u?=
+ =?us-ascii?Q?eYzLtNFqfRoDEOg=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2025 14:50:50.5641 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c62d7ebb-f611-4d54-bf12-08dd58074b32
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A102.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9316
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,183 +131,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 27, 2025 at 2:11=E2=80=AFPM Alexandre Demers
-<alexandre.f.demers@gmail.com> wrote:
->
-> On Thu, Feb 27, 2025 at 2:05=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
-om> wrote:
-> >
-> > On Thu, Feb 27, 2025 at 2:01=E2=80=AFPM Alex Deucher <alexdeucher@gmail=
-.com> wrote:
-> > >
-> > > On Thu, Feb 27, 2025 at 1:52=E2=80=AFPM Alexandre Demers
-> > > <alexandre.f.demers@gmail.com> wrote:
-> > > >
-> > > > On Thu, Feb 27, 2025 at 9:23=E2=80=AFAM Alex Deucher <alexdeucher@g=
-mail.com> wrote:
-> > > > >
-> > > > > On Thu, Feb 27, 2025 at 12:49=E2=80=AFAM Alexandre Demers
-> > > > > <alexandre.f.demers@gmail.com> wrote:
-> > > > > >
-> > > > > > DCE6 was missing soft reset, but it was easily identifiable und=
-er radeon.
-> > > > > > This should be it, pretty much as it is done under DCE8 and DCE=
-10.
-> > > > > >
-> > > > > > Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
-> > > > > > ---
-> > > > > >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 62 +++++++++++++++++++=
-+++++---
-> > > > > >  1 file changed, 57 insertions(+), 5 deletions(-)
-> > > > > >
-> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gp=
-u/drm/amd/amdgpu/dce_v6_0.c
-> > > > > > index bd763fde1c50..254cb73324c6 100644
-> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > > > > > @@ -371,27 +371,58 @@ static u32 dce_v6_0_hpd_get_gpio_reg(stru=
-ct amdgpu_device *adev)
-> > > > > >         return mmDC_GPIO_HPD_A;
-> > > > > >  }
-> > > > > >
-> > > > > > +static bool dce_v6_0_is_display_hung(struct amdgpu_device *ade=
-v)
-> > > > > > +{
-> > > > > > +       u32 crtc_hung =3D 0;
-> > > > > > +       u32 crtc_status[6];
-> > > > > > +       u32 i, j, tmp;
-> > > > > > +
-> > > > > > +       for (i =3D 0; i < adev->mode_info.num_crtc; i++) {
-> > > > > > +               if (RREG32(mmCRTC_CONTROL + crtc_offsets[i]) & =
-CRTC_CONTROL__CRTC_MASTER_EN_MASK) {
-> > > > > > +                       crtc_status[i] =3D RREG32(mmCRTC_STATUS=
-_HV_COUNT + crtc_offsets[i]);
-> > > > > > +                       crtc_hung |=3D (1 << i);
-> > > > > > +               }
-> > > > > > +       }
-> > > > > > +
-> > > > > > +       for (j =3D 0; j < 10; j++) {
-> > > > > > +               for (i =3D 0; i < adev->mode_info.num_crtc; i++=
-) {
-> > > > > > +                       if (crtc_hung & (1 << i)) {
-> > > > > > +                               tmp =3D RREG32(mmCRTC_STATUS_HV=
-_COUNT + crtc_offsets[i]);
-> > > > > > +                               if (tmp !=3D crtc_status[i])
-> > > > > > +                                       crtc_hung &=3D ~(1 << i=
-);
-> > > > > > +                       }
-> > > > > > +               }
-> > > > > > +               if (crtc_hung =3D=3D 0)
-> > > > > > +                       return false;
-> > > > > > +               udelay(100);
-> > > > > > +       }
-> > > > > > +
-> > > > > > +       return true;
-> > > > > > +}
-> > > > > > +
-> > > > > >  static void dce_v6_0_set_vga_render_state(struct amdgpu_device=
- *adev,
-> > > > > >                                           bool render)
-> > > > > >  {
-> > > > > >         if (!render)
-> > > > > >                 WREG32(mmVGA_RENDER_CONTROL,
-> > > > > >                         RREG32(mmVGA_RENDER_CONTROL) & VGA_VSTA=
-TUS_CNTL);
-> > > > > > -
-> > > > > >  }
-> > > > > >
-> > > > > >  static int dce_v6_0_get_num_crtc(struct amdgpu_device *adev)
-> > > > > >  {
-> > > > > > +       int num_crtc =3D 0;
-> > > > > > +
-> > > > > >         switch (adev->asic_type) {
-> > > > > >         case CHIP_TAHITI:
-> > > > > >         case CHIP_PITCAIRN:
-> > > > > >         case CHIP_VERDE:
-> > > > > > -               return 6;
-> > > > > > +               num_crtc =3D 6;
-> > > > > >         case CHIP_OLAND:
-> > > > > > -               return 2;
-> > > > > > +               num_crtc =3D 2;
-> > > > > >         default:
-> > > > > > -               return 0;
-> > > > > > +               num_crtc =3D 0;
-> > > > > >         }
-> > > > > > +       return num_crtc;
-> > > > >
-> > > > > Any particular reason for this change?  It just adds an extra var=
-iable.
-> > > > >
-> > > > > Alex
-> > > >
-> > > > Just for uniformisation with DCE8 and DCE10. We could also remove t=
-he
-> > > > variable and use returns everywhere.
-> > > >
-> > > > Any preferences?
-> > >
-> > > ah, ok. I think the direct returns are cleaner.
-> >
-> > I would maybe split up your patches into maybe 3 logical patch sets:
-> > one to fix spelling typos and comments, one to make the DCE code more
-> > uniform across versions, and another to add new DCE6 functionality.
-> >
-> > Alex
-> >
-> Ok, I'll split them and send new patch sets. Should they be identified as=
- V2?
+1920x1088 is the maximum supported resolution.
 
-Yes, sounds good.
+Signed-off-by: David Rosca <david.rosca@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nv.c    | 18 +++++++--------
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 18 +++++++--------
+ drivers/gpu/drm/amd/amdgpu/vi.c    | 36 +++++++++++++++---------------
+ 3 files changed, 36 insertions(+), 36 deletions(-)
 
-Thanks,
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 8068f384f56c..a18e6fb9fa3f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -78,10 +78,10 @@ static const struct amdgpu_video_codecs nv_video_codecs_encode = {
+ 
+ /* Navi1x */
+ static const struct amdgpu_video_codec_info nv_video_codecs_decode_array[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1088, 3)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1088, 5)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 1088, 4)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
+@@ -104,10 +104,10 @@ static const struct amdgpu_video_codecs sc_video_codecs_encode = {
+ };
+ 
+ static const struct amdgpu_video_codec_info sc_video_codecs_decode_array_vcn0[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1088, 3)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1088, 5)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 1088, 4)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 16384, 16384, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
+@@ -115,10 +115,10 @@ static const struct amdgpu_video_codec_info sc_video_codecs_decode_array_vcn0[]
+ };
+ 
+ static const struct amdgpu_video_codec_info sc_video_codecs_decode_array_vcn1[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1088, 3)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1088, 5)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 1088, 4)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 16384, 16384, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 8732f766947e..c5a752d8aee5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -102,10 +102,10 @@ static const struct amdgpu_video_codecs vega_video_codecs_encode =
+ /* Vega */
+ static const struct amdgpu_video_codec_info vega_video_codecs_decode_array[] =
+ {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1088, 3)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1088, 5)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 1088, 4)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 186)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
+ };
+@@ -119,10 +119,10 @@ static const struct amdgpu_video_codecs vega_video_codecs_decode =
+ /* Raven */
+ static const struct amdgpu_video_codec_info rv_video_codecs_decode_array[] =
+ {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1088, 3)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1088, 5)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 1088, 4)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 186)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 4096, 4096, 0)},
+@@ -137,10 +137,10 @@ static const struct amdgpu_video_codecs rv_video_codecs_decode =
+ /* Renoir, Arcturus */
+ static const struct amdgpu_video_codec_info rn_video_codecs_decode_array[] =
+ {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1088, 3)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1088, 5)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 1088, 4)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 16384, 16384, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 3bbbb75242d9..9b3510e53112 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -167,16 +167,16 @@ static const struct amdgpu_video_codec_info tonga_video_codecs_decode_array[] =
+ {
+ 	{
+ 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,
+-		.max_width = 4096,
+-		.max_height = 4096,
+-		.max_pixels_per_frame = 4096 * 4096,
++		.max_width = 1920,
++		.max_height = 1088,
++		.max_pixels_per_frame = 1920 * 1088,
+ 		.max_level = 3,
+ 	},
+ 	{
+ 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4,
+-		.max_width = 4096,
+-		.max_height = 4096,
+-		.max_pixels_per_frame = 4096 * 4096,
++		.max_width = 1920,
++		.max_height = 1088,
++		.max_pixels_per_frame = 1920 * 1088,
+ 		.max_level = 5,
+ 	},
+ 	{
+@@ -188,9 +188,9 @@ static const struct amdgpu_video_codec_info tonga_video_codecs_decode_array[] =
+ 	},
+ 	{
+ 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1,
+-		.max_width = 4096,
+-		.max_height = 4096,
+-		.max_pixels_per_frame = 4096 * 4096,
++		.max_width = 1920,
++		.max_height = 1088,
++		.max_pixels_per_frame = 1920 * 1088,
+ 		.max_level = 4,
+ 	},
+ };
+@@ -206,16 +206,16 @@ static const struct amdgpu_video_codec_info cz_video_codecs_decode_array[] =
+ {
+ 	{
+ 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,
+-		.max_width = 4096,
+-		.max_height = 4096,
+-		.max_pixels_per_frame = 4096 * 4096,
++		.max_width = 1920,
++		.max_height = 1088,
++		.max_pixels_per_frame = 1920 * 1088,
+ 		.max_level = 3,
+ 	},
+ 	{
+ 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4,
+-		.max_width = 4096,
+-		.max_height = 4096,
+-		.max_pixels_per_frame = 4096 * 4096,
++		.max_width = 1920,
++		.max_height = 1088,
++		.max_pixels_per_frame = 1920 * 1088,
+ 		.max_level = 5,
+ 	},
+ 	{
+@@ -227,9 +227,9 @@ static const struct amdgpu_video_codec_info cz_video_codecs_decode_array[] =
+ 	},
+ 	{
+ 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1,
+-		.max_width = 4096,
+-		.max_height = 4096,
+-		.max_pixels_per_frame = 4096 * 4096,
++		.max_width = 1920,
++		.max_height = 1088,
++		.max_pixels_per_frame = 1920 * 1088,
+ 		.max_level = 4,
+ 	},
+ 	{
+-- 
+2.43.0
 
-Alex
-
->
-> Alexandre
-> > >
-> > > Alex
-> > >
-> > > > Alexandre
-> > > >
-> > > > >
-> > > > > >  }
-> > > > > >
-> > > > > >  void dce_v6_0_disable_dce(struct amdgpu_device *adev)
-> > > > > > @@ -2846,7 +2877,28 @@ static bool dce_v6_0_is_idle(void *handl=
-e)
-> > > > > >
-> > > > > >  static int dce_v6_0_soft_reset(struct amdgpu_ip_block *ip_bloc=
-k)
-> > > > > >  {
-> > > > > > -       DRM_INFO("xxxx: dce_v6_0_soft_reset --- no impl!!\n");
-> > > > > > +       u32 srbm_soft_reset =3D 0, tmp;
-> > > > > > +       struct amdgpu_device *adev =3D ip_block->adev;
-> > > > > > +
-> > > > > > +       if (dce_v6_0_is_display_hung(adev))
-> > > > > > +               srbm_soft_reset |=3D SRBM_SOFT_RESET__SOFT_RESE=
-T_DC_MASK;
-> > > > > > +
-> > > > > > +       if (srbm_soft_reset) {
-> > > > > > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
-> > > > > > +               tmp |=3D srbm_soft_reset;
-> > > > > > +               dev_info(adev->dev, "SRBM_SOFT_RESET=3D0x%08X\n=
-", tmp);
-> > > > > > +               WREG32(mmSRBM_SOFT_RESET, tmp);
-> > > > > > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
-> > > > > > +
-> > > > > > +               udelay(50);
-> > > > > > +
-> > > > > > +               tmp &=3D ~srbm_soft_reset;
-> > > > > > +               WREG32(mmSRBM_SOFT_RESET, tmp);
-> > > > > > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
-> > > > > > +
-> > > > > > +               /* Wait a little for things to settle down */
-> > > > > > +               udelay(50);
-> > > > > > +       }
-> > > > > >         return 0;
-> > > > > >  }
-> > > > > >
-> > > > > > --
-> > > > > > 2.48.1
-> > > > > >
