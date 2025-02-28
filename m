@@ -4,78 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02DD2C282CD
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 13:58:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D937C282CD
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 13:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC0410E423;
-	Mon,  3 Mar 2025 13:58:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6F8010E422;
+	Mon,  3 Mar 2025 13:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="gzCsLIq5";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H9mIWyL3";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD7510ECB9;
- Fri, 28 Feb 2025 17:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1740764953; x=1741369753; i=natalie.vock@gmx.de;
- bh=TysCmGGP5Rt/4MMj9mBlLj3WIXNFtvvwb0fijWQQBEs=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=gzCsLIq5mLpcIiVtJIo9uJa0WDhblgB+5wiIy3xTh/0vsJ3I/RSt+zyaYn/++IUU
- VqzIYI0e6nkqtioBiHP4Svt4TDsr6AJXhZaAr0JgjSEt6IZ2fB0aXvrByS8HYcFeo
- bDo/i8NKbsYhEr+E8cfj0O+uYmjL1iNxHgVIQvG347P01zXaeyny003e+nHjNBpF/
- krEE6HcwQSD4zsExoJ0J8ZE7Qj/GgHo0xNnlrmCl7K1K/EyxmloMu42eo1m49iHlb
- Zvz2cEarSE4/smBnOp67Oy84YBNZZc17FVle5EqXqhEGPL/a4z/hA3QmlZkcZ4esW
- JQYnGiHF0mw+KkrH9A==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.0.3] ([109.91.201.165]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MRTRH-1tbbdU07oT-00U8Ps; Fri, 28
- Feb 2025 18:49:13 +0100
-Message-ID: <642022b6-ba71-407c-99d0-fffb58df2be7@gmx.de>
-Date: Fri, 28 Feb 2025 18:49:12 +0100
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35D7110E0E3;
+ Fri, 28 Feb 2025 21:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=oCDXtCW5o4O6IdQSa491PzOZb8jjQJcoikIvha8SEEw=; b=H9mIWyL31odPjG/yzhOB80yR/c
+ tUYrQwkvz7Sd6QrKAYFJguI/OzL6+F2j7CPH1D5hx5SNNq+WZYiwoWOwdHQe+NY1CiOVaQXyC6Sm4
+ GrqddEJAK9/qUG9zLIWj6iGKbTHhG+16PQ96/x5MaKQFKKkynDbXPjwP8bcoBTxRlLuw8H18D/m4i
+ SdSurqIfKz6Zb9DwEuiR8pOg0IPVrIopPR2LrvHcyZSUdaaZ0LCoRuLNgjni9rTLYLHAoVCy0BbN2
+ 1c/1efvGy1j7Tj06PrferLx7/83hcm8sMCWbuPT4EOcpFa7Ef24qiMFivnrx7bsRfv9KtUzZVzCqT
+ EF9HcNaQ==;
+Received: from [179.106.178.202] (helo=[192.168.5.235])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1to8Ev-002H2Z-Ju; Fri, 28 Feb 2025 22:49:55 +0100
+Message-ID: <38b9cc8b-2a55-4815-a19f-f5bdf0f7687c@igalia.com>
+Date: Fri, 28 Feb 2025 18:49:43 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: Simplify maximum determination in
- radeon_uvd_calc_upll_dividers()
-To: Markus Elfring <Markus.Elfring@web.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
- Qasim Ijaz <qasdev00@gmail.com>
-References: <225be170-472d-40c1-95ed-71b452740ae7@web.de>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Make use of drm_wedge_app_info
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com
+References: <20250228121353.1442591-1-andrealmeid@igalia.com>
+ <20250228121353.1442591-3-andrealmeid@igalia.com>
+ <Z8HO-s_otb2u44V7@black.fi.intel.com>
 Content-Language: en-US
-From: Natalie Vock <natalie.vock@gmx.de>
-In-Reply-To: <225be170-472d-40c1-95ed-71b452740ae7@web.de>
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <Z8HO-s_otb2u44V7@black.fi.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:pfjZqJ9EAd9/+f5S1bPNi20hb76HzRttQuCU8sST9HqzSn3C5EQ
- YEs7SXMxt0jTQWTKzWgcvwRstllrbmjOkBTRP9r0411JXNu3ZiQDzbMwLFF1Ztaibu0bNh7
- CvIOpWCvo9N/Ac7iGI1c1ITI6zHbPGQLoLE8hizfh2Xd3/zqizzTeXD8CIxbkwvUU0gIepP
- nvS8WyRp4QRl+dup8enkA==
-UI-OutboundReport: notjunk:1;M01:P0:Uc1rwjwZJ8A=;tsNj3Qj3va+BSO8M3orHrkhF7lM
- 0gQ4cbk7A6tp5MK6F8nZFkC5ilAnJgcuIcEetDyHMKbQKSZyMFRYy7CU0lA+0Q65TlR8PtbLF
- 84QHor1XOL27bglb1DoJDSPKqKSnj1fcMjsqbS7cAZv3W6oXbgX1DobiCTc4jc1Oha0vv1yxs
- 9fPgqUy5UBxge7s//45E9BabSCMMq1y3w33g9fCm/uTfAxdKkxCUvIGP16IL0INy8mE12V/8h
- TumUxqf3B6xt6ICw+8SFMZxvcNlas6PaF3CnjU1Rr3TfyVdkGSc+pngGEfOjFgagaSiLbU8wz
- Nzq3aJwk3tVaxEfqyK7C3TUA6nwSrzlfuaAuat8Z5sEkGMtrCaEiYz6Ft4PyCUqK3l4fFiBIO
- 2cmaOl45duPyx73r1caEFe45cZBJXweQ1N0cqoetP/TpwST3oKi4bXOTqfX0QAXFAgJACvfru
- GcAXR/Vn03+JybR0Ie08aDIiJ+2SutWtOnqY0Rc1WmOi4IqzzwbKsMMmRwc1ctHMd5p+fycc9
- nT5LAvzyy12iTydnS5O3FE3NIiwTPU6TM4Gv8yiYRwdFEGmxW6KX2xdVRu+qVln6mF14jctOt
- Q+LOLHHSqqZhLHFSCnMkP/lGTG+8b5qYZKarKgpDhXIjr6xwLj1bSOkz8qCpkAV5TNCjhhVBK
- kyFHsGW7xzLsKtiMKf8C+KexbXWP9PZ4XPSq2ycJ89K51xbRnse7bmnC5QkZmzljZcZIJIVXh
- aFZwwDsJ7Z6zegPWJdEJUUU8jLFnvHKCReQ6QjGHORUzFSIrdhcSJk6DlK6JFQYJ8Am0KLAo7
- x5/dSdyvMS1NY0pV+/cjPPd6ggWHUw3IU3CHkmZ9ywimEA6ediLmnkZ18e//zkpR9eQgbxiBC
- AEtyTCoVnZeyXVRqMl/cHRTy2jnvTexBYhrvlcZY7/9SuIv9IeL14SvdQ4o+4xvG0iGQwFWag
- 949zE1NzkhDwIxA8xmRVjM/gxVmM/u0QdOTwDa96kSnOE5m9wY5g0EkCF50JFChHqbcWdF5GB
- aoKv8EtHS9J4IYzKRJ2SNgg5YDP4Arn4TSU5vV0VaL7e4Ojtt5FVAcaXjawiE14DmfzXZ6BOU
- ASOm4hGix7foCrQh+lSs28PWLsqtNDRG73kxc6tPPDjX4DhFSik3Xmhp13nhpn8c1WiyYKOAJ
- Iay3QoS9vkCUdfyKkz+RmdzOScAscclgyGAGociNcsjA4zvOJZziitlPOL7fuik8Z+DVnGntY
- Y0WxNre7gb5KOLJdFbic7jRTI4t0Hh3vhPjyuisEFsa5Qc/iM89Zs24T1cuE/mRO5h3gZufot
- 2UhKTL7FxnaWbTJBPOaSMKzI3wQEoH0KfYRNXYJ/uPB7YUtKXeu4pktrBl2Uk6WvUJOvRrq89
- Xi9MQN1czbTSKqSXpLfAra/i1SWrTyqxtI8ba1LELYBKlEk9kgd5ONsLWp
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 03 Mar 2025 13:58:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,45 +68,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 28.02.25 17:36, Markus Elfring wrote:
-> From: Markus Elfring <elfring@users.sourceforge.net>
-> Date: Fri, 28 Feb 2025 17:32:45 +0100
->
-> Replace nested max() calls by single max3() call in this
-> function implementation.
->
-> This issue was transformed by using the Coccinelle software.
+Hi Raag,
 
-How about something like "this change was made" or "this code was
-transformed"? Coccinelle didn't transform the issue, it transformed the
-code to solve the issue.
+On 2/28/25 11:58, Raag Jadav wrote:
+> On Fri, Feb 28, 2025 at 09:13:53AM -0300, André Almeida wrote:
+>> To notify userspace about which app (if any) made the device get in a
+>> wedge state, make use of drm_wedge_app_info parameter, filling it with
+>> the app PID and name.
+>>
+>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 +++++++++++++++++--
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  6 +++++-
+>>   2 files changed, 22 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index 00b9b87dafd8..e06adf6f34fd 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -6123,8 +6123,23 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>>   
+>>   	atomic_set(&adev->reset_domain->reset_res, r);
+>>   
+>> -	if (!r)
+>> -		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
+>> +	if (!r) {
+>> +		struct drm_wedge_app_info aux, *info = NULL;
+>> +
+>> +		if (job) {
+>> +			struct amdgpu_task_info *ti;
+>> +
+>> +			ti = amdgpu_vm_get_task_info_pasid(adev, job->pasid);
+>> +			if (ti) {
+>> +				aux.pid = ti->pid;
+>> +				aux.comm = ti->process_name;
+>> +				info = &aux;
+>> +				amdgpu_vm_put_task_info(ti);
+>> +			}
+>> +		}
+> Is this guaranteed to be guilty app and not some scheduled worker?
 
-Cheers,
-Natalie
+This is how amdgpu decides which app is the guilty one earlier in the 
+code as in the print:
 
->
-> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-> ---
->   drivers/gpu/drm/radeon/radeon_uvd.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeo=
-n/radeon_uvd.c
-> index 058a1c8451b2..ded5747a58d1 100644
-> --- a/drivers/gpu/drm/radeon/radeon_uvd.c
-> +++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-> @@ -961,7 +961,7 @@ int radeon_uvd_calc_upll_dividers(struct radeon_devi=
-ce *rdev,
->   	unsigned optimal_score =3D ~0;
->
->   	/* loop through vco from low to high */
-> -	vco_min =3D max(max(vco_min, vclk), dclk);
-> +	vco_min =3D max3(vco_min, vclk, dclk);
->   	for (vco_freq =3D vco_min; vco_freq <=3D vco_max; vco_freq +=3D 100) =
-{
->
->   		uint64_t fb_div =3D (uint64_t)vco_freq * fb_factor;
-> --
-> 2.48.1
->
+     ti = amdgpu_vm_get_task_info_pasid(ring->adev, job->pasid);
 
+     "Process information: process %s pid %d thread %s pid %d\n"
+
+So I think it's consistent with what the driver thinks it's the guilty 
+process.
+
+> Raag
+>
