@@ -4,54 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4519FC282C1
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 14:03:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94735C19776
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 14:21:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A47F010ECC3;
-	Fri, 28 Feb 2025 14:03:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4855210ECB4;
+	Fri, 28 Feb 2025 14:21:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bcDax7Gt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k61r6W3m";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C37D489811;
- Fri, 28 Feb 2025 12:14:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=NJbhh7XsQfBTvljJbX0bt5Q488yVrXVP75JXT3KFpOk=; b=bcDax7GtVcyMNk3NNVy4l/Wyl3
- w71vCR9Wmm4RvMRE6tn8fhes1avnhkJ9cIKOMayDCwRmwGSYChuxOWkxZzvO1rmdjhkx7jsoYKvq5
- FmTP6Vl/QtAznstQM45e+V/DEfNm+Ds7l3xvLNVtedZW5URQ09g8PuDOVq5ngXajkrZQjck0zdiVN
- vYos2eKIfH7Hf1uGPLZUJ6GuRZ7NcZJTuEis0m8DDMsC4pK/2P/roINscGSPQQpGS/Jady08NAV4U
- IQe0X6yhvxWx+rE0VYLB8mLyYhnHhKOkG2TKD3GBLSVtD8NAcrtEr5vIYTbikeLY8FiFSu1fqxS64
- Q6z8vHvw==;
-Received: from [191.204.194.148] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tnzFf-0021Hz-PX; Fri, 28 Feb 2025 13:14:06 +0100
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- Raag Jadav <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH 1/2] drm: Create an app info option for wedge events
-Date: Fri, 28 Feb 2025 09:13:52 -0300
-Message-ID: <20250228121353.1442591-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250228121353.1442591-1-andrealmeid@igalia.com>
-References: <20250228121353.1442591-1-andrealmeid@igalia.com>
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0136510ECB4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 14:21:47 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-2fe8f6a4bfaso565860a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 06:21:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1740752507; x=1741357307; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+H1WLfmTvSZB8CKv7++7ilNR2p3rc+VR2lHhJYJxBYI=;
+ b=k61r6W3moUb5AKvC1lDtqNMPD7dDQvASXi+/Hk4rSjpcisOpKAlEasnECNuE14sKQJ
+ t7o6BKR5K8K0lTUZkZz1/6wthzJLcE67FbV8v7WtANifXnp1+pPSJUuyO98xpR7y+Ee7
+ iygsDsmNWuJVt6jd0ck9ChG5pi4BoUhYrediTorqzyBHEdglmCAKy8XGmDrOO9c3BUX9
+ cYe8XtWPFyKSGi7z9rMMrokgy9LH37zdn/7vrEPrqyxn4guKg3KahSYSGsldLZCpGP1A
+ 2G3gHtzC2k0oZfjCqa8FXS0aEhLsIeBcH1D/uPYmUu2VbhkLOQPWidR3lBBeDvXGO9Vn
+ MC1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740752507; x=1741357307;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+H1WLfmTvSZB8CKv7++7ilNR2p3rc+VR2lHhJYJxBYI=;
+ b=qUiyNNQOJE15Y1wgUKd4K09l2sQbBGF2fCrXoSnyU6g+WP8qk5BgvfqGAJce9TUCtb
+ Nv/FDJoIdlaEzovlyU4m52HYVXssVlTkeBKtuyrqKq/qeoQ4iw79l+k3LrS92RD2PtHa
+ Nf5wtD/rL+jIA4jMxubWrrKZdD+6O0GGhTORHzrMDR6jYC6pXKV8fVjcMiefmt+/jD8p
+ HBIzwm5DQ1rwquFNdPA8+wMLxAyM5DjCRXnol1lt0fLOXSP0nDMGmE1wTc+f9Sq1G3US
+ tVTHp2nmWGhv+Hzb78befo9oibZHBufzDS14S68tpazOfrwGClO35XlkPdhVj/a1/Iox
+ kJEA==
+X-Gm-Message-State: AOJu0Yx2b9NuNhaasSEBhnneExwlmtbsE4irt9++Z6B1T1MQeRscUWIP
+ dQHDnulmD+ZBaJAqgPPSlrvIop6Oo/durXZ8B/dFMTXc/d6JsbDIHlATXWS5NlXPBAHK6Em78/y
+ 3bP9PRAM4KxT1ZAnY5x9nINNOr/w=
+X-Gm-Gg: ASbGnctH336vLtMk+92VXTYuGYBrEq1+dWNn5CJDNLN6Pl0aGCbZapc1AXohwHiFPCR
+ WRfhVmLPTsjv0lnlAF9fetARrDJRlhKzADeoeuO85LVvmbdCQhagi983tQV/xWBSmsN1azTaYWd
+ 0l7j4Vmt0=
+X-Google-Smtp-Source: AGHT+IHjh1nb7yuC4MHJPu6J9GKZy142PPO4qp03QNq9WEtMpeOcISsu+RSD29GH2boQ37EjtBbEW2SOtjxyzo4q+d4=
+X-Received: by 2002:a17:90b:1b06:b0:2ee:a558:b6bf with SMTP id
+ 98e67ed59e1d1-2febac0cbcbmr2204724a91.8.1740752507233; Fri, 28 Feb 2025
+ 06:21:47 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 28 Feb 2025 14:03:17 +0000
+References: <20250228132429.4842-4-david.rosca@amd.com>
+In-Reply-To: <20250228132429.4842-4-david.rosca@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 28 Feb 2025 09:21:34 -0500
+X-Gm-Features: AQ5f1Jr8jPWLezX7ExV4kYVKqaIfBBI5BzjVHezb3xua89xKUQrkRyoiYPoqWLI
+Message-ID: <CADnq5_PP7CE0-Jowq8c4GZQaQ81Ldm98Oo4maeSbKwA=v4KF8g@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu: Fix MPEG2,
+ MPEG4 and VC1 video caps max size
+To: David Rosca <david.rosca@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,161 +80,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a device get wedged, it might be caused by a guilty application.
-For userspace, knowing which app was the cause can be useful for some
-situations, like for implementing a policy, logs or for giving a chance
-for the compositor to let the user know what app caused the problem.
-This is an optional argument, when `PID=-1` there's no information about
-the app caused the problem, or if any app was involved during the hang.
+On Fri, Feb 28, 2025 at 8:34=E2=80=AFAM David Rosca <david.rosca@amd.com> w=
+rote:
+>
+> 1920x1088 is the maximum supported resolution.
+>
+> Signed-off-by: David Rosca <david.rosca@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nv.c | 18 ++++++++---------
+>  drivers/gpu/drm/amd/amdgpu/vi.c | 36 ++++++++++++++++-----------------
 
-Sometimes just the PID isn't enough giving that the app might be already
-dead by the time userspace will try to check what was this PID's name,
-so to make the life easier also notify what's the app's name in the user
-event.
+I think soc15.c needs similar fixes?  Also, I think we need to bump
+the driver version so mesa knows what kernel version has the proper
+limits.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
- drivers/gpu/drm/drm_drv.c                  | 16 +++++++++++++---
- drivers/gpu/drm/i915/gt/intel_reset.c      |  3 ++-
- drivers/gpu/drm/xe/xe_device.c             |  3 ++-
- include/drm/drm_device.h                   |  8 ++++++++
- include/drm/drm_drv.h                      |  3 ++-
- 7 files changed, 29 insertions(+), 8 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 24ba52d76045..00b9b87dafd8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6124,7 +6124,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	atomic_set(&adev->reset_domain->reset_res, r);
- 
- 	if (!r)
--		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-+		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index ef1b77f1e88f..3ed9cbcab1ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -150,7 +150,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 			amdgpu_fence_driver_force_completion(ring);
- 			if (amdgpu_ring_sched_ready(ring))
- 				drm_sched_start(&ring->sched, 0);
--			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-+			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
- 			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
- 			goto exit;
- 		}
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 17fc5dc708f4..48faafd82a99 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -522,6 +522,7 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
-  * drm_dev_wedged_event - generate a device wedged uevent
-  * @dev: DRM device
-  * @method: method(s) to be used for recovery
-+ * @info: optional information about the guilty app
-  *
-  * This generates a device wedged uevent for the DRM device specified by @dev.
-  * Recovery @method\(s) of choice will be sent in the uevent environment as
-@@ -534,13 +535,14 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
-  *
-  * Returns: 0 on success, negative error code otherwise.
-  */
--int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
-+int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
-+			 struct drm_wedge_app_info *info)
- {
- 	const char *recovery = NULL;
- 	unsigned int len, opt;
- 	/* Event string length up to 28+ characters with available methods */
--	char event_string[32];
--	char *envp[] = { event_string, NULL };
-+	char event_string[32], pid_string[15], comm_string[TASK_COMM_LEN];
-+	char *envp[] = { event_string, pid_string, comm_string, NULL };
- 
- 	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
- 
-@@ -562,6 +564,14 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
- 	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
- 		 "but recovered through reset" : "needs recovery");
- 
-+	if (info) {
-+		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
-+		snprintf(comm_string, sizeof(comm_string), "APP=%s", info->comm);
-+	} else {
-+		snprintf(pid_string, sizeof(pid_string), "%s", "PID=-1");
-+		snprintf(comm_string, sizeof(comm_string), "%s", "APP=none");
-+	}
-+
- 	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
- }
- EXPORT_SYMBOL(drm_dev_wedged_event);
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index d6dc12fd87c1..928b9f048b6a 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -1424,7 +1424,8 @@ static void intel_gt_reset_global(struct intel_gt *gt,
- 		kobject_uevent_env(kobj, KOBJ_CHANGE, reset_done_event);
- 	else
- 		drm_dev_wedged_event(&gt->i915->drm,
--				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
-+				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
-+				     NULL);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index fc4a49f25c09..8a349c7daf24 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -1037,7 +1037,8 @@ void xe_device_declare_wedged(struct xe_device *xe)
- 
- 		/* Notify userspace of wedged device */
- 		drm_dev_wedged_event(&xe->drm,
--				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
-+				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
-+				     NULL);
- 	}
- 
- 	for_each_gt(gt, xe, id)
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index 6ea54a578cda..8b9d614257e6 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -30,6 +30,14 @@ struct pci_controller;
- #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
- #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
- 
-+/**
-+ * struct drm_wedge_app_info - information about the guilty app of a wedge dev
-+ */
-+struct drm_wedge_app_info {
-+	pid_t pid;
-+	char *comm;
-+};
-+
- /**
-  * enum switch_power_state - power state of drm device
-  */
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index a43d707b5f36..8fc6412a6345 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -482,7 +482,8 @@ void drm_put_dev(struct drm_device *dev);
- bool drm_dev_enter(struct drm_device *dev, int *idx);
- void drm_dev_exit(int idx);
- void drm_dev_unplug(struct drm_device *dev);
--int drm_dev_wedged_event(struct drm_device *dev, unsigned long method);
-+int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
-+			 struct drm_wedge_app_info *info);
- 
- /**
-  * drm_dev_is_unplugged - is a DRM device unplugged
--- 
-2.48.1
-
+>  2 files changed, 27 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu=
+/nv.c
+> index 8068f384f56c..a18e6fb9fa3f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -78,10 +78,10 @@ static const struct amdgpu_video_codecs nv_video_code=
+cs_encode =3D {
+>
+>  /* Navi1x */
+>  static const struct amdgpu_video_codec_info nv_video_codecs_decode_array=
+[] =3D {
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4=
+096, 3)},
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4=
+096, 5)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1=
+088, 3)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1=
+088, 5)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 409=
+6, 4096, 52)},
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 409=
+6, 4)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 108=
+8, 4)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 43=
+52, 186)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 40=
+96, 0)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 435=
+2, 0)},
+> @@ -104,10 +104,10 @@ static const struct amdgpu_video_codecs sc_video_co=
+decs_encode =3D {
+>  };
+>
+>  static const struct amdgpu_video_codec_info sc_video_codecs_decode_array=
+_vcn0[] =3D {
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4=
+096, 3)},
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4=
+096, 5)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1=
+088, 3)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1=
+088, 5)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 409=
+6, 4096, 52)},
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 409=
+6, 4)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 108=
+8, 4)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 43=
+52, 186)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 16384, 1=
+6384, 0)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 435=
+2, 0)},
+> @@ -115,10 +115,10 @@ static const struct amdgpu_video_codec_info sc_vide=
+o_codecs_decode_array_vcn0[]
+>  };
+>
+>  static const struct amdgpu_video_codec_info sc_video_codecs_decode_array=
+_vcn1[] =3D {
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4=
+096, 3)},
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4=
+096, 5)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 1920, 1=
+088, 3)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 1920, 1=
+088, 5)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 409=
+6, 4096, 52)},
+> -       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 409=
+6, 4)},
+> +       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 1920, 108=
+8, 4)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 43=
+52, 186)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 16384, 1=
+6384, 0)},
+>         {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 435=
+2, 0)},
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
+/vi.c
+> index 3bbbb75242d9..9b3510e53112 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -167,16 +167,16 @@ static const struct amdgpu_video_codec_info tonga_v=
+ideo_codecs_decode_array[] =3D
+>  {
+>         {
+>                 .codec_type =3D AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,
+> -               .max_width =3D 4096,
+> -               .max_height =3D 4096,
+> -               .max_pixels_per_frame =3D 4096 * 4096,
+> +               .max_width =3D 1920,
+> +               .max_height =3D 1088,
+> +               .max_pixels_per_frame =3D 1920 * 1088,
+>                 .max_level =3D 3,
+>         },
+>         {
+>                 .codec_type =3D AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4,
+> -               .max_width =3D 4096,
+> -               .max_height =3D 4096,
+> -               .max_pixels_per_frame =3D 4096 * 4096,
+> +               .max_width =3D 1920,
+> +               .max_height =3D 1088,
+> +               .max_pixels_per_frame =3D 1920 * 1088,
+>                 .max_level =3D 5,
+>         },
+>         {
+> @@ -188,9 +188,9 @@ static const struct amdgpu_video_codec_info tonga_vid=
+eo_codecs_decode_array[] =3D
+>         },
+>         {
+>                 .codec_type =3D AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1,
+> -               .max_width =3D 4096,
+> -               .max_height =3D 4096,
+> -               .max_pixels_per_frame =3D 4096 * 4096,
+> +               .max_width =3D 1920,
+> +               .max_height =3D 1088,
+> +               .max_pixels_per_frame =3D 1920 * 1088,
+>                 .max_level =3D 4,
+>         },
+>  };
+> @@ -206,16 +206,16 @@ static const struct amdgpu_video_codec_info cz_vide=
+o_codecs_decode_array[] =3D
+>  {
+>         {
+>                 .codec_type =3D AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,
+> -               .max_width =3D 4096,
+> -               .max_height =3D 4096,
+> -               .max_pixels_per_frame =3D 4096 * 4096,
+> +               .max_width =3D 1920,
+> +               .max_height =3D 1088,
+> +               .max_pixels_per_frame =3D 1920 * 1088,
+>                 .max_level =3D 3,
+>         },
+>         {
+>                 .codec_type =3D AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4,
+> -               .max_width =3D 4096,
+> -               .max_height =3D 4096,
+> -               .max_pixels_per_frame =3D 4096 * 4096,
+> +               .max_width =3D 1920,
+> +               .max_height =3D 1088,
+> +               .max_pixels_per_frame =3D 1920 * 1088,
+>                 .max_level =3D 5,
+>         },
+>         {
+> @@ -227,9 +227,9 @@ static const struct amdgpu_video_codec_info cz_video_=
+codecs_decode_array[] =3D
+>         },
+>         {
+>                 .codec_type =3D AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1,
+> -               .max_width =3D 4096,
+> -               .max_height =3D 4096,
+> -               .max_pixels_per_frame =3D 4096 * 4096,
+> +               .max_width =3D 1920,
+> +               .max_height =3D 1088,
+> +               .max_pixels_per_frame =3D 1920 * 1088,
+>                 .max_level =3D 4,
+>         },
+>         {
+> --
+> 2.43.0
+>
