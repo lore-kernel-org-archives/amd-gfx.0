@@ -4,72 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23548C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Mar 2025 04:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 010E4C282CD
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Mar 2025 21:36:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C8910E11D;
-	Sat,  1 Mar 2025 04:11:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB9710E02D;
+	Sat,  1 Mar 2025 21:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JUdA/iPx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KtFbmkie";
 	dkim-atps=neutral
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD0410E100
- for <amd-gfx@lists.freedesktop.org>; Sat,  1 Mar 2025 04:11:40 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id
- af79cd13be357-7c0a3d6a6e4so257846985a.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 20:11:40 -0800 (PST)
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com
+ [209.85.222.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD4810E02D
+ for <amd-gfx@lists.freedesktop.org>; Sat,  1 Mar 2025 21:36:09 +0000 (UTC)
+Received: by mail-ua1-f45.google.com with SMTP id
+ a1e0cc1a2514c-86712bc0508so1349789241.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 01 Mar 2025 13:36:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740802299; x=1741407099; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1wY0mHhBmAKRs6odGi4S8/JAa2ikLRSW1NS8BlolIIQ=;
- b=JUdA/iPxVW2P1ZtW+/EG4D7diiugpUnug+OE0sFFgg1fFNLjak/a4Y4KEWg6oneJhK
- gdvyUtJ8FrGTVerIleJrjKnrRU9Yr+N6PcqwU2Y8umIiff820WpXR+k7ZybhBoMC5IVd
- BSv8CpZ9yOyWhVpPew3PcF6mQWBUIqVZr7X2zgiNNtoj5C+i6/+mEpSwikqORGfV+yTS
- SnNC5bH4PdqNmUsVgx2mKDa8u4AP3TeEG8qd2Fx9BCnaDnBZwh6ylmzzi26XKRqqroZp
- FNvbP7YHEplfFkFKbfHkImF+IRkKjzdek8N+zelBDrNRTI2p/Tuwy3VBQqyeFyG3/wiN
- Hh9w==
+ d=gmail.com; s=20230601; t=1740864968; x=1741469768; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=R0wyg54uk58CbSu7UQqMv9goa65Dh3bE01Io3nCxjFo=;
+ b=KtFbmkiezr4RZwROn0WM8pAHE468xTrutNmp6Wz4g/McAIxCYsI2Y+jB7yrpBpgIf8
+ bc5AqUkar0upf8Q+P1608RQ4KB2QX2eJzG/8YJ4lRTQd1xxYtUN5RmkQU5XNKQd7aeuR
+ 9dHgUgt+Xe3+wgXXyB3s2fVFwbSv/Q5kze3YqCgcwMbTl6/bCYMQVPofFd9oeGE6Qxdf
+ 2iouGm8tr5sr3n8WwqJAOXueF5wiJG7lxcBpjVTzuvDakTRSuBuOlgthvgs0RMI7qChg
+ kN6Z8ZnCrCPv+d3lPaGA0MldVtL58Tq3mMyaJy2GkIhXXZkZ7RyCfvboJd3CBgLzRnKm
+ ZFmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740802299; x=1741407099;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1740864968; x=1741469768;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1wY0mHhBmAKRs6odGi4S8/JAa2ikLRSW1NS8BlolIIQ=;
- b=LhJ6j+uaILC0+DX8RJ24sG64fSFcrFaxCMGeVunNBPYpoyXFNKbPPwcrm1ZPY7JIGe
- 1WAG9GN8bd1uvSTgIo6ps+6DIHbn4NmJL3hcwCapL9em2pBs83f7kt8a18IirVnmFkJl
- /nen5X1hcVeOYuTYik14sMo/h1lQeF7+d9SA0Ogo2SxMQX/ryko925SoqVAZz7TWYrHR
- bd+YqldrfWoW0WwzMxV4PfRg2AccLm67gkgAVhmE30WVHB/kvUs6TC8UdPzhDQK9hoPa
- cGXHhXJzNcfwIOeI9vKjktqafteI3IPax0UzAA3NFeHZyD+uzG+2HgSi8CCvH47vMUKD
- tnfw==
-X-Gm-Message-State: AOJu0YwhSw+C/ntAuaw+VG+mWFFQNcczSo3VADmOAYKNAbeBCsin324g
- tt1Enr8QHNsB67ug9azibOBD0RqRSCdR+POug8NkK38FXg2m33wXcLh0Kg==
-X-Gm-Gg: ASbGncvxj8g5i9NWKTKZXlbZF+tdZi94DZkmYEK+jFIA9TMLlEOasaErv8BuWEc74C8
- V4/vNOGTuVkNBsS5vC80FcTq5Cf1/ETCccvPHzguRh91qvqsV1eWyrldaulD58gE84UfmzAPhm1
- 6kq4zak+DJiHFQxRBS1n0uXhIURnc1baJiGr60w72x5C+YpDCjbluP3xII5TXB93ylPAeYWs1Kx
- lfj/zwwuZ7TIUBjXirsJwIQvhwtIfUOnFbqAniFquftZQ9PtI7HampwyDoHXeROcgjWIEvBd37K
- 5JtGSNQDE307eFWu5oj5ITRBBH425XVqao16/3KxkSomG19Yb8e1Ic7REL0ujgm7zss=
-X-Google-Smtp-Source: AGHT+IFwt2ov4R6mPizUnFEcfE12X0RGcgHHTVFYFNezLnX8UC3ZxB9NFk+NVl9X6bTKmPYogSPtGw==
-X-Received: by 2002:a05:620a:c44:b0:7c0:b2ab:2693 with SMTP id
- af79cd13be357-7c39c677674mr877800085a.49.1740802299169; 
- Fri, 28 Feb 2025 20:11:39 -0800 (PST)
-Received: from localhost.localdomain ([38.74.25.248])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c36ff0f386sm327973085a.60.2025.02.28.20.11.38
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Feb 2025 20:11:38 -0800 (PST)
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 2/2] drm/amdgpu: complete
- dce_v6_0_set_crtc_vline_interrupt_state() in DCE6
-Date: Fri, 28 Feb 2025 23:11:21 -0500
-Message-ID: <20250301041121.9661-3-alexandre.f.demers@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250301041121.9661-1-alexandre.f.demers@gmail.com>
-References: <20250301041121.9661-1-alexandre.f.demers@gmail.com>
+ bh=R0wyg54uk58CbSu7UQqMv9goa65Dh3bE01Io3nCxjFo=;
+ b=DIHnZd8sl7OSvbkJoi8vmw6uX3VlkqkW7bK1fSraFw4O1nJNpGiki6fz2S9Up7NhiG
+ 3bdvUX17j8bnub9G7PRv9rJ4njwq1ytkwzIUxLQtMwdUNp14d6bevqOxjND56a1y/EMw
+ 0h2gpFCm/Sz+xoeXaSI0SMofV5OTXF329kFtOIUHSBFAGMYfW8BwO8QmE/5GqQVBryC4
+ HUJtDiafjGrkZrKyuk7EZK9YVw7GZOaTn4nOEWT22KRlFAoQZkXAzJT5iR+988iWzWHN
+ G2CPXALpyiKn8hT8+e1KrVZUgWiNsuNmg3ttlKAgM+tqeDQn0bIKIiGwUEJt+E3z92+R
+ r/dg==
+X-Gm-Message-State: AOJu0Yz+Y/GOFsFvZCUQdP6vOEWs+YW/ihrg4qFEasjmJNsXdENZ0/SN
+ EANcx0ra0/CQHhrbr9dXGY2yiwM4WrFVZQ0XfBz07HRifzjqZzC9FIBBPnn713twqCdLVKI3Yaw
+ WbW60xhdr4EEokEibDlsUD7q3/HBCsw==
+X-Gm-Gg: ASbGncvYrP19WViF4IAACFe2Uttbb1gkpGyACW1tqvVwERGbTvtUCSj8NqvA6WKXZFL
+ nhKltFIvSzll7zLF513eo8un9kQ1GuUsyMg9rWsVYvCbt2XYqbEf53mJcTTxlRATlGGW2Vt7ie5
+ tobFZz42HLaruwdq2ZoS96ikQi
+X-Google-Smtp-Source: AGHT+IHePSdVBKCKFWBkltKEE5LVbOuzjL3YQuV3GlgESCYlDc3NYIuT54zXoGOkUg2WXo8Pjctr6v1YfYNTG5k0kBs=
+X-Received: by 2002:a05:6102:3752:b0:4bb:dc3c:1b42 with SMTP id
+ ada2fe7eead31-4c044d36f4fmr6450388137.12.1740864968389; Sat, 01 Mar 2025
+ 13:36:08 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250301023130.31277-1-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250301023130.31277-1-alexandre.f.demers@gmail.com>
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
+Date: Sat, 1 Mar 2025 16:35:57 -0500
+X-Gm-Features: AQ5f1JrS-7hrAdSac_iWcVGgAuYsnn4SWY05wF2NTjE9FqOyzQ72JzsEX7soFTo
+Message-ID: <CAPEhTTFAy=+SXPNk4vEeYo0bpFuBPb+yvBE9QVCMZnML7PMmQw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Uniformize defines between DCE6, DCE8 and DCE10
+To: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,72 +78,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dce_v6_0_set_crtc_vline_interrupt_state() was empty without any info to
-inform the user.
+On Fri, Feb 28, 2025 at 9:31=E2=80=AFPM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
+>
+> Keep a uniform way of where and how variables are defined between
+> DCE6, DCE8 and DCE10. It is easier to understand the code, their
+> similarities and their modifications.
+>
+> Alexandre Demers (2):
+>   drm/amdgpu: add or move defines for DCE6 in sid.h
+>   drm/amdgpu: add defines for pin_offsets in DCE8
+>
+>  drivers/gpu/drm/amd/amdgpu/cikd.h     |  9 ++++
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 63 ++++++++++++++-------------
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++---
+>  drivers/gpu/drm/amd/amdgpu/si_enums.h |  7 ---
+>  drivers/gpu/drm/amd/amdgpu/sid.h      | 29 +++++++++---
+>  5 files changed, 71 insertions(+), 51 deletions(-)
+>
+> --
+> 2.48.1
+>
 
-Based on DCE8 and DCE10 code.
+Please, don't consider this series. Adding sid.h throws out a lot of
+redefinition. This needs to be
+fixed first. I'll send a v3 once done.
 
-Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 44 +++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 2ccb450b35a6..f8a743aade52 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2968,7 +2968,51 @@ static void dce_v6_0_set_crtc_vline_interrupt_state(struct amdgpu_device *adev,
- 						    int crtc,
- 						    enum amdgpu_interrupt_state state)
- {
-+	u32 reg_block, lb_interrupt_mask;
- 
-+	if (crtc >= adev->mode_info.num_crtc) {
-+		DRM_DEBUG("invalid crtc %d\n", crtc);
-+		return;
-+	}
-+
-+	switch (crtc) {
-+	case 0:
-+		reg_block = CRTC0_REGISTER_OFFSET;
-+		break;
-+	case 1:
-+		reg_block = CRTC1_REGISTER_OFFSET;
-+		break;
-+	case 2:
-+		reg_block = CRTC2_REGISTER_OFFSET;
-+		break;
-+	case 3:
-+		reg_block = CRTC3_REGISTER_OFFSET;
-+		break;
-+	case 4:
-+		reg_block = CRTC4_REGISTER_OFFSET;
-+		break;
-+	case 5:
-+		reg_block = CRTC5_REGISTER_OFFSET;
-+		break;
-+	default:
-+		DRM_DEBUG("invalid crtc %d\n", crtc);
-+		return;
-+	}
-+
-+	switch (state) {
-+	case AMDGPU_IRQ_STATE_DISABLE:
-+		lb_interrupt_mask = RREG32(mmINT_MASK + reg_block);
-+		lb_interrupt_mask &= ~VLINE_INT_MASK;
-+		WREG32(mmINT_MASK + reg_block, lb_interrupt_mask);
-+		break;
-+	case AMDGPU_IRQ_STATE_ENABLE:
-+		lb_interrupt_mask = RREG32(mmINT_MASK + reg_block);
-+		lb_interrupt_mask |= VLINE_INT_MASK;
-+		WREG32(mmINT_MASK + reg_block, lb_interrupt_mask);
-+		break;
-+	default:
-+		break;
-+	}
- }
- 
- static int dce_v6_0_set_hpd_interrupt_state(struct amdgpu_device *adev,
--- 
-2.48.1
-
+Alexandre
