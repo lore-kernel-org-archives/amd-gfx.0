@@ -4,73 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27AD3C282D2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEAC7C282D3
 	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 13:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE78210E42D;
-	Mon,  3 Mar 2025 13:58:04 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3F1F10ECFA;
- Fri, 28 Feb 2025 16:36:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1740760611; x=1741365411; i=markus.elfring@web.de;
- bh=P3aAi1K30diMwcSyotdSLBi8iQUEl+hDB2tmHvN4WgM=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
- Subject:Content-Type:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=crjVsU99nW/CZBMET6nlxo5P5Ve71G2x3ctFqiGmxnvi7FsxwgfQXyv5sn6OWVsb
- x4qIMcrgrPve+oNy2UrDX5r6tSg0n1lSWr+zn5uco0QIgDtF+27/LMp+dXSoSRyS2
- 5CMin+pvn3H63SnHPS1vPtrLOaEIURSr+hsFC5kieFfAA0rPDZpeH+tb67yq+02AJ
- SLaehROwWbAceE2iVSDbnQ/l6015TwXCK9FmDiRiYd7eQsnK2PUIcHEMlfCfZN7uk
- 5MQQwEL21T+XVl81aMuZRHZZK8OcXMkSw42rTjlB9PBChlON+Ylqkpj/KEjiVzmt6
- D946/tidGDGJjMRPYQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.29] ([94.31.93.27]) by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MSZHv-1th5Lf3hO5-00Hx7y; Fri, 28
- Feb 2025 17:36:50 +0100
-Message-ID: <225be170-472d-40c1-95ed-71b452740ae7@web.de>
-Date: Fri, 28 Feb 2025 17:36:49 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9610D10E431;
+	Mon,  3 Mar 2025 13:58:10 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FzXI0Yr8";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFFEF10E104;
+ Sat,  1 Mar 2025 05:53:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1740808394; x=1772344394;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=SOKX+bxG8+nhQMIjkrqXwpSaA/qreBbJ3mAB/IkyMSo=;
+ b=FzXI0Yr8lMeVc9DPhgSFTfTHNtXvFUJPQ/rfjjzygxNIcwqSmvAcCse6
+ WeKaMP5WCUpBPRfIW6LzxG3DXuiVKLLkGVj0HkEdQf9ahqPDWgUwdEy88
+ Gsqv91pAN94jZYZu0rA93AlyHRtjDS8+CKL5ewGMooFHfROJUKQpUDSuM
+ b/5+Qx8QzcEoh/OS+n+TEgcvU4FxD8QQLuteq2wSBnzYncuOGGpzv5ucM
+ SlrPPpel3ixUsE/9taOwJpgIyRkoOQYAD1RBVKJfDPAYpQZxKRdPeQZU7
+ Ldq8q/QDuzAf4QAI/Ty89qAh3FnbP5BJGK4NU0Db1MopLTRVF7xCfCG+T Q==;
+X-CSE-ConnectionGUID: ImOnxhpHRWuXUCllrA4ocA==
+X-CSE-MsgGUID: dmFNIhXWSquUobQrEheI3g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11359"; a="45394244"
+X-IronPort-AV: E=Sophos;i="6.13,324,1732608000"; d="scan'208";a="45394244"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2025 21:53:13 -0800
+X-CSE-ConnectionGUID: 1GMxVJ97S22CtsYmBWheHA==
+X-CSE-MsgGUID: nUaMSS53Tr6jbFoeUT9Mew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,324,1732608000"; d="scan'208";a="117279593"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2025 21:53:10 -0800
+Date: Sat, 1 Mar 2025 07:53:06 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Content-Language: en-GB
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
- Qasim Ijaz <qasdev00@gmail.com>
-From: Markus Elfring <Markus.Elfring@web.de>
-Subject: [PATCH] drm/radeon: Simplify maximum determination in
- radeon_uvd_calc_upll_dividers()
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:pQnRLfx8v4G9J+knpTzjK8SoUNS8MlolvSv3lkROWsw5FtuoZvC
- jejqbXK5eiAEUA/Wy3nz448SRf7fWzTID2DWCqDZk4gpGPTOppr9sNw80VIGYfnyk/hBve/
- MNEtXyvm5MDb4NTUi0brMno2VkKUjZLkPkSn3SG1mbtIUZ6Zc5zQUgAJJVWUt6893KWyP0h
- fhxSENApa2wuLnjbLweRA==
-UI-OutboundReport: notjunk:1;M01:P0:IoqzqYMsVKE=;8IMPCWVo7UO+jbp8zxoV4K9CIxH
- WUT5+Lqmgwmg9nmcLw7B62FBoZSApUZoLbTAR08MqOnYrR8NIPjp9H3hVMDqGbXcF1aZWmfh4
- 9DJRGCpInmZXDQmzmF0QLWtBhjeD7nZcwTabq/nthTdMszLW7jtGpixi9g+/UIradL1uPk+Un
- 8CKHNaCau95MOeD2QdI31+1Xu4OopBONfv5QhYKzH4qRYuBxuIAdhKzAtrRmgS6uVIatXLvy1
- zFN0nJHP/Xf8ouS4JzlVspTzNCQjen8K7495sn52gU4Q8xdZ+35q+Qk8/8tFxvW0hB849yGHs
- nPyZd0yxVJl9X3u9gdxtXibEeVrth5sUHVCRspdBF9JVAwuafg+Tjm0/6afVMYgvZx3ifCir1
- i11NcSYwA1Do044NNc0slPpIenXy9SOClbe+MzyyhZhRJRURrsXs+cPbzilwO6g1z0y2mFroS
- g8RTkPjpNf0+bjVyjtZPNNrMzRQmdmxGtL4LAeMRGksCAW6z1DlglCcGLGGSrXC84QabDukpQ
- vLcbn/izySG8Em5eBzNFfD5eRctBnH5fjY0Rq1BJHpSO9kv9hUr2o/tvTR94rXGsC0qpdA0y0
- IXNMY7vDiW3TCoOFiSAaQiXVagS3lEyW9af+Vm5LtntRizcm/Bi0/r0U3yomEQpOrHTP1N82V
- Dwzdht/SZUWDz85cvDj9AbGj9UZAnMkuD0SPaJY4KlreyIqDM4Dgjd8g7OAKKNZ3Vex3oMpM5
- OTunsUnTg4uj7+QG5wlcPmn3AZQ4Ui5dpMWdUdCO9NYHoSi9+VCL60J4VoCqGWdP1/dV+H771
- a7+wyQSedToNCdNfc3/VuWxVdqcXEvxMKmvD3Y50JONzJyV7cdnZ3R4swNo4qA2bp/MMdixZC
- 1xz2af6rOp4rtK/wUT5mfbk2Re1wpccXrZXl42RPI+T+S8o01DuUcZ4sqOfc2cwB8xQlzL2Fd
- +OxUKL0u1lap4P71NQ9Ff2MnMgLtCoT408b4/7nTl8KF0evcN3GZsn5T/N7WL9Dg8dvrUj7va
- vBEivYCkNtF23WB2PttWtQZMS0LwiDZ4DyyWdpGsGPg1tNRsvPBxoAb5L4zFJ93IQ2PcYMdsq
- rXrKccO9wGsLZI47/FUf0ClRHNfUpVJO5yRJ/G26YdvBXb2Dxg9aFnGA6bOrEOdN1VRWlfa/6
- QXg87qVTASNpsvb1iuSXUadOGUDMl0/rUumy6IWUTffs5ySH9FBAwMyx01meX2y2gcBQLE2GC
- LxpIO/8N5+ammdtWZLxtb1+xzFZ82eusr4uMbyOFatsQZbX//2IEWCJU/u85y4YCqrb/StABr
- NUGd5KblsU8y+nFupKcH72vo+HijS5+6PV5Mwc0lVH49vg2HHA006eDF7X0fxqqFkLG27+Y2a
- vnvANt8zRWDhTpU8NZO0aY2CyJCoS6Xhqg1r5qDMgmjS4bU0lzcdsPndYTV4ifzBIXZH2hY0b
- 3x+GMY8rBnsiXlSRihqzpU2pUyUs=
+ 'Christian =?iso-8859-1?Q?K=F6nig'?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ lucas.demarchi@intel.com
+Subject: Re: [PATCH 1/2] drm: Create an app info option for wedge events
+Message-ID: <Z8KgwswQQyGxhsR1@black.fi.intel.com>
+References: <20250228121353.1442591-1-andrealmeid@igalia.com>
+ <20250228121353.1442591-2-andrealmeid@igalia.com>
+ <Z8HGFRGOYvyCCWWu@black.fi.intel.com>
+ <58763d8e-46a1-4753-9401-987fb3dac50b@igalia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <58763d8e-46a1-4753-9401-987fb3dac50b@igalia.com>
 X-Mailman-Approved-At: Mon, 03 Mar 2025 13:58:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,34 +78,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Fri, 28 Feb 2025 17:32:45 +0100
+On Fri, Feb 28, 2025 at 06:54:12PM -0300, André Almeida wrote:
+> Hi Raag,
+> 
+> On 2/28/25 11:20, Raag Jadav wrote:
+> > Cc: Lucas
+> > 
+> > On Fri, Feb 28, 2025 at 09:13:52AM -0300, André Almeida wrote:
+> > > When a device get wedged, it might be caused by a guilty application.
+> > > For userspace, knowing which app was the cause can be useful for some
+> > > situations, like for implementing a policy, logs or for giving a chance
+> > > for the compositor to let the user know what app caused the problem.
+> > > This is an optional argument, when `PID=-1` there's no information about
+> > > the app caused the problem, or if any app was involved during the hang.
+> > > 
+> > > Sometimes just the PID isn't enough giving that the app might be already
+> > > dead by the time userspace will try to check what was this PID's name,
+> > > so to make the life easier also notify what's the app's name in the user
+> > > event.
+> > > 
+> > > Signed-off-by: André Almeida <andrealmeid@igalia.com>
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
+> > >   drivers/gpu/drm/drm_drv.c                  | 16 +++++++++++++---
+> > >   drivers/gpu/drm/i915/gt/intel_reset.c      |  3 ++-
+> > >   drivers/gpu/drm/xe/xe_device.c             |  3 ++-
+> > >   include/drm/drm_device.h                   |  8 ++++++++
+> > >   include/drm/drm_drv.h                      |  3 ++-
+> > >   7 files changed, 29 insertions(+), 8 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > index 24ba52d76045..00b9b87dafd8 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > @@ -6124,7 +6124,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+> > >   	atomic_set(&adev->reset_domain->reset_res, r);
+> > >   	if (!r)
+> > > -		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+> > > +		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
+> > >   	return r;
+> > >   }
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > index ef1b77f1e88f..3ed9cbcab1ad 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > @@ -150,7 +150,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+> > >   			amdgpu_fence_driver_force_completion(ring);
+> > >   			if (amdgpu_ring_sched_ready(ring))
+> > >   				drm_sched_start(&ring->sched, 0);
+> > > -			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+> > > +			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
+> > >   			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
+> > >   			goto exit;
+> > >   		}
+> > > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> > > index 17fc5dc708f4..48faafd82a99 100644
+> > > --- a/drivers/gpu/drm/drm_drv.c
+> > > +++ b/drivers/gpu/drm/drm_drv.c
+> > > @@ -522,6 +522,7 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+> > >    * drm_dev_wedged_event - generate a device wedged uevent
+> > >    * @dev: DRM device
+> > >    * @method: method(s) to be used for recovery
+> > > + * @info: optional information about the guilty app
+> > >    *
+> > >    * This generates a device wedged uevent for the DRM device specified by @dev.
+> > >    * Recovery @method\(s) of choice will be sent in the uevent environment as
+> > > @@ -534,13 +535,14 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+> > >    *
+> > >    * Returns: 0 on success, negative error code otherwise.
+> > >    */
+> > > -int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+> > > +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+> > > +			 struct drm_wedge_app_info *info)
+> > >   {
+> > >   	const char *recovery = NULL;
+> > >   	unsigned int len, opt;
+> > >   	/* Event string length up to 28+ characters with available methods */
+> > > -	char event_string[32];
+> > > -	char *envp[] = { event_string, NULL };
+> > > +	char event_string[32], pid_string[15], comm_string[TASK_COMM_LEN];
+> > > +	char *envp[] = { event_string, pid_string, comm_string, NULL };
+> > >   	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+> > > @@ -562,6 +564,14 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+> > >   	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+> > >   		 "but recovered through reset" : "needs recovery");
+> > > +	if (info) {
+> > > +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
+> > > +		snprintf(comm_string, sizeof(comm_string), "APP=%s", info->comm);
+> > > +	} else {
+> > > +		snprintf(pid_string, sizeof(pid_string), "%s", "PID=-1");
+> > > +		snprintf(comm_string, sizeof(comm_string), "%s", "APP=none");
+> > > +	}
+> > This is not much use for wedge cases that needs recovery, since at that point
+> > the userspace will need to clean house anyway.
+> > 
+> > Which leaves us with only 'none' case and perhaps the need for standardization
+> > of "optional telemetry collection".
+> > 
+> > Thoughts?
+> 
+> I had the feeling that 'none' was already meant to be used for that. Do you
+> think we should move to another naming? Given that we didn't reach the merge
+> window yet we could potentially change that name without much damage.
 
-Replace nested max() calls by single max3() call in this
-function implementation.
+No, I meant thoughts on possible telemetry data that the drivers might
+think is useful for userspace (along with PID) and can be presented in
+a vendor agnostic manner (just like wedged event).
 
-This issue was transformed by using the Coccinelle software.
-
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- drivers/gpu/drm/radeon/radeon_uvd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/=
-radeon_uvd.c
-index 058a1c8451b2..ded5747a58d1 100644
-=2D-- a/drivers/gpu/drm/radeon/radeon_uvd.c
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -961,7 +961,7 @@ int radeon_uvd_calc_upll_dividers(struct radeon_device=
- *rdev,
- 	unsigned optimal_score =3D ~0;
-
- 	/* loop through vco from low to high */
--	vco_min =3D max(max(vco_min, vclk), dclk);
-+	vco_min =3D max3(vco_min, vclk, dclk);
- 	for (vco_freq =3D vco_min; vco_freq <=3D vco_max; vco_freq +=3D 100) {
-
- 		uint64_t fb_div =3D (uint64_t)vco_freq * fb_factor;
-=2D-
-2.48.1
-
+Raag
