@@ -4,40 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56E90C282C6
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 20:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E2CC282D0
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 20:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED7FF10E1E6;
-	Mon,  3 Mar 2025 20:45:04 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3091C10E113
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Mar 2025 20:44:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F224B10E185;
+	Mon,  3 Mar 2025 20:45:07 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rebXxuL6";
+	dkim-atps=neutral
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DCCD10E185
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Mar 2025 20:45:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NImGDQRQ3NWYn2F5cyCzeKVMqcH5R30adv2GQYRXbPSlWpjC4d58RLgMoKe7H+unPrK465Lzrtbizm7LmppjAIhBs+MFWTziPf6a+hnOnbAVhMV8CE28Lah3kaYe/6PBez07gt834TmljoGpKAdhiq1a00oYP6UMIlG6WciRmcvbIxX3VcjIRiInZ8Ydi8HqqbP89p9G3FAAltxGDnRxWaORLxHaNyFcxkdzAJhcAVpvGUNk791HmszdAqlTxYgCQ55tv3l6J/32LmD97a7Je9IaGzVpDJ8ZklmH6NKrhlVruxiV61BKvE+GTYFqQZ9RJTYRV3q6n4L0sW3+V1W2rA==
+ b=feq/y4JxYyQ202Ouj167o0o1SXu32GU6R/E8X1H9+LA4XMt4JUIiz/0Oup3A0kClM5Trglq4Fh3/pJGXN4ww4il7FkUDTjbAdws6hOGEmb3dSKXKHCrKcTRLeX0TwaAx/8fv2HXKtJwGnpiDOf2Y0oJNj379VYGIJTKWi4sdn1yO455M10LzVaX/fwqVCALYTfcZNBRAdlWxKeDSLXS+xfh0Ry82B/OTmtBOCQU5f1xhKTbfy+eu9qfw1iYGyNT62K6SSeyxCl1utC18ilv3Wx/gI7fUBSGsBLfnjhbEoMOoy8YvLJyUvWtHGh8/LsAfJtJvWNNCIFuwqhXWPGrhzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/DX4wbIjlLAcsVdpyPSNPK1Vhv02rvrdhzMEOryYYE4=;
- b=gaEfeixB4SGcFZfAcJosULQweEmZgWrXgJujO3xmwkMvSJ1+t7FRo8Si7KUjw/52YNZ51Zk+VR1bKBQAHKg56ThcwbpDJl4hsq/Xbdi1fBzY9hBu3wzNbiORzRzEAIzjzufzkVRTSw+z8SXo6guwXrIjbcEyhbYb1EueCq6CvYuwc1c6YDIxX06JRlS1+X94d039s6PLOTSN6SMHvf9n0lLxN8xk464uvgMARPURXYkFt4/+45UeaxpLNTYHGx4+wllEXorxvbISNA2bAUd3L1uY1p20ks+lFFLzvsN+vWXkGYg87wdPtxTYZQZcc5aSKqB/0rVsQViXiDNZGKz5NA==
+ bh=PT3e4YAtE5007MLogsWh37ZNyki8ef8rr6HcvZvWamA=;
+ b=dW6D45PuFA9hhg/eVLZsKWaKv5DGueqvNSDuijyErM4eZ2ujq9uGEu78DtrAtJXa+PE7Qyf7jv616/6g8QRYmW+xLT3tH+deegJxnD99FvnU4Y2fU3K4TWZJtZqZo3QD+kuT9mfyTADXhDdLAnmex6R3lexuDPmlvC/sXSt7X41kMFXFifLznI2aJFeUmmemr8J6qdgXVl8NOluMJuaLhBpPocmpDOa/zwZj6lmd9OX3RM/YfXLGov5RIrJhD6VCok7e9uCWwv/vDGiBKmSWjofpD8rQbSuaDzD8FbCNgI+qfau1ZIGFg2RvIxOeGNple0XwfvQ+PXni4vBQO5gbPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/DX4wbIjlLAcsVdpyPSNPK1Vhv02rvrdhzMEOryYYE4=;
- b=ma4/zOHktxMcUMZvaxI4uiG7R0TSjmmcJ+gKMVnAr25+Ne7pRt9rvUypJwxhe54vLGBk9RI56e1GPjMMquT7dgWCrWFIf62t930LlIY5AG0cGEd+QRDAZMMgiGxBw63saezNfHTX0nuNa3FgQY7NalB1HLE+/AphrQPH1iWnMFI=
-Received: from CH2PR17CA0001.namprd17.prod.outlook.com (2603:10b6:610:53::11)
- by BN7PPF2E18BD747.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6ca) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.28; Mon, 3 Mar
- 2025 20:44:49 +0000
-Received: from CH3PEPF0000000E.namprd04.prod.outlook.com
- (2603:10b6:610:53:cafe::2e) by CH2PR17CA0001.outlook.office365.com
- (2603:10b6:610:53::11) with Microsoft SMTP Server (version=TLS1_3,
+ bh=PT3e4YAtE5007MLogsWh37ZNyki8ef8rr6HcvZvWamA=;
+ b=rebXxuL6+VEZ9O6ozf6JzKkrenmPTTJqkn2dFTUps6yK5KbdaOdaIHflqn+VN+8F05hxzC0L57dUVhgUi6Pd5pnCG3U32ziQPi3Kq0MLLUL+EinWQdnEKMNzbFS92WqsqgRUK6OGF+JMkkyDLZ5USs9L6oKQI4HtUG3AQea7Nks=
+Received: from CH5P221CA0024.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1f2::18)
+ by PH7PR12MB5784.namprd12.prod.outlook.com (2603:10b6:510:1d3::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.25; Mon, 3 Mar
+ 2025 20:44:53 +0000
+Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
+ (2603:10b6:610:1f2:cafe::c2) by CH5P221CA0024.outlook.office365.com
+ (2603:10b6:610:1f2::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.28 via Frontend Transport; Mon,
- 3 Mar 2025 20:44:49 +0000
+ 3 Mar 2025 20:44:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH3PEPF0000000E.mail.protection.outlook.com (10.167.244.42) with Microsoft
+ CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8511.15 via Frontend Transport; Mon, 3 Mar 2025 20:44:49 +0000
+ 15.20.8511.15 via Frontend Transport; Mon, 3 Mar 2025 20:44:52 +0000
 Received: from harish-base-compute.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 3 Mar 2025 14:44:48 -0600
+ 15.1.2507.39; Mon, 3 Mar 2025 14:44:50 -0600
 From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH v2 1/2] drm/amdkfd: Add pm_config_dequeue_wait_counts API
-Date: Mon, 3 Mar 2025 15:44:26 -0500
-Message-ID: <20250303204427.113261-1-Harish.Kasiviswanathan@amd.com>
+CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, ": Jonathan Kim"
+ <jonathan.kim@amd.com>
+Subject: [PATCH v2 2/2] drm/amdgpu: Reduce dequeue retry timeout for gfx9
+ family
+Date: Mon, 3 Mar 2025 15:44:27 -0500
+Message-ID: <20250303204427.113261-2-Harish.Kasiviswanathan@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250303204427.113261-1-Harish.Kasiviswanathan@amd.com>
+References: <20250303204427.113261-1-Harish.Kasiviswanathan@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,52 +74,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000E:EE_|BN7PPF2E18BD747:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dd446ad-d4b3-4ff1-e1f2-08dd5a943da6
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|PH7PR12MB5784:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3fd551e-3733-4f41-d2c5-08dd5a943f9d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?joGoWswzCV7CAmzZcngbOnSj1kxcYRar9f9NuEXEb+d8YoTdbRYvLTvSw3+y?=
- =?us-ascii?Q?QDxmd4qOnW5zFfXOVJAHyD1dIibsduoUJuxga4VJAQcaUp4kyVbMaGNNtAgb?=
- =?us-ascii?Q?Axs8L+pjRjNPol1+tCYGn/S/zUH95DM+Pr/Wht2zR20D0OV/tO/pqphv9Kpb?=
- =?us-ascii?Q?fzlhTQyo8y5Ezt1v8DYJ7W/nAOUt8AbfCqzsuPOLPSIW/WL10SSxRE3VE+If?=
- =?us-ascii?Q?KPO9X4d+6HOyQI8eaQyOtXtadC5zVdqf3XXueZCTDCrRLfufpRHNEfQmU0Mg?=
- =?us-ascii?Q?zcSVnoSJUU+gfrAvbvAn9za2TKYmwG4XbRf8fCKiyMKtBAtAwozzp/7FZ5Nf?=
- =?us-ascii?Q?+6GcZGwqLjUJ33aloC+rCZj51FX5wQ+jToeqm9H1mICQ4gdhmz1N/Kkewlhh?=
- =?us-ascii?Q?OB73LfsnDJCj7fRSze8rcXjWs0jsuITevDvDW2FbCLGC3NkdZqoiubIYWzkl?=
- =?us-ascii?Q?54n8ZBRP1lNL1/ikdVCOfSWfI9gFBwKlpQH0jqG8fo7n6kQt1bCWhTD0hvoO?=
- =?us-ascii?Q?OY8x7Z7m5uhBoY2L91JULdiQft+Zmlvw7+X+H99lxD5aRnDpBsdRRkvV8LOj?=
- =?us-ascii?Q?mLP5LKgbNmcytWyPWBi/HH1tfCHRPXEff5OYMRf7D3GRE4EetsePdid5sCIl?=
- =?us-ascii?Q?wUzx58mrdAfsXI8VfygXCxPQ42Y3LB/GgtKqpQuSnaz6mcXIwuF2OSwc3WpM?=
- =?us-ascii?Q?rm79qsHC/mX5oQQxHza2eHFQiW1+mc/boJp8/QoK4vF/PzVJ5hAG714POAWx?=
- =?us-ascii?Q?XKWR4GepSyPF1yFpE+BpgM7yIK8Lsn4Wu2pF/gM4VoC+zGcL4PSvfrH9djrf?=
- =?us-ascii?Q?BJiQZjOLIFr9akoHKBFYjBWDQmwTrGo+W9myCscEFPLhvyCuH7G/Dt+nA37t?=
- =?us-ascii?Q?hN/p63KZ1ZDtKvIzojGQdooWJyZuDrNs0dJFMVhylnnEE87znTiFXegNnVaW?=
- =?us-ascii?Q?NNLJ7TzYYcJZ1UIaYmH/Ne+TDiwtbQAtvh0pF/qsUSjjwwPriZBAI1+SS9+S?=
- =?us-ascii?Q?Ueg41UQMtb8aMWQAVGy7Iz150jYkGSyUX1v/DUZ0jTBhus0PuyaPKAY0xfBd?=
- =?us-ascii?Q?ZNcDm8AV/5bNpeEyjSBMH/ya8K1QdENXIlOG/FjCmaObIZFJHOrks0ru55Nl?=
- =?us-ascii?Q?sE4DFJavZ8F2l+APMuBSsbBO5wElOWdYmJx1PirPxeCfi7G/NvTXWzbUJoto?=
- =?us-ascii?Q?P2DCJpmvQxTqn2Y3ohJeb1kIXAl5ZgBS8VvwImzntqA+/zHGpPK5Xeq9LNiJ?=
- =?us-ascii?Q?wrrppz8bCSESikPsiPJeaCYodtUuQd89piIL5+WRW4ZFMVQZg604JQwP+Wi7?=
- =?us-ascii?Q?cZvJcNKWJG0+zQPuds23PVNCBG1kCLiRakXeisfa9e/UbjrwPCTVUoCVR+MV?=
- =?us-ascii?Q?sDgL8lpS/jyUMRI4TMurp4xViH/szikLV58qzP3Auk7eSj8JYKANrALk3gad?=
- =?us-ascii?Q?bn9NYW+I4g7YOQ3rSnQD5CemLnyak2zfv3Gg3ieuV/sOstX1xhvUDZtx3ccI?=
- =?us-ascii?Q?L6PvDCgIaBXAdmI=3D?=
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eBFOJqa9pKCbE85oICx75/1fX+sKnF3TsyMkKScrXsGYlziDh9XY6KL9jTBm?=
+ =?us-ascii?Q?cwCWlhr3j2JFXIkmaP3uPSV6ZuGL3zYqbcK/OIB8iW/a+jWf0emwHN0xGnR8?=
+ =?us-ascii?Q?SxnbCLxodCoFwixby9aGWQMhrlPwduovMnyO9+ea9q1T6nMrGfe1rynufUzI?=
+ =?us-ascii?Q?M/trwSFfsQ/Rrubq07sR6NbxUVY1RQ/pxVqBYS7m4Zald3Y8eLwhwYpP7okI?=
+ =?us-ascii?Q?WkFTBt8J1wxWExyFC6dKePpY2d31kJsH4835Sz+4AQ7VG0cpooTE00RXw4n8?=
+ =?us-ascii?Q?p9Pqmz9UlCtMjLh47gScvf3iy5VF20qzJ4rUs6I8fiuivit7CEnUp02gLPYk?=
+ =?us-ascii?Q?esNigYuFfSCR5w2a1XrjYMrwDwlJH+nLfklZm40lLlo+pY3X9EpZWIaU+YDi?=
+ =?us-ascii?Q?uiC1RUOOgXIAnCudCAW6hSLfcKTvdsT+r4QBxePUoBLm4lTAGLUbkkUeNOL0?=
+ =?us-ascii?Q?9cLS4DoEO5M+6j3H82KSDLjpr67NDHX/cbs5127WpSCODHqMvxl9bU2XA1Kw?=
+ =?us-ascii?Q?2kbcrSu5ouO52WeJIgjaW3bsoFS3uzTeOgwGIycm64EfJS0HHqfRdROWATVg?=
+ =?us-ascii?Q?FxgQIpA54XP8/v0CK7yZVON5CPMzngwxSlOxNVMWRe7/uI1UWqBAVzhXAJ5c?=
+ =?us-ascii?Q?qpyurTzK24uNgWNk1gpxr+muDG2PUQxHbsed2oXM4Yw3yG7u7kB6rWvFt3zk?=
+ =?us-ascii?Q?FbeSZqcpO4dTDvaZ57SWplP8kUN3iH7ClmVDvupJJF/UKo+6aok45ihQfxrS?=
+ =?us-ascii?Q?RlBijkNDQBHnA9Bp+lC4yysF6mg8f1io/H+iau73SvcCTN8DCA9I15Bdez9U?=
+ =?us-ascii?Q?9kvTbVBSLdhvLo1Wno083ZSkJHN8X7Hps2izcbUhbXgonJ5S/UKH5LAwDs6k?=
+ =?us-ascii?Q?KS63d+6bColhrcMX8NH8eMC+nbWdficQIprXXcxka7YaGxshBxsNN9w1tSY0?=
+ =?us-ascii?Q?cZQdXp0Uz1ThR6JP7W99DR3lBl+TUcEvXZZOjkoJ5I+uLN37KdLC588vfLKZ?=
+ =?us-ascii?Q?WjgDC1pDHAILBm9MkxHsW1H1bnf0b2q4PXydib82lMvQohrXEAW3MbAu92jn?=
+ =?us-ascii?Q?HBxGxUGA0t9Jim+Vd+EmJfCiSVrjPn5e06ZUIh+1D3l2U10tmVqbDC6G++tZ?=
+ =?us-ascii?Q?O/xxxBIAf73h9ACJaCTmpiAQC+Gtoza3sV5WzzseWDwDZH9SKNra7Tk0+5x0?=
+ =?us-ascii?Q?8Wo8Kwx8WsLT/F7OWHHfXOPtIHlcrY269hZc8SNbjuCQ07Arq+fsYMI92Cqt?=
+ =?us-ascii?Q?kuxX7ecLoiOPsZvRTftVXcWo7aU0ekSJ2nddrdAjTz4wg1NDoS0bDsaFzp5w?=
+ =?us-ascii?Q?ALeMoh/cBQCUg7icNP3UZXWOCWvXHkhy5mGnWLyJVa6WG6LC6O+hoWswJahS?=
+ =?us-ascii?Q?uQJoEXlGSNx4imeg6x3oi1mWyMWmpT4Htzs8xkrfeuZMSNSiB4qPfi0spc0n?=
+ =?us-ascii?Q?cPKvMv39aztg/1v+/8eeieaXrYrnoC0vSEu/7lWZ4g2cNj8hEp7FQlC50rCa?=
+ =?us-ascii?Q?9zZExJkC1acYVYs=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2025 20:44:49.1860 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dd446ad-d4b3-4ff1-e1f2-08dd5a943da6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2025 20:44:52.4820 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3fd551e-3733-4f41-d2c5-08dd5a943f9d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF2E18BD747
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5784
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,386 +134,308 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update pm_update_grace_period() to more cleaner
-pm_config_dequeue_wait_counts(). Previously, grace_period variable was
-overloaded as a variable and a macro, making it inflexible to configure
-additional dequeue wait times.
-
-pm_config_dequeue_wait_counts() now takes in a cmd / variable. This
-allows flexibility to update different dequeue wait times.
+Dequeue retry timeout controls the interval between checks for unmet
+conditions. On MI series, reduce this from 0x40 to 0x1 (~ 1 uS). The
+cost of additional bandwidth consumed by CP when polling memory
+shouldn't be substantial.
 
 Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Reviewed-by: : Jonathan Kim <jonathan.kim@amd.com>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 45 ++++++--------
- .../drm/amd/amdkfd/kfd_device_queue_manager.h | 11 +++-
- .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 26 +++++++-
- .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 59 ++++++++++++++-----
- .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |  4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         | 28 +++++++--
- 6 files changed, 123 insertions(+), 50 deletions(-)
+ .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |  2 +-
+ .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  2 +-
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   |  4 +-
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 28 ++++++-------
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    |  5 ++-
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 28 ++++++-------
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |  5 ++-
+ .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 40 +++++++++++++------
+ .../gpu/drm/amd/include/kgd_kfd_interface.h   |  5 ++-
+ 10 files changed, 70 insertions(+), 51 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 94b1ac8a4735..cc7465f9562a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -42,6 +42,8 @@
- /* Size of the per-pipe EOP queue */
- #define CIK_HPD_EOP_BYTES_LOG2 11
- #define CIK_HPD_EOP_BYTES (1U << CIK_HPD_EOP_BYTES_LOG2)
-+/* See unmap_queues_cpsch() */
-+#define USE_DEFAULT_GRACE_PERIOD 0xffffffff
- 
- static int set_pasid_vmid_mapping(struct device_queue_manager *dqm,
- 				  u32 pasid, unsigned int vmid);
-@@ -1745,10 +1747,7 @@ static int initialize_cpsch(struct device_queue_manager *dqm)
- 
- 	init_sdma_bitmaps(dqm);
- 
--	if (dqm->dev->kfd2kgd->get_iq_wait_times)
--		dqm->dev->kfd2kgd->get_iq_wait_times(dqm->dev->adev,
--					&dqm->wait_times,
--					ffs(dqm->dev->xcc_mask) - 1);
-+	update_dqm_wait_times(dqm);
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+index 8dfdb18197c4..53f5f1885870 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+@@ -189,7 +189,7 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd = {
+ 	.set_address_watch = kgd_gfx_aldebaran_set_address_watch,
+ 	.clear_address_watch = kgd_gfx_v9_clear_address_watch,
+ 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
+-	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
++	.build_dequeue_wait_counts_packet_info = kgd_gfx_v9_build_dequeue_wait_counts_packet_info,
+ 	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
+ 	.hqd_get_pq_addr = kgd_gfx_v9_hqd_get_pq_addr,
+ 	.hqd_reset = kgd_gfx_v9_hqd_reset,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+index 9abf29b58ac7..6fd41aece7e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+@@ -415,7 +415,7 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
+ 	.set_address_watch = kgd_gfx_v9_set_address_watch,
+ 	.clear_address_watch = kgd_gfx_v9_clear_address_watch,
+ 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
+-	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
++	.build_dequeue_wait_counts_packet_info = kgd_gfx_v9_build_dequeue_wait_counts_packet_info,
+ 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
+ 	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
+ 	.hqd_get_pq_addr = kgd_gfx_v9_hqd_get_pq_addr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+index e2ae714a700f..95f249896275 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+@@ -530,8 +530,8 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
+ 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
+ 	.program_trap_handler_settings =
+ 				kgd_gfx_v9_program_trap_handler_settings,
+-	.build_grace_period_packet_info =
+-				kgd_gfx_v9_build_grace_period_packet_info,
++	.build_dequeue_wait_counts_packet_info =
++				kgd_gfx_v9_build_dequeue_wait_counts_packet_info,
+ 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
+ 	.enable_debug_trap = kgd_aldebaran_enable_debug_trap,
+ 	.disable_debug_trap = kgd_gfx_v9_4_3_disable_debug_trap,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+index 62176d607bef..0b03f2e9a858 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+@@ -1021,25 +1021,25 @@ void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device *adev,
+ 	*wait_times = RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2));
  }
  
-@@ -1844,25 +1843,11 @@ static int start_cpsch(struct device_queue_manager *dqm)
- 	/* clear hang status when driver try to start the hw scheduler */
- 	dqm->sched_running = true;
- 
--	if (!dqm->dev->kfd->shared_resources.enable_mes)
-+	if (!dqm->dev->kfd->shared_resources.enable_mes) {
-+		if (pm_config_dequeue_wait_counts(&dqm->packet_mgr,
-+				KFD_DEQUEUE_WAIT_INIT, 0 /* unused */))
-+			dev_err(dev, "Setting optimized dequeue wait failed. Using default values\n");
- 		execute_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0, USE_DEFAULT_GRACE_PERIOD);
--
--	/* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
--	if (amdgpu_emu_mode == 0 && dqm->dev->adev->gmc.is_app_apu &&
--	    (KFD_GC_VERSION(dqm->dev) == IP_VERSION(9, 4, 3))) {
--		uint32_t reg_offset = 0;
--		uint32_t grace_period = 1;
--
--		retval = pm_update_grace_period(&dqm->packet_mgr,
--						grace_period);
--		if (retval)
--			dev_err(dev, "Setting grace timeout failed\n");
--		else if (dqm->dev->kfd2kgd->build_grace_period_packet_info)
--			/* Update dqm->wait_times maintained in software */
--			dqm->dev->kfd2kgd->build_grace_period_packet_info(
--					dqm->dev->adev,	dqm->wait_times,
--					grace_period, &reg_offset,
--					&dqm->wait_times);
- 	}
- 
- 	/* setup per-queue reset detection buffer  */
-@@ -2261,7 +2246,14 @@ static int reset_queues_on_hws_hang(struct device_queue_manager *dqm)
- 	return r;
- }
- 
--/* dqm->lock mutex has to be locked before calling this function */
-+/* dqm->lock mutex has to be locked before calling this function
-+ *
-+ * @grace_period: If USE_DEFAULT_GRACE_PERIOD then default wait time
-+ *   for context switch latency. Lower values are used by debugger
-+ *   since context switching are triggered at high frequency.
-+ *   This is configured by setting CP_IQ_WAIT_TIME2.SCH_WAVE
-+ *
-+ */
- static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 				enum kfd_unmap_queues_filter filter,
- 				uint32_t filter_param,
-@@ -2280,7 +2272,8 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 		return -EIO;
- 
- 	if (grace_period != USE_DEFAULT_GRACE_PERIOD) {
--		retval = pm_update_grace_period(&dqm->packet_mgr, grace_period);
-+		retval = pm_config_dequeue_wait_counts(&dqm->packet_mgr,
-+				KFD_DEQUEUE_WAIT_SET_SCH_WAVE, grace_period);
- 		if (retval)
- 			goto out;
- 	}
-@@ -2324,8 +2317,8 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 
- 	/* We need to reset the grace period value for this device */
- 	if (grace_period != USE_DEFAULT_GRACE_PERIOD) {
--		if (pm_update_grace_period(&dqm->packet_mgr,
--					USE_DEFAULT_GRACE_PERIOD))
-+		if (pm_config_dequeue_wait_counts(&dqm->packet_mgr,
-+				KFD_DEQUEUE_WAIT_RESET, 0 /* unused */))
- 			dev_err(dev, "Failed to reset grace period\n");
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 09ab36f8e8c6..917717cfe9c5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -37,7 +37,6 @@
- 
- #define KFD_MES_PROCESS_QUANTUM		100000
- #define KFD_MES_GANG_QUANTUM		10000
--#define USE_DEFAULT_GRACE_PERIOD 0xffffffff
- 
- struct device_process_node {
- 	struct qcm_process_device *qpd;
-@@ -359,4 +358,14 @@ static inline int read_sdma_queue_counter(uint64_t __user *q_rptr, uint64_t *val
- 	/* SDMA activity counter is stored at queue's RPTR + 0x8 location. */
- 	return get_user(*val, q_rptr + 1);
- }
-+
-+static inline void update_dqm_wait_times(struct device_queue_manager *dqm)
-+{
-+	if (dqm->dev->kfd2kgd->get_iq_wait_times)
-+		dqm->dev->kfd2kgd->get_iq_wait_times(dqm->dev->adev,
-+					&dqm->wait_times,
-+					ffs(dqm->dev->xcc_mask) - 1);
-+}
-+
-+
- #endif /* KFD_DEVICE_QUEUE_MANAGER_H_ */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-index 4984b41cd372..3f574d82b5fc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-@@ -396,14 +396,29 @@ int pm_send_query_status(struct packet_manager *pm, uint64_t fence_address,
- 	return retval;
- }
- 
--int pm_update_grace_period(struct packet_manager *pm, uint32_t grace_period)
-+/* pm_config_dequeue_wait_counts: Configure dequeue timer Wait Counts
-+ *  by writing to CP_IQ_WAIT_TIME2 registers.
-+ *
-+ *  @cmd: See emum kfd_config_dequeue_wait_counts_cmd definition
-+ *  @value: Depends on the cmd. This parameter is unused for
-+ *    KFD_DEQUEUE_WAIT_INIT and KFD_DEQUEUE_WAIT_RESET. For
-+ *    KFD_DEQUEUE_WAIT_SET_SCH_WAVE it holds value to be set
-+ *
-+ */
-+int pm_config_dequeue_wait_counts(struct packet_manager *pm,
-+		enum kfd_config_dequeue_wait_counts_cmd cmd,
-+		uint32_t value)
+-void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
++void kgd_gfx_v10_build_dequeue_wait_counts_packet_info(struct amdgpu_device *adev,
+ 						uint32_t wait_times,
+-						uint32_t grace_period,
++						uint32_t sch_wave,
++						uint32_t que_sleep,
+ 						uint32_t *reg_offset,
+ 						uint32_t *reg_data)
  {
- 	struct kfd_node *node = pm->dqm->dev;
- 	struct device *dev = node->adev->dev;
- 	int retval = 0;
- 	uint32_t *buffer, size;
+ 	*reg_data = wait_times;
  
--	size = pm->pmf->set_grace_period_size;
-+	if (!pm->pmf->config_dequeue_wait_counts ||
-+	    !pm->pmf->config_dequeue_wait_counts_size)
-+		return 0;
-+
-+	size = pm->pmf->config_dequeue_wait_counts_size;
+-	/*
+-	 * The CP cannont handle a 0 grace period input and will result in
+-	 * an infinite grace period being set so set to 1 to prevent this.
+-	 */
+-	if (grace_period == 0)
+-		grace_period = 1;
+-
+-	*reg_data = REG_SET_FIELD(*reg_data,
+-			CP_IQ_WAIT_TIME2,
+-			SCH_WAVE,
+-			grace_period);
++	if (sch_wave)
++		*reg_data = REG_SET_FIELD(*reg_data,
++				CP_IQ_WAIT_TIME2,
++				SCH_WAVE,
++				sch_wave);
++	if (que_sleep)
++		*reg_data = REG_SET_FIELD(*reg_data,
++				CP_IQ_WAIT_TIME2,
++				QUE_SLEEP,
++				que_sleep);
  
- 	mutex_lock(&pm->lock);
+ 	*reg_offset = SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
+ }
+@@ -1109,7 +1109,7 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+ 	.set_address_watch = kgd_gfx_v10_set_address_watch,
+ 	.clear_address_watch = kgd_gfx_v10_clear_address_watch,
+ 	.get_iq_wait_times = kgd_gfx_v10_get_iq_wait_times,
+-	.build_grace_period_packet_info = kgd_gfx_v10_build_grace_period_packet_info,
++	.build_dequeue_wait_counts_packet_info = kgd_gfx_v10_build_dequeue_wait_counts_packet_info,
+ 	.program_trap_handler_settings = program_trap_handler_settings,
+ 	.hqd_get_pq_addr = kgd_gfx_v10_hqd_get_pq_addr,
+ 	.hqd_reset = kgd_gfx_v10_hqd_reset
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+index 9efd2dd4fdd7..89ae07288b10 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+@@ -51,9 +51,10 @@ uint32_t kgd_gfx_v10_clear_address_watch(struct amdgpu_device *adev,
+ void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device *adev,
+ 				uint32_t *wait_times,
+ 				uint32_t inst);
+-void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
++void kgd_gfx_v10_build_dequeue_wait_counts_packet_info(struct amdgpu_device *adev,
+ 					       uint32_t wait_times,
+-					       uint32_t grace_period,
++					       uint32_t sch_wave,
++					       uint32_t que_sleep,
+ 					       uint32_t *reg_offset,
+ 					       uint32_t *reg_data);
+ uint64_t kgd_gfx_v10_hqd_get_pq_addr(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+index c718bedda0ca..2c5f22838fe0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+@@ -673,7 +673,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
+ 	.set_vm_context_page_table_base = set_vm_context_page_table_base_v10_3,
+ 	.program_trap_handler_settings = program_trap_handler_settings_v10_3,
+ 	.get_iq_wait_times = kgd_gfx_v10_get_iq_wait_times,
+-	.build_grace_period_packet_info = kgd_gfx_v10_build_grace_period_packet_info,
++	.build_dequeue_wait_counts_packet_info = kgd_gfx_v10_build_dequeue_wait_counts_packet_info,
+ 	.enable_debug_trap = kgd_gfx_v10_enable_debug_trap,
+ 	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap,
+ 	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index 441568163e20..d2bbe9973c93 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -1077,25 +1077,25 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device *adev,
+ 				adev->gfx.cu_info.max_waves_per_simd;
+ }
  
-@@ -419,13 +434,18 @@ int pm_update_grace_period(struct packet_manager *pm, uint32_t grace_period)
- 			goto out;
- 		}
+-void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *adev,
++void kgd_gfx_v9_build_dequeue_wait_counts_packet_info(struct amdgpu_device *adev,
+ 		uint32_t wait_times,
+-		uint32_t grace_period,
++		uint32_t sch_wave,
++		uint32_t que_sleep,
+ 		uint32_t *reg_offset,
+ 		uint32_t *reg_data)
+ {
+ 	*reg_data = wait_times;
  
--		retval = pm->pmf->set_grace_period(pm, buffer, grace_period);
-+		retval = pm->pmf->config_dequeue_wait_counts(pm, buffer,
-+							     cmd, value);
- 		if (!retval)
- 			retval = kq_submit_packet(pm->priv_queue);
- 		else
- 			kq_rollback_packet(pm->priv_queue);
- 	}
+-	/*
+-	 * The CP cannot handle a 0 grace period input and will result in
+-	 * an infinite grace period being set so set to 1 to prevent this.
+-	 */
+-	if (grace_period == 0)
+-		grace_period = 1;
+-
+-	*reg_data = REG_SET_FIELD(*reg_data,
+-			CP_IQ_WAIT_TIME2,
+-			SCH_WAVE,
+-			grace_period);
++	if (sch_wave)
++		*reg_data = REG_SET_FIELD(*reg_data,
++				CP_IQ_WAIT_TIME2,
++				SCH_WAVE,
++				sch_wave);
++	if (que_sleep)
++		*reg_data = REG_SET_FIELD(*reg_data,
++				CP_IQ_WAIT_TIME2,
++				QUE_SLEEP,
++				que_sleep);
  
-+	/* If default value is modified, cache that value in dqm->wait_times */
-+	if (!retval && cmd == KFD_DEQUEUE_WAIT_INIT)
-+		update_dqm_wait_times(pm->dqm);
-+
- out:
- 	mutex_unlock(&pm->lock);
- 	return retval;
+ 	*reg_offset = SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
+ }
+@@ -1254,7 +1254,7 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
+ 	.set_address_watch = kgd_gfx_v9_set_address_watch,
+ 	.clear_address_watch = kgd_gfx_v9_clear_address_watch,
+ 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
+-	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
++	.build_dequeue_wait_counts_packet_info = kgd_gfx_v9_build_dequeue_wait_counts_packet_info,
+ 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
+ 	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
+ 	.hqd_get_pq_addr = kgd_gfx_v9_hqd_get_pq_addr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+index b6a91a552aa4..54ee8992be5c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+@@ -97,9 +97,10 @@ uint32_t kgd_gfx_v9_clear_address_watch(struct amdgpu_device *adev,
+ void kgd_gfx_v9_get_iq_wait_times(struct amdgpu_device *adev,
+ 				uint32_t *wait_times,
+ 				uint32_t inst);
+-void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *adev,
++void kgd_gfx_v9_build_dequeue_wait_counts_packet_info(struct amdgpu_device *adev,
+ 					       uint32_t wait_times,
+-					       uint32_t grace_period,
++					       uint32_t sch_wave,
++					       uint32_t que_sleep,
+ 					       uint32_t *reg_offset,
+ 					       uint32_t *reg_data);
+ uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct amdgpu_device *adev,
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index d56525201155..b9c611b249e6 100644
+index b9c611b249e6..6861e8f7a2f7 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -297,23 +297,54 @@ static int pm_map_queues_v9(struct packet_manager *pm, uint32_t *buffer,
- 	return 0;
+@@ -298,13 +298,14 @@ static int pm_map_queues_v9(struct packet_manager *pm, uint32_t *buffer,
  }
  
--static int pm_set_grace_period_v9(struct packet_manager *pm,
-+static inline void pm_build_dequeue_wait_counts_packet_info(struct packet_manager *pm,
-+			uint32_t sch_value, uint32_t *reg_offset,
-+			uint32_t *reg_data)
-+{
-+	pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
-+		pm->dqm->dev->adev,
-+		pm->dqm->wait_times,
-+		sch_value,
-+		reg_offset,
-+		reg_data);
-+}
-+
-+static int pm_config_dequeue_wait_counts_v9(struct packet_manager *pm,
- 		uint32_t *buffer,
--		uint32_t grace_period)
-+		enum kfd_config_dequeue_wait_counts_cmd cmd,
-+		uint32_t value)
+ static inline void pm_build_dequeue_wait_counts_packet_info(struct packet_manager *pm,
+-			uint32_t sch_value, uint32_t *reg_offset,
++			uint32_t sch_value, uint32_t que_sleep, uint32_t *reg_offset,
+ 			uint32_t *reg_data)
  {
- 	struct pm4_mec_write_data_mmio *packet;
- 	uint32_t reg_offset = 0;
- 	uint32_t reg_data = 0;
- 
 -	pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
--			pm->dqm->dev->adev,
--			pm->dqm->wait_times,
--			grace_period,
--			&reg_offset,
--			&reg_data);
--
--	if (grace_period == USE_DEFAULT_GRACE_PERIOD)
-+	switch (cmd) {
-+	case KFD_DEQUEUE_WAIT_INIT:
-+		/* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
-+		if (amdgpu_emu_mode == 0 && pm->dqm->dev->adev->gmc.is_app_apu &&
-+		   (KFD_GC_VERSION(pm->dqm->dev) == IP_VERSION(9, 4, 3)))
-+			pm_build_dequeue_wait_counts_packet_info(pm, 1, &reg_offset, &reg_data);
-+		else
-+			return 0;
-+		break;
-+	case KFD_DEQUEUE_WAIT_RESET:
-+		/* function called only to get reg_offset */
-+		pm_build_dequeue_wait_counts_packet_info(pm, 0, &reg_offset, &reg_data);
- 		reg_data = pm->dqm->wait_times;
-+		break;
-+
-+	case KFD_DEQUEUE_WAIT_SET_SCH_WAVE:
-+		/* The CP cannot handle value 0 and it will result in
-+		 * an infinite grace period being set so set to 1 to prevent this.
++	pm->dqm->dev->kfd2kgd->build_dequeue_wait_counts_packet_info(
+ 		pm->dqm->dev->adev,
+ 		pm->dqm->wait_times,
+ 		sch_value,
++		que_sleep,
+ 		reg_offset,
+ 		reg_data);
+ }
+@@ -320,26 +321,41 @@ static int pm_config_dequeue_wait_counts_v9(struct packet_manager *pm,
+ 
+ 	switch (cmd) {
+ 	case KFD_DEQUEUE_WAIT_INIT:
+-		/* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
+-		if (amdgpu_emu_mode == 0 && pm->dqm->dev->adev->gmc.is_app_apu &&
+-		   (KFD_GC_VERSION(pm->dqm->dev) == IP_VERSION(9, 4, 3)))
+-			pm_build_dequeue_wait_counts_packet_info(pm, 1, &reg_offset, &reg_data);
+-		else
++		uint32_t sch_wave = 0, que_sleep = 0;
++		/* Reduce CP_IQ_WAIT_TIME2.QUE_SLEEP to 0x1 from default 0x40.
++		 * On a 1GHz machine this is roughly 1 microsecond, which is
++		 * about how long it takes to load data out of memory during
++		 * queue connect
++		 * QUE_SLEEP: Wait Count for Dequeue Retry.
 +		 */
-+		if (!value)
-+			value = 1;
-+		pm_build_dequeue_wait_counts_packet_info(pm, value, &reg_offset, &reg_data);
-+		break;
-+	default:
-+		pr_err("Invalid dequeue wait cmd\n");
-+		return -EINVAL;
-+	}
- 
- 	packet = (struct pm4_mec_write_data_mmio *)buffer;
- 	memset(buffer, 0, sizeof(struct pm4_mec_write_data_mmio));
-@@ -415,7 +446,7 @@ const struct packet_manager_funcs kfd_v9_pm_funcs = {
- 	.set_resources		= pm_set_resources_v9,
- 	.map_queues		= pm_map_queues_v9,
- 	.unmap_queues		= pm_unmap_queues_v9,
--	.set_grace_period       = pm_set_grace_period_v9,
-+	.config_dequeue_wait_counts = pm_config_dequeue_wait_counts_v9,
- 	.query_status		= pm_query_status_v9,
- 	.release_mem		= NULL,
- 	.map_process_size	= sizeof(struct pm4_mes_map_process),
-@@ -423,7 +454,7 @@ const struct packet_manager_funcs kfd_v9_pm_funcs = {
- 	.set_resources_size	= sizeof(struct pm4_mes_set_resources),
- 	.map_queues_size	= sizeof(struct pm4_mes_map_queues),
- 	.unmap_queues_size	= sizeof(struct pm4_mes_unmap_queues),
--	.set_grace_period_size  = sizeof(struct pm4_mec_write_data_mmio),
-+	.config_dequeue_wait_counts_size  = sizeof(struct pm4_mec_write_data_mmio),
- 	.query_status_size	= sizeof(struct pm4_mes_query_status),
- 	.release_mem_size	= 0,
- };
-@@ -434,7 +465,7 @@ const struct packet_manager_funcs kfd_aldebaran_pm_funcs = {
- 	.set_resources		= pm_set_resources_v9,
- 	.map_queues		= pm_map_queues_v9,
- 	.unmap_queues		= pm_unmap_queues_v9,
--	.set_grace_period       = pm_set_grace_period_v9,
-+	.config_dequeue_wait_counts = pm_config_dequeue_wait_counts_v9,
- 	.query_status		= pm_query_status_v9,
- 	.release_mem		= NULL,
- 	.map_process_size	= sizeof(struct pm4_mes_map_process_aldebaran),
-@@ -442,7 +473,7 @@ const struct packet_manager_funcs kfd_aldebaran_pm_funcs = {
- 	.set_resources_size	= sizeof(struct pm4_mes_set_resources),
- 	.map_queues_size	= sizeof(struct pm4_mes_map_queues),
- 	.unmap_queues_size	= sizeof(struct pm4_mes_unmap_queues),
--	.set_grace_period_size  = sizeof(struct pm4_mec_write_data_mmio),
-+	.config_dequeue_wait_counts_size  = sizeof(struct pm4_mec_write_data_mmio),
- 	.query_status_size	= sizeof(struct pm4_mes_query_status),
- 	.release_mem_size	= 0,
- };
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-index 347c86e1c378..a1de5d7e173a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-@@ -304,7 +304,7 @@ const struct packet_manager_funcs kfd_vi_pm_funcs = {
- 	.set_resources		= pm_set_resources_vi,
- 	.map_queues		= pm_map_queues_vi,
- 	.unmap_queues		= pm_unmap_queues_vi,
--	.set_grace_period	= NULL,
-+	.config_dequeue_wait_counts	= NULL,
- 	.query_status		= pm_query_status_vi,
- 	.release_mem		= pm_release_mem_vi,
- 	.map_process_size	= sizeof(struct pm4_mes_map_process),
-@@ -312,7 +312,7 @@ const struct packet_manager_funcs kfd_vi_pm_funcs = {
- 	.set_resources_size	= sizeof(struct pm4_mes_set_resources),
- 	.map_queues_size	= sizeof(struct pm4_mes_map_queues),
- 	.unmap_queues_size	= sizeof(struct pm4_mes_unmap_queues),
--	.set_grace_period_size	= 0,
-+	.config_dequeue_wait_counts_size	= 0,
- 	.query_status_size	= sizeof(struct pm4_mes_query_status),
- 	.release_mem_size	= sizeof(struct pm4_mec_release_mem)
- };
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 59619f794b6b..4c8026947a73 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1392,6 +1392,24 @@ int pqm_get_queue_checkpoint_info(struct process_queue_manager *pqm,
- #define KFD_FENCE_COMPLETED (100)
- #define KFD_FENCE_INIT   (10)
- 
-+/**
-+ * enum kfd_config_dequeue_wait_counts_cmd - Command for configuring
-+ *  dequeue wait counts.
-+ *
-+ * @KFD_DEQUEUE_WAIT_INIT: Set optimized dequeue wait counts for a
-+ *	certain ASICs. For these ASICs, this is default value used by RESET
-+ * @KFD_DEQUEUE_WAIT_RESET: Reset dequeue wait counts to the optimized value
-+ *	for certain ASICs. For others set it to default hardware reset value
-+ * @KFD_DEQUEUE_WAIT_SET_SCH_WAVE: Set context switch latency wait
-+ *
-+ */
-+enum kfd_config_dequeue_wait_counts_cmd {
-+	KFD_DEQUEUE_WAIT_INIT = 1,
-+	KFD_DEQUEUE_WAIT_RESET = 2,
-+	KFD_DEQUEUE_WAIT_SET_SCH_WAVE = 3
-+};
++		if (KFD_GC_VERSION(pm->dqm->dev) >= IP_VERSION(9, 4, 1) &&
++		    KFD_GC_VERSION(pm->dqm->dev) < IP_VERSION(10, 0, 0)) {
++			que_sleep = 1;
 +
++			/* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
++			if (amdgpu_emu_mode == 0 && pm->dqm->dev->adev->gmc.is_app_apu &&
++			(KFD_GC_VERSION(pm->dqm->dev) == IP_VERSION(9, 4, 3)))
++				sch_wave = 1;
++		} else /* non gfx9 */
+ 			return 0;
 +
- struct packet_manager {
- 	struct device_queue_manager *dqm;
- 	struct kernel_queue *priv_queue;
-@@ -1417,8 +1435,8 @@ struct packet_manager_funcs {
- 	int (*unmap_queues)(struct packet_manager *pm, uint32_t *buffer,
- 			enum kfd_unmap_queues_filter mode,
- 			uint32_t filter_param, bool reset);
--	int (*set_grace_period)(struct packet_manager *pm, uint32_t *buffer,
--			uint32_t grace_period);
-+	int (*config_dequeue_wait_counts)(struct packet_manager *pm, uint32_t *buffer,
-+			enum kfd_config_dequeue_wait_counts_cmd cmd, uint32_t value);
- 	int (*query_status)(struct packet_manager *pm, uint32_t *buffer,
- 			uint64_t fence_address,	uint64_t fence_value);
- 	int (*release_mem)(uint64_t gpu_addr, uint32_t *buffer);
-@@ -1429,7 +1447,7 @@ struct packet_manager_funcs {
- 	int set_resources_size;
- 	int map_queues_size;
- 	int unmap_queues_size;
--	int set_grace_period_size;
-+	int config_dequeue_wait_counts_size;
- 	int query_status_size;
- 	int release_mem_size;
- };
-@@ -1452,7 +1470,9 @@ int pm_send_unmap_queue(struct packet_manager *pm,
++		pm_build_dequeue_wait_counts_packet_info(pm, sch_wave, que_sleep,
++			&reg_offset, &reg_data);
++
+ 		break;
+ 	case KFD_DEQUEUE_WAIT_RESET:
+-		/* function called only to get reg_offset */
+-		pm_build_dequeue_wait_counts_packet_info(pm, 0, &reg_offset, &reg_data);
+-		reg_data = pm->dqm->wait_times;
++		/* reg_data would be set to dqm->wait_times */
++		pm_build_dequeue_wait_counts_packet_info(pm, 0, 0, &reg_offset, &reg_data);
+ 		break;
  
- void pm_release_ib(struct packet_manager *pm);
- 
--int pm_update_grace_period(struct packet_manager *pm, uint32_t grace_period);
-+int pm_config_dequeue_wait_counts(struct packet_manager *pm,
-+			enum kfd_config_dequeue_wait_counts_cmd cmd,
-+			uint32_t wait_counts_config);
- 
- /* Following PM funcs can be shared among VI and AI */
- unsigned int pm_build_pm4_header(unsigned int opcode, size_t packet_size);
+ 	case KFD_DEQUEUE_WAIT_SET_SCH_WAVE:
+ 		/* The CP cannot handle value 0 and it will result in
+-		 * an infinite grace period being set so set to 1 to prevent this.
++		 * an infinite grace period being set so set to 1 to prevent this. Also
++		 * avoid debugger API breakage as it sets 0 and expects a low value.
+ 		 */
+ 		if (!value)
+ 			value = 1;
+-		pm_build_dequeue_wait_counts_packet_info(pm, value, &reg_offset, &reg_data);
++		pm_build_dequeue_wait_counts_packet_info(pm, value, 0, &reg_offset, &reg_data);
+ 		break;
+ 	default:
+ 		pr_err("Invalid dequeue wait cmd\n");
+diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+index e3e635a31b8a..4f79e707bc80 100644
+--- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+@@ -313,9 +313,10 @@ struct kfd2kgd_calls {
+ 	void (*get_iq_wait_times)(struct amdgpu_device *adev,
+ 			uint32_t *wait_times,
+ 			uint32_t inst);
+-	void (*build_grace_period_packet_info)(struct amdgpu_device *adev,
++	void (*build_dequeue_wait_counts_packet_info)(struct amdgpu_device *adev,
+ 			uint32_t wait_times,
+-			uint32_t grace_period,
++			uint32_t sch_wave,
++			uint32_t que_sleep,
+ 			uint32_t *reg_offset,
+ 			uint32_t *reg_data);
+ 	void (*get_cu_occupancy)(struct amdgpu_device *adev,
 -- 
 2.34.1
 
