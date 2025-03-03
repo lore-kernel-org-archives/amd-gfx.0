@@ -4,66 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEAC7C282D3
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 13:58:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D89B3C282CD
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Mar 2025 14:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9610D10E431;
-	Mon,  3 Mar 2025 13:58:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7018A10E43B;
+	Mon,  3 Mar 2025 14:47:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FzXI0Yr8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mHAHcyzB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFFEF10E104;
- Sat,  1 Mar 2025 05:53:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740808394; x=1772344394;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=SOKX+bxG8+nhQMIjkrqXwpSaA/qreBbJ3mAB/IkyMSo=;
- b=FzXI0Yr8lMeVc9DPhgSFTfTHNtXvFUJPQ/rfjjzygxNIcwqSmvAcCse6
- WeKaMP5WCUpBPRfIW6LzxG3DXuiVKLLkGVj0HkEdQf9ahqPDWgUwdEy88
- Gsqv91pAN94jZYZu0rA93AlyHRtjDS8+CKL5ewGMooFHfROJUKQpUDSuM
- b/5+Qx8QzcEoh/OS+n+TEgcvU4FxD8QQLuteq2wSBnzYncuOGGpzv5ucM
- SlrPPpel3ixUsE/9taOwJpgIyRkoOQYAD1RBVKJfDPAYpQZxKRdPeQZU7
- Ldq8q/QDuzAf4QAI/Ty89qAh3FnbP5BJGK4NU0Db1MopLTRVF7xCfCG+T Q==;
-X-CSE-ConnectionGUID: ImOnxhpHRWuXUCllrA4ocA==
-X-CSE-MsgGUID: dmFNIhXWSquUobQrEheI3g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11359"; a="45394244"
-X-IronPort-AV: E=Sophos;i="6.13,324,1732608000"; d="scan'208";a="45394244"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2025 21:53:13 -0800
-X-CSE-ConnectionGUID: 1GMxVJ97S22CtsYmBWheHA==
-X-CSE-MsgGUID: nUaMSS53Tr6jbFoeUT9Mew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,324,1732608000"; d="scan'208";a="117279593"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2025 21:53:10 -0800
-Date: Sat, 1 Mar 2025 07:53:06 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- 'Christian =?iso-8859-1?Q?K=F6nig'?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- lucas.demarchi@intel.com
-Subject: Re: [PATCH 1/2] drm: Create an app info option for wedge events
-Message-ID: <Z8KgwswQQyGxhsR1@black.fi.intel.com>
-References: <20250228121353.1442591-1-andrealmeid@igalia.com>
- <20250228121353.1442591-2-andrealmeid@igalia.com>
- <Z8HGFRGOYvyCCWWu@black.fi.intel.com>
- <58763d8e-46a1-4753-9401-987fb3dac50b@igalia.com>
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B2F10E22F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Mar 2025 14:47:09 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2fe82430bb4so1220746a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Mar 2025 06:47:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741013229; x=1741618029; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XK+Hd/k0ByF1L35UfVMhnlWN42x9v5/BoEVtRFuZejE=;
+ b=mHAHcyzBJ5bWrWPPOQIgCzdy/1zXARFF4eZfc5ScAG0oh7LCqsdJaKoINb9VWv0lWH
+ /dmwGaXUbducuhRkPNoo/xzXegvyOQVK7T619SJM1xzU4MDD+ysDHMxE/M4SqTzUptBP
+ QcubBjm/wciPmT28FvbGA1gdWzCX29ZcPG0RoVGLKy5idm+D9Vj2UmEg2uENKfMA53Bd
+ 9OJStpabUdGgud/pJpbVnczYOBAvysg2nStgywD3Or4Xoe2yaN82P969aXFwf3FldgsZ
+ R9X1XpsZQtqVTaZVU4SzA4aME5w2kr7GEX+FVoovwDLmeu5o59ybgEHRJS6UItdKfGax
+ AQmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741013229; x=1741618029;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XK+Hd/k0ByF1L35UfVMhnlWN42x9v5/BoEVtRFuZejE=;
+ b=sH6BEm5RbhGEKeS0co7yOTs8dEjRNUn0EGQGUStmP5pqW1eiVVR+hhDOTYTWdV/agP
+ Cne4KcrXPSVvpPeMTj8q9pu2R+bVGhn8x9JoSEm3sLYrb+CfigwhdqU7f9tgUA9Ik3iI
+ do6Ih/0OxaSlMv6Y/KiRwS/y4ZUBZ67kl1xHzNMR51n9eHWeu1XvByJc6JyzGwPnnNWv
+ dF6BfdtUgTHeKglciZLING78Fmgs16FmxF+hZU3hUPO/1BzZhtEu4yMt2OGO9R39IsQT
+ B4I4CYT/FZkuNSShiiwLopJk0cr5gFEedQmEv4m7kChnCzrFxEuMAeneCjo3tIu5vkVD
+ Vrsg==
+X-Gm-Message-State: AOJu0Yz5xYtqbz0SNdiF/5P2VRTfv3nS18lu2rMdHIkCHjTmWJNZXXAS
+ y7+QHdESFmov9hnifq4TTbq2fGP7dkORjukxehXWN8fVliC8Kd+BnXSko2IpyT9jl0vkHT7YnJs
+ BWg84S9+w/t5hNh37iLDsrp2jdpw=
+X-Gm-Gg: ASbGncuvxhnU9GWCohAD2r9JV8/cbfmRabZU3sylfUoYAZeazt0yEBY6yw8jkgCJP33
+ a+007iQO3O6xd0RYyy69QBOYNiOoEzBjvOSNoH+TC1OsTAqM+gn9FWqNfIwU0vBGZ3rPK24Mjfl
+ uw+ZGMJZiW3PvuwgaV40/CZTQqSw==
+X-Google-Smtp-Source: AGHT+IHwNNbpFiw2qhe/XfcovBmRgTFMaEOi3pPJ2wR5mQlUY7dE+I2mjulGKYDbtuVHtq2he+HdEjnHmpngei6wGHI=
+X-Received: by 2002:a17:90b:1e46:b0:2fc:3262:9465 with SMTP id
+ 98e67ed59e1d1-2febabf49c6mr8249462a91.5.1741013228706; Mon, 03 Mar 2025
+ 06:47:08 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <58763d8e-46a1-4753-9401-987fb3dac50b@igalia.com>
-X-Mailman-Approved-At: Mon, 03 Mar 2025 13:58:00 +0000
+References: <20250221130030.3703750-1-Prike.Liang@amd.com>
+In-Reply-To: <20250221130030.3703750-1-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 3 Mar 2025 09:46:56 -0500
+X-Gm-Features: AQ5f1Jp88L6FQz7MRKdLQQGzWXIl-PyUL9-EClPUZT-fAlVsWb_Xs--yT9U_bpA
+Message-ID: <CADnq5_N+=TF6EvmoOEV3RNayDHtbZBysopu1=CcuKiL9DFtQxg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] drm/amdgpu/gfx11: Implement the GFX11 KGQ pipe
+ reset
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,112 +80,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 28, 2025 at 06:54:12PM -0300, André Almeida wrote:
-> Hi Raag,
-> 
-> On 2/28/25 11:20, Raag Jadav wrote:
-> > Cc: Lucas
-> > 
-> > On Fri, Feb 28, 2025 at 09:13:52AM -0300, André Almeida wrote:
-> > > When a device get wedged, it might be caused by a guilty application.
-> > > For userspace, knowing which app was the cause can be useful for some
-> > > situations, like for implementing a policy, logs or for giving a chance
-> > > for the compositor to let the user know what app caused the problem.
-> > > This is an optional argument, when `PID=-1` there's no information about
-> > > the app caused the problem, or if any app was involved during the hang.
-> > > 
-> > > Sometimes just the PID isn't enough giving that the app might be already
-> > > dead by the time userspace will try to check what was this PID's name,
-> > > so to make the life easier also notify what's the app's name in the user
-> > > event.
-> > > 
-> > > Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
-> > >   drivers/gpu/drm/drm_drv.c                  | 16 +++++++++++++---
-> > >   drivers/gpu/drm/i915/gt/intel_reset.c      |  3 ++-
-> > >   drivers/gpu/drm/xe/xe_device.c             |  3 ++-
-> > >   include/drm/drm_device.h                   |  8 ++++++++
-> > >   include/drm/drm_drv.h                      |  3 ++-
-> > >   7 files changed, 29 insertions(+), 8 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > index 24ba52d76045..00b9b87dafd8 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > @@ -6124,7 +6124,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
-> > >   	atomic_set(&adev->reset_domain->reset_res, r);
-> > >   	if (!r)
-> > > -		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-> > > +		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
-> > >   	return r;
-> > >   }
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > index ef1b77f1e88f..3ed9cbcab1ad 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > @@ -150,7 +150,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
-> > >   			amdgpu_fence_driver_force_completion(ring);
-> > >   			if (amdgpu_ring_sched_ready(ring))
-> > >   				drm_sched_start(&ring->sched, 0);
-> > > -			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-> > > +			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
-> > >   			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
-> > >   			goto exit;
-> > >   		}
-> > > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> > > index 17fc5dc708f4..48faafd82a99 100644
-> > > --- a/drivers/gpu/drm/drm_drv.c
-> > > +++ b/drivers/gpu/drm/drm_drv.c
-> > > @@ -522,6 +522,7 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
-> > >    * drm_dev_wedged_event - generate a device wedged uevent
-> > >    * @dev: DRM device
-> > >    * @method: method(s) to be used for recovery
-> > > + * @info: optional information about the guilty app
-> > >    *
-> > >    * This generates a device wedged uevent for the DRM device specified by @dev.
-> > >    * Recovery @method\(s) of choice will be sent in the uevent environment as
-> > > @@ -534,13 +535,14 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
-> > >    *
-> > >    * Returns: 0 on success, negative error code otherwise.
-> > >    */
-> > > -int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
-> > > +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
-> > > +			 struct drm_wedge_app_info *info)
-> > >   {
-> > >   	const char *recovery = NULL;
-> > >   	unsigned int len, opt;
-> > >   	/* Event string length up to 28+ characters with available methods */
-> > > -	char event_string[32];
-> > > -	char *envp[] = { event_string, NULL };
-> > > +	char event_string[32], pid_string[15], comm_string[TASK_COMM_LEN];
-> > > +	char *envp[] = { event_string, pid_string, comm_string, NULL };
-> > >   	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
-> > > @@ -562,6 +564,14 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
-> > >   	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
-> > >   		 "but recovered through reset" : "needs recovery");
-> > > +	if (info) {
-> > > +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
-> > > +		snprintf(comm_string, sizeof(comm_string), "APP=%s", info->comm);
-> > > +	} else {
-> > > +		snprintf(pid_string, sizeof(pid_string), "%s", "PID=-1");
-> > > +		snprintf(comm_string, sizeof(comm_string), "%s", "APP=none");
-> > > +	}
-> > This is not much use for wedge cases that needs recovery, since at that point
-> > the userspace will need to clean house anyway.
-> > 
-> > Which leaves us with only 'none' case and perhaps the need for standardization
-> > of "optional telemetry collection".
-> > 
-> > Thoughts?
-> 
-> I had the feeling that 'none' was already meant to be used for that. Do you
-> think we should move to another naming? Given that we didn't reach the merge
-> window yet we could potentially change that name without much damage.
+On Fri, Feb 21, 2025 at 8:38=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+rote:
+>
+> Implement the kernel graphics queue pipe reset,and the driver
+> will fallback to pipe reset when the queue reset fails. However,
+> the ME FW hasn't fully supported pipe reset yet so disable the
+> KGQ pipe reset temporarily.
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |  2 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c    | 71 ++++++++++++++++++++++-
+>  2 files changed, 71 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ucode.h
+> index 4eedd92f000b..06fe21e15ed6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+> @@ -25,6 +25,8 @@
+>
+>  #include "amdgpu_socbb.h"
+>
+> +#define RS64_FW_UC_START_ADDR_LO 0x3000
+> +
+>  struct common_firmware_header {
+>         uint32_t size_bytes; /* size of the entire header+image(s) in byt=
+es */
+>         uint32_t header_size_bytes; /* size of just the header in bytes *=
+/
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 2c7f0bb242ff..7e53c0b63f88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -6653,6 +6653,68 @@ static void gfx_v11_0_emit_mem_sync(struct amdgpu_=
+ring *ring)
+>         amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
+>  }
+>
+> +static bool gfx_v11_pipe_reset_support(struct amdgpu_device *adev)
+> +{
+> +       /* Disable the pipe reset until the CPFW fully support it.*/
+> +       dev_warn_once(adev->dev, "The CPFW hasn't support pipe reset yet.=
+\n");
 
-No, I meant thoughts on possible telemetry data that the drivers might
-think is useful for userspace (along with PID) and can be presented in
-a vendor agnostic manner (just like wedged event).
+I'd drop these or make them debug only for now.  Same for gfx12.  With
+that fixed, the series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Raag
+
+> +       return false;
+> +}
+> +
+> +
+> +static int gfx_v11_reset_gfx_pipe(struct amdgpu_ring *ring)
+> +{
+> +       struct amdgpu_device *adev =3D ring->adev;
+> +       uint32_t reset_pipe =3D 0, clean_pipe =3D 0;
+> +       int r;
+> +
+> +       if (!gfx_v11_pipe_reset_support(adev))
+> +               return -EOPNOTSUPP;
+> +
+> +       gfx_v11_0_set_safe_mode(adev, 0);
+> +       mutex_lock(&adev->srbm_mutex);
+> +       soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
+> +
+> +       switch (ring->pipe) {
+> +       case 0:
+> +               reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_ME_CNTL,
+> +                                          PFP_PIPE0_RESET, 1);
+> +               reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_ME_CNTL,
+> +                                          ME_PIPE0_RESET, 1);
+> +               clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_ME_CNTL,
+> +                                          PFP_PIPE0_RESET, 0);
+> +               clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_ME_CNTL,
+> +                                          ME_PIPE0_RESET, 0);
+> +               break;
+> +       case 1:
+> +               reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_ME_CNTL,
+> +                                          PFP_PIPE1_RESET, 1);
+> +               reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_ME_CNTL,
+> +                                          ME_PIPE1_RESET, 1);
+> +               clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_ME_CNTL,
+> +                                          PFP_PIPE1_RESET, 0);
+> +               clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_ME_CNTL,
+> +                                          ME_PIPE1_RESET, 0);
+> +               break;
+> +       default:
+> +               break;
+> +       }
+> +
+> +       WREG32_SOC15(GC, 0, regCP_ME_CNTL, reset_pipe);
+> +       WREG32_SOC15(GC, 0, regCP_ME_CNTL, clean_pipe);
+> +
+> +       r =3D (RREG32(SOC15_REG_OFFSET(GC, 0, regCP_GFX_RS64_INSTR_PNTR1)=
+) << 2) - RS64_FW_UC_START_ADDR_LO;
+> +       soc21_grbm_select(adev, 0, 0, 0, 0);
+> +       mutex_unlock(&adev->srbm_mutex);
+> +       gfx_v11_0_unset_safe_mode(adev, 0);
+> +
+> +       dev_info(adev->dev,"The ring %s pipe reset to the ME firmware sta=
+rt PC: %s\n", ring->name,
+> +                       r =3D=3D 0 ? "successfuly" : "failed");
+> +       /* FIXME: Sometimes driver can't cache the ME firmware start PC c=
+orrectly, so the pipe reset status
+> +        * relies on the later gfx ring test result.
+> +        */
+> +       return 0;
+> +}
+> +
+>  static int gfx_v11_0_reset_kgq(struct amdgpu_ring *ring, unsigned int vm=
+id)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> @@ -6662,8 +6724,13 @@ static int gfx_v11_0_reset_kgq(struct amdgpu_ring =
+*ring, unsigned int vmid)
+>                 return -EINVAL;
+>
+>         r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, false=
+);
+> -       if (r)
+> -               return r;
+> +       if (r) {
+> +
+> +               dev_warn(adev->dev,"reset via MES failed and try pipe res=
+et %d\n", r);
+> +               r =3D gfx_v11_reset_gfx_pipe(ring);
+> +               if (r)
+> +                       return r;
+> +       }
+>
+>         r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
+>         if (unlikely(r !=3D 0)) {
+> --
+> 2.34.1
+>
