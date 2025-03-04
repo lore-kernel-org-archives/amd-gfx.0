@@ -4,149 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52BBBC021B8
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 18:33:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B426C021B8
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 19:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F247510E0CE;
-	Tue,  4 Mar 2025 18:32:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F98510E15C;
+	Tue,  4 Mar 2025 19:25:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ibNTZKSy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MOnsQQrr";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2081.outbound.protection.outlook.com [40.107.101.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D555B10E0CE
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 18:32:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ToSqENtuzNCmIklHaMVnXIiPuwU0JEvO4xIe6jNcmCXxFmXSpkYnIC/bThtJjskKBHsqTTL3BWCYtS4cRzD00G+Tgf/V2+c2DfJMz/lWAlrB0La6ZE51bhYjl8kkIGyVBMTlfLJ4NLJPKk29sSbkE1bCCG+BQAs0ew2cQEZ5ajfIgpAWu7K1bfKP6FH2bHJ6zhxTTkoxXTEoJUuPIABTnKJolGZnJdcE1GF7jnZPx7MZ4pM5ZCdvtG0w9iVAkGnghFDRyJBCIzgukfXMpbn+1hFOdVxUxzwpuoK5wyzyoaV4PB9GLgxuL7Uimf2rlNP7UhyUtf+nPNA7nFWVTMaj0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dFh7hI5GRAhsV0NVLGhj2mawgtzscoClduTuqUcrgj8=;
- b=Ga2JMK4u3AuVFx7orm9t/bRWWr7QMlA5a6Kbv6An195hZfogaOqZgOrC3Q7KXDtPgmIYHtDr+VEkOHwi7AbGES2Y0QWMZjETA3WLmwgWEJo8H8DmqGlvceBsDdxCbXZE0THqkoTpDtYcBY8sVnWpVNWW7fkjarIMABjpnKlRBiGiP/W5JMdgyuRhRngBrVfmrbSXWKmlCgjv/UNgubSwRApcXPDWF7XQSWxZbwX4/o3HiD/lXadZv2USZckjvkASsfDQ+kbzkdbrgcC8bcYysvWX/aNOzkpbABa1nYrCtyblEibsTLZCk1GKF5yRU4T5WJKXHe2Sltq5YnjIkfOItA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dFh7hI5GRAhsV0NVLGhj2mawgtzscoClduTuqUcrgj8=;
- b=ibNTZKSy9iHJcW/Va4L7h6KuP1YYGmoFqaZLs+j9Jea6TzaakNpCXzs6bog+u4bZYqoHd/wvS69ZdGceejkgTMO+d27l0nts+QYuvDn+ekUVeBPNKTpTAxMVCoIVfxRmL/m9OgBA7tuhYN3Gax9wP39pLVu4uBdpo14GlcQ27ZU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB9070.namprd12.prod.outlook.com (2603:10b6:8:bc::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.25; Tue, 4 Mar
- 2025 18:32:52 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8511.017; Tue, 4 Mar 2025
- 18:32:52 +0000
-Message-ID: <ab954442-5bf6-4d2b-8d08-a6078b0dd6fc@amd.com>
-Date: Tue, 4 Mar 2025 13:32:51 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Change error handling at prange update in
- svm_range_set_attr
-To: "Chen, Xiaogang" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250131165839.8433-1-xiaogang.chen@amd.com>
- <af21821a-b22c-40e4-9f17-2a15d4813cd7@amd.com>
- <da6aa7ea-bf95-4e5d-8c37-5a2c43c4fc2f@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <da6aa7ea-bf95-4e5d-8c37-5a2c43c4fc2f@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0439.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10d::12) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4092210E15C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 19:25:26 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-2feb700271aso1163916a91.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 Mar 2025 11:25:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741116325; x=1741721125; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tReD7ubAUU6eQHIDBtyLFvKL32/ed+7QcvSbJ34tsNo=;
+ b=MOnsQQrr5mSDZqowqblYhDpXSXvuwROq75yU5psoTppk669Opu/jXrLoiW5plXJzpv
+ NlOz1kkKd9VSYGaXoypp7Emm2AXnw5IkXo1pXucYri0IssGddBVB7VL6eL27sKK13RMy
+ oZFErsN4iUUyMDEACqGz18Kj7bGSWrd756M/jO6/+hpuQNxN0jETSFasiQsb9SRXCmzA
+ 9TLiaiHZ7F3f2s4SlYEG5Loa6DYnYG6nM8NCZ2+vgnsv4kB6VRZTZPOZUnaoc19l7pXr
+ U3kfW1s08OcKliKka3hzpmglf7vhLfaaDrY8P6JReBIgTOl0VAYXNT8TRlgq33LTdblC
+ v7yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741116325; x=1741721125;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tReD7ubAUU6eQHIDBtyLFvKL32/ed+7QcvSbJ34tsNo=;
+ b=fH2Ssz4QfIX0GW6OQCriARPh67wJ+pTZ8NF5TCOXH0U63YDWguTybepCWBddQ6Ofiw
+ 5ZiAZBFhVot3ghqXvIgzEiEaTCyVqmdUAW2CU3tFaeS0khpMagp9FScr+dZaw8+pwll3
+ Wan75/CyojKDPcJ+Pk5WTtz8wD0dTdMZbdllaOIK6e/t7a9DbGRonDgNJQHrUCjv3t6T
+ 2YNdRyY2piCuGer7jzBhNWIRvDLfoxWBuVVc0ofBlJ4m7k4ODSTnzf9CJjrk2yDTOmTH
+ eI0rCrCxLf7ex2eK50lxQzfYWjIjG125ldKLHEmgaBZJRTOzqiLfonB0CuuIXawRM6DM
+ 8sDw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX5DhWaB+GcZ4UFLfG3q6FVdSt0osdFDwJaFyO1Nz0drc0d59w77SN/SsI2LtIoHXnINiCSQT3j@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YynefZvof5CY9z2/8typvP1LHDoMiV3Zh+0SkT30MlROAjocSvd
+ 71gmml5Ipp7zVRdYp2OgpKfI7y0tkIovnjgZSEuaz27GNn/+kjb2/rGVM+o/ecEEtly7l5rHfBo
+ ZvD/K8YCBmP6CldRmn4WnyquVhFk=
+X-Gm-Gg: ASbGncuXBrmtccBSqSp+lovwlZF3fLtGtR8SgUchu+DH+f/tKdj+fdcdsnCCx/n941F
+ QrJ6lgBogcBhQwfDTN4RYVA72ZYzLC/omm7ZmPdMswu1kC4r62qc2Us7DdT+goALr9KlqM26ADG
+ h8qmzSKocZUV1V6RSYy3ytIcy7rg==
+X-Google-Smtp-Source: AGHT+IG1GT3DaFcvd/7b5kNBuH/DfU6iVVmwpmesTzaUlwVzgcNNv3zWgBm0m3tdh5SiwWSmk0SZ5o725nz9OzkpBLA=
+X-Received: by 2002:a17:90b:4d88:b0:2fe:da90:c7c2 with SMTP id
+ 98e67ed59e1d1-2ff49815cafmr260829a91.3.1741116324783; Tue, 04 Mar 2025
+ 11:25:24 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB9070:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d60a763-199d-4597-b072-08dd5b4af96e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RktzVEJQVWVYR2ttd2ZGM3JoWFIvVWN5M3U3c05WQUswNldESU5ORzMvd1hk?=
- =?utf-8?B?bERtNXpINzRVT0tBVDl5ZFh2QXZzYjBSVy9TbjNCS1FOMm1rWTlKZTZ2a3NT?=
- =?utf-8?B?UzZsb2g5bVJ4NDdWMnh1RWJhVjZGejlueFJONlJ3TTFrb3QzMFZqMWtmSjVz?=
- =?utf-8?B?SnBaRzdkU1d3MkV2VDYxTzZSNyt6WXoweTVZYXVETFErS2Rld1VtZXExUlVQ?=
- =?utf-8?B?TjNrd3VJZHB6dmIvNU0zS1htYXpMSzdNSlU3RGVrRXB1MHk1L2oxN1VmZHps?=
- =?utf-8?B?NmNhdXAvZi9qcm5mS0NLbWVBTnlSRlp5MHUwd2lENy9NMlVnTVhBb3VXcEhY?=
- =?utf-8?B?MFNnazkyT2UrOS9TYWhzRldEbmJTMm1WU2lhVTN4VVdmcUtnZzhhdFcrdkw3?=
- =?utf-8?B?YTBTRmFYTEFUK2RHOVAwVDhmN2ZSb0owdTNZL2hmVXZjQy8yOXNQd3hKRlQ2?=
- =?utf-8?B?SUdSK2lGTkQ5MTdvVDZkeVpIZ3pVMElSdEhtem5UWU55c2ZXb1FpT3BqRUJS?=
- =?utf-8?B?SlZwVGc5dE9MdHVHYUhkWDBBOW94ZnBoWGEvTGxwKzhCVzJadklabFFjdm9y?=
- =?utf-8?B?c1pCald2dzF4b0pQZTF1WUg4by9ITGo0cDcrWFExcVFlSm83QjJaU0Mrbzdk?=
- =?utf-8?B?aXZhdEJOWkFKelFYQkhGZ3d2MU9tYy9RVlZ6UHVGM3BpZEx4VDhTdWdHQUY4?=
- =?utf-8?B?QXNZOVh2N0JURmNHQmZLWXVmb2JnWnFrTWZNRG45Z2pOa0NuVTZMV1Z4dHFq?=
- =?utf-8?B?T0J6ZmtwcFlXTHZHTDNMQlJydXllWWFhWXdXL2ZzZ0lOZCt3Z0FWYTBnbnIw?=
- =?utf-8?B?ZUViSVAvWlQwRXRYNzBoSG42U1JqR2ZiUlQwU1E5Z0NQdE85L3BVSENXV0xy?=
- =?utf-8?B?R3YwcWY3cVcyK1ZoYXh5OHBSVnFsaHBTb3hiTFFYRlJ5UjlUM2NkTk9Nb1hx?=
- =?utf-8?B?OUNacHEzRnpHMmx4NnUvYmN5Nk1rUUhBVndqOUxVekViazQwUzlKNWF2NnF0?=
- =?utf-8?B?N05zdk40RzMydVJlZXZRU0UwanNrNjhIUC9UWURDc1hyS0oxYjY3V0l1VW5o?=
- =?utf-8?B?WnowOTBXc3NPQ3R3Yll3dHBlcjBoOE9RckxGVWxpbSs3TVNjZmsrZ0V2bDR1?=
- =?utf-8?B?eS9oVkpqSEZjQkY2RnVuWDR4YjNqSkw5Q2R4eHBtYTZmS0t5aVA2TG9JaXg4?=
- =?utf-8?B?M1prM3pWcXIyRXFqNlpMS3hiazNtTUthQ3RYV2lkSXBnMFlaSkNwR1pMS3hi?=
- =?utf-8?B?L0xjK1FLSDl4TSswNklmQkw4OERmYUphd0hOeGdiNHNPczdmQTZwdmZQK2Va?=
- =?utf-8?B?akRBNTVsMUw3d3JoVXNTTWJIK0kzQXdEblE5V0dqdE1XdTAzUGtQTDI1dTBn?=
- =?utf-8?B?dzFvYlFwY3hLUHhrdllHcFA5ajFFOU10UWFvQUdndlN6Q0pseEsxTGQ5TFdE?=
- =?utf-8?B?MDZpSVV5dCtJK0diekxSMUYyYlEyTDhlQWV5NEpmWGVLck9qSDBLQnFkR25G?=
- =?utf-8?B?L3I0cVdxNHV0UHV4NmJVaDhJUWxLc2ptdXpLd3RIWTM5VHpFL1pWM0ViL2d0?=
- =?utf-8?B?Z3piS1JhYi9aamg0RVlSbndpWDN2cTM5L2VuQ3FiSzZ6NVhwb1RVZ01kSW50?=
- =?utf-8?B?VDErMzdlSE0zb3dZclF6UHRrMjNRck5NdTdvTFBVOGtodkxCNjFOYmNLY1BN?=
- =?utf-8?B?c2k3cUxUYnBlKy9MblZ0U1MzbW90ZXppRzhSOGpMV01jdGlJK20rVjdGUEFX?=
- =?utf-8?B?MlBkKzFUSG9Ucnh4OFMrbWZVd0JLN0dFZXpEaXZ2dnFKV1RtYzRsYjE3Z05J?=
- =?utf-8?B?T0pqUFhWeXh5akVlaXVLS1hYTVdFNUU0b2QwRmxZVHkwd0FJbmFoWkFtRWQ3?=
- =?utf-8?Q?lX4bfbwa4QFdN?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZzlyNXRibVY4Yy9ma2szZTlCUUJDWjFNTUpOakNzdGN0dzY5bUxlM3lVN2Ny?=
- =?utf-8?B?dVkyZnlvakZlM2lhRU5JWkFheUl0ZHdWRmVwdWVFbXV0dlYra1ZaRW1ReFoy?=
- =?utf-8?B?SDVDMWNHUFRRUUZKOHhELzJRdEg2NTJmTkFVOVVMQmdPL3JVNGFiOCtDckRS?=
- =?utf-8?B?VUllNkRIY1k3QnFYZmVPY3U2Qnl3bUE5aU9veUZUQXBPd1owMHlpZXdKcVhY?=
- =?utf-8?B?Qko5bXdBaGpod2RPblhtbFR6SHRzVU0vSC9KdTErbHJoL2hUbHdlVXhwOVBw?=
- =?utf-8?B?OVFka3FnVFpLMFZjRDl6S0plSkRoQUFHUVhRMHd0bDl6a1B1VlpnVitWSFdL?=
- =?utf-8?B?Z3kwckZBRnNEbHlWczd0Y3hzY2ErbTNvNUpVMytQV3dFV09Fb2o0OWhweWNS?=
- =?utf-8?B?aE9uRkFELys1cU9COW9uS3Rtb25lWmpTY01Vc1BHNkRrd2xxSEpVTnBkdWFh?=
- =?utf-8?B?VFk1aWcyY0JqVkxlOWRaTXVrcGlvR1pEVVlDK01aSktyRkg5OGh5R1NiaWNF?=
- =?utf-8?B?ZVZ1bVBJdCtkTkgyb1d5S3R3V2o1aFFVQVEyWis3UGlYRVl4Sk1xYVpsSWVs?=
- =?utf-8?B?bUQxbkxWUmtjbys2dERtUUtWLzk4SEUxcWViUE5wVVUvRG9UdDF0UHQ0OFVP?=
- =?utf-8?B?dHM4dk1MVFRnKzRMQUtqb0tBdWRlbUZpWGFYWW0yaHdGM1pEQmxSOXhpcW9n?=
- =?utf-8?B?T3RsVWZtbWlJOXNsV2U3RkoxelExZm1HL3hTK1dLOU1CYnplVFpPaVJLWTAx?=
- =?utf-8?B?VWJkdDBCLzB5WXdCTUdNV3FLK3dGTUZiRlRjMXlYc0psT1hMWFd0eWJpRnRo?=
- =?utf-8?B?NFVocDRwaXhvSmZYUkZZVXBxWVpKSlhodXVoTzliSDRBWWpWcTQ5SCtjeEMy?=
- =?utf-8?B?UTBMNFlPcnBia0VTQnhoTkM4VGZkc3l3T3ppWFIyZ1pkY1dvZVJtTVBINHlM?=
- =?utf-8?B?di9mSDMxRlRwMGR4U1BETGpnWEcvMURnb3BqNWk0UkM2T1RmWURiWk9SM2th?=
- =?utf-8?B?SnFscGJ5Zk1HNlFiTDRlQjZteXVXYUlQbnF5NDVWRUpWeVdXUE1kT0F2RUFz?=
- =?utf-8?B?bUgwQ281NFgydVFkaFZsMHF0YkJmSzNhdkR2R2RjS1B1L1NsYjdWbjNWenIx?=
- =?utf-8?B?Q0ZJWDJTYS94dnR3NkdaZDVjNGhtc2dlYWw3UnNIeGsyOXQ5RnNxKzVzVGVG?=
- =?utf-8?B?MmFnZVNlMXZwUFJjVVdmV1ZpM2V3bE1NZklYNU0zY01JbVU0a0ZJN2NmNVg1?=
- =?utf-8?B?b0VUZnk3SGlLdXlFOW1xbktXNjIxSFlGK1l6SUw2S0RFdEcvKzlMeG5xMTdw?=
- =?utf-8?B?a3VJRGp2RGN6TXc4Umc3VU9RN0dMc3BpTTVybXFRRFVnc1UyUStJc0U4Slc0?=
- =?utf-8?B?WmhmRnNJZnhqMXQ4WndUNFFZZEViKzhOeitSeWlybkN1dW9XMlpUcyt5SjZn?=
- =?utf-8?B?K3RnK1AxRzBPdkphSzVySVB3MjZsUkgvZnYwdG0vYmZQdEtsSDU2V2EwRWxq?=
- =?utf-8?B?TG5KQzF3N0k0NWdINTdwMDNTU0pua2NvRDFSTzRwWnZqK2lSYm1acVNJUzI1?=
- =?utf-8?B?TGNEK1FHdlBCRDRyMVNBYkVObjF2NUxSSnRmS1I3cDZuazZCWWhOZFdCclp5?=
- =?utf-8?B?dzFxYjNPME5JREV5QnBNYU9icGJTclkzTStKL0E4SmNBdUZqYW5qblRYQzJ1?=
- =?utf-8?B?RWVuaVhyS1JjLzRHVSs4QTBSNFR4bG9EM2VLQnU1M1U3aGtKeGhsQVV4YmlT?=
- =?utf-8?B?bHVGNXMzYTBUR1ZPaDRlTUx4cWhWS3M3VnpoaWNSQlNsUnQ5VGp6R3kzVjRy?=
- =?utf-8?B?ME1PbFBxOGlCajM5L2NkbmZaYUpTQVhRb0xuMlFRRzByZitlMlpXTlhyWFl0?=
- =?utf-8?B?eVVCRTd4YW5nSEZiVTE0OGFIWExmVjByaXNoeHlRd1h6UHRWdnhWSzljalNo?=
- =?utf-8?B?SjV1dWYzei9YS1EwclB1R0pqcW85OC9ybjN2N2hVaEFOUlJIRUZnSE8wMi9G?=
- =?utf-8?B?NFBVd25rTFp2SW1FemVmUjBKS2tYUktmcW4wT1MyZXdZdFRwUThuQ1dHb2Jr?=
- =?utf-8?B?U3VGYkFaazBaRXRKUWV1S1JnR29RaUJ1R2NNMGtzNlBPYUJvWHBwMnlyT2Vx?=
- =?utf-8?Q?1w0uayHMYSu7z6m6TJPZKbIiC?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d60a763-199d-4597-b072-08dd5b4af96e
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2025 18:32:52.8675 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6KOaEtpBZb71DLqTwkVpUq+cBi3oXFFcgsqbFgBwVZMNtmkhayjDDhODrSZi7VF2g4TRmFxZCqKJ/ul4kqmWnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9070
+References: <20250303230149.3544994-1-alexander.deucher@amd.com>
+ <wykdd6kr3axxoeg2rq3mxtlaix5y4trrimnzlzzqbb456ypg2z@r5yoaqk6etrk>
+In-Reply-To: <wykdd6kr3axxoeg2rq3mxtlaix5y4trrimnzlzzqbb456ypg2z@r5yoaqk6etrk>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 4 Mar 2025 14:25:13 -0500
+X-Gm-Features: AQ5f1JrPbL-RzyYu5JVNma9hbjUWWchHC4la4DCEjxcDS1gZ61VYQ8MH09IZWaM
+Message-ID: <CADnq5_PGSx_z5-jbAZC-ck+igMNNOhRvp3zn-gtvYbyKo2dOLA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add initial documentation for debugfs files
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,104 +82,414 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Mar 4, 2025 at 12:37=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
+>
+> Hi Alex,
+>
+> I added a few suggestions and questions.
+>
+> On 03/03, Alex Deucher wrote:
+> > Describes what debugfs files are available and what
+> > they are used for.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  Documentation/gpu/amdgpu/debugfs.rst | 201 +++++++++++++++++++++++++++
+> >  Documentation/gpu/amdgpu/index.rst   |   1 +
+> >  2 files changed, 202 insertions(+)
+> >  create mode 100644 Documentation/gpu/amdgpu/debugfs.rst
+> >
+> > diff --git a/Documentation/gpu/amdgpu/debugfs.rst b/Documentation/gpu/a=
+mdgpu/debugfs.rst
+> > new file mode 100644
+> > index 0000000000000..9d82c770c1e78
+> > --- /dev/null
+> > +++ b/Documentation/gpu/amdgpu/debugfs.rst
+> > @@ -0,0 +1,201 @@
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +AMDGPU DebugFS
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +The amdgpu driver provides a number of debugfs files to aid in debuggi=
+ng
+> > +issues in the driver.
+> > +
+> > +DebugFS Files
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +amdgpu_benchmark
+> > +----------------
+> > +
+> > +Run benchmarks using the DMA engine the driver uses for GPU memory pag=
+ing.
+> > +Write a number to the file to run the test.  The results are written t=
+o the
+> > +kernel log.  The following tests are available:
+> > +
+> > +- 1: simple test, VRAM to GTT and GTT to VRAM
+>
+> I know GTT is part of the glossary, but to improve this part of the doc
+> readability, I suggested adding the acronym meaning the first time you
+> mentioned GTT. You already used this approach in the rest of this patch.
 
-On 2025-03-04 13:23, Chen, Xiaogang wrote:
->
->
-> On 3/3/2025 11:21 PM, Felix Kuehling wrote:
->> On 2025-01-31 11:58, Xiaogang.Chen wrote:
->>> From: Xiaogang Chen <xiaogang.chen@amd.com>
->>>
->>> When register a vm range at svm the added vm range may be split into multiple
->>> subranges and/or existing pranges got spitted. The new pranges need validated
->>> and mapped. This patch changes error handling for pranges that fail updating:
->> It may help if you clearly state the problem you're trying to solve to justify the changes in error handling. See more comments inline.
->>
-> Current way is returning the last sub range error code if it got issue during migration, validation or map. If the last error is -EAGAIN, but there are other error codes at middle for other sub ranges we still return -EAGAIN. That causes same procedure repeated until the sub ranges that have other error code becomes the last one.
->
-> I noticed it when looked at large range(more than 100GB) registration which split into multiple sub ranges. There were multiple unnecessary repeats until hit return code that is no -EAGAIN.
->
-> As you said we may return immediately if hit no -EAGAIN, and hope app terminates. But if app does not terminate kfd drive will hold unused pranges until app stops.
->
->>> 1: free prange resources and remove it from svms if its updating fails as it
->>> will not be used.
->>> 2: return -EAGAIN when all pranges at update_list need redo valid/map,
->>> otherwise return no -EAGAIN error to user space to indicate failure. That
->>> removes unnecessary retries.
->>>
->>> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
->>> ---
->>>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 27 +++++++++++++++++++++++----
->>>  1 file changed, 23 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> index e32e19196f6b..455cb98bf16a 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> @@ -3716,8 +3716,19 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->>>  
->>>  out_unlock_range:
->>>  		mutex_unlock(&prange->migrate_mutex);
->>> -		if (r)
->>> -			ret = r;
->>> +		/* this prange cannot be migraed, valid or map */
->>> +		if (r) {
->>> +			/* free this prange resources, remove it from svms */
->>> +			svm_range_unlink(prange);
->>> +			svm_range_remove_notifier(prange);
->>> +			svm_range_free(prange, false);
->> Freeing the prange removes SVM mappings from the process. This will break the subsequent execution of the application. In case you were going to return -EAGAIN that's definitely wrong because the application would expect the SVM range to work after a successful retry.
-> When return -EAGAIN app will do whole range registration again including rebuild sub ranges. And at this stage we do not know if subsequent sub ranges will be success or fail. So I release current sub range resource if it got error(including -EAGAIN). After processing all sub ranges if decide to have app do it again, the redo procedure will rebuild the released sub ranges.
->> I'm not sure the resource waste is a valid argument in case of a fatal error. I would expect the application to terminate anyways in this case, which would result in freeing the resources. Do you see a scenario where an application wants to continue running after this function returned a fatal error?
-> I made a test app to check the behavior of registration of large range for debugging a real issue. I do not know if real app will continue to run when hit no -EAGAIN error code. The purpose here is making driver handle this case more general.
->>> +
->>> +			/* ret got update when any r != -EAGAIN;
->>> +			 * return -EAGAIN when all pranges at update_list
->>> +			 * need redo valid/map */
->>> +			if (r != -EAGAIN || !ret)
->>> +				ret = r;
->> This is a good point. But the explanation is a bit misleading: "all pranges ... need redo" is not really true. There may also be ranges that were validated successfully. I think the point you're trying to make is this: Don't return -EAGAIN if there was any previous fatal error found.
-> ok
->> I could potentially see a different optimization. If you encounter a fatal error, you can skip the rest of the ranges and return the error immediately.
->>
-> As said above it is a another way to return immediately if hit no -EAGAIN.  but should kfd driver release unused pragne resources any way?
->
-No. Freeing the prange doesn't free any big resources, like VRAM. If VRAM is used by the range, the page mappings in the CPU virtual address space hold reference counts on the underlying BO. And that doesn't go away until the address range is munmapped. If anything, you may end up using more VRAM resources because the next time you validate, you may create a new VRAM BO, but the old one may not be released yet. You may also create problems for later callbacks (MMU notifiers and migrate-to-RAM) for those virtual addresses because you're destroying the SVM range structures that would be needed by those callbacks.
+Sure.
 
-Regards,
-  Felix
-
-
-> Regards
 >
-> Xiaogang
+> > +- 2: simple test, VRAM to VRAM
+> > +- 3: GTT to VRAM, buffer size sweep, powers of 2
+> > +- 4: VRAM to GTT, buffer size sweep, powers of 2
+> > +- 5: VRAM to VRAM, buffer size sweep, powers of 2
+> > +- 6: GTT to VRAM, buffer size sweep, common modes
 >
->>> +		}
->>>  	}
->>>  
->>>  	list_for_each_entry(prange, &remap_list, update_list) {
->>> @@ -3729,8 +3740,16 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->>>  		if (r)
->>>  			pr_debug("failed %d on remap svm range\n", r);
->>>  		mutex_unlock(&prange->migrate_mutex);
->>> -		if (r)
->>> -			ret = r;
->>> +
->>> +		if (r) {
->>> +			/* remove this prange */
->>> +			svm_range_unlink(prange);
->>> +			svm_range_remove_notifier(prange);
->>> +			svm_range_free(prange, false);
->> Same as above.
->>
->> Regards,
->>   Felix
->>
->>
->>> +
->>> +			if (r != -EAGAIN || !ret)
->>> +				ret = r;
->>> +		}
->>>  	}
->>>  
->>>  	dynamic_svm_range_dump(svms);
+> What do you mean by "common modes"? Maybe consider adding a brief
+> explanation or point to the documentation that explains it.
+
+Sure.
+
+>
+> > +- 7: VRAM to GTT, buffer size sweep, common modes
+> > +- 8: VRAM to VRAM, buffer size sweep, common modes
+> > +
+> > +amdgpu_test_ib
+> > +--------------
+> > +
+> > +Read this file to run simple IB (Indirect Buffer) tests on all kernel =
+managed
+> > +rings.  IBs are command buffers usually generated by userspace applica=
+tions
+> > +which are submitted to the kernel for execution on an particular GPU e=
+ngine.
+> > +This just runs the simple IB tests included in the kernel.
+>
+> How about adding the path to the simple IB test that you mentioned?
+
+It's different for each engine type, but the basic idea is that it
+provides the minimum viable IB that can exercise the functionality.
+
+>
+> > +
+> > +amdgpu_discovery
+> > +----------------
+> > +
+> > +Provides raw access to the IP discovery binary provided by the GPU.  R=
+ead this
+> > +file to acess the raw binary.
+>
+> /acess/access/
+
+Will fix.
+
+>
+> Just out of curiosity, what is the use for these debugfs? Why users
+> might want to use it? Can you get this binary from one device and load
+> it into another device for testing?
+
+It's the binary that the driver parses to determine which IP's are
+present on the GPU.  It's mainly for debugging the actual binary.  You
+shouldn't try and use this on any GPU other than the one that
+generated it.
+
+>
+> > +
+> > +amdgpu_vbios
+> > +------------
+> > +
+> > +Provides raw access to the ROM binary image from the GPU.  Read this f=
+ile to
+> > +access the raw binary.
+> > +
+>
+> I repeat my previous question:
+>
+> Can you get this binary from one device and load it into another device
+> for testing?
+
+Similar to the discovery binary.  Mainly for debugging the contents of
+the binary.  E.g., the data tables and command tables included in it.
+You wouldn't want to use this for any GPU other than the one it came
+from.
+
+>
+> > +amdgpu_evict_gtt
+> > +----------------
+> > +
+> > +Evict all buffers from the GTT memory pool.  Read this file to evict a=
+ll
+> > +buffers from this pool.
+> > +
+> > +amdgpu_evict_vram
+> > +-----------------
+> > +
+> > +Evict all buffers from the VRAM memory pool.  Read this file to evict =
+all
+> > +buffers from this pool.
+> > +
+> > +amdgpu_gpu_recover
+> > +------------------
+> > +
+> > +Read this file to trigger a full GPU reset.  All work currently runnin=
+g
+> > +on the GPU will be lost.
+>
+> iirc, AMD has 3 reset modes. By full GPU reset, do you mean the Mode
+> that resets the entire device (mode 0?)?
+
+I meant whole GPU reset rather than per queue reset.  How the driver
+accomplishes this depends on the individual chip (some will use mode1
+some will use mode2, etc.).
+
+>
+> > +
+> > +amdgpu_ring_<name>
+> > +------------------
+> > +
+> > +Provides read access to the kernel managed ring buffers for each ring =
+<name>.
+> > +These are useful for debugging problems on a particular ring.  The rin=
+g buffer
+> > +is how the CPU sends commands to the GPU.  The CPU writes commands int=
+o the
+> > +buffer and then asks the GPU engine to process it.
+>
+> When I checked this debugfs, it prints a non-human readable output
+> (maybe I did something wrong?). How can users use this output for
+> debugging? Is there a way to parser the output?
+
+This is the raw content of the ring buffer itself.  You can use UMR to
+parse the contents and print contents in human readable form.
+
+>
+> > +
+> > +amdgpu_mqd_<name>
+> > +-----------------
+> > +
+>
+> Same as my previous question.
+
+This is also the raw content.  You'll need a separate tool to parse
+this.  I don't remember if UMR can or not off hand.
+
+>
+> > +Provides read access to the kernel managed MQD (Memory Queue Descripto=
+r) for
+> > +ring <name> managed by the kernel driver.  MQDs define the features of=
+ the ring
+> > +and are used to store the ring's state when it is not connected to har=
+dware.
+> > +The driver writes the requested ring features and metadata (GPU addres=
+ses of
+> > +the ring itself and associated buffers) to the MQD and the firmware us=
+es the MQD
+> > +to populate the hardware when the ring is mapped to a hardware slot.  =
+Only
+> > +available on engines which use MQDs.
+> > +
+> > +amdgpu_error_<name>
+> > +-------------------
+> > +
+> > +Provides an interface to set an error on fences associated with ring <=
+name>.
+> > +The error code specified is propogated to all fences associated with t=
+he
+> > +ring.
+>
+> I don't know how this error works. Is it something like this:
+>
+> echo 23 > /sys/kernel/debug/dri/1/amdgpu_error_gfx # 23 is a random numbe=
+r
+>
+> And if there is a fence error in the gfx ring, should I see the error
+> code 23 in the dmesg?
+
+It would need to be a valid error number for a dma fence.  E.g., like
+-ETIME.  The status of the fences determine the status of jobs on the
+ring.
+
+>
+> > +
+> > +amdgpu_pm_info
+> > +--------------
+> > +
+> > +Provides human readable information about the power management feature=
+s
+> > +and state of the GPU.  This includes current GFX clock, Memory clock,
+> > +voltages, average SoC power, temperature, GFX load, Memory load, SMU
+> > +feature mask, VCN power state, clock and power gating features.
+> > +
+> > +amdgpu_firmware_info
+> > +--------------------
+> > +
+> > +Lists the firmware versions for all firmwares used by the GPU.  Only
+> > +entries with a non-0 version are valid.  If the version is 0, the firm=
+ware
+> > +is not valid for the GPU.
+> > +
+> > +amdgpu_fence_info
+> > +-----------------
+> > +
+> > +Shows the last signalled and emitted fence sequence numbers for each
+> > +kernel driver managed ring.  Fences are associated with submissions
+> > +to the engine.  Emitted fences have been submitted to the ring
+> > +and signalled fences have been signalled by the GPU.  Rings with a
+> > +larger emitted fence value have outstanding work that is still being
+> > +processed by the engine that owns that ring.  When the emitted and
+> > +signalled fence values are equal, the ring is idle.
+> > +
+> > +amdgpu_gem_info
+> > +---------------
+> > +
+> > +Lists all of the PIDs using the GPU and the GPU buffers that are they =
+have
+> > +allocated.  This lists the buffer size, pool (VRAM, GTT, etc.), and bu=
+ffer
+> > +attributes (CPU access required, CPU cache attributes, etc.).
+> > +
+> > +amdgpu_vm_info
+> > +--------------
+> > +
+> > +Lists all of the PIDs using the GPU and the GPU buffers that are they =
+have
+> > +allocated as well as the status of those buffers relative to that proc=
+ess'
+> > +GPU virtual address space (e.g., evicted, idle, invalidated, etc.).
+> > +
+> > +amdgpu_sa_info
+> > +--------------
+>
+> Is sa =3D=3D SubAllocation?
+
+Yes.  Will update.
+
+>
+> > +
+> > +Prints out all of the suballocations by the suballocation manager in t=
+he
+> > +kernel driver.  Prints the GPU address, size, and fence info associate=
+d
+> > +with each suballocation.  They suballocations are used internally with=
+in
+> > +the kernel driver for various things.
+> > +
+> > +amdgpu_<pool>_mm
+> > +----------------
+> > +
+> > +Prints TTM information about the memory pool <pool>.
+> > +
+> > +amdgpu_vram
+> > +-----------
+> > +
+> > +Provides direct access to VRAM.  Used by tools like UMR to inspect
+> > +objects in VRAM.
+> > +
+> > +amdgpu_iomem
+> > +------------
+> > +
+> > +Provides direct access to GTT memory.  Used by tools like UMR to inspe=
+ct
+> > +GTT memory.
+> > +
+> > +amdgpu_regs_*
+> > +-------------
+> > +
+> > +Provides direct access to various register aperatures on the GPU.  Use=
+d
+> > +by tools like UMR to access GPU registers.
+> > +
+> > +amdgpu_regs2
+> > +------------
+> > +
+> > +Provides an IOCTL interface used by UMR for interacting with GPU regis=
+ters.
+> > +
+> > +
+> > +amdgpu_sensors
+> > +--------------
+> > +
+> > +Provides an interface to query GPU power metrics (temperature, average
+> > +power, etc.).  Used by tools like UMR to query GPU power metrics.
+> > +
+> > +
+> > +amdgpu_gca_config
+> > +-----------------
+>
+> What is GCA? Could you add this to the amdgpu glossary?
+
+yes.  Graphics and Compute Array (it's another name for the GFX/GC IP).
+
+>
+> > +
+> > +Provides an interface to query GPU details (GFX config, PCI config,
+> > +GPU family, etc.).  Used by tools like UMR to query GPU details.
+> > +
+> > +amdgpu_wave
+> > +-----------
+> > +
+> > +Used to query GFX/compute wave infomation from the hardware.  Used by =
+tools
+> > +like UMR to query GFX/compute wave information.
+> > +
+> > +amdgpu_gpr
+> > +----------
+> > +
+> > +Used to      query GFX/compute GPR (General Purpose Register) infomati=
+on from the
+>
+> It looks like that GPR it is not part of the amdgpu glossary.
+
+Wasn't sure if it was worth putting this in the glossary since GPR is
+a pretty common term in computer processors.
+
+>
+> > +hardware.  Used by tools like UMR to query GPRs when debugging shaders=
+.
+> > +
+> > +amdgpu_gprwave
+> > +--------------
+> > +
+> > +Provides an IOCTL interface used by UMR for interacting with shader wa=
+ves.
+> > +
+> > +amdgpu_fw_attestation
+> > +---------------------
+> > +
+> > +Provides an interface for reading back firmware attestation records.
+>
+> What is this attestation record?
+
+It's the attestation results for the firmwares used by the GPU.
+
+>
+> Is this available for all GPUs and APUs?
+
+It's available on certain dGPUs.
+
+>
+> > diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amd=
+gpu/index.rst
+> > index 302d039928ee8..5254f3a162f84 100644
+> > --- a/Documentation/gpu/amdgpu/index.rst
+> > +++ b/Documentation/gpu/amdgpu/index.rst
+> > @@ -17,4 +17,5 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA)=
+ architectures.
+> >     driver-misc
+> >     debugging
+>
+> I believe this page is directly related to the debugging page. In this
+> sense, maybe add a new section about the debugfs entries to the
+> debugging page.
+
+Will do.
+
+>
+> Thanks
+>
+> >     process-isolation
+> > +   debugfs
+> >     amdgpu-glossary
+> > --
+> > 2.48.1
+> >
+>
+> --
+> Rodrigo Siqueira
