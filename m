@@ -4,150 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C96C282D3
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 03:11:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0182AC19F32
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 03:25:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BCD510E3F7;
-	Wed,  5 Mar 2025 03:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5D7110E07F;
+	Wed,  5 Mar 2025 03:25:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="37iWKHH4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4Kh0C7mL";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A46A910E07F
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Mar 2025 03:11:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1195210E07F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Mar 2025 03:25:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VXsWKMYaBt/ETYGEvaFOePnm2ghsxqJ2kxWYpgn/Xs7ctzAw4NF1wbW+UI6tWxxYGUmZRWE/E+/8ZhFBQ4qLVe1L26rE6HcHPyPEsAwlE9VjEgeimFTMwT90n8EpUokLKBi5BO9T+E8BYFjT+ThLJBkvSu5/5OdvsLgMoe+mWWzQZdWLq/47wLNgbF50gf2ye51hqobG4+yfF0w+d126kmcxdTe++XkDzWrdBozyvCuOmPqGANu9O2v191GZcstA4cZrZQHrDLU1y/W4HG/GEmf+Z4Om66VXMVZN36iyOP8MSOeHFHA55SvMKKy1Q0wvzbzklDSuoJ75hRbfxvIhcw==
+ b=AGyH3shV5qoFzeev/YBPB5Lzt0tIBv/RQl38bBeMXu3UqvB2EqRz19PjlP5pJOOMqUTqTd0ca4UweF9ll1crulkLcxxKsq087ckfXoIvNv8SWDCNV08zkuLmMjPvj/EODUN6BcuprqXnMrbsvr7rTmK3lacLGnT+M/Ih8A6LXmwiwNLBZFgwakFHZHFLfTCUBznsd198Sq8QO8qrafU1inUJ444BoBkUtmttgSkzyB5FIYJzbRUbwIEHpnooEo6FS6ZxzJreNtJuxJRv5rBSlWEu2DVD/x0qH9A5yKb0f/otDepcs2M1ytm3ZQ3/IOZyCVeArgkCjmDE234c3KHq4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PmuJzy+YKxOLMdrfn77foDzFpzFCRZn8E7WUIia9Grs=;
- b=ZxF/WAdhg4jJeWhC5gkhs8RENzQivDSFU7CINTEPQb9RHc77cjk8uPLPA/eMzBP+MlFOvGbtebW6+0j9juYz0uw0eZ8M6qUTDOv9YtoQJbmOD/AkeILl8NFwieMBQs6N7CLlN6kmP9aqX7/20gitvjlEPSDoG3kQK9UjOpk84nZuuGZhupGfE/zjd1Tf46cDZGstbZLhK+sP20htPvlKvqkHaXsUsYhFrABEVjWUE6dBzLOq4LjwpAXm/eAEBtEC4ml40ryOb57tSksZemu59siWQYR8Ui1PXtyOQhdm9HConEr5hoSNN6K/tHKp0xsBPlvKIElFqKMkc43c1EjgHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=R4XIsLcNViRrN6l1IdRgXReVzAG9ujYjIaufZuCcL6w=;
+ b=FoNt0p6pFvWy7uaqyU+KpXM4bgtnZNhAr9fiUwgZkOTMd8vH9XR4uDPlw4g1tRCGrGJi9our0w6epLeMuriEgAUVNSGccZbR2zutrUUIWnCD5qM6eIdqZAnQzi6V4HmmXiqP9bgb2a2q5kiwGR5WpeM1wIy6IChEwzW+pHNElX3aG/+rJoj0DaNdbyyIfHCyY2QqMhr2AORocRbndaYbTgqaEpC25zQrwKLTMU8H8jcetC88UuoTLbyXjRm54ChpbAu28YMMV/xX4gGe8uajxFyHnOVWUGdAIZ6l6dUDV+mWh9E3RR2YLRo6f+QdIfAS8Y8svgi1cymM1ThVwg/Auw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PmuJzy+YKxOLMdrfn77foDzFpzFCRZn8E7WUIia9Grs=;
- b=37iWKHH4HXhfgWfyfLYC7gqAPXzhG6HIDAJQLr7WtjdM+pCfvOoyvWDeMwLOHfRj70HjICXdxQy27e2cxa5CHtViOFaEHQwLm6z5aFkif9rieAH0cJj5oB39qjfIIcP+c46sM5pr0YNf/h7mmwZJOqdPk+AImoFrGuhKAkSH+qs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by CY8PR12MB8196.namprd12.prod.outlook.com (2603:10b6:930:78::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=R4XIsLcNViRrN6l1IdRgXReVzAG9ujYjIaufZuCcL6w=;
+ b=4Kh0C7mLd1WTTchbhesByoJbPD+SryOwROQD9Hk+pcX48wzsbxxV7mY4G967R23dFrNZLwsAmzY5iXOtuppq7z+rMybn7E+rJEl2PZlBHm2Ciu83PKYxsBvLZ+Ta6l90A4nKZ4vuf0uxek6JEgW9rflEhzT6Cq6XgaNOsFN7O2g=
+Received: from BYAPR01CA0068.prod.exchangelabs.com (2603:10b6:a03:94::45) by
+ SJ1PR12MB6267.namprd12.prod.outlook.com (2603:10b6:a03:456::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.25; Wed, 5 Mar
- 2025 03:11:14 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%3]) with mapi id 15.20.8489.025; Wed, 5 Mar 2025
- 03:11:14 +0000
-Message-ID: <7daf0e03-29be-486b-94b5-5cb77af3b892@amd.com>
-Date: Wed, 5 Mar 2025 11:11:09 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdkfd: initialize svm lists at where they are defined
-To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
-Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20250221092355.336312-1-lingshan.zhu@amd.com>
- <c0fd1f01-ed4f-494d-8e9e-ae092a6ef1e1@amd.com>
- <13836d37-3f09-4278-8599-ee8f3886e255@amd.com>
- <ea0821ce-11f0-4747-951e-2b9e8a35e549@amd.com>
-Content-Language: en-US
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-In-Reply-To: <ea0821ce-11f0-4747-951e-2b9e8a35e549@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TYCPR01CA0181.jpnprd01.prod.outlook.com
- (2603:1096:400:2b0::10) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+ 2025 03:25:29 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:a03:94:cafe::d4) by BYAPR01CA0068.outlook.office365.com
+ (2603:10b6:a03:94::45) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.16 via Frontend Transport; Wed,
+ 5 Mar 2025 03:25:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8511.15 via Frontend Transport; Wed, 5 Mar 2025 03:25:29 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 4 Mar
+ 2025 21:25:28 -0600
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Tue, 4 Mar 2025 21:25:21 -0600
+From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, <jiadong.zhu@amd.com>,
+ "Jesse.zhang@amd.com"
+ <Jesse.zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
+Subject: [PATCH v7 1/3] drm/amd/amdgpu: Increase max rings to enable SDMA page
+ ring
+Date: Wed, 5 Mar 2025 11:25:18 +0800
+Message-ID: <20250305032520.1745117-1-jesse.zhang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: jesse.zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|CY8PR12MB8196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14784767-f096-41c0-193e-08dd5b93633f
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|SJ1PR12MB6267:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7451d156-51a1-4232-e640-08dd5b95610d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dUY3UXRBcGNUNmU1cXpHd0pJekp2dHVqMUZnRDJjc1V2TmFIRm5iM2ZNc0Q3?=
- =?utf-8?B?TTVlZU1sbE4rMnluRTBOZURHRCtqa0ZuaGdpV3Y4RGRKTHlVc0hkNFQ3SmI4?=
- =?utf-8?B?RXZGYmYwWHVZNnFtczdmcElyQ05jSVRONGQ4cE5Hd2dxcWllM3ljajZ1N1Mr?=
- =?utf-8?B?S2xtYzUvU3pSd25MenBrdlNXK2RVODJpVSttZEtCWERrOG44bWFkbmdKSTN6?=
- =?utf-8?B?WG1YQmo4d1E2V1dxaGM0UkhtVXZFYVJzTkg5QThXYUZ1ZHV2L3lmNDIrV0FD?=
- =?utf-8?B?Y2l1MDdjckkyMU5mNm8rUmpBRi9FU2hncExIb1BQTzJqbnhNWTRkQ0R1ZlVD?=
- =?utf-8?B?M2VYcitON1ZkS1VUUGxudnVsTzJWcWV4RlF5REdJaERsd3pYRkpYc1dNdFpB?=
- =?utf-8?B?elF0ZnlPRnVVbER5U3VOOE1mZFltNG4xdW5vRDMwK2txaHVaNFR3WFplbkxN?=
- =?utf-8?B?ZlNBSU00dlJsWjJONVlGRFZHZnJPQllIdFdiMVZiWjlGQ3YzRmtRQWNaS0ho?=
- =?utf-8?B?c2xJYjRTeWlYTE16blJ5Und3ZzBsNW5wMmRLZm9JL2N2NnpnaDNFd3J3d1dD?=
- =?utf-8?B?b2dPOWhPdFB0ZjVDYkFCWUhUQjZHTXZzcVhtek42bUR3Y3k4QStmQVVYVUNr?=
- =?utf-8?B?V29LVkZYN1VzMnNlT0hRNW5qclZyVzRkVlVnZml4Sjh1TGVqaTdMZldxNG10?=
- =?utf-8?B?WEthL09IOUJOMGJkVVVPZUx4U2doQ1FjSGVXNjhJMEx5NWlTV3FZckV4SXFQ?=
- =?utf-8?B?aGpCRXdtN1hicHNBVXRwekRyMUJ6VXVLeVdCMURvYXZNL2VYVm1YYkE0ZVpE?=
- =?utf-8?B?d0Z0aXFJTnlVL3NCZzRXRmZNQW5oNGhtME42SUJIWlVHV0gzckUrR3JSU3ZE?=
- =?utf-8?B?a1JRWk5SN2ZmYVpsVEE2Y2pTeGJCdi9ndzljYlVkM2J3YUovM1FZRXhKQ0pj?=
- =?utf-8?B?eHFienA1TjdzK3o1aWpvMXVQNEJZa1Q1bURtRkVkb3Fra3FlUXJZSFlkbjFI?=
- =?utf-8?B?ZlJJU2EwOENmcFE2RU9OMHo4OUtLVy9sV2h2YzhZQ1RYcy9YY0dwVklZUHEr?=
- =?utf-8?B?ZUZGb1ZxSjU3cHZHTU1pcWFIcG9qMTZMbzNQYzNoSldVeWdmM2tXbkxXdFJU?=
- =?utf-8?B?UVlXaWtVbWMza1BHTEN3cllBSEQ2OCtWaUIxUlpZVERZbmczL2c2NHhkOWJS?=
- =?utf-8?B?RTltUHN5UWRYWC9QNWo3RjgvaHJFZmtaUlp4cCtXS2VYdEFQM1BiT1cvd3hM?=
- =?utf-8?B?SWZKeWN6TmhNWjZiT01mU010OEEvN1dRajBTOHFueU9malZUWXA4VVVpK21U?=
- =?utf-8?B?ZXNBQTVONFVHNUxWTkZPVUl4RGNHTk5Pd1V4bjNkRWhDNnJURE1aOWlRZU8r?=
- =?utf-8?B?UUxKVkV6NFhFeFUyWnlrN2NRR3ppVlZ4YWhSK1NuZkZiZ0EwdTd0OTdFR0tx?=
- =?utf-8?B?S0V1ZnROeVB2OWJXbGkvTTE0TWYweGtQU2pBTm9HZ3ZoYS9FNGZXbTkzMEdv?=
- =?utf-8?B?cTNCRjNHNlFGejl2MmxnWVJMaVZVWmlBUlY3NkgrOHVTdThodlBaVkFJNjJs?=
- =?utf-8?B?MFFEaU5iYTIydDVnY0ZjajMrNlJuOFBQWXVRZE5WUms0OFkyelB1Q2VmOG5h?=
- =?utf-8?B?SVI4N0w1bzV2aFNNM0xIV2VXaXIwRnk4T0lJVWNPWFVsdkRaem1MTjE2ZG5Y?=
- =?utf-8?B?cnRPbTB4S0tNUzJKdTIwMnM2MTQ1ZGtmUDB3QmNwb2x2T0lCM3ozZ0ZLVHRJ?=
- =?utf-8?B?OFVFSWFJTG5HMFljYlZicEJsVW80M2NZdFpHNnd5Z2o2YStLakhIOStkZFdq?=
- =?utf-8?B?NEVtRHlEeHNMTEIybkFaNGNBditHY25GUmtzZjdyaEkvOEc5YmNnQThYZFhE?=
- =?utf-8?Q?iZMTGUcjtKipL?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ai9RSjdlM3RGOVhCOFQxM05OMGZVWm5kQ21IVncvUjlRanRmYUpMYUJJUnNq?=
- =?utf-8?B?WGdmUmRnK3Z5UzdJbFZjekxXTDF0TWt3UGNlSTNCTE5pQnZ3cFAzckJQdjgx?=
- =?utf-8?B?aEpuVWdQbUNXUGJnellsRXVZa3pqcUZ6cENyTFRRazZ3RWw1TS8wbUxQMUlQ?=
- =?utf-8?B?bW9aeHdoK2s0QktrajBNQzJUMUVscXZzUklnTUxMbVZIZVpvdUxxUVh5OXJD?=
- =?utf-8?B?ZFVVS21oOVVqRTJIRCt0Qmx4MWpEZHhnUkVyWmFjZENvSk5xME5rMEFtM050?=
- =?utf-8?B?cUVPWllicE1DSGxMWG1zNWRUT0pLMU5JaGs4WkM4Y2l2bnZsUllUTXV1N0Vr?=
- =?utf-8?B?Nlo0WGFyUkxBNEM3a0ZVUnFtYlpBM01zei82OCs4VzFvUktHTlZuOUFpMGtS?=
- =?utf-8?B?MlNldzI3WmVZcUp3ZldQdUxYL0ZEUm4yOGgyQUkvcjVBRmdqNnpKZTQwWVhz?=
- =?utf-8?B?Q3lXckdGM2g5WEFEZmJQTWRXZEpiU1NhUHIwTDBOSWVsRy90d2VoZzB1aThk?=
- =?utf-8?B?bXJJVnJGdkY4cHZXWDJwM3RKdTdNczlPTktXYUNMazA1ZTJRd2pUcmdPYXJB?=
- =?utf-8?B?UENpemJXaVVvbW00U20xV3h4VDR3WWo4M2ZTTzh6T3lxUHByVzM3NTFkV2x6?=
- =?utf-8?B?SjZiM2JQNlI4Mlg3R3dHWDNWbjdXV1FjTkgvWm15NHZ1WHNLeHlObkdLTWpR?=
- =?utf-8?B?MzhTd3NMaGNSVm1sQUQ0ZlRBT1lCVktmNDRIYVdiQlBHaDNIendOV3FUZHhl?=
- =?utf-8?B?RWJaYTdBZE55MlhZZnFVR1lMWlMyRnVrZkpaRUxFOEd0bW1ISDBIbVVUN0Er?=
- =?utf-8?B?MXBuRmgxb1V4ZndoV2ZobW1MazJaRVlJL3VVTEVwcEQ2MmcxOEJYclY3cCtt?=
- =?utf-8?B?VjVzSjFZM1AxeUxHdkowMjgzWXBQclljQldjTCtMTWd1eU1BM2lZc2YwOUpF?=
- =?utf-8?B?alU1N25qS3VCYVo2OUpoSlZEQkRETVphRkZSdWUzeUM3RzBNUGZYV2hmcjBk?=
- =?utf-8?B?cHlGQWk3eGthUnMwV3M5VHhGU2NBc0RTTTFvQ3RtL2FFeHhOMmgvRi9nL1NR?=
- =?utf-8?B?d05YWTlLUVFua3Bnc2dWYnVYa3Q3UnU5cHdkUGl6RmhlN1VnKzZ4SVJiNytW?=
- =?utf-8?B?NXBmQ2NMV012d0k4c3ZHd1IrbVpBZnRiVVU5N3FBTnFRVTI0ZEVNN2NUbmFn?=
- =?utf-8?B?eStyRnpnc05mOVNYSGhMMUEvSWtYWEtUMlBkb3J0bVBvaHdtUTFFZWVhOUpa?=
- =?utf-8?B?OUowcWhCQUg4N3dYMUtjQjlnNFZpc083K0w5Q3RyWUVIaFVuOEZ1aStVVGg1?=
- =?utf-8?B?Wlh1a3JRVzFHMGt2cnhxMS9VS2pUY3hLRzBINnN5bGF5U2lHYlAwMnNpTUhD?=
- =?utf-8?B?VmsyMFU0ZHBYYjArOTNnK0U0K3VXTlBoOUl6MTZhQXdUOXJqWUg2QjBZNlhy?=
- =?utf-8?B?Zk9kYVl5Y00xZmovamFVbWV1RTdaa0VGN3pjWmJFZWV6bWlTS1hyV0hxQk81?=
- =?utf-8?B?ajduOEtqT3BneFFkVVlxV0xZdEZQVmRPRld3T0VpU0V6WHIxRGwwdjBTMHQ5?=
- =?utf-8?B?Yk5PMkIrbFh2L0dsNnBqUUcrVmIzTXNIZmpMZ0U5QW1tOTdrN3Y2Y3RqZy9N?=
- =?utf-8?B?dmRjQUg3RDl4MXk2eUhQZG11RC93UVlabDFBQkVUM1JXTzk3VXZmYnVWWk1P?=
- =?utf-8?B?b0V4MU1rS2xGQ1o0ZXlqT1R2TVJENVRZc2lIcE1MMVRLQ0xHUXkwbzB3U1VU?=
- =?utf-8?B?Q1dYNk5YZVdRM0ZZVjdhMnJKMFlEalBLNThNYWVyWGQrcm9Mdld6UGxFckxO?=
- =?utf-8?B?enBHenFxS244WW1DdTZQenFGVHB3QUMweWlLSlhhRy9WRU5yK1VhRERUaEpu?=
- =?utf-8?B?WXJPT3E0bncrUUNsVjg4NXc2ZkxWT1VnRHQ4bEo3Njd3NjlGOEVmOFJPZU5Q?=
- =?utf-8?B?R2xhSDNpdWtKMlN0QXhvVE84d1lCVWthK3lWK0xLUzhDMm5MVndQKzJsK0dL?=
- =?utf-8?B?blFDUHhaMlo2MHlNNUxHMiswd2F2Q0JhcmR1ZFdyUUtISXBwQjNUOHUzc3Rl?=
- =?utf-8?B?Y3J2dHRIdWVOMUtVbGZoY2MzRllya2w3S3BVSEk1dC9WdEtEWVpVL2NUUmp6?=
- =?utf-8?Q?LY6L9zD6ie/xNDTTQjTdraD54?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?g/X1AAf4wB9rPtYDVs20FIzssdkv0RVz1h1khZjzo8mgNjN2GChbPTnPIb3m?=
+ =?us-ascii?Q?b6+aaqf/3Nr5igVugpVT2airkx1HoJRbkhUYx+zOQxoWEaT3MNvXw/YVyWLz?=
+ =?us-ascii?Q?9R6rvj4RQ4P2GPt9GSdFy4pud31q795OsNswJFjh5oztHvEsmISGtKosMh06?=
+ =?us-ascii?Q?M8X0OIhYBue0q6nxli1SRHjvNPeoqi1iDtH58U51PyiWTGV8/ut+z1cfJwtN?=
+ =?us-ascii?Q?lH7KtoDNlbX2/0dfrMYF0E3rIlWViuOkv8CvA8LWk3qaKQMoQSbj+BjHoQAL?=
+ =?us-ascii?Q?ilEfHHmgquyvkr63dnvy6G+4y0x6u7r7dQSks73IDH9WWlPtXAJ+KTIrgh3W?=
+ =?us-ascii?Q?S6A8GW9ziJ+vWwZjd0jGJwhSGLS0V69NXkwJrlW6q60Wgy4DQC2mLkl0RI7s?=
+ =?us-ascii?Q?ZQEshviuNaQzajaT39tSlUjQrzuKDnwVGbCSbhTJye9P1h6Imea2tR96EOAE?=
+ =?us-ascii?Q?XHrzJQihUySBwYWk45m7oyc1GIG8DSLywEyHHjIDkotFasN6kXR5aERrpTaM?=
+ =?us-ascii?Q?/F5w4IK8A6537wBD/pUwBGKXSdgqXL0DT7ZwDdQCpEAoRaMmfyZTtfGUKA0Y?=
+ =?us-ascii?Q?uNvRhRSQVroKKzhmtrPivuJkzveoxmsDfVfdukFnetzkiSDcNbzep0EusofY?=
+ =?us-ascii?Q?7y5Ev3gZ4pjP4tFris3tnan5su8PaIqfijwkeoxuVNXYv9oyxkSl5jggcYMt?=
+ =?us-ascii?Q?t5+LCcceyXEWhO3VbVIXKxrfzItJ+5F7XUbbRfEd1vRgpdCmGfr3ckHa8PD/?=
+ =?us-ascii?Q?fjfM78/ogxWTP0pKLF3wx90IeOkGICVW3lsZ33gW0xwThf1P67P0GhBMdKdD?=
+ =?us-ascii?Q?A4RjUI7oMQ3WBS5UkFntLl74UyHd9PZxVg9TldC5zUjj3QNNbbq3NMlDHE2m?=
+ =?us-ascii?Q?+Q5xuIQ0Q8qexGD4YDDgvD197iiGOWT3s3KbcM7LsE/j0ASM0bD9Giu0igVL?=
+ =?us-ascii?Q?jWQCZzuscv9bFXQwU0lxyZxC1ww/rqrc3fFVv+Uw7hdH7zNfa19RVFZDkApI?=
+ =?us-ascii?Q?qN0f75dAWP6X/G6FrXT1c8Ee1l3e4EHsDfJ6hxLAhcLiaKB3sEApxfJrAQr3?=
+ =?us-ascii?Q?zDHZHAkbt+WZcO9mW0/Wu+cgNM7U9ZitiCu/gn8d9KQJn5i+SMmXba2BY69A?=
+ =?us-ascii?Q?ge0MzmwwWsXGYewKD3+gy3OvJO2OG9E2IBssztE1WPAhxFQ/q1FwUjUDzp/M?=
+ =?us-ascii?Q?o83g2uTCnntSgnyrkf188Zmm/R7vFuXH38NObC5IWQV7k7tVM2ptKLgJ1nSH?=
+ =?us-ascii?Q?hoFFsM0HiotWOp6Y+TvLlFonzMTuVB5KyvzmNq/C8I5V73Vx+3z99VwTEChR?=
+ =?us-ascii?Q?tqYxQEuQsUBCkLYr76VwLIae6sW/WwMVoEQ52eJcO2q5f6LaQ3eEeSymfEiV?=
+ =?us-ascii?Q?9WmgSH7RDRUZNjQzaw6iQQevpBcAO69rys+MXuxaZqXM1vOpqghvMN43DlYK?=
+ =?us-ascii?Q?W8P3jQMDGCn3N0U2QFa6keAmx3rnRBadO6CU+Aar/4wBZmUSV+hGMJmQ1N7F?=
+ =?us-ascii?Q?8rgCH863/l0/SDE=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14784767-f096-41c0-193e-08dd5b93633f
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2025 03:11:14.2038 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2025 03:25:29.1315 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7451d156-51a1-4232-e640-08dd5b95610d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lBjeP9po6LAaLmO/1t9g1/s/493snl9Tv9SVm2Xd0q4hXPVSACUCKGgjIpmBAmyVBr0qujLkHOzqjV1zDZeoeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8196
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6267
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,91 +136,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/4/2025 11:16 PM, Felix Kuehling wrote:
-> On 2025-03-04 2:40, Zhu Lingshan wrote:
->> On 3/4/2025 1:49 PM, Felix Kuehling wrote:
->>> On 2025-02-21 4:23, Zhu Lingshan wrote:
->>>> This commit initialized svm lists at where they are
->>>> defined. This is defensive programing for security
->>>> and consistency.
->>>>
->>>> Initalizing variables ensures that their states are
->>>> always valid, avoiding issues caused by
->>>> uninitialized variables that could lead to
->>>> unpredictable behaviros.
->>> The lists are clearly documented as output parameters in the svm_range_add function definition. I think it's more readable to do the list initialization in svm_range_add to keep the logic of the caller more readable. One suggestion inline that would move the initialization to the caller without cluttering the calling function's code.
->>>
->>>
->>>> And we should not assume the callee would always
->>>> initialize them
->>>>
->>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->>>> ---
->>>>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++----
->>>>  1 file changed, 5 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>> index bd3e20d981e0..cbc997449379 100644
->>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>> @@ -2130,11 +2130,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
->>>>  
->>>>  	pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
->>>>  
->>>> -	INIT_LIST_HEAD(update_list);
->>>> -	INIT_LIST_HEAD(insert_list);
->>>> -	INIT_LIST_HEAD(remove_list);
->>>>  	INIT_LIST_HEAD(&new_list);
->>>> -	INIT_LIST_HEAD(remap_list);
->>>>  
->>>>  	node = interval_tree_iter_first(&svms->objects, start, last);
->>>>  	while (node) {
->>>> @@ -3635,6 +3631,11 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->>>>  	if (r)
->>>>  		return r;
->>>>  
->>>> +	INIT_LIST_HEAD(&update_list);
->>>> +	INIT_LIST_HEAD(&insert_list);
->>>> +	INIT_LIST_HEAD(&remove_list);
->>>> +	INIT_LIST_HEAD(&remap_list);
->>>> +
->>> You could initialize these where they are defined by replacing the struct list_head ... definitions with
->>>
->>> 	LIST_HEAD(update_list);
->>> 	LIST_HEAD(insert_list);
->> Yes, this is better, I will use LIST_HEAD and remove the initialization in  svm_range_add because we don't need to init them twice
->>
->> By the way, I am not sure the lists are "output parameters", usually an output parameter should carry some information for other functions,
->> but here the lists are just defined, even not initialized, and are on the stack. Actually the callee only fills the lists and the caller itself use
->> the lists. I suggest to remove the "output parameters" in the code comments.
-> Input parameters send information from the caller to the called function. Output parameters return information to the caller. In this case the lists are that returned information. Therefore I think calling the list heads output parameters is perfectly valid.
->
-> In fact, I could turn your argument on its head: If you move the initialization to the caller, you now rely on that initialization in the callee, which may be a problem if the caller forgets to initialize the list. In then end, it's just a matter of calling conventions. It doesn't really matter where the list heads are initialized as long as they are initialized in one place. In this case the function in question is a static function that's used exactly once. So there is really no point overthinking it.
->
-> I'll give you two options: Leave the code as is, or move the list initialization to the definition as I suggested. I will not accept a change that "fixes" this non-issue at the expense of code readability. I disagree with branding this as a security issue in the commit message.
-I think it is just a simple issue of passing uninitialized variables  to a callee.
-Yes currently the callee initialized them, works perfect now.
+From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
 
-However, IMHO, I am not sure we can guarantee there is only one callee work on theses lists and every callee not forget to init them, most of the time the callees assume the input parameters are properly initialized and can use them safely, lets try not breaking this assumption by initializing them at where they are defined. This change actually provides better readability.
+Increase the maximum number of rings supported by the AMDGPU driver from 133 to 149.
+This change is necessary to enable support for the SDMA page ring.
 
-Accessing uninitialized and random memory address can lead to unpredictable behaviors, for example overwriting others data or kernel panic. Therefore this is a security issue, but I agree not worthy mention security in the commit messages.
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks
-Lingshan
->
-> Regards,
->   Felix
->
->
->> Thanks
->> Lingshan
->>> 	...
->>>
->>> Regards,
->>>   Felix
->>>
->>>
->>>>  	svms = &p->svms;
->>>>  
->>>>  	mutex_lock(&process_info->lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index b4fd1e17205e..bb2b66385223 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -37,7 +37,7 @@ struct amdgpu_job;
+ struct amdgpu_vm;
+ 
+ /* max number of rings */
+-#define AMDGPU_MAX_RINGS		133
++#define AMDGPU_MAX_RINGS		149
+ #define AMDGPU_MAX_HWIP_RINGS		64
+ #define AMDGPU_MAX_GFX_RINGS		2
+ #define AMDGPU_MAX_SW_GFX_RINGS         2
+-- 
+2.25.1
 
