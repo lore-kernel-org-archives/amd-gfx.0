@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB470C282DE
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 18:25:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40293C19F32
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 18:48:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6BCF89263;
-	Wed,  5 Mar 2025 18:25:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A762089701;
+	Wed,  5 Mar 2025 18:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lDoE0ml8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ihCUd34L";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D36289262;
- Wed,  5 Mar 2025 18:25:51 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2fc92215d15so1646434a91.1; 
- Wed, 05 Mar 2025 10:25:51 -0800 (PST)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89CB6896E9;
+ Wed,  5 Mar 2025 18:48:33 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-2ff5f2c5924so85799a91.2; 
+ Wed, 05 Mar 2025 10:48:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741199151; x=1741803951; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1741200513; x=1741805313; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=O6ub0LI2sdOj4nWBdarlcwFS6czB6x3ubY+sbg/M77k=;
- b=lDoE0ml8wNuaTExbdMAxNk5RAZPpyYk39vOVP2LWz7q6WouOl6RlpYrZwDRDEj7SPG
- f5gesWfzCWs/rfRAuNoQjJvqEsOe9ZmFHrwrV00CDSJheuEn3+8PsSvN2nJATW76Akgo
- P6OFB4aKA2CLzxn2SLC4PJSK45f67mAO/SiQZaNWGZ2co9h/8LiRPBaRRAXAetx45JKR
- 2LnZijU2u0DNQbZNhuN8AeZ1nOJ7OBM5Oj3Xot0BWSNR2GSOl4DU8oNF20577qIXYBiP
- K+tVmUIfgNGgj7DgKaoRRdHF8liHRFO1z//fKWWZyNezZwdGGcGcGUd1Ps6rLBVn8NFI
- qfQw==
+ bh=FLW0d7wXv47ixRls1JtfTqesQTLc2Su7rB4a8OZt/Z4=;
+ b=ihCUd34L5P70F42Pyn4aDB/AbP/AFJfNDBm4qcmQAqeQ3knEiwAtD7hpLiAe/tiQiY
+ BYGsuAshLSnR65nWKoy3UL//Ndl2KoB+4TNvJlrUPPeQF+o0G4oXt7Z5y3rA+6kJb2cc
+ rozrlTe+p6ymLXeMW4WGoUK9H5E/28NtTe5v/HSC9T78goyncjTJazTdm/7qR/nnAQlN
+ tAaGqr+vOugQdpZUWsWyGwvY3OQZMkwveYGzGasTjuD+0B0YII62oW2dllxn4HbGqevg
+ nB9o5Yq/eF+c5ddlmCcnfwLRycCOqJcF7lw3/KmgNZfyGjbfm7B09f8jHPZdE/txQKzc
+ pahg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741199151; x=1741803951;
+ d=1e100.net; s=20230601; t=1741200513; x=1741805313;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=O6ub0LI2sdOj4nWBdarlcwFS6czB6x3ubY+sbg/M77k=;
- b=w4JtEEVgrpKEGzU0icwyrHMAjDAvg3OUP1Ugs27t65+x1DO5sJqHmmq4NTHgcPlYZl
- 01jbrC5llrSLYveKEkQw8p/P7Oum6xSx7B1Iu07u/b69EnY5BHyH6zRPZ/GW1i6KTnf9
- XnQQHAUz2YFoeooBBNkKl/4W9l964WNfAxdl7qhTyI1Jci4mcTj0TKmtQxc/Il5q+V6M
- uhnBB0oayua3EttPCNa+D3akhEhzS+WSZL89SZgSa7wH3q7XAnqr0sTkt63wgqtyemXU
- rwfhRi9rYV0cK+v7JwSPYRZUSFvMXQMRWOSUZO+YLIMXb/WIdZI7QeU/6AlvGmpdThpF
- r5Pw==
+ bh=FLW0d7wXv47ixRls1JtfTqesQTLc2Su7rB4a8OZt/Z4=;
+ b=W7LyoONKz7bitknrqcnRgTlrkNZERGmG44/X7ShBMPqlvbYoxwY3gmQPqEmbPhKt3s
+ Kt4GIangxzj6L7n50IIUHq+2ujp2KpZc7GF6sXCnCe+cIvNrPLzWdbrDgDHoFZwS18Zi
+ xfj4B1A9Wgke/jakjFkpw3L/2t7GaPX3xg6e1T4U46+Q1aqv3bbubnDnKl71EYeNg9Ku
+ UCxM8KmzG/+NQfrLKpeZPBLAilmJMBk4M97BT/MW/eOyc/lmnAxLX6n9HoxKS5fYog+Z
+ brVV6rgffYWtS59ed9mtAAe0BZkyUKXM1pvqc1gCgS1ZkrMOKsh6Lojwagj2xO8kknZA
+ 2sXg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8XPj+DhO8YtuhPB/IQ30dLv+JhKjqGYubdlO8777NaJTUrhH8bcNelXIZydwuYgJ30KhjnVBY@lists.freedesktop.org,
- AJvYcCUsVO2I3dlB+QebTvlWBbnQN70Sm6WWsz/LRbc6aHVnSjJfF3lPz53pzHZYqmcbyHNxFvaljQtzQMYB@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwLb336sAzzeU9dCYpiG/yoCH57C+0XA3IOqmyflsUWPIdvPwkW
- HId6UWksN5y+YWFPfkKsYANaLduSCU0Lt4IRKTKvzN+9JQu9E6BS3jrRBGaofbewhGu2e5NHY6L
- ZqWHDxfj2XJABP4FP7BWoKjLvIrxWhw==
-X-Gm-Gg: ASbGncvmxMizW6NHdgBGXS6PMdWqrTENnNgD4wF+Kh606lFOdkkbjbFynLKzj8k/7XM
- c38fCQyk6Sx1MgRXfKOIN3+ouyQXvqSk3asyuvNm7aYUeceLQM4REFEE/IuisQHqjnoN1Cyp6ED
- qEUM3VgvC3pQTKMROBsGEyZu5sqQ==
-X-Google-Smtp-Source: AGHT+IHUUUMr0eXBfhB2k8mdAzcSo+xudwlQStKnJTUoHPgc7DWqIflQaDWzZFDkNYAWuQOPHhJZONCvrg9pJIRT4gg=
-X-Received: by 2002:a17:90b:3ec7:b0:2fe:8e19:bcd7 with SMTP id
- 98e67ed59e1d1-2ff49837979mr1415861a91.5.1741199150789; Wed, 05 Mar 2025
- 10:25:50 -0800 (PST)
+ AJvYcCU8yxMUDqSo6d7tBjWVeCJ9GDWzrWdz9v2PRBjDFpG1UsAp1PGWJEjKlZvnIiyJeAPPBYeKfCTDzRTj@lists.freedesktop.org,
+ AJvYcCVcd5ijmvLT2AHpuf7p9TRD0w8BpQs+Uay5bWNgM6PsWfI9Y9ILT1P+AN3uiBK9xDcqLrl8uDRj@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyudy3PCDf73iQLRZwDMa3wk/+dRq6GgIEiFCIqPxoE//irTPGf
+ Q8YYzZVQnGMCQLn+xF/jfizQTAxVASa3dazm2ZuMxK3VMSjd+cHobSjtkbuG4KFHO+zgm4FpZmf
+ i+8bDI9ECn64JoBza+wHwac3K3uk=
+X-Gm-Gg: ASbGncvLGOL01Y3qVcPhMq8VnnS09ZooqQvokQI9DHvFx2gxvaklge/KNmNdJweqOpq
+ lyFD2nCYIPCmNYjO5sFV8FoRQ3i8GG6yajnlt7eGITmmCdf+kl1Y7oyqfbgavWsoFjQFQSnPFPk
+ h9y4VE3Dqnwv/mWLJ5d6SUSqwwwQ==
+X-Google-Smtp-Source: AGHT+IHNy0Uh0i/4Vrewjh6yuoSTfhZDAoTT3pE5NxHvmoBeQzOjLRKXO8Aq7wY5/pRC2taKbqHofwdvOoPmBHTX1JE=
+X-Received: by 2002:a17:90b:568b:b0:2ff:4be6:c5e2 with SMTP id
+ 98e67ed59e1d1-2ff4be6c73amr2014043a91.7.1741200512864; Wed, 05 Mar 2025
+ 10:48:32 -0800 (PST)
 MIME-Version: 1.0
-References: <20250304071030.2166-1-vulab@iscas.ac.cn>
-In-Reply-To: <20250304071030.2166-1-vulab@iscas.ac.cn>
+References: <20250305104057.3416-1-hanchunchao@inspur.com>
+In-Reply-To: <20250305104057.3416-1-hanchunchao@inspur.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Mar 2025 13:25:39 -0500
-X-Gm-Features: AQ5f1JpsrrkkoNp9IkrO3SOJNFhknOQdq3tpUg-npUaJDMdg63QZADBLS2CqICA
-Message-ID: <CADnq5_Nc62v7aB9xof1ZiTq0TQPJvxwjtvTO2KkaWwvfxEg03Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: handle amdgpu_cgs_create_device() errors in
- amd_powerplay_create()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, 
- Jun.Ma2@amd.com, lijo.lazar@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 5 Mar 2025 13:48:21 -0500
+X-Gm-Features: AQ5f1Jroiidha8Du4iLEC0d4NUHuwmGgvoqBM2eAEDIOIX64Uk9J5X65ktxjK1w
+Message-ID: <CADnq5_MveLhZFX0qjp5=RsK1FV5n1jM13giX3BA4Lz3vXvsVKA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix inconsistent indenting warning
+To: Charles Han <hanchunchao@inspur.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, Jesse.zhang@amd.com, Hawking.Zhang@amd.com, 
+ mario.limonciello@amd.com, tim.huang@amd.com, Likun.Gao@amd.com, 
+ kevinyang.wang@amd.com, dan.carpenter@linaro.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,40 +87,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 4, 2025 at 4:29=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wro=
-te:
->
-> Add error handling to propagate amdgpu_cgs_create_device() failures
-> to the caller. When amdgpu_cgs_create_device() fails, immediately
-> return -EINVAL to stop further processing and prevent null pointer
-> dereference.
->
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/g=
-pu/drm/amd/pm/powerplay/amd_powerplay.c
-> index 26624a716fc6..2cb05614466f 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> @@ -51,6 +51,8 @@ static int amd_powerplay_create(struct amdgpu_device *a=
-dev)
->         hwmgr->adev =3D adev;
->         hwmgr->not_vf =3D !amdgpu_sriov_vf(adev);
->         hwmgr->device =3D amdgpu_cgs_create_device(adev);
-> +       if (!hwmgr->device)
-> +               return -EINVAL;
-
-Please return -ENOMEM here.  Also, you need to free hwmgr as well in this c=
-ase.
+Applied.  Thanks!
 
 Alex
 
->         mutex_init(&hwmgr->msg_lock);
->         hwmgr->chip_family =3D adev->family;
->         hwmgr->chip_id =3D adev->asic_type;
+On Wed, Mar 5, 2025 at 5:41=E2=80=AFAM Charles Han <hanchunchao@inspur.com>=
+ wrote:
+>
+> Fix below inconsistent indenting smatch warning.
+> smatch warnings:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c:582 amdgpu_sdma_reset_engine() w=
+arn: inconsistent indenting
+>
+> Signed-off-by: Charles Han <hanchunchao@inspur.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sdma.c
+> index 42a7b86e41c3..1037a2f9e3b9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> @@ -579,5 +579,5 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *ad=
+ev, uint32_t instance_id, b
+>         if (suspend_user_queues)
+>                 amdgpu_amdkfd_resume(adev, false);
+>
+> -       return ret;
+> +       return ret;
+>  }
 > --
-> 2.42.0.windows.2
+> 2.43.0
 >
