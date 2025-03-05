@@ -4,73 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40293C19F32
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 18:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0E91C19F32
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 18:49:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A762089701;
-	Wed,  5 Mar 2025 18:48:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9728A88C11;
+	Wed,  5 Mar 2025 18:49:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ihCUd34L";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iq/ML3yY";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89CB6896E9;
- Wed,  5 Mar 2025 18:48:33 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-2ff5f2c5924so85799a91.2; 
- Wed, 05 Mar 2025 10:48:33 -0800 (PST)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 941FC88C11
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Mar 2025 18:49:13 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2234f57b892so16792415ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Mar 2025 10:49:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741200513; x=1741805313; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1741200551; x=1741805351; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FLW0d7wXv47ixRls1JtfTqesQTLc2Su7rB4a8OZt/Z4=;
- b=ihCUd34L5P70F42Pyn4aDB/AbP/AFJfNDBm4qcmQAqeQ3knEiwAtD7hpLiAe/tiQiY
- BYGsuAshLSnR65nWKoy3UL//Ndl2KoB+4TNvJlrUPPeQF+o0G4oXt7Z5y3rA+6kJb2cc
- rozrlTe+p6ymLXeMW4WGoUK9H5E/28NtTe5v/HSC9T78goyncjTJazTdm/7qR/nnAQlN
- tAaGqr+vOugQdpZUWsWyGwvY3OQZMkwveYGzGasTjuD+0B0YII62oW2dllxn4HbGqevg
- nB9o5Yq/eF+c5ddlmCcnfwLRycCOqJcF7lw3/KmgNZfyGjbfm7B09f8jHPZdE/txQKzc
- pahg==
+ bh=eLJdHl9mT4c/0ssT4+NG0k9jaS/iFkUQGXLpXqKvALk=;
+ b=iq/ML3yYwgkmgFZNdPizZOkYpuU5arTbRFrRqRVzkoLiKkA3jv7jd9X9a7C3Mj1qoG
+ DriR62+ogDUw+pwfgsHL+cwCkdQuXiaFZl3ojeJd6Wa10iHgKoEc/TN7to2+qsAHN5Oc
+ cPBoBaOgjRST5OYoum54mimcrMTFjX8zehT6kdCDe3IN6F86QODOx6w8OBqA1iEOHOqI
+ H2xxPw+gA1tE7lK2nb3LWWgVVl+F8Km+fvGmO5YPiVHUo3PgGdFwEM4+Qi6gk7uQ7SZR
+ Ke1bNy/yUhlCrXge4EEKgxUGCCwDDfZG7vWxG88NTyi9UOgcEul9Gsp64UsEwimhpiso
+ XAZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741200513; x=1741805313;
+ d=1e100.net; s=20230601; t=1741200551; x=1741805351;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FLW0d7wXv47ixRls1JtfTqesQTLc2Su7rB4a8OZt/Z4=;
- b=W7LyoONKz7bitknrqcnRgTlrkNZERGmG44/X7ShBMPqlvbYoxwY3gmQPqEmbPhKt3s
- Kt4GIangxzj6L7n50IIUHq+2ujp2KpZc7GF6sXCnCe+cIvNrPLzWdbrDgDHoFZwS18Zi
- xfj4B1A9Wgke/jakjFkpw3L/2t7GaPX3xg6e1T4U46+Q1aqv3bbubnDnKl71EYeNg9Ku
- UCxM8KmzG/+NQfrLKpeZPBLAilmJMBk4M97BT/MW/eOyc/lmnAxLX6n9HoxKS5fYog+Z
- brVV6rgffYWtS59ed9mtAAe0BZkyUKXM1pvqc1gCgS1ZkrMOKsh6Lojwagj2xO8kknZA
- 2sXg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU8yxMUDqSo6d7tBjWVeCJ9GDWzrWdz9v2PRBjDFpG1UsAp1PGWJEjKlZvnIiyJeAPPBYeKfCTDzRTj@lists.freedesktop.org,
- AJvYcCVcd5ijmvLT2AHpuf7p9TRD0w8BpQs+Uay5bWNgM6PsWfI9Y9ILT1P+AN3uiBK9xDcqLrl8uDRj@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyudy3PCDf73iQLRZwDMa3wk/+dRq6GgIEiFCIqPxoE//irTPGf
- Q8YYzZVQnGMCQLn+xF/jfizQTAxVASa3dazm2ZuMxK3VMSjd+cHobSjtkbuG4KFHO+zgm4FpZmf
- i+8bDI9ECn64JoBza+wHwac3K3uk=
-X-Gm-Gg: ASbGncvLGOL01Y3qVcPhMq8VnnS09ZooqQvokQI9DHvFx2gxvaklge/KNmNdJweqOpq
- lyFD2nCYIPCmNYjO5sFV8FoRQ3i8GG6yajnlt7eGITmmCdf+kl1Y7oyqfbgavWsoFjQFQSnPFPk
- h9y4VE3Dqnwv/mWLJ5d6SUSqwwwQ==
-X-Google-Smtp-Source: AGHT+IHNy0Uh0i/4Vrewjh6yuoSTfhZDAoTT3pE5NxHvmoBeQzOjLRKXO8Aq7wY5/pRC2taKbqHofwdvOoPmBHTX1JE=
-X-Received: by 2002:a17:90b:568b:b0:2ff:4be6:c5e2 with SMTP id
- 98e67ed59e1d1-2ff4be6c73amr2014043a91.7.1741200512864; Wed, 05 Mar 2025
- 10:48:32 -0800 (PST)
+ bh=eLJdHl9mT4c/0ssT4+NG0k9jaS/iFkUQGXLpXqKvALk=;
+ b=IBza30T8nluManEu3dn7J389/iB3zAxMMkmRyyT7fyd6z1mibC39fLBleHeLJ4xSjp
+ 6mvnTCRmQscuQXL73sgvd+QW6JK6uMGHNZFPLyD13Aw2BP6HajdcBWydIqC7XQZqpe2t
+ JQbatyjy9Fw0+J0X9A0N9b1yZR8AlCn/uggApnb16p4wOEZfZ7ynjHTSoCRLWKg4NXPE
+ uizyHIToiINLw/tYhHAbALllRo4rgJZdyc2jsCAM+FQyF8hzQinfgnVkyRleAUIIIaV7
+ LZuPHcvXWJaUapH+wKfKMHI5JZXIHSmgo4bMDXBHGmPpHiBqErSd1Dv9XD7uZI0mNvxn
+ +1Jg==
+X-Gm-Message-State: AOJu0Yxc0/1tL/mbqs7NcgaIyHyj+TF2v84Bpv9nEQNGBcdNWOph2UkQ
+ JCTZpgQ+L7N3jPXLjxKmDq5t7yECfGH4egsFzti7+WyAEHUTiAkhf+H8G0wAOFXJQ4shc0lW5z6
+ kNVGcgRwofgyI7hafQtohYcVSvQSORQ==
+X-Gm-Gg: ASbGnctqvGDzFBztBCqBqDMZjWeiypMUfcIFvCZOb76zDuyvU22UX16rE4pD788Cl+t
+ oVSOfDCPugPk7JX3odqWiyFZdmJxrht6cxEvLOnlEJyOPYBltlJD1AUjHu4p0JFpM2Uk3vukmF1
+ 50az0+VJQ3RwRtb23ZxzfXEvkJ/Q==
+X-Google-Smtp-Source: AGHT+IHLyuVU+fvC3q9Vr/c3WxZJtCVZtjuv8WjVzy+nscorsKJGcwNb8NRQb+lZA2tqf8VIDu0ppBQ2lI3QYe9JJlE=
+X-Received: by 2002:a17:903:3c70:b0:223:f9a4:dc25 with SMTP id
+ d9443c01a7336-223f9a4dfeemr15248305ad.14.1741200550674; Wed, 05 Mar 2025
+ 10:49:10 -0800 (PST)
 MIME-Version: 1.0
-References: <20250305104057.3416-1-hanchunchao@inspur.com>
-In-Reply-To: <20250305104057.3416-1-hanchunchao@inspur.com>
+References: <20250301023130.31277-1-alexandre.f.demers@gmail.com>
+ <CAPEhTTFAy=+SXPNk4vEeYo0bpFuBPb+yvBE9QVCMZnML7PMmQw@mail.gmail.com>
+ <CAPEhTTHpFeSywrgM1kTL=o+-h8-FnT-dwTArgRrV67sS_x8+Yg@mail.gmail.com>
+In-Reply-To: <CAPEhTTHpFeSywrgM1kTL=o+-h8-FnT-dwTArgRrV67sS_x8+Yg@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Mar 2025 13:48:21 -0500
-X-Gm-Features: AQ5f1Jroiidha8Du4iLEC0d4NUHuwmGgvoqBM2eAEDIOIX64Uk9J5X65ktxjK1w
-Message-ID: <CADnq5_MveLhZFX0qjp5=RsK1FV5n1jM13giX3BA4Lz3vXvsVKA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix inconsistent indenting warning
-To: Charles Han <hanchunchao@inspur.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, Jesse.zhang@amd.com, Hawking.Zhang@amd.com, 
- mario.limonciello@amd.com, tim.huang@amd.com, Likun.Gao@amd.com, 
- kevinyang.wang@amd.com, dan.carpenter@linaro.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+Date: Wed, 5 Mar 2025 13:48:58 -0500
+X-Gm-Features: AQ5f1Jo6jQHflPP_roPvzXAsBTuxP9vC2VEEyZW96cTm2FgfFbUkeeb_RODMMOs
+Message-ID: <CADnq5_OWYsuq9Jdb2CqXkVpnYUn+Nejb_1e8gVzfB37uB5svSw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Uniformize defines between DCE6, DCE8 and DCE10
+To: Alexandre Demers <alexandre.f.demers@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,36 +81,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, Mar 5, 2025 at 1:04=E2=80=AFPM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
+>
+> Ok, so wiring up sid.h in dce_v6_0.c brought a lot of redefinitions.
+> Fixing them is not the problem, but it spreads out a bit over the two
+> files.
+>
+> I'm having an issue with the following:
+> In si_enums.h, we have :
+> #define TAHITI_GB_ADDR_CONFIG_GOLDEN        0x12011003
+> #define VERDE_GB_ADDR_CONFIG_GOLDEN         0x02010002
+> #define HAINAN_GB_ADDR_CONFIG_GOLDEN        0x02011003
+>
+> However, under sid.h, we have:
+> #define TAHITI_GB_ADDR_CONFIG_GOLDEN 0x12011003
+> #define VERDE_GB_ADDR_CONFIG_GOLDEN 0x12010002
+> #define HAINAN_GB_ADDR_CONFIG_GOLDEN 0x02010001
+>
+> The values under sid.h are exactly the same under both radeon and
+> amdgpu, so I would be inclined to think they are the good ones.
+> However, gfx_v6_0.c uses the si_enums.h definitions.
+>
+> Alex, what do you think of it?
+
+Sure.  Sounds good.
+
+Thanks,
 
 Alex
 
-On Wed, Mar 5, 2025 at 5:41=E2=80=AFAM Charles Han <hanchunchao@inspur.com>=
- wrote:
 >
-> Fix below inconsistent indenting smatch warning.
-> smatch warnings:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c:582 amdgpu_sdma_reset_engine() w=
-arn: inconsistent indenting
->
-> Signed-off-by: Charles Han <hanchunchao@inspur.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.c
-> index 42a7b86e41c3..1037a2f9e3b9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -579,5 +579,5 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *ad=
-ev, uint32_t instance_id, b
->         if (suspend_user_queues)
->                 amdgpu_amdkfd_resume(adev, false);
->
-> -       return ret;
-> +       return ret;
->  }
-> --
-> 2.43.0
->
+> On Sat, Mar 1, 2025 at 4:35=E2=80=AFPM Alexandre Demers
+> <alexandre.f.demers@gmail.com> wrote:
+> >
+> > On Fri, Feb 28, 2025 at 9:31=E2=80=AFPM Alexandre Demers
+> > <alexandre.f.demers@gmail.com> wrote:
+> > >
+> > > Keep a uniform way of where and how variables are defined between
+> > > DCE6, DCE8 and DCE10. It is easier to understand the code, their
+> > > similarities and their modifications.
+> > >
+> > > Alexandre Demers (2):
+> > >   drm/amdgpu: add or move defines for DCE6 in sid.h
+> > >   drm/amdgpu: add defines for pin_offsets in DCE8
+> > >
+> > >  drivers/gpu/drm/amd/amdgpu/cikd.h     |  9 ++++
+> > >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 63 ++++++++++++++-----------=
+--
+> > >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++---
+> > >  drivers/gpu/drm/amd/amdgpu/si_enums.h |  7 ---
+> > >  drivers/gpu/drm/amd/amdgpu/sid.h      | 29 +++++++++---
+> > >  5 files changed, 71 insertions(+), 51 deletions(-)
+> > >
+> > > --
+> > > 2.48.1
+> > >
+> >
+> > Please, don't consider this series. Adding sid.h throws out a lot of
+> > redefinition. This needs to be
+> > fixed first. I'll send a v3 once done.
+> >
+> > Alexandre
