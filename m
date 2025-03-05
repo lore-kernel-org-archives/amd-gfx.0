@@ -4,143 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 557CCC19F32
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 14:59:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C499CC282E5
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 15:22:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6BF510E7D7;
-	Wed,  5 Mar 2025 14:59:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAEBE10E4FD;
+	Wed,  5 Mar 2025 15:22:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UHupIAsK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rbfXjyF1";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2041.outbound.protection.outlook.com [40.107.100.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 219B710E7BB
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Mar 2025 14:59:47 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E698D10E4FD
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Mar 2025 15:22:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O0YcqLdGcxBCG8p7uu+AcbvbSOpUDM8oSFV6FTIclMUqTVAoBSqHGMC+0iwpsnWRaCSmao2oyxLdu8YqXfVveYbayLb3RMDSBFv2hBVe+fkiMzOCDMYOYQGqacYvyrZe8Q6COU0c3FkTtBPheN92ACihyjxs9GOERZ+lG7R5Yv1bFGg0WA86BTzjCRDNdmUncceQcsMR1U2WcpTPs6TImNhv9/wgQ749bA7/wmDK72ngsvwkceu2EKpXjxXiTgLcme6NI8Ed13I6LOPrkT3wFEeb+rdo2DrZnnGAO4sCGUSWYrr2WDMQAENpb0n6WXETDRH3yc42FxXXUYqTna8SjA==
+ b=W3K4cj+AMZdvXZ0rfH0VrOJ1yXG3vsYlxYi+2XM8NBM3NsmJwanRywd5s1fQODI+AaBlrvPC/Ps8IhTY5UCpUzQnZQ2qJh3F14ecGwer+cQ2UNkP83WkJAacG9/A1Hs8ZmvOwu1jiNw/1uhWi5mOploU8eXq/tz+MiNuJW5LJy4raxf3rSoKU/emGeCFj2FvRh+G+wq3s/XM194G6SWuCVc1SYbMdz2cLhYYyMk5HhVf3FrFDcG7pUSMed/CSFqlhl5rOashKVp+0+NcfELrXf/32t7RMUjGNB6P3imPtGAVaCSRtnVCLmi0leYiKt7RlZJBG/6HYNyOM71Fb6vorg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a1/o0fRI/boXAFQeylgRa4nmSWdPPAPjeLMJdD0KBEs=;
- b=WYFeJ9vwIHtjMim7jMa9hIuiR5rgkb4zv40rLuOm1zxbQlRdxcE5CCggfazYp+beOP+UmTKknJzqtCc2w9lnC7ejnZwVTdR7o4Djr/vqazEw7wpLZJu7D2ftN95RYxsixMh2FsFjXyQg1xENqr3lA2EPDO4/KL2Qa9GuBpysSJqOOacYgJ8advj61b1jdXnmHv0mDMGhmQvOuD+cWF25Grzst/Sd0WlObAqLdGQnP4efo9K9JWfKs4SbxTVtF1sBZLCMMOtOk128E81waJ3NjiRrBaVfjnsTgQAId/Rlb6PJpjuEUTHH8qXKh9bR8OU2FqlwXOQsdjcNVSXUDj21KA==
+ bh=wCrwYdKklLLtdXO7WqDqkOzYtn7fE27ssCgPacPU/d4=;
+ b=cfZCbxSJvVsm4ZtchGNqWa7R3u0/MlEEVQzjPxh2WPRywbMHSXV2YLQgsZY/u4OjtKGFw1KK7dp+PvHDXTp4OZWQjusLqEA/jqwlhGeD/MnyF0k7x1bPlkj1z205NmKb7KRDRm4TtaMFa8LfaiBhv5nzb+0Awn+Syyns/cZhsKjzwDqFaHcHcBz/M4iuyx6OKLrfbWe4cUrEc34CexJQ9+Tzsbg9vpM3ZAO6guLCaDx+KfJe/vxaNHxjR3/U3jlnBZ2Uv5SM9HGfveCA0cYWZooRJDf2TB3r/jwQlpKcZZoJTHksZXBGNAkipYWO3x4039hEUW5IzKGf6kQbhhMDBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a1/o0fRI/boXAFQeylgRa4nmSWdPPAPjeLMJdD0KBEs=;
- b=UHupIAsKqk/ULFnQ1GY4v0XJcRdGagd4sO28YQhNxvVrIyT1+h5C1IVJVYGXu7jB6UajE+6lSMkCMJi/obi/mA9UM9pURnKpCgGyn5MVZOAOAGHQYbnmF1TN7vAg0525LbrIVcfoeFMQLaSQfG7YFUQhEzDsEMzU/8rLAinZC60=
-Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
- by DS7PR12MB9475.namprd12.prod.outlook.com (2603:10b6:8:251::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.17; Wed, 5 Mar
- 2025 14:59:38 +0000
-Received: from BL1PR12MB5898.namprd12.prod.outlook.com
- ([fe80::989a:c38d:3dc7:97b7]) by BL1PR12MB5898.namprd12.prod.outlook.com
- ([fe80::989a:c38d:3dc7:97b7%3]) with mapi id 15.20.8511.017; Wed, 5 Mar 2025
- 14:59:38 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add initial documentation for debugfs files
-Thread-Topic: [PATCH] drm/amdgpu: add initial documentation for debugfs files
-Thread-Index: AQHbjSWbyfpxnNShskS/TNtOc4UM7LNkogzQ
-Date: Wed, 5 Mar 2025 14:59:38 +0000
-Message-ID: <BL1PR12MB5898F470ED28E84105A0C00D85CB2@BL1PR12MB5898.namprd12.prod.outlook.com>
-References: <20250304165024.4040892-1-alexander.deucher@amd.com>
-In-Reply-To: <20250304165024.4040892-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=b5f9db6b-68ee-46c8-8fbd-f45bd34bd32a;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-03-05T14:54:51Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
-authentication-results: dkim=none (message not signed)
+ bh=wCrwYdKklLLtdXO7WqDqkOzYtn7fE27ssCgPacPU/d4=;
+ b=rbfXjyF1SurUgOmM6squFg0v2Cl2YtZcfCFjRbVQ03UsRq86Leif1F7pxcz1UPBredNncBKq73CrEuGPQsb1lLZIqp4mWl8isDaxJnR4V22NaY7vl5Gxvgp+4NjGrBW5nX/WVXXyW6xUCzCMBMNCAfEGuWxUf6ZGbSc/GdO7ndc=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|DS7PR12MB9475:EE_
-x-ms-office365-filtering-correlation-id: a95df539-81d6-4153-096e-08dd5bf659c7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?M6i3kzWxpac0nHNVkHUgelzR6ATbHM2eKEnnlAAN016ernAWO296nDBh+gTq?=
- =?us-ascii?Q?odi6icB5rPSGQ1uRJfZKNiReW0/EgPGl1MXM8hqj+OSZ/+v4+Pcs6gklCpEL?=
- =?us-ascii?Q?kWy1BcMZj6o0/GYVbQU8KBweIS461KPjAW71FBoPObkkZmY6sjEt+/whBAS+?=
- =?us-ascii?Q?zEDbQH23RXNdqTE/meSwu4LWgz5MN9WQiXweD74vJYf4I5FFAGNWmdRYEkCx?=
- =?us-ascii?Q?GEB6cL/HeiM0lF78BDNlYp4SACkMiDE2nEseKL9zq97ii43CLMHCrCE55+AJ?=
- =?us-ascii?Q?GGYyV3kXKaK3s9Jsl00D92oEo7dcVJekWsOClsEpW3XOFMbcs//D2qs/o/xc?=
- =?us-ascii?Q?L4AKfsizFMOI5LxVFW7LNh5umk+2hQUuCVatwjrC5gWwlby38z+odTOtnnFI?=
- =?us-ascii?Q?YXub/A9R526rguNSZwQJRoDPRhcOhgk6CZRBoH5GYWh135BLDfYAnphT3JEH?=
- =?us-ascii?Q?RUm1bSheAe/HzpugXDZ+OHhNf/TGhY/oO/yyD3c1MCEPiJQC5s76KJRWBxGZ?=
- =?us-ascii?Q?/aWwkzPiXBnNsegIu7x+gWFpbr7KMxLjIivqBwAWXbr9sAGgfsz+idr4AFYa?=
- =?us-ascii?Q?N7GrFELX9D7GL9Ld8fPKLJi/lD1nEa0skS1YoUWZSOI4yRPZcrXaojro+Dmf?=
- =?us-ascii?Q?B42gZKKYJhDi6B2oZDH/Y1Kpxb8RoOfcYQcs5jeAS4tbAz7D6UFGqgIZwf9N?=
- =?us-ascii?Q?5/cB/qp1xg4rjW/ALBURCUoYM0Z+gBa0G/qyf0qco3Pn9zDdl2sR4aH35zKU?=
- =?us-ascii?Q?4W0JknQzaAhiQ+0N0QhVlH83XBiLRw3Jp6cq80akHTtEq0w/Upe09PwuI501?=
- =?us-ascii?Q?DomGt5wdgxJubetFWHMu6ZVRISuqKIdqHcvHMNAB98d9MPL2n3C/npjvEmwG?=
- =?us-ascii?Q?+RW4iznmBwHbLwReDlD7Ig/yN6zkiJvlpFKNCMCjdnnWOpbFYm35vg0DIzGS?=
- =?us-ascii?Q?SuLpS3eAnInoZgKq38ouPMKjorPyB5Vd5mYtRCmKHGsRSTRIqFGEJe+B9NUx?=
- =?us-ascii?Q?JGOCZOTYJQDWdJ5/5DqTwCdTFnYO49BoWtTXJy7rnTLvR0OuR2KwPxIqle5Y?=
- =?us-ascii?Q?Uwy0vo4+Wwe4fxD/Re2nyLwaxcH1mlqQW/J3M/X15gWjBUkfEesaU/N17v6+?=
- =?us-ascii?Q?RoRqL8XhduOp01NLbH1FRQzGHzQCmiOSMozs4YXqOObk2X4DVQq3MD45ADFN?=
- =?us-ascii?Q?ZmNqXQ/ldgwSOlSDvYUvMvvJoFgX7tadmpHjSZyQ8Tt6TCHuI50M0Pow7r7d?=
- =?us-ascii?Q?4JHbcSN+v3QZk+lFVj3FYCME8y4YMfMW2fG8DASQca0MIOC5u2sFVjXCBnHG?=
- =?us-ascii?Q?JY5S302komq665t3qLIJsmktQd1ND5v6RavRwwvqnNpRun2dKbfYRyDpq2iP?=
- =?us-ascii?Q?zqKXOfr8NtFkmMcYy/jxX+MuHBHuM4fbwQzYXZ6gprjDCG+ND7850WYHZcWR?=
- =?us-ascii?Q?UflohaYXB2fVEeX7xJFintlKSobq5iKG?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NyaYQ0Lcxocmh/7yGKhSRYbHSOcnCStNdCPak9Ms2imaIeoLoVCH4RKIg6tv?=
- =?us-ascii?Q?MycXcGTkRqJCgy2yJHZVlDq7Yko73d06XkIZ4cabEEQCJOvZRUaUpikRBPMO?=
- =?us-ascii?Q?ZHJuR92yrO12OyxOWxU/yBvSZX6DZnegO5h6kgI7S91pe6mo7Bd/bXsspUcr?=
- =?us-ascii?Q?92Nj/rFs0U0souIqyAJP8Fu+qsqt7MTnzBREt1gEN7WjtnSsMgTCUNopQHRN?=
- =?us-ascii?Q?dsStKUvJRLJ1TakHc9hqBwSmmNYocE49FtHESR+n3fleVAexMW/L/kq2h4ZX?=
- =?us-ascii?Q?QGZOat123Tlchx1oymhhlga68+MzlAho9O76qWh6+svqtEnHT4z1E2ryzoLC?=
- =?us-ascii?Q?rtq5Ad5Vn+w+uJy9roX4r9ALgUBVfnI5wdIHlKuYcfHZ4Ps+8yv2WsigGD9X?=
- =?us-ascii?Q?Y+aWME19QgzVSCFzJNnlNZdohMkHyUePB3DFH71PC4TJKxIb+A++xLP0BCN/?=
- =?us-ascii?Q?LcH8DVBR0sM/O0ccMnJu4W0dfpfYikA4QeV1/tElady6zxbbxdooAOA8AkT4?=
- =?us-ascii?Q?Rn1kbceDVkIXvjPhiOIT/2zClMc0SV+K55p3++NZ7AZnY68sQSZ5nLMMdLbA?=
- =?us-ascii?Q?hNAK+TxTAiKS3sIZpdiu12JHCu7uqZHvS4Ea5j5fd9PxviWhwox5zH6MOsrx?=
- =?us-ascii?Q?eFlkRntWZGBDU4YGV4plN1d5xg53jHYi8nbwVJTUtlMDp9EvWfi8tqgoyhCs?=
- =?us-ascii?Q?KvzS0isGdveC3hkh3eq2ZMzU3d8ysYFKUIZ5YsH/FM3TuW0NCXnYGTpjS4Z0?=
- =?us-ascii?Q?Kjb8Xi6RdrgCERmqqzujIeyfrkGPC70MILjxfDP4n11vtvfxBB8CPrYhXeHQ?=
- =?us-ascii?Q?b475y7oJovm6zKEyCvI3DaU+RDITiqsvO/CY/s73lPz+yo7NBkwSaRceWpuB?=
- =?us-ascii?Q?LRcmv8ARy58PZFEKyqXsPJeUBQUql1ZOA+9+rHSscLsy42aPWN37VV2F3lX3?=
- =?us-ascii?Q?2ECslXw4+AXx6s7eWP5hLCX1gSVOopWLFBCB9E8FFikspeG7mEdUkk/QsWeN?=
- =?us-ascii?Q?Rp83V0ahePFwXwjHCSQwhPLO9pfldArIR5rCPvwXBaPm6xxyxYD2RUOt+aQo?=
- =?us-ascii?Q?nNxOZ9qSL2g3uMjvUFBNSP9rFCR6HVKCUhawbMp7qk6y3ZIleVN/vK6Be7uD?=
- =?us-ascii?Q?Zuh+PCid3I790odluDqDY25r1MmfgwnitzcZ2Qm4dY1W3Gs86vW+luKZL3ED?=
- =?us-ascii?Q?/5is9eu0u5QyFhkR9/6jPUwy/5ySD7JhkguEe2ClfljMYlXxxYaybicyOoFg?=
- =?us-ascii?Q?eNbrHY49pEghnzDfrsmwI0yex2HmEWYRgplhB6W9oQ6l7rX5yziyPT9CkAd6?=
- =?us-ascii?Q?6SonnAcJ4UwQs8WxvCdJ+eL0UgEwcGd6JV7ALMuy39HAiG6asPCNATNRs3dc?=
- =?us-ascii?Q?vFTwXnRQxpSMQGfqfiQ66eAQV7Ojf3dIHwksFytiTLFXH7wANiLOQjNrzzkE?=
- =?us-ascii?Q?3g7Mwq0BV1Ns625Oj+q16YJk06CWofvrRHRyykxFSzrREaceHDLjK1fEx0/6?=
- =?us-ascii?Q?jYafJOXqPLF7uXXPFiXgB83KFXbF2LL/M+EZ+AGWvF6wHqluNq1gpgViGva7?=
- =?us-ascii?Q?8MC3ZRhOzTTZHBYtrO0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SJ1PR12MB6195.namprd12.prod.outlook.com (2603:10b6:a03:457::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.17; Wed, 5 Mar
+ 2025 15:22:43 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8511.017; Wed, 5 Mar 2025
+ 15:22:42 +0000
+Message-ID: <627b435e-0cbb-45ef-ac2a-5ff89dbdb8b9@amd.com>
+Date: Wed, 5 Mar 2025 10:22:40 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdkfd: initialize svm lists at where they are defined
+To: Zhu Lingshan <lingshan.zhu@amd.com>, alexander.deucher@amd.com
+Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20250221092355.336312-1-lingshan.zhu@amd.com>
+ <c0fd1f01-ed4f-494d-8e9e-ae092a6ef1e1@amd.com>
+ <13836d37-3f09-4278-8599-ee8f3886e255@amd.com>
+ <ea0821ce-11f0-4747-951e-2b9e8a35e549@amd.com>
+ <7daf0e03-29be-486b-94b5-5cb77af3b892@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <7daf0e03-29be-486b-94b5-5cb77af3b892@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQXP288CA0029.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c00:41::28) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SJ1PR12MB6195:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59025b87-d35c-4f53-c557-08dd5bf992fa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eVM4cG1LazFHZkVML0FBVy9HMHQ1Q2tmWkZ2RU5JUFhSQ1FFNFRjaWxnZnkv?=
+ =?utf-8?B?blIydElwQ0RmelJwTEdIU3FJUTdNMTJJZThaV3FPRzRBbHloeSsxZjBCQWFH?=
+ =?utf-8?B?K3JSZTViU2s0RHprVjMwNHJPY3psajBUa2Z0NU55NEU2RlVBY0VWNVgvRThK?=
+ =?utf-8?B?LzZHczFybjZpeEVxQ3g4QkYwZGpDWkJCSnYwN09xZkQ4MzlZb0VpbmRuUHNw?=
+ =?utf-8?B?Q2FUYzIwbVF0eURaMHdySmhmckZYSDVUdE5IbkY2eUY4UEtwclBYSzJtOVRX?=
+ =?utf-8?B?TW9IZDlzNmVGQlNHWjVVUWNyUGFSUE5WckRnSXI1azYrb3U4QlZiRmRUbU00?=
+ =?utf-8?B?UC9Fa05mV0xYM1lTT2FxNmJrU1prOS9uZWtkcnNSNkFuTjVTa0RJTWRFcnda?=
+ =?utf-8?B?MXhWdC8ranU3UGMrdU5Yek1DTUdScWtDcUdGNHYwNTQ1RmVVS21ZM1JJaXI3?=
+ =?utf-8?B?YVgyTEQ5OW5MYTJ3MHBKa0g5ZG1velRWNkxqdmd6b0dsQ1dVZ29rdENvZzRN?=
+ =?utf-8?B?cGl5emRPTDliVE9sSXBGa2EzRVFNMXhjTjN3QVA4M2RVc0QrYzZ3L2l0VHFj?=
+ =?utf-8?B?bEU2cjJGSGVCYnA2eUF1NXRZZEZwTjNHWXlxQ1lGeU9SZDRFYWRPYWxrcEtB?=
+ =?utf-8?B?K2NlcjNKbENOUGhPZVU3NlBmU3YwMjVLWXBvR1RIaWE1N3I0RFBZcXIrZlcy?=
+ =?utf-8?B?WXhqZm4xbjNYdmUzWFVuSmkwVUczVzYvSjltaUZUcm5PenE4VGhVak5ka3Jo?=
+ =?utf-8?B?MVU3R1lNRkcyYU1WbVlpTmlPTjlSbkZXSXRZc2o4Y1hUc0pTalhWZG1vOXZV?=
+ =?utf-8?B?L3ZvbW4vcVp4cjhBSTlyOWNkd3I2a0N4VFlHMk1yWDZBdjRqajl1ODdqK1ZJ?=
+ =?utf-8?B?OEpvT2NPYW5GV085dk52cWRYT01WVE9odjhHSEdtQ2Q1QkVvNFc0RFFVWkpm?=
+ =?utf-8?B?M1UwRVlERU1GSDM3Y3EvcVpuOVZsalRmVGlGendTaGhETTN1T3ZCNkErV3hB?=
+ =?utf-8?B?c0g1N3ErcXRIMHlVdUk1dmZXL3M5alRHY1cyTGpzTWsrRHFYRXQwdVlyK21L?=
+ =?utf-8?B?QVQvbDdKV250RGJJbldlOVRQRkFMY2I1MVJQU1NsclgzUTR0eHZPclpzeXdO?=
+ =?utf-8?B?ZTBlZFZmcXRCNnNvWXZyVnVvR3Q1bnExbTlFb1VVTDEydncvT0M3aXd4VFVi?=
+ =?utf-8?B?RmpRNjBYWjhaNGRnSHNEOHNCVENjcHpoYWRkRld6WTBjWDVqbytSR1cvYXhp?=
+ =?utf-8?B?NlVPay9TNGpBYjVNMDh2cjl3bVF3eS9XNm0zdHlsS3lWWTBaZUxDWVpqcHZQ?=
+ =?utf-8?B?L2NRa1JmbW9DVkpwMWNMeDFodk1KS2tPVU94cFh5aGRiWkxDQzFZZE96bTJo?=
+ =?utf-8?B?SHBwMmFreCswR3dpdU1TaE8rcFkvZjNJNXhDZE02aXpOczdSVmM3VzNaRlpP?=
+ =?utf-8?B?aG1LdmFjd3JGa0RWRXRURXZ0dEdjUllhQzZvSnNSejd6NUJrZjZCdXh5elpV?=
+ =?utf-8?B?TnpqdUJ0VVdtamJuTDJnSjFJL0dydERabU1kbjl5d2tRMWNnRWxYcGZLV2tU?=
+ =?utf-8?B?VmJaMitmdFZlNDRpeE4zenlJL25JRFQ2K2lOTUlkbDkzci9rQlBMenExT1Bw?=
+ =?utf-8?B?ckRJZU1MdTFMcWEvcitsb1AyR202UHF3K1U5MCtPcnRQVmREOCtjL05nSGJ1?=
+ =?utf-8?B?ejg2cjN6ak9Yelo0cFZ4R2pMdlNPU09tWUI0ck9ueE55TkROVnR6TGlrVFNL?=
+ =?utf-8?B?MUZhZGV6UXhaSEdGS1hxWTlIb2ZCR0Q5MThuQmpWbGtTQ054UEY1Ym5oRFJB?=
+ =?utf-8?B?azBTaG9iMTBiNjkzeG5DeEdVVUlXck1EZ0RyTVdqdmZnVGVMYTNNMlB5MjRC?=
+ =?utf-8?Q?83CXNteHkprFM?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cVJVUGNPd3FrMU1sWElKb0RQdG9OMlNmdng1ZWpIbXdQOXVDcGRmOWM1SVZ3?=
+ =?utf-8?B?RVdHazRIMjRwdnVTNFhsSTJGREJxR1c5Um9FQTFNWHkzNUtKSFZFQjl3QTdI?=
+ =?utf-8?B?eXhHQThoK0R5ZDVaWU90OWFUanhJR0VtaGRqZ0d6MHNtM04xT2dBM21iSms3?=
+ =?utf-8?B?RHdsODkyVUdZU1JTb2lFdXd4cWc1K0pGQ0NmaHVsT2tSZVNnMWNaNjJmZXlE?=
+ =?utf-8?B?ZGNCM1hQYW00a2dDMG5tcGV6a3JkeVlQUE9MZ3NLUHN1Y0ZHTnEwOCtuYXFN?=
+ =?utf-8?B?aURzT2d6c05Kay9NWEQ1NW8wYXB4YkJuaDYraUdRL3ZtS2l0UytVd3h3OGVR?=
+ =?utf-8?B?Z2dwSVNEVElKM3IybUN3cVgrK2tmaDMxK0FsMFlXeFgzN08wMXVvMFpJNzdj?=
+ =?utf-8?B?WWF5R0NBVjl5YlltWHFjMnZad2xGZGx6ZmF5T0U4TjZJODdZVSs5Y2R1aldz?=
+ =?utf-8?B?Q3d2TVpaMTdzTXliZXhmZXZXMi9oVG5Xb0FnN0hham16a3NXSmQ5VHkzSDhw?=
+ =?utf-8?B?NE9ZdTh5SGF3YjNqTG83YVZXTUdGWHMrcFBBK1oxTEhITjl2Q3BwOVRLRlI1?=
+ =?utf-8?B?N0pZWkhtUTFOYlZLaDk4V3FZdTZtZFZqMFlBcTRMZEp0YlJ1cDJiSXE5QzV3?=
+ =?utf-8?B?SXBVbDNVTk9peUdzckF2cnFTQmVWdlM1aFB1Vnl0aDZ0M3VKbit3YmxVcjIx?=
+ =?utf-8?B?Sm96U3hxOUk0QmlSRks5bmhIelZnMWZERjlCdWZudnBHVldNeWpJa1JkcnN1?=
+ =?utf-8?B?UHJZcmhDY1k5cUlZWE9makRiQW9OUS9NcEMvaGh1WEh0M1Z0bkpTVERaRS9W?=
+ =?utf-8?B?U0NxL3NxUW1XYUs3QlltaHZoV2RjaEZNY2RVRWdiWndmOU9zbjlhTGZpSFFu?=
+ =?utf-8?B?L1B6ZzNlczV4YUx1RmtHWWd0dERZYlBocFZlK3dsZFRBYnhibTcwVXMyRlpP?=
+ =?utf-8?B?VFpPa3lxUzM3TnFZVmF3bS9OOFBoWFp6Q3IyRFFEU3ljdStQaWJWUWtDMmds?=
+ =?utf-8?B?Q1ByNlA5Y291M3ZEYmdSOXBNNVdEaGprUHc0dk1IS1VGSUwvTGw1UHUwSmhw?=
+ =?utf-8?B?Mmc5NVdobEtmQjljb1UwV1preFY4VDBya0ZlbUFxa1Y3amo3dWpDd0tsb2ZB?=
+ =?utf-8?B?aGZoUm1kUnJteXZBRVJaQ0p0OWtOU3NQVGJ2NlZpVGVMK3ZDbDlSWXpUUWIv?=
+ =?utf-8?B?UmJKY3FLNC9XU1hvNjIxSUkzcUp3cnZVSU04OExkS1FtT1pTbW0wVVMxalZt?=
+ =?utf-8?B?U01ZaEpCRmFFeVFqT2R2aTQvbk00bFhqeW1vWiszaWdaa0xER1hWWmc4K0k3?=
+ =?utf-8?B?WVIrc2dxZHFCM0RNZUlqaHRoRXJ0UHNERGhJVE9HTU9aU0tITEx6T2lWUlJB?=
+ =?utf-8?B?UlNHL3hONGhvSDlDbHJUOW5IV0hiQi81OUExMHVod0Q5WXdVRjByZGNIL1Bu?=
+ =?utf-8?B?V0FQYzhFU3BtekZmR21UbGZGd1RKLzA4MkEzcVZNZ202cHIrZWlhRGZUYTMz?=
+ =?utf-8?B?NHJNK29FRmQ4YVRtblFaTmQ3cXJrTDRmQWxVeXRmenNXS2hlTUhFcGVMMk5s?=
+ =?utf-8?B?bUpSTlY5OVlxWHJyUndGTXdncU12M2RVMnBYR2VLMEJzWmpUb1N4aFllYk82?=
+ =?utf-8?B?WUFveWFTYnlvYTdzMmVOeVREYVhKOXZmN0hCTXpIWE53Um9sOHhTdUdIUFMy?=
+ =?utf-8?B?c0dNRWRYVHNPcU5iek9BWnU1b0d0VDhQOVJwd0VUUDkzaDJxNmEwOUtEcFBt?=
+ =?utf-8?B?UktsYzNKMWhzNWtwekJqTmtKb21wamlDTnREUXlxVmZiZUU5ZlYvUll6Y0tS?=
+ =?utf-8?B?M1YwVi9iTlJpdVFYUHVDLzdIaWx5MHRjZXdnQjdQY0d6cWZHMFlsVURtMElF?=
+ =?utf-8?B?bkdVUUF2VkJtTTVDZy9ZaHZlOHdJT3czRndOUFpxbWVwcHlKOGIyd3hHWWc1?=
+ =?utf-8?B?M0xUczhjSGUxb1UyY2ppangzRE52SFdyZC90ZVRZeWE3UWpZMjFPS0VFSnFk?=
+ =?utf-8?B?T2ppblZlZHluckhicjlVV0cvTUJrUnpkM2xsWWVvenk1UjkrU3kwcTdmYlZO?=
+ =?utf-8?B?RDNVYjlxdjVKc2haemt3R3F5U3BIVVJmdFI1YzNmTmlMRm9zQzUvWkxxL1ov?=
+ =?utf-8?Q?ozYZUNUxJRj3ojo/DsHYoe5zW?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59025b87-d35c-4f53-c557-08dd5bf992fa
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a95df539-81d6-4153-096e-08dd5bf659c7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Mar 2025 14:59:38.2552 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xdTahEuaCGxbTPzhwKBBqRj2pjvgEcTBARFrfiue9WDoovoJ7cb/Jutj8eTqbR7h7AoT1ejv7AqZnRdGsKb6oA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9475
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2025 15:22:42.8897 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +Kz50XUaW7CnNPWidkcBTCdAuzJAPJhM9GeI64zWgG6P0pp+O30gKB9QktrqC90NVC8GycEswE2typBEqt/QKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6195
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,286 +163,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Tuesday, March 4, 2025 11:50 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH] drm/amdgpu: add initial documentation for debugfs files
+On 2025-03-04 22:11, Zhu Lingshan wrote:
+> On 3/4/2025 11:16 PM, Felix Kuehling wrote:
+>> On 2025-03-04 2:40, Zhu Lingshan wrote:
+>>> On 3/4/2025 1:49 PM, Felix Kuehling wrote:
+>>>> On 2025-02-21 4:23, Zhu Lingshan wrote:
+>>>>> This commit initialized svm lists at where they are
+>>>>> defined. This is defensive programing for security
+>>>>> and consistency.
+>>>>>
+>>>>> Initalizing variables ensures that their states are
+>>>>> always valid, avoiding issues caused by
+>>>>> uninitialized variables that could lead to
+>>>>> unpredictable behaviros.
+>>>> The lists are clearly documented as output parameters in the svm_range_add function definition. I think it's more readable to do the list initialization in svm_range_add to keep the logic of the caller more readable. One suggestion inline that would move the initialization to the caller without cluttering the calling function's code.
+>>>>
+>>>>
+>>>>> And we should not assume the callee would always
+>>>>> initialize them
+>>>>>
+>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>>> ---
+>>>>>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++----
+>>>>>  1 file changed, 5 insertions(+), 4 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>> index bd3e20d981e0..cbc997449379 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>> @@ -2130,11 +2130,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>>>>>  
+>>>>>  	pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
+>>>>>  
+>>>>> -	INIT_LIST_HEAD(update_list);
+>>>>> -	INIT_LIST_HEAD(insert_list);
+>>>>> -	INIT_LIST_HEAD(remove_list);
+>>>>>  	INIT_LIST_HEAD(&new_list);
+>>>>> -	INIT_LIST_HEAD(remap_list);
+>>>>>  
+>>>>>  	node = interval_tree_iter_first(&svms->objects, start, last);
+>>>>>  	while (node) {
+>>>>> @@ -3635,6 +3631,11 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+>>>>>  	if (r)
+>>>>>  		return r;
+>>>>>  
+>>>>> +	INIT_LIST_HEAD(&update_list);
+>>>>> +	INIT_LIST_HEAD(&insert_list);
+>>>>> +	INIT_LIST_HEAD(&remove_list);
+>>>>> +	INIT_LIST_HEAD(&remap_list);
+>>>>> +
+>>>> You could initialize these where they are defined by replacing the struct list_head ... definitions with
+>>>>
+>>>> 	LIST_HEAD(update_list);
+>>>> 	LIST_HEAD(insert_list);
+>>> Yes, this is better, I will use LIST_HEAD and remove the initialization in  svm_range_add because we don't need to init them twice
+>>>
+>>> By the way, I am not sure the lists are "output parameters", usually an output parameter should carry some information for other functions,
+>>> but here the lists are just defined, even not initialized, and are on the stack. Actually the callee only fills the lists and the caller itself use
+>>> the lists. I suggest to remove the "output parameters" in the code comments.
+>> Input parameters send information from the caller to the called function. Output parameters return information to the caller. In this case the lists are that returned information. Therefore I think calling the list heads output parameters is perfectly valid.
+>>
+>> In fact, I could turn your argument on its head: If you move the initialization to the caller, you now rely on that initialization in the callee, which may be a problem if the caller forgets to initialize the list. In then end, it's just a matter of calling conventions. It doesn't really matter where the list heads are initialized as long as they are initialized in one place. In this case the function in question is a static function that's used exactly once. So there is really no point overthinking it.
+>>
+>> I'll give you two options: Leave the code as is, or move the list initialization to the definition as I suggested. I will not accept a change that "fixes" this non-issue at the expense of code readability. I disagree with branding this as a security issue in the commit message.
+> I think it is just a simple issue of passing uninitialized variables  to a callee.
+> Yes currently the callee initialized them, works perfect now.
 >
-> Describes what debugfs files are available and what
-> they are used for.
+> However, IMHO, I am not sure we can guarantee there is only one callee work on theses lists and every callee not forget to init them, most of the time the callees assume the input parameters are properly initialized and can use them safely, lets try not breaking this assumption by initializing them at where they are defined. This change actually provides better readability.
 >
-> v2: fix some typos (Mark Glines)
+> Accessing uninitialized and random memory address can lead to unpredictable behaviors, for example overwriting others data or kernel panic. Therefore this is a security issue, but I agree not worthy mention security in the commit messages.
+
+Good. It's just a minor cosmetic change. So let's not spend hours debating it, or blowing it out of proportion. If it improves readability, I'm OK with it. If it's just change for the sake of change, then I will NACK it.
+
+Thanks,
+  Felix
+
+
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  Documentation/gpu/amdgpu/debugfs.rst | 202 +++++++++++++++++++++++++++
->  Documentation/gpu/amdgpu/index.rst   |   1 +
->  2 files changed, 203 insertions(+)
->  create mode 100644 Documentation/gpu/amdgpu/debugfs.rst
->
-> diff --git a/Documentation/gpu/amdgpu/debugfs.rst
-> b/Documentation/gpu/amdgpu/debugfs.rst
-> new file mode 100644
-> index 0000000000000..18bccb57c89fb
-> --- /dev/null
-> +++ b/Documentation/gpu/amdgpu/debugfs.rst
-> @@ -0,0 +1,202 @@
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +AMDGPU DebugFS
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +The amdgpu driver provides a number of debugfs files to aid in debugging
-> +issues in the driver.  Thse are usually found in
-> +/sys/kernel/debug/dri/<num>.
-> +
-> +DebugFS Files
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +amdgpu_benchmark
-> +----------------
-> +
-> +Run benchmarks using the DMA engine the driver uses for GPU memory pagin=
-g.
-> +Write a number to the file to run the test.  The results are written to =
-the
-> +kernel log.  The following tests are available:
-> +
-> +- 1: simple test, VRAM to GTT and GTT to VRAM
-> +- 2: simple test, VRAM to VRAM
-> +- 3: GTT to VRAM, buffer size sweep, powers of 2
-> +- 4: VRAM to GTT, buffer size sweep, powers of 2
-> +- 5: VRAM to VRAM, buffer size sweep, powers of 2
-> +- 6: GTT to VRAM, buffer size sweep, common modes
-> +- 7: VRAM to GTT, buffer size sweep, common modes
-> +- 8: VRAM to VRAM, buffer size sweep, common modes
-> +
-> +amdgpu_test_ib
-> +--------------
-> +
-> +Read this file to run simple IB (Indirect Buffer) tests on all kernel ma=
-naged
-> +rings.  IBs are command buffers usually generated by userspace applicati=
-ons
-> +which are submitted to the kernel for execution on an particular GPU eng=
-ine.
-> +This just runs the simple IB tests included in the kernel.
-> +
-> +amdgpu_discovery
-> +----------------
-> +
-> +Provides raw access to the IP discovery binary provided by the GPU.  Rea=
-d this
-> +file to acess the raw binary.
-> +
-> +amdgpu_vbios
-> +------------
-> +
-> +Provides raw access to the ROM binary image from the GPU.  Read this fil=
-e to
-> +access the raw binary.
-> +
-> +amdgpu_evict_gtt
-> +----------------
-> +
-> +Evict all buffers from the GTT memory pool.  Read this file to evict all
-> +buffers from this pool.
-> +
-> +amdgpu_evict_vram
-> +-----------------
-> +
-> +Evict all buffers from the VRAM memory pool.  Read this file to evict al=
-l
-> +buffers from this pool.
-> +
-> +amdgpu_gpu_recover
-> +------------------
-> +
-
-If we're going for consistency, then you could add "Trigger a full GPU rese=
-t" or something like that beforehand. The other entries above are "Do a thi=
-ng. Read this file to do the thing", so it doesn't match the same style. Bu=
-t it's honestly so nit-picky and pedantic that it's not a big deal.
-
-> +Read this file to trigger a full GPU reset.  All work currently running
-> +on the GPU will be lost.
-> +
-> +amdgpu_ring_<name>
-> +------------------
-> +
-> +Provides read access to the kernel managed ring buffers for each ring <n=
-ame>.
-> +These are useful for debugging problems on a particular ring.  The ring =
-buffer
-> +is how the CPU sends commands to the GPU.  The CPU writes commands into =
-the
-> +buffer and then asks the GPU engine to process it.
-> +
-> +amdgpu_mqd_<name>
-> +-----------------
-> +
-> +Provides read access to the kernel managed MQD (Memory Queue Descriptor)=
- for
-> +ring <name> managed by the kernel driver.  MQDs define the features of t=
-he ring
-> +and are used to store the ring's state when it is not connected to hardw=
-are.
-> +The driver writes the requested ring features and metadata (GPU addresse=
-s of
-> +the ring itself and associated buffers) to the MQD and the firmware uses=
- the MQD
-> +to populate the hardware when the ring is mapped to a hardware slot.  On=
-ly
-> +available on engines which use MQDs.
-> +
-> +amdgpu_error_<name>
-> +-------------------
-> +
-> +Provides an interface to set an error on fences associated with ring <na=
-me>.
-> +The error code specified is propogated to all fences associated with the
-> +ring.
-> +
-> +amdgpu_pm_info
-> +--------------
-> +
-> +Provides human readable information about the power management features
-> +and state of the GPU.  This includes current GFX clock, Memory clock,
-> +voltages, average SoC power, temperature, GFX load, Memory load, SMU
-> +feature mask, VCN power state, clock and power gating features.
-> +
-> +amdgpu_firmware_info
-> +--------------------
-> +
-> +Lists the firmware versions for all firmwares used by the GPU.  Only
-> +entries with a non-0 version are valid.  If the version is 0, the firmwa=
-re
-> +is not valid for the GPU.
-> +
-> +amdgpu_fence_info
-> +-----------------
-> +
-> +Shows the last signalled and emitted fence sequence numbers for each
-> +kernel driver managed ring.  Fences are associated with submissions
-> +to the engine.  Emitted fences have been submitted to the ring
-> +and signalled fences have been signalled by the GPU.  Rings with a
-> +larger emitted fence value have outstanding work that is still being
-> +processed by the engine that owns that ring.  When the emitted and
-> +signalled fence values are equal, the ring is idle.
-> +
-> +amdgpu_gem_info
-> +---------------
-> +
-> +Lists all of the PIDs using the GPU and the GPU buffers that they have
-> +allocated.  This lists the buffer size, pool (VRAM, GTT, etc.), and buff=
-er
-> +attributes (CPU access required, CPU cache attributes, etc.).
-> +
-> +amdgpu_vm_info
-> +--------------
-> +
-> +Lists all of the PIDs using the GPU and the GPU buffers that they have
-> +allocated as well as the status of those buffers relative to that proces=
-s'
-> +GPU virtual address space (e.g., evicted, idle, invalidated, etc.).
-> +
-> +amdgpu_sa_info
-> +--------------
-> +
-> +Prints out all of the suballocations by the suballocation manager in the
-> +kernel driver.  Prints the GPU address, size, and fence info associated
-> +with each suballocation.  The suballocations are used internally within
-> +the kernel driver for various things.
-> +
-> +amdgpu_<pool>_mm
-> +----------------
-> +
-> +Prints TTM information about the memory pool <pool>.
-> +
-> +amdgpu_vram
-> +-----------
-> +
-> +Provides direct access to VRAM.  Used by tools like UMR to inspect
-> +objects in VRAM.
-> +
-> +amdgpu_iomem
-> +------------
-> +
-> +Provides direct access to GTT memory.  Used by tools like UMR to inspect
-> +GTT memory.
-> +
-> +amdgpu_regs_*
-> +-------------
-> +
-> +Provides direct access to various register aperatures on the GPU.  Used
-> +by tools like UMR to access GPU registers.
-> +
-> +amdgpu_regs2
-> +------------
-> +
-> +Provides an IOCTL interface used by UMR for interacting with GPU registe=
-rs.
-> +
-> +
-> +amdgpu_sensors
-> +--------------
-> +
-> +Provides an interface to query GPU power metrics (temperature, average
-> +power, etc.).  Used by tools like UMR to query GPU power metrics.
-> +
-> +
-> +amdgpu_gca_config
-> +-----------------
-> +
-> +Provides an interface to query GPU details (GFX config, PCI config,
-> +GPU family, etc.).  Used by tools like UMR to query GPU details.
-> +
-> +amdgpu_wave
-> +-----------
-> +
-> +Used to query GFX/compute wave infomation from the hardware.  Used by to=
-ols
-> +like UMR to query GFX/compute wave information.
-> +
-> +amdgpu_gpr
-> +----------
-> +
-> +Used to      query GFX/compute GPR (General Purpose Register) informatio=
-n
-
-Weird extra spaces here
-
- Kent
-
-> from the
-> +hardware.  Used by tools like UMR to query GPRs when debugging shaders.
-> +
-> +amdgpu_gprwave
-> +--------------
-> +
-> +Provides an IOCTL interface used by UMR for interacting with shader wave=
-s.
-> +
-> +amdgpu_fw_attestation
-> +---------------------
-> +
-> +Provides an interface for reading back firmware attestation records.
-> diff --git a/Documentation/gpu/amdgpu/index.rst
-> b/Documentation/gpu/amdgpu/index.rst
-> index 302d039928ee8..5254f3a162f84 100644
-> --- a/Documentation/gpu/amdgpu/index.rst
-> +++ b/Documentation/gpu/amdgpu/index.rst
-> @@ -17,4 +17,5 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA
-> (CDNA) architectures.
->     driver-misc
->     debugging
->     process-isolation
-> +   debugfs
->     amdgpu-glossary
-> --
-> 2.48.1
-
+> Thanks
+> Lingshan
+>> Regards,
+>>   Felix
+>>
+>>
+>>> Thanks
+>>> Lingshan
+>>>> 	...
+>>>>
+>>>> Regards,
+>>>>   Felix
+>>>>
+>>>>
+>>>>>  	svms = &p->svms;
+>>>>>  
+>>>>>  	mutex_lock(&process_info->lock);
