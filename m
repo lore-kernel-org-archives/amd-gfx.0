@@ -4,150 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F00DDC19F32
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 16:49:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93BCCC19F32
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 18:04:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77E3710E812;
-	Wed,  5 Mar 2025 16:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D30610E028;
+	Wed,  5 Mar 2025 18:04:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DzG7SXpE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DaBXiHEn";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2072.outbound.protection.outlook.com [40.107.236.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B730C10E812
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Mar 2025 16:49:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FvxiCBYPTbiCuVT/K7lr/N+htq5ZJQ43aY0/IdMMo5n64i2Z2qCxzrVkiEqneaYZmELXlCFW8LXSJ2L3zfTMt9UoiDoBXPEkKWq647rPlBSnc3Po5YvFfkFvf+bygukbNHQfhq78eQAFy7Hfu87oYx64LLldknIVKxEXQlBLExKiUFikg28hsu4zCQkg7EWgNwLY2OaIjRqs9+jUb+2AA1+x81LCQ0bBQ6X9/iJgpL2NQhKmV3vWntISuyuy8JaIdfenTjXNUqJCwm0L0o3Oz8JYyS8lwQBryLI3aATLIq3Lz/xNbPPfrSIELr3uLBUu+sfU1Ab0UxxltcjbYYt/UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZL3qAp8fAeLxygRbscxogbd9QaFDtEbCwt8wawdMkq0=;
- b=JKw5UmDRmbbUouK7nF0WD/+foFgzNYc6WkpDT5aVVFuJmeGQh/RoRwiG4fX9xZf3OnoELCvwkO6G8w10iJ8jgNbc3GmzvPNAM5Hm5is3uhfIJDk8VOa79coeX5Jp8Red+mhftJBBnXAtKFGCTLoW3ZDSOqoXO8EruSzvHDB/DmRWh43hejnj3cplDVNx/66vHVbPgYOcVIwRWIkdyv+AAtbfLDIlzpeEtJ4B27FQtY6TxfB7/AP+tkBaAUnGI0Hc3t1AOga67w5ZuoeZxNGxlmNDgCIv+sDS0Gag9YGrtEsFBuXeEpoEr3j6jZLRAMA187ijsC2jG36Tu7/kM5AI5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZL3qAp8fAeLxygRbscxogbd9QaFDtEbCwt8wawdMkq0=;
- b=DzG7SXpEbFRtJaw7prcGN/bayqLwHIViGeqDUI1HAziV1J+acziSPc6Eu48PuTLgEsfDX0hajjA8gRVxsb96ohtHEKYF0cuBVHIQwpujOxD6tDVkwi2knqz9zbCwtbtUJF6x4PeE8KQqdVkfzdn2t5zV4sfLFYiudRVrEa43qjY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by CY8PR12MB7244.namprd12.prod.outlook.com (2603:10b6:930:57::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.17; Wed, 5 Mar
- 2025 16:49:35 +0000
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::14af:1677:d840:8d2]) by IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::14af:1677:d840:8d2%4]) with mapi id 15.20.8489.025; Wed, 5 Mar 2025
- 16:49:35 +0000
-Message-ID: <fac31d8a-30bd-493b-b2f1-15694114476e@amd.com>
-Date: Wed, 5 Mar 2025 22:19:30 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/amdgpu: Add missing parameter for
- amdgpu_sdma_register_on_reset_callbacks
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20250224114550.2289805-1-srinivasan.shanmugam@amd.com>
- <2dbe7e0b-86c4-46c3-9b0f-4cb5a12668c7@amd.com>
-Content-Language: en-US
-From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
-In-Reply-To: <2dbe7e0b-86c4-46c3-9b0f-4cb5a12668c7@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0074.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:23::19) To IA0PR12MB8208.namprd12.prod.outlook.com
- (2603:10b6:208:409::17)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com
+ [209.85.222.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6268510E028
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Mar 2025 18:04:10 +0000 (UTC)
+Received: by mail-ua1-f51.google.com with SMTP id
+ a1e0cc1a2514c-86c29c0acdfso229076241.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Mar 2025 10:04:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741197849; x=1741802649; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4uTquZMRhy0qdPa8LAFerUZ10kaLangBgxUM7aKFSkg=;
+ b=DaBXiHEn54nrulM3iasPBQT1sSgmxJtCkMKDjJWGe+ZjuMjmQ6ZwJG3sGCw8QitRRZ
+ LQRRIHYPlwJ2bHG2z0Bejg9XE73k4hUA/xhMMDUGIs2kLRx/cF9+kgUHJgXWYrIV0op9
+ BOclNLkQfO9rVvMArq+4jmuPMipjItIZkqe4bKI5m28jkcd4Xa1F6ajBDqIGksSgsVbn
+ 3JjRemlw6E6Z1VDAMl809u8Fv3citl0wCIxDR1R8eDD76LVqXnS7W+N18KtKXw+l8pbA
+ hJxFJGTjgAGWjyCCcC0n1pasUdZQgVz+KtizL8yrGE/f6FeY8qwBVbVgVemkEd9R/Fll
+ 3jeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741197849; x=1741802649;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4uTquZMRhy0qdPa8LAFerUZ10kaLangBgxUM7aKFSkg=;
+ b=DNOstTweNUiY8uS29FGqZzyKqBUnd3QMqfK2t9Dk6ELbPrEhxHiJ5+QTCYLL78D1jV
+ G8OeapwLNujJu8YpkfCxV04M74gEisYrET8alIuCCcJrWPfGWNmEZPb8omDpwFMrLlig
+ Q359ITaTbnt1kx58NM/N3EYs/25fZ0K61w0CXVCZwUIyQD29qArEZxzXUODoJs39EMYM
+ VClurXx0qr2A34c6XmhRJ7IDmi18ENQsdFyS+ZAszfAiFBxcEtNNDbLsBemH1FcHCE95
+ ljZtezwmHrafhOduiUuOspKQuK01xrpQvcQHlEpGAU0/DVVuGi8zv2F9keesRugWzCdB
+ ao8A==
+X-Gm-Message-State: AOJu0Yzvz7xLVNLzuFRzkzpFj7wczkh70kVa+SvV8pWBsEpuVVOsV95t
+ Vf+a4cCqRHTtEIeOf1/tYghww01LEgb9T1gtErfojB6qdvTlxRgmOMk8/kKeeimJRWRvgbj193W
+ 2VVHGN0qEuRJ4Y1ocZwCy6IPnMHuKuMWZ
+X-Gm-Gg: ASbGncsN5SdzzHh/OIMoQaSzdOLuLYV9jquvQSMuxigF/+VOfl2BNCX2vsBGc/EmhUc
+ F1O5RAKfWiT8vYGwx/sLWyAJRZguNVXlc0mhapaVyIAJxFiABk8AKwDhNzXSAzf7+fS/+Rtnk2s
+ zIHG+rI0E5Uoz7fSKcWbGKt/a3
+X-Google-Smtp-Source: AGHT+IFR0rdLQwu+2oxp0axiayXgnCvNJm0rMNTPKvyiOrb63MRTkqIT49KiMPsTpJ2pI7TCvWLioYd+dafUeNJg9mk=
+X-Received: by 2002:a05:6122:458e:b0:520:af9c:c058 with SMTP id
+ 71dfb90a1353d-523c616be5cmr2331069e0c.5.1741197849108; Wed, 05 Mar 2025
+ 10:04:09 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|CY8PR12MB7244:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ceb6ab5-f636-49f7-d5fc-08dd5c05b5e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q1V3eEtWT205dGpweUJOb1B2SksxY3FQWUN1U1E2LzI0alpPNWFDQ2wvV3lm?=
- =?utf-8?B?TGgvNXROaU5XaHdZNE43d0Jad1hScnU2N09VT2xiVStkTi9USVVIWTJzdU5K?=
- =?utf-8?B?QUJjMGxrSE5xM2VUYXRibEZVNExVVDU2eVA1SGZqUFlVQ0t3U2JIU0plY1lF?=
- =?utf-8?B?QjNXMlN6NlhPazZJbkdGYjYrUEpWajZlZU5JbDc3c0pQb2pWM25XOHg2Ri96?=
- =?utf-8?B?bXJNSzZwNWN1Z0FBQXovVE5GUUdBL2VGbHU1NHEyZ0pDcGlnMC9UM2EwSkNp?=
- =?utf-8?B?b2FSNzBaU0lwbjE3YnoxSUFQQXhBZm1PemJnTk0xTGhmUzR2STJNYmVGK29F?=
- =?utf-8?B?eGFHVjN4VUxCWmNuOExvWHZEN1BWQ0pRYTc0STdSUjQxeDZMSEk3MGhqeFV1?=
- =?utf-8?B?a1ZPdU1nZDZLdmlZWmVUUERnaXJOQVQ5d3IzdU52TjRLRWVDeEMrTXpNb2RW?=
- =?utf-8?B?LzJ4c0hURXdzbzFULy81eDZxOWhYUmIwRkE0SFFJZ1p5ZnRqdDNSTExoQ004?=
- =?utf-8?B?Z3VPTmNHbE0rcHNvV29CdjVlbUVOaUVDV3lYZ0lxRmVuTGIrUEVqSHNreWVP?=
- =?utf-8?B?Y0tIWGx3MlFjK2xCWjRheG96NDJDZTBvOVM4MWZtOXNYaEh5MGVUKzR3M0N1?=
- =?utf-8?B?VjZ0dmJ1VU5nMzZzemVmQmJncjdwUUFWVGxha05oMUNDandhODN1SXoyRVJi?=
- =?utf-8?B?V0REM3N4c1BDUk9ITVBCRk91RG8rdmg3NWZreEZ4MWE0a2ZqT1ZPcUkzSkFw?=
- =?utf-8?B?YlZoZkpRZzc3M09YWm14ZjVJdndCVFU4K2hKY1lHbUJhbFA3TUlMUExGOENY?=
- =?utf-8?B?aTVQU1JJcWFSbEVrRlgrVjFJS0VqQk93eDF5anJPRU9OOVV5WVU0a2R5NDBw?=
- =?utf-8?B?N0VjYU45R1lLV2dGemh2TWZUYXpZbFE3SGtIa24wRy9ETFVBMUtORmFSRWIv?=
- =?utf-8?B?a2ZzSWsrVmM3TDJvWHRCdmdiVzNVcFpCK0M2TDliL0tveHlMNWZ2aWg4SUVD?=
- =?utf-8?B?b2QyTkFUWit1UUVSWUkrZHFIaWswaFAxeXdaVFJYbmJQZW1vRE9NSWxzclZQ?=
- =?utf-8?B?WjJZeENwd0RYaWVHb1hDVjV6ZGNPUW1XdTdKbkdzVFE4Y1VNaWxTRFAzbW5m?=
- =?utf-8?B?MHFaaXI1MHgrS0FDUlcxaFBUckRndFFRWDIwdS9ZZ0FyVStINDJ1cHE0QUk4?=
- =?utf-8?B?VG1EaGt6bW9VdmZOK2sxNWFLaGxTc2MrU2JmS25COWJabzg1NXdLQ29uNFBx?=
- =?utf-8?B?ZzNvQzVLOW9Rd1RLd2VyZXNsNVhndTByUEg5SUFVeE04Q1BuTjdYeXVRcG8r?=
- =?utf-8?B?OWlRVUJ6UU4yaDcyUnlVT1ZCaWVGbkF6S3hGSEtINGlzZ3FiZHJHNEpKajhy?=
- =?utf-8?B?akpIamZYVTJNZlI2eCs2Zmc5K05HUTNoK3JBbHk2Mmh6KzJ2Tnh3T0I5OWZH?=
- =?utf-8?B?ZnBnSngzamREK2EvNHFnWDVGVENaUk5pWWJRTHIxTldLOWY0cmtDQW5mN0hq?=
- =?utf-8?B?eW56WXUzUDhqbEV6b3lUeS9mb3RxSlFRQXVHdlR4Q3B0OVRkeGRPL1BjdytG?=
- =?utf-8?B?U3IzZTErMFpmOVNvVFA0NHdMYWx5VjU0M0ZSRURHRkhqeXlxZ2pGTVZ1Z0Ew?=
- =?utf-8?B?QkdGUUdmeUZSQkxvRW4rL2JNVldWZGs5YXUrN2ppaGM0NGFjR3JoS0pReUNK?=
- =?utf-8?B?b1RTYVhIZnkrQkJCNHRuajczQzh5a1BqaVBSS0FRb0xtelhjbjhvTU42VWRu?=
- =?utf-8?B?NlZJeHBIR3pYVWhlOWhpRkpueDA4WXpCQmdEaUV5bG41OTF3RDQ3K3dHUkJh?=
- =?utf-8?B?V2d6ZzhjeERQR01ydG5WVGlQWmNjaG5EY0dSMlZ1eVlOVUNmYkUvd1dFTGhX?=
- =?utf-8?Q?NwtBqBCnM+kYR?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFhXeWlYenM2QXBCMDlhaUdqUkpkK0UxeHpuS20xOHFuNHlsNTJFVHJOZ3Q2?=
- =?utf-8?B?YzBYakxLcG83bDhaOE9EWXZtdHE1TnpmUGFlK1Q5eWlYa0FacTB4a21paUIz?=
- =?utf-8?B?THFJdkdEZzVmMlAwdUZHd045M1UzQzBGcjdqdWNIdWZzSzB0SDlmYnZyM0ht?=
- =?utf-8?B?TW9Pa0pHQXpydGQ0SXVuVFNWVUEvUko2dGhWSHNOT1hoVTNzbE5UVWZIVTJi?=
- =?utf-8?B?YkQ1bGx2Tm5RbnpMdG81aExvUTZGenFSOGQwbFlUd1RIM2pscmxucEJVLzc4?=
- =?utf-8?B?RzV4RGhhSkhUNGFFanBpeHhhVUxSeEJxcm5DR1k1YUFveXM1aHhPYW1tT1Ns?=
- =?utf-8?B?OE5Zd1dOR0EyWUNnckhDbnBmb01YMGRJRUROQU5CK0NSSlRDVzB2VmJIakM4?=
- =?utf-8?B?ZjZHaVFZME40M3M1OWY0SUlXczVtR0NxSGJkTEIyQzZ4cS9COWRqSVBsZUZv?=
- =?utf-8?B?Ym1sSS9UcWRVcUp1S3lxZDlBMGJ5ZlMyN0phR1Bnenk4Vno5RkNJNExoU0Z1?=
- =?utf-8?B?OXNTQkFaQW00YmU1djBNaEQweURxc2tnYjVpUTRUZWdrU3drRkZkY0xpL1d3?=
- =?utf-8?B?UHpoUnI1cHUvRFZiTkJMRnA2clcxS05ISjlPWE5qbXlzc1J2UTcrcm1YZHNH?=
- =?utf-8?B?WmhqZm42cXZaMTA4RmtFRGhBNk5UM2ZYbTRtMnhWUVBMUTJQWTRzakFrYmtI?=
- =?utf-8?B?SHRoeUxrMGdFVXdIYnFJVlByTE1RRWFkek8rTVJ2bFN4OXN3OHBkZGlDN1Zn?=
- =?utf-8?B?QXlNbUhtV2lwVHJBWkFHWEgyb2ZMbk50WEVFQVEyS0czR0JWRWlQaGRsT3U0?=
- =?utf-8?B?M2lEYjQyVVpySmhMeFhZc0EySVVaQ3pzc3d4Q29EaEdnUTFPM254WDFxMU9l?=
- =?utf-8?B?S1M3NHpBSmhTTmhWZnEvd2hld2wyNk1yc0dFQmF6bjY0bmFpamxCaE1FTWNS?=
- =?utf-8?B?WFFyYWE3RktHa0l3ZVFnQzRWcWladTdOMDFucThzekV3QWtOWFZHNUx3QUZN?=
- =?utf-8?B?dVZNQUhYcG5Qc2Y0UC8zOUZoTG1yd1BtamdqUTFQMXNSNGNHc2N2clJjeFIw?=
- =?utf-8?B?OHNUejJaOGM2RlZ2ZGw4ckQ2T3lwMW03WGtLZG5kQXFZa0lVQzZUaEd6R1pT?=
- =?utf-8?B?SjUrelZJMXRIbUZLQjFDWWJlaWFZTENVRm9ydDZVUnVTdEFDc0EwY1VpSW9H?=
- =?utf-8?B?bU0yOGVBWEsycDZmcmpJKy9VNk9CZ0YwWGVOZk5aQndhcW9UQjJ5bkwwN05R?=
- =?utf-8?B?Qm1ZL1piZXVJRDc0MmMxRzVFMkdGQmo4VnFkYUdzNkhIdHdFTkt1WGRFR0sx?=
- =?utf-8?B?ZWk0TEgwMjhoRnA2amtYTE83dmNXaFFKMlFtS3c5S2tMRlBqNTdHbmFuQ0Iy?=
- =?utf-8?B?S2REWnkxeDBneG5YcjFza01UeG50MiswQjZiYkk5MW1wdWp0N1FEZzR4YkEz?=
- =?utf-8?B?aklPS1RtN3ZJOHZsbWRDajNIWTVlWXFhdldSdUo4a2NDclM2UDFkK3k0cEY5?=
- =?utf-8?B?L2pUeEhUV1V6YnJwRkhXWWN5TTYvWmhZMkI2MGJVM1Z0ei9iOGZVNXZLYzM5?=
- =?utf-8?B?UlppbHJ3d2V5b2x5WlhIMjhsaTkzbE1zY3RYL1RrVnNOenJ5a3BFQjQzUW4w?=
- =?utf-8?B?YUNQT1V3MmtXUVlXMU83aG9yMjdUR05ZOURycXNkREQ3MVZPUzl6Q0s2S29E?=
- =?utf-8?B?ckVvbUJJZU1EalJMZWE1V0RIM2hKYUJDbTdzNFlNTFA5aEJ4aDZhb2tiaHVq?=
- =?utf-8?B?MXRhU2EwWWJjRVYvRWtENEJpdzlmZCtBU0JDUmpqYmVmNTNvOG5DdEd4QThr?=
- =?utf-8?B?ME9VR3dKckJaNkRobndMS0VVQTRlcFVPVnUrWVpCL3RldzdvbkdoZkJobXc2?=
- =?utf-8?B?M0dqRUdhYjRpUDY3aXVxZWY0OWFzb1QvLzJjNzU5UlN0VCtjaUpFYWE0TUN4?=
- =?utf-8?B?VVMrakpldVYvK3hDQTdoeVJuNmczVnJHQW9UYTI4UWNFV2NpUThrd3R0dlRa?=
- =?utf-8?B?OTQvYTNVYlN0Ymo4aVdzV3dwbWUzWXVNRERmYUdLTjVEZ2thZ0JJL09jTWpK?=
- =?utf-8?B?clVLNGozM3lhZFIyYlp3a0xrcUlMelFEQVNmMlFmM216SGJDd1h0bHBPUkdk?=
- =?utf-8?Q?pYRpQ/+XMrB8G6MMWsdFrl5IB?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ceb6ab5-f636-49f7-d5fc-08dd5c05b5e6
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2025 16:49:35.6124 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jYgUuzbP79bmRJOlGopLNPLeEKkN/RF4wMVOG+dHUqgriSdYT4LASBikvO18pOqieTUOJHrgCFmDlzBT2fZBfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7244
+References: <20250301023130.31277-1-alexandre.f.demers@gmail.com>
+ <CAPEhTTFAy=+SXPNk4vEeYo0bpFuBPb+yvBE9QVCMZnML7PMmQw@mail.gmail.com>
+In-Reply-To: <CAPEhTTFAy=+SXPNk4vEeYo0bpFuBPb+yvBE9QVCMZnML7PMmQw@mail.gmail.com>
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
+Date: Wed, 5 Mar 2025 13:03:58 -0500
+X-Gm-Features: AQ5f1JqfUeKdvkro02JruqIcDXHdRGV6o-vDOrp4hlB464fiyUCh12Vn3LcodHs
+Message-ID: <CAPEhTTHpFeSywrgM1kTL=o+-h8-FnT-dwTArgRrV67sS_x8+Yg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Uniformize defines between DCE6, DCE8 and DCE10
+To: amd-gfx@lists.freedesktop.org, Alexander Deucher <alexdeucher@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,90 +79,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Ok, so wiring up sid.h in dce_v6_0.c brought a lot of redefinitions.
+Fixing them is not the problem, but it spreads out a bit over the two
+files.
 
-On 2/24/2025 6:54 PM, Christian König wrote:
-> Am 24.02.25 um 12:45 schrieb Srinivasan Shanmugam:
->> This commit updates the documentation for the function
->> amdgpu_sdma_register_on_reset_callbacks to include a description
->> for the 'adev' parameter.
->>
->> The 'adev' parameter is a pointer to the amdgpu_device structure,
->> which is necessary for registering SDMA reset callbacks.
->>
->> Fixes the below with gcc W=1:
->> drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c:474: warning: Function parameter or struct member 'adev' not described in 'amdgpu_sdma_register_on_reset_callbacks'
->>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
->> index 42a7b86e41c3..82856592039b 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
->> @@ -464,6 +464,7 @@ void amdgpu_sdma_sysfs_reset_mask_fini(struct amdgpu_device *adev)
->>   
->>   /**
->>    * amdgpu_sdma_register_on_reset_callbacks - Register SDMA reset callbacks
-> Why do we have a function to dynamically register callbacks in the first place?
+I'm having an issue with the following:
+In si_enums.h, we have :
+#define TAHITI_GB_ADDR_CONFIG_GOLDEN        0x12011003
+#define VERDE_GB_ADDR_CONFIG_GOLDEN         0x02010002
+#define HAINAN_GB_ADDR_CONFIG_GOLDEN        0x02011003
 
-Hi Christian,
+However, under sid.h, we have:
+#define TAHITI_GB_ADDR_CONFIG_GOLDEN 0x12011003
+#define VERDE_GB_ADDR_CONFIG_GOLDEN 0x12010002
+#define HAINAN_GB_ADDR_CONFIG_GOLDEN 0x02010001
 
-Looks like this change comes from commit:
+The values under sid.h are exactly the same under both radeon and
+amdgpu, so I would be inclined to think they are the good ones.
+However, gfx_v6_0.c uses the si_enums.h definitions.
 
-commit 938b123d7c85971328712c6173268d7de66ba843
-Author: Jesse.zhang@amd.com <Jesse.zhang@amd.com>
-Date:   Tue Jan 21 09:18:44 2025 +0800
+Alex, what do you think of it?
 
-     drm/amdgpu/kfd: Add shared SDMA reset functionality with callback 
-support
-
-     This patch introduces shared SDMA reset functionality between 
-AMDGPU and KFD.
-     The implementation includes the following key changes:
-
-     1. Added `amdgpu_sdma_reset_queue`:
-        - Resets a specific SDMA queue by instance ID.
-        - Invokes registered pre-reset and post-reset callbacks to allow 
-KFD and AMDGPU
-          to save/restore their state during the reset process.
-
-     2. Added `amdgpu_set_on_reset_callbacks`:
-        - Allows KFD and AMDGPU to register callback functions for 
-pre-reset and
-          post-reset operations.
-        - Callbacks are stored in a global linked list and invoked in 
-the correct order
-          during SDMA reset.
-
-     This patch ensures that both AMDGPU and KFD can handle SDMA reset 
-events
-     gracefully, with proper state saving and restoration. It also 
-provides a flexible
-     callback mechanism for future extensions.
-
-looks like may be design choice though not sure, where this callback 
-mechanism is to provides flexibility in handling SDMA reset events. By 
-allowing both KFD (Kernel Fusion Driver) and AMDGPU to register their 
-own pre-reset and post-reset functions,
-
-May I please have your suggestions, if we might further improve this 
-mechanism or any other aspects of the implementation.
-
-Thanks in advance,
-
-Srini
-
+On Sat, Mar 1, 2025 at 4:35=E2=80=AFPM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
 >
-> That doesn't seem to make much sense.
+> On Fri, Feb 28, 2025 at 9:31=E2=80=AFPM Alexandre Demers
+> <alexandre.f.demers@gmail.com> wrote:
+> >
+> > Keep a uniform way of where and how variables are defined between
+> > DCE6, DCE8 and DCE10. It is easier to understand the code, their
+> > similarities and their modifications.
+> >
+> > Alexandre Demers (2):
+> >   drm/amdgpu: add or move defines for DCE6 in sid.h
+> >   drm/amdgpu: add defines for pin_offsets in DCE8
+> >
+> >  drivers/gpu/drm/amd/amdgpu/cikd.h     |  9 ++++
+> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 63 ++++++++++++++-------------
+> >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++---
+> >  drivers/gpu/drm/amd/amdgpu/si_enums.h |  7 ---
+> >  drivers/gpu/drm/amd/amdgpu/sid.h      | 29 +++++++++---
+> >  5 files changed, 71 insertions(+), 51 deletions(-)
+> >
+> > --
+> > 2.48.1
+> >
 >
-> Regards,
-> Christian.
+> Please, don't consider this series. Adding sid.h throws out a lot of
+> redefinition. This needs to be
+> fixed first. I'll send a v3 once done.
 >
->> + * @adev: Pointer to the amdgpu_device structure
->>    * @funcs: Pointer to the callback structure containing pre_reset and post_reset functions
->>    *
->>    * This function allows KFD and AMDGPU to register their own callbacks for handling
+> Alexandre
