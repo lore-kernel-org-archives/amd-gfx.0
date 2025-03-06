@@ -4,149 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99816C282D1
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 20:45:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6435FC282D1
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 20:50:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33B9C10EA86;
-	Thu,  6 Mar 2025 20:45:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEC5E10EA85;
+	Thu,  6 Mar 2025 20:50:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XfN+7Viq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZUuF52zg";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2054.outbound.protection.outlook.com [40.107.96.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CAAC10EA58
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Mar 2025 20:45:22 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D4DD10EA85
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Mar 2025 20:50:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y/f88Gp9oTcvm2HNg8i+JpuMhp/CWjCgH998AwZvZaOG1d+JjBNSMaoNNCtzCrBqJFEH+WH/cuwy9PJl/qXdLvsAfUZg8KrUFB9B6aA2Wv2OozduJjQd9Fj0uzRCB3gGcNJsKV7DnC0VqhWKXFcjX9BI6/2fOcVpMzTyVNu1v2641MuoSSuekpW9GCg4FWBsIntxuX7CZysaPRbUh8fmL7j0+ZkMC1GGK3YzpzUPE0RQwNQFifKdQ7eG8URhECbmoWK5xy+hP8wJeqQnMmv+0zgN7HpTBp5b0K82M2yqSBebTam76nTq5o/zSuibLl9WPNtT3Z/dsEFRyd+dcoEKhw==
+ b=PsBJAU9HBG6X4syFhEJnfFdp57gMXZvKY9/PA48pZceMn3wY5BPnjk0kdr7xxapl9JkclR8tzGnqhdVUeq6mX+KyGn9/u+GVuR7jAkABkczMv5DPnZxlwK+v0yoOOZYlYHwVjqG5MLUaifAt4QAk1f4I6B6iovNGSjs9r7Nll/kRq89LPVo97wSDPetKMdQVqkUPlHp03cGGs3l5Qr29maoo5WunaorHjMFH1xAhdJjViNE3XAnQkd27Dj/IpSdsVoZkG2giOQ/Ru7LuaB2zghz0n94IcAQ+Ve4185iOQe30b9yNWwSmZLlIlcSh437z4JSaisB4yXz7vG7SXxAUzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Sp5Jrc7DlPN0LgDq6t6a9W637AFR9+MJU45k39ddmE=;
- b=I8gQB15y4iSkup3uPV0KgSABQrPNxY97hvXpw+EbQSub0phzflLRZDTVobb/4aeqI1eaDwkjw6xswHmHe1uzIVDotQh5nXBGtNX8lo+P+JCLmWAj4H41EEmV7+UN7STCveIangVXuW4wTo6cyfE5C4kdRNR2Wsx9mMnKp05+L2g568x1F9xKfnXmNi6a0rLSLEtrsAaJsK/EWZ8XcgQTgRfTA4jUFzM3AEfmZJG+AlBcHwvGBnCw3/McZDi0lEwjoKnez+fOy53fwB9huwUro0Z1dcGmRueftIREB6H69EbXp+NMjhv5p136FeyiZNPgX8thZQ7zYNuIC8rqlLf7hA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=LxGXnlgHt9C7/CCZ73iXfjRV8WQ14mulPokovLRSk/A=;
+ b=O6iREsTFDuSjaVgbWHyTiOsqypvd09dXzFJiBNwfDvwVLlXivE89JSTP+VQW/B6PqKwiXjusWJnsvCUKnWTGQK/x+8jB4tAuIPMYLTigra2KW77va6fv02wNquN3To1oHfnn7X43H6XY+Noo31X7A2jEH8VCTMLL2IbQjI7T5TLgyIGhvAVbRgkSuZDB78nQSPdFrnWuxcV8nmxpfAtIP/svmjrNv885qCE+ND67ONuTnttscUI1dZ6erbpyFwEtSvRHAiKdX71a5RbtuzJR3Ty1IxWD/ujvOBYwA4nAj8rN/6ie0D1PShEkTxib+gU00HmN4FaoRscB7c5YnkhEIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Sp5Jrc7DlPN0LgDq6t6a9W637AFR9+MJU45k39ddmE=;
- b=XfN+7ViqDqSmHhdzyp8WtPwWsmKpreaQv9NLTwEw5OLnPExEFZApC/ulVurP8MOoiK9bb3CRCDO4IRc9kUj41v4e16LGptH/89UelRktnN+OgP+IFo0cvTdYEonh4gpxW+gALSihnHBj2t4fLxydS1qzxBNEuN1qtqnrxS/8umg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB8464.namprd12.prod.outlook.com (2603:10b6:610:184::11)
- by CH3PR12MB9344.namprd12.prod.outlook.com (2603:10b6:610:1c8::7)
+ bh=LxGXnlgHt9C7/CCZ73iXfjRV8WQ14mulPokovLRSk/A=;
+ b=ZUuF52zgBcCA1DfkfKRJm66OekzO7J7YLbj9/AfupI73tMLc9r5L3xua9PFV9JAq5ClRwQgUSq58kBZpwkpn17Hwg8ABPYA7hGaszYCHIw3PZzy62/F0SpXVKYOS9At0c3P2N5yE/V68M8pgc8N/jGLRvLBuW9MefCF3S/2QyWg=
+Received: from SJ0PR13CA0024.namprd13.prod.outlook.com (2603:10b6:a03:2c0::29)
+ by SJ1PR12MB6339.namprd12.prod.outlook.com (2603:10b6:a03:454::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.19; Thu, 6 Mar
- 2025 20:45:16 +0000
-Received: from CH0PR12MB8464.namprd12.prod.outlook.com
- ([fe80::39f9:c340:9b03:c651]) by CH0PR12MB8464.namprd12.prod.outlook.com
- ([fe80::39f9:c340:9b03:c651%5]) with mapi id 15.20.8511.017; Thu, 6 Mar 2025
- 20:45:16 +0000
-Message-ID: <b0a5b04a-ca3d-4574-9cbd-4ba468326c9d@amd.com>
-Date: Thu, 6 Mar 2025 15:45:14 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] drm/amdkfd: Set per-process flags only once for
- gfx9/10/11/12
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20250306195227.32765-1-Harish.Kasiviswanathan@amd.com>
- <20250306195227.32765-2-Harish.Kasiviswanathan@amd.com>
-Content-Language: en-US
-From: Amber Lin <Amber.Lin@amd.com>
-In-Reply-To: <20250306195227.32765-2-Harish.Kasiviswanathan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0385.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:108::24) To CH0PR12MB8464.namprd12.prod.outlook.com
- (2603:10b6:610:184::11)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.20; Thu, 6 Mar
+ 2025 20:50:39 +0000
+Received: from SJ5PEPF000001F3.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::aa) by SJ0PR13CA0024.outlook.office365.com
+ (2603:10b6:a03:2c0::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.11 via Frontend Transport; Thu,
+ 6 Mar 2025 20:50:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001F3.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 20:50:38 +0000
+Received: from AUS-S16-AI-13.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
+ 2025 14:50:37 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v3] drm/amd: Fail initialization earlier when DC is disabled
+Date: Thu, 6 Mar 2025 14:49:45 -0600
+Message-ID: <20250306204945.2256-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB8464:EE_|CH3PR12MB9344:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6da5d821-86ae-4948-54c5-08dd5cefcd0e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F3:EE_|SJ1PR12MB6339:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51f06c36-403a-46d0-f016-08dd5cf08d68
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NTNhQVdTMkppWVQ1akNvWFFHd1ljaEkwdUpxWmNMbGJDVmdBc3RMYm9PZXlD?=
- =?utf-8?B?czRQWTVjSDdtSzBHakkzVWlpWXlXRlNKVHN3blk3UjA5eUNHNmpzN3VLc1cz?=
- =?utf-8?B?c1dzZ1VkT3lrczZYRXhpNGR3aWFnWS9ESUpZMnZqSEIxQjdHYjZFZkFsM20r?=
- =?utf-8?B?eU0vUEV4MW1DVVRlSlo1Ny9UVHRzTmw1YVh4Q0FJVHJ4REtBdzQ5cTBKZGtD?=
- =?utf-8?B?dkpWL0xiWUpwL0s1b3QxOTNuOVNKT0huQ3phbmhFZHNUR0RmTmpoU1Z3cUpI?=
- =?utf-8?B?eHlscjJyZ2hRUHE3b2JZYmRyVDdLRTRjcW9xMXorajRuNFhUODQ2NzVUeXY3?=
- =?utf-8?B?Y0c5VFcxRWx6Q0xDc3E4S2dOTnNVYmc0TlhCZlZQQlNEMXZtQlVodE5YdlpR?=
- =?utf-8?B?bHZuUEJ2SVJobkZZaHdqQzdKWnpabkRDYU5KWGU4UHJxZVN5QlNLZTNmTEV0?=
- =?utf-8?B?T3VLWTJCZGF0cnZIcCt2M3A1RnRRZ2F2Q2FvN2JKZ3RhNXVFdXRzb1NQRlFz?=
- =?utf-8?B?QjNrWnlCcFVNQzI3aWgzU21JTzZTYSthU1NpNHE3cEM3ME04b2VaanFYSWNJ?=
- =?utf-8?B?MytCOTZwR3hkN2xjdWhqeFc0bVNIS01yWEtnd1ZXUU0vR25RV2lqMUFnSFla?=
- =?utf-8?B?OFBuNjk5dFN3enRQSzI2ME4xVTl2amNmTkkyT1NxZW1xQjM4dlZnMHFBcUNL?=
- =?utf-8?B?TVNnZ2psMWNHVTZaUE1sTE40eVpzN291aUVicm45TTR2NUxzaW4reUFxN0Jo?=
- =?utf-8?B?SUc2ckNPQ0VmenFCQjZ5UWNQb3NHVDRDK3I0R254TVRBclV4Ykg4dkZrZjBy?=
- =?utf-8?B?V3NTNVlCV3VEcmFCaDRYYkR2aTM5NEplZW0yZlZpbm9CRjBXVGJSdERJdkli?=
- =?utf-8?B?b3RFU3lOM1FrT0I1SFVpVjBxNEJYTEZ3cXRwVjQ2bjQ3TXBoY0lQU0ZOUVBq?=
- =?utf-8?B?dzkyL281K2tidFNNemtZajR5bHMvTUlCWUdkeTRGUk5teVgyVXNodEtpck1o?=
- =?utf-8?B?UGlCL2tDMlhMTGR4NEJZR1BYWmNwR0dDcSt6ejdFODBXd3M4Q0dmZW1QaTFu?=
- =?utf-8?B?WlNCZUZPeGRlNE5yM0MzbUFZM3QzYWIraTJaMWRXWDd5bHJYb3BlZ1pqSXpx?=
- =?utf-8?B?RWFGTFhNN0tsNnd0SjRKejNCTXRVQzNlUU9JMCtWRGNkQ3BiVFg3ZHB0aWxp?=
- =?utf-8?B?VEZJT0hvOURTU3VoR2g2OUFCZ2pWNm9TZmJnZ2FodExyRXprSDFkUERrYjdP?=
- =?utf-8?B?cXJEdUl0Nml0NHJobUFKdHlnWmJ2clVYUUwvSjkzaDhrZ0hyMnhNWEFweVFn?=
- =?utf-8?B?UnZBZ1dMRUh3VTZQNktvUkVneTB5NHZGSmFsaCtvL0tPOHdYbGhDR1kxeSt3?=
- =?utf-8?B?VHhqeEUrNGFoVTVkSlZNRnVWUWN2dm1OTU9FdnRrOEhlaWMzS0phT3owVldj?=
- =?utf-8?B?K2VmaUlVTHpmd1RieUZYVTBiUW1Md0QyWmhXa1lndmM5aE5hSllCSlRQS0Vv?=
- =?utf-8?B?cDNVaVlwUE9lTzRrY0QwZ0x1TGZZUVJ6cVYzbEJSZFdKcmhBZ1hKQ3JoYUpV?=
- =?utf-8?B?QTNEQ2FNWHh1YkwzelFEbEZsQk9aYlZxU0NGQ0U3UkdKbWpGNVJhc09rbGMy?=
- =?utf-8?B?RkZJTmltRkhGSXhxZnREenBmdWZ2WjUwazJQdC9lZmhzV3E3UkpINStGVzZ3?=
- =?utf-8?B?T2w2UTRZTHVFa1JOQWt0aWJxTUxPa1VoV2VKdFVjSlJKdG55dXo3NDNHY1Bt?=
- =?utf-8?B?THVueXZOK1dZUVdLV2hkWFpoSEIxMWlwUC94QUJ2d2VZRFJpOGNHVG5BY2VT?=
- =?utf-8?B?VHgrSFJQbXU0RjJNellmYnZHSUVsTUc4aU50Zm9TNDFoZi9BN21ZSjlyWkZp?=
- =?utf-8?Q?G3JTZi5nTLLkL?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB8464.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGNRTCsvZXVPeUEzelNHVWc2NHN3S2c0dCt3dHc2cTJ3ZmtOSUQ0a0FnVFF0?=
- =?utf-8?B?OFN3REJRSWRsa29YeFBGbS9FQk9BcjRoRTBBTXVLTHdIRzZpejcvUm1KT2Jn?=
- =?utf-8?B?dmtaSVpDRndsb1M0ZThjNytRbHVBK0hKV2RMN1RqQUJFRnhyWmRJa3hhU25G?=
- =?utf-8?B?b2J3bGw3d2cyaGY3RWJKVE1SOC9ZZUtUWVBjV0lYcERLMHk3SzI2QVpSbFp2?=
- =?utf-8?B?Yy9PR21xRkE2cXFuK3ZUaWpPMGxXbWJRekxtdE1Ob2xNdW83SHIrbWF6VGF2?=
- =?utf-8?B?b0JQNVQza0thMmpYV0NIaWlLZDJHV1BubG1YeGlLM1lMaUpnME9tVGJkd1VC?=
- =?utf-8?B?cERla01uakpvanByQW16eUVHWFRtTnhaQVJEZ0pkdGFUeG8vVW9DK3BJeDVW?=
- =?utf-8?B?S1ZhSzhkcGNsR0IyalcrRUI0d3dKTlc4M250Mm5seDNvK2FDRDVnQUFOMzBV?=
- =?utf-8?B?RERZMlQvZjZTa1NJcm92akN3UHBGdEZNc0lsTVdkVERFTlpVSldmTmZlQU9U?=
- =?utf-8?B?U2gvdWFaS2t0UWswR1JxcDM2M252MlpRb21oSGVwTzAzbVZBLytkbHI1QWF2?=
- =?utf-8?B?eHE5RE9QVm5rVkdZTHh1TDZjQ3F0V1lxNlVaVE04eWNQSzVDTUdtdFFWTm5Q?=
- =?utf-8?B?MTFET3JLNE1NWk1KY25YUUpRVGt5RGZWMVhBYU9XZGlGNWJzd3RZdjdydm5K?=
- =?utf-8?B?NHJrMUFxK1loNzVFWjJ1TlRaOG5hWVI1b1BmSm8xNFdvaTRScWFFbDEyZlps?=
- =?utf-8?B?bEIwZWxjSzJVbzF0dmRQT2RCaDBYczl0ZThvd0dNbUJ1c2dZNWtTdlJPak4v?=
- =?utf-8?B?aThJVDBpY3BiNEFNK3BjYXJlV2ptT3pjdE1OdXJyTi9Ic1BQbVNtZXpPb3ZL?=
- =?utf-8?B?R3gwaXUyNGtUaC9BYWJMemxGQnVQdk5DZFJXSFpIZkFPOU42d216SkZhQlFu?=
- =?utf-8?B?WjdkSTNwR1hkZjg5cWkxQldlZjNSWmo5TGhWVEJEMFRZanRoKzRjV1ZoNXhH?=
- =?utf-8?B?cS9HTElRSzY0UzlnQ2ZxQndvTklMTnhkUDVKbEozWkxRK3JBN3FCUS90RXZP?=
- =?utf-8?B?Mm5vSjVsR2NFeElIa0xSTXIrOTMrMURQYUc3U1JQbjZScHkzaXRsTDhTdGhC?=
- =?utf-8?B?czNKZ3BoRWVJaExvMER1ZHZBb1Njd2Z2QXdJc0JtdE1ML01EMml0TGw0Mk9O?=
- =?utf-8?B?ZGgzZUN1dkVrMG5GTXVUZndlYTNqUGVkeEU1elZuaDIvQU55cEh5TW92ZGpW?=
- =?utf-8?B?ZTExQ3BtOW9DWFlQZzdwMGUxM2hTajMzTGFwN0ZvZm85SVBTTWZHK3dWMkpa?=
- =?utf-8?B?K04zREFjNzdSYVdsYUE1OGg3QkdCbUFZM2RndnVvZFBNZGFXd2dvVGVUU01H?=
- =?utf-8?B?ZzBYeUFQeUpXMnRRK3FDR09SMGVJak9oTTh6NysyVnh5RXJsZlFmTXF3bUpJ?=
- =?utf-8?B?RmpuVUM0dVNFbjMwU0o3SFJ2T2ViNHFlZTdhZlFPNVN2Z2tNWEk2aXVvN0VF?=
- =?utf-8?B?Y0o1SFU3ZzhrWkowSG5PUEhOa1BQTUYwaHVrajY3RnhMY09ZSEExK1VqamFz?=
- =?utf-8?B?a0ZwakNkVXd6WklzcGk5dlZ5TWh5K2VEdlFCZS91cCtSZWs1L0dlOGxvbmFN?=
- =?utf-8?B?WlpnRUR6RVZnNWljVWlRUWw0bFl2L0FPdlNjTkpCb3NoUElvNllpWHRDSU1p?=
- =?utf-8?B?RnBkQWlLVjdRdkV5c0Iyc3pUdFhjRlFkejZBZ01YSTV1dVl5MkVubnZoWDhk?=
- =?utf-8?B?VStqQWFjNWczSFJzVnRZRGZFQVdJZ09QMVdZNVlUeklvSi9wMVRLUVlpa21Z?=
- =?utf-8?B?TE9ickZGSkJsdlowZXZVM3ZZWXVMTVBRV0tmZEV5N1lkL2hnajcvQnd2Uk40?=
- =?utf-8?B?WjdlSmhSbzVlTis5a2FRelVneGI2VmVuM1o1RW1YOEd1ZUZsR3N1WHpMN0g3?=
- =?utf-8?B?VkxvYWdTb1Z2ZEhsb25NOVltdmJNVlpvd0dpdE1RVHN4MlFzbmhRcU96bHpW?=
- =?utf-8?B?cEtDWHhhemNxZDJ5NTRqVkZLMm82OEdsZzcrblIxekorTkxHRUY4YURQZXoz?=
- =?utf-8?B?RUJhdnNPaG9EMzJZVnM4S1psYTdrU3J2SUdka1h2TzBnVUpOVS83L1IvZ2tK?=
- =?utf-8?Q?oZpfqc6QoQpXaV+MDe3mAtLBR?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bBM9J+2iWPCWSejvSkBAKlCszfw4/97iseRkuwwXdO4yrg6OKeUrG0nfDfDQ?=
+ =?us-ascii?Q?FYKncK6nRjlM529XbDT6NE9dvYqgRz1trVh+ZVEVsRBjvTKJ1UWI0odKtWTu?=
+ =?us-ascii?Q?EsyNmGYJ0xHf/WQ2KSBrNNxGy9rZIZ4k9nalE8XXgt+dhbuXK1w7dwdm+OrW?=
+ =?us-ascii?Q?+DJNJBQxiwF2WkZXxdi8/Q60GZXAoF2TSFpU/WqkXa9WBVbrNYKW1EDbXLLC?=
+ =?us-ascii?Q?mks1OjQS5qn2PClkIcZIUEim5gUWTL6Z2+/PAhWkUSJ44CWyjITSTpZCtA7B?=
+ =?us-ascii?Q?Dghqw9XvpIvmylF6ZfmloUYdKnwa+Ium7f6M72G7LLjsT5nG+odfJUpjQ52g?=
+ =?us-ascii?Q?ncysWjNSd6hMd3ARyh8m3+lSEhG4fUjUDKfG2gbEKkz9WbR9rWYTL112WKGc?=
+ =?us-ascii?Q?6fsez+WZu38CFeGALvgektJOtegtMSU6sk5yK53ttokuuQ0oMjRoQF+sKMka?=
+ =?us-ascii?Q?p4Q2KbiYMFyqY2nllzTgRbMTQn+VLSMzc6/9/35/dEz4V/vQv95esjBUvR+O?=
+ =?us-ascii?Q?tVMQTEhQUX7xXRWQ53OkQwcIJbqxgHVy3qQ+kpuuS2+NTliHiQe5UbPIdqRk?=
+ =?us-ascii?Q?un0vjRVgvx2jGpcaWQmSSQXrlfoNOmq5nHjl2Ib/uqMruasTjxEYhsBg84Vc?=
+ =?us-ascii?Q?IUgzkj32gB6ZQ5xp8VFTbZQBfsPR+9BUmEuRiHajZUzgVhVTMyYr/PYczlYU?=
+ =?us-ascii?Q?wc3mj63z0/tcnOFoiy+g5vSoiC6FNccwXaQ5EZ5NYkacLzIL+jbPIMc13+TI?=
+ =?us-ascii?Q?hXqk1f1dtEEIBHW3dsVOHenzV3RsErLCwx3zx8YL30TvGe/6mszDvGcRAxu9?=
+ =?us-ascii?Q?Tmt/XDTAYiMG40Y+1icQI4Z0gXdO6tVzkaS4dRhzrupoeQWprzMllhfZpyms?=
+ =?us-ascii?Q?bAg0Up77LvWBFLZQ8OaaMvkxp3WamJw8fpPOWXB1UYHSC80PqOKkAOZrG74r?=
+ =?us-ascii?Q?jngwirGqCB12Ixn/17IvAL/YlYMzgKd0i4IubHMXgM/0/TmbpD9sThs43RcM?=
+ =?us-ascii?Q?Gbfop88DLs4bmlqbLa82yohB1fUqfhP4ck/kEKagfTGOeK8mZ8dKkJcjFAuG?=
+ =?us-ascii?Q?TVMJk7I8XOpjoaBvGxEk4Ps23H1DWnr2komb3QokEIaruQGbeKhTWQOhveB+?=
+ =?us-ascii?Q?BVNf0ZtNZ6JEWAepKmEOaHUJsurj7NTZuJuXYQYUuIKO5sgHkAIu0hx84+SS?=
+ =?us-ascii?Q?booD0ozpCufuvv9vCOqBspTMaBO+Uh7NTHMRDfvFsADc8XFUbTdmieLdRSEM?=
+ =?us-ascii?Q?Otrlb+8rxtr5NpZodShQjOb2TRYQFGWnHoCqGxE7N+HoBpLBAz9OQFOfc1aW?=
+ =?us-ascii?Q?AaaVnpunQiiTZJUSnxJ/eHa6n8reU71FSmMnWhjstWqftPAjFhNoLTD+R4y+?=
+ =?us-ascii?Q?axKr5Ak41/iiqGpSo6vTFDKnnM8eY6C9M5ukpiVR9i3HOmsuyf50L39LfIK+?=
+ =?us-ascii?Q?CTIqh8Pb4IIVirliqMBkkpPV93eERmdcrL++MyeMBJHWN93dxYhzS1RPwyXr?=
+ =?us-ascii?Q?Tc+dqR+DQPtNdt0=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6da5d821-86ae-4948-54c5-08dd5cefcd0e
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB8464.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 20:45:16.5721 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 20:50:38.9287 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51f06c36-403a-46d0-f016-08dd5cf08d68
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /+PiKAL6Fvv/95XsGXP1RwOjENVdcXUBgjaEeLY4Y9jIr5RG2r8RgYkrgN1IsZV7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9344
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6339
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,287 +130,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Amber Lin <Amber.Lin@amd.com>
+Modern APU and dGPU require DC support to be able to light up the
+display.  If DC support has been disabled either by kernel config
+or by kernel command line the screen will visibly freeze when the
+driver finishes early init.
 
-Regards,
-Amber
+As it's known before early init is done whether DC support is required
+detect this during discovery and bail if DC support was disabled
+for any reason.  This will ensure that the existing framebuffer
+provided by efifb or simpledrm keeps working.
 
-On 3/6/25 14:52, Harish Kasiviswanathan wrote:
-> Define set_cache_memory_policy() for these asics and move all static
-> changes from update_qpd() which is called each time a queue is created
-> to set_cache_memory_policy() which is called once during process
-> initialization
->
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-> ---
->   .../amd/amdkfd/kfd_device_queue_manager_v10.c | 41 +++++++++++--------
->   .../amd/amdkfd/kfd_device_queue_manager_v11.c | 41 +++++++++++--------
->   .../amd/amdkfd/kfd_device_queue_manager_v12.c | 41 +++++++++++--------
->   .../amd/amdkfd/kfd_device_queue_manager_v9.c  | 36 +++++++++++++++-
->   4 files changed, 107 insertions(+), 52 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-> index 245a90dfc2f6..b5f5f141353b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-> @@ -31,10 +31,17 @@ static int update_qpd_v10(struct device_queue_manager *dqm,
->   			 struct qcm_process_device *qpd);
->   static void init_sdma_vm_v10(struct device_queue_manager *dqm, struct queue *q,
->   			    struct qcm_process_device *qpd);
-> +static bool set_cache_memory_policy_v10(struct device_queue_manager *dqm,
-> +				   struct qcm_process_device *qpd,
-> +				   enum cache_policy default_policy,
-> +				   enum cache_policy alternate_policy,
-> +				   void __user *alternate_aperture_base,
-> +				   uint64_t alternate_aperture_size);
->   
->   void device_queue_manager_init_v10(
->   	struct device_queue_manager_asic_ops *asic_ops)
->   {
-> +	asic_ops->set_cache_memory_policy = set_cache_memory_policy_v10;
->   	asic_ops->update_qpd = update_qpd_v10;
->   	asic_ops->init_sdma_vm = init_sdma_vm_v10;
->   	asic_ops->mqd_manager_init = mqd_manager_init_v10;
-> @@ -49,27 +56,27 @@ static uint32_t compute_sh_mem_bases_64bit(struct kfd_process_device *pdd)
->   		private_base;
->   }
->   
-> -static int update_qpd_v10(struct device_queue_manager *dqm,
-> -			 struct qcm_process_device *qpd)
-> +static bool set_cache_memory_policy_v10(struct device_queue_manager *dqm,
-> +				   struct qcm_process_device *qpd,
-> +				   enum cache_policy default_policy,
-> +				   enum cache_policy alternate_policy,
-> +				   void __user *alternate_aperture_base,
-> +				   uint64_t alternate_aperture_size)
->   {
-> -	struct kfd_process_device *pdd;
-> -
-> -	pdd = qpd_to_pdd(qpd);
-> -
-> -	/* check if sh_mem_config register already configured */
-> -	if (qpd->sh_mem_config == 0) {
-> -		qpd->sh_mem_config =
-> -			(SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> -				SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-> -			(3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT);
-> -		qpd->sh_mem_ape1_limit = 0;
-> -		qpd->sh_mem_ape1_base = 0;
-> -	}
-> -
-> -	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(pdd);
-> +	qpd->sh_mem_config = (SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> +			      SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-> +			      (3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT);
-> +	qpd->sh_mem_ape1_limit = 0;
-> +	qpd->sh_mem_ape1_base = 0;
-> +	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(qpd_to_pdd(qpd));
->   
->   	pr_debug("sh_mem_bases 0x%X\n", qpd->sh_mem_bases);
-> +	return true;
-> +}
->   
-> +static int update_qpd_v10(struct device_queue_manager *dqm,
-> +			 struct qcm_process_device *qpd)
-> +{
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c
-> index 2e129da7acb4..f436878d0d62 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c
-> @@ -30,10 +30,17 @@ static int update_qpd_v11(struct device_queue_manager *dqm,
->   			 struct qcm_process_device *qpd);
->   static void init_sdma_vm_v11(struct device_queue_manager *dqm, struct queue *q,
->   			    struct qcm_process_device *qpd);
-> +static bool set_cache_memory_policy_v11(struct device_queue_manager *dqm,
-> +				   struct qcm_process_device *qpd,
-> +				   enum cache_policy default_policy,
-> +				   enum cache_policy alternate_policy,
-> +				   void __user *alternate_aperture_base,
-> +				   uint64_t alternate_aperture_size);
->   
->   void device_queue_manager_init_v11(
->   	struct device_queue_manager_asic_ops *asic_ops)
->   {
-> +	asic_ops->set_cache_memory_policy = set_cache_memory_policy_v11;
->   	asic_ops->update_qpd = update_qpd_v11;
->   	asic_ops->init_sdma_vm = init_sdma_vm_v11;
->   	asic_ops->mqd_manager_init = mqd_manager_init_v11;
-> @@ -48,28 +55,28 @@ static uint32_t compute_sh_mem_bases_64bit(struct kfd_process_device *pdd)
->   		private_base;
->   }
->   
-> -static int update_qpd_v11(struct device_queue_manager *dqm,
-> -			 struct qcm_process_device *qpd)
-> +static bool set_cache_memory_policy_v11(struct device_queue_manager *dqm,
-> +				   struct qcm_process_device *qpd,
-> +				   enum cache_policy default_policy,
-> +				   enum cache_policy alternate_policy,
-> +				   void __user *alternate_aperture_base,
-> +				   uint64_t alternate_aperture_size)
->   {
-> -	struct kfd_process_device *pdd;
-> -
-> -	pdd = qpd_to_pdd(qpd);
-> -
-> -	/* check if sh_mem_config register already configured */
-> -	if (qpd->sh_mem_config == 0) {
-> -		qpd->sh_mem_config =
-> -			(SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> -				SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-> -			(3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT);
-> -
-> -		qpd->sh_mem_ape1_limit = 0;
-> -		qpd->sh_mem_ape1_base = 0;
-> -	}
-> +	qpd->sh_mem_config = (SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> +			      SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-> +			      (3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT);
->   
-> -	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(pdd);
-> +	qpd->sh_mem_ape1_limit = 0;
-> +	qpd->sh_mem_ape1_base = 0;
-> +	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(qpd_to_pdd(qpd));
->   
->   	pr_debug("sh_mem_bases 0x%X\n", qpd->sh_mem_bases);
-> +	return true;
-> +}
->   
-> +static int update_qpd_v11(struct device_queue_manager *dqm,
-> +			 struct qcm_process_device *qpd)
-> +{
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c
-> index 4f3295b29dfb..62ca1c8fcbaf 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c
-> @@ -30,10 +30,17 @@ static int update_qpd_v12(struct device_queue_manager *dqm,
->   			 struct qcm_process_device *qpd);
->   static void init_sdma_vm_v12(struct device_queue_manager *dqm, struct queue *q,
->   			    struct qcm_process_device *qpd);
-> +static bool set_cache_memory_policy_v12(struct device_queue_manager *dqm,
-> +				   struct qcm_process_device *qpd,
-> +				   enum cache_policy default_policy,
-> +				   enum cache_policy alternate_policy,
-> +				   void __user *alternate_aperture_base,
-> +				   uint64_t alternate_aperture_size);
->   
->   void device_queue_manager_init_v12(
->   	struct device_queue_manager_asic_ops *asic_ops)
->   {
-> +	asic_ops->set_cache_memory_policy = set_cache_memory_policy_v12;
->   	asic_ops->update_qpd = update_qpd_v12;
->   	asic_ops->init_sdma_vm = init_sdma_vm_v12;
->   	asic_ops->mqd_manager_init = mqd_manager_init_v12;
-> @@ -48,28 +55,28 @@ static uint32_t compute_sh_mem_bases_64bit(struct kfd_process_device *pdd)
->   		private_base;
->   }
->   
-> -static int update_qpd_v12(struct device_queue_manager *dqm,
-> -			 struct qcm_process_device *qpd)
-> +static bool set_cache_memory_policy_v12(struct device_queue_manager *dqm,
-> +				   struct qcm_process_device *qpd,
-> +				   enum cache_policy default_policy,
-> +				   enum cache_policy alternate_policy,
-> +				   void __user *alternate_aperture_base,
-> +				   uint64_t alternate_aperture_size)
->   {
-> -	struct kfd_process_device *pdd;
-> -
-> -	pdd = qpd_to_pdd(qpd);
-> -
-> -	/* check if sh_mem_config register already configured */
-> -	if (qpd->sh_mem_config == 0) {
-> -		qpd->sh_mem_config =
-> -			(SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> -				SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-> -			(3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT);
-> -
-> -		qpd->sh_mem_ape1_limit = 0;
-> -		qpd->sh_mem_ape1_base = 0;
-> -	}
-> +	qpd->sh_mem_config = (SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> +			      SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-> +			      (3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT);
->   
-> -	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(pdd);
-> +	qpd->sh_mem_ape1_limit = 0;
-> +	qpd->sh_mem_ape1_base = 0;
-> +	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(qpd_to_pdd(qpd));
->   
->   	pr_debug("sh_mem_bases 0x%X\n", qpd->sh_mem_bases);
-> +	return true;
-> +}
->   
-> +static int update_qpd_v12(struct device_queue_manager *dqm,
-> +			 struct qcm_process_device *qpd)
-> +{
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> index 67137e674f1d..c734eb9b505f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> @@ -30,10 +30,17 @@ static int update_qpd_v9(struct device_queue_manager *dqm,
->   			 struct qcm_process_device *qpd);
->   static void init_sdma_vm_v9(struct device_queue_manager *dqm, struct queue *q,
->   			    struct qcm_process_device *qpd);
-> +static bool set_cache_memory_policy_v9(struct device_queue_manager *dqm,
-> +				   struct qcm_process_device *qpd,
-> +				   enum cache_policy default_policy,
-> +				   enum cache_policy alternate_policy,
-> +				   void __user *alternate_aperture_base,
-> +				   uint64_t alternate_aperture_size);
->   
->   void device_queue_manager_init_v9(
->   	struct device_queue_manager_asic_ops *asic_ops)
->   {
-> +	asic_ops->set_cache_memory_policy = set_cache_memory_policy_v9;
->   	asic_ops->update_qpd = update_qpd_v9;
->   	asic_ops->init_sdma_vm = init_sdma_vm_v9;
->   	asic_ops->mqd_manager_init = mqd_manager_init_v9;
-> @@ -48,10 +55,37 @@ static uint32_t compute_sh_mem_bases_64bit(struct kfd_process_device *pdd)
->   		private_base;
->   }
->   
-> +static bool set_cache_memory_policy_v9(struct device_queue_manager *dqm,
-> +				   struct qcm_process_device *qpd,
-> +				   enum cache_policy default_policy,
-> +				   enum cache_policy alternate_policy,
-> +				   void __user *alternate_aperture_base,
-> +				   uint64_t alternate_aperture_size)
-> +{
-> +	qpd->sh_mem_config = SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> +				SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
-> +
-> +	if (dqm->dev->kfd->noretry)
-> +		qpd->sh_mem_config |= 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
-> +
-> +	if (KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 4, 3) ||
-> +		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 4, 4) ||
-> +		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 5, 0))
-> +		qpd->sh_mem_config |= (1 << SH_MEM_CONFIG__F8_MODE__SHIFT);
-> +
-> +	qpd->sh_mem_ape1_limit = 0;
-> +	qpd->sh_mem_ape1_base = 0;
-> +	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(qpd_to_pdd(qpd));
-> +
-> +	pr_debug("sh_mem_bases 0x%X sh_mem_config 0x%X\n", qpd->sh_mem_bases,
-> +		 qpd->sh_mem_config);
-> +	return true;
-> +}
-> +
->   static int update_qpd_v9(struct device_queue_manager *dqm,
->   			 struct qcm_process_device *qpd)
->   {
-> -	struct kfd_process_device *pdd;
-> +	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
->   
->   	pdd = qpd_to_pdd(qpd);
->   
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+v3:
+ * Use amdgpu_device_asic_has_dc_support() instead to cover virtual
+   displays and bringup
+v2:
+ * Update commit message justification
+ * Add correct "default" handling
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 49 ++++++++++++++-----
+ 1 file changed, 36 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index a4258127083d0..ddd10e6345601 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -2134,15 +2134,14 @@ static void amdgpu_discovery_set_sriov_display(struct amdgpu_device *adev)
+ 
+ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
+ {
++	bool asic_support;
++
+ 	if (adev->enable_virtual_display) {
+ 		amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+ 		return 0;
+ 	}
+ 
+-	if (!amdgpu_device_has_dc_support(adev))
+-		return 0;
+-
+-#if defined(CONFIG_DRM_AMD_DC)
++	asic_support = amdgpu_device_asic_has_dc_support(adev->asic_type);
+ 	if (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+ 		switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+ 		case IP_VERSION(1, 0, 0):
+@@ -2166,39 +2165,63 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
+ 		case IP_VERSION(3, 5, 1):
+ 		case IP_VERSION(3, 6, 0):
+ 		case IP_VERSION(4, 1, 0):
++			if (!asic_support) {
++				dev_err(adev->dev,
++					"DC support is required for dm ip block(DCE_HWIP:0x%x)\n",
++					amdgpu_ip_version(adev, DCE_HWIP, 0));
++				return -EINVAL;
++			}
++
+ 			/* TODO: Fix IP version. DC code expects version 4.0.1 */
+ 			if (adev->ip_versions[DCE_HWIP][0] == IP_VERSION(4, 1, 0))
+ 				adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 0, 1);
+ 
++#if defined(CONFIG_DRM_AMD_DC)
+ 			if (amdgpu_sriov_vf(adev))
+ 				amdgpu_discovery_set_sriov_display(adev);
+ 			else
+ 				amdgpu_device_ip_block_add(adev, &dm_ip_block);
+ 			break;
++#endif
+ 		default:
+-			dev_err(adev->dev,
+-				"Failed to add dm ip block(DCE_HWIP:0x%x)\n",
+-				amdgpu_ip_version(adev, DCE_HWIP, 0));
+-			return -EINVAL;
++			if (asic_support) {
++				dev_err(adev->dev,
++					"Failed to add dm ip block(DCE_HWIP:0x%x)\n",
++					amdgpu_ip_version(adev, DCE_HWIP, 0));
++				return -EINVAL;
++			}
++			return 0;
+ 		}
+ 	} else if (amdgpu_ip_version(adev, DCI_HWIP, 0)) {
+ 		switch (amdgpu_ip_version(adev, DCI_HWIP, 0)) {
+ 		case IP_VERSION(12, 0, 0):
+ 		case IP_VERSION(12, 0, 1):
+ 		case IP_VERSION(12, 1, 0):
++
++			if (!asic_support) {
++				dev_err(adev->dev,
++					"DC support is required for dm ip block(DCI_HWIP:0x%x)\n",
++					amdgpu_ip_version(adev, DCI_HWIP, 0));
++				return -EINVAL;
++			}
++
++#if defined(CONFIG_DRM_AMD_DC)
+ 			if (amdgpu_sriov_vf(adev))
+ 				amdgpu_discovery_set_sriov_display(adev);
+ 			else
+ 				amdgpu_device_ip_block_add(adev, &dm_ip_block);
+ 			break;
++#endif
+ 		default:
+-			dev_err(adev->dev,
+-				"Failed to add dm ip block(DCI_HWIP:0x%x)\n",
+-				amdgpu_ip_version(adev, DCI_HWIP, 0));
+-			return -EINVAL;
++			if (asic_support) {
++				dev_err(adev->dev,
++					"Failed to add dm ip block(DCI_HWIP:0x%x)\n",
++					amdgpu_ip_version(adev, DCI_HWIP, 0));
++				return -EINVAL;
++			}
++			return 0;
+ 		}
+ 	}
+-#endif
+ 	return 0;
+ }
+ 
+-- 
+2.43.0
 
