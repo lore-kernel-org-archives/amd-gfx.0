@@ -4,66 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41BDBC282D1
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 15:21:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BADEC282EC
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 15:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB0610E17A;
-	Thu,  6 Mar 2025 15:21:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA4A10E221;
+	Thu,  6 Mar 2025 15:28:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oy+XGMuW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NQs1qKq5";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED0C910E17A
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Mar 2025 15:21:13 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2fc92215d15so201200a91.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Mar 2025 07:21:13 -0800 (PST)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F4C110E221
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Mar 2025 15:27:56 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2ff7255b8c6so98856a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Mar 2025 07:27:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741274472; x=1741879272; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1741274876; x=1741879676; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3URxZsGqFL5KUWU35j4XVG3HTinn5D1jyjUTkpC5Jg4=;
- b=Oy+XGMuWzw4sHmxmq92fmcYt6u7v2ozpIVK4ry7utyb09JZ9Uqu/ofFRHjToU6ao2A
- 8cBE6ZgNOIcJMJ8LV//mUyxSuMp2HA5ThoIQaftgeUpxNO8fA6yT5ALSvntcIPCvvshw
- +iBrb9AEdBHSgZo5qhUQ+blx9EkSiE54gUFk5jxO16wKpvq7nrqQC06WP79IaQX++b3n
- h18WUidVQb31Px0wj4pn9/x1zhFxr559abkVBBwEc39Kj66aCRi8J/IbY54M2QZSkM/O
- h4lzY/n0FUAP35z+sEsWH4+2oeq0/RBFZEz+HWh7EJVDgeHrtwDMFKxy4/W8tkKTYHCa
- OATg==
+ bh=7nlIWBy8LBcgXV3EhuSDM5h8oNqJcSmM/zgHjUdELxo=;
+ b=NQs1qKq5CpvhDRGxaLz0QF9XEcHBO/nHaUQsWyei7Wzy1YLLhwFfa21zm+3rVUVlmm
+ 3NSxdZff3d42YK3jVWGQgHvQyg8cw85lRUvJdEESAMCMQy9H9Y+bxPLX3tbdB8FnAqm9
+ nkuL7v85ycB8x1cXHP+YojzN+ZckBZOoQX0ihq1na3K87vvGVeHJa+GmlwarlYpB/ph/
+ BdpPUECDZ8yOkCP+j2s4EhH+8nFmtniMRu73M5RxxsMQ9EgbcGnNW5/2Nas8iFMP8D/m
+ HnOM2jWvnESVRUWQTP7JYnX4cc+h2Hz7ijtkfNwTLM1u/RgPsqv7uLTj0e+bw1J1EJlY
+ pqgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741274472; x=1741879272;
+ d=1e100.net; s=20230601; t=1741274876; x=1741879676;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3URxZsGqFL5KUWU35j4XVG3HTinn5D1jyjUTkpC5Jg4=;
- b=I/ayy1lBuSiWmI95nQXEBcZDfDHjz3UVqNuZAfpNJaTCh6Cj9lvybspE2rtRRmErI8
- +Lo4dNvacLqVmNdaiZUcCHWQB3IUDESvKkNCY5lgaXUpsDBOikhUcV4cUo0I6b9Yd/as
- 2VDbV9TPaxmDKLfFOMrIyImqPhzs/qfuLSwXEejYhZd0uYfN9EZZsbVScNYfvPfWxMm6
- 0Daji27gQSMBdp/zIl4M7/pVdBImk0d018IjJ08CfJ4aJyECKSXNPB6LDMeA1297ctts
- FUjBGtI9ZFXgdwADmGF5MRvUTeEcFusKcA6TV/cEwr6CcJW8GVqAuX1KHhZ1rw5+uHyM
- 0iPQ==
-X-Gm-Message-State: AOJu0Yyaqq+hHx7EzxUgBNFR8gPCiuLlCAh44PEq25VU2Lvi+z3vEP/d
- EIGlDeUV5rvP+V7kui9Lq7uDXoQNr2Ht+bAylvpBC+XX557rCXvb3zTgkPfV5U9gTpzBvXalJ+3
- S1InOFwOTKr/DOh2WnDqVXsXMN0z1/A==
-X-Gm-Gg: ASbGncsFLQQccgCcEbvQyA8Bbr5Gi/s72dOXaStXPvt+Mww08l0fZQmJkhV5l5FR+9i
- Ir9MG+UQV5v/6VGvIhwjkOQ4AhyeWbsDtSvR/gM8PobLalo4NnBtNz5bOwsdMB0BfH1H9GPYigc
- tUWy3n9sHA1SkMRZqozVaj3R/1lA==
-X-Google-Smtp-Source: AGHT+IFf6HnmkGa131X6aoJQ2e0fJmfYNVC9zf5GZ0MlAzEqJsrg3zAxI3RGgnZhKISJSvf2lUyRJosq4/ilQr51FlI=
-X-Received: by 2002:a17:90b:5202:b0:2ff:4b7a:f0a4 with SMTP id
- 98e67ed59e1d1-2ff4b7af1dcmr1430497a91.3.1741274471726; Thu, 06 Mar 2025
- 07:21:11 -0800 (PST)
+ bh=7nlIWBy8LBcgXV3EhuSDM5h8oNqJcSmM/zgHjUdELxo=;
+ b=laIrvZxS15PgpbeyAYpz2OxU56Zd9FVG56mEEHPLFW/F8i2UmzaaMGZ0aMcKaCa57f
+ rkPc795TXlGJbf+S/LvM2d3nJ/5FFytRajEgopML8D8i2Vz89I4f3575MOCDvhnvve35
+ cL0E31x6UAg8ed8IlWbUGdHJKx5/5RS7Ie60eXsP46H9SNANTcrowa7F/fA+eUqBqWAm
+ p84t/DoNJnhfc4FYIFE3jgP48sTeTDtp8hfNaTyRYdl2Fz3Hru8ruuLfIJmxx+awG1S3
+ sJkCJH/qnu64QAlBYoXI5EykIidFZomgv2HZM2Q8lGC/BDL1dCghKP/eq0Ccn+yNNGmc
+ 1fUw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXn8yHSTZJTVF+lx0Gln/9BoM2IP4OSDohjFhC6I7NN87kVOoEKkOU2LQeCds3+YnSEzvaKJoMI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcbF+GEw5d1/7lbtVEDiA8azi1t0x3r9j49e9u+jp0V1OimTSN
+ 632rN31nohTR7L1XzPc7Jqt4aD1ZLqOLAaa1c2blj5yYKSBGQI9xobRaiyQMMebuFT5jy+c30W/
+ 0tZvCPmptnVgtlksnCYo9hz4OnlM=
+X-Gm-Gg: ASbGncs/hodzmTbYPOJjA/ctMgTI24EH0WsWUWOzdSXf/M8XNqQCbJ15gzIZE3SfYD3
+ bDqGS56GMbA9zSVsh2QdUF2hz1BhIZiVHSxD2+z5LYOo4DYwYqciCspp3aygVywHQmWAJIkLQvk
+ 1J8bGNewsBNO5qtegXlWAJsnby/g==
+X-Google-Smtp-Source: AGHT+IHo/H8wQkXAPAvJtpv5iqO21LohKYuthyKS4AES1xcNl+lLHZinwDHk6EKRfp8QCztBMwKhBnLouyHWp9oqUsA=
+X-Received: by 2002:a17:90b:3802:b0:2ff:5540:bb48 with SMTP id
+ 98e67ed59e1d1-2ff5540bc8amr3427106a91.8.1741274876142; Thu, 06 Mar 2025
+ 07:27:56 -0800 (PST)
 MIME-Version: 1.0
-References: <20250306014958.785021-1-alexandre.f.demers@gmail.com>
- <20250306014958.785021-3-alexandre.f.demers@gmail.com>
-In-Reply-To: <20250306014958.785021-3-alexandre.f.demers@gmail.com>
+References: <20250305163241.2551925-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250305163241.2551925-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 6 Mar 2025 10:20:59 -0500
-X-Gm-Features: AQ5f1Jpk_3vLqFLeUwc7AYIC3ufZB-vccpF696TjkgZIx5svZ6w17OUs3_-hynQ
-Message-ID: <CADnq5_NE4rXzF69y5ARSw8zEEd=eTgJyyao-4qfoSxarw=oYkg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] drm/amdgpu: add defines for pin_offsets in DCE8
-To: Alexandre Demers <alexandre.f.demers@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Thu, 6 Mar 2025 10:27:44 -0500
+X-Gm-Features: AQ5f1JqkquKYiHh7orueGRVzReoTMKfePZ6HJ_QJQsFbNFO73MS0xM_g-y4lvf8
+Message-ID: <CADnq5_M=m8EGrcnNSFVoTBMKy9VN0AVJNTv6CNoVQuS83GfDXA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix annotation for dce_v6_0_line_buffer_adjust
+ function
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Ken Wang <Qingqing.Wang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,67 +84,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+On Wed, Mar 5, 2025 at 11:45=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> Updated description for the 'other_mode' parameter. This parameter is
+> used to determine the display mode of another display controller that
+> may be sharing the line buffer.
+>
+> Cc: Ken Wang <Qingqing.Wang@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-On Wed, Mar 5, 2025 at 9:08=E2=80=AFPM Alexandre Demers
-<alexandre.f.demers@gmail.com> wrote:
->
-> Define pin_offsets values in the same way it is done in DCE8
->
-> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/cikd.h     |  9 +++++++++
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++++++-------
->  2 files changed, 16 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cikd.h b/drivers/gpu/drm/amd/amdg=
-pu/cikd.h
-> index 06088d52d81c..279288365940 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cikd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/cikd.h
-> @@ -51,6 +51,15 @@
->  #define HPD4_REGISTER_OFFSET                 (0x1813 - 0x1807)
->  #define HPD5_REGISTER_OFFSET                 (0x1816 - 0x1807)
->
-> +/* audio endpt instance offsets */
-> +#define AUD0_REGISTER_OFFSET                 (0x1780 - 0x1780)
-> +#define AUD1_REGISTER_OFFSET                 (0x1786 - 0x1780)
-> +#define AUD2_REGISTER_OFFSET                 (0x178c - 0x1780)
-> +#define AUD3_REGISTER_OFFSET                 (0x1792 - 0x1780)
-> +#define AUD4_REGISTER_OFFSET                 (0x1798 - 0x1780)
-> +#define AUD5_REGISTER_OFFSET                 (0x179d - 0x1780)
-> +#define AUD6_REGISTER_OFFSET                 (0x17a4 - 0x1780)
-> +
->  #define BONAIRE_GB_ADDR_CONFIG_GOLDEN        0x12010001
->  #define HAWAII_GB_ADDR_CONFIG_GOLDEN         0x12011003
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v8_0.c
-> index 04b79ff87f75..5e657b43a159 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -1395,13 +1395,13 @@ static void dce_v8_0_audio_enable(struct amdgpu_d=
-evice *adev,
->  }
->
->  static const u32 pin_offsets[7] =3D {
-> -       (0x1780 - 0x1780),
-> -       (0x1786 - 0x1780),
-> -       (0x178c - 0x1780),
-> -       (0x1792 - 0x1780),
-> -       (0x1798 - 0x1780),
-> -       (0x179d - 0x1780),
-> -       (0x17a4 - 0x1780),
-> +       AUD0_REGISTER_OFFSET,
-> +       AUD1_REGISTER_OFFSET,
-> +       AUD2_REGISTER_OFFSET,
-> +       AUD3_REGISTER_OFFSET,
-> +       AUD4_REGISTER_OFFSET,
-> +       AUD5_REGISTER_OFFSET,
-> +       AUD6_REGISTER_OFFSET,
->  };
->
->  static int dce_v8_0_audio_init(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v6_0.c
+> index 315c098271af..ac51b7a6e8d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -1041,6 +1041,8 @@ static void dce_v6_0_program_watermarks(struct amdg=
+pu_device *adev,
+>   * @amdgpu_crtc: the selected display controller
+>   * @mode: the current display mode on the selected display
+>   * controller
+> + * @other_mode: the display mode of another display controller
+> + *              that may be sharing the line buffer
+>   *
+>   * Setup up the line buffer allocation for
+>   * the selected display controller (CIK).
 > --
-> 2.48.1
+> 2.34.1
 >
