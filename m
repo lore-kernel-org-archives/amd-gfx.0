@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD05C282D1
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 15:56:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37E8FC28B24
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 15:56:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4AE10E9DF;
-	Thu,  6 Mar 2025 15:56:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D64410E9E1;
+	Thu,  6 Mar 2025 15:56:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M/lT1EBa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q7QJIeB/";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9054110E9DA
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA12810E9DF
  for <amd-gfx@lists.freedesktop.org>; Thu,  6 Mar 2025 15:56:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WO+Wpq2JCIEF40k+NcCh2mwzYbifCyqJbFVmD0c4fvoNjU4udVbs7G6pGAPqM6rOyxmLZGtzxMu0L0o4HJ3itCSEGR3zLlcpkT3i9MkmCUMqIUZfQFBnjDjexMVRMuNUqmRbzOZNzGrogKO/A6oD88PTYC2CkE7jfSvLb/kQ/NMUvNPZuAHnIVn4HPzq7zzxY4QdZMBArcLMAi5GbcKtjA2m5nru3WDd4557OSYH2kx5TyVuSJTgWgX+z3hSpPlVb70V2alc5o0jj+2VUbTNb8zAX+2o10X41nofqEEbmLhKoQjZP/re7TzMiJ95YMCZ4SbtV7H8hNxmCC5KrBQpFw==
+ b=wnpqv9RmWhFPuODF1qNakqPM4fIj37cGxOYhaphe0dyxqx1DLhSgE91zCdKRWzRaoogbO1vYALAjD44X+XyrA/aCOVSs8JgIXnRBzaOXfrMXatHeDTdA5oSZFqKzGPdNHO6gwJPHTRaFGexNGal15lGRLw8wYSk1BznezC9tnD08ACPLLEtCAFog3xyLLgLILGROltUeurhJa9zxbFTXFvKNbr5b70vCVInymaUybM70DkSPLp3MDvdM5ehnEJKPCJcVVYGgl+1Ee+RxBGpP8KiEd9dStRODG8ubKE5xNLR0S0mpQs8FkXFlbsmo9gvLc8TxvUvdA0/o324ewSLIdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MkbXRDLPCcsz4STxGK+XAAnmkhLP5o8OsrlOYG+cpe0=;
- b=ILNQLkexQvCjotAWgSwsgTDEB0Uod+JNiccim9Oby8W59JlorRAa8NYTnyUOnpdxNq+MAf93LPfT4G45mZcM10K785RIn+o8p6ijxz+OtUKvfZ5XFZ+ormAvpzz+fb3/Dzi+ilPMQd9bLcpWF42axusmPsMx8WouxYARhAKTdTE3WRNlZO0hwmw+bQIIZOevjbhgYjKYwutBUL6MP3Uo/WlEje3nKA5UrggB5DvPFLXVU/bIL9GWrF5DiCnU5Pz9jeJLty6Y/o3LptdgliqWW62buMBxpqE+KcDCOThTkx9tjtyFerxeRtU68xDzsgg2D015pJzGMGSW5TjRFcHv1A==
+ bh=GYgIuTav480WCcR4qSEqQ8QUz50yUTm5DELoPAC+XG4=;
+ b=HefcTO5Z3UWhcIcRRrLhSzFpwd66FJLZ6x2tpbgsNLmWCHwaZ8wt/Bj6sjOiBheNeg63ztbZJpCgN8zmoI3eKeo/9Ged/sKDem+z7Pt+SLYfPXwKkk9AKGGDdVO+CRIq1jfxvaVVwt9u4s3cg1VRMKWlOSNg6oAjOf1Uk37NPQhnBxXIssvtfE6s9L552xailrJyaLzC4ZEBupIqUBGonpbL3WjWK9YWUzj8cgw6uBUUiqFRh/o6pf5xuLwb8NoLbxH6ATqY1BWWs6yNfkpch3U35JzAiL4+bzRlHEnCycgIYbdE/HFxhFpGCAxPYWqsky6Yk09nrDRIXK0sLGR4kw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MkbXRDLPCcsz4STxGK+XAAnmkhLP5o8OsrlOYG+cpe0=;
- b=M/lT1EBa6GmljaG2V6h73HE49Ud7tMNITdtZVGkfBs1meTjvjpkDPcnZYJsUSmZhPsYxpJwYAxJpN+KcGkYxwI6x8dsTgwlUCySZcaDeGiXMRmDKutB6/iekHcHe8biEQgf+JQ2ffGgtIaD8lnw7X7KelBhxkkQHkoFGHzrXZ0g=
+ bh=GYgIuTav480WCcR4qSEqQ8QUz50yUTm5DELoPAC+XG4=;
+ b=q7QJIeB/tjBLfFKht2jZSRvxMeZlKtQAFMUh1a/HEPsemRfWTcy+7N8zRALmcTRQFJ1drvt6VSHeKiOT447f/GdQ1fTnhwbz548Sy4HrGRYthhfzul6D2v0wSc+pVTJMHFlVeBJbeAt6laXId8pm1aFgJvtzCzco8jO8DgxEE4g=
 Received: from SJ0PR05CA0148.namprd05.prod.outlook.com (2603:10b6:a03:33d::33)
- by DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.16; Thu, 6 Mar
- 2025 15:56:23 +0000
+ by IA1PR12MB8238.namprd12.prod.outlook.com (2603:10b6:208:3f9::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.29; Thu, 6 Mar
+ 2025 15:56:21 +0000
 Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
- (2603:10b6:a03:33d:cafe::e1) by SJ0PR05CA0148.outlook.office365.com
+ (2603:10b6:a03:33d:cafe::48) by SJ0PR05CA0148.outlook.office365.com
  (2603:10b6:a03:33d::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.17 via Frontend Transport; Thu,
- 6 Mar 2025 15:56:23 +0000
+ 6 Mar 2025 15:56:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 15:56:23 +0000
+ 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 15:56:20 +0000
 Received: from amberlin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 09:56:20 -0600
+ 2025 09:56:19 -0600
 From: Amber Lin <Amber.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, Felix Kuehling
- <felix.kuehling@amd.com>
-Subject: [PATCH 3/3] drm/amdkfd: Add support for more per-process flag
-Date: Thu, 6 Mar 2025 10:55:55 -0500
-Message-ID: <20250306155555.4687-3-Amber.Lin@amd.com>
+CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Subject: [PATCH 1/3] drm/amdkfd: Set per-process flags only once cik/vi
+Date: Thu, 6 Mar 2025 10:55:53 -0500
+Message-ID: <20250306155555.4687-1-Amber.Lin@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250306155555.4687-1-Amber.Lin@amd.com>
-References: <20250306155555.4687-1-Amber.Lin@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,52 +70,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|DS0PR12MB6413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2189bac3-3891-4a4f-2119-08dd5cc771ac
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|IA1PR12MB8238:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85122a57-149e-428d-e2ce-08dd5cc77048
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Tw9gnaWKD6Ynp8iiTBbMd9sHK/x3FxY6sRr264SIbl8V31Nitgjwyx0yBPLF?=
- =?us-ascii?Q?glqbpygr/m58rJfSQ7FUpAli+acIjVhl/MvDfiXVKasmeCSatczgf6CCASuE?=
- =?us-ascii?Q?LEhBm5L5EZR4CKcps85IzV4dfrwhyhR4R0UZSPcaeVRLc6SAmofRo/2d3OHd?=
- =?us-ascii?Q?0GJ06jelATxBn+5qiojYw1AiclzhgNLZJ0HxlJFixOBVOHYMXZ32PZuQPfL3?=
- =?us-ascii?Q?8CBdosEPxjwIDXGPdHN+E15T9ws2PDZqLdziZzFKSADOAqZZXmKZlrhbiAtK?=
- =?us-ascii?Q?Jmp4zXtFpw7Q1y4RJqORaSs7Ab/X6bv3rYVrBQx4ewDcidz325n08iMCtLvD?=
- =?us-ascii?Q?4/taZPE6fDQ8y2zoLwZbVFDib0NDheoujfPpkt4FrrKqawp551AWPb3ypb0b?=
- =?us-ascii?Q?AQjDPOBe2qdqzjLLw2m79osPZ3BpY487mw93IXGl4OkveE5S1BU0qpGkACvx?=
- =?us-ascii?Q?SDoFH9uu9lDEi3lJ8/ldAAWb8xsiawjyqFfDI+nZMr6bo6Ulksh3TVF9fMtF?=
- =?us-ascii?Q?coUwKNpue7sNB8CoW6aHC+XZIvAtoxJQFXkwnHr62s4FAGyI8xBzrIFpiM7e?=
- =?us-ascii?Q?rYM0ZUj/OyaxE1cq0clG2B80n0Q9v/VQPT+W7zTFTNLQAPOUIvUhoHIVb/po?=
- =?us-ascii?Q?21CIWb31e/QrbK6+k7W28g5fXg2cPynshnIDMYkZIbAjAYiaNpGrL2KvhQPi?=
- =?us-ascii?Q?Kpk/IRegGrytiWbKG5FE7ceh3ZENO+Ry17u5KAwMp/Ti4UStFk+z+qV/Le5h?=
- =?us-ascii?Q?Gx4FCTRHYxknNRhqBC2hfDL6FGJUSOgW82uFKRDFJamp9Nqew3EFWT28y0kG?=
- =?us-ascii?Q?mOL6zIHOVsUHG3vI+tpdVx3+9es215q2EboDESR2/7TOS7UN0oX0Ou1JBBgg?=
- =?us-ascii?Q?y4irD79vp4QC2Jds5L1ndhOygByi+03pzsxfx5CYTtruMQfEHcGhqYwlpwmY?=
- =?us-ascii?Q?VCW7laqckg79bEzk18z6bd9U7Kd6KgaP9EwFBWjVCAP6PC4V/TCKnJJj3CmV?=
- =?us-ascii?Q?N0iX169y5suBqsdamy4s1mHF88kPFyBKVEVByUyaJGU6bYUJ5eezAphfdhKZ?=
- =?us-ascii?Q?Zg+MeuZhYQhUwwNgDqfywoWzNt+3nKPOeGPjkOaOvlA9i9yZOEKa4eUx64Nn?=
- =?us-ascii?Q?dJA9zNfIVZxSvvlmfeTi6+3Z8v0x9ee/HMg6Lhj1SV1hITbDXfAqzhXvzO/E?=
- =?us-ascii?Q?KAHH1hlj3VcllNptBuqbVLuv7uxM5ocDtGnAS+hJlunYtKO46E6r+H6E4T8K?=
- =?us-ascii?Q?HrnPik/1PXgNqQzj8WGBz/K5G+bGlKkzL3os3VWGIgYv1CpwPZ1ouldksKJw?=
- =?us-ascii?Q?m0721lTh6Z8ewC7UbL5O4S+oXnb8HqIGTDGO4vkezyBionuaXmFBXhH8Bzud?=
- =?us-ascii?Q?TdcG6pdnQkCjUQp4W5RcLKQ6UWSIrlFH+yFFIBBD60Vq0BWptuEujROuO0la?=
- =?us-ascii?Q?MqMPI8IbRBpQk5SlH9F1Qy27G7NAhLtpDvg8HhsTpRXxxkvGtgRR2SxaeWVl?=
- =?us-ascii?Q?HzX4ZUnr42LwCv4=3D?=
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6dk3XtyBIbuxoA5v1e75MgP0sDPtOJB6YqdtGT9Z+lcfdObspgZN/+RIe3hm?=
+ =?us-ascii?Q?PYgW5R2/0BBv1MYsXrVXw9u8HLTheV3wuA44UsN0zNorWj7gkDOIMXZyJdYj?=
+ =?us-ascii?Q?CUexLxI1alJcY1S3sq2bjJrfNIcBsu16uz8M4kgOAaxidlSFSbb4T+EQ5+fU?=
+ =?us-ascii?Q?Le6k2rTVvMyhMNj7ehFJZDdVJFeOb2X7vawLwMDqWG6I97LHDM3NUFg402aB?=
+ =?us-ascii?Q?ksy4/qQS8Gm6VN/BZ9zdkYQbDE015oXsnfxnWLhmHLdbDTBaBKXuzRporSQf?=
+ =?us-ascii?Q?Ruzj9c5yUocWsMy5asNmk+C2El4XI9j218X+rfoNbgJf8mN8xgkApR8UYTFZ?=
+ =?us-ascii?Q?CdqN/knjKAkY7qQ+a91jp3UpeJU4R9TOgZPDezFp+CIdkoS4pRba5b8DXHQp?=
+ =?us-ascii?Q?6mSNFlhAYqDkknr0HlvE48TPk9WzL8fxFpf0e8DweP4+DSI/5pYW0T2hqSUp?=
+ =?us-ascii?Q?fcXGvSuYajGqwxkQVbkYdMt+cop8/yIqC2wgyaH7/c/OITBmre/p0UQoSz9n?=
+ =?us-ascii?Q?3ftSxeiMKr3TbMzGQeL0R2DxZF8+Br/njCexC020ptMkeFBEpP3dax/7TZqS?=
+ =?us-ascii?Q?ykctuxKye8hvqWwl626iNIRCKdfKTtVuddu4f0AQQK6KaTAzjQOZFLOEHqts?=
+ =?us-ascii?Q?tdkLH4+5rk0rUZaN4sKA6VoGYpt4KWKFXUZlXa3ed3fZOQCtgcg7rAJMF/Hl?=
+ =?us-ascii?Q?zeyOASeTGAZ3tSQJiG7D7ssJxj9Tf8zH56ZtoRSTfL+kFCVJeEDQFOynXGpr?=
+ =?us-ascii?Q?HkqPYO7/HlQM2y0HExtidiKQipU6tJU8lseWVdivPdy89fMk0gX0pXhy3/8b?=
+ =?us-ascii?Q?5TqTHJZOhl5D1CEP2B5hSGHUOY6MKbqB/AGtoCGv/055ViNTfx8UCoTUUl6T?=
+ =?us-ascii?Q?NqXSu/upMCSnXJiDegupz6DDEW/nMBZXy/n+fPAgayEpJ791BAeTW1NKzXLb?=
+ =?us-ascii?Q?TW3TtgdxwUqcPvgRy+WLoiBZrkOBeHsXtLTPv49YVRXamdVYf/TOfOwDjvyG?=
+ =?us-ascii?Q?T3JWVcNpaerSGIBqwiiAWntm8ysab0GxVRiHZ7TGV0mThX2ry36bo/yiUXw5?=
+ =?us-ascii?Q?hKwyXDnPvCTiVuU8i5BgwEPV6PopKAoFwhnCtuyJaKdf8T79B8QC+vQqoGE1?=
+ =?us-ascii?Q?6UKlc/Iczp7K8hdqZXRKa7i4SQOWVqlCfQ8lRxIKy+zDZqHEGvNrV/w5j7LT?=
+ =?us-ascii?Q?B2eRCHGTd6DElqBfhhuIR1ZBKbVFMBJ4gTPEsicd7juqatM7tBc4gRjoInxN?=
+ =?us-ascii?Q?yHcM8sekZo56uYesuRJ5iSKxgPBjZjmZMJadPEBpaxj8UQuHbpHarHoOBG9k?=
+ =?us-ascii?Q?ARNh/unjkO63pyCNyh47z4oftuq8VPvbMI2v/vZ5y/FlJw5qdtlqWsL5Y81m?=
+ =?us-ascii?Q?M9HLua+S74cjzuGG9wodOrjyS1d+kkRT6cAKJ9/GXp3BprQlxsyjEJxyi2Ku?=
+ =?us-ascii?Q?ED3NjWGLk6dHbJOZLhxpfBu4ll01zTPyqB8FIeAqxBmsyhT/CUiiFqGTwhdS?=
+ =?us-ascii?Q?WBqUq6pdZL4+ijg=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 15:56:23.0425 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2189bac3-3891-4a4f-2119-08dd5cc771ac
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 15:56:20.7144 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85122a57-149e-428d-e2ce-08dd5cc77048
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075ED.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6413
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8238
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,268 +132,292 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-Add support for more per-process flags starting with option to configure
-MFMA precision for gfx 9.5
+Set per-process static sh_mem config only once during process
+initialization. Move all static changes from update_qpd() which is
+called each time a queue is created to set_cache_memory_policy() which
+is called once during process initialization.
 
-v2: Change flag name to KFD_PROC_FLAG_MFMA_HIGH_PRECISION
-    Remove unused else condition
+set_cache_memory_policy() is currently defined only for cik and vi
+family. So this commit only focuses on these two. A separate commit will
+address other asics.
 
 Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c              |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c |  6 ++++--
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h |  6 ++++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c |  6 ++++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c |  6 ++++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c |  6 ++++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c |  6 ++++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c  | 11 +++++++++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c  |  6 ++++--
- include/uapi/linux/kfd_ioctl.h                        |  5 ++++-
- 10 files changed, 43 insertions(+), 18 deletions(-)
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 39 +---------
+ .../amd/amdkfd/kfd_device_queue_manager_cik.c | 69 ++++++++++++------
+ .../amd/amdkfd/kfd_device_queue_manager_vi.c  | 71 ++++++++++++-------
+ 3 files changed, 94 insertions(+), 85 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 8c2e92378b49..1e9dd00620bf 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -606,7 +606,8 @@ static int kfd_ioctl_set_memory_policy(struct file *filep,
- 				default_policy,
- 				alternate_policy,
- 				(void __user *)args->alternate_aperture_base,
--				args->alternate_aperture_size))
-+				args->alternate_aperture_size,
-+				args->misc_process_flag))
- 		err = -EINVAL;
- 
- out:
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index d23c6a358d34..2afcc1b4856a 100644
+index f3f2fd6ee65c..d23c6a358d34 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -2596,7 +2596,8 @@ static bool set_cache_memory_policy(struct device_queue_manager *dqm,
+@@ -2591,14 +2591,6 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ 	return retval;
+ }
+ 
+-/*
+- * Low bits must be 0000/FFFF as required by HW, high bits must be 0 to
+- * stay in user mode.
+- */
+-#define APE1_FIXED_BITS_MASK 0xFFFF80000000FFFFULL
+-/* APE1 limit is inclusive and 64K aligned. */
+-#define APE1_LIMIT_ALIGNMENT 0xFFFF
+-
+ static bool set_cache_memory_policy(struct device_queue_manager *dqm,
+ 				   struct qcm_process_device *qpd,
  				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size)
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties)
- {
- 	bool retval = true;
+@@ -2613,34 +2605,6 @@ static bool set_cache_memory_policy(struct device_queue_manager *dqm,
  
-@@ -2611,7 +2612,8 @@ static bool set_cache_memory_policy(struct device_queue_manager *dqm,
- 			default_policy,
- 			alternate_policy,
+ 	dqm_lock(dqm);
+ 
+-	if (alternate_aperture_size == 0) {
+-		/* base > limit disables APE1 */
+-		qpd->sh_mem_ape1_base = 1;
+-		qpd->sh_mem_ape1_limit = 0;
+-	} else {
+-		/*
+-		 * In FSA64, APE1_Base[63:0] = { 16{SH_MEM_APE1_BASE[31]},
+-		 *			SH_MEM_APE1_BASE[31:0], 0x0000 }
+-		 * APE1_Limit[63:0] = { 16{SH_MEM_APE1_LIMIT[31]},
+-		 *			SH_MEM_APE1_LIMIT[31:0], 0xFFFF }
+-		 * Verify that the base and size parameters can be
+-		 * represented in this format and convert them.
+-		 * Additionally restrict APE1 to user-mode addresses.
+-		 */
+-
+-		uint64_t base = (uintptr_t)alternate_aperture_base;
+-		uint64_t limit = base + alternate_aperture_size - 1;
+-
+-		if (limit <= base || (base & APE1_FIXED_BITS_MASK) != 0 ||
+-		   (limit & APE1_FIXED_BITS_MASK) != APE1_LIMIT_ALIGNMENT) {
+-			retval = false;
+-			goto out;
+-		}
+-
+-		qpd->sh_mem_ape1_base = base >> 16;
+-		qpd->sh_mem_ape1_limit = limit >> 16;
+-	}
+-
+ 	retval = dqm->asic_ops.set_cache_memory_policy(
+ 			dqm,
+ 			qpd,
+@@ -2649,6 +2613,9 @@ static bool set_cache_memory_policy(struct device_queue_manager *dqm,
  			alternate_aperture_base,
--			alternate_aperture_size);
-+			alternate_aperture_size,
-+			misc_process_properties);
+ 			alternate_aperture_size);
  
- 	if (retval)
- 		goto out;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 7146e227e2c1..122eb745e9c4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -174,7 +174,8 @@ struct device_queue_manager_ops {
- 					   enum cache_policy default_policy,
- 					   enum cache_policy alternate_policy,
- 					   void __user *alternate_aperture_base,
--					   uint64_t alternate_aperture_size);
-+					   uint64_t alternate_aperture_size,
-+					   u32 misc_process_properties);
++	if (retval)
++		goto out;
++
+ 	if ((dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) && (qpd->vmid != 0))
+ 		program_sh_mem_settings(dqm, qpd);
  
- 	int (*process_termination)(struct device_queue_manager *dqm,
- 			struct qcm_process_device *qpd);
-@@ -210,7 +211,8 @@ struct device_queue_manager_asic_ops {
- 					   enum cache_policy default_policy,
- 					   enum cache_policy alternate_policy,
- 					   void __user *alternate_aperture_base,
--					   uint64_t alternate_aperture_size);
-+					   uint64_t alternate_aperture_size,
-+					   u32 misc_process_properties);
- 	void	(*init_sdma_vm)(struct device_queue_manager *dqm,
- 				struct queue *q,
- 				struct qcm_process_device *qpd);
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c
-index 32bedef912b3..0508ef5a41d7 100644
+index d4d95c7f2e5d..32bedef912b3 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c
-@@ -40,7 +40,8 @@ static bool set_cache_memory_policy_cik(struct device_queue_manager *dqm,
+@@ -27,6 +27,14 @@
+ #include "oss/oss_2_4_sh_mask.h"
+ #include "gca/gfx_7_2_sh_mask.h"
+ 
++/*
++ * Low bits must be 0000/FFFF as required by HW, high bits must be 0 to
++ * stay in user mode.
++ */
++#define APE1_FIXED_BITS_MASK 0xFFFF80000000FFFFULL
++/* APE1 limit is inclusive and 64K aligned. */
++#define APE1_LIMIT_ALIGNMENT 0xFFFF
++
+ static bool set_cache_memory_policy_cik(struct device_queue_manager *dqm,
+ 				   struct qcm_process_device *qpd,
  				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size);
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties);
- static int update_qpd_cik(struct device_queue_manager *dqm,
- 			  struct qcm_process_device *qpd);
- static void init_sdma_vm(struct device_queue_manager *dqm,
-@@ -88,7 +89,8 @@ static bool set_cache_memory_policy_cik(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size)
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties)
+@@ -84,6 +92,36 @@ static bool set_cache_memory_policy_cik(struct device_queue_manager *dqm,
  {
  	uint32_t default_mtype;
  	uint32_t ape1_mtype;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-index b5f5f141353b..ba6e3d747ccd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-@@ -36,7 +36,8 @@ static bool set_cache_memory_policy_v10(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size);
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties);
- 
- void device_queue_manager_init_v10(
- 	struct device_queue_manager_asic_ops *asic_ops)
-@@ -61,7 +62,8 @@ static bool set_cache_memory_policy_v10(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size)
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties)
- {
- 	qpd->sh_mem_config = (SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
- 			      SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c
-index f436878d0d62..8b447d04558f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v11.c
-@@ -35,7 +35,8 @@ static bool set_cache_memory_policy_v11(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size);
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties);
- 
- void device_queue_manager_init_v11(
- 	struct device_queue_manager_asic_ops *asic_ops)
-@@ -60,7 +61,8 @@ static bool set_cache_memory_policy_v11(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size)
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties)
- {
- 	qpd->sh_mem_config = (SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
- 			      SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c
-index 62ca1c8fcbaf..3550da3a46f9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12.c
-@@ -35,7 +35,8 @@ static bool set_cache_memory_policy_v12(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size);
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties);
- 
- void device_queue_manager_init_v12(
- 	struct device_queue_manager_asic_ops *asic_ops)
-@@ -60,7 +61,8 @@ static bool set_cache_memory_policy_v12(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size)
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties)
- {
- 	qpd->sh_mem_config = (SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
- 			      SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) |
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-index c734eb9b505f..4635077aa905 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-@@ -35,7 +35,8 @@ static bool set_cache_memory_policy_v9(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size);
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties);
- 
- void device_queue_manager_init_v9(
- 	struct device_queue_manager_asic_ops *asic_ops)
-@@ -60,7 +61,8 @@ static bool set_cache_memory_policy_v9(struct device_queue_manager *dqm,
- 				   enum cache_policy default_policy,
- 				   enum cache_policy alternate_policy,
- 				   void __user *alternate_aperture_base,
--				   uint64_t alternate_aperture_size)
-+				   uint64_t alternate_aperture_size,
-+				   u32 misc_process_properties)
- {
- 	qpd->sh_mem_config = SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
- 				SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
-@@ -73,6 +75,11 @@ static bool set_cache_memory_policy_v9(struct device_queue_manager *dqm,
- 		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 5, 0))
- 		qpd->sh_mem_config |= (1 << SH_MEM_CONFIG__F8_MODE__SHIFT);
- 
-+	if (KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 5, 0)) {
-+		if (misc_process_properties & KFD_PROC_FLAG_MFMA_HIGH_PRECISION)
-+			qpd->sh_mem_config |= 1 << SH_MEM_CONFIG__PRECISION_MODE__SHIFT;
-+	}
++	unsigned int temp;
++	bool retval = true;
 +
- 	qpd->sh_mem_ape1_limit = 0;
- 	qpd->sh_mem_ape1_base = 0;
- 	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(qpd_to_pdd(qpd));
++	if (alternate_aperture_size == 0) {
++		/* base > limit disables APE1 */
++		qpd->sh_mem_ape1_base = 1;
++		qpd->sh_mem_ape1_limit = 0;
++	} else {
++		/*
++		 * In FSA64, APE1_Base[63:0] = { 16{SH_MEM_APE1_BASE[31]},
++		 *			SH_MEM_APE1_BASE[31:0], 0x0000 }
++		 * APE1_Limit[63:0] = { 16{SH_MEM_APE1_LIMIT[31]},
++		 *			SH_MEM_APE1_LIMIT[31:0], 0xFFFF }
++		 * Verify that the base and size parameters can be
++		 * represented in this format and convert them.
++		 * Additionally restrict APE1 to user-mode addresses.
++		 */
++
++		uint64_t base = (uintptr_t)alternate_aperture_base;
++		uint64_t limit = base + alternate_aperture_size - 1;
++
++		if (limit <= base || (base & APE1_FIXED_BITS_MASK) != 0 ||
++		   (limit & APE1_FIXED_BITS_MASK) != APE1_LIMIT_ALIGNMENT) {
++			retval = false;
++			goto out;
++		}
++
++		qpd->sh_mem_ape1_base = base >> 16;
++		qpd->sh_mem_ape1_limit = limit >> 16;
++	}
+ 
+ 	default_mtype = (default_policy == cache_policy_coherent) ?
+ 			MTYPE_NONCACHED :
+@@ -97,37 +135,22 @@ static bool set_cache_memory_policy_cik(struct device_queue_manager *dqm,
+ 			| ALIGNMENT_MODE(SH_MEM_ALIGNMENT_MODE_UNALIGNED)
+ 			| DEFAULT_MTYPE(default_mtype)
+ 			| APE1_MTYPE(ape1_mtype);
+-
+-	return true;
+-}
+-
+-static int update_qpd_cik(struct device_queue_manager *dqm,
+-			  struct qcm_process_device *qpd)
+-{
+-	struct kfd_process_device *pdd;
+-	unsigned int temp;
+-
+-	pdd = qpd_to_pdd(qpd);
+-
+-	/* check if sh_mem_config register already configured */
+-	if (qpd->sh_mem_config == 0) {
+-		qpd->sh_mem_config =
+-			ALIGNMENT_MODE(SH_MEM_ALIGNMENT_MODE_UNALIGNED) |
+-			DEFAULT_MTYPE(MTYPE_NONCACHED) |
+-			APE1_MTYPE(MTYPE_NONCACHED);
+-		qpd->sh_mem_ape1_limit = 0;
+-		qpd->sh_mem_ape1_base = 0;
+-	}
+-
+ 	/* On dGPU we're always in GPUVM64 addressing mode with 64-bit
+ 	 * aperture addresses.
+ 	 */
+-	temp = get_sh_mem_bases_nybble_64(pdd);
++	temp = get_sh_mem_bases_nybble_64(qpd_to_pdd(qpd));
+ 	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(temp);
+ 
+ 	pr_debug("is32bit process: %d sh_mem_bases nybble: 0x%X and register 0x%X\n",
+ 		qpd->pqm->process->is_32bit_user_mode, temp, qpd->sh_mem_bases);
+ 
++out:
++	return retval;
++}
++
++static int update_qpd_cik(struct device_queue_manager *dqm,
++			  struct qcm_process_device *qpd)
++{
+ 	return 0;
+ }
+ 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
-index 320518f41890..dad83356e976 100644
+index b291ee0fab94..320518f41890 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
-@@ -40,7 +40,8 @@ static bool set_cache_memory_policy_vi(struct device_queue_manager *dqm,
+@@ -27,6 +27,14 @@
+ #include "gca/gfx_8_0_sh_mask.h"
+ #include "oss/oss_3_0_sh_mask.h"
+ 
++/*
++ * Low bits must be 0000/FFFF as required by HW, high bits must be 0 to
++ * stay in user mode.
++ */
++#define APE1_FIXED_BITS_MASK 0xFFFF80000000FFFFULL
++/* APE1 limit is inclusive and 64K aligned. */
++#define APE1_LIMIT_ALIGNMENT 0xFFFF
++
+ static bool set_cache_memory_policy_vi(struct device_queue_manager *dqm,
+ 				       struct qcm_process_device *qpd,
  				       enum cache_policy default_policy,
- 				       enum cache_policy alternate_policy,
- 				       void __user *alternate_aperture_base,
--				       uint64_t alternate_aperture_size);
-+				       uint64_t alternate_aperture_size,
-+				       u32 misc_process_properties);
- static int update_qpd_vi(struct device_queue_manager *dqm,
- 			 struct qcm_process_device *qpd);
- static void init_sdma_vm(struct device_queue_manager *dqm,
-@@ -89,7 +90,8 @@ static bool set_cache_memory_policy_vi(struct device_queue_manager *dqm,
- 		enum cache_policy default_policy,
- 		enum cache_policy alternate_policy,
- 		void __user *alternate_aperture_base,
--		uint64_t alternate_aperture_size)
-+		uint64_t alternate_aperture_size,
-+		u32 misc_process_properties)
+@@ -85,6 +93,36 @@ static bool set_cache_memory_policy_vi(struct device_queue_manager *dqm,
  {
  	uint32_t default_mtype;
  	uint32_t ape1_mtype;
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index b0160b09987c..e7b4b1551529 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -150,6 +150,9 @@ struct kfd_dbg_device_info_entry {
- #define KFD_IOC_CACHE_POLICY_COHERENT 0
- #define KFD_IOC_CACHE_POLICY_NONCOHERENT 1
- 
-+/* Misc. per process flags */
-+#define KFD_PROC_FLAG_MFMA_HIGH_PRECISION (1 << 0)
++	unsigned int temp;
++	bool retval = true;
 +
- struct kfd_ioctl_set_memory_policy_args {
- 	__u64 alternate_aperture_base;	/* to KFD */
- 	__u64 alternate_aperture_size;	/* to KFD */
-@@ -157,7 +160,7 @@ struct kfd_ioctl_set_memory_policy_args {
- 	__u32 gpu_id;			/* to KFD */
- 	__u32 default_policy;		/* to KFD */
- 	__u32 alternate_policy;		/* to KFD */
--	__u32 pad;
-+	__u32 misc_process_flag;        /* to KFD */
- };
++	if (alternate_aperture_size == 0) {
++		/* base > limit disables APE1 */
++		qpd->sh_mem_ape1_base = 1;
++		qpd->sh_mem_ape1_limit = 0;
++	} else {
++		/*
++		 * In FSA64, APE1_Base[63:0] = { 16{SH_MEM_APE1_BASE[31]},
++		 *			SH_MEM_APE1_BASE[31:0], 0x0000 }
++		 * APE1_Limit[63:0] = { 16{SH_MEM_APE1_LIMIT[31]},
++		 *			SH_MEM_APE1_LIMIT[31:0], 0xFFFF }
++		 * Verify that the base and size parameters can be
++		 * represented in this format and convert them.
++		 * Additionally restrict APE1 to user-mode addresses.
++		 */
++
++		uint64_t base = (uintptr_t)alternate_aperture_base;
++		uint64_t limit = base + alternate_aperture_size - 1;
++
++		if (limit <= base || (base & APE1_FIXED_BITS_MASK) != 0 ||
++		   (limit & APE1_FIXED_BITS_MASK) != APE1_LIMIT_ALIGNMENT) {
++			retval = false;
++			goto out;
++		}
++
++		qpd->sh_mem_ape1_base = base >> 16;
++		qpd->sh_mem_ape1_limit = limit >> 16;
++	}
  
- /*
+ 	default_mtype = (default_policy == cache_policy_coherent) ?
+ 			MTYPE_UC :
+@@ -100,40 +138,21 @@ static bool set_cache_memory_policy_vi(struct device_queue_manager *dqm,
+ 			default_mtype << SH_MEM_CONFIG__DEFAULT_MTYPE__SHIFT |
+ 			ape1_mtype << SH_MEM_CONFIG__APE1_MTYPE__SHIFT;
+ 
+-	return true;
+-}
+-
+-static int update_qpd_vi(struct device_queue_manager *dqm,
+-			 struct qcm_process_device *qpd)
+-{
+-	struct kfd_process_device *pdd;
+-	unsigned int temp;
+-
+-	pdd = qpd_to_pdd(qpd);
+-
+-	/* check if sh_mem_config register already configured */
+-	if (qpd->sh_mem_config == 0) {
+-		qpd->sh_mem_config =
+-				SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
+-					SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT |
+-				MTYPE_UC <<
+-					SH_MEM_CONFIG__DEFAULT_MTYPE__SHIFT |
+-				MTYPE_UC <<
+-					SH_MEM_CONFIG__APE1_MTYPE__SHIFT;
+-
+-		qpd->sh_mem_ape1_limit = 0;
+-		qpd->sh_mem_ape1_base = 0;
+-	}
+-
+ 	/* On dGPU we're always in GPUVM64 addressing mode with 64-bit
+ 	 * aperture addresses.
+ 	 */
+-	temp = get_sh_mem_bases_nybble_64(pdd);
++	temp = get_sh_mem_bases_nybble_64(qpd_to_pdd(qpd));
+ 	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(temp);
+ 
+ 	pr_debug("sh_mem_bases nybble: 0x%X and register 0x%X\n",
+ 		temp, qpd->sh_mem_bases);
++out:
++	return retval;
++}
+ 
++static int update_qpd_vi(struct device_queue_manager *dqm,
++			 struct qcm_process_device *qpd)
++{
+ 	return 0;
+ }
+ 
 -- 
 2.34.1
 
