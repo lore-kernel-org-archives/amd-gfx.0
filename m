@@ -4,55 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 194C3C19F32
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 14:10:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98EE6C19F32
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 14:48:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1467210EB84;
-	Fri,  7 Mar 2025 14:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E05810E188;
+	Fri,  7 Mar 2025 14:48:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=Usama.Anjum@collabora.com header.b="aM49yQ18";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HoY/0cuX";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 658F410EB25
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 10:19:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1741342757; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=j9ORHA1cuNqzvnoWBEC62T1wgqIMbszuwnod05fyO8dANI25HjoVR3AjenF57DReCBtjwhuFpUZaYsRo2LfyDfIai1VX4hLJxIjbrMUEGs2/2s80/MPmhlsScF62hmQKPN6LU1q8bKtPRKuQND8BtM+/Cd5Rzie03pRCngU1UIA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1741342757;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=M3+1/avB1798aePiCXDx86re+oU1iPxVvHIF/YggbwY=; 
- b=XY0ouTy6Kq23kJzDImI9+JOWBS486Ukc7tLxj5+Tjtzbcu05rnl3DgTDnlyFlXC59Xv207+7K1E9LViRf5IH1d/FlfpWd+z63+EK+2vAnn9VOnX2/2LgcqkAjVIDFNzGB21/qcvYs5UwVFvcppRU29Qs/uhK4/OcWGOEpEaNTV0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=Usama.Anjum@collabora.com;
- dmarc=pass header.from=<Usama.Anjum@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1741342757; 
- s=zohomail; d=collabora.com; i=Usama.Anjum@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Cc:Cc:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=M3+1/avB1798aePiCXDx86re+oU1iPxVvHIF/YggbwY=;
- b=aM49yQ18VypDcYfzOdhQgT5ymcyZHjCDAqgGcxYEU5EVirU5D73apFGg4kPvKjB3
- wt9UKUFmoq7mI7IrrwBxrH3WYAUnmdC/jYUHlEwtRVcimgcmda9pvz/LQqqGHT02rtm
- uYHmWO2A8pYrjX20O79nRNgKIyjO5TITwTHOsFCY=
-Received: by mx.zohomail.com with SMTPS id 174134275525854.75231547230419;
- Fri, 7 Mar 2025 02:19:15 -0800 (PST)
-Message-ID: <111287d9-b9fa-4b6e-9048-e6116a5e952b@collabora.com>
-Date: Fri, 7 Mar 2025 15:19:55 +0500
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5AA10E188
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 14:48:17 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2ff7255b8c6so365412a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Mar 2025 06:48:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741358895; x=1741963695; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=c18X160Exd4toTpoO5QoMvEBvvz1kt7ahXnnIdi7WdY=;
+ b=HoY/0cuX8FZRWscuMkRJLCYWg9EwrX0JgoEHpYM23D/H+lkk87yqKB1kCAjTd06hFf
+ JYCpHPcnO0S1hepll35k9INakiAYAKv7oTSo/rBOYXduVF/ZeygT0PbYj5lpPGjcx209
+ AkiAS7Cq/zAxT32qDfwoyfVvmkfcxtj0kaQRWTiWVT1AOowf/ANywcait9UMFJs4SuYx
+ iDPaD9iW7B5OWdsgPpfQ6VNqtf0k6rt9arqJTQTkLs6lkeAUe5aq8VXa84Sq22evnOP0
+ ZCCDYhDH1XqSox+LTIYEn/kUwa/i/AeydbVXoeF5tGDgtOCU3gLi3eGK6FzoZR6Ntyjb
+ skOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741358895; x=1741963695;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=c18X160Exd4toTpoO5QoMvEBvvz1kt7ahXnnIdi7WdY=;
+ b=tnO+s5sERIEIwaC0DbJYiT8I78EVjTa7epUjEwnmQ/K/wRk8tm/UXJdwc1uf+bvtjk
+ dbLlLEKVl9L/OhifHj7KJKanyBiedwXGywDdegaTTVcmjciemfPkcX6s35DvDFXUn1QL
+ zFYPEg4CFYDI4NlJB6LA/+y3/fC+l0MF+6b6ZENUhIs2Oviy7WgubUtqxggsR374iaPp
+ Hi9xqgfAqEQx0JWfzVO9cb7NWJ+m2Fxa/elIeLQkC8MtixTAJv5SBVsLSlEZyOBiE9K3
+ /xkwR5z1IewY6aQZdS1JRVfy9weOarjk9VLWvthszt3P4SDhoEcPOLnaPHk99ooSpBGj
+ rKmw==
+X-Gm-Message-State: AOJu0YzTqlhvL5A+zHODX0dMqfKLX7OVstj4tA3zo0P14r2uxmtfjxpg
+ vuVqytyUx9PBi5br4+80eyjMS2FruKHUVDzFuKWGinyGVHYTGYgcSolNQNp0DT8SA8lovg+pnt2
+ +U5TbhkOnVHCnK0fiLYm3X6qe5iR7yepo
+X-Gm-Gg: ASbGncvbsqHkCpM6n6AvnbVYbI9GFYo7cbDuCQ48fXFiIw21aWKIVBOLRUiWdMkFJDg
+ zW6vGTyza+ovpOAbghFmJUyVd9mXwJZrL7pWZU8dbP3GnWxmtsAKWyygdpU/g+yKMtsMkuDH++z
+ c20c5GXw7kbCIGqJhS1e/Qxtc33Q==
+X-Google-Smtp-Source: AGHT+IGHrZR1VecY6M1P1xPAPoVPFNkdJKuzIdMLaPEUzn7zgxNHi8QS00CZQpDurix+4RL7CkrCD9aKq7x1P71bdL8=
+X-Received: by 2002:a17:90b:350d:b0:2ff:4b7a:f0a4 with SMTP id
+ 98e67ed59e1d1-2ff7cf13ae5mr2161599a91.3.1741358894780; Fri, 07 Mar 2025
+ 06:48:14 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: Usama.Anjum@collabora.com, Xaver Hugl <xaver.hugl@gmail.com>
-Subject: Re: [PATCH] drm/amd: Keep display off while going into S4
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20250306185124.44780-1-mario.limonciello@amd.com>
-Content-Language: en-US
-From: Muhammad Usama Anjum <Usama.Anjum@collabora.com>
-In-Reply-To: <20250306185124.44780-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Fri, 07 Mar 2025 14:10:39 +0000
+References: <20250307034457.595790-1-kenneth.feng@amd.com>
+In-Reply-To: <20250307034457.595790-1-kenneth.feng@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 7 Mar 2025 09:48:03 -0500
+X-Gm-Features: AQ5f1Jrf4J4eUyypH9oQLYJhWdmO4GO__Gj_0zkrzM4QZLv7P8gf5xgsCr9WA_g
+Message-ID: <CADnq5_OH7iumFq2MJ_LjpAwYzf34G60dUh_rug6HWBrkq=8Xxg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: reset the workload type when using MALL
+To: Kenneth Feng <kenneth.feng@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kevinyang.wang@amd.com, 
+ alexander.deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,103 +80,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-Thank you Mario for finding and fixing!
-
-On 3/6/25 11:51 PM, Mario Limonciello wrote:
-> When userspace invokes S4 the flow is:
-> 
-> 1) amdgpu_pmops_prepare()
-> 2) amdgpu_pmops_freeze()
-> 3) Create hibernation image
-> 4) amdgpu_pmops_thaw()
-> 5) Write out image to disk
-> 6) Turn off system
-> 
-> Then on resume amdgpu_pmops_restore() is called.
-> 
-> This flow has a problem that because amdgpu_pmops_thaw() is called
-> it will call amdgpu_device_resume() which will resume all of the GPU.
-> 
-> This includes turning the display hardware back on and discovering
-> connectors again.
-> 
-> This is an unexpected experience for the display to turn back on.
-> Adjust the flow so that during the S4 sequence display hardware is
-> not turned back on.
-> 
-> Reported-by: Xaver Hugl <xaver.hugl@gmail.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2038
-> Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Tested on top of amd-drm-next branch and 6.11.11 on 3 different devices.
-It fixes all of them. 
-
-It should be included in recent LTS kernels at least. 
-
-Tested-by: Muhammad Usama Anjum <usama.anjum@collabora.com>
-
+On Thu, Mar 6, 2025 at 10:45=E2=80=AFPM Kenneth Feng <kenneth.feng@amd.com>=
+ wrote:
+>
+> Reset the workload type when using MALL.
+> When there is no activity on the screen, dal requestes dmcub
+> to use MALL. However, gfx ring is not empty at the same time.
+> Currrently the workload type is set to 3D fullscreen when gfx
+> ring has jobs. No activity on the screen and the gfx ring empty
+> state can not be synchronized to each other. By removing the
+> 3D fullscreen workload when there is no activity on screen, the
+> event can be passed down to dmcub->pmfw, since pmfw only allows
+> MALL when the workload type setting is bootup default, then MALL
+> can be really used. And this does not impact the thread to detect
+> the ring jobs and can set back to the 3D fullscreen later.
+>
+> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 11 +++++++++--
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++++
->  2 files changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index b161daa90019..b54c4b2f3f7f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2565,7 +2565,6 @@ static int amdgpu_pmops_freeze(struct device *dev)
->  	int r;
->  
->  	r = amdgpu_device_suspend(drm_dev, true);
-> -	adev->in_s4 = false;
->  	if (r)
->  		return r;
->  
-> @@ -2577,8 +2576,13 @@ static int amdgpu_pmops_freeze(struct device *dev)
->  static int amdgpu_pmops_thaw(struct device *dev)
->  {
->  	struct drm_device *drm_dev = dev_get_drvdata(dev);
-> +	struct amdgpu_device *adev = drm_to_adev(drm_dev);
-> +	int r;
->  
-> -	return amdgpu_device_resume(drm_dev, true);
-> +	r = amdgpu_device_resume(drm_dev, true);
-> +	adev->in_s4 = false;
-> +
-> +	return r;
->  }
->  
->  static int amdgpu_pmops_poweroff(struct device *dev)
-> @@ -2591,6 +2595,9 @@ static int amdgpu_pmops_poweroff(struct device *dev)
->  static int amdgpu_pmops_restore(struct device *dev)
->  {
->  	struct drm_device *drm_dev = dev_get_drvdata(dev);
-> +	struct amdgpu_device *adev = drm_to_adev(drm_dev);
-> +
-> +	adev->in_s4 = false;
->  
->  	return amdgpu_device_resume(drm_dev, true);
->  }
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 6f9331fe91c3..5939796db74c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3431,6 +3431,11 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
->  
->  		return 0;
->  	}
-> +
-> +	/* leave display off for S4 sequence */
-> +	if (adev->in_s4)
-> +		return 0;
-> +
->  	/* Recreate dc_state - DC invalidates it when setting power state to S3. */
->  	dc_state_release(dm_state->context);
->  	dm_state->context = dc_state_create(dm->dc, NULL);
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> index 36a830a7440f..154936166896 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> @@ -244,6 +244,8 @@ static void amdgpu_dm_crtc_vblank_control_worker(stru=
+ct work_struct *work)
+>         struct vblank_control_work *vblank_work =3D
+>                 container_of(work, struct vblank_control_work, work);
+>         struct amdgpu_display_manager *dm =3D vblank_work->dm;
+> +       int r;
+> +       struct amdgpu_device *adev =3D drm_to_adev(dm->ddev);
+>
+>         mutex_lock(&dm->dc_lock);
+>
+> @@ -271,8 +273,14 @@ static void amdgpu_dm_crtc_vblank_control_worker(str=
+uct work_struct *work)
+>                         vblank_work->acrtc->dm_irq_params.allow_sr_entry)=
+;
+>         }
+>
+> -       if (dm->active_vblank_irq_count =3D=3D 0)
+> +       if (dm->active_vblank_irq_count =3D=3D 0) {
+> +               r =3D amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_=
+PROFILE_FULLSCREEN3D, false);
+
+To keep this balanced, you should get a reference when we disable the
+optimizations.  Also if ROCm applications are running, the compute
+profile will be active so that should be decremented too or if VCN
+jobs are running the video profile may be active as well.  On the
+other hand, if users have apps running when the display is off, maybe
+they don't want the idle optimizations in the first place.
+Alternatively, we could have a suspend/resume workload profile
+function that sets a flag in sw_smu which sets the default workload
+profile and skips all updates to the workload profile while that flag
+is set.  The swsmu will still track the ref counts and then when we
+resume the workload profile handling, we can restore all of the
+workloads profiles based on the ref counts.
+
+Alex
 
 
--- 
-BR,
-Muhammad Usama Anjum
+> +               if (r)
+> +            dev_warn(adev->dev, "(%d) failed to disable fullscreen 3D  p=
+ower profile mode\n",
+> +                                        r);
+> +
+>                 dc_allow_idle_optimizations(dm->dc, true);
+> +       }
+>
+>         mutex_unlock(&dm->dc_lock);
+>
+> --
+> 2.34.1
+>
