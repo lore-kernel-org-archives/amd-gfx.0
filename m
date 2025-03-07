@@ -4,70 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 493C5C282D0
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 07:17:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 598A0C19F32
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 07:36:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C45310EAF6;
-	Fri,  7 Mar 2025 07:17:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD7EB10E0CD;
+	Fri,  7 Mar 2025 07:36:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MYmm82So";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S0Aq2VDn";
 	dkim-atps=neutral
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
- [209.85.222.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF16810E340
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 07:17:26 +0000 (UTC)
-Received: by mail-ua1-f48.google.com with SMTP id
- a1e0cc1a2514c-86b31db3c3bso618345241.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Mar 2025 23:17:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741331845; x=1741936645; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YVZJSN0J8ZM/ckeXrdQ3UnVmyPPx36UZRxHLbegq8ds=;
- b=MYmm82SoA1CUvp5lWfGrCpzg4iJ0Cs99B3fZyVNpEB3HtDWJY5Gcccxh8h+UkkwvDH
- H+3hHtfmqTTpiF1pK7mNwWV8cuHMyz/u4K82RquB71riAIbVrbKZF8AlKVXcKFV+CIzC
- BFvg+nuB602vNaDNME93OXAUNl11IWQ/AVLVa3UYANx8FEjtwG4rux2MT1g+WRc8dUCS
- uwzo8/hGhzaGJmk2pirDpU4qyrp1a/5af8XEhkBuqbG0NjL/b9+UC4p/I6XNvTJvTGTt
- sjqJomFIEerj5GoNtMXwGbzdPTqACWpJDA3OKIOlIBAgXCaLAPVDF4m41slIq8rf6tuH
- Y+Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741331845; x=1741936645;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YVZJSN0J8ZM/ckeXrdQ3UnVmyPPx36UZRxHLbegq8ds=;
- b=LGe3Vb+XBuLnXdHazGHhc0AfNuE673zCbwbM5IM0N+vMfowpvU9DHtj24DNet+B0mq
- ORl6M7pEjweekcur+gadPMG20rEHEwA5F1iyAcFGMOdRdJch7kNR2Eax1ZxpusMeBjP7
- A+y8ki4LEyQAicEd9M3hUhh4IdHxyzy8uE3WMXm7xQRyezrrGTVRZUv8WeQsgIaMhTF/
- yPYi7UoNcwJwHztiuuUrSTY82aI8Ie1n2gHmu4eKqSlo2Z20FRFQlohcb50/YgfHKx51
- iPEh0fuEoFc3dFONZKyGFlDHex9Nuzh83Hg0dzfFjh/M35TzsOYEmPNr6kUJnXyOFctf
- JN0w==
-X-Gm-Message-State: AOJu0Ywwi2S539850tqXg/qQsoelUcni40HVU7GiLzEOypUBRL/jcaiD
- pyJMsILjsAnUunNey/mG+XAPJZ0uYLk96/sJJjPTnQBWZchWRoHzmhS9m6nCyqYswCXmlE7006M
- wrTBGsKIqnzVHLwUWUFMSH47N03Y=
-X-Gm-Gg: ASbGncvN/i9CtnKSzj1asKxXpQ5a8j+K0/1hVnfiDM1mFUjwreFBpPv22FLx1ALeP5z
- lmLkpMuQuON7NTwnAa37KHajzoSrLVB9vb38Oc2yJ7TEUjLKIRfX3qNdPlcaVkJLgxx8uiGFK1m
- oIVgQHaB5AS/+qSCARLQAfSmgX
-X-Google-Smtp-Source: AGHT+IEWgEVDkjAHQ8YB4rxa2pye79rRCBE9t6thtkRMXjxRD40ftJHmo7uj9iGg78wU97fdYtIauU30yED7u6xLy8o=
-X-Received: by 2002:a05:6102:26cb:b0:4c1:9328:107d with SMTP id
- ada2fe7eead31-4c30a725c90mr1163750137.24.1741331844758; Thu, 06 Mar 2025
- 23:17:24 -0800 (PST)
-MIME-Version: 1.0
-References: <20250306014958.785021-1-alexandre.f.demers@gmail.com>
- <20250306014958.785021-5-alexandre.f.demers@gmail.com>
- <CADnq5_NwQOpe-DLt6icWSE+RFOveE3kbmCAk7jjregaW56sFQg@mail.gmail.com>
-In-Reply-To: <CADnq5_NwQOpe-DLt6icWSE+RFOveE3kbmCAk7jjregaW56sFQg@mail.gmail.com>
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Fri, 7 Mar 2025 02:17:13 -0500
-X-Gm-Features: AQ5f1Jq5ID7ZOF5hFFj9QzeAC4ZhbCry0ZnzZEvNOrL1Ptxbd-OIintxByQVlbo
-Message-ID: <CAPEhTTEqt0Wty9935skjKSZ3j9mN1jBRT=UtOvxMyO=ZGfKB5w@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] drm/amdgpu: fix warning and errors caused by
- duplicated defines in sid.h
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 085D010E0CD
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 07:36:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ONNVVmbPZ5hVNR2vWkefngp9r8cBD3fQxseJNP7y3Mtd3VVpuZP6FH3kFeuatdlzyQzVlnVhENhf3uL0U6H0kNesJr8SJPmMVKJeBklcUWbIfzuHsC++QJXXgxAPTDExW7B/Y28sdB99swnWUOP1fpnFIZ5ajaa39IwSjwx7R4r5gE0Sox/LbStmzhhWOWdqpBcfUqWQFavJbHMDcdWQM8E1pAjUzkwA3ZCMibUdBb7JvEYB5EXfAHL2EhSva4Ik3skezUXAIAfxqZ9XWzubuY5zjK6dYCkT/hbKoQHpznBrjGYYHL0bHDaYjZvdKP+/FjVdjeoj76qMU12rCvMfAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mS9gS1mucrqV9xW4B25UOeri5wXgy0L31jjdhPEj7nk=;
+ b=y1AjQYoBf/klBaDnML3SS1lghmiOQz3bGl7FlThDFlpyXpRn3Xv5OAK62qP9x6Uprf+uZhAsgcTAZz/UFkVEWv97iLp4eiXUWjDaQQZ6XUi7lkZluRW2RvsU2+km30ZTDsS0xb5zSZC0spDp+TI/pRIWrRRKuBGHVdEsQQHb1c/Xn51m2c/N4S6ScmY/k9LY5SL8eCWZw79nnvMNNpIPAAyMFlKycl9b1zCbGYLoBvh/Qg8f1gw1BDtuBNSA0KAojxgVUlGz22p8/VlghPL699nzZOXbewmyMkFBl8geosB/g/H09csn/7jilq+AirXVcq7lHuaorGZgyas1+066bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mS9gS1mucrqV9xW4B25UOeri5wXgy0L31jjdhPEj7nk=;
+ b=S0Aq2VDnjgspWwMHxQeIBHeZDVRPX6XmDudzOmPJxZa3eJl/TWBuPwQpmRXPzHLyL9O8AoMYBwOML9YjBhgouj4XCA6Ssd/oResEG9IEMFG9htkrMwAfzlwvT6KTdpeYAZzn6C4R4T/5vpp6UEy1BRWXuF/mCTx3+n2h4MN1gyk=
+Received: from PH7PR12MB7988.namprd12.prod.outlook.com (2603:10b6:510:26a::22)
+ by LV2PR12MB5919.namprd12.prod.outlook.com (2603:10b6:408:173::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.19; Fri, 7 Mar
+ 2025 07:36:20 +0000
+Received: from PH7PR12MB7988.namprd12.prod.outlook.com
+ ([fe80::ab36:388d:7b1e:a196]) by PH7PR12MB7988.namprd12.prod.outlook.com
+ ([fe80::ab36:388d:7b1e:a196%4]) with mapi id 15.20.8511.017; Fri, 7 Mar 2025
+ 07:36:13 +0000
+From: "Yang, Stanley" <Stanley.Yang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: format old RAS eeprom data into V3 version
+Thread-Topic: [PATCH] drm/amdgpu: format old RAS eeprom data into V3 version
+Thread-Index: AQHbjyy7TYErPVdmpUSoneZxFZ4I6LNnR7vQ
+Date: Fri, 7 Mar 2025 07:36:13 +0000
+Message-ID: <PH7PR12MB7988E52CFA8019C506A46AA59AD52@PH7PR12MB7988.namprd12.prod.outlook.com>
+References: <20250307064639.273141-1-tao.zhou1@amd.com>
+In-Reply-To: <20250307064639.273141-1-tao.zhou1@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=bb6828aa-0ca0-4f27-be9e-8b942e310789;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-07T07:32:11Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB7988:EE_|LV2PR12MB5919:EE_
+x-ms-office365-filtering-correlation-id: 64d68f83-9563-481a-5fbd-08dd5d4abcca
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?UBWspSTrnzoL5c4jVvDqEmKIhMoFDvXHfDZ5cxH/Ewg2XCvXqZQXYGFiubXq?=
+ =?us-ascii?Q?873GnIdKS7IBiD0g5uJ1QjPn7iYzj+adnDwV0KPVmgoCW69VjfsqGHCct5DP?=
+ =?us-ascii?Q?/Nt9ypponlw/NVktog5oPVBMP/qqloMZv4pD+e+XEj5AiMlC64+JysrF/wu1?=
+ =?us-ascii?Q?RmdZOaLgXTlnSDgCTFj6g5++HkYjcH7ftktfWdXZByHT0p+mRqyhghmDqZYP?=
+ =?us-ascii?Q?sgCuR4HekJwEl9w0q0IhSFVB7uhN7Yu8rpq4S97g2uGhifsyTw1E+0EUY7Iq?=
+ =?us-ascii?Q?igTSTp3jcQ5blv24CzsXIhfhNdJlkJaNIbYmt4vkiluminBisZwe+EAEvBkJ?=
+ =?us-ascii?Q?IipeRLJcDavgvgFPeTgAjKZadr377homqLkXLuj8ni84YBpx9Yf60HO+6A+T?=
+ =?us-ascii?Q?8LEoh3W4eUiaOSEcC/HZtI0tFFp9RNfXtmmNG7wx7YEJg+PfAsT7LWw6/0EO?=
+ =?us-ascii?Q?i91Eo5nrE6rgtTaiCZOonoXDICZ8dvEqIr8eK4YAqaGB/ZogugGhyu3aIB2L?=
+ =?us-ascii?Q?OsWxNpn2KWjBZ2FOHN6lsi77ou5FghP/fETg+baTDbKhLylKcfyONWybYscl?=
+ =?us-ascii?Q?bFJnGnq0e++xi0uFGT0i1tDyy27P083itDdeGPLdftpspIk/7xLstnPnGtXn?=
+ =?us-ascii?Q?IZFlAn5Wqv6rYuuBvw7MXOQC4CJ0N3EyNOHv0ilAp0PaQrALRIYRFyXbxhk5?=
+ =?us-ascii?Q?w/nLFrtvfLmzG1Q99Wk+MAau4TYjwXJHHOM+fb+BJ0kjl4SIelMVoq4hY9kO?=
+ =?us-ascii?Q?BztcOswc4o7hUvHJALnBrCOxP83s0470Ndff6T0GOe52Y8Uajw5vBUraf/7G?=
+ =?us-ascii?Q?ytWSSRA9tpLXjnXfnpoFqOoBMV7wvlyBw1evCBhIJvB+CkPR/N3NlpHxhv1D?=
+ =?us-ascii?Q?Y7e8vpxQ8DrHKfDaP0pH8FEBfpGYrHMnr+dMNEFRaOct1PL4nu9yNlr5m1tR?=
+ =?us-ascii?Q?i8LX/pejTnuhAgUOIRhFxqBMOc3cjIyyJ/bphihwgX7UH1XKvHd5w0sN6ySU?=
+ =?us-ascii?Q?YbNRpD+PqoBUpSMza8lAGMsxHV/+rJRdlAC0/5GR0RQKSer+wKGznH6sGfUK?=
+ =?us-ascii?Q?Zbut8dsksesrPtuw9qhQg5fIeKqwJzdZ9c24Is1Zw9dNVeqD0ld3eJAhra8H?=
+ =?us-ascii?Q?xmr4rIqhCFAMo5fbUWGvoRvzdsYcY/kMkwHOIkQAxQYjIOVmiYl3dIBtv5cN?=
+ =?us-ascii?Q?5zpaFV8OIcP3FiMmXphOM/xrVjvwyxT08gTkIyL5ZjiNgQMlXDw/jEMRKZl6?=
+ =?us-ascii?Q?rVQcjPJ+BUh2U4OQKqSe5sGGrYqvXDpbg4297AMAPJm2EyhQEGvdIEcUfTnx?=
+ =?us-ascii?Q?anzfYyZifr8SEqyM1uulxzOFUoUgWz/mC0WzELr+xXu6mE6LACCOMhNaK5AP?=
+ =?us-ascii?Q?B4Qvd3pA1KXLxFcyrHaeHLNEbA+n9vtVdPocWxwGf74tJz3Q23v1ShNSSokU?=
+ =?us-ascii?Q?ZDxog3TWMB0Y+Wgf/laoZPPu5YWM/4+p?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB7988.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?J2A/wbA+2wxFrM9jnrYF55daO/cu2d/mzZNt3spv/s1Yvxd01KKACvAyjYqA?=
+ =?us-ascii?Q?dlBLWOMJ5Jrl1EXOFfTkRu6OFYl+TrX0MgFF3PmSlyt1kgW8LNzhamEGfzvg?=
+ =?us-ascii?Q?vXiJ6eBYL7uhOa5CSNLGHr/pSlDarfDzEQXvWpU8HXia8UjFpziPs5l5h/K4?=
+ =?us-ascii?Q?9V/hKwj7i9FQwMAJE5oQQvOO/vNJgIefurAmzkd8iZKKCvC5NQKxVfE7O3i5?=
+ =?us-ascii?Q?IQngiLJ5vsraCel5SDgO+Ofx57iM6L2zT1gKowXtKxHrA9wV0ImdAuBjzLRB?=
+ =?us-ascii?Q?gP8LjQ9fzhAx8uCPHPVQwjunH1jsMcAcoL6V2+reEB6Myfel4jv8rl8apVzl?=
+ =?us-ascii?Q?oOGG93NJ4Hnyx+I6oZdnDOokxCjns7ogsS2HgqD/iMOQaNgqoGP5yeBgnWpT?=
+ =?us-ascii?Q?sHcBXBxYvoi0ZyZyFTLEiAHhVhEyIzF4l79QwZwAOacrpXaMDd+2mmxmTugH?=
+ =?us-ascii?Q?uJvh1WrZXZPPa8RV9RRZQJoOpfCGHc82sBAhyVmbe+di6CArZ7DHYPEzMu7C?=
+ =?us-ascii?Q?EU0u2zRInYuNiUJ7dEaWUB9PqiIDpxnQ9GX4fKl676tOPWOos3dkXdvgcyzp?=
+ =?us-ascii?Q?LKlIje49wsolzft1iBJaZBSkT1bHf2wyvr4dmQ9cNSam/B4+pI0YCUxQm81x?=
+ =?us-ascii?Q?xHzXLv+0OyleeAHkrqHUkEgsTszBbp5o0dG/nIsJedH3tqVqo7BFmGLpRE/G?=
+ =?us-ascii?Q?YSqAxm4LKWdTzpGUP9U/wjGiNv8N8a5CPuJ69s4UrWVcJ+W1wAaQaOKK9w1n?=
+ =?us-ascii?Q?jcq3pli2C1iOkVnaqDgKkGXk3RRb0UV8oOS2JbfbvzlJa49p1q6kA0Y2rPq3?=
+ =?us-ascii?Q?BXnaKvHZ7ufivLM14jTHxdI7URg7FLfv0gRM3ZPoAhP9iNaDyDgnit5PR2Oa?=
+ =?us-ascii?Q?QnZ3qjwcSTkY3GIf5acZrBtxDSM23Vys4VsVqtrugYAwz24PmUrEzG3h1CYn?=
+ =?us-ascii?Q?2SR+NZoazRZhfJBwAY7PhEB0aHHQnVdM519XcLZmH+OKqrVrDk2oeP4j7ipe?=
+ =?us-ascii?Q?jHODdUAVHoYoUvrcWZgdmvDFKx66ITtdLgsM8QYHobG5AC15+v17OQPYzVI5?=
+ =?us-ascii?Q?nHtHU1tdaK8qk85UkM2J8KynSxqCYI9DB5mOxs9Pjgtthknoch/7caNf/37j?=
+ =?us-ascii?Q?CCJgoiPPGnfin+T2vQM1HFXobhsl3eOtg3o5n5/yLSMqSTeD6J3FGJRlWydR?=
+ =?us-ascii?Q?9oG92SgVx+a0QPQMl1amxbwBD7k/LFNFJdVy23ZV6jV/gAkOjll1EXOBut50?=
+ =?us-ascii?Q?7mS3ovT1YQu5bI0w2EtkQdk+sbkjXQLkuLA+biptggjpkKC2BEO8JQamLX6s?=
+ =?us-ascii?Q?9WCnBt4XgvS3UWNQEptFlD0Kl90MYXXa0W+0csQufj1wmxWMe2cX9HZzbsv5?=
+ =?us-ascii?Q?nTJ3CRM4+CBYZSmEDYfb1Or3uytJgvxHuMO3afWgQE6aKRdh/wOF18aPOUE5?=
+ =?us-ascii?Q?Itb6z3qQMnMRrXAvnO/mA+947RxZfzxep8LkKvnORR+wB/4k+2zFAIAYgpFe?=
+ =?us-ascii?Q?sqrMz57G8LsNYWsJZHhXeaXs+xSc0wdnvCMitLT/xGGGQ2JKk1+Ey4bs6NRZ?=
+ =?us-ascii?Q?rFSM8IKzY9M4VW/15lA=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7988.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64d68f83-9563-481a-5fbd-08dd5d4abcca
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2025 07:36:13.2458 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X9jqYvRDd4sSADoya7BFVNPGnUj7vQ0APR8N6NVjV5p7kez17y185pVnV7vp/mKgqOaCVbW0fX7mqjqRIrwQ8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5919
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,717 +156,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 6, 2025 at 10:17=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
->
-> On Wed, Mar 5, 2025 at 8:57=E2=80=AFPM Alexandre Demers
-> <alexandre.f.demers@gmail.com> wrote:
-> >
-> > Let's finish the cleanup in sid.h to calm down things after wiring it i=
-nto
-> > dce_v6_0.c.
-> >
-> > This is a bigger cleanup.
-> > Many defines found under sid.h have already been properly moved
-> > into the different "_d.h" and "_sh_mask.h", so they should have been
-> > already removed from sid.h and properly linked in where needed.
-> >
-> > Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c |  12 +-
-> >  drivers/gpu/drm/amd/amdgpu/si.c       |  68 +++---
-> >  drivers/gpu/drm/amd/amdgpu/si_enums.h |   2 -
-> >  drivers/gpu/drm/amd/amdgpu/sid.h      | 336 +-------------------------
-> >  4 files changed, 44 insertions(+), 374 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/am=
-d/amdgpu/dce_v6_0.c
-> > index 2ccb450b35a6..7bb11916a619 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > @@ -32,7 +32,6 @@
-> >  #include "amdgpu.h"
-> >  #include "amdgpu_pm.h"
-> >  #include "amdgpu_i2c.h"
-> > -#include "sid.h"
-> >  #include "atom.h"
-> >  #include "amdgpu_atombios.h"
-> >  #include "atombios_crtc.h"
-> > @@ -41,18 +40,25 @@
-> >  #include "amdgpu_connectors.h"
-> >  #include "amdgpu_display.h"
-> >
-> > +#include "dce_v6_0.h"
-> > +#include "sid.h"
-> > +
-> >  #include "bif/bif_3_0_d.h"
-> >  #include "bif/bif_3_0_sh_mask.h"
-> > +
-> >  #include "oss/oss_1_0_d.h"
-> >  #include "oss/oss_1_0_sh_mask.h"
-> > +
-> >  #include "gca/gfx_6_0_d.h"
-> >  #include "gca/gfx_6_0_sh_mask.h"
-> > +#include "gca/gfx_7_2_enum.h"
-> > +
-> >  #include "gmc/gmc_6_0_d.h"
-> >  #include "gmc/gmc_6_0_sh_mask.h"
-> > +
-> >  #include "dce/dce_6_0_d.h"
-> >  #include "dce/dce_6_0_sh_mask.h"
-> > -#include "gca/gfx_7_2_enum.h"
-> > -#include "dce_v6_0.h"
-> > +
-> >  #include "si_enums.h"
-> >
-> >  static void dce_v6_0_set_display_funcs(struct amdgpu_device *adev);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdg=
-pu/si.c
-> > index 79307ae3e477..a18b3ece635b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/si.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-> > @@ -1124,41 +1124,41 @@ static struct amdgpu_allowed_register_entry si_=
-allowed_read_registers[] =3D {
-> >         {mmCP_STALLED_STAT3},
-> >         {GB_ADDR_CONFIG},
-> >         {MC_ARB_RAMCFG},
-> > -       {GB_TILE_MODE0},
-> > -       {GB_TILE_MODE1},
-> > -       {GB_TILE_MODE2},
-> > -       {GB_TILE_MODE3},
-> > -       {GB_TILE_MODE4},
-> > -       {GB_TILE_MODE5},
-> > -       {GB_TILE_MODE6},
-> > -       {GB_TILE_MODE7},
-> > -       {GB_TILE_MODE8},
-> > -       {GB_TILE_MODE9},
-> > -       {GB_TILE_MODE10},
-> > -       {GB_TILE_MODE11},
-> > -       {GB_TILE_MODE12},
-> > -       {GB_TILE_MODE13},
-> > -       {GB_TILE_MODE14},
-> > -       {GB_TILE_MODE15},
-> > -       {GB_TILE_MODE16},
-> > -       {GB_TILE_MODE17},
-> > -       {GB_TILE_MODE18},
-> > -       {GB_TILE_MODE19},
-> > -       {GB_TILE_MODE20},
-> > -       {GB_TILE_MODE21},
-> > -       {GB_TILE_MODE22},
-> > -       {GB_TILE_MODE23},
-> > -       {GB_TILE_MODE24},
-> > -       {GB_TILE_MODE25},
-> > -       {GB_TILE_MODE26},
-> > -       {GB_TILE_MODE27},
-> > -       {GB_TILE_MODE28},
-> > -       {GB_TILE_MODE29},
-> > -       {GB_TILE_MODE30},
-> > -       {GB_TILE_MODE31},
-> > +       {mmGB_TILE_MODE0},
-> > +       {mmGB_TILE_MODE1},
-> > +       {mmGB_TILE_MODE2},
-> > +       {mmGB_TILE_MODE3},
-> > +       {mmGB_TILE_MODE4},
-> > +       {mmGB_TILE_MODE5},
-> > +       {mmGB_TILE_MODE6},
-> > +       {mmGB_TILE_MODE7},
-> > +       {mmGB_TILE_MODE8},
-> > +       {mmGB_TILE_MODE9},
-> > +       {mmGB_TILE_MODE10},
-> > +       {mmGB_TILE_MODE11},
-> > +       {mmGB_TILE_MODE12},
-> > +       {mmGB_TILE_MODE13},
-> > +       {mmGB_TILE_MODE14},
-> > +       {mmGB_TILE_MODE15},
-> > +       {mmGB_TILE_MODE16},
-> > +       {mmGB_TILE_MODE17},
-> > +       {mmGB_TILE_MODE18},
-> > +       {mmGB_TILE_MODE19},
-> > +       {mmGB_TILE_MODE20},
-> > +       {mmGB_TILE_MODE21},
-> > +       {mmGB_TILE_MODE22},
-> > +       {mmGB_TILE_MODE23},
-> > +       {mmGB_TILE_MODE24},
-> > +       {mmGB_TILE_MODE25},
-> > +       {mmGB_TILE_MODE26},
-> > +       {mmGB_TILE_MODE27},
-> > +       {mmGB_TILE_MODE28},
-> > +       {mmGB_TILE_MODE29},
-> > +       {mmGB_TILE_MODE30},
-> > +       {mmGB_TILE_MODE31},
-> >         {CC_RB_BACKEND_DISABLE, true},
->
-> Why not replace this with mmCC_RB_BACKEND_DISABLE as well for consistency=
-?
->
-> Alex
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-It will be coming in the next series, which will be major. I'm working
-on it so it is as readable
-and modular as possible. In the current series, I just took care of
-the warnings and errors generated
-by the addition of sid.h either by removing redefinitions or using
-updated defines.
-
-Alexandre
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zh=
+ou
+> Sent: Friday, March 7, 2025 2:47 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Subject: [PATCH] drm/amdgpu: format old RAS eeprom data into V3 version
 >
-> > -       {GC_USER_RB_BACKEND_DISABLE, true},
-> > -       {PA_SC_RASTER_CONFIG, true},
-> > +       {mmGC_USER_RB_BACKEND_DISABLE, true},
-> > +       {mmPA_SC_RASTER_CONFIG, true},
-> >  };
-> >
-> >  static uint32_t si_get_register_value(struct amdgpu_device *adev,
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/si_enums.h b/drivers/gpu/drm/am=
-d/amdgpu/si_enums.h
-> > index 8a2ebd725b74..5c3074d4c592 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/si_enums.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/si_enums.h
-> > @@ -121,8 +121,6 @@
-> >  #define CURSOR_UPDATE_LOCK             (1 << 16)
-> >  #define CURSOR_DISABLE_MULTIPLE_UPDATE (1 << 24)
-> >
-> > -#define DMA0_REGISTER_OFFSET 0x000
-> > -#define DMA1_REGISTER_OFFSET 0x200
-> >  #define ES_AND_GS_AUTO       3
-> >  #define RADEON_PACKET_TYPE3  3
-> >  #define CE_PARTITION_BASE    3
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amd=
-gpu/sid.h
-> > index 16314173e5ce..cbf232f5235b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/sid.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
-> > @@ -692,18 +692,6 @@
-> >  #define HDP_REG_COHERENCY_FLUSH_CNTL                   0x1528
-> >
-> >  /* DCE6 ELD audio interface */
-> > -#define AZ_F0_CODEC_ENDPOINT_INDEX                       0x1780
-> > -#       define AZ_ENDPOINT_REG_INDEX(x)                  (((x) & 0xff)=
- << 0)
-> > -#       define AZ_ENDPOINT_REG_WRITE_EN                  (1 << 8)
-> > -#define AZ_F0_CODEC_ENDPOINT_DATA                        0x1781
-> > -
-> > -#define AZ_F0_CODEC_PIN_CONTROL_CHANNEL_SPEAKER          0x25
-> > -#define                SPEAKER_ALLOCATION(x)                   (((x) &=
- 0x7f) << 0)
-> > -#define                SPEAKER_ALLOCATION_MASK                 (0x7f <=
-< 0)
-> > -#define                SPEAKER_ALLOCATION_SHIFT                0
-> > -#define                HDMI_CONNECTION                         (1 << 1=
-6)
-> > -#define                DP_CONNECTION                           (1 << 1=
-7)
-> > -
-> >  #define AZ_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0        0x28 /* LPCM =
-*/
-> >  #define AZ_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR1        0x29 /* AC3 *=
-/
-> >  #define AZ_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR2        0x2A /* MPEG1=
- */
-> > @@ -905,26 +893,11 @@
-> >  #define CRTC_STATUS_FRAME_COUNT                         0x1BA6
-> >
-> >  /* Audio clocks */
-> > -#define DCCG_AUDIO_DTO_SOURCE                           0x05ac
-> > -#       define DCCG_AUDIO_DTO0_SOURCE_SEL(x) ((x) << 0) /* crtc0 - crt=
-c5 */
-> > -#       define DCCG_AUDIO_DTO_SEL            (1 << 4)   /* 0=3Ddto0 1=
-=3Ddto1 */
-> > -
-> >  #define DCCG_AUDIO_DTO0_PHASE                           0x05b0
-> >  #define DCCG_AUDIO_DTO0_MODULE                          0x05b4
-> >  #define DCCG_AUDIO_DTO1_PHASE                           0x05c0
-> >  #define DCCG_AUDIO_DTO1_MODULE                          0x05c4
-> >
-> > -#define AFMT_AUDIO_SRC_CONTROL                          0x1c4f
-> > -#define                AFMT_AUDIO_SRC_SELECT(x)                (((x) &=
- 7) << 0)
-> > -/* AFMT_AUDIO_SRC_SELECT
-> > - * 0 =3D stream0
-> > - * 1 =3D stream1
-> > - * 2 =3D stream2
-> > - * 3 =3D stream3
-> > - * 4 =3D stream4
-> > - * 5 =3D stream5
-> > - */
-> > -
-> >  #define        GRBM_CNTL                                       0x2000
-> >  #define                GRBM_READ_TIMEOUT(x)                           =
- ((x) << 0)
-> >
-> > @@ -973,30 +946,6 @@
-> >  #define                SE_DB_BUSY                                     =
- (1 << 30)
-> >  #define                SE_CB_BUSY                                     =
- (1 << 31)
-> >
-> > -#define        GRBM_SOFT_RESET                                 0x2008
-> > -#define                SOFT_RESET_CP                                  =
- (1 << 0)
-> > -#define                SOFT_RESET_CB                                  =
- (1 << 1)
-> > -#define                SOFT_RESET_RLC                                 =
- (1 << 2)
-> > -#define                SOFT_RESET_DB                                  =
- (1 << 3)
-> > -#define                SOFT_RESET_GDS                                 =
- (1 << 4)
-> > -#define                SOFT_RESET_PA                                  =
- (1 << 5)
-> > -#define                SOFT_RESET_SC                                  =
- (1 << 6)
-> > -#define                SOFT_RESET_BCI                                 =
- (1 << 7)
-> > -#define                SOFT_RESET_SPI                                 =
- (1 << 8)
-> > -#define                SOFT_RESET_SX                                  =
- (1 << 10)
-> > -#define                SOFT_RESET_TC                                  =
- (1 << 11)
-> > -#define                SOFT_RESET_TA                                  =
- (1 << 12)
-> > -#define                SOFT_RESET_VGT                                 =
- (1 << 14)
-> > -#define                SOFT_RESET_IA                                  =
- (1 << 15)
-> > -
-> > -#define GRBM_GFX_INDEX                                 0x200B
-> > -#define                INSTANCE_INDEX(x)                       ((x) <<=
- 0)
-> > -#define                SH_INDEX(x)                             ((x) <<=
- 8)
-> > -#define                SE_INDEX(x)                             ((x) <<=
- 16)
-> > -#define                SH_BROADCAST_WRITES                     (1 << 2=
-9)
-> > -#define                INSTANCE_BROADCAST_WRITES               (1 << 3=
-0)
-> > -#define                SE_BROADCAST_WRITES                     (1 << 3=
-1)
-> > -
-> >  #define GRBM_INT_CNTL                                   0x2018
-> >  #       define RDERR_INT_ENABLE                         (1 << 0)
-> >  #       define GUI_IDLE_INT_ENABLE                      (1 << 19)
-> > @@ -1041,16 +990,6 @@
-> >
-> >  #define        VGT_VTX_VECT_EJECT_REG                          0x222C
-> >
-> > -#define        VGT_CACHE_INVALIDATION                          0x2231
-> > -#define                CACHE_INVALIDATION(x)                          =
- ((x) << 0)
-> > -#define                        VC_ONLY                                =
-         0
-> > -#define                        TC_ONLY                                =
-         1
-> > -#define                        VC_AND_TC                              =
-         2
-> > -#define                AUTO_INVLD_EN(x)                               =
- ((x) << 6)
-> > -#define                        NO_AUTO                                =
-         0
-> > -#define                        ES_AUTO                                =
-         1
-> > -#define                        GS_AUTO                                =
-         2
-> > -#define                        ES_AND_GS_AUTO                         =
-         3
-> >  #define        VGT_ESGS_RING_SIZE                              0x2232
-> >  #define        VGT_GSVS_RING_SIZE                              0x2233
-> >
-> > @@ -1068,11 +1007,6 @@
-> >
-> >  #define        VGT_TF_MEMORY_BASE                              0x226E
-> >
-> > -#define CC_GC_SHADER_ARRAY_CONFIG                      0x226F
-> > -#define                INACTIVE_CUS_MASK                       0xFFFF0=
-000
-> > -#define                INACTIVE_CUS_SHIFT                      16
-> > -#define GC_USER_SHADER_ARRAY_CONFIG                    0x2270
-> > -
-> >  #define        PA_CL_ENHANCE                                   0x2285
-> >  #define                CLIP_VTX_REORDER_ENA                           =
- (1 << 0)
-> >  #define                NUM_CLIP_SEQ(x)                                =
- ((x) << 1)
-> > @@ -1165,89 +1099,6 @@
-> >  #define                ROW_SIZE_MASK                           0x30000=
-000
-> >  #define                ROW_SIZE_SHIFT                          28
-> >
-> > -#define        GB_TILE_MODE0                                   0x2644
-> > -#       define MICRO_TILE_MODE(x)                              ((x) <<=
- 0)
-> > -#              define  ADDR_SURF_DISPLAY_MICRO_TILING          0
-> > -#              define  ADDR_SURF_THIN_MICRO_TILING             1
-> > -#              define  ADDR_SURF_DEPTH_MICRO_TILING            2
-> > -#       define ARRAY_MODE(x)                                   ((x) <<=
- 2)
-> > -#              define  ARRAY_LINEAR_GENERAL                    0
-> > -#              define  ARRAY_LINEAR_ALIGNED                    1
-> > -#              define  ARRAY_1D_TILED_THIN1                    2
-> > -#              define  ARRAY_2D_TILED_THIN1                    4
-> > -#       define PIPE_CONFIG(x)                                  ((x) <<=
- 6)
-> > -#              define  ADDR_SURF_P2                            0
-> > -#              define  ADDR_SURF_P4_8x16                       4
-> > -#              define  ADDR_SURF_P4_16x16                      5
-> > -#              define  ADDR_SURF_P4_16x32                      6
-> > -#              define  ADDR_SURF_P4_32x32                      7
-> > -#              define  ADDR_SURF_P8_16x16_8x16                 8
-> > -#              define  ADDR_SURF_P8_16x32_8x16                 9
-> > -#              define  ADDR_SURF_P8_32x32_8x16                 10
-> > -#              define  ADDR_SURF_P8_16x32_16x16                11
-> > -#              define  ADDR_SURF_P8_32x32_16x16                12
-> > -#              define  ADDR_SURF_P8_32x32_16x32                13
-> > -#              define  ADDR_SURF_P8_32x64_32x32                14
-> > -#       define TILE_SPLIT(x)                                   ((x) <<=
- 11)
-> > -#              define  ADDR_SURF_TILE_SPLIT_64B                0
-> > -#              define  ADDR_SURF_TILE_SPLIT_128B               1
-> > -#              define  ADDR_SURF_TILE_SPLIT_256B               2
-> > -#              define  ADDR_SURF_TILE_SPLIT_512B               3
-> > -#              define  ADDR_SURF_TILE_SPLIT_1KB                4
-> > -#              define  ADDR_SURF_TILE_SPLIT_2KB                5
-> > -#              define  ADDR_SURF_TILE_SPLIT_4KB                6
-> > -#       define BANK_WIDTH(x)                                   ((x) <<=
- 14)
-> > -#              define  ADDR_SURF_BANK_WIDTH_1                  0
-> > -#              define  ADDR_SURF_BANK_WIDTH_2                  1
-> > -#              define  ADDR_SURF_BANK_WIDTH_4                  2
-> > -#              define  ADDR_SURF_BANK_WIDTH_8                  3
-> > -#       define BANK_HEIGHT(x)                                  ((x) <<=
- 16)
-> > -#              define  ADDR_SURF_BANK_HEIGHT_1                 0
-> > -#              define  ADDR_SURF_BANK_HEIGHT_2                 1
-> > -#              define  ADDR_SURF_BANK_HEIGHT_4                 2
-> > -#              define  ADDR_SURF_BANK_HEIGHT_8                 3
-> > -#       define MACRO_TILE_ASPECT(x)                            ((x) <<=
- 18)
-> > -#              define  ADDR_SURF_MACRO_ASPECT_1                0
-> > -#              define  ADDR_SURF_MACRO_ASPECT_2                1
-> > -#              define  ADDR_SURF_MACRO_ASPECT_4                2
-> > -#              define  ADDR_SURF_MACRO_ASPECT_8                3
-> > -#       define NUM_BANKS(x)                                    ((x) <<=
- 20)
-> > -#              define  ADDR_SURF_2_BANK                        0
-> > -#              define  ADDR_SURF_4_BANK                        1
-> > -#              define  ADDR_SURF_8_BANK                        2
-> > -#              define  ADDR_SURF_16_BANK                       3
-> > -#define        GB_TILE_MODE1                                   0x2645
-> > -#define        GB_TILE_MODE2                                   0x2646
-> > -#define        GB_TILE_MODE3                                   0x2647
-> > -#define        GB_TILE_MODE4                                   0x2648
-> > -#define        GB_TILE_MODE5                                   0x2649
-> > -#define        GB_TILE_MODE6                                   0x264a
-> > -#define        GB_TILE_MODE7                                   0x264b
-> > -#define        GB_TILE_MODE8                                   0x264c
-> > -#define        GB_TILE_MODE9                                   0x264d
-> > -#define        GB_TILE_MODE10                                  0x264e
-> > -#define        GB_TILE_MODE11                                  0x264f
-> > -#define        GB_TILE_MODE12                                  0x2650
-> > -#define        GB_TILE_MODE13                                  0x2651
-> > -#define        GB_TILE_MODE14                                  0x2652
-> > -#define        GB_TILE_MODE15                                  0x2653
-> > -#define        GB_TILE_MODE16                                  0x2654
-> > -#define        GB_TILE_MODE17                                  0x2655
-> > -#define        GB_TILE_MODE18                                  0x2656
-> > -#define        GB_TILE_MODE19                                  0x2657
-> > -#define        GB_TILE_MODE20                                  0x2658
-> > -#define        GB_TILE_MODE21                                  0x2659
-> > -#define        GB_TILE_MODE22                                  0x265a
-> > -#define        GB_TILE_MODE23                                  0x265b
-> > -#define        GB_TILE_MODE24                                  0x265c
-> > -#define        GB_TILE_MODE25                                  0x265d
-> > -#define        GB_TILE_MODE26                                  0x265e
-> > -#define        GB_TILE_MODE27                                  0x265f
-> > -#define        GB_TILE_MODE28                                  0x2660
-> > -#define        GB_TILE_MODE29                                  0x2661
-> > -#define        GB_TILE_MODE30                                  0x2662
-> > -#define        GB_TILE_MODE31                                  0x2663
-> > -
-> >  #define        CB_PERFCOUNTER0_SELECT0                         0x2688
-> >  #define        CB_PERFCOUNTER0_SELECT1                         0x2689
-> >  #define        CB_PERFCOUNTER1_SELECT0                         0x268A
-> > @@ -1259,10 +1110,6 @@
-> >
-> >  #define        CB_CGTT_SCLK_CTRL                               0x2698
-> >
-> > -#define        GC_USER_RB_BACKEND_DISABLE                      0x26DF
-> > -#define                BACKEND_DISABLE_MASK                    0x00FF0=
-000
-> > -#define                BACKEND_DISABLE_SHIFT                   16
-> > -
-> >  #define        TCP_CHAN_STEER_LO                               0x2B03
-> >  #define        TCP_CHAN_STEER_HI                               0x2B94
-> >
-> > @@ -1316,101 +1163,12 @@
-> >  #       define CP_RINGID1_INT_STAT                      (1 << 30)
-> >  #       define CP_RINGID0_INT_STAT                      (1 << 31)
-> >
-> > -#define        CP_MEM_SLP_CNTL                                 0x3079
-> > -#       define CP_MEM_LS_EN                             (1 << 0)
-> > -
-> > -#define        CP_DEBUG                                        0x307F
-> > -
-> > -#define RLC_CNTL                                          0x30C0
-> > -#       define RLC_ENABLE                                 (1 << 0)
-> > -#define RLC_RL_BASE                                       0x30C1
-> > -#define RLC_RL_SIZE                                       0x30C2
-> > -#define RLC_LB_CNTL                                       0x30C3
-> > -#       define LOAD_BALANCE_ENABLE                        (1 << 0)
-> > -#define RLC_SAVE_AND_RESTORE_BASE                         0x30C4
-> > -#define RLC_LB_CNTR_MAX                                   0x30C5
-> > -#define RLC_LB_CNTR_INIT                                  0x30C6
-> > -
-> > -#define RLC_CLEAR_STATE_RESTORE_BASE                      0x30C8
-> > -
-> > -#define RLC_UCODE_ADDR                                    0x30CB
-> > -#define RLC_UCODE_DATA                                    0x30CC
-> > -
-> > -#define RLC_GPU_CLOCK_COUNT_LSB                           0x30CE
-> > -#define RLC_GPU_CLOCK_COUNT_MSB                           0x30CF
-> > -#define RLC_CAPTURE_GPU_CLOCK_COUNT                       0x30D0
-> > -#define RLC_MC_CNTL                                       0x30D1
-> > -#define RLC_UCODE_CNTL                                    0x30D2
-> > -#define RLC_STAT                                          0x30D3
-> > -#       define RLC_BUSY_STATUS                            (1 << 0)
-> > -#       define GFX_POWER_STATUS                           (1 << 1)
-> > -#       define GFX_CLOCK_STATUS                           (1 << 2)
-> > -#       define GFX_LS_STATUS                              (1 << 3)
-> > -
-> > -#define        RLC_PG_CNTL                                     0x30D7
-> > -#      define GFX_PG_ENABLE                            (1 << 0)
-> > -#      define GFX_PG_SRC                               (1 << 1)
-> > -
-> > -#define        RLC_CGTT_MGCG_OVERRIDE                          0x3100
-> > -#define        RLC_CGCG_CGLS_CTRL                              0x3101
-> > -#      define CGCG_EN                                  (1 << 0)
-> > -#      define CGLS_EN                                  (1 << 1)
-> > -
-> > -#define        RLC_TTOP_D                                      0x3105
-> > -#      define RLC_PUD(x)                               ((x) << 0)
-> > -#      define RLC_PUD_MASK                             (0xff << 0)
-> > -#      define RLC_PDD(x)                               ((x) << 8)
-> > -#      define RLC_PDD_MASK                             (0xff << 8)
-> > -#      define RLC_TTPD(x)                              ((x) << 16)
-> > -#      define RLC_TTPD_MASK                            (0xff << 16)
-> > -#      define RLC_MSD(x)                               ((x) << 24)
-> > -#      define RLC_MSD_MASK                             (0xff << 24)
-> > -
-> > -#define RLC_LB_INIT_CU_MASK                               0x3107
-> > -
-> > -#define        RLC_PG_AO_CU_MASK                               0x310B
-> > -#define        RLC_MAX_PG_CU                                   0x310C
-> > -#      define MAX_PU_CU(x)                             ((x) << 0)
-> > -#      define MAX_PU_CU_MASK                           (0xff << 0)
-> > -#define        RLC_AUTO_PG_CTRL                                0x310C
-> > -#      define AUTO_PG_EN                               (1 << 0)
-> > -#      define GRBM_REG_SGIT(x)                         ((x) << 3)
-> > -#      define GRBM_REG_SGIT_MASK                       (0xffff << 3)
-> > -#      define PG_AFTER_GRBM_REG_ST(x)                  ((x) << 19)
-> > -#      define PG_AFTER_GRBM_REG_ST_MASK                (0x1fff << 19)
-> > -
-> > -#define RLC_SERDES_WR_MASTER_MASK_0                       0x3115
-> > -#define RLC_SERDES_WR_MASTER_MASK_1                       0x3116
-> > -#define RLC_SERDES_WR_CTRL                                0x3117
-> > -
-> > -#define RLC_SERDES_MASTER_BUSY_0                          0x3119
-> > -#define RLC_SERDES_MASTER_BUSY_1                          0x311A
-> > -
-> > -#define RLC_GCPM_GENERAL_3                                0x311E
-> > -
-> > -#define        DB_RENDER_CONTROL                               0xA000
-> > -
-> > -#define DB_DEPTH_INFO                                   0xA00F
-> > -
-> > -#define PA_SC_RASTER_CONFIG                             0xA0D4
-> > -#      define RB_MAP_PKR0(x)                           ((x) << 0)
-> > -#      define RB_MAP_PKR0_MASK                         (0x3 << 0)
-> > -#      define RB_MAP_PKR1(x)                           ((x) << 2)
-> > -#      define RB_MAP_PKR1_MASK                         (0x3 << 2)
-> > -#       define RASTER_CONFIG_RB_MAP_0                   0
-> > -#       define RASTER_CONFIG_RB_MAP_1                   1
-> > -#       define RASTER_CONFIG_RB_MAP_2                   2
-> > -#       define RASTER_CONFIG_RB_MAP_3                   3
-> > +// #define PA_SC_RASTER_CONFIG                             0xA0D4
-> >  #      define RB_XSEL2(x)                              ((x) << 4)
-> >  #      define RB_XSEL2_MASK                            (0x3 << 4)
-> >  #      define RB_XSEL                                  (1 << 6)
-> >  #      define RB_YSEL                                  (1 << 7)
-> >  #      define PKR_MAP(x)                               ((x) << 8)
-> > -#      define PKR_MAP_MASK                             (0x3 << 8)
-> > -#       define RASTER_CONFIG_PKR_MAP_0                 0
-> > -#       define RASTER_CONFIG_PKR_MAP_1                 1
-> > -#       define RASTER_CONFIG_PKR_MAP_2                 2
-> > -#       define RASTER_CONFIG_PKR_MAP_3                 3
-> >  #      define PKR_XSEL(x)                              ((x) << 10)
-> >  #      define PKR_XSEL_MASK                            (0x3 << 10)
-> >  #      define PKR_YSEL(x)                              ((x) << 12)
-> > @@ -1422,56 +1180,11 @@
-> >  #      define SC_YSEL(x)                               ((x) << 20)
-> >  #      define SC_YSEL_MASK                             (0x3 << 20)
-> >  #      define SE_MAP(x)                                ((x) << 24)
-> > -#      define SE_MAP_MASK                              (0x3 << 24)
-> > -#       define RASTER_CONFIG_SE_MAP_0                  0
-> > -#       define RASTER_CONFIG_SE_MAP_1                  1
-> > -#       define RASTER_CONFIG_SE_MAP_2                  2
-> > -#       define RASTER_CONFIG_SE_MAP_3                  3
-> >  #      define SE_XSEL(x)                               ((x) << 26)
-> >  #      define SE_XSEL_MASK                             (0x3 << 26)
-> >  #      define SE_YSEL(x)                               ((x) << 28)
-> >  #      define SE_YSEL_MASK                             (0x3 << 28)
-> >
-> > -
-> > -#define VGT_EVENT_INITIATOR                             0xA2A4
-> > -#       define SAMPLE_STREAMOUTSTATS1                   (1 << 0)
-> > -#       define SAMPLE_STREAMOUTSTATS2                   (2 << 0)
-> > -#       define SAMPLE_STREAMOUTSTATS3                   (3 << 0)
-> > -#       define CACHE_FLUSH_TS                           (4 << 0)
-> > -#       define CACHE_FLUSH                              (6 << 0)
-> > -#       define CS_PARTIAL_FLUSH                         (7 << 0)
-> > -#       define VGT_STREAMOUT_RESET                      (10 << 0)
-> > -#       define END_OF_PIPE_INCR_DE                      (11 << 0)
-> > -#       define END_OF_PIPE_IB_END                       (12 << 0)
-> > -#       define RST_PIX_CNT                              (13 << 0)
-> > -#       define VS_PARTIAL_FLUSH                         (15 << 0)
-> > -#       define PS_PARTIAL_FLUSH                         (16 << 0)
-> > -#       define CACHE_FLUSH_AND_INV_TS_EVENT             (20 << 0)
-> > -#       define ZPASS_DONE                               (21 << 0)
-> > -#       define CACHE_FLUSH_AND_INV_EVENT                (22 << 0)
-> > -#       define PERFCOUNTER_START                        (23 << 0)
-> > -#       define PERFCOUNTER_STOP                         (24 << 0)
-> > -#       define PIPELINESTAT_START                       (25 << 0)
-> > -#       define PIPELINESTAT_STOP                        (26 << 0)
-> > -#       define PERFCOUNTER_SAMPLE                       (27 << 0)
-> > -#       define SAMPLE_PIPELINESTAT                      (30 << 0)
-> > -#       define SAMPLE_STREAMOUTSTATS                    (32 << 0)
-> > -#       define RESET_VTX_CNT                            (33 << 0)
-> > -#       define VGT_FLUSH                                (36 << 0)
-> > -#       define BOTTOM_OF_PIPE_TS                        (40 << 0)
-> > -#       define DB_CACHE_FLUSH_AND_INV                   (42 << 0)
-> > -#       define FLUSH_AND_INV_DB_DATA_TS                 (43 << 0)
-> > -#       define FLUSH_AND_INV_DB_META                    (44 << 0)
-> > -#       define FLUSH_AND_INV_CB_DATA_TS                 (45 << 0)
-> > -#       define FLUSH_AND_INV_CB_META                    (46 << 0)
-> > -#       define CS_DONE                                  (47 << 0)
-> > -#       define PS_DONE                                  (48 << 0)
-> > -#       define FLUSH_AND_INV_CB_PIXEL_DATA              (49 << 0)
-> > -#       define THREAD_TRACE_START                       (51 << 0)
-> > -#       define THREAD_TRACE_STOP                        (52 << 0)
-> > -#       define THREAD_TRACE_FLUSH                       (54 << 0)
-> > -#       define THREAD_TRACE_FINISH                      (55 << 0)
-> > -
-> >  /* PIF PHY0 registers idx/data 0x8/0xc */
-> >  #define PB0_PIF_CNTL                                      0x10
-> >  #       define LS2_EXIT_TIME(x)                           ((x) << 17)
-> > @@ -2049,9 +1762,6 @@
-> >  #define EVERGREEN_DATA_FORMAT                           0x1ac0
-> >  #       define EVERGREEN_INTERLEAVE_EN                  (1 << 0)
-> >
-> > -#define MC_SHARED_CHMAP__NOOFCHAN_MASK 0xf000
-> > -#define MC_SHARED_CHMAP__NOOFCHAN__SHIFT 0xc
-> > -
-> >  #define R600_D1GRPH_ARRAY_MODE_LINEAR_GENERAL            (0 << 20)
-> >  #define R600_D1GRPH_ARRAY_MODE_LINEAR_ALIGNED            (1 << 20)
-> >  #define R600_D1GRPH_ARRAY_MODE_1D_TILED_THIN1            (2 << 20)
-> > @@ -2063,32 +1773,6 @@
-> >  #define R700_D2GRPH_SECONDARY_SURFACE_ADDRESS_HIGH              0x1847
-> >  #define R700_D1GRPH_SECONDARY_SURFACE_ADDRESS_HIGH              0x1a47
-> >
-> > -#define DISP_INTERRUPT_STATUS__LB_D1_VBLANK_INTERRUPT_MASK 0x8
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE__LB_D2_VBLANK_INTERRUPT_MASK 0x=
-8
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE2__LB_D3_VBLANK_INTERRUPT_MASK 0=
-x8
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE3__LB_D4_VBLANK_INTERRUPT_MASK 0=
-x8
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE4__LB_D5_VBLANK_INTERRUPT_MASK 0=
-x8
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE5__LB_D6_VBLANK_INTERRUPT_MASK 0=
-x8
-> > -
-> > -#define DISP_INTERRUPT_STATUS__LB_D1_VLINE_INTERRUPT_MASK 0x4
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE__LB_D2_VLINE_INTERRUPT_MASK 0x4
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE2__LB_D3_VLINE_INTERRUPT_MASK 0x=
-4
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE3__LB_D4_VLINE_INTERRUPT_MASK 0x=
-4
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE4__LB_D5_VLINE_INTERRUPT_MASK 0x=
-4
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE5__LB_D6_VLINE_INTERRUPT_MASK 0x=
-4
-> > -
-> > -#define DISP_INTERRUPT_STATUS__DC_HPD1_INTERRUPT_MASK 0x20000
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE__DC_HPD2_INTERRUPT_MASK 0x20000
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE2__DC_HPD3_INTERRUPT_MASK 0x2000=
-0
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE3__DC_HPD4_INTERRUPT_MASK 0x2000=
-0
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE4__DC_HPD5_INTERRUPT_MASK 0x2000=
-0
-> > -#define DISP_INTERRUPT_STATUS_CONTINUE5__DC_HPD6_INTERRUPT_MASK 0x2000=
-0
-> > -
-> > -#define GRPH_INTERRUPT_STATUS__GRPH_PFLIP_INT_OCCURRED_MASK 0x1
-> > -#define GRPH_INTERRUPT_STATUS__GRPH_PFLIP_INT_CLEAR_MASK 0x100
-> > -
-> > -#define DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK 0x1
-> > -
-> >  #define R600_D1GRPH_SWAP_CONTROL                               0x1843
-> >  #define R600_D1GRPH_SWAP_ENDIAN_NONE                    (0 << 0)
-> >  #define R600_D1GRPH_SWAP_ENDIAN_16BIT                   (1 << 0)
-> > @@ -2112,8 +1796,6 @@
-> >  #       define R600_SCK_PRESCALE_CRYSTAL_CLK_SHIFT 28
-> >  #       define R600_SCK_PRESCALE_CRYSTAL_CLK_MASK  (0xf << 28)
-> >
-> > -#define GRPH_INTERRUPT_CONTROL__GRPH_PFLIP_INT_MASK_MASK 0x1
-> > -
-> >  #define FMT_BIT_DEPTH_CONTROL                0x1bf2
-> >  #define FMT_TRUNCATE_EN               (1 << 0)
-> >  #define FMT_TRUNCATE_DEPTH            (1 << 4)
-> > @@ -2417,19 +2099,6 @@
-> >  #define mmSRBM_SOFT_RESET__xxSOFT_RESET_MC_MASK 0x800
-> >  #define mmSRBM_SOFT_RESET__xxSOFT_RESET_MC__SHIFT 0xb
-> >
-> > -#define VM_CONTEXT1_CNTL__RANGE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK=
- 0x8
-> > -#define VM_CONTEXT1_CNTL__RANGE_PROTECTION_FAULT_ENABLE_INTERRUPT__SHI=
-FT 0x3
-> > -#define VM_CONTEXT1_CNTL__DUMMY_PAGE_PROTECTION_FAULT_ENABLE_INTERRUPT=
-_MASK 0x40
-> > -#define VM_CONTEXT1_CNTL__DUMMY_PAGE_PROTECTION_FAULT_ENABLE_INTERRUPT=
-__SHIFT 0x6
-> > -#define VM_CONTEXT1_CNTL__PDE0_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK =
-0x200
-> > -#define VM_CONTEXT1_CNTL__PDE0_PROTECTION_FAULT_ENABLE_INTERRUPT__SHIF=
-T 0x9
-> > -#define VM_CONTEXT1_CNTL__VALID_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK=
- 0x1000
-> > -#define VM_CONTEXT1_CNTL__VALID_PROTECTION_FAULT_ENABLE_INTERRUPT__SHI=
-FT 0xc
-> > -#define VM_CONTEXT1_CNTL__READ_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK =
-0x8000
-> > -#define VM_CONTEXT1_CNTL__READ_PROTECTION_FAULT_ENABLE_INTERRUPT__SHIF=
-T 0xf
-> > -#define VM_CONTEXT1_CNTL__WRITE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK=
- 0x40000
-> > -#define VM_CONTEXT1_CNTL__WRITE_PROTECTION_FAULT_ENABLE_INTERRUPT__SHI=
-FT 0x12
-> > -
-> >  #define MC_SEQ_MISC0__MT__MASK 0xf0000000
-> >  #define MC_SEQ_MISC0__MT__GDDR1  0x10000000
-> >  #define MC_SEQ_MISC0__MT__DDR2   0x20000000
-> > @@ -2439,10 +2108,7 @@
-> >  #define MC_SEQ_MISC0__MT__HBM    0x60000000
-> >  #define MC_SEQ_MISC0__MT__DDR3   0xB0000000
-> >
-> > -#define GRBM_STATUS__GUI_ACTIVE_MASK 0x80000000
-> >  #define CP_INT_CNTL_RING__TIME_STAMP_INT_ENABLE_MASK 0x4000000
-> > -#define CP_INT_CNTL_RING0__PRIV_REG_INT_ENABLE_MASK 0x800000
-> > -#define CP_INT_CNTL_RING0__PRIV_INSTR_INT_ENABLE_MASK 0x400000
-> >  #define PACKET3_SEM_WAIT_ON_SIGNAL    (0x1 << 12)
-> >  #define PACKET3_SEM_SEL_SIGNAL     (0x6 << 29)
-> >  #define PACKET3_SEM_SEL_WAIT       (0x7 << 29)
-> > --
-> > 2.48.1
-> >
+> Clear old data and save it in V3 format.
+>
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  5 ++++
+>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 26 ++++++++++---------
+>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |  1 +
+>  3 files changed, 20 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 837f33698b38..266f24002e07 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -3465,6 +3465,11 @@ int amdgpu_ras_init_badpage_info(struct
+> amdgpu_device *adev)
+>                               adev, control->bad_channel_bitmap);
+>                       con->update_channel_flag =3D false;
+>               }
+> +
+> +             if (control->tbl_hdr.version < RAS_TABLE_VER_V3)
+
+[Stanley]: should check ip_version here, this affect all asics that epprom =
+table version is low  then V3.
+
+Regards
+Stanley
+> +                     if (!amdgpu_ras_eeprom_reset_table(control))
+> +                             if (amdgpu_ras_save_bad_pages(adev, NULL))
+> +                                     dev_warn(adev->dev, "Failed to save
+> EEPROM data in V3 format!\n");
+>       }
+>
+>       return ret;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> index 09a6f8bc1a5a..71dddb8983ee 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> @@ -413,9 +413,11 @@ static void amdgpu_ras_set_eeprom_table_version(stru=
+ct
+> amdgpu_ras_eeprom_control
+>
+>       switch (amdgpu_ip_version(adev, UMC_HWIP, 0)) {
+>       case IP_VERSION(8, 10, 0):
+> -     case IP_VERSION(12, 0, 0):
+>               hdr->version =3D RAS_TABLE_VER_V2_1;
+>               return;
+> +     case IP_VERSION(12, 0, 0):
+> +             hdr->version =3D RAS_TABLE_VER_V3;
+> +             return;
+>       default:
+>               hdr->version =3D RAS_TABLE_VER_V1;
+>               return;
+> @@ -443,7 +445,7 @@ int amdgpu_ras_eeprom_reset_table(struct
+> amdgpu_ras_eeprom_control *control)
+>       hdr->header =3D RAS_TABLE_HDR_VAL;
+>       amdgpu_ras_set_eeprom_table_version(control);
+>
+> -     if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
+> +     if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
+>               hdr->first_rec_offset =3D RAS_RECORD_START_V2_1;
+>               hdr->tbl_size =3D RAS_TABLE_HEADER_SIZE +
+>                               RAS_TABLE_V2_1_INFO_SIZE;
+> @@ -461,7 +463,7 @@ int amdgpu_ras_eeprom_reset_table(struct
+> amdgpu_ras_eeprom_control *control)
+>       }
+>
+>       csum =3D __calc_hdr_byte_sum(control);
+> -     if (hdr->version =3D=3D RAS_TABLE_VER_V2_1)
+> +     if (hdr->version >=3D RAS_TABLE_VER_V2_1)
+>               csum +=3D __calc_ras_info_byte_sum(control);
+>       csum =3D -csum;
+>       hdr->checksum =3D csum;
+> @@ -752,7 +754,7 @@ amdgpu_ras_eeprom_update_header(struct
+> amdgpu_ras_eeprom_control *control)
+>                       "Saved bad pages %d reaches threshold value %d\n",
+>                       control->ras_num_bad_pages, ras-
+> >bad_page_cnt_threshold);
+>               control->tbl_hdr.header =3D RAS_TABLE_HDR_BAD;
+> -             if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1) {
+> +             if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1) {
+>                       control->tbl_rai.rma_status =3D
+> GPU_RETIRED__ECC_REACH_THRESHOLD;
+>                       control->tbl_rai.health_percent =3D 0;
+>               }
+> @@ -765,7 +767,7 @@ amdgpu_ras_eeprom_update_header(struct
+> amdgpu_ras_eeprom_control *control)
+>               amdgpu_dpm_send_rma_reason(adev);
+>       }
+>
+> -     if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1)
+> +     if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1)
+>               control->tbl_hdr.tbl_size =3D RAS_TABLE_HEADER_SIZE +
+>                                           RAS_TABLE_V2_1_INFO_SIZE +
+>                                           control->ras_num_recs *
+> RAS_TABLE_RECORD_SIZE; @@ -805,7 +807,7 @@
+> amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eeprom_control *control=
+)
+>        * now calculate gpu health percent
+>        */
+>       if (amdgpu_bad_page_threshold !=3D 0 &&
+> -         control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1 &&
+> +         control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1 &&
+>           control->ras_num_bad_pages <=3D ras->bad_page_cnt_threshold)
+>               control->tbl_rai.health_percent =3D ((ras->bad_page_cnt_thr=
+eshold -
+>                                                  control->ras_num_bad_pag=
+es) * 100)
+> / @@ -818,7 +820,7 @@ amdgpu_ras_eeprom_update_header(struct
+> amdgpu_ras_eeprom_control *control)
+>               csum +=3D *pp;
+>
+>       csum +=3D __calc_hdr_byte_sum(control);
+> -     if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1)
+> +     if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1)
+>               csum +=3D __calc_ras_info_byte_sum(control);
+>       /* avoid sign extension when assigning to "checksum" */
+>       csum =3D -csum;
+> @@ -1035,7 +1037,7 @@ uint32_t amdgpu_ras_eeprom_max_record_count(struct
+> amdgpu_ras_eeprom_control *co
+>       /* get available eeprom table version first before eeprom table ini=
+t */
+>       amdgpu_ras_set_eeprom_table_version(control);
+>
+> -     if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1)
+> +     if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1)
+>               return RAS_MAX_RECORD_COUNT_V2_1;
+>       else
+>               return RAS_MAX_RECORD_COUNT;
+> @@ -1280,7 +1282,7 @@ static int __verify_ras_table_checksum(struct
+> amdgpu_ras_eeprom_control *control
+>       int buf_size, res;
+>       u8  csum, *buf, *pp;
+>
+> -     if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1)
+> +     if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1)
+>               buf_size =3D RAS_TABLE_HEADER_SIZE +
+>                          RAS_TABLE_V2_1_INFO_SIZE +
+>                          control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
+> @@ -1383,7 +1385,7 @@ int amdgpu_ras_eeprom_init(struct
+> amdgpu_ras_eeprom_control *control)
+>
+>       __decode_table_header_from_buf(hdr, buf);
+>
+> -     if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
+> +     if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
+>               control->ras_num_recs =3D RAS_NUM_RECS_V2_1(hdr);
+>               control->ras_record_offset =3D RAS_RECORD_START_V2_1;
+>               control->ras_max_record_count =3D
+> RAS_MAX_RECORD_COUNT_V2_1; @@ -1423,7 +1425,7 @@ int
+> amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom_control *control)
+>               DRM_DEBUG_DRIVER("Found existing EEPROM table with %d
+> records",
+>                                control->ras_num_bad_pages);
+>
+> -             if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
+> +             if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
+>                       res =3D __read_table_ras_info(control);
+>                       if (res)
+>                               return res;
+> @@ -1443,7 +1445,7 @@ int amdgpu_ras_eeprom_check(struct
+> amdgpu_ras_eeprom_control *control)
+>                                       ras->bad_page_cnt_threshold);
+>       } else if (hdr->header =3D=3D RAS_TABLE_HDR_BAD &&
+>                  amdgpu_bad_page_threshold !=3D 0) {
+> -             if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
+> +             if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
+>                       res =3D __read_table_ras_info(control);
+>                       if (res)
+>                               return res;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> index 13f7eda9a696..ec6d7ea37ad0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> @@ -28,6 +28,7 @@
+>
+>  #define RAS_TABLE_VER_V1           0x00010000
+>  #define RAS_TABLE_VER_V2_1         0x00021000
+> +#define RAS_TABLE_VER_V3           0x00030000
+>
+>  struct amdgpu_device;
+>
+> --
+> 2.34.1
+
