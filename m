@@ -4,123 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A92FCC19F32
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 03:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 111DFC19F32
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 04:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B94C10EA32;
-	Fri,  7 Mar 2025 03:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A088E10E0B8;
+	Fri,  7 Mar 2025 04:35:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iCW+PQAr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s+HhjOhS";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2064.outbound.protection.outlook.com [40.107.244.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 001C410EA32
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 03:45:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SCbh+Nx06hRW1CpjeIrPd1K8plQE5lnqNciKexRD26AKt9k0ivRpLKykVmbC4EprYp+YZaIKGXZYL9u/PtR4qMee13QEt/OjMxxh1uwtW6PPt+eAV/D8eGHtfCjJSa5/sz/Iwel3UknGhpGmIdnMcQoP95yhFq029fR2VRYKlPUU90BB1hVAsFx3rdeUbIIDIAOyi+5otYLpnZnQLaUBS+w5rrGguf4WMO2LxmGaD+qET5SqHmQ9ZmCXoXvVDFEQ96PLIuVl/ysrOIXJ+aXwX0CPp1oc3hW9KJI5HaAv1xZBS9YJWxomU8ww3En/TfOIJLuiWrbf8S1gF8Q2z6xhVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NZEDIbxNdCse5DcGGZuK141SNfAMiSXXSU2STmYs7iY=;
- b=ts9ic0FfbOWRtKR3VHA/YLPQ9a/mjOeACg2J8CHtuiJcl5vYIBrn205Xj8SsSdpi65ZOeyAcXRfyYeXC8K3TQI6niQZFB06RwiLzlfJ5qNYx/++vesN8THWimH7K6fdeaLQ3Bv6GGXGF4sCf5cavcV46jT2idysNoAv6qE2tgsNJe9mBvibwlxwbrMR9AG59ZGNpXlsU/Vq7dgkDVWae7mZxpJGVyyhaWtIx09pUj+7TL5t4MrH9HBM5VyYIhe0wXab8gZYDilVT/4D3MskbxmEV7zSuQXe5+LO3HjRyjtHc1xwlPLry6LOnAkxVeAnPDuo+UExWVEUKRFPINTd1Gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NZEDIbxNdCse5DcGGZuK141SNfAMiSXXSU2STmYs7iY=;
- b=iCW+PQArOgINBc1Ylx82ahvG3R47fzaZ6zfmjELUdU7XaxdlmT6AokqL/pOTYpvL7E0hmw93w5TRS0znGK3KCD/1WbLgz8M/uORQwAcxWCXrW1RcrzpDyCgdNq2zdvTCAy2dWSvogko50yu9NwhwELMc7S+iMzexa5A/neekZv0=
-Received: from BN9PR03CA0281.namprd03.prod.outlook.com (2603:10b6:408:f5::16)
- by IA1PR12MB8080.namprd12.prod.outlook.com (2603:10b6:208:3fd::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.19; Fri, 7 Mar
- 2025 03:45:02 +0000
-Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
- (2603:10b6:408:f5:cafe::77) by BN9PR03CA0281.outlook.office365.com
- (2603:10b6:408:f5::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.16 via Frontend Transport; Fri,
- 7 Mar 2025 03:45:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8511.15 via Frontend Transport; Fri, 7 Mar 2025 03:45:01 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 21:45:00 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 21:45:00 -0600
-Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Thu, 6 Mar 2025 21:44:59 -0600
-From: Kenneth Feng <kenneth.feng@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <kevinyang.wang@amd.com>, <alexander.deucher@amd.com>, Kenneth Feng
- <kenneth.feng@amd.com>
-Subject: [PATCH] drm/amd/display: reset the workload type when using MALL
-Date: Fri, 7 Mar 2025 11:44:57 +0800
-Message-ID: <20250307034457.595790-1-kenneth.feng@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25EA10E0B8;
+ Fri,  7 Mar 2025 04:35:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 703115C5BCA;
+ Fri,  7 Mar 2025 04:32:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F21C4CED1;
+ Fri,  7 Mar 2025 04:34:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741322093;
+ bh=XqzhyeJqcijzc1zEWnFHc8CXWW9TaUwdVzABORTsWzg=;
+ h=From:Subject:Date:To:Cc:From;
+ b=s+HhjOhSqHORZRdCgtb8Vrv/rRuiWnb96ZQPANjE1MyLwf3qdFWc2jI5VqiZa8eLB
+ rD1b7oK29o0X37aFgrq8IN7nhINe9omVacWzB1cRMkwuo/SdpjKFNyeexIIPWkrzvB
+ 6ETBorUlap+aEeFVdMzQs9lrybWuEK8ArkvbW48OaEc6E9wMJYRWulm31uDNeZGiR0
+ LwuAYUWGW/uDhdQZUGNrZ4xjC81nKYrfrCmTW8kPQWKaPG6l+nZGBVZ7gj4l1EByIT
+ f8d4wcY/gZVqdKMs/XKdc7OXjzmKrTaJBsNyBunLaPyoVNRZWA6moIo3coTUSjn4BF
+ 2Y+dPoHVcvD4w==
+From: Dmitry Baryshkov <lumag@kernel.org>
+Subject: [PATCH RFC v3 0/7] drm/display: dp: add new DPCD access functions
+Date: Fri, 07 Mar 2025 06:34:42 +0200
+Message-Id: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|IA1PR12MB8080:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4fbbf6f-08f7-4057-e590-08dd5d2a70b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KLE3mpsACjz1j8lKI+vi/AmI7YMFfsh7Ol0VfdWZwt6dC1yGbDTFhfV5fBqh?=
- =?us-ascii?Q?UvyV6C4FtTVG53NGZx8rFYHdJv3JySBYgqonAVnSy1MCVgJF1j1C6Fk8YDGn?=
- =?us-ascii?Q?bU9mGjnn+ptUyZIO1Etk32dKPr3oya2tdcFMGA431T+1BjBFenZULeCywRsb?=
- =?us-ascii?Q?nTPXsdEtCnwgcFgWpdnVYUaGknUinGcfT4YU5aUXN32lqOxMK6aO4rG7hCdk?=
- =?us-ascii?Q?dIW5HiVKLAliuwkgYnq6p/3eRy/J4fEvE3zLjH2hQUN1e6bv7PVp5HKU3tio?=
- =?us-ascii?Q?USAKpAj7nBD9dLucOTrWM/4mMEnH25UDMFKPjmTXGwxdtROAkmR2P0dsXI4o?=
- =?us-ascii?Q?56DJF6XhOAb0s21D4R36aHlVX4mQ+xhUh8i+he9nNZtYeA5JDfn6Ozjckmsd?=
- =?us-ascii?Q?mvoI4/Qd4GJMoYnfqir40JgUlsMdAqENZfcUjNBHRFCJjJB4ZO6vR+VNc9dh?=
- =?us-ascii?Q?qkRUdkGuyp/r1rqLH+wFMraZrIH4sW/5UU5nfXTJ34mWtHMZ2OEqRADROolN?=
- =?us-ascii?Q?p9+yZp2OwwfrC/qLMnJL0P7eT9k/Wr21l8cmxhSSJU+ccJIk7ZZGZ0QRhV3w?=
- =?us-ascii?Q?gWcG02lO1AmA9KfOhjBorsHEyNn4JLanWSYrfNNiCTquXILZrv8fscqOgfp2?=
- =?us-ascii?Q?j64uH8PeVXaSY/v6XCF0/t1vTIGw+1/zWYnh6mBajBjhi4SnDeUEA14WJV3a?=
- =?us-ascii?Q?x/R2reJZYlJzJjO5BEzyhCvqHw7Kc3TfmQ+QTAkWcbbmjgfMwdQWIaFFbOWS?=
- =?us-ascii?Q?xvk73vk1Befp1lkI3kubLvpuuZwwIraLG789xqcVnltnJ5aGVvCJag37RUG6?=
- =?us-ascii?Q?qHTcLUPP+dyF3sg2IYAS2+E5olmnFVqnjdHAX4eJXV2GDUSALvYXuYpmwNEc?=
- =?us-ascii?Q?BWJhHe1NKB3+uGIEssG9NigS/PnRMHUynvXBMoBq/hs/8wLfy+X8kiLVm5Mu?=
- =?us-ascii?Q?1GXElOKpQ0rBwPid8Cs/LmaoaaOWwr8oKEN03GRWUsIevB70vKrmeO4LWgQk?=
- =?us-ascii?Q?Q6oTn+bFLYCr6bZabc6nfJAhPSnNFhAvT6z1DG/f5aTNq/Pcz52I+QviiHIJ?=
- =?us-ascii?Q?kGpivcAKKL2NycJhpLucZ2alk5W0i+IAakGiPEp7RiQYDp6PcXVeUVJQSIc2?=
- =?us-ascii?Q?xexhfmHvHaDDtlQhJIBrUREJ8yCfonZPBgNn7K77ujSqiFpssVlhNas14GDs?=
- =?us-ascii?Q?y7KSnb1dJSEL/wkD1yNyq44Zl6+m4KIEPZRGH6AkCc3r6BzL96uEU6w9en0y?=
- =?us-ascii?Q?0FSsCFWjplSNoS37zyySCVVpQFt3jqEN2IVMYSZ0Y29qCmaL3WlbYCQeuyGo?=
- =?us-ascii?Q?mH777qOsmJXV+5yJBkSIrCqLQ6oaFrU4qP1DSX6+ZNXf7+4/C4XA9wneIhbX?=
- =?us-ascii?Q?uI3gzA+qPXZSl6jr0wJDbubwjsILly96qAavX03XJw+5e8SlTrVpDO0HciOb?=
- =?us-ascii?Q?hiqq4Yo60cjdNV9+yF2EpLWR90N/3wYmvaoron2ZQoV4j9E0CE3A8J6nsyYv?=
- =?us-ascii?Q?bafKZ0r7bc0HajA=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2025 03:45:01.7250 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4fbbf6f-08f7-4057-e590-08dd5d2a70b9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8080
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGJ3ymcC/3XOwQrCMAwG4FeRnq2k2dzQkyD4AF7Fw5ZmW1HXk
+ UpVxt7dsot42PFP+L9kVIHFcVD71aiEowvO9ylk65Wirupb1s6mrBAwN5gZbeWhhV9ebtoOZHV
+ FxCHoGhpCzktbmEyl8iDcuPcMX9T5dFTXNOxceHr5zMeimVfJ3YIx5ZIbjQZdNgQIDLmt6XB3f
+ SV+46WdzYg/J4PF/yImJ7c7LAAbKsn+OdM0fQEd0r1rCgEAAA==
+X-Change-ID: 20241231-drm-rework-dpcd-access-b0fc2e47d613
+To: Lyude Paul <lyude@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2883;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=XqzhyeJqcijzc1zEWnFHc8CXWW9TaUwdVzABORTsWzg=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnyndlMsf/JrFPSmdbYWWLvhwHDkT/ieTkTXN9/
+ lqE5dH+wNGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8p3ZQAKCRCLPIo+Aiko
+ 1aKhCACjQw5F7YO5gtzvIHSaGtZo4Y/5aGzxeTxD0OMUp/5hT2oTXrms082iYP0AiH6KDcY4cRH
+ cd3zg/fRgPvw+3Pnwe88wo/9F9RGhnuyAzfT+b76GOoq3qiO6xws9hNIM/+p+uQ0quL67unGB7/
+ 8PJc5scnCbK2hQcuNiYvuD2+Zy3SQn2wz4LaZHuLOo9WrMlIpiwz0iFIaXWJPG0nfCgYTbp15g3
+ A0mofYnAkZSoMSG4BUHj4Wje+l7WpPdL2AD9Pd1BYoFabjJX6gnm2HhidAkS7cXc4tU7/onNjrc
+ 2IRbVF+vSZdWm+C9yJ/TubcGS1ZPe8N0m4SoukasvViWrDel
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,52 +90,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reset the workload type when using MALL.
-When there is no activity on the screen, dal requestes dmcub
-to use MALL. However, gfx ring is not empty at the same time.
-Currrently the workload type is set to 3D fullscreen when gfx
-ring has jobs. No activity on the screen and the gfx ring empty
-state can not be synchronized to each other. By removing the
-3D fullscreen workload when there is no activity on screen, the
-event can be passed down to dmcub->pmfw, since pmfw only allows
-MALL when the workload type setting is bootup default, then MALL
-can be really used. And this does not impact the thread to detect
-the ring jobs and can set back to the 3D fullscreen later.
+Existing DPCD access functions return an error code or the number of
+bytes being read / write in case of partial access. However a lot of
+drivers either (incorrectly) ignore partial access or mishandle error
+codes. In other cases this results in a boilerplate code which compares
+returned value with the size.
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+As suggested by Jani implement new set of DPCD access helpers, which
+ignore partial access, always return 0 or an error code. Implement
+new helpers using existing functions to ensure backwards compatibility
+and to assess necessity to handle incomplete reads on a global scale.
+Currently only one possible place has been identified, dp-aux-dev, which
+needs to handle possible holes in DPCD.
+
+This series targets only the DRM helpers code. If the approach is found
+to be acceptable, each of the drivers should be converted on its own.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Changes in v3:
+- Fixed cover letter (Jani)
+- Added intel-gfx and intel-xe to get the series CI-tested (Jani)
+- Link to v2: https://lore.kernel.org/r/20250301-drm-rework-dpcd-access-v2-0-4d92602fc7cd@linaro.org
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 36a830a7440f..154936166896 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -244,6 +244,8 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
- 	struct vblank_control_work *vblank_work =
- 		container_of(work, struct vblank_control_work, work);
- 	struct amdgpu_display_manager *dm = vblank_work->dm;
-+	int r;
-+	struct amdgpu_device *adev = drm_to_adev(dm->ddev);
- 
- 	mutex_lock(&dm->dc_lock);
- 
-@@ -271,8 +273,14 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
- 			vblank_work->acrtc->dm_irq_params.allow_sr_entry);
- 	}
- 
--	if (dm->active_vblank_irq_count == 0)
-+	if (dm->active_vblank_irq_count == 0) {
-+		r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_FULLSCREEN3D, false);
-+		if (r)
-+            dev_warn(adev->dev, "(%d) failed to disable fullscreen 3D  power profile mode\n",
-+					 r);
-+
- 		dc_allow_idle_optimizations(dm->dc, true);
-+	}
- 
- 	mutex_unlock(&dm->dc_lock);
- 
+Changes in v2:
+- Reimplemented new helpers using old ones (Lyude)
+- Reworked the drm_dp_dpcd_read_link_status() patch (Lyude)
+- Dropped the dp-aux-dev patch (Jani)
+- Link to v1: https://lore.kernel.org/r/20250117-drm-rework-dpcd-access-v1-0-7fc020e04dbc@linaro.org
+
+---
+Dmitry Baryshkov (7):
+      drm/display: dp: implement new access helpers
+      drm/display: dp: change drm_dp_dpcd_read_link_status() return value
+      drm/display: dp: use new DCPD access helpers
+      drm/display: dp-aux-dev: use new DCPD access helpers
+      drm/display: dp-cec: use new DCPD access helpers
+      drm/display: dp-mst-topology: use new DCPD access helpers
+      drm/display: dp-tunnel: use new DCPD access helpers
+
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.c           |   8 +-
+ .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |   2 +-
+ drivers/gpu/drm/display/drm_dp_aux_dev.c           |  12 +-
+ drivers/gpu/drm/display/drm_dp_cec.c               |  37 ++-
+ drivers/gpu/drm/display/drm_dp_helper.c            | 307 +++++++++------------
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      | 105 ++++---
+ drivers/gpu/drm/display/drm_dp_tunnel.c            |  20 +-
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c       |   4 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  24 +-
+ drivers/gpu/drm/msm/dp/dp_link.c                   |  18 +-
+ drivers/gpu/drm/radeon/atombios_dp.c               |   8 +-
+ include/drm/display/drm_dp_helper.h                |  92 +++++-
+ 12 files changed, 322 insertions(+), 315 deletions(-)
+---
+base-commit: 565351ae7e0cee80e9b5ed84452a5b13644ffc4d
+change-id: 20241231-drm-rework-dpcd-access-b0fc2e47d613
+
+Best regards,
 -- 
-2.34.1
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
