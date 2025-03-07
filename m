@@ -4,68 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98EE6C19F32
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 14:48:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9170AC282DE
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 14:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E05810E188;
-	Fri,  7 Mar 2025 14:48:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A89410E166;
+	Fri,  7 Mar 2025 14:59:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HoY/0cuX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mZS6nRtc";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5AA10E188
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 14:48:17 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2ff7255b8c6so365412a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Mar 2025 06:48:17 -0800 (PST)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E49710E166
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 14:59:32 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-43bccfa7b89so16375305e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Mar 2025 06:59:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741358895; x=1741963695; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=c18X160Exd4toTpoO5QoMvEBvvz1kt7ahXnnIdi7WdY=;
- b=HoY/0cuX8FZRWscuMkRJLCYWg9EwrX0JgoEHpYM23D/H+lkk87yqKB1kCAjTd06hFf
- JYCpHPcnO0S1hepll35k9INakiAYAKv7oTSo/rBOYXduVF/ZeygT0PbYj5lpPGjcx209
- AkiAS7Cq/zAxT32qDfwoyfVvmkfcxtj0kaQRWTiWVT1AOowf/ANywcait9UMFJs4SuYx
- iDPaD9iW7B5OWdsgPpfQ6VNqtf0k6rt9arqJTQTkLs6lkeAUe5aq8VXa84Sq22evnOP0
- ZCCDYhDH1XqSox+LTIYEn/kUwa/i/AeydbVXoeF5tGDgtOCU3gLi3eGK6FzoZR6Ntyjb
- skOg==
+ d=gmail.com; s=20230601; t=1741359571; x=1741964371; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=NPpDiLzjEPaLoKFnG8J771fSubCXvBcueGIn91RJ8lM=;
+ b=mZS6nRtchr6BfqO5u14MAdx5O8KahBySaxfbTcvJ/ynRgFWLLHNiPDszV93rU4JA4F
+ /kTVhsAZp4lOJcgsTodTrq7QBfB3q58pflyOiK362Km6W5VXFUyF61SWnOOF/ffXo0NR
+ +xLiWj9Dhr0JJ0sRDx8ZDTbvJyl88Tfp8tqS1E0EHFe/4O5rWkgWb6AoKGR5BWtxVXNL
+ j8FEkDnfeAHpSEY8Cl/wzJHGBR3dka1IFmjB/eHp1gaxrym93NoJqWpzU9MEGw++kPxn
+ bUnTNpQXG1AjtoT86S+KmxeNaNYLru464ttEVjA1sQFxSM324t9IWsY6z0tTep6JCA/6
+ 5Amw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741358895; x=1741963695;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=c18X160Exd4toTpoO5QoMvEBvvz1kt7ahXnnIdi7WdY=;
- b=tnO+s5sERIEIwaC0DbJYiT8I78EVjTa7epUjEwnmQ/K/wRk8tm/UXJdwc1uf+bvtjk
- dbLlLEKVl9L/OhifHj7KJKanyBiedwXGywDdegaTTVcmjciemfPkcX6s35DvDFXUn1QL
- zFYPEg4CFYDI4NlJB6LA/+y3/fC+l0MF+6b6ZENUhIs2Oviy7WgubUtqxggsR374iaPp
- Hi9xqgfAqEQx0JWfzVO9cb7NWJ+m2Fxa/elIeLQkC8MtixTAJv5SBVsLSlEZyOBiE9K3
- /xkwR5z1IewY6aQZdS1JRVfy9weOarjk9VLWvthszt3P4SDhoEcPOLnaPHk99ooSpBGj
- rKmw==
-X-Gm-Message-State: AOJu0YzTqlhvL5A+zHODX0dMqfKLX7OVstj4tA3zo0P14r2uxmtfjxpg
- vuVqytyUx9PBi5br4+80eyjMS2FruKHUVDzFuKWGinyGVHYTGYgcSolNQNp0DT8SA8lovg+pnt2
- +U5TbhkOnVHCnK0fiLYm3X6qe5iR7yepo
-X-Gm-Gg: ASbGncvbsqHkCpM6n6AvnbVYbI9GFYo7cbDuCQ48fXFiIw21aWKIVBOLRUiWdMkFJDg
- zW6vGTyza+ovpOAbghFmJUyVd9mXwJZrL7pWZU8dbP3GnWxmtsAKWyygdpU/g+yKMtsMkuDH++z
- c20c5GXw7kbCIGqJhS1e/Qxtc33Q==
-X-Google-Smtp-Source: AGHT+IGHrZR1VecY6M1P1xPAPoVPFNkdJKuzIdMLaPEUzn7zgxNHi8QS00CZQpDurix+4RL7CkrCD9aKq7x1P71bdL8=
-X-Received: by 2002:a17:90b:350d:b0:2ff:4b7a:f0a4 with SMTP id
- 98e67ed59e1d1-2ff7cf13ae5mr2161599a91.3.1741358894780; Fri, 07 Mar 2025
- 06:48:14 -0800 (PST)
+ d=1e100.net; s=20230601; t=1741359571; x=1741964371;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=NPpDiLzjEPaLoKFnG8J771fSubCXvBcueGIn91RJ8lM=;
+ b=OgkhmBMlozrVqnZmc7nRSEf7npi4wAArHn5l2oCQ0dA7JgDpHHRXbGJZiQ0esdKa2Z
+ po5Jz/KJYUsvduE7kgZjmrzRwYXcSilVvf7TFFYbGb93T6/yC96sF3Lg0jC1Ytz+n6LL
+ Wk++KTazykT0+6qEvtp8X5LNVL79qTf9ujYMCHc44m+sBT+/IKxSZ4G9/h5gVJGHkZqy
+ 4yTQMpjRbF2e62cPEs9qcPou0f0JRe4XhGelC6AgliCpkGi5F1cLBqTyCTHSFmM1bILq
+ lA8bjtA1qr8BJBMVLhgph/i0go3l6TbW0tXrj63pRAJc90yxpWhU3OgO3n34zRySVL+l
+ htSw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXTsfPHGLJvQe3Wygm/bnWsbk4HcLTWqDASwocyC9fFMXiTIJPzTCJyhB0r7Dy0NFnJCAY9FNFW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhdBw3troV6DV4oCcU+sfPdhbCyBaMMAcDPYGQN8kBiQlAkjN9
+ DqT6G6oUk0zfkyXOufubBSzB6Z1lfztwfUuCUXOo+JUsOItb0Df1
+X-Gm-Gg: ASbGncsz4gtQFFRGHlT9fdevD10soCL+sUcuBqHvAqoERaieTe6fiRuftXoCUKuXn7x
+ dAg7vShY24pfUkMvcf0n9mY2JE4/rCyz1RRbuZ03FD4fvMCDuQDdfCVyp0DfBAG0QFJH9WLBsQ7
+ XhtqdA2rmnga5UpDSvktjlBUJqBZ3PBzJgM1v+rLUGZwdy71W5EF1jiDvqZLuTqev6VLA/2V+Iy
+ N8WXy6Krfiqkfjyx2wNxSQYy4tQ+CuaPGsfKsk/LNdvNR9LbEKyK61SWCLpW4iKf2Ot0Hfa3a8A
+ EHKXiBRv/xaJW91dN7cI5YWIwzxFCcYGv+ixJBFB/VZVjTIxBt9GcYeuAQ==
+X-Google-Smtp-Source: AGHT+IGPzDKDQPJqwBV5UHCftg0MChVb7sN+S3Sm2G4Sy6f+f5SAQGKNfcsQhiOHTdY8iCBjPPI28Q==
+X-Received: by 2002:a05:600c:1c92:b0:43b:c284:5bc2 with SMTP id
+ 5b1f17b1804b1-43c54a13899mr30064295e9.0.1741359570594; 
+ Fri, 07 Mar 2025 06:59:30 -0800 (PST)
+Received: from able.fritz.box ([2a00:e180:14d3:5e00:ab55:e6a0:3a3d:9571])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43bd42c55e6sm83132565e9.23.2025.03.07.06.59.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Mar 2025 06:59:30 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Alexander.Deucher@amd.com, phasta@mailbox.org, dakr@kernel.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: deprecate guilty handling
+Date: Fri,  7 Mar 2025 15:59:29 +0100
+Message-Id: <20250307145929.9104-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20250307034457.595790-1-kenneth.feng@amd.com>
-In-Reply-To: <20250307034457.595790-1-kenneth.feng@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 7 Mar 2025 09:48:03 -0500
-X-Gm-Features: AQ5f1Jrf4J4eUyypH9oQLYJhWdmO4GO__Gj_0zkrzM4QZLv7P8gf5xgsCr9WA_g
-Message-ID: <CADnq5_OH7iumFq2MJ_LjpAwYzf34G60dUh_rug6HWBrkq=8Xxg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: reset the workload type when using MALL
-To: Kenneth Feng <kenneth.feng@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, kevinyang.wang@amd.com, 
- alexander.deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,78 +85,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 6, 2025 at 10:45=E2=80=AFPM Kenneth Feng <kenneth.feng@amd.com>=
- wrote:
->
-> Reset the workload type when using MALL.
-> When there is no activity on the screen, dal requestes dmcub
-> to use MALL. However, gfx ring is not empty at the same time.
-> Currrently the workload type is set to 3D fullscreen when gfx
-> ring has jobs. No activity on the screen and the gfx ring empty
-> state can not be synchronized to each other. By removing the
-> 3D fullscreen workload when there is no activity on screen, the
-> event can be passed down to dmcub->pmfw, since pmfw only allows
-> MALL when the workload type setting is bootup default, then MALL
-> can be really used. And this does not impact the thread to detect
-> the ring jobs and can set back to the 3D fullscreen later.
->
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/dri=
-vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 36a830a7440f..154936166896 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -244,6 +244,8 @@ static void amdgpu_dm_crtc_vblank_control_worker(stru=
-ct work_struct *work)
->         struct vblank_control_work *vblank_work =3D
->                 container_of(work, struct vblank_control_work, work);
->         struct amdgpu_display_manager *dm =3D vblank_work->dm;
-> +       int r;
-> +       struct amdgpu_device *adev =3D drm_to_adev(dm->ddev);
->
->         mutex_lock(&dm->dc_lock);
->
-> @@ -271,8 +273,14 @@ static void amdgpu_dm_crtc_vblank_control_worker(str=
-uct work_struct *work)
->                         vblank_work->acrtc->dm_irq_params.allow_sr_entry)=
-;
->         }
->
-> -       if (dm->active_vblank_irq_count =3D=3D 0)
-> +       if (dm->active_vblank_irq_count =3D=3D 0) {
-> +               r =3D amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_=
-PROFILE_FULLSCREEN3D, false);
+The guilty handling tried to establish a second way of signaling problems with
+the GPU back to userspace. This caused quite a bunch of issue we had to work
+around, especially lifetime issues with the drm_sched_entity.
 
-To keep this balanced, you should get a reference when we disable the
-optimizations.  Also if ROCm applications are running, the compute
-profile will be active so that should be decremented too or if VCN
-jobs are running the video profile may be active as well.  On the
-other hand, if users have apps running when the display is off, maybe
-they don't want the idle optimizations in the first place.
-Alternatively, we could have a suspend/resume workload profile
-function that sets a flag in sw_smu which sets the default workload
-profile and skips all updates to the workload profile while that flag
-is set.  The swsmu will still track the ref counts and then when we
-resume the workload profile handling, we can restore all of the
-workloads profiles based on the ref counts.
+Just drop the handling altogether and use the dma_fence based approach instead.
 
-Alex
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  5 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 25 ++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h    |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 +-------
+ 4 files changed, 24 insertions(+), 16 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 5df21529b3b1..fcace736f208 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -59,11 +59,6 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
+ 	if (!p->ctx)
+ 		return -EINVAL;
+ 
+-	if (atomic_read(&p->ctx->guilty)) {
+-		amdgpu_ctx_put(p->ctx);
+-		return -ECANCELED;
+-	}
+-
+ 	amdgpu_sync_create(&p->sync);
+ 	drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+ 		      DRM_EXEC_IGNORE_DUPLICATES, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index c43d1b6e5d66..0b6eb718577a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -250,7 +250,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 	}
+ 
+ 	r = drm_sched_entity_init(&entity->entity, drm_prio, scheds, num_scheds,
+-				  &ctx->guilty);
++				  NULL);
+ 	if (r)
+ 		goto error_free_entity;
+ 
+@@ -572,6 +572,27 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
+ 
+ #define AMDGPU_RAS_COUNTE_DELAY_MS 3000
+ 
++static bool amdgpu_ctx_guilty(struct amdgpu_ctx *ctx)
++{
++	int i, j, r;
++
++	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
++		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
++			struct amdgpu_ctx_entity *ctx_entity;
++
++			ctx_entity = ctx->entities[i][j];
++			if (ctx_entity)
++				continue;
++
++			r == drm_sched_entity_error(&ctx_entity->entity);
++			if (r == -ETIME)
++				return true;
++		}
++	}
++
++	return false;
++}
++
+ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
+ 			     struct amdgpu_fpriv *fpriv, uint32_t id,
+ 			     union drm_amdgpu_ctx_out *out)
+@@ -600,7 +621,7 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
+ 	if (ctx->generation != amdgpu_vm_generation(adev, &fpriv->vm))
+ 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_VRAMLOST;
+ 
+-	if (atomic_read(&ctx->guilty))
++	if (amdgpu_ctx_guilty(ctx))
+ 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_GUILTY;
+ 
+ 	if (amdgpu_in_reset(adev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 85376baaa92f..45569cce484e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -53,7 +53,6 @@ struct amdgpu_ctx {
+ 	bool				preamble_presented;
+ 	int32_t				init_priority;
+ 	int32_t				override_priority;
+-	atomic_t			guilty;
+ 	unsigned long			ras_counter_ce;
+ 	unsigned long			ras_counter_ue;
+ 	uint32_t			stable_pstate;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 198d29faa754..ed65c14a4ed7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5467,14 +5467,10 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
+ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 				 struct amdgpu_reset_context *reset_context)
+ {
+-	int i, r = 0;
+-	struct amdgpu_job *job = NULL;
+ 	struct amdgpu_device *tmp_adev = reset_context->reset_req_dev;
+ 	bool need_full_reset =
+ 		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
+-
+-	if (reset_context->reset_req_dev == adev)
+-		job = reset_context->job;
++	int i, r;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		amdgpu_virt_pre_reset(adev);
+@@ -5499,9 +5495,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 
+ 	amdgpu_fence_driver_isr_toggle(adev, false);
+ 
+-	if (job && job->vm)
+-		drm_sched_increase_karma(&job->base);
+-
+ 	r = amdgpu_reset_prepare_hwcontext(adev, reset_context);
+ 	/* If reset handler not implemented, continue; otherwise return */
+ 	if (r == -EOPNOTSUPP)
+-- 
+2.34.1
 
-> +               if (r)
-> +            dev_warn(adev->dev, "(%d) failed to disable fullscreen 3D  p=
-ower profile mode\n",
-> +                                        r);
-> +
->                 dc_allow_idle_optimizations(dm->dc, true);
-> +       }
->
->         mutex_unlock(&dm->dc_lock);
->
-> --
-> 2.34.1
->
