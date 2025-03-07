@@ -4,76 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B62C28B23
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:48:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 194C3C19F32
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 14:10:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 224EA10EB69;
-	Fri,  7 Mar 2025 13:48:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1467210EB84;
+	Fri,  7 Mar 2025 14:10:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PQmR0WGw";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=Usama.Anjum@collabora.com header.b="aM49yQ18";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3667510EB66
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 13:48:23 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-43bdc607c16so14599355e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Mar 2025 05:48:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741355302; x=1741960102; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Zg7lu3sDkoafamX16TS4I5A95+RcajYB0S2JekUNWNo=;
- b=PQmR0WGwQnaZNmkWW7xwwqzL+syxy9aGfCGosnjIfG7I18PSt3JyvNNXlD4s7cklXZ
- F6DUegeEmF+R+5mka5vYpGmINt/9sslY3cizBECT5e75b27wZL8fkd3YhoCORHVcu0xH
- VATVQuvgtMbbMAKwxiSdFQAk/coX/QwZyFoHAyOBD6tvYIppVvlQ2/5l1VtylwMAem+U
- XGnmyQXunZ+lDohCX3fU/3dnpS4JyLyOsuEGyBleBTXCSM5E7nkilyAuaSzzm881ed8x
- 6ok/8nniSOA09aucQa8pbfOteWgyIrD9Gg+Gd/NvQWbAg/R3nrLcPxcOZH8xfG/7Wdba
- ucnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741355302; x=1741960102;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Zg7lu3sDkoafamX16TS4I5A95+RcajYB0S2JekUNWNo=;
- b=Hrm56oyTyQUxR2OSDtkCW3a1+/jWdRWOuOTQsJ9aAV3UPHv/REy9FeqQmul7i3SB4o
- pELDQ4NDuWozXXm5uHDG+mAmjAMLdVPoTK+2QldGUd1c7mVd9qnawe6UbByqtUWj+vmb
- 3of1awdq8ffKWwG5J54n8ZU15I83xSSPS00pSONasUvvZ8kkcpHwXKAqVWSdy3MmN3Cr
- LQEZM9XKJDriiJi3xSZpvppNs/fR/kM1A6l89xEWY6zyHJ63jX0v8TB8tyesfspxwy+T
- oyzQ6AaLAtudSnxFJUUsCX+NEav8AT678AI+1/L7BYFjHz+BkPd4weo/Y2rk6Z4J0fuv
- X6zQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVDBoPEVXy7o5Uls6bkmLYnTAKNNE0/dtvOtvs/MEtKpDpFub6zka3uUF2TEJGIMu4jwA215YJr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxY6KvFM2UuH+ZideQwc42RFzzaYe+rwhMWSmqwhS4IOVKdiFhK
- fuiiR3f3Bnft/QceOnV7aICispky/HZSdCVwUoNpWMePv8nkwswp
-X-Gm-Gg: ASbGncs2zWS/3yKhIKook7hoHiiFxW2jR3yeFAc7W0yGOu0qPZ/osaEV2QyzNFN7VqU
- 0XZSdy8z9BRKVVTqjn5MnWIPQulqUuierF2j2nJWO0cTKpurEzY+kZSZVMWAy70istRn7b22CbN
- lOY+F543q47dlt7B1NxceZMT+iZlTsHE7ibKEvDfRBexkBpFzT3/+q6jHBmc5U7/iDffCFgTjfD
- Lm8QHmG1UL/7LShVs2PugJIM+/gCFLRsl/VLFdpzvCZiWV5sSufXRvVMe9HizNv242G3KyR6GMW
- 2ixS/D8n4tUwrJuafmgFiycHBifWhYsb6x2g0unnlmvLIChDSITuE5XyGw==
-X-Google-Smtp-Source: AGHT+IGm4qgTk9PE/katCHJjFK/MZA7g0JRPykH2gXwP0NATWvZ+l6MJx+Q2hIE+tCg4djmDKl78NA==
-X-Received: by 2002:a05:600c:154e:b0:43b:d1ac:13 with SMTP id
- 5b1f17b1804b1-43c5ce45da2mr28064405e9.30.1741355301591; 
- Fri, 07 Mar 2025 05:48:21 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:14d3:5e00:ab55:e6a0:3a3d:9571])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd91338cesm70613345e9.7.2025.03.07.05.48.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Mar 2025 05:48:21 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: srinivasan.shanmugam@amd.com, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com
-Subject: [PATCH 8/8] drm/amdgpu: add cleaner shader trace point
-Date: Fri,  7 Mar 2025 14:48:16 +0100
-Message-Id: <20250307134816.1422-8-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250307134816.1422-1-christian.koenig@amd.com>
-References: <20250307134816.1422-1-christian.koenig@amd.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 658F410EB25
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 10:19:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1741342757; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=j9ORHA1cuNqzvnoWBEC62T1wgqIMbszuwnod05fyO8dANI25HjoVR3AjenF57DReCBtjwhuFpUZaYsRo2LfyDfIai1VX4hLJxIjbrMUEGs2/2s80/MPmhlsScF62hmQKPN6LU1q8bKtPRKuQND8BtM+/Cd5Rzie03pRCngU1UIA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1741342757;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=M3+1/avB1798aePiCXDx86re+oU1iPxVvHIF/YggbwY=; 
+ b=XY0ouTy6Kq23kJzDImI9+JOWBS486Ukc7tLxj5+Tjtzbcu05rnl3DgTDnlyFlXC59Xv207+7K1E9LViRf5IH1d/FlfpWd+z63+EK+2vAnn9VOnX2/2LgcqkAjVIDFNzGB21/qcvYs5UwVFvcppRU29Qs/uhK4/OcWGOEpEaNTV0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=Usama.Anjum@collabora.com;
+ dmarc=pass header.from=<Usama.Anjum@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1741342757; 
+ s=zohomail; d=collabora.com; i=Usama.Anjum@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Cc:Cc:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=M3+1/avB1798aePiCXDx86re+oU1iPxVvHIF/YggbwY=;
+ b=aM49yQ18VypDcYfzOdhQgT5ymcyZHjCDAqgGcxYEU5EVirU5D73apFGg4kPvKjB3
+ wt9UKUFmoq7mI7IrrwBxrH3WYAUnmdC/jYUHlEwtRVcimgcmda9pvz/LQqqGHT02rtm
+ uYHmWO2A8pYrjX20O79nRNgKIyjO5TITwTHOsFCY=
+Received: by mx.zohomail.com with SMTPS id 174134275525854.75231547230419;
+ Fri, 7 Mar 2025 02:19:15 -0800 (PST)
+Message-ID: <111287d9-b9fa-4b6e-9048-e6116a5e952b@collabora.com>
+Date: Fri, 7 Mar 2025 15:19:55 +0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: Usama.Anjum@collabora.com, Xaver Hugl <xaver.hugl@gmail.com>
+Subject: Re: [PATCH] drm/amd: Keep display off while going into S4
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20250306185124.44780-1-mario.limonciello@amd.com>
+Content-Language: en-US
+From: Muhammad Usama Anjum <Usama.Anjum@collabora.com>
+In-Reply-To: <20250306185124.44780-1-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
+X-Mailman-Approved-At: Fri, 07 Mar 2025 14:10:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,52 +67,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Note when the cleaner shader is executed.
+Hi,
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 15 +++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  1 +
- 2 files changed, 16 insertions(+)
+Thank you Mario for finding and fixing!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index e8147d9a54fc..11dd2e0f7979 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -474,6 +474,21 @@ TRACE_EVENT(amdgpu_isolation,
- 		      __entry->next)
- );
- 
-+TRACE_EVENT(amdgpu_cleaner_shader,
-+	    TP_PROTO(struct amdgpu_ring *ring, struct dma_fence *fence),
-+	    TP_ARGS(ring, fence),
-+	    TP_STRUCT__entry(
-+			     __string(ring, ring->name)
-+			     __field(u64, seqno)
-+			     ),
-+
-+	    TP_fast_assign(
-+			   __assign_str(ring);
-+			   __entry->seqno = fence->seqno;
-+			   ),
-+	    TP_printk("ring=%s, seqno=%Lu", __get_str(ring), __entry->seqno)
-+);
-+
- TRACE_EVENT(amdgpu_bo_list_set,
- 	    TP_PROTO(struct amdgpu_bo_list *list, struct amdgpu_bo *bo),
- 	    TP_ARGS(list, bo),
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index dc10bea836db..73c1c97c9b28 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -742,6 +742,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	 * finish before we push them to the HW.
- 	 */
- 	if (cleaner_shader_needed) {
-+		trace_amdgpu_cleaner_shader(ring, fence);
- 		mutex_lock(&adev->enforce_isolation_mutex);
- 		dma_fence_put(isolation->spearhead);
- 		isolation->spearhead = dma_fence_get(fence);
+On 3/6/25 11:51 PM, Mario Limonciello wrote:
+> When userspace invokes S4 the flow is:
+> 
+> 1) amdgpu_pmops_prepare()
+> 2) amdgpu_pmops_freeze()
+> 3) Create hibernation image
+> 4) amdgpu_pmops_thaw()
+> 5) Write out image to disk
+> 6) Turn off system
+> 
+> Then on resume amdgpu_pmops_restore() is called.
+> 
+> This flow has a problem that because amdgpu_pmops_thaw() is called
+> it will call amdgpu_device_resume() which will resume all of the GPU.
+> 
+> This includes turning the display hardware back on and discovering
+> connectors again.
+> 
+> This is an unexpected experience for the display to turn back on.
+> Adjust the flow so that during the S4 sequence display hardware is
+> not turned back on.
+> 
+> Reported-by: Xaver Hugl <xaver.hugl@gmail.com>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2038
+> Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Tested on top of amd-drm-next branch and 6.11.11 on 3 different devices.
+It fixes all of them. 
+
+It should be included in recent LTS kernels at least. 
+
+Tested-by: Muhammad Usama Anjum <usama.anjum@collabora.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 11 +++++++++--
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++++
+>  2 files changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index b161daa90019..b54c4b2f3f7f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2565,7 +2565,6 @@ static int amdgpu_pmops_freeze(struct device *dev)
+>  	int r;
+>  
+>  	r = amdgpu_device_suspend(drm_dev, true);
+> -	adev->in_s4 = false;
+>  	if (r)
+>  		return r;
+>  
+> @@ -2577,8 +2576,13 @@ static int amdgpu_pmops_freeze(struct device *dev)
+>  static int amdgpu_pmops_thaw(struct device *dev)
+>  {
+>  	struct drm_device *drm_dev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+> +	int r;
+>  
+> -	return amdgpu_device_resume(drm_dev, true);
+> +	r = amdgpu_device_resume(drm_dev, true);
+> +	adev->in_s4 = false;
+> +
+> +	return r;
+>  }
+>  
+>  static int amdgpu_pmops_poweroff(struct device *dev)
+> @@ -2591,6 +2595,9 @@ static int amdgpu_pmops_poweroff(struct device *dev)
+>  static int amdgpu_pmops_restore(struct device *dev)
+>  {
+>  	struct drm_device *drm_dev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+> +
+> +	adev->in_s4 = false;
+>  
+>  	return amdgpu_device_resume(drm_dev, true);
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 6f9331fe91c3..5939796db74c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3431,6 +3431,11 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+>  
+>  		return 0;
+>  	}
+> +
+> +	/* leave display off for S4 sequence */
+> +	if (adev->in_s4)
+> +		return 0;
+> +
+>  	/* Recreate dc_state - DC invalidates it when setting power state to S3. */
+>  	dc_state_release(dm_state->context);
+>  	dm_state->context = dc_state_create(dm->dc, NULL);
+
+
 -- 
-2.34.1
-
+BR,
+Muhammad Usama Anjum
