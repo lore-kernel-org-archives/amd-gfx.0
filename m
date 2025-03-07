@@ -4,73 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9170AC282DE
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 14:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63024C282DE
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 15:01:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A89410E166;
-	Fri,  7 Mar 2025 14:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B2AF10EBB9;
+	Fri,  7 Mar 2025 15:01:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mZS6nRtc";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZWVtNUfZ";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E49710E166
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 14:59:32 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-43bccfa7b89so16375305e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Mar 2025 06:59:32 -0800 (PST)
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A17BF10EBB9
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 15:01:03 +0000 (UTC)
+Received: by mail-ot1-f48.google.com with SMTP id
+ 46e09a7af769-72a0cd5d622so232069a34.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Mar 2025 07:01:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741359571; x=1741964371; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=NPpDiLzjEPaLoKFnG8J771fSubCXvBcueGIn91RJ8lM=;
- b=mZS6nRtchr6BfqO5u14MAdx5O8KahBySaxfbTcvJ/ynRgFWLLHNiPDszV93rU4JA4F
- /kTVhsAZp4lOJcgsTodTrq7QBfB3q58pflyOiK362Km6W5VXFUyF61SWnOOF/ffXo0NR
- +xLiWj9Dhr0JJ0sRDx8ZDTbvJyl88Tfp8tqS1E0EHFe/4O5rWkgWb6AoKGR5BWtxVXNL
- j8FEkDnfeAHpSEY8Cl/wzJHGBR3dka1IFmjB/eHp1gaxrym93NoJqWpzU9MEGw++kPxn
- bUnTNpQXG1AjtoT86S+KmxeNaNYLru464ttEVjA1sQFxSM324t9IWsY6z0tTep6JCA/6
- 5Amw==
+ d=gmail.com; s=20230601; t=1741359663; x=1741964463; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=VID+CLQoelZvnJbu32xRCHX4r7b45EecFeUyMd3/9Es=;
+ b=ZWVtNUfZ2fPVfKJ+hrDYTkdvNwjGr29qOp5cueIgnzJ8hrcq1b5s+2+rYin16LrJJk
+ Rhh8tcXRYvjSGYNTWSnJNIyLa5XCmqpAgco7Rl8abTzVfWFzIPwuaMhoIpH0drgYHFvS
+ 427SWfjpCqywzQb8OFhURVBgqoChGyPqfjwaCJ6hVwHV6le2+mzDm7WajkW/osNFWPuM
+ umZNx+tgco09XWNydNudZEnpS6is31zEpCl3zGcfTvU383DubAlwRqAeMQ0KshHWBBAN
+ 72+cJytupwn8qPNXSaFclcWx5yY73kpanuTFqJKRSxhA9HxTN5a0j5KQxx0RgJTLZhEI
+ d6bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741359571; x=1741964371;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NPpDiLzjEPaLoKFnG8J771fSubCXvBcueGIn91RJ8lM=;
- b=OgkhmBMlozrVqnZmc7nRSEf7npi4wAArHn5l2oCQ0dA7JgDpHHRXbGJZiQ0esdKa2Z
- po5Jz/KJYUsvduE7kgZjmrzRwYXcSilVvf7TFFYbGb93T6/yC96sF3Lg0jC1Ytz+n6LL
- Wk++KTazykT0+6qEvtp8X5LNVL79qTf9ujYMCHc44m+sBT+/IKxSZ4G9/h5gVJGHkZqy
- 4yTQMpjRbF2e62cPEs9qcPou0f0JRe4XhGelC6AgliCpkGi5F1cLBqTyCTHSFmM1bILq
- lA8bjtA1qr8BJBMVLhgph/i0go3l6TbW0tXrj63pRAJc90yxpWhU3OgO3n34zRySVL+l
- htSw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXTsfPHGLJvQe3Wygm/bnWsbk4HcLTWqDASwocyC9fFMXiTIJPzTCJyhB0r7Dy0NFnJCAY9FNFW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhdBw3troV6DV4oCcU+sfPdhbCyBaMMAcDPYGQN8kBiQlAkjN9
- DqT6G6oUk0zfkyXOufubBSzB6Z1lfztwfUuCUXOo+JUsOItb0Df1
-X-Gm-Gg: ASbGncsz4gtQFFRGHlT9fdevD10soCL+sUcuBqHvAqoERaieTe6fiRuftXoCUKuXn7x
- dAg7vShY24pfUkMvcf0n9mY2JE4/rCyz1RRbuZ03FD4fvMCDuQDdfCVyp0DfBAG0QFJH9WLBsQ7
- XhtqdA2rmnga5UpDSvktjlBUJqBZ3PBzJgM1v+rLUGZwdy71W5EF1jiDvqZLuTqev6VLA/2V+Iy
- N8WXy6Krfiqkfjyx2wNxSQYy4tQ+CuaPGsfKsk/LNdvNR9LbEKyK61SWCLpW4iKf2Ot0Hfa3a8A
- EHKXiBRv/xaJW91dN7cI5YWIwzxFCcYGv+ixJBFB/VZVjTIxBt9GcYeuAQ==
-X-Google-Smtp-Source: AGHT+IGPzDKDQPJqwBV5UHCftg0MChVb7sN+S3Sm2G4Sy6f+f5SAQGKNfcsQhiOHTdY8iCBjPPI28Q==
-X-Received: by 2002:a05:600c:1c92:b0:43b:c284:5bc2 with SMTP id
- 5b1f17b1804b1-43c54a13899mr30064295e9.0.1741359570594; 
- Fri, 07 Mar 2025 06:59:30 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:14d3:5e00:ab55:e6a0:3a3d:9571])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd42c55e6sm83132565e9.23.2025.03.07.06.59.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Mar 2025 06:59:30 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: Alexander.Deucher@amd.com, phasta@mailbox.org, dakr@kernel.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: deprecate guilty handling
-Date: Fri,  7 Mar 2025 15:59:29 +0100
-Message-Id: <20250307145929.9104-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
+ d=1e100.net; s=20230601; t=1741359663; x=1741964463;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=VID+CLQoelZvnJbu32xRCHX4r7b45EecFeUyMd3/9Es=;
+ b=cmcnFE5i5QZ9BM/5bG8dJzedoJfxGKg2E3LgAUrt7EkVd/JbdeJQk5lrz42NilouR+
+ AKglgdcUmjdCSUqnurQsbSqlDGx25ai5p4noRBtJ2hJu48gDrXzuCiXSesJHLVUujlux
+ vLXBCVuGpLKr7cVCkBZwaMj3nEyyPZ9kvhSKMpgCHeO6cJRNWmeQPGTx4rJL//Ghybgs
+ ZELkBQOGVaRUOp64d3Dg0qGAlP5b1tcM9wcwtOHUPsr25QT0fgXMkKhGeNF39wODcYJQ
+ fn7d3jJYz95C65P/0r1v8hGcqHjFyMlbINTOBlVocHLVVKqkxb1NYZtnbSOKx2OLNsnA
+ HsnA==
+X-Gm-Message-State: AOJu0YzQIH4gsyPJGUpN1nwi08bovdP/La6SPGo+e7u62qDuRu5Xjh81
+ iahd6vWe4/nCuYjRhN6uGrDZL1Xy74FOVLNL7eknPzA2BTRndFwtG3NimW7oePzJxJLVL6OAOUB
+ nVc8WUeeMwLgm1+Usq1sNA1D18TRwh9ty
+X-Gm-Gg: ASbGncvUL9kMyzdhex3rspmbB/JjhvpIebdbRfR4WEf4UNl0yI09bRtMtNJlKOWlgFP
+ jZLcfU0t11BdpJxArbdOfe63Tz7Z6Yvp5bWfsm0RpgPTE9qbxAArPqCi3FWkooG+J9RqaEvkQmp
+ HZwwhy0sCGDKXJNyUHwiZLer+KVss=
+X-Google-Smtp-Source: AGHT+IHwxAeDQqdngfHDBIxyEg0gw4GlGo8YvF1lXXlZ63athiu1ausPWe/wRkFeoNhgVFgMUMYEGs+9DNZpzufolWM=
+X-Received: by 2002:a05:6830:6e14:b0:727:3bd1:7b96 with SMTP id
+ 46e09a7af769-72a3a92073emr539036a34.5.1741359662637; Fri, 07 Mar 2025
+ 07:01:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Fri, 7 Mar 2025 10:00:25 -0500
+X-Gm-Features: AQ5f1Jq2RIrHN6eLF4RDSqTRxKaIewFXF2BrfvGU53-OekZa1XrHA-1VgX0WtAI
+Message-ID: <CAAxE2A5D6Mrd7HSmG778N=ps+o3Cg85XEBCQuKhu+cpQcrVEFQ@mail.gmail.com>
+Subject: [PATCH] drm/amd/display: allow 256B DCC max compressed block sizes on
+ gfx12
+To: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="0000000000001e4647062fc1e40c"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,128 +74,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The guilty handling tried to establish a second way of signaling problems with
-the GPU back to userspace. This caused quite a bunch of issue we had to work
-around, especially lifetime issues with the drm_sched_entity.
+--0000000000001e4647062fc1e40c
+Content-Type: multipart/alternative; boundary="0000000000001e4646062fc1e40a"
 
-Just drop the handling altogether and use the dma_fence based approach instead.
+--0000000000001e4646062fc1e40a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+The hw supports it.
+
+Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  5 -----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 25 ++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h    |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 +-------
- 4 files changed, 24 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c                 | 3 ++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 5df21529b3b1..fcace736f208 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -59,11 +59,6 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
- 	if (!p->ctx)
- 		return -EINVAL;
- 
--	if (atomic_read(&p->ctx->guilty)) {
--		amdgpu_ctx_put(p->ctx);
--		return -ECANCELED;
--	}
--
- 	amdgpu_sync_create(&p->sync);
- 	drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
- 		      DRM_EXEC_IGNORE_DUPLICATES, 0);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index c43d1b6e5d66..0b6eb718577a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -250,7 +250,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- 	}
- 
- 	r = drm_sched_entity_init(&entity->entity, drm_prio, scheds, num_scheds,
--				  &ctx->guilty);
-+				  NULL);
- 	if (r)
- 		goto error_free_entity;
- 
-@@ -572,6 +572,27 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
- 
- #define AMDGPU_RAS_COUNTE_DELAY_MS 3000
- 
-+static bool amdgpu_ctx_guilty(struct amdgpu_ctx *ctx)
-+{
-+	int i, j, r;
-+
-+	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
-+		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
-+			struct amdgpu_ctx_entity *ctx_entity;
-+
-+			ctx_entity = ctx->entities[i][j];
-+			if (ctx_entity)
-+				continue;
-+
-+			r == drm_sched_entity_error(&ctx_entity->entity);
-+			if (r == -ETIME)
-+				return true;
-+		}
-+	}
-+
-+	return false;
-+}
-+
- static int amdgpu_ctx_query2(struct amdgpu_device *adev,
- 			     struct amdgpu_fpriv *fpriv, uint32_t id,
- 			     union drm_amdgpu_ctx_out *out)
-@@ -600,7 +621,7 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
- 	if (ctx->generation != amdgpu_vm_generation(adev, &fpriv->vm))
- 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_VRAMLOST;
- 
--	if (atomic_read(&ctx->guilty))
-+	if (amdgpu_ctx_guilty(ctx))
- 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_GUILTY;
- 
- 	if (amdgpu_in_reset(adev))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-index 85376baaa92f..45569cce484e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-@@ -53,7 +53,6 @@ struct amdgpu_ctx {
- 	bool				preamble_presented;
- 	int32_t				init_priority;
- 	int32_t				override_priority;
--	atomic_t			guilty;
- 	unsigned long			ras_counter_ce;
- 	unsigned long			ras_counter_ue;
- 	uint32_t			stable_pstate;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 198d29faa754..ed65c14a4ed7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5467,14 +5467,10 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
- int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
- 				 struct amdgpu_reset_context *reset_context)
- {
--	int i, r = 0;
--	struct amdgpu_job *job = NULL;
- 	struct amdgpu_device *tmp_adev = reset_context->reset_req_dev;
- 	bool need_full_reset =
- 		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
--
--	if (reset_context->reset_req_dev == adev)
--		job = reset_context->job;
-+	int i, r;
- 
- 	if (amdgpu_sriov_vf(adev))
- 		amdgpu_virt_pre_reset(adev);
-@@ -5499,9 +5495,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
- 
- 	amdgpu_fence_driver_isr_toggle(adev, false);
- 
--	if (job && job->vm)
--		drm_sched_increase_karma(&job->base);
--
- 	r = amdgpu_reset_prepare_hwcontext(adev, reset_context);
- 	/* If reset handler not implemented, continue; otherwise return */
- 	if (r == -EOPNOTSUPP)
--- 
-2.34.1
+--0000000000001e4646062fc1e40a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr">The hw supports it.<br><br>Signed-off-by: Marek Ol=C5=A1=
+=C3=A1k &lt;<a href=3D"mailto:marek.olsak@amd.com">marek.olsak@amd.com</a>&=
+gt;<br>---<br>=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 3 ++-<br>=C2=A0drivers/gpu/drm/=
+amd/display/amdgpu_dm/amdgpu_dm_plane.c | 2 +-<br>=C2=A02 files changed, 3 =
+insertions(+), 2 deletions(-)</div>
+
+--0000000000001e4646062fc1e40a--
+
+--0000000000001e4647062fc1e40c
+Content-Type: text/x-patch; charset="UTF-8"; 
+	name="0001-drm-amd-display-allow-256B-DCC-max-compressed-block-.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amd-display-allow-256B-DCC-max-compressed-block-.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m7ywikm40>
+X-Attachment-Id: f_m7ywikm40
+
+RnJvbSAwMmY4OWMxMWRjYTY5YzY1NTVmOGJhZDc1Yzg0YjUwMTI2YzUzNTU0IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiA9P1VURi04P3E/TWFyZWs9MjBPbD1DNT1BMT1DMz1BMWs/PSA8
+bWFyZWsub2xzYWtAYW1kLmNvbT4KRGF0ZTogRnJpLCA3IE1hciAyMDI1IDA5OjU3OjQ1IC0wNTAw
+ClN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZC9kaXNwbGF5OiBhbGxvdyAyNTZCIERDQyBtYXggY29t
+cHJlc3NlZCBibG9jayBzaXplcyBvbgogZ2Z4MTIKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1U
+eXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQtVHJhbnNmZXItRW5jb2Rpbmc6
+IDhiaXQKClRoZSBodyBzdXBwb3J0cyBpdC4KClNpZ25lZC1vZmYtYnk6IE1hcmVrIE9sxaHDoWsg
+PG1hcmVrLm9sc2FrQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rydi5jICAgICAgICAgICAgICAgICB8IDMgKystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9wbGFuZS5jIHwgMiArLQogMiBmaWxlcyBjaGFuZ2Vk
+LCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2Rydi5jCmluZGV4IGIxNjFkYWE5MDAxOTguLmY2ZjhlMGIwNTBiNGQgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTEyNCw5ICsxMjQsMTAgQEAK
+ICAqIC0gMy42MC4wIC0gQWRkIEFNREdQVV9USUxJTkdfR0ZYMTJfRENDX1dSSVRFX0NPTVBSRVNT
+X0RJU0FCTEUgKFZ1bGthbiByZXF1aXJlbWVudCkKICAqIC0gMy42MS4wIC0gQ29udGFpbnMgZml4
+IGZvciBSVi9QQ08gY29tcHV0ZSBxdWV1ZXMKICAqIC0gMy42Mi4wIC0gQWRkIEFNREdQVV9JRFNf
+RkxBR1NfTU9ERV9QRiwgQU1ER1BVX0lEU19GTEFHU19NT0RFX1ZGICYgQU1ER1BVX0lEU19GTEFH
+U19NT0RFX1BUCisgKiAtIDMuNjMuMCAtIEdGWDEyIGRpc3BsYXkgRENDIHN1cHBvcnRzIDI1NkIg
+bWF4IGNvbXByZXNzZWQgYmxvY2sgc2l6ZQogICovCiAjZGVmaW5lIEtNU19EUklWRVJfTUFKT1IJ
+MwotI2RlZmluZSBLTVNfRFJJVkVSX01JTk9SCTYyCisjZGVmaW5lIEtNU19EUklWRVJfTUlOT1IJ
+NjMKICNkZWZpbmUgS01TX0RSSVZFUl9QQVRDSExFVkVMCTAKIAogLyoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3BsYW5lLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9wbGFuZS5jCmlu
+ZGV4IGRjZjJiOTg1NjZlYWEuLjMzMDBhYjE2NTdkZDcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3BsYW5lLmMKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fcGxhbmUuYwpAQCAtNjk3
+LDcgKzY5Nyw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9wbGFuZV9hZGRfZ2Z4MTJfbW9kaWZp
+ZXJzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCXVpbnQ2NF90IG1vZF80ayA9IHZlciB8
+IEFNRF9GTVRfTU9EX1NFVChUSUxFLCBBTURfRk1UX01PRF9USUxFX0dGWDEyXzRLXzJEKTsKIAl1
+aW50NjRfdCBtb2RfMjU2YiA9IHZlciB8IEFNRF9GTVRfTU9EX1NFVChUSUxFLCBBTURfRk1UX01P
+RF9USUxFX0dGWDEyXzI1NkJfMkQpOwogCXVpbnQ2NF90IGRjYyA9IHZlciB8IEFNRF9GTVRfTU9E
+X1NFVChEQ0MsIDEpOwotCXVpbnQ4X3QgbWF4X2NvbXBfYmxvY2tbXSA9IHsxLCAwfTsKKwl1aW50
+OF90IG1heF9jb21wX2Jsb2NrW10gPSB7MiwgMSwgMH07CiAJdWludDY0X3QgbWF4X2NvbXBfYmxv
+Y2tfbW9kW0FSUkFZX1NJWkUobWF4X2NvbXBfYmxvY2spXSA9IHswfTsKIAl1aW50OF90IGkgPSAw
+LCBqID0gMDsKIAl1aW50NjRfdCBnZngxMl9tb2RpZmllcnNbXSA9IHttb2RfMjU2aywgbW9kXzY0
+aywgbW9kXzRrLCBtb2RfMjU2YiwgRFJNX0ZPUk1BVF9NT0RfTElORUFSfTsKLS0gCjIuNDMuMAoK
+--0000000000001e4647062fc1e40c--
