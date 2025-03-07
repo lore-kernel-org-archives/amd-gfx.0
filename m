@@ -4,124 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F628C28B25
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C02A4C19F32
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C55F10EB51;
-	Fri,  7 Mar 2025 13:30:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB7810EB43;
+	Fri,  7 Mar 2025 13:48:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="AiDg1B8c";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uhs2QVa2";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A082710EB4F
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 13:30:01 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-391211ea598so1207161f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Mar 2025 05:30:01 -0800 (PST)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6ADC10EB43
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 13:48:18 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-43bc31227ecso10743055e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Mar 2025 05:48:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1741354200; x=1741959000; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ekE5xsi6ZfzsstIFHcXwKSB/c+BLxZ8NF8WHZmG2dto=;
- b=AiDg1B8ctRnoS6AxfhaZ/WbNdrUZWxa9KR4vwyVhtDu6kphPDa0b2foAEPa8z2vzwW
- 9KeEn/c0+/LZdiKRgw7o0IQYh+STofzbq1WDMzc/HC7X6VpllUhAUPnemXwsYYV4QoHU
- Ocl3dQj2inaEu2MvrRzb4iwYfb5pvH/k9SV14=
+ d=gmail.com; s=20230601; t=1741355297; x=1741960097; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=NE/z3Dh/XvrJQlBMAjoDcVxAoGe91/7EpmqLweUpcfU=;
+ b=Uhs2QVa2kUCLY34926TrdPEonLZ4cqQ8NrVkYAqJBuqXCKW77T9Er0OcNsHGW0OexA
+ rE6DGxx7Vl0MxifqKEWWqY1SMYp9Iz+3KPkPOLhzhqJdlfEEBOulQsRrV+NGaoZ1s4di
+ UTToSTYCdu1q8WS621v+J2y5eHGdYE/39w3aQkfzOLP8U3U5H9FkkdIeX3YMBZRAX6mK
+ RiMwsPMzLy6Eq7m/w0GLw3y5bkjC5k/5X/RWxC5DKDFgycQeklqSTKhmOwhryg/inzw8
+ 4Eq7zyLyAInzd+c6pJpAXSE9vyhqIZhVSRaYjQcLJrqbpgK+7YVujFqJeMS554qe7bSJ
+ kd4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741354200; x=1741959000;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ekE5xsi6ZfzsstIFHcXwKSB/c+BLxZ8NF8WHZmG2dto=;
- b=gBeeNX0If3L8zAgD/7vBfMjqO801abgxZuWGVIHgU1rNM8yQhPANAEumZVSl/Jn7t6
- fLzfVKS0xszFbFHUccvrMbCHfU6/iUhZRgc46YXhVZN0JSHJecN9izGF5zp7SKMWx9th
- +0C2V63rT1DNfx6lnl6uoB7ZdZ31jnWXFRfbbDYTG3MzljHs5pN3Pks802eLq4IX7G1V
- 4tW+6lW/GYaszEoSuo3b4m65QVJk6Ug6qQt2NmYqpm1682omYuQyzzO8rg3/S3lccmyf
- X9BqoSe1xfnfitP5R1SFvfjK+8UoY348COMJlCqzCkowK6RVsOv0iZkiY+yVrzOeUkyc
- dYbQ==
+ d=1e100.net; s=20230601; t=1741355297; x=1741960097;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=NE/z3Dh/XvrJQlBMAjoDcVxAoGe91/7EpmqLweUpcfU=;
+ b=EH+8+2r7f/iTDoIXf1fEUxppqEC2jEV6NdKgJxCU9+WvsO2UTzWu1HSpmVS899rfu3
+ uOK9kCaDHwawXqPiYN2OMlqf2GMpwiSgB5rPquGz3lJ8jSW05BwM/SeI/53+kkZWvb6J
+ S1kmbjfEcEYMaRpHKRiafs1aKXW38dk4E6giWROD3cgrKS2KXGZkgTgjLiJxEabMtww4
+ oLrEOtuRudyHnZa1dDRrvT8a+K7cmcNn9ODreQjzd9Er8tB0TIIzBypn2Ss2s8zwcBP2
+ bov3zN489Mz3juqFs5oIeg1CNlSQhNULxSviwBNPuRvbHDiSLMEiQAo5ISuQMf8f6TlN
+ dGLg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWKmm5TqjPAfqZ8nVsHZwjyEH2dd8cth50h/hPKumfjmAWD+HeUDPsal2zkb8ebzM0z8YgYKQR+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxGMB3jsskJUVEx+ot28iwBU79tjmYdBpYQa6dYtblZZI7JgRc9
- nTDgrufXuGzyjywPI8CBYodjgIwbhiJMclR4VpJHCE0FOIBZsRhraROjJSslAJc=
-X-Gm-Gg: ASbGncvpJKsmxGMd41XuSpdA6Q7pxiXJFslXp1fTPd3FcjiOILoUlO/3x6hHf2dze/V
- ukayF8JwfZYpJv7N5xtV9BrqYUVJeUdDlWsXRTbzjRcHSYEWQQYg0v4RkSRV3UQEtJ+2lrwRZCU
- y2ySB2gPccdgwbyhYx16yu5dga16iBevhWKp0qIHNBavcye6AhFRgzCnOTY9hgjO5ynbpfLN7Am
- /e4L4pcc/xhD0AosCzFT4g3ETeXE5DHudRHWx6C9EVMMQ5orY9KwznaKg3tO+kCaywVc6kNfHtN
- AFOJRFS01HnXd5xFzeUO3zYjpkwGeukTY9VI2NmTAgcdbFxjw8+p5+Ch
-X-Google-Smtp-Source: AGHT+IH/kkCP3WG8+wzNo7ysyBh/OLARokHFUAgPdG9FvCx5V4btdPhz7YMsZxr6IpgW9UUP3aP3IA==
-X-Received: by 2002:a05:6000:144d:b0:38f:3a89:fdb5 with SMTP id
- ffacd0b85a97d-39132d244fdmr2005477f8f.11.1741354199959; 
- Fri, 07 Mar 2025 05:29:59 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ AJvYcCXg1+6mlDMkAGl/1NFayfB8UYSswm5TG/Q/6gUrl3ZgxHtZhEWKt4KzA0Ph/DRnGjtuJZrHkWQo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxtf8q10pWD2U74OT37lJ1GAttzrR/9wP50E5IPu7y5gpq3GJtb
+ 0sFM0eWiSFntmk9BowZRNQwsZllizzI+tj4Rzitv457B/nCW8JCDCvIAXANp
+X-Gm-Gg: ASbGncsJZIL7AnLnGUrreOd24XuXgZVfxnauaTS4rkNBxcocClHXrUGNQj14CQOIf56
+ eKwg7UsLFmkDwM8XcrtjPouiP5ergXJG1t1XcjoQV1sXnJrPGBU/VZVr9k/S5ZH19bRX/nVzIuY
+ hh0FxxOgsRc1J7pwZFgwVdLqA0q0Xw5Pia5pcvmguKrG17l7fviclJUeX3InjrpBNjfDMVuTnz2
+ DACnKdsksD5Y92/pXJujdvnJqiV6KkEf0Hh7khAa66fQHVi3pTShAdGiy6kCbDWyy1F4QoxoIsv
+ FRTPRDJUCZ/yVyops273adfjaGhMwiRieUZtYbxdpZRkCU/7pbwhBJA9uw==
+X-Google-Smtp-Source: AGHT+IEZfvXMcVcgfdNwTBA1aZhpkSrX02A5XGfu9lQ4HuxQuyQkkQ4dcVnqSyXLy8n5mPyZl3kRcw==
+X-Received: by 2002:a05:6000:1867:b0:391:253b:405d with SMTP id
+ ffacd0b85a97d-39132d98a1emr2333608f8f.41.1741355297220; 
+ Fri, 07 Mar 2025 05:48:17 -0800 (PST)
+Received: from able.fritz.box ([2a00:e180:14d3:5e00:ab55:e6a0:3a3d:9571])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bdd8b0425sm51891245e9.3.2025.03.07.05.29.58
+ 5b1f17b1804b1-43bd91338cesm70613345e9.7.2025.03.07.05.48.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Mar 2025 05:29:59 -0800 (PST)
-Date: Fri, 7 Mar 2025 14:29:57 +0100
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH RFC v3 0/7] drm/display: dp: add new DPCD access functions
-Message-ID: <Z8r01VDfSykLv5JX@phenom.ffwll.local>
-Mail-Followup-To: Dmitry Baryshkov <lumag@kernel.org>,
- Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@intel.com>
-References: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
+ Fri, 07 Mar 2025 05:48:16 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: srinivasan.shanmugam@amd.com, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com
+Subject: [PATCH 1/8] drm/amdgpu: grab an additional reference on the gang
+ fence v2
+Date: Fri,  7 Mar 2025 14:48:09 +0100
+Message-Id: <20250307134816.1422-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
-X-Operating-System: Linux phenom 6.12.11-amd64 
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,75 +86,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 07, 2025 at 06:34:42AM +0200, Dmitry Baryshkov wrote:
-> Existing DPCD access functions return an error code or the number of
-> bytes being read / write in case of partial access. However a lot of
-> drivers either (incorrectly) ignore partial access or mishandle error
-> codes. In other cases this results in a boilerplate code which compares
-> returned value with the size.
-> 
-> As suggested by Jani implement new set of DPCD access helpers, which
-> ignore partial access, always return 0 or an error code. Implement
-> new helpers using existing functions to ensure backwards compatibility
-> and to assess necessity to handle incomplete reads on a global scale.
-> Currently only one possible place has been identified, dp-aux-dev, which
-> needs to handle possible holes in DPCD.
-> 
-> This series targets only the DRM helpers code. If the approach is found
-> to be acceptable, each of the drivers should be converted on its own.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+We keep the gang submission fence around in adev, make sure that it
+stays alive.
 
-Just wanted to drop my "I like this" on your series here. Short
-read/writes come from unix pipes, and they're everywhere, and yes ime
-everyone gets them wrong. So ack or whatever that means :-)
--Sima
+v2: fix memory leak on retry
 
-> ---
-> Changes in v3:
-> - Fixed cover letter (Jani)
-> - Added intel-gfx and intel-xe to get the series CI-tested (Jani)
-> - Link to v2: https://lore.kernel.org/r/20250301-drm-rework-dpcd-access-v2-0-4d92602fc7cd@linaro.org
-> 
-> Changes in v2:
-> - Reimplemented new helpers using old ones (Lyude)
-> - Reworked the drm_dp_dpcd_read_link_status() patch (Lyude)
-> - Dropped the dp-aux-dev patch (Jani)
-> - Link to v1: https://lore.kernel.org/r/20250117-drm-rework-dpcd-access-v1-0-7fc020e04dbc@linaro.org
-> 
-> ---
-> Dmitry Baryshkov (7):
->       drm/display: dp: implement new access helpers
->       drm/display: dp: change drm_dp_dpcd_read_link_status() return value
->       drm/display: dp: use new DCPD access helpers
->       drm/display: dp-aux-dev: use new DCPD access helpers
->       drm/display: dp-cec: use new DCPD access helpers
->       drm/display: dp-mst-topology: use new DCPD access helpers
->       drm/display: dp-tunnel: use new DCPD access helpers
-> 
->  drivers/gpu/drm/amd/amdgpu/atombios_dp.c           |   8 +-
->  .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |   2 +-
->  drivers/gpu/drm/display/drm_dp_aux_dev.c           |  12 +-
->  drivers/gpu/drm/display/drm_dp_cec.c               |  37 ++-
->  drivers/gpu/drm/display/drm_dp_helper.c            | 307 +++++++++------------
->  drivers/gpu/drm/display/drm_dp_mst_topology.c      | 105 ++++---
->  drivers/gpu/drm/display/drm_dp_tunnel.c            |  20 +-
->  drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c       |   4 +-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  24 +-
->  drivers/gpu/drm/msm/dp/dp_link.c                   |  18 +-
->  drivers/gpu/drm/radeon/atombios_dp.c               |   8 +-
->  include/drm/display/drm_dp_helper.h                |  92 +++++-
->  12 files changed, 322 insertions(+), 315 deletions(-)
-> ---
-> base-commit: 565351ae7e0cee80e9b5ed84452a5b13644ffc4d
-> change-id: 20241231-drm-rework-dpcd-access-b0fc2e47d613
-> 
-> Best regards,
-> -- 
-> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 198d29faa754..337543ec615c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6889,18 +6889,26 @@ struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
+ {
+ 	struct dma_fence *old = NULL;
+ 
++	dma_fence_get(gang);
+ 	do {
+ 		dma_fence_put(old);
+ 		old = amdgpu_device_get_gang(adev);
+ 		if (old == gang)
+ 			break;
+ 
+-		if (!dma_fence_is_signaled(old))
++		if (!dma_fence_is_signaled(old)) {
++			dma_fence_put(gang);
+ 			return old;
++		}
+ 
+ 	} while (cmpxchg((struct dma_fence __force **)&adev->gang_submit,
+ 			 old, gang) != old);
+ 
++	/*
++	 * Drop it once for the exchanged reference in adev and once for the
++	 * thread local reference acquired in amdgpu_device_get_gang().
++	 */
++	dma_fence_put(old);
+ 	dma_fence_put(old);
+ 	return NULL;
+ }
 -- 
-Simona Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.34.1
+
