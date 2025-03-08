@@ -4,80 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3891C282EC
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 Mar 2025 09:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E881C282EC
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 Mar 2025 14:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667C810E062;
-	Sat,  8 Mar 2025 09:23:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA1E810E11C;
+	Sat,  8 Mar 2025 14:27:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ldjoocTg";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Gpp1sjSx";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13F9E10E1B1;
- Fri,  7 Mar 2025 19:26:12 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-43948021a45so18898855e9.1; 
- Fri, 07 Mar 2025 11:26:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741375570; x=1741980370; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=XJ8UaQWqIa3vda379287qYK3S3G2j1GfNXMaEtrdj64=;
- b=ldjoocTgCBbTqtE7MvsJjing2au8S57JTqj7LH85bwI+geMpVfCv2h+1+0Trl0f05V
- mBnaUO/7gFrYX3TnxSieBuimh0D0IKBVkcvdMCiUki+Tbv0JYUuqXhSWrWyDN05WFwhY
- 2szLb/uGMuudxd1VKpsCKwDMuGSuykjBNojD18zzFOvnCSbGP+kV5bb3VtIaXw6hkfIC
- EIEBINTY+t7WZh9xWTukZMQk7Hh58jhY3c9ltG9E03wAzc3hzezZOL1SNhfDB0TpMOuj
- 141cJxldtPmPQamG9chz78dMJcUfwxh2jokg/ZZ4s9yWnQQi9SIr+xKE2HPmeyGutgR6
- N1Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741375570; x=1741980370;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XJ8UaQWqIa3vda379287qYK3S3G2j1GfNXMaEtrdj64=;
- b=O1sLeQiqNurBi34TJwvdWA+MueOczoEVYH6eZEWFu9qFof2DuBcAo0GapjkePNjvpS
- A/laC4JLgPMzmP2AQjVvAfttg7hS/iePUL5gkBiamXMSvJmDp/18m9/KKzRDlGIrY8XW
- kXys53nrJBTodBmlR9a+odWlAAqreb9ckfcOKPqGdDCiJ1jpdwzufpiaZ3O5byxYXdep
- WeXIUD061jO0OtpFBGo4M3HEkGxGnVraLVUzh0Ei6X4dIljlb1m1rM03N57btOxqYQQF
- cmT2MeVnnefmEZXkNL+38y6HF7JGhtRObhPzuJSbN1Ris0LYF44sKZ2sj8a8ywrqlIh1
- yl7Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWkeEZd2Kg0SZ1VigNUjBZJfYYbbtpdW9LBjNeR/xineIF2ZQFQT8oL4RdsiIa6ooy7bKGQe2FWucEk@lists.freedesktop.org,
- AJvYcCXAMIWxiYSBFKaO2HS5y4PNXl0VEJA1DtmEBbFEsZdk2fJpNiZMIA8x/jYFV8tC8WmwlxaceWt3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwVksx60LA9g9dzKeBasWmAf80JmG4FIdb3GvqR5SR1tpQ4IWNJ
- BErrYJW1LO36DpM9n6EDV02voBlbnMcwlUpmkWooQVkPZEj+OVzL
-X-Gm-Gg: ASbGncti/F/a9sfZ4mMrTJ7DVehC/DtT7ndxOpRopACwI6huqfLEyrWywNKWcXq8dP0
- CZhJ5gIDJLtNhCY0nFYCKQmrOm53p8r/0eWIO1vu/NcxpT9iLc+pgVaKc2qQ6m701XBuTk+7vgK
- /ztsRsSMDEUwFDvx/yP+JuRWv/cMDPutlG/XBY0lc1DYC+2eCUXeodAbsZ0tNyFw5zAiQ9H/AOF
- CzWa20CfGB5aPL0Vcq0KNlO3672kw3CIUGOE9elJmELCYik561HxPch4a77xu5cEpUYJZwdxvj+
- JSzvkVvBIeGfHMVLmTVlPExtQYCEyOUkdQ==
-X-Google-Smtp-Source: AGHT+IGwL2b8gc/gS7dCHf+RS4DYjwJuU8VHvq/jA1tVjXmfJEK90HGc3P8fz0r/SDEeDhURxhKXJQ==
-X-Received: by 2002:a05:600c:4f82:b0:43b:ca31:fcfd with SMTP id
- 5b1f17b1804b1-43c601e18e1mr35674915e9.18.1741375570167; 
- Fri, 07 Mar 2025 11:26:10 -0800 (PST)
-Received: from pc ([165.51.44.130]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bdd9493a2sm59174315e9.39.2025.03.07.11.26.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Mar 2025 11:26:09 -0800 (PST)
-Date: Fri, 7 Mar 2025 20:10:46 +0100
-From: Salah Triki <salah.triki@gmail.com>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm: amdkfd: Replace (un)register_chrdev() by
- (unregister/alloc)_chrdev_region()
-Message-ID: <Z8tEti/ZRbx5pt5M@pc>
-References: <20250305210809.218138-1-salah.triki@gmail.com>
- <a5b1d94e-30ee-411c-88f5-1e340068220c@amd.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BB6710E11C
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Mar 2025 14:27:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=VlclST51KS5onWqpqx1/hgzM9UAUyL0Oni1lz2ll1Qo=; b=Gpp1sjSxIdCvhIxk7O1grYW4lL
+ 9CMMH5WJs9NDqX0r1B05qE4XZOcCYGEsFK3OVYrBnj9rgUTkSPwkjD9kLBbiXxZuwP3ZaqMjRVnY5
+ j+VCkO36MdNmlLl6gA7OePBPBj2ITdGYPPEVUuJ4O7rZMrjxEUBQAvjJKqhulk/wbK5HTjIEswUS1
+ 2PFZBWygGaGOTDD928xuHhxWxEzwWwouHF0jQWXoa3wdnlq5xat5y9lNJZp8vi4v4i7ByjryKYplE
+ /HuU8tY0YYOBzw2cq9WLQ6wEOcU11Ljc4fMjeYP5vKZbm6268g4B84WEYwMpK1v/FavQzexLXBDEe
+ MXCCWh/g==;
+Received: from [189.6.35.67] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tqv8c-005pIP-Th; Sat, 08 Mar 2025 15:26:57 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, mario.limonciello@amd.com, alex.hung@amd.com,
+ siqueira@igalia.com
+Cc: amd-gfx@lists.freedesktop.org,
+	kernel-dev@igalia.com
+Subject: [RFC PATCH 0/7] drm/amd/display: more DRM edid common-code to the
+ display driver
+Date: Sat,  8 Mar 2025 11:26:04 -0300
+Message-ID: <20250308142650.35920-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a5b1d94e-30ee-411c-88f5-1e340068220c@amd.com>
-X-Mailman-Approved-At: Sat, 08 Mar 2025 09:23:38 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,39 +59,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 05, 2025 at 07:18:33PM -0500, Felix Kuehling wrote:
-> 
-> On 2025-03-05 16:08, Salah Triki wrote:
-> > Replace (un)register_chrdev() by (unregister/alloc)_chrdev_region() as
-> > they are deprecated since kernel 2.6.
-> 
-> Where is that information coming from? I see __register_chrdev documented in
-> the current kernel documentation. I see no indication that it's deprecated:
-> https://docs.kernel.org/core-api/kernel-api.html#c.__register_chrdev
-> 
-In the book "Linux Device Drivers" 3ed of J. Corbet and al. (2005), it
-is indicated that using register_chrdev() is the old way to register
-char drivers, the new code should not use this interface, it should
-instead use the cdev interface. 
-> 
-> >   alloc_chrdev_region() generates a
-> > dev_t value, so replace the kfd_char_dev_major int variable by the
-> > kfd_char_dev_id dev_t variable and drop the MKDEV() call. Initialize a
-> > cdev structure and add it to the device driver model as register_chrdev()
-> > used to do and since alloc_chrdev_region() does not do it. Drop the
-> > iminor() call since alloc_chrdev_region() allocates only one minor number.
-> > On error and in the module exit function, remove the cdev structure from
-> > the device driver model as unregister_chrdev() used to do.
-> 
-> Sounds complicated. Your patch seems to open-code a bunch of details that
-> are neatly hidden inside register_chrdev. Why would I want all that detail
-> in my driver? I don't see an obvious advantage.
-> 
-register_chrdev() registers 256 minor numbers, calling it will result in
-calling kmalloc_array(256, sizeof(struct probe), GFP_KERNEL) whereas
-calling alloc_chrdev_region() with count parameter equals to 1, which is
-the number of minor numbers requested, will result in calling
-kmalloc_array(1, sizeof(stuct probe), GFP_KERNEL). 
+Hi,
 
-Best Regards,
-Salah Triki 
+I've been working on a new version of [1] that ports the AMD display
+driver to use the common `drm_edid` code instead of open and raw edid
+handling.
+
+The part of the previous series that didn't make the cut was to replace
+the open coded edid parser with `drm_edid_product_id` and `eld` data.
+However, when addressing feedback I ran into a design issue in the
+latest version because I was trying to not add any Linux-specific code
+to the DC code, specifically, DC link detection. In short, we have a few
+paths in the DM code that allocate a temporary `drm_edid`, go to the DC,
+and back to the DM to handle `drm_edid` data. In the last version, I was
+storing this temporary `drm_edid` in the aconnector, but it was
+erroneously overriding a still in use `drm_edid`.
+
+In this new version I allocate a temporary `drm_edid` in the DM parser
+from raw edid data stored in `dc_edid`, which was actually extracted
+from another `drm_edid` in the previous DM caller. This is a workaround
+to bypass DC boundaries and parse edid capabilities, but I think we can
+do better if we can find a clean way to pass the `drm_edid` through this
+kind of DM -> DC -> DM paths.
+
+I checked working on top of Thomas' work[2] that replaces `dc_edid` by
+`drm_edid` and adds this DRM struct and its helpers inside DC. The
+resulted changes work stable and as expected[3], but I believe that
+adding linux-specific code to DC is not desirable.
+
+Siqueira and I have discussed other alternatives, such as updating the
+DC code to match `drm_edid` structs or checking how well the change in
+this series could work with `drm_edid` as a private obj[4], however we
+would like to know AMD team's opinion before making this big effort (and
+probably noisy change). The main goal here is removing `drm_edid_raw`
+calls and duplicated code to handle edid in DC/link_detection that can
+take advantage of DRM common-code instead.
+
+Please, let me know your thoughts.
+
+Melissa
+
+[1] https://lore.kernel.org/amd-gfx/20240918213845.158293-1-mario.limonciello@amd.com/
+[2] https://lore.kernel.org/amd-gfx/20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net/
+[3] https://gitlab.freedesktop.org/mwen/linux-amd/-/commits/drm_edid_product_id_v4
+[4] https://gitlab.freedesktop.org/mwen/linux-amd/-/commits/drm_edid_priv
+
+Melissa Wen (7):
+  drm/amd/display: make sure drm_edid stored in aconnector doesn't leak
+  drm/amd/display: start using drm_edid helpers to parse EDID caps
+  drm/amd/display: use drm_edid_product_id for parsing EDID product info
+  drm/amd/display: parse display name from drm_eld
+  drm/amd/display: get panel id with drm_edid helper
+  drm/amd/display: get SAD from drm_eld when parsing EDID caps
+  drm/amd/display: get SADB from drm_eld when parsing EDID caps
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 85 +++++++++----------
+ 2 files changed, 42 insertions(+), 45 deletions(-)
+
+-- 
+2.47.2
+
