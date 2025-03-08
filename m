@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B97DC282EC
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 Mar 2025 14:27:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5505EC282EC
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 Mar 2025 14:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D69BA10E1DE;
-	Sat,  8 Mar 2025 14:27:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1D5F10E1E9;
+	Sat,  8 Mar 2025 14:27:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Jqff9Lib";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Mrq7TrhR";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BD7E10E1DE
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Mar 2025 14:27:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99EAF10E1E9
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Mar 2025 14:27:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,26 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=P9y/0cRujlsNSasmSrqHZBpUu31Ly4lOvLNu3E7Bm24=; b=Jqff9Libb/bgpK0i8JYy34XVt1
- m+z1p3F/vGZFy+KV8ap3+j/MqDMIjrlrKtdKgEBvAw3K5FT38jnuktHnXL5DROrGntipNSyzgAX7x
- QrsKpzJNxE+SAML3V56ysY8aBLkWFjWqgu9M/wmLC41NNq5KBoOHzRSDOcV3oWDWdtCYBphNBfYLP
- s9h/5t3RchNcsYG7rFGm9zv2O5/1ymzDBIRS+Ye5fCD73erpOSzGoZfz98sIjRjRkStPYEK5WBFB9
- WmIZ4yKcpovhEjlFT9S379JoZx70yFu5QBdQTmO1+WiYVoeboF4DbQRezaA3c12O1sB46UTUvsIVr
- rLltT4qQ==;
+ bh=nOD5Y2qeskSmo7Il7idHtC4lkBIsi+0tWcMeX8C+c+U=; b=Mrq7TrhRa83IZcCFqlZzBY5H1K
+ DMqptww/xhKKuG4Q+/AKEeA+krx8FWOKg+C/NF+gh9M6z5B5QE350zc78yDQuuh2AZve7f9LAZi8q
+ A6GjbrQF55wvS1kvv1CdXeiSIbnrYI6ArbDyW7hjK0FZ7Ff4dWrx5kCRUF5ijwaaz5N9brzT2JJYG
+ BHB8WWje9D14MI8k+Lg57S30lQ6+vO0mXHj86NDIExvLkadwjk0VH/FPxXaTkXQ9o67zqS1g8zyj8
+ 2i4VDcosAKR/lBhiqT4pQznI42UiXb97OkT742pev/5baqB6hqD7Nh9+RWBDtcJpdr3L13KbLfYaV
+ mbv/EzUA==;
 Received: from [189.6.35.67] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tqv8o-005pIP-Kt; Sat, 08 Mar 2025 15:27:09 +0100
+ id 1tqv8s-005pIP-E4; Sat, 08 Mar 2025 15:27:12 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, mario.limonciello@amd.com, alex.hung@amd.com,
  siqueira@igalia.com
 Cc: amd-gfx@lists.freedesktop.org,
 	kernel-dev@igalia.com
-Subject: [RFC PATCH 3/7] drm/amd/display: use drm_edid_product_id for parsing
- EDID product info
-Date: Sat,  8 Mar 2025 11:26:07 -0300
-Message-ID: <20250308142650.35920-4-mwen@igalia.com>
+Subject: [RFC PATCH 4/7] drm/amd/display: parse display name from drm_eld
+Date: Sat,  8 Mar 2025 11:26:08 -0300
+Message-ID: <20250308142650.35920-5-mwen@igalia.com>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250308142650.35920-1-mwen@igalia.com>
 References: <20250308142650.35920-1-mwen@igalia.com>
@@ -61,48 +60,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since [1], we can use drm_edid_product_id to get debug info from
-drm_edid instead of directly parsing EDID.
+We don't need to parse dc_edid to get the display name since it's
+already set in drm_eld which in turn had it values updated when updating
+connector with the opaque drm_edid.
 
-Link: https://lore.kernel.org/dri-devel/cover.1712655867.git.jani.nikula@intel.com/ [1]
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 7edc23267ee7..0e37039dead0 100644
+index 0e37039dead0..0def4f59b05a 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -109,6 +109,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	struct drm_device *dev = connector->dev;
- 	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
- 	struct drm_edid *drm_edid;
-+	struct drm_edid_product_id product_id;
- 	struct cea_sad *sads;
- 	int sad_count = -1;
- 	int sadb_count = -1;
-@@ -126,13 +127,13 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	if (!drm_edid_valid(drm_edid))
- 		result = EDID_BAD_CHECKSUM;
+@@ -34,7 +34,7 @@
+ #include <drm/amdgpu_drm.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fixed.h>
+-
++#include <drm/drm_eld.h>
+ #include "dm_services.h"
+ #include "amdgpu.h"
+ #include "dc.h"
+@@ -90,6 +90,7 @@ static void apply_edid_quirks(struct drm_device *dev, struct edid *edid, struct
+ 	}
+ }
  
--	edid_caps->manufacturer_id = (uint16_t) edid_buf->mfg_id[0] |
--					((uint16_t) edid_buf->mfg_id[1])<<8;
--	edid_caps->product_id = (uint16_t) edid_buf->prod_code[0] |
--					((uint16_t) edid_buf->prod_code[1])<<8;
--	edid_caps->serial_number = edid_buf->serial;
--	edid_caps->manufacture_week = edid_buf->mfg_week;
--	edid_caps->manufacture_year = edid_buf->mfg_year;
-+	drm_edid_get_product_id(drm_edid, &product_id);
-+
-+	edid_caps->manufacturer_id = le16_to_cpu(product_id.manufacturer_name);
-+	edid_caps->product_id = le16_to_cpu(product_id.product_code);
-+	edid_caps->serial_number = le32_to_cpu(product_id.serial_number);
-+	edid_caps->manufacture_week = product_id.week_of_manufacture;
-+	edid_caps->manufacture_year = product_id.year_of_manufacture;
++#define AMDGPU_ELD_DISPLAY_NAME_SIZE_IN_CHARS 13
+ /**
+  * dm_helpers_parse_edid_caps() - Parse edid caps
+  *
+@@ -135,9 +136,10 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	edid_caps->manufacture_week = product_id.week_of_manufacture;
+ 	edid_caps->manufacture_year = product_id.year_of_manufacture;
  
- 	drm_edid_get_monitor_name(edid_buf,
- 				  edid_caps->display_name,
+-	drm_edid_get_monitor_name(edid_buf,
+-				  edid_caps->display_name,
+-				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
++	memset(edid_caps->display_name, 0, AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
++	memcpy(edid_caps->display_name,
++	       &connector->eld[DRM_ELD_MONITOR_NAME_STRING],
++	       AMDGPU_ELD_DISPLAY_NAME_SIZE_IN_CHARS);
+ 
+ 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+ 
 -- 
 2.47.2
 
