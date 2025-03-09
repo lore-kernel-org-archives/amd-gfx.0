@@ -4,69 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FB2FC282EC
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Mar 2025 00:33:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F106CC28B2F
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Mar 2025 16:32:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AFC710E24B;
-	Sun,  9 Mar 2025 00:33:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5A9910E164;
+	Sun,  9 Mar 2025 16:32:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HQXGNsgh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aw//ZxGy";
 	dkim-atps=neutral
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com
- [209.85.222.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0765410E24B
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Mar 2025 00:33:04 +0000 (UTC)
-Received: by mail-ua1-f54.google.com with SMTP id
- a1e0cc1a2514c-86d30787263so1367807241.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Mar 2025 16:33:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741480383; x=1742085183; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MCVtEtL1w/kxZ+yOQUbKXRxSOPvLTJ4ZucamvMeLLgo=;
- b=HQXGNsghIPKPP6NHYpnuHiX3Mv/WgmAIHuIQJu7THcDvpDgiTcpOzVYdHxoU4GB/fy
- ulNvwYt/caOax6Av4/Kq8C5yv/Dv5nD8XCkP3+RqhXtgh4xKyXyOX/ihUzw7lle1UHVz
- Y6kF2dV00jo79rxH2Hz3Syexp4z+t4izFyUJKc8kVqSMlR3Q5Q1oXEX6PtXm0zZlWg3/
- aVr+d0S6H7fK2/Zk5ME07y3ig4xfsCt+t4gBpHLdXnB9hFlubgKMtYFgKcCA9LhvZlQA
- EA9VfEW91YtL4FRVj+iruOlrfePP/VwH/d4pWGFYqhjaPqUKXkiTm++ZHwwtAJfIRsGM
- 5uBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741480383; x=1742085183;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MCVtEtL1w/kxZ+yOQUbKXRxSOPvLTJ4ZucamvMeLLgo=;
- b=E/9l6r7YwUgUrvPIX2rUoSFpQvPZiz3inbzzZlUkCfXp/nbqma8AjJEjC/WFHBgQV/
- 4FuQhZlvUlFUY1M8CdQtJFIOXoV22cCyXXij7BztlsWeoQH+Y+N3DZJv53EHXwOHPmWB
- /I9WQSsCaYlLxBS8hs1+RFAJm3ZxkE/hRLv/gBGde5GESL/d79+gDj0Hcn7dbg97BI3X
- zMgmNwL4UMHzQu8Lwqr252nKJGIkn66Z+SbWU/toN5aHM09mtiJgB7+ebjRfYH+KZD9p
- VSD2qKkr4AnAIcscfBwL8WOcp37okvjReNhT0pmXVuWiLjT6MDxYxpwHnbgROlIh7Sjt
- xl5Q==
-X-Gm-Message-State: AOJu0YytnvFPSe06gUOzi116MaWTu0BYminK/0aH1l6jXAh3uYWTzgd7
- 3BS0Vm8t+ESmee/9Z73PIEaXZBlHslOg9ihwICIBsRKqg/b8pcv8lhFwulaEyz7kTK/WUGCD8ub
- W/aeIh45YMEZZal8YwRIh7DGvbE4=
-X-Gm-Gg: ASbGnctteMRjEp/+Mz/eAjk2xT8bufO1q7fzEjY2TeVr5hBR36eaWmbpah6yh3mRJ0u
- mCvJw9XGROMWld1xP7svIPd7la1HnY2JKUTYLU+yiEhUVDzjeaBiBBUUmVbVedw2+uHXDs9Fu1E
- AlfujCc4Q802EKQ7vUke82LuTY
-X-Google-Smtp-Source: AGHT+IGhunYDRb813LQDY7jqKKDpGw3qY10G+nSA+klLPEdfhN9hbVp90AHOVMpWLp/XSyHrnzTjDQasIg4Dr5N+21c=
-X-Received: by 2002:a05:6102:2d0a:b0:4c1:8c9d:3f39 with SMTP id
- ada2fe7eead31-4c30a5387a3mr6110362137.4.1741480382652; Sat, 08 Mar 2025
- 16:33:02 -0800 (PST)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7154610E277
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Mar 2025 16:32:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R8JqNiX53XvUJ6WoA+BP4Mbky9d+tHwjdSB0vNU7t7O4YLZhf0UjP3mfQbVeu3ZgJqkI//PWFfN0Z52NpPTlRCRaa9P6Dquhp7/q+lEa6vaYmt0BtAluJgGunMtTMWyFnqNJPNHUsNiBI/OWPcCjrCYn8rKP/hIhEYnhxD8VjJ83B2UxTYE4t+ffF7ry0AJC2c0h3B4oACT/LUOSPY3NQ9Mya98a5WT+4Fj4w8RiR3YZmJAE5k/wGes4hwobjalpYZGFxrtQUCr9cnyD+DVmX+q4TRLv67G4qgD3x/4WncJIJB1SeobBYEWg0QRxowVSDkjkRXXbRR6EGa32AjgBnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jk67m63XJjVK5+b37HvVjh6rn6sjGv43C+JcNBSdydY=;
+ b=ytydsjv8WjTnX4oq9/E/aLqvEXVS9ME1jWmX4BE6q+5+/cOVgNZGMXGjU2+vE3To+RQZKTZS1T/G8iT/NPrz2wM6fdFohT80o2T0KUw7Ae62Jz1boyV9ncDXUDlL3f2K+maNcs4BDKZNqwFZIMoZlmEauGIAKJPf66auepEkgNxTq/lh4T7LnM7xrNqWr1pW03ljsaI5m/Al1C2compXXm5JeubWQm5MppKFpo8QOljp/roqDNNKc+6bk/jsInxZJikDjFKtOL1UJdooCmGMn2/IUWtEIhskZJaZJCh1HsCBgUYwUF/xe092FdBqeOe20T1AA2FXhOhSQSmpVwiFPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jk67m63XJjVK5+b37HvVjh6rn6sjGv43C+JcNBSdydY=;
+ b=aw//ZxGybPKT0hERmQZp/vtUZNue8K2w3vr3nuJ7cBTuIPF/dVgAPYiLm6czYgkIUqISSlcUZVAgRZXa9I/7r8/3F3A9B8quHUt5d28gKqJg12pCAZyX1Wr3N7KdSCDPYNmEg7kUVnZUxnIYyvc2ec6mu56t1D1vXGLVyzdNgJc=
+Received: from BY5PR17CA0036.namprd17.prod.outlook.com (2603:10b6:a03:1b8::49)
+ by IA1PR12MB8407.namprd12.prod.outlook.com (2603:10b6:208:3d9::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.26; Sun, 9 Mar
+ 2025 16:32:08 +0000
+Received: from MWH0EPF000989EA.namprd02.prod.outlook.com
+ (2603:10b6:a03:1b8:cafe::e6) by BY5PR17CA0036.outlook.office365.com
+ (2603:10b6:a03:1b8::49) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.26 via Frontend Transport; Sun,
+ 9 Mar 2025 16:32:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989EA.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8511.15 via Frontend Transport; Sun, 9 Mar 2025 16:32:06 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 9 Mar
+ 2025 11:32:05 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Sunil Khatri
+ <sunil.khatri@amd.com>
+Subject: [PATCH] drm/amdgpu/vce2: fix ip block reference
+Date: Sun, 9 Mar 2025 12:31:47 -0400
+Message-ID: <20250309163147.2271337-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-References: <20250306014958.785021-1-alexandre.f.demers@gmail.com>
- <20250306014958.785021-2-alexandre.f.demers@gmail.com>
- <CADnq5_O65aDEgaVkzZ1xZyqEgqHr4nR1WDWPJ94jKRtu629o9w@mail.gmail.com>
-In-Reply-To: <CADnq5_O65aDEgaVkzZ1xZyqEgqHr4nR1WDWPJ94jKRtu629o9w@mail.gmail.com>
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Sat, 8 Mar 2025 19:32:51 -0500
-X-Gm-Features: AQ5f1Jr9rOc-nHo8vfYzKiJ_Ecm0pWyGA-pmJJdA0lonT42wphxcs5EYK8qtQ0Q
-Message-ID: <CAPEhTTGxA_owpgD6=4XUCcyVXRjBxRJveYdbaVqjbug9Digusg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/4] drm/amdgpu: add or move defines for DCE6 in sid.h
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EA:EE_|IA1PR12MB8407:EE_
+X-MS-Office365-Filtering-Correlation-Id: def2f0ea-4782-49c2-0354-08dd5f27ee7e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Ae1dXhhNlJTW5cc9YNNtwJrnBJ8DtdHFCJtsFz2o5gB1DqoJopLCFzUIWyyj?=
+ =?us-ascii?Q?bt6pcEw/q4wQ4EKnZqoODCCyxpHARP0/e2ErlTV9xXgCIFBT8ARUmMHUgcWn?=
+ =?us-ascii?Q?AwLa7n0FU1nMpGrdRDGHUQvsr0pZtWgB3qmv31ZuoxA2M4KLX8MczD+rPyn8?=
+ =?us-ascii?Q?C892h5ZF9N62/RuJI/o79p7rGDh55dntC/DcvpMxRx+jpN2B0I7LNTgFmtkd?=
+ =?us-ascii?Q?OY80cYcjlNmrUDQIJyJpbI/Nv3DGN3n6oYMBQOlNUtP7zsH4tyk4d8XytwxH?=
+ =?us-ascii?Q?s/wIF1FbATSePu8g8MvzVnMI1EHIXelKiu3IH6+4gwwQelZrqvYPWSbYYInN?=
+ =?us-ascii?Q?QXuPzd4jiJzz0d8avvObwy998KGwXK0xoQ1A0UR7F5DyAKCJDemEyDlJMc60?=
+ =?us-ascii?Q?VcZTHstIrWObkLEIKZAT38YLJUJGiA0gDECF6z76+v0RAoR+b9BG7vIh3CyE?=
+ =?us-ascii?Q?KTrlYJ7hvu4WIJMjBzrp3EL2Vr4pP7S8+5IXrNt+LyIMzmouQO77o+ZXbPSj?=
+ =?us-ascii?Q?wsO94+cYZdD8p+soBg1G21RZbFhqNzpbiWkmQGb/lFFg0bC+EAbBt4nymVXI?=
+ =?us-ascii?Q?L3LvkDArpDN8vTCF+kXRn6qrnRumqV7xskXXrfWCs5/7TL/BRm3ofBwLBhmh?=
+ =?us-ascii?Q?Z73UvCGEIF7CtjPRAQ24dAlkg1GhvXcW2sB/IclbqfuVWXwNt9lNWL3XOpS0?=
+ =?us-ascii?Q?UYxYtm6ciRtqKwn6dpIbOey2jj6CKketQKI4MuHeox2WFIaVdckKzt8bJWgl?=
+ =?us-ascii?Q?8lbqUYeon81DBxdBqTc6yeTnRBDQmInaHTA6vfne3B4lMCK8p+ddpk8DplLN?=
+ =?us-ascii?Q?NlFkWE6Xuyssfl5p8e6ZINBv7ebhGuYJMPlNMgO45fMy3ONbgzYx7r6wcOsH?=
+ =?us-ascii?Q?xiKe1Q+D9zUz6sI3ExStiYN6/PJppBIvvATi0c/a2qSRFvqyF0vFtVQRmwCj?=
+ =?us-ascii?Q?U+Uwqqw7XYQUV41GnCTvYpu/Q0ppFF8SOk6C/w0szVcszY/NoUwAP4hVvc/N?=
+ =?us-ascii?Q?IADp5PRR7ZWmzSbErPRPDauvlNbZdEx19/oMCifT8lZ1V5wPOo0cerI6y/Zz?=
+ =?us-ascii?Q?Zg6CSu1hipKg2qfB80dMr3MX2g9R+ap68fMr3wKRf088W8fBPzp0QgQuVsyN?=
+ =?us-ascii?Q?Ypc8xwgfg9AIIZFXnAPcMK3GHfoDKVM8IhJ1K5aCPHHUIb6g285RPGUe7EzC?=
+ =?us-ascii?Q?LnRlkrYWp5+aFRsCrPgc3iieDx3k1CxaJKkpCHpacGM2WjAUkBDxBuWCu9cA?=
+ =?us-ascii?Q?1CKhF1VK+n4Vutwgn+W73s7doU41n0DDs8krR4TnE2+xTObzqyRJSk2/c9h/?=
+ =?us-ascii?Q?SmirI1ByMyHMdBQbBOFFeQYmqVKcPsoswZ8xWCD+RBHtkwIx4pNLPtoB8CTG?=
+ =?us-ascii?Q?A2nLFNLc5aBBlXVQL9uv2MGNtAJg5VpB/e3xegtKbhLSVGledxuFD2dP+d4m?=
+ =?us-ascii?Q?dZHhM7AxAGU=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2025 16:32:06.4358 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: def2f0ea-4782-49c2-0354-08dd5f27ee7e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EA.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,222 +130,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 6, 2025 at 10:19=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
->
-> On Wed, Mar 5, 2025 at 9:08=E2=80=AFPM Alexandre Demers
-> <alexandre.f.demers@gmail.com> wrote:
-> >
-> > For coherence with DCE8 et DCE10, add or move some values under sid.h.
-> >
-> > Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
->
-> This change doesn't build.  Please adjust the order of the patches as
-> needed to make sure they all build.
->
-> Alex
+Need to use the correct IP block type.  VCE vs VCN.
+Fixes mclk issues on Hawaii.
 
-Yeah, adding sid.h should probably be at the end, once all changes are
-made. I'll look at it.
+Suggested by selendym.
 
-Thanks for noticing.
-Alexandre
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 63 ++++++++++++++-------------
-> >  drivers/gpu/drm/amd/amdgpu/si_enums.h |  7 ---
-> >  drivers/gpu/drm/amd/amdgpu/sid.h      | 29 +++++++++---
-> >  3 files changed, 55 insertions(+), 44 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/am=
-d/amdgpu/dce_v6_0.c
-> > index a72fd7220081..185401d66961 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > @@ -32,6 +32,7 @@
-> >  #include "amdgpu.h"
-> >  #include "amdgpu_pm.h"
-> >  #include "amdgpu_i2c.h"
-> > +#include "sid.h"
-> >  #include "atom.h"
-> >  #include "amdgpu_atombios.h"
-> >  #include "atombios_crtc.h"
-> > @@ -59,31 +60,31 @@ static void dce_v6_0_set_irq_funcs(struct amdgpu_de=
-vice *adev);
-> >
-> >  static const u32 crtc_offsets[6] =3D
-> >  {
-> > -       SI_CRTC0_REGISTER_OFFSET,
-> > -       SI_CRTC1_REGISTER_OFFSET,
-> > -       SI_CRTC2_REGISTER_OFFSET,
-> > -       SI_CRTC3_REGISTER_OFFSET,
-> > -       SI_CRTC4_REGISTER_OFFSET,
-> > -       SI_CRTC5_REGISTER_OFFSET
-> > +       CRTC0_REGISTER_OFFSET,
-> > +       CRTC1_REGISTER_OFFSET,
-> > +       CRTC2_REGISTER_OFFSET,
-> > +       CRTC3_REGISTER_OFFSET,
-> > +       CRTC4_REGISTER_OFFSET,
-> > +       CRTC5_REGISTER_OFFSET
-> >  };
-> >
-> >  static const u32 hpd_offsets[] =3D
-> >  {
-> > -       mmDC_HPD1_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> > -       mmDC_HPD2_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> > -       mmDC_HPD3_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> > -       mmDC_HPD4_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> > -       mmDC_HPD5_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> > -       mmDC_HPD6_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> > +       HPD0_REGISTER_OFFSET,
-> > +       HPD1_REGISTER_OFFSET,
-> > +       HPD2_REGISTER_OFFSET,
-> > +       HPD3_REGISTER_OFFSET,
-> > +       HPD4_REGISTER_OFFSET,
-> > +       HPD5_REGISTER_OFFSET
-> >  };
-> >
-> >  static const uint32_t dig_offsets[] =3D {
-> > -       SI_CRTC0_REGISTER_OFFSET,
-> > -       SI_CRTC1_REGISTER_OFFSET,
-> > -       SI_CRTC2_REGISTER_OFFSET,
-> > -       SI_CRTC3_REGISTER_OFFSET,
-> > -       SI_CRTC4_REGISTER_OFFSET,
-> > -       SI_CRTC5_REGISTER_OFFSET,
-> > +       CRTC0_REGISTER_OFFSET,
-> > +       CRTC1_REGISTER_OFFSET,
-> > +       CRTC2_REGISTER_OFFSET,
-> > +       CRTC3_REGISTER_OFFSET,
-> > +       CRTC4_REGISTER_OFFSET,
-> > +       CRTC5_REGISTER_OFFSET,
-> >         (0x13830 - 0x7030) >> 2,
-> >  };
-> >
-> > @@ -1359,13 +1360,13 @@ static void dce_v6_0_audio_enable(struct amdgpu=
-_device *adev,
-> >
-> >  static const u32 pin_offsets[7] =3D
-> >  {
-> > -       (0x1780 - 0x1780),
-> > -       (0x1786 - 0x1780),
-> > -       (0x178c - 0x1780),
-> > -       (0x1792 - 0x1780),
-> > -       (0x1798 - 0x1780),
-> > -       (0x179d - 0x1780),
-> > -       (0x17a4 - 0x1780),
-> > +       AUD0_REGISTER_OFFSET,
-> > +       AUD1_REGISTER_OFFSET,
-> > +       AUD2_REGISTER_OFFSET,
-> > +       AUD3_REGISTER_OFFSET,
-> > +       AUD4_REGISTER_OFFSET,
-> > +       AUD5_REGISTER_OFFSET,
-> > +       AUD6_REGISTER_OFFSET,
-> >  };
-> >
-> >  static int dce_v6_0_audio_init(struct amdgpu_device *adev)
-> > @@ -2876,22 +2877,22 @@ static void dce_v6_0_set_crtc_vblank_interrupt_=
-state(struct amdgpu_device *adev,
-> >
-> >         switch (crtc) {
-> >         case 0:
-> > -               reg_block =3D SI_CRTC0_REGISTER_OFFSET;
-> > +               reg_block =3D CRTC0_REGISTER_OFFSET;
-> >                 break;
-> >         case 1:
-> > -               reg_block =3D SI_CRTC1_REGISTER_OFFSET;
-> > +               reg_block =3D CRTC1_REGISTER_OFFSET;
-> >                 break;
-> >         case 2:
-> > -               reg_block =3D SI_CRTC2_REGISTER_OFFSET;
-> > +               reg_block =3D CRTC2_REGISTER_OFFSET;
-> >                 break;
-> >         case 3:
-> > -               reg_block =3D SI_CRTC3_REGISTER_OFFSET;
-> > +               reg_block =3D CRTC3_REGISTER_OFFSET;
-> >                 break;
-> >         case 4:
-> > -               reg_block =3D SI_CRTC4_REGISTER_OFFSET;
-> > +               reg_block =3D CRTC4_REGISTER_OFFSET;
-> >                 break;
-> >         case 5:
-> > -               reg_block =3D SI_CRTC5_REGISTER_OFFSET;
-> > +               reg_block =3D CRTC5_REGISTER_OFFSET;
-> >                 break;
-> >         default:
-> >                 DRM_DEBUG("invalid crtc %d\n", crtc);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/si_enums.h b/drivers/gpu/drm/am=
-d/amdgpu/si_enums.h
-> > index 4e935baa7b91..cdf8eebaa392 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/si_enums.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/si_enums.h
-> > @@ -121,13 +121,6 @@
-> >  #define CURSOR_UPDATE_LOCK             (1 << 16)
-> >  #define CURSOR_DISABLE_MULTIPLE_UPDATE (1 << 24)
-> >
-> > -#define SI_CRTC0_REGISTER_OFFSET                0
-> > -#define SI_CRTC1_REGISTER_OFFSET                0x300
-> > -#define SI_CRTC2_REGISTER_OFFSET                0x2600
-> > -#define SI_CRTC3_REGISTER_OFFSET                0x2900
-> > -#define SI_CRTC4_REGISTER_OFFSET                0x2c00
-> > -#define SI_CRTC5_REGISTER_OFFSET                0x2f00
-> > -
-> >  #define DMA0_REGISTER_OFFSET 0x000
-> >  #define DMA1_REGISTER_OFFSET 0x200
-> >  #define ES_AND_GS_AUTO       3
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amd=
-gpu/sid.h
-> > index 9a39cbfe6db9..32a4e7d450c6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/sid.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
-> > @@ -1991,12 +1991,29 @@
-> >
-> >  //#dce stupp
-> >  /* display controller offsets used for crtc/cur/lut/grph/viewport/etc.=
- */
-> > -#define SI_CRTC0_REGISTER_OFFSET                0 //(0x6df0 - 0x6df0)/=
-4
-> > -#define SI_CRTC1_REGISTER_OFFSET                0x300 //(0x79f0 - 0x6d=
-f0)/4
-> > -#define SI_CRTC2_REGISTER_OFFSET                0x2600 //(0x105f0 - 0x=
-6df0)/4
-> > -#define SI_CRTC3_REGISTER_OFFSET                0x2900 //(0x111f0 - 0x=
-6df0)/4
-> > -#define SI_CRTC4_REGISTER_OFFSET                0x2c00 //(0x11df0 - 0x=
-6df0)/4
-> > -#define SI_CRTC5_REGISTER_OFFSET                0x2f00 //(0x129f0 - 0x=
-6df0)/4
-> > +#define CRTC0_REGISTER_OFFSET                 (0x1b7c - 0x1b7c) //(0x6=
-df0 - 0x6df0)/4
-> > +#define CRTC1_REGISTER_OFFSET                 (0x1e7c - 0x1b7c) //(0x7=
-9f0 - 0x6df0)/4
-> > +#define CRTC2_REGISTER_OFFSET                 (0x417c - 0x1b7c) //(0x1=
-05f0 - 0x6df0)/4
-> > +#define CRTC3_REGISTER_OFFSET                 (0x447c - 0x1b7c) //(0x1=
-11f0 - 0x6df0)/4
-> > +#define CRTC4_REGISTER_OFFSET                 (0x477c - 0x1b7c) //(0x1=
-1df0 - 0x6df0)/4
-> > +#define CRTC5_REGISTER_OFFSET                 (0x4a7c - 0x1b7c) //(0x1=
-29f0 - 0x6df0)/4
-> > +
-> > +/* hpd instance offsets */
-> > +#define HPD0_REGISTER_OFFSET                 (0x1807 - 0x1807)
-> > +#define HPD1_REGISTER_OFFSET                 (0x180a - 0x1807)
-> > +#define HPD2_REGISTER_OFFSET                 (0x180d - 0x1807)
-> > +#define HPD3_REGISTER_OFFSET                 (0x1810 - 0x1807)
-> > +#define HPD4_REGISTER_OFFSET                 (0x1813 - 0x1807)
-> > +#define HPD5_REGISTER_OFFSET                 (0x1816 - 0x1807)
-> > +
-> > +/* audio endpt instance offsets */
-> > +#define AUD0_REGISTER_OFFSET                 (0x1780 - 0x1780)
-> > +#define AUD1_REGISTER_OFFSET                 (0x1786 - 0x1780)
-> > +#define AUD2_REGISTER_OFFSET                 (0x178c - 0x1780)
-> > +#define AUD3_REGISTER_OFFSET                 (0x1792 - 0x1780)
-> > +#define AUD4_REGISTER_OFFSET                 (0x1798 - 0x1780)
-> > +#define AUD5_REGISTER_OFFSET                 (0x179d - 0x1780)
-> > +#define AUD6_REGISTER_OFFSET                 (0x17a4 - 0x1780)
-> >
-> >  #define CURSOR_WIDTH 64
-> >  #define CURSOR_HEIGHT 64
-> > --
-> > 2.48.1
-> >
+Fixes: 82ae6619a450a ("drm/amdgpu: update the handle ptr in wait_for_idle")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3997
+Cc: Sunil Khatri <sunil.khatri@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+index 8c8c02606d25a..bee3e904a6bc7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+@@ -284,7 +284,7 @@ static int vce_v2_0_stop(struct amdgpu_device *adev)
+ 		return 0;
+ 	}
+ 
+-	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_VCN);
++	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_VCE);
+ 	if (!ip_block)
+ 		return -EINVAL;
+ 
+-- 
+2.48.1
+
