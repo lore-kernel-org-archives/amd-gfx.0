@@ -4,75 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9051DC282EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 18:05:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B799C35FF2
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 18:05:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 365C910E4AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95D0610E4B0;
 	Mon, 10 Mar 2025 18:05:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="IrpTGvsG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zcpv6Fd8";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8029F10E4A2
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 17:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1741627800; x=1742232600; i=natalie.vock@gmx.de;
- bh=FhNFxFo2nhgc2jfvyISFM4BS0OZs1Ox8tnLWpoS92gY=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=IrpTGvsGxlKqvnkPwTOaaBEmBAy14qR7uNEIsPptjF5pQBv9Fniu9xd7ircLZEXN
- dbweaqg3TsCDbqLW2D+CqvC7x0g8xb6lLOWDdkKBp4I8II1J3PRKMhzDtaiGdhinL
- iRQOn/FEmW/VQWSPD7PR2/hwo8dvG29GgIPPgOpZJ5VnOaeQe/4b73AoiQ6Fp787b
- X4Ud5Wg2V9FbRqfGuT2tYGDeg5X7rlXHBMwqFAsssYKLOp7Jt1QbWPDZSN+wXK5xZ
- 8UheZeiRvq2/bgrnOwjk6kcTV/qDk+9qD8sWXb39gtsRTQZ415zyM6u2Ew4a3VBQ/
- T6sk1gSTiLZH4wg36A==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.0.3] ([109.91.201.165]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MiaYJ-1tL8192XsF-00jxM8; Mon, 10
- Mar 2025 18:30:00 +0100
-Message-ID: <ae4084f2-a34e-44db-936f-be4f8204e7ea@gmx.de>
-Date: Mon, 10 Mar 2025 18:29:59 +0100
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B5A10E41B;
+ Mon, 10 Mar 2025 15:34:37 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4394345e4d5so25577315e9.0; 
+ Mon, 10 Mar 2025 08:34:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741620876; x=1742225676; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=z2UW3DGFaIT/OlHaafnnTm7ntqZnQZLSZf8OhxhOmO4=;
+ b=Zcpv6Fd8aqy3QhaXRH4tb5UvuyVTSQ8dG/5aeRYuAdvA9t9DGxBcMAyJgggmWbixEz
+ 3bVJPYR/Hn3gcIKR3/vjdBd+s9qbDcSzi9/ek+qifIB5Io5pt8y1o/M9ukM6h5ANbTVn
+ jZ2ZEfz9Q20yD+UXN1pw2e2Qp6vvE47j7oZqbDm8UVZxixnyPlK0NhNHABzNXp6wTkGA
+ F5HC4wD3T2AEq9sS9kzaEVdmU5YFqzp7/UprbJt9iytxYax6w+5VQR/+tf+n6s67g1hc
+ BaRtFbg9/ULL53jQoQ/5gN/SXe/z/aZQCgP6P6gSsXZOIxzH9BPrvE87xz1pAg1WSpE9
+ 0Itg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741620876; x=1742225676;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=z2UW3DGFaIT/OlHaafnnTm7ntqZnQZLSZf8OhxhOmO4=;
+ b=hlLiEn5z/Y8uZYHFNmZBOhC+v9VgEqkFjlhm9l8eddjKav9NGbnPhDOBnoaJyWZvyp
+ oXrzfAnAR0P8/Lf74lkKR1ZljHeN4A+pHz9XFH6SCUvapUVA1J96I+hn30MLPYwkANpq
+ Q5LvnoVJp3h8fJ/0N0j/thwkmA23YE0wvpnbFBwW+akpyqKBd4VDUqXd1Z+GSqVaMwUH
+ wp4AUTbHlqW8CaRklBaSiGM2r1qY12Sb6wFeYAhOAf4o/ey4wCRgL1mAfOUkOVxtjrut
+ ApuniDV1+L0zbWdw1QV5LnS60pU+sCDzspuWMoPzatOtuoZur9z8gVJyS3HFhgseT6xT
+ Q1qQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV+v/hWQtB4JSG8tpblipY518cKp9px9bjZXz8O6Na1EfhAWnx1RkA8OtwaaSWuVAh7GB0mECIW@lists.freedesktop.org,
+ AJvYcCVoNiSHBfWekYAMmcV2aAN1UysBHmlirFB8nyZcIKIEQPGaYvbAlFkU1tGqk0vo0Elg9AB0YS5B4Ow3@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRwPEiO3E4oq0GyX41dF4bLmysf1N7qQIT3GXWgPPnZF63rYNR
+ TEWfHv3I8NDOLyBpX0XExCkL/tq2xyaA0wAs95o3E3ljo29oPxLF
+X-Gm-Gg: ASbGncsbgn3r4VjuBwimfY9Y4U59pDHj2QxlsGjBcqkK/ePgt04RIBGkDnehIgMLZCl
+ mtKl77tY5lDKjoYqUI4Dzh/+G5nZeD9Lr3OfRv1tR8l0kjc+p8QWGWs3DDxt30bz/H4htmq3WGW
+ NeBKGToSr0ww/0+Xk+RKKt9CSzZvckTp9WqNNabgA7Gv/1vHhxtvIo+jPmQJSW/r2AUPVQceH2B
+ pdqXJJSovS0/xBvQwonCNMaJCJZnvSK2POUZN4djKwZDTOOLg7P3/l4YGxeeDvd7L+CdDtgaFq8
+ 3kYexOnGi/L+7gWC5ZyGiS/frY6Ka1jPUTw=
+X-Google-Smtp-Source: AGHT+IFPB9H89htTJ8gi+6j6UdIu7tu/68Ca/noH/NXJTp/f9gbF0i/RpmkDIJCF+VEYSdvTCn1u9w==
+X-Received: by 2002:a05:600c:3148:b0:43b:cd0d:9457 with SMTP id
+ 5b1f17b1804b1-43c601d901dmr103550815e9.10.1741620875543; 
+ Mon, 10 Mar 2025 08:34:35 -0700 (PDT)
+Received: from pc ([196.235.255.34]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43ce715731csm88286025e9.2.2025.03.10.08.34.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Mar 2025 08:34:34 -0700 (PDT)
+Date: Mon, 10 Mar 2025 16:19:09 +0100
+From: Salah Triki <salah.triki@gmail.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm: amdkfd: Replace (un)register_chrdev() by
+ (unregister/alloc)_chrdev_region()
+Message-ID: <Z88C7ZzM88skw+qr@pc>
+References: <20250305210809.218138-1-salah.triki@gmail.com>
+ <a5b1d94e-30ee-411c-88f5-1e340068220c@amd.com>
+ <Z8tEti/ZRbx5pt5M@pc>
+ <b2068f4f-c832-4cd5-b9bb-e175217d7647@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Allow buffers that don't fit GTT into VRAM
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Ivan Avdeev <1@provod.gl>
-References: <20250306170118.40238-1-natalie.vock@gmx.de>
- <43becf25-ad3b-4aae-9919-a74feede06a3@amd.com>
-Content-Language: en-US
-From: Natalie Vock <natalie.vock@gmx.de>
-In-Reply-To: <43becf25-ad3b-4aae-9919-a74feede06a3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Xb9GDpJ9M/uzXmHyVlJeRAp+JktY20o0WoZKr7mcUmJOUNzdwLv
- XPJdWaWm7JrlOSc6tHN7qVNGipUDFUBypSgvzo364QFFhPUrrmE4x8+GRCHhOQEzAkCtmLP
- p0gHTDl1phZBFwrhz1r1pD4R6k5UCmGMCjJy9M8a9aVkFmS+gsH0aNcR3V8kpXNxQuK2TVC
- ihfVMNWF40ZwLN4ACa8ZQ==
-UI-OutboundReport: notjunk:1;M01:P0:hsy/B2Lz+CU=;UGZKjOL1VyQfPjNd9MVxlkQCf7q
- MfR8H/KUEQR6jAuaYkQvoaihJnPw85c+Fqyuv5EfOp1x21fmE5I62DrkvqflCzOCYo9ZOiEKo
- tq2mqam2tyuCcKtPtLgp/1v/qgwTfEi01HfHRzLVMZJQSYunc0st7RM7g7QujxJ3UbSxT/8Ev
- JCpuLKw/ICJzznA32gVxpR9EXVrw4w58zepEbJbTN0+AH1mXEBt3JesaFGmy/+7ijZ/xsnOjt
- zCLzKylwU8V5WqY1V7xE8bBYpLp+xEcgA22kivmFs/AWsRgX1hx6JoZbtjZtDBt2LBxQ1QwDw
- ecxQDM6orscSQx3pM+bf+TOSohu+Z1c3jyfXYDzMYlH97Sq5HzcKbWXFc78rDwbJwCUQDHbKE
- J0qgngeCiV6puf7bQfy1Q2SoMB1oEmSyzIIY0gBfl6IkEWWLeIDlva3iajb9B64j89k7i9zgK
- za2mb5K2piHUYqWCQdQEKc3LUSC2RmhugaJSMQGZA/1A0yvRYaE3W9vPOVXSwaLfm3mjhc6lM
- cfGTYVltdDVgyyshuTax+zeOqlEP4XkdpiUEDPlmnXd8uLOdg4R96y114tXyep9ZuUO+jJr0b
- cQlyMUE6e2Dwn0MUXlDUejeNmw2gZc2sZwswkO5M8Ah9z4qy9N1AVL8EmvN5qrCF9nMRFKUcr
- MN5rgxoatLIrY9pdXKMnPwHt/NjKe5sHDV7NrZvwKWjjpJYaqr/Hbbt5uYJ04OsUM8Z5p7Yor
- WlLvFjw3oP+zomRdCF5jJ7SumP2O5plRVS+j5JpCsucjzCG7JddoA8Y1OSjyokCCvj8oy4l7A
- pHqWp9N8rv3mciYiuDJM29n0iWcJBiJh3xbzSDeawb+epENd4oDiIf+TnGQeoOH3UlKcs7r9S
- R5WZZ/fUNE7sL7TzN3tEfwKOpLUfhwPQLc3ncB6nPc8EbTkeuRUNprsjBYSWIwy+2de3HAjcy
- Ip22uF+iOYQncwdcDaNNz+Wo88Jn3YPEE9XCchPPqfgmVj0j1ASF3zUGBrchu5TVgnKPVy2nb
- P9otCpHj9o8PxaxbcTVAaFaOEW+Lsvxcsub+vyp2h0TegmJMriPdBLrWxwowu2t9JmqRyutjm
- kDzgwoaEwMn+XmqYDf2QP2ms7/vkJi9O+jbLhIedNBo++/X4wt2Y/ZqqO3+YXkGNgF78R20Y4
- u7ZDnUQLS1auEuQLY/j4X8vjwy/sud/WtqbJuG8sEiSmWZ/fHp+Rn7PtKBZV+YUlNVH5uJ/Nc
- MK33LsBJDNqR/Otr81wiRXpdFN4yHmJ4dIrGA6o8GSiFKdh38lRhVYtW1B4SEnvAYlqAemdq9
- Y+UQf7dywOzdtYuVQzVeo17GbeYc/6AizNmJXYjCmK8KCTl0jgv7oXxlQbrVbYBmOO3iFr3MF
- 0um5Mq8AVQ/XuMGlFdObm0MHR8R7w6EvlvuZ4S1qjFGG64BfMZKDf6uLk2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b2068f4f-c832-4cd5-b9bb-e175217d7647@amd.com>
 X-Mailman-Approved-At: Mon, 10 Mar 2025 18:05:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,116 +94,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07.03.25 09:39, Christian K=C3=B6nig wrote:
-> Am 06.03.25 um 18:01 schrieb Natalie Vock:
->> When userspace requests buffers to be placed into GTT | VRAM, it is
->> requesting the buffer to be placed into either of these domains. If the
->> buffer fits into VRAM but does not fit into GTT, then let the buffer
->> reside in VRAM instead of failing allocation entirely.
->
-> That will completely break suspend/resume on laptops.
->
-> we essentially need to always check if a BO can fit into GTT.
+> > register_chrdev() registers 256 minor numbers, calling it will result in
+> > calling kmalloc_array(256, sizeof(struct probe), GFP_KERNEL) whereas
+> > calling alloc_chrdev_region() with count parameter equals to 1, which is
+> > the number of minor numbers requested, will result in calling
+> > kmalloc_array(1, sizeof(stuct probe), GFP_KERNEL). 
+> >
 
-Good point, I forgot about suspend. But as you say, we always need to do
-this, even for VRAM-only BOs. I'll send a v2 for that in a minute.
+Is it worth replacing register_chrdev() by alloc_chrdev_region() for
+this ? If so I will change the patch description.
 
-Thanks, Natalie
-
->
->>
->> Reported-by: Ivan Avdeev <1@provod.gl>
->> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->> ---
->> This originally came up in https://gitlab.freedesktop.org/mesa/mesa/-/i=
-ssues/12713:
->> The crux of the issue is that some applications expect they can allocat=
-e
->> buffers up to the size of VRAM - however, some setups have a
->> smaller-than-VRAM GTT region. RADV always sets VRAM | GTT for all buffe=
-r
->> allocations, so this causes amdgpu to reject the allocation entirely
->> because it cannot fit into GTT, even though it could fit into VRAM.
->>
->> In my opinion, this check doesn't make sense: It is completely valid
->> behavior for the kernel to always keep a VRAM | GTT buffer in VRAM.
->
-> No it isn't. On suspend the power to VRAM is turned off and so we always=
- need to be able to evacuate buffers into GTT.
->
-> Regards,
-> Christian.
->
->> The only case where buffers larger than the GTT size are special is tha=
-t
->> they cannot be evicted to GTT (or swapped out), but the kernel already
->> allows VRAM-only buffers to be larger than GTT, and those cannot be
->> swapped out either. With the check removed, VRAM | GTT buffers larger
->> than GTT behave exactly like VRAM-only buffers larger than GTT.
->>
->> The patch adding this check seems to have added it in a v2 - however I
->> was unable to find any public discussion around the patch with reasonin=
-g
->> in favor of this check.
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 30 ++++++++++-----------=
--
->>   1 file changed, 14 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_object.c
->> index d09db052e282d..b5e5fea091bf1 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -555,27 +555,25 @@ static bool amdgpu_bo_validate_size(struct amdgpu=
-_device *adev,
->>   {
->>   	struct ttm_resource_manager *man =3D NULL;
->>
->> -	/*
->> -	 * If GTT is part of requested domains the check must succeed to
->> -	 * allow fall back to GTT.
->> -	 */
->> -	if (domain & AMDGPU_GEM_DOMAIN_GTT)
->> -		man =3D ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
->> -	else if (domain & AMDGPU_GEM_DOMAIN_VRAM)
->> -		man =3D ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
->> -	else
->> +	/* TODO add more domains checks, such as AMDGPU_GEM_DOMAIN_CPU, _DOMA=
-IN_DOORBELL */
->> +	if (!(domain & (AMDGPU_GEM_DOMAIN_GTT | AMDGPU_GEM_DOMAIN_VRAM)))
->>   		return true;
->>
->> -	if (!man) {
->> -		if (domain & AMDGPU_GEM_DOMAIN_GTT)
->> +	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
->> +		man =3D ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
->> +		if (size < man->size)
->> +			return true;
->> +	}
->> +	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
->> +		man =3D ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
->> +		if (!man) {
->>   			WARN_ON_ONCE("GTT domain requested but GTT mem manager uninitializ=
-ed");
->> -		return false;
->> +			return false;
->> +		}
->> +		if (size < man->size)
->> +			return true;
->>   	}
->>
->> -	/* TODO add more domains checks, such as AMDGPU_GEM_DOMAIN_CPU, _DOMA=
-IN_DOORBELL */
->> -	if (size < man->size)
->> -		return true;
->> -
->>   	DRM_DEBUG("BO size %lu > total memory in domain: %llu\n", size, man-=
->size);
->>   	return false;
->>   }
->> --
->> 2.48.1
->>
->
-
+Best Regards,
+Salah Triki
