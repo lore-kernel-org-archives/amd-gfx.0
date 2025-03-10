@@ -4,148 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2163FC282DE
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 19:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B68C282DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 21:09:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1E9D10E4D5;
-	Mon, 10 Mar 2025 19:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF92610E04C;
+	Mon, 10 Mar 2025 21:09:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V9E2NjAo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PKFJIJm0";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2054.outbound.protection.outlook.com [40.107.220.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 070B910E4D5
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 19:46:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=etn9Jg0aZfhb94dckUh6IoqzPHhxPL1jDckw9LAyZFRIHU1gzywx4CT8PVm/G4m6bDkgWvlOgX6HlmJnLiDFbmBeNty0ht6mwxqQM/xuLF83FBekguWs9Dh3AefSUZVG5cXSsFppK8p/ZHSxpDZIuYaLD8oK2bKBpn99Qi3lyeG+gQ4jlbKEWlX3rALT8otME+EBtVmgai/vYLpju9XB/wRUez/zandsP5S9Xf0BXg08+FjsptQFgrZdHhoxdhAnmebeuTz5Kgep3wtcH5w0mgsJn/RA0gLfvtPm/+2rOPO7cQLWB7WWfLqld3cY7D27kVAV4QhjlK7jl2dccIEz4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=irOxV/dGg/V7Ld+/azhzGhKezRS2Rc3YuojK2Gts1/A=;
- b=Jt2+PcQdZLEFCb4ST6JrMwSJZflvM/0EDclPZteEtrBD6cFvcaIL1UsAirp1TyocoJH6UT57fbAAgLvnyildxQgjBUK8RLPh7Yy+ACIqzppMZSYaEsOIUpXDKvEcE5sgWe3LyMlVjaw4ZiTxg64CzLcyLmwijFxTlgwteuVdx5wMsrU0yzlRrV2v8uTMLNDpUf/iTk+309pu+4e0VzSRDJidv2/pVJw7a3ai5gFtnAZ2qDJJPu7ul/ZDB5GNsHFZgTDNtFrqxW2kpuBNogFn7xpTKm1wPPDmStT8axTerncWTWaLlmWQsq08WogrcWgvoQ06w9iEMljenqamFlGleA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=irOxV/dGg/V7Ld+/azhzGhKezRS2Rc3YuojK2Gts1/A=;
- b=V9E2NjAokT6Ex4SEMYYqPtucT9QkMyp9nEiDe7gL1dwdrWkMU3gCPKPYfLCa4rNITmMfS5MCugHbPHKqBjBV0LA7Y9aaKeOnYyoMDI6PbQyVaczfGS1D4/eOB1G4/s01NyXytMQO/DIrvfIUotfW/sT+02a9C7PzQcQZukUSIT0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW4PR12MB5628.namprd12.prod.outlook.com (2603:10b6:303:185::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Mon, 10 Mar
- 2025 19:46:14 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8511.026; Mon, 10 Mar 2025
- 19:46:14 +0000
-Message-ID: <846317ef-0db1-42e4-b2a3-ed02baad5263@amd.com>
-Date: Mon, 10 Mar 2025 15:46:12 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amd/amdkfd: Evict all queues even HWS remove queue
- failed
-To: Yifan Zha <Yifan.Zha@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: zhenguo.yin@amd.com
-References: <20250310030103.709524-1-Yifan.Zha@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20250310030103.709524-1-Yifan.Zha@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0021.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00::34) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8257510E04C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 21:09:21 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2ff6b9a7f91so1217311a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 14:09:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741640961; x=1742245761; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ihwg3CtJRL/T8elOzuWYPSSnbDHI43b9LXtJZBCodc4=;
+ b=PKFJIJm0v1Yt/dEN3YuJ3aXwWWl2yu4V3NEOQCHdUIhifhY1VxK32HRw7pm4JcartC
+ f78Om9fPt0YoukMJvjeFCu33iG6QFUy4V5YKkjj0GRCZbq50/CYhrAwEzHVAd/gYKigc
+ XVfVu8ki4MCv8A6iJifV1tbZm6DbHaYkeoKDswcZ0Qq0ZtJJriqH6mVuyDvZWBNoo82F
+ Pmn0XnDY1TBO3tWu02X1JOPRf8z7oJm9+M9d7DOOQuKgGxpASsNaPOjCU60s1sq4ZP3I
+ C7ajjxrpAgyo714ieJo6BLDTgo3DOxUnAevIf4vJMIe6jmB7Wsy0GjEEYsW+4Qu5yLUE
+ YaAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741640961; x=1742245761;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ihwg3CtJRL/T8elOzuWYPSSnbDHI43b9LXtJZBCodc4=;
+ b=FvQJQTC882fGs+yWi/DDOOnS4d6cG6fSOfLvSEhYxUtxDrOWDi8cBtfbwljEPXV4mw
+ +zF0g95HbiZKOEk49WPEJtGBXhVAG5s3QpE9L4rGavPBiv13hMkk5Vqn1wlih3G1E6qj
+ Fyav4ma7E571/PlsIBth501jHbsGqfPQONWDkRRfdMr0ywtzHh4fELkJBRXSoLyKserj
+ GaGxUYuC1+hDJEc7EcXm7R8T++6VNvvhVvPpeb7hrmSVa999A1f5Z8v41MRIRMnfltkM
+ 1beZwvoLzumIJLZ4ICF/4EwC1FlunleOOOrJm05FB3y/ZlIf2GrxKsu/fG3WyoauXuNK
+ C6XQ==
+X-Gm-Message-State: AOJu0Yxp0rJefjnMl87chN4S+TZ0mNfZSZtp1FBIHi/23C7vTrOdMLu9
+ Tp6Tn3FHddv4aWJ0Jq6U2F+AvEXtt1IT72Lk2U90xcCgKthfPiYCRwsohWoRdgYQSxYW5v41UJ6
+ JdWWEhgH6bVRRgHm6MJt6qyFKNr7CVj0t
+X-Gm-Gg: ASbGncsCosvom5qQoPrN9K/I2yjRJbuRD5NVEBCvaSMaD04AUQsgHjVmuEBaGnJSJvU
+ uCT7JX1cTMInpFWYUwbWQ04Y2fK5LA2jVroSIv/wDeSnAyEI4579Z0SoNnsrAYSppjnl8euFQ4L
+ iOcQUqYspp32UwMYqIdh1ljZwwBg==
+X-Google-Smtp-Source: AGHT+IGOxwligRsu5GPhEYgFEPm3ePd3l5E3tVLYvxbWuxNeTZtrCjxUFG06FSOEP/I+2MjdLf/flUjNtjTtHrkNZ4s=
+X-Received: by 2002:a17:90b:4a4f:b0:2fe:b2ea:30f0 with SMTP id
+ 98e67ed59e1d1-300a575a10cmr6251330a91.4.1741640960941; Mon, 10 Mar 2025
+ 14:09:20 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB5628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9982b396-4bd1-405d-11b8-08dd600c3761
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aFpQWTZ5T0NCQTZrdDF5VW1yV3BpN2Y0dG52eC9NeTlkU3FKdzd6VjlkZG90?=
- =?utf-8?B?UWo0SmlJcUtUMlRpTjB2WlB5Z1FFVFhTNWR2bTBBSjFBWlB0R3RjOFBPeXdR?=
- =?utf-8?B?VWRWZmhFcjh1dUlzWkNyeEJyUjVPTEpjZVhmOTY3K01xMmRySksrL3Jmd0dp?=
- =?utf-8?B?RVh0QlZvTlJrR1ZNL0JXeTB1STNOZTQwSVJWb3F3WkhXdit0dzMyZFNzM3ZO?=
- =?utf-8?B?ZXJLdmp3SW4vMkl2eFAyZWQxWENGYWhybk9pNmg5S0dUWnVtRndwR2wxNTdL?=
- =?utf-8?B?eWNFb1hVREpYSStLSWsvaUpwSXlMUnluRW5WeDgxNTArYzk0VVZzUTRQWElE?=
- =?utf-8?B?azFaQkJXTHhRZjlKU25qaW5QdXQ4NTdydFYyNmtmMnE1MCtaWjdaQXY1cGFL?=
- =?utf-8?B?MzRZZE1VVWJsejc2NEVmckErK1MyYy96dFJsMEQ4UmdGNnZ3SG1hdHZLN2VG?=
- =?utf-8?B?NjdYNmU0MW84bGxmWHpZYWpWcjBHL2NqWXJOMTk0d2NYQWtacUZNM25IK0xj?=
- =?utf-8?B?ZXBVS3FHZlptTnlBTGU3dldkaUpLS3ZReWhSWHdLbHRtaVB1cFdGQVdoYTh2?=
- =?utf-8?B?b28yQUhRWnBKNGVNQjdBZG5QZUd3dkpoMC9PakdUZG9PSTl2cERzdnQ0aEVD?=
- =?utf-8?B?anpKMmZtNkpjT0RKSG5QdnV1eEE1QlhITGVTTThneHVtR051d091OHRCelBP?=
- =?utf-8?B?dmpWcS9wOUJyUjBjZGQ0R094RXNRbUtOdGpxK3Q1MnpjQVdpREppMjdQKzJu?=
- =?utf-8?B?Mi9iWEdNN2xsZEVoK0pkYlRnK0s1bkJubFpNWTAwbW1VYzdRTUNWdHJNbXgy?=
- =?utf-8?B?S1ZJY3piYjhWamt4SjhkZkFPTEtWUXhKL3FrZVI4Y2J2WWVtVURIcG01dmFD?=
- =?utf-8?B?R0lmZld2R0JMZXlBdVAwR1pwTkQrZU84Q0ozQW5waHZDZlJSQ2U0YWVIV3Rn?=
- =?utf-8?B?NkxYY0hBMWdESVJFMFNYRUlzVGhLWEJvUUg4WUl1L2hMZDVIT0FRby84SWYy?=
- =?utf-8?B?Z2pHdlJCNXpoeVY3Q2tHNitUWEFTckdHMDV1VFR3OWgxTjhZOVZEKzFqb3A5?=
- =?utf-8?B?SkRVeWpZUW9jejVNZWRDaVpqZVJtamhQbHpJcmRjdlQrWk1FMVZQSjUzaVR1?=
- =?utf-8?B?dGsxSFVmZVFhQU9RbHkzQWl1aDBYaXN1VWNTQkx1VXdRU2xkYmZZQlpFc2w5?=
- =?utf-8?B?bjRBcnQ3a1NSWnIrSndNZ0taTEFLaEI1VEQ3MGR6YVdpNUtVSEhabXozNitr?=
- =?utf-8?B?Z2ZNa1c3ajBkSVc1TDRlZ29LYnloWEh6WU9NVCtYTlk3akdCQ0VxNUNkcVJS?=
- =?utf-8?B?TVlZOWRpNm1MenJEaXozUzI2SG90ZjZHZmFyWExWRTVvRDBBY1lBNE5XU3lI?=
- =?utf-8?B?UFhFaXMrdGwvZEc5YmxMdkFkK2VraEZiVGdpc3hucXA4Y2dhTTg5ZWpnamZv?=
- =?utf-8?B?dWJQbGZseUdhUlFSWnR6RFo5WDJRUmU2TWc3bTRPYUs4dkY0MDZYMnZJRHVz?=
- =?utf-8?B?c3pRZXgxd0sxMHVOZUpSOEJMNHBQTFoySnJCMDI4dTFDRmI1MnlZcEYrM25o?=
- =?utf-8?B?amtmOUhkK2RqRHo0Mk5TVEFDSUh3UGhnMElUMFVQMDYzWmdvM2NJS2NLZWVv?=
- =?utf-8?B?MHh2Qi8vRkJDWG1iMW90U1lmV0tIVk83djdHeGZiRHBwMURLRkdMazNsV0Zx?=
- =?utf-8?B?V1JsV0txam9tQndoaHJrclk4WFJPZ0M4eFphMll1TmpaSTk0aXNubFl3bjRy?=
- =?utf-8?B?aUZPM3FPVlpsMkp1bXd3V0txT3ZUeUU0cXR3QS9WWW9iMG9kQlhGa2ltR0Qz?=
- =?utf-8?B?N084K1J0bmVpRzZKQ0c4YzlzU0NRK25NUGZCU0w2RXJtTTUrT2kzWUYrVi93?=
- =?utf-8?Q?9HhBIKFK3XwdI?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0VsMHdJdWFSQldiUFVuSlJ5VjNTU2R1MHN3elVvVXdiR0o0U0xOMExiYzRT?=
- =?utf-8?B?QnZ4ZVowMVFUbWI3SHZDaUFMUjRpMTU4RTRPQlc0YnhmSW1lNkFHY01lTnVh?=
- =?utf-8?B?aGxTT1ZnQitkM1M5cFRXWlhDMzlkcGpIZ01FL2pSbHd2azBkek9jQVN5MVpK?=
- =?utf-8?B?NUtaTXRONzUzdUpYSHRDbnFTUjI3ZTVlNjFhTWdHRlJneXB3LzhsdFRDTWg4?=
- =?utf-8?B?RWdmMllGTFdEckkrNTZiNVpCUllDL3NlTXlQaU94Mm1jZkJRNDlWUzQ0TlVo?=
- =?utf-8?B?NlVPb3Z0a29ueGd4ZklEeWJjY0ZDVnJIQjJqbCsva3JtSFBMZ2FDR1RZTHlw?=
- =?utf-8?B?Q2tySGl1R3VZN1BsSG1vU3Z3c2pCdGViMklDQVJzOEMyYjRqQVR3UDJtY0Zr?=
- =?utf-8?B?U2hZM0dmRnlsQ25seGlpdEFYY1g5VGgzSlBSd0N1WlF4MkhSVTRPa29iT2lp?=
- =?utf-8?B?MENSMERGVm5IVzB1OFhhYTU2YnREVHNSbjNHSkl1WEM1YS9YV3V6NkhkaVZB?=
- =?utf-8?B?dmJzWVUvR0E0N2ptMlQ1OXdFekZNL3BUUDlmNDBpaFlzK2lQcElhc2tiQ0Jy?=
- =?utf-8?B?UzNQT3FnakRsM2wxamViRms5cDNnRVdCRVZveVE0dURwaTBjREw0SjlCOUdk?=
- =?utf-8?B?eWJDa1JIZmVsKzI5L0UyRnhneU1FMlBKRE9yWkQ5M1JTdmdQZzdYVzh6dmNT?=
- =?utf-8?B?UncrK1pxaVk4cmpFZmdhMHpjUkYxVUJHNWl6SnJ3dXdtQUlQYkhzY211TlE5?=
- =?utf-8?B?RkNiL2RXbWRNbnliWWF0ckJCd1FqdGlJZ28rU2ErUVRVc0Z4YUdZRzVCb3h4?=
- =?utf-8?B?dzBzYjQxWGZCZU8vRmJqYmhlYmk0dXNmSzNaZEllbWpxZXphdXZwanVPbTNM?=
- =?utf-8?B?RDdzUHF1MGZyQk1ScmcwWXV4TVFRY2gxNVJjdUdBTHlXUWpVVld1WU16NVc4?=
- =?utf-8?B?a3lnaWxqb2ZVNS9VWDVod3dnOVg2R0pXZituYytZM1JBRldDWVpFSXp5NnZn?=
- =?utf-8?B?WEw1NHJrWEJUMkEwWlVLSXhSMUpTNTdNa2dnMjRQMTFGVFpIak9LclBFOVVH?=
- =?utf-8?B?emppS3oweExlZlRETzcyNFVzbWFuQ0VOcG1BMC80czFVS3B1UEFRTVI0Z3Rw?=
- =?utf-8?B?OVdnTXhZcGZBQm9BWGVVQ1gvbnBnTzN3OUM4VEJwR3FXbXN3UnFiSk5jMStS?=
- =?utf-8?B?Z0JrN0ViSEx6Q29QbVMzQ1MxNXVFVEd1aUJzQ0xaR0lFeVVhMjVZTnU5R3VH?=
- =?utf-8?B?WUxUdXUvUW80TTN1NVlzeUxhYWdVcnVzWDQ5Nmk2YzNPTjF5d0xEbWI2cjdy?=
- =?utf-8?B?MHk4bXYwUFJnV0JaZzlmNVZSaVhMUU5Ta2VmRGNDcW5VaVdOWlA5ZUsyVkRl?=
- =?utf-8?B?UFVoVXpSUFk1VG9RSU5lUDhZQlRvQWpCeVZBUG1qU3llUVJQRndsckgyQ3Bu?=
- =?utf-8?B?aHdDMlBjYmdXT0lJY093K0JmMWRmOERnRktJdVcyVXcxbzZCaHc2TDBWeGhB?=
- =?utf-8?B?c1NwU0tXK3RVZVNtMDRxVVRpSVFObGxKS2x0VVJNRktjMGFxWmp4bHdyMHpZ?=
- =?utf-8?B?WXl0S3ExVTB1QmhyVzZnMzJFd2dsUlVMUHlVTWVLWGd4T0c3OVc1eW1HTElN?=
- =?utf-8?B?cjBTQlQrb3llN0dVZXpOZ2hjSHdSTTJ1Q3I0M2tpMmN6UHh6OWdBQVZsb0hY?=
- =?utf-8?B?WVhydnBwRDJKc2V2Vm52ZTNpNVNRakdBOUlnNVlFMGpnVXVoTVduZWYrQlNn?=
- =?utf-8?B?N1lQdzdiK2Z1UXVGS1o3bXNITmVJS2JrN3VmYWhIeWZTSksyYlpzcktMaU1B?=
- =?utf-8?B?azRqRWxxRkg4VUtzWGp3YWdENllrMk5KbFN2c1FPNk5SYWZjaHBjNGZybEFB?=
- =?utf-8?B?Z1hlb05HVnRTWEhDbEVmQm1Mb1RHbnJwUU9sS2pDYURBSDZ6SXNsMTBlMzlj?=
- =?utf-8?B?c094MHN4Qjkxc01TSmNMOU9FQ0dTMGxpUG5wWDY5Z242SnliMzdqbU1OTE1R?=
- =?utf-8?B?THBGYkZXQVBWMnprQ09FWGw0amFFMzVMbjhVZ1hjNXphMGNYVElnRUlyQUhZ?=
- =?utf-8?B?Ykl4UWJsdWlKaWVFQUhtSmZvbHcyWE55THpwRmdHbSswN0V4ZGJmL21vWGxh?=
- =?utf-8?Q?0WQcqW6wTIuwQelNIbYpIaWCg?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9982b396-4bd1-405d-11b8-08dd600c3761
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2025 19:46:14.3285 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yVT+CSKRuXs02wEKUVgLmpsa4yPKSnGK4Nu4qK2Snq5gSNMCClYHif1Ru0B64zo/vE4Es+ji6hxQg6CKUdygrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5628
+References: <20250310170037.62136-1-shaoyun.liu@amd.com>
+In-Reply-To: <20250310170037.62136-1-shaoyun.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 10 Mar 2025 17:09:09 -0400
+X-Gm-Features: AQ5f1Jp0vH5Wh_YZTIHeHSMfDyVRkIA40R-ZJ0_jsIiT-nwgZDo2WfRkrgZIQ_s
+Message-ID: <CADnq5_PJLSKY91LQG0L1SjLA-OONcNHuF-42Ds_rUDh+nWC=9g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Fix MES init sequence
+To: Shaoyun Liu <shaoyun.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,49 +79,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2025-03-09 23:01, Yifan Zha wrote:
-> [Why]
-> If reset is detected and kfd need to evict working queues, HWS moving queue will be failed.
-> Then remaining queues are not evicted and in active state.
+On Mon, Mar 10, 2025 at 1:58=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> w=
+rote:
 >
-> After reset done, kfd uses HWS to termination remaining activated queues but HWS is resetted.
-> So remove queue will be failed again.
+> When MES is been used , the set_hw_resource_1 API is required to
+> initialize MES internal context correctly
 >
-> [How]
-> Keep removing all queues even if HWS returns failed.
-> It will not affect cpsch as it checks reset_domain->sem.
->
-> v2: If any queue failed, evict queue returns error.
-> v3: Declare err inside the if-block.
->
-> Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-
-
+> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h  |  6 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c |  6 +--
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   | 52 +++++++++++-------------
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   | 40 ++++++++----------
+>  4 files changed, 48 insertions(+), 56 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 885e0e9cf21b..2ed003d3ff0e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -1221,11 +1221,13 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
->  		decrement_queue_count(dqm, qpd, q);
->  
->  		if (dqm->dev->kfd->shared_resources.enable_mes) {
-> -			retval = remove_queue_mes(dqm, q, qpd);
-> -			if (retval) {
-> +			int err;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mes.h
+> index 4391b3383f0c..78362a838212 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> @@ -143,9 +143,9 @@ struct amdgpu_mes {
+>         const struct amdgpu_mes_funcs   *funcs;
+>
+>         /* mes resource_1 bo*/
+> -       struct amdgpu_bo    *resource_1;
+> -       uint64_t            resource_1_gpu_addr;
+> -       void                *resource_1_addr;
+> +       struct amdgpu_bo    *resource_1[AMDGPU_MAX_MES_PIPES];
+> +       uint64_t            resource_1_gpu_addr[AMDGPU_MAX_MES_PIPES];
+> +       void                *resource_1_addr[AMDGPU_MAX_MES_PIPES];
+>
+>  };
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.c
+> index ab7e73d0e7b1..980dfb8935b6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -614,10 +614,10 @@ static int amdgpu_virt_write_vf2pf_data(struct amdg=
+pu_device *adev)
+>         vf2pf_info->decode_usage =3D 0;
+>
+>         vf2pf_info->dummy_page_addr =3D (uint64_t)adev->dummy_page_addr;
+> -       vf2pf_info->mes_info_addr =3D (uint64_t)adev->mes.resource_1_gpu_=
+addr;
+> +       vf2pf_info->mes_info_addr =3D (uint64_t)adev->mes.resource_1_gpu_=
+addr[0];
+>
+> -       if (adev->mes.resource_1) {
+> -               vf2pf_info->mes_info_size =3D adev->mes.resource_1->tbo.b=
+ase.size;
+> +       if (adev->mes.resource_1[0]) {
+> +               vf2pf_info->mes_info_size =3D adev->mes.resource_1[0]->tb=
+o.base.size;
+>         }
+>         vf2pf_info->checksum =3D
+>                 amd_sriov_msg_checksum(
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v11_0.c
+> index a569d09a1a74..299f17868822 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -751,10 +751,10 @@ static int mes_v11_0_set_hw_resources_1(struct amdg=
+pu_mes *mes)
+>         mes_set_hw_res_pkt.header.opcode =3D MES_SCH_API_SET_HW_RSRC_1;
+>         mes_set_hw_res_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+>         mes_set_hw_res_pkt.enable_mes_info_ctx =3D 1;
+> -       mes_set_hw_res_pkt.mes_info_ctx_mc_addr =3D mes->resource_1_gpu_a=
+ddr;
+> +       mes_set_hw_res_pkt.mes_info_ctx_mc_addr =3D mes->resource_1_gpu_a=
+ddr[0];
+>         mes_set_hw_res_pkt.mes_info_ctx_size =3D MES11_HW_RESOURCE_1_SIZE=
+;
+>         mes_set_hw_res_pkt.cleaner_shader_fence_mc_addr =3D
+> -               mes->resource_1_gpu_addr + MES11_HW_RESOURCE_1_SIZE;
+> +               mes->resource_1_gpu_addr[0] + MES11_HW_RESOURCE_1_SIZE;
+
+This offset here will need to be adjusted if MES11_HW_RESOURCE_1_SIZE
+depends on SR-IOV.  See below.
+
+>
+>         return mes_v11_0_submit_pkt_and_poll_completion(mes,
+>                         &mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
+> @@ -1392,7 +1392,7 @@ static int mes_v11_0_mqd_sw_init(struct amdgpu_devi=
+ce *adev,
+>  static int mes_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  {
+>         struct amdgpu_device *adev =3D ip_block->adev;
+> -       int pipe, r;
+> +       int pipe, r, bo_size;
+>
+>         adev->mes.funcs =3D &mes_v11_0_funcs;
+>         adev->mes.kiq_hw_init =3D &mes_v11_0_kiq_hw_init;
+> @@ -1427,19 +1427,21 @@ static int mes_v11_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+>         if (r)
+>                 return r;
+>
+> -       if (amdgpu_sriov_is_mes_info_enable(adev) ||
+> -           adev->gfx.enable_cleaner_shader) {
+> -               r =3D amdgpu_bo_create_kernel(adev,
+> -                                           MES11_HW_RESOURCE_1_SIZE + AM=
+DGPU_GPU_PAGE_SIZE,
+> -                                           PAGE_SIZE,
+> -                                           AMDGPU_GEM_DOMAIN_VRAM,
+> -                                           &adev->mes.resource_1,
+> -                                           &adev->mes.resource_1_gpu_add=
+r,
+> -                                           &adev->mes.resource_1_addr);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) failed to create mes res=
+ource_1 bo\n", r);
+> -                       return r;
+> -               }
+> +       bo_size =3D AMDGPU_GPU_PAGE_SIZE;
+> +       if (amdgpu_sriov_is_mes_info_enable(adev)
+> +               bo_size +=3D MES11_HW_RESOURCE_1_SIZE;
+
+if you make the size depend on amdgpu_sriov_is_mes_info_enable(), it
+will break the address for
+mes_set_hw_res_pkt.cleaner_shader_fence_mc_addr above when SR-IOV is
+not enabled.
+
 > +
-> +			err = remove_queue_mes(dqm, q, qpd);
-> +			if (err) {
->  				dev_err(dev, "Failed to evict queue %d\n",
->  					q->properties.queue_id);
-> -				goto out;
-> +				retval = err;
->  			}
->  		}
->  	}
+> +       /* Only needed for AMDGPU_MES_SCHED_PIPE on MES 11*/
+> +       r =3D amdgpu_bo_create_kernel(adev,
+> +                                   bo_size,
+> +                                   PAGE_SIZE,
+> +                                   AMDGPU_GEM_DOMAIN_VRAM,
+> +                                   &adev->mes.resource_1[0],
+> +                                   &adev->mes.resource_1_gpu_addr[0],
+> +                                   &adev->mes.resource_1_addr[0]);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) failed to create mes resource_1 =
+bo\n", r);
+> +               return r;
+>         }
+>
+>         return 0;
+> @@ -1450,11 +1452,8 @@ static int mes_v11_0_sw_fini(struct amdgpu_ip_bloc=
+k *ip_block)
+>         struct amdgpu_device *adev =3D ip_block->adev;
+>         int pipe;
+>
+> -       if (amdgpu_sriov_is_mes_info_enable(adev) ||
+> -           adev->gfx.enable_cleaner_shader) {
+> -               amdgpu_bo_free_kernel(&adev->mes.resource_1, &adev->mes.r=
+esource_1_gpu_addr,
+> -                                     &adev->mes.resource_1_addr);
+> -       }
+> +       amdgpu_bo_free_kernel(&adev->mes.resource_1[0], &adev->mes.resour=
+ce_1_gpu_addr[0],
+> +                             &adev->mes.resource_1_addr[0]);
+>
+>         for (pipe =3D 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+>                 kfree(adev->mes.mqd_backup[pipe]);
+> @@ -1643,13 +1642,10 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+>         if (r)
+>                 goto failure;
+>
+> -       if (amdgpu_sriov_is_mes_info_enable(adev) ||
+> -           adev->gfx.enable_cleaner_shader) {
+> -               r =3D mes_v11_0_set_hw_resources_1(&adev->mes);
+> -               if (r) {
+> -                       DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=
+=3D%d\n", r);
+> -                       goto failure;
+> -               }
+> +       r =3D mes_v11_0_set_hw_resources_1(&adev->mes);
+> +       if (r) {
+> +               DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=3D%d\n"=
+, r);
+> +               goto failure;
+>         }
+>
+>         r =3D mes_v11_0_query_sched_status(&adev->mes);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v12_0.c
+> index 96336652d14c..abe8592170b2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -687,7 +687,7 @@ static int mes_v12_0_set_hw_resources_1(struct amdgpu=
+_mes *mes, int pipe)
+>         mes_set_hw_res_1_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+>         mes_set_hw_res_1_pkt.mes_kiq_unmap_timeout =3D 0xa;
+>         mes_set_hw_res_1_pkt.cleaner_shader_fence_mc_addr =3D
+> -               mes->resource_1_gpu_addr;
+> +               mes->resource_1_gpu_addr[pipe];
+>
+>         return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+>                         &mes_set_hw_res_1_pkt, sizeof(mes_set_hw_res_1_pk=
+t),
+> @@ -1530,21 +1530,19 @@ static int mes_v12_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+>
+>                 if (!adev->enable_uni_mes && pipe =3D=3D AMDGPU_MES_KIQ_P=
+IPE)
+>                         r =3D mes_v12_0_kiq_ring_init(adev);
+> -               else
+> +               else {
+
+Per kernel coding style, the top part of this if clause needs {} if
+you add them to the else half.
+
+Alex
+
+>                         r =3D mes_v12_0_ring_init(adev, pipe);
+> -               if (r)
+> -                       return r;
+> -       }
+> -
+> -       if (adev->enable_uni_mes) {
+> -               r =3D amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_SIZE,=
+ PAGE_SIZE,
+> -                                           AMDGPU_GEM_DOMAIN_VRAM,
+> -                                           &adev->mes.resource_1,
+> -                                           &adev->mes.resource_1_gpu_add=
+r,
+> -                                           &adev->mes.resource_1_addr);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) failed to create mes res=
+ource_1 bo\n", r);
+> -                       return r;
+> +                       if (r)
+> +                               return r;
+> +                       r =3D amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PA=
+GE_SIZE, PAGE_SIZE,
+> +                                                   AMDGPU_GEM_DOMAIN_VRA=
+M,
+> +                                                   &adev->mes.resource_1=
+[pipe],
+> +                                                   &adev->mes.resource_1=
+_gpu_addr[pipe],
+> +                                                   &adev->mes.resource_1=
+_addr[pipe]);
+> +                       if (r) {
+> +                               dev_err(adev->dev, "(%d) failed to create=
+ mes resource_1 bo pipe[%d]\n", r, pipe);
+> +                               return r;
+> +                       }
+>                 }
+>         }
+>
+> @@ -1556,12 +1554,11 @@ static int mes_v12_0_sw_fini(struct amdgpu_ip_blo=
+ck *ip_block)
+>         struct amdgpu_device *adev =3D ip_block->adev;
+>         int pipe;
+>
+> -       if (adev->enable_uni_mes)
+> -               amdgpu_bo_free_kernel(&adev->mes.resource_1,
+> -                                     &adev->mes.resource_1_gpu_addr,
+> -                                     &adev->mes.resource_1_addr);
+> -
+>         for (pipe =3D 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+> +               amdgpu_bo_free_kernel(&adev->mes.resource_1[pipe],
+> +                                     &adev->mes.resource_1_gpu_addr[pipe=
+],
+> +                                     &adev->mes.resource_1_addr[pipe]);
+> +
+>                 kfree(adev->mes.mqd_backup[pipe]);
+>
+>                 amdgpu_bo_free_kernel(&adev->mes.eop_gpu_obj[pipe],
+> @@ -1760,8 +1757,7 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block=
+ *ip_block)
+>         if (r)
+>                 goto failure;
+>
+> -       if (adev->enable_uni_mes)
+> -               mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED=
+_PIPE);
+> +       mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_PIPE);
+>
+>         mes_v12_0_init_aggregated_doorbell(&adev->mes);
+>
+> --
+> 2.34.1
+>
