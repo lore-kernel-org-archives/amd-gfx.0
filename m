@@ -4,68 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36789C28B2E
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 15:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DD39C282DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 15:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F9F510E46B;
-	Mon, 10 Mar 2025 15:08:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F066C10E2A1;
+	Mon, 10 Mar 2025 15:09:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MX3Yr7tT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x5mfVe5A";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7783910E476
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 15:08:44 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-224104a9230so7755565ad.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 08:08:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741619324; x=1742224124; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TVUdPoK4FOShKTQYeSATsnPPX9kfogYDcChmJXhq+aU=;
- b=MX3Yr7tTYteIbBIZ8cI1CtGwUD0U1ZfIgU1khRFraTn/xNI7NLDyna/LbLfksNvLmM
- 7DCXb0+qghbfCBMjp7+JOWMVZTXDjeOMa6sSl9xX3Rv23C0EFwixO05PUTASNLayhkLm
- zRkDr2RvoVFwfDb8dJHh/bcC/wMBwWe8AbwqbsvgfLt1qu6RNqk4/EDqA9ZDqTkRZzPM
- W6AD/cPXDWtn14p55owe395YRzD/5/oCvPhBL94xPpzBCjGMk7ziXjqa72vQXm7ezMLF
- MDEL2PrgK7WsjmdPcuOjNEUvQ8++2ZTSKhLYfHrd3roTgR5BBNZn+Q2B7xUOpdYOoJvP
- 1a+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741619324; x=1742224124;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TVUdPoK4FOShKTQYeSATsnPPX9kfogYDcChmJXhq+aU=;
- b=kv61l+ELmzn5ngCCXTZ25snOvsiBbUovppsh3zWbsD+84GEKVEHKR/U1x0KyNfPExr
- SYGlrqFKaIpEvSVz/E2R+WfYy5xc5Fg03Ic8zJdDsL9/9ihlHoDSPU0HE77vtBr5KT7B
- 8v1jIirnwlbt6SN9A1+AlZG9WKNiu9ZHEhM4JOCVuPkG6qRn9kOCzitM/zL/nsjK1qSc
- TEUjbyItjEDhvEfKU+pl5mrjgF0on0AwHqgvZSCKZLllr3Xn3tCu12Az/KrLdlYOq/NP
- kgunSTSC2bTInbqCTQz2RlVF+Bkw6RgRXPMACpb63246ai4w30ycnwCrIItISaI8RjFg
- C7nA==
-X-Gm-Message-State: AOJu0Yzi3SNw8GZELdlc6Juf3Zv7AuN7I37l1GTU66l/zvBoh8MViAZG
- 7MJw0JUqNqyDXFuNgcR3NW5Yx2ir3Idy8wgr1wM4f+nuu5uXArJQxvYUaw5HMrWX0Jt63s9sEcy
- t3wYAOv9vXR8ZHisP+Grl4yjMS3pbOw==
-X-Gm-Gg: ASbGncsrtXLuQOKozGDhCj26BTL1cpzWQ91oUr7lox108ukohw1Z52ouuNSv5d/wTFB
- mgFxweOyIqj8ceK5TzLh8qEBpvznrBhhQDKGZbYMBBDzX4CMt2EVVExNRJYw/g+PFbw/Fk9tJjc
- Kv45SATFH3IW3wqtM8RUD9yU63wA==
-X-Google-Smtp-Source: AGHT+IFhEFRV3xeiJFhhpfe2FAv9rcJMZ6T7OVMI/iG80+azuIfRY35g1dIoYqSkP0OyFi9CGc97ynnCueGVYAcYr4I=
-X-Received: by 2002:a17:902:cf04:b0:21f:519:6bc6 with SMTP id
- d9443c01a7336-225932f1b31mr608815ad.9.1741619323900; Mon, 10 Mar 2025
- 08:08:43 -0700 (PDT)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2042.outbound.protection.outlook.com [40.107.95.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F63B10E2A1;
+ Mon, 10 Mar 2025 15:09:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ONspvDYbs8RDqps/8aJCQpVn2bfsJXpGN8kN2POpJEfucJdItzOzPr7zwY0AK/76KxZWS2u6dc/ofbMQjkhZgvFZk+PnUGIAaQOFKeoVZzW73SQ2gS+Hx1HNEynki9siyfVAwqpYJ0p3dTCDORSw3DbGUoYWPhN7KWOLKyKz6NR6hx0kWcCzAYAfeqgZOB7VsQL6UDMG3DLSCpnUOg380uTQGBrt9qdJU4gIVeMEWraPW8jN0qaJY1BPjSSoPoVufXPNRkFTRWBplh+DneQ8YMtSoLyTgA7pafFOq6airZQyY/jf03rvMVZoTxCglzYR3Z4j4R8E+PWtrcPm4TwdnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7yFLX3i6eO5J5h2GUaj1DGMnI9Ph0kJkraJmhYgfxoY=;
+ b=tIV3ZJDwdeaUOO2sjzHiQZ32HHHxtVA4/aNdvcM/fAyZ/j5FLslqXwIvxP3ZWKPiRaYDWkRxaour58eLRjermCAukRtEq6mo5P9gxP+tODfZQn3W40emyEToTnwt90R4JvtCBM5ffGf12UedFXok5T8WzN7Uck4IvnRFMdgsGAcvU/LuB/wvX5cL+QcO9yfo5KKJVQ04+7OGB0ecpE0Rz1wyBh+7ncxSRT7qvgK0Lw+6gLc88vOimQdjA4J6nHgDtNfk3UK9F6HB4+93N5SqwyirqpoH/dQiTjOCsP+XwHpQM0CGu+WPmfQDGCkbj82SERetUjmmFu6Y7mppPrfvYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7yFLX3i6eO5J5h2GUaj1DGMnI9Ph0kJkraJmhYgfxoY=;
+ b=x5mfVe5A8AMifDkhvgLCaick1L9ANhMbCLa0H4jUGRLBav2U4KLZLdAxhKpsAfLKSiXjxp85Ag+pcgrVLDxVul5Dk73JKCLswwJxUkl0o/lHasAtrozFcWUByH7VPmdcPkzyWNor+RbA3jkd7YNqjePWRlIft/rV5WmySrSz+TE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SN7PR12MB8058.namprd12.prod.outlook.com (2603:10b6:806:348::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.26; Mon, 10 Mar
+ 2025 15:09:46 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%5]) with mapi id 15.20.8489.033; Mon, 10 Mar 2025
+ 15:09:44 +0000
+Message-ID: <379160f4-9399-4c48-b355-eb2bd2d90015@amd.com>
+Date: Mon, 10 Mar 2025 11:09:42 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [V7 15/45] drm/vkms: Add kunit tests for linear and sRGB LUTs
+To: Louis Chauvet <louis.chauvet@bootlin.com>, Alex Hung <alex.hung@amd.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org
+References: <20241220043410.416867-1-alex.hung@amd.com>
+ <20241220043410.416867-16-alex.hung@amd.com>
+ <cf3528d1-9e56-4fe2-beb1-de7cb9c172f3@bootlin.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <cf3528d1-9e56-4fe2-beb1-de7cb9c172f3@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0313.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::23) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20250309164852.3936628-1-alexandre.f.demers@gmail.com>
- <20250309164852.3936628-4-alexandre.f.demers@gmail.com>
-In-Reply-To: <20250309164852.3936628-4-alexandre.f.demers@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Mar 2025 11:08:32 -0400
-X-Gm-Features: AQ5f1JrOe_gU_1_rKDUk7W8xticBZQS5A-jVz9zK1RbqJDl8MMm2BDtp51ZOTv8
-Message-ID: <CADnq5_MJ2dxJn-NBRwXUx50msbvVDjuHkZembR+Jo6s2Bo6kXA@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] drm/amdgpu: finish wiring up sid.h in DCE6
-To: Alexandre Demers <alexandre.f.demers@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SN7PR12MB8058:EE_
+X-MS-Office365-Filtering-Correlation-Id: a45310b9-0438-4e25-23d6-08dd5fe5973f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OTkxTTVzc1Zwczk5Y2pobVh6K25pUVRIV3ZpR1hQUDZpTEhWUGpvL25Vd3R6?=
+ =?utf-8?B?TFRmb2s4bDVFdE96K3luL21sdkcwREFOaDNTVmFHbzcvMW01UStvZHgzRzlY?=
+ =?utf-8?B?VW9qaWNWb3Npa2NxeUIvZWR0OXFnMC9nTVZEbjUxNkNESjZtdm1jTXRTVXdU?=
+ =?utf-8?B?WlhISUVVTUdqb3M4S2RSbnI5WXZrQUJBL3AwY0xCSmRFaXM1SmRITGFXQnhN?=
+ =?utf-8?B?eE5tS2UzbnBnZkxBWWYzRHB3Z3VOVW9RcVJydXRUTjhydWJ1NDRnd3Vsd2d6?=
+ =?utf-8?B?eEp5R0h6Rmw3UjR1TSt2R2JzTlNJaXJaSXFHcUsvdkg5SW9nbEc2Ty9heDY3?=
+ =?utf-8?B?WHBTNnJlbEllMzR5NjBUeFpMVVkvd1d0eVZDaVRhNnVMWHA3blNNTW83Unl1?=
+ =?utf-8?B?N2ZVMW41NlF0QzMvazl3bHJVdlhTL3B4bFY4SmJ6c2pYY1RmVTlYWjVya1dC?=
+ =?utf-8?B?eDFodGpZcUpOSkFoamtMZEY1bHVvcHY0TEdWcTdOSnArcXVsNUxGUmRtNGxU?=
+ =?utf-8?B?dkp5RXdjWFErbVdSSGw3aUNRQXJaeHF4ckNXOUQ0QmptZkovZWJ3TFJkc0V4?=
+ =?utf-8?B?aUlkTFJXSmVnUXhKelhhT21VdVB5MHUxT3Y3Njd6Ny9MWFAveHZBQUhPWG9i?=
+ =?utf-8?B?RUVZZDVMT3BRLzlxbFNvN1gvUVdBQ3pTQlRFYWVQbDU0RVFYZmt5Y3NVbUk5?=
+ =?utf-8?B?ZncraURHM1lwalZhWFk5YWhuMGpGVjFDSVRJZHVsZWtLUjhvNjdVM2ZJUHQy?=
+ =?utf-8?B?VkdwcE15SkJPRHlGdWwwVlMzbG5NMWgyV1BnaGhyUWw1anRSQmlmU2lLcnhj?=
+ =?utf-8?B?TTNPNzN1UWdzSlpYSTNQZjRJVFNCL1BwcjVIMk1leVlaajZCSHdTSFl3R0Nz?=
+ =?utf-8?B?WXl2VysvQnBYWDVhdUNLMFJSbC80V1p1V2dGbVNUQ3lRa29QQjR2NXMzQllP?=
+ =?utf-8?B?MG45SFhROEtFWWE0ell4T0VaN09Wc2Z3OFRGamZiTUhwcmhPQ2RUZ01QREFZ?=
+ =?utf-8?B?amROQXlGUW5RcVcxL3lDN1EwdUVmWFg4WUdMOElpM3NMbnZnL0VxUU93eTg1?=
+ =?utf-8?B?dDlCYmRRb3BLTC9BWERReVRUUHZvMk5Da1NWRWptNy9VVG5wU1ZsV0pHQUVm?=
+ =?utf-8?B?c3VjTnFvMVRUNlV4YlFQTndCRmp4eEF5UVpkM0dRNWp0NHpWRll4eEVsYjFV?=
+ =?utf-8?B?VktjWE5iTGNyd2V5ajRhSmJaK2N3SnYvZzIvNkJCWERtaXVSc3N2ejBnZmxN?=
+ =?utf-8?B?ZXhqdVA0djdwWnhDYXExL1lISVBQOWNrN1hBenR0WUlTV2djRjl3Y1U2ZzFN?=
+ =?utf-8?B?VlZpU2x0S2dXQnR2Q2puMDJ6T3owM01ZWVAvZXA0cXU2WjBPNm5TczR6Vm44?=
+ =?utf-8?B?bHBCUHpxSnlLa2h3dlA5b0w5eUZPZU5tUENMVTRHUWwrbURLdURTaUM5a0VL?=
+ =?utf-8?B?cWZkVHpEVGZmT1l5MnlvQVNhRDZvck9PRkNkNjJueUZDLzJiaWRGSHhWQXpZ?=
+ =?utf-8?B?elJleVF3NE45YlRSVEN6QjdKNzFuclg4c1Joa3NpSHlNay90cENZM0hBaTRM?=
+ =?utf-8?B?QVZkbnBWdy9xaXB6UUsxNUtYalR3YWo3cmZmRjNPai9XZmIyUjNTMWNnQVJG?=
+ =?utf-8?B?T3JWOWVUV3lERGhKNkhoa1NWWDN5ZnZNaDF3RkdiZWNsUlQyVGQvMEc2UFJs?=
+ =?utf-8?B?TnA3akk2RlJGRlVKdWt6MWtVVFRQNktEZ0xGNGFXUmNyTE93b1VLTDhtTkRy?=
+ =?utf-8?B?WXkzRzZQWTNhSkVnWlEwZ2MxTjJNM2VPVDFYUlNTSzNnblpnTGRKVU8vZ0FX?=
+ =?utf-8?B?TFYvaG13TzRlWE1DUlRxQjNXbTMwYlNxUXlHdnFXbkxxcWZlcmt6eVcvTlMy?=
+ =?utf-8?Q?W5nQnq++FdBhI?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aHB2ZUgwbTU2cGFodjVMMWpLcnBqTnFPaUF5ck05QzlJU3VOSkp0dDRDUklP?=
+ =?utf-8?B?S2I1aVE2bFYzTzRIT1F0TjZTcWJoQU9PdmFyeWJYZzB6azlKZWVxTCtnWFJ4?=
+ =?utf-8?B?S1hKYmVjVTZBVVd2dThpQXdSS0ExOWpIVXVlZVFXRjQ0S0dhekRReGpHMXlz?=
+ =?utf-8?B?TFRCRGJVbmQrVDV3TkVsUUZrTlgxTysvYkR2WllwWFFEcmJkZEdlTXdiVlVU?=
+ =?utf-8?B?K3p5cWlvTktzQm5LSkpRVlczcWkwaWRJczBZbjluV0JGSVl2UGJuelQ5L0t4?=
+ =?utf-8?B?QlJMN3NKSHJsVDRPOU4xdkRXajBhWjRhZHVnNE1DNFRJdmRjVU1yRTVJNXhz?=
+ =?utf-8?B?WUFFSEhBQWhsQ0Q4QnJXUUtFeDJVUWVaQjBuVkpDcVhxNUVUR2c3WkhJOE9G?=
+ =?utf-8?B?N1hmb0lXdDNSWnY5VHdiWVFuOVpNN1RUNFVaSWFaTk9DeEVzM25oNXFPM1NP?=
+ =?utf-8?B?akFRWW4xMkxzblU2SG5IMkJBUzByUVYrM3Q5MDBVZkZSa3BkKzRYSkpFVDB4?=
+ =?utf-8?B?dkJZeEdJYnZmSndiR3N3c0ZzQU1lZVoxdHd1clAxUm9TMkRhckFZSGNhYS9D?=
+ =?utf-8?B?UjE5c25YR3hKZXVkRlNkRG5LVlhocG0wSDI4UmNVa0tWa01XUHRiRFBOTjRF?=
+ =?utf-8?B?MzB6elB2NUlHZTVqZ2s3M1luQmV2dWgvaTRCUU1KSHJycmVvcnZLc2trd0tC?=
+ =?utf-8?B?S1A5a2J1MytaSmhsZ2VyV3lzaDQ5ZzV5YXZ6RzBBcnZ6WXlxSTRDanlvR21y?=
+ =?utf-8?B?RiszamtFQ0VkT1BOWFVjSmlGZjEwMlFsNVovU0xWcUhyQjVKTmtHRlVWd1hp?=
+ =?utf-8?B?K1NPYUlpMzgzY3hJUFFnNWcya1U1WEFVYkhOL1pnUTZRNGNkY3FybFlBZUxu?=
+ =?utf-8?B?QkZTeGRwaW5TME14dkt3Zm1oWmx3Y1NhMVpaMjlxaVdKNVp3SWpRQm4vQ2pZ?=
+ =?utf-8?B?Qk9rRjI1QTNwZzhJQ2RMSDJnTnJoU1hsOHdUcmtpTGk3Y2NQdUs4bU52SFky?=
+ =?utf-8?B?Q25wL3Y2Nk8zOG8zS2d5YnBXeFFrZUJLNi9MbVJxZUlEeTEvZkVDdGhZb3Jq?=
+ =?utf-8?B?TzdxUjkzNG1CRGFXWnRHcXlWUllPZ2cxcHF0Rmp5Q2x6MjdVWGx2WlhLd2F6?=
+ =?utf-8?B?TEwrOHY2SlFkd2dHTUMydDJtNGljemI2YnhEeGVnV01hanVVTG9FTS9wVzRq?=
+ =?utf-8?B?ZkhCUTN4bkMxczVNeEhjem5KOGI5by9UUGRYTm9jVnVOZmdqaUZ4aXN1NWxF?=
+ =?utf-8?B?dGN2akFoVm9qUnZFWkswNlJDR1FFa3RRdkk1cC9OenJQL1RvNjlGZGphZDFl?=
+ =?utf-8?B?eWNnYldLZEtMZVFsVGFrU2Vpa3c5VDhvNWR3c0ZPbEpPeVJNc1RqcElHWWZv?=
+ =?utf-8?B?Rys3R3ZXQ2hIMUdFM2UrV2ZGUjVnMTJFeHp5VEJRRG9YTnY2Tk1qYmVTU2FI?=
+ =?utf-8?B?WCthRllXK3FHU2ZodmtoQ3ZZZGU0S1pwNW1RUy91a0d3Q0lHbnZaOVJLUGdT?=
+ =?utf-8?B?Ty9SemtibkNYZTM1eEs2ZkxNcVRIMW9Fb0ZGV3JjUEtWNTRYdzRoZjg2MHJ0?=
+ =?utf-8?B?cm82SjI3R3FVZG9ZNmNubkIwNVdYeDNaUlIyQ04vdmkvZlV0bXZxM2ZuUzJQ?=
+ =?utf-8?B?N1diTVFVclpNOFRabzBNc3VCelpLTE1yK1VtZWxxeHY0U0hkc0FIbFYzZXRn?=
+ =?utf-8?B?bWJ3RmRDZ3hheW5mMTRvT2k4ZkU5NXhlR3lZSmhNOFhFL0xTRU1TSjdqRkVs?=
+ =?utf-8?B?aW9RVDRRemQxbVkwS1AxSnU5MGpMdlNZVFpORXg4S1cvSVRST0hwOGRiT0NE?=
+ =?utf-8?B?RWUyNGRuaUVNV2haS0NZbXNyOXU1cGo3UzhuNTQyUnNBVnY5SUI5eXNXY1lr?=
+ =?utf-8?B?WExqUHFmU0pHNDJXcDlvZUhFd1hrL1dPbFYrSThUSzd0NWliVCtpTGZ5cjJK?=
+ =?utf-8?B?MFlSTUFna0JJbE9JSllza2hnaGVta0RWM1NqUVVPYSs0a1dhd3RiTlo3S0p4?=
+ =?utf-8?B?SEtCU0dnUGgycktHOTI1dlpxSzF1Q21WR2x5RCt2TGxDNEJlM0lieHJxM2NI?=
+ =?utf-8?B?RmRxV3czYlEvcFJCVndKTmUvMklhR0hSVWZCNWFhQUJ3Qmltak5WMXY5NThK?=
+ =?utf-8?Q?ZBFwdl8siKhgoOaTMxDEhxNRC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a45310b9-0438-4e25-23d6-08dd5fe5973f
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2025 15:09:44.7843 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aTn8MPIyRm3xJkAVGVH4IcWnZ4Ko+2MRaIDUvAU2WX35hHYxgEjLS9ClmoQbarLavpXI0xtvg4yj3jA86PoXhg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8058
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,210 +162,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
 
-Alex
 
-On Sun, Mar 9, 2025 at 12:49=E2=80=AFPM Alexandre Demers
-<alexandre.f.demers@gmail.com> wrote:
->
-> For coherence with DCE8 et DCE10, add or move some values under sid.h
-> and remove duplicated from si_enums.h.
->
-> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 63 ++++++++++++++-------------
->  drivers/gpu/drm/amd/amdgpu/si_enums.h |  6 ---
->  drivers/gpu/drm/amd/amdgpu/sid.h      | 29 +++++++++---
->  3 files changed, 55 insertions(+), 43 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index 47b0e4848a56..e1b0779e835f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -41,6 +41,7 @@
->  #include "amdgpu_display.h"
->
->  #include "dce_v6_0.h"
-> +#include "sid.h"
->
->  #include "bif/bif_3_0_d.h"
->  #include "bif/bif_3_0_sh_mask.h"
-> @@ -65,31 +66,31 @@ static void dce_v6_0_set_irq_funcs(struct amdgpu_devi=
-ce *adev);
->
->  static const u32 crtc_offsets[6] =3D
->  {
-> -       SI_CRTC0_REGISTER_OFFSET,
-> -       SI_CRTC1_REGISTER_OFFSET,
-> -       SI_CRTC2_REGISTER_OFFSET,
-> -       SI_CRTC3_REGISTER_OFFSET,
-> -       SI_CRTC4_REGISTER_OFFSET,
-> -       SI_CRTC5_REGISTER_OFFSET
-> +       CRTC0_REGISTER_OFFSET,
-> +       CRTC1_REGISTER_OFFSET,
-> +       CRTC2_REGISTER_OFFSET,
-> +       CRTC3_REGISTER_OFFSET,
-> +       CRTC4_REGISTER_OFFSET,
-> +       CRTC5_REGISTER_OFFSET
->  };
->
->  static const u32 hpd_offsets[] =3D
->  {
-> -       mmDC_HPD1_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> -       mmDC_HPD2_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> -       mmDC_HPD3_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> -       mmDC_HPD4_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> -       mmDC_HPD5_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> -       mmDC_HPD6_INT_STATUS - mmDC_HPD1_INT_STATUS,
-> +       HPD0_REGISTER_OFFSET,
-> +       HPD1_REGISTER_OFFSET,
-> +       HPD2_REGISTER_OFFSET,
-> +       HPD3_REGISTER_OFFSET,
-> +       HPD4_REGISTER_OFFSET,
-> +       HPD5_REGISTER_OFFSET
->  };
->
->  static const uint32_t dig_offsets[] =3D {
-> -       SI_CRTC0_REGISTER_OFFSET,
-> -       SI_CRTC1_REGISTER_OFFSET,
-> -       SI_CRTC2_REGISTER_OFFSET,
-> -       SI_CRTC3_REGISTER_OFFSET,
-> -       SI_CRTC4_REGISTER_OFFSET,
-> -       SI_CRTC5_REGISTER_OFFSET,
-> +       CRTC0_REGISTER_OFFSET,
-> +       CRTC1_REGISTER_OFFSET,
-> +       CRTC2_REGISTER_OFFSET,
-> +       CRTC3_REGISTER_OFFSET,
-> +       CRTC4_REGISTER_OFFSET,
-> +       CRTC5_REGISTER_OFFSET,
->         (0x13830 - 0x7030) >> 2,
->  };
->
-> @@ -1365,13 +1366,13 @@ static void dce_v6_0_audio_enable(struct amdgpu_d=
-evice *adev,
->
->  static const u32 pin_offsets[7] =3D
->  {
-> -       (0x1780 - 0x1780),
-> -       (0x1786 - 0x1780),
-> -       (0x178c - 0x1780),
-> -       (0x1792 - 0x1780),
-> -       (0x1798 - 0x1780),
-> -       (0x179d - 0x1780),
-> -       (0x17a4 - 0x1780),
-> +       AUD0_REGISTER_OFFSET,
-> +       AUD1_REGISTER_OFFSET,
-> +       AUD2_REGISTER_OFFSET,
-> +       AUD3_REGISTER_OFFSET,
-> +       AUD4_REGISTER_OFFSET,
-> +       AUD5_REGISTER_OFFSET,
-> +       AUD6_REGISTER_OFFSET,
->  };
->
->  static int dce_v6_0_audio_init(struct amdgpu_device *adev)
-> @@ -2882,22 +2883,22 @@ static void dce_v6_0_set_crtc_vblank_interrupt_st=
-ate(struct amdgpu_device *adev,
->
->         switch (crtc) {
->         case 0:
-> -               reg_block =3D SI_CRTC0_REGISTER_OFFSET;
-> +               reg_block =3D CRTC0_REGISTER_OFFSET;
->                 break;
->         case 1:
-> -               reg_block =3D SI_CRTC1_REGISTER_OFFSET;
-> +               reg_block =3D CRTC1_REGISTER_OFFSET;
->                 break;
->         case 2:
-> -               reg_block =3D SI_CRTC2_REGISTER_OFFSET;
-> +               reg_block =3D CRTC2_REGISTER_OFFSET;
->                 break;
->         case 3:
-> -               reg_block =3D SI_CRTC3_REGISTER_OFFSET;
-> +               reg_block =3D CRTC3_REGISTER_OFFSET;
->                 break;
->         case 4:
-> -               reg_block =3D SI_CRTC4_REGISTER_OFFSET;
-> +               reg_block =3D CRTC4_REGISTER_OFFSET;
->                 break;
->         case 5:
-> -               reg_block =3D SI_CRTC5_REGISTER_OFFSET;
-> +               reg_block =3D CRTC5_REGISTER_OFFSET;
->                 break;
->         default:
->                 DRM_DEBUG("invalid crtc %d\n", crtc);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_enums.h b/drivers/gpu/drm/amd/=
-amdgpu/si_enums.h
-> index cd9b0a654991..d656ef1fa6e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_enums.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_enums.h
-> @@ -121,12 +121,6 @@
->  #define CURSOR_UPDATE_LOCK             (1 << 16)
->  #define CURSOR_DISABLE_MULTIPLE_UPDATE (1 << 24)
->
-> -#define SI_CRTC0_REGISTER_OFFSET                0
-> -#define SI_CRTC1_REGISTER_OFFSET                0x300
-> -#define SI_CRTC2_REGISTER_OFFSET                0x2600
-> -#define SI_CRTC3_REGISTER_OFFSET                0x2900
-> -#define SI_CRTC4_REGISTER_OFFSET                0x2c00
-> -#define SI_CRTC5_REGISTER_OFFSET                0x2f00
->
->  #define ES_AND_GS_AUTO       3
->  #define RADEON_PACKET_TYPE3  3
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgp=
-u/sid.h
-> index bf228a1dedff..cbf232f5235b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sid.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
-> @@ -1700,12 +1700,29 @@
->
->  //#dce stupp
->  /* display controller offsets used for crtc/cur/lut/grph/viewport/etc. *=
-/
-> -#define SI_CRTC0_REGISTER_OFFSET                0 //(0x6df0 - 0x6df0)/4
-> -#define SI_CRTC1_REGISTER_OFFSET                0x300 //(0x79f0 - 0x6df0=
-)/4
-> -#define SI_CRTC2_REGISTER_OFFSET                0x2600 //(0x105f0 - 0x6d=
-f0)/4
-> -#define SI_CRTC3_REGISTER_OFFSET                0x2900 //(0x111f0 - 0x6d=
-f0)/4
-> -#define SI_CRTC4_REGISTER_OFFSET                0x2c00 //(0x11df0 - 0x6d=
-f0)/4
-> -#define SI_CRTC5_REGISTER_OFFSET                0x2f00 //(0x129f0 - 0x6d=
-f0)/4
-> +#define CRTC0_REGISTER_OFFSET                 (0x1b7c - 0x1b7c) //(0x6df=
-0 - 0x6df0)/4
-> +#define CRTC1_REGISTER_OFFSET                 (0x1e7c - 0x1b7c) //(0x79f=
-0 - 0x6df0)/4
-> +#define CRTC2_REGISTER_OFFSET                 (0x417c - 0x1b7c) //(0x105=
-f0 - 0x6df0)/4
-> +#define CRTC3_REGISTER_OFFSET                 (0x447c - 0x1b7c) //(0x111=
-f0 - 0x6df0)/4
-> +#define CRTC4_REGISTER_OFFSET                 (0x477c - 0x1b7c) //(0x11d=
-f0 - 0x6df0)/4
-> +#define CRTC5_REGISTER_OFFSET                 (0x4a7c - 0x1b7c) //(0x129=
-f0 - 0x6df0)/4
-> +
-> +/* hpd instance offsets */
-> +#define HPD0_REGISTER_OFFSET                 (0x1807 - 0x1807)
-> +#define HPD1_REGISTER_OFFSET                 (0x180a - 0x1807)
-> +#define HPD2_REGISTER_OFFSET                 (0x180d - 0x1807)
-> +#define HPD3_REGISTER_OFFSET                 (0x1810 - 0x1807)
-> +#define HPD4_REGISTER_OFFSET                 (0x1813 - 0x1807)
-> +#define HPD5_REGISTER_OFFSET                 (0x1816 - 0x1807)
-> +
-> +/* audio endpt instance offsets */
-> +#define AUD0_REGISTER_OFFSET                 (0x1780 - 0x1780)
-> +#define AUD1_REGISTER_OFFSET                 (0x1786 - 0x1780)
-> +#define AUD2_REGISTER_OFFSET                 (0x178c - 0x1780)
-> +#define AUD3_REGISTER_OFFSET                 (0x1792 - 0x1780)
-> +#define AUD4_REGISTER_OFFSET                 (0x1798 - 0x1780)
-> +#define AUD5_REGISTER_OFFSET                 (0x179d - 0x1780)
-> +#define AUD6_REGISTER_OFFSET                 (0x17a4 - 0x1780)
->
->  #define CURSOR_WIDTH 64
->  #define CURSOR_HEIGHT 64
-> --
-> 2.48.1
->
+On 2025-02-25 06:19, Louis Chauvet wrote:
+> 
+> 
+> Le 20/12/2024 à 05:33, Alex Hung a écrit :
+>> From: Harry Wentland <harry.wentland@amd.com>
+>>
+>> Two tests are added to VKMS LUT handling:
+>> - linear
+>> - inv_srgb
+>>
+>> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+>> Signed-off-by: Alex Hung <alex.hung@amd.com>
+>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>> ---
+>> v7:
+>>   - Fix checkpatch warnings (Louis Chauvet)
+>>    - Adde a commit messages
+>>    - Fix code styles by adding and removing spaces (new lines, tabs and so on)
+>>
+>>   drivers/gpu/drm/vkms/tests/vkms_color_test.c | 39 +++++++++++++++++++-
+>>   drivers/gpu/drm/vkms/vkms_composer.c         | 17 ++-------
+>>   drivers/gpu/drm/vkms/vkms_composer.h         | 13 +++++++
+>>   3 files changed, 55 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+>> index b53beaac2703..d765c5eb5d88 100644
+>> --- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+>> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+>> @@ -6,6 +6,7 @@
+>>   #include <drm/drm_mode.h>
+>>   #include "../vkms_drv.h"
+>>   #include "../vkms_composer.h"
+>> +#include "../vkms_luts.h"
+>>     #define TEST_LUT_SIZE 16
+>>   @@ -36,7 +37,6 @@ static const struct vkms_color_lut test_linear_lut = {
+>>       .channel_value2index_ratio = 0xf000fll
+>>   };
+>>   -
+>>   static void vkms_color_test_get_lut_index(struct kunit *test)
+>>   {
+>>       s64 lut_index;
+>> @@ -49,6 +49,19 @@ static void vkms_color_test_get_lut_index(struct kunit *test)
+>>           lut_index = get_lut_index(&test_linear_lut, test_linear_array[i].red);
+>>           KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(lut_index), i);
+>>       }
+>> +
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_eotf, 0x0)), 0x0);
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x0)), 0x0);
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x101)), 0x1);
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x202)), 0x2);
+>> +
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x101)), 0x1);
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x202)), 0x2);
+>> +
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xfefe)), 0xfe);
+>> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xffff)), 0xff);
+> 
+> Did you see the kernel bot warning? I think you can simply add EXPORT_SYMBOL_IF_KUNIT(srgb_eotf) in vkms_lut.h.
+> 
+
+I did not and don't see any warnings if I run this locally.
+Adding EXPORT_SYMBOL_IF_KUNIT would require pulling in kunit
+headers into vkms_luts.h. I would prefer not to do that if
+it's not needed.
+
+Harry
+
+>>   }
+>>     static void vkms_color_test_lerp(struct kunit *test)
+>> @@ -155,9 +168,33 @@ static void vkms_color_test_lerp(struct kunit *test)
+>>       KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x1, 0x80000000), 0x1);
+>>   }
+>>   +static void vkms_color_test_linear(struct kunit *test)
+>> +{
+>> +    for (int i = 0; i < LUT_SIZE; i++) {
+>> +        int linear = apply_lut_to_channel_value(&linear_eotf, i * 0x101, LUT_RED);
+>> +
+>> +        KUNIT_EXPECT_EQ(test, DIV_ROUND_CLOSEST(linear, 0x101), i);
+>> +    }
+>> +}
+>> +
+>> +static void vkms_color_srgb_inv_srgb(struct kunit *test)
+>> +{
+>> +    u16 srgb, final;
+>> +
+>> +    for (int i = 0; i < LUT_SIZE; i++) {
+>> +        srgb = apply_lut_to_channel_value(&srgb_eotf, i * 0x101, LUT_RED);
+>> +        final = apply_lut_to_channel_value(&srgb_inv_eotf, srgb, LUT_RED);
+>> +
+>> +        KUNIT_EXPECT_GE(test, final / 0x101, i - 1);
+>> +        KUNIT_EXPECT_LE(test, final / 0x101, i + 1);
+>> +    }
+>> +}
+>> +
+>>   static struct kunit_case vkms_color_test_cases[] = {
+>>       KUNIT_CASE(vkms_color_test_get_lut_index),
+>>       KUNIT_CASE(vkms_color_test_lerp),
+>> +    KUNIT_CASE(vkms_color_test_linear),
+>> +    KUNIT_CASE(vkms_color_srgb_inv_srgb),
+>>       {}
+>>   };
+>>   diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+>> index 983654540ee5..ee3cfe153d8f 100644
+>> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+>> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+>> @@ -113,19 +113,8 @@ VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel
+>>   }
+>>   EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
+>>   -/*
+>> - * This enum is related to the positions of the variables inside
+>> - * `struct drm_color_lut`, so the order of both needs to be the same.
+>> - */
+>> -enum lut_channel {
+>> -    LUT_RED = 0,
+>> -    LUT_GREEN,
+>> -    LUT_BLUE,
+>> -    LUT_RESERVED
+>> -};
+>> -
+>> -static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
+>> -                      enum lut_channel channel)
+>> +VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
+>> +                        enum lut_channel channel)
+>>   {
+>>       s64 lut_index = get_lut_index(lut, channel_value);
+>>       u16 *floor_lut_value, *ceil_lut_value;
+>> @@ -150,6 +139,8 @@ static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 chan
+>>       return lerp_u16(floor_channel_value, ceil_channel_value,
+>>               lut_index & DRM_FIXED_DECIMAL_MASK);
+>>   }
+>> +EXPORT_SYMBOL_IF_KUNIT(apply_lut_to_channel_value);
+>> +
+>>     static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buffer *output_buffer)
+>>   {
+>> diff --git a/drivers/gpu/drm/vkms/vkms_composer.h b/drivers/gpu/drm/vkms/vkms_composer.h
+>> index 9316a053e7d7..67ae09913460 100644
+>> --- a/drivers/gpu/drm/vkms/vkms_composer.h
+>> +++ b/drivers/gpu/drm/vkms/vkms_composer.h
+>> @@ -5,9 +5,22 @@
+>>     #include <kunit/visibility.h>
+>>   +/*
+>> + * This enum is related to the positions of the variables inside
+>> + * `struct drm_color_lut`, so the order of both needs to be the same.
+>> + */
+>> +enum lut_channel {
+>> +    LUT_RED = 0,
+>> +    LUT_GREEN,
+>> +    LUT_BLUE,
+>> +    LUT_RESERVED
+>> +};
+>> +
+>>   #if IS_ENABLED(CONFIG_KUNIT)
+>>   u16 lerp_u16(u16 a, u16 b, s64 t);
+>>   s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
+>> +u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
+>> +                   enum lut_channel channel);
+>>   #endif
+>>     #endif /* _VKMS_COMPOSER_H_ */
+> 
+
