@@ -4,66 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6CB4C282DE
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 13:50:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0350C282DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 15:00:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B81710E09B;
-	Mon, 10 Mar 2025 13:50:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9026D10E2A7;
+	Mon, 10 Mar 2025 15:00:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oli4RL9f";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BkpXz175";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25F4410E09B
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 13:50:11 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-2ff67f44fcaso1205524a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 06:50:11 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE6010E2A8;
+ Mon, 10 Mar 2025 15:00:54 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-2ff73032ac0so1094682a91.3; 
+ Mon, 10 Mar 2025 08:00:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741614610; x=1742219410; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1741618854; x=1742223654; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KSIO181fA9SK9EDThTYSCUrcDPz6NiBld82ohnnSQsM=;
- b=Oli4RL9fZbwJxs5r9To0p83Y4PatmzYEQeHf6FAZXHHgKKD0Xvo95U56IobuHkMvSL
- QFdeyH0VYDzHfYU9fvAGt5VegUKj5m/qnjDF21zgumL0iQoSk/ghEr/QkODmWBl7/Y9b
- XyZx7XcwFPMFbyG5gtnS1jJudw5TSVP04a6LZm6k1AnKiCmT0NyYOJVQsK6JXKFJIMEW
- qiZCcu0YzDRvyjism50e1cBcxyll4X5X03mOYbL5nnPGyYTbK7FmG0I1LqJeNy2Vj0uW
- AIk9bLZsa0Q1pM7Zqgu6mhwyCOOiLG+6neuuHWsgQ9WhD3V7Ufm8VCHK5nrNoeAHzAOa
- KAOA==
+ bh=pik+SJ6TeRT73WeaopsJrOapXLaVVKqUv0DnQJUUmIc=;
+ b=BkpXz175ZOLaGDq6br1Scci//H7uoztK5N3EnBKIw2jiUBHvBwQ+jv54NStTUxEPDT
+ oTcxF3OEbZLS5zysxo7E4AnJg7Cv54sla4DrLNDxFq9aoD0oiSMaTJONKEvJbT6+9ZGK
+ yn/PNs3SaMnPQ+QjC70HReauKK4Z2gFOCWUSpItqaAwIUpVXmfSuRJ7Ero3nWM6BPwvc
+ yQ2RiPi7hEGD2NXGFpwLTOdMk5vq5WnLP0d0eYPhgXt+Ih0ZvjIEC6UbhUvH1HX4cpKt
+ OqaviS/bLlCrsQIYcT5lWjbO3i5JtJpUtBBkeUbKFx8o/Pv2lxICav+J8Vg5RWyUfuMO
+ 3mJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741614610; x=1742219410;
+ d=1e100.net; s=20230601; t=1741618854; x=1742223654;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KSIO181fA9SK9EDThTYSCUrcDPz6NiBld82ohnnSQsM=;
- b=LU8TRe426zBSO8j0s2fzVZFKuZ4el8v7yk5ar5YlBy2/fXy8z9/+oZCF9AK2kZgTT0
- /w0lM/B7ryFzGwYOyikzHSiAhXR+Is2oVFAgmSchjiXuaMaAqhWTyFyD7j31/m7ZrvLJ
- 458TQUbvl6e/aTx8JXgNxm3jSmE9KQOuZYnSJmP5cuEoyQ0OyODa8gzt/za01jJMuasm
- eZIBE/NJZ7XviJfFlS8NbiEJYpbKSFELP+3xmKX3vfvQlTOCW4DQrOPeWHA9xWd0n0h+
- o71bTNtPuyac3vzp+vsLU/+BPVNGYYhUnmH6xzp66uEx7xNY8dQ2hqzmSr/Tm/VF2iFJ
- 8uAA==
-X-Gm-Message-State: AOJu0YwtHgFmv2bnrQOBYyQyQm9qAWfBhmd+FwHfJ5EIEidVFdiCdHL4
- 1mi4951F1Ie3nUJrp2x0Z/LwYRCXg2u39QIcZEfp0Am9KUyjyMyAqDmZvieM7k9AnXyVy3AHvrs
- vq4+g/7mL3MVxvs4PbhTkYu2nXGBmWQ==
-X-Gm-Gg: ASbGnctsAaVtRYIeU69vEVfmPLtyfxSr7i0pvYejNlDSZxOeKSoujH0+VqzADApjKQb
- spjz7/dTceq5F3a+DUymN7lGBlgmqX56XoDxD7NkY8vbqtOm8MTu7/SyTof5K7gkjiQDd8NLPhk
- kkTF2PS4oNKdo1Ds/WPFjJ8ifjivRy1SiswETm
-X-Google-Smtp-Source: AGHT+IFNRz2szaUljyOJK/uOzOj7mwa9OnhWjZb1S8G4ZcXA6u6xru8GRgeDL7e7g+5aLZRgZ+b2m9+UwdMlr3f55j0=
-X-Received: by 2002:a17:90b:38c1:b0:2ff:4be6:c5e2 with SMTP id
- 98e67ed59e1d1-300a57a82dcmr5478043a91.7.1741614610405; Mon, 10 Mar 2025
- 06:50:10 -0700 (PDT)
+ bh=pik+SJ6TeRT73WeaopsJrOapXLaVVKqUv0DnQJUUmIc=;
+ b=rWjEnFEZaU2c3/GE1shrYHxn3R+zmUv6V6x/pvA/gJzaknGVEoZbc7KlBflaaWegSg
+ qdgp+I5Sp72QCMVurJ2aeRJ7LEzl3qaYUe0o85L0vTzlC9y0NxDoMrd+tZsN9xSV93Mx
+ PZGeJA5X7CVmXIGOLahD9Aogdn94YGI33tz7lNs77LAJpj1ZccqE3Q6I71eHPeC5dG/4
+ wQkof16HGOgwUpHBjqT5Wp8ANHBOtn0DvG7qfNgOLVtuZOI+YfQdHa5PkieyhKQU6Wgm
+ n8mRD3EnPxcmFjzfd8eDIcI2sX5Y6YkEewG4tYG0hW1fr+kXZRXnxJO6qLUwvsKGXbHP
+ GAGg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUz2ssp26oNkzYO8LtimEq9seyZm+xILCQPPZDLTaFPGJP8AvLqu6x4/t6RpHTekZYwKUz4Kzqux9cP@lists.freedesktop.org,
+ AJvYcCXim0akkwk+7glD/8nS00DKPenL/wl6ay4yZmIR1SPYgcG8pV+AVNe3wPrYCjeYTfJvzBV1QzTD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxMTcA6tpq8xuVqGKJKxUxy98let+5UUlsGneec48wAiT9ZmqQH
+ 18TyzycoCpEQH3XwYXYxsxgqKddE937RPhtHNcquIA0s/5Xc+Ys4kAAQ4Wr3/v7wlO/aK5e11aL
+ /4Z5w7IAyIDHI/x/fOTF3cV444aM=
+X-Gm-Gg: ASbGncsLp/zofSPoMtQg832djMZHcCGBsYrEFZX0sY6cvSYNS8vO8Cp213epeJvnuR7
+ 1VNJ/Bl46twhCY4A7dAokk8iEnJWSwg7T3EinrOm+VaeA9st8ZbnXONLdD/9TGvzDZh6c5g55wP
+ +L+hLvAN6fTQvL3e6N65X7jkujDw==
+X-Google-Smtp-Source: AGHT+IHuWmERPlE+4ZNLC90fXXCO1PHzcp3LKpUguGUQ5r6EGa2DRmmvlJlS8B4Wb3tJXau9KQwIQ9GO609WUZ393FY=
+X-Received: by 2002:a17:90b:3b4c:b0:2ff:6ac2:c5ae with SMTP id
+ 98e67ed59e1d1-300ff724725mr68013a91.1.1741618854030; Mon, 10 Mar 2025
+ 08:00:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250310132335.440011-1-Prike.Liang@amd.com>
-In-Reply-To: <20250310132335.440011-1-Prike.Liang@amd.com>
+References: <92b9d527-fa20-4e4d-a4ce-7c442df9df0e@stanley.mountain>
+ <47a52abb-61ae-467c-9cf2-27427a5057ac@amd.com>
+In-Reply-To: <47a52abb-61ae-467c-9cf2-27427a5057ac@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Mar 2025 09:49:58 -0400
-X-Gm-Features: AQ5f1JoTJTOHMtVXsMc6gY1IgQYp50j_Ci51dt4r-JI8ZYYwKewkkl3xkWGfHf8
-Message-ID: <CADnq5_NqhtW0pfpFVNYVyUgSa_herUkemV+9QVLXqiTVk7fcHw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: correct the runtime deference for
- mes_userq_mqd_create()
-To: Prike Liang <Prike.Liang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Mon, 10 Mar 2025 11:00:42 -0400
+X-Gm-Features: AQ5f1Jqm9WMU4lBdVptaUYa6Os9jtW4_wZaL5H0Ev3cSsBOqS0XIQez62ZUgzTc
+Message-ID: <CADnq5_O=aawGH773SZ2KVwvOTRz0CsnoAuGPZTsAR=Fcqy3udA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gfx: delete stray tabs
+To: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Hawking Zhang <Hawking.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, 
+ Jack Xiao <Jack.Xiao@amd.com>, "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,50 +91,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 10, 2025 at 9:33=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
-rote:
->
-> When the runtime resume failed, then the runtime uage decreased at
-> free_mqd. So the runtime resume error handler doesn't need to decrease
-> the runtime usage separately.
->
-> Fixes: 4baa0dcac737 ("drm/amdgpu: validate return value of pm_runtime_get=
-_sync")
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Applied.  Thanks!
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+On Mon, Mar 10, 2025 at 8:18=E2=80=AFAM SRINIVASAN SHANMUGAM
+<srinivasan.shanmugam@amd.com> wrote:
+>
+>
+> On 3/10/2025 4:17 PM, Dan Carpenter wrote:
+>
+> These lines are indented one tab too far.  Delete the extra tabs.
+>
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 ++--
 >  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index 35ae4125cd83..b469b800119f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -291,8 +291,7 @@ static int mes_userq_mqd_create(struct amdgpu_userq_m=
-gr *uq_mgr,
->         r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
->         if (r < 0) {
->                 dev_err(adev->dev, "pm_runtime_get_sync() failed for user=
-queue mqd create\n");
-> -               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> -               goto free_mqd;
-> +               goto deference_pm;
->         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index a194bf3347cb..984e6ff6e463 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -2002,8 +2002,8 @@ void amdgpu_gfx_enforce_isolation_handler(struct wo=
+rk_struct *work)
+>   if (adev->kfd.init_complete) {
+>   WARN_ON_ONCE(!adev->gfx.kfd_sch_inactive[idx]);
+>   WARN_ON_ONCE(adev->gfx.kfd_sch_req_count[idx]);
+> - amdgpu_amdkfd_start_sched(adev, idx);
+> - adev->gfx.kfd_sch_inactive[idx] =3D false;
+> + amdgpu_amdkfd_start_sched(adev, idx);
+> + adev->gfx.kfd_sch_inactive[idx] =3D false;
+>   }
+>   }
+>   mutex_unlock(&adev->enforce_isolation_mutex);
 >
->         r =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr, =
-userq_props);
-> @@ -330,6 +329,7 @@ static int mes_userq_mqd_create(struct amdgpu_userq_m=
-gr *uq_mgr,
->  free_mqd:
->         amdgpu_userqueue_destroy_object(uq_mgr, &queue->mqd);
->         pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> +deference_pm:
->         pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> Thanks!
 >
->  free_props:
-> --
-> 2.34.1
->
+> Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
