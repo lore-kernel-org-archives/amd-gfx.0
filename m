@@ -4,150 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DD39C282DE
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 15:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69DEFC282DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 17:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F066C10E2A1;
-	Mon, 10 Mar 2025 15:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E80D10E4BB;
+	Mon, 10 Mar 2025 17:01:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x5mfVe5A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pbE2jqN4";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2042.outbound.protection.outlook.com [40.107.95.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F63B10E2A1;
- Mon, 10 Mar 2025 15:09:52 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D97D10E4BF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 17:01:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ONspvDYbs8RDqps/8aJCQpVn2bfsJXpGN8kN2POpJEfucJdItzOzPr7zwY0AK/76KxZWS2u6dc/ofbMQjkhZgvFZk+PnUGIAaQOFKeoVZzW73SQ2gS+Hx1HNEynki9siyfVAwqpYJ0p3dTCDORSw3DbGUoYWPhN7KWOLKyKz6NR6hx0kWcCzAYAfeqgZOB7VsQL6UDMG3DLSCpnUOg380uTQGBrt9qdJU4gIVeMEWraPW8jN0qaJY1BPjSSoPoVufXPNRkFTRWBplh+DneQ8YMtSoLyTgA7pafFOq6airZQyY/jf03rvMVZoTxCglzYR3Z4j4R8E+PWtrcPm4TwdnA==
+ b=w4M8TDUOQP9zn5EIpLQ+h6TnD27ydohcQL5h9B7atnjpzUWU20ImaoSD18LfpLRU//4frz2CdEpKx1mWslaWAbezSXPtE9MP+pov1usgmNClzB/1ypwIoJa3FZEkl7/B0ozGflGu69BfY/4A+LDIj1maJJwWNPmfCN54gtK9eKT9vsqsbGov17DYIyqaTC7RZod8+9wwnhA197v84jZOn2rnlIYuomc9dlzmVC7xeKBo99vYhImkV9MGJHtmZnsk+MWUECsAiBUtqe7iVg5qt5U01XXSQsWR659JjIJotvfjC2eZCGljgI9FQG0SbQkiLpQymmlqduAMg/Qgx7UGSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7yFLX3i6eO5J5h2GUaj1DGMnI9Ph0kJkraJmhYgfxoY=;
- b=tIV3ZJDwdeaUOO2sjzHiQZ32HHHxtVA4/aNdvcM/fAyZ/j5FLslqXwIvxP3ZWKPiRaYDWkRxaour58eLRjermCAukRtEq6mo5P9gxP+tODfZQn3W40emyEToTnwt90R4JvtCBM5ffGf12UedFXok5T8WzN7Uck4IvnRFMdgsGAcvU/LuB/wvX5cL+QcO9yfo5KKJVQ04+7OGB0ecpE0Rz1wyBh+7ncxSRT7qvgK0Lw+6gLc88vOimQdjA4J6nHgDtNfk3UK9F6HB4+93N5SqwyirqpoH/dQiTjOCsP+XwHpQM0CGu+WPmfQDGCkbj82SERetUjmmFu6Y7mppPrfvYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=CHvHOijXqFK/GT/z5UCFSprESwdM4nHC1JJtsds7IDY=;
+ b=EfwXAWW+AAFIvmz9QS/Xg5dK75gMBnl683W64YHnCg75bMaD8GmqOtBNwdDWTyGWQqVDMGKuUPr4fyWYSS4GhjYS+vsd1IrHeX6Jme3UoPv4oKcLUbaRBKP+Gq+5aaLBr2camkNOf5EdACGgMp2aIiS9/KyLFBTgs7QagM1TpO2yGoG5SSsuc4UAoTvDXuX0VReAYFYS/1JByodSK9B4Vygi2tl8myN2rIfSMLCrUHBV3F9sbGO8Cq1RQFvLOH/rI6BZNzD1jba6EDDXIFCe/dYZ5AnzpjrQJvbfc3OozR8jyha2mauntdqH6kIB9BFq9wrXsDnTm9E0y2SbRyZyeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7yFLX3i6eO5J5h2GUaj1DGMnI9Ph0kJkraJmhYgfxoY=;
- b=x5mfVe5A8AMifDkhvgLCaick1L9ANhMbCLa0H4jUGRLBav2U4KLZLdAxhKpsAfLKSiXjxp85Ag+pcgrVLDxVul5Dk73JKCLswwJxUkl0o/lHasAtrozFcWUByH7VPmdcPkzyWNor+RbA3jkd7YNqjePWRlIft/rV5WmySrSz+TE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by SN7PR12MB8058.namprd12.prod.outlook.com (2603:10b6:806:348::14) with
+ bh=CHvHOijXqFK/GT/z5UCFSprESwdM4nHC1JJtsds7IDY=;
+ b=pbE2jqN4bvyERMBn2soUL6TqeM9fN6VZgf9lPZFXZurT6XxsqmC7RGmqt7WGDL/1aqSYBH0G/al+9ty55KwJeVOBm2OGzazzfQzSry36pka40LqiJLZWDKl4waAe8ExHsM5OAxXdf/kwD9tDCSdpJQA7OQz5OfxvBU8bInI8108=
+Received: from DS7PR03CA0055.namprd03.prod.outlook.com (2603:10b6:5:3b5::30)
+ by PH0PR12MB8029.namprd12.prod.outlook.com (2603:10b6:510:26c::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.26; Mon, 10 Mar
- 2025 15:09:46 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%5]) with mapi id 15.20.8489.033; Mon, 10 Mar 2025
- 15:09:44 +0000
-Message-ID: <379160f4-9399-4c48-b355-eb2bd2d90015@amd.com>
-Date: Mon, 10 Mar 2025 11:09:42 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [V7 15/45] drm/vkms: Add kunit tests for linear and sRGB LUTs
-To: Louis Chauvet <louis.chauvet@bootlin.com>, Alex Hung <alex.hung@amd.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org
-References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-16-alex.hung@amd.com>
- <cf3528d1-9e56-4fe2-beb1-de7cb9c172f3@bootlin.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <cf3528d1-9e56-4fe2-beb1-de7cb9c172f3@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0313.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::23) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Mon, 10 Mar
+ 2025 17:00:56 +0000
+Received: from CY4PEPF0000E9D6.namprd05.prod.outlook.com
+ (2603:10b6:5:3b5:cafe::c4) by DS7PR03CA0055.outlook.office365.com
+ (2603:10b6:5:3b5::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.24 via Frontend Transport; Mon,
+ 10 Mar 2025 17:00:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D6.mail.protection.outlook.com (10.167.241.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Mon, 10 Mar 2025 17:00:56 +0000
+Received: from shaoyunl-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
+ 2025 12:00:55 -0500
+From: Shaoyun Liu <shaoyun.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Shaoyun Liu <shaoyun.liu@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: Fix MES init sequence
+Date: Mon, 10 Mar 2025 13:00:37 -0400
+Message-ID: <20250310170037.62136-1-shaoyun.liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SN7PR12MB8058:EE_
-X-MS-Office365-Filtering-Correlation-Id: a45310b9-0438-4e25-23d6-08dd5fe5973f
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D6:EE_|PH0PR12MB8029:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5136a9de-458f-4258-3dee-08dd5ff51fdf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OTkxTTVzc1Zwczk5Y2pobVh6K25pUVRIV3ZpR1hQUDZpTEhWUGpvL25Vd3R6?=
- =?utf-8?B?TFRmb2s4bDVFdE96K3luL21sdkcwREFOaDNTVmFHbzcvMW01UStvZHgzRzlY?=
- =?utf-8?B?VW9qaWNWb3Npa2NxeUIvZWR0OXFnMC9nTVZEbjUxNkNESjZtdm1jTXRTVXdU?=
- =?utf-8?B?WlhISUVVTUdqb3M4S2RSbnI5WXZrQUJBL3AwY0xCSmRFaXM1SmRITGFXQnhN?=
- =?utf-8?B?eE5tS2UzbnBnZkxBWWYzRHB3Z3VOVW9RcVJydXRUTjhydWJ1NDRnd3Vsd2d6?=
- =?utf-8?B?eEp5R0h6Rmw3UjR1TSt2R2JzTlNJaXJaSXFHcUsvdkg5SW9nbEc2Ty9heDY3?=
- =?utf-8?B?WHBTNnJlbEllMzR5NjBUeFpMVVkvd1d0eVZDaVRhNnVMWHA3blNNTW83Unl1?=
- =?utf-8?B?N2ZVMW41NlF0QzMvazl3bHJVdlhTL3B4bFY4SmJ6c2pYY1RmVTlYWjVya1dC?=
- =?utf-8?B?eDFodGpZcUpOSkFoamtMZEY1bHVvcHY0TEdWcTdOSnArcXVsNUxGUmRtNGxU?=
- =?utf-8?B?dkp5RXdjWFErbVdSSGw3aUNRQXJaeHF4ckNXOUQ0QmptZkovZWJ3TFJkc0V4?=
- =?utf-8?B?aUlkTFJXSmVnUXhKelhhT21VdVB5MHUxT3Y3Njd6Ny9MWFAveHZBQUhPWG9i?=
- =?utf-8?B?RUVZZDVMT3BRLzlxbFNvN1gvUVdBQ3pTQlRFYWVQbDU0RVFYZmt5Y3NVbUk5?=
- =?utf-8?B?ZncraURHM1lwalZhWFk5YWhuMGpGVjFDSVRJZHVsZWtLUjhvNjdVM2ZJUHQy?=
- =?utf-8?B?VkdwcE15SkJPRHlGdWwwVlMzbG5NMWgyV1BnaGhyUWw1anRSQmlmU2lLcnhj?=
- =?utf-8?B?TTNPNzN1UWdzSlpYSTNQZjRJVFNCL1BwcjVIMk1leVlaajZCSHdTSFl3R0Nz?=
- =?utf-8?B?WXl2VysvQnBYWDVhdUNLMFJSbC80V1p1V2dGbVNUQ3lRa29QQjR2NXMzQllP?=
- =?utf-8?B?MG45SFhROEtFWWE0ell4T0VaN09Wc2Z3OFRGamZiTUhwcmhPQ2RUZ01QREFZ?=
- =?utf-8?B?amROQXlGUW5RcVcxL3lDN1EwdUVmWFg4WUdMOElpM3NMbnZnL0VxUU93eTg1?=
- =?utf-8?B?dDlCYmRRb3BLTC9BWERReVRUUHZvMk5Da1NWRWptNy9VVG5wU1ZsV0pHQUVm?=
- =?utf-8?B?c3VjTnFvMVRUNlV4YlFQTndCRmp4eEF5UVpkM0dRNWp0NHpWRll4eEVsYjFV?=
- =?utf-8?B?VktjWE5iTGNyd2V5ajRhSmJaK2N3SnYvZzIvNkJCWERtaXVSc3N2ejBnZmxN?=
- =?utf-8?B?ZXhqdVA0djdwWnhDYXExL1lISVBQOWNrN1hBenR0WUlTV2djRjl3Y1U2ZzFN?=
- =?utf-8?B?VlZpU2x0S2dXQnR2Q2puMDJ6T3owM01ZWVAvZXA0cXU2WjBPNm5TczR6Vm44?=
- =?utf-8?B?bHBCUHpxSnlLa2h3dlA5b0w5eUZPZU5tUENMVTRHUWwrbURLdURTaUM5a0VL?=
- =?utf-8?B?cWZkVHpEVGZmT1l5MnlvQVNhRDZvck9PRkNkNjJueUZDLzJiaWRGSHhWQXpZ?=
- =?utf-8?B?elJleVF3NE45YlRSVEN6QjdKNzFuclg4c1Joa3NpSHlNay90cENZM0hBaTRM?=
- =?utf-8?B?QVZkbnBWdy9xaXB6UUsxNUtYalR3YWo3cmZmRjNPai9XZmIyUjNTMWNnQVJG?=
- =?utf-8?B?T3JWOWVUV3lERGhKNkhoa1NWWDN5ZnZNaDF3RkdiZWNsUlQyVGQvMEc2UFJs?=
- =?utf-8?B?TnA3akk2RlJGRlVKdWt6MWtVVFRQNktEZ0xGNGFXUmNyTE93b1VLTDhtTkRy?=
- =?utf-8?B?WXkzRzZQWTNhSkVnWlEwZ2MxTjJNM2VPVDFYUlNTSzNnblpnTGRKVU8vZ0FX?=
- =?utf-8?B?TFYvaG13TzRlWE1DUlRxQjNXbTMwYlNxUXlHdnFXbkxxcWZlcmt6eVcvTlMy?=
- =?utf-8?Q?W5nQnq++FdBhI?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aHB2ZUgwbTU2cGFodjVMMWpLcnBqTnFPaUF5ck05QzlJU3VOSkp0dDRDUklP?=
- =?utf-8?B?S2I1aVE2bFYzTzRIT1F0TjZTcWJoQU9PdmFyeWJYZzB6azlKZWVxTCtnWFJ4?=
- =?utf-8?B?S1hKYmVjVTZBVVd2dThpQXdSS0ExOWpIVXVlZVFXRjQ0S0dhekRReGpHMXlz?=
- =?utf-8?B?TFRCRGJVbmQrVDV3TkVsUUZrTlgxTysvYkR2WllwWFFEcmJkZEdlTXdiVlVU?=
- =?utf-8?B?K3p5cWlvTktzQm5LSkpRVlczcWkwaWRJczBZbjluV0JGSVl2UGJuelQ5L0t4?=
- =?utf-8?B?QlJMN3NKSHJsVDRPOU4xdkRXajBhWjRhZHVnNE1DNFRJdmRjVU1yRTVJNXhz?=
- =?utf-8?B?WUFFSEhBQWhsQ0Q4QnJXUUtFeDJVUWVaQjBuVkpDcVhxNUVUR2c3WkhJOE9G?=
- =?utf-8?B?N1hmb0lXdDNSWnY5VHdiWVFuOVpNN1RUNFVaSWFaTk9DeEVzM25oNXFPM1NP?=
- =?utf-8?B?akFRWW4xMkxzblU2SG5IMkJBUzByUVYrM3Q5MDBVZkZSa3BkKzRYSkpFVDB4?=
- =?utf-8?B?dkJZeEdJYnZmSndiR3N3c0ZzQU1lZVoxdHd1clAxUm9TMkRhckFZSGNhYS9D?=
- =?utf-8?B?UjE5c25YR3hKZXVkRlNkRG5LVlhocG0wSDI4UmNVa0tWa01XUHRiRFBOTjRF?=
- =?utf-8?B?MzB6elB2NUlHZTVqZ2s3M1luQmV2dWgvaTRCUU1KSHJycmVvcnZLc2trd0tC?=
- =?utf-8?B?S1A5a2J1MytaSmhsZ2VyV3lzaDQ5ZzV5YXZ6RzBBcnZ6WXlxSTRDanlvR21y?=
- =?utf-8?B?RiszamtFQ0VkT1BOWFVjSmlGZjEwMlFsNVovU0xWcUhyQjVKTmtHRlVWd1hp?=
- =?utf-8?B?K1NPYUlpMzgzY3hJUFFnNWcya1U1WEFVYkhOL1pnUTZRNGNkY3FybFlBZUxu?=
- =?utf-8?B?QkZTeGRwaW5TME14dkt3Zm1oWmx3Y1NhMVpaMjlxaVdKNVp3SWpRQm4vQ2pZ?=
- =?utf-8?B?Qk9rRjI1QTNwZzhJQ2RMSDJnTnJoU1hsOHdUcmtpTGk3Y2NQdUs4bU52SFky?=
- =?utf-8?B?Q25wL3Y2Nk8zOG8zS2d5YnBXeFFrZUJLNi9MbVJxZUlEeTEvZkVDdGhZb3Jq?=
- =?utf-8?B?TzdxUjkzNG1CRGFXWnRHcXlWUllPZ2cxcHF0Rmp5Q2x6MjdVWGx2WlhLd2F6?=
- =?utf-8?B?TEwrOHY2SlFkd2dHTUMydDJtNGljemI2YnhEeGVnV01hanVVTG9FTS9wVzRq?=
- =?utf-8?B?ZkhCUTN4bkMxczVNeEhjem5KOGI5by9UUGRYTm9jVnVOZmdqaUZ4aXN1NWxF?=
- =?utf-8?B?dGN2akFoVm9qUnZFWkswNlJDR1FFa3RRdkk1cC9OenJQL1RvNjlGZGphZDFl?=
- =?utf-8?B?eWNnYldLZEtMZVFsVGFrU2Vpa3c5VDhvNWR3c0ZPbEpPeVJNc1RqcElHWWZv?=
- =?utf-8?B?Rys3R3ZXQ2hIMUdFM2UrV2ZGUjVnMTJFeHp5VEJRRG9YTnY2Tk1qYmVTU2FI?=
- =?utf-8?B?WCthRllXK3FHU2ZodmtoQ3ZZZGU0S1pwNW1RUy91a0d3Q0lHbnZaOVJLUGdT?=
- =?utf-8?B?Ty9SemtibkNYZTM1eEs2ZkxNcVRIMW9Fb0ZGV3JjUEtWNTRYdzRoZjg2MHJ0?=
- =?utf-8?B?cm82SjI3R3FVZG9ZNmNubkIwNVdYeDNaUlIyQ04vdmkvZlV0bXZxM2ZuUzJQ?=
- =?utf-8?B?N1diTVFVclpNOFRabzBNc3VCelpLTE1yK1VtZWxxeHY0U0hkc0FIbFYzZXRn?=
- =?utf-8?B?bWJ3RmRDZ3hheW5mMTRvT2k4ZkU5NXhlR3lZSmhNOFhFL0xTRU1TSjdqRkVs?=
- =?utf-8?B?aW9RVDRRemQxbVkwS1AxSnU5MGpMdlNZVFpORXg4S1cvSVRST0hwOGRiT0NE?=
- =?utf-8?B?RWUyNGRuaUVNV2haS0NZbXNyOXU1cGo3UzhuNTQyUnNBVnY5SUI5eXNXY1lr?=
- =?utf-8?B?WExqUHFmU0pHNDJXcDlvZUhFd1hrL1dPbFYrSThUSzd0NWliVCtpTGZ5cjJK?=
- =?utf-8?B?MFlSTUFna0JJbE9JSllza2hnaGVta0RWM1NqUVVPYSs0a1dhd3RiTlo3S0p4?=
- =?utf-8?B?SEtCU0dnUGgycktHOTI1dlpxSzF1Q21WR2x5RCt2TGxDNEJlM0lieHJxM2NI?=
- =?utf-8?B?RmRxV3czYlEvcFJCVndKTmUvMklhR0hSVWZCNWFhQUJ3Qmltak5WMXY5NThK?=
- =?utf-8?Q?ZBFwdl8siKhgoOaTMxDEhxNRC?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?EsdBdKC6RdlH3COrCmxQjaxqL3dbb2URsuluafV84WvkoerdlA0svt9aXnTU?=
+ =?us-ascii?Q?/dfGrcG3Qqb+zBt77fZRCiU/VEOx/cLPzQVTSuV4ylm4yWD945EVOC/xPuIJ?=
+ =?us-ascii?Q?5hn4ZpBp5O16EpziHJ97tOehx7CPQXFA7BnknRjIHySl3K6677eJ9ZJnF7/y?=
+ =?us-ascii?Q?vMIc11uRj5UPe94ficQScS7b9BOuOuKvAwbW2FiVzr4ZAgRJHvJ2/Jmz0S8i?=
+ =?us-ascii?Q?aNzZ0TKFCdplEPBkoUlRIeahPX4hJoAPauT/8cKFIKMGA4ya7a+ceHqsHzDn?=
+ =?us-ascii?Q?oZ+XmrD1ULikdd63wJ7jdy9E/q/vC/l4oDt7Ix7oGf04/XjcC5wdnHoSSw2S?=
+ =?us-ascii?Q?9X0Kqnmm/LAEXBv90jUYmEpdN+abvtV39wN11qVMMz9/iWgeUQCpDgVWQ51D?=
+ =?us-ascii?Q?DJ290iG7gEnRXcPwFA0aajtezxMNPYQigEGBgR4Q6ECQy97VG6Ijja5mueUx?=
+ =?us-ascii?Q?ZF63p1MlZkY0VADYLYb66wdT/Edl1YoDiZLOySYTfpb94YDpzkAN8UbjIuiv?=
+ =?us-ascii?Q?QeT49QdHFUlF5jMnHntmdvaDyReq6tH3u/jXuPrOXAA8mtEuqtLLingsrukr?=
+ =?us-ascii?Q?kMtbdxv7hXO7xosqCmqHKSKEwZPEd+e+YeSKMeNkJWIIXBrV4mJok6as1GYF?=
+ =?us-ascii?Q?fN2+Yw3TZ7EAnfQPOV6WTGCjwsBQLszXyqprLBA9QL3Kkuol4gfGyG6rRe5q?=
+ =?us-ascii?Q?obAKWIqZfpdW4qsEqZO1YMrIq02nBJigl7iSoejWKHFFhKFyjcQXT2euaJp4?=
+ =?us-ascii?Q?CVdJhWNqM+Mjz0wLNFmy4tb3s6t81YmQCAVmXDVEtUeE0567DL3ZqsYuq0xx?=
+ =?us-ascii?Q?xBhS3u5Nyh7taNbu72b+3whBuAmnZYnQYAfTznfYeTTk2mOcCU7hcvAS/dsI?=
+ =?us-ascii?Q?ySVvJKf8NSvY2GKN4hpwJwJ0YJTHKWNof/e4hsdNunesEoTeEBlpDV4mFpQk?=
+ =?us-ascii?Q?4H7VpK015JSvEE0C7ZzDTMD8jTx+atpae7cdoUD2wciqKrBsTyNzbmDnNifu?=
+ =?us-ascii?Q?Lf3I4tMlclE8l0hn0deEEkjepjVoTZ7B2vJp6jXDPAkrHpscrPz+9TA+6LK4?=
+ =?us-ascii?Q?g5ALTCe267wGjx6h+RLVnRQLhn5wjKyOytuxY1vTNM2WEhLTTdp8QkPdJ9ke?=
+ =?us-ascii?Q?AEaclYZBZe8lknF4+vQCMkBTRI64M8n1z6QMXcW0+Pz41pWXZCHd4Lxu0KGH?=
+ =?us-ascii?Q?+ntzFmqLuiPC0aLTXub9iuJ9gTaU9jhJXPV/0ULY39+FQQOeDa4YtmZH9fbK?=
+ =?us-ascii?Q?3A4c8jazMDpcQwy3u0fcjAdhu0lsGESdOXdtIZNv/jw1uRyqKxY6MnK96KpM?=
+ =?us-ascii?Q?A95lMfCqJaEQTlMQx5muWBszRpEVq1YzYnBKM8TxE8erF04A+6+cHjQovUjF?=
+ =?us-ascii?Q?QM81nTYt049lxCtRHpr9Pbn4ZW/DoCJYAwOAx9lVixnb+zicsDHcJ+T0z0w9?=
+ =?us-ascii?Q?7x4HYlVINxcPFppm2FGQrFK1pEqXlOLiWYm3nC/lbjouI6MDvRMCcqJNaFdT?=
+ =?us-ascii?Q?z4P0ylpm50Y/BXA=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a45310b9-0438-4e25-23d6-08dd5fe5973f
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2025 15:09:44.7843 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2025 17:00:56.1110 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5136a9de-458f-4258-3dee-08dd5ff51fdf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aTn8MPIyRm3xJkAVGVH4IcWnZ4Ko+2MRaIDUvAU2WX35hHYxgEjLS9ClmoQbarLavpXI0xtvg4yj3jA86PoXhg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8058
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8029
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,167 +130,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+When MES is been used , the set_hw_resource_1 API is required to
+initialize MES internal context correctly
 
+Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h  |  6 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c |  6 +--
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   | 52 +++++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   | 40 ++++++++----------
+ 4 files changed, 48 insertions(+), 56 deletions(-)
 
-On 2025-02-25 06:19, Louis Chauvet wrote:
-> 
-> 
-> Le 20/12/2024 à 05:33, Alex Hung a écrit :
->> From: Harry Wentland <harry.wentland@amd.com>
->>
->> Two tests are added to VKMS LUT handling:
->> - linear
->> - inv_srgb
->>
->> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
->> Signed-off-by: Alex Hung <alex.hung@amd.com>
->> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
->> ---
->> v7:
->>   - Fix checkpatch warnings (Louis Chauvet)
->>    - Adde a commit messages
->>    - Fix code styles by adding and removing spaces (new lines, tabs and so on)
->>
->>   drivers/gpu/drm/vkms/tests/vkms_color_test.c | 39 +++++++++++++++++++-
->>   drivers/gpu/drm/vkms/vkms_composer.c         | 17 ++-------
->>   drivers/gpu/drm/vkms/vkms_composer.h         | 13 +++++++
->>   3 files changed, 55 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
->> index b53beaac2703..d765c5eb5d88 100644
->> --- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
->> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
->> @@ -6,6 +6,7 @@
->>   #include <drm/drm_mode.h>
->>   #include "../vkms_drv.h"
->>   #include "../vkms_composer.h"
->> +#include "../vkms_luts.h"
->>     #define TEST_LUT_SIZE 16
->>   @@ -36,7 +37,6 @@ static const struct vkms_color_lut test_linear_lut = {
->>       .channel_value2index_ratio = 0xf000fll
->>   };
->>   -
->>   static void vkms_color_test_get_lut_index(struct kunit *test)
->>   {
->>       s64 lut_index;
->> @@ -49,6 +49,19 @@ static void vkms_color_test_get_lut_index(struct kunit *test)
->>           lut_index = get_lut_index(&test_linear_lut, test_linear_array[i].red);
->>           KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(lut_index), i);
->>       }
->> +
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_eotf, 0x0)), 0x0);
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x0)), 0x0);
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x101)), 0x1);
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x202)), 0x2);
->> +
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x101)), 0x1);
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x202)), 0x2);
->> +
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xfefe)), 0xfe);
->> +    KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xffff)), 0xff);
-> 
-> Did you see the kernel bot warning? I think you can simply add EXPORT_SYMBOL_IF_KUNIT(srgb_eotf) in vkms_lut.h.
-> 
-
-I did not and don't see any warnings if I run this locally.
-Adding EXPORT_SYMBOL_IF_KUNIT would require pulling in kunit
-headers into vkms_luts.h. I would prefer not to do that if
-it's not needed.
-
-Harry
-
->>   }
->>     static void vkms_color_test_lerp(struct kunit *test)
->> @@ -155,9 +168,33 @@ static void vkms_color_test_lerp(struct kunit *test)
->>       KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x1, 0x80000000), 0x1);
->>   }
->>   +static void vkms_color_test_linear(struct kunit *test)
->> +{
->> +    for (int i = 0; i < LUT_SIZE; i++) {
->> +        int linear = apply_lut_to_channel_value(&linear_eotf, i * 0x101, LUT_RED);
->> +
->> +        KUNIT_EXPECT_EQ(test, DIV_ROUND_CLOSEST(linear, 0x101), i);
->> +    }
->> +}
->> +
->> +static void vkms_color_srgb_inv_srgb(struct kunit *test)
->> +{
->> +    u16 srgb, final;
->> +
->> +    for (int i = 0; i < LUT_SIZE; i++) {
->> +        srgb = apply_lut_to_channel_value(&srgb_eotf, i * 0x101, LUT_RED);
->> +        final = apply_lut_to_channel_value(&srgb_inv_eotf, srgb, LUT_RED);
->> +
->> +        KUNIT_EXPECT_GE(test, final / 0x101, i - 1);
->> +        KUNIT_EXPECT_LE(test, final / 0x101, i + 1);
->> +    }
->> +}
->> +
->>   static struct kunit_case vkms_color_test_cases[] = {
->>       KUNIT_CASE(vkms_color_test_get_lut_index),
->>       KUNIT_CASE(vkms_color_test_lerp),
->> +    KUNIT_CASE(vkms_color_test_linear),
->> +    KUNIT_CASE(vkms_color_srgb_inv_srgb),
->>       {}
->>   };
->>   diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
->> index 983654540ee5..ee3cfe153d8f 100644
->> --- a/drivers/gpu/drm/vkms/vkms_composer.c
->> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
->> @@ -113,19 +113,8 @@ VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel
->>   }
->>   EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
->>   -/*
->> - * This enum is related to the positions of the variables inside
->> - * `struct drm_color_lut`, so the order of both needs to be the same.
->> - */
->> -enum lut_channel {
->> -    LUT_RED = 0,
->> -    LUT_GREEN,
->> -    LUT_BLUE,
->> -    LUT_RESERVED
->> -};
->> -
->> -static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
->> -                      enum lut_channel channel)
->> +VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
->> +                        enum lut_channel channel)
->>   {
->>       s64 lut_index = get_lut_index(lut, channel_value);
->>       u16 *floor_lut_value, *ceil_lut_value;
->> @@ -150,6 +139,8 @@ static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 chan
->>       return lerp_u16(floor_channel_value, ceil_channel_value,
->>               lut_index & DRM_FIXED_DECIMAL_MASK);
->>   }
->> +EXPORT_SYMBOL_IF_KUNIT(apply_lut_to_channel_value);
->> +
->>     static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buffer *output_buffer)
->>   {
->> diff --git a/drivers/gpu/drm/vkms/vkms_composer.h b/drivers/gpu/drm/vkms/vkms_composer.h
->> index 9316a053e7d7..67ae09913460 100644
->> --- a/drivers/gpu/drm/vkms/vkms_composer.h
->> +++ b/drivers/gpu/drm/vkms/vkms_composer.h
->> @@ -5,9 +5,22 @@
->>     #include <kunit/visibility.h>
->>   +/*
->> + * This enum is related to the positions of the variables inside
->> + * `struct drm_color_lut`, so the order of both needs to be the same.
->> + */
->> +enum lut_channel {
->> +    LUT_RED = 0,
->> +    LUT_GREEN,
->> +    LUT_BLUE,
->> +    LUT_RESERVED
->> +};
->> +
->>   #if IS_ENABLED(CONFIG_KUNIT)
->>   u16 lerp_u16(u16 a, u16 b, s64 t);
->>   s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
->> +u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
->> +                   enum lut_channel channel);
->>   #endif
->>     #endif /* _VKMS_COMPOSER_H_ */
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index 4391b3383f0c..78362a838212 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -143,9 +143,9 @@ struct amdgpu_mes {
+ 	const struct amdgpu_mes_funcs   *funcs;
+ 
+ 	/* mes resource_1 bo*/
+-	struct amdgpu_bo    *resource_1;
+-	uint64_t            resource_1_gpu_addr;
+-	void                *resource_1_addr;
++	struct amdgpu_bo    *resource_1[AMDGPU_MAX_MES_PIPES];
++	uint64_t            resource_1_gpu_addr[AMDGPU_MAX_MES_PIPES];
++	void                *resource_1_addr[AMDGPU_MAX_MES_PIPES];
+ 
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index ab7e73d0e7b1..980dfb8935b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -614,10 +614,10 @@ static int amdgpu_virt_write_vf2pf_data(struct amdgpu_device *adev)
+ 	vf2pf_info->decode_usage = 0;
+ 
+ 	vf2pf_info->dummy_page_addr = (uint64_t)adev->dummy_page_addr;
+-	vf2pf_info->mes_info_addr = (uint64_t)adev->mes.resource_1_gpu_addr;
++	vf2pf_info->mes_info_addr = (uint64_t)adev->mes.resource_1_gpu_addr[0];
+ 
+-	if (adev->mes.resource_1) {
+-		vf2pf_info->mes_info_size = adev->mes.resource_1->tbo.base.size;
++	if (adev->mes.resource_1[0]) {
++		vf2pf_info->mes_info_size = adev->mes.resource_1[0]->tbo.base.size;
+ 	}
+ 	vf2pf_info->checksum =
+ 		amd_sriov_msg_checksum(
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index a569d09a1a74..299f17868822 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -751,10 +751,10 @@ static int mes_v11_0_set_hw_resources_1(struct amdgpu_mes *mes)
+ 	mes_set_hw_res_pkt.header.opcode = MES_SCH_API_SET_HW_RSRC_1;
+ 	mes_set_hw_res_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
+ 	mes_set_hw_res_pkt.enable_mes_info_ctx = 1;
+-	mes_set_hw_res_pkt.mes_info_ctx_mc_addr = mes->resource_1_gpu_addr;
++	mes_set_hw_res_pkt.mes_info_ctx_mc_addr = mes->resource_1_gpu_addr[0];
+ 	mes_set_hw_res_pkt.mes_info_ctx_size = MES11_HW_RESOURCE_1_SIZE;
+ 	mes_set_hw_res_pkt.cleaner_shader_fence_mc_addr =
+-		mes->resource_1_gpu_addr + MES11_HW_RESOURCE_1_SIZE;
++		mes->resource_1_gpu_addr[0] + MES11_HW_RESOURCE_1_SIZE;
+ 
+ 	return mes_v11_0_submit_pkt_and_poll_completion(mes,
+ 			&mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
+@@ -1392,7 +1392,7 @@ static int mes_v11_0_mqd_sw_init(struct amdgpu_device *adev,
+ static int mes_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+-	int pipe, r;
++	int pipe, r, bo_size;
+ 
+ 	adev->mes.funcs = &mes_v11_0_funcs;
+ 	adev->mes.kiq_hw_init = &mes_v11_0_kiq_hw_init;
+@@ -1427,19 +1427,21 @@ static int mes_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
+-	if (amdgpu_sriov_is_mes_info_enable(adev) ||
+-	    adev->gfx.enable_cleaner_shader) {
+-		r = amdgpu_bo_create_kernel(adev,
+-					    MES11_HW_RESOURCE_1_SIZE + AMDGPU_GPU_PAGE_SIZE,
+-					    PAGE_SIZE,
+-					    AMDGPU_GEM_DOMAIN_VRAM,
+-					    &adev->mes.resource_1,
+-					    &adev->mes.resource_1_gpu_addr,
+-					    &adev->mes.resource_1_addr);
+-		if (r) {
+-			dev_err(adev->dev, "(%d) failed to create mes resource_1 bo\n", r);
+-			return r;
+-		}
++	bo_size = AMDGPU_GPU_PAGE_SIZE;
++	if (amdgpu_sriov_is_mes_info_enable(adev)
++		bo_size += MES11_HW_RESOURCE_1_SIZE;
++
++	/* Only needed for AMDGPU_MES_SCHED_PIPE on MES 11*/
++	r = amdgpu_bo_create_kernel(adev,
++				    bo_size,
++				    PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_VRAM,
++				    &adev->mes.resource_1[0],
++				    &adev->mes.resource_1_gpu_addr[0],
++				    &adev->mes.resource_1_addr[0]);
++	if (r) {
++		dev_err(adev->dev, "(%d) failed to create mes resource_1 bo\n", r);
++		return r;
+ 	}
+ 
+ 	return 0;
+@@ -1450,11 +1452,8 @@ static int mes_v11_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	int pipe;
+ 
+-	if (amdgpu_sriov_is_mes_info_enable(adev) ||
+-	    adev->gfx.enable_cleaner_shader) {
+-		amdgpu_bo_free_kernel(&adev->mes.resource_1, &adev->mes.resource_1_gpu_addr,
+-				      &adev->mes.resource_1_addr);
+-	}
++	amdgpu_bo_free_kernel(&adev->mes.resource_1[0], &adev->mes.resource_1_gpu_addr[0],
++			      &adev->mes.resource_1_addr[0]);
+ 
+ 	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+ 		kfree(adev->mes.mqd_backup[pipe]);
+@@ -1643,13 +1642,10 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		goto failure;
+ 
+-	if (amdgpu_sriov_is_mes_info_enable(adev) ||
+-	    adev->gfx.enable_cleaner_shader) {
+-		r = mes_v11_0_set_hw_resources_1(&adev->mes);
+-		if (r) {
+-			DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=%d\n", r);
+-			goto failure;
+-		}
++	r = mes_v11_0_set_hw_resources_1(&adev->mes);
++	if (r) {
++		DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=%d\n", r);
++		goto failure;
+ 	}
+ 
+ 	r = mes_v11_0_query_sched_status(&adev->mes);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+index 96336652d14c..abe8592170b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+@@ -687,7 +687,7 @@ static int mes_v12_0_set_hw_resources_1(struct amdgpu_mes *mes, int pipe)
+ 	mes_set_hw_res_1_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
+ 	mes_set_hw_res_1_pkt.mes_kiq_unmap_timeout = 0xa;
+ 	mes_set_hw_res_1_pkt.cleaner_shader_fence_mc_addr =
+-		mes->resource_1_gpu_addr;
++		mes->resource_1_gpu_addr[pipe];
+ 
+ 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+ 			&mes_set_hw_res_1_pkt, sizeof(mes_set_hw_res_1_pkt),
+@@ -1530,21 +1530,19 @@ static int mes_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 		if (!adev->enable_uni_mes && pipe == AMDGPU_MES_KIQ_PIPE)
+ 			r = mes_v12_0_kiq_ring_init(adev);
+-		else
++		else {
+ 			r = mes_v12_0_ring_init(adev, pipe);
+-		if (r)
+-			return r;
+-	}
+-
+-	if (adev->enable_uni_mes) {
+-		r = amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_SIZE, PAGE_SIZE,
+-					    AMDGPU_GEM_DOMAIN_VRAM,
+-					    &adev->mes.resource_1,
+-					    &adev->mes.resource_1_gpu_addr,
+-					    &adev->mes.resource_1_addr);
+-		if (r) {
+-			dev_err(adev->dev, "(%d) failed to create mes resource_1 bo\n", r);
+-			return r;
++			if (r)
++				return r;
++			r = amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_SIZE, PAGE_SIZE,
++						    AMDGPU_GEM_DOMAIN_VRAM,
++						    &adev->mes.resource_1[pipe],
++						    &adev->mes.resource_1_gpu_addr[pipe],
++						    &adev->mes.resource_1_addr[pipe]);
++			if (r) {
++				dev_err(adev->dev, "(%d) failed to create mes resource_1 bo pipe[%d]\n", r, pipe);
++				return r;
++			}
+ 		}
+ 	}
+ 
+@@ -1556,12 +1554,11 @@ static int mes_v12_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	int pipe;
+ 
+-	if (adev->enable_uni_mes)
+-		amdgpu_bo_free_kernel(&adev->mes.resource_1,
+-				      &adev->mes.resource_1_gpu_addr,
+-				      &adev->mes.resource_1_addr);
+-
+ 	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
++		amdgpu_bo_free_kernel(&adev->mes.resource_1[pipe],
++				      &adev->mes.resource_1_gpu_addr[pipe],
++				      &adev->mes.resource_1_addr[pipe]);
++
+ 		kfree(adev->mes.mqd_backup[pipe]);
+ 
+ 		amdgpu_bo_free_kernel(&adev->mes.eop_gpu_obj[pipe],
+@@ -1760,8 +1757,7 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		goto failure;
+ 
+-	if (adev->enable_uni_mes)
+-		mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_PIPE);
++	mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_PIPE);
+ 
+ 	mes_v12_0_init_aggregated_doorbell(&adev->mes);
+ 
+-- 
+2.34.1
 
