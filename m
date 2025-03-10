@@ -4,72 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB6E8C35FF1
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 18:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F407C282DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 18:54:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE7510E4B1;
-	Mon, 10 Mar 2025 18:05:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E849F10E4C1;
+	Mon, 10 Mar 2025 18:54:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="RJT1vggF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ar0jJ3Ws";
 	dkim-atps=neutral
-X-Greylist: delayed 308 seconds by postgrey-1.36 at gabe;
- Mon, 10 Mar 2025 17:14:00 UTC
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB21289854
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 17:14:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1741626839; x=1742231639; i=natalie.vock@gmx.de;
- bh=NLdUb3J3hUdjeoKHQenx8Vv2g2Jqhn3G5DlBASNBmEU=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
- MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=RJT1vggFnFZ9tA6fWM4qtCdANJ8Sx5eIfAYh52iGfEEHNmXIOn8TdkLGEaeuUmlq
- mNlC/nSMFsrJrF+qK4UM5zuYUdwtLJoDDrURRWF6OohYn6wbZPhBwC+Av0B8SEupg
- U8fsZVf0Kr0SU3RYlVEOxXFfBKajEL4wZZp0hpsimz5tQwKPCd4EkVVdVYbeJgYEE
- mxW1Pacism5m477GMltkc6s9ep8XMDQefcp5FtaeAXiPL6UGZT/CkOdWtOwwSJTVy
- VoljY9dwO553CPSotHq6wDtwDmc4ZLiXcMGZun5ql0/eLp5Qh8+wfj8YKgXtEPQY6
- yJZxJmYLTBC4gGpUyw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from localhost.localdomain ([109.91.201.165]) by mail.gmx.net
- (mrgmx105 [212.227.17.168]) with ESMTPSA (Nemesis) id
- 1MlNp7-1tNsBR0fOv-00hCKq; Mon, 10 Mar 2025 18:08:40 +0100
-From: Natalie Vock <natalie.vock@gmx.de>
-To: amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com
-Subject: [PATCH] drm/amdgpu: NULL-check BO's backing store when determining
- GFX12 PTE flags
-Date: Mon, 10 Mar 2025 18:08:05 +0100
-Message-ID: <20250310170805.37536-1-natalie.vock@gmx.de>
-X-Mailer: git-send-email 2.48.1
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C781F10E4C1;
+ Mon, 10 Mar 2025 18:54:27 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-2ff6b9a7f91so1190885a91.3; 
+ Mon, 10 Mar 2025 11:54:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741632867; x=1742237667; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kxGVCl+Faues7cvxc95q/41RjYYvmImGBSS+GmyZKh0=;
+ b=Ar0jJ3Wsu7QSyT58Yy3B+jcqKEHIPVYdEYBFL90cQKEM159DVAN5axJX3JNJh08Wbl
+ 1bpfTKARU453VQJyx/CmGizJzH84SLw5M9J2zJ5UBOu9vPogPyWv4hVaaDSbOvAVTOhG
+ fVbDb2uI73Mf75I+n2sJKVpo7HOOpCLLk8zhoZAViRO2vlG6wfVlXS0UKYwyMr+5oZpW
+ B7bHUbq+anIQIoK03cPuAatJATCvvbXBs1vHoCUedqmno/vf1b/YSOIM0M1cH8cC0fyV
+ e/pxc7O7LrOFSYOSEltIRHsEtR/Xog5pu0T8I+JlkkZuFeuPAmPrC2FA29UBsjkX7WsU
+ 0UPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741632867; x=1742237667;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=kxGVCl+Faues7cvxc95q/41RjYYvmImGBSS+GmyZKh0=;
+ b=eOXH0AC7AH3CEgsCroeVz7Zlc44nklu5hHnT4v44McsIqr1GOXONp413sUlpWaenaa
+ gOstuBIfr4Rk6Mz/z3jxM6qez6gVNCwUMl49T0VUq0CoOsTbYqPlH3ESAneGWjEli21N
+ PLNRlFKMpC50UJv9DTNdm8Se4mdh0kZmHKzEdAqfXL8hLw2jPrrN/1pOCIKUl80SvrEQ
+ Kkk3Jr0csqVW2j61qWFimNotY8yza+L1rRqbq0F0Q4Zhf4hmK+Ws8CBwuTo11sexUU37
+ 1hifzsciDWK09n/gmK4k2rrEexprd8/knqe0JqLqODd/OBZfEnbiZss+xhY4khjIYoIa
+ 5iOw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsY6y+q87PXbb2ARdnwCZo4U1v2rM3YzMJTXfyNGiEbNs8SM+oUhrh5Nav9B0ph7K/HAId+9Gm@lists.freedesktop.org,
+ AJvYcCXZnvhWRSCbbXZesoWVPqf8p2Tx00nNhqixE8Mn2xMuKrC88ngdbD9OoHUoEGzVZ6DmNPUV/K/TKfGF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzHEAgjdoa1mU4x0xGzG+5e/Ir/rllmKGasJayu3J4m7zrMsgLo
+ EgF5A9hUU9yJaiwfH3y1W4crcCKUTnWzOuJDIT6NjZnWhs89t30DwvI4VKKoOBgn2IsM6dOvIq9
+ CpR2HxkfuaxIazatdIAfYh7LiWVc=
+X-Gm-Gg: ASbGncvfG8qKVg+oZEqyeRKmbtn+s7lhK3zN07MMmR//3yH1xqjUdWnOY0bNk7OyhWX
+ lJq9H5PhatNbPO0JtggQ4xfC806ogNuU1FWo93sacFH00PSpH+iAA0MWUtxjkW6pAOCPb8wnyJO
+ S8Nh8eqbUPqwn3qGh7QMotpwVgmQ==
+X-Google-Smtp-Source: AGHT+IGMG6tNffXX/ec7iRvcQJXp2a6gFwyUvHgDcQJa2LTBWDElhXw8oi+8O7IN2mjhGprkF5y7dERbY0ZX3zUBdgA=
+X-Received: by 2002:a17:90b:1d84:b0:2ff:4be6:c5bd with SMTP id
+ 98e67ed59e1d1-300a57a7d5emr5888384a91.8.1741632866983; Mon, 10 Mar 2025
+ 11:54:26 -0700 (PDT)
 MIME-Version: 1.0
+References: <20250225010221.537059-1-andrealmeid@igalia.com>
+ <334ebbe1-6897-4946-b64c-d7d85cae765f@amd.com>
+In-Reply-To: <334ebbe1-6897-4946-b64c-d7d85cae765f@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 10 Mar 2025 14:54:14 -0400
+X-Gm-Features: AQ5f1JoPVqOBfA9hLjv2sfz1bgOjEfAMoGJVkI3NKzv8T93iZQ1Y115X0mIXh4Q
+Message-ID: <CADnq5_OVg50R6fSMNPWf=8OT7fsiZDQZcwkiwcmJ36v0nZ6yBw@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: Trigger a wedged event for ring reset
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com, siqueira@igalia.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:RQ2FeHjj5xCFAy4SwxljmQNAnCsDEELlQiXVxXDzjAN3MaI2BIB
- Qa1P1QWSu/DTzai61n/+sMBuIJxB8e05IL8ZEV0ktQtw8yFrY5gDMTffU3py2zmA331MyNF
- 9dNiK3+SmdOqyXkUoHHAlyBe95bE4woo/0rufL1j2PR/jF3jZHsI17TLjvq6O/FcgoQ3A/e
- XxevBehOK/3XLwgEA9MEQ==
-UI-OutboundReport: notjunk:1;M01:P0:zK9Dhi7YI7I=;MiCFA1xJfDK2+G5E+YX561rKVrx
- GozGAsrtgltGNFta8Jog14CNRMvdsMxO/lKo/v1z237KaJHZ8m1b5YBPPy7nIblXTLKvpKLH+
- g+MNEZ1mscxc7sgd1CH78K+MAKiY/BNXbVBa/LjBYbrOwwsBp9Jvj3I3hCaM7eLr0yTtdSGFo
- aUpS1v4d4PgLnEbf+iRA1CCLCBTR8YmeMMCiRn9+RhQMl0htSGeD5YvqZpSfjrT5EkJXI1h3c
- Vm0P/umMNZtv3p59VGuor+7T9UWRXkEgbPLRjvryJ16BKKHQW6y9l6iiFDZS8RghI4rekRSSu
- T53sAhUBgRDTnHg6VHR9hAQuKjTIsnvPdh6XUh08azKET37OmQbZEV7M8UzCOiMkul7fdCaB2
- qcnfrjm4DvDWGrP0M4/T7d6J12TFqnCSnKQeNBkIyGubffLQn32FnwVEdwMEWRSB72/W5q3eN
- RJJkWGP5MWUQnctq4g3wYqvAy2bmKpO6e6GUyQQWJZmoHMldqVn9hmr4fyqeyzfD68/B9UZc3
- hld83Bxc1BW3D5jp9dQhqXMSBS3Ecd6YgLFhQ55otmvnO/ip7G7LZmCTgz36RsgKMtCM2cgDF
- 9m9eGV4vmt9nhjf8HAyUvY14IHVetL+1YHlgL2xVQMjod1HHufyfv3NFFrnYNoceXI2YTOmHC
- 7m2FF6Uz0vl82r8YP0+mLAeXLOfaLJsD7JMb5mDkh2U9CDKxCjib4CiaGpb2H7joIN94r05AI
- 0cekmsZ0OPlZe7Nsg7lFoLHTHowDAZ0PQLa/VctT3GoaqbgIh3dYHfrnMe3I5KY3fxicO9iA+
- mldwOR0pe/YPSwmFKIK/s8EF3yl/NGeTKWRtk60fUKUsCnvnqJZOOuiW+HFfUIo+ZCU1c9TpU
- LLTAk/TZaIMsirlf9f2yyie8/MNdE3x6gh1/sFisQrrXwg2Bhvgmnx+AKu+I7k/TkRWkCosnA
- W7ThF1JFNNmM36HlEzeJC4PBVgZaDhbepg7NwGygvB1MDxP8L+qACWWnnKFcKVsLs2UhJsR2K
- /FQmPxUuP6sTI+M5aIcZUXb/LqM9o3OP+NEsbjxUVyKVbarq6khzyf+ZeweIvXrfi2JTdiRkH
- 9DYbHVG3q/d6fzCCoxlHTWbe7g3Vl7Ij7wFyYDZHPc74vp4TX2sGomcZ5rl8EgT25zCyPQu5J
- mSS2tASb5L12284KkwzbuikEZYKHi4SW7FoS9TAMOs7FAVlgHTtnMGt/UUrpU8uvOOmCU+EEw
- mp/s+eY49mCT0O6a3q3itls27oGDeENhLPVmxWmYs7qycsGolvpO6J3OD4Wi7ONyp2Ar9miKj
- Ur7OdAjbUTTk5k4JVMzWywRRPDo8HbIeUG6GIxJzhvt4v+F4ZTrP41Rmuozdj2NeQ3QXfP2cA
- 3EzaQFBobavxVOLszu4PDoS/H87VMIZIeoffVQN1JnPdPKbVEjMzic3j2S
-X-Mailman-Approved-At: Mon, 10 Mar 2025 18:05:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,34 +86,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PRT BOs may not have any backing store, so bo->tbo.resource will be
-NULL. Check for that before dereferencing.
+Applied.  Thanks
 
-Fixes: 0cce5f285d9ae8 ("drm/amdkfd: Check correct memory types for is_syst=
-em variable")
-Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-=2D--
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v12_0.c
-index ea7c32d8380ba..bf8d01da88154 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -528,8 +528,9 @@ static void gmc_v12_0_get_vm_pte(struct amdgpu_device =
-*adev,
-
- 	bo_adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
- 	coherent =3D bo->flags & AMDGPU_GEM_CREATE_COHERENT;
--	is_system =3D (bo->tbo.resource->mem_type =3D=3D TTM_PL_TT) ||
--		(bo->tbo.resource->mem_type =3D=3D AMDGPU_PL_PREEMPT);
-+	is_system =3D bo->tbo.resource &&
-+		(bo->tbo.resource->mem_type =3D=3D TTM_PL_TT ||
-+		 bo->tbo.resource->mem_type =3D=3D AMDGPU_PL_PREEMPT);
-
- 	if (bo && bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC)
- 		*flags |=3D AMDGPU_PTE_DCC;
-=2D-
-2.48.1
-
+On Tue, Mar 4, 2025 at 4:29=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> Am 25.02.25 um 02:02 schrieb Andr=C3=A9 Almeida:
+> > Instead of only triggering a wedged event for complete GPU resets,
+> > trigger for ring resets. Regardless of the reset, it's useful for
+> > userspace to know that it happened because the kernel will reject
+> > further submissions from that app.
+> >
+> > Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Sorry for the delay, have been on sick leave for nearly two weeks.
+>
+> Regards,
+> Christian.
+>
+> > ---
+> > v3: do only for ring resets, no soft recoveries
+> > v2: Keep the wedge event in amdgpu_device_gpu_recover() and add and
+> >     extra check to avoid triggering two events.
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_job.c
+> > index 698e5799e542..760a720c842e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > @@ -150,6 +150,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(=
+struct drm_sched_job *s_job)
+> >                       if (amdgpu_ring_sched_ready(ring))
+> >                               drm_sched_start(&ring->sched, 0);
+> >                       dev_err(adev->dev, "Ring %s reset succeeded\n", r=
+ing->sched.name);
+> > +                     drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE=
+_RECOVERY_NONE);
+> >                       goto exit;
+> >               }
+> >               dev_err(adev->dev, "Ring %s reset failure\n", ring->sched=
+.name);
+>
