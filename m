@@ -4,86 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60000C28B30
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Mar 2025 09:36:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 183CDC28B2E
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Mar 2025 09:36:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0341610E54B;
-	Tue, 11 Mar 2025 09:36:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D426010E54A;
+	Tue, 11 Mar 2025 09:36:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=embeddedor.com header.i=@embeddedor.com header.b="pThZM7nP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GJLL1WRN";
 	dkim-atps=neutral
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Tue, 11 Mar 2025 08:18:28 UTC
-Received: from omta38.uswest2.a.cloudfilter.net
- (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E024D10E525
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Mar 2025 08:18:28 +0000 (UTC)
-Received: from eig-obgw-6006a.ext.cloudfilter.net ([10.0.30.182])
- by cmsmtp with ESMTPS
- id rnyWt66qlAfjwruhmtNg4F; Tue, 11 Mar 2025 08:11:14 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id ruhktvXVmUTWAruhltMFHG; Tue, 11 Mar 2025 08:11:13 +0000
-X-Authority-Analysis: v=2.4 cv=TZ6QtwQh c=1 sm=1 tr=0 ts=67cff021
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=6Vi/Wpy7sgpXGMLew8oZcg==:17
- a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=7T7KSl7uo7wA:10 a=VwQbUJbxAAAA:8
- a=OXdeduLSBdMSo9eDwqgA:9 a=QEXdDO2ut3YA:10 a=Xt_RvD8W3m28Mn_h3AK8:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=R/lmvIUe4lNj3XZkokRwvbtDuIId69U724e5krgi9KE=; b=pThZM7nPgN1l69lZs5n4FvJSgN
- cctP7X0ETqCTUmN41PgQLiXR2Zhk/9C/NgrZtNyZugh7IieJnDDl9f9uH434A6bL0w2+4JPlDVrNP
- IrF88Kpj7xT8yos1vAk2qMZSYRh2YtaODtzLqsp/u0OwhbmVD9kD0Akbr64zp4Wbld97we2O7ouz9
- c3vi6OWNcrB0HDtW5WB7g5KuTnXV8ZfrzWrrj/RJULJvvPdBJalRiTvN2BhPwl6pfmN9tQrlrdEvx
- 8PjhqO3/F/I21q+gncexY3AsIYJd3ztoJ4yKeNZGP2KS3+nZ7+/k/qO8ilZ6DwjHnZV51vyL3p66s
- megrRwng==;
-Received: from [45.124.203.140] (port=53616 helo=[192.168.0.158])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.1)
- (envelope-from <gustavo@embeddedor.com>) id 1truhj-00000003Tls-1Sv0;
- Tue, 11 Mar 2025 03:11:12 -0500
-Message-ID: <864c7dd5-0deb-4adb-a1cf-c8a809514d7e@embeddedor.com>
-Date: Tue, 11 Mar 2025 18:40:56 +1030
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D574910E2B6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 19:49:14 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-3912c09be7dso2530082f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Mar 2025 12:49:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1741636153; x=1742240953; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BCAuazpPMbYWsaNkUKxyhzQyMn4S8VMIE7QgIdLar98=;
+ b=GJLL1WRNar37VbOHMMmnTFUjISyW6KTa8i9wdGo2se3H+EhVOqOt5EE5l508X8CRPJ
+ 6DbFpAWLijJ9XPFMs1MKL7HUBu7rvtwH138yBIHCnOKs26AryBv7mDGMObPBCvFQjNtd
+ DWd9ELhLp8DbeK8bEfGmLrnw66XXR+tAuFmLq6vOV4vpIZxVGS2748obsFTAoscuAuGq
+ IuWvcLjs3BDvv6OYNbtB5pHxEZWzrEMC8myH9LMIEK4fshUSRn5HXXU9jFoS/SvjQFKD
+ DIC3+tV3w5BdlCp3e8InI7M7UY4bhjBAMutEaL9FBloBOohG/c6ESpO+ZA3L/elQykPf
+ a+RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741636153; x=1742240953;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=BCAuazpPMbYWsaNkUKxyhzQyMn4S8VMIE7QgIdLar98=;
+ b=B/omKQ44TiykMwkGh/y+WsvUJiHjxH+l4vR/Zp3DXaHlOI1I1Ehay1D8pBb2FRyWFj
+ rb3R3OZ3452Mb74Bl0F5YVKzyvB68KM3kFVSgNYxrOSTzgig1vPuEUKqHO3Yey27wOju
+ 8wjilR2Jh7xShgx1ipB7ruSQ4DPNTeBRzCVjPnFG0Uf9nHwMOzcTfBWv2XX4YM4itBKZ
+ +ggLR4I4TL8v3NxSj+u+9fuFAFfjmKDRIWDFqy28XVCZWFR52gUqXmcqqb6zyRVdgpGC
+ RmggtK9TA7DbMOI5Dj24dicbXB7J18O/nS/QRBqJryIcBnu+IFuylUQfL3cZUZIkXcYg
+ 2bHw==
+X-Gm-Message-State: AOJu0YyNb/6IPaeh2AZRiX+QjHONbEflN9YlIndxV6GCkmTldB5SYRt2
+ YQqzte5mw9rOP8cbDd/Y/AprQm83O9kjQs0QoJB1PBZ4WonpfSXCBJf87Pn4fqVollWe2Oc0Zfc
+ y
+X-Gm-Gg: ASbGncsC5zn9K1jtW0961OazuyESLXFtrMQj6ckHp5mzALevdHMOu33Mlq25T9bGEjg
+ Gc8Ps8ZVRrxIz7M58MgeMNVNSdewnWl9uRe90Vcz5jt/Jt3n1cfw/9BKfrKSo5fFE1QB5+sHful
+ hEsrKDsG38kRWHxJ2+06MieUZcYgfEaIBNWZljvwBsazsa0U8i1N7R9CoDPbUAuEDZOISLov/36
+ 4xxjwe/IFpXmWNFMv8EqAJqq6wDXe1yomFCbvehDpCrIeqE1ybkfQglxwlvjg7HsueHfYoetAdL
+ Z2oBZfElb1MGmV5UYgtHJgJOnSCTU2yCL0aTLBKOL0q1MX4uCw==
+X-Google-Smtp-Source: AGHT+IEka8J41h3IXsy09ddM3TVwMT5BCHjvV2dLC/LpY9IwOCe2fUttv6vpZ6EbGm/a8MCFZFEpMg==
+X-Received: by 2002:a5d:59ae:0:b0:390:f5e3:e833 with SMTP id
+ ffacd0b85a97d-39132d379e9mr9565860f8f.23.1741636153416; 
+ Mon, 10 Mar 2025 12:49:13 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-43ce8a493d0sm94262705e9.1.2025.03.10.12.49.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Mar 2025 12:49:13 -0700 (PDT)
+Date: Mon, 10 Mar 2025 22:49:09 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amd/display: Expose HDR output metadata for
+ supported connectors
+Message-ID: <d6cf4541-37bb-4588-ab94-057c00231415@stanley.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH][next] drm/amd/pm: Avoid multiple
- -Wflex-array-member-not-at-end warnings
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <Z678TNhCbTk363Tw@kspp>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <Z678TNhCbTk363Tw@kspp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 45.124.203.140
-X-Source-L: No
-X-Exim-ID: 1truhj-00000003Tls-1Sv0
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.0.158]) [45.124.203.140]:53616
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 4
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfC4u94Ga6BzDHIhknDJzPlAjKYhdCTpAIdvhMs8h4Rqs5vLHOZ6zjLfALzv2Ael3ThLyU1z22XUcELbsNywGFTDSD7sw2JObfXLllYiQeN9ao2Arh45c
- IAwiCx30ltz/wIq7+XO7qK4vyWGHEPg70RCRkq92XziWrO21lx5ujIShQjHluCRu2FHTj69HT0vFVJlMb57f4hxFYa275BTc+DVfUrNJGN21fG+CRnQKdiTe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Tue, 11 Mar 2025 09:36:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,162 +84,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+Hello Nicholas Kazlauskas,
 
-Friendly ping: who can take this, please? :)
+Commit 88694af9e4d1 ("drm/amd/display: Expose HDR output metadata for
+supported connectors") from May 28, 2019 (linux-next), leads to the
+following Smatch static checker warning:
 
-Thanks!
---
-Gustavo
+	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:10751 dm_update_crtc_state()
+	warn: 'drm_new_conn_state' can also be NULL
 
-On 14/02/25 18:48, Gustavo A. R. Silva wrote:
-> -Wflex-array-member-not-at-end was introduced in GCC-14, and we are
-> getting ready to enable it, globally.
-> 
-> So, in order to avoid ending up with a flexible-array member in the
-> middle of other structs, we use the `struct_group_tagged()` helper
-> to create a new tagged `struct NISLANDS_SMC_SWSTATE_HDR` (and `struct
-> SISLANDS_SMC_SWSTATE_HDR`). This structures group together all the
-> members of the flexible `struct NISLANDS_SMC_SWSTATE` (and `struct
-> SISLANDS_SMC_SWSTATE`) except the flexible array.
-> 
-> As a result, the array is effectively separated from the rest of the
-> members without modifying the memory layout of the flexible structure.
-> We then change the type of the middle struct members currently causing
-> trouble from `struct NISLANDS_SMC_SWSTATE` to `struct
-> NISLANDS_SMC_SWSTATE_HDR` (and from `struct SISLANDS_SMC_SWSTATE` to
-> `struct SISLANDS_SMC_SWSTATE_HDR`).
-> 
-> We also want to ensure that when new members need to be added to the
-> flexible structure, they are always included within the newly created
-> tagged struct. For this, we use `static_assert()`. This ensures that
-> the memory layout for both the flexible structure and the new tagged
-> struct is the same after any changes.
-> 
-> This approach avoids having to implement `struct NISLANDS_SMC_SWSTATE_HDR`
-> (and `struct SISLANDS_SMC_SWSTATE_HDR`) as a completely separate structure,
-> thus preventing having to maintain two independent but basically identical
-> structures, closing the door to potential bugs in the future.
-> 
-> We also use `container_of()` whenever we need to retrieve a pointer to
-> the flexible structure, through which we can access the flexible-array
-> member, if necessary.
-> 
-> So, with this changes, fix the following warnings:
-> 
-> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/sislands_smc.h:218:49: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
-> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/si_dpm.h:819:41: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
-> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/si_dpm.h:818:41: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
-> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/si_dpm.h:817:41: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
-> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/si_dpm.h:816:41: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
-> 
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-> ---
->   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  7 ++++--
->   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h    | 23 +++++++++++--------
->   .../gpu/drm/amd/pm/legacy-dpm/sislands_smc.h  | 15 ++++++++----
->   3 files changed, 29 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> index a87dcf0974bc..2c9d473d122f 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -5234,7 +5234,8 @@ static int si_init_smc_table(struct amdgpu_device *adev)
->   
->   	table->driverState.flags = table->initialState.flags;
->   	table->driverState.levelCount = table->initialState.levelCount;
-> -	table->driverState.levels[0] = table->initialState.level;
-> +	container_of(&table->driverState, SISLANDS_SMC_SWSTATE, __hdr)->levels[0] =
-> +								table->initialState.level;
->   
->   	ret = si_do_program_memory_timing_parameters(adev, amdgpu_boot_state,
->   						     SISLANDS_INITIAL_STATE_ARB_INDEX);
-> @@ -5755,7 +5756,9 @@ static int si_upload_sw_state(struct amdgpu_device *adev,
->   	int ret;
->   	u32 address = si_pi->state_table_start +
->   		offsetof(SISLANDS_SMC_STATETABLE, driverState);
-> -	SISLANDS_SMC_SWSTATE *smc_state = &si_pi->smc_statetable.driverState;
-> +	SISLANDS_SMC_SWSTATE *smc_state =
-> +		container_of(&si_pi->smc_statetable.driverState,
-> +			     SISLANDS_SMC_SWSTATE, __hdr);
->   	size_t state_size = struct_size(smc_state, levels,
->   					new_state->performance_level_count);
->   	memset(smc_state, 0, state_size);
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
-> index 11cb7874a6bb..62530f89ebdf 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
-> @@ -784,12 +784,17 @@ typedef struct NISLANDS_SMC_HW_PERFORMANCE_LEVEL NISLANDS_SMC_HW_PERFORMANCE_LEV
->   
->   struct NISLANDS_SMC_SWSTATE
->   {
-> -    uint8_t                             flags;
-> -    uint8_t                             levelCount;
-> -    uint8_t                             padding2;
-> -    uint8_t                             padding3;
-> -    NISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[];
-> +	/* New members MUST be added within the struct_group() macro below. */
-> +	struct_group_tagged(NISLANDS_SMC_SWSTATE_HDR, __hdr,
-> +		uint8_t                             flags;
-> +		uint8_t                             levelCount;
-> +		uint8_t                             padding2;
-> +		uint8_t                             padding3;
-> +	);
-> +	NISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[];
->   };
-> +static_assert(offsetof(struct NISLANDS_SMC_SWSTATE, levels) == sizeof(struct NISLANDS_SMC_SWSTATE_HDR),
-> +	      "struct member likely outside of struct_group_tagged()");
->   
->   typedef struct NISLANDS_SMC_SWSTATE NISLANDS_SMC_SWSTATE;
->   
-> @@ -813,10 +818,10 @@ struct NISLANDS_SMC_STATETABLE
->       uint32_t                            lowSMIO[NISLANDS_MAX_NO_VREG_STEPS];
->       NISLANDS_SMC_VOLTAGEMASKTABLE       voltageMaskTable;
->       PP_NIslands_DPM2Parameters          dpm2Params;
-> -    NISLANDS_SMC_SWSTATE                initialState;
-> -    NISLANDS_SMC_SWSTATE                ACPIState;
-> -    NISLANDS_SMC_SWSTATE                ULVState;
-> -    NISLANDS_SMC_SWSTATE                driverState;
-> +    struct NISLANDS_SMC_SWSTATE_HDR		initialState;
-> +    struct NISLANDS_SMC_SWSTATE_HDR		ACPIState;
-> +    struct NISLANDS_SMC_SWSTATE_HDR		ULVState;
-> +    struct NISLANDS_SMC_SWSTATE_HDR		driverState;
->       NISLANDS_SMC_HW_PERFORMANCE_LEVEL   dpmLevels[NISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE - 1];
->   };
->   
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h b/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
-> index 90ec411c5029..1711e3e35e80 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
-> @@ -172,12 +172,17 @@ struct SISLANDS_SMC_HW_PERFORMANCE_LEVEL {
->   typedef struct SISLANDS_SMC_HW_PERFORMANCE_LEVEL SISLANDS_SMC_HW_PERFORMANCE_LEVEL;
->   
->   struct SISLANDS_SMC_SWSTATE {
-> -	uint8_t                             flags;
-> -	uint8_t                             levelCount;
-> -	uint8_t                             padding2;
-> -	uint8_t                             padding3;
-> +	/* New members MUST be added within the struct_group() macro below. */
-> +	struct_group_tagged(SISLANDS_SMC_SWSTATE_HDR, __hdr,
-> +		uint8_t                             flags;
-> +		uint8_t                             levelCount;
-> +		uint8_t                             padding2;
-> +		uint8_t                             padding3;
-> +	);
->   	SISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[];
->   };
-> +static_assert(offsetof(struct SISLANDS_SMC_SWSTATE, levels) == sizeof(struct SISLANDS_SMC_SWSTATE_HDR),
-> +	      "struct member likely outside of struct_group_tagged()");
->   
->   typedef struct SISLANDS_SMC_SWSTATE SISLANDS_SMC_SWSTATE;
->   
-> @@ -215,7 +220,7 @@ struct SISLANDS_SMC_STATETABLE {
->   	struct SISLANDS_SMC_SWSTATE_SINGLE	initialState;
->   	struct SISLANDS_SMC_SWSTATE_SINGLE	ACPIState;
->   	struct SISLANDS_SMC_SWSTATE_SINGLE	ULVState;
-> -	SISLANDS_SMC_SWSTATE			driverState;
-> +	struct SISLANDS_SMC_SWSTATE_HDR		driverState;
->   	SISLANDS_SMC_HW_PERFORMANCE_LEVEL	dpmLevels[SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE];
->   };
->   
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+    10672 static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+    10673                          struct drm_atomic_state *state,
+    10674                          struct drm_crtc *crtc,
+    10675                          struct drm_crtc_state *old_crtc_state,
+    10676                          struct drm_crtc_state *new_crtc_state,
+    10677                          bool enable,
+    10678                          bool *lock_and_validation_needed)
+    10679 {
+    10680         struct dm_atomic_state *dm_state = NULL;
+    10681         struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
+    10682         struct dc_stream_state *new_stream;
+    10683         int ret = 0;
+    10684 
+    10685         /*
+    10686          * TODO Move this code into dm_crtc_atomic_check once we get rid of dc_validation_set
+    10687          * update changed items
+    10688          */
+    10689         struct amdgpu_crtc *acrtc = NULL;
+    10690         struct drm_connector *connector = NULL;
+    10691         struct amdgpu_dm_connector *aconnector = NULL;
+    10692         struct drm_connector_state *drm_new_conn_state = NULL, *drm_old_conn_state = NULL;
+    10693         struct dm_connector_state *dm_new_conn_state = NULL, *dm_old_conn_state = NULL;
+    10694 
+    10695         new_stream = NULL;
+    10696 
+    10697         dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
+    10698         dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+    10699         acrtc = to_amdgpu_crtc(crtc);
+    10700         connector = amdgpu_dm_find_first_crtc_matching_connector(state, crtc);
+    10701         if (connector)
+    10702                 aconnector = to_amdgpu_dm_connector(connector);
+    10703 
+    10704         /* TODO This hack should go away */
+    10705         if (connector && enable) {
+    10706                 /* Make sure fake sink is created in plug-in scenario */
+    10707                 drm_new_conn_state = drm_atomic_get_new_connector_state(state,
+    10708                                                                         connector);
 
+drm_atomic_get_new_connector_state() can't return error pointers, only
+NULL.
+
+    10709                 drm_old_conn_state = drm_atomic_get_old_connector_state(state,
+    10710                                                                         connector);
+    10711 
+    10712                 if (IS_ERR(drm_new_conn_state)) {
+                                     ^^^^^^^^^^^^^^^^^^
+
+    10713                         ret = PTR_ERR_OR_ZERO(drm_new_conn_state);
+
+Calling PTR_ERR_OR_ZERO() doesn't make sense.  It can't be success.
+
+    10714                         goto fail;
+    10715                 }
+    10716 
+    10717                 dm_new_conn_state = to_dm_connector_state(drm_new_conn_state);
+    10718                 dm_old_conn_state = to_dm_connector_state(drm_old_conn_state);
+    10719 
+    10720                 if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
+    10721                         goto skip_modeset;
+    10722 
+    10723                 new_stream = create_validate_stream_for_sink(connector,
+    10724                                                              &new_crtc_state->mode,
+    10725                                                              dm_new_conn_state,
+    10726                                                              dm_old_crtc_state->stream);
+    10727 
+    10728                 /*
+    10729                  * we can have no stream on ACTION_SET if a display
+    10730                  * was disconnected during S3, in this case it is not an
+    10731                  * error, the OS will be updated after detection, and
+    10732                  * will do the right thing on next atomic commit
+    10733                  */
+    10734 
+    10735                 if (!new_stream) {
+    10736                         DRM_DEBUG_DRIVER("%s: Failed to create new stream for crtc %d\n",
+    10737                                         __func__, acrtc->base.base.id);
+    10738                         ret = -ENOMEM;
+    10739                         goto fail;
+    10740                 }
+    10741 
+    10742                 /*
+    10743                  * TODO: Check VSDB bits to decide whether this should
+    10744                  * be enabled or not.
+    10745                  */
+    10746                 new_stream->triggered_crtc_reset.enabled =
+    10747                         dm->force_timing_sync;
+    10748 
+    10749                 dm_new_crtc_state->abm_level = dm_new_conn_state->abm_level;
+    10750 
+--> 10751                 ret = fill_hdr_info_packet(drm_new_conn_state,
+                                                     ^^^^^^^^^^^^^^^^^^
+Unchecked dereference
+
+    10752                                            &new_stream->hdr_static_metadata);
+    10753                 if (ret)
+    10754                         goto fail;
+    10755 
+
+regards,
+dan carpenter
