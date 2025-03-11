@@ -4,51 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51EA4C35FF1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B7BC28B2F
 	for <amd-gfx@archiver.kernel.org>; Wed, 12 Mar 2025 10:09:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEAC510E757;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 991A810E756;
 	Wed, 12 Mar 2025 10:09:11 +0000 (UTC)
-Received: from cstnet.cn (unknown [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 925148953E;
- Wed, 12 Mar 2025 06:31:35 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-01 (Coremail) with SMTP id qwCowABXhPs6KtFneEl5FA--.37073S2;
- Wed, 12 Mar 2025 14:31:23 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: Hawking.Zhang@amd.com, Likun.Gao@amd.com, sunil.khatri@amd.com,
- kenneth.feng@amd.com, Jack.Xiao@amd.com, marek.olsak@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/gfx12: correct cleanup of 'me' field with
- gfx_v12_0_me_fini()
-Date: Wed, 12 Mar 2025 14:31:06 +0800
-Message-ID: <20250312063106.772-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UqD3PbXd";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0733510E62B;
+ Tue, 11 Mar 2025 17:11:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1741713067; x=1773249067;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=QA4pFW1oxdkWwb6tOCXzPFVdqvzGDBgMwXg9IWYanfI=;
+ b=UqD3PbXdB3yg1M6skBnqGWrftJyGZRdAKzEb8DhtjlQSC3dgQ9AGFmKT
+ /aCErLB8kol6YF4RttbLuYHnrNFZoM1QkumD6eUv+SjsvmjwgPjjRzQwT
+ PkHuf9D9HWMIXjzAWyNRWasghdEhDpq7jF2MQm2rLJoDnWN3IEPg1eudB
+ qQvLv/NMCDh6mGeTf+QXuShhWYMpP9UOtZzDy42zaYOfAIAlJ3LT2L0vd
+ 6jN195hWKBPHjQpKJbYP8FAL7WEK1X79DMWsq+lOk/DkZsGqlx5Y5DyP0
+ jmALt8sEaZePdLc19AD9gUIgqsBj770EFWbunTOvaMlO0VbRwWq3/yOmA Q==;
+X-CSE-ConnectionGUID: S+4UmAFZRJeKnL0nQaYzQA==
+X-CSE-MsgGUID: wHtnMbbnSSmBW2Hj24vdpg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11370"; a="42676076"
+X-IronPort-AV: E=Sophos;i="6.14,239,1736841600"; d="scan'208";a="42676076"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2025 10:10:49 -0700
+X-CSE-ConnectionGUID: fNbKLCRzRoyzfzsju+JhNg==
+X-CSE-MsgGUID: qhOq77r8RHqgvWz9Guzl+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,239,1736841600"; d="scan'208";a="120407156"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2025 10:09:42 -0700
+Date: Tue, 11 Mar 2025 19:09:39 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ 'Christian =?iso-8859-1?Q?K=F6nig'?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ lucas.demarchi@intel.com, Xaver Hugl <xaver.hugl@kde.org>
+Subject: Re: [PATCH 1/2] drm: Create an app info option for wedge events
+Message-ID: <Z9BuU3RzMkEE_FL1@black.fi.intel.com>
+References: <20250228121353.1442591-1-andrealmeid@igalia.com>
+ <20250228121353.1442591-2-andrealmeid@igalia.com>
+ <Z8HGFRGOYvyCCWWu@black.fi.intel.com>
+ <58763d8e-46a1-4753-9401-987fb3dac50b@igalia.com>
+ <Z8KgwswQQyGxhsR1@black.fi.intel.com>
+ <db27ee44-f480-475b-be7e-710bd30eb7a5@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowABXhPs6KtFneEl5FA--.37073S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtw17Aw17Kw4xtw4UZFyfCrg_yoWkGFX_CF
- 4UJr93Wr4UCF1qqw1xZr1YvasFkF15ZF48Ka1aqas5GrZ8Z343Kry8Kr95WF4fuan3C3Wk
- XFyUWF1ftasxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbf8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
- Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
- 0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r47MxAIw28IcxkI7VAKI4
- 8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
- wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjx
- v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
- Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
- AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb7Ks5UUUUU==
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwsTA2fQ4meNigABso
+In-Reply-To: <db27ee44-f480-475b-be7e-710bd30eb7a5@igalia.com>
 X-Mailman-Approved-At: Wed, 12 Mar 2025 10:09:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,31 +80,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In gfx_v12_0_cp_gfx_load_me_microcode_rs64(), gfx_v12_0_pfp_fini() is
-incorrectly used to free 'me' field of 'gfx', since gfx_v12_0_pfp_fini()
-can only release 'pfp' field of 'gfx'. The release function of 'me' field
-should be gfx_v12_0_me_fini().
+On Mon, Mar 10, 2025 at 06:27:53PM -0300, André Almeida wrote:
+> Em 01/03/2025 02:53, Raag Jadav escreveu:
+> > On Fri, Feb 28, 2025 at 06:54:12PM -0300, André Almeida wrote:
+> > > Hi Raag,
+> > > 
+> > > On 2/28/25 11:20, Raag Jadav wrote:
+> > > > Cc: Lucas
+> > > > 
+> > > > On Fri, Feb 28, 2025 at 09:13:52AM -0300, André Almeida wrote:
+> > > > > When a device get wedged, it might be caused by a guilty application.
+> > > > > For userspace, knowing which app was the cause can be useful for some
+> > > > > situations, like for implementing a policy, logs or for giving a chance
+> > > > > for the compositor to let the user know what app caused the problem.
+> > > > > This is an optional argument, when `PID=-1` there's no information about
+> > > > > the app caused the problem, or if any app was involved during the hang.
+> > > > > 
+> > > > > Sometimes just the PID isn't enough giving that the app might be already
+> > > > > dead by the time userspace will try to check what was this PID's name,
+> > > > > so to make the life easier also notify what's the app's name in the user
+> > > > > event.
+> > > > > 
+> > > > > Signed-off-by: André Almeida <andrealmeid@igalia.com>
+> 
+> [...]
+> 
+> > > > >    	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+> > > > > @@ -562,6 +564,14 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+> > > > >    	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+> > > > >    		 "but recovered through reset" : "needs recovery");
+> > > > > +	if (info) {
+> > > > > +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
+> > > > > +		snprintf(comm_string, sizeof(comm_string), "APP=%s", info->comm);
+> > > > > +	} else {
+> > > > > +		snprintf(pid_string, sizeof(pid_string), "%s", "PID=-1");
+> > > > > +		snprintf(comm_string, sizeof(comm_string), "%s", "APP=none");
+> > > > > +	}
+> > > > This is not much use for wedge cases that needs recovery, since at that point
+> > > > the userspace will need to clean house anyway.
+> > > > 
+> > > > Which leaves us with only 'none' case and perhaps the need for standardization
+> > > > of "optional telemetry collection".
+> > > > 
+> > > > Thoughts?
+> > > 
+> > > I had the feeling that 'none' was already meant to be used for that. Do you
+> > > think we should move to another naming? Given that we didn't reach the merge
+> > > window yet we could potentially change that name without much damage.
+> > 
+> > No, I meant thoughts on possible telemetry data that the drivers might
+> > think is useful for userspace (along with PID) and can be presented in
+> > a vendor agnostic manner (just like wedged event).
+> 
+> I'm not if I agree that this will only be used for telemetry and for the
+> `none` use case. As stated by Xaver, there's use case to know which app
+> caused the device to get wedged (like switching to software rendering) and
+> to display something for the user after the recovery is done (e.g. "The game
+> <app name> stopped working and Plasma has reset").
 
-Fixes: 52cb80c12e8a ("drm/amdgpu: Add gfx v12_0 ip block support (v6)")
-Cc: stable@vger.kernel.org # 6.11+
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Sure, but since this information is already available in coredump, I was
+hoping to have something like a standardized DRM level coredump with both
+vendor specific and agnostic sections, which the drivers can (and hopefully
+transition to) use in conjunction with wedged event to provide wider
+telemetry and is useful for all wedge cases.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index da327ab48a57..02bc2eddf0c0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -2413,7 +2413,7 @@ static int gfx_v12_0_cp_gfx_load_me_microcode_rs64(struct amdgpu_device *adev)
- 				      (void **)&adev->gfx.me.me_fw_data_ptr);
- 	if (r) {
- 		dev_err(adev->dev, "(%d) failed to create me data bo\n", r);
--		gfx_v12_0_pfp_fini(adev);
-+		gfx_v12_0_me_fini(adev);
- 		return r;
- 	}
- 
--- 
-2.42.0.windows.2
+Would that serve the usecase here?
 
+Raag
