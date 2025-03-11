@@ -4,67 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BE3BC282EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Mar 2025 18:25:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48486C282EC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Mar 2025 19:08:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD6AF10E190;
-	Tue, 11 Mar 2025 18:25:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF99C10E329;
+	Tue, 11 Mar 2025 19:08:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NzFLV8xf";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="B4ihgk5t";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCB7A10E190
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Mar 2025 18:25:07 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-2ff7cf59a8fso1287126a91.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Mar 2025 11:25:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741717506; x=1742322306; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=epk4YrmC4PSVax2HYKYtUsBFtl46uXijw+yt9cRlitg=;
- b=NzFLV8xfNTCyVPNRXcZF8vU4RIcXFIm6sA2c750JluIEo30FPUP6Ft1mJwTJI6bO6g
- IS4CNsVTf18dTyf3xqzVtsW7ra5joPbNZ2qcYapimXZoaWxiXg0vOA8YRiXQJyJ3VqfR
- SZTQzjAMImkwDV+5SJOj1nCX16V2vJp4Cc95yve3Z1Cjx+LvV9MheWTb8IqNs4mZMi44
- br8v0TnQcqVDfjBg7n7tpPpZ81U3yeBZioiFokQxq/9xoYsqXNKFHXoJaodUvwT+z8JE
- qZCzvVCDK3l0g6SQ1jtTCOMRGCARPLofheDpDmhNO3qQNAL/808sgkzQvdYG3coJPMJA
- aGOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741717506; x=1742322306;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=epk4YrmC4PSVax2HYKYtUsBFtl46uXijw+yt9cRlitg=;
- b=XZ86Zm7iejHaX//JUC2GkgU8hdC7gV9itSd//I8CjNiLrBlbZxmSruLsjXFmydymuH
- 3GBbNEH4+rbJLXyyxeMUoKVDhS57p1paz8Uo1OzRPie6By+onnal7c05z+vojYsQxeee
- kGrq2CSIpxAIItraBEJOkPbKmytaXP6gqAytppidlnZZUWp+EbDBoxldmH2LrI3oTe2f
- +DbIM2AEv0mTgH6jnmgr0zHasG4fpgIOAP2kU7TEqD4iO35wMXjELg+exxjfeZe/Tnvd
- vtbS5TK78vxzhCqHt5rNst1t6veNX5Mxa5rYyNqHmRuYmVX5R+o0gXce05hjaPjZW1gA
- gcoA==
-X-Gm-Message-State: AOJu0Ywetd4uEqvLF8nFNLytQXQd4wInBLzB9opEfL0/5ZxXGK9MxYj5
- PrjxzCcPa4feSwPfONX5uxYyk8a69p+KrHdgH73PQUtn3muDdhKZVKUnobFyj0MOPkhsuhhM5/C
- LDdr0E2j6pM8JkCwDcreMeGbxFLo=
-X-Gm-Gg: ASbGncvVWObEBO9AU4DRlme94GzO9dnRUPnigRKtPPx6Xca0zauZD1ErkmFAoaXSqJF
- wfApZdaOzM2qOwyhNxkCmSyW9v5gfySA2Fxyr4RCVm+VduBHUeBMFeH/ouqVvGOPzTtIpAheza0
- q5ZEuxqMFXEtFxaG2d5+1WzAXX0w==
-X-Google-Smtp-Source: AGHT+IG65WPJfqtFpBcEIjrGLv5TWveQ4x3ZzzYWFojj3VmP7zdsbKLUvh/K92Zncd3GZrf86hog9IqZBBuyRLr0H4Q=
-X-Received: by 2002:a17:90b:4d8d:b0:2fe:91d0:f781 with SMTP id
- 98e67ed59e1d1-300ff724478mr2239080a91.2.1741717506368; Tue, 11 Mar 2025
- 11:25:06 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE6AE10E1D5;
+ Tue, 11 Mar 2025 19:08:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ZpJRnn1LXAnOEJ2gkjYryDBL0uX3btNLboGFuEBlyb8=; b=B4ihgk5tmgZNc53TPUGvrN0jW7
+ LbZa+sSAeV3xnXXMV7r9y+TfKY8xyDxRAMZTtkaAxglCySF4kw3mB0j6rofU2r21VC/Tpenc9cs/H
+ DXNm/j7IMWGGBxPZ+ffhLqOUNAxfzmpPpi9/SCXu9gadG5QEo6Tco0l4hjGxQRbyvYzxMEPbIDtW8
+ JfLE9rb8qsuPMYSTLNFfUZanA7w3DBkjftYuq6EYUpXIYoQvyjAhnMPZ29bEgnchaz0Q43Qhh+UyV
+ Fr2KwMcli5HH/4m0w2RDmUv/aSaZ5F17ZVxM2a8tUO9I+bak53BM+VpgBFboL4KImYosbf5976X2P
+ QuZmpd3Q==;
+Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
+ helo=maloca.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1ts4xr-007EvN-7S; Tue, 11 Mar 2025 20:08:37 +0100
+Date: Tue, 11 Mar 2025 13:08:31 -0600
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, 
+ jun.lei@amd.com, aurabindo.pillai@amd.com, christian.koenig@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, Samson.Tam@amd.com, Navid.Assadian@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amd/display: Remove incorrect macro guard
+Message-ID: <gsscppvh3sef4at3hzjzaj6x2felbhrekjzgqee7pqphjhfkvq@s4a7lbnok67k>
+References: <20250311171017.3053891-1-alex.hung@amd.com>
 MIME-Version: 1.0
-References: <20250311181649.114559-1-Harish.Kasiviswanathan@amd.com>
-In-Reply-To: <20250311181649.114559-1-Harish.Kasiviswanathan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 11 Mar 2025 14:24:54 -0400
-X-Gm-Features: AQ5f1JqwYctpTqJBaNWUQ-9suxCPpNHkUPPZw5ZUXQP8FqhH7W5Ad7i0OTBQrss
-Message-ID: <CADnq5_O+ZhWZcQNxsE-XdFJwxGqwxutfSk7dhrZQJemttGaZiQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: add unique_id for gfx12
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250311171017.3053891-1-alex.hung@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,33 +60,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-On Tue, Mar 11, 2025 at 2:17=E2=80=AFPM Harish Kasiviswanathan
-<Harish.Kasiviswanathan@amd.com> wrote:
->
-> Expose unique_id for gfx12
->
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+On 03/11, Alex Hung wrote:
+> This macro guard "__cplusplus" is unnecessary and should not be there.
+> 
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index 1d04f1b79ded..2179344e78d9 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -2341,6 +2341,8 @@ static int default_attr_update(struct amdgpu_device=
- *adev, struct amdgpu_device_
->                 case IP_VERSION(11, 0, 1):
->                 case IP_VERSION(11, 0, 2):
->                 case IP_VERSION(11, 0, 3):
-> +               case IP_VERSION(12, 0, 0):
-> +               case IP_VERSION(12, 0, 1):
->                         *states =3D ATTR_STATE_SUPPORTED;
->                         break;
->                 default:
-> --
-> 2.34.1
->
+>  drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h
+> index 145961803a92..d621c42a237e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h
+> +++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h
+> @@ -17,9 +17,6 @@
+>  #define SPL_EXPAND(a, b)          SPL_EXPAND2(a, b)
+>  #define SPL_NAMESPACE(symbol)     SPL_EXPAND(SPL_PFX_, symbol)
+>  
+> -#ifdef __cplusplus
+> -extern "C" {
+> -#endif
+>  
+>  /* SPL interfaces */
+>  
+> -- 
+> 2.43.0
+> 
+
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+
+-- 
+Rodrigo Siqueira
