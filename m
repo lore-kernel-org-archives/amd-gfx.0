@@ -4,76 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 879BAC282EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Mar 2025 16:11:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739CAC282EC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Mar 2025 17:12:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2329E10E25A;
-	Tue, 11 Mar 2025 16:11:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FCA810E649;
+	Tue, 11 Mar 2025 17:12:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lRBwZ3y2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Eob1SebL";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0884E10E25A;
- Tue, 11 Mar 2025 16:11:54 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2ff5f2c5924so1560181a91.2; 
- Tue, 11 Mar 2025 09:11:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741709514; x=1742314314; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tbXgDbQe6odtzN7qJt3Hn9EsxbW1Jh0Po6Yo1yHTQZY=;
- b=lRBwZ3y2TltEQ6OdMdJfMThNq3GTBoHgNDK0tlArpSnZI13shsSQ4rpLYWJYFPblpX
- XAVF4KW3qCDWUTrJ4ZE4LyT1uTz/JoXKIZZuXqzER8qR/5sFrnxlQBIL4uKRqfari5Ht
- sG8+PVR+iailpzg6FQrIf4f7tI/auImgZKRQQvNhcSyMQ0/fIE3ZxLsOHLWmfAfHsLPr
- tFRiy7cugL+vMmTTHt1/XMWYe98L/m1Av7ARFNzlEBe7BH2CbdodMnXwtqHM8uxC9Ud1
- ZTIgVTfAazts3UQo41NyZrSEOH8VqPrco7JxEVxz2T+vTvg/FLjcl/WhqwxvH2+Mp+pA
- 074A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741709514; x=1742314314;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tbXgDbQe6odtzN7qJt3Hn9EsxbW1Jh0Po6Yo1yHTQZY=;
- b=dmKHyVOiqCDKDBouwEoJDLJ0dZ2opRpocj/d+qBOluTT/wHhKP+JufbIQBFSIusggk
- twBOZuztqqvVyJLyaNNfYj1wueRWE7uhF3au+Bs4y5TbYdGj/+G34QJ/mAKY6PIK7Uyc
- sxvpXlFfF2jPu5Cji2wAtcKZl14upZrWQceOe0XTHRygvbGVcju0ybqBgCvhAJZE1gDh
- TCszPfMRjPnBXSCWw8bTI/nndeLPaKcBU7reqLeAGCdvQ2F7yX9hirv1KyokaEPSAmQX
- 3iNJgdUN7bUUuk8FEiZDArIbHNZmLDljL9PxfIQZ0jtoWg9aMyXUOViRHnsX5ptHitp5
- vRDA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV5nbNoj5CCxnGrQ802h5TDcylPFzPlkqo8VOpMy6zsZ8Rnbe98App9BufQePNQDdT89V3HDWnV7tyo@lists.freedesktop.org,
- AJvYcCVKEiP1/0VfnHhnPqSfXUelTv7DLyFkoO9V4oigRz/EsryZeR7aV29/i87HlH6fByQhzwchoDNu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnHr08LOABCRMcVwK4RcL06xbNCAk/tDPNdGkSw7lomX/ziJGt
- Cp9c46LOsaYOH6hx9RoSqI6N7kFQddMOZRcbu+kiDmotEHe//LxYBeNo2E57Y8AgtkJUGhAVr+O
- qBn1pGx4pzaFphOICwmAOamqtw/Y=
-X-Gm-Gg: ASbGncvDXs1z9L1AnrmscgFTgD8vkgRfS86RepfofRwAQpm0//ybzgHfZXQGzNo6E82
- 2hEyMH5SHePZ8mbHy/Weaxfe0O0D8O8gqFw+Kvlcsiv9+IL0CbfDKfZYNp+idaw3CgLsPPwk38O
- 0kK+KK0x/PUFZkg91rWCgYYl7+BSkPHn4kNG8M
-X-Google-Smtp-Source: AGHT+IHoUI2IVDeSuvbHPxuzIsIzy8DbeE/xia2Z5IbkvUSauYjGSV2OlB5NBKJvQwzYZ9fQklzxpagAfdTPP7TP2rY=
-X-Received: by 2002:a17:90b:4d0b:b0:2fe:8fa0:e7a1 with SMTP id
- 98e67ed59e1d1-300ff720794mr2092338a91.2.1741709513631; Tue, 11 Mar 2025
- 09:11:53 -0700 (PDT)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2E110E649;
+ Tue, 11 Mar 2025 17:12:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wInka1witmHDU+3dxFc678ze5n8fwgIRyFoS8mo4Z0AAGwsbg1vqiFK7jMXAKXVVUz7UGjTKiY7YXYI7c+0w0K/L1uac9aD+5Eeo2CKvaZvBIGpcXPXSZWu05Dsm1kBPwwOvavvU8DVkrNjxE9g0KB+/9w7/I7dvLPG7Z65ua5Uksc4PwW9Z/MbdIAHDjsUBI+rebXD0EQuz0CEJZTBAsw4QmlMUhaIfBULtWVXfQo709jyJ1BkuQwENv76pod/0qfvmCvDuEJmzh5AHAv7TSu6Z8AapbiD5KHZOSjc+xlzQzwgi2NqgYT75jOuNTnzmMITIk5D1yQYbceCAbEFE1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=biL5HQbjvlv7sRBYPC1aZ498oESvQy+181tT5ASQMTw=;
+ b=sPCm0ylP7+Ei1UxyCq0eO4D6BFqjXLbllZ9paxTKn2y0qJ4zsc9usRtqOEto3FZyFi7H9qgOs3mnZPfCMcgt2zWFxNr+veB3gh+vfgEY7SN7wuffDAAUJHTlJSTUCqElJWZpXpyTGH7vjcReSYNaLej8Q09yB0+wx/WJYKFjJ7iuXhJ1Mf8XQWT4oFxj79/ftf+UI1DlHJ46XyEkakMquYQYVxsvNLpeLcq9Ocz9/W1XVsaP0KSxyfBWbe7xRAu2SSAkh5e88IUAHJX84TXikLMNzQZhn8iyEG6zEmLgrsFUVAv11GXv1hODruPePhiq9/I4oiJa2T6hLsxFsFL4Iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=biL5HQbjvlv7sRBYPC1aZ498oESvQy+181tT5ASQMTw=;
+ b=Eob1SebLtqd3x3W/L34BQ/rv9qcfRjPLOrj+sSu5AchyJgy5Plk9yQeIPXD/Jrd0lTTEAhvZF7PbBPgJFhehWgqZdJaS10ASFGl2PUfn6ZTqb/58lhk51koKUwkGyT6C3k1jFpj6Bu1FOSOAQUWuEC/6eTXX7QzL7XZn1hf8A+4=
+Received: from SJ0PR13CA0190.namprd13.prod.outlook.com (2603:10b6:a03:2c3::15)
+ by DS4PR12MB9681.namprd12.prod.outlook.com (2603:10b6:8:281::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Tue, 11 Mar
+ 2025 17:12:07 +0000
+Received: from CY4PEPF0000FCC1.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::d1) by SJ0PR13CA0190.outlook.office365.com
+ (2603:10b6:a03:2c3::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.20 via Frontend Transport; Tue,
+ 11 Mar 2025 17:12:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000FCC1.mail.protection.outlook.com (10.167.242.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Tue, 11 Mar 2025 17:12:06 +0000
+Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Mar
+ 2025 12:12:03 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <siqueira@igalia.com>,
+ <alexander.deucher@amd.com>, <jun.lei@amd.com>, <aurabindo.pillai@amd.com>,
+ <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <Samson.Tam@amd.com>, <alex.hung@amd.com>, <Navid.Assadian@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Remove incorrect macro guard
+Date: Tue, 11 Mar 2025 11:10:17 -0600
+Message-ID: <20250311171017.3053891-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20250311111501.9190-1-n.zhandarovich@fintech.ru>
-In-Reply-To: <20250311111501.9190-1-n.zhandarovich@fintech.ru>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 11 Mar 2025 12:11:41 -0400
-X-Gm-Features: AQ5f1Jo_n7znu1k53mWqt5ocAdZXDWFpNjqsQGbU5mMQMuEwRLuEpw7wKFxIBH4
-Message-ID: <CADnq5_M0vVpU-puopwNjJcaSKfHr3ZDS3_n-Cmf5MWAA_4qViQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: fix uninitialized size issue in
- radeon_vce_cs_parse()
-To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC1:EE_|DS4PR12MB9681:EE_
+X-MS-Office365-Filtering-Correlation-Id: aaf7dcdd-657e-4482-1603-08dd60bfd9c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DcPl9fW5E5QI7x2GZ6yw3bsjTOeL2hfl77Z4vaZTpesf3Sw5RXHFcr/l2Kmt?=
+ =?us-ascii?Q?DQxznmo4MpjbkQ92Ms7hHD4OiGJV3qq3te5ffeAOhQmOBLI8X7yZGbtLwsM/?=
+ =?us-ascii?Q?MOkSoCPrbITm9lyC49xVdATKzk1DrnDSSUpneCKGGF5vpDB+wLdz6GvG8u4d?=
+ =?us-ascii?Q?Boalq2Uqn+lX8K8jyp6ZMX0sWfjoQZz116rLig++8A1zcinpA0JLI9vB/lu7?=
+ =?us-ascii?Q?pvLW9PGKTfia+g8nvq6kXRoubeiM830UCEbPj0yXoaVRozyliVQR7sltwuW5?=
+ =?us-ascii?Q?uOt9E9JO/fFrM6R54Whh4O1v/tlj6EyCagqcp1qK7GTn7ai8wbW+uIxwwxnS?=
+ =?us-ascii?Q?NqcEY7dwTpvKS5dcpIfbbLwumVGmrPbY2whP/gwfCkb+p4Ww5+gVrB9Z6PZc?=
+ =?us-ascii?Q?Btzkupx07TGNOWMQt2Qir8QbaOpEAvyHFcPamK1lUJMSc5AVbQD8w0pcaxRo?=
+ =?us-ascii?Q?cX0wvnh6TaQ17jTgvKqjlzstng2DHBdCn4sjZgB5Umr1ozfhwjo9Da8HSfgm?=
+ =?us-ascii?Q?eh8triCL2nyAP5tL0pnpUd8VFVR23/a1yVoc2LJvElBmp3Ul1IebfpTO/nzz?=
+ =?us-ascii?Q?FTNdMuIAY+ZgMduOJs/Z2VYFEBExScc5nj80ai0RSGQkV7du5X0DyZIGE+u9?=
+ =?us-ascii?Q?rDRATdaTR8WCo2bfDOaKcBKvstvDEcxbkEoeFNKbLd8Thu+MK+cl9NcFCk0v?=
+ =?us-ascii?Q?Bc2euhF1ZsTg/MVtZNxCY3XRBTcKIc5ceTgaxsvHG3XgXfN3MuZsSrkjcDkC?=
+ =?us-ascii?Q?vykEpDRdakp09iNShb5yC/b0UOdbrH1uYQ838nxqMDhRZYPaLOCrXD0VvRoT?=
+ =?us-ascii?Q?uzRUADPThQzts9E5OFd7t+mwuxy45XAtFzx/5aEcw8MdvTMVwW9wFs2AN3lA?=
+ =?us-ascii?Q?faU481qQxDTf0D2yd7h8IjYdgli6kOo8aBE20kxEeuOT0ag3NneiI4TrYQoM?=
+ =?us-ascii?Q?rljeQzT9cpvgxBfw1Nex1XA8b2YQd1ZRBY9jtczaFOoPcRQWF9UCJ7nyvauQ?=
+ =?us-ascii?Q?uWFCj8vfoMHw2uXGPlH6o39IzqZNp+4wMFQZ/tNNzcY7quC8SiLuBQOZ9P3r?=
+ =?us-ascii?Q?x7uWj6wL3WZrqKgD06BQhae7szBKOC813lScQxNq2GDAh00KLXBdJVPjDDn8?=
+ =?us-ascii?Q?JtrkGDCfAah13Lqn+JffS10it/q5ARMCDB1rVR7N093iz0lhqE+HOwaSzjrP?=
+ =?us-ascii?Q?4OCLuXyhkXRhHnbreDTRSxvI1TYzlKI70c+62+jyhKTEtC4jIFR2Tp5cUeuW?=
+ =?us-ascii?Q?VIQHTTAo9uKfWJlE8ICEazBRduOU25XjweHLQHXp7bG9R6lp+JPOiuLP2UF9?=
+ =?us-ascii?Q?uIrJJBYQmvvZcCQBLAV5D4dS8JFUpB0gVJMu6tI10FAkNnqPCEdCDvybp6HW?=
+ =?us-ascii?Q?OqrjCxrIrPy6ClEP9CzkZGJd8aoGXn15BGj3nH/YJO6Oqbc9T5szBR/OF08v?=
+ =?us-ascii?Q?GE4lkTuZZLLssH3EK/1nF4Cv8m/fHa3lVf0K2kVCz0kxB9c4JtplqoYSRJxG?=
+ =?us-ascii?Q?7X9OMuKUG9d5v+irHzoqZOUUnjDc7osUHoGp?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014)(921020); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2025 17:12:06.3351 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aaf7dcdd-657e-4482-1603-08dd60bfd9c5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9681
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,45 +133,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+This macro guard "__cplusplus" is unnecessary and should not be there.
 
-Alex
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h | 3 ---
+ 1 file changed, 3 deletions(-)
 
-On Tue, Mar 11, 2025 at 7:23=E2=80=AFAM Nikita Zhandarovich
-<n.zhandarovich@fintech.ru> wrote:
->
-> On the off chance that command stream passed from userspace via
-> ioctl() call to radeon_vce_cs_parse() is weirdly crafted and
-> first command to execute is to encode (case 0x03000001), the function
-> in question will attempt to call radeon_vce_cs_reloc() with size
-> argument that has not been properly initialized. Specifically, 'size'
-> will point to 'tmp' variable before the latter had a chance to be
-> assigned any value.
->
-> Play it safe and init 'tmp' with 0, thus ensuring that
-> radeon_vce_cs_reloc() will catch an early error in cases like these.
->
-> Found by Linux Verification Center (linuxtesting.org) with static
-> analysis tool SVACE.
->
-> Fixes: 2fc5703abda2 ("drm/radeon: check VCE relocation buffer range v3")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-> ---
->  drivers/gpu/drm/radeon/radeon_vce.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_vce.c b/drivers/gpu/drm/radeon=
-/radeon_vce.c
-> index d1871af967d4..2355a78e1b69 100644
-> --- a/drivers/gpu/drm/radeon/radeon_vce.c
-> +++ b/drivers/gpu/drm/radeon/radeon_vce.c
-> @@ -557,7 +557,7 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
->  {
->         int session_idx =3D -1;
->         bool destroyed =3D false, created =3D false, allocated =3D false;
-> -       uint32_t tmp, handle =3D 0;
-> +       uint32_t tmp =3D 0, handle =3D 0;
->         uint32_t *size =3D &tmp;
->         int i, r =3D 0;
->
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h
+index 145961803a92..d621c42a237e 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h
++++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h
+@@ -17,9 +17,6 @@
+ #define SPL_EXPAND(a, b)          SPL_EXPAND2(a, b)
+ #define SPL_NAMESPACE(symbol)     SPL_EXPAND(SPL_PFX_, symbol)
+ 
+-#ifdef __cplusplus
+-extern "C" {
+-#endif
+ 
+ /* SPL interfaces */
+ 
+-- 
+2.43.0
+
