@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6949CC282EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Mar 2025 21:49:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A5AC28B2E
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Mar 2025 21:49:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 072DA10E2B7;
-	Tue, 11 Mar 2025 21:49:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F035C10E2B8;
+	Tue, 11 Mar 2025 21:49:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JAH0jHDK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cgLx1dHW";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B7CB10E2B7
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Mar 2025 21:49:06 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB61A10E2B8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Mar 2025 21:49:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wXLPhUByZmfxdecXvwToUO4gd9r1FefIbfandS+uUJeRru+dTnFtcoqeTGfyoLKhBLdycxfhN46Ko9VaegwB2E1+e4K+ehI9Vy+Ang8bmvCedFLGJrDCO0ymvT5+W8Ca7eTAHFLDXRfqsMjHLFWocGmkjnL9GvFiL7bkyfsyhfJdR9TKKUT8jC5OBJgJffwjBCYHlVaggSuRkknZcDahDaVsMBmWz9zUqhSEIKxpGaIbyJQX0OWA7HffIMc4jvjhVy1KRLdZ4QVcEmiJi7Gxhs0BjdfktXTVJhBi+/3KHuNUi3PeShXTsj4Y04ycYc+wch6RPw35K5ysGH0+aRqJow==
+ b=qlijO3y4Prkdrp7ccFPTOpFp4bKg4aW/EYgMJo2or0HIGVcAJEaCIliqoNsQtVnDcq4NGOLj0yaeNQG4G4Ug5F/C/jFPccd+GBk8lzzSnWVZauwcfD1gC4rcM9KOXQHuIo+cVe7oF6Zk3YFBRXQmFVaRgQDVJROX2FRzB74rBJs8Pi8dXCIEg3oBpYYMpPEuwAg2Gx1QG7p3+6K4dvlwASCqcZj3FeQxhxe6VDk5i0mZwxVBUbqZDc2Bt5dH1WWNzqHSOS2B1zoKGwe2u4/dixFA8Qpjs7cY5DAlMylSZZDtasSYgewEG9dj+OGH/HBfxD0mFWLIoihzeYZadFRbrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=alfQODlDjNXikvHMnB2XfRQFbnmvyyzsreiExmv/vvw=;
- b=OOtx5xf3RTTVyr/p4dntJjAgsJ4o+LSBjEdWZ81sXT/awPRzmJKT5DwoB1aJmxJVr1g8vUYogtY6iEpuy8ffX3vtwOm8fQmm/33KwCj48jYA6HGQaaDLHJHqA+lEjVo0I6Mq7xXOdklptKC9qORxSKWN9cU7KXbOeJy14MebLS53We8Stp3YTzbvnyZHXhG+CwYscgQ+ET3gEk7soBWgm1HEFgPNqj/3d+PF+6KHhxWT3UuS0uKZKhGp8bHtO1v7lc3+tfOQvO3wn1tFzhzw3sU/bVr2HF9BUBgH2ub05om2CQl11jPAqvFkvg9HC0+olmGcMTYctGIeFlkPjvWnIg==
+ bh=K0m8h1dBRFjyXHjcvpsxwjOxiiEfVYGINqPKKa5OVsE=;
+ b=ZrKDGP8qksUX0/QSj/0Y0e+J/ORrapqwpX0Zfo59CFg9lONB4xKU7yp5PEyeqGu9RjMlIdCxVf0tk/Ky4KoHvsUBwA0lkuaDtN4lv0MjE8c+gUDJEY4lBXdXrmR5MxCld3BYuSGYbo1Cp6NY5YwpVMwrGNKqWxJC/1+Lfilr1Ww3vVyhYXH2rjDlLK8KxYUf4bkzyhj2ux0FtUEPxzUi5RlP64KvtpL/sFt+4s+3x1iz9tcDS+H3EIUUedIWKGSbMzKVqWmQKOxWAMxFDDz1BRVSJzA6KLALDgUQtR7jaOIpuhku1b0Dm0GpCtPqI1JjNcmnwVawLJvJ9y66m1q5zA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=alfQODlDjNXikvHMnB2XfRQFbnmvyyzsreiExmv/vvw=;
- b=JAH0jHDKxsguUIUmaSACNYT1Hx2QLQj4XmO0coB8Gcc57HIoYIw8uGxIPdBVftEEUhunMh1Pex9M7sROhaokwFVT4riAfWH982WEQYrpc/cmNb/nfsQ1cgWlmPlV8RFLmzS5Rp+Vw7gRku1W7UQIKmlJC412nxd3itU+A3ovPTw=
-Received: from BN9PR03CA0662.namprd03.prod.outlook.com (2603:10b6:408:10e::7)
- by DM4PR12MB6591.namprd12.prod.outlook.com (2603:10b6:8:8e::13) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=K0m8h1dBRFjyXHjcvpsxwjOxiiEfVYGINqPKKa5OVsE=;
+ b=cgLx1dHWckneX2tVdU5oWvlQ5j/Y6eEaazjbkA74vlMLynuovyA0drBUaoMVBqGpxB0dGv20voCEr7fJOOE0izWFaZjStpntiWLG9RwQWtad0rA/QmiJkB454PeS7OzLkUCQuxSpH1kZE6Qs77rdr5+VIFD/wO6lNNk3pxfX2xo=
+Received: from MN2PR20CA0005.namprd20.prod.outlook.com (2603:10b6:208:e8::18)
+ by IA1PR12MB8191.namprd12.prod.outlook.com (2603:10b6:208:3f3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Tue, 11 Mar
- 2025 21:48:52 +0000
-Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:408:10e:cafe::99) by BN9PR03CA0662.outlook.office365.com
- (2603:10b6:408:10e::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.26 via Frontend Transport; Tue,
- 11 Mar 2025 21:48:52 +0000
+ 2025 21:49:06 +0000
+Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
+ (2603:10b6:208:e8:cafe::e3) by MN2PR20CA0005.outlook.office365.com
+ (2603:10b6:208:e8::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.24 via Frontend Transport; Tue,
+ 11 Mar 2025 21:49:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
+ BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Tue, 11 Mar 2025 21:48:52 +0000
+ 15.20.8534.20 via Frontend Transport; Tue, 11 Mar 2025 21:49:05 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Mar
- 2025 16:48:50 -0500
+ 2025 16:49:03 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,10 +63,13 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
  <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
  <alex.hung@amd.com>
-Subject: [PATCH 00/11] DC Patches March 11, 2025
-Date: Tue, 11 Mar 2025 15:42:01 -0600
-Message-ID: <20250311214618.3106637-1-alex.hung@amd.com>
+Subject: [PATCH 01/11] drm/amd/display: Check pipe->stream before passing it
+ to a function
+Date: Tue, 11 Mar 2025 15:42:02 -0600
+Message-ID: <20250311214618.3106637-2-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250311214618.3106637-1-alex.hung@amd.com>
+References: <20250311214618.3106637-1-alex.hung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -75,52 +78,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|DM4PR12MB6591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b09e284-4254-4768-eadc-08dd60e68393
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|IA1PR12MB8191:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c8e9323-25c3-44d6-d76e-08dd60e68b98
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/UL1gHSJyTnpuWrA2vSvYC7KEPqQSOI5iEiYUtf5vla5kY2Mytd6ukLMSviU?=
- =?us-ascii?Q?5rpKzSD+r/bSQuRQ7nZqYLKml9l3VsPHPpf1cXsYKT9kypYGeJu8+CnJ99hL?=
- =?us-ascii?Q?hPCPxQWFV8moWcWH3ZUhX5lxd5GJv/a4dF/iz+ch7SPxwtgHjW9YE4LE/Ceq?=
- =?us-ascii?Q?ydbHgPd1UBuXf6O19Eaeq2orv+8uO05MCnXjdGGGKuHZf8CtXcHjga60/kLs?=
- =?us-ascii?Q?So8kTqNzmIJFSi22siPRT6XaSUTclj3T111LOtxxN5vPPOhuhsxMTVjZPOw+?=
- =?us-ascii?Q?2UsJNSVaY/U902eMcsHqFNPyBbzrT+vnpsGaoNH6pMn8wlJej4fsY0LWtyEQ?=
- =?us-ascii?Q?6F14EDdu+0vqCu/4nHCwgd7OE61qPqRdDmJOMpfnzslLXCOnd2WnDBpitGTW?=
- =?us-ascii?Q?Tq5Iub6R0lvk8ObX7yX9x5wIJ+IRPdsJCkMXV1hZvxw4hNFRa4DMZXd3RQeb?=
- =?us-ascii?Q?voE8iNBJ0sIi0V3PKWHqrwVHURNZp9Esq1+QeZA094VLzwjUUchuYuD5mC7R?=
- =?us-ascii?Q?+jIVtmcQ6FQTCr+Rz51/wjFblengSTh8aEdjgacUXCKPYeq0pO6yCjzsKHP1?=
- =?us-ascii?Q?d7OVX8bDfj+gesKIFPh5FlkG7z1Ws9SsTGzXb4FpR792F0wM8C8Y0IS22UQl?=
- =?us-ascii?Q?MGgRqlJBGJPkPYKzqvQbLXpGZwNQUM9uJST/N2luTglP9bEjRU8PllcGEc8u?=
- =?us-ascii?Q?tMKPRFLlBAb+Hxm8KRuD8WR6w10Z4cgzGQVSiyoGIGTOyfXN1Ixf7qPdtToW?=
- =?us-ascii?Q?CJFVMA52W91WcVByNphtHGBZYLodszdsWX4RV2c+gieOVCgsxtR4xLkvKnku?=
- =?us-ascii?Q?VDmdEBKssC6vXKD5CzqJ2jGaadRLqw5Tt4gwdmaZZeMOQprZU+I0GOFOmjh1?=
- =?us-ascii?Q?8ia36Oqnx5loGyMGRVOhxZcfIo1b2kxUzN6dUi1YEO0PzR0LvMYz+/YdGTRQ?=
- =?us-ascii?Q?nTcdo3kYxeecBOrhKUa2/aHwmaBYEcOdsy+s2k4BTrmkIFWSmLtRNhnCXE+X?=
- =?us-ascii?Q?6etMIew3O/NTzEP+i0emayHv7cKBPXcMYwy67TIRqdQbEkhBbfTFIyb3a0hX?=
- =?us-ascii?Q?CKgd1LYh5nIg9143gxm9/UY5FmiX5bKkC62+sohIiHyrWKYeJrchFVPMYivA?=
- =?us-ascii?Q?yXDFdYo41vrQAS0zLgvAd9Uu1BYQxUJs/0wRII0IebJgoZFX5MU/KomFtB1+?=
- =?us-ascii?Q?yovq06/gwflyXFsduYN67yc8aVmazfcpJeCyfJF7myhSWxLWjkGzLQ7yGZEy?=
- =?us-ascii?Q?/lRGOolSF9zRFLeeS6j2hwwlBI55ZY9IXSasToBj7gXaCs4cKl3ArQJqWFGb?=
- =?us-ascii?Q?QzonxcHm6HSw/mNVix7NCbUqD6rSYf9m6jA0obTdubjoOLVOROR3GT40mkcQ?=
- =?us-ascii?Q?ljOasdMwXhhOyiInxrPDGtGF/Bh06lJ/7rE+VXvl9aRM1i5uDGWOPsgoylBs?=
- =?us-ascii?Q?CNWjMpoZu7sKHoxELv0sdakmuB19FN4HhoLWamiUZg0Qf5B8/bzpGp9ky9Pw?=
- =?us-ascii?Q?57LTBVJkl04M8vY=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ncS3EvNeBJ2hcaLBpuVq8LFX7KVfPUiKWA6deb1vqN13I/WjGcSmyTFJxRT5?=
+ =?us-ascii?Q?0lHX3I95tDBfDbv7UyXsJO8LhRUldgHlPHFXkMbdASYH68jHJvUfiGJo3Ozf?=
+ =?us-ascii?Q?YJXaBdhc3v3qOnSRMpux7JlzNyxO31IfuCGCroBbX9k1YP6TPOugXfnzvazG?=
+ =?us-ascii?Q?XK6klPKdfXbwF3PxSa4HuyWQlqKOZHACojWGIyb0Rp+U5rrw01kRQll/gLL2?=
+ =?us-ascii?Q?Is4iNp9Htp8rufSr/UHU8Fr38QSH36BtaQz/dcTXSUZNWqGVhCc4ZwgoWQ7y?=
+ =?us-ascii?Q?SUED6wOJvanaAEHLYyYdOEQMy4xctYPHx+mt4ar+esV16WWvl+pfQ2eEPP2r?=
+ =?us-ascii?Q?Qdc/1534l8D0LVCvud59ow3QM5BCCBKBNLq/Kmcfk1hdbv1/C0AnnsV0egdR?=
+ =?us-ascii?Q?ET7Q6P/kQ4bEtb1gUeoWu0PQh37CkXkN8cWhZIc3Z3vnoeGgWax9r3oI4cR3?=
+ =?us-ascii?Q?q2XxO4WD5M2sMX1FDLXI4oeEVmh7M22hf9wfHrjh4hkabdiWx+2z1pQ/dWWA?=
+ =?us-ascii?Q?xF+ZXewwQp14cq48Y5CRaehTX7UgCqyvCewH9/3iTLt7qzXxYUu9JLWK4Bj8?=
+ =?us-ascii?Q?Fa2uL0pZTcGLV7HH+yWdeVklTuBQYyXJ/tXCTHuvTKdmYcINnwpWmHctxn+P?=
+ =?us-ascii?Q?dkYRp8LYSittwjc9KDfbTa2DGSEs1A9Qxh+z9V6FutHdXNWfQv9gsUbMW0/n?=
+ =?us-ascii?Q?h3b9Qr6PbV15/xJQV1pGYL85ar6oiGBM7ktG0327CfJBcxBWVOogddQoheol?=
+ =?us-ascii?Q?Kw88DkZUzsTUUiyzrD6SbsWWPEs7rFK8vJKheOIiFO1aKCxZ4XdkufyIr36B?=
+ =?us-ascii?Q?V/9kJLSZ8kfanYe/gylqpm4ocwoh7MmMzNZbqrFPfoi2GWPnR8f8klUrv3XW?=
+ =?us-ascii?Q?mmIB6UM7AriXt1qoxD7fyd8ofWLQGiOnqYfE0RCQ/pUSVr03tc8m/AG/aLLO?=
+ =?us-ascii?Q?fXWylanwwIVgyIEPhqLZZLZDMuHKi6T3Hn83BCkESNATzzXrVq3o4JSnths4?=
+ =?us-ascii?Q?hiXz4D4Fb8iACg/WUryJoOePuEEIYSfVZwKGIrbEaeKjHXHcGW9goYcsl0d6?=
+ =?us-ascii?Q?YwEb6w+7V71mrJqsOUfjHzF4SNEebhLX/hWwaNx+UrqFAS8bruGedmi9k8xB?=
+ =?us-ascii?Q?KwI4iyuiwLEexeTGQ3uQmtyeJNWOar+vHrT7IsEtjJW6PagTsIBltDMeFlMr?=
+ =?us-ascii?Q?8Z4kuYbla+TfsfBWDcOvyz3tnIinfjyaprRGBggYTGavwtcMMu4y/RVJVF2f?=
+ =?us-ascii?Q?y4gDB0i03unqTjUkhxntlHu24XJSOcMm8wxrIsD8p/Gq1jfYR/LiZ0MG97WS?=
+ =?us-ascii?Q?XTef092NLtFberFT+0Pr/PKoYB0X+lnMmC4UcYKviRTjI5mlDKgt5sfkt4Yl?=
+ =?us-ascii?Q?6NmSK7/MUwelH1xGe87SPl56qdO7fAhjRpWT/j3/Lu1JvdqgUc/8KF4Y+HfB?=
+ =?us-ascii?Q?O8W1RzmrjKVZnrt8zJqlI3Oko6MPnaSMw9OiMcGeiaSGSg3LfOWT6g=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2025 21:48:52.2263 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b09e284-4254-4768-eadc-08dd60e68393
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2025 21:49:05.6803 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c8e9323-25c3-44d6-d76e-08dd60e68b98
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6591
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8191
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,73 +137,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
+[WHAT & HOW]
+dp_is_128b_132b_signal dereferences pipe->stream so it is necessary to
+check it in advance.
 
-* Fixes on DCN31 and DML2;
-* Enhancements in DMUB;
-* Improvements on DP, eDP and others.
+Also fix erroneous spaces and move a variable declaration to top.
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
 
-Alex Hung (1):
-  drm/amd/display: Check pipe->stream before passing it to a function
-
-Charlene Liu (2):
-  drm/amd/display: Update static soc table
-  drm/amd/display: Use DPM table clk setting for dml2 soc dscclk
-
-Cruise Hung (1):
-  drm/amd/display: Change notification of link BW allocation
-
-Dillon Varone (1):
-  drm/amd/display: Revert "Support for reg inbox0 for host->DMUB CMDs"
-
-Jing Zhou (1):
-  drm/amd/display: Guard against setting dispclk low for dcn31x
-
-Lo-an Chen (1):
-  drm/amd/display: Fix incorrect fw_state address in dmub_srv
-
-Mario Limonciello (1):
-  drm/amd/display: Use HW lock mgr for PSR1 when only one eDP
-
-Ryan Seto (1):
-  drm/amd/display: Prevent VStartup Overflow
-
-Taimur Hassan (1):
-  drm/amd/display: 3.2.325
-
-Yilin Chen (1):
-  drm/amd/display: Fix message for support_edp0_on_dp1
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 +-
- .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        |  20 +-
- .../dc/clk_mgr/dcn316/dcn316_clk_mgr.c        |  13 +-
- .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |  15 +-
- .../drm/amd/display/dc/core/dc_link_exports.c |   9 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |  18 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 185 +++++------
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_helper.c    |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_types.h     |   1 -
- .../gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c |   3 +-
- .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |  11 +
- .../gpu/drm/amd/display/dc/dce/dmub_replay.c  |  19 +-
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |   2 +-
- .../amd/display/dc/dml2/display_mode_core.c   |   2 +
- .../display/dc/dml2/dml2_translation_helper.c |   2 +-
- drivers/gpu/drm/amd/display/dc/inc/link.h     |   4 +-
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  17 +-
- .../drm/amd/display/dc/link/link_factory.c    |   1 -
- .../display/dc/link/protocols/link_dp_dpia.c  |   1 -
- .../dc/link/protocols/link_dp_dpia_bw.c       | 193 +++--------
- .../dc/link/protocols/link_dp_dpia_bw.h       |  18 +-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 132 +++-----
- .../drm/amd/display/dmub/src/dmub_dcn401.c    | 121 +++----
- .../drm/amd/display/dmub/src/dmub_dcn401.h    |   4 +-
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 299 ++++++------------
- 26 files changed, 362 insertions(+), 734 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index af722519a1fa..142de8938d7c 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -204,6 +204,8 @@ static void dcn35_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *
+ 		struct link_encoder *new_pipe_link_enc = new_pipe->link_res.dio_link_enc;
+ 		struct link_encoder *pipe_link_enc = pipe->link_res.dio_link_enc;
+ 		bool stream_changed_otg_dig_on = false;
++		bool has_active_hpo = false;
++
+ 		if (pipe->top_pipe || pipe->prev_odm_pipe)
+ 			continue;
+ 
+@@ -225,20 +227,15 @@ static void dcn35_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *
+ 		new_pipe->stream_res.stream_enc->funcs->is_fifo_enabled &&
+ 		new_pipe->stream_res.stream_enc->funcs->is_fifo_enabled(new_pipe->stream_res.stream_enc);
+ 
+-		bool has_active_hpo = false;
+-
+ 		if (old_pipe->stream && new_pipe->stream && old_pipe->stream == new_pipe->stream) {
+ 			has_active_hpo =  dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(old_pipe) &&
+ 			dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(new_pipe);
+ 
+-		 }
+-
+-
+-		if (!has_active_hpo && !dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe) &&
+-					(pipe->stream && (pipe->stream->dpms_off || dc_is_virtual_signal(pipe->stream->signal) ||
+-					!pipe_link_enc) && !stream_changed_otg_dig_on)) {
+-
++		}
+ 
++		if (!has_active_hpo && !stream_changed_otg_dig_on && pipe->stream &&
++		    (pipe->stream->dpms_off || dc_is_virtual_signal(pipe->stream->signal) || !pipe_link_enc) &&
++		    !dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe)) {
+ 			/* This w/a should not trigger when we have a dig active */
+ 			if (disable) {
+ 				if (pipe->stream_res.tg && pipe->stream_res.tg->funcs->immediate_disable_crtc)
 -- 
 2.43.0
 
