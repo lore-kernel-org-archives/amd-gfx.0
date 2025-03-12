@@ -4,148 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA59EC28B28
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Mar 2025 15:06:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30CFDC28B28
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Mar 2025 15:10:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46F1110E0F1;
-	Wed, 12 Mar 2025 15:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C509D10E163;
+	Wed, 12 Mar 2025 15:10:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3BcZCHpy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VB926uBA";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47CE910E0F1
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Mar 2025 15:06:40 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA87A10E163
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Mar 2025 15:10:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PkxjyAevp0Iak3eGNZioAFHASZKSM2S/VlqoPf2kPCuLhWm1mWiuw19ZTviPZKY0x0aMlfkKrpJzuDCHsqxSSqj4MIW3EuqS/4Iey0AfsOMATXptHFGhFYHQ4ZZL24Oykik2k0Zfd3Bb5GT+jnwzbUZDABohvw0sEpfhthdgXLW3jE6Uq6DrNeTD15AyIGHLICx/nQ6YTiEPywlPg18OiRqX1G10kIK6o2fwocXQ76Z9HzKXfBTaNOrMx0V8UykPOvTLK467c0org6yaonGjCAaKHTmLTJysPOLxZhrQGYwtLRADCr5+/BKrmDi/GedMNzdFV2pS69LSd6ZIlECfnQ==
+ b=rCLoywMqZYuHloq5Vpdnw7iGaW0IrnadWopraInMjVLCsC89GMGi9SatQFCTwLZPUpcnD+emcRmzaYqXVIFLg2JPlHr87dxoCuDNTr6OS6a0uMVXt/KJf1MacUZHI2HSdJB7sPQPT2BjChVqrsKRIj0sh8rzm6rU8CLn2/F3UhVbJ4FU+1iCD+t15Fd0lZyfPJQOCngNnyISHcGdsCJy6NUtiD5Y0gv3cvYEnDrhoZwCxLX8zSpcpmxKrXrVizI5Moi2cODoRx7ti/Zkmdy6wh+xELZSEAqp3L5XqDxL1jHlrH8h8hTu7tVb1kCmDiUNN62flVxtULnh5jukiXddUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=foWQIRSa08gS3ovvV5urLvfvEGlKXxduZcJqPaS1bE4=;
- b=FEBVFM8FDFI2fMkjZBjJTXPNmfQOeNwM1GFEFUMfSfoAuyH9XTOVFCg01rdpkjJdwaNezg8XE+ONhw0y92J5a9p5kiprZKOvG2bipp13JDDBGrzRE3nXH2n20akG4invJ6SNBAa88E0cAycivunIOheOmBlpzSQDnAtq3ZIngFOQut+k3dw62NBDGc6HdH/V1ImkQQJU46MAWYuAR2o8gP0NrRfqox60gxprzv+VHdH5WSKfPQbAI/YFIG6vI62rxffpH9yNu/lcrIZ0zBfllllAk3O9Z30FB0grpYi99u2HGD6Oz20KfKI+mPWf0DLRIq2QVeXfmhz8v/ZAjptNYQ==
+ bh=IUY+hIhGL5ZTtdcKXtD6bN319zvqElvW3WP9F24OoP4=;
+ b=eBNRxwbxiqkeBSaMjz9RmbUbt0yeJgmgafb0JrC8Qvrcz8w44TGxkXvTzQevU8v/5pLLO1Evf2Qjp8JxkdrslDsRQluBcOEGVn0fcj+a+mJM+aSwLzdKyUKfmOHTFHMcbqG5IitPvD5hS8wEJC/Fta8ygs0KGu4Q/3aoBDe7UOyWz029iWUj9ZxoscUN5auhW5sEJkcC6/hfsngBfW8YnPpNUwoUb2PmL1usW+k2EWkd4FBF0Qu5qBw7YUEpNrO3G1dyVZIGEdFc+qOfG1S0p/jizMI04l8JmgRrbaO0fMYfoCwozhKnU3BWfjlwzPTanPBVc66WOsQMqO7Lqt+f1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=foWQIRSa08gS3ovvV5urLvfvEGlKXxduZcJqPaS1bE4=;
- b=3BcZCHpyEBDlYJn74L3cO3OC1h+YXfbzx1gQ0MhrZOIOAiOs9zX3ovpUj7gjrhltXUM3dUTGJv2fUjDNh46gpEVlmblnKvLPE94FOtRK4DR0Y8SrURH01VNFBieFB4YeTijht9eDYi82/7tMknrK1owPNya/ud/WNV6uxRQNqnw=
+ bh=IUY+hIhGL5ZTtdcKXtD6bN319zvqElvW3WP9F24OoP4=;
+ b=VB926uBAM1UK4rbo8WP5o8MOaoWeQab2iI9IG5Fee6Bz7eubZrO0/8+H6CmjVcjUcQuFdk5iuqoU8m0o/Zg2zjKVI0MuyfqupcvYMtlo8f9OMwMhRgIVTS7G3/7rHC0WCLmyIZ7d1Rq4ioqagVREGeN37jHr9XLe+Vhg4GX6zYM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by SN7PR12MB8103.namprd12.prod.outlook.com (2603:10b6:806:355::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Wed, 12 Mar
- 2025 15:06:37 +0000
+ by DM6PR12MB4353.namprd12.prod.outlook.com (2603:10b6:5:2a6::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.28; Wed, 12 Mar
+ 2025 15:10:14 +0000
 Received: from IA0PR12MB8208.namprd12.prod.outlook.com
  ([fe80::14af:1677:d840:8d2]) by IA0PR12MB8208.namprd12.prod.outlook.com
  ([fe80::14af:1677:d840:8d2%5]) with mapi id 15.20.8511.026; Wed, 12 Mar 2025
- 15:06:37 +0000
-Message-ID: <d16eb6df-8a40-4afd-8099-c218fd43aabc@amd.com>
-Date: Wed, 12 Mar 2025 20:36:31 +0530
+ 15:10:14 +0000
+Content-Type: multipart/alternative;
+ boundary="------------qM9GG6b5GbGUS04tjoMCutP6"
+Message-ID: <f42ac493-af98-468b-912d-af4b9f821449@amd.com>
+Date: Wed, 12 Mar 2025 20:40:09 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/8] drm/amdgpu: overwrite signaled fence in amdgpu_sync
+Subject: Re: [PATCH 6/8] drm/amdgpu: stop reserving VMIDs to enforce isolation
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
 References: <20250307134816.1422-1-christian.koenig@amd.com>
- <20250307134816.1422-3-christian.koenig@amd.com>
+ <20250307134816.1422-6-christian.koenig@amd.com>
 Content-Language: en-US
 From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
-In-Reply-To: <20250307134816.1422-3-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SG2PR02CA0006.apcprd02.prod.outlook.com
- (2603:1096:3:17::18) To IA0PR12MB8208.namprd12.prod.outlook.com
+In-Reply-To: <20250307134816.1422-6-christian.koenig@amd.com>
+X-ClientProxiedBy: PN2PR01CA0147.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::32) To IA0PR12MB8208.namprd12.prod.outlook.com
  (2603:10b6:208:409::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|SN7PR12MB8103:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05bf2688-10d8-41bd-6b41-08dd61777c2e
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|DM6PR12MB4353:EE_
+X-MS-Office365-Filtering-Correlation-Id: e83f9278-a94e-4657-c378-08dd6177fd6e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?S1dJb1V2YVJjN1lGV3FYSTVtYWRPZVU3czd5WU40N29DdERXcnhqN2lqZHFR?=
- =?utf-8?B?aW0vMGNQN21ONUZjQVNWNm1ZRndzWmI0TS93MksrcjRqYUZqRUt2enFnTnda?=
- =?utf-8?B?ME9XMDdycmlxUlRXdmZIYy9UeHhJT2toaUhNbUNFN1J5OWNoODd4MHluVDll?=
- =?utf-8?B?UzlvSk83eDJYQWkxUHBEY3BFV2tTc01jaFJxWjQ4QStBTDZPZTlGVkpQUjZJ?=
- =?utf-8?B?YnZNWWRFbGkydFljeEVyTE14UVFKdkp1ZzMrOEJiVGRzWFBPZXY3T1lLSTdV?=
- =?utf-8?B?ZU1FS1NsaUJJVkNSVU44UXhnZENkZXVjNHBqNXY1aGZGOS9ZcFVpR3BTQy95?=
- =?utf-8?B?bGMwZEhSU2tSSHl5YzRhODFkRVhwdnNGQ044Um9ydTlhcE9GeTNXZzBJL0t0?=
- =?utf-8?B?NEFVQTFZT0FMd3pmZGZGZ1VFL1RYSVl1cDJMeUhPVHE3dU9TT1I3MDQ5Z2ZL?=
- =?utf-8?B?eXg2RjZTUlBEbFVvNkU0RmJUakcwN0YzdUdVVlhoa0pXNDZ5WHFkZ1hmV0J3?=
- =?utf-8?B?MGQrbkE0VlNaTEJqQmh4Tk9zNmJNeUZzUlk1amlHOGxlUVBVdUcyank5MDZS?=
- =?utf-8?B?ay9nZmJXVzRreWl0R0E4VFZwUndMeGFVeW93d0p1bnZEMllwYjIzck4zQkZW?=
- =?utf-8?B?OGVaZGkrczdxYzZnWEdvd0o3TndMemVUMXI2MEVHbjkySU9nRXFSZTJMNzJr?=
- =?utf-8?B?MFpKUitkZ2UrckJ2a285RTNteWt2dGhPYXZQNi9sRFFSTmpwajVJdnNLRGJQ?=
- =?utf-8?B?VThVMmZRSE0xeDVrcUluSGhKbnVmcGUzWFN2VVNEcnpEcmpZbklWNEhLVFFU?=
- =?utf-8?B?dEJuWmxSNXR4RDU1a3lzSHVJOHFlQ2ZmenVUWVZkK05uMkNCUzFZdkV1dmN3?=
- =?utf-8?B?SHh4M09pU3hXbEllekU2dklJTWFwM0FkRkNTaHFGeVJ6bzN1WGxvMStKUU95?=
- =?utf-8?B?TjFKYzhEOTgya1hma0Y2MXlOd1c0VEdSNTgvWUd3TWcxL1ZxT2ZyaVZzdDh3?=
- =?utf-8?B?UngrOHpRd1N2K0JmejN5aEJ3aGE5QjZvdlBlUHozWXQ0UjdzOTdpQUVMZy9N?=
- =?utf-8?B?OHhYdHFPMnJSdE9ReXY5VUJyNzV3cDRKVDNsZ1JCdVFqWE01N0hlUWFLbCt4?=
- =?utf-8?B?OXZtck9OUWQ0cEoyYmNpRGFad1RVbitldW0rYjZmRkxBSjdpbTRySFFXcjJz?=
- =?utf-8?B?VUpMdWpkZDRnV2ZxVm9PZmdDbTlBUHlFWnRuTFdLZkRMY1JwZ3Q1UUdXZjFn?=
- =?utf-8?B?ZGs0QXI2V1puUDY5V3B1U2hCM0FGam5SeVRmbDhHTmhnTzVhWkZMTzZiemR6?=
- =?utf-8?B?RnVDRFZ6ZVVyajNPUDk1bm1wQWRUaldNNW84eW8rNExUYzF2emI1NjhzYjdP?=
- =?utf-8?B?Z2l2NktYSjFOd2VVZTZLdm8rTEVrRDUvNGY0eXhZRGZWRFpCT3p5V0NqZDh6?=
- =?utf-8?B?V05EY0JtWGc5S2twdERBMU9qbmtCbmpzTDVtVjJ3OVcyeGlNQXBYcERtYVY2?=
- =?utf-8?B?R00yRm8zai96TnNCOWtwVHZGSmNpWUtBSElNSVJ2MFE0YjI0RmNoY0RVNGtM?=
- =?utf-8?B?NEhjdzZNMno0NlYxVHU1VFE5cmhBaElNczh4RG85dFRhQ28ydGY1SjQrQUlD?=
- =?utf-8?B?VEQ5RUpWSkFZcjM5NzV4MTdjdFdUMk1DSlIrTmZXVHJkVWkvV2pBK0MrYzRW?=
- =?utf-8?B?aEQyNER4bmkwemh4cFhqNHRxaCtySmRsMjFIbHpsL3h1TjdXNURkWUhXMzNz?=
- =?utf-8?B?ZWZacW9FVXY3NG5kTVVsWVdDbS9JQXVGK2lURzcxUTlFT3lmZEJjMjB5cUdU?=
- =?utf-8?B?T09ucTRZWnhUMXlJd2tpZEhORVhYTmkyMzRNYnJVcFFEc0NwTmR1M1NPMFNP?=
- =?utf-8?Q?SKmCHa0gUtg0F?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|13003099007|8096899003; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?R25sT3FjWHlNWENRTzdGRE14TGRyTlB4LzdlVEhkbEJWemk0Nk9xV1hsSXBX?=
+ =?utf-8?B?VFd0eVo4QkNUWFJuZUZOSVZFbjU1dkFaZmtsNVZxY0ZXRnlyVWI3UnloQm9y?=
+ =?utf-8?B?bTdzVnRob0NNMjFrN2wzMmtQbWRQOEdlMFdGSS8wZlNuNjdvc1Z1ZnlwL1Jh?=
+ =?utf-8?B?YVFDdE9mTGpmS1N4YVFnREUxQm9Wb05TL1JUSU9XZ0xScjY3cGs0QjJoemEr?=
+ =?utf-8?B?NVpoVmJzQkl0ZmFubjJwYUIzNkdYUGQ1YlhpUEloZVZTOFY4dzJqMnhjOXVj?=
+ =?utf-8?B?bWlUZHZZY24rQi9PbGZsRWRIN3VTaDdwNE5xWFREOE5BQTI0SzBkVndDWW5p?=
+ =?utf-8?B?UWhyMU9pOTlFVjRsN01ZQ0MrQ2lrU1NwVzJqSi9rb1daeTBEOVhHK2puNWwv?=
+ =?utf-8?B?bEQ4a2RnR24wTnJMUGd4U2RzNWEzQkc3bmhiRXBBa010dHg4WVdLRlpTc24v?=
+ =?utf-8?B?OTFQNzBCSlFlZXpPeHN0Tlh4Q29FS3VvS296alIxa0NjTGphUTdYYmo3Wmk2?=
+ =?utf-8?B?elQ3TDUxN0VXUDh4ekVPNkoxZTN5ZzRQT24yaHl5eUxrOWd0ZmZYVm53T0hH?=
+ =?utf-8?B?ZFl6ZHloRXpLTFVlMDREU2ozUDFyd3ZpcjJGZjg2ZFY5Y3JzSXl1TU95YzYv?=
+ =?utf-8?B?NmEwdGZFSW1OZlBNY0MxemhQZ2Z6MGJRYVloSmJNZ2g1TW50c1QzV1FUYWtF?=
+ =?utf-8?B?V0wxZGdMZFhtRStpT0VPcEJHRGFiSUVNWnlUUGFUK2RwUUdJZk8rNDBJT3hE?=
+ =?utf-8?B?KzRWbkdKd3J6YlJUWEFDRnRFSGl3Q0tuZ2QrSnlqVDk2N2tTQ29BdWZoSWZh?=
+ =?utf-8?B?VWRrLzNBZFVoUEJnM08rc3BicVdaczNrMm8waVdmVkFwdUFQcUx2WWZTakw0?=
+ =?utf-8?B?S09IdkNkTTFUMTFXb200V1RPU2U2V2hCTzV2T00yRWZGcDQ5c1Y1RVZFMjF1?=
+ =?utf-8?B?TEFrTlA5cHh3L3JWWFVlUWNUV3FwamE2YnF4S1QyTHZLMDdmSzlrd1pwOFNI?=
+ =?utf-8?B?ZWtuUTBUQ05EemJkN0I0SHhtbDRFWlM2ZW1uZ2Zjd2g0djdzV2xCOGZZc3Ba?=
+ =?utf-8?B?bFFPeGJ1OUdvSlJPQ2NsYmk5cExyOUhlelJ3UVF3Q1Y4TEZYVklJRHlWUmdS?=
+ =?utf-8?B?MjhWMjNpejBISW4xSUtQTGNnNm5wcGNZaHZqdGY4dkNBOTNEU0U0VnN5ZnNJ?=
+ =?utf-8?B?ZTVQeUdQQStzT2pvTmJMOXpGaVNyalZsdGt5aXBzenNpNit2L0xQU0pMcEcy?=
+ =?utf-8?B?d29QUWZ1SlpTSWVUSlZkYVJhUHl1cWVlUTJGT3N1M1NQcHdGT1VJQTQrTkhK?=
+ =?utf-8?B?OG5paGk1Q09INEU1TW1EU3BybjRYUkh0YlVxNGU0ZGJPL2lzNk93bm53NUxQ?=
+ =?utf-8?B?OUV2ZHB0TGp3VDRpRjhlSTNseUF4QWQ1aDhlZTN4VTE5M1d0WXUvZzg3eGR1?=
+ =?utf-8?B?MldhamlJMHdUVFFNNG1vR2JlNGlEWWRaVGU3Z2FIakxzRmpCM3g0MS9XbzI2?=
+ =?utf-8?B?dTN6RXNvMkwweGpianFOeGFoR21ZbU8xN05aNjlzYjZOSmxwdmtDSzdiUEg0?=
+ =?utf-8?B?aHNDM00vMm9vMFNvWDhRRFlqbEhIMXZiUjJCbVBsMG5PSWRrZTJkVGZSSTZN?=
+ =?utf-8?B?TWJydklVdVM2VkFiSkYwMmNlUVJFY1lNZ3VaSFVsNG9GSnVTZCtTVnd5M3Iw?=
+ =?utf-8?B?QXd3MEJMbE1XREdjQU8wVkQ4Zm03YnE4c2dQdDFVZVgzemZpcHYrM3N6eVJ0?=
+ =?utf-8?B?S281Mkx2S1dzclVuSXUrM1QxdFYreDBxd2VPL1dMejBpOFZHY2FPMEtTdnFD?=
+ =?utf-8?B?SzRLT0xKeTMzMW8xdS9Qdz09?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(376014)(366016)(13003099007)(8096899003); DIR:OUT;
+ SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dXNUMGlCVE10QkxjbElXUkJXdnAyaElNYi93QUxUd05OUkRqaDloK09ETHdQ?=
- =?utf-8?B?cHB0MkQrVk1QZTFyM0w4ekZncjVMU25TM0xaUHFnN01ndGxtM2xITkxkTFdx?=
- =?utf-8?B?a1k3M0ZPV2Q1ZjJxaXhTV1FjRFB2bWJUcWtRV3Z2RG1GVldqeDJEK25JUzU1?=
- =?utf-8?B?RElYNXUxN2lXZ2tpdjNFN2lUKy9pRjd6RkcrUEQ0Q2J3SDJ5dHQ5RzZSRzdV?=
- =?utf-8?B?QnU2QlFCelZKNlBzMy9zbnFxakxlQUdrYUEyV0RQVm5DRXViTU4yQ3pmbDNx?=
- =?utf-8?B?VHJWMDFFVXUzQlAyWlNsV1ZTUkFSdUVQTVlZT0JJQ1YzUEsxeGZSOFVlc3lW?=
- =?utf-8?B?Y1JmRlBaZUFueWt6bWNVY1R2Z1A4Y0ovWmdCRnVCd0xZQ0pidW8zd1pVeHBF?=
- =?utf-8?B?MmdhMkRNR3NnZG5oYWphWkdiTVJpVGJtNEFtQVc3UnNUSUZtVkltOWprTnYv?=
- =?utf-8?B?VjVGOUx6Wllkb24wMTZveC9vaXJVOFQzRDJ3S3R6anIxVnoyK1FKOE0rUHBL?=
- =?utf-8?B?SzhDSC84Mk1JWXBrWklsem41bEhvY3hLemRxajM1UTZDdzBsZzB0WElvM01l?=
- =?utf-8?B?L2ZXSEhGa2pacWZJdEFsRFZoc1hHc0oyQ05UVXdKdnRXdDlJQUx1MnVtaXg0?=
- =?utf-8?B?MDVvTTFhRjVJcnVxY1JtbXNPai8xZy93MHl1WUVqNlBSQzcvV1RFaktmbVZO?=
- =?utf-8?B?aUJUYktxM2x5UEJ2U0p5RHRkL2JrOHRjY3FVRnI2U2NPaDdQcW0xRVZlcE5k?=
- =?utf-8?B?TUM5UFUyT2VZS2Q2ZDNoVVBWdHg5NThPcjZ4WmRON3FCb1NhUzdlN250ekpW?=
- =?utf-8?B?QXNrS3V2NFhMTlArL0pQdWFPQUZQTnFCRWdmQjlnOWIvRXp3SklvVDJEb2Ux?=
- =?utf-8?B?Zm5zWndIL0tXNGFKNG1sNVZNem15QldtbUVMdWNXdmRKeEZmL3dtOXdTUUpZ?=
- =?utf-8?B?aGlxWmtLTlRkS2RZeVJ5QlF5TXVNWnNoRitrSHFmN3YyZ1ZKWjI3VTZHbVdk?=
- =?utf-8?B?YWdxaHM4MmJzZ2hDUndUUGxHRG4yZHJHUFNmSlMzc1RvWXgxMGNEVzJ0NmE2?=
- =?utf-8?B?UlR0Si9jQmE3WW96U0RnSG4xL0hNS3dLcDJWOHkvUnY3L2ZCRHFMY3N1SG54?=
- =?utf-8?B?QnUrWFFPMDZiUEN5RGJSNXI3WmIwenBISGoyOUk0K0FKZkpFajEzQVNxMlVB?=
- =?utf-8?B?Q2J4MmJqUGRVQVZxSEhHMlIrVEdycnFYYkZycytKei9vUkMwbjliVnF4Mkl4?=
- =?utf-8?B?ajNIZmZsdWJwVG5LRmVtN2pmaTR4RHF3QldMdzBBVlU4TTBTSU01Q2Rkbmlh?=
- =?utf-8?B?cGZGdW9kamtLaVZzaVdaNXJmbVd3dnBzR200Wk9nZnh3NWVBUUNRb0JMRWN1?=
- =?utf-8?B?Q01PZzdmTlFCbFhVdWpqZ1htdXc5Ky9BcTk2d0JNOG5BZHBYYWN5d1N1MVlt?=
- =?utf-8?B?SVJaOVNDUytHV2ZVTHFRRnFjV0ZabUwwWHN5eXJtQnJxcFNFWUh3SERlUDBW?=
- =?utf-8?B?cHZqczVOQ0xyMWlmUS9kUFFDYUl3WktISWFqeE5hWTZzVHUwSXI4anlsNzJI?=
- =?utf-8?B?UnRWendvUUV6VVdqa2hCWnc2R0MvNWJZZk93S2JxRTgrWFFNRCtMcVBhckd1?=
- =?utf-8?B?MWNab0wxUnh3ZkJRNzV3Q3N4NG5iTmViZFV6eHpQMXBBUnRyOC9scmlwdDVi?=
- =?utf-8?B?VEZZMlJVUzRETk11bEhIMlk3a0M0ZDZwcDlyVUFaaElRQWY0VUVDTThOTXJj?=
- =?utf-8?B?RndrZEMxZldpeENKMlpuaktrelVCTHNzaGtwU01QUFlzUXY5ZUcvcHN5Vy9S?=
- =?utf-8?B?c081a0tkOUdqV1dlQXNKUFZFWEdTbmhoS09xb01vdHFUeWcxZWNFa1VrT29T?=
- =?utf-8?B?NmNzb0RBNDVwUmRnZWs5QVNtWXQ4ZWR6UGRCcTVKblhmNlNLUDlzekpYQXVI?=
- =?utf-8?B?aGhjeFNjRmk2YjNCRVBmVkIrS3duaktnNVJYUkVpaXozVG9TRjBFakFxU3V1?=
- =?utf-8?B?THdOMDFoMXYwbmlLbXV3VEMzakg3WFRoTFZpVGxUMDlxVFNkWlMyWkIvcy80?=
- =?utf-8?B?cEFFaFI5SXhaZnUxMU43VkV1UTNSaWVUMVZLeGpSTW9IZHlQT2ErVk50MHpJ?=
- =?utf-8?Q?zB0q0TalAyP5DK0AcUBMeaN7S?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnB0V0RlRmhFUEdtZDZiTnlvb0FaTFhjNkk5WnI5OWN5ZnZnV1MxT0FoRERP?=
+ =?utf-8?B?RzRIdXpYbVpvNGc3TnFHemN4Y2M2ZUY0M3F2ZG5MNUxpVG1VZVB1bXJXTHdy?=
+ =?utf-8?B?cGRpVWFSeHBBNkVHb2VsVGdqN0pJYlE3NFhyMTZRZXNFbTNKdHNCUTBzOU9x?=
+ =?utf-8?B?THlMVGFvenBxak1SSnA4U0NvQjZTTElmenhPMlAyWTBTajB0VGVIcWk5ZTQz?=
+ =?utf-8?B?bmF5UHVQRE9pTHZsaS9Qd0xMWkticHNsc2V6cDdNeWtPbS91NlR3M1plaUtn?=
+ =?utf-8?B?bnNrYkY2TldqM0dYZ0lhdndYRGorelJxaDZRQkVjR0c1RWlGRGhmVlVtU0tF?=
+ =?utf-8?B?WGdBN2E0aVlUem5ZYzBXUnlGaVVOZStTU28vSmVvVnNmRlRtZWxhMkQ4d0ZU?=
+ =?utf-8?B?MmpvMStYYW9XRGxnVUhkUG9tVE5HVFV6ekJhWU1KeEY0Y0pqbzltbUtzOTc4?=
+ =?utf-8?B?YXY1a0JJcnlnWDU2SGdBR0ZML3B6c3kvUzdKaTJNSnk2UTNiMldoM2pqUGd5?=
+ =?utf-8?B?KzNJN3BjcVpUTy94OUEvWXg1MDh0RE15WndEUUdPcEZwSkF3Tk1pK3FDMEZF?=
+ =?utf-8?B?cUhWN3NheUgrRlUxdGNxbkVXSHJEVU5HbkljMEI1NWxURk1BdnArRlJNbm1h?=
+ =?utf-8?B?cjBmWTkxZW5pUVl6VFRDN2dpbnFPS1JVNE9yVFNQT21KV2l0Z0VZcS9ZSmkw?=
+ =?utf-8?B?a1VncFp5L1NPMWtIdnJSQ2xUMnBUUGZ1ZUhvVUxJNllDM2xseEZTVTZjUXpa?=
+ =?utf-8?B?QStDZElSWE9VWUZ2MzdNMWJPU2o3Rk1KYjFMSmlmTnFvNkhzMnlJT29IdE1v?=
+ =?utf-8?B?M0pldTdsclB1RUVpWFJ1Yml6ODJ4MUI2THRsZDNxaFJPOVpVeGRweDZUYnBO?=
+ =?utf-8?B?SXZVUzYrZ2dTNm1aaUhxUWFaMlJiUFJlbVM2Z1RMUVRFWFVMeWt1OUhYaUFW?=
+ =?utf-8?B?aEJwZWhOUDZnYTJTMEdMR2tTek1hZXF2WXNBUE9zTzZqdnR2ZVVURlc1RVI3?=
+ =?utf-8?B?UEF3NlB0S1ZtOGdqUXk5cWpBZXh1Yjg5cmIxL2E3dlVLUVNtN1kvUHlTOWJq?=
+ =?utf-8?B?S1dJOFVoZ0VOdWdpa3lGL3phQU1PdzdVbWRwQjJWMFJHVlFLemo0dkx2OWVo?=
+ =?utf-8?B?Slc3K2dYVzgxVmExVFVJU0YyNDNwWDlxYWg3MGtsZnhNNnBJZWNGcnpxc2dL?=
+ =?utf-8?B?WnN4NDlOWE5KejRTUXZNN0hRSFFTc0Z1eUdURlRWeDhpcENnN2RQdWRmbmVB?=
+ =?utf-8?B?VEJPanhxd3h4ajF0TVcrRFZzVUhtckFGM29GcWtYd0Q3KzNoWU9IQUNWMDgz?=
+ =?utf-8?B?d21kSEE0MzFMMXJSM3JIcXg0MjBCcTVSK09PTFA4bzlMV3hDa2hmWklnOGdM?=
+ =?utf-8?B?ZlRwMWVQcmM3dUtMUTlOOFV6elFSVHNYaDM5aXpOT0o2WXJBQkxVaDlEZGJv?=
+ =?utf-8?B?UGRvUFVUU2VYTXhoZktDYTU3RkZEYWlkeCtGK01jM2Q3d3YzaXpYTTF5NS9i?=
+ =?utf-8?B?TFZsNDRnbXJwMTVTUTRMbEZCaDdPU1ByMUs5ckx2aTg0YmhPU2xnWU1BWnpt?=
+ =?utf-8?B?TFY3MDhkZmRXUE9zUTJVc2h3OG5qVHJaM1dFRWU2WjNmemczTEpVdzJRQjEy?=
+ =?utf-8?B?dnJxTHJQTENCVVh2NmpIbzgzc0lRQlhvS0xhZVFid2FyMWFsUWJoekhtRkgy?=
+ =?utf-8?B?L3REWSt1ZDhjVVd4K2VpQWVvRCt1YkpvenhhN2lpeHJ5MnBtQ3RnWFMrOHZL?=
+ =?utf-8?B?bGg4cUdnV1J0ajNXeHcyLytRNHdVT2E0RUZrTkl4RElhYlQ3eFU3Zk5tVW5M?=
+ =?utf-8?B?SURqL2c4Mm5FdWowdVZvTjN1Z05vWjJXb2FOYjRoU0FoKzY1TWRyZkVEZXMx?=
+ =?utf-8?B?dmZuZWRzeVY1b1hmUExMblZYL0hlUEhhUitWb3JhaUlUN0M0NVFSd0xqSW9C?=
+ =?utf-8?B?ZWw5ZTNlWHZJOGIzZVV2Q3VVbU9Sai9mZHlUNjYzOXhqMnY4ZnM4MEQxNGhs?=
+ =?utf-8?B?ZmRPRVc0VHBqZXlBUlhRTW5NaFFtVFpaODgzbE1OSnhiZmk2L3Q4UWE2a1U1?=
+ =?utf-8?B?TFErZWR4ZFRkZVoyeGZUOE84Y3U2NEYvcVZWTElPTFRsLzFkTnNUWjRYaGVH?=
+ =?utf-8?Q?/JHEeJMwKc6yXZ7zy1sUYkYYT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05bf2688-10d8-41bd-6b41-08dd61777c2e
+X-MS-Exchange-CrossTenant-Network-Message-Id: e83f9278-a94e-4657-c378-08dd6177fd6e
 X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2025 15:06:37.2486 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2025 15:10:14.1094 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t4dA9cVz1w5Y2byWPSYYhrjx++w4osRQed3gF4J14zLQnsuh4YJyR+ssUPAhO6g3EjvE64OnBl01ErdBXTXAgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8103
+X-MS-Exchange-CrossTenant-UserPrincipalName: k967ybaqTEjKLYxL5w1GtLRLoj5bre3VoYyDfz1W2GSCYKu1Sp7h4qkHr26s0bPG2wQU1jvBzmn6TPNKx8+54w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4353
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,48 +161,254 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--------------qM9GG6b5GbGUS04tjoMCutP6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
 
 On 3/7/2025 7:18 PM, Christian König wrote:
-> This allows using amdgpu_sync even without peeking into the fences for a
-> long time.
+> That was quite troublesome for gang submit. Completely drop this
+> approach and enforce the isolation separately.
 >
-> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Christian König<christian.koenig@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 13 +++++++++----
->   1 file changed, 9 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  9 +--------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 11 +++--------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  3 +--
+>   4 files changed, 6 insertions(+), 19 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> index 86c17a8946f5..bfe12164d27d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> @@ -135,11 +135,16 @@ static bool amdgpu_sync_add_later(struct amdgpu_sync *sync, struct dma_fence *f)
->   	struct amdgpu_sync_entry *e;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 2ce0c6a152a6..4375e5019418 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1111,7 +1111,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+>   			struct drm_gpu_scheduler *sched = entity->rq->sched;
+>   			struct amdgpu_ring *ring = to_amdgpu_ring(sched);
 >   
->   	hash_for_each_possible(sync->fences, e, node, f->context) {
-> -		if (unlikely(e->fence->context != f->context))
-> -			continue;
-> +		if (dma_fence_is_signaled(e->fence)) {
-> +			dma_fence_put(e->fence);
-> +			e->fence = dma_fence_get(f);
-> +			return true;
-> +		}
->   
-> -		amdgpu_sync_keep_later(&e->fence, f);
-> -		return true;
-> +		if (likely(e->fence->context == f->context)) {
-> +			amdgpu_sync_keep_later(&e->fence, f);
---> The call to amdgpu_sync_keep_later(&e->fence, f); ensures that the 
-new fence is tracked for future synchronization., ie., so If the driver 
-only replaced the old fence without keeping a reference to the new one 
-of the next job or second job for example, it could lead to situations 
-where the synchronization state is lost. This could cause race 
-conditions where one job might proceed before another job has completed, 
-leading to errors. , so this is  " amdgpu_sync_keep_later(&e->fence, 
-f);" done, for tracking purpose of next job/second job, if we have 
-multiple jobs in gang submissions of same context/client, is my 
-understanding is correct here pls?
-> +			return true;
-> +		}
+> -			if (amdgpu_vmid_uses_reserved(adev, vm, ring->vm_hub))
+> +			if (amdgpu_vmid_uses_reserved(vm, ring->vm_hub))
+>   				return -EINVAL;
+>   		}
 >   	}
->   	return false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index a194bf3347cb..9e5f6b11d923 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1665,15 +1665,8 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(struct device *dev,
+>   	}
+>   
+>   	mutex_lock(&adev->enforce_isolation_mutex);
+> -	for (i = 0; i < num_partitions; i++) {
+> -		if (adev->enforce_isolation[i] && !partition_values[i])
+> -			/* Going from enabled to disabled */
+> -			amdgpu_vmid_free_reserved(adev, AMDGPU_GFXHUB(i));
+> -		else if (!adev->enforce_isolation[i] && partition_values[i])
+> -			/* Going from disabled to enabled */
+> -			amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(i));
+> +	for (i = 0; i < num_partitions; i++)
+>   		adev->enforce_isolation[i] = partition_values[i];
+> -	}
+>   	mutex_unlock(&adev->enforce_isolation_mutex);
+>   
+>   	amdgpu_mes_update_enforce_isolation(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index 92ab821afc06..4c4e087230ac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -411,7 +411,7 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+>   	if (r || !idle)
+>   		goto error;
+>   
+> -	if (amdgpu_vmid_uses_reserved(adev, vm, vmhub)) {
+> +	if (amdgpu_vmid_uses_reserved(vm, vmhub)) {
+>   		r = amdgpu_vmid_grab_reserved(vm, ring, job, &id, fence);
+>   		if (r || !id)
+>   			goto error;
+> @@ -464,19 +464,14 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+>   
+>   /*
+>    * amdgpu_vmid_uses_reserved - check if a VM will use a reserved VMID
+> - * @adev: amdgpu_device pointer
+>    * @vm: the VM to check
+>    * @vmhub: the VMHUB which will be used
+>    *
+>    * Returns: True if the VM will use a reserved VMID.
+>    */
+> -bool amdgpu_vmid_uses_reserved(struct amdgpu_device *adev,
+> -			       struct amdgpu_vm *vm, unsigned int vmhub)
+> +bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub)
+>   {
+> -	return vm->reserved_vmid[vmhub] ||
+> -		(adev->enforce_isolation[(vm->root.bo->xcp_id != AMDGPU_XCP_NO_PARTITION) ?
+> -					 vm->root.bo->xcp_id : 0] &&
+> -		 AMDGPU_IS_GFXHUB(vmhub));
+> +	return vm->reserved_vmid[vmhub];
 >   }
+>   
+>   int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> index 4012fb2dd08a..240fa6751260 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> @@ -78,8 +78,7 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
+>   
+>   bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
+>   			       struct amdgpu_vmid *id);
+> -bool amdgpu_vmid_uses_reserved(struct amdgpu_device *adev,
+> -			       struct amdgpu_vm *vm, unsigned int vmhub);
+> +bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub);
+>   int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev,
+>   				unsigned vmhub);
+>   void amdgpu_vmid_free_reserved(struct amdgpu_device *adev,
+here we are trying to remove process isolation based on VMID's  this is 
+because the constraints that we have limited number of vimids, that 
+could be assigned to limited number of clients, now we have switched one 
+level above, that is rather than enforcing isolation on client VMID's , 
+we are directly applying enforce_isolation onto clients, but not on 
+client's vmids,? so based on my this understanding we have removed the 
+enforce_isolation based on vmids in this patch6 & now we are doing 
+process isolation directly on client based on 
+https://patchwork.freedesktop.org/patch/638081/?series=145031&rev=1 
+<https://patchwork.freedesktop.org/patch/638081/?series=145031&rev=1> 
+ie., based on patch4
+[4/8] drm/amdgpu: rework how isolation is enforced v2, we are doing 
+process isolation directly based on first client ie., based on who is 
+the first client or first owner & then after completing all jobs wrt 
+first client or owner , then it is switched to second client or next 
+owner? is my understanding is right please? ie., based on 
+"amdgpu_device_enforce_isolation()" function
+--------------qM9GG6b5GbGUS04tjoMCutP6
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/7/2025 7:18 PM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20250307134816.1422-6-christian.koenig@amd.com">
+      <pre wrap="" class="moz-quote-pre">That was quite troublesome for gang submit. Completely drop this
+approach and enforce the isolation separately.
+
+Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  9 +--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 11 +++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  3 +--
+ 4 files changed, 6 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 2ce0c6a152a6..4375e5019418 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1111,7 +1111,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 			struct drm_gpu_scheduler *sched = entity-&gt;rq-&gt;sched;
+ 			struct amdgpu_ring *ring = to_amdgpu_ring(sched);
+ 
+-			if (amdgpu_vmid_uses_reserved(adev, vm, ring-&gt;vm_hub))
++			if (amdgpu_vmid_uses_reserved(vm, ring-&gt;vm_hub))
+ 				return -EINVAL;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index a194bf3347cb..9e5f6b11d923 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1665,15 +1665,8 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(struct device *dev,
+ 	}
+ 
+ 	mutex_lock(&amp;adev-&gt;enforce_isolation_mutex);
+-	for (i = 0; i &lt; num_partitions; i++) {
+-		if (adev-&gt;enforce_isolation[i] &amp;&amp; !partition_values[i])
+-			/* Going from enabled to disabled */
+-			amdgpu_vmid_free_reserved(adev, AMDGPU_GFXHUB(i));
+-		else if (!adev-&gt;enforce_isolation[i] &amp;&amp; partition_values[i])
+-			/* Going from disabled to enabled */
+-			amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(i));
++	for (i = 0; i &lt; num_partitions; i++)
+ 		adev-&gt;enforce_isolation[i] = partition_values[i];
+-	}
+ 	mutex_unlock(&amp;adev-&gt;enforce_isolation_mutex);
+ 
+ 	amdgpu_mes_update_enforce_isolation(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index 92ab821afc06..4c4e087230ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -411,7 +411,7 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 	if (r || !idle)
+ 		goto error;
+ 
+-	if (amdgpu_vmid_uses_reserved(adev, vm, vmhub)) {
++	if (amdgpu_vmid_uses_reserved(vm, vmhub)) {
+ 		r = amdgpu_vmid_grab_reserved(vm, ring, job, &amp;id, fence);
+ 		if (r || !id)
+ 			goto error;
+@@ -464,19 +464,14 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 
+ /*
+  * amdgpu_vmid_uses_reserved - check if a VM will use a reserved VMID
+- * @adev: amdgpu_device pointer
+  * @vm: the VM to check
+  * @vmhub: the VMHUB which will be used
+  *
+  * Returns: True if the VM will use a reserved VMID.
+  */
+-bool amdgpu_vmid_uses_reserved(struct amdgpu_device *adev,
+-			       struct amdgpu_vm *vm, unsigned int vmhub)
++bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub)
+ {
+-	return vm-&gt;reserved_vmid[vmhub] ||
+-		(adev-&gt;enforce_isolation[(vm-&gt;root.bo-&gt;xcp_id != AMDGPU_XCP_NO_PARTITION) ?
+-					 vm-&gt;root.bo-&gt;xcp_id : 0] &amp;&amp;
+-		 AMDGPU_IS_GFXHUB(vmhub));
++	return vm-&gt;reserved_vmid[vmhub];
+ }
+ 
+ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+index 4012fb2dd08a..240fa6751260 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+@@ -78,8 +78,7 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
+ 
+ bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
+ 			       struct amdgpu_vmid *id);
+-bool amdgpu_vmid_uses_reserved(struct amdgpu_device *adev,
+-			       struct amdgpu_vm *vm, unsigned int vmhub);
++bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub);
+ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev,
+ 				unsigned vmhub);
+ void amdgpu_vmid_free_reserved(struct amdgpu_device *adev,</pre>
+    </blockquote>
+    <span data-teams="true">here we are trying to remove process
+      isolation based on VMID's&nbsp; this is because the constraints that we
+      have limited number of vimids, that could be assigned to limited
+      number of clients, now we have switched one level above, that is
+      rather than enforcing isolation on client VMID's , we are directly
+      applying enforce_isolation onto clients, but not on client's
+      vmids,? so based on my this understanding we have removed the
+      enforce_isolation based on vmids in this patch6 &amp; now we are
+      doing process isolation directly on client based on <a aria-label="Link https://patchwork.freedesktop.org/patch/638081/?series=145031&amp;rev=1" id="menurlkr" href="https://patchwork.freedesktop.org/patch/638081/?series=145031&amp;rev=1" rel="noreferrer noopener" target="_blank" class="fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn" title="https://patchwork.freedesktop.org/patch/638081/?series=145031&amp;rev=1">https://patchwork.freedesktop.org/patch/638081/?series=145031&amp;rev=1</a>
+      ie., based on patch4<br>
+      [4/8] drm/amdgpu: rework how isolation is enforced v2, we are
+      doing process isolation directly based on first client ie., based
+      on who is the first client or first owner &amp; then after
+      completing all jobs wrt first client or owner , then it is
+      switched to second client or next owner? is my understanding is
+      right please? ie., based on &quot;amdgpu_device_enforce_isolation()&quot;
+      function</span>
+    <blockquote type="cite" cite="mid:20250307134816.1422-6-christian.koenig@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------qM9GG6b5GbGUS04tjoMCutP6--
