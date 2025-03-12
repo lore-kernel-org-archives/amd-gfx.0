@@ -4,72 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D358C28B28
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Mar 2025 18:52:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F8C0C28B28
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Mar 2025 18:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39B4A8825B;
-	Wed, 12 Mar 2025 18:52:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD1EF10E161;
+	Wed, 12 Mar 2025 18:57:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V934DOyG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1TMCDFoo";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 348B310E15D
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Mar 2025 18:52:49 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-2ff6b9a7f91so54062a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Mar 2025 11:52:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741805569; x=1742410369; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dT6zlSkdP1LOEOHl2O0oUwOvULQYcxin+fKLwAiy5lg=;
- b=V934DOyG/3RPvG2gfjtT4czwbpSTeUtQ0RVmssvc7WxzgwkceiNJ5C3l13QVjJc8U5
- MIEj/gDr4rJTWmBqYwKDAr5zQxeiJqdhZAHCIMr0zwGCqY9sGMI1mF9UhW8WBOBRT+n/
- uKUIRulfd1OJEhprSCImts6dgbC1fSLxmXG7/SDHQaRuKJrSbaWhYpkRYES+6dJm3ah/
- XUXTxKZn0ORdy8zxNH/QJbK+u21M6gPWVDcrbbVZprLxmnyxogPzv5ihff++X3NniQ2P
- QgmTFYAIeTt8lxY5guuO4LuC7R82Gnd7O/dEc70ZMDlm17s8Aiys/Ps98UZiZQ/pMRfB
- R0sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741805569; x=1742410369;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dT6zlSkdP1LOEOHl2O0oUwOvULQYcxin+fKLwAiy5lg=;
- b=ZNpUzHSbouYtuRupvxyeiHR9bySgvPjp3kw/G2DJ/DZJTPEjcZZxgnNYsy7tR0uIIO
- AvessVXiF54ZndXsOq/UWYmrNxMekvsoR58NPy+08z9c8vhZN4r9CV3bFragdwKkz9Ev
- 5niZV+OqsuQeqISadnN9GmSMqXx/yMGxZPstHNsZP0SwLz2ycswnG66GQ7c72qdc/249
- YcChZ0W0h2b4kde61+PfyqeDyUY+XRXpxprPMlQ4EpGcx+kncpEYXkkWL8mwTNLM6QMA
- bVG5ZT8vZ2VuTurBUo1IHnQPJy/W/nlL8lt3Q7Ox5h4e9Efj/b+B5JkJJz679Vo5smjd
- 4DOw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVVYvqW20fe903VR7b1tZQzAmnMqsgX+p7ALNnpZys/d85/LgijiS//hcxF8Eu3lXAhHbPFbvhW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZyHzyQpz/6yHFTYryucg7JD1lKvr7MO8TuSK3xCrOqufEOx/w
- ONYRHoJ8NrA3gYrVO5yoA6EVt13A83dJ2PILAPuUOwGRkVNcYUbK9vPTJ6zN/J8mkA5ejvNH2XK
- 3pqAK/M1WOeFeu6OXBBpnm/P9qqg=
-X-Gm-Gg: ASbGnctTxfx7weAlDLRaCZOxC5bQWkpTuG0XZHc3IMAWCZNV07TjqOd1O+Eegh5KBHJ
- 3X9biIk0no78I5Ha5l5Y7tyv4dtsojCrS6AgRAqz1Edzj1g5imWEYARVMEplRF9Moh2sKMDqdoT
- 5TPTxA4YgHzjUjtOyRLI1xrTn3bYjg+puhiYeo
-X-Google-Smtp-Source: AGHT+IEPdT/nuirCRBemYthe8mkccLZvZ8LZBo/ZEb36stIjbsL2FWzj9zqT/ouD7bQ6EgxP+5pON3LGDNdbf1M1kQ0=
-X-Received: by 2002:a17:90b:2241:b0:2fe:b77a:2eba with SMTP id
- 98e67ed59e1d1-300a2b6fb91mr10119655a91.1.1741805568696; Wed, 12 Mar 2025
- 11:52:48 -0700 (PDT)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C88DA10E191
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Mar 2025 18:57:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=byQKMMroSyDgGonHt5w1DpXTHlQD3rNAsHx4qdEGjhCH0L1A9dCbFB6ycaBAZ22NDFPEPoS5QJRC+T/UIrzY65S0jW/hRf4usdpmZPAQ8W9LvNYfAq+DffLW/h77NQ8lFNDa3tvrzhKO6lwtw+AQ/nUjgZOS9IlvGSG3ppC22+2QgTcQAcyM1/l/tBfro8ZhEDG9z4DLwMxFi5MDBpiZudmZbyb+g/iTaYBOf+irHopVeGjF4tAfsptz7Azjdwq0BW5o0cwkw7HGb3ZSFao5qXpRMW+Gl45Gc3QUptNw25JrsBDq6MkvoN6vSCt1VzEVSMTAm92vGNpBFEQXOSQyCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qMkTru1v7lqHByn8T2Y3NKWgchWY9j8TQjhgoOJikOs=;
+ b=IMPswDJ6Bqgz7EFD7dfMegqAM9qzZAQiwacTYCg3Rf9wUe8b6oEawvn2eW33jNljyxYZtCWO/bB3vJ3U8ZyFPEsNp4tH2qJtkB1AxZ4z3DkxKKKz+U1YXo+6qDg2TCXds5tYr+Cg4lg/ZV/LpSsRJmkFoVH+SkTFl8QL2+IMoNs8qWGNksw7x4UVVAF8ax6CF0jFPxxbvT94JB92DU1CnB4MTANlvK/YWTaEek76+hJh6rpfZ1139WK/wkGUepDDPndWT3pdwLgI0IkJlrkGZInJ6fPVAAJbd9KvvtYu5HFIiBI2UyF7tOZJCKT1VYjlf0kU9bjaXIy+8BQu7Hrdig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qMkTru1v7lqHByn8T2Y3NKWgchWY9j8TQjhgoOJikOs=;
+ b=1TMCDFoo7wCEQE46o+8DEV/wnL0/o9QWG4Ffdm/tx/B/C67dtjk7Um/OSa5saGGUX58H+QtKUpGYsZlMXew9pluoBjDJYTlJbdBlMe7pffzXzMvkeL1A9Lf+BpMBaPtqTGj/YrgMs+x4xoEfCbx5zPjOpB5Uakbctv3/Sf5p7DI=
+Received: from DS7PR03CA0236.namprd03.prod.outlook.com (2603:10b6:5:3ba::31)
+ by PH7PR12MB6659.namprd12.prod.outlook.com (2603:10b6:510:210::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Wed, 12 Mar
+ 2025 18:57:46 +0000
+Received: from CH3PEPF00000013.namprd21.prod.outlook.com
+ (2603:10b6:5:3ba:cafe::8f) by DS7PR03CA0236.outlook.office365.com
+ (2603:10b6:5:3ba::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.24 via Frontend Transport; Wed,
+ 12 Mar 2025 18:57:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH3PEPF00000013.mail.protection.outlook.com (10.167.244.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8558.0 via Frontend Transport; Wed, 12 Mar 2025 18:57:45 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Mar
+ 2025 13:57:44 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH V4 00/11] Add disable kernel queue support
+Date: Wed, 12 Mar 2025 14:57:20 -0400
+Message-ID: <20250312185731.211350-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-References: <20250307151605.946109-1-alexander.deucher@amd.com>
- <20250307151605.946109-4-alexander.deucher@amd.com>
- <DS7PR12MB60052B3DBC10717066711791FBD12@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB60052B3DBC10717066711791FBD12@DS7PR12MB6005.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 12 Mar 2025 14:52:36 -0400
-X-Gm-Features: AQ5f1JqAyaIyCFBRfoiV1hD9mOKwDs7nu_zuKi2yoG8ahB3USf5kmNGCxcBDdWU
-Message-ID: <CADnq5_PjnZ43FQSMzMXJ+Ns9sqPxjzywS=-QxLnrYA9pZ=FAFA@mail.gmail.com>
-Subject: Re: [PATCH 03/11] drm/amdgpu/gfx: add generic handling for disable_kq
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000013:EE_|PH7PR12MB6659:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f110e79-698d-44ba-1939-08dd6197c67a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qVX5qavfPhD1fIojDjztEWQsOVrAHvSoT63XlgcBj94G0PGpJZQWyKiGluZ/?=
+ =?us-ascii?Q?KTtsPyFZFOUsATf6t5OzY8GJemZtaeZgzyNOK1iNbIkdVlrpi/nGqVKTsTFr?=
+ =?us-ascii?Q?NdybypQkF+rUvSPD79JOxMpf1XgFOj4HRhWHTkUMNd/oYPOOUIud+oQNsAMY?=
+ =?us-ascii?Q?p543FrL7YIvAWyTYAmTecS+ZIJqjzXTiogALxIS1kbu9DQROgTlORzVvukLV?=
+ =?us-ascii?Q?iIZG6n6yNNEwdiDwgFlJ/oTytCr/IhcnsEZ/fEDQKbPN6nONgqCEQTSiwjOE?=
+ =?us-ascii?Q?I2q5OogjxM2hfat5jXGz76UGQW8HX1KCyFISbk6rxWhfbfxOALWgEK+it8xO?=
+ =?us-ascii?Q?u84ifGsnHt9ydJa1Knk5Bq/yVseJmkxs+IOxjp4uw2UJuL/wmhrnLKs2fW5M?=
+ =?us-ascii?Q?R+fgq1cAeWIJ764vRTlJ1csXzGgPEGafzkCAW0d88LRny70Jhj2CGeLkmojf?=
+ =?us-ascii?Q?usw8OPQ1VnXW3gqBQGlrhcrTqq2rt5zk8SflHETop/uL9+vPlxNAXs6gAjMA?=
+ =?us-ascii?Q?wwHO0sO55Qc5C8NRdU9vthNirQu883pavQJb5krD+JUJ1bviSc9A6KHZIv9E?=
+ =?us-ascii?Q?yHzrE/dqBKSlxFXUILQW00aJ80sqYOyITokSPh1uDrqfbnVvbE3k4QO2sUMH?=
+ =?us-ascii?Q?XnmWNm5InwT1MXGU39ilPOunHW7R6XqBhrfdDkHVhHiPjYkvfCcGd/PNwsEo?=
+ =?us-ascii?Q?3cl0QLINstkLVUi/pVOqtgmSz3qSy4jH8XGjv4rG+HQVC1j2jmYTXSeXt8VT?=
+ =?us-ascii?Q?riIMKMTEKWL2kGg5w9Y2x/Elc8qQOYEfKa64y1mAaJPLxcmp2XUEGkisQDMt?=
+ =?us-ascii?Q?giy5gxcCMNENT1zsaDXis4Y9+zY191bkZ2L8BJBt2WtclQXftJyRkj+4IhFd?=
+ =?us-ascii?Q?R+wl5BCIfDFui+hm0QFZ42pTK6ZRGyqh1kqYk/G6UEgno4ppQ+hFWbB5wP52?=
+ =?us-ascii?Q?3iI8QsdzDnMJsUcuz3h5Mz3LK4OgsPz+husgC1wFq5jbn78IOV+zqVOfxEnN?=
+ =?us-ascii?Q?3GhPmU/IzNguthBrAk1E5aWUpBVol34ohc2d2wQ7URNUYlAOMlJTUKaBljYA?=
+ =?us-ascii?Q?hhOBBqijWXPtp+qUtfTknQp5NvtDPwVX6midjY92qyePiawnlmQcx7KodNV0?=
+ =?us-ascii?Q?jjPnG3hAjzQ0/RNwdfP1bEw3yRx6pyREsZ538mDTL/Q2O68bM6zNWNbibM7T?=
+ =?us-ascii?Q?B6yKLSPip2CLD8YnED1OoLB16CE3YbUDNSM7xlJCNomR/fZUb9O6z3yqilFp?=
+ =?us-ascii?Q?3j3Z/nhVfSabvrmFJBIB/fKBNPQC4ieLzgcKMb5xX6QN+1hqUBGduTLbNCit?=
+ =?us-ascii?Q?MqS2xa1ZRr8DR+vEerGENY7SnLxQe30zYPsY9LiWNRYsPJNLe11eZzGqIVsB?=
+ =?us-ascii?Q?quGKZ9qnJ2ujqXkadMLvUAMrzWR3Ml9IsNShh2PX81TZmGSFjYvcTThkgGVC?=
+ =?us-ascii?Q?tTZm88lP+CkSuDWe+SmuDMvFhbZVp5l+YR7PoH1Nc3GUXbBXoobNnj6KMgAZ?=
+ =?us-ascii?Q?0tMeG+qOPy8jI5Q=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2025 18:57:45.3700 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f110e79-698d-44ba-1939-08dd6197c67a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000013.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6659
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,89 +130,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 11, 2025 at 10:18=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com>=
- wrote:
->
-> [Public]
->
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> > Deucher
-> > Sent: Friday, March 7, 2025 11:16 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Subject: [PATCH 03/11] drm/amdgpu/gfx: add generic handling for disable=
-_kq
-> >
-> > Add proper checks for disable_kq functionality in gfx helper functions.=
-  Add special
-> > logic for families that require the clear state setup.
-> >
-> > v2: use ring count as per Felix suggestion
-> > v3: fix num_gfx_rings handling in amdgpu_gfx_graphics_queue_acquire()
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 8 ++++++--
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 2 ++
-> >  2 files changed, 8 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > index a194bf3347cbc..2c78185a33218 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > @@ -258,8 +258,9 @@ void amdgpu_gfx_graphics_queue_acquire(struct
-> > amdgpu_device *adev)
-> >       }
-> >
-> >       /* update the number of active graphics rings */
-> > -     adev->gfx.num_gfx_rings =3D
-> > -             bitmap_weight(adev->gfx.me.queue_bitmap,
-> > AMDGPU_MAX_GFX_QUEUES);
-> > +     if (adev->gfx.num_gfx_rings)
-> > +             adev->gfx.num_gfx_rings =3D
-> > +                     bitmap_weight(adev->gfx.me.queue_bitmap,
-> > AMDGPU_MAX_GFX_QUEUES);
-> >  }
-> >
-> >  static int amdgpu_gfx_kiq_acquire(struct amdgpu_device *adev, @@ -1544=
-,6
-> > +1545,9 @@ static ssize_t amdgpu_gfx_set_run_cleaner_shader(struct devi=
-ce
-> > *dev,
-> >       if (adev->in_suspend && !adev->in_runpm)
-> >               return -EPERM;
-> >
-> > +     if (adev->gfx.disable_kq)
-> > +             return -ENOTSUPP;
-> > +
-> Maybe here need to disable the flag enable_cleaner_shader as well?
+To better evaluate user queues, add a module parameter
+to disable kernel queues.  With this set kernel queues
+are disabled and only user queues are available.  This
+frees up hardware resources for use in user queues which
+would otherwise be used by kernel queues and provides
+a way to validate user queues without the presence
+of kernel queues.
 
-We still need it, but the MES runs it when switching queues rather
-than the driver in the userq case.
+v2: use num_gfx_rings and num_compute_rings per
+    Felix suggestion
+v3: include num_gfx_rings fix in amdgpu_gfx.c
+v4: additional fixes
 
-Alex
+Alex Deucher (11):
+  drm/amdgpu: add parameter to disable kernel queues
+  drm/amdgpu: add ring flag for no user submissions
+  drm/amdgpu/gfx: add generic handling for disable_kq
+  drm/amdgpu/mes: centralize gfx_hqd mask management
+  drm/amdgpu/mes: update hqd masks when disable_kq is set
+  drm/amdgpu/mes: make more vmids available when disable_kq=1
+  drm/amdgpu/gfx11: add support for disable_kq
+  drm/amdgpu/gfx12: add support for disable_kq
+  drm/amdgpu/sdma: add flag for tracking disable_kq
+  drm/amdgpu/sdma6: add support for disable_kq
+  drm/amdgpu/sdma7: add support for disable_kq
 
->
-> Thanks,
-> Prike
-> >       ret =3D kstrtol(buf, 0, &value);
-> >
-> >       if (ret)
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > index ddf4533614bac..8fa68a4ac34f1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > @@ -483,6 +483,8 @@ struct amdgpu_gfx {
-> >
-> >       atomic_t                        total_submission_cnt;
-> >       struct delayed_work             idle_work;
-> > +
-> > +     bool                            disable_kq;
-> >  };
-> >
-> >  struct amdgpu_gfx_ras_reg_entry {
-> > --
-> > 2.48.1
->
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |   9 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  30 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  |  26 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |   1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 191 ++++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 183 +++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   |   2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   |  16 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   |  15 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |   4 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |   4 +
+ 17 files changed, 345 insertions(+), 155 deletions(-)
+
+-- 
+2.48.1
+
