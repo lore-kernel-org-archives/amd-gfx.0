@@ -4,149 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69565C282DE
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 19:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07826C282DE
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 20:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E17F310E0D1;
-	Thu, 13 Mar 2025 19:35:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DF310E948;
+	Thu, 13 Mar 2025 20:53:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ryfXGYvl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PtEDAvIM";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2068.outbound.protection.outlook.com [40.107.95.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDAB410E0D1
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 19:35:56 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9240110E93E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 20:53:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XuaRemRGZ+lwGtpakv+NRW3Pmz5Nb+i17xiwjnlAUTxUEJeVcYg+BZ0Fv2/GtzQ1tYupPk4QVWsfe8OyOXHUTF7fq7v0AMzXdKTP9BGsbQb/FSb3NVJ0UMAT66iRLVIWbebyMPxxjRwNkj2uVunhTevrqZkctJBIz24aG195g73Li8bJ2ccx5/ZkmN0QXy3g7fcpcLh2dnbto3g1WI84KU7HJVAVhmCz/+B3arEQ3IG47YcTRTTI2CRE8Mg9jElQPJeqtUc32c+0WT0uNrpLUAzmKsCVivTpfDX77F2IGgMMnpd+Ia2VSzHC86JcVji5bWSptgmjeMbX6t4y8rhZAQ==
+ b=OxR1Nog80bsqW9oSDkM4cNyUBulpbeTlS+1DiMPxsy2zgTitBbI0dyF2JmXsaWPNZ7dfBsTSye2MYP9+3cHhQF/aWILHqELs4Jike38jVI69onBk6hFOecw26Y+BcaBEdcqt9+rE1nla9PoRTUiJfUo8Lss1rZmAlhH4WHYkvK5/4JWVdZfSlfhHR7/P/qvDakYupd+eBLtJQQBdEIHraBf3wyBcxh9TNj9gAfXdLgEoUEFlQTcoG82NIP5uj8XNMSSKSfctxJldhC3aSroRZuAlAVjGCJDGuTKUln5XjdDXP4Fsuwldv5ECIYqVCjz+BREYomMzkDmIfA3lH8lJZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pz23cT34V08PLMxLVtpPjBUo2bGkeO833Qq4Yr792eM=;
- b=jHEFvrlbL0sCmtv9iQq47uH1fF3exG3oowwW10Jn8a5wxksVUDaJhslPuG79GbC89t8NBOEg5zFY+YfqF7v7h5dEL46uRH0lxdtSIVaWiqx8XpPFRnQFKjNZDV00QanEh8hDQBr/VrHtnr7FnqxbX47KfkLLC7gifppTZQuJJkVViy75VIrnabV1Lx0p3ETCnyq8dmsPhthsksQoVX+gkmXqD4dH0tvTQii6uFu/9XTrR8i9y01Xf+PS7jtc4oDo8rnM/NnHMWKSdwOMroiEEAiR21dA0bSH+Auo+d0MNjLtQlzoeVm+gMCkc6q2j86cAB5FGevgNW5G1Uvy/Fp9kQ==
+ bh=8fs37QMF8JcJfKOQ6yyfw5wsBqmhgBq3w8ud5W0dAPw=;
+ b=iENmiU0FFjfy50ePRlfDr66fI1PoQ+bDEIMCL0Gi5JsfKE2yzPT7rENrnDUWtzBk7a05oA8IC9IZBAEpXKCeFFlN17n0+5fsMRbqfg9174716bmeiZHAQ5YjhZyp5lA4P+MrZ1lGcXomtZlZcfvEGb+6O9iNjNwCAi6mqigGqNyvLQ6yx94CnnPk3IYB7Tr3gAnGTaQ+qFCs0tKUO2J5XuX/PqVrzqOP213DjCbfe+CxYZUEwbhSNIOugVmOHfZrh3BSNQY0GuxajCxQSQZWia366oeQMl/7snGlQcUJsDLB+o325YsMtoXk5AnAquUsU9eazH/713RvQOo9l1oyCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pz23cT34V08PLMxLVtpPjBUo2bGkeO833Qq4Yr792eM=;
- b=ryfXGYvlYelLdPXNrh/imbnyOpuPpuZNnLEDosNJp0Rzt8fEvdWbze8rt3RPOp07XkhWW1V4/sbjLDdICdlfmdM8sS/VV5ilcsXAs+FypeD2m4ocHiozvp73GgD03EJkJVatGzgwW1fwPI1PF9rR7CXhtMdkbuJR2CCT7gfmMTs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by MN6PR12MB8513.namprd12.prod.outlook.com (2603:10b6:208:472::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Thu, 13 Mar
- 2025 19:35:51 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8511.026; Thu, 13 Mar 2025
- 19:35:51 +0000
-Message-ID: <5817095a-fd0c-4ca8-afe4-ff89cda2a4f3@amd.com>
-Date: Thu, 13 Mar 2025 13:35:47 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/7] drm/amd/display: more DRM edid common-code to the
- display driver
-To: Melissa Wen <mwen@igalia.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- mario.limonciello@amd.com, siqueira@igalia.com
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20250308142650.35920-1-mwen@igalia.com>
+ bh=8fs37QMF8JcJfKOQ6yyfw5wsBqmhgBq3w8ud5W0dAPw=;
+ b=PtEDAvIMmfeWJtQjC4QiWYLevzSbPoPflxewGjeTL5rm3g6fPGrv55ioFz+nvYfEAmkGWNLwPnVvmweoQ7WUUV+1SXM1hElhLcaT0wKkJTfrOycyV+21pePpzIV1y1LrYOTXLWeioJMOimw1a6TetMs7ncSHkiqVL3Is4T/2q3Y=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by SA3PR12MB7973.namprd12.prod.outlook.com (2603:10b6:806:305::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.28; Thu, 13 Mar
+ 2025 20:53:12 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.8511.026; Thu, 13 Mar 2025
+ 20:53:11 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: "Kaszewski, Dominik" <Dominik.Kaszewski@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Add debug masks for HDCP LC FW testing
+Thread-Topic: [PATCH] drm/amdgpu: Add debug masks for HDCP LC FW testing
+Thread-Index: AQHbk/VEmr0yRV3CK0SoAv5nz5iu0LNxi85k
+Date: Thu, 13 Mar 2025 20:53:11 +0000
+Message-ID: <CH0PR12MB528461424635C09FE489D7C58BD32@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <20250313085231.5042-1-dominik.kaszewski@amd.com>
+In-Reply-To: <20250313085231.5042-1-dominik.kaszewski@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20250308142650.35920-1-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: QB1P288CA0011.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c00:2d::24) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-13T20:53:10.868Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|SA3PR12MB7973:EE_
+x-ms-office365-filtering-correlation-id: 06ef4c27-72b6-461d-1d1e-08dd6271110e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7053199007|8096899003|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?zeZEuowCByk8sa34BnEdFrbjOLlpJAAegUr++C4eNl1sqHm8LB/Jf5x3mkPS?=
+ =?us-ascii?Q?TCwqs6Q0dpDkLgJ/XrvRqtVsaicSGbo+NcfdxduC+9uiWRbfI6gaW5anliwU?=
+ =?us-ascii?Q?qzBT7FWhpXV7bHbll69oZtuTPGNCihDVfb20oxzkrwa99zjbWs/gDdtvzprf?=
+ =?us-ascii?Q?QC11aFnOTiVW58y/2YFVbN2YMdy8iGdzrBbBExR5pD1K4np6jzmpAhT1U21x?=
+ =?us-ascii?Q?k+4XxjZhDIbZNkshXtihFU1yt+SW5coTZnuTwwadawQ5pXi1f7kfXftb+Kax?=
+ =?us-ascii?Q?o7nS6X/UNFEN4v7PAOl3kmyHsDN2ksJ2HViPCJm4NAe6in9UwMiIVSn7/mOj?=
+ =?us-ascii?Q?fMsdxT0GdI3Kk5TbI4iXE4D6lGGmnvVp/3hVjBkLLk97gTy9/a9E/6py1nqn?=
+ =?us-ascii?Q?aX2Vmt1PflL4T484gSt1ungAtBGrEP0xvmqDhK4b7TziY3cE6qGrD8M6JT38?=
+ =?us-ascii?Q?xEi3vLsUUFlCGf6dN/h+REsEnDQtm8WVUFO7NXkF/WK0DKtirKz6N39T0dJa?=
+ =?us-ascii?Q?RbAHv61UTcuZfyRX6B99XBkg0qhxxAEiB18QEF1JvsC9FQCN1VVl/vEhJOR0?=
+ =?us-ascii?Q?Ng7o2xHK3pxYU3bm44dueRMavevkoMhvJsmNQ1DpxiEpbTSnjvObpLnuEsfR?=
+ =?us-ascii?Q?qv2gM1fz0j8vDphoQ/HClgqEzQF7kenlXyuCNcN5cEaR8auW8XuUNKDUwPzQ?=
+ =?us-ascii?Q?xYVCPtCOUnwQzQafTkZnBgFs1vwqBYVFMafAD8DAvzYngb7JZwGRXfdwi403?=
+ =?us-ascii?Q?QaWU/WCEKpRUxWRnkTg2l9/4mINcmWLVUHEjwy7yonvzSLazQVMWo+UO5W1y?=
+ =?us-ascii?Q?I9ETV61CHUMDdlZUXBghY3WY/n6gFx2AB8sVgDg5HtenKIusjmOi9aMwFLqZ?=
+ =?us-ascii?Q?OfXIKuIfWVsUndXcMh7EIXk1SCZU+BvrU/Qq/RnXyGGDVPeaofrxeF6yuEPp?=
+ =?us-ascii?Q?DbNIPehYv584id0FS3I4BTcJPYUHdNm+Yliu2McBCxpNQupJWuDohgAgNan9?=
+ =?us-ascii?Q?15mmEsS/G8NS157E7zzAZ5iMwKjx0ZiLmKsOeMfTBa7suwqAduplgz/54j7W?=
+ =?us-ascii?Q?sNUOttzoyNf/m6zeTdhwxiZRmb/4lTA8ljHXgIyhXw9rARRGQfpSmeMsIxS7?=
+ =?us-ascii?Q?Cnv3MIs4S5017k+wdipEC78yG8BXkmQpluS/d+62gLp8KvX7iQ8zqwZkCabb?=
+ =?us-ascii?Q?4Tzt/1HLr1fcVfxW57uaaemX9MKhu6/7jogo/YAMnSV0pzA6jNtOEZmpw+If?=
+ =?us-ascii?Q?Sk9FpAvjd7o0aGwdll2FYbFW52qg41viCRlWfsWQUPhnnXijQXqjfySAlHX5?=
+ =?us-ascii?Q?5n04hg3TPSK+OpuE0Rf6QZeW7BqKoUhMnEGsBf1DfhbzTE+AjKiQNiny9lhP?=
+ =?us-ascii?Q?h00ZbWpGgfgicEqr971EZ8MmZzrLlWfk0dJqD4gNYjkWKGLPO3AEq32QiuO5?=
+ =?us-ascii?Q?Dg9PX+4Hv6icCsw37Idfu3BiuRsRfGnk?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(8096899003)(38070700018);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?vjnZrGVMSI51YMTzY0OqxaYqol4DZThykJtMt16B5pjngKI/+cTanJGsCD+2?=
+ =?us-ascii?Q?pfRaTI8izb4ptqDzq8m4ZOwsF97Evpmj3FgkAoEUaPzHSLn5RUbqCJSqOZUA?=
+ =?us-ascii?Q?R8qrPk9LIeCObh/2cC6lRqRJQ7uzVJog11FyvJh6Hi3ie70HwTYoHAAN5BjZ?=
+ =?us-ascii?Q?d2LO/+Ep1lmGxSUlfhLQpaG+OL94P+4IruRCQgWx0ukQC/0/DLyu+MeXVOdA?=
+ =?us-ascii?Q?NzQhq3kznIvfmQxnEaX3ik0h4QhjXKKrYamdrlJzg7+NmHT5omKHtRM781yG?=
+ =?us-ascii?Q?Z71yjLWnfjt7aePSAFM5O30EuB0+JjpiSkhZzqNnYIsXaf7EMVxymMl1hSPO?=
+ =?us-ascii?Q?d68WzK4HzfwMaV95EOIz2aXWk47KCrfokSQ9OtNqmpQKfGFH0FqoJfuTGaPR?=
+ =?us-ascii?Q?Y55x1aessZn10zlNx5OlLkOv8beBVevt2jHvT7Gl77rkqAHuRdh/fvGiuQfu?=
+ =?us-ascii?Q?1GHtiFiCxpTtobrXkm2hBhNQjGa021YOXllUvDuIvGiMPBsHOp+fX/KNZ4BC?=
+ =?us-ascii?Q?cIbsT2B5SP0tY0ooDgvLpRpeUUDqnYYIUL0gX9KPG+ygYWjc9anDCkZqOsmf?=
+ =?us-ascii?Q?4mp2UxMxfbW9vl3elTixe8RUpmLNCCbN9SiaDw6F/rXwhAj1UNwJT8MUqj+m?=
+ =?us-ascii?Q?FaoQVrryGSq0NKws5iH9xrtEOSgEeyJv2hsvFcNXJXiFU0kjHib0rjaRGLQX?=
+ =?us-ascii?Q?mav5KIqe3N3mq1YcVF8i7KI6+SQNbF8dP+94ZyG6LCidyImOa9CzYKDAUdSK?=
+ =?us-ascii?Q?BEgNktXPawST5Ur+FjD25VfUa6rU0cySzLIMxGVj+UXvEznXdBlKR/cJOD+W?=
+ =?us-ascii?Q?vhVs7xaByNID/bVUscnwNamtB4ZgGH/OmTZdZXNyOhuqRmHBCekktM+r64jO?=
+ =?us-ascii?Q?KWMIbbYugSqpySe/IFmiGjEtrR4Ktm55Dr9SCPdV1FXKeOChKDZdVB5EZ9e2?=
+ =?us-ascii?Q?QAKfw+O61tySWrfsSMPExaRx0vwE4pGwuxtBwcXTno1hz30WFUi/zGYXU7zS?=
+ =?us-ascii?Q?Z+ojKDZNLPl3jE/bwocLCdWD95F0SRxa9UY+5XRh75CzCUWqHHCDgcFzGDSb?=
+ =?us-ascii?Q?go63RRBqnX97Z6r5R4F4gAvUtUtEABsL9KcEk9ei8zVKTtauThzOgvPDoM3h?=
+ =?us-ascii?Q?hVOTNGjvw4ZHwtZclz+bB/QjeYd3oi2mIVfHpbymL/EzpgSl2Xtbr7F96QUX?=
+ =?us-ascii?Q?kDrjxfomRFX64sN1MzC2DYcDNEcF+xxJI37yN9R4IAe1H3xz//IwAfbaNIXB?=
+ =?us-ascii?Q?ExYp8Ci3BruY7FME78i3ZKotze9RzubkPB8lqbZyB2AZU6M+5g87Sw+GZ3so?=
+ =?us-ascii?Q?XVJE8/5ZHxS41F7VdL/3PTv52rWz8ukKkYslBRMk01+XH6eRKpEwz87I91to?=
+ =?us-ascii?Q?aHJOuRgovXP7SlNP3eGsGeAx7qVlLvOQm1c1lJm/ewwWF+kU4MZBdQi1J+2L?=
+ =?us-ascii?Q?EZcnCN0H02wFX2jObBchv24d4SauFUEOxn1wO85N2MjMoVqIaiBHvhInsQ9y?=
+ =?us-ascii?Q?fb3/lEasRFY/pmjtSddKHqh6UTy+ZJNFd8oxuw6HAuhf7UzBoCe7b+icOeNl?=
+ =?us-ascii?Q?C9203qO4tyza2314xTM=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB528461424635C09FE489D7C58BD32CH0PR12MB5284namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|MN6PR12MB8513:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4ce987b-b5df-40bd-0387-08dd62664346
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dmZjUFBHT00ramdqNlRyRDN1WDdYQ1Z0NTZKK0JjQ2U2cCsvb3BzTmcwa051?=
- =?utf-8?B?RHZrcUx1bWVIR01OSTdxYmI2T0Q3M2xZenpsKzZ0N2ZGVmJzMENkQmZVRnJv?=
- =?utf-8?B?QjhjS2pPdEFqMlhCSW0vMHY0NkhMR2RHT0xrWlRRU2ZjYi81M0JnVVR2MTY3?=
- =?utf-8?B?bjM2YzhGRi9uTWtrbWI1bUZPallIUDFBbW1ZZkY0WDc5ZFhTbGI3bE9pb2Qz?=
- =?utf-8?B?R2I4WVpTVEpJNWRuNHNFdCsrbHNrQjZsSXlnaGpyb0kvemFQUHVkTDgxekV6?=
- =?utf-8?B?RWhkOEd1NWhJSXRPQlNlaFA4NG51ZTVHMThKN0dpTkNPMXRTcFVLU0c1MzRZ?=
- =?utf-8?B?Mlh2UGtRa2N5dlI1UFE0TnUwWHNtVmN5V3lQcEJHRVRTZ1BSK3Bwdk1PQXRW?=
- =?utf-8?B?T0llMU02UkFPZ080S1QrSk1ZR3Z2cm5VdEg3bTRPT2JTVzFBR0tXMzZPQlI3?=
- =?utf-8?B?bkNrcURqQStEaDYvSk4ySDZmL1M5enNtbEw5bjBOOVpMWWRCbmo4Sng4dmFR?=
- =?utf-8?B?SlZFakJEK0ZwSERsOFdRWlYyWVZrckpKSm9BaTR2WmpHTTlTVWY0cWZnZVR6?=
- =?utf-8?B?ZzZTSGg1WmljVjF0eFBYem1iYXZqM3VYeE41THV3c1ZiOTUrbGtHODJzVVJV?=
- =?utf-8?B?UXArS3laTWNVWEtwbFpNNGpyOEJpbjJRVDc2djdWdlBONUhGa2EvSkJxb05m?=
- =?utf-8?B?R2hPc1hHd1R2R01oVjNZT2lsSThHeDFEekRYblJQeVR2bEJXemUyN0VXektL?=
- =?utf-8?B?aUFPeUFQdE9udmN1MVpsaG90NlllNENkZkk5UGdJYVowQW9GeTJsMnZJNTV6?=
- =?utf-8?B?b2M5eDVLKzNJdW4rdDJmQ1hPNldWSlQrOHY0VkhrZUtDK1FvYmlKQjl1UWVo?=
- =?utf-8?B?NHlXS2JCVzRxdFN4eGxsMXFKb3FqRzc2M2ZvRk1pcHgxL0xiTlV2VnpSbVl4?=
- =?utf-8?B?cy8yZmtHdjU1QXpoNURCZEtJK0RXdDdkQ3BFVjlUeU9NdS90NEFzNjlOZHZQ?=
- =?utf-8?B?VG9NRUs5dXdXWnJwbTViZkpwUis3QXJ0UnV6dG5uOUkwOFhQUWJBK2NXN1Br?=
- =?utf-8?B?ckN4bkx3bjk4YWUxUGY5TTNsZ2RXcVJvVDdvNU9CNzk2L3EvVVk3dDY2WGpn?=
- =?utf-8?B?ZWFkRWhLWndvaVAvOWk3alRvc2lHcmVCbXd3bnZSWUFnOU9GNXdqRFhzWHFY?=
- =?utf-8?B?TVYvM3Q4Z3I5amltbC9yZkZnNkQ2Q2QzYXpNWUxkQ051cTY5aWUwaDJJRHZH?=
- =?utf-8?B?ejdvQ2dlNzVwVE1TK0h1Ymg4bkRrUE5mYWxOS0lrc3RycDRVV3c1NmR0UVVH?=
- =?utf-8?B?S0ROS1phMWdEcitveC9OVGg5N0ptaEhMNlpaM3BZaURjamxHVzlrK05QeSs1?=
- =?utf-8?B?Uzc2VDFkeFVScWMvN2k1WVl3SWw3RkZoV3V5STVNQW9ZeksrbXg5bFNWcito?=
- =?utf-8?B?RlY5UC9iUVlaZFpnOEs2UFZPS2hldGg4d3I4WVdwdi9TNkc3Z0h0clhLQUQ2?=
- =?utf-8?B?ZXpwVGNjY2dCdGhnZjJweG9KaDlsVm0xRG5ucmdOUDd6cUlWd3BoNGhacXlS?=
- =?utf-8?B?V2cvWWFMemNoeEEwRmNZbEJhMmhHb09VU1BjN05jVzZWTEN6Tnd0YnEzb3JR?=
- =?utf-8?B?VytvVDdJczBIU3ZYOGEwRkpNT0FTQkF1bU91M3JEbVJ1QWdxWTQ4RCtjMHlj?=
- =?utf-8?B?bTB4Ym1NbThoSnBrNllZZWMrQnhLZ1Y5ZGJOR2Ftc1dVYVBlY1A1RkVMMFVs?=
- =?utf-8?B?VEZaZHZMSFRqT3FuY0pQZUdoYms0YjBYOUhoSmRheEtvR1MvN3NRYnpxekkr?=
- =?utf-8?B?TjBaN2FBVUJqTFpyMEFuUT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WVBXNGxyMEF2V0RwOXptOUdiWGdYNTBtOXdTMDdXYzc3bzdKejVYUkRRUVhW?=
- =?utf-8?B?REMzbFRYa1B5djJjandtRnE3dC83cm9Cc2pYR0R2VmVGZGdEMkhYK1ZuZ2pp?=
- =?utf-8?B?QWc2YVFMNFI3QVFBTU4zc3dRbkVIUmRQUEMveFpVVGY2dW12RkxZTEc0eE5S?=
- =?utf-8?B?QTk0WlJDL1NZSGdBRUpIdHNvcTZoNWx5Si9zZ0JUY3hYRmhjR1JTWlFwR2Jj?=
- =?utf-8?B?cjVtOHZtN0tRNVZMckZhZkxMTnZOWENOSC80a2RTUi82WFE2d3pFcVhZc013?=
- =?utf-8?B?SEpMc3BpRFR0N2duZGVmL2t3azR1Ym9xSmFpWkJMbXdMOVJxakd1ZE9EUFpZ?=
- =?utf-8?B?ekZFWmtUS0xSWHVvWkE4UnROajFmSVpqYWZpV1cyeVpHY09KR1lrdHF5eWxw?=
- =?utf-8?B?d3l1Sjcxb0E5UEg0dGxOcWU4OEVjNXVSUktlUHN2M0VaTW1WamVBVys0WEdr?=
- =?utf-8?B?UFIxR1lyRWdMYzE2dXQvekk5c3B2K2UwdndlOWpYaHl1MW40UFBkV0xiRlU4?=
- =?utf-8?B?ZlY2RlRlYTdaL3JlZmpaWnEwajErbVhBQ0pxSnVTMDE5L2NDcFlUSGxibU16?=
- =?utf-8?B?a25BNnY2NnNadmdhRkdrQ2V6RWozTUE3MSt4MXYrV053ZklmenhENlhFcTJT?=
- =?utf-8?B?TjR5N2lobWQ5Qi93OEJlbjVCOVZVeENDYlMydU1HY045YjRNR3pPd1dQa1NO?=
- =?utf-8?B?R2lsSGFMU1IwcnQ2NWg2Z2xQdlBhSXQrWnNXTVFPMHFmNnFQYTVrd3NiMTd2?=
- =?utf-8?B?cHJWQ2FiUjcwZHU5WWl5bXdDMWliOW5Cc1RtM2RwMmF4N0poVWtUTlJHck56?=
- =?utf-8?B?WVFSbitORThvRFZQUGpWenpKV0swTG9OcUxKK3lxdnR6M09GMURRd1JrUVFG?=
- =?utf-8?B?b1p1SVlUbDdJRzlOOWtHQzI1WDJva2FBa0dETXRrV0g1aGEzOFVlV2NqWnZn?=
- =?utf-8?B?ZnpKb08reE5qUnE4Q0Nzc1AzOU9UdEtZU0FMZEZHWDFWUjYzeDFQaG1SWEE1?=
- =?utf-8?B?QkMwZGpURTNOQ1FVK2hNYThxd00zUWd3VGpDaDhXWXhocVJTUUJpdEhzWFJs?=
- =?utf-8?B?ZmpMN0V4cXM0TURFU3VVdmg0REdVajg5ZGFCRnhOV3lpd0ZKbFhqWUVETDdp?=
- =?utf-8?B?YkJiV3Q2WWlURVZLdU9DRHRoTERPdjcwRDdYclRzeGFvbTE2cXFyR005eW93?=
- =?utf-8?B?emNuMFdEeHV5U1VybXVxQjMwR1RNWDduWjZFRDNXSmx2RHYvQk9TeUU4ckY5?=
- =?utf-8?B?eW9VWE50U1EzWDFwYjVxZmxMTElTT2VKbjJyeFg0d29lSEhRQ0ExWGVXeXVD?=
- =?utf-8?B?eGx6V3BMU0tuNHp2RmtJOGxybkFWL3NRdTNLWHdudHZodTVlY2hUVjJxSm5i?=
- =?utf-8?B?ZVYzMFFkMm9waUtnT1dLZDBNYkJoTHlielpBNCsyNFlEbHhjN1VjaDZuSUZu?=
- =?utf-8?B?bXVacHY3a2ZyRUY0eXM1T2VqSFNyUG94YjhNQ0xwazhQa05pbVYzNGlLc1hv?=
- =?utf-8?B?VHJqVFB5K1ZTZUFreTJoMXpyNXNjSU9HOFdRR0VlZ09BMGlsbk8zaEY4QlhZ?=
- =?utf-8?B?aVZRY1FFSFpTbkQwWSs1UmhpK09Rdmd2YVpYSzRVN0xwQlhuYWl1eVFKVjRB?=
- =?utf-8?B?RWp6MnFHVlZyaTJhKzhJTzNOeVNteDBYY1MvbTllenloeEs0YkhNblZDa1Nj?=
- =?utf-8?B?cSsvTS80NVVIZ3MzeFRZcVJQeHJObWV5WVVWNi90MERFZTZockVNVEVjMStn?=
- =?utf-8?B?WjVqOVJSclBIb3UyajZJek9XNzlKdVRZNUt6d2dOMTM5OTQ3TUFQcFdscEJX?=
- =?utf-8?B?c2o2REI4SlJVVnppWHBPeGQzMUxZeWlDVitPek1SK0pCL21LTXlDK01PWXds?=
- =?utf-8?B?WkxwTlFpUXZaZDMyREgxS015dFhWbEx4eU5GZFVEbUJBQTJlRlVXUVFyajNN?=
- =?utf-8?B?T2l5N0ZGK1kvTWhnM1lPQ3F5M0ZBa3FmYlp3ZzE0NkMzM2xoM3YwR2ZKWG8w?=
- =?utf-8?B?T281TkdZSlFnQi8wcWxYcUtJMmgvM2NLakpJS3NyRVFJeC9sMWJDWk9TNitM?=
- =?utf-8?B?ektQejFWZkVjQkRFQm16VHFMWjNiVVpzSUkwckRnRXJub0R3aWhUb0cvb2ZR?=
- =?utf-8?Q?SQSYpRDmHMfNRPlKiGwegxh7r?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4ce987b-b5df-40bd-0387-08dd62664346
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2025 19:35:51.3270 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ikjrk4G295sK/0gqNPR8mWkCYnMTU14aSglA47LCQI5vpO1S0yBLxbsAOEH/bnQzFYe9ncPR0w7cleSajvHCdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8513
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06ef4c27-72b6-461d-1d1e-08dd6271110e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2025 20:53:11.3305 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rvWWmsjJ8ixXiSHLw5sLKhwBZaGRPFFwXDRvYKHQRu3TMr1kOTavsCHATG7bpDUydMGxDXr/HfzjevrZBVb+zQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7973
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,72 +153,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The series look fine to me, except one small error in patch 2. I can 
-send this series to promotion tests once the error is addressed. Let me 
-also check others for comments.
+--_000_CH0PR12MB528461424635C09FE489D7C58BD32CH0PR12MB5284namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Harry and Leo,
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Do you have other concerns before I sent this series to promotion tests?
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
 
-On 3/8/25 07:26, Melissa Wen wrote:
-> Hi,
-> 
-> I've been working on a new version of [1] that ports the AMD display
-> driver to use the common `drm_edid` code instead of open and raw edid
-> handling.
-> 
-> The part of the previous series that didn't make the cut was to replace
-> the open coded edid parser with `drm_edid_product_id` and `eld` data.
-> However, when addressing feedback I ran into a design issue in the
-> latest version because I was trying to not add any Linux-specific code
-> to the DC code, specifically, DC link detection. In short, we have a few
-> paths in the DM code that allocate a temporary `drm_edid`, go to the DC,
-> and back to the DM to handle `drm_edid` data. In the last version, I was
-> storing this temporary `drm_edid` in the aconnector, but it was
-> erroneously overriding a still in use `drm_edid`.
-> 
-> In this new version I allocate a temporary `drm_edid` in the DM parser
-> from raw edid data stored in `dc_edid`, which was actually extracted
-> from another `drm_edid` in the previous DM caller. This is a workaround
-> to bypass DC boundaries and parse edid capabilities, but I think we can
-> do better if we can find a clean way to pass the `drm_edid` through this
-> kind of DM -> DC -> DM paths.
-> 
-> I checked working on top of Thomas' work[2] that replaces `dc_edid` by
-> `drm_edid` and adds this DRM struct and its helpers inside DC. The
-> resulted changes work stable and as expected[3], but I believe that
-> adding linux-specific code to DC is not desirable.
-> 
-> Siqueira and I have discussed other alternatives, such as updating the
-> DC code to match `drm_edid` structs or checking how well the change in
-> this series could work with `drm_edid` as a private obj[4], however we
-> would like to know AMD team's opinion before making this big effort (and
-> probably noisy change). The main goal here is removing `drm_edid_raw`
-> calls and duplicated code to handle edid in DC/link_detection that can
-> take advantage of DRM common-code instead.
-> 
-> Please, let me know your thoughts.
-> 
-> Melissa
-> 
-> [1] https://lore.kernel.org/amd-gfx/20240918213845.158293-1-mario.limonciello@amd.com/
-> [2] https://lore.kernel.org/amd-gfx/20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net/
-> [3] https://gitlab.freedesktop.org/mwen/linux-amd/-/commits/drm_edid_product_id_v4
-> [4] https://gitlab.freedesktop.org/mwen/linux-amd/-/commits/drm_edid_priv
-> 
-> Melissa Wen (7):
->    drm/amd/display: make sure drm_edid stored in aconnector doesn't leak
->    drm/amd/display: start using drm_edid helpers to parse EDID caps
->    drm/amd/display: use drm_edid_product_id for parsing EDID product info
->    drm/amd/display: parse display name from drm_eld
->    drm/amd/display: get panel id with drm_edid helper
->    drm/amd/display: get SAD from drm_eld when parsing EDID caps
->    drm/amd/display: get SADB from drm_eld when parsing EDID caps
-> 
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +
->   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 85 +++++++++----------
->   2 files changed, 42 insertions(+), 45 deletions(-)
-> 
+--
 
+Regards,
+Jay
+________________________________
+From: Dominik Kaszewski <dominik.kaszewski@amd.com>
+Sent: Thursday, March 13, 2025 4:52 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>
+Subject: [PATCH] drm/amdgpu: Add debug masks for HDCP LC FW testing
+
+HDCP Locality Check is being moved to FW, add debug flags to control
+its behavior in existing hardware for validation purposes.
+
+Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
+---
+ drivers/gpu/drm/amd/include/amd_shared.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd=
+/include/amd_shared.h
+index 485b713cfad0..4c95b885d1d0 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -358,6 +358,18 @@ enum DC_DEBUG_MASK {
+          * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: If set, disable support fo=
+r custom brightness curves
+          */
+         DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE =3D 0x40000,
++
++       /**
++        * @DC_HDCP_LC_FORCE_FW_ENABLE: If set, use HDCP Locality Check FW
++        * path regardless of reported HW capabilities.
++        */
++       DC_HDCP_LC_FORCE_FW_ENABLE =3D 0x80000,
++
++       /**
++        * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Check =
+FW
++        * path failure, retry using legacy SW path.
++        */
++       DC_HDCP_LC_ENABLE_SW_FALLBACK =3D 0x100000,
+ };
+
+ enum amd_dpm_forced_level;
+--
+2.43.0
+
+
+--_000_CH0PR12MB528461424635C09FE489D7C58BD32CH0PR12MB5284namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Reviewed-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" class=3D"elementToProof" style=3D"color: inherit;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+--</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Jay<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Dominik Kaszewski &lt=
+;dominik.kaszewski@amd.com&gt;<br>
+<b>Sent:</b> Thursday, March 13, 2025 4:52 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Add debug masks for HDCP LC FW testing<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">HDCP Locality Check is being moved to FW, add debu=
+g flags to control<br>
+its behavior in existing hardware for validation purposes.<br>
+<br>
+Signed-off-by: Dominik Kaszewski &lt;dominik.kaszewski@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/include/amd_shared.h | 12 ++++++++++++<br>
+&nbsp;1 file changed, 12 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd=
+/include/amd_shared.h<br>
+index 485b713cfad0..4c95b885d1d0 100644<br>
+--- a/drivers/gpu/drm/amd/include/amd_shared.h<br>
++++ b/drivers/gpu/drm/amd/include/amd_shared.h<br>
+@@ -358,6 +358,18 @@ enum DC_DEBUG_MASK {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @DC_DISABLE_CUSTOM=
+_BRIGHTNESS_CURVE: If set, disable support for custom brightness curves<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_DISABLE_CUSTOM_BRIGHTNE=
+SS_CURVE =3D 0x40000,<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @DC_HDCP_LC_FORCE_FW_ENABLE: =
+If set, use HDCP Locality Check FW<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * path regardless of reported H=
+W capabilities.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_HDCP_LC_FORCE_FW_ENABLE =3D 0x8000=
+0,<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @DC_HDCP_LC_ENABLE_SW_FALLBAC=
+K If set, upon HDCP Locality Check FW<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * path failure, retry using leg=
+acy SW path.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_HDCP_LC_ENABLE_SW_FALLBACK =3D 0x1=
+00000,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;enum amd_dpm_forced_level;<br>
+-- <br>
+2.43.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CH0PR12MB528461424635C09FE489D7C58BD32CH0PR12MB5284namp_--
