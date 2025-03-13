@@ -4,117 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9518DC28B28
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 03:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE8E7C282DE
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 03:41:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 394BE10E1AC;
-	Thu, 13 Mar 2025 03:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7372A10E1B0;
+	Thu, 13 Mar 2025 03:41:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NHFX34b5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QLeZmnsp";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB0D910E1AC
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 03:28:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2051.outbound.protection.outlook.com [40.107.243.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9A9410E1B0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 03:41:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dZQkSawtL5XLgWJO7HNXBgKxGDWwCYlWs7gyD3o6SADjEmjgFyO3PRU7K0mUxQyeBXpjTdgeVROixlQltgDPMqmN7fMAksSsrBaaIlrCw8EVjokQbVYP9X0iVUnHqzKEK7sif+h8HclvU6KdYxWUrXLWLLROxePxrYmH+Kl3orT6AQndFU+jOpbX0JF8aTNE4EYmKKufgJBeKyzY7kdS3W8kIO6jedQYqlQ6Xd9PmUAE7eq4nQi3yNkppPabfz1eO2cmfWRJ/dZhkC8fnGKWGyFHaZlJK5AKXdIIFiRBzsvKQPciQkTNJIXfWPhK3NP69OVznlVd5spJxHynYcauGg==
+ b=UgweInm/RlzYZlavzMpr+DbtWfCHKr6QQU4s7mYr0UL/PlJD2YDKAm9Vek0wNqnzMVaVFGgLMILI1JLsj2E2zpsH1MQuIATtAE8h39L0pa1UEwQqDzDTKA6qvLNzno2FeLGbsNyDTCx/vES/9nUOOOQf7SYW6/t2Gn1VKJAs6LWZmiordlC6Le64NQPvlVId5jt/axHEbSlGOVM5CSkMdqEq06r3QengJID30N0i9CJ0T7DRM+Pc5BTaN1a3ShfV4UUdSU06+ER/IR+/nfp3V8Fl6RTn8zbL8dY+hiDmk4f7X5a4IvMtuDg4RJmK9LPLn9jwhmBX8QdjV+FLZ17tDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bK4pgNc8OeFCdQcgvzjqBacm+couQM9mBiXXgZpmDN8=;
- b=k0A5ZzdnDzTGmPEYWGhJSkUmlB+O7VuoGE47ui43cASOEprSn6t56PJtNNyjYKs7XsyFY1g20RqQwPdh3Y1/4JZ8ur5ns0drf1+NGxkCDvChHvQIuWuJ40JF6kVr84gWyVVUS09Na8rBfEPWBK3jJpsh40NBvmmaj6ID/mSXz+x8YYvl3GmldQ/IScRHa7raXffjV4nfmG6CdLG5UqxGz0ZdhMma0kcc9/jlbJLqz/xv0SkwUCtRRQWMIYXEzvHP7W8W1bFL3d6eNY3eKQZNCJnrWmoOo21CKUYNih0E8e10xG+S0ub8aYwl5/HEbpQQmgd1Ha0VAcOi1VoEKybpEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=T22ChG0uwiBwgx3j59LGmC8GSHhKTmzdHOsEVRHawJE=;
+ b=y1diGpK2SukzIdVj9+ZpsSD1m2g6063LZGk9evR3FtnRPY99vmtIYa/0THK7BeziwVxV46PyFA8wJvPZaC7/ER14zbRf3bphiV439t05+F5u/63XNVXVLh0QQAQYd9pHbrqtTSekSxjV4dBBlNyBj5Ot4ytGbPt34jftduZStZARjtly19wwGlb2dTfSGMiCh/tZGhvdmUoS/AbX9UnyCdN+Z42TWqJkZ9QUk3Cs4JeERsaWtbn66feyQzjSKLce3KjnTs80C//4+QIiYLTRYjwpcjY7LIOMUxjnkPl0jycJmAIVWnz8rzWA7pXwA1uJdZhk8CwuXKGppFASpxT52g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bK4pgNc8OeFCdQcgvzjqBacm+couQM9mBiXXgZpmDN8=;
- b=NHFX34b5ZH0VEuXDhhi9D08Jy9ZE9C1w7euqqXq3VvlDkMxiuxEdOsodrPvNLbLjo0RZUriYvETH/DD8D57HIE4cBGb+9/rK+STVPDSD9/S6ZOofUGy94u6OJ76zKbC97Q8oyenuxLMaYgtLinQsEoMRQlDtOxiV1rqCa/3+kIM=
-Received: from BY5PR04CA0002.namprd04.prod.outlook.com (2603:10b6:a03:1d0::12)
- by DS0PR12MB6656.namprd12.prod.outlook.com (2603:10b6:8:d2::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.28; Thu, 13 Mar
- 2025 03:28:12 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::da) by BY5PR04CA0002.outlook.office365.com
- (2603:10b6:a03:1d0::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.26 via Frontend Transport; Thu,
- 13 Mar 2025 03:28:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Thu, 13 Mar 2025 03:28:11 +0000
-Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Mar
- 2025 22:28:09 -0500
-From: Xiang Liu <xiang.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <tao.zhou1@amd.com>, Xiang Liu <xiang.liu@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix computation for remain size of CPER ring
-Date: Thu, 13 Mar 2025 11:27:38 +0800
-Message-ID: <20250313032738.428588-1-xiang.liu@amd.com>
-X-Mailer: git-send-email 2.34.1
+ bh=T22ChG0uwiBwgx3j59LGmC8GSHhKTmzdHOsEVRHawJE=;
+ b=QLeZmnspq/AOrvOvRuG90JdKW+A9ibpkYo2pKmFXpu+xfMb9JB5krHNvt0SXotmThmJQPWXNx1bcqS2y6VEhBsOX45EDznoTT8KQaVgqjKE3Qr1mAG2LaanON5394JSJxw8SVtuBp1AyqkUEYbcFy4rjJYZaSUCqhOQBZuKBnRY=
+Received: from MW5PR12MB5684.namprd12.prod.outlook.com (2603:10b6:303:1a1::21)
+ by PH7PR12MB9173.namprd12.prod.outlook.com (2603:10b6:510:2ee::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Thu, 13 Mar
+ 2025 03:41:18 +0000
+Received: from MW5PR12MB5684.namprd12.prod.outlook.com
+ ([fe80::9eac:1160:c373:f105]) by MW5PR12MB5684.namprd12.prod.outlook.com
+ ([fe80::9eac:1160:c373:f105%5]) with mapi id 15.20.8511.026; Thu, 13 Mar 2025
+ 03:41:18 +0000
+From: "Xie, Patrick" <Gangliang.Xie@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: format old RAS eeprom data into V3
+Thread-Topic: [PATCH] drm/amdgpu: format old RAS eeprom data into V3
+Thread-Index: AQHbk8nHpIdrU5wZekeXoY/5fqNYgQ==
+Date: Thu, 13 Mar 2025 03:41:18 +0000
+Message-ID: <MW5PR12MB568415D133F1AD9683B4FABBE5D32@MW5PR12MB5684.namprd12.prod.outlook.com>
+References: <mailman.1086.1741774146.1020.amd-gfx@lists.freedesktop.org>
+In-Reply-To: <mailman.1086.1741774146.1020.amd-gfx@lists.freedesktop.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=48f76271-f2c0-4938-8fd1-0dc6c22c5998;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-13T03:33:21Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW5PR12MB5684:EE_|PH7PR12MB9173:EE_
+x-ms-office365-filtering-correlation-id: cbb47e6c-c519-48ee-a7b5-08dd61e0ea01
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|4022899009|366016|13003099007|38070700018|7053199007;
+x-microsoft-antispam-message-info: =?us-ascii?Q?T7PsxL+J+BZyVOWFW5vxO58OSqjdh9SNQMY5y9tRB6ppf6W1xHYqMl8uoMN6?=
+ =?us-ascii?Q?mX0GxvaRfEmDGxdfTaUfowpw6y9zWQyt5bzO8mt2pPUu5BKjVl0AmJJG0DaO?=
+ =?us-ascii?Q?A81BG0Kbjs3clMPRVfEo0fQiBcMDshse/qObNuIQE6JPowP91I2dz56truTD?=
+ =?us-ascii?Q?vUb0cxy6mmwRmqezV7RpANvqFnIIPvUDym8i4tU94j14FCWJ62KXR4MUVeGz?=
+ =?us-ascii?Q?CA4YWE78GQi5iKhZ70EdW0v0XhxFMQLuwOZWuLc7WF3FeDTl7R1GfH6d+rWl?=
+ =?us-ascii?Q?JT6W88sXn2DKDoUT3pRs8Q+mFwg6M2c9rYkyLQUixA5ntcpXcB9YdAtS4Z+t?=
+ =?us-ascii?Q?0RMXaJJFghkbE1Lh2fLf22bZdod+JCNFoBq1pyWlOQRCx9iAHiosZNkrWmnN?=
+ =?us-ascii?Q?ru2qvKDPDCtD+A6U0Vj7tuW49/9BaLDaFXtYuYK99EBMxdXnK/0OZkJIoehS?=
+ =?us-ascii?Q?sJgY/skSizfeIiLjq3SO4yX/H/tCo342ZTEgjS5qVAAW7MxEn0etO3cFmRac?=
+ =?us-ascii?Q?dEO8BdA7s+mcuxPYil3tflqHvR9h2ksa/YjTDs1B+vuCcuarg8GV6vPXtbuP?=
+ =?us-ascii?Q?ZMDq0A4ChPbTuzhRW5lUUfPGbzvE81+7I1EBvj8uXB3aaZN4rKiEVZVQFVxK?=
+ =?us-ascii?Q?SP9hu1oUtzD/YHgDo4r1K61eJgZ6GYr1r3+ZQpgRkUxh6FDlrvI1SNymYwJv?=
+ =?us-ascii?Q?KkVm1rxjCCZf7IVgj9AEN+Y+8wbbfMc+l3l06wlYw/UVedK/XjoPzZchT0wD?=
+ =?us-ascii?Q?wHGcIiJew/PPGl2fmLXsuM0Wb+puHVfJhDQq+Yg52PZUUDo6l6PAEsWeaAs5?=
+ =?us-ascii?Q?4E4gXpp3x0UNkR8CXaV1cin7xdPNLPjQViofzzOyazMzhYtTYZKeYAEO9TNM?=
+ =?us-ascii?Q?YTCP/ZN4tMLLo9he3xiSyzkDg0FBzzXWaWdabezjCVfkic5gmxorH1QCyGBs?=
+ =?us-ascii?Q?83W6034i0vHu5mFRMX5l5bvmsRxIXWOm92lSMX1jiXIMAUDxAvH/5lrOvfVC?=
+ =?us-ascii?Q?FfV7QxfJzwIRKw0w0XpuTjekFeYcGpwKuW2vDzPNP1o4L8Ziw2NS4gQ1USnU?=
+ =?us-ascii?Q?0lNBmOpHHhAVRuHP74vS1xmFuk+iqcSxfxQB+KkTEg1eimUSEZeirtQhxw/D?=
+ =?us-ascii?Q?TGvVifKL5SYlD1VCWjNMOAumEXf+YuvTYHkZiqi8MJqtfh4k1bUGZm8IkDW8?=
+ =?us-ascii?Q?4XpnaPIHWMoiuem0mQ2t02A26swMKVFTUzDylWoPHVZbtspLC2ZjaWg/9ekG?=
+ =?us-ascii?Q?H239PvkbjICHgZ22LgDYpnFSMZvO6pCY8JN4OTqalFnvnI9JsAux2IuewzwP?=
+ =?us-ascii?Q?GBVRBvoGnj/AXqVK6QUH5bZhW/td7TPsBRsjMwW7Jw7G8kPZMujQMSRD9B6b?=
+ =?us-ascii?Q?Ow7N4S40mcEtRk0yFI5zTrkc6d2L?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW5PR12MB5684.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(4022899009)(366016)(13003099007)(38070700018)(7053199007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8N1e3dSWAbob9zU3hNoPENxto/V4QTbqvGv+qXpCgIc3cgm6PtKLzL/iq9Ox?=
+ =?us-ascii?Q?dzpgq2vnG4a/JCAq11iaF1OHXaGk24qgm6O1sHnuLKijDd5DiY3EFrOigHgM?=
+ =?us-ascii?Q?aGT+lA1CQhhdORevkzfPyAV7hpohkyaELePGH03gBnytWHTd1jE4mFM2BcLY?=
+ =?us-ascii?Q?zm4N9PcprwVPk5/BGiL1npSaZRnouZIbkZchtm6eMN7MLL5so/HYi2kSspIN?=
+ =?us-ascii?Q?SoPtp2qr7OdYc8I7Y7r0yoGVv74E+lh1Fg4g/K1P3kajNFNZS+Oj7nIEkyad?=
+ =?us-ascii?Q?1E83K6/R+SFTIUI0KtLPx5yC0CvArgcrwOM1rgk6JC2RU5J+kyVBhy644Nhz?=
+ =?us-ascii?Q?E45mV8KwzfmmBIYipALrrNigXpcBStm1grVURG3zcorO0DScqMLf/j9KNjjK?=
+ =?us-ascii?Q?rspb7URM9wJROEM3HiJJNor4bXI+oGuTUx5n+EhtITrpOgOkiNVxwn9KORt9?=
+ =?us-ascii?Q?JefOKPbv/Fat4yc5D4QIL+21oSJX8ct5mUkOm3RwS7von6m1yyf/0518ZQSc?=
+ =?us-ascii?Q?BHWfxztFEK00Jmp90x//ua4kvwvpxq+jFNkEIMDkO9AVGX5DfyN+HJY/nBiu?=
+ =?us-ascii?Q?GtWiedgeWdeuwMTpzolhdjy1NKCHjTMJNjlwSQRe3jZdev6ftE96Ilg0cfLA?=
+ =?us-ascii?Q?P1N6h1pjkFta0dvLqpIjQVTXbw8t9OP4yY41rSDWyXWtD1yjNzXtlVX+ITwJ?=
+ =?us-ascii?Q?lQj8DciCMRYxzu6p/gzEiUAA9zMeFPzHTBCdrlyMwcceCzSICDAvgE6RuxFc?=
+ =?us-ascii?Q?nELn8i7t6J0nyz2xNjCnmuGOHc9C7ejqUdHM94PhzBqJevAx7M6aM9ND+Z39?=
+ =?us-ascii?Q?hv03iNrJXh4skBPYYStaqOZI6BlGqwgsFZppJXor9KRQLElo/a2BZ9L4qdE8?=
+ =?us-ascii?Q?Ha1IiYBflRIpkTjz7Lmm1J9K58ihBSLYLPtISTDPTLpT2UOWeLsgsfNX8u1e?=
+ =?us-ascii?Q?YkDrlXYKMTXfcuIE/e9QgDm7sNAD827SiOJuVYLVGK9eMmL5xI/mfOZb+W/n?=
+ =?us-ascii?Q?iU5iBPoIWKiZo5exQKysVaMeEP3wqZPjoJWN0+YIk9kHxRloa8MF48b0bUh9?=
+ =?us-ascii?Q?Y/58L/fyioKll1aYz88mCes6PzYdb23o0AkLlgEAE7uguuXy+svsbGYuY75b?=
+ =?us-ascii?Q?t3OcjyVV53OWXaZHU0STmIGgEXwU/8I8jX8B2yi2yd0NWfcHT8xsAsbHPnKq?=
+ =?us-ascii?Q?bmpnqVlKR1ivvnl8LuBFTWiX+E4UoD7R3806p2U3zpYzJDl2JfQyfli58BHt?=
+ =?us-ascii?Q?GSKNcnhPIdUAHOGNUo0Zb7/isWy3QY3+AqC16qeUqU6gAgKLtjHoojl00Nhu?=
+ =?us-ascii?Q?H3Psiw5wcDHnjEU1DL3r6bWTgI/2onvi29GbV9DThRfLZqSSQM6uZ6FYxwut?=
+ =?us-ascii?Q?yYoFHUNDZJ5AIkNtFoeGBRRRKN+brjEJcSZNtfQGjpWqzTVvFiPa8WypUepG?=
+ =?us-ascii?Q?JX+eLTBwyfYrt2POkKNSZz6E8vDqAq6N/Uz2wQWL06BwTkJPJ/MXFLPttu/d?=
+ =?us-ascii?Q?98tcr2l3Kl/e3AFMAUOpvQIFGUEW4ZyNkkMXqm915+hyWZXUwYaQGIw0W6b3?=
+ =?us-ascii?Q?cfLptcalrCQDanMc8QI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|DS0PR12MB6656:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9724d98b-077d-4e39-8509-08dd61df150f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zd9xEJ5tS00m+YSByXu8NsnwZtlzMhif7/WcqzxzAHbNh2/zsgesGV6MO0Ju?=
- =?us-ascii?Q?WNYLlYBdqRlTnETgYQZd4QK5uqV+WplWSHz0mrno9l6op+GSzVDgDuVTyWfi?=
- =?us-ascii?Q?i/GpGclo83LaHZIaIxSR76hzGurGFj8nQjRHjYyf3F84v4e6xbIqrG6qb1a8?=
- =?us-ascii?Q?DLXpKfhJNNx+ipG0vd5L+/3vGzdGlxNvq/ijQaIeJqRfv2KvvA1cB6CR72kp?=
- =?us-ascii?Q?Wms/9tC/ILZ54MMHEwy678J8UApB4I6mnPzE9n8Mlyz+cVMczbfGhApu/AWC?=
- =?us-ascii?Q?eHWzX5G+Aq6TWXyUq7UoyOCQyDOvhgewX2Aq1b03v2KHflR2bdbiRyBdEK7P?=
- =?us-ascii?Q?HuaOQoUq+cK1vbPM9uWTXgVdD/QJUbRocv67iFCznnmzY6OJzIW88tZK0X5L?=
- =?us-ascii?Q?mDfCNvnFgI3f1YMyKqiSHbEhuG2KaH/C+/4x2hfdTE8aMSMjxPbm2sE965bh?=
- =?us-ascii?Q?ipTgyOG11DB/NsCF+tyVzOLx5jhre6PfMwgYNLtAh6dy8XsvG5AWBwTbHflv?=
- =?us-ascii?Q?rIpgfdtXoRQErTVGSp5Wj+GQcezjRSU9yHfFBzF3ep96/vzZB6Z3vQ7QNLgf?=
- =?us-ascii?Q?1sAGjqDt0qDREiWzyqLJalSHguEInOLOs1rVBOi+z2hSio4TZrG/z8qdHi1+?=
- =?us-ascii?Q?2pUvu2FCt1nCxNBQM3bIRQDYTHAR6nHmiTPjOkCGoIuVsRUqfgdVQE7KB2rI?=
- =?us-ascii?Q?m63s0Ymk7hRu4a8Ffhb7l3ttH/io1g4H48FQRuKsqFTELHxvFTalyx6ZUs/H?=
- =?us-ascii?Q?uTI9vfGiV3c19Gh/KKyHaf10IFHPt6xLxusAhQJW/v1g1PidIMRrJaV+LeC1?=
- =?us-ascii?Q?u/mHe/KfxYygdklAsy/SPij8/JZxiK4YLb0qHFkgcxt/E3ZPaHNhKhFJcEHz?=
- =?us-ascii?Q?Vl5O0Ia8e5DEQngfePU7pT0h8MiBrLxUrXPttsK9iUsxshICFVPMqqIzxzZV?=
- =?us-ascii?Q?XsWHwUdrdsXCJCLJ2pZKB8qcUOwV1MMhwEhWwY1T1LWiFXSjWafnMmUuEdJJ?=
- =?us-ascii?Q?X9U3wf+3+CY5sezG1gf5sZuMCWgbZE0+FUKa4C/g4QLGcjEz1AzgnoUW9rtx?=
- =?us-ascii?Q?UCh2uw1JuVKVKSGP1kts22SYTtsyzNue2bUn/3wzzQ5xqFtXYy8ks7lKKtUE?=
- =?us-ascii?Q?N35NKQiVEIINo1WfxGexDKtQ+ZSnMMdsu2NmE853IqRyPe/Yuk8s4jNbC36T?=
- =?us-ascii?Q?8z4ip9w0o/qCgTnMOmzs90EZ0GRSB/nvmU2+PJsJxLvruf4VjQ6Oodj5g1rC?=
- =?us-ascii?Q?sXjtr75cj6i+r0bZX4v2y2g4m2B9y5nU+M+iVD+SQMOXlOTlJDL8k8J+D8rS?=
- =?us-ascii?Q?WpoxgCPvOCW5fdKa0jrWXoAcYmy0uMfgn7KlLtgzdgX/JodnGo6+sfy0LzJM?=
- =?us-ascii?Q?kNaOSyfZbx7+gngXbzYH7eRr67Re2zlUWyEuOMXwUiGE2SdRsEJMcQbJAuPA?=
- =?us-ascii?Q?/sJxiKADnJLOdT1z+cn3THUmCyzA/u3xaDPtS/TCfBWML2X2DgEgew=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2025 03:28:11.4167 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9724d98b-077d-4e39-8509-08dd61df150f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6656
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW5PR12MB5684.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbb47e6c-c519-48ee-a7b5-08dd61e0ea01
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2025 03:41:18.2702 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /zZ6ed3v19OxJuwhLOm2bxmyV9+L4/3oApt74meapOEwisLLZbScIn32+BR6vYDko41MXdg91y0Ct8AFQF/hvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9173
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,57 +153,557 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The mistake of computation for remain size of CPER ring will cause
-unbreakable while cycle when CPER ring overflow.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Hi, Tao:
+        I am worried about host reboot or power down during the eeprom form=
+ating, which will make the bad page info lost.
+        If the issue needs to be considered, I suggest save bad page info o=
+n host disk before eeprom formatting, and make a mark on eeprom
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of amd-gfx-=
+request@lists.freedesktop.org
+Sent: Wednesday, March 12, 2025 6:09 PM
+To: amd-gfx@lists.freedesktop.org
+Subject: amd-gfx Digest, Vol 106, Issue 157
+
+Send amd-gfx mailing list submissions to
+        amd-gfx@lists.freedesktop.org
+
+To subscribe or unsubscribe via the World Wide Web, visit
+        https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+or, via email, send a message with subject or body 'help' to
+        amd-gfx-request@lists.freedesktop.org
+
+You can reach the person managing the list at
+        amd-gfx-owner@lists.freedesktop.org
+
+When replying, please edit your Subject line so it is more specific than "R=
+e: Contents of amd-gfx digest..."
+
+
+Today's Topics:
+
+   1. [PATCH] drm/amdgpu: format old RAS eeprom data into V3
+      version (Tao Zhou)
+   2. Re: [PATCH 2/2] drm/amdgpu: Make use of drm_wedge_app_info
+      (Raag Jadav)
+   3. [PATCH] drm/amdgpu/pm: Handle SCLK offset correctly in
+      overdrive for smu 14.0.2 (Tomasz Paku?a)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Wed, 12 Mar 2025 18:05:48 +0800
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Cc: Tao Zhou <tao.zhou1@amd.com>
+Subject: [PATCH] drm/amdgpu: format old RAS eeprom data into V3
+        version
+Message-ID: <20250312100548.283389-1-tao.zhou1@amd.com>
+Content-Type: text/plain
+
+Clear old data and save it in V3 format.
+
+v2: only format eeprom data for new ASICs.
+
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  7 +++++
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 26 ++++++++++---------
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |  1 +
+ 3 files changed, 22 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-index 47fe8a04e26a..d4e90785ee33 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-@@ -452,10 +452,10 @@ static u32 amdgpu_cper_ring_get_ent_sz(struct amdgpu_ring *ring, u64 pos)
- 		return umin(rec_len, chunk);
- }
- 
--void amdgpu_cper_ring_write(struct amdgpu_ring *ring,
--					      void *src, int count)
-+void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
- {
- 	u64 pos, wptr_old, rptr = *ring->rptr_cpu_addr & ring->ptr_mask;
-+	int rec_cnt_dw = count >> 2;
- 	u32 chunk, ent_sz;
- 	u8 *s = (u8 *)src;
- 
-@@ -482,6 +482,9 @@ void amdgpu_cper_ring_write(struct amdgpu_ring *ring,
- 		s += chunk;
- 	}
- 
-+	if (ring->count_dw < rec_cnt_dw)
-+		ring->count_dw = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index 837f33698b38..d3b9b4d9fb89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3465,6 +3465,13 @@ int amdgpu_ras_init_badpage_info(struct amdgpu_devic=
+e *adev)
+                                adev, control->bad_channel_bitmap);
+                        con->update_channel_flag =3D false;
+                }
 +
- 	/* the buffer is overflow, adjust rptr */
- 	if (((wptr_old < rptr) && (rptr <= ring->wptr)) ||
- 	    ((ring->wptr < wptr_old) && (wptr_old < rptr)) ||
-@@ -498,12 +501,10 @@ void amdgpu_cper_ring_write(struct amdgpu_ring *ring,
- 			pos = rptr;
- 		} while (!amdgpu_cper_is_hdr(ring, rptr));
- 	}
--	mutex_unlock(&ring->adev->cper.ring_lock);
- 
--	if (ring->count_dw >= (count >> 2))
--		ring->count_dw -= (count >> 2);
--	else
--		ring->count_dw = 0;
-+	if (ring->count_dw >= rec_cnt_dw)
-+		ring->count_dw -= rec_cnt_dw;
-+	mutex_unlock(&ring->adev->cper.ring_lock);
- }
- 
- static u64 amdgpu_cper_ring_get_rptr(struct amdgpu_ring *ring)
--- 
++               /* The format action is only applied to new ASICs */
++               if (IP_VERSION_MAJ(amdgpu_ip_version(adev, UMC_HWIP, 0)) >=
+=3D 12 &&
++                   control->tbl_hdr.version < RAS_TABLE_VER_V3)
++                       if (!amdgpu_ras_eeprom_reset_table(control))
++                               if (amdgpu_ras_save_bad_pages(adev, NULL))
++                                       dev_warn(adev->dev, "Failed to form=
+at RAS EEPROM data in V3
++version!\n");
+        }
+
+        return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 09a6f8bc1a5a..71dddb8983ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -413,9 +413,11 @@ static void amdgpu_ras_set_eeprom_table_version(struct=
+ amdgpu_ras_eeprom_control
+
+        switch (amdgpu_ip_version(adev, UMC_HWIP, 0)) {
+        case IP_VERSION(8, 10, 0):
+-       case IP_VERSION(12, 0, 0):
+                hdr->version =3D RAS_TABLE_VER_V2_1;
+                return;
++       case IP_VERSION(12, 0, 0):
++               hdr->version =3D RAS_TABLE_VER_V3;
++               return;
+        default:
+                hdr->version =3D RAS_TABLE_VER_V1;
+                return;
+@@ -443,7 +445,7 @@ int amdgpu_ras_eeprom_reset_table(struct amdgpu_ras_eep=
+rom_control *control)
+        hdr->header =3D RAS_TABLE_HDR_VAL;
+        amdgpu_ras_set_eeprom_table_version(control);
+
+-       if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
++       if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
+                hdr->first_rec_offset =3D RAS_RECORD_START_V2_1;
+                hdr->tbl_size =3D RAS_TABLE_HEADER_SIZE +
+                                RAS_TABLE_V2_1_INFO_SIZE;
+@@ -461,7 +463,7 @@ int amdgpu_ras_eeprom_reset_table(struct amdgpu_ras_eep=
+rom_control *control)
+        }
+
+        csum =3D __calc_hdr_byte_sum(control);
+-       if (hdr->version =3D=3D RAS_TABLE_VER_V2_1)
++       if (hdr->version >=3D RAS_TABLE_VER_V2_1)
+                csum +=3D __calc_ras_info_byte_sum(control);
+        csum =3D -csum;
+        hdr->checksum =3D csum;
+@@ -752,7 +754,7 @@ amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eepro=
+m_control *control)
+                        "Saved bad pages %d reaches threshold value %d\n",
+                        control->ras_num_bad_pages, ras->bad_page_cnt_thres=
+hold);
+                control->tbl_hdr.header =3D RAS_TABLE_HDR_BAD;
+-               if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1) {
++               if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1) {
+                        control->tbl_rai.rma_status =3D GPU_RETIRED__ECC_RE=
+ACH_THRESHOLD;
+                        control->tbl_rai.health_percent =3D 0;
+                }
+@@ -765,7 +767,7 @@ amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eepro=
+m_control *control)
+                amdgpu_dpm_send_rma_reason(adev);
+        }
+
+-       if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1)
++       if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1)
+                control->tbl_hdr.tbl_size =3D RAS_TABLE_HEADER_SIZE +
+                                            RAS_TABLE_V2_1_INFO_SIZE +
+                                            control->ras_num_recs * RAS_TAB=
+LE_RECORD_SIZE; @@ -805,7 +807,7 @@ amdgpu_ras_eeprom_update_header(struct =
+amdgpu_ras_eeprom_control *control)
+         * now calculate gpu health percent
+         */
+        if (amdgpu_bad_page_threshold !=3D 0 &&
+-           control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1 &&
++           control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1 &&
+            control->ras_num_bad_pages <=3D ras->bad_page_cnt_threshold)
+                control->tbl_rai.health_percent =3D ((ras->bad_page_cnt_thr=
+eshold -
+                                                   control->ras_num_bad_pag=
+es) * 100) / @@ -818,7 +820,7 @@ amdgpu_ras_eeprom_update_header(struct amd=
+gpu_ras_eeprom_control *control)
+                csum +=3D *pp;
+
+        csum +=3D __calc_hdr_byte_sum(control);
+-       if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1)
++       if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1)
+                csum +=3D __calc_ras_info_byte_sum(control);
+        /* avoid sign extension when assigning to "checksum" */
+        csum =3D -csum;
+@@ -1035,7 +1037,7 @@ uint32_t amdgpu_ras_eeprom_max_record_count(struct am=
+dgpu_ras_eeprom_control *co
+        /* get available eeprom table version first before eeprom table ini=
+t */
+        amdgpu_ras_set_eeprom_table_version(control);
+
+-       if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1)
++       if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1)
+                return RAS_MAX_RECORD_COUNT_V2_1;
+        else
+                return RAS_MAX_RECORD_COUNT;
+@@ -1280,7 +1282,7 @@ static int __verify_ras_table_checksum(struct amdgpu_=
+ras_eeprom_control *control
+        int buf_size, res;
+        u8  csum, *buf, *pp;
+
+-       if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1)
++       if (control->tbl_hdr.version >=3D RAS_TABLE_VER_V2_1)
+                buf_size =3D RAS_TABLE_HEADER_SIZE +
+                           RAS_TABLE_V2_1_INFO_SIZE +
+                           control->ras_num_recs * RAS_TABLE_RECORD_SIZE; @=
+@ -1383,7 +1385,7 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_co=
+ntrol *control)
+
+        __decode_table_header_from_buf(hdr, buf);
+
+-       if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
++       if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
+                control->ras_num_recs =3D RAS_NUM_RECS_V2_1(hdr);
+                control->ras_record_offset =3D RAS_RECORD_START_V2_1;
+                control->ras_max_record_count =3D RAS_MAX_RECORD_COUNT_V2_1=
+; @@ -1423,7 +1425,7 @@ int amdgpu_ras_eeprom_check(struct amdgpu_ras_eepro=
+m_control *control)
+                DRM_DEBUG_DRIVER("Found existing EEPROM table with %d recor=
+ds",
+                                 control->ras_num_bad_pages);
+
+-               if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
++               if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
+                        res =3D __read_table_ras_info(control);
+                        if (res)
+                                return res;
+@@ -1443,7 +1445,7 @@ int amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom_=
+control *control)
+                                        ras->bad_page_cnt_threshold);
+        } else if (hdr->header =3D=3D RAS_TABLE_HDR_BAD &&
+                   amdgpu_bad_page_threshold !=3D 0) {
+-               if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
++               if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
+                        res =3D __read_table_ras_info(control);
+                        if (res)
+                                return res;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ras_eeprom.h
+index 13f7eda9a696..ec6d7ea37ad0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+@@ -28,6 +28,7 @@
+
+ #define RAS_TABLE_VER_V1           0x00010000
+ #define RAS_TABLE_VER_V2_1         0x00021000
++#define RAS_TABLE_VER_V3           0x00030000
+
+ struct amdgpu_device;
+
+--
 2.34.1
 
+
+
+------------------------------
+
+Message: 2
+Date: Tue, 11 Mar 2025 19:13:15 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Andr? Almeida <andrealmeid@igalia.com>,
+        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+        intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, Al=
+ex
+        Deucher <alexander.deucher@amd.com>, Christian K?nig
+        <christian.koenig@amd.com>, siqueira@igalia.com, airlied@gmail.com,
+        simona@ffwll.ch, rodrigo.vivi@intel.com, jani.nikula@linux.intel.co=
+m,
+        Xaver Hugl <xaver.hugl@kde.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Make use of drm_wedge_app_info
+Message-ID: <Z9BvK55_Nim54eOu@black.fi.intel.com>
+Content-Type: text/plain; charset=3Dutf-8
+
+On Mon, Mar 10, 2025 at 06:03:27PM -0400, Alex Deucher wrote:
+> On Mon, Mar 10, 2025 at 5:54?PM Andr? Almeida <andrealmeid@igalia.com> wr=
+ote:
+> >
+> > Em 01/03/2025 03:04, Raag Jadav escreveu:
+> > > On Fri, Feb 28, 2025 at 06:49:43PM -0300, Andr? Almeida wrote:
+> > >> Hi Raag,
+> > >>
+> > >> On 2/28/25 11:58, Raag Jadav wrote:
+> > >>> On Fri, Feb 28, 2025 at 09:13:53AM -0300, Andr? Almeida wrote:
+> > >>>> To notify userspace about which app (if any) made the device get i=
+n a
+> > >>>> wedge state, make use of drm_wedge_app_info parameter, filling it =
+with
+> > >>>> the app PID and name.
+> > >>>>
+> > >>>> Signed-off-by: Andr? Almeida <andrealmeid@igalia.com>
+> > >>>> ---
+> > >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 +++++++++++++++=
+++--
+> > >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  6 +++++-
+> > >>>>    2 files changed, 22 insertions(+), 3 deletions(-)
+> > >>>>
+> > >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_device.c
+> > >>>> index 00b9b87dafd8..e06adf6f34fd 100644
+> > >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > >>>> @@ -6123,8 +6123,23 @@ int amdgpu_device_gpu_recover(struct amdgpu=
+_device *adev,
+> > >>>>            atomic_set(&adev->reset_domain->reset_res, r);
+> > >>>> -  if (!r)
+> > >>>> -          drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOV=
+ERY_NONE, NULL);
+> > >>>> +  if (!r) {
+> > >>>> +          struct drm_wedge_app_info aux, *info =3D NULL;
+> > >>>> +
+> > >>>> +          if (job) {
+> > >>>> +                  struct amdgpu_task_info *ti;
+> > >>>> +
+> > >>>> +                  ti =3D amdgpu_vm_get_task_info_pasid(adev, job-=
+>pasid);
+> > >>>> +                  if (ti) {
+> > >>>> +                          aux.pid =3D ti->pid;
+> > >>>> +                          aux.comm =3D ti->process_name;
+> > >>>> +                          info =3D &aux;
+> > >>>> +                          amdgpu_vm_put_task_info(ti);
+> > >>>> +                  }
+> > >>>> +          }
+> > >>> Is this guaranteed to be guilty app and not some scheduled worker?
+> > >>
+> > >> This is how amdgpu decides which app is the guilty one earlier in th=
+e code
+> > >> as in the print:
+> > >>
+> > >>      ti =3D amdgpu_vm_get_task_info_pasid(ring->adev, job->pasid);
+> > >>
+> > >>      "Process information: process %s pid %d thread %s pid %d\n"
+> > >>
+> > >> So I think it's consistent with what the driver thinks it's the guil=
+ty
+> > >> process.
+> > >
+> > > Sure, but with something like app_info we're kind of hinting to users=
+pace
+> > > that an application was _indeed_ involved with reset. Is that also gu=
+aranteed?
+> > >
+> > > Is it possible that an application needlessly suffers from a false po=
+sitive
+> > > scenario (reset due to other factors)?
+> > >
+> >
+> > I asked Alex Deucher in IRC about that and yes, there's a chance that
+> > this is a false positive. However, for the majority of cases this is th=
+e
+> > right app that caused the hang. This is what amdgpu is doing for GL
+> > robustness as well and devcoredump, so it's very consistent with how
+> > amdgpu deals with this scenario even if the mechanism is still not perf=
+ect.
+>
+> It's usually the guilty one, but it's not guaranteed.  For example,
+> say you have a ROCm user queue and a gfx job submitted to a kernel
+> queue.  The actual guilty job may be the ROCm user queue, but the
+> driver may not detect that the ROCm queue was hung until some other
+> event (e.g., memory pressure).  However, the timer for the gfx job may
+> timeout before that happens on the ROCm queue so in that case the gfx
+> job would be incorrectly considered guilty.
+
+So it boils down to what are the chances of that happening and whether
+it's significant enough to open the door for API abuse.
+
+Considering this is amd specific accuracy, it's still an open question
+how other drivers are/will be managing it.
+
+Raag
+
+
+------------------------------
+
+Message: 3
+Date: Tue, 11 Mar 2025 22:38:33 +0100
+From: Tomasz Paku?a <tomasz.pakula.oficjalny@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+Subject: [PATCH] drm/amdgpu/pm: Handle SCLK offset correctly in
+        overdrive for smu 14.0.2
+Message-ID:
+        <20250311213833.870840-1-tomasz.pakula.oficjalny@gmail.com>
+Content-Type: text/plain; charset=3DUTF-8
+
+Currently, it seems like the code was carried over from RDNA3 because
+it assumes two possible values to set. RDNA4, instead of having:
+0: min SCLK
+1: max SCLK
+only has
+0: SCLK offset
+
+This change makes it so it only reports current offset value instead of
+showing possible min/max values and their indices. Moreover, it now only
+accepts the offset as a value, without the indice index.
+
+Additionally, the lower bound was printed as %u by mistake.
+
+Old:
+OD_SCLK_OFFSET:
+0: -500Mhz
+1: 1000Mhz
+OD_MCLK:
+0: 97Mhz
+1: 1259MHz
+OD_VDDGFX_OFFSET:
+0mV
+OD_RANGE:
+SCLK_OFFSET:    -500Mhz       1000Mhz
+MCLK:      97Mhz       1500Mhz
+VDDGFX_OFFSET:    -200mv          0mv
+
+New:
+OD_SCLK_OFFSET:
+0Mhz
+OD_MCLK:
+0: 97Mhz
+1: 1259MHz
+OD_VDDGFX_OFFSET:
+0mV
+OD_RANGE:
+SCLK_OFFSET:    -500Mhz       1000Mhz
+MCLK:      97Mhz       1500Mhz
+VDDGFX_OFFSET:    -200mv          0mv
+
+Setting this offset:
+Old: "s 1 <offset>"
+New: "s <offset>"
+
+Signed-off-by: Tomasz Paku?a <tomasz.pakula.oficjalny@gmail.com>
+---
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 59 ++++++-------------
+ 1 file changed, 18 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 5cad09c5f2ff..62bd9647541a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -1193,16 +1193,9 @@ static int smu_v14_0_2_print_clk_levels(struct smu_c=
+ontext *smu,
+                                                         PP_OD_FEATURE_GFXC=
+LK_BIT))
+                        break;
+
+-               PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+-               const OverDriveLimits_t * const overdrive_upperlimits =3D
+-                                       &pptable->SkuTable.OverDriveLimitsB=
+asicMax;
+-               const OverDriveLimits_t * const overdrive_lowerlimits =3D
+-                                       &pptable->SkuTable.OverDriveLimitsB=
+asicMin;
+-
+                size +=3D sysfs_emit_at(buf, size, "OD_SCLK_OFFSET:\n");
+-               size +=3D sysfs_emit_at(buf, size, "0: %dMhz\n1: %uMhz\n",
+-                                       overdrive_lowerlimits->GfxclkFoffse=
+t,
+-                                       overdrive_upperlimits->GfxclkFoffse=
+t);
++               size +=3D sysfs_emit_at(buf, size, "%dMhz\n",
++                                       od_table->OverDriveTable.GfxclkFoff=
+set);
+                break;
+
+        case SMU_OD_MCLK:
+@@ -1336,13 +1329,9 @@ static int smu_v14_0_2_print_clk_levels(struct smu_c=
+ontext *smu,
+                size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+
+                if (smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_=
+GFXCLK_BIT)) {
+-                       smu_v14_0_2_get_od_setting_limits(smu,
+-                                                         PP_OD_FEATURE_GFX=
+CLK_FMIN,
+-                                                         &min_value,
+-                                                         NULL);
+                        smu_v14_0_2_get_od_setting_limits(smu,
+                                                          PP_OD_FEATURE_GFX=
+CLK_FMAX,
+-                                                         NULL,
++                                                         &min_value,
+                                                          &max_value);
+                        size +=3D sysfs_emit_at(buf, size, "SCLK_OFFSET: %7=
+dMhz %10uMhz\n",
+                                              min_value, max_value);
+@@ -2417,36 +2406,24 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu=
+_context *smu,
+                        return -ENOTSUPP;
+                }
+
+-               for (i =3D 0; i < size; i +=3D 2) {
+-                       if (i + 2 > size) {
+-                               dev_info(adev->dev, "invalid number of inpu=
+t parameters %d\n", size);
+-                               return -EINVAL;
+-                       }
+-
+-                       switch (input[i]) {
+-                       case 1:
+-                               smu_v14_0_2_get_od_setting_limits(smu,
+-                                                                 PP_OD_FEA=
+TURE_GFXCLK_FMAX,
+-                                                                 &minimum,
+-                                                                 &maximum)=
+;
+-                               if (input[i + 1] < minimum ||
+-                                   input[i + 1] > maximum) {
+-                                       dev_info(adev->dev, "GfxclkFmax (%l=
+d) must be within [%u, %u]!\n",
+-                                               input[i + 1], minimum, maxi=
+mum);
+-                                       return -EINVAL;
+-                               }
+-
+-                               od_table->OverDriveTable.GfxclkFoffset =3D =
+input[i + 1];
+-                               od_table->OverDriveTable.FeatureCtrlMask |=
+=3D 1U << PP_OD_FEATURE_GFXCLK_BIT;
+-                               break;
++               if (size !=3D 1) {
++                       dev_info(adev->dev, "invalid number of input parame=
+ters %d\n", size);
++                       return -EINVAL;
++               }
+
+-                       default:
+-                               dev_info(adev->dev, "Invalid SCLK_VDDC_TABL=
+E index: %ld\n", input[i]);
+-                               dev_info(adev->dev, "Supported indices: [0:=
+min,1:max]\n");
+-                               return -EINVAL;
+-                       }
++               smu_v14_0_2_get_od_setting_limits(smu,
++                                                 PP_OD_FEATURE_GFXCLK_FMAX=
+,
++                                                 &minimum,
++                                                 &maximum);
++               if (input[0] < minimum ||
++                   input[0] > maximum) {
++                       dev_info(adev->dev, "GfxclkFoffset must be within [=
+%d, %u]!\n",
++                                minimum, maximum);
++                       return -EINVAL;
+                }
+
++               od_table->OverDriveTable.GfxclkFoffset =3D input[0];
++               od_table->OverDriveTable.FeatureCtrlMask |=3D 1U << PP_OD_F=
+EATURE_GFXCLK_BIT;
+                break;
+
+        case PP_OD_EDIT_MCLK_VDDC_TABLE:
+--
+2.48.1
+
+
+
+------------------------------
+
+Subject: Digest Footer
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+------------------------------
+
+End of amd-gfx Digest, Vol 106, Issue 157
+*****************************************
