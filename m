@@ -4,71 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 893F9C282DE
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 13:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7799C28B2E
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 13:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2873A10E160;
-	Thu, 13 Mar 2025 13:14:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CADC10E132;
+	Thu, 13 Mar 2025 13:14:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gljrNtU0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="U8l72FYJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2E0B10E106;
- Thu, 13 Mar 2025 11:08:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741864084; x=1773400084;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=DtTOfbnkAVccKUuDS63awzbFYBh5j1+96WX5yegVUyc=;
- b=gljrNtU01sg/b0uPMfHahFh+tVZns/QyWMxIubt13CXLKbok5UmX05Kk
- Kr2vhhITtDddVlhVGPztHKWvDFUDgLshP9Upf2C1iSyBJkBGCUcyj8JRA
- f2/WIci7m/Ggf3mph8Sw12pqcXoAPQb83Ggds6gpTo9Jc9wi27gZVO7YI
- ka9X73U4Qpc/COQlkcJJHS7ep1Zi094rSRnxWAQQg/l8FkbGiqipgZ8Be
- qW9Xsr0MKiQgfIDYMTidn0nJH/Qq/8F+Txmo1ZQyRL5OI30J0yGIHTip4
- uwtCbob/pgcPG02/Q0wPa/EkA+ZyHg8oMCvzgUbJ+UDWuFjr0SIqlHXSK Q==;
-X-CSE-ConnectionGUID: Hy/SKhc2S1arP52CAVAIXA==
-X-CSE-MsgGUID: sqGjuyLHQW2LEceGez1NVQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11371"; a="68328800"
-X-IronPort-AV: E=Sophos;i="6.14,244,1736841600"; d="scan'208";a="68328800"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2025 04:08:03 -0700
-X-CSE-ConnectionGUID: AjktYhLsRsm6vhAxfAix0w==
-X-CSE-MsgGUID: syYFaxW2RVyXWMwPukIlaA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,244,1736841600"; d="scan'208";a="158080593"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2025 04:07:59 -0700
-Date: Thu, 13 Mar 2025 13:07:56 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3A9210E211;
+ Thu, 13 Mar 2025 11:30:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=Pm73EJRQgZ77/ckvxKpjTwQ+FlBGwLcf98qwKNe6V94=; b=U8l72FYJdvxrrI/bNfTq5ItQR4
+ KKq4RgfZ17RBeMUI0YllEwMBqPOKrG4DDY7eYaUekOjC4LtFFS1MOjEJshIFCToLUqOtJLtOy3FZp
+ okLNEOcETz9+Uob8y0ojphdOXxCLZLUf9cAl/kqSQqvy9PDIv2yK+q4JoM899xdtAAAeC84e0ibry
+ isFYZ1sX2o/b1W3FXhWXvVXOYooB/SIPNJnTdhNNdwynB4aQoJvFs8voDI3zELohMHHuzPs90YeoF
+ JWYoe5MYJVz+84QLCho5HnPqe2zi6851ZJqP3ap7QgUNNdHz7yjGEVR2MFg7ShoNneBOyoh2WUQK2
+ 9MNUNE5w==;
+Received: from 179-125-64-252-dinamico.pombonet.net.br ([179.125.64.252]
+ helo=quatroqueijos) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tsgl6-0084nJ-Qr; Thu, 13 Mar 2025 12:29:59 +0100
+Date: Thu, 13 Mar 2025 08:29:59 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- 'Christian =?iso-8859-1?Q?K=F6nig'?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- lucas.demarchi@intel.com, Xaver Hugl <xaver.hugl@kde.org>,
- Pierre-Loup Griffais <pgriffais@valvesoftware.com>
-Subject: Re: [PATCH 1/2] drm: Create an app info option for wedge events
-Message-ID: <Z9K8jHVoOKPoXyuv@black.fi.intel.com>
-References: <20250228121353.1442591-1-andrealmeid@igalia.com>
- <20250228121353.1442591-2-andrealmeid@igalia.com>
- <Z8HGFRGOYvyCCWWu@black.fi.intel.com>
- <58763d8e-46a1-4753-9401-987fb3dac50b@igalia.com>
- <Z8KgwswQQyGxhsR1@black.fi.intel.com>
- <db27ee44-f480-475b-be7e-710bd30eb7a5@igalia.com>
- <Z9BuU3RzMkEE_FL1@black.fi.intel.com>
- <Z9FcmDzSmBbVAsqD@black.fi.intel.com>
- <ef926ea5-ac0e-4f95-b260-84c4102c93ad@igalia.com>
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tom Chung <chiahsuan.chung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
+ stable@vger.kernel.org, Daniel Wheeler <daniel.wheeler@amd.com>
+Subject: Re: [PATCH] drm/amd/display: avoid NPD when ASIC does not support DMUB
+Message-ID: <Z9LBt2ePtxJ0Nzz4@quatroqueijos>
+References: <20250205-amdgpu-dmub-v1-1-88151fe565d8@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ef926ea5-ac0e-4f95-b260-84c4102c93ad@igalia.com>
+In-Reply-To: <20250205-amdgpu-dmub-v1-1-88151fe565d8@igalia.com>
 X-Mailman-Approved-At: Thu, 13 Mar 2025 13:14:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,107 +65,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 12, 2025 at 06:59:33PM -0300, André Almeida wrote:
-> Em 12/03/2025 07:06, Raag Jadav escreveu:
-> > On Tue, Mar 11, 2025 at 07:09:45PM +0200, Raag Jadav wrote:
-> > > On Mon, Mar 10, 2025 at 06:27:53PM -0300, André Almeida wrote:
-> > > > Em 01/03/2025 02:53, Raag Jadav escreveu:
-> > > > > On Fri, Feb 28, 2025 at 06:54:12PM -0300, André Almeida wrote:
-> > > > > > Hi Raag,
-> > > > > > 
-> > > > > > On 2/28/25 11:20, Raag Jadav wrote:
-> > > > > > > Cc: Lucas
-> > > > > > > 
-> > > > > > > On Fri, Feb 28, 2025 at 09:13:52AM -0300, André Almeida wrote:
-> > > > > > > > When a device get wedged, it might be caused by a guilty application.
-> > > > > > > > For userspace, knowing which app was the cause can be useful for some
-> > > > > > > > situations, like for implementing a policy, logs or for giving a chance
-> > > > > > > > for the compositor to let the user know what app caused the problem.
-> > > > > > > > This is an optional argument, when `PID=-1` there's no information about
-> > > > > > > > the app caused the problem, or if any app was involved during the hang.
-> > > > > > > > 
-> > > > > > > > Sometimes just the PID isn't enough giving that the app might be already
-> > > > > > > > dead by the time userspace will try to check what was this PID's name,
-> > > > > > > > so to make the life easier also notify what's the app's name in the user
-> > > > > > > > event.
-> > > > > > > > 
-> > > > > > > > Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> > > > 
-> > > > [...]
-> > > > 
-> > > > > > > >     	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
-> > > > > > > > @@ -562,6 +564,14 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
-> > > > > > > >     	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
-> > > > > > > >     		 "but recovered through reset" : "needs recovery");
-> > > > > > > > +	if (info) {
-> > > > > > > > +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
-> > > > > > > > +		snprintf(comm_string, sizeof(comm_string), "APP=%s", info->comm);
-> > > > > > > > +	} else {
-> > > > > > > > +		snprintf(pid_string, sizeof(pid_string), "%s", "PID=-1");
-> > > > > > > > +		snprintf(comm_string, sizeof(comm_string), "%s", "APP=none");
-> > > > > > > > +	}
-> > > > > > > This is not much use for wedge cases that needs recovery, since at that point
-> > > > > > > the userspace will need to clean house anyway.
-> > > > > > > 
-> > > > > > > Which leaves us with only 'none' case and perhaps the need for standardization
-> > > > > > > of "optional telemetry collection".
-> > > > > > > 
-> > > > > > > Thoughts?
-> > > > > > 
-> > > > > > I had the feeling that 'none' was already meant to be used for that. Do you
-> > > > > > think we should move to another naming? Given that we didn't reach the merge
-> > > > > > window yet we could potentially change that name without much damage.
-> > > > > 
-> > > > > No, I meant thoughts on possible telemetry data that the drivers might
-> > > > > think is useful for userspace (along with PID) and can be presented in
-> > > > > a vendor agnostic manner (just like wedged event).
-> > > > 
-> > > > I'm not if I agree that this will only be used for telemetry and for the
-> > > > `none` use case. As stated by Xaver, there's use case to know which app
-> > > > caused the device to get wedged (like switching to software rendering) and
-> > > > to display something for the user after the recovery is done (e.g. "The game
-> > > > <app name> stopped working and Plasma has reset").
-> > > 
-> > > Sure, but since this information is already available in coredump, I was
-> > > hoping to have something like a standardized DRM level coredump with both
-> > > vendor specific and agnostic sections, which the drivers can (and hopefully
-> > > transition to) use in conjunction with wedged event to provide wider
-> > > telemetry and is useful for all wedge cases.
-> > 
-> > This is more useful because,
-> > 
-> > 1. It gives drivers an opportunity to present the telemetry that they are
-> >     interested in without needing to add a new event string (like PID or APP)
-> >     for their case.
-> > 
-> > 2. When we consider wedging as a usecase, there's a lot more that goes
-> >     into it than an application that might be behaving strangely. So a wider
-> >     telemetry is what I would hope to look at in such a scenario.
-> > 
+On Wed, Feb 05, 2025 at 10:06:38AM -0300, Thadeu Lima de Souza Cascardo wrote:
+> ctx->dmub_srv will de NULL if the ASIC does not support DMUB, which is
+> tested in dm_dmub_sw_init.
 > 
-> I agree that coredump is the way to go for telemetry, we already have the
-> name and PID of the guilty app there, along with more information about the
-> GPU state. But I don't think it should be consumed like an uAPI. Even if we
-> wire up some common DRM code for that, I don't think we can guarantee the
-> stability of it as we can do for an uevent. coredump can be disabled and by
-> default is only accessible by root.
+> However, it will be dereferenced in dmub_hw_lock_mgr_cmd if
+> should_use_dmub_lock returns true.
+> 
+> This has been the case since dmub support has been added for PSR1.
 
-Hm, this made me curious about how a pid of a specific user will be dealt
-with in a multi-user scenario. I know it's not a common scenario for the
-usercase but setting the rules to avoid side-effects (or could there be
-any?) might be a good idea.
+This bug has landed on stable trees. Any chance for a review here?
 
-> So I think that coredump is really good after the fact and if the user is
-> willing to go ahead and report a bug somewhere. But for the goal of
-> notifying the compositor, the same uevent that the compositor is already
-> listening to will have everything they need to deal with this reset.
+Thanks.
+Cascardo.
 
-I agree that having to deal with coredump will be cumbersome for the
-usecase. Although I'm still leaning towards the idea that we should
-consider the room for new usecases that probably want to expose new data,
-and having to add a new string each time might not be the best of the
-approach.
-
-But that's just my opinion and we should probably wait for wider feedback.
-
-Raag
+> 
+> Fix this by checking for dmub_srv in should_use_dmub_lock.
+> 
+> [   37.440832] BUG: kernel NULL pointer dereference, address: 0000000000000058
+> [   37.447808] #PF: supervisor read access in kernel mode
+> [   37.452959] #PF: error_code(0x0000) - not-present page
+> [   37.458112] PGD 0 P4D 0
+> [   37.460662] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [   37.465553] CPU: 2 UID: 1000 PID: 1745 Comm: DrmThread Not tainted 6.14.0-rc1-00003-gd62e938120f0 #23 99720e1cb1e0fc4773b8513150932a07de3c6e88
+> [   37.478324] Hardware name: Google Morphius/Morphius, BIOS Google_Morphius.13434.858.0 10/26/2023
+> [   37.487103] RIP: 0010:dmub_hw_lock_mgr_cmd+0x77/0xb0
+> [   37.492074] Code: 44 24 0e 00 00 00 00 48 c7 04 24 45 00 00 0c 40 88 74 24 0d 0f b6 02 88 44 24 0c 8b 01 89 44 24 08 85 f6 75 05 c6 44 24 0e 01 <48> 8b 7f 58 48 89 e6 ba 01 00 00 00 e8 08 3c 2a 00 65 48 8b 04 5
+> [   37.510822] RSP: 0018:ffff969442853300 EFLAGS: 00010202
+> [   37.516052] RAX: 0000000000000000 RBX: ffff92db03000000 RCX: ffff969442853358
+> [   37.523185] RDX: ffff969442853368 RSI: 0000000000000001 RDI: 0000000000000000
+> [   37.530322] RBP: 0000000000000001 R08: 00000000000004a7 R09: 00000000000004a5
+> [   37.537453] R10: 0000000000000476 R11: 0000000000000062 R12: ffff92db0ade8000
+> [   37.544589] R13: ffff92da01180ae0 R14: ffff92da011802a8 R15: ffff92db03000000
+> [   37.551725] FS:  0000784a9cdfc6c0(0000) GS:ffff92db2af00000(0000) knlGS:0000000000000000
+> [   37.559814] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   37.565562] CR2: 0000000000000058 CR3: 0000000112b1c000 CR4: 00000000003506f0
+> [   37.572697] Call Trace:
+> [   37.575152]  <TASK>
+> [   37.577258]  ? __die_body+0x66/0xb0
+> [   37.580756]  ? page_fault_oops+0x3e7/0x4a0
+> [   37.584861]  ? exc_page_fault+0x3e/0xe0
+> [   37.588706]  ? exc_page_fault+0x5c/0xe0
+> [   37.592550]  ? asm_exc_page_fault+0x22/0x30
+> [   37.596742]  ? dmub_hw_lock_mgr_cmd+0x77/0xb0
+> [   37.601107]  dcn10_cursor_lock+0x1e1/0x240
+> [   37.605211]  program_cursor_attributes+0x81/0x190
+> [   37.609923]  commit_planes_for_stream+0x998/0x1ef0
+> [   37.614722]  update_planes_and_stream_v2+0x41e/0x5c0
+> [   37.619703]  dc_update_planes_and_stream+0x78/0x140
+> [   37.624588]  amdgpu_dm_atomic_commit_tail+0x4362/0x49f0
+> [   37.629832]  ? srso_return_thunk+0x5/0x5f
+> [   37.633847]  ? mark_held_locks+0x6d/0xd0
+> [   37.637774]  ? _raw_spin_unlock_irq+0x24/0x50
+> [   37.642135]  ? srso_return_thunk+0x5/0x5f
+> [   37.646148]  ? lockdep_hardirqs_on+0x95/0x150
+> [   37.650510]  ? srso_return_thunk+0x5/0x5f
+> [   37.654522]  ? _raw_spin_unlock_irq+0x2f/0x50
+> [   37.658883]  ? srso_return_thunk+0x5/0x5f
+> [   37.662897]  ? wait_for_common+0x186/0x1c0
+> [   37.666998]  ? srso_return_thunk+0x5/0x5f
+> [   37.671009]  ? drm_crtc_next_vblank_start+0xc3/0x170
+> [   37.675983]  commit_tail+0xf5/0x1c0
+> [   37.679478]  drm_atomic_helper_commit+0x2a2/0x2b0
+> [   37.684186]  drm_atomic_commit+0xd6/0x100
+> [   37.688199]  ? __cfi___drm_printfn_info+0x10/0x10
+> [   37.692911]  drm_atomic_helper_update_plane+0xe5/0x130
+> [   37.698054]  drm_mode_cursor_common+0x501/0x670
+> [   37.702600]  ? __cfi_drm_mode_cursor_ioctl+0x10/0x10
+> [   37.707572]  drm_mode_cursor_ioctl+0x48/0x70
+> [   37.711851]  drm_ioctl_kernel+0xf2/0x150
+> [   37.715781]  drm_ioctl+0x363/0x590
+> [   37.719189]  ? __cfi_drm_mode_cursor_ioctl+0x10/0x10
+> [   37.724165]  amdgpu_drm_ioctl+0x41/0x80
+> [   37.728013]  __se_sys_ioctl+0x7f/0xd0
+> [   37.731685]  do_syscall_64+0x87/0x100
+> [   37.735355]  ? vma_end_read+0x12/0xe0
+> [   37.739024]  ? srso_return_thunk+0x5/0x5f
+> [   37.743041]  ? find_held_lock+0x47/0xf0
+> [   37.746884]  ? vma_end_read+0x12/0xe0
+> [   37.750552]  ? srso_return_thunk+0x5/0x5f
+> [   37.754565]  ? lock_release+0x1c4/0x2e0
+> [   37.758406]  ? vma_end_read+0x12/0xe0
+> [   37.762079]  ? exc_page_fault+0x84/0xe0
+> [   37.765921]  ? srso_return_thunk+0x5/0x5f
+> [   37.769938]  ? lockdep_hardirqs_on+0x95/0x150
+> [   37.774303]  ? srso_return_thunk+0x5/0x5f
+> [   37.778317]  ? exc_page_fault+0x84/0xe0
+> [   37.782163]  entry_SYSCALL_64_after_hwframe+0x55/0x5d
+> [   37.787218] RIP: 0033:0x784aa5ec3059
+> [   37.790803] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1d 48 8b 45 c8 64 48 2b 04 25 28 00 0
+> [   37.809553] RSP: 002b:0000784a9cdf90e0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> [   37.817121] RAX: ffffffffffffffda RBX: 0000784a9cdf917c RCX: 0000784aa5ec3059
+> [   37.824256] RDX: 0000784a9cdf917c RSI: 00000000c01c64a3 RDI: 0000000000000020
+> [   37.831391] RBP: 0000784a9cdf9130 R08: 0000000000000100 R09: 0000000000ff0000
+> [   37.838525] R10: 0000000000000000 R11: 0000000000000246 R12: 0000025c01606ed0
+> [   37.845657] R13: 0000025c00030200 R14: 00000000c01c64a3 R15: 0000000000000020
+> [   37.852799]  </TASK>
+> [   37.854992] Modules linked in:
+> [   37.864546] gsmi: Log Shutdown Reason 0x03
+> [   37.868656] CR2: 0000000000000058
+> [   37.871979] ---[ end trace 0000000000000000 ]---
+> [   37.880976] RIP: 0010:dmub_hw_lock_mgr_cmd+0x77/0xb0
+> [   37.885954] Code: 44 24 0e 00 00 00 00 48 c7 04 24 45 00 00 0c 40 88 74 24 0d 0f b6 02 88 44 24 0c 8b 01 89 44 24 08 85 f6 75 05 c6 44 24 0e 01 <48> 8b 7f 58 48 89 e6 ba 01 00 00 00 e8 08 3c 2a 00 65 48 8b 04 5
+> [   37.904703] RSP: 0018:ffff969442853300 EFLAGS: 00010202
+> [   37.909933] RAX: 0000000000000000 RBX: ffff92db03000000 RCX: ffff969442853358
+> [   37.917068] RDX: ffff969442853368 RSI: 0000000000000001 RDI: 0000000000000000
+> [   37.924201] RBP: 0000000000000001 R08: 00000000000004a7 R09: 00000000000004a5
+> [   37.931336] R10: 0000000000000476 R11: 0000000000000062 R12: ffff92db0ade8000
+> [   37.938469] R13: ffff92da01180ae0 R14: ffff92da011802a8 R15: ffff92db03000000
+> [   37.945602] FS:  0000784a9cdfc6c0(0000) GS:ffff92db2af00000(0000) knlGS:0000000000000000
+> [   37.953689] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   37.959435] CR2: 0000000000000058 CR3: 0000000112b1c000 CR4: 00000000003506f0
+> [   37.966570] Kernel panic - not syncing: Fatal exception
+> [   37.971901] Kernel Offset: 0x30200000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
+> [   37.982840] gsmi: Log Shutdown Reason 0x02
+> 
+> Fixes: b5c764d6ed55 ("drm/amd/display: Use HW lock mgr for PSR1")
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> Cc: stable@vger.kernel.org
+> Cc: Sun peng Li <sunpeng.li@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
+> index 5bb8b78bf250a0e56c3e99ce7c99ed7f70c8f0f6..eef817a4c580aca2ebc7fb1b77cfc0377d477bdc 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
+> @@ -63,6 +63,9 @@ void dmub_hw_lock_mgr_inbox0_cmd(struct dc_dmub_srv *dmub_srv,
+>  
+>  bool should_use_dmub_lock(struct dc_link *link)
+>  {
+> +	/* ASIC doesn't support DMUB */
+> +	if (!link->ctx->dmub_srv)
+> +		return false;
+>  	if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1 ||
+>  	    link->psr_settings.psr_version == DC_PSR_VERSION_1)
+>  		return true;
+> 
+> ---
+> base-commit: 2014c95afecee3e76ca4a56956a936e23283f05b
+> change-id: 20250205-amdgpu-dmub-3fc25a0bc68e
+> 
+> Best regards,
+> -- 
+> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> 
