@@ -4,141 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E79C35FF8
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 09:11:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 834ACC35FFC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 09:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B1BC10E9A4;
-	Fri, 14 Mar 2025 09:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97DA010E21C;
+	Fri, 14 Mar 2025 09:11:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iSH/PJi0";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="iq8kjZZ8";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD56510E95A
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:11 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52DKD2Ve027243
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- cbVY8Zk+Bw747ivKpsWKnew31zOXihiyANI1TT91neA=; b=iSH/PJi0YezNRtkY
- dpNv02INGvdoV/jUzb+Y97CXJhkRhl7k9IHGc8vIJYRhD8kBWAndMZt8bAQ9j8qK
- T25Xh+mdLgw1W8n2a/H61+Uu3I5VaWwhErZCuUyNumUHT0ki29GdpbW9IQhwcQUc
- D8gXtezyl9uQM66HnU18S4SnO2cr0Ngdvv/CFpEXWSYiEzBRrey5eLUNblDyIB/p
- YQ4UpbtDQqHQu6yYYlHQ7fxOk/3gcFQlq9SoqruRdQNHfAB0jKQhfSKLgs4O4ubw
- RNXefAxKhL5OpjqUM4Kt1Dtk3BCKgoS5ZzJNxy+rkXY65htEEawZep5sB1KFgU4y
- Hz7MgQ==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45c67313wg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:11 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-6e9125db6eeso34071286d6.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 23:00:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741932010; x=1742536810;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cbVY8Zk+Bw747ivKpsWKnew31zOXihiyANI1TT91neA=;
- b=pmbV7ugDne70NFVm6SMxZ4a90BgOECbJiDiHDnPGDYrgwhIw3ljFoyhzrY7nveV9gp
- ma2Sp9KsryPiV2U2OmddWYyxZgfz5jmxLwQuXBNJaMwZ00UrVBU+LCwTcmZsEmj7aiQ9
- 2N+Fg2sEP8zbMxw76aWkbI1NsjLQiB15Kdysy+xpgpafAxIgZ8d5Y7jBP6Bz1/yIlsI/
- 3TVCxGLKXgTOzsDMbkWNsgNmxCv5hPjOcuUS+URlp0rIxhcPegH9nEtc4o/osSeNpSim
- WS6vQaFyN2+i8vr4hmF1NLnnIu68U3iiKzo03Wgu9r0h2LqML9HfnIB7WAU0lj5X+be2
- fXMw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUdagW3sKbdKYBgtC3Xr5o4vKumcqwQ1qwkjX8do5Yoqm5HH6yxM8+lC6hzDMVsAqNTkKyLUXjD@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzMoUF7NRPdHFJk8bXTHRyhIlLjcCX9TYl7BkxqJrHMn9Zyp65s
- 4x9XwnxvLEtu07FBxJNla5UjFKdnWfQQrQ+bzky0DDQSXSB+tucljUNz4xoy7GTa6PzXni0uKQm
- U9UZ9fz1n8pBbAICyu9su70bcdjPvprB4Cmscpa9mTMXyQ3SW9ilwN+rfDlSiccnv
-X-Gm-Gg: ASbGncsieSvwHSiFq+L+im1Mpnmdnn9tYMU9QhpTWJ0Z4LP19kkl2B4P8MwrKbJMe4q
- V4c6NDVCZ0ptJYo17RwdNHlHnUCxfSXJzc+lPI+UsgjrMfmilpIrq5d7blnAE3OnwpzNsq9NZIJ
- egLjcbZgi/TMzewH2ZL2skvCcar7Z7Fva5K4HfOH0+0SgRPpp/2cTkAS5SXnzP60lFT1okTY3Zu
- gNg0tw5RK3Vt8YPg9bJWwYNoWaZZyqmRK1JrfoLdPOuTofWEaorXzwsbtTssq5yVVr7JO9BALyc
- UVu7qDXEPDBy6vaJXkPy4KSVxQMasuqsC2s3nBovLWc0WeZ3LevZIzqc69pPzqO+3lBIvrpXFjj
- NkesNa51E7MIN0giUCbHDSKaTpAjm
-X-Received: by 2002:ad4:574b:0:b0:6e8:ed7f:1a79 with SMTP id
- 6a1803df08f44-6eaeaae57d1mr15644276d6.32.1741932009817; 
- Thu, 13 Mar 2025 23:00:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHcgU00eyr5XASnEImRqIWYtWGc2UYmD6PrXDB358rvxCRjRi5ns6GMfxlC2KlnhemJ1qIM5w==
-X-Received: by 2002:ad4:574b:0:b0:6e8:ed7f:1a79 with SMTP id
- 6a1803df08f44-6eaeaae57d1mr15643986d6.32.1741932009432; 
- Thu, 13 Mar 2025 23:00:09 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549ba88332dsm416136e87.181.2025.03.13.23.00.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Mar 2025 23:00:08 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 14 Mar 2025 07:59:45 +0200
-Subject: [PATCH RFC v4 4/6] drm/display: dp-cec: use new DCPD access
- helpers
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBAA210E1BC;
+ Thu, 13 Mar 2025 15:25:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1741879518; x=1742484318; i=markus.elfring@web.de;
+ bh=sErwnx8pcuQQ1tldCxoUyU7bZmGR2ORwpdFakspaE5k=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=iq8kjZZ8ZTlUv5GhCL+PN2vHTPl714hme9UJfTKqYPCCjJzgKKQeopr3wQPykwrf
+ 0yKVj/Trzg7NevDx4VBNdF9i217UFiMBnzkR4aOeWux7Ubp5W54hGclfg8P8zA5BX
+ 4ryogbU++dMHGT/KsPxWgf8w39tAR9EjD8txIUKRp3dSZKujd1CxnAJOsLlWjE4Vv
+ E5I2fZ2ygoQiLwUSjh5oY+s2an+Qw9CDww2+fsyiOMSQAjNFUehwVi2VBnv4qbMU0
+ Snt2Pt1t/DVo9ExgcD0KBnIyyluvLox/g8FVcks91uaTyAqQ2PcDt5jhDiIcMX0UG
+ OPqXAvRLptfoYbz/Lg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.29] ([94.31.93.2]) by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N6sBv-1t97GT28Wl-015YRH; Thu, 13
+ Mar 2025 16:25:18 +0100
+Message-ID: <484f85e6-4650-4301-907d-6ba08dfd4e1b@web.de>
+Date: Thu, 13 Mar 2025 16:25:13 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250314-drm-rework-dpcd-access-v4-4-e86ef6fc6d76@oss.qualcomm.com>
-References: <20250314-drm-rework-dpcd-access-v4-0-e86ef6fc6d76@oss.qualcomm.com>
-In-Reply-To: <20250314-drm-rework-dpcd-access-v4-0-e86ef6fc6d76@oss.qualcomm.com>
-To: Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
+User-Agent: Mozilla Thunderbird
+To: vulab@iscas.ac.cn, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jani Nikula <jani.nikula@intel.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5086;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=d/g0s+1RbkEZsu0cFrspMKQl16Oh0pnUASV91YvLy1M=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ/rlozfjJduPlNmHutiX5RW7N8Y/suDPkal6dvNz+qyIz
- nkTZ9h0MhqzMDByMciKKbL4FLRMjdmUHPZhx9R6mEGsTCBTGLg4BWAixkc5GKabub47veITs/KC
- 4jfrnZnmB2g1eZgfuyIgkPL0aVT79GdB9xgPzd/4bx+/z/QOGb1CjuLc2xbdaT3Jv507dVMY50z
- eYlFlrLBvqki4vr3Djt/CUpLqDN15BxRqNKwVctIS2lXbipn5lNs4W0VWMccqt23t4v737F+4Hg
- PfiteRmx4samJPcFm64Ijkc6mDfMqOjaf/nvt+71LFO6VfikEKX8NTEpLWxVcq9Nz6cPmcz5dIp
- x3bTNO2XrGZe8LkbnxSaKXgmYNXtM/NnFWlE2qVf0Ci1yPJ/rCK37FfSzu1+N5rXbNJ1tn56kmO
- ZLRV2iZX16dfS9eEn+8r2D9/wtQ7b+3cPdYp8G1Mv10BAA==
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=a5Iw9VSF c=1 sm=1 tr=0 ts=67d3c5eb cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Vs1iUdzkB0EA:10 a=KKAkSRfTAAAA:8 a=20KFwNOVAAAA:8 a=QyXUC8HyAAAA:8
- a=Bz2Z_qUYR0Plbu_cxIUA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: DW8iH_Ph6D31CjejwazrSKJudoNnTFUd
-X-Proofpoint-ORIG-GUID: DW8iH_Ph6D31CjejwazrSKJudoNnTFUd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-14_02,2025-03-13_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxlogscore=999
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- impostorscore=0 clxscore=1011 spamscore=0 mlxscore=0 adultscore=0
- malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2503140045
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Jack Xiao <Jack.Xiao@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
+ <marek.olsak@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ Sunil Khatri <sunil.khatri@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
+References: <20250312063106.772-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] drm/amdgpu/gfx12: correct cleanup of 'me' field with
+ gfx_v12_0_me_fini()
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20250312063106.772-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Fwl6wYppUeZIESJ07QfG7R+RHS+ivvTGz91GRCqjvA9QR2nYSaz
+ /276/2ni6oKiwwvhaJE+6C6O4AeztAJTEzhau6+vmGZW/5u6EmkjPtUkOKQTJ77xtIFU59C
+ +dnOP2SEa8uRBDiqSff4vu1Psxnv4RnCcZLVR3lbD/M2epv4Ei7hgaIE+ybcXH1RjxI9wRU
+ 0UlKR4agNoPVi54Os4A6A==
+UI-OutboundReport: notjunk:1;M01:P0:PqiBbeSmioQ=;QfebTrW7ygkj+TSSpvMgnbRpo6s
+ 08hCEpGEBzMWciTp7Ediy/EfNxNJ+WCvi37FaDUSykSIXTBQR27ybZh8L4jCHqGQqQ/ujDGJN
+ ZlUzAzb1lvlTOtQ/y/y1WwBHTSJi75jPT90oVe4YsOVGAVAmpYF8nmaBWuW7IO9q1pxQXGRCv
+ 0Zszpn07z07jwePHZ66d5c9or5bz+rJKy7a0nmgREpUjNm8WT8rmi4qBvo/m33TuISwpKVYbO
+ 8sj/lktMvrqVXQRJ9PD2xwmkWBWDO8Y3UYHlzw2nwCjiFo98L1K7cBxP+FutrR1yPfiNQHc4y
+ Hdqf6LLmMw8hwgNl7DjIaWpZgswQnyNt6oPf9T+kJaep6PKV5/8LR6Fe0NoWP22KAlanj7XEy
+ Xy7+hdelz2opzPnimSfsPikABze4Xhpk1Ind7U29tWfxSW1kMmYWANDFltq6Jn6fmHM8MY06b
+ tZ5pC//nQd4i+GNvkL4KeLqvoPXVf3OJRuxMCCeD1z09oXwFOgtDbhH+8D9u3exWMqo0reGCZ
+ sV+uaNTXZorUOHfkVJehtYevFyl7qTpvfnew10maKpEtDcjU5Lxmzz37OdCs4KelKQ7Yg+ARI
+ /FmYcjt0rZaOLesD1uddU+Ek7xtMGXp6d+xJqBtLgMWjFCrbNNWdY8tLwU2wNW6L4anzkSzuD
+ U/XXC4FUtmseFWwv/fCsgwXO/tcarZb3wznrqkvnlTV+GPDTGBZ0KkGskRI/Lwf4PwB6WepHL
+ MlKcDCZ/MUuib+WgNx5WLB0eOI+euIyisJ6jXpv3awGW7QgE4Efs7s5HOJX6xOFsC+p1B7/ua
+ dZs93pnG0kqsz0W5pCucPu1pfa78seRSpahs8UwUBr4+fp8qZuDuVaT+za1MJiWueOqXTYqcM
+ jzxe7L1Uspyd++YzyBWzR3YV0SWVkXE3E8gvjnpaaNBMJYPo4YJxy3Ze6vd26XHEXX1k7MTrD
+ Buab5bKidyDKFCqJ3WwXXPE+yoXP5Xj+3HF5PPTtFDVgOoSuFlSyw+o0Cbs+pwosqjbYyVKNe
+ kxMF3O1OdNj721mKBur0+8eP8qXS33j1/4K2lcnnyV1vPgYs1T77BM65DwW+mzXIptBSLoOEh
+ 8rKkbX5dPt6kqDCOSevjr1NXJqui/mRwQU87uH530Eb5gaeapFcUkhHsO0WEwoP1ZNYYtgd+o
+ tLgujMk6/WMaNczDwOf6T4GEyFwNYFrBI4GIfxo6jq1Wg5PIjsnJ0HG8Z5kFlS7XD5AbfxCyW
+ lYtuNSHTkNbr6SrIkRZXvsMi80IazpnzV+aoBiLKcdanuEZGJKbDr9jcGWKeOAdOCY0V+ws+z
+ JykisRMjj8kY8hh/khhjRu4fONeBnJ4E9FIJf1l159wiAxVNp8yMN7EJrVBCJtabbv/wdJnbo
+ a4trkTqrDf5MvhTZkih97VQFD6ZshD5S6zbcgMigJBtZVo+dAogjMIKesL4UZQCaY324qlofw
+ 2FphBIrwBN46kw527VD/chFzQHw2ycSOB1iap4sw9SO1CqpBW
 X-Mailman-Approved-At: Fri, 14 Mar 2025 09:11:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,140 +95,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+=E2=80=A6
+> can only release 'pfp' field of 'gfx'. The release function of 'me' fiel=
+d
+> should be gfx_v12_0_me_fini().
 
-Switch drm_dp_cec.c to use new set of DPCD read / write helpers.
+Do you care for an imperative wording in such a change description?
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tre=
+e/Documentation/process/submitting-patches.rst?h=3Dv6.14-rc6#n94
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/display/drm_dp_cec.c | 37 ++++++++++++++++++------------------
- 1 file changed, 18 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/display/drm_dp_cec.c b/drivers/gpu/drm/display/drm_dp_cec.c
-index 56a4965e518cc237c992a2e31b9f6de05c14766a..ed31471bd0e28826254ecedac48c5c126729d470 100644
---- a/drivers/gpu/drm/display/drm_dp_cec.c
-+++ b/drivers/gpu/drm/display/drm_dp_cec.c
-@@ -96,7 +96,7 @@ static int drm_dp_cec_adap_enable(struct cec_adapter *adap, bool enable)
- 	u32 val = enable ? DP_CEC_TUNNELING_ENABLE : 0;
- 	ssize_t err = 0;
- 
--	err = drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_CONTROL, val);
-+	err = drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_CONTROL, val);
- 	return (enable && err < 0) ? err : 0;
- }
- 
-@@ -112,7 +112,7 @@ static int drm_dp_cec_adap_log_addr(struct cec_adapter *adap, u8 addr)
- 		la_mask |= adap->log_addrs.log_addr_mask | (1 << addr);
- 	mask[0] = la_mask & 0xff;
- 	mask[1] = la_mask >> 8;
--	err = drm_dp_dpcd_write(aux, DP_CEC_LOGICAL_ADDRESS_MASK, mask, 2);
-+	err = drm_dp_dpcd_write_data(aux, DP_CEC_LOGICAL_ADDRESS_MASK, mask, 2);
- 	return (addr != CEC_LOG_ADDR_INVALID && err < 0) ? err : 0;
- }
- 
-@@ -123,15 +123,14 @@ static int drm_dp_cec_adap_transmit(struct cec_adapter *adap, u8 attempts,
- 	unsigned int retries = min(5, attempts - 1);
- 	ssize_t err;
- 
--	err = drm_dp_dpcd_write(aux, DP_CEC_TX_MESSAGE_BUFFER,
--				msg->msg, msg->len);
-+	err = drm_dp_dpcd_write_data(aux, DP_CEC_TX_MESSAGE_BUFFER,
-+				     msg->msg, msg->len);
- 	if (err < 0)
- 		return err;
- 
--	err = drm_dp_dpcd_writeb(aux, DP_CEC_TX_MESSAGE_INFO,
--				 (msg->len - 1) | (retries << 4) |
--				 DP_CEC_TX_MESSAGE_SEND);
--	return err < 0 ? err : 0;
-+	return drm_dp_dpcd_write_byte(aux, DP_CEC_TX_MESSAGE_INFO,
-+				      (msg->len - 1) | (retries << 4) |
-+				      DP_CEC_TX_MESSAGE_SEND);
- }
- 
- static int drm_dp_cec_adap_monitor_all_enable(struct cec_adapter *adap,
-@@ -144,13 +143,13 @@ static int drm_dp_cec_adap_monitor_all_enable(struct cec_adapter *adap,
- 	if (!(adap->capabilities & CEC_CAP_MONITOR_ALL))
- 		return 0;
- 
--	err = drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_CONTROL, &val);
--	if (err >= 0) {
-+	err = drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_CONTROL, &val);
-+	if (!err) {
- 		if (enable)
- 			val |= DP_CEC_SNOOPING_ENABLE;
- 		else
- 			val &= ~DP_CEC_SNOOPING_ENABLE;
--		err = drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_CONTROL, val);
-+		err = drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_CONTROL, val);
- 	}
- 	return (enable && err < 0) ? err : 0;
- }
-@@ -194,7 +193,7 @@ static int drm_dp_cec_received(struct drm_dp_aux *aux)
- 	u8 rx_msg_info;
- 	ssize_t err;
- 
--	err = drm_dp_dpcd_readb(aux, DP_CEC_RX_MESSAGE_INFO, &rx_msg_info);
-+	err = drm_dp_dpcd_read_byte(aux, DP_CEC_RX_MESSAGE_INFO, &rx_msg_info);
- 	if (err < 0)
- 		return err;
- 
-@@ -202,7 +201,7 @@ static int drm_dp_cec_received(struct drm_dp_aux *aux)
- 		return 0;
- 
- 	msg.len = (rx_msg_info & DP_CEC_RX_MESSAGE_LEN_MASK) + 1;
--	err = drm_dp_dpcd_read(aux, DP_CEC_RX_MESSAGE_BUFFER, msg.msg, msg.len);
-+	err = drm_dp_dpcd_read_data(aux, DP_CEC_RX_MESSAGE_BUFFER, msg.msg, msg.len);
- 	if (err < 0)
- 		return err;
- 
-@@ -215,7 +214,7 @@ static void drm_dp_cec_handle_irq(struct drm_dp_aux *aux)
- 	struct cec_adapter *adap = aux->cec.adap;
- 	u8 flags;
- 
--	if (drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_IRQ_FLAGS, &flags) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_IRQ_FLAGS, &flags) < 0)
- 		return;
- 
- 	if (flags & DP_CEC_RX_MESSAGE_INFO_VALID)
-@@ -230,7 +229,7 @@ static void drm_dp_cec_handle_irq(struct drm_dp_aux *aux)
- 		 (DP_CEC_TX_ADDRESS_NACK_ERROR | DP_CEC_TX_DATA_NACK_ERROR))
- 		cec_transmit_attempt_done(adap, CEC_TX_STATUS_NACK |
- 						CEC_TX_STATUS_MAX_RETRIES);
--	drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_IRQ_FLAGS, flags);
-+	drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_IRQ_FLAGS, flags);
- }
- 
- /**
-@@ -253,13 +252,13 @@ void drm_dp_cec_irq(struct drm_dp_aux *aux)
- 	if (!aux->cec.adap)
- 		goto unlock;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
--				&cec_irq);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
-+				    &cec_irq);
- 	if (ret < 0 || !(cec_irq & DP_CEC_IRQ))
- 		goto unlock;
- 
- 	drm_dp_cec_handle_irq(aux);
--	drm_dp_dpcd_writeb(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1, DP_CEC_IRQ);
-+	drm_dp_dpcd_write_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1, DP_CEC_IRQ);
- unlock:
- 	mutex_unlock(&aux->cec.lock);
- }
-@@ -269,7 +268,7 @@ static bool drm_dp_cec_cap(struct drm_dp_aux *aux, u8 *cec_cap)
- {
- 	u8 cap = 0;
- 
--	if (drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_CAPABILITY, &cap) != 1 ||
-+	if (drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_CAPABILITY, &cap) < 0 ||
- 	    !(cap & DP_CEC_TUNNELING_CAPABLE))
- 		return false;
- 	if (cec_cap)
-
--- 
-2.39.5
-
+Regards,
+Markus
