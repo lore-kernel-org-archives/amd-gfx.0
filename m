@@ -4,121 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE02CC35FF3
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 01:02:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4549FC282DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 01:44:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B751810E23A;
-	Fri, 14 Mar 2025 01:02:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB99610E238;
+	Fri, 14 Mar 2025 01:44:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wgCfSS4c";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DCfUNa3l";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 927A510E1D0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 01:02:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tR8pZ+tf2NjXVJM7XHnlwzNr1gu/3tNu9t+qQUP0YpQYIbTf1RKzEvybO44CvH+EQ9mErSvbmqpVluXQQpLNdfGO8jRExwT0prADnyrlvt2Hzho9nRkIfsQkbW1lFSNuR0fAJWMPNH/Z/3ghp0UfdpVGLkAQo4qVmfbBVk/Jd4RZndT51i0OqTS/UK0JROAA4KbRTau+KDaHqAYUepaEHrYkXgmmW5b0xbReZsKuJ+eKhZqL/pmdI9FuG0/AP032m41e/aKKK9/VBT1/fQqpVc6hHmg3btJTHv0Iwa8GckMibCeMS+CyKzYBqeHMBc+TUKMi++HVqa4SbaY6dwO78w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c3gAjWGhyuvcoCNrkxm37wElmL16VmFvzjJqRPZhYPE=;
- b=vfliAWqX2cEnImOfOQmulnbjVhmMhiKV+0LwcNDRvvut72oW1bKQv9qP+RPsBakrUNvUiEk+QtU4O4uv+wUWpmKWFHLuW3LvKIkpV9VMRnWutop73IeLet25ek/4wDUfC5pwxDGIMCL3GdqKS3FYSmqL234pUYynS865ON8wQckzhC1g0oL6Pd8so12pxEYLoO1bbpAf9claepxB6HMA/CHCdHLNpjIBbqQn/WWJ4RpkeVcv+FP3lnzcOGQ+HbpMWN5ENyN0BjR0Bk2MHWle5UVP4i4r2RFdaaVcW4MU4PxWxo+R8XW86zQfPO3tmV0G0pYvkMXbCYc6QqsgttO9uQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c3gAjWGhyuvcoCNrkxm37wElmL16VmFvzjJqRPZhYPE=;
- b=wgCfSS4cSwFgG/eEIt1YB1mjFCAAvG5sK/Nffyta6heoNhD3SPNAW769SdBFVf4mXfSy//QU/rsrWPOD1MkI8rcSKKUECUQuLXh5PGHdgir+SRl6VIy3KaHtBN2WcwleoWj0eqrz5xGY6JPUGodIkm+PcQyqu/BUqbElCo0BfLI=
-Received: from CH0PR03CA0114.namprd03.prod.outlook.com (2603:10b6:610:cd::29)
- by PH7PR12MB5654.namprd12.prod.outlook.com (2603:10b6:510:137::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Fri, 14 Mar
- 2025 01:02:08 +0000
-Received: from CH2PEPF0000013C.namprd02.prod.outlook.com
- (2603:10b6:610:cd:cafe::2c) by CH0PR03CA0114.outlook.office365.com
- (2603:10b6:610:cd::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.24 via Frontend Transport; Fri,
- 14 Mar 2025 01:02:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000013C.mail.protection.outlook.com (10.167.244.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Fri, 14 Mar 2025 01:02:07 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 13 Mar
- 2025 20:02:05 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: don't free conflicting apertures for
- non-display devices
-Date: Thu, 13 Mar 2025 21:01:52 -0400
-Message-ID: <20250314010152.1503510-3-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250314010152.1503510-1-alexander.deucher@amd.com>
-References: <20250314010152.1503510-1-alexander.deucher@amd.com>
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A48510E238
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 01:44:54 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-2ff7cf59a8fso405138a91.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 18:44:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741916694; x=1742521494; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GhRTBL1+OCmdDDN0P98scCgWUKQR9RxNUVL5uLzOdXE=;
+ b=DCfUNa3lwwhBZVdvOKTpktPMaigwhxsDONLuhxC9YxStDI9iz7o50gsEnKHssSTQxG
+ bRk+/xTQ5JeR5/XO5B2N8+cGhvxUbo10ET7+53a80CWNEnme1bunufskjXOdlplq5/wk
+ 040JePXkWwzEqghvJIZ549tBCNFId/TViOu3JV3xNiy6SBWeB9YYaWRKjWaUd5xzov7S
+ FxoSwwhv4zQ6Z8ggAcrntxbyiTZLoep1wWIsspZOnpQOM6ZEI+G9LBTD2EQ67nQdTG2m
+ PjQLhPH7IXlbYeG4NUTdqiEh1g24qIZ1PhkOk9cs6yWVaNvHHxskZdYW4oPjjREiZXl2
+ YFXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741916694; x=1742521494;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GhRTBL1+OCmdDDN0P98scCgWUKQR9RxNUVL5uLzOdXE=;
+ b=cor/OzGryJQ7hOnc1LZ8qWEfn3LGGrHrcDbgB8GiozgK8gBEO3p1cA7UGaWyq0GHAa
+ iNTmHq0xlITuaAjnyt7q7c+qNrRm4tqP5lyytdZxPWsKSDcQohPZaT/iHRwdLmOMuySv
+ P3+fpxGW6G8UCJxZvtH8kI+3u2+pZp791FYbIxlBxtXOpHAA2281oJZcQNZqMt2DJkzv
+ y1AWNG60PWAfFrq8VqW+czO3+AEmQFWC2U84jwig0cBbzsgyYf+8+WbBlAdi78a6ps68
+ mqMXwzXuHBxHK+lRq7R+EkkfiqQo8c0nZPGPLYZuMveUqRyFt4mbdrhhC0x/SZS5axDA
+ FNBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWVBRolcTtm3BDFIPMqasAi3Rt3D3mRMVM9eJt3OkYpX48eNWs/oAt8YjeRduyWq/4B5MTFheD+@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxpxEw7qQrAohiTVgb1RI9jVaJjEyYF+utq3MxCwbv0cKZUKLOz
+ ctWoz/Zgi1en0cZrGu5yQrdbje+tlbNPEmJqVgCdJVFr/AD41FSxNZWeF2Pi9S0izRu6e+pf4ez
+ euuzxRoEqs3zSQ6S5PefLt55hfDI=
+X-Gm-Gg: ASbGncsLAbVIDh3sT+iE+Cgm+Zz/7ahg2G7JmrmzhKzs4oEexmsbag++5FfYhH0qtOy
+ ql2m8afevuMvRolLIB412Sim46W8cvQuZxTCs15i2WJ78zuWxH/QcRlgKeu/LCh5vP2k1QFEhyc
+ Ba1ffEcz+FarkRndYHS4rrJxmgcg==
+X-Google-Smtp-Source: AGHT+IHksVYW9hPFah3+9AZHRsJYhEoYQDg8jZmacUI3eB8RapeRu3n9He0CtfyWcVemMn94GM/tMreEIx4lecZIfAo=
+X-Received: by 2002:a17:90b:1b0f:b0:2fe:7f51:d2ec with SMTP id
+ 98e67ed59e1d1-30151ae0dbamr375971a91.0.1741916693605; Thu, 13 Mar 2025
+ 18:44:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013C:EE_|PH7PR12MB5654:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72d7e39c-68e9-40b3-746b-08dd6293d7ef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?w04H5DUo9Sy5cPO3e8gMAV+prVDMTFuDBT3pwZfQjQ4IWsUHzbSe3UCntCIl?=
- =?us-ascii?Q?kE+0Qewe4psssZ0NutFpTmQiCxSTk8wEhDRGywVoDesxT5TMam9nh7QYuUv/?=
- =?us-ascii?Q?1aAKZR4l9UodYLiX0og0Rys0MTr5i4zDiENVm6f6SrDhjTzTNedi1XCtsfYJ?=
- =?us-ascii?Q?aTAY5DpSuxFW0Lnf76gx+SHN1if5pMd7Sjn6gKzVHQX5/hP9ThNcUIw+H2v/?=
- =?us-ascii?Q?FHxGzzKpoNpBWapMMebnbPCTD9gmhAtYQ/i0EC4P2saglhWdWLL/Zs9whfwC?=
- =?us-ascii?Q?DpiCrBILZlyCbcx5Jxyf3sKUbk7zSdf5/tXyXZYaZVYcepZUCxAgoxbsY4an?=
- =?us-ascii?Q?EE46wEr3PN11y4OkRJ/XmGxroOy0XMABaW9KbTiyAMWlHHzHr0oGR108ORJm?=
- =?us-ascii?Q?TsV8Zv/9qOXQek8J1D1q9cWiJqF+oLjtQZzplvl0GIUTXBw4MPnT/BXcphnZ?=
- =?us-ascii?Q?M7O9FXnH9iwx0XSZU2HFTTmYFG0q7koznn6mexrpgNL7hR2kHX8jzqRBsOSk?=
- =?us-ascii?Q?n4fZT9amx1mp33JfcZ98ZemA0RdCVQ6z50m2OFk3x05wUJAuOknUwP8s1ABj?=
- =?us-ascii?Q?fJudH0NTKq9TfX8ylx/cS4A33eXv7KbqV024N4g83MiicqrCnLrJZS5ihmFG?=
- =?us-ascii?Q?rTok79xZALjutAoMPKxMfrQMvgztHs5RTrHWGGk3RtU8zdosBcmLRNxMHOjO?=
- =?us-ascii?Q?Ome61U7P80LJKSYGdMofFXmJDA0KQOYmRm0ox8gTMgB4EbqiYinJuEqLvgkR?=
- =?us-ascii?Q?QOc4F2fhXOi7yOdaGkILCv2R6I10ZkYsx4Cq+SMrpY8oqwZ7C2Yhavbz+uBJ?=
- =?us-ascii?Q?NsdkJwCRmZrWRM5V3oFRshDWyJ/mEfRsLseQoDuI+Tj0tSsM7hsPdpd6/Pek?=
- =?us-ascii?Q?HMpmMWxMY4WR2cAgs2Wl0XUxZxF4Y2EzjF1tl2Ir3bBNsJsP5bpf5X0IVoIa?=
- =?us-ascii?Q?UouqKk7HCzfoUCEnd3hUKyCm2KkG+bRM/DnRqQDAv3/0s4Bm5byT1noGW8dg?=
- =?us-ascii?Q?1P3xZ51Yncjupc/js+5ERWz05ntvtHqQwkKM4JqMtV8SFq1WXl6MNVMIKFFc?=
- =?us-ascii?Q?Y9yfpSi9rQTJM13N13qvHwl/cpusDOnsKSIXl9GiB+fa7xFNZ0iqCta2Bqr2?=
- =?us-ascii?Q?fqd5CTe/e4TjPe7S9D3VTE6VXMHvPqaptyQ9rNmn7M0kIeBzkIrIGWG1l8VH?=
- =?us-ascii?Q?ZQFnjciQnP4zZjrG2qPkCvoBDofaHuPLcn5/0BYTbJmxTP6AftdQfxcTHXWH?=
- =?us-ascii?Q?l5PBkiOgD+n2DUT07cGz/Act1OiCC471PEkC3C96lT74DqKpnH7JoB+SbYhW?=
- =?us-ascii?Q?/HMGPv24aasm+zc/+sdSvHFmnPIzIAxenGf92IJrxkFZyPRZFNXGLo7M/p8H?=
- =?us-ascii?Q?7UwpwQUS5dwuUd9ZLfm3L6tPOV5bhGOgi2D5kWFwG5vOpY981nUgA6TIHwEo?=
- =?us-ascii?Q?kSQZnnYe9FUqGRRri/UaRAsC2BkD0sUGS8vOfnCm1jaPRbR7mpaio/nA9JHS?=
- =?us-ascii?Q?y8znVdaaYebCVFc=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2025 01:02:07.8362 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72d7e39c-68e9-40b3-746b-08dd6293d7ef
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5654
+References: <20250313144136.1117072-1-alexander.deucher@amd.com>
+ <20250313144136.1117072-3-alexander.deucher@amd.com>
+ <6yaahksm3dvejx5ja7dkgg3xi6qpf7izq6kbvje7addkgkuvoj@2qqcgry27paf>
+In-Reply-To: <6yaahksm3dvejx5ja7dkgg3xi6qpf7izq6kbvje7addkgkuvoj@2qqcgry27paf>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 13 Mar 2025 21:44:42 -0400
+X-Gm-Features: AQ5f1Jrsv1zujednAqdCaVVVFKbxFRCZ0yGe5LI3tMjKdTmXGDLKWA4DLoNPkS0
+Message-ID: <CADnq5_NbyC6D5AOXK=cTpHv9XUQkHa8LWGLakUybRX7yW5bV3Q@mail.gmail.com>
+Subject: Re: [PATCH 02/11] drm/amdgpu: add ring flag for no user submissions
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Sunil Khatri <sunil.khatri@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,41 +84,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PCI_CLASS_ACCELERATOR_PROCESSING devices won't ever be
-the sysfb, so there is no need to free conflicting
-apertures.
+On Thu, Mar 13, 2025 at 5:53=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
+>
+> On 03/13, Alex Deucher wrote:
+> > This would be set by IPs which only accept submissions
+> > from the kernel, not userspace, such as when kernel
+> > queues are disabled. Don't expose the rings to userspace
+> > and reject any submissions in the CS IOCTL.
+>
+> Just out of curiosity, is CS =3D=3D Command Submission?
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+Yes.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 1eff6252f66b4..689f1833d02b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4401,10 +4401,17 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (r)
- 		return r;
- 
--	/* Get rid of things like offb */
--	r = aperture_remove_conflicting_pci_devices(adev->pdev, amdgpu_kms_driver.name);
--	if (r)
--		return r;
-+	/*
-+	 * No need to remove conflicting FBs for non-display class devices.
-+	 * This prevents the sysfb from being freed accidently.
-+	 */
-+	if ((pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA ||
-+	    (pdev->class >> 8) == PCI_CLASS_DISPLAY_OTHER) {
-+		/* Get rid of things like offb */
-+		r = aperture_remove_conflicting_pci_devices(adev->pdev, amdgpu_kms_driver.name);
-+		if (r)
-+			return r;
-+	}
- 
- 	/* Enable TMZ based on IP_VERSION */
- 	amdgpu_gmc_tmz_set(adev);
--- 
-2.48.1
+>
+> >
+> > Reviewed-by: Sunil Khatri<sunil.khatri@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  4 ++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  | 30 ++++++++++++++++--------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  2 +-
+> >  3 files changed, 25 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cs.c
+> > index 5df21529b3b13..5cc18034b75df 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -349,6 +349,10 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser=
+ *p,
+> >       ring =3D amdgpu_job_ring(job);
+> >       ib =3D &job->ibs[job->num_ibs++];
+> >
+> > +     /* submissions to kernel queus are disabled */
+>
+> /queus/queues/
 
+will fix.
+
+>
+> > +     if (ring->no_user_submission)
+> > +             return -EINVAL;
+>
+> Since this will be set for ASICs that don't accept userspace
+> submissions, maybe -ENOTSUPP would be more accurate?
+
+I could go either way on that.  When kernel queues are disabled, CS
+submissions to a kernel queue are not supported, but it's also an
+invalid parameter to the IOCTL.  I don't have a strong opinion.  Maybe
+-ENOTSUPP would differentiate it from just general invalid parameters.
+
+Alex
+
+>
+> Thanks
+>
+> > +
+> >       /* MM engine doesn't support user fences */
+> >       if (p->uf_bo && ring->funcs->no_user_fence)
+> >               return -EINVAL;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_kms.c
+> > index cd6eb7a3bc58a..3b7dfd56ccd0e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > @@ -408,7 +408,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >       case AMDGPU_HW_IP_GFX:
+> >               type =3D AMD_IP_BLOCK_TYPE_GFX;
+> >               for (i =3D 0; i < adev->gfx.num_gfx_rings; i++)
+> > -                     if (adev->gfx.gfx_ring[i].sched.ready)
+> > +                     if (adev->gfx.gfx_ring[i].sched.ready &&
+> > +                         !adev->gfx.gfx_ring[i].no_user_submission)
+> >                               ++num_rings;
+> >               ib_start_alignment =3D 32;
+> >               ib_size_alignment =3D 32;
+> > @@ -416,7 +417,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >       case AMDGPU_HW_IP_COMPUTE:
+> >               type =3D AMD_IP_BLOCK_TYPE_GFX;
+> >               for (i =3D 0; i < adev->gfx.num_compute_rings; i++)
+> > -                     if (adev->gfx.compute_ring[i].sched.ready)
+> > +                     if (adev->gfx.compute_ring[i].sched.ready &&
+> > +                         !adev->gfx.compute_ring[i].no_user_submission=
+)
+> >                               ++num_rings;
+> >               ib_start_alignment =3D 32;
+> >               ib_size_alignment =3D 32;
+> > @@ -424,7 +426,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >       case AMDGPU_HW_IP_DMA:
+> >               type =3D AMD_IP_BLOCK_TYPE_SDMA;
+> >               for (i =3D 0; i < adev->sdma.num_instances; i++)
+> > -                     if (adev->sdma.instance[i].ring.sched.ready)
+> > +                     if (adev->sdma.instance[i].ring.sched.ready &&
+> > +                         !adev->gfx.gfx_ring[i].no_user_submission)
+> >                               ++num_rings;
+> >               ib_start_alignment =3D 256;
+> >               ib_size_alignment =3D 4;
+> > @@ -435,7 +438,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >                       if (adev->uvd.harvest_config & (1 << i))
+> >                               continue;
+> >
+> > -                     if (adev->uvd.inst[i].ring.sched.ready)
+> > +                     if (adev->uvd.inst[i].ring.sched.ready &&
+> > +                         !adev->uvd.inst[i].ring.no_user_submission)
+> >                               ++num_rings;
+> >               }
+> >               ib_start_alignment =3D 256;
+> > @@ -444,7 +448,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >       case AMDGPU_HW_IP_VCE:
+> >               type =3D AMD_IP_BLOCK_TYPE_VCE;
+> >               for (i =3D 0; i < adev->vce.num_rings; i++)
+> > -                     if (adev->vce.ring[i].sched.ready)
+> > +                     if (adev->vce.ring[i].sched.ready &&
+> > +                         !adev->vce.ring[i].no_user_submission)
+> >                               ++num_rings;
+> >               ib_start_alignment =3D 256;
+> >               ib_size_alignment =3D 4;
+> > @@ -456,7 +461,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >                               continue;
+> >
+> >                       for (j =3D 0; j < adev->uvd.num_enc_rings; j++)
+> > -                             if (adev->uvd.inst[i].ring_enc[j].sched.r=
+eady)
+> > +                             if (adev->uvd.inst[i].ring_enc[j].sched.r=
+eady &&
+> > +                                 !adev->uvd.inst[i].ring_enc[j].no_use=
+r_submission)
+> >                                       ++num_rings;
+> >               }
+> >               ib_start_alignment =3D 256;
+> > @@ -468,7 +474,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >                       if (adev->vcn.harvest_config & (1 << i))
+> >                               continue;
+> >
+> > -                     if (adev->vcn.inst[i].ring_dec.sched.ready)
+> > +                     if (adev->vcn.inst[i].ring_dec.sched.ready &&
+> > +                         !adev->vcn.inst[i].ring_dec.no_user_submissio=
+n)
+> >                               ++num_rings;
+> >               }
+> >               ib_start_alignment =3D 256;
+> > @@ -481,7 +488,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >                               continue;
+> >
+> >                       for (j =3D 0; j < adev->vcn.inst[i].num_enc_rings=
+; j++)
+> > -                             if (adev->vcn.inst[i].ring_enc[j].sched.r=
+eady)
+> > +                             if (adev->vcn.inst[i].ring_enc[j].sched.r=
+eady &&
+> > +                                 !adev->vcn.inst[i].ring_enc[j].no_use=
+r_submission)
+> >                                       ++num_rings;
+> >               }
+> >               ib_start_alignment =3D 256;
+> > @@ -496,7 +504,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >                               continue;
+> >
+> >                       for (j =3D 0; j < adev->jpeg.num_jpeg_rings; j++)
+> > -                             if (adev->jpeg.inst[i].ring_dec[j].sched.=
+ready)
+> > +                             if (adev->jpeg.inst[i].ring_dec[j].sched.=
+ready &&
+> > +                                 !adev->jpeg.inst[i].ring_dec[j].no_us=
+er_submission)
+> >                                       ++num_rings;
+> >               }
+> >               ib_start_alignment =3D 256;
+> > @@ -504,7 +513,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >               break;
+> >       case AMDGPU_HW_IP_VPE:
+> >               type =3D AMD_IP_BLOCK_TYPE_VPE;
+> > -             if (adev->vpe.ring.sched.ready)
+> > +             if (adev->vpe.ring.sched.ready &&
+> > +                 !adev->vpe.ring.no_user_submission)
+> >                       ++num_rings;
+> >               ib_start_alignment =3D 256;
+> >               ib_size_alignment =3D 4;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.h
+> > index b4fd1e17205e9..4a97afcb38b78 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -297,6 +297,7 @@ struct amdgpu_ring {
+> >       struct dma_fence        *vmid_wait;
+> >       bool                    has_compute_vm_bug;
+> >       bool                    no_scheduler;
+> > +     bool                    no_user_submission;
+> >       int                     hw_prio;
+> >       unsigned                num_hw_submission;
+> >       atomic_t                *sched_score;
+> > @@ -310,7 +311,6 @@ struct amdgpu_ring {
+> >       unsigned int    entry_index;
+> >       /* store the cached rptr to restore after reset */
+> >       uint64_t cached_rptr;
+> > -
+> >  };
+> >
+> >  #define amdgpu_ring_parse_cs(r, p, job, ib) ((r)->funcs->parse_cs((p),=
+ (job), (ib)))
+> > --
+> > 2.48.1
+> >
+>
+> --
+> Rodrigo Siqueira
