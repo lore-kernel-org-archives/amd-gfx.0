@@ -4,141 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7615AC35FFA
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 09:11:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB71C282EC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 09:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7EE610E9B7;
-	Fri, 14 Mar 2025 09:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8AE210E97C;
+	Fri, 14 Mar 2025 09:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="F9ZB6mEM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2Os1iyys";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A580510E2E9
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:19 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52DLEHEq027307
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YD6Z7HGd6RWZSqIPuwEoc3ezQjdyPxL3+GL3fga18Fk=; b=F9ZB6mEMvQNwJykH
- MrOciWlfhPF8gc6CrJXLfBq6ksxP5I8HK9A04+R9PUhWfPJwCVv8BL0flzdy29AI
- eMEcparMp0Y8s3nwWzXN2Qz/07jcVo9fw40wbZ79dkOHIpPJXZKBLwh0EPiDKdkB
- mF7Gagr/+b3kLvLCU9PcpLZkLyNrIwovXGZN2QhD9SZj71u/ABBGyJst4jmag2kg
- Gs/9yzmzKr3kq5EeXX0YuHMn2IU4FEJlmWQAqpbweVhZHwKeKCIFBhCtLU/b+mWI
- /NiV+EIbFm87IQZvcBnmfGw09vKbyX2bP7W7iXYV840EQmKLmwa34xMDrEED99SE
- siG8LA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45au2q05rp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:19 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6e9083404b7so38379426d6.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 23:00:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741932017; x=1742536817;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YD6Z7HGd6RWZSqIPuwEoc3ezQjdyPxL3+GL3fga18Fk=;
- b=uD6H3A/ZqHuQi6PSmjJIeZIy4oXaC9hiaCog3f13cXD01vnVsFV5+UcOP/aCIIDQw9
- DS9qMcuJUN52z4XzEPHzFJTGVW0ed4DcVBMV0iNLi/T3z6zWP8toy9Pvzb5viB1z3h1x
- OTU89oS92dd/sV77lTFUAtJG+WcBT4O0ouUyAU0yf5z/mJp/cQPziQcLuWEMJ4P/qesi
- QJfPeRz9YppikTZEJyY66CEPDAEos5ViI1nEP5IX1Mv8f7bqXcyuedDRYEb7xkywGW3t
- GKquDeh+p4yhAqbQMwUKg9E/xb2PZc41uE0as0QWUtsncDCWBIaMOQLNF+DMUky9eQXd
- Ir9w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVo0cQtEV3ATmz400CdUNn4YH8AsF5O7DHQAjDBPnMvOo991uTmOHfX2PRBr0G/Vw6v89Ns1Y7+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWNL+HisPlHVwR7kNbqOHXBbEEKacqt4h5Zefka81XzP0jjcfS
- cR09HGXqlcL+tDacPJGrIoGIw9cphWTPf+Xte2PQW75hWC4qZOQMR5e8jptnxG7rtQVfOLsY12q
- geULldRxHiGRlKtagD1L2B+w9yNS7I2RK3+oTOjrV2pcMlxJru+Ef0QXhlo0/Tf+a
-X-Gm-Gg: ASbGnctioHuc9TvVtVNIzckfMbg9zkJ4PnmevY1XIX4uqqPoL/ZzuMW3pWNyuwr/UC/
- +8kuTk0k6vUlZM1wg+xs6cQ1bl0DcUFejYfdfSODBXzqa1lw74aIju6C838DqYYPom/e7ITeeT6
- WFj8lK6naOV8Pium8Gf1xmJ8IB6ohPPW7iqpOKcyz1VrDG0vdaErH9Ln1m3HYrC6+rSFXzpAzW2
- qXhdbjXRO1OzA7iSqPzOgMXGX2Uharwv39njgMeHz37BoNrFxdMZfXQHco6jJjhTwb/1BJGFSkF
- 51YKyPvpqrQtxwlWIqf5qUhxXaJp2NiQ6toHF2iT+/jIs7viFJTbyFZJ/Cn6NuSWCSQ67CdadRY
- Gz29MoDKtw/4CSHoghao3Xgcz7ZWS
-X-Received: by 2002:a05:6214:27e5:b0:6e6:6c39:cb71 with SMTP id
- 6a1803df08f44-6eaeab0fbbfmr16506556d6.45.1741932017335; 
- Thu, 13 Mar 2025 23:00:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IELJcylmUiJ4JEURtcZ0pb2cGp+YTibCxqJbDGjU39ccIquuLoPHTNuJjmGgKfn3GK+0NkRrQ==
-X-Received: by 2002:a05:6214:27e5:b0:6e6:6c39:cb71 with SMTP id
- 6a1803df08f44-6eaeab0fbbfmr16506016d6.45.1741932016982; 
- Thu, 13 Mar 2025 23:00:16 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549ba88332dsm416136e87.181.2025.03.13.23.00.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Mar 2025 23:00:14 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 14 Mar 2025 07:59:47 +0200
-Subject: [PATCH RFC v4 6/6] drm/display: dp-tunnel: use new DCPD access helpers
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C28910E97C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 09:54:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VNPx9LJk18kuuPuqc8rgy0tiwW5J3AyYiuG/+WgcW7ocw2DTts4cBHWWcg+ziEH9bZPLd+KYEU0CT1wOaZogsMiz04Jhzt1rB+TEdidMGXnVbS9h7hDUqmWzRjG3EwrL5gdsWO/Vj4P5XFeV1MjkYvcIOUEfU7bc5tmtChH5hG/GqIlJtqXpK7yP9At7oFXVy0YdoIKcRsEOLnOha5yHw0za35DnqtpTEQJNCvbsv7HpKZyviTz3wruBiSg9r4MoturhjuXA6Zxq7Oavru6KVqEWbmh+laMZGckEkZaNZyu2dJpoa9xyefzN8I298HVtGZBxiLIkNP2RdLUkEvva9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/6Vz2R0Cuoh/ALBkCT7v7hu99MOXDKqFAH8lbYCQ+vE=;
+ b=hG85EK2qIsB32Zz0/A/cTIusBA/G7dEy6PpKrQHhIKqJPTwKd0sol6TYFgkVlzQtmOdAfByL7xeh+Y290OfqexCBJ8CykpcedNjdYBkfdxPoD+p/fHJliJUkaiUngnSMESWQLvM/DDIFS3ICerejaGiEVzcVsjDiP+f3u2et6iXuGbZu8y/xaikz82F3Cvkupf4CwDKsGF+Wx4D9u3rYT60aA70YVIyuNrRAaQxFgdJKymk4eFaTiMnNyWHWcE2J4Qx0PTBijSAZRFov/OYVeKSieB8IOS4aGoLvtwOVS5RUutdG24GX8JRysILHduybRGjsOqMDE4wKoEiUBlzpXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/6Vz2R0Cuoh/ALBkCT7v7hu99MOXDKqFAH8lbYCQ+vE=;
+ b=2Os1iyys7qP9t8Vni7Hlan2giJt4938R1HkW22DrykdxXsLx8dNA1zbcVyhSpZu2MTcfrwYk/o2syFHjx7DYk3DHZxQUySmjtOYNcsYUdO83zBczJBbLgyWVcBuuDCjxZrnpZtmCvXxy6XSpzmxQLpEZ/87fXFv/Z1VIULPW9VI=
+Received: from BN9PR03CA0661.namprd03.prod.outlook.com (2603:10b6:408:10e::6)
+ by CY5PR12MB6204.namprd12.prod.outlook.com (2603:10b6:930:23::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.28; Fri, 14 Mar
+ 2025 09:54:49 +0000
+Received: from BL02EPF0001A0FE.namprd03.prod.outlook.com
+ (2603:10b6:408:10e:cafe::aa) by BN9PR03CA0661.outlook.office365.com
+ (2603:10b6:408:10e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.28 via Frontend Transport; Fri,
+ 14 Mar 2025 09:54:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A0FE.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Fri, 14 Mar 2025 09:54:49 +0000
+Received: from flora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 14 Mar
+ 2025 04:54:47 -0500
+From: Flora Cui <flora.cui@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <Li.Meng@amd.com>
+CC: Flora Cui <flora.cui@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: use specific ip_discovery.bin for legacy asics
+Date: Fri, 14 Mar 2025 17:54:27 +0800
+Message-ID: <20250314095428.2914973-2-flora.cui@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250314095428.2914973-1-flora.cui@amd.com>
+References: <20250314095428.2914973-1-flora.cui@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250314-drm-rework-dpcd-access-v4-6-e86ef6fc6d76@oss.qualcomm.com>
-References: <20250314-drm-rework-dpcd-access-v4-0-e86ef6fc6d76@oss.qualcomm.com>
-In-Reply-To: <20250314-drm-rework-dpcd-access-v4-0-e86ef6fc6d76@oss.qualcomm.com>
-To: Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jani Nikula <jani.nikula@intel.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4082;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=AezDpTs9i2rYRC6AeDwZvqAV87zlWZZG2GdTd51PPFs=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn08XZFN6uPDdiX1R7XmfB1vXISASqSFYGN569O
- I6KV6qdI3WJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ9PF2QAKCRCLPIo+Aiko
- 1eM5B/9jhOE9nI9V6mDRKubJu0/SPcbZoi/lHs71XyG/da3UMGC32Qt16u66xFuLg4inRbB79MC
- lZllWHwPgl1Q5/YeMrd7mbZ4SMoiH9evqV5y0/FTvifqU6zwgcpJ6ZCMWGixnm3Ezlb0aiz5nI9
- XYnzCZ3lNXvh8AkwMZMgXNfGOA71gEm/MhhXwmgqXHN48nVlgfkYc1J84RrrNot9sLmiQgfQHzR
- F4KZYvVt5YGhuR97yx5BeXuJOeT2S6L6rAfmV5RybP6JJdi6id/B10zo5H3f/e3tm+QFyIddeuv
- fYEScrVe2IVsan3JCnn6Al2YeCZugz0rJLJveu4Idywf2rlt
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=P506hjAu c=1 sm=1 tr=0 ts=67d3c5f3 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Vs1iUdzkB0EA:10 a=KKAkSRfTAAAA:8 a=20KFwNOVAAAA:8 a=QyXUC8HyAAAA:8
- a=VzZmvmfVK_LU_xpdqU4A:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: XKD8dC_naS4ayxzUDq21Tuo-TxzJ6o_k
-X-Proofpoint-ORIG-GUID: XKD8dC_naS4ayxzUDq21Tuo-TxzJ6o_k
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-14_02,2025-03-13_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0
- mlxscore=0 spamscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- suspectscore=0 malwarescore=0 mlxlogscore=999 lowpriorityscore=0
- adultscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2503140045
-X-Mailman-Approved-At: Fri, 14 Mar 2025 09:11:23 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FE:EE_|CY5PR12MB6204:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92f89dfe-1202-4f0e-c35a-08dd62de427e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?U9y8gQizzPUl8x5yRlSLtEzEgffLlFEUVxJOxj4iceGdbszVsW44VpSEehl/?=
+ =?us-ascii?Q?4uWT+ZERsePr5bC3vaslJkHUnWYsz9jkK1nhHrnwPYqLtcNmeduS+QQJYPly?=
+ =?us-ascii?Q?HBenmBjPWYjYw6jVceHdi6+FIHC39qYQYM4wKJhSDf/2bMi0MJ+xvBrOa+4b?=
+ =?us-ascii?Q?FprIethMfRvQV19MhwEfMKi8bRR6F6w0h+0OthxLl2ZF3rk6WgTDpZakDJ84?=
+ =?us-ascii?Q?RqcnBOlYvrbDP1GhxkU1WhyrKLDL+irmzuAs8KSSH5DFVzWApjfRuIHdGFbD?=
+ =?us-ascii?Q?qvfgFQXBFQiXtQncI7Wkn9Q8O3lxhyeAbLKeZ5/5eDVkdj15gISOOb+RCcoE?=
+ =?us-ascii?Q?OR5wjXdHbMS27GPW4ReXl+IlrVH3sXLkpFxqXy5RizReM6BxgXkr4bAfppOW?=
+ =?us-ascii?Q?ogPqkV5viBAqQKbrxRvtdUW8RjMsDsTAh/NKdx+meORRSGD2dtQXZIPFPqS+?=
+ =?us-ascii?Q?gVfQnq/nLGlJv8F/Ttm02SvBmGHN/257UPkJSUV1IOkTT1p54a6E3wLUWi1a?=
+ =?us-ascii?Q?K+MygohhXncyQVdKFy4fwIgNHtUuR7bm4LOPMxTuYJXcLhbxZA3yOHybv00g?=
+ =?us-ascii?Q?/RtXuMhInNo6GLE4BgbZuWn/IyHVQan8sb6hJkWXza+zgp9vaXfllgNcPtLc?=
+ =?us-ascii?Q?sP4sJ+jbb0lx3EDA+G9GxgUtxSYpDQ67Fygyaec/3mf7XwwrWomSJtOqomUA?=
+ =?us-ascii?Q?+TsCgGXxthGDxiUN+bS4rsidcglcaJeQL7gZa3f0XAikt6ZxrOtVweuQc+jU?=
+ =?us-ascii?Q?ms3INvSgYhOmz9cGim1XM3akBmMKI41SySUd/43Jax2YRSpy1G1uB9tTknXU?=
+ =?us-ascii?Q?p5hqLZq9snpN1pqq4XNrkQMcsGpwqz9GaPQBeddpLmPc1ixbAoTq4UHz5su5?=
+ =?us-ascii?Q?rpY/E7keG7dWfTxnRvrn6gbEBjrBB/Yh1AZvWqnUFugBi+e28iH6Ik/6Bbqo?=
+ =?us-ascii?Q?uentdvg95zacEwQutbWEH7UiWHnuxdDO3L0zi8C75lQFHCjZzXgx0thNo+4S?=
+ =?us-ascii?Q?JiprxxZpVuisAbxGAeq07ORCZgKSr0I+zpfpBBcHtEGCoiab//7/j5mesppq?=
+ =?us-ascii?Q?MJ2oa9NpWuOIfG0iow2SlIP9ZuIm3uQ7oQ6p8WBWqVESoTKmTlMYFFKRqIhx?=
+ =?us-ascii?Q?4E3kosEj77I+twOEIbFrKNd3dAsyM0sxI9SlyVQz+lsYgYN3TKtaGSgbmfix?=
+ =?us-ascii?Q?5e1ICl0BhQLTrcIMjDfp4QAb+/dipeB+dpDfAS5pRAYcPzUSl1PhW45wA6PR?=
+ =?us-ascii?Q?PccuRuqV2YhOhmve/dcJZC2zsrpIu915R4P2chuXUQ5vOs8I5MDj7hEJD4gK?=
+ =?us-ascii?Q?BPJnircr+pncTo7nNjSvpllC7HvqMg7PYEZaqYihY8fzUZqPfguwW0Y6bDJl?=
+ =?us-ascii?Q?BgR6TGknqxQY0RZequIgLkF/CfGkoT5lEdJZ4JC7siYSaU2wyLz7cSx2wtNI?=
+ =?us-ascii?Q?u/lJ8bHWev7JnkC2aSkQhuqQkPF13YSiuZsonnSWMeJzUh6TvCUdlEkQ7v98?=
+ =?us-ascii?Q?1lFr2iEtkTWb6uM=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2025 09:54:49.3875 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92f89dfe-1202-4f0e-c35a-08dd62de427e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6204
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,110 +133,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+vega10/vega12/vega20/raven/raven2/picasso/arcturus/aldebaran
 
-Switch drm_dp_tunnel.c to use new set of DPCD read / write helpers.
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Flora Cui <flora.cui@amd.com>
 ---
- drivers/gpu/drm/display/drm_dp_tunnel.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 28 ++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-index 90fe07a89260e21e78f2db7f57a90602be921a11..076edf1610480275c62395334ab0536befa42f15 100644
---- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-+++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-@@ -222,7 +222,7 @@ static int read_tunnel_regs(struct drm_dp_aux *aux, struct drm_dp_tunnel_regs *r
- 	while ((len = next_reg_area(&offset))) {
- 		int address = DP_TUNNELING_BASE + offset;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 2b4854e03821..fff438baf64b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -114,6 +114,12 @@
+ #endif
  
--		if (drm_dp_dpcd_read(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
-+		if (drm_dp_dpcd_read_data(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
- 			return -EIO;
+ MODULE_FIRMWARE("amdgpu/ip_discovery.bin");
++MODULE_FIRMWARE("amdgpu/vega10_ip_discovery.bin");
++MODULE_FIRMWARE("amdgpu/vega12_ip_discovery.bin");
++MODULE_FIRMWARE("amdgpu/vega20_ip_discovery.bin");
++MODULE_FIRMWARE("amdgpu/raven_ip_discovery.bin");
++MODULE_FIRMWARE("amdgpu/raven2_ip_discovery.bin");
++MODULE_FIRMWARE("amdgpu/picasso_ip_discovery.bin");
  
- 		offset += len;
-@@ -913,7 +913,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
- 	u8 mask = DP_DISPLAY_DRIVER_BW_ALLOCATION_MODE_ENABLE | DP_UNMASK_BW_ALLOCATION_IRQ;
- 	u8 val;
+ #define mmIP_DISCOVERY_VERSION  0x16A00
+ #define mmRCC_CONFIG_MEMSIZE	0xde3
+@@ -400,7 +406,27 @@ static const char *amdgpu_discovery_get_fw_name(struct amdgpu_device *adev)
+ 	if (amdgpu_discovery == 2)
+ 		return "amdgpu/ip_discovery.bin";
  
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
- 		goto out_err;
+-	return NULL;
++	switch (adev->asic_type) {
++	case CHIP_VEGA10:
++		return "amdgpu/vega10_ip_discovery.bin";
++	case CHIP_VEGA12:
++		return "amdgpu/vega12_ip_discovery.bin";
++	case CHIP_RAVEN:
++		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
++			return "amdgpu/raven2_ip_discovery.bin";
++		else if (adev->apu_flags & AMD_APU_IS_PICASSO)
++			return "amdgpu/picasso_ip_discovery.bin";
++		else
++			return "amdgpu/raven_ip_discovery.bin";
++	case CHIP_VEGA20:
++		return "amdgpu/vega20_ip_discovery.bin";
++	case CHIP_ARCTURUS:
++		return "amdgpu/arcturus_ip_discovery.bin";
++	case CHIP_ALDEBARAN:
++		return "amdgpu/aldebaran_ip_discovery.bin";
++	default:
++		return NULL;
++	}
+ }
  
- 	if (enable)
-@@ -921,7 +921,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
- 	else
- 		val &= ~mask;
- 
--	if (drm_dp_dpcd_writeb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
-+	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
- 		goto out_err;
- 
- 	tunnel->bw_alloc_enabled = enable;
-@@ -1039,7 +1039,7 @@ static int clear_bw_req_state(struct drm_dp_aux *aux)
- {
- 	u8 bw_req_mask = DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED;
- 
--	if (drm_dp_dpcd_writeb(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
-+	if (drm_dp_dpcd_write_byte(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
- 		return -EIO;
- 
- 	return 0;
-@@ -1052,7 +1052,7 @@ static int bw_req_complete(struct drm_dp_aux *aux, bool *status_changed)
- 	u8 val;
- 	int err;
- 
--	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
- 		return -EIO;
- 
- 	*status_changed = val & status_change_mask;
-@@ -1095,7 +1095,7 @@ static int allocate_tunnel_bw(struct drm_dp_tunnel *tunnel, int bw)
- 	if (err)
- 		goto out;
- 
--	if (drm_dp_dpcd_writeb(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
-+	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
- 		err = -EIO;
- 		goto out;
- 	}
-@@ -1196,13 +1196,13 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
- 	u8 mask = DP_BW_ALLOCATION_CAPABILITY_CHANGED | DP_ESTIMATED_BW_CHANGED;
- 	u8 val;
- 
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
- 		goto out_err;
- 
- 	val &= mask;
- 
- 	if (val) {
--		if (drm_dp_dpcd_writeb(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
-+		if (drm_dp_dpcd_write_byte(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
- 			goto out_err;
- 
- 		return 1;
-@@ -1215,7 +1215,7 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
- 	 * Check for estimated BW changes explicitly to account for lost
- 	 * BW change notifications.
- 	 */
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
- 		goto out_err;
- 
- 	if (val * tunnel->bw_granularity != tunnel->estimated_bw)
-@@ -1300,7 +1300,7 @@ int drm_dp_tunnel_handle_irq(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_aux *a
- {
- 	u8 val;
- 
--	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
- 		return -EIO;
- 
- 	if (val & (DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED))
-
+ static int amdgpu_discovery_init(struct amdgpu_device *adev)
 -- 
-2.39.5
+2.43.0
 
