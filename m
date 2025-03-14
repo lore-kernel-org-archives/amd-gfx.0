@@ -4,45 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C59AC282DE
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 22:21:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55C47C282DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 01:02:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B064910E950;
-	Thu, 13 Mar 2025 22:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD98810E1D0;
+	Fri, 14 Mar 2025 01:02:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="oP+FNxps";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1Oq/1vnh";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE87710E950
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 22:21:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=5SyRQNDJuPICgbWNGtk23VQCProjHDbstfGQrq3T6cE=; b=oP+FNxpsjHaaUGwVVOUxBmYsP/
- pGMlbcWqsL5iNPV3mL62ICBJ6llG7Fvqy9TIMg6dnr0khk3cvmVAwcjO5USAl1syuaOovNZpC3+RJ
- Gwnmy2tbl/Ih9vLXe+rC1Xy2Gin6JXp87vvkRWFC/Uocoa7DLZM+ZvVvhM/+qCIBTWkRjRLWw7EXN
- LGyDF0LqddFSSFKtsPqyGq2G3sU9rbXPZ9d0sVEES/lduSQkJMnhmTd5AWuUPgbO6ar5IVZBkXomb
- 8ZpOjiC7jlsxIOq64/vUi0rX57P50t9Q1bYqyiIcMoCgRWhB3yegRrorHT5LS0J7lQoHP6nN91PUx
- IbeTrFeg==;
-Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
- helo=maloca.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tsqvr-008MTI-QV; Thu, 13 Mar 2025 23:21:45 +0100
-Date: Thu, 13 Mar 2025 16:21:42 -0600
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH V5 00/11] Add disable kernel queue support
-Message-ID: <6itqgifq2c2q3mo5uikvciog4n4ubviolciya5hgturekeykhd@rxzxgul5aqz7>
-References: <20250313144136.1117072-1-alexander.deucher@amd.com>
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C57E410E1D0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 01:02:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VaZoExm0uWxLIoa5ubcqkdwQOrmMIqVTCN4SRdod/NUwkzP/tM46N4jezXyzZFR4b1pW5jYFcNi7duqE0ZdjHsaHMw+M6X6m7//+DHCSOdwg0WHAdL6XVDlA7L/cI0Uvqg56adeGRCYfoOtP+vayyZJMYeaL9ZDZyjzwAMRbUEZab+L+jmxK9iQtFSIn2NrzNZSo68+oyBI7j4J6QqfPCmi0P77CjTQY6o5NEmrDEuXupXN5bbP8L0Y7cSzWECAqxY/cZ9j4aVABVH1aWJAbtLYtVOGXow5exZOOUAo++Dmt30vT32xshkDdrZNeRvsrVch0xPCdkbzSUyswVAP1nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cTnv2s0Ve5ibNhIbUXCPt7EXKYubMkMxj6YyXfj91Ec=;
+ b=F45thnM+uAcETsbDzodjPuML3fx26WX/sb9OlAN2kfktFn/pbxBQ4/7JUogAYDhgKM3J1ha+sG9e0XSmRppBew9icd7J78n10lz814m+/r/3cWghKpT4kozq5NkuFj5rhggsd0ezD+t8sQgcO0NtkhSMHkPAmCNjD/qVHr5aOj5dvJIbRfwBC/XrNVYl5CxHgChFSSDxvUQvmbfCBMAwIKTfeoDkD0B+OH6/vVzWfdpaqP0lotKPhLZw1HHuJaNa/OYuF0s8LowQdHARZbECfIyhGRVWUamOiXhEk2/vBm3gKsoiOrHFHt3hNyOknNGLYxioqS3R3k4MfvfAmn7vVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cTnv2s0Ve5ibNhIbUXCPt7EXKYubMkMxj6YyXfj91Ec=;
+ b=1Oq/1vnhKNHVpbU2wBeMz0J9qhdkemj5DCKjMkiETQ6m0NLz5Dsyh540JHxMi4nwDelvWWyR2dwUvsOClfqmGGylYVUELRWT8CMxBQLhwA+0uI+wCKlyPd8OejFxSoTBTDkJCwfyJIszUc8eutqeDYY4SzwUqgaTv4gfHknJ+Rs=
+Received: from CH0PR03CA0108.namprd03.prod.outlook.com (2603:10b6:610:cd::23)
+ by PH7PR12MB8795.namprd12.prod.outlook.com (2603:10b6:510:275::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.28; Fri, 14 Mar
+ 2025 01:02:07 +0000
+Received: from CH2PEPF0000013C.namprd02.prod.outlook.com
+ (2603:10b6:610:cd:cafe::41) by CH0PR03CA0108.outlook.office365.com
+ (2603:10b6:610:cd::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.26 via Frontend Transport; Fri,
+ 14 Mar 2025 01:02:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF0000013C.mail.protection.outlook.com (10.167.244.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Fri, 14 Mar 2025 01:02:07 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 13 Mar
+ 2025 20:02:04 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: adjust drm_firmware_drivers_only() handling
+Date: Thu, 13 Mar 2025 21:01:51 -0400
+Message-ID: <20250314010152.1503510-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250314010152.1503510-1-alexander.deucher@amd.com>
+References: <20250314010152.1503510-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250313144136.1117072-1-alexander.deucher@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013C:EE_|PH7PR12MB8795:EE_
+X-MS-Office365-Filtering-Correlation-Id: 990806bb-72ca-4e13-c6bc-08dd6293d7a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ta/LgWKuEzGxRC7/BWAe1PDqLOsGbSL/u3XvE4tzt//fyXjTmI95dOvUDEZQ?=
+ =?us-ascii?Q?lCuFWAYdZcTfZ3H5mxMJ3kt0mC4UuBBQwRHPUnXGfnczgKGxjZ1clQYYZM+U?=
+ =?us-ascii?Q?PGAfO0MuXH46SUZ9EaYK87n77C22oyZXMETBXzB5uCqb6KHFcII22qT6jPKW?=
+ =?us-ascii?Q?Ctm6P9GDkcNEdVN5oj4os0DrGdxTTdrWs1Lmm/CfqGVGMoNSGCdnQ6iIMxzg?=
+ =?us-ascii?Q?O2jpXKu0nU3HFvTl5SfN87RKfCOEdcT+DIbLd+G0W65zwfQLEJp6OG4jMbNA?=
+ =?us-ascii?Q?j5GNkik6SeoQXxiJqActhOAfboJArcHmcfXZs1n/aW6kir9PqG0XtMtycmvl?=
+ =?us-ascii?Q?KowCStZktizEWO7UNSXfWzcQSgqXa+9p/rpHnY8j4fpH4nVTZDEnlLkNmAtN?=
+ =?us-ascii?Q?EM4joepMQ0r7dvMpuuDw+31wfLUpSbAWDoMiegGQv3ay4hSqlo18ipvxsbwZ?=
+ =?us-ascii?Q?uB2jBFpGgwaLVFcqSwyW5QJKqIQihU/s59HsdsM41APr2b5bTWlCFwvFUTQc?=
+ =?us-ascii?Q?C3LY3T+ZeGpuetLOAEEzHb3bMeWzDqqTioRjDzkiNnsRk+mqb3rDv1fs65bW?=
+ =?us-ascii?Q?pA+Geo+d+eZ6DXv2ZqWakGgvMFrpzEC+MbqXbd+W2fh8E2yJhRb8ARFYBp3u?=
+ =?us-ascii?Q?FzTlfLQYSaDGREK+9q5GBG26gZfa9BNoNK30LzA2XD5FzQf8Uu8rJsVUe1XG?=
+ =?us-ascii?Q?5NFM1eKDCSw9N8YHAdv8ha0N5K3LNKBzOT87tt+RcSv9MSZVg4Hsh+li5z5X?=
+ =?us-ascii?Q?yXIORKEUpivyLtOGRK8P1o9d8U+wy1/ijhLDphxtkF7JlZLXUnFhgRKzvpIo?=
+ =?us-ascii?Q?Ql/cozaV8BzUKPkv9H/1bFBTdQpJ0GLB5tzEevywnCU+x9qUcM2pElqZbSkf?=
+ =?us-ascii?Q?F9LIr5yVYV8s9ZHK87K8IOluyzvsvE91xPjJ9uVYIB9QgL89CGgUzurCQ2UW?=
+ =?us-ascii?Q?DiEqlTb+/4brVpwHVIAKnZsKvPcMr/BBcL8q7tcue4AyByqFvkpCacyonoRb?=
+ =?us-ascii?Q?zG+E2U7LIo0QVN96PnX5r/EvuQbSBrtU/Xf3sv7J4irmTKdHKzJtXjH75Zx9?=
+ =?us-ascii?Q?vCpQTMbvF09dFPRDct4TqnvCk/8qPhNU11quxIgAA95/yxwPB3hI6W7oc/iT?=
+ =?us-ascii?Q?BEF4pYecEhi6JtPtpWqWVfGniFF9CAMyC42JKYiz9gcTfaZzZUfhFlxtj7ji?=
+ =?us-ascii?Q?VczQ9GkmAtG8XC++cnxu0p3gWKRstteGGioC5JP9UJDeGujC8XClDw3r3qaB?=
+ =?us-ascii?Q?dwjikNfAM4FdGFeRXNzFO67dlhQU+s8r8W2ZIB2Sk0K9M1hgLI7ZA2Wk8avk?=
+ =?us-ascii?Q?2mqkGNebFg9LGGh0G4U1jPY7RW3iFYxjQZs6gmZwVfFnu1BGTXtWqm41paIh?=
+ =?us-ascii?Q?phHlRXmsQBHr1FQWefuSCTOXUcyFCOghSxaPPiZolo4mse4vsFAkPe/+ybys?=
+ =?us-ascii?Q?mizeZ/fPNDnpkk83VP4ZGf6x38NYMomA0M9jj8a7uA0ORqRMhany/sEAlZEN?=
+ =?us-ascii?Q?XDQACEbC43h1Wis=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2025 01:02:07.3049 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 990806bb-72ca-4e13-c6bc-08dd6293d7a0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8795
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,131 +132,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-n 03/13, Alex Deucher wrote:
-> To better evaluate user queues, add a module parameter
-> to disable kernel queues.  With this set kernel queues
-> are disabled and only user queues are available.  This
-> frees up hardware resources for use in user queues which
-> would otherwise be used by kernel queues and provides
-> a way to validate user queues without the presence
-> of kernel queues.
+Move to probe so we can check the PCI device type and
+only apply the drm_firmware_drivers_only() check for
+PCI DISPLAY classes.  Also add a module parameter to
+override the nomodeset kernel parameter as a workaround
+for platforms that have this hardcoded on their kernel
+command lines.
 
-Hi Alex,
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-I'm trying to understand how GFX and MES deal with different queues, and
-I used this patchset to guide me through that. In this sense, could you
-help me with the following points?
-
-FWIU, the GFX has what are called pipes, which in turn have hardware
-queues associated with them. For example, a GFX can have 2 pipes, and
-each pipe could have 2 hardware queues; or it could have 1 pipe and 8
-queue. Is this correct? 
-
-(for this next part, suppose 1 pipe 2 hardware queues)
-By default, one of the hardware queues is reserved for the Kernel Queue,
-and the user space could use the other. GFX has the MES block "connected"
-to all pipe queues, and MES is responsible for scheduling different ring
-buffers (in memory) in the pipe's hardware queue (effectively making the
-ring active). However, since the kernel queue is always present, MES
-only performs scheduling in one of the hardware queues. This scheduling
-occurs with the MES mapping and unmapping available Rings in memory to
-the hardware queue.
-
-Does the above description sound correct to you?  How about the below
-diagram? Does it look correct to you?
-
-(I hope the diagram looks fine in your email client; if not, I can
-attach a picture of it.)
-
-+-------------------------------------------------------------------------------------------------------------------------------------------+
-|                                                           GFX                                                                             |
-|                                                                                                                                           |
-|                                                                               +-----------------------------+                             |
-|           +---------------------------------------------+ (Hw Queue 0)        | Kernel Queue (No eviction)  +------- No MES Scheduling    |
-|           |        (Hardware Queue 0)                   | ------------------->|                             |               |             |
-|PIPE 0     |   -------------------------------------     |                     +-----------------------------+               X             |
-|           |        (Hardware Queue 1)                   |                                                        +----------+---------+   |
-|           |   -------------------------------------     |--+                                                     |                    |   |
-|           |                                             |  |                  +----------------------------+     |                    |   |
-|           +---------------------------------------------+  | (Hw Queue 1)     |                            |     |   MES Schedules    |   |
-|                                                            +----------------> |  User Queue                +-----+                    |   |
-|                                                                               |                            |     |                    |   |
-|                                                                               +----------------------------+     |                    |   |
-|                                                                                                                  +--------------------+   |
-|                                                                                                                            |              |
-|                                                                                      +-------------------------------------+              |
-|                                                                                      |Un/Map Ring                                         |
-|                                                                                      |                                                    |
-+-------------------------------------------------------------------------------------------------------------------------------------------+
-                                                                                       |                                                     
-                                                                 +---------------------+--------------------------------------------+        
-                                                                 |   MEMORY            v                                            |        
-                                                                 |                                                                  |        
-                                                                 |                                                                  |        
-                                                                 |  +----------+                                                    |        
-                                                                 |  |          |  +---------+         +--------+                    |        
-                                                                 |  |    Ring 0|  | Ring 1  |  ...    | Ring N |                    |        
-                                                                 |  |          |  |         |         |        |                    |        
-                                                                 |  +----------+  +---------+         +--------+                    |        
-                                                                 |                                                                  |        
-                                                                 |                                                                  |        
-                                                                 +------------------------------------------------------------------+        
-
-Is the idea in this series to experiment with making the kernel queue
-not fully occupy one of the hardware queue? By making the kernel queue
-able to be scheduled, this would provide one extra queue to be used for
-other things. Is this correct?
-
-I'm unsure if I fully understand this series's idea; please correct me
-if I'm wrong.
-
-Also, please elaborate more on the type of tasks that the kernel queue
-handles. Tbh, I did not fully understand the idea behind it.
-
-Thanks
-
-> 
-> v2: use num_gfx_rings and num_compute_rings per
->     Felix suggestion
-> v3: include num_gfx_rings fix in amdgpu_gfx.c
-> v4: additional fixes
-> v5: MEC EOP interrupt handling fix (Sunil)
-> 
-> Alex Deucher (11):
->   drm/amdgpu: add parameter to disable kernel queues
->   drm/amdgpu: add ring flag for no user submissions
->   drm/amdgpu/gfx: add generic handling for disable_kq
->   drm/amdgpu/mes: centralize gfx_hqd mask management
->   drm/amdgpu/mes: update hqd masks when disable_kq is set
->   drm/amdgpu/mes: make more vmids available when disable_kq=1
->   drm/amdgpu/gfx11: add support for disable_kq
->   drm/amdgpu/gfx12: add support for disable_kq
->   drm/amdgpu/sdma: add flag for tracking disable_kq
->   drm/amdgpu/sdma6: add support for disable_kq
->   drm/amdgpu/sdma7: add support for disable_kq
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h      |   1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |   4 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |   9 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  |   8 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |   2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  30 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  |  26 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |   1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 191 ++++++++++++++++-------
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 183 +++++++++++++++-------
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |   2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   |   2 +-
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   |  16 +-
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   |  15 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |   4 +
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |   4 +
->  17 files changed, 345 insertions(+), 155 deletions(-)
-> 
-> -- 
-> 2.48.1
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index dd86661153582..4e1a6a249bba5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -178,6 +178,7 @@ uint amdgpu_sdma_phase_quantum = 32;
+ char *amdgpu_disable_cu;
+ char *amdgpu_virtual_display;
+ bool enforce_isolation;
++int amdgpu_modeset = -1;
+ 
+ /* Specifies the default granularity for SVM, used in buffer
+  * migration and restoration of backing memory when handling
+@@ -1040,6 +1041,13 @@ module_param_named(user_partt_mode, amdgpu_user_partt_mode, uint, 0444);
+ module_param(enforce_isolation, bool, 0444);
+ MODULE_PARM_DESC(enforce_isolation, "enforce process isolation between graphics and compute . enforce_isolation = on");
+ 
++/**
++ * DOC: modeset (int)
++ * Override nomodeset (1 = override, -1 = auto). The default is -1 (auto).
++ */
++MODULE_PARM_DESC(modeset, "Override nomodeset (1 = enable, -1 = auto)");
++module_param_named(modeset, amdgpu_modeset, int, 0444);
++
+ /**
+  * DOC: seamless (int)
+  * Seamless boot will keep the image on the screen during the boot process.
+@@ -2270,6 +2278,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 	int ret, retry = 0, i;
+ 	bool supports_atomic = false;
+ 
++	if ((pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA ||
++	    (pdev->class >> 8) == PCI_CLASS_DISPLAY_OTHER) {
++		if (drm_firmware_drivers_only() && amdgpu_modeset == -1)
++			return -EINVAL;
++	}
++
+ 	/* skip devices which are owned by radeon */
+ 	for (i = 0; i < ARRAY_SIZE(amdgpu_unsupported_pciidlist); i++) {
+ 		if (amdgpu_unsupported_pciidlist[i] == pdev->device)
 -- 
-Rodrigo Siqueira
+2.48.1
+
