@@ -4,146 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B71C35FF1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 06:14:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B96C28B2F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 07:07:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1BE710E96B;
-	Fri, 14 Mar 2025 06:14:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEF1E10E037;
+	Fri, 14 Mar 2025 07:07:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k6vQVpTu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T3OVViPm";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C12F10E96B
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:14:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qqjdOgdc23Kl8sVpPOyCRf2/wKpzm4YFZhPU41MA5F0kV+EDKSwsgit4a+toYbNpijCR4lwcSVF/QFrQzS2wPREb2V/5YEMrr8dm18ziU6+DNnjIWL+aOTmzlMeMKOPVPuHXZ6IZ7lolua7TnMoi2TXwcblIB3D9zYbCtrqDYjb+PW+WxGl2JWOujSehuT2u4yqbuVhTXeVKG5llYw6peyBooBbuLKrFsQylBs8A6U2UM9N4pB2bPuABAsLiNtkgY9or4yfQhxnh95IVZasMICZXUxeylwWo2TC36osqkW+RjONtBtpqNCi/v2VlZaksOGOjxEHH/sAPnQjPYYt/zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=STqD5d7ZBjcEZnsDLdt23J8cJghutKMU0zM3iFbWyUg=;
- b=lFaXa25DfY4yNPTt5RJ2BlJ4wyZkXcYlqPfkCwhDZUpp1pnMLo7bicPGeIl3OCf2zeLTbepHwZ7i01UnTT59DGzdVJkNyMbTD/v2mAWgNQoxIdljrO6JUkDqWPKTFYdnYnv6iIHRf/Heb0bleeGizpu/85o5c3h7wEymRaa8zPI9lwWzbSdTx2XqDk5YBoAyo4swWqYZtljgU8YoEhZkY0IQsPQfUy6TtFMxOmcJpmgn0ijMIrOM9dh+XvTy9izX08+6Pg2Pp1cA3gALnODpyO9HFbFOQ3nwxhx8RHBRsclBpaHUxaRCxIxkVpSeiC+tHtF3xXSJiz5s7dMyZkVIHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=STqD5d7ZBjcEZnsDLdt23J8cJghutKMU0zM3iFbWyUg=;
- b=k6vQVpTuptUdBiRgZGHFiQtx+nhE8KNIRz0qU0yFv2tov+FsjwkYLqv1MTh4Z9bThB9nRjhhsPFRtSW4rDXYsO7M0u5P9vNq1R489DN9EPY09ke4/2aey+RtNNTCyprQNznSU5ONOWIF8QaF/tUj/1zZEJtUb9yNWyfda6dMiXo=
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
- MN2PR12MB4157.namprd12.prod.outlook.com (2603:10b6:208:1db::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.28; Fri, 14 Mar
- 2025 06:14:05 +0000
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::db2e:f082:bb80:d1a4]) by DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::db2e:f082:bb80:d1a4%2]) with mapi id 15.20.8511.031; Fri, 14 Mar 2025
- 06:14:05 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-Subject: RE: [PATCH V2 1/2] drm/amdgpu/gfx: fix ref counting for ring based
- profile handling
-Thread-Topic: [PATCH V2 1/2] drm/amdgpu/gfx: fix ref counting for ring based
- profile handling
-Thread-Index: AQHbk1nDeSZFJhwA+UaOaQ2y0Cci8bNyDqUQ
-Date: Fri, 14 Mar 2025 06:14:05 +0000
-Message-ID: <DM4PR12MB5165A3B28ED10480E2BF6A4D8ED22@DM4PR12MB5165.namprd12.prod.outlook.com>
-References: <20250312141912.10994-1-alexander.deucher@amd.com>
-In-Reply-To: <20250312141912.10994-1-alexander.deucher@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=33a164d2-81f2-40fc-825a-c593ee4f183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-14T04:36:37Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5165:EE_|MN2PR12MB4157:EE_
-x-ms-office365-filtering-correlation-id: 5ad3d8e4-2433-4a47-e108-08dd62bf6c48
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?FDeVdz3VWjdhWDIzJutZnLa58XzcnJzZ9CMuLgRGTJ/+GWWK+47yknvc39HK?=
- =?us-ascii?Q?lBuYSAoGLxBAkdi9UOpPu0Lfx0hi2Wtc+ZHfIUKb8FGzThs4FpA9JWlDKP/4?=
- =?us-ascii?Q?veON870Z+cw1K/t6A1dx+HUzyG9zGBbMJRqYm6HouxpI7zzRjuKVI7+/Xh54?=
- =?us-ascii?Q?CSiYo3C0ljUitTGlY9xjKDM/YaEvQwoAqbobUjdQxusIEw49f1smZl525Z2C?=
- =?us-ascii?Q?P4YJaBIo4e0yvBY2eLtopWArija79mJqCO04DWs3II++1hRnKXXo/fP9gHn4?=
- =?us-ascii?Q?9FU1cjLfWoOxPHObzWxAf+KilDrxslq9Xv8evaGNvQOo3FyRgQJ0Y2bLi9Ha?=
- =?us-ascii?Q?F3BwWHdMS78PtNUOoNtJ3Dwt59a/CSezrlNQuFGaYj8B12op9PPF5NpYBNd5?=
- =?us-ascii?Q?0ij5Rk7OG2cZcaKva2eDRTfKZ+jLC//TZDzlsQ8h4NNu6agnfu2IGB+Uj0/k?=
- =?us-ascii?Q?62kB5shB+n0Jzkpi2OKzZ88l5V+WLhdtecL9HfVe788SQfvGSRsrSXeNtaAJ?=
- =?us-ascii?Q?A1awbXu/iPz07OxiqEJfIGWhCdF5LM292i16g6Lpxnja1ICZOsfHhdYf1nqi?=
- =?us-ascii?Q?evq90uazoXGDWcEbQCk6HRkuHyth6fkcpa6YjffdqFdo7C9y2naMSj9E8oFe?=
- =?us-ascii?Q?GDfPwa4G2utKBXuZRWJRKQ6fBiK1SxoYMcXEVjDmpMhN3J80+Pp2AOcuiqig?=
- =?us-ascii?Q?dp6s14Z9aGcsygUBviI1PM5LRqP5w6bYhPbB0q6zIVKANzp/iTk/GM3FgPuL?=
- =?us-ascii?Q?xvrU7x3cMxWNVd/4UZs7AVQic0NeEdDY6kYqEaLXC9DB53mie8x8DsGNXD7r?=
- =?us-ascii?Q?Qjr79jK+HpLc0+ohQTq6rJveAC8wNPg9utQiC32u+apRn/KGM2SpjZ+SikuQ?=
- =?us-ascii?Q?2eHspwcAQmhQS4Qa0g+6EqGEZNyAAKe3juV8isffhDya8FyX/3EoTITYR52w?=
- =?us-ascii?Q?bKdZpK2cCJkoBs9yphmQnbsaZE+hn3KUtO53XTBp/apypBgpGW0nimtyxfvQ?=
- =?us-ascii?Q?Te+dg2s+fMpusX8AZzuxfv2CWqo9cA9a3JbRKv2NaUGqSrCGAUHoFrE2f9Ut?=
- =?us-ascii?Q?gkceI+5GKsdXJGdfE+B4KoqKdgMfA6UwZQJGnZ9giWmsC9A6g4/Vip/2liBd?=
- =?us-ascii?Q?gGMyRBvw1JMBwkvI6b9132o4N8wNGRJ9XT7jmqIUPpin8bFSwytniVHg/NRj?=
- =?us-ascii?Q?3vBFY7abQSj/JdNo1DK47tUxIpgZwz+nazLcFLLvfBTDNGXWFAidFHqA5RED?=
- =?us-ascii?Q?pgkJ0GwHgt+KD4MwEQfKOAFMR5CLz4BaeOMR1k5GXl8O3Nb+8kOzqw84Dpnf?=
- =?us-ascii?Q?Dbq3G6igROtGFKwgz6V+OPxqD73UkzQ0uxEuGUDaEyQzpYI7im6qymAgy5o5?=
- =?us-ascii?Q?0dd04l+ocDAawxfiGCF0Hp33dqSusL2vJRdcZbj7xaXxJ3vIaiU9yw5ZnKcQ?=
- =?us-ascii?Q?eBJAymZUZUY8WSSUwTOhk+6dAeAcJv+F?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NaEPAa2nCZPh+vBc+/kigR4QuEyjD6FBVA2fUxL3fjbzaEAffb4+a56BoTkL?=
- =?us-ascii?Q?4bcnqo6chQwTRKIg+1AGzb0fp8FKsNp9Yzwv4CtNEB5rel6hYRFfook27GHJ?=
- =?us-ascii?Q?Vfs9XxhGoiUfD/r1aiij1N4mcc1YBhKf0M2etmqOAOUpvxWLRWg4JIZ+1PCN?=
- =?us-ascii?Q?YX1j9CQBGGeU5PLJmlUA0eCxodtYjRt37eKOhcoc038cywtGt1UlWFrpzWOh?=
- =?us-ascii?Q?4kXopAeaR54mmcywfG1046PGR7UI8ZHp5QScVMMkh1B3n6bRC1bDCTwWgamG?=
- =?us-ascii?Q?m0QT951gDqKdp14G0a+IqFWLUzzuDxIj51vPja1yiD74COIAoN10sTw6zoZB?=
- =?us-ascii?Q?KN6p0lt1en3dTWfxKuPaeAh4dyw1pYZTGn+r19ItCQSCdMb5F3B4ErDEhpQS?=
- =?us-ascii?Q?BwKxyY+qwP7UWgfhvQPuph1sEfjJeLxSUpsbmlgGf+l0ac8u/N9v+yjzplUP?=
- =?us-ascii?Q?r3H6pcyWSgsPRAs1+XKzx7k3I5L40gyU1rh71ym8sRkQysEOd3UWtguKB1x7?=
- =?us-ascii?Q?2agAR9GB3Y1EqRj7aOT6WAfPctkVApmgZpVlBMwUNbwYDaM3qoz415NXqeje?=
- =?us-ascii?Q?Np/soli1wPJmrH9id3TqsnzdfqdHX8RbLGhmo9elP3yaT+vrYOfUbvzCWoL6?=
- =?us-ascii?Q?Tng2ZNYMM30FyC/5+GLXI96oj8GlOlNLTDaYFzNxH0Fa7ezHkd+BrUuICNUa?=
- =?us-ascii?Q?fi9dcI859yP+qv8ruO8kf/UKaWnwliJeh++SJ0cvvMZPIkt0hJYPHG5xXLOi?=
- =?us-ascii?Q?TPJA7CF1KkJD/B0iti95Q6DSu4tNGG2lCYbdOm6nY3Gz7wqZxZq3sUfEsMIV?=
- =?us-ascii?Q?nBZnwirJvmXl+A8ZXhOWRpZdglCt1nlERcV4D2m0Onh9meSw57OPzGFplHyc?=
- =?us-ascii?Q?JX6fctuSmoa+CC5BjjYakDz6sChNToPArmTa77WJ1+EI6gdeKDsiUsyPY7oF?=
- =?us-ascii?Q?pyfJT9XKuTPS4KWLQBvqvcybSZR/bRDw512MJf5P4mdWIc4W+VlAaGuwBHKb?=
- =?us-ascii?Q?6z5/0LlgKb2QMsj9liIDLlARyU5khzYmEFNSqQwW5DLyz6cc9kx9vw1PM4Mo?=
- =?us-ascii?Q?5ekXtb1fBtxffYe56lYwkl8G97mJe0BByySQ0lDrclBBdJUiXcvwtiuMj7o6?=
- =?us-ascii?Q?PVgT2H0gTtyICsJzYjCge+3NKzG1K0hoRJPj1j5uSe8bakyyoQfeMtGTyEGN?=
- =?us-ascii?Q?3teT/uCkI2VYJylRiXDqnhrMKZ1pl4gzSxjqcpRO5TO2D451fqXh0XSN1lu4?=
- =?us-ascii?Q?vj8eGTpPCXzINlmNi0YDvVfe7THWJr05aqUO+agDqXMaXBnn69Hg0FODzlcR?=
- =?us-ascii?Q?HEbh9+AVEPZHwHtirf268usTl2FAk0b3D4RI56lUOvIeLWsHXd+lqL1EYdFZ?=
- =?us-ascii?Q?p9SZeUUAfWkzVasfYWFNem6yZcoY6V6rD9EMTqlStrJ1Fq0xz9GPHED0tshj?=
- =?us-ascii?Q?26cRhKbU37sPLgKNZyWAAgjU14TkH7w0jnfTINsrOt14pQw6x+B30q4+54cq?=
- =?us-ascii?Q?Bjb7O0D0vsRUzfEBI1NwUISv3Vm3aPKp2+D3YjDMP6LmZzpGp0QN7ten19SP?=
- =?us-ascii?Q?moexMc5AUd2NznxMzm4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B93E10E037
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 07:07:21 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-43d04ea9d9aso11828595e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 00:07:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741936040; x=1742540840; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:cc:content-language
+ :references:to:from:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xavA3HjmkUwRH2HfOgOJXU5JlvSgr85L7GjbNmmoXD0=;
+ b=T3OVViPmY4b4MVHJVBGNgH5R8ATWIdn9t9iwUnThR3cKCnC4cYqpQlfs98mSEcwLdo
+ covjFJt6MaU8hD1v076ROXXCETvD2occdNU5jBosX0OmAz6dHGFr7vQQv/8QM0QfokO6
+ /P+LRacDIDDecx0R6+JeZEIRpi98/vX+Qv20ZA9hOngtNuAyGVu5yIC15dXzP6CxyB/B
+ a/B2KtClgTHSB7kNVr4ZIfaz5BcrFe2z/oz/M98B8LyALajSX+pAcn9aLwunrgwa2WfC
+ ND3Sy4g69CKGsu9wYSzGwIdunsM+gmq8kgqOAW0Ib3tt98IQVFyqDgNA0bnlyutmosyg
+ 3dww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741936040; x=1742540840;
+ h=content-transfer-encoding:in-reply-to:cc:content-language
+ :references:to:from:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=xavA3HjmkUwRH2HfOgOJXU5JlvSgr85L7GjbNmmoXD0=;
+ b=IR4vZ2OSl+up5f5wzFXNUlsKZfFgiuRg8LLLDt7SxdOzE6ugmwVYgZH2zdBRx6t2tm
+ +nsXZATbAyQsNrodqywBKkbJwYZXDJWEAXdojQCONqAPt5NyHn5pn+Km1kU2Hdi3nvrJ
+ 8+vDqvKpO97syPM3aGnkA6pBXgn80xRR7HMzC3278i/pfMC+V0YRz2vGMPZgDkgTWVhm
+ YM2aAOQZhOtBCJDHHSzMq3UtosTnCuneWW0b1NhpFKfy/v/moAkzBClMqVMCTrU0gXIA
+ fUMUrWVGa5XdmjMhn1+RMJeUQ9dLvf8B979X4LRaii378RpGsbL5xmLMuXcO1BOIBUaT
+ acWQ==
+X-Gm-Message-State: AOJu0Yxi3RV5c+qPas3ixq18FePmAIvAJWjunqeOK/+rofK/sk7v+tKn
+ 7sHC0WFAFbcQRQQLdKJ1Ev+XR1aA95Cd+oEKrOqKb856vgHHZntx
+X-Gm-Gg: ASbGncvlVxDP+vv0JM8iXygtxSJyPHqnbktCKAD3GE1SRyXtd9ExatWQogZ5O+LhuTR
+ CdQPRQAxFm4vsZTK3AjezLR9HWEOPSMAnvOHE+yvXHkX5ft0B//7OA3qEqflbJeucAJvMwHHZnq
+ PB8GjMxzondOZaJjNrUeFmx3JNlnbsfbLgfMkS8vb5NS9azrFNJp+dkMGS/NrAkBmIE/WM7MpMt
+ lyh7fYtSSjSgxdSrM11FoTtpxSLn0IrPizZuxrw2LeG68FZjcXghoLc0M+lxCfrZo+74DPN7mNd
+ uI9/XoZgAyV6KWheA0dcmxyY88o5uPxkftQdIPGWdmqsMiTobg65Na/MoBJ3g7GRakUNo52TjQ=
+ =
+X-Google-Smtp-Source: AGHT+IHQBKgFwKGzP4gT4cE67w0UVCCA3C9+mJFikpsuOI2EJCsRC6l8ILbCrFZdafZ+qlzNaXbyqg==
+X-Received: by 2002:a05:600c:468a:b0:43c:fb36:d296 with SMTP id
+ 5b1f17b1804b1-43d1ed0e03dmr14487135e9.25.1741936039194; 
+ Fri, 14 Mar 2025 00:07:19 -0700 (PDT)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d1fe2a2c8sm7840915e9.23.2025.03.14.00.07.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Mar 2025 00:07:18 -0700 (PDT)
+Message-ID: <081f652a-880e-4bc1-b52a-eb1bf42f8ca6@gmail.com>
+Date: Fri, 14 Mar 2025 08:07:17 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ad3d8e4-2433-4a47-e108-08dd62bf6c48
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2025 06:14:05.1057 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qo9iVK+N10L0tkpyJWG7htTpkRGbhcDQ4jG0xLMBxbUxjMivdCvwL4iLHY64x6HY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4157
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] drm/amdgpu: rework how isolation is enforced v2
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>
+References: <20250307134816.1422-1-christian.koenig@amd.com>
+ <20250307134816.1422-4-christian.koenig@amd.com>
+Content-Language: en-US
+Cc: amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Samuel Pitoiset <samuel.pitoiset@gmail.com>
+In-Reply-To: <20250307134816.1422-4-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,116 +89,344 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi Siqueira,
 
-Test-by: Kenneth Feng <kenneth.feng@amd.com>
-Series is Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+as discussed on the call if you can wrap your head around how the amdgpu_device_enforce_isolation() function works it should be trivial to write a new function or extend the function to insert a CPU bubble whenever the ownership of one of the compute rings change.
 
------Original Message-----
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Wednesday, March 12, 2025 10:19 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <Kevi=
-nYang.Wang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH V2 1/2] drm/amdgpu/gfx: fix ref counting for ring based pro=
-file handling
+IIRC we already do load balancing between the 8 available compute rings anyway, so the only part missing is the CPU bubble to ensure that a queue reset only affects a single application.
 
-We need to make sure the workload profile ref counts are balanced.  This is=
-n't currently the case because we can increment the count on submissions, b=
-ut the decrement may be delayed as work comes in.  Track when we enable the=
- workload profile so the references are balanced.
+Regards,
+Christian.
 
-v2: switch to a mutex and active flag
-
-Fixes: 8fdb3958e396 ("drm/amdgpu/gfx: add ring helpers for setting workload=
- profile")
-Cc: Yang Wang <kevinyang.wang@amd.com>
-Cc: Kenneth Feng <kenneth.feng@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 30 ++++++++++++++++---------  dr=
-ivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
- 2 files changed, 22 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index 984e6ff6e4632..099329d15b9ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -2160,11 +2160,16 @@ void amdgpu_gfx_profile_idle_work_handler(struct wo=
-rk_struct *work)
-        for (i =3D 0; i < (AMDGPU_MAX_COMPUTE_RINGS * AMDGPU_MAX_GC_INSTANC=
-ES); ++i)
-                fences +=3D amdgpu_fence_count_emitted(&adev->gfx.compute_r=
-ing[i]);
-        if (!fences && !atomic_read(&adev->gfx.total_submission_cnt)) {
--               r =3D amdgpu_dpm_switch_power_profile(adev, profile, false)=
-;
--               if (r)
--                       dev_warn(adev->dev, "(%d) failed to disable %s powe=
-r profile mode\n", r,
--                                profile =3D=3D PP_SMC_POWER_PROFILE_FULLSC=
-REEN3D ?
--                                "fullscreen 3D" : "compute");
-+               mutex_lock(&adev->gfx.workload_profile_mutex);
-+               if (adev->gfx.workload_profile_active) {
-+                       r =3D amdgpu_dpm_switch_power_profile(adev, profile=
-, false);
-+                       if (r)
-+                               dev_warn(adev->dev, "(%d) failed to disable=
- %s power profile mode\n", r,
-+                                        profile =3D=3D PP_SMC_POWER_PROFIL=
-E_FULLSCREEN3D ?
-+                                        "fullscreen 3D" : "compute");
-+                       adev->gfx.workload_profile_active =3D false;
-+               }
-+               mutex_unlock(&adev->gfx.workload_profile_mutex);
-        } else {
-                schedule_delayed_work(&adev->gfx.idle_work, GFX_PROFILE_IDL=
-E_TIMEOUT);
-        }
-@@ -2184,11 +2189,16 @@ void amdgpu_gfx_profile_ring_begin_use(struct amdgp=
-u_ring *ring)
-        atomic_inc(&adev->gfx.total_submission_cnt);
-
-        if (!cancel_delayed_work_sync(&adev->gfx.idle_work)) {
--               r =3D amdgpu_dpm_switch_power_profile(adev, profile, true);
--               if (r)
--                       dev_warn(adev->dev, "(%d) failed to disable %s powe=
-r profile mode\n", r,
--                                profile =3D=3D PP_SMC_POWER_PROFILE_FULLSC=
-REEN3D ?
--                                "fullscreen 3D" : "compute");
-+               mutex_lock(&adev->gfx.workload_profile_mutex);
-+               if (!adev->gfx.workload_profile_active) {
-+                       r =3D amdgpu_dpm_switch_power_profile(adev, profile=
-, true);
-+                       if (r)
-+                               dev_warn(adev->dev, "(%d) failed to disable=
- %s power profile mode\n", r,
-+                                        profile =3D=3D PP_SMC_POWER_PROFIL=
-E_FULLSCREEN3D ?
-+                                        "fullscreen 3D" : "compute");
-+                       adev->gfx.workload_profile_active =3D true;
-+               }
-+               mutex_unlock(&adev->gfx.workload_profile_mutex);
-        }
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.h
-index ddf4533614bac..75af4f25a133b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -483,6 +483,8 @@ struct amdgpu_gfx {
-
-        atomic_t                        total_submission_cnt;
-        struct delayed_work             idle_work;
-+       bool                            workload_profile_active;
-+       struct mutex                    workload_profile_mutex;
- };
-
- struct amdgpu_gfx_ras_reg_entry {
---
-2.48.1
+Am 07.03.25 um 14:48 schrieb Christian König:
+> Limiting the number of available VMIDs to enforce isolation causes some
+> issues with gang submit and applying certain HW workarounds which
+> require multiple VMIDs to work correctly.
+>
+> So instead start to track all submissions to the relevant engines in a
+> per partition data structure and use the dma_fences of the submissions
+> to enforce isolation similar to what a VMID limit does.
+>
+> v2: use ~0l for jobs without isolation to distinct it from kernel
+>     submissions which uses NULL for the owner. Add some warning when we
+>     are OOM.
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 13 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 98 +++++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c    | 43 ++++------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 16 +++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c   | 19 +++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h   |  1 +
+>  6 files changed, 155 insertions(+), 35 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 87062c1adcdf..f68a348dcec9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1211,9 +1211,15 @@ struct amdgpu_device {
+>  	bool                            debug_exp_resets;
+>  	bool                            debug_disable_gpu_ring_reset;
+>  
+> -	bool				enforce_isolation[MAX_XCP];
+> -	/* Added this mutex for cleaner shader isolation between GFX and compute processes */
+> +	/* Protection for the following isolation structure */
+>  	struct mutex                    enforce_isolation_mutex;
+> +	bool				enforce_isolation[MAX_XCP];
+> +	struct amdgpu_isolation {
+> +		void			*owner;
+> +		struct dma_fence	*spearhead;
+> +		struct amdgpu_sync	active;
+> +		struct amdgpu_sync	prev;
+> +	} isolation[MAX_XCP];
+>  
+>  	struct amdgpu_init_level *init_lvl;
+>  
+> @@ -1499,6 +1505,9 @@ void amdgpu_device_pcie_port_wreg(struct amdgpu_device *adev,
+>  struct dma_fence *amdgpu_device_get_gang(struct amdgpu_device *adev);
+>  struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
+>  					    struct dma_fence *gang);
+> +struct dma_fence *amdgpu_device_enforce_isolation(struct amdgpu_device *adev,
+> +						  struct amdgpu_ring *ring,
+> +						  struct amdgpu_job *job);
+>  bool amdgpu_device_has_display_hardware(struct amdgpu_device *adev);
+>  ssize_t amdgpu_get_soft_full_reset_mask(struct amdgpu_ring *ring);
+>  ssize_t amdgpu_show_reset_mask(char *buf, uint32_t supported_reset);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 337543ec615c..3fa7788b4e12 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4272,6 +4272,11 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  	mutex_init(&adev->gfx.reset_sem_mutex);
+>  	/* Initialize the mutex for cleaner shader isolation between GFX and compute processes */
+>  	mutex_init(&adev->enforce_isolation_mutex);
+> +	for (i = 0; i < MAX_XCP; ++i) {
+> +		adev->isolation[i].spearhead = dma_fence_get_stub();
+> +		amdgpu_sync_create(&adev->isolation[i].active);
+> +		amdgpu_sync_create(&adev->isolation[i].prev);
+> +	}
+>  	mutex_init(&adev->gfx.kfd_sch_mutex);
+>  
+>  	amdgpu_device_init_apu_flags(adev);
+> @@ -4770,7 +4775,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+>  
+>  void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+>  {
+> -	int idx;
+> +	int i, idx;
+>  	bool px;
+>  
+>  	amdgpu_device_ip_fini(adev);
+> @@ -4778,6 +4783,11 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+>  	amdgpu_ucode_release(&adev->firmware.gpu_info_fw);
+>  	adev->accel_working = false;
+>  	dma_fence_put(rcu_dereference_protected(adev->gang_submit, true));
+> +	for (i = 0; i < MAX_XCP; ++i) {
+> +		dma_fence_put(adev->isolation[i].spearhead);
+> +		amdgpu_sync_free(&adev->isolation[i].active);
+> +		amdgpu_sync_free(&adev->isolation[i].prev);
+> +	}
+>  
+>  	amdgpu_reset_fini(adev);
+>  
+> @@ -6913,6 +6923,92 @@ struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
+>  	return NULL;
+>  }
+>  
+> +/**
+> + * amdgpu_device_enforce_isolation - enforce HW isolation
+> + * @adev: the amdgpu device pointer
+> + * @ring: the HW ring the job is supposed to run on
+> + * @job: the job which is about to be pushed to the HW ring
+> + *
+> + * Makes sure that only one client at a time can use the GFX block.
+> + * Returns: The dependency to wait on before the job can be pushed to the HW.
+> + * The function is called multiple times until NULL is returned.
+> + */
+> +struct dma_fence *amdgpu_device_enforce_isolation(struct amdgpu_device *adev,
+> +						  struct amdgpu_ring *ring,
+> +						  struct amdgpu_job *job)
+> +{
+> +	struct amdgpu_isolation *isolation = &adev->isolation[ring->xcp_id];
+> +	struct drm_sched_fence *f = job->base.s_fence;
+> +	struct dma_fence *dep;
+> +	void *owner;
+> +	int r;
+> +
+> +	/*
+> +	 * For now enforce isolation only for the GFX block since we only need
+> +	 * the cleaner shader on those rings.
+> +	 */
+> +	if (ring->funcs->type != AMDGPU_RING_TYPE_GFX &&
+> +	    ring->funcs->type != AMDGPU_RING_TYPE_COMPUTE)
+> +		return NULL;
+> +
+> +	/*
+> +	 * All submissions where enforce isolation is false are handled as if
+> +	 * they come from a single client. Use ~0l as the owner to distinct it
+> +	 * from kernel submissions where the owner is NULL.
+> +	 */
+> +	owner = job->enforce_isolation ? f->owner : (void*)~0l;
+> +
+> +	mutex_lock(&adev->enforce_isolation_mutex);
+> +
+> +	/*
+> +	 * The "spearhead" submission is the first one which changes the
+> +	 * ownership to its client. We always need to wait for it to be
+> +	 * pushed to the HW before proceeding with anything.
+> +	 */
+> +	if (&f->scheduled != isolation->spearhead &&
+> +	    !dma_fence_is_signaled(isolation->spearhead)) {
+> +		dep = isolation->spearhead;
+> +		goto out_grab_ref;
+> +	}
+> +
+> +	if (isolation->owner != owner) {
+> +
+> +		/*
+> +		 * Wait for any gang to be assembled before switching to a
+> +		 * different owner or otherwise we could deadlock the
+> +		 * submissions.
+> +		 */
+> +		if (!job->gang_submit) {
+> +			dep = amdgpu_device_get_gang(adev);
+> +			if (!dma_fence_is_signaled(dep))
+> +				goto out_return_dep;
+> +			dma_fence_put(dep);
+> +		}
+> +
+> +		dma_fence_put(isolation->spearhead);
+> +		isolation->spearhead = dma_fence_get(&f->scheduled);
+> +		amdgpu_sync_move(&isolation->active, &isolation->prev);
+> +		isolation->owner = owner;
+> +	}
+> +
+> +	/*
+> +	 * Specifying the ring here helps to pipeline submissions even when
+> +	 * isolation is enabled. If that is not desired for testing NULL can be
+> +	 * used instead of the ring to enforce a CPU round trip while switching
+> +	 * between clients.
+> +	 */
+> +	dep = amdgpu_sync_peek_fence(&isolation->prev, ring);
+> +	r = amdgpu_sync_fence(&isolation->active, &f->finished, GFP_NOWAIT);
+> +	if (r)
+> +		DRM_WARN("OOM tracking isolation\n");
+> +
+> +out_grab_ref:
+> +	dma_fence_get(dep);
+> +out_return_dep:
+> +	mutex_unlock(&adev->enforce_isolation_mutex);
+> +	return dep;
+> +}
+> +
+>  bool amdgpu_device_has_display_hardware(struct amdgpu_device *adev)
+>  {
+>  	switch (adev->asic_type) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index 56d27cea052e..92ab821afc06 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -287,40 +287,27 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+>  	    (*id)->flushed_updates < updates ||
+>  	    !(*id)->last_flush ||
+>  	    ((*id)->last_flush->context != fence_context &&
+> -	     !dma_fence_is_signaled((*id)->last_flush))) {
+> +	     !dma_fence_is_signaled((*id)->last_flush)))
+> +		needs_flush = true;
+> +
+> +	if ((*id)->owner != vm->immediate.fence_context ||
+> +	    (!adev->vm_manager.concurrent_flush && needs_flush)) {
+>  		struct dma_fence *tmp;
+>  
+> -		/* Wait for the gang to be assembled before using a
+> -		 * reserved VMID or otherwise the gang could deadlock.
+> +		/* Don't use per engine and per process VMID at the
+> +		 * same time
+>  		 */
+> -		tmp = amdgpu_device_get_gang(adev);
+> -		if (!dma_fence_is_signaled(tmp) && tmp != job->gang_submit) {
+> +		if (adev->vm_manager.concurrent_flush)
+> +			ring = NULL;
+> +
+> +		/* to prevent one context starved by another context */
+> +		(*id)->pd_gpu_addr = 0;
+> +		tmp = amdgpu_sync_peek_fence(&(*id)->active, ring);
+> +		if (tmp) {
+>  			*id = NULL;
+> -			*fence = tmp;
+> +			*fence = dma_fence_get(tmp);
+>  			return 0;
+>  		}
+> -		dma_fence_put(tmp);
+> -
+> -		/* Make sure the id is owned by the gang before proceeding */
+> -		if (!job->gang_submit ||
+> -		    (*id)->owner != vm->immediate.fence_context) {
+> -
+> -			/* Don't use per engine and per process VMID at the
+> -			 * same time
+> -			 */
+> -			if (adev->vm_manager.concurrent_flush)
+> -				ring = NULL;
+> -
+> -			/* to prevent one context starved by another context */
+> -			(*id)->pd_gpu_addr = 0;
+> -			tmp = amdgpu_sync_peek_fence(&(*id)->active, ring);
+> -			if (tmp) {
+> -				*id = NULL;
+> -				*fence = dma_fence_get(tmp);
+> -				return 0;
+> -			}
+> -		}
+> -		needs_flush = true;
+>  	}
+>  
+>  	/* Good we can use this VMID. Remember this submission as
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index 5537c8bfd227..1a6cfef4c071 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -360,17 +360,24 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
+>  {
+>  	struct amdgpu_ring *ring = to_amdgpu_ring(s_entity->rq->sched);
+>  	struct amdgpu_job *job = to_amdgpu_job(sched_job);
+> -	struct dma_fence *fence = NULL;
+> +	struct dma_fence *fence;
+>  	int r;
+>  
+>  	r = drm_sched_entity_error(s_entity);
+>  	if (r)
+>  		goto error;
+>  
+> -	if (job->gang_submit)
+> +	if (job->gang_submit) {
+>  		fence = amdgpu_device_switch_gang(ring->adev, job->gang_submit);
+> +		if (fence)
+> +			return fence;
+> +	}
+> +
+> +	fence = amdgpu_device_enforce_isolation(ring->adev, ring, job);
+> +	if (fence)
+> +		return fence;
+>  
+> -	if (!fence && job->vm && !job->vmid) {
+> +	if (job->vm && !job->vmid) {
+>  		r = amdgpu_vmid_grab(job->vm, ring, job, &fence);
+>  		if (r) {
+>  			dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r);
+> @@ -383,9 +390,10 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
+>  		 */
+>  		if (!fence)
+>  			job->vm = NULL;
+> +		return fence;
+>  	}
+>  
+> -	return fence;
+> +	return NULL;
+>  
+>  error:
+>  	dma_fence_set_error(&job->base.s_fence->finished, r);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> index bfe12164d27d..c5f9db6b32a4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> @@ -405,6 +405,25 @@ int amdgpu_sync_clone(struct amdgpu_sync *source, struct amdgpu_sync *clone)
+>  	return 0;
+>  }
+>  
+> +/**
+> + * amdgpu_sync_move - move all fences from src to dst
+> + *
+> + * @src: source of the fences, empty after function
+> + * @dst: destination for the fences
+> + *
+> + * Moves all fences from source to destination. All fences in destination are
+> + * freed and source is empty after the function call.
+> + */
+> +void amdgpu_sync_move(struct amdgpu_sync *src, struct amdgpu_sync *dst)
+> +{
+> +	unsigned int i;
+> +
+> +	amdgpu_sync_free(dst);
+> +
+> +	for (i = 0; i < HASH_SIZE(src->fences); ++i)
+> +		hlist_move_list(&src->fences[i], &dst->fences[i]);
+> +}
+> +
+>  /**
+>   * amdgpu_sync_push_to_job - push fences into job
+>   * @sync: sync object to get the fences from
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
+> index 1504f5e7fc46..51eb4382c91e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
+> @@ -57,6 +57,7 @@ struct dma_fence *amdgpu_sync_peek_fence(struct amdgpu_sync *sync,
+>  				     struct amdgpu_ring *ring);
+>  struct dma_fence *amdgpu_sync_get_fence(struct amdgpu_sync *sync);
+>  int amdgpu_sync_clone(struct amdgpu_sync *source, struct amdgpu_sync *clone);
+> +void amdgpu_sync_move(struct amdgpu_sync *src, struct amdgpu_sync *dst);
+>  int amdgpu_sync_push_to_job(struct amdgpu_sync *sync, struct amdgpu_job *job);
+>  int amdgpu_sync_wait(struct amdgpu_sync *sync, bool intr);
+>  void amdgpu_sync_free(struct amdgpu_sync *sync);
 
