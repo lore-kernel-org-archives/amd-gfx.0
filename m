@@ -4,70 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D31C282EC
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 13:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44751C28B30
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 13:12:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB40610E980;
-	Fri, 14 Mar 2025 13:00:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D57F710E9EC;
+	Fri, 14 Mar 2025 13:12:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aoGsZWEp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mH06avv5";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EDA010E980
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 13:00:26 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2241c95619eso5297495ad.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:26 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7480510E9EC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 13:12:13 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2240d930f13so4487055ad.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:12:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741957224; x=1742562024; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1741957933; x=1742562733; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nl49pb5YkM4fQ6ztEAajhR6ESmbBVwTbcnrAyoXYeqw=;
- b=aoGsZWEpcCmOKsU2fueIUllj7+aZjVqzIHPMEJt4+wSJHDaAPyDCQgz9k+J7qTzvDG
- S0ycfKuVqiXf9atTJnaHiRdCic4hW3VXeJpAjSYjI8aSJnupTHGfwjUoPg1SmMRZSk1R
- 5yRDK0PoClB81u6i3sxwoNaAeRB1mgiZWEx09uTvTPnqzFX+Hz2F4VenP07GXgKiE28+
- EQQKhG4vFEPdWzthHApztB8Uq8bEodgt/THdFthO6LlNFuACU/+bthCPhxi7x6Es63FR
- K6Y4Fq4Ay04NsxDrsMve8k5d7GfwK2tsNpjn/Eeq5W/Nhr9Rn57x+V76XLfLLksG43nT
- 4rlQ==
+ bh=us71VI8rB0Legg4D3O1G/8ku8Dl+rOdqgBnf5AamEhA=;
+ b=mH06avv53YmvCMkgzwoz2eiMT6kwP85uFZsyDoMnVrT5w9MzvW+kz+xrae5YX8vY6k
+ VuCkZ8SlQjETAwlbpHvl0DN196zkpovKPLPuR2v0FgUlB3B5Nx0OXe7pFO9IsTeaiscA
+ 0oMz/EyQaVlC4WBXGAo6L/scj/tUkojPIDydhXBg9XstGpgV6gj0Z8Z0JjESKlch1xqf
+ pLWW7+RviZ/0AabIZVbRYdXl1oYLSCdVV+cY7eGC0hVZtD8w3vPy4HX8aU4Dc2TXwdA4
+ XBGBxhdQU8qHtCQ02CCyLfYGdSPE4QaIVyD5mdiJ3WJnuSPaq5cXwB85UkNFPNdym/SH
+ tEyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741957224; x=1742562024;
+ d=1e100.net; s=20230601; t=1741957933; x=1742562733;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nl49pb5YkM4fQ6ztEAajhR6ESmbBVwTbcnrAyoXYeqw=;
- b=w3RN0l2rEWU2OWL8d0mX2iEj49qFF2pa8ePxYxWxkwU9fUUTT1XCzNDhBtd5E7y4zt
- Y8EVi1UGUNmcA2SIHhq6jFAqXFjQTRaCvQq44AvtQ6+/QgTDn209TyWhVLid5IfwJwfK
- p8entKnEPTMh+VESTO4f1SkmqmsINCSJ7PDIHQT+Jg7KZnZUJkNi9YVHjqG6wi7B/P0L
- NSr7MZ+3OCENzhhOykW+RYeTmXIYdh+O7sDTDGEhBz4PWcen3dISfidLzY6Ht5zn2SCN
- GW2f2bqoOEQvRcMRwwfekyGM84Ip017GcHihoohtXTReQjFk1zM07Q66dt82B8n0335t
- XgVw==
+ bh=us71VI8rB0Legg4D3O1G/8ku8Dl+rOdqgBnf5AamEhA=;
+ b=KEQbcXWX/nMBHBq6+stjCEMzzRg0E4tgqw8iIY8ZIim02HjRRCG1tbTwpQr78voQY7
+ KAkJLV4e7y5tdjTZzkcYQyq0+u6VX6FegwewYDui8ATvlMafgKUhN7aaclfgXGdWk5lZ
+ Ql/a65pOHB9gFMGRxj9gHMirt6dxiVwMMkYkwJ6eR5ucbkOxiPvCWM9EFAJbnjlnaSz9
+ AExN1IT+XfIxAyt8kf95oj5CCqW7pXpJbdYbIXEJ+tE88klT5susDYLSCPR4CqqYbkrK
+ lOzsxDepOwyD7SyH3IY093CzUCUK8kIuYbv+xriL9meh/qDjDxs/+1k8BjQBIkb5yOKx
+ seSQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVrWyxNR8zOZssfyWHi0UIGZWySiST4i8wRXWGTbTayTQJJ3NC7MX/ri3kwc03e5Z0b5OpFc2Uk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyD/aHQ5lvq2kdu/tCfBWMXPHJxZJY2cSGDgHeSIIohZIrmCj9v
- 8M3hOSnnMWfgh5tnPXO174KxRlkRF8BGkeV9WDobSbCzeeerxiYndTGjrn5Cb2yM4bYxN9dz4Y/
- +iNHzU8bEPPa5KFFaueeKvMjvVC5+pg==
-X-Gm-Gg: ASbGncsOwQTJTmifF/eypT1m6vOP92BuKKnj6VnXRHtypLz+7kIM37S8CzSdXes/Kdm
- QfgH6n2s5oY5Gs/nXvRlo+eNluFEFWEaucy9gLWY2SplgYfdwNfPpO1l/j40Pu0ffSM/72mxy4w
- 5DRaN0pXTpvdvJMa6R199vs5n25vJR3M+AVKw7
-X-Google-Smtp-Source: AGHT+IGPNBsITSew1p++gwJSM7EnBJ2MKJabfJgJ6dLmfsI94a8uCnVNRo7fbwCQv9n0yDKYu6O7+/oKpfR0Qug4pNE=
-X-Received: by 2002:a17:903:f86:b0:224:18fd:6e09 with SMTP id
- d9443c01a7336-225e08602a8mr12554705ad.0.1741957223977; Fri, 14 Mar 2025
- 06:00:23 -0700 (PDT)
+ AJvYcCXYZmb96YwpHIztakrp83hD2zzBFK13ecJGPfSiGlprYRY3aogeywPoS8kRAdXoSo7PMqqS/gTi@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJ1+VQZMmq4hIAPBUbwe05y5S+X7RSdo2Zbrymt9EZYBhNAkLY
+ BsBOHmWYOSpLF9npSe3vr6JM16A3WhuINpI8eBPkYXv424Na9DifpoP0sQyAYI0CtnDA0jj3BjV
+ jRpwzE2dPEgRiwX4pWUEsIaN089E=
+X-Gm-Gg: ASbGncvBqBvVN0iQggZsyhU5CBLM3pUxQdU2oT3RN9yYe6AJVQRW1ZuL+EqPWG1Cucd
+ NT+jfC+AgmzTnk6qM2AtkQbM0tiKbTbmMynBPCUaRBb/CgA3l1kuJVHxvCM17jBlfjDWcR5yH8v
+ 7l58QkYychUX3OOV8GO8Fslwq+HQ==
+X-Google-Smtp-Source: AGHT+IGn7iFBbjLVbF5uD1Bl+O+ELfJWqW5/gdbzYIvLmDPZkKiCZ0MqhutzzC6HNNXL1d+rOgfnTivubYL5pcSU8LQ=
+X-Received: by 2002:a17:902:cec3:b0:215:435d:b41a with SMTP id
+ d9443c01a7336-225e0a1d656mr12644975ad.1.1741957932906; Fri, 14 Mar 2025
+ 06:12:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250312141912.10994-1-alexander.deucher@amd.com>
- <d15f3b87-f6c5-4c5a-b7e0-e5570691d3ff@amd.com>
-In-Reply-To: <d15f3b87-f6c5-4c5a-b7e0-e5570691d3ff@amd.com>
+References: <20240718210558.26340-1-Philip.Yang@amd.com>
+ <20240718210558.26340-5-Philip.Yang@amd.com>
+ <zpzehsckjz2bee6w5bsnfpmkvtlxf6jywijz7iroausghoh43i@nxr644rwjsb3>
+ <315e27ab-f1d1-a681-a32f-1fc28cd81193@amd.com>
+ <rie1puzeus5.fsf@faulbaum.in-berlin.de>
+In-Reply-To: <rie1puzeus5.fsf@faulbaum.in-berlin.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 14 Mar 2025 09:00:12 -0400
-X-Gm-Features: AQ5f1Jp2W8IcGhhb5OigfujSZKntotElVtGXAtEWwGtHkjhW6eTBXNUqVra3RKw
-Message-ID: <CADnq5_NZ+YY2LR=5e7sgtxK+4ohxYZ1bd8FvNpn_QAqVp7u5uw@mail.gmail.com>
-Subject: Re: [PATCH V2 1/2] drm/amdgpu/gfx: fix ref counting for ring based
- profile handling
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Yang Wang <kevinyang.wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+Date: Fri, 14 Mar 2025 09:12:01 -0400
+X-Gm-Features: AQ5f1JpvRZFPmApVishFeHO_TGlueDyNSqN_p6gXt_cZSBDpsiMuq0wh-u93KBI
+Message-ID: <CADnq5_OE75bJvDwZvGo2BhFCm4TzuarQkv9ypGf80O2M9inXYA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/9] drm/amdkfd: Validate user queue buffers
+To: Dieter Faulbaum <dieter@faulbaum.in-berlin.de>
+Cc: Philip Yang <yangp@amd.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, 
+ Alexander.Deucher@amd.com, christian.koenig@amd.com, 
+ regressions@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,126 +90,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 14, 2025 at 6:31=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
+On Fri, Mar 14, 2025 at 8:55=E2=80=AFAM Dieter Faulbaum
+<dieter@faulbaum.in-berlin.de> wrote:
 >
 >
+> Hello Philip,
 >
-> On 3/12/2025 7:49 PM, Alex Deucher wrote:
-> > We need to make sure the workload profile ref counts are
-> > balanced.  This isn't currently the case because we can
-> > increment the count on submissions, but the decrement may
-> > be delayed as work comes in.  Track when we enable the
-> > workload profile so the references are balanced.
-> >
-> > v2: switch to a mutex and active flag
-> >
-> > Fixes: 8fdb3958e396 ("drm/amdgpu/gfx: add ring helpers for setting work=
-load profile")
-> > Cc: Yang Wang <kevinyang.wang@amd.com>
-> > Cc: Kenneth Feng <kenneth.feng@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 30 ++++++++++++++++---------
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
-> >  2 files changed, 22 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gfx.c
-> > index 984e6ff6e4632..099329d15b9ff 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > @@ -2160,11 +2160,16 @@ void amdgpu_gfx_profile_idle_work_handler(struc=
-t work_struct *work)
-> >       for (i =3D 0; i < (AMDGPU_MAX_COMPUTE_RINGS * AMDGPU_MAX_GC_INSTA=
-NCES); ++i)
-> >               fences +=3D amdgpu_fence_count_emitted(&adev->gfx.compute=
-_ring[i]);
-> >       if (!fences && !atomic_read(&adev->gfx.total_submission_cnt)) {
-> > -             r =3D amdgpu_dpm_switch_power_profile(adev, profile, fals=
-e);
-> > -             if (r)
-> > -                     dev_warn(adev->dev, "(%d) failed to disable %s po=
-wer profile mode\n", r,
-> > -                              profile =3D=3D PP_SMC_POWER_PROFILE_FULL=
-SCREEN3D ?
-> > -                              "fullscreen 3D" : "compute");
-> > +             mutex_lock(&adev->gfx.workload_profile_mutex);
-> > +             if (adev->gfx.workload_profile_active) {
-> > +                     r =3D amdgpu_dpm_switch_power_profile(adev, profi=
-le, false);
-> > +                     if (r)
-> > +                             dev_warn(adev->dev, "(%d) failed to disab=
-le %s power profile mode\n", r,
-> > +                                      profile =3D=3D PP_SMC_POWER_PROF=
-ILE_FULLSCREEN3D ?
-> > +                                      "fullscreen 3D" : "compute");
-> > +                     adev->gfx.workload_profile_active =3D false;
-> > +             }
-> > +             mutex_unlock(&adev->gfx.workload_profile_mutex);
-> >       } else {
-> >               schedule_delayed_work(&adev->gfx.idle_work, GFX_PROFILE_I=
-DLE_TIMEOUT);
-> >       }
-> > @@ -2184,11 +2189,16 @@ void amdgpu_gfx_profile_ring_begin_use(struct a=
-mdgpu_ring *ring)
-> >       atomic_inc(&adev->gfx.total_submission_cnt);
-> >
-> >       if (!cancel_delayed_work_sync(&adev->gfx.idle_work)) {
+> Philip Yang <yangp@amd.com> writes:
 >
-> I guess this has the same problem as mentioned in the earlier patch.
-> AFAIU, this will switch profile only if no idle work is scheduled. If a
-> begin_use call comes when idle_work is being executed, there is a chance
-> that idle_work completes amdgpu_dpm_switch_power_profile(adev, profile,
-> false). Then this would skip changing the profile.
+> > On 2025-02-12 17:42, Uwe Kleine-K=C3=B6nig wrote:
+> >
+> >  #regzbot introduced: 68e599db7a549f010a329515f3508d8a8c3467a4
+> > #regzbot monitor: https://bugs.debian.org/1093124
+> >
+> > Hello,
+> >
+> > On Thu, Jul 18, 2024 at 05:05:53PM -0400, Philip Yang wrote:
+> >
+> >  Find user queue rptr, ring buf, eop buffer and cwsr area BOs,
+> >  and
+> > check BOs are mapped on the GPU with correct size and take the
+> > BO
+> > reference.
+> >
+> > Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> > Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> >
+> >
+> > This change made it into v6.12-rc1 as 68e599db7a54 ("drm/amdkfd:
+> > Validate user queue buffers"). A Debian user (Dieter Faulbaum,
+> > on Cc)
+> > reported that this change introduced a regression using a gfx803
+> > device
+> > resulting in a HSA exception when e.g. darktable is used. I
+> > didn't even
+> > try to understand the problem, but maybe one of you have an idea
+> > about
+> > the issue?!
+> >
+> > Try this patch
+> >
+> > https://lore.kernel.org/all/20250130000412.29812-1-Philip.Yang@amd.com/=
+T/
+>
+> It seems for me, that your patch isn't applied in the mainline
+> kernel.
+> What do you think, will it once happen?-)
+> Is it falling through cracks?
 
-I think that problem exists already independent of the ref counting.
-I suppose there isn't actually a need to make the workload change
-dependent on the cancelling of the delayed work.  I'll send out some
-patches to address this.
+It's in drm-next:
+https://gitlab.freedesktop.org/drm/kernel/-/commit/e7a477735f1771b9a9346a5f=
+bd09d7ff0641723a
+
+I'll cherry-pick it for stable next week.
 
 Alex
 
 >
-> Thanks,
-> Lijo
 >
-> > -             r =3D amdgpu_dpm_switch_power_profile(adev, profile, true=
-);
-> > -             if (r)
-> > -                     dev_warn(adev->dev, "(%d) failed to disable %s po=
-wer profile mode\n", r,
-> > -                              profile =3D=3D PP_SMC_POWER_PROFILE_FULL=
-SCREEN3D ?
-> > -                              "fullscreen 3D" : "compute");
-> > +             mutex_lock(&adev->gfx.workload_profile_mutex);
-> > +             if (!adev->gfx.workload_profile_active) {
-> > +                     r =3D amdgpu_dpm_switch_power_profile(adev, profi=
-le, true);
-> > +                     if (r)
-> > +                             dev_warn(adev->dev, "(%d) failed to disab=
-le %s power profile mode\n", r,
-> > +                                      profile =3D=3D PP_SMC_POWER_PROF=
-ILE_FULLSCREEN3D ?
-> > +                                      "fullscreen 3D" : "compute");
-> > +                     adev->gfx.workload_profile_active =3D true;
-> > +             }
-> > +             mutex_unlock(&adev->gfx.workload_profile_mutex);
-> >       }
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gfx.h
-> > index ddf4533614bac..75af4f25a133b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > @@ -483,6 +483,8 @@ struct amdgpu_gfx {
-> >
-> >       atomic_t                        total_submission_cnt;
-> >       struct delayed_work             idle_work;
-> > +     bool                            workload_profile_active;
-> > +     struct mutex                    workload_profile_mutex;
-> >  };
-> >
-> >  struct amdgpu_gfx_ras_reg_entry {
 >
+> With regards
+> Dieter
