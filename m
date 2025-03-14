@@ -4,79 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E730BC282EC
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 14:22:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADE71C282EC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 14:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C01B10E9FB;
-	Fri, 14 Mar 2025 14:22:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5905C10E9FF;
+	Fri, 14 Mar 2025 14:43:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nd0S2tov";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TIepT7vJ";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 273CB10E9FB
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 14:22:01 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-390cf7458f5so1747184f8f.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 07:22:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741962119; x=1742566919; darn=lists.freedesktop.org;
- h=in-reply-to:from:content-language:references:to:subject:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=HaeJX/kAi7qoA7UFDX2BmIlBWr9I9D5gav0fg3t18BQ=;
- b=Nd0S2tov1OQN75QkE8rFjMGwqWAY7U5kyRi0EoCJQN7yLScxS8PBvEE99tUmL8Woum
- u0H41MRF8CK6vA2/mIwcVSLz4zicx9YKwCt5TFJ54uoBpQg+IxlFXj3onpRRghAUHOiH
- jJnwfOcYT9U0aNSh8kSCt3ooqjtHcjn2yP9yVXbuF2vTWcz5pjcmNGly+mq+92YQKDRx
- roioNZn4kO3nIXgmtVxbpRuoy6dTTVOEVDBxeMoVYk0HcDEW9l+It91bmHXtW+KNAw9Q
- g2tEbqv1la8pymGCF3C6zWCxgdSMvYyLJsGmUrYdMV4yfFWx4yPhXk1lMy8Mye7++8Zs
- NqgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741962119; x=1742566919;
- h=in-reply-to:from:content-language:references:to:subject:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=HaeJX/kAi7qoA7UFDX2BmIlBWr9I9D5gav0fg3t18BQ=;
- b=MP3J/MQBQyNpBmJvt/0jqLzI3EbnRwH6kkPy1wm4JwnsE4FUmdanSKGeH9/WEq/jcV
- 3I2tFA3IEnuyziRxNMACdIDHVIQW7AXPy0TkidlcjQQkrzilEI6zzQ7NNHNZAEOudtOk
- EHgwHxF0hNN6iV2hDVPPwaV6cKxRwttS44Q3yN2VonxtWuLj5oTUtTW0BuLNJD06tzkm
- dOCNsPcrwEPIA5x+Iti+J4+XwE62xQx3r4eYXnoZJkO1Y5dq7/qnSCBkFaZiopj/JUvH
- hWvfSLGc4Ydcw2MchKXLgGnbC8qMQToIs0PnM7M+wHn/suGA+3uD1JQ4OaGS0ExTmqAn
- fXmQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXAGyWzTY66dAIeBzGl0wg5K7rGqpaHfl2chdhxNDcr/h44g76LORC2LzUudnaUKXOGwlhbLmjJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwpoFEPzf6riycNa2vsccnMa0qG5YMGprFNutjZ8z47VqZwefaU
- Fp00h5sCVAAeTOGVLTRTm9G2cvfSFS92iXQp1Ir2YlwfL+YLt48T
-X-Gm-Gg: ASbGncusRxxA1xnv0rO3u3enOZWTImRVGqP8IC61PpFIX55H/gojgRwTnYxLoBDuCOq
- uAq68en9Iw7ti3/C9Poq+KS58wFEaXGFpyfCnsYLPSDdo+KuyDNtSRdblAtQA1FQBvgz2OSU14Q
- RcdFump7xTWUE2fgmTAPAymw166Iqk6qmEnj/gcpDn76/oSUi5HaMp+O4nhj+xPBbzHeQC37E1Y
- mDd5UeJBzALnWa2CWd77IALBACSoA76YhJrGa4iO4s7HvNFagTKDm8wl9vv2/hQ6UlWB1o5ssuz
- 5DWAqLN4k3RlpjtYp9MWaQEROZSslKGXZ3OaAQS+d43jBel2ev0CmG5SII2duBRJynBJXsnJ0g=
- =
-X-Google-Smtp-Source: AGHT+IECBSNxB2HnDNeJ2LU3nS6bQFBx+FRQicpjxmPDsv+PF0f9QC3TJQXjy2Gf82aL+DZiSmk4Cg==
-X-Received: by 2002:a05:6000:4011:b0:391:3124:f287 with SMTP id
- ffacd0b85a97d-3971e2add48mr3387430f8f.16.1741962118883; 
- Fri, 14 Mar 2025 07:21:58 -0700 (PDT)
-Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1fdc8e9esm10029245e9.1.2025.03.14.07.21.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 07:21:58 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------F0Y9N0nCyPQfG88B7D6mIUUI"
-Message-ID: <34f84531-5de5-41ce-a312-412085fe8b3c@gmail.com>
-Date: Fri, 14 Mar 2025 15:21:57 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] drm/amdgpu: rework how the cleaner shader is emitted
- v3
-To: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-References: <20250307134816.1422-1-christian.koenig@amd.com>
- <20250307134816.1422-5-christian.koenig@amd.com>
- <efd0f03f-0261-4f57-96db-4dea2063b329@amd.com>
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43D8110E9FF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 14:43:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MctEjDRaAGV8YLzH4L1Tyyww0wAmqEIzxG8BbZf3KQ2xEfQbcaKREeI+zs0qP6txGb4CjGo2zQv28pepj9WLb7hy7PcNC4QWxlktPfGD+wD3YF1JmZJVCZWChyvTXf/zfyZBY0+7n0erB45k+AmyEqHasbW7ONxyS2ORl6o7laoaUiG5BdgjU17MMFqFnnxIvhq4F04Xm1EbecAG3dzGQ3TwOfLeQjJVxFu52a8f7mHIZd/Bdaucwu8yjUQ7guPpHdk60OWikUBCbRvHoHAFDBNgI/+UUG13y5WLEFiF0Tx+LTAEZy1UVFs5JfDyn9NGILmoH/LpwpXT+4Oftrcg+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sgCkBvhw1SH6a07Fb0LSgn2t0f42OY24pWOvqtUMFao=;
+ b=eoo5zFMciSvc5ZX35/xNIbJs0L+9MOJSTs9C547mR6rBhwtxySSinBm0n7IbC7T6zodjRwNZ955hBk/pn3veBxQpgRibeL3Pr8CI7fDFXWznxspkG6pozS83hOQFmk8HoAh9mY508SD41A0Nqh/czCbFxg4MVTDWGUnhDiOf/frEiJZHvcSgEPSGv1/GrUBY2YwduIcBA/MlTBMTQE9oFwUX2ekMKtyOrPeuqVFmQ9f2B3+KQJlYL2E19o4nCODAOH3Q/Ik/o32WbBX1xPX9xyBs53hH5F1vs8BFg6riHLLyj536+omSEpljSfg8wVmTjfhsikCnRzP4p1XL25C2Ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sgCkBvhw1SH6a07Fb0LSgn2t0f42OY24pWOvqtUMFao=;
+ b=TIepT7vJvZvEelDcvSn3NWLNIx9VWoewg+UZeejzsGBG8L5XaplMPPhihsrje9htQRMh9l64RRB/4fzrDjv2FOqpb3Kk7A+eKkoa53iF3rJjdgokf9KeXANpRFQB4zBa8vCu043U4Oag3UkamV0u8+6pvz+E7sNtOaGTQJkp4mw=
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ by BY5PR12MB4147.namprd12.prod.outlook.com (2603:10b6:a03:205::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.28; Fri, 14 Mar
+ 2025 14:43:39 +0000
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::989a:c38d:3dc7:97b7]) by BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::989a:c38d:3dc7:97b7%3]) with mapi id 15.20.8511.026; Fri, 14 Mar 2025
+ 14:43:39 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 2/3] drm/amdgpu: adjust drm_firmware_drivers_only()
+ handling
+Thread-Topic: [PATCH 2/3] drm/amdgpu: adjust drm_firmware_drivers_only()
+ handling
+Thread-Index: AQHblHy9QHLMq/7ioUyUnlY6zZMaWLNytfBw
+Date: Fri, 14 Mar 2025 14:43:39 +0000
+Message-ID: <BL1PR12MB5898F76B9BFFBF83D261F92F85D22@BL1PR12MB5898.namprd12.prod.outlook.com>
+References: <20250314010152.1503510-1-alexander.deucher@amd.com>
+ <20250314010152.1503510-2-alexander.deucher@amd.com>
+In-Reply-To: <20250314010152.1503510-2-alexander.deucher@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <efd0f03f-0261-4f57-96db-4dea2063b329@amd.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=324aeb62-804c-4f51-858c-d59350f20fa7;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-14T14:43:31Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|BY5PR12MB4147:EE_
+x-ms-office365-filtering-correlation-id: 9c986693-8333-47d8-d70e-08dd63069bee
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?An8NWGaH6CBPyPEoENg8T9H/3l/4LwUAaP1zpFX5HUuKdRdcVpIevCUMKITQ?=
+ =?us-ascii?Q?O2Tq1CMDLUXh05grEeeA5viwbM8aAOM6LB1R1XhyAZddAEy+7TVg9qn8fPKj?=
+ =?us-ascii?Q?XP/DjTbA2i4HwhpL+2TR6+IO1qqpEEUp7rS0nzzFYlUQ5BIWP1t1LqBDcvOT?=
+ =?us-ascii?Q?QVrmqEmgHaOiZVyM6ADS/J9LMoMGNbtltrTYzZBsDbvQVY2tA/svefXjI8qX?=
+ =?us-ascii?Q?9V95/BNZBBop7QiBbFgzWAsfG2Wvh0u1KjnTjL5pE6H94pg+llbIv8gIT5Gz?=
+ =?us-ascii?Q?kEGQuod9/Y4cjIh2PF6ekHcuSBFXBSuNXuqk/ydO94tEuL2tOTeaZYAxVm/I?=
+ =?us-ascii?Q?OPqWV0urSwrqDTVP6AIlRal6fA+nN8sZwDGqkvT8AGF51lgsa5itYU5650+I?=
+ =?us-ascii?Q?kVfNELhLbhb6KNu+0Xl49sXkaSp26/Is4VVpkrxMyVZrR4JUCTkjFHbNmnyT?=
+ =?us-ascii?Q?Tdilie47am4p0H7xUq8WFBpy9cZv68aKB2hWSMb3u6JvEgEZ4zf3GpviZ7mt?=
+ =?us-ascii?Q?obEgcepFdEsAvUXxU0Rz3CLr8TT2MIeLh0zUcSPO6EWgZ9q/2o7isx8/0RCM?=
+ =?us-ascii?Q?tqXXGeFtoI34mQvK6DliPlu2rpLznxKCgE9DcWLnDGRC4Fuq7kOhSO43gG0d?=
+ =?us-ascii?Q?iMpIeGt0iJb9tnJow5YyC31RRzx/NptNehZjnSJvrP9zw/0XCeNUpVp0K7Lw?=
+ =?us-ascii?Q?W7c/jt6i3fDvFlYW2BPdcAEOtpXfkMfxm2Dtmv6eDJOdb1noVosapYOF3N/7?=
+ =?us-ascii?Q?q5dv2kFCUNu0/L+DO8CE15bgsmZx/M+DVa/hG1hK97RZJoaZs+Wm7vhS9Dqp?=
+ =?us-ascii?Q?LvIo8spsc3ogAcckWEm9U6AOapx+gTUwWZVkUbEKoq8MzDSU3tQ8C0wDqWsw?=
+ =?us-ascii?Q?OZbc+3K1lCim84QqKQaAxul9a6FX49GMr/flv9fcpW5Htk1R0nVJMTB9aMed?=
+ =?us-ascii?Q?yozHMMDJ4/39O4MBSCxVoOm+dn3idSuoptmRBNevkJASz9Cg3J3XoXkGTlow?=
+ =?us-ascii?Q?K9c1CyUgyZEdrqg1quP/q2W02XfLZhy+ftpUzWAMXhtlp3WGeGp6rY0wxXhX?=
+ =?us-ascii?Q?r9xTSGRizTZ/gWck7VcVWs9azNy2iZPOGaV1kxD1zl6XPMTDwnaBR9DHHxin?=
+ =?us-ascii?Q?YbZeYPPe07sWt+sy809CdtiEiluHDFhqDJ+37KkjAljvfjMHk8wJTcqRQntD?=
+ =?us-ascii?Q?xx3ha4X8+zGlg+hIggoRDsXWJyzWwZq/5qtrLoNDOkMQpV+R/8smwPCpqi0v?=
+ =?us-ascii?Q?Jx9s/99TO8PzH4RGwT66tnp9ccRa/gFQjKc2zT9XHKJY3hg0bjRrTocjWrRQ?=
+ =?us-ascii?Q?FZgXgAg0wzvA++3p4EpLDtWW5gTSyySl1pOkWpAARXsbLEX64NAXFruD7x0I?=
+ =?us-ascii?Q?aWZZ6YCBAtyZEs3O4yJpMI4F/Vg+A4d6dmS3NfMtKqpgUqLN6Lbeu0Mhymfi?=
+ =?us-ascii?Q?K97W6JE38QaQDjV7BruBZ8xFV7tiDo2D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kX2stu8r4WQ2PG4Jw93z+OYfv6VqlEiJxz058o9g57qcFDUwvcOyQBzNk6CI?=
+ =?us-ascii?Q?6q3WFqgXAopOBSgUbCIbbUG0+dqQMjd7KqqyU/vhp2w/V/c+G73JgZQYjeW+?=
+ =?us-ascii?Q?6kYWXNsdgxqJF8KNTI7YWAIpaQ41ph11VYCvUm59vLNYRCoEDU6DE0+/kLhs?=
+ =?us-ascii?Q?Yqm1LgrpEDVw586fv7vfgrmqNXTq9gkmN2Wlo86KUgsEXZjx9CJtsa3Q62eb?=
+ =?us-ascii?Q?cMqfOC5/erGM8QUHFsKIvFiC6g1JW8ufVMHcBIcI4V2Yo1aj9n4a/kxjiKtC?=
+ =?us-ascii?Q?BFZcQqNf2MZLU3xoH1pzKV9aLD5Y1DFPcnA8OTOCQLn5Xyn9WTutl1yPdKka?=
+ =?us-ascii?Q?u3+LPxiUQ597/0YP8QH9dEwfmGSrw7XwLsOLhtdvy0pS5/+n7eHctQFWivCE?=
+ =?us-ascii?Q?HIF7xMnrL7nnBcp9Qsy8ko3jkmuJ6stZaonMMA4ldem6k+Dq6ilSxdP5bSnv?=
+ =?us-ascii?Q?2MXrndj5atS+ihRa5sjEyFApe+mFAE9p0US2u6HCBFzAciEKWONukW6BOTRK?=
+ =?us-ascii?Q?rt4gne4ol21Y79T5uW9k9UbKsv4RKeW49JrKe76ikfCTehbqzfq+fa9e3VEI?=
+ =?us-ascii?Q?Y9XSD/nSXrrfhXEFk7JRPNe7CrnJcdpLjcVDhVaSMeHMLLcM1MzyxTK37m/q?=
+ =?us-ascii?Q?xJyQcV0DlQde788wvima/UJTazYaOv5O4YwvUu+/CA8AG9ggMGl1+SgMl66W?=
+ =?us-ascii?Q?Sn1+6F9G+lSthRu+JAKE3k+Buz97wxuQB2HAVBUhoe7Jm2VQ+BxtbxWIPh6o?=
+ =?us-ascii?Q?e1PEFjIIjJEAW0sIz1LlUQcL0iyg+TnlrLSZFpnZGy33U/h36DEIyOw5anmy?=
+ =?us-ascii?Q?/It1kFNJG9bzQEfCpYtAQwDFyjwmClZG3c5tHfs5OyfQ/4ys5S8cAf7Rrbeg?=
+ =?us-ascii?Q?ynOG82wvJpcs4tBw/j+5jF7AVBYpBZFV6zxrwIdDgeAL5JELxnTZtrKKyCCs?=
+ =?us-ascii?Q?JjRhfgmLyJ/Ei5cgyn9vB5KU7UfSLYgRlHiP3cB6AU0u4uTW6QahPCxEAP4l?=
+ =?us-ascii?Q?nPnEZPAau5whg1NPcPiWbdrv9EwTKURAyg4zX0tiSA19VEJkING1uPAxy7DD?=
+ =?us-ascii?Q?5+dYylrh0yZm64aV8nu9AGed0ahDqt1YTdnLYQrkWtpn8DJ/ygDBRzVQOGoU?=
+ =?us-ascii?Q?3vfjpl1ZRCFbDvXb4lNmb8pvcbryjwwmv/IHnPxhOf5yCUBGmPvA2V0/4v8P?=
+ =?us-ascii?Q?OXnHE3JwPH1yqTBATrvpJUQ+XM4NHawjNpcuOgcQ7C+9oYhlE16Uumqxw1Em?=
+ =?us-ascii?Q?5q+nQjy82W2Qvhjsl4auhBlY7V0Kw3OUQicasocAxnz9lLptkSSXd/O3ZrBI?=
+ =?us-ascii?Q?tHI3bKnynXkeyEpJmwP1EG5BlwP6lEbwN1qzyCOYTOGyzmI/f0HDBvs+/VN5?=
+ =?us-ascii?Q?a+dziHdjLkpRzLR/4hXs6wjle/jPOA5KS6QBT/rlOoWZaV2zchaWFYWEsNfa?=
+ =?us-ascii?Q?e63VLe9N3bTTeulcmAZ77GREt/877n8EqudsdeYU/NO4ZJi9ro2TRto1MjiQ?=
+ =?us-ascii?Q?kgTEkd/FdikYzOWrRk5PNwr8vv62ncLJiWctbJkhXxoV0Sh7aFpuX8q1yanp?=
+ =?us-ascii?Q?2yPEwOMrXBX1A1Llv8k=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c986693-8333-47d8-d70e-08dd63069bee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2025 14:43:39.2961 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Wg6fh20mGStp6T+Eisa9l3mZKPp3dfgVsLBsb6mCbGJioJILWJl2OPuXpOnjeP9Jil8JSh7eyz4f5XOmO5tGzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4147
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,257 +159,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------F0Y9N0nCyPQfG88B7D6mIUUI
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Am 14.03.25 um 05:24 schrieb SRINIVASAN SHANMUGAM:
-> On 3/7/2025 7:18 PM, Christian König wrote:
->> Instead of emitting the cleaner shader for every job which has the
->> enforce_isolation flag set only emit it for the first submission from
->> every client.
->>
->> v2: add missing NULL check
->> v3: fix another NULL pointer deref
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 27 ++++++++++++++++++++------
->>  1 file changed, 21 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index ef4fe2df8398..dc10bea836db 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -643,6 +643,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->>  		    bool need_pipe_sync)
->>  {
->>  	struct amdgpu_device *adev = ring->adev;
->> +	struct amdgpu_isolation *isolation = &adev->isolation[ring->xcp_id];
->>  	unsigned vmhub = ring->vm_hub;
->>  	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
->>  	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
->> @@ -650,8 +651,9 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->>  	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
->>  		job->gds_switch_needed;
->>  	bool vm_flush_needed = job->vm_needs_flush;
->> -	struct dma_fence *fence = NULL;
->> +	bool cleaner_shader_needed = false;
->>  	bool pasid_mapping_needed = false;
->> +	struct dma_fence *fence = NULL;
->>  	unsigned int patch;
->>  	int r;
->>  
->> @@ -674,8 +676,12 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->>  	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
->>  		ring->funcs->emit_wreg;
->>  
->> +	cleaner_shader_needed = adev->gfx.enable_cleaner_shader &&
->> +		ring->funcs->emit_cleaner_shader && job->base.s_fence &&
->> +		&job->base.s_fence->scheduled == isolation->spearhead;
+Reviewed-by: Kent Russell <kent.russell@amd.com>
 
-*here*
 
->> +
->>  	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
->> -	    !(job->enforce_isolation && !job->vmid))
->> +	    !cleaner_shader_needed)
->>  		return 0;
->>  
->>  	amdgpu_ring_ib_begin(ring);
->> @@ -686,9 +692,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->>  	if (need_pipe_sync)
->>  		amdgpu_ring_emit_pipeline_sync(ring);
->>  
->> -	if (adev->gfx.enable_cleaner_shader &&
->> -	    ring->funcs->emit_cleaner_shader &&
->> -	    job->enforce_isolation)
->> +	if (cleaner_shader_needed)
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Thursday, March 13, 2025 9:02 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH 2/3] drm/amdgpu: adjust drm_firmware_drivers_only() handl=
+ing
 >
-> Here should we also need to check, for ring->funcs->emit_cleaner_shader?
+> Move to probe so we can check the PCI device type and
+> only apply the drm_firmware_drivers_only() check for
+> PCI DISPLAY classes.  Also add a module parameter to
+> override the nomodeset kernel parameter as a workaround
+> for platforms that have this hardcoded on their kernel
+> command lines.
 >
-
-I moved that up to where cleaner_shader_needed is set. See the *here* above.
-
-That makes it easier to decide if we need fence after the preamble or not.
-
-Regards,
-Christian.
-
-> if (cleaner_shader_needed && ring->funcs->emit_cleaner_shader)
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 >
->>  		ring->funcs->emit_cleaner_shader(ring);
->>  
->>  	if (vm_flush_needed) {
->> @@ -710,7 +714,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->>  					    job->oa_size);
->>  	}
->>  
->> -	if (vm_flush_needed || pasid_mapping_needed) {
->> +	if (vm_flush_needed || pasid_mapping_needed || cleaner_shader_needed) {
->>  		r = amdgpu_fence_emit(ring, &fence, NULL, 0);
->>  		if (r)
->>  			return r;
->> @@ -732,6 +736,17 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->>  		id->pasid_mapping = dma_fence_get(fence);
->>  		mutex_unlock(&id_mgr->lock);
->>  	}
->> +
->> +	/*
->> +	 * Make sure that all other submissions wait for the cleaner shader to
->> +	 * finish before we push them to the HW.
->> +	 */
->> +	if (cleaner_shader_needed) {
->> +		mutex_lock(&adev->enforce_isolation_mutex);
->> +		dma_fence_put(isolation->spearhead);
->> +		isolation->spearhead = dma_fence_get(fence);
->> +		mutex_unlock(&adev->enforce_isolation_mutex);
->> +	}
->>  	dma_fence_put(fence);
->>  
->>  	amdgpu_ring_patch_cond_exec(ring, patch);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index dd86661153582..4e1a6a249bba5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -178,6 +178,7 @@ uint amdgpu_sdma_phase_quantum =3D 32;
+>  char *amdgpu_disable_cu;
+>  char *amdgpu_virtual_display;
+>  bool enforce_isolation;
+> +int amdgpu_modeset =3D -1;
+>
+>  /* Specifies the default granularity for SVM, used in buffer
+>   * migration and restoration of backing memory when handling
+> @@ -1040,6 +1041,13 @@ module_param_named(user_partt_mode,
+> amdgpu_user_partt_mode, uint, 0444);
+>  module_param(enforce_isolation, bool, 0444);
+>  MODULE_PARM_DESC(enforce_isolation, "enforce process isolation between
+> graphics and compute . enforce_isolation =3D on");
+>
+> +/**
+> + * DOC: modeset (int)
+> + * Override nomodeset (1 =3D override, -1 =3D auto). The default is -1 (=
+auto).
+> + */
+> +MODULE_PARM_DESC(modeset, "Override nomodeset (1 =3D enable, -1 =3D auto=
+)");
+> +module_param_named(modeset, amdgpu_modeset, int, 0444);
+> +
+>  /**
+>   * DOC: seamless (int)
+>   * Seamless boot will keep the image on the screen during the boot proce=
+ss.
+> @@ -2270,6 +2278,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>       int ret, retry =3D 0, i;
+>       bool supports_atomic =3D false;
+>
+> +     if ((pdev->class >> 8) =3D=3D PCI_CLASS_DISPLAY_VGA ||
+> +         (pdev->class >> 8) =3D=3D PCI_CLASS_DISPLAY_OTHER) {
+> +             if (drm_firmware_drivers_only() && amdgpu_modeset =3D=3D -1=
+)
+> +                     return -EINVAL;
+> +     }
+> +
+>       /* skip devices which are owned by radeon */
+>       for (i =3D 0; i < ARRAY_SIZE(amdgpu_unsupported_pciidlist); i++) {
+>               if (amdgpu_unsupported_pciidlist[i] =3D=3D pdev->device)
+> --
+> 2.48.1
 
---------------F0Y9N0nCyPQfG88B7D6mIUUI
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 14.03.25 um 05:24 schrieb SRINIVASAN SHANMUGAM:<br>
-    <blockquote type="cite"
-      cite="mid:efd0f03f-0261-4f57-96db-4dea2063b329@amd.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      On 3/7/2025 7:18 PM, Christian König wrote:
-      <blockquote type="cite"
-        cite="mid:20250307134816.1422-5-christian.koenig@amd.com">
-        <pre class="moz-quote-pre" wrap="">Instead of emitting the cleaner shader for every job which has the
-enforce_isolation flag set only emit it for the first submission from
-every client.
-
-v2: add missing NULL check
-v3: fix another NULL pointer deref
-
-Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E"
-        href="mailto:christian.koenig@amd.com" moz-do-not-send="true">&lt;christian.koenig@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 27 ++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index ef4fe2df8398..dc10bea836db 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -643,6 +643,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		    bool need_pipe_sync)
- {
- 	struct amdgpu_device *adev = ring-&gt;adev;
-+	struct amdgpu_isolation *isolation = &amp;adev-&gt;isolation[ring-&gt;xcp_id];
- 	unsigned vmhub = ring-&gt;vm_hub;
- 	struct amdgpu_vmid_mgr *id_mgr = &amp;adev-&gt;vm_manager.id_mgr[vmhub];
- 	struct amdgpu_vmid *id = &amp;id_mgr-&gt;ids[job-&gt;vmid];
-@@ -650,8 +651,9 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	bool gds_switch_needed = ring-&gt;funcs-&gt;emit_gds_switch &amp;&amp;
- 		job-&gt;gds_switch_needed;
- 	bool vm_flush_needed = job-&gt;vm_needs_flush;
--	struct dma_fence *fence = NULL;
-+	bool cleaner_shader_needed = false;
- 	bool pasid_mapping_needed = false;
-+	struct dma_fence *fence = NULL;
- 	unsigned int patch;
- 	int r;
- 
-@@ -674,8 +676,12 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	pasid_mapping_needed &amp;= adev-&gt;gmc.gmc_funcs-&gt;emit_pasid_mapping &amp;&amp;
- 		ring-&gt;funcs-&gt;emit_wreg;
- 
-+	cleaner_shader_needed = adev-&gt;gfx.enable_cleaner_shader &amp;&amp;
-+		ring-&gt;funcs-&gt;emit_cleaner_shader &amp;&amp; job-&gt;base.s_fence &amp;&amp;
-+		&amp;job-&gt;base.s_fence-&gt;scheduled == isolation-&gt;spearhead;</pre>
-      </blockquote>
-    </blockquote>
-    <br>
-    *here*<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:efd0f03f-0261-4f57-96db-4dea2063b329@amd.com">
-      <blockquote type="cite"
-        cite="mid:20250307134816.1422-5-christian.koenig@amd.com">
-        <pre class="moz-quote-pre" wrap="">
-+
- 	if (!vm_flush_needed &amp;&amp; !gds_switch_needed &amp;&amp; !need_pipe_sync &amp;&amp;
--	    !(job-&gt;enforce_isolation &amp;&amp; !job-&gt;vmid))
-+	    !cleaner_shader_needed)
- 		return 0;
- 
- 	amdgpu_ring_ib_begin(ring);
-@@ -686,9 +692,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	if (need_pipe_sync)
- 		amdgpu_ring_emit_pipeline_sync(ring);
- 
--	if (adev-&gt;gfx.enable_cleaner_shader &amp;&amp;
--	    ring-&gt;funcs-&gt;emit_cleaner_shader &amp;&amp;
--	    job-&gt;enforce_isolation)
-+	if (cleaner_shader_needed)</pre>
-      </blockquote>
-      <p>Here should we also need to check, for <span
-        style="white-space: pre-wrap">ring-&gt;funcs-&gt;emit_cleaner_shader?</span></p>
-    </blockquote>
-    <br>
-    I moved that up to where cleaner_shader_needed is set. See the
-    *here* above.<br>
-    <br>
-    That makes it easier to decide if we need fence after the preamble
-    or not.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:efd0f03f-0261-4f57-96db-4dea2063b329@amd.com">
-      <p><span style="white-space: pre-wrap">if (cleaner_shader_needed &amp;&amp; </span><span
-        style="white-space: pre-wrap">ring-&gt;funcs-&gt;emit_cleaner_shader)</span></p>
-      <blockquote type="cite"
-        cite="mid:20250307134816.1422-5-christian.koenig@amd.com">
-        <pre class="moz-quote-pre" wrap=""> 		ring-&gt;funcs-&gt;emit_cleaner_shader(ring);
- 
- 	if (vm_flush_needed) {
-@@ -710,7 +714,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 					    job-&gt;oa_size);
- 	}
- 
--	if (vm_flush_needed || pasid_mapping_needed) {
-+	if (vm_flush_needed || pasid_mapping_needed || cleaner_shader_needed) {
- 		r = amdgpu_fence_emit(ring, &amp;fence, NULL, 0);
- 		if (r)
- 			return r;
-@@ -732,6 +736,17 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		id-&gt;pasid_mapping = dma_fence_get(fence);
- 		mutex_unlock(&amp;id_mgr-&gt;lock);
- 	}
-+
-+	/*
-+	 * Make sure that all other submissions wait for the cleaner shader to
-+	 * finish before we push them to the HW.
-+	 */
-+	if (cleaner_shader_needed) {
-+		mutex_lock(&amp;adev-&gt;enforce_isolation_mutex);
-+		dma_fence_put(isolation-&gt;spearhead);
-+		isolation-&gt;spearhead = dma_fence_get(fence);
-+		mutex_unlock(&amp;adev-&gt;enforce_isolation_mutex);
-+	}
- 	dma_fence_put(fence);
- 
- 	amdgpu_ring_patch_cond_exec(ring, patch);
-</pre>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------F0Y9N0nCyPQfG88B7D6mIUUI--
