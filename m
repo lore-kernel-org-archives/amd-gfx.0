@@ -4,118 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBDBDC35FF1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 13:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D4FEC282EC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 14:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5EC10E9F2;
-	Fri, 14 Mar 2025 13:47:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFA510E9F9;
+	Fri, 14 Mar 2025 14:09:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CgONzB0Y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ebxPv+Mk";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2089.outbound.protection.outlook.com [40.107.236.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B51E10E9F2
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 13:47:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WNHw6+ICtZZv+9FwgWjUFIvZF/WX7zY/nBp+ZUQ/iDg2HpVjB1o9QLyAFO2BZ9sBa6nLoYZGoT3XHHPsJMV+016PXs75trWySFseISLaG0IwwgVjSotviMXmpX8WUxlqoKfnK0pkVGvrvXt0IriUwaVJnU8VREK4MfCUiJjJfpd8rPZgwiyUiZEIi78nzJv7crmorxyBkdateV986Dg+GY7pCsx1yU7C6uxQsfdzj3Bp2jSnaqyNd3Y+6KqJYE/eWDaiB5DdmuAUIZQEkaOrPxWSVErohaP6cBxepfHBDrWYPdxIkH92L6ZPO8RpCS0aTRVa9gF2sp0x23cnxja/gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DVD2FPE/zj9aGNukWbp4zjExGLLEoTxPDEyXCvNx4Fg=;
- b=HcxcOGWWcUiZk5FgvBuge6NZMj73GoyYUp6MD2PPDjomxMF312sdfpjeR3+FiLTeqBJNUKH5TQIrosuQFBQRftilSt0CaBKQbU4L79LO0v8/rJBvikdy1SDx6bfnI4DoHGDvfywwodhVydmjo+NgWCEm3JlC7eYB+gm2HDcdw/11C7yRv4c8QN3+bfc5onTxcY6Ubidd/0jpjhfGFPzY2kVcMDfViVrysIbaLGRE7mFwKXNkDq6lSLUhmLozbRSGot8Ty5LfGomW64lRAaMeyIdq7Jo+VZwX0pQ5Fk7lXQIj1IQKPP4FPOE2nOsBUSW1vRUkdrEplsEZb/5xLzVcww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DVD2FPE/zj9aGNukWbp4zjExGLLEoTxPDEyXCvNx4Fg=;
- b=CgONzB0YR9BLBK3v6DmKQnRHGoM36q+gA3aAUExYEKMoAUxQOR0sdPGsaCx+1IVzx7gpTjOpkkPgYseHYKmsoAlLQ2l/T3tDzvyBWnBpFKmxPRNC+sN6XnSOxtqBTnjw2VkJMiwarybpiBGfE80gAVP8iErqYUYuTJTm1ShJvXg=
-Received: from BYAPR01CA0053.prod.exchangelabs.com (2603:10b6:a03:94::30) by
- IA0PR12MB8905.namprd12.prod.outlook.com (2603:10b6:208:484::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8511.27; Fri, 14 Mar 2025 13:47:24 +0000
-Received: from CO1PEPF000044FA.namprd21.prod.outlook.com
- (2603:10b6:a03:94:cafe::5a) by BYAPR01CA0053.outlook.office365.com
- (2603:10b6:a03:94::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.26 via Frontend Transport; Fri,
- 14 Mar 2025 13:47:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044FA.mail.protection.outlook.com (10.167.241.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8558.0 via Frontend Transport; Fri, 14 Mar 2025 13:47:23 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 14 Mar
- 2025 08:47:21 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu/vcn: adjust workload profile handling
-Date: Fri, 14 Mar 2025 09:47:07 -0400
-Message-ID: <20250314134707.3012124-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250314134707.3012124-1-alexander.deucher@amd.com>
-References: <20250314134707.3012124-1-alexander.deucher@amd.com>
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9631610E306
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 14:09:25 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2241c95619eso5536505ad.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 07:09:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741961365; x=1742566165; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M1S1XxGGyejfzrFvbVlq6Js3hF/PDUuGivB49gF13+M=;
+ b=ebxPv+Mk/5pf35EOWIjTIOruqJ80IHOyA2ZE30lwHi7QvLuy1uO83hcbOnh0fuOKKy
+ qNt2MVHco1OZrz9VrgZphn2qxapqqpa4KfHNiYG5wMTp3Dpv/gsj6/GYG9QocrapcqiL
+ klRX4ucQwZhLb31SR6Lnyd/jJvAbPHX8SVhXj/cxtZi6B7doH+dlFE3KR25FyMjt3dW4
+ SJhHUHMRSaunKSQf8nYO+TjpCFsqbBnrrdUC0SmRl8FLzYqxkK4vkmJ+tG/GabD09jUK
+ yNqaQ8dM+739KmtI7Zhaw0Gg12wDV1Cc0JpfW4PaSC27gm8myCp9Wwjyhe7QQcMT259a
+ pvnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741961365; x=1742566165;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=M1S1XxGGyejfzrFvbVlq6Js3hF/PDUuGivB49gF13+M=;
+ b=UCxtpOwkGnhOZTC+2H3o/L76qJnmAGVlRhuFmu0YTQIS8rO0zQ1P26jq+MxZzHSEGI
+ qFbQbJiVQ34hiniqRwnG6IWlOq8csPwoN5LolZWqbS00jV68MdnN1mmBabJqCDlgWWWL
+ FN1z5keAGFbab8A6OOCnwWO4PHxhF1y6dHAyX/8+JRNrGtp34KQKBT5cgUgwNQyT3BJW
+ QxEc7eBB0ASyIx8gCxdoUURbYByqFJBKZpn6JFjZnAPcdgcvSc9h051K8cGr5L3dApRT
+ 4ypEP57npZLinSDHViXnnDXpo/WF2eAE5xbBiDCNh7wWhUWINJvvNbFVUhHZdJ3ef1Ka
+ qK3w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWiKJyuY9g4Wvl0wmlvtNnHQBuXMsiVCjwA42Z2vpdQRq9msFHrzZFDmg4Dw7IAkidbarpX/huW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy62htil5gfqWS78NGRbfXipq2qgL4BP0Hz13HpbHiHPrnUAfHM
+ 6TskPPj9BEaJUq0Hnjr5o3Xt3TOxIjfEtXqxD4t2hVPrPPJ9cKtLMMzNvLNiHV+E7LyfcOwBQ7g
+ mmmlm3U0Y/q5en+V9JhCOjcPmpD0=
+X-Gm-Gg: ASbGnctJVY/bSb/3JIKZP77C2vDJ6ZlYbXTDLqhFk5jeWvq7UnhQ6kPIoQaxxPSQ3Ow
+ Bs8yVnMhqYfkxZO02CWq4LNRBW2RDVBiZL3CkOmF0dZzfV/UK2ur8V/bDjA0P6fZaNcV6mZqgyW
+ SUE7leKoALUy06kJ4mcfvQVGS2N6PKvcFaFCqs
+X-Google-Smtp-Source: AGHT+IE5QVNSZn/zfkiCWSlM1q1LJWdLtgCT6pq/mHa+ZJ6RJs6UggCYvEabAJlg0tq2W5In0+AgZqqfuF3TMrcHu2M=
+X-Received: by 2002:a17:902:f706:b0:221:751f:dab9 with SMTP id
+ d9443c01a7336-225e0afb3a1mr12712295ad.14.1741961364479; Fri, 14 Mar 2025
+ 07:09:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|IA0PR12MB8905:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0dddefa8-53f3-482b-b3db-08dd62febfd1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?HJaxAgmlheapjwKn/GYhn8PRg2HBjACiLX5PJ9fJa56d7hwpueQVUOrFGBTD?=
- =?us-ascii?Q?Bsz16uesUX2LX1s2IqK4EO7olNqNaxUIayhskSyZOVk+gnN1r5IbPhcRtcbO?=
- =?us-ascii?Q?eI6Z5vI1I9LMXO/SDBMDApP0zKUG0wr3HAff7677PUGkIYqsiHvsQexBKvWN?=
- =?us-ascii?Q?WaN120rJ2DVqmY8ypunQKQY7PukWIvcb1ACZ/mJLAO78nq8aX30OOSKzLWys?=
- =?us-ascii?Q?V2Po93Pg1QJyyzLkb+cF70Cgu3hs8QVH+wU1HyMYVww8Dkxst9KONMzZsDX2?=
- =?us-ascii?Q?uGDPzmpdVU75MQ3DBB14o7VnO75c5YAuHIOR0n8x10uIT63bcqgAdWhYewn1?=
- =?us-ascii?Q?tSjwDe9z16F28YXLevfisZH3PvFRkyZgLjHjAikRpknDhggUSwo9OqmKqS35?=
- =?us-ascii?Q?aGJsyZCHw2JcS0D0w2TN8FUWraQXzMFeYfZ/te2+cWQvIIQfkwXz2DNg3ykp?=
- =?us-ascii?Q?ZlxqBNGdCJ36g+F6OSUH6NCpKbJcyrk/coYaGA0LL1fiH3Wezun0sT3X1oFm?=
- =?us-ascii?Q?CVjKbTGie5BwuJK9KWud3BTMS845E8PbP1JJQ701qjFTxWbLpmR9/mffccaS?=
- =?us-ascii?Q?5jd2tB/2Y/g6z6LGEai8zWBSeiR5L6VkDY5wRIJWGP5ZBRmMM6jExI0nztpQ?=
- =?us-ascii?Q?UV7wFFZ8PvjmLfNRvWwnd4yudV00Ty5uKR2UsC/8sM3eI5d++A68OMvUeYEj?=
- =?us-ascii?Q?EQm9gGnhMgLVm2mD3PkSyMQ8vXYZHJQo9zSAvH32kv5wqLv55mYXca+5MoXk?=
- =?us-ascii?Q?qLl5A2Hn4iHs+IV7uJSgKBF03LVIA93mASg6dGaMjx2iNGa0RbmEZtYFWe3E?=
- =?us-ascii?Q?IySyE5qDhXjURLGZfpZce5VpfJdgLCxOWAl+8n2OJdZkN5n9fn0wkHvnDPgK?=
- =?us-ascii?Q?+4FhFWrXTMreOhisSemWl2ATWN6tA61qPe36MtGxtXPBsAbNgEKYuEiIeuM5?=
- =?us-ascii?Q?qUPMwvuIrWVj/Ci8XBW7fkhUbKpRU57WiPI3n2vLg/JZhtZeQr8l9rScM+SZ?=
- =?us-ascii?Q?yz165s8OFTI9pWplDMC/PjXjnk4JFWTiZSfA4tAn8oA6fdkswgst4WGIMSLv?=
- =?us-ascii?Q?BR6TdtYJCQAaS2eZyvJEDxrHe3fBIiZ00xjTZt6EjqO5qrBaCC5SiyLvf7be?=
- =?us-ascii?Q?ttILOtGVyrTRo+UtPRvQt2kQfvmkJecNIisAz3fZkiQe4+QeBvQSivrhRvOo?=
- =?us-ascii?Q?G5iYyE2i/J69OGHp3/dqYoMplU6NK6QfgIvljajMAA5xqCNrVpBqHeF1qwfd?=
- =?us-ascii?Q?EFqXp8beRFUd2DhSGFFRtIHd2lVfKOo+PJ/Zyig2RHArNxPAD4F7Q+zWYEK1?=
- =?us-ascii?Q?VjoueZEaw7MBzEJ82z5gEuj8sVrugllgvM1aCBTmkb7M0Q8j4pmAAWZOdX+4?=
- =?us-ascii?Q?2Jbd8XoR74Hg1SIKgLhjGxcJcUFik3c4Im9L7RlEVbj5X8KU0ihzPPkcAs7f?=
- =?us-ascii?Q?DtseNLbCVIzEAQaAOuJD7T+440TIRjA2+gGihDpQglwnL7YhM+ScxQ=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2025 13:47:23.4322 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dddefa8-53f3-482b-b3db-08dd62febfd1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FA.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8905
+References: <20250311213833.870840-1-tomasz.pakula.oficjalny@gmail.com>
+ <DM4PR12MB6012C779AB93D388BB935AC082D32@DM4PR12MB6012.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB6012C779AB93D388BB935AC082D32@DM4PR12MB6012.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 14 Mar 2025 10:09:12 -0400
+X-Gm-Features: AQ5f1JqHPKhpOLmDPEam3TfbIOfcz_86aaewA39AlwmhwwfPQvKt704uVZxVwvQ
+Message-ID: <CADnq5_Ne+0PtwNEAKtdx7iGw6A7bbujwO8VLE03VgKxNK-hX7A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/pm: Handle SCLK offset correctly in overdrive
+ for smu 14.0.2
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+Cc: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,86 +85,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No need to make the workload profile setup dependent
-on the results of cancelling the delayed work thread.
-We have all of the necessary checking in place for the
-workload profile reference counting, so separate the
-two.  As it is now, we can theoretically end up with
-the call from begin_use happening while the worker
-thread is executing which would result in the profile
-not getting set for that submission.  It should not
-affect the reference counting.
+Applied.  Thanks!
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 20 ++++++++++----------
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 20 ++++++++++----------
- 2 files changed, 20 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 6b410e601bb65..0ab74b46bcb0a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -460,17 +460,17 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
- 
- 	atomic_inc(&vcn_inst->total_submission_cnt);
- 
--	if (!cancel_delayed_work_sync(&vcn_inst->idle_work)) {
--		mutex_lock(&adev->vcn.workload_profile_mutex);
--		if (!adev->vcn.workload_profile_active) {
--			r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
--							    true);
--			if (r)
--				dev_warn(adev->dev, "(%d) failed to switch to video power profile mode\n", r);
--			adev->vcn.workload_profile_active = true;
--		}
--		mutex_unlock(&adev->vcn.workload_profile_mutex);
-+	cancel_delayed_work_sync(&vcn_inst->idle_work);
-+
-+	mutex_lock(&adev->vcn.workload_profile_mutex);
-+	if (!adev->vcn.workload_profile_active) {
-+		r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
-+						    true);
-+		if (r)
-+			dev_warn(adev->dev, "(%d) failed to switch to video power profile mode\n", r);
-+		adev->vcn.workload_profile_active = true;
- 	}
-+	mutex_unlock(&adev->vcn.workload_profile_mutex);
- 
- 	mutex_lock(&vcn_inst->vcn_pg_lock);
- 	vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index b4b8091980ad5..8c7c50f34fce0 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -169,17 +169,17 @@ static void vcn_v2_5_ring_begin_use(struct amdgpu_ring *ring)
- 
- 	atomic_inc(&adev->vcn.inst[0].total_submission_cnt);
- 
--	if (!cancel_delayed_work_sync(&adev->vcn.inst[0].idle_work)) {
--		mutex_lock(&adev->vcn.workload_profile_mutex);
--		if (!adev->vcn.workload_profile_active) {
--			r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
--							    true);
--			if (r)
--				dev_warn(adev->dev, "(%d) failed to switch to video power profile mode\n", r);
--			adev->vcn.workload_profile_active = true;
--		}
--		mutex_unlock(&adev->vcn.workload_profile_mutex);
-+	cancel_delayed_work_sync(&adev->vcn.inst[0].idle_work);
-+
-+	mutex_lock(&adev->vcn.workload_profile_mutex);
-+	if (!adev->vcn.workload_profile_active) {
-+		r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
-+						    true);
-+		if (r)
-+			dev_warn(adev->dev, "(%d) failed to switch to video power profile mode\n", r);
-+		adev->vcn.workload_profile_active = true;
- 	}
-+	mutex_unlock(&adev->vcn.workload_profile_mutex);
- 
- 	mutex_lock(&adev->vcn.inst[0].vcn_pg_lock);
- 	amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
--- 
-2.48.1
-
+On Wed, Mar 12, 2025 at 11:28=E2=80=AFPM Wang, Yang(Kevin)
+<KevinYang.Wang@amd.com> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> It looks good to me.
+>
+> Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+>
+> Best Regards,
+> Kevin
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tomasz=
+ Pakula
+> Sent: Wednesday, March 12, 2025 05:39
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH] drm/amdgpu/pm: Handle SCLK offset correctly in overdrive=
+ for smu 14.0.2
+>
+> Currently, it seems like the code was carried over from RDNA3 because it =
+assumes two possible values to set. RDNA4, instead of having:
+> 0: min SCLK
+> 1: max SCLK
+> only has
+> 0: SCLK offset
+>
+> This change makes it so it only reports current offset value instead of s=
+howing possible min/max values and their indices. Moreover, it now only acc=
+epts the offset as a value, without the indice index.
+>
+> Additionally, the lower bound was printed as %u by mistake.
+>
+> Old:
+> OD_SCLK_OFFSET:
+> 0: -500Mhz
+> 1: 1000Mhz
+> OD_MCLK:
+> 0: 97Mhz
+> 1: 1259MHz
+> OD_VDDGFX_OFFSET:
+> 0mV
+> OD_RANGE:
+> SCLK_OFFSET:    -500Mhz       1000Mhz
+> MCLK:      97Mhz       1500Mhz
+> VDDGFX_OFFSET:    -200mv          0mv
+>
+> New:
+> OD_SCLK_OFFSET:
+> 0Mhz
+> OD_MCLK:
+> 0: 97Mhz
+> 1: 1259MHz
+> OD_VDDGFX_OFFSET:
+> 0mV
+> OD_RANGE:
+> SCLK_OFFSET:    -500Mhz       1000Mhz
+> MCLK:      97Mhz       1500Mhz
+> VDDGFX_OFFSET:    -200mv          0mv
+>
+> Setting this offset:
+> Old: "s 1 <offset>"
+> New: "s <offset>"
+>
+> Signed-off-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
+> ---
+>  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 59 ++++++-------------
+>  1 file changed, 18 insertions(+), 41 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> index 5cad09c5f2ff..62bd9647541a 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> @@ -1193,16 +1193,9 @@ static int smu_v14_0_2_print_clk_levels(struct smu=
+_context *smu,
+>                                                          PP_OD_FEATURE_GF=
+XCLK_BIT))
+>                         break;
+>
+> -               PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+> -               const OverDriveLimits_t * const overdrive_upperlimits =3D
+> -                                       &pptable->SkuTable.OverDriveLimit=
+sBasicMax;
+> -               const OverDriveLimits_t * const overdrive_lowerlimits =3D
+> -                                       &pptable->SkuTable.OverDriveLimit=
+sBasicMin;
+> -
+>                 size +=3D sysfs_emit_at(buf, size, "OD_SCLK_OFFSET:\n");
+> -               size +=3D sysfs_emit_at(buf, size, "0: %dMhz\n1: %uMhz\n"=
+,
+> -                                       overdrive_lowerlimits->GfxclkFoff=
+set,
+> -                                       overdrive_upperlimits->GfxclkFoff=
+set);
+> +               size +=3D sysfs_emit_at(buf, size, "%dMhz\n",
+> +                                       od_table->OverDriveTable.GfxclkFo=
+ffset);
+>                 break;
+>
+>         case SMU_OD_MCLK:
+> @@ -1336,13 +1329,9 @@ static int smu_v14_0_2_print_clk_levels(struct smu=
+_context *smu,
+>                 size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+>
+>                 if (smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATUR=
+E_GFXCLK_BIT)) {
+> -                       smu_v14_0_2_get_od_setting_limits(smu,
+> -                                                         PP_OD_FEATURE_G=
+FXCLK_FMIN,
+> -                                                         &min_value,
+> -                                                         NULL);
+>                         smu_v14_0_2_get_od_setting_limits(smu,
+>                                                           PP_OD_FEATURE_G=
+FXCLK_FMAX,
+> -                                                         NULL,
+> +                                                         &min_value,
+>                                                           &max_value);
+>                         size +=3D sysfs_emit_at(buf, size, "SCLK_OFFSET: =
+%7dMhz %10uMhz\n",
+>                                               min_value, max_value);
+> @@ -2417,36 +2406,24 @@ static int smu_v14_0_2_od_edit_dpm_table(struct s=
+mu_context *smu,
+>                         return -ENOTSUPP;
+>                 }
+>
+> -               for (i =3D 0; i < size; i +=3D 2) {
+> -                       if (i + 2 > size) {
+> -                               dev_info(adev->dev, "invalid number of in=
+put parameters %d\n", size);
+> -                               return -EINVAL;
+> -                       }
+> -
+> -                       switch (input[i]) {
+> -                       case 1:
+> -                               smu_v14_0_2_get_od_setting_limits(smu,
+> -                                                                 PP_OD_F=
+EATURE_GFXCLK_FMAX,
+> -                                                                 &minimu=
+m,
+> -                                                                 &maximu=
+m);
+> -                               if (input[i + 1] < minimum ||
+> -                                   input[i + 1] > maximum) {
+> -                                       dev_info(adev->dev, "GfxclkFmax (=
+%ld) must be within [%u, %u]!\n",
+> -                                               input[i + 1], minimum, ma=
+ximum);
+> -                                       return -EINVAL;
+> -                               }
+> -
+> -                               od_table->OverDriveTable.GfxclkFoffset =
+=3D input[i + 1];
+> -                               od_table->OverDriveTable.FeatureCtrlMask =
+|=3D 1U << PP_OD_FEATURE_GFXCLK_BIT;
+> -                               break;
+> +               if (size !=3D 1) {
+> +                       dev_info(adev->dev, "invalid number of input para=
+meters %d\n", size);
+> +                       return -EINVAL;
+> +               }
+>
+> -                       default:
+> -                               dev_info(adev->dev, "Invalid SCLK_VDDC_TA=
+BLE index: %ld\n", input[i]);
+> -                               dev_info(adev->dev, "Supported indices: [=
+0:min,1:max]\n");
+> -                               return -EINVAL;
+> -                       }
+> +               smu_v14_0_2_get_od_setting_limits(smu,
+> +                                                 PP_OD_FEATURE_GFXCLK_FM=
+AX,
+> +                                                 &minimum,
+> +                                                 &maximum);
+> +               if (input[0] < minimum ||
+> +                   input[0] > maximum) {
+> +                       dev_info(adev->dev, "GfxclkFoffset must be within=
+ [%d, %u]!\n",
+> +                                minimum, maximum);
+> +                       return -EINVAL;
+>                 }
+>
+> +               od_table->OverDriveTable.GfxclkFoffset =3D input[0];
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D 1U <<
+> +PP_OD_FEATURE_GFXCLK_BIT;
+>                 break;
+>
+>         case PP_OD_EDIT_MCLK_VDDC_TABLE:
+> --
+> 2.48.1
+>
