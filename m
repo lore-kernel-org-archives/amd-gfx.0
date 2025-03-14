@@ -4,73 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D4FEC282EC
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 14:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48BA0C282EC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 14:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFA510E9F9;
-	Fri, 14 Mar 2025 14:09:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E073410E306;
+	Fri, 14 Mar 2025 14:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ebxPv+Mk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m4zUbqdq";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9631610E306
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 14:09:25 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2241c95619eso5536505ad.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 07:09:25 -0700 (PDT)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 106F410E984
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 14:13:07 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-3912e96c8e8so1412721f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 07:13:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741961365; x=1742566165; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=M1S1XxGGyejfzrFvbVlq6Js3hF/PDUuGivB49gF13+M=;
- b=ebxPv+Mk/5pf35EOWIjTIOruqJ80IHOyA2ZE30lwHi7QvLuy1uO83hcbOnh0fuOKKy
- qNt2MVHco1OZrz9VrgZphn2qxapqqpa4KfHNiYG5wMTp3Dpv/gsj6/GYG9QocrapcqiL
- klRX4ucQwZhLb31SR6Lnyd/jJvAbPHX8SVhXj/cxtZi6B7doH+dlFE3KR25FyMjt3dW4
- SJhHUHMRSaunKSQf8nYO+TjpCFsqbBnrrdUC0SmRl8FLzYqxkK4vkmJ+tG/GabD09jUK
- yNqaQ8dM+739KmtI7Zhaw0Gg12wDV1Cc0JpfW4PaSC27gm8myCp9Wwjyhe7QQcMT259a
- pvnw==
+ d=gmail.com; s=20230601; t=1741961585; x=1742566385; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ONWsh80GS3oG36M9xCl+wY5tU7etsBQDtlC3Q4VtJwg=;
+ b=m4zUbqdqk7z4/f6FL9oSKkS+SI0ZdQQBXM+B/OXzvaG/NZlPRXRsa6p0AD2MS088wD
+ tAYYdmzzgwgIy/7BgUXkKU5rr86roUg/jRgwCu/0aDnoddGUsMy4hj8OZ/9OJ2/AMVy+
+ 9powv79disTm02Rxay3+alhGmBgKTk41WVDjPcn6dlg6dT4wnza6Sv9S3l2psgr4EXI3
+ iShA5d5rHOipYuPeHJ4BMjFXOaoPZ0Jd1dPHGMd34SB2UGAUXgSdgFrvfPExDKtNXPSt
+ N35dAkzjF7FcxXpSBvILUQWP5UA1y1FAv2vpo6wbB6nt+aGaty49ITq29ILNIjjY5+m1
+ AL3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741961365; x=1742566165;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=M1S1XxGGyejfzrFvbVlq6Js3hF/PDUuGivB49gF13+M=;
- b=UCxtpOwkGnhOZTC+2H3o/L76qJnmAGVlRhuFmu0YTQIS8rO0zQ1P26jq+MxZzHSEGI
- qFbQbJiVQ34hiniqRwnG6IWlOq8csPwoN5LolZWqbS00jV68MdnN1mmBabJqCDlgWWWL
- FN1z5keAGFbab8A6OOCnwWO4PHxhF1y6dHAyX/8+JRNrGtp34KQKBT5cgUgwNQyT3BJW
- QxEc7eBB0ASyIx8gCxdoUURbYByqFJBKZpn6JFjZnAPcdgcvSc9h051K8cGr5L3dApRT
- 4ypEP57npZLinSDHViXnnDXpo/WF2eAE5xbBiDCNh7wWhUWINJvvNbFVUhHZdJ3ef1Ka
- qK3w==
+ d=1e100.net; s=20230601; t=1741961585; x=1742566385;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ONWsh80GS3oG36M9xCl+wY5tU7etsBQDtlC3Q4VtJwg=;
+ b=gPotk65aj8sjxe6O0Pl83n0f031Myimb4NVR6MXLEhF+TQTFzq3lmtrwK1/7JbuoxU
+ 1BV+uZnj2NmL58o69MT/F9MG5eP+4OQhw2PVUqOAJwjN3iNX/DH5UFv9h7nziiDpO3Wv
+ KxcVxycJ/XHwEFbEw+RKJCAQgfG+2R1pkq1wUp38h0ZSYGuMQq12yU1H15KGAgC4P4vy
+ B8H5Ryl+ZI4CKD4i32kI0Ic516GlmgnX9aBGf3WsvQBVOG7a+13hic6VIrKVJIZepTNm
+ xWz4Q/aa0cY6cr/joGOdxFBKzEUp3wQEQSywiNXvzOOGebncj7XIAhhXkBKB02OuA5ES
+ Xh4A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWiKJyuY9g4Wvl0wmlvtNnHQBuXMsiVCjwA42Z2vpdQRq9msFHrzZFDmg4Dw7IAkidbarpX/huW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy62htil5gfqWS78NGRbfXipq2qgL4BP0Hz13HpbHiHPrnUAfHM
- 6TskPPj9BEaJUq0Hnjr5o3Xt3TOxIjfEtXqxD4t2hVPrPPJ9cKtLMMzNvLNiHV+E7LyfcOwBQ7g
- mmmlm3U0Y/q5en+V9JhCOjcPmpD0=
-X-Gm-Gg: ASbGnctJVY/bSb/3JIKZP77C2vDJ6ZlYbXTDLqhFk5jeWvq7UnhQ6kPIoQaxxPSQ3Ow
- Bs8yVnMhqYfkxZO02CWq4LNRBW2RDVBiZL3CkOmF0dZzfV/UK2ur8V/bDjA0P6fZaNcV6mZqgyW
- SUE7leKoALUy06kJ4mcfvQVGS2N6PKvcFaFCqs
-X-Google-Smtp-Source: AGHT+IE5QVNSZn/zfkiCWSlM1q1LJWdLtgCT6pq/mHa+ZJ6RJs6UggCYvEabAJlg0tq2W5In0+AgZqqfuF3TMrcHu2M=
-X-Received: by 2002:a17:902:f706:b0:221:751f:dab9 with SMTP id
- d9443c01a7336-225e0afb3a1mr12712295ad.14.1741961364479; Fri, 14 Mar 2025
- 07:09:24 -0700 (PDT)
+ AJvYcCVeJhyJbsM+kxyHANkD6E3hLpw2EfpCzRG7ftr7dlTasZSw6lO5Svj3OrHbR3trsyIYC4i26hDj@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwmcbJIyr7UGFrZyOgLs1esHMe9j+NdTk0pYaWBPv6OoCk1w4xE
+ M76Q1wkmaYHcmEUaa3/ucOvB1nMYPq+Y/EAj2nfJKplp/ibKzj+jvQWbqkNb
+X-Gm-Gg: ASbGnctrqI+YDMKGrGsQ+UEFHMAhjsiGsC9NLeNABNK56bspQsjxwXgrvgF/o0Ymslp
+ Fq2zmWg/asrhvDIKNkdwfrYpdxQ6qSehJyNAtAW/Dmn6uVsPc+KSxQzKkAMvgpk8tJAvhDSxCYp
+ 5Y+NIm2w4N9HRNGOFZqtIB6eIUManfTKPHvK0OIG6Tio+yCilqW4sAme0zsb3Zyx2YCP6NO2qfJ
+ dgIUAmDe/ZUtnMEcTtK3VZMHWasURhExXubmvKoRSIYSuJK5uBvGpM8bGaEp3k/+fGtSi4aCV45
+ YsT4qfeY7v+62bQeVG7CNw6cGqfrOcJZ+zPtyV0/RmfPbQo0I4AJZ7MoPONMOWYSs7KTvYaYMw=
+ =
+X-Google-Smtp-Source: AGHT+IGTDEHCFdSU8eL6xV8HQXvji2Ou+A2RjqW9w84aeD4ajKFeD1NjuqQ0pyvHkgv5/S4YhSY0Yg==
+X-Received: by 2002:adf:a454:0:b0:391:4ca:490 with SMTP id
+ ffacd0b85a97d-3971e3a5680mr2926080f8f.29.1741961585245; 
+ Fri, 14 Mar 2025 07:13:05 -0700 (PDT)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c83b6a5esm5611073f8f.27.2025.03.14.07.13.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Mar 2025 07:13:04 -0700 (PDT)
+Message-ID: <898df91a-3831-4d2b-8a06-d8f37fbaefec@gmail.com>
+Date: Fri, 14 Mar 2025 15:13:01 +0100
 MIME-Version: 1.0
-References: <20250311213833.870840-1-tomasz.pakula.oficjalny@gmail.com>
- <DM4PR12MB6012C779AB93D388BB935AC082D32@DM4PR12MB6012.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB6012C779AB93D388BB935AC082D32@DM4PR12MB6012.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 14 Mar 2025 10:09:12 -0400
-X-Gm-Features: AQ5f1JqHPKhpOLmDPEam3TfbIOfcz_86aaewA39AlwmhwwfPQvKt704uVZxVwvQ
-Message-ID: <CADnq5_Ne+0PtwNEAKtdx7iGw6A7bbujwO8VLE03VgKxNK-hX7A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/pm: Handle SCLK offset correctly in overdrive
- for smu 14.0.2
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-Cc: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/8] drm/amdgpu: overwrite signaled fence in amdgpu_sync
+To: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+References: <20250307134816.1422-1-christian.koenig@amd.com>
+ <20250307134816.1422-3-christian.koenig@amd.com>
+ <d16eb6df-8a40-4afd-8099-c218fd43aabc@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <d16eb6df-8a40-4afd-8099-c218fd43aabc@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,197 +91,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Am 12.03.25 um 16:06 schrieb SRINIVASAN SHANMUGAM:
+>
+> On 3/7/2025 7:18 PM, Christian König wrote:
+>> This allows using amdgpu_sync even without peeking into the fences for a
+>> long time.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 13 +++++++++----
+>>   1 file changed, 9 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+>> index 86c17a8946f5..bfe12164d27d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+>> @@ -135,11 +135,16 @@ static bool amdgpu_sync_add_later(struct amdgpu_sync *sync, struct dma_fence *f)
+>>       struct amdgpu_sync_entry *e;
+>>         hash_for_each_possible(sync->fences, e, node, f->context) {
+>> -        if (unlikely(e->fence->context != f->context))
+>> -            continue;
+>> +        if (dma_fence_is_signaled(e->fence)) {
+>> +            dma_fence_put(e->fence);
+>> +            e->fence = dma_fence_get(f);
+>> +            return true;
+>> +        }
+>>   -        amdgpu_sync_keep_later(&e->fence, f);
+>> -        return true;
+>> +        if (likely(e->fence->context == f->context)) {
+>> +            amdgpu_sync_keep_later(&e->fence, f);
+> --> The call to amdgpu_sync_keep_later(&e->fence, f); ensures that the new fence is tracked for future synchronization., ie., so If the driver only replaced the old fence without keeping a reference to the new one of the next job or second job for example, it could lead to situations where the synchronization state is lost. This could cause race conditions where one job might proceed before another job has completed, leading to errors. , so this is  " amdgpu_sync_keep_later(&e->fence, f);" done, for tracking purpose of next job/second job, if we have multiple jobs in gang submissions of same context/client, is my understanding is correct here pls?
 
-On Wed, Mar 12, 2025 at 11:28=E2=80=AFPM Wang, Yang(Kevin)
-<KevinYang.Wang@amd.com> wrote:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> It looks good to me.
->
-> Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
->
-> Best Regards,
-> Kevin
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tomasz=
- Pakula
-> Sent: Wednesday, March 12, 2025 05:39
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH] drm/amdgpu/pm: Handle SCLK offset correctly in overdrive=
- for smu 14.0.2
->
-> Currently, it seems like the code was carried over from RDNA3 because it =
-assumes two possible values to set. RDNA4, instead of having:
-> 0: min SCLK
-> 1: max SCLK
-> only has
-> 0: SCLK offset
->
-> This change makes it so it only reports current offset value instead of s=
-howing possible min/max values and their indices. Moreover, it now only acc=
-epts the offset as a value, without the indice index.
->
-> Additionally, the lower bound was printed as %u by mistake.
->
-> Old:
-> OD_SCLK_OFFSET:
-> 0: -500Mhz
-> 1: 1000Mhz
-> OD_MCLK:
-> 0: 97Mhz
-> 1: 1259MHz
-> OD_VDDGFX_OFFSET:
-> 0mV
-> OD_RANGE:
-> SCLK_OFFSET:    -500Mhz       1000Mhz
-> MCLK:      97Mhz       1500Mhz
-> VDDGFX_OFFSET:    -200mv          0mv
->
-> New:
-> OD_SCLK_OFFSET:
-> 0Mhz
-> OD_MCLK:
-> 0: 97Mhz
-> 1: 1259MHz
-> OD_VDDGFX_OFFSET:
-> 0mV
-> OD_RANGE:
-> SCLK_OFFSET:    -500Mhz       1000Mhz
-> MCLK:      97Mhz       1500Mhz
-> VDDGFX_OFFSET:    -200mv          0mv
->
-> Setting this offset:
-> Old: "s 1 <offset>"
-> New: "s <offset>"
->
-> Signed-off-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
-> ---
->  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 59 ++++++-------------
->  1 file changed, 18 insertions(+), 41 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index 5cad09c5f2ff..62bd9647541a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -1193,16 +1193,9 @@ static int smu_v14_0_2_print_clk_levels(struct smu=
-_context *smu,
->                                                          PP_OD_FEATURE_GF=
-XCLK_BIT))
->                         break;
->
-> -               PPTable_t *pptable =3D smu->smu_table.driver_pptable;
-> -               const OverDriveLimits_t * const overdrive_upperlimits =3D
-> -                                       &pptable->SkuTable.OverDriveLimit=
-sBasicMax;
-> -               const OverDriveLimits_t * const overdrive_lowerlimits =3D
-> -                                       &pptable->SkuTable.OverDriveLimit=
-sBasicMin;
-> -
->                 size +=3D sysfs_emit_at(buf, size, "OD_SCLK_OFFSET:\n");
-> -               size +=3D sysfs_emit_at(buf, size, "0: %dMhz\n1: %uMhz\n"=
-,
-> -                                       overdrive_lowerlimits->GfxclkFoff=
-set,
-> -                                       overdrive_upperlimits->GfxclkFoff=
-set);
-> +               size +=3D sysfs_emit_at(buf, size, "%dMhz\n",
-> +                                       od_table->OverDriveTable.GfxclkFo=
-ffset);
->                 break;
->
->         case SMU_OD_MCLK:
-> @@ -1336,13 +1329,9 @@ static int smu_v14_0_2_print_clk_levels(struct smu=
-_context *smu,
->                 size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
->
->                 if (smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATUR=
-E_GFXCLK_BIT)) {
-> -                       smu_v14_0_2_get_od_setting_limits(smu,
-> -                                                         PP_OD_FEATURE_G=
-FXCLK_FMIN,
-> -                                                         &min_value,
-> -                                                         NULL);
->                         smu_v14_0_2_get_od_setting_limits(smu,
->                                                           PP_OD_FEATURE_G=
-FXCLK_FMAX,
-> -                                                         NULL,
-> +                                                         &min_value,
->                                                           &max_value);
->                         size +=3D sysfs_emit_at(buf, size, "SCLK_OFFSET: =
-%7dMhz %10uMhz\n",
->                                               min_value, max_value);
-> @@ -2417,36 +2406,24 @@ static int smu_v14_0_2_od_edit_dpm_table(struct s=
-mu_context *smu,
->                         return -ENOTSUPP;
->                 }
->
-> -               for (i =3D 0; i < size; i +=3D 2) {
-> -                       if (i + 2 > size) {
-> -                               dev_info(adev->dev, "invalid number of in=
-put parameters %d\n", size);
-> -                               return -EINVAL;
-> -                       }
-> -
-> -                       switch (input[i]) {
-> -                       case 1:
-> -                               smu_v14_0_2_get_od_setting_limits(smu,
-> -                                                                 PP_OD_F=
-EATURE_GFXCLK_FMAX,
-> -                                                                 &minimu=
-m,
-> -                                                                 &maximu=
-m);
-> -                               if (input[i + 1] < minimum ||
-> -                                   input[i + 1] > maximum) {
-> -                                       dev_info(adev->dev, "GfxclkFmax (=
-%ld) must be within [%u, %u]!\n",
-> -                                               input[i + 1], minimum, ma=
-ximum);
-> -                                       return -EINVAL;
-> -                               }
-> -
-> -                               od_table->OverDriveTable.GfxclkFoffset =
-=3D input[i + 1];
-> -                               od_table->OverDriveTable.FeatureCtrlMask =
-|=3D 1U << PP_OD_FEATURE_GFXCLK_BIT;
-> -                               break;
-> +               if (size !=3D 1) {
-> +                       dev_info(adev->dev, "invalid number of input para=
-meters %d\n", size);
-> +                       return -EINVAL;
-> +               }
->
-> -                       default:
-> -                               dev_info(adev->dev, "Invalid SCLK_VDDC_TA=
-BLE index: %ld\n", input[i]);
-> -                               dev_info(adev->dev, "Supported indices: [=
-0:min,1:max]\n");
-> -                               return -EINVAL;
-> -                       }
-> +               smu_v14_0_2_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_GFXCLK_FM=
-AX,
-> +                                                 &minimum,
-> +                                                 &maximum);
-> +               if (input[0] < minimum ||
-> +                   input[0] > maximum) {
-> +                       dev_info(adev->dev, "GfxclkFoffset must be within=
- [%d, %u]!\n",
-> +                                minimum, maximum);
-> +                       return -EINVAL;
->                 }
->
-> +               od_table->OverDriveTable.GfxclkFoffset =3D input[0];
-> +               od_table->OverDriveTable.FeatureCtrlMask |=3D 1U <<
-> +PP_OD_FEATURE_GFXCLK_BIT;
->                 break;
->
->         case PP_OD_EDIT_MCLK_VDDC_TABLE:
-> --
-> 2.48.1
->
+Your questions is not easy to understand, but I think your understanding is correct.
+
+Basically if you have submissions A,B,C to the same ring buffer and the HW guarantees that they execute in order you only need to keep a reference to C to wait for A and B as well.
+
+Regards,
+Christian.
+
+>> +            return true;
+>> +        }
+>>       }
+>>       return false;
+>>   }
+
