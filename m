@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B0EBC282DE
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 01:50:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A331C28B28
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 02:28:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 918E410E23F;
-	Fri, 14 Mar 2025 01:50:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0F810E27C;
+	Fri, 14 Mar 2025 02:28:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MJviGWpv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PFla7A5o";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E6B910E23F
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 01:50:26 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-223f7b10cbbso4303685ad.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 18:50:26 -0700 (PDT)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFFF510E27C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 02:28:19 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-301001bc6a8so395629a91.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 19:28:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741917026; x=1742521826; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1741919299; x=1742524099; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+EC4dm/AMfkG7RjkyNNe2XHwk6e997pQDPBV22DFItA=;
- b=MJviGWpvTyKqrXSRCiVAqNbGLIqnf2Da6GsvtGyCgyYkdfYxuwB/fPTuSMFYIuGyC7
- twR9dYX1Vlo5zqVtHJB2d2rFlwilYvfcn3PYi9IexeYYloZNGiZEI0kL6hyxaZzl5kM6
- FmHbXV/+oqBDJjch7CrqkLbrgJFo3AA7J+fVm3gj+fGE8IGV1XYS0O1aJRGz6XksVwGV
- b9ewvFM6zApKY73AcUIiF/36RkmSmJlaJxUipvM8zTWSbUo5WXLhyo6DGKiqYUDUXIM4
- CayoD5skJAOYf8PUXwl2Wsn9HoXAnphqsXQ6ItyS/ry51YmbGerHrx+gnEORELUST+Zg
- qjUA==
+ bh=yBYtL3IMISraXx5YTrl/XMvUL53p+XKyQu56LD4iGAs=;
+ b=PFla7A5ojZiqpfHMS6zmVstP6VeUuBJQsrhZORsudDwGhOZ6mnRdqiqkCmWDcgDp6G
+ eA59ajhKoYN7J5DSzg/J1SbJS2g7DJip1OfBORkskNxH42nNT79+CtLKWtypOjGwLwSf
+ DhAk0LstU6ZYM5ySA4WwI8n+aaqfLCFwqoU7+5rPSa/CSxqK62EjfbGHRKHu9WiSIEj6
+ p0xN2qdxR9ymV1NqsEJJJi23OHqNRrS74XW1A3gJEsbA3YxoDXkHkEg/VrmJTFesyxxJ
+ P72y4CZnhJc+edxoN7jP/NpB7iau4wLXLsaVy9sq5HlUqxEIH4BiC48lXsNIN22xh6dv
+ fY4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741917026; x=1742521826;
+ d=1e100.net; s=20230601; t=1741919299; x=1742524099;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+EC4dm/AMfkG7RjkyNNe2XHwk6e997pQDPBV22DFItA=;
- b=KiFpYJmjPMH74wB0N7KkJVQ96kWLqVA5bk6oRQLGe8bNta8xVxyJyDEJUUlFSRdekO
- aYeEiEaSnYc0L1QtM+e5NK6wtP6gjebhQxksl795k9eAk2iYtfhyxm+OsPKhIrCJOv3L
- 7eLXmbET+iyi9owg2tUEvyT2qoam855QCcvs9fuXRHMll0Gu9QyLbnw1+Ooa+8B9sjuh
- HOIGGmPXuj+Q/8QkRH1d+N+i3ExSLGN8n6l8fG36NLCUbyloOoCbDCBzNoBf/CifbMpY
- q7kAsDdkd1Z/2CMXaHe0tekQBJ4HhCksprncJI/BxJdXKCXi71oqARbQ39fa81mzmoET
- JZUQ==
+ bh=yBYtL3IMISraXx5YTrl/XMvUL53p+XKyQu56LD4iGAs=;
+ b=gY6CIYxsREom+LO+s/Jtcu03wOSLQvjIAmk+aK63f/VRY2vzB8429ZJBwZaDB/u79+
+ +xFq/OeLq3oSs18crQ3WJtW4l3qcrvBFshRd504zYnBBeS4FEe6m0FGMGa/Y77RsVgjp
+ 6d9PqhyM5WxTuuVVbeG2UcV5C+BF4BgIoti6SQU2LYRwgZgkOq/I6VMZqPf4zBreyg14
+ y0Wnhovezh2GBB2wdXqaXLeRY9XzyGt4cJVndLuJ7VA+IPovkGyOpRRhrVQWjJiXtWQg
+ S/ZG9h3XB+eIGbhdMgGf6jFAEvbWPsk8KDHcOPYHCIR8ZhSurJ2h6hZZsRJfYHYS0aZ/
+ 4kcQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOP9ZDXQWNa0PoOZMk6w8IfNZBC3B8ukUHeU2KrCjDbn9m64yPKk3f97g1EqFxx0/yW9D3/BQg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwNgiiXeejj9+S2rX6AqZLBKd1c2bxmu/v5+ENkKk+KhEnoVeLu
- CDOWrYF9DCuZsI0L56AzA/vmDXlD+TG/WP27HWdj9gzVGMuQy1fJWzfzL4Rf8Hh3bANOf8lrmHR
- yUq9uPiYsREpfkaJzPiEPkl6IKN+Quw==
-X-Gm-Gg: ASbGncs/gykEIo83LZeJwvR1n4O0BeQrQ8d7n0L3ty5frjXQiQObgcxQVpTKmm9Y72U
- 25B7DEBqzw8VSA0Oj3o4vAS3s1Kt7wclrwxNIXilQ1utwwXwBaVc0gdR4Pfuv5hdbrycbZBunYA
- IAyYGTU3HPrx8Axi9CsOSDecJ/Qg==
-X-Google-Smtp-Source: AGHT+IFVaQxX8RpPIGkv/kuf2HfpSJAL+arQQru3ctqeaBKPFAUU88MLPCZehTf5zdPjq5oC/BTT5nvYmXyF4Y/Z+pc=
-X-Received: by 2002:a17:902:f68c:b0:220:cddb:5918 with SMTP id
- d9443c01a7336-225e0afb3aemr3468375ad.9.1741917025295; Thu, 13 Mar 2025
- 18:50:25 -0700 (PDT)
+ AJvYcCXzMve9QDtJJBAmW357AgMSKaxymf2q850HDLSlup43LNnFrLj0TiDE+RQkX7+mRAlo8idAv6kN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwFnGUh5aVZ8EzaOuTOcXZPnen2kcapkQ2wM5b1Ft5VI1FpwKmT
+ CF7znpip8I5r1V6y1C/32yz8S5fVoxZYElWZhWPY0nQf/nC/qzvM2uvvD1FNu6798qLNYNZfTN7
+ 1EmpMkdsdJDDrJ7E2DqKzr8sdhHs=
+X-Gm-Gg: ASbGnct2REQUnxuNXbPKRN+ijyRsX/PRLMd0yQ6Ro8wM0KqG6sIAdRanUehvTlqDGJ6
+ /hF8XhYG2yoisnGz5RwjpkccDzA0cLW2f35E8+/kwmjpH+/XoNvIIq59zzrbk46gN/ARGbmU8g6
+ TVOuX4OOLLUml8i6VRcEKszffepg==
+X-Google-Smtp-Source: AGHT+IG1jNGgSybDzgF8kiWc6J9UJWml9Uer4wwAtc6AfuXOsKtpnNe3yGAeOmT0khk7vW9o6spz0ZFhAt7l2/BRdZA=
+X-Received: by 2002:a17:90b:164f:b0:2ff:4b7a:f0a4 with SMTP id
+ 98e67ed59e1d1-30151d56e87mr401910a91.3.1741919299043; Thu, 13 Mar 2025
+ 19:28:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250313144136.1117072-1-alexander.deucher@amd.com>
- <20250313144136.1117072-8-alexander.deucher@amd.com>
- <3wiqqnjoatmdt2j65f6fiu7bxbdyex5zku7ftrlouqqvf5mzwz@niv54l3lkkza>
-In-Reply-To: <3wiqqnjoatmdt2j65f6fiu7bxbdyex5zku7ftrlouqqvf5mzwz@niv54l3lkkza>
+ <6itqgifq2c2q3mo5uikvciog4n4ubviolciya5hgturekeykhd@rxzxgul5aqz7>
+In-Reply-To: <6itqgifq2c2q3mo5uikvciog4n4ubviolciya5hgturekeykhd@rxzxgul5aqz7>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Mar 2025 21:50:13 -0400
-X-Gm-Features: AQ5f1JpPoakPAyx4l2vEXswup7RU7mX4qHK6rGkbHGlvZ1FS1tmNFQFv_dhm-jg
-Message-ID: <CADnq5_P72ie6EV-ktcZu7ungRZfenwi6rTvPtSAcBUTgvBkuzA@mail.gmail.com>
-Subject: Re: [PATCH 07/11] drm/amdgpu/gfx11: add support for disable_kq
+Date: Thu, 13 Mar 2025 22:28:07 -0400
+X-Gm-Features: AQ5f1Jqc47Tcg4TvUPSOyUgvyyLSvCwY0WZ-c0aXKlBU5WZ53xCUah04Y0a0xvY
+Message-ID: <CADnq5_NTPr17pTyWAh9a_VQwBkEE7+wr8NMk0HWqFQb4mz1L1g@mail.gmail.com>
+Subject: Re: [PATCH V5 00/11] Add disable kernel queue support
 To: Rodrigo Siqueira <siqueira@igalia.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -83,361 +82,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 13, 2025 at 6:08=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+On Thu, Mar 13, 2025 at 6:21=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
 om> wrote:
 >
-> On 03/13, Alex Deucher wrote:
-> > Plumb in support for disabling kernel queues in
-> > GFX11.  We have to bring up a GFX queue briefly in
-> > order to initialize the clear state.  After that
-> > we can disable it.
-> >
-> > v2: use ring counts per Felix' suggestion
-> > v3: fix stream fault handler, enable EOP interrupts
-> > v4: fix MEC interrupt offset (Sunil)
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 191 ++++++++++++++++++-------
-> >  1 file changed, 136 insertions(+), 55 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v11_0.c
-> > index 95eefd9a40d28..fde8464cbd3b3 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > @@ -1145,6 +1145,10 @@ static int gfx_v11_0_gfx_ring_init(struct amdgpu=
-_device *adev, int ring_id,
-> >
-> >       ring->ring_obj =3D NULL;
-> >       ring->use_doorbell =3D true;
-> > +     if (adev->gfx.disable_kq) {
-> > +             ring->no_scheduler =3D true;
+> n 03/13, Alex Deucher wrote:
+> > To better evaluate user queues, add a module parameter
+> > to disable kernel queues.  With this set kernel queues
+> > are disabled and only user queues are available.  This
+> > frees up hardware resources for use in user queues which
+> > would otherwise be used by kernel queues and provides
+> > a way to validate user queues without the presence
+> > of kernel queues.
 >
 > Hi Alex,
 >
-> Just a question about this no_scheduler part.
+> I'm trying to understand how GFX and MES deal with different queues, and
+> I used this patchset to guide me through that. In this sense, could you
+> help me with the following points?
 >
-> Set no_scheduler to true, means that all of the queues of GFX11 will not
-> be preempted, right? I suppose you have to do it because you want to
-> initialize the clear state?
+> FWIU, the GFX has what are called pipes, which in turn have hardware
+> queues associated with them. For example, a GFX can have 2 pipes, and
+> each pipe could have 2 hardware queues; or it could have 1 pipe and 8
+> queue. Is this correct?
 
-Not exactly.  We just spin up a gfx queue long enough to submit the
-clear state setup and then we tear it down so its queue slot is
-available for user queues.  So it's not actually a usable kernel queue
-at runtime.  Setting the no_scheduler flag prevents a drm scheduler
-from being initialized for the queue.
+Right.  For gfx, compute, and SDMA you have pipes (called instances on
+SDMA) and queues.  A pipe can only execute one queue at a time.  The
+pipe will switch between all of the mapped queues.  You have storage
+in memory (called an MDQ -- Memory Queue Descriptor) which defines the
+state of the queue (GPU virtual addresses of the queue itself, save
+areas, doorbell, etc.).  The queues that the pipe switches between are
+defined by HQDs (Hardware Queue Descriptors).  These are basically
+register based memory for the queues that the pipe can switch between.
+The driver sets up an MQD for each queue that it creates.  The MQDs
+are then handed to the MES firmware for mapping.  The MES firmware can
+map a queue as a legacy queue (i.e. a kernel queue) or a user queue.
+The difference is that a legacy queue is statically mapped to a HQD
+and is never preempted.  User queues are dynamically mapped to the
+HQDs by the MES firmware.  If there are more MQDs than HQDs, the MES
+firmware will preempt other user queues to make sure each queue gets a
+time slice.
+
+>
+> (for this next part, suppose 1 pipe 2 hardware queues)
+> By default, one of the hardware queues is reserved for the Kernel Queue,
+> and the user space could use the other. GFX has the MES block "connected"
+> to all pipe queues, and MES is responsible for scheduling different ring
+> buffers (in memory) in the pipe's hardware queue (effectively making the
+> ring active). However, since the kernel queue is always present, MES
+> only performs scheduling in one of the hardware queues. This scheduling
+> occurs with the MES mapping and unmapping available Rings in memory to
+> the hardware queue.
+>
+> Does the above description sound correct to you?  How about the below
+> diagram? Does it look correct to you?
+
+More or less.  The MES handles all of the queues (kernel or user).
+The only real difference is that kernel queues are statically mapped
+to an HQD while user queues are dynamically scheduled in the available
+HQDs based on level of over-subscription.  E.g., if you have hardware
+with 1 pipe and 2 HQDs you could have a kernel queue on 1 HQD and the
+MES would schedule all of the user queues on the remaining 1 HQD.  If
+you don't enable any kernel queues, then you have 2 HQDs that the MES
+can use for scheduling user queues.
+
+>
+> (I hope the diagram looks fine in your email client; if not, I can
+> attach a picture of it.)
+>
+> +------------------------------------------------------------------------=
+-------------------------------------------------------------------+
+> |                                                           GFX          =
+                                                                   |
+> |                                                                        =
+                                                                   |
+> |                                                                        =
+       +-----------------------------+                             |
+> |           +---------------------------------------------+ (Hw Queue 0) =
+       | Kernel Queue (No eviction)  +------- No MES Scheduling    |
+> |           |        (Hardware Queue 0)                   | -------------=
+------>|                             |               |             |
+> |PIPE 0     |   -------------------------------------     |              =
+       +-----------------------------+               X             |
+> |           |        (Hardware Queue 1)                   |              =
+                                          +----------+---------+   |
+> |           |   -------------------------------------     |--+           =
+                                          |                    |   |
+> |           |                                             |  |           =
+       +----------------------------+     |                    |   |
+> |           +---------------------------------------------+  | (Hw Queue =
+1)     |                            |     |   MES Schedules    |   |
+> |                                                            +-----------=
+-----> |  User Queue                +-----+                    |   |
+> |                                                                        =
+       |                            |     |                    |   |
+> |                                                                        =
+       +----------------------------+     |                    |   |
+> |                                                                        =
+                                          +--------------------+   |
+> |                                                                        =
+                                                    |              |
+> |                                                                        =
+              +-------------------------------------+              |
+> |                                                                        =
+              |Un/Map Ring                                         |
+> |                                                                        =
+              |                                                    |
+> +------------------------------------------------------------------------=
+-------------------------------------------------------------------+
+>                                                                          =
+              |
+>                                                                  +-------=
+--------------+--------------------------------------------+
+>                                                                  |   MEMO=
+RY            v                                            |
+>                                                                  |       =
+                                                           |
+>                                                                  |       =
+                                                           |
+>                                                                  |  +----=
+------+                                                    |
+>                                                                  |  |    =
+      |  +---------+         +--------+                    |
+>                                                                  |  |    =
+Ring 0|  | Ring 1  |  ...    | Ring N |                    |
+>                                                                  |  |    =
+      |  |         |         |        |                    |
+>                                                                  |  +----=
+------+  +---------+         +--------+                    |
+>                                                                  |       =
+                                                           |
+>                                                                  |       =
+                                                           |
+>                                                                  +-------=
+-----------------------------------------------------------+
+>
+> Is the idea in this series to experiment with making the kernel queue
+> not fully occupy one of the hardware queue? By making the kernel queue
+> able to be scheduled, this would provide one extra queue to be used for
+> other things. Is this correct?
+
+Right.  This series paves the way for getting rid of kernel queues all
+together.  Having no kernel queues leaves all of the resources
+available to user queues.
+
+>
+> I'm unsure if I fully understand this series's idea; please correct me
+> if I'm wrong.
+>
+> Also, please elaborate more on the type of tasks that the kernel queue
+> handles. Tbh, I did not fully understand the idea behind it.
+
+In the future of user queues, kernel queues would not be created or
+used at all.  Today, on most existing hardware, kernel queues are all
+that is available.  Today, when an application submits work to the
+kernel driver, the kernel driver submits all of the application
+command buffers to kernel queues.  E.g., in most cases there is a
+single kernel GFX queue and all applications which want to use the GFX
+engine funnel into that queue.  The CS IOCTL basically takes the
+command buffers from the applications and schedules them on the kernel
+queue.  With user queues, each application will create its own user
+queues and will submit work directly to its user queues.  No need for
+an IOCTL for each submission, no need to share a single kernel queue,
+etc.
 
 Alex
 
 >
 > Thanks
 >
-> > +             ring->no_user_submission =3D true;
-> > +     }
 > >
-> >       if (!ring_id)
-> >               ring->doorbell_index =3D adev->doorbell_index.gfx_ring0 <=
-< 1;
-> > @@ -1577,7 +1581,7 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu=
-_device *adev)
+> > v2: use num_gfx_rings and num_compute_rings per
+> >     Felix suggestion
+> > v3: include num_gfx_rings fix in amdgpu_gfx.c
+> > v4: additional fixes
+> > v5: MEC EOP interrupt handling fix (Sunil)
 > >
-> >  static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
-> >  {
-> > -     int i, j, k, r, ring_id =3D 0;
-> > +     int i, j, k, r, ring_id;
-> >       int xcc_id =3D 0;
-> >       struct amdgpu_device *adev =3D ip_block->adev;
+> > Alex Deucher (11):
+> >   drm/amdgpu: add parameter to disable kernel queues
+> >   drm/amdgpu: add ring flag for no user submissions
+> >   drm/amdgpu/gfx: add generic handling for disable_kq
+> >   drm/amdgpu/mes: centralize gfx_hqd mask management
+> >   drm/amdgpu/mes: update hqd masks when disable_kq is set
+> >   drm/amdgpu/mes: make more vmids available when disable_kq=3D1
+> >   drm/amdgpu/gfx11: add support for disable_kq
+> >   drm/amdgpu/gfx12: add support for disable_kq
+> >   drm/amdgpu/sdma: add flag for tracking disable_kq
+> >   drm/amdgpu/sdma6: add support for disable_kq
+> >   drm/amdgpu/sdma7: add support for disable_kq
 > >
-> > @@ -1710,37 +1714,42 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_b=
-lock *ip_block)
-> >               return r;
-> >       }
-> >
-> > -     /* set up the gfx ring */
-> > -     for (i =3D 0; i < adev->gfx.me.num_me; i++) {
-> > -             for (j =3D 0; j < adev->gfx.me.num_queue_per_pipe; j++) {
-> > -                     for (k =3D 0; k < adev->gfx.me.num_pipe_per_me; k=
-++) {
-> > -                             if (!amdgpu_gfx_is_me_queue_enabled(adev,=
- i, k, j))
-> > -                                     continue;
-> > -
-> > -                             r =3D gfx_v11_0_gfx_ring_init(adev, ring_=
-id,
-> > -                                                         i, k, j);
-> > -                             if (r)
-> > -                                     return r;
-> > -                             ring_id++;
-> > +     if (adev->gfx.num_gfx_rings) {
-> > +             ring_id =3D 0;
-> > +             /* set up the gfx ring */
-> > +             for (i =3D 0; i < adev->gfx.me.num_me; i++) {
-> > +                     for (j =3D 0; j < adev->gfx.me.num_queue_per_pipe=
-; j++) {
-> > +                             for (k =3D 0; k < adev->gfx.me.num_pipe_p=
-er_me; k++) {
-> > +                                     if (!amdgpu_gfx_is_me_queue_enabl=
-ed(adev, i, k, j))
-> > +                                             continue;
-> > +
-> > +                                     r =3D gfx_v11_0_gfx_ring_init(ade=
-v, ring_id,
-> > +                                                                 i, k,=
- j);
-> > +                                     if (r)
-> > +                                             return r;
-> > +                                     ring_id++;
-> > +                             }
-> >                       }
-> >               }
-> >       }
-> >
-> > -     ring_id =3D 0;
-> > -     /* set up the compute queues - allocate horizontally across pipes=
- */
-> > -     for (i =3D 0; i < adev->gfx.mec.num_mec; ++i) {
-> > -             for (j =3D 0; j < adev->gfx.mec.num_queue_per_pipe; j++) =
-{
-> > -                     for (k =3D 0; k < adev->gfx.mec.num_pipe_per_mec;=
- k++) {
-> > -                             if (!amdgpu_gfx_is_mec_queue_enabled(adev=
-, 0, i,
-> > -                                                                  k, j=
-))
-> > -                                     continue;
-> > +     if (adev->gfx.num_compute_rings) {
-> > +             ring_id =3D 0;
-> > +             /* set up the compute queues - allocate horizontally acro=
-ss pipes */
-> > +             for (i =3D 0; i < adev->gfx.mec.num_mec; ++i) {
-> > +                     for (j =3D 0; j < adev->gfx.mec.num_queue_per_pip=
-e; j++) {
-> > +                             for (k =3D 0; k < adev->gfx.mec.num_pipe_=
-per_mec; k++) {
-> > +                                     if (!amdgpu_gfx_is_mec_queue_enab=
-led(adev, 0, i,
-> > +                                                                      =
-    k, j))
-> > +                                             continue;
-> >
-> > -                             r =3D gfx_v11_0_compute_ring_init(adev, r=
-ing_id,
-> > -                                                             i, k, j);
-> > -                             if (r)
-> > -                                     return r;
-> > +                                     r =3D gfx_v11_0_compute_ring_init=
-(adev, ring_id,
-> > +                                                                     i=
-, k, j);
-> > +                                     if (r)
-> > +                                             return r;
-> >
-> > -                             ring_id++;
-> > +                                     ring_id++;
-> > +                             }
-> >                       }
-> >               }
-> >       }
-> > @@ -4578,11 +4587,23 @@ static int gfx_v11_0_cp_resume(struct amdgpu_de=
-vice *adev)
-> >                       return r;
-> >       }
-> >
-> > -     for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> > -             ring =3D &adev->gfx.gfx_ring[i];
-> > -             r =3D amdgpu_ring_test_helper(ring);
-> > -             if (r)
-> > -                     return r;
-> > +     if (adev->gfx.disable_kq) {
-> > +             for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> > +                     ring =3D &adev->gfx.gfx_ring[i];
-> > +                     /* we don't want to set ring->ready */
-> > +                     r =3D amdgpu_ring_test_ring(ring);
-> > +                     if (r)
-> > +                             return r;
-> > +             }
-> > +             if (amdgpu_async_gfx_ring)
-> > +                     amdgpu_gfx_disable_kgq(adev, 0);
-> > +     } else {
-> > +             for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> > +                     ring =3D &adev->gfx.gfx_ring[i];
-> > +                     r =3D amdgpu_ring_test_helper(ring);
-> > +                     if (r)
-> > +                             return r;
-> > +             }
-> >       }
-> >
-> >       for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
-> > @@ -4791,6 +4812,46 @@ static int gfx_v11_0_hw_init(struct amdgpu_ip_bl=
-ock *ip_block)
-> >       return r;
-> >  }
-> >
-> > +static int gfx_v11_0_set_userq_eop_interrupts(struct amdgpu_device *ad=
-ev,
-> > +                                           bool enable)
-> > +{
-> > +     if (adev->gfx.disable_kq) {
-> > +             unsigned int irq_type;
-> > +             int m, p, r;
-> > +
-> > +             for (m =3D 0; m < adev->gfx.me.num_me; m++) {
-> > +                     for (p =3D 0; p < adev->gfx.me.num_pipe_per_me; p=
-++) {
-> > +                             irq_type =3D AMDGPU_CP_IRQ_GFX_ME0_PIPE0_=
-EOP + p;
-> > +                             if (enable)
-> > +                                     r =3D amdgpu_irq_get(adev, &adev-=
->gfx.eop_irq,
-> > +                                                        irq_type);
-> > +                             else
-> > +                                     r =3D amdgpu_irq_put(adev, &adev-=
->gfx.eop_irq,
-> > +                                                        irq_type);
-> > +                             if (r)
-> > +                                     return r;
-> > +                     }
-> > +             }
-> > +
-> > +             for (m =3D 0; m < adev->gfx.mec.num_mec; ++m) {
-> > +                     for (p =3D 0; p < adev->gfx.mec.num_pipe_per_mec;=
- p++) {
-> > +                             irq_type =3D AMDGPU_CP_IRQ_COMPUTE_MEC1_P=
-IPE0_EOP
-> > +                                     + (m * adev->gfx.mec.num_pipe_per=
-_mec)
-> > +                                     + p;
-> > +                             if (enable)
-> > +                                     r =3D amdgpu_irq_get(adev, &adev-=
->gfx.eop_irq,
-> > +                                                        irq_type);
-> > +                             else
-> > +                                     r =3D amdgpu_irq_put(adev, &adev-=
->gfx.eop_irq,
-> > +                                                        irq_type);
-> > +                             if (r)
-> > +                                     return r;
-> > +                     }
-> > +             }
-> > +     }
-> > +     return 0;
-> > +}
-> > +
-> >  static int gfx_v11_0_hw_fini(struct amdgpu_ip_block *ip_block)
-> >  {
-> >       struct amdgpu_device *adev =3D ip_block->adev;
-> > @@ -4800,9 +4861,11 @@ static int gfx_v11_0_hw_fini(struct amdgpu_ip_bl=
-ock *ip_block)
-> >       amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
-> >       amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
-> >       amdgpu_irq_put(adev, &adev->gfx.bad_op_irq, 0);
-> > +     gfx_v11_0_set_userq_eop_interrupts(adev, false);
-> >
-> >       if (!adev->no_hw_access) {
-> > -             if (amdgpu_async_gfx_ring) {
-> > +             if (amdgpu_async_gfx_ring &&
-> > +                 !adev->gfx.disable_kq) {
-> >                       if (amdgpu_gfx_disable_kgq(adev, 0))
-> >                               DRM_ERROR("KGQ disable failed\n");
-> >               }
-> > @@ -5128,11 +5191,22 @@ static int gfx_v11_0_early_init(struct amdgpu_i=
-p_block *ip_block)
-> >  {
-> >       struct amdgpu_device *adev =3D ip_block->adev;
-> >
-> > +     if (amdgpu_disable_kq =3D=3D 1)
-> > +             adev->gfx.disable_kq =3D true;
-> > +
-> >       adev->gfx.funcs =3D &gfx_v11_0_gfx_funcs;
-> >
-> > -     adev->gfx.num_gfx_rings =3D GFX11_NUM_GFX_RINGS;
-> > -     adev->gfx.num_compute_rings =3D min(amdgpu_gfx_get_num_kcq(adev),
-> > -                                       AMDGPU_MAX_COMPUTE_RINGS);
-> > +     if (adev->gfx.disable_kq) {
-> > +             /* We need one GFX ring temporarily to set up
-> > +              * the clear state.
-> > +              */
-> > +             adev->gfx.num_gfx_rings =3D 1;
-> > +             adev->gfx.num_compute_rings =3D 0;
-> > +     } else {
-> > +             adev->gfx.num_gfx_rings =3D GFX11_NUM_GFX_RINGS;
-> > +             adev->gfx.num_compute_rings =3D min(amdgpu_gfx_get_num_kc=
-q(adev),
-> > +                                               AMDGPU_MAX_COMPUTE_RING=
-S);
-> > +     }
-> >
-> >       gfx_v11_0_set_kiq_pm4_funcs(adev);
-> >       gfx_v11_0_set_ring_funcs(adev);
-> > @@ -5163,6 +5237,11 @@ static int gfx_v11_0_late_init(struct amdgpu_ip_=
-block *ip_block)
-> >       r =3D amdgpu_irq_get(adev, &adev->gfx.bad_op_irq, 0);
-> >       if (r)
-> >               return r;
-> > +
-> > +     r =3D gfx_v11_0_set_userq_eop_interrupts(adev, true);
-> > +     if (r)
-> > +             return r;
-> > +
-> >       return 0;
-> >  }
-> >
-> > @@ -6548,27 +6627,29 @@ static void gfx_v11_0_handle_priv_fault(struct =
-amdgpu_device *adev,
-> >       pipe_id =3D (entry->ring_id & 0x03) >> 0;
-> >       queue_id =3D (entry->ring_id & 0x70) >> 4;
-> >
-> > -     switch (me_id) {
-> > -     case 0:
-> > -             for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> > -                     ring =3D &adev->gfx.gfx_ring[i];
-> > -                     if (ring->me =3D=3D me_id && ring->pipe =3D=3D pi=
-pe_id &&
-> > -                         ring->queue =3D=3D queue_id)
-> > -                             drm_sched_fault(&ring->sched);
-> > -             }
-> > -             break;
-> > -     case 1:
-> > -     case 2:
-> > -             for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
-> > -                     ring =3D &adev->gfx.compute_ring[i];
-> > -                     if (ring->me =3D=3D me_id && ring->pipe =3D=3D pi=
-pe_id &&
-> > -                         ring->queue =3D=3D queue_id)
-> > -                             drm_sched_fault(&ring->sched);
-> > +     if (!adev->gfx.disable_kq) {
-> > +             switch (me_id) {
-> > +             case 0:
-> > +                     for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> > +                             ring =3D &adev->gfx.gfx_ring[i];
-> > +                             if (ring->me =3D=3D me_id && ring->pipe =
-=3D=3D pipe_id &&
-> > +                                 ring->queue =3D=3D queue_id)
-> > +                                     drm_sched_fault(&ring->sched);
-> > +                     }
-> > +                     break;
-> > +             case 1:
-> > +             case 2:
-> > +                     for (i =3D 0; i < adev->gfx.num_compute_rings; i+=
-+) {
-> > +                             ring =3D &adev->gfx.compute_ring[i];
-> > +                             if (ring->me =3D=3D me_id && ring->pipe =
-=3D=3D pipe_id &&
-> > +                                 ring->queue =3D=3D queue_id)
-> > +                                     drm_sched_fault(&ring->sched);
-> > +                     }
-> > +                     break;
-> > +             default:
-> > +                     BUG();
-> > +                     break;
-> >               }
-> > -             break;
-> > -     default:
-> > -             BUG();
-> > -             break;
-> >       }
-> >  }
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h      |   1 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |   4 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |   9 ++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  |   8 +-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |   2 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  30 ++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  |  26 ++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   2 +-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |   1 +
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 191 ++++++++++++++++-------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 183 +++++++++++++++-------
+> >  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |   2 +-
+> >  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   |   2 +-
+> >  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   |  16 +-
+> >  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   |  15 +-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |   4 +
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |   4 +
+> >  17 files changed, 345 insertions(+), 155 deletions(-)
 > >
 > > --
 > > 2.48.1
