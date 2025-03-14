@@ -4,70 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A331C28B28
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 02:28:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D820DC28B2F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 04:09:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0F810E27C;
-	Fri, 14 Mar 2025 02:28:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6952110E28D;
+	Fri, 14 Mar 2025 04:09:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PFla7A5o";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GRRw1Yn3";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFFF510E27C
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 02:28:19 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-301001bc6a8so395629a91.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 19:28:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741919299; x=1742524099; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yBYtL3IMISraXx5YTrl/XMvUL53p+XKyQu56LD4iGAs=;
- b=PFla7A5ojZiqpfHMS6zmVstP6VeUuBJQsrhZORsudDwGhOZ6mnRdqiqkCmWDcgDp6G
- eA59ajhKoYN7J5DSzg/J1SbJS2g7DJip1OfBORkskNxH42nNT79+CtLKWtypOjGwLwSf
- DhAk0LstU6ZYM5ySA4WwI8n+aaqfLCFwqoU7+5rPSa/CSxqK62EjfbGHRKHu9WiSIEj6
- p0xN2qdxR9ymV1NqsEJJJi23OHqNRrS74XW1A3gJEsbA3YxoDXkHkEg/VrmJTFesyxxJ
- P72y4CZnhJc+edxoN7jP/NpB7iau4wLXLsaVy9sq5HlUqxEIH4BiC48lXsNIN22xh6dv
- fY4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741919299; x=1742524099;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yBYtL3IMISraXx5YTrl/XMvUL53p+XKyQu56LD4iGAs=;
- b=gY6CIYxsREom+LO+s/Jtcu03wOSLQvjIAmk+aK63f/VRY2vzB8429ZJBwZaDB/u79+
- +xFq/OeLq3oSs18crQ3WJtW4l3qcrvBFshRd504zYnBBeS4FEe6m0FGMGa/Y77RsVgjp
- 6d9PqhyM5WxTuuVVbeG2UcV5C+BF4BgIoti6SQU2LYRwgZgkOq/I6VMZqPf4zBreyg14
- y0Wnhovezh2GBB2wdXqaXLeRY9XzyGt4cJVndLuJ7VA+IPovkGyOpRRhrVQWjJiXtWQg
- S/ZG9h3XB+eIGbhdMgGf6jFAEvbWPsk8KDHcOPYHCIR8ZhSurJ2h6hZZsRJfYHYS0aZ/
- 4kcQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXzMve9QDtJJBAmW357AgMSKaxymf2q850HDLSlup43LNnFrLj0TiDE+RQkX7+mRAlo8idAv6kN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFnGUh5aVZ8EzaOuTOcXZPnen2kcapkQ2wM5b1Ft5VI1FpwKmT
- CF7znpip8I5r1V6y1C/32yz8S5fVoxZYElWZhWPY0nQf/nC/qzvM2uvvD1FNu6798qLNYNZfTN7
- 1EmpMkdsdJDDrJ7E2DqKzr8sdhHs=
-X-Gm-Gg: ASbGnct2REQUnxuNXbPKRN+ijyRsX/PRLMd0yQ6Ro8wM0KqG6sIAdRanUehvTlqDGJ6
- /hF8XhYG2yoisnGz5RwjpkccDzA0cLW2f35E8+/kwmjpH+/XoNvIIq59zzrbk46gN/ARGbmU8g6
- TVOuX4OOLLUml8i6VRcEKszffepg==
-X-Google-Smtp-Source: AGHT+IG1jNGgSybDzgF8kiWc6J9UJWml9Uer4wwAtc6AfuXOsKtpnNe3yGAeOmT0khk7vW9o6spz0ZFhAt7l2/BRdZA=
-X-Received: by 2002:a17:90b:164f:b0:2ff:4b7a:f0a4 with SMTP id
- 98e67ed59e1d1-30151d56e87mr401910a91.3.1741919299043; Thu, 13 Mar 2025
- 19:28:19 -0700 (PDT)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0410810E28D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 04:09:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=veW1Sr4DGEfvtYM3yO93A6ZbhR0yOSoP0s24wvS5TXN5uXs9J8NZVnIPRAEUNIw3sFpfrLPZ+ZHMnv67h8839G/oh5HTIBKAg1wC1H4z9yITn1aQDSHIKcvytLuFdoXyV9R3qWOZT1EnjUV1iJKcEySN5/7eqgRFLIyS850QHnkVG/oL6uUsBOZ5QPr+HTrrTIht3tZGxhttM37fhKYkxzj0/KmFp1xFxWZiiLVHZAiFdavD0SbMcgj9UvQ7aFGk6flQ9dYYEZSKX0xAOoPyJWXO95KpgoXwKjHYA1JyrrKBGo3Ectj8H4J1M88vtnQjLTvzVH8ngEWQmhkBkn+Xjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MhNtOMoluo2CE8a87LJiFgvSMQFTRyIHQ+bXmgXe5Qg=;
+ b=tU7ntr3CgElg2iFiYUAjCTmaMhYREA+7u1nkH82bxkbOl9wiiWf+M7acpdoOlFKYtuNTtDZpJlKhlTTRHRX2EDZ/ZQcKalXXWvilXeKexO/0za0cvEm2/DnX3/2/AIKFp6RrQ8UY5quE8pMgpOWsUNHgYxokc+MN6SdC+qKBi2aynr2RhLFz1Hsqm+NyRDnNmMzSra1VXuYT/WPnWcG9N+kUpLnlo5zm4hrifToGBCSfNOjGEBmNg0KzZtrhiYd1R0OyHJ8DkY4XEh2qu51MoNk3FK0gwfHDUrYRW5yqqUfXd+c+wg5GWWaB5tEHkUvoJ7fM+qifPUqeBnjjYCwY8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MhNtOMoluo2CE8a87LJiFgvSMQFTRyIHQ+bXmgXe5Qg=;
+ b=GRRw1Yn39c+C8U4Xg0mSUqJfK+3wr9VSnuQFJlctdR4AwNRTZrg33UKcKZZ3Fjnwafa7cFzG0zq0h1UUYKiVzgc1qxQi/r8MBNbpFshJs/JPpNjwFxPMuzVu3fP6FjkjJz4WwRZ/DsPsfyCMHCQll8PINwZz2pvJK7hWHkcPdnw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by DS0PR12MB6437.namprd12.prod.outlook.com (2603:10b6:8:cb::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Fri, 14 Mar
+ 2025 04:09:08 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2%5]) with mapi id 15.20.8511.026; Fri, 14 Mar 2025
+ 04:09:08 +0000
+Message-ID: <de0e6edc-c3a8-4c9f-b0f3-37cfd8776db5@amd.com>
+Date: Fri, 14 Mar 2025 09:39:03 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] drm/amdgpu: grab an additional reference on the gang
+ fence v2
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+References: <20250307134816.1422-1-christian.koenig@amd.com>
+Content-Language: en-US
+From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250307134816.1422-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BMXPR01CA0088.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:54::28) To IA0PR12MB8208.namprd12.prod.outlook.com
+ (2603:10b6:208:409::17)
 MIME-Version: 1.0
-References: <20250313144136.1117072-1-alexander.deucher@amd.com>
- <6itqgifq2c2q3mo5uikvciog4n4ubviolciya5hgturekeykhd@rxzxgul5aqz7>
-In-Reply-To: <6itqgifq2c2q3mo5uikvciog4n4ubviolciya5hgturekeykhd@rxzxgul5aqz7>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Mar 2025 22:28:07 -0400
-X-Gm-Features: AQ5f1Jqc47Tcg4TvUPSOyUgvyyLSvCwY0WZ-c0aXKlBU5WZ53xCUah04Y0a0xvY
-Message-ID: <CADnq5_NTPr17pTyWAh9a_VQwBkEE7+wr8NMk0HWqFQb4mz1L1g@mail.gmail.com>
-Subject: Re: [PATCH V5 00/11] Add disable kernel queue support
-To: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|DS0PR12MB6437:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4471ca1-05aa-4a8d-4bfc-08dd62adf7c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L2VscHBYdDAvYndFZGs2MXkxZE9vK2Z1YnVIS0cwOW5mc2JGZy9lelJJTmlu?=
+ =?utf-8?B?eVM2dDJNL2JuNUVMRnhYbTlGU2FQbTlHd0ZsWkU2ODU3QXVvelU4UXVkc2ZD?=
+ =?utf-8?B?VTlKMzhaRTR5MkRlSGdmSElkdjRRZlJ2encwMXRvM0p1TzFVZHdZSHZmQWhX?=
+ =?utf-8?B?T0plWmtXRk9ZVno3c2cxTmtXMWdNcjhZNFNaeGVGVzFHRERzU3JwNWc2K01p?=
+ =?utf-8?B?Z1ljSC9STlZ1K2lhMDZReE5ybUQrRXFjdFAwbCtta0J5K3ZKTGlqTE1mUkR6?=
+ =?utf-8?B?ckprWUdJUTlQYjZtSkEwaU5reWZsQ2pCTzFqcHlhTUcxZlYwb1NTVnVCVWw4?=
+ =?utf-8?B?a2JIVXhTeVhoTHovV25sQUFlTU81czVTcVhCSE5pbWxoWnpGMmxpQ0lycjVQ?=
+ =?utf-8?B?ZzRUN0JvTVVJeHdNeC9Cb3BtOXorUGpteVVkeTV6TDlzc2xOUTY0ZUttZDd6?=
+ =?utf-8?B?eGlCU2FROGdCR0lJMGZ6NzI4UTBDTUlWTjluamVlMjlCM2ljV1R0NW9FSEU3?=
+ =?utf-8?B?YmJia1MyM3c2WU1LUnhNZ3M0M1JxeW9VU2g0NS9DRVZIYWpzcTdxVDIxLzhN?=
+ =?utf-8?B?ZHp5YTFBT1JRZHlQdi9EMTM2QUU2Q2dnU0IzVFdRVkZrdVl1TmhmRzlXd2Yw?=
+ =?utf-8?B?a1JianRSTEZWTHJnbkcxTExydUhqQ25NRGN2eGJ3Tnlibm9Bb1dpQXVjZlgz?=
+ =?utf-8?B?ZnhYNys2T3plWUlsSlpkSVBxNE94d1pGUktRS1hFRU5zVUhoWFRSWGQxTVl3?=
+ =?utf-8?B?N2hNSjExVjUwaElUeS9PSjFqRU9DRWNIQkVvVk83WDEzQ2NmSGZKK1dQSGRX?=
+ =?utf-8?B?TytoMC9UU05RT1pWVWVjREhDZ0IrcGlHUEpOeElDaTZpdmFLbS82bGdtWG0z?=
+ =?utf-8?B?Z01YNHp3NWtzNlRZajMrVVRYUzJlY1NLWU9YYUlFTTBWQWxnaytXSmQxNUVR?=
+ =?utf-8?B?UnNFdFM0VUc2U2VmNkp3aXpoK2ozeDZVak9lV3BDRC9wM25pMnQzOUIrR3Bk?=
+ =?utf-8?B?SUNkOURqQTZBOXc1c05ETVlrOVF6VWtUWFY2RXpQZzhZTW5oWFZ2REU4Sktr?=
+ =?utf-8?B?UXE2QjVwaFk4TjlsTURSUFFZeFV4MnZTTGY3d3RrMVNXR09QOTNWVmFNRmMz?=
+ =?utf-8?B?RncybkZPRGx4cE4wM1M2Znc5ZEU3a29ad2FXWUFZUHJ5Z3lZdzJjTlkzSHpU?=
+ =?utf-8?B?cjY4ZkFtbCt0Z0I5OGd2UlEzWWJDQ0JFRktndlJPeG84VXFLUllDWHNkM2gr?=
+ =?utf-8?B?bDNhR0VnTzJPTWNLSTYvbThKU0NrSjNPMzRkdHhZb3hsTTFacmdyY01uWHcz?=
+ =?utf-8?B?c08yb1FJMmtEcUwxZnpHZk9zSjE4S3hQemhqeWJhTHlwMk1ZK2Y1VFd6VG9H?=
+ =?utf-8?B?Rmp4WCtJcFc3UzBIWDhiQzU0UXIrcUM1cFF0UEJqYVI2KzhobXJsZ01zZUNW?=
+ =?utf-8?B?LzlOM2dHbGR3cXlrL3F1RmRtR3hFam1qS3RNOHZXZVVSSEtUZEFSZXFUaU0v?=
+ =?utf-8?B?WWE0c1g2alVsa3lkU3ZOTHl0N1A3Q2NxWWtJbzNwMXVuVGx5UmJCZ0hOZ3VW?=
+ =?utf-8?B?dW42aHg1djYrZDdzSkw2eXJaajlJQzhHWktSVjFEdTBNVlVLOXd4TmpQdCtl?=
+ =?utf-8?B?THEzRVlXNjd0cnc2TU5FY3pKNENoZW1uZVVQRUY2bFBzNWJ2M0tGU041aFNV?=
+ =?utf-8?B?d00yMENyVVFYZXBKZE1ISldKWVljNS95V2RxOTdKN2FFbzVNNGZQenFSWEZ3?=
+ =?utf-8?B?NWlvMkx3VVNEMTRNREZ4N29iVHc0eTBlSHBaNkc2T0FoZXllVTQxMUlPN05W?=
+ =?utf-8?B?TXNkTjZGaG1YR1hNNlliZ2FodVRFWmRHWnU5V2xYeEZ0aUo4Y1NVUjd6SlJT?=
+ =?utf-8?Q?ouT6AXM66c4A0?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkdLdTZPZklUYmlJdW5CTVF4bmU4NE1xUnl2N2ZHWXFzUHpCVDBhZm9GZkhO?=
+ =?utf-8?B?OEN4MjdJdGlLTVFYSFRUTEcyODZscjJselRId0NVRzZBSE9SQjd4Znlsbmk4?=
+ =?utf-8?B?bFNVWmpSWUh1ZXdsdnl5VXZtelc2aDJPakE5ZWYzUklJS2JtcWY2ejZuK0ZC?=
+ =?utf-8?B?dExUejNLZERnaGE2YjhZTnhMRzN5ZzZjUHFyU2hSakcyQUtFSjRRbmRSVWNh?=
+ =?utf-8?B?cHFvY25sOG1laUh4bFdTOWRzQ05vdkxmaGxlZWtyZEwxOEpwL2pCUWQzN0w1?=
+ =?utf-8?B?bTl3aGNLeEJpM3NNUkxLb2pSN0RrYnY2MnovMFhhbWxTSzJXUkNDYkxEenUx?=
+ =?utf-8?B?MFNXbWhyQnp0MzN4VGwyQU9aU2d6cGJ4bFRpSHhHQjZZMHFZcFJ5SlFsREtz?=
+ =?utf-8?B?aDFEeEJBWHpOaHUvQTlrcUZRRmV0TWtIa3pqd3dxUFF2ZUx6UTAzL29IVzFk?=
+ =?utf-8?B?bHZzUThJeW1PTlR1NWY2R2JnVnpxSTllUUExZHBrOXhtVWl1Q1BmY2dTOWl4?=
+ =?utf-8?B?S0ZIL0hGWlJVdjRMT1J5MVlSK1A3NzJMY043S0kzMG9Ialp4a040MWhaSmZv?=
+ =?utf-8?B?T1lraFNPRnozR1RXZmhZd0JsR0p3VzVmL3hPSXlQWEJ5cHhFUmF0a2g3RHp1?=
+ =?utf-8?B?akg0NVZZOXY2dXd2MWlBcUJXZzlMQkM3R2R4dVB0RnhtMHZQN2RhOVljcFJs?=
+ =?utf-8?B?OUlabTJxdkF4Vy8wZWpzT09lTEVpRjRySzVsaTdSUHI3Um1UWFRic1p6K3RU?=
+ =?utf-8?B?Mk1rVldTWEsvRzN6K01leEtaRmozZ1NDMzhrbk5pWGpubFIzRGlZWlRUZHpU?=
+ =?utf-8?B?Unl2QmI2ODlyVXlOY3JQTzNtOW1WMXdFV1VwaExhSlcyMHJOSGxtcXljRWNY?=
+ =?utf-8?B?V1NWVFNFc0lDRjRrUXF2ZlVzY1ByZmFSWE5vSFFQOHVQdWxpNWEvMU1acGI0?=
+ =?utf-8?B?OGpCODk4REJHdEcvZUREZlI0bmhEYUV6akF6MGtTdmdJWjNxL0pHWWxXVmhM?=
+ =?utf-8?B?dm9ZOExWQlVzdmRXL1o2ZFo5WVZGU29LSVR6WTF1N0JEaUR4bFNzRkt2dzE2?=
+ =?utf-8?B?NDhsVHJDUjIxQ1BGb0hXN2lKeHhXRW9udHlWb09mOEgrdStRZ1BKVEJ2WlE4?=
+ =?utf-8?B?cDhRN2ZNekZveDlhaDRuakFCaWlxUnJScXJFR1l3djArM1VWRlVIa1Arb1dz?=
+ =?utf-8?B?aDFkUVU2Vy9kNnpTUnBnWjR0MmNHNFg1cUg3SHBrOTdwTzc4WVVBU2U2WVFM?=
+ =?utf-8?B?SDI0K2I3WWtPV1JyZ20zT2ZHQzRSVCtoR3dFOUlKOTRPdytXYk80aU9HVmxH?=
+ =?utf-8?B?c2FrRVM2dXp5ZXNYU2FUa0Z6VWtKTkwxWWdVdEVqeFlxdmtFZ1drSUY1VFdQ?=
+ =?utf-8?B?MnRKS3hwZUNEY0VpVTB6MXNMd0x0bVYvWkhwa3psMlNXeGkyckE0UlJuWU1a?=
+ =?utf-8?B?U0NscW82UkRMeDlJV0cyaDM0anlwNjB6QS9LUEJXQyswZUNVODNkOTRWeXhS?=
+ =?utf-8?B?dEVvL1ZORDBPNG54dEpPbFE5anVlUnVCOEExU3hDRmVjZFNROENBeVVsUElq?=
+ =?utf-8?B?MTE3UDFNd1JLUTZPeFNZZEZoMkY1QnNYNnFUQjY4U0d5bkQ0eGNMd09nQ1dF?=
+ =?utf-8?B?SnR6U21XL25BcDBjYmdQOThDbndmalRwYjlLaXRoSElGV1pVbUZEUU5JMGtt?=
+ =?utf-8?B?cHV5dXZzWHQ3MHN2UUFCcVp2TzVGYVpNTllTdXFSRkV0b0JXVms3UzQyMGdp?=
+ =?utf-8?B?L3d5SytLMTFCckxIQzE4ZEt5d2UybFM5MFI3cmxyQVlic2t2eU5YQmE0QmhH?=
+ =?utf-8?B?S04yTnQ1ekVkY1ByWTJ3VTJXS0o0elJlSVNoUlFNM0pFSlg1Rk9wN0Q4U1FL?=
+ =?utf-8?B?SU1VM2hGWmNUOHpKNjU3U2cvaXY2M0F3U1hrM3IyUU9jS29BUVk3M0tQYW9U?=
+ =?utf-8?B?RHZTNy9qNllNTU1VdnBqeXllT2xLaVBNSVpGa2VLNFU4cUZNTEZUTXQrQmhi?=
+ =?utf-8?B?NEVkdjBlNVNHc0FJVmlTdWFqZlo3bTFRTEtKb05jeUNISUJDV1c1aXZZS3ND?=
+ =?utf-8?B?K3FNY04xdThwbHluajh3M3VvQlhLN3lFbnNtbUk5WGxlK24vQ0JZTCs1NXpI?=
+ =?utf-8?Q?q0vn7kuRSK/1zVJdYj35jOf+n?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4471ca1-05aa-4a8d-4bfc-08dd62adf7c2
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2025 04:09:08.5444 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XuWRw1pYsBhJ1O8bQo/3jmq3O/U8rljqAmAdqJAg1EktGR4sa/7VWSr85DjK97qXcj3DZawB1bKzqpF+AH3+gQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6437
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,216 +160,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 13, 2025 at 6:21=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
-om> wrote:
->
-> n 03/13, Alex Deucher wrote:
-> > To better evaluate user queues, add a module parameter
-> > to disable kernel queues.  With this set kernel queues
-> > are disabled and only user queues are available.  This
-> > frees up hardware resources for use in user queues which
-> > would otherwise be used by kernel queues and provides
-> > a way to validate user queues without the presence
-> > of kernel queues.
->
-> Hi Alex,
->
-> I'm trying to understand how GFX and MES deal with different queues, and
-> I used this patchset to guide me through that. In this sense, could you
-> help me with the following points?
->
-> FWIU, the GFX has what are called pipes, which in turn have hardware
-> queues associated with them. For example, a GFX can have 2 pipes, and
-> each pipe could have 2 hardware queues; or it could have 1 pipe and 8
-> queue. Is this correct?
 
-Right.  For gfx, compute, and SDMA you have pipes (called instances on
-SDMA) and queues.  A pipe can only execute one queue at a time.  The
-pipe will switch between all of the mapped queues.  You have storage
-in memory (called an MDQ -- Memory Queue Descriptor) which defines the
-state of the queue (GPU virtual addresses of the queue itself, save
-areas, doorbell, etc.).  The queues that the pipe switches between are
-defined by HQDs (Hardware Queue Descriptors).  These are basically
-register based memory for the queues that the pipe can switch between.
-The driver sets up an MQD for each queue that it creates.  The MQDs
-are then handed to the MES firmware for mapping.  The MES firmware can
-map a queue as a legacy queue (i.e. a kernel queue) or a user queue.
-The difference is that a legacy queue is statically mapped to a HQD
-and is never preempted.  User queues are dynamically mapped to the
-HQDs by the MES firmware.  If there are more MQDs than HQDs, the MES
-firmware will preempt other user queues to make sure each queue gets a
-time slice.
+On 3/7/2025 7:18 PM, Christian König wrote:
+> We keep the gang submission fence around in adev, make sure that it
+> stays alive.
+>
+> v2: fix memory leak on retry
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 198d29faa754..337543ec615c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -6889,18 +6889,26 @@ struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
+>   {
+>   	struct dma_fence *old = NULL;
+>   
+> +	dma_fence_get(gang);
+>   	do {
+>   		dma_fence_put(old);
+>   		old = amdgpu_device_get_gang(adev);
+>   		if (old == gang)
+>   			break;
+>   
+> -		if (!dma_fence_is_signaled(old))
+> +		if (!dma_fence_is_signaled(old)) {
 
->
-> (for this next part, suppose 1 pipe 2 hardware queues)
-> By default, one of the hardware queues is reserved for the Kernel Queue,
-> and the user space could use the other. GFX has the MES block "connected"
-> to all pipe queues, and MES is responsible for scheduling different ring
-> buffers (in memory) in the pipe's hardware queue (effectively making the
-> ring active). However, since the kernel queue is always present, MES
-> only performs scheduling in one of the hardware queues. This scheduling
-> occurs with the MES mapping and unmapping available Rings in memory to
-> the hardware queue.
->
-> Does the above description sound correct to you?  How about the below
-> diagram? Does it look correct to you?
+Here, should we need to check ?
 
-More or less.  The MES handles all of the queues (kernel or user).
-The only real difference is that kernel queues are statically mapped
-to an HQD while user queues are dynamically scheduled in the available
-HQDs based on level of over-subscription.  E.g., if you have hardware
-with 1 pipe and 2 HQDs you could have a kernel queue on 1 HQD and the
-MES would schedule all of the user queues on the remaining 1 HQD.  If
-you don't enable any kernel queues, then you have 2 HQDs that the MES
-can use for scheduling user queues.
+     // Check if old fence isn't signaled
+     if (old && !dma_fence_is_signaled(old)) {
 
->
-> (I hope the diagram looks fine in your email client; if not, I can
-> attach a picture of it.)
->
-> +------------------------------------------------------------------------=
--------------------------------------------------------------------+
-> |                                                           GFX          =
-                                                                   |
-> |                                                                        =
-                                                                   |
-> |                                                                        =
-       +-----------------------------+                             |
-> |           +---------------------------------------------+ (Hw Queue 0) =
-       | Kernel Queue (No eviction)  +------- No MES Scheduling    |
-> |           |        (Hardware Queue 0)                   | -------------=
------->|                             |               |             |
-> |PIPE 0     |   -------------------------------------     |              =
-       +-----------------------------+               X             |
-> |           |        (Hardware Queue 1)                   |              =
-                                          +----------+---------+   |
-> |           |   -------------------------------------     |--+           =
-                                          |                    |   |
-> |           |                                             |  |           =
-       +----------------------------+     |                    |   |
-> |           +---------------------------------------------+  | (Hw Queue =
-1)     |                            |     |   MES Schedules    |   |
-> |                                                            +-----------=
------> |  User Queue                +-----+                    |   |
-> |                                                                        =
-       |                            |     |                    |   |
-> |                                                                        =
-       +----------------------------+     |                    |   |
-> |                                                                        =
-                                          +--------------------+   |
-> |                                                                        =
-                                                    |              |
-> |                                                                        =
-              +-------------------------------------+              |
-> |                                                                        =
-              |Un/Map Ring                                         |
-> |                                                                        =
-              |                                                    |
-> +------------------------------------------------------------------------=
--------------------------------------------------------------------+
->                                                                          =
-              |
->                                                                  +-------=
---------------+--------------------------------------------+
->                                                                  |   MEMO=
-RY            v                                            |
->                                                                  |       =
-                                                           |
->                                                                  |       =
-                                                           |
->                                                                  |  +----=
-------+                                                    |
->                                                                  |  |    =
-      |  +---------+         +--------+                    |
->                                                                  |  |    =
-Ring 0|  | Ring 1  |  ...    | Ring N |                    |
->                                                                  |  |    =
-      |  |         |         |        |                    |
->                                                                  |  +----=
-------+  +---------+         +--------+                    |
->                                                                  |       =
-                                                           |
->                                                                  |       =
-                                                           |
->                                                                  +-------=
------------------------------------------------------------+
->
-> Is the idea in this series to experiment with making the kernel queue
-> not fully occupy one of the hardware queue? By making the kernel queue
-> able to be scheduled, this would provide one extra queue to be used for
-> other things. Is this correct?
+> +			dma_fence_put(gang);
+>   			return old;
+> +		}
+>   
+>   	} while (cmpxchg((struct dma_fence __force **)&adev->gang_submit,
+>   			 old, gang) != old);
+>   
+> +	/*
+> +	 * Drop it once for the exchanged reference in adev and once for the
+> +	 * thread local reference acquired in amdgpu_device_get_gang().
+> +	 */
+> +	dma_fence_put(old);
 
-Right.  This series paves the way for getting rid of kernel queues all
-together.  Having no kernel queues leaves all of the resources
-available to user queues.
+if (old)
+     dma_fence_put(old); // Ensure to release old reference  only if it 
+is valid?
 
->
-> I'm unsure if I fully understand this series's idea; please correct me
-> if I'm wrong.
->
-> Also, please elaborate more on the type of tasks that the kernel queue
-> handles. Tbh, I did not fully understand the idea behind it.
 
-In the future of user queues, kernel queues would not be created or
-used at all.  Today, on most existing hardware, kernel queues are all
-that is available.  Today, when an application submits work to the
-kernel driver, the kernel driver submits all of the application
-command buffers to kernel queues.  E.g., in most cases there is a
-single kernel GFX queue and all applications which want to use the GFX
-engine funnel into that queue.  The CS IOCTL basically takes the
-command buffers from the applications and schedules them on the kernel
-queue.  With user queues, each application will create its own user
-queues and will submit work directly to its user queues.  No need for
-an IOCTL for each submission, no need to share a single kernel queue,
-etc.
-
-Alex
-
->
-> Thanks
->
-> >
-> > v2: use num_gfx_rings and num_compute_rings per
-> >     Felix suggestion
-> > v3: include num_gfx_rings fix in amdgpu_gfx.c
-> > v4: additional fixes
-> > v5: MEC EOP interrupt handling fix (Sunil)
-> >
-> > Alex Deucher (11):
-> >   drm/amdgpu: add parameter to disable kernel queues
-> >   drm/amdgpu: add ring flag for no user submissions
-> >   drm/amdgpu/gfx: add generic handling for disable_kq
-> >   drm/amdgpu/mes: centralize gfx_hqd mask management
-> >   drm/amdgpu/mes: update hqd masks when disable_kq is set
-> >   drm/amdgpu/mes: make more vmids available when disable_kq=3D1
-> >   drm/amdgpu/gfx11: add support for disable_kq
-> >   drm/amdgpu/gfx12: add support for disable_kq
-> >   drm/amdgpu/sdma: add flag for tracking disable_kq
-> >   drm/amdgpu/sdma6: add support for disable_kq
-> >   drm/amdgpu/sdma7: add support for disable_kq
-> >
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h      |   1 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |   4 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |   9 ++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  |   8 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |   2 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  30 ++--
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  |  26 ++-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   2 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |   1 +
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 191 ++++++++++++++++-------
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 183 +++++++++++++++-------
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |   2 +-
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   |   2 +-
-> >  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   |  16 +-
-> >  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   |  15 +-
-> >  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |   4 +
-> >  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |   4 +
-> >  17 files changed, 345 insertions(+), 155 deletions(-)
-> >
-> > --
-> > 2.48.1
-> >
->
-> --
-> Rodrigo Siqueira
+>   	dma_fence_put(old);
+>   	return NULL;
+>   }
