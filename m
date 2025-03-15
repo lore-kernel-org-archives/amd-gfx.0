@@ -4,169 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59C44C282EC
-	for <amd-gfx@archiver.kernel.org>; Sat, 15 Mar 2025 00:17:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B1CFC282EC
+	for <amd-gfx@archiver.kernel.org>; Sat, 15 Mar 2025 00:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 742FB10E0AB;
-	Sat, 15 Mar 2025 00:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E197410E0D5;
+	Sat, 15 Mar 2025 00:42:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="tyrgxdzW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A2ovQiyZ";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B572910E0AB
- for <amd-gfx@lists.freedesktop.org>; Sat, 15 Mar 2025 00:17:06 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0668510E0D5
+ for <amd-gfx@lists.freedesktop.org>; Sat, 15 Mar 2025 00:42:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fP3wKcCdNAlVhscBUMy2ZJbe9l8nMQsZf8PeEzAX81CBsHRITgBWdNJU/IkTjeyLhsVAs6IHWp2B7Qi/7EYbM0kVjcv43S48re7jnSqd+Iq+Ycu1xstpiExPM1VMDGcTMD0B84fiOao7FQHHhUPDBpnIoijDjYT/wtB8LYa2kv40EEtAAqDg+1T/KS2x/WKxM22dwJ73DfPByF/m0uoZYwn77YUYFsP1kja+rUND1PLcuQ+vEINRIAvjMTeAHi4yGUd9Ij0oLZ8lvl+zpR8MAWCkhlKlkdfHWj5PmNef80bPyLScqNqBrmWD8AWCO405C19pOHw96hzcj3wIF7Eskw==
+ b=u3/zR/PwR/50e4JcDamPrGAAfJ5gGb7SiTrjFVj8gfdtCky3CKDyHVNwhuOJZDSxW00Up/4XkbQW9w/qhpno7jLSSVXCn4hT9Y6xWh069KabONCrOqt0OXqwvmk220eNxhgz8qNcl7A/vn/VeZq/oY8pLmwN/1TxvuWMuL3W/clfApfPTteLDpGcLkpJVTk6uR7jGesj+bV8y7OuO0cxzUQrwGPd0W7Qxt0g8j3xQb2ONX51Aw4iDs2uKe7c+FkUdj/fqMwbfUoQyNwQ1TQUXilsV18HpvGnfiIcwqtS7X8uJC5nliJDtt9c6eL5IE8+56WQVj6JI2V2zJbAdhSf+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KnYxMETmpjOI5Vm80TmNeiD1yqhpHckE57IQl0yHocg=;
- b=mERx6SVpwHIdGj2j9SEHQmZGl7VYOt7V/jVBV0WANEK2v/ePpLLiLx99IMngX/YD3fP/W5tOMJ0H+6X3qDJNU+Xd4Hw12nR8W6KSKX3qbl++sx172HQ+jYZpKRbTuyB5LWrkpejgiksBla3tga0iw0t+jSybo6vHxax1xIarpkPhMe5UDOvU40Rnsik4zjCs3yLcZk2vEEwxCRtrRwgvc3GRpgGLbDsmKpm7TOrfvrY/JJSiWMvB9Na9MT11UjOZ4htKRbpeojnBS8Bp+0cx/+dtrgHhvMLN8WWZf3WvkOguE0jbpT7/ezDlc/bZFm+3wW57t697X0WFddSIb46Qdg==
+ bh=V/6f93qFsCqVKPgF+AYkFfy7GNZE9cCzNg0LdjSLOkI=;
+ b=KYF+UbzHouNjRaE2FSc4SpTL9drB9lKNHO+q7t/Wpa55yDfY3FSXUzgL6BgZv1LzB7zGp/tpKpVmoVPsp6SRbXuXYQS0LWrSuej1JsndbR9tC6agHmxTE99Nd6ku45Xj19sCKouVHu9m98nJfbmmuvRXxF5N0z4h5TJtE5WEBepNXd5aHxwQ1bQAJIoY7XNz1zQ7GVLD1NrnL0I+EARqeEyVhaJlA+F/cJpEpHR+0fIZoMepp8Vqh76yEGJe8x0qvkJIWW6KIkkRTiY9hcmnKSYUNnKgfQEYC6ifv9EbUnWmf3R14mjtp8Ml08a4zw6KP5KrWQ17aaQkc5jYiKZHbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KnYxMETmpjOI5Vm80TmNeiD1yqhpHckE57IQl0yHocg=;
- b=tyrgxdzWfQGLekF4VyMAuZBUPt7Lezp1uJIYfrBsSvsfmQLO7tDuRMsV8s88rphh7zToBbqC5x2398qdsmVRp2L/qxOiNPeECS9tXrnErNDBpkUEjgVMvocMArYWCGfGEyJ0QmhJg8bfgbbnVatftjEHDGnSJFtGk0M6HfjmUFYQFQQe0zOCUSsujsnwe9FihhYzThkHi+okonN2tD4WiFQFa+MByNg7NWU6ivuZgyBNKfuEUejMxYK7Bx0fMcfVsZEnWTJATfjnQKw/UmfPBPF+Bx3RNmSdpb9kmos5gjmADildk9OcAu7wXWzA2nTYlQPDFCIZ3hSz862/WiVPCA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB7272.namprd12.prod.outlook.com (2603:10b6:806:2b6::7)
- by PH7PR12MB5758.namprd12.prod.outlook.com (2603:10b6:510:1d1::10)
+ bh=V/6f93qFsCqVKPgF+AYkFfy7GNZE9cCzNg0LdjSLOkI=;
+ b=A2ovQiyZ6rGiiZOMhcn331+xZvaznjIutsh7jXpVfqqA+Wzc3EgeYa9sThT6J9CXLP/5/iiiWqNZdPREsecwPOt0xgk4serR8f+EZB7yGhrLlo/BN7XMARsjQjmTmjt/8OsGkLVd+7vP2x+5MvaVknUobvDhxhV0t5+vezMZhJ0=
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
+ by IA1PR12MB6555.namprd12.prod.outlook.com (2603:10b6:208:3a1::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.28; Sat, 15 Mar
- 2025 00:17:00 +0000
-Received: from SA1PR12MB7272.namprd12.prod.outlook.com
- ([fe80::a970:b87e:819a:1868]) by SA1PR12MB7272.namprd12.prod.outlook.com
- ([fe80::a970:b87e:819a:1868%6]) with mapi id 15.20.8511.031; Sat, 15 Mar 2025
- 00:17:00 +0000
-Message-ID: <551b9797-20d6-4bfe-b54c-84dd7aae7794@nvidia.com>
-Date: Sat, 15 Mar 2025 11:16:54 +1100
-User-Agent: Mozilla Thunderbird
-Subject: Re: commit 7ffb791423c7 breaks steam game
-To: Bert Karwatzki <spasswolf@web.de>
-Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-References: <20250310112206.4168-1-spasswolf@web.de>
- <951f9d13-72e4-41c3-9ace-8639e2a9485d@nvidia.com>
- <ce940e2a-632d-41be-9f13-e5b11d49b0db@nvidia.com>
- <09131c563332c892284ec7fb4ce706996131db8c.camel@web.de>
- <9a5df5627d3d72b2a97f501dfb7d944cc1e9920f.camel@web.de>
- <fdea59fe-f570-489f-bf88-1ffd47119cac@nvidia.com>
- <414f4deb8c7670a159854006b0c410ce05a6049e.camel@web.de>
- <12d950ee-4152-4ad6-b93e-7c5b75804b1a@nvidia.com>
- <705e95cec3dc5181ca2aa73722e6b84f63f3e91d.camel@web.de>
- <20b5823e-247a-456a-bb55-d50f212a9f5a@nvidia.com>
- <a34a1ae0b1d226b1bac7d73daa24da8e5899cb3e.camel@web.de>
- <c7bb0bd1-529d-466d-9cce-abbac4b480ab@nvidia.com>
- <146277bb0ecbb392d490683c424b8ae0dfa82838.camel@web.de>
- <b63b1de8-7eec-4235-b61e-e654e78543ba@nvidia.com>
- <fa8d5e76694918bdaae9faee9648776f298f78ca.camel@web.de>
- <7866593f-0322-4fb3-9729-82366940fc85@nvidia.com>
- <a168e78b-ae27-4675-8821-0b1a2499b2b2@nvidia.com>
- <5d34bfc5109b8d104fd4f8550dd17945344f9d07.camel@web.de>
+ 2025 00:42:28 +0000
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::314f:877c:8b6f:52d6]) by CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::314f:877c:8b6f:52d6%4]) with mapi id 15.20.8511.026; Sat, 15 Mar 2025
+ 00:42:28 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amdkfd: Update return value of
+ config_dequeue_wait_counts
+Thread-Topic: [PATCH v2] drm/amdkfd: Update return value of
+ config_dequeue_wait_counts
+Thread-Index: AQHblR7T8kuCR4t2HEaslYyK5n+jBLNzGIIAgAAF8oCAAAkUAIAAM/Ow
+Date: Sat, 15 Mar 2025 00:42:28 +0000
+Message-ID: <CY8PR12MB709971F53D12F28CE7F4728F8CDD2@CY8PR12MB7099.namprd12.prod.outlook.com>
+References: <20250314202211.251641-1-Harish.Kasiviswanathan@amd.com>
+ <CY8PR12MB743573AF240E36758EED60DA85D22@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <CY8PR12MB7099D2903862C6C0943644BB8CD22@CY8PR12MB7099.namprd12.prod.outlook.com>
+ <CY8PR12MB7435798AA23F01B8875E77AD85D22@CY8PR12MB7435.namprd12.prod.outlook.com>
+In-Reply-To: <CY8PR12MB7435798AA23F01B8875E77AD85D22@CY8PR12MB7435.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Balbir Singh <balbirs@nvidia.com>
-In-Reply-To: <5d34bfc5109b8d104fd4f8550dd17945344f9d07.camel@web.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ2PR07CA0016.namprd07.prod.outlook.com
- (2603:10b6:a03:505::16) To SA1PR12MB7272.namprd12.prod.outlook.com
- (2603:10b6:806:2b6::7)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=02da4d1b-0448-45fd-b918-53eee9f4fbaa;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-03-14T20:35:03Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|IA1PR12MB6555:EE_
+x-ms-office365-filtering-correlation-id: 52b14d4d-3c65-41b2-6ed8-08dd635a436e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?61CuN4EYfQsnv5zwTwUXFVhbuabXl+I0oTwUNG7y1RJ4Xd6Sl8hUzk9TvnLD?=
+ =?us-ascii?Q?3wqgzLeM0n/Cwjf2dQ+Ed1qF5+dhWZ5yKyj/UwVHR16LFAr/BmDjCQjD/0AT?=
+ =?us-ascii?Q?oqnglYeeF6gkmK1xWmncokwIwrok/xxw/52aRJYih+BJpbQ46gcYYO7ozGcS?=
+ =?us-ascii?Q?7qAa5P8dxC4nRKXAVhIBvcB7f1VC+Yxp3g8xKwAqFtE3HY7FjejRHwgIPtCI?=
+ =?us-ascii?Q?BX6DMp+a4fLLAhIadrEA7XvJSZCwglQC/YT1gKST5+Aoxobk2MU+opJuHyEG?=
+ =?us-ascii?Q?61sYpz6ONoU3WTfElNGbT9r0jSU2dUl+iPtrE7dNqvBpSQhwNaHQLyRWZhO+?=
+ =?us-ascii?Q?WtHvdVvxPL4Hi65XN+wFXxD4u7uc+X0kbfeyQAORampp5k6tkWz3F+S7Gd00?=
+ =?us-ascii?Q?+nyS628pzgxIUUc+jAu8Wb+44Kazgjw7RVB4EFhIAa2aO6CgsRjWbMid/yQc?=
+ =?us-ascii?Q?URA0dbp2jvkFxCZvGRqP3dymn9xCOfN/yIMPKb0YkIdf47kHBhgQkdTR6NhM?=
+ =?us-ascii?Q?Ov49Q0cHagLgabR0JLCAMQEIB6ZRHi9grD5c0LH+xD21yCTvjorwyTQ2Wc49?=
+ =?us-ascii?Q?9l9YJMbQ/EA4yKPBB8zatHzO5a5n0moTp+xYPegh74fq5utCunaPHipeEz4o?=
+ =?us-ascii?Q?5RmNqCU/1VfGSEuFOp7ll0RIoE5XRUB3yfBSMc7+YU8KCYGSxwCLiQhbol8c?=
+ =?us-ascii?Q?jPbLucMlOlh0LJGvR3l4BfK7xytAmr/qEef9Prx/4bfUhk1RcfsTFsWKE5/2?=
+ =?us-ascii?Q?WFzPoq3CmKqAhxskxv8gdJ+x/SjNvOMNNB5NJJZvwbffdAktkLuZLe/3oV3s?=
+ =?us-ascii?Q?QL7/CHrcvnxr/JXCdec0eEvBIUCze0WXknLHoCAu1ADRetoz1eId6HNGu6cM?=
+ =?us-ascii?Q?LRB6XQGRVHpdxLm0L1mgSvSXNnUaeBvoHYuwO1obXrvoHChiIFQ+oTgYAqky?=
+ =?us-ascii?Q?oK7RgE/FS5OFGp6Spy9avJ+MUcsihft//0NVIKcnj5OAF22P8hM7cCuI1jo8?=
+ =?us-ascii?Q?N5IoYtCt6B3zQxnZRoXsyzTzTb73NA7wsVVTO4VZSUp1MK/CAltkhWazrIw2?=
+ =?us-ascii?Q?I6JFXzJ4sbfTHLBWUZw3zUzTvhF/W/jC+j8X/sHcPKSeGLXgEshv3E3TXd6V?=
+ =?us-ascii?Q?6q+/Ohq4Fk4iosxuR45ODndF8KwM9z96RjS7GjnedtuwEViSR3DT5/cl3I6R?=
+ =?us-ascii?Q?ZOwfxhrXs+0dv3s0t4ti6xCUELJ78ABZALqIR1Ps1fkyTLMQEECCAq4oGohL?=
+ =?us-ascii?Q?aZA/rBqIJlHBAimZfJ7QVXRsXggM/TwYWk7CDo7CmZaj11WBAeRwd/Y2me07?=
+ =?us-ascii?Q?krGetOyQN/vBjyoFWhZciWzRP5FlYZUZSnK4mJUZXCDTn/DxUUo/0iysvX79?=
+ =?us-ascii?Q?o7VSAXIKHCpRRru6y+LiTapAPycjcrTOTIdh2hr/hoxPwcltBueyZQTig2Cv?=
+ =?us-ascii?Q?c7eQCHWlsjAMQFNtXLG9WpQq2OwctVe1?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700018)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8JUM5llKFJQb76SG5g696//vBQkFFkEpbqfWLS9Squi5DTUplUvAC0NP7bMt?=
+ =?us-ascii?Q?9zVPkFe21qAv2oYOIL51kBUQedjQeT1w5vaDS0m2/GUaHcOakJOvEm7Q4x9f?=
+ =?us-ascii?Q?97UO2ytM1BJol31IfCf+37pSATgFuQTrXtSoysuckzCNHzPcdd6H1NUMNLQR?=
+ =?us-ascii?Q?kpV2BNEKAA5N3L/ozEPkAd7jAguh5PQ2Sk5hnQNe5/G8tRQZm5HR8yC4EenM?=
+ =?us-ascii?Q?JDE2ZDz/zMr9ngESozcN3fc84Xi5O2/apuN8ItRmGTz74raD/gglM9Skst1V?=
+ =?us-ascii?Q?2L7sbKbYsgtUusy8zccEtHGigrNWzP25JvXBp3RskrTTEfKstat/kryos5/E?=
+ =?us-ascii?Q?lzwhAhNhtZN7oRl50EGVP4BO2y34C+5XonZ1EPaYkSBoKqlbGOl/ZiSzI+mR?=
+ =?us-ascii?Q?7OP9U6KiTnnJSYx54II43aKMKc4VQVuWaI0KUyz/G/gh+eivNOehUMEIGZlt?=
+ =?us-ascii?Q?V/9YBrjRN8pAS43M+LTwSDBDRuo9u+yJ8Ahjz/AQhGzQwJT3L7iThAzCQc9m?=
+ =?us-ascii?Q?ijinmFh+dMtU5qWSugcMks9qrpxrRefhEk8Kp9UEqtsQjaGeyVGXyGqWvGHO?=
+ =?us-ascii?Q?wcfsf6cbxEcXA5iFe9Bbm4bjCpkxR+8zpT0j1u/m67Q40S/7vlnG0g7vEaja?=
+ =?us-ascii?Q?6l4wGURMgvizOnQ3uevV898MV0n3I/gOZL2UY/HX7yPJMMo/gClK7c/4Maj5?=
+ =?us-ascii?Q?93HOiYM6+FI8ZTnS9pasFSQ9dMv7TKpPKWGKYOijb3v7HJHZfyolI1w+qQmt?=
+ =?us-ascii?Q?Z7IJZFboTsddOdOQxMp+wAVUwnjKM2BQMN/FdULut5xaHUz4RZh/slAYgB/a?=
+ =?us-ascii?Q?g3cW43EAhT1s2WtGFN0ocSoXCjE2sKbMyOB29EfBS+ZKeQyLj0LHgbJgYK2l?=
+ =?us-ascii?Q?Y32mT9k0toX0jNYcS1CzbLielKaxTK4/WUwcqa+G+IWPv+ZMd8UBWdDBuBC3?=
+ =?us-ascii?Q?pFdBJg4ph/hRUHSyX5b3gQ2Ma+dQXZL+6Zda1yDGgxWVRrnVvszFFmwPNR2M?=
+ =?us-ascii?Q?OuJL+4rj2gBOrqZKOKRkUNHTBLjmX7HfuK/jhYeii6tQbibQlBPBTqJnCqe2?=
+ =?us-ascii?Q?82CLvry5f+uxoV/rhX08banV4kP5lNNGZ6uLXCf++rO9+MKKIPKzXzdBW+zk?=
+ =?us-ascii?Q?MIHlp6vBBKtFS1/EvYhxkIbXra+QUbPI2gPDW5spJHxX+QOQs/xJyK+smquT?=
+ =?us-ascii?Q?rPbSIQvrzTjfVAqjSMR36IXFKq4uBogAkkDiQLyh+VtPEdKyN+HcRHxIMZK4?=
+ =?us-ascii?Q?vcEMgpNKG2ic/TvLnqxN0VC1quTr+s4pIoqtrCSVwv/S9G3nKc27UVtVIK3H?=
+ =?us-ascii?Q?THwGfps510SNiubvEKJY6QIA++/F7uG58x4B78KEKYbIdY+oGNMqo/wKQEEY?=
+ =?us-ascii?Q?yMAVJfeVQvPXi7qe9sstP9q4TZu01jFHFq+0b11A5pAeMRuohqB6lJvJIoI3?=
+ =?us-ascii?Q?VqKm9BvWcimsMCRvFurY7MAAAFs1A3l67HjFW9z3D3jJUYox3O0uuBHEUAz2?=
+ =?us-ascii?Q?sxmDB3wbGWIuOwSEe89KcdicP8iU0kxr91nTzRxdd3ko+hkEfp/y2jHcThgY?=
+ =?us-ascii?Q?0Z4pyw+Alcs4/R85dzk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB7272:EE_|PH7PR12MB5758:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e1fbcde-835c-44b0-3be1-08dd6356b47b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZUdBbGwzYkUyQ1kwb292U0tjL3JGRkc2TG02WmE4QlZFelk3OE5QUVlNbno4?=
- =?utf-8?B?SDJWQVFQZ3k5K3lPTDNTYjlISXVGWlAzNGpVdFZPYTAwNmhVci80Rkd1OVl1?=
- =?utf-8?B?cXNiU2M4UExDZWNLTGpQZS9WYVdtQnJ5aTlWKzZVQmFSVnM0cEU2aTREcHZi?=
- =?utf-8?B?WG1ETXFWdW9OQ1I5c1lmMkJZUFpkbUk3WCtabzRaczZmN2lQeWs4UHVaM0pX?=
- =?utf-8?B?bTh0VzJwQmlhUkNJS1I5RVh6TVU4bGVZd1FEOEo2bURYUnNkRjh3UC82S2hU?=
- =?utf-8?B?RU1RbEQwd1Z4Rk1uYy9JQ3JKWW9zRVZ6diswTElIWjcyNWF6dXdSMzhERytW?=
- =?utf-8?B?T1ZhMFJhNHVXdUtKLzYxa3F0NUFmTEtrNm5EQTJ6YjRPbjJZK1MxTnp3bmpY?=
- =?utf-8?B?S3I4T0xjdDh6RlMzQUFSOFg4SEVTODUwdmhRczBhTUFYbUZjK0ZnTDFTTU9M?=
- =?utf-8?B?VkYvRzAxNU16NnpMYldQVHd0aFczTVdOdDhGTVBlT1p2aW9wQVZhdm1vSkJF?=
- =?utf-8?B?KzJxTEhSVCtuaTdpN3Q1WTFTZjFpRVJ2R0dtRnJUTThVV3JJZjJYZllrL2VR?=
- =?utf-8?B?VCtobDIrWGl6a0FZeXphb1RFSTlMVnFSYVRFSG9WTk02Vm1hM2xyblBQd1RH?=
- =?utf-8?B?Y2U3dVk1Yktoc0lFT0Njb3RPZzlwbFRyajh2Tk9kSmJJcVEzMytXdGF3MWFZ?=
- =?utf-8?B?MWZyWG43YnA4Wkk5TlRqVWRJMEZ1QnZEY1lTZmtjUmFibGlibCtNVk9CRVNW?=
- =?utf-8?B?SjFuazJDUHVxMkd5ZENhNldFd1Bwak4wQkdEV1FIek1xNkVGQ3JIUElWR3l4?=
- =?utf-8?B?Q3dpL1NOSTdYcTg5V3lmNUc3eDJWWGl5Q2ViVEx0VjltYjFiR1FuczZLRHRJ?=
- =?utf-8?B?UkQwZVJXZURTK05rdVQ2TU9vTmR5Y0JsTlN4bmIrRnNuWitVTDVmaDArQUVx?=
- =?utf-8?B?dGUxZ25VZkpzdUhET2h0eExkcmlsT1o0OHlwaFlTKzRMT0dvWDZoWG82YWVh?=
- =?utf-8?B?bmRKbVpMVExTR3dUTjRIb05VWjNVc0RGTFJaeE1CRHNmV09PVEtlcnp4VE9L?=
- =?utf-8?B?KzRSZkk0VXM4MHVpT0Q5NGVlaUdzb0Y0WngyRS9icUF5UzNpeG9YdHBHU0c5?=
- =?utf-8?B?MjdXb3laOFQ2eHVDb3VRbVIyN2FNU0JjUEM5WGErL1lZbXR2c0t4RTVlV3BF?=
- =?utf-8?B?UnBwU3VOVVdlSC9WWnB4Q1JMNk9BZi9UaGFVSDZUQUVwRGwwSnBEK0x4N0Rk?=
- =?utf-8?B?ZlVwMGlUaFFLK3c4RzdCMVZ4bithdDRiZ3lrZlVnWHN3dmw0UEpiTEtnSmMx?=
- =?utf-8?B?OFVJN3dydHd5UnltNDFFNVpMQThjSUc4UWt2YVowbWc1OGVRVGREa01iZXRF?=
- =?utf-8?B?UnhRekx5Qnp1STR4VUlDYVh6YTdDcThVcW1wajc0Wkg1TkZqbXh6YjcvVXJm?=
- =?utf-8?B?cGtJSXZXNEZFU0E4N0xRMVoyWGgweHZOOGJHbnlCYTdKL2l3Mzl4cmRZVUhH?=
- =?utf-8?B?Z2d2a1k3cUcySzEvYVh0eGZwcWY0Z1IwVUdPT3E4aXY5VmhXK29vazRLS3k4?=
- =?utf-8?B?WHZsUHNSZGJBcTRvdWVPNEI3SXkzZzAzNHJMS2tVV3pJNE4vMlFoLzJnblU5?=
- =?utf-8?B?emx5T0czVnZsWGdhTnpGaFRqNytYNVorWGp1K0pFTDdxV3htanprZUM4eXc5?=
- =?utf-8?B?cTVRQ3lLQnlLSzE2Ymx5Zml1dk53VUMyUW5rRmJ2blh2SFkvTW5Udi95UkJY?=
- =?utf-8?B?WWYxYks2S3VKaEFNUTl2ZDBPSVpqSGpvOGhFZGZsNC9Kejc1QnBhUzlZdXVQ?=
- =?utf-8?B?a0JJaUZsQXFmVDc3V1RFNmh2ZVZkWGNGVTBVdXk4azlnZFh3WmxOR1FBbnIy?=
- =?utf-8?Q?PCZiilZZNN/xg?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB7272.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGc5UVVtYTd3WkpWTmVLRjgzZXpobmIwOFpDckhhdkd3SXdYaXpFcmQ2OWx0?=
- =?utf-8?B?ZG1kQ1dkNTlZVGN2LzNOZWc4QVJWb2hJNHVMcWpzNFdnU3hheSttbUcxbCta?=
- =?utf-8?B?MldSczFLY1NYcDEvRWRWT05Tam5kb2RlcjhzQmdWWExHZUNqZ0V2aE02TG1x?=
- =?utf-8?B?NUVVcEx1cFRrU3hRRmY2SklYa0N6aTR3N29FYlhGNUxuVnFIbHN0aVhEdDVH?=
- =?utf-8?B?blYxWWI4UTl5UHZZRVRlRjJoSUVhenJrakFpZWZTQndqQ3l2ZFZvdWtZMTFs?=
- =?utf-8?B?bzQ0Mm9sbTdjKytxZEtDRmdBUTJ5N3pMTGJWU0hPelJJYUx2emZjTi83Mmk2?=
- =?utf-8?B?TlIzMmMvMWJQdVVMbitMNXYwb1N3RmFIWWRzbWVORmRGd2F2NUR6alNaYzBF?=
- =?utf-8?B?ZG5NTEI1aFZVTDliQXVBUzE2NTk5TndZMzZ0M1dVOXpCajNOZm5qajdqcHdP?=
- =?utf-8?B?OTdZWHcwYmk1NFArcm5yUUI5NHhDNjUwejM5b00rdHFVSmJvTThOQVp4M2hz?=
- =?utf-8?B?VzUvNno4enFvdi9vc3UyOEMvTFE5TERJTVZqMTJwNCs1MmZxUXFzOWR0MFo4?=
- =?utf-8?B?NXF6N0VwZlBmQ0hZU3AxVGRqYkoyYlhrWlcyTGtKSVkvUHNsUUdBSU9TZmlV?=
- =?utf-8?B?ZGpYbUtRakhiV2hmV01sZmJkMVFZa2ZycFRUUUE3N2ovL3Q3cVRKWFdYNnFN?=
- =?utf-8?B?bW1DY05tS3hDVHpmaUIwbUlSRERUcnBaRlREQnNRM0J4c1d5UjMwbHVSS2s0?=
- =?utf-8?B?WHNTbGhETmw4bDZGQU90MnVSSFRVc0YwU2JWZnl0QlpGNlZjajNta2M2M3Jk?=
- =?utf-8?B?MlBaNW80Wm1iamg0cFovOGl5NS9WMm4zbVR0MS9MMUNYZFVxTlZqVzBacnFM?=
- =?utf-8?B?eExiMGpMUzJiVUI5OFNmWVJCVE1GVnFnNzNTYmh1TGVJeXhGMW5mMlk5ODIy?=
- =?utf-8?B?KzlZWWZrU2Y1VU5tUnlqd0JMaUhGNGROR1pqMlh0Wi9ZY1N5cjVSeGZpK0E3?=
- =?utf-8?B?YWFzdng0cDgxM283U2pBSlNoU3N3eGI4bGc5Vjl3Y3BkcXNHdnRSYkpUTk13?=
- =?utf-8?B?SUMvT3RPNmRVQkRybTg3WmYrVDVTYTBlT1JtVzB2VVNpNWdUcGxWYkJabUdS?=
- =?utf-8?B?cTNUWVpXWVA2elpMRGNabkc3eG1idm9EUHkzbEppd01aUU1QYjRoOHZHV0RO?=
- =?utf-8?B?VDFxV01pcWRoSStMazZHa2g4bjJWdzlpMW1USmFLRTlDaEYrenBDa1RUakFC?=
- =?utf-8?B?UnFHWmxaSWdJWVJWcHVBUjVYSllsZkY2bTdjTUU3elhRcHhrcCszRHMrZnV0?=
- =?utf-8?B?UjJQN0Zva1pHV09SUFFmcGNEN1hEMXFSUFNBRFBvaFJ6QmFib1luWWFQRjFp?=
- =?utf-8?B?ck5PQlVBSDFhcTZxdFpNdlFLbVY2UHFMQThLSEYyRTFZT0lIL00xRklFUHJh?=
- =?utf-8?B?ZnFzQkY5cVBkT29tV1pXV0sxbkVxNS9iMkg5empleGRVM01kLzRla2hIK3Nw?=
- =?utf-8?B?b2pCMWFGejZjSHBOYmFWVWVRVUlSN0hZMXNvY2Ywald6QWpKMzFkeVFGZWlp?=
- =?utf-8?B?OGhvWnUvQTA4Ky9UTUx2VmJ6L2NEQWRFSE50d24rWFZ3dTZ5TUF2VExsV29v?=
- =?utf-8?B?aGlSVTloZkFDM25aWTlMTG5ySlhNT05pNTlUd1RYMnEvOUp5ZnNCTWpCYXhV?=
- =?utf-8?B?SkR0Q2FrMWY0a0NrQmw0OSs1VnN4ZTIvcnRCbFFmTmlTUGdPQXRnendmV0t3?=
- =?utf-8?B?Z2p4NkdRWXJSNk5aZjVNWk8xUUgxYVVodGFpVHk3ZnFYMUtFeGlnYW5QSS9D?=
- =?utf-8?B?SWtSZm9nNTFreUx5UjM2OWV2VkpFd2dqZlJMMkJoZ1dmbnplTjhsNks0M2l6?=
- =?utf-8?B?SU1iZWVFalBQZjl4MUp4WFBZeXd6NC9sZkxONEpnVFpDSmZ2RVJJRXB5WWxu?=
- =?utf-8?B?Mi84bUpsUEVwM2JpZ0RFc1FWRjN6M1dOL1hqQnR6NGRzc2F3U1Z0ZUxzMmV2?=
- =?utf-8?B?NlUyTmtQUDlVblZGQWVaSDJQYWliZkoxZmpyZjFsMzJEaWoxdnhZZzZCTEg3?=
- =?utf-8?B?SE0rRmoyU0pyUFhCb0JHQU1DK05FaHE3UklGcHNkcVdqSXV5bHorTmJyNWFN?=
- =?utf-8?Q?bW1fczAHsSYzqGq3xYMEJ7xbv?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e1fbcde-835c-44b0-3be1-08dd6356b47b
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7272.namprd12.prod.outlook.com
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2025 00:17:00.4015 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RWGFkHP/o3fZC8KezSK27EXtTwSwN4Q10GhTWyuXKrc4GqIwH7L1SV4/jG12VzH6NKkJ28hBlu2Ch5TIu89LOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5758
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52b14d4d-3c65-41b2-6ed8-08dd635a436e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2025 00:42:28.5510 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KwNIX1y0FfvRyDy0IV3pP2LgrGAsnkXFNl99piXoG9xAcjq2bpycEOKm2hyrvv/EgHkWtZkIIG+lfjNHyFzrSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6555
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -181,118 +159,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/15/25 01:18, Bert Karwatzki wrote:
-> Am Samstag, dem 15.03.2025 um 00:34 +1100 schrieb Balbir Singh:
->> On 3/14/25 17:14, Balbir Singh wrote:
->>> On 3/14/25 09:22, Bert Karwatzki wrote:
->>>> Am Freitag, dem 14.03.2025 um 08:54 +1100 schrieb Balbir Singh:
->>>>> On 3/14/25 05:12, Bert Karwatzki wrote:
->>>>>> Am Donnerstag, dem 13.03.2025 um 22:47 +1100 schrieb Balbir Singh:
->>>>>>>
->>>>>>>
->>>>>>> Anyway, I think the nokaslr result is interesting, it seems like with nokaslr
->>>>>>> even the older kernels have problems with the game
->>>>>>>
->>>>>>> Could you confirm if with nokaslr
->>>>>>>
->>>>>> Now I've tested kernel 6.8.12 with nokaslr
->>>>>>
->>>>>>> 1. Only one single game stellaris is not working?
->>>>>>> 2. The entire laptop does not work?
->>>>>>> 3. Laptop works and other games work? Just one game is not working as
->>>>>> expected?
->>>>>>
->>>>>>
->>>>>> Stellaris is showing the input lag and the entire graphical user interface shows
->>>>>> the same input lag as long as stellaris is running.
->>>>>> Civilization 6 shows the same input lag as stellaris, probably even worse.
->>>>>> Magic the Gathering: Arena (with wine) works normally.
->>>>>> Valheim also works normally.
->>>>>> Crusader Kings 2 works normally
->>>>>> Rogue Heroes: Ruins of Tasos (a Zelda lookalike) works normally.
->>>>>> Baldur's Gate I & II and Icewind Dale work normally.
->>>>>>
->>>>>> Also the input lag is only in the GUI, if I switch to a text console (ctrl + alt
->>>>>> + Fn), input works normally even while the affected games are running.
->>>>>>
->>>>>> Games aside everything else (e.g. compiling kernels) seems to work with nokaslr.
->>>>>>
->>>>>
->>>>> Would it be fair to assume that anything Xorg/Wayland is working fine
->>>>> when the game is not running, even with nokaslr?
->>>>>
->>>> Yes, Xorg (I'm normally using xfce4 as desktop) works fine. I also tested with
->>>> gnome using Xwayland, here the buggy behaviour also exists, with the addtion
->>>> that mouse position is off, i.e. to click a button in the game you have to click
->>>> somewhat above it.
->>>
->>> So the issue is narrowed down to just the games you've mentioned with nokaslr/patch?
->>>
->>>>
->>>>> +amd-gfx@lists.freedesktop.org to see if there are known issues with
->>>>> nokaslr and the games you mentioned.
->>>>>
->>>>>
->>>>> Balbir Singh
->>>>>
->>>>> PS: I came across an interesting link
->>>>> https://www.alex-ionescu.com/behind-windows-x64s-44-bit-memory-addressing-limit/
->>>>>
->>>>> I think SLIST_HEADER is used by wine as well for user space and I am not sure
->>>>> if in this situation the game is hitting this scenario, but surprisingly the other
->>>>> games are not. This is assuming the game uses wine. I am not sure it's related,
->>>>> but the 44 bits caught my attention.
->>>>
->>>> Stellaris is a native linux game (x86_64), the one game (MTGA) I tested with
->>>> wine worked fine.
->>>>
->>>
->>> Thanks for the update! I wonder if there are any game logs. If you can look for any
->>> warnings/errors it might be interesting to see where the difference is coming from?
->>>
->>
->> In addition to the above, does radeontop give you any info about what might be
->> going on? I am also curious if
-> 
-> This got me to test stellaris and Civ6 using the discrete Graphics card:
-> 03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23
-> [Radeon RX 6600/6600 XT/6600M] (rev c3)
->  (with DRI_PRIME=1) and here the problems do not occur.
-> 
-> This is the CPU-builtin GPU, which I normally use to play stellaris as graphics
-> aren't very demanding, here the problems occur when using nokaslr
-> 08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
-> Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] (rev c5)
-> 
+[Public]
 
-Aaah.. this is strange, because the only movement in iomem was for the discrete GPU
+-----Original Message-----
+From: Kim, Jonathan <Jonathan.Kim@amd.com>
+Sent: Friday, March 14, 2025 5:35 PM
+To: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; amd-gfx@lists=
+.freedesktop.org
+Subject: RE: [PATCH v2] drm/amdkfd: Update return value of config_dequeue_w=
+ait_counts
 
-From your eariler message
+[Public]
 
- fee00000-fee00fff : pnp 00:04
- ff000000-ffffffff : pnp 00:04
- 100000000-fee2fffff : System RAM
--  3a7e00000-3a89d2f56 : Kernel code
--  3a8a00000-3a8e31fff : Kernel rodata
--  3a9000000-3a912a5ff : Kernel data
--  3a969c000-3a97fffff : Kernel bss
-+  d32200000-d32dd0f56 : Kernel code
-+  d32e00000-d33231fff : Kernel rodata
-+  d33400000-d3352a5ff : Kernel data
-+  d33a9c000-d33bfffff : Kernel bss
- fee300000-100fffffff : Reserved
- 1010000000-ffffffffff : PCI Bus 0000:00
-   fc00000000-fe0fffffff : PCI Bus 0000:01
-@@ -104,4 +104,4 @@
-       fe30300000-fe303fffff : 0000:04:00.0
-     fe30400000-fe30403fff : 0000:04:00.0
-     fe30404000-fe30404fff : 0000:04:00.0
--3ffe00000000-3fffffffffff : 0000:03:00.0
-+afe00000000-affffffffff : 0000:03:00.0
+> -----Original Message-----
+> From: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
+> Sent: Friday, March 14, 2025 5:04 PM
+> To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: RE: [PATCH v2] drm/amdkfd: Update return value of
+> config_dequeue_wait_counts
+>
+> [Public]
+>
+> -----Original Message-----
+> From: Kim, Jonathan <Jonathan.Kim@amd.com>
+> Sent: Friday, March 14, 2025 4:41 PM
+> To: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; amd-
+> gfx@lists.freedesktop.org
+> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
+> Subject: RE: [PATCH v2] drm/amdkfd: Update return value of
+> config_dequeue_wait_counts
+>
+> [Public]
+>
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Hari=
+sh
+> > Kasiviswanathan
+> > Sent: Friday, March 14, 2025 4:22 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
+> > Subject: [PATCH v2] drm/amdkfd: Update return value of
+> > config_dequeue_wait_counts
+> >
+> > .config_dequeue_wait_counts returns a nop case. Modify return parameter
+> > to reflect that since the caller also needs to ignore this condition.
+> >
+> > v2: Removed redudant code.
+> >     Tidy up code based on review comments
+> >
+> > Fixes: <98a5af8103f> ("drm/amdkfd: Add pm_config_dequeue_wait_counts AP=
+I")
+> >
+> > Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> > ---
+> >  .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 14 ++++----
+> >  .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 36 +++++++++++--------
+> >  2 files changed, 29 insertions(+), 21 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> > b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> > index 3f574d82b5fc..502b89639a9f 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> > @@ -436,19 +436,19 @@ int pm_config_dequeue_wait_counts(struct
+> > packet_manager *pm,
+> >
+> >               retval =3D pm->pmf->config_dequeue_wait_counts(pm, buffer=
+,
+> >                                                            cmd, value);
+> > -             if (!retval)
+> > +             if (retval > 0) {
+> >                       retval =3D kq_submit_packet(pm->priv_queue);
+> > +
+> > +                     /* If default value is modified, cache that in dq=
+m->wait_times
+> > */
+> > +                     if (!retval && cmd =3D=3D KFD_DEQUEUE_WAIT_INIT)
+> > +                             update_dqm_wait_times(pm->dqm);
+> > +             }
+> >               else
+> >                       kq_rollback_packet(pm->priv_queue);
+> >       }
+> > -
+> > -     /* If default value is modified, cache that value in dqm->wait_ti=
+mes */
+> > -     if (!retval && cmd =3D=3D KFD_DEQUEUE_WAIT_INIT)
+> > -             update_dqm_wait_times(pm->dqm);
+> > -
+> >  out:
+> >       mutex_unlock(&pm->lock);
+> > -     return retval;
+> > +     return retval < 0 ? retval : 0;
+> >  }
+> >
+> >  int pm_send_unmap_queue(struct packet_manager *pm,
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> > b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> > index d440df602393..3c6134d61b2b 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> > @@ -310,6 +310,13 @@ static inline void
+> > pm_build_dequeue_wait_counts_packet_info(struct packet_manage
+> >               reg_data);
+> >  }
+> >
+> > +/* pm_config_dequeue_wait_counts_v9: Builds WRITE_DATA packet with
+> > + *    register/value for configuring dequeue wait counts
+> > + *
+> > + * @return: -ve for failure, 0 for nop and +ve for success and buffer =
+is
+> > + *  filled in with packet
+> > + *
+> > + **/
+> >  static int pm_config_dequeue_wait_counts_v9(struct packet_manager *pm,
+> >               uint32_t *buffer,
+> >               enum kfd_config_dequeue_wait_counts_cmd cmd,
+> > @@ -321,24 +328,25 @@ static int pm_config_dequeue_wait_counts_v9(struc=
+t
+> > packet_manager *pm,
+> >
+> >       switch (cmd) {
+> >       case KFD_DEQUEUE_WAIT_INIT: {
+> > -             uint32_t sch_wave =3D 0, que_sleep =3D 0;
+> > -             /* Reduce CP_IQ_WAIT_TIME2.QUE_SLEEP to 0x1 from default
+> > 0x40.
+> > +             uint32_t sch_wave =3D 0, que_sleep =3D 1;
+> > +
+> > +             if (KFD_GC_VERSION(pm->dqm->dev) < IP_VERSION(9, 4, 1) ||
+> > +                 KFD_GC_VERSION(pm->dqm->dev) > IP_VERSION(10, 0, 0))
+> > +                     return 0;
+>
+> From my last comment, I suggested to put this at the beginning of the non=
+-v9
+> pm_config_dequeue_wait_counts call that calls this function.
+> Then you don't have to make the return value more complicated than it cur=
+rently is.
+>
+> [HK]: Ah ok. I didn't really want to put asic specific code in there but =
+in this case
+> code it is fine as you mentioned we have already overloading these functi=
+ons.
 
-I am hoping someone from amd-gfx to chime in with known issues of the driver
-and nokaslr or help debug further.
+Right.  Which is why I also suggested that you could create a front loaded =
+flag or mask if you didn't like this idea.
 
-Balbir Singh
+e.g. of a mask:
+declare dqm->wait_times_override_mask in the kfd_device_queue_manager struc=
+t.
+
+Do some defines in a header somewhere:
+#define KFD_DEQUEUE_WAIT_SCH_WAVE_OVERRIDE_FLAG 0x1
+#define KFD_DEQUEUE_WAIT_QUE_SLEEP_OVERRIDE_FLAG 0x2
+
+Then in initialize_cpsh:
+if (KFD_GC_VERSION(pm->dqm->dev) >=3D IP_VERSION(9, 4, 1) &&
+    KFD_GC_VERSION(pm->dqm->dev) < IP_VERSION(10, 0, 0)) {
+        dqm->wait_times_override_mask |=3D KFD_DEQUEUE_WAIT_QUE_SLEEP_OVERR=
+IDE_FLAG
+if (amdgpu_emu_mode =3D=3D 0 && pm->dqm->dev->adev->gmc.is_app_apu &&
+    (KFD_GC_VERSION(pm->dqm->dev) =3D=3D IP_VERSION(9, 4, 3)))
+        dqm->wait_times_override_mask |=3D KFD_DEQUEUE_WAIT_SCH_WAVE_OVERRI=
+DE_FLAG
+
+Then at the beginning of pm_config_dequeue_wait_counts:
+if (cmd =3D=3D KFD_DEQUEUE_WAIT_INIT && !dqm->wait_times_override_mask)
+   return 0;
+
+And pm_config_dequeue_wait_counts_v9 gets simplified to
+case KFD_DEQUEUE_WAIT_INIT:
+   uint32_t que_sleep =3D dqm->wait_times_override_mask & KFD_DEQUEUE_WAIT_=
+QUE_SLEEP_OVERRIDE_FLAG ? 1 : 0;
+   uint32_t sch_wave =3D dqm->wait_times_override_mask & KFD_DEQUEUE_WAIT_S=
+CH_OVERRIDE_FLAG ? 1 : 0;
+
+   if (!(que_sleep || sch_wave))
+        return -EINVAL;  // for safety
+
+   <etc .. etc..>
+
+
+Otherwise, splitting the IP check is a quick and dirty fix.
+
+[HK]: Going with this one for now. Can revisit again if more modifications =
+are needed.
+
+Jon
+
+>
+> Also KFD_GC_VERSION(pm->dqm->dev) > IP_VERSION(10, 0, 0) is incorrect and
+> should be >=3D because want to also exclude anything with a major version=
+ of 10.
+> [HK]: good catch
+>
+> Jon
+>
+> > +
+> > +             /* For all other gfx9 ASICs,
+> > +              * Reduce CP_IQ_WAIT_TIME2.QUE_SLEEP to 0x1 from default
+> > 0x40.
+> >                * On a 1GHz machine this is roughly 1 microsecond, which=
+ is
+> >                * about how long it takes to load data out of memory dur=
+ing
+> >                * queue connect
+> >                * QUE_SLEEP: Wait Count for Dequeue Retry.
+> > +              *
+> > +              * Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU
+> >                */
+> > -             if (KFD_GC_VERSION(pm->dqm->dev) >=3D IP_VERSION(9, 4, 1)=
+ &&
+> > -                 KFD_GC_VERSION(pm->dqm->dev) < IP_VERSION(10, 0, 0)) =
+{
+> > -                     que_sleep =3D 1;
+> > -
+> > -                     /* Set CWSR grace period to 1x1000 cycle for GFX9=
+.4.3 APU
+> > */
+> > -                     if (amdgpu_emu_mode =3D=3D 0 && pm->dqm->dev->ade=
+v-
+> > >gmc.is_app_apu &&
+> > -                     (KFD_GC_VERSION(pm->dqm->dev) =3D=3D IP_VERSION(9=
+, 4,
+> > 3)))
+> > -                             sch_wave =3D 1;
+> > -             } else {
+> > -                     return 0;
+> > -             }
+> > +             if (amdgpu_emu_mode =3D=3D 0 && pm->dqm->dev->adev-
+> > >gmc.is_app_apu &&
+> > +                 (KFD_GC_VERSION(pm->dqm->dev) =3D=3D IP_VERSION(9, 4,=
+ 3)))
+> > +                     sch_wave =3D 1;
+> > +
+> >               pm_build_dequeue_wait_counts_packet_info(pm, sch_wave,
+> > que_sleep,
+> >                       &reg_offset, &reg_data);
+> >
+> > @@ -377,7 +385,7 @@ static int pm_config_dequeue_wait_counts_v9(struct
+> > packet_manager *pm,
+> >
+> >       packet->data =3D reg_data;
+> >
+> > -     return 0;
+> > +     return sizeof(struct pm4_mec_write_data_mmio);
+> >  }
+> >
+> >  static int pm_unmap_queues_v9(struct packet_manager *pm, uint32_t *buf=
+fer,
+> > --
+> > 2.34.1
+>
+>
 
 
