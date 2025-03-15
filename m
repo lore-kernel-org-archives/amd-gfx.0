@@ -4,80 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05CC3C35FFC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D7FBC35FFB
 	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 10:53:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1073610E313;
-	Mon, 17 Mar 2025 10:53:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53F7C10E3EB;
+	Mon, 17 Mar 2025 10:53:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pjrx8OTE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ByEMsZLn";
 	dkim-atps=neutral
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E284C10E13B;
- Sun, 16 Mar 2025 14:05:05 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-6f47ed1f40dso27958047b3.1; 
- Sun, 16 Mar 2025 07:05:05 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFD510E291
+ for <amd-gfx@lists.freedesktop.org>; Sat, 15 Mar 2025 20:16:06 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-ac3123c0ef9so40370566b.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 15 Mar 2025 13:16:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742133905; x=1742738705; darn=lists.freedesktop.org;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1742069765; x=1742674565; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PDeTtb50k9P9LzzadEe61v2QwU9luKmDuJ/im9ef0So=;
- b=Pjrx8OTERXvSyzhYYbGMPZ63heTvZrqJxVkXRjp/yLu1yPdbsGKxYjRuLtA0PxW3+u
- JZUiCZrzHwoUR1QkBmdVwSb0O/A1X03QXVHxl8EA8sBZIhVKg/1zFlkCCyc7vNeew+Zw
- 5k3dVXAMnDSkgOF7NngFQfwPN1rXhjLQ7+dDDLnqgWyS+ap/5l9i2voXCdkSwglxDCN6
- 190bQuh6HSLhGsvs3PcAVOmDSILiJrIXjPJNK00a3PQww18hgVrB2x5UihGgiJSVPHjy
- rU4pNoFXU/RbhUmXBqT+i7TVul96arjJHH4O7spAKK/q0kw2qmf/b4YzqtICpkKSJ9lh
- tPeQ==
+ bh=CM8iKDl/0GDYbg2/8UjmQb+Vutt2B5xcuVwMZo2f/xc=;
+ b=ByEMsZLnw57GE4pX5BVbFLvNZW8kYt2JBwXPN3h+zp4dRTuowJkUkL5T7zK4E375oj
+ zHpgO5HPmpTAMUYFaX3CIeMwIiAu2G8wr3qAgirirb7qYOdDAXGwgGc+2ljx9pW09dyI
+ Pp1lsQfM6jRH1vY0aqmk/3TD7LAMAmrZme6ea3u49FZsoBEn9sJGMcKERcMNMZn2+Htq
+ tH60tVOTPhfoy82kpf4j9QYBdsaBW3s/JdR0zHixbWVgadYDRqAqi5xkq/djviDmBgSF
+ a7nQRt0tFt1KbwJhInWwFdMNfhFnqNstz1pVbM7GQZagcY0iYKdUp5C+Kkn78rub4F4e
+ hsTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742133905; x=1742738705;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1742069765; x=1742674565;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=PDeTtb50k9P9LzzadEe61v2QwU9luKmDuJ/im9ef0So=;
- b=W/cPYdwo0MYyTnPTQ5dj1kl6XctvfOSH3PJ8svKE8D7EghMiPW8SnTrmpENKI9gphF
- rN8GEtWLKzmEXdI5Td5b+uRVOGmyrOZkXnYlumID7s9JSBs1QsLBAGuKp4FTy8CLgI2s
- f++QcUfKlW/fkJrU2pnJIS6Oghyp5jTdRSLI5jcKIRatNOINfailoUi8jqo6WI1x4g4o
- El2EIw12NpS7BUAIja38z++4T1HP8wry304qatFNzWRnSSdEjpxkKKdYzmGXd0gmBqds
- 6EX3QVz/rRZ6veiS82GrWMa1u/M3DR0ccVCKOsR3+AiEbN7dFGjioMHdiDC3ZK501P4P
- 4Dcw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVTm0JukF1tKOVh3HrzbfLSrmOkYLrsCeFMBlvMjgt0sNnw+sefMoqbq+kYyGvrKLpDEKeitfsU@lists.freedesktop.org,
- AJvYcCVzBVFOuiZhsYTRRv6cfg5sdd07zO73kMbMm2Zz7IcjVFnXo7Onb5iIFKhdp7KucECveunXTLYr/UOm@lists.freedesktop.org,
- AJvYcCW3RQo0ltISwCzboUfG9qI9xU+16EqQ2qWCkfSXdyBsi0RAD/y9K6upuK4iMzdoXtjn9SLkq8KVtaWP@lists.freedesktop.org,
- AJvYcCWSU2bOgQ40lFglb76RdYxfaxtmZjX71JlNgV4Dw+hYoLXsW7yJg22fJkXAZJUTsXxVG1OXs9va3o+Egc9H81XedA==@lists.freedesktop.org,
- AJvYcCWSwIFuQoqdeKUAafTBwXrV5Iaxp8G6xRHDQkXa61/9vTftX4s+NUQXye65ieukDqodQ7oRNslpXTZKazJw3w==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5Py692QW2kON4ORPWXE9VLlAPB+r3fPCuGdoQFqI28Iril1Vj
- XU+dekfyPZhtzXRjh5j8Td0F8AhT+mT9euhu+Jrfc034aHEADYlRZ1TI00WqQMOWuHof+i+QKoD
- v26muAUf1lCppyFBGuDpq57RULrg=
-X-Gm-Gg: ASbGncvPww3t9jo1BodwM45LwjzbsQAmwmAuEHp9RprElt6wYc+YeSCymDISxMi5I30
- vIx+musBk039lcu1ViKH3rzBfRhtWTL3ftnBSOYYRsysQ3BcjEA0sXJaqXpObDeN2daXKm2XmhU
- 4JBBkf4762RvQKsnpNH8UwgLF5
-X-Google-Smtp-Source: AGHT+IEkq0dikkwQqGeY8g4W1TxCVsud54HevqibVi+N74RIzgXFQiUIQt5fFhsqwqaLI+C0E5rHPBZDIZmWrCBrDAM=
-X-Received: by 2002:a05:690c:700d:b0:6fe:bff2:3a6d with SMTP id
- 00721157ae682-6ff45f1564dmr119778087b3.1.1742133904715; Sun, 16 Mar 2025
- 07:05:04 -0700 (PDT)
+ bh=CM8iKDl/0GDYbg2/8UjmQb+Vutt2B5xcuVwMZo2f/xc=;
+ b=HyusQUdoh8dOz+NsA3BlbsonY2q07jr1RANc3kNPEkQmztabVlGFWk5jKQ833npXYO
+ ToKl04cMT0QTsqiLEoaLAwzoNRkOWtXD7E5DCyVBF9wYr3s5cOBmLBlVPS9c1iigy8+X
+ qauHZlTXJfbTk/5jp6lsKX4N9uLiszSwBSOPnInfKmNdwwWPVgpJe6ICzfiPjbLnRfCR
+ 7fC2vgZ4+lKqEgmmsPPbMxZlvje6jAe9SJZvZUalZhC0dkP9TELYOiS+Op1LXn0l4xyc
+ SOD4ymgOm0vDVH/FwlmQPEkYGqUUNCmF6BDxyBDW/ShNERPtJC5SwXEwAQ95QeeXFGlg
+ 6RyA==
+X-Gm-Message-State: AOJu0Yz9jT6N+akP6DPWPyAxRgwBd5+1HpCwSIxQcZqPqvlrdW43DlIz
+ fohF+Ww3BQLoWnzybtKmEs1ZJkjjfWDXSt7oIh0hYBWmHOnc+PnY
+X-Gm-Gg: ASbGncvXcdDCre88ojrMkltOMY5PHe/MsQwrYj1KhUff3JsPazATDG2XUMGuq1EKZT+
+ bLh5CSAEFKtf2YaabX0TcabwPO19gklgVfUL4Ne2w+Z//u6CGKL0yvd2WCKsltRkpxEW/UU2eXg
+ y2tP6csHQxJAhaOQexWheaLUdtrruabURwgg7hFQIMNi4BQzMv8C33GEQpWO3Y/IIwaD7OXIeaB
+ c/7wBBU6inBpXBzkV7QPR+/jUgo9XlbuYWeMhuZdJwxo8mTNQYpaLM6DMphe7lcH9Ym7NSd7lyx
+ WvYSn6dwXBy1sgjhXqnBZVGnpoJHchdtnHbQZzwH87yP7P23vWcTNBWopAWWdBEDdDifP6FeKlM
+ rjrGlSGhfJcBoRh8=
+X-Google-Smtp-Source: AGHT+IHPCGeO5GkCGw8ZKVf/5XyOELv5ihjS4Cm7AlLHIHFCvIJzRSq2xpzHNkOcJoucsmnxMhaa6A==
+X-Received: by 2002:a17:907:1c89:b0:ac2:1d34:44ff with SMTP id
+ a640c23a62f3a-ac3301a4ee8mr294587766b.4.1742069764604; 
+ Sat, 15 Mar 2025 13:16:04 -0700 (PDT)
+Received: from laptok.lan (89-64-31-121.dynamic.chello.pl. [89.64.31.121])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac314aa5a7csm416922766b.179.2025.03.15.13.16.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 15 Mar 2025 13:16:03 -0700 (PDT)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	kenneth.feng@amd.com,
+	KevinYang.Wang@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 2/2] drm/amd/pm: add zero RPM stop temp OD setting support for
+ SMU 14.0.2
+Date: Sat, 15 Mar 2025 21:15:58 +0100
+Message-ID: <20250315201558.339913-3-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250315201558.339913-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20250315201558.339913-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
-References: <20250125064619.8305-1-jim.cromie@gmail.com>
- <20250125064619.8305-6-jim.cromie@gmail.com>
- <22989ed1-90a4-4acd-9ca0-00f65677ad4f@bootlin.com>
-In-Reply-To: <22989ed1-90a4-4acd-9ca0-00f65677ad4f@bootlin.com>
-From: jim.cromie@gmail.com
-Date: Sun, 16 Mar 2025 08:04:38 -0600
-X-Gm-Features: AQ5f1JrrEoFY2QvB7Q2c4QZCzcvKITkF-RuKV8wOT8kqpn_6ZcJ2YIMcZ80jx6o
-Message-ID: <CAJfuBxyYGUpF+n1nHNUS-GtTU9ROi9vx_RQj6kOP1zSMHgM45Q@mail.gmail.com>
-Subject: Re: [PATCH 05/63] dyndbg: replace classmap list with a vector
-To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
- jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
- intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch, 
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 17 Mar 2025 10:53:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,255 +90,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 25, 2025 at 7:08=E2=80=AFAM Louis Chauvet <louis.chauvet@bootli=
-n.com> wrote:
->
->
->
-> Le 25/01/2025 =C4=85 07:45, Jim Cromie a =C3=A9crit :
-> > Classmaps are stored in an elf section/array, but are individually
-> > list-linked onto dyndbg's per-module ddebug_table for operation.
-> >
-> > This is unnecessary; even when ddebug_attach_classmap() is handling
-> > the builtin section (with classmaps for multiple builtin modules), its
-> > contents are ordered, so a module's possibly multiple classmaps will
-> > be consecutive in the section, and could be treated as a vector/block,
-> > since both start-address and subrange length are in the ddebug_info arg=
-.
-> >
-> > IOW, this treats classmaps similarly to _ddebugs, which are already
-> > kept as vector-refs (address+len).
-> >
-> > So this changes:
-> >
-> > struct ddebug_class_map drops list-head link.
-> >
-> > struct ddebug_table drops the list-head maps, and gets: classes &
-> > num_classes for the start-address and num_classes, placed to improve
-> > struct packing.
-> >
-> > The loading: in ddebug_attach_module_classes(), replace the
-> > for-the-modname list-add loop, with a forloop that finds the module's
-> > subrange (start,length) of matching classmaps within the possibly
-> > builtin classmaps vector, and saves those to the ddebug_table.
-> >
-> > The reading/using: change list-foreach loops in ddebug_class_name() &
-> > ddebug_find_valid_class() to walk the array from start to length.
-> >
-> > Also:
-> > Move #define __outvar up, above an added use in a fn-prototype.
-> > Simplify ddebug_attach_module_classes args, ref has both address & len.
-> >
-> > no functional changes
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > ---
-> >   include/linux/dynamic_debug.h |  1 -
-> >   lib/dynamic_debug.c           | 61 ++++++++++++++++++----------------=
--
-> >   2 files changed, 32 insertions(+), 30 deletions(-)
-> >
-> > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debu=
-g.h
-> > index b9afc7731b7c..2b0057058ecf 100644
-> > --- a/include/linux/dynamic_debug.h
-> > +++ b/include/linux/dynamic_debug.h
-> > @@ -83,7 +83,6 @@ enum class_map_type {
-> >   };
-> >
-> >   struct ddebug_class_map {
-> > -     struct list_head link;
-> >       struct module *mod;
-> >       const char *mod_name;   /* needed for builtins */
-> >       const char **class_names;
-> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> > index 55df35df093b..41cbaa96f83d 100644
-> > --- a/lib/dynamic_debug.c
-> > +++ b/lib/dynamic_debug.c
-> > @@ -45,10 +45,11 @@ extern struct ddebug_class_map __start___dyndbg_cla=
-sses[];
-> >   extern struct ddebug_class_map __stop___dyndbg_classes[];
-> >
-> >   struct ddebug_table {
-> > -     struct list_head link, maps;
-> > +     struct list_head link;
-> >       const char *mod_name;
-> > -     unsigned int num_ddebugs;
-> >       struct _ddebug *ddebugs;
-> > +     struct ddebug_class_map *classes;
-> > +     unsigned int num_ddebugs, num_classes;
-> >   };
-> >
-> >   struct ddebug_query {
-> > @@ -147,13 +148,15 @@ static void vpr_info_dq(const struct ddebug_query=
- *query, const char *msg)
-> >                 query->first_lineno, query->last_lineno, query->class_s=
-tring);
-> >   }
-> >
-> > +#define __outvar /* filled by callee */
->
-> Hi Jim,
->
-> What is the goal of this __outvar define? I can't find any other #define
-> of it in the kernel.
+Hook up zero RPM stop temperature for 9070 and 9070 XT based on RDNA3
+(smu 13.0.0 and 13.0.7) code.
 
-its basically a comment, trying to be more important.
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+---
+ .../swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h |  3 +-
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 50 ++++++++++++++++++-
+ 2 files changed, 51 insertions(+), 2 deletions(-)
 
-if its misleading or overwrought, I can yank it :-)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
+index c2fd0a4a13e5..a5eba7b91e2f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
+@@ -846,9 +846,10 @@ typedef struct {
+   uint16_t               FanTargetTemperature; // Degree Celcius
+   //zero fan
+   uint8_t                FanZeroRpmEnable;
++  uint8_t                FanZeroRpmStopTemp;
+   //temperature
+   uint8_t                MaxOpTemp;
+-  uint8_t                Padding1[2];
++  uint8_t                Padding1;
+ 
+   //Full Ctrl
+   uint16_t               GfxVoltageFullCtrlMode;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index fedf0c8c4741..4e7eed0cc41c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -80,6 +80,7 @@
+ #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE		9
+ #define PP_OD_FEATURE_FAN_MINIMUM_PWM			10
+ #define PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE		11
++#define PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP		12
+ 
+ static struct cmn2asic_msg_mapping smu_v14_0_2_message_map[SMU_MSG_MAX_COUNT] = {
+ 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
+@@ -1057,6 +1058,10 @@ static void smu_v14_0_2_get_od_setting_limits(struct smu_context *smu,
+ 		od_min_setting = overdrive_lowerlimits->FanZeroRpmEnable;
+ 		od_max_setting = overdrive_upperlimits->FanZeroRpmEnable;
+ 		break;
++	case PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP:
++		od_min_setting = overdrive_lowerlimits->FanZeroRpmStopTemp;
++		od_max_setting = overdrive_upperlimits->FanZeroRpmStopTemp;
++		break;
+ 	default:
+ 		od_min_setting = od_max_setting = INT_MAX;
+ 		break;
+@@ -1360,6 +1365,24 @@ static int smu_v14_0_2_print_clk_levels(struct smu_context *smu,
+ 				      min_value, max_value);
+ 		break;
+ 
++	case SMU_OD_FAN_ZERO_RPM_STOP_TEMP:
++		if (!smu_v14_0_2_is_od_feature_supported(smu,
++							 PP_OD_FEATURE_ZERO_FAN_BIT))
++			break;
++
++		size += sysfs_emit_at(buf, size, "FAN_ZERO_RPM_STOP_TEMPERATURE:\n");
++		size += sysfs_emit_at(buf, size, "%d\n",
++					(int)od_table->OverDriveTable.FanZeroRpmStopTemp);
++
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
++		smu_v14_0_2_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP,
++						  &min_value,
++						  &max_value);
++		size += sysfs_emit_at(buf, size, "ZERO_RPM_STOP_TEMPERATURE: %u %u\n",
++				      min_value, max_value);
++		break;
++
+ 	case SMU_OD_RANGE:
+ 		if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT) &&
+ 		    !smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT) &&
+@@ -2306,7 +2329,9 @@ static void smu_v14_0_2_set_supported_od_feature_mask(struct smu_context *smu)
+ 					    OD_OPS_SUPPORT_FAN_MINIMUM_PWM_RETRIEVE |
+ 					    OD_OPS_SUPPORT_FAN_MINIMUM_PWM_SET |
+ 					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_RETRIEVE |
+-					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_SET;
++					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_SET |
++					    OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_RETRIEVE |
++					    OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_SET;
+ }
+ 
+ static int smu_v14_0_2_get_overdrive_table(struct smu_context *smu,
+@@ -2387,6 +2412,8 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
+ 			user_od_table_bak.OverDriveTable.FanMinimumPwm;
+ 		user_od_table->OverDriveTable.FanZeroRpmEnable =
+ 			user_od_table_bak.OverDriveTable.FanZeroRpmEnable;
++		user_od_table->OverDriveTable.FanZeroRpmStopTemp =
++			user_od_table_bak.OverDriveTable.FanZeroRpmStopTemp;
+ 	}
+ 
+ 	smu_v14_0_2_set_supported_od_feature_mask(smu);
+@@ -2754,6 +2781,27 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+ 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
+ 		break;
+ 
++	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
++		if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_ZERO_FAN_BIT)) {
++			dev_warn(adev->dev, "Zero RPM setting not supported!\n");
++			return -ENOTSUPP;
++		}
++
++		smu_v14_0_2_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP,
++						  &minimum,
++						  &maximum);
++		if (input[0] < minimum ||
++		    input[0] > maximum) {
++			dev_info(adev->dev, "zero RPM stop temperature setting(%ld) must be within [%d, %d]!\n",
++				 input[0], minimum, maximum);
++			return -EINVAL;
++		}
++
++		od_table->OverDriveTable.FanZeroRpmStopTemp = input[0];
++		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++		break;
++
+ 	case PP_OD_RESTORE_DEFAULT_TABLE:
+ 		if (size == 1) {
+ 			ret = smu_v14_0_2_od_restore_table_single(smu, input[0]);
+-- 
+2.48.1
 
->
-> >   static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug=
-_table const *dt,
-> > -                                                       const char *cla=
-ss_string, int *class_id)
-> > +                                                     const char *class=
-_string,
-> > +                                                     __outvar int *cla=
-ss_id)
->
-> The order between __outvar and int is not important? Here you have
-> __outvar before int, but later [1] the __outvar is after int.
->
-
-
-I intended no difference, I used it where I thought it communicated best
-in each case, and since the macro is empty, it makes none.
-
-
-
-> [1]:https://elixir.bootlin.com/linux/v6.14-rc3/source/lib/dynamic_debug.c=
-#L183
->
-> Thanks,
-> Louis Chauvet
->
-> >   {
-> >       struct ddebug_class_map *map;
-> > -     int idx;
-> > +     int i, idx;
-> >
-> > -     list_for_each_entry(map, &dt->maps, link) {
-> > +     for (map =3D dt->classes, i =3D 0; i < dt->num_classes; i++, map+=
-+) {
-> >               idx =3D match_string(map->class_names, map->length, class=
-_string);
-> >               if (idx >=3D 0) {
-> >                       *class_id =3D idx + map->base;
-> > @@ -164,7 +167,6 @@ static struct ddebug_class_map *ddebug_find_valid_c=
-lass(struct ddebug_table cons
-> >       return NULL;
-> >   }
-> >
-> > -#define __outvar /* filled by callee */
-> >   /*
-> >    * Search the tables for _ddebug's which match the given `query' and
-> >    * apply the `flags' and `mask' to them.  Returns number of matching
-> > @@ -1114,9 +1116,10 @@ static void *ddebug_proc_next(struct seq_file *m=
-, void *p, loff_t *pos)
-> >
-> >   static const char *ddebug_class_name(struct ddebug_iter *iter, struct=
- _ddebug *dp)
-> >   {
-> > -     struct ddebug_class_map *map;
-> > +     struct ddebug_class_map *map =3D iter->table->classes;
-> > +     int i, nc =3D iter->table->num_classes;
-> >
-> > -     list_for_each_entry(map, &iter->table->maps, link)
-> > +     for (i =3D 0; i < nc; i++, map++)
-> >               if (class_in_range(dp->class_id, map))
-> >                       return map->class_names[dp->class_id - map->base]=
-;
-> >
-> > @@ -1200,30 +1203,31 @@ static const struct proc_ops proc_fops =3D {
-> >       .proc_write =3D ddebug_proc_write
-> >   };
-> >
-> > -static void ddebug_attach_module_classes(struct ddebug_table *dt,
-> > -                                      struct ddebug_class_map *classes=
-,
-> > -                                      int num_classes)
-> > +static void ddebug_attach_module_classes(struct ddebug_table *dt, stru=
-ct _ddebug_info *di)
-> >   {
-> >       struct ddebug_class_map *cm;
-> > -     int i, j, ct =3D 0;
-> > +     int i, nc =3D 0;
-> >
-> > -     for (cm =3D classes, i =3D 0; i < num_classes; i++, cm++) {
-> > +     /*
-> > +      * Find this module's classmaps in a subrange/wholerange of
-> > +      * the builtin/modular classmap vector/section.  Save the start
-> > +      * and length of the subrange at its edges.
-> > +      */
-> > +     for (cm =3D di->classes, i =3D 0; i < di->num_classes; i++, cm++)=
- {
-> >
-> >               if (!strcmp(cm->mod_name, dt->mod_name)) {
-> > -
-> > -                     v2pr_info("class[%d]: module:%s base:%d len:%d ty=
-:%d\n", i,
-> > -                               cm->mod_name, cm->base, cm->length, cm-=
->map_type);
-> > -
-> > -                     for (j =3D 0; j < cm->length; j++)
-> > -                             v3pr_info(" %d: %d %s\n", j + cm->base, j=
-,
-> > -                                       cm->class_names[j]);
-> > -
-> > -                     list_add(&cm->link, &dt->maps);
-> > -                     ct++;
-> > +                     if (!nc) {
-> > +                             v2pr_info("start subrange, class[%d]: mod=
-ule:%s base:%d len:%d ty:%d\n",
-> > +                                       i, cm->mod_name, cm->base, cm->=
-length, cm->map_type);
-> > +                             dt->classes =3D cm;
-> > +                     }
-> > +                     nc++;
-> >               }
-> >       }
-> > -     if (ct)
-> > -             vpr_info("module:%s attached %d classes\n", dt->mod_name,=
- ct);
-> > +     if (nc) {
-> > +             dt->num_classes =3D nc;
-> > +             vpr_info("module:%s attached %d classes\n", dt->mod_name,=
- nc);
-> > +     }
-> >   }
-> >
-> >   /*
-> > @@ -1256,10 +1260,9 @@ static int ddebug_add_module(struct _ddebug_info=
- *di, const char *modname)
-> >       dt->num_ddebugs =3D di->num_descs;
-> >
-> >       INIT_LIST_HEAD(&dt->link);
-> > -     INIT_LIST_HEAD(&dt->maps);
-> >
-> >       if (di->classes && di->num_classes)
-> > -             ddebug_attach_module_classes(dt, di->classes, di->num_cla=
-sses);
-> > +             ddebug_attach_module_classes(dt, di);
-> >
-> >       mutex_lock(&ddebug_lock);
-> >       list_add_tail(&dt->link, &ddebug_tables);
-> > @@ -1372,8 +1375,8 @@ static void ddebug_remove_all_tables(void)
-> >       mutex_lock(&ddebug_lock);
-> >       while (!list_empty(&ddebug_tables)) {
-> >               struct ddebug_table *dt =3D list_entry(ddebug_tables.next=
-,
-> > -                                                   struct ddebug_table=
-,
-> > -                                                   link);
-> > +                                                  struct ddebug_table,
-> > +                                                  link);
-> >               ddebug_table_free(dt);
-> >       }
-> >       mutex_unlock(&ddebug_lock);
->
-> --
-> Louis Chauvet, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
->
