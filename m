@@ -4,91 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51882C28B28
-	for <amd-gfx@archiver.kernel.org>; Sat, 15 Mar 2025 17:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15B8FC282DE
+	for <amd-gfx@archiver.kernel.org>; Sun, 16 Mar 2025 15:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFBE210E294;
-	Sat, 15 Mar 2025 17:40:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7DE10E17C;
+	Sun, 16 Mar 2025 15:37:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cFgPs97f";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1hEBg1H/";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E217210E291
- for <amd-gfx@lists.freedesktop.org>; Sat, 15 Mar 2025 17:40:34 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-2ff6ce72844so167940a91.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 15 Mar 2025 10:40:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742060434; x=1742665234; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LOk77kqi4lkW0/kdysAwjj2qu3m2pFn+y+VjVbY7SLs=;
- b=cFgPs97fB03LjtIE7XVb7TXj94Si2b3KnhFE6Bu+9s/nHj0yoFtxYBdii2tSXqa0Cs
- tyeKTwcEWUwlzGNaT26xCxWZtuNLUBh4N3xe28IsOs5s5Qv+jyv9yLKLSd+rzwX7wek5
- pbvmNdYtq6aWN2lS1jDvH3qN63ILYOcuPnYI95RPKQal0xAZRf/V5voI1/bMPzkW/7A5
- bp4263g7baR3nJ6GVCY0EtnW0Lp0nIWwibF4CKZBNCr/CVezT2rKC/XgoXEluN3dWbC6
- iVgS+vfUul7Fzj0KZHWMPAPlb5cnmPWCYu7Lqlp3ZafuukV8rSxxupyafBuWb0vpP+HK
- ehZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742060434; x=1742665234;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LOk77kqi4lkW0/kdysAwjj2qu3m2pFn+y+VjVbY7SLs=;
- b=AmyL6d6KRiaubXvszOv6ja7+aCcXOyeEjV5qqAYdbLZdeO9gyvZEhavxGtwdgNdp5Q
- ZB8N9c4/DTfdRbCSO+A0Fn4mRDaG8b0tWgb6gpg/zgKNNN+tea4Q+4mDeUp7HUmDooAv
- oMINXvGEtLIYi6t3HEmN3UAZtNQNM9/GnimvBRQFII6byc9HUE6j2+R/Eu1drYlMJpp4
- v0hREWmPK6SExwcPL4QhW+/9brsfsfWmNeAAbQ7ivyIaGdrUqpYqxsGcK06eViRsvuc2
- cq3EAXDkCQOSLmGTVKVlftKhjjDRkcBZZv5SqbVzZDSC18N/Wn4ypXWvMSfbwg9WCcD6
- XYSA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXmO7Llw4lEV1yETlsnJ/RPeX+TNM0fnT+qBTkNrTOxW72f60XRSBCyZAzmt7ys/h42W2WfH5LE@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTJ3n5vJ4P/jcsWpPH6R3kyjRz/D4ijCY3cr3MHkLLJKihHhTq
- b2pjkuP5VH4IZlpMrYnY+LcRqE0Tq+1UyJzqHXpZ2QpPQ9DwljMEQD1do7BoNjK9tYlDSMaNZg3
- ooLqCDsmtwHczspA5G5ZPyESFpW01iA==
-X-Gm-Gg: ASbGncuNXn7nwCRyu+5xTp30wZjSSDGNjJAwmeQ7nJDXjxMWMB8CH+pcxr4Q3qV1nK7
- CfeM0IjDXBR2zSrXgFHe1qBVUSj/qVcxb+ADl5UEGPynEMiI49o4iA3tIWLmQpGPlyn/c7IvN2R
- lZjvul/Q/By/FrMTLl8pbV1tG3Jg==
-X-Google-Smtp-Source: AGHT+IGbXrWrcmJPxnATtMDNxKyBe1McY0iT1NSSp2Cb8noHkhFTSF1Dx9Jsi52xd48mr+ny3QYYGDaJI+EW2EEFqDU=
-X-Received: by 2002:a17:90b:4d8d:b0:2fe:b77a:2eba with SMTP id
- 98e67ed59e1d1-30151c5dfd6mr3302403a91.1.1742060434249; Sat, 15 Mar 2025
- 10:40:34 -0700 (PDT)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2071.outbound.protection.outlook.com [40.107.244.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C09510E17C
+ for <amd-gfx@lists.freedesktop.org>; Sun, 16 Mar 2025 15:37:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jNtVENWTPEZrPJIzBq6yds/woTuuRoJhqyEWxcFiJqCK+G0kcrlCa1BSQHeTm484lfuS+wv876GcUDGs2O2MmFJ3mijAA+MWbVDV+CRXFL3fsh6I6TutSm2dxoCappynF7DgsIjv0U2nFl87y45XbeWrkORyvEuJQbcx6gQz7lcnUTChSQs8t+xSqUSNI4OUa+W1yfbVbeZusNFXwfRrmjIuP0Nzja8tK/7NQ92AT9lhhZJD6YmX/j+ra88dLVXzxbzGxIKpaFpfmIWDAVtO2jjKS5mpBteLNsJErm55305Au0ZM/KjpQDrG2dUW232WafkxrTcjgxwR3UXDGOHRfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SpxxjFq7xJ9wUUPQjLRT7kBPe2CZVqCwyTryu0fjsP4=;
+ b=VUFF7V6vWHVaWEwee03iEBhFh7Q59eW3JDv9rePWXJ/qyfpuYkfljmNQlBzyPZDrLhdmVfsaXGlMq0dhrr5NZ/k1XTfbQcklFxw62KDoIAad6ocCdfE1xwOGrsJVScVbk00o/D8CXD6ccbtSEzk7bEago9hqFAs2iHlA7EptbwAAjBYtbQiOZ0eqx0a+xmvJsup+y4mErqd5P95q3A8min9aYuQXhsMJSMJyV6vHwNPDGpn32vwUwZytSvGJ26jRuMmhzX6IvTNec4F91u8ALZ57gkKNW2zdwEOW5zU7PtjnVtHKLrF6RHs1qUi4F1CtRRSiNs36WjywTA8rRHISXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SpxxjFq7xJ9wUUPQjLRT7kBPe2CZVqCwyTryu0fjsP4=;
+ b=1hEBg1H/prLrwAd0wVh3NvSwpNZA0IvW6S06FBzuJkH0/POFo//n5kIDSRy0+36yhPhoLXUYcC7zbCmwT2pbcBGU2zvx/vM1pqA1q0fF2pBBjk2rvFJljG+kBu3oQjNP4vOF0DBa+o3S2Tx09TRnE8c8YxgDJ+BFc8c05J/95cM=
+Received: from MW4PR04CA0378.namprd04.prod.outlook.com (2603:10b6:303:81::23)
+ by DS0PR12MB8218.namprd12.prod.outlook.com (2603:10b6:8:f2::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Sun, 16 Mar
+ 2025 15:36:58 +0000
+Received: from SJ1PEPF000023D2.namprd02.prod.outlook.com
+ (2603:10b6:303:81:cafe::11) by MW4PR04CA0378.outlook.office365.com
+ (2603:10b6:303:81::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.28 via Frontend Transport; Sun,
+ 16 Mar 2025 15:36:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF000023D2.mail.protection.outlook.com (10.167.244.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Sun, 16 Mar 2025 15:36:57 +0000
+Received: from sathish-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Sun, 16 Mar 2025 10:36:55 -0500
+From: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Koenig Christian <Christian.Koenig@amd.com>, Sathishkumar S
+ <sathishkumar.sundararaju@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: update eviction fence driver name
+Date: Sun, 16 Mar 2025 21:06:34 +0530
+Message-ID: <20250316153635.1181513-1-sathishkumar.sundararaju@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-References: <20250310112206.4168-1-spasswolf@web.de>
- <951f9d13-72e4-41c3-9ace-8639e2a9485d@nvidia.com>
- <ce940e2a-632d-41be-9f13-e5b11d49b0db@nvidia.com>
- <09131c563332c892284ec7fb4ce706996131db8c.camel@web.de>
- <9a5df5627d3d72b2a97f501dfb7d944cc1e9920f.camel@web.de>
- <fdea59fe-f570-489f-bf88-1ffd47119cac@nvidia.com>
- <414f4deb8c7670a159854006b0c410ce05a6049e.camel@web.de>
- <12d950ee-4152-4ad6-b93e-7c5b75804b1a@nvidia.com>
- <705e95cec3dc5181ca2aa73722e6b84f63f3e91d.camel@web.de>
- <20b5823e-247a-456a-bb55-d50f212a9f5a@nvidia.com>
- <a34a1ae0b1d226b1bac7d73daa24da8e5899cb3e.camel@web.de>
- <c7bb0bd1-529d-466d-9cce-abbac4b480ab@nvidia.com>
- <146277bb0ecbb392d490683c424b8ae0dfa82838.camel@web.de>
- <b63b1de8-7eec-4235-b61e-e654e78543ba@nvidia.com>
- <fa8d5e76694918bdaae9faee9648776f298f78ca.camel@web.de>
- <7866593f-0322-4fb3-9729-82366940fc85@nvidia.com>
- <a168e78b-ae27-4675-8821-0b1a2499b2b2@nvidia.com>
- <5d34bfc5109b8d104fd4f8550dd17945344f9d07.camel@web.de>
- <551b9797-20d6-4bfe-b54c-84dd7aae7794@nvidia.com>
-In-Reply-To: <551b9797-20d6-4bfe-b54c-84dd7aae7794@nvidia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sat, 15 Mar 2025 13:40:22 -0400
-X-Gm-Features: AQ5f1JqczJSund_yZ9Gc1DJvfi3qHEiMuoBL3Yl78fyXIr_IqcnGk9bdrBiCIdM
-Message-ID: <CADnq5_Pvmxa10dJWYjajwxG-0Y_oxhL6wS6NsG2F0dmcJS6o8A@mail.gmail.com>
-Subject: Re: commit 7ffb791423c7 breaks steam game
-To: Balbir Singh <balbirs@nvidia.com>
-Cc: Bert Karwatzki <spasswolf@web.de>, Ingo Molnar <mingo@kernel.org>,
- Kees Cook <kees@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, 
- Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D2:EE_|DS0PR12MB8218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86c5d047-aae9-439d-b6ae-08dd64a06305
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?a3BOSlFadElrdVc4Y25hZXI3OWFHWW9tWEVROXVTVk82b01zOUVVUkphc1lV?=
+ =?utf-8?B?Rk1pdThyZDB4TXlHZTM4NmdIRFVLN1gwL3FyemFOamQ2Y3l1bk8zSisxYlpj?=
+ =?utf-8?B?alhkNU1PNGRmN2dEUzh4VEtBSXJDTUtpV0d5eUkwek1SdDRHV3l5YmJucTdC?=
+ =?utf-8?B?ekhwMEUwc2NNRWFic1VwOXZRMkVQQ0RMZitwRjVyNzhweHBEd3N1ZERENHV0?=
+ =?utf-8?B?N0w4dlRvdmpIa3Q2eTVQTllsaHd4c2w1Unc4czBFOGRoU2JHT3lPSkFBNTZZ?=
+ =?utf-8?B?V3diWHhBSTJwQjZIdUJvd29XZnBCMGNMU0U5UnFpS2RXempjUlRVVXg1QzFD?=
+ =?utf-8?B?ckVhMnlkamhwcis2eHNaaVlUcmlON0hEMWQ0QTJ0ZkFzTCtaT0hzV1VITmIz?=
+ =?utf-8?B?T3pPd2RrKzI1dTVDTnZtaFk5ZFRLRmJ0S29rT0NIRDQxR1JBa1VGOGJJL3Jw?=
+ =?utf-8?B?Qnd1Qm4zcWdDT3Y5aHp2WkM3Vzg0RlBUZDcrWTdkeGQ3M3Q5Mlh4am8wQ3hO?=
+ =?utf-8?B?NEQ2WTFreWgyZ2xaWkdJOEZWRW1rQ1VSUnJYTmtPc2xHSWliL2RUVTRpci9T?=
+ =?utf-8?B?bkVzdjYwbFBzSnlteXRLNHRpMzh2ekdwUGdPdDlNRm80N0FHZHRpYkQyakpw?=
+ =?utf-8?B?RnNMMXlGbUVrYm4vQWRqellNVkdhTmN5QnVvSFlHSUFJTTlIQ3VNVmJaMEFz?=
+ =?utf-8?B?M0JQbmlmL1p0NzAzM3lkTHBYNE1wb1lkSDlBU2ZkcGZhalFuYU9jM2NoZURh?=
+ =?utf-8?B?MEt4LzJmRG1lWnVuWHZ6L2xjKytCcnd4dGpPckUxMm9lbGwzR2c5bXpaWmVo?=
+ =?utf-8?B?V0dlWmhaTkMvbXY1NkZUN2VTMnd1TURkZ3cwMm1laUphRjE4MWsxbUhhUm5H?=
+ =?utf-8?B?UWx0MXJXNkR2QjlaM3VSK2VPRlgrQ3FZa3VOVGhkQVVrbEFEWjlOdm9VTTF6?=
+ =?utf-8?B?Q2xzTW9nQzd1Y3k4SUMxMFllaWFKR3pwYktzNjFxSjRSTlpCMkxFa2twdlhx?=
+ =?utf-8?B?WC9mYTlDVHJkbDZpNjN6WkhNa0l3NXVxRFViU1pYektMV3hIUE5WUGQ4UnA0?=
+ =?utf-8?B?L2c5U1pPRFBGenFRZ0ppNVpNSTFrdkY4eGN2aVdVM1o1cGp3VEVXS1JEYVNk?=
+ =?utf-8?B?YytNOEs0RnNUeFJZSitGbnZTWkphQ1RMSkV2VVprYnFRTkFiQ1VsYVlKbUsw?=
+ =?utf-8?B?UURma21qOE4vdy83QnhaZXNFMlJOT2VyVENBcHB3T01yU0RHV05sWlRaWFI0?=
+ =?utf-8?B?elFQUnRSaEF2VkdLTXBmK2JZZkU4UVhZRXVzUTFLUTE4eWdOVHQ0S0psU05s?=
+ =?utf-8?B?dmZXbnA4UUZZV0JLK3MzVHBzNk8wK2wvYzVRMVYyc2dKalgvWVVOblo3ZXNy?=
+ =?utf-8?B?SE8yUzFSOC82cnBmalB1ek9rdVFjd2N1RmFUSFhBdUFEZUlpSi9jSkFnU0lz?=
+ =?utf-8?B?NGdGUFYyTVRJS2ZmQjNOdjdzWUZVMmVlUUNHREl3STZBQWZMZXAzOFkramhR?=
+ =?utf-8?B?QWp2aW4ySnZkaWEwSmQyN0pYQUpCOGRVb1NVRm5WQS9pL3NqUjdBNlhEd1VE?=
+ =?utf-8?B?K2tGWWN0Y2tpSDRhMHRKbVdQYU45NWF4OGw2ZU1LQ24rZW1VY2tPQTQrZTJr?=
+ =?utf-8?B?VW04a3FsUEFRVVlZblFNVlBIWTQ1OG15dG1Ja2lNWkZlcTkvUkFxZlM2clMr?=
+ =?utf-8?B?WnljYXYrZTJtekFoQ3VsSDgyQ2RiNmFzcWVjR29LcjVCTlFHWlNOSG9jdFh4?=
+ =?utf-8?B?UTMxYURiTzRWUVNmcFNIcmhuYlEzaHFHbDJlbGJYTGhEd1pJd3QrR2RZclB3?=
+ =?utf-8?B?ekFPeUhJcU9id1NrTiszQU5UTmpRUk9qaHg3Mm5BY0taVFYrdjdIUTZZS0hz?=
+ =?utf-8?B?eXJ0UmJtQ2pRdmpBNnBzZGJra0FkeGV5UDVZajhUeW5UYVd0dnFDN3lwbnEy?=
+ =?utf-8?B?NG1xWm9ZbldqODVKUFFWR0JxV2sxbUZZdkVFellwekluRjVnNTRrby9HTW9v?=
+ =?utf-8?Q?Hk/hmZBewX+RsKhd2gfNTYKLnLT8mk=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2025 15:36:57.4092 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86c5d047-aae9-439d-b6ae-08dd64a06305
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,148 +139,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 14, 2025 at 8:42=E2=80=AFPM Balbir Singh <balbirs@nvidia.com> w=
-rote:
->
-> On 3/15/25 01:18, Bert Karwatzki wrote:
-> > Am Samstag, dem 15.03.2025 um 00:34 +1100 schrieb Balbir Singh:
-> >> On 3/14/25 17:14, Balbir Singh wrote:
-> >>> On 3/14/25 09:22, Bert Karwatzki wrote:
-> >>>> Am Freitag, dem 14.03.2025 um 08:54 +1100 schrieb Balbir Singh:
-> >>>>> On 3/14/25 05:12, Bert Karwatzki wrote:
-> >>>>>> Am Donnerstag, dem 13.03.2025 um 22:47 +1100 schrieb Balbir Singh:
-> >>>>>>>
-> >>>>>>>
-> >>>>>>> Anyway, I think the nokaslr result is interesting, it seems like =
-with nokaslr
-> >>>>>>> even the older kernels have problems with the game
-> >>>>>>>
-> >>>>>>> Could you confirm if with nokaslr
-> >>>>>>>
-> >>>>>> Now I've tested kernel 6.8.12 with nokaslr
-> >>>>>>
-> >>>>>>> 1. Only one single game stellaris is not working?
-> >>>>>>> 2. The entire laptop does not work?
-> >>>>>>> 3. Laptop works and other games work? Just one game is not workin=
-g as
-> >>>>>> expected?
-> >>>>>>
-> >>>>>>
-> >>>>>> Stellaris is showing the input lag and the entire graphical user i=
-nterface shows
-> >>>>>> the same input lag as long as stellaris is running.
-> >>>>>> Civilization 6 shows the same input lag as stellaris, probably eve=
-n worse.
-> >>>>>> Magic the Gathering: Arena (with wine) works normally.
-> >>>>>> Valheim also works normally.
-> >>>>>> Crusader Kings 2 works normally
-> >>>>>> Rogue Heroes: Ruins of Tasos (a Zelda lookalike) works normally.
-> >>>>>> Baldur's Gate I & II and Icewind Dale work normally.
-> >>>>>>
-> >>>>>> Also the input lag is only in the GUI, if I switch to a text conso=
-le (ctrl + alt
-> >>>>>> + Fn), input works normally even while the affected games are runn=
-ing.
-> >>>>>>
-> >>>>>> Games aside everything else (e.g. compiling kernels) seems to work=
- with nokaslr.
-> >>>>>>
-> >>>>>
-> >>>>> Would it be fair to assume that anything Xorg/Wayland is working fi=
-ne
-> >>>>> when the game is not running, even with nokaslr?
-> >>>>>
-> >>>> Yes, Xorg (I'm normally using xfce4 as desktop) works fine. I also t=
-ested with
-> >>>> gnome using Xwayland, here the buggy behaviour also exists, with the=
- addtion
-> >>>> that mouse position is off, i.e. to click a button in the game you h=
-ave to click
-> >>>> somewhat above it.
-> >>>
-> >>> So the issue is narrowed down to just the games you've mentioned with=
- nokaslr/patch?
-> >>>
-> >>>>
-> >>>>> +amd-gfx@lists.freedesktop.org to see if there are known issues wit=
-h
-> >>>>> nokaslr and the games you mentioned.
-> >>>>>
-> >>>>>
-> >>>>> Balbir Singh
-> >>>>>
-> >>>>> PS: I came across an interesting link
-> >>>>> https://www.alex-ionescu.com/behind-windows-x64s-44-bit-memory-addr=
-essing-limit/
-> >>>>>
-> >>>>> I think SLIST_HEADER is used by wine as well for user space and I a=
-m not sure
-> >>>>> if in this situation the game is hitting this scenario, but surpris=
-ingly the other
-> >>>>> games are not. This is assuming the game uses wine. I am not sure i=
-t's related,
-> >>>>> but the 44 bits caught my attention.
-> >>>>
-> >>>> Stellaris is a native linux game (x86_64), the one game (MTGA) I tes=
-ted with
-> >>>> wine worked fine.
-> >>>>
-> >>>
-> >>> Thanks for the update! I wonder if there are any game logs. If you ca=
-n look for any
-> >>> warnings/errors it might be interesting to see where the difference i=
-s coming from?
-> >>>
-> >>
-> >> In addition to the above, does radeontop give you any info about what =
-might be
-> >> going on? I am also curious if
-> >
-> > This got me to test stellaris and Civ6 using the discrete Graphics card=
-:
-> > 03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi=
- 23
-> > [Radeon RX 6600/6600 XT/6600M] (rev c3)
-> >  (with DRI_PRIME=3D1) and here the problems do not occur.
-> >
-> > This is the CPU-builtin GPU, which I normally use to play stellaris as =
-graphics
-> > aren't very demanding, here the problems occur when using nokaslr
-> > 08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/AT=
-I]
-> > Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] (rev c5)
-> >
->
-> Aaah.. this is strange, because the only movement in iomem was for the di=
-screte GPU
->
-> From your eariler message
->
->  fee00000-fee00fff : pnp 00:04
->  ff000000-ffffffff : pnp 00:04
->  100000000-fee2fffff : System RAM
-> -  3a7e00000-3a89d2f56 : Kernel code
-> -  3a8a00000-3a8e31fff : Kernel rodata
-> -  3a9000000-3a912a5ff : Kernel data
-> -  3a969c000-3a97fffff : Kernel bss
-> +  d32200000-d32dd0f56 : Kernel code
-> +  d32e00000-d33231fff : Kernel rodata
-> +  d33400000-d3352a5ff : Kernel data
-> +  d33a9c000-d33bfffff : Kernel bss
->  fee300000-100fffffff : Reserved
->  1010000000-ffffffffff : PCI Bus 0000:00
->    fc00000000-fe0fffffff : PCI Bus 0000:01
-> @@ -104,4 +104,4 @@
->        fe30300000-fe303fffff : 0000:04:00.0
->      fe30400000-fe30403fff : 0000:04:00.0
->      fe30404000-fe30404fff : 0000:04:00.0
-> -3ffe00000000-3fffffffffff : 0000:03:00.0
-> +afe00000000-affffffffff : 0000:03:00.0
->
-> I am hoping someone from amd-gfx to chime in with known issues of the dri=
-ver
-> and nokaslr or help debug further.
+update the eviction fence driver name to amdgpu_eviction_fence
 
-I'm not aware of any problems with nokalr off hand with AMD GPUs.
+Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+index 167951aee502..5142c477fd5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+@@ -31,7 +31,7 @@
+ static const char *
+ amdgpu_eviction_fence_get_driver_name(struct dma_fence *fence)
+ {
+-	return "amdgpu";
++	return "amdgpu_eviction_fence";
+ }
+ 
+ static const char *
+-- 
+2.48.1
+
