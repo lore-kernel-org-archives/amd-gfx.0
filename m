@@ -4,69 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77254C282EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 14:59:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61EB3C282EC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 15:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A3CF10E422;
-	Mon, 17 Mar 2025 14:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFC510E06D;
+	Mon, 17 Mar 2025 15:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NLUybJ40";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Q128LnPt";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3E2B10E422
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 14:59:05 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-2ff7cf59a8fso688105a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 07:59:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742223545; x=1742828345; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1I+uIF3LUbAkhpkojUihyHPTVXsRHFQeQYHH3Lw/ViY=;
- b=NLUybJ40EDK/g/BZqq8wx7zj3UE8e4AG9ZSYQWuP3eEVdm35xIv4N5s2QeXGDyXWPg
- cXbbwYr3jXrlS3KD8g25jmeoSLytXimkpZn7nePuO5/5cTcG9PaOAb0ilnN2gAe02nFg
- 3/Ld/PQfnpCGfHENfOKYV1dLFRIHSh0193c68VuwCOAygihY1GPv1DDa5JgvJxj7KKfK
- 6I10bd5Ba1SLC7HItRfr9CmXHnKc4UYa1WnmBcF2wlyOytBjhCu0G46ux9zwx0DzzpJZ
- 3lEk9jlhv9G6k3ZqsTmelpxZK97USP9Njjwb4c+M+LqWj0jq3oO/a5Y03mUUpsHRtxZ8
- aoWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742223545; x=1742828345;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1I+uIF3LUbAkhpkojUihyHPTVXsRHFQeQYHH3Lw/ViY=;
- b=kdS6qlXbe/gfynadT0YEXp4NEO3AmGOs2LKWVrkRimLENuVZtEc/a4A0Ng/EBS5eau
- fXv5RoVki0xT8AjL1vpuppzqnSscKLZX1Sd7310KSUSuhjsSQTQXgxIExIQCck7dOYiw
- o0Lgk7vtCiTaeH6NlCePNCR9ypE/Z+QIU4SKt06fh5bbegwhfbSSlaMc7neJeQOF8yoA
- s53fLs5RebHHnHj2CtQa9U/Q6QrGr95w4+JMVwQ9vfaT/EFmVAyuz6SLN1+DC/tq521b
- fPCUaIoDQYW+P4MEuyRyTHo/bNpjWuab9Qlot3t8PHZ8dgkyniw5wJGwH035RWSD8x3l
- sEuA==
-X-Gm-Message-State: AOJu0Yw7YLpVdkYc4j4KedTXy6wwiDdWKDRSm38yOGtmAS3K89bEz1cK
- ibkbt6rFDG1J/HGJJnWyEbZer7XB3GnAYtJV2gJwj9OY5YD2NwzWZgbWPThuX5UXh9fVOcItxfi
- aj/aEYe35jZsI432TdTnugfutiTFdPA==
-X-Gm-Gg: ASbGncuOv4yGxZcvK4s9L5uZ+DhdVCSTl4oP0fJcQtNBb8Ka2GMxba+QFZBana4uQAg
- T7CrZAN18Qfl6dfNdIANLzq/UzNlQZQk76nbY05MU2PFPuRbB6HanQM4iVuTaRF/kAIn0ohQiZn
- o+kP78MHO8a1BlDBDrB9KB8Bas0g==
-X-Google-Smtp-Source: AGHT+IEIDpN+NgqPzMb878FcawHTRcbaF96SCmzmzIwgwKqZeZ/E42StDA4FF1vcuKofGwkq1WznoA4J3HGi6LmNDM0=
-X-Received: by 2002:a17:90b:2250:b0:2ff:4e90:3c47 with SMTP id
- 98e67ed59e1d1-30151d693camr6024771a91.4.1742223545361; Mon, 17 Mar 2025
- 07:59:05 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28D2510E06D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 15:04:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kqzl46Kek25vtsFgoWOc3NKwGvL6szL8DXEiA9LCvkcjrsBUPPDwEgCUQlH3gz7fkLc9R6ZWczudoFHf55RVdDWahLTkxFBTJrTfT0D7Cvs1VnKqVOoYvQEfxf85NTH6KAxziTdjViSpr1j5/hgQK56EOA0CdRuUCA6AL1/5oQdHehIzipugJiCkPPimxHIG4o74Y6kv6W7wf5j7CZO+255ozENHYYCM/WKdJhE4uxHSWyi9tGgS8moMKJ/h89QbfQMCiYKDMS/thjucV2tZaWfYmNzLPMxtEaAxOeZY3DFCVk67miOdNnqzF0J6iGHou1jKCw20eiajxawespkC4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1+BV3d4RMlpecVKrE3l3i9uNYL7zrwjWrA3E2jsOM3o=;
+ b=y3K+ODCu1i3eh0O7PoupxmUE08AmuSIDgrDnf331rfF3JeFIl9MSKa8n/P+O8LOnaCzSvAuLHGYNMusjbZse8J7Pa6t+nuxUbeNZClTe2HVrf4FgTpt7UKeZXMY/Up2kNPrKklh4LlpasqWO3ZJ109H0SLRl26AKlSQvjXTjLHO4xXAvwq8j1CH9TEdwwwt5WLmZz2ona6bLlcg9UbiHDRhGqTY4/lFNn+W83tKnDjHLr/cU9moXmfpDRxqPPbVukqhN3ag05pjWtHhtSk6J4YRprQXcH21/hH0MePA4I2PCGeGdPvJkOjBVursLFPTBoGZLStUR0eJwhrR6KIz/BA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1+BV3d4RMlpecVKrE3l3i9uNYL7zrwjWrA3E2jsOM3o=;
+ b=Q128LnPtdbIj+GqNgStvIMkScw2s5x0CXclTl/CN4fZJTZI70VTye5LACxuwRJ2ZUFPtYgzlARW0ZeR4l7KqF2kOxlMZvqGBHyA5ex7uQW4kknbGnTC2OeJY0CoCZrKFmMsYMV/rREbJYGLZWI74HukAuoC22vfFv1UUsdesiGs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ DS0PR12MB7802.namprd12.prod.outlook.com (2603:10b6:8:145::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8534.33; Mon, 17 Mar 2025 15:04:21 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8534.031; Mon, 17 Mar 2025
+ 15:04:21 +0000
+Message-ID: <aa63cf3e-8e27-4f0e-8ffa-52df9f8f2526@amd.com>
+Date: Mon, 17 Mar 2025 20:34:14 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Skip pcie_replay_count sysfs creation for VF
+To: Victor Skvortsov <victor.skvortsov@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250317134555.179491-1-victor.skvortsov@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20250317134555.179491-1-victor.skvortsov@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR02CA0015.apcprd02.prod.outlook.com
+ (2603:1096:4:194::16) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
-References: <20250317060702.5297-1-alexandre.f.demers@gmail.com>
- <20250317060702.5297-4-alexandre.f.demers@gmail.com>
-In-Reply-To: <20250317060702.5297-4-alexandre.f.demers@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Mar 2025 10:58:53 -0400
-X-Gm-Features: AQ5f1JrIBn7FU1dvvFhhS0zdrs0_7W8aZU1HyB3ZO2XxqGZwzKej6pkGux2Ofj4
-Message-ID: <CADnq5_OHUgk_ABFa=mjWy2-qK1+nvQf_PCqwDO-js4KauxqR1A@mail.gmail.com>
-Subject: Re: [PATCH 03/18] drm/amdgpu: use proper defines, shifts and masks in
- DCE6 code
-To: Alexandre Demers <alexandre.f.demers@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|DS0PR12MB7802:EE_
+X-MS-Office365-Filtering-Correlation-Id: d76d7302-f464-459d-3b80-08dd6564fee5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?M3dGdUJGN3c4L25FTUJYQVVrRHM3L0NtN2hrSEt1RG1INVlFckpQR1l3T3Ju?=
+ =?utf-8?B?VHNDcnNDb0gxbERXeEtFditRc3lMSzZERCtTYllnME44bzFWUUNoQ0VrVGgw?=
+ =?utf-8?B?bkJvVWx5YktmMVduQ294ZktrWmpYMXFrN1EyaHJhNmhHWTZzdlZxdDhZdW00?=
+ =?utf-8?B?M0dKL2dza2VqbzRGemZ5WDR3QitjZnFYNGEvUzNpZnNYajV1Wm5raFFuQkRX?=
+ =?utf-8?B?Y1Ewdm10SGxjeUo5TGJKWE1iL0plb0RCRnFWYmlNbXJ2ZlNPZ1ZRck52TW1y?=
+ =?utf-8?B?a1h6VEFORFA3OXdueW9MTGNDWUhKdWt6dUl3YVNlWnhxNW8yK3R0OFlyK3pY?=
+ =?utf-8?B?c3huc0E4SlUwSjV0eWJlSDh0WVRFKzFPdUYrak1ESUhkVzhlWUZrUnkvbHNC?=
+ =?utf-8?B?R1djS3RERDN6Yk1vcmZCVnBkMzdHeHdhcG53L3A2YTRUdG4wLytnVy9LdFN1?=
+ =?utf-8?B?UFBkYXRKRTczQ0R3dzRIOWxKdE5ZV3NHZzVCV2tlZUZUdHJ1d0I1SHRtUU5q?=
+ =?utf-8?B?eHdNTFJHeS9kcEdlLzlIMHpLdm10MkVtb1M4RlRiUHhwMVRXS1NOS25INDM1?=
+ =?utf-8?B?WUFsWTZWL3E5MWxVRHBOMmpybWxNZ2FJQUxoUFZQei9vSERnM1pCcFhGY3dU?=
+ =?utf-8?B?QTZ4Smw0eEFWS0dRL1V4eWkwQjRzWVVWWXZQanVQT0xQVGVrcURHRCsvWGJF?=
+ =?utf-8?B?emtNQnRhdU5HTzVPL1RPYnpUZGtZbzBYNFBVMDZTYk8wVW4zWEw1ZW1iYUxa?=
+ =?utf-8?B?OERrd2p2cjhySlVmR1A3RFRjK3d4eW5iTjBKdTY3RkwrNHFZSDFoR2ZRa2pI?=
+ =?utf-8?B?dkFmY21SWGFVR2g4NGlEdGlleEhHOXRsOVg0dHFjRFVoMjg3bDNXZTg1aWFl?=
+ =?utf-8?B?MEN2L0owNnZ1QTJKdlZYSiszMU9HM2pTdHZpYkd3eS9tbzN0ZEhwUFVBK2U5?=
+ =?utf-8?B?eFFReGNIQ0VvYyt6VnlwOHE2cDJ2cFdPM1EzOXdUMm1MOVlEaDhEdmFkOVF0?=
+ =?utf-8?B?bmhnVU1oK09zM21SWmgwSlVMVzVQYi9OSjZFeVZGT0E5bTJieVYyakt6Uncr?=
+ =?utf-8?B?YXVMNTlnaFBTajZ4NkRTNkc1K2RoOTFkT1R2c3hVUTZQWmVTTk1STFE5NlZC?=
+ =?utf-8?B?aTJyUytoUkNBWkJQdC9BRUVTaHExT2xudGZjUDg1OVUxRFhLK3RZMFlFVWZ4?=
+ =?utf-8?B?YncwK3gyZmpMWERHWWhUQnZ2ZHNjNVdoREJpQTMxU3NtYWl0L25jbXF1QzhQ?=
+ =?utf-8?B?c1Vmb2ZCalYvVEU1UUhNYmlnemQvellPQzFaUUhHdkdSeGhrMDhyamFoRXNS?=
+ =?utf-8?B?bFZVRXkwcmJ5TkFuejJYanpEblJwenRVYWMxbHgyQ2JwL3FaWGJvcU5ncm55?=
+ =?utf-8?B?STF0Y012R3ZoWWtGV0xLMHVScHlid1NNemFiU2cvcWk4dmFHQmlrc2UzQ1Iz?=
+ =?utf-8?B?cnF4Yzdra2hteFBuU21hRWpWVklvQ3N6bmN5cHlDMFJSMU1pUVNQVURiZ2NZ?=
+ =?utf-8?B?WGRMSUZCeHBjQ0FGdENqb3hMM0FXc0hGK0swOG1reG9HTE1WMVBaM3creWRw?=
+ =?utf-8?B?Sm1UVGtQUnN3SUt0MlpXV1Y2RXdYd0UwQitYL1ZKT2ZJakZwTEZhamI5eWNz?=
+ =?utf-8?B?MXdtMWJ3cWYzalNJdlBqYmpHT0RZNzV3Q0toVXlzM29Hd0xULzFnRE1WcDE1?=
+ =?utf-8?B?YlJOOW8rMjA4em1yTWE1YjdFNWlTTG02RXI3bk44THVhbXJIaFE1M1FCVUk5?=
+ =?utf-8?B?S09NZmREb0kvZ3pCY3dXU2k1QnpVNllESXRrVndwUWpFdlc0TUpLL3hzcFFq?=
+ =?utf-8?B?NUFCSW5FTWdFc3hzUEdWa1BrT2FuNFRLZUJnVlkwditSOU1ZNStRTmZid0po?=
+ =?utf-8?Q?j9ep+E2giCrdF?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L3pVamVyWW5OeFA2MzBLQVNpeVN1dFZrWDVZUmV2em94amFQeTdhc2d1WkFh?=
+ =?utf-8?B?bVhWbytmZTJXK09LVERjWlBvcHExdEVzSTFvOE00ZTB3T0ZES2xncXJsTFhv?=
+ =?utf-8?B?dlFTdWJqaHB2QzAxVVNpQTZ6L2ZjeS9qYThCNmJhQkIyTVlNVW40bFFkdGl2?=
+ =?utf-8?B?UFdDUnVLUkkwb1JkenJvU21adGF1OTZQUm92YVRxM2I1bExEcG96R1I4L24r?=
+ =?utf-8?B?YlUxaGR1VEtvU0R6Y1cvR0FHOHY4cmg1Zi9mWHpMenorNDBEKzIvak16K1kw?=
+ =?utf-8?B?WVRSYUpnZUJJdXRWd0tFelJPQk13bE5WNTBvR2ZwOWpZQVpBVVlRTXNqdlRz?=
+ =?utf-8?B?YlpMUjVGS056RTFldEY5RDkyNVMvOVBJRHR4UGlkNjIwWjEvVDJ1MjZJaFFn?=
+ =?utf-8?B?OHVOQXhmd25hN1NiUWcrNmdqNG1sUXNKSEhlUmh5dUJTQ1QwREo5a3crVHI5?=
+ =?utf-8?B?eC9MUEpoWDB6K2xSemZGT2RSVGFOSmpybXB1dDVLV1EwRUNWVDhsMWoxelhj?=
+ =?utf-8?B?cldTR0tGdys0azFpNHJWTDNTM1VVRUlJL0V2TjRnVXdGRytwVW4xOUt2OVFw?=
+ =?utf-8?B?K1ZWTlMyRzk5OFp2V2J5OHNOc1B6SFQwYTJQQXZDV3JuZFlENTJuMUJvWFpt?=
+ =?utf-8?B?RkUrNzQya05KWFJWOTljTktobC9RNURFSzFmQWxHaHZsc1g1eXhVTFFvTUdm?=
+ =?utf-8?B?eldrK2p3c3I3K1pwYk8wMHJ6eUhkaVRzNVF4bXBLM3NZdENxaUdJMnRoMU5Z?=
+ =?utf-8?B?YjgyRUtZR0hrUHc3WjFsVHV3QTdOYk9rVnUyamdnZVREbVlJVU9YVE5IY3RK?=
+ =?utf-8?B?ZFRlcDVIelV6eEJ3SWRBUVIrN1VZd3FOM3kzWGNsRUs0VUZUUUVneXg5Uzl1?=
+ =?utf-8?B?cDE0R0wwRlpGYk5waUdDdkZlRXpoUm9Qd014dVFIYzJuL29SUzFkYXk3Z3NH?=
+ =?utf-8?B?NTZBS2s3dXJYOHZWVDdrYVB4UEpmNDVhTTRwbnVKK1ZyREhWb2l1Y2pMc3A2?=
+ =?utf-8?B?N3o2OC9KNDZKdkFNNysyb084dHgrTG52M0JDUzBOMVkxdmpmbG5rSmRLcnY5?=
+ =?utf-8?B?ZTB3c2pzSDBDNmhrS3hoaG80ZEpoWHdYUjZsUzNGNjFBVnF1MzlCNlo5Z0JX?=
+ =?utf-8?B?Y2ZNbEk2aWFOWFo4Vk8xTnlSSENZOWx1Y3N2ajRrM01PZEhBZHNGWWFLWGFz?=
+ =?utf-8?B?MThjVzNaL0tDWUFQTE9Fa0tEOWNOYnhwUitGanFrVS8zSzBPWHZDZDF5YjA0?=
+ =?utf-8?B?L1J4TEVWTm16UjA0bzV2aFNMSlpHUnBzL282RFhvVk9mZmpUa2o5eDNHN0xS?=
+ =?utf-8?B?YlpUNUpqSGdKazVVVWZ0Qmg0L2tDZEw4WUhnZ2JJZTNibVhUWUI2N05WU1dm?=
+ =?utf-8?B?WWQ4NWcrRGdzTXpPUHh6RDRZdHdXS3MyOEVBSkREa0dsdVBhQytSb2l3clFM?=
+ =?utf-8?B?QnlUUlgrSEdKUmEwZkVQTnQ5KzNxaWhmb3VCWFhDbm8zMHFqSHYrK2lyVzNE?=
+ =?utf-8?B?cXNYbjlMd2ZRb1JDbWltZnFUaXA4NkRCLy9IMDc3eW9na21YdWlwSis0ajRn?=
+ =?utf-8?B?VGFQQXRsUWg2NDBzcE1pLytXVDRla0xYVE5JS0ZqQlA0WlAreEF5Y3NmZGkx?=
+ =?utf-8?B?OEk0K2d1Z3VqNWU1Ri9iTG1INEVnSFc5V0RnK3RnYkh6MUZUYW1tZE1USzYx?=
+ =?utf-8?B?N1Z6bkQxWjhBNDVSd2tqa25TNUg4dEM5NEpnalR4SXFRMkEya2hIY1Y4Smpm?=
+ =?utf-8?B?QXUzU1VRL0ZJZGNwYmFFSW16ZzhETTZKck9pVFpCVThUYU52VWtXVTVTVHA0?=
+ =?utf-8?B?VTZSU0JUN0tmazNaZzBucFRRM2h1WTdaMTBRNUhMNTZLMGxSY241VzQwYnlE?=
+ =?utf-8?B?ZGJoSW9ST1BDOHRrdGNuY2twcGxYMU1jR09lK2hTbVZwSGdjS2R5QTJJcTE4?=
+ =?utf-8?B?dDJpMHhoQVM4S0ZZU0hBWE9zRTlWL0RPVTBDK3JNejMyVUdtc3F6dEw4MURY?=
+ =?utf-8?B?L0pmVjRzRUFVUStqTmRrTndwVnVHajZnVGtrUTNaUmxDd3JzTExYeCtFYUhh?=
+ =?utf-8?B?am5tYTg4Q280b3JTZ05SYkJjQ2o3bHM5WEZYYkVQQWNyTEJEVWU4OHZSZE9j?=
+ =?utf-8?Q?opHiG/sgGToyeKj4Mf08sOFnE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d76d7302-f464-459d-3b80-08dd6564fee5
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 15:04:21.1196 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5gT1K7DdQIAl3AIV5OkaMazFTn5gNpsUkoI3Gvi7iY3bm9B0J21WaCqhz2d6DQav
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7802
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,239 +158,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 17, 2025 at 2:08=E2=80=AFAM Alexandre Demers
-<alexandre.f.demers@gmail.com> wrote:
->
-> By replacing VGA_VSTATUS_CNTL by VGA_RENDER_CONTROL__VGA_VSTATUS_CNTL_MAS=
-K,
-> we also need to fix its usage in GMC6.
->
-> Note: VGA_VSTATUS_CNTL's binary value was inverted in dce_6_0_sh_mask.h,
-> so we need to invert its value where it was used.
->
-> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+
+
+On 3/17/2025 7:15 PM, Victor Skvortsov wrote:
+> VFs cannot read the NAK_COUNTER register. This information is only
+> available through PMFW metrics.
+> 
+> Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+
+Thanks,
+Lijo
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 18 ++++++++---------
->  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  2 +-
->  drivers/gpu/drm/amd/amdgpu/si_enums.h         |  5 -----
->  drivers/gpu/drm/amd/amdgpu/sid.h              | 20 -------------------
->  .../include/asic_reg/dce/dce_6_0_sh_mask.h    |  4 +++-
->  5 files changed, 13 insertions(+), 36 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index e1b0779e835f..a9a087a841ea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -383,7 +383,7 @@ static void dce_v6_0_set_vga_render_state(struct amdg=
-pu_device *adev,
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 27 ++++++++++++++++------
+>  1 file changed, 20 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 7ca2ebdd3c95..86236cfad38c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -227,6 +227,24 @@ static ssize_t amdgpu_device_get_pcie_replay_count(struct device *dev,
+>  static DEVICE_ATTR(pcie_replay_count, 0444,
+>  		amdgpu_device_get_pcie_replay_count, NULL);
+>  
+> +static int amdgpu_device_attr_sysfs_init(struct amdgpu_device *adev)
+> +{
+> +	int ret = 0;
+> +
+> +	if (!amdgpu_sriov_vf(adev))
+> +		ret = sysfs_create_file(&adev->dev->kobj,
+> +					&dev_attr_pcie_replay_count.attr);
+> +
+> +	return ret;
+> +}
+> +
+> +static void amdgpu_device_attr_sysfs_fini(struct amdgpu_device *adev)
+> +{
+> +	if (!amdgpu_sriov_vf(adev))
+> +		sysfs_remove_file(&adev->dev->kobj,
+> +				  &dev_attr_pcie_replay_count.attr);
+> +}
+> +
+>  static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject *kobj,
+>  					  struct bin_attribute *attr, char *buf,
+>  					  loff_t ppos, size_t count)
+> @@ -4166,11 +4184,6 @@ static bool amdgpu_device_check_iommu_remap(struct amdgpu_device *adev)
+>  }
+>  #endif
+>  
+> -static const struct attribute *amdgpu_dev_attributes[] = {
+> -	&dev_attr_pcie_replay_count.attr,
+> -	NULL
+> -};
+> -
+>  static void amdgpu_device_set_mcbp(struct amdgpu_device *adev)
 >  {
->         if (!render)
->                 WREG32(mmVGA_RENDER_CONTROL,
-> -                       RREG32(mmVGA_RENDER_CONTROL) & VGA_VSTATUS_CNTL);
-> +                       RREG32(mmVGA_RENDER_CONTROL) & ~VGA_RENDER_CONTRO=
-L__VGA_VSTATUS_CNTL_MASK);
->
->  }
->
-> @@ -2078,7 +2078,7 @@ static void dce_v6_0_set_interleave(struct drm_crtc=
- *crtc,
->
->         if (mode->flags & DRM_MODE_FLAG_INTERLACE)
->                 WREG32(mmDATA_FORMAT + amdgpu_crtc->crtc_offset,
-> -                      INTERLEAVE_EN);
-> +                       DATA_FORMAT__INTERLEAVE_EN_MASK);
->         else
->                 WREG32(mmDATA_FORMAT + amdgpu_crtc->crtc_offset, 0);
->  }
-> @@ -2132,7 +2132,7 @@ static void dce_v6_0_crtc_load_lut(struct drm_crtc =
-*crtc)
->         WREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset,
->                ((0 << DEGAMMA_CONTROL__GRPH_DEGAMMA_MODE__SHIFT) |
->                 (0 << DEGAMMA_CONTROL__OVL_DEGAMMA_MODE__SHIFT) |
-> -               ICON_DEGAMMA_MODE(0) |
-> +               (0 << DEGAMMA_CONTROL__ICON_DEGAMMA_MODE__SHIFT) |
->                 (0 << DEGAMMA_CONTROL__CURSOR_DEGAMMA_MODE__SHIFT)));
->         WREG32(mmGAMUT_REMAP_CONTROL + amdgpu_crtc->crtc_offset,
->                ((0 << GAMUT_REMAP_CONTROL__GRPH_GAMUT_REMAP_MODE__SHIFT) =
-|
-> @@ -2908,12 +2908,12 @@ static void dce_v6_0_set_crtc_vblank_interrupt_st=
-ate(struct amdgpu_device *adev,
->         switch (state) {
->         case AMDGPU_IRQ_STATE_DISABLE:
->                 interrupt_mask =3D RREG32(mmINT_MASK + reg_block);
-> -               interrupt_mask &=3D ~VBLANK_INT_MASK;
-> +               interrupt_mask &=3D ~INT_MASK__VBLANK_INT_MASK;
->                 WREG32(mmINT_MASK + reg_block, interrupt_mask);
->                 break;
->         case AMDGPU_IRQ_STATE_ENABLE:
->                 interrupt_mask =3D RREG32(mmINT_MASK + reg_block);
-> -               interrupt_mask |=3D VBLANK_INT_MASK;
-> +               interrupt_mask |=3D INT_MASK__VBLANK_INT_MASK;
->                 WREG32(mmINT_MASK + reg_block, interrupt_mask);
->                 break;
->         default:
-> @@ -2943,12 +2943,12 @@ static int dce_v6_0_set_hpd_interrupt_state(struc=
-t amdgpu_device *adev,
->         switch (state) {
->         case AMDGPU_IRQ_STATE_DISABLE:
->                 dc_hpd_int_cntl =3D RREG32(mmDC_HPD1_INT_CONTROL + hpd_of=
-fsets[type]);
-> -               dc_hpd_int_cntl &=3D ~DC_HPDx_INT_EN;
-> +               dc_hpd_int_cntl &=3D ~DC_HPD1_INT_CONTROL__DC_HPD1_INT_EN=
-_MASK;
->                 WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[type], dc_hpd_=
-int_cntl);
->                 break;
->         case AMDGPU_IRQ_STATE_ENABLE:
->                 dc_hpd_int_cntl =3D RREG32(mmDC_HPD1_INT_CONTROL + hpd_of=
-fsets[type]);
-> -               dc_hpd_int_cntl |=3D DC_HPDx_INT_EN;
-> +               dc_hpd_int_cntl |=3D DC_HPD1_INT_CONTROL__DC_HPD1_INT_EN_=
-MASK;
->                 WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[type], dc_hpd_=
-int_cntl);
->                 break;
->         default:
-> @@ -3018,7 +3018,7 @@ static int dce_v6_0_crtc_irq(struct amdgpu_device *=
-adev,
->         switch (entry->src_data[0]) {
->         case 0: /* vblank */
->                 if (disp_int & interrupt_status_offsets[crtc].vblank)
-> -                       WREG32(mmVBLANK_STATUS + crtc_offsets[crtc], VBLA=
-NK_ACK);
-> +                       WREG32(mmVBLANK_STATUS + crtc_offsets[crtc], VBLA=
-NK_STATUS__VBLANK_ACK_MASK);
->                 else
->                         DRM_DEBUG("IH: IH event w/o asserted irq bit?\n")=
-;
->
-> @@ -3029,7 +3029,7 @@ static int dce_v6_0_crtc_irq(struct amdgpu_device *=
-adev,
->                 break;
->         case 1: /* vline */
->                 if (disp_int & interrupt_status_offsets[crtc].vline)
-> -                       WREG32(mmVLINE_STATUS + crtc_offsets[crtc], VLINE=
-_ACK);
-> +                       WREG32(mmVLINE_STATUS + crtc_offsets[crtc], VLINE=
-_STATUS__VLINE_ACK_MASK);
->                 else
->                         DRM_DEBUG("IH: IH event w/o asserted irq bit?\n")=
-;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v6_0.c
-> index ca000b3d1afc..2942fe8f80ec 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -248,7 +248,7 @@ static void gmc_v6_0_mc_program(struct amdgpu_device =
-*adev)
->
->                 /* disable VGA render */
->                 tmp =3D RREG32(mmVGA_RENDER_CONTROL);
-> -               tmp &=3D ~VGA_VSTATUS_CNTL;
-> +               tmp &=3D VGA_RENDER_CONTROL__VGA_VSTATUS_CNTL_MASK;
->                 WREG32(mmVGA_RENDER_CONTROL, tmp);
->         }
->         /* Update configuration */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_enums.h b/drivers/gpu/drm/amd/=
-amdgpu/si_enums.h
-> index b44a32bacd5c..f6804c9b7a27 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_enums.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_enums.h
-> @@ -23,23 +23,18 @@
->  #ifndef SI_ENUMS_H
->  #define SI_ENUMS_H
->
-> -#define VBLANK_INT_MASK                (1 << 0)
-> -#define DC_HPDx_INT_EN                 (1 << 16)
->  #define VBLANK_ACK                     (1 << 4)
->  #define VLINE_ACK                      (1 << 4)
->
->  #define CURSOR_WIDTH 64
->  #define CURSOR_HEIGHT 64
->
-> -#define VGA_VSTATUS_CNTL               0xFFFCFFFF
->  #define PRIORITY_MARK_MASK             0x7fff
->  #define PRIORITY_OFF                   (1 << 16)
->  #define PRIORITY_ALWAYS_ON             (1 << 20)
-> -#define INTERLEAVE_EN                  (1 << 0)
->
->  #define LATENCY_WATERMARK_MASK(x)      ((x) << 16)
->  #define DC_LB_MEMORY_CONFIG(x)         ((x) << 20)
-> -#define ICON_DEGAMMA_MODE(x)           (((x) & 0x3) << 8)
->
->  #define GRPH_ENDIAN_SWAP(x)            (((x) & 0x3) << 0)
->  #define GRPH_ENDIAN_NONE               0
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgp=
-u/sid.h
-> index cbf232f5235b..00eb40d4c1a2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sid.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
-> @@ -787,26 +787,6 @@
->  #       define LATENCY_LOW_WATERMARK(x)                                (=
-(x) << 0)
->  #       define LATENCY_HIGH_WATERMARK(x)                       ((x) << 1=
-6)
->
-> -/* 0x6bb8, 0x77b8, 0x103b8, 0x10fb8, 0x11bb8, 0x127b8 */
-> -#define VLINE_STATUS                                    0x1AEE
-> -#       define VLINE_OCCURRED                           (1 << 0)
-> -#       define VLINE_ACK                                (1 << 4)
-> -#       define VLINE_STAT                               (1 << 12)
-> -#       define VLINE_INTERRUPT                          (1 << 16)
-> -#       define VLINE_INTERRUPT_TYPE                     (1 << 17)
-> -/* 0x6bbc, 0x77bc, 0x103bc, 0x10fbc, 0x11bbc, 0x127bc */
-> -#define VBLANK_STATUS                                   0x1AEF
-> -#       define VBLANK_OCCURRED                          (1 << 0)
-> -#       define VBLANK_ACK                               (1 << 4)
-> -#       define VBLANK_STAT                              (1 << 12)
-> -#       define VBLANK_INTERRUPT                         (1 << 16)
-> -#       define VBLANK_INTERRUPT_TYPE                    (1 << 17)
-> -
-> -/* 0x6b40, 0x7740, 0x10340, 0x10f40, 0x11b40, 0x12740 */
-> -#define INT_MASK                                        0x1AD0
-> -#       define VBLANK_INT_MASK                          (1 << 0)
-> -#       define VLINE_INT_MASK                           (1 << 4)
-> -
->  #define DISP_INTERRUPT_STATUS                           0x183D
->  #       define LB_D1_VLINE_INTERRUPT                    (1 << 2)
->  #       define LB_D1_VBLANK_INTERRUPT                   (1 << 3)
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/dce/dce_6_0_sh_mask.h b=
-/drivers/gpu/drm/amd/include/asic_reg/dce/dce_6_0_sh_mask.h
-> index bd8085ec54ed..942098af5655 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/dce/dce_6_0_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/dce/dce_6_0_sh_mask.h
-> @@ -5242,6 +5242,8 @@
->  #define DEGAMMA_CONTROL__CURSOR_DEGAMMA_MODE__SHIFT 0x0000000c
->  #define DEGAMMA_CONTROL__GRPH_DEGAMMA_MODE_MASK 0x00000003L
->  #define DEGAMMA_CONTROL__GRPH_DEGAMMA_MODE__SHIFT 0x00000000
-> +#define DEGAMMA_CONTROL__ICON_DEGAMMA_MODE_MASK 0x00000300L    // (((x) =
-& 0x3) << 8)
+>  	if (amdgpu_mcbp == 1)
+> @@ -4609,7 +4622,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  	} else
+>  		adev->ucode_sysfs_en = true;
+>  
+> -	r = sysfs_create_files(&adev->dev->kobj, amdgpu_dev_attributes);
+> +	r = amdgpu_device_attr_sysfs_init(adev);
+>  	if (r)
+>  		dev_err(adev->dev, "Could not create amdgpu device attr\n");
+>  
+> @@ -4746,7 +4759,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+>  		amdgpu_pm_sysfs_fini(adev);
+>  	if (adev->ucode_sysfs_en)
+>  		amdgpu_ucode_sysfs_fini(adev);
+> -	sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
+> +	amdgpu_device_attr_sysfs_fini(adev);
+>  	amdgpu_fru_sysfs_fini(adev);
+>  
+>  	amdgpu_reg_state_sysfs_fini(adev);
 
-You can drop the comment here.
-
-> +#define DEGAMMA_CONTROL__ICON_DEGAMMA_MODE__SHIFT 0x00000008
->  #define DEGAMMA_CONTROL__OVL_DEGAMMA_MODE_MASK 0x00000030L
->  #define DEGAMMA_CONTROL__OVL_DEGAMMA_MODE__SHIFT 0x00000004
->  #define DENORM_CONTROL__DENORM_MODE_MASK 0x00000007L
-> @@ -9554,7 +9556,7 @@
->  #define VGA_RENDER_CONTROL__VGA_LOCK_8DOT__SHIFT 0x00000018
->  #define VGA_RENDER_CONTROL__VGAREG_LINECMP_COMPATIBILITY_SEL_MASK 0x0200=
-0000L
->  #define VGA_RENDER_CONTROL__VGAREG_LINECMP_COMPATIBILITY_SEL__SHIFT 0x00=
-000019
-> -#define VGA_RENDER_CONTROL__VGA_VSTATUS_CNTL_MASK 0x00030000L
-> +#define VGA_RENDER_CONTROL__VGA_VSTATUS_CNTL_MASK 0x00030000L  // Intere=
-stingly, it was flipped from 0xFFFCFFFF
-
-Same here.
-
->  #define VGA_RENDER_CONTROL__VGA_VSTATUS_CNTL__SHIFT 0x00000010
->  #define VGA_SEQUENCER_RESET_CONTROL__D1_BLANK_DISPLAY_WHEN_SEQUENCER_RES=
-ET_MASK 0x00000001L
->  #define VGA_SEQUENCER_RESET_CONTROL__D1_BLANK_DISPLAY_WHEN_SEQUENCER_RES=
-ET__SHIFT 0x00000000
-> --
-> 2.48.1
->
