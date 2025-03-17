@@ -4,66 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11333C282EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 20:44:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C621CC282EC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 21:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A69F010E197;
-	Mon, 17 Mar 2025 20:44:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE8810E19D;
+	Mon, 17 Mar 2025 21:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HZYXt8ss";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0v2jGIHy";
 	dkim-atps=neutral
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
- [209.85.161.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E99D10E197
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 20:44:00 +0000 (UTC)
-Received: by mail-oo1-f43.google.com with SMTP id
- 006d021491bc7-601c848abfbso630513eaf.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 13:44:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742244239; x=1742849039; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=//evFCENm5KOBilqjTHh2Wc0cWYTP8OYIK+6oyAt83I=;
- b=HZYXt8ssnLxluMn6JXabZ2gudT4uFx1hm3KVdGBsLZmqxcVKaI3t0FXy2plu5WSOuA
- PD4MjlZJpp6knSdDRSMkS3t0FaZO12t5StM8Gk7Si1OANi5YWQRWbuhAMo9bqU9zCJ+V
- ZhVaRixxsyw67kfHDoJQmcL043Q4QcSXiD1RJVQsVB28zEAZ4cRm+5QGhpfQCgKNQwsd
- iACDKEnCRItV3RafzlW9G3xh+wN3VHfb4H4sme/E5JHS4GGSIlGIYMKJufObIRmqPGXQ
- IwL5Uu7Ugyrlpmv95hYFdcvV4kbHK6f+iD+emPgcunUdFxKH/xMsS+690munYIJ2ILJq
- 6YNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742244239; x=1742849039;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=//evFCENm5KOBilqjTHh2Wc0cWYTP8OYIK+6oyAt83I=;
- b=vzYGHcDKPzI2V0+udEol9BnWy/wCadsUOk4cy2LRJCV92mNqzoG36ak435koJMQ/IW
- wAohGMBzAeatyOiqRSzqgFI+0jVR3X/7GRylyadhWvZ3H+hxwydBUKxYZh5DzqqhdxrO
- q+uvXnarYsbjHHN3yDIokfwmCta59QDShh/LQzjvLIUbUP+qKneN7Gg5j3B5PLKEVTCo
- swm2LojOxwbWbJTSXloICx6SIzMkSVnUBaDHjsUZ6+DMY+U7tkYB72tCKYDU/DMwpRiZ
- g6ugBlyTAFfc0Jhjt91jRaMMBd/nZbbyw7KQg/6VhRmyA4R7JEUMomE45p8NTEn/Hvhh
- DkhA==
-X-Gm-Message-State: AOJu0YwgYE9vLwRToSoKlETvFc6mSPHilegRDCgOxsa4kGWZwk8i8cyF
- fz4JjAeZOJwuPUfFeuziwhtvBbDyZal9Upmm04s0O+37Ibihj5dwjd3NL91FkAl2XDNxd6jRR1D
- LBx7thoU4rhsQZ3xJtW0Hkk/k5uFqwQ==
-X-Gm-Gg: ASbGncvbRI9sRn3Yy0qHwo0wUA6vdCEeosKj98n2ojuV1Gw4Hd6BaN6NijC2WJCsIn2
- 84sNYGWHnTYoXYbClCcPWNEV5YjraPtTUyjn2+CX03IhCDAGegYladBm/YnQn3UF2e5XrPIbNmD
- ehy9nKCzgV+lP72+5YO5/4hfmxfIs=
-X-Google-Smtp-Source: AGHT+IEzlHxBN3j0igpA7Tp3x5BzDSfisqOe945+Jmyc8BrdHHsaHu5wJBJczNTz3iKenlhU6haZlCXCDdOYP/rbp0U=
-X-Received: by 2002:a05:6870:1649:b0:2b8:f99d:7ce6 with SMTP id
- 586e51a60fabf-2c690e9eb05mr2732771fac.3.1742244239366; Mon, 17 Mar 2025
- 13:43:59 -0700 (PDT)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2089.outbound.protection.outlook.com [40.107.243.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90DC210E19D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 21:03:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gj4SMKyUH8gDzeooG6/vHJDSbzcFPDxIjZC0gIxIb+gtSSk9FiA6cc3KCPFfGpLbXJoYGGBZc4I19+kDkZcvq7F0+4ysCnb68G998iaqzPDmMq33EoLtE7+VvUqZEprPQ0oeQUq7IIO/+LgonyuWj4vIZVJX8eTlxzqKy6muuWYv/SgtjWNm616b2MY3yXIZuuuN/y7wRig6mT5kX7sewD51zpRfcRgSWzqDxdIbegJc2S++ggPvOESsU7M7QOMDCQjxombvYe3qiaXfZiOA+oklzL7tnWN0cVtBRd42nlQo4+FiNqGuIt0LXGO1MMTqYffsiJFeJI8S7FveZxGFPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j2wIdwnxpA9wHaPQeal6S3lVo2T/1EWUnSxIBAwFkLA=;
+ b=N6zTsoTmHpK6WW36hZPctXh4nX7mebsuqxu/MmdTHQgQPeILG5EHL2jUvQfh9gha/NpJDgC3Tmmwwk8p+ncAnd2sj8WKsnyZB2GZjvPhvLyjSK7HYCS62LXAjwuszdu5Sk5ByuDEtyq1MUH0p5JZC8OIlcJgreDUBO3eyQVxKEj1No2ytGis9TGCOgt0M71lvcGJxzP94ofGEa3wDbEBxz/tgHa1k75l4yAu2Da24G0K+aPGoB4iasOoBYfGg5jt8sO94zMWeYRFqy0+tE3l/oJ0APjveu6zMGGmEC5OhrBv0jTp1eJZ4MyQ9Lwt09G2AUBiVXA+4vHRPXC5GzkujQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j2wIdwnxpA9wHaPQeal6S3lVo2T/1EWUnSxIBAwFkLA=;
+ b=0v2jGIHyrnAJY4BIRACmUlkSQL9Z810WZPXLLbsg/KEolFFozxqeZlzEXNjqCMfi/vo00HAXn7WpY96DUN1skZIl9o5CVxG0mh9DieBh5iAPRwLfYTxN1De3MwKiw/3GlyMYwKAXMuW3LD7yVKb/AYhZMtNsqs/zv7xpsfKGZRY=
+Received: from MN0P220CA0017.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:52e::10)
+ by MN2PR12MB4047.namprd12.prod.outlook.com (2603:10b6:208:1de::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
+ 2025 21:03:41 +0000
+Received: from BL6PEPF0001AB4E.namprd04.prod.outlook.com
+ (2603:10b6:208:52e:cafe::94) by MN0P220CA0017.outlook.office365.com
+ (2603:10b6:208:52e::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.33 via Frontend Transport; Mon,
+ 17 Mar 2025 21:03:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4E.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Mon, 17 Mar 2025 21:03:39 +0000
+Received: from Ubuntu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 17 Mar
+ 2025 16:03:38 -0500
+From: Ellen Pan <yunpa@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <shravankumar.gande@amd.com>, <Victor.Skvortsov@amd.com>,
+ <Ahmad.Rehman@amd.com>, root <root@Ubuntu.myguest.virtualbox.org>
+Subject: [PATCH] drm/amdgpu: Enable amdgpu_ras_resume for gfx 9.5.0
+Date: Mon, 17 Mar 2025 17:03:27 -0400
+Message-ID: <20250317210327.7699-1-yunpa@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20250317191349.942719-1-alexander.deucher@amd.com>
-In-Reply-To: <20250317191349.942719-1-alexander.deucher@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 17 Mar 2025 16:43:23 -0400
-X-Gm-Features: AQ5f1JrWD9rWMkFQgXXMjEGf_p-pWWLHiA60PXJ2_7KGW6fkJFAPI5XjnulSgEc
-Message-ID: <CAAxE2A5f3bx=yFDRgqsE8uK4QvO_gSkq5fHQm7s10UR3Us1Saw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: add UAPI to query if user queues are supported
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, marek.olsak@amd.com, prike.liang@amd.com, 
- sunil.khatri@amd.com
-Content-Type: multipart/alternative; boundary="000000000000ffe37406308fd805"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4E:EE_|MN2PR12MB4047:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9167cbd1-a153-4d95-7d53-08dd65973146
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/7QfSm38xQ6BkQy8YBbjaQiDgJn21codanYvuqIHTlfQ1LJWDTfjpJV3+z3T?=
+ =?us-ascii?Q?coT0Xi4qCcjZAx1jn1PAl+/fFcXJVWUb9AHhcVoJY/gc2I8J4Fd2JCdsL7/Z?=
+ =?us-ascii?Q?LtJVerxilB1HfP6Kg1XxnrgZzTV8FnkxBgazr1U1Mpc7AUs31c4Br8uLvpYY?=
+ =?us-ascii?Q?6rJnq4ReW8aG7/e+7iXdmjFhlMZcoi82kniXDUZcHYwUOnXADvG2csELQ7Ce?=
+ =?us-ascii?Q?3k1ZRIf0pxEIzxUuCLZvaJsyu4ZYlajGTJEU8Am+kFjrW4gHXLDVLixniLP8?=
+ =?us-ascii?Q?AHNYRYL0FAwQ3K1cudMXRonj4J2PuTF1JCPnDrJmS4Qt3fwXG45JYNef8jk2?=
+ =?us-ascii?Q?Zxapl7QevLqDWteGYhXaS34qNALm3+EsAnggA4y7BNI4CEr2RaTTUIArs9QD?=
+ =?us-ascii?Q?InE2GTrIdNSASO9g5AOZRRuEj1xRpH28FyKM07b2ZgPYrGa8bG6B0iAqXtb2?=
+ =?us-ascii?Q?0dlyyGWLQBPIVUA6CeSh8ebu4gf3EWH/RYpgMkpSHEuLyWXjyCFWL4hMAMN7?=
+ =?us-ascii?Q?IOg+HFjDGIjGErYDrEOQ/a3D7LxDKKR9dqJplgnT/ETfhtyQmDXi4S4BTXlP?=
+ =?us-ascii?Q?5Wm3dNgLCRIZDfp0LcXUtF16nRMPF8ZLETCxQnxBm33Evie3dJoUVh/VbJ3f?=
+ =?us-ascii?Q?puyZGHwCP2nnR59bw4cheNERF7i3EHYLwebE6f/Kkj7N/XGpG5Lah3+hsHNL?=
+ =?us-ascii?Q?CPMhBnQD8aifwpepOGyfHnU5dZtjWKYOHypa1GmSr2DGB0jWstKi+NBZIyYM?=
+ =?us-ascii?Q?nvYWXRVInbzwCzNwJYhp8uCd8UsMhdF++Y1De5murFxw4sWFIBXCiG1c/R+u?=
+ =?us-ascii?Q?9Mv2CYu2KLavGeEhz9bw3uVyIX+qOrzADpZ2KJLFNqWDi03TNFFMw6m3Wa4a?=
+ =?us-ascii?Q?r3Muh3V8p/xgq7v010159G3S1ET088KM/q/U9vw8/jhrkCFq6mKY2APV51v0?=
+ =?us-ascii?Q?BTZe5k57/A0VIfwDCrT1w/rX1F78njMGWeUQhozs/wBgMJ0d1wjMDG87evCc?=
+ =?us-ascii?Q?URXvqfmCdRwzqFTG7c3aAMestLPpum5DJpV7rlO7hSMfrCfG3A092k8JF5WO?=
+ =?us-ascii?Q?bbeIFz8R04N/tVs8ngMGHePrzg91N/Bmyw1so7hgoIXfYY7E36YUlpXJyPSL?=
+ =?us-ascii?Q?Qp+oqPmTHMSbvNqbHaRtdU5CKeGB89///Ds+AmgvWCATPAWj+z6pczThGBOR?=
+ =?us-ascii?Q?JCOS/KtOkFQ1ODg7f9cIgkdw78XWhnMtuZmcEbBuKpi2VemZFjE2ttWPFTqH?=
+ =?us-ascii?Q?AIEDm6aWjs1j8zcmT0/EBytDyAx0wKXP++Kvv8r9ilaAHQsX1brS/9CfmBG6?=
+ =?us-ascii?Q?sFsoN+O5pUVllWbulaJWnJPK9pin6bIzPqm/h9QdaOgkm7qycNdsRdH04Flx?=
+ =?us-ascii?Q?jh5YSpbjTgzq6kpzJAj5MKMIDYlETlea2JH5nOUlN4uvofLLCsvfeZ7GPcps?=
+ =?us-ascii?Q?JTyKqWHuCp7+QkhHjL4tlNKRTjL4Y8NzDYVaMefNq1NIZ1yobHQtj+7ltT0J?=
+ =?us-ascii?Q?DIsDtxQMPnPh8lE=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 21:03:39.7180 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9167cbd1-a153-4d95-7d53-08dd65973146
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4047
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,203 +131,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000ffe37406308fd805
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: root <root@Ubuntu.myguest.virtualbox.org>
 
-I would prefer a bitmask of supported UQ IPs in device info, but this is
-fine too.
+This enables ras to be resumed after gpu recovery on mi350 sriov.
 
-Reviewed-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+Signed-off-by: root <root@Ubuntu.myguest.virtualbox.org>
+Change-Id: I77e81e751cf7f31481c6f2ee6bd86758722fd2d4
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Marek
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7ca2ebdd3c95..7ac7fb45d286 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5324,6 +5324,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
+ 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2) ||
+ 	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
+ 	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) ||
++	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0) ||
+ 	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 0, 3))
+ 		amdgpu_ras_resume(adev);
+ 
+-- 
+2.25.1
 
-On Mon, Mar 17, 2025 at 3:23=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com>
-wrote:
-
-> Add an INFO query to check if user queues are supported.
->
-> Cc: marek.olsak@amd.com
-> Cc: prike.liang@amd.com
-> Cc: sunil.khatri@amd.com
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 17 +++++++++++++++++
->  include/uapi/drm/amdgpu_drm.h           |  8 ++++++++
->  2 files changed, 25 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 3b7dfd56ccd0e..38b8983f59d3c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1340,6 +1340,23 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
-> *data, struct drm_file *filp)
->                         return -EINVAL;
->                 }
->         }
-> +       case AMDGPU_INFO_UQ_SUPPORTED: {
-> +               struct drm_amdgpu_info_uq_supported uq_supported =3D {};
-> +               u32 ip_type =3D info->query_hw_ip.type;
-> +
-> +               switch (ip_type) {
-> +               case AMDGPU_HW_IP_GFX:
-> +               case AMDGPU_HW_IP_COMPUTE:
-> +               case AMDGPU_HW_IP_DMA:
-> +                       if (adev->userq_funcs[ip_type])
-> +                               uq_supported.supported =3D 1;
-> +                       ret =3D copy_to_user(out, &uq_supported,
-> +                                          min((size_t)size,
-> sizeof(uq_supported))) ? -EFAULT : 0;
-> +                       return 0;
-> +               default:
-> +                       return -EINVAL;
-> +               }
-> +       }
->         default:
->                 DRM_DEBUG_KMS("Invalid request %d\n", info->query);
->                 return -EINVAL;
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 5dbd9037afe75..b4b6fe006af8e 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -1195,6 +1195,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
->  #define AMDGPU_INFO_GPUVM_FAULT                        0x23
->  /* query FW object size and alignment */
->  #define AMDGPU_INFO_UQ_FW_AREAS                        0x24
-> +/* query if user queues are supported */
-> +#define AMDGPU_INFO_UQ_SUPPORTED               0x25
->
->  #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT 0
->  #define AMDGPU_INFO_MMR_SE_INDEX_MASK  0xff
-> @@ -1572,6 +1574,12 @@ struct drm_amdgpu_info_uq_metadata {
->         };
->  };
->
-> +struct drm_amdgpu_info_uq_supported {
-> +       /** returns 1 if supported, 0 if not supported */
-> +       __u32   supported;
-> +       __u32   pad;
-> +};
-> +
->  /*
->   * Supported GPU families
->   */
-> --
-> 2.48.1
->
->
-
---000000000000ffe37406308fd805
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I would prefer a bitmask of supported UQ IPs in devic=
-e info, but this is fine too.</div><div><br></div><div>Reviewed-by: Marek O=
-l=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak@amd.com">marek.olsak@amd.c=
-om</a>&gt;</div><div><br></div><div>Marek</div></div><br><div class=3D"gmai=
-l_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Mon=
-, Mar 17, 2025 at 3:23=E2=80=AFPM Alex Deucher &lt;<a href=3D"mailto:alexan=
-der.deucher@amd.com">alexander.deucher@amd.com</a>&gt; wrote:<br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">Add an INFO query to check if=
- user queues are supported.<br>
-<br>
-Cc: <a href=3D"mailto:marek.olsak@amd.com" target=3D"_blank">marek.olsak@am=
-d.com</a><br>
-Cc: <a href=3D"mailto:prike.liang@amd.com" target=3D"_blank">prike.liang@am=
-d.com</a><br>
-Cc: <a href=3D"mailto:sunil.khatri@amd.com" target=3D"_blank">sunil.khatri@=
-amd.com</a><br>
-Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
-" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 17 +++++++++++++++++<br>
-=C2=A0include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0|=C2=A0 8 ++++++++<br>
-=C2=A02 files changed, 25 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_kms.c<br>
-index 3b7dfd56ccd0e..38b8983f59d3c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-@@ -1340,6 +1340,23 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *=
-data, struct drm_file *filp)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return -EINVAL;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_INFO_UQ_SUPPORTED: {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_amdgpu_i=
-nfo_uq_supported uq_supported =3D {};<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u32 ip_type =3D inf=
-o-&gt;query_hw_ip.type;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0switch (ip_type) {<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_HW_IP_G=
-FX:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_HW_IP_C=
-OMPUTE:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_HW_IP_D=
-MA:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0if (adev-&gt;userq_funcs[ip_type])<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uq_supported.supported =3D 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0ret =3D copy_to_user(out, &amp;uq_supported,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 m=
-in((size_t)size, sizeof(uq_supported))) ? -EFAULT : 0;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return 0;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 default:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DRM_DEBUG_KMS(&quot=
-;Invalid request %d\n&quot;, info-&gt;query);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;<br>
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
-br>
-index 5dbd9037afe75..b4b6fe006af8e 100644<br>
---- a/include/uapi/drm/amdgpu_drm.h<br>
-+++ b/include/uapi/drm/amdgpu_drm.h<br>
-@@ -1195,6 +1195,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {<br>
-=C2=A0#define AMDGPU_INFO_GPUVM_FAULT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x23<br>
-=C2=A0/* query FW object size and alignment */<br>
-=C2=A0#define AMDGPU_INFO_UQ_FW_AREAS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x24<br>
-+/* query if user queues are supported */<br>
-+#define AMDGPU_INFO_UQ_SUPPORTED=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A00x25<br>
-<br>
-=C2=A0#define AMDGPU_INFO_MMR_SE_INDEX_SHIFT 0<br>
-=C2=A0#define AMDGPU_INFO_MMR_SE_INDEX_MASK=C2=A0 0xff<br>
-@@ -1572,6 +1574,12 @@ struct drm_amdgpu_info_uq_metadata {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
-=C2=A0};<br>
-<br>
-+struct drm_amdgpu_info_uq_supported {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/** returns 1 if supported, 0 if not supported =
-*/<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0supported;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0pad;<br>
-+};<br>
-+<br>
-=C2=A0/*<br>
-=C2=A0 * Supported GPU families<br>
-=C2=A0 */<br>
--- <br>
-2.48.1<br>
-<br>
-</blockquote></div>
-
---000000000000ffe37406308fd805--
