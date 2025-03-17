@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87586C35FF3
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 16:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 040E4C282EC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 16:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EAFA10E2C5;
-	Mon, 17 Mar 2025 16:38:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9842D10E2F3;
+	Mon, 17 Mar 2025 16:39:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T9xZXLqV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uhZbzU3c";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55D2910E2C5;
- Mon, 17 Mar 2025 16:38:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60E1910E2F3;
+ Mon, 17 Mar 2025 16:39:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id EE3CEA48753;
- Mon, 17 Mar 2025 16:33:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FDB7C4CEEC;
- Mon, 17 Mar 2025 16:38:45 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id DD73FA47896;
+ Mon, 17 Mar 2025 16:33:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5C1AC4CEEC;
+ Mon, 17 Mar 2025 16:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742229528;
- bh=EcyO65qRUdnNsmlnJCLF/E88IXXOSBet6vNR1pQI/sA=;
+ s=k20201202; t=1742229563;
+ bh=zgWZaqceqFPunHhxCh9P0gIfWLby5B3NHXKqZzQouFs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=T9xZXLqV/864PDiPOpRjWdKqSDZacmJaHN2qkW1xmlN7JIRIuK2PvAM4halqm8gx6
- CoCx9yTgxO6LXzoA2nTTaepWS94ADcn7w9b4QazjynhTaDqAETHD/cyk2TD7Qq1/ya
- nbGav/0udQEcY27OCf3z+IfT4QoXlvq9XUVzIJwmCqXe/iZRpcMvdRlc2WH1H2UClX
- kOs7YG39fsVHLAOFaEDF4pP/lG20Z9nbdppvITurtzHQ8CcvlOvcLGWcoFr/R1LeFX
- j/rwQ/iLdjMbWgoPGZaoayJ8/pe4A/Omwzc8NqPV+UQDSgTjp2JEQkMEYdeLNnGmYP
- unm5Ll9JQHIKg==
+ b=uhZbzU3c+QiVjq7w23LtruzkfzcSjDIrNKQcxsTiot5QUsvh4fJ/tXATgsNl8djtL
+ ew0vc6g6hQahj1Y5G3B+PurzKcc6D10z0VTyO7HeogP/sbkcMq21bVyzuh3UgQk9qV
+ ZGpzRNJq0mkKxTCLLf4wysZ25FnjasUCSMg9I1RBhXIapYBMg6+sMJkddMg+uvFR/b
+ zYclF47fk0PD/PVOx/zOBW6/17VNIPjv1vRWNJ3Vg2h7QTHcVJ2jw1Tblx9oJAKIfi
+ jRexlD7HPzybrIFbV4qp5Dw63ie4UWgwm8WhOCGBeov1MQoZ9VfdDZOl44SCqOvyGC
+ J5ktfCvUN5fiw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -41,21 +41,21 @@ Cc: Mario Limonciello <mario.limonciello@amd.com>,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
  sunpeng.li@amd.com, lijo.lazar@amd.com, tzimmermann@suse.de,
  rajneesh.bhardwaj@amd.com, kenneth.feng@amd.com, shaoyun.liu@amd.com,
- Ramesh.Errabolu@amd.com, chiahsuan.chung@amd.com, siqueira@igalia.com,
- sunil.khatri@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
- hersenxs.wu@amd.com, mwen@igalia.com, hamzamahfooz@linux.microsoft.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.12 10/13] drm/amd: Keep display off while going into
- S4
-Date: Mon, 17 Mar 2025 12:38:15 -0400
-Message-Id: <20250317163818.1893102-10-sashal@kernel.org>
+ Ramesh.Errabolu@amd.com, Jack.Xiao@amd.com, chiahsuan.chung@amd.com,
+ siqueira@igalia.com, sunil.khatri@amd.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, hersenxs.wu@amd.com, mwen@igalia.com,
+ hamzamahfooz@linux.microsoft.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.6 7/8] drm/amd: Keep display off while going into S4
+Date: Mon, 17 Mar 2025 12:39:01 -0400
+Message-Id: <20250317163902.1893378-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250317163818.1893102-1-sashal@kernel.org>
-References: <20250317163818.1893102-1-sashal@kernel.org>
+In-Reply-To: <20250317163902.1893378-1-sashal@kernel.org>
+References: <20250317163902.1893378-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.12.19
+X-stable-base: Linux 6.6.83
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,10 +113,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 32afcf9485245..7978d5189c37d 100644
+index f9bc38d20ce3e..a51ceebb80547 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2633,7 +2633,6 @@ static int amdgpu_pmops_freeze(struct device *dev)
+@@ -2461,7 +2461,6 @@ static int amdgpu_pmops_freeze(struct device *dev)
  
  	adev->in_s4 = true;
  	r = amdgpu_device_suspend(drm_dev, true);
@@ -124,7 +124,7 @@ index 32afcf9485245..7978d5189c37d 100644
  	if (r)
  		return r;
  
-@@ -2645,8 +2644,13 @@ static int amdgpu_pmops_freeze(struct device *dev)
+@@ -2473,8 +2472,13 @@ static int amdgpu_pmops_freeze(struct device *dev)
  static int amdgpu_pmops_thaw(struct device *dev)
  {
  	struct drm_device *drm_dev = dev_get_drvdata(dev);
@@ -139,7 +139,7 @@ index 32afcf9485245..7978d5189c37d 100644
  }
  
  static int amdgpu_pmops_poweroff(struct device *dev)
-@@ -2659,6 +2663,9 @@ static int amdgpu_pmops_poweroff(struct device *dev)
+@@ -2487,6 +2491,9 @@ static int amdgpu_pmops_poweroff(struct device *dev)
  static int amdgpu_pmops_restore(struct device *dev)
  {
  	struct drm_device *drm_dev = dev_get_drvdata(dev);
@@ -150,10 +150,10 @@ index 32afcf9485245..7978d5189c37d 100644
  	return amdgpu_device_resume(drm_dev, true);
  }
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5df26f8937cc8..35bbc7e0b2739 100644
+index aab99df3ba1ae..37e087e8fcb23 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3297,6 +3297,11 @@ static int dm_resume(void *handle)
+@@ -2881,6 +2881,11 @@ static int dm_resume(void *handle)
  
  		return 0;
  	}
@@ -163,8 +163,8 @@ index 5df26f8937cc8..35bbc7e0b2739 100644
 +		return 0;
 +
  	/* Recreate dc_state - DC invalidates it when setting power state to S3. */
- 	dc_state_release(dm_state->context);
- 	dm_state->context = dc_state_create(dm->dc, NULL);
+ 	dc_release_state(dm_state->context);
+ 	dm_state->context = dc_create_state(dm->dc);
 -- 
 2.39.5
 
