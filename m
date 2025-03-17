@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FA4FC35FF6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 323A4C35FFC
 	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 06:07:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3E0E10E32A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 320EB10E324;
 	Mon, 17 Mar 2025 06:07:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TRXUx5NB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fQKMHK/G";
 	dkim-atps=neutral
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0042A10E2E4
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 06:07:31 +0000 (UTC)
-Received: by mail-qt1-f176.google.com with SMTP id
- d75a77b69052e-476af5479feso39656011cf.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 16 Mar 2025 23:07:31 -0700 (PDT)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89C7510E322
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 06:07:34 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-47677b77725so40217611cf.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 16 Mar 2025 23:07:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742191651; x=1742796451; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742191653; x=1742796453; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=YqpfsfpMmxyFOOsNCPTRRPfgTJmW4mT7Sc325oGASwA=;
- b=TRXUx5NBcaKghvXNW3gFr+bj/YJ3wEhW/tPSy0FqAZUEo+ahlr7IWjGL0kfjtzRlxE
- kZUg4KDBhhrqnTwh0SOp6vGqoV+RlLuIWVjpgL1xv1z7ilqgupe/4JJ9NLH+uj5f1dQu
- esoBBgy7Gp82vK5yqNSRuD38f5lS+qkl4Gr8e3djwRXnFkw8nA3rCjXnyPnFEb0AMgAg
- DTHVFDMouyxN5jMivcXS6H6TGN1/SJMrGLN9YJ5xlVHHnHUmpGCFGYm93KRFRtC7vN3C
- cNRwS535ldlpJkx9FCo8HzIoqAJpdixyfXLgEbNsoGIdwGGl+b4rlDxBtXpQq53Fbrdz
- 3Dwg==
+ :reply-to; bh=dVfkzjv7StFwdUZ5quvqQfvV2oE7bQFZa5teN40zSf4=;
+ b=fQKMHK/GPk/FARxXLtarEiQzmajnn9Jxi3oPZPq1KhRHgfIUFENm6IF4AtqF8xf6fc
+ JZ5AibAshhjAVLFlEdPgUZHrIiVNmDGxIbCRl+iStkROGn4jCaGj+yupuWeRbukN8qRG
+ sd4/RfvDzML2dztCESjq4T8cW9rfwXtjqW4u7lFeM+T3cge+TTdvrcszFZMkjcb+AI+C
+ JsYEmOPGpTmNs7xkHedGuFl14Z5IsFbjGcBJ1DCXMeB+T6XPQgysAuZcn0EdR5H7mQX4
+ I4dyJNOFPt7YigduQQLEBE2qAWuh+g0JGdbPawxIPpEufII2DplfwCMUJqOg80Xvq/NW
+ LKcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742191651; x=1742796451;
+ d=1e100.net; s=20230601; t=1742191653; x=1742796453;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YqpfsfpMmxyFOOsNCPTRRPfgTJmW4mT7Sc325oGASwA=;
- b=QUPr1dWca8r1g6no6zFJJoxzr1IFZO11y8fWrM2hHE7dETC2lPj2/Hmpauuwnf+Q1j
- dTexeBW5blhGMiQtXGSAYWvx57awd0+B3rd4j0ZaL9jN59M+NCbCNYKzZfCRIF2ZSLix
- e1Hb8q1jvt+uN21YoEIq4WZviSLk/+vmoLOCZwHPmz/igs4PeSMtRsV37UiONTR+gGhQ
- c/miETLbWP2NH4J9S/XsY9vTVvh97ZxYmu88t60iFiVdxeq7fe6iJyx6ATAQXJg+X/i0
- rYs05WZGhe42Q3I23QroVfvfmhHGThsWoalg295qRtKec9lsy54+mTR1C42i9lsP/lGF
- XoyA==
-X-Gm-Message-State: AOJu0YzuZfDmv7FwBj1fpYvo8tTMLqt7gLbUAAzT4ySmX5LUsJaOVEiu
- 0QZnalFnwRKV+qeNrNGLfxvBhzHpa/ma+2bKngx982irHYFlLIP277TaQg==
-X-Gm-Gg: ASbGncvprHf+8EOPzh4Dyb+q4bTnQG5w0H7O8MO3Tl3LHjCK8qvIniwqdxtaBM4mwCO
- +VhY9zq8+2N4ZUmhhByi1NlttPkh3DclCTkB/ycJx1/SNZKQHf9EwYindiHL3BnKgagHyax+eZn
- Nk+YcmboHj3vO06qok7MTNAvrerexyWYUxqNz59RGcq+Fu87fXOwOD81RyR89uaQ6yPc22UV+Rl
- kEE3N90hVxX7/4dPK0aTKX6MKr0giLL+F13Wi2eO5BDQyykQ9PzV1j27mA3nov7K3TOsUbtMNl5
- +I7BrRBQxoeNGhkK7vBtJs+MnYLXONwEh96RytBr/eaB1+Um65CLsWnR06DYduU3UsFyrzVIJZX
- uyg==
-X-Google-Smtp-Source: AGHT+IGfJ7icAXTqRng26yWvvalf3odTFS+efLmiyJsDockRMBYH6e+GHAQIs8Ny4lVcOWWkRT4zig==
-X-Received: by 2002:ac8:5d48:0:b0:476:83d6:75ea with SMTP id
- d75a77b69052e-476c814a048mr138485961cf.15.1742191650765; 
- Sun, 16 Mar 2025 23:07:30 -0700 (PDT)
+ bh=dVfkzjv7StFwdUZ5quvqQfvV2oE7bQFZa5teN40zSf4=;
+ b=WoSigocGAMfymF4j7QcEurgV8ffLDTfLJ9CUGdxOpG31+FZQKmruGavi35WEiKpl6L
+ sE1RfBRmQ3rJwjekLTy/uMt1mWKZtJVoTZUdNSDy5z+N1JpF2ktd+Pd2sIxQIr+mPC6A
+ XYQVCT23R0RoaIR4d/ZbwTShXCj3AUTL2UwNNbXCZ0szFxiP8POJ1i/xvFr+C5rzpMDN
+ HiH8vScwJ5HZp0NYrCCS0IWigmw9KW9EkRZ+OjF2AgpKY/wiIp9IgPVuclZQItHd+Vwb
+ kajtvmRtQoZW8jPyUFbwKs/0B0ZgiLey6xTYb7yBuYsbdGI7pvOHAaVJDjACAlMfDB88
+ FsDQ==
+X-Gm-Message-State: AOJu0YxMD7BfskdXCkqBeMwDT/afeio7mdDxxopzSsBykupQqfZoIUhB
+ lDvvqKHzouKlQbKPtfc1X3ILm4xWyGrN8ktGqBcwJM4Fgn9zf/UilTMMwg==
+X-Gm-Gg: ASbGncuj4Bvksu56GHrZnTUVIcCu1RWWdWxErOJqczFtA7v6mISfTinVpCt93cUYUZq
+ mY5DRPEi3k4uz4cu9YHoU8g38bjSlPIFvdrQua2IVLgFWylt9awNim8WCwAEP4hTxUFSr7mCsTf
+ mT1+URX4iwY61ule05OGZfsxR9fZzjT7Rl3Ftm0W+fOmqvS4A3pH+3/GoM3f+Uf2pi94pKiz/u+
+ FJCrjTfw7vO3/dGwZ4DkjxFb1ENAjBIEVUoBtbmhpMpcmjpk+EaLKSZNCgh5wGWO2PTUnluyObz
+ 11TRJPNqKOsNfEA0QZ4d4PfFzRjD0noHzVUSwfTche8hf/dm4JWgygBbNvpUPYph1xo=
+X-Google-Smtp-Source: AGHT+IFIBZQ2xp1t84nTSh3NAWPxyR2Ief0Fyd5jr+p2OMEmIa8nuzqyRCt6zqVt7VVgrEYC+nMKTg==
+X-Received: by 2002:a05:622a:1a89:b0:476:add4:d2b7 with SMTP id
+ d75a77b69052e-476c81ee0d9mr183224131cf.51.1742191653179; 
+ Sun, 16 Mar 2025 23:07:33 -0700 (PDT)
 Received: from localhost.localdomain ([38.74.25.248])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-476bb7f4f08sm50605931cf.56.2025.03.16.23.07.30
+ d75a77b69052e-476bb7f4f08sm50605931cf.56.2025.03.16.23.07.32
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Mar 2025 23:07:30 -0700 (PDT)
+ Sun, 16 Mar 2025 23:07:32 -0700 (PDT)
 From: Alexandre Demers <alexandre.f.demers@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 10/18] drm/amdgpu: add missing SMU6 defines, shifts and masks
-Date: Mon, 17 Mar 2025 02:06:54 -0400
-Message-ID: <20250317060702.5297-11-alexandre.f.demers@gmail.com>
+Subject: [PATCH 13/18] drm/amdgpu: move si.c away from sid.h
+Date: Mon, 17 Mar 2025 02:06:57 -0400
+Message-ID: <20250317060702.5297-14-alexandre.f.demers@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250317060702.5297-1-alexandre.f.demers@gmail.com>
 References: <20250317060702.5297-1-alexandre.f.demers@gmail.com>
@@ -86,323 +85,636 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 ---
- .../drm/amd/include/asic_reg/smu/smu_6_0_d.h  |  44 ++++
- .../include/asic_reg/smu/smu_6_0_sh_mask.h    | 190 +++++++++++++++++-
- 2 files changed, 230 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/si.c | 369 ++++++++++++++++----------------
+ 1 file changed, 185 insertions(+), 184 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h b/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
-index 6b10be61efc3..6e2459905abb 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
-@@ -41,7 +41,49 @@
- #define ixLCAC_MC5_CNTL 0x012B
- #define ixLCAC_MC5_OVR_SEL 0x012C
- #define ixLCAC_MC5_OVR_VAL 0x012D
-+
-+#define	ixCG_SPLL_FUNC_CNTL				0x0180
-+#define	ixCG_SPLL_FUNC_CNTL_2				0x0181
-+#define	ixCG_SPLL_FUNC_CNTL_3				0x0182
-+#define	ixCG_SPLL_FUNC_CNTL_4				0x0183
-+#define	ixCG_SPLL_STATUS					0x0185
-+#define	ixSPLL_CNTL_MODE					0x0186
-+#define	ixCG_SPLL_SPREAD_SPECTRUM				0x0188
-+#define	ixCG_SPLL_SPREAD_SPECTRUM_2			0x0189
-+#define	ixCG_SPLL_AUTOSCALE_CNTL				0x018B
-+#define	ixMPLL_BYPASSCLK_SEL				0x0197
-+#define ixCG_CLKPIN_CNTL                                    0x0198
-+#define ixCG_CLKPIN_CNTL_2                                  0x0199
-+#define	ixTHM_CLK_CNTL					0x019B
-+#define	ixMISC_CLK_CNTL					0x019C
-+#define	ixCG_THERMAL_CTRL					0x01C0
-+#define	ixCG_THERMAL_STATUS				0x01C1
-+#define	ixCG_THERMAL_INT					0x01C2
-+#define	ixCG_MULT_THERMAL_CTRL					0x01C4
-+#define	ixCG_MULT_THERMAL_STATUS					0x01C5
-+#define	ixCG_FDO_CTRL0					0x01D5
-+#define	ixCG_FDO_CTRL1					0x01D6
-+#define	ixCG_FDO_CTRL2					0x01D7
-+#define ixCG_TACH_CTRL                                    0x01DC
-+#define ixCG_TACH_STATUS                                  0x01DD
-+#define ixGENERAL_PWRMGT                                  0x1E0
-+#define ixCG_TPC                                            0x1E1
-+#define ixSCLK_PWRMGT_CNTL                                  0x1E2
-+#define ixTARGET_AND_CURRENT_PROFILE_INDEX                  0x01E6
-+#define ixCG_FTV                                            0x01EF
-+#define ixCG_FFCT_0                                         0x01F0
-+#define ixCG_BSP                                          0x01FF
-+#define ixCG_AT                                           0x0200
-+#define ixCG_GIT                                          0x0201
-+#define ixCG_SSP                                            0x0203
-+#define ixCG_DISPLAY_GAP_CNTL                               0x020A
-+#define	ixCG_ULV_CONTROL					0x021E
-+#define	ixCG_ULV_PARAMETER				0x021F
-+#define	ixSMC_SCRATCH0					0x0221
-+#define	ixCG_CAC_CTRL					0x022E
-+
- #define ixSMC_PC_C 0x80000370
-+
- #define ixTHM_TMON0_DEBUG 0x03F0
- #define ixTHM_TMON0_INT_DATA 0x0380
- #define ixTHM_TMON0_RDIL0_DATA 0x0300
-@@ -110,6 +152,7 @@
- #define ixTHM_TMON1_RDIR7_DATA 0x0337
- #define ixTHM_TMON1_RDIR8_DATA 0x0338
- #define ixTHM_TMON1_RDIR9_DATA 0x0339
-+
- #define mmGPIOPAD_A 0x05E7
- #define mmGPIOPAD_EN 0x05E8
- #define mmGPIOPAD_EXTERN_TRIG_CNTL 0x05F1
-@@ -127,6 +170,7 @@
- #define mmGPIOPAD_STRENGTH 0x05E5
- #define mmGPIOPAD_SW_INT_STAT 0x05E4
- #define mmGPIOPAD_Y 0x05E9
-+
- #define mmSMC_IND_ACCESS_CNTL 0x008A
- #define mmSMC_IND_DATA_0 0x0081
- #define mmSMC_IND_DATA 0x0081
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
-index 7d3925b7266e..3c6824b6b530 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
-@@ -23,10 +23,142 @@
- #ifndef SMU_6_0_SH_MASK_H
- #define SMU_6_0_SH_MASK_H
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index 75d3b7471c68..3b8c65a966b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1085,8 +1085,8 @@ static u32 si_smc_rreg(struct amdgpu_device *adev, u32 reg)
+ 	u32 r;
  
--#define CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV_MASK 0x03ffffffL
--#define CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV__SHIFT 0x00000000
--#define CG_SPLL_FUNC_CNTL__SPLL_REF_DIV_MASK 0x000003f0L
-+#define CG_AT__CG_R_MASK 0x0000FFFFL	// (0xffff << 0)
-+#define CG_AT__CG_R__SHIFT 0x00000000
-+#define CG_AT__CG_L_MASK 0xFFFF0000L	// (0xffff << 16)
-+#define CG_AT__CG_L__SHIFT 0x00000010
-+
-+#define CG_BSP__BSP_MASK 0x0000FFFFL	// (0xffff << 0)
-+#define CG_BSP__BSP__SHIFT 0x00000000
-+#define CG_BSP__BSU_MASK 0x000F0000L	// (0xf << 16)
-+#define CG_BSP__BSU__SHIFT 0x00000010
-+
-+#define CG_CAC_CTRL__CAC_WINDOW_MASK 0x00FFFFFFL	// (0x00FFFFFF << 0)
-+#define CG_CAC_CTRL__CAC_WINDOW__SHIFT 0x00000000	// ((x) << 0)
-+
-+#define CG_CLKPIN_CNTL__XTALIN_DIVIDE_MASK 0x00000002L	// (1 << 1)
-+#define CG_CLKPIN_CNTL__XTALIN_DIVIDE__SHIFT 0x00000001
-+#define CG_CLKPIN_CNTL__BCLK_AS_XCLK_MASK 0x00000004L	// (1 << 2)
-+#define CG_CLKPIN_CNTL__BCLK_AS_XCLK__SHIFT 0x00000002
-+#define CG_CLKPIN_CNTL_2__FORCE_BIF_REFCLK_EN_MASK 0x00000008L	// (1 << 3)
-+#define CG_CLKPIN_CNTL_2__FORCE_BIF_REFCLK_EN__SHIFT 0x00000003
-+#define CG_CLKPIN_CNTL_2__MUX_TCLK_TO_XCLK_MASK 0x00000100L	// (1 << 8)
-+#define CG_CLKPIN_CNTL_2__MUX_TCLK_TO_XCLK__SHIFT 0x00000008
-+
-+#define CG_DISPLAY_GAP_CNTL__DISP1_GAP_MASK 0x00000003L	// (3 << 0)
-+#define CG_DISPLAY_GAP_CNTL__DISP1_GAP__SHIFT 0x00000000
-+#define CG_DISPLAY_GAP_CNTL__DISP2_GAP_MASK 0x0000000CL	// (3 << 2)
-+#define CG_DISPLAY_GAP_CNTL__DISP2_GAP__SHIFT 0x00000002
-+#define CG_DISPLAY_GAP_CNTL__VBI_TIMER_COUNT_MASK 0x0003FFF0L	// (0x3fff << 4)
-+#define CG_DISPLAY_GAP_CNTL__VBI_TIMER_COUNT__SHIFT 0x00000004
-+#define CG_DISPLAY_GAP_CNTL__VBI_TIMER_UNIT_MASK 0x00700000	// (7 << 20)
-+#define CG_DISPLAY_GAP_CNTL__VBI_TIMER_UNIT__SHIFT 0x00000014
-+#define CG_DISPLAY_GAP_CNTL__DISP1_GAP_MCHG_MASK 0x03000000L	// (3 << 24)
-+#define CG_DISPLAY_GAP_CNTL__DISP1_GAP_MCHG__SHIFT 0x00000018
-+#define CG_DISPLAY_GAP_CNTL__DISP2_GAP_MCHG_MASK 0x0C000000L	// (3 << 26)
-+#define CG_DISPLAY_GAP_CNTL__DISP2_GAP_MCHG__SHIFT 0x0000001A
-+
-+#define CG_FFCT_0__UTC_0_MASK 0x000003FFL	// (0x3ff << 0)
-+#define CG_FFCT_0__UTC_0__SHIFT 0x00000000
-+#define CG_FFCT_0__DTC_0_MASK 0x000FFC00L	// (0x3ff << 10)
-+#define CG_FFCT_0__DTC_0__SHIFT 0x0000000A
-+
-+#define CG_GIT__CG_GICST_MASK 0x0000FFFFL	// (0xffff << 0)
-+#define CG_GIT__CG_GICST__SHIFT 0x00000000
-+#define CG_GIT__CG_GIPOT_MASK 0xFFFF0000L	// (0xffff << 16)
-+#define CG_GIT__CG_GIPOT__SHIFT 0x00000010
-+
-+#define CG_SPLL_FUNC_CNTL__SPLL_RESET_MASK 0x00000001L	// (1 << 0)
-+#define CG_SPLL_FUNC_CNTL__SPLL_RESET__SHIFT 0x00000000
-+#define CG_SPLL_FUNC_CNTL__SPLL_SLEEP_MASK 0x00000002L	// (1 << 1)
-+#define CG_SPLL_FUNC_CNTL__SPLL_SLEEP__SHIFT 0x00000001
-+#define CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN_MASK 0x00000008L	// (1 << 3)
-+#define CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN__SHIFT 0x00000003
-+#define CG_SPLL_FUNC_CNTL__SPLL_REF_DIV_MASK 0x000003F0L	// (0x3f << 4)
- #define CG_SPLL_FUNC_CNTL__SPLL_REF_DIV__SHIFT 0x00000004
-+#define CG_SPLL_FUNC_CNTL__SPLL_PDIV_A_MASK 0x007F00000	// (0x7f << 20)
-+#define CG_SPLL_FUNC_CNTL__SPLL_PDIV_A__SHIFT 0x00000014
-+#define CG_SPLL_FUNC_CNTL_2__SCLK_MUX_SEL_MASK 0x0000001FF	// (0x1ff << 0)
-+#define CG_SPLL_FUNC_CNTL_2__SCLK_MUX_SEL__SHIFT 0x00000000
-+#define CG_SPLL_FUNC_CNTL_2__SPLL_CTLREQ_CHG_MASK 0x00800000	// (1 << 23)
-+#define CG_SPLL_FUNC_CNTL_2__SPLL_CTLREQ_CHG__SHIFT 0x00000017
-+#define CG_SPLL_FUNC_CNTL_2__SCLK_MUX_UPDATE_MASK 0x04000000	// (1 << 26)
-+#define CG_SPLL_FUNC_CNTL_2__SCLK_MUX_UPDATE__SHIFT 0x0000001A
-+#define CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV_MASK 0x03FFFFFFL	// (0x3ffffff << 0)
-+#define CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV__SHIFT 0x00000000
-+#define CG_SPLL_FUNC_CNTL_3__SPLL_DITHEN_MASK 0x10000000L	// (1 << 28)
-+#define CG_SPLL_FUNC_CNTL_3__SPLL_DITHEN__SHIFT 0x0000001C
-+#define CG_SPLL_STATUS__SPLL_CHG_STATUS_MASK 0x00000002L	// (1 << 1)
-+#define CG_SPLL_STATUS__SPLL_CHG_STATUS__SHIFT 0x00000001
-+#define CG_SPLL_SPREAD_SPECTRUM__SSEN_MASK 0x00000001L	// (1 << 0)
-+#define CG_SPLL_SPREAD_SPECTRUM__SSEN__SHIFT 0x00000000
-+#define CG_SPLL_SPREAD_SPECTRUM__CLK_S_MASK 0x0000FFF0L	// (0xfff << 4)
-+#define CG_SPLL_SPREAD_SPECTRUM__CLK_S__SHIFT 0x00000004
-+#define CG_SPLL_SPREAD_SPECTRUM_2__CLK_V_MASK 0x00000200L	// (0x3ffffff << 0)
-+#define CG_SPLL_SPREAD_SPECTRUM_2__CLK_V__SHIFT 0x00000000
-+#define CG_SPLL_AUTOSCALE_CNTL__AUTOSCALE_ON_SS_CLEAR_MASK 0x03FFFFFFL	// (1 << 9)
-+#define CG_SPLL_AUTOSCALE_CNTL__AUTOSCALE_ON_SS_CLEAR__SHIFT 0x00000009
-+
-+#define CG_SSP__SST_MASK 0x0000FFFFL	//  (0xffff << 0)
-+#define CG_SSP__SST__SHIFT 0x00000000
-+#define CG_SSP__SSTU_MASK 0x000F0000L	// (0xf << 16)
-+#define CG_SSP__SSTU__SHIFT 0x00000010
-+
-+#define CG_THERMAL_CTRL__DPM_EVENT_SRC_MASK 0x00000007L	// (7 << 0)
-+#define CG_THERMAL_CTRL__DPM_EVENT_SRC__SHIFT 0x00000000
-+#define CG_THERMAL_CTRL__DIG_THERM_DPM_MASK 0x003FC000	// (00xFF << 14)
-+#define CG_THERMAL_CTRL__DIG_THERM_DPM__SHIFT 0x0000000E
-+#define CG_THERMAL_STATUS__FDO_PWM_DUTY_MASK 0x0001FE00L	// (0xff << 9)
-+#define CG_THERMAL_STATUS__FDO_PWM_DUTY__SHIFT 0x00000009
-+#define CG_THERMAL_INT__DIG_THERM_INTH_MASK 0x0000FF00L	// (0xFF << 8)
-+#define CG_THERMAL_INT__DIG_THERM_INTH__SHIFT 0x00000008
-+#define CG_THERMAL_INT__DIG_THERM_INTL_MASK 0x00FF0000L	// (0xFF << 16)
-+#define CG_THERMAL_INT__DIG_THERM_INTL__SHIFT 0x00000010
-+#define CG_THERMAL_INT__THERM_INT_MASK_HIGH_MASK 0x01000000L	// (1 << 24)
-+#define CG_THERMAL_INT__THERM_INT_MASK_HIGH__SHIFT 0x00000018
-+#define CG_THERMAL_INT__THERM_INT_MASK_LOW_MASK	0x02000000	// (1 << 25)
-+#define CG_THERMAL_INT__THERM_INT_MASK_LOW__SHIFT 0x00000019
-+
-+#define CG_MULT_THERMAL_CTRL__TEMP_SEL_MASK	0x0FF00000L	// (0xff << 20)
-+#define CG_MULT_THERMAL_CTRL__TEMP_SEL__SHIFT 0x00000014
-+#define CG_MULT_THERMAL_STATUS__ASIC_MAX_TEMP_MASK	0x000001FFL	// (0x1FF << 0)
-+#define CG_MULT_THERMAL_STATUS__ASIC_MAX_TEMP__SHIFT 0x00000000
-+#define CG_MULT_THERMAL_STATUS__CTF_TEMP_MASK	0x0003fe00L	// (0x1FF << 9)
-+#define CG_MULT_THERMAL_STATUS__CTF_TEMP__SHIFT 0x00000009
-+
-+#define CG_FDO_CTRL0__FDO_STATIC_DUTY_MASK	0x000000FFL	// (0xFF << 0)
-+#define CG_FDO_CTRL0__FDO_STATIC_DUTY__SHIFT 0x00000000
-+#define CG_FDO_CTRL1__FMAX_DUTY100_MASK	0x000000FFL	// (0xFF << 0)
-+#define CG_FDO_CTRL1__FMAX_DUTY100__SHIFT 0x00000000
-+#define CG_FDO_CTRL2__TMIN_MASK	0x000000FFL	// (0xFF << 0)
-+#define CG_FDO_CTRL2__TMIN__SHIFT 0x00000000
-+#define CG_FDO_CTRL2__FDO_PWM_MODE_MASK	0x00003800L	// (7 << 11)
-+#define CG_FDO_CTRL2__FDO_PWM_MODE__SHIFT 0x0000000B
-+#define CG_FDO_CTRL2__TACH_PWM_RESP_RATE_MASK	0xFE000000L	// (0x7f << 25)
-+#define CG_FDO_CTRL2__TACH_PWM_RESP_RATE__SHIFT 0x00000019
-+
-+#define CG_TACH_CTRL__EDGE_PER_REV_MASK	0x00000007L	// (0x7 << 0)
-+#define CG_TACH_CTRL__EDGE_PER_REV__SHIFT 0x00000000
-+#define CG_TACH_CTRL__TARGET_PERIOD_MASK	0xFFFFFFF8L	// (0x1FFFFFFF << 3)
-+#define CG_TACH_CTRL__TARGET_PERIOD__SHIFT 0x00000003
-+#define CG_TACH_STATUS__TACH_PERIOD_MASK	0xFFFFFFFFL	// (0xFFFFFFFF << 0)
-+#define CG_TACH_STATUS__TACH_PERIOD__SHIFT 0x00000000
-+
-+#define GENERAL_PWRMGT__GLOBAL_PWRMGT_EN_MASK	0x00000001L	// (1 << 0)
-+#define GENERAL_PWRMGT__GLOBAL_PWRMGT_EN__SHIFT 0x00000000
-+#define GENERAL_PWRMGT__STATIC_PM_EN_MASK	0x00000002L	// (1 << 1)
-+#define GENERAL_PWRMGT__STATIC_PM_EN__SHIFT 0x00000001
-+#define GENERAL_PWRMGT__THERMAL_PROTECTION_DIS_MASK	0x00000004L	// (1 << 2)
-+#define GENERAL_PWRMGT__THERMAL_PROTECTION_DIS__SHIFT 0x00000002
-+#define GENERAL_PWRMGT__THERMAL_PROTECTION_TYPE_MASK	0x00000008L	// (1 << 3)
-+#define GENERAL_PWRMGT__THERMAL_PROTECTION_TYPE__SHIFT 0x00000003
-+#define GENERAL_PWRMGT__SW_SMIO_INDEX_MASK	0x00000040L	// (1 << 6)
-+#define GENERAL_PWRMGT__SW_SMIO_INDEX__SHIFT 0x00000006
-+#define GENERAL_PWRMGT__VOLT_PWRMGT_EN_MASK	0x00000400L	// (1 << 10)
-+#define GENERAL_PWRMGT__VOLT_PWRMGT_EN__SHIFT 0x0000000A
-+#define GENERAL_PWRMGT__DYN_SPREAD_SPECTRUM_EN_MASK	0x00800000L	//  (1 << 23)
-+#define GENERAL_PWRMGT__DYN_SPREAD_SPECTRUM_EN__SHIFT 0x00000017
-+
- #define GPIOPAD_A__GPIO_A_MASK 0x7fffffffL
- #define GPIOPAD_A__GPIO_A__SHIFT 0x00000000
- #define GPIOPAD_EN__GPIO_EN_MASK 0x7fffffffL
-@@ -195,6 +327,7 @@
- #define GPIOPAD_SW_INT_STAT__SW_INT_STAT__SHIFT 0x00000000
- #define GPIOPAD_Y__GPIO_Y_MASK 0x7fffffffL
- #define GPIOPAD_Y__GPIO_Y__SHIFT 0x00000000
-+
- #define LCAC_MC0_CNTL__MC0_ENABLE_MASK 0x00000001L
- #define LCAC_MC0_CNTL__MC0_ENABLE__SHIFT 0x00000000
- #define LCAC_MC0_CNTL__MC0_THRESHOLD_MASK 0x0001fffeL
-@@ -243,6 +376,37 @@
- #define LCAC_MC5_OVR_SEL__MC5_OVR_SEL__SHIFT 0x00000000
- #define LCAC_MC5_OVR_VAL__MC5_OVR_VAL_MASK 0xffffffffL
- #define LCAC_MC5_OVR_VAL__MC5_OVR_VAL__SHIFT 0x00000000
-+
-+#define MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL_MASK 0x0000FF00L	 // 0xFF00
-+#define MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL__SHIFT 0x00000008	// ((x) << 8)
-+
-+#define SCLK_PWRMGT_CNTL__SCLK_PWRMGT_OFF_MASK	0x00000001L	//  (1 << 0)
-+#define SCLK_PWRMGT_CNTL__SCLK_PWRMGT_OFF__SHIFT 0x00000000
-+#define SCLK_PWRMGT_CNTL__SCLK_LOW_D1_MASK	0x00000002L	//  (1 << 1)
-+#define SCLK_PWRMGT_CNTL__SCLK_LOW_D1__SHIFT 0x00000001
-+#define SCLK_PWRMGT_CNTL__FIR_RESET_MASK	0x00000010L	//  (1 << 4)
-+#define SCLK_PWRMGT_CNTL__FIR_RESET__SHIFT 0x00000004
-+#define SCLK_PWRMGT_CNTL__FIR_FORCE_TREND_SEL_MASK	0x00000020L	//  (1 << 5)
-+#define SCLK_PWRMGT_CNTL__FIR_FORCE_TREND_SEL__SHIFT 0x00000005
-+#define SCLK_PWRMGT_CNTL__FIR_TREND_MODE_MASK	0x00000040L	//  (1 << 6)
-+#define SCLK_PWRMGT_CNTL__FIR_TREND_MODE__SHIFT 0x00000006
-+#define SCLK_PWRMGT_CNTL__DYN_GFX_CLK_OFF_EN_MASK	0x00000080L	//  (1 << 7)
-+#define SCLK_PWRMGT_CNTL__DYN_GFX_CLK_OFF_EN__SHIFT 0x00000007
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_FORCE_ON_MASK	0x00000100L	//  (1 << 8)
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_FORCE_ON__SHIFT 0x00000008
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_REQUEST_OFF_MASK	0x00000200L	//  (1 << 9)
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_REQUEST_OFF__SHIFT 0x00000009
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_FORCE_OFF_MASK	0x00000400L	//  (1 << 10)
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_FORCE_OFF__SHIFT 0x0000000A
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D1_MASK	0x00000800L	//  (1 << 11)
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D1__SHIFT 0x0000000B
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D2_MASK	0x00001000L	//  (1 << 12)
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D2__SHIFT 0x0000000C
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D3_MASK	0x00002000L	//  (1 << 13)
-+#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D3__SHIFT 0x0000000D
-+#define SCLK_PWRMGT_CNTL__DYN_LIGHT_SLEEP_EN_MASK	0x00004000L	//  (1 << 14)
-+#define SCLK_PWRMGT_CNTL__DYN_LIGHT_SLEEP_EN__SHIFT 0x0000000E
-+
- #define SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_0_MASK 0x00000001L
- #define SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_0__SHIFT 0x00000000
- #define SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_1_MASK 0x00000100L
-@@ -285,6 +449,7 @@
- #define SMC_RESP_1__SMC_RESP__SHIFT 0x00000000
- #define SMC_RESP_2__SMC_RESP_MASK 0xffffffffL
- #define SMC_RESP_2__SMC_RESP__SHIFT 0x00000000
-+
- #define SPLL_CNTL_MODE__SPLL_CTLREQ_DLY_CNT_MASK 0x000ff000L
- #define SPLL_CNTL_MODE__SPLL_CTLREQ_DLY_CNT__SHIFT 0x0000000c
- #define SPLL_CNTL_MODE__SPLL_ENSAT_MASK 0x00000010L
-@@ -293,9 +458,11 @@
- #define SPLL_CNTL_MODE__SPLL_FASTEN__SHIFT 0x00000003
- #define SPLL_CNTL_MODE__SPLL_LEGACY_PDIV_MASK 0x00000002L
- #define SPLL_CNTL_MODE__SPLL_LEGACY_PDIV__SHIFT 0x00000001
-+#define SPLL_CNTL_MODE__SPLL_REFCLK_SEL_MASK 0x0C000000L	// (3 << 26)
-+#define SPLL_CNTL_MODE__SPLL_REFCLK_SEL__SHIFT 0x0000001A
- #define SPLL_CNTL_MODE__SPLL_RESET_EN_MASK 0x10000000L
- #define SPLL_CNTL_MODE__SPLL_RESET_EN__SHIFT 0x0000001c
--#define SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL_MASK 0x00000001L
-+#define SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL_MASK 0x00000001L	// (1 << 0)
- #define SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL__SHIFT 0x00000000
- #define SPLL_CNTL_MODE__SPLL_TEST_CLK_EXT_DIV_MASK 0x00000c00L
- #define SPLL_CNTL_MODE__SPLL_TEST_CLK_EXT_DIV__SHIFT 0x0000000a
-@@ -303,10 +470,25 @@
- #define SPLL_CNTL_MODE__SPLL_TEST__SHIFT 0x00000002
- #define SPLL_CNTL_MODE__SPLL_VCO_MODE_MASK 0x60000000L
- #define SPLL_CNTL_MODE__SPLL_VCO_MODE__SHIFT 0x0000001d
-+
- #define TARGET_AND_CURRENT_PROFILE_INDEX_1__CURR_PCIE_INDEX_MASK 0x0f000000L
- #define TARGET_AND_CURRENT_PROFILE_INDEX_1__CURR_PCIE_INDEX__SHIFT 0x00000018
- #define TARGET_AND_CURRENT_PROFILE_INDEX_1__TARG_PCIE_INDEX_MASK 0xf0000000L
- #define TARGET_AND_CURRENT_PROFILE_INDEX_1__TARG_PCIE_INDEX__SHIFT 0x0000001c
-+
-+#define TARGET_AND_CURRENT_PROFILE_INDEX__CURRENT_STATE_INDEX_MASK 0x000000F0L	// (0xf << 4)
-+#define TARGET_AND_CURRENT_PROFILE_INDEX__CURRENT_STATE_INDEX__SHIFT 0x00000004
-+
-+#define THM_CLK_CNTL__CMON_CLK_SEL_MASK 0x000000FFL	// 0xFF
-+#define THM_CLK_CNTL__CMON_CLK_SEL__SHIFT 0x00000000	// ((x) << 0)
-+#define THM_CLK_CNTL__TMON_CLK_SEL_MASK 0x0000FF00L	// 0xFF00
-+#define THM_CLK_CNTL__TMON_CLK_SEL__SHIFT 0x00000008	// ((x) << 8)
-+
-+#define MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL_MASK 0x000000FFL	// 0xFF
-+#define MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL__SHIFT 0x00000000	// ((x) << 0)
-+#define MISC_CLK_CNTL__ZCLK_SEL_MASK 0x0000FF00L	// 0xFF00
-+#define MISC_CLK_CNTL__ZCLK_SEL__SHIFT 0x00000008	// ((x) << 8)
-+
- #define THM_TMON0_DEBUG__DEBUG_RDI_MASK 0x0000001fL
- #define THM_TMON0_DEBUG__DEBUG_RDI__SHIFT 0x00000000
- #define THM_TMON0_DEBUG__DEBUG_Z_MASK 0x0000ffe0L
+ 	spin_lock_irqsave(&adev->smc_idx_lock, flags);
+-	WREG32(SMC_IND_INDEX_0, (reg));
+-	r = RREG32(SMC_IND_DATA_0);
++	WREG32(mmSMC_IND_INDEX_0, (reg));
++	r = RREG32(mmSMC_IND_DATA_0);
+ 	spin_unlock_irqrestore(&adev->smc_idx_lock, flags);
+ 	return r;
+ }
+@@ -1096,8 +1096,8 @@ static void si_smc_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&adev->smc_idx_lock, flags);
+-	WREG32(SMC_IND_INDEX_0, (reg));
+-	WREG32(SMC_IND_DATA_0, (v));
++	WREG32(mmSMC_IND_INDEX_0, (reg));
++	WREG32(mmSMC_IND_DATA_0, (v));
+ 	spin_unlock_irqrestore(&adev->smc_idx_lock, flags);
+ }
+ 
+@@ -1124,20 +1124,20 @@ static void si_uvd_ctx_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
+ }
+ 
+ static struct amdgpu_allowed_register_entry si_allowed_read_registers[] = {
+-	{GRBM_STATUS},
++	{mmGRBM_STATUS},
+ 	{mmGRBM_STATUS2},
+ 	{mmGRBM_STATUS_SE0},
+ 	{mmGRBM_STATUS_SE1},
+ 	{mmSRBM_STATUS},
+ 	{mmSRBM_STATUS2},
+-	{DMA_STATUS_REG + DMA0_REGISTER_OFFSET},
+-	{DMA_STATUS_REG + DMA1_REGISTER_OFFSET},
++	{mmDMA_STATUS_REG + DMA0_REGISTER_OFFSET},
++	{mmDMA_STATUS_REG + DMA1_REGISTER_OFFSET},
+ 	{mmCP_STAT},
+ 	{mmCP_STALLED_STAT1},
+ 	{mmCP_STALLED_STAT2},
+ 	{mmCP_STALLED_STAT3},
+-	{GB_ADDR_CONFIG},
+-	{MC_ARB_RAMCFG},
++	{mmGB_ADDR_CONFIG},
++	{mmMC_ARB_RAMCFG},
+ 	{mmGB_TILE_MODE0},
+ 	{mmGB_TILE_MODE1},
+ 	{mmGB_TILE_MODE2},
+@@ -1170,7 +1170,7 @@ static struct amdgpu_allowed_register_entry si_allowed_read_registers[] = {
+ 	{mmGB_TILE_MODE29},
+ 	{mmGB_TILE_MODE30},
+ 	{mmGB_TILE_MODE31},
+-	{CC_RB_BACKEND_DISABLE, true},
++	{mmCC_RB_BACKEND_DISABLE, true},
+ 	{mmGC_USER_RB_BACKEND_DISABLE, true},
+ 	{mmPA_SC_RASTER_CONFIG, true},
+ };
+@@ -1282,7 +1282,7 @@ static bool si_read_disabled_bios(struct amdgpu_device *adev)
+ 	if (adev->mode_info.num_crtc) {
+ 		d1vga_control = RREG32(AVIVO_D1VGA_CONTROL);
+ 		d2vga_control = RREG32(AVIVO_D2VGA_CONTROL);
+-		vga_render_control = RREG32(VGA_RENDER_CONTROL);
++		vga_render_control = RREG32(mmVGA_RENDER_CONTROL);
+ 	}
+ 	rom_cntl = RREG32(R600_ROM_CNTL);
+ 
+@@ -1296,8 +1296,8 @@ static bool si_read_disabled_bios(struct amdgpu_device *adev)
+ 		WREG32(AVIVO_D2VGA_CONTROL,
+ 		       (d2vga_control & ~(AVIVO_DVGA_CONTROL_MODE_ENABLE |
+ 					  AVIVO_DVGA_CONTROL_TIMING_SELECT)));
+-		WREG32(VGA_RENDER_CONTROL,
+-		       (vga_render_control & C_000300_VGA_VSTATUS_CNTL));
++		WREG32(mmVGA_RENDER_CONTROL,
++		       (vga_render_control & ~VGA_RENDER_CONTROL__VGA_VSTATUS_CNTL_MASK));
+ 	}
+ 	WREG32(R600_ROM_CNTL, rom_cntl | R600_SCK_OVERWRITE);
+ 
+@@ -1308,7 +1308,7 @@ static bool si_read_disabled_bios(struct amdgpu_device *adev)
+ 	if (adev->mode_info.num_crtc) {
+ 		WREG32(AVIVO_D1VGA_CONTROL, d1vga_control);
+ 		WREG32(AVIVO_D2VGA_CONTROL, d2vga_control);
+-		WREG32(VGA_RENDER_CONTROL, vga_render_control);
++		WREG32(mmVGA_RENDER_CONTROL, vga_render_control);
+ 	}
+ 	WREG32(R600_ROM_CNTL, rom_cntl);
+ 	return r;
+@@ -1345,23 +1345,24 @@ static void si_set_clk_bypass_mode(struct amdgpu_device *adev)
+ {
+ 	u32 tmp, i;
+ 
+-	tmp = RREG32(CG_SPLL_FUNC_CNTL);
+-	tmp |= SPLL_BYPASS_EN;
+-	WREG32(CG_SPLL_FUNC_CNTL, tmp);
++	tmp = RREG32(ixCG_SPLL_FUNC_CNTL);
++	tmp |= CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN_MASK;
++	WREG32(ixCG_SPLL_FUNC_CNTL, tmp);
+ 
+-	tmp = RREG32(CG_SPLL_FUNC_CNTL_2);
+-	tmp |= SPLL_CTLREQ_CHG;
+-	WREG32(CG_SPLL_FUNC_CNTL_2, tmp);
++	tmp = RREG32(ixCG_SPLL_FUNC_CNTL_2);
++	tmp |= CG_SPLL_FUNC_CNTL_2__SPLL_CTLREQ_CHG_MASK;
++	WREG32(ixCG_SPLL_FUNC_CNTL_2, tmp);
+ 
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+-		if (RREG32(SPLL_STATUS) & SPLL_CHG_STATUS)
++		if (RREG32(ixCG_SPLL_STATUS) & CG_SPLL_STATUS__SPLL_CHG_STATUS_MASK)
+ 			break;
+ 		udelay(1);
+ 	}
+ 
+-	tmp = RREG32(CG_SPLL_FUNC_CNTL_2);
+-	tmp &= ~(SPLL_CTLREQ_CHG | SCLK_MUX_UPDATE);
+-	WREG32(CG_SPLL_FUNC_CNTL_2, tmp);
++	tmp = RREG32(ixCG_SPLL_FUNC_CNTL_2);
++	tmp &= ~(CG_SPLL_FUNC_CNTL_2__SPLL_CTLREQ_CHG_MASK |
++		CG_SPLL_FUNC_CNTL_2__SCLK_MUX_UPDATE_MASK);
++	WREG32(ixCG_SPLL_FUNC_CNTL_2, tmp);
+ 
+ 	tmp = RREG32(MPLL_CNTL_MODE);
+ 	tmp &= ~MPLL_MCLK_SEL;
+@@ -1372,21 +1373,21 @@ static void si_spll_powerdown(struct amdgpu_device *adev)
+ {
+ 	u32 tmp;
+ 
+-	tmp = RREG32(SPLL_CNTL_MODE);
+-	tmp |= SPLL_SW_DIR_CONTROL;
+-	WREG32(SPLL_CNTL_MODE, tmp);
++	tmp = RREG32(ixSPLL_CNTL_MODE);
++	tmp |= SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL_MASK;
++	WREG32(ixSPLL_CNTL_MODE, tmp);
+ 
+-	tmp = RREG32(CG_SPLL_FUNC_CNTL);
+-	tmp |= SPLL_RESET;
+-	WREG32(CG_SPLL_FUNC_CNTL, tmp);
++	tmp = RREG32(ixCG_SPLL_FUNC_CNTL);
++	tmp |= CG_SPLL_FUNC_CNTL__SPLL_RESET_MASK;
++	WREG32(ixCG_SPLL_FUNC_CNTL, tmp);
+ 
+-	tmp = RREG32(CG_SPLL_FUNC_CNTL);
+-	tmp |= SPLL_SLEEP;
+-	WREG32(CG_SPLL_FUNC_CNTL, tmp);
++	tmp = RREG32(ixCG_SPLL_FUNC_CNTL);
++	tmp |= CG_SPLL_FUNC_CNTL__SPLL_SLEEP_MASK;
++	WREG32(ixCG_SPLL_FUNC_CNTL, tmp);
+ 
+-	tmp = RREG32(SPLL_CNTL_MODE);
+-	tmp &= ~SPLL_SW_DIR_CONTROL;
+-	WREG32(SPLL_CNTL_MODE, tmp);
++	tmp = RREG32(ixSPLL_CNTL_MODE);
++	tmp &= ~SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL_MASK;
++	WREG32(ixSPLL_CNTL_MODE, tmp);
+ }
+ 
+ static int si_gpu_pci_config_reset(struct amdgpu_device *adev)
+@@ -1468,14 +1469,14 @@ static void si_vga_set_state(struct amdgpu_device *adev, bool state)
+ {
+ 	uint32_t temp;
+ 
+-	temp = RREG32(CONFIG_CNTL);
++	temp = RREG32(mmCONFIG_CNTL);
+ 	if (!state) {
+ 		temp &= ~(1<<0);
+ 		temp |= (1<<1);
+ 	} else {
+ 		temp &= ~(1<<1);
+ 	}
+-	WREG32(CONFIG_CNTL, temp);
++	WREG32(mmCONFIG_CNTL, temp);
+ }
+ 
+ static u32 si_get_xclk(struct amdgpu_device *adev)
+@@ -1483,12 +1484,12 @@ static u32 si_get_xclk(struct amdgpu_device *adev)
+ 	u32 reference_clock = adev->clock.spll.reference_freq;
+ 	u32 tmp;
+ 
+-	tmp = RREG32(CG_CLKPIN_CNTL_2);
+-	if (tmp & MUX_TCLK_TO_XCLK)
++	tmp = RREG32(ixCG_CLKPIN_CNTL_2);
++	if (tmp & CG_CLKPIN_CNTL_2__MUX_TCLK_TO_XCLK_MASK)
+ 		return TCLK;
+ 
+-	tmp = RREG32(CG_CLKPIN_CNTL);
+-	if (tmp & XTALIN_DIVIDE)
++	tmp = RREG32(ixCG_CLKPIN_CNTL);
++	if (tmp & CG_CLKPIN_CNTL__XTALIN_DIVIDE_MASK)
+ 		return reference_clock / 4;
+ 
+ 	return reference_clock;
+@@ -1533,9 +1534,9 @@ static int si_get_pcie_lanes(struct amdgpu_device *adev)
+ 	if (adev->flags & AMD_IS_APU)
+ 		return 0;
+ 
+-	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
++	link_width_cntl = RREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL);
+ 
+-	switch ((link_width_cntl & LC_LINK_WIDTH_RD_MASK) >> LC_LINK_WIDTH_RD_SHIFT) {
++	switch ((link_width_cntl & PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK) >> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT) {
+ 	case LC_LINK_WIDTH_X1:
+ 		return 1;
+ 	case LC_LINK_WIDTH_X2:
+@@ -1582,13 +1583,13 @@ static void si_set_pcie_lanes(struct amdgpu_device *adev, int lanes)
+ 		return;
+ 	}
+ 
+-	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
+-	link_width_cntl &= ~LC_LINK_WIDTH_MASK;
+-	link_width_cntl |= mask << LC_LINK_WIDTH_SHIFT;
+-	link_width_cntl |= (LC_RECONFIG_NOW |
+-			    LC_RECONFIG_ARC_MISSING_ESCAPE);
++	link_width_cntl = RREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL);
++	link_width_cntl &= ~PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_MASK;
++	link_width_cntl |= mask << PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH__SHIFT;
++	link_width_cntl |= (PCIE_LC_LINK_WIDTH_CNTL__LC_RECONFIG_NOW_MASK |
++		PCIE_LC_LINK_WIDTH_CNTL__LC_RECONFIG_ARC_MISSING_ESCAPE_MASK);
+ 
+-	WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, link_width_cntl);
++	WREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL, link_width_cntl);
+ }
+ 
+ static void si_get_pcie_usage(struct amdgpu_device *adev, uint64_t *count0,
+@@ -2032,7 +2033,7 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
+ 
+ static uint32_t si_get_rev_id(struct amdgpu_device *adev)
+ {
+-	return (RREG32(CC_DRM_ID_STRAPS) & CC_DRM_ID_STRAPS__ATI_REV_ID_MASK)
++	return (RREG32(mmCC_DRM_ID_STRAPS) & CC_DRM_ID_STRAPS__ATI_REV_ID_MASK)
+ 		>> CC_DRM_ID_STRAPS__ATI_REV_ID__SHIFT;
+ }
+ 
+@@ -2253,9 +2254,9 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 					CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)))
+ 		return;
+ 
+-	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+-	current_data_rate = (speed_cntl & LC_CURRENT_DATA_RATE_MASK) >>
+-		LC_CURRENT_DATA_RATE_SHIFT;
++	speed_cntl = RREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL);
++	current_data_rate = (speed_cntl & PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK) >>
++		PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3) {
+ 		if (current_data_rate == 2) {
+ 			DRM_INFO("PCIE gen 3 link speeds already enabled\n");
+@@ -2282,17 +2283,17 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
+ 			pcie_capability_set_word(adev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
+ 
+-			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
+-			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
+-			current_lw = (tmp & LC_OPERATING_LINK_WIDTH_MASK) >> LC_OPERATING_LINK_WIDTH_SHIFT;
++			tmp = RREG32_PCIE(ixPCIE_LC_STATUS1);
++			max_lw = (tmp & PCIE_LC_STATUS1__LC_DETECTED_LINK_WIDTH_MASK) >> PCIE_LC_STATUS1__LC_DETECTED_LINK_WIDTH__SHIFT;
++			current_lw = (tmp & PCIE_LC_STATUS1__LC_OPERATING_LINK_WIDTH_MASK) >> PCIE_LC_STATUS1__LC_OPERATING_LINK_WIDTH__SHIFT;
+ 
+ 			if (current_lw < max_lw) {
+-				tmp = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
+-				if (tmp & LC_RENEGOTIATION_SUPPORT) {
+-					tmp &= ~(LC_LINK_WIDTH_MASK | LC_UPCONFIGURE_DIS);
+-					tmp |= (max_lw << LC_LINK_WIDTH_SHIFT);
+-					tmp |= LC_UPCONFIGURE_SUPPORT | LC_RENEGOTIATE_EN | LC_RECONFIG_NOW;
+-					WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, tmp);
++				tmp = RREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL);
++				if (tmp & PCIE_LC_LINK_WIDTH_CNTL__LC_RENEGOTIATION_SUPPORT_MASK) {
++					tmp &= ~(PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_MASK | PCIE_LC_LINK_WIDTH_CNTL__LC_UPCONFIGURE_DIS_MASK);
++					tmp |= (max_lw << PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH__SHIFT);
++					tmp |= PCIE_LC_LINK_WIDTH_CNTL__LC_UPCONFIGURE_SUPPORT_MASK | PCIE_LC_LINK_WIDTH_CNTL__LC_RENEGOTIATE_EN_MASK | PCIE_LC_LINK_WIDTH_CNTL__LC_RECONFIG_NOW_MASK;
++					WREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL, tmp);
+ 				}
+ 			}
+ 
+@@ -2315,13 +2316,13 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 							  PCI_EXP_LNKCTL2,
+ 							  &gpu_cfg2);
+ 
+-				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+-				tmp |= LC_SET_QUIESCE;
+-				WREG32_PCIE_PORT(PCIE_LC_CNTL4, tmp);
++				tmp = RREG32_PCIE_PORT(ixPCIE_LC_CNTL4);
++				tmp |= PCIE_LC_CNTL4__LC_SET_QUIESCE_MASK;
++				WREG32_PCIE_PORT(ixPCIE_LC_CNTL4, tmp);
+ 
+-				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+-				tmp |= LC_REDO_EQ;
+-				WREG32_PCIE_PORT(PCIE_LC_CNTL4, tmp);
++				tmp = RREG32_PCIE_PORT(ixPCIE_LC_CNTL4);
++				tmp |= PCIE_LC_CNTL4__LC_REDO_EQ_MASK;
++				WREG32_PCIE_PORT(ixPCIE_LC_CNTL4, tmp);
+ 
+ 				mdelay(100);
+ 
+@@ -2347,16 +2348,16 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 								   (PCI_EXP_LNKCTL2_ENTER_COMP |
+ 								    PCI_EXP_LNKCTL2_TX_MARGIN));
+ 
+-				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+-				tmp &= ~LC_SET_QUIESCE;
+-				WREG32_PCIE_PORT(PCIE_LC_CNTL4, tmp);
++				tmp = RREG32_PCIE_PORT(ixPCIE_LC_CNTL4);
++				tmp &= ~PCIE_LC_CNTL4__LC_SET_QUIESCE_MASK;
++				WREG32_PCIE_PORT(ixPCIE_LC_CNTL4, tmp);
+ 			}
+ 		}
+ 	}
+ 
+-	speed_cntl |= LC_FORCE_EN_SW_SPEED_CHANGE | LC_FORCE_DIS_HW_SPEED_CHANGE;
+-	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
+-	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
++	speed_cntl |= PCIE_LC_SPEED_CNTL__LC_FORCE_EN_SW_SPEED_CHANGE_MASK | PCIE_LC_SPEED_CNTL__LC_FORCE_DIS_HW_SPEED_CHANGE_MASK;
++	speed_cntl &= ~PCIE_LC_SPEED_CNTL__LC_FORCE_DIS_SW_SPEED_CHANGE_MASK;
++	WREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+ 	tmp16 = 0;
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+@@ -2368,13 +2369,13 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 	pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL2,
+ 					   PCI_EXP_LNKCTL2_TLS, tmp16);
+ 
+-	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+-	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
+-	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
++	speed_cntl = RREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL);
++	speed_cntl |= PCIE_LC_SPEED_CNTL__LC_INITIATE_LINK_SPEED_CHANGE_MASK;
++	WREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+-		speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+-		if ((speed_cntl & LC_INITIATE_LINK_SPEED_CHANGE) == 0)
++		speed_cntl = RREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL);
++		if ((speed_cntl & PCIE_LC_SPEED_CNTL__LC_INITIATE_LINK_SPEED_CHANGE_MASK) == 0)
+ 			break;
+ 		udelay(1);
+ 	}
+@@ -2432,121 +2433,121 @@ static void si_program_aspm(struct amdgpu_device *adev)
+ 	if (!amdgpu_device_should_use_aspm(adev))
+ 		return;
+ 
+-	orig = data = RREG32_PCIE_PORT(PCIE_LC_N_FTS_CNTL);
+-	data &= ~LC_XMIT_N_FTS_MASK;
+-	data |= LC_XMIT_N_FTS(0x24) | LC_XMIT_N_FTS_OVERRIDE_EN;
++	orig = data = RREG32_PCIE_PORT(ixPCIE_LC_N_FTS_CNTL);
++	data &= ~PCIE_LC_N_FTS_CNTL__LC_XMIT_N_FTS_MASK;
++	data |= (0x24 << PCIE_LC_N_FTS_CNTL__LC_XMIT_N_FTS__SHIFT) | PCIE_LC_N_FTS_CNTL__LC_XMIT_N_FTS_OVERRIDE_EN_MASK;
+ 	if (orig != data)
+-		WREG32_PCIE_PORT(PCIE_LC_N_FTS_CNTL, data);
++		WREG32_PCIE_PORT(ixPCIE_LC_N_FTS_CNTL, data);
+ 
+-	orig = data = RREG32_PCIE_PORT(PCIE_LC_CNTL3);
+-	data |= LC_GO_TO_RECOVERY;
++	orig = data = RREG32_PCIE_PORT(ixPCIE_LC_CNTL3);
++	data |= PCIE_LC_CNTL3__LC_GO_TO_RECOVERY_MASK;
+ 	if (orig != data)
+-		WREG32_PCIE_PORT(PCIE_LC_CNTL3, data);
++		WREG32_PCIE_PORT(ixPCIE_LC_CNTL3, data);
+ 
+-	orig = data = RREG32_PCIE(PCIE_P_CNTL);
+-	data |= P_IGNORE_EDB_ERR;
++	orig = data = RREG32_PCIE(ixPCIE_P_CNTL);
++	data |= PCIE_P_CNTL__P_IGNORE_EDB_ERR_MASK;
+ 	if (orig != data)
+-		WREG32_PCIE(PCIE_P_CNTL, data);
++		WREG32_PCIE(ixPCIE_P_CNTL, data);
+ 
+-	orig = data = RREG32_PCIE_PORT(PCIE_LC_CNTL);
+-	data &= ~(LC_L0S_INACTIVITY_MASK | LC_L1_INACTIVITY_MASK);
+-	data |= LC_PMI_TO_L1_DIS;
++	orig = data = RREG32_PCIE_PORT(ixPCIE_LC_CNTL);
++	data &= ~(PCIE_LC_CNTL__LC_L0S_INACTIVITY_MASK | PCIE_LC_CNTL__LC_L1_INACTIVITY_MASK);
++	data |= PCIE_LC_CNTL__LC_PMI_TO_L1_DIS_MASK;
+ 	if (!disable_l0s)
+-		data |= LC_L0S_INACTIVITY(7);
++		data |= (7 << PCIE_LC_CNTL__LC_L0S_INACTIVITY__SHIFT);
+ 
+ 	if (!disable_l1) {
+-		data |= LC_L1_INACTIVITY(7);
+-		data &= ~LC_PMI_TO_L1_DIS;
++		data |= (7 << PCIE_LC_CNTL__LC_L1_INACTIVITY__SHIFT);
++		data &= ~PCIE_LC_CNTL__LC_PMI_TO_L1_DIS_MASK;
+ 		if (orig != data)
+-			WREG32_PCIE_PORT(PCIE_LC_CNTL, data);
++			WREG32_PCIE_PORT(ixPCIE_LC_CNTL, data);
+ 
+ 		if (!disable_plloff_in_l1) {
+ 			bool clk_req_support;
+ 
+-			orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_0);
+-			data &= ~(PLL_POWER_STATE_IN_OFF_0_MASK | PLL_POWER_STATE_IN_TXS2_0_MASK);
+-			data |= PLL_POWER_STATE_IN_OFF_0(7) | PLL_POWER_STATE_IN_TXS2_0(7);
++			orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_0);
++			data &= ~(PB0_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_OFF_0_MASK | PB0_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_TXS2_0_MASK);
++			data |= (7 << PB0_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_OFF_0__SHIFT) | (7 << PB0_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_TXS2_0__SHIFT);
+ 			if (orig != data)
+-				si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_0, data);
++				si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_0, data);
+ 
+-			orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_1);
+-			data &= ~(PLL_POWER_STATE_IN_OFF_1_MASK | PLL_POWER_STATE_IN_TXS2_1_MASK);
+-			data |= PLL_POWER_STATE_IN_OFF_1(7) | PLL_POWER_STATE_IN_TXS2_1(7);
++			orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_1);
++			data &= ~(PB0_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_OFF_1_MASK | PB0_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_TXS2_1_MASK);
++			data |= (7 << PB0_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_OFF_1__SHIFT) | (7 << PB0_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_TXS2_1__SHIFT);
+ 			if (orig != data)
+-				si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_1, data);
++				si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_1, data);
+ 
+-			orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_0);
+-			data &= ~(PLL_POWER_STATE_IN_OFF_0_MASK | PLL_POWER_STATE_IN_TXS2_0_MASK);
+-			data |= PLL_POWER_STATE_IN_OFF_0(7) | PLL_POWER_STATE_IN_TXS2_0(7);
++			orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_0);
++			data &= ~(PB1_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_OFF_0_MASK | PB1_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_TXS2_0_MASK);
++			data |= (7 << PB1_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_OFF_0__SHIFT) | (7 << PB1_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_TXS2_0__SHIFT);
+ 			if (orig != data)
+-				si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_0, data);
++				si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_0, data);
+ 
+-			orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_1);
+-			data &= ~(PLL_POWER_STATE_IN_OFF_1_MASK | PLL_POWER_STATE_IN_TXS2_1_MASK);
+-			data |= PLL_POWER_STATE_IN_OFF_1(7) | PLL_POWER_STATE_IN_TXS2_1(7);
++			orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_1);
++			data &= ~(PB1_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_OFF_1_MASK | PB1_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_TXS2_1_MASK);
++			data |= (7 << PB1_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_OFF_1__SHIFT) | (7 << PB1_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_TXS2_1__SHIFT);
+ 			if (orig != data)
+-				si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_1, data);
++				si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_1, data);
+ 
+ 			if ((adev->asic_type != CHIP_OLAND) && (adev->asic_type != CHIP_HAINAN)) {
+-				orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_0);
+-				data &= ~PLL_RAMP_UP_TIME_0_MASK;
++				orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_0);
++				data &= ~PB0_PIF_PWRDOWN_0__PLL_RAMP_UP_TIME_0_MASK;
+ 				if (orig != data)
+-					si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_0, data);
++					si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_0, data);
+ 
+-				orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_1);
+-				data &= ~PLL_RAMP_UP_TIME_1_MASK;
++				orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_1);
++				data &= ~PB0_PIF_PWRDOWN_1__PLL_RAMP_UP_TIME_1_MASK;
+ 				if (orig != data)
+-					si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_1, data);
++					si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_1, data);
+ 
+-				orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_2);
+-				data &= ~PLL_RAMP_UP_TIME_2_MASK;
++				orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_2);
++				data &= ~PB0_PIF_PWRDOWN_2__PLL_RAMP_UP_TIME_2_MASK;
+ 				if (orig != data)
+-					si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_2, data);
++					si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_2, data);
+ 
+-				orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_3);
+-				data &= ~PLL_RAMP_UP_TIME_3_MASK;
++				orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_3);
++				data &= ~PB0_PIF_PWRDOWN_3__PLL_RAMP_UP_TIME_3_MASK;
+ 				if (orig != data)
+-					si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_3, data);
++					si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_3, data);
+ 
+-				orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_0);
+-				data &= ~PLL_RAMP_UP_TIME_0_MASK;
++				orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_0);
++				data &= ~PB1_PIF_PWRDOWN_0__PLL_RAMP_UP_TIME_0_MASK;
+ 				if (orig != data)
+-					si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_0, data);
++					si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_0, data);
+ 
+-				orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_1);
+-				data &= ~PLL_RAMP_UP_TIME_1_MASK;
++				orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_1);
++				data &= ~PB1_PIF_PWRDOWN_1__PLL_RAMP_UP_TIME_1_MASK;
+ 				if (orig != data)
+-					si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_1, data);
++					si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_1, data);
+ 
+-				orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_2);
+-				data &= ~PLL_RAMP_UP_TIME_2_MASK;
++				orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_2);
++				data &= ~PB1_PIF_PWRDOWN_2__PLL_RAMP_UP_TIME_2_MASK;
+ 				if (orig != data)
+-					si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_2, data);
++					si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_2, data);
+ 
+-				orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_3);
+-				data &= ~PLL_RAMP_UP_TIME_3_MASK;
++				orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_3);
++				data &= ~PB1_PIF_PWRDOWN_3__PLL_RAMP_UP_TIME_3_MASK;
+ 				if (orig != data)
+-					si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_3, data);
++					si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_3, data);
+ 			}
+-			orig = data = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
+-			data &= ~LC_DYN_LANES_PWR_STATE_MASK;
+-			data |= LC_DYN_LANES_PWR_STATE(3);
++			orig = data = RREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL);
++			data &= ~PCIE_LC_LINK_WIDTH_CNTL__LC_DYN_LANES_PWR_STATE_MASK;
++			data |= (3 << PCIE_LC_LINK_WIDTH_CNTL__LC_DYN_LANES_PWR_STATE__SHIFT);
+ 			if (orig != data)
+-				WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, data);
++				WREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL, data);
+ 
+-			orig = data = si_pif_phy0_rreg(adev,PB0_PIF_CNTL);
+-			data &= ~LS2_EXIT_TIME_MASK;
++			orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_CNTL);
++			data &= ~PB0_PIF_CNTL__LS2_EXIT_TIME_MASK;
+ 			if ((adev->asic_type == CHIP_OLAND) || (adev->asic_type == CHIP_HAINAN))
+-				data |= LS2_EXIT_TIME(5);
++				data |= (5 << PB0_PIF_CNTL__LS2_EXIT_TIME__SHIFT);
+ 			if (orig != data)
+-				si_pif_phy0_wreg(adev,PB0_PIF_CNTL, data);
++				si_pif_phy0_wreg(adev,ixPB0_PIF_CNTL, data);
+ 
+-			orig = data = si_pif_phy1_rreg(adev,PB1_PIF_CNTL);
+-			data &= ~LS2_EXIT_TIME_MASK;
++			orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_CNTL);
++			data &= ~PB1_PIF_CNTL__LS2_EXIT_TIME_MASK;
+ 			if ((adev->asic_type == CHIP_OLAND) || (adev->asic_type == CHIP_HAINAN))
+-				data |= LS2_EXIT_TIME(5);
++				data |= (5 << PB1_PIF_CNTL__LS2_EXIT_TIME__SHIFT);
+ 			if (orig != data)
+-				si_pif_phy1_wreg(adev,PB1_PIF_CNTL, data);
++				si_pif_phy1_wreg(adev,ixPB1_PIF_CNTL, data);
+ 
+ 			if (!disable_clkreq &&
+ 			    !pci_is_root_bus(adev->pdev->bus)) {
+@@ -2562,64 +2563,64 @@ static void si_program_aspm(struct amdgpu_device *adev)
+ 			}
+ 
+ 			if (clk_req_support) {
+-				orig = data = RREG32_PCIE_PORT(PCIE_LC_CNTL2);
+-				data |= LC_ALLOW_PDWN_IN_L1 | LC_ALLOW_PDWN_IN_L23;
++				orig = data = RREG32_PCIE_PORT(ixPCIE_LC_CNTL2);
++				data |= PCIE_LC_CNTL2__LC_ALLOW_PDWN_IN_L1_MASK | PCIE_LC_CNTL2__LC_ALLOW_PDWN_IN_L23_MASK;
+ 				if (orig != data)
+-					WREG32_PCIE_PORT(PCIE_LC_CNTL2, data);
++					WREG32_PCIE_PORT(ixPCIE_LC_CNTL2, data);
+ 
+-				orig = data = RREG32(THM_CLK_CNTL);
+-				data &= ~(CMON_CLK_SEL_MASK | TMON_CLK_SEL_MASK);
+-				data |= CMON_CLK_SEL(1) | TMON_CLK_SEL(1);
++				orig = data = RREG32(ixTHM_CLK_CNTL);
++				data &= ~(THM_CLK_CNTL__CMON_CLK_SEL_MASK | THM_CLK_CNTL__TMON_CLK_SEL_MASK);
++				data |= (1 << THM_CLK_CNTL__CMON_CLK_SEL__SHIFT) | (1 << THM_CLK_CNTL__TMON_CLK_SEL__SHIFT);
+ 				if (orig != data)
+-					WREG32(THM_CLK_CNTL, data);
++					WREG32(ixTHM_CLK_CNTL, data);
+ 
+-				orig = data = RREG32(MISC_CLK_CNTL);
+-				data &= ~(DEEP_SLEEP_CLK_SEL_MASK | ZCLK_SEL_MASK);
+-				data |= DEEP_SLEEP_CLK_SEL(1) | ZCLK_SEL(1);
++				orig = data = RREG32(ixMISC_CLK_CNTL);
++				data &= ~(MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL_MASK | MISC_CLK_CNTL__ZCLK_SEL_MASK);
++				data |= (1 << MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL__SHIFT) | (1 << MISC_CLK_CNTL__ZCLK_SEL__SHIFT);
+ 				if (orig != data)
+-					WREG32(MISC_CLK_CNTL, data);
++					WREG32(ixMISC_CLK_CNTL, data);
+ 
+-				orig = data = RREG32(CG_CLKPIN_CNTL);
+-				data &= ~BCLK_AS_XCLK;
++				orig = data = RREG32(ixCG_CLKPIN_CNTL);
++				data &= ~CG_CLKPIN_CNTL__BCLK_AS_XCLK_MASK;
+ 				if (orig != data)
+-					WREG32(CG_CLKPIN_CNTL, data);
++					WREG32(ixCG_CLKPIN_CNTL, data);
+ 
+-				orig = data = RREG32(CG_CLKPIN_CNTL_2);
+-				data &= ~FORCE_BIF_REFCLK_EN;
++				orig = data = RREG32(ixCG_CLKPIN_CNTL_2);
++				data &= ~CG_CLKPIN_CNTL_2__FORCE_BIF_REFCLK_EN_MASK;
+ 				if (orig != data)
+-					WREG32(CG_CLKPIN_CNTL_2, data);
++					WREG32(ixCG_CLKPIN_CNTL_2, data);
+ 
+-				orig = data = RREG32(MPLL_BYPASSCLK_SEL);
+-				data &= ~MPLL_CLKOUT_SEL_MASK;
+-				data |= MPLL_CLKOUT_SEL(4);
++				orig = data = RREG32(ixMPLL_BYPASSCLK_SEL);
++				data &= ~MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL_MASK;
++				data |= 4 << MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL__SHIFT;
+ 				if (orig != data)
+-					WREG32(MPLL_BYPASSCLK_SEL, data);
++					WREG32(ixMPLL_BYPASSCLK_SEL, data);
+ 
+-				orig = data = RREG32(SPLL_CNTL_MODE);
+-				data &= ~SPLL_REFCLK_SEL_MASK;
++				orig = data = RREG32(ixSPLL_CNTL_MODE);
++				data &= ~SPLL_CNTL_MODE__SPLL_REFCLK_SEL_MASK;
+ 				if (orig != data)
+-					WREG32(SPLL_CNTL_MODE, data);
++					WREG32(ixSPLL_CNTL_MODE, data);
+ 			}
+ 		}
+ 	} else {
+ 		if (orig != data)
+-			WREG32_PCIE_PORT(PCIE_LC_CNTL, data);
++			WREG32_PCIE_PORT(ixPCIE_LC_CNTL, data);
+ 	}
+ 
+-	orig = data = RREG32_PCIE(PCIE_CNTL2);
+-	data |= SLV_MEM_LS_EN | MST_MEM_LS_EN | REPLAY_MEM_LS_EN;
++	orig = data = RREG32_PCIE(ixPCIE_CNTL2);
++	data |= PCIE_CNTL2__SLV_MEM_LS_EN_MASK | PCIE_CNTL2__MST_MEM_LS_EN_MASK | PCIE_CNTL2__REPLAY_MEM_LS_EN_MASK;
+ 	if (orig != data)
+-		WREG32_PCIE(PCIE_CNTL2, data);
++		WREG32_PCIE(ixPCIE_CNTL2, data);
+ 
+ 	if (!disable_l0s) {
+-		data = RREG32_PCIE_PORT(PCIE_LC_N_FTS_CNTL);
+-		if((data & LC_N_FTS_MASK) == LC_N_FTS_MASK) {
+-			data = RREG32_PCIE(PCIE_LC_STATUS1);
+-			if ((data & LC_REVERSE_XMIT) && (data & LC_REVERSE_RCVR)) {
+-				orig = data = RREG32_PCIE_PORT(PCIE_LC_CNTL);
+-				data &= ~LC_L0S_INACTIVITY_MASK;
++		data = RREG32_PCIE_PORT(ixPCIE_LC_N_FTS_CNTL);
++		if((data & PCIE_LC_N_FTS_CNTL__LC_N_FTS_MASK) == PCIE_LC_N_FTS_CNTL__LC_N_FTS_MASK) {
++			data = RREG32_PCIE(ixPCIE_LC_STATUS1);
++			if ((data & PCIE_LC_STATUS1__LC_REVERSE_XMIT_MASK) && (data & PCIE_LC_STATUS1__LC_REVERSE_RCVR_MASK)) {
++				orig = data = RREG32_PCIE_PORT(ixPCIE_LC_CNTL);
++				data &= ~PCIE_LC_CNTL__LC_L0S_INACTIVITY_MASK;
+ 				if (orig != data)
+-					WREG32_PCIE_PORT(PCIE_LC_CNTL, data);
++					WREG32_PCIE_PORT(ixPCIE_LC_CNTL, data);
+ 			}
+ 		}
+ 	}
 -- 
 2.48.1
 
