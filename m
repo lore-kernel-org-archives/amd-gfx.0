@@ -4,144 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C80EC282EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 09:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E812C282EC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 09:13:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B539210E029;
-	Mon, 17 Mar 2025 09:06:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6A8610E3D1;
+	Mon, 17 Mar 2025 09:13:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wCWn288P";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="MjGwx7/E";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D3810E029
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 09:06:51 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2063.outbound.protection.outlook.com [40.107.94.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2696510E3CF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 09:13:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cwOGslaF/I0+/UTm9nex/hf87IJKlLkmALTCar8XvuMy2d+ma+9HiYTEl02z1LRpvAqEAc79C2RjgYUvkNnrchO9gO1GeQuelm0cN8BfqokVFk4yo4cJ9z6BJi7MRXs6jBdFigJaRL42QjIFvRnaTBWaF6ppCccRWB+vtQpyelj2JIviKmoJjqNY5OFViGc+tl0ThfzvCRX9FtOOFlkvebHTVP09QzhYzjGqvxkb8Jls/vcjcC1IBnaWfOjsTR1Wn73Qzf7njBX2nuFyoxw73ufDHgULi/UxVlyJbNRpLko7nHNnOeXV+UPcZdvw49Bq6slcoazl/rg4Tt95Lhg7Tw==
+ b=pBIZAuFrhboURJramVdyGZY/yFYw/XM/Ht6Qh7h2aYKAJ6QLIEwnp0QxlBrzOP1YtCwO7v1pMYxjOY5yrlydclXl8H4WHJkXz1tgjKEgaEMElisAXw38v3BOtjnzyt2dDJiqjVMclmFmnESEK7f/glZh9XUAm1UP507ZXKYdIhdUIrcTzlVDU/Y1Q9H2RNB5l7z4Tsly+BEVD6FBObb669XGA6VFKvOw8afvRfapDxxYQaZre2lKPjSBtOO9ChhVXVjvrt1/TS3uqAyO4b2Ll1SSMZKoOHWzCtNRLtMySsE8XPVNmP0Z2aTeSlwuWS0cJEWzoXf+5wVR6IknrYvAOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wtco3NGg0J4SZ153F6f5I0o+TMPTqI24dys75wum+0I=;
- b=nmwUIEUTXxR38b657SdXj4VDyH4GFwG8THknveWjymuR1Qth4tQgjTyTF6DSFTqFAXEafMSCluMdh0UxU3a2ge3rhMEbFIH+DLNLbSnMSFNBkY7N05bZlnRbdHAu/ZqNx4qEiL51Qkyn1L2zZw3BFhC0r1n9geE/Fy9dBhgVLU05l/L/t6E7KB7uCN+b/Mw3lecPOn3ysvt/Q82RDGzGr9JofIJzR1pPK05PAK2LS6HVhFoWq3sTFD8YyFABOX+KnGb2Ehwnk4dlFU9s+ob8KMlPPLVPf9Kr5dwO3ReZZ4LQPm1u0M8qLM6JdAnjCWSHssuqGUdxDJbdo5xWmEzzBQ==
+ bh=jQ7robRzlx9nmUj8HiBCLxSYvxX8FCLVHvjBmwe11Ko=;
+ b=uTrF518TxIszmaDIMXisTfzneGTV+HV4J0eQjdapzIyH6vx9EmR1mZffSj/ziGSdkQ+mNRyb7R5mIW5v9Sp8++TLdJTCNgUdAo45ctlRlVHeXo5hTrNFH+gFh8bQxyGXTKwnL90C7MilVz+889/Qjvd3oDwM0H4X0aMxq1oBwhtbMEP2Yy586RwNIv5ciGL7TjCCjhqogIVI2d1wVMeG+e9YeOpPpFG1G2VYqRG7j4Ndvxr1NY7of0C+xwV9j3E0M0TP6rsbyun2aUOEmzHAH0i0V5TjtIbZ3mr3Q22kIx0Owb1KoLzgc7sV4yc99SjLvDiSa3WNvNmcCXK5ockrmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wtco3NGg0J4SZ153F6f5I0o+TMPTqI24dys75wum+0I=;
- b=wCWn288PIH915pig6R86V/6dkEMNho50gaolKriyFHxrmT2Et0MEhDAR4s40mykFjTzQ5Rib5Wl0s7qJTqA91B3q2VVt97WsA3TJeZnjMU7o4TA4igwsJI+IHYF44+jmbEg6Fd2SxYA6Bae+Y6ryJz28kthzE+yVg7/56Vp9GhI=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- LV3PR12MB9165.namprd12.prod.outlook.com (2603:10b6:408:19f::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=jQ7robRzlx9nmUj8HiBCLxSYvxX8FCLVHvjBmwe11Ko=;
+ b=MjGwx7/EB1ZL8k3aeYsc00OMA6BrgHCap/EXQyYovQoR5rud6oR8cfUbBVTUYY/au4QtjJDEaCOTZxfV6fQfD5ZGLNsngDTleO065txk0+mYudlhvllwiOy/9rRPkoBI6FtBHkkrg+sfi+ILwdkhuczaW/jbtBFgV1tp2xe17Un2FwwFUoaloepfJx9XMjzOkecDHClfxxm9TrFE2CZwl9IA1CjkzpYgpu2ivh5o5rptnZ1dsyFiFuq8nCTol2P7pViaGDlr9wxD7o3Cp6uqyu5KvIZ95dK6jMN7hnTE1vrB96I6mXX/dYAPi+7ihRZGb3k09Y7PeiRnFZdaD9++eA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB7286.namprd12.prod.outlook.com (2603:10b6:303:22f::5)
+ by BL1PR12MB5754.namprd12.prod.outlook.com (2603:10b6:208:391::20)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
- 2025 09:06:44 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb%6]) with mapi id 15.20.8534.031; Mon, 17 Mar 2025
- 09:06:44 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 03/11] drm/amdgpu/gfx: add generic handling for disable_kq
-Thread-Topic: [PATCH 03/11] drm/amdgpu/gfx: add generic handling for disable_kq
-Thread-Index: AQHblCYdtlcReGyPeUiPrTWI0cRMQLN3DPaQ
-Date: Mon, 17 Mar 2025 09:06:44 +0000
-Message-ID: <DS7PR12MB6005F4F38F75F94DC2262703FBDF2@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20250313144136.1117072-1-alexander.deucher@amd.com>
- <20250313144136.1117072-4-alexander.deucher@amd.com>
-In-Reply-To: <20250313144136.1117072-4-alexander.deucher@amd.com>
-Accept-Language: en-US
+ 2025 09:13:15 +0000
+Received: from MW4PR12MB7286.namprd12.prod.outlook.com
+ ([fe80::8beb:2d90:7572:13a3]) by MW4PR12MB7286.namprd12.prod.outlook.com
+ ([fe80::8beb:2d90:7572:13a3%4]) with mapi id 15.20.8534.031; Mon, 17 Mar 2025
+ 09:13:15 +0000
+Message-ID: <b5d80ef2-fd5a-41cc-9184-6c82226c330a@nvidia.com>
+Date: Mon, 17 Mar 2025 20:13:10 +1100
+User-Agent: Mozilla Thunderbird
+Subject: Re: commit 7ffb791423c7 breaks steam game
+To: Bert Karwatzki <spasswolf@web.de>, Alex Deucher <alexdeucher@gmail.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+References: <20250310112206.4168-1-spasswolf@web.de>
+ <9a5df5627d3d72b2a97f501dfb7d944cc1e9920f.camel@web.de>
+ <fdea59fe-f570-489f-bf88-1ffd47119cac@nvidia.com>
+ <414f4deb8c7670a159854006b0c410ce05a6049e.camel@web.de>
+ <12d950ee-4152-4ad6-b93e-7c5b75804b1a@nvidia.com>
+ <705e95cec3dc5181ca2aa73722e6b84f63f3e91d.camel@web.de>
+ <20b5823e-247a-456a-bb55-d50f212a9f5a@nvidia.com>
+ <a34a1ae0b1d226b1bac7d73daa24da8e5899cb3e.camel@web.de>
+ <c7bb0bd1-529d-466d-9cce-abbac4b480ab@nvidia.com>
+ <146277bb0ecbb392d490683c424b8ae0dfa82838.camel@web.de>
+ <b63b1de8-7eec-4235-b61e-e654e78543ba@nvidia.com>
+ <fa8d5e76694918bdaae9faee9648776f298f78ca.camel@web.de>
+ <7866593f-0322-4fb3-9729-82366940fc85@nvidia.com>
+ <a168e78b-ae27-4675-8821-0b1a2499b2b2@nvidia.com>
+ <5d34bfc5109b8d104fd4f8550dd17945344f9d07.camel@web.de>
+ <551b9797-20d6-4bfe-b54c-84dd7aae7794@nvidia.com>
+ <CADnq5_Pvmxa10dJWYjajwxG-0Y_oxhL6wS6NsG2F0dmcJS6o8A@mail.gmail.com>
+ <9be36dfab79b17e108f71d51a6ebf39073e110c6.camel@web.de>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=b0aabef7-fb9a-4c1d-bafc-9826b0432971;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-03-17T08:57:57Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|LV3PR12MB9165:EE_
-x-ms-office365-filtering-correlation-id: 3eeefd37-2428-47d8-9063-08dd65330a31
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?zvWWk7ADOn5AcxoNSp2HbJ7phfjXG2k21U6w3tLJu4vs42pPxRZfJ6lQ7JAp?=
- =?us-ascii?Q?kYiSkdeWzCR7tiurPb6KdSGfChk+8F2Y9aL6oaMASgvCsQtwZy93s/CYSCU4?=
- =?us-ascii?Q?PVkDqYPyhAtv+Q+MESrLGE/ZltXQIg+s+qh3nXrc5flXGQrzb7DUlfP7J4vl?=
- =?us-ascii?Q?EUmE2quCzsk4mapnDu6hzxWhN8Owg4E1LQSY8oDdZX/v+AGH36n7vHe9s+VX?=
- =?us-ascii?Q?jj1sfhQa3pZIuWoSH9puXXPxfkNIOQVuVpr2vkl24qngWjRL2PAQpUIYySf3?=
- =?us-ascii?Q?/+HFoglZh32b2TLNPb/61SBagreUNEcO4a8bQ8lKucOJseeN1eHlPia42+NM?=
- =?us-ascii?Q?Seg3NMmHnGPRrJSEYZ6gj7WugVQLs9HLRBjBlhY2wu+hZhpm9PUdKBHcpgs1?=
- =?us-ascii?Q?COVAb3dvHYVzoXuA7dTDJ144ipYef3uuzqxUKjCYY0J4IMhU2Ia17GLHlfEo?=
- =?us-ascii?Q?X/x2UkFhHs4cNaptZCCjFQUrgNlKNLXA6x1Ux8jXen0GOl2MWZyVDd0Hcw+S?=
- =?us-ascii?Q?7ZrC62mWc3pOCcLQzvdqg2wgEjmBkROKGzSvkZkE+776jranQwWqcdCOquEo?=
- =?us-ascii?Q?ojsQBv+FNpa7pmzHHQMlBiVteEv99I82eP1mJyJ2onmvOXQwuH9WlfnrBduP?=
- =?us-ascii?Q?SFQjsrHKfJg39Uk4Uv0/rpiOlqvCdMneeITp4otGTK5Mcgzwh3YL5Ip6yTQF?=
- =?us-ascii?Q?o9TnQA+mBxvjUUATx79kmRNkPLzTw1fFR135HL5dcGQDDrrjoK7Od/l01wBU?=
- =?us-ascii?Q?icSbWCcSZaE0LkUN0i8epK7/VCgmDfxq349kOkf4/kugXFfyzzGOouNUqj10?=
- =?us-ascii?Q?8h2WK9Jhn380Y+5sRY09H1q4oncBoMry7Fl9DrhJxKtqbFFEI9Ci2mb88Idg?=
- =?us-ascii?Q?yKcm4lR32VzWgP5h2VugnhlRQWLTrbhk7TPSl+l8oWZV4GcTfYalH1o8DpVw?=
- =?us-ascii?Q?qWgBDZZnDVB3thimeSCsqTWj1Yh9sa6HpUqEVpYn8LpW9mS0mnIB/0Fld8yM?=
- =?us-ascii?Q?VaIowe234AgP2pe8dMJNweogeZC+Y7NkPVGyHo54MW2bhWzmoTmNBEpHkOgS?=
- =?us-ascii?Q?dCxbEtMvJNR6fMKTBpBUbvByhuzPLkxLYLNa8jQ6VFU6x0pGJVqhauDyYVNK?=
- =?us-ascii?Q?68Z90U/DXFORX9DwYelhqbBL+nf0wBn0w164cm6wACq7dLKJPFV7ig0YQA7K?=
- =?us-ascii?Q?wp/8d5M8XG0qdck3cXqFFWfJct+ylDnUB03peKjIqSIL6D8mUy9xwuVGneSN?=
- =?us-ascii?Q?w90b5QXbSe/b2x7gDb+gpLmUqJZ/S7gHpUiH5tpPgZup6jSL2g4lbsAdKx9w?=
- =?us-ascii?Q?G0dsruTaknTDK4CsUEMOU76W4ANLw+DMdEdk5CkJsdmGbcIXHvwgLfYc1o0B?=
- =?us-ascii?Q?K0GiaDbx7EFap40HCjbeea4x6dxBfelKTUV1VU1N8ZMyJfamdLKhqnqZ2CvS?=
- =?us-ascii?Q?L82aNSiV1piaJVgIyib6bWv7W3pWSmwM?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fme0aaTKvJa5q4upSf0XYxhysTk5AQBAJPyr7kdjU4NEU/hQSBuYhmS0FYZH?=
- =?us-ascii?Q?ZMeEet0I6H+/DhUoMjth+5qRLnSsJ13fNjRA+cgaKrOX1bpAcNWWpD15E70i?=
- =?us-ascii?Q?NAi+bmlqsdKEPvF45IYFqf04cJvC3b8Tcc5RWnqKqyUEJNXWCoZvhBxaWoyU?=
- =?us-ascii?Q?63aHbsvSW0fUvoWUNn7lWW1aUJq6efLUHdYi/4TT6oUmoH6f3hfiQUF7qsWx?=
- =?us-ascii?Q?T7OjGQGiJFBlcmE8P1Z2N2fqlPIuQth/Rb/LbnbvEkDUgBNBP4o+TCSVXcCz?=
- =?us-ascii?Q?Nemcc55r96hDCmftejEObBkq7X1Sg5ESRevEBCkTzn3CIUMS8hNyh5pcT0w2?=
- =?us-ascii?Q?Asblpa9CpZlACVjcC3+Es9SuptXGkVU/z12OdO1NDoqCli8c8iKRizXjr0lZ?=
- =?us-ascii?Q?wRbSskSW6uPUFXJZoBi6tYaMy8oYpG/aQxvRkYirZVPe0dc5MaBouUWvs+2S?=
- =?us-ascii?Q?NBH9+ADsvm4+YOKte32d6NnSPb16h08Y4PMHDVU3/2pdhZiOGEcbVraC8Jrm?=
- =?us-ascii?Q?Wd5HhOYZYulpuAEW3OzgNfXhtS3ER+uJJ1graP1xxRow2qGorB8/iBYG8P3B?=
- =?us-ascii?Q?r63uSoLn+lBvqVHqQkjCBkBg+i3aRbCPo0kkyaDOIhHcQ+W7wUXpemLTY8eN?=
- =?us-ascii?Q?bfM6AwrENt2UCkFui0bArULUm6zha0hCCicP/PfC1jLcLXh77oLMrG9WHnbu?=
- =?us-ascii?Q?IycyT5W3GFGzVxSgityOHqLzjoJgeFYPyOx/0lZ9t0++nxNeGNmxwQhJ11uJ?=
- =?us-ascii?Q?2dZQV6hQ41QsWi+bZ77Hm1DAxSCmprzXzSsyrxBjDHd9opPeyrBa4ow+PJS+?=
- =?us-ascii?Q?4yhK9SiEHzvtbTOK/k7ZsWLnMLRaG1DVW7SMPP8OlOCnFQng8XFRYEv5txX5?=
- =?us-ascii?Q?EkS3jj2nt71vf1kB8i7MwfbmNoUghR/eDwVePUNTx+HGlYhnQXMRs4ybBegR?=
- =?us-ascii?Q?Y9DuC8liaJHpoSbL9zQPEJ0Mmjz3rhiypPTkIkXASUm/cnVD858JWLR4EZwa?=
- =?us-ascii?Q?iGvj7H9iso7ztlktHKbNeHBQ5LAwC/GPfNxHvN6WFkG3FcWsnW9HsDZF7b3/?=
- =?us-ascii?Q?GNKbgUmbPiumXzkaF4m7F2rsZzTLuoDIKBvhNbskV6hMKFyYQPcRqvF1YISy?=
- =?us-ascii?Q?Xylu79z3a5Zq06qi9rpjp2PteXFDvSrGBBCGEFNry0W8/2btyeDL0NAnYuUC?=
- =?us-ascii?Q?AO98tCZRKCFVUmFHxtu5cdBIRbEf47ot2phwPwk1hlQflVJX47CiCuO5DL3F?=
- =?us-ascii?Q?Ghk7byGgJAbuJrAiVFgUlKWePkLI6gBkyXtXqQna4B2G2ZE/80l9Vv/q3jBJ?=
- =?us-ascii?Q?AlPmmIXGERFa+wTnf6xR61DS5JaiZYnsHwm7DhGrexalYYh0SNYfGr5OAC7W?=
- =?us-ascii?Q?wba3aiMagHwgOzg+FijNiPwh1ZEwssZTn1q6xEWKIPykz04tCt4R7mb6BV7C?=
- =?us-ascii?Q?ktkie3FuQBzJQykfPS2jz14oXy3cYn/N9/cOR7gpHTaBREXXUpvHo//WsMGB?=
- =?us-ascii?Q?14zhZMq6IoYQ+dIOLv6KKHeJzycGq4fs7msQajNFaDzL1LXVaAwEERrQeWse?=
- =?us-ascii?Q?8g4Z3Yea3iBEWdrwGbo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Balbir Singh <balbirs@nvidia.com>
+In-Reply-To: <9be36dfab79b17e108f71d51a6ebf39073e110c6.camel@web.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY3PR04CA0025.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::30) To MW4PR12MB7286.namprd12.prod.outlook.com
+ (2603:10b6:303:22f::5)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB7286:EE_|BL1PR12MB5754:EE_
+X-MS-Office365-Filtering-Correlation-Id: e54e6893-d75a-4374-4892-08dd6533f2d8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VDJCVW44NkNSWm9SdytBZ3JNQXhjRE11RlJpVngrZkJSNm5UamIwZmE5N21Q?=
+ =?utf-8?B?TGljZFlnL3B3cFphSDQxVzZ1dTZ1Y3NYYVNmRi9rVUd1NDJVbkN5OEl2ZW9N?=
+ =?utf-8?B?ZzhYN3BaclBTcVhIRm9jZXQwSEVGSVlwZnFCU1lCZUkvNWd1UjlWWXJhU25v?=
+ =?utf-8?B?S1B4MDZTYVFHeFQzK25VdDRxb1ZUUUprVjhLbzM1QWdUN1Z0d2p6akJTMkha?=
+ =?utf-8?B?VG95aERtT0h1SndUeGU0Uzg3ZmFnUldBdmdmM2orR2JBendGdDN1STg4RTQ0?=
+ =?utf-8?B?Q1BtRm0zcEh5cVVVMGtVNTFJdUQ5L0dHVSt0YWpDRFR2VHlWYjE2YVZKVDIr?=
+ =?utf-8?B?NDdCOVdVYy9udU5IeUxJSk1RaDhReThkeWZYTk1xeDZYdlBnVktkUGRtSEpC?=
+ =?utf-8?B?YWcxRHEyUHFGTDEyL0EvTlhWQklPWXJJMUdybTZLREtBMGhpUmxIclNLMlla?=
+ =?utf-8?B?VnBNYVFvMmtyM0hnVzR0NG1PR0N0cXVDZzd0QlVWTWp2Vno3QkhtLytMdVRk?=
+ =?utf-8?B?K0hFMFA5T1RxSzg2RFo5TkcvbXJYUmtpVkx5Q3JTVW1JYnV6cVFEMHRZV2hY?=
+ =?utf-8?B?dDR4bWlKcjk5eFA4c0tUVFFuUzV3NUhxMHJqMHd5ZWZtRm9nZ2VNdFFRZVZz?=
+ =?utf-8?B?anV2d3V4MkFtSkNqWndKeWtQT3NlTVY2ZTVxQ3JOMk9pUTdyTE5aNHY1ckpY?=
+ =?utf-8?B?NXp6OVQwTzdJUlRwamNTdkowOE1Lajg5b1hVRlBIM3lFclhyYlBCQmg2dG16?=
+ =?utf-8?B?R2hMRHVlK0xkL0h3QjZzcTZPSHg3ZE9HOXhaTkJUNEU4NUUyUmdFUlRPVk5T?=
+ =?utf-8?B?STh4KzR2K0w5c2tzTURuL1NHSVF3R3had1JvN1RDQ3FhRDJlUzhNa1hEWjFL?=
+ =?utf-8?B?akNnK0syTE9qaG5FZ3pPUlF1R1JDRkRDOEdzZnhuV0hDc05ONFlWWkYvRnhq?=
+ =?utf-8?B?UmZEaDhQNUtjYWNGVFE3NGdITXcvdHo1dUE3NFhoM0x2VDF4TEJNb0s5VktK?=
+ =?utf-8?B?OW4vdWRUakR5WGE0cGFRVkRRSU1BWFd0TEEzbTAzSWZyWkc3Z3pWOFdUaHdT?=
+ =?utf-8?B?RzlhWHlYam1LUmN6WHJOWXdKb2V2NGZKQTNZcnJGb0FCdEMvQktkQUFIcmhT?=
+ =?utf-8?B?VndBbEVGOHZ0T3piNWpHYTBKTFV5QnBZb2V3L3gxRnhjaThmWCt1ZWNDcmhn?=
+ =?utf-8?B?K2l0clF0TSs1T3VHMm95WU5LK0hDWmM3UHc5a3pBc3BBbXJZaTFyRFJQNWNQ?=
+ =?utf-8?B?anNQTVpqZzNHRlJXekNPMU9WQWNSZzNvNUdmSUgwSWdkMEp1OWJuTHpIdWNZ?=
+ =?utf-8?B?TkNTRThGUkpiU0RKT3JpVVRBT3NQejhXazV3dGZBQnhjRXdIVmxQbVlWY3FM?=
+ =?utf-8?B?cG14M3Nnc3JrTWl1b2JGOTcwb0ZDYzNMQUt0am5mRWZUbi8rWllrTHhwcGd5?=
+ =?utf-8?B?TUR6N1IxdFZsTGovM2E0NXZmNlJlS1k4bDhaMndDNHpHa2tET2MyYzZFUW0w?=
+ =?utf-8?B?cDZkWXVZbCsrZHNyT2ZTTVFiZCtCK1RhbnBGdDFlY3pSaVJ1Q0tIODlSSWRS?=
+ =?utf-8?B?V0p0ZVBkOCtmeG5YYzdYV3dZM1cvMzNUcnpJSmRRZnpacmNPUVp5SFYvTTE5?=
+ =?utf-8?B?UWhNYzVIeW12MENFcXIwTFlLMk01U29McnBlQ00xMGpMWGMvV3o2bklCelNU?=
+ =?utf-8?B?TDFrV1FKdnp3OEZnTVVURTYzbzFaY3BCcE9BamVsZS8rZkVPNU1lZnFCdHVj?=
+ =?utf-8?B?bm53b0hkWSthSTJWVDFpZ1hMUWZ3Q05CNTZnY2VRQVVpL0lIbUNMZUhQN1VL?=
+ =?utf-8?B?a2NNc2tJNHdIMzlhYTgyQ0xOQk1MOTU5R0pTUDdrTEF6L3lVc1dva3NiZ0NY?=
+ =?utf-8?Q?fBREmGHMFPFk8?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB7286.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0E5MnhyRUdEMUxzTWdXQUsydkpTSFczNXdLMjZyMEdxN2w5V0hHeGNoQWRS?=
+ =?utf-8?B?NVJvVG95UG8rYUFHdUYzNHpnd29zRGpmV0V4bVcwMFJLZW1pSTNTZk5DRXV2?=
+ =?utf-8?B?OGhiU1hFWW93M2REQTQ2RUlrdHFpTHlQTTFEcERRdnVmTHlzTjRIL0M4UmhF?=
+ =?utf-8?B?RjZudTNCamJTUmZqYVhQNk1ybTJYWWVHdVl4bHhkMm9FM2FVRXNEdHBTRVIv?=
+ =?utf-8?B?RmMzMW9wbUFseGw1MC8rd1RDemRoYXJOZ2xNVDYvbEZRSDJ1VldwNkNsTU12?=
+ =?utf-8?B?MDlyUng4dFJQZHZINUh3Si9QcGlwV0F3OGl2ck5WcS9aMEtJc3N2TFBjQlVU?=
+ =?utf-8?B?RFhtd2EyWllNaEJ0aE5qRDVvdThwOUtWT2kybC9VWmhoQWxPOEJpSHJIUlFt?=
+ =?utf-8?B?eEhyZ2tSTUlDcnNHY21xN05vdWxlWEtKOVpCUXVocVpJdlpMMnJCM3hTYUxN?=
+ =?utf-8?B?QWtKdmVaM0tJd0NVYXVtQkMvV2hCZktuRDVhaWNzdGJGRGYwQkJwWEN5U2FH?=
+ =?utf-8?B?T3JTaTU5a2RNaE1vZ1U2Z0xXRG5ScUJWK1FWZUh5T2lzZ1huSnE5TjVPajZS?=
+ =?utf-8?B?V3pLNFBvbkJ3ckxIS1VzMGcraTdGNDE0R1U0M0Q2ck5YNGM2R3AwbSs5V1lx?=
+ =?utf-8?B?MW1LWXF3RFVSdTNEcVc1dkhvUlF0bGdtNW9Hc2NscjM2RDI3SU9YZFpwaU8y?=
+ =?utf-8?B?NXl5OTk1aVpHWW9pRSs3bVdKVXVBOTg0UWlWdnljaHR0QkhaTlpISHJSYk45?=
+ =?utf-8?B?Y1laUGxuVTJncS8yekZPMjJzUk5mcjhWRjlpVU44MmloN3BDaGJMNlp3V28x?=
+ =?utf-8?B?U0EyMlFtOWhoYmFsbWtVRloxektjR1VySFlIZGtPSU1reVBCM0RmTGk4Mklx?=
+ =?utf-8?B?WTFrR3l3M0FGb1RTOHd6U3JJZkNmRnVlYnBINGNYOU95NjN0MzBOOVNVSUdW?=
+ =?utf-8?B?c1VxZThoOW9xSEdvWldqU1JsTDdKaTY3bkd4Rk9YWHhWQnBtb243Q203RGpC?=
+ =?utf-8?B?cUZYcVFPQXdoempPdlNWVzlMUU5IZUx5UkZaano2YktCRld6dk0wUThnbnd0?=
+ =?utf-8?B?SUZlMmNMakp1dzg5MUtNK0lBeWxqL1AvY016LzVGaW9BNFZ1Vmh0ZzlEbDhQ?=
+ =?utf-8?B?aCs5c21HbklaaFBsMUxqM000QnliMlNrUC8yYitVQzlUWDVxbERhT01hSFA4?=
+ =?utf-8?B?WitGYnZ3MWxmSElYTW1uSFAzeUNwUFpnbnYwakpRbVlEcml0a0tQdU9maHR4?=
+ =?utf-8?B?bGRtNExvVUI1K3Ixb0lkK3k1QXkxMmorb3ZyZHJFd0xZSW9sMTBVRTlXM1JN?=
+ =?utf-8?B?ZU44VWJvckJMTExtTW9uMWZYd05PY2Q4eG1OSVJhLzk5R09iSVN3UWtGMi9K?=
+ =?utf-8?B?NXBvbG9UTUFJbGhoWGJVcm1RRnhtZThnUDM2dHVBbitXeEJZY2tEL1oyNWs3?=
+ =?utf-8?B?ZGZjM0JCSHkvNGJCT3h5R3JEZTNkay9wb2FNaHBkZDRIa3Y1NDlMNWRnck5p?=
+ =?utf-8?B?bERsSTFPUGtQd1RwVGNQMjFWWGdFNlY0QXlVUHZOUXJvWGVoblZnMU9hUTBz?=
+ =?utf-8?B?aHMzTWRaVHJsK29SdHMrcFMrSUVDR1dZMXM0ejh2QTdZaG00eFlDOE9SUHha?=
+ =?utf-8?B?ZGtScC9VU3JCdWNvQ1AzMjJQSjllT2MxbjNxUyt4VlBUeXozT2RGWUdaNjd1?=
+ =?utf-8?B?TkxJZ0lTby9zRkRVRjZXcG5pNnhodVMvaTZLS0U3WXlNQzA5NDV3NmEwRkFh?=
+ =?utf-8?B?NFVGUGZZZkJDY3E5bG0rVzJCVW1FRzhXWkU5bW5aYURkZm9zRmZKcHVzMTYv?=
+ =?utf-8?B?M25tV3FubWtuWTlucnUrdnBNWUk2V3kwMEJ4eTlIK0RkaWpvaHdiVytEdmdP?=
+ =?utf-8?B?eEdGaDgyVCtmM3hiNG1hWkVIVXpiVUZaSlpXUHlkM3dlYjZyemZRczh2UEJO?=
+ =?utf-8?B?ang0OGNiRHRVQ2wyYlJnT1dCN05TZkVuODJMSWhJdkphaWlnUXlKR3EvR2ZO?=
+ =?utf-8?B?NDFsVFNsS0diNjVKenNQRlZnQUJCcHJDZC9RM1JrTVlOL0JuOTU0akdKcVl6?=
+ =?utf-8?B?SGIwajBpbEJmQm1iYzlnelRzcWpqQVZHaFE3WFIrYUtEWG9mUTlnMEhVQWQx?=
+ =?utf-8?Q?nPYhwtFmguaVV0JvOaV3InuDk?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e54e6893-d75a-4374-4892-08dd6533f2d8
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB7286.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3eeefd37-2428-47d8-9063-08dd65330a31
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2025 09:06:44.4984 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cA6HU1TvBqlpuAxAcA9JH2m5f1Nv9azOoQWbkNKu7ltJSKL9IhmRMI+b06m9BUkN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9165
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 09:13:15.0343 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lWvF4b0YR7ZluT1jUr8kJhspWHGX5CHwui4LITwfGlSZP3xl8LGIeSHUGMAaZxUClGBeyeGkGc53wR80M7Kirg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5754
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,84 +181,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On 3/17/25 00:09, Bert Karwatzki wrote:
+> This is related to the admgpu.gttsize. My laptop has the maximum amount 
+> of memory (64G) and usually gttsize is half of main memory size. I just 
+> tested with cmdline="nokaslr amdgpi.gttsize=2048" and the problem does 
+> not occur. So I did some more testing with varying gttsize and got this
+> for the built-in GPU
+> 
+> 08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
+> Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] (rev c5)
+> 
+> (nokaslr is always enabeld)
+> gttssize   input behaviour
+>  2048		GOOD
+>  2064		GOOD
+>  2080		SEMIBAD (i.e. noticeable input lag but not as bad as below)
+>  3072		BAD
+>  4096		BAD
+>  8192		BAD
+> 16384		BAD
+> 
+> As the build-in GPU has ~512 VRAM there seems to be problems when gttsize >
+> 4*VRAM so I tested for the discrete GPU with 8G of VRAM
+> gttsize   input behaviour
+> 49152		GOOD
+> 64000		GOOD
+> 
+> So for the discrete GPU increasing gttsize does no reproduce the bug.
+> 
 
-When disabling the gfx kernel queue, then the related ring function callbac=
-k should be unassigned, and the clean shader callback should also not be fu=
-rther invoked. To avoid the clean shader resource allocated, we may need to=
- drop the shader clean initialized at *_ sw_init() when disable gfx kernel =
-queue.
+Very interesting, I am not a GTT expert, but with these experiments do you
+find anything interesting in
 
-Regards,
-      Prike
+/sys/kernel/debug/x86/pat_memtype_list?
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Thursday, March 13, 2025 10:41 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH 03/11] drm/amdgpu/gfx: add generic handling for disable_k=
-q
->
-> Add proper checks for disable_kq functionality in gfx helper functions.  =
-Add special
-> logic for families that require the clear state setup.
->
-> v2: use ring count as per Felix suggestion
-> v3: fix num_gfx_rings handling in amdgpu_gfx_graphics_queue_acquire()
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 8 ++++++--
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 2 ++
->  2 files changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index 984e6ff6e4632..a08243dd0798e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -258,8 +258,9 @@ void amdgpu_gfx_graphics_queue_acquire(struct
-> amdgpu_device *adev)
->       }
->
->       /* update the number of active graphics rings */
-> -     adev->gfx.num_gfx_rings =3D
-> -             bitmap_weight(adev->gfx.me.queue_bitmap,
-> AMDGPU_MAX_GFX_QUEUES);
-> +     if (adev->gfx.num_gfx_rings)
-> +             adev->gfx.num_gfx_rings =3D
-> +                     bitmap_weight(adev->gfx.me.queue_bitmap,
-> AMDGPU_MAX_GFX_QUEUES);
->  }
->
->  static int amdgpu_gfx_kiq_acquire(struct amdgpu_device *adev, @@ -1544,6
-> +1545,9 @@ static ssize_t amdgpu_gfx_set_run_cleaner_shader(struct device
-> *dev,
->       if (adev->in_suspend && !adev->in_runpm)
->               return -EPERM;
->
-> +     if (adev->gfx.disable_kq)
-> +             return -ENOTSUPP;
-> +
->       ret =3D kstrtol(buf, 0, &value);
->
->       if (ret)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index ddf4533614bac..8fa68a4ac34f1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -483,6 +483,8 @@ struct amdgpu_gfx {
->
->       atomic_t                        total_submission_cnt;
->       struct delayed_work             idle_work;
-> +
-> +     bool                            disable_kq;
->  };
->
->  struct amdgpu_gfx_ras_reg_entry {
-> --
-> 2.48.1
+It's weird that you don't see any issues in Xorg (Xfce), just the games.
+May be we should get help from the amd-gfx experts to further diagnose/debug
+the interaction of nokaslr with the game.
+
+Balbir
 
