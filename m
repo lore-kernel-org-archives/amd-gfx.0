@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 323A4C35FFC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 06:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DC4C35FF3
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 06:07:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 320EB10E324;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0819810E328;
 	Mon, 17 Mar 2025 06:07:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fQKMHK/G";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VefyDFyu";
 	dkim-atps=neutral
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
- [209.85.160.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89C7510E322
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 06:07:34 +0000 (UTC)
-Received: by mail-qt1-f179.google.com with SMTP id
- d75a77b69052e-47677b77725so40217611cf.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 16 Mar 2025 23:07:34 -0700 (PDT)
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
+ [209.85.160.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B6D210E31E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 06:07:33 +0000 (UTC)
+Received: by mail-qt1-f169.google.com with SMTP id
+ d75a77b69052e-4768f90bf36so34052481cf.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 16 Mar 2025 23:07:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742191653; x=1742796453; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742191652; x=1742796452; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=dVfkzjv7StFwdUZ5quvqQfvV2oE7bQFZa5teN40zSf4=;
- b=fQKMHK/GPk/FARxXLtarEiQzmajnn9Jxi3oPZPq1KhRHgfIUFENm6IF4AtqF8xf6fc
- JZ5AibAshhjAVLFlEdPgUZHrIiVNmDGxIbCRl+iStkROGn4jCaGj+yupuWeRbukN8qRG
- sd4/RfvDzML2dztCESjq4T8cW9rfwXtjqW4u7lFeM+T3cge+TTdvrcszFZMkjcb+AI+C
- JsYEmOPGpTmNs7xkHedGuFl14Z5IsFbjGcBJ1DCXMeB+T6XPQgysAuZcn0EdR5H7mQX4
- I4dyJNOFPt7YigduQQLEBE2qAWuh+g0JGdbPawxIPpEufII2DplfwCMUJqOg80Xvq/NW
- LKcg==
+ :reply-to; bh=Q657v9GSZYXlK74xnXDvwPysQHfDSX2B+IadisL9298=;
+ b=VefyDFyusn1W+ys66H5Z7u+e39uAVz/31Ix6AFCRn2LoIjyAQPuOTxMF2ESMD1MV4G
+ hitDifnP/LS9+p2yOkIjtvip78NCfHG0RT9+bclHhorIOlcEwKtYQ3n4vrpYx62+Jzy3
+ xDWOw7LhNL69eaz730b3jjmx34moUGb8uwCEh7awZYX5Qz2vT1BB8ZkAwMraUTwq+Sqi
+ 8NJwtlcpso+qRx/EA4Jxip5koxsw0jQkIokm9DTPUpNCoO2LccxLAzGoADkUycO4BGIX
+ dukktSkeRLshnImY6r+kGagKk6w5frdx7BNqJOy6GtxYgADucDZCmoDiQfbPaKvlTi4t
+ mlOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742191653; x=1742796453;
+ d=1e100.net; s=20230601; t=1742191652; x=1742796452;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dVfkzjv7StFwdUZ5quvqQfvV2oE7bQFZa5teN40zSf4=;
- b=WoSigocGAMfymF4j7QcEurgV8ffLDTfLJ9CUGdxOpG31+FZQKmruGavi35WEiKpl6L
- sE1RfBRmQ3rJwjekLTy/uMt1mWKZtJVoTZUdNSDy5z+N1JpF2ktd+Pd2sIxQIr+mPC6A
- XYQVCT23R0RoaIR4d/ZbwTShXCj3AUTL2UwNNbXCZ0szFxiP8POJ1i/xvFr+C5rzpMDN
- HiH8vScwJ5HZp0NYrCCS0IWigmw9KW9EkRZ+OjF2AgpKY/wiIp9IgPVuclZQItHd+Vwb
- kajtvmRtQoZW8jPyUFbwKs/0B0ZgiLey6xTYb7yBuYsbdGI7pvOHAaVJDjACAlMfDB88
- FsDQ==
-X-Gm-Message-State: AOJu0YxMD7BfskdXCkqBeMwDT/afeio7mdDxxopzSsBykupQqfZoIUhB
- lDvvqKHzouKlQbKPtfc1X3ILm4xWyGrN8ktGqBcwJM4Fgn9zf/UilTMMwg==
-X-Gm-Gg: ASbGncuj4Bvksu56GHrZnTUVIcCu1RWWdWxErOJqczFtA7v6mISfTinVpCt93cUYUZq
- mY5DRPEi3k4uz4cu9YHoU8g38bjSlPIFvdrQua2IVLgFWylt9awNim8WCwAEP4hTxUFSr7mCsTf
- mT1+URX4iwY61ule05OGZfsxR9fZzjT7Rl3Ftm0W+fOmqvS4A3pH+3/GoM3f+Uf2pi94pKiz/u+
- FJCrjTfw7vO3/dGwZ4DkjxFb1ENAjBIEVUoBtbmhpMpcmjpk+EaLKSZNCgh5wGWO2PTUnluyObz
- 11TRJPNqKOsNfEA0QZ4d4PfFzRjD0noHzVUSwfTche8hf/dm4JWgygBbNvpUPYph1xo=
-X-Google-Smtp-Source: AGHT+IFIBZQ2xp1t84nTSh3NAWPxyR2Ief0Fyd5jr+p2OMEmIa8nuzqyRCt6zqVt7VVgrEYC+nMKTg==
-X-Received: by 2002:a05:622a:1a89:b0:476:add4:d2b7 with SMTP id
- d75a77b69052e-476c81ee0d9mr183224131cf.51.1742191653179; 
- Sun, 16 Mar 2025 23:07:33 -0700 (PDT)
+ bh=Q657v9GSZYXlK74xnXDvwPysQHfDSX2B+IadisL9298=;
+ b=V5fdN2Zthwyul5AraDPLEzN3E0b4bsK8yn78KaKXQpP43cn0XWkKk5jtYgNpQo8qSY
+ 3c9HQNjzpWyiePdrAfIqKuLYpkpYbuf3uoEPMJUSAccLCuNFIHoCTvI4xgcyKqz6GS4y
+ gA6oZNAVzPFLElpyHAjatO0hT6MMvZZ2WZREPPnKm0jFVZxdDxfemxudcZVfQQrpoppK
+ r9h5rkS/GtWwMPj4GegiQrkXVHEq7lo0dA2CD8d2hN1gsNu1V0UXKH2v0h4FoP1sCIiF
+ CCDeSHRKxXWGvtXeHTcKWh5a36GZCYKaQC7gQL+MfNMMSrSKjmdlyulPHQ0aXKr4ktVs
+ qWkQ==
+X-Gm-Message-State: AOJu0YxKHOEh91DUwoHpxbi01tprkZVKxiqEjxJWKLu5uzec0+vyvMXf
+ SyN1OUq94a8y63TQESEV9VEIbadVAuzi55X5OWK+HEPepolWrQyFKUY39w==
+X-Gm-Gg: ASbGncs4RDO2aUQKsXYgoAW6m3Rmx3883p4buvZOGCDEaic90vJoeRbI4/qK9XRrDfL
+ AJDUy1H3DkUWNc8wQwlsvnk/HYxZLvZTCDP++qS1b6YTlByzM3DTzevG6Hzesg/U6FOYLoPkCF3
+ FmDfKVYIRNomtBtzOdvkauO6CMCGZB8wRKk3rRERQvw1T6UXKZB473mEfFbV/YtHj8+8CC5rjCV
+ BxIXbZqVMCL0eEqonjV4fms1Ww2In0CEX60heniDfLwUNN1sboxK344nVOqsW/E/VWMJUs9yjSq
+ hxA2rAQ77B1iWWYrNK0tWlWpQNM8sgW4jUfwx6uW2XYspjVpmb2yLGnOytfBatxFh+U=
+X-Google-Smtp-Source: AGHT+IEDCX65IiQSaT5SqXNPbsIT4cwAZ1vyubNP1BWPgJdibwHikEJoP8rfGe8AJ700iM096VSnEQ==
+X-Received: by 2002:ac8:7f04:0:b0:476:b461:24a3 with SMTP id
+ d75a77b69052e-476c8133f02mr200961241cf.3.1742191651713; 
+ Sun, 16 Mar 2025 23:07:31 -0700 (PDT)
 Received: from localhost.localdomain ([38.74.25.248])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-476bb7f4f08sm50605931cf.56.2025.03.16.23.07.32
+ d75a77b69052e-476bb7f4f08sm50605931cf.56.2025.03.16.23.07.30
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Mar 2025 23:07:32 -0700 (PDT)
+ Sun, 16 Mar 2025 23:07:31 -0700 (PDT)
 From: Alexandre Demers <alexandre.f.demers@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 13/18] drm/amdgpu: move si.c away from sid.h
-Date: Mon, 17 Mar 2025 02:06:57 -0400
-Message-ID: <20250317060702.5297-14-alexandre.f.demers@gmail.com>
+Subject: [PATCH 11/18] drm/pm/legacy-dpm: move SI away from sid.h and
+ si_enums.h
+Date: Mon, 17 Mar 2025 02:06:55 -0400
+Message-ID: <20250317060702.5297-12-alexandre.f.demers@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250317060702.5297-1-alexandre.f.demers@gmail.com>
 References: <20250317060702.5297-1-alexandre.f.demers@gmail.com>
@@ -85,636 +86,903 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/si.c | 369 ++++++++++++++++----------------
- 1 file changed, 185 insertions(+), 184 deletions(-)
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 338 +++++++++++----------
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c |  36 +--
+ 2 files changed, 190 insertions(+), 184 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 75d3b7471c68..3b8c65a966b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1085,8 +1085,8 @@ static u32 si_smc_rreg(struct amdgpu_device *adev, u32 reg)
- 	u32 r;
- 
- 	spin_lock_irqsave(&adev->smc_idx_lock, flags);
--	WREG32(SMC_IND_INDEX_0, (reg));
--	r = RREG32(SMC_IND_DATA_0);
-+	WREG32(mmSMC_IND_INDEX_0, (reg));
-+	r = RREG32(mmSMC_IND_DATA_0);
- 	spin_unlock_irqrestore(&adev->smc_idx_lock, flags);
- 	return r;
- }
-@@ -1096,8 +1096,8 @@ static void si_smc_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&adev->smc_idx_lock, flags);
--	WREG32(SMC_IND_INDEX_0, (reg));
--	WREG32(SMC_IND_DATA_0, (v));
-+	WREG32(mmSMC_IND_INDEX_0, (reg));
-+	WREG32(mmSMC_IND_DATA_0, (v));
- 	spin_unlock_irqrestore(&adev->smc_idx_lock, flags);
- }
- 
-@@ -1124,20 +1124,20 @@ static void si_uvd_ctx_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
- }
- 
- static struct amdgpu_allowed_register_entry si_allowed_read_registers[] = {
--	{GRBM_STATUS},
-+	{mmGRBM_STATUS},
- 	{mmGRBM_STATUS2},
- 	{mmGRBM_STATUS_SE0},
- 	{mmGRBM_STATUS_SE1},
- 	{mmSRBM_STATUS},
- 	{mmSRBM_STATUS2},
--	{DMA_STATUS_REG + DMA0_REGISTER_OFFSET},
--	{DMA_STATUS_REG + DMA1_REGISTER_OFFSET},
-+	{mmDMA_STATUS_REG + DMA0_REGISTER_OFFSET},
-+	{mmDMA_STATUS_REG + DMA1_REGISTER_OFFSET},
- 	{mmCP_STAT},
- 	{mmCP_STALLED_STAT1},
- 	{mmCP_STALLED_STAT2},
- 	{mmCP_STALLED_STAT3},
--	{GB_ADDR_CONFIG},
--	{MC_ARB_RAMCFG},
-+	{mmGB_ADDR_CONFIG},
-+	{mmMC_ARB_RAMCFG},
- 	{mmGB_TILE_MODE0},
- 	{mmGB_TILE_MODE1},
- 	{mmGB_TILE_MODE2},
-@@ -1170,7 +1170,7 @@ static struct amdgpu_allowed_register_entry si_allowed_read_registers[] = {
- 	{mmGB_TILE_MODE29},
- 	{mmGB_TILE_MODE30},
- 	{mmGB_TILE_MODE31},
--	{CC_RB_BACKEND_DISABLE, true},
-+	{mmCC_RB_BACKEND_DISABLE, true},
- 	{mmGC_USER_RB_BACKEND_DISABLE, true},
- 	{mmPA_SC_RASTER_CONFIG, true},
- };
-@@ -1282,7 +1282,7 @@ static bool si_read_disabled_bios(struct amdgpu_device *adev)
- 	if (adev->mode_info.num_crtc) {
- 		d1vga_control = RREG32(AVIVO_D1VGA_CONTROL);
- 		d2vga_control = RREG32(AVIVO_D2VGA_CONTROL);
--		vga_render_control = RREG32(VGA_RENDER_CONTROL);
-+		vga_render_control = RREG32(mmVGA_RENDER_CONTROL);
- 	}
- 	rom_cntl = RREG32(R600_ROM_CNTL);
- 
-@@ -1296,8 +1296,8 @@ static bool si_read_disabled_bios(struct amdgpu_device *adev)
- 		WREG32(AVIVO_D2VGA_CONTROL,
- 		       (d2vga_control & ~(AVIVO_DVGA_CONTROL_MODE_ENABLE |
- 					  AVIVO_DVGA_CONTROL_TIMING_SELECT)));
--		WREG32(VGA_RENDER_CONTROL,
--		       (vga_render_control & C_000300_VGA_VSTATUS_CNTL));
-+		WREG32(mmVGA_RENDER_CONTROL,
-+		       (vga_render_control & ~VGA_RENDER_CONTROL__VGA_VSTATUS_CNTL_MASK));
- 	}
- 	WREG32(R600_ROM_CNTL, rom_cntl | R600_SCK_OVERWRITE);
- 
-@@ -1308,7 +1308,7 @@ static bool si_read_disabled_bios(struct amdgpu_device *adev)
- 	if (adev->mode_info.num_crtc) {
- 		WREG32(AVIVO_D1VGA_CONTROL, d1vga_control);
- 		WREG32(AVIVO_D2VGA_CONTROL, d2vga_control);
--		WREG32(VGA_RENDER_CONTROL, vga_render_control);
-+		WREG32(mmVGA_RENDER_CONTROL, vga_render_control);
- 	}
- 	WREG32(R600_ROM_CNTL, rom_cntl);
- 	return r;
-@@ -1345,23 +1345,24 @@ static void si_set_clk_bypass_mode(struct amdgpu_device *adev)
- {
- 	u32 tmp, i;
- 
--	tmp = RREG32(CG_SPLL_FUNC_CNTL);
--	tmp |= SPLL_BYPASS_EN;
--	WREG32(CG_SPLL_FUNC_CNTL, tmp);
-+	tmp = RREG32(ixCG_SPLL_FUNC_CNTL);
-+	tmp |= CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN_MASK;
-+	WREG32(ixCG_SPLL_FUNC_CNTL, tmp);
- 
--	tmp = RREG32(CG_SPLL_FUNC_CNTL_2);
--	tmp |= SPLL_CTLREQ_CHG;
--	WREG32(CG_SPLL_FUNC_CNTL_2, tmp);
-+	tmp = RREG32(ixCG_SPLL_FUNC_CNTL_2);
-+	tmp |= CG_SPLL_FUNC_CNTL_2__SPLL_CTLREQ_CHG_MASK;
-+	WREG32(ixCG_SPLL_FUNC_CNTL_2, tmp);
- 
- 	for (i = 0; i < adev->usec_timeout; i++) {
--		if (RREG32(SPLL_STATUS) & SPLL_CHG_STATUS)
-+		if (RREG32(ixCG_SPLL_STATUS) & CG_SPLL_STATUS__SPLL_CHG_STATUS_MASK)
- 			break;
- 		udelay(1);
- 	}
- 
--	tmp = RREG32(CG_SPLL_FUNC_CNTL_2);
--	tmp &= ~(SPLL_CTLREQ_CHG | SCLK_MUX_UPDATE);
--	WREG32(CG_SPLL_FUNC_CNTL_2, tmp);
-+	tmp = RREG32(ixCG_SPLL_FUNC_CNTL_2);
-+	tmp &= ~(CG_SPLL_FUNC_CNTL_2__SPLL_CTLREQ_CHG_MASK |
-+		CG_SPLL_FUNC_CNTL_2__SCLK_MUX_UPDATE_MASK);
-+	WREG32(ixCG_SPLL_FUNC_CNTL_2, tmp);
- 
- 	tmp = RREG32(MPLL_CNTL_MODE);
- 	tmp &= ~MPLL_MCLK_SEL;
-@@ -1372,21 +1373,21 @@ static void si_spll_powerdown(struct amdgpu_device *adev)
- {
- 	u32 tmp;
- 
--	tmp = RREG32(SPLL_CNTL_MODE);
--	tmp |= SPLL_SW_DIR_CONTROL;
--	WREG32(SPLL_CNTL_MODE, tmp);
-+	tmp = RREG32(ixSPLL_CNTL_MODE);
-+	tmp |= SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL_MASK;
-+	WREG32(ixSPLL_CNTL_MODE, tmp);
- 
--	tmp = RREG32(CG_SPLL_FUNC_CNTL);
--	tmp |= SPLL_RESET;
--	WREG32(CG_SPLL_FUNC_CNTL, tmp);
-+	tmp = RREG32(ixCG_SPLL_FUNC_CNTL);
-+	tmp |= CG_SPLL_FUNC_CNTL__SPLL_RESET_MASK;
-+	WREG32(ixCG_SPLL_FUNC_CNTL, tmp);
- 
--	tmp = RREG32(CG_SPLL_FUNC_CNTL);
--	tmp |= SPLL_SLEEP;
--	WREG32(CG_SPLL_FUNC_CNTL, tmp);
-+	tmp = RREG32(ixCG_SPLL_FUNC_CNTL);
-+	tmp |= CG_SPLL_FUNC_CNTL__SPLL_SLEEP_MASK;
-+	WREG32(ixCG_SPLL_FUNC_CNTL, tmp);
- 
--	tmp = RREG32(SPLL_CNTL_MODE);
--	tmp &= ~SPLL_SW_DIR_CONTROL;
--	WREG32(SPLL_CNTL_MODE, tmp);
-+	tmp = RREG32(ixSPLL_CNTL_MODE);
-+	tmp &= ~SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL_MASK;
-+	WREG32(ixSPLL_CNTL_MODE, tmp);
- }
- 
- static int si_gpu_pci_config_reset(struct amdgpu_device *adev)
-@@ -1468,14 +1469,14 @@ static void si_vga_set_state(struct amdgpu_device *adev, bool state)
- {
- 	uint32_t temp;
- 
--	temp = RREG32(CONFIG_CNTL);
-+	temp = RREG32(mmCONFIG_CNTL);
- 	if (!state) {
- 		temp &= ~(1<<0);
- 		temp |= (1<<1);
- 	} else {
- 		temp &= ~(1<<1);
- 	}
--	WREG32(CONFIG_CNTL, temp);
-+	WREG32(mmCONFIG_CNTL, temp);
- }
- 
- static u32 si_get_xclk(struct amdgpu_device *adev)
-@@ -1483,12 +1484,12 @@ static u32 si_get_xclk(struct amdgpu_device *adev)
- 	u32 reference_clock = adev->clock.spll.reference_freq;
- 	u32 tmp;
- 
--	tmp = RREG32(CG_CLKPIN_CNTL_2);
--	if (tmp & MUX_TCLK_TO_XCLK)
-+	tmp = RREG32(ixCG_CLKPIN_CNTL_2);
-+	if (tmp & CG_CLKPIN_CNTL_2__MUX_TCLK_TO_XCLK_MASK)
- 		return TCLK;
- 
--	tmp = RREG32(CG_CLKPIN_CNTL);
--	if (tmp & XTALIN_DIVIDE)
-+	tmp = RREG32(ixCG_CLKPIN_CNTL);
-+	if (tmp & CG_CLKPIN_CNTL__XTALIN_DIVIDE_MASK)
- 		return reference_clock / 4;
- 
- 	return reference_clock;
-@@ -1533,9 +1534,9 @@ static int si_get_pcie_lanes(struct amdgpu_device *adev)
- 	if (adev->flags & AMD_IS_APU)
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index 975912f285d7..0f34aaf773b7 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -2209,7 +2209,7 @@ static u32 si_calculate_cac_wintime(struct amdgpu_device *adev)
+ 	if (xclk == 0)
  		return 0;
  
--	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
-+	link_width_cntl = RREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL);
+-	cac_window = RREG32(CG_CAC_CTRL) & CAC_WINDOW_MASK;
++	cac_window = RREG32(ixCG_CAC_CTRL) & CG_CAC_CTRL__CAC_WINDOW_MASK;
+ 	cac_window_size = ((cac_window & 0xFFFF0000) >> 16) * (cac_window & 0x0000FFFF);
  
--	switch ((link_width_cntl & LC_LINK_WIDTH_RD_MASK) >> LC_LINK_WIDTH_RD_SHIFT) {
-+	switch ((link_width_cntl & PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK) >> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT) {
- 	case LC_LINK_WIDTH_X1:
- 		return 1;
- 	case LC_LINK_WIDTH_X2:
-@@ -1582,13 +1583,13 @@ static void si_set_pcie_lanes(struct amdgpu_device *adev, int lanes)
- 		return;
+ 	wintime = (cac_window_size * 100) / xclk;
+@@ -2505,19 +2505,19 @@ static int si_populate_sq_ramping_values(struct amdgpu_device *adev,
+ 	if (adev->pm.dpm.sq_ramping_threshold == 0)
+ 		return -EINVAL;
+ 
+-	if (SISLANDS_DPM2_SQ_RAMP_MAX_POWER > (MAX_POWER_MASK >> MAX_POWER_SHIFT))
++	if (SISLANDS_DPM2_SQ_RAMP_MAX_POWER > (SQ_POWER_THROTTLE__MAX_POWER_MASK >> SQ_POWER_THROTTLE__MAX_POWER__SHIFT))
+ 		enable_sq_ramping = false;
+ 
+-	if (SISLANDS_DPM2_SQ_RAMP_MIN_POWER > (MIN_POWER_MASK >> MIN_POWER_SHIFT))
++	if (SISLANDS_DPM2_SQ_RAMP_MIN_POWER > (SQ_POWER_THROTTLE__MIN_POWER_MASK >> SQ_POWER_THROTTLE__MIN_POWER__SHIFT))
+ 		enable_sq_ramping = false;
+ 
+-	if (SISLANDS_DPM2_SQ_RAMP_MAX_POWER_DELTA > (MAX_POWER_DELTA_MASK >> MAX_POWER_DELTA_SHIFT))
++	if (SISLANDS_DPM2_SQ_RAMP_MAX_POWER_DELTA > (SQ_POWER_THROTTLE2__MAX_POWER_DELTA_MASK >> SQ_POWER_THROTTLE2__MAX_POWER_DELTA__SHIFT))
+ 		enable_sq_ramping = false;
+ 
+-	if (SISLANDS_DPM2_SQ_RAMP_STI_SIZE > (STI_SIZE_MASK >> STI_SIZE_SHIFT))
++	if (SISLANDS_DPM2_SQ_RAMP_STI_SIZE > (SQ_POWER_THROTTLE2__SHORT_TERM_INTERVAL_SIZE_MASK >> SQ_POWER_THROTTLE2__SHORT_TERM_INTERVAL_SIZE__SHIFT))
+ 		enable_sq_ramping = false;
+ 
+-	if (SISLANDS_DPM2_SQ_RAMP_LTI_RATIO > (LTI_RATIO_MASK >> LTI_RATIO_SHIFT))
++	if (SISLANDS_DPM2_SQ_RAMP_LTI_RATIO > (SQ_POWER_THROTTLE2__LONG_TERM_INTERVAL_RATIO_MASK >> SQ_POWER_THROTTLE2__LONG_TERM_INTERVAL_RATIO__SHIFT))
+ 		enable_sq_ramping = false;
+ 
+ 	for (i = 0; i < state->performance_level_count; i++) {
+@@ -2526,14 +2526,17 @@ static int si_populate_sq_ramping_values(struct amdgpu_device *adev,
+ 
+ 		if ((state->performance_levels[i].sclk >= adev->pm.dpm.sq_ramping_threshold) &&
+ 		    enable_sq_ramping) {
+-			sq_power_throttle |= MAX_POWER(SISLANDS_DPM2_SQ_RAMP_MAX_POWER);
+-			sq_power_throttle |= MIN_POWER(SISLANDS_DPM2_SQ_RAMP_MIN_POWER);
+-			sq_power_throttle2 |= MAX_POWER_DELTA(SISLANDS_DPM2_SQ_RAMP_MAX_POWER_DELTA);
+-			sq_power_throttle2 |= STI_SIZE(SISLANDS_DPM2_SQ_RAMP_STI_SIZE);
+-			sq_power_throttle2 |= LTI_RATIO(SISLANDS_DPM2_SQ_RAMP_LTI_RATIO);
++			sq_power_throttle |= SISLANDS_DPM2_SQ_RAMP_MAX_POWER << SQ_POWER_THROTTLE__MAX_POWER__SHIFT;
++			sq_power_throttle |= SISLANDS_DPM2_SQ_RAMP_MIN_POWER << SQ_POWER_THROTTLE__MIN_POWER__SHIFT;
++			sq_power_throttle2 |= SISLANDS_DPM2_SQ_RAMP_MAX_POWER_DELTA << SQ_POWER_THROTTLE2__MAX_POWER_DELTA__SHIFT;
++			sq_power_throttle2 |= SISLANDS_DPM2_SQ_RAMP_STI_SIZE << SQ_POWER_THROTTLE2__SHORT_TERM_INTERVAL_SIZE__SHIFT;
++			sq_power_throttle2 |= SISLANDS_DPM2_SQ_RAMP_LTI_RATIO << SQ_POWER_THROTTLE2__LONG_TERM_INTERVAL_RATIO__SHIFT;
+ 		} else {
+-			sq_power_throttle |= MAX_POWER_MASK | MIN_POWER_MASK;
+-			sq_power_throttle2 |= MAX_POWER_DELTA_MASK | STI_SIZE_MASK | LTI_RATIO_MASK;
++			sq_power_throttle |= SQ_POWER_THROTTLE__MAX_POWER_MASK |
++								SQ_POWER_THROTTLE__MIN_POWER_MASK;
++			sq_power_throttle2 |= SQ_POWER_THROTTLE2__MAX_POWER_DELTA_MASK |
++								SQ_POWER_THROTTLE2__SHORT_TERM_INTERVAL_SIZE_MASK |
++								SQ_POWER_THROTTLE2__LONG_TERM_INTERVAL_RATIO_MASK;
+ 		}
+ 
+ 		smc_state->levels[i].SQPowerThrottle = cpu_to_be32(sq_power_throttle);
+@@ -2777,9 +2780,9 @@ static int si_initialize_smc_cac_tables(struct amdgpu_device *adev)
+ 	if (!cac_tables)
+ 		return -ENOMEM;
+ 
+-	reg = RREG32(CG_CAC_CTRL) & ~CAC_WINDOW_MASK;
+-	reg |= CAC_WINDOW(si_pi->powertune_data->cac_window);
+-	WREG32(CG_CAC_CTRL, reg);
++	reg = RREG32(ixCG_CAC_CTRL) & ~CG_CAC_CTRL__CAC_WINDOW_MASK;
++	reg |= (si_pi->powertune_data->cac_window << CG_CAC_CTRL__CAC_WINDOW__SHIFT);
++	WREG32(ixCG_CAC_CTRL, reg);
+ 
+ 	si_pi->dyn_powertune_data.cac_leakage = adev->pm.dpm.cac_leakage;
+ 	si_pi->dyn_powertune_data.dc_pwr_value =
+@@ -2978,10 +2981,10 @@ static int si_init_smc_spll_table(struct amdgpu_device *adev)
+ 		ret = si_calculate_sclk_params(adev, sclk, &sclk_params);
+ 		if (ret)
+ 			break;
+-		p_div = (sclk_params.vCG_SPLL_FUNC_CNTL & SPLL_PDIV_A_MASK) >> SPLL_PDIV_A_SHIFT;
+-		fb_div = (sclk_params.vCG_SPLL_FUNC_CNTL_3 & SPLL_FB_DIV_MASK) >> SPLL_FB_DIV_SHIFT;
+-		clk_s = (sclk_params.vCG_SPLL_SPREAD_SPECTRUM & CLK_S_MASK) >> CLK_S_SHIFT;
+-		clk_v = (sclk_params.vCG_SPLL_SPREAD_SPECTRUM_2 & CLK_V_MASK) >> CLK_V_SHIFT;
++		p_div = (sclk_params.vCG_SPLL_FUNC_CNTL & CG_SPLL_FUNC_CNTL__SPLL_PDIV_A_MASK) >> CG_SPLL_FUNC_CNTL__SPLL_PDIV_A__SHIFT;
++		fb_div = (sclk_params.vCG_SPLL_FUNC_CNTL_3 & CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV_MASK) >> CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV__SHIFT;
++		clk_s = (sclk_params.vCG_SPLL_SPREAD_SPECTRUM & CG_SPLL_SPREAD_SPECTRUM__CLK_S_MASK) >> CG_SPLL_SPREAD_SPECTRUM__CLK_S__SHIFT;
++		clk_v = (sclk_params.vCG_SPLL_SPREAD_SPECTRUM_2 & CG_SPLL_SPREAD_SPECTRUM_2__CLK_V_MASK) >> CG_SPLL_SPREAD_SPECTRUM_2__CLK_V__SHIFT;
+ 
+ 		fb_div &= ~0x00001FFF;
+ 		fb_div >>= 1;
+@@ -3685,10 +3688,10 @@ static bool si_is_special_1gb_platform(struct amdgpu_device *adev)
+ 	WREG32(MC_SEQ_IO_DEBUG_INDEX, 0xb);
+ 	width = ((RREG32(MC_SEQ_IO_DEBUG_DATA) >> 1) & 1) ? 16 : 32;
+ 
+-	tmp = RREG32(MC_ARB_RAMCFG);
+-	row = ((tmp & NOOFROWS_MASK) >> NOOFROWS_SHIFT) + 10;
+-	column = ((tmp & NOOFCOLS_MASK) >> NOOFCOLS_SHIFT) + 8;
+-	bank = ((tmp & NOOFBANK_MASK) >> NOOFBANK_SHIFT) + 2;
++	tmp = RREG32(mmMC_ARB_RAMCFG);
++	row = ((tmp & MC_ARB_RAMCFG__NOOFROWS_MASK) >> MC_ARB_RAMCFG__NOOFROWS__SHIFT) + 10;
++	column = ((tmp & MC_ARB_RAMCFG__NOOFCOLS_MASK) >> MC_ARB_RAMCFG__NOOFCOLS__SHIFT) + 8;
++	bank = ((tmp & MC_ARB_RAMCFG__NOOFBANK_MASK) >> MC_ARB_RAMCFG__NOOFBANK__SHIFT) + 2;
+ 
+ 	density = (1 << (row + column - 20 + bank)) * width;
+ 
+@@ -3772,11 +3775,11 @@ static void si_set_dpm_event_sources(struct amdgpu_device *adev, u32 sources)
  	}
  
--	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
--	link_width_cntl &= ~LC_LINK_WIDTH_MASK;
--	link_width_cntl |= mask << LC_LINK_WIDTH_SHIFT;
--	link_width_cntl |= (LC_RECONFIG_NOW |
--			    LC_RECONFIG_ARC_MISSING_ESCAPE);
-+	link_width_cntl = RREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL);
-+	link_width_cntl &= ~PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_MASK;
-+	link_width_cntl |= mask << PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH__SHIFT;
-+	link_width_cntl |= (PCIE_LC_LINK_WIDTH_CNTL__LC_RECONFIG_NOW_MASK |
-+		PCIE_LC_LINK_WIDTH_CNTL__LC_RECONFIG_ARC_MISSING_ESCAPE_MASK);
- 
--	WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, link_width_cntl);
-+	WREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL, link_width_cntl);
+ 	if (want_thermal_protection) {
+-		WREG32_P(CG_THERMAL_CTRL, DPM_EVENT_SRC(dpm_event_src), ~DPM_EVENT_SRC_MASK);
++		WREG32_P(ixCG_THERMAL_CTRL, dpm_event_src << CG_THERMAL_CTRL__DPM_EVENT_SRC__SHIFT, ~CG_THERMAL_CTRL__DPM_EVENT_SRC_MASK);
+ 		if (pi->thermal_protection)
+-			WREG32_P(GENERAL_PWRMGT, 0, ~THERMAL_PROTECTION_DIS);
++			WREG32_P(ixGENERAL_PWRMGT, 0, ~GENERAL_PWRMGT__THERMAL_PROTECTION_DIS_MASK);
+ 	} else {
+-		WREG32_P(GENERAL_PWRMGT, THERMAL_PROTECTION_DIS, ~THERMAL_PROTECTION_DIS);
++		WREG32_P(ixGENERAL_PWRMGT, GENERAL_PWRMGT__THERMAL_PROTECTION_DIS_MASK, ~GENERAL_PWRMGT__THERMAL_PROTECTION_DIS_MASK);
+ 	}
  }
  
- static void si_get_pcie_usage(struct amdgpu_device *adev, uint64_t *count0,
-@@ -2032,7 +2033,7 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
+@@ -3801,20 +3804,20 @@ static void si_enable_auto_throttle_source(struct amdgpu_device *adev,
  
- static uint32_t si_get_rev_id(struct amdgpu_device *adev)
+ static void si_start_dpm(struct amdgpu_device *adev)
  {
--	return (RREG32(CC_DRM_ID_STRAPS) & CC_DRM_ID_STRAPS__ATI_REV_ID_MASK)
-+	return (RREG32(mmCC_DRM_ID_STRAPS) & CC_DRM_ID_STRAPS__ATI_REV_ID_MASK)
- 		>> CC_DRM_ID_STRAPS__ATI_REV_ID__SHIFT;
+-	WREG32_P(GENERAL_PWRMGT, GLOBAL_PWRMGT_EN, ~GLOBAL_PWRMGT_EN);
++	WREG32_P(ixGENERAL_PWRMGT, GENERAL_PWRMGT__GLOBAL_PWRMGT_EN_MASK, ~GENERAL_PWRMGT__GLOBAL_PWRMGT_EN_MASK);
  }
  
-@@ -2253,9 +2254,9 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 					CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)))
- 		return;
+ static void si_stop_dpm(struct amdgpu_device *adev)
+ {
+-	WREG32_P(GENERAL_PWRMGT, 0, ~GLOBAL_PWRMGT_EN);
++	WREG32_P(ixGENERAL_PWRMGT, 0, ~GENERAL_PWRMGT__GLOBAL_PWRMGT_EN_MASK);
+ }
  
--	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
--	current_data_rate = (speed_cntl & LC_CURRENT_DATA_RATE_MASK) >>
--		LC_CURRENT_DATA_RATE_SHIFT;
-+	speed_cntl = RREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL);
-+	current_data_rate = (speed_cntl & PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK) >>
-+		PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
- 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3) {
- 		if (current_data_rate == 2) {
- 			DRM_INFO("PCIE gen 3 link speeds already enabled\n");
-@@ -2282,17 +2283,17 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
- 			pcie_capability_set_word(adev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
+ static void si_enable_sclk_control(struct amdgpu_device *adev, bool enable)
+ {
+ 	if (enable)
+-		WREG32_P(SCLK_PWRMGT_CNTL, 0, ~SCLK_PWRMGT_OFF);
++		WREG32_P(ixSCLK_PWRMGT_CNTL, 0, ~SCLK_PWRMGT_CNTL__SCLK_PWRMGT_OFF_MASK);
+ 	else
+-		WREG32_P(SCLK_PWRMGT_CNTL, SCLK_PWRMGT_OFF, ~SCLK_PWRMGT_OFF);
++		WREG32_P(ixSCLK_PWRMGT_CNTL, SCLK_PWRMGT_CNTL__SCLK_PWRMGT_OFF_MASK, ~SCLK_PWRMGT_CNTL__SCLK_PWRMGT_OFF_MASK);
  
--			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
--			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
--			current_lw = (tmp & LC_OPERATING_LINK_WIDTH_MASK) >> LC_OPERATING_LINK_WIDTH_SHIFT;
-+			tmp = RREG32_PCIE(ixPCIE_LC_STATUS1);
-+			max_lw = (tmp & PCIE_LC_STATUS1__LC_DETECTED_LINK_WIDTH_MASK) >> PCIE_LC_STATUS1__LC_DETECTED_LINK_WIDTH__SHIFT;
-+			current_lw = (tmp & PCIE_LC_STATUS1__LC_OPERATING_LINK_WIDTH_MASK) >> PCIE_LC_STATUS1__LC_OPERATING_LINK_WIDTH__SHIFT;
+ }
  
- 			if (current_lw < max_lw) {
--				tmp = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
--				if (tmp & LC_RENEGOTIATION_SUPPORT) {
--					tmp &= ~(LC_LINK_WIDTH_MASK | LC_UPCONFIGURE_DIS);
--					tmp |= (max_lw << LC_LINK_WIDTH_SHIFT);
--					tmp |= LC_UPCONFIGURE_SUPPORT | LC_RENEGOTIATE_EN | LC_RECONFIG_NOW;
--					WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, tmp);
-+				tmp = RREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL);
-+				if (tmp & PCIE_LC_LINK_WIDTH_CNTL__LC_RENEGOTIATION_SUPPORT_MASK) {
-+					tmp &= ~(PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_MASK | PCIE_LC_LINK_WIDTH_CNTL__LC_UPCONFIGURE_DIS_MASK);
-+					tmp |= (max_lw << PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH__SHIFT);
-+					tmp |= PCIE_LC_LINK_WIDTH_CNTL__LC_UPCONFIGURE_SUPPORT_MASK | PCIE_LC_LINK_WIDTH_CNTL__LC_RENEGOTIATE_EN_MASK | PCIE_LC_LINK_WIDTH_CNTL__LC_RECONFIG_NOW_MASK;
-+					WREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL, tmp);
- 				}
- 			}
+@@ -3854,7 +3857,7 @@ static int si_notify_hw_of_powersource(struct amdgpu_device *adev, bool ac_power
+ static PPSMC_Result si_send_msg_to_smc_with_parameter(struct amdgpu_device *adev,
+ 						      PPSMC_Msg msg, u32 parameter)
+ {
+-	WREG32(SMC_SCRATCH0, parameter);
++	WREG32(ixSMC_SCRATCH0, parameter);
+ 	return amdgpu_si_send_msg_to_smc(adev, msg);
+ }
  
-@@ -2315,13 +2316,13 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 							  PCI_EXP_LNKCTL2,
- 							  &gpu_cfg2);
+@@ -4039,12 +4042,12 @@ static void si_read_clock_registers(struct amdgpu_device *adev)
+ {
+ 	struct si_power_info *si_pi = si_get_pi(adev);
  
--				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
--				tmp |= LC_SET_QUIESCE;
--				WREG32_PCIE_PORT(PCIE_LC_CNTL4, tmp);
-+				tmp = RREG32_PCIE_PORT(ixPCIE_LC_CNTL4);
-+				tmp |= PCIE_LC_CNTL4__LC_SET_QUIESCE_MASK;
-+				WREG32_PCIE_PORT(ixPCIE_LC_CNTL4, tmp);
+-	si_pi->clock_registers.cg_spll_func_cntl = RREG32(CG_SPLL_FUNC_CNTL);
+-	si_pi->clock_registers.cg_spll_func_cntl_2 = RREG32(CG_SPLL_FUNC_CNTL_2);
+-	si_pi->clock_registers.cg_spll_func_cntl_3 = RREG32(CG_SPLL_FUNC_CNTL_3);
+-	si_pi->clock_registers.cg_spll_func_cntl_4 = RREG32(CG_SPLL_FUNC_CNTL_4);
+-	si_pi->clock_registers.cg_spll_spread_spectrum = RREG32(CG_SPLL_SPREAD_SPECTRUM);
+-	si_pi->clock_registers.cg_spll_spread_spectrum_2 = RREG32(CG_SPLL_SPREAD_SPECTRUM_2);
++	si_pi->clock_registers.cg_spll_func_cntl = RREG32(ixCG_SPLL_FUNC_CNTL);
++	si_pi->clock_registers.cg_spll_func_cntl_2 = RREG32(ixCG_SPLL_FUNC_CNTL_2);
++	si_pi->clock_registers.cg_spll_func_cntl_3 = RREG32(ixCG_SPLL_FUNC_CNTL_3);
++	si_pi->clock_registers.cg_spll_func_cntl_4 = RREG32(ixCG_SPLL_FUNC_CNTL_4);
++	si_pi->clock_registers.cg_spll_spread_spectrum = RREG32(ixCG_SPLL_SPREAD_SPECTRUM);
++	si_pi->clock_registers.cg_spll_spread_spectrum_2 = RREG32(ixCG_SPLL_SPREAD_SPECTRUM_2);
+ 	si_pi->clock_registers.dll_cntl = RREG32(DLL_CNTL);
+ 	si_pi->clock_registers.mclk_pwrmgt_cntl = RREG32(MCLK_PWRMGT_CNTL);
+ 	si_pi->clock_registers.mpll_ad_func_cntl = RREG32(MPLL_AD_FUNC_CNTL);
+@@ -4060,14 +4063,14 @@ static void si_enable_thermal_protection(struct amdgpu_device *adev,
+ 					  bool enable)
+ {
+ 	if (enable)
+-		WREG32_P(GENERAL_PWRMGT, 0, ~THERMAL_PROTECTION_DIS);
++		WREG32_P(ixGENERAL_PWRMGT, 0, ~GENERAL_PWRMGT__THERMAL_PROTECTION_DIS_MASK);
+ 	else
+-		WREG32_P(GENERAL_PWRMGT, THERMAL_PROTECTION_DIS, ~THERMAL_PROTECTION_DIS);
++		WREG32_P(ixGENERAL_PWRMGT, GENERAL_PWRMGT__THERMAL_PROTECTION_DIS_MASK, ~GENERAL_PWRMGT__THERMAL_PROTECTION_DIS_MASK);
+ }
  
--				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
--				tmp |= LC_REDO_EQ;
--				WREG32_PCIE_PORT(PCIE_LC_CNTL4, tmp);
-+				tmp = RREG32_PCIE_PORT(ixPCIE_LC_CNTL4);
-+				tmp |= PCIE_LC_CNTL4__LC_REDO_EQ_MASK;
-+				WREG32_PCIE_PORT(ixPCIE_LC_CNTL4, tmp);
+ static void si_enable_acpi_power_management(struct amdgpu_device *adev)
+ {
+-	WREG32_P(GENERAL_PWRMGT, STATIC_PM_EN, ~STATIC_PM_EN);
++	WREG32_P(ixGENERAL_PWRMGT, GENERAL_PWRMGT__STATIC_PM_EN_MASK, ~GENERAL_PWRMGT__STATIC_PM_EN_MASK);
+ }
  
- 				mdelay(100);
+ #if 0
+@@ -4148,9 +4151,9 @@ static void si_program_ds_registers(struct amdgpu_device *adev)
+ 		tmp = 0x1;
  
-@@ -2347,16 +2348,16 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 								   (PCI_EXP_LNKCTL2_ENTER_COMP |
- 								    PCI_EXP_LNKCTL2_TX_MARGIN));
+ 	if (eg_pi->sclk_deep_sleep) {
+-		WREG32_P(MISC_CLK_CNTL, DEEP_SLEEP_CLK_SEL(tmp), ~DEEP_SLEEP_CLK_SEL_MASK);
+-		WREG32_P(CG_SPLL_AUTOSCALE_CNTL, AUTOSCALE_ON_SS_CLEAR,
+-			 ~AUTOSCALE_ON_SS_CLEAR);
++		WREG32_P(ixMISC_CLK_CNTL, (tmp << MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL__SHIFT), ~MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL_MASK);
++		WREG32_P(ixCG_SPLL_AUTOSCALE_CNTL, CG_SPLL_AUTOSCALE_CNTL__AUTOSCALE_ON_SS_CLEAR_MASK,
++			 ~CG_SPLL_AUTOSCALE_CNTL__AUTOSCALE_ON_SS_CLEAR_MASK);
+ 	}
+ }
  
--				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
--				tmp &= ~LC_SET_QUIESCE;
--				WREG32_PCIE_PORT(PCIE_LC_CNTL4, tmp);
-+				tmp = RREG32_PCIE_PORT(ixPCIE_LC_CNTL4);
-+				tmp &= ~PCIE_LC_CNTL4__LC_SET_QUIESCE_MASK;
-+				WREG32_PCIE_PORT(ixPCIE_LC_CNTL4, tmp);
- 			}
+@@ -4159,18 +4162,18 @@ static void si_program_display_gap(struct amdgpu_device *adev)
+ 	u32 tmp, pipe;
+ 	int i;
+ 
+-	tmp = RREG32(CG_DISPLAY_GAP_CNTL) & ~(DISP1_GAP_MASK | DISP2_GAP_MASK);
++	tmp = RREG32(ixCG_DISPLAY_GAP_CNTL) & ~(CG_DISPLAY_GAP_CNTL__DISP1_GAP_MASK | CG_DISPLAY_GAP_CNTL__DISP2_GAP_MASK);
+ 	if (adev->pm.dpm.new_active_crtc_count > 0)
+-		tmp |= DISP1_GAP(R600_PM_DISPLAY_GAP_VBLANK_OR_WM);
++		tmp |= R600_PM_DISPLAY_GAP_VBLANK_OR_WM << CG_DISPLAY_GAP_CNTL__DISP1_GAP__SHIFT;
+ 	else
+-		tmp |= DISP1_GAP(R600_PM_DISPLAY_GAP_IGNORE);
++		tmp |= R600_PM_DISPLAY_GAP_IGNORE << CG_DISPLAY_GAP_CNTL__DISP1_GAP__SHIFT;
+ 
+ 	if (adev->pm.dpm.new_active_crtc_count > 1)
+-		tmp |= DISP2_GAP(R600_PM_DISPLAY_GAP_VBLANK_OR_WM);
++		tmp |= R600_PM_DISPLAY_GAP_VBLANK_OR_WM << CG_DISPLAY_GAP_CNTL__DISP2_GAP__SHIFT;
+ 	else
+-		tmp |= DISP2_GAP(R600_PM_DISPLAY_GAP_IGNORE);
++		tmp |= R600_PM_DISPLAY_GAP_IGNORE << CG_DISPLAY_GAP_CNTL__DISP2_GAP__SHIFT;
+ 
+-	WREG32(CG_DISPLAY_GAP_CNTL, tmp);
++	WREG32(ixCG_DISPLAY_GAP_CNTL, tmp);
+ 
+ 	tmp = RREG32(DCCG_DISP_SLOW_SELECT_REG);
+ 	pipe = (tmp & DCCG_DISP1_SLOW_SELECT_MASK) >> DCCG_DISP1_SLOW_SELECT_SHIFT;
+@@ -4205,10 +4208,10 @@ static void si_enable_spread_spectrum(struct amdgpu_device *adev, bool enable)
+ 
+ 	if (enable) {
+ 		if (pi->sclk_ss)
+-			WREG32_P(GENERAL_PWRMGT, DYN_SPREAD_SPECTRUM_EN, ~DYN_SPREAD_SPECTRUM_EN);
++			WREG32_P(ixGENERAL_PWRMGT, GENERAL_PWRMGT__DYN_SPREAD_SPECTRUM_EN_MASK, ~GENERAL_PWRMGT__DYN_SPREAD_SPECTRUM_EN_MASK);
+ 	} else {
+-		WREG32_P(CG_SPLL_SPREAD_SPECTRUM, 0, ~SSEN);
+-		WREG32_P(GENERAL_PWRMGT, 0, ~DYN_SPREAD_SPECTRUM_EN);
++		WREG32_P(ixCG_SPLL_SPREAD_SPECTRUM, 0, ~CG_SPLL_SPREAD_SPECTRUM__SSEN_MASK);
++		WREG32_P(ixGENERAL_PWRMGT, 0, ~GENERAL_PWRMGT__DYN_SPREAD_SPECTRUM_EN_MASK);
+ 	}
+ }
+ 
+@@ -4230,15 +4233,15 @@ static void si_setup_bsp(struct amdgpu_device *adev)
+ 			       &pi->pbsu);
+ 
+ 
+-        pi->dsp = BSP(pi->bsp) | BSU(pi->bsu);
+-	pi->psp = BSP(pi->pbsp) | BSU(pi->pbsu);
++        pi->dsp = (pi->bsp << CG_BSP__BSP__SHIFT) | (pi->bsu << CG_BSP__BSU__SHIFT);
++	pi->psp = (pi->pbsp << CG_BSP__BSP__SHIFT) | (pi->pbsu << CG_BSP__BSU__SHIFT);
+ 
+-	WREG32(CG_BSP, pi->dsp);
++	WREG32(ixCG_BSP, pi->dsp);
+ }
+ 
+ static void si_program_git(struct amdgpu_device *adev)
+ {
+-	WREG32_P(CG_GIT, CG_GICST(R600_GICST_DFLT), ~CG_GICST_MASK);
++	WREG32_P(ixCG_GIT, R600_GICST_DFLT << CG_GIT__CG_GICST__SHIFT, ~CG_GIT__CG_GICST_MASK);
+ }
+ 
+ static void si_program_tp(struct amdgpu_device *adev)
+@@ -4247,54 +4250,54 @@ static void si_program_tp(struct amdgpu_device *adev)
+ 	enum r600_td td = R600_TD_DFLT;
+ 
+ 	for (i = 0; i < R600_PM_NUMBER_OF_TC; i++)
+-		WREG32(CG_FFCT_0 + i, (UTC_0(r600_utc[i]) | DTC_0(r600_dtc[i])));
++		WREG32(ixCG_FFCT_0 + i, (r600_utc[i] << CG_FFCT_0__UTC_0__SHIFT | r600_dtc[i] << CG_FFCT_0__DTC_0__SHIFT));
+ 
+ 	if (td == R600_TD_AUTO)
+-		WREG32_P(SCLK_PWRMGT_CNTL, 0, ~FIR_FORCE_TREND_SEL);
++		WREG32_P(ixSCLK_PWRMGT_CNTL, 0, ~SCLK_PWRMGT_CNTL__FIR_FORCE_TREND_SEL_MASK);
+ 	else
+-		WREG32_P(SCLK_PWRMGT_CNTL, FIR_FORCE_TREND_SEL, ~FIR_FORCE_TREND_SEL);
++		WREG32_P(ixSCLK_PWRMGT_CNTL, SCLK_PWRMGT_CNTL__FIR_FORCE_TREND_SEL_MASK, ~SCLK_PWRMGT_CNTL__FIR_FORCE_TREND_SEL_MASK);
+ 
+ 	if (td == R600_TD_UP)
+-		WREG32_P(SCLK_PWRMGT_CNTL, 0, ~FIR_TREND_MODE);
++		WREG32_P(ixSCLK_PWRMGT_CNTL, 0, ~SCLK_PWRMGT_CNTL__FIR_TREND_MODE_MASK);
+ 
+ 	if (td == R600_TD_DOWN)
+-		WREG32_P(SCLK_PWRMGT_CNTL, FIR_TREND_MODE, ~FIR_TREND_MODE);
++		WREG32_P(ixSCLK_PWRMGT_CNTL, SCLK_PWRMGT_CNTL__FIR_TREND_MODE_MASK, ~SCLK_PWRMGT_CNTL__FIR_TREND_MODE_MASK);
+ }
+ 
+ static void si_program_tpp(struct amdgpu_device *adev)
+ {
+-	WREG32(CG_TPC, R600_TPC_DFLT);
++	WREG32(ixCG_TPC, R600_TPC_DFLT);
+ }
+ 
+ static void si_program_sstp(struct amdgpu_device *adev)
+ {
+-	WREG32(CG_SSP, (SSTU(R600_SSTU_DFLT) | SST(R600_SST_DFLT)));
++	WREG32(ixCG_SSP, (R600_SSTU_DFLT << CG_SSP__SSTU__SHIFT| R600_SST_DFLT << CG_SSP__SST__SHIFT));
+ }
+ 
+ static void si_enable_display_gap(struct amdgpu_device *adev)
+ {
+-	u32 tmp = RREG32(CG_DISPLAY_GAP_CNTL);
++	u32 tmp = RREG32(ixCG_DISPLAY_GAP_CNTL);
+ 
+-	tmp &= ~(DISP1_GAP_MASK | DISP2_GAP_MASK);
+-	tmp |= (DISP1_GAP(R600_PM_DISPLAY_GAP_IGNORE) |
+-		DISP2_GAP(R600_PM_DISPLAY_GAP_IGNORE));
++	tmp &= ~(CG_DISPLAY_GAP_CNTL__DISP1_GAP_MASK | CG_DISPLAY_GAP_CNTL__DISP2_GAP_MASK);
++	tmp |= (R600_PM_DISPLAY_GAP_IGNORE << CG_DISPLAY_GAP_CNTL__DISP1_GAP__SHIFT |
++		R600_PM_DISPLAY_GAP_IGNORE << CG_DISPLAY_GAP_CNTL__DISP2_GAP__SHIFT);
+ 
+-	tmp &= ~(DISP1_GAP_MCHG_MASK | DISP2_GAP_MCHG_MASK);
+-	tmp |= (DISP1_GAP_MCHG(R600_PM_DISPLAY_GAP_VBLANK) |
+-		DISP2_GAP_MCHG(R600_PM_DISPLAY_GAP_IGNORE));
+-	WREG32(CG_DISPLAY_GAP_CNTL, tmp);
++	tmp &= ~(CG_DISPLAY_GAP_CNTL__DISP1_GAP_MCHG_MASK | CG_DISPLAY_GAP_CNTL__DISP2_GAP_MCHG_MASK);
++	tmp |= (R600_PM_DISPLAY_GAP_VBLANK << CG_DISPLAY_GAP_CNTL__DISP1_GAP_MCHG__SHIFT |
++		R600_PM_DISPLAY_GAP_IGNORE << CG_DISPLAY_GAP_CNTL__DISP2_GAP_MCHG__SHIFT);
++	WREG32(ixCG_DISPLAY_GAP_CNTL, tmp);
+ }
+ 
+ static void si_program_vc(struct amdgpu_device *adev)
+ {
+ 	struct rv7xx_power_info *pi = rv770_get_pi(adev);
+ 
+-	WREG32(CG_FTV, pi->vrc);
++	WREG32(ixCG_FTV, pi->vrc);
+ }
+ 
+ static void si_clear_vc(struct amdgpu_device *adev)
+ {
+-	WREG32(CG_FTV, 0);
++	WREG32(ixCG_FTV, 0);
+ }
+ 
+ static u8 si_get_ddr3_mclk_frequency_ratio(u32 memory_clock)
+@@ -4751,7 +4754,7 @@ static u32 si_calculate_memory_refresh_rate(struct amdgpu_device *adev,
+ 	u32 dram_rows;
+ 	u32 dram_refresh_rate;
+ 	u32 mc_arb_rfsh_rate;
+-	u32 tmp = (RREG32(MC_ARB_RAMCFG) & NOOFROWS_MASK) >> NOOFROWS_SHIFT;
++	u32 tmp = (RREG32(mmMC_ARB_RAMCFG) & MC_ARB_RAMCFG__NOOFROWS_MASK) >> MC_ARB_RAMCFG__NOOFROWS__SHIFT;
+ 
+ 	if (tmp >= 4)
+ 		dram_rows = 16384;
+@@ -4925,7 +4928,7 @@ static int si_populate_smc_initial_state(struct amdgpu_device *adev,
+ 
+ 	si_populate_initial_mvdd_value(adev, &table->initialState.level.mvdd);
+ 
+-	reg = CG_R(0xffff) | CG_L(0);
++	reg = 0xffff << CG_AT__CG_R__SHIFT | 0 << CG_AT__CG_L__SHIFT;
+ 	table->initialState.level.aT = cpu_to_be32(reg);
+ 	table->initialState.level.bSP = cpu_to_be32(pi->dsp);
+ 	table->initialState.level.gen2PCIE = (u8)si_pi->boot_pcie_gen;
+@@ -4951,10 +4954,13 @@ static int si_populate_smc_initial_state(struct amdgpu_device *adev,
+ 	table->initialState.level.dpm2.BelowSafeInc = 0;
+ 	table->initialState.level.dpm2.PwrEfficiencyRatio = 0;
+ 
+-	reg = MIN_POWER_MASK | MAX_POWER_MASK;
++	reg = SQ_POWER_THROTTLE__MIN_POWER_MASK |
++		SQ_POWER_THROTTLE__MAX_POWER_MASK;
+ 	table->initialState.level.SQPowerThrottle = cpu_to_be32(reg);
+ 
+-	reg = MAX_POWER_DELTA_MASK | STI_SIZE_MASK | LTI_RATIO_MASK;
++	reg = SQ_POWER_THROTTLE2__MAX_POWER_DELTA_MASK |
++		SQ_POWER_THROTTLE2__SHORT_TERM_INTERVAL_SIZE_MASK |
++		SQ_POWER_THROTTLE2__LONG_TERM_INTERVAL_RATIO_MASK;
+ 	table->initialState.level.SQPowerThrottle_2 = cpu_to_be32(reg);
+ 
+ 	return 0;
+@@ -5073,8 +5079,8 @@ static int si_populate_smc_acpi_state(struct amdgpu_device *adev,
+ 
+ 	dll_cntl &= ~(MRDCK0_BYPASS | MRDCK1_BYPASS);
+ 
+-	spll_func_cntl_2 &= ~SCLK_MUX_SEL_MASK;
+-	spll_func_cntl_2 |= SCLK_MUX_SEL(4);
++	spll_func_cntl_2 &= ~CG_SPLL_FUNC_CNTL_2__SCLK_MUX_SEL_MASK;
++	spll_func_cntl_2 |= 4 << CG_SPLL_FUNC_CNTL_2__SCLK_MUX_SEL__SHIFT;
+ 
+ 	table->ACPIState.level.mclk.vDLL_CNTL =
+ 		cpu_to_be32(dll_cntl);
+@@ -5118,10 +5124,10 @@ static int si_populate_smc_acpi_state(struct amdgpu_device *adev,
+ 	table->ACPIState.level.dpm2.BelowSafeInc = 0;
+ 	table->ACPIState.level.dpm2.PwrEfficiencyRatio = 0;
+ 
+-	reg = MIN_POWER_MASK | MAX_POWER_MASK;
++	reg = SQ_POWER_THROTTLE__MIN_POWER_MASK | SQ_POWER_THROTTLE__MAX_POWER_MASK;
+ 	table->ACPIState.level.SQPowerThrottle = cpu_to_be32(reg);
+ 
+-	reg = MAX_POWER_DELTA_MASK | STI_SIZE_MASK | LTI_RATIO_MASK;
++	reg = SQ_POWER_THROTTLE2__MAX_POWER_DELTA_MASK | SQ_POWER_THROTTLE2__SHORT_TERM_INTERVAL_SIZE_MASK | SQ_POWER_THROTTLE2__LONG_TERM_INTERVAL_RATIO_MASK;
+ 	table->ACPIState.level.SQPowerThrottle_2 = cpu_to_be32(reg);
+ 
+ 	return 0;
+@@ -5266,8 +5272,8 @@ static int si_init_smc_table(struct amdgpu_device *adev)
+ 		if (ret)
+ 			return ret;
+ 
+-		WREG32(CG_ULV_CONTROL, ulv->cg_ulv_control);
+-		WREG32(CG_ULV_PARAMETER, ulv->cg_ulv_parameter);
++		WREG32(ixCG_ULV_CONTROL, ulv->cg_ulv_control);
++		WREG32(ixCG_ULV_PARAMETER, ulv->cg_ulv_parameter);
+ 
+ 		lane_width = amdgpu_get_pcie_lanes(adev);
+ 		si_write_smc_soft_register(adev, SI_SMC_SOFT_REGISTER_non_ulv_pcie_link_width, lane_width);
+@@ -5310,16 +5316,16 @@ static int si_calculate_sclk_params(struct amdgpu_device *adev,
+ 	do_div(tmp, reference_clock);
+ 	fbdiv = (u32) tmp;
+ 
+-	spll_func_cntl &= ~(SPLL_PDIV_A_MASK | SPLL_REF_DIV_MASK);
+-	spll_func_cntl |= SPLL_REF_DIV(dividers.ref_div);
+-	spll_func_cntl |= SPLL_PDIV_A(dividers.post_div);
++	spll_func_cntl &= ~(CG_SPLL_FUNC_CNTL__SPLL_PDIV_A_MASK | CG_SPLL_FUNC_CNTL__SPLL_REF_DIV_MASK);
++	spll_func_cntl |= dividers.ref_div << CG_SPLL_FUNC_CNTL__SPLL_REF_DIV__SHIFT;
++	spll_func_cntl |= dividers.post_div << CG_SPLL_FUNC_CNTL__SPLL_PDIV_A__SHIFT;
+ 
+-	spll_func_cntl_2 &= ~SCLK_MUX_SEL_MASK;
+-	spll_func_cntl_2 |= SCLK_MUX_SEL(2);
++	spll_func_cntl_2 &= ~CG_SPLL_FUNC_CNTL_2__SCLK_MUX_SEL_MASK;
++	spll_func_cntl_2 |= 2 << CG_SPLL_FUNC_CNTL_2__SCLK_MUX_SEL__SHIFT;
+ 
+-	spll_func_cntl_3 &= ~SPLL_FB_DIV_MASK;
+-	spll_func_cntl_3 |= SPLL_FB_DIV(fbdiv);
+-	spll_func_cntl_3 |= SPLL_DITHEN;
++	spll_func_cntl_3 &= ~CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV_MASK;
++	spll_func_cntl_3 |= fbdiv << CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV__SHIFT;
++	spll_func_cntl_3 |= CG_SPLL_FUNC_CNTL_3__SPLL_DITHEN_MASK;
+ 
+ 	if (pi->sclk_ss) {
+ 		struct amdgpu_atom_ss ss;
+@@ -5330,12 +5336,12 @@ static int si_calculate_sclk_params(struct amdgpu_device *adev,
+ 			u32 clk_s = reference_clock * 5 / (reference_divider * ss.rate);
+ 			u32 clk_v = 4 * ss.percentage * fbdiv / (clk_s * 10000);
+ 
+-			cg_spll_spread_spectrum &= ~CLK_S_MASK;
+-			cg_spll_spread_spectrum |= CLK_S(clk_s);
+-			cg_spll_spread_spectrum |= SSEN;
++			cg_spll_spread_spectrum &= ~CG_SPLL_SPREAD_SPECTRUM__CLK_S_MASK;
++			cg_spll_spread_spectrum |= clk_s << CG_SPLL_SPREAD_SPECTRUM__CLK_S__SHIFT;
++			cg_spll_spread_spectrum |= CG_SPLL_SPREAD_SPECTRUM__SSEN_MASK;
+ 
+-			cg_spll_spread_spectrum_2 &= ~CLK_V_MASK;
+-			cg_spll_spread_spectrum_2 |= CLK_V(clk_v);
++			cg_spll_spread_spectrum_2 &= ~CG_SPLL_SPREAD_SPECTRUM_2__CLK_V_MASK;
++			cg_spll_spread_spectrum_2 |= clk_v << CG_SPLL_SPREAD_SPECTRUM_2__CLK_V__SHIFT;
  		}
  	}
  
--	speed_cntl |= LC_FORCE_EN_SW_SPEED_CHANGE | LC_FORCE_DIS_HW_SPEED_CHANGE;
--	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
--	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
-+	speed_cntl |= PCIE_LC_SPEED_CNTL__LC_FORCE_EN_SW_SPEED_CHANGE_MASK | PCIE_LC_SPEED_CNTL__LC_FORCE_DIS_HW_SPEED_CHANGE_MASK;
-+	speed_cntl &= ~PCIE_LC_SPEED_CNTL__LC_FORCE_DIS_SW_SPEED_CHANGE_MASK;
-+	WREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL, speed_cntl);
+@@ -5501,7 +5507,7 @@ static int si_convert_power_level_to_smc(struct amdgpu_device *adev,
+ 	if (pi->mclk_stutter_mode_threshold &&
+ 	    (pl->mclk <= pi->mclk_stutter_mode_threshold) &&
+ 	    !eg_pi->uvd_enabled &&
+-	    (RREG32(DPG_PIPE_STUTTER_CONTROL) & STUTTER_ENABLE) &&
++	    (RREG32(mmDPG_PIPE_STUTTER_CONTROL) & DPG_PIPE_STUTTER_CONTROL__STUTTER_ENABLE_MASK) &&
+ 	    (adev->pm.dpm.new_active_crtc_count <= 2)) {
+ 		level->mcFlags |= SISLANDS_SMC_MC_STUTTER_EN;
+ 	}
+@@ -5595,7 +5601,7 @@ static int si_populate_smc_t(struct amdgpu_device *adev,
+ 		return -EINVAL;
  
- 	tmp16 = 0;
- 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
-@@ -2368,13 +2369,13 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 	pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL2,
- 					   PCI_EXP_LNKCTL2_TLS, tmp16);
+ 	if (state->performance_level_count < 2) {
+-		a_t = CG_R(0xffff) | CG_L(0);
++		a_t = 0xffff << CG_AT__CG_R__SHIFT | 0 << CG_AT__CG_L__SHIFT;
+ 		smc_state->levels[0].aT = cpu_to_be32(a_t);
+ 		return 0;
+ 	}
+@@ -5616,13 +5622,13 @@ static int si_populate_smc_t(struct amdgpu_device *adev,
+ 			t_l = (i + 1) * 1000 + 50 * R600_AH_DFLT;
+ 		}
  
--	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
--	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
--	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
-+	speed_cntl = RREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL);
-+	speed_cntl |= PCIE_LC_SPEED_CNTL__LC_INITIATE_LINK_SPEED_CHANGE_MASK;
-+	WREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL, speed_cntl);
+-		a_t = be32_to_cpu(smc_state->levels[i].aT) & ~CG_R_MASK;
+-		a_t |= CG_R(t_l * pi->bsp / 20000);
++		a_t = be32_to_cpu(smc_state->levels[i].aT) & ~CG_AT__CG_R_MASK;
++		a_t |= (t_l * pi->bsp / 20000) << CG_AT__CG_R__SHIFT;
+ 		smc_state->levels[i].aT = cpu_to_be32(a_t);
+ 
+ 		high_bsp = (i == state->performance_level_count - 2) ?
+ 			pi->pbsp : pi->bsp;
+-		a_t = CG_R(0xffff) | CG_L(t_h * high_bsp / 20000);
++		a_t = (0xffff) << CG_AT__CG_R__SHIFT | (t_h * high_bsp / 20000) << CG_AT__CG_L__SHIFT;
+ 		smc_state->levels[i + 1].aT = cpu_to_be32(a_t);
+ 	}
+ 
+@@ -6196,9 +6202,9 @@ static int si_upload_mc_reg_table(struct amdgpu_device *adev,
+ static void si_enable_voltage_control(struct amdgpu_device *adev, bool enable)
+ {
+ 	if (enable)
+-		WREG32_P(GENERAL_PWRMGT, VOLT_PWRMGT_EN, ~VOLT_PWRMGT_EN);
++		WREG32_P(ixGENERAL_PWRMGT, GENERAL_PWRMGT__VOLT_PWRMGT_EN_MASK, ~GENERAL_PWRMGT__VOLT_PWRMGT_EN_MASK);
+ 	else
+-		WREG32_P(GENERAL_PWRMGT, 0, ~VOLT_PWRMGT_EN);
++		WREG32_P(ixGENERAL_PWRMGT, 0, ~GENERAL_PWRMGT__VOLT_PWRMGT_EN_MASK);
+ }
+ 
+ static enum si_pcie_gen si_get_maximum_link_speed(struct amdgpu_device *adev,
+@@ -6220,8 +6226,8 @@ static u16 si_get_current_pcie_speed(struct amdgpu_device *adev)
+ {
+ 	u32 speed_cntl;
+ 
+-	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL) & LC_CURRENT_DATA_RATE_MASK;
+-	speed_cntl >>= LC_CURRENT_DATA_RATE_SHIFT;
++	speed_cntl = RREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL) & PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK;
++	speed_cntl >>= PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
+ 
+ 	return (u16)speed_cntl;
+ }
+@@ -6428,21 +6434,21 @@ static void si_dpm_setup_asic(struct amdgpu_device *adev)
+ static int si_thermal_enable_alert(struct amdgpu_device *adev,
+ 				   bool enable)
+ {
+-	u32 thermal_int = RREG32(CG_THERMAL_INT);
++	u32 thermal_int = RREG32(ixCG_THERMAL_INT);
+ 
+ 	if (enable) {
+ 		PPSMC_Result result;
+ 
+-		thermal_int &= ~(THERM_INT_MASK_HIGH | THERM_INT_MASK_LOW);
+-		WREG32(CG_THERMAL_INT, thermal_int);
++		thermal_int &= ~(CG_THERMAL_INT__THERM_INT_MASK_HIGH_MASK | CG_THERMAL_INT__THERM_INT_MASK_LOW_MASK);
++		WREG32(ixCG_THERMAL_INT, thermal_int);
+ 		result = amdgpu_si_send_msg_to_smc(adev, PPSMC_MSG_EnableThermalInterrupt);
+ 		if (result != PPSMC_Result_OK) {
+ 			DRM_DEBUG_KMS("Could not enable thermal interrupts.\n");
+ 			return -EINVAL;
+ 		}
+ 	} else {
+-		thermal_int |= THERM_INT_MASK_HIGH | THERM_INT_MASK_LOW;
+-		WREG32(CG_THERMAL_INT, thermal_int);
++		thermal_int |= CG_THERMAL_INT__THERM_INT_MASK_HIGH_MASK | CG_THERMAL_INT__THERM_INT_MASK_LOW_MASK;
++		WREG32(ixCG_THERMAL_INT, thermal_int);
+ 	}
+ 
+ 	return 0;
+@@ -6463,9 +6469,9 @@ static int si_thermal_set_temperature_range(struct amdgpu_device *adev,
+ 		return -EINVAL;
+ 	}
+ 
+-	WREG32_P(CG_THERMAL_INT, DIG_THERM_INTH(high_temp / 1000), ~DIG_THERM_INTH_MASK);
+-	WREG32_P(CG_THERMAL_INT, DIG_THERM_INTL(low_temp / 1000), ~DIG_THERM_INTL_MASK);
+-	WREG32_P(CG_THERMAL_CTRL, DIG_THERM_DPM(high_temp / 1000), ~DIG_THERM_DPM_MASK);
++	WREG32_P(ixCG_THERMAL_INT, (high_temp / 1000) << CG_THERMAL_INT__DIG_THERM_INTH__SHIFT, ~CG_THERMAL_INT__DIG_THERM_INTH_MASK);
++	WREG32_P(ixCG_THERMAL_INT, (low_temp / 1000) << CG_THERMAL_INT__DIG_THERM_INTL__SHIFT, ~CG_THERMAL_INT__DIG_THERM_INTL_MASK);
++	WREG32_P(ixCG_THERMAL_CTRL, (high_temp / 1000) << CG_THERMAL_CTRL__DIG_THERM_DPM__SHIFT, ~CG_THERMAL_CTRL__DIG_THERM_DPM_MASK);
+ 
+ 	adev->pm.dpm.thermal.min_temp = low_temp;
+ 	adev->pm.dpm.thermal.max_temp = high_temp;
+@@ -6479,20 +6485,20 @@ static void si_fan_ctrl_set_static_mode(struct amdgpu_device *adev, u32 mode)
+ 	u32 tmp;
+ 
+ 	if (si_pi->fan_ctrl_is_in_default_mode) {
+-		tmp = (RREG32(CG_FDO_CTRL2) & FDO_PWM_MODE_MASK) >> FDO_PWM_MODE_SHIFT;
++		tmp = (RREG32(ixCG_FDO_CTRL2) & CG_FDO_CTRL2__FDO_PWM_MODE_MASK) >> CG_FDO_CTRL2__FDO_PWM_MODE__SHIFT;
+ 		si_pi->fan_ctrl_default_mode = tmp;
+-		tmp = (RREG32(CG_FDO_CTRL2) & TMIN_MASK) >> TMIN_SHIFT;
++		tmp = (RREG32(ixCG_FDO_CTRL2) & CG_FDO_CTRL2__TMIN_MASK) >> CG_FDO_CTRL2__TMIN__SHIFT;
+ 		si_pi->t_min = tmp;
+ 		si_pi->fan_ctrl_is_in_default_mode = false;
+ 	}
+ 
+-	tmp = RREG32(CG_FDO_CTRL2) & ~TMIN_MASK;
+-	tmp |= TMIN(0);
+-	WREG32(CG_FDO_CTRL2, tmp);
++	tmp = RREG32(ixCG_FDO_CTRL2) & ~CG_FDO_CTRL2__TMIN_MASK;
++	tmp |= 0 << CG_FDO_CTRL2__TMIN__SHIFT;
++	WREG32(ixCG_FDO_CTRL2, tmp);
+ 
+-	tmp = RREG32(CG_FDO_CTRL2) & ~FDO_PWM_MODE_MASK;
+-	tmp |= FDO_PWM_MODE(mode);
+-	WREG32(CG_FDO_CTRL2, tmp);
++	tmp = RREG32(ixCG_FDO_CTRL2) & ~CG_FDO_CTRL2__FDO_PWM_MODE_MASK;
++	tmp |= mode << CG_FDO_CTRL2__FDO_PWM_MODE__SHIFT;
++	WREG32(ixCG_FDO_CTRL2, tmp);
+ }
+ 
+ static int si_thermal_setup_fan_table(struct amdgpu_device *adev)
+@@ -6511,7 +6517,7 @@ static int si_thermal_setup_fan_table(struct amdgpu_device *adev)
+ 		return 0;
+ 	}
+ 
+-	duty100 = (RREG32(CG_FDO_CTRL1) & FMAX_DUTY100_MASK) >> FMAX_DUTY100_SHIFT;
++	duty100 = (RREG32(ixCG_FDO_CTRL1) & CG_FDO_CTRL1__FMAX_DUTY100_MASK) >> CG_FDO_CTRL1__FMAX_DUTY100__SHIFT;
+ 
+ 	if (duty100 == 0) {
+ 		adev->pm.dpm.fan.ucode_fan_control = false;
+@@ -6547,7 +6553,7 @@ static int si_thermal_setup_fan_table(struct amdgpu_device *adev)
+ 						reference_clock) / 1600);
+ 	fan_table.fdo_max = cpu_to_be16((u16)duty100);
+ 
+-	tmp = (RREG32(CG_MULT_THERMAL_CTRL) & TEMP_SEL_MASK) >> TEMP_SEL_SHIFT;
++	tmp = (RREG32(ixCG_MULT_THERMAL_CTRL) & CG_MULT_THERMAL_CTRL__TEMP_SEL_MASK) >> CG_MULT_THERMAL_CTRL__TEMP_SEL__SHIFT;
+ 	fan_table.temp_src = (uint8_t)tmp;
+ 
+ 	ret = amdgpu_si_copy_bytes_to_smc(adev,
+@@ -6606,8 +6612,8 @@ static int si_dpm_get_fan_speed_pwm(void *handle,
+ 	if (adev->pm.no_fan)
+ 		return -ENOENT;
+ 
+-	duty100 = (RREG32(CG_FDO_CTRL1) & FMAX_DUTY100_MASK) >> FMAX_DUTY100_SHIFT;
+-	duty = (RREG32(CG_THERMAL_STATUS) & FDO_PWM_DUTY_MASK) >> FDO_PWM_DUTY_SHIFT;
++	duty100 = (RREG32(ixCG_FDO_CTRL1) & CG_FDO_CTRL1__FMAX_DUTY100_MASK) >> CG_FDO_CTRL1__FMAX_DUTY100__SHIFT;
++	duty = (RREG32(ixCG_THERMAL_STATUS) & CG_THERMAL_STATUS__FDO_PWM_DUTY_MASK) >> CG_THERMAL_STATUS__FDO_PWM_DUTY__SHIFT;
+ 
+ 	if (duty100 == 0)
+ 		return -EINVAL;
+@@ -6637,7 +6643,7 @@ static int si_dpm_set_fan_speed_pwm(void *handle,
+ 	if (speed > 255)
+ 		return -EINVAL;
+ 
+-	duty100 = (RREG32(CG_FDO_CTRL1) & FMAX_DUTY100_MASK) >> FMAX_DUTY100_SHIFT;
++	duty100 = (RREG32(ixCG_FDO_CTRL1) & CG_FDO_CTRL1__FMAX_DUTY100_MASK) >> CG_FDO_CTRL1__FMAX_DUTY100__SHIFT;
+ 
+ 	if (duty100 == 0)
+ 		return -EINVAL;
+@@ -6646,9 +6652,9 @@ static int si_dpm_set_fan_speed_pwm(void *handle,
+ 	do_div(tmp64, 255);
+ 	duty = (u32)tmp64;
+ 
+-	tmp = RREG32(CG_FDO_CTRL0) & ~FDO_STATIC_DUTY_MASK;
+-	tmp |= FDO_STATIC_DUTY(duty);
+-	WREG32(CG_FDO_CTRL0, tmp);
++	tmp = RREG32(ixCG_FDO_CTRL0) & ~CG_FDO_CTRL0__FDO_STATIC_DUTY_MASK;
++	tmp |= duty << CG_FDO_CTRL0__FDO_STATIC_DUTY__SHIFT;
++	WREG32(ixCG_FDO_CTRL0, tmp);
+ 
+ 	return 0;
+ }
+@@ -6688,8 +6694,8 @@ static int si_dpm_get_fan_control_mode(void *handle, u32 *fan_mode)
+ 	if (si_pi->fan_is_controlled_by_smc)
+ 		return 0;
+ 
+-	tmp = RREG32(CG_FDO_CTRL2) & FDO_PWM_MODE_MASK;
+-	*fan_mode = (tmp >> FDO_PWM_MODE_SHIFT);
++	tmp = RREG32(ixCG_FDO_CTRL2) & CG_FDO_CTRL2__FDO_PWM_MODE_MASK;
++	*fan_mode = (tmp >> CG_FDO_CTRL2__FDO_PWM_MODE__SHIFT);
+ 
+ 	return 0;
+ }
+@@ -6707,7 +6713,7 @@ static int si_fan_ctrl_get_fan_speed_rpm(struct amdgpu_device *adev,
+ 	if (adev->pm.fan_pulses_per_revolution == 0)
+ 		return -ENOENT;
+ 
+-	tach_period = (RREG32(CG_TACH_STATUS) & TACH_PERIOD_MASK) >> TACH_PERIOD_SHIFT;
++	tach_period = (RREG32(ixCG_TACH_STATUS) & CG_TACH_STATUS__TACH_PERIOD_MASK) >> CG_TACH_STATUS__TACH_PERIOD__SHIFT;
+ 	if (tach_period == 0)
+ 		return -ENOENT;
+ 
+@@ -6736,9 +6742,9 @@ static int si_fan_ctrl_set_fan_speed_rpm(struct amdgpu_device *adev,
+ 		si_fan_ctrl_stop_smc_fan_control(adev);
+ 
+ 	tach_period = 60 * xclk * 10000 / (8 * speed);
+-	tmp = RREG32(CG_TACH_CTRL) & ~TARGET_PERIOD_MASK;
+-	tmp |= TARGET_PERIOD(tach_period);
+-	WREG32(CG_TACH_CTRL, tmp);
++	tmp = RREG32(ixCG_TACH_CTRL) & ~CG_TACH_CTRL__TARGET_PERIOD_MASK;
++	tmp |= tach_period << CG_TACH_CTRL__TARGET_PERIOD__SHIFT;
++	WREG32(ixCG_TACH_CTRL, tmp);
+ 
+ 	si_fan_ctrl_set_static_mode(adev, FDO_PWM_MODE_STATIC_RPM);
+ 
+@@ -6752,13 +6758,13 @@ static void si_fan_ctrl_set_default_mode(struct amdgpu_device *adev)
+ 	u32 tmp;
+ 
+ 	if (!si_pi->fan_ctrl_is_in_default_mode) {
+-		tmp = RREG32(CG_FDO_CTRL2) & ~FDO_PWM_MODE_MASK;
+-		tmp |= FDO_PWM_MODE(si_pi->fan_ctrl_default_mode);
+-		WREG32(CG_FDO_CTRL2, tmp);
++		tmp = RREG32(ixCG_FDO_CTRL2) & ~CG_FDO_CTRL2__FDO_PWM_MODE_MASK;
++		tmp |= si_pi->fan_ctrl_default_mode << CG_FDO_CTRL2__FDO_PWM_MODE__SHIFT;
++		WREG32(ixCG_FDO_CTRL2, tmp);
+ 
+-		tmp = RREG32(CG_FDO_CTRL2) & ~TMIN_MASK;
+-		tmp |= TMIN(si_pi->t_min);
+-		WREG32(CG_FDO_CTRL2, tmp);
++		tmp = RREG32(ixCG_FDO_CTRL2) & ~CG_FDO_CTRL2__TMIN_MASK;
++		tmp |= si_pi->t_min << CG_FDO_CTRL2__TMIN__SHIFT;
++		WREG32(ixCG_FDO_CTRL2, tmp);
+ 		si_pi->fan_ctrl_is_in_default_mode = true;
+ 	}
+ }
+@@ -6776,14 +6782,14 @@ static void si_thermal_initialize(struct amdgpu_device *adev)
+ 	u32 tmp;
+ 
+ 	if (adev->pm.fan_pulses_per_revolution) {
+-		tmp = RREG32(CG_TACH_CTRL) & ~EDGE_PER_REV_MASK;
+-		tmp |= EDGE_PER_REV(adev->pm.fan_pulses_per_revolution -1);
+-		WREG32(CG_TACH_CTRL, tmp);
++		tmp = RREG32(ixCG_TACH_CTRL) & ~CG_TACH_CTRL__EDGE_PER_REV_MASK;
++		tmp |= (adev->pm.fan_pulses_per_revolution -1) << CG_TACH_CTRL__EDGE_PER_REV__SHIFT;
++		WREG32(ixCG_TACH_CTRL, tmp);
+ 	}
+ 
+-	tmp = RREG32(CG_FDO_CTRL2) & ~TACH_PWM_RESP_RATE_MASK;
+-	tmp |= TACH_PWM_RESP_RATE(0x28);
+-	WREG32(CG_FDO_CTRL2, tmp);
++	tmp = RREG32(ixCG_FDO_CTRL2) & ~CG_FDO_CTRL2__TACH_PWM_RESP_RATE_MASK;
++	tmp |= 0x28 << CG_FDO_CTRL2__TACH_PWM_RESP_RATE__SHIFT;
++	WREG32(ixCG_FDO_CTRL2, tmp);
+ }
+ 
+ static int si_thermal_start_thermal_controller(struct amdgpu_device *adev)
+@@ -7546,8 +7552,8 @@ static void si_dpm_debugfs_print_current_performance_level(void *handle,
+ 	struct  si_ps *ps = si_get_ps(rps);
+ 	struct rv7xx_pl *pl;
+ 	u32 current_index =
+-		(RREG32(TARGET_AND_CURRENT_PROFILE_INDEX) & CURRENT_STATE_INDEX_MASK) >>
+-		CURRENT_STATE_INDEX_SHIFT;
++		(RREG32(ixTARGET_AND_CURRENT_PROFILE_INDEX) & TARGET_AND_CURRENT_PROFILE_INDEX__CURRENT_STATE_INDEX_MASK) >>
++			TARGET_AND_CURRENT_PROFILE_INDEX__CURRENT_STATE_INDEX__SHIFT;
+ 
+ 	if (current_index >= ps->performance_level_count) {
+ 		seq_printf(m, "invalid dpm profile %d\n", current_index);
+@@ -7570,14 +7576,14 @@ static int si_dpm_set_interrupt_state(struct amdgpu_device *adev,
+ 	case AMDGPU_THERMAL_IRQ_LOW_TO_HIGH:
+ 		switch (state) {
+ 		case AMDGPU_IRQ_STATE_DISABLE:
+-			cg_thermal_int = RREG32_SMC(CG_THERMAL_INT);
+-			cg_thermal_int |= THERM_INT_MASK_HIGH;
+-			WREG32_SMC(CG_THERMAL_INT, cg_thermal_int);
++			cg_thermal_int = RREG32_SMC(ixCG_THERMAL_INT);
++			cg_thermal_int |= CG_THERMAL_INT__THERM_INT_MASK_HIGH_MASK;
++			WREG32_SMC(ixCG_THERMAL_INT, cg_thermal_int);
+ 			break;
+ 		case AMDGPU_IRQ_STATE_ENABLE:
+-			cg_thermal_int = RREG32_SMC(CG_THERMAL_INT);
+-			cg_thermal_int &= ~THERM_INT_MASK_HIGH;
+-			WREG32_SMC(CG_THERMAL_INT, cg_thermal_int);
++			cg_thermal_int = RREG32_SMC(ixCG_THERMAL_INT);
++			cg_thermal_int &= ~CG_THERMAL_INT__THERM_INT_MASK_HIGH_MASK;
++			WREG32_SMC(ixCG_THERMAL_INT, cg_thermal_int);
+ 			break;
+ 		default:
+ 			break;
+@@ -7587,14 +7593,14 @@ static int si_dpm_set_interrupt_state(struct amdgpu_device *adev,
+ 	case AMDGPU_THERMAL_IRQ_HIGH_TO_LOW:
+ 		switch (state) {
+ 		case AMDGPU_IRQ_STATE_DISABLE:
+-			cg_thermal_int = RREG32_SMC(CG_THERMAL_INT);
+-			cg_thermal_int |= THERM_INT_MASK_LOW;
+-			WREG32_SMC(CG_THERMAL_INT, cg_thermal_int);
++			cg_thermal_int = RREG32_SMC(ixCG_THERMAL_INT);
++			cg_thermal_int |= CG_THERMAL_INT__THERM_INT_MASK_LOW_MASK;
++			WREG32_SMC(ixCG_THERMAL_INT, cg_thermal_int);
+ 			break;
+ 		case AMDGPU_IRQ_STATE_ENABLE:
+-			cg_thermal_int = RREG32_SMC(CG_THERMAL_INT);
+-			cg_thermal_int &= ~THERM_INT_MASK_LOW;
+-			WREG32_SMC(CG_THERMAL_INT, cg_thermal_int);
++			cg_thermal_int = RREG32_SMC(ixCG_THERMAL_INT);
++			cg_thermal_int &= ~CG_THERMAL_INT__THERM_INT_MASK_LOW_MASK;
++			WREG32_SMC(ixCG_THERMAL_INT, cg_thermal_int);
+ 			break;
+ 		default:
+ 			break;
+@@ -7884,8 +7890,8 @@ static int si_dpm_get_temp(void *handle)
+ 	int actual_temp = 0;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	temp = (RREG32(CG_MULT_THERMAL_STATUS) & CTF_TEMP_MASK) >>
+-		CTF_TEMP_SHIFT;
++	temp = (RREG32(ixCG_MULT_THERMAL_STATUS) & CG_MULT_THERMAL_STATUS__CTF_TEMP_MASK) >>
++		CG_MULT_THERMAL_STATUS__CTF_TEMP__SHIFT;
+ 
+ 	if (temp & 0x200)
+ 		actual_temp = 255;
+@@ -8015,8 +8021,8 @@ static int si_dpm_read_sensor(void *handle, int idx,
+ 	struct  si_ps *ps = si_get_ps(rps);
+ 	uint32_t sclk, mclk;
+ 	u32 pl_index =
+-		(RREG32(TARGET_AND_CURRENT_PROFILE_INDEX) & CURRENT_STATE_INDEX_MASK) >>
+-		CURRENT_STATE_INDEX_SHIFT;
++		(RREG32(ixTARGET_AND_CURRENT_PROFILE_INDEX) & TARGET_AND_CURRENT_PROFILE_INDEX__CURRENT_STATE_INDEX_MASK) >>
++		TARGET_AND_CURRENT_PROFILE_INDEX__CURRENT_STATE_INDEX__SHIFT;
+ 
+ 	/* size must be at least 4 bytes for all sensors */
+ 	if (*size < 4)
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
+index c712899c44ca..4e65ab9e931c 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
+@@ -44,8 +44,8 @@ static int si_set_smc_sram_address(struct amdgpu_device *adev,
+ 	if ((smc_address + 3) > limit)
+ 		return -EINVAL;
+ 
+-	WREG32(SMC_IND_INDEX_0, smc_address);
+-	WREG32_P(SMC_IND_ACCESS_CNTL, 0, ~AUTO_INCREMENT_IND_0);
++	WREG32(mmSMC_IND_INDEX_0, smc_address);
++	WREG32_P(mmSMC_IND_ACCESS_CNTL, 0, ~SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_0_MASK);
+ 
+ 	return 0;
+ }
+@@ -74,7 +74,7 @@ int amdgpu_si_copy_bytes_to_smc(struct amdgpu_device *adev,
+ 		if (ret)
+ 			goto done;
+ 
+-		WREG32(SMC_IND_DATA_0, data);
++		WREG32(mmSMC_IND_DATA_0, data);
+ 
+ 		src += 4;
+ 		byte_count -= 4;
+@@ -89,7 +89,7 @@ int amdgpu_si_copy_bytes_to_smc(struct amdgpu_device *adev,
+ 		if (ret)
+ 			goto done;
+ 
+-		original_data = RREG32(SMC_IND_DATA_0);
++		original_data = RREG32(mmSMC_IND_DATA_0);
+ 		extra_shift = 8 * (4 - byte_count);
+ 
+ 		while (byte_count > 0) {
+@@ -105,7 +105,7 @@ int amdgpu_si_copy_bytes_to_smc(struct amdgpu_device *adev,
+ 		if (ret)
+ 			goto done;
+ 
+-		WREG32(SMC_IND_DATA_0, data);
++		WREG32(mmSMC_IND_DATA_0, data);
+ 	}
+ 
+ done:
+@@ -127,10 +127,10 @@ void amdgpu_si_reset_smc(struct amdgpu_device *adev)
+ {
+ 	u32 tmp;
+ 
+-	RREG32(CB_CGTT_SCLK_CTRL);
+-	RREG32(CB_CGTT_SCLK_CTRL);
+-	RREG32(CB_CGTT_SCLK_CTRL);
+-	RREG32(CB_CGTT_SCLK_CTRL);
++	RREG32(mmCB_CGTT_SCLK_CTRL);
++	RREG32(mmCB_CGTT_SCLK_CTRL);
++	RREG32(mmCB_CGTT_SCLK_CTRL);
++	RREG32(mmCB_CGTT_SCLK_CTRL);
+ 
+ 	tmp = RREG32_SMC(SMC_SYSCON_RESET_CNTL) |
+ 	      RST_REG;
+@@ -176,16 +176,16 @@ PPSMC_Result amdgpu_si_send_msg_to_smc(struct amdgpu_device *adev,
+ 	if (!amdgpu_si_is_smc_running(adev))
+ 		return PPSMC_Result_Failed;
+ 
+-	WREG32(SMC_MESSAGE_0, msg);
++	WREG32(mmSMC_MESSAGE_0, msg);
  
  	for (i = 0; i < adev->usec_timeout; i++) {
--		speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
--		if ((speed_cntl & LC_INITIATE_LINK_SPEED_CHANGE) == 0)
-+		speed_cntl = RREG32_PCIE_PORT(ixPCIE_LC_SPEED_CNTL);
-+		if ((speed_cntl & PCIE_LC_SPEED_CNTL__LC_INITIATE_LINK_SPEED_CHANGE_MASK) == 0)
+-		tmp = RREG32(SMC_RESP_0);
++		tmp = RREG32(mmSMC_RESP_0);
+ 		if (tmp != 0)
  			break;
  		udelay(1);
  	}
-@@ -2432,121 +2433,121 @@ static void si_program_aspm(struct amdgpu_device *adev)
- 	if (!amdgpu_device_should_use_aspm(adev))
- 		return;
  
--	orig = data = RREG32_PCIE_PORT(PCIE_LC_N_FTS_CNTL);
--	data &= ~LC_XMIT_N_FTS_MASK;
--	data |= LC_XMIT_N_FTS(0x24) | LC_XMIT_N_FTS_OVERRIDE_EN;
-+	orig = data = RREG32_PCIE_PORT(ixPCIE_LC_N_FTS_CNTL);
-+	data &= ~PCIE_LC_N_FTS_CNTL__LC_XMIT_N_FTS_MASK;
-+	data |= (0x24 << PCIE_LC_N_FTS_CNTL__LC_XMIT_N_FTS__SHIFT) | PCIE_LC_N_FTS_CNTL__LC_XMIT_N_FTS_OVERRIDE_EN_MASK;
- 	if (orig != data)
--		WREG32_PCIE_PORT(PCIE_LC_N_FTS_CNTL, data);
-+		WREG32_PCIE_PORT(ixPCIE_LC_N_FTS_CNTL, data);
+-	return (PPSMC_Result)RREG32(SMC_RESP_0);
++	return (PPSMC_Result)RREG32(mmSMC_RESP_0);
+ }
  
--	orig = data = RREG32_PCIE_PORT(PCIE_LC_CNTL3);
--	data |= LC_GO_TO_RECOVERY;
-+	orig = data = RREG32_PCIE_PORT(ixPCIE_LC_CNTL3);
-+	data |= PCIE_LC_CNTL3__LC_GO_TO_RECOVERY_MASK;
- 	if (orig != data)
--		WREG32_PCIE_PORT(PCIE_LC_CNTL3, data);
-+		WREG32_PCIE_PORT(ixPCIE_LC_CNTL3, data);
+ PPSMC_Result amdgpu_si_wait_for_smc_inactive(struct amdgpu_device *adev)
+@@ -231,18 +231,18 @@ int amdgpu_si_load_smc_ucode(struct amdgpu_device *adev, u32 limit)
+ 		return -EINVAL;
  
--	orig = data = RREG32_PCIE(PCIE_P_CNTL);
--	data |= P_IGNORE_EDB_ERR;
-+	orig = data = RREG32_PCIE(ixPCIE_P_CNTL);
-+	data |= PCIE_P_CNTL__P_IGNORE_EDB_ERR_MASK;
- 	if (orig != data)
--		WREG32_PCIE(PCIE_P_CNTL, data);
-+		WREG32_PCIE(ixPCIE_P_CNTL, data);
+ 	spin_lock_irqsave(&adev->smc_idx_lock, flags);
+-	WREG32(SMC_IND_INDEX_0, ucode_start_address);
+-	WREG32_P(SMC_IND_ACCESS_CNTL, AUTO_INCREMENT_IND_0, ~AUTO_INCREMENT_IND_0);
++	WREG32(mmSMC_IND_INDEX_0, ucode_start_address);
++	WREG32_P(mmSMC_IND_ACCESS_CNTL, SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_0_MASK, ~SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_0_MASK);
+ 	while (ucode_size >= 4) {
+ 		/* SMC address space is BE */
+ 		data = (src[0] << 24) | (src[1] << 16) | (src[2] << 8) | src[3];
  
--	orig = data = RREG32_PCIE_PORT(PCIE_LC_CNTL);
--	data &= ~(LC_L0S_INACTIVITY_MASK | LC_L1_INACTIVITY_MASK);
--	data |= LC_PMI_TO_L1_DIS;
-+	orig = data = RREG32_PCIE_PORT(ixPCIE_LC_CNTL);
-+	data &= ~(PCIE_LC_CNTL__LC_L0S_INACTIVITY_MASK | PCIE_LC_CNTL__LC_L1_INACTIVITY_MASK);
-+	data |= PCIE_LC_CNTL__LC_PMI_TO_L1_DIS_MASK;
- 	if (!disable_l0s)
--		data |= LC_L0S_INACTIVITY(7);
-+		data |= (7 << PCIE_LC_CNTL__LC_L0S_INACTIVITY__SHIFT);
+-		WREG32(SMC_IND_DATA_0, data);
++		WREG32(mmSMC_IND_DATA_0, data);
  
- 	if (!disable_l1) {
--		data |= LC_L1_INACTIVITY(7);
--		data &= ~LC_PMI_TO_L1_DIS;
-+		data |= (7 << PCIE_LC_CNTL__LC_L1_INACTIVITY__SHIFT);
-+		data &= ~PCIE_LC_CNTL__LC_PMI_TO_L1_DIS_MASK;
- 		if (orig != data)
--			WREG32_PCIE_PORT(PCIE_LC_CNTL, data);
-+			WREG32_PCIE_PORT(ixPCIE_LC_CNTL, data);
- 
- 		if (!disable_plloff_in_l1) {
- 			bool clk_req_support;
- 
--			orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_0);
--			data &= ~(PLL_POWER_STATE_IN_OFF_0_MASK | PLL_POWER_STATE_IN_TXS2_0_MASK);
--			data |= PLL_POWER_STATE_IN_OFF_0(7) | PLL_POWER_STATE_IN_TXS2_0(7);
-+			orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_0);
-+			data &= ~(PB0_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_OFF_0_MASK | PB0_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_TXS2_0_MASK);
-+			data |= (7 << PB0_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_OFF_0__SHIFT) | (7 << PB0_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_TXS2_0__SHIFT);
- 			if (orig != data)
--				si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_0, data);
-+				si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_0, data);
- 
--			orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_1);
--			data &= ~(PLL_POWER_STATE_IN_OFF_1_MASK | PLL_POWER_STATE_IN_TXS2_1_MASK);
--			data |= PLL_POWER_STATE_IN_OFF_1(7) | PLL_POWER_STATE_IN_TXS2_1(7);
-+			orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_1);
-+			data &= ~(PB0_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_OFF_1_MASK | PB0_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_TXS2_1_MASK);
-+			data |= (7 << PB0_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_OFF_1__SHIFT) | (7 << PB0_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_TXS2_1__SHIFT);
- 			if (orig != data)
--				si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_1, data);
-+				si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_1, data);
- 
--			orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_0);
--			data &= ~(PLL_POWER_STATE_IN_OFF_0_MASK | PLL_POWER_STATE_IN_TXS2_0_MASK);
--			data |= PLL_POWER_STATE_IN_OFF_0(7) | PLL_POWER_STATE_IN_TXS2_0(7);
-+			orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_0);
-+			data &= ~(PB1_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_OFF_0_MASK | PB1_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_TXS2_0_MASK);
-+			data |= (7 << PB1_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_OFF_0__SHIFT) | (7 << PB1_PIF_PWRDOWN_0__PLL_POWER_STATE_IN_TXS2_0__SHIFT);
- 			if (orig != data)
--				si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_0, data);
-+				si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_0, data);
- 
--			orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_1);
--			data &= ~(PLL_POWER_STATE_IN_OFF_1_MASK | PLL_POWER_STATE_IN_TXS2_1_MASK);
--			data |= PLL_POWER_STATE_IN_OFF_1(7) | PLL_POWER_STATE_IN_TXS2_1(7);
-+			orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_1);
-+			data &= ~(PB1_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_OFF_1_MASK | PB1_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_TXS2_1_MASK);
-+			data |= (7 << PB1_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_OFF_1__SHIFT) | (7 << PB1_PIF_PWRDOWN_1__PLL_POWER_STATE_IN_TXS2_1__SHIFT);
- 			if (orig != data)
--				si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_1, data);
-+				si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_1, data);
- 
- 			if ((adev->asic_type != CHIP_OLAND) && (adev->asic_type != CHIP_HAINAN)) {
--				orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_0);
--				data &= ~PLL_RAMP_UP_TIME_0_MASK;
-+				orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_0);
-+				data &= ~PB0_PIF_PWRDOWN_0__PLL_RAMP_UP_TIME_0_MASK;
- 				if (orig != data)
--					si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_0, data);
-+					si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_0, data);
- 
--				orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_1);
--				data &= ~PLL_RAMP_UP_TIME_1_MASK;
-+				orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_1);
-+				data &= ~PB0_PIF_PWRDOWN_1__PLL_RAMP_UP_TIME_1_MASK;
- 				if (orig != data)
--					si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_1, data);
-+					si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_1, data);
- 
--				orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_2);
--				data &= ~PLL_RAMP_UP_TIME_2_MASK;
-+				orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_2);
-+				data &= ~PB0_PIF_PWRDOWN_2__PLL_RAMP_UP_TIME_2_MASK;
- 				if (orig != data)
--					si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_2, data);
-+					si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_2, data);
- 
--				orig = data = si_pif_phy0_rreg(adev,PB0_PIF_PWRDOWN_3);
--				data &= ~PLL_RAMP_UP_TIME_3_MASK;
-+				orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_PWRDOWN_3);
-+				data &= ~PB0_PIF_PWRDOWN_3__PLL_RAMP_UP_TIME_3_MASK;
- 				if (orig != data)
--					si_pif_phy0_wreg(adev,PB0_PIF_PWRDOWN_3, data);
-+					si_pif_phy0_wreg(adev,ixPB0_PIF_PWRDOWN_3, data);
- 
--				orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_0);
--				data &= ~PLL_RAMP_UP_TIME_0_MASK;
-+				orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_0);
-+				data &= ~PB1_PIF_PWRDOWN_0__PLL_RAMP_UP_TIME_0_MASK;
- 				if (orig != data)
--					si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_0, data);
-+					si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_0, data);
- 
--				orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_1);
--				data &= ~PLL_RAMP_UP_TIME_1_MASK;
-+				orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_1);
-+				data &= ~PB1_PIF_PWRDOWN_1__PLL_RAMP_UP_TIME_1_MASK;
- 				if (orig != data)
--					si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_1, data);
-+					si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_1, data);
- 
--				orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_2);
--				data &= ~PLL_RAMP_UP_TIME_2_MASK;
-+				orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_2);
-+				data &= ~PB1_PIF_PWRDOWN_2__PLL_RAMP_UP_TIME_2_MASK;
- 				if (orig != data)
--					si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_2, data);
-+					si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_2, data);
- 
--				orig = data = si_pif_phy1_rreg(adev,PB1_PIF_PWRDOWN_3);
--				data &= ~PLL_RAMP_UP_TIME_3_MASK;
-+				orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_PWRDOWN_3);
-+				data &= ~PB1_PIF_PWRDOWN_3__PLL_RAMP_UP_TIME_3_MASK;
- 				if (orig != data)
--					si_pif_phy1_wreg(adev,PB1_PIF_PWRDOWN_3, data);
-+					si_pif_phy1_wreg(adev,ixPB1_PIF_PWRDOWN_3, data);
- 			}
--			orig = data = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
--			data &= ~LC_DYN_LANES_PWR_STATE_MASK;
--			data |= LC_DYN_LANES_PWR_STATE(3);
-+			orig = data = RREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL);
-+			data &= ~PCIE_LC_LINK_WIDTH_CNTL__LC_DYN_LANES_PWR_STATE_MASK;
-+			data |= (3 << PCIE_LC_LINK_WIDTH_CNTL__LC_DYN_LANES_PWR_STATE__SHIFT);
- 			if (orig != data)
--				WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, data);
-+				WREG32_PCIE_PORT(ixPCIE_LC_LINK_WIDTH_CNTL, data);
- 
--			orig = data = si_pif_phy0_rreg(adev,PB0_PIF_CNTL);
--			data &= ~LS2_EXIT_TIME_MASK;
-+			orig = data = si_pif_phy0_rreg(adev,ixPB0_PIF_CNTL);
-+			data &= ~PB0_PIF_CNTL__LS2_EXIT_TIME_MASK;
- 			if ((adev->asic_type == CHIP_OLAND) || (adev->asic_type == CHIP_HAINAN))
--				data |= LS2_EXIT_TIME(5);
-+				data |= (5 << PB0_PIF_CNTL__LS2_EXIT_TIME__SHIFT);
- 			if (orig != data)
--				si_pif_phy0_wreg(adev,PB0_PIF_CNTL, data);
-+				si_pif_phy0_wreg(adev,ixPB0_PIF_CNTL, data);
- 
--			orig = data = si_pif_phy1_rreg(adev,PB1_PIF_CNTL);
--			data &= ~LS2_EXIT_TIME_MASK;
-+			orig = data = si_pif_phy1_rreg(adev,ixPB1_PIF_CNTL);
-+			data &= ~PB1_PIF_CNTL__LS2_EXIT_TIME_MASK;
- 			if ((adev->asic_type == CHIP_OLAND) || (adev->asic_type == CHIP_HAINAN))
--				data |= LS2_EXIT_TIME(5);
-+				data |= (5 << PB1_PIF_CNTL__LS2_EXIT_TIME__SHIFT);
- 			if (orig != data)
--				si_pif_phy1_wreg(adev,PB1_PIF_CNTL, data);
-+				si_pif_phy1_wreg(adev,ixPB1_PIF_CNTL, data);
- 
- 			if (!disable_clkreq &&
- 			    !pci_is_root_bus(adev->pdev->bus)) {
-@@ -2562,64 +2563,64 @@ static void si_program_aspm(struct amdgpu_device *adev)
- 			}
- 
- 			if (clk_req_support) {
--				orig = data = RREG32_PCIE_PORT(PCIE_LC_CNTL2);
--				data |= LC_ALLOW_PDWN_IN_L1 | LC_ALLOW_PDWN_IN_L23;
-+				orig = data = RREG32_PCIE_PORT(ixPCIE_LC_CNTL2);
-+				data |= PCIE_LC_CNTL2__LC_ALLOW_PDWN_IN_L1_MASK | PCIE_LC_CNTL2__LC_ALLOW_PDWN_IN_L23_MASK;
- 				if (orig != data)
--					WREG32_PCIE_PORT(PCIE_LC_CNTL2, data);
-+					WREG32_PCIE_PORT(ixPCIE_LC_CNTL2, data);
- 
--				orig = data = RREG32(THM_CLK_CNTL);
--				data &= ~(CMON_CLK_SEL_MASK | TMON_CLK_SEL_MASK);
--				data |= CMON_CLK_SEL(1) | TMON_CLK_SEL(1);
-+				orig = data = RREG32(ixTHM_CLK_CNTL);
-+				data &= ~(THM_CLK_CNTL__CMON_CLK_SEL_MASK | THM_CLK_CNTL__TMON_CLK_SEL_MASK);
-+				data |= (1 << THM_CLK_CNTL__CMON_CLK_SEL__SHIFT) | (1 << THM_CLK_CNTL__TMON_CLK_SEL__SHIFT);
- 				if (orig != data)
--					WREG32(THM_CLK_CNTL, data);
-+					WREG32(ixTHM_CLK_CNTL, data);
- 
--				orig = data = RREG32(MISC_CLK_CNTL);
--				data &= ~(DEEP_SLEEP_CLK_SEL_MASK | ZCLK_SEL_MASK);
--				data |= DEEP_SLEEP_CLK_SEL(1) | ZCLK_SEL(1);
-+				orig = data = RREG32(ixMISC_CLK_CNTL);
-+				data &= ~(MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL_MASK | MISC_CLK_CNTL__ZCLK_SEL_MASK);
-+				data |= (1 << MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL__SHIFT) | (1 << MISC_CLK_CNTL__ZCLK_SEL__SHIFT);
- 				if (orig != data)
--					WREG32(MISC_CLK_CNTL, data);
-+					WREG32(ixMISC_CLK_CNTL, data);
- 
--				orig = data = RREG32(CG_CLKPIN_CNTL);
--				data &= ~BCLK_AS_XCLK;
-+				orig = data = RREG32(ixCG_CLKPIN_CNTL);
-+				data &= ~CG_CLKPIN_CNTL__BCLK_AS_XCLK_MASK;
- 				if (orig != data)
--					WREG32(CG_CLKPIN_CNTL, data);
-+					WREG32(ixCG_CLKPIN_CNTL, data);
- 
--				orig = data = RREG32(CG_CLKPIN_CNTL_2);
--				data &= ~FORCE_BIF_REFCLK_EN;
-+				orig = data = RREG32(ixCG_CLKPIN_CNTL_2);
-+				data &= ~CG_CLKPIN_CNTL_2__FORCE_BIF_REFCLK_EN_MASK;
- 				if (orig != data)
--					WREG32(CG_CLKPIN_CNTL_2, data);
-+					WREG32(ixCG_CLKPIN_CNTL_2, data);
- 
--				orig = data = RREG32(MPLL_BYPASSCLK_SEL);
--				data &= ~MPLL_CLKOUT_SEL_MASK;
--				data |= MPLL_CLKOUT_SEL(4);
-+				orig = data = RREG32(ixMPLL_BYPASSCLK_SEL);
-+				data &= ~MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL_MASK;
-+				data |= 4 << MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL__SHIFT;
- 				if (orig != data)
--					WREG32(MPLL_BYPASSCLK_SEL, data);
-+					WREG32(ixMPLL_BYPASSCLK_SEL, data);
- 
--				orig = data = RREG32(SPLL_CNTL_MODE);
--				data &= ~SPLL_REFCLK_SEL_MASK;
-+				orig = data = RREG32(ixSPLL_CNTL_MODE);
-+				data &= ~SPLL_CNTL_MODE__SPLL_REFCLK_SEL_MASK;
- 				if (orig != data)
--					WREG32(SPLL_CNTL_MODE, data);
-+					WREG32(ixSPLL_CNTL_MODE, data);
- 			}
- 		}
- 	} else {
- 		if (orig != data)
--			WREG32_PCIE_PORT(PCIE_LC_CNTL, data);
-+			WREG32_PCIE_PORT(ixPCIE_LC_CNTL, data);
+ 		src += 4;
+ 		ucode_size -= 4;
  	}
+-	WREG32_P(SMC_IND_ACCESS_CNTL, 0, ~AUTO_INCREMENT_IND_0);
++	WREG32_P(mmSMC_IND_ACCESS_CNTL, 0, ~SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_0_MASK);
+ 	spin_unlock_irqrestore(&adev->smc_idx_lock, flags);
  
--	orig = data = RREG32_PCIE(PCIE_CNTL2);
--	data |= SLV_MEM_LS_EN | MST_MEM_LS_EN | REPLAY_MEM_LS_EN;
-+	orig = data = RREG32_PCIE(ixPCIE_CNTL2);
-+	data |= PCIE_CNTL2__SLV_MEM_LS_EN_MASK | PCIE_CNTL2__MST_MEM_LS_EN_MASK | PCIE_CNTL2__REPLAY_MEM_LS_EN_MASK;
- 	if (orig != data)
--		WREG32_PCIE(PCIE_CNTL2, data);
-+		WREG32_PCIE(ixPCIE_CNTL2, data);
+ 	return 0;
+@@ -257,7 +257,7 @@ int amdgpu_si_read_smc_sram_dword(struct amdgpu_device *adev, u32 smc_address,
+ 	spin_lock_irqsave(&adev->smc_idx_lock, flags);
+ 	ret = si_set_smc_sram_address(adev, smc_address, limit);
+ 	if (ret == 0)
+-		*value = RREG32(SMC_IND_DATA_0);
++		*value = RREG32(mmSMC_IND_DATA_0);
+ 	spin_unlock_irqrestore(&adev->smc_idx_lock, flags);
  
- 	if (!disable_l0s) {
--		data = RREG32_PCIE_PORT(PCIE_LC_N_FTS_CNTL);
--		if((data & LC_N_FTS_MASK) == LC_N_FTS_MASK) {
--			data = RREG32_PCIE(PCIE_LC_STATUS1);
--			if ((data & LC_REVERSE_XMIT) && (data & LC_REVERSE_RCVR)) {
--				orig = data = RREG32_PCIE_PORT(PCIE_LC_CNTL);
--				data &= ~LC_L0S_INACTIVITY_MASK;
-+		data = RREG32_PCIE_PORT(ixPCIE_LC_N_FTS_CNTL);
-+		if((data & PCIE_LC_N_FTS_CNTL__LC_N_FTS_MASK) == PCIE_LC_N_FTS_CNTL__LC_N_FTS_MASK) {
-+			data = RREG32_PCIE(ixPCIE_LC_STATUS1);
-+			if ((data & PCIE_LC_STATUS1__LC_REVERSE_XMIT_MASK) && (data & PCIE_LC_STATUS1__LC_REVERSE_RCVR_MASK)) {
-+				orig = data = RREG32_PCIE_PORT(ixPCIE_LC_CNTL);
-+				data &= ~PCIE_LC_CNTL__LC_L0S_INACTIVITY_MASK;
- 				if (orig != data)
--					WREG32_PCIE_PORT(PCIE_LC_CNTL, data);
-+					WREG32_PCIE_PORT(ixPCIE_LC_CNTL, data);
- 			}
- 		}
- 	}
+ 	return ret;
+@@ -272,7 +272,7 @@ int amdgpu_si_write_smc_sram_dword(struct amdgpu_device *adev, u32 smc_address,
+ 	spin_lock_irqsave(&adev->smc_idx_lock, flags);
+ 	ret = si_set_smc_sram_address(adev, smc_address, limit);
+ 	if (ret == 0)
+-		WREG32(SMC_IND_DATA_0, value);
++		WREG32(mmSMC_IND_DATA_0, value);
+ 	spin_unlock_irqrestore(&adev->smc_idx_lock, flags);
+ 
+ 	return ret;
 -- 
 2.48.1
 
