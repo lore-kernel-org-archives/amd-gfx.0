@@ -4,72 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2BD8C282EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 14:15:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FD23C282EC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 14:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC3310E183;
-	Mon, 17 Mar 2025 14:15:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB79C10E154;
+	Mon, 17 Mar 2025 14:19:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iCk/Zzsr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HAacrlzV";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B5C410E183
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 14:15:07 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-301317939a0so506436a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 07:15:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742220907; x=1742825707; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cGW64AiIjG5uB7sxkXVZuZyf/R3mtSlfXNij3exUzVc=;
- b=iCk/ZzsrLHjdZUrDmGdOx/NXmgSyxquzcKpphtN4cxMnsqH0Hk5Qo89wgpOfswN07c
- Yth02XE2NcqETBz6db0z6gJVmTqSR6MO5ji0sU7dmJnJeARh3gGvJF0rJ+CqvVP81/+6
- ld1xLP2kgQugz6UD7WclZwWEp6v36j+5LybSmrpZuL47TXMKUD1ErnpkXcg8t9n+O6Eh
- YM3lz1UMnroHS7ub3c6OM5r47AeWJQYlsZu0LhdrO3ioJK4tqMOjRAGFgISrX7LCjT3G
- nwQ8bab1rHrF2H5P7A66a2lpVkLrYmHtVI8j7nCry48O0ZnPJLBqKu5C0igGK+zhBlvv
- GyAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742220907; x=1742825707;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cGW64AiIjG5uB7sxkXVZuZyf/R3mtSlfXNij3exUzVc=;
- b=fDrB0hdPiLWl3oSbGZNzUjkeSnkJrn2SaPh/A1lnzGi1wmnJpSWB3ywuzzccKxTyEv
- GxOKvleM+mVHax5U0Z1mRtMsK6mip+w1tlAzu0gio805PhUAOt4AHhH2ivpS3MquULkL
- XXo1Jj883G6qTrI3Pq6XErAF6WN2v/PW+UhwyI2M6BiG92TjmC+pJw2GQzmv5KzFmHWe
- m20Yjwg0hAdnpJUqumEqASfinZHCDknnhClxYLO7B3O+yFV1XGOOaVaCkKs5LUtkhJG1
- 3y1rg+d39mTk0+yBEZJtDQMrJb4Q2+SNNv8QPy6NA+HoT2ICogFZZVZq4Y4DHtOsvjPI
- DX1w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7CbG4TbI8yyDM9XEoPWXtvgLbDIcNpyXxu+GjGlVW3b3o0AlZePmg81htCV1+Heskc8h5UPTw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz/BW2DXNf2r6DwqgWMFqUh1ZePaDU86lcBOFDdrmDh3XRm0DI5
- l7nEvoZz9yKS06YAHwJLPh0K5u7fx5r/AvxSLbDoblWiCCY5tA1HlKuiv8c21HmSQg4l5ZefdvH
- uRaUDr4BAzXDtrN1eW/BkFxtwl5uRaw==
-X-Gm-Gg: ASbGncvDP5IUjVLif75gaew/raxneao96dN14v7HsDnoKnVLFVvxvfjGLfiL+blBhg0
- 9Jg1tZF9UkZIDtgvDhlGXNzAZzdeUgRGdal3xexwLrhRNS86SgTRQd2w8/cwyAc9Hq/MRJAnbok
- eLTBXFt/30yYiT2t0ZRgDu1zm+2A==
-X-Google-Smtp-Source: AGHT+IHLPAzzu1ral0g+hvl7AnRbF/5TOoonQQ4bhs+spUPVVsa5alWGi6pqOFPsZQ86vrKxk0ea0DkT89sYiB/NRg8=
-X-Received: by 2002:a17:90b:4f82:b0:2ff:7c5a:216d with SMTP id
- 98e67ed59e1d1-30151d8178fmr6213074a91.5.1742220906840; Mon, 17 Mar 2025
- 07:15:06 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36C8A10E154
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 14:19:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XovH+CnbhYexlwU9F3osNh3dq2URhFAQn5olFZsm4UzPrh5D1nTlhzOG6fyTexnsAVtJSJX+1vXqkSqUH2rYhRkt0gyBYk4jBgwlTBR9SZauILdwvJWFLPxLDo6h/9Kw1u1lbmxnHO8tusdOhfEoh8ZYvMBpjoSHFT+qmDq10ySq+k1NTM8crynX+3xbZFgre00O7FzO4fqbE9W01A0ONA4qDv+7CvseUZZnvuA3DXFSLHQHIUsTBsYT+qdDqMahY4oZaUzqdjyrPlOI16MA8hjz74zIz0FrdYgNYalOlEyywY/OqvtEiF63MCNwYpM2V/05WZtkvHF/sYr5QGZ17Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X35otyhgDVDNlfstTZAWxrIknfNrnGzmx3K9JYoChJo=;
+ b=a4gol72VhyTvU/eI0T0Gj4db4Yf+j1sF4LzyFsZUAo5MTvba5psRKECG4Paj8xlaT4E/Q/mYXS1T1P+qbhsMMyb8rEPnpmJGbQjjYGTjm0Hzc5NPVEzIebveiGkRPfiWon3j75RoNuRKe1nC3mkgG0mfMEtcroXFo+LkJXXvP1gX6g14M0Z7wDmy9Hx0hRGoanuTkyXOqQSd5Md1t60OwM7anwU9L45MF/TsSi+6QP8VZams3xtCPEP5h8u6sr30Viy7LakxFkjHYYwzV4U0IkPBSMTX0/o/ej2KUilYyZS+prQgUyB407aaRma835oNe7lyRNUkF3zspZiT3OFfFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X35otyhgDVDNlfstTZAWxrIknfNrnGzmx3K9JYoChJo=;
+ b=HAacrlzVvk4kChTQNA8ia8tKj0oZQ3Z464eFnE4yMCveTICA7OXlnzSISf9J684pwbUo8t0zOsIuzQO998iRPK/ebSlsodDQhMSm4B5vE7mE37r+yI/FurKRwIp87xvmqA7PMeOnRLXlqfAPvPAyLY4O6tMOSVEv3xoXKQ68S60=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ SA3PR12MB8804.namprd12.prod.outlook.com (2603:10b6:806:31f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
+ 2025 14:19:12 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8534.031; Mon, 17 Mar 2025
+ 14:19:11 +0000
+Message-ID: <fe300995-19cd-4b60-ac63-31778ca28028@amd.com>
+Date: Mon, 17 Mar 2025 19:49:05 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amdgpu/sdma: guilty tracking is per instance
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250317134710.764906-1-alexander.deucher@amd.com>
+ <20250317134710.764906-2-alexander.deucher@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20250317134710.764906-2-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: KL1P15301CA0049.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:820:3d::6) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
-References: <20250315201558.339913-1-tomasz.pakula.oficjalny@gmail.com>
- <20250315201558.339913-3-tomasz.pakula.oficjalny@gmail.com>
-In-Reply-To: <20250315201558.339913-3-tomasz.pakula.oficjalny@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Mar 2025 10:14:54 -0400
-X-Gm-Features: AQ5f1JrmAfgJ9zklqVVOQOEdxdzrDlohbhSSKu_gKLOgvsG50eJBn9g1_zVyRTc
-Message-ID: <CADnq5_OdsHpqcJCo77ktjnu8nQRMmTz7wqRLL5qZC8Sc-AOVYQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/pm: add zero RPM stop temp OD setting support
- for SMU 14.0.2
-To: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-Cc: alexander.deucher@amd.com, kenneth.feng@amd.com, KevinYang.Wang@amd.com, 
- amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SA3PR12MB8804:EE_
+X-MS-Office365-Filtering-Correlation-Id: 928b9eb7-2a6b-4153-809a-08dd655eb01a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Sm5CNkF2YUh6RTMvY2VTUTBSRWY3YXJHclRTZyt1VTFPUzNxMmhia05jY0FB?=
+ =?utf-8?B?NTZ5OE9NSFlSSGdYRHo1RkxuUmF6dWR4NVZjUTY5R3FQRVdCeEF3VzVtTXlW?=
+ =?utf-8?B?RmVFNGllUjNuK1dJRDRacDFNSlJaMklNRjQ4UW41VS9nUzB4WHEvQzlRbDFl?=
+ =?utf-8?B?RzVTbW41a3lqOFplUVUrVHYvRS9uZWI1UjhQUmpaY01OSWQwNWpLV0p5THFm?=
+ =?utf-8?B?ZG5NMzhRMjlOdXB5ZEdBWForNXRPdGZuTmFiNUFSVEJJd1BxK0R2Vlo3T2xa?=
+ =?utf-8?B?NWlQUnI5aVBMc3NET05aSnVoL2tPalZidWZKeWtXbUVrZnRXb2ljT0Y3ZS9h?=
+ =?utf-8?B?RVlPRkhKcUZhRmtWSU5QbGN4c3dSWkg3UWpISHRHYW5idG9EZU5NMXdYeFd2?=
+ =?utf-8?B?V2Ivc3RDWEdzVlVpZ0U2TFNWMlFMTFlQcThxSnlUcWtkam0xQVJVQW1UVy93?=
+ =?utf-8?B?NDh4NTNrWWFUQVBTQXdrTis1S1lEcVMxOTZTNktxclRoSXM0N2ZuTGwrRDdL?=
+ =?utf-8?B?RUl1bE95MmlCOHNuQmhzMERNQlhBYmxxYmF3WTBJbk5yYnRrOWo1WTRPb1VO?=
+ =?utf-8?B?eVhXSStMNmFrajdPWVA5SzJOdUJrOEFtQ2szbjEwZWRSemtpTzNIMmh3THdQ?=
+ =?utf-8?B?d2xndEFBL0VUMjZDY1FrR3F3c3RqS0JQcnRjK3dQUTgvK2phQ0dOTndHUUEv?=
+ =?utf-8?B?ZmpkajdUWHVKRmd2SlQzbHNXZDJwYk1NN0xobXBwb3Z6UzFiTWtwQjIzMmRP?=
+ =?utf-8?B?bFRPd2dndWh6bnhFeDU1R0I0SE9Ob0hJV21MdmZNOHd3K0hlVmlNR1oxNWkz?=
+ =?utf-8?B?dzJJa3pncEVwaEJzc25hbTRsTitzNHRhRm1OZUZOMWYvaUlVZCtHTkVPU21X?=
+ =?utf-8?B?VndXUkJCUy8xR3JmdzFJV05OdHQ1THNiZ0l5dFI3NGQ1Zi9sSk5menJQeFU2?=
+ =?utf-8?B?M2Z2R3pYYUtUS0VCZzRSRDNVY1BydTN0aXQxTHV3TExYVmtGMlFIT2h0MDhB?=
+ =?utf-8?B?SDU5SkxuVFE3bm1uQUxPOW5nT29ITHV1dEY5NXc4N1V1ZTU0cU96bmtNRkRt?=
+ =?utf-8?B?UnFuSVZjSlRUeWVYQjFNcFZSQnR2OEhRRG5GSjg4SlNOUVR4NVNSbFJlNG40?=
+ =?utf-8?B?L3Q2emoweEVUR0UxVnBJMFJOcnUycU95WlJ5alQ0RjZ6bmhoYTljSXY4YlVa?=
+ =?utf-8?B?dURpZ0VKekx6cUZ1dWN1b1Yxek8rc1ZPTTIyZHoxRkREYkpqZUM4aTh4ZXVp?=
+ =?utf-8?B?UGFyUmtCLzNpbExWME9BRkE5eFB0S2p3cjBzR0Q4UStGaCtYdU1WRGlqQUdk?=
+ =?utf-8?B?WE5QQ0c3N3U0Nm5oeGxNQ0VYNWkvZmtBUllkTW4zVXVZdzgrKzg2QXFRUkVT?=
+ =?utf-8?B?RFZJaUgxNklRMExqVm5HSjV1ZzV6SGl2dEs3OWdoaHZrTUYwZnhwYkJ1aVgv?=
+ =?utf-8?B?YzAwVllWWDlOQW9MM2p3Z1JONysyQ05TTGtqODlTQ0wwWUV0bHl0d3BEK2Vl?=
+ =?utf-8?B?TWdta2FrcmN6WEVQUWtDem1pZ1Z0N2hLVUl0dHBIT0xobTh4V1NQR09KNVZs?=
+ =?utf-8?B?cHppSzNGcmRVU3ZXTVUrdUt1UG1INEttTFE4bVMvUVRGTHVvRmwrZkNkMndQ?=
+ =?utf-8?B?MW1UcUxmbnZPZUFtZjROVVJxVG4vWmZNemF4Rzg0ZnM1YWo3L0FqSXNPQUZz?=
+ =?utf-8?B?K00rdFhtWG50SmY0Q0N4TXpwc3h3WjI0SlA1RFJJVEc2WU1Rb1dWSWlwZWhh?=
+ =?utf-8?B?cmJVdjEzRjdnRlVYeUg3bElzMnJ4eTN6VzE4Q28xeFpwdk0vekFNVm9QSWJ1?=
+ =?utf-8?B?SWtVZEJBbjRGTmZ6ejVBRGo2Q0dMSVdLUFFLK1paK1lOMkxrb2hLQ1k2aHhE?=
+ =?utf-8?Q?aZq8D47KnClMf?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U042SWtNVThZak5EOGl4a09ERVIxajRvcG50M1o0a2Y0clBMRjVrRGJ5UWdu?=
+ =?utf-8?B?RUptSDVZem9XMjBCaTNjS25SZzI5T25haXkxdEo3eG9LNEVraHN6ZjdhNm1a?=
+ =?utf-8?B?WUVabkFkYkRTK2Uyc3paMStSbUFpTTI5WVFyY2tUMzYzaXdqdi9YYXRvRnFu?=
+ =?utf-8?B?N3BoN0I4bGhLTysvM0RDaEtQN2I1Mk1QOG4zNk4rRDJFZUZrUXU3VzV2NmJn?=
+ =?utf-8?B?UWNJWmh2N3RlYldUbkNwbDVHc2VxbDhIcE50WEV6UitQRG5hd1JVSytBNGlo?=
+ =?utf-8?B?ZENWU2N1L1dUVW14cVFTK29SMUJ2UTRYbStyTmxCZ3Bhc2xnM2VNbGRiSG1q?=
+ =?utf-8?B?Rll6c3U0MHhUWitkOEdQRGhDVWNldi8zU1VoMEtRNllBR0FMOWxLdWt3bThE?=
+ =?utf-8?B?OXJ4RVN4cGV6RnBraU1aMzRaNzRKOEJVdUxkaEJGMUV0QmFkZWEvUVBDZFd5?=
+ =?utf-8?B?Y0ZxOFFuZzNPWUQ2bG41bkRZLzlUQXFjMy90b3VLdzBtdHZCRlBVTTM5bHo3?=
+ =?utf-8?B?YjU4ZzBsRXJQaFM3MlF5ZHV0T2U0MmYxeWJNNU5ZN3V2bkJmUnAwOHhEcTJp?=
+ =?utf-8?B?WDFXQVNDY2ROOUl3c3Q2Uy83U1R5SUFPTHdVZ0RLTHhWUmo1WHZZWXNqUHhy?=
+ =?utf-8?B?WEVMTmxBemZyNFlqUEZtVFBhL3IrS3hRN3pTUkhWdUtOdEhnaVl3K01YTnlE?=
+ =?utf-8?B?OHpNUlR5cWpWd0FQeWZxS2pOTEkrZGxucTRNMzliZnpOM3pPVGxUSHF4ZnJv?=
+ =?utf-8?B?d2dWT2gwK005RjU5M3hJSXRFT0FSZ3ZScnBuTEN4Q2puSEFKRnBoaDNHZXl0?=
+ =?utf-8?B?cnZDeW1LN0d3blFBcjlPY2d1dWcxMGpEMDVGQjdmUmZvVThYUXVQd2lWek9B?=
+ =?utf-8?B?eU80VU5maTlEQXF4TjFNWnplZWhjRGI4TTJjR0VpTzJzUG8xUWdxU3JyT0gy?=
+ =?utf-8?B?cHo2UTRlN2xzY2wzNzlycWlwUFlyVEU4ZkVXaWt0cWtvaVNuaHlCZklEcWQx?=
+ =?utf-8?B?bENYSktxcGRTUWpHSFJKZVBMTVNXK0kvdVhzbEovWWpVU1ZQSEprNzgwZzc2?=
+ =?utf-8?B?V1ZhMTFyWUQyR2FBcEtRUktrZjlNOWozb1RVRG9EbWs5ZjBIYWV3WVoyMkpH?=
+ =?utf-8?B?K0NlcjBRcWd6MmtaUnlEZ1Fob1N4SG95V1E5QlRIMDhMN0IvOUQyRktILzRa?=
+ =?utf-8?B?b00rYUFzYVRQSmtVY01CTUpUMnpPdWRFckdLU0pkRE1YaE1DREN5MmVIT2Rk?=
+ =?utf-8?B?cGxCY3pyMTlPcnpYMFB6TzBNcExoVUdKT0pzWnRYYy8wVTFTNGE5R0g5aldE?=
+ =?utf-8?B?NHR0dkdXNEM2SHVMWCs1VmVXbEpOMDlKY0NjK1ZvRmltaE5ENGNsWis1S1Qx?=
+ =?utf-8?B?czhVVllUTkh3WVQwK2duaXI4aVo4MUtVREl4bm9oOHVlYnRjUDRBa3czcjVk?=
+ =?utf-8?B?dkV0U29qNS9MNUsxQ0VIMTlDb0lmRWJrWXVrWWM2YTBTa0p6cFJFcmVGMnE5?=
+ =?utf-8?B?SDdmWWpYT1BUVjJ6UDhIbG5DV2IzV1pxOWFLSm5OZXo0RmZIVkcyK24vYi91?=
+ =?utf-8?B?YzI0Rll5Ui9SZkV5OCtIcDdUQWI3VnkyaSt0SmN4S080MkVOMWlUWWNHTzN1?=
+ =?utf-8?B?WVUxNUR6Y1JvL3oyNjhteDlFVjgxSEpROFg5QkRtTGpxaXlnQlpjNmlwY3Bl?=
+ =?utf-8?B?VEdHUjN0Y05DMzFVb3RKQ2lkYnJSc2lsQm9zak9oSDVGU0hkSm9VcUhLZ2Ir?=
+ =?utf-8?B?bmRVYURGVUhpSWhCMEEyQ2VoS0Q3Q3g3UmxmYmxKUk13SnA3YkZZMFB5aDhB?=
+ =?utf-8?B?UHZWeTFaZ1JNWHFLYmdibXdDWjRORXFVNDQzSFRDNjlhL2FmcmdOSERXVXI0?=
+ =?utf-8?B?U0p5MXFER0VGZ1RTNkdEZ3d4d2RMQUNGdnFKSTdGcUpUQmpDNDNUNjNTRlR3?=
+ =?utf-8?B?T2Y3Y0FRUEdpb1E1WFBhaHk0U2N1bmxxRVBLbml4WWtRdkx3YzZZenVWOFND?=
+ =?utf-8?B?YlYvN1BOVHJwTWVEUGZ4VWgxQTlJVDdEWDY5T3RuNFV3dHpEcENvTU85TTdt?=
+ =?utf-8?B?ZTIxNllpMkpCcTNGUjZkVWVPQUk3N0dPclRnTlYwekNUdXNXejM4NTVBQjB1?=
+ =?utf-8?Q?QYZE=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 928b9eb7-2a6b-4153-809a-08dd655eb01a
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 14:19:11.5796 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aNq1W6xIQFUbS49f9YOwdNBPCwyuN6eBe/EFPW+bgFsTPuBpBbmCqUmFqIH4aq5s
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8804
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,173 +159,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 17, 2025 at 6:53=E2=80=AFAM Tomasz Paku=C5=82a
-<tomasz.pakula.oficjalny@gmail.com> wrote:
->
-> Hook up zero RPM stop temperature for 9070 and 9070 XT based on RDNA3
-> (smu 13.0.0 and 13.0.7) code.
->
-> Signed-off-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
+
+
+On 3/17/2025 7:17 PM, Alex Deucher wrote:
+> The gfx and page queues are per instance, so track them
+> per instance.
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  .../swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h |  3 +-
->  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 50 ++++++++++++++++++-
->  2 files changed, 51 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14=
-_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
-> index c2fd0a4a13e5..a5eba7b91e2f 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
-> @@ -846,9 +846,10 @@ typedef struct {
->    uint16_t               FanTargetTemperature; // Degree Celcius
->    //zero fan
->    uint8_t                FanZeroRpmEnable;
-> +  uint8_t                FanZeroRpmStopTemp;
->    //temperature
->    uint8_t                MaxOpTemp;
-> -  uint8_t                Padding1[2];
-> +  uint8_t                Padding1;
->
->    //Full Ctrl
->    uint16_t               GfxVoltageFullCtrlMode;
-
-This makes a change to the firmware interface.  Presumably it works
-differently here.  @Kenneth Feng or @Wang, Yang(Kevin) to confirm how
-this works with respect to the firmware.
-
-Alex
-
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index fedf0c8c4741..4e7eed0cc41c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -80,6 +80,7 @@
->  #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE           9
->  #define PP_OD_FEATURE_FAN_MINIMUM_PWM                  10
->  #define PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE              11
-> +#define PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP           12
->
->  static struct cmn2asic_msg_mapping smu_v14_0_2_message_map[SMU_MSG_MAX_C=
-OUNT] =3D {
->         MSG_MAP(TestMessage,                    PPSMC_MSG_TestMessage,   =
-              1),
-> @@ -1057,6 +1058,10 @@ static void smu_v14_0_2_get_od_setting_limits(stru=
-ct smu_context *smu,
->                 od_min_setting =3D overdrive_lowerlimits->FanZeroRpmEnabl=
-e;
->                 od_max_setting =3D overdrive_upperlimits->FanZeroRpmEnabl=
-e;
->                 break;
-> +       case PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP:
-> +               od_min_setting =3D overdrive_lowerlimits->FanZeroRpmStopT=
-emp;
-> +               od_max_setting =3D overdrive_upperlimits->FanZeroRpmStopT=
-emp;
-> +               break;
->         default:
->                 od_min_setting =3D od_max_setting =3D INT_MAX;
->                 break;
-> @@ -1360,6 +1365,24 @@ static int smu_v14_0_2_print_clk_levels(struct smu=
-_context *smu,
->                                       min_value, max_value);
->                 break;
->
-> +       case SMU_OD_FAN_ZERO_RPM_STOP_TEMP:
-> +               if (!smu_v14_0_2_is_od_feature_supported(smu,
-> +                                                        PP_OD_FEATURE_ZE=
-RO_FAN_BIT))
-> +                       break;
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  7 ++++---
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 18 +++++++++++-------
+>  2 files changed, 15 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> index 8e7e794ff136f..dc1a81c2f9af7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> @@ -65,6 +65,10 @@ struct amdgpu_sdma_instance {
+>  	uint64_t		sdma_fw_gpu_addr;
+>  	uint32_t		*sdma_fw_ptr;
+>  	struct mutex		engine_reset_mutex;
+> +	/* track guilty state of GFX and PAGE queues */
+> +	bool			gfx_guilty;
+> +	bool			page_guilty;
 > +
-> +               size +=3D sysfs_emit_at(buf, size, "FAN_ZERO_RPM_STOP_TEM=
-PERATURE:\n");
-> +               size +=3D sysfs_emit_at(buf, size, "%d\n",
-> +                                       (int)od_table->OverDriveTable.Fan=
-ZeroRpmStopTemp);
+>  };
+>  
+>  enum amdgpu_sdma_ras_memory_id {
+> @@ -127,9 +131,6 @@ struct amdgpu_sdma {
+>  	uint32_t		*ip_dump;
+>  	uint32_t 		supported_reset;
+>  	struct list_head	reset_callback_list;
+> -	/* track guilty state of GFX and PAGE queues */
+> -	bool gfx_guilty;
+> -	bool page_guilty;
+>  };
+>  
+>  /*
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> index 927db7a080f0a..c485b582a20f6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> @@ -989,9 +989,10 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device *adev,
+>  		uint32_t temp;
+>  
+>  		WREG32_SDMA(i, regSDMA_SEM_WAIT_FAIL_TIMER_CNTL, 0);
+> -		sdma_v4_4_2_gfx_resume(adev, i, restore, adev->sdma.gfx_guilty);
+> +		sdma_v4_4_2_gfx_resume(adev, i, restore, adev->sdma.instance[i].gfx_guilty);
+>  		if (adev->sdma.has_page_queue)
+> -			sdma_v4_4_2_page_resume(adev, i, restore, adev->sdma.page_guilty);
+> +			sdma_v4_4_2_page_resume(adev, i, restore,
+> +						adev->sdma.instance[i].page_guilty);
+
+I think passing the flag is no longer be required as the instance id is
+passed already.
+
+Thanks,
+Lijo
+
+>  
+>  		/* set utc l1 enable flag always to 1 */
+>  		temp = RREG32_SDMA(i, regSDMA_CNTL);
+> @@ -1446,6 +1447,10 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
+>  
+>  	for (i = 0; i < adev->sdma.num_instances; i++) {
+>  		mutex_init(&adev->sdma.instance[i].engine_reset_mutex);
+> +		/* Initialize guilty flags for GFX and PAGE queues */
+> +		adev->sdma.instance[i].gfx_guilty = false;
+> +		adev->sdma.instance[i].page_guilty = false;
 > +
-> +               size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
-> +               smu_v14_0_2_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_ZERO_=
-RPM_STOP_TEMP,
-> +                                                 &min_value,
-> +                                                 &max_value);
-> +               size +=3D sysfs_emit_at(buf, size, "ZERO_RPM_STOP_TEMPERA=
-TURE: %u %u\n",
-> +                                     min_value, max_value);
-> +               break;
-> +
->         case SMU_OD_RANGE:
->                 if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_GFXCLK_BIT) &&
->                     !smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_UCLK_BIT) &&
-> @@ -2306,7 +2329,9 @@ static void smu_v14_0_2_set_supported_od_feature_ma=
-sk(struct smu_context *smu)
->                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_RETRIEVE |
->                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_SET |
->                                             OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
-NABLE_RETRIEVE |
-> -                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
-NABLE_SET;
-> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
-NABLE_SET |
-> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_S=
-TOP_TEMP_RETRIEVE |
-> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_S=
-TOP_TEMP_SET;
+>  		ring = &adev->sdma.instance[i].ring;
+>  		ring->ring_obj = NULL;
+>  		ring->use_doorbell = true;
+> @@ -1507,9 +1512,6 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
+>  	r = amdgpu_sdma_sysfs_reset_mask_init(adev);
+>  	if (r)
+>  		return r;
+> -	/* Initialize guilty flags for GFX and PAGE queues */
+> -	adev->sdma.gfx_guilty = false;
+> -	adev->sdma.page_guilty = false;
+>  
+>  	return r;
 >  }
->
->  static int smu_v14_0_2_get_overdrive_table(struct smu_context *smu,
-> @@ -2387,6 +2412,8 @@ static int smu_v14_0_2_set_default_od_settings(stru=
-ct smu_context *smu)
->                         user_od_table_bak.OverDriveTable.FanMinimumPwm;
->                 user_od_table->OverDriveTable.FanZeroRpmEnable =3D
->                         user_od_table_bak.OverDriveTable.FanZeroRpmEnable=
-;
-> +               user_od_table->OverDriveTable.FanZeroRpmStopTemp =3D
-> +                       user_od_table_bak.OverDriveTable.FanZeroRpmStopTe=
-mp;
->         }
->
->         smu_v14_0_2_set_supported_od_feature_mask(smu);
-> @@ -2754,6 +2781,27 @@ static int smu_v14_0_2_od_edit_dpm_table(struct sm=
-u_context *smu,
->                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_ZERO_FAN_BIT);
->                 break;
->
-> +       case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
-> +               if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_ZERO_FAN_BIT)) {
-> +                       dev_warn(adev->dev, "Zero RPM setting not support=
-ed!\n");
-> +                       return -ENOTSUPP;
-> +               }
-> +
-> +               smu_v14_0_2_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_ZERO_=
-RPM_STOP_TEMP,
-> +                                                 &minimum,
-> +                                                 &maximum);
-> +               if (input[0] < minimum ||
-> +                   input[0] > maximum) {
-> +                       dev_info(adev->dev, "zero RPM stop temperature se=
-tting(%ld) must be within [%d, %d]!\n",
-> +                                input[0], minimum, maximum);
-> +                       return -EINVAL;
-> +               }
-> +
-> +               od_table->OverDriveTable.FanZeroRpmStopTemp =3D input[0];
-> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_ZERO_FAN_BIT);
-> +               break;
-> +
->         case PP_OD_RESTORE_DEFAULT_TABLE:
->                 if (size =3D=3D 1) {
->                         ret =3D smu_v14_0_2_od_restore_table_single(smu, =
-input[0]);
-> --
-> 2.48.1
->
+> @@ -1686,9 +1688,11 @@ static int sdma_v4_4_2_stop_queue(struct amdgpu_device *adev, uint32_t instance_
+>  		return -EINVAL;
+>  
+>  	/* Check if this queue is the guilty one */
+> -	adev->sdma.gfx_guilty = sdma_v4_4_2_is_queue_selected(adev, instance_id, false);
+> +	adev->sdma.instance[instance_id].gfx_guilty =
+> +		sdma_v4_4_2_is_queue_selected(adev, instance_id, false);
+>  	if (adev->sdma.has_page_queue)
+> -		adev->sdma.page_guilty = sdma_v4_4_2_is_queue_selected(adev, instance_id, true);
+> +		adev->sdma.instance[instance_id].page_guilty =
+> +			sdma_v4_4_2_is_queue_selected(adev, instance_id, true);
+>  
+>  	/* Cache the rptr before reset, after the reset,
+>  	* all of the registers will be reset to 0
+
