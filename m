@@ -4,72 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8757C282EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 13:33:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1D65C35FF3
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 13:46:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7050F10E083;
-	Mon, 17 Mar 2025 13:33:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5628D10E12D;
+	Mon, 17 Mar 2025 13:46:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S6muGGxN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Tg3+PKC1";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7611589CD3
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 13:33:00 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-2ff5544af03so499482a91.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 06:33:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742218380; x=1742823180; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=S0SzNA3cbabiHptKfEPnfxstb8BiiUz58/fkJsUKqb0=;
- b=S6muGGxNc/rOOWG/HS12JgMmo21e7r8eoptZftM40yx1jjaCQR2GuI386baXmdP/Wz
- 3oHchwAqsZsjcv3qSMXLR2FEskj7K+MlFQfmJ6GdTpiRxHz/G2Bdc2FrTIhKkxbXVRFX
- tBmkPWO8Ddcjt7Ni7TM7pyLPeAiVLxCbnX52cgiJZECV/DhVeyjIFPcLjvwf7T0e8KwD
- erQsuFumEazM793P9ZRchENeEz9MfEUNPmOPKFDebhdlRlUv5eRxhJhknttCyQoLUJAB
- ujPkZKAOIbgbZmVei3a1D75OpQKEjWi+raottE2/q3PJyWTk5FpFv8NEb7bblAb9BNlr
- mAtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742218380; x=1742823180;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=S0SzNA3cbabiHptKfEPnfxstb8BiiUz58/fkJsUKqb0=;
- b=tsSJy3zi+Ptz4WGFbBNv1GZ+jvpsnQwjkvDxjhZVe2q0LLTc/AgdhHfJ7i6of/xgiZ
- KHSmXxpo0f99sTlOmrDj4EA00qjApm+nMCnyIqJ/hj3HnaiIulBAFarbg3g5DBRuL6yt
- hJxEnT7uvXPziMP0PDRuooW4RcbJk/C+fA1NYPI6Yk1SUybxb2udSCdlJQ9feFvyIZGK
- kP8DaKrzVg4JKyj5jHzlkkG0ZcAVhSZsJ0RVna32gQm5v/Pxxt4ETO8v6C8ZOf0MKCQN
- nI1MFTReiqvunxe3NPxHXtNsUw2ba/sLGWut4UmAkuYrKkVaMFqZSHmHnEC+giWOQ1Yl
- QagA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUpSTHv7mfq4NRkqTbTUbc7l77QvEQSTs9FMJzHB4GU3iLrH8B01nkWB4ST46HjVXO95cQqbbTY@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywpph4imIWFH6CtuodjMLIKYDQO9VyccDHaDqyr3+p7XUOGZP/P
- YcwDZI5dWKYCKaZZHZzhQaVrztAT3ysEsfFB3Lek2b+nOEjcLzrNUCD2kMYAybLMjgLLlZdbajg
- gH5hzF2sR2ZYTdAaPSGB4cjjs4/k=
-X-Gm-Gg: ASbGncsbzez6bQL4BabtxyIij5TMVHobbBqkTfkBAv72QPbjZwcCko90DxN/vYYrj//
- 8ycwBF4ckB5/nkxZb7/Mx3qnjpeuY/P1/ULtB/Yf/vhUl39WGLauvmA1lJJ3wuQQ++/hIerZXfe
- wwoEVq75FWyh6tA1z4lMzAaHp04Q==
-X-Google-Smtp-Source: AGHT+IGZga7K+1b+fKChx/CKmiKwF4XxQ7yRT3iOLOsMV6VJdeBLQJwp1HXx8zu+NFfATx98njSH9gcyPuAPuyMc3Oc=
-X-Received: by 2002:a17:90b:388e:b0:2fa:6055:17e7 with SMTP id
- 98e67ed59e1d1-30151d8eb02mr6043412a91.8.1742218380097; Mon, 17 Mar 2025
- 06:33:00 -0700 (PDT)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2070.outbound.protection.outlook.com [40.107.236.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB8E310E12D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 13:46:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UQPMevBXn2sODn6up9Q2TZO+XB+Du8RHIBtM+Gw4h1DSd0sasOIS8VVrZA49NJt6aEw7S8QBhjVWXSZxfA9a0iiz+XNim6QeCBkY1xWGn1OrwjLM/5shE670EOeAVUIOPPH6D1fOAvug46ixn+k4b/V9LoyNH3mm3WVdEf40vqwC2q9iQyJnuL3KgxXZfyxP1Cbrs0FY/dd7CEXnIThBgUwvNHVqBs76OOcmW1Gp1MjcT3+h4rwQ/3FpxQMrAgQfSKDraEDIBvuZ7q/Tm5tRMS20Qatbx2xcZrXylQzGfCaKHIOqJWi4kVjivqjjIQ+m3Ih4un3Hmp17ffVAWOr5HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fUicYAHyDHvNlFbV1I54/3zTTyMYenh2UvVVoES+muU=;
+ b=hSuWEGoLxOp8QR8tCG7KVrC/HkZfdc8KLjIJjGC5NusBCeI8faHflhRxoEFNL+FrOrkHiyciNWE0hElZLVPYS61aa1TUfRAbkfxeniz1xn7fqBsiUK3FL1zrct6OnsymJ68DDkqkeiBHJpOv4byLN6XVU3tBpK+Ayzl96PN+Jm68PBbeaMLLf04ngfsvFGUOg0Qq/VOXgQhCso75oq0IEReaLtgooJPQ1euqG6PE015pqCmeB0faZ0T2oK9TGKU9l8/d2FpSCsPAdvmTAVslZH+40qnyYQoUmUq+uYQEF1IF+xQ2jI0M8MkrXAK8Mg9MIwmjYn83vLV2WpKcBYIq5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fUicYAHyDHvNlFbV1I54/3zTTyMYenh2UvVVoES+muU=;
+ b=Tg3+PKC1IUDmD67kZVwYntCznbpMPusj09DjvROyYRBS7ejEzqO6yE6zeGip1uVWFSHrw+uzgh97XzJuFgsZEJeTjPFt4QANo+ZZne/xwXP23t6BFiXvEWsZ6a4vxiXYrXwuRrJ/OXFZ6+3Z3X3yRP5Ih+pVuYyWA5+bi8Bl3bw=
+Received: from BLAPR03CA0059.namprd03.prod.outlook.com (2603:10b6:208:32d::34)
+ by SJ2PR12MB8942.namprd12.prod.outlook.com (2603:10b6:a03:53b::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
+ 2025 13:46:22 +0000
+Received: from BL6PEPF00020E62.namprd04.prod.outlook.com
+ (2603:10b6:208:32d:cafe::b1) by BLAPR03CA0059.outlook.office365.com
+ (2603:10b6:208:32d::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.33 via Frontend Transport; Mon,
+ 17 Mar 2025 13:46:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00020E62.mail.protection.outlook.com (10.167.249.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Mon, 17 Mar 2025 13:46:21 +0000
+Received: from mkmvskvorts01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 17 Mar
+ 2025 08:46:20 -0500
+From: Victor Skvortsov <victor.skvortsov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Lijo.Lazar@amd.com>, Victor Skvortsov <victor.skvortsov@amd.com>
+Subject: [PATCH] drm/amdgpu: Skip pcie_replay_count sysfs creation for VF
+Date: Mon, 17 Mar 2025 09:45:55 -0400
+Message-ID: <20250317134555.179491-1-victor.skvortsov@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20250313144136.1117072-1-alexander.deucher@amd.com>
- <20250313144136.1117072-4-alexander.deucher@amd.com>
- <DS7PR12MB6005F4F38F75F94DC2262703FBDF2@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB6005F4F38F75F94DC2262703FBDF2@DS7PR12MB6005.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Mar 2025 09:32:48 -0400
-X-Gm-Features: AQ5f1JoubGnI0g6-SmZu_eCqnIKw6cH9LM80SHoW8PHmgwxuUKkz4mFr-sh2HbM
-Message-ID: <CADnq5_N9BA5jz+iucHv-bPUz7ypxVHg_a47US92-Yr8Pu0cvTQ@mail.gmail.com>
-Subject: Re: [PATCH 03/11] drm/amdgpu/gfx: add generic handling for disable_kq
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E62:EE_|SJ2PR12MB8942:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38cf3842-07a2-474c-cc0a-08dd655a1a18
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YbgPUF+jJk9SRyRtpTIPJKvukDzhx3VSknIOAwFRIIWadkccXSofH41TL7BB?=
+ =?us-ascii?Q?EVYTIewZT6/4bOpB6vBK2srFQgAsMh5iaT50LCjOtQ4WfZv4j+6hpcarOJ8H?=
+ =?us-ascii?Q?kmV3TT93duTA0Cupi2h3SkPyPJEMGc8irRNVhVbo4q9AjArFDvJ7Q4lD/beb?=
+ =?us-ascii?Q?fp3HwL1iejGzIjtMI+YHy+8conBoTCQZqtfQGBcK8QgEuYscZehY3CtntHaN?=
+ =?us-ascii?Q?7liGtGrzkWxQkmPjieuXor1Qkgb4jMYvf63JozL8uukaXFBkZcMKsYFtQQUS?=
+ =?us-ascii?Q?ztinJu4rhV4sp6BtdgZnS5Nda8KHKlPNyj7JEpYS6AKtBAl2c9qRAIjXgeJJ?=
+ =?us-ascii?Q?buoUnvn6ZnbgrtNIsRGfEuv+snnR5zWfaZgkOR+t9lwLUMyTNFgXPRFtHqSj?=
+ =?us-ascii?Q?aNo53ds30fcJ3CzSIEUTERFpBF2pkAJGAIrBtnMigEpQve5/ZdMbzR8Q5SeP?=
+ =?us-ascii?Q?/Zr44cnBFcHL03g14zTUtFeGKk+YG2PhbpuB+eXfVmzlTXNWc4v7I50Xt8vw?=
+ =?us-ascii?Q?1HMj7A+lVukM9u+y45ovZ70JmszLmg9ynOIM5IWlDwIhAO5O3zBknzl+aoLA?=
+ =?us-ascii?Q?wcvpKXIxmOKr/2J/EZN88Qr+AudWuw7fKHWlZrESkSS4xhZyCVNnLxkoUaQX?=
+ =?us-ascii?Q?zgQ4+F3s/E6NVoZU3pVuKABKB1Fg4xE403M596dUIllSrAT0eIEdK1aYMjEM?=
+ =?us-ascii?Q?EbNZZaXiUxhQs6j+20iYNbH4KXlLg+GYo1W2MLObX+XYHXvAP82P2cHPgvV4?=
+ =?us-ascii?Q?OJwcq1Dcc8fcOfnK+WwCvhJRg3VRB7wzoKATgBpYl0UMCAfXr7sktZ7olCLF?=
+ =?us-ascii?Q?gRt+KSJMv0Fz52nyUAy6DV+Xf0MFA7RlMBy+HQcgsiZq30p6sdhEAllVhdlv?=
+ =?us-ascii?Q?14AAZOvX5UKYjjKOXFikeFE/rzElDfEKwvKmg6WwoL2PTsrTa2XfMwJkub3C?=
+ =?us-ascii?Q?MAI8h7hhUn1IAxwTah0JPq1dbAxeNgT2NbO/BPvht95kO1ISufML5LEQeooV?=
+ =?us-ascii?Q?alY/NI7KwfTu6iFKo74m9kQKHo5x5DN9uKCn8P2JmYpVgTyf6pSTHNkpa9s1?=
+ =?us-ascii?Q?yjHcv0rNci+yJ3az6bri/pL3SD3tlZk+IKEUcvfJgdiV3SNM3+OorGAPn57t?=
+ =?us-ascii?Q?/DQT8fw32MZivNMf8USfLFJGI/rtRRwMmAg3ZCyNlJWCykb2fFxLlyW+1FYb?=
+ =?us-ascii?Q?u++2A6iShG1feJ0Wv/0Jb0Z0+nufbni5ldT9zIKu/HaDM1VJMU+ZBztNhwe4?=
+ =?us-ascii?Q?SXz8XpXCrjbGvFdF2Xc7F8FC3UyKPo1c51VsIDdu6bqE4l4yjoFQauRPn4CH?=
+ =?us-ascii?Q?8Re4aulGSPldr2sIqtE+QIp6zSqiUE2ExL0HuUZVGDUlAVYxjqzSSPVxo1uu?=
+ =?us-ascii?Q?OCYX5ecUFA/cAnMu8j2Ar42Vtx4J4W6IeE2dFqIu3dkbcDabr1AiW529x2yE?=
+ =?us-ascii?Q?wem7Z+7zDqgT5VPjNm4EF8e0xYW/Z0FCPMNizASCBCM/8qHegiarTA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 13:46:21.5460 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38cf3842-07a2-474c-cc0a-08dd655a1a18
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E62.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8942
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,97 +129,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 17, 2025 at 5:07=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
-wrote:
->
-> [Public]
->
-> When disabling the gfx kernel queue, then the related ring function callb=
-ack should be unassigned, and the clean shader callback should also not be =
-further invoked. To avoid the clean shader resource allocated, we may need =
-to drop the shader clean initialized at *_ sw_init() when disable gfx kerne=
-l queue.
+VFs cannot read the NAK_COUNTER register. This information is only
+available through PMFW metrics.
 
-This patch prevents the cleaner shader from being run via sysfs
-already.  We still need to allocate the cleaner shader resources
-though because they are used by the MES and CP firmware for user
-queues.
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 27 ++++++++++++++++------
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7ca2ebdd3c95..86236cfad38c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -227,6 +227,24 @@ static ssize_t amdgpu_device_get_pcie_replay_count(struct device *dev,
+ static DEVICE_ATTR(pcie_replay_count, 0444,
+ 		amdgpu_device_get_pcie_replay_count, NULL);
+ 
++static int amdgpu_device_attr_sysfs_init(struct amdgpu_device *adev)
++{
++	int ret = 0;
++
++	if (!amdgpu_sriov_vf(adev))
++		ret = sysfs_create_file(&adev->dev->kobj,
++					&dev_attr_pcie_replay_count.attr);
++
++	return ret;
++}
++
++static void amdgpu_device_attr_sysfs_fini(struct amdgpu_device *adev)
++{
++	if (!amdgpu_sriov_vf(adev))
++		sysfs_remove_file(&adev->dev->kobj,
++				  &dev_attr_pcie_replay_count.attr);
++}
++
+ static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject *kobj,
+ 					  struct bin_attribute *attr, char *buf,
+ 					  loff_t ppos, size_t count)
+@@ -4166,11 +4184,6 @@ static bool amdgpu_device_check_iommu_remap(struct amdgpu_device *adev)
+ }
+ #endif
+ 
+-static const struct attribute *amdgpu_dev_attributes[] = {
+-	&dev_attr_pcie_replay_count.attr,
+-	NULL
+-};
+-
+ static void amdgpu_device_set_mcbp(struct amdgpu_device *adev)
+ {
+ 	if (amdgpu_mcbp == 1)
+@@ -4609,7 +4622,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	} else
+ 		adev->ucode_sysfs_en = true;
+ 
+-	r = sysfs_create_files(&adev->dev->kobj, amdgpu_dev_attributes);
++	r = amdgpu_device_attr_sysfs_init(adev);
+ 	if (r)
+ 		dev_err(adev->dev, "Could not create amdgpu device attr\n");
+ 
+@@ -4746,7 +4759,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 		amdgpu_pm_sysfs_fini(adev);
+ 	if (adev->ucode_sysfs_en)
+ 		amdgpu_ucode_sysfs_fini(adev);
+-	sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
++	amdgpu_device_attr_sysfs_fini(adev);
+ 	amdgpu_fru_sysfs_fini(adev);
+ 
+ 	amdgpu_reg_state_sysfs_fini(adev);
+-- 
+2.34.1
 
->
-> Regards,
->       Prike
->
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> > Deucher
-> > Sent: Thursday, March 13, 2025 10:41 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Subject: [PATCH 03/11] drm/amdgpu/gfx: add generic handling for disable=
-_kq
-> >
-> > Add proper checks for disable_kq functionality in gfx helper functions.=
-  Add special
-> > logic for families that require the clear state setup.
-> >
-> > v2: use ring count as per Felix suggestion
-> > v3: fix num_gfx_rings handling in amdgpu_gfx_graphics_queue_acquire()
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 8 ++++++--
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 2 ++
-> >  2 files changed, 8 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > index 984e6ff6e4632..a08243dd0798e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > @@ -258,8 +258,9 @@ void amdgpu_gfx_graphics_queue_acquire(struct
-> > amdgpu_device *adev)
-> >       }
-> >
-> >       /* update the number of active graphics rings */
-> > -     adev->gfx.num_gfx_rings =3D
-> > -             bitmap_weight(adev->gfx.me.queue_bitmap,
-> > AMDGPU_MAX_GFX_QUEUES);
-> > +     if (adev->gfx.num_gfx_rings)
-> > +             adev->gfx.num_gfx_rings =3D
-> > +                     bitmap_weight(adev->gfx.me.queue_bitmap,
-> > AMDGPU_MAX_GFX_QUEUES);
-> >  }
-> >
-> >  static int amdgpu_gfx_kiq_acquire(struct amdgpu_device *adev, @@ -1544=
-,6
-> > +1545,9 @@ static ssize_t amdgpu_gfx_set_run_cleaner_shader(struct devi=
-ce
-> > *dev,
-> >       if (adev->in_suspend && !adev->in_runpm)
-> >               return -EPERM;
-> >
-> > +     if (adev->gfx.disable_kq)
-> > +             return -ENOTSUPP;
-> > +
-> >       ret =3D kstrtol(buf, 0, &value);
-> >
-> >       if (ret)
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > index ddf4533614bac..8fa68a4ac34f1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > @@ -483,6 +483,8 @@ struct amdgpu_gfx {
-> >
-> >       atomic_t                        total_submission_cnt;
-> >       struct delayed_work             idle_work;
-> > +
-> > +     bool                            disable_kq;
-> >  };
-> >
-> >  struct amdgpu_gfx_ras_reg_entry {
-> > --
-> > 2.48.1
->
