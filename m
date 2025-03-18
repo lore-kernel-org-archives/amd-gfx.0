@@ -4,144 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F971C282EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 13:14:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C5F4C28B28
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 13:15:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13B1110E1FE;
-	Tue, 18 Mar 2025 13:14:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9595710E487;
+	Tue, 18 Mar 2025 13:15:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jeeUp4K1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RNsckiDv";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1050710E486
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 13:13:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AaXA6N05nv2HY2fRSoGPrPgnlqMx5jT0DmSJPeVabwNna0i5yaLh4Xj0qWbx+FhLICmi9wzDHCjnBFEmIx+SU+oxsN/ZjbGBjTBl2ViE0iL35OWV075qbmUpx/JP3Fda8X35F8n/20ER56k0bbeScOTu8LJwjnYcT9/om2yJ+EhqUWjU0l2ZwsYxwNreKmSUlOqgRzURb0Ckz8KyVaXh7B4FYwd5Ys8lK/y7efRdZY5JYBLEotE7QlVebhoTJ5Q1a0BNogx2xZpsn01IvJhcm04iwDvJnxvL+O9ZBvpo79T1bAju3oJ0PLyaeWSGMj+6gM0a+liKEnc0kaNjZrdnWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2x7BSYEJgsqBlS7tNvPH3zSdHXW57MZbvYEkW+pWGM0=;
- b=VX0h6NTVjzNcCuzdW5e0urrDfbjUg8oGHlrdwgWypCfJvHAUp6ErKDicg56JKc6bS7cnWgW3tH2zOdCAZO0d4FQY9WiHYi3gHoghUr/1eXNc+6MO1eQFdSTTRTN7k+0SSr3WAYu+Fd8mPwkwS0cdH3FnoKIqccuHZrMwHLNVx0RrfmLkJ6X16tKZfsxZ7xW9XkHPu9QmLlBUbAXkIQH6fD7My1XD+yy+7rPPQqR+SbkRvVkDdJJvQOExzSndteyzymRwkVLbxlwOWA4ezGaTnRKdPjd+Odn8UDJ2rdI3aAKZaY7RjXd8PFhk2KfEhyDxlslHhT6NtOaotxjFFW7GYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2x7BSYEJgsqBlS7tNvPH3zSdHXW57MZbvYEkW+pWGM0=;
- b=jeeUp4K1L0tkaiaYNh+6c/2hziDRHxADVKnqxmIYgLMKpw+VHMXKMuNQ6KEJdBILyA1ewkFs3Omh5vdnZNN/T/dH2pgOVi+gRrpGeOsTF3v/ShTfPS5i8LylH48GymmYn64RsBXq30ea49rurX0AYXGBWUcXW9hDH4EJFzfFTYw=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.23; Tue, 18 Mar
- 2025 13:13:54 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::c5da:9b53:9d77:c708]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::c5da:9b53:9d77:c708%6]) with mapi id 15.20.8534.031; Tue, 18 Mar 2025
- 13:13:54 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Liu, Xiang(Dean)"
- <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chai,
- Thomas" <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Use correct aca handle to validate aca bank
-Thread-Topic: [PATCH] drm/amdgpu: Use correct aca handle to validate aca bank
-Thread-Index: AQHbl+ZYuGsZmRepyka1Q6EGYrp92LN4naAAgAA815A=
-Date: Tue, 18 Mar 2025 13:13:53 +0000
-Message-ID: <PH7PR12MB5997134DD92CF0A627EA5B4F82DE2@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20250318091513.544679-1-xiang.liu@amd.com>
- <BN9PR12MB52570445292CD2DE422630B0FCDE2@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB52570445292CD2DE422630B0FCDE2@BN9PR12MB5257.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=4143f49f-a47f-4dcc-a30f-42c88b41bd39;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-18T09:17:57Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|MN2PR12MB4192:EE_
-x-ms-office365-filtering-correlation-id: f2c79638-490b-419e-8c86-08dd661ebb97
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?3GxWkS5GiWQJNI0BMaYpnWawm9rYZwBKf6RY9s9DNbOhHWgIXVJYUAzcKRkk?=
- =?us-ascii?Q?AeT4Zl4Yby/7fNCzRTiTFkP7FhxGbDnTVHTFyjI08JT0lPVezqVmnLLVl0mv?=
- =?us-ascii?Q?C6MI0EKKzVazTY4b9dl52fnDWzhEzDD51/H0k7obcKU0nr5C6akM2rISIyO1?=
- =?us-ascii?Q?BXowVXO5kRX93X8FvQc0QVTmmvCPPbR0fiWkUzTzFLHitf/Tnc7DAtIrWwSu?=
- =?us-ascii?Q?1IGXWjJCVsuTf4NJ1IW2yQRJdawFC7uBftMZEb+JhJ8z30my+QYoP5tUirnS?=
- =?us-ascii?Q?B0G0s2iQDf/NFrruqHGK4Ju9CICI09lPDuA/yb07YLnmdG6++gd1hcdii0Ym?=
- =?us-ascii?Q?J9Wxr8WZ90pqSKs/SyGouIPOQTdzFkS82ttjHDjVfbwn6UST63jYNHsspM/C?=
- =?us-ascii?Q?KsfJRugQd4z/d3sxLW+JM6A/hkNoKU/QoyqkjYo7Y6WBIFCOeh5+M4kJIdWP?=
- =?us-ascii?Q?fnu2Y8feOspwQMbSkkzXUkV/JAnRxF/XGMtqEZ2FAuGevEDVNIDQUHyCHZqa?=
- =?us-ascii?Q?+1S5X0TXibLxmzRFll7GR1+sdkTmFc1VQZ7Wg8i0QHXnelqJs1pEs7J5LzTT?=
- =?us-ascii?Q?P3gjDQvJl9/L2hOjyy0bg5IGp1QrKzUZbGREf7Eus3vHkOhWnb3684OAZCOL?=
- =?us-ascii?Q?ZBFXKhQL369O0L0uAKW/s6Q4qJ/9D20COSZniBcrKEi1RQnR+ssCVby4e433?=
- =?us-ascii?Q?gewYwNR0fzS49DTfzXvcO2pGYY4b58jU/I6tWXwQwQxlOMgB3gwNMPPi+rx8?=
- =?us-ascii?Q?QaBhkBU9X/tnFpuuhfiec4V2WjqkzyZpMMLHaJW7K7K56ppNhmv4DmzDbfCi?=
- =?us-ascii?Q?hzkpoPddhwSyGVaaoBPioTIiBmP/zDPRU/L2ZC+WWAllJ/FlXnxzMvXbamj/?=
- =?us-ascii?Q?MAVN6t3ze1iYu+34EeMDG9EW3uk2jtKOeWwNsXe1RSXRwEScZrFS1REl/0x4?=
- =?us-ascii?Q?pbLC2/1hWfolrsJJjh5R/mUKChOkiYXsC957xEyH0PMpBrSfW6Zz5ZPWaCEO?=
- =?us-ascii?Q?KlgojpbZfHKLE+BIkb5IkoVj6pb19HIYW95lVO3h2t9sVksWqgn5fTRF/8R0?=
- =?us-ascii?Q?dFl/9IWy5Av/b4UUtHouPkizdAK5afzFLpJeUBb/bgB+5vKPyEz3b12AErgy?=
- =?us-ascii?Q?ypIhNbrEs3lcwSmVQ5Zp7JRjjps32wuxke5Qf5ADRWtFDtKLliHQaucsqDca?=
- =?us-ascii?Q?gxxp24VEQoT6qrZ720qZLesU4qWbqvLaCcabAaIHsDlpxjPugSC4VArosAT+?=
- =?us-ascii?Q?JAQdb1Apm+WGmjPehEOeE2j1MjDiTqEZz7k2Wch1MzGszm1S/QZu9b4s8eFb?=
- =?us-ascii?Q?ZeyakvxrLfV8fRhNYelcT6ethQAHpmjK0WvYgIZnx9IQ8IbtdJio7LQfZD8z?=
- =?us-ascii?Q?zWI5YoAv9nSjN1OCTcS6NAv5JJqF/lLH2GSOqrpKIFVMLrBCT/WFN+VtrxSx?=
- =?us-ascii?Q?uSgvhVNuI6fN8++FXTLPTIgyZk2+iydH?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?69euY5ZA17WnmYqfM0XmJ4wgIO42Aef1TfOTihNT9QJXB1blxXKPi3uZrr05?=
- =?us-ascii?Q?+WPIXLrcMfAEJr2HLGrOEw4UepBiX574Y6U9JaL6DYqxSi/tBw8p77RY/MEW?=
- =?us-ascii?Q?PBlMFz/Y0c1eNh7ZIpGzIVAYRv3cTprsFYA3f1mKbS+rGvFh/LNcqKjKJK1G?=
- =?us-ascii?Q?HsJjCgftQLC7tvV5T7hIIVL73H03HfBWoQCwx5e9SlWTGUcT6MRqjvKjfmDM?=
- =?us-ascii?Q?RFFzjyYztdGeGD0+yplTiV/DUlYvmDP/xYgojvTT6kI5I01TyeBRuboGAvO8?=
- =?us-ascii?Q?a+KfUge2qFWeLfSeb8KTuc+DE+D8+QwV82hWp+E34ImNjf6BpI+t5YJpJ9zt?=
- =?us-ascii?Q?/FOg4O8q/ZoPG6ZoDBDXB80nWmE6lsZbpVHYbZMB0w4XNq/JxgpZYCvVVxP6?=
- =?us-ascii?Q?7v9X3CB2cv24OYscZI/xc5dOGGH1OMZ+b1uD+NcAT6oAxnzfqDh0X6vebEpm?=
- =?us-ascii?Q?4DuXXVYYDXjtWqhlb3zokHm8NQ0lG7IHmXBdvlG8l86YV007X64BS7rujTJ4?=
- =?us-ascii?Q?dXliCewxk8aQk5kOq2rJ4UAOXvyqwMyQP82Br9Z1VfeJ0cCgKs5GAJfOkQcx?=
- =?us-ascii?Q?ubMvxM72/+8+moKUVBVPgzc5tGzFxXX3MWY4ogSgQ//yMhw2UptGSiKo32hH?=
- =?us-ascii?Q?dMvacsyJZA6HRlNd54XWqbfCXp5v1hMTNmn3ahH/fmw+KQ4MZm4UOYfbvSop?=
- =?us-ascii?Q?EjlCCsvrMEIQ3OFOGqU9J9j7o1fpIZYxkksHQx2+y6Y+w3ebLGets82TqGRQ?=
- =?us-ascii?Q?1m/kv7zauuJWqlPct47vBL8BK4p9hEti5pnkNKdZylXGPpHjjUxlsT7Wie9N?=
- =?us-ascii?Q?Yuc0lJum0qLext1411RypcG/ETNbTUMN6l11/mSGA1X8/kvBgj+MGw1pJOyu?=
- =?us-ascii?Q?8hb2YjbUCbhNHmMXI8ov1/haZXAh5o/MsfJTF6eRiW65KO54ne2ZjxhSPdhs?=
- =?us-ascii?Q?RAImezmsDrYSPBYfSgDyxqr6IpWmafKGKNEb+15GDBOsf1CT+U4/5wtqekSq?=
- =?us-ascii?Q?lTivw//VFgxeDI6g2Klzkcbi96TKdSnIJ1OPlq7gbP+zVVK5MqGLLVPYlZWl?=
- =?us-ascii?Q?/AqZ5YNWziBMZfDuj7eMCG4pRV8tdQnW+bM6M1rl21fsCz+1pa8OGeIucfQy?=
- =?us-ascii?Q?eqn2wFc6OtxmD3c89BtTltZJPKuBTM123WhuVEkeNcQwXzuZTv/ExLGVjsf8?=
- =?us-ascii?Q?OsrDKxkXv8kobQaGMOoLVEGJuBhs4LxJ5rabztXObAA2nc+3LIKPzEdLwt4d?=
- =?us-ascii?Q?KAh6yiyXKECCDhF7JwGC0vdashuZ9pwFbML2FIRdEVYRx6/sS2TFA8NJ7dMY?=
- =?us-ascii?Q?zfp5+KmR+g8h69ApH9urDBcVf1+22u49dETA5PHGHSyaKh5SkHYA0AvV1hHe?=
- =?us-ascii?Q?ZsipTx9t8BMIsCHj/cEq8GHrkpqYoYLDG/Yr36bcORdpY5Stw2kGlf+v89y/?=
- =?us-ascii?Q?ZqktZtbO+1kdSmctAcpYU1ZkXkToeBnwkCTRIkY76yqNLoM62WdkWk46FMjf?=
- =?us-ascii?Q?UgYxFJZVC0qDIHc0AMQRkfpzHn5/pTd8VHwePAxvyyW4BYOuDLGhcRRePIHH?=
- =?us-ascii?Q?TtDpRYSgJ6lEX8Om0g8=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB5997134DD92CF0A627EA5B4F82DE2PH7PR12MB5997namp_"
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC94D10E486
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 13:15:42 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2ff7255b8c6so577821a91.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 06:15:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742303742; x=1742908542; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=70E/FULVI6xVR4NycO8IAMYJ5/Tzlfojep+ps6oVDe0=;
+ b=RNsckiDvnAyxHBaVQvGImCTTyQqrsh+Sud+6Rw+w3lVgtCZLkX5j+e2wXYdnFkb/o8
+ aiefcSv/hAjGv/dQrqpJBNp535tYnPWJWIEgu0R6q3gfUYLFRYN4M1bCfPPz2VmXkswE
+ bhjM7a8aPsWTxB2vVAFVnWVq1dsjMLHwkA4WKyohPWmg4PadK79kTD3qmgR/b7MyVVbD
+ oJGeWO8U8ZF2Wv70wK6qE/v9uZyhT7hVdxvasSOSm5uM+wHePCxLFfmK8Ami2Bk7BABW
+ lcxcESZIZD57d0iUghvjEYuS9GCtsof3gcwuYMOhHu2VaQGtzH8ZcTUWl/BA3HnYbXLG
+ /2yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742303742; x=1742908542;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=70E/FULVI6xVR4NycO8IAMYJ5/Tzlfojep+ps6oVDe0=;
+ b=NICgojYSpKi4AOSsGbLBPKnFR8JCR9DheLBGbK8ljK2TPrYsI/PwP+elbl8md6Cg5k
+ 51IhcGTPimjxqINcY0IZXnqy4Ge/Llt6u1VU1iMoj/Zi2+X36xlVZ7rqnX6nnahpPZGB
+ uqh0EKeBF7e7R0p+6lti9jDEnJTQXw3HgHbljbZhWkvauf89u+ugVs1obi2DF4FuQeNY
+ 1lC0A52GWopsF7z/lw65mq0r+YSLPOSFArniCRdkvPgLMKdfP0/Q3IIbBuYzK5G7ryNF
+ 7Mb/u9aNxEi5JhrmyDKutoeBWza05k94IRPx1zh2AIxNoVWHkD8IlQ0gMG8xke/TaOQL
+ bx+g==
+X-Gm-Message-State: AOJu0Yy6SMrPnQmgBWNyCQPCXdypiMAobAyL/kJHSlG00RjtFcNu2WVL
+ nJ+g0cWcd4HlInLABH9jLpMLAg3dxRmEB3WoPzronaFJlbErIMPznhpnAdK0SKJgVcRk4sl164T
+ 74+IBuwirSGwbR5JFnv8MkfXZYEqyPQ==
+X-Gm-Gg: ASbGncvqm6Pj8EmwPJIyOMDAns0R7gnakHnxxSD+l/xE3QkTXgrIPEY2fjZ/fAhwnbm
+ PqNgAkDvBqg/BBfOtSTUFuStrSYBfV8x1XxykbPOdMcoRC1jgcQnSq4AGrsCgyAvHF16n0h74xl
+ HA+popNVesx/BlZRqYUvptboxlOg==
+X-Google-Smtp-Source: AGHT+IFJm77ppdpHmFSqbp7XmNRRDfPUYArkpslMRhvks+IlFbb0SOYTAnAHLPlrQEgcbgNAQh+rU6Ja9r8pW4iX2qg=
+X-Received: by 2002:a17:90b:1c0e:b0:2fe:b972:a2c3 with SMTP id
+ 98e67ed59e1d1-30151ad6199mr8151704a91.0.1742303741421; Tue, 18 Mar 2025
+ 06:15:41 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2c79638-490b-419e-8c86-08dd661ebb97
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2025 13:13:53.8370 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 05zpEaksPj3ayoX4k+8rTMhzWKCGiBw30bIUuuS0hhMQbvOAX+rxJbWkN6ExNsrG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4192
+References: <20250312175657.187396-1-alexander.deucher@amd.com>
+In-Reply-To: <20250312175657.187396-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 18 Mar 2025 09:15:29 -0400
+X-Gm-Features: AQ5f1JpEB8HhCPJgicXzK0jBg3B4CaUTP3rORBUbINR2G4QF_q2zgwY8zogTXkk
+Message-ID: <CADnq5_Oj4s9QWjgGJBFkfwRsjKt=erAYrBBvK5pxEQXZCVenvA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove is_mes_queue flag
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,1322 +79,1851 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB5997134DD92CF0A627EA5B4F82DE2PH7PR12MB5997namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Ping?
 
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-
-        list_for_each_entry(node, &banks->list, node) {
-                bank =3D &node->bank;
-
--               ret =3D aca_dispatch_bank(mgr, bank, type, handler, data);
--               if (ret)
--                       return ret;
-+               if (aca_bank_is_valid(handle, bank, type))
-+                       handler(handle, bank, type, data);
-        }
-
-        return 0;
- }
-
-The aca bank set returned by the SMU may contain banks of different ip type=
-s, which may result in incorrect statistics of aca bank information of some=
- RAS ip blocks.
-e.g:
-The SMU returned 6 banks in total, including 3 umc aca banks, 2 xgmi banks,=
- and 1 unsupported bank.
-
-
-Best Regards,
-Kevin
-_____________________________________________
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
-Sent: Tuesday, March 18, 2025 17:19
-To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>; amd-gfx@lists.freedesktop.org; Wa=
-ng, Yang(Kevin) <KevinYang.Wang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; C=
-hai, Thomas <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Use correct aca handle to validate aca ban=
-k
-
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-
-
-+ @Wang, Yang(Kevin)<mailto:KevinYang.Wang@amd.com>/@Zhou1, Tao<mailto:Tao.=
-Zhou1@amd.com>/@Chai, Thomas<mailto:YiPeng.Chai@amd.com> for the review.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Liu, Xiang(Dean) <Xiang.Liu@amd.com<mailto:Xiang.Liu@amd.com>>
-Sent: Tuesday, March 18, 2025 17:15
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; L=
-iu, Xiang(Dean) <Xiang.Liu@amd.com<mailto:Xiang.Liu@amd.com>>
-Subject: [PATCH] drm/amdgpu: Use correct aca handle to validate aca bank
-
-The aca handle is introduced by upper caller, it's inappropriate to poll ac=
-a handle to match and validate aca bank, which will cause unexcepted ras er=
-ror report.
-
-Signed-off-by: Xiang Liu <xiang.liu@amd.com<mailto:xiang.liu@amd.com>>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 122 ++++++++++--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h |   2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c |  10 +-
- 3 files changed, 58 insertions(+), 76 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_aca.c
-index ffd4c64e123c..b07e101c545d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -122,6 +122,25 @@ static void aca_smu_bank_dump(struct amdgpu_device *ad=
-ev, int idx, int total, st
-                              idx + 1, total, aca_regs[i].name, bank->regs[=
-aca_regs[i].reg_idx]);  }
-
-+static bool aca_bank_should_dump(struct amdgpu_device *adev, enum
-+aca_smu_type type) {
-+       struct amdgpu_aca *aca =3D &adev->aca;
-+       bool ret =3D true;
-+
-+       /*
-+        * Because the UE Valid MCA count will only be cleared after reset,
-+        * the aca bank is only dumped once during the gpu recovery stage.
-+        */
-+       if (type =3D=3D ACA_SMU_TYPE_UE) {
-+               if (amdgpu_ras_intr_triggered())
-+                       ret =3D atomic_cmpxchg(&aca->ue_dump_flag, 0, 1) =
-=3D=3D 0;
-+               else
-+                       atomic_set(&aca->ue_dump_flag, 0);
-+       }
-+
-+       return ret;
-+}
-+
- static int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, enum ac=
-a_smu_type type,
-                                       int start, int count,
-                                       struct aca_banks *banks, struct ras_=
-query_context *qctx) @@ -130,6 +149,7 @@ static int aca_smu_get_valid_aca_b=
-anks(struct amdgpu_device *adev, enum aca_smu_
-        const struct aca_smu_funcs *smu_funcs =3D aca->smu_funcs;
-        struct aca_bank bank;
-        int i, max_count, ret;
-+       struct aca_bank_node *node;
-
-        if (!count)
-                return 0;
-@@ -159,14 +179,16 @@ static int aca_smu_get_valid_aca_banks(struct amdgpu_=
-device *adev, enum aca_smu_
-                        return ret;
-
-                bank.smu_err_type =3D type;
--
--               aca_smu_bank_dump(adev, i, count, &bank, qctx);
--
-                ret =3D aca_banks_add_bank(banks, &bank);
-                if (ret)
-                        return ret;
-        }
-
-+       i =3D 0;
-+       if (aca_bank_should_dump(adev, type))
-+               list_for_each_entry(node, &banks->list, node)
-+                       aca_smu_bank_dump(adev, i++, count, &bank, qctx);
-+
-        return 0;
- }
-
-@@ -318,72 +340,29 @@ static int handler_aca_log_bank_error(struct aca_hand=
-le *handle, struct aca_bank
-        return 0;
- }
-
--static int aca_dispatch_bank(struct aca_handle_manager *mgr, struct aca_ba=
-nk *bank,
--                            enum aca_smu_type type, bank_handler_t handler=
-, void *data)
--{
--       struct aca_handle *handle;
--       int ret;
--
--       if (list_empty(&mgr->list))
--               return 0;
--
--       list_for_each_entry(handle, &mgr->list, node) {
--               if (!aca_bank_is_valid(handle, bank, type))
--                       continue;
--
--               ret =3D handler(handle, bank, type, data);
--               if (ret)
--                       return ret;
--       }
--
--       return 0;
--}
--
--static int aca_dispatch_banks(struct aca_handle_manager *mgr, struct aca_b=
-anks *banks,
-+static int aca_dispatch_banks(struct aca_handle *handle, struct
-+aca_banks *banks,
-                              enum aca_smu_type type, bank_handler_t handle=
-r, void *data)  {
-        struct aca_bank_node *node;
-        struct aca_bank *bank;
--       int ret;
-
--       if (!mgr || !banks)
-+       if (!handle || !banks)
-                return -EINVAL;
-
-        /* pre check to avoid unnecessary operations */
--       if (list_empty(&mgr->list) || list_empty(&banks->list))
-+       if (list_empty(&banks->list))
-                return 0;
-
-        list_for_each_entry(node, &banks->list, node) {
-                bank =3D &node->bank;
-
--               ret =3D aca_dispatch_bank(mgr, bank, type, handler, data);
--               if (ret)
--                       return ret;
-+               if (aca_bank_is_valid(handle, bank, type))
-+                       handler(handle, bank, type, data);
-        }
-
-        return 0;
- }
-
--static bool aca_bank_should_update(struct amdgpu_device *adev, enum aca_sm=
-u_type type) -{
--       struct amdgpu_aca *aca =3D &adev->aca;
--       bool ret =3D true;
--
--       /*
--        * Because the UE Valid MCA count will only be cleared after reset,
--        * in order to avoid repeated counting of the error count,
--        * the aca bank is only updated once during the gpu recovery stage.
--        */
--       if (type =3D=3D ACA_SMU_TYPE_UE) {
--               if (amdgpu_ras_intr_triggered())
--                       ret =3D atomic_cmpxchg(&aca->ue_update_flag, 0, 1) =
-=3D=3D 0;
--               else
--                       atomic_set(&aca->ue_update_flag, 0);
--       }
--
--       return ret;
--}
--
- static void aca_banks_generate_cper(struct amdgpu_device *adev,
-                                    enum aca_smu_type type,
-                                    struct aca_banks *banks,
-@@ -417,20 +396,14 @@ static void aca_banks_generate_cper(struct amdgpu_dev=
-ice *adev,
-        }
- }
-
--static int aca_banks_update(struct amdgpu_device *adev, enum aca_smu_type =
-type,
--                           bank_handler_t handler, struct ras_query_contex=
-t *qctx, void *data)
-+static int aca_banks_update(struct amdgpu_device *adev, struct aca_handle =
-*handle,
-+                           enum aca_smu_type type, bank_handler_t handler,
-+                           struct ras_query_context *qctx, void *data)
- {
--       struct amdgpu_aca *aca =3D &adev->aca;
-        struct aca_banks banks;
-        u32 count =3D 0;
-        int ret;
-
--       if (list_empty(&aca->mgr.list))
--               return 0;
--
--       if (!aca_bank_should_update(adev, type))
--               return 0;
--
-        ret =3D aca_smu_get_valid_aca_count(adev, type, &count);
-        if (ret)
-                return ret;
-@@ -442,15 +415,12 @@ static int aca_banks_update(struct amdgpu_device *ade=
-v, enum aca_smu_type type,
-
-        ret =3D aca_smu_get_valid_aca_banks(adev, type, 0, count, &banks, q=
-ctx);
-        if (ret)
--               goto err_release_banks;
-+               return ret;
-
--       if (list_empty(&banks.list)) {
--               ret =3D 0;
--               goto err_release_banks;
--       }
-+       if (list_empty(&banks.list))
-+               return 0;
-
--       ret =3D aca_dispatch_banks(&aca->mgr, &banks, type,
--                                handler, data);
-+       ret =3D aca_dispatch_banks(handle, &banks, type, handler, data);
-        if (ret)
-                goto err_release_banks;
-
-@@ -537,7 +507,7 @@ static int __aca_get_error_data(struct amdgpu_device *a=
-dev, struct aca_handle *h
-        }
-
-        /* update aca bank to aca source error_cache first */
--       ret =3D aca_banks_update(adev, smu_type, handler_aca_log_bank_error=
-, qctx, NULL);
-+       ret =3D aca_banks_update(adev, handle, smu_type,
-+handler_aca_log_bank_error, qctx, NULL);
-        if (ret)
-                return ret;
-
-@@ -730,7 +700,7 @@ int amdgpu_aca_init(struct amdgpu_device *adev)
-        struct amdgpu_aca *aca =3D &adev->aca;
-        int ret;
-
--       atomic_set(&aca->ue_update_flag, 0);
-+       atomic_set(&aca->ue_dump_flag, 0);
-
-        ret =3D aca_manager_init(&aca->mgr);
-        if (ret)
-@@ -745,14 +715,14 @@ void amdgpu_aca_fini(struct amdgpu_device *adev)
-
-        aca_manager_fini(&aca->mgr);
-
--       atomic_set(&aca->ue_update_flag, 0);
-+       atomic_set(&aca->ue_dump_flag, 0);
- }
-
- int amdgpu_aca_reset(struct amdgpu_device *adev)  {
-        struct amdgpu_aca *aca =3D &adev->aca;
-
--       atomic_set(&aca->ue_update_flag, 0);
-+       atomic_set(&aca->ue_dump_flag, 0);
-
-        return 0;
- }
-@@ -880,12 +850,20 @@ static int handler_aca_bank_dump(struct aca_handle *h=
-andle, struct aca_bank *ban  static int aca_dump_show(struct seq_file *m, e=
-num aca_smu_type type)  {
-        struct amdgpu_device *adev =3D (struct amdgpu_device *)m->private;
-+       struct aca_handle_manager *mgr =3D &adev->aca.mgr;
-+       struct aca_handle *handle;
-        struct aca_dump_context context =3D {
-                .m =3D m,
-                .idx =3D 0,
-        };
-
--       return aca_banks_update(adev, type, handler_aca_bank_dump, NULL, (v=
-oid *)&context);
-+       if (list_empty(&mgr->list))
-+               return 0;
-+
-+       list_for_each_entry(handle, &mgr->list, node)
-+               aca_banks_update(adev, handle, type, handler_aca_bank_dump,=
- NULL,
-+(void *)&context);
-+
-+       return 0;
- }
-
- static int aca_dump_ce_show(struct seq_file *m, void *unused) diff --git a=
-/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h b/drivers/gpu/drm/amd/amdgpu/amdgp=
-u_aca.h
-index 6f62e5d80ed6..e71d6f5afaec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-@@ -202,7 +202,7 @@ struct aca_smu_funcs {  struct amdgpu_aca {
-        struct aca_handle_manager mgr;
-        const struct aca_smu_funcs *smu_funcs;
--       atomic_t ue_update_flag;
-+       atomic_t ue_dump_flag;
-        bool is_enabled;
- };
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index c0de682b7774..a4038e92c59e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -876,10 +876,14 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_hand=
-le *handle,
-                                      void *data)
- {
-        struct aca_bank_info info;
--       u64 misc0;
-+       u64 misc0, status;
-        u32 instlo;
-        int ret;
-
-+       status =3D bank->regs[ACA_REG_IDX_STATUS];
-+       if (!ACA_REG__STATUS__VAL(status))
-+               return 0;
-+
-        ret =3D aca_bank_info_decode(bank, &info);
-        if (ret)
-                return ret;
-@@ -894,8 +898,8 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle=
- *handle,
-        switch (type) {
-        case ACA_SMU_TYPE_UE:
-                bank->aca_err_type =3D ACA_ERROR_TYPE_UE;
--               ret =3D aca_error_cache_log_bank_error(handle, &info,
--                                                    ACA_ERROR_TYPE_UE, 1UL=
-L);
-+               if (ACA_REG__STATUS__UC(status) && ACA_REG__STATUS__PCC(sta=
-tus))
-+                       ret =3D aca_error_cache_log_bank_error(handle, &inf=
-o,
-+ACA_ERROR_TYPE_UE, 1);
-                break;
-        case ACA_SMU_TYPE_CE:
-                bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
---
-2.34.1
-
-
---_000_PH7PR12MB5997134DD92CF0A627EA5B4F82DE2PH7PR12MB5997namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Wed, Mar 12, 2025 at 1:57=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
 >
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from rtf -->
-<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
- #800000 2px solid; } --></style>
-</head>
-<body>
-<font face=3D"Calibri" size=3D"2"><span style=3D"font-size:10pt;">
-<div style=3D"padding-right:5pt;padding-left:5pt;"><font color=3D"blue">[AM=
-D Official Use Only - AMD Internal Distribution Only]<br>
-
-</font></div>
-<div style=3D"margin-top:5pt;"><font face=3D"Times New Roman" size=3D"3"><s=
-pan style=3D"font-size:12pt;"><br>
-
-</span></font></div>
-<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
-t;">&nbsp;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(node, &amp=
-;banks-&gt;list, node) {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; bank =3D &amp;node-&gt;bank;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; ret =3D aca_dispatch_bank(mgr, bank, type, handler, data);</span></f=
-ont></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (aca_bank_is_valid(handle, bank, type))</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handler(handle, bank=
-, type, data);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> }</=
-span></font></div>
-<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
-t;">&nbsp;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">The =
-aca bank set returned by the SMU may contain banks of different ip types, w=
-hich may result in incorrect statistics of aca bank information of some RAS=
- ip blocks.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">e.g:=
- </span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">The =
-SMU returned 6 banks in total, including 3 umc aca banks, 2 xgmi banks, and=
- 1 unsupported bank.</span></font></div>
-<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
-t;">&nbsp;</span></font></div>
-<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
-t;">&nbsp;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Best=
- Regards,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Kevi=
-n</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">____=
-_________________________________________<br>
-
-<b>From:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt; <br>
-
-<b>Sent:</b> Tuesday, March 18, 2025 17:19<br>
-
-<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org; Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; Zhou1, Tao &lt=
-;Tao.Zhou1@amd.com&gt;; Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;<br>
-
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Use correct aca handle to validate =
-aca bank</span></font></div>
-<div><font face=3D"Times New Roman" size=3D"3"><span style=3D"font-size:12p=
-t;">&nbsp;</span></font></div>
-<div><font face=3D"Times New Roman" size=3D"3"><span style=3D"font-size:12p=
-t;">&nbsp;</span></font></div>
-<div style=3D"padding-right:5pt;padding-left:5pt;"><font face=3D"Calibri" c=
-olor=3D"blue">[AMD Official Use Only - AMD Internal Distribution Only]<br>
-
-</font></div>
-<div><font face=3D"Times New Roman" size=3D"3"><span style=3D"font-size:12p=
-t;"><br>
-
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+ <a=
- href=3D"mailto:KevinYang.Wang@amd.com"><a name=3D"_@_E4FE03D7BCDD4D2F8A3A6=
-894796390C8"></a><font color=3D"#2B579A"><span style=3D"background-color:#E=
-1DFDD;">@Wang, Yang(Kevin)</span></font></a>/<a href=3D"mailto:Tao.Zhou1@am=
-d.com"><a name=3D"_@_8E1C3F2B43BE42FB961F426A9DAAD333"></a><font color=3D"#=
-2B579A"><span style=3D"background-color:#E1DFDD;">@Zhou1,
-Tao</span></font></a>/<a href=3D"mailto:YiPeng.Chai@amd.com"><a name=3D"_@_=
-EBB3A0FDE65C4FD2A2B1D70885B5F9DF"></a><font color=3D"#2B579A"><span style=
-=3D"background-color:#E1DFDD;">@Chai, Thomas</span></font></a> for the revi=
-ew.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Rega=
-rds,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hawk=
-ing</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">----=
--Original Message-----<br>
-
-From: Liu, Xiang(Dean) &lt;<a href=3D"mailto:Xiang.Liu@amd.com"><font color=
-=3D"#467886"><u>Xiang.Liu@amd.com</u></font></a>&gt;
-<br>
-
-Sent: Tuesday, March 18, 2025 17:15<br>
-
-To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org"><font color=3D"#467886=
-"><u>amd-gfx@lists.freedesktop.org</u></font></a><br>
-
-Cc: Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com"><font color=
-=3D"#467886"><u>Hawking.Zhang@amd.com</u></font></a>&gt;; Liu, Xiang(Dean) =
-&lt;<a href=3D"mailto:Xiang.Liu@amd.com"><font color=3D"#467886"><u>Xiang.L=
-iu@amd.com</u></font></a>&gt;<br>
-
-Subject: [PATCH] drm/amdgpu: Use correct aca handle to validate aca bank</s=
-pan></font></div>
-<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
-t;">&nbsp;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">The =
-aca handle is introduced by upper caller, it's inappropriate to poll aca ha=
-ndle to match and validate aca bank, which will cause unexcepted ras error =
-report.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sign=
-ed-off-by: Xiang Liu &lt;<a href=3D"mailto:xiang.liu@amd.com">xiang.liu@amd=
-.com</a>&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">---<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> dri=
-vers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 122 ++++++++++--------------</span><=
-/font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> dri=
-vers/gpu/drm/amd/amdgpu/amdgpu_aca.h |&nbsp;&nbsp; 2 +-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> dri=
-vers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c |&nbsp; 10 +-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> 3 f=
-iles changed, 58 insertions(+), 76 deletions(-)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_aca.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x ffd4c64e123c..b07e101c545d 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-122,6 +122,25 @@ static void aca_smu_bank_dump(struct amdgpu_device *adev, =
-int idx, int total, st</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; idx + 1, total, aca_regs[i].name, bank-&gt;regs[=
-aca_regs[i].reg_idx]);&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+sta=
-tic bool aca_bank_should_dump(struct amdgpu_device *adev, enum </span></fon=
-t></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+aca=
-_smu_type type) {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_aca *aca =3D &amp;adev-&gt;=
-aca;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret =3D true;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Because the UE Valid MCA count wi=
-ll only be cleared after reset,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the aca bank is only dumped once =
-during the gpu recovery stage.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (type =3D=3D ACA_SMU_TYPE_UE) {</span>=
-</font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (amdgpu_ras_intr_triggered())</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D atomic_cmpxc=
-hg(&amp;aca-&gt;ue_dump_flag, 0, 1) =3D=3D 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; else</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;aca-=
-&gt;ue_dump_flag, 0);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+}</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> sta=
-tic int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, enum aca_sm=
-u_type type,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; int start, int count,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; struct aca_banks *banks, struct ras_query_context *qctx) @@ -130,6 +1=
-49,7 @@ static int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, =
-enum aca_smu_</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct aca_smu_funcs *sm=
-u_funcs =3D aca-&gt;smu_funcs;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank bank;</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, max_count, ret;</span><=
-/font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank_node *node;</span></font>=
-</div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!count)</span></font></div=
+> This was leftover from MES bring up when we had MES
+> user queues in the kernel.  It's no longer used so
+> remove it.
 >
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-159,14 +179,16 @@ static int aca_smu_get_valid_aca_banks(struct amdgpu_devi=
-ce *adev, enum aca_smu_</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return re=
-t;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; bank.smu_err_type =3D type;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; aca_smu_bank_dump(adev, i, count, &amp;bank, qctx);</span></font></d=
-iv>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; ret =3D aca_banks_add_bank(banks, &amp;bank);</span></fon=
-t></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return re=
-t;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i =3D 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (aca_bank_should_dump(adev, type))</sp=
-an></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; list_for_each_entry(node, &amp;banks-&gt;list, node)</span></font></=
-div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_smu_bank_dump(ad=
-ev, i++, count, &amp;bank, qctx);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> }</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-318,72 +340,29 @@ static int handler_aca_log_bank_error(struct aca_handle *=
-handle, struct aca_bank</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> }</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-sta=
-tic int aca_dispatch_bank(struct aca_handle_manager *mgr, struct aca_bank *=
-bank,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; enum aca_smu_type type, bank_handler_t handler, void *data)</span=
-></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-{</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_handle *handle;</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty(&amp;mgr-&gt;list))</span>=
-</font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(handle, &amp;mgr-&gt;=
-list, node) {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (!aca_bank_is_valid(handle, bank, type))</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;</span></fo=
-nt></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; ret =3D handler(handle, bank, type, data);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-}</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-sta=
-tic int aca_dispatch_banks(struct aca_handle_manager *mgr, struct aca_banks=
- *banks,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+sta=
-tic int aca_dispatch_banks(struct aca_handle *handle, struct </span></font>=
-</div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+aca=
-_banks *banks,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_smu_type type, bank_handler_t handler, =
-void *data)&nbsp; {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank_node *node;</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank *bank;</span><=
-/font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mgr || !banks)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!handle || !banks)</span></font></div=
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 112 ++++++---------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  14 --
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c |  22 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   |  84 +++---------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 143 ++++---------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  67 ++-------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |   4 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   |   4 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   |   4 -
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 166 +++++++----------------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  83 ++++--------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  83 ++++--------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 164 +++++++---------------
+>  15 files changed, 259 insertions(+), 697 deletions(-)
 >
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return -EINVAL;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* pre check to avoid unnecess=
-ary operations */</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty(&amp;mgr-&gt;list) || list=
-_empty(&amp;banks-&gt;list))</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty(&amp;banks-&gt;list))</spa=
-n></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(node, &amp=
-;banks-&gt;list, node) {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; bank =3D &amp;node-&gt;bank;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; ret =3D aca_dispatch_bank(mgr, bank, type, handler, data);</span></f=
-ont></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (aca_bank_is_valid(handle, bank, type))</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handler(handle, bank=
-, type, data);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> }</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-sta=
-tic bool aca_bank_should_update(struct amdgpu_device *adev, enum aca_smu_ty=
-pe type) -{</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_aca *aca =3D &amp;adev-&gt;=
-aca;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret =3D true;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Because the UE Valid MCA count wi=
-ll only be cleared after reset,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * in order to avoid repeated counti=
-ng of the error count,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the aca bank is only updated once=
- during the gpu recovery stage.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (type =3D=3D ACA_SMU_TYPE_UE) {</span>=
-</font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (amdgpu_ras_intr_triggered())</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D atomic_cmpxc=
-hg(&amp;aca-&gt;ue_update_flag, 0, 1) =3D=3D 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; else</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;aca-=
-&gt;ue_update_flag, 0);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-}</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> sta=
-tic void aca_banks_generate_cper(struct amdgpu_device *adev,</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_smu=
-_type type,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_b=
-anks *banks,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-417,20 +396,14 @@ static void aca_banks_generate_cper(struct amdgpu_device =
-*adev,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> }</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-sta=
-tic int aca_banks_update(struct amdgpu_device *adev, enum aca_smu_type type=
-,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; bank_handler_t handler, struct ras_query_context *qctx, void *data)</sp=
-an></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+sta=
-tic int aca_banks_update(struct amdgpu_device *adev, struct aca_handle *han=
-dle,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; enum aca_smu_type type, bank_handler_t handler,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; struct ras_query_context *qctx, void *data)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> {</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_aca *aca =3D &amp;adev-&gt;=
-aca;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_banks banks;</span>=
-</font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 count =3D 0;</span></font>=
-</div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty(&amp;aca-&gt;mgr.list))</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!aca_bank_should_update(adev, type))<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_smu_get_valid_aca_=
-count(adev, type, &amp;count);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-442,15 +415,12 @@ static int aca_banks_update(struct amdgpu_device *adev, e=
-num aca_smu_type type,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_smu_get_valid_aca_=
-banks(adev, type, 0, count, &amp;banks, qctx);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; goto err_release_banks;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty(&amp;banks.list)) {</span>=
-</font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; ret =3D 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; goto err_release_banks;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty(&amp;banks.list))</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_dispatch_banks(&amp;aca-&gt;m=
-gr, &amp;banks, type,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handler, data);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_dispatch_banks(handle, &amp;b=
-anks, type, handler, data);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; goto err_release_banks;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-537,7 +507,7 @@ static int __aca_get_error_data(struct amdgpu_device *adev,=
- struct aca_handle *h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update aca bank to aca sour=
-ce error_cache first */</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_banks_update(adev, smu_type, =
-handler_aca_log_bank_error, qctx, NULL);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_banks_update(adev, handle, sm=
-u_type, </span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+han=
-dler_aca_log_bank_error, qctx, NULL);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-730,7 +700,7 @@ int amdgpu_aca_init(struct amdgpu_device *adev)</span></fon=
-t></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_aca *aca =3D &am=
-p;adev-&gt;aca;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;aca-&gt;ue_update_flag, 0=
-);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;aca-&gt;ue_dump_flag, 0);=
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_manager_init(&amp;=
-aca-&gt;mgr);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-745,14 +715,14 @@ void amdgpu_aca_fini(struct amdgpu_device *adev)</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_manager_fini(&amp;aca-&gt;=
-mgr);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;aca-&gt;ue_update_flag, 0=
-);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;aca-&gt;ue_dump_flag, 0);=
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> }</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> int=
- amdgpu_aca_reset(struct amdgpu_device *adev)&nbsp; {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_aca *aca =3D &am=
-p;adev-&gt;aca;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;aca-&gt;ue_update_flag, 0=
-);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;aca-&gt;ue_dump_flag, 0);=
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> }</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-880,12 +850,20 @@ static int handler_aca_bank_dump(struct aca_handle *handl=
-e, struct aca_bank *ban&nbsp; static int aca_dump_show(struct seq_file *m, =
-enum aca_smu_type type)&nbsp; {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D=
- (struct amdgpu_device *)m-&gt;private;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_handle_manager *mgr =3D &amp;a=
-dev-&gt;aca.mgr;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_handle *handle;</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_dump_context contex=
-t =3D {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; .m =3D m,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; .idx =3D 0,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return aca_banks_update(adev, type, handl=
-er_aca_bank_dump, NULL, (void *)&amp;context);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty(&amp;mgr-&gt;list))</span>=
-</font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(handle, &amp;mgr-&gt;=
-list, node)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; aca_banks_update(adev, handle, type, handler_aca_bank_dump, NULL, </=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+(vo=
-id *)&amp;context);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> }</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> sta=
-tic int aca_dump_ce_show(struct seq_file *m, void *unused) diff --git a/dri=
-vers/gpu/drm/amd/amdgpu/amdgpu_aca.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ac=
-a.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x 6f62e5d80ed6..e71d6f5afaec 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-202,7 +202,7 @@ struct aca_smu_funcs {&nbsp; struct amdgpu_aca {</span></fo=
-nt></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_handle_manager mgr;=
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct aca_smu_funcs *sm=
-u_funcs;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_t ue_update_flag;</span></font></d=
-iv>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_t ue_dump_flag;</span></font></div=
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ib.c
+> index eac96a3d8c6c3..6efa0c5717dcf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -163,12 +163,12 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
+signed int num_ibs,
+>                 init_shadow =3D false;
+>         }
 >
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool is_enabled;</span></font>=
-</div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> };<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdg=
-pu/gfx_v9_4_3.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x c0de682b7774..a4038e92c59e 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-876,10 +876,14 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle *=
-handle,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-void *data)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> {</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank_info info;</sp=
-an></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 misc0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 misc0, status;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 instlo;</span></font></div=
+> -       if (!ring->sched.ready && !ring->is_mes_queue) {
+> +       if (!ring->sched.ready) {
+>                 dev_err(adev->dev, "couldn't schedule ib on ring <%s>\n",=
+ ring->name);
+>                 return -EINVAL;
+>         }
 >
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status =3D bank-&gt;regs[ACA_REG_IDX_STAT=
-US];</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ACA_REG__STATUS__VAL(status))</span>=
-</font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_bank_info_decode(b=
-ank, &amp;info);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return ret;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-894,8 +898,8 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle *ha=
-ndle,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_SMU_TYPE_UE:</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; bank-&gt;aca_err_type =3D ACA_ERROR_TYPE_UE;</span></font=
-></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; ret =3D aca_error_cache_log_bank_error(handle, &amp;info,</span></fo=
-nt></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ACA_ERROR_TYPE_UE, 1ULL);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (ACA_REG__STATUS__UC(status) &amp;&amp; ACA_REG__STATUS__PCC(stat=
-us))</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_error_ca=
-che_log_bank_error(handle, &amp;info, </span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+ACA=
-_ERROR_TYPE_UE, 1);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_SMU_TYPE_CE:</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; bank-&gt;aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank)=
-;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">2.34=
-.1</span></font></div>
-<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
-t;">&nbsp;</span></font></div>
-</span></font>
-</body>
-</html>
-
---_000_PH7PR12MB5997134DD92CF0A627EA5B4F82DE2PH7PR12MB5997namp_--
+> -       if (vm && !job->vmid && !ring->is_mes_queue) {
+> +       if (vm && !job->vmid) {
+>                 dev_err(adev->dev, "VM IB without ID\n");
+>                 return -EINVAL;
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.c
+> index d55c8b7fdb596..ba8f2785865af 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -187,14 +187,10 @@ void amdgpu_ring_undo(struct amdgpu_ring *ring)
+>  }
+>
+>  #define amdgpu_ring_get_gpu_addr(ring, offset)                         \
+> -       (ring->is_mes_queue ?                                           \
+> -        (ring->mes_ctx->meta_data_gpu_addr + offset) :                 \
+> -        (ring->adev->wb.gpu_addr + offset * 4))
+> +        (ring->adev->wb.gpu_addr + offset * 4)
+>
+>  #define amdgpu_ring_get_cpu_addr(ring, offset)                         \
+> -       (ring->is_mes_queue ?                                           \
+> -        (void *)((uint8_t *)(ring->mes_ctx->meta_data_ptr) + offset) : \
+> -        (&ring->adev->wb.wb[offset]))
+> +        (&ring->adev->wb.wb[offset])
+>
+>  /**
+>   * amdgpu_ring_init - init driver ring struct.
+> @@ -243,57 +239,42 @@ int amdgpu_ring_init(struct amdgpu_device *adev, st=
+ruct amdgpu_ring *ring,
+>                 ring->sched_score =3D sched_score;
+>                 ring->vmid_wait =3D dma_fence_get_stub();
+>
+> -               if (!ring->is_mes_queue) {
+> -                       ring->idx =3D adev->num_rings++;
+> -                       adev->rings[ring->idx] =3D ring;
+> -               }
+> +               ring->idx =3D adev->num_rings++;
+> +               adev->rings[ring->idx] =3D ring;
+>
+>                 r =3D amdgpu_fence_driver_init_ring(ring);
+>                 if (r)
+>                         return r;
+>         }
+>
+> -       if (ring->is_mes_queue) {
+> -               ring->rptr_offs =3D amdgpu_mes_ctx_get_offs(ring,
+> -                               AMDGPU_MES_CTX_RPTR_OFFS);
+> -               ring->wptr_offs =3D amdgpu_mes_ctx_get_offs(ring,
+> -                               AMDGPU_MES_CTX_WPTR_OFFS);
+> -               ring->fence_offs =3D amdgpu_mes_ctx_get_offs(ring,
+> -                               AMDGPU_MES_CTX_FENCE_OFFS);
+> -               ring->trail_fence_offs =3D amdgpu_mes_ctx_get_offs(ring,
+> -                               AMDGPU_MES_CTX_TRAIL_FENCE_OFFS);
+> -               ring->cond_exe_offs =3D amdgpu_mes_ctx_get_offs(ring,
+> -                               AMDGPU_MES_CTX_COND_EXE_OFFS);
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &ring->rptr_offs);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) ring rptr_offs wb alloc =
+failed\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &ring->rptr_offs);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) ring rptr_offs wb alloc failed\n=
+", r);
+> +               return r;
+> +       }
+>
+> -               r =3D amdgpu_device_wb_get(adev, &ring->wptr_offs);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) ring wptr_offs wb alloc =
+failed\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &ring->wptr_offs);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) ring wptr_offs wb alloc failed\n=
+", r);
+> +               return r;
+> +       }
+>
+> -               r =3D amdgpu_device_wb_get(adev, &ring->fence_offs);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) ring fence_offs wb alloc=
+ failed\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &ring->fence_offs);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) ring fence_offs wb alloc failed\=
+n", r);
+> +               return r;
+> +       }
+>
+> -               r =3D amdgpu_device_wb_get(adev, &ring->trail_fence_offs)=
+;
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) ring trail_fence_offs wb=
+ alloc failed\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &ring->trail_fence_offs);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) ring trail_fence_offs wb alloc f=
+ailed\n", r);
+> +               return r;
+> +       }
+>
+> -               r =3D amdgpu_device_wb_get(adev, &ring->cond_exe_offs);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) ring cond_exec_polling w=
+b alloc failed\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &ring->cond_exe_offs);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) ring cond_exec_polling wb alloc =
+failed\n", r);
+> +               return r;
+>         }
+>
+>         ring->fence_gpu_addr =3D
+> @@ -353,18 +334,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, str=
+uct amdgpu_ring *ring,
+>         ring->cached_rptr =3D 0;
+>
+>         /* Allocate ring buffer */
+> -       if (ring->is_mes_queue) {
+> -               int offset =3D 0;
+> -
+> -               BUG_ON(ring->ring_size > PAGE_SIZE*4);
+> -
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_RING_OFFS);
+> -               ring->gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring,=
+ offset);
+> -               ring->ring =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, off=
+set);
+> -               amdgpu_ring_clear_ring(ring);
+> -
+> -       } else if (ring->ring_obj =3D=3D NULL) {
+> +       if (ring->ring_obj =3D=3D NULL) {
+>                 r =3D amdgpu_bo_create_kernel(adev, ring->ring_size + rin=
+g->funcs->extra_dw, PAGE_SIZE,
+>                                             AMDGPU_GEM_DOMAIN_GTT,
+>                                             &ring->ring_obj,
+> @@ -401,32 +371,26 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring)
+>  {
+>
+>         /* Not to finish a ring which is not initialized */
+> -       if (!(ring->adev) ||
+> -           (!ring->is_mes_queue && !(ring->adev->rings[ring->idx])))
+> +       if (!(ring->adev) || !(ring->adev->rings[ring->idx]))
+>                 return;
+>
+>         ring->sched.ready =3D false;
+>
+> -       if (!ring->is_mes_queue) {
+> -               amdgpu_device_wb_free(ring->adev, ring->rptr_offs);
+> -               amdgpu_device_wb_free(ring->adev, ring->wptr_offs);
+> +       amdgpu_device_wb_free(ring->adev, ring->rptr_offs);
+> +       amdgpu_device_wb_free(ring->adev, ring->wptr_offs);
+>
+> -               amdgpu_device_wb_free(ring->adev, ring->cond_exe_offs);
+> -               amdgpu_device_wb_free(ring->adev, ring->fence_offs);
+> +       amdgpu_device_wb_free(ring->adev, ring->cond_exe_offs);
+> +       amdgpu_device_wb_free(ring->adev, ring->fence_offs);
+>
+> -               amdgpu_bo_free_kernel(&ring->ring_obj,
+> -                                     &ring->gpu_addr,
+> -                                     (void **)&ring->ring);
+> -       } else {
+> -               kfree(ring->fence_drv.fences);
+> -       }
+> +       amdgpu_bo_free_kernel(&ring->ring_obj,
+> +                             &ring->gpu_addr,
+> +                             (void **)&ring->ring);
+>
+>         dma_fence_put(ring->vmid_wait);
+>         ring->vmid_wait =3D NULL;
+>         ring->me =3D 0;
+>
+> -       if (!ring->is_mes_queue)
+> -               ring->adev->rings[ring->idx] =3D NULL;
+> +       ring->adev->rings[ring->idx] =3D NULL;
+>  }
+>
+>  /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.h
+> index d93d3047553b3..bea3747f9550b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -306,11 +306,6 @@ struct amdgpu_ring {
+>         unsigned                num_hw_submission;
+>         atomic_t                *sched_score;
+>
+> -       /* used for mes */
+> -       bool                    is_mes_queue;
+> -       uint32_t                hw_queue_id;
+> -       struct amdgpu_mes_ctx_data *mes_ctx;
+> -
+>         bool            is_sw_ring;
+>         unsigned int    entry_index;
+>         /* store the cached rptr to restore after reset */
+> @@ -440,15 +435,6 @@ static inline void amdgpu_ring_patch_cond_exec(struc=
+t amdgpu_ring *ring,
+>         ring->ring[offset] =3D cur - offset;
+>  }
+>
+> -#define amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset)                 \
+> -       (ring->is_mes_queue && ring->mes_ctx ?                          \
+> -        (ring->mes_ctx->meta_data_gpu_addr + offset) : 0)
+> -
+> -#define amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset)                 \
+> -       (ring->is_mes_queue && ring->mes_ctx ?                          \
+> -        (void *)((uint8_t *)(ring->mes_ctx->meta_data_ptr) + offset) : \
+> -        NULL)
+> -
+>  int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
+>
+>  void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sdma.c
+> index 3a4cef8960185..03c4c012a1508 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> @@ -76,22 +76,14 @@ uint64_t amdgpu_sdma_get_csa_mc_addr(struct amdgpu_ri=
+ng *ring,
+>         if (amdgpu_sriov_vf(adev) || vmid =3D=3D 0 || !adev->gfx.mcbp)
+>                 return 0;
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> +       r =3D amdgpu_sdma_get_index_from_ring(ring, &index);
+>
+> -               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
+> -                                 sdma[ring->idx].sdma_meta_data);
+> -               csa_mc_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, of=
+fset);
+> -       } else {
+> -               r =3D amdgpu_sdma_get_index_from_ring(ring, &index);
+> -
+> -               if (r || index > 31)
+> -                       csa_mc_addr =3D 0;
+> -               else
+> -                       csa_mc_addr =3D amdgpu_csa_vaddr(adev) +
+> -                               AMDGPU_CSA_SDMA_OFFSET +
+> -                               index * AMDGPU_CSA_SDMA_SIZE;
+> -       }
+> +       if (r || index > 31)
+> +               csa_mc_addr =3D 0;
+> +       else
+> +               csa_mc_addr =3D amdgpu_csa_vaddr(adev) +
+> +                       AMDGPU_CSA_SDMA_OFFSET +
+> +                       index * AMDGPU_CSA_SDMA_SIZE;
+>
+>         return csa_mc_addr;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index ef4fe2df8398c..ea18484d1d7a7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -702,7 +702,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct =
+amdgpu_job *job,
+>         if (spm_update_needed && adev->gfx.rlc.funcs->update_spm_vmid)
+>                 adev->gfx.rlc.funcs->update_spm_vmid(adev, ring, job->vmi=
+d);
+>
+> -       if (!ring->is_mes_queue && ring->funcs->emit_gds_switch &&
+> +       if (ring->funcs->emit_gds_switch &&
+>             gds_switch_needed) {
+>                 amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_bas=
+e,
+>                                             job->gds_size, job->gws_base,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 2cf663d25881d..719c4aa90a0e0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -582,33 +582,18 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>
+>         memset(&ib, 0, sizeof(ib));
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t padding, offset;
+> -
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_I=
+B_OFFS);
+> -               padding =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                                 AMDGPU_MES_CTX_PADDING_=
+OFFS);
+> -
+> -               ib.gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, of=
+fset);
+> -               ib.ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset)=
+;
+> -
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, paddi=
+ng);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, paddin=
+g);
+> -               *cpu_ptr =3D cpu_to_le32(0xCAFEDEAD);
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r)
+> -                       return r;
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r)
+> +               return r;
+>
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(0xCAFEDEAD);
+> -               cpu_ptr =3D &adev->wb.wb[index];
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(0xCAFEDEAD);
+> +       cpu_ptr =3D &adev->wb.wb[index];
+>
+> -               r =3D amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT=
+, &ib);
+> -               if (r) {
+> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r)=
+;
+> -                       goto err1;
+> -               }
+> +       r =3D amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
+> +       if (r) {
+> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+> +               goto err1;
+>         }
+>
+>         ib.ptr[0] =3D PACKET3(PACKET3_WRITE_DATA, 3);
+> @@ -635,12 +620,10 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>         else
+>                 r =3D -EINVAL;
+>  err2:
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_ib_free(&ib, NULL);
+> +       amdgpu_ib_free(&ib, NULL);
+>         dma_fence_put(f);
+>  err1:
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>         return r;
+>  }
+>
+> @@ -5760,10 +5743,6 @@ static void gfx_v11_0_ring_emit_ib_gfx(struct amdg=
+pu_ring *ring,
+>                                     (!amdgpu_sriov_vf(ring->adev) && flag=
+s & AMDGPU_IB_PREEMPTED) ? true : false);
+>         }
+>
+> -       if (ring->is_mes_queue)
+> -               /* inherit vmid from mqd */
+> -               control |=3D 0x400000;
+> -
+>         amdgpu_ring_write(ring, header);
+>         BUG_ON(ib->gpu_addr & 0x3); /* Dword align */
+>         amdgpu_ring_write(ring,
+> @@ -5783,10 +5762,6 @@ static void gfx_v11_0_ring_emit_ib_compute(struct =
+amdgpu_ring *ring,
+>         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+>         u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << =
+24);
+>
+> -       if (ring->is_mes_queue)
+> -               /* inherit vmid from mqd */
+> -               control |=3D 0x40000000;
+> -
+>         /* Currently, there is a high possibility to get wave ID mismatch
+>          * between ME and GDS, leading to a hw deadlock, because ME gener=
+ates
+>          * different wave IDs than the GDS expects. This situation happen=
+s
+> @@ -5844,8 +5819,7 @@ static void gfx_v11_0_ring_emit_fence(struct amdgpu=
+_ring *ring, u64 addr,
+>         amdgpu_ring_write(ring, upper_32_bits(addr));
+>         amdgpu_ring_write(ring, lower_32_bits(seq));
+>         amdgpu_ring_write(ring, upper_32_bits(seq));
+> -       amdgpu_ring_write(ring, ring->is_mes_queue ?
+> -                        (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG=
+) : 0);
+> +       amdgpu_ring_write(ring, 0);
+>  }
+>
+>  static void gfx_v11_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+> @@ -5873,10 +5847,7 @@ static void gfx_v11_0_ring_invalidate_tlbs(struct =
+amdgpu_ring *ring,
+>  static void gfx_v11_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+>                                          unsigned vmid, uint64_t pd_addr)
+>  {
+> -       if (ring->is_mes_queue)
+> -               gfx_v11_0_ring_invalidate_tlbs(ring, 0, 0, false, 0);
+> -       else
+> -               amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+> +       amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+>
+>         /* compute doesn't have PFP */
+>         if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX) {
+> @@ -6105,28 +6076,13 @@ static void gfx_v11_0_ring_emit_de_meta(struct am=
+dgpu_ring *ring, bool resume)
+>         void *de_payload_cpu_addr;
+>         int cnt;
+>
+> -       if (ring->is_mes_queue) {
+> -               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
+> -                                 gfx[0].gfx_meta_data) +
+> -                       offsetof(struct v10_gfx_meta_data, de_payload);
+> -               de_payload_gpu_addr =3D
+> -                       amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+> -               de_payload_cpu_addr =3D
+> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+> -
+> -               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
+> -                                 gfx[0].gds_backup) +
+> -                       offsetof(struct v10_gfx_meta_data, de_payload);
+> -               gds_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -       } else {
+> -               offset =3D offsetof(struct v10_gfx_meta_data, de_payload)=
+;
+> -               de_payload_gpu_addr =3D amdgpu_csa_vaddr(ring->adev) + of=
+fset;
+> -               de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + offset;
+> +       offset =3D offsetof(struct v10_gfx_meta_data, de_payload);
+> +       de_payload_gpu_addr =3D amdgpu_csa_vaddr(ring->adev) + offset;
+> +       de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + offset;
+>
+> -               gds_addr =3D ALIGN(amdgpu_csa_vaddr(ring->adev) +
+> -                                AMDGPU_CSA_SIZE - adev->gds.gds_size,
+> -                                PAGE_SIZE);
+> -       }
+> +       gds_addr =3D ALIGN(amdgpu_csa_vaddr(ring->adev) +
+> +                        AMDGPU_CSA_SIZE - adev->gds.gds_size,
+> +                        PAGE_SIZE);
+>
+>         de_payload.gds_backup_addrlo =3D lower_32_bits(gds_addr);
+>         de_payload.gds_backup_addrhi =3D upper_32_bits(gds_addr);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index 60d8630a05c82..9db2becab68fe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -477,33 +477,18 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>
+>         memset(&ib, 0, sizeof(ib));
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t padding, offset;
+> -
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_I=
+B_OFFS);
+> -               padding =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                                 AMDGPU_MES_CTX_PADDING_=
+OFFS);
+> -
+> -               ib.gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, of=
+fset);
+> -               ib.ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset)=
+;
+> -
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, paddi=
+ng);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, paddin=
+g);
+> -               *cpu_ptr =3D cpu_to_le32(0xCAFEDEAD);
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r)
+> -                       return r;
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r)
+> +               return r;
+>
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(0xCAFEDEAD);
+> -               cpu_ptr =3D &adev->wb.wb[index];
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(0xCAFEDEAD);
+> +       cpu_ptr =3D &adev->wb.wb[index];
+>
+> -               r =3D amdgpu_ib_get(adev, NULL, 16, AMDGPU_IB_POOL_DIRECT=
+, &ib);
+> -               if (r) {
+> -                       dev_err(adev->dev, "amdgpu: failed to get ib (%ld=
+).\n", r);
+> -                       goto err1;
+> -               }
+> +       r =3D amdgpu_ib_get(adev, NULL, 16, AMDGPU_IB_POOL_DIRECT, &ib);
+> +       if (r) {
+> +               dev_err(adev->dev, "amdgpu: failed to get ib (%ld).\n", r=
+);
+> +               goto err1;
+>         }
+>
+>         ib.ptr[0] =3D PACKET3(PACKET3_WRITE_DATA, 3);
+> @@ -530,12 +515,10 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>         else
+>                 r =3D -EINVAL;
+>  err2:
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_ib_free(&ib, NULL);
+> +       amdgpu_ib_free(&ib, NULL);
+>         dma_fence_put(f);
+>  err1:
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>         return r;
+>  }
+>
+> @@ -4283,45 +4266,17 @@ static u64 gfx_v12_0_ring_get_wptr_gfx(struct amd=
+gpu_ring *ring)
+>  static void gfx_v12_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t *wptr_saved;
+> -       uint32_t *is_queue_unmap;
+> -       uint64_t aggregated_db_index;
+> -       uint32_t mqd_size =3D adev->mqds[AMDGPU_HW_IP_GFX].mqd_size;
+> -       uint64_t wptr_tmp;
+> -
+> -       if (ring->is_mes_queue) {
+> -               wptr_saved =3D (uint32_t *)(ring->mqd_ptr + mqd_size);
+> -               is_queue_unmap =3D (uint32_t *)(ring->mqd_ptr + mqd_size =
++
+> -                                             sizeof(uint32_t));
+> -               aggregated_db_index =3D
+> -                       amdgpu_mes_get_aggregated_doorbell_index(adev,
+> -                                                                ring->hw=
+_prio);
+> -
+> -               wptr_tmp =3D ring->wptr & ring->buf_mask;
+> -               atomic64_set((atomic64_t *)ring->wptr_cpu_addr, wptr_tmp)=
+;
+> -               *wptr_saved =3D wptr_tmp;
+> -               /* assume doorbell always being used by mes mapped queue =
+*/
+> -               if (*is_queue_unmap) {
+> -                       WDOORBELL64(aggregated_db_index, wptr_tmp);
+> -                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
+> -               } else {
+> -                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
+>
+> -                       if (*is_queue_unmap)
+> -                               WDOORBELL64(aggregated_db_index, wptr_tmp=
+);
+> -               }
+> +       if (ring->use_doorbell) {
+> +               /* XXX check if swapping is necessary on BE */
+> +               atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+> +                            ring->wptr);
+> +               WDOORBELL64(ring->doorbell_index, ring->wptr);
+>         } else {
+> -               if (ring->use_doorbell) {
+> -                       /* XXX check if swapping is necessary on BE */
+> -                       atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+> -                                    ring->wptr);
+> -                       WDOORBELL64(ring->doorbell_index, ring->wptr);
+> -               } else {
+> -                       WREG32_SOC15(GC, 0, regCP_RB0_WPTR,
+> -                                    lower_32_bits(ring->wptr));
+> -                       WREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI,
+> -                                    upper_32_bits(ring->wptr));
+> -               }
+> +               WREG32_SOC15(GC, 0, regCP_RB0_WPTR,
+> +                            lower_32_bits(ring->wptr));
+> +               WREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI,
+> +                            upper_32_bits(ring->wptr));
+>         }
+>  }
+>
+> @@ -4346,42 +4301,14 @@ static u64 gfx_v12_0_ring_get_wptr_compute(struct=
+ amdgpu_ring *ring)
+>  static void gfx_v12_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t *wptr_saved;
+> -       uint32_t *is_queue_unmap;
+> -       uint64_t aggregated_db_index;
+> -       uint32_t mqd_size =3D adev->mqds[AMDGPU_HW_IP_COMPUTE].mqd_size;
+> -       uint64_t wptr_tmp;
+> -
+> -       if (ring->is_mes_queue) {
+> -               wptr_saved =3D (uint32_t *)(ring->mqd_ptr + mqd_size);
+> -               is_queue_unmap =3D (uint32_t *)(ring->mqd_ptr + mqd_size =
++
+> -                                             sizeof(uint32_t));
+> -               aggregated_db_index =3D
+> -                       amdgpu_mes_get_aggregated_doorbell_index(adev,
+> -                                                                ring->hw=
+_prio);
+> -
+> -               wptr_tmp =3D ring->wptr & ring->buf_mask;
+> -               atomic64_set((atomic64_t *)ring->wptr_cpu_addr, wptr_tmp)=
+;
+> -               *wptr_saved =3D wptr_tmp;
+> -               /* assume doorbell always used by mes mapped queue */
+> -               if (*is_queue_unmap) {
+> -                       WDOORBELL64(aggregated_db_index, wptr_tmp);
+> -                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
+> -               } else {
+> -                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
+>
+> -                       if (*is_queue_unmap)
+> -                               WDOORBELL64(aggregated_db_index, wptr_tmp=
+);
+> -               }
+> +       /* XXX check if swapping is necessary on BE */
+> +       if (ring->use_doorbell) {
+> +               atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+> +                            ring->wptr);
+> +               WDOORBELL64(ring->doorbell_index, ring->wptr);
+>         } else {
+> -               /* XXX check if swapping is necessary on BE */
+> -               if (ring->use_doorbell) {
+> -                       atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+> -                                    ring->wptr);
+> -                       WDOORBELL64(ring->doorbell_index, ring->wptr);
+> -               } else {
+> -                       BUG(); /* only DOORBELL method supported on gfx12=
+ now */
+> -               }
+> +               BUG(); /* only DOORBELL method supported on gfx12 now */
+>         }
+>  }
+>
+> @@ -4428,10 +4355,6 @@ static void gfx_v12_0_ring_emit_ib_gfx(struct amdg=
+pu_ring *ring,
+>
+>         control |=3D ib->length_dw | (vmid << 24);
+>
+> -       if (ring->is_mes_queue)
+> -               /* inherit vmid from mqd */
+> -               control |=3D 0x400000;
+> -
+>         amdgpu_ring_write(ring, header);
+>         BUG_ON(ib->gpu_addr & 0x3); /* Dword align */
+>         amdgpu_ring_write(ring,
+> @@ -4451,10 +4374,6 @@ static void gfx_v12_0_ring_emit_ib_compute(struct =
+amdgpu_ring *ring,
+>         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+>         u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << =
+24);
+>
+> -       if (ring->is_mes_queue)
+> -               /* inherit vmid from mqd */
+> -               control |=3D 0x40000000;
+> -
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_INDIRECT_BUFFER, 2));
+>         BUG_ON(ib->gpu_addr & 0x3); /* Dword align */
+>         amdgpu_ring_write(ring,
+> @@ -4494,8 +4413,7 @@ static void gfx_v12_0_ring_emit_fence(struct amdgpu=
+_ring *ring, u64 addr,
+>         amdgpu_ring_write(ring, upper_32_bits(addr));
+>         amdgpu_ring_write(ring, lower_32_bits(seq));
+>         amdgpu_ring_write(ring, upper_32_bits(seq));
+> -       amdgpu_ring_write(ring, ring->is_mes_queue ?
+> -                        (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG=
+) : 0);
+> +       amdgpu_ring_write(ring, 0);
+>  }
+>
+>  static void gfx_v12_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+> @@ -4523,10 +4441,7 @@ static void gfx_v12_0_ring_invalidate_tlbs(struct =
+amdgpu_ring *ring,
+>  static void gfx_v12_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+>                                          unsigned vmid, uint64_t pd_addr)
+>  {
+> -       if (ring->is_mes_queue)
+> -               gfx_v12_0_ring_invalidate_tlbs(ring, 0, 0, false, 0);
+> -       else
+> -               amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+> +       amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+>
+>         /* compute doesn't have PFP */
+>         if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_0.c
+> index 734f2dd986290..f4dfa1418b740 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -5472,16 +5472,8 @@ static void gfx_v9_0_ring_patch_ce_meta(struct amd=
+gpu_ring *ring,
+>
+>         payload_size =3D sizeof(struct v9_ce_ib_state);
+>
+> -       if (ring->is_mes_queue) {
+> -               payload_offset =3D offsetof(struct amdgpu_mes_ctx_meta_da=
+ta,
+> -                                         gfx[0].gfx_meta_data) +
+> -                       offsetof(struct v9_gfx_meta_data, ce_payload);
+> -               ce_payload_cpu_addr =3D
+> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, payload_of=
+fset);
+> -       } else {
+> -               payload_offset =3D offsetof(struct v9_gfx_meta_data, ce_p=
+ayload);
+> -               ce_payload_cpu_addr =3D adev->virt.csa_cpu_addr + payload=
+_offset;
+> -       }
+> +       payload_offset =3D offsetof(struct v9_gfx_meta_data, ce_payload);
+> +       ce_payload_cpu_addr =3D adev->virt.csa_cpu_addr + payload_offset;
+>
+>         if (offset + (payload_size >> 2) <=3D ring->buf_mask + 1) {
+>                 memcpy((void *)&ring->ring[offset], ce_payload_cpu_addr, =
+payload_size);
+> @@ -5504,16 +5496,8 @@ static void gfx_v9_0_ring_patch_de_meta(struct amd=
+gpu_ring *ring,
+>
+>         payload_size =3D sizeof(struct v9_de_ib_state);
+>
+> -       if (ring->is_mes_queue) {
+> -               payload_offset =3D offsetof(struct amdgpu_mes_ctx_meta_da=
+ta,
+> -                                         gfx[0].gfx_meta_data) +
+> -                       offsetof(struct v9_gfx_meta_data, de_payload);
+> -               de_payload_cpu_addr =3D
+> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, payload_of=
+fset);
+> -       } else {
+> -               payload_offset =3D offsetof(struct v9_gfx_meta_data, de_p=
+ayload);
+> -               de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + payload=
+_offset;
+> -       }
+> +       payload_offset =3D offsetof(struct v9_gfx_meta_data, de_payload);
+> +       de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + payload_offset;
+>
+>         ((struct v9_de_ib_state *)de_payload_cpu_addr)->ib_completion_sta=
+tus =3D
+>                 IB_COMPLETION_STATUS_PREEMPTED;
+> @@ -5703,19 +5687,9 @@ static void gfx_v9_0_ring_emit_ce_meta(struct amdg=
+pu_ring *ring, bool resume)
+>
+>         cnt =3D (sizeof(ce_payload) >> 2) + 4 - 2;
+>
+> -       if (ring->is_mes_queue) {
+> -               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
+> -                                 gfx[0].gfx_meta_data) +
+> -                       offsetof(struct v9_gfx_meta_data, ce_payload);
+> -               ce_payload_gpu_addr =3D
+> -                       amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+> -               ce_payload_cpu_addr =3D
+> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+> -       } else {
+> -               offset =3D offsetof(struct v9_gfx_meta_data, ce_payload);
+> -               ce_payload_gpu_addr =3D amdgpu_csa_vaddr(ring->adev) + of=
+fset;
+> -               ce_payload_cpu_addr =3D adev->virt.csa_cpu_addr + offset;
+> -       }
+> +       offset =3D offsetof(struct v9_gfx_meta_data, ce_payload);
+> +       ce_payload_gpu_addr =3D amdgpu_csa_vaddr(ring->adev) + offset;
+> +       ce_payload_cpu_addr =3D adev->virt.csa_cpu_addr + offset;
+>
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, cnt));
+>         amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(2) |
+> @@ -5801,28 +5775,13 @@ static void gfx_v9_0_ring_emit_de_meta(struct amd=
+gpu_ring *ring, bool resume, bo
+>         void *de_payload_cpu_addr;
+>         int cnt;
+>
+> -       if (ring->is_mes_queue) {
+> -               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
+> -                                 gfx[0].gfx_meta_data) +
+> -                       offsetof(struct v9_gfx_meta_data, de_payload);
+> -               de_payload_gpu_addr =3D
+> -                       amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+> -               de_payload_cpu_addr =3D
+> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+> -
+> -               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
+> -                                 gfx[0].gds_backup) +
+> -                       offsetof(struct v9_gfx_meta_data, de_payload);
+> -               gds_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -       } else {
+> -               offset =3D offsetof(struct v9_gfx_meta_data, de_payload);
+> -               de_payload_gpu_addr =3D amdgpu_csa_vaddr(ring->adev) + of=
+fset;
+> -               de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + offset;
+> +       offset =3D offsetof(struct v9_gfx_meta_data, de_payload);
+> +       de_payload_gpu_addr =3D amdgpu_csa_vaddr(ring->adev) + offset;
+> +       de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + offset;
+>
+> -               gds_addr =3D ALIGN(amdgpu_csa_vaddr(ring->adev) +
+> -                                AMDGPU_CSA_SIZE - adev->gds.gds_size,
+> -                                PAGE_SIZE);
+> -       }
+> +       gds_addr =3D ALIGN(amdgpu_csa_vaddr(ring->adev) +
+> +                        AMDGPU_CSA_SIZE - adev->gds.gds_size,
+> +                        PAGE_SIZE);
+>
+>         if (usegds) {
+>                 de_payload.gds_backup_addrlo =3D lower_32_bits(gds_addr);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v10_0.c
+> index 95d894a231fcf..8ae4c031162bc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -428,10 +428,6 @@ static void gmc_v10_0_emit_pasid_mapping(struct amdg=
+pu_ring *ring, unsigned int
+>         struct amdgpu_device *adev =3D ring->adev;
+>         uint32_t reg;
+>
+> -       /* MES fw manages IH_VMID_x_LUT updating */
+> -       if (ring->is_mes_queue)
+> -               return;
+> -
+>         if (ring->vm_hub =3D=3D AMDGPU_GFXHUB(0))
+>                 reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_VMID_0_LUT) + vm=
+id;
+>         else
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v11_0.c
+> index ad099f136f84e..5c91d4445418c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -393,10 +393,6 @@ static void gmc_v11_0_emit_pasid_mapping(struct amdg=
+pu_ring *ring, unsigned int
+>         struct amdgpu_device *adev =3D ring->adev;
+>         uint32_t reg;
+>
+> -       /* MES fw manages IH_VMID_x_LUT updating */
+> -       if (ring->is_mes_queue)
+> -               return;
+> -
+>         if (ring->vm_hub =3D=3D AMDGPU_GFXHUB(0))
+>                 reg =3D SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT) + v=
+mid;
+>         else
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v12_0.c
+> index bf8d01da88154..0a1946c824118 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -413,10 +413,6 @@ static void gmc_v12_0_emit_pasid_mapping(struct amdg=
+pu_ring *ring, unsigned vmid
+>         struct amdgpu_device *adev =3D ring->adev;
+>         uint32_t reg;
+>
+> -       /* MES fw manages IH_VMID_x_LUT updating */
+> -       if (ring->is_mes_queue)
+> -               return;
+> -
+>         if (ring->vm_hub =3D=3D AMDGPU_GFXHUB(0))
+>                 reg =3D SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT) + v=
+mid;
+>         else
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v5_0.c
+> index 44a401870509f..712392671a3cf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -369,67 +369,36 @@ static uint64_t sdma_v5_0_ring_get_wptr(struct amdg=
+pu_ring *ring)
+>  static void sdma_v5_0_ring_set_wptr(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t *wptr_saved;
+> -       uint32_t *is_queue_unmap;
+> -       uint64_t aggregated_db_index;
+> -       uint32_t mqd_size =3D adev->mqds[AMDGPU_HW_IP_DMA].mqd_size;
+>
+>         DRM_DEBUG("Setting write pointer\n");
+> -       if (ring->is_mes_queue) {
+> -               wptr_saved =3D (uint32_t *)(ring->mqd_ptr + mqd_size);
+> -               is_queue_unmap =3D (uint32_t *)(ring->mqd_ptr + mqd_size =
++
+> -                                             sizeof(uint32_t));
+> -               aggregated_db_index =3D
+> -                       amdgpu_mes_get_aggregated_doorbell_index(adev,
+> -                       AMDGPU_MES_PRIORITY_LEVEL_NORMAL);
+> -
+> +       if (ring->use_doorbell) {
+> +               DRM_DEBUG("Using doorbell -- "
+> +                         "wptr_offs =3D=3D 0x%08x "
+> +                         "lower_32_bits(ring->wptr) << 2 =3D=3D 0x%08x "
+> +                         "upper_32_bits(ring->wptr) << 2 =3D=3D 0x%08x\n=
+",
+> +                         ring->wptr_offs,
+> +                         lower_32_bits(ring->wptr << 2),
+> +                         upper_32_bits(ring->wptr << 2));
+> +               /* XXX check if swapping is necessary on BE */
+>                 atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>                              ring->wptr << 2);
+> -               *wptr_saved =3D ring->wptr << 2;
+> -               if (*is_queue_unmap) {
+> -                       WDOORBELL64(aggregated_db_index, ring->wptr << 2)=
+;
+> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)=
+\n",
+> -                                       ring->doorbell_index, ring->wptr =
+<< 2);
+> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2=
+);
+> -               } else {
+> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)=
+\n",
+> -                                       ring->doorbell_index, ring->wptr =
+<< 2);
+> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2=
+);
+> -
+> -                       if (*is_queue_unmap)
+> -                               WDOORBELL64(aggregated_db_index,
+> -                                           ring->wptr << 2);
+> -               }
+> +               DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+> +                         ring->doorbell_index, ring->wptr << 2);
+> +               WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>         } else {
+> -               if (ring->use_doorbell) {
+> -                       DRM_DEBUG("Using doorbell -- "
+> -                                 "wptr_offs =3D=3D 0x%08x "
+> -                                 "lower_32_bits(ring->wptr) << 2 =3D=3D =
+0x%08x "
+> -                                 "upper_32_bits(ring->wptr) << 2 =3D=3D =
+0x%08x\n",
+> -                                 ring->wptr_offs,
+> -                                 lower_32_bits(ring->wptr << 2),
+> -                                 upper_32_bits(ring->wptr << 2));
+> -                       /* XXX check if swapping is necessary on BE */
+> -                       atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+> -                                    ring->wptr << 2);
+> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)=
+\n",
+> -                                 ring->doorbell_index, ring->wptr << 2);
+> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2=
+);
+> -               } else {
+> -                       DRM_DEBUG("Not using doorbell -- "
+> -                                 "mmSDMA%i_GFX_RB_WPTR =3D=3D 0x%08x "
+> -                                 "mmSDMA%i_GFX_RB_WPTR_HI =3D=3D 0x%08x\=
+n",
+> -                                 ring->me,
+> -                                 lower_32_bits(ring->wptr << 2),
+> -                                 ring->me,
+> -                                 upper_32_bits(ring->wptr << 2));
+> -                       WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev=
+,
+> -                                            ring->me, mmSDMA0_GFX_RB_WPT=
+R),
+> -                                       lower_32_bits(ring->wptr << 2));
+> -                       WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev=
+,
+> -                                            ring->me, mmSDMA0_GFX_RB_WPT=
+R_HI),
+> -                                       upper_32_bits(ring->wptr << 2));
+> -               }
+> +               DRM_DEBUG("Not using doorbell -- "
+> +                         "mmSDMA%i_GFX_RB_WPTR =3D=3D 0x%08x "
+> +                         "mmSDMA%i_GFX_RB_WPTR_HI =3D=3D 0x%08x\n",
+> +                         ring->me,
+> +                         lower_32_bits(ring->wptr << 2),
+> +                         ring->me,
+> +                         upper_32_bits(ring->wptr << 2));
+> +               WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev,
+> +                                                            ring->me, mm=
+SDMA0_GFX_RB_WPTR),
+> +                               lower_32_bits(ring->wptr << 2));
+> +               WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev,
+> +                                                            ring->me, mm=
+SDMA0_GFX_RB_WPTR_HI),
+> +                               upper_32_bits(ring->wptr << 2));
+>         }
+>  }
+>
+> @@ -575,11 +544,9 @@ static void sdma_v5_0_ring_emit_fence(struct amdgpu_=
+ring *ring, u64 addr, u64 se
+>         }
+>
+>         if (flags & AMDGPU_FENCE_FLAG_INT) {
+> -               uint32_t ctx =3D ring->is_mes_queue ?
+> -                       (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG)=
+ : 0;
+>                 /* generate an interrupt */
+>                 amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_TRAP))=
+;
+> -               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CON=
+TEXT(ctx));
+> +               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CON=
+TEXT(0));
+>         }
+>  }
+>
+> @@ -1046,33 +1013,22 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu=
+_ring *ring)
+>         int r;
+>         u32 tmp;
+>         u64 gpu_addr;
+> -       volatile uint32_t *cpu_ptr =3D NULL;
+>
+>         tmp =3D 0xCAFEDEAD;
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset=
+);
+> -               *cpu_ptr =3D tmp;
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) failed to allocate wb sl=
+ot\n", r);
+> -                       return r;
+> -               }
+> -
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r=
+);
+> +               return r;
+>         }
+>
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +
+>         r =3D amdgpu_ring_alloc(ring, 20);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", r=
+ing->idx, r);
+> -               if (!ring->is_mes_queue)
+> -                       amdgpu_device_wb_free(adev, index);
+> +               amdgpu_device_wb_free(adev, index);
+>                 return r;
+>         }
+>
+> @@ -1085,10 +1041,7 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_=
+ring *ring)
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               if (ring->is_mes_queue)
+> -                       tmp =3D le32_to_cpu(*cpu_ptr);
+> -               else
+> -                       tmp =3D le32_to_cpu(adev->wb.wb[index]);
+> +               tmp =3D le32_to_cpu(adev->wb.wb[index]);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 if (amdgpu_emu_mode =3D=3D 1)
+> @@ -1100,8 +1053,7 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_r=
+ing *ring)
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+>
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>
+>         return r;
+>  }
+> @@ -1124,38 +1076,24 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_r=
+ing *ring, long timeout)
+>         long r;
+>         u32 tmp =3D 0;
+>         u64 gpu_addr;
+> -       volatile uint32_t *cpu_ptr =3D NULL;
+>
+>         tmp =3D 0xCAFEDEAD;
+>         memset(&ib, 0, sizeof(ib));
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_I=
+B_OFFS);
+> -               ib.gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, of=
+fset);
+> -               ib.ptr =3D (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring,=
+ offset);
+> -
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset=
+);
+> -               *cpu_ptr =3D tmp;
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%ld) failed to allocate wb s=
+lot\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", =
+r);
+> +               return r;
+> +       }
+>
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(tmp);
+>
+> -               r =3D amdgpu_ib_get(adev, NULL, 256,
+> -                                       AMDGPU_IB_POOL_DIRECT, &ib);
+> -               if (r) {
+> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r)=
+;
+> -                       goto err0;
+> -               }
+> +       r =3D amdgpu_ib_get(adev, NULL, 256,
+> +                         AMDGPU_IB_POOL_DIRECT, &ib);
+> +       if (r) {
+> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+> +               goto err0;
+>         }
+>
+>         ib.ptr[0] =3D SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+> @@ -1183,10 +1121,7 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ri=
+ng *ring, long timeout)
+>                 goto err1;
+>         }
+>
+> -       if (ring->is_mes_queue)
+> -               tmp =3D le32_to_cpu(*cpu_ptr);
+> -       else
+> -               tmp =3D le32_to_cpu(adev->wb.wb[index]);
+> +       tmp =3D le32_to_cpu(adev->wb.wb[index]);
+>
+>         if (tmp =3D=3D 0xDEADBEEF)
+>                 r =3D 0;
+> @@ -1197,8 +1132,7 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>         amdgpu_ib_free(&ib, NULL);
+>         dma_fence_put(f);
+>  err0:
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>         return r;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v5_2.c
+> index cb2a3e5592855..2c0bf2fc6d380 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -394,11 +394,9 @@ static void sdma_v5_2_ring_emit_fence(struct amdgpu_=
+ring *ring, u64 addr, u64 se
+>         }
+>
+>         if ((flags & AMDGPU_FENCE_FLAG_INT)) {
+> -               uint32_t ctx =3D ring->is_mes_queue ?
+> -                       (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG)=
+ : 0;
+>                 /* generate an interrupt */
+>                 amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_TRAP))=
+;
+> -               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CON=
+TEXT(ctx));
+> +               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CON=
+TEXT(0));
+>         }
+>  }
+>
+> @@ -903,33 +901,22 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_r=
+ing *ring)
+>         int r;
+>         u32 tmp;
+>         u64 gpu_addr;
+> -       volatile uint32_t *cpu_ptr =3D NULL;
+>
+>         tmp =3D 0xCAFEDEAD;
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset=
+);
+> -               *cpu_ptr =3D tmp;
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) failed to allocate wb sl=
+ot\n", r);
+> -                       return r;
+> -               }
+> -
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r=
+);
+> +               return r;
+>         }
+>
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +
+>         r =3D amdgpu_ring_alloc(ring, 20);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", r=
+ing->idx, r);
+> -               if (!ring->is_mes_queue)
+> -                       amdgpu_device_wb_free(adev, index);
+> +               amdgpu_device_wb_free(adev, index);
+>                 return r;
+>         }
+>
+> @@ -942,10 +929,7 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_ri=
+ng *ring)
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               if (ring->is_mes_queue)
+> -                       tmp =3D le32_to_cpu(*cpu_ptr);
+> -               else
+> -                       tmp =3D le32_to_cpu(adev->wb.wb[index]);
+> +               tmp =3D le32_to_cpu(adev->wb.wb[index]);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 if (amdgpu_emu_mode =3D=3D 1)
+> @@ -957,8 +941,7 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_rin=
+g *ring)
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+>
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>
+>         return r;
+>  }
+> @@ -981,37 +964,23 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>         long r;
+>         u32 tmp =3D 0;
+>         u64 gpu_addr;
+> -       volatile uint32_t *cpu_ptr =3D NULL;
+>
+>         tmp =3D 0xCAFEDEAD;
+>         memset(&ib, 0, sizeof(ib));
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_I=
+B_OFFS);
+> -               ib.gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, of=
+fset);
+> -               ib.ptr =3D (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring,=
+ offset);
+> -
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset=
+);
+> -               *cpu_ptr =3D tmp;
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%ld) failed to allocate wb s=
+lot\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", =
+r);
+> +               return r;
+> +       }
+>
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(tmp);
+>
+> -               r =3D amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIREC=
+T, &ib);
+> -               if (r) {
+> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r)=
+;
+> -                       goto err0;
+> -               }
+> +       r =3D amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+> +       if (r) {
+> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+> +               goto err0;
+>         }
+>
+>         ib.ptr[0] =3D SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+> @@ -1039,10 +1008,7 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ri=
+ng *ring, long timeout)
+>                 goto err1;
+>         }
+>
+> -       if (ring->is_mes_queue)
+> -               tmp =3D le32_to_cpu(*cpu_ptr);
+> -       else
+> -               tmp =3D le32_to_cpu(adev->wb.wb[index]);
+> +       tmp =3D le32_to_cpu(adev->wb.wb[index]);
+>
+>         if (tmp =3D=3D 0xDEADBEEF)
+>                 r =3D 0;
+> @@ -1053,8 +1019,7 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>         amdgpu_ib_free(&ib, NULL);
+>         dma_fence_put(f);
+>  err0:
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>         return r;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v6_0.c
+> index f1a02ce844e0f..d0f7874730f06 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -377,11 +377,9 @@ static void sdma_v6_0_ring_emit_fence(struct amdgpu_=
+ring *ring, u64 addr, u64 se
+>         }
+>
+>         if (flags & AMDGPU_FENCE_FLAG_INT) {
+> -               uint32_t ctx =3D ring->is_mes_queue ?
+> -                       (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG)=
+ : 0;
+>                 /* generate an interrupt */
+>                 amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SD=
+MA_OP_TRAP));
+> -               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CON=
+TEXT(ctx));
+> +               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CON=
+TEXT(0));
+>         }
+>  }
+>
+> @@ -921,33 +919,22 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_r=
+ing *ring)
+>         int r;
+>         u32 tmp;
+>         u64 gpu_addr;
+> -       volatile uint32_t *cpu_ptr =3D NULL;
+>
+>         tmp =3D 0xCAFEDEAD;
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset=
+);
+> -               *cpu_ptr =3D tmp;
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) failed to allocate wb sl=
+ot\n", r);
+> -                       return r;
+> -               }
+> -
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r=
+);
+> +               return r;
+>         }
+>
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +
+>         r =3D amdgpu_ring_alloc(ring, 5);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", r=
+ing->idx, r);
+> -               if (!ring->is_mes_queue)
+> -                       amdgpu_device_wb_free(adev, index);
+> +               amdgpu_device_wb_free(adev, index);
+>                 return r;
+>         }
+>
+> @@ -960,10 +947,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ri=
+ng *ring)
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               if (ring->is_mes_queue)
+> -                       tmp =3D le32_to_cpu(*cpu_ptr);
+> -               else
+> -                       tmp =3D le32_to_cpu(adev->wb.wb[index]);
+> +               tmp =3D le32_to_cpu(adev->wb.wb[index]);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 if (amdgpu_emu_mode =3D=3D 1)
+> @@ -975,8 +959,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_rin=
+g *ring)
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+>
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>
+>         return r;
+>  }
+> @@ -999,37 +982,23 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>         long r;
+>         u32 tmp =3D 0;
+>         u64 gpu_addr;
+> -       volatile uint32_t *cpu_ptr =3D NULL;
+>
+>         tmp =3D 0xCAFEDEAD;
+>         memset(&ib, 0, sizeof(ib));
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_I=
+B_OFFS);
+> -               ib.gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, of=
+fset);
+> -               ib.ptr =3D (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring,=
+ offset);
+> -
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset=
+);
+> -               *cpu_ptr =3D tmp;
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%ld) failed to allocate wb s=
+lot\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", =
+r);
+> +               return r;
+> +       }
+>
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(tmp);
+>
+> -               r =3D amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIREC=
+T, &ib);
+> -               if (r) {
+> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r)=
+;
+> -                       goto err0;
+> -               }
+> +       r =3D amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+> +       if (r) {
+> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+> +               goto err0;
+>         }
+>
+>         ib.ptr[0] =3D SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
+> @@ -1057,10 +1026,7 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ri=
+ng *ring, long timeout)
+>                 goto err1;
+>         }
+>
+> -       if (ring->is_mes_queue)
+> -               tmp =3D le32_to_cpu(*cpu_ptr);
+> -       else
+> -               tmp =3D le32_to_cpu(adev->wb.wb[index]);
+> +       tmp =3D le32_to_cpu(adev->wb.wb[index]);
+>
+>         if (tmp =3D=3D 0xDEADBEEF)
+>                 r =3D 0;
+> @@ -1071,8 +1037,7 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>         amdgpu_ib_free(&ib, NULL);
+>         dma_fence_put(f);
+>  err0:
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>         return r;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v7_0.c
+> index f10de8e2fcae2..7a788da2ef5d7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> @@ -205,66 +205,39 @@ static uint64_t sdma_v7_0_ring_get_wptr(struct amdg=
+pu_ring *ring)
+>  static void sdma_v7_0_ring_set_wptr(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t *wptr_saved;
+> -       uint32_t *is_queue_unmap;
+> -       uint64_t aggregated_db_index;
+> -       uint32_t mqd_size =3D adev->mqds[AMDGPU_HW_IP_DMA].mqd_size;
+>
+>         DRM_DEBUG("Setting write pointer\n");
+>
+> -       if (ring->is_mes_queue) {
+> -               wptr_saved =3D (uint32_t *)(ring->mqd_ptr + mqd_size);
+> -               is_queue_unmap =3D (uint32_t *)(ring->mqd_ptr + mqd_size =
++
+> -                                             sizeof(uint32_t));
+> -               aggregated_db_index =3D
+> -                       amdgpu_mes_get_aggregated_doorbell_index(adev,
+> -                                                        ring->hw_prio);
+> -
+> +       if (ring->use_doorbell) {
+> +               DRM_DEBUG("Using doorbell -- "
+> +                         "wptr_offs =3D=3D 0x%08x "
+> +                         "lower_32_bits(ring->wptr) << 2 =3D=3D 0x%08x "
+> +                         "upper_32_bits(ring->wptr) << 2 =3D=3D 0x%08x\n=
+",
+> +                         ring->wptr_offs,
+> +                         lower_32_bits(ring->wptr << 2),
+> +                         upper_32_bits(ring->wptr << 2));
+> +               /* XXX check if swapping is necessary on BE */
+>                 atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>                              ring->wptr << 2);
+> -               *wptr_saved =3D ring->wptr << 2;
+> -               if (*is_queue_unmap) {
+> -                       WDOORBELL64(aggregated_db_index, ring->wptr << 2)=
+;
+> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)=
+\n",
+> -                                       ring->doorbell_index, ring->wptr =
+<< 2);
+> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2=
+);
+> -               } else {
+> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)=
+\n",
+> -                                       ring->doorbell_index, ring->wptr =
+<< 2);
+> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2=
+);
+> -               }
+> +               DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+> +                         ring->doorbell_index, ring->wptr << 2);
+> +               WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>         } else {
+> -               if (ring->use_doorbell) {
+> -                       DRM_DEBUG("Using doorbell -- "
+> -                                 "wptr_offs =3D=3D 0x%08x "
+> -                                 "lower_32_bits(ring->wptr) << 2 =3D=3D =
+0x%08x "
+> -                                 "upper_32_bits(ring->wptr) << 2 =3D=3D =
+0x%08x\n",
+> -                                 ring->wptr_offs,
+> -                                 lower_32_bits(ring->wptr << 2),
+> -                                 upper_32_bits(ring->wptr << 2));
+> -                       /* XXX check if swapping is necessary on BE */
+> -                       atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+> -                                    ring->wptr << 2);
+> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)=
+\n",
+> -                                 ring->doorbell_index, ring->wptr << 2);
+> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2=
+);
+> -               } else {
+> -                       DRM_DEBUG("Not using doorbell -- "
+> -                                 "regSDMA%i_GFX_RB_WPTR =3D=3D 0x%08x "
+> -                                 "regSDMA%i_GFX_RB_WPTR_HI =3D=3D 0x%08x=
+\n",
+> -                                 ring->me,
+> -                                 lower_32_bits(ring->wptr << 2),
+> -                                 ring->me,
+> -                                 upper_32_bits(ring->wptr << 2));
+> -                       WREG32_SOC15_IP(GC, sdma_v7_0_get_reg_offset(adev=
+,
+> -                                                                    ring=
+->me,
+> -                                                                    regS=
+DMA0_QUEUE0_RB_WPTR),
+> -                                       lower_32_bits(ring->wptr << 2));
+> -                       WREG32_SOC15_IP(GC, sdma_v7_0_get_reg_offset(adev=
+,
+> -                                                                    ring=
+->me,
+> -                                                                    regS=
+DMA0_QUEUE0_RB_WPTR_HI),
+> -                                       upper_32_bits(ring->wptr << 2));
+> -               }
+> +               DRM_DEBUG("Not using doorbell -- "
+> +                         "regSDMA%i_GFX_RB_WPTR =3D=3D 0x%08x "
+> +                         "regSDMA%i_GFX_RB_WPTR_HI =3D=3D 0x%08x\n",
+> +                         ring->me,
+> +                         lower_32_bits(ring->wptr << 2),
+> +                         ring->me,
+> +                         upper_32_bits(ring->wptr << 2));
+> +               WREG32_SOC15_IP(GC, sdma_v7_0_get_reg_offset(adev,
+> +                                                            ring->me,
+> +                                                            regSDMA0_QUE=
+UE0_RB_WPTR),
+> +                               lower_32_bits(ring->wptr << 2));
+> +               WREG32_SOC15_IP(GC, sdma_v7_0_get_reg_offset(adev,
+> +                                                            ring->me,
+> +                                                            regSDMA0_QUE=
+UE0_RB_WPTR_HI),
+> +                               upper_32_bits(ring->wptr << 2));
+>         }
+>  }
+>
+> @@ -408,11 +381,9 @@ static void sdma_v7_0_ring_emit_fence(struct amdgpu_=
+ring *ring, u64 addr, u64 se
+>         }
+>
+>         if (flags & AMDGPU_FENCE_FLAG_INT) {
+> -               uint32_t ctx =3D ring->is_mes_queue ?
+> -                       (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG)=
+ : 0;
+>                 /* generate an interrupt */
+>                 amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SD=
+MA_OP_TRAP));
+> -               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CON=
+TEXT(ctx));
+> +               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CON=
+TEXT(0));
+>         }
+>  }
+>
+> @@ -965,33 +936,22 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_r=
+ing *ring)
+>         int r;
+>         u32 tmp;
+>         u64 gpu_addr;
+> -       volatile uint32_t *cpu_ptr =3D NULL;
+>
+>         tmp =3D 0xCAFEDEAD;
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset=
+);
+> -               *cpu_ptr =3D tmp;
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%d) failed to allocate wb sl=
+ot\n", r);
+> -                       return r;
+> -               }
+> -
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r=
+);
+> +               return r;
+>         }
+>
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +
+>         r =3D amdgpu_ring_alloc(ring, 5);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", r=
+ing->idx, r);
+> -               if (!ring->is_mes_queue)
+> -                       amdgpu_device_wb_free(adev, index);
+> +               amdgpu_device_wb_free(adev, index);
+>                 return r;
+>         }
+>
+> @@ -1004,10 +964,7 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_r=
+ing *ring)
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               if (ring->is_mes_queue)
+> -                       tmp =3D le32_to_cpu(*cpu_ptr);
+> -               else
+> -                       tmp =3D le32_to_cpu(adev->wb.wb[index]);
+> +               tmp =3D le32_to_cpu(adev->wb.wb[index]);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 if (amdgpu_emu_mode =3D=3D 1)
+> @@ -1019,8 +976,7 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_ri=
+ng *ring)
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+>
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>
+>         return r;
+>  }
+> @@ -1043,37 +999,23 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ri=
+ng *ring, long timeout)
+>         long r;
+>         u32 tmp =3D 0;
+>         u64 gpu_addr;
+> -       volatile uint32_t *cpu_ptr =3D NULL;
+>
+>         tmp =3D 0xCAFEDEAD;
+>         memset(&ib, 0, sizeof(ib));
+>
+> -       if (ring->is_mes_queue) {
+> -               uint32_t offset =3D 0;
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_I=
+B_OFFS);
+> -               ib.gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, of=
+fset);
+> -               ib.ptr =3D (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring,=
+ offset);
+> -
+> -               offset =3D amdgpu_mes_ctx_get_offs(ring,
+> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+> -               gpu_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offse=
+t);
+> -               cpu_ptr =3D amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset=
+);
+> -               *cpu_ptr =3D tmp;
+> -       } else {
+> -               r =3D amdgpu_device_wb_get(adev, &index);
+> -               if (r) {
+> -                       dev_err(adev->dev, "(%ld) failed to allocate wb s=
+lot\n", r);
+> -                       return r;
+> -               }
+> +       r =3D amdgpu_device_wb_get(adev, &index);
+> +       if (r) {
+> +               dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", =
+r);
+> +               return r;
+> +       }
+>
+> -               gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> -               adev->wb.wb[index] =3D cpu_to_le32(tmp);
+> +       gpu_addr =3D adev->wb.gpu_addr + (index * 4);
+> +       adev->wb.wb[index] =3D cpu_to_le32(tmp);
+>
+> -               r =3D amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIREC=
+T, &ib);
+> -               if (r) {
+> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r)=
+;
+> -                       goto err0;
+> -               }
+> +       r =3D amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+> +       if (r) {
+> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+> +               goto err0;
+>         }
+>
+>         ib.ptr[0] =3D SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
+> @@ -1101,10 +1043,7 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ri=
+ng *ring, long timeout)
+>                 goto err1;
+>         }
+>
+> -       if (ring->is_mes_queue)
+> -               tmp =3D le32_to_cpu(*cpu_ptr);
+> -       else
+> -               tmp =3D le32_to_cpu(adev->wb.wb[index]);
+> +       tmp =3D le32_to_cpu(adev->wb.wb[index]);
+>
+>         if (tmp =3D=3D 0xDEADBEEF)
+>                 r =3D 0;
+> @@ -1115,8 +1054,7 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_rin=
+g *ring, long timeout)
+>         amdgpu_ib_free(&ib, NULL);
+>         dma_fence_put(f);
+>  err0:
+> -       if (!ring->is_mes_queue)
+> -               amdgpu_device_wb_free(adev, index);
+> +       amdgpu_device_wb_free(adev, index);
+>         return r;
+>  }
+>
+> --
+> 2.48.1
+>
