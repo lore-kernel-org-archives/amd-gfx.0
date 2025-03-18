@@ -4,43 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D2B6C282EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 15:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 170C5C282EC
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 15:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A002B10E4A7;
-	Tue, 18 Mar 2025 15:13:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B11C710E21B;
+	Tue, 18 Mar 2025 15:19:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="BJeV/bMa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H0s5RwQK";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FA7310E4A7
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 15:01:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=1R7pEhN3D0WbzdCM+gpFvznW0oZ+R1d8MN8BLAk/Nj0=; b=BJeV/bMahXcFcuhUKVwJoDDioe
- BgjpQxIlzDTeqLw107KTr2sY4wXI1BqgOaCQqWKpoQHOn3g02tgnis64BWB+xSVq7CvTJYTgH+p5c
- /yYtQdg2uxdAY6W7bV9EAdHYMfuqpFLoluqPc5MoHeFM8jsq4K4aR/nb4rS+fx/4fPEN7fvt7Z9ti
- 1/FMm+wuPjFb4J15HytEIv9Qd3bJHbXUGg3Vhy7UFS6X+y7W9052vhn1AgOWugfKo+XIaLZ9w3hET
- KfpsIduJmzzQNLGxwLO4fWBnJV+RKJuuATisWzPCuUBxEWBcFAm2N208MfNyde8MI0+Z4u5CdwBwP
- Zhpcf4OQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tuYRw-0000000Fa2W-28Xr; Tue, 18 Mar 2025 15:01:48 +0000
-Date: Tue, 18 Mar 2025 15:01:48 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: Where do ttm->pages come from?
-Message-ID: <Z9mK3OfAxilKqJci@casper.infradead.org>
-References: <Z9h54wu2Nqbf4OqF@casper.infradead.org>
- <fc78716a-c3ee-40e5-a87e-4068e362aa5c@amd.com>
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1612F10E21B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 15:19:18 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5e22e6ed2so8656630a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 08:19:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742311156; x=1742915956; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=VNXTURsqKcxVawfVHXohmAyxUVdMygyIW22jNYpimKE=;
+ b=H0s5RwQKjYkCoj8xaNJTcID72RDRUyc2HFjLBsFLjy0QioyaB0sQwjUPmPZIcipbwz
+ YqT/uxmY+UbLKopEHXIWYc9U87pZEY1gBpSP9wrd4xPy8JjZhF/dA2kLpswcY4tQIJmn
+ fctH/aKo8EflfDwgHGh9zPR+KqB2Ol/KovZo0MEufliz0WqagH8BjUpnrkZp4fFHfqT6
+ Z4zos7oUpUe9mHYQcdsizFqPtv8KF6HOqKvQITLE8yoX0ST/AmtI2+qPub1zpseOr6q9
+ ZlZXTlLWuBi5iGfT0ZWxRy8Tg1Ylx0UbHs5juj5ruzAh7DEaDA53jTa+2W6ME5Jb5iue
+ 6iGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742311156; x=1742915956;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VNXTURsqKcxVawfVHXohmAyxUVdMygyIW22jNYpimKE=;
+ b=Ul1NyPKkXb7rk1U9hD1qxZ8O47lNjQHu9foh79WzwnFo7kJWZNs1Z2xvjDwDNjJDTN
+ 9h2QRGGYsMKPNekOJy8jsib9mmnjCpv2qKL52IGyaCCvj36Ig29tnBuHXi0g/2V+ujMZ
+ piLBV9SweOI1SQnQCUGnt5bS5F1gFF0fgIeIt4i0k2kNvHSTb4dJrySMZ1kvX0P6gixD
+ 0YaiH8gUeQPAPHxPhhA+TcSllg0/bMxMDJJ5v4NBNAXFAtAUvGQuPArN4CC81yal4+Fs
+ JlgcCQtpFyonIdjWViJftH2EABO5tnVvByfPVDSXY/0bv5wLdxzyL/jT7wgBmSejCzcB
+ 3jYA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWfhhFn4yxWyRS8ensWAtkgdJGranW2pwk1xJlFYZKYVd7PuJyfPYeqxtEpa6DfBJ6pOAp8lMdI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyafmv3rv5ehNnbt0pW7WnKqvkJnHPAZVd7/nxI1Rv/k2Y+mcgk
+ ZmIwDKFOj+Pzezs744MUdmOcK+t3KJ9W/0E90WZEiZH75aPGB+P1Dys7rdpu
+X-Gm-Gg: ASbGncuHhEdy6jX2XJXflcJrtZ+jUzR5kN6FJ71L3FEs7Z+2qj42cOHUAKwFy3JVzyi
+ 8lzLgJPDiHIl8E3WZPZRjHB75/hPzxllXhpTG5KwsjkK95W19rAchmynUEOJhYASfoeVrjPMOot
+ vgFSK7Ri9EpMl+71MXNC/Yiud9a+qSe6nJ17bAoE4WO6m+Dk0DpMHlGk25f+zePVyzYB1n90krj
+ j7ZEbPlwv3MZViMlPDTaSyCjKjxxaxcOXY6a72uSxJmH2v7u761MXGbG2gEEJbU3bsJEldbUKa9
+ jWqAGZOBwOYhoF3EVyNkWtEKgL4kDF/Aepc2gaIHGCoSdvbu/WUmOYNlDA==
+X-Google-Smtp-Source: AGHT+IEZTNVvqMEaDrgZWzYFLj76qGXE/bXnJvfg/4PYVcbNmLSYEH8K/DTVUmlxgGRGLe+XEhgMaA==
+X-Received: by 2002:a05:6402:518d:b0:5e5:bdfe:6c00 with SMTP id
+ 4fb4d7f45d1cf-5e89fa52e16mr15972639a12.19.1742311156153; 
+ Tue, 18 Mar 2025 08:19:16 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1527:7100:dc64:6e75:5ed1:a43e])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5e816974b63sm7846852a12.28.2025.03.18.08.19.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Mar 2025 08:19:15 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: alexdeucher@gmail.com,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: remove invalid usage of sched.ready
+Date: Tue, 18 Mar 2025 16:19:14 +0100
+Message-Id: <20250318151915.5413-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <fc78716a-c3ee-40e5-a87e-4068e362aa5c@amd.com>
-X-Mailman-Approved-At: Tue, 18 Mar 2025 15:13:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,48 +85,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 18, 2025 at 09:37:42AM +0100, Christian König wrote:
-> Hi Matthew,
-> 
-> you actually got your understanding exactly inverted :)
+I can't count how often I had to remove this nonsense.
 
-Thanks; that's very helpful!
+Probably doesn't need an explanation any more.
 
-> Amdgpu takes a look at page->mapping to make sure they are *not* coming from the call sequence starting with amdgpu_ttm_tt_set_user_pages() or be imported from another driver through DMA-buf etc...
-> 
-> The only pages which are allowed to pass this check are the private driver allocated ones, see this code function amdgpu_ttm_tt_populate():
-> 
->         for (i = 0; i < ttm->num_pages; ++i)
->                 ttm->pages[i]->mapping = bdev->dev_mapping;
-> 
-> So far that has been save since nobody else should be using the address space object from our drivers inode under /dev.
-> 
-> But when you plan to remove page->mapping we probably have a problem here.
+Signed-off-by: Christian KÃ¶nig <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-OK.  This makes the problem a lot more tractable.
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 65fa583c34a4..9cb499195fff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -2675,7 +2675,6 @@ static int gfx_v12_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	u32 tmp;
+ 	u32 rb_bufsz;
+ 	u64 rb_addr, rptr_addr, wptr_gpu_addr;
+-	u32 i;
+ 
+ 	/* Set the write pointer delay */
+ 	WREG32_SOC15(GC, 0, regCP_RB_WPTR_DELAY, 0);
+@@ -2730,12 +2729,6 @@ static int gfx_v12_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 
+ 	/* start the ring */
+ 	gfx_v12_0_cp_gfx_start(adev);
+-
+-	for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+-		ring = &adev->gfx.gfx_ring[i];
+-		ring->sched.ready = true;
+-	}
+-
+ 	return 0;
+ }
+ 
+@@ -3083,10 +3076,6 @@ static int gfx_v12_0_cp_async_gfx_ring_resume(struct amdgpu_device *adev)
+ 	if (r)
+ 		goto done;
+ 
+-	for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+-		ring = &adev->gfx.gfx_ring[i];
+-		ring->sched.ready = true;
+-	}
+ done:
+ 	return r;
+ }
+-- 
+2.34.1
 
-From the MM side, we have a short-term and a long-term goal.  The
-long-term goal is to reduce struct page to a single tagged pointer
-called a memdesc.  Details here:
-
-https://kernelnewbies.org/MatthewWilcox/Memdescs
-
-In the short term, we're removing page->mapping, ->index, ->lru and
-->memcg_data, leaving ->flags, ->_refcount and ->private as well as the
-newly-introduced ->memdesc.
-
-So if all you needed to do was identify which pages belong to you,
-I'd suggest setting ->private to a unique value (eg bdev->dev_mapping).
-But it feels like you need more than that; you need a refcount, and you
-need to map pages to userspace.  Do you need to support GUP on these
-pages (ie can it be the user buffer for O_DIRECT, can it be registered
-with RDMA, that kind of thing), or is this memory just for userspace to
-do load/store, and no fancy stuff is allowed?
-
-At this point, I'd suggest that you allocate folios rather than pages.
-That lets us continue to use folio->mapping to distinguish these pages.
-There would be an opportunity to save some memory in the future by using
-a slimmer control structure once we understand the new system better,
-but maybe it's OK to just keep using a folio forever.
-
-Thoughts?
