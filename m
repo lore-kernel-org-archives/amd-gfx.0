@@ -4,145 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2A0BC282EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 13:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10E31C28B2F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 13:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D87710E484;
-	Tue, 18 Mar 2025 13:06:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F06610E482;
+	Tue, 18 Mar 2025 13:11:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5V+56LrZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A9Q/B8GI";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6221410E484
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 13:06:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AlTTB0XClgwP3XyX0QHUo8bxiPC9/6FjLatqPW5uVml5bvpV3LbD2YmTHnPoh1/EjOwd1r/vVd2GXpIgceTNe0xLWWh0E9Fl8QdaJBzDQEy2Edq2aoFzJAqGFX9GlodpQpW14KjE82kDkNTGV0YTfe6FbKwBbDFwD1OZis96yfgQK4wkiCJCUWsgQ4uIE1/ybtD3+5eMXOsYrAskTlKRQKaSpfQhDPYVQXwwwOmpgTTbv2cuoZpsL3OVqVymQm3+Ppi6BM3csxOLFtdzis+CXlAPUKEUaVMsbpVpU6gBYrS1QXNMjnp1OqB8/fJo+KY7/AN0D8aZRvWgjW1weuIGYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I9pG5SlWsViugjBmDY9bJUhiRVgaQ1utzZnfkgGlc50=;
- b=WWbrS+YR50DD3QXDp8KAwEqUYMSMHfyHzfw1kS4SZPz2XF5I/DvF1GYCCCT9ugCxiYXOUFMv21MNHms5OjIbi1R6ua2R8O/U6KAwGbrM7lAYULzOf6wlzZ6vY0fJf/mr58JiRIH8EQJyFwknlZUfjzH9Izws2RU8xtNr3bLa21uPV44Lr/yePF6QvPCGORybyY6oVZFXNj9YfSG6a3ELBGz9aMsjforKAZEqOvZeZ0wKWRN1WTePqeeb+asM5sY2GXJxzJX1243WSbxc7WDnnLNELzzfIDJOI27SG4VVH/UvFHFWncIZPTtz5paPevL1PQ57ZbHYvdMHt2WrvEAmzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I9pG5SlWsViugjBmDY9bJUhiRVgaQ1utzZnfkgGlc50=;
- b=5V+56LrZ3OubMcux3UuXw+vEZvlUhEt5khpsg0Z6ouuj8spdruyBgc/sVzszvb7lzXXlNVWbTmeB9F4OpGYYt+ocCegzcTRvsPbqCBuTIrX9lKRHmyRAD41WOwKBP/Jws0QdGAg3DoLyrYF/cNX1cT2TBpfPJEFin/ISbMvTRmk=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- BL4PR12MB9481.namprd12.prod.outlook.com (2603:10b6:208:591::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8534.34; Tue, 18 Mar 2025 13:06:45 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb%6]) with mapi id 15.20.8534.031; Tue, 18 Mar 2025
- 13:06:45 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Olsak, Marek" <Marek.Olsak@amd.com>, "Khatri, Sunil"
- <Sunil.Khatri@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add UAPI to query if user queues are supported
-Thread-Topic: [PATCH] drm/amdgpu: add UAPI to query if user queues are
- supported
-Thread-Index: AQHbl4OvhHJCOGCvVk6hZsSGxMfinrN4200w
-Date: Tue, 18 Mar 2025 13:06:45 +0000
-Message-ID: <DS7PR12MB600535BFFCEBF5CF5DE68B80FBDE2@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20250317212919.1018717-1-alexander.deucher@amd.com>
-In-Reply-To: <20250317212919.1018717-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=aa1245ab-a551-4576-abaf-a02e1399afde;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-03-18T12:56:40Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|BL4PR12MB9481:EE_
-x-ms-office365-filtering-correlation-id: 38b39a8a-ddbb-4956-5207-08dd661dbc01
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?AVgKcIFpyrJVN7FtHMBiS2I4cBjsAXF539EpAua2rFDhq5WK8je6fnlsi1eH?=
- =?us-ascii?Q?QsWVinEYbyrXsZGXFes2uK755VEv/z5bXJnyX4kweUtRYw4g8j5AoF9vlR0T?=
- =?us-ascii?Q?aSLXBSdNw9H75Ulh8pbVGhAvLbvFAu744GOnAHt+QDWCBSbsgdNEvEuqYR4y?=
- =?us-ascii?Q?RJ21T+rAn+ANMA/6AKdNthHeqTKDqKBt4sqm2fkZl0b7HS3PM1QxkuE6hfv2?=
- =?us-ascii?Q?M4Wz/YEAFsVxm0GIVKE9FzsGo6GluWMa8ksZ3U2c+YDTWRJWNrVciPklVgy8?=
- =?us-ascii?Q?wJmH4gXdAUViBvvrYduhNV71YClanmrp6VYwU6yXs6utnAHPpahTpVCWEdl3?=
- =?us-ascii?Q?4kQp+a6FPkIioQBx2sRK1HxMg4yoNnW9dqUxgix0ZMIPYkdrH6ebJQvB9Qru?=
- =?us-ascii?Q?76uE7BkRcKz79aXGZX0rQyFoEv5w565MEFpzXgU49tqwlpEh4hGGm7F4RN3O?=
- =?us-ascii?Q?T+2ADBbudIoVxWAd+JVdv5Up3aZvoiVvuSISmsWxRaYRLfqp8xHYzjYG4h/M?=
- =?us-ascii?Q?R/fjL/F4tkMq2rM6qg7iD7Kb0xuliVktZBf6m3KRzrHpwAOtty3eGDt0F4Vj?=
- =?us-ascii?Q?W6HJC65dkgysaPB/5RAbOH4rJhgL88UwGu/Vi53QP7EazKwZSiejcfrLlDw0?=
- =?us-ascii?Q?IzUhWObaJnjoDutDhBVFt3OuQGKXKfjz+lPbYFQ4dOHn/lsHH/oDXl2eeXmK?=
- =?us-ascii?Q?7tMbA/8F6l2HAtcgJzAh6111eyhHOe/zMl6BT3d+DhVN5p0RrtxL2GJj5J2P?=
- =?us-ascii?Q?goNuFPogg0HmRnkU28L52V0HXcX2viR2iFDweIbBvjGTwF1UnEFzkm50AwrK?=
- =?us-ascii?Q?S56dy4sdnyOzZRNt9ih9qmegRlx9zOG0PZgbWZ/rx8y/ia7lN/AP9WHkAbUv?=
- =?us-ascii?Q?OyZ7zo1R+zvtZNJO1EmPd7GUjTG3P27IA04wzI+Lu85hGUhHOdKDdAiYfLqH?=
- =?us-ascii?Q?MoTxnha2LAys7Jf1XKSjfzJzle+Adq8q41xF/DjrQJHA8foSnHyyI8nnqTrV?=
- =?us-ascii?Q?/WYONARS/BuSah0nrhDuL89EsYmnGngB/4728AC6rzWmPYjSRbc5oem95OO7?=
- =?us-ascii?Q?7LGnTytWSEEem1y8tvD8e8bcTDqcM7uAU9Wx2+YICt15B2R1JP+fwir7gwAf?=
- =?us-ascii?Q?tYJ8sbifX7i2XXnnTQSKNZXhGFNbW+/MnsZtrcQOX+RwixT4mDHLbvcfD7fU?=
- =?us-ascii?Q?tW1yVni9LD67A2Nf0neybw9HsbfCl+TuXcwLKfXZxqLbGFpjSLNLjna60CY8?=
- =?us-ascii?Q?8Y+ScTmMNRP1a7B14TMZ8bd+Dl95pvdVCVfJ4N3Ry1tnfd1A5WtJhVCcqgfW?=
- =?us-ascii?Q?DYKHT/yL9jFbXJDly8LZjs4wFATYhxG/0TcK7sFjkMaAFUlPyhe/joqkGmHp?=
- =?us-ascii?Q?nZ7a8aKcHJPsxXhHs8lHS5kbX/2N5EaioAFo3X2iD8A7P1/Z1OqtgIEB9fC6?=
- =?us-ascii?Q?BYIDOBomkZ8nJJp2fowSaoLM4nBOPT90?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ToEvCKUO9/c1mdM5MmmZwj2R6XBmM2E/cn47s8R6d2bzmwwA54No650ol2Cd?=
- =?us-ascii?Q?dpVy6joAWg5mJPG+zrnANIdNaOWpQYycK9XNnwSV5AmHsfLclr6updSBjD7S?=
- =?us-ascii?Q?rrkM3IjtC27Mn8+xdC74r90QeEBnifbHzVY2DX/QOvCSNdUcTMtlmRQYv6Ss?=
- =?us-ascii?Q?rXAEyjlZkauhsPtF2E91kjyyOnyg6PGp2Jqk4xCq4yei6XhsZVy4tN2Zz7Ym?=
- =?us-ascii?Q?yRAPtUZyENs4bf/qXUEioLxDSw2wsDzn01UHUNXAQf5waskOtSjaRWLiWS9J?=
- =?us-ascii?Q?ftpa5TUvGQGTLWkYjJ3MpFI6Ew55H7uEt6bhuMr9fYkYndQIX0+arYCvIX1A?=
- =?us-ascii?Q?JshYlI0l5j0kPxrMykpbcpQgZcwRWUfai85dL80bn90ahhL/7eQpU0H1hYP4?=
- =?us-ascii?Q?C4PMLdrgM99QqHmFhkHft1sRB12rtJ/XwQNHEhm/XhOt3MmWGwO8P0TVUHSB?=
- =?us-ascii?Q?j4HB4Bv5nMriOUd/xZ42ySjuqW6YP+q/su6dAh6UrH3OBCW9X9WNp3kGNIVH?=
- =?us-ascii?Q?036cRdKvmYE8RE8vkYH57fo//bpmpo3IVLZcbbxWUXgd2DzgCbEgBw2H7EZ+?=
- =?us-ascii?Q?HqOTaDOIA9J9kQcp8PljFqbRQCI5bpRCZC1iUs/A8uW/9osrWpAUUBuO592o?=
- =?us-ascii?Q?NBb0gHt0P+A3gNpqxZiXvRK5mIgU07/4EfGhWUKhOV2zf2oZd8I1HVmv8L7F?=
- =?us-ascii?Q?vwzxvltl1wLRuHLUP8RELHF4lvoqSk6pluvY5ZlNbpMoDIrR3D6bLacHBJU7?=
- =?us-ascii?Q?n01D6I0JnSybjvn7+wpGqlOuwnpUohp4Etc+iAcNIYJxUPG+Hi0WEuhP1MR7?=
- =?us-ascii?Q?TNgqOnyllNNLdrvdxdHdupU8ss9p0UsjgDUxmHk8uZ7eAAoTNpLc34qikc5w?=
- =?us-ascii?Q?QFJoDwuadh1wKb/1VBoX+pWIrxYfQRbgHTstvq9xkXHkRK4lzTvFHoQDArGs?=
- =?us-ascii?Q?KUwbL1KLr2SO1TJHfPLYD3c6FhEuy6bYB/GPcQ+MqxEorNx6wJUs6jBok8aW?=
- =?us-ascii?Q?rN4lwSj1CAiTKJI16OHhgP7h/wTMCFpgpsjjh3ejTfmTykfNRBvV5AcafH8j?=
- =?us-ascii?Q?nLfnoUcpCZ1A/KJm4QSEKkxr8qSdIEjl/mR0FqQesiKAN2WYY6TzWav8qF30?=
- =?us-ascii?Q?/U5ypt1LyEGA1EC5RD26sMADeagxg8aqZocupdTrdU6hWdErddwc1FDMs8Sw?=
- =?us-ascii?Q?kOLoNcd/ZaYTCpMl4zsKbi05ppZ0rSSn6wZ+JsCQMTYfA/aVbURuwD8mUMxT?=
- =?us-ascii?Q?1kwd9H/vJz0oyPS/DXKImqj1B6LVZTRmOm32jE8qlw6Gymtich7ijAULZ9El?=
- =?us-ascii?Q?o2RAecNibu5KP90FqcSCuVVc6qa1xnNK+OA2rzpQPSM5kp67xmu2XcTcnvxb?=
- =?us-ascii?Q?cq7TAkV4BIzhtikxF/N/QT67/fNj5N1OaPBuJlouYy89rdy4ie7XZ+zC2ywy?=
- =?us-ascii?Q?+f9JBG/RP7q7R9CqSszpblOyd3oyP6b85GcXV6yULDMUJDqvVHXwWZSieJS5?=
- =?us-ascii?Q?BSoe5W84YlFBXjlrHKPoPMAxo+ENF7XFXHWZbIakZ9myBn1d93BluTIkIBjQ?=
- =?us-ascii?Q?7ng4g63qnurTID92MT8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F11E10E482
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 13:11:10 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-301317939a0so799062a91.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 06:11:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742303469; x=1742908269; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=U/ytMItHk9C8d+GHT93HS+yIdlISpapJ3P3bzwGyHyc=;
+ b=A9Q/B8GI03iXipID6kHVEdQO6hHCK1DTRH6eqjqpSIA/3iA4OwHHXtCuPh+rvY63Vs
+ F+r9PNH7hpLOA8t0PW23NXnnWWiWoWeumIHCQTdI6nVLMwmWKAGTqUiEm+enZPygetiy
+ ht/DgnKl+tKz4Qk17UDvaoRXSLkurQd02qRF27Bajlfduh6Tu0GFlezfhc2MzDo7Iz0M
+ zerGbfHRFFs0WBIhDFCICvTqPR3mDhuyICWqezlhS/8KV41j/fCkcXlWD1xKt18uVXbY
+ ZwR5byUlN9oELMmNT1th5VVrCl+4FUVqMOU0NHhznLLxsQvFUIz0XRo0zikXPEOSiGPe
+ BqdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742303469; x=1742908269;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=U/ytMItHk9C8d+GHT93HS+yIdlISpapJ3P3bzwGyHyc=;
+ b=eMLNjjzpYOHTIAj+BQlZa1Siliuygj/zBikaNKCpJ5tufgAuvWNZuRbQWvzHrf0Ag5
+ 8iR+KNbtrTROnYyHHhVad/kxMS3gHgaHYGfevTpys2Z8jDZYcP9MeTeq7SSWZB4N9zT8
+ AZ6x1n4gNPVOP1ZtT+nyP43TJiOq7C290n5R9XLNNQJ5fR20ojnX2jCBd9gOezS/i8Vt
+ 72D3LnJAtQCY6FyMnRwW3JTp370GBcq05UDxtJU8qaVg3QWNkCUtSJ9w35fF88On6ovq
+ LDvXJxKe4g8mbEPAngq+V5jtl70Zv6vvKHcclpf9LfvXwhpUyPPh29iTzLw0e2hGyN56
+ dxoA==
+X-Gm-Message-State: AOJu0YxEA5zvRypYwCmGfyo5z7gtNCAbAgA/A+H8oTvebYi2F0w2/dky
+ eSIxAxrshpH18YyS056RFcb+uliAOMxOINTn5nrozwTZKRkgmhJPfAs55v1pl90pu/p2slMYTD+
+ ozwibOmXzkLsxG1uAcL0qQFeB1eA=
+X-Gm-Gg: ASbGncsd/DqOm6lMDeBbkDHdCJrsyeBh2eLaLQyy3mvpzb6r7uZzs3F27OvQbq/w5W9
+ C/SkOAvKElSipcD1YIhDQ4Y6Jnb5LcVRBzEs1HhbxwxqfoiR+6zdxNHbY9nWfInynE72iCjuRMK
+ ebaDDKEKFOg0ywkx/lpk2WzPK1CQ==
+X-Google-Smtp-Source: AGHT+IGmcN3FaXpAitjdQvqjt2ikiEml3j4K/khI8fmdyTOI6Ycdy55PG8TxS9xjjYIq+dkqNcHei8PdJinEFTCYRvQ=
+X-Received: by 2002:a17:90b:3b46:b0:2ff:6ac2:c5ae with SMTP id
+ 98e67ed59e1d1-30151c795bbmr8146279a91.1.1742303469339; Tue, 18 Mar 2025
+ 06:11:09 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38b39a8a-ddbb-4956-5207-08dd661dbc01
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2025 13:06:45.0223 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oGxpRpMnsjq+JLGt1CiaMUfb4O41ytbmc8XWeUsixzOVncTkDRw0hu0rIfEmhj1t
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9481
+References: <20250317144603.809849-1-alexander.deucher@amd.com>
+In-Reply-To: <20250317144603.809849-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 18 Mar 2025 09:10:57 -0400
+X-Gm-Features: AQ5f1JrEG4YQJzKNty5yLX5PecMSdnK-chOT98MZaHI2wna5ZEIIDUehbd9RfmI
+Message-ID: <CADnq5_Pa48X_CxFk5ft0MVPN+GP08h-Q7JXkgxDfs-HLLBYSqA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu/sdma: fix engine reset handling
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,97 +79,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+Ping?
 
-Reviewed-by: Prike Liang <Prike.Liang@amd.com>
-
-May I know when the counterpart part of Libdrm and Mesa can support this UA=
-PI?
-
-Regards,
-      Prike
-
-> -----Original Message-----
-> From: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Sent: Tuesday, March 18, 2025 5:29 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Olsak, Marek
-> <Marek.Olsak@amd.com>; Liang, Prike <Prike.Liang@amd.com>; Khatri, Sunil
-> <Sunil.Khatri@amd.com>
-> Subject: [PATCH] drm/amdgpu: add UAPI to query if user queues are support=
-ed
+On Mon, Mar 17, 2025 at 11:02=E2=80=AFAM Alex Deucher <alexander.deucher@am=
+d.com> wrote:
 >
-> Add an INFO query to check if user queues are supported.
+> Move the kfd suspend/resume code into the caller.  That
+> is where the KFD is likely to detect a reset so on the KFD
+> side there is no need to call them.  Also add a mutex to
+> lock the actual reset sequence.
 >
-> v2: switch to a mask of IPs (Marek)
+> v2: make the locking per instance
 >
-> Cc: marek.olsak@amd.com
-> Cc: prike.liang@amd.com
-> Cc: sunil.khatri@amd.com
+> Fixes: bac38ca8c475 ("drm/amdkfd: implement per queue sdma reset for gfx =
+9.4+")
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 13 +++++++++++++
->  include/uapi/drm/amdgpu_drm.h           |  8 ++++++++
->  2 files changed, 21 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c          | 15 +++------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h          |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c          |  9 ++++++++-
+>  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c |  2 +-
+>  4 files changed, 14 insertions(+), 15 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 3b7dfd56ccd0e..1d683c0487697 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1340,6 +1340,19 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
-> *data, struct drm_file *filp)
->                       return -EINVAL;
->               }
->       }
-> +     case AMDGPU_INFO_UQ_SUPPORTED: {
-> +             struct drm_amdgpu_info_uq_supported uq_supported =3D {};
-> +
-> +             if (adev->userq_funcs[AMDGPU_HW_IP_GFX])
-> +                     uq_supported.supported |=3D (1 << AMDGPU_HW_IP_GFX)=
-;
-> +             if (adev->userq_funcs[AMDGPU_HW_IP_COMPUTE])
-> +                     uq_supported.supported |=3D (1 <<
-> AMDGPU_HW_IP_COMPUTE);
-> +             if (adev->userq_funcs[AMDGPU_HW_IP_DMA])
-> +                     uq_supported.supported |=3D (1 << AMDGPU_HW_IP_DMA)=
-;
-> +             ret =3D copy_to_user(out, &uq_supported,
-> +                                min((size_t)size, sizeof(uq_supported)))=
- ? -
-> EFAULT : 0;
-> +             return 0;
-> +     }
->       default:
->               DRM_DEBUG_KMS("Invalid request %d\n", info->query);
->               return -EINVAL;
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 5dbd9037afe75..4b64e91002c05 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -1195,6 +1195,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
->  #define AMDGPU_INFO_GPUVM_FAULT                      0x23
->  /* query FW object size and alignment */
->  #define AMDGPU_INFO_UQ_FW_AREAS                      0x24
-> +/* query if user queues are supported */
-> +#define AMDGPU_INFO_UQ_SUPPORTED             0x25
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sdma.c
+> index 03c4c012a1508..1b0b2598a90a7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> @@ -524,7 +524,6 @@ void amdgpu_sdma_register_on_reset_callbacks(struct a=
+mdgpu_device *adev, struct
+>   * amdgpu_sdma_reset_engine - Reset a specific SDMA engine
+>   * @adev: Pointer to the AMDGPU device
+>   * @instance_id: ID of the SDMA engine instance to reset
+> - * @suspend_user_queues: check if suspend user queue.
+>   *
+>   * This function performs the following steps:
+>   * 1. Calls all registered pre_reset callbacks to allow KFD and AMDGPU t=
+o save their state.
+> @@ -533,7 +532,7 @@ void amdgpu_sdma_register_on_reset_callbacks(struct a=
+mdgpu_device *adev, struct
+>   *
+>   * Returns: 0 on success, or a negative error code on failure.
+>   */
+> -int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instan=
+ce_id, bool suspend_user_queues)
+> +int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instan=
+ce_id)
+>  {
+>         struct sdma_on_reset_funcs *funcs;
+>         int ret =3D 0;
+> @@ -542,13 +541,7 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *a=
+dev, uint32_t instance_id, b
+>         struct amdgpu_ring *page_ring =3D &sdma_instance->page;
+>         bool gfx_sched_stopped =3D false, page_sched_stopped =3D false;
 >
->  #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT       0
->  #define AMDGPU_INFO_MMR_SE_INDEX_MASK        0xff
-> @@ -1572,6 +1574,12 @@ struct drm_amdgpu_info_uq_metadata {
->       };
+> -       /* Suspend KFD if suspend_user_queues is true.
+> -        * prevent the destruction of in-flight healthy user queue packet=
+s and
+> -        * avoid race conditions between KFD and KGD during the reset pro=
+cess.
+> -        */
+> -       if (suspend_user_queues)
+> -               amdgpu_amdkfd_suspend(adev, false);
+> -
+> +       mutex_lock(&sdma_instance->engine_reset_mutex);
+>         /* Stop the scheduler's work queue for the GFX and page rings if =
+they are running.
+>         * This ensures that no new tasks are submitted to the queues whil=
+e
+>         * the reset is in progress.
+> @@ -609,9 +602,7 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *ad=
+ev, uint32_t instance_id, b
+>                         drm_sched_wqueue_start(&page_ring->sched);
+>                 }
+>         }
+> -
+> -       if (suspend_user_queues)
+> -               amdgpu_amdkfd_resume(adev, false);
+> +       mutex_unlock(&sdma_instance->engine_reset_mutex);
+>
+>         return ret;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sdma.h
+> index 9651693200655..8e7e794ff136f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> @@ -64,6 +64,7 @@ struct amdgpu_sdma_instance {
+>         struct amdgpu_bo        *sdma_fw_obj;
+>         uint64_t                sdma_fw_gpu_addr;
+>         uint32_t                *sdma_fw_ptr;
+> +       struct mutex            engine_reset_mutex;
 >  };
 >
-> +struct drm_amdgpu_info_uq_supported {
-> +     /** returns a mask for each IP type (1 << AMDGPU_HW_IP_*) */
-> +     __u32   supported;
-> +     __u32   pad;
-> +};
+>  enum amdgpu_sdma_ras_memory_id {
+> @@ -169,7 +170,7 @@ struct amdgpu_buffer_funcs {
+>  };
+>
+>  void amdgpu_sdma_register_on_reset_callbacks(struct amdgpu_device *adev,=
+ struct sdma_on_reset_funcs *funcs);
+> -int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instan=
+ce_id, bool suspend_user_queues);
+> +int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instan=
+ce_id);
+>
+>  #define amdgpu_emit_copy_buffer(adev, ib, s, d, b, t) (adev)->mman.buffe=
+r_funcs->emit_copy_buffer((ib),  (s), (d), (b), (t))
+>  #define amdgpu_emit_fill_buffer(adev, ib, s, d, b) (adev)->mman.buffer_f=
+uncs->emit_fill_buffer((ib), (s), (d), (b))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v4_4_2.c
+> index fd34dc1380811..927db7a080f0a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> @@ -1445,6 +1445,7 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+>         }
+>
+>         for (i =3D 0; i < adev->sdma.num_instances; i++) {
+> +               mutex_init(&adev->sdma.instance[i].engine_reset_mutex);
+>                 ring =3D &adev->sdma.instance[i].ring;
+>                 ring->ring_obj =3D NULL;
+>                 ring->use_doorbell =3D true;
+> @@ -1666,7 +1667,13 @@ static int sdma_v4_4_2_reset_queue(struct amdgpu_r=
+ing *ring, unsigned int vmid)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+>         u32 id =3D GET_INST(SDMA0, ring->me);
+> -       return amdgpu_sdma_reset_engine(adev, id, true);
+> +       int r;
 > +
->  /*
->   * Supported GPU families
->   */
+> +       amdgpu_amdkfd_suspend(adev, false);
+> +       r =3D amdgpu_sdma_reset_engine(adev, id);
+> +       amdgpu_amdkfd_resume(adev, false);
+> +
+> +       return r;
+>  }
+>
+>  static int sdma_v4_4_2_stop_queue(struct amdgpu_device *adev, uint32_t i=
+nstance_id)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 2ed003d3ff0e0..c610e172a2b83 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -2310,7 +2310,7 @@ static int reset_hung_queues_sdma(struct device_que=
+ue_manager *dqm)
+>                                 continue;
+>
+>                         /* Reset engine and check. */
+> -                       if (amdgpu_sdma_reset_engine(dqm->dev->adev, i, f=
+alse) ||
+> +                       if (amdgpu_sdma_reset_engine(dqm->dev->adev, i) |=
+|
+>                             dqm->dev->kfd2kgd->hqd_sdma_get_doorbell(dqm-=
+>dev->adev, i, j) ||
+>                             !set_sdma_queue_as_reset(dqm, doorbell_off)) =
+{
+>                                 r =3D -ENOTRECOVERABLE;
 > --
 > 2.48.1
-
+>
