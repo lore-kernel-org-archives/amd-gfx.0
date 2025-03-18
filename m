@@ -4,49 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 449D5C282EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 12:55:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54079C28B28
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 12:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFDC10E476;
-	Tue, 18 Mar 2025 12:55:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gvhYiP8j";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7555410E31D;
- Tue, 18 Mar 2025 12:55:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SJBv//AenJLf+JjPWebclSaFm6WdDsxe+/yWwYJ2xVw=; b=gvhYiP8jCxdeDMNp4aexQLmCVF
- 1N7KnL+qe4GOOjz0uVdghTPMqvX9ANLVFohL0iZha7Hf5H3P2tbODWmyhBcJgSuXufrRyFOUULuy4
- QJK5IhT+xVyCuPU6nrDsB3HipFvd1FfInRi1J//SLkpZJHMa1NaIgOQfU7/BunWcK9RVcKy6Oa6rM
- 9h2r1raH6o4Bo/T+s68k7bU4EoqIh61vTW8JyQYtav3JtNsoHIb53hmIb6FlZv1SJt+TBCTwKutqH
- wgzRZBo0EKOi10kYtQgk80CY6m5QcWdTu+a+BF3loxY/PXXuY+ngjcYJgHPSzxHAl9W2siSrMct68
- bvpbhl5Q==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tuWTY-002jMF-Op; Tue, 18 Mar 2025 13:55:20 +0100
-Message-ID: <a096bf20-4f31-418f-b14a-15c91944c33c@igalia.com>
-Date: Tue, 18 Mar 2025 12:55:19 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B52ED10E480;
+	Tue, 18 Mar 2025 12:55:55 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 385E910E106
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Mar 2025 11:25:11 +0000 (UTC)
+Received: from loongson.cn (unknown [223.64.68.198])
+ by gateway (Coremail) with SMTP id _____8CxaWoKVtlnOpCbAA--.2214S3;
+ Tue, 18 Mar 2025 19:16:26 +0800 (CST)
+Received: from localhost.localdomain (unknown [223.64.68.198])
+ by front1 (Coremail) with SMTP id qMiowMAxTsUCVtln96ZRAA--.22425S2;
+ Tue, 18 Mar 2025 19:16:25 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Huacai Chen <chenhuacai@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Huacai Chen <chenhuacai@loongson.cn>, stable@vger.kernel.org
+Subject: [PATCH 37/40] drm/amd/display: Protect
+ dml2_create()/dml2_copy()/dml2_create_copy()
+Date: Tue, 18 Mar 2025 19:16:10 +0800
+Message-ID: <20250318111611.2161153-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: fix gang submission error handling
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- phasta@mailbox.org, dri-devel@lists.freedesktop.org, dakr@kernel.org,
- amd-gfx@lists.freedesktop.org
-References: <20250318120313.19099-1-christian.koenig@amd.com>
- <20250318120313.19099-3-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250318120313.19099-3-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qMiowMAxTsUCVtln96ZRAA--.22425S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW3AFy5Kr1rCFWDJr4rGr4rWFX_yoWxJFyfpr
+ 98XrWrGw48Ar1xJr13AF1UKr9Yq3ZxAFy8Jry7JF1a9F15Wrn8JFykJFW8trWUtFW5JF17
+ X3srAr98tay8KwcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUk2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+ 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AK
+ xVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
+ AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+ r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+ IIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+ w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7
+ CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU7eT5DUUUU
+X-Mailman-Approved-At: Tue, 18 Mar 2025 12:55:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,112 +65,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Commit 7da55c27e76749b9 ("drm/amd/display: Remove incorrect FP context
+start") removes the FP context protection of dml2_create(), and it said
+"All the DC_FP_START/END should be used before call anything from DML2".
 
-On 18/03/2025 12:03, Christian König wrote:
-> For the unlikely case that we ran into an ENOMEM while fixing up the gang
-> submission dependencies we can't clean up any more since the gang
-> members are already armed.
-> 
-> Fix this by using pre-allocated dependency slots and re-ordering the
-> code.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 58 +++++++++++++++-----------
->   1 file changed, 34 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 5cc5f59e3018..770005c8e41f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1285,36 +1285,21 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->   	uint64_t seq;
->   	int r;
->   
-> -	for (i = 0; i < p->gang_size; ++i)
-> -		drm_sched_job_arm(&p->jobs[i]->base);
-> -
-> -	for (i = 0; i < p->gang_size; ++i) {
-> -		struct dma_fence *fence;
-> -
-> -		if (p->jobs[i] == leader)
-> -			continue;
-> -
-> -		fence = &p->jobs[i]->base.s_fence->scheduled;
-> -		dma_fence_get(fence);
-> -		r = drm_sched_job_add_dependency(&leader->base, fence);
-> -		if (r) {
-> -			dma_fence_put(fence);
+However, dml2_create()/dml2_copy()/dml2_create_copy() are not protected
+from their callers, causing such errors:
 
-Ouch, was this broken too - one put too many since 
-drm_sched_job_add_dependency consumes the reference in the failing case? 
-If it looks like that to you too, see if you think it is worth to split 
-into two patches, or as minimum mention in the commit message.
+ do_fpu invoked from kernel context![#1]:
+ CPU: 0 UID: 0 PID: 239 Comm: kworker/0:5 Not tainted 6.14.0-rc6+ #1
+ Workqueue: events work_for_cpu_fn
+ pc ffff80000319de80 ra ffff80000319de5c tp 900000010575c000 sp 900000010575f840
+ a0 0000000000000000 a1 900000012f210130 a2 900000012f000000 a3 ffff80000357e268
+ a4 ffff80000357e260 a5 900000012ea52cf0 a6 0000000400000004 a7 0000012c00001388
+ t0 00001900000015e0 t1 ffff80000379d000 t2 0000000010624dd3 t3 0000006400000014
+ t4 00000000000003e8 t5 0000005000000018 t6 0000000000000020 t7 0000000f00000064
+ t8 000000000000002f u0 5f5e9200f8901912 s9 900000012d380010 s0 900000012ea51fd8
+ s1 900000012f000000 s2 9000000109296000 s3 0000000000000001 s4 0000000000001fd8
+ s5 0000000000000001 s6 ffff800003415000 s7 900000012d390000 s8 ffff800003211f80
+    ra: ffff80000319de5c dml21_apply_soc_bb_overrides+0x3c/0x960 [amdgpu]
+   ERA: ffff80000319de80 dml21_apply_soc_bb_overrides+0x60/0x960 [amdgpu]
+  CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=CC DACM=CC -WE)
+  PRMD: 00000004 (PPLV0 +PIE -PWE)
+  EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
+  ECFG: 00071c1d (LIE=0,2-4,10-12 VS=7)
+ ESTAT: 000f0000 [FPD] (IS= ECode=15 EsubCode=0)
+  PRID: 0014d010 (Loongson-64bit, Loongson-3C6000/S)
+ Process kworker/0:5 (pid: 239, threadinfo=00000000927eadc6, task=000000008fd31682)
+ Stack : 00040dc000003164 0000000000000001 900000012f210130 900000012eabeeb8
+         900000012f000000 ffff80000319fe48 900000012f210000 900000012f210130
+         900000012f000000 900000012eabeeb8 0000000000000001 ffff8000031a0064
+         900000010575f9f0 900000012f210130 900000012eac0000 900000012ea80000
+         900000012f000000 ffff8000031cefc4 900000010575f9f0 ffff8000035859c0
+         ffff800003414000 900000010575fa78 900000012f000000 ffff8000031b4c50
+         0000000000000000 9000000101c9d700 9000000109c40000 5f5e9200f8901912
+         900000012d3c4bd0 900000012d3c5000 ffff8000034aed18 900000012d380010
+         900000012d3c4bd0 ffff800003414000 900000012d380000 ffff800002ea49dc
+         0000000000000001 900000012d3c6000 00000000ffffe423 0000000000010000
+         ...
+ Call Trace:
+ [<ffff80000319de80>] dml21_apply_soc_bb_overrides+0x60/0x960 [amdgpu]
+ [<ffff80000319fe44>] dml21_init+0xa4/0x280 [amdgpu]
+ [<ffff8000031a0060>] dml21_create+0x40/0x80 [amdgpu]
+ [<ffff8000031cefc0>] dc_state_create+0x100/0x160 [amdgpu]
+ [<ffff8000031b4c4c>] dc_create+0x44c/0x640 [amdgpu]
+ [<ffff800002ea49d8>] amdgpu_dm_init+0x3f8/0x2060 [amdgpu]
+ [<ffff800002ea6658>] dm_hw_init+0x18/0x60 [amdgpu]
+ [<ffff800002b16738>] amdgpu_device_init+0x1938/0x27e0 [amdgpu]
+ [<ffff800002b18e80>] amdgpu_driver_load_kms+0x20/0xa0 [amdgpu]
+ [<ffff800002b0c8f0>] amdgpu_pci_probe+0x1b0/0x580 [amdgpu]
+ [<900000000448eae4>] local_pci_probe+0x44/0xc0
+ [<9000000003b02b18>] work_for_cpu_fn+0x18/0x40
+ [<9000000003b05da0>] process_one_work+0x160/0x300
+ [<9000000003b06718>] worker_thread+0x318/0x440
+ [<9000000003b11b8c>] kthread+0x12c/0x220
+ [<9000000003ac1484>] ret_from_kernel_thread+0x8/0xa4
 
-Otherwise LGTM.
+So protect dml2_create()/dml2_copy()/dml2_create_copy() with DC_FP_START
+and DC_FP_END.
 
-Regards,
+Cc: stable@vger.kernel.org
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_state.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-Tvrtko
-
-> -			return r;
-> -		}
-> -	}
-> -
-> -	if (p->gang_size > 1) {
-> -		for (i = 0; i < p->gang_size; ++i)
-> -			amdgpu_job_set_gang_leader(p->jobs[i], leader);
-> -	}
-> +	/* Preallocate the memory for the gang dependencies */
-> +	r = drm_sched_job_prealloc_dependency_slots(&leader->base,
-> +						    p->gang_size - 1);
-> +	if (r)
-> +		return r;
->   
-> -	/* No memory allocation is allowed while holding the notifier lock.
-> +	/*
-> +	 * No memory allocation is allowed while holding the notifier lock.
->   	 * The lock is held until amdgpu_cs_submit is finished and fence is
->   	 * added to BOs.
->   	 */
->   	mutex_lock(&p->adev->notifier_lock);
->   
-> -	/* If userptr are invalidated after amdgpu_cs_parser_bos(), return
-> +	/*
-> +	 * If userptr are invalidated after amdgpu_cs_parser_bos(), return
->   	 * -EAGAIN, drmIoctl in libdrm will restart the amdgpu_cs_ioctl.
->   	 */
->   	r = 0;
-> @@ -1329,6 +1314,31 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->   		return r;
->   	}
->   
-> +	for (i = 0; i < p->gang_size; ++i)
-> +		drm_sched_job_arm(&p->jobs[i]->base);
-> +
-> +	for (i = 0; i < p->gang_size; ++i) {
-> +		struct dma_fence *fence;
-> +
-> +		if (p->jobs[i] == leader)
-> +			continue;
-> +
-> +		fence = &p->jobs[i]->base.s_fence->scheduled;
-> +		dma_fence_get(fence);
-> +		r = drm_sched_job_add_dependency(&leader->base, fence);
-> +		/*
-> +		 * We can't abort here with an error any more, but we should
-> +		 * also never run into an error since the slots for the
-> +		 * dependency fences are preallocated.
-> +		 */
-> +		WARN_ON(r);
-> +	}
-> +
-> +	if (p->gang_size > 1) {
-> +		for (i = 0; i < p->gang_size; ++i)
-> +			amdgpu_job_set_gang_leader(p->jobs[i], leader);
-> +	}
-> +
->   	p->fence = dma_fence_get(&leader->base.s_fence->finished);
->   	drm_exec_for_each_locked_object(&p->exec, index, gobj) {
->   
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+index 1b2cce127981..6e2cac08002d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+@@ -210,17 +210,23 @@ struct dc_state *dc_state_create(struct dc *dc, struct dc_state_create_params *p
+ 
+ #ifdef CONFIG_DRM_AMD_DC_FP
+ 	if (dc->debug.using_dml2) {
++		DC_FP_START();
++
+ 		dml2_opt->use_clock_dc_limits = false;
+ 		if (!dml2_create(dc, dml2_opt, &state->bw_ctx.dml2)) {
++			DC_FP_END();
+ 			dc_state_release(state);
+ 			return NULL;
+ 		}
+ 
+ 		dml2_opt->use_clock_dc_limits = true;
+ 		if (!dml2_create(dc, dml2_opt, &state->bw_ctx.dml2_dc_power_source)) {
++			DC_FP_END();
+ 			dc_state_release(state);
+ 			return NULL;
+ 		}
++
++		DC_FP_END();
+ 	}
+ #endif
+ 
+@@ -240,6 +246,8 @@ void dc_state_copy(struct dc_state *dst_state, struct dc_state *src_state)
+ 	dc_state_copy_internal(dst_state, src_state);
+ 
+ #ifdef CONFIG_DRM_AMD_DC_FP
++	DC_FP_START();
++
+ 	dst_state->bw_ctx.dml2 = dst_dml2;
+ 	if (src_state->bw_ctx.dml2)
+ 		dml2_copy(dst_state->bw_ctx.dml2, src_state->bw_ctx.dml2);
+@@ -247,6 +255,8 @@ void dc_state_copy(struct dc_state *dst_state, struct dc_state *src_state)
+ 	dst_state->bw_ctx.dml2_dc_power_source = dst_dml2_dc_power_source;
+ 	if (src_state->bw_ctx.dml2_dc_power_source)
+ 		dml2_copy(dst_state->bw_ctx.dml2_dc_power_source, src_state->bw_ctx.dml2_dc_power_source);
++
++	DC_FP_END();
+ #endif
+ 
+ 	/* context refcount should not be overridden */
+@@ -268,17 +278,23 @@ struct dc_state *dc_state_create_copy(struct dc_state *src_state)
+ 	new_state->bw_ctx.dml2 = NULL;
+ 	new_state->bw_ctx.dml2_dc_power_source = NULL;
+ 
++	DC_FP_START();
++
+ 	if (src_state->bw_ctx.dml2 &&
+ 			!dml2_create_copy(&new_state->bw_ctx.dml2, src_state->bw_ctx.dml2)) {
++		DC_FP_END();
+ 		dc_state_release(new_state);
+ 		return NULL;
+ 	}
+ 
+ 	if (src_state->bw_ctx.dml2_dc_power_source &&
+ 			!dml2_create_copy(&new_state->bw_ctx.dml2_dc_power_source, src_state->bw_ctx.dml2_dc_power_source)) {
++		DC_FP_END();
+ 		dc_state_release(new_state);
+ 		return NULL;
+ 	}
++
++	DC_FP_END();
+ #endif
+ 
+ 	kref_init(&new_state->refcount);
+-- 
+2.47.1
 
