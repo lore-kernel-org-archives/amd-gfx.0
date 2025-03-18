@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EB74C282EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 12:39:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 449D5C282EC
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 12:55:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0D4110E22C;
-	Tue, 18 Mar 2025 12:39:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFDC10E476;
+	Tue, 18 Mar 2025 12:55:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EGEgJUrH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gvhYiP8j";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFA5810E22C;
- Tue, 18 Mar 2025 12:39:10 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B0BE25C58DA;
- Tue, 18 Mar 2025 12:36:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18A47C4CEDD;
- Tue, 18 Mar 2025 12:39:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742301546;
- bh=2e+zFKLmefoVlJH+QXgvwXNeq0lONZMsK48SZIa4bsA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EGEgJUrHvIog7ah9s1MlhtLGT/L3OvBdp82nbtWpoE02MqcLuxq2JpIIS5j4wBjAd
- wxOTpFxlT2gm/oihmsYD1xmAdibBqNRwYT2WdqkBemo2sLkVUB+kWeZxNyWhnLrh4l
- SznFOynVuUF2sfvrwpK01PHjtp82Qd+dSwwp/CctluYiarlTAo60o8Nf3y2goe9RXm
- 7hYblY8n+fec+AhySBwdHhh5QHjU3n/oBHCeoopA2j/T6ZbCfuu3MOSoz8n1AXCE5W
- MbUxqGR7T5cuJlq3mJldKhzuxxffvWq0+cpsVW6tZYTnA3YNvjJNGDA5GEEpqEorK5
- vPY3yzgpCIrUQ==
-Date: Tue, 18 Mar 2025 13:39:02 +0100
-From: Danilo Krummrich <dakr@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: phasta@mailbox.org, tvrtko.ursulin@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] drm/sched: add drm_sched_prealloc_dependency_slots
-Message-ID: <Z9lpZiRaq0B80XoL@pollux>
-References: <20250318120313.19099-1-christian.koenig@amd.com>
- <20250318120313.19099-2-christian.koenig@amd.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7555410E31D;
+ Tue, 18 Mar 2025 12:55:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SJBv//AenJLf+JjPWebclSaFm6WdDsxe+/yWwYJ2xVw=; b=gvhYiP8jCxdeDMNp4aexQLmCVF
+ 1N7KnL+qe4GOOjz0uVdghTPMqvX9ANLVFohL0iZha7Hf5H3P2tbODWmyhBcJgSuXufrRyFOUULuy4
+ QJK5IhT+xVyCuPU6nrDsB3HipFvd1FfInRi1J//SLkpZJHMa1NaIgOQfU7/BunWcK9RVcKy6Oa6rM
+ 9h2r1raH6o4Bo/T+s68k7bU4EoqIh61vTW8JyQYtav3JtNsoHIb53hmIb6FlZv1SJt+TBCTwKutqH
+ wgzRZBo0EKOi10kYtQgk80CY6m5QcWdTu+a+BF3loxY/PXXuY+ngjcYJgHPSzxHAl9W2siSrMct68
+ bvpbhl5Q==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tuWTY-002jMF-Op; Tue, 18 Mar 2025 13:55:20 +0100
+Message-ID: <a096bf20-4f31-418f-b14a-15c91944c33c@igalia.com>
+Date: Tue, 18 Mar 2025 12:55:19 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amdgpu: fix gang submission error handling
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ phasta@mailbox.org, dri-devel@lists.freedesktop.org, dakr@kernel.org,
+ amd-gfx@lists.freedesktop.org
+References: <20250318120313.19099-1-christian.koenig@amd.com>
+ <20250318120313.19099-3-christian.koenig@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20250318120313.19099-3-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250318120313.19099-2-christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,33 +61,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 18, 2025 at 01:03:12PM +0100, Christian K�nig wrote:
->  /**
->   * drm_sched_job_add_dependency - adds the fence as a job dependency
->   * @job: scheduler job to add the dependencies to
-> @@ -878,10 +910,12 @@ int drm_sched_job_add_dependency(struct drm_sched_job *job,
->  	 * engines involved, rather than the number of BOs.
->  	 */
->  	xa_for_each(&job->dependencies, index, entry) {
-> -		if (entry->context != fence->context)
-> +		bool signaled = dma_fence_is_signaled(entry);
-> +
-> +		if (!signaled && entry->context != fence->context)
->  			continue;
->  
-> -		if (dma_fence_is_later(fence, entry)) {
-> +		if (signaled || dma_fence_is_later(fence, entry)) {
->  			dma_fence_put(entry);
->  			xa_store(&job->dependencies, index, fence, GFP_KERNEL);
->  		} else {
-> @@ -890,7 +924,8 @@ int drm_sched_job_add_dependency(struct drm_sched_job *job,
->  		return 0;
->  	}
->  
-> -	ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b, GFP_KERNEL);
-> +	ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b,
-> +		       GFP_KERNEL);
->  	if (ret != 0)
->  		dma_fence_put(fence);
 
-Those changes seem unrelated, aren't they?
+On 18/03/2025 12:03, Christian König wrote:
+> For the unlikely case that we ran into an ENOMEM while fixing up the gang
+> submission dependencies we can't clean up any more since the gang
+> members are already armed.
+> 
+> Fix this by using pre-allocated dependency slots and re-ordering the
+> code.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 58 +++++++++++++++-----------
+>   1 file changed, 34 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 5cc5f59e3018..770005c8e41f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1285,36 +1285,21 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+>   	uint64_t seq;
+>   	int r;
+>   
+> -	for (i = 0; i < p->gang_size; ++i)
+> -		drm_sched_job_arm(&p->jobs[i]->base);
+> -
+> -	for (i = 0; i < p->gang_size; ++i) {
+> -		struct dma_fence *fence;
+> -
+> -		if (p->jobs[i] == leader)
+> -			continue;
+> -
+> -		fence = &p->jobs[i]->base.s_fence->scheduled;
+> -		dma_fence_get(fence);
+> -		r = drm_sched_job_add_dependency(&leader->base, fence);
+> -		if (r) {
+> -			dma_fence_put(fence);
+
+Ouch, was this broken too - one put too many since 
+drm_sched_job_add_dependency consumes the reference in the failing case? 
+If it looks like that to you too, see if you think it is worth to split 
+into two patches, or as minimum mention in the commit message.
+
+Otherwise LGTM.
+
+Regards,
+
+Tvrtko
+
+> -			return r;
+> -		}
+> -	}
+> -
+> -	if (p->gang_size > 1) {
+> -		for (i = 0; i < p->gang_size; ++i)
+> -			amdgpu_job_set_gang_leader(p->jobs[i], leader);
+> -	}
+> +	/* Preallocate the memory for the gang dependencies */
+> +	r = drm_sched_job_prealloc_dependency_slots(&leader->base,
+> +						    p->gang_size - 1);
+> +	if (r)
+> +		return r;
+>   
+> -	/* No memory allocation is allowed while holding the notifier lock.
+> +	/*
+> +	 * No memory allocation is allowed while holding the notifier lock.
+>   	 * The lock is held until amdgpu_cs_submit is finished and fence is
+>   	 * added to BOs.
+>   	 */
+>   	mutex_lock(&p->adev->notifier_lock);
+>   
+> -	/* If userptr are invalidated after amdgpu_cs_parser_bos(), return
+> +	/*
+> +	 * If userptr are invalidated after amdgpu_cs_parser_bos(), return
+>   	 * -EAGAIN, drmIoctl in libdrm will restart the amdgpu_cs_ioctl.
+>   	 */
+>   	r = 0;
+> @@ -1329,6 +1314,31 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+>   		return r;
+>   	}
+>   
+> +	for (i = 0; i < p->gang_size; ++i)
+> +		drm_sched_job_arm(&p->jobs[i]->base);
+> +
+> +	for (i = 0; i < p->gang_size; ++i) {
+> +		struct dma_fence *fence;
+> +
+> +		if (p->jobs[i] == leader)
+> +			continue;
+> +
+> +		fence = &p->jobs[i]->base.s_fence->scheduled;
+> +		dma_fence_get(fence);
+> +		r = drm_sched_job_add_dependency(&leader->base, fence);
+> +		/*
+> +		 * We can't abort here with an error any more, but we should
+> +		 * also never run into an error since the slots for the
+> +		 * dependency fences are preallocated.
+> +		 */
+> +		WARN_ON(r);
+> +	}
+> +
+> +	if (p->gang_size > 1) {
+> +		for (i = 0; i < p->gang_size; ++i)
+> +			amdgpu_job_set_gang_leader(p->jobs[i], leader);
+> +	}
+> +
+>   	p->fence = dma_fence_get(&leader->base.s_fence->finished);
+>   	drm_exec_for_each_locked_object(&p->exec, index, gobj) {
+>   
+
