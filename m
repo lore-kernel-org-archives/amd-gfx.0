@@ -4,63 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2F47C28B28
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 11:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17163C282EC
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Mar 2025 12:03:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78ED910E20E;
-	Tue, 18 Mar 2025 11:18:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF47110E469;
+	Tue, 18 Mar 2025 12:03:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I1NySPlW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JcD5auGI";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9FF10E20E;
- Tue, 18 Mar 2025 11:18:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C98C45C58A2;
- Tue, 18 Mar 2025 11:16:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6958EC4CEDD;
- Tue, 18 Mar 2025 11:18:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742296724;
- bh=ecUjoZ++I58Bl6ZVANbY1i64A6BV21RqFFGqC3bd7wI=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=I1NySPlWHKehRUzDSIjsIoUkePG31FfeVqVBGHnsgAhf9tqqeKs7w+YTm8yX8Ht7v
- XAmZgvC8GfSKzcyqHhBdrrzRLuNH9055qQ77jd8oCyaYWHZUgehO7qiSIdd/EGV8Nw
- WBJHODyK41XxRmf+i/FtBtJ04mRyEROc96ewem1kfRh8F6K1nANy2BZSHmjbnAzwYi
- zzIXpbcTrhBGJxL47Af7xMga9h2N9IT4dsQGdfyYbFzpZ1DpSQQvegWanB73nfwM6B
- qjZ4X9adwp2A6jkjbiwKpf7zsHrx7jCZShnOE9lZeQIkHBtODwZHSTeTnN59iSPHLF
- fjq9GMKIFeBWQ==
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-ac2a089fbbdso964230366b.1; 
- Tue, 18 Mar 2025 04:18:44 -0700 (PDT)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33F5B10E1F6;
+ Tue, 18 Mar 2025 12:03:19 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5deb6482cso11934614a12.1; 
+ Tue, 18 Mar 2025 05:03:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742299398; x=1742904198; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=qDQ3T3FQuW2vH6Fch3DBzFXqBXihstA0QbCtSAkM1Do=;
+ b=JcD5auGIdPJltfIAm3In5u9EmYkFaIUAZxVQSlyglf8XS0IT6CRLVlW2jtFbRVaN2d
+ NSRq9p1Y4YQQrWxA6tq6x77zOJMDL/QNU9pKSnSvAiEUaubskpy4M3tHr0zs7XzaZF3q
+ V4J3hw36VIl0lKHHiH/5NRStqegGqsUfRBh8VrFD5YjS/BgGDAzU9FF4KAkBQboS41Xi
+ aDNSmJtVixNJzaSG/OMXihsfZLMt98J2ZunSPtcpLM4NgfUFftOoMvNyDuoBvDRCQDRE
+ bUXMA+9LV7IYt8SqLoyIRAv0Iq+hhRBDoQSQAXsvPRBVKWKfAAo5+kiiTNm19SR5z1UC
+ xfbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742299398; x=1742904198;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qDQ3T3FQuW2vH6Fch3DBzFXqBXihstA0QbCtSAkM1Do=;
+ b=mB05NH98fBvh+cA0AaLIG09O8bfZiIBrCBdZrlN8IbpFdW00YPIJ+o4epzzkD9AHSM
+ JfjSvuc18zOqPbzmFZFQG3xRVTdkeOBW3ykBQtx+wIVWFocl4/w1tGq8hcEnF6UG7INo
+ c+3IkUEu8S46sTOv2el7jfLIEgWKWVsJSxNp12mC5d4t1/Z7ZtxzEr/Wf7+glMxuZrcD
+ LFYpJsPQjjSOyvpvm24EV2zujj+SzjkPneev5QwpSDYHyT+DEFW+cEqVXmemdit3jhlk
+ 7STihxu8tq92iG9pOBgXKwaWlugCqe9rVy+btBs4wtfyyM6C4hkYpyNVSCRLNZzwTJTB
+ ZVIg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVEMRji9Fb1qv4GzNQQ/YhAB+Ku8lcrrTJa8EMVtrfu0f44n/gbhq+msRIi/wSQKNpEZxZyrXOS2xin@lists.freedesktop.org,
- AJvYcCWTfCCoXyAggnDnLdzJcY9B8WLru1IwePhErmY4MElo1LVHVX+HYH57C8Yl96whvoNrAsH0ErCC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJezBmK5mMOpU19bxI3P7ku+r4FI6XSu7e4NBWnqhOO0VNEIig
- 2q6utlae28JSQ1Ply7pODS8pHN89zpkvEkNdr83IZJc8X97OU7TlYzsKe0cJeRC3V60KWwXE20V
- zT3sm9QlXzbntd2cQ4s39DNEt7Rc=
-X-Google-Smtp-Source: AGHT+IHQyWsVDyV7GPIT8mU9qxkU0lWWDxBKairMq2R0LaSoEUAawFYv4bDvE7FKSNEGQdRZ2ZySowa7fV8ZqtWgaT0=
-X-Received: by 2002:a17:906:dc8d:b0:ac3:8aa6:c7da with SMTP id
- a640c23a62f3a-ac38f7776abmr302969766b.7.1742296722921; Tue, 18 Mar 2025
- 04:18:42 -0700 (PDT)
+ AJvYcCV80bXtIV7EPhozkKkppgM3AXsgtKmXagMVW1+hlv5KLUKCBeFkbIzNpaASM0Jtk5UuXlc4OWhGyKJY@lists.freedesktop.org,
+ AJvYcCXT/FymVbALEGDURwojKRvWIilm1JzoLN5tVXfp1c1y1TUQooHOEP5FQhA0tCQv0RLFbw786cEd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzW02vGN7eUUwHpbvjOO8ymty7IEGwPQHWx6baybGvyK+ISCk1F
+ X6x1wEnbESxfYpOs8rCY9n/xXHIRf4dQ3bB3bSwM9HjfUiobc7dR
+X-Gm-Gg: ASbGncu8cHg23oCuWpqIH12D1b8xMaUSa2dRHDpZHsAAA4wKw2W8ZbKwM4CYcZeHNVR
+ aq+v1H5Pnk3p6LqvLA7HB+mT++QdMSpsF+6RhAinUab8jTlR7iQjRG7h20yZkprjkyto9Fwqh5a
+ 3nFrAl8DuXzu4NqGCElemBTp7t8H0g4duFiWXYl+4kU4cV1deYb0bdEh3S1CAOnEvA1R6NLSIBQ
+ jTFbGHAuvpVVcVmdE2mxz0C9taHEMfzVitTXy/J3NM+qVyG842ILJCnMExe7Cb7LTwQcYFAXjkX
+ Ku1IED9LJsDCmAB22yj9A3+bFu5cSP/3uiWprXgQFZRheGlxuDDplukr6w==
+X-Google-Smtp-Source: AGHT+IHOMu1YhSAD95J6yktmxiTxLEGWhBl37S8jDYFCMWbSGvDtYc1rUZLoW9gqo8xvzxslHpXk4Q==
+X-Received: by 2002:a05:6402:5110:b0:5e0:8a27:cd36 with SMTP id
+ 4fb4d7f45d1cf-5eb1efff94amr3185329a12.8.1742299397596; 
+ Tue, 18 Mar 2025 05:03:17 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1527:7100:c898:4de8:4301:2cfa])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5e816afe1f6sm7433380a12.77.2025.03.18.05.03.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Mar 2025 05:03:17 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: phasta@mailbox.org, tvrtko.ursulin@igalia.com,
+ dri-devel@lists.freedesktop.org, dakr@kernel.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/sched: add drm_sched_prealloc_dependency_slots
+Date: Tue, 18 Mar 2025 13:03:12 +0100
+Message-Id: <20250318120313.19099-2-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250318120313.19099-1-christian.koenig@amd.com>
+References: <20250318120313.19099-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-References: <20250318111611.2161153-1-chenhuacai@loongson.cn>
-In-Reply-To: <20250318111611.2161153-1-chenhuacai@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Tue, 18 Mar 2025 19:18:31 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6vXc-QkBtbuLN4s8bpHzb6tOHWPdh-6s0xEqTLoNAxjw@mail.gmail.com>
-X-Gm-Features: AQ5f1JokISMsMI-FbQL-Nwx2-z750GxhY5y5mhcCTqtJjIYMFlfkoonv8QAEW_E
-Message-ID: <CAAhV-H6vXc-QkBtbuLN4s8bpHzb6tOHWPdh-6s0xEqTLoNAxjw@mail.gmail.com>
-Subject: Re: [PATCH 37/40] drm/amd/display: Protect
- dml2_create()/dml2_copy()/dml2_create_copy()
-To: Huacai Chen <chenhuacai@loongson.cn>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,178 +90,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Wrong patch number, please ignore this one.
+The problem is that drivers sometimes need to add dependencies without
+allocating any memory.
 
-Huacai
+Add a function which preallocates slots by inserting signaled stub fences
+into the dependency array.
 
-On Tue, Mar 18, 2025 at 7:16=E2=80=AFPM Huacai Chen <chenhuacai@loongson.cn=
-> wrote:
->
-> Commit 7da55c27e76749b9 ("drm/amd/display: Remove incorrect FP context
-> start") removes the FP context protection of dml2_create(), and it said
-> "All the DC_FP_START/END should be used before call anything from DML2".
->
-> However, dml2_create()/dml2_copy()/dml2_create_copy() are not protected
-> from their callers, causing such errors:
->
->  do_fpu invoked from kernel context![#1]:
->  CPU: 0 UID: 0 PID: 239 Comm: kworker/0:5 Not tainted 6.14.0-rc6+ #1
->  Workqueue: events work_for_cpu_fn
->  pc ffff80000319de80 ra ffff80000319de5c tp 900000010575c000 sp 900000010=
-575f840
->  a0 0000000000000000 a1 900000012f210130 a2 900000012f000000 a3 ffff80000=
-357e268
->  a4 ffff80000357e260 a5 900000012ea52cf0 a6 0000000400000004 a7 0000012c0=
-0001388
->  t0 00001900000015e0 t1 ffff80000379d000 t2 0000000010624dd3 t3 000000640=
-0000014
->  t4 00000000000003e8 t5 0000005000000018 t6 0000000000000020 t7 0000000f0=
-0000064
->  t8 000000000000002f u0 5f5e9200f8901912 s9 900000012d380010 s0 900000012=
-ea51fd8
->  s1 900000012f000000 s2 9000000109296000 s3 0000000000000001 s4 000000000=
-0001fd8
->  s5 0000000000000001 s6 ffff800003415000 s7 900000012d390000 s8 ffff80000=
-3211f80
->     ra: ffff80000319de5c dml21_apply_soc_bb_overrides+0x3c/0x960 [amdgpu]
->    ERA: ffff80000319de80 dml21_apply_soc_bb_overrides+0x60/0x960 [amdgpu]
->   CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=3DCC DACM=3DCC -WE)
->   PRMD: 00000004 (PPLV0 +PIE -PWE)
->   EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
->   ECFG: 00071c1d (LIE=3D0,2-4,10-12 VS=3D7)
->  ESTAT: 000f0000 [FPD] (IS=3D ECode=3D15 EsubCode=3D0)
->   PRID: 0014d010 (Loongson-64bit, Loongson-3C6000/S)
->  Process kworker/0:5 (pid: 239, threadinfo=3D00000000927eadc6, task=3D000=
-000008fd31682)
->  Stack : 00040dc000003164 0000000000000001 900000012f210130 900000012eabe=
-eb8
->          900000012f000000 ffff80000319fe48 900000012f210000 900000012f210=
-130
->          900000012f000000 900000012eabeeb8 0000000000000001 ffff8000031a0=
-064
->          900000010575f9f0 900000012f210130 900000012eac0000 900000012ea80=
-000
->          900000012f000000 ffff8000031cefc4 900000010575f9f0 ffff800003585=
-9c0
->          ffff800003414000 900000010575fa78 900000012f000000 ffff8000031b4=
-c50
->          0000000000000000 9000000101c9d700 9000000109c40000 5f5e9200f8901=
-912
->          900000012d3c4bd0 900000012d3c5000 ffff8000034aed18 900000012d380=
-010
->          900000012d3c4bd0 ffff800003414000 900000012d380000 ffff800002ea4=
-9dc
->          0000000000000001 900000012d3c6000 00000000ffffe423 0000000000010=
-000
->          ...
->  Call Trace:
->  [<ffff80000319de80>] dml21_apply_soc_bb_overrides+0x60/0x960 [amdgpu]
->  [<ffff80000319fe44>] dml21_init+0xa4/0x280 [amdgpu]
->  [<ffff8000031a0060>] dml21_create+0x40/0x80 [amdgpu]
->  [<ffff8000031cefc0>] dc_state_create+0x100/0x160 [amdgpu]
->  [<ffff8000031b4c4c>] dc_create+0x44c/0x640 [amdgpu]
->  [<ffff800002ea49d8>] amdgpu_dm_init+0x3f8/0x2060 [amdgpu]
->  [<ffff800002ea6658>] dm_hw_init+0x18/0x60 [amdgpu]
->  [<ffff800002b16738>] amdgpu_device_init+0x1938/0x27e0 [amdgpu]
->  [<ffff800002b18e80>] amdgpu_driver_load_kms+0x20/0xa0 [amdgpu]
->  [<ffff800002b0c8f0>] amdgpu_pci_probe+0x1b0/0x580 [amdgpu]
->  [<900000000448eae4>] local_pci_probe+0x44/0xc0
->  [<9000000003b02b18>] work_for_cpu_fn+0x18/0x40
->  [<9000000003b05da0>] process_one_work+0x160/0x300
->  [<9000000003b06718>] worker_thread+0x318/0x440
->  [<9000000003b11b8c>] kthread+0x12c/0x220
->  [<9000000003ac1484>] ret_from_kernel_thread+0x8/0xa4
->
-> So protect dml2_create()/dml2_copy()/dml2_create_copy() with DC_FP_START
-> and DC_FP_END.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_state.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu=
-/drm/amd/display/dc/core/dc_state.c
-> index 1b2cce127981..6e2cac08002d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-> @@ -210,17 +210,23 @@ struct dc_state *dc_state_create(struct dc *dc, str=
-uct dc_state_create_params *p
->
->  #ifdef CONFIG_DRM_AMD_DC_FP
->         if (dc->debug.using_dml2) {
-> +               DC_FP_START();
-> +
->                 dml2_opt->use_clock_dc_limits =3D false;
->                 if (!dml2_create(dc, dml2_opt, &state->bw_ctx.dml2)) {
-> +                       DC_FP_END();
->                         dc_state_release(state);
->                         return NULL;
->                 }
->
->                 dml2_opt->use_clock_dc_limits =3D true;
->                 if (!dml2_create(dc, dml2_opt, &state->bw_ctx.dml2_dc_pow=
-er_source)) {
-> +                       DC_FP_END();
->                         dc_state_release(state);
->                         return NULL;
->                 }
-> +
-> +               DC_FP_END();
->         }
->  #endif
->
-> @@ -240,6 +246,8 @@ void dc_state_copy(struct dc_state *dst_state, struct=
- dc_state *src_state)
->         dc_state_copy_internal(dst_state, src_state);
->
->  #ifdef CONFIG_DRM_AMD_DC_FP
-> +       DC_FP_START();
-> +
->         dst_state->bw_ctx.dml2 =3D dst_dml2;
->         if (src_state->bw_ctx.dml2)
->                 dml2_copy(dst_state->bw_ctx.dml2, src_state->bw_ctx.dml2)=
-;
-> @@ -247,6 +255,8 @@ void dc_state_copy(struct dc_state *dst_state, struct=
- dc_state *src_state)
->         dst_state->bw_ctx.dml2_dc_power_source =3D dst_dml2_dc_power_sour=
-ce;
->         if (src_state->bw_ctx.dml2_dc_power_source)
->                 dml2_copy(dst_state->bw_ctx.dml2_dc_power_source, src_sta=
-te->bw_ctx.dml2_dc_power_source);
-> +
-> +       DC_FP_END();
->  #endif
->
->         /* context refcount should not be overridden */
-> @@ -268,17 +278,23 @@ struct dc_state *dc_state_create_copy(struct dc_sta=
-te *src_state)
->         new_state->bw_ctx.dml2 =3D NULL;
->         new_state->bw_ctx.dml2_dc_power_source =3D NULL;
->
-> +       DC_FP_START();
-> +
->         if (src_state->bw_ctx.dml2 &&
->                         !dml2_create_copy(&new_state->bw_ctx.dml2, src_st=
-ate->bw_ctx.dml2)) {
-> +               DC_FP_END();
->                 dc_state_release(new_state);
->                 return NULL;
->         }
->
->         if (src_state->bw_ctx.dml2_dc_power_source &&
->                         !dml2_create_copy(&new_state->bw_ctx.dml2_dc_powe=
-r_source, src_state->bw_ctx.dml2_dc_power_source)) {
-> +               DC_FP_END();
->                 dc_state_release(new_state);
->                 return NULL;
->         }
-> +
-> +       DC_FP_END();
->  #endif
->
->         kref_init(&new_state->refcount);
-> --
-> 2.47.1
->
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/scheduler/sched_main.c | 41 ++++++++++++++++++++++++--
+ include/drm/gpu_scheduler.h            |  2 ++
+ 2 files changed, 40 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 4d4219fbe49d..2085eea89513 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -852,6 +852,38 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+ }
+ EXPORT_SYMBOL(drm_sched_job_arm);
+ 
++/**
++ * drm_sched_job_prealloc_dependency_slots - avoid ENOMEM on adding dependencies
++ * @job: scheduler job where dependencies will be added
++ * @num_deps: number of dependencies to preallocate slots for
++ *
++ * Preallocate memory so that no ENOMEM can come later while adding
++ * dependencies.
++ *
++ * Return:
++ * 0 on success, or an error on failing to expand the array.
++ */
++int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job *job,
++					    unsigned int num_deps)
++{
++	struct dma_fence *fence;
++	u32 id = 0;
++	int ret;
++
++	while (num_deps--) {
++		fence = dma_fence_get_stub();
++		ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b,
++			       GFP_KERNEL);
++		if (ret != 0) {
++			dma_fence_put(fence);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slots);
++
+ /**
+  * drm_sched_job_add_dependency - adds the fence as a job dependency
+  * @job: scheduler job to add the dependencies to
+@@ -878,10 +910,12 @@ int drm_sched_job_add_dependency(struct drm_sched_job *job,
+ 	 * engines involved, rather than the number of BOs.
+ 	 */
+ 	xa_for_each(&job->dependencies, index, entry) {
+-		if (entry->context != fence->context)
++		bool signaled = dma_fence_is_signaled(entry);
++
++		if (!signaled && entry->context != fence->context)
+ 			continue;
+ 
+-		if (dma_fence_is_later(fence, entry)) {
++		if (signaled || dma_fence_is_later(fence, entry)) {
+ 			dma_fence_put(entry);
+ 			xa_store(&job->dependencies, index, fence, GFP_KERNEL);
+ 		} else {
+@@ -890,7 +924,8 @@ int drm_sched_job_add_dependency(struct drm_sched_job *job,
+ 		return 0;
+ 	}
+ 
+-	ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b, GFP_KERNEL);
++	ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b,
++		       GFP_KERNEL);
+ 	if (ret != 0)
+ 		dma_fence_put(fence);
+ 
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 1a7e377d4cbb..916e820b27ff 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -632,6 +632,8 @@ int drm_sched_job_init(struct drm_sched_job *job,
+ 		       u32 credits, void *owner);
+ void drm_sched_job_arm(struct drm_sched_job *job);
+ void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
++int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job *job,
++					    unsigned int num_deps);
+ int drm_sched_job_add_dependency(struct drm_sched_job *job,
+ 				 struct dma_fence *fence);
+ int drm_sched_job_add_syncobj_dependency(struct drm_sched_job *job,
+-- 
+2.34.1
+
