@@ -4,74 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D8FC35FFA
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 13:09:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FCD1C35FFA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 13:24:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44A9B10E4FA;
-	Wed, 19 Mar 2025 13:09:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 416E610E2D8;
+	Wed, 19 Mar 2025 13:24:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cryogf4v";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mHoJNP10";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BEC710E4FA
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 13:09:47 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-301a6347494so383861a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 06:09:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742389787; x=1742994587; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=v46vHtFLjZ6pKGHwpW89XNp8xdhO1DsFG7kpt3FyD+Q=;
- b=cryogf4vuA+QK47bIMn/SL+GZEhTTYmfDPjFUeRyB+amRYDuFQthbdBru4pZA1cgqY
- odB4FKAy1cm0+IHTwyVX2AuiOhkZuSJwvieKXC3qLHgvoi4Pcg9Tax6iuXi6oYpZG1OV
- F5dQqeASQX1tSWx/RaEXZ3diUVByFeik6mBDeDkGmBALRfpzghv++oPsJSUPzO6n0T0J
- 4fPDo0ZrYIKBQoXIjAQPW2QyvHnW/xJP9bVdeWFXJJ6krBcR1Egpi9PgClM/O9S8MrFO
- /JDNGUSfLc42t898CxF786EBa4QL3a9qRse3XWTUUePU8U+Pjg0s3tLjRMBAg3fbWb4l
- RpiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742389787; x=1742994587;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=v46vHtFLjZ6pKGHwpW89XNp8xdhO1DsFG7kpt3FyD+Q=;
- b=CG5yE21M/N/2WaUgCX2Nx8u+6xW5CHLq+jhIexLqnd+MnCeqyPKufAyPIwkePUpLPU
- PnUeePeA5NFGT/6KlIk1xyQh6HW2fY//iUUlDsPDKYVaoL3GTwt1Lex/dq5AZ+9fXMBF
- e0Qp3Gr6GF+StiRx4GtP35m4JCzFppwh9ksMf2qsR3S+RVDwY3my7l76+SfLGsYDWkdQ
- 8aR0kKH93UmazxVdemc0MpyEtJ00JPkgq4yvZ8HpMrLRlgrqxwwZ7sdQ3GqmG0pFOHFt
- fz2SXZfmxXf/eYE2/Au8cxoSUl/1bkmK7Tn11VXTFijQNffTfyw/mRmuILkP/NOeAlEP
- ukmw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWHu3GPsxjpBAIDMbA5/7OMqUCQylXOfXFQM4TGQvNWjYT2BQE2NbhxCLxbJpKq5vTS1abMVyBL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz8b396wsEMp8a9wPqIeXi8bGOe/LpvzCmmdmZpvjXq6IgF2yry
- Kh8vRfjPbdQ7wOLk3NFr2xnARxF6xGnlKTvbnpEOsSreAPZQwu896BwHwVx7cZVFV8wq8Uk5Y2r
- ohfauhAMQ8zQoTI4oKYjY235LC1k=
-X-Gm-Gg: ASbGncuV+iDE4iZE+kFD2IodS0oN4JqfJiUUcJczBgKR+QDV+y5h96rU0W4RESfiigx
- gVV7YwT0Jb1J+ZNpP73EHr8QvyQwgcGqv9fGzFNcl8GILqAYsENFvHhSqfWQhpCk3vpuMEdsmH0
- rCncdWyS+oll3mcLoOlQGRPAnZDy3R77vyNcFv
-X-Google-Smtp-Source: AGHT+IED6VBDxCko6PEW7bsFZMarAXAqdIlsBAukGkOCk4FQSVi2opVcyrLfpM06Qtbf2yinkjnM7DgRrJ68gp6guOY=
-X-Received: by 2002:a17:90b:4b04:b0:2ee:acea:9ec4 with SMTP id
- 98e67ed59e1d1-301bfc73453mr1213192a91.3.1742389786768; Wed, 19 Mar 2025
- 06:09:46 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEE810E26D;
+ Wed, 19 Mar 2025 13:24:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1742390643;
+ bh=/q0O6SoH0MFOJQ+VtkIjMVBenhQqH+wVMIprdvwEass=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=mHoJNP10AgtwqBskl0LN65UQ0xnHsutVsDDfy3bwvrJ7UMm0M6ZZyp3T9eeeuQDcT
+ U61MCWmaVD+lTq5t62sP9iLIzxwjt/cc+hjtYS6eKJ8KYtsh+QMCGOR3UGE/GWNUTw
+ 91IymJmdEAz6lfDjUMieJohzuYGUe/PmuGdzYghW6JGDEnldNOzO5HrWPtTYnliwpm
+ k+WLD3O+8jTVhdlIaN5Vd4gyDB2qb7GHcsh5RKnWrDj351H2uIHanGyZ0WtDwSyFzW
+ W7m+B0KocDHuZRCzJa//B4LrvJIssR98yp96Um/C4FYjd5K/wYYfZiRzuFleORMB4E
+ 04I7dujFHkJPQ==
+Received: from [192.168.50.250] (unknown [171.76.87.92])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2570F17E0C37;
+ Wed, 19 Mar 2025 14:23:58 +0100 (CET)
+Message-ID: <38315386-9975-4bbb-91e8-34b872487c26@collabora.com>
+Date: Wed, 19 Mar 2025 18:53:46 +0530
 MIME-Version: 1.0
-References: <20250313144136.1117072-1-alexander.deucher@amd.com>
- <20250313144136.1117072-7-alexander.deucher@amd.com>
- <DS7PR12MB600516A56433E841BA20BD3AFBD92@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB600516A56433E841BA20BD3AFBD92@DS7PR12MB6005.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 Mar 2025 09:09:35 -0400
-X-Gm-Features: AQ5f1JpyWspRWB2JMYK8hIs11Kex6f6Jrw687ztSUq4bWYjoFM53q2Xp312sH-Q
-Message-ID: <CADnq5_M-4JbuVqoWGT-LXDa0-Bk_5Qn1tw+LO+LT165-4G78ag@mail.gmail.com>
-Subject: Re: [PATCH 06/11] drm/amdgpu/mes: make more vmids available when
- disable_kq=1
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Khatri,
- Sunil" <Sunil.Khatri@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] drm/ci: uprev mesa
+To: Helen Mae Koike Fornazier <helen.fornazier@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
+ airlied@gmail.com, simona.vetter@ffwll.ch, robdclark@gmail.com,
+ guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
+ valentine.burley@collabora.com, lumag@kernel.org, quic_abhinavk@quicinc.com,
+ mripard@kernel.org, jani.nikula@linux.intel.com,
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20250314085858.39328-1-vignesh.raman@collabora.com>
+ <20250314085858.39328-2-vignesh.raman@collabora.com>
+ <CAPW4XYZ6+kc+Pj61_Kz8-CEy0Aed92XeXDnUiDAEGNBU+SPxAg@mail.gmail.com>
+Content-Language: en-US
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <CAPW4XYZ6+kc+Pj61_Kz8-CEy0Aed92XeXDnUiDAEGNBU+SPxAg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,95 +69,291 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 19, 2025 at 5:03=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
-wrote:
->
-> [Public]
->
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> > Deucher
-> > Sent: Thursday, March 13, 2025 10:42 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Khatri, Sunil
-> > <Sunil.Khatri@amd.com>
-> > Subject: [PATCH 06/11] drm/amdgpu/mes: make more vmids available when
-> > disable_kq=3D1
-> >
-> > If we don't have kernel queues, the vmids can be used by the MES for us=
-er
-> > queues.
-> >
-> > Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 2 +-
-> > drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 2 +-
-> > drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 2 +-
-> >  3 files changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > index 971bf01fe46a9..a536a78342a09 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > @@ -106,7 +106,7 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
-> >
-> >       adev->mes.total_max_queue =3D
-> > AMDGPU_FENCE_MES_QUEUE_ID_MASK;
-> >       adev->mes.vmid_mask_mmhub =3D 0xffffff00;
-> > -     adev->mes.vmid_mask_gfxhub =3D 0xffffff00;
-> > +     adev->mes.vmid_mask_gfxhub =3D adev->gfx.disable_kq ? 0xfffffffe =
-:
-> > +0xffffff00;
-> >
-> Question: Why here only set some of the GCHUB VMID to validate? Is that V=
-MID reserved for other specific usage?  While it seems vmid_mask_mmhub is n=
-ot further used in the MES FW?
+Hi Helen,
 
-None of the engines managed by MES use mmhub.  GFX, compute, and SDMA
-are all gchub clients.  I suppose we could actually set the mmhub mask
-to 0.  Driver manages mmhub for VCN, VPE, etc.   When we eventually
-enable the umsched for VCN, VPE user queues, those will all be mmhub
-clients.
+On 19/03/25 00:22, Helen Mae Koike Fornazier wrote:
+> Em sex., 14 de mar. de 2025 às 05:59, Vignesh Raman
+> <vignesh.raman@collabora.com> escreveu:
+>>
+>> LAVA was recently patched [1] with a fix on how parameters are parsed in
+>> `lava-test-case`, so we don't need to repeat quotes to send the
+>> arguments properly to it. Uprev mesa to fix this issue.
+>>
+>> [1] https://gitlab.com/lava/lava/-/commit/18c9cf79
+>>
+>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+>> ---
+>>   drivers/gpu/drm/ci/build.sh       | 16 ++++++++--------
+>>   drivers/gpu/drm/ci/build.yml      |  8 ++++++++
+>>   drivers/gpu/drm/ci/container.yml  | 24 +++++++++++++++++++++++
+>>   drivers/gpu/drm/ci/gitlab-ci.yml  | 32 ++++++++++++++++++++++++++++++-
+>>   drivers/gpu/drm/ci/image-tags.yml |  4 +++-
+>>   drivers/gpu/drm/ci/lava-submit.sh |  3 ++-
+>>   drivers/gpu/drm/ci/test.yml       |  2 +-
+>>   7 files changed, 77 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/ci/build.sh b/drivers/gpu/drm/ci/build.sh
+>> index 19fe01257ab9..284873e94d8d 100644
+>> --- a/drivers/gpu/drm/ci/build.sh
+>> +++ b/drivers/gpu/drm/ci/build.sh
+>> @@ -98,14 +98,14 @@ done
+>>
+>>   make ${KERNEL_IMAGE_NAME}
+>>
+>> -mkdir -p /lava-files/
+>> +mkdir -p /kernel/
+> 
+> the folder is not lava specific, correct?
 
-Alex
+It is not lava specific. Only the directory name where the kernel image 
+is copied is changed and the kernel image is uploaded to S3 for lava.
 
->
-> Anway this patch is: Acked-by: Prike Liang <Prike.Liang@amd.com>
->
->
-> >       for (i =3D 0; i < AMDGPU_MES_MAX_GFX_PIPES; i++) {
-> >               /* use only 1st ME pipe */
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> > index 95d894a231fcf..19a5f196829f3 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> > @@ -900,7 +900,7 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block
-> > *ip_block)
-> >        * amdgpu graphics/compute will use VMIDs 1-7
-> >        * amdkfd will use VMIDs 8-15
-> >        */
-> > -     adev->vm_manager.first_kfd_vmid =3D 8;
-> > +     adev->vm_manager.first_kfd_vmid =3D adev->gfx.disable_kq ? 1 : 8;
-> >
-> >       amdgpu_vm_manager_init(adev);
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> > index bf8d01da88154..a2f6c9f4ebf2f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> > @@ -838,7 +838,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block
-> > *ip_block)
-> >        * amdgpu graphics/compute will use VMIDs 1-7
-> >        * amdkfd will use VMIDs 8-15
-> >        */
-> > -     adev->vm_manager.first_kfd_vmid =3D 8;
-> > +     adev->vm_manager.first_kfd_vmid =3D adev->gfx.disable_kq ? 1 : 8;
-> >
-> >       amdgpu_vm_manager_init(adev);
-> >
-> > --
-> > 2.48.1
->
+This is based on,
+https://gitlab.freedesktop.org/mesa/mesa/-/commit/5b65bbf72ce7024c5df2100ce4b12d59e8f3dd26
+
+> 
+>>   for image in ${KERNEL_IMAGE_NAME}; do
+>> -    cp arch/${KERNEL_ARCH}/boot/${image} /lava-files/.
+>> +    cp arch/${KERNEL_ARCH}/boot/${image} /kernel/.
+>>   done
+>>
+>>   if [[ -n ${DEVICE_TREES} ]]; then
+>>       make dtbs
+>> -    cp ${DEVICE_TREES} /lava-files/.
+>> +    cp ${DEVICE_TREES} /kernel/.
+>>   fi
+>>
+>>   make modules
+>> @@ -121,11 +121,11 @@ if [[ ${DEBIAN_ARCH} = "arm64" ]]; then
+>>           -d arch/arm64/boot/Image.lzma \
+>>           -C lzma\
+>>           -b arch/arm64/boot/dts/qcom/sdm845-cheza-r3.dtb \
+>> -        /lava-files/cheza-kernel
+>> +        /kernel/cheza-kernel
+>>       KERNEL_IMAGE_NAME+=" cheza-kernel"
+>>
+>>       # Make a gzipped copy of the Image for db410c.
+>> -    gzip -k /lava-files/Image
+>> +    gzip -k /kernel/Image
+>>       KERNEL_IMAGE_NAME+=" Image.gz"
+>>   fi
+>>
+>> @@ -139,7 +139,7 @@ cp -rfv drivers/gpu/drm/ci/* install/.
+>>   . .gitlab-ci/container/container_post_build.sh
+>>
+>>   if [[ "$UPLOAD_TO_MINIO" = "1" ]]; then
+>> -    xz -7 -c -T${FDO_CI_CONCURRENT:-4} vmlinux > /lava-files/vmlinux.xz
+>> +    xz -7 -c -T${FDO_CI_CONCURRENT:-4} vmlinux > /kernel/vmlinux.xz
+>>       FILES_TO_UPLOAD="$KERNEL_IMAGE_NAME vmlinux.xz"
+>>
+>>       if [[ -n $DEVICE_TREES ]]; then
+>> @@ -148,7 +148,7 @@ if [[ "$UPLOAD_TO_MINIO" = "1" ]]; then
+>>
+>>       ls -l "${S3_JWT_FILE}"
+>>       for f in $FILES_TO_UPLOAD; do
+>> -        ci-fairy s3cp --token-file "${S3_JWT_FILE}" /lava-files/$f \
+>> +        ci-fairy s3cp --token-file "${S3_JWT_FILE}" /kernel/$f \
+>>                   https://${PIPELINE_ARTIFACTS_BASE}/${DEBIAN_ARCH}/$f
+>>       done
+>>
+>> @@ -165,7 +165,7 @@ ln -s common artifacts/install/ci-common
+>>   cp .config artifacts/${CI_JOB_NAME}_config
+>>
+>>   for image in ${KERNEL_IMAGE_NAME}; do
+>> -    cp /lava-files/$image artifacts/install/.
+>> +    cp /kernel/$image artifacts/install/.
+>>   done
+>>
+>>   tar -C artifacts -cf artifacts/install.tar install
+>> diff --git a/drivers/gpu/drm/ci/build.yml b/drivers/gpu/drm/ci/build.yml
+>> index 6c0dc10b547c..8eb56ebcf4aa 100644
+>> --- a/drivers/gpu/drm/ci/build.yml
+>> +++ b/drivers/gpu/drm/ci/build.yml
+>> @@ -143,6 +143,10 @@ debian-arm64-release:
+>>     rules:
+>>       - when: never
+>>
+>> +debian-arm64-ubsan:
+>> +  rules:
+>> +    - when: never
+>> +
+>>   debian-build-testing:
+>>     rules:
+>>       - when: never
+>> @@ -183,6 +187,10 @@ debian-testing-msan:
+>>     rules:
+>>       - when: never
+>>
+>> +debian-testing-ubsan:
+>> +  rules:
+>> +    - when: never
+>> +
+>>   debian-vulkan:
+>>     rules:
+>>       - when: never
+>> diff --git a/drivers/gpu/drm/ci/container.yml b/drivers/gpu/drm/ci/container.yml
+>> index 07dc13ff865d..56c95c2f91ae 100644
+>> --- a/drivers/gpu/drm/ci/container.yml
+>> +++ b/drivers/gpu/drm/ci/container.yml
+>> @@ -24,6 +24,18 @@ alpine/x86_64_build:
+>>     rules:
+>>       - when: never
+>>
+>> +debian/arm32_test-base:
+>> +  rules:
+>> +    - when: never
+>> +
+>> +debian/arm32_test-gl:
+>> +  rules:
+>> +    - when: never
+>> +
+>> +debian/arm32_test-vk:
+>> +  rules:
+>> +    - when: never
+>> +
+>>   debian/arm64_test-gl:
+>>     rules:
+>>       - when: never
+>> @@ -32,6 +44,10 @@ debian/arm64_test-vk:
+>>     rules:
+>>       - when: never
+>>
+>> +debian/baremetal_arm32_test:
+>> +  rules:
+>> +    - when: never
+>> +
+>>   debian/ppc64el_build:
+>>     rules:
+>>       - when: never
+>> @@ -40,6 +56,14 @@ debian/s390x_build:
+>>     rules:
+>>       - when: never
+>>
+>> +debian/x86_32_build:
+>> +  rules:
+>> +    - when: never
+>> +
+>> +debian/x86_64_test-android:
+>> +  rules:
+>> +    - when: never
+>> +
+>>   debian/x86_64_test-vk:
+>>     rules:
+>>       - when: never
+>> diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
+>> index b06b9e7d3d09..55b540c4cf92 100644
+>> --- a/drivers/gpu/drm/ci/gitlab-ci.yml
+>> +++ b/drivers/gpu/drm/ci/gitlab-ci.yml
+>> @@ -1,6 +1,6 @@
+>>   variables:
+>>     DRM_CI_PROJECT_PATH: &drm-ci-project-path mesa/mesa
+>> -  DRM_CI_COMMIT_SHA: &drm-ci-commit-sha 7d3062470f3ccc6cb40540e772e902c7e2248024
+>> +  DRM_CI_COMMIT_SHA: &drm-ci-commit-sha 82ab58f6c6f94fa80ca7e1615146f08356e3ba69
+>>
+>>     UPSTREAM_REPO: https://gitlab.freedesktop.org/drm/kernel.git
+>>     TARGET_BRANCH: drm-next
+>> @@ -187,6 +187,36 @@ stages:
+>>       - when: manual
+>>
+>>
+>> +# Repeat of the above but with `when: on_success` replaced with
+>> +# `when: delayed` + `start_in:`, for build-only jobs.
+>> +# Note: make sure the branches in this list are the same as in
+>> +# `.container+build-rules` above.
+>> +.build-only-delayed-rules:
+>> +  rules:
+>> +    - !reference [.common-rules, rules]
+>> +    # Run when re-enabling a disabled farm, but not when disabling it
+>> +    - !reference [.disable-farm-mr-rules, rules]
+>> +    # Never run immediately after merging, as we just ran everything
+>> +    - !reference [.never-post-merge-rules, rules]
+>> +    # Build everything in merge pipelines
+>> +    - if: *is-merge-attempt
+>> +      when: delayed
+>> +      start_in: &build-delay 5 minutes
+>> +    # Same as above, but for pre-merge pipelines
+>> +    - if: *is-pre-merge
+>> +      when: manual
+>> +    # Build everything after someone bypassed the CI
+>> +    - if: *is-direct-push
+>> +      when: manual
+>> +    # Build everything in scheduled pipelines
+>> +    - if: *is-scheduled-pipeline
+>> +      when: delayed
+>> +      start_in: *build-delay
+>> +    # Allow building everything in fork pipelines, but build nothing unless
+>> +    # manually triggered
+>> +    - when: manual
+>> +
+> 
+> Do you think we could avoid repeating code by using anchor (&) and
+> reference (*) ?
+> 
+> https://docs.gitlab.com/ci/yaml/yaml_optimization/#yaml-anchors-for-scripts
+
+We could create anchors for the repeated rules in .container+build-rules 
+and .build-only-delayed-rules, but I would prefer to first do this in 
+mesa and then adapt the same in drm-ci. Right now it is the same as 
+mesa, so maybe fix this in the next mesa uprev. What do you suggest?
+
+Regards,
+Vignesh
+
+> 
+> Regards,
+> Helen
+> 
+>> +
+>>   .ci-deqp-artifacts:
+>>     artifacts:
+>>       name: "${CI_PROJECT_NAME}_${CI_JOB_NAME}"
+>> diff --git a/drivers/gpu/drm/ci/image-tags.yml b/drivers/gpu/drm/ci/image-tags.yml
+>> index 20049f3626b2..c04ba0e69935 100644
+>> --- a/drivers/gpu/drm/ci/image-tags.yml
+>> +++ b/drivers/gpu/drm/ci/image-tags.yml
+>> @@ -1,5 +1,5 @@
+>>   variables:
+>> -   CONTAINER_TAG: "20250204-mesa-uprev"
+>> +   CONTAINER_TAG: "20250307-mesa-uprev"
+>>      DEBIAN_X86_64_BUILD_BASE_IMAGE: "debian/x86_64_build-base"
+>>      DEBIAN_BASE_TAG: "${CONTAINER_TAG}"
+>>
+>> @@ -20,3 +20,5 @@ variables:
+>>      DEBIAN_PYUTILS_TAG: "${CONTAINER_TAG}"
+>>
+>>      ALPINE_X86_64_LAVA_SSH_TAG: "${CONTAINER_TAG}"
+>> +
+>> +   CONDITIONAL_BUILD_ANGLE_TAG: fec96cc945650c5fe9f7188cabe80d8a
+>> diff --git a/drivers/gpu/drm/ci/lava-submit.sh b/drivers/gpu/drm/ci/lava-submit.sh
+>> index 6e5ac51e8c0a..f22720359b33 100755
+>> --- a/drivers/gpu/drm/ci/lava-submit.sh
+>> +++ b/drivers/gpu/drm/ci/lava-submit.sh
+>> @@ -48,7 +48,8 @@ ROOTFS_URL="$(get_path_to_artifact lava-rootfs.tar.zst)"
+>>   rm -rf results
+>>   mkdir -p results/job-rootfs-overlay/
+>>
+>> -artifacts/ci-common/generate-env.sh > results/job-rootfs-overlay/set-job-env-vars.sh
+>> +artifacts/ci-common/export-gitlab-job-env-for-dut.sh \
+>> +    > results/job-rootfs-overlay/set-job-env-vars.sh
+>>   cp artifacts/ci-common/init-*.sh results/job-rootfs-overlay/
+>>   cp "$SCRIPTS_DIR"/setup-test-env.sh results/job-rootfs-overlay/
+>>
+>> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+>> index dbc4ff50d8ff..84a25f0e783b 100644
+>> --- a/drivers/gpu/drm/ci/test.yml
+>> +++ b/drivers/gpu/drm/ci/test.yml
+>> @@ -112,7 +112,7 @@
+>>       - kvm
+>>     script:
+>>       - ln -sf $CI_PROJECT_DIR/install /install
+>> -    - mv install/bzImage /lava-files/bzImage
+>> +    - mv install/bzImage /kernel/bzImage
+>>       - mkdir -p /lib/modules
+>>       - install/crosvm-runner.sh install/igt_runner.sh
+>>     needs:
+>> --
+>> 2.47.2
+>>
+> 
+> 
+
