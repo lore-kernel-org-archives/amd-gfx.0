@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C889C35FFA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5EA0C36000
 	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 17:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01C0810E56B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4136F10E567;
 	Wed, 19 Mar 2025 17:57:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UxIZM4aN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w+q+yM7z";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2062.outbound.protection.outlook.com [40.107.237.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA2C410E566
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 17:57:30 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8650A10E56A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 17:57:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cecv3OIjZJmblTBTzbJhFMUaIV7VoDyAKnWrXCSI6YSOM99tAB5aKyxOpaS4ANIz2Qol9tGOKLql/5az2GxvM6PaSRMQH65cvM3qnpiI73LLoMUJLSe8mr67yzIwI2/Gf/lDoRLeyejS22xjafpXFcFel4S/pNh63a/zuAtulJJhxzhgu96SGz1dlPXF9bhcPCDXEvjJHhoRlQQD1QFFJ1LWON/BCfu7RGzqq2W7myzOCtPCqs/kLN6N8thMoFpSOo6idTlHtjbt+/98BieKclqaDL9ki0bBFo3eIZDMJJj/C27fdMw6CbZOTea/efCw3PgVampDlE74J2kJwWNJTw==
+ b=k4Oxxh0TWWnDPLNMjtdFNBlJiaQ4nUquDOIkquoni64wF5gNMOvi6hJj+BYemEB9rNmHkPiD0fHLtCWhU6Pm6nbe5+N7kBGxc7bTi/qe/Jgo4XU8Z3+LT/j9NNVad2GZHLdft5vAicOa//n8cS80NEHX6aZ0lGP1x5dpdrIxzpSvxfIbGDSsp8EY8UyrEXJ+dpEywYzK9buyzAyZcKBmf7RIJRAxMJC6P4R5f5M6Qd4HfYXBduH3VlGRQnf+iyfrlQUOTMhvVRqM3HwTSkeMJGj6s6iP6NTIIUzLMtQ55sqoCLRJTWrp/02cuvRy4qnVPP/h3dx+6wP5UV0x1tWLrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bTZstqsCnBYB1ivYuMvAVchisXBdhx2tJgespkgb1w8=;
- b=n5Vw8HgqBos6jM+KHuuXPIqDs7rFdU0yuQHKWmC19aG7BMRsimJQfFVFf3oyygZJnjmCv5jNPMbXrVlod1E0yVkX+o/ihQfu6klY1VHij0th6ZCuZ8NfgDfd5BZIbf0UEJyWRl/NYTw9So96Xg0OLiujnRUS9Q9Lor6vnEMqTJOlSAOnetV9CSXNfj5sq7cW+NvMEnFlwNezrs2Lbx0VgMwdaj3xXeD8Ie5N+ZGe/05rWgXitGynbPBfil+Pahwgyy6GLbzMPa4WeGKMceVcZw71E9QwbaTbR4E1mnqAT7cxf+QYIEQ+wHDuoQ9GCiU7hrvv8j40xZjjaEkFuTlCcg==
+ bh=6NfYvOerXnAekeIooV44+5RHp4+b0mAFtj4deED1vLo=;
+ b=gSzL54w5OC0sFE4iPGfdr2Dqndsfp5o6PMW3Yl5Wd3pMgSWD+3T6QJLFqZrRietci56qZaATVarUlO6D3cp134Ila5oqgfNMP4nHW1KxjWMOojQp8sC2X+RfTtq3HmeLG6qQntgAJX5rKe6/MF8uyib0BC1UydPP5FWvkL0PHSGwlDRnec1+Pe8Mb1mFZ8L4zyeTqbEqIk//eYtsVysTrZbl4O1Xo1dD87FUUSQyJtfbMY1NSZ0lAZ3l9xEv16gs3xnavOGHqfhpbkbIq0Q/HisFUsn9cUsNmb8IC2SVHlLMIXw2Do/zO+DDJ+bf1q+iQOaSuL/gnwdEZ52J18TY7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bTZstqsCnBYB1ivYuMvAVchisXBdhx2tJgespkgb1w8=;
- b=UxIZM4aNIJLpuGXmKYtX0Y/bNMKOskvueFqk54JB2why4QK9RgwhuxL/mddYD0K/esa7kCY4OqlI7EnUWLOFTElpGj2owMl8xuR88TjSMY30L/dKzKTWIQc92GJSI9UwSOjbQMmxzJYF9wkpWoWWBqtEcZYG3xkJKezeldvbLpM=
-Received: from CH0PR04CA0025.namprd04.prod.outlook.com (2603:10b6:610:76::30)
- by SJ1PR12MB6337.namprd12.prod.outlook.com (2603:10b6:a03:456::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Wed, 19 Mar
- 2025 17:57:26 +0000
-Received: from CH2PEPF00000141.namprd02.prod.outlook.com (2603:10b6:610:76::4)
- by CH0PR04CA0025.outlook.office365.com (2603:10b6:610:76::30) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.34
- via Frontend Transport; Wed, 19 Mar 2025 17:57:25 +0000
+ bh=6NfYvOerXnAekeIooV44+5RHp4+b0mAFtj4deED1vLo=;
+ b=w+q+yM7znEa6F8KvKO0+/8/Sknlrs6FUi3LeuXXvFjfmrCB3+9aOgBaDzaD11xBEkRfPNlUcbkzdzGOAMtNBwv6opnoNRERLIFxP8ksgpQcEIODI6lTa4+G7k+/rLz0YsT0s4HWK6uOkH4DFAkmsP2w7lX9a3wUnerV0kyyrP94=
+Received: from CH0PR03CA0056.namprd03.prod.outlook.com (2603:10b6:610:b3::31)
+ by DM4PR12MB7645.namprd12.prod.outlook.com (2603:10b6:8:107::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.34; Wed, 19 Mar
+ 2025 17:57:23 +0000
+Received: from CH2PEPF00000140.namprd02.prod.outlook.com
+ (2603:10b6:610:b3:cafe::9f) by CH0PR03CA0056.outlook.office365.com
+ (2603:10b6:610:b3::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.33 via Frontend Transport; Wed,
+ 19 Mar 2025 17:57:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Wed, 19 Mar 2025 17:57:25 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ 15.20.8534.20 via Frontend Transport; Wed, 19 Mar 2025 17:57:22 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 19 Mar
- 2025 12:57:24 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2025 12:57:21 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 19 Mar
- 2025 12:57:24 -0500
+ 2025 12:57:21 -0500
 Received: from aaurabin-z5-cachy.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Wed, 19 Mar 2025 12:57:24 -0500
+ via Frontend Transport; Wed, 19 Mar 2025 12:57:21 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,65 +69,68 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
  <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
- <alex.hung@amd.com>, Chun-Liang Chang <Chun-Liang.Chang@amd.com>, Jun Lei
- <jun.lei@amd.com>
-Subject: [PATCH 08/16] drm/amd/display: Add Read Histogram command header
-Date: Wed, 19 Mar 2025 13:55:13 -0400
-Message-ID: <20250319175718.2578234-9-aurabindo.pillai@amd.com>
+ <alex.hung@amd.com>, Cruise <Cruise.Hung@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 04/16] drm/amd/display: Remove BW Allocation from DPIA
+ notification
+Date: Wed, 19 Mar 2025 13:55:09 -0400
+Message-ID: <20250319175718.2578234-5-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250319175718.2578234-1-aurabindo.pillai@amd.com>
 References: <20250319175718.2578234-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: aurabindo.pillai@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|SJ1PR12MB6337:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1426115-604d-4b5a-f5da-08dd670f81d4
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|DM4PR12MB7645:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40df32f5-a29a-4949-dc90-08dd670f800b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?H9T4K6M0Kx92rut81cVXjEy4HkfmxXnMViBIeXDTrWDc/7MGDA53SSYI/pO5?=
- =?us-ascii?Q?by+RTFiOU0HAS46ANA90t++JoKsrKTNwJJVb7lJ1aIxjOTnDEhd1bA343ktl?=
- =?us-ascii?Q?n5lTx2LxQwgzjJeIClSQnEwMZDt0fWWoiUeVo8OHJOl6NzdC/qIRS7OXZhGy?=
- =?us-ascii?Q?K6P1derKEPCwLmNWxeHWlId0oSMk4Fu2LCWehcDZFz6faaJrDZjSEGSTW0Hk?=
- =?us-ascii?Q?ApFMgHK2TLo8EVmM/GeDGOIzTIoOeY7o8sNsafSJ30QeI8F3ttC77iRMdH+2?=
- =?us-ascii?Q?HM2zGyyYurb2F8bnqkO7jHu+eyZofBJQ5ZrgdWD+VZkxE2jRwIrsSKeJzsUb?=
- =?us-ascii?Q?QJyhxv7/K+VFledKR1Ml68Wv5j9cfE9HKWuAHrQD/zoUt4iXBd5X7k53J9Lq?=
- =?us-ascii?Q?soZZxQ1WmCuxWmlG/YxhqGk6FshgJxLAohN/CaAS0IAM8Owmoggjf8RJoRak?=
- =?us-ascii?Q?qV9zETE7OUdkf02falQuSTw9bf0n09MknxOwW0p4t2cNzuAXmnvQLjgb2pys?=
- =?us-ascii?Q?Y/kxPu2iBwpCcwuWagrWmhARdoobvMEVV3YV8uOhHuQeR0u4cYvuw5wSuPTC?=
- =?us-ascii?Q?DqiwspwXLlRf9vljexaQyQ8iwNpLOXq8EV/8U6u6qW0p/KMjTO00WUg7rduY?=
- =?us-ascii?Q?NdD9Xo5lVEnnbl/h70q3mera1I7brczzq4EtL9PNot2lWBjfIUqBq/ouoRiX?=
- =?us-ascii?Q?fXwpNhYH1eUX86OqNcjMdDd50TtWei9rfGyM2HW8oJN3+/ecxT+WC2B9kvxZ?=
- =?us-ascii?Q?bKOlrp6DKfvEGSRm7e7iETwsLXUoUZM6Iut6JHfdQEabxqi1JOSLIH0m2Ueo?=
- =?us-ascii?Q?c6zf4zT+a34a7qoPJVDi1IWkqaEhtZYXETb+VNGBiN+R/bs3j6sPFkXx3Mo8?=
- =?us-ascii?Q?FWWGOxID6Q81IdE1mPurWKk5HBAFfeTXyqiq4/uL3sJONmCLi9wUIQRMHyy/?=
- =?us-ascii?Q?UQO1ljqyIn7wb3Ztmur6WaGdcD/jPWpjz54S5ZtwxOYmT4qUjcuKMWe0VNQf?=
- =?us-ascii?Q?Hq0GU1IgE0qtEa06mbbTCn73Es6oZ8zSXyxP53hs4Mi8FYht6PIW4X9MXjfP?=
- =?us-ascii?Q?iAiH1jEOVKvAx3N57qAqjZipTVa7N7iUOt7iZSF5ZZtfW1MK9Xgf3iMa33uZ?=
- =?us-ascii?Q?6ToaRB5xIZFt3rwFnh8sv6dOtSbXd+fnCVK4c3hfMBEOdIAHgf6eBFYwqhSS?=
- =?us-ascii?Q?71YhtaCRlasorwTzDB7xeePVPi6fWuxUXZOzGIMRl3hTfZ03E6lepXqr+79y?=
- =?us-ascii?Q?YK89l6sPQsAsX6Bk/vit4Il4Flhp5yUgICl9XHFpRKRzrb8ySvcp7pu/SQl9?=
- =?us-ascii?Q?LoImdxXwFdkW80RV0DjqdkonAyD3BBtHFIjgYimN8sE2hyWPgKtl5nM1EysO?=
- =?us-ascii?Q?l3iWgXQzrMdj3vHhjFF1I84WgI1j1YB96KAKTZQN4YJz+J3HJG8z+Ar99C+2?=
- =?us-ascii?Q?qQztzfWFPh8eN8NbCrTxZ0oAjv9GImFs3MfyghJt0om4R8B1IuZQ2/5w1wov?=
- =?us-ascii?Q?OaTLUexN/NyJc/4=3D?=
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?g+DkcK0PBJCEgXbxYgwFEKurD8m5oR6c5K1+3eahIAcFvffeXCN+HxXeLoyG?=
+ =?us-ascii?Q?VpRtRL/PVa2ezhAevQ8vZCMEfhXxUJSr7CNc7oLuLgESeajbXJ7eetyhXfQF?=
+ =?us-ascii?Q?AvX1u8rjCV0Z1VDFNlThT7ODd9cIjnTQGifYuRtRytWGDt2Exe0UX0EJaReu?=
+ =?us-ascii?Q?wTes+hg5xP/S3+S3a8Fy5UCnxDqLupa+NCWo+vFKX1WyzuMjcEAxKjiOvfj7?=
+ =?us-ascii?Q?rVSmbyRyaKmrl9pM1A2+q4fNelNTNFPCD6FIr/aLdGVjKgpQUZQTyjiQR8mJ?=
+ =?us-ascii?Q?xZrnRKNBuYVZ2hXVeZWDTGnlLz8cOLYDQEMUO5LKFTnaiRym4DXaJiUgteaY?=
+ =?us-ascii?Q?Uvbm1IzAIhG5mmV+e5WpnAgHtqT1Zco76/UBpQcBcf+qYtGiW2KV4YuqsxO1?=
+ =?us-ascii?Q?ZLFjW9Nngy/58fxffJZAUKq0WtWy61cZ5jqHWUV+TA6BUkO1MW055RuLShBs?=
+ =?us-ascii?Q?ltHrVu+OI503ezw2Et0nVTOH39V8TfytYkJO4VilmUgqob/11QiLay80zkx7?=
+ =?us-ascii?Q?QU/jTMvdK34zz+P+CtsVIDFgThBqBZ3kpONrNkgkIcWNdtseAbBe3KPKX1J+?=
+ =?us-ascii?Q?jzT/bai/OrkRvbkgi2kVk2gsqgmKXobpDzlsAhtwkXpzTG2XYSfxL5u2XGCC?=
+ =?us-ascii?Q?PzoWIYuVQXY1m7US/LlZi894QNll1+0jrbts0tELdF3g6VbJFm3cWq+XNx9L?=
+ =?us-ascii?Q?lEnQ7Wesm5rKz1zum/LWMyIGRNif2A+3dafAJ+VWTFuCzmKpyaaNHc4HGVzh?=
+ =?us-ascii?Q?hMq4pUstgy9L5HaHwryNz/OzYov4bE2/ZD5ESk6Mo0/uuvoE67K9wrg5KATd?=
+ =?us-ascii?Q?W10Meb3qzmHNvlsRtKq7ltR+jkFtUWikIWYvrho4EZFxaj6IRhdn7Chq8ouc?=
+ =?us-ascii?Q?tqBtFFMhTMLdsplrbdKU6a9WmxO9bHxRIrzaFEMGS3yXjon4pfiGb/4Jj3n7?=
+ =?us-ascii?Q?3znlqIWxDJtdfRQXylfXjzlPYYgPnLo/Z3dDoz2NaPixZ5kiqnTvPCJwGnQk?=
+ =?us-ascii?Q?9IKOWMAX5p+BEbhr/zqAVl6SJRfWHGXLiBuKUVSMWf85qqaN7gLNwe6ATh/D?=
+ =?us-ascii?Q?qQ7eElnmKnp4rW+ZV3U6AhRYIcMKzOnSjDpC1yfMwJi9Xznv2/AwmQJEyGkN?=
+ =?us-ascii?Q?qeGW+7EP6Bjmsn76tnfqOQFWHEpQgB8HQRtW15rHBx9iP4R1y8dOuGQWG7mi?=
+ =?us-ascii?Q?oI7kdOmwFc2ZMcMk8IPppCoznctk7GxzxHsyRawNSoPwLFZaNU5Nn6zO1j30?=
+ =?us-ascii?Q?mqyuXKwpS6zGKYaUDPdAbTjmN++0buEe3QOUl7+7L6BLzKMQdKVIfjyYQO2i?=
+ =?us-ascii?Q?lWrrZERAxg+fS8cDosGC235wmDwZwsQglNm5vm2qEC3f5CCi2XyYS3zQS2EL?=
+ =?us-ascii?Q?b38h0bc7X2SLoWWOLjcI4G+en1FkKNfQBOu83GECpeWXaMuV17risWYdyIXR?=
+ =?us-ascii?Q?5kPyouiFoXjg1p34DA6tQ162i+lowHZjf4ShxzfXC3uiTDp6bKvtwyr9NfG8?=
+ =?us-ascii?Q?VXcoojpWE+nKh5Y=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2025 17:57:25.6241 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1426115-604d-4b5a-f5da-08dd670f81d4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2025 17:57:22.6284 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40df32f5-a29a-4949-dc90-08dd670f800b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000141.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000140.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6337
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7645
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,126 +145,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chun-Liang Chang <Chun-Liang.Chang@amd.com>
+From: Cruise <Cruise.Hung@amd.com>
 
 [Why]
-Read the histogram for VariBright validation
+USB4 BW Allocation response will be handled in HPD IRQ.
+No need to handle it in DPIA notification callback.
 
 [How]
-Add dc/dmub functions to read histogram and ACE
+Remove DP BW allocation response code in DPIA notification.
 
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Signed-off-by: Chun-Liang Chang <Chun-Liang.Chang@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Cruise <Cruise.Hung@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c |  2 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 59 +++++++++++++++++++
- 2 files changed, 61 insertions(+)
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h     |  4 ----
+ .../drm/amd/display/dmub/src/dmub_srv_stat.c    | 17 -----------------
+ 2 files changed, 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-index ccc154b0281c..3b9011ef9b68 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-@@ -28,6 +28,8 @@
- #include "dc.h"
- #include "core_types.h"
- #include "dmub_cmd.h"
-+#include "dc_dmub_srv.h"
-+#include "dmub/dmub_srv.h"
- 
- #define TO_DMUB_ABM(abm)\
- 	container_of(abm, struct dce_abm, base)
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 1f5f4e3e49d4..5e7c698f9bfb 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -4360,6 +4360,11 @@ enum dmub_cmd_abm_type {
- 	 * Get the current ACE curve.
- 	 */
- 	DMUB_CMD__ABM_GET_ACE_CURVE = 10,
-+
-+	/**
-+	 * Get current histogram data
-+	 */
-+	DMUB_CMD__ABM_GET_HISTOGRAM_DATA = 11,
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index 4e0efff92dca..80595786341f 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -566,10 +566,6 @@ struct dmub_notification {
+ 		struct aux_reply_data aux_reply;
+ 		enum dp_hpd_status hpd_status;
+ 		enum set_config_status sc_status;
+-		/**
+-		 * DPIA notification command.
+-		 */
+-		struct dmub_rb_cmd_dpia_notification dpia_notification;
+ 		struct dmub_rb_cmd_hpd_sense_notify_data hpd_sense_notify;
+ 	};
  };
- 
- struct abm_ace_curve {
-@@ -4953,6 +4958,20 @@ enum dmub_abm_ace_curve_type {
- 	ABM_ACE_CURVE_TYPE__SW_IF = 1,
- };
- 
-+/**
-+ * enum dmub_abm_histogram_type - Histogram type.
-+ */
-+enum dmub_abm_histogram_type {
-+	/**
-+	 * ACE curve as defined by the SW layer.
-+	 */
-+	ABM_HISTOGRAM_TYPE__SW = 0,
-+	/**
-+	 * ACE curve as defined by the SW to HW translation interface layer.
-+	 */
-+	ABM_HISTOGRAM_TYPE__SW_IF = 1,
-+};
-+
- /**
-  * Definition of a DMUB_CMD__ABM_GET_ACE_CURVE command.
-  */
-@@ -4988,6 +5007,41 @@ struct dmub_rb_cmd_abm_get_ace_curve {
- 	uint8_t pad;
- };
- 
-+/**
-+ * Definition of a DMUB_CMD__ABM_GET_HISTOGRAM command.
-+ */
-+struct dmub_rb_cmd_abm_get_histogram {
-+	/**
-+	 * Command header.
-+	 */
-+	struct dmub_cmd_header header;
-+
-+	/**
-+	 * Address where Histogram should be copied.
-+	 */
-+	union dmub_addr dest;
-+
-+	/**
-+	 * Type of Histogram being queried.
-+	 */
-+	enum dmub_abm_histogram_type histogram_type;
-+
-+	/**
-+	 * Indirect buffer length.
-+	 */
-+	uint16_t bytes;
-+
-+	/**
-+	 * eDP panel instance.
-+	 */
-+	uint8_t panel_inst;
-+
-+	/**
-+	 * Explicit padding to 4 byte boundary.
-+	 */
-+	uint8_t pad;
-+};
-+
- /**
-  * Definition of a DMUB_CMD__ABM_SAVE_RESTORE command.
-  */
-@@ -5686,6 +5740,11 @@ union dmub_rb_cmd {
- 	 */
- 	struct dmub_rb_cmd_abm_get_ace_curve abm_get_ace_curve;
- 
-+	/**
-+	 * Definition of a DMUB_CMD__ABM_GET_HISTOGRAM command.
-+	 */
-+	struct dmub_rb_cmd_abm_get_histogram abm_get_histogram;
-+
- 	/**
- 	 * Definition of a DMUB_CMD__ABM_SET_EVENT command.
- 	 */
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
+index cce887cefc01..1c33857aa513 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
+@@ -95,23 +95,6 @@ enum dmub_status dmub_srv_stat_get_notification(struct dmub_srv *dmub,
+ 	case DMUB_OUT_CMD__DPIA_NOTIFICATION:
+ 		notify->type = DMUB_NOTIFICATION_DPIA_NOTIFICATION;
+ 		notify->link_index = cmd.dpia_notification.payload.header.instance;
+-
+-		if (cmd.dpia_notification.payload.header.type == DPIA_NOTIFY__BW_ALLOCATION) {
+-
+-			notify->dpia_notification.payload.data.dpia_bw_alloc.estimated_bw =
+-					cmd.dpia_notification.payload.data.dpia_bw_alloc.estimated_bw;
+-			notify->dpia_notification.payload.data.dpia_bw_alloc.allocated_bw =
+-					cmd.dpia_notification.payload.data.dpia_bw_alloc.allocated_bw;
+-
+-			if (cmd.dpia_notification.payload.data.dpia_bw_alloc.bits.bw_request_failed)
+-				notify->result = DPIA_BW_REQ_FAILED;
+-			else if (cmd.dpia_notification.payload.data.dpia_bw_alloc.bits.bw_request_succeeded)
+-				notify->result = DPIA_BW_REQ_SUCCESS;
+-			else if (cmd.dpia_notification.payload.data.dpia_bw_alloc.bits.est_bw_changed)
+-				notify->result = DPIA_EST_BW_CHANGED;
+-			else if (cmd.dpia_notification.payload.data.dpia_bw_alloc.bits.bw_alloc_cap_changed)
+-				notify->result = DPIA_BW_ALLOC_CAPS_CHANGED;
+-		}
+ 		break;
+ 	case DMUB_OUT_CMD__HPD_SENSE_NOTIFY:
+ 		notify->type = DMUB_NOTIFICATION_HPD_SENSE_NOTIFY;
 -- 
 2.49.0
 
