@@ -4,164 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C303C35FFC
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 15:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23714C35FFA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 15:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8482210E513;
-	Wed, 19 Mar 2025 15:14:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC28D10E530;
+	Wed, 19 Mar 2025 15:27:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G9EHvDXg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jegeeiMp";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7633510E513
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 15:14:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nHPclDL/oetxyTBx7SId13GhfYBRNomAEdQgd0VuWZQoT6E5mKaQjVznEEb/BSC3xe8wDltDTu16FSlzVdXI8Lu89r+8cVtcaqaawIIunvo/9d40kkfAO7NkUiDK0NAKR2opmS80AKOwb/wnGoovwk6RO0WWpvmJfMhB95BQAOb3oGVCZJnaquu8dTuzmnVP6Ki6vg8CWJCDSIXkv3xI8gaiLfZBdvJ15ZD1PimAME+1lBGXq23HZ1diyR4wWQyAMHCQj6f4ihmHD1d+tysCQd+ju4ibAmOxEaKB1kGCWJkU0Sv3iLMdvUmiEz3XIW57dSLrKpPWU7DwWf+XHgITKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zxuXgsBqSvZMoFEcJyqOxxPZYapCdYmMTJTI0sx3faA=;
- b=EWMVN/IaW/Z+nhPwDIq4SaWqT3eUsrt1L/wrRXLtA/qti8wk3Z0wTghohsvcn2hX5SoenAx7fqi8mO/D1z5TdfMStcl2OnqNZaqBNK66hQg2cQqMPb/V0fTNmrVe1qP0hMAPqz+Bzd1KeJCdHPkPdP+0w/0f7//OkufEprntAfkXeN9X8NlvohtXV5lNc/HPkLEoe6FBq8Rg+oRUZX0pyRHfoopPzc6orHym3nJ/fi0qECC+JUNwichDOvgoeq2cnmIAY+lmlNZJncISKqzISEaBEF3w+1QOcc+y6ODP/FI2l09J7pJy25g7+Ha6aBQ3Lx+zsT2T/VT+Awpc0uSg6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zxuXgsBqSvZMoFEcJyqOxxPZYapCdYmMTJTI0sx3faA=;
- b=G9EHvDXgwEfcPw7CF7b7hfNlBWYsX+sEU9mtcPRE8JNz4jg/dakxBV4NruqleGE6tRSpoc9lMA1ieME77hHst5i0z6OBtAU4f8yYyNjD7ZCE0J8/6hRhnpJJCmplx8AXEgRpiTNNXot+irfD1XaydwHlvLpBAUVUe2Qd2bP9Y8I=
-Received: from PH7PR12MB6633.namprd12.prod.outlook.com (2603:10b6:510:1ff::20)
- by PH7PR12MB5975.namprd12.prod.outlook.com (2603:10b6:510:1da::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Wed, 19 Mar
- 2025 15:14:09 +0000
-Received: from PH7PR12MB6633.namprd12.prod.outlook.com
- ([fe80::cf8b:bdd3:d791:fccc]) by PH7PR12MB6633.namprd12.prod.outlook.com
- ([fe80::cf8b:bdd3:d791:fccc%4]) with mapi id 15.20.8534.031; Wed, 19 Mar 2025
- 15:14:09 +0000
-From: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "Liang, Prike"
- <Prike.Liang@amd.com>, "Olsak, Marek" <Marek.Olsak@amd.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Khatri,
- Sunil" <Sunil.Khatri@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add UAPI to query if user queues are supported
-Thread-Topic: [PATCH] drm/amdgpu: add UAPI to query if user queues are
- supported
-Thread-Index: AQHbl4O5xue1FZ2XE0C5YDhW19c+87N43iuAgAAffgCAAZWG4A==
-Date: Wed, 19 Mar 2025 15:14:09 +0000
-Message-ID: <PH7PR12MB6633E5196B49EE893463241AFFD92@PH7PR12MB6633.namprd12.prod.outlook.com>
-References: <20250317212919.1018717-1-alexander.deucher@amd.com>
- <DS7PR12MB600535BFFCEBF5CF5DE68B80FBDE2@DS7PR12MB6005.namprd12.prod.outlook.com>
- <CADnq5_PuCvvA_ysfYhmbPXAx1KEqcrDNnO0Q41DQ6P3E5swyOQ@mail.gmail.com>
-In-Reply-To: <CADnq5_PuCvvA_ysfYhmbPXAx1KEqcrDNnO0Q41DQ6P3E5swyOQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=3029e335-eba5-42c9-981f-129d6b528af2;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-19T15:10:53Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB6633:EE_|PH7PR12MB5975:EE_
-x-ms-office365-filtering-correlation-id: f6e7d03f-18e8-447d-5197-08dd66f8b2f8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?RmJ2OEFveHlBNHZBeWs5NUVBRy9MSjNoMHNxTzdhc2ozQVpwdFBsOWM2ZGdm?=
- =?utf-8?B?aTVWczlEVVJZL0JPNG1vb0tjYTBoQzZGVnNnUm9zYTZCY1RZTm5TRkZwYWgr?=
- =?utf-8?B?aEJEU3kyVzlBZHBYa2RjSnlKNmxqUUJNd0VDUzRpZ0lwQjQxL3BwQklLaWNF?=
- =?utf-8?B?RXhSWGViRW1OQUZwaG10UlE1UFpDd3pid01acWtNdmM1TWN4dzNQVDFzNjdB?=
- =?utf-8?B?Tm9EVXRjaTJVVkorM3o0R3czZUtveUxWZXprUzY2RW0vV2JBVUNhM2ZxcUJX?=
- =?utf-8?B?Z2twL29HTUozYVlYRzc1cE01OWpkV2NEZHowbHE3a2x1d2ZGNnpoS1RpYlFq?=
- =?utf-8?B?TEhOVkJlOTNQVUt0ZXFucVBjbmpkdWJQVDBvZGFMU29KNWViTGd4dlpVRjE4?=
- =?utf-8?B?aUdYZWllR0ZRNkZXVmlDdCtYMU9TbGtJc2hpM1ZWWHN2SklzcWRtY1paWTls?=
- =?utf-8?B?Z3EvbGwwcWkvSVJ3WnQ4UHFGQi80R0hpbkhVOEw4VWJ3UTloVnQ5alBGbzcx?=
- =?utf-8?B?QlV0MXRjSVdSM3ZQMTZlQU5hSGV0TVpEMXlqOXpvSHJvUlA5V3M0VWdzeVlT?=
- =?utf-8?B?dGkzNFFjcExjZ3dhcWlmcGR0RmVCY1ZUWXZpd3EreVBtRTkzdjFlcnJKYWR6?=
- =?utf-8?B?RlR5Q05Ud21uSkE1NFhvSzJaeHE4Z3o5dUoyaUR4NVUxU3krNHFpck8yK2hC?=
- =?utf-8?B?M045YkpucStKcGorSTV5MncxNklwN3VGdTNwNlBuYWltMXRsdHJnd0dEb1Qy?=
- =?utf-8?B?S0ZMQUZBcDlIUWhmZ1JwRnpJL2tYOThpVnF3aVdZZG1SYzVjaWU5bjYzdlAy?=
- =?utf-8?B?bWc1dHZhTWFJcks5Wm45Y05PUUFRTDlpejJsWXkvc3B1c2lwME5IWGFxNUt0?=
- =?utf-8?B?VlpyckwrZHo3V25IRC9Kb0ZwRzNKbEFWU3JINGUyS0dGdUVZUUxQUWdVaTJL?=
- =?utf-8?B?Z0FwZ2w1c3phcUFNdUFyWlU5VnQxRzJ2L2ZCK3k1SXJZTGFEdTdqbzF0SzdZ?=
- =?utf-8?B?NGFMNUwrcVpFVFNpSnJrcTBOaHIvS3RKK0g0RXk2Vzh6Qi9vcGhGY2NJUmxx?=
- =?utf-8?B?WHU2MHI5cW5ob1ozQnNzZkFSenRrK0F3dXRLNmhaZGxya25mRzdMenU5THRy?=
- =?utf-8?B?dE1NdHVFdFhmZE9IZUwzS01Qa1ZIUTRGOUFDd2E4aEtmNThWV3ptY1VqVnpN?=
- =?utf-8?B?WHhwQjBqNGxiejBkeE9zU0dWVy9acjF1bjlpeXAxbHNRdkFCRzdRRHA4ajRD?=
- =?utf-8?B?NGNWN0NIM2RQcGovMzhNN3Fyb3lNc2IxaTNlQXh5VXlQeWxIRmpLWVJXKzFM?=
- =?utf-8?B?VHRYZlVOd1k2WUhZMU5zRENpVzlwdDhpOUNOSEowZnIvRFA1cFI0MnBWVnk3?=
- =?utf-8?B?KzlEOFh6M1k4UUozUXNJLzRyRWM2TnlEc21MQ0w4VE5sV0tHUDhDYVhaa0pz?=
- =?utf-8?B?enErbW5TZzcvMFU2c2VPZzEwV1pzOWdabldaU2Q5dzNiaUh6czhHWFNqRmxG?=
- =?utf-8?B?ZFkycGFCZnRleUJMODFTQ3FqWm5rMzRLNUtuRXd1Z2VBdW9sSVZRQnlsWFdJ?=
- =?utf-8?B?cCtSOW55akFOdDlndVQ3SUpTWTdvbzFsZlVXTWM4QjkycHJPQUcxQjU1Rkxt?=
- =?utf-8?B?V0x4T2xoaXRGZjRiRWZZM3RRb2Jrblh1aUNvNjdIUklySVF0czF0MUhEajRu?=
- =?utf-8?B?TktoMkl5SXVGdVl6b1k2U1E5TXNKem5hRnJsWjkvSmhzRkkwS2NmZzBMQmVq?=
- =?utf-8?B?cENwdWdXOVd5Uzl2dzE5WE1oUDF0NzN5eXBQWUs0ZTJaenNCdytKQWR5WHVN?=
- =?utf-8?B?Rk1ZVHh1WTdwaUdaSWZWcGtyb0dFVUZQQ014VmhtOXI0WDlPM2ZkNGRmaUNF?=
- =?utf-8?B?RFhFZWNHZnBRTEhaRXh3YkFra3lvZDRDL0lpem1JTjU5N3RzT21idDUyU0ZT?=
- =?utf-8?Q?PXk8fdeUSqrtQl9KNoYp69DkQWIz3Zdj?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB6633.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SXlDNm9qNE1IWjYzUWx2QmUxSkZUSm1kOVdseWhxczh3MWpmN2NTTVRlZDFO?=
- =?utf-8?B?NlVCT2JmbWJFNlRoVTdrTzFBNDhycVhNS3UxeDBVZzNnWFNOMzF3Wmt0U3J6?=
- =?utf-8?B?Nkhwd241TmV5SEc0UHc1MkFDZUNVQ0hYR0N1SXB2SlIrL09EajhGMkdnZXNX?=
- =?utf-8?B?TVFwL05HZ2s3ZS9tNDV5V3hWeWdGUi9jblprSDlsYW1JZmM3Uk4rZ3lNb2lw?=
- =?utf-8?B?aUx4QlMzd0ZUZ2czYXVqSWVaNVlVQ2NEK25LNjFDOTNwVmhSdjVRaFA4a3Nq?=
- =?utf-8?B?OW9sVWkvdEZpdTlOUGRYZVgvR3JFL2J0cVl0alQvRlB1T0V5Mk1FWXNxYXZL?=
- =?utf-8?B?bXFGWjZ6aUMwSW9yWDN4V3VvTHlHS290c21rZitjUGVYd295SGZWVStjMkox?=
- =?utf-8?B?YStSWmZEbHhHdEc5R3luSGxiZVpGZ2lIWVpET2RXRWU5SHBrUGMrQkdmWG1F?=
- =?utf-8?B?cVh2NTRHN1hEUHpITVBRaTdYTzVTWDA3T0FHWlllZHIzcGp6SE9vTkovaW1p?=
- =?utf-8?B?eFIzKzNNY0pMNnNjMWRXYlUzSCsxUHZQNSt5UmhBend6WG9YNVY0cGtzNUlo?=
- =?utf-8?B?aVhoNENpa1VlaEdSRzlUZzloNEorTy9xZ1FMekEwUUNZMk5FNFNhUWozUHJn?=
- =?utf-8?B?b0dtSEttV3A0RDY2Ty9yT2ZRUVduNDZiWDlGZEtsbU1KYnpvR0d4d3RBVWZj?=
- =?utf-8?B?d0duZ0YvN0Q3Z2tNZUI1WCs1VWtkYlFjV0lqOGlJSEwwYnZhM3Y5d0pOeWQx?=
- =?utf-8?B?ZFJ2QjN3aExRak40QlQ4dTlmMnJmVEdNQWNiaWpKY1luSzFpSG54dDhGVmFo?=
- =?utf-8?B?S2V1bmJjRzRJaERneUowbytVeVdvMFFHZUlnUE9IWGFmWUs4VnF6enBQcExT?=
- =?utf-8?B?dTZDNWc5Z05lN3l0dzZQdTVTV3ZFaFRLMy9WN2UvWktRWkpHdjc2T01MaHBY?=
- =?utf-8?B?ODVmQWtGKzAxcGxnQTJOZ01PVEtsOVlLdkNyOHYvVmRmWHk0d3R0cU42RnBl?=
- =?utf-8?B?UWhqbTk0R3RPRjJmaGlxZnpPdTY5ZHZqdTJlYldNU3JHeERoMEVUaHRTS2Zm?=
- =?utf-8?B?bFNTZFNxSjNDZWpXL2VqK1g1ZE05U29vUGRzaUN0UThwSjN0eGkybTNyV2xn?=
- =?utf-8?B?bGRxcm1BK1JMV3c4UktYSUdEWFBHVUhxZmdVczNKMlArUHh1TzJpMENxVjZ0?=
- =?utf-8?B?MENWL3Q2VExsUktDL0hMOHp0WU9ERmVpdzRodHBXNDQxL2crUUJJTlA0Z2RM?=
- =?utf-8?B?d0VjS0tOd1dkYThWS0F0T20yQ2dlRGlpY1lnejlRTmo3YVRyS2w5VjBnMkJw?=
- =?utf-8?B?VFZxR2FINjFTYUUxTmZEOTd5dlU2VVJiUWlHZXo3QndpaXhOajZLS2Y5N0Rl?=
- =?utf-8?B?SGdjSzlWOVFGbFQ1Q01mR0tEeGhoaC9KQkdqcXpmRU9vaTFtRkp4SzF4SXFi?=
- =?utf-8?B?MXVVc3hxWTZaeTRxUEFEbmZMZW80UWxwNVVMS084RUJmMXArNkpsK2dzemow?=
- =?utf-8?B?UFVLZmFnTXFGL1FWL1VkWTBhWnkzVWlScmpKT0w1ZzhYYitaQjhZRVhTT0JH?=
- =?utf-8?B?RE9Uc09uQVIwTkRKQU5TYW9pbDFqb3RodnZxQXBGREkrZ1NZMVozUnJCM3hh?=
- =?utf-8?B?bHFmNTA3Sk9sSHFZWWgrOVMwWkFDR2dnamZGdDg4TnVtM2pCL0dHMmdXa2hk?=
- =?utf-8?B?cTV1dmVjWGpXV3RKR1VOdVBrUTZndGNPZEx0VkZiZ0dCOUpEMmtYbkNyejFo?=
- =?utf-8?B?dkpRRmxsTDlmT3laTnZRK0NXUS82SStxVm1KWTlPRUc5NE9Ra2tmN0J3K0NV?=
- =?utf-8?B?dFkySkx6L3hCZXVRbHozelNKaWp3ay9SZHU1ejJ5OGNIUGFWUnZRQllqZ1FN?=
- =?utf-8?B?SngwK2YxVVVGME8wTC9HbWljc2Fud3NDaWFkR0RveXhLM08xNVNjZlM5Q0Y2?=
- =?utf-8?B?ejBTblBtQXo3L2JadTRGQytna2ZQZXNhUFNWQktmVC9JemN3eWNrbzVuVUx3?=
- =?utf-8?B?WnpiMERrekdQSElaNFhKUXQ2M2hJZVpQcTIxR1lQQzZieVdFbDlFczJMNjhm?=
- =?utf-8?B?Z1N1c1BHWnh5YktROGdEWlhVR3k1bGdNU0x4cmRjaHM1bVNRSzBvNHdoRUZ4?=
- =?utf-8?Q?412w=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F70E10E530
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 15:27:55 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-3996af42857so617193f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 08:27:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742398074; x=1743002874; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YsGShsxAJ38pcyKpIa4pQjrsufR5W8WPDoFH+AcXJbU=;
+ b=jegeeiMpz4dUcQRNVKKN0jnvYUiwame2DdRY9vmPIC+oKKppj53FSiKxue0X8nfTwj
+ gZC0QTWEhOSaaRzTqMannF8gFS8XR9cytQm+l0Oi2iNEDXUsMmq+2veyogKL40clEigV
+ lu6+5lZDGyCpRU8G4RIjXOrFfmK7oPJy9cGORJIFJMLe1Vjgb+61Sc9kV22EivaKsrfX
+ ac+/9uuDEX45zFWnqHaOhs8i0adUywiCBl/oCwOu42aUh5ERZUYbzxudo2OQ/4roiwlQ
+ Yb5vpRfIMqdwzI2krYwz2pUDPCjAqV5zpGCi/hzEVULoK1NojE0sdqu/8ofCfm399+eU
+ kkew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742398074; x=1743002874;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YsGShsxAJ38pcyKpIa4pQjrsufR5W8WPDoFH+AcXJbU=;
+ b=ObgDe7X+3TkHHfYQj/DSLf1+g1+x3wza8Tv5HfBDF+J8zC4fRfOH3/3W38G9RJm5vS
+ JlwapkJrr2fLWL34zGXAdG23KQXyOxG0gO3v+vEsyHAIdb+7lVPt3sogkagSbs0AKTG9
+ Gh5mJsndaToSxo4S/p3AW1yMzIOeMcIPjuKh1BKUV02Ul2ttp2QommnhgHeEKJ1/rhYh
+ z8Mx0jERUloQywFoYfuRNoEbXJ5BVWY4dpuYd/Y7ZYqRI2wn3hpBbg1GrZx4yONQmawQ
+ sZmPjOxXX++ff2yWbmViOgu9165Bu1A/IXj8QmguwbmoKg98rD1HMgohAHNupNIAMDar
+ n3FA==
+X-Gm-Message-State: AOJu0Ywix6sjzT0GFGpB0KfOXE0cNH+Aju5cz72giLzsqlOIH+aofvZw
+ XExbV/P3XGSVJIDCREMsvufVo4CvKsRtPYRtYSgThRfOsmQ+Il7Y
+X-Gm-Gg: ASbGncvmsxW30F9LylQ3I8n3V9QEQuANKxbTkyxBUKp6NKhWnSi1cnIDCR1IHJCVWbA
+ RBBuNWaiVV4Y7qZtlKZ8xqjx1oDU6/LHMomVcO3shjoNkjKkCbSgKF9Y2/SkFlVnj7kEJCzi6DO
+ RmQkum3vOw4yuhY7YJSww2GJV6VJYdSeu94dk9CmHswF8F6HG19cSPg+csBBN1aod7RwtLYtjGL
+ Hxbve85F5NIIapSgXt8yLGbkuHbA8vF2qSY1wVKlkP1G6jYdgij1kYJ1KCEfu4hFdnmD0eS9nSV
+ 0iSn9zPP9kENPPCR/ojqeOqk+T5ofqBN55uSNSoQwEivGYEcIE53b/Yh0mBZg7hghl13hRLH7w=
+ =
+X-Google-Smtp-Source: AGHT+IETTNHEAyMRR1oT7HMZOb17xQQH0SsHvJ68bVaqQUpFkuI621nUfLbuRBqwbWwMBsCAkg4tYA==
+X-Received: by 2002:a5d:648b:0:b0:391:865:5a93 with SMTP id
+ ffacd0b85a97d-39973c6d44fmr2750184f8f.22.1742398072841; 
+ Wed, 19 Mar 2025 08:27:52 -0700 (PDT)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c7df344dsm21910948f8f.10.2025.03.19.08.27.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Mar 2025 08:27:52 -0700 (PDT)
+Message-ID: <22ddb205-2e38-4b9f-9272-61a76f9e56ee@gmail.com>
+Date: Wed, 19 Mar 2025 16:27:49 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6633.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6e7d03f-18e8-447d-5197-08dd66f8b2f8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2025 15:14:09.6784 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6PnGA9y8Vgt/wow+DE3+BtC5jzIPzpBv9CiERmfRdC3oS9lRsGRPWYWYRNCID66Qu6hLmU5sJecCbLpu0bxkug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5975
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: remove is_mes_queue flag
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20250312175657.187396-1-alexander.deucher@amd.com>
+ <CADnq5_Oj4s9QWjgGJBFkfwRsjKt=erAYrBBvK5pxEQXZCVenvA@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_Oj4s9QWjgGJBFkfwRsjKt=erAYrBBvK5pxEQXZCVenvA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,79 +89,1599 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KSGkgQWxleCwNCg0KWWVzLCB0aGlzIGxvb2tzIGdvb2QgdG8gbWUuIFRoYW5rIHlvdS4NCg0K
-VGhhbmsgeW91LA0KWW9nZXNoDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBh
-bWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYg
-T2YgQWxleCBEZXVjaGVyDQpTZW50OiBUdWVzZGF5LCBNYXJjaCAxOCwgMjAyNSA4OjI5IFBNDQpU
-bzogTGlhbmcsIFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQuY29tPjsgTW9oYW4gTWFyaW11dGh1LCBZ
-b2dlc2ggPFlvZ2VzaC5Nb2hhbm1hcmltdXRodUBhbWQuY29tPjsgT2xzYWssIE1hcmVrIDxNYXJl
-ay5PbHNha0BhbWQuY29tPg0KQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNo
-ZXJAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBLaGF0cmksIFN1bmls
-IDxTdW5pbC5LaGF0cmlAYW1kLmNvbT4NClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6
-IGFkZCBVQVBJIHRvIHF1ZXJ5IGlmIHVzZXIgcXVldWVzIGFyZSBzdXBwb3J0ZWQNCg0KT24gVHVl
-LCBNYXIgMTgsIDIwMjUgYXQgOToxM+KAr0FNIExpYW5nLCBQcmlrZSA8UHJpa2UuTGlhbmdAYW1k
-LmNvbT4gd3JvdGU6DQo+DQo+IFtQdWJsaWNdDQo+DQo+IFJldmlld2VkLWJ5OiBQcmlrZSBMaWFu
-ZyA8UHJpa2UuTGlhbmdAYW1kLmNvbT4NCj4NCj4gTWF5IEkga25vdyB3aGVuIHRoZSBjb3VudGVy
-cGFydCBwYXJ0IG9mIExpYmRybSBhbmQgTWVzYSBjYW4gc3VwcG9ydCB0aGlzIFVBUEk/DQoNCisg
-WW9nZXNoDQoNCkFzc3VtaW5nIHRoaXMgaXMgYWdyZWVhYmxlIHRvIHRoZSBtZXNhIHRlYW0sIEkn
-ZCBleHBlY3QgdGhlbSB0byBzdGFydCB1c2luZyBpdC4gIEB5b2dlc2gubW9oYW5tYXJpbXV0aHVA
-YW1kLmNvbSwgQE1hcmVrIE9sxaHDoWsgIGRvZXMgdGhpcyBsb29rIGdvb2QgdG8geW91Pw0KDQpB
-bGV4DQoNCj4NCj4gUmVnYXJkcywNCj4gICAgICAgUHJpa2UNCj4NCj4gPiAtLS0tLU9yaWdpbmFs
-IE1lc3NhZ2UtLS0tLQ0KPiA+IEZyb206IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRl
-dWNoZXJAYW1kLmNvbT4NCj4gPiBTZW50OiBUdWVzZGF5LCBNYXJjaCAxOCwgMjAyNSA1OjI5IEFN
-DQo+ID4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4gQ2M6IERldWNoZXIs
-IEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IE9sc2FrLCBNYXJlaw0KPiA+
-IDxNYXJlay5PbHNha0BhbWQuY29tPjsgTGlhbmcsIFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQuY29t
-PjsgS2hhdHJpLA0KPiA+IFN1bmlsIDxTdW5pbC5LaGF0cmlAYW1kLmNvbT4NCj4gPiBTdWJqZWN0
-OiBbUEFUQ0hdIGRybS9hbWRncHU6IGFkZCBVQVBJIHRvIHF1ZXJ5IGlmIHVzZXIgcXVldWVzIGFy
-ZQ0KPiA+IHN1cHBvcnRlZA0KPiA+DQo+ID4gQWRkIGFuIElORk8gcXVlcnkgdG8gY2hlY2sgaWYg
-dXNlciBxdWV1ZXMgYXJlIHN1cHBvcnRlZC4NCj4gPg0KPiA+IHYyOiBzd2l0Y2ggdG8gYSBtYXNr
-IG9mIElQcyAoTWFyZWspDQo+ID4NCj4gPiBDYzogbWFyZWsub2xzYWtAYW1kLmNvbQ0KPiA+IENj
-OiBwcmlrZS5saWFuZ0BhbWQuY29tDQo+ID4gQ2M6IHN1bmlsLmtoYXRyaUBhbWQuY29tDQo+ID4g
-U2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0K
-PiA+IC0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCAx
-MyArKysrKysrKysrKysrDQo+ID4gIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAg
-ICAgICB8ICA4ICsrKysrKysrDQo+ID4gIDIgZmlsZXMgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygr
-KQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9rbXMuYw0KPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+
-ID4gaW5kZXggM2I3ZGZkNTZjY2QwZS4uMWQ2ODNjMDQ4NzY5NyAxMDA2NDQNCj4gPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMNCj4gPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMNCj4gPiBAQCAtMTM0MCw2ICsxMzQwLDE5
-IEBAIGludCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LA0KPiA+IHZv
-aWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZSAqZmlscCkNCj4gPiAgICAgICAgICAgICAgICAgICAg
-ICAgcmV0dXJuIC1FSU5WQUw7DQo+ID4gICAgICAgICAgICAgICB9DQo+ID4gICAgICAgfQ0KPiA+
-ICsgICAgIGNhc2UgQU1ER1BVX0lORk9fVVFfU1VQUE9SVEVEOiB7DQo+ID4gKyAgICAgICAgICAg
-ICBzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvX3VxX3N1cHBvcnRlZCB1cV9zdXBwb3J0ZWQgPSB7fTsN
-Cj4gPiArDQo+ID4gKyAgICAgICAgICAgICBpZiAoYWRldi0+dXNlcnFfZnVuY3NbQU1ER1BVX0hX
-X0lQX0dGWF0pDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHVxX3N1cHBvcnRlZC5zdXBwb3J0
-ZWQgfD0gKDEgPDwgQU1ER1BVX0hXX0lQX0dGWCk7DQo+ID4gKyAgICAgICAgICAgICBpZiAoYWRl
-di0+dXNlcnFfZnVuY3NbQU1ER1BVX0hXX0lQX0NPTVBVVEVdKQ0KPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICB1cV9zdXBwb3J0ZWQuc3VwcG9ydGVkIHw9ICgxIDw8DQo+ID4gQU1ER1BVX0hXX0lQ
-X0NPTVBVVEUpOw0KPiA+ICsgICAgICAgICAgICAgaWYgKGFkZXYtPnVzZXJxX2Z1bmNzW0FNREdQ
-VV9IV19JUF9ETUFdKQ0KPiA+ICsgICAgICAgICAgICAgICAgICAgICB1cV9zdXBwb3J0ZWQuc3Vw
-cG9ydGVkIHw9ICgxIDw8IEFNREdQVV9IV19JUF9ETUEpOw0KPiA+ICsgICAgICAgICAgICAgcmV0
-ID0gY29weV90b191c2VyKG91dCwgJnVxX3N1cHBvcnRlZCwNCj4gPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBtaW4oKHNpemVfdClzaXplLA0KPiA+ICsgc2l6ZW9mKHVxX3N1cHBv
-cnRlZCkpKSA/IC0NCj4gPiBFRkFVTFQgOiAwOw0KPiA+ICsgICAgICAgICAgICAgcmV0dXJuIDA7
-DQo+ID4gKyAgICAgfQ0KPiA+ICAgICAgIGRlZmF1bHQ6DQo+ID4gICAgICAgICAgICAgICBEUk1f
-REVCVUdfS01TKCJJbnZhbGlkIHJlcXVlc3QgJWRcbiIsIGluZm8tPnF1ZXJ5KTsNCj4gPiAgICAg
-ICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPiA+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkv
-ZHJtL2FtZGdwdV9kcm0uaA0KPiA+IGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggaW5k
-ZXggNWRiZDkwMzdhZmU3NS4uNGI2NGU5MTAwMmMwNQ0KPiA+IDEwMDY0NA0KPiA+IC0tLSBhL2lu
-Y2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oDQo+ID4gKysrIGIvaW5jbHVkZS91YXBpL2RybS9h
-bWRncHVfZHJtLmgNCj4gPiBAQCAtMTE5NSw2ICsxMTk1LDggQEAgc3RydWN0IGRybV9hbWRncHVf
-Y3NfY2h1bmtfY3BfZ2Z4X3NoYWRvdyB7DQo+ID4gICNkZWZpbmUgQU1ER1BVX0lORk9fR1BVVk1f
-RkFVTFQgICAgICAgICAgICAgICAgICAgICAgMHgyMw0KPiA+ICAvKiBxdWVyeSBGVyBvYmplY3Qg
-c2l6ZSBhbmQgYWxpZ25tZW50ICovDQo+ID4gICNkZWZpbmUgQU1ER1BVX0lORk9fVVFfRldfQVJF
-QVMgICAgICAgICAgICAgICAgICAgICAgMHgyNA0KPiA+ICsvKiBxdWVyeSBpZiB1c2VyIHF1ZXVl
-cyBhcmUgc3VwcG9ydGVkICovDQo+ID4gKyNkZWZpbmUgQU1ER1BVX0lORk9fVVFfU1VQUE9SVEVE
-ICAgICAgICAgICAgIDB4MjUNCj4gPg0KPiA+ICAjZGVmaW5lIEFNREdQVV9JTkZPX01NUl9TRV9J
-TkRFWF9TSElGVCAgICAgICAwDQo+ID4gICNkZWZpbmUgQU1ER1BVX0lORk9fTU1SX1NFX0lOREVY
-X01BU0sgICAgICAgIDB4ZmYNCj4gPiBAQCAtMTU3Miw2ICsxNTc0LDEyIEBAIHN0cnVjdCBkcm1f
-YW1kZ3B1X2luZm9fdXFfbWV0YWRhdGEgew0KPiA+ICAgICAgIH07DQo+ID4gIH07DQo+ID4NCj4g
-PiArc3RydWN0IGRybV9hbWRncHVfaW5mb191cV9zdXBwb3J0ZWQgew0KPiA+ICsgICAgIC8qKiBy
-ZXR1cm5zIGEgbWFzayBmb3IgZWFjaCBJUCB0eXBlICgxIDw8IEFNREdQVV9IV19JUF8qKSAqLw0K
-PiA+ICsgICAgIF9fdTMyICAgc3VwcG9ydGVkOw0KPiA+ICsgICAgIF9fdTMyICAgcGFkOw0KPiA+
-ICt9Ow0KPiA+ICsNCj4gPiAgLyoNCj4gPiAgICogU3VwcG9ydGVkIEdQVSBmYW1pbGllcw0KPiA+
-ICAgKi8NCj4gPiAtLQ0KPiA+IDIuNDguMQ0KPg0K
+Sorry missed that one, Acked-by: Christian König <christian.koenig@amd.com>
+
+Regards,
+Christian.
+
+Am 18.03.25 um 14:15 schrieb Alex Deucher:
+> Ping?
+>
+> On Wed, Mar 12, 2025 at 1:57 PM Alex Deucher <alexander.deucher@amd.com> wrote:
+>> This was leftover from MES bring up when we had MES
+>> user queues in the kernel.  It's no longer used so
+>> remove it.
+>>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   |   4 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 112 ++++++---------
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  14 --
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c |  22 +--
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |   2 +-
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   |  84 +++---------
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 143 ++++---------------
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  67 ++-------
+>>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |   4 -
+>>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   |   4 -
+>>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   |   4 -
+>>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 166 +++++++----------------
+>>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  83 ++++--------
+>>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  83 ++++--------
+>>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 164 +++++++---------------
+>>  15 files changed, 259 insertions(+), 697 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>> index eac96a3d8c6c3..6efa0c5717dcf 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>> @@ -163,12 +163,12 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+>>                 init_shadow = false;
+>>         }
+>>
+>> -       if (!ring->sched.ready && !ring->is_mes_queue) {
+>> +       if (!ring->sched.ready) {
+>>                 dev_err(adev->dev, "couldn't schedule ib on ring <%s>\n", ring->name);
+>>                 return -EINVAL;
+>>         }
+>>
+>> -       if (vm && !job->vmid && !ring->is_mes_queue) {
+>> +       if (vm && !job->vmid) {
+>>                 dev_err(adev->dev, "VM IB without ID\n");
+>>                 return -EINVAL;
+>>         }
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>> index d55c8b7fdb596..ba8f2785865af 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>> @@ -187,14 +187,10 @@ void amdgpu_ring_undo(struct amdgpu_ring *ring)
+>>  }
+>>
+>>  #define amdgpu_ring_get_gpu_addr(ring, offset)                         \
+>> -       (ring->is_mes_queue ?                                           \
+>> -        (ring->mes_ctx->meta_data_gpu_addr + offset) :                 \
+>> -        (ring->adev->wb.gpu_addr + offset * 4))
+>> +        (ring->adev->wb.gpu_addr + offset * 4)
+>>
+>>  #define amdgpu_ring_get_cpu_addr(ring, offset)                         \
+>> -       (ring->is_mes_queue ?                                           \
+>> -        (void *)((uint8_t *)(ring->mes_ctx->meta_data_ptr) + offset) : \
+>> -        (&ring->adev->wb.wb[offset]))
+>> +        (&ring->adev->wb.wb[offset])
+>>
+>>  /**
+>>   * amdgpu_ring_init - init driver ring struct.
+>> @@ -243,57 +239,42 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+>>                 ring->sched_score = sched_score;
+>>                 ring->vmid_wait = dma_fence_get_stub();
+>>
+>> -               if (!ring->is_mes_queue) {
+>> -                       ring->idx = adev->num_rings++;
+>> -                       adev->rings[ring->idx] = ring;
+>> -               }
+>> +               ring->idx = adev->num_rings++;
+>> +               adev->rings[ring->idx] = ring;
+>>
+>>                 r = amdgpu_fence_driver_init_ring(ring);
+>>                 if (r)
+>>                         return r;
+>>         }
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               ring->rptr_offs = amdgpu_mes_ctx_get_offs(ring,
+>> -                               AMDGPU_MES_CTX_RPTR_OFFS);
+>> -               ring->wptr_offs = amdgpu_mes_ctx_get_offs(ring,
+>> -                               AMDGPU_MES_CTX_WPTR_OFFS);
+>> -               ring->fence_offs = amdgpu_mes_ctx_get_offs(ring,
+>> -                               AMDGPU_MES_CTX_FENCE_OFFS);
+>> -               ring->trail_fence_offs = amdgpu_mes_ctx_get_offs(ring,
+>> -                               AMDGPU_MES_CTX_TRAIL_FENCE_OFFS);
+>> -               ring->cond_exe_offs = amdgpu_mes_ctx_get_offs(ring,
+>> -                               AMDGPU_MES_CTX_COND_EXE_OFFS);
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &ring->rptr_offs);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) ring rptr_offs wb alloc failed\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &ring->rptr_offs);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) ring rptr_offs wb alloc failed\n", r);
+>> +               return r;
+>> +       }
+>>
+>> -               r = amdgpu_device_wb_get(adev, &ring->wptr_offs);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) ring wptr_offs wb alloc failed\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &ring->wptr_offs);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) ring wptr_offs wb alloc failed\n", r);
+>> +               return r;
+>> +       }
+>>
+>> -               r = amdgpu_device_wb_get(adev, &ring->fence_offs);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) ring fence_offs wb alloc failed\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &ring->fence_offs);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) ring fence_offs wb alloc failed\n", r);
+>> +               return r;
+>> +       }
+>>
+>> -               r = amdgpu_device_wb_get(adev, &ring->trail_fence_offs);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) ring trail_fence_offs wb alloc failed\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &ring->trail_fence_offs);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) ring trail_fence_offs wb alloc failed\n", r);
+>> +               return r;
+>> +       }
+>>
+>> -               r = amdgpu_device_wb_get(adev, &ring->cond_exe_offs);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) ring cond_exec_polling wb alloc failed\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &ring->cond_exe_offs);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) ring cond_exec_polling wb alloc failed\n", r);
+>> +               return r;
+>>         }
+>>
+>>         ring->fence_gpu_addr =
+>> @@ -353,18 +334,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+>>         ring->cached_rptr = 0;
+>>
+>>         /* Allocate ring buffer */
+>> -       if (ring->is_mes_queue) {
+>> -               int offset = 0;
+>> -
+>> -               BUG_ON(ring->ring_size > PAGE_SIZE*4);
+>> -
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_RING_OFFS);
+>> -               ring->gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               ring->ring = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               amdgpu_ring_clear_ring(ring);
+>> -
+>> -       } else if (ring->ring_obj == NULL) {
+>> +       if (ring->ring_obj == NULL) {
+>>                 r = amdgpu_bo_create_kernel(adev, ring->ring_size + ring->funcs->extra_dw, PAGE_SIZE,
+>>                                             AMDGPU_GEM_DOMAIN_GTT,
+>>                                             &ring->ring_obj,
+>> @@ -401,32 +371,26 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring)
+>>  {
+>>
+>>         /* Not to finish a ring which is not initialized */
+>> -       if (!(ring->adev) ||
+>> -           (!ring->is_mes_queue && !(ring->adev->rings[ring->idx])))
+>> +       if (!(ring->adev) || !(ring->adev->rings[ring->idx]))
+>>                 return;
+>>
+>>         ring->sched.ready = false;
+>>
+>> -       if (!ring->is_mes_queue) {
+>> -               amdgpu_device_wb_free(ring->adev, ring->rptr_offs);
+>> -               amdgpu_device_wb_free(ring->adev, ring->wptr_offs);
+>> +       amdgpu_device_wb_free(ring->adev, ring->rptr_offs);
+>> +       amdgpu_device_wb_free(ring->adev, ring->wptr_offs);
+>>
+>> -               amdgpu_device_wb_free(ring->adev, ring->cond_exe_offs);
+>> -               amdgpu_device_wb_free(ring->adev, ring->fence_offs);
+>> +       amdgpu_device_wb_free(ring->adev, ring->cond_exe_offs);
+>> +       amdgpu_device_wb_free(ring->adev, ring->fence_offs);
+>>
+>> -               amdgpu_bo_free_kernel(&ring->ring_obj,
+>> -                                     &ring->gpu_addr,
+>> -                                     (void **)&ring->ring);
+>> -       } else {
+>> -               kfree(ring->fence_drv.fences);
+>> -       }
+>> +       amdgpu_bo_free_kernel(&ring->ring_obj,
+>> +                             &ring->gpu_addr,
+>> +                             (void **)&ring->ring);
+>>
+>>         dma_fence_put(ring->vmid_wait);
+>>         ring->vmid_wait = NULL;
+>>         ring->me = 0;
+>>
+>> -       if (!ring->is_mes_queue)
+>> -               ring->adev->rings[ring->idx] = NULL;
+>> +       ring->adev->rings[ring->idx] = NULL;
+>>  }
+>>
+>>  /**
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> index d93d3047553b3..bea3747f9550b 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> @@ -306,11 +306,6 @@ struct amdgpu_ring {
+>>         unsigned                num_hw_submission;
+>>         atomic_t                *sched_score;
+>>
+>> -       /* used for mes */
+>> -       bool                    is_mes_queue;
+>> -       uint32_t                hw_queue_id;
+>> -       struct amdgpu_mes_ctx_data *mes_ctx;
+>> -
+>>         bool            is_sw_ring;
+>>         unsigned int    entry_index;
+>>         /* store the cached rptr to restore after reset */
+>> @@ -440,15 +435,6 @@ static inline void amdgpu_ring_patch_cond_exec(struct amdgpu_ring *ring,
+>>         ring->ring[offset] = cur - offset;
+>>  }
+>>
+>> -#define amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset)                 \
+>> -       (ring->is_mes_queue && ring->mes_ctx ?                          \
+>> -        (ring->mes_ctx->meta_data_gpu_addr + offset) : 0)
+>> -
+>> -#define amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset)                 \
+>> -       (ring->is_mes_queue && ring->mes_ctx ?                          \
+>> -        (void *)((uint8_t *)(ring->mes_ctx->meta_data_ptr) + offset) : \
+>> -        NULL)
+>> -
+>>  int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
+>>
+>>  void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>> index 3a4cef8960185..03c4c012a1508 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>> @@ -76,22 +76,14 @@ uint64_t amdgpu_sdma_get_csa_mc_addr(struct amdgpu_ring *ring,
+>>         if (amdgpu_sriov_vf(adev) || vmid == 0 || !adev->gfx.mcbp)
+>>                 return 0;
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> +       r = amdgpu_sdma_get_index_from_ring(ring, &index);
+>>
+>> -               offset = offsetof(struct amdgpu_mes_ctx_meta_data,
+>> -                                 sdma[ring->idx].sdma_meta_data);
+>> -               csa_mc_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -       } else {
+>> -               r = amdgpu_sdma_get_index_from_ring(ring, &index);
+>> -
+>> -               if (r || index > 31)
+>> -                       csa_mc_addr = 0;
+>> -               else
+>> -                       csa_mc_addr = amdgpu_csa_vaddr(adev) +
+>> -                               AMDGPU_CSA_SDMA_OFFSET +
+>> -                               index * AMDGPU_CSA_SDMA_SIZE;
+>> -       }
+>> +       if (r || index > 31)
+>> +               csa_mc_addr = 0;
+>> +       else
+>> +               csa_mc_addr = amdgpu_csa_vaddr(adev) +
+>> +                       AMDGPU_CSA_SDMA_OFFSET +
+>> +                       index * AMDGPU_CSA_SDMA_SIZE;
+>>
+>>         return csa_mc_addr;
+>>  }
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index ef4fe2df8398c..ea18484d1d7a7 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -702,7 +702,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>>         if (spm_update_needed && adev->gfx.rlc.funcs->update_spm_vmid)
+>>                 adev->gfx.rlc.funcs->update_spm_vmid(adev, ring, job->vmid);
+>>
+>> -       if (!ring->is_mes_queue && ring->funcs->emit_gds_switch &&
+>> +       if (ring->funcs->emit_gds_switch &&
+>>             gds_switch_needed) {
+>>                 amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
+>>                                             job->gds_size, job->gws_base,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> index 2cf663d25881d..719c4aa90a0e0 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> @@ -582,33 +582,18 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>
+>>         memset(&ib, 0, sizeof(ib));
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t padding, offset;
+>> -
+>> -               offset = amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_IB_OFFS);
+>> -               padding = amdgpu_mes_ctx_get_offs(ring,
+>> -                                                 AMDGPU_MES_CTX_PADDING_OFFS);
+>> -
+>> -               ib.gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               ib.ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, padding);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, padding);
+>> -               *cpu_ptr = cpu_to_le32(0xCAFEDEAD);
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r)
+>> -                       return r;
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r)
+>> +               return r;
+>>
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+>> -               cpu_ptr = &adev->wb.wb[index];
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+>> +       cpu_ptr = &adev->wb.wb[index];
+>>
+>> -               r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
+>> -               if (r) {
+>> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> -                       goto err1;
+>> -               }
+>> +       r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
+>> +       if (r) {
+>> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> +               goto err1;
+>>         }
+>>
+>>         ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+>> @@ -635,12 +620,10 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         else
+>>                 r = -EINVAL;
+>>  err2:
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_ib_free(&ib, NULL);
+>> +       amdgpu_ib_free(&ib, NULL);
+>>         dma_fence_put(f);
+>>  err1:
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>         return r;
+>>  }
+>>
+>> @@ -5760,10 +5743,6 @@ static void gfx_v11_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
+>>                                     (!amdgpu_sriov_vf(ring->adev) && flags & AMDGPU_IB_PREEMPTED) ? true : false);
+>>         }
+>>
+>> -       if (ring->is_mes_queue)
+>> -               /* inherit vmid from mqd */
+>> -               control |= 0x400000;
+>> -
+>>         amdgpu_ring_write(ring, header);
+>>         BUG_ON(ib->gpu_addr & 0x3); /* Dword align */
+>>         amdgpu_ring_write(ring,
+>> @@ -5783,10 +5762,6 @@ static void gfx_v11_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+>>         unsigned vmid = AMDGPU_JOB_GET_VMID(job);
+>>         u32 control = INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << 24);
+>>
+>> -       if (ring->is_mes_queue)
+>> -               /* inherit vmid from mqd */
+>> -               control |= 0x40000000;
+>> -
+>>         /* Currently, there is a high possibility to get wave ID mismatch
+>>          * between ME and GDS, leading to a hw deadlock, because ME generates
+>>          * different wave IDs than the GDS expects. This situation happens
+>> @@ -5844,8 +5819,7 @@ static void gfx_v11_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr,
+>>         amdgpu_ring_write(ring, upper_32_bits(addr));
+>>         amdgpu_ring_write(ring, lower_32_bits(seq));
+>>         amdgpu_ring_write(ring, upper_32_bits(seq));
+>> -       amdgpu_ring_write(ring, ring->is_mes_queue ?
+>> -                        (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG) : 0);
+>> +       amdgpu_ring_write(ring, 0);
+>>  }
+>>
+>>  static void gfx_v11_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+>> @@ -5873,10 +5847,7 @@ static void gfx_v11_0_ring_invalidate_tlbs(struct amdgpu_ring *ring,
+>>  static void gfx_v11_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+>>                                          unsigned vmid, uint64_t pd_addr)
+>>  {
+>> -       if (ring->is_mes_queue)
+>> -               gfx_v11_0_ring_invalidate_tlbs(ring, 0, 0, false, 0);
+>> -       else
+>> -               amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+>> +       amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+>>
+>>         /* compute doesn't have PFP */
+>>         if (ring->funcs->type == AMDGPU_RING_TYPE_GFX) {
+>> @@ -6105,28 +6076,13 @@ static void gfx_v11_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
+>>         void *de_payload_cpu_addr;
+>>         int cnt;
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               offset = offsetof(struct amdgpu_mes_ctx_meta_data,
+>> -                                 gfx[0].gfx_meta_data) +
+>> -                       offsetof(struct v10_gfx_meta_data, de_payload);
+>> -               de_payload_gpu_addr =
+>> -                       amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               de_payload_cpu_addr =
+>> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -
+>> -               offset = offsetof(struct amdgpu_mes_ctx_meta_data,
+>> -                                 gfx[0].gds_backup) +
+>> -                       offsetof(struct v10_gfx_meta_data, de_payload);
+>> -               gds_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -       } else {
+>> -               offset = offsetof(struct v10_gfx_meta_data, de_payload);
+>> -               de_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
+>> -               de_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
+>> +       offset = offsetof(struct v10_gfx_meta_data, de_payload);
+>> +       de_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
+>> +       de_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
+>>
+>> -               gds_addr = ALIGN(amdgpu_csa_vaddr(ring->adev) +
+>> -                                AMDGPU_CSA_SIZE - adev->gds.gds_size,
+>> -                                PAGE_SIZE);
+>> -       }
+>> +       gds_addr = ALIGN(amdgpu_csa_vaddr(ring->adev) +
+>> +                        AMDGPU_CSA_SIZE - adev->gds.gds_size,
+>> +                        PAGE_SIZE);
+>>
+>>         de_payload.gds_backup_addrlo = lower_32_bits(gds_addr);
+>>         de_payload.gds_backup_addrhi = upper_32_bits(gds_addr);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+>> index 60d8630a05c82..9db2becab68fe 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+>> @@ -477,33 +477,18 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>
+>>         memset(&ib, 0, sizeof(ib));
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t padding, offset;
+>> -
+>> -               offset = amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_IB_OFFS);
+>> -               padding = amdgpu_mes_ctx_get_offs(ring,
+>> -                                                 AMDGPU_MES_CTX_PADDING_OFFS);
+>> -
+>> -               ib.gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               ib.ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, padding);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, padding);
+>> -               *cpu_ptr = cpu_to_le32(0xCAFEDEAD);
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r)
+>> -                       return r;
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r)
+>> +               return r;
+>>
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+>> -               cpu_ptr = &adev->wb.wb[index];
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+>> +       cpu_ptr = &adev->wb.wb[index];
+>>
+>> -               r = amdgpu_ib_get(adev, NULL, 16, AMDGPU_IB_POOL_DIRECT, &ib);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "amdgpu: failed to get ib (%ld).\n", r);
+>> -                       goto err1;
+>> -               }
+>> +       r = amdgpu_ib_get(adev, NULL, 16, AMDGPU_IB_POOL_DIRECT, &ib);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "amdgpu: failed to get ib (%ld).\n", r);
+>> +               goto err1;
+>>         }
+>>
+>>         ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+>> @@ -530,12 +515,10 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         else
+>>                 r = -EINVAL;
+>>  err2:
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_ib_free(&ib, NULL);
+>> +       amdgpu_ib_free(&ib, NULL);
+>>         dma_fence_put(f);
+>>  err1:
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>         return r;
+>>  }
+>>
+>> @@ -4283,45 +4266,17 @@ static u64 gfx_v12_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
+>>  static void gfx_v12_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
+>>  {
+>>         struct amdgpu_device *adev = ring->adev;
+>> -       uint32_t *wptr_saved;
+>> -       uint32_t *is_queue_unmap;
+>> -       uint64_t aggregated_db_index;
+>> -       uint32_t mqd_size = adev->mqds[AMDGPU_HW_IP_GFX].mqd_size;
+>> -       uint64_t wptr_tmp;
+>> -
+>> -       if (ring->is_mes_queue) {
+>> -               wptr_saved = (uint32_t *)(ring->mqd_ptr + mqd_size);
+>> -               is_queue_unmap = (uint32_t *)(ring->mqd_ptr + mqd_size +
+>> -                                             sizeof(uint32_t));
+>> -               aggregated_db_index =
+>> -                       amdgpu_mes_get_aggregated_doorbell_index(adev,
+>> -                                                                ring->hw_prio);
+>> -
+>> -               wptr_tmp = ring->wptr & ring->buf_mask;
+>> -               atomic64_set((atomic64_t *)ring->wptr_cpu_addr, wptr_tmp);
+>> -               *wptr_saved = wptr_tmp;
+>> -               /* assume doorbell always being used by mes mapped queue */
+>> -               if (*is_queue_unmap) {
+>> -                       WDOORBELL64(aggregated_db_index, wptr_tmp);
+>> -                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
+>> -               } else {
+>> -                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
+>>
+>> -                       if (*is_queue_unmap)
+>> -                               WDOORBELL64(aggregated_db_index, wptr_tmp);
+>> -               }
+>> +       if (ring->use_doorbell) {
+>> +               /* XXX check if swapping is necessary on BE */
+>> +               atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>> +                            ring->wptr);
+>> +               WDOORBELL64(ring->doorbell_index, ring->wptr);
+>>         } else {
+>> -               if (ring->use_doorbell) {
+>> -                       /* XXX check if swapping is necessary on BE */
+>> -                       atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>> -                                    ring->wptr);
+>> -                       WDOORBELL64(ring->doorbell_index, ring->wptr);
+>> -               } else {
+>> -                       WREG32_SOC15(GC, 0, regCP_RB0_WPTR,
+>> -                                    lower_32_bits(ring->wptr));
+>> -                       WREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI,
+>> -                                    upper_32_bits(ring->wptr));
+>> -               }
+>> +               WREG32_SOC15(GC, 0, regCP_RB0_WPTR,
+>> +                            lower_32_bits(ring->wptr));
+>> +               WREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI,
+>> +                            upper_32_bits(ring->wptr));
+>>         }
+>>  }
+>>
+>> @@ -4346,42 +4301,14 @@ static u64 gfx_v12_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
+>>  static void gfx_v12_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
+>>  {
+>>         struct amdgpu_device *adev = ring->adev;
+>> -       uint32_t *wptr_saved;
+>> -       uint32_t *is_queue_unmap;
+>> -       uint64_t aggregated_db_index;
+>> -       uint32_t mqd_size = adev->mqds[AMDGPU_HW_IP_COMPUTE].mqd_size;
+>> -       uint64_t wptr_tmp;
+>> -
+>> -       if (ring->is_mes_queue) {
+>> -               wptr_saved = (uint32_t *)(ring->mqd_ptr + mqd_size);
+>> -               is_queue_unmap = (uint32_t *)(ring->mqd_ptr + mqd_size +
+>> -                                             sizeof(uint32_t));
+>> -               aggregated_db_index =
+>> -                       amdgpu_mes_get_aggregated_doorbell_index(adev,
+>> -                                                                ring->hw_prio);
+>> -
+>> -               wptr_tmp = ring->wptr & ring->buf_mask;
+>> -               atomic64_set((atomic64_t *)ring->wptr_cpu_addr, wptr_tmp);
+>> -               *wptr_saved = wptr_tmp;
+>> -               /* assume doorbell always used by mes mapped queue */
+>> -               if (*is_queue_unmap) {
+>> -                       WDOORBELL64(aggregated_db_index, wptr_tmp);
+>> -                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
+>> -               } else {
+>> -                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
+>>
+>> -                       if (*is_queue_unmap)
+>> -                               WDOORBELL64(aggregated_db_index, wptr_tmp);
+>> -               }
+>> +       /* XXX check if swapping is necessary on BE */
+>> +       if (ring->use_doorbell) {
+>> +               atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>> +                            ring->wptr);
+>> +               WDOORBELL64(ring->doorbell_index, ring->wptr);
+>>         } else {
+>> -               /* XXX check if swapping is necessary on BE */
+>> -               if (ring->use_doorbell) {
+>> -                       atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>> -                                    ring->wptr);
+>> -                       WDOORBELL64(ring->doorbell_index, ring->wptr);
+>> -               } else {
+>> -                       BUG(); /* only DOORBELL method supported on gfx12 now */
+>> -               }
+>> +               BUG(); /* only DOORBELL method supported on gfx12 now */
+>>         }
+>>  }
+>>
+>> @@ -4428,10 +4355,6 @@ static void gfx_v12_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
+>>
+>>         control |= ib->length_dw | (vmid << 24);
+>>
+>> -       if (ring->is_mes_queue)
+>> -               /* inherit vmid from mqd */
+>> -               control |= 0x400000;
+>> -
+>>         amdgpu_ring_write(ring, header);
+>>         BUG_ON(ib->gpu_addr & 0x3); /* Dword align */
+>>         amdgpu_ring_write(ring,
+>> @@ -4451,10 +4374,6 @@ static void gfx_v12_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+>>         unsigned vmid = AMDGPU_JOB_GET_VMID(job);
+>>         u32 control = INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << 24);
+>>
+>> -       if (ring->is_mes_queue)
+>> -               /* inherit vmid from mqd */
+>> -               control |= 0x40000000;
+>> -
+>>         amdgpu_ring_write(ring, PACKET3(PACKET3_INDIRECT_BUFFER, 2));
+>>         BUG_ON(ib->gpu_addr & 0x3); /* Dword align */
+>>         amdgpu_ring_write(ring,
+>> @@ -4494,8 +4413,7 @@ static void gfx_v12_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr,
+>>         amdgpu_ring_write(ring, upper_32_bits(addr));
+>>         amdgpu_ring_write(ring, lower_32_bits(seq));
+>>         amdgpu_ring_write(ring, upper_32_bits(seq));
+>> -       amdgpu_ring_write(ring, ring->is_mes_queue ?
+>> -                        (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG) : 0);
+>> +       amdgpu_ring_write(ring, 0);
+>>  }
+>>
+>>  static void gfx_v12_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+>> @@ -4523,10 +4441,7 @@ static void gfx_v12_0_ring_invalidate_tlbs(struct amdgpu_ring *ring,
+>>  static void gfx_v12_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+>>                                          unsigned vmid, uint64_t pd_addr)
+>>  {
+>> -       if (ring->is_mes_queue)
+>> -               gfx_v12_0_ring_invalidate_tlbs(ring, 0, 0, false, 0);
+>> -       else
+>> -               amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+>> +       amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+>>
+>>         /* compute doesn't have PFP */
+>>         if (ring->funcs->type == AMDGPU_RING_TYPE_GFX) {
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> index 734f2dd986290..f4dfa1418b740 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> @@ -5472,16 +5472,8 @@ static void gfx_v9_0_ring_patch_ce_meta(struct amdgpu_ring *ring,
+>>
+>>         payload_size = sizeof(struct v9_ce_ib_state);
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               payload_offset = offsetof(struct amdgpu_mes_ctx_meta_data,
+>> -                                         gfx[0].gfx_meta_data) +
+>> -                       offsetof(struct v9_gfx_meta_data, ce_payload);
+>> -               ce_payload_cpu_addr =
+>> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, payload_offset);
+>> -       } else {
+>> -               payload_offset = offsetof(struct v9_gfx_meta_data, ce_payload);
+>> -               ce_payload_cpu_addr = adev->virt.csa_cpu_addr + payload_offset;
+>> -       }
+>> +       payload_offset = offsetof(struct v9_gfx_meta_data, ce_payload);
+>> +       ce_payload_cpu_addr = adev->virt.csa_cpu_addr + payload_offset;
+>>
+>>         if (offset + (payload_size >> 2) <= ring->buf_mask + 1) {
+>>                 memcpy((void *)&ring->ring[offset], ce_payload_cpu_addr, payload_size);
+>> @@ -5504,16 +5496,8 @@ static void gfx_v9_0_ring_patch_de_meta(struct amdgpu_ring *ring,
+>>
+>>         payload_size = sizeof(struct v9_de_ib_state);
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               payload_offset = offsetof(struct amdgpu_mes_ctx_meta_data,
+>> -                                         gfx[0].gfx_meta_data) +
+>> -                       offsetof(struct v9_gfx_meta_data, de_payload);
+>> -               de_payload_cpu_addr =
+>> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, payload_offset);
+>> -       } else {
+>> -               payload_offset = offsetof(struct v9_gfx_meta_data, de_payload);
+>> -               de_payload_cpu_addr = adev->virt.csa_cpu_addr + payload_offset;
+>> -       }
+>> +       payload_offset = offsetof(struct v9_gfx_meta_data, de_payload);
+>> +       de_payload_cpu_addr = adev->virt.csa_cpu_addr + payload_offset;
+>>
+>>         ((struct v9_de_ib_state *)de_payload_cpu_addr)->ib_completion_status =
+>>                 IB_COMPLETION_STATUS_PREEMPTED;
+>> @@ -5703,19 +5687,9 @@ static void gfx_v9_0_ring_emit_ce_meta(struct amdgpu_ring *ring, bool resume)
+>>
+>>         cnt = (sizeof(ce_payload) >> 2) + 4 - 2;
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               offset = offsetof(struct amdgpu_mes_ctx_meta_data,
+>> -                                 gfx[0].gfx_meta_data) +
+>> -                       offsetof(struct v9_gfx_meta_data, ce_payload);
+>> -               ce_payload_gpu_addr =
+>> -                       amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               ce_payload_cpu_addr =
+>> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -       } else {
+>> -               offset = offsetof(struct v9_gfx_meta_data, ce_payload);
+>> -               ce_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
+>> -               ce_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
+>> -       }
+>> +       offset = offsetof(struct v9_gfx_meta_data, ce_payload);
+>> +       ce_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
+>> +       ce_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
+>>
+>>         amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, cnt));
+>>         amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(2) |
+>> @@ -5801,28 +5775,13 @@ static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume, bo
+>>         void *de_payload_cpu_addr;
+>>         int cnt;
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               offset = offsetof(struct amdgpu_mes_ctx_meta_data,
+>> -                                 gfx[0].gfx_meta_data) +
+>> -                       offsetof(struct v9_gfx_meta_data, de_payload);
+>> -               de_payload_gpu_addr =
+>> -                       amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               de_payload_cpu_addr =
+>> -                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -
+>> -               offset = offsetof(struct amdgpu_mes_ctx_meta_data,
+>> -                                 gfx[0].gds_backup) +
+>> -                       offsetof(struct v9_gfx_meta_data, de_payload);
+>> -               gds_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -       } else {
+>> -               offset = offsetof(struct v9_gfx_meta_data, de_payload);
+>> -               de_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
+>> -               de_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
+>> +       offset = offsetof(struct v9_gfx_meta_data, de_payload);
+>> +       de_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
+>> +       de_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
+>>
+>> -               gds_addr = ALIGN(amdgpu_csa_vaddr(ring->adev) +
+>> -                                AMDGPU_CSA_SIZE - adev->gds.gds_size,
+>> -                                PAGE_SIZE);
+>> -       }
+>> +       gds_addr = ALIGN(amdgpu_csa_vaddr(ring->adev) +
+>> +                        AMDGPU_CSA_SIZE - adev->gds.gds_size,
+>> +                        PAGE_SIZE);
+>>
+>>         if (usegds) {
+>>                 de_payload.gds_backup_addrlo = lower_32_bits(gds_addr);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> index 95d894a231fcf..8ae4c031162bc 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> @@ -428,10 +428,6 @@ static void gmc_v10_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
+>>         struct amdgpu_device *adev = ring->adev;
+>>         uint32_t reg;
+>>
+>> -       /* MES fw manages IH_VMID_x_LUT updating */
+>> -       if (ring->is_mes_queue)
+>> -               return;
+>> -
+>>         if (ring->vm_hub == AMDGPU_GFXHUB(0))
+>>                 reg = SOC15_REG_OFFSET(OSSSYS, 0, mmIH_VMID_0_LUT) + vmid;
+>>         else
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>> index ad099f136f84e..5c91d4445418c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>> @@ -393,10 +393,6 @@ static void gmc_v11_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
+>>         struct amdgpu_device *adev = ring->adev;
+>>         uint32_t reg;
+>>
+>> -       /* MES fw manages IH_VMID_x_LUT updating */
+>> -       if (ring->is_mes_queue)
+>> -               return;
+>> -
+>>         if (ring->vm_hub == AMDGPU_GFXHUB(0))
+>>                 reg = SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT) + vmid;
+>>         else
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+>> index bf8d01da88154..0a1946c824118 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+>> @@ -413,10 +413,6 @@ static void gmc_v12_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned vmid
+>>         struct amdgpu_device *adev = ring->adev;
+>>         uint32_t reg;
+>>
+>> -       /* MES fw manages IH_VMID_x_LUT updating */
+>> -       if (ring->is_mes_queue)
+>> -               return;
+>> -
+>>         if (ring->vm_hub == AMDGPU_GFXHUB(0))
+>>                 reg = SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT) + vmid;
+>>         else
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>> index 44a401870509f..712392671a3cf 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>> @@ -369,67 +369,36 @@ static uint64_t sdma_v5_0_ring_get_wptr(struct amdgpu_ring *ring)
+>>  static void sdma_v5_0_ring_set_wptr(struct amdgpu_ring *ring)
+>>  {
+>>         struct amdgpu_device *adev = ring->adev;
+>> -       uint32_t *wptr_saved;
+>> -       uint32_t *is_queue_unmap;
+>> -       uint64_t aggregated_db_index;
+>> -       uint32_t mqd_size = adev->mqds[AMDGPU_HW_IP_DMA].mqd_size;
+>>
+>>         DRM_DEBUG("Setting write pointer\n");
+>> -       if (ring->is_mes_queue) {
+>> -               wptr_saved = (uint32_t *)(ring->mqd_ptr + mqd_size);
+>> -               is_queue_unmap = (uint32_t *)(ring->mqd_ptr + mqd_size +
+>> -                                             sizeof(uint32_t));
+>> -               aggregated_db_index =
+>> -                       amdgpu_mes_get_aggregated_doorbell_index(adev,
+>> -                       AMDGPU_MES_PRIORITY_LEVEL_NORMAL);
+>> -
+>> +       if (ring->use_doorbell) {
+>> +               DRM_DEBUG("Using doorbell -- "
+>> +                         "wptr_offs == 0x%08x "
+>> +                         "lower_32_bits(ring->wptr) << 2 == 0x%08x "
+>> +                         "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
+>> +                         ring->wptr_offs,
+>> +                         lower_32_bits(ring->wptr << 2),
+>> +                         upper_32_bits(ring->wptr << 2));
+>> +               /* XXX check if swapping is necessary on BE */
+>>                 atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>>                              ring->wptr << 2);
+>> -               *wptr_saved = ring->wptr << 2;
+>> -               if (*is_queue_unmap) {
+>> -                       WDOORBELL64(aggregated_db_index, ring->wptr << 2);
+>> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>> -                                       ring->doorbell_index, ring->wptr << 2);
+>> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>> -               } else {
+>> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>> -                                       ring->doorbell_index, ring->wptr << 2);
+>> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>> -
+>> -                       if (*is_queue_unmap)
+>> -                               WDOORBELL64(aggregated_db_index,
+>> -                                           ring->wptr << 2);
+>> -               }
+>> +               DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>> +                         ring->doorbell_index, ring->wptr << 2);
+>> +               WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>>         } else {
+>> -               if (ring->use_doorbell) {
+>> -                       DRM_DEBUG("Using doorbell -- "
+>> -                                 "wptr_offs == 0x%08x "
+>> -                                 "lower_32_bits(ring->wptr) << 2 == 0x%08x "
+>> -                                 "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
+>> -                                 ring->wptr_offs,
+>> -                                 lower_32_bits(ring->wptr << 2),
+>> -                                 upper_32_bits(ring->wptr << 2));
+>> -                       /* XXX check if swapping is necessary on BE */
+>> -                       atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>> -                                    ring->wptr << 2);
+>> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>> -                                 ring->doorbell_index, ring->wptr << 2);
+>> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>> -               } else {
+>> -                       DRM_DEBUG("Not using doorbell -- "
+>> -                                 "mmSDMA%i_GFX_RB_WPTR == 0x%08x "
+>> -                                 "mmSDMA%i_GFX_RB_WPTR_HI == 0x%08x\n",
+>> -                                 ring->me,
+>> -                                 lower_32_bits(ring->wptr << 2),
+>> -                                 ring->me,
+>> -                                 upper_32_bits(ring->wptr << 2));
+>> -                       WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev,
+>> -                                            ring->me, mmSDMA0_GFX_RB_WPTR),
+>> -                                       lower_32_bits(ring->wptr << 2));
+>> -                       WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev,
+>> -                                            ring->me, mmSDMA0_GFX_RB_WPTR_HI),
+>> -                                       upper_32_bits(ring->wptr << 2));
+>> -               }
+>> +               DRM_DEBUG("Not using doorbell -- "
+>> +                         "mmSDMA%i_GFX_RB_WPTR == 0x%08x "
+>> +                         "mmSDMA%i_GFX_RB_WPTR_HI == 0x%08x\n",
+>> +                         ring->me,
+>> +                         lower_32_bits(ring->wptr << 2),
+>> +                         ring->me,
+>> +                         upper_32_bits(ring->wptr << 2));
+>> +               WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev,
+>> +                                                            ring->me, mmSDMA0_GFX_RB_WPTR),
+>> +                               lower_32_bits(ring->wptr << 2));
+>> +               WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev,
+>> +                                                            ring->me, mmSDMA0_GFX_RB_WPTR_HI),
+>> +                               upper_32_bits(ring->wptr << 2));
+>>         }
+>>  }
+>>
+>> @@ -575,11 +544,9 @@ static void sdma_v5_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
+>>         }
+>>
+>>         if (flags & AMDGPU_FENCE_FLAG_INT) {
+>> -               uint32_t ctx = ring->is_mes_queue ?
+>> -                       (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG) : 0;
+>>                 /* generate an interrupt */
+>>                 amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_TRAP));
+>> -               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(ctx));
+>> +               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(0));
+>>         }
+>>  }
+>>
+>> @@ -1046,33 +1013,22 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         int r;
+>>         u32 tmp;
+>>         u64 gpu_addr;
+>> -       volatile uint32_t *cpu_ptr = NULL;
+>>
+>>         tmp = 0xCAFEDEAD;
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               *cpu_ptr = tmp;
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>> -                       return r;
+>> -               }
+>> -
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>> +               return r;
+>>         }
+>>
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +
+>>         r = amdgpu_ring_alloc(ring, 20);
+>>         if (r) {
+>>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", ring->idx, r);
+>> -               if (!ring->is_mes_queue)
+>> -                       amdgpu_device_wb_free(adev, index);
+>> +               amdgpu_device_wb_free(adev, index);
+>>                 return r;
+>>         }
+>>
+>> @@ -1085,10 +1041,7 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         amdgpu_ring_commit(ring);
+>>
+>>         for (i = 0; i < adev->usec_timeout; i++) {
+>> -               if (ring->is_mes_queue)
+>> -                       tmp = le32_to_cpu(*cpu_ptr);
+>> -               else
+>> -                       tmp = le32_to_cpu(adev->wb.wb[index]);
+>> +               tmp = le32_to_cpu(adev->wb.wb[index]);
+>>                 if (tmp == 0xDEADBEEF)
+>>                         break;
+>>                 if (amdgpu_emu_mode == 1)
+>> @@ -1100,8 +1053,7 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         if (i >= adev->usec_timeout)
+>>                 r = -ETIMEDOUT;
+>>
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>
+>>         return r;
+>>  }
+>> @@ -1124,38 +1076,24 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         long r;
+>>         u32 tmp = 0;
+>>         u64 gpu_addr;
+>> -       volatile uint32_t *cpu_ptr = NULL;
+>>
+>>         tmp = 0xCAFEDEAD;
+>>         memset(&ib, 0, sizeof(ib));
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> -               offset = amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_IB_OFFS);
+>> -               ib.gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               ib.ptr = (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               *cpu_ptr = tmp;
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>> +               return r;
+>> +       }
+>>
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(tmp);
+>>
+>> -               r = amdgpu_ib_get(adev, NULL, 256,
+>> -                                       AMDGPU_IB_POOL_DIRECT, &ib);
+>> -               if (r) {
+>> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> -                       goto err0;
+>> -               }
+>> +       r = amdgpu_ib_get(adev, NULL, 256,
+>> +                         AMDGPU_IB_POOL_DIRECT, &ib);
+>> +       if (r) {
+>> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> +               goto err0;
+>>         }
+>>
+>>         ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+>> @@ -1183,10 +1121,7 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>                 goto err1;
+>>         }
+>>
+>> -       if (ring->is_mes_queue)
+>> -               tmp = le32_to_cpu(*cpu_ptr);
+>> -       else
+>> -               tmp = le32_to_cpu(adev->wb.wb[index]);
+>> +       tmp = le32_to_cpu(adev->wb.wb[index]);
+>>
+>>         if (tmp == 0xDEADBEEF)
+>>                 r = 0;
+>> @@ -1197,8 +1132,7 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         amdgpu_ib_free(&ib, NULL);
+>>         dma_fence_put(f);
+>>  err0:
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>         return r;
+>>  }
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>> index cb2a3e5592855..2c0bf2fc6d380 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>> @@ -394,11 +394,9 @@ static void sdma_v5_2_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
+>>         }
+>>
+>>         if ((flags & AMDGPU_FENCE_FLAG_INT)) {
+>> -               uint32_t ctx = ring->is_mes_queue ?
+>> -                       (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG) : 0;
+>>                 /* generate an interrupt */
+>>                 amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_TRAP));
+>> -               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(ctx));
+>> +               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(0));
+>>         }
+>>  }
+>>
+>> @@ -903,33 +901,22 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_ring *ring)
+>>         int r;
+>>         u32 tmp;
+>>         u64 gpu_addr;
+>> -       volatile uint32_t *cpu_ptr = NULL;
+>>
+>>         tmp = 0xCAFEDEAD;
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               *cpu_ptr = tmp;
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>> -                       return r;
+>> -               }
+>> -
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>> +               return r;
+>>         }
+>>
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +
+>>         r = amdgpu_ring_alloc(ring, 20);
+>>         if (r) {
+>>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", ring->idx, r);
+>> -               if (!ring->is_mes_queue)
+>> -                       amdgpu_device_wb_free(adev, index);
+>> +               amdgpu_device_wb_free(adev, index);
+>>                 return r;
+>>         }
+>>
+>> @@ -942,10 +929,7 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_ring *ring)
+>>         amdgpu_ring_commit(ring);
+>>
+>>         for (i = 0; i < adev->usec_timeout; i++) {
+>> -               if (ring->is_mes_queue)
+>> -                       tmp = le32_to_cpu(*cpu_ptr);
+>> -               else
+>> -                       tmp = le32_to_cpu(adev->wb.wb[index]);
+>> +               tmp = le32_to_cpu(adev->wb.wb[index]);
+>>                 if (tmp == 0xDEADBEEF)
+>>                         break;
+>>                 if (amdgpu_emu_mode == 1)
+>> @@ -957,8 +941,7 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_ring *ring)
+>>         if (i >= adev->usec_timeout)
+>>                 r = -ETIMEDOUT;
+>>
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>
+>>         return r;
+>>  }
+>> @@ -981,37 +964,23 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         long r;
+>>         u32 tmp = 0;
+>>         u64 gpu_addr;
+>> -       volatile uint32_t *cpu_ptr = NULL;
+>>
+>>         tmp = 0xCAFEDEAD;
+>>         memset(&ib, 0, sizeof(ib));
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> -               offset = amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_IB_OFFS);
+>> -               ib.gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               ib.ptr = (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               *cpu_ptr = tmp;
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>> +               return r;
+>> +       }
+>>
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(tmp);
+>>
+>> -               r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+>> -               if (r) {
+>> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> -                       goto err0;
+>> -               }
+>> +       r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+>> +       if (r) {
+>> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> +               goto err0;
+>>         }
+>>
+>>         ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+>> @@ -1039,10 +1008,7 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>                 goto err1;
+>>         }
+>>
+>> -       if (ring->is_mes_queue)
+>> -               tmp = le32_to_cpu(*cpu_ptr);
+>> -       else
+>> -               tmp = le32_to_cpu(adev->wb.wb[index]);
+>> +       tmp = le32_to_cpu(adev->wb.wb[index]);
+>>
+>>         if (tmp == 0xDEADBEEF)
+>>                 r = 0;
+>> @@ -1053,8 +1019,7 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         amdgpu_ib_free(&ib, NULL);
+>>         dma_fence_put(f);
+>>  err0:
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>         return r;
+>>  }
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+>> index f1a02ce844e0f..d0f7874730f06 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+>> @@ -377,11 +377,9 @@ static void sdma_v6_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
+>>         }
+>>
+>>         if (flags & AMDGPU_FENCE_FLAG_INT) {
+>> -               uint32_t ctx = ring->is_mes_queue ?
+>> -                       (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG) : 0;
+>>                 /* generate an interrupt */
+>>                 amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_TRAP));
+>> -               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(ctx));
+>> +               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(0));
+>>         }
+>>  }
+>>
+>> @@ -921,33 +919,22 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         int r;
+>>         u32 tmp;
+>>         u64 gpu_addr;
+>> -       volatile uint32_t *cpu_ptr = NULL;
+>>
+>>         tmp = 0xCAFEDEAD;
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               *cpu_ptr = tmp;
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>> -                       return r;
+>> -               }
+>> -
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>> +               return r;
+>>         }
+>>
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +
+>>         r = amdgpu_ring_alloc(ring, 5);
+>>         if (r) {
+>>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", ring->idx, r);
+>> -               if (!ring->is_mes_queue)
+>> -                       amdgpu_device_wb_free(adev, index);
+>> +               amdgpu_device_wb_free(adev, index);
+>>                 return r;
+>>         }
+>>
+>> @@ -960,10 +947,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         amdgpu_ring_commit(ring);
+>>
+>>         for (i = 0; i < adev->usec_timeout; i++) {
+>> -               if (ring->is_mes_queue)
+>> -                       tmp = le32_to_cpu(*cpu_ptr);
+>> -               else
+>> -                       tmp = le32_to_cpu(adev->wb.wb[index]);
+>> +               tmp = le32_to_cpu(adev->wb.wb[index]);
+>>                 if (tmp == 0xDEADBEEF)
+>>                         break;
+>>                 if (amdgpu_emu_mode == 1)
+>> @@ -975,8 +959,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         if (i >= adev->usec_timeout)
+>>                 r = -ETIMEDOUT;
+>>
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>
+>>         return r;
+>>  }
+>> @@ -999,37 +982,23 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         long r;
+>>         u32 tmp = 0;
+>>         u64 gpu_addr;
+>> -       volatile uint32_t *cpu_ptr = NULL;
+>>
+>>         tmp = 0xCAFEDEAD;
+>>         memset(&ib, 0, sizeof(ib));
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> -               offset = amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_IB_OFFS);
+>> -               ib.gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               ib.ptr = (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               *cpu_ptr = tmp;
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>> +               return r;
+>> +       }
+>>
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(tmp);
+>>
+>> -               r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+>> -               if (r) {
+>> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> -                       goto err0;
+>> -               }
+>> +       r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+>> +       if (r) {
+>> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> +               goto err0;
+>>         }
+>>
+>>         ib.ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
+>> @@ -1057,10 +1026,7 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>                 goto err1;
+>>         }
+>>
+>> -       if (ring->is_mes_queue)
+>> -               tmp = le32_to_cpu(*cpu_ptr);
+>> -       else
+>> -               tmp = le32_to_cpu(adev->wb.wb[index]);
+>> +       tmp = le32_to_cpu(adev->wb.wb[index]);
+>>
+>>         if (tmp == 0xDEADBEEF)
+>>                 r = 0;
+>> @@ -1071,8 +1037,7 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         amdgpu_ib_free(&ib, NULL);
+>>         dma_fence_put(f);
+>>  err0:
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>         return r;
+>>  }
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+>> index f10de8e2fcae2..7a788da2ef5d7 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+>> @@ -205,66 +205,39 @@ static uint64_t sdma_v7_0_ring_get_wptr(struct amdgpu_ring *ring)
+>>  static void sdma_v7_0_ring_set_wptr(struct amdgpu_ring *ring)
+>>  {
+>>         struct amdgpu_device *adev = ring->adev;
+>> -       uint32_t *wptr_saved;
+>> -       uint32_t *is_queue_unmap;
+>> -       uint64_t aggregated_db_index;
+>> -       uint32_t mqd_size = adev->mqds[AMDGPU_HW_IP_DMA].mqd_size;
+>>
+>>         DRM_DEBUG("Setting write pointer\n");
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               wptr_saved = (uint32_t *)(ring->mqd_ptr + mqd_size);
+>> -               is_queue_unmap = (uint32_t *)(ring->mqd_ptr + mqd_size +
+>> -                                             sizeof(uint32_t));
+>> -               aggregated_db_index =
+>> -                       amdgpu_mes_get_aggregated_doorbell_index(adev,
+>> -                                                        ring->hw_prio);
+>> -
+>> +       if (ring->use_doorbell) {
+>> +               DRM_DEBUG("Using doorbell -- "
+>> +                         "wptr_offs == 0x%08x "
+>> +                         "lower_32_bits(ring->wptr) << 2 == 0x%08x "
+>> +                         "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
+>> +                         ring->wptr_offs,
+>> +                         lower_32_bits(ring->wptr << 2),
+>> +                         upper_32_bits(ring->wptr << 2));
+>> +               /* XXX check if swapping is necessary on BE */
+>>                 atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>>                              ring->wptr << 2);
+>> -               *wptr_saved = ring->wptr << 2;
+>> -               if (*is_queue_unmap) {
+>> -                       WDOORBELL64(aggregated_db_index, ring->wptr << 2);
+>> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>> -                                       ring->doorbell_index, ring->wptr << 2);
+>> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>> -               } else {
+>> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>> -                                       ring->doorbell_index, ring->wptr << 2);
+>> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>> -               }
+>> +               DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>> +                         ring->doorbell_index, ring->wptr << 2);
+>> +               WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>>         } else {
+>> -               if (ring->use_doorbell) {
+>> -                       DRM_DEBUG("Using doorbell -- "
+>> -                                 "wptr_offs == 0x%08x "
+>> -                                 "lower_32_bits(ring->wptr) << 2 == 0x%08x "
+>> -                                 "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
+>> -                                 ring->wptr_offs,
+>> -                                 lower_32_bits(ring->wptr << 2),
+>> -                                 upper_32_bits(ring->wptr << 2));
+>> -                       /* XXX check if swapping is necessary on BE */
+>> -                       atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+>> -                                    ring->wptr << 2);
+>> -                       DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>> -                                 ring->doorbell_index, ring->wptr << 2);
+>> -                       WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+>> -               } else {
+>> -                       DRM_DEBUG("Not using doorbell -- "
+>> -                                 "regSDMA%i_GFX_RB_WPTR == 0x%08x "
+>> -                                 "regSDMA%i_GFX_RB_WPTR_HI == 0x%08x\n",
+>> -                                 ring->me,
+>> -                                 lower_32_bits(ring->wptr << 2),
+>> -                                 ring->me,
+>> -                                 upper_32_bits(ring->wptr << 2));
+>> -                       WREG32_SOC15_IP(GC, sdma_v7_0_get_reg_offset(adev,
+>> -                                                                    ring->me,
+>> -                                                                    regSDMA0_QUEUE0_RB_WPTR),
+>> -                                       lower_32_bits(ring->wptr << 2));
+>> -                       WREG32_SOC15_IP(GC, sdma_v7_0_get_reg_offset(adev,
+>> -                                                                    ring->me,
+>> -                                                                    regSDMA0_QUEUE0_RB_WPTR_HI),
+>> -                                       upper_32_bits(ring->wptr << 2));
+>> -               }
+>> +               DRM_DEBUG("Not using doorbell -- "
+>> +                         "regSDMA%i_GFX_RB_WPTR == 0x%08x "
+>> +                         "regSDMA%i_GFX_RB_WPTR_HI == 0x%08x\n",
+>> +                         ring->me,
+>> +                         lower_32_bits(ring->wptr << 2),
+>> +                         ring->me,
+>> +                         upper_32_bits(ring->wptr << 2));
+>> +               WREG32_SOC15_IP(GC, sdma_v7_0_get_reg_offset(adev,
+>> +                                                            ring->me,
+>> +                                                            regSDMA0_QUEUE0_RB_WPTR),
+>> +                               lower_32_bits(ring->wptr << 2));
+>> +               WREG32_SOC15_IP(GC, sdma_v7_0_get_reg_offset(adev,
+>> +                                                            ring->me,
+>> +                                                            regSDMA0_QUEUE0_RB_WPTR_HI),
+>> +                               upper_32_bits(ring->wptr << 2));
+>>         }
+>>  }
+>>
+>> @@ -408,11 +381,9 @@ static void sdma_v7_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
+>>         }
+>>
+>>         if (flags & AMDGPU_FENCE_FLAG_INT) {
+>> -               uint32_t ctx = ring->is_mes_queue ?
+>> -                       (ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG) : 0;
+>>                 /* generate an interrupt */
+>>                 amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_TRAP));
+>> -               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(ctx));
+>> +               amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(0));
+>>         }
+>>  }
+>>
+>> @@ -965,33 +936,22 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         int r;
+>>         u32 tmp;
+>>         u64 gpu_addr;
+>> -       volatile uint32_t *cpu_ptr = NULL;
+>>
+>>         tmp = 0xCAFEDEAD;
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               *cpu_ptr = tmp;
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>> -                       return r;
+>> -               }
+>> -
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>> +               return r;
+>>         }
+>>
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +
+>>         r = amdgpu_ring_alloc(ring, 5);
+>>         if (r) {
+>>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", ring->idx, r);
+>> -               if (!ring->is_mes_queue)
+>> -                       amdgpu_device_wb_free(adev, index);
+>> +               amdgpu_device_wb_free(adev, index);
+>>                 return r;
+>>         }
+>>
+>> @@ -1004,10 +964,7 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         amdgpu_ring_commit(ring);
+>>
+>>         for (i = 0; i < adev->usec_timeout; i++) {
+>> -               if (ring->is_mes_queue)
+>> -                       tmp = le32_to_cpu(*cpu_ptr);
+>> -               else
+>> -                       tmp = le32_to_cpu(adev->wb.wb[index]);
+>> +               tmp = le32_to_cpu(adev->wb.wb[index]);
+>>                 if (tmp == 0xDEADBEEF)
+>>                         break;
+>>                 if (amdgpu_emu_mode == 1)
+>> @@ -1019,8 +976,7 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_ring *ring)
+>>         if (i >= adev->usec_timeout)
+>>                 r = -ETIMEDOUT;
+>>
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>
+>>         return r;
+>>  }
+>> @@ -1043,37 +999,23 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         long r;
+>>         u32 tmp = 0;
+>>         u64 gpu_addr;
+>> -       volatile uint32_t *cpu_ptr = NULL;
+>>
+>>         tmp = 0xCAFEDEAD;
+>>         memset(&ib, 0, sizeof(ib));
+>>
+>> -       if (ring->is_mes_queue) {
+>> -               uint32_t offset = 0;
+>> -               offset = amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_IB_OFFS);
+>> -               ib.gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               ib.ptr = (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -
+>> -               offset = amdgpu_mes_ctx_get_offs(ring,
+>> -                                        AMDGPU_MES_CTX_PADDING_OFFS);
+>> -               gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
+>> -               cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
+>> -               *cpu_ptr = tmp;
+>> -       } else {
+>> -               r = amdgpu_device_wb_get(adev, &index);
+>> -               if (r) {
+>> -                       dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>> -                       return r;
+>> -               }
+>> +       r = amdgpu_device_wb_get(adev, &index);
+>> +       if (r) {
+>> +               dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>> +               return r;
+>> +       }
+>>
+>> -               gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> -               adev->wb.wb[index] = cpu_to_le32(tmp);
+>> +       gpu_addr = adev->wb.gpu_addr + (index * 4);
+>> +       adev->wb.wb[index] = cpu_to_le32(tmp);
+>>
+>> -               r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+>> -               if (r) {
+>> -                       DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> -                       goto err0;
+>> -               }
+>> +       r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+>> +       if (r) {
+>> +               DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+>> +               goto err0;
+>>         }
+>>
+>>         ib.ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
+>> @@ -1101,10 +1043,7 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>                 goto err1;
+>>         }
+>>
+>> -       if (ring->is_mes_queue)
+>> -               tmp = le32_to_cpu(*cpu_ptr);
+>> -       else
+>> -               tmp = le32_to_cpu(adev->wb.wb[index]);
+>> +       tmp = le32_to_cpu(adev->wb.wb[index]);
+>>
+>>         if (tmp == 0xDEADBEEF)
+>>                 r = 0;
+>> @@ -1115,8 +1054,7 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>>         amdgpu_ib_free(&ib, NULL);
+>>         dma_fence_put(f);
+>>  err0:
+>> -       if (!ring->is_mes_queue)
+>> -               amdgpu_device_wb_free(adev, index);
+>> +       amdgpu_device_wb_free(adev, index);
+>>         return r;
+>>  }
+>>
+>> --
+>> 2.48.1
+>>
+
