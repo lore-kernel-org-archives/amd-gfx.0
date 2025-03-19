@@ -4,80 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 607CFC35FFA
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 11:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35E43C35FFA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 11:24:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0185D8979D;
-	Wed, 19 Mar 2025 11:14:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C50D210E2FE;
+	Wed, 19 Mar 2025 11:24:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UjvFSQfH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BUXMV0BP";
 	dkim-atps=neutral
 Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
  [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72DEE10E2CC;
- Wed, 19 Mar 2025 11:14:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F8610E301;
+ Wed, 19 Mar 2025 11:23:57 +0000 (UTC)
 Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-43ce71582e9so30008865e9.1; 
- Wed, 19 Mar 2025 04:14:34 -0700 (PDT)
+ 5b1f17b1804b1-43d04ea9d9aso20576315e9.3; 
+ Wed, 19 Mar 2025 04:23:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742382873; x=1742987673; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wFCN5PXntQYjGappLTD03Z+OTDDIQrakXEXEfFrYiao=;
- b=UjvFSQfH0cdJEr3Hqil2uMRfx7KtfxVIZSTB51GUMa4oMO0zWO4/FTTgYox4+GzuhS
- cvhTGj4cwGItSg4ft+pQX9d6KS3F6PRaN0o2qc9zsaF6W8kU99wC66QGIg1Ow4s1VMCu
- xYTbd1OZirzrzcU4k+sh5CUBT0ujD0IsTRrB9PyaLO30P5ZIL9t/7kPdeYWKwQYcf+AM
- VWRjCbe+ouh0NfcnU0qr0o/OnZrqu0DuCjcs2b+JHYVCBNjB2l5P9pxZ096voUMhRaVA
- is0AQVZ7rFdUvWrXpOUO6qMFA4xCOiMPSBlyp+Ykp5ZEgnpI6+NbYTyA8646S+WU+9j0
- I4zA==
+ d=gmail.com; s=20230601; t=1742383436; x=1742988236; darn=lists.freedesktop.org;
+ h=in-reply-to:from:content-language:references:to:subject:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=vA8o3ZLig4WOMxLPfsqVkYd14wxaodkHbkqzfdxOaAk=;
+ b=BUXMV0BPlytngAmxSevCfplUvOYRelrS9E/sybJJ28d9Qd6ciG081Kv7erE4TwMnKt
+ 0FuNXAndt6+MIxPETkkptY6fFlG6IdAzU7HOX9DV2KBAJXZWM6wiBmid6OZmxWaj/Nja
+ uO1NSbNHxZGpRFet9yhA4wW/tnMEuzP/noi5r4zS0j0GqTgeE0d0lvDo9gES9m79fM+h
+ 0byJRJKSwT3jYlOKagAASqBPYHWJzpxlJq3IT7FXDd3t2Zdv167nKTsnvIXwHgpJaBPw
+ 5jADNLka1PSPOemN/Xk15RiFnw8Spju2ewy2JtYFHrDKUyXLnU5g2ODdFkiqhskJWIea
+ zm6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742382873; x=1742987673;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wFCN5PXntQYjGappLTD03Z+OTDDIQrakXEXEfFrYiao=;
- b=ORfG/9hWXNpdU+/rXqNP+CK1Vpv7DFyI3U9nVGty+6FQ9kScrlqfqtcn0ndypepbH2
- sXVDhsgcUpWd+VEshCKk5ew+B78KLfhphY083F33eRN2QLzujE3UNB16cgGRRqVPw1L3
- Ncn5vV76/qn0XuzJtaQogTYSkJDqxipTqz88/Jz0waNHrvROVjyuB6Mk3D6peN/M/lNV
- N4o7F5TH/f1EcbDKw50Tal3Qp96ajl86E0SjRI2ENyxC1bWvpPRjs4/3LsEl6rkXi66P
- X9W9R0Jmr1WCQawN6m3Ytdq4yqkiOAM0zX/AMPIxNx3RdBKVGjSq/PJYpJTwXBeEegPI
- IPdA==
+ d=1e100.net; s=20230601; t=1742383436; x=1742988236;
+ h=in-reply-to:from:content-language:references:to:subject:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=vA8o3ZLig4WOMxLPfsqVkYd14wxaodkHbkqzfdxOaAk=;
+ b=ZtfWHjyh1zSaEVmGo6l1n72AJJHG145E/tH6YlGDoYbnEZYe2jD/FzBfcCemeJn7wA
+ ii974sYar6MBOKgw0ejWuoJFpb+ZWaKV0JHSa5I+3M/l0Om3VWZ1x5LV7CZ3MTxMs9S6
+ Llp3w6kwjuvsvlXWASvh90Q6eHXuONEMbXl6+oxZxyLU7oV3ln84QD+iOj2diRuoHs75
+ 794km0plAmMMC2hmrXYV2rWADndnkPUVpHDR2mAJS0rzvM1GRni3DxIKqGpjce0GPe5T
+ obL9src9fyGfuj6FL5trMgBMOMqo5OsAm7ENSOrg7sK/NAiRFfzuK3x6Nz5a3rdzYPZV
+ z5QQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEBiFBHDvpKCVHNpnuf5oxzKRzri0bXlCHTIkPHby815sXee+DTYOhO6y1rPMuwlEpBnVvtpZo@lists.freedesktop.org,
- AJvYcCXVf3wr4p3x7VcrwLJZkRfHgLFDCWrIOLzzUSDwjpH5GcsPr37+w3xuXot4NyU7RzVT/Th4GpiLHFdf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwwdJ6HLR6G+n6yO56HSjZeNfAB94q3BUQbeLdbwkzc8q1fMK07
- wdGmMKeuoCblYSly8/eBuMM06BCMc07gbIBZldL6jaushGSCdPCE
-X-Gm-Gg: ASbGncuGolZWwpHpnzT4c5Hl75wAOMqkrb1Xw9IlfWJ/sjZQ2V4RcqydJKjjUqz9NmJ
- iwZ3vcjqwCHP33esRJMNMUF8FhZAgHhlRJgrajC69Vz8ek+UAwPYPBwQcuxR22L66Lx4xUzXR3c
- PYV1Q3C+eRrD9dIp1YqPaszuKC40uDKgXopW0v/rsCgB1PgRWpAVB91/waHHBnISrt0DGqiC6HI
- +Idsqb5+zJVEp6waQkgSU53ZkNtbyXONimZWvaKAFBG4JvsEip0nAZ8tnygJdv9IipkSvIPbfZE
- TA9BBZr01bpQ+yNKEAdQ/W7bLiF5JONwpIKA6g/HLkbDCQLJWtbH0VzNlZAERg3tHDi2lnwGkA=
+ AJvYcCVXWdl9snqpZeSvxxA3Y+tRK5yGKKryAPQHWbfRZB+CIMivqs6AuqZqeneNw8T0IS6KpvCcKQ7cuo6G@lists.freedesktop.org,
+ AJvYcCXBi7VRNw+eXm0afyaeNfIXpMqAMxFIPewU3XP4JimfALzVyf9OxZ+4oqL4qkoYnYZPRRVROXou@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxMbZCsUWjXs2S2TAMUxFW6rCuL6LD2uhgEEte0ZKwlWc5J9nMD
+ QvrEdGfJ1JVEho+Nx6bF7vfBcdLwh9Wmipu80gMSRIOi2gi1BksQE1kDUqnR
+X-Gm-Gg: ASbGnctwu2/bP445D44qh1lYhzh429LKyZwg6bekKNdxCeKT5gd95ZliwQ7RcMLiHDB
+ K8OvkHVfQ7ud5zRQLIfqzX+TnCiUvww5rbiwHnzPKTjweRPjWXRxQ8mwcra9WEduYTMas81f//G
+ 8q94amhaD/HEPIQidW1ji/YThhXDM22ExeT2j7M1AvAkMdlMMhFZPQTnmVaYVj+YpAccHcnhnGX
+ 7ca7rx5hXneWbeTbNaUQQJQAM+k8POChody5RyekGv0VESD/A/u8Wp2Srrx9ZOBF3J/dUsQc0XW
+ OAIoTVt2koRCkPmF75jIOCHfIZMq0JIKvbXUXcmBe3tIJZ8OR1DgNCSp1H8+70EyzZD1VaIDUQ=
  =
-X-Google-Smtp-Source: AGHT+IFLs3sQ0GabpKeyWE1AMOX6iIh6HbY5ZommtiWkT5RRXuEP+ePKWR+Gwdh0E2hzUef3STraaQ==
-X-Received: by 2002:a05:600c:3482:b0:43c:f8fc:f697 with SMTP id
- 5b1f17b1804b1-43d4378d04bmr21540625e9.9.1742382872492; 
- Wed, 19 Mar 2025 04:14:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF/pIGLRLLFxCz0BPL+ZnMOMwuPy3+45oV9Co/RUjar493GWh7fAGrTW8XmkTKkRYk/FlSupQ==
+X-Received: by 2002:a05:600c:5107:b0:43c:f597:d584 with SMTP id
+ 5b1f17b1804b1-43d43899ffcmr21387435e9.29.1742383435778; 
+ Wed, 19 Mar 2025 04:23:55 -0700 (PDT)
 Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f4542dsm15731075e9.15.2025.03.19.04.14.30
+ 5b1f17b1804b1-43d43f556a4sm15924075e9.22.2025.03.19.04.23.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 04:14:32 -0700 (PDT)
-Message-ID: <b405637a-2f21-4561-97f3-3b0a3c0deabf@gmail.com>
-Date: Wed, 19 Mar 2025 12:14:29 +0100
+ Wed, 19 Mar 2025 04:23:55 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------WFALB1e7gBmVlHU7xpbTHiQd"
+Message-ID: <48f07793-0fd4-4cdd-8568-3bd2ff63bb6a@gmail.com>
+Date: Wed, 19 Mar 2025 12:23:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/2] drm/sched: add drm_sched_prealloc_dependency_slots
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: phasta@mailbox.org, tvrtko.ursulin@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+To: phasta@kernel.org, tvrtko.ursulin@igalia.com,
+ dri-devel@lists.freedesktop.org, dakr@kernel.org,
+ amd-gfx@lists.freedesktop.org
 References: <20250318120313.19099-1-christian.koenig@amd.com>
- <20250318120313.19099-2-christian.koenig@amd.com> <Z9lpZiRaq0B80XoL@pollux>
+ <20250318120313.19099-2-christian.koenig@amd.com>
+ <769f6c5788eff9459414b8ce0b056989e29773af.camel@mailbox.org>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <Z9lpZiRaq0B80XoL@pollux>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <769f6c5788eff9459414b8ce0b056989e29773af.camel@mailbox.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,38 +92,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.03.25 um 13:39 schrieb Danilo Krummrich:
-> On Tue, Mar 18, 2025 at 01:03:12PM +0100, Christian König wrote:
->>  /**
->>   * drm_sched_job_add_dependency - adds the fence as a job dependency
->>   * @job: scheduler job to add the dependencies to
->> @@ -878,10 +910,12 @@ int drm_sched_job_add_dependency(struct drm_sched_job *job,
->>  	 * engines involved, rather than the number of BOs.
->>  	 */
->>  	xa_for_each(&job->dependencies, index, entry) {
->> -		if (entry->context != fence->context)
->> +		bool signaled = dma_fence_is_signaled(entry);
->> +
->> +		if (!signaled && entry->context != fence->context)
->>  			continue;
->>  
->> -		if (dma_fence_is_later(fence, entry)) {
->> +		if (signaled || dma_fence_is_later(fence, entry)) {
->>  			dma_fence_put(entry);
->>  			xa_store(&job->dependencies, index, fence, GFP_KERNEL);
->>  		} else {
->> @@ -890,7 +924,8 @@ int drm_sched_job_add_dependency(struct drm_sched_job *job,
->>  		return 0;
->>  	}
->>  
->> -	ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b, GFP_KERNEL);
->> +	ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b,
->> +		       GFP_KERNEL);
->>  	if (ret != 0)
->>  		dma_fence_put(fence);
-> Those changes seem unrelated, aren't they?
+This is a multi-part message in MIME format.
+--------------WFALB1e7gBmVlHU7xpbTHiQd
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Ah, yes that was just a leftover from a previous try to fix this.
+>> + *
+>> + * Return:
+>> + * 0 on success, or an error on failing to expand the array.
+>> + */
+>> +int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job
+>> *job,
+>> +					    unsigned int num_deps)
+>> +{
+>> +	struct dma_fence *fence;
+>> +	u32 id = 0;
+>> +	int ret;
+>> +
+>> +	while (num_deps--) {
+>> +		fence = dma_fence_get_stub();
+>> +		ret = xa_alloc(&job->dependencies, &id, fence,
+>> xa_limit_32b,
+>> +			       GFP_KERNEL);
+> So this would fill the xarr with already signaled fences which then
+> later will be replaced with unsignaled fences?
+
+Yes, exactly that's the idea.
+
+> Help me out here: would it also work to add NULL instead of that stub-
+> fence?
+
+Good question, idk. That's an implementation detail of the xarray.
+
+Tvrtko also correctly pointed out that it is most likely a bad idea to use dma_fence_is_signaled() in the critical code path.
+
+I will try to dig through the xarray behavior up and update the patch if possible.
 
 Thanks,
 Christian.
+
+--------------WFALB1e7gBmVlHU7xpbTHiQd
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <span style="white-space: pre-wrap">
+</span>
+    <blockquote type="cite"
+cite="mid:769f6c5788eff9459414b8ce0b056989e29773af.camel@mailbox.org">
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">+ *
++ * Return:
++ * 0 on success, or an error on failing to expand the array.
++ */
++int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job
+*job,
++					    unsigned int num_deps)
++{
++	struct dma_fence *fence;
++	u32 id = 0;
++	int ret;
++
++	while (num_deps--) {
++		fence = dma_fence_get_stub();
++		ret = xa_alloc(&amp;job-&gt;dependencies, &amp;id, fence,
+xa_limit_32b,
++			       GFP_KERNEL);
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+So this would fill the xarr with already signaled fences which then
+later will be replaced with unsignaled fences?</pre>
+    </blockquote>
+    <br>
+    Yes, exactly that's the idea.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:769f6c5788eff9459414b8ce0b056989e29773af.camel@mailbox.org">
+      <pre class="moz-quote-pre" wrap="">Help me out here: would it also work to add NULL instead of that stub-
+fence?</pre>
+    </blockquote>
+    <br>
+    Good question, idk. That's an implementation detail of the xarray.<br>
+    <br>
+    Tvrtko also correctly pointed out that it is most likely a bad idea
+    to use dma_fence_is_signaled() in the critical code path.<br>
+    <br>
+    I will try to dig through the xarray behavior up and update the
+    patch if possible.<br>
+    <br>
+    Thanks,<br>
+    Christian.<br>
+    <br>
+  </body>
+</html>
+
+--------------WFALB1e7gBmVlHU7xpbTHiQd--
