@@ -4,72 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6586EC35FFA
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 13:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA53C35FFA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 13:28:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 084D510E35B;
-	Wed, 19 Mar 2025 13:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B2710E4FC;
+	Wed, 19 Mar 2025 13:28:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="me+0JMUJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LptDpZf9";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F206B10E368
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 13:27:40 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-301a8b7398cso369939a91.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 06:27:40 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E00D810E4FC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 13:28:18 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-2ff62f9b6e4so1142586a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 06:28:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742390860; x=1742995660; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742390898; x=1742995698; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SOXBqZPyHalNLiByG6GGWIZt95+Ci7ExFChQ8BoWCRo=;
- b=me+0JMUJu40h4rz4wZ1vqvjLZpV3eP65GMxzPaG1vQukiiRnYLUJrM7gJBzMg9uVmz
- ir/h3ZOpX2g7qyUMvnaQXUPMQsJLbuBRewGv6nzSYyF7UknBBulEMR6R/nKRlZmD9Hw5
- J1MFredWdtqbgrXNLKleRQrb+b0oXK7mdSLxz0DFoFIYjWoCLn8HEbU6w6TsAhRLVeeb
- t7+1awehNprjNzyxTFEZUdUpA/wny6OwXuM2xSQmIhqjdN3bMh+zu2dG0ca4ZYE0u6FV
- KJAikWGXDR47U98mkxNNKQyH7AkTXW25EH+0fz+pzPKMOnT1BPerHv/UcbCsJ0AwXyrW
- vEiA==
+ bh=u8kVuygQcuneFW+VFFQPQqEn6xF8A922wxnry1H16sQ=;
+ b=LptDpZf9ABrgUhCuvuE3eRZePqMzE4qsfapjLn+I+akIdzAVITKfHOhNHvhQiAruAF
+ l8WCu87DScwPDVEjFXqB+A8Ef0OANaYHd4XXY/QxcG/izggzPnD5VVn7HpVwpcxZxnH8
+ x2m9g1nJN/s4YlcpdEdfUwYyaS4Q38XtgNJxcVBmR+BTB+tKHaEOHuchzu/jGkMkzjog
+ hZ4DwcmlyVb85+edDHcYxw1zbyj1a4W6SPjjGLedMVcnJGbvichhAl1LlV3aWagU+Nqz
+ Gar/M5pRt0MbnpJcsZ5plgVeC4hK/z3nUedF9riMHW9IieTfZDtcofPhp66nQCyVyIP2
+ g35g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742390860; x=1742995660;
+ d=1e100.net; s=20230601; t=1742390898; x=1742995698;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SOXBqZPyHalNLiByG6GGWIZt95+Ci7ExFChQ8BoWCRo=;
- b=lCFTR1QiOuIwSetIMGc9BcTdWL3I9JD/FMUFKeV34kbljNP1N0kQYyBo/fhOfBOt2D
- bVHImCwvdaZlk7fq3bCZklIhMQ9qnBQDGXSRvnoQCJJuwyd51arRVctF+tvi5okFPTvS
- BNgFRFBo4m/TbEX68avcGoTiolmQgvdUcF9eBG0A4iZzaTQARpjh34gVxz31WWsLN5sU
- 0rWqLduJp/HJfnTqbCgA0qkyFvIewl8u5J7XjGZGcSB2DS3XuM41quz+W9GADgdK1pj0
- 6HIX4GVjk3HkM6DFOp0bMrythkln3m0HIjvdrQrrh47Mn8XQxL5bk2vvFHpgq8rRD+6W
- jgHA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXrUW889hT7kxCGoYatRvWIaAtIB0suwMZEEi/s9GUYqD9qCg4wrAlvaQqgjUcIxm09QwDUrXv0@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzXEFjgj2cX+dfhcC5n6NkRdeEjEqj4OlE2MtC+yUZSvwHoTPCp
- JiLXdcF+daYA6hdYEYhJ+G0gY2FvCtT2935A35lDpz2ffXv4K3LKQqg2kb2Pf4DvRV1U8VvxKCP
- N2bC3xz+ost/lfe1q9XZw9dqNyZMTJg==
-X-Gm-Gg: ASbGncudeIz21wnFFSIVFgo+nD27p7ykjleMGYGwXWL7I43HeVHQFoNBoyw7+oEaEpu
- hkoaUPMpYxz0/QHxzUxdBtYBle/ZdBFci6cPeUn5AMCK/v/83HV+J7ssoIXtC9d1ERqt591cyRX
- pNUsyG79ODMx+3+i1Zr8zRtXv03g==
-X-Google-Smtp-Source: AGHT+IHWFG4Y9hNYWM0yla5xEd51fQLW3W3xlrukfzWdMkdFnCL5rhbvaQABrCaly+0Be1sIIl5Ib2zKRR+7lNYQKjY=
-X-Received: by 2002:a17:90b:33c4:b0:2fe:91d0:f781 with SMTP id
- 98e67ed59e1d1-301bfbd3585mr1335416a91.2.1742390860400; Wed, 19 Mar 2025
- 06:27:40 -0700 (PDT)
+ bh=u8kVuygQcuneFW+VFFQPQqEn6xF8A922wxnry1H16sQ=;
+ b=I0/DMADrFFwCNXAtyB8NrHHtAVu+XgFZTC2stPIIoiwOq5e08xyAkQwufemgzRuA+8
+ MESrvkeKCMY/by7adfqm1UY3Lh/izNFnITC9XSCSt3C0F0zwZWeVztV6+Aau2bDjfl3p
+ AzcYxU0sF91I7KCvnZq+01eSrBGIEnUGlwDLnPa72Dr2Ja3bqUXSf/aPkms7NzcZkK/h
+ Tmd72rfjzzW/h2MvcqVZKjez28g1FCCcU9Qfp/imtoWfqbbwDsA5cD2Tux5CXE1TqJKD
+ XieyMjLOWD0lDlyvXTgr+serm5qEHqPCVuNXBpjoweLxKNNXowoiv3WcApjJgCQzfeFH
+ Cg4A==
+X-Gm-Message-State: AOJu0YwQEV6lq4fadzReEpDginIZD24d7lJII9pxFJI56gu4hrytz0Jg
+ wduYJry507qXcU0j1flTx8xgZvrxv52Is0A2SkNlGUriYKO1D+UorGM+KvvemN7WdAALAlVMXKH
+ 7+Z1Glc5gOk1VlLP57swlrm9Q2f0=
+X-Gm-Gg: ASbGnctu89A8QwqYFumjrdXyBLl45UaqaFsYM2jlgbb9tXpC/WlKcmDBemCOdX+MjVm
+ j67LMOaB8NBdjtkW5uIrfKmwyE5yTNBw8+FixQQTGi5C++TlV0j/ZAWenXwa0PAUkPkDU/7FX46
+ C7DnjHJRvISFMgvPTNmK4Jrd8NcQ==
+X-Google-Smtp-Source: AGHT+IGbslDHsqi2jvJr5zaJuwx4+rTxN33nFGDUYlw5T3B3L9YyrrietDTz4yibISapButVlUyOcDhRSinc4HxlR7o=
+X-Received: by 2002:a17:90a:e7c3:b0:2fe:7f51:d2ec with SMTP id
+ 98e67ed59e1d1-301bfb3ba7emr1540997a91.0.1742390898191; Wed, 19 Mar 2025
+ 06:28:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250312185731.211350-1-alexander.deucher@amd.com>
- <20250312185731.211350-6-alexander.deucher@amd.com>
- <DS7PR12MB60050B97E4066E9841BC4BFBFBD92@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB60050B97E4066E9841BC4BFBFBD92@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20250319111243.14206-1-dominik.kaszewski@amd.com>
+In-Reply-To: <20250319111243.14206-1-dominik.kaszewski@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 Mar 2025 09:27:28 -0400
-X-Gm-Features: AQ5f1JoaUlKXuyny4DcGO-y4fu8NZJc-5RvZDHuSggmvD4RN_NMz2SSLK0_aEGg
-Message-ID: <CADnq5_Ma2snX-WtKDCFE5ChxtuW-i6d04YsrAbp_HhQ+KNh+uw@mail.gmail.com>
-Subject: Re: [PATCH 05/11] drm/amdgpu/mes: update hqd masks when disable_kq is
- set
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Khatri,
- Sunil" <Sunil.Khatri@amd.com>
+Date: Wed, 19 Mar 2025 09:28:06 -0400
+X-Gm-Features: AQ5f1JqQSavicrQsc8jReBn7qnS0_kcDg348IOqyGiv1dF41YmR7ovvVchTuLWA
+Message-ID: <CADnq5_MMs_LC-7zKbEO47eygJ=MzdVotLNfRDCNWj5Cju9HRZQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix typo in DC_DEBUG_MASK kernel-doc
+To: Dominik Kaszewski <dominik.kaszewski@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,79 +79,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 19, 2025 at 2:42=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
-wrote:
+On Wed, Mar 19, 2025 at 7:23=E2=80=AFAM Dominik Kaszewski
+<dominik.kaszewski@amd.com> wrote:
 >
-> [Public]
+> Add missing colon in kernel-doc for DC_DEBUG_MASK enum.
 >
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> > Deucher
-> > Sent: Thursday, March 13, 2025 2:57 AM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Khatri, Sunil
-> > <Sunil.Khatri@amd.com>
-> > Subject: [PATCH 05/11] drm/amdgpu/mes: update hqd masks when disable_kq=
- is
-> > set
-> >
-> > Make all resources available to user queues.
-> >
-> > Suggested-by: Sunil Khatri <sunil.khatri@amd.com>
-> > Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > index 5abc1ca0fee98..971bf01fe46a9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > @@ -120,21 +120,21 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
-> >                        * Set GFX pipe 0 queue 1-7 for MES scheduling
-> >                        * mask =3D 1111 1110b
-> >                        */
-> > -                     adev->mes.gfx_hqd_mask[i] =3D 0xFE;
-> > +                     adev->mes.gfx_hqd_mask[i] =3D adev->gfx.disable_k=
-q ?
-> > 0xFF : 0xFE;
-> >               else
-> >                       /*
-> >                        * GFX pipe 0 queue 0 is being used by Kernel que=
-ue.
-> >                        * Set GFX pipe 0 queue 1 for MES scheduling
-> >                        * mask =3D 10b
-> >                        */
-> > -                     adev->mes.gfx_hqd_mask[i] =3D 0x2;
-> > +                     adev->mes.gfx_hqd_mask[i] =3D adev->gfx.disable_k=
-q ? 0x3 :
-> > 0x2;
-> >       }
-> >
-> >       for (i =3D 0; i < AMDGPU_MES_MAX_COMPUTE_PIPES; i++) {
-> >               /* use only 1st MEC pipes */
-> >               if (i >=3D adev->gfx.mec.num_pipe_per_mec)
-> >                       continue;
-> > -             adev->mes.compute_hqd_mask[i] =3D 0xc;
-> > +             adev->mes.compute_hqd_mask[i] =3D adev->gfx.disable_kq ? =
-0xF :
-> > 0xC;
-> >       }
->
-> Question: Why there are still only partial gfx(queue[0,1]) and compute(qu=
-eue[0,3]) queue can be set as validate?
+> Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
 
-Those are the hardware limits.  gfx11 supports 2 queues per pipe for
-gfx and both gfx11 and 12 support 4 queues per pipe for compute.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-> Except that, the patch is Reviewed-by: Prike Liang <Prike.Liang@amd.com>.
+> ---
+>  drivers/gpu/drm/amd/include/amd_shared.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> >
-> >       for (i =3D 0; i < AMDGPU_MES_MAX_SDMA_PIPES; i++) {
-> > --
-> > 2.48.1
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/a=
+md/include/amd_shared.h
+> index 4c95b885d1d0..c8eccee9b023 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -366,7 +366,7 @@ enum DC_DEBUG_MASK {
+>         DC_HDCP_LC_FORCE_FW_ENABLE =3D 0x80000,
+>
+>         /**
+> -        * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Chec=
+k FW
+> +        * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Che=
+ck FW
+>          * path failure, retry using legacy SW path.
+>          */
+>         DC_HDCP_LC_ENABLE_SW_FALLBACK =3D 0x100000,
+> --
+> 2.43.0
 >
