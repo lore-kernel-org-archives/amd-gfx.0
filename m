@@ -4,193 +4,210 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1B41C35FFF
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 10:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B7EAC35FFA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 10:23:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C5FB10E2F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 681C210E2FB;
 	Wed, 19 Mar 2025 10:23:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.b="jrE46DG1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JHFpFquv";
 	dkim-atps=neutral
-X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
- Wed, 19 Mar 2025 07:09:37 UTC
-Received: from esa12.fujitsucc.c3s2.iphmx.com (esa12.fujitsucc.c3s2.iphmx.com
- [216.71.156.125])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCD1410E2C6;
- Wed, 19 Mar 2025 07:09:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1742368178; x=1773904178;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=Ilx6C7LCE6Bpym3x2hTRPEWxNxOsHAGQ1Ug7jpuFx+k=;
- b=jrE46DG1BpQSpJfKwkHZRAuh1rzMcuN5583Ty8T33rkd4qSyReOhdCGc
- Jyyfi5yBUoJ3qRfM0vKEvFKENTT6foAFpThdEt6JjOctBlDi7oEaUFoJp
- axlak+0YGIuMP4/8+gceIb07MHzyZfUlf26kzazBQG6+RLpdLxUAf1gxS
- thHZOmpT4DrUTI3vcb5vVs6wDyrT7WmtHhoc29NNabpcr842LXRDZDqQP
- ZsVlj+zs9Cws13iR0SsqICythkXixVKsIGGObtDwK9on+ByfmDy3PrdaL
- mqEirDLbyObuzfsRaZ317Ea9itIvZQhBwtT82IN/eXjaRhtjO0Jozjmuz w==;
-X-CSE-ConnectionGUID: OwLL2cgVSTOts6wY8zAx3w==
-X-CSE-MsgGUID: 4x5dfRv9Qj603bunfZsTBw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11377"; a="150165294"
-X-IronPort-AV: E=Sophos;i="6.14,259,1736780400"; d="scan'208";a="150165294"
-Received: from mail-japanwestazlp17011026.outbound.protection.outlook.com
- (HELO OS0P286CU010.outbound.protection.outlook.com) ([40.93.130.26])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2025 16:02:15 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JYdMPtQ7uQmRBurieUr/yFe16nLXHbhsSOyKWRKgsM15Uet0aUbLBKWJ5JuXlgufE3qK4GrAs4SqBpx/JQ7ZQAs8mrRyC9MMQwR1nWwe/y8HtRpUIEMXK343eCFUHhXdOfBqm/IufRI/F2BXLif1ZFkgW46+UTSTRgSmV4wNBaGTLC3LygRJ44KTJ9K+sLaaQ5aNC+dZkWl4BjTWTpdYDKlwRMZDP5OkIry9ajKbytS2RxN6wABCxkMyFTtsx1tA+lFo7feI04riSVxfStcydeb6DbNv5UCn5cwfjeUM95Hl2YK6tJ7956Lcf2mSXn8/c21TWLpZdOFYmZ3GkPRs6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ilx6C7LCE6Bpym3x2hTRPEWxNxOsHAGQ1Ug7jpuFx+k=;
- b=seCPSMyh3JTWwOqPY0KSADSUN2ovf8DJ+aHhGBTnjr/YUBkyphO0goYS4TRVrrau4QAHkIug1qtIAt+MeTc3pyQAcgpY9Rco8TfUNu9x7HEU1E4b7crn2JOjeHBKfg5vZnZ5x6jRS32iYsOHLGt9zrIEUpE4ILDIP4xM1z8f9+3rdBq9n7sKW2BxwOFzVSJd08WolLV7qF1C2f48+aCELzvTWr+Os6/9wMc7Kpvn1mPqTnkFaAHBJTnWvZGZs3AzH+9qgjG2VRin8tJlaE8UzLk4+/2cycN5042XIKIQCmJhWrg+bMafZKs66Ei5Ad80cYgxau3fY7d2c5k7FVOX2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-Received: from OS3PR01MB9865.jpnprd01.prod.outlook.com (2603:1096:604:1ec::9)
- by TYYPR01MB8199.jpnprd01.prod.outlook.com (2603:1096:400:fa::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Wed, 19 Mar
- 2025 07:02:12 +0000
-Received: from OS3PR01MB9865.jpnprd01.prod.outlook.com
- ([fe80::c38:6bea:5be1:b3ff]) by OS3PR01MB9865.jpnprd01.prod.outlook.com
- ([fe80::c38:6bea:5be1:b3ff%3]) with mapi id 15.20.8534.034; Wed, 19 Mar 2025
- 07:02:11 +0000
-From: "Daisuke Matsuda (Fujitsu)" <matsuda-daisuke@fujitsu.com>
-To: 'Felix Kuehling' <felix.kuehling@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-CC: "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>
-Subject: RE: [PATCH] drm/amdgpu: Higher log level for missing PCIe atomics caps
-Thread-Topic: [PATCH] drm/amdgpu: Higher log level for missing PCIe atomics
- caps
-Thread-Index: AQHblH8FwceQlASdUEG3ueKRCucQsrN3tsuAgAAYRYCAAkA6gA==
-Date: Wed, 19 Mar 2025 07:02:11 +0000
-Message-ID: <OS3PR01MB98657096B7CACA994F9B3E21E5D92@OS3PR01MB9865.jpnprd01.prod.outlook.com>
-References: <20250314011809.3243791-1-matsuda-daisuke@fujitsu.com>
- <BL1PR12MB51445BCE0365432BF55DD3EDF7DF2@BL1PR12MB5144.namprd12.prod.outlook.com>
- <efa255c2-efcb-4f6c-8864-3791d1969520@amd.com>
-In-Reply-To: <efa255c2-efcb-4f6c-8864-3791d1969520@amd.com>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: =?utf-8?B?TVNJUF9MYWJlbF9hNzI5NWNjMS1kMjc5LTQyYWMtYWI0ZC0zYjBmNGZlY2Uw?=
- =?utf-8?B?NTBfQWN0aW9uSWQ9NDhjNDdkMTUtZmRjNC00ZWI3LTk1MzgtZDA3ZjExZTlj?=
- =?utf-8?B?NDc4O01TSVBfTGFiZWxfYTcyOTVjYzEtZDI3OS00MmFjLWFiNGQtM2IwZjRm?=
- =?utf-8?B?ZWNlMDUwX0NvbnRlbnRCaXRzPTA7TVNJUF9MYWJlbF9hNzI5NWNjMS1kMjc5?=
- =?utf-8?B?LTQyYWMtYWI0ZC0zYjBmNGZlY2UwNTBfRW5hYmxlZD10cnVlO01TSVBfTGFi?=
- =?utf-8?B?ZWxfYTcyOTVjYzEtZDI3OS00MmFjLWFiNGQtM2IwZjRmZWNlMDUwX01ldGhv?=
- =?utf-8?B?ZD1TdGFuZGFyZDtNU0lQX0xhYmVsX2E3Mjk1Y2MxLWQyNzktNDJhYy1hYjRk?=
- =?utf-8?B?LTNiMGY0ZmVjZTA1MF9OYW1lPUZVSklUU1UtUkVTVFJJQ1RFROKAiztNU0lQ?=
- =?utf-8?B?X0xhYmVsX2E3Mjk1Y2MxLWQyNzktNDJhYy1hYjRkLTNiMGY0ZmVjZTA1MF9T?=
- =?utf-8?B?ZXREYXRlPTIwMjUtMDMtMTlUMDY6NTc6MTJaO01TSVBfTGFiZWxfYTcyOTVj?=
- =?utf-8?B?YzEtZDI3OS00MmFjLWFiNGQtM2IwZjRmZWNlMDUwX1NpdGVJZD1hMTlmMTIx?=
- =?utf-8?Q?d-81e1-4858-a9d8-736e267fd4c7;?=
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS3PR01MB9865:EE_|TYYPR01MB8199:EE_
-x-ms-office365-filtering-correlation-id: f180f180-b92d-4c8b-5351-08dd66b3f8c0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|1580799027|38070700018; 
-x-microsoft-antispam-message-info: =?utf-8?B?Q0FnKzk0Q2VyQTI3cEVOVGs2T1htVkVHNUkwSWsra0xpdkcyeGpCNGtyZElq?=
- =?utf-8?B?WFMyQ25DMjkwd0ttZ1NXdDNIalBrekdkY2xJb0hZREtuMkpQdC9oUDBXN0d4?=
- =?utf-8?B?U2tBRnFycnZMSy9jNGJ3aEJhWVM3bzR1SlRYeFVoZU9VMTFhenVHSWtjQ1ZV?=
- =?utf-8?B?VnI2YlhuK28vZmdBV3VvTVQvdXc4WkhINkJEYWdZRXlmQXBKZmVRVmxlVERG?=
- =?utf-8?B?MU9qYzhNLzVmeWJ4L200bXJxdXQzNDhUTnF1TkR3UXZ2TFVrM0QvM2lZV05r?=
- =?utf-8?B?dEw1eWJ5Y3U2c3NEQk1jTzU4NGg1SGJNbFRuQVdFQzhITGlmaCtUYnlpR0F5?=
- =?utf-8?B?MUtHd0JnR2tYa1RiYWFlRklGV0NPNlBTcHNsbnFEUTJGNGJhc3BkbUNUNVNE?=
- =?utf-8?B?Qlg3RTk4SnFlWkY4dlJhQmxrUHZJZjVsaXdZRENvTVhmNkdsWmJIZkRkQnlY?=
- =?utf-8?B?ekY5VzFCTGJrSVVuN2U3QmI1SWRsNXg3T2xGVDdPV1I4ZzNtWmJveXdXcFh4?=
- =?utf-8?B?VDQvRFF6Vy81a25LZDY2OHdjdWR3T1BZOVVGVjZ1R2R6UUJiRncxa3BQRThP?=
- =?utf-8?B?b2gwRktnQkVNL2hzV29IYkRuWDBjTEdSc3BCME4yOEJzZ0hPbEc1WkV0bVRj?=
- =?utf-8?B?amV2SVpLVjB4NFN5NjZra0VqcmpqU21yWmFkRGxUVUdEd0UvYllrM3JRK0VE?=
- =?utf-8?B?bDNjcmZUemtIT3BJU2xMZjFFZFpRdFpISFhXMmtCOFMrU0NJQ2c2VDBKbnBY?=
- =?utf-8?B?TnhhVnliMlcvUHhKY1h3NDRDRkRUdm9SV01RZHNwdlBRQWtVREs0U0pmS1dl?=
- =?utf-8?B?Tlgra2pNUXUwZWlSMDd0OWZHK3BEV0d2clJPeXl6Wk5majhnSWFMbVVRdkJE?=
- =?utf-8?B?RHR0QnJScDhrSmtTVXEyb3djU3JTQ2RBYXZ4ZUhEQ2VVMnk4ZU9RZVA5ZE9o?=
- =?utf-8?B?ZWJjYnpaL0pvc2txOENtVHA0QXd3aVNqT2xzMzBJZXNSU05BcnlVZ0dvQVRo?=
- =?utf-8?B?d0tLdjcxODU5OWI4cUZjTk5QUko1RUs5NWNTNkQ2L0FESkxCVk55elRNMWF6?=
- =?utf-8?B?eGtXdlFaOXgzellTVThXVG11ek9WdGZnMHhMQ25IcGJRdE4zeHlDZ1VVcHFU?=
- =?utf-8?B?NmE0aGkwb1JrOXNhQzc3WG90TE1aS2x3c1RYMUk4dEFsZWFsb29FK29XSk1n?=
- =?utf-8?B?YjdFNjZUalIzU2U0STByK0Q1WFUxUzE1YWp3Tjl6U25nV3NxeDF6SXdKQlVG?=
- =?utf-8?B?UnJHcXI4L3l5RXR1T2d1Y3JQclF3ZTFIL0RSUmlIOTVVbWxWcTMyQlg1MDgy?=
- =?utf-8?B?cVEvMVk0T3BGSGVMUmwyRnRFeTI1TWFKdGhMT2lLbTBjdHl1eGJhcklJOUhl?=
- =?utf-8?B?MWZ3akxsQUZTY2R3VGg0Z0U0Q1NEcnpTSGdKSXd5Yy9sRVZYRHN3VG5DaDJy?=
- =?utf-8?B?Wk9ZVzJudTdvVGMyRXhuTncrRW5sSzJiQXZySWJjNUE4RXY0SXg0L29GRDda?=
- =?utf-8?B?cjhWZHhlRGFDckxFdWJEblhyMjFYdDdvb1BYaFZKb2JwMitzbUlzai9KUExx?=
- =?utf-8?B?Y0dZWTQ1Y0Nsb3hldHZsWHZRWEN4WkJOb2xkN2YrQlFkcVpGYkl5NzNDR251?=
- =?utf-8?B?WWhBdXV1alRvRTk3UHVNeHg4QkJldUMyRjVPcUtDanRrOGxNRXJiMndOYUw1?=
- =?utf-8?B?VmdYejhaSmVHN0pzcUJob2wwS3p1N0JDamFMUjBIWWhaTFV3TDUwZUoreGtj?=
- =?utf-8?B?eWJ2SjNFTGpnY2xiZnZVU0xsbmxyZUJ4RmQzSkUvMTRvZjVMM3VUdzJhUUlM?=
- =?utf-8?B?RTNETEY5di9razRHUkpEczNXbmhmZEdHb1UyeWtBK2tvWlB4NjNaOWs0bGg4?=
- =?utf-8?B?c2V6SDlHb01VbXJRNFh5MmN1RHh0Z3lVbzZmcUkwREJMZjBTYVZ2WHFGZmJR?=
- =?utf-8?B?Z0hQUkMvWjByc1lUSFFTS2VlcjVCM0ZYZlJRNStzaVZRWWNGbFdYLytSSGZq?=
- =?utf-8?B?UEg3MVp4SzVBPT0=?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:ja; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB9865.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(1580799027)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WXQzWStNaHJ4ckpYTU9DblNWMmRnSjdBWThtYm1Pa3N6TVVJeFBqNlVuSWs4?=
- =?utf-8?B?WW8zVk1PQ0hpcnpIQytDZnRaNldwMU03YVVxL1VXdHdQZ0pwbnE1NldZRjds?=
- =?utf-8?B?WTFDNXdQa3Zwa3BPVllyR3N0TFF6eTRSNzFNS1lUMTZRUDV1TldBeFlsUHM3?=
- =?utf-8?B?UmVYSTVTRnQ0dFZsMXRGUTI1dEN2THQ2OFBHa2lpdFViM0tKeHc1RDVVSHcz?=
- =?utf-8?B?dU5wOGZKaFhTZ0hxUStVWHV6a09KN1ZoaTlNRU1TZUNXcFRwL3ZKUjMzSEF4?=
- =?utf-8?B?aXJyWWhwOCtHWHZpdHpoQUIxQUpNMGNrVFBXekNwM3p1bXRUUkFKdGdEWnVH?=
- =?utf-8?B?UVdSMW9rdTFiMXNGUDhUa2xrQmV0cWVkS1FBa0tMVjVPT0hyNVVnclZISW9z?=
- =?utf-8?B?cm9WZU1DWFQ2djhrb1hvcDRRcGM5eHNSQ28ySHYydm5NZ3JPMzBWdHhFTDJR?=
- =?utf-8?B?RCtodElPNEJSdEJNYkxUaytESVNTTDFlaG41eHd5VjFPeFQwdDRxL3dWUWZo?=
- =?utf-8?B?d2F5eVZmMHZNWW5JSXNoT0ZyVWVmbFZhOGpiY1ZNVFBTdG5uYlRVSklwbEFa?=
- =?utf-8?B?MkRaZCtGa05yNGFPVnBURFhVUmRKckxjdFo3UTcyNG8zcEFlQmwzM1hIaHdU?=
- =?utf-8?B?SHlyYkFYSTYwbTlkeG82aDhXSmlXU0pEQVRRRjJiNlh3RDlISWN4TU9Gclgr?=
- =?utf-8?B?RENMY3VXQ3RLSHRBOGhWUlcrWHRzM2NjdklQcXJGWC92SmYwRFFTemUwZ0RV?=
- =?utf-8?B?SVlQb2k1UHNRVkRoaEJ2SWlCcC9zOFZGem54NUc0VXErTFN3WW4rWklGYTkw?=
- =?utf-8?B?enhpT0VmWGdhY1VNSHVzV2VQRndORnE5WHE2bFlrN3VjR2k2ZnpYZHVaVW9M?=
- =?utf-8?B?ZkJEc0RiRHJHRm5EZjIyZEpnNjJWdzRqRS91QWtSdWZ6WUVqOEpYTzhCaXZX?=
- =?utf-8?B?V0p6enN1YnlrVlNEZDM4eXFBR2pXaUg2K0ZGWW9PeG14Q1l5dDhsOGlJOTFY?=
- =?utf-8?B?b1REUTgweEVHaGNOY3RRUG03V3dDZ1ZqVFFLMTJiMC9xQjhPSlcyWUozZ1N6?=
- =?utf-8?B?NzBKcis0anMzMzNyVEhlclJtY2N0Wnk2N2g0dWRMd3o3ZmpkZFV1YzV2V2lK?=
- =?utf-8?B?OWNBdjF4YmE0NU9JQ1c3c3dEZlpmbU5qSCs5bjhDVFB4ZXVRbW9Jdlg0aW5x?=
- =?utf-8?B?aWZrY3duRzZPbkdQaU1QbmZpZC9pNU5NczF3aWZyY0NUTTN5VElwYjYwZklR?=
- =?utf-8?B?UjBtR215N0tGd1J1YjF4em9Ud1YyOWRzYmdPcFhrM0RLZm4vZGNLSWZmOUxn?=
- =?utf-8?B?c1VEdVdVb0JFWFNLaDAraHoybFhSQjB2a0lpZ1ZrQnNwUTZJL2F6ci9GR2RM?=
- =?utf-8?B?UzZMTTZPc09kTXZTbWZNS0lWOGZETkEvVWFXMDlVSTY4Y3gyYUZWNEtUdXls?=
- =?utf-8?B?TEdJSzJGNjNWOHpKOERuZUcraGFGTHE0Z0NwZHdEZDVwMUQ5dGlEVG5xbUdP?=
- =?utf-8?B?RXpVMmNFaHFzZEc5a2lQTmxXZXdVK3gzU2l4SGZqUDZyS0RHSzU5bXJFNFNZ?=
- =?utf-8?B?ZHVDY3ppV3BPS2s0b2Y3MWxKU1BhV21DbHdLS3lNVko4N0FjK2JwamUyRURV?=
- =?utf-8?B?Y0czUWErcGRJSWY0WnQ1QW9TVm1HbU5LalllMC92cnFtdHRKWGtCOGNQa3hR?=
- =?utf-8?B?MDkraFI2Z2V6M1NHdDhRMkxPMkdJWE9xdmpoUzVWU0RBOSt0R1c4Z0xFa2tx?=
- =?utf-8?B?ZjVsQ3RUcU4yWVAvOGE5OHl6akhYNFFSRWs5OXNEVFU1K1d2eW84dlZIdlB5?=
- =?utf-8?B?cHkyOGllZ0w0U0o2MVR6OGlIVVVCWXlFMVpUMW5oZ3YvcElxYWlBRUd0Q2ZJ?=
- =?utf-8?B?ZzUvOVdSY1N4VzZnd0lhcFB5azFoTDY5MmozUHVEKzBqWFRtVEUralJsVHQ4?=
- =?utf-8?B?S1dKbTdUYWs2VWwxd2NhMXJIS1FjNzk1cStWbVdFQmpIaTl6b001bGRvVnIr?=
- =?utf-8?B?Kzk2b1VWQzJBeStxWU02Z0pEUlhkMnY2TE1GZnFVbkVwVG1CTE80dGx0YW9W?=
- =?utf-8?B?ZGw0SE0zWXM1cmdlUy9mS2RGaURsT1pFaCtVeW9yRjNmenYxejFBbklKY2ZV?=
- =?utf-8?B?SW5VT2kyMGlxZ0x1eDhqc2ZQVGtDa01lSEdqbUJTN2dWMUpoSERJWkRwdXRU?=
- =?utf-8?B?Vnc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26CC410E36D;
+ Wed, 19 Mar 2025 09:30:40 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1CC2461601;
+ Wed, 19 Mar 2025 09:30:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC5BC4CEE9;
+ Wed, 19 Mar 2025 09:29:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1742376638;
+ bh=kIAOhvTDwNJUqqsksoBZcEdbt37vq7mpC+KqsAhXVn4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=JHFpFquv/U6v4vkowPwaMXcGCfItYIAsWV00Ih7EbBLTrDnNHDkqgRUa5ZcdR6PPT
+ GE73t7IHMHaA5apvRNwpbDEvupLn5GEAROfwG8bfOC3cWm4r+wAQpSmx/nSdIOfft3
+ g6zWFgTwbkIm1pTwp9PFGCWv+F/37wpisUTihZ018rrKSrTzndRRSods8QhjPWc0h0
+ Dz0blnLWWjitFHWBcwSlPWcVj9l1cqhOjMZjmHLHersV3cpNGEMv4hjcn3IBGUGMpD
+ Uwpffo6LtYQoMnAAzDkwZWIhy/r5yBypbyXxtoG2EVI7F+M9Ak3ZkA195gONZahMqe
+ 3dXetUJTXAo6w==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: tglx@linutronix.de
+Cc: maz@kernel.org, linux-kernel@vger.kernel.org,
+ "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alex Shi <alexs@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, amd-gfx@lists.freedesktop.org,
+ Amit Kucheria <amitk@kernel.org>, Anatolij Gustschin <agust@denx.de>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
+ Andreas Kemnade <andreas@kemnade.info>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Andrew Lunn <andrew@lunn.ch>,
+ Andy Shevchenko <andy@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Antoine Tenart <atenart@kernel.org>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Anup Patel <anup@brainfault.org>, Arnd Bergmann <arnd@arndb.de>,
+ asahi@lists.linux.dev, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Baruch Siach <baruch@tkos.co.il>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Bharat Kumar Gogada <bharat.kumar.gogada@amd.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Borislav Petkov <bp@alien8.de>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Corentin Chary <corentin.chary@gmail.com>,
+ Daire McNamara <daire.mcnamara@microchip.com>,
+ Daniel Golle <daniel@makrotopia.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Daniel Mack <daniel@zonque.org>, Daniel Palmer <daniel@thingy.jp>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ DENG Qingfang <dqfext@gmail.com>, Dinh Nguyen <dinguyen@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Dongliang Mu <dzm91@hust.edu.cn>, Doug Berger <opendmb@gmail.com>,
+ dri-devel@lists.freedesktop.org, Eddie James <eajames@linux.ibm.com>,
+ Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Geoff Levand <geoff@infradead.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Gregory Clement <gregory.clement@bootlin.com>, Guo Ren <guoren@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Haojian Zhuang <haojian.zhuang@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, Herve Codina <herve.codina@bootlin.com>,
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Chen-Yu Tsai <wens@csie.org>,
+ "Chester A. Unal" <chester.a.unal@arinc9.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Chris Zankel <chris@zankel.net>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Imre Kaloz <kaloz@openwrt.org>, Ingo Molnar <mingo@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, James Morse <james.morse@arm.com>,
+ Janne Grunau <j@jannau.net>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Jianjun Wang <jianjun.wang@mediatek.com>,
+ Jiawen Wu <jiawenwu@trustnetic.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ Jim Quinlan <jim2101024@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Joel Stanley <joel@jms.id.au>, Johannes Berg <johannes@sipsolutions.net>,
+ John Crispin <john@phrozen.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Jonas Bonn <jonas@southpole.se>, Jonathan Cameron <jic23@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Jonathan Hunter <jonathanh@nvidia.com>,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Joyce Ooi <joyce.ooi@intel.com>,
+ Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
+ Keerthy <j-keerthy@ti.com>, Kevin Hilman <khilman@baylibre.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Lee Jones <lee@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Linus Walleij <linusw@kernel.org>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-pci@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-remoteproc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-sh@vger.kernel.org,
+ linux-snps-arc@lists.infradead.org, linux-sound@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-um@lists.infradead.org,
+ linux-wireless@vger.kernel.org, loongarch@lists.linux.dev,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, "Luke D. Jones" <luke@ljones.dev>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Mark Brown <broonie@kernel.org>, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>, Michael Buesch <m@bues.ch>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Simek <michal.simek@amd.com>,
+ Miodrag Dinic <miodrag.dinic@mips.com>, Naveen N Rao <naveen@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Nikhil Agarwal <nikhil.agarwal@amd.com>, Nipun Gupta <nipun.gupta@amd.com>,
+ Nishanth Menon <nm@ti.com>,
+ =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paolo Abeni <pabeni@redhat.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Peter Rosin <peda@axentia.se>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ platform-driver-x86@vger.kernel.org,
+ Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
+ Qiang Zhao <qiang.zhao@nxp.com>, Qin Jian <qinjian@cqplus1.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Ray Jui <rjui@broadcom.com>,
+ Rengarajan Sundararajan <Rengarajan.S@microchip.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Richard Weinberger <richard@nod.at>, Rich Felker <dalias@libc.org>,
+ Rob Clark <robdclark@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>,
+ Robert Richter <rric@kernel.org>, Rob Herring <robh@kernel.org>,
+ Roger Quadros <rogerq@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Ryder Lee <ryder.lee@mediatek.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Santosh Shilimkar <ssantosh@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Scott Branden <sbranden@broadcom.com>, Scott Wood <oss@buserror.net>,
+ Sean Paul <sean@poorly.run>, Sean Wang <sean.wang@kernel.org>,
+ Sean Wang <sean.wang@mediatek.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>, Simona Vetter <simona@ffwll.ch>,
+ Stafford Horne <shorne@gmail.com>,
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+ Stephen Boyd <sboyd@kernel.org>, Sven Peter <sven@svenpeter.dev>,
+ Takashi Iwai <tiwai@suse.com>, Talel Shenhar <talel@amazon.com>,
+ Tero Kristo <kristo@kernel.org>,
+ Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Toan Le <toan@os.amperecomputing.com>, Tony Lindgren <tony@atomide.com>,
+ Tony Luck <tony.luck@intel.com>, UNGLinuxDriver@microchip.com,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Vineet Gupta <vgupta@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ WANG Xuerui <kernel@xen0n.name>, Woojung Huh <woojung.huh@microchip.com>,
+ x86@kernel.org, Yanteng Si <si.yanteng@linux.dev>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Zhang Rui <rui.zhang@intel.com>
+Subject: [PATCH v2 00/57] irqdomain: Cleanups and Documentation
+Date: Wed, 19 Mar 2025 10:28:53 +0100
+Message-ID: <20250319092951.37667-1-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: RlBGzK1V2uqSAvj7HGFbajX+slFZFyMXVpMaOmQO+8ZJ60+LdrmosFiM1PJaBgNht0pjOmPvBTgzyL4xbSh5G1oVccdTG05FTLLKNaiewX1uqnr5TA0cElsmkdss8s6HwTCYRC4FPPud5OdZ0JCiYuPKVURXZeTnGeiG1RBYVcEjpFYOiB8X+S7tGNavdZw8j05fBQG2FKNWsAt1/64BAZ5JhkK9pFMFXtu/6D7+b9Qs518sp+bgkIfxMQAxizrCYq3Aofy3r9yDkcH/SqWVOlw/uvj3CQYKw2jaabV+UduSPrNKX9GmCTROhYWoLlNrObOrvuOoYz3NAo4KCU6FWLqg7FyYfUymjzDQvZGX5DFUSW5xwZnx5Zod0Wxe3IUOJfmmwm5qtCJC7XVd6ZI95T7wR8bTlpWE6CQ3bmPQ7qX/e2wQK27PK6lAdpts4P3f8G+4v7PHUoxL6HezzmwnqWcoX/It7/+a5VidvrCSWZnfgg8PHHYjGYxc/i6EQhm745NVFsstdcTKmd8IJkPxFpsghMdh0tQTeIy+uzNdgzzw2wLJZkkxbzyQmVaJITma4Lqc8ard1+wxrSFFL4XztMesbc7O7NmWzlO4ZwlBixrMjLtCi19l/CmnayeJRg/Z
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB9865.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f180f180-b92d-4c8b-5351-08dd66b3f8c0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2025 07:02:11.4832 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: C2YyGgY2SjuUgwTHao3cnnsvkWf6W3e9x2e1WEkkm6fvP8tVSynGLO1uOQlmh4JAvQmfQejoM/p0ufAL/W3wI5M50vBqZ5ZFQKNdjhqHyg0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB8199
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 19 Mar 2025 10:23:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -206,79 +223,605 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBNYXIgMTgsIDIwMjUgNTozNSBBTSBGZWxpeCBLdWVobGluZyB3cm90ZToNCj4gT24g
-MjAyNS0wMy0xNyAxNTowNywgRGV1Y2hlciwgQWxleGFuZGVyIHdyb3RlOg0KPiA+IFtQdWJsaWNd
-DQo+ID4NCj4gPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4gRnJvbTogRGFpc3Vr
-ZSBNYXRzdWRhIDxtYXRzdWRhLWRhaXN1a2VAZnVqaXRzdS5jb20+DQo+ID4+IFNlbnQ6IFRodXJz
-ZGF5LCBNYXJjaCAxMywgMjAyNSA5OjE4IFBNDQo+ID4+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRGV1Y2hlciwNCj4g
-Pj4gQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3Rp
-YW4NCj4gPj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4NCj4gPj4gQ2M6IGFpcmxpZWRAZ21h
-aWwuY29tOyBzaW1vbmFAZmZ3bGwuY2g7IERhaXN1a2UgTWF0c3VkYSA8bWF0c3VkYS0NCj4gPj4g
-ZGFpc3VrZUBmdWppdHN1LmNvbT4NCj4gPj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBI
-aWdoZXIgbG9nIGxldmVsIGZvciBtaXNzaW5nIFBDSWUgYXRvbWljcyBjYXBzDQo+ID4+DQo+ID4+
-IEN1cnJlbnRseSwgUk9DbSByZXF1aXJlcyBDUFVzIHRoYXQgc3VwcG9ydCBQQ0llIGF0b21pY3Mu
-IFRoZSBtZXNzYWdlIGlzIG1vcmUNCj4gPj4gdXJnZW50IGZvciBHUEdQVSB1c2VycywgbWVhbmlu
-ZyBiYXNpYyBmdW5jdGlvbmFsaXRpZXMgb2YgUk9DbSBhcmUgbm90IGF2YWlsYWJsZQ0KPiA+PiBv
-biB0aGUgbm9kZS4NCj4gPj4NCj4gPiArIEZlbGl4DQo+ID4NCj4gPiBNeSB1bmRlcnN0YW5kaW5n
-IGlzIHRoYXQgUENJZSBhdG9taWNzIGFyZSBub3Qgc3RyaWN0bHkgcmVxdWlyZWQsIGJ1dCB0aGVy
-ZSBhcmUgc29tZSBmZWF0dXJlcyB0aGF0IGFyZSBub3QgYXZhaWxhYmxlDQo+IHdpdGhvdXQgdGhl
-bS4gIFdhcm5pbmcgc2VlbXMgYSBiaXQgb3ZlcmtpbGwgYW5kIHBvdGVudGlhbGx5IGNvbmZ1c2lu
-ZyB0byB1c2VycyB0aGF0IGhhdmUgYW4gZXhpc3Rpbmcgc3lzdGVtIHRoYXQNCj4gb3RoZXJ3aXNl
-IHdvcmtzIGZpbmUuDQo+IA0KPiBJIGNvdWxkIHNlZSBlaXRoZXIgYXJndW1lbnQuIFRoZSBHUFUg
-aXMgY2FwYWJsZSBvZiBQQ0llIGF0b21pY3MsIGJ1dCB0aGUgc3lzdGVtIGNvbmZpZ3VyYXRpb24g
-KGNoaXBzZXQsIFBDSWUgc3dpdGNoLCBldGMuKQ0KPiBpcyBwcmV2ZW50aW5nIHRoZW0gZnJvbSB3
-b3JraW5nLCB3aGljaCBoYXMgYW4gaW1wYWN0IG9uIHNvbWUgYXBwbGljYXRpb24tdmlzaWJsZSBm
-dW5jdGlvbmFsaXR5LiBBIG5haXZlIGFwcGxpY2F0aW9uIHRoYXQNCj4gZGVwZW5kcyBvbiBhdG9t
-aWNzIGFuZCBpcyBub3QgY2FyZWZ1bGx5IHdyaXR0ZW4gdG8gcHJvdmlkZSBmYWxsYmFja3Mgb3Ig
-ZmFpbCBncmFjZWZ1bGx5IGluIGNhc2UgYXRvbWljcyBhcmUgdW5hdmFpbGFibGUsDQo+IHdvdWxk
-IGZhaWwgc2lsZW50bHkgb3IgcHJvZHVjZSBpbmNvcnJlY3QgcmVzdWx0cy4gU28gbWF5YmUgdGhh
-dCBqdXN0aWZpZXMgYSB3YXJuaW5nIG1lc3NhZ2UuDQoNClRoZSBMaW51eCBrZXJuZWwgY29tbW9u
-bHkgdXNlcyAid2FybiBsZXZlbCIgbWVzc2FnZXMgdG8gYWxlcnQgdXNlcnMgd2hlbiBhbiBpbmNv
-bXBhdGliaWxpdHkgcmVzdHJpY3RzIGZ1bmN0aW9uYWxpdHksIGFuZCB0aGlzIGFwcHJvYWNoIGFs
-aWducyB3aXRoIHRoYXQgcHJhY3RpY2UuDQpUbyBhZGRyZXNzIHRoZSBjb25jZXJuIGFib3V0IHRo
-ZSBtZXNzYWdlIGJlaW5nIHRvbyBnZW5lcmFsLCBob3cgYWJvdXQgbWFraW5nIGl0IG1vcmUgc3Bl
-Y2lmaWMgbGlrZSB0aGlzOg0KICBkZXZfd2FybihhZGV2LT5kZXYsICJQQ0llIGF0b21pYyBvcHMg
-YXJlIG5vdCBzdXBwb3J0ZWQuICBST0NtIHBlcmZvcm1hbmNlIGFuZCBmdW5jdGlvbmFsaXR5IG1h
-eSBiZSBsaW1pdGVkLlxuIik7DQpUaGlzIGlzIG1vcmUgZGlyZWN0IGFuZCBmb2N1c2VkIG9uIHRo
-ZSBpbXBhY3QgdG8gUk9DbSB1c2Vycy4NCg0KUmVnYXJkcywNCkRhaXN1a2UNCg0KPiANCj4gUmVn
-YXJkcywNCj4gwqAgRmVsaXgNCj4gDQo+IA0KPiA+DQo+ID4gQWxleA0KPiA+DQo+ID4NCj4gPj4g
-U2lnbmVkLW9mZi1ieTogRGFpc3VrZSBNYXRzdWRhIDxtYXRzdWRhLWRhaXN1a2VAZnVqaXRzdS5j
-b20+DQo+ID4+IC0tLQ0KPiA+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jICB8IDQgKystLQ0KPiA+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRndl9z
-cmlvdm1zZy5oIHwgMiArLQ0KPiA+PiAgMiBmaWxlcyBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyks
-IDMgZGVsZXRpb25zKC0pDQo+ID4+DQo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gPj4gaW5kZXggMDE4ZGZjY2Q3NzFiLi5mYWVlZjEzNmUy
-NzIgMTAwNjQ0DQo+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-ZXZpY2UuYw0KPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2
-aWNlLmMNCj4gPj4gQEAgLTQzNzQsNyArNDM3NCw3IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID4+ICAgICAgICAgICAgICAgICAgICAgICBy
-ZXR1cm4gcjsNCj4gPj4gICAgICAgfQ0KPiA+Pg0KPiA+PiAtICAgICAvKiBlbmFibGUgUENJRSBh
-dG9taWMgb3BzICovDQo+ID4+ICsgICAgIC8qIGVuYWJsZSBQQ0llIGF0b21pYyBvcHMgKi8NCj4g
-Pj4gICAgICAgaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgew0KPiA+PiAgICAgICAgICAgICAg
-IGlmIChhZGV2LT52aXJ0LmZ3X3Jlc2VydmUucF9wZjJ2ZikNCj4gPj4gICAgICAgICAgICAgICAg
-ICAgICAgIGFkZXYtPmhhdmVfYXRvbWljc19zdXBwb3J0ID0gKChzdHJ1Y3QNCj4gPj4gYW1kX3Ny
-aW92X21zZ19wZjJ2Zl9pbmZvICopIEBAIC00Mzk1LDcgKzQzOTUsNyBAQCBpbnQNCj4gPj4gYW1k
-Z3B1X2RldmljZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+PiAgICAgICB9
-DQo+ID4+DQo+ID4+ICAgICAgIGlmICghYWRldi0+aGF2ZV9hdG9taWNzX3N1cHBvcnQpDQo+ID4+
-IC0gICAgICAgICAgICAgZGV2X2luZm8oYWRldi0+ZGV2LCAiUENJRSBhdG9taWMgb3BzIGlzIG5v
-dCBzdXBwb3J0ZWRcbiIpOw0KPiA+PiArICAgICAgICAgICAgIGRldl93YXJuKGFkZXYtPmRldiwg
-IlBDSWUgYXRvbWljIG9wcyBhcmUgbm90IHN1cHBvcnRlZFxuIik7DQo+ID4+DQo+ID4+ICAgICAg
-IC8qIGRvb3JiZWxsIGJhciBtYXBwaW5nIGFuZCBkb29yYmVsbCBpbmRleCBpbml0Ki8NCj4gPj4g
-ICAgICAgYW1kZ3B1X2Rvb3JiZWxsX2luaXQoYWRldik7DQo+ID4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRndl9zcmlvdm1zZy5oDQo+ID4+IGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3Zfc3Jpb3Ztc2cuaA0KPiA+PiBpbmRleCBiNGY5YzJmNGU5
-MmMuLmM1MjYwNWEwNzU5NyAxMDA2NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3Zfc3Jpb3Ztc2cuaA0KPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRndl9zcmlvdm1zZy5oDQo+ID4+IEBAIC0yNDAsNyArMjQwLDcgQEAgc3RydWN0IGFt
-ZF9zcmlvdl9tc2dfcGYydmZfaW5mbyB7DQo+ID4+ICAgICAgIH0gbW1fYndfbWFuYWdlbWVudFtB
-TURfU1JJT1ZfTVNHX1JFU0VSVkVfVkNOX0lOU1RdOw0KPiA+PiAgICAgICAvKiBVVUlEIGluZm8g
-Ki8NCj4gPj4gICAgICAgc3RydWN0IGFtZF9zcmlvdl9tc2dfdXVpZF9pbmZvIHV1aWRfaW5mbzsN
-Cj4gPj4gLSAgICAgLyogUENJRSBhdG9taWMgb3BzIHN1cHBvcnQgZmxhZyAqLw0KPiA+PiArICAg
-ICAvKiBQQ0llIGF0b21pYyBvcHMgc3VwcG9ydCBmbGFnICovDQo+ID4+ICAgICAgIHVpbnQzMl90
-IHBjaWVfYXRvbWljX29wc19zdXBwb3J0X2ZsYWdzOw0KPiA+PiAgICAgICAvKiBQb3J0aW9uIG9m
-IEdQVSBtZW1vcnkgb2NjdXBpZWQgYnkgVkYuICBNQVggdmFsdWUgaXMgNjU1MzUsIGJ1dCBzZXQg
-dG8NCj4gPj4gdWludDMyX3QgdG8gbWFpbnRhaW4gYWxpZ25tZW50IHdpdGggcmVzZXJ2ZWQgc2l6
-ZSAqLw0KPiA+PiAgICAgICB1aW50MzJfdCBncHVfY2FwYWNpdHk7DQo+ID4+IC0tDQo+ID4+IDIu
-MzkuMQ0K
+Hi,
+
+tl;dr if patches are agreed upon, I ask subsys maintainers to take the
+respective ones via their trees (as they are split per subsys), so that
+the IRQ tree can take only the rest. That would minimize churn/conflicts
+during merges.
+
+===
+
+While I was reading through the irqdomain code and headers, I found some
+naming and documentation hard to follow or incomplete. Especially the
+naming of _add/_create/_instantiate functions.
+
+I tried to come up with a better state with this patchset:
+* only irq _domain_ (not host),
+* only irq_domain_create*() functions, all taking fwnode uniformly,
+
+Finally, all the irqdomain stuff is now plugged (and generated) into
+Documentation. So that everyone can walk through it at
+https://www.kernel.org/doc/ (once applied, of course).
+
+Changelog
+---------
+[v2]
+- 'extern' removal patch dropped (already merged into tip),
+- some new patches added,
+- only _create*() functions preserved, all _add*() are removed,
+  as per <87wme3m4a9.ffs@tglx>.
+
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Shi <alexs@kernel.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: "Alvin Šipraga" <alsi@bang-olufsen.dk>
+Cc: Alyssa Rosenzweig <alyssa@rosenzweig.io>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Amit Kucheria <amitk@kernel.org>
+Cc: Anatolij Gustschin <agust@denx.de>
+Cc: Andi Shyti <andi.shyti@kernel.org>
+Cc: "Andreas Färber" <afaerber@suse.de>
+Cc: Andreas Kemnade <andreas@kemnade.info>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Andy Shevchenko <andy@kernel.org>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Antoine Tenart <atenart@kernel.org>
+Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
+Cc: Anup Patel <anup@brainfault.org>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: asahi@lists.linux.dev
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Baruch Siach <baruch@tkos.co.il>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Bharat Kumar Gogada <bharat.kumar.gogada@amd.com>
+Cc: Bjorn Andersson <andersson@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: Corentin Chary <corentin.chary@gmail.com>
+Cc: Daire McNamara <daire.mcnamara@microchip.com>
+Cc: Daniel Golle <daniel@makrotopia.org>
+Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
+Cc: Daniel Mack <daniel@zonque.org>
+Cc: Daniel Palmer <daniel@thingy.jp>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: DENG Qingfang <dqfext@gmail.com>
+Cc: Dinh Nguyen <dinguyen@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Doug Berger <opendmb@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: Eddie James <eajames@linux.ibm.com>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Geoff Levand <geoff@infradead.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Gregory Clement <gregory.clement@bootlin.com>
+Cc: Guo Ren <guoren@kernel.org>
+Cc: Hans de Goede <hdegoede@redhat.com>
+Cc: Haojian Zhuang <haojian.zhuang@gmail.com>
+Cc: Haojian Zhuang <haojian.zhuang@linaro.org>
+Cc: Heiko Stuebner <heiko@sntech.de>
+Cc: Herve Codina <herve.codina@bootlin.com>
+Cc: Hou Zhiqiang <Zhiqiang.Hou@nxp.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Chen-Yu Tsai <wens@csie.org>
+Cc: "Chester A. Unal" <chester.a.unal@arinc9.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Chris Zankel <chris@zankel.net>
+Cc: "Ilpo Järvinen" <ilpo.jarvinen@linux.intel.com>
+Cc: Imre Kaloz <kaloz@openwrt.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: James Morse <james.morse@arm.com>
+Cc: Janne Grunau <j@jannau.net>
+Cc: Janusz Krzysztofik <jmkrzyszt@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jianjun Wang <jianjun.wang@mediatek.com>
+Cc: Jiawen Wu <jiawenwu@trustnetic.com>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>
+Cc: Jim Quinlan <jim2101024@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>
+Cc: Johannes Berg <johannes@sipsolutions.net>
+Cc: John Crispin <john@phrozen.org>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: Jonas Bonn <jonas@southpole.se>
+Cc: Jonathan Cameron <jic23@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: "Jonathan Neuschäfer" <j.neuschaefer@gmx.net>
+Cc: Joyce Ooi <joyce.ooi@intel.com>
+Cc: Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>
+Cc: Keerthy <j-keerthy@ti.com>
+Cc: Kevin Hilman <khilman@baylibre.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: "Krzysztof Wilczyński" <kw@linux.com>
+Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+Cc: Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>
+Cc: Lee Jones <lee@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-edac@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-iio@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+Cc: linux-mediatek@lists.infradead.org
+Cc: linux-mips@vger.kernel.org
+Cc: linux-omap@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: linux-remoteproc@vger.kernel.org
+Cc: linux-riscv@lists.infradead.org
+Cc: linux-rpi-kernel@lists.infradead.org
+Cc: linux-sh@vger.kernel.org
+Cc: linux-snps-arc@lists.infradead.org
+Cc: linux-sound@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-um@lists.infradead.org
+Cc: linux-wireless@vger.kernel.org
+Cc: loongarch@lists.linux.dev
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Ludovic Desroches <ludovic.desroches@microchip.com>
+Cc: Lukasz Luba <lukasz.luba@arm.com>
+Cc: "Luke D. Jones" <luke@ljones.dev>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: "Marek Behún" <kabel@kernel.org>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Mark-PK Tsai <mark-pk.tsai@mediatek.com>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Max Filippov <jcmvbkbc@gmail.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Mengyuan Lou <mengyuanlou@net-swift.com>
+Cc: Michael Buesch <m@bues.ch>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Michal Simek <michal.simek@amd.com>
+Cc: Miodrag Dinic <miodrag.dinic@mips.com>
+Cc: Naveen N Rao <naveen@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: netdev@vger.kernel.org
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+Cc: Nicolas Saenz Julienne <nsaenz@kernel.org>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Nikhil Agarwal <nikhil.agarwal@amd.com>
+Cc: Nipun Gupta <nipun.gupta@amd.com>
+Cc: Nishanth Menon <nm@ti.com>
+Cc: "Pali Rohár" <pali@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Paul Cercueil <paul@crapouillou.net>
+Cc: Paul Walmsley <paul.walmsley@sifive.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Peter Rosin <peda@axentia.se>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Cc: platform-driver-x86@vger.kernel.org
+Cc: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
+Cc: Qiang Zhao <qiang.zhao@nxp.com>
+Cc: Qin Jian <qinjian@cqplus1.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Ray Jui <rjui@broadcom.com>
+Cc: Rengarajan Sundararajan <Rengarajan.S@microchip.com>
+Cc: Richard Cochran <richardcochran@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>
+Cc: Rich Felker <dalias@libc.org>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Robert Jarzmik <robert.jarzmik@free.fr>
+Cc: Robert Richter <rric@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Roger Quadros <rogerq@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Ryder Lee <ryder.lee@mediatek.com>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: Santosh Shilimkar <ssantosh@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Scott Branden <sbranden@broadcom.com>
+Cc: Scott Wood <oss@buserror.net>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Sean Wang <sean.wang@kernel.org>
+Cc: Sean Wang <sean.wang@mediatek.com>
+Cc: Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Cc: Sergio Paracuellos <sergio.paracuellos@gmail.com>
+Cc: Shawn Guo <shawnguo@kernel.org>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Siddharth Vadapalli <s-vadapalli@ti.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Stafford Horne <shorne@gmail.com>
+Cc: Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>
+Cc: Stephen Boyd <sboyd@kernel.org>
+Cc: Sven Peter <sven@svenpeter.dev>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Talel Shenhar <talel@amazon.com>
+Cc: Tero Kristo <kristo@kernel.org>
+Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Toan Le <toan@os.amperecomputing.com>
+Cc: Tony Lindgren <tony@atomide.com>
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: UNGLinuxDriver@microchip.com
+Cc: "Uwe Kleine-König" <ukleinek@kernel.org>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Vineet Gupta <vgupta@kernel.org>
+Cc: Vladimir Oltean <olteanv@gmail.com>
+Cc: Vladimir Zapolskiy <vz@mleia.com>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Woojung Huh <woojung.huh@microchip.com>
+Cc: x86@kernel.org
+Cc: Yanteng Si <si.yanteng@linux.dev>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+Cc: Zhang Rui <rui.zhang@intel.com>
+
+Jiri Slaby (SUSE) (57):
+  irqdomain: um: use irq_domain_create_linear() helper
+  irqdomain: Rename irq_set_default_host() to irq_set_default_domain()
+  irqdomain: Rename irq_get_default_host() to irq_get_default_domain()
+  irqdomain.h: Stop using 'host' for domain
+  irqdomain: cdx: Switch to of_fwnode_handle()
+  irqdomain: irqchip: Switch to of_fwnode_handle()
+  irqdomain: pci: Switch to of_fwnode_handle()
+  irqdomain: ppc: Switch to of_fwnode_handle()
+  irqdomain: remoteproc: Switch to of_fwnode_handle()
+  irqdomain: x86: Switch to of_fwnode_handle()
+  irqdomain: Drop of_node_to_fwnode()
+  irqdomain: Make irq_domain_create_hierarchy() an inline
+  irqdomain: arc: Switch to irq_domain_create_linear()
+  irqdomain: arm: Switch to irq_domain_create_*()
+  irqdomain: bus: Switch to irq_domain_create_simple()
+  irqdomain: edac: Switch to irq_domain_create_linear()
+  irqdomain: gpio: Switch to irq_domain_create_*()
+  irqdomain: gpu: Switch to irq_domain_create_linear()
+  irqdomain: i2c: Switch to irq_domain_create_linear()
+  irqdomain: iio: Switch to irq_domain_create_simple()
+  irqdomain: irqchip: Switch to irq_domain_create_*()
+  irqdomain: mailbox: Switch to irq_domain_create_tree()
+  irqdomain: memory: Switch to irq_domain_create_linear()
+  irqdomain: mfd: Switch to irq_domain_create_*()
+  irqdomain: mips: Switch to irq_domain_create_*()
+  irqdomain: misc: Switch to irq_domain_create_simple()
+  irqdomain: net: Switch to irq_domain_create_*()
+  irqdomain: nios2: Switch to irq_domain_create_linear()
+  irqdomain: pci: Switch to irq_domain_create_linear()
+  irqdomain: pinctrl: Switch to irq_domain_create_*()
+  irqdomain: platform/x86: Switch to irq_domain_create_linear()
+  irqdomain: ppc: Switch to irq_domain_create_*()
+  irqdomain: sh: Switch to irq_domain_create_*()
+  irqdomain: soc: Switch to irq_domain_create_*()
+  irqdomain: sound: Switch to irq_domain_create_linear()
+  irqdomain: spmi: Switch to irq_domain_create_tree()
+  irqdomain: ssb: Switch to irq_domain_create_linear()
+  irqdomain: thermal: Switch to irq_domain_create_linear()
+  irqdomain: ppc: Switch irq_domain_add_nomap() to use fwnode
+  irqdomain: Drop irq_domain_add_*() functions
+  irqdomain: ppc: Switch to irq_find_mapping()
+  irqdomain: sh: Switch to irq_find_mapping()
+  irqdomain: gpio: Switch to irq_find_mapping()
+  irqdomain: gpu: Switch to irq_find_mapping()
+  irqdomain: i2c: Switch to irq_find_mapping()
+  irqdomain: irqchip: Switch to irq_find_mapping()
+  irqdomain: pinctrl: Switch to irq_find_mapping()
+  irqdomain: soc: Switch to irq_find_mapping()
+  irqdomain: Drop irq_linear_revmap()
+  irqdomain: Use irq_domain_instantiate() retvals as initializers
+  irqdomain: Make struct irq_domain_info variables const
+  irqdomain.h: Improve kernel-docs of functions
+  docs: irq/concepts: Add commas and reflow
+  docs: irq/concepts: Minor improvements
+  docs: irq-domain.rst: Simple improvements
+  docs: irqdomain: Update
+  irqdomain.c: Fix kernel-doc and add it to Documentation
+
+ Documentation/core-api/genericirq.rst         |   2 -
+ Documentation/core-api/irq/concepts.rst       |  27 +--
+ Documentation/core-api/irq/irq-domain.rst     | 202 +++++++++--------
+ .../zh_CN/core-api/irq/irq-domain.rst         |   8 +-
+ arch/arc/kernel/intc-arcv2.c                  |   4 +-
+ arch/arc/kernel/intc-compact.c                |   7 +-
+ arch/arc/kernel/mcip.c                        |   3 +-
+ arch/arm/common/sa1111.c                      |   6 +-
+ arch/arm/mach-exynos/suspend.c                |   5 +-
+ arch/arm/mach-imx/avic.c                      |   4 +-
+ arch/arm/mach-imx/gpc.c                       |   5 +-
+ arch/arm/mach-imx/tzic.c                      |   4 +-
+ arch/arm/mach-omap1/irq.c                     |   3 +-
+ arch/arm/mach-omap2/omap-wakeupgen.c          |   5 +-
+ arch/arm/mach-pxa/irq.c                       |   7 +-
+ arch/arm/plat-orion/gpio.c                    |  12 +-
+ arch/mips/ath25/ar2315.c                      |   4 +-
+ arch/mips/ath25/ar5312.c                      |   4 +-
+ arch/mips/cavium-octeon/octeon-irq.c          |  31 +--
+ arch/mips/lantiq/irq.c                        |   2 +-
+ arch/mips/pci/pci-ar2315.c                    |   4 +-
+ arch/mips/pci/pci-rt3883.c                    |   7 +-
+ arch/mips/pci/pci-xtalk-bridge.c              |   2 +-
+ arch/mips/ralink/irq.c                        |   2 +-
+ arch/mips/sgi-ip27/ip27-irq.c                 |   2 +-
+ arch/mips/sgi-ip30/ip30-irq.c                 |   2 +-
+ arch/nios2/kernel/irq.c                       |   5 +-
+ arch/powerpc/kvm/book3s_hv.c                  |   2 +-
+ arch/powerpc/kvm/book3s_xive.c                |   2 +-
+ arch/powerpc/platforms/44x/uic.c              |   9 +-
+ .../powerpc/platforms/512x/mpc5121_ads_cpld.c |   3 +-
+ arch/powerpc/platforms/52xx/media5200.c       |   2 +-
+ arch/powerpc/platforms/52xx/mpc52xx_gpt.c     |   6 +-
+ arch/powerpc/platforms/52xx/mpc52xx_pic.c     |   6 +-
+ .../platforms/85xx/socrates_fpga_pic.c        |   4 +-
+ arch/powerpc/platforms/8xx/cpm1-ic.c          |   5 +-
+ arch/powerpc/platforms/8xx/pic.c              |   5 +-
+ arch/powerpc/platforms/amigaone/setup.c       |   2 +-
+ arch/powerpc/platforms/chrp/setup.c           |   2 +-
+ .../platforms/embedded6xx/flipper-pic.c       |   9 +-
+ arch/powerpc/platforms/embedded6xx/hlwd-pic.c |   7 +-
+ arch/powerpc/platforms/pasemi/setup.c         |   2 +-
+ arch/powerpc/platforms/powermac/pic.c         |   9 +-
+ arch/powerpc/platforms/powermac/smp.c         |   2 +-
+ arch/powerpc/platforms/powernv/opal-irqchip.c |   3 +-
+ arch/powerpc/platforms/powernv/pci-ioda.c     |   4 +-
+ arch/powerpc/platforms/ps3/interrupt.c        |   4 +-
+ arch/powerpc/platforms/pseries/msi.c          |   4 +-
+ arch/powerpc/sysdev/cpm2_pic.c                |   5 +-
+ arch/powerpc/sysdev/ehv_pic.c                 |   9 +-
+ arch/powerpc/sysdev/fsl_msi.c                 |   2 +-
+ arch/powerpc/sysdev/ge/ge_pic.c               |   7 +-
+ arch/powerpc/sysdev/i8259.c                   |   4 +-
+ arch/powerpc/sysdev/ipic.c                    |   9 +-
+ arch/powerpc/sysdev/mpic.c                    |  12 +-
+ arch/powerpc/sysdev/tsi108_pci.c              |   4 +-
+ arch/powerpc/sysdev/xics/xics-common.c        |   2 +-
+ arch/powerpc/sysdev/xive/common.c             |   4 +-
+ arch/sh/boards/mach-se/7343/irq.c             |   7 +-
+ arch/sh/boards/mach-se/7722/irq.c             |   4 +-
+ arch/sh/boards/mach-x3proto/gpio.c            |   2 +-
+ arch/um/drivers/virt-pci.c                    |  15 +-
+ arch/x86/kernel/apic/io_apic.c                |   2 +-
+ arch/x86/kernel/apic/vector.c                 |   2 +-
+ drivers/bus/moxtet.c                          |   6 +-
+ drivers/cdx/cdx_msi.c                         |   4 +-
+ drivers/edac/altera_edac.c                    |   4 +-
+ drivers/gpio/gpio-brcmstb.c                   |   2 +-
+ drivers/gpio/gpio-davinci.c                   |   5 +-
+ drivers/gpio/gpio-em.c                        |   5 +-
+ drivers/gpio/gpio-grgpio.c                    |   2 +-
+ drivers/gpio/gpio-idt3243x.c                  |   2 +-
+ drivers/gpio/gpio-lpc18xx.c                   |   8 +-
+ drivers/gpio/gpio-mvebu.c                     |   2 +-
+ drivers/gpio/gpio-mxc.c                       |   2 +-
+ drivers/gpio/gpio-mxs.c                       |   4 +-
+ drivers/gpio/gpio-pxa.c                       |   6 +-
+ drivers/gpio/gpio-rockchip.c                  |   2 +-
+ drivers/gpio/gpio-sa1100.c                    |   2 +-
+ drivers/gpio/gpio-sodaville.c                 |   2 +-
+ drivers/gpio/gpio-tb10x.c                     |   2 +-
+ drivers/gpio/gpio-twl4030.c                   |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c       |   4 +-
+ drivers/gpu/drm/msm/msm_mdss.c                |   2 +-
+ drivers/gpu/ipu-v3/ipu-common.c               |   8 +-
+ drivers/i2c/busses/i2c-cht-wc.c               |   2 +-
+ drivers/i2c/muxes/i2c-mux-pca954x.c           |   8 +-
+ drivers/iio/adc/stm32-adc-core.c              |   7 +-
+ drivers/irqchip/exynos-combiner.c             |   2 +-
+ drivers/irqchip/irq-al-fic.c                  |   2 +-
+ drivers/irqchip/irq-alpine-msi.c              |   7 +-
+ drivers/irqchip/irq-apple-aic.c               |   4 +-
+ drivers/irqchip/irq-armada-370-xp.c           |  18 +-
+ drivers/irqchip/irq-aspeed-i2c-ic.c           |   2 +-
+ drivers/irqchip/irq-aspeed-intc.c             |   2 +-
+ drivers/irqchip/irq-aspeed-scu-ic.c           |   2 +-
+ drivers/irqchip/irq-aspeed-vic.c              |   4 +-
+ drivers/irqchip/irq-ath79-misc.c              |   4 +-
+ drivers/irqchip/irq-atmel-aic-common.c        |   2 +-
+ drivers/irqchip/irq-bcm2712-mip.c             |   4 +-
+ drivers/irqchip/irq-bcm2835.c                 |   2 +-
+ drivers/irqchip/irq-bcm2836.c                 |   2 +-
+ drivers/irqchip/irq-bcm6345-l1.c              |   2 +-
+ drivers/irqchip/irq-bcm7038-l1.c              |   2 +-
+ drivers/irqchip/irq-bcm7120-l2.c              |   2 +-
+ drivers/irqchip/irq-brcmstb-l2.c              |   2 +-
+ drivers/irqchip/irq-clps711x.c                |   6 +-
+ drivers/irqchip/irq-crossbar.c                |   6 +-
+ drivers/irqchip/irq-csky-apb-intc.c           |   2 +-
+ drivers/irqchip/irq-csky-mpintc.c             |   2 +-
+ drivers/irqchip/irq-davinci-cp-intc.c         |   6 +-
+ drivers/irqchip/irq-digicolor.c               |   2 +-
+ drivers/irqchip/irq-dw-apb-ictl.c             |   2 +-
+ drivers/irqchip/irq-ftintc010.c               |   5 +-
+ drivers/irqchip/irq-gic-v3-its-fsl-mc-msi.c   |   2 +-
+ drivers/irqchip/irq-gic-v3.c                  |   4 +-
+ drivers/irqchip/irq-goldfish-pic.c            |   7 +-
+ drivers/irqchip/irq-hip04.c                   |   6 +-
+ drivers/irqchip/irq-i8259.c                   |   4 +-
+ drivers/irqchip/irq-idt3243x.c                |   2 +-
+ drivers/irqchip/irq-imgpdc.c                  |   2 +-
+ drivers/irqchip/irq-imx-gpcv2.c               |   6 +-
+ drivers/irqchip/irq-imx-intmux.c              |   2 +-
+ drivers/irqchip/irq-imx-irqsteer.c            |   2 +-
+ drivers/irqchip/irq-ingenic-tcu.c             |   4 +-
+ drivers/irqchip/irq-ingenic.c                 |   4 +-
+ drivers/irqchip/irq-ixp4xx.c                  |   2 +-
+ drivers/irqchip/irq-jcore-aic.c               |   5 +-
+ drivers/irqchip/irq-keystone.c                |   4 +-
+ drivers/irqchip/irq-lan966x-oic.c             |   2 +-
+ drivers/irqchip/irq-loongarch-cpu.c           |   2 +-
+ drivers/irqchip/irq-loongson-eiointc.c        |   2 +-
+ drivers/irqchip/irq-loongson-htvec.c          |   2 +-
+ drivers/irqchip/irq-loongson-liointc.c        |   2 +-
+ drivers/irqchip/irq-loongson-pch-msi.c        |   2 +-
+ drivers/irqchip/irq-loongson-pch-pic.c        |   2 +-
+ drivers/irqchip/irq-lpc32xx.c                 |   4 +-
+ drivers/irqchip/irq-ls-extirq.c               |   4 +-
+ drivers/irqchip/irq-ls-scfg-msi.c             |  10 +-
+ drivers/irqchip/irq-ls1x.c                    |   4 +-
+ drivers/irqchip/irq-mchp-eic.c                |   5 +-
+ drivers/irqchip/irq-meson-gpio.c              |   2 +-
+ drivers/irqchip/irq-mips-cpu.c                |  13 +-
+ drivers/irqchip/irq-mips-gic.c                |  15 +-
+ drivers/irqchip/irq-mmp.c                     |  12 +-
+ drivers/irqchip/irq-mscc-ocelot.c             |   4 +-
+ drivers/irqchip/irq-mst-intc.c                |   4 +-
+ drivers/irqchip/irq-mtk-cirq.c                |   5 +-
+ drivers/irqchip/irq-mtk-sysirq.c              |   4 +-
+ drivers/irqchip/irq-mvebu-gicp.c              |   2 +-
+ drivers/irqchip/irq-mvebu-odmi.c              |   2 +-
+ drivers/irqchip/irq-mvebu-pic.c               |   4 +-
+ drivers/irqchip/irq-mvebu-sei.c               |   6 +-
+ drivers/irqchip/irq-mxs.c                     |   4 +-
+ drivers/irqchip/irq-nvic.c                    |   2 +-
+ drivers/irqchip/irq-omap-intc.c               |   4 +-
+ drivers/irqchip/irq-or1k-pic.c                |   4 +-
+ drivers/irqchip/irq-orion.c                   |   6 +-
+ drivers/irqchip/irq-owl-sirq.c                |   4 +-
+ drivers/irqchip/irq-pic32-evic.c              |   8 +-
+ drivers/irqchip/irq-pruss-intc.c              |   4 +-
+ drivers/irqchip/irq-qcom-mpm.c                |   2 +-
+ drivers/irqchip/irq-realtek-rtl.c             |   2 +-
+ drivers/irqchip/irq-renesas-intc-irqpin.c     |   6 +-
+ drivers/irqchip/irq-renesas-irqc.c            |   4 +-
+ drivers/irqchip/irq-renesas-rza1.c            |   6 +-
+ drivers/irqchip/irq-renesas-rzg2l.c           |   6 +-
+ drivers/irqchip/irq-renesas-rzv2h.c           |   5 +-
+ drivers/irqchip/irq-riscv-intc.c              |   2 +-
+ drivers/irqchip/irq-sa11x0.c                  |   2 +-
+ drivers/irqchip/irq-sni-exiu.c                |   6 +-
+ drivers/irqchip/irq-sp7021-intc.c             |   4 +-
+ drivers/irqchip/irq-starfive-jh8100-intc.c    |   4 +-
+ drivers/irqchip/irq-stm32-exti.c              |   4 +-
+ drivers/irqchip/irq-stm32mp-exti.c            |   9 +-
+ drivers/irqchip/irq-sun4i.c                   |   2 +-
+ drivers/irqchip/irq-sun6i-r.c                 |   4 +-
+ drivers/irqchip/irq-sunxi-nmi.c               |   2 +-
+ drivers/irqchip/irq-tb10x.c                   |   8 +-
+ drivers/irqchip/irq-tegra.c                   |   5 +-
+ drivers/irqchip/irq-ti-sci-inta.c             |  10 +-
+ drivers/irqchip/irq-ti-sci-intr.c             |   7 +-
+ drivers/irqchip/irq-ts4800.c                  |   2 +-
+ drivers/irqchip/irq-uniphier-aidet.c          |   2 +-
+ drivers/irqchip/irq-versatile-fpga.c          |   4 +-
+ drivers/irqchip/irq-vf610-mscm-ir.c           |   6 +-
+ drivers/irqchip/irq-vic.c                     |   5 +-
+ drivers/irqchip/irq-vt8500.c                  |   2 +-
+ drivers/irqchip/irq-wpcm450-aic.c             |   2 +-
+ drivers/irqchip/irq-xilinx-intc.c             |   6 +-
+ drivers/irqchip/irq-xtensa-mx.c               |   7 +-
+ drivers/irqchip/irq-xtensa-pic.c              |   8 +-
+ drivers/irqchip/irq-zevio.c                   |   4 +-
+ drivers/irqchip/spear-shirq.c                 |   2 +-
+ drivers/mailbox/qcom-ipcc.c                   |   4 +-
+ drivers/memory/omap-gpmc.c                    |   6 +-
+ drivers/mfd/88pm860x-core.c                   |   4 +-
+ drivers/mfd/ab8500-core.c                     |   6 +-
+ drivers/mfd/arizona-irq.c                     |   3 +-
+ drivers/mfd/db8500-prcmu.c                    |   6 +-
+ drivers/mfd/fsl-imx25-tsadc.c                 |   5 +-
+ drivers/mfd/lp8788-irq.c                      |   2 +-
+ drivers/mfd/max8925-core.c                    |   4 +-
+ drivers/mfd/max8997-irq.c                     |   4 +-
+ drivers/mfd/max8998-irq.c                     |   2 +-
+ drivers/mfd/mt6358-irq.c                      |   6 +-
+ drivers/mfd/mt6397-irq.c                      |   6 +-
+ drivers/mfd/qcom-pm8xxx.c                     |   6 +-
+ drivers/mfd/stmfx.c                           |   2 +-
+ drivers/mfd/stmpe.c                           |   4 +-
+ drivers/mfd/tc3589x.c                         |   6 +-
+ drivers/mfd/tps65217.c                        |   2 +-
+ drivers/mfd/tps6586x.c                        |   2 +-
+ drivers/mfd/twl4030-irq.c                     |   4 +-
+ drivers/mfd/twl6030-irq.c                     |   5 +-
+ drivers/mfd/wm831x-irq.c                      |  15 +-
+ drivers/mfd/wm8994-irq.c                      |   4 +-
+ drivers/misc/hi6421v600-irq.c                 |   5 +-
+ drivers/net/dsa/microchip/ksz_common.c        |   5 +-
+ drivers/net/dsa/microchip/ksz_ptp.c           |   4 +-
+ drivers/net/dsa/mv88e6xxx/chip.c              |   2 +-
+ drivers/net/dsa/mv88e6xxx/global2.c           |   6 +-
+ drivers/net/dsa/qca/ar9331.c                  |   4 +-
+ drivers/net/dsa/realtek/rtl8365mb.c           |   4 +-
+ drivers/net/dsa/realtek/rtl8366rb.c           |   6 +-
+ .../net/ethernet/wangxun/txgbe/txgbe_irq.c    |   6 +-
+ drivers/net/usb/lan78xx.c                     |   9 +-
+ drivers/pci/controller/dwc/pci-dra7xx.c       |   4 +-
+ drivers/pci/controller/dwc/pci-keystone.c     |   2 +-
+ .../pci/controller/dwc/pcie-designware-host.c |   2 +-
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c |   4 +-
+ drivers/pci/controller/dwc/pcie-uniphier.c    |   2 +-
+ .../controller/mobiveil/pcie-mobiveil-host.c  |  11 +-
+ drivers/pci/controller/pci-aardvark.c         |  14 +-
+ drivers/pci/controller/pci-ftpci100.c         |   4 +-
+ drivers/pci/controller/pci-mvebu.c            |   6 +-
+ drivers/pci/controller/pci-xgene-msi.c        |   5 +-
+ drivers/pci/controller/pcie-altera-msi.c      |   4 +-
+ drivers/pci/controller/pcie-altera.c          |   2 +-
+ drivers/pci/controller/pcie-brcmstb.c         |   4 +-
+ drivers/pci/controller/pcie-iproc-msi.c       |   6 +-
+ drivers/pci/controller/pcie-mediatek-gen3.c   |   9 +-
+ drivers/pci/controller/pcie-mediatek.c        |   6 +-
+ drivers/pci/controller/pcie-rockchip-host.c   |   4 +-
+ drivers/pci/controller/pcie-xilinx-cpm.c      |  10 +-
+ drivers/pci/controller/pcie-xilinx-dma-pl.c   |  14 +-
+ drivers/pci/controller/pcie-xilinx-nwl.c      |  11 +-
+ drivers/pci/controller/pcie-xilinx.c          |   5 +-
+ drivers/pci/controller/plda/pcie-plda-host.c  |  16 +-
+ drivers/pinctrl/mediatek/mtk-eint.c           |   5 +-
+ drivers/pinctrl/pinctrl-at91-pio4.c           |   2 +-
+ drivers/pinctrl/pinctrl-keembay.c             |   2 +-
+ drivers/pinctrl/pinctrl-single.c              |   9 +-
+ drivers/pinctrl/sunxi/pinctrl-sunxi.c         |   7 +-
+ drivers/platform/x86/asus-tf103c-dock.c       |   2 +-
+ drivers/remoteproc/pru_rproc.c                |   2 +-
+ drivers/sh/intc/irqdomain.c                   |   5 +-
+ drivers/soc/dove/pmu.c                        |   4 +-
+ drivers/soc/fsl/qe/qe_ic.c                    |   8 +-
+ drivers/soc/qcom/smp2p.c                      |   2 +-
+ drivers/soc/qcom/smsm.c                       |   2 +-
+ drivers/soc/tegra/pmc.c                       |   5 +-
+ drivers/spmi/spmi-pmic-arb.c                  |   2 +-
+ drivers/ssb/driver_gpio.c                     |   8 +-
+ drivers/thermal/qcom/lmh.c                    |   3 +-
+ drivers/thermal/tegra/soctherm.c              |   2 +-
+ include/linux/gpio/driver.h                   |   5 +-
+ include/linux/irqdomain.h                     | 211 ++++++++----------
+ kernel/irq/irqdomain.c                        |  88 +-------
+ sound/soc/codecs/wcd937x.c                    |   2 +-
+ sound/soc/codecs/wcd938x.c                    |   2 +-
+ sound/soc/codecs/wcd939x.c                    |   2 +-
+ 272 files changed, 838 insertions(+), 945 deletions(-)
+
+-- 
+2.49.0
+
