@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D80B4C36002
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0DEFC35FFC
 	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 17:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 590E910E56E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4861F10E56C;
 	Wed, 19 Mar 2025 17:57:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="unlGvGjy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UYuyTIbD";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2049.outbound.protection.outlook.com [40.107.95.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 369EB10E352
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B722510E564
  for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 17:57:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iibtuZrLHiFiR1WqZO40uEnFJm4+gl8Pfp+WIiwF6FoBytHjKnVAajqyzsMZWk0o+MmgL36DlgZ7PgD6SfQr1y/EpzwCUSjoEn3Lkdzf7nDCd8MSKxMDcSfuMrplEMQjacd4GFg4ownrl2FgRLG3wlPsT/J6rk2ttjE0UULfH3NzCEKsZIuQpv1/BfeceQhlD29os4RdbO0+HmA9U9jxJBVGa4XF1xmt2CMFgiHob3LdfED+/o6n4HKxo926NkQQiR8Vl7xhxjRIjmO4QZs7FFjlqZ/wM+m4VtINpLHjjkfJZB0ofc3h1MVk/Oncge4GD80ZusoK/NHJ0E8nKRp8Ig==
+ b=Pr3AXAieHg+9jgWHv6KIPa9Sy18D5UI1RjqPYSUo+MRW2S9DLxLHqZZBBsfW4wypkes04v6+FnRec1l542v1tIYXkzkfwr13zFN3im6U0JuIHt/7T9OIM+NUqHOhJi/iJ7+xe2krPssLvNUP1iTab3JgCrhukrGxiG6EZcvcNMFSJdNi3xARmi29qxx8h9sHDBrhQBQ7WjXKcObqjo6hBQ6+He24VEQsNR5OhwOQnN/8nB5UeDoRr85TcPj2G1UnZS49ZQA6CBQMcoHYqTxMJ0TXukqbnPsYX3mJbQj0znvRbAF2AK6tX4JxAa0W1sr9Ksd+5ULEy/yHqyOFchX6zA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9jQoy6WcSn1amWUCyHcn2YoUEUdAuHyUp5PZD/MRhBA=;
- b=r8lGu3/fb/1Ug6UOqsT9NwiPi2UQs5qMA+YzRJEprm74ePQmwDvcBMO633o+NZg0uM2B/4DNcTP2z5AznXfjODtTcItIcCkIvUxnNSGpZBRw9abSJZ+48sP1TPE8H/Hct/qGTEmzOZ+g1W0Tdm1LdjqoXlPnFizKyMqnHCY9riHTMJXowJSVCYTUmSC0WL64XRzVnjNAlS61957JJJaDHYhNvlClnvcCNXgvdSBMuc0OnAlIK8cWIgUqY4+4Ik6UauZcZbFUv4j3M8yvARRs7Z4fD67O70KxmwJ3MJ0RabKjmQReYFs+WM2uk3r1aTo7irIohlewqSUSpW46Ml6gdw==
+ bh=BJs9rNyDCvzbYuVjvYq+Xg1+GnLL+4rrD1HTp+VoBKo=;
+ b=raV3WLicFmF2fwpd8rQiGinUvaERj+JVi5Ie5EX9AqNnm+BxtpQfKe8oK0xygs/OBX4TTFBChNQUhvdRqouoiZ2m7hwTcV7PCTr8bPkNANlOpcDA3yxLznhhOjVIzOQdbaUULbfeKpkBZtkisQLS0SANlznnSHJwGEKdfb+lvOszVTkQJSt5lZKi+qd+V8RRw3XsZk3RhKOm/qluhLnjqpIFtt28ZP3rUYtUkMMsglZNnTgQDe986uaPPLzA3OU4hGWAMzAH7drA85SiJUChcUfKQJuq6R+YiS8haZHvQ2irWSBIgqT+HHgwb6kgCz9OQ86yruNipbw1wgdFT0cOlw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9jQoy6WcSn1amWUCyHcn2YoUEUdAuHyUp5PZD/MRhBA=;
- b=unlGvGjy4srQo6dugRwM28ot9CuKFEQKRzQFpdkVoyvq3oPFGJJX0SxuuPtG1/+5tQkwU36W+3CXzzhX7fC9V1XoEVK+TMPcltG/zjFasmu8yyg0uTMx3mc3DOiBf3zlPSY+iMLM+c3iL7QiaXlwCUdLqibyQ435c7ORN6lUIM0=
-Received: from BYAPR21CA0005.namprd21.prod.outlook.com (2603:10b6:a03:114::15)
- by IA0PPF80FB91A80.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bd5) with Microsoft SMTP Server (version=TLS1_2,
+ bh=BJs9rNyDCvzbYuVjvYq+Xg1+GnLL+4rrD1HTp+VoBKo=;
+ b=UYuyTIbD4fQuofwyE56JiGWWYiJjfJTZROE3gOuyfZ8RFQPl1b0cuTTtUW9AYLA2i88BjtMvjXszKcIrl+zc8XaGXvD4az19GjSOPdH38t3Fgh0fVWHkKIz74ioa+GQdCXs8do2PdiL0xVTgnBnh+2QTws5CH7BDr1djV4CQ/cw=
+Received: from BYAPR21CA0020.namprd21.prod.outlook.com (2603:10b6:a03:114::30)
+ by DM4PR12MB6422.namprd12.prod.outlook.com (2603:10b6:8:b9::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.34; Wed, 19 Mar
- 2025 17:57:23 +0000
+ 2025 17:57:24 +0000
 Received: from CO1PEPF000044FA.namprd21.prod.outlook.com
- (2603:10b6:a03:114:cafe::6e) by BYAPR21CA0005.outlook.office365.com
- (2603:10b6:a03:114::15) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:114:cafe::f4) by BYAPR21CA0020.outlook.office365.com
+ (2603:10b6:a03:114::30) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8583.8 via Frontend Transport; Wed,
- 19 Mar 2025 17:57:22 +0000
+ 19 Mar 2025 17:57:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  CO1PEPF000044FA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8583.3 via Frontend Transport; Wed, 19 Mar 2025 17:57:22 +0000
+ 15.20.8583.3 via Frontend Transport; Wed, 19 Mar 2025 17:57:23 +0000
 Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 19 Mar
- 2025 12:57:21 -0500
+ 2025 12:57:22 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 19 Mar
- 2025 12:57:21 -0500
+ 2025 12:57:22 -0500
 Received: from aaurabin-z5-cachy.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Wed, 19 Mar 2025 12:57:20 -0500
+ via Frontend Transport; Wed, 19 Mar 2025 12:57:21 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,12 +69,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
  <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
- <alex.hung@amd.com>, Yi-Ling Chen <yi-lchen@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 03/16] drm/amd/display: Apply the adjusted DP ref clock for DP
- devices
-Date: Wed, 19 Mar 2025 13:55:08 -0400
-Message-ID: <20250319175718.2578234-4-aurabindo.pillai@amd.com>
+ <alex.hung@amd.com>
+Subject: [PATCH 05/16] drm/amd/display: Increase vblank offdelay for PSR panels
+Date: Wed, 19 Mar 2025 13:55:10 -0400
+Message-ID: <20250319175718.2578234-6-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250319175718.2578234-1-aurabindo.pillai@amd.com>
 References: <20250319175718.2578234-1-aurabindo.pillai@amd.com>
@@ -85,52 +83,52 @@ Received-SPF: None (SATLEXMB05.amd.com: aurabindo.pillai@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|IA0PPF80FB91A80:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87caa29f-5918-46ce-7bd8-08dd670f7ff3
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|DM4PR12MB6422:EE_
+X-MS-Office365-Filtering-Correlation-Id: 644148d7-b92a-4938-c196-08dd670f80bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dOUgrJxEi0ufw6zqyfHypop8qD8ILNb6d+sqCYignr/IuMBJ5V5lOoCjCZNF?=
- =?us-ascii?Q?DQx/PpSxN5i5HgEAT9JQmmJrtkffIMWdVMgOM48AIQ+ORuuejzzSD6XyEGg0?=
- =?us-ascii?Q?H2utW82zaf0JIddvRonQA+xkyQpB39dqJD3xmM4u+XY2tBHxRkIzT3+XRzXX?=
- =?us-ascii?Q?DT5EaY47ayogrew8iTUKhhw6U6kEfVQQ+9ULBqa6SU13NHH7d3nWeuvvWYM2?=
- =?us-ascii?Q?PZOnbrt8Db/w8iyKdCutCauMIpWRINhFdTnQmY7YeDyt5Lg+vm4W6jtZHk4S?=
- =?us-ascii?Q?1BQXPwi9bDlfRLAcMhY6sj1e6JVdsWGLeNoAWIPTWD1+Y0xYuASv0Io3eFKH?=
- =?us-ascii?Q?fJm1POJPmRTZ8pbV/1tON+9cjZowP5dVpJud5uoF1KtD2cGrmaZNnFA2k0an?=
- =?us-ascii?Q?Qvnhh2ZDrCEED1a/a4AlfOcni/tyfPcisjK/DlVaAmmAF8IsiRgIWQu9gbKQ?=
- =?us-ascii?Q?vP7vfVbPsvUT11z+Il5LsYXflanQ7lBqaqt5UH4Fn2b0Mwu7tYqPRz90UsI7?=
- =?us-ascii?Q?KjZ6raG5x0DkMoNoFt8KelJ0sY47/2EqaN5Dj3WaS/X+9OKm1R4pA87Kqrlg?=
- =?us-ascii?Q?IHv06MQniUypz7/iO0eUagqkLCksvs7LwZw4lrbopIQdH43YbcTs7+4HxYzC?=
- =?us-ascii?Q?lrbDsARNLJ6Dzc2Q0xsuLE5jWqmRSTiuyw/x4WZucr35rBT+tG8F3wN40ez/?=
- =?us-ascii?Q?NsliSpxoLlw3vOQLUs4C1z2PAnM096l0eSVzuMogzn3pSWSM/Qzg4p0xCa3J?=
- =?us-ascii?Q?9qP8zp27AU0eqOm9dIE1lK83vPAbD74IawMfgK+XxI2lwPQIcTMM5IrK8qDz?=
- =?us-ascii?Q?0E289v2cps5Np9DiRYIrMTGH5qzvddphOHMUU3K1Z543bFH1YjYDWs5sD2D3?=
- =?us-ascii?Q?scaA3jxTW6+qTrnXZvGbPivB/hZm5aYnUrJjQoOUGWMN3gfagjtXaVdOsAJ2?=
- =?us-ascii?Q?zUfl3CgpLes0v+tEFeTx4PBwQntXYeDCdvJm+rqYPfWE4MfAsRKy+9iJ4bgD?=
- =?us-ascii?Q?/NKjU7iMCoUYBSHtYQ8UZiPZE773s+0b/1/9eRhSqJ+AC3KN3OV2JD+Iqbos?=
- =?us-ascii?Q?YrUnOZR0NyLEap2UJ87zhF25WwaSSM2cQKRIVF6VXqWmxMXg+GLoRIQOoWe8?=
- =?us-ascii?Q?dsjAC3jfdZ3XkvmxUzo/oJd/Ni/HcjPpBVyczNZ4+ug9rtzXV1Ztr/u0sSgA?=
- =?us-ascii?Q?Tcw5ESMHtOhe9YZ0ewWBdGemVRJOGR3O2Eig3GzT8dceWDA98oyJz93v72tr?=
- =?us-ascii?Q?cu73G0sa56ihdFHcgyQHhwusYBDaSKpGCBqCTKdAjqVNuQ51dudfFTrSDSPe?=
- =?us-ascii?Q?X47roDLvzgVlOZao1Lp/3YX/MWrOyXfVSkbdDWybZuXPw4CAvBhM52nXlSTh?=
- =?us-ascii?Q?rTi6G1DnW83MfEENyC7aSkoEwDBuaIP1HXsn7nOGS7wjvQFV4p3H2QEZGZR/?=
- =?us-ascii?Q?pgtO2cnMTmHS0IpGC0soG8jKypLqv3QOXjd6fZGyS9RABM2PGnWRlbvO7GHq?=
- =?us-ascii?Q?mWpm+bft2d5cYrQ=3D?=
+ ARA:13230040|82310400026|1800799024|30052699003|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?22laEDiRLzwgmk/dn1+ietYfjKhJhGITkqhbfO4oCtLcJf5q3tcihJI3Iklq?=
+ =?us-ascii?Q?/wNJYSI6J4oduoemcTD9qDZy7Md+2H+w/q1GQV22fso5cqWTlalhJT+dafkz?=
+ =?us-ascii?Q?AQOG/iI1cpyT1R0vFvf+F+hRz1IvTOfsnWuytHngFv6xwreV3zfSHqPyh2NI?=
+ =?us-ascii?Q?HjLXksKIYoeALrqPzUeYoT4IJydyAb4oZp0Mc7rNvUtl6Ab/bOaTvTNUQGDf?=
+ =?us-ascii?Q?JvWeQhfb/7iekr7t02Mx+/m+3Ym7zr/qsuaoLDlvVuey3RRnxGr/lOIhi8Qb?=
+ =?us-ascii?Q?m8G8p5l4kvaMlUobotxE0ooU01UotAfB9al9GCYGAy0xiD5zPqIQ4S1UQMXv?=
+ =?us-ascii?Q?CVqM6bHbWJ+yOKkar5rUY9IdD2zEHXKAR5jZd9bIuZFwLSRyZ4ft5pS262jY?=
+ =?us-ascii?Q?IB19jnmmjF29TjyGw/RLnRukpL4pxzafGhaLWd1JCGjSg5Ep+z6Z4QLyCWNC?=
+ =?us-ascii?Q?t38ObUW66SuSzNJgj5KL80igLyb6o6YLcdC3piSds2CTpbtpWYEraGkN7d+n?=
+ =?us-ascii?Q?MIo3P52dpYCGNfP3AeWbpQM7mTCq1HCTlOeMqeRoBpxMzGsAqQo5dBD6G070?=
+ =?us-ascii?Q?okWlULRFfDA6TPUC7/Ee0Rmo+N95Qb6BT+KAKDbHMjAT9v1hOzTBehOlLOLj?=
+ =?us-ascii?Q?opw031lv/DIlJB1FIxoxAStB6x7qIpWrjUwqPVnn6hn1J9ISmQ6KeO3JcBff?=
+ =?us-ascii?Q?7WCk/6ChDM9UAllB1SYog8lSx09IcWviAvXNpcAd8+VtVieXVVifjMoC+SIa?=
+ =?us-ascii?Q?/6/qPRYAvfM6Y3JbC/jsnyXGlncAD3XYW4P51ss11pj0Zhh+VsWel6UvWen2?=
+ =?us-ascii?Q?x3qLyvWft3jX3E3qrUAUh8iQKBPclqeEyj2gast7N0EU/ONg5RHwkn0mnake?=
+ =?us-ascii?Q?y8l6B0Fr8PXTAvCwKED1OdM3xXpzOP84k6X36+gpyEZmz1Jygm1gjVLoSdta?=
+ =?us-ascii?Q?lA7Qlj3fGWxgFK1iR9O3+We1Pt40L2gHVnaAPtG+L+5xIrdTeLLzo2jgowZc?=
+ =?us-ascii?Q?WX4Nj4Oc5Uyjlnu23UiXxZEUv/HVqTpb1loXj0PGtiPrLafOgv29iI5ADRxV?=
+ =?us-ascii?Q?WDegU4S3g6v7+46P/2CbcJQJ8k1Pin9jI1VaV+0CtwEupLJ6XcujV0BMyzGk?=
+ =?us-ascii?Q?jKSitJZ1WwjxQvtHDAVxCW/s41CYftUBMLRcUbSPlG3aYoMlZiuMfBiGX9GB?=
+ =?us-ascii?Q?bhAB0cifS1+UM7toPN0NzIN173RvcxCvkDQaezlgwqr7UtLGp1yxTEQUWcBQ?=
+ =?us-ascii?Q?Jmwku3p0rBGZ1ap0DgNffE2kIaqc+0O9iG/X8zywFHv/UVq79qhXmmx+778i?=
+ =?us-ascii?Q?XMqu/ZIur0ACXkom+Oydxe76NBwoVmAkNhBOpSLcUBT37+ZaZ1/S3m6wEmSH?=
+ =?us-ascii?Q?EF3mNiw2GduvvBYhETWYf6MRuDowdXIphqvy6yralvb9FrAWbHtXsBgsl1sz?=
+ =?us-ascii?Q?ctLhQapvNgW6WwRo9bcI002CY7bW6dgc1Ma3sLJf7PMf08to3h1qDw/h4tNF?=
+ =?us-ascii?Q?+zhRMJKFXtrQ7JM=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(82310400026)(1800799024)(30052699003)(36860700013)(376014);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2025 17:57:22.3749 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87caa29f-5918-46ce-7bd8-08dd670f7ff3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2025 17:57:23.6875 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 644148d7-b92a-4938-c196-08dd670f80bb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FA.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF80FB91A80
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6422
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,45 +143,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yi-Ling Chen <yi-lchen@amd.com>
+From: Leo Li <sunpeng.li@amd.com>
 
 [Why]
-For some pixel clock margin sensitive external monitor, we could
-not keep original DP ref clock for the ASICs supported SSC DP ref clock.
+
+Depending on when the HW latching event (vupdate) of double-buffered
+registers happen relative to the PSR SDP (signals panel psr enter/exit)
+deadline, and how bad the Panel clock has drifted since the last ALPM
+off event, there can be up to 3 frames of delay between sending the PSR
+exit cmd to DMUB fw, and when the panel starts displaying live frames.
+This can manifest as micro-stuttering when userspace commit patterns
+cause rapid toggling of the DRM vblank counter, since PSR enter/exit is
+hooked up to DRM vblank disable/enable respectively.
+
+In the ideal world, the panel should present the live frame immediately
+on PSR exit cmd. But due to HW design and PSR limitations, immediate
+exit can only happen by chance, when:
+
+1. PSR exit cmd is ack'd by FW before HW latching (vupdate) event, and
+2. Panel's SDP deadline -- determined by it's PSR Start Delay in DPCD
+  71h -- is after the vupdate event. The PSR exit SDP can then be sent
+  immediately after HW latches. Otherwise, we have to wait 1 frame. And
+3. There is negligible drift between the panel's clock and source clock.
+  Otherwise, there can be up to 1 frame of drift.
+
+Note that this delay is not expected with Panel Replay.
 
 [How]
-From slicon design team's comment, we have to apply the
-adjusted DP ref clock for DP devices. DP 128b (DP2) signals
-use DTBCLK and not DPREFCLK.
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Yi-Ling Chen <yi-lchen@amd.com>
+Since PSR power savings can be quite substantial, and there are a lot of
+systems in the wild with PSR panels, It'll be nice to have a middle
+ground that balances user experience with power savings.
+
+A simple way to achieve this is by extending the vblank offdelay, such
+that additional PSR exit delays will be less perceivable.
+
+We can set:
+
+   20/100 * offdelay_ms = 3_frames_ms
+=> offdelay_ms = 5 * 3_frames_ms
+
+This ensures that `3_frames_ms` will only be experienced as a 20% delay
+on top how long the panel has been static, and thus make the delay
+less perceivable.
+
+If this ends up being too high of a percentage, it can be dropped
+further in a future change.
+
+Fixes: 537ef0f88897 ("drm/amd/display: use new vblank enable policy for DCN35+")
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 +++++++++++++++----
+ 1 file changed, 33 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index 077337698e0a..b4f5b4a6331a 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -976,11 +976,12 @@ static bool dcn31_program_pix_clk(
- 	struct bp_pixel_clock_parameters bp_pc_params = {0};
- 	enum transmitter_color_depth bp_pc_colour_depth = TRANSMITTER_COLOR_DEPTH_24;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 8dd9bf58eac5..684f131e5c4e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8693,14 +8693,39 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
+ 	int offdelay;
  
--	// Apply ssed(spread spectrum) dpref clock for edp only.
--	if (clock_source->ctx->dc->clk_mgr->dp_dto_source_clock_in_khz != 0
--		&& pix_clk_params->signal_type == SIGNAL_TYPE_EDP
--		&& encoding == DP_8b_10b_ENCODING)
-+	// Apply ssed(spread spectrum) dpref clock for edp and dp
-+	if (clock_source->ctx->dc->clk_mgr->dp_dto_source_clock_in_khz != 0 &&
-+		dc_is_dp_signal(pix_clk_params->signal_type) &&
-+		encoding == DP_8b_10b_ENCODING)
- 		dp_dto_ref_khz = clock_source->ctx->dc->clk_mgr->dp_dto_source_clock_in_khz;
+ 	if (acrtc_state) {
+-		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
+-		    IP_VERSION(3, 5, 0) ||
+-		    acrtc_state->stream->link->psr_settings.psr_version <
+-		    DC_PSR_VERSION_UNSUPPORTED ||
+-		    !(adev->flags & AMD_IS_APU)) {
+-			timing = &acrtc_state->stream->timing;
+-
+-			/* at least 2 frames */
++		timing = &acrtc_state->stream->timing;
 +
- 	// For these signal types Driver to program DP_DTO without calling VBIOS Command table
- 	if (dc_is_dp_signal(pix_clk_params->signal_type) || dc_is_virtual_signal(pix_clk_params->signal_type)) {
- 		if (e) {
++		/*
++		 * Depending on when the HW latching event of double-buffered
++		 * registers happen relative to the PSR SDP deadline, and how
++		 * bad the Panel clock has drifted since the last ALPM off
++		 * event, there can be up to 3 frames of delay between sending
++		 * the PSR exit cmd to DMUB fw, and when the panel starts
++		 * displaying live frames.
++		 *
++		 * We can set:
++		 *
++		 * 20/100 * offdelay_ms = 3_frames_ms
++		 * => offdelay_ms = 5 * 3_frames_ms
++		 *
++		 * This ensures that `3_frames_ms` will only be experienced as a
++		 * 20% delay on top how long the display has been static, and
++		 * thus make the delay less perceivable.
++		 */
++		if (acrtc_state->stream->link->psr_settings.psr_version <
++		    DC_PSR_VERSION_UNSUPPORTED) {
++			offdelay = DIV64_U64_ROUND_UP((u64)5 * 3 * 10 *
++						      timing->v_total *
++						      timing->h_total,
++						      timing->pix_clk_100hz);
++			config.offdelay_ms = offdelay ?: 30;
++		} else if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
++			   IP_VERSION(3, 5, 0) ||
++			   !(adev->flags & AMD_IS_APU)) {
++			/*
++			 * Older HW and DGPU have issues with instant off;
++			 * use a 2 frame offdelay.
++			 */
+ 			offdelay = DIV64_U64_ROUND_UP((u64)20 *
+ 						      timing->v_total *
+ 						      timing->h_total,
 -- 
 2.49.0
 
