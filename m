@@ -4,145 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6EA1C36000
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 08:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACF46C35FFA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 09:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 409D010E095;
-	Wed, 19 Mar 2025 08:34:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5058010E351;
+	Wed, 19 Mar 2025 09:03:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GbDe9quV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L8KXo4xE";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B92D10E095
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 08:34:03 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2052.outbound.protection.outlook.com [40.107.220.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A215410E351
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 09:03:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FA4X5rko1084GMtIYvAnlS0jNzBgiA96scBjkcsIiSzX+BXH1mZ/+dPzOd25fZgyIX4vUIZQjNuZFnxaxprkGt0prhPYxWo3E9S7lHuihlvxHaszuBCN/9c8LwPai5QanzB/EcrbMQhLQBQkBPRKiS2CPEEaw4WB4+CDl06UqyZ838OJYS22J2wusi0K3Q0eXtw7m71mSY+xPq75XgCKOy4zeyyNUYlz3KZvz8hg5skbskUDvMbD252ltbo9gt2hlsQVmuQvfu5GFacEdWwkta/rETDbyu3cPJkSP4oipraW6hUvcgPQRIxPwGTNpssuVPmxuuyFovd6KQT9zs/zCA==
+ b=jQh3Cz5riClrAkexHc1dhW8TSe9uFR5YkzwzeyoL5URjdDMqaGCHpyukzbmSfPX6ju8eZfzuQ1cpRj8/cCx5MvLENqeGCaxChl1vu3SQThCa9EVVK21oRgZsF1RprB/gm2JT2myYNyj0qx5fPMUJtY3yk6WR67R3HhvS+UHmWLaUFFSC7iAL7a1/v3ruehFm70Lc2GbapRdTvCtDDu1T9TbszwjYUQhsTYOQwafa7KkwIrujBION6T3x8LoO6AOi+yBvwqGR3hymRhh/04byBnoS/B6QXSFgJ1zAkT4UX6tjfIsucsyOZUHM764LTYLGtFx+p1zn9K1OwbCyZg0+sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WOYX/Vg70b/MvN+p9zmppLraQ8+2ZBJd4nZyTq4WJsg=;
- b=O4hF5TsHR4S6XxCrspNE3A/LoT7euOPDGWrF0lt9Wc/7zjMG99nHCd7nmzwE8b7gf7xBwnrLOxjVSh1655fvwkgTJ0FQZI/Hg18ndAe6x0k4DzDxDlWEoyaE+JaVCwupnsO9U6bYt+gZs2MieswARto6q3Gu5mtx3NyrhHMZPznSeapo2tu3ZJr6J4W/sJSZ87yjuxQtCfcdg+gDp7UrvakFXdx5QwGj4+6utGlBLUuveJ+0AxoG7d13BwkZp/cEMuE2i28mP1d3gKvV3k9aXdtR0yCh3X0BrzW2S301xEinnv9qjYK4iMDAwA/0i0VCm/zzI016COIkQ+M7RVdGjQ==
+ bh=o/5JFIoshPFUqjQX33xETJWpAVdmvJ3HsgYiU4OP+SU=;
+ b=FjQah96zSdnn8NxWxwt78jhlu0nAC/vLQOBM6u4yelYA1jP3AB9tUIOEPNeLGHJ3hzg0K9YTa0gmmh9h0ST7aogZhf6KiHHnCkLCkmzgX5KU4DO5dTXaCAp53fcDvYkkV2AVUzlf91oOirg73ykBBDTpIkPam5kej4WwwUjNXU6YvLqef2oCsqqtqRMwpbxTzGzM3Jo7oJZ0l9tUAY/WCDAJnS5ZLJR39CFPfUENe02egqihApzObjxrNHjgeeQRsV+SzDhY8rKEgT5wIkgu+2diaL0XFaIVWpZ69Ow/8VGGS2GQ035j2CkExif1Cz0y+A3lf85Edz4plzOV7RQBRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WOYX/Vg70b/MvN+p9zmppLraQ8+2ZBJd4nZyTq4WJsg=;
- b=GbDe9quVuxYRHkCl+WaVC1oHvpUYpSR+qsqlRuJ04AJ3U0+tuAUXQBig0mL8hpHAQdYDyTiOXIs89r/rA2Il53C1Z8gEL1mrRNb0HbJJXuFiWrtWd/NfAVyo3g5yVXnjcXVQLm9WLwi42Eqc1n20taBbtob95mKN0QZxuKQ55nI=
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by MW6PR12MB8661.namprd12.prod.outlook.com (2603:10b6:303:23f::5)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=o/5JFIoshPFUqjQX33xETJWpAVdmvJ3HsgYiU4OP+SU=;
+ b=L8KXo4xEQ9haWNOxldGXtF0bQQCjBbmNq59qjdezWDRqBunKhdkCo4T1aBoC2Gn+R5JysejbRakfea3OqrnR5VRYyPIH8I3HEl7yY2HuRqV9cX3587TKJap3dCcbqNcZwWGjdeXOfYrybkGtgCT0mHt7/iwZevyxr/NcEbOu4Xc=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ CH1PR12MB9623.namprd12.prod.outlook.com (2603:10b6:610:2b3::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.34; Wed, 19 Mar
- 2025 08:33:57 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::6216:e70a:9c8b:7abb]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::6216:e70a:9c8b:7abb%5]) with mapi id 15.20.8534.027; Wed, 19 Mar 2025
- 08:33:57 +0000
-From: "Sharma, Shashank" <Shashank.Sharma@amd.com>
-To: "Yadav, Arvind" <Arvind.Yadav@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "Khatri, Sunil" <Sunil.Khatri@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix display freezing issue when resizing apps
-Thread-Topic: [PATCH] drm/amdgpu: Fix display freezing issue when resizing apps
-Thread-Index: AQHbmBW1AxjDvV/enEyyJo5b3ScWMLN6IvpT
-Date: Wed, 19 Mar 2025 08:33:57 +0000
-Message-ID: <MW4PR12MB5667CC801BEAA355955D7047F2D92@MW4PR12MB5667.namprd12.prod.outlook.com>
-References: <20250318145431.28944-1-Arvind.Yadav@amd.com>
-In-Reply-To: <20250318145431.28944-1-Arvind.Yadav@amd.com>
+ 2025 09:02:58 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb%6]) with mapi id 15.20.8534.034; Wed, 19 Mar 2025
+ 09:02:58 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Khatri, Sunil"
+ <Sunil.Khatri@amd.com>
+Subject: RE: [PATCH 06/11] drm/amdgpu/mes: make more vmids available when
+ disable_kq=1
+Thread-Topic: [PATCH 06/11] drm/amdgpu/mes: make more vmids available when
+ disable_kq=1
+Thread-Index: AQHblCYZBGGRR/xjRk+q5dM8slx6zrN6LWPQ
+Date: Wed, 19 Mar 2025 09:02:58 +0000
+Message-ID: <DS7PR12MB600516A56433E841BA20BD3AFBD92@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20250313144136.1117072-1-alexander.deucher@amd.com>
+ <20250313144136.1117072-7-alexander.deucher@amd.com>
+In-Reply-To: <20250313144136.1117072-7-alexander.deucher@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-19T08:33:57.576Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=f9b01a2b-089e-41c6-8c31-3f77675881b6;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-03-19T08:42:45Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB5667:EE_|MW6PR12MB8661:EE_
-x-ms-office365-filtering-correlation-id: b11ba8aa-4e0f-407c-98e9-08dd66c0caba
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|CH1PR12MB9623:EE_
+x-ms-office365-filtering-correlation-id: d8078f9d-9d2a-4993-8f3c-08dd66c4d822
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700018|8096899003|7053199007; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?QLzdcWef7/fyGSPa1txMggLieED+lbpt++nAwzI0iPPLY/COVjcAQs1Qyf?=
- =?iso-8859-1?Q?imYWpdxb0LodFA/h4C4SAxsQ8ABIwTgwiW9xhLUfu7hPqYgxeNNiRG36mR?=
- =?iso-8859-1?Q?eqqnmU/kE5Il+o2+oZ1ymfNvmTldkJxtI5SmNphZg3L0a6IyWE+CNWddHI?=
- =?iso-8859-1?Q?fX53UMgYxg0qIRpcHDLQKJJuDOK+mYMFFBJk3iXruO6GWh3cy9g1U/Hl7/?=
- =?iso-8859-1?Q?JvBQyu/DOsynghOHIiAOFRLdGDao+vYLotKpxJ8kBMrEFO2ncqEMgNlVAW?=
- =?iso-8859-1?Q?xNNCEgTv5/s0oMmrc9qU70KTNn69M9bXxWzPes5Caq97DGB8ivWDSnVLOY?=
- =?iso-8859-1?Q?MOhgevvJs4s1/pEc+JqElzsFnU5Klm3j3pCdn6M8XojPY2mVFcHo4IE28k?=
- =?iso-8859-1?Q?ZvyIFe+Z0C/QcoLbDmBQBILaJDjdQrYOHvJBYZPOVvEYA9STNjLDmhjeYc?=
- =?iso-8859-1?Q?yIQ9ItS3WHdesrdXqi8npD4+LWkhKEmIzsYktgCohid6JyGQ4Ouys6tNZo?=
- =?iso-8859-1?Q?QXzbcYNLEZEVVEwS7C+B1ylIOEJsGElOPt1a0ykEMiVIVsFPce/hyESVon?=
- =?iso-8859-1?Q?sKvcF8DiZPp40HjbetgOXPDP/Mx61S9Xb5I0beGz6J0OqeZ/6X3hC2oQ09?=
- =?iso-8859-1?Q?W2rpSQ2Plu1qtbnePD9ElI6XknwtDzY8uN8tKq4RAGsiI2OxNtn2lrBqks?=
- =?iso-8859-1?Q?d42OY3DQ+KETvum6/4FypKJS2qNpL9+QWOLbeEfW6OCFYIgOELYRmviCFp?=
- =?iso-8859-1?Q?LeV7YTZz1duyrMpiXXhkM3SDFOv5V3LJV2HiUl6LJEiLR4LazANwJU8TN+?=
- =?iso-8859-1?Q?hIM3Wm9EoNHW/zdOXxMuV7gZei2ybjgtkIKbh+D+7lRaAz2jZ6mjjyDuSC?=
- =?iso-8859-1?Q?mZ+sEhGQ46FNrWUAwjy5zqtyLyUKoCIf7hXgR4NAmqtbcwZ678qea4rbTP?=
- =?iso-8859-1?Q?Gf0d6UWUoX402yd6S8MQhfkZnED2KfZNNdAMASnl0Jm9cB6bQZzpOn9wTy?=
- =?iso-8859-1?Q?ap9HPTwPB/48ujL/3Ul/lSLTmtDotecwyTEyahx9ixIgFNn8A202L+2wbM?=
- =?iso-8859-1?Q?FWQYn+xgNAlMvTd+wykdndhWtSjrO0qlfpBXglwxcoMQfVWixLqe6BQNBR?=
- =?iso-8859-1?Q?wwBd68KQWXIq8siUp4nIZlmS9v7Yzs2lyJfmG6uQR1Wn/fGYNl2Cva00Oe?=
- =?iso-8859-1?Q?eh4lTnUGLpN+5A/mFyRyfuFQiwcAxy8Nki4bKwjsOwa6uyxNTEqPPuPblX?=
- =?iso-8859-1?Q?DRf/hhY6xKjomhSLPftNz7V0dPQWoK9KpvV7ZuVVyI3DRVTsx0FRzeIRqG?=
- =?iso-8859-1?Q?h+lkLeyJMzZwtW70Non1ZbBwt7Vo/CIgaAY/Xh17TWJOjXMzdGyLQinymM?=
- =?iso-8859-1?Q?QiF2Ntare0ZT3VtAwgqs9OLaSin84krOwH9Hc/QSRKp6VN1rm5jY018uvb?=
- =?iso-8859-1?Q?sEdLYrIpQbliJvBPNN+mHLiI0OoTrcUKRjIIzqIi7umdQa2mBT4pCeIz6h?=
- =?iso-8859-1?Q?qRfXjszR8gPXWlplK0GyNk?=
+ ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?bGd8roym9R/sF0jhS1DPqb2PEf2v95bzgAn4NpdY49i/VIaww/DxbKioJ4Xm?=
+ =?us-ascii?Q?orGyNMFlReptRLPqCIi6za6upJFw5EbaZCx1avlBXVlAnQZHwhXhQ9TuHgaD?=
+ =?us-ascii?Q?HMPCsNyvhk1xzlnT2hxZvJ3DQihqUd60Jv1tLrgCXXIrupBHCXkiPewwLlDE?=
+ =?us-ascii?Q?UK4HJ59V5pFXQ3DppktkqaGM8vNynBcZjATtCbK+DohjQVdPiXpLvSLf51fO?=
+ =?us-ascii?Q?gYT1J6L2OFfI3/Yl79kDZiJjSlwS+Vz1nvJi+C+PetPyUdi23euy1FZDQ9hJ?=
+ =?us-ascii?Q?XsqCwp2NFZKamS97lM4yWQccXB+l4JV87bMJPis0ZZmjZETrH7QE0YgrXEcS?=
+ =?us-ascii?Q?kGHiXFk5OkkuxhIQkhHGVBcIPdbnBci5Jc3UYKVY71dkDBufnbM0nOdtbzkp?=
+ =?us-ascii?Q?aCvaVAqKi0jPXDXvxPw/Po286Xzy+5qWRUqOFiA3pBgqc1kB1VKj1eJJBbC+?=
+ =?us-ascii?Q?DQ5ixZyj7OPg2ozEiA4zaLnjjMY7xyMJEZFAPIYI7l32XjxVv0W06aO6i7Qo?=
+ =?us-ascii?Q?3FWSZcP6q4wg7ecdtcphuf9lzMNE4N43SkxGcow700acI4wO/RJmEDhAbZcb?=
+ =?us-ascii?Q?jXqj850Z1TDJXWhBA5PXSSaoob+/uWf1VMp8+NhD7+ApMHeoRAd/KZZXGVYe?=
+ =?us-ascii?Q?P17cyXBA9J7aiDstlBBQqulli5WncCsVYNGbEt3GG5It6O322gLBsYg7TtWV?=
+ =?us-ascii?Q?VBObZqqXWByIYzYMN15dFbrXT25Q+L6dBmC7Us/fGauUgRGhmCRcQb49KQYc?=
+ =?us-ascii?Q?r3FTWX3ZDLax9Gn1nIlcfo3FmSqlJa+YKq87Dtd/ZvWMvH43uIAnV2jY9V2F?=
+ =?us-ascii?Q?4ULDIzFba8iQ+tV9TGlbhjc9fBmDs2yQNuoQ7TKUDWNLXRLN5FS8TE/mha3M?=
+ =?us-ascii?Q?cvHRchaShgm0yffumrvVWekKjFwl2UHWd07xyvEkEPd8/b0A7/D6LkBxxmlv?=
+ =?us-ascii?Q?nyuD0O1hc6etMlIRz8GaLTPrVDBcptzEyJyNcjXrWmdRM17vBFDRmfjXSEIF?=
+ =?us-ascii?Q?pyj4Ui6qkW9uia5UP8mhLBhtyPd6aRj+QAazTd3LLGOX1laL9rU/ilp1sNx8?=
+ =?us-ascii?Q?G4+XCtLBlZJ1K1GPw8E+vcxpWScdjT8vJ7U+BPzFOiVYCKzcleHvvWgU0JC+?=
+ =?us-ascii?Q?WBER4cs80zWy+fs3mrKcr2Fta7at9/YBZWNm13h+Tbg5K0YHyTs3HWz5kN45?=
+ =?us-ascii?Q?Q6t21kzvt4YdeJHLa8CdUwHRz4hn5rP11R/lcqWAk9bCt310sYpfXW0N5FJ3?=
+ =?us-ascii?Q?u6Jr7SOQO9UPnPmo1Ra7B+izZl2zThv1yBeRMAINoh+mwONI6oeukbQ3hJoT?=
+ =?us-ascii?Q?/Lp4o3rvSrrUVlixA6fwK6QchosLn+bU0iJCuisv+qwP7MJTXPs1u4sv++qk?=
+ =?us-ascii?Q?SdGtLLKKa32XWy0TNrVPbTOizGA2pxnCLZ7/IAO2EJRvhtzd0J2KfWO4OMEY?=
+ =?us-ascii?Q?ypgrcQo1BFownLXc24ZA+Km0V1sSaLtF?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018)(8096899003)(7053199007);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
+ SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?amc+I52EQYILj0JP7F7QSj7raKsZRP01Vyozl2WePiTdL+fZfHstNQntgg?=
- =?iso-8859-1?Q?d5VB68N1NuWagUWewysib2O/VSL4htUqJnwk2oaC8kSYkhsjS/LUUHssNF?=
- =?iso-8859-1?Q?N9MQJjsi6veIqtXeUptFYe5RyjcY8IhQUERz0mXBK13CQARnuOotf4IaUh?=
- =?iso-8859-1?Q?oE6sljpRUWanaLFrrlNKAyvESNrac74jMKnN7MqFQUzOGQtXO+Y2nj1Xc/?=
- =?iso-8859-1?Q?zMhYF7ehP3sCax3SAvxj94PvdZVmF87pZv+oa9s3ePmA+EQqiKsVvnY//9?=
- =?iso-8859-1?Q?/wtTvYRKorL87oWQ76+MfYmGFpDlqqI/Sygkg7P3kqdVNJhxs7+xQDys6p?=
- =?iso-8859-1?Q?D7NTIG2gsKOEJk6GV0vvRcPNKQaEhNjSPBGNyqVPFvcw7z1+LvzLMUd8TY?=
- =?iso-8859-1?Q?Gu1qy0j5otNUbxJ+3U4HjMPtTSezHfeI+254iiBGwpmr0EVA65LGZhzSwt?=
- =?iso-8859-1?Q?Xwz4v6PFG5uyj0Df8gakFqeB5Fuf0YrHaW8eQ40EmVxtODanNdeF16YB1E?=
- =?iso-8859-1?Q?PAFS5L9x02DA5mTCV3PuXZxJMAI3ejCPG91OyBRPUsNL8E8n98F52FXMLV?=
- =?iso-8859-1?Q?gce4LFarcnqzuXxy4WGasaDR/OJDJUlfZ4jrXruiRdMrlcMVH/NgCe//OW?=
- =?iso-8859-1?Q?H/BJdmzfF4p+mi9GFMa7Dg83Jumso5f6deEIPPlNQ9Q92HhAygMJKz8TtW?=
- =?iso-8859-1?Q?7x1UzUnJu0aOInwHMwmqozaFJLYnRezmilWB3/j46n+DYk8VsCl3BFuoSp?=
- =?iso-8859-1?Q?1u5owq8WXzZxqh4Bbp4RawySA0F9fxtFNLyQiyy8sve9VZq9iyehVHRCDJ?=
- =?iso-8859-1?Q?A10j/oSgNiOIi0iJTH7eIG/MK5EVSGNK4/S38OcdOJTi+7GAe80XYofpWB?=
- =?iso-8859-1?Q?KU32hanCUiC1TMmPD6bIkksxz8LTm/oHe06s6e2RrVR6sx2if2TADf8vNt?=
- =?iso-8859-1?Q?HM0HBMvhGfzI9T5NeM5SFWzM+w7YuuANOnblDLM4wEFrb8RmRtOWlNggL1?=
- =?iso-8859-1?Q?g+j+8uWEhRzupZJuQLch1hAafMkiMymMBxrykiHhdg40T1M/bYZlxZ6ilR?=
- =?iso-8859-1?Q?5cVrWreoCzgEuryX5ZPrv1/cFmwWJP/E8SOHYq64suGkNvoRND4i3F5bV2?=
- =?iso-8859-1?Q?eq82fFUQTubLi8+puTSx50yb/V0HLNOmFxeD7yRhtA+vJW7wmb2do4yFU6?=
- =?iso-8859-1?Q?6+L+kqOd/Mp0ZepujDncgTSLT932dn8Va1I2n9jsdwYmWjeUuhtlsFC09s?=
- =?iso-8859-1?Q?Mq67KXpNZtQB8LdYjEJUDfs2MHp6/XH71/nOWBa8Oh/rm9qq4oq10rlx6o?=
- =?iso-8859-1?Q?bRRG6Y/nL09z4flNNx5BMvFWTXDBL0vsi5HqenmUAusSqB0iQmGiD/VFw2?=
- =?iso-8859-1?Q?hsh4I8JrHR9cU96QtfXuqyBZUY6079moRJ8jSsHkuA769iPA0bcHO/UiYL?=
- =?iso-8859-1?Q?Fo4/Yj4PEwUAVELDr28P52I6mK0p/KPRP4Gy6SwBRqmnGdrMdVRnTgLZg7?=
- =?iso-8859-1?Q?UCGz62b+l2MMjG3V5s8R5tyoFA6jiwr3sH915Z6qIX9wipv852m+NEMYWF?=
- =?iso-8859-1?Q?H3AXVvT7uN8dFlT3wWigkpggE9fn5St08Usl2N2fmy9RTTlGVN5PzRGOi/?=
- =?iso-8859-1?Q?ptP93D0PFBgOY=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_MW4PR12MB5667CC801BEAA355955D7047F2D92MW4PR12MB5667namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lRHd2mTDwQjqXF+W4nypkU+S/mcXorx88FPJcRbbyGnGawWFqQLB8BNU4oU7?=
+ =?us-ascii?Q?irepxv5tzpZMjUdALGcBxmXsdPxC+4JhB43oe4jDALOYwboGzxKhHLCtV+l6?=
+ =?us-ascii?Q?rPo8zHLaIuxBQvctZqEM7xI+fKaSHgshamnRoxWDpjK5vSWlakrg0TA06mXX?=
+ =?us-ascii?Q?C/HY4Qa9ZkTQ5Xbb63hpNcPL8+B9Q0K1Kp5VjyeXrzydEZ+8ND9suQJ0L//g?=
+ =?us-ascii?Q?sUQyKQ7kxfJyPlCxECTiZRh0WGuiokSfRGtx4psCiCx8UrJ0RTZVMhQIf4Ry?=
+ =?us-ascii?Q?yD+UlemmZkeMoEt6SafCGgS5bopO29awiURxVVjHvempP7l3RUigc1/T5UGQ?=
+ =?us-ascii?Q?WrWUjU29mYZZAb9R8shVYSdj6c95u9zmFWqBzGHROyxYHOOJzkoR1GY5RGAX?=
+ =?us-ascii?Q?CWtcNKtXjo9yQ/sq9JxppJiGathq4Y1UE7CDQCKBGZ9hRlK4bYWn66a7Y/JC?=
+ =?us-ascii?Q?rqz/pF9KLxxq5LSbiBUMKr7ndqv0GNLdt2OMff18JO+mUCWUqXYFtXDxWEX/?=
+ =?us-ascii?Q?T3VrR5leuFX8oyEHdhZ4Ih0mc6weCcIE1V53dU+EnqQ9YzTDlYBL8PCt9bsF?=
+ =?us-ascii?Q?y8zLz1N0d7M0rPiGuYcju+jEwlCkPIcCyxPyNho4iNgymAMhjy49bc/YOHoV?=
+ =?us-ascii?Q?Rhj47RrI7mmxCZbcCyNjm2AIu6DKPZId1EhMnUjBsuCXDQSnH8jUAYKef5QL?=
+ =?us-ascii?Q?1kOgxxZWJ/SslDZowAKVdSVAZNqzRLXdWWA/hEB4O1GJ3LKYBcx9Ss2DTWWi?=
+ =?us-ascii?Q?YStfsMz/wV3PmS0dPNBnYpvriGuHZffwd1VDXlQy1XRd03Q/5Nvt1Ick4UE7?=
+ =?us-ascii?Q?0hlt4nZZIxoDctVi94GI0qEkrKud89qI/BQgEqGU4DSwPPNJbsr9QqHPrhAa?=
+ =?us-ascii?Q?VWhzh2zbRuTapmrwUXUb+D6V5Gp9H6Bet7LjJ4zIFGwHGfD8RbHQYIW1Ullf?=
+ =?us-ascii?Q?w0RzdpkimH1KxVGLnuZ6xls5ke6wrLhPATmIIievqjR84DClU+sRtfIAassS?=
+ =?us-ascii?Q?b+KY4VHrqRlNZBhdaHpVOpGbeK6umBURLG0b3A4d6JsYNL7t+dXaPCu/civg?=
+ =?us-ascii?Q?HjB9vZq9bLMLqtVSCIQ9XfYJASMaXNNwY5vuQ/ctM8zB0Vy9bWpVAGNUZxFt?=
+ =?us-ascii?Q?Efp1ZvQwjauuIbXvRYijaysNxCjM4/ZyA9WOnP5taDOX0/Q2qk1sdEC4cPxE?=
+ =?us-ascii?Q?DVBEjSDL6Ob+rKjUbFcObAzQXpeRdUIIDDNVzE4qZhNL9gIhIQmlQyOFGL4W?=
+ =?us-ascii?Q?kcU1lqpKa5aStZG7t1KVHJzZ2XVKQOzIRpqzhQpFjcuJ2QC/UDSqSN7ZrHO1?=
+ =?us-ascii?Q?+XadoaLgG0gqV+3wSAImCmm67w8kHDt00r2+3cz2upjnRnQbX6aDMtLLv9rh?=
+ =?us-ascii?Q?cQRZl1lZZxwi+YMiTnuGh1XzlJpXjowXwyIrSXn0U5+gyueysYcA3YpeZkhp?=
+ =?us-ascii?Q?FdRWyMCfIfPG7bJ4SOfRqNAzPejZviuL810LgzMkAyGuE8UHxzWkx4KhjgCe?=
+ =?us-ascii?Q?tUY05q/3SUuQubv70SQt8rUOYnkvGQkZn1uI1fzBsldeFcrLhDYjsFHtFv28?=
+ =?us-ascii?Q?H2WOobT+m33FNjsvnyE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b11ba8aa-4e0f-407c-98e9-08dd66c0caba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2025 08:33:57.7077 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8078f9d-9d2a-4993-8f3c-08dd66c4d822
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2025 09:02:58.1859 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RiXP9j81TO9FdGvstfQDjV6nh5ff9yyTkvFhdqYczhu1AIVhKv6NZShIoYqlWvKFYyUfTpxi37GXfSGi6zuUrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8661
+X-MS-Exchange-CrossTenant-userprincipalname: FnncICNGon/rihZdO3ifIpnYXcE0f3zekmK4bVTuTerQmcpiOuJrveiphNbmk/Qp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9623
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,165 +159,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_MW4PR12MB5667CC801BEAA355955D7047F2D92MW4PR12MB5667namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+[Public]
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Thursday, March 13, 2025 10:42 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Khatri, Sunil
+> <Sunil.Khatri@amd.com>
+> Subject: [PATCH 06/11] drm/amdgpu/mes: make more vmids available when
+> disable_kq=3D1
+>
+> If we don't have kernel queues, the vmids can be used by the MES for user
+> queues.
+>
+> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 2 +-
+> drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 2 +-
+> drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index 971bf01fe46a9..a536a78342a09 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -106,7 +106,7 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+>
+>       adev->mes.total_max_queue =3D
+> AMDGPU_FENCE_MES_QUEUE_ID_MASK;
+>       adev->mes.vmid_mask_mmhub =3D 0xffffff00;
+> -     adev->mes.vmid_mask_gfxhub =3D 0xffffff00;
+> +     adev->mes.vmid_mask_gfxhub =3D adev->gfx.disable_kq ? 0xfffffffe :
+> +0xffffff00;
+>
+Question: Why here only set some of the GCHUB VMID to validate? Is that VMI=
+D reserved for other specific usage?  While it seems vmid_mask_mmhub is not=
+ further used in the MES FW?
 
-Reviewed-by: Shashank Sharma <shashank.sharma@amd.com>
-
-Regards
-Shashank
-________________________________
-From: Yadav, Arvind
-Sent: Tuesday, March 18, 2025 3:54 PM
-To: Koenig, Christian; Deucher, Alexander; Khatri, Sunil; Sharma, Shashank
-Cc: amd-gfx@lists.freedesktop.org; Yadav, Arvind; Koenig, Christian; Yadav,=
- Arvind
-Subject: [PATCH] drm/amdgpu: Fix display freezing issue when resizing apps
-
-The display is freezing because the amdgpu_userq_wait_ioctl()
-is waiting for a non-user queue fence(specifically, the PT update fence).
-
-RootCause:
-The resume_work is initiated by both amdgpu_userq_suspend and
-amdgpu_userqueue_ensure_ev_fence at same time. The amdgpu_userq_suspend
-signals a dma-fence and subsequently triggers the resume_work, which is
-intended to replace the existing fence by creating new dma-fence. However,
-following this, the amdgpu_userqueue_ensure_ev_fence schedules another
-resume_work that generates a new dma-fence, thereby replacing the one
-created by amdgpu_userq_suspend. Consequently, the original fence will
-never be signaled.
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian K=F6nig <christian.koenig@amd.com>
-Cc: Shashank Sharma <shashank.sharma@amd.com>
-Cc: Sunil Khatri <sunil.khatri@amd.com>
-Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-index 167951aee502..0075469550b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-@@ -52,6 +52,9 @@ amdgpu_eviction_fence_replace_fence(struct amdgpu_evictio=
-n_fence_mgr *evf_mgr,
-         unsigned long index;
-         int ret;
-
-+       if (evf_mgr->ev_fence &&
-+           !dma_fence_is_signaled(&evf_mgr->ev_fence->base))
-+               return 0;
-         /*
-          * Steps to replace eviction fence:
-          * * lock all objects in exec (caller)
---
-2.34.1
+Anway this patch is: Acked-by: Prike Liang <Prike.Liang@amd.com>
 
 
---_000_MW4PR12MB5667CC801BEAA355955D7047F2D92MW4PR12MB5667namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+>       for (i =3D 0; i < AMDGPU_MES_MAX_GFX_PIPES; i++) {
+>               /* use only 1st ME pipe */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 95d894a231fcf..19a5f196829f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -900,7 +900,7 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block
+> *ip_block)
+>        * amdgpu graphics/compute will use VMIDs 1-7
+>        * amdkfd will use VMIDs 8-15
+>        */
+> -     adev->vm_manager.first_kfd_vmid =3D 8;
+> +     adev->vm_manager.first_kfd_vmid =3D adev->gfx.disable_kq ? 1 : 8;
+>
+>       amdgpu_vm_manager_init(adev);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> index bf8d01da88154..a2f6c9f4ebf2f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -838,7 +838,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block
+> *ip_block)
+>        * amdgpu graphics/compute will use VMIDs 1-7
+>        * amdkfd will use VMIDs 8-15
+>        */
+> -     adev->vm_manager.first_kfd_vmid =3D 8;
+> +     adev->vm_manager.first_kfd_vmid =3D adev->gfx.disable_kq ? 1 : 8;
+>
+>       amdgpu_vm_manager_init(adev);
+>
+> --
+> 2.48.1
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Reviewed-by: Shashank Sharma &lt;shashank.sharma@amd.com&gt;</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Regards</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Shashank</div>
-<hr style=3D"display: inline-block; width: 98%;">
-<span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-siz=
-e: 12pt; color: rgb(0, 0, 0);"><b>From:</b>&nbsp;Yadav, Arvind<br>
-<b>Sent:</b>&nbsp;Tuesday, March 18, 2025 3:54 PM<br>
-<b>To:</b>&nbsp;Koenig, Christian; Deucher, Alexander; Khatri, Sunil; Sharm=
-a, Shashank<br>
-<b>Cc:</b>&nbsp;amd-gfx@lists.freedesktop.org; Yadav, Arvind; Koenig, Chris=
-tian; Yadav, Arvind<br>
-<b>Subject:</b>&nbsp;[PATCH] drm/amdgpu: Fix display freezing issue when re=
-sizing apps
-</span>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">The display is fre=
-ezing because the amdgpu_userq_wait_ioctl()<br>
-is waiting for a non-user queue fence(specifically, the PT update fence).<b=
-r>
-<br>
-RootCause:<br>
-The resume_work is initiated by both amdgpu_userq_suspend and<br>
-amdgpu_userqueue_ensure_ev_fence at same time. The amdgpu_userq_suspend<br>
-signals a dma-fence and subsequently triggers the resume_work, which is<br>
-intended to replace the existing fence by creating new dma-fence. However,<=
-br>
-following this, the amdgpu_userqueue_ensure_ev_fence schedules another<br>
-resume_work that generates a new dma-fence, thereby replacing the one<br>
-created by amdgpu_userq_suspend. Consequently, the original fence will<br>
-never be signaled.<br>
-<br>
-Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-Cc: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
-Cc: Shashank Sharma &lt;shashank.sharma@amd.com&gt;<br>
-Cc: Sunil Khatri &lt;sunil.khatri@amd.com&gt;<br>
-Signed-off-by: Arvind Yadav &lt;arvind.yadav@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 3 +++<br>
-&nbsp;1 file changed, 3 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_eviction_fence.c<br>
-index 167951aee502..0075469550b0 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c<br>
-@@ -52,6 +52,9 @@ amdgpu_eviction_fence_replace_fence(struct amdgpu_evictio=
-n_fence_mgr *evf_mgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long index;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (evf_mgr-&gt;ev_fence &amp;&amp;<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !dma_fence_is=
-_signaled(&amp;evf_mgr-&gt;ev_fence-&gt;base))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Steps to replace e=
-viction fence:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * * lock all objects=
- in exec (caller)<br>
---<br>
-2.34.1<br>
-<br>
-</div>
-</div>
-</body>
-</html>
-
---_000_MW4PR12MB5667CC801BEAA355955D7047F2D92MW4PR12MB5667namp_--
