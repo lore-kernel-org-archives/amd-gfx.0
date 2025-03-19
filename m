@@ -4,65 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA53C35FFA
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 13:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2AFDC35FFA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Mar 2025 13:32:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33B2710E4FC;
-	Wed, 19 Mar 2025 13:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6264E10E368;
+	Wed, 19 Mar 2025 13:32:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LptDpZf9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OIglPj2X";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E00D810E4FC
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 13:28:18 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-2ff62f9b6e4so1142586a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Mar 2025 06:28:18 -0700 (PDT)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com
+ [209.85.222.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2B8310E1DC;
+ Wed, 19 Mar 2025 13:32:00 +0000 (UTC)
+Received: by mail-ua1-f51.google.com with SMTP id
+ a1e0cc1a2514c-86b9a1466c3so393503241.1; 
+ Wed, 19 Mar 2025 06:32:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742390898; x=1742995698; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742391120; x=1742995920; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=u8kVuygQcuneFW+VFFQPQqEn6xF8A922wxnry1H16sQ=;
- b=LptDpZf9ABrgUhCuvuE3eRZePqMzE4qsfapjLn+I+akIdzAVITKfHOhNHvhQiAruAF
- l8WCu87DScwPDVEjFXqB+A8Ef0OANaYHd4XXY/QxcG/izggzPnD5VVn7HpVwpcxZxnH8
- x2m9g1nJN/s4YlcpdEdfUwYyaS4Q38XtgNJxcVBmR+BTB+tKHaEOHuchzu/jGkMkzjog
- hZ4DwcmlyVb85+edDHcYxw1zbyj1a4W6SPjjGLedMVcnJGbvichhAl1LlV3aWagU+Nqz
- Gar/M5pRt0MbnpJcsZ5plgVeC4hK/z3nUedF9riMHW9IieTfZDtcofPhp66nQCyVyIP2
- g35g==
+ bh=rGkpKqMgjBiSjviBn3MT7rNUCwz3YjW35rqjdwx/eQE=;
+ b=OIglPj2XVq6510b3pkuLJ7hpNHJokVmn9kRZM67rj6prPZdsHwtgbs8Tj3p2p+VFS3
+ f7c7nLRLyMJI61jMqZwrwdT+vNgc9gcZqR8Vegra1RYvYLPI8RX7hGzGePyL5CQlM1iI
+ 6gS8er7WPrxc/bjXEnzeJxLN7JY6VNXVLFvjWJJRowpenW0d8iOStnYOeymM3HzZjvfO
+ bHXcg4hEWdSeOTqJlNmZOg3Zh0rh+G59+KAHuwJWTS2NTUnabkF5GUHNO6jt0qZ0xOoA
+ 4wtfWJLXrZoqXLxgjCvucMKJkaHTiC8J+H0SCUkx03dgsLVjU0+kTHxidYafO9xYcLma
+ TGLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742390898; x=1742995698;
+ d=1e100.net; s=20230601; t=1742391120; x=1742995920;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=u8kVuygQcuneFW+VFFQPQqEn6xF8A922wxnry1H16sQ=;
- b=I0/DMADrFFwCNXAtyB8NrHHtAVu+XgFZTC2stPIIoiwOq5e08xyAkQwufemgzRuA+8
- MESrvkeKCMY/by7adfqm1UY3Lh/izNFnITC9XSCSt3C0F0zwZWeVztV6+Aau2bDjfl3p
- AzcYxU0sF91I7KCvnZq+01eSrBGIEnUGlwDLnPa72Dr2Ja3bqUXSf/aPkms7NzcZkK/h
- Tmd72rfjzzW/h2MvcqVZKjez28g1FCCcU9Qfp/imtoWfqbbwDsA5cD2Tux5CXE1TqJKD
- XieyMjLOWD0lDlyvXTgr+serm5qEHqPCVuNXBpjoweLxKNNXowoiv3WcApjJgCQzfeFH
- Cg4A==
-X-Gm-Message-State: AOJu0YwQEV6lq4fadzReEpDginIZD24d7lJII9pxFJI56gu4hrytz0Jg
- wduYJry507qXcU0j1flTx8xgZvrxv52Is0A2SkNlGUriYKO1D+UorGM+KvvemN7WdAALAlVMXKH
- 7+Z1Glc5gOk1VlLP57swlrm9Q2f0=
-X-Gm-Gg: ASbGnctu89A8QwqYFumjrdXyBLl45UaqaFsYM2jlgbb9tXpC/WlKcmDBemCOdX+MjVm
- j67LMOaB8NBdjtkW5uIrfKmwyE5yTNBw8+FixQQTGi5C++TlV0j/ZAWenXwa0PAUkPkDU/7FX46
- C7DnjHJRvISFMgvPTNmK4Jrd8NcQ==
-X-Google-Smtp-Source: AGHT+IGbslDHsqi2jvJr5zaJuwx4+rTxN33nFGDUYlw5T3B3L9YyrrietDTz4yibISapButVlUyOcDhRSinc4HxlR7o=
-X-Received: by 2002:a17:90a:e7c3:b0:2fe:7f51:d2ec with SMTP id
- 98e67ed59e1d1-301bfb3ba7emr1540997a91.0.1742390898191; Wed, 19 Mar 2025
- 06:28:18 -0700 (PDT)
+ bh=rGkpKqMgjBiSjviBn3MT7rNUCwz3YjW35rqjdwx/eQE=;
+ b=HyAufKjITyI+lGhEJxp7jpisFbUiJ67pAv/Hc3nQi7yD/VKLATToZuHbMBH6bqPO4g
+ K/64jzXyn1DjcagBMRLThERFfASe4//dRqKGC9V4hCHGQhuXAAL/c04jG7sVoYFWyquI
+ ZcXzrU/qgwNKIOdQUsiqmRfTLX5CE79/yVklI1nu/NTbQ8VNKYR7lw2Nka4ti2tMaT7/
+ nzylBDFZMZPII7OaxmfOMbCh7Aw7z5uMTywXpPMOBknLAtgnrccEsM5iQSEageYCLW6a
+ EhjZqBRfffNN2mE4YCFNLA6UKyJC8n4t+FL5U7MdKHOcbVrsYgXS8VIKJfWBhnPN6gv9
+ 0UxQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjcoo4BkBGNLSIVa2RXdMuDhTTdoYZMyTZ91uw6WHufXwnHkovdIOF3JvJqe0St9nio3GrbVMMtNcl@lists.freedesktop.org,
+ AJvYcCVf1hX5sDMWUVX1Lh+TX5IiQrlmwB0hyNGeBHhwzQGR4Hbb0ub+jkafcZBOUrWbOtASkMfX5uHC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5QMNDXZtCFBqsQDCi1c+5jgf0YpbGZ4BDcIHXh2j13nZ0aLPF
+ oyFXMb6aCyS48fCyvdAi4sPcMtUBQGvZDWNmy5khpF+dZZHbASgvk6cxFLqdF4zS7N88Q6OxCzF
+ NqOkOG4N/7x5VID6e000wPrdM8Jc=
+X-Gm-Gg: ASbGnct4drGq9TkMThTBNSYs1NaElKLq6gamOZLY5Vx1dbhIQ89PuTddPqXZ5XvPzZH
+ Evs1ZZAEkjeHMT0BIqUp4Stwr8AoprwM2n/A0D5siSKCta9NdjRHfvrDfn+EExBR6JctF+ohkSk
+ A0m/xPZbNQkma0hxbgwpZrZRCN2Q==
+X-Google-Smtp-Source: AGHT+IHgUH9cFzpBtBK9ey2+JGlYXkvPasHk/a/LBDDDziZJcfeOxGGk9HskojAVImQ7LiHzpzC9kHrE+Wtl3zLwucw=
+X-Received: by 2002:a05:6102:512c:b0:4bb:dba6:99d3 with SMTP id
+ ada2fe7eead31-4c4ef4d27cemr361182137.8.1742391119808; Wed, 19 Mar 2025
+ 06:31:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250319111243.14206-1-dominik.kaszewski@amd.com>
-In-Reply-To: <20250319111243.14206-1-dominik.kaszewski@amd.com>
+References: <20250319092951.37667-1-jirislaby@kernel.org>
+ <20250319092951.37667-19-jirislaby@kernel.org>
+In-Reply-To: <20250319092951.37667-19-jirislaby@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 Mar 2025 09:28:06 -0400
-X-Gm-Features: AQ5f1JqQSavicrQsc8jReBn7qnS0_kcDg348IOqyGiv1dF41YmR7ovvVchTuLWA
-Message-ID: <CADnq5_MMs_LC-7zKbEO47eygJ=MzdVotLNfRDCNWj5Cju9HRZQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix typo in DC_DEBUG_MASK kernel-doc
-To: Dominik Kaszewski <dominik.kaszewski@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com
+Date: Wed, 19 Mar 2025 09:31:44 -0400
+X-Gm-Features: AQ5f1JpyJz7Ugj_Qtpizh3Phb0sD4bkNclDSrU4JuLu-9pUF1cvpfLaSOGRYtu4
+Message-ID: <CADnq5_P93d5TTPA36JB_RSGE8uRwoQQ5to7Wp9STD6xJrrMqdg@mail.gmail.com>
+Subject: Re: [PATCH v2 18/57] irqdomain: gpu: Switch to
+ irq_domain_create_linear()
+To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+Cc: tglx@linutronix.de, maz@kernel.org, linux-kernel@vger.kernel.org, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,35 +93,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 19, 2025 at 7:23=E2=80=AFAM Dominik Kaszewski
-<dominik.kaszewski@amd.com> wrote:
+On Wed, Mar 19, 2025 at 5:44=E2=80=AFAM Jiri Slaby (SUSE) <jirislaby@kernel=
+.org> wrote:
 >
-> Add missing colon in kernel-doc for DC_DEBUG_MASK enum.
+> irq_domain_add_linear() is going away as being obsolete now. Switch to
+> the preferred irq_domain_create_linear(). That differs in the first
+> parameter: It takes more generic struct fwnode_handle instead of struct
+> device_node. Therefore, of_fwnode_handle() is added around the
+> parameter.
 >
-> Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Note some of the users can likely use dev->fwnode directly instead of
+> indirect of_fwnode_handle(dev->of_node). But dev->fwnode is not
+> guaranteed to be set for all, so this has to be investigated on case to
+> case basis (by people who can actually test with the HW).
+>
+> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> Cc: Philipp Zabel <p.zabel@pengutronix.de>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
 > ---
->  drivers/gpu/drm/amd/include/amd_shared.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 4 ++--
+>  drivers/gpu/drm/msm/msm_mdss.c          | 2 +-
+>  drivers/gpu/ipu-v3/ipu-common.c         | 4 ++--
+
+I would suggest splitting this by driver.
+
+Alex
+
+
+>  3 files changed, 5 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/a=
-md/include/amd_shared.h
-> index 4c95b885d1d0..c8eccee9b023 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -366,7 +366,7 @@ enum DC_DEBUG_MASK {
->         DC_HDCP_LC_FORCE_FW_ENABLE =3D 0x80000,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_irq.c
+> index 19ce4da285e8..38e7043016e1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -725,8 +725,8 @@ static const struct irq_domain_ops amdgpu_hw_irqdomai=
+n_ops =3D {
+>   */
+>  int amdgpu_irq_add_domain(struct amdgpu_device *adev)
+>  {
+> -       adev->irq.domain =3D irq_domain_add_linear(NULL, AMDGPU_MAX_IRQ_S=
+RC_ID,
+> -                                                &amdgpu_hw_irqdomain_ops=
+, adev);
+> +       adev->irq.domain =3D irq_domain_create_linear(NULL, AMDGPU_MAX_IR=
+Q_SRC_ID,
+> +                                                   &amdgpu_hw_irqdomain_=
+ops, adev);
+>         if (!adev->irq.domain) {
+>                 DRM_ERROR("GPU irq add domain failed\n");
+>                 return -ENODEV;
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mds=
+s.c
+> index dcb49fd30402..9d006ee88a8a 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -150,7 +150,7 @@ static int _msm_mdss_irq_domain_add(struct msm_mdss *=
+msm_mdss)
 >
->         /**
-> -        * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Chec=
-k FW
-> +        * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Che=
-ck FW
->          * path failure, retry using legacy SW path.
->          */
->         DC_HDCP_LC_ENABLE_SW_FALLBACK =3D 0x100000,
+>         dev =3D msm_mdss->dev;
+>
+> -       domain =3D irq_domain_add_linear(dev->of_node, 32,
+> +       domain =3D irq_domain_create_linear(of_fwnode_handle(dev->of_node=
+), 32,
+>                         &msm_mdss_irqdomain_ops, msm_mdss);
+>         if (!domain) {
+>                 dev_err(dev, "failed to add irq_domain\n");
+> diff --git a/drivers/gpu/ipu-v3/ipu-common.c b/drivers/gpu/ipu-v3/ipu-com=
+mon.c
+> index fa77e4e64f12..223e6d563a6b 100644
+> --- a/drivers/gpu/ipu-v3/ipu-common.c
+> +++ b/drivers/gpu/ipu-v3/ipu-common.c
+> @@ -1169,8 +1169,8 @@ static int ipu_irq_init(struct ipu_soc *ipu)
+>         };
+>         int ret, i;
+>
+> -       ipu->domain =3D irq_domain_add_linear(ipu->dev->of_node, IPU_NUM_=
+IRQS,
+> -                                           &irq_generic_chip_ops, ipu);
+> +       ipu->domain =3D irq_domain_create_linear(of_fwnode_handle(ipu->de=
+v->of_node), IPU_NUM_IRQS,
+> +                                              &irq_generic_chip_ops, ipu=
+);
+>         if (!ipu->domain) {
+>                 dev_err(ipu->dev, "failed to add irq domain\n");
+>                 return -ENODEV;
 > --
-> 2.43.0
+> 2.49.0
 >
