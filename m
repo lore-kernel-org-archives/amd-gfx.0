@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA7D0C36005
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6385CC36016
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 353A310E741;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3342D10E73F;
 	Fri, 21 Mar 2025 09:20:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qwz9dQLF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QJc2LBjo";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8464110E6B4;
- Thu, 20 Mar 2025 18:53:18 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-85db7a3da71so81499939f.1; 
- Thu, 20 Mar 2025 11:53:18 -0700 (PDT)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64F4810E69F;
+ Thu, 20 Mar 2025 18:53:49 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-85e1b1f08a5so33942639f.2; 
+ Thu, 20 Mar 2025 11:53:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496798; x=1743101598; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496828; x=1743101628; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=I11xVBXKQ+hF/QWDzrpW4DMDNxkmWPkILnOV6Dv+FVE=;
- b=Qwz9dQLFaN2KKWM3oOtj/LTtD/+54QFZR8YtGRQsVxi6ebCZZEtw95eM7c5BT9pThj
- hjWZ07d48yypctNnS7O0UMD1ggTrOcHKuE+hXI/VM5LBeEESEipm5BlscESI/xSCDNoj
- 9eZk0tcrER3BwDsHH5yxiGqO6eMlMC8ODT2bTWIPJ5RUCPSI3Kk9toe+/cxlVuJRn2OW
- R9f4oCMJ4MXGX1M3cl035lBbaSAPbzHFP4tCQ26sm7iGLaPigOCkFQdIrd7FuSS+ZJAj
- 7DHbwNubBRLa0LXqVfBxr6JktUZ2Q3a64dD9sAsuLQK8we2OaNVSfuKVAAOA1M5CNSHx
- PbWw==
+ bh=M7K7xRXZftnouPQnYRpMXoKCruxhJlULif2fXsuJr/A=;
+ b=QJc2LBjoVvxsPWfMiwn2/om3/rNanFGf+mvF/df7AyIcoym0ikA4cSZ0Lr0QHFM1bM
+ 8th/8fsnylGrrK2q0tdZooFE5+wpXybb04mo1vAntaS+wF5C8ADYXf7bRwpXIzmy+IS5
+ wysR+rrc4VH4z++DoKpsfyrEyyxekdtSyviHkFo9osPHSEiqksTioFvfzSqbqGLxg35p
+ HkJG1fiuFBxNBOSAKsJR0axNGZFae1pr0eVod4gys2Bs9VCKyqcGNcdk9xe7SkFJG/JJ
+ HmQxOgnWjIsjyOsTkKAXBu/vnEQP5fzXsxkm6OSsblJ67qVu3XKI29oRTenPp5F1YHTr
+ mEvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496798; x=1743101598;
+ d=1e100.net; s=20230601; t=1742496828; x=1743101628;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=I11xVBXKQ+hF/QWDzrpW4DMDNxkmWPkILnOV6Dv+FVE=;
- b=YB9I0a/MmyADuuH73472BRROpA93WiYrkf6nwUS7Pmp3V4IMoi2rOgst798CQ6Kwdy
- fI0Fuq11k43kMo5gNiJSJvmMg4fCwGp38HGE27zO4zTGW6Cn2pAc3a2N6+K6hxBvAyB3
- DXv6LM0i8Sd1r8Uwbs9/kkJEg269Y2gf3+cK4gZoelqv27AW46+ztxGdmKvGfEgOKR0d
- ++ETHh4WcnJ9uR532h7lbeWbptrVZy+VR9+/W/VoWngtKA6PvK9UZRWNTsIlv0OFDi2p
- LfbO5+ThWCykDUYsULOVv6avBEuw7lIVo8uqN3ZDPP3M7mBtD/+X7/VhU76G1AnLCm5G
- C3Bg==
+ bh=M7K7xRXZftnouPQnYRpMXoKCruxhJlULif2fXsuJr/A=;
+ b=TlGzK4ucm6qaN8SpyQVN0BlhcOwQTWKM64r//2+2XaVKtAW9p/sTzA3pm0+vGY3E+6
+ BnyfC1LdT3EdM4E+6OT5JHJ4N3Gl0fzSayF2fSiV1eRfnPhLJNWtV3HGzRWVHsCpB1gF
+ P14Q/k803UagjRtUdqy9xXp/D24urt0wKEhWzmQGHv9QHhBE91aLdFKNKUZqJy+Vii3J
+ VaOWVyQSSMLKF9kQ6n9dO5IQ1QSAk86Wf12KaG+jMOolgPFp/0rI22TXVXk0utxf1HEf
+ pO5uPzFHJvpxFJULKmp0E+W91d1ifwXItwWbICEJsTWAnI9T9+LPSZ9pjjK7mZWTTHiW
+ 4Anw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUkTfRg+0BnCR05qrwTxeeF4H+VKVEHmOCWYMNtZCvNnPLhImD7gU7TUgECdiA0S1s3dj6ITfCXOgbK@lists.freedesktop.org,
- AJvYcCVLT4+5ow47AIIxYeXsdhcxuQzvWNMCsDTMUZ+35P5rSs7K063eVlqSr+Frnzo5pSAERYEGAEeOAKQdHr7v89BLYQ==@lists.freedesktop.org,
- AJvYcCWn9cpXiFhjP63q9EolBPPwBIpB6+N8NwO07T/EyWJcNea96GHTlpB2U9Uw316c/n4+MvWkUOw+lYoFwOTY/g==@lists.freedesktop.org,
- AJvYcCWuFRSxTBDf/OcEPOoLVC45KZPcXNcd5vtQeL3rowJuhiaiCTHNZW2mzgIEU0p+PjD692WhPGRX8Vyq@lists.freedesktop.org,
- AJvYcCXfWSb/K4sBQOcX/8tva3jJPvNnRAXVjgLJSKFnBg9kBSLyXXdLswTlv9KtwkHGccp8BVAwiOJP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNkYftmIUNc7eqy8PCu7SSMYG6XxY433v5y3r6adE0FoR4lTPm
- F91UdpY4ynDi3WLsqsfWJZNiZgSqZ8ILO8AQg+JDFOiXyNkTyZeY
-X-Gm-Gg: ASbGncvgkf92gh2cwdRCrtAwV5vQrp8FkuVshYZfeKpIzuqJbIwLxNSz9+bBgFT+5AS
- q+/yIahSuz22gbtOe45o5VqqzkP0xGuFCTlikW1tgbxHAH2AmOa9Jf6aMAQ1wvoEWUmZb04eD3F
- 5BkFq3WYDWoR1FAfD7Jk8ibIMCncsfzvVyISpn/X282uHkEFo40tNnST9o89wNKUft+9+CBr8Ek
- ig6SXvinEDyi2qMZOOYxObOQsUKdcKVgUpdXqIRv3Qx1t+sApiznTrnIZqIG7zoEVQRxLp8xNTj
- 1IWZ35bDX+aAD682chBQHFx68pb+ReGI+yI5qTFK5sFBejEpNFZR9zLfQyUXKsjcpFL+qIZET7l
- qBw==
-X-Google-Smtp-Source: AGHT+IEtCf2Gpyn2UFZqee/mhr53XbcO/kcuDLQe2NGqup147/L1yuCpY56bd5EokVyHN82kmeirhA==
-X-Received: by 2002:a05:6602:2988:b0:85d:9f44:4421 with SMTP id
- ca18e2360f4ac-85e2cabfc2emr39548439f.8.1742496797837; 
- Thu, 20 Mar 2025 11:53:17 -0700 (PDT)
+ AJvYcCU/248tRqZw/LVbTR3seVXWaftWabidrFN52WeJvuRkhxiMOhgTBN8sgwMIYLXq67ZnJcX2xmcDfw+N@lists.freedesktop.org,
+ AJvYcCUNrRoymRbXu/Ffb24fAUlfAbJA7zfyI7o0eAoPMKxVEb+lu3cdYzZ09/GsrEgHRt9JdAv71r/F1lT4cWUBFg==@lists.freedesktop.org,
+ AJvYcCUWuO6Tk1PML18o4GkzBj+R3vWuqB77UmIc1Mm3bm3GEuCbLmYaH39gghPbQq40m5E5RtgfxHAs@lists.freedesktop.org,
+ AJvYcCWwnsEn3ITZ1iyhVISNvszgbobyTs2VwhLV05l41FNDeT/ofFMYQrOCbGzZhHkNE0CAtm1d2lIhGYRj@lists.freedesktop.org,
+ AJvYcCXDcSyIK2lhfBog7w7xaI8APJ81CDBPfbjKROhP+CcNedy3sMRE0n8WvP6/sxdFB8e8Rd2AR+Gv53BGVbd4QaXexQ==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzGawfGLVungwO+kPHrKu9zig09QkaiIqkxrs18CaZT5f/YGSkl
+ yrsizHvzCuIVScbCVl9o2mDDKSfOIaEGJtYX5K26esRQ0oh4MNal
+X-Gm-Gg: ASbGncsD/S0sH8lD9b2SmZqBdjujcaiQOXGc/62wZG/9tPz1PbR14ExrQ+V20dQR3HT
+ 0GZor18jpfpoqr+2kaOvgzde1TWsp7ecYm7N5mJKggWiH+X+uZqoFmDtFRAxbI7j5rzaECgtope
+ 7K9ZX0RlzGxmJ/2wsL6b/8Rbx/VoQ4r2FTo094nQ/P3ljALRumP0jfQxtaHLYEZJLuJZ2qAPfBv
+ 7qRrmEgcDAbOj8XaYvnobrb/NxEMjDMygpjXKr/7271oY8s/VRxcHhSKx7NFtbqQrXLL2IeK/OU
+ tz/C57Pw34LuAV1rXiE8vuoZ3+6pq2zKXMSyLB7IOdDZj06z7xiztPL10vLKvL/4SsfSun89vLt
+ oAQ==
+X-Google-Smtp-Source: AGHT+IFH7Hg90LlweLnnOLq0HO0JR4tzWTyeAt9Zt7MPpyA0RDON+RgSb3+P8+rQoDbSr9vz+Nlgpw==
+X-Received: by 2002:a05:6602:3896:b0:85e:1ee9:1c18 with SMTP id
+ ca18e2360f4ac-85e2cb1dda1mr39264939f.9.1742496828643; 
+ Thu, 20 Mar 2025 11:53:48 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.16
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:17 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:48 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,10 +74,9 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 14/59] dyndbg: split _emit_lookup() out of
- dynamic_emit_prefix()
-Date: Thu, 20 Mar 2025 12:51:52 -0600
-Message-ID: <20250320185238.447458-15-jim.cromie@gmail.com>
+Subject: [PATCH v2 39/59] drm-dyndbg: DRM_CLASSMAP_USE in amdgpu driver
+Date: Thu, 20 Mar 2025 12:52:17 -0600
+Message-ID: <20250320185238.447458-40-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -98,106 +97,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Split dynamic_emit_prefix() to separate out _INCL_LOOKUPs:
+Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
+DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
+than re-declaring it redundantly, and error-prone-ly.
 
-1. keep dynamic_emit_prefix() static inline
-   check _INCL_ANY flags before calling 2
+This resolves the appearance of "class:_UNKNOWN_" in the control file
+for the driver's drm_dbg()s.
 
-2. __dynamic_emit_prefix()
-   prints [TID] or <intr> and trailing space if +t flag
-   check _INCL_LOOKUP flags before calling 3
-
-3. __dynamic_emit_lookup()
-   prints ONLY module, function, src, line, and trailing space
-   TID isn't "callsite" specific info.
-   result is "cacheable"
-
-Notes:
-
-2,3 are gated, only called when theyve something to emit, so they just
-add trailing space.  This obsoletes the pos_after_tid var and logic.
-
-__dynamic_emit_lookup() adds line too, so the result is "whole".
-While this would enlarge a naive cache vs add-line-after-caching, we
-dont even have a naive one yet.
-
-And some clever indexing on store() might be able to fold the flags
-setting in, such that the prefix stored with +mf flags only (-l),
-could be returned for all pr_debugs in that function which also had
-+mf flags. While still supporting +mfsl prefixes (with cache
-expansion) as they're used.
+Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 40 +++++++++++++++++++++++++---------------
- 1 file changed, 25 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 663c125006d0..f7ec2365ab40 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -850,19 +850,8 @@ static int remaining(int wrote)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index c0ddbe7d6f0b..e1367f66c4d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -234,17 +234,7 @@ int amdgpu_wbrf = -1;
+ int amdgpu_damage_clips = -1; /* auto */
+ int amdgpu_umsch_mm_fwlog;
  
--static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
-+static int __dynamic_emit_lookup(const struct _ddebug *desc, char *buf, int pos)
- {
--	int pos_after_tid;
--	int pos = 0;
--
--	if (desc->flags & _DPRINTK_FLAGS_INCL_TID) {
--		if (in_interrupt())
--			pos += snprintf(buf + pos, remaining(pos), "<intr> ");
--		else
--			pos += snprintf(buf + pos, remaining(pos), "[%d] ",
--					task_pid_vnr(current));
--	}
--	pos_after_tid = pos;
- 	if (desc->flags & _DPRINTK_FLAGS_INCL_MODNAME)
- 		pos += snprintf(buf + pos, remaining(pos), "%s:",
- 				desc->modname);
-@@ -875,8 +864,29 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
- 	if (desc->flags & _DPRINTK_FLAGS_INCL_LINENO)
- 		pos += snprintf(buf + pos, remaining(pos), "%d:",
- 				desc->lineno);
--	if (pos - pos_after_tid)
--		pos += snprintf(buf + pos, remaining(pos), " ");
-+
-+	/* cuz LOOKUP, we've emitted, so add trailing space if room */
-+	if (remaining(pos))
-+		buf[pos++] = ' ';
-+
-+	return pos;
-+}
-+
-+static char *__dynamic_emit_prefix(struct _ddebug *desc, char *buf)
-+{
-+	int pos = 0;
-+
-+	if (desc->flags & _DPRINTK_FLAGS_INCL_TID) {
-+		if (in_interrupt())
-+			pos += snprintf(buf + pos, remaining(pos), "<intr> ");
-+		else
-+			pos += snprintf(buf + pos, remaining(pos), "[%d] ",
-+					task_pid_vnr(current));
-+	}
-+
-+	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_LOOKUP))
-+		pos += __dynamic_emit_lookup(desc, buf, pos);
-+
- 	if (pos >= PREFIX_SIZE)
- 		buf[PREFIX_SIZE - 1] = '\0';
+-DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++DRM_CLASSMAP_USE(drm_debug_classes);
  
-@@ -885,7 +895,7 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
- 
- static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
- {
--	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_ANY))
-+	if (desc->flags & _DPRINTK_FLAGS_INCL_ANY)
- 		return __dynamic_emit_prefix(desc, buf);
- 	return buf;
- }
+ struct amdgpu_mgpu_info mgpu_info = {
+ 	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
 -- 
 2.49.0
 
