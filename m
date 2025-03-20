@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95154C36000
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E939C36009
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCA3E10E743;
-	Fri, 21 Mar 2025 09:20:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B54C10E745;
+	Fri, 21 Mar 2025 09:20:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mioWcy+w";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cNHVDKIZ";
 	dkim-atps=neutral
-Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
- [209.85.166.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B27510E6A8;
- Thu, 20 Mar 2025 18:53:51 +0000 (UTC)
-Received: by mail-io1-f52.google.com with SMTP id
- ca18e2360f4ac-85ae131983eso125362839f.0; 
- Thu, 20 Mar 2025 11:53:51 -0700 (PDT)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C08610E692;
+ Thu, 20 Mar 2025 18:53:05 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-85ad83ba141so144309239f.2; 
+ Thu, 20 Mar 2025 11:53:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496831; x=1743101631; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496784; x=1743101584; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GOnjwrNgNXmQwo8Xc/3OEw5JLT52e2RrDPlaTkjrhJY=;
- b=mioWcy+wQFGKpipymYUGE5TB6k4kqIv/AAg77kKxLs/4XKgEDew3zuqTXWIA2sTNVM
- bVr0SXm9aujVoB4mXcPN6S1KYt0UX9OKZwvxgRHlnHcUNK8DkR8jCuwB1y9AAeU1pycb
- Mo9Vj5mCKAxOFCDipUmB1AoziyToWphmhDfNulrOTmphqMBu+CVkS5mK8PjMAOUYVRy4
- 1qcS9EIzjzeH81/XoHAXFdrChHVEjZk5SQvtAkSsyTCfF4U2tDIKgxcstDl8NgzkM3y/
- HRqMUVlws3Y9c184H5VJGgJAVkTv6WIZZdwfkDg23HGUqE7TRKfJAKfW8/SgabO9wc57
- PVPA==
+ bh=zri7fWbQ6hYMke6+GekcmDcZwwxzqxWIAq8zKNxMydw=;
+ b=cNHVDKIZQd3H5SRBDWu5OBRLxN8ic3YpWF2isBpmZ2SDLMyYX+aGeK25IdhERZ7tIt
+ vsR5ZjlNJ25nDP9L2pP4WiCHrK35GceFkyTyEMwJsGeQbT09BgWeB7bMc+FgoT170Mg7
+ HvbxviVNgSJdFx3tJ+vmcCzEvcN/2x/Z2ChCZzRNHF4n6qUF78F8Fx5HFDAGTzUnudr7
+ RBb17N2pbeBYU69lEF/rRKk40yBmEFMQQ683OqOSbBveoyKbnkGPHHm6bCpXq+zXYkMx
+ QODGiP1VR0aEef7H34/wdgrrA7r2plCenjGO711TjSfkwO8A3G6pFtkwZew6tmsKTL+0
+ 2KMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496831; x=1743101631;
+ d=1e100.net; s=20230601; t=1742496784; x=1743101584;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GOnjwrNgNXmQwo8Xc/3OEw5JLT52e2RrDPlaTkjrhJY=;
- b=R3acM36SDMhxhsJuJXlzDV0UUfABrGEr2tjgN7hJqMzfzHIlsgRAZAjXA6w3xAj508
- ICd/eJ4a7N2nME9i+GOE30W0qfd2x0rvDrt1N3aFICSkNLmq0MJcUYRuajRz00nLJauX
- ucxJt/ReymFrmWuU40+RX4B7a2bttJT7gL71M+1WZL32HrSJAC1FTwVkp4ahydQ0m39y
- YkczFoBG4YPlWE2oe8/++TG8+pBMDGaoBY32YcQlFoegVc9Syd0MPAm7B4gWQdLWCiAR
- 81UKCm9SOYWgNurTWE0hfjV9DVP7vb7NucF9xwlkDTC1NgwMfBvZA0Ei1DCWAfdUCUrd
- HS4w==
+ bh=zri7fWbQ6hYMke6+GekcmDcZwwxzqxWIAq8zKNxMydw=;
+ b=W6vwNFU8wqJiGTy+Snfu2GYGkB1toCuzaH6kJsb55TuzdfSjEDVJORVfoIHHkMkpTc
+ +v7qoh0lW4HoH1P/IAPJJRo585wcpk2m8wUv8gd+Mwc1CVwNKML8JeUEPeE3X3EOlL51
+ qmB+6o6+ygl9Fq8wmN4jL0LEBtsdEAb8GHER6cgTougzh8Atgzk2GBb4GqOSUSichxfO
+ IlaVwtXR89sQw/HSCfeS8UyfXHBesqyvs/ZZWe7BAyeOJhv8z5uerRVSp3W73144pwH9
+ gjOmrbyvHm4aSHcKBcI6dMFSwi4dWGUjMtAVabusnh+EIyGTgmyFlw3o88HNqxlNIud/
+ R4fw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUA3KXVCE2/L9iOA7vAOIlCFgUFiGv2RvBdeiqWm0CklCVRe5QK8jIKyu3ZK6lwOYGEjor2PggD@lists.freedesktop.org,
- AJvYcCUHUGamU/7LRS24JyECb7w1xcyC8HqSzw2v92ki6o8XmOpaTTmteNbQCOTQAFRoBe7FcsbSWS9UNZDe1dizsg==@lists.freedesktop.org,
- AJvYcCUxCYYFrdHdFSEa0GLBdfNLiHi7GoT5tAHCKGO3O8C28Z+iiIWgWT7Cep6jXbgPaEqha+xCu7p/zaOE@lists.freedesktop.org,
- AJvYcCVnFdhpK2N6qbfrvBvql+FQY9BujUkF/s3BApRSSvjHqv1nU0xsRhvydxY5jguqBLKSrGrq7+JxgkB6@lists.freedesktop.org,
- AJvYcCVzTy3wsL6/CXtpcW9QgzHYaaiPExJN8ZTSls8jxp47v7yObFfRrgTZxCzGfk1jBx/eoEjzQYN2iIZk+fq8JgnJIA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfWYpiuko3x3Q1N9xotoXX8jGdX8ON3Y8szLSECLh8bFmfuG29
- 0s9aj8X9p5Y9QydX24Yw5khMADGdPPat8ILCrbBNCCvXP67N79Nx
-X-Gm-Gg: ASbGncug1d2VAlQhaHUjQQjLbL6R9RJ/TEnJnmNnWrYJtJotwcAqcMxtvdslzLnU76+
- J9bcM+fqgJPTyI/LehlSvG6ZrM1OJjSM2Ntz9QTPTgvgDZxopg0W6KQp+10KhMRgV9RRNZfbuz6
- k2ROA0CK4+30K+sMkLCxoUQS5d6PJN8w4OhOVLZsNtHiN8mdvzlcfFZ9ySjR3Jsv38VEHBN5Mb3
- zCqvEliOd7S0yewWXPLZNaQaEtGHEvASt8nZC029vjZPfbPDBCCzwqwR/C2QZ/fv2OHQH0eAwes
- QD4gvaITerDWVBpaMCi8uMTSpZNlIbORIis/O7RCDjzzoGCKO39dyShw2frfTe4LanJQkj+WRr4
- uQw==
-X-Google-Smtp-Source: AGHT+IEkXfyfgc8DOtUffsyGAP4ytd6cOqEMSx2D4ufj2/8LvypyXJa5qCoVaVVDmcFvkRtysEUacQ==
-X-Received: by 2002:a05:6602:3a01:b0:85b:3d1c:87d7 with SMTP id
- ca18e2360f4ac-85e2ca36477mr39378439f.3.1742496830852; 
- Thu, 20 Mar 2025 11:53:50 -0700 (PDT)
+ AJvYcCUe3JT9EvIpbK3dUZPpqCqnxqj3tITac5mxRGPqMh5BIj1phckDfKNgXfy05KlnS9i1DKiaDTgz@lists.freedesktop.org,
+ AJvYcCUonLom1CnFiMLVVWYeJHasxsSpG0ehzs0ocr6/o+8GzKi6MK5w0KmYzxwLshmiKI0KSv9g5jJI1HXejUgUBA==@lists.freedesktop.org,
+ AJvYcCUts5+XRpq9Aa60vsY27uouFeh6pn6WU+7YtZtmWDPEMNBxLNqfbhnH+Oq+KNtODXekOAFZaTgT/DKw@lists.freedesktop.org,
+ AJvYcCVIAGkLsNaHnGVPDapgwb6vWdjJKLUCBxN0eETtGZO8ARsK3kTXzlUiTdGKzqBkRb6GfR9dZmiXS5zQondwvFx1ew==@lists.freedesktop.org,
+ AJvYcCWlBRwlGqEifXqVIe8fwz1PvDiIqAz6hUka3J6IHjQIW5dg/MOfuqvm/rlL7V5b/4XTkqKwm323k9ev@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxv58UH5z+My1WsP7sNBGrfrtno5Oh1ZNhkzZqJqqEL5LAaMsR4
+ AP0bcsVoLP4Iqh6HH2PPsLr0ih4ucq3va8ePi0N0V74q4fzby0V/
+X-Gm-Gg: ASbGnct3W7oAFujkML1CrHdDUZJ8XiH+6bv7zIOvsPvf8q109aAYKJPnuWuPuamyczT
+ LLLcbeX0H5CwKjTDBZnG2bwHQjgt0ce29aJYgKZy6H6qXmTKHqYJWIs0cI5hCEXNQt5D4tfnIL8
+ qWbfvWyf47utwR8UXbeHHSI+aVpuJzqWDAhUo40EcQPE4/hhii+pHfFLd+7yKJubK1zadb/KgVx
+ 7vNUxrkk8UMrc0IYbqnqM0aVfL4qEtqReUPHR4EGqqplpgTyb0bNoJ42O/idjrBX58VoTsFS5Yg
+ Wa1C1KujNSmB4YMYnualM3qeNtIV/mYpKgBIZ8GZ+QHCrgb71dSk6Mh7TqmtomrZG7KIulZOlot
+ G+Q==
+X-Google-Smtp-Source: AGHT+IH1P/jk1OIslkAUGgFRZQR/oxbnvI28Bj54hNazA+wkeOw9UlyQ7Q8GNNj4dKRg9NNNZoJpTw==
+X-Received: by 2002:a05:6602:3a0e:b0:85b:4362:3403 with SMTP id
+ ca18e2360f4ac-85e2ca8a796mr50382139f.7.1742496784432; 
+ Thu, 20 Mar 2025 11:53:04 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.49
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:50 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,9 +74,9 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 41/59] drm-dyndbg: DRM_CLASSMAP_USE in drm_crtc_helper
-Date: Thu, 20 Mar 2025 12:52:19 -0600
-Message-ID: <20250320185238.447458-42-jim.cromie@gmail.com>
+Subject: [PATCH v2 03/59] test-dyndbg: fixup CLASSMAP usage error
+Date: Thu, 20 Mar 2025 12:51:41 -0600
+Message-ID: <20250320185238.447458-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -97,43 +97,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
+commit 6ea3bf466ac6 ("dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes")
 
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
+A closer look at test_dynamic_debug.ko logging output reveals reveals
+a macro usage error:
 
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+lib/test_dynamic_debug.c:105 [test_dynamic_debug]do_cats =p "LOW msg\n" class:MID
+lib/test_dynamic_debug.c:106 [test_dynamic_debug]do_cats =p "MID msg\n" class:HI
+lib/test_dynamic_debug.c:107 [test_dynamic_debug]do_cats =_ "HI msg\n" class unknown, _id:13
+
+107 says: HI is unknown, and 105,106 have a LOW/MID and MID/HI skew.
+
+DECLARE_DYNDBG_CLASSMAP() _base arg must equal the enum's 1st value,
+in this case it was _base + 1.  This leaves HI class un-selectable.
+
+NB: the macro could better validate its arguments.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Tested-by: Louis Chauvet<louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/drm_crtc_helper.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ lib/test_dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index 0955f1c385dd..1d08d759f238 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -50,17 +50,7 @@
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 77c2a669b6af..396144cf351b 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -75,7 +75,7 @@ DD_SYS_WRAP(disjoint_bits, p);
+ DD_SYS_WRAP(disjoint_bits, T);
  
- #include "drm_crtc_helper_internal.h"
- 
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DRM_CLASSMAP_USE(drm_debug_classes);
- 
- /**
-  * DOC: overview
+ /* symbolic input, independent bits */
+-enum cat_disjoint_names { LOW = 11, MID, HI };
++enum cat_disjoint_names { LOW = 10, MID, HI };
+ DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
+ 			"LOW", "MID", "HI");
+ DD_SYS_WRAP(disjoint_names, p);
 -- 
 2.49.0
 
