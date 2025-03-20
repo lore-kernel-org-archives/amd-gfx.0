@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC83C36008
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA7DC36000
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9384D10E757;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B70B10E74B;
 	Fri, 21 Mar 2025 09:20:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fB2t99iO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dv6XR1OM";
 	dkim-atps=neutral
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC3310E6E0;
- Thu, 20 Mar 2025 18:54:11 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id
- ca18e2360f4ac-85e15dc801aso94097439f.2; 
- Thu, 20 Mar 2025 11:54:11 -0700 (PDT)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
+ [209.85.166.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC8110E688;
+ Thu, 20 Mar 2025 18:53:43 +0000 (UTC)
+Received: by mail-io1-f54.google.com with SMTP id
+ ca18e2360f4ac-85b42db7b69so12871739f.0; 
+ Thu, 20 Mar 2025 11:53:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496850; x=1743101650; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496823; x=1743101623; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/+QMYU6kMnFOETa/gyjW3XwbPIpROUU0JSPdCI4eHHw=;
- b=fB2t99iOcg/gEaCKwgNO22kmcxuHtBFT0BbUstgXz1vB3V+z/F+/2uMrgcdHy5TqSO
- D5Il1z9vpWZvgPiXIFYuQbdhpW+s0LB+/CsqsnuvfhaAN1Rx05jD6UggJ8YfM617WBtx
- fZTVx/NWkvuy/5yuZephtpFAhTewWJ9auudhUFloMpzPmyaCGSJZ/D0lYdn7geQ3WGhd
- AbdrXMQD7ZgbnAx+fFrKhmihlVq6JEZDFwUDUzknFamHFTp2Dci+GySjt31Nd3Ygy2jq
- q5yPYw6qmwsZJvJWRHXlM3HnoZunn0OzmIUmC0b7eFrRK5B6lvQa7x5tXwv0HkikepD2
- LSDw==
+ bh=zAdNrl6o4nlJGGBk/KZ03CeLYIHiGo9zImsUibhTTyU=;
+ b=dv6XR1OMf7BWOHAIIRDVAanUUJecCGzmh5uvTKlD4QJL8fdFfdC3uDXhopVG1MC+tG
+ zzyNy9xRG24vzvV6b2aXAvhbmGHzemvgo4toCNG0tBJpUwYdMNoxmtlu6l3uPKEziVL7
+ PH/CQUEOMB/R1Nl5NRkBR0Orj5FtO8tT89CZ7r4+pyww0d/pqRXEbAYRXUM77LnqzJis
+ SB8XEM+Fc+1RKEYkD3mLBnvWbhzSaJTj/o6MsXnp+Qx3zJ61WwB+lAP2iSDlOi89A5qt
+ Sbw7HU8R8G1NtMk04w0S+sOTufZR4Jjt/McOU+93GM5+WZuU8TP+erJVbP4+hmRA1fAV
+ B81A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496850; x=1743101650;
+ d=1e100.net; s=20230601; t=1742496823; x=1743101623;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/+QMYU6kMnFOETa/gyjW3XwbPIpROUU0JSPdCI4eHHw=;
- b=WiFJQKWzUVjd0hhe4/s/BV9uuQlH6y6gjfbMPq4NQpAdOB7q8aP/slMgXsHvVPKdTp
- cC/BQAY1UvPEiFyD7q1KfIkuMiENkRr8XmIrCTftBb8dNOJll0cIefNmALlpDQGCnXw+
- 48sqN04FjTK01mR8Jt9fP7uWeSVLjXhjY8Q4J6hS2WZ3w6Ny36TDRPNfA4GMZODvbiW6
- YHP0WkxXaKaFSMq2cg66dvuugmxHhm+bGL6bqtLOWMprcAe3yRqJSIi42KS1y7VgY8qy
- BPW60aI0YP1NPsCmrt6dY85ipgRMp4xUo6irimJ4ejsBr0mynaYOj0Mzu8YQmauPw6BL
- 81fQ==
+ bh=zAdNrl6o4nlJGGBk/KZ03CeLYIHiGo9zImsUibhTTyU=;
+ b=OH0NpcHbmwIocdT28OVR3DcCqDb2ryERmpwa5loSalYRtNhdsOA3aiJivLgrgcNJdL
+ kTNyj+3HwSxM+itlikymKVkJxfxZDs5OToc+Lw/IthX2KH3WySeNnC9ZgmJxwjEPZwFg
+ wJEbNrfNR9AgbYlgeRtjV6datCupE7AiIy1uBd3mHyQ5abxw6M4G/m+/kcoSvkaUaN1J
+ RQJDqq7XGRcqsphwrnMbC5EmFjQZ4AH3uXdYoSIg696HQARaXBQ+G2V2IGvlZYrX7CpF
+ l2AQXr/4QLlZ2bpo3M5yEMddA/l6bUtJPgT0ENfe+l/DL+j+tFWRNwrNu0BO+y/wPstx
+ hpcQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUJtnjJuvmRkLGQGNytIXG2U8XelrxFCwoc11W6B9WzT8sSXmwaVkqHqddoKhn34NwzoErD08WVqsk/@lists.freedesktop.org,
- AJvYcCUxbmi1nnAsngo88lqFDhA5yxwah81wvaRBqsSzv+TrcyYfd0AEYacc+lhboB7/KjfdMOcVT67qUzMq@lists.freedesktop.org,
- AJvYcCX/SwdHpKP53f/xdXjyS3f58WcPxGIyfiTS/GmsAh/JHmfRsnPEwgOPuaX8pOn0RaQHsEHA/sho@lists.freedesktop.org,
- AJvYcCXT5+gJg4vqHIAwmMnu2Zp+t3pXUMxqtG+mACwon7oruNw1PWjslSfOouedIBmYid9iT19BbQ1sRMtcmFNXoA==@lists.freedesktop.org,
- AJvYcCXn2UjazX7Wy+7f2h6WCMN1wymAK1iRejg4x8Usm3is4Zi7975PEbC/OJsK7HezWzY316Ir5SQo+RSL+pRccgHOTA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPuh3SubQVY0NJPyZ13xkXkdSfDmTXsb1K1DsrVnxGtKACR/0j
- 2tUFWpZ3SvaDmpjYLsicFU4o9b2FTI+TNGa1VZwGVU6OmNQSwNah
-X-Gm-Gg: ASbGncv6tSdgKGW8lpfmGLuu0EYp+VLjHqo7M8KFltxh4ZXIGpHkGF3Ntmv5KKxJ2l5
- 4RPw8eDJJpz1qObEECBujQR/Cqw7WaE3nFdfl4gf8BvCofxsu7vEzx+mL6Lcd5RQPBaBybGSqPz
- pf86a/dQWRnQfQ2gscV28xz71fMf8f1JPf+J8tJs96AqnkCFmaEsKVfUsqLOjP/BkPPo8X9yDZI
- VrAvDnY2aJEBH5lhScB5rDTpEcNLVESJH2QyK3wdyPd52TWNRRF0xy9SU8G8hG3DjXD9uwxAxqm
- Chjza2rYkNwc0g/GY3G/KXEMrnOBgocJ7FNzsgDISMN10CJ2ZtaaX70gf/Nh76se2D9xaPhE6PX
- KM80grfRs7nH8
-X-Google-Smtp-Source: AGHT+IFM14DB5b0+Yb3xk+iy8bUVQ6+k06Y9+AI7/qq96L95YVo4adquNQGvMAtgqIcPJKOtb0c8DA==
-X-Received: by 2002:a05:6602:408e:b0:85b:4170:e1a1 with SMTP id
- ca18e2360f4ac-85e2cc7c771mr36727539f.13.1742496850400; 
- Thu, 20 Mar 2025 11:54:10 -0700 (PDT)
+ AJvYcCU1lFwi8j5LgvR4RrNL2nIMRFiynPVIEYwu3xUCrCla8Iqdz8id38q+aAJCQNJtGwM4SF5t9+ExHK0A@lists.freedesktop.org,
+ AJvYcCUmMtyeB9GBz8uZZ3j2ZR/TxgnWjdXMENKGEorDWA0UiMjI1YSInyl0UyxeVJ/5Flza2//217ssrZGCvOQlUQ==@lists.freedesktop.org,
+ AJvYcCVDcZbU+qiuZMRa+v55uJpxUbqNvhJlUlb0qA9O1N3NBb6JPZYZgG+3JGXl8BkqAOZ0hq90oFxDu9JdGNW9d3KZ1g==@lists.freedesktop.org,
+ AJvYcCXmFua9ioGtgK7LuQwFTeDnj0gnrmz3wLGGOBYoiWVo7fHGbC7fnWmmI27ZS0O42y2E0vi5T4PV@lists.freedesktop.org,
+ AJvYcCXvsTcXgKJXYdLPkk6oJkxh2xNpMGCOdWijMy4u2GnOVJ2lcSEuUDPvol5zp6QM1TDU1hBZm5cNy1Ug@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3Dw3ggpub0TEQn6Ctj/jG0JRSeGQynJf6MOBaUZEPXOC+XFh0
+ fQ7UlQq+BdgNc2ZvOogyMhJWQPpWXFS4qAlBEsR6PQMQXzmzFoJa
+X-Gm-Gg: ASbGncuFpwLm47EFSU+l6YzvOgiGBh2VYF4BcDlER87wcSq38HWTD+GITJAhQGBklvR
+ Ph6n17eimDWO/0Dayeb51jgoPNY93z5i70TFQ3NidEFZze1MCKREibPeMOYPuDCCy9ZRh3DRXXp
+ ESKNV54BZ3w5rsvghg5n4XYqiPXzXjCwNBZVMq6Kt6yGC565IzehN95YviRPhyjwAb22jrk5KsF
+ 2iD0BrJzY8rjaj5YWF2VhI3bnoqRpP/KnZzrnDZo5yuyS1tsp6qJxNBZn5QyHHJgAnRUgT//OLK
+ JNWanZ8zinK3//l54ONpw6RmcU/SSbQoUlcnwnw8wBpfEWFGDRwNo9kU5oDslFQEi8QWf5BwLge
+ EMQ==
+X-Google-Smtp-Source: AGHT+IEnonEy983P248xMfxfk4/ahHSFdlmfHVC5Vin/zWCCx+HHiKMw3js9r1od9l49MZlN3oIx4Q==
+X-Received: by 2002:a05:6602:2748:b0:85b:476e:ede2 with SMTP id
+ ca18e2360f4ac-85e2cb39bf9mr41321139f.13.1742496822840; 
+ Thu, 20 Mar 2025 11:53:42 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.54.09
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:54:09 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:42 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -73,10 +73,14 @@ To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
 Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 58/59] drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
-Date: Thu, 20 Mar 2025 12:52:36 -0600
-Message-ID: <20250320185238.447458-59-jim.cromie@gmail.com>
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>,
+ Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ Dwaipayan Ray <dwaipayanray1@gmail.com>,
+ Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Subject: [PATCH v2 34/59] checkpatch: dont warn about unused macro arg on
+ empty body
+Date: Thu, 20 Mar 2025 12:52:12 -0600
+Message-ID: <20250320185238.447458-35-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -97,32 +101,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Time for some thorough CI.
+we currently get:
+  WARNING: Argument 'name' is not used in function-like macro
+on:
+  #define DRM_CLASSMAP_USE(name)  /* nothing here */
 
-Also, the previous 18 patches could perhaps be replaced by a single
-invocation of DYNDBG_CLASSMAP_USE, from a C-file linked into all drm
-drivers & helpers.  I didn't find such a file, nor a drm-client
-linkage item in the Makefile.
+Following this advice is wrong here, and shouldn't be fixed by
+ignoring args altogether; the macro should properly fail if invoked
+with 0 or 2+ args.
 
+cc: Andy Whitcroft <apw@canonical.com>
+cc: Joe Perches <joe@perches.com>
+cc: Dwaipayan Ray <dwaipayanray1@gmail.com>
+cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Kconfig | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ scripts/checkpatch.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index fbef3f471bd0..c7d6adbe17eb 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -53,8 +53,7 @@ config DRM_DEBUG_MM
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index 7b28ad331742..0c4f578ea6e7 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -6037,7 +6037,7 @@ sub process {
+ 				}
  
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
--	default n
--	depends on BROKEN
-+	default y
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
+ # check if this is an unused argument
+-				if ($define_stmt !~ /\b$arg\b/) {
++				if ($define_stmt !~ /\b$arg\b/ && $define_stmt) {
+ 					WARN("MACRO_ARG_UNUSED",
+ 					     "Argument '$arg' is not used in function-like macro\n" . "$herectx");
+ 				}
 -- 
 2.49.0
 
