@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB749C28B30
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 16:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5840C36001
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 16:56:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A64910E3AC;
-	Thu, 20 Mar 2025 16:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7621010E3B1;
+	Thu, 20 Mar 2025 16:56:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sjfooZ6+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xSnIesrk";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2078.outbound.protection.outlook.com [40.107.212.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE44E10E3AC
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 16:56:53 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E13AD10E3B1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 16:56:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZPZX0H0R3BSKdTUBuecL/WCgz9f3omwfYKazyzm0umtnBnWE3q8zhcyRbSdHYdQ5fIMvNeNnv+k7X2iva7pkmI0yUaGqz+YBPt6G6P5/K4/vltLWeOQ5XO10cjdUAXRQoDRzwdnSI9pOcjJf5lGh96SDQ3gbBWoFSALO+/bDZ0xD4c7iAUianhbGo04DKlvUkrAG9eq4+H7oHQNOUNTE+Kxqy8SVq2Go9Ll2GLp28HSQkQlYIQFRBzbkt6167f9/pI0pAn0H99SrpM3nF+Vw/0LZ1t1lZsJdxHdzemC6Wwl/ZoWVQT57dWOVsayBTQ+rwI/HjNXEKMzyVtjgpTu/hQ==
+ b=S+A3g/kWwhgT7KV7Kn3QFUv9cF/736pMiKTqkZZbvvNwXcTYochXdNSrB3cKZMRSB8QjZLbpOwbReZTFBr+ZY7VcVxtK2jGKl+gBkZeFmWCbBLC1NFAQYpzkhhJ4pL8MFc6Tmd9FthumLAH7T7aHjgPXh1GudxQTu+qgbWwC8pKJYXVoD6iWCjhaVux6pT2yvPqwA4maanaZ696jy9mQUBJnX5zDBj9QKqZ3NrthnY6TNVoOsEPSUKu6uHXqB5Yct1lqiDfToUUVawPZxa7y3cHMUXEARzUw+geNZoyVUrHw3o0kYDo2ow+7Mpb8nWUL2S7Z3HesVAkyQT2iBKuIsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k22nhLOKp9mZ6GgWUqoUJUAbQ9kKRsKVq08l+H7Y/bA=;
- b=v6d3HTv5rR+tMVlWh1gHCwCtAl2aVXZItxOnDIF3X/nq/Z1hZk8SkunfBj2ESrxIE6UDJ4Ye4AeyjT2hztVdgALJNsqC29Pj9OAh1x8ptlJUY7X2NEmdEafK13L0Fq5prFVznUyByOINGvgcNlHQpT9LZ+ihlw6g+SDschiGUcgLzyiSMT3SLL+p/xZikuBVZ8bx/6s3JVz3igKsrnGinIyweeDIQJwmQD/a9EXW60eCCVwzCxaHPDk7mryQEdlVeGJrai1et+f3z0whK7RBnNV/8L31d/bUbOu4YLTiHDw/SgPW99p3tKyXzmUiD6e86b6CxwzNCZvyX/Jo2NLdww==
+ bh=NQiHgNxqS+hAan/eouTJ64ty4fuwdwXFKvKrUZNPUYw=;
+ b=m2t8aJHkO7oi6v2tWwoImrPRtIWXfGPTdJ+MY8+dx/HtUEMEm0EtBCLfYtMX4C6BNNmuJcxg+juvbEOX0Q6jEWMs9kZuc2FhIE6cm2+Ba8pnLxg7SysWNNtETG/hf3TQObcVNepz2uqA/FIlm0JSLpgs0y/57mLfx8HsvcZ190adFFFx5ToskuYMdLGcFl2YqPjckF7SoMk1vvamGpkCJTHS9afLhcaxC6JWlFojgBqfWuEPz1sFcwk5OK1EoDsMMTBmRK5kn1VwcIpaSg6cj6FPjcxs9aiBNSJFPlPHA8xyPCtkx8fq5TrmoFIht+B8xynaGJMzUVzbnhAL85AKWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k22nhLOKp9mZ6GgWUqoUJUAbQ9kKRsKVq08l+H7Y/bA=;
- b=sjfooZ6+whbuQLvGzUFO/54UbShVhMvq6t1W9XGg3gSBZX1LBXE9NNL53sm2JANaNdCD8FqRBwRRmXKmaakAwdNpJd9CQWEskYJYauIsMXg0SA8Dlp0BiAWznXc5eMMuhtoOCa0+aaiMId7FHMLOu05np4B2ajPjDeAsQ4YN0sQ=
-Received: from MN2PR18CA0010.namprd18.prod.outlook.com (2603:10b6:208:23c::15)
- by PH7PR12MB7330.namprd12.prod.outlook.com (2603:10b6:510:20d::10)
+ bh=NQiHgNxqS+hAan/eouTJ64ty4fuwdwXFKvKrUZNPUYw=;
+ b=xSnIesrkY123wiIp1H397AhBKc/9PJbPKp/JtarFU2/zlx2gdRA1MkAnfid5UOnnqOsbX+eZqjiT5pJSOgwmltGybvDQwmOfJQlEVq7wq+on0m8mkRnBppbpdi1NlGr2AWbeK+iV8//LzEa5SCeHBjYc7zrRPembhiiAjKTarag=
+Received: from MN2PR18CA0008.namprd18.prod.outlook.com (2603:10b6:208:23c::13)
+ by SA1PR12MB7341.namprd12.prod.outlook.com (2603:10b6:806:2ba::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.35; Thu, 20 Mar
- 2025 16:56:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Thu, 20 Mar
+ 2025 16:56:51 +0000
 Received: from BL6PEPF0002256F.namprd02.prod.outlook.com
- (2603:10b6:208:23c:cafe::a6) by MN2PR18CA0010.outlook.office365.com
- (2603:10b6:208:23c::15) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:23c:cafe::1d) by MN2PR18CA0008.outlook.office365.com
+ (2603:10b6:208:23c::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.34 via Frontend Transport; Thu,
- 20 Mar 2025 16:56:48 +0000
+ 20 Mar 2025 16:56:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL6PEPF0002256F.mail.protection.outlook.com (10.167.249.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Thu, 20 Mar 2025 16:56:47 +0000
+ 15.20.8534.20 via Frontend Transport; Thu, 20 Mar 2025 16:56:50 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Mar
- 2025 11:56:47 -0500
+ 2025 11:56:48 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 1/5] drm/amdgpu/gfx9: dump full CP packet header FIFOs
-Date: Thu, 20 Mar 2025 12:56:30 -0400
-Message-ID: <20250320165634.1245798-1-alexander.deucher@amd.com>
+Subject: [PATCH 3/5] drm/amdgpu/gfx10: dump full CP packet header FIFOs
+Date: Thu, 20 Mar 2025 12:56:32 -0400
+Message-ID: <20250320165634.1245798-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250320165634.1245798-1-alexander.deucher@amd.com>
+References: <20250320165634.1245798-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,52 +72,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0002256F:EE_|PH7PR12MB7330:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d251caa-90ed-4e83-8aa8-08dd67d033fe
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256F:EE_|SA1PR12MB7341:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd3919a6-d6b4-42cc-9f94-08dd67d03598
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eGp5Ibq1h7Pp+ywjkXslf3i+TTib6X3Br7CYE6/+Tx/bACWMB/7qfXFJSJco?=
- =?us-ascii?Q?vmGmkyT4FxvJZv6Q3KBq/WQFlfYEGBZUQ3/K+TNDCGW2gfEudX2/WCYVpxp5?=
- =?us-ascii?Q?4/adt1b8S0IkenU3+gpEBOEOZwPFMrMWDeuKYyix7GnnM5itQw5zEtGdOp7K?=
- =?us-ascii?Q?LvxPuA+67iOpv5TkJveMu+8yInBV8Tf8yOALx/Fz6ZIgt7G0I4JTycX/2i0f?=
- =?us-ascii?Q?pvrhJnDBbB+VYzLF3T/QEy0bS0MrUz2RSyX5dOJE64w1Ms4+F59IbiGxzv0n?=
- =?us-ascii?Q?GKBy4nzkV2u6hewYT7dVNV3rC7g2YVLsOP2HMfEX0w9AqkDnWP+VD2nFmgfs?=
- =?us-ascii?Q?OV/oYZAK3YLO13RWqRcWjTPv0sQaIMGrgoxqqTMwjPEik+D39cQdnRtmeUlm?=
- =?us-ascii?Q?jjOBENFLgpy3D6GOzbWMGi1t+EbRs9VdIoFrXEMieQJacM0bzf89fzByKWqf?=
- =?us-ascii?Q?6xR3rt/9noI9A2VWP4LmOmktlWbc47YCCuZqxuEzi+bROq8/p7pvpJdZQ/zV?=
- =?us-ascii?Q?m0nxB+wM8CIQXS7+3Hz6/lNaqlwcoHCK0JkMLTWydOKv4CLJJdF5peUNQZ/t?=
- =?us-ascii?Q?3+zoyNv53bpr7ENKX1yuvmqYvCEL22I01m6pbWK5Bg4Sb+YVJLYuT4Se/OWx?=
- =?us-ascii?Q?MKjAVSWVusNP36gxj4iDGlO0iRaa9Qhh9HYr3/q7/yv2e3nGDvWQpauvm9zS?=
- =?us-ascii?Q?WWRSmWmQ+89G9d2mxSnXyJWyGbRmLKqrwwtE1f9m2X030TyxtvDpVqy8BXge?=
- =?us-ascii?Q?Eh+jKRtDk6A+EWhZx7Y9ylUfOPk+MqQZJxNWeIHT7TVpxMaBvsA3lV0vZMAQ?=
- =?us-ascii?Q?+xMLCnoZg6mClJBxHMMlqhrp3+RdFCpx4mHuw2GhfJQ6jZ4x/AbXSmhWiW8d?=
- =?us-ascii?Q?yBYQXdel7LiVrYVE0vf7MjizHdA6oH8LWU5sqRUvLC/XVXncykLtZoUnjk1l?=
- =?us-ascii?Q?ungvTRZ7llGg++U5bNpF6Tn25oO21r8cl7hGTRiBEI55UWnLiTPhafcT6Ap0?=
- =?us-ascii?Q?LsmhmawDZ9G74pYVPn8iK3ul6+7Kfa6GJ7Nw16qr1kupSV22v9EiT1vPNdfi?=
- =?us-ascii?Q?hQ2X7Xy6P9Ve1dTvfoef9roqMnCl8Hls21oPvPdAl8P2cNnLgANHr0g4OmAG?=
- =?us-ascii?Q?SbzpeN6/vGX6OXAyvflfImAi5I+JJiHweGQ5esI6/oIrbh7y1x7LLdGCmWHa?=
- =?us-ascii?Q?aAuR8XKhsZ3pU5qJLBnRmArppMGmkPe7TTqmYVetDOY76xPuPapZ6NcpdUSu?=
- =?us-ascii?Q?/Cvwyd9nDH9MYbpuXWH2Ce4MoBV0suf1yszSW6SLO0BW/yi5pwJbriNn2yEA?=
- =?us-ascii?Q?cGvn3XeHwhD2piPbBGU+Mmqh6YxjHWak1QlNazk7fgTWAvy18XTfCgWLR7Fw?=
- =?us-ascii?Q?kQtoJWqQsAuT6VNGwL+jSXu2BCoVObxdop6by11PbFkbX3u8OviEXnzSo1/j?=
- =?us-ascii?Q?h2rsMS6AL++teryKbdPTDe0QJm1+yt7EX7+JWEl+NMAfcOQwYWVg0gT3/r+9?=
- =?us-ascii?Q?lNuBVBPmpczIOME=3D?=
+ ARA:13230040|82310400026|36860700013|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jvgM0jFO+3CiZ462/o/wPayf881LljmVl+Xc0PLIMfOy0UGXyjQiHyv4kdbi?=
+ =?us-ascii?Q?7J++nfDOCLAEtTrEy6AMExxZcXFxu1y9EIGpjcajuJmSLvwix04Y6Ux5SPmB?=
+ =?us-ascii?Q?M35LmjxX84foR0QW8LXn9/3F3JU5H3GiLezImNUNezk0TGyU+8J98Uc+zLC7?=
+ =?us-ascii?Q?UU5878FbZiBKxc+CBOuGMQKcgbzbUTLYdCWEZXkdXyoEHLd/DIBe82s91G+Z?=
+ =?us-ascii?Q?9tbG/tIYJ2FD5+A5kO8w2Cqu6i1hOc/CTu71zpE4DRaUnTfNq5GNBKwoaoDg?=
+ =?us-ascii?Q?XjMQOS6Kqj/NH5V4h3cc3C6kcwq8NJ8FnwMbmpunISb1qmegPa26OZfx4kAw?=
+ =?us-ascii?Q?vwYVNxfCK6DTKilmhH0EbHWlm8ouUsXjMxzI7e7zUOrOd/LJw9eSEgYmKOTT?=
+ =?us-ascii?Q?xy0W74z82b2x1BzeeOniJOJhyIyFWRIa+rcgnjFZC4zzTbg7lgFoyRMbgves?=
+ =?us-ascii?Q?r8p1X2Sev5hQeMsxkPbdLT7Ipk17NMPcJYlQE52nhFZU0aXV7Od45N3IYQHt?=
+ =?us-ascii?Q?UpOgN09nMHnFBkcK3KVg3MtD7d4QSvGfPIbFKTEcIM+FB7LQlF93WWeHettF?=
+ =?us-ascii?Q?8tpkFNyv0uIlcZH8XT0+y8FFWYkfoesxnkTKNmPcOJyu2ceSBQdKYQx0v80P?=
+ =?us-ascii?Q?Q5EHzlKVJvVnK1PChBkCITDnM4DIjG/n2F0Zvedht0rqN+HAqrzJi+dNFs93?=
+ =?us-ascii?Q?wPoS3Gld9mQ+FPu7asqoIMnomUqYVXI0vgek1GfeaE+8sKjbDFHqBnRX2Yum?=
+ =?us-ascii?Q?1YQ0Z7kvTrczJnDnVrNQZcLcMCY6DJvNTQyMf28zrM5ucug2M1oRTtTYtwRM?=
+ =?us-ascii?Q?ef9ouKGvJFoVg+4m2CRA+4WDHcBAmx5PPOWtVMllIS11Xi2kt0fzQjmYIZZB?=
+ =?us-ascii?Q?phBMdGlh3HLP9M1FEPhz9WueI0j0qV24kNZ165aKeOiNl/o/fLX1FVcKBYwq?=
+ =?us-ascii?Q?4FB8fP9EW/ZNv6XOg7UhckL+AkjCSS1FvHBFa/y+IDsIcqyeO1KbtGwdZjJw?=
+ =?us-ascii?Q?ptcxfPIACBEXySiHG1uoL+J3lIH80lTuCXdLWGOSuXs4wpXd7x9x8s5xt5mc?=
+ =?us-ascii?Q?JH0j+qBTpUvnKqjPprjCiP1P+XreZNHROSjrUFNRLIMs2rVCmOG/Pa2UiK0x?=
+ =?us-ascii?Q?dPEcxFkdzq3DMw3hIWNlgTlhYKWJwuo6xmc1INDYXxG3Na7nc5rSTtDzukdQ?=
+ =?us-ascii?Q?ExDth17heg/aTl/sRJU30a75w/iB5TCfKy8gFqsUjregbG/ztFvb+HVMWlH9?=
+ =?us-ascii?Q?KzV/57XNwYD9XiSz1BMnRBFOQnTVLa8v1nI2BzgTeq91b7YICgUh/yzTbx3B?=
+ =?us-ascii?Q?3A3GEYp3DBJyP6Me4hH+4D0aJdBg+OrL2bcLe/bnDgh9vgIfX/8S4xrYF36A?=
+ =?us-ascii?Q?DJFORsZRs1KRqHNMoaAKaLul4OTWy7Zah46fnV7/l6kTsMaL77PlSlwenaqf?=
+ =?us-ascii?Q?1lJhX/fu8V9naSPGcXriNcl0ldQM8KzgdphFl7QtzPn5BQNJl/We9isq2DhG?=
+ =?us-ascii?Q?yUsTNKIByUpD4y4=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2025 16:56:47.9187 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d251caa-90ed-4e83-8aa8-08dd67d033fe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2025 16:56:50.6062 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd3919a6-d6b4-42cc-9f94-08dd67d03598
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7330
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7341
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,104 +137,109 @@ each queue. Each FIFO has 8 entries.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 62 +++++++++++++++++++++------
- 1 file changed, 49 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 64 ++++++++++++++++++++------
+ 1 file changed, 51 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index f4dfa1418b740..64342160ff7d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -225,17 +225,36 @@ static const struct amdgpu_hwip_reg_entry gc_reg_list_9[] = {
- 	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_SAFE_MODE),
- 	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_INT_STAT),
- 	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_GENERAL_6),
--	/* cp header registers */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 2275cdfb38cd1..0a817403ceaa2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -368,11 +368,6 @@ static const struct amdgpu_hwip_reg_entry gc_reg_list_10_1[] = {
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_ADDR),
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_LX6_CORE_PDEBUG_INST),
+ 	/* cp header registers */
 -	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
 -	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
 -	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME2_HEADER_DUMP),
 -	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
 -	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_HEADER_DUMP),
  	/* SE status registers */
  	SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE0),
- 	SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE1),
- 	SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE2),
--	SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE3)
-+	SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE3),
-+	/* packet headers */
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP)
+@@ -421,7 +416,16 @@ static const struct amdgpu_hwip_reg_entry gc_cp_reg_list_10[] = {
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_SUSPEND_CNTL_STACK_OFFSET),
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_SUSPEND_CNTL_STACK_DW_CNT),
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_SUSPEND_WG_STATE_OFFSET),
+-	SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_DEQUEUE_STATUS)
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_DEQUEUE_STATUS),
++	/* cp header registers */
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
  };
  
- static const struct amdgpu_hwip_reg_entry gc_cp_reg_list_9[] = {
-@@ -277,6 +296,14 @@ static const struct amdgpu_hwip_reg_entry gc_cp_reg_list_9[] = {
- 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_LO),
- 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_HI),
- 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_GFX_STATUS),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP),
-+	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_ME1_HEADER_DUMP)
+ static const struct amdgpu_hwip_reg_entry gc_gfx_queue_reg_list_10[] = {
+@@ -448,7 +452,32 @@ static const struct amdgpu_hwip_reg_entry gc_gfx_queue_reg_list_10[] = {
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_GFX_MQD_BASE_ADDR),
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_GFX_MQD_BASE_ADDR_HI),
+ 	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_WPTR_POLL_ADDR_LO),
+-	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_WPTR_POLL_ADDR_HI)
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_WPTR_POLL_ADDR_HI),
++	/* gfx header registers */
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
++	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_HEADER_DUMP),
  };
  
- enum ta_ras_gfx_subblock {
-@@ -7340,9 +7367,14 @@ static void gfx_v9_ip_print(struct amdgpu_ip_block *ip_block, struct drm_printer
+ static const struct soc15_reg_golden golden_settings_gc_10_1[] = {
+@@ -9714,9 +9743,14 @@ static void gfx_v10_ip_print(struct amdgpu_ip_block *ip_block, struct drm_printe
  			for (k = 0; k < adev->gfx.mec.num_queue_per_pipe; k++) {
  				drm_printf(p, "\nmec %d, pipe %d, queue %d\n", i, j, k);
  				for (reg = 0; reg < reg_count; reg++) {
 -					drm_printf(p, "%-50s \t 0x%08x\n",
--						   gc_cp_reg_list_9[reg].reg_name,
+-						   gc_cp_reg_list_10[reg].reg_name,
 -						   adev->gfx.ip_dump_compute_queues[index + reg]);
-+					if (i && gc_cp_reg_list_9[reg].reg_offset == mmCP_MEC_ME1_HEADER_DUMP)
++					if (i && gc_cp_reg_list_10[reg].reg_offset == mmCP_MEC_ME1_HEADER_DUMP)
 +						drm_printf(p, "%-50s \t 0x%08x\n",
 +							   "mmCP_MEC_ME2_HEADER_DUMP",
 +							   adev->gfx.ip_dump_compute_queues[index + reg]);
 +					else
 +						drm_printf(p, "%-50s \t 0x%08x\n",
-+							   gc_cp_reg_list_9[reg].reg_name,
++							   gc_cp_reg_list_10[reg].reg_name,
 +							   adev->gfx.ip_dump_compute_queues[index + reg]);
  				}
  				index += reg_count;
  			}
-@@ -7379,9 +7411,13 @@ static void gfx_v9_ip_dump(struct amdgpu_ip_block *ip_block)
- 				soc15_grbm_select(adev, 1 + i, j, k, 0, 0);
+@@ -9777,9 +9811,13 @@ static void gfx_v10_ip_dump(struct amdgpu_ip_block *ip_block)
+ 				nv_grbm_select(adev, adev->gfx.me.num_me + i, j, k, 0);
  
  				for (reg = 0; reg < reg_count; reg++) {
 -					adev->gfx.ip_dump_compute_queues[index + reg] =
 -						RREG32(SOC15_REG_ENTRY_OFFSET(
--							gc_cp_reg_list_9[reg]));
-+					if (i && gc_cp_reg_list_9[reg].reg_offset == mmCP_MEC_ME1_HEADER_DUMP)
+-							gc_cp_reg_list_10[reg]));
++					if (i && gc_cp_reg_list_10[reg].reg_offset == mmCP_MEC_ME1_HEADER_DUMP)
 +						adev->gfx.ip_dump_compute_queues[index + reg] =
 +							RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_MEC_ME2_HEADER_DUMP));
 +					else
 +						adev->gfx.ip_dump_compute_queues[index + reg] =
 +							RREG32(SOC15_REG_ENTRY_OFFSET(
-+								       gc_cp_reg_list_9[reg]));
++								       gc_cp_reg_list_10[reg]));
  				}
  				index += reg_count;
  			}
