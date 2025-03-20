@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9000C36007
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14543C36009
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A77210E71D;
-	Fri, 21 Mar 2025 09:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D06C10E720;
+	Fri, 21 Mar 2025 09:20:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NktylMKP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dioI6pKF";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F88110E6D9;
- Thu, 20 Mar 2025 18:54:12 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-85e15dc8035so24817539f.0; 
- Thu, 20 Mar 2025 11:54:12 -0700 (PDT)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38D8F10E6A2;
+ Thu, 20 Mar 2025 18:53:10 +0000 (UTC)
+Received: by mail-io1-f47.google.com with SMTP id
+ ca18e2360f4ac-85e1b1f08a5so33924439f.2; 
+ Thu, 20 Mar 2025 11:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496851; x=1743101651; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496789; x=1743101589; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dmamZMwYgFpi0j7+3VuOLzPrfkXXmhZ2avEG64/SS20=;
- b=NktylMKPZ+OSh6I1NaHwBaKwrVoH2nwx7GIZL7dHRlsGUKGvIHStAkJu74cre7Qy01
- rzQHWYcTpYOf7qe1ZGMZauBF7GXM42zWQ9xEJtqxSgKks9FqoVrirkiloaajeOaJDm87
- yFv5GJT/1KFr0xHXdqMBYs++M28XRu3jl0lY3j9A/23yjgI1FndJoaabm2J40PgwAjfW
- nJvYikUVsbwRO6Ggeo/oBqMmh3KBTML3Sg0C/Z1gTDLv43nc05lipgG7ul+DjN/oIP+q
- SkTtL/L5qBYncVtpRXVIvDwjiTfM8qDIvk7YW8/jRJRgNI2PmCRKg1nb+rgDw5IS6syr
- bPkQ==
+ bh=0gFevukveSt7PbWkbUevQGA0uvSXu+LT7vaKBaZctmY=;
+ b=dioI6pKF3ytNAjvQtFUqAVJcp82MFVLutTR8lMwT3pmcczpd5M+IDhrMjS3o+Fduru
+ maop7CVyRuZRkghc6NszMYiHAeyKVzRSn8R3YRdkZzYzZ85h04MRPoOdWNUO3jDRUgGX
+ 26Kox6h3/53SFZ48RR71is2UN1QqcMYzGfHbY1+IKVFFYwty1qPnYzkAwjLIqr2Qs9LI
+ mTKrjZUNE+UOsh6a1Layr2qUYoLBk9K3/g3y2hLdEMoW9vR/ELrLeAFB/mMLsGIZw4rx
+ Shx3b8kz1fbXD/jXnhpdodhTdYSBHvL7avpim+EUOUkFZd8bSSsR1YSAtxVMtHC38zyY
+ Cq9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496851; x=1743101651;
+ d=1e100.net; s=20230601; t=1742496789; x=1743101589;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dmamZMwYgFpi0j7+3VuOLzPrfkXXmhZ2avEG64/SS20=;
- b=pMVv2upwBQRLp4GDb6OuYhYz/u4/7FhSIswjTkogX9k3CqhG6r4EjM+5Xz41ID5++w
- dqI/+jVq8Aru2A+/t0sHDT4UFgaTnC0a9FJ/EJPHQoLaOrPVTwXwDklVelZghFLMFLLy
- t8jWU9LIfjhGnzFaCVSr/GdbUHDJOazaVe82zcnQgmmOwqtdwiZgJCyL4ZZm94lL0odc
- j64EIYO17enXt6sPRq6m79SMd1Y2YLMklZb0O7RTxxBcr7m3iaNNqkudDPZWPW1+ZB30
- q99g5+C4LhJLL17rbpX3psJaI5NGekg7Rlgk4p8vkQRo8wycgoK4NOo0itiiNqhGmTOY
- WZ1Q==
+ bh=0gFevukveSt7PbWkbUevQGA0uvSXu+LT7vaKBaZctmY=;
+ b=Fe1y3yxlNiHobMbX1XyICjqfr+nyXOwBkXWx3gpSOPYuaarYY6Z+McR167+8BquXV0
+ 8aeSo9ACBchirlLMySeqH2yitg/Oe4E4XYXN/tI8eaT3tpZkD/M8JkksxVtwcGSfs5gu
+ BBtvHZRP4uc7oLhdQm1XRvOCY0EQn910yoAXSRZeEZHv/S6KIijUTqsufELrtBZIxcUO
+ WNbmgfxj7s90u0FxS0eoEnSsXNn19v57LWK5w5DXNfG+Ey8ta6e0GuUYBDRWr6bIBoay
+ d5wGezDHCTQSf5c5Muq2EGXKNjt1K4jxEaa9gadzpPSto21/+N3Z2vwzB7ObflbWYd5T
+ PWBA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdK4PVEWC+U4jlQciy2pNuzH4LdNpaQRuY5XOguDmfyzIsJ8idid1U+kGMRH05wrVpzzaevHz+@lists.freedesktop.org,
- AJvYcCVwNacdtzT2yCdfSEBp/Ge+oM5vtmTJY6lAl4U+7Oiwt9aaukxP0n8k3iTh+hX6xZGQpZSgyYduy+A1yn4I/g==@lists.freedesktop.org,
- AJvYcCWG8fu+S7Fz+i9+V2XeEC4lbSvh6SOt/YSpWZURRdT7NelNNZRsQVRUIV+R6wmuda1uO9LMUEdOuEgY@lists.freedesktop.org,
- AJvYcCX20xZfXU9NhwUDXdQb4Bg6u59q/JAiyLw4FLUtn+NnyFekFOSGfEUwaaJAQDhEo0c6DWJBt48fmWtW@lists.freedesktop.org,
- AJvYcCXU/PKcpwCupfPjifcbEI3qZdU4IcL7ozY03YMXrRq7GUeQrSMbFm2NRmWhHh0ncWgU982VMR2fPepJyMsYI8jfiw==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwObBnECZHpw3BIUPmlRCHfCGfA7/fR7Cvzln3lnDIidcJ1fN1
- g1bz/TRhtDuZeT8LaQVaJxdE5p5st8lgzKpM3o1K0rJwOqzecMLx
-X-Gm-Gg: ASbGncuY0FjBqFUYn5t3xDPbYQTMFkz9kkIdt4a2kKt4tYw0WKf5lTpkdszZcX9Rg1z
- INziCtcPniVXfCZqybYnIZk0KWzyzKReTsw98/8ySmyBou0jlIHYvlInC1RAhHjD/SiAk89VpXu
- w1NA7cIUKuwQpTHTiF/IwCY6xu9Pw8RqivohfYOpmnX6yOjGU5WVLU2vU8OLus30a8C7tLv7/63
- nSaJVmyrJQUr3u/JaOT5YiUuYzPLZiGtL7l8JIwZ/xGSD++NZMZeylpgvOMDQtqE0iooHXHUH4y
- ryOWc3VSbLLDm+d9WeFTSU+DdMyMXd0mSOMnR7IgxPoDJyCYgPLXImJMzxqFATa5TpAPkioXjp9
- Jjw==
-X-Google-Smtp-Source: AGHT+IEyrbzWzNkR3QwCwlCn6oXouTTauTHLnXeGSIezaRONhT+4uCAGUm+vEaKPMsebN3xP2W4/iw==
-X-Received: by 2002:a05:6602:380a:b0:85b:4185:1f91 with SMTP id
- ca18e2360f4ac-85e2c8f7201mr53612539f.0.1742496851514; 
- Thu, 20 Mar 2025 11:54:11 -0700 (PDT)
+ AJvYcCVfIDkNbKU/FNHYNL2OjY9YIo734SrhkoJIFQBY/io5F//vxsnG5dRMrHKKrhANdZQ2blY27nAaCgSL+oI6O4ZmIQ==@lists.freedesktop.org,
+ AJvYcCWM+ojWVVvPqLU8+JXqhWn9tZSVtgXoozbl75zw2hXd832WUibmJ95poFPpWgjJBygPlHF7c2fw@lists.freedesktop.org,
+ AJvYcCXTSMyPnZe/KF0dnD1hlpXnGxqg9y3NIeFmWziqxHQdXr3PEpcrmlJ2SpZ2EQzQsgtjmmo8zHYYBKVV@lists.freedesktop.org,
+ AJvYcCXeZKuj34BnKOFOmfL26OEmYtokyIRbtmykVwvI1TWJ9PdGKcK5ROoL29XCuyfNL2Z/V4xu1cwFPZdFIpnaBg==@lists.freedesktop.org,
+ AJvYcCXwH56X0iSg7zgPgo0wM+JR9xPXsGznxsjmCmploe1+89XNTSCyzXrQIFyYwWkQzE0QxVybKbZV5z3I@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMkxgBy4JAsXxcAYZp34xLRfZNhrMQYiIwBQv/G9uttbSnvbsr
+ UuMs1oTgEqUt+Ja63ae02wlr/opFcs8At/WaQzPNiU+rAqkin9E4
+X-Gm-Gg: ASbGncsd1EFh1GIj/Z/iDxG6aiQ5h+C7PohJACMv7cdVA/sIiuJw8IoCN/uvG3pD+QF
+ XNtcDDcAC+/Pb2tH6mCvP6iI82+hGAL/TCxyH9hOXNV+tpdajflWMUaQyIiahn384YPf/+rPwDj
+ 4hH+jNLsOdayK1VAlJgzIBEXeeYe3K6UiKDIXD9y64CPjrqNV8PP9XCp1J6j9T46LO2gRylWcnK
+ A+tWFWGph4JmpgeN4z8oKB21aD2VGyBFZ/McTwekxmCnBF9jaZELdeEa/CcSlB1sTCTb4tmtJot
+ D9gOi8uoQiU8skbwXo6a3qlAsuttHyoLYRphYscBquJWe205jO0ZkHnnouTY6sTdE2znc4GaRkn
+ qeA==
+X-Google-Smtp-Source: AGHT+IEl5TzbnKxAjaqmsC8k+Jv8OPkwqppFAxXArvgR0WfDE036J6MPxh1ZsMPTCMeE31lygTHh/Q==
+X-Received: by 2002:a05:6602:3787:b0:85e:180d:7c97 with SMTP id
+ ca18e2360f4ac-85e2c8f0cb8mr51954339f.0.1742496789264; 
+ Thu, 20 Mar 2025 11:53:09 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.54.10
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:54:11 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:08 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,10 +74,9 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 59/59] drm: RFC - make drm_dyndbg_user.o for drm-*_helpers,
- drivers
-Date: Thu, 20 Mar 2025 12:52:37 -0600
-Message-ID: <20250320185238.447458-60-jim.cromie@gmail.com>
+Subject: [PATCH v2 07/59] dyndbg: reduce verbose/debug clutter
+Date: Thu, 20 Mar 2025 12:51:45 -0600
+Message-ID: <20250320185238.447458-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -98,122 +97,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add new drm_dyndbg_user.c with a single call to
-DYNDBG_CLASSMAP_USE(drm_debug_classes).  This creates a _class_user
-record (and a linkage dependency).
+currently, for verbose=3, these are logged (blank lines for clarity):
 
-If a driver adds this object to its Makefile target, it gets the
-record, which authorizes dyndbg to enable the module's class'd
-pr_debugs, such as DRMs <category>_dbg() macros.
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
 
-So Id like to automatically inject this object into drivers.  I tried
-subdir-objs-y, but thats not a thing.
+ dyndbg: op='+'
+ dyndbg: flags=0x1
+ dyndbg: *flagsp=0x1 *maskp=0xffffffff
 
-In drm/Makefile:
+ dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: no matches for query
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
 
-Add object dependency to drm_*_helper-y targets:
+That is excessive, so this patch:
+ - shrinks 3 lines of 2nd stanza to single line
+ - drops 1st 2 lines of 3rd stanza
+   3rd line is like 1st, with result, not procedure.
+   2nd line is just status, retold in 4th, with more info.
 
-  $targ-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += drm_dyndbg_user.o
+New output:
 
-Attempt a foreach:
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+ dyndbg: op='+' flags=0x1 *flagsp=0x1 *maskp=0xffffffff
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
 
-  to add $driver-y += ../drm_dyndbg_user.o
+Also reduce verbose=3 messages in ddebug_add_module
 
-this appears to be a train-wreck for impl reasons, but it describes a
-want/need reasonably well.  It might not be a good maintainble idea.
+When modprobing a module, dyndbg currently logs/says "add-module", and
+then "skipping" if the module has no prdbgs.  Instead just check 1st
+and return quietly.
 
-Explicitly adding to radeon/Makefile worked:
-
-  $radeon-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += ../drm_dyndbg_user.o
-
-But doing this is just as per-module as just adding the _USE()
-explicitly to the main .c file, which is less magical than make-fu.
-
-Also, it appears to cause make && make rebuilds.
-
-and try to link it to helpers and everything
+no functional change
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/Makefile          |  9 +++++++++
- drivers/gpu/drm/drm_dyndbg_user.c | 11 +++++++++++
- 2 files changed, 20 insertions(+)
- create mode 100644 drivers/gpu/drm/drm_dyndbg_user.c
+-v2 squash several verbose cleanups together
+---
+ lib/dynamic_debug.c | 21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 704f94efc804..1adb5a262180 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -74,10 +74,12 @@ drm-y := \
- 	drm_vblank_work.o \
- 	drm_vma_manager.o \
- 	drm_writeback.o
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 55df35df093b..c609ff873224 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -264,9 +264,6 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	}
+ 	mutex_unlock(&ddebug_lock);
+ 
+-	if (!nfound && verbose)
+-		pr_info("no matches for query\n");
+-
+ 	return nfound;
+ }
+ 
+@@ -499,7 +496,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
+ 		return -EINVAL;
+ 	}
+-	v3pr_info("op='%c'\n", op);
+ 
+ 	for (; *str ; ++str) {
+ 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
+@@ -513,7 +509,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 			return -EINVAL;
+ 		}
+ 	}
+-	v3pr_info("flags=0x%x\n", modifiers->flags);
+ 
+ 	/* calculate final flags, mask based upon op */
+ 	switch (op) {
+@@ -529,7 +524,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		modifiers->flags = 0;
+ 		break;
+ 	}
+-	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
++	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
+ 
+ 	return 0;
+ }
+@@ -539,7 +534,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+ #define MAXWORDS 9
+-	int nwords, nfound;
++	int nwords;
+ 	char *words[MAXWORDS];
+ 
+ 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
+@@ -557,10 +552,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 		return -EINVAL;
+ 	}
+ 	/* actually go and implement the change */
+-	nfound = ddebug_change(&query, &modifiers);
+-	vpr_info_dq(&query, nfound ? "applied" : "no-match");
+-
+-	return nfound;
++	return ddebug_change(&query, &modifiers);
+ }
+ 
+ /* handle multiple queries in query string, continue on error, return
+@@ -1234,11 +1226,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
+ 
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
 +
- drm-$(CONFIG_DRM_CLIENT) += \
- 	drm_client.o \
- 	drm_client_event.o \
- 	drm_client_modeset.o
-+
- drm-$(CONFIG_DRM_LIB_RANDOM) += lib/drm_random.o
- drm-$(CONFIG_COMPAT) += drm_ioc32.o
- drm-$(CONFIG_DRM_PANEL) += drm_panel.o
-@@ -111,20 +113,25 @@ obj-$(CONFIG_DRM_BUDDY) += drm_buddy.o
- drm_dma_helper-y := drm_gem_dma_helper.o
- drm_dma_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fbdev_dma.o
- drm_dma_helper-$(CONFIG_DRM_KMS_HELPER) += drm_fb_dma_helper.o
-+drm_dma_helper-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += drm_dyndbg_user.o
- obj-$(CONFIG_DRM_GEM_DMA_HELPER) += drm_dma_helper.o
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
  
- drm_shmem_helper-y := drm_gem_shmem_helper.o
- drm_shmem_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fbdev_shmem.o
-+drm_shmem_helper-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += drm_dyndbg_user.o
- obj-$(CONFIG_DRM_GEM_SHMEM_HELPER) += drm_shmem_helper.o
- 
- drm_suballoc_helper-y := drm_suballoc.o
-+drm_suballoc_helper-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += drm_dyndbg_user.o
- obj-$(CONFIG_DRM_SUBALLOC_HELPER) += drm_suballoc_helper.o
- 
- drm_vram_helper-y := drm_gem_vram_helper.o
-+drm_vram_helper-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += drm_dyndbg_user.o
- obj-$(CONFIG_DRM_VRAM_HELPER) += drm_vram_helper.o
- 
- drm_ttm_helper-y := drm_gem_ttm_helper.o
- drm_ttm_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fbdev_ttm.o
-+drm_ttm_helper-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += drm_dyndbg_user.o
- obj-$(CONFIG_DRM_TTM_HELPER) += drm_ttm_helper.o
- 
- #
-@@ -149,11 +156,13 @@ drm_kms_helper-y := \
- 	drm_simple_kms_helper.o
- drm_kms_helper-$(CONFIG_DRM_PANEL_BRIDGE) += bridge/panel.o
- drm_kms_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fb_helper.o
-+drm_kms_helper-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += drm_dyndbg_user.o
- obj-$(CONFIG_DRM_KMS_HELPER) += drm_kms_helper.o
- 
- #
- # Drivers and the rest
- #
-+subdir-obj-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += drm_dyndbg_user.o
- 
- obj-y			+= tests/
- 
-diff --git a/drivers/gpu/drm/drm_dyndbg_user.c b/drivers/gpu/drm/drm_dyndbg_user.c
-new file mode 100644
-index 000000000000..9e4aa87d4b58
---- /dev/null
-+++ b/drivers/gpu/drm/drm_dyndbg_user.c
-@@ -0,0 +1,11 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include "drm/drm_print.h"
-+/*
-+ * if DRM_USE_DYNAMIC_DEBBUG:
-+ *    DYNDBG_CLASSMAP_USE(drm_debug_classes);
-+ *
-+ * dyndbg classmaps are opt-in, so modules which call drm:_*_dbg must
-+ * link this to authorize dyndbg to change the static-keys underneath.
-+ */
-+DRM_CLASSMAP_USE(drm_debug_classes);
+ 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
+ 	if (dt == NULL) {
 -- 
 2.49.0
 
