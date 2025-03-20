@@ -4,146 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E7FEC28B30
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 08:05:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AA10C36000
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 08:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D30010E067;
-	Thu, 20 Mar 2025 08:05:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0E910E0BF;
+	Thu, 20 Mar 2025 08:29:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mK/qZByv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IP8+Gnpc";
 	dkim-atps=neutral
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2067.outbound.protection.outlook.com [40.107.236.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF7DC10E067
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 08:05:02 +0000 (UTC)
+ (mail-bn8nam11on2064.outbound.protection.outlook.com [40.107.236.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7627210E2CD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 08:29:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uYnnHIwhF/QOxXxC2r95XOfFMOcw+76oaKuu6pFcdofeNHjrpBXZMQ5dJZdvWiYs40B1CAFGsNX0b3r8khqjK5ak19uojmQfW2y9KHHgeiCxBBuT/kogaJhimSdkVwT0T1/wE6660fonCo9OWSXCE41K1AqgIw6E1hfxQEh/ygmQFE2/atUQUNNBsyfhH8242Up5DQNWnNWisSp7Xcero4g133KbzbbkoQwYcjmoQiDtH+ip/cmiTSQtHXl8RV0Cs0cRECUvu7WqbDPa+saeGYWHKk4FzoGd8dTZJRurrA550cq8eQ+l7TJnfZ8WHmQ/HkYzS5YYxjUufspUCefOVA==
+ b=isfbpaY5dRI83DWSVHhVNnYi94xZ633VLmHSY41+c2KpZoN9P1WpTenE9F6EJwkaL0UXbevyhdXjMqVRjmHJZFZ6/IVPZEzGqj8vSs9dAsMzjSXyl0TvMiiGckzpsJeFlKYGDD3Eefco1S7e5j8/0G73JuIY3ySvDwz8E6STGeSYI1WXhR8TUjJqHkbtcGJr+byeaY/MrMhTUh+HEnxG4/tn4YuHLr9y73DVWdd5iy8jmD1S/qZn6yGf9YX5dDSWhyrXV/t+a9tdYBx4U0gQ8WedkYiWnUiPq2Z3+j+5gJcXA7X/32f2kDDXg3ZICaKsolkDqbaXQpiZI6+YULGdqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uOQ+jB2OQ8umAeD/gz8+p9N6t6RzUjtrId/6iLJ8b7M=;
- b=BnpAVRtkvRSW0X4oZD0V0BslEkLZ+pUry4Y3ANP+w6Tz5P2cSoiy7/SLZ8YM+SUJWFdq1Vj4085yAgQg4LyufgJIpv0fx/lHnLHT9N9rZVAJLu4DsHvEh5rS00WFqh67zkCzVjwnnxDdHnQ1bQAsUBdsA8lgtQYVE4CRvF8o0DngfTA1xn402rFOxLrfUEc0p3fS5MrzFCFHCXkZiNvOvJ0tRZAEjY2NFJCX6XIMHIrfX+qYT3TkttvxUbjcqcw2eoh0U50FiAa1TkdupjZGr2elLbwz8rb4xSVVTh+66tQ8A9+/LR03GaZYwcp6J6v0kGJEC5BCtLX3429dVjbaAQ==
+ bh=9JaZXwcJca38O9fNfJ/w7eoolym4P5qEQdsuBcQtQPY=;
+ b=iB0VZkL7Aifs9HElq09mz5JK+jHstfYuaUNfOWTjIYGBOi+uZJnG0x0hAjZvPzfqfsRu6utUdPX+A/j1S2MrCTbkJc2ztzwBakk3FRlDbvQJ/a4Y5FPkgulk5CmNlLcNQcejdkB2TnWgWxFapXCQcMh4xdZWzMC4cPEJ3bjpTODVaBwOPtdCcMSg/emyhthThsh8uRtrXEYAqgHQrH7xXRMW44eVwtsu/OfqtmCrmQ/hB/2blY2oE0UuZam7grLMlfs9wh2sFYl2+Dv+aaD/v98R1T246pTgoLOmrm0LxDvuMKJQMU/n7XnzgQg1RhUu41M4r8bK7hU1TohlCCsTAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uOQ+jB2OQ8umAeD/gz8+p9N6t6RzUjtrId/6iLJ8b7M=;
- b=mK/qZByvJQyqhU+tx6aamp7qV6hbUuTjntQIJ03mZpb0xrtldeYAVg2lDeKgWi/H0wrI1vYfQVyOoNH+OHiF0Sc0CPs/3QWZxvM7OpLlURvlqEXd/5z0e7zot1LmO5H2MKiKBYMDCkHZSFNKEnZSHQ90QzG8h+xkvxPkGusam+w=
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
- by BL1PR12MB5828.namprd12.prod.outlook.com (2603:10b6:208:397::11)
+ bh=9JaZXwcJca38O9fNfJ/w7eoolym4P5qEQdsuBcQtQPY=;
+ b=IP8+GnpcnupplmWrSQfXCxzVreG5brbHaKs14EaSax4s/mNuhBNtArH9Dnhzq6zdwndD5R86zdyG40rbkhMgYf9I+v2VwXZZHBWUP91HlvNUNrcNdQy0ZX7tEu7J6oaL5/jIzSiYkEz+ux5q8El9g3UPG6D7NmwX0xZJZnE7OnM=
+Received: from BL1PR12MB5158.namprd12.prod.outlook.com (2603:10b6:208:31c::11)
+ by MN0PR12MB6247.namprd12.prod.outlook.com (2603:10b6:208:3c1::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.36; Thu, 20 Mar
- 2025 08:04:55 +0000
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::542:90bb:6ae5:a2b]) by CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::542:90bb:6ae5:a2b%4]) with mapi id 15.20.8534.034; Thu, 20 Mar 2025
- 08:04:55 +0000
-From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank
- parser
-Thread-Topic: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank
- parser
-Thread-Index: AQHbmV9oVSkgRsGeHE6WI6cRNj0M2LN7mkqAgAAQGIA=
-Date: Thu, 20 Mar 2025 08:04:55 +0000
-Message-ID: <CY5PR12MB6345095D551B0296701D99D7FAD82@CY5PR12MB6345.namprd12.prod.outlook.com>
-References: <20250320061437.572914-1-xiang.liu@amd.com>
- <PH7PR12MB59979C5722583FE5846BB87082D82@PH7PR12MB5997.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB59979C5722583FE5846BB87082D82@PH7PR12MB5997.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.34; Thu, 20 Mar
+ 2025 08:29:04 +0000
+Received: from BL1PR12MB5158.namprd12.prod.outlook.com
+ ([fe80::b9ae:fa61:11ed:4e3b]) by BL1PR12MB5158.namprd12.prod.outlook.com
+ ([fe80::b9ae:fa61:11ed:4e3b%3]) with mapi id 15.20.8534.034; Thu, 20 Mar 2025
+ 08:29:04 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Wang,
+ Yang(Kevin)" <KevinYang.Wang@amd.com>
+Subject: RE: [PATCH] drm/amd/amdgpu: Revert "drm/amd/amdgpu: shorten the gfx
+ idle worker timeout"
+Thread-Topic: [PATCH] drm/amd/amdgpu: Revert "drm/amd/amdgpu: shorten the gfx
+ idle worker timeout"
+Thread-Index: AQHbmJmEHg6b4B7R2EG9Q6DQl1G/lLN6aqEAgAFEXhA=
+Date: Thu, 20 Mar 2025 08:29:03 +0000
+Message-ID: <BL1PR12MB51589B39082C439AAC8E19048ED82@BL1PR12MB5158.namprd12.prod.outlook.com>
+References: <20250319063811.680138-1-kenneth.feng@amd.com>
+ <CADnq5_Nx2FGd66uwkmV6Hhrvdfc+VTO=OafZJDK=AVXhBKQM7Q@mail.gmail.com>
+In-Reply-To: <CADnq5_Nx2FGd66uwkmV6Hhrvdfc+VTO=OafZJDK=AVXhBKQM7Q@mail.gmail.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-20T08:04:56.732Z;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=24eac3a0-c292-48e0-99f1-3fd809e7b014;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-20T08:14:27Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|BL1PR12MB5828:EE_
-x-ms-office365-filtering-correlation-id: 6da92536-4dd9-4c1e-24d2-08dd6785e6c0
+x-ms-traffictypediagnostic: BL1PR12MB5158:EE_|MN0PR12MB6247:EE_
+x-ms-office365-filtering-correlation-id: 5c07e850-984d-4b03-cc7b-08dd6789461a
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|8096899003|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?pCFRFCx5HOZHvWOOmlUJdPj3XaGwCL5MLsEkTqM5sW+r9DQuR/yCMlA3cj+i?=
- =?us-ascii?Q?ugH3clBZwxlcU7q1eXxxThT6K+c822wYEHnGgPAuP7hH4FkGgjM4g7tDc2gu?=
- =?us-ascii?Q?SKRc00Hb0ALcSz+hfq+HP4Td3yBhZPVoklIoP4yAROZRnh8Dv21pZNYADjRw?=
- =?us-ascii?Q?YRCsEhd3fsXHs96I+S/xhOX5fbByHWYOspR4Ega09d/whqDpEYcGkbuxUjaG?=
- =?us-ascii?Q?QusvACeHJlIAbjlZqRHOaOQH6AZYsTvujyY+CTnPbYN9nLdpIL4JOozmCXRO?=
- =?us-ascii?Q?jkWmMp5LM4VxIFV1GBVrRsKBKQM6WdryOT59vkPVKGMAmACvy9BTZ5ktlexF?=
- =?us-ascii?Q?6yPMwNWsgKlz5Lztq6hQp7IozCFDVA5sk4WR/1rY6W3b9KLy7OL3VcO/7pbc?=
- =?us-ascii?Q?lffJsKUPOXRfb0bbsxYyr4wh80N9Xj6EF6jxXfa4HlV1R/Qtq7LlBuySVmAk?=
- =?us-ascii?Q?/tDARRm/qpVl+p2OtPxKNy0TdMzQo5iLeYoCh/KmPedz5DVrjmzMup/QG3J5?=
- =?us-ascii?Q?JTwV/JsGc62GUsHXhawxkAhp7Zo5e3Pzg8mYSKHFcoumShjhoyEk3UQUmJrL?=
- =?us-ascii?Q?S16iq09uE+tmT7cWSv4nh3fy7AtIFRf+5Mh4jQNigJ+BzTpwkOnn4oz1DhJW?=
- =?us-ascii?Q?6gjqWoZfRs4kpg91hwaQmVwT6CvayvZSLsAE3zQr/+OyyCAHiRBIHkVbfTaX?=
- =?us-ascii?Q?L/rjJw2270uizWllnXvF25xmqhHT8THQDhFxkIqlF+2HL9OVDATcJA+wixJV?=
- =?us-ascii?Q?N33rgVTdJaas4jjWSpJ2poUOC5gq7r8cxLxlcRL78uB9bIL9K4JpRGsec9KJ?=
- =?us-ascii?Q?OCFeKmsSRqoL1ADoJKgHfpwkOOhi9dlnnnNm9lUBYtmmBK4CD7IKhKnzp5zY?=
- =?us-ascii?Q?oY3j8mpXllETuFs88JM0HuUebVqm3y/NWDGzICpkCcj6jmVlE8CIfG0fqSzy?=
- =?us-ascii?Q?Y2k531SnVAKUl+kk7S367w1wpsMeH6dzteKEIirPsMFDLQvy6HUWBWHxYHxV?=
- =?us-ascii?Q?Y5aBi++aITGUAjhwyAlG8jW0wP59DaB7E0W6hFqq6+AHWG+uh8bRD3psldlX?=
- =?us-ascii?Q?4IauJIB+x1KuKuo2ZtleTgzhyr4bfMIsH8A0MoxfVoJ2goD3NvcLOivFiC1N?=
- =?us-ascii?Q?kwDDPE2Z5edjbxeuXICspkwXXvBusyemN/dkr/NOSnb2H0llYtho7iGVjnwL?=
- =?us-ascii?Q?xxqlNRaIE8CaD05MWRMyn4jb2ekff7gtTKln1pZTpD+dF2LIJxlHrTaeqIhu?=
- =?us-ascii?Q?ueWI8bbnpqHkSpp0t1Jn0LI7bdBe697TVr/Jqe5DvTDR+k+W4p2B1f8zdrhl?=
- =?us-ascii?Q?bziWxYExZzMiCBquMAcZvzvWLeR2Nur8r3KPMc/yI4ccoExgrjXrj9ee001V?=
- =?us-ascii?Q?u3Ye9sq659f4oqa3JlxaGJjfH998Ng3l5csvgvxzlkzzc36hes/yiVTpkoD2?=
- =?us-ascii?Q?p3u80mi7BOzNud6q97MlmvtFq24ONSHm?=
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info: =?utf-8?B?RTI0ellqWE5HUnRLR2w2cjV0bzhOcHJ6U2locS9Cc3VMMFJGMnljLzZTcDhk?=
+ =?utf-8?B?WENkalhJcVUxaE83d1JqbEJIYk5LSFBmclM0UnQvcnFhSlRQd0YwYTZvMUVu?=
+ =?utf-8?B?TGNQKzJsWlJscEE0M1NIQlEzeDZzZkxYTTBXcHMyb21OT0h5TTNHZHR4OFFm?=
+ =?utf-8?B?Wm5qNDluL09WdnFJUWgvVnFPNVdMQUt2QUo2SllDcnZvcnNJcDVsRldwdVRw?=
+ =?utf-8?B?UE53Tm5YOUx6c0J5RE9nTXVXdUYyZ21kZ0crTkI1QWRuYkRaL0dnTGErY25G?=
+ =?utf-8?B?UWZ3NVJHUFpaTkQzR2cxQ2U5aEY4UnUvaXhKdXZUWVNCN2lFTWh3MFFZdnkv?=
+ =?utf-8?B?YW05VlV6NG1oOHdtWHRHTjRQT3dNODdjTldpWlRaN0o2UzRvK25GeTdMN2dq?=
+ =?utf-8?B?OGMvMzA4U0tsT2NrL2xPYVNaczNnZmJhVXNGRkM0bDk4YzI5ditDVWYrNkto?=
+ =?utf-8?B?MXgyc05tK1N0MFZSWmJjRkhqRCsveGk1RXE3bFBseDNlYWM2K2gzaEZiKzF1?=
+ =?utf-8?B?RU5zbWRvZFhmQ3RscUorQ25EVmJkdTVZNHRrcEY3eTRYQW1iTll4RnhxT1ho?=
+ =?utf-8?B?SzQwZEx6WGlPeHR0NGVjYlVybEZadnNQYWgyK1lSSXFGRy8zZXI5L3dKUW1K?=
+ =?utf-8?B?N29NNkVMMzN2UVBXVk14VG00WVZ6VWIrYWpRait5b2luWm15RFhHL1IrYTg2?=
+ =?utf-8?B?dWxyYWk1QzEwVHdXQURnZWtLOElyT1d5a2tWMnhiVWhyaXBEQXdVcFQxa1I3?=
+ =?utf-8?B?YUhaWUxyWU4ycnRBRmR5ZFA5bVN1ZmdaTi9TZk4vUUpUOEhVM2VrQlY0Q0FY?=
+ =?utf-8?B?N1E3d1JZaHpkNjQ1Ukk0bm9UbGNVVDBIZlNqb0ZtbHNJU05OajV0N1VxcURK?=
+ =?utf-8?B?TlAvV0hXMXYrbklGTkdCSVJzNTZKcFRzQ1BNb21HdXlJZHZwMTYxSU04K3Jx?=
+ =?utf-8?B?ZjQyMDg0Y1lNVW5iVUtMaTl3akJlQzBVcWgyRllYMEJwNzFycTFEa3RnY0da?=
+ =?utf-8?B?akZaTmRtbzBYeFNFVW1UWkhkdEVWazk2TzQ0ZUErNjgvNndZcjI5TkNpTkgr?=
+ =?utf-8?B?VWVWRWJGRDlRdnozNld4RU9DRjBYK3ltUG5JSnpNNGtxNkVuSHNYNk1KOEw1?=
+ =?utf-8?B?b1pZYTJrYW9BUndxY0FIWmtITHRGQVdra3M4eG5BNHRRWDVhRUJXUG9XelhC?=
+ =?utf-8?B?U1dscVdhSEhZdHJpRkFuZi82OU5SN3NSWnp5ejhmWGNnVUpZM0ttR3RsejFE?=
+ =?utf-8?B?K0x0QjNqeHI4YlUvNVlCblBUR2VsNXJmbG9YY0IwN0Rvb1JsMUpiM1RjSjl6?=
+ =?utf-8?B?cXQ5YzhvamNHb1A3eVd5MTMwNkE3b0lDaG4zZm1HRThHR0tEL2t5dUdoWmFF?=
+ =?utf-8?B?S3JKdEVBQUsyVWdMUFdOU1RURWJrUGpyQkNEOVJOcW9uRHEzZEtXR0NGdlpI?=
+ =?utf-8?B?QmV4UytxOXcvTnBDU3k2MUlhWEtUK2k0aG1GSFVKN1pHMmUvb2xpeU5tM1ND?=
+ =?utf-8?B?dHlaaWxDYm1ObnVvREFvV0sxckxQbCtXN1BEM1hEakVhM2oyZFpOM0hHcVg2?=
+ =?utf-8?B?WGNtbm1kV0tGWDQ5eVF5SlV5ajVyZkJuU2hKT3E3Zm8zWXJ2QWJJREdzSC9V?=
+ =?utf-8?B?UC9Ia3NsclI5TWsyVm5HS1lwcnp2MDdQV2RVQUNwYmcyOWRUbVg4amZWbzBq?=
+ =?utf-8?B?OEViK2VzZFF5c1pEbTRIWEhaWjFIWEgwMWwvRFlmMEpMUU5YUjI4N21FM1hW?=
+ =?utf-8?B?bnFXWmR6SUMvbitNdmR6MFdLMVJWc3NZTEFxd0ZGR0dsZko3bnZwbGkyV1N6?=
+ =?utf-8?B?eUtNazdGWTFKVUo4ZWxlR2lRei83a2svUU05dUtyUDd1M3R5K2trdGhOLytP?=
+ =?utf-8?B?K0xwNmR3aGhMc1lpTFZERHhnbkN4U2xtc3BxQXVOV2hoYlRaUHM1dWZiQjFz?=
+ =?utf-8?Q?9sW8x/zf43KgYhe4Me/pJ8vvSE45TvAn?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(38070700018)(7053199007);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5158.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?r0LNc0p6mVMeDsi76t9obiev/2trqkk/0M8uDmJwhH3ORLyLUg7G5cOgUJ2h?=
- =?us-ascii?Q?jfWOjgBzyw+IMXq8MfQilpGMC3MM0j/xe5o5pVXeu7xZ2sfg4OwcvwR7qESX?=
- =?us-ascii?Q?f6qGlbsoAKtpMDslIAiCLo0hwE4r8wOUIA+sj3IyN/cid1nK86ibRCJgseew?=
- =?us-ascii?Q?/g+JBMb5V6h3ej/oV+lwL5ffCm1aIsssChaycMyl4/tDQinrklCppkm+VeWC?=
- =?us-ascii?Q?EqFVWeZaU2BOCAsqTCXCiRBRNSjEEFJS3wo8MMphJYmEh8ic7QzbDD9w06ai?=
- =?us-ascii?Q?mLnCi0KOimAWs7eIHJc82S0MUMW4qpixpsZ2Lb+bu1n11dS1XOe519VWxTmR?=
- =?us-ascii?Q?RYo/xFzusjbQj5yt98OKcnZdrmdI7u6RSvIU+yfV0MKz1DjTO353S3Gw/0Ey?=
- =?us-ascii?Q?zwgu9xts99Af4qDnNOLtCW7ooe3DpQx7hwnEXAMn4eg3597sgWjXgfS0rWrB?=
- =?us-ascii?Q?l3UMvi1AM+hCE6gxLJmXRDgcv6Oa3z6Ly5Sp5DyK2KDuY6UPdmQTz3tspDHq?=
- =?us-ascii?Q?F1qEj8MWfyRVrbOMpX7/QIAmmdcVblhM+MceLxYGbbECGYaF3f+gYGs78dl4?=
- =?us-ascii?Q?U1VvOpN/7TAynb897QAHDobqYbLDTQHT5yCAd0c6gEanpeUK0mjnhFo7Vm5B?=
- =?us-ascii?Q?O3ZXbIe2M1E/pehuGPESyB2MsorOY4HtPDpoBK9Hh/+V1Yn68ufbBSDNZeTh?=
- =?us-ascii?Q?+0mE7SdTD6qQZH5FdY+Noa1CSoJ9baOtzSHV/F2BKRdXYuDu4jFWrG9WupFy?=
- =?us-ascii?Q?o5ZM1JlypKEpyvebsJIKjgZzca7/feAEUBXky0ecWOgTrTwvowRW/BhoRST0?=
- =?us-ascii?Q?UEktKWZiqzEbqZvrQvUeXFH7E7VdSU3AVlz5YMCrUnj7yISBU+PqIfUd8/5r?=
- =?us-ascii?Q?1CMNlA4FlBLF8EUSikkQU3FRCm07ZdFaEt1+GzQ59vLuVfb4vlBzaYYIAtap?=
- =?us-ascii?Q?1eOn3HaRsIIm1l8k1WScJI+KmKrQ3hw6r1gk5TjbN6M32zMgQfZsJQoIDRfk?=
- =?us-ascii?Q?0pSDqwM5sbbDH+emc9I8r64ckBb8Mi6ttX7TRm9fdD8qYlOSUTTP3HnzLfWK?=
- =?us-ascii?Q?M2Lgjizh6gn2LhQL5C8X+FVPYrIHAYlhrXQSt3stYLXrJEtcYVVzKMDhaGVp?=
- =?us-ascii?Q?rmeM9p9SJj81/N4cVd2fLZHiShoJSU6vOj4ylDrNc13JQjQTF283x+ldpPue?=
- =?us-ascii?Q?4a/0Uvlwu+Y1cpDVnVHUP7HKrTyC6be0CMhQAgFlUG5RFNmQe39hDae2UIKT?=
- =?us-ascii?Q?WK8HfLKb3NLjC8EQY6RiNHpnwIGl+yCjtPfyg24u8mpHLSCH5x3JQCqkP8nI?=
- =?us-ascii?Q?9sfK9991kZhwNtmztZ8lQWazWxX/X0mDhcNcYTqC9jhCeHtkmEMzfEev0nOE?=
- =?us-ascii?Q?6iJGAQddOK8TOR/PcgPc7BVnPyYycXLCbLFNBCG62SgX3p3QC4K2kZvA7OCK?=
- =?us-ascii?Q?OwkWc0ugNhmPZ1W755sztktVh5LrCUgSTGA+xm3r69eYTcQr/8A6zy1oK/8c?=
- =?us-ascii?Q?1cohlhUjEPHiUCuXabYiRaxl1+89oa+3/sDEQrAYcYyNy8D9jcYaJkRh09ns?=
- =?us-ascii?Q?KzW5G3q5ThKb5Sfnra8=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CY5PR12MB6345095D551B0296701D99D7FAD82CY5PR12MB6345namp_"
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Y0tWM1hpWkIzTkZxUHY3bGsrOWlWL3M5anpZUzJ2ZHkyMVJCZ044dGJieVdQ?=
+ =?utf-8?B?UTUwN2xvQU9GRkY3QXRrTm90cFVoKzZsMTVjMkZFQXc1bXpKdC9IT3k0RlRG?=
+ =?utf-8?B?VEhNeW5wODM4RGgrN0tkdXk1NGgwVGcxaGkyREI0b2FrVTVxeDFZVm1DaE0r?=
+ =?utf-8?B?bHJ5bHN5OXB2ZTF1VUExZVYyVmdVWENLd1IwdU9qci9wc242S3BwZE1VMzdm?=
+ =?utf-8?B?MDh1MEd1amVXQnAyUTlqNjdpakxmdS91UXZKQVpBMUFkVnI4S1FiRkJrZWVk?=
+ =?utf-8?B?ZDZhdWg0Yms0ckpZcmJML3FnNFBkNllWRmd6SVltSXJTRHRlMDZxc3F2RFV4?=
+ =?utf-8?B?N0Zjak1xYU85MVhjU2o2TVVBS3U3RjlXek1wVkptVnprL3l5b3FEbysxT21J?=
+ =?utf-8?B?bllUSTluTzBOcU9VM3U5OEkrTS90MFVNcUtPSWhvY2VkZ0F5UTFwNGRmOUxV?=
+ =?utf-8?B?ZzFva2toU3NlN1lyKzZDSFVTRFFFQitiRThoRkt1VnRuNFZUaDE2SEJpRmxn?=
+ =?utf-8?B?Y1lNdVo3U0dES0VjREVjQ0Q0TXg3UVovTk1hOHYwcWtabDhkdkF4L2pmUVlz?=
+ =?utf-8?B?K2F2cHZpbjhoTEF1NFptWDFsMWUvK0x3aTh1aE51ZjhTV3JTc3JJUFdvZTZa?=
+ =?utf-8?B?VWhDdWVLbVVwQkdzVG5NcFp0WW9yQTdaR0k5Z2MyTUU5dDN3bGp6dTNGeTBI?=
+ =?utf-8?B?UjFoamlwS3AwK2psV1lVQWVwMmVOdnNlcDREdWtYYk1IZGxjSnZxY3d5TG9o?=
+ =?utf-8?B?NVNGclY4Rlc3UG9HZDhnQUs4NTRBaW1VYndzeWVTemp3OWVMRS91SHl4Ryth?=
+ =?utf-8?B?RGE1dEE1ejNNY0dSMGthUnZSNXZ0UjVqcFZFMjg5N0F4c1BQTVNJM3F3ck5L?=
+ =?utf-8?B?eFQzdmVYQnZjTEhpcDRYN2trc3pmK0RFRVVtWDA3WUIzRmIxaVJObHcrejVP?=
+ =?utf-8?B?RkQyY09EaUZ2d29ZZ2NlTllmdmR3RHpFUmVtZi9wVTh0SkhQeXl4YU9Kek4v?=
+ =?utf-8?B?MFR5czVsa1RNOWxrbEE2MkJ3WkluQXBmNkt5eitIUTJFc08xNDJXWTc5S0Y5?=
+ =?utf-8?B?QW5vTnZZS1Z4MnhTTWFzbEFpdUdBZ2hZZElodW41SDN0WWFCU3I5ak9ocEdF?=
+ =?utf-8?B?d2ljeWd1VGV1UXpyeFJnOGtvMnlDajU3MmF4Wmpjc2ZGMDVobUgvdTVJaUdR?=
+ =?utf-8?B?QkhMZ0x3SXB0QWQxaFNQdWFJYWIrcjg1b2MrOGpMc29lazFRTXM4dVIvcHhU?=
+ =?utf-8?B?UFJMbkVCWDVKa3JRaTdYRlJrVHRsTHErRVJwZXNPM2F2cllXN3BOS3dhWGZK?=
+ =?utf-8?B?SGJ5dXZCSE9ZbS8yek5iWWVBSGlTSTZmcUdLNEJmV2JoMmJ5RnJBSnRveno3?=
+ =?utf-8?B?c1d5NzEyU1lWOGk2NXdXb0hYSE5GODRtbktJL0g3d0FYTUhDZzAxZk5pWkoy?=
+ =?utf-8?B?Nlpwd0FIeUU5RHd0eU5SdnFFVzFXQ2FrT2FPRTJPb2Roc3lhU3NOWnBoWWx0?=
+ =?utf-8?B?MVZZZWt4Tlp5K2NLdGNlSjFueExnV205ZjFTTXUwdlFwaUEwdHBHQVlPYVFC?=
+ =?utf-8?B?UUhGSnhLb29WRjZiODh1U2trTzNrMTMwQnNRUWxYTlErYmtJU2IrQUFpa3hh?=
+ =?utf-8?B?bDJaQzRabTVZVkF4YzhjRHllKytvRWl0MEE4ZEE1WkFILzFlRDdmN2VhVUxV?=
+ =?utf-8?B?ZGd6dmRDTUREaDdMK2FFVnRqYVA5R0ZUR0lWRFV6cWQxbTN4Tm1QektteVlD?=
+ =?utf-8?B?djdiOU8ydmhnUUdaT1U2L2NLS3dKWmZPQm1pMHltdWZhRHZTZGlaUUNzMm1u?=
+ =?utf-8?B?b1owMGs1QUgrdWR4MHI5ZzRWOFptUkFlYm5WcWgxd3ljalQrUHVaalpCSWFa?=
+ =?utf-8?B?MXVUaE1QSWFKcUxYaTZHd3NQWVYxTjBEbTVNc1lYWUhOcmhPc1A3bHJZQXlt?=
+ =?utf-8?B?eXNIbWdPVzQwWFo5R092eWlJc1FPdk12ZUM3SW51M0F1b1NLZHphU0NsTm00?=
+ =?utf-8?B?bStueUFuV05GZExlMDVCdFIyTFVMMGtadEZDb3RNUytPNDRVRGFublRjWkQv?=
+ =?utf-8?B?aW95ZjMzQ3JBYmFWSklhcWxheG9OeWxvMWxUR2FjN2E1QUpmV1VkbjFob25w?=
+ =?utf-8?Q?nX3w=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6da92536-4dd9-4c1e-24d2-08dd6785e6c0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2025 08:04:55.5707 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5158.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c07e850-984d-4b03-cc7b-08dd6789461a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2025 08:29:04.0345 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: g4AutEZpwQx0WkMYeR2t75v21ks5KH4nU54b/FCkB86Xi94K2p76pcmuvRM2xInmkzRw40Q05tVmvVzgcSfuvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5828
+X-MS-Exchange-CrossTenant-userprincipalname: j7Pje5KPLoqolfpvFfTXF6UbbcB13AGrKnMsY96ojVIf6BtDMssLQSKP9VEYa8FG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6247
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,301 +174,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY5PR12MB6345095D551B0296701D99D7FAD82CY5PR12MB6345namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Thanks, as the discuss offline, will improve it.
-
-Best Regards,
-
-Dean
-
-________________________________
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Thursday, March 20, 2025 3:05 PM
-To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Chai, Thomas <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank=
- parser
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-+       if (type =3D=3D ACA_ERROR_TYPE_UE)
-+               aca_log_aca_error(handle, ACA_ERROR_TYPE_DEFERRED, err_data=
-);
-+
-        return aca_log_aca_error(handle, type, err_data);  }
-
-It seems that the above code is incorrect, which may lead to error statisti=
-cs of different types of errors.
-In the aca parser interface, I think there is enough information to identif=
-y the types of errors and correctly count errors,
-Please double check it, thanks.
-
-Best Regards,
-Kevin
-
------Original Message-----
-From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Sent: Thursday, March 20, 2025 14:15
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wa=
-ng@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.=
-com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Subject: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank par=
-ser
-
-In the case of injecting uncorrected error with background workload, the de=
-ferred error among uncorrected errors need to be specified by checking the =
-deferred and poison bits of status register.
-
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c |  3 +++  drivers/gpu/drm/amd/amdg=
-pu/gfx_v9_4_3.c | 11 +++++++----
- 2 files changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_aca.c
-index ffd4c64e123c..3f45a600f547 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -541,6 +541,9 @@ static int __aca_get_error_data(struct amdgpu_device *a=
-dev, struct aca_handle *h
-        if (ret)
-                return ret;
-
-+       if (type =3D=3D ACA_ERROR_TYPE_UE)
-+               aca_log_aca_error(handle, ACA_ERROR_TYPE_DEFERRED, err_data=
-);
-+
-        return aca_log_aca_error(handle, type, err_data);  }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index c0de682b7774..b21d784a7f9c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -876,7 +876,7 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle=
- *handle,
-                                      void *data)
- {
-        struct aca_bank_info info;
--       u64 misc0;
-+       u64 misc0, status;
-        u32 instlo;
-        int ret;
-
-@@ -890,12 +890,15 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_hand=
-le *handle,
-        info.die_id =3D instlo =3D=3D mmSMNAID_XCD0_MCA_SMU ? 0 : 1;
-
-        misc0 =3D bank->regs[ACA_REG_IDX_MISC0];
-+       status =3D bank->regs[ACA_REG_IDX_STATUS];
-
-        switch (type) {
-        case ACA_SMU_TYPE_UE:
--               bank->aca_err_type =3D ACA_ERROR_TYPE_UE;
--               ret =3D aca_error_cache_log_bank_error(handle, &info,
--                                                    ACA_ERROR_TYPE_UE, 1UL=
-L);
-+               bank->aca_err_type =3D (ACA_REG__STATUS__POISON(status) ||
-+                                     ACA_REG__STATUS__DEFERRED(status)) ?
-+                                               ACA_ERROR_TYPE_DEFERRED :
-+                                               ACA_ERROR_TYPE_UE;
-+               ret =3D aca_error_cache_log_bank_error(handle, &info,
-+bank->aca_err_type, 1ULL);
-                break;
-        case ACA_SMU_TYPE_CE:
-                bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
---
-2.34.1
-
-
---_000_CY5PR12MB6345095D551B0296701D99D7FAD82CY5PR12MB6345namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Thanks, as the discuss offline, will improve it.</div>
-<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
-ckground-color: white; margin: 0px;">
-<span style=3D"font-family: Aptos, sans-serif; font-size: 11pt; color: blac=
-k;">Best Regards,</span></p>
-<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
-ckground-color: white; margin: 0px;">
-<span style=3D"font-family: Aptos, sans-serif; font-size: 11pt; color: blac=
-k;">Dean</span></p>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wang, Yang(Kevin) &lt=
-;KevinYang.Wang@amd.com&gt;<br>
-<b>Sent:</b> Thursday, March 20, 2025 3:05 PM<br>
-<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao=
-.Zhou1@amd.com&gt;; Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Decode deferred error type in gfx a=
-ca bank parser</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
-y - AMD Internal Distribution Only]<br>
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (type =3D=3D ACA_ERROR_TYPE_UE)<br=
->
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; aca_log_aca_error(handle, ACA_ERROR_TYPE_DEFERRED, err_data);<br=
->
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return aca_log_aca_error(handle,=
- type, err_data);&nbsp; }<br>
-<br>
-It seems that the above code is incorrect, which may lead to error statisti=
-cs of different types of errors.<br>
-In the aca parser interface, I think there is enough information to identif=
-y the types of errors and correctly count errors,<br>
-Please double check it, thanks.<br>
-<br>
-Best Regards,<br>
-Kevin<br>
-<br>
------Original Message-----<br>
-From: Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<br>
-Sent: Thursday, March 20, 2025 14:15<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Wang, Yang(Kevin) &lt;Kev=
-inYang.Wang@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Chai, Thomas=
- &lt;YiPeng.Chai@amd.com&gt;; Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<br=
->
-Subject: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank par=
-ser<br>
-<br>
-In the case of injecting uncorrected error with background workload, the de=
-ferred error among uncorrected errors need to be specified by checking the =
-deferred and poison bits of status register.<br>
-<br>
-Signed-off-by: Xiang Liu &lt;xiang.liu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c |&nbsp; 3 +++&nbsp; drivers/g=
-pu/drm/amd/amdgpu/gfx_v9_4_3.c | 11 +++++++----<br>
-&nbsp;2 files changed, 10 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_aca.c<br>
-index ffd4c64e123c..3f45a600f547 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c<br>
-@@ -541,6 +541,9 @@ static int __aca_get_error_data(struct amdgpu_device *a=
-dev, struct aca_handle *h<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return ret;<br>
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (type =3D=3D ACA_ERROR_TYPE_UE)<br=
->
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; aca_log_aca_error(handle, ACA_ERROR_TYPE_DEFERRED, err_data);<br=
->
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return aca_log_aca_error(handle,=
- type, err_data);&nbsp; }<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c<br>
-index c0de682b7774..b21d784a7f9c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
-@@ -876,7 +876,7 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle=
- *handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vo=
-id *data)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank_info info;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 misc0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 misc0, status;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 instlo;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-<br>
-@@ -890,12 +890,15 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_hand=
-le *handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info.die_id =3D instlo =3D=3D mm=
-SMNAID_XCD0_MCA_SMU ? 0 : 1;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; misc0 =3D bank-&gt;regs[ACA_REG_=
-IDX_MISC0];<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status =3D bank-&gt;regs[ACA_REG_IDX_=
-STATUS];<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_SMU_TYPE_UE:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; bank-&gt;aca_err_type =3D ACA_ERROR_TYPE_UE;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D aca_error_cache_log_bank_error(handle, &amp;info,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ACA_ERROR_TYPE_UE, 1ULL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; bank-&gt;aca_err_type =3D (ACA_REG__STATUS__POISON(status) ||<br=
->
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG=
-__STATUS__DEFERRED(status)) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE_DEFERRE=
-D :<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE_UE;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D aca_error_cache_log_bank_error(handle, &amp;info,<br>
-+bank-&gt;aca_err_type, 1ULL);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_SMU_TYPE_CE:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; bank-&gt;aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);<=
-br>
---<br>
-2.34.1<br>
-<br>
-</span></font></div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY5PR12MB6345095D551B0296701D99D7FAD82CY5PR12MB6345namp_--
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KSGkgQWxleCwNClRoZSBjYWxsIHRyYWNlIGlzIGdlbmVyYXRlZCB3aGVuIHRoZSBnZG0gaXMg
+bGF1bmNoZWQsIGFzIGJlbG93Lg0KSSB0cmllZCBydW5uaW5nIG9uIGEgc3RhbmRhbG9uZSB3b3Jr
+cXVldWUgYnV0IHN0aWxsIHNlZSB0aGUgd29ya3F1ZXVlIGlzIGZsdXNoZWQuDQpUaGFua3MuDQoN
+ClsgICAyMS41NTg0MzldIC0tLS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQ0KWyAg
+IDIxLjU1ODQ0M10gd29ya3F1ZXVlOiBXUV9NRU1fUkVDTEFJTSBnZnhfMC4wLjA6ZHJtX3NjaGVk
+X3J1bl9qb2Jfd29yayBbYW1kX3NjaGVkXSBpcyBmbHVzaGluZyAhV1FfTUVNX1JFQ0xBSU0gZXZl
+bnRzOmFtZGdwdV9nZnhfcHJvZmlsZV9pZGxlX3dvcmtfaGFuZGxlciBbYW1kZ3B1XQ0KWyAgIDIx
+LjU1ODcxNl0gV0FSTklORzogQ1BVOiAwIFBJRDogMTE1IGF0IGtlcm5lbC93b3JrcXVldWUuYzoz
+NzA2IGNoZWNrX2ZsdXNoX2RlcGVuZGVuY3krMHgxNTEvMHgxODANClsgICAyMS41NTg3MjRdIE1v
+ZHVsZXMgbGlua2VkIGluOiBzbmRfc2VxX2R1bW15IHNuZF9ocnRpbWVyIHFydHIgc3VucnBjIGFt
+ZF9hdGwgaW50ZWxfcmFwbF9tc3IgaW50ZWxfcmFwbF9jb21tb24gc25kX2hkYV9jb2RlY19oZG1p
+IHNuZF9oZGFfaW50ZWwgc25kX2ludGVsX2RzcGNmZyBlZGFjX21jZV9hbWQgc25kX2ludGVsX3Nk
+d19hY3BpIHNuZF91c2JfYXVkaW8gc25kX2hkYV9jb2RlYyBrdm1fYW1kIHNuZF91c2JtaWRpX2xp
+YiBzbmRfaGRhX2NvcmUgc25kX3VtcCBtYyBzbmRfaHdkZXAgc25kX3BjbSBrdm0gc25kX3NlcV9t
+aWRpIHNuZF9zZXFfbWlkaV9ldmVudCBjcmN0MTBkaWZfcGNsbXVsIHNuZF9yYXdtaWRpIHBvbHl2
+YWxfY2xtdWxuaSBwb2x5dmFsX2dlbmVyaWMgZ2hhc2hfY2xtdWxuaV9pbnRlbCBzcGQ1MTE4IHNo
+YTI1Nl9zc3NlMyBzaGExX3Nzc2UzIHNuZF9zZXEgYWVzbmlfaW50ZWwgY3J5cHRvX3NpbWQgY3J5
+cHRkIHNuZF9zZXFfZGV2aWNlIHNuZF90aW1lciByYXBsIHdtaV9ibW9mIGNjcCBzbmQgaTJjX3Bp
+aXg0IGsxMHRlbXAgaTJjX3NtYnVzIHNvdW5kY29yZSBpbnB1dF9sZWRzIGpveWRldiBncGlvX2Ft
+ZHB0IG1hY19oaWQgYmluZm10X21pc2Mgc2NoX2ZxX2NvZGVsIG1zciBwYXJwb3J0X3BjIHBwZGV2
+IGxwIHBhcnBvcnQgZWZpX3BzdG9yZSBuZm5ldGxpbmsgZG1pX3N5c2ZzIGlwX3RhYmxlcyB4X3Rh
+YmxlcyBhdXRvZnM0IGhpZF9nZW5lcmljIHVzYmhpZCBoaWQgYW1kZ3B1KE9FKSBhbWRkcm1fdHRt
+X2hlbHBlcihPRSkgYW1kdHRtKE9FKSBhbWRkcm1fYnVkZHkoT0UpIGFtZHhjcChPRSkgZHJtX2V4
+ZWMgZHJtX3N1YmFsbG9jX2hlbHBlciBhbWRfc2NoZWQoT0UpIGFtZGtjbChPRSkgZHJtX2Rpc3Bs
+YXlfaGVscGVyIGNlYyByY19jb3JlIG52bWUgaTJjX2FsZ29fYml0IGRybV90dG1faGVscGVyIGNy
+YzMyX3BjbG11bCByODE2OSB4aGNpX3BjaSBudm1lX2NvcmUgYWhjaSB0dG0geGhjaV9wY2lfcmVu
+ZXNhcyBsaWJhaGNpIHJlYWx0ZWsgbnZtZV9hdXRoIHZpZGVvIHdtaQ0KWyAgIDIxLjU1ODgxN10g
+Q1BVOiAwIFVJRDogMCBQSUQ6IDExNSBDb21tOiBrd29ya2VyL3U2NDoxIFRhaW50ZWQ6IEcgICAg
+ICAgICAgIE9FICAgICAgNi4xMS4wLTE3LWdlbmVyaWMgIzE3fjI0LjA0LjItVWJ1bnR1DQpbICAg
+MjEuNTU4ODIyXSBUYWludGVkOiBbT109T09UX01PRFVMRSwgW0VdPVVOU0lHTkVEX01PRFVMRQ0K
+WyAgIDIxLjU1ODgyM10gSGFyZHdhcmUgbmFtZTogTWljcm8tU3RhciBJbnRlcm5hdGlvbmFsIENv
+LiwgTHRkLiBNUy03RDc2L01BRyBCNjUwTSBNT1JUQVIgV0lGSSAoTVMtN0Q3NiksIEJJT1MgQS5K
+MCAxMi8xNy8yMDI0DQpbICAgMjEuNTU4ODI1XSBXb3JrcXVldWU6IGdmeF8wLjAuMCBkcm1fc2No
+ZWRfcnVuX2pvYl93b3JrIFthbWRfc2NoZWRdDQpbICAgMjEuNTU4ODMwXSBSSVA6IDAwMTA6Y2hl
+Y2tfZmx1c2hfZGVwZW5kZW5jeSsweDE1MS8weDE4MA0KWyAgIDIxLjU1ODgzM10gQ29kZTogNTYg
+MTggNGQgODkgZTAgNDggOGQgOGIgYzAgMDAgMDAgMDAgNDggYzcgYzcgZTggODggMDkgYTEgYzYg
+MDUgZTggNGQgOGQgMDIgMDEgNDggOGIgNzAgMDggNDggODEgYzYgYzAgMDAgMDAgMDAgZTggNmYg
+NTQgZmQgZmYgPDBmPiAwYiBlOSBkMiBmZSBmZiBmZiA0NCAwZiBiNiAzZCBjYSA0ZCA4ZCAwMiA0
+MSA4MCBmZiAwMSA3NyAwZiA0MQ0KWyAgIDIxLjU1ODgzNl0gUlNQOiAwMDE4OmZmZmZhZTkzMDA1
+MWZiZTggRUZMQUdTOiAwMDAxMDA0Ng0KWyAgIDIxLjU1ODgzOF0gUkFYOiAwMDAwMDAwMDAwMDAw
+MDAwIFJCWDogZmZmZjlhYmY4MDIwMTQwMCBSQ1g6IDAwMDAwMDAwMDAwMDAwMDANClsgICAyMS41
+NTg4NDBdIFJEWDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6IDAwMDAwMDAwMDAwMDAwMDAgUkRJOiAw
+MDAwMDAwMDAwMDAwMDAwDQpbICAgMjEuNTU4ODQyXSBSQlA6IGZmZmZhZTkzMDA1MWZjMTAgUjA4
+OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMDAwMDAwMDAwMDAwMDAwMA0KWyAgIDIxLjU1ODg0M10g
+UjEwOiAwMDAwMDAwMDAwMDAwMDAwIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6IGZmZmZmZmZm
+YzA5OTJhZDANClsgICAyMS41NTg4NDRdIFIxMzogMDAwMDAwMDAwMDAwMDAwMCBSMTQ6IGZmZmY5
+YWJmODAzMGQ0NDAgUjE1OiBmZmZmYWU5MzAwNTFmYzQwDQpbICAgMjEuNTU4ODQ2XSBGUzogIDAw
+MDAwMDAwMDAwMDAwMDAoMDAwMCkgR1M6ZmZmZjlhY2U5ZDgwMDAwMCgwMDAwKSBrbmxHUzowMDAw
+MDAwMDAwMDAwMDAwDQpbICAgMjEuNTU4ODQ4XSBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAg
+Q1IwOiAwMDAwMDAwMDgwMDUwMDMzDQpbICAgMjEuNTU4ODUwXSBDUjI6IDAwMDAwNzNiZjJiNmMw
+MDAgQ1IzOiAwMDAwMDAwMDQ2MjNlMDAwIENSNDogMDAwMDAwMDAwMGY1MGVmMA0KWyAgIDIxLjU1
+ODg1Ml0gUEtSVTogNTU1NTU1NTQNClsgICAyMS41NTg4NTNdIENhbGwgVHJhY2U6DQpbICAgMjEu
+NTU4ODU1XSAgPFRBU0s+DQpbICAgMjEuNTU4ODU5XSAgPyBzaG93X3JlZ3MrMHg2Yy8weDgwDQpb
+ICAgMjEuNTU4ODY0XSAgPyBfX3dhcm4rMHg4OC8weDE0MA0KWyAgIDIxLjU1ODg2N10gID8gY2hl
+Y2tfZmx1c2hfZGVwZW5kZW5jeSsweDE1MS8weDE4MA0KWyAgIDIxLjU1ODg3MF0gID8gcmVwb3J0
+X2J1ZysweDE4Mi8weDFiMA0KWyAgIDIxLjU1ODg3NV0gID8gaGFuZGxlX2J1ZysweDZlLzB4YjAN
+ClsgICAyMS41NTg4ODBdICA/IGV4Y19pbnZhbGlkX29wKzB4MTgvMHg4MA0KWyAgIDIxLjU1ODg4
+M10gID8gYXNtX2V4Y19pbnZhbGlkX29wKzB4MWIvMHgyMA0KWyAgIDIxLjU1ODg4OF0gID8gX19w
+ZnhfYW1kZ3B1X2dmeF9wcm9maWxlX2lkbGVfd29ya19oYW5kbGVyKzB4MTAvMHgxMCBbYW1kZ3B1
+XQ0KWyAgIDIxLjU1OTExM10gID8gY2hlY2tfZmx1c2hfZGVwZW5kZW5jeSsweDE1MS8weDE4MA0K
+WyAgIDIxLjU1OTExNl0gID8gY2hlY2tfZmx1c2hfZGVwZW5kZW5jeSsweDE1MS8weDE4MA0KWyAg
+IDIxLjU1OTEyMF0gIF9fZmx1c2hfd29yaysweDIzOC8weDMxMA0KWyAgIDIxLjU1OTEyNF0gID8g
+X19tb2RfdGltZXIrMHgxMjIvMHgzNDANClsgICAyMS41NTkxMjldICBjYW5jZWxfZGVsYXllZF93
+b3JrX3N5bmMrMHg3Ni8weDgwDQpbICAgMjEuNTU5MTMzXSAgYW1kZ3B1X2dmeF9wcm9maWxlX3Jp
+bmdfYmVnaW5fdXNlKzB4MzQvMHhhMCBbYW1kZ3B1XQ0KWyAgIDIxLjU1OTM0MV0gIGdmeF92MTJf
+MF9yaW5nX2JlZ2luX3VzZSsweDEyLzB4MzAgW2FtZGdwdV0NClsgICAyMS41NTk1MzFdICBhbWRn
+cHVfcmluZ19hbGxvYysweDQwLzB4NzAgW2FtZGdwdV0NClsgICAyMS41NTk2NzVdICBhbWRncHVf
+aWJfc2NoZWR1bGUrMHgxNzIvMHg4MzAgW2FtZGdwdV0NClsgICAyMS41NTk4MjFdICBhbWRncHVf
+am9iX3J1bisweDhkLzB4MjAwIFthbWRncHVdDQpbICAgMjEuNTU5OTk0XSAgZHJtX3NjaGVkX3J1
+bl9qb2Jfd29yaysweDJiYi8weDQ1MCBbYW1kX3NjaGVkXQ0KWyAgIDIxLjU1OTk5N10gIHByb2Nl
+c3Nfb25lX3dvcmsrMHgxNzgvMHgzZDANClsgICAyMS41NjAwMDBdICB3b3JrZXJfdGhyZWFkKzB4
+MmRlLzB4NDEwDQpbICAgMjEuNTYwMDAyXSAgPyBfX3BmeF93b3JrZXJfdGhyZWFkKzB4MTAvMHgx
+MA0KWyAgIDIxLjU2MDAwNF0gIGt0aHJlYWQrMHhlMS8weDExMA0KWyAgIDIxLjU2MDAwNl0gID8g
+X19wZnhfa3RocmVhZCsweDEwLzB4MTANClsgICAyMS41NjAwMDhdICByZXRfZnJvbV9mb3JrKzB4
+NDQvMHg3MA0KWyAgIDIxLjU2MDAxMF0gID8gX19wZnhfa3RocmVhZCsweDEwLzB4MTANClsgICAy
+MS41NjAwMTJdICByZXRfZnJvbV9mb3JrX2FzbSsweDFhLzB4MzANClsgICAyMS41NjAwMTddICA8
+L1RBU0s+DQpbICAgMjEuNTYwMDE3XSAtLS1bIGVuZCB0cmFjZSAwMDAwMDAwMDAwMDAwMDAwIF0t
+LS0NCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogQWxleCBEZXVjaGVyIDxh
+bGV4ZGV1Y2hlckBnbWFpbC5jb20+DQpTZW50OiBXZWRuZXNkYXksIE1hcmNoIDE5LCAyMDI1IDg6
+NTQgUE0NClRvOiBGZW5nLCBLZW5uZXRoIDxLZW5uZXRoLkZlbmdAYW1kLmNvbT4NCkNjOiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgV2FuZywgWWFuZyhLZXZpbikgPEtldmluWWFuZy5X
+YW5nQGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kL2FtZGdwdTogUmV2ZXJ0
+ICJkcm0vYW1kL2FtZGdwdTogc2hvcnRlbiB0aGUgZ2Z4IGlkbGUgd29ya2VyIHRpbWVvdXQiDQoN
+CkNhdXRpb246IFRoaXMgbWVzc2FnZSBvcmlnaW5hdGVkIGZyb20gYW4gRXh0ZXJuYWwgU291cmNl
+LiBVc2UgcHJvcGVyIGNhdXRpb24gd2hlbiBvcGVuaW5nIGF0dGFjaG1lbnRzLCBjbGlja2luZyBs
+aW5rcywgb3IgcmVzcG9uZGluZy4NCg0KDQpPbiBXZWQsIE1hciAxOSwgMjAyNSBhdCAyOjM44oCv
+QU0gS2VubmV0aCBGZW5nIDxrZW5uZXRoLmZlbmdAYW1kLmNvbT4gd3JvdGU6DQo+DQo+IFRoaXMg
+cmV2ZXJ0cyBjb21taXQgYjAwZmI5NzY1ZWE0YjA1MTk4ZDY3MjU2MTE4NDQ1YzZmMTNmOWRkZi4N
+Cj4NCj4gUmVhc29uIGZvciByZXZlcnQ6IHRoaXMgY2F1c2VzIHNvbWUgdGVzdHMgZmFpbCB3aXRo
+IGNhbGwgdHJhY2UuDQoNCkRvIHlvdSBoYXZlIGEgY29weSBvZiB0aGUgY2FsbCB0cmFjZT8gIEkg
+Y2FuJ3Qgc2VlIGhvdyB0aGlzIHdvdWxkIGJlIGFuIGlzc3VlPw0KDQpBbGV4DQoNCj4NCj4gU2ln
+bmVkLW9mZi1ieTogS2VubmV0aCBGZW5nIDxrZW5uZXRoLmZlbmdAYW1kLmNvbT4NCj4gLS0tDQo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmggfCA0ICsrLS0NCj4gIDEg
+ZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmgNCj4gYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmgNCj4gaW5kZXggYTZkM2E0NTU0Y2Fh
+Li43NWFmNGYyNWExMzMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9nZnguaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Z2Z4LmgNCj4gQEAgLTU3LDggKzU3LDggQEAgZW51bSBhbWRncHVfZ2Z4X3BpcGVfcHJpb3JpdHkg
+eyAgI2RlZmluZQ0KPiBBTURHUFVfR0ZYX1FVRVVFX1BSSU9SSVRZX01JTklNVU0gIDAgICNkZWZp
+bmUNCj4gQU1ER1BVX0dGWF9RVUVVRV9QUklPUklUWV9NQVhJTVVNICAxNQ0KPg0KPiAtLyogMTAg
+bWlsbGlzZWNvbmQgdGltZW91dCAqLw0KPiAtI2RlZmluZSBHRlhfUFJPRklMRV9JRExFX1RJTUVP
+VVQgICAgICAgbXNlY3NfdG9famlmZmllcygxMCkNCj4gKy8qIDEgc2Vjb25kIHRpbWVvdXQgKi8N
+Cj4gKyNkZWZpbmUgR0ZYX1BST0ZJTEVfSURMRV9USU1FT1VUICAgICAgIG1zZWNzX3RvX2ppZmZp
+ZXMoMTAwMCkNCj4NCj4gIGVudW0gYW1kZ3B1X2dmeF9wYXJ0aXRpb24gew0KPiAgICAgICAgIEFN
+REdQVV9TUFhfUEFSVElUSU9OX01PREUgPSAwLA0KPiAtLQ0KPiAyLjM0LjENCj4NCg==
