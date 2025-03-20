@@ -4,145 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E226AC28B30
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 06:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0BC2C28B30
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 06:33:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45C0910E591;
-	Thu, 20 Mar 2025 06:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2518D10E593;
+	Thu, 20 Mar 2025 06:33:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t6EqRU+6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="otcy4/3D";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE9B110E591
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 06:26:43 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAB1C10E593
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 06:33:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wFIO50YpwEHzT1bHWFWAR//9VO0+BAuczUhmDM5bqlxFQnuKqDIwgb1YyDZW+nT+CmnXa4jSMpaWoROENLY1xTtqpDWaxdhEszkdRJVgg+m2+8dKB4+YTpgmFyVbeDW70I6zbCT6J9GPnwL9IQf9iK9SJ2vgw0kT79O1f+Sl3euMX/zKd+kt+dJeljv4O6oGPF4p33U5sb7McnEqkurI0Vpk7uc4+k/U5IvmhsMCoU9pRv9cyi8TqNdPb+LGLkxFdS5TfxGQwJ7SGeFMgcNEvNROwLDjJWGrZ20dIXAvHvEN5JtQBWiYUQjnEQy40nUonvSIfezkMuhHSimG7MP3zA==
+ b=FCy/G2X4/O++nwa618BUEI9jNZL3Fn8TK6IajqLdHl0ZMQjYC0Z/F0AbV496DkGXQiQF6r5FbABNs/I8WvbaWAton3hO/+/FVTmixUl0+2V4AJqnYKjclSH1PFJrNCwE3bydb5H1/gKWruPdeRp7/JhMI8Ci3X9CvPtovUdjBcL8/UQGP/SQUEmpTqKUnIxhQuMg4jA6RAhan8V1VJfvq0n4jWx8FdIWMPd5W0d131s6e93fwBhoUi6Rq3/UyFg4ZZSvOJJcGAJgkbsC3VoaLZfGnug8fYno/H466kAreJEbhFslMVBBhXX5+8768HToCi44pFEcuitSWkktD3E7BA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mm5UxyG79T98hq8bzwRc6xsPrtJaJ6LSOndg3AVf5Y8=;
- b=qniJD+ePToiGDelzPBYLIyqKgulteycuwQAiZQIvf7gfRk2LiQfrB1ZOJry7Kmacjo1tiJBPpMyANLSuq3QRKTLs1TRPIY2DB6IoFc+0Exs0JeDWWQAuPczi80o2mIjAYRmMMlYbCx4jXAQVeaggb7dzSXQEuU9hhioFAIbQ9KSEMhPQuqnnu8n0e6NpOKcNAbmXJcAOUysKYPE53tc9Ox3VdtQ+1DiG+rSrsOPgQMQ3Z32YkbtRLvIl7O8E8Jk1Ynll5LPKupAZQSYj+5Leeb/znMGrpcCa2O0o0iL1yfL3xfTxt6hLLHTnxelDgJ/XzeFOqGNJ8i1DT1GAlBpW5g==
+ bh=0yWhbkSAMy0VN0tbpiAPiiMLn0iBNMeCZcdBW08XK9s=;
+ b=TCjCR6erfpTXVEPKOhbL9SJfyS8FHrs18Os2FBEp/yF3xKaY3AzlV3fwUgz6ZAsiSzzX/MXJ69WiUI6nU561AEM+kOByelSCmVnEJ5cMu1Sb35cXAkYWB2AxsSNDnqI0IG9f4Als1kbV62AW/T8DHvIXwIL/5Ob326VO4qnm5i8G9jsftNIfGjeE31l5TDF7qhmQYOU9JKtJwQKb/z5M2/78yTWshGD/VyqzA7cGXhGQtD13ZvaBa2Vz/7xq0FGPgvAMarl+ZpYipRUX0kn6VXa4vvHNta5N1pnv6dkyqpdKpLxMl0dQox1mmdVLZORIThOpDJ7HJH11gSUHh41F/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mm5UxyG79T98hq8bzwRc6xsPrtJaJ6LSOndg3AVf5Y8=;
- b=t6EqRU+6w2RsvV6TxjuDSNi/LOihoE8rYcENX1jDn4oEAlRwu2N+pU+YEZ9aw8qdlBdjzo4y3i1lSyaP99VaXGQS4nezwJwR933dbzLMgQayx9T+qYZ4eh+swv1fdiSATc/bmheLf7ZdRy8H8MPKty10Al5tLHjnzl6l87AXpJE=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DS5PPF6BCF148B6.namprd12.prod.outlook.com (2603:10b6:f:fc00::652)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=0yWhbkSAMy0VN0tbpiAPiiMLn0iBNMeCZcdBW08XK9s=;
+ b=otcy4/3D6zkPEA0Uxeu9H/BCbW8xaSbQAKUwOT6cTzpDlTy5E6XLrGRx9qqD9pEDzwMcSD4ncbCDsfcJ9ARywoZ68w+5uNSn9BEEHv0wbr9vYgQM7YU2guL7bLT3H0nAAo39RfzT09nvWsW9cWjTL/ctKGtX6J44LFc4C/IoSWg=
+Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
+ by DM6PR12MB4481.namprd12.prod.outlook.com (2603:10b6:5:2af::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Thu, 20 Mar
- 2025 06:26:42 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.8534.034; Thu, 20 Mar 2025
- 06:26:41 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2025 06:33:26 +0000
+Received: from CY5PR12MB6345.namprd12.prod.outlook.com
+ ([fe80::542:90bb:6ae5:a2b]) by CY5PR12MB6345.namprd12.prod.outlook.com
+ ([fe80::542:90bb:6ae5:a2b%4]) with mapi id 15.20.8534.034; Thu, 20 Mar 2025
+ 06:33:26 +0000
+From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kasiviswanathan,
- Harish" <Harish.Kasiviswanathan@amd.com>, "Lin, Amber" <Amber.Lin@amd.com>
-Subject: RE: [PATCH] drm/amdkfd: Use dev_* instead of pr_* for messages
-Thread-Topic: [PATCH] drm/amdkfd: Use dev_* instead of pr_* for messages
-Thread-Index: AQHbmVWQuddPElLCEEG3UBhDq1kue7N7jxxA
-Date: Thu, 20 Mar 2025 06:26:41 +0000
-Message-ID: <BN9PR12MB52570DE556F1C207B537C37AFCD82@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20250320050404.362969-1-lijo.lazar@amd.com>
-In-Reply-To: <20250320050404.362969-1-lijo.lazar@amd.com>
+CC: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Zhou1, Tao"
+ <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank
+ parser
+Thread-Topic: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank
+ parser
+Thread-Index: AQHbmV9oVSkgRsGeHE6WI6cRNj0M2LN7jk6AgAAClNA=
+Date: Thu, 20 Mar 2025 06:33:26 +0000
+Message-ID: <CY5PR12MB63455190AF9EBCCFABBE4536FAD82@CY5PR12MB6345.namprd12.prod.outlook.com>
+References: <20250320061437.572914-1-xiang.liu@amd.com>
+ <BN9PR12MB525744C2A9073AB0999C312CFCD82@BN9PR12MB5257.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB525744C2A9073AB0999C312CFCD82@BN9PR12MB5257.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=cb7cb546-2eb6-4d7b-aaaf-45b3f1cea220;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-20T06:25:35Z;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-20T06:33:27.688Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DS5PPF6BCF148B6:EE_
-x-ms-office365-filtering-correlation-id: 8c300b91-2bbb-48bd-8aaa-08dd67782dcd
+x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|DM6PR12MB4481:EE_
+x-ms-office365-filtering-correlation-id: f39043e1-8805-4e86-e770-08dd67791f0d
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?MdkC5kQhC5/eV5G8CsM5Jac8oPwBsyxQZf2KbjNZAkz0IsH5CoKUofmmaGZX?=
- =?us-ascii?Q?j612CK/JI7eWguUzhMgvHPj8iSRP5zmC0kBLQy//6OZFycEYdWXcn5WWcW7j?=
- =?us-ascii?Q?8hpPGMyrWj3UJmA9nXxKariv2svU5ilfT3omqkOEElVnkEPDKmIhABsS2/Xm?=
- =?us-ascii?Q?uAx56qiPMBioZsIOhDS5EwdPxj/kbJLq7HxW/EBpapNaGtIT1J+maBBubnq1?=
- =?us-ascii?Q?edxa8fflWlO6uCMMyitp6n2nj9Oi0zOWObSuqZCsGOSVI31hSQkuXPtFtVcv?=
- =?us-ascii?Q?rer3hcEwpDs3LLiPKLuba/3txnGz/hZ1IgLOG7uGiWmfaOvtn/g+wWPpKHB1?=
- =?us-ascii?Q?4ZeuyS9hkYH7bjVu8T8z979JhNDBe0WxSYJEbBo5cTVd26J20chVe9N9ZZAB?=
- =?us-ascii?Q?N/LVxfxkGTNswuCrmxs91focx471eX9Pp2YpY45+aQXbZZeAsVopMiPvUOQj?=
- =?us-ascii?Q?3/W1MtJZv/i0L37IKR337pG5b9hBLdLRFFpt7eL7HWxM435/JozS1vLMYBlx?=
- =?us-ascii?Q?ksb0DQ8iq5P0ia0n86SsMHnYlITf+zLv9B4wIJS1QRbjL/RM7hM065DtftLR?=
- =?us-ascii?Q?4XWbrzAH1GeAlY337JZVqGJtGjCwdV776W3zjixAW7K7HnWlSrf8zDcf80wF?=
- =?us-ascii?Q?YA800P23FMcIQnw+G/azvcysdOa9/oduxfmHFW8cGDr7LsKXsN5uRgUoMWw9?=
- =?us-ascii?Q?OywaQlL8jn1d0hEqLD2R2EbPpQhHKC+D3kx/JSxgfprLHqg5e6sBXQ0Ff0D9?=
- =?us-ascii?Q?lYbJ3ykvaa/jkM8ocwSj1RhFIp2eevdkT50gIIiQn0mMKxCw6PgPxhvSIOUi?=
- =?us-ascii?Q?aGsvoK6hlwim9MBDYZ6HJ4QLLcnowLjFxyr2qbPoS5BzuIC6npq1Ms7hj3v4?=
- =?us-ascii?Q?XvCToG0HdI8RrFZFHq1oiCNY3t7cjpCC9Z9jy/bIKBZ4ex+E4TZMc3kyczdR?=
- =?us-ascii?Q?H7E3RWgyNDPS2QoG5NTFKYIxHvnItfFv7itu/UYHM5iUCb/MNAY0ZLGq5nQq?=
- =?us-ascii?Q?HCR0LtAr5re8BvAgbes56tow6d0MwG51+8gA6G1MnPnAPpDCor9Xbj8oH23I?=
- =?us-ascii?Q?X/UYKGdAOdgiRrT9hThH9R8Eg2j7/FeBiJPB0KGbG8K9p5Bo0nOPRVKlxSn/?=
- =?us-ascii?Q?W04zx8OMbXb+BJvbMa0G1ABSHnV/C50R81WkmIYv79fv70GGaQr8EWPTw37y?=
- =?us-ascii?Q?BeJbjh/pn4Gtgrs0l6lO3kW/Ll0bwGoJU4hZft0iXUpdms7sWS+x3Spkd2kv?=
- =?us-ascii?Q?rXB0Tolu1FDI3Tk6uStqzQju6VJiT2qfLBnGZGDsqsdFxPkycuj9T33ZgpFO?=
- =?us-ascii?Q?dEXyGJUDhyw7cXFzrO075MJenlznUEQkIPu4x5mZTZQF4hUeZqka92hIojVq?=
- =?us-ascii?Q?mWqPrY1cna77fw5tjxQMxJu8ac75uax7JuHop9noDF1hosOtTLSecdaia27/?=
- =?us-ascii?Q?jE5R3Iy/uomJWjUOMh8t/tpx6pkcYjLZ?=
+ ARA:13230040|1800799024|366016|376014|38070700018|8096899003|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?4yH4wipuOQVQw7DK0dj+15G0QgQ59c/i6nfC7cPoHrMNxXQ1HROqrmfF8L+5?=
+ =?us-ascii?Q?abW/VVXKhAd3wLYDN9eJwBo7rzlF9NCNz/PyDtgxr67HnBQ2ZT8g9ncA8dc2?=
+ =?us-ascii?Q?6Z34JvzESZMsx4rnY8fiwEJsVR/Qjo9UStI9tf6IxiN70HslxwbF95DowL7l?=
+ =?us-ascii?Q?KZGR82RXHKE1qRYi2DUAyfsMk3HvtDTEPijbguhYgp7KWYSq5zKSLhEXm0fk?=
+ =?us-ascii?Q?Q+ZACcy/8/NjAuULKKVvArbVv9y84EqmChhlOGALMH+34WuYl8uhCTY3xHQ3?=
+ =?us-ascii?Q?LU8SgGcZeC0w1JqIWHTK0kMa5zukIeeb92Dj6OaIoUIQLLmCaipZM8+gHiKa?=
+ =?us-ascii?Q?G7H9ZRVYYcWBENzMx3vhCsMe9yp5W2dhLoaTJMTUl6UNltqtFGQAJVSdUbvd?=
+ =?us-ascii?Q?zdu4JQ3nm9v7lMORlQQmBurU3FEjNx1I3LmN0mNLIv+fEm9wz8HT3DSGfvN3?=
+ =?us-ascii?Q?XIpcVcBTb7QBSYBRf91I3+CNYePzhKZBnm4Q/rbl2fw5sVt0CLfflriJ5f62?=
+ =?us-ascii?Q?wcD0pqtP4Da3ruScb6ysA3vIBpYFgvDv0DyhOC6cVJfyCVAn/lx//RGPOhNq?=
+ =?us-ascii?Q?FTdp+XDjcjedkzCnuh69oCRY3B/SQSSKWpDJhMRGeP9yy3vx2J46IK++uUi6?=
+ =?us-ascii?Q?eepr05MDjb+UzDNdfx/4LHEgb81nmR0YUzo+1tanUc0yWnos+gY5aZg+XiWt?=
+ =?us-ascii?Q?hAgdZJavtGvi1cPxb7KZQ0gbuLdMCYhK7PWsoKkGgEM5Y83RKMpgtXFLLsBq?=
+ =?us-ascii?Q?5B6OJiIfnDkttSGu9jP8DQfWMYl8mU9ylQLw7KpvWj5iD+h4zVkZuDkHDOcw?=
+ =?us-ascii?Q?6uLg2rYheo90BDN/62jBOMNVi5wit0wlKgYb1VnBwynKEELaFholWycrHgJw?=
+ =?us-ascii?Q?8QJeTa0cP3ZgvcbSc2Zu7dk59AeysShROeEETYCSwsxkkY3OLWkBzYCSdplR?=
+ =?us-ascii?Q?3JBbnhe1u5NEUcBp+9IDPnvq9UVKiWgEJN7SJ1RPha7C8xu6TNUjtgaeJlDa?=
+ =?us-ascii?Q?/zYi+Vds9AjwXBWVSj/n9WlOjdH92S8fa7vCfqaNrdrHIubCIdsxw4lyC/v1?=
+ =?us-ascii?Q?m7wbcORcbk2CcO2kMMr5bJPYHk8LW3MN+DWaMejVk6G+8MLjAM+h62G9dWYU?=
+ =?us-ascii?Q?pLy/SJmjArNne39RIq2BC0czCGIskHcfZ9+Vzi+5+Oj2igiwRB3SVO1jqi1G?=
+ =?us-ascii?Q?b6P84UzOLUCzGpbwZO07WC0Uf9LFiBHFdIzYMWSmQUVL4AjkzEiXl8Vlo6rf?=
+ =?us-ascii?Q?eG0i+h9R7qCExfDzoia/Ua8SOMpm72KI/QYjCf4agepYljT1AF7jj2POiAei?=
+ =?us-ascii?Q?XHoMKZmVKKqz3Puwgzku3A4ugRczrKAJEKGNsVhezE4zbjR3oWtqCMxtEMW2?=
+ =?us-ascii?Q?Chs1MadZmw6c2EVU+FonHBvkp6mTpfUtXtA7iOymq5R3XZtMWDM93BY+5KW+?=
+ =?us-ascii?Q?TQv6tY6FJcLcePHRuWPqwyDZCmuPxlM1?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(8096899003)(7053199007);
+ DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PixFlM2GWiAs34WWJBRz3K7mTMqndmWZWhHdyFus/TNhroWABrcoeqByxFBZ?=
- =?us-ascii?Q?TUZFS7BecZgK/SaHX9FB+Lrt6YvUjDXSJ3YU4U0/QRRw0WerhDhiR9ot8U35?=
- =?us-ascii?Q?Z+UnFU4oEWr06DuW+W8M4KNjeE6qzOTYMm/sx+RiJ6Htu/GVjPl+QE9vBRkx?=
- =?us-ascii?Q?rqjgCnl32luJGRxHjoCmwZBNKa8A+ucCvjIb94wJWtaa5qhX+zQsGhi+Pcaw?=
- =?us-ascii?Q?h3D6pSiHtt5cN2fqHj2y+YeglxdGRcsBzUF/lvYk8gdtvZfGai1kG0ONp1LY?=
- =?us-ascii?Q?srEUrfg/Zj3e60z4gVKYIV8cXDAeiCZKZ3sS+154tOyz+vIxz5EKSrjzFvvR?=
- =?us-ascii?Q?Os0gc/Q1der/dNRa9qPNxk5ooltAcYnZuMR40KnnR67mkYZZZJq1lX81RYEF?=
- =?us-ascii?Q?OU5m6bKt524am3svw5vt62IaaheBHexMQaYxjLTkrMJ87sbRCkDuDXHm8KaX?=
- =?us-ascii?Q?1Wpe1NcrojH0hUFbKVIPcN6TgzxkNp/HU16Xs0T04HtxxoJ/XYbPk0Wf6C1M?=
- =?us-ascii?Q?7QJex5chShfOeUqdt+iJ4zqsRuN97EVLEnb2V9bRIaQy0DTOyjGPki1hbQMk?=
- =?us-ascii?Q?SRugnbOkWH1CNt44FFpu7h5KLc/579httF4b0k0VTsajHsBLiE+Gw+xwbzYu?=
- =?us-ascii?Q?WJF4Y34vd05hrsXRSJdq7cARvP5Ptqp6ionbuZndcmFn4y7IveKxCNcnIuox?=
- =?us-ascii?Q?VAtda2/ETulhpxQNPoLgYcf0vX19oKi9QNrGtzvXKRlF6/wAavEZevaRuaCB?=
- =?us-ascii?Q?BeM4GNemU5UhPvGMKxrAO0jyATNVCD/NhwRK9LUKvpSuQp7HS3dUC2MRQzZr?=
- =?us-ascii?Q?aSWnOIGvOzRfL5sA2pmPeQrgmsCDrAcgzlFPNgNtwFdZsmvi0e4/G1kaGuy2?=
- =?us-ascii?Q?0yHbpJdE12B+hiqeYtYHehCb/jQImcJltEPXj15NMr+g6Knd3hwD+TrhJCTZ?=
- =?us-ascii?Q?L5wLzQHvfhh8LnZ1IL8tb31lLb+pXp7XYTwfF5C6dOSb4RNAorVp/hTnNuYs?=
- =?us-ascii?Q?Dq/f+AV83kEvLf6+f32bqh2774ikmUz3XmQ4N4CagcwU7kWD7jco1NdkvxTp?=
- =?us-ascii?Q?JegMRde+dwwX1+ws3TlCIbuFTdSdWMY179Y59QxfWE4c2OMgY7FiUHBR/hWG?=
- =?us-ascii?Q?xKn1C3DF7pXHo5DIvaCOOCt3yQS8Sti9dfna4DV+vv6VbsQGkOBOzC1MEosM?=
- =?us-ascii?Q?WmuZKiBDiJSxVDaIrtbglY6XPTl8L3Xp6dhZH0yP+ku+CDQbwwjYqiN07Jb/?=
- =?us-ascii?Q?RFPmb8Ud4kB+94K81CZxhrNs5nGkyOgiy0l3KVcmYB/jIMd4M0oNe6GzeYwt?=
- =?us-ascii?Q?wlakMXyAxL1r3wN3F8xN3XV9CA0nJisrqZjSd/bpzrSIIPydb8PuVzBNulrz?=
- =?us-ascii?Q?r10Bq6UpIwHALf4PNFEBgwDD+ZYIPVNCLAMfDaRYBZAbRc92v1Of+hFlTz2O?=
- =?us-ascii?Q?2RoGlPjNDOYDu7v+euJ1vEdiXzvHmfxlXUF0a5xKevjhWdtGhJasaQnyoFCD?=
- =?us-ascii?Q?DxNwqkfmvjCzwZ5LHuKIeKHcY7rFCKb07zJqeZf1WEqm9RNt5S4qLsz4HfoG?=
- =?us-ascii?Q?sTt91Klhf9dAovDWMyWXHtW5KKn4oM2DEtnxV/7g?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2mYH8ra+QElLA2yta5y/cpSHrk6EjpM8rA/UJKvF3XfbdJeLPIxt3cGEBWLA?=
+ =?us-ascii?Q?ZQozS4+CjSmIqobgmUD/35jiPyUT6L0eeXq6Q3WL1rdZzl+vlELh25ND+e++?=
+ =?us-ascii?Q?fFT367i13d6k1l9Xg54BBadxz6+wjDa2BWj1IB9PrM9lr83JLBrqYwsDyhNR?=
+ =?us-ascii?Q?L+bAXlj8GwxGtbxyBO8q8ZNmQ+ELx5RfBvSkJ21EgfULhb5BIPfhGszcJbtl?=
+ =?us-ascii?Q?+shDXFFwVnR7BY2EcFjwP1OndpHzY0vdccRWBLUI2cpSK0ZTtsQqCbo4FwPR?=
+ =?us-ascii?Q?ZPL9gOT/mLraCCnA/mAiW4QjqyS8VpgjAs+0I2pw5sNYnNVT/AoXg2LTyg0Y?=
+ =?us-ascii?Q?T1WIkMcHIP4WBs9r9tX1b2Yl29G+DwJAUGWH6MsdocXd75bTDwGejQjsTWVn?=
+ =?us-ascii?Q?zNhj9rbrsS7T/d+SYdoqsQThGy/oy3dpmyQOx164J3fFUh/pGgY2JjnTDN5B?=
+ =?us-ascii?Q?d6G1+OhFAYLb1uCJZrHwQWj5E7OjkLvPUn5PjLxZyFY4uWP3gnQyiWQ1H0/W?=
+ =?us-ascii?Q?g4Zn9Uo1ecfpV3HsGBLbZ8uCFZjBkao5IKGTyOQ/N2GbVPVdFTKb7OE26QQJ?=
+ =?us-ascii?Q?WGDyjH/jRa4/vOY2tCY8TkSfwCgmJuYcatQHIthfhUdfmljJPK6mIsR9lJr/?=
+ =?us-ascii?Q?KiwvxYusdDP9RXkxUHG/P0jtjuqBdOzdF57lHubm7Qmp15t6r7doG2lDkOEB?=
+ =?us-ascii?Q?IAHuGHGeBpsYfdfNS2Swzj9NjBL8emaGG6yF8lhvJ5TpzitqDyjJuxBgm48Z?=
+ =?us-ascii?Q?TPtWNrci/T/xVZINjTpJ4OpuzydH207Lq9Jt0Cy0fg7CXg+F90Ew5qrfhETH?=
+ =?us-ascii?Q?BlJn1SPyaXamfN/pVoZqFD7rLhCKC7pY1jt5RgKQDcxbvwf6tuKoAQPtKPhp?=
+ =?us-ascii?Q?s6f+XFgf94jU/RQqqsM8TRqfW/UoOVvlzuZy0F7scSzndgHLqGXsAE0T4y2E?=
+ =?us-ascii?Q?SX6YNmhEmwtOSFkJI2hEJehOv01HMXsfhZB8dd1+K94oQ60soqQ4ja7GUBAn?=
+ =?us-ascii?Q?oaz2bNUgsMVQbKQ4wfv+Iwp5SJf0fPyK3OCw2hDuInHsjQTK9eafbowVy77i?=
+ =?us-ascii?Q?TI1YSpj0UDdiB3S+djprGUV/RfrTAcM6bQxQpFLHn3rWJg2kSlmCKpCTMcUr?=
+ =?us-ascii?Q?vZjxiyNqAnqrXffNIiKnNrQbRgxdX6MwmkRVmpAZg/DkrfStZ7vvh8BK9kUn?=
+ =?us-ascii?Q?NnzGR7mUUFvJxgKNKSv5JbvLaHgqeMyOMz59E3taDJgQQb0VnMs9ipIILoSW?=
+ =?us-ascii?Q?imfRWKmswRCJSJ1vmYjTaCXozyQcPg9XfP+M+Se8u5eOCWcZRYs23hOCeUNg?=
+ =?us-ascii?Q?ddpoLjN+RJSa7ERGlScHRB4G3qKI5aqHpGiKzcrxtNjxXHTpmMmvoPVh//IN?=
+ =?us-ascii?Q?Lvfe6Rvbj7OGhg+8q3+rBLdUNKbtNeDc/BBiJgy+zl2tuDXNkpIZXIFUS03z?=
+ =?us-ascii?Q?4MIWV2Cu4vrV4xH1spXEfPNcIk72Q++OrKTfrrnCC+DgGJyNqE3ATzBKjwbj?=
+ =?us-ascii?Q?9RtwtENCZujhF9PGJNHE6Y4eKSbpvFlfbE7OcbRssU0vScuMB7eh+bGuHy8q?=
+ =?us-ascii?Q?AThwAMj/GQnbmA6fVXk=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CY5PR12MB63455190AF9EBCCFABBE4536FAD82CY5PR12MB6345namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c300b91-2bbb-48bd-8aaa-08dd67782dcd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2025 06:26:41.8137 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f39043e1-8805-4e86-e770-08dd67791f0d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2025 06:33:26.5576 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Y/tSknbzInq6P3C5Pa/1xo9mSiOJ15y4qZGEFRqxfKzsY6dqUng1yFlRHtM9CSNLjG3nbswJNuTxezbxnkYV5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF6BCF148B6
+X-MS-Exchange-CrossTenant-userprincipalname: lo81CULsgu52nJ2Id/I5U4ZYxCDEWfp5OZqsaKSlDwMCLDC/MMPiY7cyzPd9p3YyvPWqjOXbm+tN/+XZiilvEg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4481
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,689 +158,302 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_CY5PR12MB63455190AF9EBCCFABBE4536FAD82CY5PR12MB6345namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Thanks, will improve it.
+
+Best Regards,
+
+Dean
+
+________________________________
+From: Zhang, Hawking <Hawking.Zhang@amd.com>
+Sent: Thursday, March 20, 2025 2:22 PM
+To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>; amd-gfx@lists.freedesktop.org <am=
+d-gfx@lists.freedesktop.org>
+Cc: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.c=
+om>; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank=
+ parser
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
++               bank->aca_err_type =3D (ACA_REG__STATUS__POISON(status) ||
++                                     ACA_REG__STATUS__DEFERRED(status)) ?
++                                               ACA_ERROR_TYPE_DEFERRED :
++                                               ACA_ERROR_TYPE_UE;
+
+Does it make more sense to create a macro similar to ACA_BANK_ERR_CE_DE_DEC=
+ODE for above code segment?
 
 Regards,
 Hawking
+
 -----Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Thursday, March 20, 2025 13:04
+From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Sent: Thursday, March 20, 2025 14:15
 To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; =
-Lin, Amber <Amber.Lin@amd.com>
-Subject: [PATCH] drm/amdkfd: Use dev_* instead of pr_* for messages
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wa=
+ng@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.=
+com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank par=
+ser
 
-To get the device context, replace pr_ with dev_ functions.
+In the case of injecting uncorrected error with background workload, the de=
+ferred error among uncorrected errors need to be specified by checking the =
+deferred and poison bits of status register.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 ---
- .../gpu/drm/amd/amdkfd/kfd_int_process_v10.c  | 142 ++++++++++++------  ..=
-./gpu/drm/amd/amdkfd/kfd_int_process_v11.c  |  92 ++++++++----
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 142 ++++++++++++++----
- 3 files changed, 263 insertions(+), 113 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c |  3 +++  drivers/gpu/drm/amd/amdg=
+pu/gfx_v9_4_3.c | 11 +++++++----
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c b/drivers/gpu=
-/drm/amd/amdkfd/kfd_int_process_v10.c
-index 37b69fe0ede3..54870b4c5000 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-@@ -168,11 +168,12 @@ static bool event_interrupt_isr_v10(struct kfd_node *=
-dev,
-            client_id !=3D SOC15_IH_CLIENTID_SE3SH)
-                return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_aca.c
+index ffd4c64e123c..3f45a600f547 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -541,6 +541,9 @@ static int __aca_get_error_data(struct amdgpu_device *a=
+dev, struct aca_handle *h
+        if (ret)
+                return ret;
 
--       pr_debug("client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw da=
-ta:\n",
--                client_id, source_id, vmid, pasid);
--       pr_debug("%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n",
--                data[0], data[1], data[2], data[3],
--                data[4], data[5], data[6], data[7]);
-+       dev_dbg(dev->adev->dev,
-+               "client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw dat=
-a:\n",
-+               client_id, source_id, vmid, pasid);
-+       dev_dbg(dev->adev->dev, "%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n"=
-,
-+               data[0], data[1], data[2], data[3], data[4], data[5], data[=
-6],
-+               data[7]);
++       if (type =3D=3D ACA_ERROR_TYPE_UE)
++               aca_log_aca_error(handle, ACA_ERROR_TYPE_DEFERRED, err_data=
+);
++
+        return aca_log_aca_error(handle, type, err_data);  }
 
-        /* If there is no valid PASID, it's likely a bug */
-        if (WARN_ONCE(pasid =3D=3D 0, "Bug: No PASID in KFD interrupt")) @@=
- -217,37 +218,66 @@ static void event_interrupt_wq_v10(struct kfd_node *dev=
-,
-                                                SQ_INTERRUPT_WORD_WAVE_CTXI=
-D1, ENCODING);
-                        switch (encoding) {
-                        case SQ_INTERRUPT_WORD_ENCODING_AUTO:
--                               pr_debug_ratelimited(
-+                               dev_dbg_ratelimited(
-+                                       dev->adev->dev,
-                                        "sq_intr: auto, se %d, ttrace %d, w=
-lt %d, ttrac_buf0_full %d, ttrac_buf1_full %d, ttrace_utc_err %d\n",
--                                       REG_GET_FIELD(context_id1, SQ_INTER=
-RUPT_WORD_AUTO_CTXID1,
--                                                       SE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID0,
--                                                       THREAD_TRACE),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID0,
--                                                       WLT),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID0,
--                                                       THREAD_TRACE_BUF0_F=
-ULL),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID0,
--                                                       THREAD_TRACE_BUF1_F=
-ULL),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID0,
--                                                       THREAD_TRACE_UTC_ER=
-ROR));
-+                                       REG_GET_FIELD(
-+                                               context_id1,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D1,
-+                                               SE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D0,
-+                                               THREAD_TRACE),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D0,
-+                                               WLT),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D0,
-+                                               THREAD_TRACE_BUF0_FULL),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D0,
-+                                               THREAD_TRACE_BUF1_FULL),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D0,
-+                                               THREAD_TRACE_UTC_ERROR));
-                                break;
-                        case SQ_INTERRUPT_WORD_ENCODING_INST:
--                               pr_debug_ratelimited("sq_intr: inst, se %d,=
- data 0x%x, sa %d, priv %d, wave_id %d, simd_id %d, wgp_id %d\n",
--                                       REG_GET_FIELD(context_id1, SQ_INTER=
-RUPT_WORD_WAVE_CTXID1,
--                                                       SE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       DATA),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       SA_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       PRIV),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       WAVE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       SIMD_ID),
--                                       REG_GET_FIELD(context_id1, SQ_INTER=
-RUPT_WORD_WAVE_CTXID1,
--                                                       WGP_ID));
-+                               dev_dbg_ratelimited(
-+                                       dev->adev->dev,
-+                                       "sq_intr: inst, se %d, data 0x%x, s=
-a %d, priv %d, wave_id %d, simd_id %d, wgp_id %d\n",
-+                                       REG_GET_FIELD(
-+                                               context_id1,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D1,
-+                                               SE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               DATA),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               SA_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               PRIV),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               WAVE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               SIMD_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id1,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D1,
-+                                               WGP_ID));
-                                if (context_id0 & SQ_INTERRUPT_WORD_WAVE_CT=
-XID0__PRIV_MASK) {
-                                        if (kfd_set_dbg_ev_from_interrupt(d=
-ev, pasid,
-                                                        KFD_DEBUG_DOORBELL_=
-ID(context_id0),
-@@ -259,21 +289,37 @@ static void event_interrupt_wq_v10(struct kfd_node *d=
-ev,
-                        case SQ_INTERRUPT_WORD_ENCODING_ERROR:
-                                sq_intr_err_type =3D REG_GET_FIELD(context_=
-id0, KFD_CTXID0,
-                                                                ERR_TYPE);
--                               pr_warn_ratelimited("sq_intr: error, se %d,=
- data 0x%x, sa %d, priv %d, wave_id %d, simd_id %d, wgp_id %d, err_type %d\=
-n",
--                                       REG_GET_FIELD(context_id1, SQ_INTER=
-RUPT_WORD_WAVE_CTXID1,
--                                                       SE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       DATA),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       SA_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       PRIV),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       WAVE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID0,
--                                                       SIMD_ID),
--                                       REG_GET_FIELD(context_id1, SQ_INTER=
-RUPT_WORD_WAVE_CTXID1,
--                                                       WGP_ID),
-+                               dev_warn_ratelimited(
-+                                       dev->adev->dev,
-+                                       "sq_intr: error, se %d, data 0x%x, =
-sa %d, priv %d, wave_id %d, simd_id %d, wgp_id %d, err_type %d\n",
-+                                       REG_GET_FIELD(
-+                                               context_id1,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D1,
-+                                               SE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               DATA),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               SA_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               PRIV),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               WAVE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0,
-+                                               SIMD_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id1,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D1,
-+                                               WGP_ID),
-                                        sq_intr_err_type);
-                                break;
-                        default:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c b/drivers/gpu=
-/drm/amd/amdkfd/kfd_int_process_v11.c
-index c5f97e6e36ff..eb88ba8d8b01 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-@@ -148,44 +148,69 @@ enum SQ_INTERRUPT_ERROR_TYPE {
- #define KFD_CTXID0_DOORBELL_ID(ctxid0)         ((ctxid0) & \
-                                KFD_CTXID0_DOORBELL_ID_MASK)
-
--static void print_sq_intr_info_auto(uint32_t context_id0, uint32_t context=
-_id1)
-+static void print_sq_intr_info_auto(struct kfd_node *dev, uint32_t context=
-_id0,
-+                                   uint32_t context_id1)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c
+index c0de682b7774..b21d784a7f9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -876,7 +876,7 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle=
+ *handle,
+                                      void *data)
  {
--       pr_debug_ratelimited(
-+       dev_dbg_ratelimited(
-+               dev->adev->dev,
-                "sq_intr: auto, ttrace %d, wlt %d, ttrace_buf_full %d, reg_=
-tms %d, cmd_tms %d, host_cmd_ovf %d, host_reg_ovf %d, immed_ovf %d, ttrace_=
-utc_err %d\n",
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, T=
-HREAD_TRACE),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-+                             THREAD_TRACE),
-                REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, W=
-LT),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, T=
-HREAD_TRACE_BUF_FULL),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, R=
-EG_TIMESTAMP),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, C=
-MD_TIMESTAMP),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, H=
-OST_CMD_OVERFLOW),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, H=
-OST_REG_OVERFLOW),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, I=
-MMED_OVERFLOW),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, T=
-HREAD_TRACE_UTC_ERROR));
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-+                             THREAD_TRACE_BUF_FULL),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-+                             REG_TIMESTAMP),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-+                             CMD_TIMESTAMP),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-+                             HOST_CMD_OVERFLOW),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-+                             HOST_REG_OVERFLOW),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-+                             IMMED_OVERFLOW),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-+                             THREAD_TRACE_UTC_ERROR));
- }
+        struct aca_bank_info info;
+-       u64 misc0;
++       u64 misc0, status;
+        u32 instlo;
+        int ret;
 
--static void print_sq_intr_info_inst(uint32_t context_id0, uint32_t context=
-_id1)
-+static void print_sq_intr_info_inst(struct kfd_node *dev, uint32_t context=
-_id0,
-+                                   uint32_t context_id1)
- {
--       pr_debug_ratelimited(
-+       dev_dbg_ratelimited(
-+               dev->adev->dev,
-                "sq_intr: inst, data 0x%08x, sh %d, priv %d, wave_id %d, si=
-md_id %d, wgp_id %d\n",
-                REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0, D=
-ATA),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0, S=
-H_ID),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-+                             SH_ID),
-                REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0, P=
-RIV),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0, W=
-AVE_ID),
--               REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1, S=
-IMD_ID),
--               REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1, W=
-GP_ID));
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-+                             WAVE_ID),
-+               REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1,
-+                             SIMD_ID),
-+               REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1,
-+                             WGP_ID));
- }
+@@ -890,12 +890,15 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_hand=
+le *handle,
+        info.die_id =3D instlo =3D=3D mmSMNAID_XCD0_MCA_SMU ? 0 : 1;
 
--static void print_sq_intr_info_error(uint32_t context_id0, uint32_t contex=
-t_id1)
-+static void print_sq_intr_info_error(struct kfd_node *dev, uint32_t contex=
-t_id0,
-+                                    uint32_t context_id1)
- {
--       pr_warn_ratelimited(
-+       dev_warn_ratelimited(
-+               dev->adev->dev,
-                "sq_intr: error, detail 0x%08x, type %d, sh %d, priv %d, wa=
-ve_id %d, simd_id %d, wgp_id %d\n",
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, =
-DETAIL),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, =
-TYPE),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, =
-SH_ID),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, =
-PRIV),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, =
-WAVE_ID),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID1, =
-SIMD_ID),
--               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID1, =
-WGP_ID));
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0,
-+                             DETAIL),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0,
-+                             TYPE),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0,
-+                             SH_ID),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0,
-+                             PRIV),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0,
-+                             WAVE_ID),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID1,
-+                             SIMD_ID),
-+               REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID1,
-+                             WGP_ID));
- }
+        misc0 =3D bank->regs[ACA_REG_IDX_MISC0];
++       status =3D bank->regs[ACA_REG_IDX_STATUS];
 
- static void event_interrupt_poison_consumption_v11(struct kfd_node *dev, @=
-@ -255,11 +280,12 @@ static bool event_interrupt_isr_v11(struct kfd_node *d=
-ev,
-            (context_id0 & AMDGPU_FENCE_MES_QUEUE_FLAG))
-                return false;
-
--       pr_debug("client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw da=
-ta:\n",
--                client_id, source_id, vmid, pasid);
--       pr_debug("%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n",
--                data[0], data[1], data[2], data[3],
--                data[4], data[5], data[6], data[7]);
-+       dev_dbg(dev->adev->dev,
-+               "client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw dat=
-a:\n",
-+               client_id, source_id, vmid, pasid);
-+       dev_dbg(dev->adev->dev, "%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n"=
-,
-+               data[0], data[1], data[2], data[3], data[4], data[5], data[=
-6],
-+               data[7]);
-
-        /* If there is no valid PASID, it's likely a bug */
-        if (WARN_ONCE(pasid =3D=3D 0, "Bug: No PASID in KFD interrupt")) @@=
- -353,10 +379,10 @@ static void event_interrupt_wq_v11(struct kfd_node *dev=
-,
-                                        SQ_INTERRUPT_WORD_WAVE_CTXID1, ENCO=
-DING);
-                        switch (sq_int_enc) {
-                        case SQ_INTERRUPT_WORD_ENCODING_AUTO:
--                               print_sq_intr_info_auto(context_id0, contex=
-t_id1);
-+                               print_sq_intr_info_auto(dev, context_id0, c=
-ontext_id1);
-                                break;
-                        case SQ_INTERRUPT_WORD_ENCODING_INST:
--                               print_sq_intr_info_inst(context_id0, contex=
-t_id1);
-+                               print_sq_intr_info_inst(dev, context_id0, c=
-ontext_id1);
-                                sq_int_priv =3D REG_GET_FIELD(context_id0,
-                                                SQ_INTERRUPT_WORD_WAVE_CTXI=
-D0, PRIV);
-                                if (sq_int_priv && (kfd_set_dbg_ev_from_int=
-errupt(dev, pasid, @@ -366,7 +392,7 @@ static void event_interrupt_wq_v11(s=
-truct kfd_node *dev,
-                                        return;
-                                break;
-                        case SQ_INTERRUPT_WORD_ENCODING_ERROR:
--                               print_sq_intr_info_error(context_id0, conte=
-xt_id1);
-+                               print_sq_intr_info_error(dev, context_id0, =
-context_id1);
-                                sq_int_errtype =3D REG_GET_FIELD(context_id=
-0,
-                                                SQ_INTERRUPT_WORD_ERROR_CTX=
-ID0, TYPE);
-                                if (sq_int_errtype !=3D SQ_INTERRUPT_ERROR_=
-TYPE_ILLEGAL_INST && diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_proces=
-s_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index b8a91bf4ef30..4ceb251312a6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -314,11 +314,12 @@ static bool event_interrupt_isr_v9(struct kfd_node *d=
-ev,
-                                        & ~pasid_mask) | pasid);
-        }
-
--       pr_debug("client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw da=
-ta:\n",
--                client_id, source_id, vmid, pasid);
--       pr_debug("%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n",
--                data[0], data[1], data[2], data[3],
--                data[4], data[5], data[6], data[7]);
-+       dev_dbg(dev->adev->dev,
-+               "client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw dat=
-a:\n",
-+               client_id, source_id, vmid, pasid);
-+       dev_dbg(dev->adev->dev, "%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n"=
-,
-+               data[0], data[1], data[2], data[3], data[4], data[5], data[=
-6],
-+               data[7]);
-
-        /* If there is no valid PASID, it's likely a bug */
-        if (WARN_ONCE(pasid =3D=3D 0, "Bug: No PASID in KFD interrupt")) @@=
- -379,28 +380,82 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
-                        encoding =3D REG_GET_FIELD(context_id0, SQ_INTERRUP=
-T_WORD_WAVE_CTXID, ENCODING);
-                        switch (encoding) {
-                        case SQ_INTERRUPT_WORD_ENCODING_AUTO:
--                               pr_debug_ratelimited(
-+                               dev_dbg_ratelimited(
-+                                       dev->adev->dev,
-                                        "sq_intr: auto, se %d, ttrace %d, w=
-lt %d, ttrac_buf_full %d, reg_tms %d, cmd_tms %d, host_cmd_ovf %d, host_reg=
-_ovf %d, immed_ovf %d, ttrace_utc_err %d\n",
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, SE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, THREAD_TRACE),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, WLT),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, THREAD_TRACE_BUF_FULL),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, REG_TIMESTAMP),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, CMD_TIMESTAMP),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, HOST_CMD_OVERFLOW),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, HOST_REG_OVERFLOW),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, IMMED_OVERFLOW),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_AUTO_CTXID, THREAD_TRACE_UTC_ERROR));
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               SE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               THREAD_TRACE),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               WLT),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               THREAD_TRACE_BUF_FULL),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               REG_TIMESTAMP),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               CMD_TIMESTAMP),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               HOST_CMD_OVERFLOW),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               HOST_REG_OVERFLOW),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               IMMED_OVERFLOW),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_AUTO_CTXI=
-D,
-+                                               THREAD_TRACE_UTC_ERROR));
-                                break;
-                        case SQ_INTERRUPT_WORD_ENCODING_INST:
--                               pr_debug_ratelimited("sq_intr: inst, se %d,=
- data 0x%x, sh %d, priv %d, wave_id %d, simd_id %d, cu_id %d, intr_data 0x%=
-x\n",
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, SE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, DATA),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, SH_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, PRIV),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, WAVE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, SIMD_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, CU_ID),
-+                               dev_dbg_ratelimited(
-+                                       dev->adev->dev,
-+                                       "sq_intr: inst, se %d, data 0x%x, s=
-h %d, priv %d, wave_id %d, simd_id %d, cu_id %d, intr_data 0x%x\n",
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               SE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               DATA),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               SH_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               PRIV),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               WAVE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               SIMD_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               CU_ID),
-                                        sq_int_data);
-                                if (context_id0 & SQ_INTERRUPT_WORD_WAVE_CT=
-XID__PRIV_MASK) {
-                                        if (kfd_set_dbg_ev_from_interrupt(d=
-ev, pasid, @@ -412,14 +467,37 @@ static void event_interrupt_wq_v9(struct k=
-fd_node *dev,
-                                break;
-                        case SQ_INTERRUPT_WORD_ENCODING_ERROR:
-                                sq_intr_err =3D REG_GET_FIELD(sq_int_data, =
-KFD_SQ_INT_DATA, ERR_TYPE);
--                               pr_warn_ratelimited("sq_intr: error, se %d,=
- data 0x%x, sh %d, priv %d, wave_id %d, simd_id %d, cu_id %d, err_type %d\n=
-",
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, SE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, DATA),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, SH_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, PRIV),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, WAVE_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, SIMD_ID),
--                                       REG_GET_FIELD(context_id0, SQ_INTER=
-RUPT_WORD_WAVE_CTXID, CU_ID),
-+                               dev_warn_ratelimited(
-+                                       dev->adev->dev,
-+                                       "sq_intr: error, se %d, data 0x%x, =
-sh %d, priv %d, wave_id %d, simd_id %d, cu_id %d, err_type %d\n",
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               SE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               DATA),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               SH_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               PRIV),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               WAVE_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               SIMD_ID),
-+                                       REG_GET_FIELD(
-+                                               context_id0,
-+                                               SQ_INTERRUPT_WORD_WAVE_CTXI=
-D,
-+                                               CU_ID),
-                                        sq_intr_err);
-                                if (sq_intr_err !=3D SQ_INTERRUPT_ERROR_TYP=
-E_ILLEGAL_INST &&
-                                        sq_intr_err !=3D SQ_INTERRUPT_ERROR=
-_TYPE_MEMVIOL) {
+        switch (type) {
+        case ACA_SMU_TYPE_UE:
+-               bank->aca_err_type =3D ACA_ERROR_TYPE_UE;
+-               ret =3D aca_error_cache_log_bank_error(handle, &info,
+-                                                    ACA_ERROR_TYPE_UE, 1UL=
+L);
++               bank->aca_err_type =3D (ACA_REG__STATUS__POISON(status) ||
++                                     ACA_REG__STATUS__DEFERRED(status)) ?
++                                               ACA_ERROR_TYPE_DEFERRED :
++                                               ACA_ERROR_TYPE_UE;
++               ret =3D aca_error_cache_log_bank_error(handle, &info,
++bank->aca_err_type, 1ULL);
+                break;
+        case ACA_SMU_TYPE_CE:
+                bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
 --
-2.25.1
+2.34.1
 
+
+--_000_CY5PR12MB63455190AF9EBCCFABBE4536FAD82CY5PR12MB6345namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Thanks, will improve it.</div>
+<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
+ckground-color: white; margin: 0px;">
+<span style=3D"font-family: Aptos, sans-serif; font-size: 11pt; color: blac=
+k;">Best Regards,</span></p>
+<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
+ckground-color: white; margin: 0px;">
+<span style=3D"font-family: Aptos, sans-serif; font-size: 11pt; color: blac=
+k;">Dean</span></p>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking &lt;Ha=
+wking.Zhang@amd.com&gt;<br>
+<b>Sent:</b> Thursday, March 20, 2025 2:22 PM<br>
+<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; Zhou1, Tao &lt=
+;Tao.Zhou1@amd.com&gt;; Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Decode deferred error type in gfx a=
+ca bank parser</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
+ style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
+<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
+y - AMD Internal Distribution Only]<br>
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; bank-&gt;aca_err_type =3D (ACA_REG__STATUS__POISON(status) ||<br=
+>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG=
+__STATUS__DEFERRED(status)) ?<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE_DEFERRE=
+D :<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE_UE;<br>
+<br>
+Does it make more sense to create a macro similar to ACA_BANK_ERR_CE_DE_DEC=
+ODE for above code segment?<br>
+<br>
+Regards,<br>
+Hawking<br>
+<br>
+-----Original Message-----<br>
+From: Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<br>
+Sent: Thursday, March 20, 2025 14:15<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Wang, Yang(Kevin) &lt;Kev=
+inYang.Wang@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Chai, Thomas=
+ &lt;YiPeng.Chai@amd.com&gt;; Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<br=
+>
+Subject: [PATCH] drm/amdgpu: Decode deferred error type in gfx aca bank par=
+ser<br>
+<br>
+In the case of injecting uncorrected error with background workload, the de=
+ferred error among uncorrected errors need to be specified by checking the =
+deferred and poison bits of status register.<br>
+<br>
+Signed-off-by: Xiang Liu &lt;xiang.liu@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c |&nbsp; 3 +++&nbsp; drivers/g=
+pu/drm/amd/amdgpu/gfx_v9_4_3.c | 11 +++++++----<br>
+&nbsp;2 files changed, 10 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_aca.c<br>
+index ffd4c64e123c..3f45a600f547 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c<br>
+@@ -541,6 +541,9 @@ static int __aca_get_error_data(struct amdgpu_device *a=
+dev, struct aca_handle *h<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return ret;<br>
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (type =3D=3D ACA_ERROR_TYPE_UE)<br=
+>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; aca_log_aca_error(handle, ACA_ERROR_TYPE_DEFERRED, err_data);<br=
+>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return aca_log_aca_error(handle,=
+ type, err_data);&nbsp; }<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c<br>
+index c0de682b7774..b21d784a7f9c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
+@@ -876,7 +876,7 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle=
+ *handle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vo=
+id *data)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank_info info;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 misc0;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 misc0, status;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 instlo;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+<br>
+@@ -890,12 +890,15 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_hand=
+le *handle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info.die_id =3D instlo =3D=3D mm=
+SMNAID_XCD0_MCA_SMU ? 0 : 1;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; misc0 =3D bank-&gt;regs[ACA_REG_=
+IDX_MISC0];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status =3D bank-&gt;regs[ACA_REG_IDX_=
+STATUS];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_SMU_TYPE_UE:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; bank-&gt;aca_err_type =3D ACA_ERROR_TYPE_UE;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D aca_error_cache_log_bank_error(handle, &amp;info,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ACA_ERROR_TYPE_UE, 1ULL);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; bank-&gt;aca_err_type =3D (ACA_REG__STATUS__POISON(status) ||<br=
+>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG=
+__STATUS__DEFERRED(status)) ?<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE_DEFERRE=
+D :<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE_UE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D aca_error_cache_log_bank_error(handle, &amp;info,<br>
++bank-&gt;aca_err_type, 1ULL);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_SMU_TYPE_CE:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; bank-&gt;aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);<=
+br>
+--<br>
+2.34.1<br>
+<br>
+</span></font></div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CY5PR12MB63455190AF9EBCCFABBE4536FAD82CY5PR12MB6345namp_--
