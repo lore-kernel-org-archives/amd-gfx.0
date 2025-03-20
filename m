@@ -4,50 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93DE4C28B30
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 09:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EDE1C36000
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 09:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A18410E5A8;
-	Thu, 20 Mar 2025 09:51:22 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB0F10E02F;
- Thu, 20 Mar 2025 03:28:15 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-03 (Coremail) with SMTP id rQCowAC3vQ1Ai9tniwnXFg--.12911S2;
- Thu, 20 Mar 2025 11:28:05 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Add dp_decide_lane_settings() to ensure
- compatibility
-Date: Thu, 20 Mar 2025 11:27:25 +0800
-Message-ID: <20250320032725.909-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9C2110E5AB;
+	Thu, 20 Mar 2025 09:51:24 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iJw6FPZr";
+	dkim-atps=neutral
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEC7E10E158
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 09:30:13 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5ea062471so81111a12.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 02:30:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742463012; x=1743067812; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=aob35BaB0ufxNThD8dz2Sgbm/IOHtRTWoitlf6uqNWw=;
+ b=iJw6FPZrYKLS0uqxY8NrBx5pMdzYpRuB4BB0h+zucfgtsTbsvEGWbRmMFys1OeVyn0
+ Bn1uWIPJ9mfkl4aVm0tmILBzTP8oV9OxIdCx3hIHXSVieEfrMaHo6INiWKZ7Kajoi0qG
+ 3NdZmfTlKdHjpWu8XRRhMby8fa8bo12xskYbgTvmxRkqU45K+wSXQ7IDeCaGKHpbEYPs
+ 2by7USV+3m4JKPW5kVC5X0W4FtgZib5iMsKKwsiTIhZHKUDEg1Ngbjs3ggNNOzgk6mY8
+ mMRhzhthvjBovkZGWRi2cUdbpfOAgGvR1/uOyKWaCt8W183RYOZggVIPtA8+96+ej4sV
+ CPqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742463012; x=1743067812;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=aob35BaB0ufxNThD8dz2Sgbm/IOHtRTWoitlf6uqNWw=;
+ b=CvEvNv96F9FTmRn6PoQ0/mkSX1j0Gs+PTPFcFznaJZ+Ni2x/wiqMHEg8XuOUZHwKsg
+ pZfDX2UfTnIXdBLlDagudDe1+v3OB2wlEbqIVvA9WW84YyTCC9OuZrcJNz8h/KHOVWPF
+ Y6WD2PYRehsnA54CFGbiRG1J46UHd7GWzVAnGS+CMaZLdPAbk16+u1ZUylAP1WSTQxO2
+ ySAL9riLCNLpX2Y7HidGizbZYg/KnHdJm/9D50mCksUSQuz1p4pgpceje5EhjINRULvY
+ dNrrEkKwyRTh4AByCIi2X9frYESSW7usfKLxoGUqfSdwOX+C0vBjyx3ABk3/NkG3k0ll
+ KHNw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVBYsURNl+fnOknWdtHl8I5igz3Svl7TXCkXdvvFGPNhiVpkhcEkpYxv2ekb5Z5iH8WKQzP6rpA@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzFRznmXfA4EEYxBgC1nEYWOYoYovJE7alSYebm40B8TP2tMRnW
+ wBncnqszo0TDNQlExhpfuoHz6Z5rI/IJGoPEp7p3nk2ejnnXlhJ7OnrdUlqOfoj1NPocdKhY1rO
+ uAPvL2ICOzlAPZKrNa0RPsG2b4oI=
+X-Gm-Gg: ASbGnctaL3nB2b2CFScSY+8MhBdY2M/MyEdv+4xv9HUrPIUAKTjEAnhReFiA1/pn47N
+ jsfiw5KxJxuRruVpXBYNd1zqs+OX9HAWpuNyZ5Y+HAW5VNvPvxUzDtZKCWQngbWl6iWph/q/LEj
+ uZIpq6qX9Ru+x/8nJbD6WG+ost
+X-Google-Smtp-Source: AGHT+IGDMoLqQKez1fF3Q8CkiWJClRJTfS8jbfolmDPdyfHjq+XUYJats6DrssZj8lj3nxh2QV7Z7cmjtbVSf6rjFZY=
+X-Received: by 2002:a05:6402:5193:b0:5e5:e17f:22fc with SMTP id
+ 4fb4d7f45d1cf-5eb80ca3ed0mr2437689a12.2.1742463012018; Thu, 20 Mar 2025
+ 02:30:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowAC3vQ1Ai9tniwnXFg--.12911S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4UGr1DuryxWr4UAr1xGrg_yoW8ur4Dpa
- 18KFyDJF1UtrW0qa98tF1I9rW5Wa18C3y7Ar9rGasYyry5AF1Ik3y5Cr9Fkr9rGFWkA3yY
- q3W8Ca1Duwn0kFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
- WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
- Yx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbV
- WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
- xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7V
- AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
- r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
- IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
- w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x
- 0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb7DG7UUUUU==
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ4HA2fbeH5JuwAAsL
+References: <20250315201558.339913-1-tomasz.pakula.oficjalny@gmail.com>
+ <20250315201558.339913-3-tomasz.pakula.oficjalny@gmail.com>
+ <DM4PR12MB5165690B22C63D856BFFD7708ED92@DM4PR12MB5165.namprd12.prod.outlook.com>
+ <CAFqprmyv+WXmBWwOa3uPuOkmLtrkfc7jEXquXEyb-Bjuni_jBQ@mail.gmail.com>
+ <CADnq5_NV4hiQCHB7-YE=cN2NNS4AeHsnxntJfQ5a+iiYOaiYGA@mail.gmail.com>
+ <CADnq5_OxT2qfxdPAg5=w1PeOBhQdCL-He2rBJOireSidBz9DKw@mail.gmail.com>
+ <DM4PR12MB51657FD3B25C2F01340701B98ED82@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB51657FD3B25C2F01340701B98ED82@DM4PR12MB5165.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+Date: Thu, 20 Mar 2025 10:29:59 +0100
+X-Gm-Features: AQ5f1JpUb9YVYPg2SmzMJurY4ah8pVXm87X3HdORdt4ZVcNy2M9ah9pPVnYpogA
+Message-ID: <CAFqprmw1DMCqOUtK3=ptBWj+0Q1K1XvY32K3s=NG5mYzqm+dww@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/pm: add zero RPM stop temp OD setting support
+ for SMU 14.0.2
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 20 Mar 2025 09:51:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,37 +90,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The dp_perform_128b_132b_channel_eq_done_sequence() calls
-dp_get_lane_status_and_lane_adjust() but lacks dp_decide_lane_settings().
-The dp_get_lane_status_and_lane_adjust() and dp_decide_lane_settings()
-functions are essential for DisplayPort link training in the Linux kernel,
-with the former retrieving lane status and adjustment needs, and the
-latter determining optimal lane configurations. This omission risks
-compatibility issues, particularly with lower-quality cables or displays,
-as the system cannot dynamically adjust to hardware limitations,
-potentially leading to failed connections. Add dp_decide_lane_settings()
-to enable adaptive lane configuration.
+On Thu, 20 Mar 2025 at 03:38, Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Thanks Tomasz.
+> I confirmed that this change is not in the latest driver-if file.
+> However, this is a fw interface provided by firmware team, we can not change it.
+> That means the interface is different between the smu13 and smu14.
+> Let me check and get back to you.
 
-Fixes: 630168a97314 ("drm/amd/display: move dp link training logic to link_dp_training")
-Cc: stable@vger.kernel.org # 6.3+
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- .../amd/display/dc/link/protocols/link_dp_training_128b_132b.c  | 2 ++
- 1 file changed, 2 insertions(+)
+Please do!
+I honestly find it a bit weird that the setting interface would be exposed but
+its limit is not. Especially given that it actually works after my change and I
+successfully get the stop temperature limits after asking for them. Just seems
+like something has been missed by mistake.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
-index db87cfe37b5c..99aae3e43106 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
-@@ -176,6 +176,8 @@ static enum link_training_result dp_perform_128b_132b_cds_done_sequence(
- 		wait_time += lt_settings->cds_pattern_time;
- 		status = dp_get_lane_status_and_lane_adjust(link, lt_settings, dpcd_lane_status,
- 						&dpcd_lane_status_updated, dpcd_lane_adjust, DPRX);
-+		dp_decide_lane_settings(lt_settings, dpcd_lane_adjust,
-+				lt_settings->hw_lane_settings, lt_settings->dpcd_lane_settings);
- 		if (status != DC_OK) {
- 			result = LINK_TRAINING_ABORT;
- 		} else if (dp_is_symbol_locked(lt_settings->link_settings.lane_count, dpcd_lane_status) &&
--- 
-2.42.0.windows.2
+I'll be waiting for your info from the FW team with bated breath!
 
+Tomasz
