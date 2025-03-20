@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB31C3DA4A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34B78C3600C
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D11910E735;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 365B910E737;
 	Fri, 21 Mar 2025 09:20:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gDcbH+AJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bh7qU2Pg";
 	dkim-atps=neutral
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
- [209.85.166.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFE5A10E687;
- Thu, 20 Mar 2025 18:53:33 +0000 (UTC)
-Received: by mail-io1-f48.google.com with SMTP id
- ca18e2360f4ac-85ae4dc67e5so58314739f.2; 
- Thu, 20 Mar 2025 11:53:33 -0700 (PDT)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
+ [209.85.166.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9CA510E6B7;
+ Thu, 20 Mar 2025 18:53:25 +0000 (UTC)
+Received: by mail-io1-f54.google.com with SMTP id
+ ca18e2360f4ac-85b4170f1f5so31698539f.3; 
+ Thu, 20 Mar 2025 11:53:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496813; x=1743101613; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496805; x=1743101605; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Xw8adb2Z5sY9CYdNStTgPHlquDwGHHXQsVDd6QeFLJc=;
- b=gDcbH+AJYzWuu0RJXFFoSOhukf0VC7OtxPGYShxImX6kVk7QB85DRwzJcfS0f918XC
- DtfoJ2JFNN47yL/oi/VgYc0w7arhwY6UWhqIX7tdI6fWCtTYYfirnNFWtiarNThGimBH
- 6ZuM40hP0dPRII2H0NZAEE7l3ot7vdFyBAlNTQMFmifQiwi/n7wZVmdViV9JDITkJtc8
- 1y33a5dJOshFX58590TJanwdEMSThX/PQRf6NIQ3ZIqhNHhHXKp0ftZme4lGDD9CHjx1
- jKATrUUOHy3ShVUossceTm3bXXQfFJV6Z5nR6uLcuuA6LWllbYIG2jjvqBBvam/spGdr
- 6pBw==
+ bh=aJ+ezC9PUeelEIyxHgbZMmX02NoHE8P8VEj6JEyG+nM=;
+ b=Bh7qU2PgXKlzCsGkIgGSswnK5oavvzySC8qF2H+5R1vFnT/5cX5Q3uDDgKmARYZIbq
+ GDKCJkD32W1xVtv3u+dFKAsCPT8Z9Gz6FQYBfZHH72b4kj6RBqmblCQoQrM0Cj2W1AoT
+ UMbuMxZof3qgTgRtLmmHgFpjva0784puY+pNt0JO9gDNXOnNnrc3WZUjDzc//PIwYLte
+ cgVBGfeyGDryR7Qzh+eVynfQCy6by46oQtkXBxBFXhmvvd+HM5nHCXweKxBaVZDpqm46
+ xflGTbnc4teJ9C4+MKRzsVPnVCwYD9/UVntjQ1QhstKpDychBJ8IXiCGtMIXDpqRohWk
+ NEtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496813; x=1743101613;
+ d=1e100.net; s=20230601; t=1742496805; x=1743101605;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Xw8adb2Z5sY9CYdNStTgPHlquDwGHHXQsVDd6QeFLJc=;
- b=xGSIjltIpY5zRxVcwpfmSLx5MIDfPMNwEnuEYnBzX17igCmz6B+73YFeZbjiX2gwnK
- 5JKiqLtSoB+WxJCNaXuAR0RKXXuF7bFr/lPyghQ+agInaFbG2LwAWxX94wCsltUAzlry
- B9HdTPLH9SkaXlVdSmM4dhHXnxkwAup4+gEuubxi9J+auE8Vq+jKFvaoVZi1+xptocor
- 69WbviRPP4NzDEeSo84+ZXrRfJNB/jqaEDKm+ptJMQMy36tWoYLrDzh5iRmoWMZWk18v
- AXEcIMAkyuFdAQ2IZ5bhQtbzmevhcLR/ZBk6sZIGZWm0xTO4GDl16plkecZBsuV/9JnK
- dfrw==
+ bh=aJ+ezC9PUeelEIyxHgbZMmX02NoHE8P8VEj6JEyG+nM=;
+ b=hDQaXjYbDJe4jQes4/p1MogHknt3Ltd/5I1uT5z0YQLbNhdMft05lEjgCPJxp4b6wH
+ YJ7BZShckda8rDybSem3uevWnhh1DVb8pEso7fkBCPXy7uzWRwo3saFyuEC1nBm4nAf0
+ GN0uykiztXPnOilY3AVNBPKeHrfDMDRr47NiFZLjXn2tqqAy3F8Cx6g6Ais+SVj0tjBE
+ uwEYBqtgRHSTstay8XPviVv9ttRjXs4dJOE9f6fL0Fo7W51gjdsuZj/fXlxgUDBbyRx3
+ QQ1vjVO0CChM7DqQBDvAyhQgP9MoQNGMn6E6TzBY1z0vj4mkomC9WmMUkaWcepSR1fWY
+ 02Vg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/QP93WP5no0clGRSCGEcoMVbdPffZ430HDzD4FcIeghZq4uTGiMFN7kYZen26WMUzhoyU0tK81UGp@lists.freedesktop.org,
- AJvYcCVH2hZU7ML9f5pugrq1XWMHTl3Gwb3lRsbSGIk8SY+1bGd0Zyn88eFpkRAlp8KeTZD0qwU6iVptb6T0t73xMg==@lists.freedesktop.org,
- AJvYcCWzxUQ339i4A4IiRj4OoqoJUpGtTxydblq6CZV48Ts2e8c01+b3lNnr4rCih65tb/UZMUM18WrU@lists.freedesktop.org,
- AJvYcCXKTU2TfmrzYkBq38v15AXiNHCTqTsqTWGCKEUv7iTBzEdP1e4MWSGco52HvJZkRddRhQOn4KOUbgPwmeZi9i4wEQ==@lists.freedesktop.org,
- AJvYcCXiXemgYPZeKrXyaxSoqg8k1r+tl4lpqfEneAinGTlGdjWcCXMrrjhjytF2bRwxGkvsXHV4fBZVjGrL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJm1Or5p9wHZZxdWG26he74cILqzZG5LDAzEACNSrHHp6iPvga
- 5nH7BG7FnhXwNz5SBNRPjVwaBGks2284x4655DRxoPFujhpMJ5XK
-X-Gm-Gg: ASbGncvcFf6x1a9HeV4P/xEfKr2O3S63FSxyZ9ROvAWTHLbmS1iOc+kXZV+tTQxaitX
- 7HKvS9kqCK4WUbkZAjpXTygcWQU85+96DQIM4UR3JR2QyEL8qKgvS7Er8E78UvNrzbRrwihihE6
- ZZss3n8vAZ8tzSrZY7A1G10lb9IrtD02J1thDytDOTWoqd17VIfY/3IR+9y7nSAvFecQpO+kSOv
- CBCBjTUf7cXvkHWpCq3vgSf8Btl1NVE4TvpwEXqIvgkmfy4JHhs3o5CuarGwgZOV5umqjhWQDTz
- hHfzqWRFUcRyed2p+dRYAyBeN4nGkd9Tq3JXCX/+hNvcjZVGZ05CyTExU4/ylgDq59HRm1J58/k
- IUw==
-X-Google-Smtp-Source: AGHT+IEM+TCm6SAKhxXC9orQJ/SOjoMht1drU2xoXtyO6z7G8nlW6dhEGvYl4P5S+BLPG1cYCvgpwA==
-X-Received: by 2002:a05:6602:358f:b0:85b:52d7:17da with SMTP id
- ca18e2360f4ac-85e2ca756admr60410739f.6.1742496812752; 
- Thu, 20 Mar 2025 11:53:32 -0700 (PDT)
+ AJvYcCUFmZI4nvPlzBhQrYZTRLs9VLRsphkOzVtwJZh47RDaY+bTuZQEZJTvij5BeHKc5JhgHlc0m+Ekz4/p@lists.freedesktop.org,
+ AJvYcCVa7kB+QSnda/cZFPaIcUeoICgrNHqi7HXknPtyYuluUGhv158D+a0yCEz/zz/ypP9daSA7KIZQmzqYP45fe1m9qw==@lists.freedesktop.org,
+ AJvYcCW2SLrMKwwcoIgcUA1JbIm0WuaQUO4DLWVAoSuF1XUplKrfUHviGTO3toh3PlwqtlHhn4L/WK/FyPDz/4b4Fw==@lists.freedesktop.org,
+ AJvYcCWBK5DoW8bbAQWtUP0EoK7W3/ysg+tc2UcEcI6ARUDTk4FGz04FUz/JTJd1GwVACfDsm2pyGK6vQ52T@lists.freedesktop.org,
+ AJvYcCWkZ4NhVrAF/ShSceAp/ZBPdHCPEvG2KhX2tzJN83h2okyAH2NUmB7TWIQyRPKz/ZFUBRh5K5+H@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YylkE5uVFucIwpKLqs42E19QWe+9kfWr7ST2EBhkRtaXpqXLe1K
+ Vrxu/ZXQWCvV0tdHGqaIEcErRA3RigVonX1V4oYZRyBo+S7RrzgK
+X-Gm-Gg: ASbGncskeoGs/kaynpbWLhs12liV8m/JDZugcTzV40smu4LdE3TyodCRI8UgTQsJoik
+ 3evkhrH8bqStFLIUFX/cAmDYEpYeL1Ico+kpI7QnQGkGfGtvGtrAIXZq2IgDLMEcnFK5Pjy7654
+ 6bi4kM7/wPgR5QSL1jH2yUXpNhX4kOk3rNTVh1r3tPaCrCikXIZQU97D+83X3Qy1p2ZRc5I90eW
+ A6aurCnmxrK3fOidaKWrucvgvuEOiIjbYXLGX5Ig6To1juxt1ys+wt6SCoUgoYHYJcXlyxbzCjt
+ +LXTHa7vz+8atJepWexLDxggDv0fBVS+znYnS89p144kpctwbPCKMqnzdjiehXc5DrLC8I7Skl3
+ 6tQ==
+X-Google-Smtp-Source: AGHT+IEy21UJZpH5HbjvbS8lr9b570j8LyVCYAhWgxnKz7fNXlLpp2iHEoci/m3GRK4/7vlcpxTMZQ==
+X-Received: by 2002:a05:6602:b8b:b0:85b:3763:9551 with SMTP id
+ ca18e2360f4ac-85e2ca756a0mr47745639f.7.1742496804887; 
+ Thu, 20 Mar 2025 11:53:24 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.31
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:31 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:24 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,9 +74,10 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 26/59] dyndbg: split multi-query strings with %
-Date: Thu, 20 Mar 2025 12:52:04 -0600
-Message-ID: <20250320185238.447458-27-jim.cromie@gmail.com>
+Subject: [PATCH v2 20/59] dyndbg: check DYNDBG_CLASSMAP_DEFINE args at
+ compile-time
+Date: Thu, 20 Mar 2025 12:51:58 -0600
+Message-ID: <20250320185238.447458-21-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -97,67 +98,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since commit
-85f7f6c0edb8 ("dynamic_debug: process multiple debug-queries on a line")
+Add __DYNDBG_CLASSMAP_CHECK to implement these arg-checks at compile:
+	0 <= _base < 63
+	class_names is not empty
+	class_names[0] is a string
+	(class_names.length + _base) < 63
 
-Multi-query commands have been allowed:
+These compile-time checks will prevent several misuses; 4 such
+examples are added to test_dynamic_debug_submod.ko, and will fail
+compilation if -DDD_MACRO_ARGCHECK is added to cflags.  This wouldn't
+be useful CONFIG_ item, since it breaks the build.
 
-  modprobe drm dyndbg="class DRM_UT_CORE +p; class DRM_UT_KMS +p"
-  modprobe drm dyndbg=<<EOX
-     class DRM_UT_CORE +p
-     class DRM_UT_KMS +p
-  EOX
+NB:
 
-More recently, the need for quoting was avoided by treating a comma
-like a space/token-terminator:
+checkpatch complains incorrectly about do-while-0 here; its a strictly
+file-scope macro, and do-whiles break there.
 
-  modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+It should soften ERR to WARN and qualify advice wrt file-vs-fn scope,
+& new-scope-declaratives exception (forex: _METADATA_)
 
-That works, but it needs the escaped semicolon, which is a shell
-special-char (one of the bash control operators), so it is brittle
-when passed in/down/around scripts.  In particular, it fails when
-passed to vng (virtme-ng).
-
-So this patch adds '%' to the existing ';' and '\n' multi-command
-separators, which is more shell-friendly, so you can more fully avoid
-quoting and escaping hassles.
-
-NOTE: it does break format matching on '%' patterns:
-
-bash-5.2# ddcmd 'format "find-me: %foo" +p'
-[  203.900581] dyndbg: read 26 bytes from userspace
-[  203.900883] dyndbg: query 0: "format "find-me: " mod:*
-[  203.901118] dyndbg: unclosed quote: find-me:
-[  203.901355] dyndbg: tokenize failed
-[  203.901529] dyndbg: query 1: "foo" +p" mod:*
-[  203.901957] dyndbg: split into words: "foo"" "+p"
-[  203.902243] dyndbg: op='+' flags=0x1 maskp=0xffffffff
-[  203.902458] dyndbg: expecting pairs of match-spec <value>
-[  203.902703] dyndbg: query parse failed
-[  203.902871] dyndbg: processed 2 queries, with 0 matches, 2 errs
-bash: echo: write error: Invalid argument
-
-The '%' splits the input into 2 queries, and both fail.  Given the
-limited utility of matching against the working parts of a format
-string "foo: %d bar %s", nothing is actually lost here.
+The known exceptions by name/pattern works well (_METADATA_ is covered
+by "struct"), this patch just wants static_assert added.  On my list,
+with above.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- split static-asserts to __DYNDBG_CLASSMAP_CHECK
+- move __DYNDBG_CLASSMAP_CHECK above kdoc for DYNDBG_CLASSMAP_DEFINE
+  silences kernel-doc warnings
+---
+ include/linux/dynamic_debug.h |  9 +++++++++
+ lib/test_dynamic_debug.c      | 11 +++++++++++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 168663629ef2..c44502787c2b 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -599,7 +599,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	int i, errs = 0, exitcode = 0, rc, nfound = 0;
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 0e3e14ca4765..da2d677947ee 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -101,6 +101,14 @@ struct _ddebug_class_map {
+ 	enum ddebug_class_map_type map_type;
+ };
  
- 	for (i = 0; query; query = split) {
--		split = strpbrk(query, ";\n");
-+		split = strpbrk(query, "%;\n");
- 		if (split)
- 			*split++ = '\0';
++#define __DYNDBG_CLASSMAP_CHECK(_clnames, _base)			\
++	static_assert(((_base) >= 0 && (_base) < _DPRINTK_CLASS_DFLT),	\
++		      "_base must be in 0..62");			\
++	static_assert(ARRAY_SIZE(_clnames) > 0,				\
++		      "classnames array size must be > 0");		\
++	static_assert((ARRAY_SIZE(_clnames) + (_base)) < _DPRINTK_CLASS_DFLT, \
++		      "_base + classnames.length exceeds range")
++
+ /**
+  * DYNAMIC_DEBUG_CLASSMAP_DEFINE - define debug classes used by a module.
+  * @_var:   name of the classmap, exported for other modules coordinated use.
+@@ -114,6 +122,7 @@ struct _ddebug_class_map {
+  */
+ #define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)		\
+ 	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
++	__DYNDBG_CLASSMAP_CHECK(_var##_classnames, (_base));		\
+ 	extern struct _ddebug_class_map _var;				\
+ 	struct _ddebug_class_map __aligned(8) __used			\
+ 		__section("__dyndbg_class_maps") _var = {		\
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index e42916b08fd4..9f9e3fddd7e6 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -146,8 +146,19 @@ DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
+ DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
+ DYNAMIC_DEBUG_CLASSMAP_USE(map_level_num);
+ 
++#if defined(DD_MACRO_ARGCHECK)
++/*
++ * Exersize compile-time arg-checks in DYNDBG_CLASSMAP_DEFINE.
++ * These will break compilation.
++ */
++DYNDBG_CLASSMAP_DEFINE(fail_base_neg, 0, -1, "NEGATIVE_BASE_ARG");
++DYNDBG_CLASSMAP_DEFINE(fail_base_big, 0, 100, "TOOBIG_BASE_ARG");
++DYNDBG_CLASSMAP_DEFINE(fail_str_type, 0, 0, 1 /* not a string */);
++DYNDBG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 /* ,empty */);
+ #endif
+ 
++#endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
++
+ /* stand-in for all pr_debug etc */
+ #define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
  
 -- 
 2.49.0
