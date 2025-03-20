@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC8E6C28B30
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 05:12:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB4B7C28B30
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 05:14:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5883F10E385;
-	Thu, 20 Mar 2025 05:12:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E15E10E389;
+	Thu, 20 Mar 2025 05:14:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0J4u+5TU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b5C220cs";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB71310E385
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 05:12:34 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2056.outbound.protection.outlook.com [40.107.212.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B04C110E389
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 05:13:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fSjiZLeqKgGEuv0qYWYk/NEKTDQjl43buPTD6bWj8yZ1iEGNunbttOjxdOsyL870qBoTaDFwylBcEaoJeRwYSR9+OeEuRosmV03zCrJakVC2/tsFHUTOaKk20pgyHXEkBpyKW4OYJ9Ch8C2nXzJfNnfkse25nR4GT21671qlpDO7BstLkXUBRpqwcdz53TR5zYRdFbH6ezWy5IRzIaeJVa971LdM9mWLgAnSQUsORJMJ8et1XIj2lO0bWwDofhzT4GvXYpn0yL2A9tl2QzHgD9qWUNvSA/srxw/Ia7qopJ1lcgDfjl3ma9ye7QLNR6TmFc9Gcw18K6bIH1H28hIzBg==
+ b=AUG1W2YzClLaSPNXkdFRnRzKbqCsD4FWSy7L7IxeCD21JXVP3o7l/5A8JNy2pTkchbRGnYj3/E/9z8BOv/K5p5PRhHW/+sE7sZXd+gx3FZsahKzkqg0C9HLhdsWVsu44r5QG8857dol5tBfYHng6Gs3+m0hRBCsPgZND6TgSwyzviTFodMEeNKzEgH7dO+RPsYJ1+GZukvFTfdY7CcdfNPfQZeCgSe4mm+wyOizmrytfAJSivskojLuRf5/scpddDsyIgmdesob+MAY1nB4fIcYTDMQzRy62wOnt2Ua00J3SpAqngFWkyKBdIgmPk9HOquwyrv6fxXZbAvS/gzdqdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zMNEws0fcGosZTStSCahszdEC7Hr0OLndHOV90nmwfs=;
- b=QzD7K3SnfV7hqM7q60eD6MX7YjkMsgm0EFkV/DrXD/DGbpga8VRRhly6kTDA1iv3wxnJSsh7nJsa5yytwCflNRpLiQCFcalRxE4zVf1koPjgvz7P+5l3KhMQVWF3uSrCZCUjiBsd9dwy1KwMIY9BzD0PeOTsQ2BDLj8n1DK/3JE9x/4E524CoGFmj7FAZI1XvocFHIO4WR86liKCAQHMVhBtbvRMCGOqPMtei0mPWOe5PYTecnDflDJLymGMu2/Zma+2xVe7rbNDWvfwGuNYhZe3/lGM6PNpH3xrcbvhckSJZIy6WEYo3Ml5daNHuFLEYtu0al1fXGDCTWol01LJPg==
+ bh=Tj6xD+48xNb7tX3Xv+vMlLQJqYdLQQWJ5YgIkCCfjow=;
+ b=C5OcwSAhlZj8nqyLEv+bxRel5lWR3rNpHMhE5rcSyIhMJ/6zJG9z3FNc6fSdPQKO/JXM4PA3zm5OEwn7AGc7hjtbg80ED+IJAK/MBmMza5vMgEXbkEHPrI6bKSBmnYtOOtPXh9XvjaHY8TAzGJZH6ZMzYCsWUj3jlXMomEFRY9YXujpMNLWI1R3hhuz5vnMqcepvoUv4XnM5UGSODxwuk3qbWLwoOnt0UJUIzHiC5KbPlv+LX5Y/hT4nNWhf7Pin52zouUvU4DHqztguDi41X/WPCY+Zrk1zwK/ABvQf7JmUe9O+P77SpjlZGHtIAZkzok57zakha0dexy7gHVbK3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zMNEws0fcGosZTStSCahszdEC7Hr0OLndHOV90nmwfs=;
- b=0J4u+5TUAax5ZcbzXlfisl7ET88XEQAoLyRPk7lBtBHuJzwGKRHZViv0ImOldTh+08hTWRc90rDIYtV/k7k4xGksQXXJKKECtfuluhNtpZXoI9M6mgRelV+H9Gy12J24KI8G3XLw59T9c2eydmHxZw/avXbrS9uV9jUo79ZgVic=
-Received: from MW4PR04CA0288.namprd04.prod.outlook.com (2603:10b6:303:89::23)
- by LV8PR12MB9690.namprd12.prod.outlook.com (2603:10b6:408:296::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.36; Thu, 20 Mar
- 2025 05:12:31 +0000
-Received: from SJ1PEPF00001CEA.namprd03.prod.outlook.com
- (2603:10b6:303:89:cafe::a2) by MW4PR04CA0288.outlook.office365.com
- (2603:10b6:303:89::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.33 via Frontend Transport; Thu,
- 20 Mar 2025 05:12:30 +0000
+ bh=Tj6xD+48xNb7tX3Xv+vMlLQJqYdLQQWJ5YgIkCCfjow=;
+ b=b5C220cs4pfILXAdfbUOshHBIUBWC/73SpH1vDgl/7RalWcJ2UIKxZ6lkunGe9YGIGS3zkh/+RGzinRRmAz4hIoFOFBF+23jZ3WmheUBaGvGj4T5u5pX3kwa1a7T3tBhZNKMXUoxsIjZPeXCFV/ud6sACTLTbeMr9e/0n5nJJLc=
+Received: from BY5PR17CA0042.namprd17.prod.outlook.com (2603:10b6:a03:167::19)
+ by DM4PR12MB6038.namprd12.prod.outlook.com (2603:10b6:8:ab::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.34; Thu, 20 Mar
+ 2025 05:13:53 +0000
+Received: from SJ1PEPF00001CE4.namprd03.prod.outlook.com
+ (2603:10b6:a03:167:cafe::f9) by BY5PR17CA0042.outlook.office365.com
+ (2603:10b6:a03:167::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.34 via Frontend Transport; Thu,
+ 20 Mar 2025 05:13:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,85 +48,83 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF00001CEA.mail.protection.outlook.com (10.167.242.26) with Microsoft
+ SJ1PEPF00001CE4.mail.protection.outlook.com (10.167.242.20) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Thu, 20 Mar 2025 05:12:30 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.8534.20 via Frontend Transport; Thu, 20 Mar 2025 05:13:52 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Mar
- 2025 00:11:53 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2025 00:13:49 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Mar
- 2025 00:09:57 -0500
+ 2025 00:10:48 -0500
 Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Thu, 20 Mar 2025 00:09:51 -0500
+ via Frontend Transport; Thu, 20 Mar 2025 00:10:42 -0500
 From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  <lijo.lazar@amd.com>, "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>, "Jesse
  Zhang" <jesse.zhang@amd.com>
-Subject: [PATCH v9 2/3] drm/amdgpu: Optimize VM invalidation engine allocation
- and synchronize GPU TLB flush
-Date: Thu, 20 Mar 2025 13:09:42 +0800
-Message-ID: <20250320050943.4161194-2-jesse.zhang@amd.com>
+Subject: [PATCH v9 3/3] drm/amdgpu/sdma_v4_4_2: update VM flush implementation
+ for SDMA
+Date: Thu, 20 Mar 2025 13:09:43 +0800
+Message-ID: <20250320050943.4161194-3-jesse.zhang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250320050943.4161194-1-jesse.zhang@amd.com>
 References: <20250320050943.4161194-1-jesse.zhang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: jesse.zhang@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEA:EE_|LV8PR12MB9690:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9355e2f-b7ec-4482-7b7c-08dd676dd094
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE4:EE_|DM4PR12MB6038:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22ae6ae6-d05c-4ef5-2f01-08dd676e0195
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0b//e6WSmsjNq5cdJUqaFKeEEESV9+Xza41cTdyh5vflSjQCz1yTCQ0yl359?=
- =?us-ascii?Q?YnV7lAbOfrzyBrWuS5u7gJLCG8l7YUMiE3XpB5qsT9ZX9A9OohYgSy2QRaAZ?=
- =?us-ascii?Q?j2LBSyWjV382wwt+v/Y8PY6eLzNZIZNGe0fprdinY5srVaNKftxlzLlvIkhX?=
- =?us-ascii?Q?5vq3NDYCEzhE6mnpMEWHk/ywoxbSXg1LguhH0b08kBreyuAo3f/yWho/AyMV?=
- =?us-ascii?Q?LP5hvH0JxB/698jUvL99wnrcMV5dcKQmrpdKO5mDGWNllwHBWPevXyJEVc0e?=
- =?us-ascii?Q?gYMmT7dPbE8LXw5gDysglOvM3/AnSxuJsikFmyZApQZMLAbBMvEjqp08Qeit?=
- =?us-ascii?Q?gqlStFVM8zjFRBe+6iKX8fMECf0FC657u9vzzCoit33+V+Btj2sBbdLnUn2S?=
- =?us-ascii?Q?OI0A2FPHPUg3L8UuO9/FqO0zcTk5Kc692hpiZ9aczGYPnz+8RT5VRVLHfO9J?=
- =?us-ascii?Q?4xboQ3ri2ct2hnjZ8gn7LWxOFqXhoHYXvgaW8tMUeu38N6KFXbwQMo/WjONM?=
- =?us-ascii?Q?fGmA/wOLwf/hxGIi7AUJ3YvDAtmfadEbnZ+UuUnaAOGZw7mFUUteER/o9U6l?=
- =?us-ascii?Q?6Rag1ow2jxiXYEV2h6rLBshtr6wNKSJfOuFyQoBBS5I6z94IRRLxL+IpUUv7?=
- =?us-ascii?Q?Oc9EP0ZMHCp/G+TgelGl3qYDjRGcthnelb4almz6sV60YtV9+0pgPQ0/r77o?=
- =?us-ascii?Q?pNVCZkCWqUNWDOppiYdf61qJuycaMORdegh+7ysf7ZH25Zt+D/mlRMfUea24?=
- =?us-ascii?Q?bJVQVmzpbBrKDMe9UHeT3e9pSZw4h6GKuYoSEWcxyQF/CtpkFdrBBmZCXggd?=
- =?us-ascii?Q?GUiBnSzFTqgxBAvT3IimZAN0YrnkeM/VMKjizoZeMmnJNzx7Aq7dBPuyQOnZ?=
- =?us-ascii?Q?MkLneKqZ0HBEetQYQfFHtk79x9bUK0mG37pIg2puIPwcfHTavx4/qnmfwKMT?=
- =?us-ascii?Q?XZFx2l9L9SbrPYULmat0B7APCs4W6ANAxs3akJkXlX3S+N/iRmhRZsWxFxYJ?=
- =?us-ascii?Q?iDkLQx/LLrF/cCJB83LAiCIsBbYQQUAK7bwUP4YqOV7gI+l89HdYkTBgPwMx?=
- =?us-ascii?Q?SR/XhhJnDOkQ+5iTh+ASE8xdmnAc5xnZ5cJgL3z1NHPaI2rAnY/hUdGRcri+?=
- =?us-ascii?Q?OsvNAX1eCfsE56Zzb2i+ndOWHixFel36yDiIlcOIWxG/MzXJ9drX5z6N1OCn?=
- =?us-ascii?Q?NaGu6qtDdg+rYD3OPyBplNN3mVDkJB0/HgsS1vSW6Ec6kkmB3FmPC2bS/R7G?=
- =?us-ascii?Q?9OfUyeZhxVkQxqWtTtL+IIyvdr4wcMxGmTV/EHulraVsDoCoGWUkJGTk5e1O?=
- =?us-ascii?Q?ND7b/9tPHauPMcX6K1Has89gN4mwEy8vIE5yALVNpS+K7wzhd3UCfRQQh8Wo?=
- =?us-ascii?Q?fCyUCbN4uCy5knYXRxlJwEv1PNKEOnEIkXcAfH3mZIStW20jGUizIqLzoZei?=
- =?us-ascii?Q?3HehZb421Z7giOneK6raCR2c+7ULEeDgOO4Zb0DEJgB8EinpCjf1YgBKVbNo?=
- =?us-ascii?Q?ItqgbDzlORUhrpU=3D?=
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?402DfbgAYK3TCYVoh4U12p8Dta29npQHIcrkbBCzPszEm1fdgmTVY5ByvHnt?=
+ =?us-ascii?Q?F/t1IUbo6thdDGZnafagBfZkbMQjphLxmPW9mlTdyoh+FEV1CkYiXsS/4pPV?=
+ =?us-ascii?Q?PJSD2BcsLR5UiVlNBci4ZG+pN1DvvZZ3/cLiJhJfG6J6WjccMQ4VLc7lBZ6P?=
+ =?us-ascii?Q?O3lrf2t574YwkPrqCBOvZOCu5jRT+28FvTroDNgWDGvdQ7jb2ydXby4hY4aF?=
+ =?us-ascii?Q?NDK1gqm+6326pKGNZBq9f5U/uo+0LFqR5YCIW3EzZVMttxq4ZIRg1qUf6wgJ?=
+ =?us-ascii?Q?d0jZycJCUPekpU4fUsrQ1ibervemafKuzcru5MJxpj92ty8cKyzktLRoA9V6?=
+ =?us-ascii?Q?9Rc2XmWzd4OQtmJeAQi5vx+ymrNAA02ebk6Lhx0T3Qx8n/V4LZVnklfo5Jkd?=
+ =?us-ascii?Q?dIzGztPK40E5D9flakj5R48k2IdwIEwamEvOGdHTY2TylsCRy6Plg0KbgRHF?=
+ =?us-ascii?Q?KTwmuJRLl7LKGhG0xdGm1TtM8Pe0yj30+U/WqqoRNYq7/X+rv5HMtDEQb7Sc?=
+ =?us-ascii?Q?MW2+Od8A+PIbM+zLq3uF/ZLJI/yzO0Cm6dS4XaVXnezl82erJg/KYAqbY7W7?=
+ =?us-ascii?Q?NY2g5/HGwqR3U/EUAjyOvco6IWALSxvQEXKRax0Es8+vzNnRJxbx+Ygljz6g?=
+ =?us-ascii?Q?dvMfwub4wPiILxwZ1kz5MzKew3qMUurZCDJXulYRsbo4cQyV6I94/b26jLEY?=
+ =?us-ascii?Q?1QBYZhQQ00l1o6bSokvkxdEEjjJCo+75weKy1fTdaegfQJtYqWFik/Etqxgm?=
+ =?us-ascii?Q?M2jbnfnSrRc+N8K8i6+0KdV8c7rlTlCp/UmQobJWBwldPJkxxFusvGanOFv5?=
+ =?us-ascii?Q?qWzTPHy4oY92AWm36Wqc053uCTcDxnsuxw1QDEByOzXRxjVgsIUtsqKdQTjf?=
+ =?us-ascii?Q?Mw1cZzwHD4CE70Sxr9eImRAvnTsDIOlxuvD91Rurf0wUrtrP/oc//jeoEqrI?=
+ =?us-ascii?Q?wm4RWUsvCXU5MGJP0JFVPxbmVbSSPNJwcwbvYA2ILfXCEPNZvvaVvNbGkag2?=
+ =?us-ascii?Q?QoVmcCQCoXjMv17pNtp2riwWwDIqiTg18iNoQdeiw0ozyhuS6hiRiJ0EiVtC?=
+ =?us-ascii?Q?Y6eFszs0c3GZqUQiakQhxm4AS9/3QJz1or3LLN3YljOt7PgSQslj0h2Pu7ta?=
+ =?us-ascii?Q?R/sxeh8yW9ImEN6wZQccMSSiW1k/SB2mGX9y/QSeSyDu7dxZMFJXj+dndyXF?=
+ =?us-ascii?Q?4/bVGveF4qcKQDtboJclL1nAOVFZueXEiB484PeSqhqHPf8MGF9dbIDWIrEF?=
+ =?us-ascii?Q?b/8sXjPXZUTOGskd0PzDmEt1pTvrfJZFYZfwPUK/XF23JbaRSBLsWq2HE4Q1?=
+ =?us-ascii?Q?bObeZzNGKvYgEI3uhvt2bnqKC+4iiYj+XMxsjc4lTn4y0YLxj4cgo95STZGo?=
+ =?us-ascii?Q?23QcrOdmH8VgSfNeb3eDW6RhLEfGU+cgexsKuCyH9PBhmASryaKkbfuguUjS?=
+ =?us-ascii?Q?wdmY0jXUCWwRGBQborH1ZF2GBbgYYbjc5xdB81mVdBNmLYfFfZfeuYsccPGQ?=
+ =?us-ascii?Q?Sdohc+D+RCYwGxY=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2025 05:12:30.4029 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9355e2f-b7ec-4482-7b7c-08dd676dd094
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2025 05:13:52.5533 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22ae6ae6-d05c-4ef5-2f01-08dd676e0195
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE4.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9690
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6038
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,140 +141,232 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
 
-- Modify the VM invalidation engine allocation logic to handle SDMA page rings.
-  SDMA page rings now share the VM invalidation engine with SDMA gfx rings instead of
-  allocating a separate engine. This change ensures efficient resource management and
-  avoids the issue of insufficient VM invalidation engines.
+This commit updates the VM flush implementation for the SDMA engine.
 
-- Add synchronization for GPU TLB flush operations in gmc_v9_0.c.
-  Use spin_lock and spin_unlock to ensure thread safety and prevent race conditions
-  during TLB flush operations. This improves the stability and reliability of the driver,
-  especially in multi-threaded environments.
+- Added a new function `sdma_v4_4_2_get_invalidate_req` to construct the VM_INVALIDATE_ENG0_REQ
+  register value for the specified VMID and flush type. This function ensures that all relevant
+  page table cache levels (L1 PTEs, L2 PTEs, and L2 PDEs) are invalidated.
 
- v2: replace the sdma ring check with a function `amdgpu_sdma_is_page_queue`
- to check if a ring is an SDMA page queue.(Lijo)
+- Modified the `sdma_v4_4_2_ring_emit_vm_flush` function to use the new `sdma_v4_4_2_get_invalidate_req`
+  function. The updated function emits the necessary register writes and waits to perform a VM flush
+  for the specified VMID. It updates the PTB address registers and issues a VM invalidation request
+  using the specified VM invalidation engine.
 
- v3: Add GC version check, only enabled on GC9.4.3/9.4.4/9.5.0
- v4: Fix code style and add more detailed description (Christian)
- v5: Remove dependency on vm_inv_eng loop order, explicitly lookup shared inv_eng(Christian/Lijo)
- v6: Added search shared ring function amdgpu_sdma_get_shared_ring (Lijo)
+- Included the necessary header file `gc/gc_9_0_sh_mask.h` to provide access to the required register
+  definitions.
+
+v2: vm flush by the vm inalidation packet (Lijo)
+v3: code stle and define thh macro for the vm invalidation packet (Christian)
+v4: Format definition sdma vm invalidate packet (Lijo)
 
 Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 20 ++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 33 +++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  3 +++
- 3 files changed, 55 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      | 77 +++++++++++++++----
+ .../gpu/drm/amd/amdgpu/vega10_sdma_pkt_open.h | 70 +++++++++++++++++
+ 2 files changed, 133 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 4eefa17fa39b..464625282872 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -573,6 +573,7 @@ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
- 	unsigned vm_inv_engs[AMDGPU_MAX_VMHUBS] = {0};
- 	unsigned i;
- 	unsigned vmhub, inv_eng;
-+	struct amdgpu_ring *shared_ring;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index fd34dc138081..0a9238e70e7e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -31,6 +31,7 @@
+ #include "amdgpu_ucode.h"
+ #include "amdgpu_trace.h"
+ #include "amdgpu_reset.h"
++#include "gc/gc_9_0_sh_mask.h"
  
- 	/* init the vm inv eng for all vmhubs */
- 	for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS) {
-@@ -595,6 +596,10 @@ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
- 		    ring == &adev->cper.ring_buf)
- 			continue;
- 
-+		/* Skip if the ring is a shared ring */
-+		if (amdgpu_sdma_is_shared_inv_eng(adev, ring))
-+			continue;
-+
- 		inv_eng = ffs(vm_inv_engs[vmhub]);
- 		if (!inv_eng) {
- 			dev_err(adev->dev, "no VM inv eng for ring %s\n",
-@@ -607,6 +612,21 @@ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
- 
- 		dev_info(adev->dev, "ring %s uses VM inv eng %u on hub %u\n",
- 			 ring->name, ring->vm_inv_eng, ring->vm_hub);
-+		/* SDMA has a special packet which allows it to use the same
-+		 * invalidation engine for all the rings in one instance.
-+		 * Therefore, we do not allocate a separate VM invalidation engine
-+		 * for SDMA page rings. Instead, they share the VM invalidation
-+		 * engine with the SDMA gfx ring. This change ensures efficient
-+		 * resource management and avoids the issue of insufficient VM
-+		 * invalidation engines.
-+		 */
-+		shared_ring = amdgpu_sdma_get_shared_ring(adev, ring);
-+		if (shared_ring) {
-+			shared_ring->vm_inv_eng = ring->vm_inv_eng;
-+			dev_info(adev->dev, "ring %s shares VM invalidation engine %u with ring %s on hub %u\n",
-+					ring->name, ring->vm_inv_eng, shared_ring->name, ring->vm_hub);
-+			continue;
-+		}
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index 39669f8788a7..45dae38f802b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -504,6 +504,37 @@ void amdgpu_sdma_sysfs_reset_mask_fini(struct amdgpu_device *adev)
- 	}
+ #include "sdma/sdma_4_4_2_offset.h"
+ #include "sdma/sdma_4_4_2_sh_mask.h"
+@@ -1292,21 +1293,71 @@ static void sdma_v4_4_2_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+ 			       seq, 0xffffffff, 4);
  }
  
-+struct amdgpu_ring *amdgpu_sdma_get_shared_ring(struct amdgpu_device *adev, struct amdgpu_ring *ring)
+-
+-/**
+- * sdma_v4_4_2_ring_emit_vm_flush - vm flush using sDMA
++/*
++ * sdma_v4_4_2_get_invalidate_req - Construct the VM_INVALIDATE_ENG0_REQ register value
++ * @vmid: The VMID to invalidate
++ * @flush_type: The type of flush (0 = legacy, 1 = lightweight, 2 = heavyweight)
+  *
+- * @ring: amdgpu_ring pointer
+- * @vmid: vmid number to use
+- * @pd_addr: address
++ * This function constructs the VM_INVALIDATE_ENG0_REQ register value for the specified VMID
++ * and flush type. It ensures that all relevant page table cache levels (L1 PTEs, L2 PTEs, and
++ * L2 PDEs) are invalidated.
++ */
++static uint32_t sdma_v4_4_2_get_invalidate_req(unsigned int vmid,
++					uint32_t flush_type)
 +{
-+	if (adev->sdma.has_page_queue && ring == &adev->sdma.instance[ring->me].ring)
-+		return &adev->sdma.instance[ring->me].page;
-+	else
-+		return NULL;
++	u32 req = 0;
++
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    PER_VMID_INVALIDATE_REQ, 1 << vmid);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, FLUSH_TYPE, flush_type);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE0, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE1, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE2, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L1_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    CLEAR_PROTECTION_FAULT_STATUS_ADDR,	0);
++
++	return req;
 +}
 +
-+/**
-+* amdgpu_sdma_is_shared_inv_eng - Check if a ring is an SDMA ring that shares a VM invalidation engine
-+* @adev: Pointer to the AMDGPU device structure
-+* @ring: Pointer to the ring structure to check
-+*
-+* This function checks if the given ring is an SDMA ring that shares a VM invalidation engine.
-+* It returns true if the ring is such an SDMA ring, false otherwise.
-+*/
-+bool amdgpu_sdma_is_shared_inv_eng(struct amdgpu_device *adev, struct amdgpu_ring *ring)
-+{
-+	int i = ring->me;
-+
-+	if (!adev->sdma.has_page_queue || i >= adev->sdma.num_instances)
-+		return false;
-+
-+	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
-+	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) ||
-+	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0))
-+		return (ring == &adev->sdma.instance[i].page);
-+	else
-+		return false;
-+}
-+
- /**
-  * amdgpu_sdma_register_on_reset_callbacks - Register SDMA reset callbacks
-  * @funcs: Pointer to the callback structure containing pre_reset and post_reset functions
-@@ -545,7 +576,7 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id, b
++/*
++ * sdma_v4_4_2_ring_emit_vm_flush - Emit VM flush commands for SDMA
++ * @ring: The SDMA ring
++ * @vmid: The VMID to flush
++ * @pd_addr: The page directory address
+  *
+- * Update the page table base and flush the VM TLB
+- * using sDMA.
++ * This function emits the necessary register writes and waits to perform a VM flush for the
++ * specified VMID. It updates the PTB address registers and issues a VM invalidation request
++ * using the specified VM invalidation engine.
+  */
+ static void sdma_v4_4_2_ring_emit_vm_flush(struct amdgpu_ring *ring,
+-					 unsigned vmid, uint64_t pd_addr)
++					    unsigned int vmid, uint64_t pd_addr)
  {
- 	struct sdma_on_reset_funcs *funcs;
- 	int ret = 0;
--	struct amdgpu_sdma_instance *sdma_instance = &adev->sdma.instance[instance_id];;
-+	struct amdgpu_sdma_instance *sdma_instance = &adev->sdma.instance[instance_id];
- 	struct amdgpu_ring *gfx_ring = &sdma_instance->ring;
- 	struct amdgpu_ring *page_ring = &sdma_instance->page;
- 	bool gfx_sched_stopped = false, page_sched_stopped = false;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-index 965169320065..77288bfb4e76 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-@@ -194,4 +194,7 @@ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_sdma_sched_mask_init(struct amdgpu_device *adev);
- int amdgpu_sdma_sysfs_reset_mask_init(struct amdgpu_device *adev);
- void amdgpu_sdma_sysfs_reset_mask_fini(struct amdgpu_device *adev);
-+bool amdgpu_sdma_is_shared_inv_eng(struct amdgpu_device *adev, struct amdgpu_ring *ring);
-+struct amdgpu_ring *amdgpu_sdma_get_shared_ring(struct amdgpu_device *adev,
-+	struct amdgpu_ring *ring);
- #endif
+-	amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
++	struct amdgpu_device *adev = ring->adev;
++	uint32_t req = sdma_v4_4_2_get_invalidate_req(vmid, 0);
++	unsigned int eng = ring->vm_inv_eng;
++	struct amdgpu_vmhub *hub = &adev->vmhub[ring->vm_hub];
++
++	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_lo32 +
++                              (hub->ctx_addr_distance * vmid),
++                              lower_32_bits(pd_addr));
++
++        amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_hi32 +
++                              (hub->ctx_addr_distance * vmid),
++                              upper_32_bits(pd_addr));
++	/*
++	 * Construct and emit the VM invalidation packet
++	 */
++	amdgpu_ring_write(ring,
++		SDMA_PKT_VM_INVALIDATION_HEADER_OP(SDMA_OP_VM_INVALIDATE) |
++		SDMA_PKT_VM_INVALIDATION_HEADER_SUB_OP(SDMA_SUBOP_VM_INVALIDATE) |
++		SDMA_PKT_VM_INVALIDATION_HEADER_XCC0_ENG_ID(0x1f) |
++		SDMA_PKT_VM_INVALIDATION_HEADER_XCC1_ENG_ID(0x1f) |
++		SDMA_PKT_VM_INVALIDATION_HEADER_MMHUB_ENG_ID(eng));
++	amdgpu_ring_write(ring, SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_INVALIDATEREQ(req));
++	amdgpu_ring_write(ring, 0);
++	amdgpu_ring_write(ring, SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_INVALIDATEACK(BIT(vmid)));
+ }
+ 
+ static void sdma_v4_4_2_ring_emit_wreg(struct amdgpu_ring *ring,
+@@ -2115,8 +2166,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_ring_funcs = {
+ 		3 + /* hdp invalidate */
+ 		6 + /* sdma_v4_4_2_ring_emit_pipeline_sync */
+ 		/* sdma_v4_4_2_ring_emit_vm_flush */
+-		SOC15_FLUSH_GPU_TLB_NUM_WREG * 3 +
+-		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 6 +
++		4 + 2 * 3 +
+ 		10 + 10 + 10, /* sdma_v4_4_2_ring_emit_fence x3 for user fence, vm fence */
+ 	.emit_ib_size = 7 + 6, /* sdma_v4_4_2_ring_emit_ib */
+ 	.emit_ib = sdma_v4_4_2_ring_emit_ib,
+@@ -2148,8 +2198,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_page_ring_funcs = {
+ 		3 + /* hdp invalidate */
+ 		6 + /* sdma_v4_4_2_ring_emit_pipeline_sync */
+ 		/* sdma_v4_4_2_ring_emit_vm_flush */
+-		SOC15_FLUSH_GPU_TLB_NUM_WREG * 3 +
+-		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 6 +
++		4 + 2 * 3 +
+ 		10 + 10 + 10, /* sdma_v4_4_2_ring_emit_fence x3 for user fence, vm fence */
+ 	.emit_ib_size = 7 + 6, /* sdma_v4_4_2_ring_emit_ib */
+ 	.emit_ib = sdma_v4_4_2_ring_emit_ib,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_sdma_pkt_open.h b/drivers/gpu/drm/amd/amdgpu/vega10_sdma_pkt_open.h
+index 8de4ccce5e38..3ca8a417c6d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_sdma_pkt_open.h
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_sdma_pkt_open.h
+@@ -64,6 +64,9 @@
+ #define HEADER_BARRIER  5
+ #define SDMA_OP_AQL_COPY  0
+ #define SDMA_OP_AQL_BARRIER_OR  0
++/* vm invalidation is only available for GC9.4.3/GC9.4.4/GC9.5.0 */
++#define SDMA_OP_VM_INVALIDATE 8
++#define SDMA_SUBOP_VM_INVALIDATE 4
+ 
+ /*define for op field*/
+ #define SDMA_PKT_HEADER_op_offset 0
+@@ -3331,5 +3334,72 @@
+ #define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift  0
+ #define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_COMPLETION_SIGNAL_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift)
+ 
++/*
++** Definitions for SDMA_PKT_VM_INVALIDATION packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_shift  0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_OP(x) ((x & SDMA_PKT_VM_INVALIDATION_HEADER_op_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_shift  8
++#define SDMA_PKT_VM_INVALIDATION_HEADER_SUB_OP(x) ((x & SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_shift)
++
++/*define for xcc0_eng_id field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_xcc0_eng_id_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_xcc0_eng_id_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_HEADER_xcc0_eng_id_shift  16
++#define SDMA_PKT_VM_INVALIDATION_HEADER_XCC0_ENG_ID(x) ((x & SDMA_PKT_VM_INVALIDATION_HEADER_xcc0_eng_id_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_xcc0_eng_id_shift)
++
++/*define for xcc1_eng_id field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_xcc1_eng_id_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_xcc1_eng_id_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_HEADER_xcc1_eng_id_shift  21
++#define SDMA_PKT_VM_INVALIDATION_HEADER_XCC1_ENG_ID(x) ((x & SDMA_PKT_VM_INVALIDATION_HEADER_xcc1_eng_id_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_xcc1_eng_id_shift)
++
++/*define for mmhub_eng_id field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mmhub_eng_id_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mmhub_eng_id_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mmhub_eng_id_shift  26
++#define SDMA_PKT_VM_INVALIDATION_HEADER_MMHUB_ENG_ID(x) ((x & SDMA_PKT_VM_INVALIDATION_HEADER_mmhub_eng_id_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_mmhub_eng_id_shift)
++
++/*define for INVALIDATEREQ word*/
++/*define for invalidatereq field*/
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_offset 1
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_mask   0xFFFFFFFF
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_shift  0
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_INVALIDATEREQ(x) ((x & SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_mask) << SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_shift)
++
++/*define for ADDRESSRANGELO word*/
++/*define for addressrangelo field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_offset 2
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_mask   0xFFFFFFFF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_shift  0
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_ADDRESSRANGELO(x) ((x & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_shift)
++
++/*define for ADDRESSRANGEHI word*/
++/*define for invalidateack field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_mask   0x0000FFFF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_shift  0
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_INVALIDATEACK(x) ((x & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_shift)
++
++/*define for addressrangehi field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_shift  16
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_ADDRESSRANGEHI(x) ((x & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_shift)
++
++/*define for reserved field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_mask   0x000001FF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_shift  23
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_RESERVED(x) ((x & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_shift)
+ 
+ #endif /* __SDMA_PKT_OPEN_H_ */
 -- 
 2.25.1
 
