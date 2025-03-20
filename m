@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0899C36000
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA29EC35FFF
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 541B210E71C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3744E10E71A;
 	Fri, 21 Mar 2025 09:20:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HcLMUNHW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZF50n6IB";
 	dkim-atps=neutral
 Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
  [209.85.166.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D248210E6CA;
- Thu, 20 Mar 2025 18:53:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 289D510E690;
+ Thu, 20 Mar 2025 18:53:04 +0000 (UTC)
 Received: by mail-io1-f53.google.com with SMTP id
- ca18e2360f4ac-85b40c7d608so100199039f.3; 
- Thu, 20 Mar 2025 11:53:26 -0700 (PDT)
+ ca18e2360f4ac-85dac9729c3so88933539f.2; 
+ Thu, 20 Mar 2025 11:53:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496806; x=1743101606; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496783; x=1743101583; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9crVnbk3XjpJrHsY0dIqQRNI8E7oyjJ17chOf0dhmBE=;
- b=HcLMUNHWPVgHWePmbChAc7QpndKMZc/X7Wb37TuChpkcmyGfdRrp7Hr9q4yFcppneC
- MrDGDHWcb+DIakgh3/SBwhKtmfexAM91WzqM0XyacLBLnqgjy10kYaxK1RHnYeP0iT/Y
- 6pAH7ml0Qf4A38L22J3OmbLPtIsrAFrX90KFOQD4vc7Z/y+Lu31+soYDDvcUKNcsWgSj
- 6OOCw1Pc7xMBeeGx8cYggMFFWFIqGouhqYMjhb1jnFZtnic0hTR6dapVlool49aMYsU0
- oGvec2g2vKL/agNlvuW6zpgs3pRLlfiFvhbq+7VkNm/XV6eYJZjgGaMlJIHQC2Bk8k3h
- STDg==
+ bh=d8krvmT3hXiuiccuxDpOYGdDtTsrrIwxKLxWjX0uKEg=;
+ b=ZF50n6IBXdju1+Eh7PS0HfbB0keI+2uNmavmXqFgTzqeKbGTrkw30ZBqE2Ff7WjvgL
+ ECn60tBCOwMQvW805FZ+STYoqJecUlw6spAzuIDDCWOC0Y3yCo3KAF68hF986m6Ax68L
+ UxnnXyyCqGhVS13yAuR0LAo3omNFfH3jYiC9NYHNHNk78UUV3hNOwwDk8lVv65JVnHTR
+ YPynC+6BO64P3WvMAXdPLUjHDtaVZrumM68VuH5GehOHT6PafMfSlWPyBWii6j/t3Yhr
+ csOXrHr0n2IEH8IsAghqbrFIJVxTRjwXW6HXf35g+jRCgDrWBvlJXPy5foG+4rGNAyzG
+ Km5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496806; x=1743101606;
+ d=1e100.net; s=20230601; t=1742496783; x=1743101583;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9crVnbk3XjpJrHsY0dIqQRNI8E7oyjJ17chOf0dhmBE=;
- b=dn3rGiZd3hyrXDk0w2ICtUusfvzpTtoW8jeRzwwFEa99iJF5RN0lUBobHDuIy353dL
- jtNdIQ9z5UxlMPiYcmcwc9EH0jHVS8+QUWzdlucpaGvWh2jNEzqyhhhydz03c2o+mzJe
- PUq4yBABjazgqus98aQKRjS2Zpl9RXuoAb6ani94PqeJvWooBVQUmTFTZzLMxQ+vM1dn
- 8zOTLWOyLB7Jt0xPBHS1rx1auJ47pJQ0GL8ioPGCewmrx1B4jA14yDGV2MuJx5z0OfTZ
- htIDS2GMOV1tIIQ0Kwh3kqShxGxTVQlRBZ2RYIYnceKvulOA9/AURiXqqEFwumM88TTi
- OVZQ==
+ bh=d8krvmT3hXiuiccuxDpOYGdDtTsrrIwxKLxWjX0uKEg=;
+ b=GQpbQO7/UJw8oDelzjdan1wonV86kaLDCpKJKFIdaKvrinV/sK9wFzUhyUZ7bzQIuk
+ 2oZVBRofost0y24HRGG+3BXiv/5zBAp7fDFZa50cvrtB0c21y0k+hTTSSI/tZnZUZXP4
+ 7UDmlI+aVkUODlR0zUlRDRDQYVSUHpajaiYaV7xkgHZfSOh3zRAlxrmQlmuKZFrBxR3t
+ jPy0OAJPc5rsOfcwHmfAU4tYd/pCV0TSERIZ67RkWv6Yttdqux/bTTRUHo/RN+CFBHgQ
+ X7Pfp23qgW0M6SMS5CbU02UuwFyVajNb8UuGJ96lQ1XXZBsSrdzbGzYfivEnFpKGv6cN
+ 2wyA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURmOSJoF7eOXxUECNE7r9x2ovrrsR3FhZj8lW9xuTCw9BJYmiUw+NzmiYeNM1V0ZTOnCYiU6ziqzmd@lists.freedesktop.org,
- AJvYcCUc79+/srW/TONvgLRMidS3QUu7s12WbIz+7nxpOcjgTcsjkL6BLY9VIHD+Y07mBcTcPCo9Yle8ndVKPyMNcQ==@lists.freedesktop.org,
- AJvYcCUraPDaQxBTj0sIr9qj5Ry6H4Ju4TP2Ngb2JagzRCtjUSC+SNZU7YOKhFgpITuSPQ544sD7xikjJ827SY6dzVv4HA==@lists.freedesktop.org,
- AJvYcCX32CxLazI9EDygnlPV58u5D+1bxlm6sqoTR64pl0OYGWn4DpodKlvWgvu8eBdqmoZFK1cpBQX0dSHZ@lists.freedesktop.org,
- AJvYcCX6CGM/TvMAcd6tTo/jkeYTqhhDhstfZHLEZZopjqrjYQKrPQgoC/SHu9bfHHegYuPCE93mQr9G@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzifPzvLPszy6CrtFeMHiaSiB2tbGFEFn8wHZZI+I3WqT+agMO4
- ExvlEAWNzgazJxJhQU11P0etLdTXNnUph9Z9eAP0y/w/pQHwu7D5O1gmBEbD
-X-Gm-Gg: ASbGncusXliehLlAWZtaFexvlepF7Rmpaya/S8wG8ehRs0Y9Zqv5m5hepwh8Hu5fg2o
- cNMQwGBf4meMgj4HjEvr9mK/RxeouH/J9cJHPJKRGKyT3rfhE55ooX4gIfCNw1Fb2E7rtT4jA9f
- LHAvoNOATLUTWSyUkuqyip+7BlEVVtx8coJnZnBhsvZZZTrOlvX80rpzsqWbutvXUJOmhCOdjD5
- fFDqno78PS8cP/+H6vH15jTJlyiJJRzwfwUJnb83mZckgyjxV7s6JGgzo3IAzJ52d+frUaA8s+J
- KAZc8h8inF2vOyV7fPEXGnHJl759e1NyTxyVacbHJN7UFVShz01K/j8woj6ZkdxMQLQY6Z2zU8h
- NtXCPWpPhTEd+
-X-Google-Smtp-Source: AGHT+IFxuCjaPGKkc88YGwLvCjCbtuIgV8RzngvtW7+0U59GwUXVQHXX/CedAfIKgwgp/utTkRuZ3w==
-X-Received: by 2002:a05:6602:2b15:b0:85b:482b:8530 with SMTP id
- ca18e2360f4ac-85e2ca2d1a0mr42658039f.2.1742496806093; 
- Thu, 20 Mar 2025 11:53:26 -0700 (PDT)
+ AJvYcCUA9vTu5yuC9SV7QBeU5CuAzDtJWKpIMeHzTkH/JDDsGIsZFYu5NfO1CU9bdEpuVKvH5XyPleq+TZ6E@lists.freedesktop.org,
+ AJvYcCVDAzvJjU4sThGlt64tHVOwK2/7wM2BfpJtPyDwijIjvREeDjjMayBjV0zaBLpAFab6SqKuN4o47MmkUdfQgA==@lists.freedesktop.org,
+ AJvYcCVZyr6vQqFMwM8RgW8uSEe1/Tx7X0wvQOX8Qhty0to6kUGgCqYwA9EK5log/P5nGPskmPDONWkO@lists.freedesktop.org,
+ AJvYcCWKsgUjKQus9PiQ4/wD68tQiULwaqeIyaF90aqjomv6rp8IiSafXvNNg/K+OPRPPxzr31poeLqmtd0VAdMjXW19Sw==@lists.freedesktop.org,
+ AJvYcCWLtIptqPCWYDz9csD/H+gK9WL2e3O/dOUzAm8smGJSuv+VtejCGBHBhd8Jt//CGsDo11FPh8WCeqBl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzTijhTRjPpACugSG4kW3jXmXL/I7flLMiMocnzns/GP+HC0+US
+ PhQW75f3d99jPU9NVBibQWNlhQp6IZXTjN2I3gAkYL+QNajCftOR
+X-Gm-Gg: ASbGnctw/7nWp4pCXzey1rC4n4hW7TMWRfz+H4l1paAvIOtDRT7aGFX8Lh1tifBLEcs
+ GgYc0Bwigeb5aJ6/d49plMCIrLudZOWOAGfj9iY95Y/VZZr6kgWS0LyNNKCQg0mqhYe7s+XBj2c
+ 0TXn3mMRjF0GNWgjk1cWHAnCjrH56YHBNxTy2LbONQcd2ynXrthXMf6yJ4/VRNpFIoV1YWwDKZI
+ Nnd5jMpAgx9sywasnEvfGoo1cE1F91VBEDI/iZSpOAkac92a/Vn2w6k9WSSS+2mhERZ6b6iUREE
+ pM5FRosyoqpybyrCP2Y7l5U+Tic4V5oaZsjHpZS3bBS7ywCDOhFxeS5HcEC91KTu8ZM/0UUDSOc
+ v9g==
+X-Google-Smtp-Source: AGHT+IGLFUNT7vu4Ze4s5l3PwVkHNFHoLLOgOZkw1v5IbQQj6bj520ZJNqB0G+YoLRgvlprY8LGZcA==
+X-Received: by 2002:a05:6602:3785:b0:85b:427c:de6d with SMTP id
+ ca18e2360f4ac-85e2ca2d11bmr47845339f.1.1742496783217; 
+ Thu, 20 Mar 2025 11:53:03 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.25
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:25 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:02 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,10 +74,9 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 21/59] dyndbg-test: change do_prints testpoint to accept a
- loopct
-Date: Thu, 20 Mar 2025 12:51:59 -0600
-Message-ID: <20250320185238.447458-22-jim.cromie@gmail.com>
+Subject: [PATCH v2 02/59] docs/dyndbg: update examples \012 to \n
+Date: Thu, 20 Mar 2025 12:51:40 -0600
+Message-ID: <20250320185238.447458-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -98,89 +97,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
-
-This allows its use as a scriptable load generator, to generate
-dynamic-prefix-emits for flag combinations vs undecorated messages.
-This will make it easy to assess the cost of the prefixing.
-
-Reading the ./do_prints node also prints messages (once) to the-log.
-
-NB: the count is clamped to 10000, chosen to be notice able, but not
-annoying, and not enough to accidentally flood the logs.
+commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
+changed the control-file to display format strings with "\n" rather
+than "\012".  Update the docs to match the new reality.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Tested-by: Louis Chauvet<louis.chauvet@bootlin.com>
 ---
- lib/test_dynamic_debug.c | 37 ++++++++++++++++++++++++++-----------
- 1 file changed, 26 insertions(+), 11 deletions(-)
+-v2 fix missed \012's
+---
+ .../admin-guide/dynamic-debug-howto.rst       | 20 +++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 9f9e3fddd7e6..4a3d2612ef60 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -29,18 +29,30 @@
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 7c036590cd07..4ac18c0a1d95 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -38,12 +38,12 @@ You can view the currently configured behaviour in the *prdbg* catalog::
  
- #include <linux/module.h>
+   :#> head -n7 /proc/dynamic_debug/control
+   # filename:lineno [module]function flags format
+-  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
+-  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
+-  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
+-  init/main.c:1426 [main]run_init_process =_ "    %s\012"
+-  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
+-  init/main.c:1429 [main]run_init_process =_ "    %s\012"
++  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
++  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
++  init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
++  init/main.c:1426 [main]run_init_process =_ "    %s\n"
++  init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
++  init/main.c:1429 [main]run_init_process =_ "    %s\n"
  
--/* re-gen output by reading or writing sysfs node: do_prints */
--
--static void do_prints(void); /* device under test */
-+/* re-trigger debug output by reading or writing sysfs node: do_prints */
-+#define PRINT_CLAMP 10000
-+static void do_prints(unsigned int); /* device under test */
- static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
- {
--	do_prints();
-+	int rc;
-+	unsigned int ct;
-+
-+	rc = kstrtouint(instr, 0, &ct);
-+	if (rc) {
-+		pr_err("expecting numeric input, using 1 instead\n");
-+		ct = 1;
-+	}
-+	if (ct > PRINT_CLAMP) {
-+		ct = PRINT_CLAMP;
-+		pr_info("clamping print-count to %d\n", ct);
-+	}
-+	do_prints(ct);
- 	return 0;
- }
- static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
- {
--	do_prints();
--	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
-+	do_prints(1);
-+	return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
- }
- static const struct kernel_param_ops param_ops_do_prints = {
- 	.set = param_set_do_prints,
-@@ -191,17 +203,20 @@ static void do_levels(void)
- 	prdbg(V7);
- }
+ The 3rd space-delimited column shows the current flags, preceded by
+ a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
+@@ -59,10 +59,10 @@ query/commands to the control file.  Example::
  
--static void do_prints(void)
-+static void do_prints(unsigned int ct)
- {
--	pr_debug("do_prints:\n");
--	do_cats();
--	do_levels();
-+	/* maybe clamp this */
-+	pr_debug("do-prints %d times:\n", ct);
-+	for (; ct; ct--) {
-+		do_cats();
-+		do_levels();
-+	}
- }
+   :#> ddcmd '-p; module main func run* +p'
+   :#> grep =p /proc/dynamic_debug/control
+-  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
+-  init/main.c:1426 [main]run_init_process =p "    %s\012"
+-  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
+-  init/main.c:1429 [main]run_init_process =p "    %s\012"
++  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
++  init/main.c:1426 [main]run_init_process =p "    %s\n"
++  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
++  init/main.c:1429 [main]run_init_process =p "    %s\n"
  
- static int __init test_dynamic_debug_init(void)
- {
- 	pr_debug("init start\n");
--	do_prints();
-+	do_prints(1);
- 	pr_debug("init done\n");
- 	return 0;
- }
+ Error messages go to console/syslog::
+ 
 -- 
 2.49.0
 
