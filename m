@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5690C36007
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C7F0C36005
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBF3F10E724;
-	Fri, 21 Mar 2025 09:20:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FA3810E72E;
+	Fri, 21 Mar 2025 09:20:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hVOhZntI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kxcUhE4K";
 	dkim-atps=neutral
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
- [209.85.166.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 712B610E689;
- Thu, 20 Mar 2025 18:52:58 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id
- ca18e2360f4ac-85da5a3667bso37807839f.1; 
- Thu, 20 Mar 2025 11:52:58 -0700 (PDT)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43DDD10E697;
+ Thu, 20 Mar 2025 18:53:11 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-85b5e49615aso98786939f.1; 
+ Thu, 20 Mar 2025 11:53:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496778; x=1743101578; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496790; x=1743101590; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GcpeXIgBKTB5NFbofa9/asJwSsA0oVZhqq9QNH8OPg4=;
- b=hVOhZntIJPSFqfu6KaVPLNvCIjrHpLWyrTEhZE2ou1nYBdAm0S0Ms0fEjE8l3NlvOC
- lwSEzTxUzza6zLVLVg+QCnukS3bhYLfGG8ofTn81u2lEHf2sV2LV52uurIHdHjYRWgtc
- 9GZeBTGVuP0XBVRUQyD1bABaxY9Aaoo3pM4cEzuDRa1pUzY+IBSdxlpU8//igEOK5Aln
- n67cRckb/KdUATDpgKsC8fsMAIv1sv0rIx320aLQAbVTz0lpPGCFNh+v8CoyRLeD+wQv
- 7s14XCoHL+98WY0ioLv8EndIbcK4B/CNgiFYk3w5oYjSLKpJvJiIPs8IeiPxPrfjumv4
- yvpQ==
+ bh=u2HtmGhNDb2dhJFTvWNt0DX2Cb95hP6h9cGXGSWFAjo=;
+ b=kxcUhE4KFQIfS3LabCZQTIRDUcL8x6GvpybDynDS4HJ2nOmjm2DMrVDnIx1Jxqb7Nr
+ y+n//FTqQGtvx6vTTirrfoZTCBaDMCXIjqMxmr2jAhyP/YDja1jdz9fEH6OC/dzanU+q
+ 2pWU3U4uqqfz1Iu2WnbpxcEddn/+PkPaOLa0uEC0R3BaNEsuWBvrRFAzXaLd5rDs0Ckp
+ d75wmIMkonIjaaFdaqQi5LK72GT3bs0FZhUK0qZp/tZMfKJjCysbcHX3TeYw44JpCFz4
+ KGzrpN5J+MRNbss6cQKen79jAzVTa6WxqenzGahkxXscQPzOWef9qtq7xoY6YLTlisBW
+ ZnRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496778; x=1743101578;
+ d=1e100.net; s=20230601; t=1742496790; x=1743101590;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GcpeXIgBKTB5NFbofa9/asJwSsA0oVZhqq9QNH8OPg4=;
- b=FDRE6xtBvyBaLm2Y0AGgSA3hlUi7/WsD+iMDyFAjDA5t50pKFG4RCCGOHKV1+It1oz
- j6QB/6pjwtuuz74x5y8QNuuqQ2y7z69+CUTh2sC8rAkfkLka6H3Tu9pgxoki+kkjIGv2
- dZBwLfSlXg9QNcOqoFVLY4kIkvZYZCqKj8s8gAlyjtCuST2R5WjcUyNEcaOqX2jd+8Nr
- prONfgYkSkQl4/UFOa+QrDMFUoWr8u6D9u6s6vEQOqfd6EZltMQ2mGP/yku4CKH1gGFb
- Z9Z7H1J6XMnzbTQpg8H/lmb3jBPMNjoPLrUMU1fv5uNJwC6gcrGwUPFTTFIkSENtNsw0
- 9ONA==
+ bh=u2HtmGhNDb2dhJFTvWNt0DX2Cb95hP6h9cGXGSWFAjo=;
+ b=FAo877/yN6kzlY2peJ/FTL6lF5VYh27F2ka5/SK2a1CXiWx1A4Q59HH4PYsJt/Fi5b
+ KppRp0wc2W2/10BdFRAv9yDW7myfL4Ij2LwATC7OlI4wdR1+ydtOWrCX/CZMDwCbmD5z
+ oEGi+l79E6+qhXWqM6fDG8HUDE66cv92bbdRH2nqfgKTjGD25xRgXGCKowcl1rfhaM4Q
+ RQsYF6FkrmXBY9O4xYeJ15fotoMSOY5rdr7C7xkeniOqS634IHYK7Wobkj10wZdWgqKx
+ yNIvrNHpfKl/JT6PuK2dFx/ZGFonrALFa8oCsaR6jEadi0cy7LDRbWvjE2vEG8dz8ghl
+ DPcg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUMunA0rhw9RbY8/gZAYsRm6uMRQz5bH3dCS2XnLaLt1eUhHIwrxk53N8B4v0eR5uxMhSqcTV+v@lists.freedesktop.org,
- AJvYcCVYKMX4m4kFeJK7CNNVGUJnTpttveSXnUflewZ2UF/8k7SlFBv5CBAHCcyNYvqT1/LRB5FVc4uwC+C+@lists.freedesktop.org,
- AJvYcCVac93PH38IUncBAMOebPi5ZC+vRy+fvm8ayJMsLUd3axgUSfaX5gKgcS1GQpMCX3riIjoeQRjNP2Ik3BMUOw==@lists.freedesktop.org,
- AJvYcCWfa8Qge1rJAs1vapJofo2EGA1xKjM4Pfhx1V6ar8HAvWS3Gv1UXfi0dWpZAl1+aYf0kKUN40MDAgOIk2sReVfPNw==@lists.freedesktop.org,
- AJvYcCWru1KlDjwvuv5nPMP922NwhE5LP5Q53yYIe1M6gYVXB3FB0qsRSwvGa42lQ72BtvbuwqdiC2HDMsVj@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0k2CXz9LfEwv+cMJYZcTTH3MPnMQkF+e+Tq2WnNN0lGYhjx5v
- xIHzJaVig/VowhugMzOPSOsBzFFZ/o3kz2LrFK6OSXP+lJ1c+oAh
-X-Gm-Gg: ASbGncvPW5e2uLvzVWJX9braKWm6ck8TuRs2B10Xb4MRaTgwfpQOXOJgPcICGiCF6Si
- Ag3swkjyKRID+ozuhjptIjsL3iGOp0f0zDhzmbrJABN+8GaD0tMOfXzj9cjdq+rIiBkXb8soE/9
- QvwoxjSvJ1bmIS+cA/YYyfgYTYAX+tY/oGbQJMfKMGMYp6g1g0/KNNAQv7mOKsFmdMdUpBdS5af
- /ASvNPsAFqTNBg9prBzybzd7wwkhd1K7viU1TwyRlp4hEZ0lPsrr77r3dBsDudZwAiSq0Cfteqd
- 7gAWmQ6i+ME9UIxBsUUApC/5IPeQfuSTyUfKGkLIM3aZDW1/avfoO0KuoRsX5eYCOecBJgGC7nd
- 3cQ==
-X-Google-Smtp-Source: AGHT+IG/WcgSDWYGaIGUJzJjoUwRAkD/zIPJ1dWq3GZRtzQHb9p2LQ4+giHWWoVJtCcIbGbNZ3Q//A==
-X-Received: by 2002:a05:6602:3719:b0:85b:3791:b2ed with SMTP id
- ca18e2360f4ac-85e2caaa5c7mr41988539f.8.1742496777818; 
- Thu, 20 Mar 2025 11:52:57 -0700 (PDT)
+ AJvYcCUA2/EZrzP6zN0QjAILsaSTX82kyReIxX/JkmsdaYy1AT7WFpfLyf6OhJMtPbM3wjXEFcNPNEt81LkN@lists.freedesktop.org,
+ AJvYcCVeDXU+rGuDBayGw8KuHx6DFODHOo699FcAf25+U9IQcrizV9FmWTnv9ashvX2exxJ1V0SBIyirNnSU@lists.freedesktop.org,
+ AJvYcCVxRNYMdlpxvWXTUAc2i1GbyYN/CawD8JFK7s7SQ0ngZDU0gwkoMtjxUFD54Sj0rYb65+3hgw07ZxocUgYWsQ==@lists.freedesktop.org,
+ AJvYcCW2sgfDc9GDc43sYbmfs+NxeKCpWOLy6QzpjG7p8bUDC8cAUqOqzMgaqspTn6/TbdUdaoe62iZvGXQPJtT/yzOaqw==@lists.freedesktop.org,
+ AJvYcCXynmhxGX9xgRjn2OLpd4Ia06nfDnJwZ3Hr1b/yj0HFyEB9kczeh3rfhUC3WbtnJ4a2wnDaJyvB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/WaJm6T2G+Jw7bBDXL2KHd4X/HwKD8kMjbi8PiKNJhKsqWnwV
+ qws1V0bcPPSt3sXjVXDEtzfeGzufqsbboc0K4rUc+xSDITcUYlJL
+X-Gm-Gg: ASbGncuRKzwV3+bkM9BG7Oa4S9Gz0uZw5fMCdJ104EZN/l9Nv/12IBOVOKUXlBH+Cra
+ v+C/VYQldxILKScJ2rKWArwLo1rF86uX+Wf5ISdx+AGk5uPSmKHpmap09RDNkxEZTOq84wcGOBa
+ q/YZ7QOSHf4efbnYvsHuz/5E6lUQLaTZHrgPOXSrhYNIriIOiLVVyBSrcYCq9v/O/H2HhNQHyvZ
+ Npe+he97Dd/fc8q4umFlm4RHWoTGwNbrgWqhseIgKV9bFZTbz7qM4SJ/ktC2p+4gLuvXGo4NNM6
+ bX2ZwLJTdZJeVTTPQXJI/ZYXJOXr5OPqzqkHYDNGkXHe48qsXJxQAM7pXR9R0wm8RTn5MLYWuWv
+ ehQ==
+X-Google-Smtp-Source: AGHT+IHFmzaE8OjiXBilCCpn8tJrXh3VWK7hgJl2zF7aDNWxvGFoPJOxkzRXw9OGMWWU4yVFOqB6iQ==
+X-Received: by 2002:a05:6602:3786:b0:85b:5869:b5b with SMTP id
+ ca18e2360f4ac-85e2ca899f5mr52484239f.6.1742496790456; 
+ Thu, 20 Mar 2025 11:53:10 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.52.56
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:52:57 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:10 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,9 +74,9 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 01/59] vmlinux.lds.h: fixup HEADERED_SECTION{,_BY} macros
-Date: Thu, 20 Mar 2025 12:51:39 -0600
-Message-ID: <20250320185238.447458-2-jim.cromie@gmail.com>
+Subject: [PATCH v2 08/59] dyndbg: refactor param_set_dyndbg_classes and below
+Date: Thu, 20 Mar 2025 12:51:46 -0600
+Message-ID: <20250320185238.447458-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -97,35 +97,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 1d926e259d8f ("vmlinux.lds.h: add HEADERED_SECTION_* macros")
+Refactor callchain below param_set_dyndbg_classes(1) to allow mod-name
+specific settings.  Split (1) into upper/lower fns, adding modname
+param to lower, and passing NULL in from upper.  Below that, add the
+same param to ddebug_apply_class_bitmap(), and pass it thru to
+_ddebug_queries(), replacing NULL with the param.
 
-I flubbed the defn of the outer 2 macros; they missed the extra arg
-needed: _front/_hdr.  Fix it now, before anyone notices.
+This allows the callchain to update the classmap in just one module,
+vs just all as currently done.  While the sysfs param is unlikely to
+ever update just one module, the callchain will be used for modprobe
+handling, which should update only that just-probed module.
+
+In ddebug_apply_class_bitmap(), also check for actual changes to the
+bits before announcing them, to declutter logs.
+
+No functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- include/asm-generic/vmlinux.lds.h | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+---
+ lib/dynamic_debug.c | 65 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 40 insertions(+), 25 deletions(-)
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 0d5b186abee8..c9c66089ea2f 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -219,10 +219,11 @@ defined(CONFIG_AUTOFDO_CLANG) || defined(CONFIG_PROPELLER_CLANG)
- 	KEEP(*(.gnu.linkonce.##_sec_))					\
- 	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index c609ff873224..4b001309bb6a 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -593,9 +593,10 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 	return nfound;
+ }
  
--#define HEADERED_SECTION_BY(_sec_, _label_)				\
--	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+#define HEADERED_SECTION_BY(_sec_, _label_, _front)			\
-+	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop, _front)
+-/* apply a new bitmap to the sys-knob's current bit-state */
++/* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     unsigned long *new_bits, unsigned long *old_bits)
++				     unsigned long *new_bits, unsigned long *old_bits,
++				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+ 	char query[QUERY_SIZE];
+@@ -603,7 +604,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
  
--#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
-+#define HEADERED_SECTION(_sec, _front) \
-+	HEADERED_SECTION_BY(_sec, _sec, _front)
+-	v2pr_info("apply: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
++	if (*new_bits != *old_bits)
++		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
  
- #ifdef CONFIG_TRACE_BRANCH_PROFILING
- #define LIKELY_PROFILE()						\
+ 	for (bi = 0; bi < map->length; bi++) {
+ 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
+@@ -612,12 +615,16 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+ 			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
+ 
+-		ct = ddebug_exec_queries(query, NULL);
++		ct = ddebug_exec_queries(query, query_modname);
+ 		matches += ct;
+ 
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
++	if (*new_bits != *old_bits)
++		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
++
+ 	return matches;
+ }
+ 
+@@ -672,7 +679,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 				continue;
+ 			}
+ 			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
+ 			*dcp->bits = curr_bits;
+ 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id]);
+@@ -682,7 +689,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
+ 
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
+ 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+ 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id], old_bits, curr_bits);
+@@ -696,18 +703,9 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 	return 0;
+ }
+ 
+-/**
+- * param_set_dyndbg_classes - class FOO >control
+- * @instr: string echo>d to sysfs, input depends on map_type
+- * @kp:    kp->arg has state: bits/lvl, map, map_type
+- *
+- * Enable/disable prdbgs by their class, as given in the arguments to
+- * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
+- * levels by bitpos.
+- *
+- * Returns: 0 or <0 if error.
+- */
+-int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++static int param_set_dyndbg_module_classes(const char *instr,
++					   const struct kernel_param *kp,
++					   const char *modnm)
+ {
+ 	const struct ddebug_class_param *dcp = kp->arg;
+ 	const struct ddebug_class_map *map = dcp->map;
+@@ -744,8 +742,8 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+-		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits);
++		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, modnm);
+ 		*dcp->bits = inrep;
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+@@ -758,7 +756,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, modnm);
+ 		*dcp->lvl = inrep;
+ 		break;
+ 	default:
+@@ -767,16 +765,33 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
+ 	return 0;
+ }
++
++/**
++ * param_set_dyndbg_classes - classmap kparam setter
++ * @instr: string echo>d to sysfs, input depends on map_type
++ * @kp:    kp->arg has state: bits/lvl, map, map_type
++ *
++ * enable/disable all class'd pr_debugs in the classmap. For LEVEL
++ * map-types, enforce * relative levels by bitpos.
++ *
++ * Returns: 0 or <0 if error.
++ */
++int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++{
++	return param_set_dyndbg_module_classes(instr, kp, NULL);
++}
+ EXPORT_SYMBOL(param_set_dyndbg_classes);
+ 
+ /**
+- * param_get_dyndbg_classes - classes reader
++ * param_get_dyndbg_classes - classmap kparam getter
+  * @buffer: string description of controlled bits -> classes
+  * @kp:     kp->arg has state: bits, map
+  *
+- * Reads last written state, underlying prdbg state may have been
+- * altered by direct >control.  Displays 0x for DISJOINT, 0-N for
+- * LEVEL Returns: #chars written or <0 on error
++ * Reads last written state, underlying pr_debug states may have been
++ * altered by direct >control.  Displays 0x for DISJOINT classmap
++ * types, 0-N for LEVEL types.
++ *
++ * Returns: ct of chars written or <0 on error
+  */
+ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ {
 -- 
 2.49.0
 
