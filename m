@@ -4,147 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE54C28B30
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 15:11:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E37C28B30
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Mar 2025 15:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82D9210E64C;
-	Thu, 20 Mar 2025 15:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2248710E09B;
+	Thu, 20 Mar 2025 15:38:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="blpJ/khl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v9HKB/fz";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2275A10E64C
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 15:11:06 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7213E10E09B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 15:37:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SeJX0yrv114ruBrlb2yM3Qex0nLeetsDWMWIjllaDKcOc3BR73MtacpwTaPFKz8F29NpiTQ1ADGI6i0KF52Uz45PLZea4wCCLb2VvgjfPGD4qitm5EixVriByvLHdJkrcq6zBD/5j2zmecd2OIXQtUdxdYB7fQtnKTY4UJXUjlo2lz1UnyhpO/FvB+H9gsL2Y2Ccsuu1peT9wcO/uQv19MzvOpNCKo2GJqGK82/9Pjyham7Qzcf0Q/iS86IIJ5muBYlM3X26y98S8gesn6oUEyn4ku0Xm/wBSS0asaRZUfUEf0kxb2rxesKJQ7H0a0jZHuu/+uc1SzoFUS8KELOf8A==
+ b=Nyf9kB2uXG507MRaZq+D6kb0k2pYVbDKMmbHxPoB8VqKWumZqjNieoSa9XuYmQRKcTeFt2mqDxaUfgvYBKh98gPges12YgoC4o8u3GYTKEFqyhP0U8iz2G6H0kIZS8T8JdRxtqdlPNOUVm6+gyx3aBpc9G8HUGpVGkO68by3NkJEZ+1YZQfezD/mCrtmyxGhKU3BWrbS5Lay8xyFvWTKIioFtfD8s/9gkXV8WIuFTfQd92mttq/p9WqeUXGBtEo2PuJ9JTjrz4btINBW6kaoXfaSFwiBdEVSzBJqTY0sL+V1ya6wAwKuwJWss1Gc+Y1nxiUO6Gds3rYyeZSAQKREfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3e0qwGvuVXMCDqr06uFxpTpPwGhw8ogUVTsflegZLDY=;
- b=xtq5C3CRbL5LuY07xHVwvC2OKOiWW1x7ea8Hv3mBWtRPOHcAJ5odPlDJ7F0xrWgXkj8OG3is/tsZ08JpCBZMjNAU2stoING6rT66yNuWqUOOS22xzPJaCPSRrAfQADG+PQTfraAMfe8iuwDJgqzNUASUVm5HUy1aFT6GeYGUIvnlaUBCAMwuR+274atMuQwVQwoNwvJW6OGYswBRo6NfT6+nj4z/WFOnk0SjACdmlIaxkC1N3YqFHklI5g1gpHlgyXC+7c39LJO2b3vQPxB5klN+7rz6S9FA/YcdL3QGM1S1q/IfFUVTgI6YEUM431KeqZ8V5Xii8yrJxcvZ06PHeA==
+ bh=RP4rBHMd6NN1j6AOG/kwHd2zBYm0Qe8qHxDf9j0r2Rw=;
+ b=OqQ91bkIsDrEQdcGWkFeugsGqG0Oc7aJMW300/a06wK7QrlX28Te1poFa06oNzQmCYHPIR2yNdWh7gy7C9mGUbRHeZQXBOolLLNh+rdR32Ot6cpCaiZ2/KhGzVbmVWrWxh3vRN6RLejazcW7aUmh8gZCJmabSrlbY9Q3bc2NxoeyAGa48HITGsBDPI+lKA/VD5ocYMi0rIaFolabiHLIZAHWlancBCoN2Fi4O7W0dyzOKftvL2ozVDeTefHnjyeY5aXAF4nn4Vt3pQn3428iTBqOUICobyVgvc+jV1hVzL1HzOM5rb3Rhz8zNgj8E5GN4c1yg+ezKX+4avxA5GjX/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3e0qwGvuVXMCDqr06uFxpTpPwGhw8ogUVTsflegZLDY=;
- b=blpJ/khltckJGT3o00wdWQgMkE1H+5rYR9ihnY28nl/Ssz2KDfysdze6sebFyDWurVS/8rLdpx8X6kTvSGJdNKGBHUZPz8hSEatU4UAHJHQ7XEBnZ06oymEjboNI8vNTwIRbpOTkHoMML2u2cB07o1qoEg2W7SUaX6Wl8mjOJLo=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SA3PR12MB7924.namprd12.prod.outlook.com (2603:10b6:806:313::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=RP4rBHMd6NN1j6AOG/kwHd2zBYm0Qe8qHxDf9j0r2Rw=;
+ b=v9HKB/fzcHRqWVNLLV5cixhvQL9q+FCKsO50ovyrEV3yKT3c7tC5OT6cyqjwavyBI3SBRolUlzUsxAi3wscu4v6/+LUBspyoqkh4Lmgd34VYoViqjudZ9TrsFaEznbifDyoUpEq1rWFFXqRZqQ9A27IAZcyOP2nrQtjpPTihgtg=
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
+ by CY8PR12MB8194.namprd12.prod.outlook.com (2603:10b6:930:76::5) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.34; Thu, 20 Mar
- 2025 15:11:03 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.8534.034; Thu, 20 Mar 2025
- 15:11:02 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH v2] drm/amdgpu: Decode deferred error type in gfx aca bank
- parser
-Thread-Topic: [PATCH v2] drm/amdgpu: Decode deferred error type in gfx aca
- bank parser
-Thread-Index: AQHbmXvurWWmW0x6ykm3pEHAWPSk+LN8IYUQ
-Date: Thu, 20 Mar 2025 15:11:02 +0000
-Message-ID: <BN9PR12MB52572A260FEA71061A95A8EDFCD82@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20250320093845.587026-1-xiang.liu@amd.com>
-In-Reply-To: <20250320093845.587026-1-xiang.liu@amd.com>
-Accept-Language: en-US
+ 2025 15:37:55 +0000
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::fec0:2b36:85c1:fc9b]) by CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::fec0:2b36:85c1:fc9b%6]) with mapi id 15.20.8534.034; Thu, 20 Mar 2025
+ 15:37:54 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 3/3] drm/amdgpu/mes: warn on unexpected pipe numbers
+Thread-Topic: [PATCH 3/3] drm/amdgpu/mes: warn on unexpected pipe numbers
+Thread-Index: AQHbmaO0l0IsB0/rDU+sZWu+o1FsYrN8KK+A
+Date: Thu, 20 Mar 2025 15:37:54 +0000
+Message-ID: <CH0PR12MB537218ED621D32F0EE48527CF4D82@CH0PR12MB5372.namprd12.prod.outlook.com>
+References: <20250320142306.1135063-1-alexander.deucher@amd.com>
+ <20250320142306.1135063-3-alexander.deucher@amd.com>
+In-Reply-To: <20250320142306.1135063-3-alexander.deucher@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=fb6e0007-6277-4c73-be8c-7eed652fac92;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=acd2fe04-66bc-4a41-a49b-3a6a71f1cd7a;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-20T15:10:40Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-20T15:37:26Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SA3PR12MB7924:EE_
-x-ms-office365-filtering-correlation-id: dc86f792-ea85-47b9-febe-08dd67c16d8a
+x-ms-traffictypediagnostic: CH0PR12MB5372:EE_|CY8PR12MB8194:EE_
+x-ms-office365-filtering-correlation-id: 613e855a-dcbd-495b-e506-08dd67c52ec3
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?sif/7IwlGcJKOD68jIIwbzDpjO7HnFVOTLrdVygBFe9YrZ87u/n5bS2SYAN9?=
- =?us-ascii?Q?5OuZ8DxWs3nOpDvqpUiSkMf4ZzIhMMc/GxuoZEzdCzJwU10NU/YEsWeMQBmu?=
- =?us-ascii?Q?MAUajIOEOA3KRQbSPgZJheHMcJx6PpF3Ia4ZgehrhmzH8yYPkfcItOGTxfCk?=
- =?us-ascii?Q?1DYGURuKqalgTxyYYgLeq6EjYK02SJU4uqffZgnxgVCtNGluyWjDCAASCM+N?=
- =?us-ascii?Q?XNUN2DVsIUm+KSBxStWIJOddybKYH627Ef3PHB73yiIfnZ9j/JWxH/OIb0AY?=
- =?us-ascii?Q?UtxlVocvaIB4sOaoTNn4VLFQt6zlpzrQFMiuuzu+vZJR7azt9pt96TPFFbez?=
- =?us-ascii?Q?rLg/dnVzVFFzkk03HqTR1xXUHdx0h9FNsH+VoF186Z2XGBwaJ51cCqf49mJj?=
- =?us-ascii?Q?Kzb7XHDEvp66Kh3G8qmYUjJiZziGsVPv8YihFO3tvTINXPCt+bDfn5NuNad9?=
- =?us-ascii?Q?d4+jDhxSbtZ2Ede+rI4a+cmam2+jdk9AaOO9FL78iLeMwlR/64UfVRNFmtgZ?=
- =?us-ascii?Q?/VZYy0sJBtLp/FdREbDC9VSjy+NKLAZcZ63JFD1tunOwi//0QPmeA8hGAKUX?=
- =?us-ascii?Q?NweRM/p2hedp8xCQo6o0hCpac+blzONINc7UdO2fa09Aaotm9J7BGaZCqSjs?=
- =?us-ascii?Q?mxmIlVhFvkswAPatnGj2/nXNYODYp1FhbYuyiYspkelm1KK/7Ox/TAE+nMv+?=
- =?us-ascii?Q?y5sF+qHTs0I0agEBJ9KJ+LDNfdWPgjRo7duG/eQSrlHYnH0SQW6YK5voQ67g?=
- =?us-ascii?Q?WkQcZyQT5TKQupA5jVb8RsUYXrjwonPfCpvbMnS0FbQzqrtANwxvmCVwvdqn?=
- =?us-ascii?Q?G9/9UHI3/05u2L6WVbjjFwNbcAXwWCoaL24nCDby/nHebA/col+6WD3HH5gg?=
- =?us-ascii?Q?M9woMXMa2Uei7RZqMiQYXcjyU8FUNzvJTY20Fx7514dsfuEep4Mh07zyNBqt?=
- =?us-ascii?Q?LUCXigkw42Xxy2K2HFYFlpJU2I/6qqMlp31mNcgzNgI9TVH8LvOhvwVQsPqc?=
- =?us-ascii?Q?LM3kYqkaDxEGPcKcWwMGDVNjQK2Bb7ZHZlZRnMg7UPQUodHMD0pUymuF6+ev?=
- =?us-ascii?Q?4FM81fbsT2qi48yPl70LFVcp/CGojDenky+NuWlICYU33rPTwg+XQ7rRDFgm?=
- =?us-ascii?Q?RTqcqDVUnb/8QDPLaObX39AnWFl1whGddAxq+noBHSDuPBKiLYhBAGpRnHt4?=
- =?us-ascii?Q?t5jMNtpEBVDYEAgFEzmViqJLIwZJurObq536+w/ZTd707psVPTZFzqPK1eLE?=
- =?us-ascii?Q?8Wg7RUDXCIXhQLGqqkOBplPfyz5jrhXiPx2+EbjaotB9M7P+U45LhuKdGNXZ?=
- =?us-ascii?Q?cJHTol8VSuN8huYO3+VsnbLAu5MEP7ZxEma6urw7Kf2V4GSCtUhWuGW67atg?=
- =?us-ascii?Q?KCl2PIkYYWfwKlylLLEuyajMPDfCt4XCdoA69YydUjplTVtB+TVO1ZpoURgb?=
- =?us-ascii?Q?bgr6MoXoAK6YdIUsNno9tw5qWExv4rIA?=
+ ARA:13230040|1800799024|366016|376014|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?EkkiRZoh0pVJBwIP6AEck/5qIYVeQEQ+1nSfdtHj2GJI2dTGiLBGOw/7alyy?=
+ =?us-ascii?Q?DZsJt4m2vFnsR8elCIl7crv4TVN3hc9dxyH5o+LOm7LhUgVdMX5pr73SoZCn?=
+ =?us-ascii?Q?puP8cWhlJ1wm/lHOPC2LqflYgrBQOW+FH7j0DtXiX40b1vP1wTUjc7UQOeLF?=
+ =?us-ascii?Q?nixNw+IDMHrMGOwPZJmRoyLcFJF11ruQ6ELFmZqkAGXqJA2X/obkH8iMXLYF?=
+ =?us-ascii?Q?BLMhyOKpLL7oNpczuDM5mJlPlU5ph7s8j50wMLsVqvn2LK7OFUGZ7YG/oC65?=
+ =?us-ascii?Q?+wPvm1xLdWnwwt7XY4gYzUZLtl52LQ+7LrqK26S0nphHjepL4iN08pK74Zj5?=
+ =?us-ascii?Q?y6qhZXxupWnMlE40sDvWFJFXjV8eCHju/ceonSsFsiRH/+fyoNhuUpkYVjun?=
+ =?us-ascii?Q?NAgD+Yj9SjvcDiWEN3qVVeA7OLFUEdPCxhvUdyTYZQ0+/rpxyNpzf1RMwhrn?=
+ =?us-ascii?Q?yUf+ET/IokYN96AedlKFQilkX4kR0X0hitwyg1VKjy6PdAR0zT6EtrUUGtUh?=
+ =?us-ascii?Q?nN5z/vwh/EfEZ8wFl9GE4gOxagT1W7GB/RAvHTHgddybrXnVdvnld7rgsWgM?=
+ =?us-ascii?Q?D5XKFfXE5OW+LFW8w+TfKPHQIpk7ixBOqvbFLeSmnmzOuu2rgxUsCXsKWoa/?=
+ =?us-ascii?Q?VfYL8yhsHpQCnQ8WeHK5uHc5ApDmS8F41xiicqEQD/zR1sU8zDEtms2jtWuu?=
+ =?us-ascii?Q?dYo7RO+thJQ1BGK+Seg4t2u0+Q8AGHyM22ekDyZOe+WtSY6xwDeDVCQRzEzr?=
+ =?us-ascii?Q?qoMMvgxBZZ0FMx7K1eyUn++zD7aG5vta4QDAZMXPjEgBSo3j2nqojx/AU2fo?=
+ =?us-ascii?Q?hhr83NST5RY5MVvuNIRrgHoAe9YMZ1OWtziSON+jwGYOBA7F/At9PPu8pAFf?=
+ =?us-ascii?Q?qU5iu1isMQxURW3jkAyjOTvU9l055ZpXY8jWckgR9f3d0PrZGCs5Xi75cHlC?=
+ =?us-ascii?Q?8C48rWb7xHAjfKcYib3clYqFx2ySmwdwG9FtMB2OJY6V8ahvUvVUbGdIuvG8?=
+ =?us-ascii?Q?o1OTRuxMkc16yl5THUXGUxQXArnmuPxeRXcYQaffHjrNHZDtjfaYgiiO9R03?=
+ =?us-ascii?Q?0mu2hw/BGFt4b5kt9qiHcVYCz0mfZTgq3AKNK3sB3g7PE+YtgMBmFTo+De1w?=
+ =?us-ascii?Q?4r+egPo8JI7Vb2sYXkhEiaZCXVyUaBRYrioz0tolhzkQtwcfnAIU4D4ln54O?=
+ =?us-ascii?Q?sbp/qVuK7vOdroIwuX2bAVvgnU6AUcISVXzbiPQFH78fLs6qkAn05Yua3Uwr?=
+ =?us-ascii?Q?PX5Oguuvo3RRF3FsQoq4Xy0Lb23zdodGGs2D/qVJ0JltduSYFLdzBlFu2bnq?=
+ =?us-ascii?Q?lqnroYgvMuNwo2PduRTv00rPD97yx+4shhWCCXTmpwGkNEvz6m6uk8hhffDs?=
+ =?us-ascii?Q?FlyusejxeOGu6c8DDyFySCWsnI7+90lobfhROD37tIlWbqGljdI15GRwiXCc?=
+ =?us-ascii?Q?nrFlpU0eaMGaY82apSncdZ7CzKtCJfqf?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(38070700018)(7053199007); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(7053199007); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?A6qGEYeUKRagUZ+b4xXxcl8fec36FVskMqbHKHGn/dJcmjIKFzepEguntigy?=
- =?us-ascii?Q?ACwmWY8UXKRtCcniUcJoQqiednYSkbWKKP8KhXmMMMJZeczgQk0HTxBR/26J?=
- =?us-ascii?Q?qs0oHGZo12VkHCbzVhKMLSdlerD7+vk9jmjpak9iGDeGTy2TYRzdigfccVcA?=
- =?us-ascii?Q?bLQb4d1Btotzg+hCJdXNIQWOh2erMFtJWea1KQNUtrgvPtGJoX7W1nRnwW5/?=
- =?us-ascii?Q?C7mriD/2nxqPeE7rfHIu/yTzllg53u6Pn4uvPYRMQ1s2OTIQzIR0y53e1eyL?=
- =?us-ascii?Q?SWsswVgDhoQSbt/wEtzKbzF427s8y9IMy6bbzWGge8gpAvqQ+7LQ1rdhl41q?=
- =?us-ascii?Q?k0kGFsbdla6oYIG1ttNCtedVIvxq5Q8qYKLeB0qRXHX4bMTEIH3g4we3+Eqg?=
- =?us-ascii?Q?ctEwv74Hdnx5fs45xIKHioFmBYnyNdFsxQySuOy+Jv3lvhDCptoQMmkn5Gw0?=
- =?us-ascii?Q?xbH7aewoWnuaR9rSnLjEKI/2UtMphwDCYGS0w/J+1bKyhVcH8Kur+QymuZoO?=
- =?us-ascii?Q?E3MkekmpWF2n7R8raHahdsNH2Oowfws4DI8qVxFNV0af0SQequ9sIzbbf6Um?=
- =?us-ascii?Q?rTPM/PzVnvTvhFGd3jSoMO3x9Y6JTbvBx6M+xk7Tpf5Plq3BHipoGtR9Q163?=
- =?us-ascii?Q?Uka1J+A2uWdktIFHTnD0C2IQHSN9WM8c45HpOxJqRv25tC6OtR96GpcLvhrh?=
- =?us-ascii?Q?GTedfKFQQFr5ggPg/oIOsJ08uCV3Ay1tBEnEFxI4zcxa45wAXH8QazK9IHjw?=
- =?us-ascii?Q?CZdi7h0dkLRI0lV6Z5CxzrrneYD67zo5U8BNjjDbYuTVWCWD5IZGwSODqcNj?=
- =?us-ascii?Q?ytvEUrtoLUbKSXufiZvbQy46syg12GsJ2yp21O4QZqgz2EiKZFvXl8mdx1xh?=
- =?us-ascii?Q?uyjcGE/jiO83znx8M4mq8CWlLCS3bHWSJOLwvbBNPbbrTUo8UCfFACZfQNT9?=
- =?us-ascii?Q?zjL4xazB/lif6Rk0MsI4T9pOxa2KS7iFDQ+TuTxq9PExP3/0GlsddEc8qku4?=
- =?us-ascii?Q?RHUy5m2W8HRWlNzHcRwhIy9pPPfw3PaV06GRHjToGsFt4ZYqSJu+H/Npl63Y?=
- =?us-ascii?Q?A76Qhdi4OWaUi+0qiuncqhP1LQrPFw/O113MnfXt8eNaYuVPEvTc6eS60oCG?=
- =?us-ascii?Q?NFDUC4TCZBbANBu06wbxGTA1AmxN+y0uh0HgigIAEkD5Y45EU/07wQcoK6QP?=
- =?us-ascii?Q?Oazj5fo/dz8slSzp+tLMx4RENmlk2FKdqDS4BJXVpSd43S077Wj4M9frqPv/?=
- =?us-ascii?Q?E4J47OzwhgXd9wobhMOo1kTPjFgmJIojm7xmoMAE5AbIGp/zkd1Z8dN8H01M?=
- =?us-ascii?Q?DQSFLfiwEphMO9xUnXlvjLv9hx1zlopa+Vu8A+E4S1ROzzagsSg6ymTqckDZ?=
- =?us-ascii?Q?7HZ5SVStKzZx0iZw8o2o6pZGQrQLkSwA9cG76Nb6/dSOwN5662wCU0XvYY6w?=
- =?us-ascii?Q?XqfvV/3F0VuFBXyx2NK3dQbIDz0H1DIw632MycDClB8LVbOUfbtExjiD/Q5J?=
- =?us-ascii?Q?v1Y/GqKNWPdYz2hcNl2Llx1KpJ7P6f79j0i4jbr4gOS6XGraol4yIzfFe4UP?=
- =?us-ascii?Q?Kf71fHhY9uTgunQtFJ0VInku3Q0oQ+wE1JubLRS1?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZB45wCGOyAC82oTFaP4JJgcFoYtLmeMJTCVD23pwzJ+ZZ33gB91hCvYyJ/du?=
+ =?us-ascii?Q?kCTgh4fZHeVOZ+02VdLFGIRUKcPYZUChatPsekSwCLhxv1PsIYFOipowCZ8w?=
+ =?us-ascii?Q?Nr+4k+1kBtWb2XWdZhp7CY+ENORt1DMUxLIhDFP+J+nBD5VgVXyr3lz4rI57?=
+ =?us-ascii?Q?E09SAHwp6b8iFvT9NdRRguNvUTaB4rw5dUjRW2EnLPYAKQvOemDrKtyspeT1?=
+ =?us-ascii?Q?Pcn+5vOXTqCB5ZjGjKtHlPu1MZSVegInEx0ZyfngZJ4CRn3Tw9YGTALMp08u?=
+ =?us-ascii?Q?hs6yXVtIEmWJUCjgfE0r9l0HVtNkxvdBSCKUqpzZTJNM2a+aDNue9ev5gVW4?=
+ =?us-ascii?Q?hj4lEASkWBXnRFhekYjcPlfyhfWZR0SO+wp/gFLR6u1tq9v3NKB8BuSitLZw?=
+ =?us-ascii?Q?A8VnbxPyKwLaSHLA+EMeYiHCmiqfTbC7bYsRjF5A91OYmleaaNmWgz2HKWia?=
+ =?us-ascii?Q?PSLZrlLcmw/NktM31eAwdGVZO9l/sD8ros5PinkMVdZ5znHkDE9laFh0j2De?=
+ =?us-ascii?Q?zVnOdcqm2ucxqMEWcuZmS2KhY1eBslL1hVfpuWD18WUlBvBATQi0Ki5Lresn?=
+ =?us-ascii?Q?iPVZQAFk+774o1iP+RsZxL8KufchjmxWqzV/51HKLPOl501X3UOgFv1ARTl9?=
+ =?us-ascii?Q?PLomW+R3MbvNXZk36dr+Bp6wtXZAaIJ0qU0yD+tSWnEvV1aYE5Z1kNdRfbzb?=
+ =?us-ascii?Q?MMXaQ6fOdLJXNS3UCVY1bW2+qPeKNRifO3+vRaX9YLbgjdckVH+tJa+ipF9c?=
+ =?us-ascii?Q?OElX/hJdrD1vchbCzq9eLaJjzHgUd9CTKrVBCkaxTXe6KNGfMdBk5Mpj9DN5?=
+ =?us-ascii?Q?fS3Vs2/GmLncPSrPLfZ2JRRW9kd+GkBbxlabFaq6WgyWPzogETfUgw4b4jZB?=
+ =?us-ascii?Q?LNempk/7Kkhv84ObNTAd+V5eLqx+Iv8WOGhfQ/whQp/jEWcdN6icztp9AUpP?=
+ =?us-ascii?Q?J+Ql5T8TDzVIgVKPNSQBl894cT8DZAWiwDwLj4CdkHBet8CHzuD2eB2RdQ1K?=
+ =?us-ascii?Q?/3WHnelF3R/gxqolK7/hLMf2BinI8eA5VnoYewkYj1dRwhk7iIIJ3hmbZ/UQ?=
+ =?us-ascii?Q?ltJMactDXZKxsQGqlr6/DhXeUrtmcX9BOFSD54xwE2GNklJUt4RafwG0t/q6?=
+ =?us-ascii?Q?4/x/K9lJ0/ZrwkcV+dMfG7DsEoi8xKgZyyAb5stpxc57rFc0hll9m3+y1f7R?=
+ =?us-ascii?Q?zn4Zyqm3/mLA1oqmaLsrlEgx0rPa8LcDeu718r2pSfeSJUUFP8x5QKZBObQR?=
+ =?us-ascii?Q?nXeHXSV2Nc8NMrDoN7BA+HMM7RLa9R8z2rJeNsYTLlQW+II4SkpzyIUNaohf?=
+ =?us-ascii?Q?CiTi2Hp4xktdayl+r4H40RZPH98pVKdmPn2IDqxd5lZJaiw6XFb7t7Whd7AS?=
+ =?us-ascii?Q?FHDdsQdHKiFhuyVSsvjCS1eBr6mCMbbJlrvzMBUXRzzpA5Ag7brYoIzruBiT?=
+ =?us-ascii?Q?sJWlPS/pLlUcCC3SPdB9UVvNL0NCEulaXtAnQMXHF1PG9NAxzdq4THAr7rH/?=
+ =?us-ascii?Q?zWh56ET2oiyaNtUS/xl/4pDCSX2jqFH59PbjvxQjnDLPP1GpQN7prqYSrkq2?=
+ =?us-ascii?Q?Tf4XEYB9+c+kecxxaN4=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc86f792-ea85-47b9-febe-08dd67c16d8a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2025 15:11:02.0468 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 613e855a-dcbd-495b-e506-08dd67c52ec3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2025 15:37:54.5244 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7J1tWQxe6HfAQR4TG8C1pK4dwMdIWJgY/LEetBT6nhJ3j4V/A2HQluK815HU0NGkyQXFSB0fBh5V8fNwESBBTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7924
+X-MS-Exchange-CrossTenant-userprincipalname: HztwUjzyeF7akdnpDVJYTAwLa6tbzXbWn5oFxxLhCUSNoxphvL/wf7mmqwMgqRD9jehvBr1Y9VB1dEeXRd8wMw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8194
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,160 +159,85 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Shaoyun.liu <Shaoyun.liu@amd.com>
 
-Regards,
-Hawking
 -----Original Message-----
-From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Sent: Thursday, March 20, 2025 17:39
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
+cher
+Sent: Thursday, March 20, 2025 10:23 AM
 To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wa=
-ng@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.=
-com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Decode deferred error type in gfx aca bank =
-parser
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/mes: warn on unexpected pipe numbers
 
-In the case of injecting uncorrected error with background workload, the de=
-ferred error among uncorrected errors need to be specified by checking the =
-deferred and poison bits of status register.
+Warn if the number of pipes exceeds what the MES supports.
 
-v2: refine checking for deferred error
-v2: log possiable DEs among CEs
-v2: generate CPER records for DEs among UEs
-
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 25 +++++++++++++++++++++++--  dr=
-ivers/gpu/drm/amd/amdgpu/amdgpu_aca.h | 16 +++++++++++-----  drivers/gpu/dr=
-m/amd/amdgpu/gfx_v9_4_3.c |  8 ++++----
- 3 files changed, 38 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_aca.c
-index ffd4c64e123c..dc47f5fd4ea1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -391,6 +391,7 @@ static void aca_banks_generate_cper(struct amdgpu_devic=
-e *adev,  {
-        struct aca_bank_node *node;
-        struct aca_bank *bank;
-+       int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.c
+index 016af4e9c35fa..c52071841226f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -90,7 +90,7 @@ static void amdgpu_mes_doorbell_free(struct amdgpu_device=
+ *adev)
 
-        if (!adev->cper.enabled)
-                return;
-@@ -402,11 +403,27 @@ static void aca_banks_generate_cper(struct amdgpu_dev=
-ice *adev,
+ int amdgpu_mes_init(struct amdgpu_device *adev)  {
+-       int i, r;
++       int i, r, num_pipes;
 
-        /* UEs must be encoded into separate CPER entries */
-        if (type =3D=3D ACA_SMU_TYPE_UE) {
-+               struct aca_banks de_banks;
+        adev->mes.adev =3D adev;
+
+@@ -108,8 +108,13 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+        adev->mes.vmid_mask_mmhub =3D 0xffffff00;
+        adev->mes.vmid_mask_gfxhub =3D 0xffffff00;
+
++       num_pipes =3D adev->gfx.me.num_pipe_per_me * adev->gfx.me.num_me;
++       if (num_pipes > AMDGPU_MES_MAX_GFX_PIPES)
++               dev_warn(adev->dev, "more gfx pipes than supported by MES! =
+(%d vs %d)\n",
++                        num_pipes, AMDGPU_MES_MAX_GFX_PIPES);
 +
-+               aca_banks_init(&de_banks);
-                list_for_each_entry(node, &banks->list, node) {
-                        bank =3D &node->bank;
--                       if (amdgpu_cper_generate_ue_record(adev, bank))
--                               dev_warn(adev->dev, "fail to generate ue cp=
-er records\n");
-+                       if (bank->aca_err_type =3D=3D ACA_ERROR_TYPE_DEFERR=
-ED) {
-+                               r =3D aca_banks_add_bank(&de_banks, bank);
-+                               if (r)
-+                                       dev_warn(adev->dev, "fail to add de=
- banks, ret =3D %d\n", r);
-+                       } else {
-+                               if (amdgpu_cper_generate_ue_record(adev, ba=
-nk))
-+                                       dev_warn(adev->dev, "fail to genera=
-te ue cper records\n");
-+                       }
-+               }
+        for (i =3D 0; i < AMDGPU_MES_MAX_GFX_PIPES; i++) {
+-               if (i >=3D adev->gfx.me.num_pipe_per_me * adev->gfx.me.num_=
+me)
++               if (i >=3D num_pipes)
+                        break;
+                if (amdgpu_ip_version(adev, GC_HWIP, 0) >=3D
+                    IP_VERSION(12, 0, 0))
+@@ -129,14 +134,24 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+                        adev->mes.gfx_hqd_mask[i] =3D 0x2;
+        }
+
++       num_pipes =3D adev->gfx.mec.num_pipe_per_mec * adev->gfx.mec.num_me=
+c;
++       if (num_pipes > AMDGPU_MES_MAX_COMPUTE_PIPES)
++               dev_warn(adev->dev, "more compute pipes than supported by M=
+ES! (%d vs %d)\n",
++                        num_pipes, AMDGPU_MES_MAX_COMPUTE_PIPES);
 +
-+               if (!list_empty(&de_banks.list)) {
-+                       if (amdgpu_cper_generate_ce_records(adev, &de_banks=
-, de_banks.nr_banks))
-+                               dev_warn(adev->dev, "fail to generate de cp=
-er records\n");
-                }
+        for (i =3D 0; i < AMDGPU_MES_MAX_COMPUTE_PIPES; i++) {
+-               if (i >=3D (adev->gfx.mec.num_pipe_per_mec * adev->gfx.mec.=
+num_mec))
++               if (i >=3D num_pipes)
+                        break;
+                adev->mes.compute_hqd_mask[i] =3D 0xc;
+        }
+
++       num_pipes =3D adev->sdma.num_instances;
++       if (num_pipes > AMDGPU_MES_MAX_SDMA_PIPES)
++               dev_warn(adev->dev, "more SDMA pipes than supported by MES!=
+ (%d vs %d)\n",
++                        num_pipes, AMDGPU_MES_MAX_SDMA_PIPES);
 +
-+               aca_banks_release(&de_banks);
-        } else {
-                /*
-                 * SMU_TYPE_CE banks are combined into 1 CPER entries, @@ -=
-541,6 +558,10 @@ static int __aca_get_error_data(struct amdgpu_device *adev=
-, struct aca_handle *h
-        if (ret)
-                return ret;
-
-+       /* DEs may contain in CEs or UEs */
-+       if (type !=3D ACA_ERROR_TYPE_DEFERRED)
-+               aca_log_aca_error(handle, ACA_ERROR_TYPE_DEFERRED, err_data=
-);
-+
-        return aca_log_aca_error(handle, type, err_data);  }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_aca.h
-index 6f62e5d80ed6..6b180f1b33fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-@@ -76,11 +76,17 @@ struct ras_query_context;
- #define mmSMNAID_XCD1_MCA_SMU          0x38430400      /* SMN AID XCD1 */
- #define mmSMNXCD_XCD0_MCA_SMU          0x40430400      /* SMN XCD XCD0 */
-
--#define ACA_BANK_ERR_CE_DE_DECODE(bank)                                  \
--       ((ACA_REG__STATUS__POISON((bank)->regs[ACA_REG_IDX_STATUS]) ||   \
--         ACA_REG__STATUS__DEFERRED((bank)->regs[ACA_REG_IDX_STATUS])) ? \
--               ACA_ERROR_TYPE_DEFERRED :                                \
--               ACA_ERROR_TYPE_CE)
-+#define ACA_BANK_ERR_IS_DEFFERED(bank)                                \
-+       (ACA_REG__STATUS__POISON((bank)->regs[ACA_REG_IDX_STATUS]) || \
-+        ACA_REG__STATUS__DEFERRED((bank)->regs[ACA_REG_IDX_STATUS]))
-+
-+#define ACA_BANK_ERR_CE_DE_DECODE(bank)                             \
-+       (ACA_BANK_ERR_IS_DEFFERED(bank) ? ACA_ERROR_TYPE_DEFERRED : \
-+                                         ACA_ERROR_TYPE_CE)
-+
-+#define ACA_BANK_ERR_UE_DE_DECODE(bank)                             \
-+       (ACA_BANK_ERR_IS_DEFFERED(bank) ? ACA_ERROR_TYPE_DEFERRED : \
-+                                         ACA_ERROR_TYPE_UE)
-
- enum aca_reg_idx {
-        ACA_REG_IDX_CTL                 =3D 0,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index c0de682b7774..e62072779ae1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -876,7 +876,7 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle=
- *handle,
-                                      void *data)
- {
-        struct aca_bank_info info;
--       u64 misc0;
-+       u64 misc0, status;
-        u32 instlo;
-        int ret;
-
-@@ -890,12 +890,12 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_hand=
-le *handle,
-        info.die_id =3D instlo =3D=3D mmSMNAID_XCD0_MCA_SMU ? 0 : 1;
-
-        misc0 =3D bank->regs[ACA_REG_IDX_MISC0];
-+       status =3D bank->regs[ACA_REG_IDX_STATUS];
-
-        switch (type) {
-        case ACA_SMU_TYPE_UE:
--               bank->aca_err_type =3D ACA_ERROR_TYPE_UE;
--               ret =3D aca_error_cache_log_bank_error(handle, &info,
--                                                    ACA_ERROR_TYPE_UE, 1UL=
-L);
-+               bank->aca_err_type =3D ACA_BANK_ERR_UE_DE_DECODE(bank);
-+               ret =3D aca_error_cache_log_bank_error(handle, &info,
-+bank->aca_err_type, 1ULL);
-                break;
-        case ACA_SMU_TYPE_CE:
-                bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
+        for (i =3D 0; i < AMDGPU_MES_MAX_SDMA_PIPES; i++) {
+-               if (i >=3D adev->sdma.num_instances)
++               if (i >=3D num_pipes)
+                        break;
+                adev->mes.sdma_hqd_mask[i] =3D 0xfc;
+        }
 --
-2.34.1
+2.49.0
 
