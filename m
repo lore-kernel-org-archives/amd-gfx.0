@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DFDEC36008
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547DCC36009
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9177D10E74D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD40210E74E;
 	Fri, 21 Mar 2025 09:20:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FW4+qqHP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eprbrChU";
 	dkim-atps=neutral
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88FFD10E698;
- Thu, 20 Mar 2025 18:53:12 +0000 (UTC)
-Received: by mail-io1-f41.google.com with SMTP id
- ca18e2360f4ac-85b43b60b6bso41386639f.0; 
- Thu, 20 Mar 2025 11:53:12 -0700 (PDT)
+Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
+ [209.85.166.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8ED10E6A3;
+ Thu, 20 Mar 2025 18:53:48 +0000 (UTC)
+Received: by mail-io1-f44.google.com with SMTP id
+ ca18e2360f4ac-85e15dc801aso94064039f.2; 
+ Thu, 20 Mar 2025 11:53:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496792; x=1743101592; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496827; x=1743101627; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hTvJV6QS5TSCdXLFqdRdaWDLgeOVU3a+oqnRdZ34+Qg=;
- b=FW4+qqHPRW2ggQcQ57ukRpLXzAmEgx560MjpoMTR7hl+beivKZDCsU+Z1g4hJSLVlq
- 1GJA6GdakbdkCOhaEmGq/XzavnHCAiL9KmgJDenKaCNcMNyB/MU8zV50A+wk6WqQ0qEi
- dum0zLqhLqVGbEaES+XOGf2gfDhOEeSSVBmN+BPCGKDPR3llC7osH0tnR022PlS4kgy5
- oO+rFK9n86jQkIhCMZRWAnlVr7lAYcs0MttBHPaWAM1cBGa4WabZToFCbdoNz/f82teV
- jvPiYDlyv1kZ9dAwE/EkJeOPpZMvlIbwAM1zuuvfiQ9BVaDYHu8v+ofjiK+SkQkhpNbl
- g46Q==
+ bh=//eNVK5QvyJuFs0uWvNcaJY74v2ESo+w6BQZ02tQwac=;
+ b=eprbrChU6Q28hJx1Nhrj9F8BSZkJ8x8aU3S4UNQjZPw+rBim4yzOYLKd2e57OFa/dE
+ HQbRJPySFK6OrdbOTIMXus2kSWkjufIRrPZVIEZtgC2ZFJkvnGX9tLjAIkUq0sNrDZoC
+ jPIw6lmUq/ZiJaoXqJF4AVboyBRLE2GipBdhy7//Lh+fkqrsYDQUqvStz2qF0p4+z7JZ
+ eOA/hhMpXGtuXl+uCcKMyxPbwNUZnC7HCrw2YY7ib3j3oAw0Gc8jBfgqzuBjE1//Cg95
+ etwnJioYzAOLrxihqRZQLHUF117A3Fdl/rK05JUFYuFDZUJlx9rdNYI+kF+/SDmkTVuJ
+ hqNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496792; x=1743101592;
+ d=1e100.net; s=20230601; t=1742496827; x=1743101627;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hTvJV6QS5TSCdXLFqdRdaWDLgeOVU3a+oqnRdZ34+Qg=;
- b=BanBhRP6gwox/3U5Kn0lK5NwpYAvpRQvA51kHC/wDYF0492x/gDjaFrRlmEk4opov3
- izyUh+Nrp4cEOaWB16GCWM0LmKCTsbyjQ+6NrwAWMvGmF/FmPG83n6xFDnOuKI5VEbpP
- OE+cqb0ktz43TLRTFLXelpYXzrCY6gJPi4mTYJLQ2M3gstPih03QGkQbfNN7KcpIAUOX
- 6Z3y1bU4faNVE+nlbDA/8QXJfOXPiSifA06OCOrtu5Vuk75Shp3ALhizHwDO9EJm/Cqa
- DDUP0Imi2YX2prTPAnUacPvHpra1PG2NT1/dayu0cDovCnZ2BFqCJqgJOA6hFjxxQRCD
- L6nw==
+ bh=//eNVK5QvyJuFs0uWvNcaJY74v2ESo+w6BQZ02tQwac=;
+ b=SRJ+B75MPDDMIG7RK3V/a1XbIHfIDGg5PWCuwXUMkH55WKPCN3KQ61/Gnn/D95VPep
+ EA0m4kjzpt3OtoS7JZO2Py0ctHxO8YuTgrHIEeAFDkOzsH9myPIk7Aip4FsPksdOG1IH
+ ccde5UBpZ7f8qc4+EFb9Sq00yI0I+Sp54TKnaDhjXXKxZnqwsQO2qfIhDARdiHt/PGGh
+ t5Orw2JqV/0OdUfiCTP5KrlbBGQDV8O4EfLX2A1cs9Ce675eiO9RJVKekfbpmtjsNOyR
+ yY5Jr7RfGris0H/v5jE91d9ZTaT0GM33kXl0LdWuhQ9fQs5S8nBiHKwiAaEl7Qbo+6rG
+ gNlw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUJsOCzjSBVd9l0Z4C3QCgOVIdQyv0x22iPPJfGNpSBIQcw0bNWhIf6PlytS43KdERwugmHNN0m@lists.freedesktop.org,
- AJvYcCWBolmzwO4iLGfpQBjTE2cjF4n3n3SRi2jUCQDd/5QkkRoWLO0D1EEoRBIMBsbv63UT2LTmXnEdz9gU@lists.freedesktop.org,
- AJvYcCWSLB4X/dy4XJ9YMyXBqW0hS09zQL2KP74unSXT6dnyyHtkgLJ3ZoQvP30DLZRwoo9GVecps0RtEH1pGNqdeQ==@lists.freedesktop.org,
- AJvYcCXXvOUq2U6eTkTuQfjqQ6V5KfrRFbS9wFS9Kdr4cAnMh8lRaNsTkUap15xIqgB/jrO8mt7YNzIQA2Kf@lists.freedesktop.org,
- AJvYcCXhEtPcuv2/sFOTgD7ZPynl86z77CkL1K8tsLGkeuUfw86ftjJBvlli8280faYIWpdVxuZH+o6d1L1PWHB2dyJIgA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwJ4rHQsP6AI8il1lRXZSXN9Gt4qM7NCjErgdD1BJThPhqVxqUK
- Lhtm/6odo8297b7xZca8+RRViLUdV2rNkKdrfYriaajrbg/A8fWn
-X-Gm-Gg: ASbGncvNuDN8j0gT5hOSWXxUUQzpJkw2u1XG52BEWMhxoWqnw04P/tW/Ubzc4xSmUom
- S6WRdL9Onz9E7OcWCYV5MvF+nEb4glbgRc/K+WIYBMxywC3JInuioIBqfs5Eh48bq19EVX8zoYJ
- IpV8P4Y3GyYxTSvkFkvyphU7N0CkDX7k7z/lZy0nOzl2Q8SQGjB2JvP1+NifpqIl/2T6g/REtaU
- rvsyKHaIPyAgZGZbTfgw7oHgxyO5pnSrD8CQ1L89cildee9cLEvShzTvc3uVYPqa0CKEI91XskS
- nUw7IJqKoZu4F/tNV3eCbfKmj8HMac7oUsGloOf2TPvODqa4sOkqgNiInlgxu6mKATm/eEYhQBT
- NuQ==
-X-Google-Smtp-Source: AGHT+IFTm9Zlgpvi08G4P5p/+bcibqVl4sDZN0j3q0oWcNr2hmLwfea3pde9nvTR9c8Y2yKOoouONg==
-X-Received: by 2002:a05:6602:3a13:b0:85b:4d78:cfe7 with SMTP id
- ca18e2360f4ac-85e2bec5c71mr92422239f.4.1742496791700; 
- Thu, 20 Mar 2025 11:53:11 -0700 (PDT)
+ AJvYcCU7Y9sS8Kj9jvj/cFAGixABL2B2BpSyrwqRzjQsWGCLM3UH2eCxnkCn2VKo/ZAqs8ScM1Ci4L7aS9JT@lists.freedesktop.org,
+ AJvYcCW+6UnaN8PYkorG8KqdafneXvKXkTWZIqj0AGAbdiQmVvkKSylh/IvLLZic9MeYWHZ0JWFES7YY@lists.freedesktop.org,
+ AJvYcCWkfEhwr9LpHYYu4q3zkoaSjHoM+JJeBXX55BgqUVg0wHbCH5HeYrW/kwD1r/jFOQTaxHfdHJOAU84KYNGNBdbEGg==@lists.freedesktop.org,
+ AJvYcCXXTXBG+KbAejr+jIKlJkXxiqD9I8TH11vMy2WXvWYz1nHlI34HT7uWgzqZ8rFtgl74HJ9LG14rD0kiVoAlYw==@lists.freedesktop.org,
+ AJvYcCXuD8dkeyhmNH/jacPy9I7X8ZuQ3VMVTdvjLWNbUU8T2FlC/4YKdgvxCFGLDLHsBB6uF0I8NN2pWMt4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwB0OZTEzMJcds6Snjk0Mh2++eGobfmlTpBavH5SVD3lUrLMwlL
+ UCR8+fRB1d1/JY1sL9N8tcKZatQK+rfUXgrM8OIZ6BxWRUMzejr0
+X-Gm-Gg: ASbGncsGJE6ZABXk2rv/Q7DaxHlfl9owrmCCloyWwhHxo/KBP/sIWJVcP3OAvJN0N0D
+ ZRVSRvu8CoPXh+HkKXjZTNM90puh+oRIhM8h8dAn6SdfosovChMv0B5IRDvv7t0HS7dZ40d1zVD
+ nlR4i0f3e0QUgUr3efuuioI4QQQuoDUIqLeE0/oqOHdRzMtJlx6Kj/fMusQ9E5DR7PRlaioGD5n
+ 1NJX5r/vvnBZHKWpUzcteYupDVr9y/0keIwWgAqv3Yo1b9NToVWo4KhPJ4LeTY7o/A8FJ9WFBi3
+ 5yNBAXmx4mh1baOgAyqF1g2UNZ/BOyfAZ4uFsyDnF5sI6RgEVlUII1xWwATc88r/IuYDdIsV/w9
+ 4A+U8SbRk9xgX
+X-Google-Smtp-Source: AGHT+IFFpgYTl7JZFiyS9WTpaidYWi/5SdS6fsq/viN+YEp3rM9RCo7TNcLP3VJ/VtmR/8cq2dJk2A==
+X-Received: by 2002:a05:6602:3e89:b0:85d:f316:fabc with SMTP id
+ ca18e2360f4ac-85e2caa92d7mr44469839f.8.1742496827493; 
+ Thu, 20 Mar 2025 11:53:47 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.10
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:11 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:47 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,9 +74,9 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 09/59] dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
-Date: Thu, 20 Mar 2025 12:51:47 -0600
-Message-ID: <20250320185238.447458-10-jim.cromie@gmail.com>
+Subject: [PATCH v2 38/59] drm-print: fix config-dependent unused variable
+Date: Thu, 20 Mar 2025 12:52:16 -0600
+Message-ID: <20250320185238.447458-39-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -97,94 +97,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-old_bits arg is currently a pointer to the input bits, but this could
-allow inadvertent changes to the input by the fn.  Disallow this.
-And constify new_bits while here.
+With CONFIG_DRM_USE_DYNAMIC_DEBUG=y, __drm_printfn_dbg() gets an
+unused variable warning/error on 'category', even though the usage
+follows immediately, in drm_debug_enabled(category).
+
+For static-key optimized dyndbg, the macro doesn't actually check the
+category var, since the static-key patches in the proper state.  The
+compiler evidently sees this lack of reference and complains.
+
+So this drops the local var and refs the field directly in the
+macro-call, which avoids the warning/error.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/drm_print.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 4b001309bb6a..dd7320b9616d 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -595,7 +595,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 
- /* apply a new class-param setting */
- static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
--				     unsigned long *new_bits, unsigned long *old_bits,
-+				     const unsigned long *new_bits,
-+				     const unsigned long old_bits,
- 				     const char *query_modname)
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 46d53fe30204..41ad11247b48 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -212,9 +212,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
  {
- #define QUERY_SIZE 128
-@@ -604,12 +605,12 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 	int matches = 0;
- 	int bi, ct;
+ 	const struct drm_device *drm = p->arg;
+ 	const struct device *dev = drm ? drm->dev : NULL;
+-	enum drm_debug_category category = p->category;
  
--	if (*new_bits != *old_bits)
-+	if (*new_bits != old_bits)
- 		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
--			  *old_bits, query_modname ?: "'*'");
-+			  old_bits, query_modname ?: "'*'");
+-	if (!__drm_debug_enabled(category))
++	if (!__drm_debug_enabled(p->category))
+ 		return;
  
- 	for (bi = 0; bi < map->length; bi++) {
--		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
-+		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
- 			continue;
- 
- 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
-@@ -621,9 +622,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
- 			  ct, map->class_names[bi], *new_bits);
- 	}
--	if (*new_bits != *old_bits)
-+	if (*new_bits != old_bits)
- 		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
--			  *old_bits, query_modname ?: "'*'");
-+			  old_bits, query_modname ?: "'*'");
- 
- 	return matches;
- }
-@@ -679,7 +680,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 				continue;
- 			}
- 			curr_bits ^= BIT(cls_id);
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
-+			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, *dcp->bits, NULL);
- 			*dcp->bits = curr_bits;
- 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
- 				  map->class_names[cls_id]);
-@@ -689,7 +690,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
- 
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
-+			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, old_bits, NULL);
- 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
- 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
- 				  map->class_names[cls_id], old_bits, curr_bits);
-@@ -743,7 +744,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 			inrep &= CLASSMAP_BITMASK(map->length);
- 		}
- 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, modnm);
-+		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, modnm);
- 		*dcp->bits = inrep;
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
-@@ -756,7 +757,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, modnm);
-+		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, modnm);
- 		*dcp->lvl = inrep;
- 		break;
- 	default:
+ 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
 -- 
 2.49.0
 
