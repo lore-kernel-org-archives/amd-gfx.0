@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BFCC36011
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79530C36013
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81ADD10E73A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 965CA10E73E;
 	Fri, 21 Mar 2025 09:20:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C6BJm6LI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WcXvMH57";
 	dkim-atps=neutral
-Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
- [209.85.166.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7978C10E69B;
- Thu, 20 Mar 2025 18:53:06 +0000 (UTC)
-Received: by mail-il1-f173.google.com with SMTP id
- e9e14a558f8ab-3cda56e1dffso7891615ab.1; 
- Thu, 20 Mar 2025 11:53:06 -0700 (PDT)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF07710E694;
+ Thu, 20 Mar 2025 18:53:34 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id
+ ca18e2360f4ac-854a68f5a9cso86568339f.0; 
+ Thu, 20 Mar 2025 11:53:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496786; x=1743101586; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496814; x=1743101614; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MlpyI1Cbu0G4E1iYQnKaYcyXlhpWchDiOL6/URF3toQ=;
- b=C6BJm6LIkLdeKfDiWRO6jclRW1RvXiSKnBy4zEEFlH0iyauQhNovzRgZ7mmQatIFE+
- yIn76mEGeTR6xV1sdrGOlDKC9KfnFTNVwtdjLYuJydINfD5s1k0Ldqnqc385qihMAAI6
- VcXWPbuzAI3RVYsEzpWBALW2M3TlE949IUB8NOszqww6Itn6jFUXJbBYCeyFsJBgdI6Q
- /mnE4Ap6+cYlJp1Hz+KOii/NiR0btFZdx+U1rb/RqJ8wLZDvETKsTdN0Oyy95GwvZEMw
- DxbdqwAIyMEDghoWnbsOTcFa+kwjjJKzPP7DmWdrzXIxqgtsC1kVtLoI76ZBK4RZlpQf
- xO7w==
+ bh=noT9vSRMS6zrMZV/pKEC2dkjvVvkFYCSSlOoHQZH1zE=;
+ b=WcXvMH57qxmob1T1R1SpBUr9c6s55dhcnPweP4Ox0NMU1HxMP9zxPF+jTrQv91AHwx
+ ZinrG85956VBWraww3F+wEtNKfr17FE4BkS9ahAPqwfXRws4GluP7hPJv3fYCalVm5Ni
+ edC88gQybQ6mDHbzp5d4AjQs60L34spo7lPp6j6eQamY77jkdm9Onq/qaOQBlCijQYGK
+ DqICsCS3GrYwzVVTRddJNcObg5ebZIsjeZONPGjpaqeVdKVtNtquN9kTx6AZWLiBtXpl
+ LNcEzAMvpeTyBXo+pNIz6sRAFLTn+/0PSFHq9oROBfSEDe6UJD6K+Ys5mhuFcc4pgaIf
+ cTBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496786; x=1743101586;
+ d=1e100.net; s=20230601; t=1742496814; x=1743101614;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MlpyI1Cbu0G4E1iYQnKaYcyXlhpWchDiOL6/URF3toQ=;
- b=RVMwidu3e6YfjY+Nk/4Y9SdkUAd+f1pAZKy2qbHLSQo2OSG4bS0p4YmqNbXYjwTNrs
- CZz7I0teUgQNgjCYqqsA0vSdlmmJzNktvQEQ42K4I/3u3gE7rig7MkbgIfn3Q66Tbghw
- T+MfCg0UIVy7RkQkeD8ogJeF3GUA+m7b0/JYomm6OlPiGQSfqZxugXQwT9AekPot++1O
- Xuq+gubsenGlZzu8FfdBvxEjJGTo5hGSmUWXfDq8n5gxXaiEvZgds2IrPF6q1p8NV3+V
- RHyVG/pIGn+fyFznrPsjhGehd28NsrUcJ26El26XXD6XIgpCgF6FXoJdUq5+1mMW7Nuj
- dzFA==
+ bh=noT9vSRMS6zrMZV/pKEC2dkjvVvkFYCSSlOoHQZH1zE=;
+ b=qmdhWmJBm9eMPihsvfJimHiJuFH0pYbQGMRPzOCBF1d6cxsHyNVKPBXRCBxl+Evckl
+ JNmTi1piLCzx6VNxPcrHG3g7Q7zdjWWtQAJ35wmzVbRGoxWt+pcb+61FQvgA8kGMbT9Q
+ Dh0yKMUCZe8YeQlaznC7/kXI9QIxCM5Z9xogDqVl6RvA/aq+sTBsDr7bavnVo/6+vtgs
+ OGRRQzlkZoa3ziFw3ctyuHpxNC+/D9Oo/31tW27HpH7Vy/FMhWGylc98bHllItm2tSr9
+ +turqZq0duzehjLecKwPTL4+nJBUyoxybqvUwUsMggVO6NPTzj7K+/Ue+Q9BjhE+VhH+
+ 3Qpw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUGa6vXA9/uOChKzfQN2bi7qIWs7YQ0jTbc3UeGNXhitpTNXEE6G6QuwgQhRF0qMjPSZ6CoEB20@lists.freedesktop.org,
- AJvYcCVz9soxXFXKzEv5sVjvkp3cQp+l5OHOk8Yef1tJQ2YonIy62HsuY0xuazsI4bRMwZ3yFgriYz8/bZck@lists.freedesktop.org,
- AJvYcCWmvcE89H7+IeJkWVUhVsXmZbfOV1V86AMQTr4/hY0pk3di1w62HQlc1TjGh7jAkkBItFu9p8EDUUU+oZGIHKCUlg==@lists.freedesktop.org,
- AJvYcCWuIRXR6uRXofca7WOtlIzNSElFRoqcxeVKJj0xvS3kRBd52dOaA5hCNBe0r3F24YdgC7MFOyv6ulJR@lists.freedesktop.org,
- AJvYcCXIcs9Ka0o0G7sn6ca+EdyqOUOM5wDHg1Xh6TMKCv8lJiShePomct8BB3s803rGTDIYeCG3CmkQerGe2JEdMA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxVgUfzBKLJZtQCrXio3TYPGT+97bsHMKa05EXncEiNGVS6zQWt
- /fIM6AX80BwxtEcm0RutcfY8e0oqYHiEuMdEz9OaJLbhxV0BgaHC
-X-Gm-Gg: ASbGncuVkRo9PoZyQTO62w2tDmwRizj+oQW6/LTmyRBTN4h8yVjrBX6NtMJoCrSrMou
- xQ/AJNReM5U5izPGysU7YIWt88oYwM+2vGWEmDvxY8WLvwAvOcgbiprAbbtPk2/kU0WSRx5Ydsl
- NjSlFFjf6wwIY489pUmaTe9xSMMiPRb+9BI2HMicZHLsVKaNEQ/uySYTp5lGUO2gDbK+iSudosw
- eWnwfL5KQ/bj0/ZYeFHW+cA/X2Buw6ajf5NpCfFz/s/77bBHffivVq49nZWVdw7IOLY+q3zyPg7
- PvrMelPMbOMa0eM6fG1CY4zAYO7n1FLGaZUD5CAQGWJp0Q/hsulvLZF9fy1rpaTGF3s6GZGNVwe
- xqw==
-X-Google-Smtp-Source: AGHT+IHZGJevvkMs4YxEUV0pCQu6gVQ//x6whWye34wVeeLCxKLW2X7NtRjdgFS2bgshHHbVSK2SGA==
-X-Received: by 2002:a05:6602:c8b:b0:85b:4ad2:16ef with SMTP id
- ca18e2360f4ac-85e2cb0e8d8mr38905139f.9.1742496785621; 
- Thu, 20 Mar 2025 11:53:05 -0700 (PDT)
+ AJvYcCUCzwc3LNg9h5gHOxHf4KaJ+x5Gs29/gVS1WnbSRoyAm+M4myv6csSaVconJnvYDH4YD1JQu0mceKT+@lists.freedesktop.org,
+ AJvYcCUgaTseR4rEQIpIjbQa8sSmSMwhCTZ/eCkypMlRPchVbIwv+xvAzU2BHnU6vTVEZ0IAlTWvRmXT+ejA8FjZuxhqLg==@lists.freedesktop.org,
+ AJvYcCVy2Z3XgZognlg4FIC2pcGnNRffhpAMzoMfUJ8K09xGxIpgUfpdcwMhaNK2Umd3fnjY9OaJC9BSqn65quZEzA==@lists.freedesktop.org,
+ AJvYcCWB7dzb/XuQV8W5JaWL4II7CJnv1c965i3ZDitj9/uZzFslEL8jStYH1ZHXGGeTJbQ46vIu735jM3de@lists.freedesktop.org,
+ AJvYcCWEA/5hpxIHAMBVRSFUNRSlKLZUI9zXlt8CvKRalWLbcvxZmoCQjApI16Qk3jXgwS9bDncDVOKY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzCA5lmpicsUBGk3KmYl7UWAIRK1uC5Bp6TfxHKp99OekwG59Im
+ 5QuhXNgcZTfXkyFm6ACkF/WTwQy3vyr7tHzV/R5xxO8r9I0Lfxtc
+X-Gm-Gg: ASbGncvpcw1T+jzBnycX83s/Pixo3olgrspXV11sW2zwE+zm0Z5tyYBzgS04T6z60Hc
+ JWNm+jg6r9HAvPPy/S2LcGj8aJLMVhDUllKzycw7B+lp/pqmI0Pxv2LSVnjn+UVrdvlvmJyOAWE
+ Sm6SepLdodZEIuUh+TAOU47HiWBdi2gF7uUqi2Bkw8VEC1BQiLblaVbe3ImYnqot8EX37BZf1lQ
+ UZMie+3eNIDuNDGho1I2Gs8l7qFsgJnqtRFcdlGVCrzDYTvP6GDUlokuRP3pbhl4NK9nNddEE1B
+ vMQhz3wNdrt5y+IbK5ECWiO8bF5151EDTPThVjG/eP1NN9SetiCE96RjtRJlVtvAxQhDr/s62B7
+ gnIenjMm0prjC
+X-Google-Smtp-Source: AGHT+IE7BXJOLQ/Ch2HIew0cYtasFTxiOy98Pt2Smp2K+0XTe4H0Bm49hhGoWTZCYRcS5D1a7aVvHw==
+X-Received: by 2002:a05:6602:399a:b0:85b:43a3:66b2 with SMTP id
+ ca18e2360f4ac-85e2ca808ffmr55825739f.7.1742496814018; 
+ Thu, 20 Mar 2025 11:53:34 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.04
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:05 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:33 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,9 +74,9 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 04/59] dyndbg: reword "class unknown, " to "class:_UNKNOWN_"
-Date: Thu, 20 Mar 2025 12:51:42 -0600
-Message-ID: <20250320185238.447458-5-jim.cromie@gmail.com>
+Subject: [PATCH v2 27/59] selftests-dyndbg: test_percent_splitting
+Date: Thu, 20 Mar 2025 12:52:05 -0600
+Message-ID: <20250320185238.447458-28-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -97,33 +97,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a dyndbg classname is unknown to a kernel module (as before
-previous patch), the callsite is un-addressable via >control queries.
-
-The control-file displays this condition as "class unknown,"
-currently.  That spelling is sub-optimal/too-generic, so change it to
-"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
-make it uniquely greppable.
+This does basic testing of classmaps using '%' separated
+multi-queries.  It modprobes test_dynamic_debug with several classes
+enabled, and counts to verify that the expected sites show the
+enablement in the control file.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../dynamic_debug/dyndbg_selftest.sh          | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 5a007952f7f2..147540c57154 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1154,7 +1154,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
--			seq_printf(m, " class unknown, _id:%d", dp->class_id);
-+			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
- 	}
- 	seq_putc(m, '\n');
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 368d10a691a0..c97c9391d0f4 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -256,9 +256,29 @@ function comma_terminator_tests {
+     ddcmd =_
+ }
  
++function test_percent_splitting {
++    echo -e "${GREEN}# TEST_PERCENT_SPLITTING - multi-command splitting on % ${NC}"
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    ddcmd =_
++    modprobe test_dynamic_debug dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
++    check_match_ct =pf 1
++    check_match_ct =pt 1
++    check_match_ct =pm 1
++    check_match_ct test_dynamic_debug 23 -r
++    # add flags to those callsites
++    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml
++    check_match_ct =pmf 1
++    check_match_ct =plt 1
++    check_match_ct =pml 1
++    check_match_ct test_dynamic_debug 23 -r
++    ifrmmod test_dynamic_debug
++}
++
+ tests_list=(
+     basic_tests
+     comma_terminator_tests
++    test_percent_splitting
+ )
+ 
+ # Run tests
 -- 
 2.49.0
 
