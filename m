@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6915C36005
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10A61C36000
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47FB510E748;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7688010E72D;
 	Fri, 21 Mar 2025 09:20:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hMQp15MW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dl74LGsG";
 	dkim-atps=neutral
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
- [209.85.166.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE44110E69B;
- Thu, 20 Mar 2025 18:54:08 +0000 (UTC)
-Received: by mail-io1-f54.google.com with SMTP id
- ca18e2360f4ac-85da5a36679so109018239f.3; 
- Thu, 20 Mar 2025 11:54:08 -0700 (PDT)
+Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
+ [209.85.166.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84F4110E6AE;
+ Thu, 20 Mar 2025 18:53:17 +0000 (UTC)
+Received: by mail-io1-f44.google.com with SMTP id
+ ca18e2360f4ac-85b41281b50so31019739f.3; 
+ Thu, 20 Mar 2025 11:53:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496848; x=1743101648; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496797; x=1743101597; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=v1ua5S//H69kDLjZ/ereYDRSGWaurp/ZUyrfcdHp8ig=;
- b=hMQp15MWDc0C+Z/KJyoec17muSo2vRRoP/7duKyIXP9jQMR3AUHAIVtRkAZIMTUh8F
- qeNOU5g6adovIwOGGTE3hKFz+f3yA7EVLBCQqM1HC2qWoAyD15mdiXVKNxl/mZvhJYC6
- q1FE+VK4CFQP1kfpycav/a+/HnBCUkFZWQvFn4gHPV1c36dHYRk5pWhYndAEh0KWd0Iv
- H2KQFr7kXCQ/69+rKnyp/W2nlvDoVt+bM5xnpg295wr4veLAeSDtT9x7vfS4haijbIT/
- agPcK8/uo0WymJGN4u83AdVg0weZVA+WB9hZNvbakofPfuGKTnurBBpkrB43gTMMTJkR
- dVyQ==
+ bh=pMU0x5TrIGi1TlXMZD5rXGa9j1LnP0o62QpnxxI3Tyc=;
+ b=dl74LGsGfU/Pk+4z65r7vkTJ8wQps3pmzm8Va+kNbR5GOFwSHwJGHLGizpyAxKYYuf
+ uuMMdLVCmOhzc4zZydzT1HDkdEX/LBU2PJe80BHUgm8P7lzNiyIxHyRrhwad18lS8DJi
+ eLz7+iCScjp4Bs1sfGKh9Vkjwuc6NA0D//zu3ZDv83+pA7CxwjaRYCqN5GpdO3IKBDGK
+ 2zz+EkR5NwJNLfZ3dgk4QZYgsC2GvHOYXMJY8E8agPCs5O+tvJ/a3Y/wosXpLc42Ttt5
+ pgw5suznyZV1zJI56gU7DfmEFtwcpg+YwkOCZ0xiUaoLvWmLQRFd5sZAH43FsJxGLd2E
+ z07w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496848; x=1743101648;
+ d=1e100.net; s=20230601; t=1742496797; x=1743101597;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=v1ua5S//H69kDLjZ/ereYDRSGWaurp/ZUyrfcdHp8ig=;
- b=OG9dxVvLi/isRIZJPDdqL/qWFkx3/XEMd0j2flX2iPkI7oU9rZGnR/7sF5a7fr2u8J
- 4yaNsUoM7GEgKbwTez6UZpJWCT+w1MeOAM6wCJeJRF8KG7pSkIAkrHTpy3Ik8TUNRY/8
- BbLFwiT7WzeeUb3u+amOH/H9R3rPJhE3quoZPvfZ2unp6HkIGUUHxgNBoan86C0/AoRH
- ljvyxMmV2pqOjx9w4i4OH1Mz+Nmy8JbT6wlW2GU1lrgLS8tt/44MMAg8BtkjmVkeEvkT
- a76quDcDZdGeAzi0vMD8MZ9KC1f5XgtS9+3T5LNvLPkLeYy8zC6wiPgpIZ3G7zij1kMB
- cINg==
+ bh=pMU0x5TrIGi1TlXMZD5rXGa9j1LnP0o62QpnxxI3Tyc=;
+ b=FpLnUF1qZeexiXVC0PLiCk936sO8Po33bRIyy87fzdnN0uOXexX/9gGW0P81KODKcB
+ JmydRSYYi6oJdexC8/607sU4HFxdqpMHXTq6TIDTU2ZJ4XN1+Q5JY7DTS9Gm71b3z6fs
+ kimawcEsZggRtGWSrGHb6740IyDp2Vgidhnu7bv41ABvWHPQSmJ4zP7wkaLS/zigZX1m
+ gxb5KWI/n3SpYTeK8QyU4rvSZjiWjmdILXGjmT3gp/LMQanFHvYkL/tn2hZlBJJrfKo+
+ tfP1yySz7B0CPZiBnN0hkfRAJXxuN3wkXuuO930YikT7xLGkHXkdg8QVEbYCTCfyYZoO
+ hzSA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVqsr6OAg54fBdb2RTSDnIn/nhv3gHHcwduYS+UWXLiKh5JB/c5eafqKjfwuy6cEdVsnWi1JXrH@lists.freedesktop.org,
- AJvYcCX/XT8YiPUhVfnRSw9pusDMeUMc3LWS4ZD6vmVpA460WSh+0a7oBQKKUcpLF8f/rXajS1hoCXsbxD3O@lists.freedesktop.org,
- AJvYcCXWJh3Ewv9iqk2eiBgK1vvAUn+vBM3zkQKzjQCrgdDG4MM8tWhUb0DVNe46+PL8eAgDLz1k4GVCv7JWXhIgew==@lists.freedesktop.org,
- AJvYcCXb7nPKcfMkfD7R95/yPF/QL0z2IFbJ9MYggzxucvIDS7JJTfUvAtySAXooXzXXKikbgJBKtEHJuylNTq0/+G0qSg==@lists.freedesktop.org,
- AJvYcCXpo0cOC3in46V2OoxD9TYAYT1w1gViXA3f8UZh84BCL5t0JuXeL1NyxMJA3zeZGa8QlSWLjZLS/B4U@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQq2VggP8s0NYVkkXLU5Trqf6s/rPsayRxilX14EEfR78HS91W
- 206clV5MRDrJnC1ldcT+BWNhT+U0TyAkzzJN0hkAV6rSCf/h8wQ3
-X-Gm-Gg: ASbGncteNXTqvWaAXhnMZrBy53x9lIex1bAMQL0Erv+KD9V7GXZaXPlQUc+JbO4a7VK
- 8LUfvfPoKSVc9krLqQfYbnI2K7lpy0wn+oO9mYGIbMAcXXejAxMgiO1KS8/s47x61ULbT3IgC8/
- f9K38BLwAxe/ybDgfEz1a4sXfqWPuUQkZslmIFAdb0JYe8TKjusLqWcIjckFbjYSBm1P07BoyGO
- sihyVJLOmnOS4bGeUIVO49GSXY41HZ/jLDCgJSlCEC00LotwF73WDr3uh8zrC7vtnKXT74YrNZs
- qnovIVl3FfQtSXed8hg7Wnpr8+d7BpPWAz0zdKAV10UWRlvvOBgEIHWU18BlrN+sSPPRaC+Jo4F
- x2g==
-X-Google-Smtp-Source: AGHT+IF1BVm3oe17yrUphtZQXL8NOfypQ6M9iJgJRk9AIUUygDykxaFcqniPfeAk5RCxls2FZZiEnQ==
-X-Received: by 2002:a05:6602:3997:b0:85a:ec03:b124 with SMTP id
- ca18e2360f4ac-85e2ca64293mr50159939f.4.1742496848117; 
- Thu, 20 Mar 2025 11:54:08 -0700 (PDT)
+ AJvYcCUbFnRCyWxq+1I58qFtPSlzF61UMOp37ljRq2XvGRwTf18NIxcBopw5lObNOBaIU0vMEv6aiqbRj9OpbssenO5bkw==@lists.freedesktop.org,
+ AJvYcCUg1J2gPDc88gyestXoLcI99mmM366cqnbx5/7p3jm0EG+Q1c3RTe0Cq5G6Y40xWis0vGvtapzt@lists.freedesktop.org,
+ AJvYcCVjGr95SSJSjbMSsdxPJqIEgVPp2+x5z5297msKQXO1CWmip9QYqGcBFCqYfZmFtfMkIJ1UeG1iGrNRB3cNmg==@lists.freedesktop.org,
+ AJvYcCW0A3GrSQbhd/n89VjXKuCV90Eq5MjbTE7osLH+ylVjTNUCvzQDw5tN1bMAUljCmo18W+kOPn6IXjZn@lists.freedesktop.org,
+ AJvYcCXZq3lq7nSF+tXsK5SdNWP+Xy5Y8Mqmpzs3iIXfwo7XCFUwfwvXSI451ErHUX2kEhVLJJWYYzXfLU/e@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyUh/cutyp/KVpSMwPONygjL5IB0d+Hbkm3Q2xsxdsNCvoiatQE
+ lGaP/YjAKurUhfJOGgyuYe+w0mcH/m0aCJTD7IzKDURrUiOCUKFQ
+X-Gm-Gg: ASbGncsTxO1To56+idPIMf/KyZF1o6Z+MdvvEFqtvQa7xGYGnu0wLwJBclP1Pb+VaX/
+ WLAXgJ+l8kploVw540J2KHZ00rDAJMFmWqj49dTXDUuTRbhqo/yT61LP6Ag6sQtYATX9JryR3ed
+ oulahhkpSJWueR8N+rHzb1FUkwIRKUGDyUqAo1zUzkerDMPQM+a7cjt1ZbXP87X6D9mT0CyvvLX
+ nFzVHCS/QqsFFDVOw40ALlNs9PTw39dT7Helct0Vd+L+fX8FcsaZOev0WS93LP/v2kzss93AbWt
+ eqKAvIHjFCuHpZzTlsa3mjBY/q3hHAlZwTlUYAi9DmwJtYD28VYryqXsaa8AxR7lNhSr7QX3pOB
+ BBnjPVmfwtZwC
+X-Google-Smtp-Source: AGHT+IE5FnFrhXl2OsaLefG5e0LQc4fASL3FmWcjz9fvpoJJMFl+j0awErZ0XrOva1EzRD5jexTdnQ==
+X-Received: by 2002:a05:6602:c89:b0:85d:aba6:4f4b with SMTP id
+ ca18e2360f4ac-85e2ca388afmr47078939f.2.1742496796745; 
+ Thu, 20 Mar 2025 11:53:16 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.54.07
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:54:07 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:16 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,9 +74,10 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 56/59] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
-Date: Thu, 20 Mar 2025 12:52:34 -0600
-Message-ID: <20250320185238.447458-57-jim.cromie@gmail.com>
+Subject: [PATCH v2 13/59] dyndbg: add 2 new _DPRINTK_FLAGS_: INCL_LOOKUP,
+ PREFIX_CACHED
+Date: Thu, 20 Mar 2025 12:51:51 -0600
+Message-ID: <20250320185238.447458-14-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -97,28 +98,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The qxl driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+Add _INCL_LOOKUP condition to separate +mfsl flags from +t, allowing
+(after refactoring) to avoid a needless call-return.
+
+Add a PREFIX_CACHED bit to remember that a pr-debug callsite is:
+
+- enabled, with +p
+- wants a dynamic-prefix, with _INCL_LOOKUP
+- was previously called
+- was thus saved in the prefix cache. NOT YET.
+
+This allows (later) to cache part/all of the dynamic-prefix for each
+pr_debug that gets called.
+
+NOTES:
+
+dyndbg's dynamic prefixing can get expensive; each enabled callsite's
+prefix is sprintf'd into stack-mem, every time a pr_debug is called.
+
+A cache would help, if callsites mark _DPRINTK_FLAGS_PREFIX_CACHED
+after saving the prefix string.  But not yet.
+
+-t  thread-id. not part of the "callsite" info, derived from current.
+    doesn't belong in the cache. it would be wrong.
+    can be done in outer: dynamic_emit_prefix()
+
+-mfsl  module, function, source-file, line
+    we cache these, composed into a sub-string.
+    they are "lookups", currently to descriptor fields,.
+    could be accessor macros to "compressed" tables.
+
+All enabled together, they compose a prefix string like:
+
+  # outer   -----inner-------------------
+  "[tid] module:function:sourcfile:line: "
+
+So this patch extracts _DPRINTK_FLAGS_INCL_LOOKUP macro out of
+_DPRINTK_FLAGS_INCL_ANY macro, then redefs latter.
+
+Next re-refactor dynamic_emit_prefix inner/outer fns accordingly.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/dynamic_debug.h | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index 417061ae59eb..c18577a3153d 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -66,6 +66,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
- MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
- module_param_named(num_heads, qxl_num_crtc, int, 0400);
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index c388ab05a6e1..82eabaa6e827 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -38,11 +38,13 @@ struct _ddebug {
+ #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
+ #define _DPRINTK_FLAGS_INCL_TID		(1<<4)
+ #define _DPRINTK_FLAGS_INCL_SOURCENAME	(1<<5)
++#define _DPRINTK_FLAGS_PREFIX_CACHED	(1<<7)
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static struct drm_driver qxl_driver;
- static struct pci_driver qxl_pci_driver;
+-#define _DPRINTK_FLAGS_INCL_ANY		\
+-	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
+-	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID |\
+-	 _DPRINTK_FLAGS_INCL_SOURCENAME)
++#define _DPRINTK_FLAGS_INCL_LOOKUP					\
++	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |	\
++	 _DPRINTK_FLAGS_INCL_SOURCENAME | _DPRINTK_FLAGS_INCL_LINENO)
++#define _DPRINTK_FLAGS_INCL_ANY						\
++	(_DPRINTK_FLAGS_INCL_TID | _DPRINTK_FLAGS_INCL_LOOKUP)
  
+ #if defined DEBUG
+ #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
 -- 
 2.49.0
 
