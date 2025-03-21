@@ -4,84 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E939C36009
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9318AC36017
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B54C10E745;
-	Fri, 21 Mar 2025 09:20:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C66EB10E740;
+	Fri, 21 Mar 2025 09:20:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cNHVDKIZ";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lglERMLY";
 	dkim-atps=neutral
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
- [209.85.166.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C08610E692;
- Thu, 20 Mar 2025 18:53:05 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id
- ca18e2360f4ac-85ad83ba141so144309239f.2; 
- Thu, 20 Mar 2025 11:53:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496784; x=1743101584; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zri7fWbQ6hYMke6+GekcmDcZwwxzqxWIAq8zKNxMydw=;
- b=cNHVDKIZQd3H5SRBDWu5OBRLxN8ic3YpWF2isBpmZ2SDLMyYX+aGeK25IdhERZ7tIt
- vsR5ZjlNJ25nDP9L2pP4WiCHrK35GceFkyTyEMwJsGeQbT09BgWeB7bMc+FgoT170Mg7
- HvbxviVNgSJdFx3tJ+vmcCzEvcN/2x/Z2ChCZzRNHF4n6qUF78F8Fx5HFDAGTzUnudr7
- RBb17N2pbeBYU69lEF/rRKk40yBmEFMQQ683OqOSbBveoyKbnkGPHHm6bCpXq+zXYkMx
- QODGiP1VR0aEef7H34/wdgrrA7r2plCenjGO711TjSfkwO8A3G6pFtkwZew6tmsKTL+0
- 2KMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496784; x=1743101584;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zri7fWbQ6hYMke6+GekcmDcZwwxzqxWIAq8zKNxMydw=;
- b=W6vwNFU8wqJiGTy+Snfu2GYGkB1toCuzaH6kJsb55TuzdfSjEDVJORVfoIHHkMkpTc
- +v7qoh0lW4HoH1P/IAPJJRo585wcpk2m8wUv8gd+Mwc1CVwNKML8JeUEPeE3X3EOlL51
- qmB+6o6+ygl9Fq8wmN4jL0LEBtsdEAb8GHER6cgTougzh8Atgzk2GBb4GqOSUSichxfO
- IlaVwtXR89sQw/HSCfeS8UyfXHBesqyvs/ZZWe7BAyeOJhv8z5uerRVSp3W73144pwH9
- gjOmrbyvHm4aSHcKBcI6dMFSwi4dWGUjMtAVabusnh+EIyGTgmyFlw3o88HNqxlNIud/
- R4fw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUe3JT9EvIpbK3dUZPpqCqnxqj3tITac5mxRGPqMh5BIj1phckDfKNgXfy05KlnS9i1DKiaDTgz@lists.freedesktop.org,
- AJvYcCUonLom1CnFiMLVVWYeJHasxsSpG0ehzs0ocr6/o+8GzKi6MK5w0KmYzxwLshmiKI0KSv9g5jJI1HXejUgUBA==@lists.freedesktop.org,
- AJvYcCUts5+XRpq9Aa60vsY27uouFeh6pn6WU+7YtZtmWDPEMNBxLNqfbhnH+Oq+KNtODXekOAFZaTgT/DKw@lists.freedesktop.org,
- AJvYcCVIAGkLsNaHnGVPDapgwb6vWdjJKLUCBxN0eETtGZO8ARsK3kTXzlUiTdGKzqBkRb6GfR9dZmiXS5zQondwvFx1ew==@lists.freedesktop.org,
- AJvYcCWlBRwlGqEifXqVIe8fwz1PvDiIqAz6hUka3J6IHjQIW5dg/MOfuqvm/rlL7V5b/4XTkqKwm323k9ev@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxv58UH5z+My1WsP7sNBGrfrtno5Oh1ZNhkzZqJqqEL5LAaMsR4
- AP0bcsVoLP4Iqh6HH2PPsLr0ih4ucq3va8ePi0N0V74q4fzby0V/
-X-Gm-Gg: ASbGnct3W7oAFujkML1CrHdDUZJ8XiH+6bv7zIOvsPvf8q109aAYKJPnuWuPuamyczT
- LLLcbeX0H5CwKjTDBZnG2bwHQjgt0ce29aJYgKZy6H6qXmTKHqYJWIs0cI5hCEXNQt5D4tfnIL8
- qWbfvWyf47utwR8UXbeHHSI+aVpuJzqWDAhUo40EcQPE4/hhii+pHfFLd+7yKJubK1zadb/KgVx
- 7vNUxrkk8UMrc0IYbqnqM0aVfL4qEtqReUPHR4EGqqplpgTyb0bNoJ42O/idjrBX58VoTsFS5Yg
- Wa1C1KujNSmB4YMYnualM3qeNtIV/mYpKgBIZ8GZ+QHCrgb71dSk6Mh7TqmtomrZG7KIulZOlot
- G+Q==
-X-Google-Smtp-Source: AGHT+IH1P/jk1OIslkAUGgFRZQR/oxbnvI28Bj54hNazA+wkeOw9UlyQ7Q8GNNj4dKRg9NNNZoJpTw==
-X-Received: by 2002:a05:6602:3a0e:b0:85b:4362:3403 with SMTP id
- ca18e2360f4ac-85e2ca8a796mr50382139f.7.1742496784432; 
- Thu, 20 Mar 2025 11:53:04 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:03 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org
-Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 03/59] test-dyndbg: fixup CLASSMAP usage error
-Date: Thu, 20 Mar 2025 12:51:41 -0600
-Message-ID: <20250320185238.447458-4-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
-References: <20250320185238.447458-1-jim.cromie@gmail.com>
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E2C710E129;
+ Fri, 21 Mar 2025 08:20:12 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4ZJwNl6NsPz9s01;
+ Fri, 21 Mar 2025 09:20:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1742545207; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=oyYjdGGRzlCcQkWUZiH4uZGdGt1yFcspRATdfLaayM8=;
+ b=lglERMLYka0HtJ01JR3ErNWMeqe9J8V484eBch6W/Z6Emdw0FCxhOSBlQCStb5jmW1Cb4P
+ 9YL38hNzEzCS7eYSqiD28pm/bdYfsU6wa7W4Jx6rg2y7gLwMaoHMrfOPkX+t+rEmfyuD7W
+ s1Mvouk1jCBbPbtmvF2J1oPSWldJ3u7E6YwwWyt0BDSmJpEX4BAyeoZ+S1gl8ZcBTsbKyD
+ H0HGk341WdY+W/RXx62ejcOkD6VGOU3BPLkrYDx5aZ7OXl5jAs7+q9OZ1vLla06JWRlgA3
+ I06m1y7+S+KAHs9iPOwET1xGyMvUEsIRyfuixAA6NVztMEmhNlCAQkuhqP2sww==
+Message-ID: <773a6105e1b448ecb2be8b2c80bb63c0e08f52d2.camel@mailbox.org>
+Subject: Re: [PATCH 1/2] drm/sched: add drm_sched_prealloc_dependency_slots
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ phasta@kernel.org, dri-devel@lists.freedesktop.org, dakr@kernel.org, 
+ amd-gfx@lists.freedesktop.org
+Date: Fri, 21 Mar 2025 09:20:04 +0100
+In-Reply-To: <860fb3b6-0f18-49c4-b464-5c8c8995e6bd@igalia.com>
+References: <20250318120313.19099-1-christian.koenig@amd.com>
+ <20250318120313.19099-2-christian.koenig@amd.com>
+ <769f6c5788eff9459414b8ce0b056989e29773af.camel@mailbox.org>
+ <48f07793-0fd4-4cdd-8568-3bd2ff63bb6a@gmail.com>
+ <860fb3b6-0f18-49c4-b464-5c8c8995e6bd@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: qy7cap3s8zg1d9g8qy4kir1jf5gkubjs
+X-MBO-RS-ID: 5a39719af3035e82328
 X-Mailman-Approved-At: Fri, 21 Mar 2025 09:20:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,45 +65,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 6ea3bf466ac6 ("dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes")
+On Thu, 2025-03-20 at 11:49 +0000, Tvrtko Ursulin wrote:
+>=20
+> On 19/03/2025 11:23, Christian K=C3=B6nig wrote:
+> > > > + *
+> > > > + * Return:
+> > > > + * 0 on success, or an error on failing to expand the array.
+> > > > + */
+> > > > +int drm_sched_job_prealloc_dependency_slots(struct
+> > > > drm_sched_job
+> > > > *job,
+> > > > +					=C2=A0=C2=A0=C2=A0 unsigned int
+> > > > num_deps)
+> > > > +{
+> > > > +	struct dma_fence *fence;
+> > > > +	u32 id =3D 0;
+> > > > +	int ret;
+> > > > +
+> > > > +	while (num_deps--) {
+> > > > +		fence =3D dma_fence_get_stub();
+> > > > +		ret =3D xa_alloc(&job->dependencies, &id, fence,
+> > > > xa_limit_32b,
+> > > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GFP_KERNEL);
+> > > So this would fill the xarr with already signaled fences which
+> > > then
+> > > later will be replaced with unsignaled fences?
+> >=20
+> > Yes, exactly that's the idea.
+> >=20
+> > > Help me out here: would it also work to add NULL instead of that
+> > > stub-
+> > > fence?
+> >=20
+> > Good question, idk. That's an implementation detail of the xarray.
+> >=20
+> > Tvrtko also correctly pointed out that it is most likely a bad idea
+> > to=20
+> > use dma_fence_is_signaled() in the critical code path.
+> >=20
+> > I will try to dig through the xarray behavior up and update the
+> > patch if=20
+> > possible.
+>=20
+> I think NULL on its own is not possible, but the two low bits are=20
+> available for pointer tagging, or designating pointers vs integers,=20
+> which looks like it could work. Something like storing=20
+> xa_tag_pointer(NULL, 1) to reserved slots and at lookup time they
+> would=20
+> be detected with "xa_pointer_tag(fence) & 1".
 
-A closer look at test_dynamic_debug.ko logging output reveals reveals
-a macro usage error:
+Almost!
 
-lib/test_dynamic_debug.c:105 [test_dynamic_debug]do_cats =p "LOW msg\n" class:MID
-lib/test_dynamic_debug.c:106 [test_dynamic_debug]do_cats =p "MID msg\n" class:HI
-lib/test_dynamic_debug.c:107 [test_dynamic_debug]do_cats =_ "HI msg\n" class unknown, _id:13
+they would be detected with a super-readable
 
-107 says: HI is unknown, and 105,106 have a LOW/MID and MID/HI skew.
+#define DRM_SCHED_XARR_TAG_RESERVED_ENTRY 1
 
-DECLARE_DYNDBG_CLASSMAP() _base arg must equal the enum's 1st value,
-in this case it was _base + 1.  This leaves HI class un-selectable.
+or maybe =E2=80=A6UNUSED_ENTRY?
 
-NB: the macro could better validate its arguments.
+^_^
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Tested-by: Louis Chauvet<louis.chauvet@bootlin.com>
----
- lib/test_dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+P.
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 77c2a669b6af..396144cf351b 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -75,7 +75,7 @@ DD_SYS_WRAP(disjoint_bits, p);
- DD_SYS_WRAP(disjoint_bits, T);
- 
- /* symbolic input, independent bits */
--enum cat_disjoint_names { LOW = 11, MID, HI };
-+enum cat_disjoint_names { LOW = 10, MID, HI };
- DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
- 			"LOW", "MID", "HI");
- DD_SYS_WRAP(disjoint_names, p);
--- 
-2.49.0
+
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
 
