@@ -4,44 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2EB5C36007
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBFA4C35FFF
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 09:20:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20B7F10E736;
-	Fri, 21 Mar 2025 09:20:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=swemel.ru header.i=@swemel.ru header.b="nAWRDq1Y";
-	dkim-atps=neutral
-X-Greylist: delayed 4194 seconds by postgrey-1.36 at gabe;
- Thu, 20 Mar 2025 13:11:17 UTC
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F75710E3A1;
- Thu, 20 Mar 2025 13:11:17 +0000 (UTC)
-From: Denis Arefev <arefev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
- t=1742463330;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=5Um6DJdCZsfO6iMseqDk5neXt8a8oIsDXItojtZ5OxA=;
- b=nAWRDq1YfDoB5lXs0yYrVWyzFT0EcjdpxDB+AbHI4KraBR4mkUVdh7J3qIb2gUJgmnlN+a
- E9MvATib/qnxuQ3R/ZG+Ke9kC+jD45p6tiC5GKM5vyLoZgCuL4m7u++ygjA/PfsA0r+N4J
- K8L3a0JUnIBwvHHqml7pisxW5EUk/hI=
-To: Kenneth Feng <kenneth.feng@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [PATCH] drm/amd/pm/smu11: Prevent division by zero 
-Date: Thu, 20 Mar 2025 12:35:02 +0300
-Message-ID: <20250320093517.5247-1-arefev@swemel.ru>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43A2710E746;
+	Fri, 21 Mar 2025 09:20:45 +0000 (UTC)
+X-Greylist: delayed 535 seconds by postgrey-1.36 at gabe;
+ Fri, 21 Mar 2025 03:24:11 UTC
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com
+ [216.40.44.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5169510E310;
+ Fri, 21 Mar 2025 03:24:10 +0000 (UTC)
+Received: from omf15.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay08.hostedemail.com (Postfix) with ESMTP id B4A64141BC9;
+ Fri, 21 Mar 2025 03:15:02 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf15.hostedemail.com (Postfix) with ESMTPA id 5C4CA1B; 
+ Fri, 21 Mar 2025 03:14:57 +0000 (UTC)
+Message-ID: <cf0501d3245554150b4a19ced0401228fc58b335.camel@perches.com>
+Subject: Re: [PATCH v2 34/59] checkpatch: dont warn about unused macro arg
+ on empty body
+From: Joe Perches <joe@perches.com>
+To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-gfx-trybot@lists.freedesktop.org, Andrew Morton
+ <akpm@linux-foundation.org>
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch, 
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, Andy Whitcroft <apw@canonical.com>,
+ Dwaipayan Ray	 <dwaipayanray1@gmail.com>, Lukas Bulwahn
+ <lukas.bulwahn@gmail.com>
+Date: Thu, 20 Mar 2025 20:14:54 -0700
+In-Reply-To: <20250320185238.447458-35-jim.cromie@gmail.com>
+References: <20250320185238.447458-1-jim.cromie@gmail.com>
+ <20250320185238.447458-35-jim.cromie@gmail.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.3 (3.54.3-1.fc41) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Stat-Signature: iyw3o7jfnibfiwm8pf6ibncbdu7sr4cj
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 5C4CA1B
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1/d9AFXY+OSiUh0DxEBRYtGbqh22M41r8M=
+X-HE-Tag: 1742526897-40709
+X-HE-Meta: U2FsdGVkX19v9u9NW6oOmjvrpY1bOxIWEW9ri8JTiu4krXIx0x4kkL3s61ycTUBVYqWZAIJ7C/Ffq/K4gn5g+x1GbdOrO8rxiB8vtXETDudv0bhAPVRTw1fTVd5XJOHb/T08AWWA/4+GAzz9gnI5j6EyCey42Mqds9Lh08qsIzFVVyEcE7VHsKRjN8+S78BB3IBAQZFf7JMHDzXKhyH+lKLH5xdY8wExVk1cTEYPnOiKtwrJVMU1Eqkzz5h/loNI06mGRiIU85CSc6y1/HEX6ycoLpVjDOfobMLd1AORzTdbRT7BLQ4pU6iK/RH+RU7sISAfSyV7gS1CHTH3IGEouccv2lGAGUKbzNYhnppxyhHx9lx4ATXEqmEqFJ7l5CDT4NwyArNrcE9vTgCIoAmzJvnzTrB72hFZaDZ5l3THts2SLb00BePyImuDplXttMbBt7RPNwhWyuDOnZqrhSwXMA==
 X-Mailman-Approved-At: Fri, 21 Mar 2025 09:20:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,30 +66,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The user can set any speed value.
-If speed is greater than UINT_MAX/8, division by zero is possible.
+On Thu, 2025-03-20 at 12:52 -0600, Jim Cromie wrote:
+> we currently get:
+>   WARNING: Argument 'name' is not used in function-like macro
+> on:
+>   #define DRM_CLASSMAP_USE(name)  /* nothing here */
+>=20
+> Following this advice is wrong here, and shouldn't be fixed by
+> ignoring args altogether; the macro should properly fail if invoked
+> with 0 or 2+ args.
+>=20
+> cc: Andy Whitcroft <apw@canonical.com>
+> cc: Joe Perches <joe@perches.com>
+> cc: Dwaipayan Ray <dwaipayanray1@gmail.com>
+> cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.  
+Completely sensible, thanks Jim.
 
-Fixes: 1e866f1fe528 ("drm/amd/pm: Prevent divide by zero") 
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 189c6a32b6bd..54229b991858 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1200,7 +1200,7 @@ int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
- 	uint32_t crystal_clock_freq = 2500;
- 	uint32_t tach_period;
- 
--	if (speed == 0)
-+	if (!speed || speed > UINT_MAX/8)
- 		return -EINVAL;
- 	/*
- 	 * To prevent from possible overheat, some ASICs may have requirement
--- 
-2.43.0
+> ---
+>  scripts/checkpatch.pl | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+> index 7b28ad331742..0c4f578ea6e7 100755
+> --- a/scripts/checkpatch.pl
+> +++ b/scripts/checkpatch.pl
+> @@ -6037,7 +6037,7 @@ sub process {
+>  				}
+> =20
+>  # check if this is an unused argument
+> -				if ($define_stmt !~ /\b$arg\b/) {
+> +				if ($define_stmt !~ /\b$arg\b/ && $define_stmt) {
+>  					WARN("MACRO_ARG_UNUSED",
+>  					     "Argument '$arg' is not used in function-like macro\n" . "$her=
+ectx");
+>  				}
 
