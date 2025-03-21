@@ -4,58 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7A89C36000
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 10:24:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3EBC35FFF
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 10:27:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 531E610E77E;
-	Fri, 21 Mar 2025 10:24:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A733D10E780;
+	Fri, 21 Mar 2025 10:27:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="USwN9O5c";
+	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="UsncP2e9";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38FEC10E77E
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Mar 2025 10:24:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id E7952A48D27;
- Fri, 21 Mar 2025 10:18:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B7AC4CEE3;
- Fri, 21 Mar 2025 10:24:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742552664;
- bh=D24M1M8nS14Me4tboiVm1/oePTkar2wchrnm8pcbf1w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=USwN9O5cfKZkLeODD9Fj649FR8pHBXVkQ9GUif6gjWjm7YOodBEL8Ont0MBX2s3cw
- hY79l2YkV1/6s0687tUKEj0PkPt3UkMVlzo+QGUqj0yR4Uw0Hcntn+mIi0A8Mw7sTQ
- zdIzG74IWaedYjxu4ggOmQ2l7p0CUrICogtmWlXD8qkB2WwiSqc74OO8md145mBYnz
- TaLE/eYqnZmU7WMmooxMUBa9HR8fKSyrcsn85ikXutqqkH+GkiMf+TJexvKaw0AlaN
- h8FBrhJxTadLSkn3aE6B531Pwq6mnb6gyxQwA5cwYHD5Zx/01KPCCIDAGzbGWQSRV+
- aifNE7T4T0Ubw==
-Date: Fri, 21 Mar 2025 11:24:20 +0100
-From: Ingo Molnar <mingo@kernel.org>
-To: Balbir Singh <balbirs@nvidia.com>
-Cc: Bert Karwatzki <spasswolf@web.de>, Alex Deucher <alexdeucher@gmail.com>,
- Kees Cook <kees@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Andy Lutomirski <luto@kernel.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
-Subject: Re: commit 7ffb791423c7 breaks steam game
-Message-ID: <Z90-VOyC5oanCC8z@gmail.com>
-References: <fa8d5e76694918bdaae9faee9648776f298f78ca.camel@web.de>
- <7866593f-0322-4fb3-9729-82366940fc85@nvidia.com>
- <a168e78b-ae27-4675-8821-0b1a2499b2b2@nvidia.com>
- <5d34bfc5109b8d104fd4f8550dd17945344f9d07.camel@web.de>
- <551b9797-20d6-4bfe-b54c-84dd7aae7794@nvidia.com>
- <CADnq5_Pvmxa10dJWYjajwxG-0Y_oxhL6wS6NsG2F0dmcJS6o8A@mail.gmail.com>
- <9be36dfab79b17e108f71d51a6ebf39073e110c6.camel@web.de>
- <b5d80ef2-fd5a-41cc-9184-6c82226c330a@nvidia.com>
- <Z9vZYIbXOz2wF59j@gmail.com>
- <2cafd3e1-9265-403a-9854-7200d84ca397@nvidia.com>
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA81810E782
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Mar 2025 10:27:04 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-7c59e7039eeso238291785a.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Mar 2025 03:27:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1742552823; x=1743157623;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=C6XBFDQAIe6jgF6F40xRB15uQkrbHzlxj9SySg4AP08=;
+ b=UsncP2e9n3QNbKNxZR9VuO0EAMPJbvKSYfFP1ZrgDxZcz93zOv/jaLFIWidxpfe7Oj
+ vCWo9ZgtxCdavBaeguknpbzXxjVVfrf//zmC1Phd6eRPKrrUxiDNCtotg5BNtnPhThgY
+ GMlqnQo9e2WDFoFLNeBtJhpnbV6qkNBwrAwErTZoC/PRbCDjvBqa/87HGn65lwvxvsqk
+ UBeJN/cRvZx+zH/IsIGWFYwQ2JWTRSrTS9S50sqEyEykyla6gax6cZ6ZqNu3HVpU6tZE
+ r3OihHp3BHjebgW3DnH2d6E9rLjtmYUUbe9lZqThPl+alpzH1agT72Xzh8sI+d0NimFI
+ YYIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742552823; x=1743157623;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=C6XBFDQAIe6jgF6F40xRB15uQkrbHzlxj9SySg4AP08=;
+ b=jP8CFc4lptTezVE0j0WVrGDwIf4VyNWSevs+z0ksBq+Hsv/Ev2RxuwL17Nxb3xZnl5
+ q95EgP/J0r0UgFeqJ8r9wuhQudGjFuTghH5qqwUkSwPSxsULqsOsNwf0mGve8nDRYN0o
+ ZcBSguBuziwAIDRa3mf4zTWBBePam7WmTWpB7t7UMlAek8kkqzrIQh4JJJUO0MVtf+Xi
+ ghaHTGAFVV35a2x+QjSboatUDPzbt/tYAuYnvSDl8e5vuJtJJOTd2KHQobuHJXCRq1Xu
+ ykfTZjCsJx4J0wgn4AXKGASVJ3/wDVfZ1c4XBoBFFBZb+CoHLeIBEQywfVT8+9lVpLy3
+ 3JHg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW2NTE3bJDbC00pE5KaBy3vuthtE8xCYUDikYXAB0OzWFvctyLB58bFx/G9fVXmsg5fNC4F162p@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxXMx2pH6hGxAN5SkOiSBgnXPRORLv+GpK/4MJE6ZgOnam1QXSx
+ UZznqv5XHIuFMyYfBj7KP4nClZ4JznAMATdgELunScwOYqwToPdk2+hZ4VrTWLDHsUFcC+DHcVN
+ PPz8/Hp3YDLCqM3cHqHy9bQ6bCFW909ENVr3HPQ==
+X-Gm-Gg: ASbGncskk5PC298yrH0UqJeHXj9879Ss1rRx9hhVZfq1KnZRrl9AFp0qlvqWqytzb7x
+ itRyfDtGDlrPwiMtLWcDLFQdutRGS7IN/icLsv8BOcA/LKt4V/zKot/6FXGJz9xvUEJFQ3hPlM/
+ qBRe4DxHbQGqbw6yVaU+3VBRNg
+X-Google-Smtp-Source: AGHT+IGtKZxKAoZgtR0aBlIVmyFJdz4vLgELnLl5z6u4LuYLjXNoyuq0UVrTF+CIIc7xPDTVRmAHZ+SRVPvG/7TyZXI=
+X-Received: by 2002:a05:620a:4055:b0:7c5:a423:f5b0 with SMTP id
+ af79cd13be357-7c5ba13361dmr406693385a.7.1742552823192; Fri, 21 Mar 2025
+ 03:27:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2cafd3e1-9265-403a-9854-7200d84ca397@nvidia.com>
+References: <20250314085858.39328-1-vignesh.raman@collabora.com>
+ <20250314085858.39328-2-vignesh.raman@collabora.com>
+In-Reply-To: <20250314085858.39328-2-vignesh.raman@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Fri, 21 Mar 2025 10:26:52 +0000
+X-Gm-Features: AQ5f1JpymW7UP78_0g_Z-sNByprYGBFX-xYqr_OlbVrsK0-Hob7Zk88vIu6Znbc
+Message-ID: <CAPj87rMjF84yyPqBshuGu=8qx6Xhq9Z-HgEnQe=tRtbu3E8OtQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] drm/ci: uprev mesa
+To: Vignesh Raman <vignesh.raman@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
+ helen.fornazier@gmail.com, airlied@gmail.com, simona.vetter@ffwll.ch, 
+ robdclark@gmail.com, guilherme.gallo@collabora.com, 
+ sergi.blanch.torne@collabora.com, valentine.burley@collabora.com, 
+ lumag@kernel.org, quic_abhinavk@quicinc.com, mripard@kernel.org, 
+ jani.nikula@linux.intel.com, linux-mediatek@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,88 +90,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Vignesh,
 
-* Balbir Singh <balbirs@nvidia.com> wrote:
+On Fri, 14 Mar 2025 at 08:59, Vignesh Raman <vignesh.raman@collabora.com> wrote:
+> LAVA was recently patched [1] with a fix on how parameters are parsed in
+> `lava-test-case`, so we don't need to repeat quotes to send the
+> arguments properly to it. Uprev mesa to fix this issue.
 
-> On 3/20/25 20:01, Ingo Molnar wrote:
-> > 
-> > * Balbir Singh <balbirs@nvidia.com> wrote:
-> > 
-> >> On 3/17/25 00:09, Bert Karwatzki wrote:
-> >>> This is related to the admgpu.gttsize. My laptop has the maximum amount 
-> >>> of memory (64G) and usually gttsize is half of main memory size. I just 
-> >>> tested with cmdline="nokaslr amdgpi.gttsize=2048" and the problem does 
-> >>> not occur. So I did some more testing with varying gttsize and got this
-> >>> for the built-in GPU
-> >>>
-> >>> 08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
-> >>> Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] (rev c5)
-> >>>
-> >>> (nokaslr is always enabeld)
-> >>> gttssize   input behaviour
-> >>>  2048		GOOD
-> >>>  2064		GOOD
-> >>>  2080		SEMIBAD (i.e. noticeable input lag but not as bad as below)
-> >>>  3072		BAD
-> >>>  4096		BAD
-> >>>  8192		BAD
-> >>> 16384		BAD
-> >>>
-> >>> As the build-in GPU has ~512 VRAM there seems to be problems when gttsize >
-> >>> 4*VRAM so I tested for the discrete GPU with 8G of VRAM
-> >>> gttsize   input behaviour
-> >>> 49152		GOOD
-> >>> 64000		GOOD
-> >>>
-> >>> So for the discrete GPU increasing gttsize does no reproduce the bug.
-> >>>
-> >>
-> >> Very interesting, I am not a GTT expert, but with these experiments do you
-> >> find anything interesting in
-> >>
-> >> /sys/kernel/debug/x86/pat_memtype_list?
-> >>
-> >> It's weird that you don't see any issues in Xorg (Xfce), just the games.
-> >> May be we should get help from the amd-gfx experts to further diagnose/debug
-> >> the interaction of nokaslr with the game.
-> > 
-> > So basically your commit:
-> > 
-> >   7ffb791423c7 ("x86/kaslr: Reduce KASLR entropy on most x86 systems")
-> > 
-> > inflicts part of the effects of a 'nokaslr' boot command line option, 
-> > and triggers the regression due to that?
-> > 
-> > Or is there some other cause?
-> > 
-> 
-> You are right in your assessment of the root cause. Just to reiterate
->
-> - nokaslr does not work with the iGPU, specifically for the games 
->   mentioned
->
-> - There is a workaround for the problem, which involves reducing the 
->   amdgpu.gttsize
->
-> - The patch exposes the system to nokaslr situation (effect) when 
->   PCI_P2PDMA is enabled
+Thanks a lot; the series is:
+Acked-by: Daniel Stone <daniels@collabora.com>
 
-Note that every major x86 distro I checked enables CONFIG_PCI_P2PDMA=y 
-and also keeps KASLR enables, so the above qualifiers are immaterial in 
-terms of user impact: it's a 100% certainty that distro kernels on 
-these systems will regress under these games, right?
-
-What is the importance of the original fix? I should have insisted on a 
-fuller changelog, because it's rather thin on details:
-
-  If the BAR address is beyond this limit, PCI peer to peer DMA
-  mappings fail.
-
-How frequently does this happen and what is the impact to users if this 
-happens?
-
-We might be forced to revert this change if it regresses other systems.
-
-Thanks,
-
-	Ingo
+Cheers,
+Daniel
