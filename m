@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F7F9C36001
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 13:02:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0215C36000
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Mar 2025 13:02:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BEF710E7C7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B58510E7CB;
 	Fri, 21 Mar 2025 13:02:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=swemel.ru header.i=@swemel.ru header.b="qYsti1BO";
+	dkim=pass (1024-bit key; unprotected) header.d=swemel.ru header.i=@swemel.ru header.b="rSjeqTRt";
 	dkim-atps=neutral
 Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2906410E789;
- Fri, 21 Mar 2025 10:52:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CBC010E787;
+ Fri, 21 Mar 2025 10:52:41 +0000 (UTC)
 From: Denis Arefev <arefev@swemel.ru>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
- t=1742554360;
+ t=1742554359;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UU/JcHwDnP3QhY6ZpYqh86qRIlavKskpUsk2dt6mvLU=;
- b=qYsti1BOpbwSEu3jnaF8AotVFXZL95h0urNJC1Spu2nCDYOiGw/g68JvbiQM0VovQQUm4s
- TEOCpsLpokE27ffGL7j7X37pzpCqfuzh9t/e1F49xlX8qdjoxKmxnSQ145TtxMNdofRkTm
- Qu+Vrv4V4E1tJr9tEYoXdzggvFRDlr0=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=MYBXdsWrAF4XCKt8xl9DU8RcwjIds3O8UdltDFshuKk=;
+ b=rSjeqTRt0mTYpqOTR0+1Vu5QEr94xolka6rqV4VbnE5GmqKCydNSZgOZS+tlC1ZC3qtjZR
+ FmeonyU2Fx/nw/BBvRPXc4c/wxvU2PnYW00x7Qjf58khxdbvqp3Qjxg9u50FIP1tqpuf7D
+ 7flH1Ehi9gu375DpWFNwHMpzHekQu9M=
 To: Kenneth Feng <kenneth.feng@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Kun Liu <Kun.Liu2@amd.com>, Boyuan Zhang <boyuan.zhang@amd.com>,
- Tim Huang <Tim.Huang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  lvc-project@linuxtesting.org
-Subject: [PATCH 2/5] drm/amd/pm: Prevent division by zero
-Date: Fri, 21 Mar 2025 13:52:32 +0300
-Message-ID: <20250321105239.10096-3-arefev@swemel.ru>
-In-Reply-To: <20250321105239.10096-1-arefev@swemel.ru>
-References: <20250321105239.10096-1-arefev@swemel.ru>
+Subject: [PATCH 0/5] drm/amd/pm: Prevent division by zero
+Date: Fri, 21 Mar 2025 13:52:30 +0300
+Message-ID: <20250321105239.10096-1-arefev@swemel.ru>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 21 Mar 2025 13:02:22 +0000
@@ -57,31 +55,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This series of patches prevents possible division by zero.
+
 The user can set any speed value.
 If speed is greater than UINT_MAX/8, division by zero is possible.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Found by Linux Verification Center (linuxtesting.org) with SVACE. 
 
-Fixes: b64625a303de ("drm/amd/pm: correct the address of Arcturus fan related registers")
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 3 +++
- 1 file changed, 3 insertions(+)
+Denis Arefev (5):
+  drm/amd/pm: Prevent division by zero
+  drm/amd/pm: Prevent division by zero
+  drm/amd/pm: Prevent division by zero
+  drm/amd/pm: Prevent division by zero
+  drm/amd/pm: Prevent division by zero
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 8aa61a9f7778..453952cdc353 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -1267,6 +1267,9 @@ static int arcturus_set_fan_speed_rpm(struct smu_context *smu,
- 	uint32_t crystal_clock_freq = 2500;
- 	uint32_t tach_period;
- 
-+	if (!speed || speed > UINT_MAX/8)
-+		return -EINVAL;
-+
- 	tach_period = 60 * crystal_clock_freq * 10000 / (8 * speed);
- 	WREG32_SOC15(THM, 0, mmCG_TACH_CTRL_ARCT,
- 		     REG_SET_FIELD(RREG32_SOC15(THM, 0, mmCG_TACH_CTRL_ARCT),
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c   | 6 +++---
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c | 4 ++--
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 3 +++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c          | 2 +-
+ 5 files changed, 10 insertions(+), 7 deletions(-)
+
+I did not change these files, because the functions you are 
+interested in are not used there for a long time.
+drivers/gpu/drm/radeon/si_dpm.c
+drivers/gpu/drm/radeon/ci_dpm.c
+
 -- 
 2.43.0
 
