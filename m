@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C80C8C36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 09:06:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DD56C3600C
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 09:06:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2CF10E0BD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA0A110E22C;
 	Mon, 24 Mar 2025 09:06:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CXAiWkAn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FUW63erS";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A97A110E0EF
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Mar 2025 13:12:19 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-ac2bfcd2a70so432255466b.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Mar 2025 06:12:19 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C7810E0AC
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Mar 2025 21:24:10 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-43cfa7e7f54so18590035e9.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Mar 2025 14:24:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742649138; x=1743253938; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-language:to:subject:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=glt5ruwpixFsicAS1lOTGEFLbSwOkm6yTHjTjJqBs+g=;
- b=CXAiWkAniNPq66XG34wjblslXUME/Vv5QtWt390f6UhWXH8lrqKojqPXJXt5fhaL9t
- IeW93osQJ936GrLpic2kBJ/Woar6VJF8uN1LDwrkGClcajF6Cm4NZSjU6Mvbe9Gr9Xj7
- Pl2gOeEwOnC+BUtwiIAtfCX63IparzXK9lGaq4o0Mo2yyGfNVm7xHdb1dwYJp4Pwv4f+
- dgAaCcMtRPOZW3XBZ1aoutAwgL73dS33CnvmqNy5YBhs4yG78W9JbjVbPpIvuwSzxggg
- R0TPxGqDQdMSZDkzWSshsNSAYa7RXRuGN7THC2zBC1MzD1Y7Y5iGm/DWxVlul9Yz0J6A
- Rp7w==
+ d=gmail.com; s=20230601; t=1742678649; x=1743283449; darn=lists.freedesktop.org;
+ h=to:content-language:subject:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=xZeW8Ld9RLw6BDUBkDbh4+i9LTToSTTGkf9nANzd7hw=;
+ b=FUW63erSt6Z286lrvp9bAcOU0tSgvcZgpAAEAZ6ZomcBWKnexgmRJuCh8a6zmUkR0t
+ iBc/zVx3HxbpBWwqjtvWhg10hGloerjmxxaB48tVavF+uHQqNWTXbofAsYtYyVjv29KP
+ 5H8D0BXdUTUKoA+59Cd89xg/hypcQeeot4l7QlNAf4f1lGb2xArOqB6eh5t383NaeZzD
+ 6pFfWegFpo5CYVn8HinrcmWKgXDuK7M/MBY/WD/w1mhHl0DO+TKatioD6RSB20ZHTVqg
+ slqWS28ghPrYq6w6IvoKgS+F2TwNBTM214Fz2o+dtZX21ZDN7xmWMrRPTz6BTQ9bH6O5
+ rZ5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742649138; x=1743253938;
- h=content-transfer-encoding:content-language:to:subject:from
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=glt5ruwpixFsicAS1lOTGEFLbSwOkm6yTHjTjJqBs+g=;
- b=E/mvmTwmLrudxj/vZB1c2qShnz84b0plCman4msNTHTV5FKDX0IRDzCUPwIIisuiUA
- RhVbrWzxCHnR9od0D1s1B6tvrAQS53atRN/iOXMs9dLQ2LQMTjdO5+aSH/fnrNe7oV+D
- rMtafqyxJFNoS4ZhJhiJiEtgCrpo+rAOtOT7sY3MNWt9WVxAyyBZ3AjJOk65BI9v7d/P
- j7cd/CRmInuAFVmqlxUkmOLc2JU7jAlgEC7zpovApkYtcS+pjoDtaYTWeFeuowh6A+Fz
- lu6Z3q/esZTnNwRv1Q277C8GaJm0Eb8UwBn/ERlMAz1Y6o6XdmYoF8x8oG06i5GAa3pI
- dBWQ==
-X-Gm-Message-State: AOJu0Yx0CVotVvhunqdx9TxGWS9ReLrgT8TPH4gx+47ytzjZo71xQ+Eb
- 0v4cfJyFrr4wxX2xPAfDB5cIa0H6cdCOtGlwWdeCP/XyTXzNmiZ6c2l9IvgF
-X-Gm-Gg: ASbGncuHGPx4x+fT+vMRU3VnlD5JIORxEdyLvn1iXWNPv2jtJyOTBpoaZmtItM694Pu
- h7N7tSA/00bwh+fWZgz3s56EEH1jgII8uAK0ay85T/My+ZXzVR8Ffxp5VyOaFM+NCG09fcq7dwv
- M7IDy9gKi0cVlsdh3myWKDmjR8L8cZ78JUtFRfUH3hD/Z2+WIhaSj9hcAEZZTGvwN5lVvDsem2Y
- Px3vXpHBgvG4my7zQFP/im+zw76tpn7S4iSye3WdZfqNeUTlJg/d3Rj8uDVateyKZESqffPCVcS
- m4QilEhnzErBcJ+2dttDrgJM0hengt4Mnyy2PMsHEEWH4Wbx3vaFogBF0LhG4Gc=
-X-Google-Smtp-Source: AGHT+IF5A66nsRoMPIFoHrlosW87FIxEIk6dy9jN+yOR1Ujv6QelsEQ/Q75kpjsXmw7++eBZjKT0Gw==
-X-Received: by 2002:a17:906:6a0d:b0:ac1:791c:1532 with SMTP id
- a640c23a62f3a-ac3f28048camr779769566b.51.1742649137593; 
- Sat, 22 Mar 2025 06:12:17 -0700 (PDT)
-Received: from [192.168.0.126] ([188.163.14.173])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3efd569fesm345155366b.173.2025.03.22.06.12.16
+ d=1e100.net; s=20230601; t=1742678649; x=1743283449;
+ h=to:content-language:subject:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xZeW8Ld9RLw6BDUBkDbh4+i9LTToSTTGkf9nANzd7hw=;
+ b=BCtB4U4Cj0UPIcXzvtrsfVOn4AV3CLcIp8QRCv6YRNbI821c+v375RgyYrCSzydhY3
+ x8kfRrKHnbtbktZfVZkJbs94nqjHnxzsvI3zxNIJjMw+vwsvtN5cs85vNnPOaOFGknR5
+ rBd/ySH2lrBr7v2dlo3JbgyaxFm28JW1LHpTFYyzKSnBESSMAmhj6BMjIsR6i/+zF9GV
+ fa9zsl9OOLFWC4I6a/++QKNIqIgHR32clyyRTwuWdLHOtgaAQy+AbXsDAImIOsmMMBFt
+ hrx5SWHmgEkeWMPEviUKr4BL4sVlzIfueZgu5qy9kJlLn4szyFUUMZe7+JTOxdCaZZUu
+ mfuA==
+X-Gm-Message-State: AOJu0YzXMtkKSq1HYPhu7ZhuC/u95PcOkXtQUwWjiRu8jQKTARTytg/5
+ ddsu0S3yzWG6zLY0+5PouPJ/Daw7HVLNXgiS0Kp84J/QMLjeJ36+Ds8A4Q==
+X-Gm-Gg: ASbGncvQkdrvSKTShCehrQRIHJWggkpbL5/nHScE20sSDMG5KmVMENjcI8GjSQRJuB+
+ UG3Em0Of7r9KefmKLUJ8iV3/M+ykXaU7kiy4UBlzRhD83psE//2vzSlx962N9SV/n/NSQqt1Z8p
+ XoYIjcauxIFUdv0mmsvPLtccBrZOuwMPM+x600LBTgYr0THYX34JIhMk2WiHewh+qTgnA/uMAln
+ XHd7bhNzYKOsoST3RPksoy7ka6oHBJhNctV7V0ngxO64tTBU/Z9KTrV6h9nNiO/avRV2dcIV4wF
+ k0+0iKlO2BZVEWVNIFyr9TUCK/1hDhqq7iCEUTfgkpWK2pPJISuVPwarqkQV8kLCwK0g96qnYcI
+ amtHn+B5h4t6fYoTY
+X-Google-Smtp-Source: AGHT+IFEh4qlsqBmhe1XpNUxDtt6kY3HEMPBI7CP+kOdjCCOX6DWCdsQHnsm7ICxmxAJdHSTCDi2Sw==
+X-Received: by 2002:a05:600c:3591:b0:43c:f3e1:a729 with SMTP id
+ 5b1f17b1804b1-43d491b708dmr98396495e9.12.1742678648996; 
+ Sat, 22 Mar 2025 14:24:08 -0700 (PDT)
+Received: from [192.168.2.21] (cable-static-213-203.rsnweb.ch.
+ [89.186.213.203]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d440ed4d9sm118701285e9.33.2025.03.22.14.24.07
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 Mar 2025 06:12:17 -0700 (PDT)
-Message-ID: <0b7e373b-ef2d-4243-a5a0-5ffd9d97cf74@gmail.com>
-Date: Sat, 22 Mar 2025 15:12:16 +0200
+ Sat, 22 Mar 2025 14:24:08 -0700 (PDT)
+Content-Type: multipart/mixed; boundary="------------Y0C7VwRAfMVrona43ZUvI0dB"
+Message-ID: <e74d57c8-60e7-4ea8-9f72-bc2d8cdb9767@gmail.com>
+Date: Sat, 22 Mar 2025 22:24:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Sergey Kovalenko <seryoga.engineering@gmail.com>
-Subject: [PATCH] drm/amdgpu: Add GFXOFF auto-tunning algorithm
-To: amd-gfx@lists.freedesktop.org
+From: Malte Dronskowski <malted.dev@gmail.com>
+Subject: [RFC] GTT added to preferred domain (?)
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: amd-gfx@lists.freedesktop.org
 X-Mailman-Approved-At: Mon, 24 Mar 2025 09:06:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,203 +84,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Predict an optimal delay to enable GFXOFF for the next interval
-based on the request count:
-- less than 15 requests per second - zero delay
-- less than 25 requests per second - default delay
-- 25 and more requests per second - don't enable GFXOFF
+This is a multi-part message in MIME format.
+--------------Y0C7VwRAfMVrona43ZUvI0dB
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The algorithm allows maintaining low power consumption in idle,
-as well as using the full GPU power under load by eliminating
-hundreds of extra GFXOFF ON/OFF switches.
+Hello,
 
-Test configuration:
-- Ryzen 5 2500U
-- Ryzen 5 3400G
-- Chromium 134.0.6998.88 Arch Linux
-- Mesa 1:24.3.4-1
-- KDE Plasma 6.3.2
+I want to prepend that I've never done kernel programming and am not familiar 
+with the amdgpu driver. That said, I read through the issues on Mesa regarding 
+its behavior when RADV runs out of VRAM [1] and the related information.
 
-GFXOFF enable requests per second:
-| Test                                                | min | max |
-|-----------------------------------------------------|-----|-----|
-| System idle                                         |   0 |  64 |
-| Web browsing                                        |   0 | 127 |
-| WebGL aquarium                                      |  10 | 236 |
-| Heavy load: glxgears + vkcube + resizing + flipping |  39 | 677 |
+Thereby I stumbled upon Christian König mentioning that it would be buggy 
+behavior if the preferred domain included GTT when the initial domain was 
+updated [2]. I read some of the related code in the kernel driver, trying to 
+understand it, and got the impression that this is actually the case. When 
+amdgpu_gem_object_create() fails in amdgpu_gem_create_ioctl(), 
+"AMDGPU_GEM_DOMAIN_GTT" is added to "initial_domain" which during the retry 
+gets written into both, "domain" and "preferred_domain" in 
+amdgpu_gem_object_create(). Is this intended or a bug?
 
-Test results, Ryzen 5 2500U:
-| Test                        | patched-6.13.7.arch1 |   6.13.7.arch1-1 |
-|-----------------------------|----------------------|------------------|
-| System idle (PkgWatt)       |               ~0.74W |          ~1.25W  |
-| glxgears (vblank_mode=0)    |     ~7300 fps, ~7.3W | ~7300 fps, ~7.3W |
-| WebGL aquarium 15.000 fish  |     56-60 fps, ~9.8W | 55-60 fps, ~9.8W |
+I've attached a minimal proof-of-concept patch (applied to kernel 6.14-rc7) 
+that runs fine for me. I don't know though if this has any real effect on the 
+driver's memory management. So please excuse me if this is a dumb 
+question/patch and I did steal your time. Any insight would still be 
+appreciated.
 
-Test results, Ryzen 5 3400G:
-| Test                        | patched-6.13.7.arch1 |   6.13.7.arch1-1 |
-|-----------------------------|----------------------|------------------|
-| System idle (PkgWatt)       |                ~3.8W |           ~4.3W  |
-| glxgears (vblank_mode=0)    |            ~7200 fps |        ~7200 fps |
-| WebGL aquarium 30.000 fish  |          37 fps, 47W |      38 fps, 47W |
+Thanks and best regards
+Malte
 
-Signed-off-by: Sergey Kovalenko <seryoga.engineering@gmail.com>
-Tested-by: Liam Fleming <fleming.squared@proton.me>
----
-  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 94 +++++++++++++++++--------
-  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 +
-  2 files changed, 67 insertions(+), 30 deletions(-)
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/8763
+[2] https://lists.freedesktop.org/archives/amd-gfx/2024-April/107401.html
+______________________________________________________________________________
+--------------Y0C7VwRAfMVrona43ZUvI0dB
+Content-Type: text/x-patch; charset=UTF-8;
+ name="amdgpu_gem_preferred_domain.patch"
+Content-Disposition: attachment; filename="amdgpu_gem_preferred_domain.patch"
+Content-Transfer-Encoding: base64
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c 
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index c1f35ded684e..5e23b956e0bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -781,55 +781,89 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device 
-*adev, int xcc_id)
-   * 3. other client can cancel their request of disable gfx off feature
-   * 4. other client should not send request to enable gfx off feature 
-before disable gfx off feature.
-   */
--
-  void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
-  {
--	unsigned long delay = GFX_OFF_DELAY_ENABLE;
--
-  	if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
-  		return;
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCTIwMjUtMDMt
+MTYgMjM6NTU6MTcuMDAwMDAwMDAwICswMTAwCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9nZW0uYwkyMDI1LTAzLTIwIDIyOjU4OjU5Ljg0OTE5NTY0NSArMDEw
+MApAQCAtOTMsNyArOTMsNyBAQAogfQogCiBpbnQgYW1kZ3B1X2dlbV9vYmplY3RfY3JlYXRl
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBsb25nIHNpemUsCi0JCQkg
+ICAgIGludCBhbGlnbm1lbnQsIHUzMiBpbml0aWFsX2RvbWFpbiwKKwkJCSAgICAgaW50IGFs
+aWdubWVudCwgdTMyIGluaXRpYWxfZG9tYWluLCB1MzIgZG9tYWluLAogCQkJICAgICB1NjQg
+ZmxhZ3MsIGVudW0gdHRtX2JvX3R5cGUgdHlwZSwKIAkJCSAgICAgc3RydWN0IGRtYV9yZXN2
+ICpyZXN2LAogCQkJICAgICBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKipvYmosIGludDhfdCB4
+Y3BfaWRfcGx1czEpCkBAIC0xMTMsNyArMTEzLDcgQEAKIAlicC5yZXN2ID0gcmVzdjsKIAli
+cC5wcmVmZXJyZWRfZG9tYWluID0gaW5pdGlhbF9kb21haW47CiAJYnAuZmxhZ3MgPSBmbGFn
+czsKLQlicC5kb21haW4gPSBpbml0aWFsX2RvbWFpbjsKKwlicC5kb21haW4gPSBkb21haW47
+CiAJYnAuYm9fcHRyX3NpemUgPSBzaXplb2Yoc3RydWN0IGFtZGdwdV9ibyk7CiAJYnAueGNw
+X2lkX3BsdXMxID0geGNwX2lkX3BsdXMxOwogCkBAIC0zMTgsNyArMzE4LDcgQEAKIAl1aW50
+NjRfdCBzaXplID0gYXJncy0+aW4uYm9fc2l6ZTsKIAlzdHJ1Y3QgZG1hX3Jlc3YgKnJlc3Yg
+PSBOVUxMOwogCXN0cnVjdCBkcm1fZ2VtX29iamVjdCAqZ29iajsKLQl1aW50MzJfdCBoYW5k
+bGUsIGluaXRpYWxfZG9tYWluOworCXVpbnQzMl90IGhhbmRsZSwgaW5pdGlhbF9kb21haW4s
+IGRvbWFpbjsKIAlpbnQgcjsKIAogCS8qIHJlamVjdCBET09SQkVMTHMgdW50aWwgdXNlcnNw
+YWNlIGNvZGUgdG8gdXNlIGl0IGlzIGF2YWlsYWJsZSAqLwpAQCAtMzcxLDkgKzM3MSw5IEBA
+CiAJfQogCi0JaW5pdGlhbF9kb21haW4gPSAodTMyKSgweGZmZmZmZmZmICYgYXJncy0+aW4u
+ZG9tYWlucyk7CisJZG9tYWluID0gaW5pdGlhbF9kb21haW4gPSAodTMyKSgweGZmZmZmZmZm
+ICYgYXJncy0+aW4uZG9tYWlucyk7CiByZXRyeToKIAlyID0gYW1kZ3B1X2dlbV9vYmplY3Rf
+Y3JlYXRlKGFkZXYsIHNpemUsIGFyZ3MtPmluLmFsaWdubWVudCwKLQkJCQkgICAgIGluaXRp
+YWxfZG9tYWluLAorCQkJCSAgICAgaW5pdGlhbF9kb21haW4sIGRvbWFpbiwKIAkJCQkgICAg
+IGZsYWdzLCB0dG1fYm9fdHlwZV9kZXZpY2UsIHJlc3YsICZnb2JqLCBmcHJpdi0+eGNwX2lk
+ICsgMSk7CiAJaWYgKHIgJiYgciAhPSAtRVJFU1RBUlRTWVMpIHsKIAkJaWYgKGZsYWdzICYg
+QU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19SRVFVSVJFRCkgewpAQCAtMzgxLDggKzM4
+Miw4IEBACiAJCQlnb3RvIHJldHJ5OwogCQl9CiAKLQkJaWYgKGluaXRpYWxfZG9tYWluID09
+IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pIHsKLQkJCWluaXRpYWxfZG9tYWluIHw9IEFNREdQ
+VV9HRU1fRE9NQUlOX0dUVDsKKwkJaWYgKGRvbWFpbiA9PSBBTURHUFVfR0VNX0RPTUFJTl9W
+UkFNKSB7CisJCQlkb21haW4gfD0gQU1ER1BVX0dFTV9ET01BSU5fR1RUOwogCQkJZ290byBy
+ZXRyeTsKIAkJfQogCQlEUk1fREVCVUcoIkZhaWxlZCB0byBhbGxvY2F0ZSBHRU0gb2JqZWN0
+ICglbGx1LCAlZCwgJWxsdSwgJWQpXG4iLApAQCAtNDQzLDcgKzQ0NCw3IEBACiAJfQogCiAJ
+LyogY3JlYXRlIGEgZ2VtIG9iamVjdCB0byBjb250YWluIHRoaXMgb2JqZWN0IGluICovCi0J
+ciA9IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShhZGV2LCBhcmdzLT5zaXplLCAwLCBBTURH
+UFVfR0VNX0RPTUFJTl9DUFUsCisJciA9IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShhZGV2
+LCBhcmdzLT5zaXplLCAwLCBBTURHUFVfR0VNX0RPTUFJTl9DUFUsIEFNREdQVV9HRU1fRE9N
+QUlOX0NQVSwKIAkJCQkgICAgIDAsIHR0bV9ib190eXBlX2RldmljZSwgTlVMTCwgJmdvYmos
+IGZwcml2LT54Y3BfaWQgKyAxKTsKIAlpZiAocikKIAkJcmV0dXJuIHI7CkBAIC05NjcsNyAr
+OTY4LDcgQEAKIAlhcmdzLT5zaXplID0gQUxJR04oYXJncy0+c2l6ZSwgUEFHRV9TSVpFKTsK
+IAlkb21haW4gPSBhbWRncHVfYm9fZ2V0X3ByZWZlcnJlZF9kb21haW4oYWRldiwKIAkJCQlh
+bWRncHVfZGlzcGxheV9zdXBwb3J0ZWRfZG9tYWlucyhhZGV2LCBmbGFncykpOwotCXIgPSBh
+bWRncHVfZ2VtX29iamVjdF9jcmVhdGUoYWRldiwgYXJncy0+c2l6ZSwgMCwgZG9tYWluLCBm
+bGFncywKKwlyID0gYW1kZ3B1X2dlbV9vYmplY3RfY3JlYXRlKGFkZXYsIGFyZ3MtPnNpemUs
+IDAsIGRvbWFpbiwgZG9tYWluLCBmbGFncywKIAkJCQkgICAgIHR0bV9ib190eXBlX2Rldmlj
+ZSwgTlVMTCwgJmdvYmosIGZwcml2LT54Y3BfaWQgKyAxKTsKIAlpZiAocikKIAkJcmV0dXJu
+IC1FTk9NRU07Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0u
+aAkyMDI1LTAzLTE2IDIzOjU1OjE3LjAwMDAwMDAwMCArMDEwMAorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmgJMjAyNS0wMy0yMCAyMTo0ODo0NC40MTY3
+MzgyMTEgKzAxMDAKQEAgLTQyLDcgKzQyLDcgQEAKICAqLwogdm9pZCBhbWRncHVfZ2VtX2Zv
+cmNlX3JlbGVhc2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwogaW50IGFtZGdwdV9n
+ZW1fb2JqZWN0X2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQg
+bG9uZyBzaXplLAotCQkJICAgICBpbnQgYWxpZ25tZW50LCB1MzIgaW5pdGlhbF9kb21haW4s
+CisJCQkgICAgIGludCBhbGlnbm1lbnQsIHUzMiBpbml0aWFsX2RvbWFpbiwgdTMyIGRvbWFp
+biwKIAkJCSAgICAgdTY0IGZsYWdzLCBlbnVtIHR0bV9ib190eXBlIHR5cGUsCiAJCQkgICAg
+IHN0cnVjdCBkbWFfcmVzdiAqcmVzdiwKIAkJCSAgICAgc3RydWN0IGRybV9nZW1fb2JqZWN0
+ICoqb2JqLCBpbnQ4X3QgeGNwX2lkX3BsdXMxKTsKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCTIwMjUtMDMtMTYgMjM6NTU6MTcuMDAw
+MDAwMDAwICswMTAwCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
+bWRrZmRfZ3B1dm0uYwkyMDI1LTAzLTIwIDIyOjMyOjUzLjA1NzcwOTA4MCArMDEwMApAQCAt
+MzI4LDcgKzMyOCw3IEBACiAJCQkJCUFNREdQVV9HRU1fQ1JFQVRFX1VOQ0FDSEVEKTsKIAog
+CXJldCA9IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShhZGV2LCBtZW0tPmJvLT50Ym8uYmFz
+ZS5zaXplLCAxLAotCQkJQU1ER1BVX0dFTV9ET01BSU5fQ1BVLCBBTURHUFVfR0VNX0NSRUFU
+RV9QUkVFTVBUSUJMRSB8IGZsYWdzLAorCQkJQU1ER1BVX0dFTV9ET01BSU5fQ1BVLCBBTURH
+UFVfR0VNX0RPTUFJTl9DUFUsIEFNREdQVV9HRU1fQ1JFQVRFX1BSRUVNUFRJQkxFIHwgZmxh
+Z3MsCiAJCQl0dG1fYm9fdHlwZV9zZywgbWVtLT5iby0+dGJvLmJhc2UucmVzdiwgJmdlbV9v
+YmosIDApOwogCiAJYW1kZ3B1X2JvX3VucmVzZXJ2ZShtZW0tPmJvKTsKQEAgLTE4MTUsNyAr
+MTgxNSw3IEBACiAJCSB2YSwgKCptZW0pLT5hcWxfcXVldWUgPyBzaXplIDw8IDEgOiBzaXpl
+LAogCQkgZG9tYWluX3N0cmluZyhhbGxvY19kb21haW4pLCB4Y3BfaWQpOwogCi0JcmV0ID0g
+YW1kZ3B1X2dlbV9vYmplY3RfY3JlYXRlKGFkZXYsIGFsaWduZWRfc2l6ZSwgMSwgYWxsb2Nf
+ZG9tYWluLCBhbGxvY19mbGFncywKKwlyZXQgPSBhbWRncHVfZ2VtX29iamVjdF9jcmVhdGUo
+YWRldiwgYWxpZ25lZF9zaXplLCAxLCBhbGxvY19kb21haW4sIGFsbG9jX2RvbWFpbiwgYWxs
+b2NfZmxhZ3MsCiAJCQkJICAgICAgIGJvX3R5cGUsIE5VTEwsICZnb2JqLCB4Y3BfaWQgKyAx
+KTsKIAlpZiAocmV0KSB7CiAJCXByX2RlYnVnKCJGYWlsZWQgdG8gY3JlYXRlIEJPIG9uIGRv
+bWFpbiAlcy4gcmV0ICVkXG4iLAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZG1hX2J1Zi5jCTIwMjUtMDMtMjAgMjI6MzE6MzguNzcwNjAzMzM1ICswMTAwCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMJMjAyNS0w
+My0yMCAyMjozMTo1MS44NjY1MDk1MDIgKzAxMDAKQEAgLTMwOCw3ICszMDgsNyBAQAogCX0K
+IAogCXJldCA9IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShhZGV2LCBkbWFfYnVmLT5zaXpl
+LCBQQUdFX1NJWkUsCi0JCQkJICAgICAgIEFNREdQVV9HRU1fRE9NQUlOX0NQVSwgZmxhZ3Ms
+CisJCQkJICAgICAgIEFNREdQVV9HRU1fRE9NQUlOX0NQVSwgQU1ER1BVX0dFTV9ET01BSU5f
+Q1BVLCBmbGFncywKIAkJCQkgICAgICAgdHRtX2JvX3R5cGVfc2csIHJlc3YsICZnb2JqLCAw
+KTsKIAlpZiAocmV0KQogCQlnb3RvIGVycm9yOwo=
 
-  	mutex_lock(&adev->gfx.gfx_off_mutex);
-
-  	if (enable) {
--		/* If the count is already 0, it means there's an imbalance bug 
-somewhere.
--		 * Note that the bug may be in a different caller than the one which 
-triggers the
--		 * WARN_ON_ONCE.
--		 */
--		if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count == 0))
-+		/* This case covers multiple calls from parallel threads */
-+		if (!adev->gfx.gfx_off_req_count)
-  			goto unlock;
-
--		adev->gfx.gfx_off_req_count--;
-+		/* Process only if req_count == 0 and GFXOFF is disabled */
-+		if (--adev->gfx.gfx_off_req_count || adev->gfx.gfx_off_state)
-+			goto unlock;
-+
-+		/* If going to s2idle, no need to wait */
-+		if (adev->in_s0ix) {
-+			if (!amdgpu_dpm_set_powergating_by_smu(
-+				    adev, AMD_IP_BLOCK_TYPE_GFX, true, 0))
-+				adev->gfx.gfx_off_state = true;
-+
-+			/* Reset delay flag */
-+			adev->gfx.gfx_off_use_delay = 0;
-+			goto unlock;
-+		}
-
--		if (adev->gfx.gfx_off_req_count == 0 &&
--		    !adev->gfx.gfx_off_state) {
--			/* If going to s2idle, no need to wait */
--			if (adev->in_s0ix) {
--				if (!amdgpu_dpm_set_powergating_by_smu(adev,
--						AMD_IP_BLOCK_TYPE_GFX, true, 0))
--					adev->gfx.gfx_off_state = true;
-+		++adev->gfx.gfx_off_counter;
-+
-+		uint64_t now = get_jiffies_64();
-+		uint64_t delta =
-+			jiffies_to_msecs(now - adev->gfx.gfx_off_timestamp);
-+
-+		if (delta >= 1000u) {
-+			/*
-+			 * Predict the optimal delay for the next interval
-+			 * based on the current number of requests:
-+			 * <15 - idle, no delay
-+			 * <25 - light/medium load, default delay
-+			 * 25 and more - high load, GFXOFF disabled
-+			 */
-+			if (adev->gfx.gfx_off_counter < 15u) {
-+				adev->gfx.gfx_off_use_delay = 0;
-+			} else if (adev->gfx.gfx_off_counter < 25u) {
-+				adev->gfx.gfx_off_use_delay = 1;
-  			} else {
--				schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
--					      delay);
-+				adev->gfx.gfx_off_use_delay = 2;
-  			}
-+
-+			adev->gfx.gfx_off_counter = 0;
-+			adev->gfx.gfx_off_timestamp = now;
-  		}
-+
-+		/* Don't schedule gfxoff under heavy load */
-+		if (adev->gfx.gfx_off_use_delay == 2)
-+			goto unlock;
-+
-+		schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
-+				      adev->gfx.gfx_off_use_delay ?
-+					      GFX_OFF_DELAY_ENABLE :
-+					      GFX_OFF_NO_DELAY);
-  	} else {
--		if (adev->gfx.gfx_off_req_count == 0) {
--			cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_work);
-+		/* GFXOFF was enabled when req_count == 0 */
-+		if (++adev->gfx.gfx_off_req_count != 1)
-+			goto unlock;
-
--			if (adev->gfx.gfx_off_state &&
--			    !amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, 
-false, 0)) {
--				adev->gfx.gfx_off_state = false;
-+		/* Nothing to do if the work wasn't scheduled */
-+		if (adev->gfx.gfx_off_use_delay == 2)
-+			goto unlock;
-
--				if (adev->gfx.funcs->init_spm_golden) {
--					dev_dbg(adev->dev,
--						"GFXOFF is disabled, re-init SPM golden settings\n");
--					amdgpu_gfx_init_spm_golden(adev);
--				}
-+		cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_work);
-+
-+		if (adev->gfx.gfx_off_state &&
-+		    !amdgpu_dpm_set_powergating_by_smu(
-+			    adev, AMD_IP_BLOCK_TYPE_GFX, false, 0)) {
-+			adev->gfx.gfx_off_state = false;
-+
-+			if (adev->gfx.funcs->init_spm_golden) {
-+				dev_dbg(adev->dev,
-+					"GFXOFF is disabled, re-init SPM golden settings\n");
-+				amdgpu_gfx_init_spm_golden(adev);
-  			}
-  		}
--
--		adev->gfx.gfx_off_req_count++;
-  	}
-
-  unlock:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h 
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 8b5bd63b5773..38fd445a353b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -430,7 +430,10 @@ struct amdgpu_gfx {
-  	/* gfx off */
-  	bool                            gfx_off_state;      /* true: enabled, 
-false: disabled */
-  	struct mutex                    gfx_off_mutex;      /* mutex to 
-change gfxoff state */
-+	uint64_t			gfx_off_timestamp;  /* gfxoff enable call timestamp */
-+	uint32_t			gfx_off_use_delay;  /* flag to choose the delay range */
-  	uint32_t                        gfx_off_req_count;  /* default 1, 
-enable gfx off: dec 1, disable gfx off: add 1 */
-+	uint32_t			gfx_off_counter;    /* count of gfxoff enable calls */
-  	struct delayed_work             gfx_off_delay_work; /* async work to 
-set gfx block off */
-  	uint32_t                        gfx_off_residency;  /* last logged 
-residency */
-  	uint64_t                        gfx_off_entrycount; /* count of times 
-GPU has get into GFXOFF state */
--- 
-2.49.0
+--------------Y0C7VwRAfMVrona43ZUvI0dB--
