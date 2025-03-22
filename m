@@ -4,69 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A93DC35FFC
-	for <amd-gfx@archiver.kernel.org>; Sat, 22 Mar 2025 18:38:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 434F6C36002
+	for <amd-gfx@archiver.kernel.org>; Sat, 22 Mar 2025 18:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA9510E163;
-	Sat, 22 Mar 2025 18:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE92C10E16B;
+	Sat, 22 Mar 2025 18:39:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hQyPYn55";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dzD+wT34";
 	dkim-atps=neutral
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A5A10E169
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Mar 2025 18:37:58 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id
- af79cd13be357-7c5b8d13f73so258918185a.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Mar 2025 11:37:58 -0700 (PDT)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02BF910E16B
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Mar 2025 18:39:03 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-7c560c55bc1so334433785a.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Mar 2025 11:39:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742668677; x=1743273477; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=dtNCr0vxCsZMtk27zzXOjhkrGn/c4s+pRVuX2X7uk1o=;
- b=hQyPYn55LvMiYuRrve5JMdtg+n/ofOnPyWqgERbMWg84inn3U4dObvjdiFehillQk9
- OR0lWjm8s5M6IM6QlhgF0c5K94nnBbNJmSl+9t4WLEmKv2i+zu55RqoOizl31p4kmCz+
- KwOBhrF8Nz2eTCftr2GZwYFnpjD0OZadhEKBuArGH4IVQYNT0TF/IT+UwQEZypdENhL/
- lWYmn1JUf7d+iabXGqdlTym05Br5YSETkxsIfHUtlewDf3Fj4RbXUIqS315hV6QN/UQj
- fdvaAU77+76AhUR8Um96gFKlCWxVoDrPoCfjURAKEZuWWbhycE18btaVoTVArxcDrunH
- DZ2Q==
+ d=gmail.com; s=20230601; t=1742668742; x=1743273542; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=D/AWyIJsFXsu9b7mKexS+DPGxyMGxrfwDL7sSuRTTDw=;
+ b=dzD+wT34MCG7SrvCCksbQFcsP2pojNLvhXGWa1wLeFl3dTLndncN/xXaU4NZ23+zVr
+ rupoxpS3AYA9uLctM06HFwwp4MZmiGInXzHtfGIFHTcxK/m6lXuCAf1XsrksGjT08I2v
+ XJrnR4VY8YePTBOf3X4sphtAEBFbtJ6HM9rEuNHpaPdObY1yxdpTUqmQVO/1MhN+SJIv
+ wNMGxe+J7lsZ42Hp5WvL7a7ocCKG9vZsPdeTbodoCJpoxf7F3+Q/KtKHvJMgykntFBIn
+ eKzhk98qmq4dJNK5kfsnW+QGcWl2zP6hxkQpZN8IszyKE/ea3jldSAvS5aoWI9m+E1AK
+ QVoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742668677; x=1743273477;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dtNCr0vxCsZMtk27zzXOjhkrGn/c4s+pRVuX2X7uk1o=;
- b=stsBkdi61w6HSc8vN4UZNu/KHpzir0LQyljG2sRo8qiT5VH/4LM1mVJ3it3g1pucea
- pbCaS41jckQ/vT/kuYvBrk+5Jl+0EdnSIBC5KMR2onYkLKXq3fmb2HlfpHQ/9WSBrtrT
- zlH8/KYcJEbBNmU17BN8CvHXL9vhIOgwnVzr/L9aF3fXDy8DfyzGpsmlAlOZmuOTSt9T
- XGOZW/EvKdpomo3QGKHpHTzcBsruRbQKbyHHMmCEZ+q+R9ym69BGgEFB5ysp0Oh+qFXv
- TI2PWrlFxd3KzQYPSzWa55k9YQdiHwJ5+adrHlI98EvlanNWjZiZJ/ibGWVMTBEMW4dU
- 3Brg==
-X-Gm-Message-State: AOJu0YxHG5Jh4GCV1DFJ848AXzxUhMftWahZzmRgkvNk9Ff7Ly4qj8kP
- aYGhyxEngyvCiF5HyU1r/QOS6Hvau2GOAG1f0pa+PM/gBmRe662r2evzuw==
-X-Gm-Gg: ASbGnctd7Z8DaPa7s3WPbO7SxXUqZ5PVZh7+Jr0Fxuc6JeDjzXA63PSbHCoE+h6LYr9
- rHSK7bZnFNe3bqgZhx/807cjhZTvmUVvxVMvoTet0u5YvFYl/1qijN8V+JZ/Wof9l9zNhsb/8np
- RbIp6+hisY8EspYtcwn9+rc+P38gwA1tXe8itkIyll3RVGtPHlf8CNR9IsdUTukJ1ZgB+8UJG+U
- 3ePNy4mBjU+c3muf80koZ79DryvLp1oLTWnOt8Z7qa9/ABwhNNtgMARPUR7bhhbRtducZWlvmOr
- gCZEKRTdXttNAVESm2rKh39TtrER0h+/149N8zUpWwCfTlgRUDGpNuiVNm7mpEv3oOg=
-X-Google-Smtp-Source: AGHT+IH4/btHwes6RwZgrfydLlk2D3fMSH4hquGik4S2qS8/UtAAMr/GK/5VJ5jhxK8FFqcgr5CvYw==
-X-Received: by 2002:a05:620a:d96:b0:7c5:6bd5:2ea3 with SMTP id
- af79cd13be357-7c5ba1fc70dmr1256363785a.56.1742668677513; 
- Sat, 22 Mar 2025 11:37:57 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1742668742; x=1743273542;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=D/AWyIJsFXsu9b7mKexS+DPGxyMGxrfwDL7sSuRTTDw=;
+ b=f0s4Z6yfZUz25inY8xSlrG3lejqZXr+nmVfg6RGhuXaeUO04pxOMdHBgXOmdzKVNmG
+ tVlPJ1UAvByaUSbjGQ6bvvAyHmJyHjJB4zPwm3R2gs6swVQ55z90ql0mknWtobajRspm
+ kGaxuW8re1jw2neiHf6PHhKcNVFUwfJ6648RW5vUlWyMG7V+bFx7WUkl3X6cShgY3q8U
+ 2sTTFq5LhWTjREnh7+yPgJh6DfRQ5IJbYj1zQ42GeexZOIM1xfYCx8HvTtENt5l5Peve
+ rUG8AL6qQwBn7gMcKbZyyFq3QfFjPgkm5XpjMryrka1ztUQk83XG/v8Ec3qHIQVKNLKf
+ jegA==
+X-Gm-Message-State: AOJu0YwOjeOWqBcJGj9NegSiyF/KNVC5IkTzC9/7VmBkKtY3hj8nVywT
+ UAP/Tdhq8PYSGq6tEhl9v8DXpzq07Z/VKOqoDbBAgeFVZ97jo/pSGPJk8w==
+X-Gm-Gg: ASbGncvBN+ttcukoBE5DXL6f9qAQlHbaUx3YWInBfV83jRvPO5wQADgDNSaWRHeCaDG
+ H76qwdV+x5EgSOsTw8a0Uk5X83lH3GbY0TLyIcDP8OD6yQBPx+VwrnmeyF4a/gYW1alMV7t1Uur
+ ysqL1a3Xv/4twCou3O2/MA+NgD0yQO1dNcqsUuBRdT7UAHVjg0K4eO45I7/Hfn3WWWgdCsfK0sZ
+ 9I6xN/XvIsT1ygdlaE3Hn6jPIUPOtzUqyNKOB4mhc6NcyFBstCoYFqcEZwnaRmQ8jd9oQqoEa+p
+ LYapWt5ySNxf5eAry8Iw4c3FLUXLpcSzULOZPHp4XU28pW/z3RbXQhaYdphDiuOWeZ8=
+X-Google-Smtp-Source: AGHT+IE+ZyC85UgRxYKt9mOqfu9MNdollD5FswL7enIhvUJLQVXotezkGK1ME0ZtQ4WE9g71lBer9Q==
+X-Received: by 2002:a05:620a:1a9e:b0:7c5:48b8:b4ac with SMTP id
+ af79cd13be357-7c5ba190c07mr927271185a.34.1742668741905; 
+ Sat, 22 Mar 2025 11:39:01 -0700 (PDT)
 Received: from localhost.localdomain ([38.74.25.248])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c5b92ec688sm279895085a.64.2025.03.22.11.37.56
+ d75a77b69052e-4771d18d541sm25762911cf.36.2025.03.22.11.39.01
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Mar 2025 11:37:57 -0700 (PDT)
+ Sat, 22 Mar 2025 11:39:01 -0700 (PDT)
 From: Alexandre Demers <alexandre.f.demers@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/5] drm/amdgpu: fix style in dce_v8_0.c and in vi.c
-Date: Sat, 22 Mar 2025 14:37:46 -0400
-Message-ID: <20250322183746.86002-6-alexandre.f.demers@gmail.com>
+Subject: [PATCH 5/6] drm/radeon: fix MAX_POWER_SHIFT value
+Date: Sat, 22 Mar 2025 14:39:00 -0400
+Message-ID: <20250322183900.86061-1-alexandre.f.demers@gmail.com>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250322183746.86002-1-alexandre.f.demers@gmail.com>
-References: <20250322183746.86002-1-alexandre.f.demers@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,88 +80,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Bring things on a single line and fix spacing.
+While I don't think it is being used anywhere, if it were used, it would
+be wrong. We can base this assumption on MAX_POWER_MASK, where the shift is
+by 16 bits.
 
 Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 10 +++-------
- drivers/gpu/drm/amd/amdgpu/vi.c       |  8 ++++++++
- 2 files changed, 11 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/radeon/sid.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index f008615343c3..533851beb27c 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -3233,8 +3233,7 @@ static const struct amd_ip_funcs dce_v8_0_ip_funcs = {
- 	.set_powergating_state = dce_v8_0_set_powergating_state,
- };
- 
--static void
--dce_v8_0_encoder_mode_set(struct drm_encoder *encoder,
-+static void dce_v8_0_encoder_mode_set(struct drm_encoder *encoder,
- 			  struct drm_display_mode *mode,
- 			  struct drm_display_mode *adjusted_mode)
- {
-@@ -3330,8 +3329,7 @@ static void dce_v8_0_ext_commit(struct drm_encoder *encoder)
- 
- }
- 
--static void
--dce_v8_0_ext_mode_set(struct drm_encoder *encoder,
-+static void dce_v8_0_ext_mode_set(struct drm_encoder *encoder,
- 		      struct drm_display_mode *mode,
- 		      struct drm_display_mode *adjusted_mode)
- {
-@@ -3343,8 +3341,7 @@ static void dce_v8_0_ext_disable(struct drm_encoder *encoder)
- 
- }
- 
--static void
--dce_v8_0_ext_dpms(struct drm_encoder *encoder, int mode)
-+static void dce_v8_0_ext_dpms(struct drm_encoder *encoder, int mode)
- {
- 
- }
-@@ -3407,7 +3404,6 @@ static void dce_v8_0_encoder_add(struct amdgpu_device *adev,
- 			amdgpu_encoder->devices |= supported_device;
- 			return;
- 		}
--
- 	}
- 
- 	/* add a new one */
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index a83505815d39..bcabcf27c3d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -61,19 +61,27 @@
- 
- #include "vid.h"
- #include "vi.h"
-+
- #include "gmc_v8_0.h"
- #include "gmc_v7_0.h"
-+
- #include "gfx_v8_0.h"
-+
- #include "sdma_v2_4.h"
- #include "sdma_v3_0.h"
-+
- #include "dce_v10_0.h"
- #include "dce_v11_0.h"
-+
- #include "iceland_ih.h"
- #include "tonga_ih.h"
- #include "cz_ih.h"
-+
- #include "uvd_v5_0.h"
- #include "uvd_v6_0.h"
-+
- #include "vce_v3_0.h"
-+
- #if defined(CONFIG_DRM_AMD_ACP)
- #include "amdgpu_acp.h"
- #endif
+diff --git a/drivers/gpu/drm/radeon/sid.h b/drivers/gpu/drm/radeon/sid.h
+index 65a911ddd509..f9267b026f8d 100644
+--- a/drivers/gpu/drm/radeon/sid.h
++++ b/drivers/gpu/drm/radeon/sid.h
+@@ -1109,7 +1109,7 @@
+ #define		MIN_POWER_SHIFT				0
+ #define		MAX_POWER(x)				((x) << 16)
+ #define		MAX_POWER_MASK				(0x3fff << 16)
+-#define		MAX_POWER_SHIFT				0
++#define		MAX_POWER_SHIFT				16
+ #define SQ_POWER_THROTTLE2                              0x8e5c
+ #define		MAX_POWER_DELTA(x)			((x) << 0)
+ #define		MAX_POWER_DELTA_MASK			(0x3fff << 0)
 -- 
 2.49.0
 
