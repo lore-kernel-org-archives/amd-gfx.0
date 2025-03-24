@@ -4,154 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0BC0C36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 12:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B782AC36002
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 12:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD5310E205;
-	Mon, 24 Mar 2025 12:14:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A66210E327;
+	Mon, 24 Mar 2025 12:59:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cat1DCEj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D5xO/Pc1";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2086.outbound.protection.outlook.com [40.107.237.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A315C10E205
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 12:14:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HMCmi7o8wlH2h/USOn+gydiunOKGZU8kkVXsBRCt714873zP+84NN8HMd6MVD7HJ07ZPKKNnid9W8qkI593/1xgvEuMCn7k8QWtvG/Sb2f4GRMegohFehR16C9C8d/RoGQUgnENrR9z1Omt7kPTK7OG5QsaG0oB+bSBS+osyr3gVBfakhxpbouSa/MiF1A93WQCR1EMw2gIRiCweqLsK+1a9P8i4uZoaHhHnz2zAmIivNpKmxtUdwcLHmOeHbpxu9ExSTVGer/JB9XAzEFMj2Pz5xRyPaOJdf4YUw2B8w3D8V3F+ax3EWpCiMwu7cG3D2uASbMg+53VqYyYsxxvIOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2LjNfYcvD4xMbS+VaEfZ1iaWhVWyRYj2h31ivs/vftM=;
- b=YRPf66mTcLp2mKDQVrRkoT2zdCD/Hw+9SRFfpP1h6SyomCXW3mFbgt05hfODmtIcKr3MdYf/UhhDWCiNp1GwVeOpEaucL1NkuOPQd90Z259wnGTJwDp68xktS2HYlBvSiwQ45gNUyt8YL2vgQ4TVhzuwnZG4OPFrtUxYIqJzo5ZLL0Foh4QKxFdfg1LfSW7OlsNDX0sPUBLwrxPGtOu4p8U1+r5Lf8UbBSOo3E4gxeSCclX4b+2KCOMvJvbkd+AsZXhk+KhYusub1A758uYVzbJ6+qUNnpGab+IvGPwS1wgYiDo+ydxJ3q0iPz8f/+ca2RnsvkgFb9Ut23tysUmrAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2LjNfYcvD4xMbS+VaEfZ1iaWhVWyRYj2h31ivs/vftM=;
- b=cat1DCEjIuAxrNyfr1fd7mb+YjkFQcgGLlNn7ISSKxBg05dUL+0lF62Ndy2y8hHPkP3tYPldHUi4lxrPJLwSJflmVunVziwVwQeBC73JFrRiDtqn1v9/7e9sULH8okm1ovGU3j65dewKGOnvYjrp98rdTHKomGrXQImLER51cMI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB8162.namprd12.prod.outlook.com (2603:10b6:806:33a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Mon, 24 Mar
- 2025 12:14:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8511.026; Mon, 24 Mar 2025
- 12:14:51 +0000
-Message-ID: <7cdbe06c-1586-4112-8d27-defa89c368e9@amd.com>
-Date: Mon, 24 Mar 2025 13:14:41 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: commit 7ffb791423c7 breaks steam game
-To: Bert Karwatzki <spasswolf@web.de>, Balbir Singh <balbirs@nvidia.com>
-Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
-References: <20250322122351.3268-1-spasswolf@web.de>
- <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
- <6e8ad3cd27b570aaefd85395810cc90bb3120734.camel@web.de>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <6e8ad3cd27b570aaefd85395810cc90bb3120734.camel@web.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0006.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c8::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF09910E327;
+ Mon, 24 Mar 2025 12:59:20 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-43d2d952eb1so32738955e9.1; 
+ Mon, 24 Mar 2025 05:59:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742821159; x=1743425959; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=nN94x1xXFx2MS+6yhUPP8D7HFLoBfyZ/GVlO9VdfFaM=;
+ b=D5xO/Pc1pTsRVAmuC1NZ5LMqnXVZRakhGjHXBrvU4DeRQxC9JceRispehfbBc6cCiT
+ LsWQyvygqfO81S91KrPspdoVfA2hTIZwP4iQFZnFPrA5dEdiwQMiM23zSX6x0JzToCgY
+ fudN7SKLpSHHIppJOvfZKnBUKdeJna0mEpXxyMRE20XWTS+igN4oZrNIPB9Q6kdylzLN
+ NVya2frjL2T5I2IQAHPcX26Iad7absHvL6c7bc1zT7LmOR0hsgC2dR6w7VM1d+wKwTLq
+ +CE2ESbJoxQbfW1ud9gO8WlriKUBLllOc3CJrx52XzUXAEmdT+DvgOdflkAW3/XmqMJ4
+ sg+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742821159; x=1743425959;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=nN94x1xXFx2MS+6yhUPP8D7HFLoBfyZ/GVlO9VdfFaM=;
+ b=eFN2F9htlbD0dA7QnwRnIj0xBrGt5A09X9NZ/IH8rVe+gCDMnAcljUNl57IQOVSgAF
+ G81Z6DNoFzjgPbuCcs8yPKNsgPQO1E/TD+6EU9iDPf9pNbQRm+cK33XNDv69yHIbyVjP
+ sh6xc5fLjlaXrIlpZyClZ7CqNRz0TCg9Tr+tip3kga8kpOEc4zKyA5M9bzWuSV5saqjy
+ idBl5rTXp5J9hZaeEkOO86X8ahHiC5xZilDoe2Z8lb43LIvYYLQgyK6yReAeP85t14oN
+ B6y55PhA8fI5J9T/PVZjoSAPjYEP7UjU6lelX49+FuV0Ri9a3Ceh8S8RimbWIWnrEZD8
+ 6y8Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUsd6hR5N/T5inlWptxJgMxhPadeh2d6B88SuElrNv+99meuBNTy7MVLFTXY6oBe0Tp7Jh2fvcR@lists.freedesktop.org,
+ AJvYcCWVDiyXy3/xQhzfZchv8u0iFXriBUb3MTr/Z+OqzuDllgKFLS7x3HvKOuuvx3ibQBIfZIdJWXf/MIkC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxnibbtuU4qJLL28lUqZnX2nuO+Wcp5w6FQnNyPvJ4eQdz7cdYl
+ E/4lteWEwEEdQ3+CSHBlgsNkN6hJVquWgSZkmmObaqG6Rom6Tj0S
+X-Gm-Gg: ASbGncsY3YWBuuHTB/IT4xnOcVZkdzphbfZPRIeyeIM/k+OlSJouAZK5iL7hBBi/TBM
+ fX8Nh1UumTmvalj3v8gKU/GkOq8MUxFcGAEuKY2yf39iQ2SpPkjPZvUNBoGdocoBlB5sKC9qa1l
+ ynS4b6ZvD2F3dcXjIjYv5vLE03FIc+SUlu8ygZC+xZvJ9zzjP0lEJqDFLwpUT0TsOYD6qmOlYDj
+ FSANNrladg0YWMCPY8VmSkgLl0iL+js+hstHt3ZShuReDmjoXeHwpfSTd4IoYrIVY9tu5C2WqrT
+ N07gV9n9CQaHYDmtolZ0HMSCan1I8IDXcZFemxjEaWG6Em03QL10cdLhad3dNbDYra5xt+rgsg=
+ =
+X-Google-Smtp-Source: AGHT+IGYAaKTUrMNVz3N0+42A/wUc2eJCCbMyGZPyY+n/0gtkW0/uobFuDvTuVKIh7irmQlsLkNNPg==
+X-Received: by 2002:a05:600c:34cc:b0:43d:24d:bbe2 with SMTP id
+ 5b1f17b1804b1-43d50a3cb58mr116365645e9.28.1742821158821; 
+ Mon, 24 Mar 2025 05:59:18 -0700 (PDT)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39abdaf0c0bsm6428761f8f.63.2025.03.24.05.59.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Mar 2025 05:59:18 -0700 (PDT)
+Message-ID: <7a0185d6-1f86-4be8-a9e9-20fadfd63bd9@gmail.com>
+Date: Mon, 24 Mar 2025 13:59:15 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8162:EE_
-X-MS-Office365-Filtering-Correlation-Id: a962c1bb-d9b3-4f8a-2c92-08dd6acd7a98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?elRVNVpsRDd0K0U4SkoxSVp5OStSRGc0TlpiRVJDYzlrQ21odXZsb1pnSE4v?=
- =?utf-8?B?Y3BQNnNGTThkWUNFRnZvU3VHcjlJYmU1Wkl1dFBDb20wYnFSTDhjUGo2RDY1?=
- =?utf-8?B?dFg4bUpvcWtjcGczcGFEZFhkbDRIRmUwbjY2SCtOczQ1YVVRUjY5dnBLelFT?=
- =?utf-8?B?VXNwZWJ6U2lXeVJFcStBcHdkZXBza1NTMFo2a0R4bDdrS25wVzBuM0tyOU1K?=
- =?utf-8?B?NVFCMHBpRmJPV3pGYXY4RnY3Ym9TcHJPcndYdXZNR1Bwbi9KUFRJeDVPN2t2?=
- =?utf-8?B?bVFPZWxoWHREV2FpRE5pS242UE0zeHFJeHZsazhLS0JCUFBQREhGU2Z5SFR3?=
- =?utf-8?B?V3A0TmgvZnVRRTdDSUlxeThaSXJWVlcyZTNZTTVrK0ZDRk83RlZDUWtQeVFW?=
- =?utf-8?B?eXVxVjNCZGlrbUp3bVExeWZPd01xOCs3ZCtYcnQxQTFLcjhSb0p1Y0tSTjky?=
- =?utf-8?B?Z0VybDRXMEZsdDNPTnZ6dk91dEFxdENwUDRnUkQ1U3pFejUwN0pOV0lDRlZ2?=
- =?utf-8?B?VGQ5dzMwaTRNbHFmdXBhd1lrUDRsTFpzL1pVVlB6Y0FGSzVnd0xnOFUzQ0FM?=
- =?utf-8?B?ZVdYaTFCcXNIUXBSeGtqOGk5Ymg1RlZDTFhIVTZUVWtLVDNVcDNmTklPVm5N?=
- =?utf-8?B?aDJ4OGxnYUpBbTB2cXQvMVdxNEIrdE5zOEJoMk4vVUZXL3hHT1BCUFZnb3NJ?=
- =?utf-8?B?WkVGdzZ5VzhmT3ZlRDJ4ZUJzaFcrUGpYYmpnYkp2MmwxT1huUlY3TVVZbC8y?=
- =?utf-8?B?b3g1dXEyOTMrL0hSOWZPcjRDM3Y3WnIxUm9JWklMVnJqcEFtajlvUTRvT0Zy?=
- =?utf-8?B?SWh6WDl0ZjNGL2sra2lnbzBWNzBKeHVMSjNqS3pMZ1BOMlFpcXBseVdha1Jo?=
- =?utf-8?B?TjJGeGRRSis2TEtwc0dzWkFCblZPZ21ja0VwYWduU3B2M2ZzWjFUS3lnYmg4?=
- =?utf-8?B?dWhsU0xNMWdzWDEramNCcy9aTURRNEVYZ0JEemtFSm1iMmVibmp1SHZYMHVK?=
- =?utf-8?B?aWF6azdicE8zRFV5TXBOWG1NUk1raU9oVzlMOWgvOWk1OTd6TzVGNlhMTnJG?=
- =?utf-8?B?Zjg5Tml6RThoVFUwMmErZ01WcGU5SkhIZUtxcmlVZUlWZE9naVNFKzAzcHVK?=
- =?utf-8?B?SFZnZmMwUm8zbmlwSEkwaWM4bVlteUgwbUJXaFZ5OU44eTFndWliWnRhRzJV?=
- =?utf-8?B?TGh1Ky9JbFo5UW5aOWtjVy85WUllanZXbGFoSW9IaDJIZENRb1VNTmI3STdy?=
- =?utf-8?B?dm94UXkxcUpMSS9KcGl6WlM1Z1RibXZ1bU9ocFZYVHhqUWZnK1Q3RlBuZUZq?=
- =?utf-8?B?Vng0SEhZNHViT2JyWkpmVGpxK1A4QlhKOXZDeVNEcUVCczFzd3NVRFlxbDd1?=
- =?utf-8?B?WCtXWG5iQllFUEVlMm1sQmR4WjNMdmpMNkdIdDBvc0xsVTVaL3hYZEliOGdP?=
- =?utf-8?B?SUFlb0JNb0JpRUlURWhWaWpUYlJSUnVwcVE0SjI5QmI0eFNCM1c0bGExNlE2?=
- =?utf-8?B?bTBVM0FFWDNXalhnVlJ0NytVZ3JyaktySkoyQnNjSWlFOU5ENkJxb25YT1pO?=
- =?utf-8?B?STZyMDdGeEFZa1RPRzdaVWlBVlRiZm5LOWRvbk9MZW0vblIzZ1ZRWVVWYVFL?=
- =?utf-8?B?ZDBDNVlhOW9rdzdFRU0rNWoyQWFhM3FLbXRnbEJjekJ3a3dJM0hFUDl6bXBu?=
- =?utf-8?B?ZFdEdlY1UVppZHRGSVAyK2NhTjA5c3JseG1iSFloRkRxSlpwQzJodDR6SVU3?=
- =?utf-8?B?V1hueHNVdVl1cGYvUGJHdG5BbjkwZjJwK0crd29LSFM1bW5FdmVSMXdudTlE?=
- =?utf-8?B?czdxRkZXS1dmU2RDZEtwbERHUU5makl6Qnc4bTFaTWJacHhjZVZ1ekFjMjRs?=
- =?utf-8?Q?i74/COnu0BZL2?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGREdUNwSTZzV0V6UmJrRTl1MXpEaE1JeFhQT3NzejRYNnVFckhNS0VSTGxl?=
- =?utf-8?B?c2dnakNsdSt2U0M3NytuNG5MWTNCdXRVcWxYSmVTU0kwcDdGZFkveXJrZDJa?=
- =?utf-8?B?aU9NekduNGh5TG1Wd0Yvd0hVMktyT3hWcjFYMnBvMm5SMUt6K2FCcDRqcmVy?=
- =?utf-8?B?cU9YUTdUbFAxL2daNUhBbTd6UEJZN1FQRDNWc1FBTWQ4dVBRMllPVUg5QkhH?=
- =?utf-8?B?aHJCQ2F1c3h6TzVSTDRjUEsveXJnNXhORjVnWHE1UUlSM253WXFOTWc5QVUr?=
- =?utf-8?B?RnRxbm9Uc20xUXEwbGNJUEYxUzB2S1pkV282aU0wZW9JYnBlZ2hJNWo2N2dX?=
- =?utf-8?B?SWFyd2R6MzFGZkorZmMrNXdjaFAwbDU1aFErUXZKVjNwZzhOMFlrMHR0OWQ3?=
- =?utf-8?B?SnFjY3cvUlFlQmNZVkFXTzZsTXRDNUNmL1JtS2VvZFhiSDFSREhDWEdmb0RF?=
- =?utf-8?B?MEJMQk02TWZOOGRXVXlDbkVVRXhob0JYU2FoR2RsanZ5eUpGa0w1NGpaRjEx?=
- =?utf-8?B?VGlwWkpEbkdCUzBRWUM4UjZJY0VURkcweTlvOGhBNkUrZGxZUUJuVXlFaTJ2?=
- =?utf-8?B?YU95NDdLOHJoZ3l3TG82MEJkNlVEdis0d3VLREZja09rR0lmNzJ5dlhyVkJU?=
- =?utf-8?B?WFRHRU1Lc2RKbXBiY0I4M1k4R2hXazIrU1FYTHBDMG1vS21EaDdWWjV5dkc2?=
- =?utf-8?B?dmx4b09Lakc5OWF1WUMzNUNqS2Z2VGV2am1GTjZBcDkxek9rRjdrZlF1Yjcr?=
- =?utf-8?B?QjFsaHAxUitZQktKWGtxZzFxWDhrd0FpbzE1dTcra1grMi96YTh6ejJJSGVJ?=
- =?utf-8?B?a0ZCKzBOSlBJMTAzMUFRM3Y3YTlCMytnZ0VGelpOT0h3WHZPN1BVd0oxTVQ4?=
- =?utf-8?B?ZzJGRitCS0J0L2ZqME90SkZBL2VSL0F1NEN5djBsK0haaDNaTVI0TTM3Kytp?=
- =?utf-8?B?SFFzNUVQZDFOTHVQUGJwa25aejg5K09zak9Wbkp4Q0xVVmxZajhya1NnNVNI?=
- =?utf-8?B?S3RZOVpNNTV3UXJVNEJFVmZlK2pQOG9lTnNEZi9JSkZwMkxTdldCc0NJWVF5?=
- =?utf-8?B?MEMyckI1TUxRSkU3NlNSZit0cWVpZTg4T3Y2dWhCQUtpcGV0Q3FrVTRPVlha?=
- =?utf-8?B?WHFrQ0JzL2FMTmt3T01nd3l6cEkwZFBrdmRXL0VJQ3dxQ3NhaU5HVnZZTFRR?=
- =?utf-8?B?V3VRdVBUcndScmlFYkxvTWdKeVQ3SU1wZ1NBREZGdjJkVmp5NjdYSHB4REFP?=
- =?utf-8?B?bzhIUE1rSmRDY1V5NU40U2ZGMXhveCtSdzRTR2h3TWs1QjI2Q2ZIc0pYbFRs?=
- =?utf-8?B?ZS9QeHErbXZQVzV2Q213SlFjMy84V0ZjSGlFRUpPcitHbU5ZNVZ3YzgyOUZu?=
- =?utf-8?B?RUlEZnI2RDRXT3U5THVVcjM3aEViNnlaYkYyRzJPcGVRMzJPRE9wcGJHZGVZ?=
- =?utf-8?B?eW4zRG93U0lHOTR4ZGxPYnZwSnl4RllISnRtUzh6ZEZtNVlBOU9obHd6Qkxj?=
- =?utf-8?B?azBDNThpeUFXek5tTHZHZS84dnhkQWJYU0xNeVNrZ2VlQ05MUjFaemVzcWFB?=
- =?utf-8?B?bE5rdjZBUFJNRW45UkUra1hmMnZIYVUxRkQzbmpvbkk0YmYvZWxDS0crZEdz?=
- =?utf-8?B?eGFRUDBUdXp2eHg3NWVjaiswMDdSRGJueS84V1B6QkZGSXhvQXp3VWp5dlRi?=
- =?utf-8?B?U1d4Q0l6UWYwZlVZVERIZGtJNUl3aUVBaWx1ZUR0TFFsd3JjTmJlWVpCcEpo?=
- =?utf-8?B?aUU0U2ZjcUlmSkJXQzVFZDVpditvSkFnMnBRL295VU9SNXZFQ3g5c21QRzFF?=
- =?utf-8?B?NjRxT2lWTlhJdHJQK1dnSDlJVkFBYXRVWlJFSGxDTFRYZ0sxMUhJcUdsT1Qy?=
- =?utf-8?B?blRLOTFaWjNZeHNUaVNjT0pHYkxaVG9UaG01bUhmWFJyMW5rWTBhU08wM01p?=
- =?utf-8?B?NHZPQVhzbEVnVEJ1emZ0d1hFZGYzeUsxbkVYOFg5a2JHckhtbXRYRnh5azBn?=
- =?utf-8?B?SFJxYk5MSFY5R2ZoWk5Zc01vaU9tU3pOa0g2MUptOGFPMFFyYlh6S0ZZRE45?=
- =?utf-8?B?a1MxTW5GZVJQYTVTTGNzaXpXei9EbG1tek5lTlpKaXdJQmpreHJqRXdEZDd1?=
- =?utf-8?Q?jFnM=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a962c1bb-d9b3-4f8a-2c92-08dd6acd7a98
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2025 12:14:51.7007 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X7P2hZmCLHW21bX7CSNn/Vdxg0DiE+bpQbIGoEWXEmpPj599qZygBpGkZlDGPWvj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8162
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/sched: add drm_sched_prealloc_dependency_slots v2
+To: phasta@kernel.org, tvrtko.ursulin@igalia.com, dakr@kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20250321155852.15162-1-christian.koenig@amd.com>
+ <e9db9144a38161982b9f310c4543e1effe7afe17.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <e9db9144a38161982b9f310c4543e1effe7afe17.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,143 +91,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 24.03.25 um 12:23 schrieb Bert Karwatzki:
-> Am Sonntag, dem 23.03.2025 um 17:51 +1100 schrieb Balbir Singh:
->> On 3/22/25 23:23, Bert Karwatzki wrote:
->>> ...
->>> So why is use_dma32 enabled with nokaslr? Some more printk()s give this result:
->>>
->>> The GPUs:
->>> built-in:
->>> 08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] (rev c5)
->>> discrete:
->>> 03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 [Radeon RX 6600/6600 XT/6600M] (rev c3)
->>>
->>> With nokaslr:
->>> [    1.266517] [    T328] dma_addressing_limited: mask = 0xfffffffffff bus_dma_limit = 0x0 required_mask = 0xfffffffff
->>> [    1.266519] [    T328] dma_addressing_limited: ops = 0000000000000000 use_dma_iommu(dev) = 0
->>> [    1.266520] [    T328] dma_direct_all_ram_mapped: returning true
->>> [    1.266521] [    T328] dma_addressing_limited: returning ret = 0
->>> [    1.266521] [    T328] amdgpu 0000:03:00.0: amdgpu: amdgpu_ttm_init: calling ttm_device_init() with use_dma32 = 0
->>> [    1.266525] [    T328] entering ttm_device_init, use_dma32 = 0
->>> [    1.267115] [    T328] entering ttm_pool_init, use_dma32 = 0
->>>
->>> [    3.965669] [    T328] dma_addressing_limited: mask = 0xfffffffffff bus_dma_limit = 0x0 required_mask = 0x3fffffffffff
->>> [    3.965671] [    T328] dma_addressing_limited: returning true
->>> [    3.965672] [    T328] amdgpu 0000:08:00.0: amdgpu: amdgpu_ttm_init: calling ttm_device_init() with use_dma32 = 1
->>> [    3.965674] [    T328] entering ttm_device_init, use_dma32 = 1
->>> [    3.965747] [    T328] entering ttm_pool_init, use_dma32 = 1
->>>
->>> Without nokaslr:
->>> [    1.300907] [    T351] dma_addressing_limited: mask = 0xfffffffffff bus_dma_limit = 0x0 required_mask = 0xfffffffff
->>> [    1.300909] [    T351] dma_addressing_limited: ops = 0000000000000000 use_dma_iommu(dev) = 0
->>> [    1.300910] [    T351] dma_direct_all_ram_mapped: returning true
->>> [    1.300910] [    T351] dma_addressing_limited: returning ret = 0
->>> [    1.300911] [    T351] amdgpu 0000:03:00.0: amdgpu: amdgpu_ttm_init: calling ttm_device_init() with use_dma32 = 0
->>> [    1.300915] [    T351] entering ttm_device_init, use_dma32 = 0
->>> [    1.301210] [    T351] entering ttm_pool_init, use_dma32 = 0
->>>
->>> [    4.000602] [    T351] dma_addressing_limited: mask = 0xfffffffffff bus_dma_limit = 0x0 required_mask = 0xfffffffffff
->>> [    4.000603] [    T351] dma_addressing_limited: ops = 0000000000000000 use_dma_iommu(dev) = 0
->>> [    4.000604] [    T351] dma_direct_all_ram_mapped: returning true
->>> [    4.000605] [    T351] dma_addressing_limited: returning ret = 0
->>> [    4.000606] [    T351] amdgpu 0000:08:00.0: amdgpu: amdgpu_ttm_init: calling ttm_device_init() with use_dma32 = 0
->>> [    4.000610] [    T351] entering ttm_device_init, use_dma32 = 0
->>> [    4.000687] [    T351] entering ttm_pool_init, use_dma32 = 0
->>>
->>> So with nokaslr the reuqired mask for the built-in GPU changes from 0xfffffffffff
->>> to 0x3fffffffffff which causes dma_addressing_limited to return true which causes
->>> the ttm_device init to be called with use_dma32 = true.
->> Thanks, this is really the root cause, from what I understand.
+Am 21.03.25 um 19:05 schrieb Philipp Stanner:
+> On Fri, 2025-03-21 at 16:58 +0100, Christian König wrote:
+>> Sometimes drivers need to be able to submit multiple jobs which
+>> depend on
+>> each other to different schedulers at the same time, but using
+>> drm_sched_job_add_dependency() can't fail any more after the first
+>> job is
+>> initialized.
+>>
+>> This function preallocate memory for dependency slots so that no
+>> ENOMEM
+>> can come later while adding dependencies.
+>>
+>> v2: rework implementation an documentation
+> For drm/sched Danilo & I think that changelogs shouldn't be in the
+> commit message anymore. The Link: applied by the DRM tools will be
+> sufficient to find the history in the archives if necessary.
 
-Yeah, completely agree.
+Sure, going to drop that.
 
->>
->>>  It also show that for the discreate GPU nothing changes so the bug does not occur
->>> there.
->>>
->>> I also was able to work around the bug by calling ttm_device_init() with use_dma32=false
->>> from amdgpu_ttm_init()  (drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c) but I'm not sure if this
->>> has unwanted side effects.
->>>
->>> int amdgpu_ttm_init(struct amdgpu_device *adev)
->>> {
->>> 	uint64_t gtt_size;
->>> 	int r;
->>>
->>> 	mutex_init(&adev->mman.gtt_window_lock);
->>>
->>> 	dma_set_max_seg_size(adev->dev, UINT_MAX);
->>> 	/* No others user of address space so set it to 0 */
->>> 	dev_info(adev->dev, "%s: calling ttm_device_init() with use_dma32 = 0 ignoring %d\n", __func__, dma_addressing_limited(adev->dev));
->>> 	r = ttm_device_init(&adev->mman.bdev, &amdgpu_bo_driver, adev->dev,
->>> 			       adev_to_drm(adev)->anon_inode->i_mapping,
->>> 			       adev_to_drm(adev)->vma_offset_manager,
->>> 			       adev->need_swiotlb,
->>> 			       false /* use_dma32 */);
->>> 	if (r) {
->>> 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
->>> 		return r;
->>> 	}
->>>
->> I think this brings us really close, instead of forcing use_dma32 to false, I wonder if we need something like
->>
->> uin64_t dma_bits = fls64(dma_get_mask(adev->dev));
->>
->> to ttm_device_init, pass the last argument (use_dma32) as dma_bits < 32?
-
-The handling is completely correct as far as i can see.
-
->>
->>
->> Thanks,
->> Balbir Singh
->>
-> Do these address bits have to shift when using nokaslr or PCI_P2PDMA, I think
-> this shift cause the increase of the required_dma_mask to 0x3fffffffffff?
 >
-> @@ -104,4 +104,4 @@
->        fe30300000-fe303fffff : 0000:04:00.0
->      fe30400000-fe30403fff : 0000:04:00.0
->      fe30404000-fe30404fff : 0000:04:00.0
-> -afe00000000-affffffffff : 0000:03:00.0
-> +3ffe00000000-3fffffffffff : 0000:03:00.0
->
-> And what memory is this? It's 8G in size so it could be the RAM of the discrete
-> GPU (which is at PCI 0000:03:00.0), but that is already here (part of
-> /proc/iomem):
->
-> 1010000000-ffffffffff : PCI Bus 0000:00
->   fc00000000-fe0fffffff : PCI Bus 0000:01
->     fc00000000-fe0fffffff : PCI Bus 0000:02
->       fc00000000-fe0fffffff : PCI Bus 0000:03
->         fc00000000-fdffffffff : 0000:03:00.0  GPU RAM
->         fe00000000-fe0fffffff : 0000:03:00.0
->
-> lspci -v reports 8G of memory at 0xfc00000000 so I assmumed that is the GPU RAM.
-> 03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23
-> [Radeon RX 6600/6600 XT/6600M] (rev c3)
-> 	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 1313
-> 	Flags: bus master, fast devsel, latency 0, IRQ 107, IOMMU group 14
-> 	Memory at fc00000000 (64-bit, prefetchable) [size=8G]
-> 	Memory at fe00000000 (64-bit, prefetchable) [size=256M]
-> 	Memory at fca00000 (32-bit, non-prefetchable) [size=1M]
-> 	Expansion ROM at fcb00000 [disabled] [size=128K]
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>  drivers/gpu/drm/scheduler/sched_main.c | 44
+>> ++++++++++++++++++++++++--
+>>  include/drm/gpu_scheduler.h            |  2 ++
+>>  2 files changed, 43 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+>> b/drivers/gpu/drm/scheduler/sched_main.c
+>> index 4d4219fbe49d..ee3701f346b2 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -852,6 +852,39 @@ void drm_sched_job_arm(struct drm_sched_job
+>> *job)
+>>  }
+>>  EXPORT_SYMBOL(drm_sched_job_arm);
+>>  
+>> +/**
+>> + * drm_sched_job_prealloc_dependency_slots - avoid ENOMEM on adding
+>> dependencies
+>> + * @job: scheduler job where dependencies will be added
+>> + * @num_deps: number of dependencies to preallocate slots for
+>> +  *
+>> + * Sometimes drivers need to be able to submit multiple jobs which
+>> depend on
+>> + * each other to different schedulers at the same time, but using
+>> + * drm_sched_job_add_dependency() can't fail any more after the
+>> first job is
+>> + * initialized.
+>> + *
+>> + * This function preallocate memory for dependency slots so that no
+>> ENOMEM can
+>> + * come later while adding dependencies.
+>> + *
+>> + * Return:
+>> + * 0 on success, or an error on failing to expand the array.
+>> + */
+>> +int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job
+>> *job,
+>> +					    unsigned int num_deps)
+>> +{
+>> +	u32 id = 0;
+>> +	int ret;
+>> +
+>> +	while (num_deps--) {
+>> +		ret = xa_alloc(&job->dependencies, &id,
+>> XA_ZERO_ENTRY,
+>> +			       xa_limit_32b, GFP_KERNEL);
+> Fine by me, but out of curiousity about the xarray: you mentioned
+> xa_reserve() might work, too?
 
-Well when you set nokaslr then that moves the BAR address of the dGPU above the limit the integrated GPU can access on the bus (usually 40 bits).
+Different use case, xa_reserve() can only reserve a specific index and not allocate one.
 
-Because of this the integrated GPU starts to fallback to system memory below the 4GB limit to make sure that the stuff is always accessible by everyone.
+Allocating and reserving at the same time seems to be done by the pattern xa_alloc(...XA_ZERO_ENTRY...) like we use here.
 
-Since the memory below 4GB is very very limited we are now starting to constantly swap things in and out of that area. Basically completely killing the performance of your Steam game.
-
-As far as I can see till that point the handling is completely intentional and working as expected.
-
-The only thing which eludes me is why setting nokaslr changes the BAR of the dGPU? Can I get the full dmesg with and with nokasl?
-
-Thanks in advantage,
+Regards,
 Christian.
 
 >
-> Bert Karwatzki
 >
+> P.
+>
+>> +		if (ret != 0)
+>> +			return ret;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slots);
+>> +
+>>  /**
+>>   * drm_sched_job_add_dependency - adds the fence as a job dependency
+>>   * @job: scheduler job to add the dependencies to
+>> @@ -878,10 +911,15 @@ int drm_sched_job_add_dependency(struct
+>> drm_sched_job *job,
+>>  	 * engines involved, rather than the number of BOs.
+>>  	 */
+>>  	xa_for_each(&job->dependencies, index, entry) {
+>> -		if (entry->context != fence->context)
+>> +		if (xa_is_zero(entry)) {
+>> +			/*
+>> +			 * Reserved entries must not alloc memory,
+>> but let's
+>> +			 * use GFP_ATOMIC just to be on the
+>> defensive side.
+>> +			*/
+>> +			xa_store(&job->dependencies, index, fence,
+>> GFP_ATOMIC);
+>> +		} else if (entry->context != fence->context) {
+>>  			continue;
+>> -
+>> -		if (dma_fence_is_later(fence, entry)) {
+>> +		} else if (dma_fence_is_later(fence, entry)) {
+>>  			dma_fence_put(entry);
+>>  			xa_store(&job->dependencies, index, fence,
+>> GFP_KERNEL);
+>>  		} else {
+>> diff --git a/include/drm/gpu_scheduler.h
+>> b/include/drm/gpu_scheduler.h
+>> index 1a7e377d4cbb..916e820b27ff 100644
+>> --- a/include/drm/gpu_scheduler.h
+>> +++ b/include/drm/gpu_scheduler.h
+>> @@ -632,6 +632,8 @@ int drm_sched_job_init(struct drm_sched_job *job,
+>>  		       u32 credits, void *owner);
+>>  void drm_sched_job_arm(struct drm_sched_job *job);
+>>  void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+>> +int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job
+>> *job,
+>> +					    unsigned int num_deps);
+>>  int drm_sched_job_add_dependency(struct drm_sched_job *job,
+>>  				 struct dma_fence *fence);
+>>  int drm_sched_job_add_syncobj_dependency(struct drm_sched_job *job,
 
