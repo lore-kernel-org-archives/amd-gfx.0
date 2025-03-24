@@ -4,231 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C99C0C3600D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58054C36010
 	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 08:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2B5D10E50F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B65AE10E511;
 	Tue, 25 Mar 2025 08:21:40 +0000 (UTC)
-X-Greylist: delayed 1798 seconds by postgrey-1.36 at gabe;
- Tue, 25 Mar 2025 07:50:04 UTC
-Received: from pegase2.c-s.fr (pegase2.c-s.fr [93.17.235.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7651D10E4F9
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 07:50:04 +0000 (UTC)
-Received: from localhost (mailhub3.si.c-s.fr [172.26.127.67])
- by localhost (Postfix) with ESMTP id 4ZMLXg2khlz9sSZ;
- Tue, 25 Mar 2025 08:05:23 +0100 (CET)
-X-Virus-Scanned: amavisd-new at c-s.fr
-Received: from pegase2.c-s.fr ([172.26.127.65])
- by localhost (pegase2.c-s.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id s6I9VApZys-B; Tue, 25 Mar 2025 08:05:23 +0100 (CET)
-Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
- by pegase2.c-s.fr (Postfix) with ESMTP id 4ZMLXg0GV6z9sSX;
- Tue, 25 Mar 2025 08:05:23 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id 9F97E8B766;
- Tue, 25 Mar 2025 08:05:22 +0100 (CET)
-X-Virus-Scanned: amavisd-new at c-s.fr
-Received: from messagerie.si.c-s.fr ([127.0.0.1])
- by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
- with ESMTP id mCXzZhyy35Ae; Tue, 25 Mar 2025 08:05:22 +0100 (CET)
-Received: from PO20335.IDSI0.si.c-s.fr (unknown [192.168.235.99])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id 446118B765;
- Tue, 25 Mar 2025 08:05:15 +0100 (CET)
-Received: from PO20335.IDSI0.si.c-s.fr (localhost [127.0.0.1])
- by PO20335.IDSI0.si.c-s.fr (8.18.1/8.17.1) with ESMTPS id 52P756MI009381
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Tue, 25 Mar 2025 08:05:07 +0100
-Received: (from chleroy@localhost)
- by PO20335.IDSI0.si.c-s.fr (8.18.1/8.18.1/Submit) id 52P742SQ009337;
- Tue, 25 Mar 2025 08:04:02 +0100
-X-Authentication-Warning: PO20335.IDSI0.si.c-s.fr: chleroy set sender to
- christophe.leroy@csgroup.eu using -f
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
-To: tglx@linutronix.de, "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>, maz@kernel.org,
- linux-kernel@vger.kernel.org, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alexandre Ghiti <alex@ghiti.fr>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alex Deucher <alexander.deucher@amd.com>, Alex Shi <alexs@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- amd-gfx@lists.freedesktop.org, Amit Kucheria <amitk@kernel.org>,
- Anatolij Gustschin <agust@denx.de>, Andi Shyti <andi.shyti@kernel.org>,
- =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
- Andreas Kemnade <andreas@kemnade.info>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Andrew Lunn <andrew@lunn.ch>, Andy Shevchenko <andy@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Antoine Tenart <atenart@kernel.org>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Anup Patel <anup@brainfault.org>, Arnd Bergmann <arnd@arndb.de>,
- asahi@lists.linux.dev, Bartosz Golaszewski <brgl@bgdev.pl>,
- Baruch Siach <baruch@tkos.co.il>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Bharat Kumar Gogada <bharat.kumar.gogada@amd.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Borislav Petkov <bp@alien8.de>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Corentin Chary <corentin.chary@gmail.com>,
- Daire McNamara <daire.mcnamara@microchip.com>,
- Daniel Golle <daniel@makrotopia.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Daniel Mack <daniel@zonque.org>, Daniel Palmer <daniel@thingy.jp>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- DENG Qingfang <dqfext@gmail.com>, Dinh Nguyen <dinguyen@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Dongliang Mu <dzm91@hust.edu.cn>, Doug Berger <opendmb@gmail.com>,
- dri-devel@lists.freedesktop.org, Eddie James <eajames@linux.ibm.com>,
- Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Geoff Levand <geoff@infradead.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Guo Ren <guoren@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Haojian Zhuang <haojian.zhuang@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, Herve Codina <herve.codina@bootlin.com>,
- Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Huacai Chen <chenhuacai@kernel.org>,
- Changhuang Liang <changhuang.liang@starfivetech.com>,
- Chen-Yu Tsai <wens@csie.org>,
- "Chester A. Unal" <chester.a.unal@arinc9.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Chris Zankel <chris@zankel.net>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Imre Kaloz <kaloz@openwrt.org>, Ingo Molnar <mingo@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, James Morse <james.morse@arm.com>,
- Janne Grunau <j@jannau.net>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Jassi Brar <jassisinghbrar@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Jianjun Wang <jianjun.wang@mediatek.com>,
- Jiawen Wu <jiawenwu@trustnetic.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
- Jim Quinlan <jim2101024@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
- Joel Stanley <joel@jms.id.au>, Johannes Berg <johannes@sipsolutions.net>,
- John Crispin <john@phrozen.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Jonas Bonn <jonas@southpole.se>, Jonathan Cameron <jic23@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Jonathan Hunter <jonathanh@nvidia.com>,
- =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Joyce Ooi <joyce.ooi@intel.com>,
- Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
- Keerthy <j-keerthy@ti.com>, Kevin Hilman <khilman@baylibre.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Lee Jones <lee@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Linus Walleij <linusw@kernel.org>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-pci@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-remoteproc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-sh@vger.kernel.org,
- linux-snps-arc@lists.infradead.org, linux-sound@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-um@lists.infradead.org,
- linux-wireless@vger.kernel.org, loongarch@lists.linux.dev,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Lukasz Luba <lukasz.luba@arm.com>, "Luke D. Jones" <luke@ljones.dev>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Mark Brown <broonie@kernel.org>, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mengyuan Lou <mengyuanlou@net-swift.com>, Michael Buesch <m@bues.ch>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Simek <michal.simek@amd.com>,
- Miodrag Dinic <miodrag.dinic@mips.com>, Naveen N Rao <naveen@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>,
- Nikhil Agarwal <nikhil.agarwal@amd.com>,
- Nipun Gupta <nipun.gupta@amd.com>, Nishanth Menon <nm@ti.com>,
- =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paolo Abeni <pabeni@redhat.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Peter Rosin <peda@axentia.se>, Philipp Zabel <p.zabel@pengutronix.de>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- platform-driver-x86@vger.kernel.org,
- Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
- Qiang Zhao <qiang.zhao@nxp.com>, Qin Jian <qinjian@cqplus1.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Ray Jui <rjui@broadcom.com>,
- Rengarajan Sundararajan <Rengarajan.S@microchip.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Richard Weinberger <richard@nod.at>, Rich Felker <dalias@libc.org>,
- Rob Clark <robdclark@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>,
- Robert Richter <rric@kernel.org>, Rob Herring <robh@kernel.org>,
- Roger Quadros <rogerq@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Ryder Lee <ryder.lee@mediatek.com>,
- Samuel Holland <samuel@sholland.org>,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Scott Branden <sbranden@broadcom.com>, Scott Wood <oss@buserror.net>,
- Sean Paul <sean@poorly.run>, Sean Wang <sean.wang@kernel.org>,
- Sean Wang <sean.wang@mediatek.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Sergio Paracuellos <sergio.paracuellos@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
- Siddharth Vadapalli <s-vadapalli@ti.com>,
- Simona Vetter <simona@ffwll.ch>, Stafford Horne <shorne@gmail.com>,
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
- Stephen Boyd <sboyd@kernel.org>, Sven Peter <sven@svenpeter.dev>,
- Takashi Iwai <tiwai@suse.com>, Talel Shenhar <talel@amazon.com>,
- Tero Kristo <kristo@kernel.org>,
- Thangaraj Samynathan <Thangaraj.S@microchip.com>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Toan Le <toan@os.amperecomputing.com>,
- Tony Lindgren <tony@atomide.com>, Tony Luck <tony.luck@intel.com>,
- UNGLinuxDriver@microchip.com,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Vignesh Raghavendra <vigneshr@ti.com>,
- Vineet Gupta <vgupta@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- Vladimir Zapolskiy <vz@mleia.com>, WANG Xuerui <kernel@xen0n.name>,
- Woojung Huh <woojung.huh@microchip.com>, x86@kernel.org,
- Yanteng Si <si.yanteng@linux.dev>,
- Yoshinori Sato <ysato@users.osdn.me>, Zhang Rui <rui.zhang@intel.com>
-Subject: Re: (subset) [PATCH v2 00/57] irqdomain: Cleanups and Documentation
-Date: Tue, 25 Mar 2025 08:03:28 +0100
-Message-ID: <174288553816.2234438.13558299160543301187.b4-ty@csgroup.eu>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20250319092951.37667-1-jirislaby@kernel.org>
-References: <20250319092951.37667-1-jirislaby@kernel.org>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JId1yB7f";
+	dkim-atps=neutral
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3260310E309
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 14:46:39 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-5e686d39ba2so8798468a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 07:46:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742827598; x=1743432398; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oq2ReTm5hcdEEl0rwoJS/DYaRgAaNR2D5EW3hjAvQfc=;
+ b=JId1yB7fjJU0h1L3t7dWzilPBRKm32uuyKyPmKuyL1cv+oOr/RKW80FM3FiKs26Lp6
+ c9DuIDK3KT/4/bBjWni06+4n4mC/MV6WUJbOXOwAxb/2ErlI0f3tiPdy4Dmr8zRlceFV
+ zxqwe14QgOxsdTXF3hraEpsTQN7se58Y7Wei12OYPZ+dxZVQmOjUZcz2xFlkI5skWT22
+ VlkwbTHPzwrsR0Bx5kC+DpsSXC7lp8T6KtV/X/tBi+FWOOrptxIo6mtb3Y85zoWuDc4B
+ Hsb6vc4xS7fL5CxAYfco77dHxbx4b3RGVW2Zmi15ZhgyIpJSPGXVKcv1JnUuCsTGglOk
+ qyPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742827598; x=1743432398;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oq2ReTm5hcdEEl0rwoJS/DYaRgAaNR2D5EW3hjAvQfc=;
+ b=GtNPO3RggX9HR0Kaae0v7ZfmCZm1J7odfsy71ct2E6m/bQ5J0CU4MHN11W1niVFibH
+ 7Yr3fF4+kAnSuqtKVgiMgamOfTBt5T/LQ3ml2itpAPmYY4RDZBX2kKEmiy6GxsHhAHC8
+ ddVKSnRg99gOPG4KlxKax75r4IEobugMbiXP9LJ6cBWgcP2tbSYu2RcG65jAsyZDZPj/
+ nXKoZbTlSGuep2w5lI9sMPirmfEk3W5bg/Cg1YljVymnPZICFVwuYBUpcaX76wTUZ3ax
+ DS9v1J7Xa7LHXEJX3EodLBNxA6A2ApC2CybBuGbxrAXpRDvhiACCpt1NxKGqHUVJabbW
+ ualQ==
+X-Gm-Message-State: AOJu0Yw93QkT3QS7lQZBgWD26s4RadkSAKXWMnlEgaD1pEELgjnET0xA
+ 0rasH6lq8kRri59pDo6mfG2AI7EfwnVYPMz5qka9nvHCFbMQjePDAB9zP7RSgAOQDJlZnfpYKUE
+ OwARS+mPjWar3BU44S8Yy/5R05fw=
+X-Gm-Gg: ASbGncuiBQcHI2D7xGJq2a92qgyxo6a8fL/VTSgDyZhWkX7g+idMl7ygEQNIJVn6ywP
+ wHUrrXJDaUbbsKHrN76mXmWkND72bCVX+bDhDy2AjtIgsGdWWGojKlKvBOUgFMKz4i2V5Rj+8pe
+ mRgIEnZBimhmTV5w6CAJADjGRJApY=
+X-Google-Smtp-Source: AGHT+IFMQ3wbpZ9lbabb6grlipPCVGhqm/1330m/MCmki0opito1EIVnJQ4/43KWo8tDAk5m4KkUhkql1EOfKVRCQDo=
+X-Received: by 2002:a05:6402:2688:b0:5e7:c782:ba94 with SMTP id
+ 4fb4d7f45d1cf-5ebcd433849mr13944645a12.13.1742827597457; Mon, 24 Mar 2025
+ 07:46:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1742886214; l=533;
- i=christophe.leroy@csgroup.eu; s=20211009; h=from:subject:message-id;
- bh=EKh0/GewaFERhfnFRfKBg2j5NzMhdBBECdrA+NV/qUk=;
- b=vA70hw72XKaj1SXthnl6PXh4i9Z2K3Egqlb0PIRXfpHV2vrVCLTo/AG4L7b0hc2x3UCZ6Qx3v
- FOB4ERwauOeBecqk7A7PBvaW/237URvW4CKvgDK24Wh/OVU59RY4zZO
-X-Developer-Key: i=christophe.leroy@csgroup.eu; a=ed25519;
- pk=HIzTzUj91asvincQGOFx6+ZF5AoUuP9GdOtQChs7Mm0=
-Content-Transfer-Encoding: 8bit
+References: <0b7e373b-ef2d-4243-a5a0-5ffd9d97cf74@gmail.com>
+ <CADnq5_PgeZtepU-emKHQKdSh2H-kiLu4KpK0LxVgKks35NTf6w@mail.gmail.com>
+ <CAAQb4tapVTvteA7b13+sLSxHVPKNUbaEtEhw_of8RqVjibgesg@mail.gmail.com>
+In-Reply-To: <CAAQb4tapVTvteA7b13+sLSxHVPKNUbaEtEhw_of8RqVjibgesg@mail.gmail.com>
+From: Sergey Kovalenko <seryoga.engineering@gmail.com>
+Date: Mon, 24 Mar 2025 16:46:26 +0200
+X-Gm-Features: AQ5f1Jq4fAof568OhU5Gs3a3nl87XzoYtLTDtOqWKbVqJnRLKhXkmA82vPdSHA4
+Message-ID: <CAAQb4tbsvvatQt_qZpXEzqQySubYeLLFi-M6KvHvmp-fytMEjA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add GFXOFF auto-tunning algorithm
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 25 Mar 2025 08:21:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -244,22 +82,299 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Since there are several GPU series that require additional GFXOFF
+ON/OFF switches
+to ensure stability, this algorithm can be seen as a way to mitigate
+the negative effects
+of workarounds.
 
-On Wed, 19 Mar 2025 10:28:53 +0100, Jiri Slaby (SUSE) wrote:
-> tl;dr if patches are agreed upon, I ask subsys maintainers to take the
-> respective ones via their trees (as they are split per subsys), so that
-> the IRQ tree can take only the rest. That would minimize churn/conflicts
-> during merges.
-> 
-> ===
-> 
-> [...]
+Simple and efficient.
+Regards,
+Sergey
 
-Applied, thanks!
-
-[48/57] irqdomain: soc: Switch to irq_find_mapping()
-        commit: a70a3a6322131632cc6cf71e9d2fa6409a029fd7
-
-Best regards,
--- 
-Christophe Leroy <christophe.leroy@csgroup.eu>
+On Mon, Mar 24, 2025 at 4:34=E2=80=AFPM Sergey Kovalenko
+<seryoga.engineering@gmail.com> wrote:
+>
+> Hello Alex!
+>
+> "If there are a lot of requests to toggle gfxoff, the worker thread to
+> allow it again gets
+> cancelled and scheduled again, extending the time it's disallowed." -
+> That's true except one thing:
+> cancelling and scheduling also take CPU cycles, and the pause between
+> submissions can exceed
+> 100ms interval, which leads to GFXOFF being enabled even if the GPU is lo=
+aded.
+> This simple prediction algorithm eliminates such cases.
+> GFXOFF is enabled immediately when there are only a few submissions
+> ongoing, which
+> means the system is idling. And when the number of compute submissions
+> exceeds the
+> range, the algorithm chooses a longer delay. Finally it simply ignores
+> GFXOFF ON requests
+> to prevent performance drops under high load.
+> This allows keeping idle power consumption low and using stable GPU
+> performance under load.
+>
+> Regards,
+> Sergey
+>
+> On Mon, Mar 24, 2025 at 4:14=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
+om> wrote:
+> >
+> > On Mon, Mar 24, 2025 at 5:06=E2=80=AFAM Sergey Kovalenko
+> > <seryoga.engineering@gmail.com> wrote:
+> > >
+> > > Predict an optimal delay to enable GFXOFF for the next interval
+> > > based on the request count:
+> > > - less than 15 requests per second - zero delay
+> > > - less than 25 requests per second - default delay
+> > > - 25 and more requests per second - don't enable GFXOFF
+> > >
+> > > The algorithm allows maintaining low power consumption in idle,
+> > > as well as using the full GPU power under load by eliminating
+> > > hundreds of extra GFXOFF ON/OFF switches.
+> >
+> > I still don't understand what problem this is solving.  This already
+> > happens with the way the code works now.  If there are a lot of
+> > requests to toggle gfxoff, the worker thread to allow it again gets
+> > cancelled and scheduled again, extending the time it's disallowed.
+> >
+> > Alex
+> >
+> >
+> > Alex
+> >
+> > >
+> > > Test configuration:
+> > > - Ryzen 5 2500U
+> > > - Ryzen 5 3400G
+> > > - Chromium 134.0.6998.88 Arch Linux
+> > > - Mesa 1:24.3.4-1
+> > > - KDE Plasma 6.3.2
+> > >
+> > > GFXOFF enable requests per second:
+> > > | Test                                                | min | max |
+> > > |-----------------------------------------------------|-----|-----|
+> > > | System idle                                         |   0 |  64 |
+> > > | Web browsing                                        |   0 | 127 |
+> > > | WebGL aquarium                                      |  10 | 236 |
+> > > | Heavy load: glxgears + vkcube + resizing + flipping |  39 | 677 |
+> > >
+> > > Test results, Ryzen 5 2500U:
+> > > | Test                        | patched-6.13.7.arch1 |   6.13.7.arch1=
+-1 |
+> > > |-----------------------------|----------------------|---------------=
+---|
+> > > | System idle (PkgWatt)       |               ~0.74W |          ~1.25=
+W  |
+> > > | glxgears (vblank_mode=3D0)    |     ~7300 fps, ~7.3W | ~7300 fps, ~=
+7.3W |
+> > > | WebGL aquarium 15.000 fish  |     56-60 fps, ~9.8W | 55-60 fps, ~9.=
+8W |
+> > >
+> > > Test results, Ryzen 5 3400G:
+> > > | Test                        | patched-6.13.7.arch1 |   6.13.7.arch1=
+-1 |
+> > > |-----------------------------|----------------------|---------------=
+---|
+> > > | System idle (PkgWatt)       |                ~3.8W |           ~4.3=
+W  |
+> > > | glxgears (vblank_mode=3D0)    |            ~7200 fps |        ~7200=
+ fps |
+> > > | WebGL aquarium 30.000 fish  |          37 fps, 47W |      38 fps, 4=
+7W |
+> > >
+> > > Signed-off-by: Sergey Kovalenko <seryoga.engineering@gmail.com>
+> > > Tested-by: Liam Fleming <fleming.squared@proton.me>
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 94 +++++++++++++++++-----=
+---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 +
+> > >   2 files changed, 67 insertions(+), 30 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > index c1f35ded684e..5e23b956e0bf 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > @@ -781,55 +781,89 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device
+> > > *adev, int xcc_id)
+> > >    * 3. other client can cancel their request of disable gfx off feat=
+ure
+> > >    * 4. other client should not send request to enable gfx off featur=
+e
+> > > before disable gfx off feature.
+> > >    */
+> > > -
+> > >   void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
+> > >   {
+> > > -       unsigned long delay =3D GFX_OFF_DELAY_ENABLE;
+> > > -
+> > >         if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
+> > >                 return;
+> > >
+> > >         mutex_lock(&adev->gfx.gfx_off_mutex);
+> > >
+> > >         if (enable) {
+> > > -               /* If the count is already 0, it means there's an imb=
+alance bug
+> > > somewhere.
+> > > -                * Note that the bug may be in a different caller tha=
+n the one which
+> > > triggers the
+> > > -                * WARN_ON_ONCE.
+> > > -                */
+> > > -               if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count =3D=3D 0=
+))
+> > > +               /* This case covers multiple calls from parallel thre=
+ads */
+> > > +               if (!adev->gfx.gfx_off_req_count)
+> > >                         goto unlock;
+> > >
+> > > -               adev->gfx.gfx_off_req_count--;
+> > > +               /* Process only if req_count =3D=3D 0 and GFXOFF is d=
+isabled */
+> > > +               if (--adev->gfx.gfx_off_req_count || adev->gfx.gfx_of=
+f_state)
+> > > +                       goto unlock;
+> > > +
+> > > +               /* If going to s2idle, no need to wait */
+> > > +               if (adev->in_s0ix) {
+> > > +                       if (!amdgpu_dpm_set_powergating_by_smu(
+> > > +                                   adev, AMD_IP_BLOCK_TYPE_GFX, true=
+, 0))
+> > > +                               adev->gfx.gfx_off_state =3D true;
+> > > +
+> > > +                       /* Reset delay flag */
+> > > +                       adev->gfx.gfx_off_use_delay =3D 0;
+> > > +                       goto unlock;
+> > > +               }
+> > >
+> > > -               if (adev->gfx.gfx_off_req_count =3D=3D 0 &&
+> > > -                   !adev->gfx.gfx_off_state) {
+> > > -                       /* If going to s2idle, no need to wait */
+> > > -                       if (adev->in_s0ix) {
+> > > -                               if (!amdgpu_dpm_set_powergating_by_sm=
+u(adev,
+> > > -                                               AMD_IP_BLOCK_TYPE_GFX=
+, true, 0))
+> > > -                                       adev->gfx.gfx_off_state =3D t=
+rue;
+> > > +               ++adev->gfx.gfx_off_counter;
+> > > +
+> > > +               uint64_t now =3D get_jiffies_64();
+> > > +               uint64_t delta =3D
+> > > +                       jiffies_to_msecs(now - adev->gfx.gfx_off_time=
+stamp);
+> > > +
+> > > +               if (delta >=3D 1000u) {
+> > > +                       /*
+> > > +                        * Predict the optimal delay for the next int=
+erval
+> > > +                        * based on the current number of requests:
+> > > +                        * <15 - idle, no delay
+> > > +                        * <25 - light/medium load, default delay
+> > > +                        * 25 and more - high load, GFXOFF disabled
+> > > +                        */
+> > > +                       if (adev->gfx.gfx_off_counter < 15u) {
+> > > +                               adev->gfx.gfx_off_use_delay =3D 0;
+> > > +                       } else if (adev->gfx.gfx_off_counter < 25u) {
+> > > +                               adev->gfx.gfx_off_use_delay =3D 1;
+> > >                         } else {
+> > > -                               schedule_delayed_work(&adev->gfx.gfx_=
+off_delay_work,
+> > > -                                             delay);
+> > > +                               adev->gfx.gfx_off_use_delay =3D 2;
+> > >                         }
+> > > +
+> > > +                       adev->gfx.gfx_off_counter =3D 0;
+> > > +                       adev->gfx.gfx_off_timestamp =3D now;
+> > >                 }
+> > > +
+> > > +               /* Don't schedule gfxoff under heavy load */
+> > > +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
+> > > +                       goto unlock;
+> > > +
+> > > +               schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
+> > > +                                     adev->gfx.gfx_off_use_delay ?
+> > > +                                             GFX_OFF_DELAY_ENABLE :
+> > > +                                             GFX_OFF_NO_DELAY);
+> > >         } else {
+> > > -               if (adev->gfx.gfx_off_req_count =3D=3D 0) {
+> > > -                       cancel_delayed_work_sync(&adev->gfx.gfx_off_d=
+elay_work);
+> > > +               /* GFXOFF was enabled when req_count =3D=3D 0 */
+> > > +               if (++adev->gfx.gfx_off_req_count !=3D 1)
+> > > +                       goto unlock;
+> > >
+> > > -                       if (adev->gfx.gfx_off_state &&
+> > > -                           !amdgpu_dpm_set_powergating_by_smu(adev, =
+AMD_IP_BLOCK_TYPE_GFX,
+> > > false, 0)) {
+> > > -                               adev->gfx.gfx_off_state =3D false;
+> > > +               /* Nothing to do if the work wasn't scheduled */
+> > > +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
+> > > +                       goto unlock;
+> > >
+> > > -                               if (adev->gfx.funcs->init_spm_golden)=
+ {
+> > > -                                       dev_dbg(adev->dev,
+> > > -                                               "GFXOFF is disabled, =
+re-init SPM golden settings\n");
+> > > -                                       amdgpu_gfx_init_spm_golden(ad=
+ev);
+> > > -                               }
+> > > +               cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_wor=
+k);
+> > > +
+> > > +               if (adev->gfx.gfx_off_state &&
+> > > +                   !amdgpu_dpm_set_powergating_by_smu(
+> > > +                           adev, AMD_IP_BLOCK_TYPE_GFX, false, 0)) {
+> > > +                       adev->gfx.gfx_off_state =3D false;
+> > > +
+> > > +                       if (adev->gfx.funcs->init_spm_golden) {
+> > > +                               dev_dbg(adev->dev,
+> > > +                                       "GFXOFF is disabled, re-init =
+SPM golden settings\n");
+> > > +                               amdgpu_gfx_init_spm_golden(adev);
+> > >                         }
+> > >                 }
+> > > -
+> > > -               adev->gfx.gfx_off_req_count++;
+> > >         }
+> > >
+> > >   unlock:
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > index 8b5bd63b5773..38fd445a353b 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > @@ -430,7 +430,10 @@ struct amdgpu_gfx {
+> > >         /* gfx off */
+> > >         bool                            gfx_off_state;      /* true: =
+enabled,
+> > > false: disabled */
+> > >         struct mutex                    gfx_off_mutex;      /* mutex =
+to
+> > > change gfxoff state */
+> > > +       uint64_t                        gfx_off_timestamp;  /* gfxoff=
+ enable call timestamp */
+> > > +       uint32_t                        gfx_off_use_delay;  /* flag t=
+o choose the delay range */
+> > >         uint32_t                        gfx_off_req_count;  /* defaul=
+t 1,
+> > > enable gfx off: dec 1, disable gfx off: add 1 */
+> > > +       uint32_t                        gfx_off_counter;    /* count =
+of gfxoff enable calls */
+> > >         struct delayed_work             gfx_off_delay_work; /* async =
+work to
+> > > set gfx block off */
+> > >         uint32_t                        gfx_off_residency;  /* last l=
+ogged
+> > > residency */
+> > >         uint64_t                        gfx_off_entrycount; /* count =
+of times
+> > > GPU has get into GFXOFF state */
+> > > --
+> > > 2.49.0
