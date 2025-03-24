@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F77BC36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 15:10:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED432C36002
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 15:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAF8C10E41D;
-	Mon, 24 Mar 2025 15:10:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EC5310E430;
+	Mon, 24 Mar 2025 15:11:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="XT625T4x";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Jn+0Pamw";
 	dkim-atps=neutral
 Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
  [217.70.183.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67DB810E3C4;
- Mon, 24 Mar 2025 15:10:34 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 459914438E;
- Mon, 24 Mar 2025 15:10:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE8710E43D;
+ Mon, 24 Mar 2025 15:11:04 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 772C14326A;
+ Mon, 24 Mar 2025 15:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1742829032;
+ t=1742829063;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ymxOGVKKP6tHT25NA5aYFP9BSXgTjzIC5jPqWQl7U6U=;
- b=XT625T4xCTnYAWN2jH6rXqWVXtg1Ik8xpZg8ZF1jYGCi8HfW0qaOoIOlk3RBFcpKNiC3WK
- KCBI7Vn8q7eD1OAIT/5g7nd8IQGW01QCNANcyVe3Iyw6MZ7/3HKhfUGztTE4egiu3lkGRk
- 84Z6KkgeqUL0CCc8VPlMhnvhhGckL4hu//5hMB2yzCGpPHTWKBST4sCPnj9S4exAqhECjB
- meZOIspk/ovwOxuMkUd8+cbmXx6sqB6AlWfvq7xAs0bqVqe5Wp9Bnc3tI025clPd44+6qi
- Z55PZsOUgxzll7gTq7mGLEuEE1uuNzqfpVYEVsQKWpdB51DA/f9W/uRjJvcg/Q==
-Message-ID: <b5799fe4-9191-4ad3-9aa1-db7e2d57db99@bootlin.com>
-Date: Mon, 24 Mar 2025 16:10:27 +0100
+ bh=lzB/MlgxFjVB17b0nuzk9808ANg/fDT6q8Zmuo0nM5Y=;
+ b=Jn+0Pamw6ofwIye7MSSPeuhzKA2zm25rWso7M414k36whV3aWumXa6B7giK9zjFlLzBLMJ
+ TuK2MjlKoJq75WrrROMj/Lp3RAaw+xOmOQFDhKLwibBQBbAvJCOXumvsOIvFyzXbJ+vSAi
+ bAfeJDrD6eiLQyef/IDQKr/8mPLIdHffXRr0omJLGnjwuLOrqmLUWNJHWtPIEcexnzg8F5
+ Z4q2Tju5Yg7dR3UFlZO7gc232XaXNjNSjZxxkj7tdAaTR0Y4zsjlqOiD2wflRgU+7k216n
+ a94UV99MJUv5TyaZCJzbvQ10V/qTAPpF8jirk6SdZTxY8FClyFuLMNV4megncA==
+Message-ID: <5ceff8ec-daba-4eaa-8834-ed9276bda7fa@bootlin.com>
+Date: Mon, 24 Mar 2025 16:11:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: Re: [PATCH v2 11/59] dyndbg: macrofy a 2-index for-loop pattern
+Subject: Re: [PATCH v2 13/59] dyndbg: add 2 new _DPRINTK_FLAGS_: INCL_LOOKUP, 
+ PREFIX_CACHED
 To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
@@ -44,7 +45,7 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
- <20250320185238.447458-12-jim.cromie@gmail.com>
+ <20250320185238.447458-14-jim.cromie@gmail.com>
 Content-Language: en-US
 Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  xsFNBGCG5KEBEAD1yQ5C7eS4rxD0Wj7JRYZ07UhWTbBpbSjHjYJQWx/qupQdzzxe6sdrxYSY
@@ -100,12 +101,12 @@ Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  PdjUMWb5Ld21PSyCrtGc/hTKwxMoHsOZPy6UB8YJ5omZdsavcjKMrDpybguOfxUmGYs2H3MJ
  ghIUQMMOe0267uQcmMNDPRueGWTLXcuyz0Tpe62Whekc3gNMl0JrNz6Gty8OBb/ETijfSHPE
  qGHYuyAZJo9A/IazHuJ+4n+gm4kQl1WLfxoRMzYHCA==
-In-Reply-To: <20250320185238.447458-12-jim.cromie@gmail.com>
+In-Reply-To: <20250320185238.447458-14-jim.cromie@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduiedttdelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfhuffvvehfjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeetfffhtdeigfehffduuedvkeefgfdvuddugfffteetffdvteffgfejvedugffgffenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudegpdhrtghpthhtohepjhhimhdrtghrohhmihgvsehgmhgrihhlrdgtohhmpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsr
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduiedttdelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfhuffvvehfjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeetfffhtdeigfehffduuedvkeefgfdvuddugfffteetffdvteffgfejvedugffgffenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedvnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudegpdhrtghpthhtohepjhhimhdrtghrohhmihgvsehgmhgrihhlrdgtohhmpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsr
  dhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepihhnthgvlhdqghhvthdquggvvheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepihhnthgvlhdqghhfgidqthhrhigsohhtsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepjhgsrghrohhnsegrkhgrmhgrihdrtghomh
 X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -125,69 +126,100 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 Le 20/03/2025 à 19:51, Jim Cromie a écrit :
-> dynamic-debug has several __sections, each with <vecname>,
-> num_<vecname>, and it iterates over these with a 2-index for-loop.
-> These loops are fiddly with the 2 names.
+> Add _INCL_LOOKUP condition to separate +mfsl flags from +t, allowing
+> (after refactoring) to avoid a needless call-return.
 > 
-> We have only 2 such loops now, but are getting more soon; lets
-> embed/abstract the fiddlyness in the for_subvec() macro, and avoid
-> repeating it going forward.
+> Add a PREFIX_CACHED bit to remember that a pr-debug callsite is:
 > 
+> - enabled, with +p
+> - wants a dynamic-prefix, with _INCL_LOOKUP
+> - was previously called
+> - was thus saved in the prefix cache. NOT YET.
+  >
+> This allows (later) to cache part/all of the dynamic-prefix for each
+> pr_debug that gets called.
+> 
+> NOTES:
+> 
+> dyndbg's dynamic prefixing can get expensive; each enabled callsite's
+> prefix is sprintf'd into stack-mem, every time a pr_debug is called.
+> 
+> A cache would help, if callsites mark _DPRINTK_FLAGS_PREFIX_CACHED
+> after saving the prefix string.  But not yet.
+> 
+> -t  thread-id. not part of the "callsite" info, derived from current.
+>      doesn't belong in the cache. it would be wrong.
+>      can be done in outer: dynamic_emit_prefix()
+> 
+> -mfsl  module, function, source-file, line
+>      we cache these, composed into a sub-string.
+>      they are "lookups", currently to descriptor fields,.
+>      could be accessor macros to "compressed" tables.
+> 
+> All enabled together, they compose a prefix string like:
+> 
+>    # outer   -----inner-------------------
+>    "[tid] module:function:sourcfile:line: "
+
+s/sourcfile/sourcesfile/
+
+> 
+> So this patch extracts _DPRINTK_FLAGS_INCL_LOOKUP macro out of
+> _DPRINTK_FLAGS_INCL_ANY macro, then redefs latter.
+> 
+> Next re-refactor dynamic_emit_prefix inner/outer fns accordingly.
+
+This commit introduces two things:
+
+- introduction of _DPRINTK_FLAGS_INCL_LOOKUP, used in a future patch
+- introduction of _DPRINTK_FLAGS_PREFIX_CACHED, not used in this series
+
+I don't think those changes are needed to fix DYNDBG_CLASSMAP, it seems 
+to be an (unfinished?) optimization, so it could make sense to move it 
+to an independent series. Please tell me if I overlooked something!
+
 > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 > ---
->   lib/dynamic_debug.c | 20 +++++++++++++++++---
->   1 file changed, 17 insertions(+), 3 deletions(-)
+>   include/linux/dynamic_debug.h | 10 ++++++----
+>   1 file changed, 6 insertions(+), 4 deletions(-)
 > 
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index d5572712ce55..94f6c8fd787b 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-> @@ -128,6 +128,21 @@ do {								\
->   #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
->   #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+> index c388ab05a6e1..82eabaa6e827 100644
+> --- a/include/linux/dynamic_debug.h
+> +++ b/include/linux/dynamic_debug.h
+> @@ -38,11 +38,13 @@ struct _ddebug {
+>   #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
+>   #define _DPRINTK_FLAGS_INCL_TID		(1<<4)
+>   #define _DPRINTK_FLAGS_INCL_SOURCENAME	(1<<5)
+> +#define _DPRINTK_FLAGS_PREFIX_CACHED	(1<<7)
+
+Is there a reason to skip 1 << 6? I don't see any usage of this flag in 
+this series, maybe you can skip it for now and introduce it with the 
+actual implementation of the cache system?
+
+Also, I think it make sense to add some documentation on this define. 
+All the other are controlled by the user, but PREFIX_CACHED is 
+controlled by the "dyndbg core", so maybe add something like:
+
+	/**
+	 * _DPRINTK_FLAGS_PREFIX_CACHED - Mark a printk prefix as cached
+	 * This bit is set by the callsite to avoid regenerating fixed
+	 * part of the prefix at each call
+	 */
+
 >   
-> +
-> +/*
-> + * simplify a repeated for-loop pattern walking N steps in a T _vec
-> + * member inside a struct _box.  It expects int i and T *_sp to be
-> + * declared in the caller.
-> + * @_i:  caller provided counter.
-> + * @_sp: cursor into _vec, to examine each item.
-> + * @_box: ptr to a struct containing @_vec member
-> + * @_vec: name of a sub-struct member in _box, with array-ref and length
-> + */
-
-Nice macro to make the code easier to read!
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-
-> +#define for_subvec(_i, _sp, _box, _vec)				       \
-> +	for ((_i) = 0, (_sp) = (_box)->_vec;			       \
-> +	     (_i) < (_box)->num_##_vec;				       \
-> +	     (_i)++, (_sp)++)
-> +
->   static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
->   {
->   	/* trim any trailing newlines */
-> @@ -156,7 +171,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
->   	struct ddebug_class_map *map;
->   	int i, idx;
+> -#define _DPRINTK_FLAGS_INCL_ANY		\
+> -	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
+> -	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID |\
+> -	 _DPRINTK_FLAGS_INCL_SOURCENAME)
+> +#define _DPRINTK_FLAGS_INCL_LOOKUP					\
+> +	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |	\
+> +	 _DPRINTK_FLAGS_INCL_SOURCENAME | _DPRINTK_FLAGS_INCL_LINENO)
+> +#define _DPRINTK_FLAGS_INCL_ANY						\
+> +	(_DPRINTK_FLAGS_INCL_TID | _DPRINTK_FLAGS_INCL_LOOKUP)
 >   
-> -	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-> +	for_subvec(i, map, dt, classes) {
->   		idx = match_string(map->class_names, map->length, class_string);
->   		if (idx >= 0) {
->   			*class_id = idx + map->base;
-> @@ -1221,8 +1236,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
->   	 * the builtin/modular classmap vector/section.  Save the start
->   	 * and length of the subrange at its edges.
->   	 */
-> -	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
-> -
-> +	for_subvec(i, cm, di, classes) {
->   		if (!strcmp(cm->mod_name, dt->mod_name)) {
->   			if (!nc) {
->   				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+>   #if defined DEBUG
+>   #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
 
 -- 
 Louis Chauvet, Bootlin
