@@ -4,79 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE8FC36008
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 08:21:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4433DC3600E
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 08:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DBA010E508;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CA910E50B;
 	Tue, 25 Mar 2025 08:21:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PTtr9Mf9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HGQLjwMt";
 	dkim-atps=neutral
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15EF310E0E6;
- Mon, 24 Mar 2025 22:58:59 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-6f666c94285so47383707b3.3; 
- Mon, 24 Mar 2025 15:58:59 -0700 (PDT)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01F5810E49B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 16:39:29 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-aaee2c5ee6eso717760766b.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 09:39:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742857138; x=1743461938; darn=lists.freedesktop.org;
- h=content-transfer-encoding:to:subject:message-id:date:from
+ d=gmail.com; s=20230601; t=1742834368; x=1743439168; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xOweNL3SXc2nhIPv7ifUcHo8yRDM2GGo5EVKCdQ2n5I=;
- b=PTtr9Mf9SrvWzitnkxplUYUXAleg57HLbRJNWfwgey3B7G383MfMykrzE9snHfhuKZ
- X7T+pxaSXNznH+9GioAcE9OpD3r6XSYq1AI4EPV2XWROebHPq6O/DHs2U6r/Wdene5Mb
- G8OBkSMffyEOpX0VevqhWk9h1BGCFs6jQ52TXBuQaeMze1qmE151QCvL7lmoZ2u8C2fp
- +r8z3uBEkee/hSMbVSztyaRbnPSTni9olI/oSsY3lYmCAQvrAKUPjPdcfrMp5rjduskC
- CxlEqvVbeja6tMiW3XJl9ZBEMPygqNfjZjd6THF7fhWVBzHwNotBIGL4RsPKw/vW3jbE
- DNeg==
+ bh=UXExNVYkAjfBM6MY19AibJzuUNyrOCDz/XQnHi5j674=;
+ b=HGQLjwMtpXSk0zI1fluYaHBloIiREFd+hA5FSocqXOqbmKq6BpLuA+RNDJ/VjSNRk5
+ eOlMlZ6DxfVy6GpSXfg+hs/iDAYlOttXUdvwjRxTIMlb+hMdMUxJGwHppSJjDX3/ngof
+ gZH9tXunlsW/YvdQqA4gKDoDYRGb6R0oX1iTp8eAcDxri5h1Du+SNKPp+VqgSjO3N9dm
+ aWwLl3xYUSHRxqOhoT7C08rWx79L11eTWKTjc/HCf3WM9DpjmxUWafSqFtt1qcrxy6cR
+ M5XaK0N8UNPEZfNRBO8yYFYLnJDiTye9wq7K/V+EA59kuSKGYMMXNNz3ydT4bVWkAWKA
+ EpvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742857138; x=1743461938;
- h=content-transfer-encoding:to:subject:message-id:date:from
+ d=1e100.net; s=20230601; t=1742834368; x=1743439168;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xOweNL3SXc2nhIPv7ifUcHo8yRDM2GGo5EVKCdQ2n5I=;
- b=sQ0ZHpXCZ3Cx213/3G9qqDqPoY2FrGM7ft9OVGKT9QW1c5rNsznFQQZt9V4HDWmMK1
- qLsdh49M4aQRjJmkcuyk4Hv34B3GZZpaqoLGhiEKp2ElrYDYJYLjoEgNRfOFfsd7jNxa
- nVkOb4v0iAwEgPd+ycZ1EvBvecxaLNdc0hggoJjp0/douhOHXaqdV1aYCo83vvZE64Zs
- 3X8PDF1I8RQkPerbxsdRLMN0cNNgsWa0NVagf37mz/Bv8kstVHPYXXkTDaOK31w8NzF7
- Lv2Dd6fW8St0PEgFpXqu7sj6LcSi+gFqiU4EIfqIbh3MVUP+gsTr3lKpIws5Sf3K9LJL
- Dy/A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUfemqLuQcpRM/LYIh8HOoGgAEP97xT8H+UwEwfGyOd4K32oedFtenK/enTRROtctQGdENj6qdZmCBQ@lists.freedesktop.org,
- AJvYcCVJaWYPPeSGPUk80X0WXhKUDe36qxj/7DqZH1IJvmw/epDIuwhaLGPTDBkwMk1bWVniKEMkzg4Jx6QYTiYrFQ==@lists.freedesktop.org,
- AJvYcCVyofEJJIxFggwMmF0RUiG5ZfDN/ZxA9ZkIqURBm8QVBa1D9IyUdMew2RKaeQafRBTCA6+5SCMU@lists.freedesktop.org,
- AJvYcCWauDuRqjn5baeEit8BpYMgJUc2X/zrm/xIecdmXYlmerC1/QjV7z5HaGFq8F2Lf7xpj7NCLvkL55kbHXtqXQp5Mg==@lists.freedesktop.org,
- AJvYcCXEFsOQfhfa68+r9ceetmFqBLmTf5eGN1+xHEkVrdkm7za6lEFdri8xkmq43q8JZFYtz1UpZYv+fblk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9CqThENdsuroI2UiaQ89flVw84i1d/b3cZJTffrKO980zAAgP
- Zat97te3E6oT8+M//Dl/ntvfB9c6Xs8cBYrVqlu3yTqwtoiwrpomykDwQ4Er6f0ij0mpkrHOaHJ
- mPgLdpt8aI3/cT/yg5SHV9/Yuf+w=
-X-Gm-Gg: ASbGnctTkV0lmbYtxGOa2eSwB2WT+OD+m34b5XAqu0QXm0U7cOuaCuuLAWlbO8fSfSn
- RGazUXVs4uncf1tTflt7ULBhL4kk5NSSEfWomOi593WYh8r65ttIpP0nkLEQwGYpdBJKLmseXgw
- yLUmThbH3kdaKv4LO+3MRTgpgJ
-X-Google-Smtp-Source: AGHT+IGJQhE8J9Fev2YDAjew937hy/BDBKy0IxGWP41fseJBpVPTdqCggsrZGeRZCl04ynbwuEzhtC0igtYRZyc/8n8=
-X-Received: by 2002:a05:690c:4444:b0:6ef:652b:91cf with SMTP id
- 00721157ae682-700bacd28e9mr200033997b3.27.1742857137825; Mon, 24 Mar 2025
- 15:58:57 -0700 (PDT)
+ bh=UXExNVYkAjfBM6MY19AibJzuUNyrOCDz/XQnHi5j674=;
+ b=ZSmGxKxQH7lz/GLF1auJ3z126+gY9L6sohXFxUYVtc+kG+V5RuDZ1PN95lbPB3+oBl
+ fDYmVTSNPbveS79IEuKoy2IIqLOmFCpqjt3E9ule2f6dWPKagxGRqYsAFX56khPiCo2d
+ iUZa8qynp2TeiT8BtJsJ+bnLS2ipVB5JA4kXAqDA3qOp0QY64FAOuNpoTN6/yjtwzz1g
+ IzZpCvvpSsT0Cc2/v9dzTuESzj4Yj9HGrCd57AqC4zik9aldKBSBJqpEd8pWNOV5qWHQ
+ EZjjKLuH+1pF/Mihqeqrs2i1xTB9OeSwCx/ZB5kq4J1IOz7aCZqEzfbc3NXWg9bzCXiS
+ e0+A==
+X-Gm-Message-State: AOJu0YwMFWlJHrYOQX+6j32+aoBkZMiS/hO9QnPx0/4hbe2dJO8qwmDV
+ IKBGTa4lY0aouGrAJM66kqZtBpT7ZMAFExp/q1lU29586wlj4+UQ5hQHQw/Jzyz09mWVqh9IQt7
+ ymR+QiYvqN0dncvXuUq9QqLLZ4C0=
+X-Gm-Gg: ASbGncv1KNdt0JfRieoST/kLnHVGpR/n2WAa/n6wLIYOTr/xz+dKLJCGPqYOdZorwej
+ 9t3gE8XRyBOg8gwDjaionb2oYDDs8LtmPQfxY6/RiY9kvqpkiMSzCATEPzfCwwt7VbIyQ2VOV3H
+ geHSWu2yYR7jeoTzGHNs9Fv3I+Zww=
+X-Google-Smtp-Source: AGHT+IF5Ld1hSRz9xSvVc6W7lK886ualJAhT8X+JvD2Mnq4l7LzVhhyDRCySXCt4TS2iO/Cmo/yAEO6JhA5jZDiohsY=
+X-Received: by 2002:a17:907:ec0d:b0:ac2:972c:f732 with SMTP id
+ a640c23a62f3a-ac3f22b13eemr1467203666b.33.1742834368056; Mon, 24 Mar 2025
+ 09:39:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250125064619.8305-1-jim.cromie@gmail.com>
- <20250125064619.8305-29-jim.cromie@gmail.com>
- <160ec360-918d-414f-aef9-606cfa1749df@bootlin.com>
- <CAJfuBxxzXoKummiBDGODidpRj7Fm2UDip-T0qkB7L9tscK0zCQ@mail.gmail.com>
-In-Reply-To: <CAJfuBxxzXoKummiBDGODidpRj7Fm2UDip-T0qkB7L9tscK0zCQ@mail.gmail.com>
-From: jim.cromie@gmail.com
-Date: Mon, 24 Mar 2025 16:58:31 -0600
-X-Gm-Features: AQ5f1Jq_ealCWnlM2C-q0MIDv15aWKUMJ6YjQ3JJZCvoTPWllKRV36DEBSe2p6k
-Message-ID: <CAJfuBxwCPfPHqWFx0Jh+sucT2smf7o_5TmDJELkV7J--ftotuA@mail.gmail.com>
-Subject: Re: [PATCH 28/63] dyndbg-API: promote DYNDBG_CLASSMAP_PARAM to API
-To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
- jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
- intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch, 
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com
+References: <0b7e373b-ef2d-4243-a5a0-5ffd9d97cf74@gmail.com>
+ <CADnq5_PgeZtepU-emKHQKdSh2H-kiLu4KpK0LxVgKks35NTf6w@mail.gmail.com>
+ <CAAQb4tapVTvteA7b13+sLSxHVPKNUbaEtEhw_of8RqVjibgesg@mail.gmail.com>
+ <CADnq5_OxuUhK4Hvit757HCnJ-wJi8VLvczXYRU6qGfo2VOZ2Yg@mail.gmail.com>
+ <CAAQb4tZ_qmwmRxWbzzunJKRFVrWoB5iWbDbnOwDZufo-ng8qDA@mail.gmail.com>
+ <CADnq5_OTm+xCh0=R=PNa5jf15Cy=f4uezo7jM3qQBO7p7EQ=iQ@mail.gmail.com>
+In-Reply-To: <CADnq5_OTm+xCh0=R=PNa5jf15Cy=f4uezo7jM3qQBO7p7EQ=iQ@mail.gmail.com>
+From: Sergey Kovalenko <seryoga.engineering@gmail.com>
+Date: Mon, 24 Mar 2025 18:39:16 +0200
+X-Gm-Features: AQ5f1JoAh3hzD0mKPF6ET_jnEv2yW1MOpFHWgxPuwd2FK1i972R6u6xz09JhB-s
+Message-ID: <CAAQb4tZnm+cAvU0RSBZqiRB+Wt7U8HREr1MNDPb79V1RUaSWzg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add GFXOFF auto-tunning algorithm
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 25 Mar 2025 08:21:39 +0000
@@ -94,247 +85,382 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Mar 16, 2025 at 3:14=E2=80=AFPM <jim.cromie@gmail.com> wrote:
->
-> On Tue, Feb 25, 2025 at 7:29=E2=80=AFAM Louis Chauvet <louis.chauvet@boot=
-lin.com> wrote:
-> >
-> >
-> >
-> > Le 25/01/2025 =C3=A0 07:45, Jim Cromie a =C3=A9crit :
-> > > move the DYNDBG_CLASSMAP_PARAM macro from test-dynamic-debug.c into
-> > > the header, and refine it, by distinguishing the 2 use cases:
-> > >
-> > > 1.DYNDBG_CLASSMAP_PARAM_REF
-> > >      for DRM, to pass in extern __drm_debug by name.
-> > >      dyndbg keeps bits in it, so drm can still use it as before
-> > >
-> > > 2.DYNDBG_CLASSMAP_PARAM
-> > >      new user (test_dynamic_debug) doesn't need to share state,
-> > >      decls a static long unsigned int to store the bitvec.
-> > >
-> > > __DYNDBG_CLASSMAP_PARAM
-> > >     bottom layer - allocate,init a ddebug-class-param, module-param-c=
-b.
-> > >
-> > > Modify ddebug_sync_classbits() argtype deref inside the fn, to give
-> > > access to all kp members.
-> > >
-> > > Also clean up and improve comments in test-code, and add
-> > > MODULE_DESCRIPTIONs.
-> > >
-> > > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > > ---
-> > >
-> > > -v9
-> > >   - fixup drm-print.h  add PARAM_REF forwarding macros
-> > >     with DYNDBG_CLASSMAP_PARAM_REF in the API, add DRM_ variant
-> > > ---
-> > >   include/linux/dynamic_debug.h   | 38 +++++++++++++++++++++
-> > >   lib/dynamic_debug.c             | 60 ++++++++++++++++++++++--------=
----
-> > >   lib/test_dynamic_debug.c        | 59 +++++++++++++-----------------=
---
-> > >   lib/test_dynamic_debug_submod.c |  9 ++++-
-> > >   4 files changed, 111 insertions(+), 55 deletions(-)
-> > >
-> > > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_de=
-bug.h
-> > > index 48d76a273f68..b47d1088b7ad 100644
-> > > --- a/include/linux/dynamic_debug.h
-> > > +++ b/include/linux/dynamic_debug.h
-> > > @@ -205,6 +205,44 @@ struct ddebug_class_param {
-> > >       const struct ddebug_class_map *map;
-> > >   };
-> > >
-> > > +/**
-> > > + * DYNDBG_CLASSMAP_PARAM - control a ddebug-classmap from a sys-para=
-m
-> > > + * @_name:  sysfs node name
-> > > + * @_var:   name of the classmap var defining the controlled classes=
-/bits
-> > > + * @_flags: flags to be toggled, typically just 'p'
-> > > + *
-> > > + * Creates a sysfs-param to control the classes defined by the
-> > > + * exported classmap, with bits 0..N-1 mapped to the classes named.
-> > > + * This version keeps class-state in a private long int.
-> > > + */
-> > > +#define DYNDBG_CLASSMAP_PARAM(_name, _var, _flags)                  =
- \
-> > > +     static unsigned long _name##_bvec;                             =
- \
-> > > +     __DYNDBG_CLASSMAP_PARAM(_name, _name##_bvec, _var, _flags)
-> > > +
-> > > +/**
-> > > + * DYNDBG_CLASSMAP_PARAM_REF - wrap a classmap with a controlling sy=
-s-param
-> > > + * @_name:  sysfs node name
-> > > + * @_bits:  name of the module's unsigned long bit-vector, ex: __drm=
-_debug
-> > > + * @_var:   name of the (exported) classmap var defining the classes=
-/bits
-> > > + * @_flags: flags to be toggled, typically just 'p'
-> > > + *
-> > > + * Creates a sysfs-param to control the classes defined by the
-> > > + * exported clasmap, with bits 0..N-1 mapped to the classes named.
-> > > + * This version keeps class-state in user @_bits.  This lets drm che=
-ck
-> > > + * __drm_debug elsewhere too.
-> > > + */
-> > > +#define DYNDBG_CLASSMAP_PARAM_REF(_name, _bits, _var, _flags)       =
-         \
-> > > +     __DYNDBG_CLASSMAP_PARAM(_name, _bits, _var, _flags)
-> > > +
-> > > +#define __DYNDBG_CLASSMAP_PARAM(_name, _bits, _var, _flags)         =
- \
-> > > +     static struct ddebug_class_param _name##_##_flags =3D {        =
-   \
-> > > +             .bits =3D &(_bits),                                    =
-   \
-> > > +             .flags =3D #_flags,                                    =
-   \
-> > > +             .map =3D &(_var),                                      =
-   \
-> > > +     };                                                             =
- \
-> > > +     module_param_cb(_name, &param_ops_dyndbg_classes,              =
- \
-> > > +                     &_name##_##_flags, 0600)
-> > > +
-> > >   /*
-> > >    * pr_debug() and friends are globally enabled or modules have sele=
-ctively
-> > >    * enabled them.
-> > > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> > > index 781781835094..9283f2866415 100644
-> > > --- a/lib/dynamic_debug.c
-> > > +++ b/lib/dynamic_debug.c
-> > > @@ -660,6 +660,30 @@ static int ddebug_apply_class_bitmap(const struc=
-t ddebug_class_param *dcp,
-> > >
-> > >   #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
-> > >
-> > > +static void ddebug_class_param_clamp_input(unsigned long *inrep, con=
-st struct kernel_param *kp)
-> > > +{
-> > > +     const struct ddebug_class_param *dcp =3D kp->arg;
-> > > +     const struct ddebug_class_map *map =3D dcp->map;
-> > > +
-> > > +     switch (map->map_type) {
-> > > +     case DD_CLASS_TYPE_DISJOINT_BITS:
-> > > +             /* expect bits. mask and warn if too many */
-> > > +             if (*inrep & ~CLASSMAP_BITMASK(map->length)) {
-> > > +                     pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, =
-masking\n",
-> > > +                             KP_NAME(kp), *inrep, CLASSMAP_BITMASK(m=
-ap->length));
-> > > +                     *inrep &=3D CLASSMAP_BITMASK(map->length);
-> > > +             }
-> > > +             break;
-> > > +     case DD_CLASS_TYPE_LEVEL_NUM:
-> > > +             /* input is bitpos, of highest verbosity to be enabled =
-*/
-> > > +             if (*inrep > map->length) {
-> > > +                     pr_warn("%s: level:%ld exceeds max:%d, clamping=
-\n",
-> > > +                             KP_NAME(kp), *inrep, map->length);
-> > > +                     *inrep =3D map->length;
-> > > +             }
-> > > +             break;
-> > > +     }
-> > > +}
-> > >   static int param_set_dyndbg_module_classes(const char *instr,
-> > >                                          const struct kernel_param *k=
-p,
-> > >                                          const char *modnm)
-> > > @@ -678,26 +702,15 @@ static int param_set_dyndbg_module_classes(cons=
-t char *instr,
-> > >               pr_err("expecting numeric input, not: %s > %s\n", instr=
-, KP_NAME(kp));
-> > >               return -EINVAL;
-> > >       }
-> > > +     ddebug_class_param_clamp_input(&inrep, kp);
-> > >
-> > >       switch (map->map_type) {
-> > >       case DD_CLASS_TYPE_DISJOINT_BITS:
-> > > -             /* expect bits. mask and warn if too many */
-> > > -             if (inrep & ~CLASSMAP_BITMASK(map->length)) {
-> > > -                     pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, =
-masking\n",
-> > > -                             KP_NAME(kp), inrep, CLASSMAP_BITMASK(ma=
-p->length));
-> > > -                     inrep &=3D CLASSMAP_BITMASK(map->length);
-> > > -             }
-> > >               v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", =
-KP_NAME(kp));
-> > >               totct +=3D ddebug_apply_class_bitmap(dcp, &inrep, *dcp-=
->bits, modnm);
-> > >               *dcp->bits =3D inrep;
-> > >               break;
-> > >       case DD_CLASS_TYPE_LEVEL_NUM:
-> > > -             /* input is bitpos, of highest verbosity to be enabled =
-*/
-> > > -             if (inrep > map->length) {
-> > > -                     pr_warn("%s: level:%ld exceeds max:%d, clamping=
-\n",
-> > > -                             KP_NAME(kp), inrep, map->length);
-> > > -                     inrep =3D map->length;
-> > > -             }
-> > >               old_bits =3D CLASSMAP_BITMASK(*dcp->lvl);
-> > >               new_bits =3D CLASSMAP_BITMASK(inrep);
-> > >               v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits,=
- KP_NAME(kp));
-> > > @@ -1163,15 +1176,24 @@ static const struct proc_ops proc_fops =3D {
-> > >   static void ddebug_sync_classbits(const struct kernel_param *kp, co=
-nst char *modname)
-> > >   {
-> > >       const struct ddebug_class_param *dcp =3D kp->arg;
-> > > +     unsigned long new_bits;
-> > >
-> > > -     /* clamp initial bitvec, mask off hi-bits */
-> > > -     if (*dcp->bits & ~CLASSMAP_BITMASK(dcp->map->length)) {
-> > > -             *dcp->bits &=3D CLASSMAP_BITMASK(dcp->map->length);
-> > > -             v2pr_info("preset classbits: %lx\n", *dcp->bits);
-> > > +     ddebug_class_param_clamp_input(dcp->bits, kp);
-> > > +
-> > > +     switch (dcp->map->map_type) {
-> > > +     case DD_CLASS_TYPE_DISJOINT_BITS:
-> > > +             v2pr_info("  %s: classbits: 0x%lx\n", KP_NAME(kp), *dcp=
-->bits);
-> > > +             ddebug_apply_class_bitmap(dcp, dcp->bits, 0UL, modname)=
-;
-> > > +             break;
-> > > +     case DD_CLASS_TYPE_LEVEL_NUM:
-> > > +             new_bits =3D CLASSMAP_BITMASK(*dcp->lvl);
-> > > +             v2pr_info("  %s: lvl:%ld bits:0x%lx\n", KP_NAME(kp), *d=
-cp->lvl, new_bits);
-> > > +             ddebug_apply_class_bitmap(dcp, &new_bits, 0UL, modname)=
-;
-> > > +             break;
-> > > +     default:
-> > > +             pr_err("bad map type %d\n", dcp->map->map_type);
-> > > +             return;
-> > >       }
-> > > -     /* force class'd prdbgs (in USEr module) to match (DEFINEr modu=
-le) class-param */
-> > > -     ddebug_apply_class_bitmap(dcp, dcp->bits, ~0, modname);
-> > > -     ddebug_apply_class_bitmap(dcp, dcp->bits, 0, modname);
-> >
-> > Hi Jim,
-> >
-> > We lost the double call with ~0/0, is it normal?
->
-> Good catch,
->
-> I thought so, since it guarantees the pr_debugs' state to
-> comport with sysfs settings on modprobe.
->
-> I will review.
->
+Here is the impact:
+Ryzen 5 2500U
+Idle PkgWatt: 1.3W -> 0.75W
+glxgears fps: 7200 -> 4500
+aquarium 15,000 fish: 56-60 -> 45-50
 
-Ok, Im pretty sure I put those in to override DEBUG settings,
-ie reset the default print state to whatever the controlling sysfs node,
-if it was declared with CLASSMAP_PARAM*, has the var set at.
+These results are for gfx_off_ctrl_immediate()
+https://github.com/pacoandres/laikm/issues/56
+https://github.com/pacoandres/laikm/issues/47
 
-It now seems like extra work to clean up a corner case
-which they asked for, by defining DEBUG
+Same results are for default zero GFXOFF delay:
+https://github.com/pacoandres/laikm/issues/74
+
+On Mon, Mar 24, 2025 at 5:18=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> On Mon, Mar 24, 2025 at 11:14=E2=80=AFAM Sergey Kovalenko
+> <seryoga.engineering@gmail.com> wrote:
+> >
+> > "Moreover the work only gets scheduled/cancelled
+> >  around a ref count of 0" - and this happens more than 600 times
+> > per second under load, as you can see from the table.
+> > Moreover these 600 GFXOFF requests are executed with a very
+> > little interval between them. If we set GFXOFF delay to 0 by
+> > default, it will be enabled and disabled 600 times with pretty
+> > significant performance drop in any test.
+>
+> Can you show me the impact?
+>
+> > Keeping 100ms GFXOFF delay leads to 2 times higher
+> > power consumption in idle, nicely noticeable for laptops.
+>
+> That will be fixed in kernel 6.15 which adds the
+> gfx_off_ctrl_immediate() patches.
+>
+> Alex
+>
+> >
+> > I don't think this is the behavior the users want to see.
+> > Workarounds introduced a significant overhead, and
+> > to mitigate it there is a simple solution to limit the amount
+> > of those calls.
+> >
+> > Regards,
+> > Sergey
+> >
+> > On Mon, Mar 24, 2025 at 4:50=E2=80=AFPM Alex Deucher <alexdeucher@gmail=
+.com> wrote:
+> > >
+> > > On Mon, Mar 24, 2025 at 10:34=E2=80=AFAM Sergey Kovalenko
+> > > <seryoga.engineering@gmail.com> wrote:
+> > > >
+> > > > Hello Alex!
+> > > >
+> > > > "If there are a lot of requests to toggle gfxoff, the worker thread=
+ to
+> > > > allow it again gets
+> > > > cancelled and scheduled again, extending the time it's disallowed."=
+ -
+> > > > That's true except one thing:
+> > > > cancelling and scheduling also take CPU cycles, and the pause betwe=
+en
+> > > > submissions can exceed
+> > > > 100ms interval, which leads to GFXOFF being enabled even if the GPU=
+ is loaded.
+> > > > This simple prediction algorithm eliminates such cases.
+> > > > GFXOFF is enabled immediately when there are only a few submissions
+> > > > ongoing, which
+> > > > means the system is idling. And when the number of compute submissi=
+ons
+> > > > exceeds the
+> > > > range, the algorithm chooses a longer delay. Finally it simply igno=
+res
+> > > > GFXOFF ON requests
+> > > > to prevent performance drops under high load.
+> > > > This allows keeping idle power consumption low and using stable GPU
+> > > > performance under load.
+> > >
+> > > What performance drops?  Your data doesn't show any.  Moreover the
+> > > work only gets scheduled/cancelled around a ref count of 0. Plus, you=
+r
+> > > change introduces a bunch of additional calculations for this functio=
+n
+> > > which add overhead which you are concerned about.
+> > >
+> > > Alex
+> > >
+> > > >
+> > > > Regards,
+> > > > Sergey
+> > > >
+> > > > On Mon, Mar 24, 2025 at 4:14=E2=80=AFPM Alex Deucher <alexdeucher@g=
+mail.com> wrote:
+> > > > >
+> > > > > On Mon, Mar 24, 2025 at 5:06=E2=80=AFAM Sergey Kovalenko
+> > > > > <seryoga.engineering@gmail.com> wrote:
+> > > > > >
+> > > > > > Predict an optimal delay to enable GFXOFF for the next interval
+> > > > > > based on the request count:
+> > > > > > - less than 15 requests per second - zero delay
+> > > > > > - less than 25 requests per second - default delay
+> > > > > > - 25 and more requests per second - don't enable GFXOFF
+> > > > > >
+> > > > > > The algorithm allows maintaining low power consumption in idle,
+> > > > > > as well as using the full GPU power under load by eliminating
+> > > > > > hundreds of extra GFXOFF ON/OFF switches.
+> > > > >
+> > > > > I still don't understand what problem this is solving.  This alre=
+ady
+> > > > > happens with the way the code works now.  If there are a lot of
+> > > > > requests to toggle gfxoff, the worker thread to allow it again ge=
+ts
+> > > > > cancelled and scheduled again, extending the time it's disallowed=
+.
+> > > > >
+> > > > > Alex
+> > > > >
+> > > > >
+> > > > > Alex
+> > > > >
+> > > > > >
+> > > > > > Test configuration:
+> > > > > > - Ryzen 5 2500U
+> > > > > > - Ryzen 5 3400G
+> > > > > > - Chromium 134.0.6998.88 Arch Linux
+> > > > > > - Mesa 1:24.3.4-1
+> > > > > > - KDE Plasma 6.3.2
+> > > > > >
+> > > > > > GFXOFF enable requests per second:
+> > > > > > | Test                                                | min | m=
+ax |
+> > > > > > |-----------------------------------------------------|-----|--=
+---|
+> > > > > > | System idle                                         |   0 |  =
+64 |
+> > > > > > | Web browsing                                        |   0 | 1=
+27 |
+> > > > > > | WebGL aquarium                                      |  10 | 2=
+36 |
+> > > > > > | Heavy load: glxgears + vkcube + resizing + flipping |  39 | 6=
+77 |
+> > > > > >
+> > > > > > Test results, Ryzen 5 2500U:
+> > > > > > | Test                        | patched-6.13.7.arch1 |   6.13.7=
+.arch1-1 |
+> > > > > > |-----------------------------|----------------------|---------=
+---------|
+> > > > > > | System idle (PkgWatt)       |               ~0.74W |         =
+ ~1.25W  |
+> > > > > > | glxgears (vblank_mode=3D0)    |     ~7300 fps, ~7.3W | ~7300 =
+fps, ~7.3W |
+> > > > > > | WebGL aquarium 15.000 fish  |     56-60 fps, ~9.8W | 55-60 fp=
+s, ~9.8W |
+> > > > > >
+> > > > > > Test results, Ryzen 5 3400G:
+> > > > > > | Test                        | patched-6.13.7.arch1 |   6.13.7=
+.arch1-1 |
+> > > > > > |-----------------------------|----------------------|---------=
+---------|
+> > > > > > | System idle (PkgWatt)       |                ~3.8W |         =
+  ~4.3W  |
+> > > > > > | glxgears (vblank_mode=3D0)    |            ~7200 fps |       =
+ ~7200 fps |
+> > > > > > | WebGL aquarium 30.000 fish  |          37 fps, 47W |      38 =
+fps, 47W |
+> > > > > >
+> > > > > > Signed-off-by: Sergey Kovalenko <seryoga.engineering@gmail.com>
+> > > > > > Tested-by: Liam Fleming <fleming.squared@proton.me>
+> > > > > > ---
+> > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 94 ++++++++++++++++=
++--------
+> > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 +
+> > > > > >   2 files changed, 67 insertions(+), 30 deletions(-)
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > index c1f35ded684e..5e23b956e0bf 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > @@ -781,55 +781,89 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_d=
+evice
+> > > > > > *adev, int xcc_id)
+> > > > > >    * 3. other client can cancel their request of disable gfx of=
+f feature
+> > > > > >    * 4. other client should not send request to enable gfx off =
+feature
+> > > > > > before disable gfx off feature.
+> > > > > >    */
+> > > > > > -
+> > > > > >   void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool ena=
+ble)
+> > > > > >   {
+> > > > > > -       unsigned long delay =3D GFX_OFF_DELAY_ENABLE;
+> > > > > > -
+> > > > > >         if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
+> > > > > >                 return;
+> > > > > >
+> > > > > >         mutex_lock(&adev->gfx.gfx_off_mutex);
+> > > > > >
+> > > > > >         if (enable) {
+> > > > > > -               /* If the count is already 0, it means there's =
+an imbalance bug
+> > > > > > somewhere.
+> > > > > > -                * Note that the bug may be in a different call=
+er than the one which
+> > > > > > triggers the
+> > > > > > -                * WARN_ON_ONCE.
+> > > > > > -                */
+> > > > > > -               if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count =
+=3D=3D 0))
+> > > > > > +               /* This case covers multiple calls from paralle=
+l threads */
+> > > > > > +               if (!adev->gfx.gfx_off_req_count)
+> > > > > >                         goto unlock;
+> > > > > >
+> > > > > > -               adev->gfx.gfx_off_req_count--;
+> > > > > > +               /* Process only if req_count =3D=3D 0 and GFXOF=
+F is disabled */
+> > > > > > +               if (--adev->gfx.gfx_off_req_count || adev->gfx.=
+gfx_off_state)
+> > > > > > +                       goto unlock;
+> > > > > > +
+> > > > > > +               /* If going to s2idle, no need to wait */
+> > > > > > +               if (adev->in_s0ix) {
+> > > > > > +                       if (!amdgpu_dpm_set_powergating_by_smu(
+> > > > > > +                                   adev, AMD_IP_BLOCK_TYPE_GFX=
+, true, 0))
+> > > > > > +                               adev->gfx.gfx_off_state =3D tru=
+e;
+> > > > > > +
+> > > > > > +                       /* Reset delay flag */
+> > > > > > +                       adev->gfx.gfx_off_use_delay =3D 0;
+> > > > > > +                       goto unlock;
+> > > > > > +               }
+> > > > > >
+> > > > > > -               if (adev->gfx.gfx_off_req_count =3D=3D 0 &&
+> > > > > > -                   !adev->gfx.gfx_off_state) {
+> > > > > > -                       /* If going to s2idle, no need to wait =
+*/
+> > > > > > -                       if (adev->in_s0ix) {
+> > > > > > -                               if (!amdgpu_dpm_set_powergating=
+_by_smu(adev,
+> > > > > > -                                               AMD_IP_BLOCK_TY=
+PE_GFX, true, 0))
+> > > > > > -                                       adev->gfx.gfx_off_state=
+ =3D true;
+> > > > > > +               ++adev->gfx.gfx_off_counter;
+> > > > > > +
+> > > > > > +               uint64_t now =3D get_jiffies_64();
+> > > > > > +               uint64_t delta =3D
+> > > > > > +                       jiffies_to_msecs(now - adev->gfx.gfx_of=
+f_timestamp);
+> > > > > > +
+> > > > > > +               if (delta >=3D 1000u) {
+> > > > > > +                       /*
+> > > > > > +                        * Predict the optimal delay for the ne=
+xt interval
+> > > > > > +                        * based on the current number of reque=
+sts:
+> > > > > > +                        * <15 - idle, no delay
+> > > > > > +                        * <25 - light/medium load, default del=
+ay
+> > > > > > +                        * 25 and more - high load, GFXOFF disa=
+bled
+> > > > > > +                        */
+> > > > > > +                       if (adev->gfx.gfx_off_counter < 15u) {
+> > > > > > +                               adev->gfx.gfx_off_use_delay =3D=
+ 0;
+> > > > > > +                       } else if (adev->gfx.gfx_off_counter < =
+25u) {
+> > > > > > +                               adev->gfx.gfx_off_use_delay =3D=
+ 1;
+> > > > > >                         } else {
+> > > > > > -                               schedule_delayed_work(&adev->gf=
+x.gfx_off_delay_work,
+> > > > > > -                                             delay);
+> > > > > > +                               adev->gfx.gfx_off_use_delay =3D=
+ 2;
+> > > > > >                         }
+> > > > > > +
+> > > > > > +                       adev->gfx.gfx_off_counter =3D 0;
+> > > > > > +                       adev->gfx.gfx_off_timestamp =3D now;
+> > > > > >                 }
+> > > > > > +
+> > > > > > +               /* Don't schedule gfxoff under heavy load */
+> > > > > > +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
+> > > > > > +                       goto unlock;
+> > > > > > +
+> > > > > > +               schedule_delayed_work(&adev->gfx.gfx_off_delay_=
+work,
+> > > > > > +                                     adev->gfx.gfx_off_use_del=
+ay ?
+> > > > > > +                                             GFX_OFF_DELAY_ENA=
+BLE :
+> > > > > > +                                             GFX_OFF_NO_DELAY)=
+;
+> > > > > >         } else {
+> > > > > > -               if (adev->gfx.gfx_off_req_count =3D=3D 0) {
+> > > > > > -                       cancel_delayed_work_sync(&adev->gfx.gfx=
+_off_delay_work);
+> > > > > > +               /* GFXOFF was enabled when req_count =3D=3D 0 *=
+/
+> > > > > > +               if (++adev->gfx.gfx_off_req_count !=3D 1)
+> > > > > > +                       goto unlock;
+> > > > > >
+> > > > > > -                       if (adev->gfx.gfx_off_state &&
+> > > > > > -                           !amdgpu_dpm_set_powergating_by_smu(=
+adev, AMD_IP_BLOCK_TYPE_GFX,
+> > > > > > false, 0)) {
+> > > > > > -                               adev->gfx.gfx_off_state =3D fal=
+se;
+> > > > > > +               /* Nothing to do if the work wasn't scheduled *=
+/
+> > > > > > +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
+> > > > > > +                       goto unlock;
+> > > > > >
+> > > > > > -                               if (adev->gfx.funcs->init_spm_g=
+olden) {
+> > > > > > -                                       dev_dbg(adev->dev,
+> > > > > > -                                               "GFXOFF is disa=
+bled, re-init SPM golden settings\n");
+> > > > > > -                                       amdgpu_gfx_init_spm_gol=
+den(adev);
+> > > > > > -                               }
+> > > > > > +               cancel_delayed_work_sync(&adev->gfx.gfx_off_del=
+ay_work);
+> > > > > > +
+> > > > > > +               if (adev->gfx.gfx_off_state &&
+> > > > > > +                   !amdgpu_dpm_set_powergating_by_smu(
+> > > > > > +                           adev, AMD_IP_BLOCK_TYPE_GFX, false,=
+ 0)) {
+> > > > > > +                       adev->gfx.gfx_off_state =3D false;
+> > > > > > +
+> > > > > > +                       if (adev->gfx.funcs->init_spm_golden) {
+> > > > > > +                               dev_dbg(adev->dev,
+> > > > > > +                                       "GFXOFF is disabled, re=
+-init SPM golden settings\n");
+> > > > > > +                               amdgpu_gfx_init_spm_golden(adev=
+);
+> > > > > >                         }
+> > > > > >                 }
+> > > > > > -
+> > > > > > -               adev->gfx.gfx_off_req_count++;
+> > > > > >         }
+> > > > > >
+> > > > > >   unlock:
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > > > > index 8b5bd63b5773..38fd445a353b 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > > > > @@ -430,7 +430,10 @@ struct amdgpu_gfx {
+> > > > > >         /* gfx off */
+> > > > > >         bool                            gfx_off_state;      /* =
+true: enabled,
+> > > > > > false: disabled */
+> > > > > >         struct mutex                    gfx_off_mutex;      /* =
+mutex to
+> > > > > > change gfxoff state */
+> > > > > > +       uint64_t                        gfx_off_timestamp;  /* =
+gfxoff enable call timestamp */
+> > > > > > +       uint32_t                        gfx_off_use_delay;  /* =
+flag to choose the delay range */
+> > > > > >         uint32_t                        gfx_off_req_count;  /* =
+default 1,
+> > > > > > enable gfx off: dec 1, disable gfx off: add 1 */
+> > > > > > +       uint32_t                        gfx_off_counter;    /* =
+count of gfxoff enable calls */
+> > > > > >         struct delayed_work             gfx_off_delay_work; /* =
+async work to
+> > > > > > set gfx block off */
+> > > > > >         uint32_t                        gfx_off_residency;  /* =
+last logged
+> > > > > > residency */
+> > > > > >         uint64_t                        gfx_off_entrycount; /* =
+count of times
+> > > > > > GPU has get into GFXOFF state */
+> > > > > > --
+> > > > > > 2.49.0
