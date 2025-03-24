@@ -4,146 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B0AC36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00432C36002
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 679C610E33F;
-	Mon, 24 Mar 2025 13:11:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C8A10E202;
+	Mon, 24 Mar 2025 13:11:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LOmQkK+X";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="KNwC1Hgc";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2085.outbound.protection.outlook.com [40.107.243.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6E5610E202
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 13:11:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pEDh6RY7v7d4cd4bIcFI/6e+Eq+huXbTnOSNl9eQeHstBtKlph8FCx8aK9mbf1Pj1wumGa5J/SAbPfxD880mf8oQ8a6kB5AnVSYdEa7uilDphz7o5vv4nwv1pLqf28vDWNB82mceCl6Ex7VxsGMKv8mCcWmprDkXTHwLJWyHS4DHy95VNTDJDd94Kkl+V9x/PAP9ACpMS5mgobnGp6k1c5zocvCkAjO+LZNfHmcf8IAACUx154yyMg6Q2upE6iJBlHvNzICyJ8x/DSG83K1R+YqaUJP6LxlKGOTCu6yAvkT9/ku17jzcYdiBPxwYJ1Cmy+gg+nds3OlBxqMu0Bff4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yut8+QYwk2dFer/YPotI1OBRFGJszeeayLnleoKL5dU=;
- b=U00xWn8FeeT6jtBwH/VTB9/wMDIO8shET5i8+iE7OEJTILrjXQt4bcz+KScrQFYnj80Z57QeBxJHEGv+nDJpZDLH00PTCsWgrXlBJa82JXhzdaY0TtJADk4c1qv4FNYsnbo4MB3EgnhK9QnBMfgkzM7JxYxprMonrduTkhd4HvF+HADaGzycq9VoezuV3R+USljlnZHEjzjnVjD0GWnoFkdUhT8Z/SEjn/oUrxsooqycJfCUM/yrHw37L/ctw/qpVRFbPmCfCojtJEKe+DjS/UPhpjSrXvDIEcdbTrA6Zv/T+YrtByDwobSrkgHP5dyozV5i/F7rH5I+QK4kKlbpyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yut8+QYwk2dFer/YPotI1OBRFGJszeeayLnleoKL5dU=;
- b=LOmQkK+XEAPG7k3gdybluZwEHc/z3OaiPUMpxSTLL8P1rYa84Lmxjv079BWBPO9SU5nsh7JE35p3T1GIAuSLDj57seMu6uDcci4I8lX5TnRZvkGKdbx2gCrPIdBQheP/NEi7wc1nAJOydDNoU699Dzy6QC5KQosmonpy/9TxyJg=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- IA1PR12MB7639.namprd12.prod.outlook.com (2603:10b6:208:425::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8534.42; Mon, 24 Mar 2025 13:10:28 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::ea87:74ba:36ec:8cf6]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::ea87:74ba:36ec:8cf6%2]) with mapi id 15.20.8534.040; Mon, 24 Mar 2025
- 13:10:28 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
- ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
- "Mohamed, Zaeem" <Zaeem.Mohamed@amd.com>, "Chiu, Solomon"
- <Solomon.Chiu@amd.com>, "Hung, Alex" <Alex.Hung@amd.com>
-Subject: RE: [PATCH 00/16] DC Patches for 24 Mar 2025
-Thread-Topic: [PATCH 00/16] DC Patches for 24 Mar 2025
-Thread-Index: AQHbmPhgD1JUxOYEOUugfUa/pxT4XLOCSeRQ
-Date: Mon, 24 Mar 2025 13:10:28 +0000
-Message-ID: <DS0PR12MB6534491CF7BFBFE33D7BA2D89CA42@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20250319175718.2578234-1-aurabindo.pillai@amd.com>
-In-Reply-To: <20250319175718.2578234-1-aurabindo.pillai@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=6f985ad3-d4d3-420d-abd5-2d640c6fa931;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-03-24T13:09:36Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|IA1PR12MB7639:EE_
-x-ms-office365-filtering-correlation-id: 29e36c50-da8b-45d6-7496-08dd6ad53f83
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?3R2U+LUQL7r7NgggpX5MVNCKpuqcDDAvph0LjGCenPKhc18IWNrNGFlebqF4?=
- =?us-ascii?Q?k4UCwU/zwZHpRM9IhQIpYvY/KU3Fvs8123W51jkuTMP5oL08Vt4YMTG+v5xd?=
- =?us-ascii?Q?XejEgrZUlpX2CMUHf10fjOGhB/3B1V5vEidomhdlz4N1zuOM7JvdARR/1KDL?=
- =?us-ascii?Q?p8FvyXXgZClnfncV9nnbsaygQ/d4uv+kMcPJ3If4+IXkywlg8setPj171dyp?=
- =?us-ascii?Q?EryI8L1JxLbJzcyFRn3INVnMrV3s9jrtyky6sL0ot8KrXb3KK6y/mzs1aWxx?=
- =?us-ascii?Q?bGYodpfv4wTkRf1e+OGZmqAdL2z4MXOr3YRjr7hXOPgau+T/b/zLgIbWh/+3?=
- =?us-ascii?Q?c1NnKoSM+kObFDmzkxucQHgIWc8n2a689B+xERkRXdj6th7kbrrXhSbIHO4I?=
- =?us-ascii?Q?rlp0TFG0PcewDRc0X7S6SjSe8ez6b9y378Zw1BYPCsijfAFCjhu9qNEz2VQo?=
- =?us-ascii?Q?CQIdhkeSLsl1DPA7tzbuOrz9Vgw3EbBjmnUaV5qD+hWkjx+LbAixIvavvrCD?=
- =?us-ascii?Q?NJUd+ppmWNM6Em1noGPQwvYp0/CMwmhCLQvhj5lUcV/V2zcYWapQ9D/uZsPS?=
- =?us-ascii?Q?JcB7y2k5he8QDEDetTQvdyuVncIcS8UojFuBeUf8Sl9eKioIDg1KgWf8mN44?=
- =?us-ascii?Q?tR8X69ItX0e3DQ1ZoF+P5Tap0dmBwQgf4WE1Si8HJ+dwP1uSn32TsL7bbxyP?=
- =?us-ascii?Q?0vGSup/AHdN2ZegYBL6uHmFNygSCnamWxmOxxEL3Kg+/W4h+deXDItAfJs2C?=
- =?us-ascii?Q?PIXp5nUHBUAu+FPrBKoHueL5KYKtZmi7gdGxQi+0MCe9q6rhw9fIVMdKhyw4?=
- =?us-ascii?Q?c4PoH27Tg/WBEj6SIeIWlCi6Hm3jr5+cODOs/5UT1Frow+W5MafIE59vo0Ha?=
- =?us-ascii?Q?Al7e3GaDdFsumYm4s0LBj3AlY0hM+GmgRu8a6+/a5jE/R0cBZDeALBkMBESF?=
- =?us-ascii?Q?CFTMhQ9EIhEi6peBtjVbV8EeBWgmDvhMAuk5W0hwV7fYwkV1le5wIyh3ptW2?=
- =?us-ascii?Q?WiXKdesaNyuhwaPWr1JsThYIcepil1sqrpqZ74jF48jLtQCwkPdqv+Csyzvg?=
- =?us-ascii?Q?DMvqk6/lNjQheXBCJwO8Wy/qz/AQ4mHCVyxB/33O4YibI11sVCeu/e/HeCKv?=
- =?us-ascii?Q?qRmRMyeGGfGf57EhPmmcx6Q2IeAkblA2SCO2cueOlTSlcfNumTv1ofq3Wodc?=
- =?us-ascii?Q?W+ZAKhqkSMT4mGLl5mWqvdzdwNtSGoVs4l1BpGkLv2Er0qWbNeKuj0SJhV7H?=
- =?us-ascii?Q?jgvegrFHkpeoQo4FHl8RpQ/ukW483yD5Qcx7ISHdrimpgsoIf6ehI6W7tPEs?=
- =?us-ascii?Q?0slCH1tGalhZwJk1Knyo8V4cHtijVQhSAi34JLWMkK+OnSxbZ+Mzmmxla0EZ?=
- =?us-ascii?Q?hngnOv9U5NVxokl0lyDTwdNY+c3nEZjqQz3Qp+nXeENEMX/m0dwkD/iioyzr?=
- =?us-ascii?Q?KtNRhUj3jixNnWe1Ch5N0Qy8dYWxu81u?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?m/Xtp0/H++KVE6HBDzQtbP2tsOSxVSaucHJ0g0QVvWXdcvO6kB9onfrA0EiV?=
- =?us-ascii?Q?XfJpmq1GNtYPM87PlA6/sQo4qg/n9DeXWOBEjPSeL4gH5KEGBBkdL7XtsnAR?=
- =?us-ascii?Q?U/QCugucyG629uscfaviTh9wBLHRutwlTFkZ3xb2Nh5/X3H3Ih0RwaX8wtid?=
- =?us-ascii?Q?hafxMi1RbAGBD3KOjVtxv+7E1R4/ymTN1QD9dbG0wuFB9N0E347ECqT64Xjs?=
- =?us-ascii?Q?310jEqIeJmZ+Hmk5rN1U7DllOkYM/jFagOhR6F+AH01nhrdEUeriVV75/eAw?=
- =?us-ascii?Q?JX3BdHfCHPOaPKE6kask5yNHCjWL7ewNhxgnXiQCX5HtYfSYdgy7QyAIR6um?=
- =?us-ascii?Q?uWvcVA4zv7xYfyLyN3L/ZrUbRyVLyJ7XfAb12L1PQonElweSzu0ksULtnMdz?=
- =?us-ascii?Q?nfk2fzoR4NIbH7mxmZAf49TdVrURcKqyiHo51VklowbH6HfsHApIyMsktxXg?=
- =?us-ascii?Q?OdmwmFZMXDYBZkXyNnzCFswqYmXEFQjV0YVgy65Wu+hu1THdZihThYK99XBn?=
- =?us-ascii?Q?E2/ZBqdtm/2PPK7b6OqbqrqKVpOLsQaIdbiJjSmlHxEUm2rjFg+6A7KHEHTs?=
- =?us-ascii?Q?AbhZTWE17qgo2TIy3vpIq5GZfsZjbehdHfWa2HKcU5iFXq+2aN4z4AHpHmli?=
- =?us-ascii?Q?GgR4yKOPtMQ/xGeqb7FX5WnEpJIEG0yWkGkYzgXCgLqIcb/RAVRhfobsn/e6?=
- =?us-ascii?Q?WddavO02B3bihBae2ZlTC2++0/VeZMWv3VZJeLpJ2XPf/UxU+/J9Lp/vjqnf?=
- =?us-ascii?Q?bh7lHkx9siKQbcwh9jT+AHyRyatiLCZ3IUK4C9JTQdPoJxZ/OhVWRLJEl1H0?=
- =?us-ascii?Q?CX/aVfhH4tOoPBTgjxQw1rAhogyz7b0kUFigveRtOYmR512Y5Zu2v+/vuKu7?=
- =?us-ascii?Q?flT/EZZcpQ7f6IGakh89TX60ELIP/f1xxak0RbUMOkUYcUJJBrN7KGpypw3d?=
- =?us-ascii?Q?6qB5oxeYM6p4XBwukazRbT2xmGmOnxFIo5BxNPGzcw+w6ueYY7miNqpOEqaF?=
- =?us-ascii?Q?3soBzJlNdv3ZjV2EBvTQPVUApvn3KTH59QyXXunnGawzTnhsT47yZ2gPZOzn?=
- =?us-ascii?Q?ptQYFJGPodcA4ECsqc5CH3btjwwMXMaAkXjfbCsmZ7R7wNvi8AabWT6BLTzz?=
- =?us-ascii?Q?K0EfMJN7PxpkLlx4pvaTxMwwLhxPN1lZgd3RLhTM2qFIgonPS6k4m2er2F+M?=
- =?us-ascii?Q?qRobmwFhVoIV3xSU4D+tyHepTXQ63GaTnunvwkkKbPofbisdxBE7BHDLy5sc?=
- =?us-ascii?Q?A69mys/QwtYtMcut6csRQPXMvqPWVINP+t1OlgBSGc7tkqutEYFIHwe+Hoef?=
- =?us-ascii?Q?sVZLWC07xEjcLOWilURVvpl3HYlda/TDOqO5FQs2KY2xHLynfaDrUYMnkLGV?=
- =?us-ascii?Q?xSHmqA0Cpdl++aV02tACx4BVnMYTzmvg9D6ILwlh4P/UP5YWLFNpf0QLkVVX?=
- =?us-ascii?Q?rcKFpJVX4KNRsByvs2KQNQqR6ZqkEzYUUqh3Gxwlr6tv/V5UW/zcFh9GtKVu?=
- =?us-ascii?Q?5cII1zJJ93ppMGo2O7MbilNaVOZYUupy8iSqdSmZZLl4z3Q7kYP9uSvZqfPk?=
- =?us-ascii?Q?M8RLvcQfP3Gp7QWli7s=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F88210E012
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:24:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1742815412; x=1743420212; i=spasswolf@web.de;
+ bh=t4Cpapl3baAmiTt6x14k0Cj3EFlot8neELappOm/z8c=;
+ h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+ References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=KNwC1HgcuMKyAOyEe329rsDXD3TXLIV09LnmZSnTIgrxl5bin0+66nZWDuGj77GX
+ Mat2V9+bhSWeV5BMSTHIEYouYt17C8X/yG3FB8Y5NX7lWjVHRieYEIRyalC667XPN
+ 2x+B7kMFV3mIjS9rW1vU9LX/kjMARQlxIwzapx42KrudUCryTlEPug8qe+IC8+/hh
+ z7jt2s6IlvsQmameb8alTYjsUj8Y4+oIARV1RoiUrpYdmuq0t8RsdUG7qep2/I6I9
+ vdsW/wdCfhE8jZPu2zplfb1Hu43dGZZc6arwrFapN8oLcrLY/ozOvUbqztKgHPbnr
+ ya+Xn+6Je1vr07Ha1g==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.0.101] ([95.223.134.88]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MNwfK-1tldIS2Hfs-00S1h5; Mon, 24
+ Mar 2025 12:23:32 +0100
+Message-ID: <6e8ad3cd27b570aaefd85395810cc90bb3120734.camel@web.de>
+Subject: Re: commit 7ffb791423c7 breaks steam game
+From: Bert Karwatzki <spasswolf@web.de>
+To: Balbir Singh <balbirs@nvidia.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>, Bjorn
+ Helgaas	 <bhelgaas@google.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>,
+ Andy Lutomirski <luto@kernel.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ spasswolf@web.de
+Date: Mon, 24 Mar 2025 12:23:31 +0100
+In-Reply-To: <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
+References: <20250322122351.3268-1-spasswolf@web.de>
+ <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.56.0-1 
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29e36c50-da8b-45d6-7496-08dd6ad53f83
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2025 13:10:28.2336 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: q2mqI9lAUBq7dKj0UhZm/wHbrvmG7P47T8PErYPnfnWHvJqO+bWRZlQ5dGVebCJrvFE+LzmsrOjZVC/wWey0tw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7639
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:dDemjBujtQn+6tqcgh5+3Dn7V+R82lNECNi2xUYzGYyaT15Xyy4
+ eB2q7XijRtTQiqBJ97bjJV0L9yTvjmB//qk38VzoA9EZTaOQKi6LMfrcoXPXBqluWnhqAcf
+ NBJrW5/tNAguX3rF1iE276i6lQfh0ldtz531PylqfJQrlb8g+/Ja25VwMHjbrHKhHnd/aTx
+ 9qDCMTpwNdyMA11HA29jg==
+UI-OutboundReport: notjunk:1;M01:P0:ZVVzgLEz+V4=;ZDBHC3VnPMdTgCtmwVxGT/xw0D0
+ 8DMWxVSBPAtsF15jovB4oIr4iG27XXoylRfp+oDPWq46JfwwHiMl6ifK35VqLYdWKChhm1C6h
+ +8jQ6yVnd3AvvSklJ2rD0wUfeOevBk47Mm2drDm3w39xecG3NQ9ORaPagJEJjbn5Oz/tWZdeh
+ iJRIPwYAbD0ZF0pDcIBZIa3CsgsTqe7rLse/TX8MjDDwGlsb9OAbpPr8/peO2h9SMytIiNAu0
+ LOt97PjwAJpoFxrx9ANlAm7ONRbx21Slx/KCgUO/MMt5DF1mlIxiEea86trfpcO24HmXp+TkR
+ eR91kly6oHdbgGzYII04Me935jlFg5sk1hnfIAzEOORPKUGZuTBU9XUXORD9/8Sl2Bv5xwOnS
+ YRj9KmTzGDl4b7Ph9FumTPm2hGkO3qBVh/ou64xbkN36a15wOHOkeoenrNUkah8S8KnbUwio5
+ pDcYg+aiPNN5KElj7Ti+J3f9zt7XKFRi+7ZuFwirUF1tpUGKUBiXqVcCO20C7zLzWaUxx6PLO
+ YU4TYQIWnB2eRmsy+tjQbXAOVU7RharHYrVoEy7C/dnkZPb7EdmAQCW3Hw5gSc23z+UMKCdwj
+ UluUBlv2YcFU4gzHjrjE/h8Q8MJErR/ncv1aUKle2SBRm3zeXbVTrryDCQ9nKG660ZzluLES5
+ we6U9N5pVfFQYPNVg3QZutcN6p8v8lNySjg7o3cESoFunYvZSHj6t0IG/OS7fIRSkmagcHrGu
+ sKfJdWDG0RJUkttp9CUGzcuo7Tg1Hu65HPmXw23IjW/L/ijf3h6POLYkMF3Fnnna8bG5TKbMg
+ M3ezyPzlvh7HD+H4KoOeaKvTEiUUKh+xVtZDZsJLw3oJHlybqglEhAHtybuujOdPYc3YWDtT7
+ NYSz/na5IfCwHRuAFVlCMgTME+NHlqteOjJlL1VgPs6JBeq6W5VT54D6OLS5mMk4hfEHliozQ
+ Nfji/naJJFRmyauuO5JBOhKy8ms1F2BInS5vT6FyU7OaqPWkdwoylyCZJnUhWAegturKLxILO
+ 0YQcCmABre3pmF10gg+usWAt3TZM6VS5/GksKVdT7n8nqi57v/A9FpIScfU8qzeYkiikf7s9O
+ Vssz4UZ8Sj1+PTJ8LFl+SiKQMjwpzmjyE93exAWf3WNfnZ5AGAbH6WZDaD/5L5L8HrakJ/Jiu
+ HbD7ql2ASXxbEgaOuT3wBcYeRFOwNEfPxq2Y+vNOkdNOXprWy5mB0qf8/7hFVjAQxwpwyQ+Cj
+ HIOHbHzgM6YU1xe8OPcoBVqEaN+SJQzZ3dHGFnN8i5lNSOXXbwe8tRB1syknDwFSHmyayfovH
+ v7bAGro23OPguPKhEUX3PFuI1IQrSotzW91JOS8JRNLpn5WnvOKyNuydHMAnpni5x5Zmcio+c
+ g9jWCpGJausz6j/+UEKeP7dm1uhWygPtHpDgCP+TmriLgbFO6oIY7zI3/2UlTaqWFLM+hKQdb
+ SVii/rOhIr2N8jKNSv+HJ3eeR5PY=
+X-Mailman-Approved-At: Mon, 24 Mar 2025 13:11:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,181 +92,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+Am Sonntag, dem 23.03.2025 um 17:51 +1100 schrieb Balbir Singh:
+> On 3/22/25 23:23, Bert Karwatzki wrote:
+> > The problem occurs in this part of ttm_tt_populate(), in the nokaslr c=
+ase
+> > the loop is entered and repeatedly run because ttm_dma32_pages allocat=
+ed exceeds
+> > the ttm_dma32_pages_limit which leads to lots of calls to ttm_global_s=
+wapout().
+> >
+> > if (!strcmp(get_current()->comm, "stellaris"))
+> > 	printk(KERN_INFO "%s: ttm_pages_allocated=3D0x%llx ttm_pages_limit=3D=
+0x%lx ttm_dma32_pages_allocated=3D0x%llx ttm_dma32_pages_limit=3D0x%lx\n",
+> > 			__func__, ttm_pages_allocated.counter, ttm_pages_limit, ttm_dma32_p=
+ages_allocated.counter, ttm_dma32_pages_limit);
+> > while (atomic_long_read(&ttm_pages_allocated) > ttm_pages_limit ||
+> >        atomic_long_read(&ttm_dma32_pages_allocated) >
+> >        ttm_dma32_pages_limit) {
+> >
+> > 	if (!strcmp(get_current()->comm, "stellaris"))
+> > 	printk(KERN_INFO "%s: count=3D%d ttm_pages_allocated=3D0x%llx ttm_pag=
+es_limit=3D0x%lx ttm_dma32_pages_allocated=3D0x%llx ttm_dma32_pages_limit=
+=3D0x%lx\n",
+> > 			__func__, count++, ttm_pages_allocated.counter, ttm_pages_limit, tt=
+m_dma32_pages_allocated.counter, ttm_dma32_pages_limit);
+> > 	ret =3D ttm_global_swapout(ctx, GFP_KERNEL);
+> > 	if (ret =3D=3D 0)
+> > 		break;
+> > 	if (ret < 0)
+> > 		goto error;
+> > }
+> >
+> > In the case without nokaslr on the number of ttm_dma32_pages_allocated=
+ is 0 because
+> > use_dma32 =3D=3D false in this case.
+> >
+> > So why is use_dma32 enabled with nokaslr? Some more printk()s give thi=
+s result:
+> >
+> > The GPUs:
+> > built-in:
+> > 08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/A=
+TI] Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] (rev c5)
+> > discrete:
+> > 03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Nav=
+i 23 [Radeon RX 6600/6600 XT/6600M] (rev c3)
+> >
+> > With nokaslr:
+> > [    1.266517] [    T328] dma_addressing_limited: mask =3D 0xfffffffff=
+ff bus_dma_limit =3D 0x0 required_mask =3D 0xfffffffff
+> > [    1.266519] [    T328] dma_addressing_limited: ops =3D 000000000000=
+0000 use_dma_iommu(dev) =3D 0
+> > [    1.266520] [    T328] dma_direct_all_ram_mapped: returning true
+> > [    1.266521] [    T328] dma_addressing_limited: returning ret =3D 0
+> > [    1.266521] [    T328] amdgpu 0000:03:00.0: amdgpu: amdgpu_ttm_init=
+: calling ttm_device_init() with use_dma32 =3D 0
+> > [    1.266525] [    T328] entering ttm_device_init, use_dma32 =3D 0
+> > [    1.267115] [    T328] entering ttm_pool_init, use_dma32 =3D 0
+> >
+> > [    3.965669] [    T328] dma_addressing_limited: mask =3D 0xfffffffff=
+ff bus_dma_limit =3D 0x0 required_mask =3D 0x3fffffffffff
+> > [    3.965671] [    T328] dma_addressing_limited: returning true
+> > [    3.965672] [    T328] amdgpu 0000:08:00.0: amdgpu: amdgpu_ttm_init=
+: calling ttm_device_init() with use_dma32 =3D 1
+> > [    3.965674] [    T328] entering ttm_device_init, use_dma32 =3D 1
+> > [    3.965747] [    T328] entering ttm_pool_init, use_dma32 =3D 1
+> >
+> > Without nokaslr:
+> > [    1.300907] [    T351] dma_addressing_limited: mask =3D 0xfffffffff=
+ff bus_dma_limit =3D 0x0 required_mask =3D 0xfffffffff
+> > [    1.300909] [    T351] dma_addressing_limited: ops =3D 000000000000=
+0000 use_dma_iommu(dev) =3D 0
+> > [    1.300910] [    T351] dma_direct_all_ram_mapped: returning true
+> > [    1.300910] [    T351] dma_addressing_limited: returning ret =3D 0
+> > [    1.300911] [    T351] amdgpu 0000:03:00.0: amdgpu: amdgpu_ttm_init=
+: calling ttm_device_init() with use_dma32 =3D 0
+> > [    1.300915] [    T351] entering ttm_device_init, use_dma32 =3D 0
+> > [    1.301210] [    T351] entering ttm_pool_init, use_dma32 =3D 0
+> >
+> > [    4.000602] [    T351] dma_addressing_limited: mask =3D 0xfffffffff=
+ff bus_dma_limit =3D 0x0 required_mask =3D 0xfffffffffff
+> > [    4.000603] [    T351] dma_addressing_limited: ops =3D 000000000000=
+0000 use_dma_iommu(dev) =3D 0
+> > [    4.000604] [    T351] dma_direct_all_ram_mapped: returning true
+> > [    4.000605] [    T351] dma_addressing_limited: returning ret =3D 0
+> > [    4.000606] [    T351] amdgpu 0000:08:00.0: amdgpu: amdgpu_ttm_init=
+: calling ttm_device_init() with use_dma32 =3D 0
+> > [    4.000610] [    T351] entering ttm_device_init, use_dma32 =3D 0
+> > [    4.000687] [    T351] entering ttm_pool_init, use_dma32 =3D 0
+> >
+> > So with nokaslr the reuqired mask for the built-in GPU changes from 0x=
+fffffffffff
+> > to 0x3fffffffffff which causes dma_addressing_limited to return true w=
+hich causes
+> > the ttm_device init to be called with use_dma32 =3D true.
+>
+> Thanks, this is really the root cause, from what I understand.
+>
+> >  It also show that for the discreate GPU nothing changes so the bug do=
+es not occur
+> > there.
+> >
+> > I also was able to work around the bug by calling ttm_device_init() wi=
+th use_dma32=3Dfalse
+> > from amdgpu_ttm_init()  (drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c) but =
+I'm not sure if this
+> > has unwanted side effects.
+> >
+> > int amdgpu_ttm_init(struct amdgpu_device *adev)
+> > {
+> > 	uint64_t gtt_size;
+> > 	int r;
+> >
+> > 	mutex_init(&adev->mman.gtt_window_lock);
+> >
+> > 	dma_set_max_seg_size(adev->dev, UINT_MAX);
+> > 	/* No others user of address space so set it to 0 */
+> > 	dev_info(adev->dev, "%s: calling ttm_device_init() with use_dma32 =3D=
+ 0 ignoring %d\n", __func__, dma_addressing_limited(adev->dev));
+> > 	r =3D ttm_device_init(&adev->mman.bdev, &amdgpu_bo_driver, adev->dev,
+> > 			       adev_to_drm(adev)->anon_inode->i_mapping,
+> > 			       adev_to_drm(adev)->vma_offset_manager,
+> > 			       adev->need_swiotlb,
+> > 			       false /* use_dma32 */);
+> > 	if (r) {
+> > 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
+> > 		return r;
+> > 	}
+> >
+>
+> I think this brings us really close, instead of forcing use_dma32 to fal=
+se, I wonder if we need something like
+>
+> uin64_t dma_bits =3D fls64(dma_get_mask(adev->dev));
+>
+> to ttm_device_init, pass the last argument (use_dma32) as dma_bits < 32?
+>
+>
+> Thanks,
+> Balbir Singh
+>
 
-Hi all,
+Do these address bits have to shift when using nokaslr or PCI_P2PDMA, I th=
+ink
+this shift cause the increase of the required_dma_mask to 0x3fffffffffff?
 
-This week this patchset was tested on 4 systems, two dGPU and two APU based=
-, and tested across multiple display and connection types.
+@@ -104,4 +104,4 @@
+       fe30300000-fe303fffff : 0000:04:00.0
+     fe30400000-fe30403fff : 0000:04:00.0
+     fe30404000-fe30404fff : 0000:04:00.0
+-afe00000000-affffffffff : 0000:03:00.0
++3ffe00000000-3fffffffffff : 0000:03:00.0
 
-APU
-        * Single Display eDP -> 1080p 60hz, 2560x1600 120hz, 1920x1200 165h=
-z
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
-, 4k 240hz (Includes USB-C to DP/HDMI adapters)
-        * Thunderbolt -> LG Ultrafine 5k
-        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
-lays, HP Hook G2 with 2x 4k60hz displays
-        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
- DP and 1x 4k60hz HDMI displays
-        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
-ion supported by the dongle of 4k 120hz YUV420 12bpc.
-        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
-he adapter of 4k 120hz RGB 8bpc.
+And what memory is this? It's 8G in size so it could be the RAM of the dis=
+crete
+GPU (which is at PCI 0000:03:00.0), but that is already here (part of
+/proc/iomem):
 
-DGPU
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multiple Display DP -> 4k240hz + 4k144hz
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
-        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
-isplays)
+1010000000-ffffffffff : PCI Bus 0000:00
+  fc00000000-fe0fffffff : PCI Bus 0000:01
+    fc00000000-fe0fffffff : PCI Bus 0000:02
+      fc00000000-fe0fffffff : PCI Bus 0000:03
+        fc00000000-fdffffffff : 0000:03:00.0  GPU RAM
+        fe00000000-fe0fffffff : 0000:03:00.0
 
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to)
-        * Changing display configurations and settings
-        * Video/Audio playback
-        * Benchmark testing
-        * Suspend/Resume testing
-        * Feature testing (Freesync, HDCP, etc.)
+lspci -v reports 8G of memory at 0xfc00000000 so I assmumed that is the GP=
+U RAM.
+03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23
+[Radeon RX 6600/6600 XT/6600M] (rev c3)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 1313
+	Flags: bus master, fast devsel, latency 0, IRQ 107, IOMMU group 14
+	Memory at fc00000000 (64-bit, prefetchable) [size=3D8G]
+	Memory at fe00000000 (64-bit, prefetchable) [size=3D256M]
+	Memory at fca00000 (32-bit, non-prefetchable) [size=3D1M]
+	Expansion ROM at fcb00000 [disabled] [size=3D128K]
 
-Automated testing includes (but is not limited to)
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
-
-The testing is mainly tested on the following displays, but occasionally th=
-ere are tests with other displays
-        * Samsung G8 Neo 4k240hz
-        * Samsung QN55QN95B 4k 120hz
-        * Acer XV322QKKV 4k144hz
-        * HP U27 4k Wireless 4k60hz
-        * LG 27UD58B 4k60hz
-        * LG 32UN650WA 4k60hz
-        * LG Ultrafine 5k 5k60hz
-        * AU Optronics B140HAN01.1 1080p 60hz eDP
-        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
-        * AU Optronics B160QAN02.L 2560x1600 120hz eDP
-
-The patchset consists of the amd-staging-drm-next branch (Head commit - 394=
-e1f9e6b8ea3b34d0448b3bac6bdb0d9080a1e -> Revert "drm/amdgpu/gfx: fix ref co=
-unting for ring based profile handling") with new patches added on top of i=
-t.
-
-Tested on Ubuntu 24.04.1, on Wayland and X11, using KDE Plasma and Gnome.
-
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-
-
-
-Thank you,
-
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
-
------Original Message-----
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Sent: Wednesday, March 19, 2025 1:55 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
-Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
-uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Mohamed, Zaeem <Zaeem.M=
-ohamed@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Wheeler, Daniel <Dan=
-iel.Wheeler@amd.com>; Hung, Alex <Alex.Hung@amd.com>
-Subject: [PATCH 00/16] DC Patches for 24 Mar 2025
-
-DC v3.2.326 Summary:
-
-* DML 2.1 resync
-* Vblank disable fixes
-* Visual confirm debug improvements
-* Add command for reading ABM histogram
-* Bug fixes & improvements
-
-______________
-
-Aric Cyr (2):
-  drm/amd/display: Create a temporary scratch dc_link
-  drm/amd/display: DC v3.2.326
-
-Ausef Yousof (1):
-  drm/amd/display: Enable pipe update pending wait
-
-Austin Zheng (1):
-  drm/amd/display: DML21 Reintegration
-
-Brendan Tam (1):
-  drm/amd/display: prevent hang on link training fail
-
-Charlene Liu (2):
-  drm/amd/display: fix zero value for APU watermark_c
-  Revert "drm/amd/display: dml2 soc dscclk use DPM table clk setting"
-
-Chun-Liang Chang (1):
-  drm/amd/display: Add Read Histogram command header
-
-Cruise (1):
-  drm/amd/display: Remove BW Allocation from DPIA notification
-
-JinZe.Xu (1):
-  drm/amd/display: Use sync version of indirect register access.
-
-Leo Li (2):
-  drm/amd/display: Increase vblank offdelay for PSR panels
-  drm/amd/display: Actually do immediate vblank disable
-
-Leo Zeng (2):
-  drm/amd/display: Add override for visual confirm
-  drm/amd/display: Get visual confirm color for stream
-
-Paul Hsieh (1):
-  drm/amd/display: Skip to enable dsc if it has been off
-
-Yi-Ling Chen (1):
-  drm/amd/display: Apply the adjusted DP ref clock for DP devices
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   43 +-
- .../display/dc/clk_mgr/dcn315/dcn315_smu.c    |   29 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      |   51 +
- drivers/gpu/drm/amd/display/dc/dc.h           |  337 +-
- .../drm/amd/display/dc/dce/dce_clock_source.c |    9 +-
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c |    2 +
- drivers/gpu/drm/amd/display/dc/dml2/Makefile  |    3 -
- .../amd/display/dc/dml2/dml21/inc/dml_top.h   |    1 +
- .../dml2/dml21/inc/dml_top_dchub_registers.h  |    2 +
- .../dml21/inc/dml_top_display_cfg_types.h     |    3 +-
- .../dml2/dml21/src/dml2_core/dml2_core_dcn4.c |   10 +-
- .../src/dml2_core/dml2_core_dcn4_calcs.c      | 3083 ++++++++---------
- .../src/dml2_core/dml2_core_shared_types.h    |    2 +
- .../dml21/src/dml2_core/dml2_core_utils.c     |  134 +-
- .../dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c |    4 +
- .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |    8 +-
- .../dml2/dml21/src/dml2_top/dml2_top_soc15.c  |    2 +-
- .../dc/dml2/dml21/src/inc/dml2_debug.c        |   31 -
- .../dc/dml2/dml21/src/inc/dml2_debug.h        |   77 +-
- .../display/dc/dml2/dml2_translation_helper.c |    2 +-
- .../drm/amd/display/dc/dml2/dml2_wrapper.c    |    5 +-
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c |    5 -
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |    1 -
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |   14 +-
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c |   14 +
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |    1 +
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |    7 +-
- .../gpu/drm/amd/display/dc/inc/core_types.h   |    2 +-
- .../gpu/drm/amd/display/dc/inc/reg_helper.h   |    4 +
- .../link/protocols/link_edp_panel_control.c   |    8 +-
- .../amd/display/dc/optc/dcn35/dcn35_optc.c    |    3 +
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |    4 -
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   59 +
- .../drm/amd/display/dmub/src/dmub_srv_stat.c  |   17 -
- 34 files changed, 2021 insertions(+), 1956 deletions(-)  delete mode 10064=
-4 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/inc/dml2_debug.c
-
---
-2.49.0
+Bert Karwatzki
 
