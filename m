@@ -4,117 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7BFCC3600C
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 17:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78E13C36002
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 18:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 571AA10E4A5;
-	Mon, 24 Mar 2025 17:26:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D64B610E277;
+	Mon, 24 Mar 2025 18:21:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mDZt1qir";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vywai0r1";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2073.outbound.protection.outlook.com [40.107.96.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 691E010E4A5
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 17:26:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o0BRNqvmNiQkVnzwoYqIyodRutUQnURqKMIK0xvHYc6TRbj/6VLVaArOE/Rh91SuLTZ8aciOUcfkAdJ4iGyg5k5vj+lRoXSgj/NZHfTHKlSLmSh1HS9obSKxsPSsGbVq5GAQBY7EbTXDjxgFhDquyj81/sm8aUii+yrCunkqBCLrEG2senzj2n/vhL+UTBccxfeLN48S0pSD84i6/oX/IG/ge0kcjwxew+CclzpM9e6Jl3fFjYV0WUFYfx5SD1jdTdrS4oZ32Vw4oNo4Htf5LOWUA8yt3sa6SwOp3oMm3nQRcI1VesVvbZxHV8XZNTmRWmP8EKit1GZU1/HJ9QX4Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OWbSK93XisDeRPn6j8UiaJpEnThJihLO/nLqFQ1sokE=;
- b=jDEilbFMs4eTXgyDrJA5AzPeWjIwoNkRaiFk4auMK5hWRANN6FecQthko+6cmZisreBl6fW9EEidieQpgP2+egUbh1Ct5GRse8IAnrNAMyi3Rs5cW0ql2FyTMR0S9fHyhhpk0sow63qGc64ddngi4yHnU3ITUx5stwXHicPTFMCUGhdYWXuJKA21GKfkljvruluZ+4KEm2xWJR6JtIZXN3iG20z9a8UN6q1TqClMmyKPdg7Xh31iA0m0Wd4KeRC0ci5yGXB/rn/yu6dyAvYip08iIKTRQVH81J/i7kGPlmUR8ka7g/v9qMAgjrAoBFSLb0H32a4mVVKKvENKZa7khA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OWbSK93XisDeRPn6j8UiaJpEnThJihLO/nLqFQ1sokE=;
- b=mDZt1qirhXTVYTHl1tV8zbqfSPhSGJHgtPMHpkwAG8IotKwzBMs/Jf+2lpgqrYKyAg8T3lLNF9rzuSP6fmbgBUPDcPF3Wk1RrrTxAPAXjliRz1amptwcj6DReMobkLPcEzuj9m/7ERPEBnZCOMDYnCowhNk3xQHqdpsndQwe3+Y=
-Received: from MW4PR04CA0297.namprd04.prod.outlook.com (2603:10b6:303:89::32)
- by DS0PR12MB7948.namprd12.prod.outlook.com (2603:10b6:8:152::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Mon, 24 Mar
- 2025 17:25:59 +0000
-Received: from CY4PEPF0000EDD1.namprd03.prod.outlook.com
- (2603:10b6:303:89:cafe::da) by MW4PR04CA0297.outlook.office365.com
- (2603:10b6:303:89::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.42 via Frontend Transport; Mon,
- 24 Mar 2025 17:25:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD1.mail.protection.outlook.com (10.167.241.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Mon, 24 Mar 2025 17:25:58 +0000
-Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 24 Mar 2025 12:25:57 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <xiaogang.chen@amd.com>, Eric Huang <jinhuieric.huang@amd.com>
-Subject: [PATCH] drm/amdkfd: increase max number of queues per process
-Date: Mon, 24 Mar 2025 13:25:40 -0400
-Message-ID: <20250324172540.128507-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3301C10E277
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 18:21:05 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2ff5544af03so1454994a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:21:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742840465; x=1743445265; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cpZYGzIvYe7agRLJpsJCHMnRv3Zt4E5A6+iFWQoWTN0=;
+ b=Vywai0r1BAe1Gel0gQUiZxW+GZU2zvyFDQe9KdytVKbhEPNiBmky3uOes6pFES0khp
+ g7aZuiZGqn6Mw5GSfz64GAkOkWyyHXao4Xwdc26483clYGOwT965DyZFueiumVA4XWod
+ V8iClEa2RA9fy9G+TeEhYGxm5qihy0f3FScdGrwaEBrdb3wtW7xGr17tnOVMOU4P9Qtm
+ iZEjjHkghBmmBNAHExDfehNFa3ZfdIeZsFRKzLXyLWUNu2wKnMrddWUsCSKj51Zm7NC/
+ NqijjkLKbaOWYUxUtN3vc0xJByhAmhpZoBzcd4TwHCP75fWHJnI4x586/k+hJG+S5Ydr
+ yrmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742840465; x=1743445265;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cpZYGzIvYe7agRLJpsJCHMnRv3Zt4E5A6+iFWQoWTN0=;
+ b=C1Fd4NPR9m1tuGD4xyJNNkzAuixlZttsoy8kkNmjTsMen+8vsIo24b/8TNErL6MOPo
+ ny7B8zUHXajfXaq8P5qtUXIWUkw9ZNmOnIrMu+u0vkqhQFjSyYwySw7r6STontlx89Jp
+ EkIst1i2J1Lh0xbp61XR6kyDE53O6e0WwtScgljgGieZeg2b0rvFDO+FfA2PfY0R05hv
+ 8A7sMPQyermwLKGV4ND9Ky5ZaruL990iVq19AGUTCO1zOWon2wSaNrVhcf0p1jSU72it
+ uE980E3dShrypp4h+fE3bZ5MeNdzpduwdFFIGFOl6WoS/Vq8Adijjku7MFFEnK/uxHhG
+ wQ4A==
+X-Gm-Message-State: AOJu0YxUH2wH/z+4/XoNzoPTViP6u87EiktX7Qon+UzmQfEPBycmLsq5
+ 3nEY00HIPmORYD0gYLdto2UicS2Ph2EdkIXw/CiZhuzipL9mfpde0IHVEX8dS2USRwSheNUore8
+ v3/s3dzKb3c5unjwSjVMk5ziKVqg=
+X-Gm-Gg: ASbGncv+Zfb1zMsa+9Vu8f+pxi+NoNaJnRYj/DYVBdus01Ss+1NxR7Im6DRh7+FetGQ
+ NuILsGV8c764BfjDD8t6RszwG/tLxJuZ788ltvhkhw7eYnmYPka5q9yC9NsYiJRTp9wdIhBmHvt
+ CNvs0uAXacPAvl5BAOnahVHRjmqA==
+X-Google-Smtp-Source: AGHT+IG1L3hLA8LxfqSqTcx/IWUexOMHh0LGFsAUlftq4oDbwLNVg2+WQ6YqvgTf3qE+JK4Fjpl/V1VkLtz+2Vq3U4o=
+X-Received: by 2002:a17:90b:1647:b0:2ee:6563:20b5 with SMTP id
+ 98e67ed59e1d1-3030fb1fbc7mr7805002a91.0.1742840464484; Mon, 24 Mar 2025
+ 11:21:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|DS0PR12MB7948:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f014b68-79b9-425a-d422-08dd6af8f11e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?aZZbijj6hdsEHaE+MvPQTBjmvden3XiMNCiG9HKi8L45F781RS/DexOYfsbL?=
- =?us-ascii?Q?GWkU4ioHhxANl/hp9Dpn2meVT6ibycAAoxj0Pqr3bkbL29Ax6T0FrOXLua+V?=
- =?us-ascii?Q?uNsMnpARZkOCzsK9Zao3u7n4UM8bJe38j7EWn9orORP02gYYgsKY1uYuTZ1N?=
- =?us-ascii?Q?N2EgeyjcSnAqO/U4cw0pi5qUj913rWbRqYxdXs+pxzF47Dln6/muT1Rj6dk6?=
- =?us-ascii?Q?si9Gb0uJdGwKHRn5LDtt+fyKmEuoCqxwqmJo2fQsdiOPCNabjL2S1Y9iAf2O?=
- =?us-ascii?Q?v2tHP9nXLI8VQZlkeptdLh1ObEtyMZa2sumlyA5GDzFDyBBCSA0VqTmM+yJ4?=
- =?us-ascii?Q?ffz6lv14CaPTGSPJ1RZoS+27l5tnr8rC1MsOmwxWhjYo/c61t7TBqASPSOsl?=
- =?us-ascii?Q?AugJR43jVi4DWYQFrb1gfjtIUesCIZKdK13+AsU1z1Z8Iep/2tl8dn5a2kUk?=
- =?us-ascii?Q?Fg5uACx2AOuiACSK5+DxlzFeXOe/VJUdMXlJScsVtmU0XQiiJYgCas6xsaIm?=
- =?us-ascii?Q?hanz8lV5FVupSUc6i5t1e+AS8VpXqM8Z/8q8sCQKCXLzYik7ypOZO7f2Hy8d?=
- =?us-ascii?Q?r/xG7vJZ80Kd4TheKeyNXD+4THvQBJFMhv0Kq7zzaMeSsP65kIdmGj+OjR+4?=
- =?us-ascii?Q?THHIGrFlN0ksu62JgBo+OS3zxagX/lWvHueUw8t9aYA5SKVN1JDHOtSYoQmf?=
- =?us-ascii?Q?VcxhAaN/lTnYr77wQ3jwmlXG1fet2o9r0qEMcjZZUWs3fnRan3w5PjTojFYD?=
- =?us-ascii?Q?E8SF8jwPdzHFvejlPdZlLwFqM/J9kgnJkLNY8CRue1dB713hhVo1szsAtWGc?=
- =?us-ascii?Q?aEFHSAgpPIeEIh4Kmn76ELKixsWW7hJ7bXyX0EJt9W+VYSYg/3cWrqP2w6Fo?=
- =?us-ascii?Q?vARTOm5hUJUcFlKUTsE4USQLuPOC95aD0lJzR4JWTzk0VUk5IciZDj1l+l5L?=
- =?us-ascii?Q?8gSUts1rN1RS0SAIM71AzpjAWYjmfX+fJeYIzvU2KVff4rqcguxTiVbS7I8h?=
- =?us-ascii?Q?0QmzNDCDZUaatHIipmaVGAfnJ887QhfEoDVHsi6+Sq9Zgi6rrD6Tx4QOZ4e4?=
- =?us-ascii?Q?Vgf1vvAPdL3vczD4F1kvjYpsQlEEFoiv1CPQdkeIswkwbRyrusz0x8AeM6UD?=
- =?us-ascii?Q?hog8ozQ8MWJnUnjAX/QfoT1I+0+ApwB6nP5QJHkvRDL63fcp6gqmw3Tfa+QG?=
- =?us-ascii?Q?mDRiMkWepCVMdcSVPbd0u1XBJCecrCQaFSK69UrVPl/4x1Ze1jMJoMB/olGs?=
- =?us-ascii?Q?qdt7d9PZQ36vWNnaO9I4qBCmwHoO/UUfYm7E6a3Y7aoiMTw2OUHpNy+6rgo4?=
- =?us-ascii?Q?CBjqtcJtiRn0tQOo74ta9ZjDd4KS1YhFeTxOD42MhoVA0sps7Ua33W8r1s2+?=
- =?us-ascii?Q?wLipio4z11PJ27Of57d2qJKq21AXvAQQKICDdgKChahhCIKx9wN747IBzwTt?=
- =?us-ascii?Q?CV4grciga46S/UtM9o6XHole8P5TYbFazabau60vtrtMtKm2Zc/VGQ=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2025 17:25:58.4522 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f014b68-79b9-425a-d422-08dd6af8f11e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD1.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7948
+References: <20250322183746.86002-1-alexandre.f.demers@gmail.com>
+ <20250322183746.86002-6-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250322183746.86002-6-alexandre.f.demers@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 24 Mar 2025 14:20:52 -0400
+X-Gm-Features: AQ5f1JpP3LqxOxk8c_m_E6sQXAA6mVT5PC4w5O0q07AmcbM0-rcHb3TIHBQ_AC0
+Message-ID: <CADnq5_MKMrECPyheRymSxEYXA535kJURMng1AHsusp8WWvuUNw@mail.gmail.com>
+Subject: Re: [PATCH 6/5] drm/amdgpu: fix style in dce_v8_0.c and in vi.c
+To: Alexandre Demers <alexandre.f.demers@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,31 +80,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-kfdtest KFDQMTest.OverSubscribeCpQueues with multiple
-gpu mode fails on gfx v9.4.3+NPS4+CPX which has 64 gpu
-nodes, the queues created are 65x64=4160, but the number
-1024 0f KFD_MAX_NUM_OF_QUEUES_PER_PROCESS is not enough
-and test fails at function find_available_queue_slot().
-So increasing the nubmer will make the test passed.
+On Sat, Mar 22, 2025 at 2:48=E2=80=AFPM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
+>
+> Bring things on a single line and fix spacing.
+>
+> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 10 +++-------
+>  drivers/gpu/drm/amd/amdgpu/vi.c       |  8 ++++++++
+>  2 files changed, 11 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v8_0.c
+> index f008615343c3..533851beb27c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -3233,8 +3233,7 @@ static const struct amd_ip_funcs dce_v8_0_ip_funcs =
+=3D {
+>         .set_powergating_state =3D dce_v8_0_set_powergating_state,
+>  };
+>
+> -static void
+> -dce_v8_0_encoder_mode_set(struct drm_encoder *encoder,
+> +static void dce_v8_0_encoder_mode_set(struct drm_encoder *encoder,
+>                           struct drm_display_mode *mode,
+>                           struct drm_display_mode *adjusted_mode)
+>  {
+> @@ -3330,8 +3329,7 @@ static void dce_v8_0_ext_commit(struct drm_encoder =
+*encoder)
+>
+>  }
+>
+> -static void
+> -dce_v8_0_ext_mode_set(struct drm_encoder *encoder,
+> +static void dce_v8_0_ext_mode_set(struct drm_encoder *encoder,
+>                       struct drm_display_mode *mode,
+>                       struct drm_display_mode *adjusted_mode)
+>  {
+> @@ -3343,8 +3341,7 @@ static void dce_v8_0_ext_disable(struct drm_encoder=
+ *encoder)
+>
+>  }
+>
+> -static void
+> -dce_v8_0_ext_dpms(struct drm_encoder *encoder, int mode)
+> +static void dce_v8_0_ext_dpms(struct drm_encoder *encoder, int mode)
+>  {
+>
+>  }
+> @@ -3407,7 +3404,6 @@ static void dce_v8_0_encoder_add(struct amdgpu_devi=
+ce *adev,
+>                         amdgpu_encoder->devices |=3D supported_device;
+>                         return;
+>                 }
+> -
+>         }
+>
+>         /* add a new one */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
+/vi.c
+> index a83505815d39..bcabcf27c3d0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -61,19 +61,27 @@
+>
+>  #include "vid.h"
+>  #include "vi.h"
+> +
+>  #include "gmc_v8_0.h"
+>  #include "gmc_v7_0.h"
+> +
+>  #include "gfx_v8_0.h"
+> +
+>  #include "sdma_v2_4.h"
+>  #include "sdma_v3_0.h"
+> +
+>  #include "dce_v10_0.h"
+>  #include "dce_v11_0.h"
+> +
+>  #include "iceland_ih.h"
+>  #include "tonga_ih.h"
+>  #include "cz_ih.h"
+> +
+>  #include "uvd_v5_0.h"
+>  #include "uvd_v6_0.h"
+> +
+>  #include "vce_v3_0.h"
+> +
+>  #if defined(CONFIG_DRM_AMD_ACP)>  #include "amdgpu_acp.h"
+>  #endif
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+What is the reason for these changes?  Unless this actually fixes some
+style warning, I'd drop this change.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index f6aedf69c644..054a78207ffe 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -94,7 +94,7 @@
- 	((typeof(ptr_to_struct)) kzalloc(sizeof(*ptr_to_struct), GFP_KERNEL))
- 
- #define KFD_MAX_NUM_OF_PROCESSES 512
--#define KFD_MAX_NUM_OF_QUEUES_PER_PROCESS 1024
-+#define KFD_MAX_NUM_OF_QUEUES_PER_PROCESS 4160
- 
- /*
-  * Size of the per-process TBA+TMA buffer: 2 pages
--- 
-2.34.1
+Alex
 
+
+> --
+> 2.49.0
+>
