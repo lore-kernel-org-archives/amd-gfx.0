@@ -4,145 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 214D4C36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 09:18:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A58C36002
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 11:51:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5F0F10E081;
-	Mon, 24 Mar 2025 09:18:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03BDD10E152;
+	Mon, 24 Mar 2025 11:51:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bXeELIvA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V4rCg6EY";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E89D010E081
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 09:17:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LlVxwROEKvnui5LI+VqCUbsMqZVLXY/sE8nRf0ARn1MIkn/x4D9Ec8XIOD2lr/yYvb7boPsmGuhhRqYlEIF3+/JHEmgCE7YZyw2Sk9hxhHArgEYBgzbFisMKz1+WR3JV8R0aOLYu1+pi/o50q8kNDRr/Icha3LSvOf5jyG9hljhSWNXf57gwv+yOH7+0HjLowVS68Ewn2urlDO8p3uJAJ9Hg9RhmP0uQYeP4uVBERbECFju1HiUM0hNVQ7QUyMph/ZU1X6y1SpIFThnE0GkVPa1GVvGiOTw514pIqJyB3HhhRwouehaUsVCwYTXvRsYCzEwa9SNLKFg1bCIvkaNLyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r/CGaxUoT0iutyGSVEbg6aTCsniPZXcLfcigq5rxQcM=;
- b=osz/DEWll6Th3xXZrtbAL71eDw5isML0aQVXvPEpS+kZpTJr1Zw+iphS1AcQzE+xU9YgKeDA78HbIxUSLHSuEqhFmkWamPXxSXQZU6fIV2bGzlCn5HwvHc4JYoJjd2OjonEmvZZvTia42UDqkqxkqH3eZ4sLw+eW1p7/lmYvj8epbPG516AklHaeZVnhHxRdmIIIdO2M3aSo3yT7+eBLmhjpRukU5L69YeGhv5rtbcj4Sw9Z8NsM5MCRCs5Du8fLBcRiMP4KITsSDxcNcO3jbhYTto3yIqyFkS5vRWG+hZOaHI4cWssi6mqQDwy+rtrAYocoYy1xuj/jMX25n5NZ1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r/CGaxUoT0iutyGSVEbg6aTCsniPZXcLfcigq5rxQcM=;
- b=bXeELIvAVqvTZVpYWeGQ2V5wCxsIGeuKLTnhBh3MjPe2w+2el+fQLbyWO6ebcYtiZ3twBbrTJeb8f3dnA2KP6ge/VFNwCsGefjnAxICEbvQD3EBU7ks0F3R3ilf0A1Jrzwif8eqB2rit5shSs6KRM1xuLayN8G89HdeRsmacf0I=
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
- BL3PR12MB6404.namprd12.prod.outlook.com (2603:10b6:208:3b4::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8534.42; Mon, 24 Mar 2025 09:17:55 +0000
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::be26:4c33:76bc:e1b]) by DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::be26:4c33:76bc:e1b%3]) with mapi id 15.20.8534.040; Mon, 24 Mar 2025
- 09:17:53 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Add NPS2 to DPX compatible mode
-Thread-Topic: [PATCH] drm/amdgpu: Add NPS2 to DPX compatible mode
-Thread-Index: AQHbnJKbKqxhlikaHE+Vit4X4xgpbLOCAg4w
-Date: Mon, 24 Mar 2025 09:17:53 +0000
-Message-ID: <DS7PR12MB607142CF48211501D0BD63DF8EA42@DS7PR12MB6071.namprd12.prod.outlook.com>
-References: <20250324075833.382787-1-lijo.lazar@amd.com>
-In-Reply-To: <20250324075833.382787-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=d2c54dbe-f1ee-4db0-9b57-f6e3c13720cc;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-24T09:17:44Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|BL3PR12MB6404:EE_
-x-ms-office365-filtering-correlation-id: cfa41441-0876-4d38-cdff-08dd6ab4c1e5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?0yYm7yycl8Vx1tn2i1Q2VfH7KLwHWdfJLq0pwu0yCBS1+cSuE6M9uEEFVWX9?=
- =?us-ascii?Q?mCDnwDMQZQx3TPjOP3eZJ+7eTv4WgkKMpvChWJG7dX5SDrTCdfeYRcS7+D0C?=
- =?us-ascii?Q?BFbGaP0t9TueZT4dzWRUSogwt88ohoEsPPVK1qQbLaaSpk1htqk5W5xRSNJv?=
- =?us-ascii?Q?9hQvFlz5Vr2sjY3jj5KGPULzn2OVEp3+Hsep5WmrZa0NvDYH04R576h3EEbX?=
- =?us-ascii?Q?867v2jcHyHp91AWEznEne4j97OePSGO8TiWi9MzHD6PXqLA7aatm2NNaww/1?=
- =?us-ascii?Q?guUlZD5ZqAh0Le1fo+98IA7hDtTxJwkaarE1mv2YO4xM40FOk5qsTbuo+W6o?=
- =?us-ascii?Q?Vl9RL1RSCMYnFe5QFI2NcOYAVeRFuOLdzbMp0ZPno86KJaNMa1IyOtKiETL/?=
- =?us-ascii?Q?DN150gc310ATtn26UhBECpHuN/FZlFXnvyt7+CFiIgTjhS1brekHB0TNhVXv?=
- =?us-ascii?Q?DiiH4t8IyFe2lPBjFomXXNOgYsEsLhijRQb4d1pKLohdBJzYmmLYY/KOaxiV?=
- =?us-ascii?Q?QScQ2XTy+9sD+tjpcimakWmIWlxV9DjK6McD1u9a37o4xjE58P4zxLwie9O7?=
- =?us-ascii?Q?krNx5PfajTjylLBNQC6uqnxUx0AHa902KPNZirW02MTZ75OqiirBGzd9a2R9?=
- =?us-ascii?Q?+Yd0f3BdUzWwdC82OTzrBdkWBA2Bglcbbp3TcsnYRYPCHm4MnMg8vxx7N1Jl?=
- =?us-ascii?Q?0oxNPqX5YbDeaqk/BG3+aYzhxd2z5O0VZKPanLppUaVvB35J4XE9NDhVHomC?=
- =?us-ascii?Q?zwdA4hmN1S5q8xUmnLxA89p/2fnsGFUAWZyG+s/nFReXZby+pEGF4jnWTPzo?=
- =?us-ascii?Q?+LM7hUyeEq2g925VKaiQ0rerqKLlvuvcD5peXEmhmVJK3UIrtdcvIMCzkX59?=
- =?us-ascii?Q?1p2pmV5QtBs9vzolX0fUutJSktukBmsl+pZEYSVeu/Wvwh1UPCJVWNdq2I1q?=
- =?us-ascii?Q?nCINjj5jAXLNjHzM90I0oAtu2dLCBnWyoWRU8jJsNUjmuoz2opCcpXY3xZpD?=
- =?us-ascii?Q?zTWxcxfKbRND+Bg73Jf0J8On4tKBLmKVc/1THCTZdeocYM5ABIkkC/jaNwWu?=
- =?us-ascii?Q?659p8sX3xNFiggjCdQxzx0AS/Sm2HXpluXFQsrmGxzzoU80UxEpMDuE7qsCi?=
- =?us-ascii?Q?vv4ZJo3YKicZF4boiuPqaZ4MvKyt4gKN5MtbBLsSFNCMM2quZAODP4g8Qdcu?=
- =?us-ascii?Q?/JBrV1hfyObxa7Yq8gTh3lja7Qbo5D0vtVksv/U+UX25RilGWN8Ou8sYSWm4?=
- =?us-ascii?Q?z749Y5g9xqzh2wKFpTZT2yVZTUgiU58fCM+hihDuI/PalkKETRYnx0eHW8oe?=
- =?us-ascii?Q?VKc4rWOeBRNQq0mUgTeKnjcySRhKaEaq5HGevOUdD5cZaMn+kVdmH6zZl6c2?=
- =?us-ascii?Q?9Ka1LlopXiOI582E9mt5zowxYhNWoqGQqyaPQkZTvD1uROEWFExI97I0NO+k?=
- =?us-ascii?Q?0uUsCghr5ZAPUx12PpDvaYM3o6bGELXD?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DPP7BpP68vtyjLzuP4eSbSmwaGAfZ+Gmwnk6OpPwUPAxRjgI9W+rlmcV/w7K?=
- =?us-ascii?Q?HoUmOGqw20E0C2P852CaSkjrdBhXMH+cCQyJnuWNE/PgCZmWv1Z051urgh0v?=
- =?us-ascii?Q?TqOpxkb5iYUjguj0Bq79QZfAKD0zq72+ELv2oJlbHo/Zfu4RzmJTo9pQ+r1q?=
- =?us-ascii?Q?ns3kIYrT29NXujqnrYgbvE2ep//91nPH+fvMgwDRkePq9fKz2g7G+VzkIBIP?=
- =?us-ascii?Q?aWAAyagTvO+19Bv9FrAxTYYk8g50widDav6rpbUS0l5ocMk+c9QTDpttQNgH?=
- =?us-ascii?Q?UhklOU986665LE95Kq9Rljru4ATHYoRUyzmN3H+M7FW6Jvp0yQXyW/55Mg+A?=
- =?us-ascii?Q?16pmhndbd9EYOzrdIH38hdlNYCg/CB5qn9eU9uuyHve/ygjZn9BgfxGZc7rb?=
- =?us-ascii?Q?rsbz94gFXaVBF+UlXTAzQqEgjPKPEU0Cko9xZz73xTj1MPVSMRnhbLc4EwSG?=
- =?us-ascii?Q?PR0P8bVPZlNIjVTidaG7cvO1K1Rzaic5QL6lR8sZkl8ZYGIjQ7WuHOwo5q+U?=
- =?us-ascii?Q?r204PxcgAFaEM1ggSQrlaUjeokZVWxg7VnShmZzQ8oodkuFDKlyom5QXhoev?=
- =?us-ascii?Q?3E7u46y1/WtROi6JhISQtIcHIIAnbgu+Vw2d1V7tQhdOjp4PcE2TyzHJ85Go?=
- =?us-ascii?Q?IhC/+2tUZcCcckc1HoFYtiZP2xweH8Xj966Hfix/jYCI4E3vLfWV/RGud+sb?=
- =?us-ascii?Q?CVM11gRoaKiutvX9ZngRU7xDx3Jy4iwQMn7hUrrawevchQxJ3KqLRpZZKTj/?=
- =?us-ascii?Q?n/9fe08xfqeeC4sJcqRdkLe7F/PtvCHDGNCyVxln8i6Wqi4PxEnkIgpDLUx4?=
- =?us-ascii?Q?APF4WQ6BKRbcB49vgmonK+MtZLRLbTnTdFFxu//7jftQRG7NpuK+7I53H73d?=
- =?us-ascii?Q?qrGfygor+TsNb6/D0bhgJpwZogw67FbvjTKBj34jozcN6ipmNXe2hPy4SQx/?=
- =?us-ascii?Q?LQ0cWR/ss0NoqocPvBJ0G5yUFs2t1efST6B1qKKNPP2voe7sdvCprdgNqNOA?=
- =?us-ascii?Q?3TDA/lSpbjIIav/7Jjj+KUjXsRUchtR4/OPklzmFpD9uErNAHH4ONJCIM7mf?=
- =?us-ascii?Q?K0eiK8+unDZyWW3Ei/fNkWqHpiezTkLXxhVgMe1J6H3EyOn2qeZhZDQcFsod?=
- =?us-ascii?Q?BdAZUoKZ1K49ZL77UhYNzZsGIZZWsIWANS4w0jWi8fJfuhUoCRWWnDq5/+Dr?=
- =?us-ascii?Q?2AKmt7iwKY/UjOHmLYtw8BS6/tPYVvDhtc7FgmP5xifgfx/eSbSRmoCPAINr?=
- =?us-ascii?Q?JfHgSoRJlQSZwoJhTfDNzDVxxYW5tBktJSJWJN6qFYLNkVkG+DR5dZaZs/um?=
- =?us-ascii?Q?n2TkELcHTU+sf+uGkvQl6gJn7w63BKKmCeG3sUcP3JeavBIuyooIFLt2VmXT?=
- =?us-ascii?Q?BgyE2ytmKb8+93zP8/4qOZPjczGanAsmwN0Rfio9WHfwoL9U1sZlRScgAt9u?=
- =?us-ascii?Q?i7v9ap0D2dJzs5+cJH8Qn+DVWO+3a55LChIvrHfq41SV2kfXYlKZp1YPkK+D?=
- =?us-ascii?Q?2vQ5Hdx4IRQF2vGaPBIkLg+M4Bswm5Clyso1W5gb+38XTbn0TA5SxxRFHubx?=
- =?us-ascii?Q?37aC6kmkvjrRRlC2A6o=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA7BC10E152
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:25 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52O9PMUX030616
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=HHHT+h2di88Hnsl4xAfhOo
+ ua3p6DucIksRCHqcJkWEM=; b=V4rCg6EYFROlD5m3BJXIoTh++HFyBLwwUYQvJM
+ ejGltDmwp7wU+WUjgeog6cw2CIEQxWiBpzzvMsKc5r/xo3GtPQ5StrQA58O1syWX
+ B23ux4YsrajS5JUWN3t1DfezECNYiQhMeZoa+LKVDmg2BLvK5Y2Ihew+x3FEQ5yu
+ aHrTNXVXvtZdSkUW9W7A04UpDmN+FhGaH5n2sUqtw0ekW1MiqgrfwNEogYPQJRyn
+ LDttiBjeaiarlMYxwn8fTxx/nzs3r9pgUofhjzNpykXUfPHTHtjW/rrfgdJmRM5N
+ UxoNP7On5YycpNBATG1gJNOUcsi0JMt+T5fF5Qnd5FEJFdQQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45hpgbc5ub-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:25 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-6e917965e3eso58857046d6.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 04:51:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742817084; x=1743421884;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=HHHT+h2di88Hnsl4xAfhOoua3p6DucIksRCHqcJkWEM=;
+ b=oD7oEdv/1/OuNf7EHkYkvy1svtk4XWKFvfsrEG97kuovgRQi1e/lyQhpG2bOI6lnQW
+ yQIpX/9PkiWpMJ0T959tSGcPyEeaGngwr7Sh/Clsoj+PjaGb3I8dc4b1XjxJKe6WWFiX
+ m5gmivf2G0nCIqKlvOgq3uiPlxxLtzxOvyj3WkZ1uJmrn0peZKB3soAZm7Bfe3eZZ0SZ
+ FYG5KMmtQzIfE0opw/IgZbs8rbwTWXZD61wyaZYcN23+we+tZpNsBHMiAbeNznkXiJ9c
+ lMMRU0bl/pw5gSHhaLyk5eUmRvl/vYey16MCQ4cw6SCXlZTpyA2Qwi/naCJxvp5qGbdu
+ hKew==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUD+E+1V7+CL7E0CPnyRGvrPeopdD0O6joy2pmic6tz3LD1W0wQ7C2kdB/DUVMYkIgVWf7phV/X@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxqyRb2aQbDp0slgYuEw5D2rekQl1qZkIrjm90OSZGeUTcAjD01
+ UfDStDAxXcdaOzF72hWGMbUtqbTTWm6QLBQU8gw1AOKgMkgKWneMGT7MLntlmmoM7nAhwKxL+VY
+ vJoHRb5rWs/PPNLryK4vBv4vleGmN+w0nKJ8a1gUBEEPfRQLuShzQurSknWn+hz0V
+X-Gm-Gg: ASbGncvHMD+WLTMM5BemEvVwrOTLSmfi80YhN58z0XpEXyJVfmjR13hp4fCzbV/C+eI
+ 7HM1YTTn8qwSThTf+KCQDuoTdMWnNr21CTrkqAQmYF7I2m2YDxx2n/jimxIQfcw9i/AkV43c5dH
+ PZx+wNsiYnbjDdyCAQy5LNFMtccGFOPnQs8l1/NLmzG5JgmDWaukwG+K+/V4FokhyCbPSQvM6jc
+ 10LXvtQsnQOLOsDCmPtPeZg3i/neRmEyYmJpNRXS5w29YRZGUZJhocOmNpP0Mq6UxTvKNPcW/Cq
+ 8HzK2mKVnVuN+2yAw/J6J21a9cGO+RC5TRk/6I0YybaxpuqdhX5pmL1EWBqcCpkN5pWQm4AFCMg
+ jCWZqv+TSWg96Aj4gFMMr7yhNQJ7t
+X-Received: by 2002:a05:6214:da4:b0:6d3:fa03:23f1 with SMTP id
+ 6a1803df08f44-6eb3f2939ddmr188499436d6.13.1742817083597; 
+ Mon, 24 Mar 2025 04:51:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGj36F0l6G1JaL0ogDw4h1JCUGq+59PIS80e7WBjTosUk6vT7x5Yv8yf3mUz+pC+Do4mi+8+Q==
+X-Received: by 2002:a05:6214:da4:b0:6d3:fa03:23f1 with SMTP id
+ 6a1803df08f44-6eb3f2939ddmr188498636d6.13.1742817083013; 
+ Mon, 24 Mar 2025 04:51:23 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54ad64fbb51sm1142907e87.135.2025.03.24.04.51.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Mar 2025 04:51:22 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [RFC PATCH RESEND v4 0/6] drm/display: dp: add new DPCD access
+ functions
+Date: Mon, 24 Mar 2025 13:51:18 +0200
+Message-Id: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfa41441-0876-4d38-cdff-08dd6ab4c1e5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2025 09:17:53.6066 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: m7bUD3pObDUSd6C+XGrf0K67e6QAjl8S0s7P2H74Na6Suk80igs99Z7l2z1mTwwHLZBqsQJBoBsWukWRPrz0GQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6404
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jani Nikula <jani.nikula@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2996;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=66iKtCroS+wUxpRA2gMU25wN8Ri0QuCTAm5ya+VinMY=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn4Uc3j8hi7hRD+ymVE4ZaY94BaAKhBUU1YaVP5
+ QlAqLvMy6qJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ+FHNwAKCRCLPIo+Aiko
+ 1U5YB/9Er45q0Cnmx/cxb3wpGStaZkp9jILfFprTtlgc8IQjnhjovAuz7jPIFzspv+9BxGb6eAy
+ 2OTUyjJYJjwATk57dZEQGENUMO/pDgokQOAOMSYQWWxs04ePJT7go3UnR5U86af59Gwkv/Gt+ls
+ 0svFOWah1z9cXpJU3rvAeaXJyDTnSuGd3ayHHGofSOl7NBh2ZxZl1ZQKSC7QvCNx4urQJGoF19U
+ OqQRqsC80zHDKJaSoLr/hsgjm81s9ydm6e9Flq65OSSlMpOvl0rkwrD+1oMo2jA83or8sDX2uMz
+ TVfNVZ4bRb9Dzu/NTuJq9gOHchEx1jJ3G0iu0IjlkA/NAAQB
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=BoydwZX5 c=1 sm=1 tr=0 ts=67e1473d cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Vs1iUdzkB0EA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=BDmTPyut6bhdKis1t5QA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: HSiBukFi9A7xCwPN5XqOTBUS5EKvks8X
+X-Proofpoint-ORIG-GUID: HSiBukFi9A7xCwPN5XqOTBUS5EKvks8X
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-24_04,2025-03-21_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxscore=0
+ spamscore=0 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ impostorscore=0 priorityscore=1501 mlxlogscore=999 lowpriorityscore=0
+ suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2503240086
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,46 +150,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Existing DPCD access functions return an error code or the number of
+bytes being read / write in case of partial access. However a lot of
+drivers either (incorrectly) ignore partial access or mishandle error
+codes. In other cases this results in a boilerplate code which compares
+returned value with the size.
 
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+As suggested by Jani implement new set of DPCD access helpers, which
+ignore partial access, always return 0 or an error code. Implement
+new helpers using existing functions to ensure backwards compatibility
+and to assess necessity to handle incomplete reads on a global scale.
+Currently only one possible place has been identified, dp-aux-dev, which
+needs to handle possible holes in DPCD.
 
-Thanks & Regards
-Asad
+This series targets only the DRM helpers code. If the approach is found
+to be acceptable, each of the drivers should be converted on its own.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Laz=
-ar
-Sent: Monday, March 24, 2025 1:29 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Add NPS2 to DPX compatible mode
-
-Compute partition DPX is possible in NPS2 mode. Update the compatible modes=
- for DPX.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v4:
+- Actually dropped the dp-aux-dev patch (Lyude).
+- Added two missing full stops in linuxdoc (Lyude).
+- Link to v3: https://lore.kernel.org/r/20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/a=
-md/amdgpu/aqua_vanjaram.c
-index 3c07517be09a..ae071985f26e 100644
---- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -473,7 +473,8 @@ static int aqua_vanjaram_get_xcp_res_info(struct amdgpu=
-_xcp_mgr *xcp_mgr,
-                break;
-        case AMDGPU_DPX_PARTITION_MODE:
-                num_xcp =3D 2;
--               nps_modes =3D BIT(AMDGPU_NPS1_PARTITION_MODE);
-+               nps_modes =3D BIT(AMDGPU_NPS1_PARTITION_MODE) |
-+                           BIT(AMDGPU_NPS2_PARTITION_MODE);
-                break;
-        case AMDGPU_TPX_PARTITION_MODE:
-                num_xcp =3D 3;
---
-2.25.1
+Changes in v3:
+- Fixed cover letter (Jani)
+- Added intel-gfx and intel-xe to get the series CI-tested (Jani)
+- Link to v2: https://lore.kernel.org/r/20250301-drm-rework-dpcd-access-v2-0-4d92602fc7cd@linaro.org
+
+Changes in v2:
+- Reimplemented new helpers using old ones (Lyude)
+- Reworked the drm_dp_dpcd_read_link_status() patch (Lyude)
+- Dropped the dp-aux-dev patch (Jani)
+- Link to v1: https://lore.kernel.org/r/20250117-drm-rework-dpcd-access-v1-0-7fc020e04dbc@linaro.org
+
+---
+Dmitry Baryshkov (6):
+      drm/display: dp: implement new access helpers
+      drm/display: dp: change drm_dp_dpcd_read_link_status() return value
+      drm/display: dp: use new DCPD access helpers
+      drm/display: dp-cec: use new DCPD access helpers
+      drm/display: dp-mst-topology: use new DCPD access helpers
+      drm/display: dp-tunnel: use new DCPD access helpers
+
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.c           |   8 +-
+ .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |   2 +-
+ drivers/gpu/drm/display/drm_dp_cec.c               |  37 ++-
+ drivers/gpu/drm/display/drm_dp_helper.c            | 307 +++++++++------------
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      | 105 ++++---
+ drivers/gpu/drm/display/drm_dp_tunnel.c            |  20 +-
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c       |   4 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  24 +-
+ drivers/gpu/drm/msm/dp/dp_link.c                   |  18 +-
+ drivers/gpu/drm/radeon/atombios_dp.c               |   8 +-
+ include/drm/display/drm_dp_helper.h                |  92 +++++-
+ 11 files changed, 317 insertions(+), 308 deletions(-)
+---
+base-commit: b0894e40afe2bd05d1fda68cc364665ac2b00e09
+change-id: 20241231-drm-rework-dpcd-access-b0fc2e47d613
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
