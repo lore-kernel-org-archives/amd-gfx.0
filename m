@@ -4,72 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1481C36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 14:19:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21907C3600B
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 14:50:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDAC10E3E5;
-	Mon, 24 Mar 2025 14:19:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A9BD10E3D3;
+	Mon, 24 Mar 2025 14:50:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZcNITSrN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EGSDrvyY";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 318AA10E3E5
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 14:19:45 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-301a6347494so1132030a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 07:19:45 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFC6710E3ED
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 14:50:05 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-301a8b7398cso1256605a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 07:50:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742825985; x=1743430785; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742827805; x=1743432605; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=N5+nV0QB/3cVvT8KFJevZq6vPLdi7XhqenpVS4Sa7Tk=;
- b=ZcNITSrNANINH3xMdDgXDVDQvN+y5DHcURtRdtEX0WFSV3saZNtoX0TB8NLCBhU81K
- sa62hq2hbEumiCLdbxDEPV75ADip4D/4Yqq0QgOXtza6aPD5FyvjrN4VvKaxxQ/us2TO
- KWS1zzeVjZTnmEXcTQuYZDU3LB6F7aXJdcrLcnZd3C2fH60YU5irPhPzQhRuenHtlTa0
- itq4v5CLP3X9jQj9l9544KNU1X6qvCNIloQToXpHKV7j2CCPjeFCF3O0T20nXUHqSgba
- BSzuWyyuKJYlkUAVQYhU1XABwNexFv3mdBEnuAbsEklZ+FSP9M+UwbTjBlQ6uf8kIGKy
- z7Cw==
+ bh=TObWvIyXHVQL5QJf/ieVBjJRI8RhjhzXUsF8LsNG188=;
+ b=EGSDrvyYTEqOlomt1EnFs8rythpoK7+D9AwHAMWouO24YHcgmJ8b/2WWw80LW9azD9
+ sYDZVV+mvM24Dmi1c7O9Yvac+lAcvO4txjzAFyamx5B/IS+N31B1KD/3wH+6ErKNTxUg
+ 5x4G8CZ/e7ybDte0BVJ42WxYzBz4rql1SJs1sJxeOHuTNOQCHG9nXciPQ6FVPLGiFihc
+ iwBSP2kUxcskqkcXlDpMnWP8Qs7xlYIYvJnyRLTxsFJB2iGTmeDQZydyNXMcvOe1zetP
+ 4U5mk+aNZoYpgmTkyMiRUI55qp6pxqNfbPiFh+mY5lDFYf065+VONWmnIAuZ5ZU+pRAa
+ R+yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742825985; x=1743430785;
+ d=1e100.net; s=20230601; t=1742827805; x=1743432605;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=N5+nV0QB/3cVvT8KFJevZq6vPLdi7XhqenpVS4Sa7Tk=;
- b=ORT7jCF4Gre/aKORbaz85Udg88fiv2bTVN9MlI54B2YTuv28zSxEc3usEp16nvn8f4
- ri/5dvk8RV5NL7/jyVjuR5Q5PezAXHO44rX+vG157MpN1dihy/85h4UlTp0KNrH3KzMo
- uzfN4MKfwyFE1Sj4/zx/b9ObSTSp1rTxLlzu6d8z4Kn+Fq31f948brT/3rCf1LmC2kX6
- 9HRsx6Ditu5cnm8puFFOgBJmpbisAF3xrvukL4nbc3yu58rBWxyYd8iIXc+BaGXiwwAQ
- KEvSROYbirzy/x0OUGuZM/qnVoh+KLuiJ0qe20Nj9AyZb4a173vfqifFiuwOmeI+KA4u
- NW8A==
-X-Gm-Message-State: AOJu0YylTG083mujNqMU/0AkTS4RTjzUPd4k/qHEwR2bhMGJ12onzRVa
- V6ZdYAWeA8Yf7ImiZMVPMkFqYW0CQy9DE/NaiChIZiuS3X5IHi+lO0z7ZQeKCwsGyn9za6biUPa
- BGYmtUd9MdHt4+UEPksBwgLH2XhoXCg==
-X-Gm-Gg: ASbGncuXaEDlvcbA5gg6or59M159uVvjscm5N3CmlAol5hE+k1bR+4p9nVyvDM1ADkS
- DZM5xtPC//2sN9BFdUr5lhOHUK6Oi7HVy42XHxvN8XqHtlpgQPcKME3HAGuPdMrRrkaW6MX30Za
- g9Fr8VZD6UiY6kzqoUYYzIV4QS9A==
-X-Google-Smtp-Source: AGHT+IHjGsFKI+Z0mmO8TKKDom5/mtNEwqBExB5hFL3uu6lsiw7koqFXYB107ZVxzhKm5rKT0dw6oF3SYq504HJa7J8=
-X-Received: by 2002:a17:90b:1b09:b0:2ff:4e90:3c47 with SMTP id
- 98e67ed59e1d1-3030fee39d8mr7731172a91.4.1742825984446; Mon, 24 Mar 2025
- 07:19:44 -0700 (PDT)
+ bh=TObWvIyXHVQL5QJf/ieVBjJRI8RhjhzXUsF8LsNG188=;
+ b=V4vuOT1NrmgJHawl6Q1LczBULtMp8XxEZSAqxKa/THrHQVVRLs6guiWQ2Bu3IGzlV9
+ E7vu/gQfkYgpno8E93rE4BNWeL0GGnTOx3h7wkIhnF5e/Sj+e0VgZdu7X6ngKlQ8TFmp
+ cLPq6fyOz9lN9xU6Ph1IAQTPOSWCqrAxhxpyoLIEl6EJUtdZfxdPPxSuzXhUrOPkMd4y
+ CpIo3hkswSC3Ht0pHhHXi5tnAs7i7LXtw46zO50Fh/pDSm/SqYsViSDy9nBBTEEQds2c
+ 6EBV2Zj31ZWYPnu+XOQ8R43qKKFILVs+E6SqHa+m0NtJg7my3eAaZFnI34rtuGuAiH6O
+ hgZg==
+X-Gm-Message-State: AOJu0Yxqj4JDtm4gbEBD6NC/h33lSS1sC8Qemz/LULmn/dJo0t5ud3XM
+ rB3tQtNfdcHs4B4M2+hUZm7a7dkH9nMd3LY7NZnP7MyAeyhg7JnJZ3CTTvxhGxS0ZuTD+e4DFRO
+ j7T0uvjIjVm9jhaJ67SqcY4WtBC8vlA==
+X-Gm-Gg: ASbGncubFngmqw6Z8OkALcDaSH63DNPoRVxbPLMG9PB5Bc+sEFPP7ReTeGW+5vKF6vf
+ IsuuhkAjxXYLqJ9DObyGBSLG3UBhQpBNhTxTyAScd65A4FKJNekeFP8vRRZUua1Lwx//iXE1PIa
+ 8nj6c9yd2h8kx3YhzTxNKNJ8rfOw==
+X-Google-Smtp-Source: AGHT+IF2t+0XqXOcvKk7O/gm6vsTWQJai1QL7UtKBb7Sisjf4vs27rKQD/QG7dy7zqZiriA51qqUYEZGIxXDuItetMk=
+X-Received: by 2002:a17:90b:4a89:b0:2ee:acea:9ec4 with SMTP id
+ 98e67ed59e1d1-3030fee30e6mr7168266a91.3.1742827804864; Mon, 24 Mar 2025
+ 07:50:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250221130030.3703750-1-Prike.Liang@amd.com>
- <20250221130030.3703750-4-Prike.Liang@amd.com>
- <DS7PR12MB6005EFC45E880B99D77781BCFBCD2@DS7PR12MB6005.namprd12.prod.outlook.com>
- <CADnq5_OoqZcLoO+p7MseA9zG8hvXS85JRYpJZ9M=dT9sJMXcWg@mail.gmail.com>
- <DS7PR12MB6005A9ED729A0568C3608BA6FBC92@DS7PR12MB6005.namprd12.prod.outlook.com>
- <DS7PR12MB60053C5E76793E6A06471B32FBA42@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB60053C5E76793E6A06471B32FBA42@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <0b7e373b-ef2d-4243-a5a0-5ffd9d97cf74@gmail.com>
+ <CADnq5_PgeZtepU-emKHQKdSh2H-kiLu4KpK0LxVgKks35NTf6w@mail.gmail.com>
+ <CAAQb4tapVTvteA7b13+sLSxHVPKNUbaEtEhw_of8RqVjibgesg@mail.gmail.com>
+In-Reply-To: <CAAQb4tapVTvteA7b13+sLSxHVPKNUbaEtEhw_of8RqVjibgesg@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Mar 2025 10:19:32 -0400
-X-Gm-Features: AQ5f1JqfsaJPAHD-bIrOIJQGguggskSXBwadOZ9LX6Rx_js2eq-V29pCGlMU7fM
-Message-ID: <CADnq5_NgTvcYQo3eZNEStSq2joorKCN0Lvnd-qX7LC2Hqv6m5Q@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] drm/amdgpu/gfx12: Implement the GFX12 KCQ pipe
- reset
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Date: Mon, 24 Mar 2025 10:49:52 -0400
+X-Gm-Features: AQ5f1Jp-VZalLo88I4mAIHjrghdt2kZgLEq2QL2RVY0UdnO4OKre9zYIC3RGFBc
+Message-ID: <CADnq5_OxuUhK4Hvit757HCnJ-wJi8VLvczXYRU6qGfo2VOZ2Yg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add GFXOFF auto-tunning algorithm
+To: Sergey Kovalenko <seryoga.engineering@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,254 +81,297 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 24, 2025 at 8:01=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
-wrote:
+On Mon, Mar 24, 2025 at 10:34=E2=80=AFAM Sergey Kovalenko
+<seryoga.engineering@gmail.com> wrote:
 >
-> [Public]
+> Hello Alex!
 >
-> It seems there still requires implementing the gfx11/gfx12 pipe reset fro=
-m the project perspective, so please help review the patch series.
+> "If there are a lot of requests to toggle gfxoff, the worker thread to
+> allow it again gets
+> cancelled and scheduled again, extending the time it's disallowed." -
+> That's true except one thing:
+> cancelling and scheduling also take CPU cycles, and the pause between
+> submissions can exceed
+> 100ms interval, which leads to GFXOFF being enabled even if the GPU is lo=
+aded.
+> This simple prediction algorithm eliminates such cases.
+> GFXOFF is enabled immediately when there are only a few submissions
+> ongoing, which
+> means the system is idling. And when the number of compute submissions
+> exceeds the
+> range, the algorithm chooses a longer delay. Finally it simply ignores
+> GFXOFF ON requests
+> to prevent performance drops under high load.
+> This allows keeping idle power consumption low and using stable GPU
+> performance under load.
 
-See my latest comments on patch 1.  With those addressed the series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+What performance drops?  Your data doesn't show any.  Moreover the
+work only gets scheduled/cancelled around a ref count of 0. Plus, your
+change introduces a bunch of additional calculations for this function
+which add overhead which you are concerned about.
+
+Alex
 
 >
 > Regards,
->       Prike
+> Sergey
 >
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lian=
-g,
-> > Prike
-> > Sent: Monday, March 3, 2025 7:23 PM
-> > To: Alex Deucher <alexdeucher@gmail.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>
-> > Subject: RE: [PATCH v2 4/4] drm/amdgpu/gfx12: Implement the GFX12 KCQ p=
-ipe
-> > reset
+> On Mon, Mar 24, 2025 at 4:14=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
+om> wrote:
 > >
-> > [Public]
+> > On Mon, Mar 24, 2025 at 5:06=E2=80=AFAM Sergey Kovalenko
+> > <seryoga.engineering@gmail.com> wrote:
+> > >
+> > > Predict an optimal delay to enable GFXOFF for the next interval
+> > > based on the request count:
+> > > - less than 15 requests per second - zero delay
+> > > - less than 25 requests per second - default delay
+> > > - 25 and more requests per second - don't enable GFXOFF
+> > >
+> > > The algorithm allows maintaining low power consumption in idle,
+> > > as well as using the full GPU power under load by eliminating
+> > > hundreds of extra GFXOFF ON/OFF switches.
 > >
-> > [Public]
+> > I still don't understand what problem this is solving.  This already
+> > happens with the way the code works now.  If there are a lot of
+> > requests to toggle gfxoff, the worker thread to allow it again gets
+> > cancelled and scheduled again, extending the time it's disallowed.
 > >
-> > Thank you for the input. I have confirmed with the firmware team that t=
-he CP FW
-> > _start instruction address will be kept consistent.
-> > Could we move this patch series forward now?
+> > Alex
 > >
-> > Regards,
-> >       Prike
 > >
-> > > -----Original Message-----
-> > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > Sent: Thursday, February 27, 2025 10:38 PM
-> > > To: Liang, Prike <Prike.Liang@amd.com>
-> > > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > > <Alexander.Deucher@amd.com>
-> > > Subject: Re: [PATCH v2 4/4] drm/amdgpu/gfx12: Implement the GFX12 KCQ
-> > > pipe reset
+> > Alex
+> >
 > > >
-> > > On Thu, Feb 27, 2025 at 7:36=E2=80=AFAM Liang, Prike <Prike.Liang@amd=
-.com> wrote:
-> > > >
-> > > > [AMD Official Use Only - AMD Internal Distribution Only]
-> > > >
-> > > > Please review the series patch to catch up the gfx latest base and
-> > > > to avoid the
-> > > commit merged problem.
+> > > Test configuration:
+> > > - Ryzen 5 2500U
+> > > - Ryzen 5 3400G
+> > > - Chromium 134.0.6998.88 Arch Linux
+> > > - Mesa 1:24.3.4-1
+> > > - KDE Plasma 6.3.2
 > > >
-> > > See my comment on patch 1:
+> > > GFXOFF enable requests per second:
+> > > | Test                                                | min | max |
+> > > |-----------------------------------------------------|-----|-----|
+> > > | System idle                                         |   0 |  64 |
+> > > | Web browsing                                        |   0 | 127 |
+> > > | WebGL aquarium                                      |  10 | 236 |
+> > > | Heavy load: glxgears + vkcube + resizing + flipping |  39 | 677 |
 > > >
-> > > #define RS64_FW_UC_START_ADDR_LO 0x3000
+> > > Test results, Ryzen 5 2500U:
+> > > | Test                        | patched-6.13.7.arch1 |   6.13.7.arch1=
+-1 |
+> > > |-----------------------------|----------------------|---------------=
+---|
+> > > | System idle (PkgWatt)       |               ~0.74W |          ~1.25=
+W  |
+> > > | glxgears (vblank_mode=3D0)    |     ~7300 fps, ~7.3W | ~7300 fps, ~=
+7.3W |
+> > > | WebGL aquarium 15.000 fish  |     56-60 fps, ~9.8W | 55-60 fps, ~9.=
+8W |
 > > >
-> > > Will this potentially change in future firmware versions or is it
-> > > fixed?  If it will change, then let's just read it back from register=
-s
-> > > and store it in adev-
-> > > >gfx.rs64_fw_use_start_addr_lo so that it will be correct if the user
-> > > >has a mix of
-> > > GPUs in the system.
-> > > Other than those comments, the series looks good to me.
+> > > Test results, Ryzen 5 3400G:
+> > > | Test                        | patched-6.13.7.arch1 |   6.13.7.arch1=
+-1 |
+> > > |-----------------------------|----------------------|---------------=
+---|
+> > > | System idle (PkgWatt)       |                ~3.8W |           ~4.3=
+W  |
+> > > | glxgears (vblank_mode=3D0)    |            ~7200 fps |        ~7200=
+ fps |
+> > > | WebGL aquarium 30.000 fish  |          37 fps, 47W |      38 fps, 4=
+7W |
 > > >
-> > > Alex
+> > > Signed-off-by: Sergey Kovalenko <seryoga.engineering@gmail.com>
+> > > Tested-by: Liam Fleming <fleming.squared@proton.me>
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 94 +++++++++++++++++-----=
+---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 +
+> > >   2 files changed, 67 insertions(+), 30 deletions(-)
 > > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > index c1f35ded684e..5e23b956e0bf 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > @@ -781,55 +781,89 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device
+> > > *adev, int xcc_id)
+> > >    * 3. other client can cancel their request of disable gfx off feat=
+ure
+> > >    * 4. other client should not send request to enable gfx off featur=
+e
+> > > before disable gfx off feature.
+> > >    */
+> > > -
+> > >   void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
+> > >   {
+> > > -       unsigned long delay =3D GFX_OFF_DELAY_ENABLE;
+> > > -
+> > >         if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
+> > >                 return;
 > > >
-> > > >
-> > > > Regards,
-> > > >       Prike
-> > > >
-> > > > > -----Original Message-----
-> > > > > From: Liang, Prike <Prike.Liang@amd.com>
-> > > > > Sent: Friday, February 21, 2025 9:01 PM
-> > > > > To: amd-gfx@lists.freedesktop.org
-> > > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
-> > > > > <Prike.Liang@amd.com>
-> > > > > Subject: [PATCH v2 4/4] drm/amdgpu/gfx12: Implement the GFX12 KCQ
-> > > > > pipe reset
-> > > > >
-> > > > > Implement the GFX12 KCQ pipe reset, and disable the GFX12 kernel
-> > > > > compute queue until the CPFW fully supports it.
-> > > > >
-> > > > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 90
-> > > > > +++++++++++++++++++++++++-
-> > > > >  1 file changed, 88 insertions(+), 2 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > > > > index 79ae7d538844..103298938d22 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > > > > @@ -5352,6 +5352,90 @@ static int gfx_v12_0_reset_kgq(struct
-> > > > > amdgpu_ring *ring, unsigned int vmid)
-> > > > >       return amdgpu_ring_test_ring(ring);  }
-> > > > >
-> > > > > +static int gfx_v12_0_reset_compute_pipe(struct amdgpu_ring *ring=
-)
-> > > > > +{
-> > > > > +
-> > > > > +     struct amdgpu_device *adev =3D ring->adev;
-> > > > > +     uint32_t reset_pipe =3D 0, clean_pipe =3D 0;
-> > > > > +     int r;
-> > > > > +
-> > > > > +     if (!gfx_v12_pipe_reset_support(adev))
-> > > > > +             return -EOPNOTSUPP;
-> > > > > +
-> > > > > +     gfx_v12_0_set_safe_mode(adev, 0);
-> > > > > +     mutex_lock(&adev->srbm_mutex);
-> > > > > +     soc24_grbm_select(adev, ring->me, ring->pipe, ring->queue,
-> > > > > + 0);
-> > > > > +
-> > > > > +     reset_pipe =3D RREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL);
-> > > > > +     clean_pipe =3D reset_pipe;
-> > > > > +
-> > > > > +     if (adev->gfx.rs64_enable) {
-> > > > > +
-> > > > > +             switch (ring->pipe) {
-> > > > > +             case 0:
-> > > > > +                     reset_pipe =3D REG_SET_FIELD(reset_pipe,
-> > > > > CP_MEC_RS64_CNTL,
-> > > > > +                                                MEC_PIPE0_RESET,=
- 1);
-> > > > > +                     clean_pipe =3D REG_SET_FIELD(clean_pipe,
-> > > > > CP_MEC_RS64_CNTL,
-> > > > > +                                                MEC_PIPE0_RESET,=
- 0);
-> > > > > +                     break;
-> > > > > +             case 1:
-> > > > > +                     reset_pipe =3D REG_SET_FIELD(reset_pipe,
-> > > > > CP_MEC_RS64_CNTL,
-> > > > > +                                                MEC_PIPE1_RESET,=
- 1);
-> > > > > +                     clean_pipe =3D REG_SET_FIELD(clean_pipe,
-> > > > > CP_MEC_RS64_CNTL,
-> > > > > +                                                MEC_PIPE1_RESET,=
- 0);
-> > > > > +                     break;
-> > > > > +             case 2:
-> > > > > +                     reset_pipe =3D REG_SET_FIELD(reset_pipe,
-> > > > > CP_MEC_RS64_CNTL,
-> > > > > +                                                MEC_PIPE2_RESET,=
- 1);
-> > > > > +                     clean_pipe =3D REG_SET_FIELD(clean_pipe,
-> > > > > CP_MEC_RS64_CNTL,
-> > > > > +                                                MEC_PIPE2_RESET,=
- 0);
-> > > > > +                     break;
-> > > > > +             case 3:
-> > > > > +                     reset_pipe =3D REG_SET_FIELD(reset_pipe,
-> > > > > CP_MEC_RS64_CNTL,
-> > > > > +                                                MEC_PIPE3_RESET,=
- 1);
-> > > > > +                     clean_pipe =3D REG_SET_FIELD(clean_pipe,
-> > > > > CP_MEC_RS64_CNTL,
-> > > > > +                                                MEC_PIPE3_RESET,=
- 0);
-> > > > > +                     break;
-> > > > > +             default:
-> > > > > +                     break;
-> > > > > +             }
-> > > > > +             WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, reset_pipe=
-);
-> > > > > +             WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, clean_pipe=
-);
-> > > > > +             r =3D (RREG32_SOC15(GC, 0, regCP_MEC_RS64_INSTR_PNT=
-R)
-> > > > > << 2) - RS64_FW_UC_START_ADDR_LO;
-> > > > > +     } else {
-> > > > > +             switch (ring->pipe) {
-> > > > > +             case 0:
-> > > > > +                     reset_pipe =3D REG_SET_FIELD(reset_pipe,
-> > > > > + CP_MEC_CNTL,
-> > > > > +
-> > > > > + MEC_ME1_PIPE0_RESET,
-> > > > > 1);
-> > > > > +                     clean_pipe =3D REG_SET_FIELD(clean_pipe,
-> > > > > CP_MEC_CNTL,
-> > > > > +
-> > > > > + MEC_ME1_PIPE0_RESET,
-> > > > > 0);
-> > > > > +                     break;
-> > > > > +             case 1:
-> > > > > +                     reset_pipe =3D REG_SET_FIELD(reset_pipe,
-> > > > > + CP_MEC_CNTL,
-> > > > > +
-> > > > > + MEC_ME1_PIPE1_RESET,
-> > > > > 1);
-> > > > > +                     clean_pipe =3D REG_SET_FIELD(clean_pipe,
-> > > > > CP_MEC_CNTL,
-> > > > > +
-> > > > > + MEC_ME1_PIPE1_RESET,
-> > > > > 0);
-> > > > > +                     break;
-> > > > > +             default:
-> > > > > +             break;
-> > > > > +             }
-> > > > > +             WREG32_SOC15(GC, 0, regCP_MEC_CNTL, reset_pipe);
-> > > > > +             WREG32_SOC15(GC, 0, regCP_MEC_CNTL, clean_pipe);
-> > > > > +             /* Doesn't find the F32 MEC instruction pointer
-> > > > > + register, and
-> > > > > suppose
-> > > > > +              * the driver won't run into the F32 mode.
-> > > > > +              */
-> > > > > +     }
-> > > > > +
-> > > > > +     soc24_grbm_select(adev, 0, 0, 0, 0);
-> > > > > +     mutex_unlock(&adev->srbm_mutex);
-> > > > > +     gfx_v12_0_unset_safe_mode(adev, 0);
-> > > > > +
-> > > > > +     dev_info(adev->dev,"The ring %s pipe resets: %s\n", ring->n=
-ame,
-> > > > > +                     r =3D=3D 0 ? "successfully" : "failed");
-> > > > > +     /* Need the ring test to verify the pipe reset result.*/
-> > > > > +     return 0;
-> > > > > +
-> > > > > +}
-> > > > >  static int gfx_v12_0_reset_kcq(struct amdgpu_ring *ring, unsigne=
-d int vmid)
-> > {
-> > > > >       struct amdgpu_device *adev =3D ring->adev; @@ -5362,8 +5446=
-,10
-> > > > > @@ static int gfx_v12_0_reset_kcq(struct amdgpu_ring *ring,
-> > > > > unsigned int vmid)
-> > > > >
-> > > > >       r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid,=
- true);
-> > > > >       if (r) {
-> > > > > -             dev_err(adev->dev, "reset via MMIO failed %d\n", r)=
-;
-> > > > > -             return r;
-> > > > > +             dev_warn(adev->dev,"fail(%d) to reset kcq  and try =
-pipe reset\n",
-> > r);
-> > > > > +             r =3D gfx_v12_0_reset_compute_pipe(ring);
-> > > > > +             if (r)
-> > > > > +                     return r;
-> > > > >       }
-> > > > >
-> > > > >       r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
-> > > > > --
-> > > > > 2.34.1
-> > > >
+> > >         mutex_lock(&adev->gfx.gfx_off_mutex);
+> > >
+> > >         if (enable) {
+> > > -               /* If the count is already 0, it means there's an imb=
+alance bug
+> > > somewhere.
+> > > -                * Note that the bug may be in a different caller tha=
+n the one which
+> > > triggers the
+> > > -                * WARN_ON_ONCE.
+> > > -                */
+> > > -               if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count =3D=3D 0=
+))
+> > > +               /* This case covers multiple calls from parallel thre=
+ads */
+> > > +               if (!adev->gfx.gfx_off_req_count)
+> > >                         goto unlock;
+> > >
+> > > -               adev->gfx.gfx_off_req_count--;
+> > > +               /* Process only if req_count =3D=3D 0 and GFXOFF is d=
+isabled */
+> > > +               if (--adev->gfx.gfx_off_req_count || adev->gfx.gfx_of=
+f_state)
+> > > +                       goto unlock;
+> > > +
+> > > +               /* If going to s2idle, no need to wait */
+> > > +               if (adev->in_s0ix) {
+> > > +                       if (!amdgpu_dpm_set_powergating_by_smu(
+> > > +                                   adev, AMD_IP_BLOCK_TYPE_GFX, true=
+, 0))
+> > > +                               adev->gfx.gfx_off_state =3D true;
+> > > +
+> > > +                       /* Reset delay flag */
+> > > +                       adev->gfx.gfx_off_use_delay =3D 0;
+> > > +                       goto unlock;
+> > > +               }
+> > >
+> > > -               if (adev->gfx.gfx_off_req_count =3D=3D 0 &&
+> > > -                   !adev->gfx.gfx_off_state) {
+> > > -                       /* If going to s2idle, no need to wait */
+> > > -                       if (adev->in_s0ix) {
+> > > -                               if (!amdgpu_dpm_set_powergating_by_sm=
+u(adev,
+> > > -                                               AMD_IP_BLOCK_TYPE_GFX=
+, true, 0))
+> > > -                                       adev->gfx.gfx_off_state =3D t=
+rue;
+> > > +               ++adev->gfx.gfx_off_counter;
+> > > +
+> > > +               uint64_t now =3D get_jiffies_64();
+> > > +               uint64_t delta =3D
+> > > +                       jiffies_to_msecs(now - adev->gfx.gfx_off_time=
+stamp);
+> > > +
+> > > +               if (delta >=3D 1000u) {
+> > > +                       /*
+> > > +                        * Predict the optimal delay for the next int=
+erval
+> > > +                        * based on the current number of requests:
+> > > +                        * <15 - idle, no delay
+> > > +                        * <25 - light/medium load, default delay
+> > > +                        * 25 and more - high load, GFXOFF disabled
+> > > +                        */
+> > > +                       if (adev->gfx.gfx_off_counter < 15u) {
+> > > +                               adev->gfx.gfx_off_use_delay =3D 0;
+> > > +                       } else if (adev->gfx.gfx_off_counter < 25u) {
+> > > +                               adev->gfx.gfx_off_use_delay =3D 1;
+> > >                         } else {
+> > > -                               schedule_delayed_work(&adev->gfx.gfx_=
+off_delay_work,
+> > > -                                             delay);
+> > > +                               adev->gfx.gfx_off_use_delay =3D 2;
+> > >                         }
+> > > +
+> > > +                       adev->gfx.gfx_off_counter =3D 0;
+> > > +                       adev->gfx.gfx_off_timestamp =3D now;
+> > >                 }
+> > > +
+> > > +               /* Don't schedule gfxoff under heavy load */
+> > > +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
+> > > +                       goto unlock;
+> > > +
+> > > +               schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
+> > > +                                     adev->gfx.gfx_off_use_delay ?
+> > > +                                             GFX_OFF_DELAY_ENABLE :
+> > > +                                             GFX_OFF_NO_DELAY);
+> > >         } else {
+> > > -               if (adev->gfx.gfx_off_req_count =3D=3D 0) {
+> > > -                       cancel_delayed_work_sync(&adev->gfx.gfx_off_d=
+elay_work);
+> > > +               /* GFXOFF was enabled when req_count =3D=3D 0 */
+> > > +               if (++adev->gfx.gfx_off_req_count !=3D 1)
+> > > +                       goto unlock;
+> > >
+> > > -                       if (adev->gfx.gfx_off_state &&
+> > > -                           !amdgpu_dpm_set_powergating_by_smu(adev, =
+AMD_IP_BLOCK_TYPE_GFX,
+> > > false, 0)) {
+> > > -                               adev->gfx.gfx_off_state =3D false;
+> > > +               /* Nothing to do if the work wasn't scheduled */
+> > > +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
+> > > +                       goto unlock;
+> > >
+> > > -                               if (adev->gfx.funcs->init_spm_golden)=
+ {
+> > > -                                       dev_dbg(adev->dev,
+> > > -                                               "GFXOFF is disabled, =
+re-init SPM golden settings\n");
+> > > -                                       amdgpu_gfx_init_spm_golden(ad=
+ev);
+> > > -                               }
+> > > +               cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_wor=
+k);
+> > > +
+> > > +               if (adev->gfx.gfx_off_state &&
+> > > +                   !amdgpu_dpm_set_powergating_by_smu(
+> > > +                           adev, AMD_IP_BLOCK_TYPE_GFX, false, 0)) {
+> > > +                       adev->gfx.gfx_off_state =3D false;
+> > > +
+> > > +                       if (adev->gfx.funcs->init_spm_golden) {
+> > > +                               dev_dbg(adev->dev,
+> > > +                                       "GFXOFF is disabled, re-init =
+SPM golden settings\n");
+> > > +                               amdgpu_gfx_init_spm_golden(adev);
+> > >                         }
+> > >                 }
+> > > -
+> > > -               adev->gfx.gfx_off_req_count++;
+> > >         }
+> > >
+> > >   unlock:
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > index 8b5bd63b5773..38fd445a353b 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > > @@ -430,7 +430,10 @@ struct amdgpu_gfx {
+> > >         /* gfx off */
+> > >         bool                            gfx_off_state;      /* true: =
+enabled,
+> > > false: disabled */
+> > >         struct mutex                    gfx_off_mutex;      /* mutex =
+to
+> > > change gfxoff state */
+> > > +       uint64_t                        gfx_off_timestamp;  /* gfxoff=
+ enable call timestamp */
+> > > +       uint32_t                        gfx_off_use_delay;  /* flag t=
+o choose the delay range */
+> > >         uint32_t                        gfx_off_req_count;  /* defaul=
+t 1,
+> > > enable gfx off: dec 1, disable gfx off: add 1 */
+> > > +       uint32_t                        gfx_off_counter;    /* count =
+of gfxoff enable calls */
+> > >         struct delayed_work             gfx_off_delay_work; /* async =
+work to
+> > > set gfx block off */
+> > >         uint32_t                        gfx_off_residency;  /* last l=
+ogged
+> > > residency */
+> > >         uint64_t                        gfx_off_entrycount; /* count =
+of times
+> > > GPU has get into GFXOFF state */
+> > > --
+> > > 2.49.0
