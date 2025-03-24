@@ -4,71 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07360C36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 15:18:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7EBAC3600D
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 15:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E35310E440;
-	Mon, 24 Mar 2025 15:18:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4751710E44D;
+	Mon, 24 Mar 2025 15:18:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ub+6W3VG";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RnbC5SOQ";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A63D10E440
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 15:18:09 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2ff7255b8c6so903364a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 08:18:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742829489; x=1743434289; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8vx4Mu3yoTfZW4a/Sx7NotQ0Zff95FeRUyQem59XUTE=;
- b=Ub+6W3VGdRZX2+JE+GUa/7dpK1yy26OLz0SCr97Fraw0/z3vkO9/WO52Wsq+uBfNB4
- 1CUTt/rd1IasTavJGuCVBMif0yIi9DsgCGqX8aaXn+ngIa0qHdnhZg4bmtehDBe1C7hR
- sZGYONn4Zr4tb4nEhiKBOmFiaRDpR2JJOAOlC1yG2NmSzwwPt4zfx5n7ZIczmXD4IqP0
- wAPXCvV7A+qQmsJTSx/syhfmUiwjEGJTuRlznvH/WVzJKhl/hZ0f/cGclGsEeQhzyHuM
- HSrHXZrTOZjrePT2XzBRbPTL5vEE+fycGbr+DGUpSNVQxLXXoZpaZT035YsLqog7sKDA
- Z2UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742829489; x=1743434289;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8vx4Mu3yoTfZW4a/Sx7NotQ0Zff95FeRUyQem59XUTE=;
- b=UpawW87T9t30gzFNyx2JO9U4YENtirFiY1LSdZwJkDjZCUThdE++swPD808OJDVIg3
- dOUPqrRftcGnhnGHCrKnbxs2NCZRMBTde3wj43ma84Wqg6nkFjsP331NiArVSHtcQLm9
- Jn1N+feNfVRkVPXpkPwTbMc/k1qelnC8X7Z+8itEfH5hMF+3J5ZdzmZgxC78E9oFhUkl
- iTigRo7KsJOkqGv/0NwPBSyPYQWj35eTnNlP3Hu4YrBUH/Jd8xg4TjBfXkU+v6VlDNAz
- ZQa7SJlGJTszMcQgtH/qY7l0/FlVv5eC0N4lpiX4etZUbURTcneQDwpVGAfEqCn2gJUD
- fSYg==
-X-Gm-Message-State: AOJu0YzWWzs+khpynDKGco5SOt56sNpAwLSOME7ta6k9fUmhu5MLBzP4
- 4ZHxlnNLHp4M6q1GL+HvMuwju7uHLsiqnbyWw0PFOLvGWLqCuMehhot/0B0NUEeVbHnZcEapNXt
- YXdfpjuVUgN1p75YMIKMGYZcDMonK6A==
-X-Gm-Gg: ASbGncsjCqqDu7FBK/4OgRuMJmA4tRTANmQ/mmyMg79Tprm6W1KPHk3sUDS6zWeStgx
- xrgKBlTKX72T10pygdMnsPkHpl4c/Lggn2rALkXNfU4nTDjgN4anCrGC9qkUUJ208pxH1CDleRt
- NaJ5S5wdmEPZmv51YoWjo2bowX9A==
-X-Google-Smtp-Source: AGHT+IHdcQCAhu0Wd07TWhmM1rAT2sjfQOj6efmkvO47OjyHjKqvCVZrWCQ8G4o80NVtax/caak0HSMC/akwZE9EeoI=
-X-Received: by 2002:a17:90b:2250:b0:2fe:b972:a2c3 with SMTP id
- 98e67ed59e1d1-3030fd37008mr8114596a91.0.1742829488526; Mon, 24 Mar 2025
- 08:18:08 -0700 (PDT)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 368FA10E44D;
+ Mon, 24 Mar 2025 15:18:23 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 108104441C;
+ Mon, 24 Mar 2025 15:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1742829501;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=HUBHQg0Daa6K6GLuXE7TSPlGQ+M3NRSkAcMJIBLX3xk=;
+ b=RnbC5SOQ6wJ0LIUNE/kO7MP90UcWHYVDFTE9QBwms0dAguPzj0IUwRFZc6XxyrOyji6oqL
+ OVeDB9e/4eE4qrwX+FQljKbkaijlCyHisoZXRbUiQmVYdvSWcsC2v9NFmLZKPjQyP+YMMI
+ eZ55JBRi6X5BYCRRhDmpkAdiRDq5Cwx+UB4bQQbATkJABkQmopjiI4chs8cz5oTRhlLwva
+ W6aMM0MAxRiIPOLqR7AqzVLKCSjYq1eM+MWLGAmlVC4v/Q/HLxrywhdnVSrX27WmaQZRSp
+ 5yQHDPHCotoPl6xR8mPnSddnP1U/3mWWdmDWvUyxMXTOTO5qp7hHnlepf8Gt/A==
+Message-ID: <1bc8fe84-fc67-4348-b916-05174e07c884@bootlin.com>
+Date: Mon, 24 Mar 2025 16:18:20 +0100
 MIME-Version: 1.0
-References: <0b7e373b-ef2d-4243-a5a0-5ffd9d97cf74@gmail.com>
- <CADnq5_PgeZtepU-emKHQKdSh2H-kiLu4KpK0LxVgKks35NTf6w@mail.gmail.com>
- <CAAQb4tapVTvteA7b13+sLSxHVPKNUbaEtEhw_of8RqVjibgesg@mail.gmail.com>
- <CADnq5_OxuUhK4Hvit757HCnJ-wJi8VLvczXYRU6qGfo2VOZ2Yg@mail.gmail.com>
- <CAAQb4tZ_qmwmRxWbzzunJKRFVrWoB5iWbDbnOwDZufo-ng8qDA@mail.gmail.com>
-In-Reply-To: <CAAQb4tZ_qmwmRxWbzzunJKRFVrWoB5iWbDbnOwDZufo-ng8qDA@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Mar 2025 11:17:56 -0400
-X-Gm-Features: AQ5f1JqVznf0kD-YEH0IYGa-gLxZQBYStJpG7x6aNupn8hqDdONHn8xzCGWeUco
-Message-ID: <CADnq5_OTm+xCh0=R=PNa5jf15Cy=f4uezo7jM3qQBO7p7EQ=iQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add GFXOFF auto-tunning algorithm
-To: Sergey Kovalenko <seryoga.engineering@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Subject: Re: [PATCH v2 24/59] dyndbg: treat comma as a token separator
+To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-gfx-trybot@lists.freedesktop.org
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com
+References: <20250320185238.447458-1-jim.cromie@gmail.com>
+ <20250320185238.447458-25-jim.cromie@gmail.com>
+Content-Language: en-US
+Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
+ 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
+In-Reply-To: <20250320185238.447458-25-jim.cromie@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduiedtudduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfhuffvvehfjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeetfffhtdeigfehffduuedvkeefgfdvuddugfffteetffdvteffgfejvedugffgffenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudegpdhrtghpthhtohepjhhimhdrtghrohhmihgvsehgmhgrihhlrdgtohhmpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsr
+ dhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepihhnthgvlhdqghhvthdquggvvheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepihhnthgvlhdqghhfgidqthhrhigsohhtsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepjhgsrghrohhnsegrkhgrmhgrihdrtghomh
+X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,353 +122,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 24, 2025 at 11:14=E2=80=AFAM Sergey Kovalenko
-<seryoga.engineering@gmail.com> wrote:
->
-> "Moreover the work only gets scheduled/cancelled
->  around a ref count of 0" - and this happens more than 600 times
-> per second under load, as you can see from the table.
-> Moreover these 600 GFXOFF requests are executed with a very
-> little interval between them. If we set GFXOFF delay to 0 by
-> default, it will be enabled and disabled 600 times with pretty
-> significant performance drop in any test.
 
-Can you show me the impact?
 
-> Keeping 100ms GFXOFF delay leads to 2 times higher
-> power consumption in idle, nicely noticeable for laptops.
+Le 20/03/2025 à 19:52, Jim Cromie a écrit :
+> Treat comma as a token terminator, just like a space.  This allows a
+> user to avoid quoting hassles when spaces are otherwise needed:
+> 
+>   :#> modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+> 
+> or as a boot arg:
+> 
+>   drm.dyndbg=class,DRM_UT_CORE,+p  # todo: support multi-query here
+> 
+> Given the many ways a boot-line +args can be assembled and then passed
+> in/down/around shell based tools, this may allow side-stepping all
+> sorts of quoting hassles thru those layers.
+> 
+> existing query format:
+> 
+>   modprobe test_dynamic_debug dyndbg="class D2_CORE +p"
+> 
+> new format:
+> 
+>   modprobe test_dynamic_debug dyndbg=class,D2_CORE,+p
+> 
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> Co-developed-by: Łukasz Bartosik <ukaszb@chromium.org>
+> Signed-off-by: Łukasz Bartosik <ukaszb@chromium.org>
 
-That will be fixed in kernel 6.15 which adds the
-gfx_off_ctrl_immediate() patches.
+This patch seems to be unrelated to the whole series, and can be applied 
+on the current rc. What do you think about extracting the patches 24, 
+25, 26, 27? I understand 28 depends on it, but I believe 24..27 can be 
+merged before as they are simple.
 
-Alex
+> ---
+>   lib/dynamic_debug.c | 17 +++++++++++++----
+>   1 file changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> index cd3eec5bb81c..168663629ef2 100644
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -293,6 +293,14 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
+>   	return nfound;
+>   }
+>   
+> +static char *skip_spaces_and_commas(const char *str)
+> +{
+> +	str = skip_spaces(str);
+> +	while (*str == ',')
+> +		str = skip_spaces(++str);
+> +	return (char *)str;
+> +}
+> +
 
->
-> I don't think this is the behavior the users want to see.
-> Workarounds introduced a significant overhead, and
-> to mitigate it there is a simple solution to limit the amount
-> of those calls.
->
-> Regards,
-> Sergey
->
-> On Mon, Mar 24, 2025 at 4:50=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
-om> wrote:
-> >
-> > On Mon, Mar 24, 2025 at 10:34=E2=80=AFAM Sergey Kovalenko
-> > <seryoga.engineering@gmail.com> wrote:
-> > >
-> > > Hello Alex!
-> > >
-> > > "If there are a lot of requests to toggle gfxoff, the worker thread t=
-o
-> > > allow it again gets
-> > > cancelled and scheduled again, extending the time it's disallowed." -
-> > > That's true except one thing:
-> > > cancelling and scheduling also take CPU cycles, and the pause between
-> > > submissions can exceed
-> > > 100ms interval, which leads to GFXOFF being enabled even if the GPU i=
-s loaded.
-> > > This simple prediction algorithm eliminates such cases.
-> > > GFXOFF is enabled immediately when there are only a few submissions
-> > > ongoing, which
-> > > means the system is idling. And when the number of compute submission=
-s
-> > > exceeds the
-> > > range, the algorithm chooses a longer delay. Finally it simply ignore=
-s
-> > > GFXOFF ON requests
-> > > to prevent performance drops under high load.
-> > > This allows keeping idle power consumption low and using stable GPU
-> > > performance under load.
-> >
-> > What performance drops?  Your data doesn't show any.  Moreover the
-> > work only gets scheduled/cancelled around a ref count of 0. Plus, your
-> > change introduces a bunch of additional calculations for this function
-> > which add overhead which you are concerned about.
-> >
-> > Alex
-> >
-> > >
-> > > Regards,
-> > > Sergey
-> > >
-> > > On Mon, Mar 24, 2025 at 4:14=E2=80=AFPM Alex Deucher <alexdeucher@gma=
-il.com> wrote:
-> > > >
-> > > > On Mon, Mar 24, 2025 at 5:06=E2=80=AFAM Sergey Kovalenko
-> > > > <seryoga.engineering@gmail.com> wrote:
-> > > > >
-> > > > > Predict an optimal delay to enable GFXOFF for the next interval
-> > > > > based on the request count:
-> > > > > - less than 15 requests per second - zero delay
-> > > > > - less than 25 requests per second - default delay
-> > > > > - 25 and more requests per second - don't enable GFXOFF
-> > > > >
-> > > > > The algorithm allows maintaining low power consumption in idle,
-> > > > > as well as using the full GPU power under load by eliminating
-> > > > > hundreds of extra GFXOFF ON/OFF switches.
-> > > >
-> > > > I still don't understand what problem this is solving.  This alread=
-y
-> > > > happens with the way the code works now.  If there are a lot of
-> > > > requests to toggle gfxoff, the worker thread to allow it again gets
-> > > > cancelled and scheduled again, extending the time it's disallowed.
-> > > >
-> > > > Alex
-> > > >
-> > > >
-> > > > Alex
-> > > >
-> > > > >
-> > > > > Test configuration:
-> > > > > - Ryzen 5 2500U
-> > > > > - Ryzen 5 3400G
-> > > > > - Chromium 134.0.6998.88 Arch Linux
-> > > > > - Mesa 1:24.3.4-1
-> > > > > - KDE Plasma 6.3.2
-> > > > >
-> > > > > GFXOFF enable requests per second:
-> > > > > | Test                                                | min | max=
- |
-> > > > > |-----------------------------------------------------|-----|----=
--|
-> > > > > | System idle                                         |   0 |  64=
- |
-> > > > > | Web browsing                                        |   0 | 127=
- |
-> > > > > | WebGL aquarium                                      |  10 | 236=
- |
-> > > > > | Heavy load: glxgears + vkcube + resizing + flipping |  39 | 677=
- |
-> > > > >
-> > > > > Test results, Ryzen 5 2500U:
-> > > > > | Test                        | patched-6.13.7.arch1 |   6.13.7.a=
-rch1-1 |
-> > > > > |-----------------------------|----------------------|-----------=
--------|
-> > > > > | System idle (PkgWatt)       |               ~0.74W |          ~=
-1.25W  |
-> > > > > | glxgears (vblank_mode=3D0)    |     ~7300 fps, ~7.3W | ~7300 fp=
-s, ~7.3W |
-> > > > > | WebGL aquarium 15.000 fish  |     56-60 fps, ~9.8W | 55-60 fps,=
- ~9.8W |
-> > > > >
-> > > > > Test results, Ryzen 5 3400G:
-> > > > > | Test                        | patched-6.13.7.arch1 |   6.13.7.a=
-rch1-1 |
-> > > > > |-----------------------------|----------------------|-----------=
--------|
-> > > > > | System idle (PkgWatt)       |                ~3.8W |           =
-~4.3W  |
-> > > > > | glxgears (vblank_mode=3D0)    |            ~7200 fps |        ~=
-7200 fps |
-> > > > > | WebGL aquarium 30.000 fish  |          37 fps, 47W |      38 fp=
-s, 47W |
-> > > > >
-> > > > > Signed-off-by: Sergey Kovalenko <seryoga.engineering@gmail.com>
-> > > > > Tested-by: Liam Fleming <fleming.squared@proton.me>
-> > > > > ---
-> > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 94 +++++++++++++++++-=
--------
-> > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 +
-> > > > >   2 files changed, 67 insertions(+), 30 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > index c1f35ded684e..5e23b956e0bf 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > @@ -781,55 +781,89 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_dev=
-ice
-> > > > > *adev, int xcc_id)
-> > > > >    * 3. other client can cancel their request of disable gfx off =
-feature
-> > > > >    * 4. other client should not send request to enable gfx off fe=
-ature
-> > > > > before disable gfx off feature.
-> > > > >    */
-> > > > > -
-> > > > >   void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enabl=
-e)
-> > > > >   {
-> > > > > -       unsigned long delay =3D GFX_OFF_DELAY_ENABLE;
-> > > > > -
-> > > > >         if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
-> > > > >                 return;
-> > > > >
-> > > > >         mutex_lock(&adev->gfx.gfx_off_mutex);
-> > > > >
-> > > > >         if (enable) {
-> > > > > -               /* If the count is already 0, it means there's an=
- imbalance bug
-> > > > > somewhere.
-> > > > > -                * Note that the bug may be in a different caller=
- than the one which
-> > > > > triggers the
-> > > > > -                * WARN_ON_ONCE.
-> > > > > -                */
-> > > > > -               if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count =3D=
-=3D 0))
-> > > > > +               /* This case covers multiple calls from parallel =
-threads */
-> > > > > +               if (!adev->gfx.gfx_off_req_count)
-> > > > >                         goto unlock;
-> > > > >
-> > > > > -               adev->gfx.gfx_off_req_count--;
-> > > > > +               /* Process only if req_count =3D=3D 0 and GFXOFF =
-is disabled */
-> > > > > +               if (--adev->gfx.gfx_off_req_count || adev->gfx.gf=
-x_off_state)
-> > > > > +                       goto unlock;
-> > > > > +
-> > > > > +               /* If going to s2idle, no need to wait */
-> > > > > +               if (adev->in_s0ix) {
-> > > > > +                       if (!amdgpu_dpm_set_powergating_by_smu(
-> > > > > +                                   adev, AMD_IP_BLOCK_TYPE_GFX, =
-true, 0))
-> > > > > +                               adev->gfx.gfx_off_state =3D true;
-> > > > > +
-> > > > > +                       /* Reset delay flag */
-> > > > > +                       adev->gfx.gfx_off_use_delay =3D 0;
-> > > > > +                       goto unlock;
-> > > > > +               }
-> > > > >
-> > > > > -               if (adev->gfx.gfx_off_req_count =3D=3D 0 &&
-> > > > > -                   !adev->gfx.gfx_off_state) {
-> > > > > -                       /* If going to s2idle, no need to wait */
-> > > > > -                       if (adev->in_s0ix) {
-> > > > > -                               if (!amdgpu_dpm_set_powergating_b=
-y_smu(adev,
-> > > > > -                                               AMD_IP_BLOCK_TYPE=
-_GFX, true, 0))
-> > > > > -                                       adev->gfx.gfx_off_state =
-=3D true;
-> > > > > +               ++adev->gfx.gfx_off_counter;
-> > > > > +
-> > > > > +               uint64_t now =3D get_jiffies_64();
-> > > > > +               uint64_t delta =3D
-> > > > > +                       jiffies_to_msecs(now - adev->gfx.gfx_off_=
-timestamp);
-> > > > > +
-> > > > > +               if (delta >=3D 1000u) {
-> > > > > +                       /*
-> > > > > +                        * Predict the optimal delay for the next=
- interval
-> > > > > +                        * based on the current number of request=
-s:
-> > > > > +                        * <15 - idle, no delay
-> > > > > +                        * <25 - light/medium load, default delay
-> > > > > +                        * 25 and more - high load, GFXOFF disabl=
-ed
-> > > > > +                        */
-> > > > > +                       if (adev->gfx.gfx_off_counter < 15u) {
-> > > > > +                               adev->gfx.gfx_off_use_delay =3D 0=
-;
-> > > > > +                       } else if (adev->gfx.gfx_off_counter < 25=
-u) {
-> > > > > +                               adev->gfx.gfx_off_use_delay =3D 1=
-;
-> > > > >                         } else {
-> > > > > -                               schedule_delayed_work(&adev->gfx.=
-gfx_off_delay_work,
-> > > > > -                                             delay);
-> > > > > +                               adev->gfx.gfx_off_use_delay =3D 2=
-;
-> > > > >                         }
-> > > > > +
-> > > > > +                       adev->gfx.gfx_off_counter =3D 0;
-> > > > > +                       adev->gfx.gfx_off_timestamp =3D now;
-> > > > >                 }
-> > > > > +
-> > > > > +               /* Don't schedule gfxoff under heavy load */
-> > > > > +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
-> > > > > +                       goto unlock;
-> > > > > +
-> > > > > +               schedule_delayed_work(&adev->gfx.gfx_off_delay_wo=
-rk,
-> > > > > +                                     adev->gfx.gfx_off_use_delay=
- ?
-> > > > > +                                             GFX_OFF_DELAY_ENABL=
-E :
-> > > > > +                                             GFX_OFF_NO_DELAY);
-> > > > >         } else {
-> > > > > -               if (adev->gfx.gfx_off_req_count =3D=3D 0) {
-> > > > > -                       cancel_delayed_work_sync(&adev->gfx.gfx_o=
-ff_delay_work);
-> > > > > +               /* GFXOFF was enabled when req_count =3D=3D 0 */
-> > > > > +               if (++adev->gfx.gfx_off_req_count !=3D 1)
-> > > > > +                       goto unlock;
-> > > > >
-> > > > > -                       if (adev->gfx.gfx_off_state &&
-> > > > > -                           !amdgpu_dpm_set_powergating_by_smu(ad=
-ev, AMD_IP_BLOCK_TYPE_GFX,
-> > > > > false, 0)) {
-> > > > > -                               adev->gfx.gfx_off_state =3D false=
-;
-> > > > > +               /* Nothing to do if the work wasn't scheduled */
-> > > > > +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
-> > > > > +                       goto unlock;
-> > > > >
-> > > > > -                               if (adev->gfx.funcs->init_spm_gol=
-den) {
-> > > > > -                                       dev_dbg(adev->dev,
-> > > > > -                                               "GFXOFF is disabl=
-ed, re-init SPM golden settings\n");
-> > > > > -                                       amdgpu_gfx_init_spm_golde=
-n(adev);
-> > > > > -                               }
-> > > > > +               cancel_delayed_work_sync(&adev->gfx.gfx_off_delay=
-_work);
-> > > > > +
-> > > > > +               if (adev->gfx.gfx_off_state &&
-> > > > > +                   !amdgpu_dpm_set_powergating_by_smu(
-> > > > > +                           adev, AMD_IP_BLOCK_TYPE_GFX, false, 0=
-)) {
-> > > > > +                       adev->gfx.gfx_off_state =3D false;
-> > > > > +
-> > > > > +                       if (adev->gfx.funcs->init_spm_golden) {
-> > > > > +                               dev_dbg(adev->dev,
-> > > > > +                                       "GFXOFF is disabled, re-i=
-nit SPM golden settings\n");
-> > > > > +                               amdgpu_gfx_init_spm_golden(adev);
-> > > > >                         }
-> > > > >                 }
-> > > > > -
-> > > > > -               adev->gfx.gfx_off_req_count++;
-> > > > >         }
-> > > > >
-> > > > >   unlock:
-> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > > > > index 8b5bd63b5773..38fd445a353b 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > > > > @@ -430,7 +430,10 @@ struct amdgpu_gfx {
-> > > > >         /* gfx off */
-> > > > >         bool                            gfx_off_state;      /* tr=
-ue: enabled,
-> > > > > false: disabled */
-> > > > >         struct mutex                    gfx_off_mutex;      /* mu=
-tex to
-> > > > > change gfxoff state */
-> > > > > +       uint64_t                        gfx_off_timestamp;  /* gf=
-xoff enable call timestamp */
-> > > > > +       uint32_t                        gfx_off_use_delay;  /* fl=
-ag to choose the delay range */
-> > > > >         uint32_t                        gfx_off_req_count;  /* de=
-fault 1,
-> > > > > enable gfx off: dec 1, disable gfx off: add 1 */
-> > > > > +       uint32_t                        gfx_off_counter;    /* co=
-unt of gfxoff enable calls */
-> > > > >         struct delayed_work             gfx_off_delay_work; /* as=
-ync work to
-> > > > > set gfx block off */
-> > > > >         uint32_t                        gfx_off_residency;  /* la=
-st logged
-> > > > > residency */
-> > > > >         uint64_t                        gfx_off_entrycount; /* co=
-unt of times
-> > > > > GPU has get into GFXOFF state */
-> > > > > --
-> > > > > 2.49.0
+This is a bit complex to read, maybe you can simply re-write skip_space 
+completely to avoid the explicit check against is_skip below
+
+bool is_skip(char c) {
+	return isspace(c) || c == ',';
+}
+char *skip(char *s) {
+	while (is_skip(*s))
+		s++;
+	return s;
+}
+
+With or without this:
+
+Reviewed-by: Louis Chauvet <louis.chauvet@booltin.com>
+
+>   /*
+>    * Split the buffer `buf' into space-separated words.
+>    * Handles simple " and ' quoting, i.e. without nested,
+> @@ -306,8 +314,8 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
+>   	while (*buf) {
+>   		char *end;
+>   
+> -		/* Skip leading whitespace */
+> -		buf = skip_spaces(buf);
+> +		/* Skip leading whitespace and comma */
+> +		buf = skip_spaces_and_commas(buf);
+>   		if (!*buf)
+>   			break;	/* oh, it was trailing whitespace */
+>   		if (*buf == '#')
+> @@ -323,7 +331,7 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
+>   				return -EINVAL;	/* unclosed quote */
+>   			}
+>   		} else {
+> -			for (end = buf; *end && !isspace(*end); end++)
+> +			for (end = buf; *end && !isspace(*end) && *end != ','; end++)
+
+                                                    ^ here use is_skip
+
+>   				;
+>   			if (end == buf) {
+>   				pr_err("parse err after word:%d=%s\n", nwords,
+> @@ -595,7 +603,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
+>   		if (split)
+>   			*split++ = '\0';
+>   
+> -		query = skip_spaces(query);
+> +		query = skip_spaces_and_commas(query);
+> +
+>   		if (!query || !*query || *query == '#')
+>   			continue;
+>   
+
+-- 
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
+
