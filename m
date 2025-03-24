@@ -4,80 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00432C36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0DB4C36002
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 14:14:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C8A10E202;
-	Mon, 24 Mar 2025 13:11:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96E4210E415;
+	Mon, 24 Mar 2025 14:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="KNwC1Hgc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VwZNnXTV";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F88210E012
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:24:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1742815412; x=1743420212; i=spasswolf@web.de;
- bh=t4Cpapl3baAmiTt6x14k0Cj3EFlot8neELappOm/z8c=;
- h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
- References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=KNwC1HgcuMKyAOyEe329rsDXD3TXLIV09LnmZSnTIgrxl5bin0+66nZWDuGj77GX
- Mat2V9+bhSWeV5BMSTHIEYouYt17C8X/yG3FB8Y5NX7lWjVHRieYEIRyalC667XPN
- 2x+B7kMFV3mIjS9rW1vU9LX/kjMARQlxIwzapx42KrudUCryTlEPug8qe+IC8+/hh
- z7jt2s6IlvsQmameb8alTYjsUj8Y4+oIARV1RoiUrpYdmuq0t8RsdUG7qep2/I6I9
- vdsW/wdCfhE8jZPu2zplfb1Hu43dGZZc6arwrFapN8oLcrLY/ozOvUbqztKgHPbnr
- ya+Xn+6Je1vr07Ha1g==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.0.101] ([95.223.134.88]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MNwfK-1tldIS2Hfs-00S1h5; Mon, 24
- Mar 2025 12:23:32 +0100
-Message-ID: <6e8ad3cd27b570aaefd85395810cc90bb3120734.camel@web.de>
-Subject: Re: commit 7ffb791423c7 breaks steam game
-From: Bert Karwatzki <spasswolf@web.de>
-To: Balbir Singh <balbirs@nvidia.com>
-Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>, Bjorn
- Helgaas	 <bhelgaas@google.com>, Linus Torvalds
- <torvalds@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>,
- Andy Lutomirski <luto@kernel.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- spasswolf@web.de
-Date: Mon, 24 Mar 2025 12:23:31 +0100
-In-Reply-To: <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
-References: <20250322122351.3268-1-spasswolf@web.de>
- <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.56.0-1 
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C871E10E2FD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 14:14:03 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-301317939a0so1343409a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 07:14:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742825643; x=1743430443; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=niO1fvOSFS6JO0IeTlDHRDS6Z70pNdIZMtogJL0yLU8=;
+ b=VwZNnXTVSMjAN2SQH9YaFK6Og4gjyy3kkn7R94AAIA1hQsUiMF4vykJ2dF3NVDKVu5
+ T+6FAzW7Kl9SH9iucvhqji0JxXSfyhiwYa2N2gfmLkzWRii2KnIuDH72JFX2KLEmHZmW
+ seBX7u9S1OJJFMCi1rRwfN8GA2qk7+o6CLOyHofI02Whr0dEpvlju/BSGH9ylVaEydWn
+ 2QDkgoXl4mzISa9ux04uymmuzxd+dPF5MbZavIQoV1YvAGbT4t52X7TD8s2m90bZh5yH
+ QIQagn9zVxn1g34EmS/A38j8xNkN2LmBSInan34l0NxUaOuq0qNtY6ncZqF4EYCW3Dkg
+ 5jPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742825643; x=1743430443;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=niO1fvOSFS6JO0IeTlDHRDS6Z70pNdIZMtogJL0yLU8=;
+ b=CHRGbsMsfStWx9MQ/CMl+lwX/3iynN/YEOEt9uD5xDun6Dacnpy73MjZdrlA70F32c
+ V4bt41AI2eqa+6f29Y2BfWUVIcOIXr52jJBiba62BBu/WiAqB/B+4gAP7zn33BLfgQTB
+ qtTJiW4CJYGUzt/9Avycx/h0GJ9tUldUcu2s1EaUIpBwvMHATDdQZehGD0PR7jMRCymw
+ w7XpofnPHoUWQlkQo+daTyFyxDe1iTnR+HuhqMwtIquvbCK0bVyBExC6osVimQFHIacW
+ h6uEXVGU7BG5FGXKuggs6sjeOoJw7oI1LxqGFhVIE1bLfCJceFe0tUEdqLE6fqSQvYmA
+ kzpg==
+X-Gm-Message-State: AOJu0YwJSa8ZMHf9+jlwMg9o/XvMuK/qgXG9knKLfgSrWBmzSpl1ywe9
+ 2VIFs3ro+1SCNLOqR9Uo2qQB4xPKNRVOUIgqNq7nDcnSlqSU0VUBVhn5Q4ADxSxOhk0yAC+TgFl
+ dFqcsI6cH91s3heGO1qrGmd31ETyUJQ==
+X-Gm-Gg: ASbGnctE29i8YVg4MY/z+OYINfZc5GGiTDGkwyi8MrAWtvdUQOuM7A+xDlPYU0s03GR
+ zzkFS0hIHwGZGrqCGT3jFt4Pox9EdSu5r77FNd/mYhEQT5WLo/X2lkT5zOXzA21qF2DQWTnQOmK
+ 85oI70KXrMrLmznKApCccSlIdsAQ==
+X-Google-Smtp-Source: AGHT+IESWqEZWpRSJILuhf1chHr9wMzo5DDQDLeE5dlkiTpsP4LkVmdIgRjXrfHczpN0F2EfN3MP16Hi1W0P4SVX3R8=
+X-Received: by 2002:a17:90b:2250:b0:2fe:b972:a2c3 with SMTP id
+ 98e67ed59e1d1-3030fd37008mr7990572a91.0.1742825642735; Mon, 24 Mar 2025
+ 07:14:02 -0700 (PDT)
 MIME-Version: 1.0
+References: <0b7e373b-ef2d-4243-a5a0-5ffd9d97cf74@gmail.com>
+In-Reply-To: <0b7e373b-ef2d-4243-a5a0-5ffd9d97cf74@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 24 Mar 2025 10:13:50 -0400
+X-Gm-Features: AQ5f1JoWxqGZTdKeTrkSHYNzQQ5-Ua1IOJ8V1h9kO9OTHbCjQVF2E9nBK3Uql2c
+Message-ID: <CADnq5_PgeZtepU-emKHQKdSh2H-kiLu4KpK0LxVgKks35NTf6w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add GFXOFF auto-tunning algorithm
+To: Sergey Kovalenko <seryoga.engineering@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:dDemjBujtQn+6tqcgh5+3Dn7V+R82lNECNi2xUYzGYyaT15Xyy4
- eB2q7XijRtTQiqBJ97bjJV0L9yTvjmB//qk38VzoA9EZTaOQKi6LMfrcoXPXBqluWnhqAcf
- NBJrW5/tNAguX3rF1iE276i6lQfh0ldtz531PylqfJQrlb8g+/Ja25VwMHjbrHKhHnd/aTx
- 9qDCMTpwNdyMA11HA29jg==
-UI-OutboundReport: notjunk:1;M01:P0:ZVVzgLEz+V4=;ZDBHC3VnPMdTgCtmwVxGT/xw0D0
- 8DMWxVSBPAtsF15jovB4oIr4iG27XXoylRfp+oDPWq46JfwwHiMl6ifK35VqLYdWKChhm1C6h
- +8jQ6yVnd3AvvSklJ2rD0wUfeOevBk47Mm2drDm3w39xecG3NQ9ORaPagJEJjbn5Oz/tWZdeh
- iJRIPwYAbD0ZF0pDcIBZIa3CsgsTqe7rLse/TX8MjDDwGlsb9OAbpPr8/peO2h9SMytIiNAu0
- LOt97PjwAJpoFxrx9ANlAm7ONRbx21Slx/KCgUO/MMt5DF1mlIxiEea86trfpcO24HmXp+TkR
- eR91kly6oHdbgGzYII04Me935jlFg5sk1hnfIAzEOORPKUGZuTBU9XUXORD9/8Sl2Bv5xwOnS
- YRj9KmTzGDl4b7Ph9FumTPm2hGkO3qBVh/ou64xbkN36a15wOHOkeoenrNUkah8S8KnbUwio5
- pDcYg+aiPNN5KElj7Ti+J3f9zt7XKFRi+7ZuFwirUF1tpUGKUBiXqVcCO20C7zLzWaUxx6PLO
- YU4TYQIWnB2eRmsy+tjQbXAOVU7RharHYrVoEy7C/dnkZPb7EdmAQCW3Hw5gSc23z+UMKCdwj
- UluUBlv2YcFU4gzHjrjE/h8Q8MJErR/ncv1aUKle2SBRm3zeXbVTrryDCQ9nKG660ZzluLES5
- we6U9N5pVfFQYPNVg3QZutcN6p8v8lNySjg7o3cESoFunYvZSHj6t0IG/OS7fIRSkmagcHrGu
- sKfJdWDG0RJUkttp9CUGzcuo7Tg1Hu65HPmXw23IjW/L/ijf3h6POLYkMF3Fnnna8bG5TKbMg
- M3ezyPzlvh7HD+H4KoOeaKvTEiUUKh+xVtZDZsJLw3oJHlybqglEhAHtybuujOdPYc3YWDtT7
- NYSz/na5IfCwHRuAFVlCMgTME+NHlqteOjJlL1VgPs6JBeq6W5VT54D6OLS5mMk4hfEHliozQ
- Nfji/naJJFRmyauuO5JBOhKy8ms1F2BInS5vT6FyU7OaqPWkdwoylyCZJnUhWAegturKLxILO
- 0YQcCmABre3pmF10gg+usWAt3TZM6VS5/GksKVdT7n8nqi57v/A9FpIScfU8qzeYkiikf7s9O
- Vssz4UZ8Sj1+PTJ8LFl+SiKQMjwpzmjyE93exAWf3WNfnZ5AGAbH6WZDaD/5L5L8HrakJ/Jiu
- HbD7ql2ASXxbEgaOuT3wBcYeRFOwNEfPxq2Y+vNOkdNOXprWy5mB0qf8/7hFVjAQxwpwyQ+Cj
- HIOHbHzgM6YU1xe8OPcoBVqEaN+SJQzZ3dHGFnN8i5lNSOXXbwe8tRB1syknDwFSHmyayfovH
- v7bAGro23OPguPKhEUX3PFuI1IQrSotzW91JOS8JRNLpn5WnvOKyNuydHMAnpni5x5Zmcio+c
- g9jWCpGJausz6j/+UEKeP7dm1uhWygPtHpDgCP+TmriLgbFO6oIY7zI3/2UlTaqWFLM+hKQdb
- SVii/rOhIr2N8jKNSv+HJ3eeR5PY=
-X-Mailman-Approved-At: Mon, 24 Mar 2025 13:11:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,180 +79,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Sonntag, dem 23.03.2025 um 17:51 +1100 schrieb Balbir Singh:
-> On 3/22/25 23:23, Bert Karwatzki wrote:
-> > The problem occurs in this part of ttm_tt_populate(), in the nokaslr c=
-ase
-> > the loop is entered and repeatedly run because ttm_dma32_pages allocat=
-ed exceeds
-> > the ttm_dma32_pages_limit which leads to lots of calls to ttm_global_s=
-wapout().
-> >
-> > if (!strcmp(get_current()->comm, "stellaris"))
-> > 	printk(KERN_INFO "%s: ttm_pages_allocated=3D0x%llx ttm_pages_limit=3D=
-0x%lx ttm_dma32_pages_allocated=3D0x%llx ttm_dma32_pages_limit=3D0x%lx\n",
-> > 			__func__, ttm_pages_allocated.counter, ttm_pages_limit, ttm_dma32_p=
-ages_allocated.counter, ttm_dma32_pages_limit);
-> > while (atomic_long_read(&ttm_pages_allocated) > ttm_pages_limit ||
-> >        atomic_long_read(&ttm_dma32_pages_allocated) >
-> >        ttm_dma32_pages_limit) {
-> >
-> > 	if (!strcmp(get_current()->comm, "stellaris"))
-> > 	printk(KERN_INFO "%s: count=3D%d ttm_pages_allocated=3D0x%llx ttm_pag=
-es_limit=3D0x%lx ttm_dma32_pages_allocated=3D0x%llx ttm_dma32_pages_limit=
-=3D0x%lx\n",
-> > 			__func__, count++, ttm_pages_allocated.counter, ttm_pages_limit, tt=
-m_dma32_pages_allocated.counter, ttm_dma32_pages_limit);
-> > 	ret =3D ttm_global_swapout(ctx, GFP_KERNEL);
-> > 	if (ret =3D=3D 0)
-> > 		break;
-> > 	if (ret < 0)
-> > 		goto error;
-> > }
-> >
-> > In the case without nokaslr on the number of ttm_dma32_pages_allocated=
- is 0 because
-> > use_dma32 =3D=3D false in this case.
-> >
-> > So why is use_dma32 enabled with nokaslr? Some more printk()s give thi=
-s result:
-> >
-> > The GPUs:
-> > built-in:
-> > 08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/A=
-TI] Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] (rev c5)
-> > discrete:
-> > 03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Nav=
-i 23 [Radeon RX 6600/6600 XT/6600M] (rev c3)
-> >
-> > With nokaslr:
-> > [    1.266517] [    T328] dma_addressing_limited: mask =3D 0xfffffffff=
-ff bus_dma_limit =3D 0x0 required_mask =3D 0xfffffffff
-> > [    1.266519] [    T328] dma_addressing_limited: ops =3D 000000000000=
-0000 use_dma_iommu(dev) =3D 0
-> > [    1.266520] [    T328] dma_direct_all_ram_mapped: returning true
-> > [    1.266521] [    T328] dma_addressing_limited: returning ret =3D 0
-> > [    1.266521] [    T328] amdgpu 0000:03:00.0: amdgpu: amdgpu_ttm_init=
-: calling ttm_device_init() with use_dma32 =3D 0
-> > [    1.266525] [    T328] entering ttm_device_init, use_dma32 =3D 0
-> > [    1.267115] [    T328] entering ttm_pool_init, use_dma32 =3D 0
-> >
-> > [    3.965669] [    T328] dma_addressing_limited: mask =3D 0xfffffffff=
-ff bus_dma_limit =3D 0x0 required_mask =3D 0x3fffffffffff
-> > [    3.965671] [    T328] dma_addressing_limited: returning true
-> > [    3.965672] [    T328] amdgpu 0000:08:00.0: amdgpu: amdgpu_ttm_init=
-: calling ttm_device_init() with use_dma32 =3D 1
-> > [    3.965674] [    T328] entering ttm_device_init, use_dma32 =3D 1
-> > [    3.965747] [    T328] entering ttm_pool_init, use_dma32 =3D 1
-> >
-> > Without nokaslr:
-> > [    1.300907] [    T351] dma_addressing_limited: mask =3D 0xfffffffff=
-ff bus_dma_limit =3D 0x0 required_mask =3D 0xfffffffff
-> > [    1.300909] [    T351] dma_addressing_limited: ops =3D 000000000000=
-0000 use_dma_iommu(dev) =3D 0
-> > [    1.300910] [    T351] dma_direct_all_ram_mapped: returning true
-> > [    1.300910] [    T351] dma_addressing_limited: returning ret =3D 0
-> > [    1.300911] [    T351] amdgpu 0000:03:00.0: amdgpu: amdgpu_ttm_init=
-: calling ttm_device_init() with use_dma32 =3D 0
-> > [    1.300915] [    T351] entering ttm_device_init, use_dma32 =3D 0
-> > [    1.301210] [    T351] entering ttm_pool_init, use_dma32 =3D 0
-> >
-> > [    4.000602] [    T351] dma_addressing_limited: mask =3D 0xfffffffff=
-ff bus_dma_limit =3D 0x0 required_mask =3D 0xfffffffffff
-> > [    4.000603] [    T351] dma_addressing_limited: ops =3D 000000000000=
-0000 use_dma_iommu(dev) =3D 0
-> > [    4.000604] [    T351] dma_direct_all_ram_mapped: returning true
-> > [    4.000605] [    T351] dma_addressing_limited: returning ret =3D 0
-> > [    4.000606] [    T351] amdgpu 0000:08:00.0: amdgpu: amdgpu_ttm_init=
-: calling ttm_device_init() with use_dma32 =3D 0
-> > [    4.000610] [    T351] entering ttm_device_init, use_dma32 =3D 0
-> > [    4.000687] [    T351] entering ttm_pool_init, use_dma32 =3D 0
-> >
-> > So with nokaslr the reuqired mask for the built-in GPU changes from 0x=
-fffffffffff
-> > to 0x3fffffffffff which causes dma_addressing_limited to return true w=
-hich causes
-> > the ttm_device init to be called with use_dma32 =3D true.
+On Mon, Mar 24, 2025 at 5:06=E2=80=AFAM Sergey Kovalenko
+<seryoga.engineering@gmail.com> wrote:
 >
-> Thanks, this is really the root cause, from what I understand.
+> Predict an optimal delay to enable GFXOFF for the next interval
+> based on the request count:
+> - less than 15 requests per second - zero delay
+> - less than 25 requests per second - default delay
+> - 25 and more requests per second - don't enable GFXOFF
 >
-> >  It also show that for the discreate GPU nothing changes so the bug do=
-es not occur
-> > there.
-> >
-> > I also was able to work around the bug by calling ttm_device_init() wi=
-th use_dma32=3Dfalse
-> > from amdgpu_ttm_init()  (drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c) but =
-I'm not sure if this
-> > has unwanted side effects.
-> >
-> > int amdgpu_ttm_init(struct amdgpu_device *adev)
-> > {
-> > 	uint64_t gtt_size;
-> > 	int r;
-> >
-> > 	mutex_init(&adev->mman.gtt_window_lock);
-> >
-> > 	dma_set_max_seg_size(adev->dev, UINT_MAX);
-> > 	/* No others user of address space so set it to 0 */
-> > 	dev_info(adev->dev, "%s: calling ttm_device_init() with use_dma32 =3D=
- 0 ignoring %d\n", __func__, dma_addressing_limited(adev->dev));
-> > 	r =3D ttm_device_init(&adev->mman.bdev, &amdgpu_bo_driver, adev->dev,
-> > 			       adev_to_drm(adev)->anon_inode->i_mapping,
-> > 			       adev_to_drm(adev)->vma_offset_manager,
-> > 			       adev->need_swiotlb,
-> > 			       false /* use_dma32 */);
-> > 	if (r) {
-> > 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
-> > 		return r;
-> > 	}
-> >
->
-> I think this brings us really close, instead of forcing use_dma32 to fal=
-se, I wonder if we need something like
->
-> uin64_t dma_bits =3D fls64(dma_get_mask(adev->dev));
->
-> to ttm_device_init, pass the last argument (use_dma32) as dma_bits < 32?
->
->
-> Thanks,
-> Balbir Singh
->
+> The algorithm allows maintaining low power consumption in idle,
+> as well as using the full GPU power under load by eliminating
+> hundreds of extra GFXOFF ON/OFF switches.
 
-Do these address bits have to shift when using nokaslr or PCI_P2PDMA, I th=
-ink
-this shift cause the increase of the required_dma_mask to 0x3fffffffffff?
+I still don't understand what problem this is solving.  This already
+happens with the way the code works now.  If there are a lot of
+requests to toggle gfxoff, the worker thread to allow it again gets
+cancelled and scheduled again, extending the time it's disallowed.
 
-@@ -104,4 +104,4 @@
-       fe30300000-fe303fffff : 0000:04:00.0
-     fe30400000-fe30403fff : 0000:04:00.0
-     fe30404000-fe30404fff : 0000:04:00.0
--afe00000000-affffffffff : 0000:03:00.0
-+3ffe00000000-3fffffffffff : 0000:03:00.0
+Alex
 
-And what memory is this? It's 8G in size so it could be the RAM of the dis=
-crete
-GPU (which is at PCI 0000:03:00.0), but that is already here (part of
-/proc/iomem):
 
-1010000000-ffffffffff : PCI Bus 0000:00
-  fc00000000-fe0fffffff : PCI Bus 0000:01
-    fc00000000-fe0fffffff : PCI Bus 0000:02
-      fc00000000-fe0fffffff : PCI Bus 0000:03
-        fc00000000-fdffffffff : 0000:03:00.0  GPU RAM
-        fe00000000-fe0fffffff : 0000:03:00.0
+Alex
 
-lspci -v reports 8G of memory at 0xfc00000000 so I assmumed that is the GP=
-U RAM.
-03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23
-[Radeon RX 6600/6600 XT/6600M] (rev c3)
-	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 1313
-	Flags: bus master, fast devsel, latency 0, IRQ 107, IOMMU group 14
-	Memory at fc00000000 (64-bit, prefetchable) [size=3D8G]
-	Memory at fe00000000 (64-bit, prefetchable) [size=3D256M]
-	Memory at fca00000 (32-bit, non-prefetchable) [size=3D1M]
-	Expansion ROM at fcb00000 [disabled] [size=3D128K]
-
-Bert Karwatzki
-
+>
+> Test configuration:
+> - Ryzen 5 2500U
+> - Ryzen 5 3400G
+> - Chromium 134.0.6998.88 Arch Linux
+> - Mesa 1:24.3.4-1
+> - KDE Plasma 6.3.2
+>
+> GFXOFF enable requests per second:
+> | Test                                                | min | max |
+> |-----------------------------------------------------|-----|-----|
+> | System idle                                         |   0 |  64 |
+> | Web browsing                                        |   0 | 127 |
+> | WebGL aquarium                                      |  10 | 236 |
+> | Heavy load: glxgears + vkcube + resizing + flipping |  39 | 677 |
+>
+> Test results, Ryzen 5 2500U:
+> | Test                        | patched-6.13.7.arch1 |   6.13.7.arch1-1 |
+> |-----------------------------|----------------------|------------------|
+> | System idle (PkgWatt)       |               ~0.74W |          ~1.25W  |
+> | glxgears (vblank_mode=3D0)    |     ~7300 fps, ~7.3W | ~7300 fps, ~7.3W=
+ |
+> | WebGL aquarium 15.000 fish  |     56-60 fps, ~9.8W | 55-60 fps, ~9.8W |
+>
+> Test results, Ryzen 5 3400G:
+> | Test                        | patched-6.13.7.arch1 |   6.13.7.arch1-1 |
+> |-----------------------------|----------------------|------------------|
+> | System idle (PkgWatt)       |                ~3.8W |           ~4.3W  |
+> | glxgears (vblank_mode=3D0)    |            ~7200 fps |        ~7200 fps=
+ |
+> | WebGL aquarium 30.000 fish  |          37 fps, 47W |      38 fps, 47W |
+>
+> Signed-off-by: Sergey Kovalenko <seryoga.engineering@gmail.com>
+> Tested-by: Liam Fleming <fleming.squared@proton.me>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 94 +++++++++++++++++--------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 +
+>   2 files changed, 67 insertions(+), 30 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index c1f35ded684e..5e23b956e0bf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -781,55 +781,89 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device
+> *adev, int xcc_id)
+>    * 3. other client can cancel their request of disable gfx off feature
+>    * 4. other client should not send request to enable gfx off feature
+> before disable gfx off feature.
+>    */
+> -
+>   void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
+>   {
+> -       unsigned long delay =3D GFX_OFF_DELAY_ENABLE;
+> -
+>         if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
+>                 return;
+>
+>         mutex_lock(&adev->gfx.gfx_off_mutex);
+>
+>         if (enable) {
+> -               /* If the count is already 0, it means there's an imbalan=
+ce bug
+> somewhere.
+> -                * Note that the bug may be in a different caller than th=
+e one which
+> triggers the
+> -                * WARN_ON_ONCE.
+> -                */
+> -               if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count =3D=3D 0))
+> +               /* This case covers multiple calls from parallel threads =
+*/
+> +               if (!adev->gfx.gfx_off_req_count)
+>                         goto unlock;
+>
+> -               adev->gfx.gfx_off_req_count--;
+> +               /* Process only if req_count =3D=3D 0 and GFXOFF is disab=
+led */
+> +               if (--adev->gfx.gfx_off_req_count || adev->gfx.gfx_off_st=
+ate)
+> +                       goto unlock;
+> +
+> +               /* If going to s2idle, no need to wait */
+> +               if (adev->in_s0ix) {
+> +                       if (!amdgpu_dpm_set_powergating_by_smu(
+> +                                   adev, AMD_IP_BLOCK_TYPE_GFX, true, 0)=
+)
+> +                               adev->gfx.gfx_off_state =3D true;
+> +
+> +                       /* Reset delay flag */
+> +                       adev->gfx.gfx_off_use_delay =3D 0;
+> +                       goto unlock;
+> +               }
+>
+> -               if (adev->gfx.gfx_off_req_count =3D=3D 0 &&
+> -                   !adev->gfx.gfx_off_state) {
+> -                       /* If going to s2idle, no need to wait */
+> -                       if (adev->in_s0ix) {
+> -                               if (!amdgpu_dpm_set_powergating_by_smu(ad=
+ev,
+> -                                               AMD_IP_BLOCK_TYPE_GFX, tr=
+ue, 0))
+> -                                       adev->gfx.gfx_off_state =3D true;
+> +               ++adev->gfx.gfx_off_counter;
+> +
+> +               uint64_t now =3D get_jiffies_64();
+> +               uint64_t delta =3D
+> +                       jiffies_to_msecs(now - adev->gfx.gfx_off_timestam=
+p);
+> +
+> +               if (delta >=3D 1000u) {
+> +                       /*
+> +                        * Predict the optimal delay for the next interva=
+l
+> +                        * based on the current number of requests:
+> +                        * <15 - idle, no delay
+> +                        * <25 - light/medium load, default delay
+> +                        * 25 and more - high load, GFXOFF disabled
+> +                        */
+> +                       if (adev->gfx.gfx_off_counter < 15u) {
+> +                               adev->gfx.gfx_off_use_delay =3D 0;
+> +                       } else if (adev->gfx.gfx_off_counter < 25u) {
+> +                               adev->gfx.gfx_off_use_delay =3D 1;
+>                         } else {
+> -                               schedule_delayed_work(&adev->gfx.gfx_off_=
+delay_work,
+> -                                             delay);
+> +                               adev->gfx.gfx_off_use_delay =3D 2;
+>                         }
+> +
+> +                       adev->gfx.gfx_off_counter =3D 0;
+> +                       adev->gfx.gfx_off_timestamp =3D now;
+>                 }
+> +
+> +               /* Don't schedule gfxoff under heavy load */
+> +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
+> +                       goto unlock;
+> +
+> +               schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
+> +                                     adev->gfx.gfx_off_use_delay ?
+> +                                             GFX_OFF_DELAY_ENABLE :
+> +                                             GFX_OFF_NO_DELAY);
+>         } else {
+> -               if (adev->gfx.gfx_off_req_count =3D=3D 0) {
+> -                       cancel_delayed_work_sync(&adev->gfx.gfx_off_delay=
+_work);
+> +               /* GFXOFF was enabled when req_count =3D=3D 0 */
+> +               if (++adev->gfx.gfx_off_req_count !=3D 1)
+> +                       goto unlock;
+>
+> -                       if (adev->gfx.gfx_off_state &&
+> -                           !amdgpu_dpm_set_powergating_by_smu(adev, AMD_=
+IP_BLOCK_TYPE_GFX,
+> false, 0)) {
+> -                               adev->gfx.gfx_off_state =3D false;
+> +               /* Nothing to do if the work wasn't scheduled */
+> +               if (adev->gfx.gfx_off_use_delay =3D=3D 2)
+> +                       goto unlock;
+>
+> -                               if (adev->gfx.funcs->init_spm_golden) {
+> -                                       dev_dbg(adev->dev,
+> -                                               "GFXOFF is disabled, re-i=
+nit SPM golden settings\n");
+> -                                       amdgpu_gfx_init_spm_golden(adev);
+> -                               }
+> +               cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_work);
+> +
+> +               if (adev->gfx.gfx_off_state &&
+> +                   !amdgpu_dpm_set_powergating_by_smu(
+> +                           adev, AMD_IP_BLOCK_TYPE_GFX, false, 0)) {
+> +                       adev->gfx.gfx_off_state =3D false;
+> +
+> +                       if (adev->gfx.funcs->init_spm_golden) {
+> +                               dev_dbg(adev->dev,
+> +                                       "GFXOFF is disabled, re-init SPM =
+golden settings\n");
+> +                               amdgpu_gfx_init_spm_golden(adev);
+>                         }
+>                 }
+> -
+> -               adev->gfx.gfx_off_req_count++;
+>         }
+>
+>   unlock:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 8b5bd63b5773..38fd445a353b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -430,7 +430,10 @@ struct amdgpu_gfx {
+>         /* gfx off */
+>         bool                            gfx_off_state;      /* true: enab=
+led,
+> false: disabled */
+>         struct mutex                    gfx_off_mutex;      /* mutex to
+> change gfxoff state */
+> +       uint64_t                        gfx_off_timestamp;  /* gfxoff ena=
+ble call timestamp */
+> +       uint32_t                        gfx_off_use_delay;  /* flag to ch=
+oose the delay range */
+>         uint32_t                        gfx_off_req_count;  /* default 1,
+> enable gfx off: dec 1, disable gfx off: add 1 */
+> +       uint32_t                        gfx_off_counter;    /* count of g=
+fxoff enable calls */
+>         struct delayed_work             gfx_off_delay_work; /* async work=
+ to
+> set gfx block off */
+>         uint32_t                        gfx_off_residency;  /* last logge=
+d
+> residency */
+>         uint64_t                        gfx_off_entrycount; /* count of t=
+imes
+> GPU has get into GFXOFF state */
+> --
+> 2.49.0
