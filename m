@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CB96C36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 19:26:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D569BC36002
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 19:32:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00B1710E4CD;
-	Mon, 24 Mar 2025 19:26:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 468AB10E30A;
+	Mon, 24 Mar 2025 19:32:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="alFSqBNP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rz/Lyscl";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D36C10E4CD
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 19:26:31 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-301b4f97cc1so1492808a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 12:26:31 -0700 (PDT)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05C8710E30A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 19:32:28 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2240d930f13so9021155ad.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 12:32:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742844391; x=1743449191; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742844748; x=1743449548; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dDzwAWRTvaIAULT1Vt7MU+jvGB8qpxsc3IYDzPQVucg=;
- b=alFSqBNP2zSCd83cGArmJfmzmcb9cV0lmFxRpN3OvspIp0/PPffTk6jFOuQf4Je3bQ
- JqnRNRSIzv8MhHzJ2ahckqwNJxb9d4Bdy+mpUR47rXkUkEf35jtmMKw+2MGiT51FdOpY
- rVLlpu0X40ZbbAFxjgairV0accwJf+2+I7ZCuQcAdgFmxfMEnGeCGsAhtthOxidBlrFp
- qHKoJgf5x4HySaCY6kK1VSbwyBA9LTUs6S0m6ppjj11UVb7CphyGiB8A7yLIqY4rarlm
- 5lgEgfkv+liBjuBpdFVGkAF8bp6q0qXKRBPhSIYLa6WCGvMuSUDVJRp5pBRzo4MeAYU1
- tDLg==
+ bh=uB/TK8BvD6LratAathzpQs8n2P+b0B/FTqYYY6aAmmM=;
+ b=Rz/LysclXzWm4iuCbppHO5T2GhCduH8grJukxo7+zuBcDgoYBf1ioipbHDdeq0Jsbw
+ 5O6mvH+t60yZMf7XenR94FLUV9lfyukeFrMw9ksHNKFG7OGbnxj/5Rkw2O1b5hAnmfs7
+ D8dKne3JGp8JHcSnhLnGhOA9ZXU97C7tFy0Pd3C6enl/736a2C3El7JMDnuSpDbabeRk
+ 42oV+jnit3GvEkOm99ybzGxRqsxHfMtWZuaDws0qtxzYcM1ei5dmJpaBqASVisjJtBel
+ 6nsnsO6SKLcRE/mZy5xrGAVl6T9f5NC9NaxocW66rSerLoiRodXkX46f6d9N/qkf0A5t
+ dFTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742844391; x=1743449191;
+ d=1e100.net; s=20230601; t=1742844748; x=1743449548;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dDzwAWRTvaIAULT1Vt7MU+jvGB8qpxsc3IYDzPQVucg=;
- b=TonozFSWcmA3JK3lCdkwHDo0seeUwQs7nHThHsuIg2x2uK1pkAhw/OTn1Z3rzzzzO4
- fZllp92oEvkHEHiE8PWbTwqTGnFnn07eytChaM1eQmM7BPcD7chEY17scV0VOim8IUnP
- xtM56UXWooGkn7kHHx1NSwtFeKCx/ljM86+IIz9dOvwqbT3U5fEC3awfYBIZISMZOVFY
- 2TQO38uM7DBqglkFA8Kwz3gW+hCE5MDuDb4UgVTCBW2KgWfrMPQKgVwk6MNhCckbgL4X
- Gu9lGJcD45E0Ew8lQ7J/JFSMs7kIXfAJg1T5x1mzLYrCvP7VQ/U8kqYHxQY5FCtDlC9D
- iQlg==
-X-Gm-Message-State: AOJu0YxO8kiPg5QkfLhPXHWRmIl4MHLLBDoaKn/xs4yBSrUfXnKbe4FP
- 7qr+0j3zH3KiZTl8reKUgbb9OFNjyUFxcXY4u9am6AGxZkpZOOsRKXBzhGB3SC3QAONxfulLjCl
- eH7xBn8XjGijtzuPDVbXtDM24Cus=
-X-Gm-Gg: ASbGncsGcD4KlcN72epMhQxwxjd6mFhZXymF87d7VQR4Q/dl+D3cdu+3HxYTwjWFUWl
- v2CKn0P9Xv1JaSlXNdgqKI8V2ko2vHiogVJlf0gIzMNJQ63Ob91CddTG7FyU37AJl8h/GablGQD
- MDASIJ0SL++1VR18yxyvSiSzlCsw==
-X-Google-Smtp-Source: AGHT+IFoAEl0poXfFYtuFB5nYS2AbtwmGEQ6ZpqYkNkncDtgXA5WaWp71HV0gpsdMqGNZR0V0v4PHPCsViCJ8ZZqsOA=
-X-Received: by 2002:a17:90b:4a89:b0:2ee:acea:9ec4 with SMTP id
- 98e67ed59e1d1-3030fee30e6mr7602242a91.3.1742844390994; Mon, 24 Mar 2025
- 12:26:30 -0700 (PDT)
+ bh=uB/TK8BvD6LratAathzpQs8n2P+b0B/FTqYYY6aAmmM=;
+ b=kSpQNaBC1a/1SAxtOzqXuaj9P6opcR4KOAlSo3Vj27/u1gaCKOksqypIiZmMTSrhAs
+ kpd12hjecD886tGd6paNA1Ud+f96Vmjp373WdZn/C9M0H+GIxaWlR/gZamGAs7W+nRh3
+ lPQEtcUt3Apmwyl3MJ0lg9zi08m+ysY8F+wskGIZWHcCkZyCXdf8JBE5fnx6OIUYecvb
+ qaEe6Y8sFEUv0Ggtb4bCIDoMGsuAKc3gXjzco/O6Je7UxzOtXHoZZ6lE+GH/ynST87ev
+ 8+daNtOTQQT74eaY0RFNY1tFactD8EqfaJhFq5sXtzyUqsLoABNHLnUscdiTyxHc6vUR
+ RvEA==
+X-Gm-Message-State: AOJu0YyFxUdgMsO8T3MyJ4d4RMrfLlxvIMi57JHkjRqtHF4QnUoEmmUe
+ dGYwccyHgeyfGrgGPQ/F3O/zqH2I/5Q8MzHF7o6RD25+giYGzhFYvYqJO7HnwcjWPYKob/E0yFX
+ YApbdVlkzilY7L2tpWyDIUbpDUh4/GQ==
+X-Gm-Gg: ASbGncslxsolbAkYBiUcjM8PiSWaDZbczl3dpe3Qccgc7r5m7hVsd2nD45sZhkplh3i
+ Cz49FHxUjFgqfZ9NygmQ7crFaPhDluMZmL36gI1rvynkmxELZ4Yi77Bpl+MrPgciYbCDgAReUSn
+ yY10LGvxVue3NjnB9cMJRf6Y6YlA==
+X-Google-Smtp-Source: AGHT+IEY2lBROg1TBeUE3i9FyPZeZtrucjX0FwOfH7n59og1m7u2gUjTIhVxXYrHX41V/MxAulOoSL7R9lPRC1byKF8=
+X-Received: by 2002:a17:902:ccca:b0:223:5732:9e4f with SMTP id
+ d9443c01a7336-22780e15573mr94389455ad.12.1742844748312; Mon, 24 Mar 2025
+ 12:32:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250322014700.62356-1-alexandre.f.demers@gmail.com>
-In-Reply-To: <20250322014700.62356-1-alexandre.f.demers@gmail.com>
+References: <20250324172540.128507-1-jinhuieric.huang@amd.com>
+In-Reply-To: <20250324172540.128507-1-jinhuieric.huang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Mar 2025 15:26:18 -0400
-X-Gm-Features: AQ5f1JrJzQFJoBVVvmvakSzDpy2O8dHZ_hD1dtGHDGb4FNjxnjsXAygXimCIyrk
-Message-ID: <CADnq5_Nj=5h+skoxE488zYZujQPG4t88n8mX9LRCMuE76fxYEQ@mail.gmail.com>
-Subject: Re: [PATCH 00/18] Properly wire defines,
- shifts and masks in SI and cleanup
-To: Alexandre Demers <alexandre.f.demers@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Mon, 24 Mar 2025 15:32:16 -0400
+X-Gm-Features: AQ5f1JpaYG9hcmToEwvyV00TWB__wZz_0LOAegqHjywF5yyVhJB-x9Msu9y1Vbw
+Message-ID: <CADnq5_OKVowRi_ivnE4O0NDPLCW3RTq4LKM-1M86hUnDcbB8fQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: increase max number of queues per process
+To: Eric Huang <jinhuieric.huang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, xiaogang.chen@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,78 +79,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 21, 2025 at 9:58=E2=80=AFPM Alexandre Demers
-<alexandre.f.demers@gmail.com> wrote:
+On Mon, Mar 24, 2025 at 1:26=E2=80=AFPM Eric Huang <jinhuieric.huang@amd.co=
+m> wrote:
 >
-> The following series is intented to remove duplicated defines, shifts and=
- masks or
-> to classify them where they belong. si_enums.h has been used as a garbage=
- can
-> for anything and everything when moving SI code from radeon to amdgpu.
+> kfdtest KFDQMTest.OverSubscribeCpQueues with multiple
+> gpu mode fails on gfx v9.4.3+NPS4+CPX which has 64 gpu
+> nodes, the queues created are 65x64=3D4160, but the number
+> 1024 0f KFD_MAX_NUM_OF_QUEUES_PER_PROCESS is not enough
+> and test fails at function find_available_queue_slot().
+> So increasing the nubmer will make the test passed.
 >
-> Where needed, the defines found under sid.h and si_enums.h were ported to=
- DCE6,
-> GFX6 and GMC6 defines, shifts and masks. There location was based on CIK =
-and
-> later.
+> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> However, most of them were already available, but not used where they cou=
-ld be.
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index f6aedf69c644..054a78207ffe 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -94,7 +94,7 @@
+>         ((typeof(ptr_to_struct)) kzalloc(sizeof(*ptr_to_struct), GFP_KERN=
+EL))
 >
-> This series is running on my PITCAIRN setup without any visible drawbacks=
-.
+>  #define KFD_MAX_NUM_OF_PROCESSES 512
+> -#define KFD_MAX_NUM_OF_QUEUES_PER_PROCESS 1024
+> +#define KFD_MAX_NUM_OF_QUEUES_PER_PROCESS 4160
 
-Applied 1-9, 12, 14, 16-18 with some minor fixes.  See my comments on
-patch 10.  The remaining patches depend on patch 10.
-
-Thanks,
+Doesn't this limit have more to do with the number of doorbells you
+can fit into a 4K page?  If you only allocate 4K for doorbells how can
+you increase this?
 
 Alex
 
 >
-> V2: Drop unneeded comments.
-> Remove "ix" prefix on some defines, since they are not indexes.
-> Make sure each patch has a description.
->
-> Alexandre Demers (18):
->   drm/amdgpu: move GFX6 defines into gfx_v6_0.c
->   drm/amdgpu: wire up defines, shifts and masks through SI code
->   drm/amdgpu: use proper defines, shifts and masks in DCE6 code
->   drm/amdgpu: remove PACKET3 duplicated defines from si_enums.h
->   drm/admgpu: move si_ih.c away from sid.h defines
->   drm/amdgpu: use GRPH_SECONDARY_SURFACE_ADDRESS_MASK with
->     GRPH_SECONDARY_SURFACE_ADDRESS in DCE6
->   drm/amdgpu: move DCE6 away from sid.h and si_enums.h defines
->   drm/amdgpu: add missing DMA defines, shifts and masks
->   drm/amdgpu: add missing GFX6 defines
->   drm/amdgpu: add missing SMU6 defines, shifts and masks
->   drm/pm/legacy-dpm: move SI away from sid.h and si_enums.h
->   drm/amdgpu: fix GFX6 variables for sid.h cleanup
->   drm/amdgpu: move si.c away from sid.h
->   drm/amdgpu: move si_dma.c away from sid.h and si_enums.h
->   drm/amdgpu: huge sid.h cleanup, drop substituted defines.
->   drm/amdgpu: keep removing sid.h dependency from si_dma.c
->   drm/amdgpu: cleanup DCE6 a bit more
->   drm/amdgpu: continue cleaning up sid.h and si_enums.h
->
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  176 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |   15 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |    2 +-
->  drivers/gpu/drm/amd/amdgpu/si.c               |  387 +++--
->  drivers/gpu/drm/amd/amdgpu/si_dma.c           |  116 +-
->  drivers/gpu/drm/amd/amdgpu/si_enums.h         |  234 +--
->  drivers/gpu/drm/amd/amdgpu/si_ih.c            |   17 +-
->  drivers/gpu/drm/amd/amdgpu/sid.h              | 1546 ++---------------
->  .../include/asic_reg/dce/dce_6_0_sh_mask.h    |    4 +-
->  .../drm/amd/include/asic_reg/gca/gfx_6_0_d.h  |    2 +
->  .../drm/amd/include/asic_reg/oss/oss_1_0_d.h  |   23 +-
->  .../include/asic_reg/oss/oss_1_0_sh_mask.h    |   43 +
->  .../drm/amd/include/asic_reg/smu/smu_6_0_d.h  |   44 +
->  .../include/asic_reg/smu/smu_6_0_sh_mask.h    |  190 +-
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  358 ++--
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c    |   42 +-
->  16 files changed, 1001 insertions(+), 2198 deletions(-)
->
+>  /*
+>   * Size of the per-process TBA+TMA buffer: 2 pages
 > --
-> 2.48.1
+> 2.34.1
 >
