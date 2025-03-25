@@ -4,82 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0039DC36010
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 08:39:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0004C3600E
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 08:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 866A410E665;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8179910E663;
 	Wed, 26 Mar 2025 08:39:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N5j0YAbi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="geYsZa1M";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 257C710E63D
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 01:55:37 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-224341bbc1dso122815775ad.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 18:55:37 -0700 (PDT)
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0219D10E32C;
+ Tue, 25 Mar 2025 23:05:51 +0000 (UTC)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-6f666c94285so59491327b3.3; 
+ Tue, 25 Mar 2025 16:05:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742954136; x=1743558936; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=RhoGeUb32vm6SYpduUh6vVqWnZMsaqggCcYZ4Rk0eKo=;
- b=N5j0YAbiYNxsHqXsIj5F6pCyGy9c+pI/7LiUNwg/vqgs1lWAxOA6w599d280z4WXSv
- HY5ny8vRmdIeu0SE26+L0g7qD7O3kxfex/Zwo958ShEhMMrLfJoP9+ZT9mDCkAOYm1Uk
- Bpxxky3wJKGvznNENRSlYhvyF20X3oOs5muROBdRwbodCWNJ5ZBcVj673rcleo/mfXKX
- 2W7whIk61Pc3kZA8UGJtMDwQiRvnImdppz/azhtrZyKXbBOOq793qCFR/3EiKfEsDr23
- orCwOgcVJ5IJqzoQ8HCIrtXc0MdCCQBiCgq+hznZTx+fP7QKKPrXStRrhQLlhSUImrjE
- 4EoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742954136; x=1743558936;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1742943951; x=1743548751; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RhoGeUb32vm6SYpduUh6vVqWnZMsaqggCcYZ4Rk0eKo=;
- b=AWgK3UEHgE51lv3XB+deCx2cfLFa2PR3/rwkZaCVKIRQV4oyz3Nvu/Gmxda3MOMo6g
- 6vUNCEKzAtBXQdgPwWAy0KDdDyvQnWhzF0InWuM/JCEVJhKefOsUGEPjrbsBZ3Rxf9zw
- p9hgYnVbzskOFdVx4E2RKQbWKjMaMGrEC97D+ga0Sru5dW6fSK5kMmizhLBL0ivKZT02
- cEbK210Hz0OhjEY4uUfquB/JUmQ1zoHShdn++vdmLcYssK7benCClaPze4VMlY7CEpM/
- 3FD6RMVTcSmOwIuhmzyZgBzW62w6GfiyIrvykQ3P5ZrXcP7r1W1Y8nDwhPdEvPybmtZF
- by4w==
-X-Gm-Message-State: AOJu0YyRIGqQ7PG9NEIUPSrYvf+C/kzUctm8EbrGT6zGfbQdf6rNIzah
- DpFt3sh/l7yh8McqKTw43zT28q0kSEeztkledtMPpnXiU6t0zYz1
-X-Gm-Gg: ASbGncuKH5KNhjAW5tpAgqtb+Hwj/XO/awUhHGiuvKkJilBIWNLOreTK4m9lNFuOn7S
- 8uVRp99E9TaAvEFSV62+XcXJYCIpqGgTYT2n5qN4eRapAXg5UrIaeJCGPhUzHOCUXJfEfl+tK3l
- VWymmBBVM5Fi4lrNc7O3A8uu5uGVNQaPopGb6FTF2Xl7Kmztm26xLGFqa6af9z7KjCY5kNcoH+D
- s506YdWhEeMLUUczaLIAQgIEypm56drr2dbfhsYp3j37NMPI7v/dPTmj/sfPRa4xf+JM8deAi79
- W4AvFX1BOr89jaXlGzyUWMCwX7niCJi1nMhfy6hcwLBv
-X-Google-Smtp-Source: AGHT+IE7D2EDUvRYr7rRqAPgLAX7soipBYpCk8xJ8LrYa/wI8aAMYAdtBnkhSDtVNtp9+5WRjLi22w==
-X-Received: by 2002:a17:902:ce03:b0:21f:4c8b:c4de with SMTP id
- d9443c01a7336-22780e177edmr287235645ad.42.1742954136344; 
- Tue, 25 Mar 2025 18:55:36 -0700 (PDT)
-Received: from archie.me ([103.124.138.155]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-227811f33f6sm97643965ad.226.2025.03.25.18.55.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Mar 2025 18:55:35 -0700 (PDT)
-Received: by archie.me (Postfix, from userid 1000)
- id C5BF04230C05; Wed, 26 Mar 2025 08:55:33 +0700 (WIB)
-Date: Wed, 26 Mar 2025 08:55:33 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- 'Christian =?utf-8?Q?K=C3=B6nig'?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Melissa Wen <mwen@igalia.com>,
- =?utf-8?Q?'Andr=C3=A9?= Almeida' <andrealmeid@igalia.com>,
- 'Timur =?utf-8?B?S3Jpc3TDs2Yn?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
- kernel-dev@igalia.com
-Subject: Re: [PATCH 5/6] Documentation/gpu: Create a GC entry in the amdgpu
- documentation
-Message-ID: <Z-NelWkIAtyAzoE1@archie.me>
-References: <20250325172623.225901-1-siqueira@igalia.com>
- <20250325172623.225901-6-siqueira@igalia.com>
+ bh=3LYyh7cvIBy6gyg3IkrEGbKsjVJ9+uHDh9H38tA/bPY=;
+ b=geYsZa1MyQtFKD24qTQ4PRbRBpRoMrpmr1PO1rkdkbKIyhOm6iS20aOOHUVcp3+vZN
+ dVc2k6GrkLwLuntYD2UjQ5G4Ar6iMyjLEOA2UW3qbKQ/C4Mwb5d9u6+KW9jgi6wctnKV
+ NK8mjeUltZztlslnSU/0ELOwiiSIj70/EOxhQ8V5bhiIpj1JOrFaK0znO8Y4wsb5lEIt
+ C5mbsOkWzz3qATQOR2SqpLgOdMoujl3aEG01QpgP36EJYi0oY4kzHUnAPMQGZ5DjdS97
+ 2Dr7d79uIhJOR5E3WfOmNDJgr1BDsTRoh7kItCkjYUa/l3n9nKgqkel5obYTCR9gHphN
+ IQXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742943951; x=1743548751;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3LYyh7cvIBy6gyg3IkrEGbKsjVJ9+uHDh9H38tA/bPY=;
+ b=fFe1f0jB9ITxAvq7niqrcyUdzR6AjNFo3ZGDW7owDCXb1Pj19Uoe0AzZ/lpOKRVHVh
+ z4WtsBJgVYETcaOlnqGcYbiy6QQ1ehTFevCu0yCYxY8pfIZELzqcRKON/s2HldAG3fPq
+ MZ30Enx+aUS4Yk+fPzkdxyxxdjt+1Zx/Slwpfhc9MABIGG/VYH5F6OiFEA4TOHvBNN2V
+ lSyIlK7SZYpk1mP9eqnrG3c6HLL3OdVrwXQNBtG7gIBXUuLIWBwaBCK59hETC9WirDou
+ HgCnxzWZ2Rbnk8GgqJtCU7wB0zchRPAr7aPOwESq+S1uktt/ylgZWNqlkPqG8As77TSi
+ 3wAQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUAvGp6qshyOygV6v4uKWKeBGpZ3xYq22W3aheUI2TBJEMORdNyH2njBckf7fhweKgZPTBG00a2QbNL@lists.freedesktop.org,
+ AJvYcCUkc/KM2i8r8I4xtro+1n6b4fQeEG69PVzqXRd0ucc2Xk1CU6bMucW5qW5+JA/bvgH8BfjdMWKEpJl2JCiEfg==@lists.freedesktop.org,
+ AJvYcCVQ4SZCG9GU+qwynl0dwi1EnSfK21sgyTRtcTGW/QOJBFs6y0HRgXZRcAWScdK7oXXVJddaJwj1f9VJltZHlgRbnw==@lists.freedesktop.org,
+ AJvYcCVqw5FY75/knZRfr5M5w6tltyuG+m1GDSvcZ0NqsTy+6rQZeLWszHG9HgE6Ji6cBN8QGNTECM0bsTsL@lists.freedesktop.org,
+ AJvYcCWYJTJOXEUQhKSgVgk8Zl44pkolciPSjAbgiVp/gfSQ9SWW/PEhshaGxBQIfu9/CyT13iayVPFn@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSiMhzUzMKPZyOwxchSFR85bab3SF5ijFYBvGsxSF/1Hq36Las
+ X/5/jTtZKvLhiMAGBWFDKf/QIlRDFCUnrFwlEAnEJS5Zq0t6rGy9A1w1IcNWa7xahfe7PXdZS3s
+ 54yJAmw9FjjUmQBggm/X3NkyY52c=
+X-Gm-Gg: ASbGncsVOakmLrRo4IoHqqfslmA/CVcjh+clUOAvYHT+Li6v4FG42/h51BBzT1fPMy/
+ UzlHLrk6p81MnEeX40s4m0SlFWoP/EH2GtYLvoxPTsCB4iOVBf7HVBUpsg792i9Tr4HutPhWT4e
+ l0D0sCLd5ra43HvlkEGMB5fb74
+X-Google-Smtp-Source: AGHT+IFDS0/bmylajohYScfMRJASfdJ94Z8dAaU9Iu5+MxKXgHCh/sXXScoa/kPcmSMVjhI64o9HD206lCBiVRkHZUw=
+X-Received: by 2002:a05:690c:62c7:b0:6fd:22fb:f21b with SMTP id
+ 00721157ae682-700bac5dd77mr270803627b3.18.1742943950541; Tue, 25 Mar 2025
+ 16:05:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="DIB49pRixYM85JwS"
-Content-Disposition: inline
-In-Reply-To: <20250325172623.225901-6-siqueira@igalia.com>
+References: <20250320185238.447458-1-jim.cromie@gmail.com>
+ <20250320185238.447458-31-jim.cromie@gmail.com>
+ <0828cfdb-abf3-42c5-8500-70f36affd0a8@bootlin.com>
+ <CAJfuBxzHEtS1psJ+L_6=FP-mU3b8mgLQbXRWoizLkZoRUB6G1Q@mail.gmail.com>
+In-Reply-To: <CAJfuBxzHEtS1psJ+L_6=FP-mU3b8mgLQbXRWoizLkZoRUB6G1Q@mail.gmail.com>
+From: jim.cromie@gmail.com
+Date: Tue, 25 Mar 2025 17:05:24 -0600
+X-Gm-Features: AQ5f1JqDBPnZp9kI3zjF5AGf9PrDQTP2_tFSu-HI5zfD_s9-HLrOkUICv28MItI
+Message-ID: <CAJfuBxy3HWJuiBBSySGEUtDcpSNh7Kmds2t8TRGouSOqE1O2OA@mail.gmail.com>
+Subject: Re: [PATCH v2 30/59] dyndbg: drop "protection" of class'd pr_debugs
+ from legacy queries
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org, 
+ jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 26 Mar 2025 08:39:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,49 +95,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Mar 25, 2025 at 12:29=E2=80=AFPM <jim.cromie@gmail.com> wrote:
+>
+> On Mon, Mar 24, 2025 at 9:20=E2=80=AFAM Louis Chauvet <louis.chauvet@boot=
+lin.com> wrote:
+> >
+> >
+> >
+> > Le 20/03/2025 =C3=A0 19:52, Jim Cromie a =C3=A9crit :
+> > > Current classmap code protects class'd pr_debugs from unintended
+> > > changes by "legacy" unclassed queries:
+> > >
+> > >    # this doesn't disable all of DRM_UT_* categories
+> > >    echo "-p" > /proc/dynamic_debug/control
+> > >
+> > >    # name the class to change it - protective but tedious
+> > >    echo "class DRM_UT_CORE +p" > /proc/dynamic_debug/control
+> > >
+> > >    # or do it the subsystem way
+> > >    echo 1 > /sys/module/drm/parameters/debug
+> > >
+> > > This "name the class to change it" behavior gave a modicum of
+> > > protection to classmap users (ie DRM) so their debug settings aren't
+> > > trivially and unintentionally altered underneath them.
+> > >
+> > > But this made the class keyword special in some sense; the other
+> > > keywords skip only on explicit mismatch, otherwize the code falls thr=
+u
+> >
+> > s/otherwize/otherwise/
+>
+> ack
+>
+> >
+> > > to adjust the pr-debug site.
+> > >
+> > > So Jason Baron didn't like this special case when I 1st proposed it;
+> > > I argued 2 points:
+> > > - "protection gives stable-debug, improving utility"
+> > > - __drm_debug is authoritative w/o dyndbg under it.
+> > >
+> > > I thought I'd convinced him back then, (and the patchset got merged),
+> > > but he noted it again when he reviewed this series.  So this commit
+> > > names the "special case": ddebug_client_module_protects_classes(), an=
+d
+> > > reverts it to Jason's preference.
+> >   >
+> > > If a class mismatch is seen, code distinguishes whether the class was
+> > > explicitly given (and always skips/continue), or the DFLT was assumed
+> > > because no class was given.  Here we test
+> > > ddebug_client_module_protects_classes(), skip if so.
+> > >
+> > > Later, if any user/module wants to protect its classes, we could add =
+a
+> > > flag to ddebug_table, a means to set it from CLASSMAP_DEFINE, and
+> > > check it when applying a classless query/cmd.
+> >
+> > I don't really understand the goal of the protection, do you have the
+> > discussion between you and Jason so I can have some context and some
+> > answer to my questions?
+> >
+>
+> The on-list discussion is here.
+>
+> https://lore.kernel.org/lkml/2d3846cb-ff9a-3484-61a8-973799727d8f@akamai.=
+com/
+> https://lore.kernel.org/lkml/0d9f644f-3d60-02c3-7ce0-01296757e181@akamai.=
+com/#t
+>
+> At the time I thought it was unfinished business, and expected some
+> more discussion,
+> but that didnt happen, and later GregKH committed the set.
+>
+> Last summer I emailed him privately, and he made a 5-6 points Ive
+> addressed in this rev,
+> (reduction of repetitive code, enforcing classmap constraints,
+> protecting against misuse)
+> but it also became clear he still didnt like the "specialness" of the key=
+word,
+> given by the _DFLT constraint applied to legacy callsites and queries.
+>
+> Since thats a bit of a philosophical debate, I looked for a technical sol=
+ution,
+> to have it either way with fairly trivial additions, and to yield
+> until user experience
+> dictates otherwise
+>
+> To be clear, I still think protecting the "classed" is proper.
+> Without dyndbg, /sys/module/drm/parameters/debug is authoritative, full s=
+top.
+> I'm surprised any customer would give away that certainty,
+> it looks like a (small caliber) footgun to me.
+> But its not worth disagreeing on.
+> Hence this patch reverts that "protection"
+>
+> > With the example you gave above, I think this could lead to a very odd
+> > behavior: if I enable dyndbg, I expect any pr_dbg to be managed by
+> > dyndbg settings.
+>
+> if by "any" you mean ALL the ones that currently exist,
+> before we add a whole new "CLASS" of user,
+> (with ~5k uses, all comfortable with their exclusive control)
+> I can agree.
+>
+> echo class FOO +p > control
+> gives full control.  You just have to say so for the new classes of users=
+.
+>
+> >
+> > If a user writes stuff on dyndbg control, he clearly knows what he is
+> > doing, and he wants to control what logs he wants.
+> >
+> > And if you allow multiple "protected" users, the normal way to disable
+> > all dyndbg logs will be:
+> >
+> >         ddcmd -p
+> >         ddcmd class DRM_UT_CORE -p
+> >         ddcmd class DRM_... -p # all drm classes
+> >         ddcmd class SPI_... -p # all spi classes
+> >         ddcmd class WHATEVER_... -p # all other subsystem
+> >
+> >         # And only now you can enable only what you want
+> >         ddcmd module my_mod +p
+> >
+> > This is clearly annoying to write.
+>
+> It is clearly annoying.
+> It doesnt need to be handy.
+> thats what /sys/module/drm/parameters/debug is for.
+> with modest "protection" of explicit naming,
+> the sysfs knob can reasonably be expected
+> to reflect whats going on underneath.
+> Without it, bets are misplaced.
+>
 
---DIB49pRixYM85JwS
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Heres an improvement:
 
-On Tue, Mar 25, 2025 at 11:18:46AM -0600, Rodrigo Siqueira wrote:
-> +The component that acts as the front end between the CPU and the GPU is =
-called
-> +the Command Processor (CP). This component is responsible for providing =
-greater
-> +flexibility to the GC since CP makes it possible to program various aspe=
-cts of
-> +the GPU pipeline. CP also coordinates the communication between the CPU =
-and GPU
-> +via a mechanism named **Ring Buffers**, where the CPU appends informatio=
-n to
-> +the buffer while the GPU removes operations. It is relevant to highlight=
- that a
-> +CPU can add a pointer to the Ring Buffer that points to another region of
-> +memory outside the Ring Buffer, and CP can handle it; this mechanism is =
-called
-> +**Indirect Buffer (IB)**. CP receives and parses the Command Streams (CS=
-), and
-> +according to the parser result, the CP writes the request for operations=
- in the
-"depending on the parser result, ..."
-> +correct block.
+a use of CLASSMAP_PARAM means user wants a sysfs knob.
+We can reasonably conclude they prefer that mode of control
+(its what DRM users would expect, since a long time ago).
 
-Thanks.
+In that case, protect the PARAM settings
+(from unqualified settings, use of class FOO still works)
+otherwise no protection.
+simple to explain, no extra knobs.
 
---=20
-An old man doll... just what I always wanted! - Clara
 
---DIB49pRixYM85JwS
-Content-Type: application/pgp-signature; name=signature.asc
 
------BEGIN PGP SIGNATURE-----
+> >
+> > If DRM (or whatever subsystem) wants to add a debug parameter and use i=
+t
+> > to control their logs without being impacted by dyndbg, I believe it
+> > should not use dyndbg classes to do it.
+>
+> hmm - dyndbg's 1st value is its NOOP cost when off.
+> If thats not worth something, you wouldnt bother using it.
+>
+>
+> In any case, its pretty clear that my viewpoint isnt prevailing here,
+> and as I said, I dont care enough to disagree.
+> the reversion here can stand.
+>
+>
 
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZ+NelQAKCRD2uYlJVVFO
-o8sIAQDkGjPRsJ2EtTpo2Ib2Qn/FWZ3h9QNmLPDpIX3hqMAYvQEAx55KZjJDXuQU
-ubIbfwJlEd+9PtWYkKY/lcKCQPahsAA=
-=b8uh
------END PGP SIGNATURE-----
-
---DIB49pRixYM85JwS--
+apologies, since Im sounding kinda argumentative.
+Jim
