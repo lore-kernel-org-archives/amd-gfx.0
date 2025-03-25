@@ -4,80 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D0ADC36011
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 08:21:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E65B9C35FFC
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 08:21:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3665810E518;
-	Tue, 25 Mar 2025 08:21:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88A4F10E513;
+	Tue, 25 Mar 2025 08:21:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.at header.i=h.judt@gmx.at header.b="uQtGkeki";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vzf/nyeR";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD61010E500
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 08:05:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.at;
- s=s31663417; t=1742889895; x=1743494695; i=h.judt@gmx.at;
- bh=aGSh8O7kkwrWcs3jwN4L7vZ/zAoA8bxUdC6omdGbNWw=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:From:Subject:To:
- Cc:Content-Type:cc:content-transfer-encoding:content-type:date:
- from:message-id:mime-version:reply-to:subject:to;
- b=uQtGkekiHwrpDotMcTDfTm0vMeLVduUESm8eRYEdBH2mvbaeyeHkX3w5q2jZu4IQ
- +nF69T6aldTooM4giOW7g2eyUXZVT7W6QzWGLtcs/DQApRq6COXNI9KqYTa+fuKdf
- VMnhEtjSmWji1ELY18RpS8bt/RPdHcfBZe69TTr33auyAkZS+7rTPJ74BeZ2fkflR
- p2qJuHqBIIYWoLA4MgGzq0OwyUz6pypUbllQKEbLxrnLAIMKUYbIB0bPMV9EcPKIC
- 7tq9E244EWeaafBh5tH3pYA+FoPNeMlFyMtvf1aRdPz8lb4bn7gLHcZpONkJKOze2
- SP8OKOC52Uk9IGv6CQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.1.100] ([80.108.251.54]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MTRR0-1tZnaN0T88-00VC3w; Tue, 25
- Mar 2025 09:04:55 +0100
-Message-ID: <314e8563-82c6-4702-bd3a-bdc2200adfcd@gmx.at>
-Date: Tue, 25 Mar 2025 09:04:54 +0100
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92C8D10E1B4;
+ Tue, 25 Mar 2025 00:07:41 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-e643f0933afso4794276276.1; 
+ Mon, 24 Mar 2025 17:07:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742861260; x=1743466060; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ueS3sg0skiZ5B94RVJ8gfXnjlig17yFC1p5JvUHrHSQ=;
+ b=Vzf/nyeRCQbFSfN8ixGpJN9kZq/x+tDq3Jb26uLX0rF6JtQGKnWwuTb0mWj1vJb42n
+ oU0O9tzCovNRM4fah/9vWt4CQSbyt5M3HTx/IzTYwPkkINNBT7jvB0HerIE7QiavW9I4
+ y8foZ87Rm9aqPyFR3uODCcGL8y4SPqOJ+9zEFJnlnourf9fcqEV4J18Ui6eHBBUVYn+u
+ 2qu10YxrXCPvj5YePe44H3IjV5JDOibGJ2fa8HQZPMXj/MiZDAt+HJlezxkSMRo8tdY8
+ 75GrAwEmqi75L4uzT+0JauhBpe9+N6s5uMgPmrReTWR45cAAe+MJdtJOhyY26vN1wDSy
+ ZSLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742861260; x=1743466060;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ueS3sg0skiZ5B94RVJ8gfXnjlig17yFC1p5JvUHrHSQ=;
+ b=YsitEP/qiAoThPBDasHPBB0UNLAeDKcr4MJghljfng3OX+K2ImoBih1g9AXYxc8H1X
+ 0Rp9oJMcQmRxlpI189X1wa47RpD4rbAd0PEQeqmEUJFX1e3RpKsBYtXHPbcKeG+vIwHu
+ 36g/jZ0mitX50uZrvbKXz/o/BED5qGdzoG0sU1OmJoYCi92Fpb0kMbxoMfQU9FdqK1+R
+ +45UJRdo6s5scaXm1DL8b5VqQ/RownTLvm+PvByvvUZGL6apaLNqUvpSk06OjM5p8Gz8
+ vqH5PPFZlWiTirOvLRBUPvgOkuLi0RuCHhxSca4vwZw6IH+tgXHQXEE6g5oiT/GYrA7M
+ ljmA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVwXi8kekSPQK7mWMAAuV/wVHeVr072LGgdz6M+VQ52Hsby0Sn+NOpG9JKIf7P7NODH3+kUQO3trG1m@lists.freedesktop.org,
+ AJvYcCXzSMY2TGPkVvEBPSqE39BUSHpsr9Xctz7zRU14akFbEPTJdxNQXuU28DzqzInjNMfU02WKW+yF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFrLZ8DNZgEl8mKGH5VFpjyvaRAcr+Uxo756rtbNlMl0e/2+3k
+ Ax+vdvdG1jeK0d5Y8Vk+Vc8kGSWvmGGiRykvcVokmbsu0IYuBdhr
+X-Gm-Gg: ASbGncu9WD8I7QDArJSka4aGi+nasdkKpW/pKrT0FZnBfz2sM9aX9ZalvOliYkcHTgo
+ FdjgJWIYevZOzTB4Uot9Avtety6xanxQjs0bCVYJu9JngIezS90EeYj0H7S8Vo/job6cXEXxMm5
+ Ahb5kUedf47drP36MqmFlIsvNTyEfjhQdrivAcL/i1w1XqMJKWFhvoJv1yQJ9VWKJ3N2Ow78q1D
+ PMdqzifwZUvi5UywaswotL/MlZVgAGAhWMiWPfw8LZjjkvUBsx24P9wCIr4YvtoTOZeujj+0Egq
+ HvoxKnJD/THF9jid4BD7zxTykqn/XvyeB6k0DQiG3NSkMw==
+X-Google-Smtp-Source: AGHT+IHNi/jAQcmpGL9LBE7dNmmgPZDCX+FC7T8JhHmV1cxK77RRmvhsjnVqb5X/bnsEaxoAKK3TXA==
+X-Received: by 2002:a05:6902:278a:b0:e60:8cb8:a8da with SMTP id
+ 3f1490d57ef6-e6690dedd06mr26655181276.7.1742861260398; 
+ Mon, 24 Mar 2025 17:07:40 -0700 (PDT)
+Received: from velo.. ([191.104.150.128]) by smtp.gmail.com with ESMTPSA id
+ 3f1490d57ef6-e66a442e19esm1824519276.36.2025.03.24.17.07.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Mar 2025 17:07:40 -0700 (PDT)
+From: Andres Urian Florez <andres.emb.sys@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, mario.limonciello@amd.com, arnd@arndb.de,
+ Tim.Huang@amd.com
+Cc: Andres Urian Florez <andres.emb.sys@gmail.com>, skhan@linuxfoundation.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Replace deprecated function strcpy() with
+ strscpy()
+Date: Mon, 24 Mar 2025 19:07:21 -0500
+Message-ID: <20250325000723.366365-1-andres.emb.sys@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Harald Judt <h.judt@gmx.at>
-Subject: [PATCH] amdgpu: Do not trigger reset_method S3 workaround for S4
-To: amd-gfx@lists.freedesktop.org
-Cc: Harald Judt <h.judt@gmx.at>
-Content-Language: de-AT
-Autocrypt: addr=h.judt@gmx.at; keydata=
- xjMEWz9DYxYJKwYBBAHaRw8BAQdAKS36MI1JSuMxtk7tkZ2/NK1C9te1XJ8bBlB9qF4blEbN
- G0hhcmFsZCBKdWR0IDxoLmp1ZHRAZ214LmF0PsKWBBMWCAA+AhsDBQsJCAcCBhUKCQgLAgQW
- AgMBAh4BAheAFiEE4HNt2P9AnPIGZRHUT/+rIbhYCr0FAmStFG8FCRLT0owACgkQT/+rIbhY
- Cr1dYwEAsT/9SLGebsLz4TIuYaDY7c4ou+i7Stae6FIb62NXw7UBAPopYK3pJuyjhvK8qb3N
- FQeZyDrHeJLvOWEoj5OYsLIIzjgEWz9DYxIKKwYBBAGXVQEFAQEHQA7/uzYBE88LdCm19AaX
- q46nMKkhxM5CZ2YAa1uC5l97AwEIB8J+BBgWCAAmAhsMFiEE4HNt2P9AnPIGZRHUT/+rIbhY
- Cr0FAmStFMkFCRLT0uYACgkQT/+rIbhYCr12kAD9HnfrVNMxwa8LWtpKCiv4+zk1ujthlZZm
- G75GoPWofXEBAMQ8kqpJDk2/DH4qT0ZneIT5SnQPt5ZtAFtpX6XOa0oB
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------xVKYPWLja5uHZ0krW5Zm0bpF"
-X-Provags-ID: V03:K1:vHY42m5vQkzbUQqhVzqHd0WS/O3G5I9xHq9CMzBqJwsDijqbVs/
- GBsKfNsUFZ3BHUiDpOkgN2jhctybdwcBx9lbvLKQskLG8Ny32zn4RQjkeybvcAdAOcZ4wcP
- fxB1VO1oB1p5xzMvuF1MT1NU7XO5TguiSzmKzImcnwr5b4hRpzf+uEP+SnNWKDihZZT94VE
- hnpfanecJYCfmABmvZhlQ==
-UI-OutboundReport: notjunk:1;M01:P0:LGtreQ4jFy4=;Tx235HCR0jDyXhpwkuQv9IbKVfy
- XLtncbiXcq6WHGLEM/oU9Yh3r8rt7LEmO75ZGT+6wff3WBDefyo0jAIRSak8UW1S+f468RIgW
- 0FePHmX470dTb7BRzyJQQ9H4tzwBMGkr/xpoNZu97AaeDzgy+DwZlkli70/2WEyCc6C+Z5C4a
- j2XyB4u9IQiW2iv/d4ur6aAfJqT3+AYHvvJTUjuwzmDSNANjwEFkYPGGEf0BMvKjG3WgCpjnr
- J7rIHDmMVyaAO+2urKf4NCjFiavb7AKRhV3p9wbVVjpdqjWh9QeAgAwAloTDDhtwtZH7S+KWa
- fRB7hrzJWH3w/nPXxsWz66G2JkDG9kE0eFhTKYFn7ShlXz4oPsQK65rUVYltQFSQlRMwo4FWL
- LMaBfcAA1XXmxl+vrW7lO8MYavuTUvA3HAQSEYoS0IpungDTONpPuT/3HoNgtvjoI7qZffGK0
- S+aZLhr1f78Zalap1UVK8yiMGl6+SLpUtOgr92p5d9ioX1+h/zVCi1Eq/B2J4M/3NPg5pW+t3
- 0Gopqtp3K+bSPq3MP8acFsfXTjjj7FSUfnwdnB4LtValA4qSRoIaitFilef2qm/6jddrNAcXA
- 0xnarzHxE4CXG+aXCHqUqfrykJFTTNqrPXYSFFH6iWt2Q76OXLcmTgHdDU5s0nurJUhUAlH0k
- kpKZEfnTQvya9jt1xqBuMXyXOL2fX8mc8Au2qj/5xbjO28QJBMUf9211mjhbJj7QBwq9PCZay
- 1iooa66oWxOryJValQbvo8GiSHsZSvdquvOBXi2yIUNG394YSwvBBUHyaHrk7c34ZW1hNbI38
- 8elhI+UGQ/UboohHa/UB8mnbrWvw3uLRwDCq73ALyknsaKbfcoI5wF7G3G28btcfot+upqL5x
- v5x8/ptx52ehTjEsnsOpQnt+1qKUlhv5Kl+mnRXSyxL0LlFpH7cgmIVgp5lsI/58A5w9DBAp6
- E9Hmu4G6aC1lL2lMyW6Ap9UD5XNXXvcZflRoH7svis/CPcQr+hjz0QtjuCRJHadlSL+Kp5jCu
- zAisku7W+xWntEQjqKX9zq46cfOaF4qsKMsq1El4cFc//T4z0kOp9EcHqAWdZonoiCHC5tmrB
- TBPUhS5r0N68MuN/9Qld6drxgpVxiXxCV8cYncbUWrL6Eo4KrPTFKUli1IvwZ586X200KPIMh
- WNWDVRXuwmsrT2+5pT/dwrWlKqdP8lE3YWin62pUAmdSScYcXZQmbK9tZhYRUoMpSPukHwezd
- xo3eGjAXJkQvRmYwmHk05pAoMP6hMXSUUUc+3LWaKCX/xcUaIIEuzjD4boavVJ1wVuV/iXdde
- swiKSJEgw/CnjoQoKM1H9GavlNCSjNoPw1OnPetO0f0oLW6KQt/gLVEdLWMi2U9rwUQ+Ykdlq
- Ooe3O3gDc0tHmrMFntgDPZHZXtWt29DAbtvJVuzoGidE2SML61ioR4hdGk32KDTBQDB/ZBqeL
- RoXItndOgNUIOpVAFwlFbPpr6r/Lave22wfca9+Te2x/xgXsN
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 25 Mar 2025 08:21:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,76 +88,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------xVKYPWLja5uHZ0krW5Zm0bpF
-Content-Type: multipart/mixed; boundary="------------yCZZYmgNnlpWewsMVHsNdl18";
- protected-headers="v1"
-From: Harald Judt <h.judt@gmx.at>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harald Judt <h.judt@gmx.at>
-Message-ID: <314e8563-82c6-4702-bd3a-bdc2200adfcd@gmx.at>
-Subject: [PATCH] amdgpu: Do not trigger reset_method S3 workaround for S4
+Instead of using the strcpy() deprecated function to populate the
+fw_name, use the strscpy() function
 
---------------yCZZYmgNnlpWewsMVHsNdl18
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strcpy
 
-IEZyb20gOWEyZjE2YTRhNDNmNDI0ZjUwMDhkNWM0YTg3ZTEzMjlmNjgyZTkxOSBNb24gU2Vw
-IDE3IDAwOjAwOjAwIDIwMDENCkZyb206IEhhcmFsZCBKdWR0IDxoLmp1ZHRAZ214LmF0Pg0K
-RGF0ZTogU2F0LCAyMiBNYXIgMjAyNSAyMzowMTo1NyArMDEwMA0KU3ViamVjdDogW1BBVENI
-XSBhbWRncHU6IERvIG5vdCB0cmlnZ2VyIHJlc2V0X21ldGhvZCBTMyB3b3JrYXJvdW5kIGZv
-ciBTNA0KDQpDb21taXQgM2E5NjI2YzgxNmRiICgiZHJtL2FtZDogU3RvcCBldmljdGluZyBy
-ZXNvdXJjZXMgb24gQVBVcyBpbiBzdXNwZW5kIikNCmNhdXNlcyBoaWJlcm5hdGlvbiB0byBm
-YWlsIG9uIFIzOTAgYmVjYXVzZSBpdCB0cmlnZ2VycyBhIHdvcmthcm91bmQgZm9yIFMzIGlu
-DQphbWRncHVfZHBtX2lzX2JhY29fc3VwcG9ydGVkIHRoYXQgZGlzYWJsZXMgQkFDTy4gV2l0
-aCByZXNldF9tZXRob2QgUENJIENPTkZJRywNClMzIHdvcmtzIGJ1dCBTNCBmYWlscyBvbiBy
-ZXN1bWUuIFRoaXMgY29tbWl0IGZpeGVzIHRoaXMgYnkgbW9kaWZ5aW5nIHRoZQ0Kd29ya2Fy
-b3VuZCB0byBvbmx5IGFwcGx5IGZvciBTMyBhbmQgbm90IFM0Lg0KDQpDbG9zZXM6IGh0dHBz
-Oi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vYW1kLy0vaXNzdWVzLzM2MzQNClNpZ25l
-ZC1vZmYtYnk6IEhhcmFsZCBKdWR0IDxoLmp1ZHRAZ214LmF0Pg0KLS0tDQogICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCAxMCArKysrKystLS0tDQogICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9kcG0uYyAgICAgfCAgMiArLQ0KICAgMiBm
-aWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQoNCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgDQpiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0KaW5kZXggOTFhODc0YmIw
-ZTI0Li4wNWFjMTNmMWFhNmEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZHJ2LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kcnYuYw0KQEAgLTI1NTYsMTMgKzI1NTYsMTUgQEAgc3RhdGljIGludCBhbWRncHVf
-cG1vcHNfZnJlZXplKHN0cnVjdCBkZXZpY2UgKmRldikNCg0KICAgCWFkZXYtPmluX3M0ID0g
-dHJ1ZTsNCiAgIAlyID0gYW1kZ3B1X2RldmljZV9zdXNwZW5kKGRybV9kZXYsIHRydWUpOw0K
-LQlhZGV2LT5pbl9zNCA9IGZhbHNlOw0KICAgCWlmIChyKQ0KLQkJcmV0dXJuIHI7DQorCQln
-b3RvIG91dDsNCg0KICAgCWlmIChhbWRncHVfYWNwaV9zaG91bGRfZ3B1X3Jlc2V0KGFkZXYp
-KQ0KLQkJcmV0dXJuIGFtZGdwdV9hc2ljX3Jlc2V0KGFkZXYpOw0KLQlyZXR1cm4gMDsNCisJ
-CXIgPSBhbWRncHVfYXNpY19yZXNldChhZGV2KTsNCisNCitvdXQ6DQorCWFkZXYtPmluX3M0
-ID0gZmFsc2U7DQorCXJldHVybiByOw0KICAgfQ0KDQogICBzdGF0aWMgaW50IGFtZGdwdV9w
-bW9wc190aGF3KHN0cnVjdCBkZXZpY2UgKmRldikNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3BtL2FtZGdwdV9kcG0uYyANCmIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9h
-bWRncHVfZHBtLmMNCmluZGV4IDlkYzgyZjRkN2M5My4uMWE4NjI0YjJmMzg4IDEwMDY0NA0K
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9hbWRncHVfZHBtLmMNCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X2RwbS5jDQpAQCAtMjIwLDcgKzIyMCw3IEBAIGlu
-dCBhbWRncHVfZHBtX2lzX2JhY29fc3VwcG9ydGVkKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KQ0KICAgCSAqIFBvd2VyaW5nIGRvd24vdXAgZXZlcnl0aGluZyBtYXkgYWR2ZXJzZWx5
-IGFmZmVjdCB0aGVzZSBvdGhlcg0KICAgCSAqIGRldmljZXMuICBOZWVkcyBtb3JlIGludmVz
-dGlnYXRpb24uDQogICAJICovDQotCWlmIChhZGV2LT5pbl9zMykNCisJaWYgKGFkZXYtPmlu
-X3MzICYmICFhZGV2LT5pbl9zNCkNCiAgIAkJcmV0dXJuIDA7DQoNCiAgIAltdXRleF9sb2Nr
-KCZhZGV2LT5wbS5tdXRleCk7DQotLSANCjIuNDkuMA0KDQoNCi0tIA0KYEV4cGVyaWVuY2Ug
-aXMgdGhlIGJlc3QgdGVhY2hlci4nDQoNClBHUCBLZXkgSUQ6IDRGRkZBQjIxQjg1ODBBQkQN
-CkZpbmdlcnByaW50OiBFMDczIDZERDggRkY0MCA5Q0YyIDA2NjUgMTFENCA0RkZGIEFCMjEg
-Qjg1OCAwQUJEDQoNCg==
+Signed-off-by: Andres Urian Florez <andres.emb.sys@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 68 ++++++++++++-------------
+ 1 file changed, 34 insertions(+), 34 deletions(-)
 
---------------yCZZYmgNnlpWewsMVHsNdl18--
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+index 68bce6a6d09d..525e53c94f4f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+@@ -253,16 +253,16 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+ 		if (!adev->pm.fw) {
+ 			switch (adev->asic_type) {
+ 			case CHIP_TAHITI:
+-				strcpy(fw_name, "radeon/tahiti_smc.bin");
++				strscpy(fw_name, "radeon/tahiti_smc.bin");
+ 				break;
+ 			case CHIP_PITCAIRN:
+ 				if ((adev->pdev->revision == 0x81) &&
+ 				    ((adev->pdev->device == 0x6810) ||
+ 				    (adev->pdev->device == 0x6811))) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "radeon/pitcairn_k_smc.bin");
++					strscpy(fw_name, "radeon/pitcairn_k_smc.bin");
+ 				} else {
+-					strcpy(fw_name, "radeon/pitcairn_smc.bin");
++					strscpy(fw_name, "radeon/pitcairn_smc.bin");
+ 				}
+ 				break;
+ 			case CHIP_VERDE:
+@@ -276,9 +276,9 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+ 					((adev->pdev->device == 0x6823) ||
+ 					(adev->pdev->device == 0x682b)))) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "radeon/verde_k_smc.bin");
++					strscpy(fw_name, "radeon/verde_k_smc.bin");
+ 				} else {
+-					strcpy(fw_name, "radeon/verde_smc.bin");
++					strscpy(fw_name, "radeon/verde_smc.bin");
+ 				}
+ 				break;
+ 			case CHIP_OLAND:
+@@ -290,9 +290,9 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+ 				    ((adev->pdev->revision == 0x83) &&
+ 					(adev->pdev->device == 0x6610))) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "radeon/oland_k_smc.bin");
++					strscpy(fw_name, "radeon/oland_k_smc.bin");
+ 				} else {
+-					strcpy(fw_name, "radeon/oland_smc.bin");
++					strscpy(fw_name, "radeon/oland_smc.bin");
+ 				}
+ 				break;
+ 			case CHIP_HAINAN:
+@@ -304,13 +304,13 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+ 					(adev->pdev->device == 0x6665) ||
+ 					 (adev->pdev->device == 0x6667)))) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "radeon/hainan_k_smc.bin");
++					strscpy(fw_name, "radeon/hainan_k_smc.bin");
+ 				} else if ((adev->pdev->revision == 0xc3) &&
+ 					 (adev->pdev->device == 0x6665)) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "radeon/banks_k_2_smc.bin");
++					strscpy(fw_name, "radeon/banks_k_2_smc.bin");
+ 				} else {
+-					strcpy(fw_name, "radeon/hainan_smc.bin");
++					strscpy(fw_name, "radeon/hainan_smc.bin");
+ 				}
+ 				break;
+ 			case CHIP_BONAIRE:
+@@ -318,17 +318,17 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+ 					(adev->pdev->revision == 0x81) ||
+ 					(adev->pdev->device == 0x665f)) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "amdgpu/bonaire_k_smc.bin");
++					strscpy(fw_name, "amdgpu/bonaire_k_smc.bin");
+ 				} else {
+-					strcpy(fw_name, "amdgpu/bonaire_smc.bin");
++					strscpy(fw_name, "amdgpu/bonaire_smc.bin");
+ 				}
+ 				break;
+ 			case CHIP_HAWAII:
+ 				if (adev->pdev->revision == 0x80) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "amdgpu/hawaii_k_smc.bin");
++					strscpy(fw_name, "amdgpu/hawaii_k_smc.bin");
+ 				} else {
+-					strcpy(fw_name, "amdgpu/hawaii_smc.bin");
++					strscpy(fw_name, "amdgpu/hawaii_smc.bin");
+ 				}
+ 				break;
+ 			case CHIP_TOPAZ:
+@@ -338,76 +338,76 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+ 				    ((adev->pdev->device == 0x6900) && (adev->pdev->revision == 0xD1)) ||
+ 				    ((adev->pdev->device == 0x6900) && (adev->pdev->revision == 0xD3))) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "amdgpu/topaz_k_smc.bin");
++					strscpy(fw_name, "amdgpu/topaz_k_smc.bin");
+ 				} else
+-					strcpy(fw_name, "amdgpu/topaz_smc.bin");
++					strscpy(fw_name, "amdgpu/topaz_smc.bin");
+ 				break;
+ 			case CHIP_TONGA:
+ 				if (((adev->pdev->device == 0x6939) && (adev->pdev->revision == 0xf1)) ||
+ 				    ((adev->pdev->device == 0x6938) && (adev->pdev->revision == 0xf1))) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "amdgpu/tonga_k_smc.bin");
++					strscpy(fw_name, "amdgpu/tonga_k_smc.bin");
+ 				} else
+-					strcpy(fw_name, "amdgpu/tonga_smc.bin");
++					strscpy(fw_name, "amdgpu/tonga_smc.bin");
+ 				break;
+ 			case CHIP_FIJI:
+-				strcpy(fw_name, "amdgpu/fiji_smc.bin");
++				strscpy(fw_name, "amdgpu/fiji_smc.bin");
+ 				break;
+ 			case CHIP_POLARIS11:
+ 				if (type == CGS_UCODE_ID_SMU) {
+ 					if (ASICID_IS_P21(adev->pdev->device, adev->pdev->revision)) {
+ 						info->is_kicker = true;
+-						strcpy(fw_name, "amdgpu/polaris11_k_smc.bin");
++						strscpy(fw_name, "amdgpu/polaris11_k_smc.bin");
+ 					} else if (ASICID_IS_P31(adev->pdev->device, adev->pdev->revision)) {
+ 						info->is_kicker = true;
+-						strcpy(fw_name, "amdgpu/polaris11_k2_smc.bin");
++						strscpy(fw_name, "amdgpu/polaris11_k2_smc.bin");
+ 					} else {
+-						strcpy(fw_name, "amdgpu/polaris11_smc.bin");
++						strscpy(fw_name, "amdgpu/polaris11_smc.bin");
+ 					}
+ 				} else if (type == CGS_UCODE_ID_SMU_SK) {
+-					strcpy(fw_name, "amdgpu/polaris11_smc_sk.bin");
++					strscpy(fw_name, "amdgpu/polaris11_smc_sk.bin");
+ 				}
+ 				break;
+ 			case CHIP_POLARIS10:
+ 				if (type == CGS_UCODE_ID_SMU) {
+ 					if (ASICID_IS_P20(adev->pdev->device, adev->pdev->revision)) {
+ 						info->is_kicker = true;
+-						strcpy(fw_name, "amdgpu/polaris10_k_smc.bin");
++						strscpy(fw_name, "amdgpu/polaris10_k_smc.bin");
+ 					} else if (ASICID_IS_P30(adev->pdev->device, adev->pdev->revision)) {
+ 						info->is_kicker = true;
+-						strcpy(fw_name, "amdgpu/polaris10_k2_smc.bin");
++						strscpy(fw_name, "amdgpu/polaris10_k2_smc.bin");
+ 					} else {
+-						strcpy(fw_name, "amdgpu/polaris10_smc.bin");
++						strscpy(fw_name, "amdgpu/polaris10_smc.bin");
+ 					}
+ 				} else if (type == CGS_UCODE_ID_SMU_SK) {
+-					strcpy(fw_name, "amdgpu/polaris10_smc_sk.bin");
++					strscpy(fw_name, "amdgpu/polaris10_smc_sk.bin");
+ 				}
+ 				break;
+ 			case CHIP_POLARIS12:
+ 				if (ASICID_IS_P23(adev->pdev->device, adev->pdev->revision)) {
+ 					info->is_kicker = true;
+-					strcpy(fw_name, "amdgpu/polaris12_k_smc.bin");
++					strscpy(fw_name, "amdgpu/polaris12_k_smc.bin");
+ 				} else {
+-					strcpy(fw_name, "amdgpu/polaris12_smc.bin");
++					strscpy(fw_name, "amdgpu/polaris12_smc.bin");
+ 				}
+ 				break;
+ 			case CHIP_VEGAM:
+-				strcpy(fw_name, "amdgpu/vegam_smc.bin");
++				strscpy(fw_name, "amdgpu/vegam_smc.bin");
+ 				break;
+ 			case CHIP_VEGA10:
+ 				if ((adev->pdev->device == 0x687f) &&
+ 					((adev->pdev->revision == 0xc0) ||
+ 					(adev->pdev->revision == 0xc1) ||
+ 					(adev->pdev->revision == 0xc3)))
+-					strcpy(fw_name, "amdgpu/vega10_acg_smc.bin");
++					strscpy(fw_name, "amdgpu/vega10_acg_smc.bin");
+ 				else
+-					strcpy(fw_name, "amdgpu/vega10_smc.bin");
++					strscpy(fw_name, "amdgpu/vega10_smc.bin");
+ 				break;
+ 			case CHIP_VEGA12:
+-				strcpy(fw_name, "amdgpu/vega12_smc.bin");
++				strscpy(fw_name, "amdgpu/vega12_smc.bin");
+ 				break;
+ 			case CHIP_VEGA20:
+-				strcpy(fw_name, "amdgpu/vega20_smc.bin");
++				strscpy(fw_name, "amdgpu/vega20_smc.bin");
+ 				break;
+ 			default:
+ 				DRM_ERROR("SMC firmware not supported\n");
+-- 
+2.43.0
 
---------------xVKYPWLja5uHZ0krW5Zm0bpF
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQTgc23Y/0Cc8gZlEdRP/6shuFgKvQUCZ+JjpgAKCRBP/6shuFgK
-vbHxAQCddcwsIyGEp7aBj9FSZb5MsnFQSEBjZ+E4nbUbjWUFzAEAl/xmYBpv8omD
-SOt9XedD1ZsyxTquLz0IuwLjaXrCXQ0=
-=WBfA
------END PGP SIGNATURE-----
-
---------------xVKYPWLja5uHZ0krW5Zm0bpF--
