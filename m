@@ -4,80 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F50FC36008
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 08:40:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42AB9C36010
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 08:40:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0BE110E693;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A28E10E68E;
 	Wed, 26 Mar 2025 08:40:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pn5Calw9";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="GOhtQcQe";
 	dkim-atps=neutral
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98F0810E294;
- Tue, 25 Mar 2025 19:35:16 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-6f666c94285so57855247b3.3; 
- Tue, 25 Mar 2025 12:35:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742931316; x=1743536116; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=42aHX7MDOHSOMSp6xeS+nFUOuh+iMMc1q+a6ux7j3PQ=;
- b=Pn5Calw9gwbUVjjcfGzkdUwTxsmcBhY6XG8btdxLz2GlwW/7jP88MbuxRtSf2/qJyK
- p5xoEs1E76nZ2DaU7/4O1OJH8BIyyvxFWL3RcvmWrns1xFIIgaJAJI31ScsmErHx3+in
- m1OZeqcjPNl8QHIQxd8+CX8QGIa6eB7ejhDlLxdyxppf4R050h8A/Kc6VlXHSZQUXpF3
- DF5nBSeaj4QRkTbQyU4SV+aRniGNxPsgmg0H2B7ohjhbLpLP03zBZ81XCLdOd9YK+J3/
- 9YjuN8WCZPhS08d87TsCGt4IYzHNez70t9PV6qX5c6dkrN0d4o/CiSo5GTWaj0UmFvxb
- Yf6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742931316; x=1743536116;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=42aHX7MDOHSOMSp6xeS+nFUOuh+iMMc1q+a6ux7j3PQ=;
- b=QQ5f7M/Q/0ABW9UFVcDFliyihTajBfrfGWq6T5vSbRIpjc9h8P4nMAMdOSWzh8WXqQ
- e8+6n9faVZ+Yhza91hOQCoOCKy+bZ+djFOIGp1f290fFJX6Jhhzj8Nuh5LPC+jvrrYFw
- +mXBLilF9SniTXGyuKtk+Acr3CUM1UjN2qSjQJUw4bFXMRH5fFWThhdSnTLmsSSVJqec
- l1S9yvXZXWgAekYihU2Tfpq8wx/vLt5YsJexqJJo58lYz0ExQGpL66Z/t6LSyUV2QD9j
- dGvO54hgRzKcU2kdQS/o+k2ZV19li7JjGTxEDC1ASqYHjL3vYV2ZcavB055PNhtG/TQh
- jYLA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQtFiJaGStI03w3MbUatAXq9BNlddO1MgSm44M7VC1kuhnFnAUaNsLUpF+zE/pZYmpNoedCyjUvPyqekBzHgmOjw==@lists.freedesktop.org,
- AJvYcCV720I7nelzU0qh6Ibvg0DXKH6QgHm/ENDoX29guQxRT4HvF8ZMhrEkkFxIwI2uysLzUESb8eFnk8WsVUw4oQ==@lists.freedesktop.org,
- AJvYcCW9SBzmoZZqATHuzT6KRA2ceyx6ohFXR0uAblaEcGytbnsuhbxVlu6mnvfpQ+YUIfCCEpo1MX4B@lists.freedesktop.org,
- AJvYcCXkF6TsDbQn8ISGV/fuVW6QU2gYd0kIJ8yDJdMdO/+8UaoOiEnzGBgsED+ep1pDVb8gdwt5WOhYkb7z@lists.freedesktop.org,
- AJvYcCXtV9Y96QZsdz8c6QTBvNvvFWbtPXmF62QhiYMP7BKiqS5i6opWPTE7vIebtIasJXoyfjgEA5x13GwL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8pWkVIGqXztPc85jec7eY5V04v0A7BcVGdYDlOgJU/i7MG96n
- oExUF1Kv/DisMfFYHX3/YPf2z+FVKguVNGHWFugnpClPXP6feL1uWqjFprKMxbGaa4Y1Fb6UiYE
- oyPRX59RoHEJ/U1DeoHi+u6ezixI=
-X-Gm-Gg: ASbGncsl1e6MrNJt3zUaeoHM49N27/yoX2wp476OKKVbn16yvsRtqutHQcoV6g7Xo3g
- d9I0GRndvPtbwYsVjdfHSEAW2tu/YQAorjaptK/pjDhg/mesyLRYWZIuSox+zYcH5jcc2OtP8VW
- s+QvAODIir/NF022/5iGBQnXan
-X-Google-Smtp-Source: AGHT+IHATNylw+gsEglZW+PXGiyYbRxUfbKIQGJtdl+fH3JTfXNCfGYjHvngrOpvTsOSzlZ94tSCZQ+ubU8QCVnzCek=
-X-Received: by 2002:a05:690c:7512:b0:6fd:4473:5184 with SMTP id
- 00721157ae682-700bad025bcmr232347107b3.35.1742931315686; Tue, 25 Mar 2025
- 12:35:15 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250320185238.447458-1-jim.cromie@gmail.com>
- <20250320185238.447458-48-jim.cromie@gmail.com>
- <bec1c938-aafa-49cb-b173-5b876f77779f@bootlin.com>
-In-Reply-To: <bec1c938-aafa-49cb-b173-5b876f77779f@bootlin.com>
-From: jim.cromie@gmail.com
-Date: Tue, 25 Mar 2025 13:34:49 -0600
-X-Gm-Features: AQ5f1Jqa1QuPUv1TyJbyyX5GCLsktpgCTY8YYNpeF7kzWCBGQI4AZHsFZX61b_g
-Message-ID: <CAJfuBxyR_x7tKUFZppXFA_dKFaXb9gTkGnZYfP5GGA7SnorScA@mail.gmail.com>
-Subject: Re: [PATCH v2 47/59] drm-dyndbg: add DRM_CLASSMAP_USE to bochs
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org, 
- jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com
+Received: from mout.web.de (unknown [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1AD10E32C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 23:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1742944957; x=1743549757; i=spasswolf@web.de;
+ bh=gY8B9GBQL9nUHTRbQamIZos1rVDULEBsh1sN+fH5oGo=;
+ h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+ References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=GOhtQcQe8sat3+iobd73xdx1RHz8WbkQHKOw+JPg+WeIy5pzxIC1FMKR+HdDzS0z
+ PLNNBFgeNweYRmcSF1ISyUE7M/UBb4vFt+jnNXkj70KEqyBu+6wHf0zxurT9vurso
+ Zq2gsGhweS7dJTkR205cYlHF60o8ky4HjibDv6lMauOMorRkfDrJO0mVvPWvf7GlO
+ Ze590lN+3cEyeXagF1BHr4uKSdrVVqPm9oGGtPOPHAsMR38HV3RhtC1HKgITBxvWy
+ AP4WOkoLSt9N8YIQcmU+Pbf1+XseUylUZV5rd+jMsQzx256BV06HRWJ0HPldZ2+jM
+ Mrh/uv2Ql2r+7wyGwQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.0.101] ([95.223.134.88]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Myv72-1tASSt2Ayo-012jIk; Wed, 26
+ Mar 2025 00:22:37 +0100
+Message-ID: <eb041c610719c8275d321c4c420c0b006d31d9f4.camel@web.de>
+Subject: Re: commit 7ffb791423c7 breaks steam game
+From: Bert Karwatzki <spasswolf@web.de>
+To: Balbir Singh <balbirs@nvidia.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>, Bjorn
+ Helgaas	 <bhelgaas@google.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>,
+ Andy Lutomirski <luto@kernel.org>, Alex Deucher	
+ <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, spasswolf@web.de
+Date: Wed, 26 Mar 2025 00:21:53 +0100
+In-Reply-To: <261e7069-9f65-4a89-95cb-25c224ff04f1@nvidia.com>
+References: <20250322122351.3268-1-spasswolf@web.de>
+ <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
+ <6e8ad3cd27b570aaefd85395810cc90bb3120734.camel@web.de>
+ <7cdbe06c-1586-4112-8d27-defa89c368e9@amd.com>
+ <b1d72b95-5b5f-4954-923f-8eebc7909c4d@nvidia.com>
+ <938c2cbd-c47f-4925-ba82-94eef54d9ebc@amd.com>
+ <261e7069-9f65-4a89-95cb-25c224ff04f1@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.56.0-1 
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:VOOYiLoMShOoiud3+Nvf9dJHlrBFUOfbXbOX2rAweYFMDUO3oAl
+ yKiaZIcoBV8/mMfnmn5wQQ35A+U8QrbCBKyJ/dXxNwu91KbBIqxv48wuGXoI+bjspavIeX3
+ UOzGW1SCHtaVCHbtc25eupk/bGDTFpD+GgUz714Cz4AhBX7INVs1MIffJVHHEwt36NILool
+ uWQkN1WzGzDZwlgnbnsyg==
+UI-OutboundReport: notjunk:1;M01:P0:2gzskj2BU/o=;d0gTqL3GqAmtRzdUT0j+Q8tFfVa
+ 5GFu70rSv4eYkvN57UrTXRSqslZMW9JGjuRHOFlFuY69+SVcQI2BbHw1dLyLSs39fBPgEgdvC
+ IvEm13d6IOsjd/CejCXteFVFm3HdxkLa8SJovOERPNZsYNXOYT5Oy7HpjN/IYPflIEG7bcvAf
+ jm/KoK9QFrDxWMRQqRHp6u1zQXnhuqH5O/0IWeKoiObP+YVDVA+cwyY4IQyWXjA/GulNBPhNY
+ CrNwNwoR/UF/N756AUAF/xnRItqcm5XBQA1JFmuFVmCZka4CjiSSPRtmaEGj2l9b7OAV3MSNV
+ 0YnYVDcP87tMYd6m+zFUTyiRaVhTtXdYacznSgdUIL0jmFX7PWDn5kB5sHyqb9sSOgUoZfqLw
+ nAkMhMKzsZHZ7ft8kN51cwA6Sh/G2G3hb/Wy+j+a+RkKUujlC3xCQIQ3BVhypov3x53kto4Kb
+ dU5m0qDWfrcrf9SpSVTNwb6VSQHxfvRd8cNw+YPpn0V7EmXkfEehGAyVnpaQxnb4EPfScmxFq
+ OIcKbT+9VK99gpddxPqiU7uORHU5KxNlHG6uyU759jFFVUFkO3aDxjrIIavygKcyxmYOrv5dC
+ DUI9oYEZxNvYMXnP1EtiIFSzvfBuO/nd45bcfJjGHgTC2yjAwkf26t7O98BEgeCXtlCkXQ2Hy
+ Gb5BTMI5/k/saueIpWUQNug9bHgaMIkN2pgxQJcb1xKD+XVR+ZqudHcPNiOSEe0psQU2kyf6K
+ vBu2gouMqadEab7y1BOEexKmeL4nJGZ3JKhTVSN6xwCC31BH69VsVwws9e50p+Rlhk112sxJB
+ 02ubfgMZvAayDCpQ+tL9mkjA3v2v5QwuaogpY8q0+o9ff62Okaq+srqUOADzO0WHF0hizOZUW
+ VDJu42qbf52SYTo3NT6nq8EzrXSEmXPO8XW/A0Ll6zR4ZzZdu260wBjcHRoTilX5M4w4GVNKA
+ i2aMsLxuZyAsHfjvp8yUQZDNIvURH0uFafRN+h+VMvXa6PeezI0YaanYcY09ZsJEw3LZs/tuW
+ tra0T/L0htAeUYIwc5/Zw6eGF6LgnLYpVnbOTi2rcPPZF1DtzbAmDuaeVSj0CFqnU0epHisvg
+ YsaRp9M7esKX9xRuoXITpp3EXgftMBj5AAK9iQqzGEOl7AeV0/5xTOH/mRPD21Zmj+AjImnj5
+ ogfRMam0cnOnI5qPhL1rtxEbzyRSU4x0rE7FGHlK99G+LHAI+pUpitKDPqHbd2Qz7u4o4F4al
+ xTNPgyyltbrgnDNVdkmvlXitGq/EKWlX9RjC/6q8fLsO4pJNLGJte6wMLEb7WP7eQHL79QG/i
+ 3IMKj2a7W+CKpeBFtjfu6DJDPWtZfibdIwzKupY+nMnW7Jgyk0w6BFBX/16aXwluTmyujVuG7
+ hC3xDOmU9yZ5O8ps1GgmWexoocTwuQpy2ZGraX1J91hwILw8oIV6VNerhQz/szxbGakHoiFs6
+ 1G26J0d0BzTtwKsbAmoYa236XlEQ=
 X-Mailman-Approved-At: Wed, 26 Mar 2025 08:39:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,53 +97,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 24, 2025 at 9:03=E2=80=AFAM Louis Chauvet <louis.chauvet@bootli=
-n.com> wrote:
+Am Mittwoch, dem 26.03.2025 um 09:45 +1100 schrieb Balbir Singh:
 >
 >
+> The second region seems to be additional, I suspect that is HMM mapping =
+from kgd2kfd_init_zone_device()
 >
-> Le 20/03/2025 =C3=A0 19:52, Jim Cromie a =C3=A9crit :
-> > tiny/bochs has 5 DRM_UT_* debugs, make them controllable when
-> > CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy by telling dyndbg that the module has
-> > class'd debugs.
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> Balbir Singh
 >
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
->
-> > ---
-> >   drivers/gpu/drm/tiny/bochs.c | 2 ++
-> >   1 file changed, 2 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.=
-c
-> > index 8706763af8fb..dbcc8ba70dfa 100644
-> > --- a/drivers/gpu/drm/tiny/bochs.c
-> > +++ b/drivers/gpu/drm/tiny/bochs.c
-> > @@ -59,6 +59,8 @@ static int bochs_modeset =3D -1;
-> >   static int defx =3D 1024;
-> >   static int defy =3D 768;
-> >
-> > +DRM_CLASSMAP_USE(drm_debug_classes);
->
-> Do we need to add it for each driver that use drm_* print macros? Is it
-> reasonable to add this directly in drm_print.h, so there is no way to
-> miss this call if you use drm_* macros.
->
+Good guess! I inserted a printk into kgd2kfd_init_zone_device():
 
-Yes, AFAIK.
-Ive tried to invoke declarators from a header,
-It never works out.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index d05d199b5e44..201220e2ac42 100644
+=2D-- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -1049,6 +1049,8 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *a=
+dev)
+                pgmap->range.end =3D res->end;
+                pgmap->type =3D MEMORY_DEVICE_PRIVATE;
+        }
++       dev_info(adev->dev, "%s: range.start =3D 0x%llx ranges.end =3D 0x%=
+llx\n",
++                       __func__, pgmap->range.start, pgmap->range.end);
 
-59/59 was an attempt to do it for everyone, but it falls down...
+        pgmap->nr_range =3D 1;
+        pgmap->ops =3D &svm_migrate_pgmap_ops;
 
-> >   module_param_named(modeset, bochs_modeset, int, 0444);
-> >   MODULE_PARM_DESC(modeset, "enable/disable kernel modesetting");
-> >
->
-> --
-> Louis Chauvet, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
->
->
+
+and get this in the case without nokaslr:
+
+[    T367] amdgpu 0000:03:00.0: kfd_migrate: kgd2kfd_init_zone_device:
+range.start =3D 0xafe00000000 ranges.end =3D 0xaffffffffff
+
+and this in the case with nokaslr:
+
+[    T365] amdgpu 0000:03:00.0: kfd_migrate: kgd2kfd_init_zone_device:
+range.start =3D 0x3ffe00000000 ranges.end =3D 0x3fffffffffff
+
+Bert Karwatzki
