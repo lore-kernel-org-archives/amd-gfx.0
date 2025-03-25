@@ -4,79 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1DA8C3600B
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 12:42:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0DA0C36005
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 12:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8899610E572;
-	Tue, 25 Mar 2025 12:42:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B18AA10E56B;
+	Tue, 25 Mar 2025 12:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gJHACkYl";
+	dkim=pass (2048-bit key; unprotected) header.d=crpt.ru header.i=@crpt.ru header.b="RjGeU7e1";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 663C810E1C0
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 09:55:09 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-5e8484bb895so1570723a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 02:55:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742896508; x=1743501308; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=e46YpXruJuoobysGWwDzJX1JxIE+YHsBIBB83NovnA4=;
- b=gJHACkYlNrKxN2gh0ME/u3b4nt6lVMdfT8HLLEnjb6vonX4e0Uw+18ujmM/9HsGc7b
- ciHXpiLTuT8X9cqa7nrbev/UjxEtx1YXGr787s/Zhyl+j8ZCbNDHlDGCYF5M2c3Vh6FC
- meDPJk/tbQn0xvY4sukYo7Vmg8Xk3wRskrqhhnXfIDJf3l4oXCq2ccO/Xf9oc9Ry/WSn
- TdpCY7uMUkbskFvvRkGtQ24chSWt1edrHJOVJJqVpfyqZniaX3vVzFHk7wo7o/JHX5xo
- ZY5UyEZvF5gmiE/LHnPtYJTuCfjp0v9k6PffoYi9MtWSv2D9XP+t3m4aY8SmCfqtRcLN
- JbHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742896508; x=1743501308;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=e46YpXruJuoobysGWwDzJX1JxIE+YHsBIBB83NovnA4=;
- b=hL+/yJWiz2obtN0k4kJKY79pwOsSjHfST73RrqE9AIS57Xm8zAYF8el9++TezuWIn4
- 6S4DwKrNN1pTV96HopnLuNAnHGd4pxLqGls2pIvaZ7RBpbBqM7g8/JA8t7saoXKsWIfT
- B8c60NCbn/57YTtWH2TMkiEqX6rT8lA7BDckv5XKzcnT27Aee1lmB0kFfXI2cgRkAvzn
- QeeIrN2A7uUM+yrELR6unjBa2MygeVCqGpC/Xlt5rkyymZpJFpJwC2zkouwlu+Rknbi+
- XtPamdz2of30XVplRhCi0+NLwx70Yxs/zLmsO/sYeoo7l/AXs9hS2JTjkqUtIqdMF0bp
- Unmg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVcs2pQDoszXjJfFSaq6f7+dccn5wP07gGJWIDFccq5TkHWSLhhjdofqefzgfr36d/cXDg/yfQz@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx07nEmoycJ9otHuYCvxtb3FgoacMEIIRCIPRUr+tr0AH4jjvVN
- KkMNz5T4ucWr2WHxMLZ5yt7Sge/B4ySBV1QGZWiGBFJznbLIx1eqKuW0MTousEo9O4W4Snc24EP
- i7RiMjFaasC1bBjjlnb1ZfKs9ptXzH+bs
-X-Gm-Gg: ASbGncu9SrNwR8a4UjDK1NOxX0IYZYZGatkL3XCNymnIPeNawgbtduX0wnwfRIlb8Pv
- 4gdl1Sxw7k379kMktGLuEOey8VwwE2bsvSjgbGCuwhIMBXocU9NMwIkXFBIrG0AFSntCafI8DOi
- 1IcEO7apmLZj/hdRvbqFz6Syzb
-X-Google-Smtp-Source: AGHT+IHWe2iEBhIkaQanpziBrSZsxBmToPejcbiurYgttyKZ7GOkF0hP2dcFhdEQ+nohbU/SrPC9Hj8uNMlegan8KI4=
-X-Received: by 2002:a05:6402:354e:b0:5dc:cea7:4e2 with SMTP id
- 4fb4d7f45d1cf-5ebcd4337d7mr5226605a12.4.1742896507617; Tue, 25 Mar 2025
- 02:55:07 -0700 (PDT)
+X-Greylist: delayed 916 seconds by postgrey-1.36 at gabe;
+ Tue, 25 Mar 2025 10:24:43 UTC
+Received: from mail.crpt.ru (mail1.crpt.ru [91.236.205.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0172F10E064
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 10:24:43 +0000 (UTC)
+Received: from mail.crpt.ru ([192.168.60.4])
+ by mail.crpt.ru  with ESMTP id 52PA9FXR017359-52PA9FXT017359
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=OK);
+ Tue, 25 Mar 2025 13:09:15 +0300
+Received: from EX2.crpt.local (192.168.60.4) by ex2.crpt.local (192.168.60.4)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Tue, 25 Mar
+ 2025 13:09:16 +0300
+Received: from EX2.crpt.local ([192.168.60.4]) by EX2.crpt.local
+ ([192.168.60.4]) with mapi id 15.01.2507.044; Tue, 25 Mar 2025 13:09:16 +0300
+From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>, Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>
+Subject: [PATCH] drm/amdkfd: Remove the redundant NULL check for the 'svms'
+ object
+Thread-Topic: [PATCH] drm/amdkfd: Remove the redundant NULL check for the
+ 'svms' object
+Thread-Index: AQHbnW33CeLhAJikwUeO11Tuz1gnSA==
+Date: Tue, 25 Mar 2025 10:09:15 +0000
+Message-ID: <20250325100908.68325-1-a.vatoropin@crpt.ru>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.200.60.21]
+x-kse-serverinfo: EX2.crpt.local, 9
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: Clean, bases: 3/24/2025 10:00:00 PM
+x-kse-attachment-filter-triggered-rules: Clean
+x-kse-attachment-filter-triggered-filters: Clean
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20250315201558.339913-1-tomasz.pakula.oficjalny@gmail.com>
- <20250315201558.339913-3-tomasz.pakula.oficjalny@gmail.com>
- <DM4PR12MB5165690B22C63D856BFFD7708ED92@DM4PR12MB5165.namprd12.prod.outlook.com>
- <CAFqprmyv+WXmBWwOa3uPuOkmLtrkfc7jEXquXEyb-Bjuni_jBQ@mail.gmail.com>
- <CADnq5_NV4hiQCHB7-YE=cN2NNS4AeHsnxntJfQ5a+iiYOaiYGA@mail.gmail.com>
- <CADnq5_OxT2qfxdPAg5=w1PeOBhQdCL-He2rBJOireSidBz9DKw@mail.gmail.com>
- <DM4PR12MB51657FD3B25C2F01340701B98ED82@DM4PR12MB5165.namprd12.prod.outlook.com>
- <CAFqprmxwYYRRzv28ETV_fVF2z=saUuSjaY0Z3aTiEefyq9BKYw@mail.gmail.com>
- <DM4PR12MB516540EA11DBB4E08C4003DE8EA72@DM4PR12MB5165.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB516540EA11DBB4E08C4003DE8EA72@DM4PR12MB5165.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-Date: Tue, 25 Mar 2025 10:54:54 +0100
-X-Gm-Features: AQ5f1JpmKq__C3PnZ9V727ENi8VsHz-_VGBE2akDpaCJIu6JJmialgkqE_0F6MM
-Message-ID: <CAFqprmxrGQri3Lnk8HaGYW_cXD_JR8Fvfa+8_a6ee25qjqLJoA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/pm: add zero RPM stop temp OD setting support
- for SMU 14.0.2
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, 
- "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+X-FEAS-Client-IP: 192.168.60.4
+X-FE-Policy-ID: 2:4:0:SYSTEM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
+ c=relaxed/relaxed; 
+ h=from:to:cc:subject:date:message-id:content-type:mime-version;
+ bh=S8ZTcQtvS2V8JjQOpgLS5GBUFk1XIB89xcUDwVmVR60=;
+ b=RjGeU7e15VmA3QoUPYBidpFwzm6fOZoMgccWwzeAXxPH+LRrdeMZmoIRzoGbqCZI7KIsAeuw7UqK
+ R6c42I69wLyOZzeSXFiJuiYZRaIHcr+DiO0mxHVZnpzS0mMAf30T0C2MqjxFJ+4/HwQEc0HLJpKb
+ OLBoPjiXkNy0zd4Wr5XuKGupkg3gpy1Tk5rvADmy3iuMmYLr08c2NoRiqossJLU2uEeHQ/n9qFfk
+ WRn7hhzvisIvj/499sk8H2vSbh1friBeesyI3ubP+3DW0pJdqGnFKSebR4xHemCyaZguosOnstPi
+ JKZN0yD1Btp5ReqwuQSquTWOdJSPBd0uOpiaqg==
 X-Mailman-Approved-At: Tue, 25 Mar 2025 12:41:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,28 +85,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 25 Mar 2025 at 05:36, Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> Hi Tomasz,
-> We can only have zero rpm on/off setting.
-> After confirmation, the fan stop temperature setting is not exposed to algin windows driver.
-> So the fw always pick the default value. I know it may be not reasonable but it is the truth.
-> Thanks.
-
-Yeah, no problem. I just hooked it up as I've seen the interface
-but I don't mind it not being accepted. Actually, I tested this setting
-a bunch yesterday and it seems like it's not actually working. It
-accepts values, exposes limits etc but it has no actual effect on the
-stop temperature. It's always 50.
-
-To be perfectly honest, I never actually understood why this setting
-lets people adjust temperature up, instead of down. I don't think I would
-ever want my fans to only engage when my GPU hits 110 degrees :)
-If I ever wanted to adjust this, I'd like to lower it instead.
-
-Still, thanks and I'll send the first patch as a standalone one.
-
-Best regards,
-Tomasz
+RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KU3RhdGljIGFu
+YWx5c2lzIHNob3dzIHRoYXQgcG9pbnRlciAic3ZtcyIgY2Fubm90IGJlIE5VTEwgYmVjYXVzZSBp
+dCBwb2ludHMNCnRvIHRoZSBvYmplY3QgInN0cnVjdCBzdm1fcmFuZ2VfbGlzdCIuDQoNClJlbW92
+ZSB0aGUgZXh0cmEgTlVMTCBjaGVjay4gSXQgaXMgbWVhbmluZ2xlc3MgYW5kIGhhcm1zIHRoZSBy
+ZWFkYWJpbGl0eQ0Kb2YgdGhlIGNvZGUuDQoNCkZvdW5kIGJ5IExpbnV4IFZlcmlmaWNhdGlvbiBD
+ZW50ZXIgKGxpbnV4dGVzdGluZy5vcmcpIHdpdGggU1ZBQ0UuDQpTaWduZWQtb2ZmLWJ5OiBBbmRy
+ZXkgVmF0b3JvcGluIDxhLnZhdG9yb3BpbkBjcnB0LnJ1Pg0KLS0tDQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRrZmQva2ZkX3N2bS5jIHwgNCAtLS0tDQogMSBmaWxlIGNoYW5nZWQsIDQgZGVsZXRp
+b25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3Zt
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmMNCmluZGV4IGJkM2UyMGQ5
+ODFlMC4uOWYwYzZiNjIzMTc2IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
+ZmQva2ZkX3N2bS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmMN
+CkBAIC00MDg5LDggKzQwODksNiBAQCBpbnQgc3ZtX3JhbmdlX2dldF9pbmZvKHN0cnVjdCBrZmRf
+cHJvY2VzcyAqcCwgdWludDMyX3QgKm51bV9zdm1fcmFuZ2VzLA0KIAkqc3ZtX3ByaXZfZGF0YV9z
+aXplID0gMDsNCiANCiAJc3ZtcyA9ICZwLT5zdm1zOw0KLQlpZiAoIXN2bXMpDQotCQlyZXR1cm4g
+LUVJTlZBTDsNCiANCiAJbXV0ZXhfbG9jaygmc3Ztcy0+bG9jayk7DQogCWxpc3RfZm9yX2VhY2hf
+ZW50cnkocHJhbmdlLCAmc3Ztcy0+bGlzdCwgbGlzdCkgew0KQEAgLTQxNDksOCArNDE0Nyw2IEBA
+IGludCBrZmRfY3JpdV9jaGVja3BvaW50X3N2bShzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAsDQogCXN0
+cnVjdCBtbV9zdHJ1Y3QgKm1tOw0KIA0KIAlzdm1zID0gJnAtPnN2bXM7DQotCWlmICghc3ZtcykN
+Ci0JCXJldHVybiAtRUlOVkFMOw0KIA0KIAltbSA9IGdldF90YXNrX21tKHAtPmxlYWRfdGhyZWFk
+KTsNCiAJaWYgKCFtbSkgew0KLS0gDQoyLjQzLjANCg==
