@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF47C3600B
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 17:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92746C3600D
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 17:27:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E40F10E5C9;
-	Tue, 25 Mar 2025 17:26:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 388E010E5D8;
+	Tue, 25 Mar 2025 17:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CBYhj6s7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fGEGSKT6";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7304510E5D3
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 17:26:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 877E310E5C9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 17:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=VnOkLsAiUMEoLg7vsBD+0HH1xVAY4mwIwSb5iiZN4hU=; b=CBYhj6s7XAGpZi5d5K3DpLZxX+
- OYNhvs+PuEYFllUpleg8E6gk4qeaoD+vIeoMCkilcN7ysqoaYkKPyGie7byJQG07c8z5SaJwT6lm3
- Ee+dFdpcSSq3Q1o5k1hmtswSKnpQjg1PFRMbVnqoaRW/j/N36lgRC15cEE4KnpLEuqFZoYIvCVnsF
- a3ZXP5uSNouLwi5fe6Hm0botBquW9jPeIdEcRjcwLXymqpA35tvecHTQU7I1VkEu3Lz9qN1c8hNhw
- UCApOTHfciERqKPXrUJb1BxovDbCwx5n4FFK/XxVgcmyvLy9DF+lV2Wa2l13lOMGSN4XG/WqjMQKu
- I+jLPElw==;
+ bh=ZVmZkjekO9+uWiqt3jqrwTn6BAkroCefAs+ZztmYJ8A=; b=fGEGSKT6NH1kMmIfRGTCrgKRzb
+ 2qC/TUDIjf0lVDGkTJ4liSvbH4ZE3LcWnSQ+g4CEs8WcIE9KdHVy+lfG3RDiGJv5/o8+8+Jlm5JnQ
+ xrIY3MUlqaCLonwV2XDAQXjvpAFJgVUfGOK1huOplyUhrZdGpU3rMtJ1KeoZ2XV8vXb0wBysdeIyc
+ H5FfpJCzURx4UGHYcbgZn7AWkDBWw+thBpgPZXjDTuybmkpcATRg9aIDOjKyQ1h6yuA4slL+LENF6
+ uagbH2t8x9iv4ub1qqpePctvQuW8Ag48sUz4gERSejHjZaGfC8y8WvVTXptJNsd/aE/YJS8gPD/CF
+ AuVmNNEA==;
 Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
  helo=maloca.lan) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tx839-006FdA-6I; Tue, 25 Mar 2025 18:26:51 +0100
+ id 1tx83B-006FdA-GG; Tue, 25 Mar 2025 18:26:53 +0100
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
@@ -41,10 +41,9 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?=27Timur=20Krist=C3=B3f=27?= <timur.kristof@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
  kernel-dev@igalia.com, Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 5/6] Documentation/gpu: Create a GC entry in the amdgpu
- documentation
-Date: Tue, 25 Mar 2025 11:18:46 -0600
-Message-ID: <20250325172623.225901-6-siqueira@igalia.com>
+Subject: [PATCH 6/6] Documentation/gpu: Add an intro about MES
+Date: Tue, 25 Mar 2025 11:18:47 -0600
+Message-ID: <20250325172623.225901-7-siqueira@igalia.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250325172623.225901-1-siqueira@igalia.com>
 References: <20250325172623.225901-1-siqueira@igalia.com>
@@ -64,131 +63,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GC is a large block that plays a vital role for amdgpu; for this reason,
-this commit creates one specific page for GC and adds extra information
-about the CP component.
+MES is an important firmware that lacks some essential documentation.
+This commit introduces an overview of it and how it works.
 
 Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 ---
- Documentation/gpu/amdgpu/driver-core.rst | 30 ++-------------
- Documentation/gpu/amdgpu/gc/index.rst    | 48 ++++++++++++++++++++++++
- Documentation/gpu/amdgpu/index.rst       |  1 +
- 3 files changed, 53 insertions(+), 26 deletions(-)
- create mode 100644 Documentation/gpu/amdgpu/gc/index.rst
+ Documentation/gpu/amdgpu/driver-core.rst |  2 ++
+ Documentation/gpu/amdgpu/gc/index.rst    |  7 ++++-
+ Documentation/gpu/amdgpu/gc/mes.rst      | 38 ++++++++++++++++++++++++
+ 3 files changed, 46 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/gpu/amdgpu/gc/mes.rst
 
 diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/amdgpu/driver-core.rst
-index 746fd081876f..2af1e919d76a 100644
+index 2af1e919d76a..f39077c44799 100644
 --- a/Documentation/gpu/amdgpu/driver-core.rst
 +++ b/Documentation/gpu/amdgpu/driver-core.rst
-@@ -67,38 +67,16 @@ GC (Graphics and Compute)
-     This is the graphics and compute engine, i.e., the block that
-     encompasses the 3D pipeline and and shader blocks.  This is by far the
-     largest block on the GPU.  The 3D pipeline has tons of sub-blocks.  In
--    addition to that, it also contains the CP microcontrollers (ME, PFP,
--    CE, MEC) and the RLC microcontroller.  It's exposed to userspace for
--    user mode drivers (OpenGL, Vulkan, OpenCL, etc.)
-+    addition to that, it also contains the CP microcontrollers (ME, PFP, CE,
-+    MEC) and the RLC microcontroller.  It's exposed to userspace for user mode
-+    drivers (OpenGL, Vulkan, OpenCL, etc.). More details in :ref:`Graphics (GFX)
-+    and Compute <amdgpu-gc>`.
- 
- VCN (Video Core Next)
-     This is the multi-media engine.  It handles video and image encode and
+@@ -77,6 +77,8 @@ VCN (Video Core Next)
      decode.  It's exposed to userspace for user mode drivers (VA-API,
      OpenMAX, etc.)
  
--Graphics and Compute Microcontrollers
---------------------------------------
--
--CP (Command Processor)
--    The name for the hardware block that encompasses the front end of the
--    GFX/Compute pipeline.  Consists mainly of a bunch of microcontrollers
--    (PFP, ME, CE, MEC).  The firmware that runs on these microcontrollers
--    provides the driver interface to interact with the GFX/Compute engine.
--
--    MEC (MicroEngine Compute)
--        This is the microcontroller that controls the compute queues on the
--        GFX/compute engine.
--
--    MES (MicroEngine Scheduler)
--        This is a new engine for managing queues.  This is currently unused.
--
--RLC (RunList Controller)
--    This is another microcontroller in the GFX/Compute engine.  It handles
--    power management related functionality within the GFX/Compute engine.
--    The name is a vestige of old hardware where it was originally added
--    and doesn't really have much relation to what the engine does now.
--
--
++.. _pipes-and-queues-description:
++
  GFX, Compute, and SDMA Overall Behavior
  =======================================
  
 diff --git a/Documentation/gpu/amdgpu/gc/index.rst b/Documentation/gpu/amdgpu/gc/index.rst
-new file mode 100644
-index 000000000000..f8128cca7028
---- /dev/null
+index f8128cca7028..b115d5883959 100644
+--- a/Documentation/gpu/amdgpu/gc/index.rst
 +++ b/Documentation/gpu/amdgpu/gc/index.rst
-@@ -0,0 +1,48 @@
-+.. _amdgpu-gc:
+@@ -39,10 +39,15 @@ CP (Command Processor)
+         GFX/compute engine.
+ 
+     MES (MicroEngine Scheduler)
+-        This is the engine for managing queues.
++        This is the engine for managing queues. For more details check
++        :ref:`MicroEngine Scheduler (MES) <amdgpu-mes>`.
+ 
+ RLC (RunList Controller)
+     This is another microcontroller in the GFX/Compute engine. It handles
+     power management related functionality within the GFX/Compute engine.
+     The name is a vestige of old hardware where it was originally added
+     and doesn't really have much relation to what the engine does now.
 +
-+========================================
-+ drm/amdgpu - Graphics and Compute (GC)
-+========================================
++.. toctree::
 +
-+The relationship between the CPU and GPU can be described as the
-+producer-consumer problem, where the CPU fills out a buffer with operations
-+(producer) to be executed by the GPU (consumer). The requested operations in
-+the buffer are called Command Packets, which can be summarized as a compressed
-+way of transmitting command information to the graphics controller.
++   mes.rst
+diff --git a/Documentation/gpu/amdgpu/gc/mes.rst b/Documentation/gpu/amdgpu/gc/mes.rst
+new file mode 100644
+index 000000000000..b99eb211b179
+--- /dev/null
++++ b/Documentation/gpu/amdgpu/gc/mes.rst
+@@ -0,0 +1,38 @@
++.. _amdgpu-mes:
 +
-+The component that acts as the front end between the CPU and the GPU is called
-+the Command Processor (CP). This component is responsible for providing greater
-+flexibility to the GC since CP makes it possible to program various aspects of
-+the GPU pipeline. CP also coordinates the communication between the CPU and GPU
-+via a mechanism named **Ring Buffers**, where the CPU appends information to
-+the buffer while the GPU removes operations. It is relevant to highlight that a
-+CPU can add a pointer to the Ring Buffer that points to another region of
-+memory outside the Ring Buffer, and CP can handle it; this mechanism is called
-+**Indirect Buffer (IB)**. CP receives and parses the Command Streams (CS), and
-+according to the parser result, the CP writes the request for operations in the
-+correct block.
++=============================
++ MicroEngine Scheduler (MES)
++=============================
 +
-+Graphics (GFX) and Compute Microcontrollers
-+-------------------------------------------
++.. note::
++   Queue and ring buffer are used as a synonymous.
 +
-+GC is a large block, and as a result, it has multiple firmware associated with
-+it. Some of them are:
++.. note::
++   This section assumes that you are familiar with the concept of Pipes, Queues, and GC.
++   If not, check :ref:`GFX, Compute, and SDMA Overall Behavior<pipes-and-queues-description>`
++   and :ref:`drm/amdgpu - Graphics and Compute (GC) <amdgpu-gc>`.
 +
-+CP (Command Processor)
-+    The name for the hardware block that encompasses the front end of the
-+    GFX/Compute pipeline. Consists mainly of a bunch of microcontrollers
-+    (PFP, ME, CE, MEC). The firmware that runs on these microcontrollers
-+    provides the driver interface to interact with the GFX/Compute engine.
++Every GFX has a pipe component with one or more hardware queues. Pipes can
++switch between queues depending on certain conditions, and one of the
++components that can request a queue switch to a pipe is the MicroEngine
++Scheduler (MES). Whenever the driver is initialized, it creates one MQD per
++hardware queue, and then the MQDs are handed to the MES firmware for mapping
++to:
 +
-+    MEC (MicroEngine Compute)
-+        This is the microcontroller that controls the compute queues on the
-+        GFX/compute engine.
++1. Kernel Queues (legacy): This queue is statically mapped to HQDs and never
++   preempted. Even though this is a legacy feature, it is the current default, and
++   most existing hardware supports it. When an application submits work to the
++   kernel driver, it submits all of the application command buffers to the kernel
++   queues. The CS IOCTL takes the command buffer from the applications and
++   schedules them on the kernel queue.
 +
-+    MES (MicroEngine Scheduler)
-+        This is the engine for managing queues.
++2. User Queues: These queues are dynamically mapped to the HQDs. Regarding the
++   utilization of User Queues, the userspace application will create its user
++   queues and submit work directly to its user queues with no need to IOCTL for
++   each submission and no need to share a single kernel queue.
 +
-+RLC (RunList Controller)
-+    This is another microcontroller in the GFX/Compute engine. It handles
-+    power management related functionality within the GFX/Compute engine.
-+    The name is a vestige of old hardware where it was originally added
-+    and doesn't really have much relation to what the engine does now.
-diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdgpu/index.rst
-index 7e9d60754287..1624f4b588c5 100644
---- a/Documentation/gpu/amdgpu/index.rst
-+++ b/Documentation/gpu/amdgpu/index.rst
-@@ -10,6 +10,7 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA) architectures.
-    driver-core
-    amd-hardware-list-info
-    module-parameters
-+   gc/index
-    display/index
-    flashing
-    xgmi
++In terms of User Queues, MES can dynamically map them to the HQD. If there are
++more MQDs than HQDs, the MES firmware will preempt other user queues to make
++sure each queues get a time slice; in other words, MES is a microcontroller
++that handles the mapping and unmapping of MQDs into HQDs, as well as the
++priorities and oversubscription of MQDs.
 -- 
 2.49.0
 
