@@ -4,72 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0542CC35FFC
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 15:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39772C35FFC
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 15:36:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D2C510E591;
-	Tue, 25 Mar 2025 15:34:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3F210E5A7;
+	Tue, 25 Mar 2025 15:36:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q9klyJHP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZAHWA6Ev";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D281810E591
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 15:34:47 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-2ff6ce72844so1509260a91.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 08:34:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742916887; x=1743521687; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hRh4DPA/zMy0YV/n/GtNyfXmXCzSazeEJWj6zkugpIk=;
- b=Q9klyJHP7GOGCic+9NL8nJcEramLvIjCyad3lAwcG/lEG24yJd0Ip50NlCewuw/t+C
- ekE8kxJ9oyZioChKzvzBkDO+gA7vfK+SZh7vLZs+qzn171AwGPjX/W8FIiEeFSyMDbUV
- wxc5hZfyEnugYKEHhh2c9FScFjMWWaCkgClwQbOb5w/kLVWdGSUrwLw13Mpc5ANYGnOK
- bNzSCxkM9qfefvzYNk3LO6E2fEgZJD5jr7sSQmtuGFM+MyDSttGUc8t6xB/bLruGOXX9
- XyN3LxgIMGVcuqEBuuWYRkrsDkZ6VCceH32x+bDp/7vM3JhXJOit3CObs5Mtj10IhdI0
- Qt7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742916887; x=1743521687;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hRh4DPA/zMy0YV/n/GtNyfXmXCzSazeEJWj6zkugpIk=;
- b=qy+/jhwZtxYtYZwSMGbfTEOUNgEnsqF0uB+t5BJ5x6deWBFFPYffY+iaXB1BETdRve
- uoyDJlOKyc7UMk5uor7eH9se4GkbLTKIa42/mwTHiNshBOFFENCdbey0oAzBdzgulJTF
- HPOxviseMVxvDyqmzJ56kjPBjDV71Gn7BbouEd1na6zB74suyAKGNtKQvKmeJMOrcxcF
- WCV/cmD0sA3h/SO0WPlPEDwSpx7dXimBW4VycjF2ylzrc3gr3g5k6BnMY1VdYoR3lj3Q
- 1K3Rf/8TPBr+rf5h2T6RYZHLU/KTXvo65IgxOwrH0f/ZEFgmRncwqizAoLuYOYsKRM+h
- pgcQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWjndM0HHoxXyZ6CiqiHV7xLQ+aqV1VlhoHLAocI8sPHSaU070YYrJgBMR4hTznmgPsGaNNxgqf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwSNcLzAtbERu0VwlTzNzVz1NXci5IXdSb08RTRUMYLFDeUfX06
- rN0tsSePEs/nQeSzyEgZM2wfpxCrlLn6+n2ol4oLAqlYlfmcDB94i1xrK0T3UCfo4pSvStxWQ5/
- VooFg3dO2IjiXGj7pd07fkXvwjnk7/Q==
-X-Gm-Gg: ASbGncvE/A6qdqGjxB1h5thlJYdHTkqEb7ds9NFhGEQIbR718YTcpSQmPmAbNsfWrpP
- roAJh6v6EApT9TlSGzYTCoi76NR664FiNtpeSk4KIewEQDcxKhisJOK6DlPXCMk83Cx3lmS1Oas
- 1FbJJ8UhKAW+7QD7pJFqIWZuzo9w==
-X-Google-Smtp-Source: AGHT+IH1RZ6ck3AZ967KQxK/nkaCJZaH+fRoALHawzD72qLvqWCxmLppQ5A1ypBYXO30TdBEXr94vKOTj/bFdo8wL0Y=
-X-Received: by 2002:a17:90b:3a8d:b0:2ff:7970:d2b6 with SMTP id
- 98e67ed59e1d1-3036b4abf73mr2118616a91.5.1742916887049; Tue, 25 Mar 2025
- 08:34:47 -0700 (PDT)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 697DC10E593
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 15:36:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZVVfbNprpwZ0RJThXhXkE9y3rumHECZM7jaqDlz5N7DVFXL59i7tKVWNP/GWK2F8igG21TCgS3KlRENw93IxahVgkS9VyqDlFKw+4hWSMqsME/ZH0qnDd0YhpY2x3taRVIOU/nNRbGfXirowe9rkkZEMakSk859zlP7xrtfTw2kgLexdNJHxEs12ajT0BHLJE8nsG13JL6g2bDUef7Q1uWbQ6TPsVO9UXvcvYPBHSdy+n3rTnDp6hZAXRyzJGXKLnXaTuViSTayky2Byib4beq0fKOh+ZY+PW7n49rMclSV61w4MxPT5o2k4VPUyDJrCgjxIA04RV/BrkAqyI13r3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cdBwYJGesXlXp6ZKbT0CcaJCEa2Kw+FaKBE9HL9S7rM=;
+ b=obdHg1NqFdPgtKxVSLNE5qDlcoVfFiUCJ8CccR03+aqM6MsV/GlHGUOyTDBdKEXYoP7HWD/5eUfbbG1F8gLK8rjAA2DaBnfQ9OmaU7+9E3nqdtg8l99uDDX2msnyjjquAvoE9u1M4ZT+25FHdPkTJ5ZTyxvcQA10ox+i5UqLMFYfzd+XAWgwCEGKpqXo5aVVfEAb9Ju8R5ly0vcKx8RZiqQyjCu93KnvkvfMfDRG5HNjWUcmR03+21NItYKFAKlBiHGIthvWYk9bK2q0pqfAPO5Pm7gBgPmdR0zgHfXLy1NyfMfwWKT+QUg7dRGwi5h7BeYLrGJl6vCbir/m+B6+LA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cdBwYJGesXlXp6ZKbT0CcaJCEa2Kw+FaKBE9HL9S7rM=;
+ b=ZAHWA6Ev/1toz+2NXT37QCJqMMIpxQB0w0Xage/V4Xfd9oPgn4zW0dr0+8Xxsmr53xyjiU0rGByFQFz2fu62Khpm86m090TRSm3x3qxmdfYskOfbJePL3bh/GFdRNHkA47uvoDN9sdQwNeMRCNOtGqSxaZz+A/gUSdCodJ0de08=
+Received: from BN9PR03CA0423.namprd03.prod.outlook.com (2603:10b6:408:113::8)
+ by MW6PR12MB8661.namprd12.prod.outlook.com (2603:10b6:303:23f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Tue, 25 Mar
+ 2025 15:36:47 +0000
+Received: from BL6PEPF0001AB4C.namprd04.prod.outlook.com
+ (2603:10b6:408:113:cafe::87) by BN9PR03CA0423.outlook.office365.com
+ (2603:10b6:408:113::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.42 via Frontend Transport; Tue,
+ 25 Mar 2025 15:36:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4C.mail.protection.outlook.com (10.167.242.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Tue, 25 Mar 2025 15:36:46 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
+ 2025 10:36:46 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH V2 1/2] drm/amdgpu: store userq_managers in a list in adev
+Date: Tue, 25 Mar 2025 11:36:31 -0400
+Message-ID: <20250325153632.478700-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-References: <20250320165249.1238463-1-alexander.deucher@amd.com>
- <DS7PR12MB600558F9AE6AFA491D593C2CFBA72@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB600558F9AE6AFA491D593C2CFBA72@DS7PR12MB6005.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 25 Mar 2025 11:34:35 -0400
-X-Gm-Features: AQ5f1Jq2OljvaySqc2K-xWA4L7UlANMQZHpqEJKnao50HNeSzmO8wERq3f310yE
-Message-ID: <CADnq5_PRU6_+qkc9v90hrEoJQ=r6wmeQ=Z=jueRh5Z-3cCRi_Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: store userq_managers in a list in adev
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4C:EE_|MW6PR12MB8661:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c949c4d-0574-4c12-c03d-08dd6bb2da6c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LT+8y6xEk08XaSJ+E0/TI/ZzGJvR9yj0KO3B3PYLQEo6auHasmJanaE/B6fY?=
+ =?us-ascii?Q?AW/Q1/GovL7VwT5dk5obFgS111l1bztNsbSwknsXVX3EGOKLALGhXZBoXdga?=
+ =?us-ascii?Q?VQQjsb7G2xf5Jo2lakihc6paA/7bLLFbsw905tSe8vgFHzOsatSw2XNkuFDD?=
+ =?us-ascii?Q?SaPL0xj7JoepwKG/gSjEyXrkJ9Wc80V94/6zrGCHn1GXLapXLcsGzNR60p7c?=
+ =?us-ascii?Q?rBTpgJIcdLjNNEtjgRKEwoIk5kXjngVV3O8mw2LKijQaj+lIjLQajCiq70fQ?=
+ =?us-ascii?Q?egqK2dGxasqb/Ly2iUrZzNBwY9Hpm9OPqNi1hpnHu4JFJT+G8Flq/bRyd44T?=
+ =?us-ascii?Q?eQ/Ou5QlvyDjNqDrPEwa94jCZ2cP2e9hWsj8ZyOn5ZL7XGwHd5/kv4qWZwtG?=
+ =?us-ascii?Q?wd04YA3YZyyT6nP/xa4FjRpkYYKVXUiWBvzcaCGhV1TsoaVwna2gbDRpXUo8?=
+ =?us-ascii?Q?AmPbps6EQK1Da4B2QtslUBzJyp9rzkgZi/x8xyxQ53XyWGLstb1tBARu1jWj?=
+ =?us-ascii?Q?7zSATV9XuNvnANz1BflMQuDx2GupMHc1ZticG0WTRycw6n1Jij4X06wbk/Vc?=
+ =?us-ascii?Q?PtIxvdDjG6hbHm4OBPdkF0f4lSGJ+N5SvWJxW5cbVQmsQF+so2LtWN5Djv+T?=
+ =?us-ascii?Q?Motf7Wp/V2kOm5TD7WnpvdsKv9gszuYeVh1Ipb7EaANWCeneQMAtoz7qRO/o?=
+ =?us-ascii?Q?ulxrQNfmVSztfuuI6+QIFD5qD4FT04soBo0FHpz3DYoVMLkAsbeKBweZzWI2?=
+ =?us-ascii?Q?WI0XihwDVpAaXZIGGLFuOefecOqDWmFpl8AIsosVcfQvtgMVcv3VHIwbWTrM?=
+ =?us-ascii?Q?kZnSbRtmruO8FTCZydNJvoRa1BRGjY81tIHh4S2FSpbl4n5VYOQVtzUMzyeX?=
+ =?us-ascii?Q?ZsIXCRVYSZi0kng/G+C3ak+66Ea9kblqYtMi28zpMCt6y1SWGCbtX3Q4bh/T?=
+ =?us-ascii?Q?5gjOFknPibIA3qf20azVuLRDZCUazFvc3E33JxPk46qVmzsIuYav28Qq45Qo?=
+ =?us-ascii?Q?BrdAQUpzSGE3x2DpRujOA3DOozYebo3V5ZxOoPXVCZqZHrVwK978PcfbiuBs?=
+ =?us-ascii?Q?m5cHHrrKsWgTSsSzFWGEj0fpnZhIRHW1yBrUohd+HZ7Cso/aYRniJOnb1fu6?=
+ =?us-ascii?Q?rlFVT8ID5Yac1/12hIS36C4fl+WDygk/Be5jQ4/0YXP8FiFohcP9xDbl/Qoq?=
+ =?us-ascii?Q?MaSZo34tx8ubORkiJTa2Uu/ZuzsRSkMHC/a31DTDmQtbBG4ll62AeU9xvAer?=
+ =?us-ascii?Q?nq/7IRrZ+IhXs21l6GUFZd1gvKR71P+6eDSVVoNOxuFI1I+tIBLw/3/SpR3l?=
+ =?us-ascii?Q?7xgTP/quN8lgHdX/EvWtUaiBuH2G/Dwi4CzCymE60KAMpgvvKcxdcA1RS41W?=
+ =?us-ascii?Q?iND/0/lgLA/1by83UygitH7d2PwXicMCQlmVIWuBMOAodeZrLYLe9jZNz5Sr?=
+ =?us-ascii?Q?XlKeoqStTOwGkDB4HNML5kvTq/L9IBu7qrgHRfGObQ6hECuEOqDDMBjWaq0q?=
+ =?us-ascii?Q?llbu60ryqZK6Pe4=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2025 15:36:46.8920 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c949c4d-0574-4c12-c03d-08dd6bb2da6c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8661
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,140 +130,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 25, 2025 at 4:23=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
-wrote:
->
-> [Public]
->
-> Here it may need to test the uq_mgr list to see whether it is a fresh lis=
-t before adding it to the userq_mgr_list; otherwise, it may add a duplicate=
-d uq_mgr list. I have sent a patch for that check.
+So we can iterate across them when we need to manage
+all user queues.
 
-Good catch.  We should just add the mgr once in userq_mgr_init.  Will
-send out a new patch set.
+v2: add uq_mgr to adev list in amdgpu_userq_mgr_init
 
-Alex
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 16 +++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h |  1 +
+ 4 files changed, 22 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index ffca74a476da9..6634c0a533f05 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1238,6 +1238,9 @@ struct amdgpu_device {
+ 	 * in KFD: VRAM or GTT.
+ 	 */
+ 	bool                            apu_prefer_gtt;
++
++	struct list_head		userq_mgr_list;
++	struct mutex                    userq_mutex;
+ };
+ 
+ static inline uint32_t amdgpu_ip_version(const struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7c4a5d5c22fba..c2c2ca7922d5c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4300,6 +4300,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	mutex_init(&adev->gfx.kfd_sch_mutex);
+ 	mutex_init(&adev->gfx.workload_profile_mutex);
+ 	mutex_init(&adev->vcn.workload_profile_mutex);
++	mutex_init(&adev->userq_mutex);
+ 
+ 	amdgpu_device_init_apu_flags(adev);
+ 
+@@ -4327,6 +4328,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	INIT_LIST_HEAD(&adev->pm.od_kobj_list);
+ 
++	INIT_LIST_HEAD(&adev->userq_mgr_list);
++
+ 	INIT_DELAYED_WORK(&adev->delayed_init_work,
+ 			  amdgpu_device_delayed_init_work_handler);
+ 	INIT_DELAYED_WORK(&adev->gfx.gfx_off_delay_work,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+index beae931152a3c..ecd49cf15b2a9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+@@ -658,20 +658,34 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_devi
+ 	idr_init_base(&userq_mgr->userq_idr, 1);
+ 	userq_mgr->adev = adev;
+ 
++	mutex_lock(&adev->userq_mutex);
++	list_add(&userq_mgr->list, &adev->userq_mgr_list);
++	mutex_unlock(&adev->userq_mutex);
++
+ 	INIT_DELAYED_WORK(&userq_mgr->resume_work, amdgpu_userqueue_resume_worker);
+ 	return 0;
+ }
+ 
+ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+ {
+-	uint32_t queue_id;
++	struct amdgpu_device *adev = userq_mgr->adev;
+ 	struct amdgpu_usermode_queue *queue;
++	struct amdgpu_userq_mgr *uqm, *tmp;
++	uint32_t queue_id;
+ 
+ 	cancel_delayed_work(&userq_mgr->resume_work);
+ 
+ 	mutex_lock(&userq_mgr->userq_mutex);
+ 	idr_for_each_entry(&userq_mgr->userq_idr, queue, queue_id)
+ 		amdgpu_userqueue_cleanup(userq_mgr, queue, queue_id);
++	mutex_lock(&adev->userq_mutex);
++	list_for_each_entry_safe(uqm, tmp, &adev->userq_mgr_list, list) {
++		if (uqm == userq_mgr) {
++			list_del(&uqm->list);
++			break;
++		}
++	}
++	mutex_unlock(&adev->userq_mutex);
+ 	idr_destroy(&userq_mgr->userq_idr);
+ 	mutex_unlock(&userq_mgr->userq_mutex);
+ 	mutex_destroy(&userq_mgr->userq_mutex);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
+index 0f358f77f2d9b..ec1a4ca6f6321 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
+@@ -76,6 +76,7 @@ struct amdgpu_userq_mgr {
+ 	struct mutex			userq_mutex;
+ 	struct amdgpu_device		*adev;
+ 	struct delayed_work		resume_work;
++	struct list_head		list;
+ };
+ 
+ struct amdgpu_db_info {
+-- 
+2.49.0
 
->
-> Regards,
->       Prike
->
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> > Deucher
-> > Sent: Friday, March 21, 2025 12:53 AM
-> > To: amd-gfx@lists.freedesktop.org; Paneer Selvam, Arunpravin
-> > <Arunpravin.PaneerSelvam@amd.com>
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Subject: [PATCH 1/2] drm/amdgpu: store userq_managers in a list in adev
-> >
-> > So we can iterate across them when we need to manage all user queues.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  3 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 15 ++++++++++++++-
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h |  1 +
-> >  4 files changed, 21 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index 4f770a362048a..28cfa600b798f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -1228,6 +1228,9 @@ struct amdgpu_device {
-> >        * in KFD: VRAM or GTT.
-> >        */
-> >       bool                            apu_prefer_gtt;
-> > +
-> > +     struct list_head                userq_mgr_list;
-> > +     struct mutex                    userq_mutex;
-> >  };
-> >
-> >  static inline uint32_t amdgpu_ip_version(const struct amdgpu_device *a=
-dev, diff --
-> > git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 0396ac30c2a4f..526c5aa32825a 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -4299,6 +4299,7 @@ int amdgpu_device_init(struct amdgpu_device *adev=
-,
-> >       mutex_init(&adev->gfx.kfd_sch_mutex);
-> >       mutex_init(&adev->gfx.workload_profile_mutex);
-> >       mutex_init(&adev->vcn.workload_profile_mutex);
-> > +     mutex_init(&adev->userq_mutex);
-> >
-> >       amdgpu_device_init_apu_flags(adev);
-> >
-> > @@ -4326,6 +4327,8 @@ int amdgpu_device_init(struct amdgpu_device *adev=
-,
-> >
-> >       INIT_LIST_HEAD(&adev->pm.od_kobj_list);
-> >
-> > +     INIT_LIST_HEAD(&adev->userq_mgr_list);
-> > +
-> >       INIT_DELAYED_WORK(&adev->delayed_init_work,
-> >                         amdgpu_device_delayed_init_work_handler);
-> >       INIT_DELAYED_WORK(&adev->gfx.gfx_off_delay_work,
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> > index a02614cbda36e..b89bfad52abd5 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> > @@ -365,6 +365,9 @@ amdgpu_userqueue_create(struct drm_file *filp, unio=
-n
-> > drm_amdgpu_userq *args)
-> >               goto unlock;
-> >       }
-> >       args->out.queue_id =3D qid;
-> > +     mutex_lock(&adev->userq_mutex);
-> > +     list_add(&uq_mgr->list, &adev->userq_mgr_list);
-> > +     mutex_unlock(&adev->userq_mutex);
-> >
-> >  unlock:
-> >       mutex_unlock(&uq_mgr->userq_mutex);
-> > @@ -661,14 +664,24 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr
-> > *userq_mgr, struct amdgpu_devi
-> >
-> >  void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)  {
-> > -     uint32_t queue_id;
-> > +     struct amdgpu_device *adev =3D userq_mgr->adev;
-> >       struct amdgpu_usermode_queue *queue;
-> > +     struct amdgpu_userq_mgr *uqm, *tmp;
-> > +     uint32_t queue_id;
-> >
-> >       cancel_delayed_work(&userq_mgr->resume_work);
-> >
-> >       mutex_lock(&userq_mgr->userq_mutex);
-> >       idr_for_each_entry(&userq_mgr->userq_idr, queue, queue_id)
-> >               amdgpu_userqueue_cleanup(userq_mgr, queue, queue_id);
-> > +     mutex_lock(&adev->userq_mutex);
-> > +     list_for_each_entry_safe(uqm, tmp, &adev->userq_mgr_list, list) {
-> > +             if (uqm =3D=3D userq_mgr) {
-> > +                     list_del(&uqm->list);
-> > +                     break;
-> > +             }
-> > +     }
-> > +     mutex_unlock(&adev->userq_mutex);
-> >       idr_destroy(&userq_mgr->userq_idr);
-> >       mutex_unlock(&userq_mgr->userq_mutex);
-> >       mutex_destroy(&userq_mgr->userq_mutex);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-> > index 0f358f77f2d9b..ec1a4ca6f6321 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-> > @@ -76,6 +76,7 @@ struct amdgpu_userq_mgr {
-> >       struct mutex                    userq_mutex;
-> >       struct amdgpu_device            *adev;
-> >       struct delayed_work             resume_work;
-> > +     struct list_head                list;
-> >  };
-> >
-> >  struct amdgpu_db_info {
-> > --
-> > 2.49.0
->
