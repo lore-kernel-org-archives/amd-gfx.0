@@ -4,126 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBC91C35FFC
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 14:22:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 051A6C35FFC
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 15:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD4C10E57F;
-	Tue, 25 Mar 2025 14:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F9AB10E552;
+	Tue, 25 Mar 2025 15:24:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TO/ZQV6Z";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bejeh+x+";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A53010E56D
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 14:22:00 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52PD2Q8b026065
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 14:21:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Kp3yGWdT4AV6kkrdyjO2FJdT8nOV4kJcKTIpcQc7Pgs=; b=TO/ZQV6ZSOOIQO6/
- EtuY3avalnKyKRDIYJ5L4diQO64ei0GCwfEGLTRLRfVAUZ/dzhogZfZsGwr9LOfG
- 6TsfxYd6uqNSrVZNUlLTFuv07jCOec/l3ioo50XpUDWxWIYIRkN7L3dr850X+yIj
- HNHk3Gu+WKCv8y5y1u+nxfPs/LGlnGX5jev1//5a2WihdrtiE8NxMe1Blu7DCzR1
- am8P3+vZrj7jB6YzVh40dx/1uVJIwXjjB4hDQKb5Dx190G4OrLdmfaSNIRlfSgM8
- 7HORa5z9tbLv2cqroJ8L3F7PUPAVoqWOGQp3NkI4MSprpbK3KVzwcDLasnSUFOLz
- ygOT8w==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45hnk8r71f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 14:21:59 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c3b53373faso799434485a.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 07:21:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742912518; x=1743517318;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Kp3yGWdT4AV6kkrdyjO2FJdT8nOV4kJcKTIpcQc7Pgs=;
- b=cQjPSzJgszWJ7E0ogebGvZbRmpDOmRg0I/O67JT+TNAH2R9XvwnPjBKU59THnzlDXN
- /hMLGjiwtezHZm0we4bY87495fAAITYCBb60T3yJ88umbee+sWxil4RHD+5HBRCKvtGZ
- RRREs1s3z8yk8ZazBd+j7N/zxqN0KKhCg0AkVB6PGgHLpxmPFjPRO0ybhWYlDBdaLmcU
- xZBlMG4w1FvqDyIZZgN9uvfLf+LYL9602fHgzqWzoBXkaV3kfDHQxqc2oFJaTLIOYCsl
- V8McVZAvZk+6HHzDZEcZaXYI/yIykqy75vs9NpF15ILa2ewjnlpylqLRhgs9hwAPEh5O
- dQ2w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWPbR3xl4pIH0bGOUbtZLjfF7anUnRvOfFb72/WaBFO4yj4MtV4Wc7ytwwAUTqCiM8sayAbyWmD@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8QnjR2GX6r/IQKNYPcV3qjhBbaxJ8Nxr8QHRr2QOabtG+V2ef
- tT29TbTgzRjkkOPKCwp7MsGhM2gQ1J6f4Wb7FpFlQeeA31dtI6+wYCIewcbH3PWuyA8CB09bVpQ
- /e9KCjZRNCldrNZmJy0NeSwQWUxKNS4IKK8VGMqJc4TmXskxcuug4r/eNCQXVrgIv
-X-Gm-Gg: ASbGnctVW61e6Thg4SKGfoRsicmQD7a/Ho8Qf0mY0hVkR8TV7qJszPgeEKQOZlLaybt
- mgmKJjRd0qIM1dDZvOBkXQi1bEuRulIXmpnOqHq25Lda1LyHt0yQLcSay1CENMKttvOnSA82OiP
- Zs8YEeKOZ0EGlFyu4duWx2kzi4G4XVJaDeuOhIPIr96hEQpbm0zJwpRPlaGKKsg0CxTYhq7wpuB
- h9kp8MZ2L5zrkJiUsGuqQeXJe8oWqY1d0h+zFTN5gXg4swp/UGmu5/OQJBmjoTE+Vri+GTb/sZ9
- X9plU/8tpyUITLcTbG5p2TopCPW1ZMLUqLUl8n2rYT3YjFLLi+JtQsvImcnCAh4qxxM=
-X-Received: by 2002:a05:620a:4082:b0:7c5:4194:bbcc with SMTP id
- af79cd13be357-7c5ba1a5851mr2078811485a.29.1742912518285; 
- Tue, 25 Mar 2025 07:21:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHE3gf2K5kIjZtYjJH4qhQtLNFCQgnGxwMyKEgZu4Q/N9eWpJ5iD6eXdGIpzuGP7y89fDMGrg==
-X-Received: by 2002:a05:620a:4082:b0:7c5:4194:bbcc with SMTP id
- af79cd13be357-7c5ba1a5851mr2078805785a.29.1742912517757; 
- Tue, 25 Mar 2025 07:21:57 -0700 (PDT)
-Received: from eriador.lan (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00::7a1]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ad65083e4sm1508348e87.171.2025.03.25.07.21.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Mar 2025 07:21:56 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [RFC PATCH RESEND v4 0/6] drm/display: dp: add new DPCD access
- functions
-Date: Tue, 25 Mar 2025 16:21:55 +0200
-Message-ID: <174291251084.2000243.209850835590674876.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
-References: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C757C10E552
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 15:24:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P8HuRt7yE7jD5RQ1Url0VzFTY1O6hgWCv0YA6mIUeRzTvrvADZBp1eGr+w0/yU0/1pBHYNkowOsKx74w3LkV6J5Ccu5yrj9TO7k8GPNyizX0lLRBa6jgmQPFFWb8okZLbz7eeVbtJ/g8UA4qfZWhVw42iREOVAs/c70dCja4NwaYC/XwWKRSYY61as+EHNa61bxxrd6ptGl2ql8pV61qjbB4Hgy4ANRsvsaFfwcULbywZNCCaS+trX0nK/md0tsHJ2jqpdFmaW3u8m8Lr+hgPUErjQXBj9XlJ0IBTX6xbIIWVe/XaKXWxVUHiX6iEMkEzRhKORd4PTpwT0bxW1tX8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eWnHBlwCniovX3So3Th/B9lywqIVMVz0yfglzO+lmz4=;
+ b=O/PB880x+K5KV0WvgGXG6cj152/HbrsLscbd655QnAICYLomrq/igqbUq//sxISoX/X+4jAQPQkrPgOh3CC24IAL++0+JbbWQxhLBwc/GFs+hl0uU1f9hhdeZjbPS/zGFRlbZ91rLRYsyIm50ydOuyErjexYiIuywikVHcgVfklX9RQ+XX+wj3LNxU6twVtusszFI0DND2Gg4/rB9uFe8+5YKKuZyKr5Jjbik+C6Bw+rsjs0eeFOdnckh/iz6Z6F4gTVOYCVLb+IaPDSnYe/qlwzb9yiF5VZk1Pj8UmewQwq+x65un21x9eEp1JrwnNuhd3yj9cw6Alge50B5afy2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eWnHBlwCniovX3So3Th/B9lywqIVMVz0yfglzO+lmz4=;
+ b=Bejeh+x+aEyWKfL9hE/gOU+IEAgPnIG6b/4YGlSZASBn+J0UFW1/brHBQUO69QHZKqgNFUBSqqJLMvDg4ZTZroRuctK59DyB2mUtEm1moLwJWdoSDFct7onOOMBVAuUAMdvUY+7tiB/smRmJksrNh6GPTGg34VMmMsxBSkAH1OI=
+Received: from MN2PR01CA0008.prod.exchangelabs.com (2603:10b6:208:10c::21) by
+ PH7PR12MB6884.namprd12.prod.outlook.com (2603:10b6:510:1ba::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Tue, 25 Mar
+ 2025 15:24:22 +0000
+Received: from BN3PEPF0000B069.namprd21.prod.outlook.com
+ (2603:10b6:208:10c:cafe::34) by MN2PR01CA0008.outlook.office365.com
+ (2603:10b6:208:10c::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.42 via Frontend Transport; Tue,
+ 25 Mar 2025 15:24:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B069.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8606.2 via Frontend Transport; Tue, 25 Mar 2025 15:24:22 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Tue, 25 Mar 2025 10:24:20 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix Manual Execution of Cleaner Shader in Gang
+ Submissions
+Date: Tue, 25 Mar 2025 20:54:07 +0530
+Message-ID: <20250325152407.2543116-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: WbDTq5AQyEInRlvcTLUMZZsq2URGFXW1
-X-Authority-Analysis: v=2.4 cv=KMlaDEFo c=1 sm=1 tr=0 ts=67e2bc07 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Vs1iUdzkB0EA:10 a=DZoDOQWOqP-ft6bgs5oA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: WbDTq5AQyEInRlvcTLUMZZsq2URGFXW1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-25_06,2025-03-25_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxlogscore=999
- bulkscore=0 clxscore=1015 lowpriorityscore=0 mlxscore=0 priorityscore=1501
- adultscore=0 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
- classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2503250101
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B069:EE_|PH7PR12MB6884:EE_
+X-MS-Office365-Filtering-Correlation-Id: 126525d8-0b25-49ee-1e16-08dd6bb11e84
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aFJ4cGVmS2RyQnZablR6eFozVVEwaUVQWDMzdW5wSm9pU2Z5RnpVNmhLRTFq?=
+ =?utf-8?B?UU5GVXZKVlBOaFFpN1hIL3VyMFZOZEl5WlJGU3gwSEtNeXpyOXVaS2ZDb2ZT?=
+ =?utf-8?B?eStTenJjVkdRYmlVZ3R0MFVPc25tUU4zY3IvTzRNV1M5ZVJiM1JsamVXS3Mw?=
+ =?utf-8?B?cjZDOEdhYSt5L2RjdXRtVTB2QWRHajh1TkZsNEk2dnJlSGtPb3VFaC9BQmpD?=
+ =?utf-8?B?d3A4ZURETVJIRTk0N01sN3RSY0dlWnRlUU04WGVneE5jb2lPbGVXL0RSWEJ4?=
+ =?utf-8?B?UmJzdmdEV0FKNysxQ3QxN09YUEF2U2pVa2cxcy9ncXZMYitjcFVRbVczMXl5?=
+ =?utf-8?B?dkV4TzRmYi9Cd1RmcmNWTythMlFLaUtLNE5DQUVqbW84V01VZ3BWL2ZnUGJW?=
+ =?utf-8?B?eS9kUXI2eHRhRTJCb1JWSkxpanV5SnFPdnJ2NVdIald4dUhnYU5GdEVOQnox?=
+ =?utf-8?B?TjU4UWpGRWQzN094ZzdQdEt3SmNJYTAvM0FqMHkyYndEZ2xNTW9KOUhDNTJX?=
+ =?utf-8?B?K1ZyenU0aWlpaDF5eW5HUmVpZWF3MUVIQmVBbFF5VXFScWFRRzl5TTBxV1lW?=
+ =?utf-8?B?U1hqbk13MXFZMDA3cnJ0RjNLbUxEQmZRUDlYUGhXeHUvdys3ejE3UG5WRTN5?=
+ =?utf-8?B?NW5DMzV5R1ZaS2diM3R3WlZwb2dqeFFrRVVOOGsyUlZqeDdYb0lGVUxTdE52?=
+ =?utf-8?B?MHNUNDB2MW1XZERTaTVXUS9YTE5BVWU1ek56UDZ0Mmx5eUZ2cVhVOUxpUTFM?=
+ =?utf-8?B?TzZFSEl0QVVzVm1iV3RaVWxHMFZkRk1SelF2RFRMbVFsVlFlb2xBQ3gzQU9R?=
+ =?utf-8?B?TlBDK3A0Z2phdURLSjA4L0MrbHJBOW1rcmpZV3JYLy9GbkdOZkNNM0NwWTJ0?=
+ =?utf-8?B?NkNxdEpQdzduclZtUjQveXlkVVBGYVYxYkJZWGVqRjMweFVlZ25EQ09OSDNr?=
+ =?utf-8?B?bC8rdDFnZUlTMUZNQ2VTOGFCMFJjQ3BuNnZjUGdGV3UxT0xKN2xOSUt5MFpD?=
+ =?utf-8?B?YjFGUGhuZUthZk1lWktudVNUVlFEdWJodFhpeGhlckZybExQeVN3T3lIb3Ny?=
+ =?utf-8?B?ekJMNFJ3L0xGVnB1ZTFzSW1iQ2JoR1N3TTNzYkduVDlNWXptN3k0eUtNaHY1?=
+ =?utf-8?B?SDBWcUZIU1djNTdQTU0vR0U3bElySjRpZjhrMzR2RkZKb1BIczdhcDZHakNS?=
+ =?utf-8?B?VmZPSWFQdHFMYVluYmtFZWNVakdLeVNXd0RMazJMMXc3WkNZVlpxb1A5Z1FM?=
+ =?utf-8?B?ZmIwSm9vSkRrSnI4NkQ4Q2UxS3NJay96UWVSVEQ0bDFRZ3ZzSmVHWGlNOHI3?=
+ =?utf-8?B?MWZCeEZqWFdQTUpnVFNvYTRKdzB5TlJLVXFwRUtWMytpRi9CK1pZdWpiVmti?=
+ =?utf-8?B?VHVkZFZhMGNxbGJPQkxZaWNFandpVnp5ejhnanh5R1lxWDM2L1JvdThHdjJa?=
+ =?utf-8?B?Y0k1SGx1aVpYT21aR0E0dFZNZUFtTENDWXpRUjRUcWVQSC9qWVNrVlFLdWtK?=
+ =?utf-8?B?TkQ0bFpqRTRtTnN3QXM3RUgyTDJBR2F3TXhrR1Znam9tSFBtOHg1ZjU5bjg5?=
+ =?utf-8?B?dzZRbHdwOE91MEdPRTJNR0RHSUNNbnoyLzBsNmhWTENPSTNlRkMrL1FSTllW?=
+ =?utf-8?B?NzcxMFg3RS9KcjdxcGRKV29tRTRFbENrcG1FL0ZUOHJVUjdYQlpyQkxsbk9p?=
+ =?utf-8?B?bklkWTZmY1duNmhWTUU5UjRhYStXczRzTWRpRWxwSllmT2VXTjVjR2dLZDVV?=
+ =?utf-8?B?RGFDaDcxN09uRGdDTWhLNVo2QmNkMTVxUTRXbElFaE43aFN1RVFEK051SGI1?=
+ =?utf-8?B?NWFNbGdXVHB3b01ESVNUb0VjdS84eDV0akhtaCtCWVNNUVhIN05sMWpRR1d6?=
+ =?utf-8?B?N0NEQWVHUmNWTmxnK3lXOEpMbXVXMkM4S3NaY0F1d3dKbE15RE84eE9rZmRP?=
+ =?utf-8?B?K0ZQdFlwd3B2TFQydmxNMGF4RVBGSWtuTG14eGRESEwxU1R3WU5xUUpaMWVB?=
+ =?utf-8?Q?YP3VhrWgh+m9lNMA/ob8F+rXcaw+rs=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2025 15:24:22.1404 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 126525d8-0b25-49ee-1e16-08dd6bb11e84
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B069.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6884
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,39 +141,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 24 Mar 2025 13:51:18 +0200, Dmitry Baryshkov wrote:
-> Existing DPCD access functions return an error code or the number of
-> bytes being read / write in case of partial access. However a lot of
-> drivers either (incorrectly) ignore partial access or mishandle error
-> codes. In other cases this results in a boilerplate code which compares
-> returned value with the size.
-> 
-> As suggested by Jani implement new set of DPCD access helpers, which
-> ignore partial access, always return 0 or an error code. Implement
-> new helpers using existing functions to ensure backwards compatibility
-> and to assess necessity to handle incomplete reads on a global scale.
-> Currently only one possible place has been identified, dp-aux-dev, which
-> needs to handle possible holes in DPCD.
-> 
-> [...]
+This commit addresses the issue where the cleaner shader was not
+correctly executed during gang submissions due to improper handling of
+the isolation spearhead.
 
-Applied to drm-misc-next, thanks!
+- Enhanced the `amdgpu_gfx_run_cleaner_shader_job` function to
+  initialize `isolation->spearhead` with the job's scheduled fence for
+  cleaner shader calls.
+- Updated the `amdgpu_vm_flush` function to properly initialize
+  `isolation->spearhead` to the job's scheduled fence when the cleaner
+  shader is required.
 
-[1/6] drm/display: dp: implement new access helpers
-      commit: d8343e115658fb35115e0720f4761ffa0147329a
-[2/6] drm/display: dp: change drm_dp_dpcd_read_link_status() return value
-      commit: fcbb93f1e48a150159534a1e6ec19e6fdf9196df
-[3/6] drm/display: dp: use new DCPD access helpers
-      commit: af67978ee37e543e62d6d3f7eba58f8f259423a7
-[4/6] drm/display: dp-cec: use new DCPD access helpers
-      commit: 97f37939881327e118d6252289973c186377a075
-[5/6] drm/display: dp-mst-topology: use new DCPD access helpers
-      commit: 2554da0de3e8312c7149d03d702ddc6c1ff5e3de
-[6/6] drm/display: dp-tunnel: use new DCPD access helpers
-      commit: 95c4ea2e0329b370a53a041a19227f8da3f47481
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 4 +++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 72af5e5a894a..807f17093006 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1436,6 +1436,7 @@ static ssize_t amdgpu_gfx_get_available_compute_partition(struct device *dev,
+ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_isolation *isolation = &adev->isolation[ring->xcp_id];
+ 	struct drm_gpu_scheduler *sched = &ring->sched;
+ 	struct drm_sched_entity entity;
+ 	struct dma_fence *f;
+@@ -1464,6 +1465,9 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 		ib->ptr[i] = ring->funcs->nop;
+ 	ib->length_dw = ring->funcs->align_mask + 1;
+ 
++	if (job->base.s_fence)
++		isolation->spearhead = dma_fence_get(&job->base.s_fence->scheduled);
++
+ 	f = amdgpu_job_submit(job);
+ 
+ 	r = dma_fence_wait(f, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index b5ddfcbbc9fc..e23400b53489 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -692,8 +692,10 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 	if (need_pipe_sync)
+ 		amdgpu_ring_emit_pipeline_sync(ring);
+ 
+-	if (cleaner_shader_needed)
++	if (cleaner_shader_needed) {
++		isolation->spearhead = dma_fence_get(&job->base.s_fence->scheduled);
+ 		ring->funcs->emit_cleaner_shader(ring);
++	}
+ 
+ 	if (vm_flush_needed) {
+ 		trace_amdgpu_vm_flush(ring, job->vmid, job->vm_pd_addr);
 -- 
-With best wishes
-Dmitry
+2.34.1
 
