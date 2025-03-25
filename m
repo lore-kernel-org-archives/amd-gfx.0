@@ -4,70 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60875C36010
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 08:40:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 033C5C36010
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 08:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B677610E668;
-	Wed, 26 Mar 2025 08:39:54 +0000 (UTC)
-Received: from mail.crpt.ru (mail.crpt.ru [91.236.205.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79A9A10E078;
- Wed, 26 Mar 2025 06:01:31 +0000 (UTC)
-Received: from mail.crpt.ru ([192.168.60.4])
- by mail.crpt.ru  with ESMTP id 52Q61Joa020126-52Q61Joc020126
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=OK);
- Wed, 26 Mar 2025 09:01:19 +0300
-Received: from EX2.crpt.local (192.168.60.4) by ex2.crpt.local (192.168.60.4)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Wed, 26 Mar
- 2025 09:01:19 +0300
-Received: from EX2.crpt.local ([192.168.60.4]) by EX2.crpt.local
- ([192.168.60.4]) with mapi id 15.01.2507.044; Wed, 26 Mar 2025 09:01:19 +0300
-From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
- <a.vatoropin@crpt.ru>
-To: Kenneth Feng <kenneth.feng@amd.com>
-CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
- <a.vatoropin@crpt.ru>, Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sunil Khatri
- <sunil.khatri@amd.com>, Jesse Zhang <jesse.zhang@amd.com>, Tim Huang
- <tim.huang@amd.com>, Boyuan Zhang <boyuan.zhang@amd.com>, "chr[]"
- <chris@rudorff.com>, Yang Wang <kevinyang.wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>
-Subject: [PATCH] drm/amdgpu: Remove the redundant NULL check for the
- 'dte_data' object
-Thread-Topic: [PATCH] drm/amdgpu: Remove the redundant NULL check for the
- 'dte_data' object
-Thread-Index: AQHbnhR++EzAa3ZlHUaU6nruSXfbmA==
-Date: Wed, 26 Mar 2025 06:01:19 +0000
-Message-ID: <20250326060059.15335-1-a.vatoropin@crpt.ru>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.200.60.21]
-x-kse-serverinfo: EX2.crpt.local, 9
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: Clean, bases: 3/25/2025 10:34:00 PM
-x-kse-attachment-filter-triggered-rules: Clean
-x-kse-attachment-filter-triggered-filters: Clean
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FDFC10E674;
+	Wed, 26 Mar 2025 08:40:04 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gSM0c41/";
+	dkim-atps=neutral
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8078110E00A;
+ Tue, 25 Mar 2025 18:57:14 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-7c542ffec37so633327185a.2; 
+ Tue, 25 Mar 2025 11:57:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742929033; x=1743533833; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Wc1b/KonmqQlWVjQyIDNx1PB8OnyCz3qh1Tew/uSRf8=;
+ b=gSM0c41/gQS3DbtE+08PualIVWp9K+vaME9sEwID+CaVsWrNT9qRanZhBuw1ybkKva
+ tOFUbmrCddmFBxHOdzMeNKlfc5lrCp80ET80a1amO02NenolvpKHArJA1gFL8KMhdwG/
+ B5JNvTf+Phj39iIQU22OYgOL2+GB/WVdIoODLgBOa7bIDUEPOHob4JHXu5GPTL+vu89V
+ dEC0OAUD/9cRgwrG93UCKeTpt5+8fdzw/+YibLQjBgMDW2PeOdhmeBOZyY5UyzxHQtuc
+ 1d0No+pnHivDvJ3fZFi/hxt1pwSxeam4oMwJJo4elbbovSB9E2UUJ943eOpqY5h7bqKD
+ oZAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742929033; x=1743533833;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Wc1b/KonmqQlWVjQyIDNx1PB8OnyCz3qh1Tew/uSRf8=;
+ b=OeROdaA7TjFtqdrFXROneyRkEZgORwQh+zOn2+sK+xpS9axKIpzD/ScsVBM3lP+LFg
+ lYfYwH+gY9Vwy3iBpyrpZhG3G0uaLZ0egysGIFCms1vTbc6b37OSBAiOkBKpi0I24VMN
+ 8+4t0nym4oq3pAHDCa6F4dg/kDXCV5FkHz6mPARwtu0c7YC4m2Bpq/aKfaEJx6uV59/m
+ UfKIWTAKTaOYXJJ9dDa4gkkRNhEvp6J86Q70sI/bxUc0ZCZkrrwo11g5rhLFkNnh/0hh
+ NAqnc7Kwp9V7VKGkD2B5yxCYsny102jdIhyR5xr1VLtL2hO3dZHdx7pvWkmV4xgs5odQ
+ MTkg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU8fE6SwTPP/PUHYhy0CTSsp00263oxGBkTjMvMdgXBUmItrtUusFWc1LSVo3gPKZJR0NHnV7RD@lists.freedesktop.org,
+ AJvYcCUJMnzJx8vgLb9QjsnoMEFwP/LuC3UEbJp5NzIJpRibdHVvw4MYeMrLxSfQ26i/PMPSDB7nQR7/f+9XQqJGVmxU8w==@lists.freedesktop.org,
+ AJvYcCVAsC3EOtTox3jG0U1PfuWWzEmtRAOl5Dj3j5vzbdFbX0LEnzIzhmQGHA1zrpasW5gWIE6IF3GgPxgH@lists.freedesktop.org,
+ AJvYcCVhDCp7jgjIlIppA30a6JdB1H7q6lisPdcQUzcvWZyRkAJg3oEhJG5eN97aI32VG/OYQ85H7VbsEzdU@lists.freedesktop.org,
+ AJvYcCW68nnnPPqf6gnoJ7lLHuDN/IECj6dSrGA5RfOYsbGmNME1W7oo6pz7NL0zDc95uB93YLwMRTNnEkoOzlyRpg==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUYjBcv2QL8ed/4eZNihXDD+Vkp+bVEW85qRKaQJKVrRkjHtY8
+ Bt2CJOEsgZjKvFlDLQLCQ6KdgydGgUfdVCShv0P/SqVrSnL7ncCUmhEqT0SQzvS/sJX3Yk2eOBi
+ KLSy5D5MTfhZLWJodeqSpgOoF/bmzksNp
+X-Gm-Gg: ASbGncsYpnUXqUiGWlznx9tKAcZX66IdlWUszhr8R7u4OPs9iemoECHR7OcHzShRLmE
+ skSAydTc1t/6+BmT/H+m8th3fPMnGTQRxRfZXrx7Nts/svluE4ZVSxEVQAreIVfkMLdsir6LglR
+ u2ngva66HzYxM1edA7rxxpEmBs
+X-Google-Smtp-Source: AGHT+IHZrxz76tlBAchwWlwvG1UO5HlgQQvC8bUrjtin9ky9DD1ICNaN0M4Dchd5qiDKedF02gvCDAitk2nLkn591/E=
+X-Received: by 2002:a05:6122:251b:b0:520:61ee:c7f9 with SMTP id
+ 71dfb90a1353d-525a84c5e96mr14236045e0c.7.1742929022532; Tue, 25 Mar 2025
+ 11:57:02 -0700 (PDT)
 MIME-Version: 1.0
-X-FEAS-Client-IP: 192.168.60.4
-X-FE-Policy-ID: 2:4:0:SYSTEM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
- c=relaxed/relaxed; 
- h=from:to:cc:subject:date:message-id:content-type:mime-version;
- bh=SMaYKshq3acZS99u+26mBuayTpIg9iiDJLeo1mA0VVw=;
- b=CllUNNprfqAVkUe2LfYNfFiPe7WMQzwbnbuJtW0m+s8PkL+AJkIj+8zMRaAVBLiGsiJDtTrEFnJe
- EsS7DF4vmctwRzwIqkiUzmST1HJouD36NU6huwOlk87t+qWFiPQvDDWgcAIh2Udaw7X9LY/RczJ6
- T7eCVTeT4zU+rJqyLF/QxMNF/GOM6zz0y5QyT+jLDA2nmMJK2Pw2cf6+/UP23nzI54UoHKFxiCCB
- yAh0hEYvgylQbezRe7VFC46DeAmZpz+A4Fzvz3trCHSnDssFEe6HSoPbLA/z1W8Uxzv1dayWoLgz
- tHKH/9A1WnnIWfdfa94EFaNhirsQHC/C+Ho4DQ==
+References: <20250320185238.447458-1-jim.cromie@gmail.com>
+ <20250320185238.447458-45-jim.cromie@gmail.com>
+ <c3514758-5a22-4acb-8ff0-1f4ddade02f4@bootlin.com>
+In-Reply-To: <c3514758-5a22-4acb-8ff0-1f4ddade02f4@bootlin.com>
+From: jim.cromie@gmail.com
+Date: Tue, 25 Mar 2025 12:56:36 -0600
+X-Gm-Features: AQ5f1JqwCZoNQkWvPRC6s-f7lWQaMvaFRZI7Bln1P_k3mQTyHi7JUmVlxPTmisg
+Message-ID: <CAJfuBxw_OixCp0KsoYu9nH6=hprKJpKt7dkPT0hL-32syCTJ7A@mail.gmail.com>
+Subject: Re: [PATCH v2 44/59] drm-dyndbg: add DRM_CLASSMAP_USE to Xe driver
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org, 
+ jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 26 Mar 2025 08:39:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,20 +93,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KU3RhdGljIGFu
-YWx5c2lzIHNob3dzIHRoYXQgcG9pbnRlciAiZHRlX2RhdGEiIGNhbm5vdCBiZSBOVUxMIGJlY2F1
-c2UgaXQgDQpwb2ludHMgdG8gdGhlIG9iamVjdCAic3RydWN0IHNpX2R0ZV9kYXRhIi4NCg0KUmVt
-b3ZlIHRoZSBleHRyYSBOVUxMIGNoZWNrLiBJdCBpcyBtZWFuaW5nbGVzcyBhbmQgaGFybXMgdGhl
-IHJlYWRhYmlsaXR5DQpvZiB0aGUgY29kZS4NCg0KRm91bmQgYnkgTGludXggVmVyaWZpY2F0aW9u
-IENlbnRlciAobGludXh0ZXN0aW5nLm9yZykgd2l0aCBTVkFDRS4NCg0KU2lnbmVkLW9mZi1ieTog
-QW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCi0tLQ0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvcG0vbGVnYWN5LWRwbS9zaV9kcG0uYyB8IDMgLS0tDQogMSBmaWxlIGNoYW5nZWQs
-IDMgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2xl
-Z2FjeS1kcG0vc2lfZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2xlZ2FjeS1kcG0vc2lf
-ZHBtLmMNCmluZGV4IGQ2ZGZlMjU5OWViZS4uMzJlNmE4MTVlNjA5IDEwMDY0NA0KLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3NpX2RwbS5jDQorKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3BtL2xlZ2FjeS1kcG0vc2lfZHBtLmMNCkBAIC0yNTY3LDkgKzI1NjcsNiBAQCBz
-dGF0aWMgaW50IHNpX2luaXRpYWxpemVfc21jX2R0ZV90YWJsZXMoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpDQogCXU4IHRkZXBfY291bnQ7DQogCXUzMiBpOw0KIA0KLQlpZiAoZHRlX2RhdGEg
-PT0gTlVMTCkNCi0JCXNpX3BpLT5lbmFibGVfZHRlID0gZmFsc2U7DQotDQogCWlmIChzaV9waS0+
-ZW5hYmxlX2R0ZSA9PSBmYWxzZSkNCiAJCXJldHVybiAwOw0KIA0KLS0gDQoyLjQzLjANCg==
+On Mon, Mar 24, 2025 at 9:24=E2=80=AFAM Louis Chauvet <louis.chauvet@bootli=
+n.com> wrote:
+>
+>
+>
+> Le 20/03/2025 =C3=A0 19:52, Jim Cromie a =C3=A9crit :
+> > Invoke DRM_CLASSMAP_USE from xe_drm_client.c.  When built with
+> > CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy, this tells dydnbg that Xe uses
+> > has drm.debug calls.
+> >
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> > ---
+> >   drivers/gpu/drm/xe/xe_drm_client.c | 2 ++
+> >   1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe=
+_drm_client.c
+> > index 2d4874d2b922..756dba5c88f8 100644
+> > --- a/drivers/gpu/drm/xe/xe_drm_client.c
+> > +++ b/drivers/gpu/drm/xe/xe_drm_client.c
+> > @@ -21,6 +21,8 @@
+> >   #include "xe_pm.h"
+> >   #include "xe_trace.h"
+> >
+> > +DRM_CLASSMAP_USE(drm_debug_classes);
+> > +
+>
+> Is xe_drm_client.c the best place to do it? I think the module entry
+> point is a bit better [1].
+>
+
+yes perhaps.  I was drawn by the _client in the file-name.
+Im not sure Im fully consistent, iirc the drivers get it near driver-iinit =
+ops.
+
+
+> [1]:https://elixir.bootlin.com/linux/v6.13.7/source/drivers/gpu/drm/xe/xe=
+_module.c
+>
+> >   /**
+> >    * DOC: DRM Client usage stats
+> >    *
+>
+> --
+> Louis Chauvet, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>
+>
