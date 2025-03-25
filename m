@@ -4,55 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB6F5C36008
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 18:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D588C36008
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 19:54:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460A910E295;
-	Tue, 25 Mar 2025 18:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4117C10E5EA;
+	Tue, 25 Mar 2025 19:54:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rZFfbhnN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Ui9JxKBG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF74810E4DA;
- Tue, 25 Mar 2025 18:42:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4DC9F61360;
- Tue, 25 Mar 2025 18:42:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC98C113D0;
- Tue, 25 Mar 2025 18:42:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742928153;
- bh=UTL901inkbdnXMs+G/Z6z+kgEDFCe5XJ5SSbeGhGR8c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rZFfbhnNXWmuU/o9PRcxacRwP9ntjhDAkD8RwFVI6BQls04fqCzD0FPiAGCKTC9LV
- Tk9AFK02rYuB+dJVFGVAqqiiqvmrL+1oqYtYv+J6vJ9d2O1eRiXQQCdXfo34NBsCsa
- PWePPfV4I5zo1q/CMvqiqm7aPOugNTWf06R/me2J5je5cuEywCFnWIdrlfJpiGQx67
- IAIjrzI0XcGrT13nfW6YTxBsMMmCZlpkXnchrzrc1Yxa/6Hicz4S7ymgEc9QgSjFWn
- /wrl3e5i4q2t50SQoVain4OpE/JF5HRDCPmEOT6GOpuLMTjR0lY+sKWT7aUch6T9tI
- +aDnVUOwvuC9A==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Lo-an Chen <lo-an.chen@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Alex Hung <alex.hung@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, aurabindo.pillai@amd.com,
- rodrigo.siqueira@amd.com, duncan.ma@amd.com, jinze.xu@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.13 6/7] drm/amd/display: Fix incorrect fw_state
- address in dmub_srv
-Date: Tue, 25 Mar 2025 14:42:14 -0400
-Message-Id: <20250325184215.2152123-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250325184215.2152123-1-sashal@kernel.org>
-References: <20250325184215.2152123-1-sashal@kernel.org>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9CB110E5E9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 19:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=DwK9EanAARQneSaUEcamj/8D6LNf72E5Jg023PMwkys=; b=Ui9JxKBGFVc5jDNY12mwrjkKIE
+ YOIH0p2lKlHJ4yMcx7rM2rLUCRIUGLfpq3D49eG8wP3exVso3bN6P4LoVQammeBmhKDTQvZSoKBYl
+ qp5ZZLWym6eBu1SUgboYmbcKYgXHyKepe3bzO9SMWOYyoyh/LkMxM8QmXTXIyYe+fb+e6SstpcntX
+ 0AOfzMzmNzDlMfR/haFvLmlQhnc671lo7Gx0a2je0xaa79d7DMl4ysmiP32B5UW1BkqD7d/zPZRmS
+ 2lVmpdjjLRvCDWqs70rPrnJk3SmpVQLO1jetIZhlOytaqf1aisk9FHtZSmx3pUIDZI/iru5czhE5z
+ 57aeUDJw==;
+Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
+ helo=maloca.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1txALV-006IVk-P2; Tue, 25 Mar 2025 20:53:58 +0100
+Date: Tue, 25 Mar 2025 13:53:54 -0600
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: drop some dead code
+Message-ID: <cqm7y72s6xsmtty7wogzii5mp5uabpyi5hbsw4x7dioiz3r5gh@5tbbz3roxzow>
+References: <20250325141415.424864-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.13.8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250325141415.424864-1-alexander.deucher@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,42 +57,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lo-an Chen <lo-an.chen@amd.com>
+On 03/25, Alex Deucher wrote:
+> Drop the cgs smu firmware code for SI, it's not used.
+> The smu firmware fetching for SI is done in si_dpm.c.
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 61 -------------------------
+>  1 file changed, 61 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+> index 525e53c94f4f5..004a6a9d6b9fa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+> @@ -252,67 +252,6 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+>  
+>  		if (!adev->pm.fw) {
+>  			switch (adev->asic_type) {
+> -			case CHIP_TAHITI:
+> -				strscpy(fw_name, "radeon/tahiti_smc.bin");
+> -				break;
+> -			case CHIP_PITCAIRN:
+> -				if ((adev->pdev->revision == 0x81) &&
+> -				    ((adev->pdev->device == 0x6810) ||
+> -				    (adev->pdev->device == 0x6811))) {
+> -					info->is_kicker = true;
+> -					strscpy(fw_name, "radeon/pitcairn_k_smc.bin");
+> -				} else {
+> -					strscpy(fw_name, "radeon/pitcairn_smc.bin");
+> -				}
+> -				break;
+> -			case CHIP_VERDE:
+> -				if (((adev->pdev->device == 0x6820) &&
+> -					((adev->pdev->revision == 0x81) ||
+> -					(adev->pdev->revision == 0x83))) ||
+> -				    ((adev->pdev->device == 0x6821) &&
+> -					((adev->pdev->revision == 0x83) ||
+> -					(adev->pdev->revision == 0x87))) ||
+> -				    ((adev->pdev->revision == 0x87) &&
+> -					((adev->pdev->device == 0x6823) ||
+> -					(adev->pdev->device == 0x682b)))) {
+> -					info->is_kicker = true;
+> -					strscpy(fw_name, "radeon/verde_k_smc.bin");
+> -				} else {
+> -					strscpy(fw_name, "radeon/verde_smc.bin");
+> -				}
+> -				break;
+> -			case CHIP_OLAND:
+> -				if (((adev->pdev->revision == 0x81) &&
+> -					((adev->pdev->device == 0x6600) ||
+> -					(adev->pdev->device == 0x6604) ||
+> -					(adev->pdev->device == 0x6605) ||
+> -					(adev->pdev->device == 0x6610))) ||
+> -				    ((adev->pdev->revision == 0x83) &&
+> -					(adev->pdev->device == 0x6610))) {
+> -					info->is_kicker = true;
+> -					strscpy(fw_name, "radeon/oland_k_smc.bin");
+> -				} else {
+> -					strscpy(fw_name, "radeon/oland_smc.bin");
+> -				}
+> -				break;
+> -			case CHIP_HAINAN:
+> -				if (((adev->pdev->revision == 0x81) &&
+> -					(adev->pdev->device == 0x6660)) ||
+> -				    ((adev->pdev->revision == 0x83) &&
+> -					((adev->pdev->device == 0x6660) ||
+> -					(adev->pdev->device == 0x6663) ||
+> -					(adev->pdev->device == 0x6665) ||
+> -					 (adev->pdev->device == 0x6667)))) {
+> -					info->is_kicker = true;
+> -					strscpy(fw_name, "radeon/hainan_k_smc.bin");
+> -				} else if ((adev->pdev->revision == 0xc3) &&
+> -					 (adev->pdev->device == 0x6665)) {
+> -					info->is_kicker = true;
+> -					strscpy(fw_name, "radeon/banks_k_2_smc.bin");
+> -				} else {
+> -					strscpy(fw_name, "radeon/hainan_smc.bin");
+> -				}
+> -				break;
+>  			case CHIP_BONAIRE:
 
-[ Upstream commit d60073294cc3b46b73d6de247e0e5ae8684a6241 ]
+Is there any specific reason why the other ASICs in this switch
+(Bonaire, Hawaii, etc) are not using a similar mechanism like si_dpm.c?
 
-[WHY]
-The fw_state in dmub_srv was assigned with wrong address.
-The address was pointed to the firmware region.
+Anyway,
 
-[HOW]
-Fix the firmware state by using DMUB_DEBUG_FW_STATE_OFFSET
-in dmub_cmd.h.
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Lo-an Chen <lo-an.chen@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit f57b38ac85a01bf03020cc0a9761d63e5c0ce197)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index a3f3ff5d49ace..9d2250d84f291 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -708,7 +708,7 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 	cw6.region.base = DMUB_CW6_BASE;
- 	cw6.region.top = cw6.region.base + fw_state_fb->size;
- 
--	dmub->fw_state = fw_state_fb->cpu_addr;
-+	dmub->fw_state = (void *)((uintptr_t)(fw_state_fb->cpu_addr) + DMUB_DEBUG_FW_STATE_OFFSET);
- 
- 	region6.offset.quad_part = shared_state_fb->gpu_addr;
- 	region6.region.base = DMUB_CW6_BASE;
+>  				if ((adev->pdev->revision == 0x80) ||
+>  					(adev->pdev->revision == 0x81) ||
+> -- 
+> 2.49.0
+> 
+
 -- 
-2.39.5
-
+Rodrigo Siqueira
