@@ -4,74 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 918D4C35FFC
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 14:20:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBC91C35FFC
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 14:22:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30FF810E57D;
-	Tue, 25 Mar 2025 14:20:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD4C10E57F;
+	Tue, 25 Mar 2025 14:22:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KEsNpj7D";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TO/ZQV6Z";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25F8B10E57D;
- Tue, 25 Mar 2025 14:20:12 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-301a8b7398cso1517604a91.1; 
- Tue, 25 Mar 2025 07:20:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742912411; x=1743517211; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=i4L7vtbekxau+N8vnTb0gwa/BBAesYIKpvGqtJoUimg=;
- b=KEsNpj7DCRkhdbqwddK3CbzTEmM6FrLWLlyA84X8GM19aYiBpHI9Bt7T65v6PNDkcD
- VSYLU7rXhIQu8iwy91sZsUhaXgTE7Eq+HhPzaiVTidbU6/2MfOm3HqT/SBJxzRO3F6Bo
- +RTjhU9HPWVX46Y5Ym/TNs4dv3rwEYN2ExDOFZKNg/0G5kND7LjqD/CNApHjLO7TLFjb
- HL5Q+Ts+lp4w56WEdPbgjyYI7zdY66GrPc/0qAQ/U6y0/T2DC1lP7ruSKqsoGxnf3zmK
- EL5FkeJc+E9pCWHfIl6GTe+ZXyIalj++/8MUlK6V9ttKpNxdATVenT2YMRSj8oppyudq
- O+8w==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A53010E56D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 14:22:00 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52PD2Q8b026065
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 14:21:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Kp3yGWdT4AV6kkrdyjO2FJdT8nOV4kJcKTIpcQc7Pgs=; b=TO/ZQV6ZSOOIQO6/
+ EtuY3avalnKyKRDIYJ5L4diQO64ei0GCwfEGLTRLRfVAUZ/dzhogZfZsGwr9LOfG
+ 6TsfxYd6uqNSrVZNUlLTFuv07jCOec/l3ioo50XpUDWxWIYIRkN7L3dr850X+yIj
+ HNHk3Gu+WKCv8y5y1u+nxfPs/LGlnGX5jev1//5a2WihdrtiE8NxMe1Blu7DCzR1
+ am8P3+vZrj7jB6YzVh40dx/1uVJIwXjjB4hDQKb5Dx190G4OrLdmfaSNIRlfSgM8
+ 7HORa5z9tbLv2cqroJ8L3F7PUPAVoqWOGQp3NkI4MSprpbK3KVzwcDLasnSUFOLz
+ ygOT8w==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45hnk8r71f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 14:21:59 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-7c3b53373faso799434485a.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 07:21:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742912411; x=1743517211;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1742912518; x=1743517318;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=i4L7vtbekxau+N8vnTb0gwa/BBAesYIKpvGqtJoUimg=;
- b=unch9nFkYiP5grtrK0i+tkMLmn+57jybT0RGWFD8Wl2neaq4MDaL6OoIIeKpgLu+1W
- w7IHB1t/8NwEE8jdME1n5W+N1DGTUd3hcSyQ6ceAWvMEeRtaNROlR1pAeORbhc/J5qkB
- y5lfKyVUhjx5j6tbGoHGvKI+2PlTZgvrCwTbwtpWfN9hUddikE5s/O15BrFN4MOqMqaI
- qv5kL1Tc1o2FiXmgvfLQwKyGg0RXZR3R92UJntgzb/Erzx7dGP/9P83kZ5Xd/usfCGvN
- er9JHFk1hj0odXPfTYdp26I8ge9wSJOCR2tP9mLrpRBk5u+yOyJqREZ2DU9tzMsB7GQM
- WWAw==
+ bh=Kp3yGWdT4AV6kkrdyjO2FJdT8nOV4kJcKTIpcQc7Pgs=;
+ b=cQjPSzJgszWJ7E0ogebGvZbRmpDOmRg0I/O67JT+TNAH2R9XvwnPjBKU59THnzlDXN
+ /hMLGjiwtezHZm0we4bY87495fAAITYCBb60T3yJ88umbee+sWxil4RHD+5HBRCKvtGZ
+ RRREs1s3z8yk8ZazBd+j7N/zxqN0KKhCg0AkVB6PGgHLpxmPFjPRO0ybhWYlDBdaLmcU
+ xZBlMG4w1FvqDyIZZgN9uvfLf+LYL9602fHgzqWzoBXkaV3kfDHQxqc2oFJaTLIOYCsl
+ V8McVZAvZk+6HHzDZEcZaXYI/yIykqy75vs9NpF15ILa2ewjnlpylqLRhgs9hwAPEh5O
+ dQ2w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVWaj9Yoq33Z4rrJM2QQd5PWXAYrpxu59ceWfcTAn5u47Olt2To4lqYH24u7eQIvdjY0mBPtm2tyHXJ@lists.freedesktop.org,
- AJvYcCXAhhEl0yqK/3aJNQ4bKaJZtcC4VKs7O+gfaQMLZnniS/20qYiGAbXpB9QknHoqw30P8bhs3mTg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZi73ykrYLL/kk4E/7bO7v391YU1F5OZmT+WoCKZ6l0Ia0XjNq
- orYKQf0Wa5pzM9GzF5o9+3YGK70o981aUO87WTcvmf8AZhAdMcDrI7lo4imdjX4SuKV+6W3sFxb
- d0sqXYiq7sZWYS9kzzQInE+j9t2A=
-X-Gm-Gg: ASbGncs9B35ejUoIAkRz8Mj/wxoFDjjekDZQBkwHci97kOT8B730L3wYRZJQq+PQG1o
- XX904jJDmQHjSIIAQabfo1XGw3Hw0f2qtMfoI7p5KMOgdbD7LpbGOa39BdVLZcfzLxkQoD9u+2t
- 4fdtCI5e3qygARl8sg+Rkq0BGTLg==
-X-Google-Smtp-Source: AGHT+IHAolY+Get/kJBAAF50KlItDOfMAbpeBYkYfFsflb7rqe6tkJSn71jeSSxBNSv3ybme1lRgYtjxQaXjP5DQFqs=
-X-Received: by 2002:a17:90b:17c5:b0:2ff:4a6d:b359 with SMTP id
- 98e67ed59e1d1-3030ff14660mr8976662a91.7.1742912411258; Tue, 25 Mar 2025
- 07:20:11 -0700 (PDT)
+ AJvYcCWPbR3xl4pIH0bGOUbtZLjfF7anUnRvOfFb72/WaBFO4yj4MtV4Wc7ytwwAUTqCiM8sayAbyWmD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy8QnjR2GX6r/IQKNYPcV3qjhBbaxJ8Nxr8QHRr2QOabtG+V2ef
+ tT29TbTgzRjkkOPKCwp7MsGhM2gQ1J6f4Wb7FpFlQeeA31dtI6+wYCIewcbH3PWuyA8CB09bVpQ
+ /e9KCjZRNCldrNZmJy0NeSwQWUxKNS4IKK8VGMqJc4TmXskxcuug4r/eNCQXVrgIv
+X-Gm-Gg: ASbGnctVW61e6Thg4SKGfoRsicmQD7a/Ho8Qf0mY0hVkR8TV7qJszPgeEKQOZlLaybt
+ mgmKJjRd0qIM1dDZvOBkXQi1bEuRulIXmpnOqHq25Lda1LyHt0yQLcSay1CENMKttvOnSA82OiP
+ Zs8YEeKOZ0EGlFyu4duWx2kzi4G4XVJaDeuOhIPIr96hEQpbm0zJwpRPlaGKKsg0CxTYhq7wpuB
+ h9kp8MZ2L5zrkJiUsGuqQeXJe8oWqY1d0h+zFTN5gXg4swp/UGmu5/OQJBmjoTE+Vri+GTb/sZ9
+ X9plU/8tpyUITLcTbG5p2TopCPW1ZMLUqLUl8n2rYT3YjFLLi+JtQsvImcnCAh4qxxM=
+X-Received: by 2002:a05:620a:4082:b0:7c5:4194:bbcc with SMTP id
+ af79cd13be357-7c5ba1a5851mr2078811485a.29.1742912518285; 
+ Tue, 25 Mar 2025 07:21:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHE3gf2K5kIjZtYjJH4qhQtLNFCQgnGxwMyKEgZu4Q/N9eWpJ5iD6eXdGIpzuGP7y89fDMGrg==
+X-Received: by 2002:a05:620a:4082:b0:7c5:4194:bbcc with SMTP id
+ af79cd13be357-7c5ba1a5851mr2078805785a.29.1742912517757; 
+ Tue, 25 Mar 2025 07:21:57 -0700 (PDT)
+Received: from eriador.lan (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00::7a1]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54ad65083e4sm1508348e87.171.2025.03.25.07.21.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Mar 2025 07:21:56 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [RFC PATCH RESEND v4 0/6] drm/display: dp: add new DPCD access
+ functions
+Date: Tue, 25 Mar 2025 16:21:55 +0200
+Message-ID: <174291251084.2000243.209850835590674876.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.2
+In-Reply-To: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
+References: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20250325014912.23911-1-srikarananta01@gmail.com>
-In-Reply-To: <20250325014912.23911-1-srikarananta01@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 25 Mar 2025 10:19:59 -0400
-X-Gm-Features: AQ5f1Jpvm1BjO8DicOpLFH6O-0g58f9oKH-Qp-1OSpOcFPScESTJDPRJR3nUcy8
-Message-ID: <CADnq5_N9skrjQHEq5QP9c=7dad7HeSP7FaoTQFEg92dGdnJLtg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Fix typo
-To: AnantaSrikar <srikarananta01@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, Jack.Xiao@amd.com, sunil.khatri@amd.com, 
- Hawking.Zhang@amd.com, shaoyun.liu@amd.com, Jiadong.Zhu@amd.com, 
- chongli2@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: WbDTq5AQyEInRlvcTLUMZZsq2URGFXW1
+X-Authority-Analysis: v=2.4 cv=KMlaDEFo c=1 sm=1 tr=0 ts=67e2bc07 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Vs1iUdzkB0EA:10 a=DZoDOQWOqP-ft6bgs5oA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: WbDTq5AQyEInRlvcTLUMZZsq2URGFXW1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-25_06,2025-03-25_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxlogscore=999
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 mlxscore=0 priorityscore=1501
+ adultscore=0 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2503250101
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,40 +138,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Mon, 24 Mar 2025 13:51:18 +0200, Dmitry Baryshkov wrote:
+> Existing DPCD access functions return an error code or the number of
+> bytes being read / write in case of partial access. However a lot of
+> drivers either (incorrectly) ignore partial access or mishandle error
+> codes. In other cases this results in a boilerplate code which compares
+> returned value with the size.
+> 
+> As suggested by Jani implement new set of DPCD access helpers, which
+> ignore partial access, always return 0 or an error code. Implement
+> new helpers using existing functions to ensure backwards compatibility
+> and to assess necessity to handle incomplete reads on a global scale.
+> Currently only one possible place has been identified, dp-aux-dev, which
+> needs to handle possible holes in DPCD.
+> 
+> [...]
 
-Alex
+Applied to drm-misc-next, thanks!
 
-On Tue, Mar 25, 2025 at 4:14=E2=80=AFAM AnantaSrikar <srikarananta01@gmail.=
-com> wrote:
->
-> From: Ananta Srikar <srikarananta01@gmail.com>
->
-> Fixes a typo in the word "version" in an error message.
->
-> Signed-off-by: Ananta Srikar <srikarananta01@gmail.com>
->
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index f9a4d08eef92..fccf6e255b82 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -646,7 +646,7 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
->                 break;
->         case MES_MISC_OP_CHANGE_CONFIG:
->                 if ((mes->adev->mes.sched_version & AMDGPU_MES_VERSION_MA=
-SK) < 0x63) {
-> -                       dev_err(mes->adev->dev, "MES FW versoin must be l=
-arger than 0x63 to support limit single process feature.\n");
-> +                       dev_err(mes->adev->dev, "MES FW version must be l=
-arger than 0x63 to support limit single process feature.\n");
->                         return -EINVAL;
->                 }
->                 misc_pkt.opcode =3D MESAPI_MISC__CHANGE_CONFIG;
-> --
-> 2.49.0
->
+[1/6] drm/display: dp: implement new access helpers
+      commit: d8343e115658fb35115e0720f4761ffa0147329a
+[2/6] drm/display: dp: change drm_dp_dpcd_read_link_status() return value
+      commit: fcbb93f1e48a150159534a1e6ec19e6fdf9196df
+[3/6] drm/display: dp: use new DCPD access helpers
+      commit: af67978ee37e543e62d6d3f7eba58f8f259423a7
+[4/6] drm/display: dp-cec: use new DCPD access helpers
+      commit: 97f37939881327e118d6252289973c186377a075
+[5/6] drm/display: dp-mst-topology: use new DCPD access helpers
+      commit: 2554da0de3e8312c7149d03d702ddc6c1ff5e3de
+[6/6] drm/display: dp-tunnel: use new DCPD access helpers
+      commit: 95c4ea2e0329b370a53a041a19227f8da3f47481
+
+Best regards,
+-- 
+With best wishes
+Dmitry
+
