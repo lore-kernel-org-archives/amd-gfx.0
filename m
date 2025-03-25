@@ -4,81 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D5FDC36013
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C9AEC36012
 	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 08:39:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 787F510E66A;
-	Wed, 26 Mar 2025 08:39:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D04BD10E66D;
+	Wed, 26 Mar 2025 08:39:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CYoQlrbK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KzVbj+fk";
 	dkim-atps=neutral
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C38FD10E2EA;
- Tue, 25 Mar 2025 23:11:07 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id
- d75a77b69052e-476b89782c3so69282091cf.1; 
- Tue, 25 Mar 2025 16:11:07 -0700 (PDT)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2DF910E028;
+ Tue, 25 Mar 2025 21:05:58 +0000 (UTC)
+Received: by mail-qt1-f178.google.com with SMTP id
+ d75a77b69052e-476a1acf61eso56463781cf.1; 
+ Tue, 25 Mar 2025 14:05:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742944267; x=1743549067; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Yv0k/Fr18Nia/oix5F2g4TGuH0nYdcUdhj7DYGGgxH0=;
- b=CYoQlrbKM3hSY9fX516jnXlmxjarl527EH0UIlMy29GtyAtigI677amy8ULRPMOcWE
- 97NoKd0gE1P8dl369TGh1D0654GKSthcxKcC56wXCNdnowfd6wDrxUpiYKbfMwqK0KQd
- I0w5Z+y/3EAg9tL5BskgkLHZcO4Q/41nOVkUUe+IY8ShvDHcz7pbMpZjojrkUfNL54pY
- s91OVRRd6vQp6w25kPClGFI2cZEXhEIHLB6GfTVVSeJpeDBiiyqpubnvWI/fWoMi9ruz
- sQvreWQRx9yufkPF1B1qiSUXAWLRImydRSmfozJrPt0o1HHkOCZiXrepp5kIlcyKfTMp
- 4+BQ==
+ d=gmail.com; s=20230601; t=1742936756; x=1743541556; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FsZUEX6wOy6oNbIIbrt2jTVI/9CJN/g654c1cd4p7VQ=;
+ b=KzVbj+fk0bfEytMeRmu83mzoqHw2nAhJkz0fVNqCnCmCGXTT14eFE/8wQTXGrRczr/
+ pPoLCMu26SqeIgw1TFfxp7THtPuKuNpkC9j28Q8xww/jBbSy2HE5aq3GGDpXaME2ZKX0
+ hrgkjp0AdDWEFL8ndswy2vZ/2um4VAgHhWcHvdA0xUB67uRi79ZptGNnVheOaTdYGgoG
+ k/mYEzSFCcA83tudKAttgtG2qiuKsKWWaIIjl4eIf2BBuuVLsa483Bkwp2QgeWOIYEt1
+ vtuOa+Lx7BL/0WYSuAzHpHtPWEhYAFALU9pdvmaywVYANm8qov7OpqluF0VYKy/3etV6
+ cReg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742944267; x=1743549067;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Yv0k/Fr18Nia/oix5F2g4TGuH0nYdcUdhj7DYGGgxH0=;
- b=LNDn02ePr5oczNpu7tqEK5Tumj1jYtBTHm6KJE9dnhTVKIy7Y1jbxpHfvG7/5eU86d
- aCPTgTT0n3pBgdFte/orZJTCO0rVJFOERHruJCc08WE+47BJe0+/QHsXtS6VqhYDX0Nd
- +VHsxZ97M1IomUdY/E4Q63umZmzyHsiqDN9eUKH6GLPJMZN7n2ByyQ3XSF7dKFFV10Vh
- /wcEnui9xmkw05o/pX3PIglWrxUQ/Wkjnmq6aXyREbrlQsaTMZRxNAO6qoCp0WZ401xa
- 8/AjBLZtWTgUb5ksMj/d8C5oF0ur/jMwPkFDdHWdQtOyG6F9ApCJvg+gEIOsA0+7gc4G
- SB7w==
+ d=1e100.net; s=20230601; t=1742936756; x=1743541556;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=FsZUEX6wOy6oNbIIbrt2jTVI/9CJN/g654c1cd4p7VQ=;
+ b=GVfEAlC6BQpBGpX0BhNQV0znx/PQNfLG4AinHiIBR3K8o+nUHa2zepXZPU78JlNTcd
+ fOhXmzF+U15bNc0F09wFuCr/5CAYQaFOrFY0zO3AfIxFlzY8nvR19VT4Ba038K5ncVCf
+ 2CLSNXUKVEYFYfFZiALYiDrXRKOyg199NVOuMy9v13dNuORpImBiFt6qM4JWiTECFmhd
+ nIgg0fZ0slGDZ+VDFrgR6kFbmdpBOXQo8sToPoIquPEZ6BzyWbPE0kXpHAuDstF7TMqE
+ rtAl4p+PxNwOCbr0pG0fuJqyD60lLguIQt40SNVhlIRaHivRLDVnA1CdwWWjwvIINilF
+ O50Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUgGQmd7CytZv/IVxRSB/0KsgqPPp77XDNtO/RC932QLNsG2mSLeSwzJ551NRZHcmtr2Yx1lEZh@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDWmghUdALBNx2exvJsdv8xAP0XU4KXSVeGAFQHbgDFeRx7LTy
- +J2hURQYTZmZgvAjSTBUXKbewODItKJe1F48G/rLDQln0J78RD+RKik9y8pYfHg=
-X-Gm-Gg: ASbGncvQd00xupjqfbnNBCKdy7Ngb8CnPUJwdJSvUs+NcT1HC50pVcgJfU3syk78bAx
- mDg3U0bcPEI/SLPw57gw+a04lhQzxaVHadRVeyRFGSMOpCgewNBH9k7lJGfNweX7SV+r4+2gQcj
- RUSiEuO/gSXE7A29CBSbguskhhwcjTb/tIDnzz+qPtYOKcGg43HldRutGamJjvF2x9iuVMWAcd7
- JS48vv+2S0myjrAk7KYtZIJg6jzufAyiWhAer1NxxNH4En5pn/gpxE02Vy/dAwtTK3pjTSN6gSN
- ktQnyE5vngeVIK8Xm0Ncndj0Z7BX11GV83EwAlP26LzdmuQosGMriGGbKJZhBD6Hh15uQHEIMNn
- tBuYHs5U=
-X-Google-Smtp-Source: AGHT+IGA1CQFyXf66Rv0kFbgimISyo1ehln5yP3lhLZfPtIRMhjU5sUpgBnPf47YACkVrM56gugfwg==
-X-Received: by 2002:a05:622a:4d0f:b0:476:add4:d2b8 with SMTP id
- d75a77b69052e-4771de4953fmr270018191cf.32.1742944266602; 
- Tue, 25 Mar 2025 16:11:06 -0700 (PDT)
-Received: from [10.69.1.11] (c-68-55-107-1.hsd1.mi.comcast.net. [68.55.107.1])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4771d15a2d9sm64447471cf.2.2025.03.25.16.11.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 16:11:06 -0700 (PDT)
-Message-ID: <9ab05b38-6f77-4b0b-8a1b-8314e2873047@gmail.com>
-Date: Tue, 25 Mar 2025 19:11:05 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: use static ids for ACP platform devs
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, boyuan.zhang@amd.com
-References: <20250325210517.2097188-1-bradynorander@gmail.com>
- <CADnq5_MNBUY=jWbnq-gZQ_4_M_sBJGAgMD0bj2cMdnkoU9G=HA@mail.gmail.com>
-Content-Language: en-US
+ AJvYcCU2N1m0ly+jgBXyouI6mDR5cHjVOKP03yjUuqpbq62MxQmTkfm3Ds8k1EyZ/jgFZ/sUSZnAYo+G@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyzjuwQv6qim4DBBHh4i2KuGofxo3rYcaGNod4zH7BgJ0CDHf7F
+ 1w96dspofuJ1XBVeLX3L8Ar2x6G9yJK04TTOKtWJyrHmiEltibG04fPYauEFBEo=
+X-Gm-Gg: ASbGncu5kEf/MotIYQjPGbJvwPYJJ5/qUrWCnO93ilqyf5X+0en0CWmUEovmOrXGUsw
+ azUZrZpnliTTT+7TS8YUivMlyDtxwscKIesJrsTs8xnsOo4vLMjsidX5/WxFxAKTlT5x2+7a3zf
+ C8/9tquh21WQwRxuazYgTsQY2Q6sTWICrig0ZBKov+3YTg222/idTs6X+cRqyIu6e03dxv30I8j
+ LkawzHrP6yK7HdszqRCwSJSpZCYERn/Hh6dBw1EQ66U0SKVDcmhbH/p15JT99IBCMQmro+kKLWh
+ 65N8kuPS/bP+ecXasAcTn7dSGX4m9T1s0C9yLYmvv6gOIFm8gBdk0oCWinH5gm2gAQ9WHSgnGKu
+ Fhp1N3anSIFjsFubp548=
+X-Google-Smtp-Source: AGHT+IFpyLimJwylrCJjqs6ZcD29FiNH3Oc74veEai7LzC7yBUf1JyPuGEmZ9XzojoxaLSq9jn8TIw==
+X-Received: by 2002:a05:622a:4c8a:b0:476:838c:b0ce with SMTP id
+ d75a77b69052e-4771dd779eemr396540701cf.13.1742936755874; 
+ Tue, 25 Mar 2025 14:05:55 -0700 (PDT)
+Received: from localhost.localdomain (c-68-55-107-1.hsd1.mi.comcast.net.
+ [68.55.107.1]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-4771d51ffb4sm63484481cf.53.2025.03.25.14.05.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Mar 2025 14:05:55 -0700 (PDT)
 From: Brady Norander <bradynorander@gmail.com>
-In-Reply-To: <CADnq5_MNBUY=jWbnq-gZQ_4_M_sBJGAgMD0bj2cMdnkoU9G=HA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, sunil.khatri@amd.com, boyuan.zhang@amd.com,
+ Brady Norander <bradynorander@gmail.com>
+Subject: [PATCH] drm/amdgpu: use static ids for ACP platform devs
+Date: Tue, 25 Mar 2025 17:05:17 -0400
+Message-ID: <20250325210517.2097188-1-bradynorander@gmail.com>
+X-Mailer: git-send-email 2.49.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 26 Mar 2025 08:39:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,14 +88,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/25/25 6:12 PM, Alex Deucher wrote:
-> 
-> While you are at it, can you take a look at
-> drivers/gpu/drm/amd/amdgpu/isp_v4_1_0.c and
-> drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c as well?
-> 
-> Alex
+mfd_add_hotplug_devices() assigns child platform devices with
+PLATFORM_DEVID_AUTO, but the ACP machine drivers expect the platform
+device names to never change. Use mfd_add_devices() instead and give
+each cell a unique id.
 
-I think it makes more sense to handle that in a separate patch as it is 
-an unrelated ip block.
+Signed-off-by: Brady Norander <bradynorander@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+index deb0785350e8..9c657637d317 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+@@ -302,17 +302,19 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+ 		adev->acp.acp_res[2].end = adev->acp.acp_res[2].start;
+ 
+ 		adev->acp.acp_cell[0].name = "acp_audio_dma";
++		adev->acp.acp_cell[0].id = 0;
+ 		adev->acp.acp_cell[0].num_resources = 3;
+ 		adev->acp.acp_cell[0].resources = &adev->acp.acp_res[0];
+ 		adev->acp.acp_cell[0].platform_data = &adev->asic_type;
+ 		adev->acp.acp_cell[0].pdata_size = sizeof(adev->asic_type);
+ 
+ 		adev->acp.acp_cell[1].name = "designware-i2s";
++		adev->acp.acp_cell[1].id = 1;
+ 		adev->acp.acp_cell[1].num_resources = 1;
+ 		adev->acp.acp_cell[1].resources = &adev->acp.acp_res[1];
+ 		adev->acp.acp_cell[1].platform_data = &i2s_pdata[0];
+ 		adev->acp.acp_cell[1].pdata_size = sizeof(struct i2s_platform_data);
+-		r = mfd_add_hotplug_devices(adev->acp.parent, adev->acp.acp_cell, 2);
++		r = mfd_add_devices(adev->acp.parent, 0, adev->acp.acp_cell, 2, NULL, 0, NULL);
+ 		if (r)
+ 			goto failure;
+ 		r = device_for_each_child(adev->acp.parent, &adev->acp.acp_genpd->gpd,
+@@ -410,30 +412,34 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+ 		adev->acp.acp_res[4].end = adev->acp.acp_res[4].start;
+ 
+ 		adev->acp.acp_cell[0].name = "acp_audio_dma";
++		adev->acp.acp_cell[0].id = 0;
+ 		adev->acp.acp_cell[0].num_resources = 5;
+ 		adev->acp.acp_cell[0].resources = &adev->acp.acp_res[0];
+ 		adev->acp.acp_cell[0].platform_data = &adev->asic_type;
+ 		adev->acp.acp_cell[0].pdata_size = sizeof(adev->asic_type);
+ 
+ 		adev->acp.acp_cell[1].name = "designware-i2s";
++		adev->acp.acp_cell[1].id = 1;
+ 		adev->acp.acp_cell[1].num_resources = 1;
+ 		adev->acp.acp_cell[1].resources = &adev->acp.acp_res[1];
+ 		adev->acp.acp_cell[1].platform_data = &i2s_pdata[0];
+ 		adev->acp.acp_cell[1].pdata_size = sizeof(struct i2s_platform_data);
+ 
+ 		adev->acp.acp_cell[2].name = "designware-i2s";
++		adev->acp.acp_cell[2].id = 2;
+ 		adev->acp.acp_cell[2].num_resources = 1;
+ 		adev->acp.acp_cell[2].resources = &adev->acp.acp_res[2];
+ 		adev->acp.acp_cell[2].platform_data = &i2s_pdata[1];
+ 		adev->acp.acp_cell[2].pdata_size = sizeof(struct i2s_platform_data);
+ 
+ 		adev->acp.acp_cell[3].name = "designware-i2s";
++		adev->acp.acp_cell[3].id = 3;
+ 		adev->acp.acp_cell[3].num_resources = 1;
+ 		adev->acp.acp_cell[3].resources = &adev->acp.acp_res[3];
+ 		adev->acp.acp_cell[3].platform_data = &i2s_pdata[2];
+ 		adev->acp.acp_cell[3].pdata_size = sizeof(struct i2s_platform_data);
+ 
+-		r = mfd_add_hotplug_devices(adev->acp.parent, adev->acp.acp_cell, ACP_DEVS);
++		r = mfd_add_devices(adev->acp.parent, 0, adev->acp.acp_cell, ACP_DEVS, NULL, 0, NULL);
+ 		if (r)
+ 			goto failure;
+ 
+-- 
+2.48.1
 
