@@ -4,75 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2FD4C35FFC
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 12:42:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C35CC36005
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 13:30:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8B210E56C;
-	Tue, 25 Mar 2025 12:42:04 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A716E10E064
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 10:14:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1742897666; x=1743502466; i=spasswolf@web.de;
- bh=Kn4O1C1m+v3TNP8fqKbb9jrEsMA83fWOmk+rFaDwuPc=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
- References:MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=cF5eATILJVTjHeDfUYomZwTQyOXH75trm2neTwsGb+Ii2ftqe8whl2bdZJcJGzqW
- u8MMQTO+CoD4x9smEtvMPf6bzaX1AvpeAHhzh2aW0F9G7e9OnHb0kq0kdZnqW6zrq
- nHjhL5UxRmN7rV7BqA9NOSCDrSNRvwlhQoYg7WoHhGdMJqpLJDzKDGgKld418zQTi
- x0YY3BHzhAEveIG+uP9VUmDk9iwqdcfMuDjTonXrRWDThLuk2Z/C34Cpr7exazOtl
- 2govgLRM06lIffMN7C7/XcNfcck3pVNKmlajduNpcqko5+ba+N1p5l0XrXIFv5syR
- cK9llQ/TdZO0c+vgJA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from localhost.localdomain ([95.223.134.88]) by smtp.web.de
- (mrweb005 [213.165.67.108]) with ESMTPSA (Nemesis) id
- 1Mo6O7-1tLGmn1JpT-00koyo; Tue, 25 Mar 2025 11:14:26 +0100
-From: Bert Karwatzki <spasswolf@web.de>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Bert Karwatzki <spasswolf@web.de>, Balbir Singh <balbirs@nvidia.com>,
- Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
-Subject: RE: commit 7ffb791423c7 breaks steam game
-Date: Tue, 25 Mar 2025 11:14:23 +0100
-Message-ID: <20250325101424.4478-1-spasswolf@web.de>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: 634e77d7-4f3c-4d1a-8aa3-1978896f9bf2@amd.com
-References: 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02B3910E574;
+	Tue, 25 Mar 2025 13:30:25 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bk6bMMI7";
+	dkim-atps=neutral
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C84D10E574;
+ Tue, 25 Mar 2025 13:30:24 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-2ff5544af03so1706441a91.1; 
+ Tue, 25 Mar 2025 06:30:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742909424; x=1743514224; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q722jxqTVT+g05tQCH2LFkIe6kWPI1juC49lLz8NS48=;
+ b=bk6bMMI7/2cKMcxzVGEeRfK6GABYjN6ndE5/bkgglvB3+7/h1GBVObXs+yPV75zheY
+ 4ex4hChbZAdm4bIV17KLeDXh+VYQR2u8I5oafGzcT60dLWiIiXaXQiGH2ykADIr+bpRW
+ fYLlvExo0wP43MS1J3FA+FJ1jMyRPbCgrRCVNK3hBCzqnknVnqEwRxTD9pzUJzxQqKTa
+ PlbBuWtPVSyTlQdnWmJW4Wnlj6HNV/2jsy/zI4maJeEhZqqxMLYWx9gYPSs878zljo8i
+ ZZ8GgQMnf01iRNnRLRyJ+wtrLcKOVPWQ0Xgmq66n8VD+duwLIt/UKQDb7tYc4vLFAoOi
+ F/6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742909424; x=1743514224;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=q722jxqTVT+g05tQCH2LFkIe6kWPI1juC49lLz8NS48=;
+ b=WON25lEaYdJidMh/AYdHOWbhHA9lwpXDyIano+//O6qzSgJCvDL86kd1+lSjlQWmTc
+ gGx9s8bHxsAnmOGmSTg/XaLrFSO5naxpMKbu4WYGMRRpJtV3zUtgCsZD3I9OqzEkb/O4
+ Qp9oiyrarnI5Poh/wqKEcjcjcA9JwVg5H0TQbrt2Ic118EO4Ou9VpMypcsMmXV6zUwvf
+ K2hSesmMkSyYJlWpYedmm0TO8ySerUKWC5OFUaAot+Ti0tcurmLmAZXrlWLuB35eOp5F
+ BMccCTgL2xKB8Qv+YqYriwjcyBOk7znzB3i6k6VRbcu9x1OuWXMujyyUVngaDw+wCGhH
+ p1kw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWgtox36W9LrAs6xVwCUbHTMo5wRZn+IJRWwli2refaUrC8H+q1uGeHEGjSBQ/xT8DkpFyvlJV1@lists.freedesktop.org,
+ AJvYcCXOE31Ry67jHxJlIiYPdhRv1ulAHqvSaifO+SWP/irLmg9l4ot9xIhH5Nyc40/VJbYJTHeaAhwc5JDW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzj7FtMNiBL0gq0UU4MQK0vwAufWpSDuxjqnaIS2JYUV0/gh1Bm
+ JHY805gQLZ/uQOEVw0ic57tHooZubhQOlpMaQs+I87c7cRIWsQduMlrhAKaYtrmIcXmHv9OhERf
+ 1dc3FszEa0FzZYeJY7nOzKyzwezM=
+X-Gm-Gg: ASbGncsCpC5fPI3a1EkFWPrjrd37Msr3nKYpIO3uUixCPOavmaA4ZPoMoG7S3GzrCHW
+ aVO2KhtVpRCxQ0bBTNVt9MdoVVX7hOu/MOb4l7BtHbPvEYNStpQrDKrhHcx/15bjET/le5s43eF
+ pLOcDi0Zbj3Muw7OmaAYmB/J4aZeN6BK2eFgr6
+X-Google-Smtp-Source: AGHT+IFEwU0mzQzwopVChbmLTLgCHCdSEM0Oiqahw3awoVPc8dmuryHOr1+zVb9LRkoPMKr/uXX4e/1cbyOcLA5DyrQ=
+X-Received: by 2002:a17:90b:4b51:b0:2fa:6055:17e7 with SMTP id
+ 98e67ed59e1d1-3030ff111e8mr10630014a91.8.1742909423599; Tue, 25 Mar 2025
+ 06:30:23 -0700 (PDT)
 MIME-Version: 1.0
+References: <20250325000723.366365-1-andres.emb.sys@gmail.com>
+ <85bda3bf-eaed-4eac-97ca-92c6301c0f9b@amd.com>
+In-Reply-To: <85bda3bf-eaed-4eac-97ca-92c6301c0f9b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Mar 2025 09:30:10 -0400
+X-Gm-Features: AQ5f1JraLUR9qpob73hgVIVippaYdrSK1QKjYozttCiCMgHcKic32VXlQjSG_e4
+Message-ID: <CADnq5_OQEA07TNXdJy5wfViAk2dp-LNvaQQbT2UCs7BtcokgQg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Replace deprecated function strcpy() with
+ strscpy()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Andres Urian Florez <andres.emb.sys@gmail.com>, alexander.deucher@amd.com,
+ airlied@gmail.com, 
+ simona@ffwll.ch, mario.limonciello@amd.com, arnd@arndb.de, Tim.Huang@amd.com, 
+ skhan@linuxfoundation.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:SGxcBUha5iflKM8hzZwOrkwP0CO4z6rXyWXA0hg2dgGhN1A1yw6
- crz/7P/Pl/PK/774wZ8hqoYwIzu7OU++hQiLoOlEsDycXfuyfMBHzvPFJh/303dqFeELNR2
- 2fpDAEmHc0uU0FvgGaGPT5hUQIL3MNXnWfssESsJDFIJjW/EOUSdaZS0mxILEgpnxCAnZqb
- SOqvM3Pi2DT2x5Im1lI+A==
-UI-OutboundReport: notjunk:1;M01:P0:SoAjOdVbYAA=;zblxxf0DeO9eZMftQS+pZIW+MWS
- fTgZ1Kv2lHgv8rhyLkfnW5xyhhtiO+lxhwMCTF7+ETk9mHZkg1SiSZAx2ZfUAsVMXu7iQ1RCB
- FicS7Sulz9RzQMu7TckNskWDlfqoTzcGFzernIiyN9sY6OTEJO7dZAijS6O5iOJeLrdyiZFtW
- 19yOEHQwM8/EH3/tRehtEAQh43u4FBumyiMzGKMDFKrRLnMyiUrODXybRFYdPM+hfRm9E6dWs
- J2VNQLpfHj5JiQH4ZdVtZcc0Zj8g148Bniuhcdzfn/7UEBlcctH9/SCg9G/owBw45aPQIi9NZ
- kAHVo0xYgGT/NDMw/pv3nQelKADK/YWeIf9sMWGjdqc2zYK7csgvpL8sLlBWZxtAY6oOGZFmq
- 6k7fZkj4EmSZM9k9pKLOiWSKUczEAequy9wpVAWNmONBKc0cDUQFd/Flu1olLiJpX9KnK50Rk
- x3+d0dsM+ObUr3JmMoveiVfATez+jtX+GO9GA44MJbqwBL5RYxqUUJxkDRkrIpEHp0mHq2QR7
- TyePji1FlAIXYvV3fFVRW5GSUAE+70VYvks+cowInx0CIdqc8phaIU3il25RFhK5y1qvjDu3O
- ktqXwiEPcQj7OY4SuvGEUlqkcddhtdPnxA2OFOSa+yTVfMRld2a4nwBJpPNSgZuS3FXMxY3up
- 2orl496eT3rtBCNeSvtVkJOrV2T9XbXBwzPLll2r7w6QjVcJfgZMCJd5F8wGoXHZORohVdPnS
- od3fExZWG0JTbXtKbuEytZFgUJuCKGY7t6UwS1OmfSmx4UKEbLHm8WpEUFssV9R9XajQN8Ee1
- j6BlJzZ2ePhMpMV/vzQu6wPEXynMcKzWSPW7BsXr9LJzmDgUiC6G3uYXP+ouY5cxf3Hi4JcG3
- cxYRzqOet71iFfqC1+F5j74l88X+ABtBMVCFY8kmxkocOwr1HWp3SSp+8teDcoZ+sb/5gCpqN
- wuNOknPN3H+WU2t9J8pcXw0Resa1GFNwh6Kr2vtJCqJ4+WLZppRw1j6GIfCY97M+B3n/RiHpA
- BdBEfvLPAY7KiNyHyOtfKiWb1pIJm00hdrOPmmhkkxgkEEy/N2G8/dzPoceTjxw2XTNNylyyo
- BidQ6Wby0I9g1gRGY//uSR298k0d4/przQFdYjFRJZeUrmHfHY1Tj7ZnH/5NtCAsSeq3Ul8nt
- 7TYTdatpGdqbMsAK5stlLAleyzXNPUAb3z2WCDsyrDxY7HM3aIpuvnbqixM9smkagp4LgRUNJ
- i34WNLd69pLUH6aVWZodEbMat86TemCmJJBeytlv2gwwS/5A213P0wp/3jFos5V5er3z5s7ng
- ZJdyA0MEHGrFGwN841KzJrh95e87p6aFPg/26fj3YDvvVEcREc5VklFSf6Vi1wlNSFTF9Sb+R
- Ff6F0Bzlh0RVtdOQqyBsIQ8ngj7DfbpA10dL7CqhB+Nfv21fMNrD+E1qnX4JSD+FTopd/PTsZ
- 127qOq0v9Yo/wNGIPlwHRrQyJQog=
-X-Mailman-Approved-At: Tue, 25 Mar 2025 12:41:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,121 +88,308 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-My /proc/iomem  contans two memory areas of 8G size which are
-belonging to PCI 0000:03:00.0, one of the is the BAR reported by dmesg
-[ 0.312692] [ T1] pci 0000:03:00.0: BAR 0 [mem 0xfc00000000-0xfdffffffff 6=
-4bit pref]
-the other one is "afe00000000-affffffffff : 0000:03:00.0" (in the case wit=
-hout nokaslr) which shifts
-to "3ffe00000000-3fffffffffff : 0000:03:00.0" in the case with nokaslr.
+On Tue, Mar 25, 2025 at 4:38=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Alex shouldn't be try to completely nuke the CGS functions?
 
-Here's /proc/iomem in the case without nokaslr:
-00000000-00000fff : Reserved
-00001000-0009ffff : System RAM
-000a0000-000fffff : Reserved
-  000a0000-000dffff : PCI Bus 0000:00
-  000f0000-000fffff : System ROM
-00100000-09bfefff : System RAM
-09bff000-0a000fff : Reserved
-0a001000-0a1fffff : System RAM
-0a200000-0a20efff : ACPI Non-volatile Storage
-0a20f000-e62edfff : System RAM
-e62ee000-e63e1fff : Reserved
-e63e2000-e87cafff : System RAM
-e87cb000-e87cbfff : Reserved
-e87cc000-e9e1ffff : System RAM
-e9e20000-eb33efff : Reserved
-  eb31e000-eb321fff : MSFT0101:00
-  eb322000-eb325fff : MSFT0101:00
-eb33f000-eb39efff : ACPI Tables
-eb39f000-eb556fff : ACPI Non-volatile Storage
-eb557000-ed1fefff : Reserved
-ed1ff000-edffffff : System RAM
-ee000000-efffffff : Reserved
-f0000000-fcffffff : PCI Bus 0000:00
-  f0000000-f7ffffff : PCI ECAM 0000 [bus 00-7f]
-    f0000000-f7ffffff : pnp 00:00
-  fc500000-fc9fffff : PCI Bus 0000:08
-    fc500000-fc5fffff : 0000:08:00.7
-      fc500000-fc5fffff : pcie_mp2_amd
-    fc600000-fc6fffff : 0000:08:00.4
-      fc600000-fc6fffff : xhci-hcd
-    fc700000-fc7fffff : 0000:08:00.3
-      fc700000-fc7fffff : xhci-hcd
-    fc800000-fc8fffff : 0000:08:00.2
-      fc800000-fc8fffff : ccp
-    fc900000-fc97ffff : 0000:08:00.0
-    fc980000-fc9bffff : 0000:08:00.5
-      fc980000-fc9bffff : AMD ACP3x audio
-        fc980000-fc990200 : acp_pdm_iomem
-    fc9c0000-fc9c7fff : 0000:08:00.6
-      fc9c0000-fc9c7fff : ICH HD audio
-    fc9c8000-fc9cbfff : 0000:08:00.1
-      fc9c8000-fc9cbfff : ICH HD audio
-    fc9cc000-fc9cdfff : 0000:08:00.7
-    fc9ce000-fc9cffff : 0000:08:00.2
-      fc9ce000-fc9cffff : ccp
-  fca00000-fccfffff : PCI Bus 0000:01
-    fca00000-fcbfffff : PCI Bus 0000:02
-      fca00000-fcbfffff : PCI Bus 0000:03
-        fca00000-fcafffff : 0000:03:00.0
-        fcb00000-fcb1ffff : 0000:03:00.0
-        fcb20000-fcb23fff : 0000:03:00.1
-          fcb20000-fcb23fff : ICH HD audio
-    fcc00000-fcc03fff : 0000:01:00.0
-  fcd00000-fcdfffff : PCI Bus 0000:07
-    fcd00000-fcd03fff : 0000:07:00.0
-      fcd00000-fcd03fff : nvme
-  fce00000-fcefffff : PCI Bus 0000:06
-    fce00000-fce03fff : 0000:06:00.0
-      fce00000-fce03fff : nvme
-  fcf00000-fcffffff : PCI Bus 0000:05
-    fcf00000-fcf03fff : 0000:05:00.0
-    fcf04000-fcf04fff : 0000:05:00.0
-      fcf04000-fcf04fff : r8169
-fd300000-fd37ffff : amd_iommu
-fec00000-fec003ff : IOAPIC 0
-fec01000-fec013ff : IOAPIC 1
-fec10000-fec10fff : Reserved
-  fec10000-fec10fff : pnp 00:04
-fed00000-fed00fff : Reserved
-  fed00000-fed003ff : HPET 0
-    fed00000-fed003ff : PNP0103:00
-fed40000-fed44fff : Reserved
-fed80000-fed8ffff : Reserved
-  fed81200-fed812ff : AMDI0030:00
-  fed81500-fed818ff : AMDI0030:00
-    fed81500-fed818ff : AMDI0030:00 AMDI0030:00
-fedc0000-fedc0fff : pnp 00:04
-fedc4000-fedc9fff : Reserved
-  fedc5000-fedc5fff : AMDI0010:03
-    fedc5000-fedc5fff : AMDI0010:03 AMDI0010:03
-fedcc000-fedcefff : Reserved
-fedd5000-fedd5fff : Reserved
-fee00000-fee00fff : pnp 00:04
-ff000000-ffffffff : pnp 00:04
-100000000-fee2fffff : System RAM
-  825600000-8261fa1b1 : Kernel code
-  826200000-82663dfff : Kernel rodata
-  826800000-82692ef3f : Kernel data
-  826eaf000-826ffffff : Kernel bss
-fee300000-100fffffff : Reserved
-1010000000-ffffffffff : PCI Bus 0000:00
-  fc00000000-fe0fffffff : PCI Bus 0000:01
-    fc00000000-fe0fffffff : PCI Bus 0000:02
-      fc00000000-fe0fffffff : PCI Bus 0000:03
-        fc00000000-fdffffffff : 0000:03:00.0 This is the usual BAR reporte=
-d by dmesg (and lspci -vv)
-        fe00000000-fe0fffffff : 0000:03:00.0
-  fe20000000-fe301fffff : PCI Bus 0000:08
-    fe20000000-fe2fffffff : 0000:08:00.0
-    fe30000000-fe301fffff : 0000:08:00.0
-  fe30300000-fe304fffff : PCI Bus 0000:04
-    fe30300000-fe303fffff : 0000:04:00.0
-      fe30300000-fe303fffff : 0000:04:00.0
-    fe30400000-fe30403fff : 0000:04:00.0
-    fe30404000-fe30404fff : 0000:04:00.0
-afe00000000-affffffffff : 0000:03:00.0 This is the memory which shifts wit=
-h nokaslr
+Sure, but it would need to be replaced with something else so I'm not
+sure it's worth the effort since it's only used by a few older GPUs.
 
-Bert Karwatzki
+Alex
+
+>
+> Christian.
+>
+> Am 25.03.25 um 01:07 schrieb Andres Urian Florez:
+> > Instead of using the strcpy() deprecated function to populate the
+> > fw_name, use the strscpy() function
+> >
+> > Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#st=
+rcpy
+> >
+> > Signed-off-by: Andres Urian Florez <andres.emb.sys@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 68 ++++++++++++-------------
+> >  1 file changed, 34 insertions(+), 34 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_cgs.c
+> > index 68bce6a6d09d..525e53c94f4f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+> > @@ -253,16 +253,16 @@ static int amdgpu_cgs_get_firmware_info(struct cg=
+s_device *cgs_device,
+> >               if (!adev->pm.fw) {
+> >                       switch (adev->asic_type) {
+> >                       case CHIP_TAHITI:
+> > -                             strcpy(fw_name, "radeon/tahiti_smc.bin");
+> > +                             strscpy(fw_name, "radeon/tahiti_smc.bin")=
+;
+> >                               break;
+> >                       case CHIP_PITCAIRN:
+> >                               if ((adev->pdev->revision =3D=3D 0x81) &&
+> >                                   ((adev->pdev->device =3D=3D 0x6810) |=
+|
+> >                                   (adev->pdev->device =3D=3D 0x6811))) =
+{
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "radeon/pitcairn_=
+k_smc.bin");
+> > +                                     strscpy(fw_name, "radeon/pitcairn=
+_k_smc.bin");
+> >                               } else {
+> > -                                     strcpy(fw_name, "radeon/pitcairn_=
+smc.bin");
+> > +                                     strscpy(fw_name, "radeon/pitcairn=
+_smc.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_VERDE:
+> > @@ -276,9 +276,9 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_=
+device *cgs_device,
+> >                                       ((adev->pdev->device =3D=3D 0x682=
+3) ||
+> >                                       (adev->pdev->device =3D=3D 0x682b=
+)))) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "radeon/verde_k_s=
+mc.bin");
+> > +                                     strscpy(fw_name, "radeon/verde_k_=
+smc.bin");
+> >                               } else {
+> > -                                     strcpy(fw_name, "radeon/verde_smc=
+.bin");
+> > +                                     strscpy(fw_name, "radeon/verde_sm=
+c.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_OLAND:
+> > @@ -290,9 +290,9 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_=
+device *cgs_device,
+> >                                   ((adev->pdev->revision =3D=3D 0x83) &=
+&
+> >                                       (adev->pdev->device =3D=3D 0x6610=
+))) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "radeon/oland_k_s=
+mc.bin");
+> > +                                     strscpy(fw_name, "radeon/oland_k_=
+smc.bin");
+> >                               } else {
+> > -                                     strcpy(fw_name, "radeon/oland_smc=
+.bin");
+> > +                                     strscpy(fw_name, "radeon/oland_sm=
+c.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_HAINAN:
+> > @@ -304,13 +304,13 @@ static int amdgpu_cgs_get_firmware_info(struct cg=
+s_device *cgs_device,
+> >                                       (adev->pdev->device =3D=3D 0x6665=
+) ||
+> >                                        (adev->pdev->device =3D=3D 0x666=
+7)))) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "radeon/hainan_k_=
+smc.bin");
+> > +                                     strscpy(fw_name, "radeon/hainan_k=
+_smc.bin");
+> >                               } else if ((adev->pdev->revision =3D=3D 0=
+xc3) &&
+> >                                        (adev->pdev->device =3D=3D 0x666=
+5)) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "radeon/banks_k_2=
+_smc.bin");
+> > +                                     strscpy(fw_name, "radeon/banks_k_=
+2_smc.bin");
+> >                               } else {
+> > -                                     strcpy(fw_name, "radeon/hainan_sm=
+c.bin");
+> > +                                     strscpy(fw_name, "radeon/hainan_s=
+mc.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_BONAIRE:
+> > @@ -318,17 +318,17 @@ static int amdgpu_cgs_get_firmware_info(struct cg=
+s_device *cgs_device,
+> >                                       (adev->pdev->revision =3D=3D 0x81=
+) ||
+> >                                       (adev->pdev->device =3D=3D 0x665f=
+)) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "amdgpu/bonaire_k=
+_smc.bin");
+> > +                                     strscpy(fw_name, "amdgpu/bonaire_=
+k_smc.bin");
+> >                               } else {
+> > -                                     strcpy(fw_name, "amdgpu/bonaire_s=
+mc.bin");
+> > +                                     strscpy(fw_name, "amdgpu/bonaire_=
+smc.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_HAWAII:
+> >                               if (adev->pdev->revision =3D=3D 0x80) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "amdgpu/hawaii_k_=
+smc.bin");
+> > +                                     strscpy(fw_name, "amdgpu/hawaii_k=
+_smc.bin");
+> >                               } else {
+> > -                                     strcpy(fw_name, "amdgpu/hawaii_sm=
+c.bin");
+> > +                                     strscpy(fw_name, "amdgpu/hawaii_s=
+mc.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_TOPAZ:
+> > @@ -338,76 +338,76 @@ static int amdgpu_cgs_get_firmware_info(struct cg=
+s_device *cgs_device,
+> >                                   ((adev->pdev->device =3D=3D 0x6900) &=
+& (adev->pdev->revision =3D=3D 0xD1)) ||
+> >                                   ((adev->pdev->device =3D=3D 0x6900) &=
+& (adev->pdev->revision =3D=3D 0xD3))) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "amdgpu/topaz_k_s=
+mc.bin");
+> > +                                     strscpy(fw_name, "amdgpu/topaz_k_=
+smc.bin");
+> >                               } else
+> > -                                     strcpy(fw_name, "amdgpu/topaz_smc=
+.bin");
+> > +                                     strscpy(fw_name, "amdgpu/topaz_sm=
+c.bin");
+> >                               break;
+> >                       case CHIP_TONGA:
+> >                               if (((adev->pdev->device =3D=3D 0x6939) &=
+& (adev->pdev->revision =3D=3D 0xf1)) ||
+> >                                   ((adev->pdev->device =3D=3D 0x6938) &=
+& (adev->pdev->revision =3D=3D 0xf1))) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "amdgpu/tonga_k_s=
+mc.bin");
+> > +                                     strscpy(fw_name, "amdgpu/tonga_k_=
+smc.bin");
+> >                               } else
+> > -                                     strcpy(fw_name, "amdgpu/tonga_smc=
+.bin");
+> > +                                     strscpy(fw_name, "amdgpu/tonga_sm=
+c.bin");
+> >                               break;
+> >                       case CHIP_FIJI:
+> > -                             strcpy(fw_name, "amdgpu/fiji_smc.bin");
+> > +                             strscpy(fw_name, "amdgpu/fiji_smc.bin");
+> >                               break;
+> >                       case CHIP_POLARIS11:
+> >                               if (type =3D=3D CGS_UCODE_ID_SMU) {
+> >                                       if (ASICID_IS_P21(adev->pdev->dev=
+ice, adev->pdev->revision)) {
+> >                                               info->is_kicker =3D true;
+> > -                                             strcpy(fw_name, "amdgpu/p=
+olaris11_k_smc.bin");
+> > +                                             strscpy(fw_name, "amdgpu/=
+polaris11_k_smc.bin");
+> >                                       } else if (ASICID_IS_P31(adev->pd=
+ev->device, adev->pdev->revision)) {
+> >                                               info->is_kicker =3D true;
+> > -                                             strcpy(fw_name, "amdgpu/p=
+olaris11_k2_smc.bin");
+> > +                                             strscpy(fw_name, "amdgpu/=
+polaris11_k2_smc.bin");
+> >                                       } else {
+> > -                                             strcpy(fw_name, "amdgpu/p=
+olaris11_smc.bin");
+> > +                                             strscpy(fw_name, "amdgpu/=
+polaris11_smc.bin");
+> >                                       }
+> >                               } else if (type =3D=3D CGS_UCODE_ID_SMU_S=
+K) {
+> > -                                     strcpy(fw_name, "amdgpu/polaris11=
+_smc_sk.bin");
+> > +                                     strscpy(fw_name, "amdgpu/polaris1=
+1_smc_sk.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_POLARIS10:
+> >                               if (type =3D=3D CGS_UCODE_ID_SMU) {
+> >                                       if (ASICID_IS_P20(adev->pdev->dev=
+ice, adev->pdev->revision)) {
+> >                                               info->is_kicker =3D true;
+> > -                                             strcpy(fw_name, "amdgpu/p=
+olaris10_k_smc.bin");
+> > +                                             strscpy(fw_name, "amdgpu/=
+polaris10_k_smc.bin");
+> >                                       } else if (ASICID_IS_P30(adev->pd=
+ev->device, adev->pdev->revision)) {
+> >                                               info->is_kicker =3D true;
+> > -                                             strcpy(fw_name, "amdgpu/p=
+olaris10_k2_smc.bin");
+> > +                                             strscpy(fw_name, "amdgpu/=
+polaris10_k2_smc.bin");
+> >                                       } else {
+> > -                                             strcpy(fw_name, "amdgpu/p=
+olaris10_smc.bin");
+> > +                                             strscpy(fw_name, "amdgpu/=
+polaris10_smc.bin");
+> >                                       }
+> >                               } else if (type =3D=3D CGS_UCODE_ID_SMU_S=
+K) {
+> > -                                     strcpy(fw_name, "amdgpu/polaris10=
+_smc_sk.bin");
+> > +                                     strscpy(fw_name, "amdgpu/polaris1=
+0_smc_sk.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_POLARIS12:
+> >                               if (ASICID_IS_P23(adev->pdev->device, ade=
+v->pdev->revision)) {
+> >                                       info->is_kicker =3D true;
+> > -                                     strcpy(fw_name, "amdgpu/polaris12=
+_k_smc.bin");
+> > +                                     strscpy(fw_name, "amdgpu/polaris1=
+2_k_smc.bin");
+> >                               } else {
+> > -                                     strcpy(fw_name, "amdgpu/polaris12=
+_smc.bin");
+> > +                                     strscpy(fw_name, "amdgpu/polaris1=
+2_smc.bin");
+> >                               }
+> >                               break;
+> >                       case CHIP_VEGAM:
+> > -                             strcpy(fw_name, "amdgpu/vegam_smc.bin");
+> > +                             strscpy(fw_name, "amdgpu/vegam_smc.bin");
+> >                               break;
+> >                       case CHIP_VEGA10:
+> >                               if ((adev->pdev->device =3D=3D 0x687f) &&
+> >                                       ((adev->pdev->revision =3D=3D 0xc=
+0) ||
+> >                                       (adev->pdev->revision =3D=3D 0xc1=
+) ||
+> >                                       (adev->pdev->revision =3D=3D 0xc3=
+)))
+> > -                                     strcpy(fw_name, "amdgpu/vega10_ac=
+g_smc.bin");
+> > +                                     strscpy(fw_name, "amdgpu/vega10_a=
+cg_smc.bin");
+> >                               else
+> > -                                     strcpy(fw_name, "amdgpu/vega10_sm=
+c.bin");
+> > +                                     strscpy(fw_name, "amdgpu/vega10_s=
+mc.bin");
+> >                               break;
+> >                       case CHIP_VEGA12:
+> > -                             strcpy(fw_name, "amdgpu/vega12_smc.bin");
+> > +                             strscpy(fw_name, "amdgpu/vega12_smc.bin")=
+;
+> >                               break;
+> >                       case CHIP_VEGA20:
+> > -                             strcpy(fw_name, "amdgpu/vega20_smc.bin");
+> > +                             strscpy(fw_name, "amdgpu/vega20_smc.bin")=
+;
+> >                               break;
+> >                       default:
+> >                               DRM_ERROR("SMC firmware not supported\n")=
+;
+>
