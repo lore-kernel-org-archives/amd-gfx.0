@@ -4,45 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FE6FC36008
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 20:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E24BC36005
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 20:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61ED610E5F3;
-	Tue, 25 Mar 2025 20:16:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A890110E120;
+	Tue, 25 Mar 2025 20:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dDY+q0zR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CYMYqJ4U";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3504210E5F3
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 20:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=bznD8K2AHJ7XeWN/yTbp7WhitiGm8AAMSx/giE3gARU=; b=dDY+q0zRkxpmGKyZbwRQ+pHmHL
- ariccukgIRJRy1l88Kv5QGjjgpTx8X4zxqqdwQyRCq5lzeYu0ygccPM2Q4j0jcJ3f2uihd4yT24PB
- n8ZrlD3N9KEncd5qCvKQzrVbg24N5OSI2uPAqDUIPmfyYa9cSs+wVLZLYBTOTwuRMxYuyvEcQjQ0t
- vleEDezacauLDPE+yXnF1+/05NP2/b9c+nv73krkeucFSpp5citHKDs1I/JtQYufhRCf9hFai/NEN
- 4XIp+MpMip2ZssZ3tjFehEIIvw8Y7t9NQVQi8ZL755ONEgaepVld3QL3IDJwLWjxL96GdEfMTkQ+Q
- Q5kHujuQ==;
-Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
- helo=maloca.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1txAhP-006IyR-6l; Tue, 25 Mar 2025 21:16:35 +0100
-Date: Tue, 25 Mar 2025 14:16:32 -0600
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 1/6] drm/amdgpu/gfx6: fix CSIB handling
-Message-ID: <qb3g5stqctrdwfqwbrlwzuevcuxvof4z3yj2iigfuv4mrzpbc2@ubfz5xidet53>
-References: <20250319162225.3775315-1-alexander.deucher@amd.com>
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1115210E5FA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 20:38:23 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-301a6347494so1499460a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 13:38:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742935102; x=1743539902; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UXTPcUXqGt1fhBFrHqeVecRiPrIlJ3rKRHVCNGrKTuk=;
+ b=CYMYqJ4UruYvasbK9xftIKq+iEIi65d/u3/Wpb/5dFiSYrWI555PIz0C7r/4JZrM5x
+ o8UZcBVFImtGeSRW7W4z7dxMCKHXmD/bi7JihKZe0JwVZWyjj2htn6yBDHy+0LqOVn9q
+ rJLrgGS/vbwrmDTK9Qfo0Xs2k6vmx8ETxQv49jfcl3Hzw2tWNjIVmto4C9X4zxDe+pN3
+ JHBJtvqyzbv6eUDincXP2Q21uuNv3B1nzsk3+qhCUP9Tt65SIUqfhNXEfJDzHHrf1YjR
+ lvL1lrT+cngsf/oa++rcOqG1omTgMb3zZnXtedMPaqzJOUWB+uZcW2MqwJkQqDdS9Fel
+ FOkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742935102; x=1743539902;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UXTPcUXqGt1fhBFrHqeVecRiPrIlJ3rKRHVCNGrKTuk=;
+ b=vQxHRap9by9BJ6K3xb3j6q1AoHDa2HqBOHDsCMMForOcK3RAKkGZE+hHkuWHMRCFa5
+ y5+3yMSnQEhMtMrffkBYyHFbT8VcOSGKRdIqV1nR3zgvehKNVVMkkRcajJgHWsdpxwZr
+ SNeHPZEZ0Oj9Sux8FcCYvIxAmod/o37cSdz3v/y/2Ih+JtwMUznAaWlkUT3Nxv/kfcaY
+ sz79dWjxEBpZfc1J/0dUQ7AHF3AGG/lR9ou8JjpV13sEwgRy1GaXEXI2Xop0Oe5RE8Oc
+ 1CN7D7jkO+9x8zRxtCN35AmWVRlaKQ5YZ3eI2BDJ81siuuL+jGN8xr6qTGIIG3TsCtRK
+ 62ww==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUuwAYnM5zhlIZMdwObYsxj+J1JYy9ebLocCbDa0v9H/MfGBtG/X8VLClJddvPfHWDBA3uNLH1l@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLYXtOXcKeL1r69XSRNktEpEv5ECEckrp0s0gdcptEzTwPposk
+ qBq+qXZkUqI8YoYcYnYODN+Q6mBkYVA7dnyqvcEx7klgtgET5X3qkPdsBxR/c3XmsPSx0X5tVvu
+ Hlp0mmOC3fetI6ShZAUlplE1dZWJiIw==
+X-Gm-Gg: ASbGncuu4gpVmlI2slCE487ovCepO45C8DzF2d2IFykXaxeyayiWVj19qxH47GPWuaR
+ i5VJ1sfKpB41+IwOjol8T5Wn5QswdSn4w5fXJSEXDKCh7rzh0FkHyFhiRBTaDR9Ds3iaZHXowfs
+ CHGhhqqrrPMKJdXKgU/X+5Q0JKRA==
+X-Google-Smtp-Source: AGHT+IFonAuSDPlhGjiLgRlnQeUzLgmmclW6njsaWuT0cRVUuOUDWscUuE1JJ1pGJd1j0su1shtP2YDZmoFpqDhCpwk=
+X-Received: by 2002:a17:90b:1b09:b0:2ff:4e90:3c47 with SMTP id
+ 98e67ed59e1d1-3030fee39d8mr10712815a91.4.1742935102182; Tue, 25 Mar 2025
+ 13:38:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250319162225.3775315-1-alexander.deucher@amd.com>
+References: <20250319162225.3775315-1-alexander.deucher@amd.com>
+ <qb3g5stqctrdwfqwbrlwzuevcuxvof4z3yj2iigfuv4mrzpbc2@ubfz5xidet53>
+In-Reply-To: <qb3g5stqctrdwfqwbrlwzuevcuxvof4z3yj2iigfuv4mrzpbc2@ubfz5xidet53>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Mar 2025 16:38:10 -0400
+X-Gm-Features: AQ5f1JoQ5dBLlGDTzrh5qlZ_9H5cbAyNVdyzEHtwOPL8GIowUNTTU7WsqWBol4s
+Message-ID: <CADnq5_Ns=MMiO=VvWpT9Gr6Kb5grqXA5TR_omYB411m=K2y-SQ@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/amdgpu/gfx6: fix CSIB handling
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,38 +82,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 03/19, Alex Deucher wrote:
-> We shouldn't return after the last section.
-> We need to update the rest of the CSIB.
+On Tue, Mar 25, 2025 at 4:16=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
+>
+> On 03/19, Alex Deucher wrote:
+> > We shouldn't return after the last section.
+> > We need to update the rest of the CSIB.
+>
+> What is CSIB?
 
-What is CSIB?
+Clear State Indirect Buffer.  It provides the clear state that gets
+put into the hardware context if when user mode puts requests the
+clear state in their command buffer.  Driver programs this explicitly
+when it sets up the kernel rings.  Driver also provides a pointer to
+it which is used by the firmware to load the clear state in some
+cases.
 
-What happens if the other CSIB is not updated?
+>
+> What happens if the other CSIB is not updated?
 
-Thanks
+The clear state packet submitted by userspace won't work as expected
+if the clear state is not properly initialized.  In this case, I'm not
+sure if there is actually a function difference since the driver
+always initializes the clear state at kernel queue init time, but best
+to make sure the buffer pointed to by the RLC is correct.
 
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> index 13fbee46417af..cee2cf47112c9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> @@ -2874,8 +2874,6 @@ static void gfx_v6_0_get_csb_buffer(struct amdgpu_device *adev,
->  				buffer[count++] = cpu_to_le32(ext->reg_index - 0xa000);
->  				for (i = 0; i < ext->reg_count; i++)
->  					buffer[count++] = cpu_to_le32(ext->extent[i]);
-> -			} else {
-> -				return;
->  			}
->  		}
->  	}
-> -- 
-> 2.48.1
-> 
+Alex
 
--- 
-Rodrigo Siqueira
+>
+> Thanks
+>
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 2 --
+> >  1 file changed, 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v6_0.c
+> > index 13fbee46417af..cee2cf47112c9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> > @@ -2874,8 +2874,6 @@ static void gfx_v6_0_get_csb_buffer(struct amdgpu=
+_device *adev,
+> >                               buffer[count++] =3D cpu_to_le32(ext->reg_=
+index - 0xa000);
+> >                               for (i =3D 0; i < ext->reg_count; i++)
+> >                                       buffer[count++] =3D cpu_to_le32(e=
+xt->extent[i]);
+> > -                     } else {
+> > -                             return;
+> >                       }
+> >               }
+> >       }
+> > --
+> > 2.48.1
+> >
+>
+> --
+> Rodrigo Siqueira
