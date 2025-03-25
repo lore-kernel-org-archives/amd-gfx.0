@@ -4,157 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 521DEC36002
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 22:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 370D7C36002
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 01:51:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E848D10E170;
-	Mon, 24 Mar 2025 22:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B819E10E009;
+	Tue, 25 Mar 2025 01:51:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="oB4ilr86";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b1la0xKs";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2049.outbound.protection.outlook.com [40.107.92.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E75CD10E170
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 22:49:06 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73D0F10E009
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 01:51:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qrb493MYpJELfZIIHuFbLsy++6xv871fbyPRSgMtR/pTOldTvrp/q0rpdX2OK0o9080nD2AVEYW+vOu0pT7DJ8qf+SoTGyCrR+S0yFUHQrIEfKA+dMPKBnD+EW4bh4W6qn0sK4K7Az+WpS5nqHRfnIlXmxi5tdcsbXGTL+innBEshVLgTcMtIkLzVjcwrUbzGVwc6C5u/PC5oM8AOHcvP4BT554rB9QreZxETvDo+XrbYOkSV0gQhNJAD2lHY54CwwKkK2kwDxgI+kPhRktHMUpnOGKYoY5zttn3WaejXXseHDnaG9PtClJJTmpAAIBlEnhWdiWZ49VXQHnK+n3sbQ==
+ b=cbeMRlGWNXRvrh4X9RY/H2MaJdv3RVHfewtrfmq83JVgZiN57bc1vbaEiEtfZMzTgMSRrYWpSbz0GqWMuw4z3bKUg5jwJI8y8gcZZVAQYysq1FOufXEzc0KEkCUNZJqUKGv3/TJ3LvXo+jYyYZTJOnRQ8P7WmzfumU0rgqr33wwHvqlUpCU0J5GJdgkFkuiSxtoTL8MQI1yrEvxduEjYV8Y9sT9+cAJRKntyGVK3uCmyYBaKx4NT19YTzbydJuuMzbf+5Rrx/ftKZhgKccTbzJl6yUtTa8pxsxhIjjeMnXNxLbu3MTFikB80T3MHikzjLiIkn6wEMiKYq9pO1pL+6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+3foCBBGvTpOx1TPJD5WsZ0fTl8lSJnhJ9G4+Nu+QP4=;
- b=b8uhxvSWtfKI0PEY6W6d0qyoUOQs5k/CQsHKqKYudiiOkxO/9juNI9vJtMg7MKiwjwC5uEszWwi9KCWLUYUKMAAfVplvW13Z/F+i5Mkey/+KHK73c0ktf4YY5Z+noOWqyahtijY6U0NSAmhF8X/tFXCn3JTZ8THNkNKT7Bqf/uof5U9GWQ3u3EQ3FkVpHb/DlDn3Piz1WZYyKsGeC6RMCcpSKHRJNGeS5lZ/zUc4Kd20E657wxArk3H4G7Y3J5c+GPusnTbcrdq26MM7dOS5x0N/6s5upESUlz4iQe9wiDmGZUeemgmqascybqKurzPpcc/TzHiEB72oW+l38GuCfQ==
+ bh=aqx8a5f1XNQNpacJugNQf8K+L2niX4mDfAcKaV+uML4=;
+ b=dujrPZVE4pomsb76PABKvvBI0sfIh3kH8gvcCcXpPj9yXCSFN+ra3eSaFUFu0hIg5MFf0J9zXKmOIXSkCzrNMoapDaQ6nYxlvn8Lx5+I/4uFvUGQowfFRGi/qcBo4/bdCunpY2WP0tXd87yXWABW+EY6e1YWqO7tmH/38aetLK7p1ODN5fi8iGMFxZA/y61HGQ0l+Y/CpM0ejy319PzXRsexxmUzI/hDJJWFs0anq3ti6mGDipRc92bT/l3yCuUw6Qr2vLM9USKV1tni/EmOUylDD1mzSIWjupXQKIcfvDzR7vq198OTHZTPpqqpQADkVUhZqzAJ//8Fc6LhiVGvYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+3foCBBGvTpOx1TPJD5WsZ0fTl8lSJnhJ9G4+Nu+QP4=;
- b=oB4ilr86TO0lTnxuuIgJbF6+vQKCbnxSsrJhf3pspTBHKrtGuijyk/FQmQsmYk6lZWTDM+p7aYCGtCFySO9fQZu/l7BXnVnrHC67CEKaNQPw9PDGcjWL9qFgjdd9V6CPUQ5jT0HGNhtnV775vy76x4MesoGRW+JLO4EKphKN2BbOADW0wxbqfWrCiAx0UQ7le+DPiKZ2XSSUb/7rD8dFg1EdudqrbBd6EMNpxS3rO9DPzj9FtSCitid46ssMbICxLjb4HNJqbddLBmtsYmF/0Knw9N9AChtURTvLwcCpYoDGFoEWr1xveS40dkPEsqd1kUnYCE8h6gtyZtqgg1FMtw==
+ bh=aqx8a5f1XNQNpacJugNQf8K+L2niX4mDfAcKaV+uML4=;
+ b=b1la0xKsDsQAud8L6xdEdrPTOjrLKhl0DKkEzuj8WFTxfLiwo8CeIZS74LbXw73YmmV3We9DXDVo+paYsUedp5oYQFtijdLWVTWbleNvo30Zvi0PnC4hYKvUl/u4b9qVsUKV7sf9gY/e3dGNA3Ec3TtCDZq38kJATFZN4jKNnME=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB7272.namprd12.prod.outlook.com (2603:10b6:806:2b6::7)
- by IA1PR12MB6282.namprd12.prod.outlook.com (2603:10b6:208:3e6::22)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by PH8PR12MB7302.namprd12.prod.outlook.com (2603:10b6:510:221::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Mon, 24 Mar
- 2025 22:49:01 +0000
-Received: from SA1PR12MB7272.namprd12.prod.outlook.com
- ([fe80::a970:b87e:819a:1868]) by SA1PR12MB7272.namprd12.prod.outlook.com
- ([fe80::a970:b87e:819a:1868%6]) with mapi id 15.20.8534.031; Mon, 24 Mar 2025
- 22:49:01 +0000
-Message-ID: <b1d72b95-5b5f-4954-923f-8eebc7909c4d@nvidia.com>
-Date: Tue, 25 Mar 2025 09:48:56 +1100
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Tue, 25 Mar
+ 2025 01:51:27 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8534.040; Tue, 25 Mar 2025
+ 01:51:27 +0000
+Message-ID: <4a864041-a43d-45b0-8aa7-1def1fbfa8a3@amd.com>
+Date: Mon, 24 Mar 2025 20:51:24 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: commit 7ffb791423c7 breaks steam game
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bert Karwatzki <spasswolf@web.de>
-Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
-References: <20250322122351.3268-1-spasswolf@web.de>
- <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
- <6e8ad3cd27b570aaefd85395810cc90bb3120734.camel@web.de>
- <7cdbe06c-1586-4112-8d27-defa89c368e9@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: add rebar parameter
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20250228202851.2550575-1-alexander.deucher@amd.com>
+ <CADnq5_NGXuKR1_gutwf+NjKhsoDfU2R2J0_hKmpuOq9C6KGjRg@mail.gmail.com>
 Content-Language: en-US
-From: Balbir Singh <balbirs@nvidia.com>
-In-Reply-To: <7cdbe06c-1586-4112-8d27-defa89c368e9@amd.com>
-Content-Type: text/plain; charset=UTF-8
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <CADnq5_NGXuKR1_gutwf+NjKhsoDfU2R2J0_hKmpuOq9C6KGjRg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR05CA0092.namprd05.prod.outlook.com
- (2603:10b6:a03:334::7) To SA1PR12MB7272.namprd12.prod.outlook.com
- (2603:10b6:806:2b6::7)
+X-ClientProxiedBy: SN7PR04CA0195.namprd04.prod.outlook.com
+ (2603:10b6:806:126::20) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB7272:EE_|IA1PR12MB6282:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8d9ca65-9610-40ce-7184-08dd6b2611f5
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH8PR12MB7302:EE_
+X-MS-Office365-Filtering-Correlation-Id: d67b5683-1487-4bd6-eea3-08dd6b3f8e4e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7416014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dm9YWDEzZm5EU0xkU2dWcENKK1oxZEJBV3QyUm00YURRRlRmdFd4Z01HMkJn?=
- =?utf-8?B?VW5wN09abmRYd0NzWUxtOW1OMTBqaFB3U3ROeGhOVituUU02WnhiZnAwWnAy?=
- =?utf-8?B?b3RFOFd4VEJzM1k0dUJ6WHJIUUx0ajFHNG5aSUpoUjB0ZHlNR3Yxd1FGRFdL?=
- =?utf-8?B?VTNRMXhEV2lpMGRvdDRaSXNpeDVhQ2p3WlliQWtyV2U4SXJYR0R2ZHB3aEsz?=
- =?utf-8?B?WTNuRDBIaEU1Q1VYQXhmQy9LU2dTUFhCMUNvUFJ2bWNldklkeFFSTU1JVUZq?=
- =?utf-8?B?cFEwdVpvN25rQ0xIRkRrb2gybEZWMmRyaGdZcStzcWVBZXU4UDdXOUdWeEQz?=
- =?utf-8?B?TWMzaFhTYkI1R3QyeTN5Q01XM2oxNU1Eb1FmSDYrdEtrL0cvMFc3amZDVFIy?=
- =?utf-8?B?VllWUTloK3VVaWNreFdGWkM3QnllVkIvNTJQSDRZSC9NckRMNUtGS05Cbzhw?=
- =?utf-8?B?QWpoaHlVa2dtSnEwc3E0YmV3MWRaa3J1Si90VEtRbGorOFA2bnVXcDNwa2N0?=
- =?utf-8?B?eHp1WjBYcSs1OXVKNmJPL0prVmFZUGMyMkNERDBtcVhackVUR29yRVJJSUt6?=
- =?utf-8?B?SndxakE1bzhMYkg4TURJZ0RMb0RRQ1RHMXRvVktUandYTXJHWEpLRnlaUE5F?=
- =?utf-8?B?cEZzZWdiWEZ0M1RGNG10OTYxN1htSDFMM1ljYWFoYS80eWNoc3ArYkNGMkdB?=
- =?utf-8?B?NEdOMTBTSnMySTIvOHZVa0UvclVJL0RDSVcxZzREZ1paUzlaYUtwcU4wcnFQ?=
- =?utf-8?B?VnVxamhMYjE0YU16NU9SL0g0cjA2Y0RwUkFoVVpSNTZGWW5sV1NrNGNpZWdB?=
- =?utf-8?B?QzhCSjFqOHY4NytoaVE0YmI1d2p5cG9ja0FON2c5SEgyR0NtMFpiN2VqZnhq?=
- =?utf-8?B?ZVNpVnJxT204QVpPVytiaXJxL3dzblVaVFNCY3d1Mks1ZzdSZnY1ZTRDb3Vz?=
- =?utf-8?B?S3l5K0owZlZKT1VVMFlRRkZ0Zk9wTzVXYlBRcHNKZk42d3kvZVZUZWRQK0VX?=
- =?utf-8?B?ejZNU0dQZzNSMzVkaUhoWmpGdXNTRjkxRzg5bG1oZlFkWWg0NDZyMGZVM25X?=
- =?utf-8?B?LzVWNTNjRkdtY0Y3OUluUVFDUGcxYVpDd0k5UXFVTFFwcUMwWjY1QVdaczRa?=
- =?utf-8?B?U0thTHhaRXNRUEJwelgrQktTMW5Qb2NqcjBmSzQ0eWt4bkZvRDFiM2ExcG80?=
- =?utf-8?B?cHNpSDRqVGtzUUZkNVNDeWJTcTdwbVo4R2h3WlB2Slc3dXY5ODdINmFubGZK?=
- =?utf-8?B?QlR2WnJoRGNxM2oxVVdBVE1qZnJCclRCRVcwcC9MbmtmVFJ2Zk5lR2UrTUo5?=
- =?utf-8?B?SmdMMU1tV3Zld1hlTE5XbDlxQUJBb3RlM09wNy9BZHNiYU9CTUxpeVJwUzJF?=
- =?utf-8?B?TWRnUzJ2WVJkRjU4TXQvRXJhRVFTdWJIckxuR2cyK2M5OEEzQUpPTElhdE1U?=
- =?utf-8?B?RGxwcWYvdlNQK2l2em9lck9pbS9zb0xHbDJzYXgxb20rWU01RlljN0NSLzFR?=
- =?utf-8?B?TTZpVitaaHZWNldzdUJCVVhGU0ZhdVNCb3FVb1BsaU81V1MyNWc5d1VYQlpU?=
- =?utf-8?B?cUF4M0tOWHhHTEErWmdCb2t3VFpnTWppamFQa3ZuY1NVaDR0emUrL0xreXBk?=
- =?utf-8?B?Y3dCNjFnTm84cmpkU3g1Ky93elgzVCtLc1IvUCtsd3RWUjZEMDVOaDIzb0kz?=
- =?utf-8?B?Rkh1clpTVUFwN3ZwYlAyc0RIMVJuamF0YXNtb0JhZUVaRVJMY3oycUJ3UnBN?=
- =?utf-8?B?VGFTTmJESFh5dExLSlZMVUhXVi9tTXFJenRZSFRnYUI1ZGhkNE9Cc244MEwv?=
- =?utf-8?B?VGRlNDVjWURQSWdoTEdhcVE0Zjhoc3ZGZHlzK3VBdEp3eFNENjVvbzJvazBQ?=
- =?utf-8?Q?4dRH2pB4om9tw?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?a2E2TDhMWmRGWjhPQ0pKQWZwS2JwN3QxUWpMYUpNTkt4cnhkL0FwSVMzUFUr?=
+ =?utf-8?B?dmtnd3VmZUh2SU8wZURZOThuLy8vVWViMHgzZmNmZm92dlpCOFJjakFpeFU5?=
+ =?utf-8?B?c25EYktpUjI2eWRjckJiTkhuYUdtdXd0Wjg4ZC9nT0JuV085ak9Hb3F4U3RE?=
+ =?utf-8?B?RGJ0TDYwZUtsVnB0ay9NRWs3STc0ekc0dkk5ai9DN09UTDBNNnFZcjJaN3do?=
+ =?utf-8?B?VmtYN1pUeW1uTzRRR1V3bmFoVTllOFhTQmRtc3lSeWRLcDViMDY1WXUvWHFL?=
+ =?utf-8?B?bHU2eHBTUm9rdUFhYmpqcXVQcUtoRHMyK2RtMFh3THE5UUxmcFhWQzZmWVJH?=
+ =?utf-8?B?dHl6bTFmMVVYNndSQzREbWJONEhBWnA2VGxYVkduTUFPTUZqVTQ0Tk1wOEhD?=
+ =?utf-8?B?WmZqL0NnMktDbDhIU0FoaDZlR1hHTURVWGZzUGpralpHbGhwcXdIckhweDI5?=
+ =?utf-8?B?dklsdTFKQXROSnNKcmdGekxYMEM1Z1NSRFh2akxQZFZvcTFpMkJkMW9GUXdi?=
+ =?utf-8?B?bjNEdlVnR0k2SVR0STV5Z3pmeTcvd0ZlMEVJUm9BYmY1bGw2aEE2ZFRNOVlW?=
+ =?utf-8?B?MVlVTnFDQ2IrbzBna01EQ09lbE4xYWtLS1ozSUg0d2pHUEE0cXp4aWtjZVEv?=
+ =?utf-8?B?NFlNY0VFcVI1MVFwMjdiUWRxdmpGRWprUGJkc0JsYWt0YkNuci94WURHRlln?=
+ =?utf-8?B?eVg4Sjh0dDJlSnpEbHBWaGkxUHJpcnlJM0VSMVIxTzBtZnRRN21RUnFJYVNt?=
+ =?utf-8?B?MUpUaUt4RnJqZzQ5RE9IUEc0Zjd4SHhqNUYxalpydWF3bFkxbGhMN3FkVlNF?=
+ =?utf-8?B?R0VsM2xVbHNzN2RDZkpYSFN0SXVQKy82OEZKT1ZIN0NWakFRUmlqTUxpQ0V6?=
+ =?utf-8?B?dytZc2c0MzNHTHZjSnR1SUdmSEV6WlhLbkRCdXIvWVZlV3JMSUtZRzFZVTZu?=
+ =?utf-8?B?cVN5QUZRYkRhMnlTOXBTS01LYzNyY292UGFNVjQrUEFKZHJOUnFZK1N0cTEz?=
+ =?utf-8?B?YzZ0MndlM2VteWxEeEhkdlRCQVZrc3V3ZnJRRlpwcDNMbytsUFNwZ2ZlbE1w?=
+ =?utf-8?B?Mll6Z3l6V3RvV0x5ZlhrZVdzVjFpTHN0a3MrZVVKeFh1SjhhNm1IbjZPUEYy?=
+ =?utf-8?B?NnZKdmJuYWgrMVFyU2EvUEJObEdDTmhPVGpLS05jUmVhM2prRVp1Wkg5ejJr?=
+ =?utf-8?B?NTFpenV1NzF0YmtFajMyWVRWYWJaWXk4ejluMmYrMjhWemtwWUQ2S2h2UW9l?=
+ =?utf-8?B?a2Zlb081NU9DYVpleXdoL2VVWFlCSzAxUTVFb3Q4ekFpNVpiaFlLSlFWQ0Vx?=
+ =?utf-8?B?cWVuV2UyR1U0Y0JsdUlrMlhKYXgzM3gvUlloMlNQS25oclgzVGdOeUFTWDRn?=
+ =?utf-8?B?aXRiNWo5Y1F2OEVnKzlyanNzdWpuaUcyU2hDS3RBRzJjeXlMSnBpVGphOVJX?=
+ =?utf-8?B?L2dFOFhjUklkV3RiOW96WW14bHFxNDcwMEVlOEI5b3R3MGNPZ2hidlZrWGRw?=
+ =?utf-8?B?YXpoRlJRTE9vbWhVQTBpalpPbm1CaGR5N29LN3VaWm1XbXAxeDdJTG9MQnJi?=
+ =?utf-8?B?K1lJdUhyVGlPa2cyc0w2ZjlKbkxCQkFJb0JLN1lmbERJVU5GcThMMWVxNElq?=
+ =?utf-8?B?V1ZJZHFaN2VRVmYwWlFhTHJXZmZ1SkVFY3dENGtKRWV2bHdNVnJuZnNIYnk2?=
+ =?utf-8?B?UXFoYklsYTg5aVU3L3BRUm1BOExiN1lPNGV1c3U0ck1FSXJldUlNWkVibExO?=
+ =?utf-8?B?NlhBSzAyN2dScml6dkxGOEZCbXY3REcvRVRnZWRVYW9DZ0JnV0RpYVUrT0ph?=
+ =?utf-8?B?RzIwNkJ4TVltWlk5VXA5dE5NUENmb0NKbzRPUjZ4R1JTTk51UzBnWXo5MFZG?=
+ =?utf-8?Q?QJk7g9KemznzO?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB7272.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGF2clVpRzdWeHVpa2RiZy92V2R2SDJoSXV4MFFpVXhQV1JkUkhlU3BQNTly?=
- =?utf-8?B?NkNMckhyQ3lVSlVMa3FsTGdEOTJSMy9ER25Rd3p5dEpkSDdYM0pOYzk5VnZL?=
- =?utf-8?B?UklQeEVkc1VmdG1wYlN6N3M4TUw5NTB4RkxOdzlHQ2lxcGRVdG8wcEErdk80?=
- =?utf-8?B?bGdSMHhxNWdTNFprZzZZZ3RDYUtva0lWZ0lYM2FjbkkrVFk4QU9aTnVDamlK?=
- =?utf-8?B?S1RjZXBhVHZiZkkrZSsxeThrSnRHblRKWEo0OXRxcW5xU1VsTlJPZFh5Yi90?=
- =?utf-8?B?dDBNZUNzQTdZanVKaEVaVDN0OThscEJDK0czejJIbkF4OGxMNS9WMnFYdUFk?=
- =?utf-8?B?c2JIQmdqaUJKeDdMdStvUC8zMXhBTm5GSHRMZnlvbGY0NVFrVGliRi9kclRr?=
- =?utf-8?B?Wnh3YVhPV0FzSkZJT05VcWpORy8rNjFHZ3A1YzBuZ2R5VE9QZGpUZjUzOHdq?=
- =?utf-8?B?TkdNZ2xOQXdKdFo2alBtRU1CMmkwZ2ZXN05Cd0o4bmpqOEZjVGpMMS9weTJU?=
- =?utf-8?B?NXVqSEdzRElTZlE3S1V4NU5OaDh5TGo4RjA2eTI5U282S3ZFYnYvODJhNm9Q?=
- =?utf-8?B?RDZVUGNiUmUyNkRVVkQvNmwyZmRRQjF4ZkwramIyYTVhbld5blRZN3QyUHJx?=
- =?utf-8?B?Y214dGdpOEVtSTBFaGl0cHNGNm9Qays4cUhzbHZHYW5DSjZaN2xmSkxtUmJX?=
- =?utf-8?B?emxIN29pN2FtZHBkZ1RMckJPZWpQdTRyQU9raUVEMU5CTytWMlY0c1ZsM3lN?=
- =?utf-8?B?SlhpNkNoTUh1aGdGNE41cXdYVTFPLzV3VDhka0svRUlVekljR01ZWmJ5RlZO?=
- =?utf-8?B?ODdCV2VjOXVJSVNlL053RXI1WExDdkZoQzZGeTB1T25tdDRFblRLK2NsaXZF?=
- =?utf-8?B?dFYzSU81R09xQWhXQm1ROGVnbnlaSEdqaTc0UTB3ZjRRWnU3NzJoeGdYUnAw?=
- =?utf-8?B?ZUllL3V6TEpabVdvcjNlamxLZFJyL1hER3R3VzhDZnp3RVFkTTJGNFVLT1Rq?=
- =?utf-8?B?RWhaV2xLMGJYZnp5K0FMK3oyLy9uQWhBUVJWQ0lqTHRVaXdNaXJCYkRZWWtO?=
- =?utf-8?B?RUFBZ1dPNUxwcVAxS2UzUVZzMEo2cnBFYXRKcllZT0VDSzNZUGtMd0V3MWt1?=
- =?utf-8?B?OEFUS0dIeFdnOXhEVUpMUndsU01ZdCsxZFJYNVQ5c2RTb0xsQ1FsbEtreUF6?=
- =?utf-8?B?RVA3SlpVbjdIMEpOc3hscmJaTUtzUEordlQzSjBVYWc1c1FzNDhuRUdrVW84?=
- =?utf-8?B?dEhMZk1FWHNGOXZJUVg0SjNkUWRidGNVaVJ1Z3JuYTViZXZyMnhvUzRQUVdh?=
- =?utf-8?B?eFZyK2ZYb1ljOWFHWFBGUUNKSHppQy9MSWVHRjc1ZnBPaWI1SVpwb2NUNWtx?=
- =?utf-8?B?Tnkxc0tQU2J4RzlFalZGVTlzSFZRK2lnSXAxOXdMUDU0dHBWcnZHQXhGdisz?=
- =?utf-8?B?R0JKRFZTUlJncytCUkVJcXBtaFlOOW5VaGY0M0Y2Zy9EVFBlNFlCOUNyZHBr?=
- =?utf-8?B?U2dFYkpoTkNEd2V4V29zSjhqMDBrMWUxcWwwVHJFREdnd3BlRU1YR0VzeFda?=
- =?utf-8?B?d0p0MysyUlNaY0wzY29pNkFDSFAyT1NYNjU4eGF5d2EyZVVwNE56UzZyTVhH?=
- =?utf-8?B?ay9wUXhRUkU4c25hb2o4TVRRVTFML3dqdzJaMENYT1VjMFFhWHJMZkNCRll4?=
- =?utf-8?B?U2dxOHhOSDhBYW1Jb3BJTWVFWFdSOWNwcTF4anhYZlF4aGpSQU5LYnJNcmhU?=
- =?utf-8?B?SWNoZWpmZm9HdkRLamNUV0huNCtXOVg2eFE4TEs2VXVGUXczeEVBZUpGeGJF?=
- =?utf-8?B?WFpGazRHTmh6blBmZWZNVVdDQjdWaDBzQ1BaN0NaK0pMNmhmMmd2SDJTS1Vj?=
- =?utf-8?B?bU42KzdNRktHcEVHM2xjbmEyU0h3TkFLQmxUMkMyc1hTUnRrWFA1YnczWWc1?=
- =?utf-8?B?amZpeFdJMWhrR2tRODEvcmdjYWI1QWhSa21XRUhxWElURWRkZmpFcTBqeTBB?=
- =?utf-8?B?Qm5scnZoMDVMUmdHMVVXOTNzaW9iYWJFdktYc0dIZFZtcXBZaG0wUXhXdWhC?=
- =?utf-8?B?TVZrdmhKS0h4R2pUdFowQzdadkR1MHE4Z0hvQTVPUEhkeVdGZU4yL2IvS3J2?=
- =?utf-8?Q?LniZ1DykZ5Lko3AbQLyblSfi2?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8d9ca65-9610-40ce-7184-08dd6b2611f5
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7272.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnBtOC9Ud0RFN3FHRW10cGQrbjF3VTdZTkF4UDBPN3pxd3dUNUNZekdKRkhW?=
+ =?utf-8?B?aGswWkdJMEJBeWhzdUQvdGptY0NMSUxWZHVRMkFBSXNzL1c3bHVXUk1LRUFa?=
+ =?utf-8?B?NSt5TzZnUjNOVitQWUo3UXFrYk5WajNjcS9WaTQ5QzVBZytud25Xb2MwNkZj?=
+ =?utf-8?B?ZTZSNlh0ZWg2QTlZWHBLWHZ4bXRoNmJ5Zy9XeUZIQm5vSTRSS0tlQVVqdnlm?=
+ =?utf-8?B?S2xlcjRuVzBuTUpFN0JWSTExcEdCbHJwTTErVHFERlltRjR3K2NwemFpUm9C?=
+ =?utf-8?B?Z3lnUGhMQ0FYQ1pvdkU1ZEVHVmhVK3F2MVFIQzVCWUsvVFM0VkJQTGFBOUd2?=
+ =?utf-8?B?VHVJVmlKMkZEaWNuUzAwWE9acVBKVHJSU2NUVTdhWnZ2ay81U2tvU3BXbTc5?=
+ =?utf-8?B?SVRnOWVUQUVTNCtwZVFPdVowbzc3THhxUUVwSzJWUnJ6YzluVDN4Z0FUVGxT?=
+ =?utf-8?B?cUtVbC90TXYvbzRNZ2MxNEdTZjNMQXQ1dDNzbVMyekxrZURZY3oyL1VUYmlz?=
+ =?utf-8?B?cytQQUp6RDMxVHhsSVNqN0szZjhEeDZlcSsvRW5hQXRkWnlFVHhUb1NhRXkr?=
+ =?utf-8?B?cm56MHJidXE5c044eVcyVkhKNlEyc3lONzNXbWJKVDRqaisxSmljd0QrWHk4?=
+ =?utf-8?B?Y0FyQy9uV0lqKzMrK2F2T0w5TDlSZmhrSWlnNjJURDBWVFlmaVpwZlcvNDZk?=
+ =?utf-8?B?M21mamsyaFh1d2ZMa3BBb3pCd2JNeUFBVE9qOEpGd29PdGVTVlFraHR4YzQ5?=
+ =?utf-8?B?UGo3aWlCRm9QSlk2enBXdG5OOWtKd1ROdy8rVzNXbWlDUUZCZ25TbVJlWmxi?=
+ =?utf-8?B?RFRmYXZmdnB5QmhSMFE3czJPcWR1cnB2ODh0V0xCdHpKejQ0c0xhOW9Xb09O?=
+ =?utf-8?B?STRXd3FRV0oxUmVEaUtNNGNzR0d4WlByWjZCSVRBcVNUaEllUTNRWjgwVjZi?=
+ =?utf-8?B?cjh2SWFWRmpxSnRHWXo4SUIybmc2a0ZCTk5MSUcrbjVUanhiYTltQk8rQXIx?=
+ =?utf-8?B?YlA0bzVRK21INk9NU3BTUlk4Nzgyb3J6Z3NnMlFnOGtVVmlSbE9CUldSTGR1?=
+ =?utf-8?B?UFRObFdnU1VTT3d4YVBWV210M1VHVTMrc1JzSDQvZVJaL3g4WFQ3ZmQzbHRL?=
+ =?utf-8?B?VDBheDV4ZGJKeXNjejN1dkJtTlRHVkkvZFFqV3JVZ2Y5SkVWSWJsSldhdSti?=
+ =?utf-8?B?U3c3UE5XRlRhNkVubHZwQkdTKzBaakovNkQ5ZHQ1TTVibmFGSWNQMHp5NjBB?=
+ =?utf-8?B?dDFqNEVvb09DZXY4cVowbkdTNG5lZUpKT1ZDS29EWUdyWldUYTZPUzFTTENm?=
+ =?utf-8?B?cU9vaUtnNVZ3dE9iN2ZKMmFyWTVUSWFkNWwwT3JYblFRWGZUdkN6SnJEcDFE?=
+ =?utf-8?B?SlE0SzJRZG1MN25SaE1ONFY4TFF2cGhDTStRbms1R21MTzhIcjVpbjBZcnBC?=
+ =?utf-8?B?ZGx1TzVWMEhzUnVsY0YrL3FpbnZWVWNCY2VWeUNibVV6djkyUXJ1dk9Yc0Jt?=
+ =?utf-8?B?T0lsb2NyS0lZNVBoaDAxdmFUdWkxN1plaHN5SFpJRjhteFU3b2JraVNLQ2g2?=
+ =?utf-8?B?ekcwZ1Z6RlRIVFhMZE5rcnlXS1pRTnh6dk1XaStTZ0F5SXNLRlVKODFoVUpH?=
+ =?utf-8?B?OWoxd3M3dk1CdDE0c29jZWhGMTh2My9oUU0rU21TbzVObDRrMExqS1ZGY2w3?=
+ =?utf-8?B?YW9rK20wRDBLUitObTFvVGowY0E5NEMyemsxRE9TK2hEWU5TSU5TYkVlVzhi?=
+ =?utf-8?B?Q3lmUmdlZlBXZUxSTjdYVFpmbUZEZHJvM2RUV3VrZEU5YkNLMjF6VkNtbGgz?=
+ =?utf-8?B?dUo1RjYrYUozcEdySS9UU1RLU3ZnOFBra2hWVzNyWkN6aHhFcStvMkJETkov?=
+ =?utf-8?B?dFE1b2lNa1RPb2owUkthTk9nQXdkN3RrcWRJZVFhb3JkRUs5TDZUM28rd3hQ?=
+ =?utf-8?B?NExmbFdzKzREbkJ5amszQk43K2xERDcwYlYrNE01cUpuVVhrMU1XLytMNXlK?=
+ =?utf-8?B?MGVUODhEamJROTlKL2c5NGJxQzlmTEJXWTR5ZVFFUnZ1NHROK05jRGVoUnE4?=
+ =?utf-8?B?WnBZNzd3d1lDeHNnd3BBVnpySnZEZUlFaG80eVpDMThpbGtZZSt0OCtwRHll?=
+ =?utf-8?Q?yLQB81Q2LK673D4oRFaBv/C6j?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d67b5683-1487-4bd6-eea3-08dd6b3f8e4e
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2025 22:49:01.2380 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2025 01:51:27.2799 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H3j6b22q/cfAuZ9JG8MioHwQsQkDIx2HXW1NrMxGs8hiZg00QCAK9PBJAjqGY/qdhw5AvFbIQ43wsBLrrB5S+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6282
+X-MS-Exchange-CrossTenant-UserPrincipalName: nVMLOJlDz//otSTwp21W6FMdxZgYEu0I7uC5N5tVvw2mGLjKTZud62ydG5oqnGUqttPIyOAeMAB8eA4H6s+uzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7302
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,148 +161,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/24/25 23:14, Christian König wrote:
-> Am 24.03.25 um 12:23 schrieb Bert Karwatzki:
->> Am Sonntag, dem 23.03.2025 um 17:51 +1100 schrieb Balbir Singh:
->>> On 3/22/25 23:23, Bert Karwatzki wrote:
->>>> ...
->>>> So why is use_dma32 enabled with nokaslr? Some more printk()s give this result:
->>>>
->>>> The GPUs:
->>>> built-in:
->>>> 08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] (rev c5)
->>>> discrete:
->>>> 03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 [Radeon RX 6600/6600 XT/6600M] (rev c3)
->>>>
->>>> With nokaslr:
->>>> [    1.266517] [    T328] dma_addressing_limited: mask = 0xfffffffffff bus_dma_limit = 0x0 required_mask = 0xfffffffff
->>>> [    1.266519] [    T328] dma_addressing_limited: ops = 0000000000000000 use_dma_iommu(dev) = 0
->>>> [    1.266520] [    T328] dma_direct_all_ram_mapped: returning true
->>>> [    1.266521] [    T328] dma_addressing_limited: returning ret = 0
->>>> [    1.266521] [    T328] amdgpu 0000:03:00.0: amdgpu: amdgpu_ttm_init: calling ttm_device_init() with use_dma32 = 0
->>>> [    1.266525] [    T328] entering ttm_device_init, use_dma32 = 0
->>>> [    1.267115] [    T328] entering ttm_pool_init, use_dma32 = 0
->>>>
->>>> [    3.965669] [    T328] dma_addressing_limited: mask = 0xfffffffffff bus_dma_limit = 0x0 required_mask = 0x3fffffffffff
->>>> [    3.965671] [    T328] dma_addressing_limited: returning true
->>>> [    3.965672] [    T328] amdgpu 0000:08:00.0: amdgpu: amdgpu_ttm_init: calling ttm_device_init() with use_dma32 = 1
->>>> [    3.965674] [    T328] entering ttm_device_init, use_dma32 = 1
->>>> [    3.965747] [    T328] entering ttm_pool_init, use_dma32 = 1
->>>>
->>>> Without nokaslr:
->>>> [    1.300907] [    T351] dma_addressing_limited: mask = 0xfffffffffff bus_dma_limit = 0x0 required_mask = 0xfffffffff
->>>> [    1.300909] [    T351] dma_addressing_limited: ops = 0000000000000000 use_dma_iommu(dev) = 0
->>>> [    1.300910] [    T351] dma_direct_all_ram_mapped: returning true
->>>> [    1.300910] [    T351] dma_addressing_limited: returning ret = 0
->>>> [    1.300911] [    T351] amdgpu 0000:03:00.0: amdgpu: amdgpu_ttm_init: calling ttm_device_init() with use_dma32 = 0
->>>> [    1.300915] [    T351] entering ttm_device_init, use_dma32 = 0
->>>> [    1.301210] [    T351] entering ttm_pool_init, use_dma32 = 0
->>>>
->>>> [    4.000602] [    T351] dma_addressing_limited: mask = 0xfffffffffff bus_dma_limit = 0x0 required_mask = 0xfffffffffff
->>>> [    4.000603] [    T351] dma_addressing_limited: ops = 0000000000000000 use_dma_iommu(dev) = 0
->>>> [    4.000604] [    T351] dma_direct_all_ram_mapped: returning true
->>>> [    4.000605] [    T351] dma_addressing_limited: returning ret = 0
->>>> [    4.000606] [    T351] amdgpu 0000:08:00.0: amdgpu: amdgpu_ttm_init: calling ttm_device_init() with use_dma32 = 0
->>>> [    4.000610] [    T351] entering ttm_device_init, use_dma32 = 0
->>>> [    4.000687] [    T351] entering ttm_pool_init, use_dma32 = 0
->>>>
->>>> So with nokaslr the reuqired mask for the built-in GPU changes from 0xfffffffffff
->>>> to 0x3fffffffffff which causes dma_addressing_limited to return true which causes
->>>> the ttm_device init to be called with use_dma32 = true.
->>> Thanks, this is really the root cause, from what I understand.
+On 3/24/2025 14:57, Alex Deucher wrote:
+> Ping?
 > 
-> Yeah, completely agree.
-> 
->>>
->>>>  It also show that for the discreate GPU nothing changes so the bug does not occur
->>>> there.
->>>>
->>>> I also was able to work around the bug by calling ttm_device_init() with use_dma32=false
->>>> from amdgpu_ttm_init()  (drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c) but I'm not sure if this
->>>> has unwanted side effects.
->>>>
->>>> int amdgpu_ttm_init(struct amdgpu_device *adev)
->>>> {
->>>> 	uint64_t gtt_size;
->>>> 	int r;
->>>>
->>>> 	mutex_init(&adev->mman.gtt_window_lock);
->>>>
->>>> 	dma_set_max_seg_size(adev->dev, UINT_MAX);
->>>> 	/* No others user of address space so set it to 0 */
->>>> 	dev_info(adev->dev, "%s: calling ttm_device_init() with use_dma32 = 0 ignoring %d\n", __func__, dma_addressing_limited(adev->dev));
->>>> 	r = ttm_device_init(&adev->mman.bdev, &amdgpu_bo_driver, adev->dev,
->>>> 			       adev_to_drm(adev)->anon_inode->i_mapping,
->>>> 			       adev_to_drm(adev)->vma_offset_manager,
->>>> 			       adev->need_swiotlb,
->>>> 			       false /* use_dma32 */);
->>>> 	if (r) {
->>>> 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
->>>> 		return r;
->>>> 	}
->>>>
->>> I think this brings us really close, instead of forcing use_dma32 to false, I wonder if we need something like
->>>
->>> uin64_t dma_bits = fls64(dma_get_mask(adev->dev));
->>>
->>> to ttm_device_init, pass the last argument (use_dma32) as dma_bits < 32?
-> 
-> The handling is completely correct as far as i can see.
-> 
->>>
->>>
->>> Thanks,
->>> Balbir Singh
->>>
->> Do these address bits have to shift when using nokaslr or PCI_P2PDMA, I think
->> this shift cause the increase of the required_dma_mask to 0x3fffffffffff?
+> On Fri, Feb 28, 2025 at 3:39 PM Alex Deucher <alexander.deucher@amd.com> wrote:
 >>
->> @@ -104,4 +104,4 @@
->>        fe30300000-fe303fffff : 0000:04:00.0
->>      fe30400000-fe30403fff : 0000:04:00.0
->>      fe30404000-fe30404fff : 0000:04:00.0
->> -afe00000000-affffffffff : 0000:03:00.0
->> +3ffe00000000-3fffffffffff : 0000:03:00.0
+>> Add a new parameter to disable BAR resizing.  Note that this
+>> only disables the driver from attempting to resize the BAR,
+>> The BIOS may have resized the BAR at boot.
 >>
->> And what memory is this? It's 8G in size so it could be the RAM of the discrete
->> GPU (which is at PCI 0000:03:00.0), but that is already here (part of
->> /proc/iomem):
+>> Some teams have found this useful in debugging P2P DMA
+>> issues on systems where the available MMIO space did not allow
+>> for all of the GPUs present to resize their BARs.
 >>
->> 1010000000-ffffffffff : PCI Bus 0000:00
->>   fc00000000-fe0fffffff : PCI Bus 0000:01
->>     fc00000000-fe0fffffff : PCI Bus 0000:02
->>       fc00000000-fe0fffffff : PCI Bus 0000:03
->>         fc00000000-fdffffffff : 0000:03:00.0  GPU RAM
->>         fe00000000-fe0fffffff : 0000:03:00.0
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  3 +++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 11 +++++++++++
+>>   3 files changed, 15 insertions(+)
 >>
->> lspci -v reports 8G of memory at 0xfc00000000 so I assmumed that is the GPU RAM.
->> 03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23
->> [Radeon RX 6600/6600 XT/6600M] (rev c3)
->> 	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 1313
->> 	Flags: bus master, fast devsel, latency 0, IRQ 107, IOMMU group 14
->> 	Memory at fc00000000 (64-bit, prefetchable) [size=8G]
->> 	Memory at fe00000000 (64-bit, prefetchable) [size=256M]
->> 	Memory at fca00000 (32-bit, non-prefetchable) [size=1M]
->> 	Expansion ROM at fcb00000 [disabled] [size=128K]
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> index 87062c1adcdf7..948f832f469ef 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> @@ -268,6 +268,7 @@ extern int amdgpu_umsch_mm_fwlog;
+>>
+>>   extern int amdgpu_user_partt_mode;
+>>   extern int amdgpu_agp;
+>> +extern int amdgpu_rebar;
+>>
+>>   extern int amdgpu_wbrf;
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index 0a1a1f3ee5fc0..cc1a991ad4719 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -1662,6 +1662,9 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
+>>          if (amdgpu_sriov_vf(adev))
+>>                  return 0;
+>>
+>> +       if (!amdgpu_rebar)
+>> +               return 0;
+>> +
+>>          /* resizing on Dell G5 SE platforms causes problems with runtime pm */
+>>          if ((amdgpu_runtime_pm != 0) &&
+>>              adev->pdev->vendor == PCI_VENDOR_ID_ATI &&
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> index b161daa900198..333c78ac000e9 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> @@ -237,6 +237,7 @@ int amdgpu_agp = -1; /* auto */
+>>   int amdgpu_wbrf = -1;
+>>   int amdgpu_damage_clips = -1; /* auto */
+>>   int amdgpu_umsch_mm_fwlog;
+>> +int amdgpu_rebar = -1; /* auto */
+>>
+>>   DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+>>                          "DRM_UT_CORE",
+>> @@ -1083,6 +1084,16 @@ MODULE_PARM_DESC(wbrf,
+>>          "Enable Wifi RFI interference mitigation (0 = disabled, 1 = enabled, -1 = auto(default)");
+>>   module_param_named(wbrf, amdgpu_wbrf, int, 0444);
+>>
+>> +/**
+>> + * DOC: rebar (int)
+>> + * Allow BAR resizing.  Disable this to prevent the driver from attempting
+>> + * to resize the BAR if the GPU supports it and there is available MMIO space.
+>> + * Note that this just prevents the driver from resizing the BAR.  The BIOS
+>> + * may have already resized the BAR at boot time.
+>> + */
+>> +MODULE_PARM_DESC(rebar, "Resizable BAR (-1 = auto (default), 0 = disable, 1 = enable)");
+>> +module_param_named(rebar, amdgpu_rebar, int, 0444);
+>> +
+>>   /* These devices are not supported by amdgpu.
+>>    * They are supported by the mach64, r128, radeon drivers
+>>    */
+>> --
+>> 2.48.1
+>>
 > 
-> Well when you set nokaslr then that moves the BAR address of the dGPU above the limit the integrated GPU can access on the bus (usually 40 bits).
-> 
-> Because of this the integrated GPU starts to fallback to system memory below the 4GB limit to make sure that the stuff is always accessible by everyone.
-
-Why does it fallback to GPU_DMA32? Is the rest of system memory not usable (upto 40 bits)?
-I did not realize that the iGPU is using the BAR memory of the dGPU.
-
-I guess the issue goes away when amdgpu.gttsize is set to 2GB, because 2GB fits in the DMA32 window
-
-> 
-> Since the memory below 4GB is very very limited we are now starting to constantly swap things in and out of that area. Basically completely killing the performance of your Steam game.
-> 
-> As far as I can see till that point the handling is completely intentional and working as expected.
-> 
-> The only thing which eludes me is why setting nokaslr changes the BAR of the dGPU? Can I get the full dmesg with and with nokasl?
-> 
-
-IIRC, the iGPU does not work correctly, the dGPU does, so it's an iGPU addressing constraint?
-
-Balbir
 
