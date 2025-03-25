@@ -4,143 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D78AC35FFC
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 05:30:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80BAEC35FFC
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 06:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ED9110E02A;
-	Tue, 25 Mar 2025 05:30:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECAB910E07F;
+	Tue, 25 Mar 2025 06:42:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gAHKJMY8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yUr0Ap/m";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A435210E02A
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 05:30:22 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD85A10E07F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 06:42:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r5m4J3QeJLp4toXD+e63CZxFj4uIa+uBXmAdLufmTvMpopblLJ5VDWut/MvbZihXjPI/WXX8XUk3ItKsCUIRfbY+Hqt1AVSraedmRVRVaTTEcUb7eSkB1IYg1ru/C2zVGtSoZm+ZP7WCkx3IKSVN0ndwko1+tV2SnV53segnP9TI2vLIYRAe5Zpgc09IndxOoCiyvhETJKnkHKho036HcZOCyn0SkokiWFjjehzd8Mysr83DFiGFzDaSTnfkLndqqZRsVFwfG+Rfb+ghbNN1UBf9txE+j3vMRCp9EQ7CVBoxW6inhtQHWTEYvlJ3CwMnY3K7R9Yfa79VwdpALg32Hg==
+ b=YmU+AhAZiHWTNH7Fd9gX6AE4Rpmio+4wFUdTEoqfbAsWcKw8s0+QyM4wl40N0Ap9frqy1aoa6AW6d96edk7X7ZE6eZcya3+LMqesJ9CiNHxM0hhhjtm0gH2XQidpnomezSjF3oAKW5T6LplvtPId37ZDDnQdxlInA5W94Vy1Q7NZiyj9GByGwgMut/IFVZbEJRMGoYUOS6App7gs6OGAGg2/auLLZ7EUufsEW+W74SMJjltuTckEMgGxzT8wocbqoHPUgIr0jw5N8TueEyhVxCDWOb7Ca2fpO6cHobubj5Ev0liCmlQIFmS3tKCO9MAZfFACAWj3WfVCMKmZ5Ppxbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ux5LTEbh++UzoUZInC0oWbdq5Y7Mlj/kcks4FxLfVNk=;
- b=rcq0o+gwXXRptI6jQbUmqy2ZM2cAkACTA5EeM0jirKET0unzu88+NqfWM93aGMkl2nyc59703OoWgVauxGbM+Szpedui7qd9cw4moEVJhVPPPGthfOLRlruRoErW8ii+SB+zc3PdrRXOPLPOEx125mwKC9OgCbH3ESlO5dnjqkUPvku3yXYcNLCTXTL0ZJzGENBrEomAhRaTpNlo5iFF3fvmcDh2z6cUyq0iYOewPDju043D52Qh9Pur+MUDx/uWfVo+V+SWIsAwY/0A9brEdrrQCcHAXjW4iUEdZFocz1qrIsTGjKdWVeE0tHD7PgEPQ5wET8z/40rtjUo7dvWT3A==
+ bh=/kXqdrVa0TvqgzQt/O8jYaHcSUnldSIRvarmlm1YHnY=;
+ b=nzRDSwNCK6GKThr4Bj4NcqoIQmf7Y5s42kXd2LtaOEhxmojYg8da5hkTRcjcsiMJ07nHzarUcuxbACiQtpPXloT7d1GSGFSQFAGr+Rzur53vdCWQXFK2ol+evSrvpHMv04g1/C9fUJC2FTJs/Y3F4NZQWO0a/+fjoTWTBGQBG59YQ8ZYrJOmHdDYV7XI7kg75tXSylFiM2cXYdsbRHn+6I+j7Uze5l5leSuYW5Adop9S1QuqLRpt98MtMOnwXKIuuSwsneoAqbgDRYVSNr7rao8m3uLDCHOUqebGQZ0712PC1v8B9/4M0EEfV6S4N/gHQ8vlngKmxiTYec4YW/iBRA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ux5LTEbh++UzoUZInC0oWbdq5Y7Mlj/kcks4FxLfVNk=;
- b=gAHKJMY8wtKAV1L2oFCs6EMFZ3ijrpLxP4qpw+3NW0MJ5FkZhKMlUck9tcV63zSTsIsfP+DLl8BrSD8M2WyAv1p0XDgyEPMklG3fg3awq+p0wz45xNoBz254bQ1ZOUdMoC6KLkTBkj3VXB4LSViLDtGoMgyk5nyFZZi0D17/CJw=
+ bh=/kXqdrVa0TvqgzQt/O8jYaHcSUnldSIRvarmlm1YHnY=;
+ b=yUr0Ap/mKiIEMHNBo6YZqW699q9ne0WqgAlNCsF+WK3DABnhKueqjoDE3xO0qpAvgoVrYApXUW1p72TdRmCXjbV8JuT5Or38YrrSOzOrkleWvUdGO8bNYY1dFool01igBK/q7sBZXQLfyZ5+H2ngk4iNrKRxAz4lEbfGFcAMPYU=
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BL4PR12MB9479.namprd12.prod.outlook.com (2603:10b6:208:58e::8)
+ by MN6PR12MB8591.namprd12.prod.outlook.com (2603:10b6:208:471::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Tue, 25 Mar
- 2025 05:30:17 +0000
+ 2025 06:41:56 +0000
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.8534.040; Tue, 25 Mar 2025
- 05:30:17 +0000
+ 06:41:56 +0000
 From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Gao, Likun" <Likun.Gao@amd.com>, amd-gfx list
+To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-CC: "Gao, Likun" <Likun.Gao@amd.com>
-Subject: RE: [PATCH 1/2] drm/amdgpu: make ip map init to common function
-Thread-Topic: [PATCH 1/2] drm/amdgpu: make ip map init to common function
-Thread-Index: AQHbnTpLomX0gf1EhU2WmHcvpP/j/LODPAoggAAXZJA=
-Date: Tue, 25 Mar 2025 05:30:17 +0000
-Message-ID: <BN9PR12MB525733AACC06775C3DFF7131FCA72@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20250325035850.2440725-1-likun.gao@amd.com>
- <DM4PR12MB51811D8049151A7BA2E77DF8EFA72@DM4PR12MB5181.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB51811D8049151A7BA2E77DF8EFA72@DM4PR12MB5181.namprd12.prod.outlook.com>
+CC: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Zhou1, Tao"
+ <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>, "Yang, Stanley"
+ <Stanley.Yang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Parse all deferred errors with UMC aca handle
+Thread-Topic: [PATCH] drm/amdgpu: Parse all deferred errors with UMC aca handle
+Thread-Index: AQHbnMcQXYOBcwrQfEyJah4RQk8PcrODaBlg
+Date: Tue, 25 Mar 2025 06:41:56 +0000
+Message-ID: <BN9PR12MB5257EF927A14583D85C1EBCBFCA72@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20250324141415.36174-1-xiang.liu@amd.com>
+In-Reply-To: <20250324141415.36174-1-xiang.liu@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=6662cc23-0848-41d2-845e-210f12b58744;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=0ea70704-ff4f-493d-8ded-86d5ada3cffa;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-25T04:06:13Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-03-25T06:40:41Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|BL4PR12MB9479:EE_
-x-ms-office365-filtering-correlation-id: 3e27ae72-b05d-42dd-21af-08dd6b5e2099
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MN6PR12MB8591:EE_
+x-ms-office365-filtering-correlation-id: 95dd7dec-6a64-4820-6639-08dd6b68230f
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?p0Y6to4EfBrEj6D+EQXWsSnOyK+n8qUQmrxuKJsY7tKWJ0HQ50bVzR4jL6Lb?=
- =?us-ascii?Q?9cOZ0Qv+kjOaiyO6EugrlEIcbZg9qWlI+hIXxzAsdvD9at1ch7F0iw+IMBv6?=
- =?us-ascii?Q?4I2ch4FZ/kEnCcuYcaDVExuqs9wMFvV0dWK0TYZwCpmlbKXjnuzqf4MSYec5?=
- =?us-ascii?Q?vck/4dGYkL2jtNs59JYMDQMPxntE9ectKjqLE47Icn2OHSlT66OjsiDuYFOs?=
- =?us-ascii?Q?vWAbJQv0NZGbGJHSRGkjR6vaTHMU4/g+ZmWvyDCnbrR+CSVAXK+oI25aa/Ih?=
- =?us-ascii?Q?L6veMfmUgYtNe/atQXayloi7RVG+tK5r6/DZkkZvwnV90kAk3TGl0t5iu6nB?=
- =?us-ascii?Q?VOxx+X+eYMgiYHjEWBRK+RuT2s8Z/byZbmZfMgNR1oNhbS35rpiqt/Q36DHU?=
- =?us-ascii?Q?cECipBXp0aTHy4sEfXf8gHZnDZtV8ch3Ydd13fJMToydPylWTE0nDW+QPb/m?=
- =?us-ascii?Q?i5m5fDr1Zkj+thv4ZUMET1yrs0Zpq7WpDYwddtlVz4BryxGW0hqeLG6oHB1O?=
- =?us-ascii?Q?PugPruqy8FjNby8T+dikbi8b+BdfRcg8H0c7hJ0iEG7QDRALP4DtT2cjH5qs?=
- =?us-ascii?Q?xlge4dZev54fThtHvsM2LgutMm5udSEQB1oYz6b9H72V+zKka34R2jBeyvnF?=
- =?us-ascii?Q?EA0MuCFGKtA+JT2+e5bhR97YzhEN4jk2dENELWfAG6F9E2OOGt39SE0JnNGA?=
- =?us-ascii?Q?BGFkffiBUFhrKl6eLUi0woDy90dkK7PI0vvnUoBQ2ZCvkf631yG6ygLAioJH?=
- =?us-ascii?Q?s21pwlIPuxinCc3ceSPlRIQL/r+bZuw7+7uOQa6096/eXPSvMGDlgSJ5zZoi?=
- =?us-ascii?Q?7rPhT4BX/Xm5XzrCCz/CMxnvi9GgjPey/YiSVb/mHYxk9/1AWRKlx4JlEm+S?=
- =?us-ascii?Q?d7xf6DQteApQUWiBmXuj2WhDgfjn5RQxa6zD0J5mG2ydCGJ8ajooVzeMGqKl?=
- =?us-ascii?Q?V9ucHzZ+cZiA/W+aqpbmseIhcQkTB93zjtotpujgGGMLU5VJZ3HM45fdUehC?=
- =?us-ascii?Q?SoVodZnRLrs7VYO33XdFB/k06LZRYTiablq3tFCSnWlycbAPjePx1/dtAyO4?=
- =?us-ascii?Q?MGvgaN3wUpealYcN09fDhlT8/PZ+y4ZdsoaDjRG1v4D0KWb03QaNcWrMacR+?=
- =?us-ascii?Q?Sast0mfXEGXQIwwO8aDu61o9Ceo19K4ybChAVCTsoW41aXl9IwjY0Z+tbaKf?=
- =?us-ascii?Q?AcxJ7dA/uVjJn8mZSSQXy+AX8js1X2ny+NRSLKizhiyahcpa+ceIiKQd86ES?=
- =?us-ascii?Q?RYXYQryjhAGFCo/mgCOVD+B/6JqJ1GaaHaT08MZN0OUadA6YFMLy8wmr12+x?=
- =?us-ascii?Q?nGj3rvQqmVlLl9MxN14pfLNgvBx4rQbMIEKOseURfisPOa0M0yjC6q5PvH90?=
- =?us-ascii?Q?Vds+qnUL5MqoWr5gn0AcfzE604bRxNAyjReuN9yjM2jPHyyF28CZ22qaCNmb?=
- =?us-ascii?Q?zzDAAbGz7TD1mjqaHEYG/SrqYX4WB0NE?=
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?XHf/jEQsBSiyy+y/L75viktNq1tfb3M54aUISAmsyGvyzuH2KOJvj9Y8M15z?=
+ =?us-ascii?Q?iUMgCnyoiFrnfRSPrv7pf5CvupAkZBahcrb4QO6Dx3tOvYQgVP/Z92PPGx/a?=
+ =?us-ascii?Q?VIB3DnkTsyWVM0MiWrMK7l9gsf913BWeHwCYtVxdvvxnCie2+r5KeQxrv7ea?=
+ =?us-ascii?Q?U7josoRkl95ZUqMKHQlwnuVDHnEaQ8vUPkyLNU9qBOYXvGyiIo6OUGhxyqkN?=
+ =?us-ascii?Q?TRZ/Bj1Ebz+mPnDiOUq6azFOaxgUBgX1kqYlJefckFntZMnTKdn3RQiMS33g?=
+ =?us-ascii?Q?XQnaj3IC2RRR0sP8lc+rOTHfaz/VVRlS3XuXEN8YQ/7s0k/ZPVaM0TP9EILQ?=
+ =?us-ascii?Q?XlmXXb5T4UFvA8p8+0lkzRVBVoRVAJUZsusFZph/yotNWHjY5dUhU0aSzO6W?=
+ =?us-ascii?Q?WCu2Ux6LvW3cCMWU17p5vN50f1BiS+WNIiwEEYlt1UXTAmUfWqjvh/qn0fUp?=
+ =?us-ascii?Q?hk0HMqI5I5ZASIYGM7U+nP0oLw7oHB7A+NA4b7DfAHyzzP+gIriiyDo+ptKb?=
+ =?us-ascii?Q?EXZtcq23mIS7w9P6GsY0I3tozFNH6fXzlCBC3d7ntZ7CBuf25hgMHjuJQu99?=
+ =?us-ascii?Q?2VK6SiyDLeKmt6WzANc5pFTb1KxWYKX5EFTiMZywrwwK+VBZlHaSaYb14oqe?=
+ =?us-ascii?Q?HRGDLA7cuBCnq14hNzeRwPQ9yucGciFv2iDZFClH8Q6CbmtLH+m9kui6hnHQ?=
+ =?us-ascii?Q?V/R2y1rQDwgAoktNFELgMCJ6VEPQEc0p7B1IRg649VUZf9yGGQFLnBiwi97a?=
+ =?us-ascii?Q?8I3DXioBuCdXqKLroyUHEUl19byeQzuaPmSnVf9FVKmqPJwveY0yoa76+yVT?=
+ =?us-ascii?Q?rIXuTIwu/pvTx8TuAD5K91aO5AYwXavljB3i/lpPEG3TyYfQHONTlIs+a3Q5?=
+ =?us-ascii?Q?LXf3TZ4QlT/c9XtGVj1hBLp5fhhXDVU7vso5yx6PMxMmpLeoqIwoQt6Gc+10?=
+ =?us-ascii?Q?4VQHlZhJa/LR/iSrNWYNhysN/m2zn8jfoOo9newF8XzrEVu98/XoQkXegD62?=
+ =?us-ascii?Q?mmaDyFs7fAT3ECDUOgXE2LNNtt/m/j1dDpEYwLSvuCBVSRraITcjcdOoGZed?=
+ =?us-ascii?Q?rZks9X9enKD75TGIkYJ6EHlP/23wNEfv3+FoAtTSrnkM249d3UB7BS48H4FZ?=
+ =?us-ascii?Q?+QYADSTpFQDGU5ilGbg98y6I4mnTTua6Ld6SIqnI4+DmMvIad3X9jkaPHaVR?=
+ =?us-ascii?Q?9/GCcL9YqkV6bHldscRkkFIKNptHhiTEC+qIMm8xKc0B5E6k6t7DrXDETX0S?=
+ =?us-ascii?Q?dp91zEZ04UeZ8zoBCoUf0upzi4Zt8hp9wFfLxGgE6k1KTKxRLdfgZWI+HXaO?=
+ =?us-ascii?Q?7QmKorTQKMwqtg3Rw+gsBIvwVwyvBB7ggmHCVvf8VljG8IS/7lNCUOSqQ2K8?=
+ =?us-ascii?Q?ZnmgR20dMd4QkEgRlzKSKX6qKC5SpOEKKhCxPYEJ03ys8TQHpdAQk6bwJ5lJ?=
+ =?us-ascii?Q?2rbuHHagK7GEebRO/jNPIMoFH3P/5bh5?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bm5+HDFG/labMEnpps6YPKd66/DypKeGIzRyinstyoWgItWmZl4l+U1ZeZxO?=
- =?us-ascii?Q?nfrOVVt5ADXfBN/ZaPGtpt2NUf56dYZ63Ei94yeVckfw9C1BNrLAmjYNVTuv?=
- =?us-ascii?Q?/RwrZe/KwMWsxT2P0rZhRAngoW7DWqL4t4ZHCfEBPih0HxX5YbWrZHvpl+8r?=
- =?us-ascii?Q?zPkZLOau6hfpzOZOTjGUedq55VK/kH2FSwJ3MX+m5l4sPi38O6eVoM7oeWim?=
- =?us-ascii?Q?hWhxpThIQ9ADWhDCcevjfQtQzApGXe06CSWT//em+ojA3q7YigI8n2Sk1pwU?=
- =?us-ascii?Q?PHUy4GXN+/FRxuCgPATsGkKjNlQ/Mem+KnhH1oKcV9Mi2hsTgFsIOwBsEbs7?=
- =?us-ascii?Q?Z7PMbl/1NVTcwwBDD90ciCKBSLNJFh9l29lovgi5OqC9N2HChAcXmWAJWg3o?=
- =?us-ascii?Q?5pCvflX4gheInln7yG+iT3UtAI7b4xv/Qlzkqe5NZne711B65TnuzJ1sRV4c?=
- =?us-ascii?Q?1RrrXzh0pxp56wpmrGHRigxJpjhVeZogjZ0hrZOGrJApNZQRFQM1lovLw1Bg?=
- =?us-ascii?Q?h/1nCcWYoNCrONzlYqNgQAbPbRL9ZJNwx6m7YWkp8B7qkuRaqszx4/oK9Qq9?=
- =?us-ascii?Q?fwA6kNyErsh5Jnv9nKvdE08L1blTkg97kKVVnRFr1X2V+rI09jmfONfpcmky?=
- =?us-ascii?Q?S/vvs+heVjrfofhibTQ/qlEJvYs58gtGzKkhaqxb8HK9vi1DoFTgCWcee4kA?=
- =?us-ascii?Q?RFrnZ2z4jFON3fCbMhDWmDHdr7xdBzjhStSFIZ2dtrmtQmPmX/YABLJYLVrx?=
- =?us-ascii?Q?NR+WxYHuF4d/GS+OWMKvw1TZxwhqJzMEyCKIcXBqbT64DrFEYi/BSkuEDNO2?=
- =?us-ascii?Q?ZoTE6UNf+6LAvqnBReHwA39gOxyBXWRv3nsmSFX2AUDNR9fT47uTVpSktVAt?=
- =?us-ascii?Q?ya9oFaLDNvpn/jhuuKrvTlKbCKAbK7ZzKioldqkyYV7LHHwaUYa0lfXBuCC0?=
- =?us-ascii?Q?icQuatw0FS/i3UdGKYKot2yVgF8wjBwUfrL/zZx2tnDC06efdCOLYDuSD7EJ?=
- =?us-ascii?Q?bqA9ckM5YIj2VwBVePNMen8buqAFoFe5/bxFu0AHgVl4RmgUf6Fdfrjt9PdP?=
- =?us-ascii?Q?qZhqHLwHvXah+GzzskbgsMbhAoozifetwrQ+OSkb+04+riqSaSr4W77o8AiA?=
- =?us-ascii?Q?IVwHxsESRZ7cmbWzHC4ECHNxXuZpoFM3P35WHa+uonC3OKiykHmb+VavvZ3p?=
- =?us-ascii?Q?UCq0W9TEf+cTvwH6xhuwdUXgRtdGGEakrUi6d1BqV07glqJZn+4yZoofzrln?=
- =?us-ascii?Q?+Dpt8UjfjD2rz4o3X7FPbfFhVWByeuU9/3g4rQi4y1DqF/rc/e7IkeWTrEwD?=
- =?us-ascii?Q?rDS5zt9oPVgN2UIBIg8cK2tiY2J9tP4tZp28lIqXJnmBrjlZM7dYXUmwrQLk?=
- =?us-ascii?Q?A1VjMf0KEOTcLFoqQDv970beW/HOB/iPaTx0SH5gd7zih76BaPi6MpvjGEg9?=
- =?us-ascii?Q?l6EQgVneygyO6qpGchtZu8mIRNspzqApJUQCyWtO7pDvC7swb2SYXSNgDRpL?=
- =?us-ascii?Q?tbVe/2X3UDScVxOnQCBzHLHFf//H6BvLoDOYB/m91gWF8n+ElonWArPyAZiv?=
- =?us-ascii?Q?qrHnWQxAaFhGAG6Xkzx6A4GT0grZ3Lqr+aOhE7y+?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZucpM1+DryURJxg6YdGd5MPQ8esZXD/EJIe7s8bndAxfcf1uVsCDjGSEW+7H?=
+ =?us-ascii?Q?jD4rJi5UFHlEEPS4wZAN5h7wUoU2qHHOzRFHX8XxeYdTyKFtvXnLOC02Qsfc?=
+ =?us-ascii?Q?5lfeWGcKyMi62yk7yE9GHzd6xB959v3yxq66XKTXAuW0yqHRz3XR/j0EuGIZ?=
+ =?us-ascii?Q?CFclzsI91Mfk8OHRVHDfxXRokpYiyOH5O8QIWTNic7OeSgZ08FYzMj1vhZPB?=
+ =?us-ascii?Q?MCXJMpXNEzXMo/FfWUFjihfg0/dG1jk8V5ZPq1xNVuBsh5xLJcYRmRGlwGCd?=
+ =?us-ascii?Q?/awQYQl7MAPtJUhShj7SfgLrsmpS0/b1zRns4QbkRobKgWkRqIWm6RrbEgMt?=
+ =?us-ascii?Q?8axr2gbAY/6JnrlO0P5kHmOnu1M/B6DT2i6P3f4D+IYGxAunhXofjhBL3s5l?=
+ =?us-ascii?Q?Om50sDuyGn7bQdPDYT5q9I5LK6RPMv2AoyWd5rrhSWlXfLCo9rrWoc6e0HQZ?=
+ =?us-ascii?Q?nh5Hux36UC6rVAZmDSK+6hE1w1BEJa3ueiksK/UioJqudqkS+aUDh++TqMIB?=
+ =?us-ascii?Q?7dqW2fAXB71Gx22Qb7OnsNcoNVt1sUvuZrTBMMgaNJ55/Q3FVgDQQ4pz27LJ?=
+ =?us-ascii?Q?FaMYWbPiFfISyVTS8xrGtBSXEigy7YJs4iLjtWD++YpsQ8+A1vtckRGpR6uI?=
+ =?us-ascii?Q?Gy9Y9xgNOk8W8ojs+/3jE6MDrucwCP9a1Tuwu1TUlval+t7O3vZkjDIFraJ6?=
+ =?us-ascii?Q?477jMeGvXwuGl4E0VUd8pAe1a4YeuAjed8F2Ow43XUR7Xw+6g7xsoGXsroN4?=
+ =?us-ascii?Q?26FQveqaKv8GMf1kTWee0NCyVHpQ6Y0alZanmk4GnQUpkANhyLAVyd/ojEh6?=
+ =?us-ascii?Q?fBfpAhKy6T5c2wEG4rSYagduUASQxUPVI32iUUP5K9elsN9MYEbutBOgb0Sv?=
+ =?us-ascii?Q?RSFM5/FULNPu5jklPvSqwBGHgy6JK+zwWGhN4sWvcrl8Bj1RtYlEOBhwvmpA?=
+ =?us-ascii?Q?0a6ixiiBakMoH05zYkS6efdGtr2vU9e2X7fWKLyTYYtJVg8hugLpeIyP3CBp?=
+ =?us-ascii?Q?H3K1I/X5IHlMEdn9cqQYaDYal6qCPswkxFKY+W3UptCA/KaEvsS2L1KFI09R?=
+ =?us-ascii?Q?tkEvlOsqe37uj1eEDQg/rFP33ZRJVmCT3brGe2U/jbX/fusoPGgO4i9Wi7Sv?=
+ =?us-ascii?Q?pV4zj9ni0WHeOuuUuBOx3KaBXn9n/XAkyMKsc1AXiLeJ8UuR8RvJN7LhXVaB?=
+ =?us-ascii?Q?d23j6TkF0vh27s6TzipG1n0vceokdySKbeTjPBJzWmsRNvBiysa+veeGQDeR?=
+ =?us-ascii?Q?kM5Wke9hUVCSXiyaL01CvlFTd3oZoltyDvzdDyY1QfECdwy699R1LbIFJYlV?=
+ =?us-ascii?Q?RxTQd/ec7y9dSCA2uhm9YUt/b7FTaXbXuwlYjEKaUfiZViiQewl2xRbrj1z6?=
+ =?us-ascii?Q?2G2TJCMX5cR2JoBiWr9IShU3JMdzbU+Js4PZRYSnAlHYTjxIopx0Yotljctb?=
+ =?us-ascii?Q?2hcPj/IK7Pb+uLz7EV/OBot86evHSMoLTpTmXES1KDDlayn7EOa3A7A8SxE6?=
+ =?us-ascii?Q?CJClP30MCwIpDivcOd87uVqNBvyL+pBb1R8y2oBJ4G6Vb/5mw95l+VACNKe6?=
+ =?us-ascii?Q?Ecra5oBefXZLpMz/b+EwOxs5PA5CEauAcr/jaRDQ?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e27ae72-b05d-42dd-21af-08dd6b5e2099
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2025 05:30:17.4379 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95dd7dec-6a64-4820-6639-08dd6b68230f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2025 06:41:56.4833 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wNujLLFw5PYNsLIVN+3neQlbO5SCo5YJqDbMbJR3TB599hRgMdIMXFnhbuht27X+wZX10P9BzjqQTa2A4If0XQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9479
+X-MS-Exchange-CrossTenant-userprincipalname: +2sAebkJKqKNQ9RK+3dpBS5RQ3jrTR86ixpLtOdHrvI9KZu6X9ziMc+6cHpGatR6HbINhrGjiFykL9HdGYXtVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8591
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,219 +160,202 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Series is
-
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
 Hawking
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Gao, Lik=
-un
-Sent: Tuesday, March 25, 2025 12:33
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Cc: Gao, Likun <Likun.Gao@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: make ip map init to common function
+From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Sent: Monday, March 24, 2025 22:14
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wa=
+ng@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.=
+com>; Yang, Stanley <Stanley.Yang@amd.com>; Liu, Xiang(Dean) <Xiang.Liu@amd=
+.com>
+Subject: [PATCH] drm/amdgpu: Parse all deferred errors with UMC aca handle
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+We should only increase the deferred errors in UMC block.
 
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-From: Likun Gao <Likun.Gao@amd.com>
-
-IP instance map init function can be an common function instead of operatio=
-n on different ASIC.
-V2: Create amdgpu_ip.[ch] file for ip related functions.
-
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c | 96 ++++++++++++++++++++++++++  dr=
-ivers/gpu/drm/amd/amdgpu/amdgpu_ip.h | 29 ++++++++
- 3 files changed, 126 insertions(+), 1 deletion(-)  create mode 100644 driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_ip.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c  | 4 ++++  drivers/gpu/drm/amd/amd=
+gpu/amdgpu_aca.h  | 8 --------  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | =
+2 +-  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  | 8 +++-----  drivers/gpu/dr=
+m/amd/amdgpu/jpeg_v4_0_3.c | 2 +-  drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c =
+ | 2 +-  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c   | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  | 2 +-
+ 9 files changed, 14 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdg=
-pu/Makefile
-index ff210241bc72..4293069924cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -66,7 +66,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_doorbell_mgr.o amdgp=
-u_kms.o \
-        amdgpu_fw_attestation.o amdgpu_securedisplay.o \
-        amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
-        amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_d=
-ev_coredump.o \
--       amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_cper.o
-+       amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_cper.o
-+ amdgpu_ip.o
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_aca.c
+index dc47f5fd4ea1..b4ad163f42a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -195,6 +195,10 @@ static bool aca_bank_is_valid(struct aca_handle *handl=
+e, struct aca_bank *bank,  {
+        const struct aca_bank_ops *bank_ops =3D handle->bank_ops;
 
- amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
++       /* Parse all deferred errors with UMC aca handle */
++       if (ACA_BANK_ERR_IS_DEFFERED(bank))
++               return handle->hwip =3D=3D ACA_HWIP_TYPE_UMC;
++
+        if (!aca_bank_hwip_is_matched(bank, handle->hwip))
+                return false;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_ip.c
-new file mode 100644
-index 000000000000..fc6787d87fcf
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-@@ -0,0 +1,96 @@
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person
-+obtaining a
-+ * copy of this software and associated documentation files (the
-+"Software"),
-+ * to deal in the Software without restriction, including without
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute,
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "amdgpu.h"
-+#include "amdgpu_ip.h"
-+
-+static int8_t amdgpu_logical_to_dev_inst(struct amdgpu_device *adev,
-+                                        enum amd_hw_ip_block_type block,
-+                                        int8_t inst) {
-+       int8_t dev_inst;
-+
-+       switch (block) {
-+       case GC_HWIP:
-+       case SDMA0_HWIP:
-+       /* Both JPEG and VCN as JPEG is only alias of VCN */
-+       case VCN_HWIP:
-+               dev_inst =3D adev->ip_map.dev_inst[block][inst];
-+               break;
-+       default:
-+               /* For rest of the IPs, no look up required.
-+                * Assume 'logical instance =3D=3D physical instance' for a=
-ll configs. */
-+               dev_inst =3D inst;
-+               break;
-+       }
-+
-+       return dev_inst;
-+}
-+
-+static uint32_t amdgpu_logical_to_dev_mask(struct amdgpu_device *adev,
-+                                        enum amd_hw_ip_block_type block,
-+                                        uint32_t mask) {
-+       uint32_t dev_mask =3D 0;
-+       int8_t log_inst, dev_inst;
-+
-+       while (mask) {
-+               log_inst =3D ffs(mask) - 1;
-+               dev_inst =3D amdgpu_logical_to_dev_inst(adev, block, log_in=
-st);
-+               dev_mask |=3D (1 << dev_inst);
-+               mask &=3D ~(1 << log_inst);
-+       }
-+
-+       return dev_mask;
-+}
-+
-+static void amdgpu_populate_ip_map(struct amdgpu_device *adev,
-+                                         enum amd_hw_ip_block_type ip_bloc=
-k,
-+                                         uint32_t inst_mask) {
-+       int l =3D 0, i;
-+
-+       while (inst_mask) {
-+               i =3D ffs(inst_mask) - 1;
-+               adev->ip_map.dev_inst[ip_block][l++] =3D i;
-+               inst_mask &=3D ~(1 << i);
-+       }
-+       for (; l < HWIP_MAX_INSTANCE; l++)
-+               adev->ip_map.dev_inst[ip_block][l] =3D -1; }
-+
-+void amdgpu_ip_map_init(struct amdgpu_device *adev) {
-+       u32 ip_map[][2] =3D {
-+               { GC_HWIP, adev->gfx.xcc_mask },
-+               { SDMA0_HWIP, adev->sdma.sdma_mask },
-+               { VCN_HWIP, adev->vcn.inst_mask },
-+       };
-+       int i;
-+
-+       for (i =3D 0; i < ARRAY_SIZE(ip_map); ++i)
-+               amdgpu_populate_ip_map(adev, ip_map[i][0],
-+ ip_map[i][1]);
-+
-+       adev->ip_map.logical_to_dev_inst =3D amdgpu_logical_to_dev_inst;
-+       adev->ip_map.logical_to_dev_mask =3D amdgpu_logical_to_dev_mask; }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_ip.h
-new file mode 100644
-index 000000000000..2490fd322aec
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
-@@ -0,0 +1,29 @@
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person
-+obtaining a
-+ * copy of this software and associated documentation files (the
-+"Software"),
-+ * to deal in the Software without restriction, including without
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute,
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __AMDGPU_IP_H__
-+#define __AMDGPU_IP_H__
-+
-+void amdgpu_ip_map_init(struct amdgpu_device *adev);
-+
-+#endif /* __AMDGPU_IP_H__ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_aca.h
+index 6b180f1b33fd..38c88897e1ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
+@@ -80,14 +80,6 @@ struct ras_query_context;
+        (ACA_REG__STATUS__POISON((bank)->regs[ACA_REG_IDX_STATUS]) || \
+         ACA_REG__STATUS__DEFERRED((bank)->regs[ACA_REG_IDX_STATUS]))
+
+-#define ACA_BANK_ERR_CE_DE_DECODE(bank)                             \
+-       (ACA_BANK_ERR_IS_DEFFERED(bank) ? ACA_ERROR_TYPE_DEFERRED : \
+-                                         ACA_ERROR_TYPE_CE)
+-
+-#define ACA_BANK_ERR_UE_DE_DECODE(bank)                             \
+-       (ACA_BANK_ERR_IS_DEFFERED(bank) ? ACA_ERROR_TYPE_DEFERRED : \
+-                                         ACA_ERROR_TYPE_UE)
+-
+ enum aca_reg_idx {
+        ACA_REG_IDX_CTL                 =3D 0,
+        ACA_REG_IDX_STATUS              =3D 1,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_xgmi.c
+index be426542c1ae..af62688d34bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -1134,7 +1134,7 @@ static int xgmi_v6_4_0_aca_bank_parser(struct aca_han=
+dle *handle, struct aca_ban
+                break;
+        case ACA_SMU_TYPE_CE:
+                count =3D ext_error_code =3D=3D 6 ? count : 0ULL;
+-               bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
++               bank->aca_err_type =3D ACA_ERROR_TYPE_CE;
+                ret =3D aca_error_cache_log_bank_error(handle, &info, bank-=
+>aca_err_type, count);
+                break;
+        default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c
+index e84238336fb6..ff77f59a1499 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -893,15 +893,13 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_hand=
+le *handle,
+
+        switch (type) {
+        case ACA_SMU_TYPE_UE:
+-               bank->aca_err_type =3D ACA_BANK_ERR_UE_DE_DECODE(bank);
++               bank->aca_err_type =3D ACA_ERROR_TYPE_UE;
+                ret =3D aca_error_cache_log_bank_error(handle, &info, bank-=
+>aca_err_type, 1ULL);
+                break;
+        case ACA_SMU_TYPE_CE:
+-               bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
++               bank->aca_err_type =3D ACA_ERROR_TYPE_CE;
+                ret =3D aca_error_cache_log_bank_error(handle, &info, bank-=
+>aca_err_type,
+-                       (bank->aca_err_type =3D=3D ACA_ERROR_TYPE_CE) ?
+-                               ACA_REG__MISC0__ERRCNT(misc0) :
+-                               1);
++                                                    ACA_REG__MISC0__ERRCNT=
+(misc0));
+                break;
+        default:
+                return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd=
+/amdgpu/jpeg_v4_0_3.c
+index a758f0889d29..41afabd812d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -1290,7 +1290,7 @@ static int jpeg_v4_0_3_aca_bank_parser(struct aca_han=
+dle *handle, struct aca_ban
+                                                     1ULL);
+                break;
+        case ACA_SMU_TYPE_CE:
+-               bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
++               bank->aca_err_type =3D ACA_ERROR_TYPE_CE;
+                ret =3D aca_error_cache_log_bank_error(handle, &info, bank-=
+>aca_err_type,
+                                                     ACA_REG__MISC0__ERRCNT=
+(misc0));
+                break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/=
+amdgpu/mmhub_v1_8.c
+index a54e7b929295..84cde1239ee4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+@@ -751,7 +751,7 @@ static int mmhub_v1_8_aca_bank_parser(struct aca_handle=
+ *handle, struct aca_bank
+                                                     1ULL);
+                break;
+        case ACA_SMU_TYPE_CE:
+-               bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
++               bank->aca_err_type =3D ACA_ERROR_TYPE_CE;
+                ret =3D aca_error_cache_log_bank_error(handle, &info, bank-=
+>aca_err_type,
+                                                     ACA_REG__MISC0__ERRCNT=
+(misc0));
+                break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v4_4_2.c
+index 2c659470946c..c1c59637bd51 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -2397,7 +2397,7 @@ static int sdma_v4_4_2_aca_bank_parser(struct aca_han=
+dle *handle, struct aca_ban
+                                                     1ULL);
+                break;
+        case ACA_SMU_TYPE_CE:
+-               bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
++               bank->aca_err_type =3D ACA_ERROR_TYPE_CE;
+                ret =3D aca_error_cache_log_bank_error(handle, &info, bank-=
+>aca_err_type,
+                                                     ACA_REG__MISC0__ERRCNT=
+(misc0));
+                break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/umc_v12_0.c
+index 74f57b2d30a5..0e404c074975 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -85,7 +85,8 @@ bool umc_v12_0_is_deferred_error(struct amdgpu_device *ad=
+ev, uint64_t mc_umc_sta
+
+        return (amdgpu_ras_is_poison_mode_supported(adev) &&
+                (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, =
+Val) =3D=3D 1) &&
+-               (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, =
+Deferred) =3D=3D 1));
++               ((REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0,=
+ Deferred) =3D=3D 1) ||
++               (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, =
+Poison) =3D=3D
++1)));
+ }
+
+ bool umc_v12_0_is_uncorrectable_error(struct amdgpu_device *adev, uint64_t=
+ mc_umc_status) diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/driv=
+ers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index 20f47947e894..1e4ec8f07896 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -1940,7 +1940,7 @@ static int vcn_v4_0_3_aca_bank_parser(struct aca_hand=
+le *handle, struct aca_bank
+                                                     1ULL);
+                break;
+        case ACA_SMU_TYPE_CE:
+-               bank->aca_err_type =3D ACA_BANK_ERR_CE_DE_DECODE(bank);
++               bank->aca_err_type =3D ACA_ERROR_TYPE_CE;
+                ret =3D aca_error_cache_log_bank_error(handle, &info, bank-=
+>aca_err_type,
+                                                     ACA_REG__MISC0__ERRCNT=
+(misc0));
+                break;
 --
 2.34.1
 
