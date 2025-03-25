@@ -4,72 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 149F5C35FFC
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 14:15:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB38C35FFC
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Mar 2025 14:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E78910E597;
-	Tue, 25 Mar 2025 14:15:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 492FE10E57E;
+	Tue, 25 Mar 2025 14:18:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sn5lhAS+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bOW1SKAZ";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C43DC10E57E;
- Tue, 25 Mar 2025 14:15:06 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-2ff5f2c5924so1403866a91.2; 
- Tue, 25 Mar 2025 07:15:06 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E018A10E580
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 14:18:17 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-301b4f97cc1so1707822a91.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 07:18:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742912106; x=1743516906; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742912297; x=1743517097; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mCKU47dj2otELlNtayJc7yIJ8Hzjax+vXsoDrbo/fUE=;
- b=Sn5lhAS+b3ZiTEy5tENpqcjQv4N5aU5eBwfWpibPXRzOFBcq6KSt/6V3E4Xa1NEjPK
- obJfFOUyFKfhrVfJ8KD/bxlOW76AH5DBlcdwBKu76aRd/nWcfDe9eG8aBv/si8luSY7K
- kHpA0A8s8vuJarAnt8MAcBrONKvAy2M1djPjkdXUI7C8ksH+m2lsXEDLMGaoQ0j6p33N
- 06jXvZ8Ro7U862DDJoLAXSYkQRuUrIKmylx6eeySqr1bk5aDfh8r6cLFllU+/oWuyLmc
- FnB0hxqor5ciB84K9cbZDzY2r4oTY13NYd/xH/ltHCUW9kNekXnnicJKfnntcHNd5GqK
- JauQ==
+ bh=SsAWJdJxplaha6zwn8eyyfrkmLzJy7lIOKV/D3lQ1Yg=;
+ b=bOW1SKAZFFk/bPKNCLLxdzjtICCA7f77gjecbOwCeiBd+kMfcE4CFOKCbxkcV3ZZhx
+ RYVgUTe9FKXf7VCdaiaeZ9iPmAW1O+tepqNModsEhAVOoBODbrirFVK3bzvA2Xi7B5fC
+ E7/U0gvvRsdJWLZj5zRo2JvVR8peRw8ch3fw2RynnBeNTQT5W19NXw4oa8llalxHsnkA
+ Yz6R5lYLNWAg5eMrh3qf6TRhlaB8D4sPyweuOleQGEntHtn8hIBkYHbuylBuzlVbEXHa
+ lFOl+7yxiHO6TTf4R88PFQZ9X1o7+xVH6LotEor0OlgqFFkoxPSrkKtPhrCVzqzcNqEY
+ DTBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742912106; x=1743516906;
+ d=1e100.net; s=20230601; t=1742912297; x=1743517097;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mCKU47dj2otELlNtayJc7yIJ8Hzjax+vXsoDrbo/fUE=;
- b=qSufSAsAB/80i9X8NwLV+p3IdvVK/8swkBfe2mvNMlMTIWICPJZ9N7JzvOnuQmMLHS
- A3DvkW0cwn+s/sX/+dAISqSUOCRJ2wVEhxIwracQGmlvgpAkcP0tdmkyLA5Lr/sluZpe
- aBuNNDibVtpurq570biageorN4pubZEV/g8QTj+oiTzqKh3oiqDSuB/xFFXBiQ9YGFay
- Cmsvvc7FbBehXkGd9rOmBeNdPuhgiB8dr+weyrqTrvetRQ6Fn4hkeqaPSBagh+kuOuGL
- ilaho5ZOziCIRtN1nkWjx/uXjul2dnHplKDVDfcYzqZ8ErA7R8/UJ/92+PGcWb4Z0jIH
- tRPA==
+ bh=SsAWJdJxplaha6zwn8eyyfrkmLzJy7lIOKV/D3lQ1Yg=;
+ b=d43LPkE7mh1Wiqi5lgewd1xBmA+WcejCPXTf97uhF58HtmpkF/qFhXrHHkt+f4rOom
+ adFloxmYrGjNns6U5ORri9uk6OB4LGWCWLykeOt93Rqhf/KhM7hKu6xvCcYDEo1zjf0j
+ U23KSjMynTwMenSDV8vI4xDfydGt/5In9llsrAmu6ZoyxNlO9Y/sZy9OqRAqoH8bM7Gt
+ mEdx4tu0uVbWxFRtgTTwJL/5MgMnKgqeDy48HgT4pGwp9yEkNEg/Ts0koi37FlTqDzj2
+ rDlLMrb4sKc7croZfO6ZfyCSiMOEUnutl6NRD3vbxU+76MNvG12LnCgyCbQsyzdN88TQ
+ y7DA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUkwVoU9nYgwUMH3rHGPddBfzY7xlUt6RnQlWwaHnBmly4hT6EckEBDQ+FaNZbvqTRIBtLZ464e@lists.freedesktop.org,
- AJvYcCW8oXNao+DF+DwWrA44KdTJ0oH7YH7nVg9R8ChdbR2Dps0EW3OKVFQjvEsr6dlsxJ+Xx53BOTL7WAyL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQ/IU/6huXVLMJSvnnZT5toISR9jEUngM4DNglUASSbXNQnMce
- /WVnyxT0fVz27WF9X+farLDQ5VeBRO/JSwLgjvikjBuZNud2U6Q+HvqYRAfPhTfhIZfeghbtCjo
- MoCEEdefnRjEVRFfV3ydu/shKRWuyCA==
-X-Gm-Gg: ASbGnctpTH8pN8UKsTmWSUXF7hR1jLcN1n5IRE35CNK0CIHFNPVNxu11tPiWD9jYnFU
- mU/9VeNo+8mYydLxPHsbBY2nwUh9mLz31UiTaw1ox9i1d5HrQDU3+g1RR2yYmX+PDgMWYUtE/38
- hREYobpPJWB1L5N9dmxK6EiOBKow==
-X-Google-Smtp-Source: AGHT+IENoNTT2vi+vx81CnNiKN/eCsH7p9pNWNefMo6VnWF4d5bjYJivy2kwVihxs9ql7UqSBZE/EIzvJ5YOwRCZ0hQ=
-X-Received: by 2002:a17:90b:1811:b0:2ff:6bcf:5411 with SMTP id
- 98e67ed59e1d1-3030fe52827mr10393858a91.1.1742912106018; Tue, 25 Mar 2025
- 07:15:06 -0700 (PDT)
+ AJvYcCUjshsIcgMFLUdSFqqtYPBrGQSTN4uHmXYMC61WRy13ypQXMJxDzrqovXBtfLa4hjDSpEg/lgET@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyCY4XronMmdKIBpymEC+ydJk4T0X13O4wC2x85rEVzaakdi+58
+ +NNZRtMV12JjJqTEbK+w2NOj72SCFCOBqRpQMy+AemTGA029dIs2rwKpEAZMgTu47Mzz5OZG4dw
+ kbbiyuBHCKE/n53kqWJqMbauimz0=
+X-Gm-Gg: ASbGncsn/GjoVmcXqMjKezANDvsXpSGs6Awt0aWyPLoQizilxUAkfWG35dBg9gA93/Y
+ EwxOG73vuKLK+Zcf9AbwN4//1W6CsoZTaMCp8iPyKwwArW6D6vUMZ4BCNfQInBFqBP9ePBG+gfW
+ Bm0pmHIWlq7CcCHV+alsO8YqpAug==
+X-Google-Smtp-Source: AGHT+IEOvPD/uuB8UipYi3rtmNGUo9bxowALOhkFpl4fjy9OkTl5Uxa14bJsByJJ0OFTqEhBXc8zy6T39zL0ZFhjHdg=
+X-Received: by 2002:a17:90b:4a89:b0:2ee:acea:9ec4 with SMTP id
+ 98e67ed59e1d1-3030fee30e6mr9112512a91.3.1742912297053; Tue, 25 Mar 2025
+ 07:18:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250325000723.366365-1-andres.emb.sys@gmail.com>
-In-Reply-To: <20250325000723.366365-1-andres.emb.sys@gmail.com>
+References: <20250325102652.229756-1-tomasz.pakula.oficjalny@gmail.com>
+In-Reply-To: <20250325102652.229756-1-tomasz.pakula.oficjalny@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 25 Mar 2025 10:14:53 -0400
-X-Gm-Features: AQ5f1JqAPTsSQjC_LnhDo8HUWP-Ttq1fkYL-D8DfQ-hqwgJfLlGcGFXIiF2Clv0
-Message-ID: <CADnq5_MEEFwRM09qMkzU6SDssLEHn_BAE4+JXNDYvEXBHhQXsQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Replace deprecated function strcpy() with
- strscpy()
-To: Andres Urian Florez <andres.emb.sys@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, mario.limonciello@amd.com, arnd@arndb.de, Tim.Huang@amd.com, 
- skhan@linuxfoundation.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
+Date: Tue, 25 Mar 2025 10:18:04 -0400
+X-Gm-Features: AQ5f1JqMbCHEXPRC2IYDJ4E_WY7DGPzhYG85-atBnrt2HWYSOTyA3if1hRlckcM
+Message-ID: <CADnq5_PEKAYuguPX=eTpxxCzA=VowpQEs_iKKncTCCOaGOA8JA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Add zero RPM enabled OD setting support for
+ SMU14.0.2
+To: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+Cc: alexander.deucher@amd.com, kenneth.feng@amd.com, KevinYang.Wang@amd.com, 
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,303 +83,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Mar 25, 2025 at 8:42=E2=80=AFAM Tomasz Paku=C5=82a
+<tomasz.pakula.oficjalny@gmail.com> wrote:
+>
+> Hook up zero RPM enable for 9070 and 9070 XT based on RDNA3
+> (smu 13.0.0 and 13.0.7) code.
+>
+> Tested on 9070 XT Hellhound
+>
+> Signed-off-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
+
 Applied.  Thanks!
 
 Alex
 
-On Mon, Mar 24, 2025 at 8:08=E2=80=AFPM Andres Urian Florez
-<andres.emb.sys@gmail.com> wrote:
->
-> Instead of using the strcpy() deprecated function to populate the
-> fw_name, use the strscpy() function
->
-> Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strc=
-py
->
-> Signed-off-by: Andres Urian Florez <andres.emb.sys@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 68 ++++++++++++-------------
->  1 file changed, 34 insertions(+), 34 deletions(-)
+>  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 55 ++++++++++++++++++-
+>  1 file changed, 54 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_cgs.c
-> index 68bce6a6d09d..525e53c94f4f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-> @@ -253,16 +253,16 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_=
-device *cgs_device,
->                 if (!adev->pm.fw) {
->                         switch (adev->asic_type) {
->                         case CHIP_TAHITI:
-> -                               strcpy(fw_name, "radeon/tahiti_smc.bin");
-> +                               strscpy(fw_name, "radeon/tahiti_smc.bin")=
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> index f7cfe1f35cae..82c2db972491 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> @@ -79,6 +79,7 @@
+>  #define PP_OD_FEATURE_FAN_ACOUSTIC_TARGET              8
+>  #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE           9
+>  #define PP_OD_FEATURE_FAN_MINIMUM_PWM                  10
+> +#define PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE              11
+>
+>  static struct cmn2asic_msg_mapping smu_v14_0_2_message_map[SMU_MSG_MAX_C=
+OUNT] =3D {
+>         MSG_MAP(TestMessage,                    PPSMC_MSG_TestMessage,   =
+              1),
+> @@ -1052,6 +1053,10 @@ static void smu_v14_0_2_get_od_setting_limits(stru=
+ct smu_context *smu,
+>                 od_min_setting =3D overdrive_lowerlimits->FanMinimumPwm;
+>                 od_max_setting =3D overdrive_upperlimits->FanMinimumPwm;
+>                 break;
+> +       case PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE:
+> +               od_min_setting =3D overdrive_lowerlimits->FanZeroRpmEnabl=
+e;
+> +               od_max_setting =3D overdrive_upperlimits->FanZeroRpmEnabl=
+e;
+> +               break;
+>         default:
+>                 od_min_setting =3D od_max_setting =3D INT_MAX;
+>                 break;
+> @@ -1330,6 +1335,24 @@ static int smu_v14_0_2_print_clk_levels(struct smu=
+_context *smu,
+>                                       min_value, max_value);
+>                 break;
+>
+> +       case SMU_OD_FAN_ZERO_RPM_ENABLE:
+> +               if (!smu_v14_0_2_is_od_feature_supported(smu,
+> +                                                        PP_OD_FEATURE_ZE=
+RO_FAN_BIT))
+> +                       break;
+> +
+> +               size +=3D sysfs_emit_at(buf, size, "FAN_ZERO_RPM_ENABLE:\=
+n");
+> +               size +=3D sysfs_emit_at(buf, size, "%d\n",
+> +                               (int)od_table->OverDriveTable.FanZeroRpmE=
+nable);
+> +
+> +               size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+> +               smu_v14_0_2_get_od_setting_limits(smu,
+> +                                                 PP_OD_FEATURE_FAN_ZERO_=
+RPM_ENABLE,
+> +                                                 &min_value,
+> +                                                 &max_value);
+> +               size +=3D sysfs_emit_at(buf, size, "ZERO_RPM_ENABLE: %u %=
+u\n",
+> +                                     min_value, max_value);
+> +               break;
+> +
+>         case SMU_OD_RANGE:
+>                 if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_GFXCLK_BIT) &&
+>                     !smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_UCLK_BIT) &&
+> @@ -2270,7 +2293,9 @@ static void smu_v14_0_2_set_supported_od_feature_ma=
+sk(struct smu_context *smu)
+>                                             OD_OPS_SUPPORT_FAN_TARGET_TEM=
+PERATURE_RETRIEVE |
+>                                             OD_OPS_SUPPORT_FAN_TARGET_TEM=
+PERATURE_SET |
+>                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
+M_RETRIEVE |
+> -                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
+M_SET;
+> +                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
+M_SET |
+> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
+NABLE_RETRIEVE |
+> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
+NABLE_SET;
+>  }
+>
+>  static int smu_v14_0_2_get_overdrive_table(struct smu_context *smu,
+> @@ -2349,6 +2374,8 @@ static int smu_v14_0_2_set_default_od_settings(stru=
+ct smu_context *smu)
+>                         user_od_table_bak.OverDriveTable.FanTargetTempera=
+ture;
+>                 user_od_table->OverDriveTable.FanMinimumPwm =3D
+>                         user_od_table_bak.OverDriveTable.FanMinimumPwm;
+> +               user_od_table->OverDriveTable.FanZeroRpmEnable =3D
+> +                       user_od_table_bak.OverDriveTable.FanZeroRpmEnable=
 ;
->                                 break;
->                         case CHIP_PITCAIRN:
->                                 if ((adev->pdev->revision =3D=3D 0x81) &&
->                                     ((adev->pdev->device =3D=3D 0x6810) |=
-|
->                                     (adev->pdev->device =3D=3D 0x6811))) =
-{
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "radeon/pitcairn_=
-k_smc.bin");
-> +                                       strscpy(fw_name, "radeon/pitcairn=
-_k_smc.bin");
->                                 } else {
-> -                                       strcpy(fw_name, "radeon/pitcairn_=
-smc.bin");
-> +                                       strscpy(fw_name, "radeon/pitcairn=
-_smc.bin");
->                                 }
->                                 break;
->                         case CHIP_VERDE:
-> @@ -276,9 +276,9 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_de=
-vice *cgs_device,
->                                         ((adev->pdev->device =3D=3D 0x682=
-3) ||
->                                         (adev->pdev->device =3D=3D 0x682b=
-)))) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "radeon/verde_k_s=
-mc.bin");
-> +                                       strscpy(fw_name, "radeon/verde_k_=
-smc.bin");
->                                 } else {
-> -                                       strcpy(fw_name, "radeon/verde_smc=
-.bin");
-> +                                       strscpy(fw_name, "radeon/verde_sm=
-c.bin");
->                                 }
->                                 break;
->                         case CHIP_OLAND:
-> @@ -290,9 +290,9 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_de=
-vice *cgs_device,
->                                     ((adev->pdev->revision =3D=3D 0x83) &=
-&
->                                         (adev->pdev->device =3D=3D 0x6610=
-))) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "radeon/oland_k_s=
-mc.bin");
-> +                                       strscpy(fw_name, "radeon/oland_k_=
-smc.bin");
->                                 } else {
-> -                                       strcpy(fw_name, "radeon/oland_smc=
-.bin");
-> +                                       strscpy(fw_name, "radeon/oland_sm=
-c.bin");
->                                 }
->                                 break;
->                         case CHIP_HAINAN:
-> @@ -304,13 +304,13 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_=
-device *cgs_device,
->                                         (adev->pdev->device =3D=3D 0x6665=
-) ||
->                                          (adev->pdev->device =3D=3D 0x666=
-7)))) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "radeon/hainan_k_=
-smc.bin");
-> +                                       strscpy(fw_name, "radeon/hainan_k=
-_smc.bin");
->                                 } else if ((adev->pdev->revision =3D=3D 0=
-xc3) &&
->                                          (adev->pdev->device =3D=3D 0x666=
-5)) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "radeon/banks_k_2=
-_smc.bin");
-> +                                       strscpy(fw_name, "radeon/banks_k_=
-2_smc.bin");
->                                 } else {
-> -                                       strcpy(fw_name, "radeon/hainan_sm=
-c.bin");
-> +                                       strscpy(fw_name, "radeon/hainan_s=
-mc.bin");
->                                 }
->                                 break;
->                         case CHIP_BONAIRE:
-> @@ -318,17 +318,17 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_=
-device *cgs_device,
->                                         (adev->pdev->revision =3D=3D 0x81=
-) ||
->                                         (adev->pdev->device =3D=3D 0x665f=
-)) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "amdgpu/bonaire_k=
-_smc.bin");
-> +                                       strscpy(fw_name, "amdgpu/bonaire_=
-k_smc.bin");
->                                 } else {
-> -                                       strcpy(fw_name, "amdgpu/bonaire_s=
-mc.bin");
-> +                                       strscpy(fw_name, "amdgpu/bonaire_=
-smc.bin");
->                                 }
->                                 break;
->                         case CHIP_HAWAII:
->                                 if (adev->pdev->revision =3D=3D 0x80) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "amdgpu/hawaii_k_=
-smc.bin");
-> +                                       strscpy(fw_name, "amdgpu/hawaii_k=
-_smc.bin");
->                                 } else {
-> -                                       strcpy(fw_name, "amdgpu/hawaii_sm=
-c.bin");
-> +                                       strscpy(fw_name, "amdgpu/hawaii_s=
-mc.bin");
->                                 }
->                                 break;
->                         case CHIP_TOPAZ:
-> @@ -338,76 +338,76 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_=
-device *cgs_device,
->                                     ((adev->pdev->device =3D=3D 0x6900) &=
-& (adev->pdev->revision =3D=3D 0xD1)) ||
->                                     ((adev->pdev->device =3D=3D 0x6900) &=
-& (adev->pdev->revision =3D=3D 0xD3))) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "amdgpu/topaz_k_s=
-mc.bin");
-> +                                       strscpy(fw_name, "amdgpu/topaz_k_=
-smc.bin");
->                                 } else
-> -                                       strcpy(fw_name, "amdgpu/topaz_smc=
-.bin");
-> +                                       strscpy(fw_name, "amdgpu/topaz_sm=
-c.bin");
->                                 break;
->                         case CHIP_TONGA:
->                                 if (((adev->pdev->device =3D=3D 0x6939) &=
-& (adev->pdev->revision =3D=3D 0xf1)) ||
->                                     ((adev->pdev->device =3D=3D 0x6938) &=
-& (adev->pdev->revision =3D=3D 0xf1))) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "amdgpu/tonga_k_s=
-mc.bin");
-> +                                       strscpy(fw_name, "amdgpu/tonga_k_=
-smc.bin");
->                                 } else
-> -                                       strcpy(fw_name, "amdgpu/tonga_smc=
-.bin");
-> +                                       strscpy(fw_name, "amdgpu/tonga_sm=
-c.bin");
->                                 break;
->                         case CHIP_FIJI:
-> -                               strcpy(fw_name, "amdgpu/fiji_smc.bin");
-> +                               strscpy(fw_name, "amdgpu/fiji_smc.bin");
->                                 break;
->                         case CHIP_POLARIS11:
->                                 if (type =3D=3D CGS_UCODE_ID_SMU) {
->                                         if (ASICID_IS_P21(adev->pdev->dev=
-ice, adev->pdev->revision)) {
->                                                 info->is_kicker =3D true;
-> -                                               strcpy(fw_name, "amdgpu/p=
-olaris11_k_smc.bin");
-> +                                               strscpy(fw_name, "amdgpu/=
-polaris11_k_smc.bin");
->                                         } else if (ASICID_IS_P31(adev->pd=
-ev->device, adev->pdev->revision)) {
->                                                 info->is_kicker =3D true;
-> -                                               strcpy(fw_name, "amdgpu/p=
-olaris11_k2_smc.bin");
-> +                                               strscpy(fw_name, "amdgpu/=
-polaris11_k2_smc.bin");
->                                         } else {
-> -                                               strcpy(fw_name, "amdgpu/p=
-olaris11_smc.bin");
-> +                                               strscpy(fw_name, "amdgpu/=
-polaris11_smc.bin");
->                                         }
->                                 } else if (type =3D=3D CGS_UCODE_ID_SMU_S=
-K) {
-> -                                       strcpy(fw_name, "amdgpu/polaris11=
-_smc_sk.bin");
-> +                                       strscpy(fw_name, "amdgpu/polaris1=
-1_smc_sk.bin");
->                                 }
->                                 break;
->                         case CHIP_POLARIS10:
->                                 if (type =3D=3D CGS_UCODE_ID_SMU) {
->                                         if (ASICID_IS_P20(adev->pdev->dev=
-ice, adev->pdev->revision)) {
->                                                 info->is_kicker =3D true;
-> -                                               strcpy(fw_name, "amdgpu/p=
-olaris10_k_smc.bin");
-> +                                               strscpy(fw_name, "amdgpu/=
-polaris10_k_smc.bin");
->                                         } else if (ASICID_IS_P30(adev->pd=
-ev->device, adev->pdev->revision)) {
->                                                 info->is_kicker =3D true;
-> -                                               strcpy(fw_name, "amdgpu/p=
-olaris10_k2_smc.bin");
-> +                                               strscpy(fw_name, "amdgpu/=
-polaris10_k2_smc.bin");
->                                         } else {
-> -                                               strcpy(fw_name, "amdgpu/p=
-olaris10_smc.bin");
-> +                                               strscpy(fw_name, "amdgpu/=
-polaris10_smc.bin");
->                                         }
->                                 } else if (type =3D=3D CGS_UCODE_ID_SMU_S=
-K) {
-> -                                       strcpy(fw_name, "amdgpu/polaris10=
-_smc_sk.bin");
-> +                                       strscpy(fw_name, "amdgpu/polaris1=
-0_smc_sk.bin");
->                                 }
->                                 break;
->                         case CHIP_POLARIS12:
->                                 if (ASICID_IS_P23(adev->pdev->device, ade=
-v->pdev->revision)) {
->                                         info->is_kicker =3D true;
-> -                                       strcpy(fw_name, "amdgpu/polaris12=
-_k_smc.bin");
-> +                                       strscpy(fw_name, "amdgpu/polaris1=
-2_k_smc.bin");
->                                 } else {
-> -                                       strcpy(fw_name, "amdgpu/polaris12=
-_smc.bin");
-> +                                       strscpy(fw_name, "amdgpu/polaris1=
-2_smc.bin");
->                                 }
->                                 break;
->                         case CHIP_VEGAM:
-> -                               strcpy(fw_name, "amdgpu/vegam_smc.bin");
-> +                               strscpy(fw_name, "amdgpu/vegam_smc.bin");
->                                 break;
->                         case CHIP_VEGA10:
->                                 if ((adev->pdev->device =3D=3D 0x687f) &&
->                                         ((adev->pdev->revision =3D=3D 0xc=
-0) ||
->                                         (adev->pdev->revision =3D=3D 0xc1=
-) ||
->                                         (adev->pdev->revision =3D=3D 0xc3=
-)))
-> -                                       strcpy(fw_name, "amdgpu/vega10_ac=
-g_smc.bin");
-> +                                       strscpy(fw_name, "amdgpu/vega10_a=
-cg_smc.bin");
->                                 else
-> -                                       strcpy(fw_name, "amdgpu/vega10_sm=
-c.bin");
-> +                                       strscpy(fw_name, "amdgpu/vega10_s=
-mc.bin");
->                                 break;
->                         case CHIP_VEGA12:
-> -                               strcpy(fw_name, "amdgpu/vega12_smc.bin");
-> +                               strscpy(fw_name, "amdgpu/vega12_smc.bin")=
-;
->                                 break;
->                         case CHIP_VEGA20:
-> -                               strcpy(fw_name, "amdgpu/vega20_smc.bin");
-> +                               strscpy(fw_name, "amdgpu/vega20_smc.bin")=
-;
->                                 break;
->                         default:
->                                 DRM_ERROR("SMC firmware not supported\n")=
-;
+>         }
+>
+>         smu_v14_0_2_set_supported_od_feature_mask(smu);
+> @@ -2396,6 +2423,11 @@ static int smu_v14_0_2_od_restore_table_single(str=
+uct smu_context *smu, long inp
+>                 od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
+>                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_FAN_CURVE_BIT);
+>                 break;
+> +       case PP_OD_EDIT_FAN_ZERO_RPM_ENABLE:
+> +               od_table->OverDriveTable.FanZeroRpmEnable =3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.FanZeroRpmEnable;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+> +               break;
+>         case PP_OD_EDIT_ACOUSTIC_LIMIT:
+>                 od_table->OverDriveTable.AcousticLimitRpmThreshold =3D
+>                                         boot_overdrive_table->OverDriveTa=
+ble.AcousticLimitRpmThreshold;
+> @@ -2678,6 +2710,27 @@ static int smu_v14_0_2_od_edit_dpm_table(struct sm=
+u_context *smu,
+>                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_FAN_CURVE_BIT);
+>                 break;
+>
+> +       case PP_OD_EDIT_FAN_ZERO_RPM_ENABLE:
+> +               if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_ZERO_FAN_BIT)) {
+> +                       dev_warn(adev->dev, "Zero RPM setting not support=
+ed!\n");
+> +                       return -ENOTSUPP;
+> +               }
+> +
+> +               smu_v14_0_2_get_od_setting_limits(smu,
+> +                                                 PP_OD_FEATURE_FAN_ZERO_=
+RPM_ENABLE,
+> +                                                 &minimum,
+> +                                                 &maximum);
+> +               if (input[0] < minimum ||
+> +                   input[0] > maximum) {
+> +                       dev_info(adev->dev, "zero RPM enable setting(%ld)=
+ must be within [%d, %d]!\n",
+> +                                input[0], minimum, maximum);
+> +                       return -EINVAL;
+> +               }
+> +
+> +               od_table->OverDriveTable.FanZeroRpmEnable =3D input[0];
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+> +               break;
+> +
+>         case PP_OD_RESTORE_DEFAULT_TABLE:
+>                 if (size =3D=3D 1) {
+>                         ret =3D smu_v14_0_2_od_restore_table_single(smu, =
+input[0]);
+>
+> base-commit: 7547510d4a915f4f6d9b1262182d8db6763508f4
 > --
-> 2.43.0
+> 2.49.0
 >
