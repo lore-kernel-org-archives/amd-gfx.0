@@ -4,155 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A96ADC36008
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 09:14:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB2AAC36008
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 09:22:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 523C810E109;
-	Wed, 26 Mar 2025 09:14:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 555D210E687;
+	Wed, 26 Mar 2025 09:22:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R79QmtHO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JSKa0e6I";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83F1A10E109
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 09:14:19 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2073.outbound.protection.outlook.com [40.107.236.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5C0210E682
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 09:22:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cqXMKxcFufCW5ZfIX9T9STLv4Hx8HQR+pSYZg4E+JzBO5AaSkQmV1y8fG9+JBwFmFu36VZBzShyRn9QI5uNQ8m5lua9kLwb5yizeD2fAbdw4fkuVGaTnroA8/Gkw5dwwltW+3KvKj319ZuO6y7s3+g3tv3KX2e479ZmSS8N0pMLT/pbRV2thNXHZeG/nR79qwC9+VieasYyZuj8uQSKRIlOyzOOkZHGNicqTqXu0/KFgRRhdPr+Pj7p6aElNk96ig5Web3yuWj8w5PpqTu3EQ4T4Q86izuCAoKXNPbXvHG87vE8FxMp0U8N+y+eVkYHo+hCUOD6t4Od+HCj6IBFUvA==
+ b=HEPiImMs0X4bjmFO+La4kHUjWXWPrycdr7E7ouJGdBPvjK34/x7SHAbg9DD5J0uzj9Vyf0hv2JYIu3hLdkoVKRrOoUlt8xZgcO31pQ2CgiWD+m9CI7eiNAICgGX5mKeWCo+R/akqW+9rNfoN/W1nydm/IoX7hucMOOM/oGT+JnADbPjxAl7NiwWy7yE4QFnHi4ys3qi3zQ0VzHXwJo9gCsrKOM/eCi6DN9BSsZDNeAzLPvtB3zPQgBIc6w/e4a/ICE0B936M3hUy6srQ1JCvgpdP+xBnE5ywp2bep4HwE8qEwbpvmwNfChsDaDZW5DHin3xgbCDO3yTJnnqR5HUphw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SIeX7PbVplGufzZlG0yY5xHeRCLOBP2Thm4+CTIQB8U=;
- b=B8hOEcrsboJjU08qjF3uLS8W4dvNS8I0lJEFcISe9bw7TWMbmOEDHT1xlqDxUKjyM8V0Sr3gOP+vYZDfPQJJwLYW3uyw3nl+xwZZLI0/F3LSZ6jXDRHf7sczHj35V9RCUUiECA890gzKu3rWhXUPHpPDhB8W80OA++/AtsLECcmQW4pRYaXPFHtURfPwbo/k/6fA9nFBnqpUXSQ5mLHUxH2jNSfthYS1XrvWIWEVTFaHDNiRI0GbHucGMyWLcccc3FuZ7J+h4XSQRN5PVT1kjhrf8zSMLB65RfV8/DwxhtSdJNxkwFyPSin0lGcltr8Vm+ZNox7yqKOyczn0JZqEgQ==
+ bh=jAX0Hh+NuRy+jJXXDkxOyH2V4Grt0uhqGIznaD3odFA=;
+ b=I06LVMNowlVAGBSMBKjpquw59HpABB0OevUlczIrBzaEZ2B31CCpj6kn6E301w3jgzqtsKoidGaFCB2W7L0Qcc0dMZJaSjHshJWbxdSVJO6CLhDOCFqBANjUOKsaIUGJQcvyPwTYoLC5N9cFZKo5FlpJ4aQLtbUinGWZvBrPT486bX+WIoHNz7WzvUEqmQR0ATJfVVgYxj3ukfvwu+TsLNvlWQ5fUS5A/zuckhtocoN+LwwSG9fH44L/LksbBhWVpPopD0lw114V4apymrAZk5o+TJ/MDRld4ySPhBRAWpk2ls4kUmanqwRSakHkbwo+IS4TxCziLkXsbZ7+ZfZjMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SIeX7PbVplGufzZlG0yY5xHeRCLOBP2Thm4+CTIQB8U=;
- b=R79QmtHOY0pDDv4ji3KRrrcEo/qbdVIhxxnWT/1Gy1yexrC8Rsjz27aOkmZym4m1Aw3vgki8wqmoBCvZf8rGBrVU9NOjSB88eH8kLLeeRIBuMHWQ1WxGDV1CMwVs7q9KC0d/9FYcLQFlvdwqswgOvRhv+wmxXr7QyT6dUIxyTGs=
+ bh=jAX0Hh+NuRy+jJXXDkxOyH2V4Grt0uhqGIznaD3odFA=;
+ b=JSKa0e6IgYfAU+0fqxKe9XPJarln5FbcWJSaZmGnXriyBCiCVRceoQdQdoBZV0Yxp9pHlUllhRuJ2c3pX5mOyS+4H8Ru6hvKpQ30ErB96GhWwHi/yjyyqzj98fhmjvW40kko+fVlpsFaKLyPLtR5a1s5fT75JMWDt8xsDmGLeho=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB6411.namprd12.prod.outlook.com (2603:10b6:208:388::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Wed, 26 Mar
- 2025 09:14:17 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8511.026; Wed, 26 Mar 2025
- 09:14:17 +0000
-Message-ID: <01399be0-45ec-4823-a58a-6b33e258aeba@amd.com>
-Date: Wed, 26 Mar 2025 10:14:11 +0100
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ DM4PR12MB6397.namprd12.prod.outlook.com (2603:10b6:8:b4::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8534.44; Wed, 26 Mar 2025 09:22:25 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8534.042; Wed, 26 Mar 2025
+ 09:22:25 +0000
+Message-ID: <6aae3702-deac-4fd6-8af9-676b3f21e204@amd.com>
+Date: Wed, 26 Mar 2025 14:52:18 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] Documentation/gpu: Create a GC entry in the amdgpu
- documentation
-To: Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Melissa Wen
- <mwen@igalia.com>, =?UTF-8?Q?=27Andr=C3=A9_Almeida=27?=
- <andrealmeid@igalia.com>, =?UTF-8?Q?=27Timur_Krist=C3=B3f=27?=
- <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
- kernel-dev@igalia.com
-References: <20250325172623.225901-1-siqueira@igalia.com>
- <20250325172623.225901-6-siqueira@igalia.com>
+Subject: Re: [PATCH 5/6] drm/amd/pm: Use gpu_metrics_v1_8 for smu_v13_0_6
+To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: hawking.zhang@amd.com, le.ma@amd.com, shiwu.zhang@amd.com,
+ alexander.deucher@amd.com
+References: <20250326081400.1305136-1-asad.kamal@amd.com>
+ <20250326081400.1305136-5-asad.kamal@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250325172623.225901-6-siqueira@igalia.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20250326081400.1305136-5-asad.kamal@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0276.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: PN3PEPF0000017C.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c04::47) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6411:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0968324-91ce-4752-af90-08dd6c46959c
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|DM4PR12MB6397:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e692aa5-df7b-4306-8d93-08dd6c47b86f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZmZ6OERwdWZNS2NieU16YUlHSVppdXgyUGlhVE5zNWhXNUhwc3RIa3NpTm1v?=
- =?utf-8?B?ZGdMSGo0M3BWMmpiNXI1VmNHQXRWQUlNOXA2ZUZBL1RYeld6K0RzYkVoTEg4?=
- =?utf-8?B?T0FyZzdSK3JiZDhmMWRaM2RCSnNlK1NFTHdDN3VCaVlyeU8zUkd3S0V1QlBL?=
- =?utf-8?B?UFNTVWlDYUFFYnZrYWVyN3ZSeElhaXdDd0sxT3Q1TU5qK05NN1NybUo5cU82?=
- =?utf-8?B?L2ErWkc4RC9odis0VGZ2bFIvK0twT2IvcGovZEdCclRQR2wzYnVwOTIwSVIr?=
- =?utf-8?B?T3VPL0prOGRBTjdjckJwL0FpQWNpaGdnb09vWVdUMHJhb20wRU1LK0pWUm1r?=
- =?utf-8?B?RnVkMi9EdlJqM3lwaHRadWc0VGhnM3V1c3N6ckFRUG9tc3FYUEYxWXJONk5T?=
- =?utf-8?B?Tml3WHJma2NmSi9uNGFHb0FjelFud3M4QmozaFJ1RlA3K0o2UmE2VDNjS294?=
- =?utf-8?B?TWR0UXppUmlmZ2tXZFVNeHcyOXgvYU05MGU5b1pseFNXaSsxVGxxKzZuZFNS?=
- =?utf-8?B?My83S2hOSHUzODA2RWJmemZxMGhaZFdpVWEyMytpd3dnR09iZnlxK1Q4MEJa?=
- =?utf-8?B?em9tTWM3TGgwK05RWUVLcGRONzduS1Fwc3JOT0YxaGlhNmxlem1TdGZLVVIr?=
- =?utf-8?B?OWJQdVRxZWNka21jczNta0kzVExwN1EzaGdNL0pTcXZHOFg3d2hFL0tVdGRL?=
- =?utf-8?B?SUw0RW4zUG9EV2dXYWVXVGloTHF3VERTcEVxWEV0SE9reDk2ekJzVi9XeG16?=
- =?utf-8?B?aVVmUlFHM2tyMUo0Z09KV3lDaGhHV3BTZzdMRmphRmcrcUExN3VSVnBIZTJu?=
- =?utf-8?B?b0o2aG11YUdab0s2bnlTcFk0WElXdGM2dWtaWHl6ZWI1R1RrU3pHZ3ZReGpk?=
- =?utf-8?B?c2VSc1NBcTBkWklZRlFKRTZ6NHdra0NnUFdUUHJkRnlRZlFRY2hNSHFjQ3V6?=
- =?utf-8?B?RGd1WHV5Sms5VzZSVCtNc2JWM0ZsOFVzaW9qenlJanA4eXQrSmRRZzVWZjlk?=
- =?utf-8?B?eTI1SDI2K1J4RlVwOXNNSENxeUw0RU5pM29Ca2k1emJNZWxxY28rUWhUR2ww?=
- =?utf-8?B?a28zZDZhbFNOWXczMWI1aG5yVGJGR2pSdTBBeU5LcVRjRlg3alNjOXUxN2NU?=
- =?utf-8?B?NTkwbUc1ZisvUHdaVnE0ZzlrSk85MDNXN2ZQL3VERTZQd1VVaG5vblJZVVkx?=
- =?utf-8?B?M2p4aWhjUUcxSEQ1anZwaERMK0hyT2Q2WnBxSnVSdU5BaGFYN1psRDlheTlz?=
- =?utf-8?B?aDAwRVpIWlp5UEFPYXVPWkJiQ0pGbmh3b3M1QmJ1ZGFRc1BuZ1FEYlJoNUx2?=
- =?utf-8?B?QXFJUHFLOExGclFTRjFpRjNkVkNBVXpiZjVSUGxzei85UFNva3dTU3ZIL2lX?=
- =?utf-8?B?UGE2Q3oyTHhaNGFyamZzQ2FTMDhHZUJVL2JmZ09vQ1Z4Vm8yVkZXRG56OUhF?=
- =?utf-8?B?ZTNqRFpmNzZsUWt6V2dzNlVSaHpFUlh2cmFzWVMrS0xXVEVscXhveHB3eWFy?=
- =?utf-8?B?TUxBNjBXMVlNRUdNaWlvdHRIaGJ5SXhncmExMmg1dlhueUZCbHlxZ2VoUm0x?=
- =?utf-8?B?QUdDRkNNTUlxM2xKSmMrOVZjSE1EYVlhUi9FUzB2YTROc050RzFuL29zQTVE?=
- =?utf-8?B?elFsRFIvU2drQTNNY2Q4Tzc3c2Z5ZXVVTDZxb3psRkFoOHQ2SEU1NUR6SXpp?=
- =?utf-8?B?cDNNTWUwTHlqQzV3VGVKbXA0WWpPNmVjSkFYNmdmUGpCcHUreFNGdzdJK1hR?=
- =?utf-8?B?TFF4Q21tTXNVRVBobFl5ZmpWdGNRZ2dYY1kxejBiWGF4cTZxVHJCU2FNQ2h1?=
- =?utf-8?B?eVk5TkRnNVhxQ3JRbU10dno1T1NFbElVNnVRaFg5TDk5NldhQW4yWFJPMUNO?=
- =?utf-8?Q?MkxV09Toy8U1e?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aG9ZOFFmT3Fxa2F3UlhaUkFXcndsU0szM3JHa2VUQXM4TTJBejgxMzZHdmtT?=
+ =?utf-8?B?NllzTEIyVEZoSmFORTRTOUJycHJzNkxVTUlpYnJOcDR6aUlubHdjUnpQUzlF?=
+ =?utf-8?B?bjR5QU9MV2VkRWR4aVpBZWhxQmhldjlBbEdrNlFRZkt5NEVGYnFFT2QxQklQ?=
+ =?utf-8?B?RWxRNFpOOWxFWVdxRW5YcHJrSXlYT1d1aDk5NlhBeS9sbGhvZ2s3THFMajhX?=
+ =?utf-8?B?ZTJJS0pmaXZwYVkwTE5qdE16NEo5SzltWHNvaW5jS2MwRWxWUlduZ1VZNTRr?=
+ =?utf-8?B?ZzdIOGpEYkx0NWd3QzBZdXJOR1g4YlNib1JVMWNHVS84aDVseTl4ZU0wUUNI?=
+ =?utf-8?B?L01UblNzRHZTM1BhTG00TGNWWjBOWGlNOWwya1VsaEs2cGhWdzcrSEp2K05F?=
+ =?utf-8?B?UDBDQldLcjl6aW9LeTBzUThKQ0xiU0tkSHQrVy9FdnpnMllBUEdTRy80NTls?=
+ =?utf-8?B?LzV6QStoRU5laUpRTkk5QjlDbWxKcHBidzhOWXFJcG1HcUdZcVF6RTVaRzVl?=
+ =?utf-8?B?Ymw3Z3h6Zkd5OStLQi9MM1RWVTYxSlduWGJSWkZablg1bTJ5UXFFT2R4TUlY?=
+ =?utf-8?B?b3lmbmxOMlI2OUZHTFJLOXVSeXdVekdraUFHNzVNVGhRNUQxYThmWnV3UG1j?=
+ =?utf-8?B?eUkxZm5SOWpMb2RDclp6bldHWnc0VE5keHFhR3ZrME9rNFBLdkN2ekFkZzJK?=
+ =?utf-8?B?VU5kZnJnSUJwWjJSMnhWMlROdEg5TGYyN3B5MFZIUnVBckpqTlNWYU4xL1ZB?=
+ =?utf-8?B?R0JjbGhqVEYxOWJRVHlkMEFSUzZWMUZuU2oxenV6V0NZc2dzWW44TmJsbnFE?=
+ =?utf-8?B?ZitHK005cDJudGZ0Ylg4OU9OYkd2ZVNveGIzM29iTWhFdHFGUFF6RElXN2lz?=
+ =?utf-8?B?aGdZbHY3QzgxK0hKWTVPT1lzUEp1d2c4LzNLRFFrdDRsZkptWFovL081VEFu?=
+ =?utf-8?B?Z3ovdVBXMnZLeW15dHI2YWgwbjlXMVR5RjE4cVBaaWpMREo5NXJtZTNwS0dk?=
+ =?utf-8?B?OFI3cjVqbUdLSjZIVi81NVcrSVd4Y0UvenVEVWVTZlVWU2lhQzExaVRWREdR?=
+ =?utf-8?B?ZkNLWE1nRHoxWHdaRlhGSWxKdk82dkMwbEhHV3hTV3ZmWldjdGlIOGw5WWRN?=
+ =?utf-8?B?c3BDU0pmb2tobHptWEF1R3V4ZEhUdEs4c2FtMW84eFFUeE9rZlU2R3l0enFY?=
+ =?utf-8?B?YUVFRjY2N1JBUHk0SzNhYnBTVjZlQzZSWXNBWmJPMDZoVjBBcUhidnp6cERI?=
+ =?utf-8?B?SGtPSEtONUpqZndpaVg0ZDR1MGJUNWpHeXVLbHpwcC9XSVYzM3lQSGpZdjBI?=
+ =?utf-8?B?T25POXhaSEZoNVAvRWo2VXlBMEJKdytLYnJnMUgxZEl0THcxZTN5SlhmQjVi?=
+ =?utf-8?B?S1JJMHdsdFg4RFdHaS9sR2hMK054QzhHaWtndHBLZnNPWHE5TjE5N05EbktW?=
+ =?utf-8?B?aFZBR0RsUjhIWFQ4VEJoZnI4aGFzZCtOQTFBYk1wdkxyTW0wYm9PTjhDUGJ6?=
+ =?utf-8?B?dXQxUDVqSlQzdWFpcmYzc1BkSXVvbEVnQVN6cjM5VmpCUU9hMU5DUTBsdmNY?=
+ =?utf-8?B?QjAzY3BpYWpVMFNKZ3VmeW9NQjFENkxPYjdRNDZnemZ6SkpZUEZwbWRldW5L?=
+ =?utf-8?B?U3NuNW9WanpYNUVESjVidlUzWFIwb3VjN0NEdmc3SlZVdG1TaXNRbUJITS9i?=
+ =?utf-8?B?RjA1Y2ZLRGdCMFJVSysyaTBCWXlRYWViaWdFbDlPb3lDR1J3ZU5vNjJvYTg5?=
+ =?utf-8?B?VFZGVER0Rit0V1FvN1lPNTZHN2JBQ2ZVQWlWRG5XMVhjeE56OGxNbURnYlBt?=
+ =?utf-8?B?dEpMZGxFaTJ6NXhaV3JzM0xBWXp6dHNtZ2MvcHBhT21uaC9kN1hmQ1QyNFVD?=
+ =?utf-8?Q?Q9UH2zqFL0CG9?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TU1OYjk1UVc1VThRRG90bWY3bC9yWlFQTld3UjJvbk9BZDd0WjhxTXRoZmMv?=
- =?utf-8?B?ZnpieGZVcG94T0locDdLVGVZeEZ5ZzdiWHdoUFlvODFnOVkrMlJnbTRVQUVw?=
- =?utf-8?B?OEV2VDNTWGdCZXZpcHJMUFcrMUFrLzhCR2FqOHVuQmRoSlF6QkFaVng4Qlgr?=
- =?utf-8?B?dzBIejQyczg2M01rcGZkU3Jxb0JMSE1DYXhsRVVsSkNVa3h1Vi8xQTk2dERt?=
- =?utf-8?B?anZPNVRsajVhT3loOWVyRTJaekw0dFlCQ2F2TDduNW13VFFjYmZxSXFoL0xQ?=
- =?utf-8?B?QmpHSlNjR09taDNLdkRuU1JQS2svdGRmcVVHV05FV1VoRTF6MlQ4QnFhMkNr?=
- =?utf-8?B?aHhpVTg2d1ZwVlRidzk1bjh4eEl3VnNSMHUyUVFRRnUrL3ZWYWtTNGxjNnhD?=
- =?utf-8?B?cjVOWndyT21EYVdnTVQvNGpsVjRPZ3BUdXRWUlRzKzZSZ29meWZPRGdwVW0w?=
- =?utf-8?B?NzVMUnlYcDlaTWJIbGRJME1FeFFWYUMwekt2MEk3c1NPNEovSHVTaWplem5V?=
- =?utf-8?B?VEV1Njl6VGdnbUxLUVo2NnFlMzY0b1R0NC9sSytDTldreWdNRjhHcmdvbWVl?=
- =?utf-8?B?VTRwdGk3R2dQWlh3R21DUzgxejczSXVPKzdjcm5iSk04SDQxRjNheEloTTJl?=
- =?utf-8?B?MVlDNG5QVVdaV09VS29lWHExb1BKYUdCMWE2WjE2dDBXZ1hqdjZmem1aR3Vl?=
- =?utf-8?B?a0hmS3B0RlZjbGtIVjlEOExrLzQwVFdUbHZRUFZSR0h2cGdraVA5dXI0M1Fo?=
- =?utf-8?B?K2R5VWVBa2paMTJjN3dVMFdiSk5TVmNwaVVUV0tUamR2UDVDUC90dmtBSStF?=
- =?utf-8?B?WG9PbmREWkRWT2JYQUFUdTk3bVVyVDlCa2RBZUU1Z3R5aG9ybFBSOStqM0xY?=
- =?utf-8?B?b3J0Y0hXWjJuTExsSjV5R2ZzVHNtekRtY0FUdFREUjRVOVJuMktuZk9XR0R3?=
- =?utf-8?B?dnA3SlhlSEhhSmdXdGxnVTBJU3g0Q2d1enJNUmNsNmpqY0dTWEtWWmwwN3Bo?=
- =?utf-8?B?aUJ6L2RuY2t3VGx4M1NDQ0JNYit5MXlReURKdTNpdkdqYmd5TWtlbTd3RnFN?=
- =?utf-8?B?N0EzQXpSUnBUbGJOdzlOTk5ESUNjdXhLUWlIMXVpbEFuVkp5anN1M0RUcHJP?=
- =?utf-8?B?aURoWTNFYnlUdm5DQmdNTzhMeUo0VDVyZDh0ZnRnMWxQa0hUbmY1TFgwOHV2?=
- =?utf-8?B?Q2YwMzhTQVNiYnBmZ0VxM2xkL3pQcmZGMWZ6Y0VIUVdEUWFodFFuY0ZYYlpl?=
- =?utf-8?B?bHRLUXVCOTVhVld2V0VHTjFnc1U3TTJDU0xQdDRHK3JiajBTWU1LSm9mWWha?=
- =?utf-8?B?NXZJVFY2cG81TGJPOUxzQjRaeWZCNWZMVEhvLzhMNWhIUDhuVHMweFRieXc5?=
- =?utf-8?B?QXdRZG5pblRoVVBnZGdnVWxnemF3Vy8xY2J3QWxnT21xem5tS09PaEh0TnEx?=
- =?utf-8?B?RTQvbFM0a2ttNmREVS9xaW5FdXRyTkM3d2Z2b3NxK01JMFlONmsranBrL3do?=
- =?utf-8?B?ZW1PYUIyZXRpT25zNzZvMEtleENCTW1FdU9VeHNnYjVtY2VyN1VyM1J3Qnh3?=
- =?utf-8?B?R1Y5UXRFNHlvMDFORW02eHBrUllESG9mT1c0M0JNaE5hcFFvWVVEcEZOeGFh?=
- =?utf-8?B?aXp4UWFqc3J2NXFLSDBnanR6UU95cjFxTjY0YUF0dGtyQ2pSMXNXOWNablc1?=
- =?utf-8?B?ZHdOQTFrZnBtTHIramhKM3gwN1AzUnpYT2d0UG9kS08zeVQza2xuUnVpaE1Y?=
- =?utf-8?B?dmNtUkdkdWl2VkwrR2VtTmtjRGhVQVl3Z1ozelV4ZXNQMUZhMGxnQXdlUCt0?=
- =?utf-8?B?KzZCNTlwUmN2eDkvdSt5bW44TkVkVkVlM3ZkSGFqUFVBQmM0SXRSRlQ3a2Vv?=
- =?utf-8?B?YUVIRmtsWkpzK1pSVDA3RkhsMGxicFNCV2pYM2VpeFFBdUh5WFJIQlhRUHM0?=
- =?utf-8?B?MWwzb0NKdUFENlVwSG15b1dyaS9xR3lzRzNUYjBaMWNDTVJNM09xb3ovY3Ry?=
- =?utf-8?B?U0kzVDB2NkxMTGZ5M2ZXSWZvSGdUaU92WHAvOEViZno5RmVnLzNyY0JlNmNH?=
- =?utf-8?B?WWtBZ25SdzBNdS91SGpDMzFqaEg4ZWJxREtiUEFGQjdaVVovc0N4ekFxd0p5?=
- =?utf-8?Q?VTJV0aQxcgXP1iHXR4fz0XxAe?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUhZNG1UcnlCZEtqSWdVamZEVWxHcVBzVVZ3UWR5eklIMGVPY1g3MzFGbWZ5?=
+ =?utf-8?B?bTdzN0d2Wm53VHVZeFZOSzR6VkhuRDloR1VKWFRzZFZtWlFxWHNLcnUyOUUw?=
+ =?utf-8?B?bTZVc1daT2xHN09lbVI0ZWhmOUlqMXp3L0cyVmh1b3psbUJCeUNvZUtpK3c1?=
+ =?utf-8?B?UXo5bnoyN0M2ckpsSUZvZ0E5aHNiZ2tZc0hMcU9CUnZxQkdSRHBBbzBpZHhD?=
+ =?utf-8?B?NERGTnRrRDU0NEkwMkpuaUhoVjkxUE54eE5tdXhHeDhJVUVoZldRendpY1NH?=
+ =?utf-8?B?UjBqanZKdGVRWHFHWS81cWE1OGh4Q2JEMWphZ2MzSE1LMkllZnIvOTJCMDZ4?=
+ =?utf-8?B?TlpEQ3Q4Ync5cEFnRmJXdlhPNnBWYzMySERxOWVkanRBR3hqRW1MbUsxdzhF?=
+ =?utf-8?B?MEgxL2VZTmFxSUhJZDlIbHFKVzh4QjBaSDFqcHNWZEZ3UnR2YW1qRnorYitR?=
+ =?utf-8?B?TUNJZ1lxNEZzUS9TODgwcmlBWHVpVFRLZTZsRG81Zk5NcExCTXdtMzhGaFpp?=
+ =?utf-8?B?ZU1vUmtJdzhtcUdmUkg2WUJYYndNK2hvS3AzeFpUa3JTYkZNVVZpU3Q1OEcr?=
+ =?utf-8?B?WWc3dHZDemdNT0JyWE9hZHlXR2M5bTU1TWtLUnRXbkU1OGlwK2RWNUMyeEFV?=
+ =?utf-8?B?OExoS0NtS3N5dkd4UTNhR2xHSEduU0VnbUo4RlgrSUQ0RkxEQ0pycDhNOTB6?=
+ =?utf-8?B?bkFWOHVsdlM3MEsxdjAvalNaamF2S2kvM1o0alE4c24zc0x3MGV1bFlSVEVj?=
+ =?utf-8?B?L2hlbjFoSDFCanRrbkY0OVBSVzRJeEdKOTBkd1JUSmhwR09NZzVZUnNYNlZu?=
+ =?utf-8?B?N1VLTnFxZmIxa0phdmtuSzEzNFd2Y0FCdTFLdDN3aXFrRXB1OVRSZ1VBSEFW?=
+ =?utf-8?B?MWR5VG9uWDNEV2phV01XYWFTdFEzV3lGK2xHVXg5ZTUzd2VaVTlPRlZpZksw?=
+ =?utf-8?B?SzlpMjJsNU5VeklxeEk4YW5YYy9DTG1Ma09vUG9WeG1pUzJHWnM0b1VRNXo0?=
+ =?utf-8?B?d3hHUVN5OUgwdmhHLzRQbGtzalBpcVExVVlQbzl6VU53YkxpYWpOZzdVM0dt?=
+ =?utf-8?B?WG1EZi9xRzRla0tsOHNXbmRVa252WTJKVzBKeUJONWpqeTJhOVRqOUFPSVVE?=
+ =?utf-8?B?WGh1RHkrUDJPUnFUQlFMWngxbGQ1YnJpTXJoNmNLY0c2TnR0R2dPdnJncTB2?=
+ =?utf-8?B?cCsvT1kxdEw4bm16VDNTT1dRMjZaMTZpNUVvcmhmUVBjeHZDOEVYUk1rV2R2?=
+ =?utf-8?B?b3RVbHFwSUpNc2VBdENPaTVDVFFDaTRNUGM2dXVJejFLZzlUUTZKVUxxVkpx?=
+ =?utf-8?B?LzdZbUh2d09VNEorYyt2UnB4cFU3ZExUQmNwUFJjeEJiRTloMzVYeDRpd3BQ?=
+ =?utf-8?B?Ui9IamdacVkzcWRzVkRuTFlFYzlyVmRwSmI3Nit0ZXJhWDBDQmhLNWJ1aDYy?=
+ =?utf-8?B?VFVEYXpYb05WUGRFc1V2U1pXNVpDNUJOMW9IcUdGbHo1SDUvSU1MdC8rMTEz?=
+ =?utf-8?B?QXI4SFZzY1IzN25GMVRnZUtlR0dYOGJlUGZVQkRwT1ZVc05QN1pwL3ZsdVBo?=
+ =?utf-8?B?VzNJeGdaZ2tnUUJIV01vZzA1aEtoMEpSUzBxRUhic1BrYUVhNzFXVGhSNzFv?=
+ =?utf-8?B?WTFxOFFhMkt6L2FwZWtMVlp6TGgxK29XV1dJckxrRllYL3A5d1BPVkZmdjN1?=
+ =?utf-8?B?bjdSdWc0cWNKMTNLc3VVZVlFaXVpS0pCMEpTNU5RczVOR1Z1VnJvQ1VsUG5o?=
+ =?utf-8?B?VzF4REl2VTEyZmZnNkp3aEcweFFpVGRtWTlrVlNRQlpzZVZKaUlDbWJraDdn?=
+ =?utf-8?B?azJrV0dxQmR5bkoxbHVtZk1vZlpnU2RrRzhBVU5RcGJJZTBVbEl4TGdjTEVG?=
+ =?utf-8?B?UGRyMkFpQTNjTGF4TGNRckc4YmZNckZaTUkwNjdZZWNvczUxa2U5NkltMHhD?=
+ =?utf-8?B?QTU3VDN4Mk1IeUl2OEtSTW5pS2lmVDNuWVBleGJtcmdsVEhrT1FrY3R2Y09n?=
+ =?utf-8?B?emxKSUFHelE1UkQ5Y3pTaUpsTzZTaVF3Z0xXT1hOS0JwSkY4cEJXNWZEWjNT?=
+ =?utf-8?B?QzNCZ2hBUk9YYXRia3Q5VW9TUjU3N0JEeEFlOS9JRW5iS2p1Nk50QThZWmpj?=
+ =?utf-8?Q?I8xn6tpfOdHSD+UMhBJ5yabVy?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0968324-91ce-4752-af90-08dd6c46959c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e692aa5-df7b-4306-8d93-08dd6c47b86f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 09:14:17.1571 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 09:22:25.3029 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iHCYP65ZpbtrpSGmRR06ps9sqtrQf19P75J/X6v8DmxHY1OObTZedlRHM1RJlOav
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6411
+X-MS-Exchange-CrossTenant-UserPrincipalName: R3SAmZ5vthV7IyPP2s6ikgsBrbqmVwy/Z3spJPZfDBNltrzm7nwDO474L624f/Mh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6397
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,133 +161,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.03.25 um 18:18 schrieb Rodrigo Siqueira:
-> GC is a large block that plays a vital role for amdgpu; for this reason,
-> this commit creates one specific page for GC and adds extra information
-> about the CP component.
->
-> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 
-Acked-by: <christian.koenig@amd.com>
+
+On 3/26/2025 1:43 PM, Asad Kamal wrote:
+> Use gpu_metrics_v1_8 for smu_v13_0_6 to fill metrics data
+> 
+> v2: Move exposing caps to separate patch, move smu_v13.0.12 gpu metrics
+> 1.8 usage to separate patch (Lijo)
+> 
+> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+
+Patches 5 and 6 are -
+
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+
+Thanks,
+Lijo
 
 > ---
->  Documentation/gpu/amdgpu/driver-core.rst | 30 ++-------------
->  Documentation/gpu/amdgpu/gc/index.rst    | 48 ++++++++++++++++++++++++
->  Documentation/gpu/amdgpu/index.rst       |  1 +
->  3 files changed, 53 insertions(+), 26 deletions(-)
->  create mode 100644 Documentation/gpu/amdgpu/gc/index.rst
->
-> diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/amdgpu/driver-core.rst
-> index 746fd081876f..2af1e919d76a 100644
-> --- a/Documentation/gpu/amdgpu/driver-core.rst
-> +++ b/Documentation/gpu/amdgpu/driver-core.rst
-> @@ -67,38 +67,16 @@ GC (Graphics and Compute)
->      This is the graphics and compute engine, i.e., the block that
->      encompasses the 3D pipeline and and shader blocks.  This is by far the
->      largest block on the GPU.  The 3D pipeline has tons of sub-blocks.  In
-> -    addition to that, it also contains the CP microcontrollers (ME, PFP,
-> -    CE, MEC) and the RLC microcontroller.  It's exposed to userspace for
-> -    user mode drivers (OpenGL, Vulkan, OpenCL, etc.)
-> +    addition to that, it also contains the CP microcontrollers (ME, PFP, CE,
-> +    MEC) and the RLC microcontroller.  It's exposed to userspace for user mode
-> +    drivers (OpenGL, Vulkan, OpenCL, etc.). More details in :ref:`Graphics (GFX)
-> +    and Compute <amdgpu-gc>`.
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 22 +++++++++++++++----
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h  |  1 +
+>  2 files changed, 19 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index f8489ebbd2ad..4f767948b172 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -507,7 +507,7 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
+>  		return -ENOMEM;
+>  	smu_table->metrics_time = 0;
 >  
->  VCN (Video Core Next)
->      This is the multi-media engine.  It handles video and image encode and
->      decode.  It's exposed to userspace for user mode drivers (VA-API,
->      OpenMAX, etc.)
+> -	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_7);
+> +	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_8);
+>  	smu_table->gpu_metrics_table =
+>  		kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+>  	if (!smu_table->gpu_metrics_table) {
+> @@ -2468,8 +2468,8 @@ static int smu_v13_0_6_get_current_pcie_link_speed(struct smu_context *smu)
+>  static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table)
+>  {
+>  	struct smu_table_context *smu_table = &smu->smu_table;
+> -	struct gpu_metrics_v1_7 *gpu_metrics =
+> -		(struct gpu_metrics_v1_7 *)smu_table->gpu_metrics_table;
+> +	struct gpu_metrics_v1_8 *gpu_metrics =
+> +		(struct gpu_metrics_v1_8 *)smu_table->gpu_metrics_table;
+>  	int version = smu_v13_0_6_get_metrics_version(smu);
+>  	int ret = 0, xcc_id, inst, i, j, k, idx;
+>  	struct amdgpu_device *adev = smu->adev;
+> @@ -2495,7 +2495,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+>  	metrics_v1 = (MetricsTableV1_t *)metrics_v0;
+>  	metrics_v2 = (MetricsTableV2_t *)metrics_v0;
 >  
-> -Graphics and Compute Microcontrollers
-> --------------------------------------
-> -
-> -CP (Command Processor)
-> -    The name for the hardware block that encompasses the front end of the
-> -    GFX/Compute pipeline.  Consists mainly of a bunch of microcontrollers
-> -    (PFP, ME, CE, MEC).  The firmware that runs on these microcontrollers
-> -    provides the driver interface to interact with the GFX/Compute engine.
-> -
-> -    MEC (MicroEngine Compute)
-> -        This is the microcontroller that controls the compute queues on the
-> -        GFX/compute engine.
-> -
-> -    MES (MicroEngine Scheduler)
-> -        This is a new engine for managing queues.  This is currently unused.
-> -
-> -RLC (RunList Controller)
-> -    This is another microcontroller in the GFX/Compute engine.  It handles
-> -    power management related functionality within the GFX/Compute engine.
-> -    The name is a vestige of old hardware where it was originally added
-> -    and doesn't really have much relation to what the engine does now.
-> -
-> -
->  GFX, Compute, and SDMA Overall Behavior
->  =======================================
+> -	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 7);
+> +	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 8);
 >  
-> diff --git a/Documentation/gpu/amdgpu/gc/index.rst b/Documentation/gpu/amdgpu/gc/index.rst
-> new file mode 100644
-> index 000000000000..f8128cca7028
-> --- /dev/null
-> +++ b/Documentation/gpu/amdgpu/gc/index.rst
-> @@ -0,0 +1,48 @@
-> +.. _amdgpu-gc:
-> +
-> +========================================
-> + drm/amdgpu - Graphics and Compute (GC)
-> +========================================
-> +
-> +The relationship between the CPU and GPU can be described as the
-> +producer-consumer problem, where the CPU fills out a buffer with operations
-> +(producer) to be executed by the GPU (consumer). The requested operations in
-> +the buffer are called Command Packets, which can be summarized as a compressed
-> +way of transmitting command information to the graphics controller.
-> +
-> +The component that acts as the front end between the CPU and the GPU is called
-> +the Command Processor (CP). This component is responsible for providing greater
-> +flexibility to the GC since CP makes it possible to program various aspects of
-> +the GPU pipeline. CP also coordinates the communication between the CPU and GPU
-> +via a mechanism named **Ring Buffers**, where the CPU appends information to
-> +the buffer while the GPU removes operations. It is relevant to highlight that a
-> +CPU can add a pointer to the Ring Buffer that points to another region of
-> +memory outside the Ring Buffer, and CP can handle it; this mechanism is called
-> +**Indirect Buffer (IB)**. CP receives and parses the Command Streams (CS), and
-> +according to the parser result, the CP writes the request for operations in the
-> +correct block.
-> +
-> +Graphics (GFX) and Compute Microcontrollers
-> +-------------------------------------------
-> +
-> +GC is a large block, and as a result, it has multiple firmware associated with
-> +it. Some of them are:
-> +
-> +CP (Command Processor)
-> +    The name for the hardware block that encompasses the front end of the
-> +    GFX/Compute pipeline. Consists mainly of a bunch of microcontrollers
-> +    (PFP, ME, CE, MEC). The firmware that runs on these microcontrollers
-> +    provides the driver interface to interact with the GFX/Compute engine.
-> +
-> +    MEC (MicroEngine Compute)
-> +        This is the microcontroller that controls the compute queues on the
-> +        GFX/compute engine.
-> +
-> +    MES (MicroEngine Scheduler)
-> +        This is the engine for managing queues.
-> +
-> +RLC (RunList Controller)
-> +    This is another microcontroller in the GFX/Compute engine. It handles
-> +    power management related functionality within the GFX/Compute engine.
-> +    The name is a vestige of old hardware where it was originally added
-> +    and doesn't really have much relation to what the engine does now.
-> diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdgpu/index.rst
-> index 7e9d60754287..1624f4b588c5 100644
-> --- a/Documentation/gpu/amdgpu/index.rst
-> +++ b/Documentation/gpu/amdgpu/index.rst
-> @@ -10,6 +10,7 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA) architectures.
->     driver-core
->     amd-hardware-list-info
->     module-parameters
-> +   gc/index
->     display/index
->     flashing
->     xgmi
+>  	gpu_metrics->temperature_hotspot =
+>  		SMUQ10_ROUND(GET_METRIC_FIELD(MaxSocketTemperature, version));
+> @@ -2648,6 +2648,20 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+>  				gpu_metrics->xcp_stats[i].gfx_busy_acc[idx] =
+>  					SMUQ10_ROUND(GET_GPU_METRIC_FIELD(GfxBusyAcc,
+>  									  version)[inst]);
+> +				if (smu_v13_0_6_cap_supported(smu, SMU_CAP(HST_LIMIT_METRICS))) {
+> +					gpu_metrics->xcp_stats[i].gfx_below_host_limit_ppt_acc[idx] =
+> +						SMUQ10_ROUND
+> +						(metrics_v0->GfxclkBelowHostLimitPptAcc[inst]);
+> +					gpu_metrics->xcp_stats[i].gfx_below_host_limit_thm_acc[idx] =
+> +						SMUQ10_ROUND
+> +						(metrics_v0->GfxclkBelowHostLimitThmAcc[inst]);
+> +					gpu_metrics->xcp_stats[i].gfx_low_utilization_acc[idx] =
+> +						SMUQ10_ROUND
+> +						(metrics_v0->GfxclkLowUtilizationAcc[inst]);
+> +					gpu_metrics->xcp_stats[i].gfx_below_host_limit_total_acc[idx] =
+> +						SMUQ10_ROUND
+> +						(metrics_v0->GfxclkBelowHostLimitTotalAcc[inst]);
+> +				}
+>  				idx++;
+>  			}
+>  		}
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> index f28b1401fc76..2a8f42dbd9f5 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> @@ -65,6 +65,7 @@ enum smu_v13_0_6_caps {
+>  	SMU_CAP(ACA_SYND),
+>  	SMU_CAP(SDMA_RESET),
+>  	SMU_CAP(STATIC_METRICS),
+> +	SMU_CAP(HST_LIMIT_METRICS),
+>  	SMU_CAP(ALL),
+>  };
+>  
 
