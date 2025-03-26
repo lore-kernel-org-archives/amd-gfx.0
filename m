@@ -4,120 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB2DC36008
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 13:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A7F4C36008
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 13:56:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E40D10E6D1;
-	Wed, 26 Mar 2025 13:43:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB9E310E6D4;
+	Wed, 26 Mar 2025 13:56:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ePoZ8hez";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mfUxdxM5";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DCFD10E6D1
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 13:43:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xgFp7QA9Am7LkaJ7POMGmgurRtU7nQCWWLvdYE2hlQSgAnAw+ANn099j+DlbLAuHRT0g5eQfGfVA4V5WuzW5jOSM91DZCS7AO73Bkjp2nGkUM29pfGidrDsbiIuS00TVPnelS85kcqGey3DlOl/VBHdupgtgA9nmIPje+8ptiLh3doD9Zfe6b4cIKMz+nQxKWmS521ERiC3x5X9zQNnhl1v1kGjEQvZeqGOS9+U63t/cwK4xH8xmjroKbq5/AURU1OT3XZ2+4Pcy5J/s9ySDNAaobYZBPpXHIW8TCdPdiwUv9K3nb+d8hAauE1AFrmgaYPwZWgyuFYvES00JuzSSEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GUv8DXdYGagFWw887tymRCcCdtm6jo/jhTQ2BDKXDkg=;
- b=ENpcixa1u7+NfHea2BuKsHptFZfZOKvzsiGRdRQqSBxEKGeBMLRt9iJg7iIAcPYEHpl6s0YuHakKMBV9gLz2Nr1QpmTQs5yDKhivYeweRCxBrzVtLdzyCUifwYgAGejLPZB2KIqsvRh6JjXNK/SCFV6SXOMKy3sShOwnTQ7x0fpz4SA3/jkmSDPk0mLo8ElmQvWQJ6O4jxG00gEz8GmL7ymvltWB5bkuwjt93NxDdNmlJtlsp1MYjffBCOGkn0wPLXDwIV2Zqi9ZQqKIyKfY4hMZvsbusAn8/LYKRaUB0+lHPhETE2CR/5fuY6czRugc9RgjwwOn34LKYyyC5KEv4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GUv8DXdYGagFWw887tymRCcCdtm6jo/jhTQ2BDKXDkg=;
- b=ePoZ8hezy6SALOYr+miM+ayd9/jOsIxZf9sHJN5mVEPYO9aZFK2InjuamVYQG99rcm0HnE3lmPcH4LbebzwvCaFbUzEti5BxjBvlWVIdNQiemT6+xJMErf/Rl0d+fZgiSP7tqgo/F3m2cR+Q3WAyep7oPdlAfJBuOXjKGW+MaXk=
-Received: from CH2PR12CA0023.namprd12.prod.outlook.com (2603:10b6:610:57::33)
- by SA3PR12MB8802.namprd12.prod.outlook.com (2603:10b6:806:314::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Wed, 26 Mar
- 2025 13:43:15 +0000
-Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
- (2603:10b6:610:57:cafe::c4) by CH2PR12CA0023.outlook.office365.com
- (2603:10b6:610:57::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.43 via Frontend Transport; Wed,
- 26 Mar 2025 13:43:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Wed, 26 Mar 2025 13:43:15 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Mar
- 2025 08:43:13 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu/gfx12: fix num_mec
-Date: Wed, 26 Mar 2025 09:43:01 -0400
-Message-ID: <20250326134301.1012270-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250326134301.1012270-1-alexander.deucher@amd.com>
-References: <20250326134301.1012270-1-alexander.deucher@amd.com>
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F9D710E6D4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 13:56:11 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2240ff0bd6eso19063745ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 06:56:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742997371; x=1743602171; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=T3/84ZrmkUWxuI3zdsOV3cN5KS1Q2VyasxFS4lQOG3k=;
+ b=mfUxdxM5krnRcEERwYvnQNx2HX9bnMSUvmvLDVlFnr9lbJ1GJKPxcODO/kXU/BJAP0
+ +KPE8vs/zuioIUGliAK9RhmnS4LB+q9tdVf271qmsekJaIdHx9j0h5sMafFQsoPTgp1v
+ io8dywCH7MERACcS8otSbt0ggJwYi9KKcn/28J0ybDN7T1yQHJeG4Te4KSUNQ/wvPl49
+ 21FG+IwA1dbORtITa5poDZIzA+G+kcPgVXNc3V0GF4Lii/9HKh3m/amWoNGFp4cG5zK+
+ RF09ShIQMfX1y9Vz8o6y5tWA4CZqfAT5N9yi+HGoWvQm1FAoVwyy85DzPUn6MQCMsttw
+ I3BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742997371; x=1743602171;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=T3/84ZrmkUWxuI3zdsOV3cN5KS1Q2VyasxFS4lQOG3k=;
+ b=wnoXZb3UPSRqEYWsecKFHTsVc0lImrdFYVApyYZQ49R6fELe3dVTidPJTMP3oFjOhi
+ BAQQ5Buo1Ff2g4ilpJ3/GIL/dY7hocqX9uz6qEtxPlbJxw9Z5TVvkyBxE9lg2n5Omwt+
+ bmuoEfRruhun5IyIdQaXJmpb5q1nYoZnDFBWOZ/vCXBgBqKQN12EpsSsewNUAbgj1PxC
+ 7On0nBayekI3KT+BS9hKWM/Lpxx5j6Idb0InjfL6yX0cL8nJJImlI7X5/nfjWNDwVNvL
+ PbnROKUopnoIvH/0rX7/wgDxJwq4cLUqjOauD1844NzLdeIj4Spm6ZZhvQ11CIpqq6D8
+ ls7A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWgT63GtF7u9ZuIbO6abD+QaMvuLQ+MQMIibVSZ7NOiXKDh9D8oP1xGSmqqcRhmm6wRpQmLJfGm@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzlNSUtvANeESCPFjaEi58SnSMejD1C6alEVmn942/Ay8x514CB
+ gYCAqeHiARtDB1GPw9tWIIhiRwnxIP7pmmVDLQlmg9gfyXJ5t6TabdvZvwHArWRTz7P8119wG+h
+ /Ov4Q1lPxU5aIJL+WCtj9pke10LE=
+X-Gm-Gg: ASbGnctRNAtVP1DyzDER2yWWz9p3+0OVmC39v/J7KiaXAQJKzeWAcnPu6Kv5TfbMeLh
+ 7h6pel1i2FXmk3kqAnjGaqDpdd3vIWfZtMXUzziq2XJdH9HtzMCnVxi6yPai29oaFyEmOGfUofH
+ Tofm54ejo71ifxr4uIs9jErdSOxzJh5khhmKP5
+X-Google-Smtp-Source: AGHT+IGL+bpuOyv4+6S5DdOZGbajw9eVFIQyqeTfQkjetYNtPNndokVkBL0drxoLSLu0Ei8NNmRt2fIAw8BmwHIBiao=
+X-Received: by 2002:a17:902:e74d:b0:224:13a2:ab9a with SMTP id
+ d9443c01a7336-22780d7ffa2mr111844865ad.7.1742997370780; Wed, 26 Mar 2025
+ 06:56:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|SA3PR12MB8802:EE_
-X-MS-Office365-Filtering-Correlation-Id: e45cacd6-f6b0-416d-0b11-08dd6c6c290d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wEJvbxw4qPY5ea0ETrnE7i2YJz7I6DI+KiTFw0xmPqciaStGPKSV34KsIYiR?=
- =?us-ascii?Q?MSk9hNHvuYp4kUQ5uSPj/TeMCJPCUIUpMLiX23sE0woSTmKBi5S6VSPaYSN3?=
- =?us-ascii?Q?/CUCVahN9oQwkeaK3dw71dCJGJRP+BfcEjGlsZV520xZpnaJMj/nyL2MT17B?=
- =?us-ascii?Q?CTubssh8ZN7DfhZGhuHCxbImRpAxhXkB2YupF3mW4LYkwOgKGATEhIYCgRhB?=
- =?us-ascii?Q?0+I8PiUhB+sT96Py4NPA/SAu4+Iz2/3XIxcS1XFU+RqjPz5xc0T2Fsmlsqi0?=
- =?us-ascii?Q?0dijtR7pBZkBQDxgwKRsaDKMz0WvojfiSyVOaGTEy6wdYF061VAESY+m/gI1?=
- =?us-ascii?Q?Qgml4fF348sz/Z2aj/JhbA56PrNj8wyIH4mWKim6H2rhK0bDmRr4kYzqcD+M?=
- =?us-ascii?Q?+VI/pir8o8VNwhM1rd+xs280QRLVLR8y6MxFqVO4n9CQ8G7z35T9mOV+99nB?=
- =?us-ascii?Q?tHTREJOJjucvOiF9nhjUWblmv+zOb/Pgvk4IURoXiprpMTeHvQ0SFeX3qbB/?=
- =?us-ascii?Q?L5+k5Awz4YyW+CCN53MMQYfANJc+ygB6oceEs78V9lS8HacMMtcZY+WJJRgS?=
- =?us-ascii?Q?gfVl9W3bT2aiCqqetRmuTTCr2WQyNIXqcPnIFbulWMtBeXyY08r6GecPgtCP?=
- =?us-ascii?Q?r/gno+KuxJRobTprPi649y9onqgehAyaZa935+FT0P2f1Mss2E/lkRA8PtdA?=
- =?us-ascii?Q?ecg8Pgf+dZ4wYSr6rKUKI5b3uva1XAxVOLhWXXHbLS9VdIExClKfae6/V6Xi?=
- =?us-ascii?Q?jXqLF/L6pToxHmRvfmE2jHcppM6p0p94/qlmeeUIZ8uVKEA3O+0PWG+tAoj0?=
- =?us-ascii?Q?5LpCtVQ6R0ObYb1U2jJ/gXMopzqEfOroWox2jntjkM2xKoe+xfaG4ZyUprTX?=
- =?us-ascii?Q?yHBejRb+iuoTudyLtKemTRq4bl4QUiSvB+anuTukTpoP/TkrZerl+hvw2FOo?=
- =?us-ascii?Q?TuP9x3FN723QlAtTOLkfySLxR1i8RGn+lTY4NZSC9ihdWaVs4CUTglAcoDou?=
- =?us-ascii?Q?0y/HmvOFGgZ0NY7T1+yls4sohmqRJAoj9M0vm8eaTUAA9Ft929SO/tPFnePk?=
- =?us-ascii?Q?oXq/LyIteSTREKcYyLV9uVvCIUTrv+WfWdTK2PYAsDKvpNY9X0nPLN7jAiKP?=
- =?us-ascii?Q?dkcc5uGRsl8uq4xAFYzm5e4GD11uw3/zxIeF8NiQyICK4u0IErnMMt4N2gOD?=
- =?us-ascii?Q?m2nVJDHGsuB9BBfsMc11Zf23WMiGeF2agfj3/eXiZv/aqL4GeZPKLuU75NuH?=
- =?us-ascii?Q?XFpabihp8VLmGwTVitK7+5UYLqMfmesbeu6MxHoahxQAH7ordR5tcPJt3Oyv?=
- =?us-ascii?Q?Fhnv4dtvIDHMJz/IPHrk4j/yNhq4zsfIb0Y3L/kEbrI8wT3LybGbRyK19gbZ?=
- =?us-ascii?Q?J8WNGwtDggtTmJHt90DtH0/a6KWitYnTCFrADhWiaRdNQm67ccxN41T4xs7d?=
- =?us-ascii?Q?6d5uhbIOyJm+FMncEh1Cr3g4J5DUIC+E1h7Uv2NCE9VRqRilg+KDCx2rBHvH?=
- =?us-ascii?Q?Y6mR0+7PsH9RL7PE2Il6wmGkXVo62XJstp1Y?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 13:43:15.6685 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e45cacd6-f6b0-416d-0b11-08dd6c6c290d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8802
+References: <20250325152407.2543116-1-srinivasan.shanmugam@amd.com>
+ <b30810ba-3e16-4f52-8b4a-070bda1bc129@amd.com>
+In-Reply-To: <b30810ba-3e16-4f52-8b4a-070bda1bc129@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 26 Mar 2025 09:55:59 -0400
+X-Gm-Features: AQ5f1JoZDrz76tBPcioKCYqy7BrW9o_LKpjR2Xg_sB9VKKwbY3Gx-qJMrWE_d3M
+Message-ID: <CADnq5_PcPDULfTjtkWGXRVpuJ3Wc770Be3QjrxkRDsw1E-VUeQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix Manual Execution of Cleaner Shader in
+ Gang Submissions
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,27 +84,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GC12 only has 1 mec.
+On Wed, Mar 26, 2025 at 4:13=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 25.03.25 um 16:24 schrieb Srinivasan Shanmugam:
+> > This commit addresses the issue where the cleaner shader was not
+> > correctly executed during gang submissions due to improper handling of
+> > the isolation spearhead.
+> >
+> > - Enhanced the `amdgpu_gfx_run_cleaner_shader_job` function to
+> >   initialize `isolation->spearhead` with the job's scheduled fence for
+> >   cleaner shader calls.
+> > - Updated the `amdgpu_vm_flush` function to properly initialize
+> >   `isolation->spearhead` to the job's scheduled fence when the cleaner
+> >   shader is required.
+> >
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 ++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 4 +++-
+> >  2 files changed, 7 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gfx.c
+> > index 72af5e5a894a..807f17093006 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > @@ -1436,6 +1436,7 @@ static ssize_t amdgpu_gfx_get_available_compute_p=
+artition(struct device *dev,
+> >  static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> > +     struct amdgpu_isolation *isolation =3D &adev->isolation[ring->xcp=
+_id];
+> >       struct drm_gpu_scheduler *sched =3D &ring->sched;
+> >       struct drm_sched_entity entity;
+> >       struct dma_fence *f;
+> > @@ -1464,6 +1465,9 @@ static int amdgpu_gfx_run_cleaner_shader_job(stru=
+ct amdgpu_ring *ring)
+> >               ib->ptr[i] =3D ring->funcs->nop;
+> >       ib->length_dw =3D ring->funcs->align_mask + 1;
+> >
+> > +     if (job->base.s_fence)
+> > +             isolation->spearhead =3D dma_fence_get(&job->base.s_fence=
+->scheduled);
+> > +
+>
+> Apart from being very risky because of not grabbing locks that will leak =
+the previous isolation->spearhead fence.
+>
+> >       f =3D amdgpu_job_submit(job);
+> >
+> >       r =3D dma_fence_wait(f, false);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vm.c
+> > index b5ddfcbbc9fc..e23400b53489 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -692,8 +692,10 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, stru=
+ct amdgpu_job *job,
+> >       if (need_pipe_sync)
+> >               amdgpu_ring_emit_pipeline_sync(ring);
+> >
+> > -     if (cleaner_shader_needed)
+> > +     if (cleaner_shader_needed) {
+> > +             isolation->spearhead =3D dma_fence_get(&job->base.s_fence=
+->scheduled);
+>
+> Same here.
+>
+> Over all this change doesn't seem to make much sense to me.
+>
+> Why exactly is isolation->spearhead not pointing to the dummy kernel job =
+we submit?
 
-Fixes: 52cb80c12e8a ("drm/amdgpu: Add gfx v12_0 ip block support (v6)")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Does the owner check or gang_submit check in
+amdgpu_device_enforce_isolation() fail to set up the spearhead?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 85dc6d8f0571c..8ad52d6845f11 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -1369,7 +1369,7 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		adev->gfx.me.num_me = 1;
- 		adev->gfx.me.num_pipe_per_me = 1;
- 		adev->gfx.me.num_queue_per_pipe = 1;
--		adev->gfx.mec.num_mec = 2;
-+		adev->gfx.mec.num_mec = 1;
- 		adev->gfx.mec.num_pipe_per_mec = 2;
- 		adev->gfx.mec.num_queue_per_pipe = 4;
- #ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
--- 
-2.49.0
+ if (isolation->owner !=3D owner) {
+                if (!job->gang_submit) {
+                        dep =3D amdgpu_device_get_gang(adev);
+                        if (!dma_fence_is_signaled(dep))
+                                goto out_return_dep;
+            dma_fence_put(dep);
+                }
 
+
+Alex
+
+>
+> Regards,
+> Christian.
+>
+> >               ring->funcs->emit_cleaner_shader(ring);
+> > +     }
+> >
+> >       if (vm_flush_needed) {
+> >               trace_amdgpu_vm_flush(ring, job->vmid, job->vm_pd_addr);
+>
