@@ -4,162 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16AD1C36005
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 01:50:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0EEAC28B30
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 03:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 526DF10E02C;
-	Wed, 26 Mar 2025 01:50:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53A9F10E0D7;
+	Wed, 26 Mar 2025 03:45:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="uADXrfOD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vdbMrjO8";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3D6410E02C
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 01:50:20 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D266B10E0D7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 03:45:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=loottW/IYyulzcj9WB3oIM+xJpvbfQ55hp3Ik5ZBjx/fcPgWrtBKbKXu6VX9jIdroMw3B4eR4yE2dNhKTP66q/VNZUIuhXwc+PfgeBVHOHt9K/le9VBxSID4p5EkFtF5L93Eq4Vz3WgkGVQND1r9iOhLaZhPirVrg/81WnLJzjKaD+J3CTykFVfdghKmJX23gS6RsYVcOyZGZDFnMgV9oodeHuctUE5S4kowT/xPrwn5AEPaI6mI3th6G3n9dkielEBIIW/jTvO2wgm2Hm1CZ3WIK8ctyB9vdHbxFbX8C1E++Rw4gzJXR2FabBVvGwqFjE2sSiEJCVR3R2j9eqwIFQ==
+ b=if0i5sAACuwvARNcdKmGUifm60iTbpAzIp//ZgkRNtiaW3WQhor/peaeUSaoO1dsov1sPQ3POrYQ/L5cfH3YW3VpC4GbXLj8QK5s1j/dIr3szHj8bXzELMV1aiZ0k9Cgqdd+cOyllme7ptbFfNxnothScVJtGm4DIeX4BwqyUm53e0K52EyCyyQPy0+fZiQjJ5Dg+s/54LR/wuFj66FawIxP5II1Nj6BpCKFGfnML8/0z7s39x3MB1iyRlSqYCwLtDI39KmB8loNA/a5214qWUmLcNknEqc9cvsi2RIgGUGLR3K2WaQR19HSrvvwfm6xY4ebEm0q9JkeZG/Lc5yphw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iWiwOoV+FPdYQaliSN6U28Dx9OS3ELx/ng/32j70HD8=;
- b=uW+Yo954EP0eLB/asnwf3IuB8aVk/admMoXs8Xulhjdti5jSkvB9c3UpViKI3NuLO8G3o5UYlFgUE2k1YNIjFpx9TfgauVdZC14xylP0+O8qwLZBS5tlz0H/xIo0BhAx3fXbrA/PQCMcg4JPbJbnasykNkfZnyqK3F2eBc411/2BWozRqFF6YNbIboMDKQK3rIFRa5mJ1pZc2hcXTt0E+0EJlCD9+CeSntHXAhI+uinPceM2tSwbzbUrz7jjGjUaiItOBWHE2DweRYq+Hjko+L2JtLvKxuQZAqWuuZDK5RM+w5aDlO21kq6G0Us37aBA5IjqaGsSA6CsUpXNPOMvEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=H+KTXNNCNyqqxrhAe6r+R/DpZdkzEaNP/ww8JCM4+rg=;
+ b=LaiFHrwhDGInsB/OPeSr5f8xAVa9JuexTrfzLyWXFsfspnXj6ZKEhDPJJ1kcb9eYCY2fC4WHzkKEp94a1765Z8mxkawYhbRloAsZChlY80QwCA6b+ce9Ne3dzeO5rWK+yia0NOJ5GDrAZFSdhmqNCTzGQfUfg1OaUZ+uMQ6lwpXpnZX9//twtTv2oVoZPWuTtz0d2g9YDcGF8WvwaIhH89b1CQyA3EX1KNb6+U6fbwaa2h2lXJIp+HtJM5ijJi7IM0st8D7L3/6H+5exYpUNoY64r2apwPBP7S0g27iAkwwi5RHu+Vq2WKGSOfROwH1bPAo5LtFOEmyqF6VHyH7Sxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iWiwOoV+FPdYQaliSN6U28Dx9OS3ELx/ng/32j70HD8=;
- b=uADXrfODxmAVEku4JkfiWxu/lpLuw96KqEAb8UxlaU6hCsE/R5XhQF2kCOzkQnVzsSz69fzHbP1/7ndUW1Qrz6uaNCAumRwIAWy7AxevhtcLPJ+dFGHvZHoeuk73c8Wq4FTyDgmiiEXZNS0CeTK7Qlzb8O6e6FK/g0fTO62bISg0HJsfBUWvchMpRHzxQrZSUY6L7Vr42temKBdsvEouZYZmOGgCvLuZROazhSCby36V6aIQCAr0jZ/xNQIyC6kCpxOA2NJJQUl1rxTD+OxwXE5ITRF3TdF/25GGVmy7f8VDTSF29TMGGizlZx2m3+szObwXnliz9UOqIcLbEXYhqw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB7272.namprd12.prod.outlook.com (2603:10b6:806:2b6::7)
- by CH3PR12MB8996.namprd12.prod.outlook.com (2603:10b6:610:170::17)
+ bh=H+KTXNNCNyqqxrhAe6r+R/DpZdkzEaNP/ww8JCM4+rg=;
+ b=vdbMrjO8zH7Ee0Qf7Em452ZuAnL4pnAE0knUOAChz96hCe/JmsUjNknxo2ZS12ojxqrqF9eeUVhkJCiN3O9tbG+HDijhRDu1dmGVjvlpYgnkOC+oo28eTXnr8Szwgj5vfZqpabJe5uMcUSHwKKFmNNbmB180rl/WUNljxq77gdg=
+Received: from MN2PR22CA0016.namprd22.prod.outlook.com (2603:10b6:208:238::21)
+ by CH0PR12MB8461.namprd12.prod.outlook.com (2603:10b6:610:183::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Wed, 26 Mar
- 2025 01:50:16 +0000
-Received: from SA1PR12MB7272.namprd12.prod.outlook.com
- ([fe80::a970:b87e:819a:1868]) by SA1PR12MB7272.namprd12.prod.outlook.com
- ([fe80::a970:b87e:819a:1868%6]) with mapi id 15.20.8534.031; Wed, 26 Mar 2025
- 01:50:16 +0000
-Message-ID: <a9f37e3b-2192-42d2-8d5d-c38c0d3fe509@nvidia.com>
-Date: Wed, 26 Mar 2025 12:50:11 +1100
-User-Agent: Mozilla Thunderbird
-Subject: Re: commit 7ffb791423c7 breaks steam game
-From: Balbir Singh <balbirs@nvidia.com>
-To: Bert Karwatzki <spasswolf@web.de>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
-References: <20250322122351.3268-1-spasswolf@web.de>
- <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
- <6e8ad3cd27b570aaefd85395810cc90bb3120734.camel@web.de>
- <7cdbe06c-1586-4112-8d27-defa89c368e9@amd.com>
- <b1d72b95-5b5f-4954-923f-8eebc7909c4d@nvidia.com>
- <938c2cbd-c47f-4925-ba82-94eef54d9ebc@amd.com>
- <261e7069-9f65-4a89-95cb-25c224ff04f1@nvidia.com>
- <eb041c610719c8275d321c4c420c0b006d31d9f4.camel@web.de>
- <76672910-423c-4664-a1bd-da5c1d7d6afd@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <76672910-423c-4664-a1bd-da5c1d7d6afd@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY3PR03CA0015.namprd03.prod.outlook.com
- (2603:10b6:a03:39a::20) To SA1PR12MB7272.namprd12.prod.outlook.com
- (2603:10b6:806:2b6::7)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.43; Wed, 26 Mar
+ 2025 03:44:58 +0000
+Received: from BN1PEPF00004683.namprd03.prod.outlook.com
+ (2603:10b6:208:238:cafe::85) by MN2PR22CA0016.outlook.office365.com
+ (2603:10b6:208:238::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.43 via Frontend Transport; Wed,
+ 26 Mar 2025 03:44:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004683.mail.protection.outlook.com (10.167.243.89) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Wed, 26 Mar 2025 03:44:58 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
+ 2025 22:44:55 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Prefer shadow rom when available
+Date: Wed, 26 Mar 2025 09:14:00 +0530
+Message-ID: <20250326034400.403935-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB7272:EE_|CH3PR12MB8996:EE_
-X-MS-Office365-Filtering-Correlation-Id: f50fb9a2-4fd8-4e3e-0412-08dd6c088e97
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004683:EE_|CH0PR12MB8461:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59f64c87-6a35-46f2-ad9b-08dd6c189495
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RmhWVjF0VThMZVFtS0lmeTJpWk5GVXFqTm1icVZUWmNIN2xvcjhPejM2akVW?=
- =?utf-8?B?UkhQSklqa2NFVEVjUlczcHcyeE1XZzhsWlNkSTkyNHJTK0Q2OU5WbmVxZ2hZ?=
- =?utf-8?B?bmhaVmxOSWMybW1IZmFEK0w4WGVTSmdyZlFTOENjdUVEdGR0blhqYmFWWW9M?=
- =?utf-8?B?MmhjMWZwamZPTWplWlhwcXVEdlhZOXBpOE5lcThaYWhaSmgxRDJ6bjhQdjFX?=
- =?utf-8?B?bCt3eXQ5U2h1K0lLdFljWDEyQVVnQXE4SGdjalR4MFZVNDMxSjVkUi9rdlps?=
- =?utf-8?B?YTlwV1l1RHVSSlJrR2kvR1NpVkFOUEl6M0g1MTBHVHhxVUdxaDNzZ2dVVG0z?=
- =?utf-8?B?TXJOK1ZPcVA3YjNDWjgybWFTWnJTd09MRVF5U1Y5UmpNN0pWK1ZMSGFnTHdB?=
- =?utf-8?B?VS9PeDUyNzQyVFVRSk5lUTFBdnZJbVVzVUlrTS9hT1VCRXY5d3VaMDQxYlFY?=
- =?utf-8?B?ZElES0VwZGQ3M3dYbFpZU3ZmZlNOVmR5ZmhMWHd3bU1WcmdMV1RXUm40QU9s?=
- =?utf-8?B?bGlidGVsVHorUy9kYzM3aEU5clR2WC9oS3ZPdVU1cy9UTXJwNnhXTEhVYUZt?=
- =?utf-8?B?TjJvMDJwakVCUThNaHlwUFB0RUdEOWFMN1cxaElodVZHbWlDTSt4SDg1ekN4?=
- =?utf-8?B?Wkk4VDlMYU13Y3NqRDBxMVlZY282dXV6cmRJWlhvY1p2dFdHdVU1My9CdFg0?=
- =?utf-8?B?RG9ib3BJZW5YVE8rT2l1NzVvMUNaMDE3MWRublM2MGc4OE42ZXJKV2lKWWhT?=
- =?utf-8?B?OXdWWENUOU0rSnpvYWIvV0xlL3hrOFZHSEN6ekdqcmJxWjdsSkppNWFWQkxI?=
- =?utf-8?B?STJMd1F6aVY4bVJnVGZBYXZGSFByQ21TNFRSR1M2eWp1VVB1SGRpVnpUNXl5?=
- =?utf-8?B?c0V1dk81U0RJblZjNXhGdmRFZzZIcDh5eDlQdG5ydW5JbCt2VzRMNktISzZi?=
- =?utf-8?B?OFpaWGptY0R2Q3paQWF3TG1tUkpUc082QUYwT1l1T2VIK0dRdmRFRlNBQXQ2?=
- =?utf-8?B?c3c4SllNNzVDYzlsK0o1OE83NmdESWpmdFVLcHplM2JRZzV0a0dycEhOSFVk?=
- =?utf-8?B?VlN1bjFxZEoyZHV4ajhVeitiSHh0TFFUYk9rZy9oK216czVvczZDKzJmNWhI?=
- =?utf-8?B?Y00wUmVlTkRWNzltOWxCNllvWEkrMG1CeTlpZlg4RE0zOWovRUpjeGRMWmNh?=
- =?utf-8?B?VkllNzB3SU11M3laa00yTnl2QUZDSDgrNllwR2gwNUtsTDNjcks1MnZXc3NG?=
- =?utf-8?B?aEtzRHQwOFdiUllRS0FSYi9GaTNDb2xQVjIwWXZVM1NPUW9JL0VGRENKYVpy?=
- =?utf-8?B?NEJqVFB5cTFxWjJ4U2ZXb3J6dlBNUTZEWERZSVUyeERRWEQwM29sQmRCQ2pn?=
- =?utf-8?B?ZW0rYmVUSnNoWmYyVXlWWjZoeDV3NjJLUHMzaVIrZ2JCU0dGam52Z3g2U3V3?=
- =?utf-8?B?Z1V4V3dxQ3FaQWhhMkVQcFBEUXFBSVZmY2ppK2h4NDQyUmJJWGpPMXdYenpT?=
- =?utf-8?B?ZThMTThDYUtFUTVFSktDc3VXcmxyY2dkT3BRWWVLOUsvSHJ6WGhGWnU4YThC?=
- =?utf-8?B?aVZ4Sm1jd2h6SjZRTzlWVVhQYm9sQTgxRm5UUEs3dGxHeXhJSUJBVzFtUE9V?=
- =?utf-8?B?ejh2UVNUQVZaNGN2SlJEanhvUzRLQ1lnRTZ2aGhvMTZDTEEweC9uTmxDV1pS?=
- =?utf-8?B?MDRYU3pIOVByalhkWXZobS9ZbTNLV3NvdDVLTklybkpSZjFodlNrRnVUN1NW?=
- =?utf-8?B?QXdsK29jUm9VRSs0OEZCQ1VwWDlLUFNRUjZIeTJVcVhlVS8rd0d1SlhIdEkr?=
- =?utf-8?B?MUlHc2JUcTMyd0dNYkhXY1U3S2diQWVYWUhOQWlkbVlnd0FHd0VzQ1pNVkhS?=
- =?utf-8?Q?0cJQ5ZHweeSPp?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB7272.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SU9hRE9Ea0pqTEwyMEg2cVAxNVY4YjloandnQVIyYkpyWkQwY3dEOUNIdkkz?=
- =?utf-8?B?Z1BobElQNmZyaHJ1SXMzSFZTdFdhMEJJWVRUMmVMclAwcmRzaHBvQWs4WVBX?=
- =?utf-8?B?ZngrRGJMSFEzb1pGU01Uak1wYktOQW9FbENLUDRYWGdBVmVSOUlhY0k4QXBW?=
- =?utf-8?B?and3ZlpyZ1N5bHFzSE5xeFdJMXBiMHBCNWdOaGZlZHF1aHNDR0ZzOXZtYkJw?=
- =?utf-8?B?ZWZRZnlTNUFVMDZnU2F2bWVnSzAwQzVwZG52TWJKdUtMTGRJRWlINFlrWnZK?=
- =?utf-8?B?OFdxM3BxcUtUeXcxSjZlVnNJV3YxdTRCV0V2YjBXUkJ5NkRzckRNKy9GaTZR?=
- =?utf-8?B?RlBCdS9nQ0x0OXJpTW9zT25iSXh4VWxaL20vRTZCU2lPU2N5d2UzN29rY0lo?=
- =?utf-8?B?bGVQK1djckl0ekdTdjdxam9HN1dDcjBITzBjUXZhbzZSODhMekxiMWQxWDVq?=
- =?utf-8?B?aW4wY0NiNzdyQVZLVW5vOWJlWi9lRS9GTTExUjVKanZXcEYvSXRYWUV4WjFi?=
- =?utf-8?B?THByanQvZHYwWFkxODFCcG5CRUZYV3Y4bHFYRXVKeGtWZUplNjhYQ01nZXZw?=
- =?utf-8?B?azcwSG1jKzFkQ0NITCt2R3NVQXhmUmR1YkJtaGR1eUVCRHhBbDArSThSOFha?=
- =?utf-8?B?ZXpMRVQzREFIR2FRL0h6NEJUQXZLY3lPL1VGMnNFdTlFWmtDMktZVEZRQmpk?=
- =?utf-8?B?aUlxNmhFU1FwbTdyZWlmdlN0UHQ2dCt6R041enhXbUR5TlpjbDNLUzhBTG9x?=
- =?utf-8?B?eHh6M3ZzOVkwakk4SVUzVzlzQ1ZpTjRkYUp3b2dvcm9tS29MbkFPMUJMUEps?=
- =?utf-8?B?NjVEOHBDVlJBbTgrR1BrNzgvZnp6R09HYzlXaTN0WFpMNnVFUGcvUUZQUmNX?=
- =?utf-8?B?d1ZhQ05jV0ZlNmdLcldZaTNnK0J1WXZDcGMyTlhmcVJxYjdaK3pNSlpLWmZu?=
- =?utf-8?B?aE8vYUdLSW5MSFJOR2E2VW5WR2RYNU9JTkJ0VUJkR3FnT1dob0hVaWF2VWxk?=
- =?utf-8?B?eXVORFRCS0dqL20rOUVFUXYxbmg5ZHNMYUQya0tYaVN0azd1NkNGdG1NTHFL?=
- =?utf-8?B?NXA0dUxNT1J3aXhKRmtrMWZOdlV4TjQ0ZWNWMG52QmdBc3I1MWd1QWdhWkVW?=
- =?utf-8?B?NFFRcGNRSll6Tk0xb0RZQTNQTDNSdjJDa0szQTdZakM2U0tFcStDcitscy9v?=
- =?utf-8?B?MlkycHZiU1IxY1BuMHZvYnJTOXkxSS8xVXIvQU55eWRNblIyaWVPQURvek9l?=
- =?utf-8?B?eTV4Y1liYUpScUptU29sdWZ4Zm40L3RveGNmRkIwdHY1ZGVJZzFFWkt5VkE4?=
- =?utf-8?B?cnJDU3kwVUFxR25tMU9PNjhXV091WjlQbmpVK0xwQnNtSlh5RmMvZHFuQTBS?=
- =?utf-8?B?OEFValkvT1ZYeHdXVWIvQm9tMnQ5OXNiSktRcjl0VnU2MXZJZE5DaWlYOHVH?=
- =?utf-8?B?TkFnVHlzMlhuWU1XNjJFZmhYRktZOHhDSlk5cnV6U1l5K2YrNkthRUFaS1lz?=
- =?utf-8?B?bnhsQmprYnIwWW11ZWFSS3hKL0hZbXFXYWJiYVNOclE0RllQbXRnY0l4OU4x?=
- =?utf-8?B?cnRQaS9KZ2FMdGk3M1BGN1plRDRGR09Bc0VEeVZBV1dXVjFhTDNKK3pYNmVO?=
- =?utf-8?B?M0Q0M3hlOWNTT1ZTcWZVZnlvQ1JSVzNwKzdvVU00dWVMQnZ0Sjk5NEI4bGFC?=
- =?utf-8?B?ZWtnZnVwdnFpUkhMRGQydHcxNHJRcitnQ092TkMzeklLQjBlK3NrS3RoamNP?=
- =?utf-8?B?dXhzRFlGL0dwRVh4aWFNNlpmL2FlOWNTQUE5cjBHaHM3TTFmZHFqVzl1RTNv?=
- =?utf-8?B?U05KOUdvRjVmSnRWcXRjM3ZKbXNjYWNBSG1US2hSVjE1MUhiVExGaWVKMnFM?=
- =?utf-8?B?c0hrNElMczVzTThHbjZ5UVEvcFpRK3FVcnFUajJ0NVRCS0pRSFJUbldiSjRP?=
- =?utf-8?B?czhBSkNCZHh0RmUwcjVMMmVKUkh6Qmdkcm9paFg4c1RZYlc4eEQ3OEJRSUIv?=
- =?utf-8?B?aStmL2hhMEZLOGM2cTkraHJIanRqSnp3akVwT0lrN1BkRzN0dUtvaVMwUWZy?=
- =?utf-8?B?T1J3QTVaZGoxZmFCMGtIcW0xcWkrcVpXanVuMGlYcWVyUmdhalhRNDU4Z3NV?=
- =?utf-8?Q?WC+k+wskoJoeChQEhniccv8si?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f50fb9a2-4fd8-4e3e-0412-08dd6c088e97
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7272.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 01:50:16.5502 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qo8//fb/+R/cXLVkoH7gS+DNKDtMVwXHxwkz4pZRO6Q0ybjt1H0MSDEEBTiGbkvb0LIXdX2lZl1cqWeIEPeFNA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8996
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700013|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?1Dv9gHvBYOXsOCVl0zymydPpNes00XKTPmswNQggpZdmTSevMgwtm3Wk1l46?=
+ =?us-ascii?Q?SeVq75hqfAMAa/0pxFopSA3jghamAU9XnhluIOo2TIuI+wdS4nIZM/sPDFa3?=
+ =?us-ascii?Q?AvhpXMwGntpJ4LGe4mPmYWj43bNhlSLN9xvgJlPDHreFW+51yIRd8nMI5/q6?=
+ =?us-ascii?Q?GCp5jhGJ5gRblt43vm+1dFRA6tgjtizfAD+6424XhjN+wHmoUB9dkw4zLw0H?=
+ =?us-ascii?Q?B9y+b5DMKRmizztwKlEPgECYzy4Jmuh+fHl4BvOheNAt6HeyDZ0z9fmq2Nj9?=
+ =?us-ascii?Q?8XWCi6+dY2szPEhiLiXF1egKGDnKlK9NmjIEm6PpqgU++QnvjetW2jwzlA8F?=
+ =?us-ascii?Q?5YZTZhALGoHbfuktYVR1LNeTHeNKGujxSvbzoKbtCpPihmgp2As4o2YnpRXm?=
+ =?us-ascii?Q?uWY7NSnx53SfxnnykEFk1+gXgHcpVU1p3On63czxTVdr4WkPErOMf1Th9lmi?=
+ =?us-ascii?Q?r6YXJdCwQjS+yJFO0b72YcGP2689MTZApehxa9vmESlvcUbXEjaYPNYZQDMx?=
+ =?us-ascii?Q?3beb/01xaExJPNQq2zvYWA09Uw+/VRaBg4GAxOgSc1s9TalIv3tqP8wYzgOl?=
+ =?us-ascii?Q?oUOSpR6ZcettrH5YLUwpKzLAJbtQufrfzsyyK4XUYNtEBZdtHDwG6sfxmAO3?=
+ =?us-ascii?Q?GCp0bZ18LTgr+lqTzUPjnCI8BmoVaevuQN/jIuc/GH26blujoBeRBB8BFRux?=
+ =?us-ascii?Q?jGwrFgo9QZ3jzipWpnLQ9Irxo2aJoVfYTD96IzQK3p93YtSv4q0FQZz8OJUR?=
+ =?us-ascii?Q?MZhdhY2n2+DqOjw0QPk3F1s0uJXDEELjtS+pM0ocVpTmulfsLtM7G/+sLRYO?=
+ =?us-ascii?Q?H+uYyNaSw6vEhjEHSdXjlnA5AL5xE3o6k0rWVf0HDlOyuIGYJTGyZBU0Uutt?=
+ =?us-ascii?Q?qCk0y68d5DsCH/rjunQyj+ib9E4TC/WKIATqgwP/TEjREWhdmM0ke2narRog?=
+ =?us-ascii?Q?CHOhJVeVda88q6CBpyTz2ZaFinCSa+LWmQI9l33BY/6c9pkL1SiBev3xD4eV?=
+ =?us-ascii?Q?SjACMLraTAinws+XLqubVrjHYToddhfFxA9NpTRPxw4g76wfHX/l5feU7MqD?=
+ =?us-ascii?Q?5ttyFZc4VPbFPrjkJywaFqxBWBFNH8/Fr8suIRHibucGtGAwum7QqsO6XlF9?=
+ =?us-ascii?Q?3r6NPd7YniVa3UlromOOUv1VDmtl9ThzcqLifS8rBKWiXZ55x0tdN5lVQImV?=
+ =?us-ascii?Q?83xIkJN/MIddSIgOTgNdUv89OFJtBaZmc8WdJ8aSzcrx7xoIgSjRE9y1GRBA?=
+ =?us-ascii?Q?re/pZqwpKWur8m2ohYxWi4SRMFsVN0uTPLcFis3v7c1CZ1K1UCj6OZdu74UJ?=
+ =?us-ascii?Q?6TFuJt0AXKjqLXNsGvZ+wP9cl67GOI+iAbCVLRrsRfew/2EMiWnaWN+Vio1f?=
+ =?us-ascii?Q?i/NdZExY2XW94ts5Hexgp4LlcBt7GGPCJQP7QhTPOpn9tmDXLf5NOBrhuzfk?=
+ =?us-ascii?Q?HBZVZwM5LjE=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 03:44:58.4018 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59f64c87-6a35-46f2-ad9b-08dd6c189495
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004683.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8461
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,63 +129,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/26/25 10:43, Balbir Singh wrote:
-> On 3/26/25 10:21, Bert Karwatzki wrote:
->> Am Mittwoch, dem 26.03.2025 um 09:45 +1100 schrieb Balbir Singh:
->>>
->>>
->>> The second region seems to be additional, I suspect that is HMM mapping from kgd2kfd_init_zone_device()
->>>
->>> Balbir Singh
->>>
->> Good guess! I inserted a printk into kgd2kfd_init_zone_device():
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> index d05d199b5e44..201220e2ac42 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> @@ -1049,6 +1049,8 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
->>                 pgmap->range.end = res->end;
->>                 pgmap->type = MEMORY_DEVICE_PRIVATE;
->>         }
->> +       dev_info(adev->dev, "%s: range.start = 0x%llx ranges.end = 0x%llx\n",
->> +                       __func__, pgmap->range.start, pgmap->range.end);
->>
->>         pgmap->nr_range = 1;
->>         pgmap->ops = &svm_migrate_pgmap_ops;
->>
->>
->> and get this in the case without nokaslr:
->>
->> [    T367] amdgpu 0000:03:00.0: kfd_migrate: kgd2kfd_init_zone_device:
->> range.start = 0xafe00000000 ranges.end = 0xaffffffffff
->>
->> and this in the case with nokaslr:
->>
->> [    T365] amdgpu 0000:03:00.0: kfd_migrate: kgd2kfd_init_zone_device:
->> range.start = 0x3ffe00000000 ranges.end = 0x3fffffffffff
->>
-> 
-> So we should ignore the second region then for the purposes of this issue.
-> 
-> I think this now boils down to
-> 
-> Why is the dma_get_required_mask set to all of addressable memory (46 bits)
-> when we have nokaslr
-> 
+Fetch VBIOS from shadow ROM when available before trying other methods
+like EFI method.
 
-I think I know the root cause of the required_mask going up and hence the
-use of DMA32
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Fixes: 9c081c11c621 ("drm/amdgpu: Reorder to read EFI exported ROM first")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4066
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 34 +++++++++++++++++++-----
+ 1 file changed, 27 insertions(+), 7 deletions(-)
 
-1. HMM calls add_pages()
-2. add_pages calls update_end_of_memory_vars()
-3. This updates max_pfn and that causes required_mask to go up to 46 bits
-
-Do you have CONFIG_HSA_AMD_SVM enabled? Does turning it off, fix the issue?
-
-The actual issue is the update of max_pfn.
-
-Balbir Singh
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 75fcc521c171..00e96419fcda 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -447,6 +447,13 @@ static bool amdgpu_get_bios_apu(struct amdgpu_device *adev)
+ 	return true;
+ }
+ 
++static bool amdgpu_prefer_rom_resource(struct amdgpu_device *adev)
++{
++	struct resource *res = &adev->pdev->resource[PCI_ROM_RESOURCE];
++
++	return (res->flags & IORESOURCE_ROM_SHADOW);
++}
++
+ static bool amdgpu_get_bios_dgpu(struct amdgpu_device *adev)
+ {
+ 	if (amdgpu_atrm_get_bios(adev)) {
+@@ -465,14 +472,27 @@ static bool amdgpu_get_bios_dgpu(struct amdgpu_device *adev)
+ 		goto success;
+ 	}
+ 
+-	if (amdgpu_read_platform_bios(adev)) {
+-		dev_info(adev->dev, "Fetched VBIOS from platform\n");
+-		goto success;
+-	}
++	if (amdgpu_prefer_rom_resource(adev)) {
++		if (amdgpu_read_bios(adev)) {
++			dev_info(adev->dev, "Fetched VBIOS from ROM BAR\n");
++			goto success;
++		}
+ 
+-	if (amdgpu_read_bios(adev)) {
+-		dev_info(adev->dev, "Fetched VBIOS from ROM BAR\n");
+-		goto success;
++		if (amdgpu_read_platform_bios(adev)) {
++			dev_info(adev->dev, "Fetched VBIOS from platform\n");
++			goto success;
++		}
++
++	} else {
++		if (amdgpu_read_platform_bios(adev)) {
++			dev_info(adev->dev, "Fetched VBIOS from platform\n");
++			goto success;
++		}
++
++		if (amdgpu_read_bios(adev)) {
++			dev_info(adev->dev, "Fetched VBIOS from ROM BAR\n");
++			goto success;
++		}
+ 	}
+ 
+ 	if (amdgpu_read_bios_from_rom(adev)) {
+-- 
+2.25.1
 
