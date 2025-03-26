@@ -4,120 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DE37C3600E
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 17:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63860C36008
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 17:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C61D410E76D;
-	Wed, 26 Mar 2025 17:51:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0852610E19A;
+	Wed, 26 Mar 2025 17:57:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nza0nZIp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lwkyJFRX";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2075.outbound.protection.outlook.com [40.107.92.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E72D10E76C
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 17:51:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VbjZ8QDEmseTpux7lRHsQX2u/v+RmEA0qbkXHP/zgXBFwb7f6JzcPVw/sHxjVHtE2E4lS6XVTGcKvtzPprF8Avuq75XvlexWIWBppmUJfAHXzXl5GVhlAyDcTaJu/x/O0ZOy/DwGzxtd3VTZ5ZPfQFLR/glSz6SaQcglNtmWLXPGoV9NouqbJy5pTd1Mcls3Pwt9S9dDC+3heLRYeUfLt2wgcLStzuyhcXLJeOtwRo5USDOx1twz0raEJAgB7AzmzHk26ISqUTXPJWv0/6OpTZNnLLPPEHR2UT4eKnYY0osxUAtzqqlN+EGQyoQzLab/oW4TH3dxS6nxfZSJ2OezuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gOMCwMAppXh9WIzubCMzAmaDmD+leh8R5yMR+7v12kU=;
- b=D3IOIPD3oy7V5pkIBFu+7tf5O/cb8crgMa42rdSOxPHkRGyqLkUbZiLRKwZcDX3v6Ea6z3xYMfEZdm0Shv179Nc/pXNovL5OSYAlnfDgcFjxol8eq1TBqq7ntyuG2B3+ah6q9QoX/EsLmzqyDs8+llH4y6gkLQdU5189mo4OlmyNpDd/0+ZvyYqNZD6asKUO7LPIlq3K0NwG/GRdGY28LUgdfdC4C5rAsMM9iUdMx6GpqKtnsD0xx1p+ECQQyWaCBPih7/grGVCN4Hg4yMM702ENgv9NkERy5v+ey0E4dXwMaHGZmKj+Y43RhFua/u+Ag+Qd+gZpzhRWHp3OKgngjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gOMCwMAppXh9WIzubCMzAmaDmD+leh8R5yMR+7v12kU=;
- b=Nza0nZIp6yBMelSuWq4hwrPeuFpruc5RN0Jr/3E55zQVTUjN5IbH8JDr+OHSb0hFqdnjTu0Cq8jE8Jys+y0XJFV5UD0yYAARQl8JyfYBnYKMbNoVzXz3HS4qZ3bGbdxP7Rr2V/0COp+nUqm793rtr2JnPkqBw9bect15LbxgXi0=
-Received: from PH0PR07CA0107.namprd07.prod.outlook.com (2603:10b6:510:4::22)
- by SJ2PR12MB8649.namprd12.prod.outlook.com (2603:10b6:a03:53c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.43; Wed, 26 Mar
- 2025 17:51:37 +0000
-Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
- (2603:10b6:510:4:cafe::66) by PH0PR07CA0107.outlook.office365.com
- (2603:10b6:510:4::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.43 via Frontend Transport; Wed,
- 26 Mar 2025 17:51:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Wed, 26 Mar 2025 17:51:37 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Mar
- 2025 12:51:35 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] Documenation: fix typo in debugfs.rst
-Date: Wed, 26 Mar 2025 13:51:22 -0400
-Message-ID: <20250326175122.1209403-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250326175122.1209403-1-alexander.deucher@amd.com>
-References: <20250326175122.1209403-1-alexander.deucher@amd.com>
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E4AB10E19A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 17:57:15 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-301001bc6a8so13066a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 10:57:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743011835; x=1743616635; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=63fjjrVzZF7U9nA12lUfHyh6yrdFiEzR4qrxstyzVz8=;
+ b=lwkyJFRXhH3dhF74RZI9CucnJAr375q8VNOQt4WKeyRAF9FnEGKXbv2OGpMI+DbXJ1
+ pAIuifnIDF3+g6zNehbb2dBe6OfsY/noX/AhiZOaX7gjY69FiL+3KRMrLBpTSSM/sI/M
+ vti6FVBWo973QsFAvcixkmcc54Mh+m1OQ/YlekthdEZ7NafzIZB2fXdN1aKnZLppj78D
+ amkHL3CdFSSRT4T0Fa4wDx1QYdnYhjTWc6xEX2gEr7zfcXSyLlXaKAZyW5EUNyNgEJmO
+ zTi1s3KkNcUf3jS1NpVnuKwJ3Oovv4fMnP8XlJRXvQpooRoi35DB2SvOB9LKb4qidHND
+ iXBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743011835; x=1743616635;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=63fjjrVzZF7U9nA12lUfHyh6yrdFiEzR4qrxstyzVz8=;
+ b=S2T2UE4HOklbheQKGJCWx9J72bS6ANK04f+udDJ/m91q3vQzmYV/UElLE1/hslw92A
+ f5iZfg83CCdvNbmcU2HXOCJliYI71b9SpBL79n8mPdnzMEX0NGDUlwES8dSJ0Kc1cA19
+ aGtoAxxnh+pDqw651X4U0hzL3f9vd7l/6C1UTeW7vIgi/lEeTrHtt5VxHchlwg4KM66U
+ Jsd6xdKaMBioS3Kk80GhRbw30XEmZt9SpPO5thRdZ4sU9IDxgSvCwxDkyweYtanbn7xi
+ m51U/+/poIRXOnZbdk+Z1/URjjol++79Sg4nYJjaCgT4kZLnr6i3r7P++X99Hya9p5Rq
+ LTdA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXpwvRcZRB3Cs7et2U6loB4VNFlRTt98lgUCmvPr3oW1GVoXV4m1r4LTy94i1pG+Ff32mtm5dKx@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4YmBIY7AdtVLYim2u4sIEoXdyw0kgsKvymiXFMUddJN8DTj+Z
+ uSlmvv4uh9EdkjY8TBl7U/LioATv9hCfNAu/d/DTil8QIWA7ygYGvg4BV94+fKuHw/smsKQZbXE
+ pvBlw0+o5rlYLwPs5lQJ0tCQ5eAo=
+X-Gm-Gg: ASbGnctW5FHoj8FWJGVv/35M9oP72IWNNtFgQzFcYUjHoGzBdDp8rwE0JEmwCjwoNON
+ /monpRoUn2GwEPP8HlWaUYZc4DuStvvu9zYxsnGKiiZTgMPhxgiVOeammZ50DZiKngnKoSnG696
+ qB4TvZ09GfEcZjb9LGtw8qpaj8Lg==
+X-Google-Smtp-Source: AGHT+IFb4SEstX+/J9aVa/lak6Q1K8so67eSN72VztIppG579APDLZXb+PxCLyLaLw/Nuz0xYqGAsd80iPddj13PKM8=
+X-Received: by 2002:a17:90b:4b92:b0:2ff:7b15:8138 with SMTP id
+ 98e67ed59e1d1-303a91b2681mr267988a91.7.1743011834466; Wed, 26 Mar 2025
+ 10:57:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|SJ2PR12MB8649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6984ddcc-7e9b-4ecb-67a3-08dd6c8edb01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?28ZVB0OYXI1ge8sLHtVGLoxKUnxrj5+aINRxnc5ZWkeBzmmuYA0NajqBuKtL?=
- =?us-ascii?Q?60Y5cSmbgBycxXc1I/zVrIuSUr+kRbP8sBVmWM+dH0drkQ83IyZUydV/pIkP?=
- =?us-ascii?Q?ixo30BExEnnlGT2HLMabDGatvR0f0b6W0Ds0gYmyL3aW2xC0qEmga3CeKxdh?=
- =?us-ascii?Q?8KJWmOF+TVicd2hkUMV7CLXOoyGJd4Uk3+O/IkjQ4bs+Dc2JugqkJu/h5p1/?=
- =?us-ascii?Q?6PZ+FqPDsdom/DFMYE9EBX17UmVTvni26hSPS/6dPlVixvfIs/V+i7CKLDTt?=
- =?us-ascii?Q?4gzNexXbbTXnZ67/yv1ldX59Wb5ftuJqzYTmcUarza+7gmhmHMFvaZNC/IFr?=
- =?us-ascii?Q?RRPdVg06lavtQ9Sa7ogPzHcZlR3No5Awxs+s1REZCdr5a+4GzBRqlAXCFfHQ?=
- =?us-ascii?Q?sxxGe64MTeeEwuEhp4CIFlL/1lMKmNQqL/qYVpvQiD72TDc6UBUzO7lNvCWU?=
- =?us-ascii?Q?dUMuLng5Aofb+hm1+Ow9mKdXCaM2C9YHEAprN7mkEjLixsgMY28KbJotThGk?=
- =?us-ascii?Q?60WzPyjav6uAvc3sjASbGgHAqrvJKpXa6L9z1d1XHBsmf2TZnXpZr6uNb0Pz?=
- =?us-ascii?Q?ZzjojLmdeAgj2SDCV+LyEUITSkdLHxC5d/hSLXSQGtvyV9+UlsyLq60fFToz?=
- =?us-ascii?Q?28c77n/Lfodp/vutuPSV5E3LGvNs3N1OVMf9vrUKLlIuuGrkP27UzHNOwYXt?=
- =?us-ascii?Q?JmI6c60/+2zGvxj7fiEsAfxir8PrQvJMThH7z/YejUwIs0cQdjhUc1FsFXz7?=
- =?us-ascii?Q?7B/etr/QglpEbLGYjNovc/ld0EEpYN/5O4CqWO3NzQ/jCaQMh+1eiDzTXNOn?=
- =?us-ascii?Q?2G2l9403t4Z4IUq2ggYzAa3qRfIKdBc0rbu2KMajuL9dLJJGLB119oKpuOE4?=
- =?us-ascii?Q?YsBENrfSDYD8+sN4VxKeg+XuuKEL+q7KA5Juj4jrthnovLolFWD7XAtt+s/J?=
- =?us-ascii?Q?aAT7DE0XOjf12nO1ZwpfF0BEvz1u3SxoJGOhCWSyEgo3AUq/UBaQbMfbQWOA?=
- =?us-ascii?Q?bqledngCBKw3oBO+doukWSNmTId/nw63G6YSOejhCVl1ZHnPjB+3nwueuZnF?=
- =?us-ascii?Q?G0NlF8ciZjHM9w6Jzn3Z2KJA1aWX2u1iN9CmorKft036Mj0FKZtHZNH7A+Km?=
- =?us-ascii?Q?Zqg8vyxVR57N0NwfWDTrpXyL9q5wWYani+6QHTMxlmGB2FvhRQhdVTjXz+kq?=
- =?us-ascii?Q?t8omLji3Y5gi0fYFA/sn+GjLIpwYBOG3uqpUmup7TX38mOKRr+Iv7QMykmoZ?=
- =?us-ascii?Q?3U5pOEvciFL9ZlXMavao6wcHDsF1lE0RgETlkpa9mby5v0f5NFQCC4WQriYS?=
- =?us-ascii?Q?rJRCNlUXVDqjIlNRd6xRLgXccVFCs5CpB5dyrdITWaXjXrYUvRZCivsP6L7J?=
- =?us-ascii?Q?Oh+RYcsmdDOrsVvEvXmKqJLU0epYMuuYKso7lz3cuyaSXwCcP7HUsymEMbUc?=
- =?us-ascii?Q?I6y1mXZHY2ggeDo2ByO+hty+P8mpLM5UqbvyhyRQE/vwrYWcXcF6kIPfNiJ3?=
- =?us-ascii?Q?Y88zxO3LGcc5SGd/RdWh5rQlYbdEKnC0nvAR?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 17:51:37.0374 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6984ddcc-7e9b-4ecb-67a3-08dd6c8edb01
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A672F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8649
+References: <20250325172623.225901-1-siqueira@igalia.com>
+In-Reply-To: <20250325172623.225901-1-siqueira@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 26 Mar 2025 13:57:02 -0400
+X-Gm-Features: AQ5f1JrJXGbs8Sb8S_t305FOfs8CojJkoSogqnVNxQIYA3I5rXe3UQiJK8no14s
+Message-ID: <CADnq5_MEfXnGtGNbBxj-WFZce0Dyf0ikmXqxre+UeFgvoVjozg@mail.gmail.com>
+Subject: Re: [PATCH 0/6] Documentation/gpu/amdgpu: Add documentation about
+ Pipes, Queues, MES, and others
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Melissa Wen <mwen@igalia.com>, 
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,27 +88,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In reference to memory carved out for APUs,
-s/cave out/carve out/
+Applied the series with some minor clarifications per the comments and
+my proof reading.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- Documentation/gpu/amdgpu/debugfs.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks!
 
-diff --git a/Documentation/gpu/amdgpu/debugfs.rst b/Documentation/gpu/amdgpu/debugfs.rst
-index fe7736a0b43a6..5150d0a956581 100644
---- a/Documentation/gpu/amdgpu/debugfs.rst
-+++ b/Documentation/gpu/amdgpu/debugfs.rst
-@@ -14,7 +14,7 @@ amdgpu_benchmark
- 
- Run benchmarks using the DMA engine the driver uses for GPU memory paging.
- Write a number to the file to run the test.  The results are written to the
--kernel log.  VRAM is on device memory (dGPUs) or cave out (APUs) and GTT
-+kernel log.  VRAM is on device memory (dGPUs) or carve out (APUs) and GTT
- (Graphics Translation Tables) is system memory that is accessible by the GPU.
- The following tests are available:
- 
--- 
-2.49.0
+Alex
 
+On Tue, Mar 25, 2025 at 1:27=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
+>
+> Hi,
+>
+> This patchset came from my endeavor to understand better how some of the
+> amdgpu components operate; in particular, I was focused on the ideas
+> behind Pipes, Hardware Queues, MES, and Ring Buffers. In some way, this
+> series is an attempt to put multiple pieces of information spread around
+> many different places in an organized way in the amdgpu kernel-doc. In
+> particular, the following links were crucial to create this series:
+>
+> * https://lore.kernel.org/amd-gfx/CADnq5_Pcz2x4aJzKbVrN3jsZhD6sTydtDw=3D6=
+PaN4O3m4t+Grtg@mail.gmail.com/T/#m9a670b55ab20e0f7c46c80f802a0a4be255a719d
+> * https://gitlab.freedesktop.org/mesa/mesa/-/issues/11759
+> * https://www.x.org/docs/AMD/old/R5xx_Acceleration_v1.5.pdf
+> * https://gpuopen.com/videos/graphics-pipeline/
+>
+> The first part of this series just updates the amdgpu-glossary with some
+> new acronyms (some of them useful for other patches). The next two
+> patches are just some basic organization to improve the documentation
+> flow. The last part describes pipes, hardware queues, ring buffers, and
+> MES.
+>
+> Thanks
+> Siqueira
+>
+> Rodrigo Siqueira (6):
+>   Documentation/gpu: Add new acronyms
+>   Documentation/gpu: Change index order to show driver core first
+>   Documentation/gpu: Create a documentation entry just for hardware info
+>   Documentation/gpu: Add explanation about AMD Pipes and Queues
+>   Documentation/gpu: Create a GC entry in the amdgpu documentation
+>   Documentation/gpu: Add an intro about MES
+>
+>  .../gpu/amdgpu/amd-hardware-list-info.rst     |   23 +
+>  Documentation/gpu/amdgpu/amdgpu-glossary.rst  |   36 +
+>  Documentation/gpu/amdgpu/driver-core.rst      |   77 +-
+>  Documentation/gpu/amdgpu/driver-misc.rst      |   17 -
+>  Documentation/gpu/amdgpu/gc/index.rst         |   53 +
+>  Documentation/gpu/amdgpu/gc/mes.rst           |   38 +
+>  Documentation/gpu/amdgpu/index.rst            |    4 +-
+>  .../gpu/amdgpu/pipe_and_queue_abstraction.svg | 1279 +++++++++++++++++
+>  8 files changed, 1485 insertions(+), 42 deletions(-)
+>  create mode 100644 Documentation/gpu/amdgpu/amd-hardware-list-info.rst
+>  create mode 100644 Documentation/gpu/amdgpu/gc/index.rst
+>  create mode 100644 Documentation/gpu/amdgpu/gc/mes.rst
+>  create mode 100644 Documentation/gpu/amdgpu/pipe_and_queue_abstraction.s=
+vg
+>
+> --
+> 2.49.0
+>
