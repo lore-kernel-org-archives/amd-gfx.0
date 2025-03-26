@@ -4,82 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0591AC36008
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60875C36010
 	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 08:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B630010E66E;
-	Wed, 26 Mar 2025 08:39:55 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SV+Ai5Z8";
-	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A77A10E639
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 01:53:47 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-227d6b530d8so53772925ad.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Mar 2025 18:53:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742954027; x=1743558827; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=bHUdmQyO2BpdhwAwvhp39Sm8OM9BEkdjoS919AZ2eZ4=;
- b=SV+Ai5Z8PFkKK8Y1kC8MP46U6dK4SjXqWd0FthmDEPj+g5GQhwvHDnVJg4Ut1JBtfm
- 7W00hcPdELs0QPWwA/2te1qb098baSTK074a+fJN4g3HpQCF32MzP0MTbFXdJX4O8oA1
- +7cs3NrmUnyep36Id92q6d1LuG5Y1P4kLGsE41Mm3dfxrDiGxn/FX9t3ckHuhW8aWVDZ
- 4ccJsJDrDEpLzR0sIc+XQ8rLCfOIyRsegORfvY+ZS3k87sSHieP5R/68BLciJ92jD6O5
- fwBmC+GAtqd2tN8M3ViGtXAlesuKAe8EsmVomqhu2roO+4MDDDzNvdFw2coi1VwDDATp
- bDKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742954027; x=1743558827;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bHUdmQyO2BpdhwAwvhp39Sm8OM9BEkdjoS919AZ2eZ4=;
- b=QXJDyLVj0fK3h/07U4ArAu7Y5nNyljzd5Igm+JEB6EDwcustb862HJ5zUE6mBX6yFB
- xWfhtn67vcaZ51n3+9zA7avgVhPyR5ES/ge7k5hAfd0rkiOPSTZW5T3zQMoqb0CReS4T
- rXfVAW53uiYqZJHMRjnWx+zdMbDGcW7BLHNcjC03z1mIck6U/fK4QzIFFT/SeAB6CfTh
- 9O85JjnPXHk9Fm8aqbU3Ia29QX8NMjbr2LwZ/lq0MJ0stHkIwsVCOMhpia0Cb9T2Rk56
- w+yaiL9lCwalPPuTMQfWmUONWBfMNcP2gKUpKBij3oreZ4JPqJhIqMTkWo/nZoYtPF5n
- e7sg==
-X-Gm-Message-State: AOJu0YzlNTyXmPYOZeYMWmBDaIw3nsPe8nI6THAY8L2/eGDaUe6fu92s
- 5aiHAh9TwJadXadDwW3w2hx1UwWqJeQB7OckE5Qq3czV8ZVmBO06cg+W1g==
-X-Gm-Gg: ASbGncvim5XXg5xkm7Y2WRUkd0BNWsvMVUBf60uqYbejddP1RWWJHfINhwxBadVNSTO
- 0bjCjU603PGu3DeCZOuSL7bjBtAqjHpFF2BXM7+KATVZcgJBExYQV5y19BT5Qj0DIpjK3obSS1q
- 0KjGBjQnaJ3lkZWXRshFjlD46WR5h6idvdvMm02R+deDw+uJtUwZEg/PTBEhh6NoXYic47ebOVS
- JgCVkSwJkVcHtj8cCFoWdi31b/Cwf69qX++9Byvt7TWRb8FI9ei05EH3UDDz/UVnrqPvrQDvHej
- 5PdfAqCQOWbg3fIykWp9MaoNirC0T8e+NfAenikSn+6m3XQfr13pczI=
-X-Google-Smtp-Source: AGHT+IHD8Vo8UwujuN7hNNDBusTP3KjsT+y+ccOlwpD/9Ek/nB8mPA7Mfk+LlbXQbxCuUDQpKgy6fw==
-X-Received: by 2002:a05:6a20:729e:b0:1f5:6abb:7cbb with SMTP id
- adf61e73a8af0-1fe42f585c0mr33547160637.23.1742954026671; 
- Tue, 25 Mar 2025 18:53:46 -0700 (PDT)
-Received: from archie.me ([103.124.138.155]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-739061560d6sm11307073b3a.148.2025.03.25.18.53.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Mar 2025 18:53:45 -0700 (PDT)
-Received: by archie.me (Postfix, from userid 1000)
- id AD0C54230C05; Wed, 26 Mar 2025 08:53:43 +0700 (WIB)
-Date: Wed, 26 Mar 2025 08:53:43 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- 'Christian =?utf-8?Q?K=C3=B6nig'?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Melissa Wen <mwen@igalia.com>,
- =?utf-8?Q?'Andr=C3=A9?= Almeida' <andrealmeid@igalia.com>,
- 'Timur =?utf-8?B?S3Jpc3TDs2Yn?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
- kernel-dev@igalia.com
-Subject: Re: [PATCH 4/6] Documentation/gpu: Add explanation about AMD Pipes
- and Queues
-Message-ID: <Z-NeJwfu1Gyx_CeX@archie.me>
-References: <20250325172623.225901-1-siqueira@igalia.com>
- <20250325172623.225901-5-siqueira@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B677610E668;
+	Wed, 26 Mar 2025 08:39:54 +0000 (UTC)
+Received: from mail.crpt.ru (mail.crpt.ru [91.236.205.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79A9A10E078;
+ Wed, 26 Mar 2025 06:01:31 +0000 (UTC)
+Received: from mail.crpt.ru ([192.168.60.4])
+ by mail.crpt.ru  with ESMTP id 52Q61Joa020126-52Q61Joc020126
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=OK);
+ Wed, 26 Mar 2025 09:01:19 +0300
+Received: from EX2.crpt.local (192.168.60.4) by ex2.crpt.local (192.168.60.4)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Wed, 26 Mar
+ 2025 09:01:19 +0300
+Received: from EX2.crpt.local ([192.168.60.4]) by EX2.crpt.local
+ ([192.168.60.4]) with mapi id 15.01.2507.044; Wed, 26 Mar 2025 09:01:19 +0300
+From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>
+To: Kenneth Feng <kenneth.feng@amd.com>
+CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>, Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sunil Khatri
+ <sunil.khatri@amd.com>, Jesse Zhang <jesse.zhang@amd.com>, Tim Huang
+ <tim.huang@amd.com>, Boyuan Zhang <boyuan.zhang@amd.com>, "chr[]"
+ <chris@rudorff.com>, Yang Wang <kevinyang.wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>
+Subject: [PATCH] drm/amdgpu: Remove the redundant NULL check for the
+ 'dte_data' object
+Thread-Topic: [PATCH] drm/amdgpu: Remove the redundant NULL check for the
+ 'dte_data' object
+Thread-Index: AQHbnhR++EzAa3ZlHUaU6nruSXfbmA==
+Date: Wed, 26 Mar 2025 06:01:19 +0000
+Message-ID: <20250326060059.15335-1-a.vatoropin@crpt.ru>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.200.60.21]
+x-kse-serverinfo: EX2.crpt.local, 9
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: Clean, bases: 3/25/2025 10:34:00 PM
+x-kse-attachment-filter-triggered-rules: Clean
+x-kse-attachment-filter-triggered-filters: Clean
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/mnH3a2A936fTjj8"
-Content-Disposition: inline
-In-Reply-To: <20250325172623.225901-5-siqueira@igalia.com>
+X-FEAS-Client-IP: 192.168.60.4
+X-FE-Policy-ID: 2:4:0:SYSTEM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
+ c=relaxed/relaxed; 
+ h=from:to:cc:subject:date:message-id:content-type:mime-version;
+ bh=SMaYKshq3acZS99u+26mBuayTpIg9iiDJLeo1mA0VVw=;
+ b=CllUNNprfqAVkUe2LfYNfFiPe7WMQzwbnbuJtW0m+s8PkL+AJkIj+8zMRaAVBLiGsiJDtTrEFnJe
+ EsS7DF4vmctwRzwIqkiUzmST1HJouD36NU6huwOlk87t+qWFiPQvDDWgcAIh2Udaw7X9LY/RczJ6
+ T7eCVTeT4zU+rJqyLF/QxMNF/GOM6zz0y5QyT+jLDA2nmMJK2Pw2cf6+/UP23nzI54UoHKFxiCCB
+ yAh0hEYvgylQbezRe7VFC46DeAmZpz+A4Fzvz3trCHSnDssFEe6HSoPbLA/z1W8Uxzv1dayWoLgz
+ tHKH/9A1WnnIWfdfa94EFaNhirsQHC/C+Ho4DQ==
 X-Mailman-Approved-At: Wed, 26 Mar 2025 08:39:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,75 +83,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---/mnH3a2A936fTjj8
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Mar 25, 2025 at 11:18:45AM -0600, Rodrigo Siqueira wrote:
-> +.. kernel-figure:: pipe_and_queue_abstraction.svg
-> +
-> +In the central part of this figure, you can see two elements, one called
-Did you mean hardware block?
-> +**Pipe** and another named **Queues**; it is important to highlight that=
- Queues
-> +must be associated with a Pipe and vice-versa. Every specific hardware m=
-ay have
-> +a different number of Pipes and, in turn, a different number of Queues; =
-for
-> +example, GFX 11 has two Pipes and two Queues=C2=A0per Pipe.
-> +
-> +Pipe is the hardware that processes the instructions available in the Qu=
-eues;
-> +in other words, it is a thread executing the operations inserted in the =
-Queue.
-> +One crucial characteristic of Pipes is that they can only execute one Qu=
-eue at
-> +a time; no matter if the hardware has multiple Queues in the Pipe, it on=
-ly runs
-> +one Queue per Pipe. When a queue is running in the Pipe, it is said that=
- the
-> +Queue is **Active**.
-> +
-> +Pipes have the mechanics of swapping between queues at the hardware leve=
-l.
-> +Nonetheless, they only make use of Queues that are considered mapped. Pi=
-pes can
-> +switch between queues based on any of the following inputs:
-> +
-> +1. Command Stream;
-> +2. Packet by Packet;
-> +3. Other hardware requests the change (e.g., MES).
-> +
-> +Queues within Pipes are defined by the Hardware Queue Descriptors (HQD).
-> +Associated with the HQD concept, we have the Memory Queue Descriptor (MQ=
-D),
-Related to HQD, we have MQD?
-> +which is responsible for storing information about the state of each of =
-the
-> +available Queues in the memory. The state of a Queue contains informatio=
-n such
-> +as the GPU virtual address of the queue itself, save areas, doorbell, et=
-c. The
-> +MQD also stores the HQD registers, which are vital for activating or
-> +deactivating a given Queue.
-> +
-
-Thanks.
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---/mnH3a2A936fTjj8
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZ+NeGQAKCRD2uYlJVVFO
-oye9AP4iR8Vfseiyzk8xEC38+vn4Jm0SA+1phHuaBIUg4JgxTAEA0b0qh5O2KT7G
-AqtO7nxuNxNoBeaZD1kAxX4AszF8DQA=
-=TdVl
------END PGP SIGNATURE-----
-
---/mnH3a2A936fTjj8--
+RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KU3RhdGljIGFu
+YWx5c2lzIHNob3dzIHRoYXQgcG9pbnRlciAiZHRlX2RhdGEiIGNhbm5vdCBiZSBOVUxMIGJlY2F1
+c2UgaXQgDQpwb2ludHMgdG8gdGhlIG9iamVjdCAic3RydWN0IHNpX2R0ZV9kYXRhIi4NCg0KUmVt
+b3ZlIHRoZSBleHRyYSBOVUxMIGNoZWNrLiBJdCBpcyBtZWFuaW5nbGVzcyBhbmQgaGFybXMgdGhl
+IHJlYWRhYmlsaXR5DQpvZiB0aGUgY29kZS4NCg0KRm91bmQgYnkgTGludXggVmVyaWZpY2F0aW9u
+IENlbnRlciAobGludXh0ZXN0aW5nLm9yZykgd2l0aCBTVkFDRS4NCg0KU2lnbmVkLW9mZi1ieTog
+QW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCi0tLQ0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvcG0vbGVnYWN5LWRwbS9zaV9kcG0uYyB8IDMgLS0tDQogMSBmaWxlIGNoYW5nZWQs
+IDMgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2xl
+Z2FjeS1kcG0vc2lfZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2xlZ2FjeS1kcG0vc2lf
+ZHBtLmMNCmluZGV4IGQ2ZGZlMjU5OWViZS4uMzJlNmE4MTVlNjA5IDEwMDY0NA0KLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3NpX2RwbS5jDQorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3BtL2xlZ2FjeS1kcG0vc2lfZHBtLmMNCkBAIC0yNTY3LDkgKzI1NjcsNiBAQCBz
+dGF0aWMgaW50IHNpX2luaXRpYWxpemVfc21jX2R0ZV90YWJsZXMoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpDQogCXU4IHRkZXBfY291bnQ7DQogCXUzMiBpOw0KIA0KLQlpZiAoZHRlX2RhdGEg
+PT0gTlVMTCkNCi0JCXNpX3BpLT5lbmFibGVfZHRlID0gZmFsc2U7DQotDQogCWlmIChzaV9waS0+
+ZW5hYmxlX2R0ZSA9PSBmYWxzZSkNCiAJCXJldHVybiAwOw0KIA0KLS0gDQoyLjQzLjANCg==
