@@ -4,70 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A7F4C36008
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 13:56:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94DB2C36008
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 13:58:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB9E310E6D4;
-	Wed, 26 Mar 2025 13:56:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2589C10E12B;
+	Wed, 26 Mar 2025 13:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mfUxdxM5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B3Wlruqs";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F9D710E6D4
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 13:56:11 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2240ff0bd6eso19063745ad.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 06:56:11 -0700 (PDT)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8630510E12B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 13:58:32 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-301a8b7398cso1762571a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 06:58:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742997371; x=1743602171; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742997512; x=1743602312; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=T3/84ZrmkUWxuI3zdsOV3cN5KS1Q2VyasxFS4lQOG3k=;
- b=mfUxdxM5krnRcEERwYvnQNx2HX9bnMSUvmvLDVlFnr9lbJ1GJKPxcODO/kXU/BJAP0
- +KPE8vs/zuioIUGliAK9RhmnS4LB+q9tdVf271qmsekJaIdHx9j0h5sMafFQsoPTgp1v
- io8dywCH7MERACcS8otSbt0ggJwYi9KKcn/28J0ybDN7T1yQHJeG4Te4KSUNQ/wvPl49
- 21FG+IwA1dbORtITa5poDZIzA+G+kcPgVXNc3V0GF4Lii/9HKh3m/amWoNGFp4cG5zK+
- RF09ShIQMfX1y9Vz8o6y5tWA4CZqfAT5N9yi+HGoWvQm1FAoVwyy85DzPUn6MQCMsttw
- I3BA==
+ bh=o2PpA+q2rxN+MHEijxWAUlfzbLWiP2cp7ZIvu/wDIbQ=;
+ b=B3WlruqsqwDxfr9UZHVYPTpEtEohm+VPFlfVu2q3adwqeU5GOfInpEnSWlyKzQLNXd
+ unnd2bRO4rxjYy4AIwm81aNstIgJMPtAj11uA+w0HoxoSOnSAxPP+lKxO1DJWvRmroEN
+ vTjdUCEmrLT/KldZdwdscmjc6QnSAbsKdY1tN0JqcY+mq74hB2951FRIeVkzp0ro/JeI
+ 0GVvSDT3y7PYtHw14H4t+MACTNbK354Nsaw/sUyCG0xDs7h57m+A5KvJjhIk9U7geGcn
+ i+pAMgXrq7xP8+7U2aZNDlj/aqQZwJqWiwgo4JDLao8NfeTmeKVDxNcNI9OJJ+Pk+yoi
+ vutg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742997371; x=1743602171;
+ d=1e100.net; s=20230601; t=1742997512; x=1743602312;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=T3/84ZrmkUWxuI3zdsOV3cN5KS1Q2VyasxFS4lQOG3k=;
- b=wnoXZb3UPSRqEYWsecKFHTsVc0lImrdFYVApyYZQ49R6fELe3dVTidPJTMP3oFjOhi
- BAQQ5Buo1Ff2g4ilpJ3/GIL/dY7hocqX9uz6qEtxPlbJxw9Z5TVvkyBxE9lg2n5Omwt+
- bmuoEfRruhun5IyIdQaXJmpb5q1nYoZnDFBWOZ/vCXBgBqKQN12EpsSsewNUAbgj1PxC
- 7On0nBayekI3KT+BS9hKWM/Lpxx5j6Idb0InjfL6yX0cL8nJJImlI7X5/nfjWNDwVNvL
- PbnROKUopnoIvH/0rX7/wgDxJwq4cLUqjOauD1844NzLdeIj4Spm6ZZhvQ11CIpqq6D8
- ls7A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWgT63GtF7u9ZuIbO6abD+QaMvuLQ+MQMIibVSZ7NOiXKDh9D8oP1xGSmqqcRhmm6wRpQmLJfGm@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlNSUtvANeESCPFjaEi58SnSMejD1C6alEVmn942/Ay8x514CB
- gYCAqeHiARtDB1GPw9tWIIhiRwnxIP7pmmVDLQlmg9gfyXJ5t6TabdvZvwHArWRTz7P8119wG+h
- /Ov4Q1lPxU5aIJL+WCtj9pke10LE=
-X-Gm-Gg: ASbGnctRNAtVP1DyzDER2yWWz9p3+0OVmC39v/J7KiaXAQJKzeWAcnPu6Kv5TfbMeLh
- 7h6pel1i2FXmk3kqAnjGaqDpdd3vIWfZtMXUzziq2XJdH9HtzMCnVxi6yPai29oaFyEmOGfUofH
- Tofm54ejo71ifxr4uIs9jErdSOxzJh5khhmKP5
-X-Google-Smtp-Source: AGHT+IGL+bpuOyv4+6S5DdOZGbajw9eVFIQyqeTfQkjetYNtPNndokVkBL0drxoLSLu0Ei8NNmRt2fIAw8BmwHIBiao=
-X-Received: by 2002:a17:902:e74d:b0:224:13a2:ab9a with SMTP id
- d9443c01a7336-22780d7ffa2mr111844865ad.7.1742997370780; Wed, 26 Mar 2025
- 06:56:10 -0700 (PDT)
+ bh=o2PpA+q2rxN+MHEijxWAUlfzbLWiP2cp7ZIvu/wDIbQ=;
+ b=h3YxiG5G0+TprtlVwv86QyBzgH7Dz3sviIfOXK1zGyr25EXUJ0ou0Iljx3ISkrR533
+ WDKiue9W4RyraiqxbENnneBexeWXNSZtRk3bp9hKbwyvOY/mzmwJllTginUE8P4cW7re
+ 1CSjZvaaQ6rGRzbO6ZnvcmkeGTRt1b5OfE9xUkq60hF3Gda9SlqLSUgtStdZuNRnUGbk
+ Cca3gOQZbcmoQ/aXcOxwq/6UId7d7Yjp1051H42GRieafoxxX9Es2PNS5wEdRLu2QB5z
+ HKd/pmjI76Wv6ZJE44UtecEnJSlZlaM3DvASKH18waHddZj1QrwGIR7YgJGkH5/zBggx
+ S+tA==
+X-Gm-Message-State: AOJu0YxxlTqz62mcxpJ9ssYyPcsp2R55Rrfw3rPtee7BrfckfC88NF2V
+ rmOmLs0tNCbUHwA1ktJABV5BZgND70vzrOOg+PU28hliptLCINr68QZ7sPRi0jCUwo5+TVyHbpg
+ ZcrHkC7G+TOALzTc3zty2B7sxfKk=
+X-Gm-Gg: ASbGncuOt1s1Ynrr2CWblt5WopctX/43r0JCzjNXKDUJIP4uCmaCcUz30PZJEpsy53s
+ tgKDuFl08Ev9uS47Picj1Uxr2a/bz2JnWSrB2ZvCPq43GtTBjG7iRiDCqw9ann2TXhF4w0O1M0S
+ HXIzbiwVmSgRqhRBEny7FXKfE+DA==
+X-Google-Smtp-Source: AGHT+IFCJT0sXr4sea7a0CJCdmJd5tX95awQ2g3JcgWnlJaYlZhkH44gvosEucUdEbqxlLTYU4WEm9M/0mEMQ2BFez8=
+X-Received: by 2002:a17:90a:e7cc:b0:2fe:7f51:d2ec with SMTP id
+ 98e67ed59e1d1-3030fb1fff3mr12332206a91.0.1742997511587; Wed, 26 Mar 2025
+ 06:58:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250325152407.2543116-1-srinivasan.shanmugam@amd.com>
- <b30810ba-3e16-4f52-8b4a-070bda1bc129@amd.com>
-In-Reply-To: <b30810ba-3e16-4f52-8b4a-070bda1bc129@amd.com>
+References: <20250320203549.1345822-1-alexander.deucher@amd.com>
+ <CADnq5_O_hotchYfpWvcatLTL6_s1YJD2qBwL5yqvXkhDQ2+swg@mail.gmail.com>
+In-Reply-To: <CADnq5_O_hotchYfpWvcatLTL6_s1YJD2qBwL5yqvXkhDQ2+swg@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Mar 2025 09:55:59 -0400
-X-Gm-Features: AQ5f1JoZDrz76tBPcioKCYqy7BrW9o_LKpjR2Xg_sB9VKKwbY3Gx-qJMrWE_d3M
-Message-ID: <CADnq5_PcPDULfTjtkWGXRVpuJ3Wc770Be3QjrxkRDsw1E-VUeQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix Manual Execution of Cleaner Shader in
- Gang Submissions
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Wed, 26 Mar 2025 09:58:19 -0400
+X-Gm-Features: AQ5f1JpxYoCJGUklAUiEfa2t_cbrtUB96u1mj0hCxa0DVvsBFC1Kt0pgp1nHqoU
+Message-ID: <CADnq5_OO98WVP2Nbo=WBayd4q6b=OL_9QpFycd0vK3wiomNFCA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu/gfx: make amdgpu_gfx_me_queue_to_bit()
+ static
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,103 +82,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 26, 2025 at 4:13=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
++ Sunil to review this series
+
+
+On Mon, Mar 24, 2025 at 3:48=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
 >
-> Am 25.03.25 um 16:24 schrieb Srinivasan Shanmugam:
-> > This commit addresses the issue where the cleaner shader was not
-> > correctly executed during gang submissions due to improper handling of
-> > the isolation spearhead.
+> ping on this series?
+>
+> On Thu, Mar 20, 2025 at 4:36=E2=80=AFPM Alex Deucher <alexander.deucher@a=
+md.com> wrote:
 > >
-> > - Enhanced the `amdgpu_gfx_run_cleaner_shader_job` function to
-> >   initialize `isolation->spearhead` with the job's scheduled fence for
-> >   cleaner shader calls.
-> > - Updated the `amdgpu_vm_flush` function to properly initialize
-> >   `isolation->spearhead` to the job's scheduled fence when the cleaner
-> >   shader is required.
+> > It's not used outside of amdgpu_gfx.c.
 > >
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 ++++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 4 +++-
-> >  2 files changed, 7 insertions(+), 1 deletion(-)
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 ++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 2 --
+> >  2 files changed, 2 insertions(+), 4 deletions(-)
 > >
 > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/=
 amd/amdgpu/amdgpu_gfx.c
-> > index 72af5e5a894a..807f17093006 100644
+> > index 72af5e5a894a2..04982b7f33a8a 100644
 > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
 > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > @@ -1436,6 +1436,7 @@ static ssize_t amdgpu_gfx_get_available_compute_p=
-artition(struct device *dev,
-> >  static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+> > @@ -74,8 +74,8 @@ bool amdgpu_gfx_is_mec_queue_enabled(struct amdgpu_de=
+vice *adev,
+> >                         adev->gfx.mec_bitmap[xcc_id].queue_bitmap);
+> >  }
+> >
+> > -int amdgpu_gfx_me_queue_to_bit(struct amdgpu_device *adev,
+> > -                              int me, int pipe, int queue)
+> > +static int amdgpu_gfx_me_queue_to_bit(struct amdgpu_device *adev,
+> > +                                     int me, int pipe, int queue)
 > >  {
-> >       struct amdgpu_device *adev =3D ring->adev;
-> > +     struct amdgpu_isolation *isolation =3D &adev->isolation[ring->xcp=
-_id];
-> >       struct drm_gpu_scheduler *sched =3D &ring->sched;
-> >       struct drm_sched_entity entity;
-> >       struct dma_fence *f;
-> > @@ -1464,6 +1465,9 @@ static int amdgpu_gfx_run_cleaner_shader_job(stru=
-ct amdgpu_ring *ring)
-> >               ib->ptr[i] =3D ring->funcs->nop;
-> >       ib->length_dw =3D ring->funcs->align_mask + 1;
+> >         int bit =3D 0;
 > >
-> > +     if (job->base.s_fence)
-> > +             isolation->spearhead =3D dma_fence_get(&job->base.s_fence=
-->scheduled);
-> > +
->
-> Apart from being very risky because of not grabbing locks that will leak =
-the previous isolation->spearhead fence.
->
-> >       f =3D amdgpu_job_submit(job);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gfx.h
+> > index 75af4f25a133b..319e6e547c734 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > @@ -551,8 +551,6 @@ bool amdgpu_gfx_is_high_priority_compute_queue(stru=
+ct amdgpu_device *adev,
+> >                                                struct amdgpu_ring *ring=
+);
+> >  bool amdgpu_gfx_is_high_priority_graphics_queue(struct amdgpu_device *=
+adev,
+> >                                                 struct amdgpu_ring *rin=
+g);
+> > -int amdgpu_gfx_me_queue_to_bit(struct amdgpu_device *adev, int me,
+> > -                              int pipe, int queue);
+> >  bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me=
+,
+> >                                     int pipe, int queue);
+> >  void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+> > --
+> > 2.49.0
 > >
-> >       r =3D dma_fence_wait(f, false);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.c
-> > index b5ddfcbbc9fc..e23400b53489 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -692,8 +692,10 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, stru=
-ct amdgpu_job *job,
-> >       if (need_pipe_sync)
-> >               amdgpu_ring_emit_pipeline_sync(ring);
-> >
-> > -     if (cleaner_shader_needed)
-> > +     if (cleaner_shader_needed) {
-> > +             isolation->spearhead =3D dma_fence_get(&job->base.s_fence=
-->scheduled);
->
-> Same here.
->
-> Over all this change doesn't seem to make much sense to me.
->
-> Why exactly is isolation->spearhead not pointing to the dummy kernel job =
-we submit?
-
-Does the owner check or gang_submit check in
-amdgpu_device_enforce_isolation() fail to set up the spearhead?
-
- if (isolation->owner !=3D owner) {
-                if (!job->gang_submit) {
-                        dep =3D amdgpu_device_get_gang(adev);
-                        if (!dma_fence_is_signaled(dep))
-                                goto out_return_dep;
-            dma_fence_put(dep);
-                }
-
-
-Alex
-
->
-> Regards,
-> Christian.
->
-> >               ring->funcs->emit_cleaner_shader(ring);
-> > +     }
-> >
-> >       if (vm_flush_needed) {
-> >               trace_amdgpu_vm_flush(ring, job->vmid, job->vm_pd_addr);
->
