@@ -4,155 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A7FC36005
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 00:02:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16AD1C36005
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Mar 2025 01:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF2E10E63B;
-	Wed, 26 Mar 2025 00:02:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 526DF10E02C;
+	Wed, 26 Mar 2025 01:50:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FIiY3CQ6";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="uADXrfOD";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2051.outbound.protection.outlook.com [40.107.102.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEC9010E62A;
- Wed, 26 Mar 2025 00:02:05 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3D6410E02C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Mar 2025 01:50:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uK7rYMxUQ+JU7QRelM4c28QlLN3hhwL6tsz5gWKXZ5Rd5OiujcU17jMwVwesYx1QukZdTXSRQg3axu7b4/ixJswzlp2Ezk0Q8OPz2kKP8zc+scWpGPaL4mllvKg3aSWUphEzDKqF23LzXelLUst4PigqHRw3tzhMmyCWhkJVDcGtwzbWZFLZoyi23tGmPXyAE65cXSlaJTWTHv91oDHEmQ+esWT8+F+KBVQRjhrnXWvLNSxZUZeOyplssh+N/Giz60fA6S7B2hte7Gty6x9FzxJsvPo3Ssz53RDS6VmhWPhU7QbkSWWfm74uOK1S/X7SfG45ACpEXZSe33naOgGOyQ==
+ b=loottW/IYyulzcj9WB3oIM+xJpvbfQ55hp3Ik5ZBjx/fcPgWrtBKbKXu6VX9jIdroMw3B4eR4yE2dNhKTP66q/VNZUIuhXwc+PfgeBVHOHt9K/le9VBxSID4p5EkFtF5L93Eq4Vz3WgkGVQND1r9iOhLaZhPirVrg/81WnLJzjKaD+J3CTykFVfdghKmJX23gS6RsYVcOyZGZDFnMgV9oodeHuctUE5S4kowT/xPrwn5AEPaI6mI3th6G3n9dkielEBIIW/jTvO2wgm2Hm1CZ3WIK8ctyB9vdHbxFbX8C1E++Rw4gzJXR2FabBVvGwqFjE2sSiEJCVR3R2j9eqwIFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ys/GCYmCwNZEZiKDOQ1IxK/LOsdUQDGCtbl0c9lSqPE=;
- b=dsKYleLaoMAAQ8D8dkk/fY2QHkRnFgUoUKgxmQaW8UE9yyKzuehKMc7SNVCYfQqUDpnkQJNet2N3rIWDh3bPoG8evqVXmMEpfzfgG+aCJHVuO7/cF5vDD/2yZP2+Fdw3QGkC6NqQDouEE3udpFuliXxSE7oABTCBrnJosOin9sL/uD1fG2Q4tpL8mrTYGcrJ/lkJEoDW44ejYdPAaClyT6rtPlbqa0t6ns/QmM578/qbKQti0Mb0L6/5WnH9rYU2u4RRpERnf7t4o1dAHgePdQblf+gZoWqP7lc5g0SmDGogdfC5gg38MSCERJNq6xCg40hxBZPukyYSLuBt4VY0Yw==
+ bh=iWiwOoV+FPdYQaliSN6U28Dx9OS3ELx/ng/32j70HD8=;
+ b=uW+Yo954EP0eLB/asnwf3IuB8aVk/admMoXs8Xulhjdti5jSkvB9c3UpViKI3NuLO8G3o5UYlFgUE2k1YNIjFpx9TfgauVdZC14xylP0+O8qwLZBS5tlz0H/xIo0BhAx3fXbrA/PQCMcg4JPbJbnasykNkfZnyqK3F2eBc411/2BWozRqFF6YNbIboMDKQK3rIFRa5mJ1pZc2hcXTt0E+0EJlCD9+CeSntHXAhI+uinPceM2tSwbzbUrz7jjGjUaiItOBWHE2DweRYq+Hjko+L2JtLvKxuQZAqWuuZDK5RM+w5aDlO21kq6G0Us37aBA5IjqaGsSA6CsUpXNPOMvEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ys/GCYmCwNZEZiKDOQ1IxK/LOsdUQDGCtbl0c9lSqPE=;
- b=FIiY3CQ6co0g9UtwZ6/+KM6YRrw4E2a5l0gAXaKQh8RNN8Q0iIx3+vABT2gFFxwVOgeLmaE26h1EupzKKqHVjjEHwiuRI3t3NJ2TGL0wgm7lk5V0SpqnnfipR9sk5+MFsVTCJ6Ut/ButNnVvlSRV7/vblhBUm7roRvuNe29C9RY=
+ bh=iWiwOoV+FPdYQaliSN6U28Dx9OS3ELx/ng/32j70HD8=;
+ b=uADXrfODxmAVEku4JkfiWxu/lpLuw96KqEAb8UxlaU6hCsE/R5XhQF2kCOzkQnVzsSz69fzHbP1/7ndUW1Qrz6uaNCAumRwIAWy7AxevhtcLPJ+dFGHvZHoeuk73c8Wq4FTyDgmiiEXZNS0CeTK7Qlzb8O6e6FK/g0fTO62bISg0HJsfBUWvchMpRHzxQrZSUY6L7Vr42temKBdsvEouZYZmOGgCvLuZROazhSCby36V6aIQCAr0jZ/xNQIyC6kCpxOA2NJJQUl1rxTD+OxwXE5ITRF3TdF/25GGVmy7f8VDTSF29TMGGizlZx2m3+szObwXnliz9UOqIcLbEXYhqw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DS5PPF6BCF148B6.namprd12.prod.outlook.com (2603:10b6:f:fc00::652) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA1PR12MB7272.namprd12.prod.outlook.com (2603:10b6:806:2b6::7)
+ by CH3PR12MB8996.namprd12.prod.outlook.com (2603:10b6:610:170::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Wed, 26 Mar
- 2025 00:02:03 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8534.040; Wed, 26 Mar 2025
- 00:02:03 +0000
-Message-ID: <87d0601b-c1cb-402b-aecd-23a5d371da66@amd.com>
-Date: Tue, 25 Mar 2025 18:02:01 -0600
+ 2025 01:50:16 +0000
+Received: from SA1PR12MB7272.namprd12.prod.outlook.com
+ ([fe80::a970:b87e:819a:1868]) by SA1PR12MB7272.namprd12.prod.outlook.com
+ ([fe80::a970:b87e:819a:1868%6]) with mapi id 15.20.8534.031; Wed, 26 Mar 2025
+ 01:50:16 +0000
+Message-ID: <a9f37e3b-2192-42d2-8d5d-c38c0d3fe509@nvidia.com>
+Date: Wed, 26 Mar 2025 12:50:11 +1100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amd/display: Protect
- dml2_create()/dml2_copy()/dml2_create_copy()
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, Austin.Zheng@amd.com
-References: <20250318111717.2161235-1-chenhuacai@loongson.cn>
- <b8c481f2-a280-4f86-8080-2c6dcffc4629@amd.com>
- <CAAhV-H7cch+koOSJAFe70c8Pk02snK7M=andyfwbCgiNdg4aVg@mail.gmail.com>
+Subject: Re: commit 7ffb791423c7 breaks steam game
+From: Balbir Singh <balbirs@nvidia.com>
+To: Bert Karwatzki <spasswolf@web.de>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
+References: <20250322122351.3268-1-spasswolf@web.de>
+ <688f2757-e364-45db-ad54-daa6ff1c4f3c@nvidia.com>
+ <6e8ad3cd27b570aaefd85395810cc90bb3120734.camel@web.de>
+ <7cdbe06c-1586-4112-8d27-defa89c368e9@amd.com>
+ <b1d72b95-5b5f-4954-923f-8eebc7909c4d@nvidia.com>
+ <938c2cbd-c47f-4925-ba82-94eef54d9ebc@amd.com>
+ <261e7069-9f65-4a89-95cb-25c224ff04f1@nvidia.com>
+ <eb041c610719c8275d321c4c420c0b006d31d9f4.camel@web.de>
+ <76672910-423c-4664-a1bd-da5c1d7d6afd@nvidia.com>
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <CAAhV-H7cch+koOSJAFe70c8Pk02snK7M=andyfwbCgiNdg4aVg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MW4PR03CA0090.namprd03.prod.outlook.com
- (2603:10b6:303:b6::35) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+In-Reply-To: <76672910-423c-4664-a1bd-da5c1d7d6afd@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY3PR03CA0015.namprd03.prod.outlook.com
+ (2603:10b6:a03:39a::20) To SA1PR12MB7272.namprd12.prod.outlook.com
+ (2603:10b6:806:2b6::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS5PPF6BCF148B6:EE_
-X-MS-Office365-Filtering-Correlation-Id: f239150d-89c7-4acf-a508-08dd6bf9702a
+X-MS-TrafficTypeDiagnostic: SA1PR12MB7272:EE_|CH3PR12MB8996:EE_
+X-MS-Office365-Filtering-Correlation-Id: f50fb9a2-4fd8-4e3e-0412-08dd6c088e97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YzZ2b1JNT3pVUmlNRXlmVGxkcFFJQzBYYTkrdm85bmJjNkduTDY3aENiNEpZ?=
- =?utf-8?B?TUVEcXlaNzVPNklnUjlyRnZrNEZRcllIcHBjZVNDd2FLL2hGUG14TkxNekRZ?=
- =?utf-8?B?b216ejh1WnV0bjlwT0M4Qy9YN0tkUHBhKzdkaE1WMW9haHpsVitDYVppck1W?=
- =?utf-8?B?T04zck9VS0dDcUdiUVYyMnlqSEFFSHBDSjJoWFdrSDRIQU8ySnAzWXBGSlRn?=
- =?utf-8?B?Szh5eGVLSldvUlRQQktKVGNPRHAvdkQ3K0tmMTU0TGhTcENqUGluQzEyaUdw?=
- =?utf-8?B?SXdZeDcvNEEvYzBxZHN2VlUxcHp1TmdkM1N3VGdJeG5GYlFOMUtkVC9VcnFC?=
- =?utf-8?B?ekxkN04wMkFTV1lHaC95MmxKaklnQk1SUEU0VElMbDZvNWtkbmRqUDUvL1lo?=
- =?utf-8?B?NEZ2Zy9CTnVFbHVnY2tGaG56YVZYdWxrVXpwcCtCd3U2WUxVTXZCcWQ2QVBE?=
- =?utf-8?B?QjV4bmMxbDlrSkhMRjVKaVF4eEJURzh0azZHdGZpR3lFUDBGeXA5aTExMHpH?=
- =?utf-8?B?VmIxZGVPWEZzc0tINmQ0K1JvWDFRMmI2QkRybXVnTHViK2pZYTRqZGZzN2Jm?=
- =?utf-8?B?dTRTRDBkOSs4QlVPUnVFamtzRGl6UVNYK3FUZnN2Qjc4MDVCR3piU3N3TTdx?=
- =?utf-8?B?MTEyUnZjTGVlc2ZXQjVtWElpR0txSnJjeEVvMFphcm9wQWNxenZCTHY0by9u?=
- =?utf-8?B?QjJ5RjUwbGhKdURMQWRXNFNiZVVlZEpmMnBTTjE4allxWEVVOWk3VTQvT2Ev?=
- =?utf-8?B?TW1wbkI0YkhZVGJuVVRjQ2g5TE9WaHB6UkdTVUZWcGY2SHpSdnNWRlhmUHpF?=
- =?utf-8?B?Z3FDMHZqSXIySW85VGZ2a1ovbmQ2UkZkMEszMHcwYXgzRWxwbjVnTW5wbEVk?=
- =?utf-8?B?WTl3blRaR2ZvbzkvRXJNaTJJVWdKam5WbFRsVnVzd1pIb25DWHJMNStwQkNG?=
- =?utf-8?B?bmNXbmdJQm9zZDQ0aVVBVEs0c3Fsbkg4T2hDY3RycU04N3BRYjZLVGVnMW1s?=
- =?utf-8?B?QWZPUXA1bWcwVmxibXM4QzZ3eTlSUnM0OFZtczFpcWFObHVreWNqQ24rcmp2?=
- =?utf-8?B?ck9sZGVRaGIrdklaSjVsaHdxUDdUajJQRE5ZVHBza0Q5YzBmQ2lIbzVKbldL?=
- =?utf-8?B?VllpSHNaM09PMkYycVVxYXBFNi8vc3c0OXFRQUtPNk93eWxYOGJkeDNoNkFm?=
- =?utf-8?B?KzgzVnBma3NXTjhkUHArYXNERnNiS21PeGFmR0NYN0syLzdqYWpLM21YUVZq?=
- =?utf-8?B?d2IwQzc2QVZSY01md3duOFFwVk15TnpkY1FKdmE4NUM1VHQ0MzgrckNnc2Y1?=
- =?utf-8?B?VWZnSndpVzBFNlhUNUNXYzJMVkdaNVpXcnlPT01BSXIwcFBkcEgrN0pJTHFi?=
- =?utf-8?B?UHRWM28wS09pYkJTR0k2eng4c1NLV3dKWnRZeFB2c09rZStxdUZNNk41WHR3?=
- =?utf-8?B?alhqb3RwTlNSQXBrMnNNSlJmRWQwcjJLSjNTeU5Db3BoOTJ0c09hWWhvZkNL?=
- =?utf-8?B?V01hcitmODVVVkNaRklmZ3RKODFJeFk1WnhtU3dJSU9jMmxJQlpMNExvMkdH?=
- =?utf-8?B?dlAwZ0lJenN5dFdwTTBhaTAvR2hYNXZlQzI5UjIrdHZhb21mZEJJb0cwR0Rl?=
- =?utf-8?B?a0gveVhxWWZiL3NtNWFGdWpha1hOcnY2amQvYis5Q2xmUStBaXgwbkFiUjls?=
- =?utf-8?B?RUd2WDh5T3lSRmZnTG9ETnlsT1RvNk1FbEpnM3A5djFkelNMSjFXQXpVc09L?=
- =?utf-8?B?dXVYQzBieFhFQWhGOUZXQnh6Q2ZZS0RoZEkyWktxS2RaSTZnMHdvc0NjVnl5?=
- =?utf-8?B?ajdPWkdSSlFtQVd6S3pVdTVyOG9WZUpXTGVNdHVCQTVSUWZBelRVL0dGeDI5?=
- =?utf-8?B?cGI4Smo0SHNIdjdRVEx3dHUybXdGVWlEVkRRTTJNNkhZOWVweU10UHdoYXNa?=
- =?utf-8?Q?32xUgV3Uihs=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RmhWVjF0VThMZVFtS0lmeTJpWk5GVXFqTm1icVZUWmNIN2xvcjhPejM2akVW?=
+ =?utf-8?B?UkhQSklqa2NFVEVjUlczcHcyeE1XZzhsWlNkSTkyNHJTK0Q2OU5WbmVxZ2hZ?=
+ =?utf-8?B?bmhaVmxOSWMybW1IZmFEK0w4WGVTSmdyZlFTOENjdUVEdGR0blhqYmFWWW9M?=
+ =?utf-8?B?MmhjMWZwamZPTWplWlhwcXVEdlhZOXBpOE5lcThaYWhaSmgxRDJ6bjhQdjFX?=
+ =?utf-8?B?bCt3eXQ5U2h1K0lLdFljWDEyQVVnQXE4SGdjalR4MFZVNDMxSjVkUi9rdlps?=
+ =?utf-8?B?YTlwV1l1RHVSSlJrR2kvR1NpVkFOUEl6M0g1MTBHVHhxVUdxaDNzZ2dVVG0z?=
+ =?utf-8?B?TXJOK1ZPcVA3YjNDWjgybWFTWnJTd09MRVF5U1Y5UmpNN0pWK1ZMSGFnTHdB?=
+ =?utf-8?B?VS9PeDUyNzQyVFVRSk5lUTFBdnZJbVVzVUlrTS9hT1VCRXY5d3VaMDQxYlFY?=
+ =?utf-8?B?ZElES0VwZGQ3M3dYbFpZU3ZmZlNOVmR5ZmhMWHd3bU1WcmdMV1RXUm40QU9s?=
+ =?utf-8?B?bGlidGVsVHorUy9kYzM3aEU5clR2WC9oS3ZPdVU1cy9UTXJwNnhXTEhVYUZt?=
+ =?utf-8?B?TjJvMDJwakVCUThNaHlwUFB0RUdEOWFMN1cxaElodVZHbWlDTSt4SDg1ekN4?=
+ =?utf-8?B?Wkk4VDlMYU13Y3NqRDBxMVlZY282dXV6cmRJWlhvY1p2dFdHdVU1My9CdFg0?=
+ =?utf-8?B?RG9ib3BJZW5YVE8rT2l1NzVvMUNaMDE3MWRublM2MGc4OE42ZXJKV2lKWWhT?=
+ =?utf-8?B?OXdWWENUOU0rSnpvYWIvV0xlL3hrOFZHSEN6ekdqcmJxWjdsSkppNWFWQkxI?=
+ =?utf-8?B?STJMd1F6aVY4bVJnVGZBYXZGSFByQ21TNFRSR1M2eWp1VVB1SGRpVnpUNXl5?=
+ =?utf-8?B?c0V1dk81U0RJblZjNXhGdmRFZzZIcDh5eDlQdG5ydW5JbCt2VzRMNktISzZi?=
+ =?utf-8?B?OFpaWGptY0R2Q3paQWF3TG1tUkpUc082QUYwT1l1T2VIK0dRdmRFRlNBQXQ2?=
+ =?utf-8?B?c3c4SllNNzVDYzlsK0o1OE83NmdESWpmdFVLcHplM2JRZzV0a0dycEhOSFVk?=
+ =?utf-8?B?VlN1bjFxZEoyZHV4ajhVeitiSHh0TFFUYk9rZy9oK216czVvczZDKzJmNWhI?=
+ =?utf-8?B?Y00wUmVlTkRWNzltOWxCNllvWEkrMG1CeTlpZlg4RE0zOWovRUpjeGRMWmNh?=
+ =?utf-8?B?VkllNzB3SU11M3laa00yTnl2QUZDSDgrNllwR2gwNUtsTDNjcks1MnZXc3NG?=
+ =?utf-8?B?aEtzRHQwOFdiUllRS0FSYi9GaTNDb2xQVjIwWXZVM1NPUW9JL0VGRENKYVpy?=
+ =?utf-8?B?NEJqVFB5cTFxWjJ4U2ZXb3J6dlBNUTZEWERZSVUyeERRWEQwM29sQmRCQ2pn?=
+ =?utf-8?B?ZW0rYmVUSnNoWmYyVXlWWjZoeDV3NjJLUHMzaVIrZ2JCU0dGam52Z3g2U3V3?=
+ =?utf-8?B?Z1V4V3dxQ3FaQWhhMkVQcFBEUXFBSVZmY2ppK2h4NDQyUmJJWGpPMXdYenpT?=
+ =?utf-8?B?ZThMTThDYUtFUTVFSktDc3VXcmxyY2dkT3BRWWVLOUsvSHJ6WGhGWnU4YThC?=
+ =?utf-8?B?aVZ4Sm1jd2h6SjZRTzlWVVhQYm9sQTgxRm5UUEs3dGxHeXhJSUJBVzFtUE9V?=
+ =?utf-8?B?ejh2UVNUQVZaNGN2SlJEanhvUzRLQ1lnRTZ2aGhvMTZDTEEweC9uTmxDV1pS?=
+ =?utf-8?B?MDRYU3pIOVByalhkWXZobS9ZbTNLV3NvdDVLTklybkpSZjFodlNrRnVUN1NW?=
+ =?utf-8?B?QXdsK29jUm9VRSs0OEZCQ1VwWDlLUFNRUjZIeTJVcVhlVS8rd0d1SlhIdEkr?=
+ =?utf-8?B?MUlHc2JUcTMyd0dNYkhXY1U3S2diQWVYWUhOQWlkbVlnd0FHd0VzQ1pNVkhS?=
+ =?utf-8?Q?0cJQ5ZHweeSPp?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB7272.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnlqQnh4cW1ob011a09VWDd2cDZKUmUwSjR1bDJQb1FYWGFyaXBOMmNKYjEw?=
- =?utf-8?B?bXpHN2UxQnBnY0VjdTMzWkFTYnhqbEpEano2clFvTTVZdksxMCttTDZnVDV6?=
- =?utf-8?B?THdDa3g5Qjl1QmowT3ZwWmRpeHd6SWQwaUd6d3JwTnNxMXdZM0x6Z2tiNldz?=
- =?utf-8?B?cVY5WlArTVhTOE9LYlpxblpHUGZMQzhYaC9RYURwN09Sd1Z6TTdQM1hudWVy?=
- =?utf-8?B?cVFWSGtJVHNlbTB1Rnc0bVB4eWpXUnU0Sys5RjJNTTVKZzhvcTlDWWtNdU5p?=
- =?utf-8?B?Ymd0WjdHNngyZms4T3E5dkxTTnNDSG5COG9PVDVKZHlqemliMUlkdHhPbDBw?=
- =?utf-8?B?ZkpJYjdvalF0UU1mODVNZXk1cS9LRUdTWk9ZaVhuaXdZV3prQUM5VmdkWTFh?=
- =?utf-8?B?YWl4T0dXTk5UekYzSkZ6N1l2Y3hJblIzWFRNNmlOZnlHc3VvTlYwOFowV1Uv?=
- =?utf-8?B?UGZ0SVhGZUUvRlltOFZHUUg3eTBodWY4emVhZGkvTk9zWXgwQlk1RlRvRjZs?=
- =?utf-8?B?QVA0bUF3TjUvMUo3RmRVYWFZM0ZXZ2dta245elcxQmMxVXlPY2RHMHZ6TEhi?=
- =?utf-8?B?K2xzVjlKU1lEdTVGaW5MMnFDNS9BaytIQ0xWQmNTRkkvU21QdmxMVzR4M25W?=
- =?utf-8?B?QlFqT2UzTnVaaVB2SkVTUEJoOUF5TWpaZnBlRlNQSlZtTDR2TzBtUmtlNGVY?=
- =?utf-8?B?U3VxRlJaS08xTU1uYm90dUlGaXhrUGxmTVdkaG5LeXhtd2dxYXgrSHFZcW1V?=
- =?utf-8?B?WVlzWjBKYkNkMXdEL2EvTGtrM3ppNlpUcGw4aGc3dktlTnRmN20vYTI0Vzlx?=
- =?utf-8?B?WjA1Q2RIaGt4NEJ0eFN2T0FndDlpUXNpVmlUN3BPb1U1T2MrckgyNHdTRHFw?=
- =?utf-8?B?MjlET216c094T0FFUjV1bDQ3ZEVzc0kzY0dVRVRSTWRaNGpiUFNCTnkxa0s4?=
- =?utf-8?B?bHhRR0lFb2tmTFVNeFRzOGtkSFNRSVJaUjNFd0dJQlJ2cTJDNXdNRmZjMTQy?=
- =?utf-8?B?bUpOSU0xWkE0Qnk4UWhWd2ozUUFMZnVjVUxrck56VEpIbzV1U3lYdDhwMy81?=
- =?utf-8?B?d0hrdlVGUm1sWHJrQ21lSmo2a1VXQUxpY1YrbU5FUGk0VXNoZnRzMXBUQ3Ur?=
- =?utf-8?B?ZURlN1NVOUNVaDl2UTdGaWhkUHdjcVBYb1JacGRLWXhseWNlS3BsV0s3MnZs?=
- =?utf-8?B?MVE1eXNSeTZkcFcvOVVkYVNidm5FVmhjaUtnUjlNMjY1elAvQTF4Rys4cWpU?=
- =?utf-8?B?WmhveW5KQTBQMkZaOTJrUEhBVkt4VlR2Mkh1clkzek5RWGVJQU9wem5VSWtJ?=
- =?utf-8?B?b2FBUG9MOHBzQnQ3aW51YlFmMHBSaWQvNXJsbzhIOXNaYThEN2RQeWdxN0hV?=
- =?utf-8?B?akFXMUJydisrVlkvZmVRVWRiQlhhanZ4QTJMVFNSakVjdldNRnJCcTNDeUJN?=
- =?utf-8?B?bXpxUnorZGJQR2U4anN3eVMrUEg2Y1ZSZW0xUmJmK1BlVjlPRW1qNFh5bmM5?=
- =?utf-8?B?UkMybW5RdmNxcGZZMGtFYlJrdFVXZWNkTnI1ckZncTB4eDByeUhiSzFwY1Ra?=
- =?utf-8?B?ei9mRFY3OHh5VDhXVmtxME9BNTZJdjY4c05wSng5c1h0ai84QTZ5L1pkODlJ?=
- =?utf-8?B?ZW50dWNqMkxkeEh1cnNxdExxZUxnTHhFWFFCWDQ0V1RPUmlnUjJUOVVoNUs1?=
- =?utf-8?B?NUZ5a2tMQTFxM0cybnl0bTRRVUs3NEU3M3JnclJWU0ZqNVpEM1BtMStmdTVx?=
- =?utf-8?B?N1J3dTlsTWtBdEdLeGJKYU9QbTFobTVyL05rY3hnYlBnbVFycXJkNWJUelV5?=
- =?utf-8?B?cFphS2l0N0l5T1FQWksxaVZWNU5mWkkxMmJreGJ4N0s5aEZzdzNGU0syeWN3?=
- =?utf-8?B?cFBxVHNOZ2dyM1JrSUw2MTNJcmVKSFJmUHB4STNkTm5RQ2k4WGtZYnl2aVRF?=
- =?utf-8?B?MDZsdHBhU09DRUo5dG5MZUw4Mmk4eTFXLzBZeUdhRmN6QXM2YU1VM3M3VU9j?=
- =?utf-8?B?a3YvQ0pKSUVSZEEvTXdUM2lzaTVybGhDYk1EclpGUWUrTUhSV0ZPVjJnSTlw?=
- =?utf-8?B?dWloSFREbjVHOTZHeWNxZy9HMmlWMW53dkQrZkdNL1ZrTXN3aGl2bnBuMzVM?=
- =?utf-8?Q?64SjynctKLd5ZJry6ae4pgbwt?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f239150d-89c7-4acf-a508-08dd6bf9702a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SU9hRE9Ea0pqTEwyMEg2cVAxNVY4YjloandnQVIyYkpyWkQwY3dEOUNIdkkz?=
+ =?utf-8?B?Z1BobElQNmZyaHJ1SXMzSFZTdFdhMEJJWVRUMmVMclAwcmRzaHBvQWs4WVBX?=
+ =?utf-8?B?ZngrRGJMSFEzb1pGU01Uak1wYktOQW9FbENLUDRYWGdBVmVSOUlhY0k4QXBW?=
+ =?utf-8?B?and3ZlpyZ1N5bHFzSE5xeFdJMXBiMHBCNWdOaGZlZHF1aHNDR0ZzOXZtYkJw?=
+ =?utf-8?B?ZWZRZnlTNUFVMDZnU2F2bWVnSzAwQzVwZG52TWJKdUtMTGRJRWlINFlrWnZK?=
+ =?utf-8?B?OFdxM3BxcUtUeXcxSjZlVnNJV3YxdTRCV0V2YjBXUkJ5NkRzckRNKy9GaTZR?=
+ =?utf-8?B?RlBCdS9nQ0x0OXJpTW9zT25iSXh4VWxaL20vRTZCU2lPU2N5d2UzN29rY0lo?=
+ =?utf-8?B?bGVQK1djckl0ekdTdjdxam9HN1dDcjBITzBjUXZhbzZSODhMekxiMWQxWDVq?=
+ =?utf-8?B?aW4wY0NiNzdyQVZLVW5vOWJlWi9lRS9GTTExUjVKanZXcEYvSXRYWUV4WjFi?=
+ =?utf-8?B?THByanQvZHYwWFkxODFCcG5CRUZYV3Y4bHFYRXVKeGtWZUplNjhYQ01nZXZw?=
+ =?utf-8?B?azcwSG1jKzFkQ0NITCt2R3NVQXhmUmR1YkJtaGR1eUVCRHhBbDArSThSOFha?=
+ =?utf-8?B?ZXpMRVQzREFIR2FRL0h6NEJUQXZLY3lPL1VGMnNFdTlFWmtDMktZVEZRQmpk?=
+ =?utf-8?B?aUlxNmhFU1FwbTdyZWlmdlN0UHQ2dCt6R041enhXbUR5TlpjbDNLUzhBTG9x?=
+ =?utf-8?B?eHh6M3ZzOVkwakk4SVUzVzlzQ1ZpTjRkYUp3b2dvcm9tS29MbkFPMUJMUEps?=
+ =?utf-8?B?NjVEOHBDVlJBbTgrR1BrNzgvZnp6R09HYzlXaTN0WFpMNnVFUGcvUUZQUmNX?=
+ =?utf-8?B?d1ZhQ05jV0ZlNmdLcldZaTNnK0J1WXZDcGMyTlhmcVJxYjdaK3pNSlpLWmZu?=
+ =?utf-8?B?aE8vYUdLSW5MSFJOR2E2VW5WR2RYNU9JTkJ0VUJkR3FnT1dob0hVaWF2VWxk?=
+ =?utf-8?B?eXVORFRCS0dqL20rOUVFUXYxbmg5ZHNMYUQya0tYaVN0azd1NkNGdG1NTHFL?=
+ =?utf-8?B?NXA0dUxNT1J3aXhKRmtrMWZOdlV4TjQ0ZWNWMG52QmdBc3I1MWd1QWdhWkVW?=
+ =?utf-8?B?NFFRcGNRSll6Tk0xb0RZQTNQTDNSdjJDa0szQTdZakM2U0tFcStDcitscy9v?=
+ =?utf-8?B?MlkycHZiU1IxY1BuMHZvYnJTOXkxSS8xVXIvQU55eWRNblIyaWVPQURvek9l?=
+ =?utf-8?B?eTV4Y1liYUpScUptU29sdWZ4Zm40L3RveGNmRkIwdHY1ZGVJZzFFWkt5VkE4?=
+ =?utf-8?B?cnJDU3kwVUFxR25tMU9PNjhXV091WjlQbmpVK0xwQnNtSlh5RmMvZHFuQTBS?=
+ =?utf-8?B?OEFValkvT1ZYeHdXVWIvQm9tMnQ5OXNiSktRcjl0VnU2MXZJZE5DaWlYOHVH?=
+ =?utf-8?B?TkFnVHlzMlhuWU1XNjJFZmhYRktZOHhDSlk5cnV6U1l5K2YrNkthRUFaS1lz?=
+ =?utf-8?B?bnhsQmprYnIwWW11ZWFSS3hKL0hZbXFXYWJiYVNOclE0RllQbXRnY0l4OU4x?=
+ =?utf-8?B?cnRQaS9KZ2FMdGk3M1BGN1plRDRGR09Bc0VEeVZBV1dXVjFhTDNKK3pYNmVO?=
+ =?utf-8?B?M0Q0M3hlOWNTT1ZTcWZVZnlvQ1JSVzNwKzdvVU00dWVMQnZ0Sjk5NEI4bGFC?=
+ =?utf-8?B?ZWtnZnVwdnFpUkhMRGQydHcxNHJRcitnQ092TkMzeklLQjBlK3NrS3RoamNP?=
+ =?utf-8?B?dXhzRFlGL0dwRVh4aWFNNlpmL2FlOWNTQUE5cjBHaHM3TTFmZHFqVzl1RTNv?=
+ =?utf-8?B?U05KOUdvRjVmSnRWcXRjM3ZKbXNjYWNBSG1US2hSVjE1MUhiVExGaWVKMnFM?=
+ =?utf-8?B?c0hrNElMczVzTThHbjZ5UVEvcFpRK3FVcnFUajJ0NVRCS0pRSFJUbldiSjRP?=
+ =?utf-8?B?czhBSkNCZHh0RmUwcjVMMmVKUkh6Qmdkcm9paFg4c1RZYlc4eEQ3OEJRSUIv?=
+ =?utf-8?B?aStmL2hhMEZLOGM2cTkraHJIanRqSnp3akVwT0lrN1BkRzN0dUtvaVMwUWZy?=
+ =?utf-8?B?T1J3QTVaZGoxZmFCMGtIcW0xcWkrcVpXanVuMGlYcWVyUmdhalhRNDU4Z3NV?=
+ =?utf-8?Q?WC+k+wskoJoeChQEhniccv8si?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f50fb9a2-4fd8-4e3e-0412-08dd6c088e97
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7272.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 00:02:03.1614 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 01:50:16.5502 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WKAjtcY5SVycr8e0IdFW2Sfzk8ojy6LpKP22kHq54xJf7LxEdGmtvUmoFqxeWnH3Ezg+0KgFYOBD36WAFuZMTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF6BCF148B6
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qo8//fb/+R/cXLVkoH7gS+DNKDtMVwXHxwkz4pZRO6Q0ybjt1H0MSDEEBTiGbkvb0LIXdX2lZl1cqWeIEPeFNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8996
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,171 +174,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 3/19/25 22:23, Huacai Chen wrote:
-> Hi, Alex,
+On 3/26/25 10:43, Balbir Singh wrote:
+> On 3/26/25 10:21, Bert Karwatzki wrote:
+>> Am Mittwoch, dem 26.03.2025 um 09:45 +1100 schrieb Balbir Singh:
+>>>
+>>>
+>>> The second region seems to be additional, I suspect that is HMM mapping from kgd2kfd_init_zone_device()
+>>>
+>>> Balbir Singh
+>>>
+>> Good guess! I inserted a printk into kgd2kfd_init_zone_device():
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> index d05d199b5e44..201220e2ac42 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> @@ -1049,6 +1049,8 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
+>>                 pgmap->range.end = res->end;
+>>                 pgmap->type = MEMORY_DEVICE_PRIVATE;
+>>         }
+>> +       dev_info(adev->dev, "%s: range.start = 0x%llx ranges.end = 0x%llx\n",
+>> +                       __func__, pgmap->range.start, pgmap->range.end);
+>>
+>>         pgmap->nr_range = 1;
+>>         pgmap->ops = &svm_migrate_pgmap_ops;
+>>
+>>
+>> and get this in the case without nokaslr:
+>>
+>> [    T367] amdgpu 0000:03:00.0: kfd_migrate: kgd2kfd_init_zone_device:
+>> range.start = 0xafe00000000 ranges.end = 0xaffffffffff
+>>
+>> and this in the case with nokaslr:
+>>
+>> [    T365] amdgpu 0000:03:00.0: kfd_migrate: kgd2kfd_init_zone_device:
+>> range.start = 0x3ffe00000000 ranges.end = 0x3fffffffffff
+>>
 > 
-> On Thu, Mar 20, 2025 at 10:16 AM Alex Hung <alex.hung@amd.com> wrote:
->>
->>
->>
->> On 3/18/25 05:17, Huacai Chen wrote:
->>> Commit 7da55c27e76749b9 ("drm/amd/display: Remove incorrect FP context
->>> start") removes the FP context protection of dml2_create(), and it said
->>> "All the DC_FP_START/END should be used before call anything from DML2".
->>>
->>> However, dml2_create()/dml2_copy()/dml2_create_copy() are not protected
->>> from their callers, causing such errors:
->>>
->>>    do_fpu invoked from kernel context![#1]:
->>>    CPU: 0 UID: 0 PID: 239 Comm: kworker/0:5 Not tainted 6.14.0-rc6+ #1
->>>    Workqueue: events work_for_cpu_fn
->>>    pc ffff80000319de80 ra ffff80000319de5c tp 900000010575c000 sp 900000010575f840
->>>    a0 0000000000000000 a1 900000012f210130 a2 900000012f000000 a3 ffff80000357e268
->>>    a4 ffff80000357e260 a5 900000012ea52cf0 a6 0000000400000004 a7 0000012c00001388
->>>    t0 00001900000015e0 t1 ffff80000379d000 t2 0000000010624dd3 t3 0000006400000014
->>>    t4 00000000000003e8 t5 0000005000000018 t6 0000000000000020 t7 0000000f00000064
->>>    t8 000000000000002f u0 5f5e9200f8901912 s9 900000012d380010 s0 900000012ea51fd8
->>>    s1 900000012f000000 s2 9000000109296000 s3 0000000000000001 s4 0000000000001fd8
->>>    s5 0000000000000001 s6 ffff800003415000 s7 900000012d390000 s8 ffff800003211f80
->>>       ra: ffff80000319de5c dml21_apply_soc_bb_overrides+0x3c/0x960 [amdgpu]
->>>      ERA: ffff80000319de80 dml21_apply_soc_bb_overrides+0x60/0x960 [amdgpu]
->>>     CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=CC DACM=CC -WE)
->>>     PRMD: 00000004 (PPLV0 +PIE -PWE)
->>>     EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
->>>     ECFG: 00071c1d (LIE=0,2-4,10-12 VS=7)
->>>    ESTAT: 000f0000 [FPD] (IS= ECode=15 EsubCode=0)
->>>     PRID: 0014d010 (Loongson-64bit, Loongson-3C6000/S)
->>>    Process kworker/0:5 (pid: 239, threadinfo=00000000927eadc6, task=000000008fd31682)
->>>    Stack : 00040dc000003164 0000000000000001 900000012f210130 900000012eabeeb8
->>>            900000012f000000 ffff80000319fe48 900000012f210000 900000012f210130
->>>            900000012f000000 900000012eabeeb8 0000000000000001 ffff8000031a0064
->>>            900000010575f9f0 900000012f210130 900000012eac0000 900000012ea80000
->>>            900000012f000000 ffff8000031cefc4 900000010575f9f0 ffff8000035859c0
->>>            ffff800003414000 900000010575fa78 900000012f000000 ffff8000031b4c50
->>>            0000000000000000 9000000101c9d700 9000000109c40000 5f5e9200f8901912
->>>            900000012d3c4bd0 900000012d3c5000 ffff8000034aed18 900000012d380010
->>>            900000012d3c4bd0 ffff800003414000 900000012d380000 ffff800002ea49dc
->>>            0000000000000001 900000012d3c6000 00000000ffffe423 0000000000010000
->>>            ...
->>>    Call Trace:
->>>    [<ffff80000319de80>] dml21_apply_soc_bb_overrides+0x60/0x960 [amdgpu]
->>>    [<ffff80000319fe44>] dml21_init+0xa4/0x280 [amdgpu]
->>>    [<ffff8000031a0060>] dml21_create+0x40/0x80 [amdgpu]
->>>    [<ffff8000031cefc0>] dc_state_create+0x100/0x160 [amdgpu]
->>>    [<ffff8000031b4c4c>] dc_create+0x44c/0x640 [amdgpu]
->>>    [<ffff800002ea49d8>] amdgpu_dm_init+0x3f8/0x2060 [amdgpu]
->>>    [<ffff800002ea6658>] dm_hw_init+0x18/0x60 [amdgpu]
->>>    [<ffff800002b16738>] amdgpu_device_init+0x1938/0x27e0 [amdgpu]
->>>    [<ffff800002b18e80>] amdgpu_driver_load_kms+0x20/0xa0 [amdgpu]
->>>    [<ffff800002b0c8f0>] amdgpu_pci_probe+0x1b0/0x580 [amdgpu]
->>>    [<900000000448eae4>] local_pci_probe+0x44/0xc0
->>>    [<9000000003b02b18>] work_for_cpu_fn+0x18/0x40
->>>    [<9000000003b05da0>] process_one_work+0x160/0x300
->>>    [<9000000003b06718>] worker_thread+0x318/0x440
->>>    [<9000000003b11b8c>] kthread+0x12c/0x220
->>>    [<9000000003ac1484>] ret_from_kernel_thread+0x8/0xa4
->>>
->>> So protect dml2_create()/dml2_copy()/dml2_create_copy() with DC_FP_START
->>> and DC_FP_END.
->>
->> Hi Huacai,
->>
->> Can you try to put DC_FP_START DC_FP_END in the
->> dml2_create()/dml2_copy()/dml2_create_copy()/dml2_validate() instead?
->> The code will be cleaner and less error-prone to future changes.
-> At first I want to add them in
-> dml2_create()/dml2_copy()/dml2_create_copy()/dml2_validate(), but
-> commit 7da55c27e76749b9 ("drm/amd/display: Remove incorrect FP context
-> start")  said
-> that "All the DC_FP_START/END should be used before call anything from DML2".
+> So we should ignore the second region then for the purposes of this issue.
 > 
-> Huacai
-
-Thanks. I sent them to testing, and will share results later.
-
+> I think this now boils down to
 > 
->>
->> Thanks.
->>
->>
->>>
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
->>> ---
->>>    drivers/gpu/drm/amd/display/dc/core/dc_state.c | 16 ++++++++++++++++
->>>    1 file changed, 16 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
->>> index 1b2cce127981..6e2cac08002d 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
->>> @@ -210,17 +210,23 @@ struct dc_state *dc_state_create(struct dc *dc, struct dc_state_create_params *p
->>>
->>>    #ifdef CONFIG_DRM_AMD_DC_FP
->>>        if (dc->debug.using_dml2) {
->>> +             DC_FP_START();
->>> +
->>>                dml2_opt->use_clock_dc_limits = false;
->>>                if (!dml2_create(dc, dml2_opt, &state->bw_ctx.dml2)) {
->>> +                     DC_FP_END();
->>>                        dc_state_release(state);
->>>                        return NULL;
->>>                }
->>>
->>>                dml2_opt->use_clock_dc_limits = true;
->>>                if (!dml2_create(dc, dml2_opt, &state->bw_ctx.dml2_dc_power_source)) {
->>> +                     DC_FP_END();
->>>                        dc_state_release(state);
->>>                        return NULL;
->>>                }
->>> +
->>> +             DC_FP_END();
->>>        }
->>>    #endif
->>>
->>> @@ -240,6 +246,8 @@ void dc_state_copy(struct dc_state *dst_state, struct dc_state *src_state)
->>>        dc_state_copy_internal(dst_state, src_state);
->>>
->>>    #ifdef CONFIG_DRM_AMD_DC_FP
->>> +     DC_FP_START();
->>> +
->>>        dst_state->bw_ctx.dml2 = dst_dml2;
->>>        if (src_state->bw_ctx.dml2)
->>>                dml2_copy(dst_state->bw_ctx.dml2, src_state->bw_ctx.dml2);
->>> @@ -247,6 +255,8 @@ void dc_state_copy(struct dc_state *dst_state, struct dc_state *src_state)
->>>        dst_state->bw_ctx.dml2_dc_power_source = dst_dml2_dc_power_source;
->>>        if (src_state->bw_ctx.dml2_dc_power_source)
->>>                dml2_copy(dst_state->bw_ctx.dml2_dc_power_source, src_state->bw_ctx.dml2_dc_power_source);
->>> +
->>> +     DC_FP_END();
->>>    #endif
->>>
->>>        /* context refcount should not be overridden */
->>> @@ -268,17 +278,23 @@ struct dc_state *dc_state_create_copy(struct dc_state *src_state)
->>>        new_state->bw_ctx.dml2 = NULL;
->>>        new_state->bw_ctx.dml2_dc_power_source = NULL;
->>>
->>> +     DC_FP_START();
->>> +
->>>        if (src_state->bw_ctx.dml2 &&
->>>                        !dml2_create_copy(&new_state->bw_ctx.dml2, src_state->bw_ctx.dml2)) {
->>> +             DC_FP_END();
->>>                dc_state_release(new_state);
->>>                return NULL;
->>>        }
->>>
->>>        if (src_state->bw_ctx.dml2_dc_power_source &&
->>>                        !dml2_create_copy(&new_state->bw_ctx.dml2_dc_power_source, src_state->bw_ctx.dml2_dc_power_source)) {
->>> +             DC_FP_END();
->>>                dc_state_release(new_state);
->>>                return NULL;
->>>        }
->>> +
->>> +     DC_FP_END();
->>>    #endif
->>>
->>>        kref_init(&new_state->refcount);
->>
+> Why is the dma_get_required_mask set to all of addressable memory (46 bits)
+> when we have nokaslr
+> 
+
+I think I know the root cause of the required_mask going up and hence the
+use of DMA32
+
+1. HMM calls add_pages()
+2. add_pages calls update_end_of_memory_vars()
+3. This updates max_pfn and that causes required_mask to go up to 46 bits
+
+Do you have CONFIG_HSA_AMD_SVM enabled? Does turning it off, fix the issue?
+
+The actual issue is the update of max_pfn.
+
+Balbir Singh
+
 
