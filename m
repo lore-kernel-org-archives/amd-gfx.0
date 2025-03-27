@@ -4,85 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0994CC3600B
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 14:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 906B3C3600B
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 14:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6B9F10E114;
-	Thu, 27 Mar 2025 14:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B4BD10E12C;
+	Thu, 27 Mar 2025 14:29:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gkCkz0b6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JTIvMD8T";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D5C110E114
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 14:26:26 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-43948f77f1aso7927025e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 07:26:26 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9035110E12C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 14:29:31 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-38f2f391864so592119f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 07:29:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743085585; x=1743690385; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=s55KwJr+/FuR7bE4QMYHxcXv8x9fjSVO+xJCNHycRT4=;
- b=gkCkz0b6gyOswd+yLF+4nEfC4UZnu/D5tbDDKp5unQ9bH3avUPiaLVpfOR6QH5k9mp
- 7CrySeTOfPaQ2d2jN3OZkYSXPBqmTYRaiezOa+lCFBajA87KFZlS03Rw4xqsFCO0rHIC
- cZHn+KFR5r60Y8O4X15oy2dOxeicesMsJ7d2a6iiFnUodmuWswVcOOal5ct+JgN4PsZy
- RNllByOg0GmkpI32qOkiSbCvUNzrCjCqNxvEBmyjvpQdEI/yimHOz3b3qvsU8SGuHXgY
- ezL7x1dSMIdiBg/VtglmnkjPLG7XpNru42BP43yCzCo9KB5t/oOYHq5jODujGXGCvZf2
- aibQ==
+ d=gmail.com; s=20230601; t=1743085770; x=1743690570; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/P/Lg/lelVJhb13kRNnRQXN8+MIvTIQZfQ8FoVfI6Pk=;
+ b=JTIvMD8TfsLY3xW+l0bVK7adSJEEinvR7MujrFIWVrgfUn5BcCEDmWv9CZrha3TtIo
+ /PbdX1v81KoqO1DyCwXV2kSgBvePffQ1Eag8C2+r3gxyKd5RYgHpgv/BU6tDXAVXVHYZ
+ bMG+1Ht0N+iZPtSNXm3Qua+ZBMEybkV9Yv1t4sOGMRqauS7lNlAQTqG9YGiT1SYs7Q+1
+ k5ke6DYkdyxGBXkkDXUsouyEKzUzlMGFbBYkQw662mNyivEhjGoSsHGcSY44oQjxddba
+ 1Hbg23bA8RYbVo66Fo+MqblqQ/nc5Tn33sWih2EvhmBRHQVoBW8KHLfiV3mRZzmyPmzb
+ pB1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743085585; x=1743690385;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=s55KwJr+/FuR7bE4QMYHxcXv8x9fjSVO+xJCNHycRT4=;
- b=LnwszWAF0edUH8SrCazyK1EtqsnwneOkJigyECIaCqTFRggAxr/QWioyIlSxGDSuF1
- OLx+lo2uEd5TsN4+BdrlU3BYnUf8iP9uh9YCR8ny255xC2V1MM0zk+RQjw3gpwdrekpU
- u20KKGNtq/WvUB2ukfYSavW/5rqRYCwVWVNeaCRr0M+mqNZPR7bNcOoRzijkYwcVXA0a
- 8g7pM0pfcyt5Wl+JNntfN7qN8ujOOsCvBjTr15TW6MxaOtGsYVYdomEFaaZh9XbqO4pe
- xhXNmLAYOzDp0iDwiXECGNsYIVbn+1U/lExXLKehI8JPX/6Zcq1EToTlgbWEt12eS0rH
- YY6g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX7aobwg+vmVu+sNu7ppdX0/4+OZN4L6thxYjqHzNYLH/OsTCphnKS96fZQLVV7+4npKmwnTLbe@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwP+Uk/+o+vnGBMQ2g0f7Uk3XlmYipx45I/Z06J+cWkJoT3W8wm
- Ne5uv8xQXzNXxn9iUw84KATsRi/UltFdInPsUt+GEq7QiXF+AHO7
-X-Gm-Gg: ASbGncujeajUVe0PtaS7WPNw8By5o5ERrKupCO6+avLMj6EKEo10Sxvv1OZ826IRvL/
- RaPlWq5TF1MhnvEsFrkHSjL2VaeLMW6PCbz8De2vfQ3Qnoilxab4ISf8xSHnM5WCsXvGSRTUiqP
- jzxZOz0VmA5+YXFy3QV2xYd00T8wNa51FkIfDQkCggMwUKgzyjudH87OmxYsmXStBh/S+1mmjDC
- LNvwkojK1jxKiVGuJ/VuIw+RVG9JKbGnmuVfvkrGLoe7UTGNJSN5H7P+yhiCYZRfLjbFAVgQdla
- 0pygppRnGGBro9h533YF4ArD+tkVYQaMK84eqNsKn9gY9jmj76s/RIrFbn1klBQJ+1uvIob0Uw=
- =
-X-Google-Smtp-Source: AGHT+IGkBxBYJAzATjmAv5cUbBilnirvGyKZJtX/yXzIyLDyRiEQcklzMML0DLyiG2RBL9vdZfrRfA==
-X-Received: by 2002:a05:600c:3d8c:b0:43d:649:4e50 with SMTP id
- 5b1f17b1804b1-43d871ac058mr28706765e9.13.1743085584571; 
- Thu, 27 Mar 2025 07:26:24 -0700 (PDT)
-Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ d=1e100.net; s=20230601; t=1743085770; x=1743690570;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/P/Lg/lelVJhb13kRNnRQXN8+MIvTIQZfQ8FoVfI6Pk=;
+ b=nLAfyILvjjj4kcPiqumx49h5AO64ysZXz/lku58KJnq6Wqeq0W6HFftIoKRwsjiLwR
+ vwQSqQCW8bIKAZKOOxmgC3qqcuCcAKGawQgdfZ0i/mabZZRr3g/UgTYmUnNAQfhDDiPX
+ 6nWqvTbGSU5x1GyCSOJXu51WXHdqnIXBqdUXanvZPBc0CriYQUi7XeFk+83/TTUsnL+d
+ ph/uBpNpppKsrmqYt5j1R/Zxs0wLpWSPa/tAT/1N1PkzoAZ5GWV0z5wnVQ0Rjvr0S/nH
+ WEaBMxSCrYOqBdxbd5wBIOznjrCyVBsrGEB8DsmnpNVg367HnfR86+tvJQAFCaIUGnya
+ DpMQ==
+X-Gm-Message-State: AOJu0YwLJwNC4OMktJNKGHDt1DmTAWQfJ7Ss2KLa7BBOlUStpo+DbCiO
+ M1IMi3BN7ytegIl/XyhXn2vKjVcUIuy0iROWZ1hZaqmB6cGP7f/X25EX5A==
+X-Gm-Gg: ASbGnctYmGT2kblPVu+ZzzkWm8beaTRb4bsKHuo38tmIlMgOIlBhasQxCjIsZkvzg/v
+ 2Kk+9EdXrUsRQH7dPN2zO1ueEt23MA4WASVRJdFUJar8ku4FJIGPHQU+mnPwCfEms+MosY0FRlH
+ AeL8l4srPSlOEWx05b4vlzNVFfbYdBhzYmwFMSyFlxclG1uAlr/z2kWI37GIyxDGsex/NN/j7sB
+ +9vOL3BXBkl/KyXppMbEVSOkP/ogjo2uDab+Wjy3492eul+Z2iZOzwzrRQLAR7jieMndZR7P4Nw
+ r21MVHUJ9gN5ngxc+SR+8Td7Xh6PuUvdWN5cuLUWKSSzqd22TlJAlAR6
+X-Google-Smtp-Source: AGHT+IG926S/WKmRXCBN3QUYWIhmozD4OIGqDN8ypnmYSlv2aSDx2Ap5KKX1y3XC5PPyR6nGBXtl4g==
+X-Received: by 2002:a5d:5849:0:b0:38f:483f:8319 with SMTP id
+ ffacd0b85a97d-39ad17836f1mr3615152f8f.51.1743085769948; 
+ Thu, 27 Mar 2025 07:29:29 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15d9:f800:2d33:ae6d:5fb:b944])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d830f5f22sm39072535e9.30.2025.03.27.07.26.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 07:26:24 -0700 (PDT)
-Message-ID: <9dd129db-8877-4496-996e-2353561a67d5@gmail.com>
-Date: Thu, 27 Mar 2025 15:26:22 +0100
+ ffacd0b85a97d-3997f9efc9bsm19776279f8f.87.2025.03.27.07.29.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Mar 2025 07:29:29 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	Alexander.Deucher@amd.com
+Subject: [PATCH] drm/amdgpu: immediately use GTT for new allocations
+Date: Thu, 27 Mar 2025 15:29:28 +0100
+Message-Id: <20250327142928.2193-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v0] kernel: resource: add
- devm_request_free_mem_region_from_end()
-To: Bert Karwatzki <spasswolf@web.de>, Ingo Molnar <mingo@kernel.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Balbir Singh <balbirs@nvidia.com>, Kees Cook <kees@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Yang, Philip" <Philip.Yang@amd.com>
-References: <20250327120216.14083-1-spasswolf@web.de>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20250327120216.14083-1-spasswolf@web.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,176 +83,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.03.25 um 13:02 schrieb Bert Karwatzki:
-> devm_request_free_mem_region() places resources at the end of the
-> physical address space, DIRECT_MAP_PHYSMEM_END. If the the dma mask
-> of a pci device is smaller than DIRECT_MAP_PHSYMEM_END then this
-> resource is not dma accessible by the device which can cause the
-> device to fallback to using 32bit dma which can lead to severe
-> performance impacts.
->
-> This adds the devm_request_free_mem_region_from_end() function which
-> allows to select the endpoint from which to place the resource
-> independently from DIRECT_MAP_PHYSMEM_END.
+Only use GTT as a fallback if we already have a backing store. This
+prevents evictions when an application constantly allocates and frees new
+memory.
 
-Adding Felix and Philip as well. They need to take a look.
+Partially fixes
+https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2833985.
 
-Regards,
-Christian.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
->
-> Link: https://lore.kernel.org/all/20250322122351.3268-1-spasswolf@web.de/
->
-> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  3 ++-
->  include/linux/ioport.h                   |  3 +++
->  kernel/resource.c                        | 31 ++++++++++++++++++------
->  3 files changed, 28 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index d05d199b5e44..e1942fef3637 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -1042,7 +1042,8 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
->  		pgmap->range.end = adev->gmc.aper_base + adev->gmc.aper_size - 1;
->  		pgmap->type = MEMORY_DEVICE_COHERENT;
->  	} else {
-> -		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
-> +		res = devm_request_free_mem_region_from_end(adev->dev,
-> +				&iomem_resource, size, dma_get_mask(adev->dev));
->  		if (IS_ERR(res))
->  			return PTR_ERR(res);
->  		pgmap->range.start = res->start;
-> diff --git a/include/linux/ioport.h b/include/linux/ioport.h
-> index 5385349f0b8a..a9a765721ab4 100644
-> --- a/include/linux/ioport.h
-> +++ b/include/linux/ioport.h
-> @@ -407,6 +407,9 @@ walk_iomem_res_desc(unsigned long desc, unsigned long flags, u64 start, u64 end,
->
->  struct resource *devm_request_free_mem_region(struct device *dev,
->  		struct resource *base, unsigned long size);
-> +struct resource *devm_request_free_mem_region_from_end(struct device *dev,
-> +		struct resource *base, unsigned long size,
-> +		resource_size_t seek_end);
->  struct resource *request_free_mem_region(struct resource *base,
->  		unsigned long size, const char *name);
->  struct resource *alloc_free_mem_region(struct resource *base,
-> diff --git a/kernel/resource.c b/kernel/resource.c
-> index 12004452d999..82f40407c02d 100644
-> --- a/kernel/resource.c
-> +++ b/kernel/resource.c
-> @@ -1875,12 +1875,14 @@ EXPORT_SYMBOL(resource_list_free);
->  #endif
->
->  static resource_size_t gfr_start(struct resource *base, resource_size_t size,
-> -				 resource_size_t align, unsigned long flags)
-> +				 resource_size_t align, resource_size_t seek_end,
-> +				 unsigned long flags)
->  {
->  	if (flags & GFR_DESCENDING) {
->  		resource_size_t end;
->
->  		end = min_t(resource_size_t, base->end, DIRECT_MAP_PHYSMEM_END);
-> +		end = min_t(resource_size_t, end, seek_end);
->  		return end - size + 1;
->  	}
->
-> @@ -1920,8 +1922,8 @@ static void remove_free_mem_region(void *_res)
->  static struct resource *
->  get_free_mem_region(struct device *dev, struct resource *base,
->  		    resource_size_t size, const unsigned long align,
-> -		    const char *name, const unsigned long desc,
-> -		    const unsigned long flags)
-> +		    resource_size_t seek_end, const char *name,
-> +		    const unsigned long desc, const unsigned long flags)
->  {
->  	resource_size_t addr;
->  	struct resource *res;
-> @@ -1946,7 +1948,7 @@ get_free_mem_region(struct device *dev, struct resource *base,
->  	}
->
->  	write_lock(&resource_lock);
-> -	for (addr = gfr_start(base, size, align, flags);
-> +	for (addr = gfr_start(base, size, align, seek_end, flags);
->  	     gfr_continue(base, addr, align, flags);
->  	     addr = gfr_next(addr, align, flags)) {
->  		if (__region_intersects(base, addr, size, 0, IORES_DESC_NONE) !=
-> @@ -2021,17 +2023,30 @@ struct resource *devm_request_free_mem_region(struct device *dev,
->  	unsigned long flags = GFR_DESCENDING | GFR_REQUEST_REGION;
->
->  	return get_free_mem_region(dev, base, size, GFR_DEFAULT_ALIGN,
-> -				   dev_name(dev),
-> +				   DIRECT_MAP_PHYSMEM_END, dev_name(dev),
->  				   IORES_DESC_DEVICE_PRIVATE_MEMORY, flags);
->  }
->  EXPORT_SYMBOL_GPL(devm_request_free_mem_region);
->
-> +struct resource *devm_request_free_mem_region_from_end(struct device *dev,
-> +		struct resource *base, unsigned long size,
-> +		resource_size_t seek_end)
-> +{
-> +	unsigned long flags = GFR_DESCENDING | GFR_REQUEST_REGION;
-> +
-> +	return get_free_mem_region(dev, base, size, GFR_DEFAULT_ALIGN,
-> +				   seek_end, dev_name(dev),
-> +				   IORES_DESC_DEVICE_PRIVATE_MEMORY, flags);
-> +}
-> +EXPORT_SYMBOL_GPL(devm_request_free_mem_region_from_end);
-> +
->  struct resource *request_free_mem_region(struct resource *base,
->  		unsigned long size, const char *name)
->  {
->  	unsigned long flags = GFR_DESCENDING | GFR_REQUEST_REGION;
->
-> -	return get_free_mem_region(NULL, base, size, GFR_DEFAULT_ALIGN, name,
-> +	return get_free_mem_region(NULL, base, size, GFR_DEFAULT_ALIGN,
-> +				   DIRECT_MAP_PHYSMEM_END, name,
->  				   IORES_DESC_DEVICE_PRIVATE_MEMORY, flags);
->  }
->  EXPORT_SYMBOL_GPL(request_free_mem_region);
-> @@ -2055,8 +2070,8 @@ struct resource *alloc_free_mem_region(struct resource *base,
->  	/* Default of ascending direction and insert resource */
->  	unsigned long flags = 0;
->
-> -	return get_free_mem_region(NULL, base, size, align, name,
-> -				   IORES_DESC_NONE, flags);
-> +	return get_free_mem_region(NULL, base, size, align, DIRECT_MAP_PHYSMEM_END,
-> +				   name, IORES_DESC_NONE, flags);
->  }
->  EXPORT_SYMBOL_GPL(alloc_free_mem_region);
->  #endif /* CONFIG_GET_FREE_REGION */
-> --
-> 2.49.0
->
-> One of the problems (I'm sure there are more ...) with this patch is that
-> it uses dma_get_mask(adev->dev) as the endpoint from which to place the
-> memory, but dma_get_mask(adev->dev) returns the dma mask of the discrete
-> GPU, but what actually is needed to avoid the bug would be the dma mask
-> of the built-in GPU. In my case both are equal (44bits), but I'm not
-> sure if they are equal in all cases.
->
->> So this patch does the trick for Bert, and I'm wondering what the best
->> fix here would be overall, because it's a tricky situation.
->>
->> Am I correct in assuming that with enough physical memory this bug
->> would trigger, with and without nokaslr?
-> I think the bug triggers as soon as DIRECT_MAP_PHYSMEM_END is bigger
-> then the dma mask of the integrated GPU.
->
->> I *think* the best approach going forward would be to add the above
->> quirk the the x86 memory setup code, but also issue a kernel warning at
->> that point with all the relevant information included, so that the
->> driver's use_dma32 bug can at least be indicated?
->>
->> That might also trigger for other systems, because if this scenario is
->> so spurious, I doubt it's the only affected driver ...
->>
->> Thanks,
->>
->> 	Ingo
-> Or one could make the endpoint from which the memory resource will be
-> placed selectable.
->
-> Bert Karwatzki
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index d09db052e282..d90e9daf5a50 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -163,8 +163,8 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+ 		 * When GTT is just an alternative to VRAM make sure that we
+ 		 * only use it as fallback and still try to fill up VRAM first.
+ 		 */
+-		if (domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
+-		    !(adev->flags & AMD_IS_APU))
++		if (abo->tbo.resource && !(adev->flags & AMD_IS_APU) &&
++		    domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
+ 			places[c].flags |= TTM_PL_FLAG_FALLBACK;
+ 		c++;
+ 	}
+-- 
+2.34.1
 
