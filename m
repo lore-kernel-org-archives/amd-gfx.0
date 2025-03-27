@@ -4,55 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4186C36010
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 13:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D3C3C36012
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 13:04:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B5DD10E8C6;
-	Thu, 27 Mar 2025 13:04:45 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 55DD110E2DD;
- Thu, 27 Mar 2025 09:54:26 +0000 (UTC)
-Received: from loongson.cn (unknown [223.64.68.198])
- by gateway (Coremail) with SMTP id _____8DxjXJQIOVnixGoAA--.19361S3;
- Thu, 27 Mar 2025 17:54:24 +0800 (CST)
-Received: from localhost.localdomain (unknown [223.64.68.198])
- by front1 (Coremail) with SMTP id qMiowMAxSsQpIOVned1iAA--.26323S4;
- Thu, 27 Mar 2025 17:54:23 +0800 (CST)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99BEF10E8C8;
+	Thu, 27 Mar 2025 13:04:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="ghDmfPG2";
+	dkim-atps=neutral
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F231310E8AE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 12:02:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1743076939; x=1743681739; i=spasswolf@web.de;
+ bh=SM1POh9VV3k0zWrqccD5VWDOjF1RncipJvSoxJViC/g=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=ghDmfPG2X/yTzwS3cAxo1t9omIZslCGC6qRb9iOd/Na9V2c6etxsU46/anZL54rM
+ fFYPqT+7kgnRo4g5YOpD2brWvtwwYQaZMyCVlSOWh9dhcPh04MAoiQ83DNZPIyG+7
+ gNnf19MEvZbdqe/5/VgHnwsszuglGkSa6tCdg7Vo1BrM/Z+X/Oi6VYGaHjmI4/6u3
+ Q3K0RDUD5/n5tlEmp/pB63XJ7Ih+VFyz4hYtz241kgXA36BodEJXvAF8IvzAunt+W
+ PmQJLZjFv1YPz+sd+R3Mzn5+XyP9ZENFemLV0BPna670NPI6CYh4fLwwCAuJLpGSr
+ ifZhUdH3FE7BohYBvQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from localhost.localdomain ([95.223.134.88]) by smtp.web.de
+ (mrweb106 [213.165.67.124]) with ESMTPSA (Nemesis) id
+ 1MSZHv-1tZKEt3IHR-00ShLe; Thu, 27 Mar 2025 13:02:18 +0100
+From: Bert Karwatzki <spasswolf@web.de>
+To: Ingo Molnar <mingo@kernel.org>
+Cc: Bert Karwatzki <spasswolf@web.de>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Huacai Chen <chenhuacai@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Huacai Chen <chenhuacai@loongson.cn>, stable@vger.kernel.org
-Subject: [PATCH V2 3/3] drm/amd/display: Protect FPU in
- dml2_validate()/dml21_validate()
-Date: Thu, 27 Mar 2025 17:53:34 +0800
-Message-ID: <20250327095334.3327111-3-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20250327095334.3327111-1-chenhuacai@loongson.cn>
-References: <20250327095334.3327111-1-chenhuacai@loongson.cn>
+ Balbir Singh <balbirs@nvidia.com>, Kees Cook <kees@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v0] kernel: resource: add
+ devm_request_free_mem_region_from_end()
+Date: Thu, 27 Mar 2025 13:02:15 +0100
+Message-ID: <20250327120216.14083-1-spasswolf@web.de>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: Z-UuHkUPy60e1GWM@gmail.com
+References: 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowMAxSsQpIOVned1iAA--.26323S4
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3AFy5tw4fJw45urWrZr4fZwc_yoW7Zw18pr
- yUJr1rCrW8JF1Utw1UA3WUXF15GwnxZF18JryDJw13Ww1UXw1DJryDJrW7GrW5JF45JF13
- ta1UJw4Utr18C3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6rxl6s0DM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
- kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
- XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
- 8JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
- 6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
- AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
- 0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
- v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
- xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU00eHDUUUUU==
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:zUDI+gfzkTnaGlpjaw/Mi3OTj7Gliv+9usoAh1T1d3UUIYx0K53
+ NxOTzwzE6QDKdfMpytVP+TqEqPFrU0n8kwx88EwhECN0A3vPCmsknvyDmUUU7zuHpJ/yk+j
+ s5aP+CF1KAob+Q2mi2hvn7aOCpML5V6d9It/ItXJ9Os8GrDj40Ayt4JaMd8gPQDglaqzDpN
+ eNPNYcupJ9auwgAjbhkPQ==
+UI-OutboundReport: notjunk:1;M01:P0:U12YhXUhwvM=;GefW0zbxDptGhDwtcP8xpktjuKv
+ /If+yDumaiZS5a1SiLZ103nNh9Fmde7WSW2XFr5/0ju/3iGCc0Lt0OmrRPpso2S3X04sz8gtz
+ Yv7tBV/OYb+GShCCu0+LyeRLculBS+evmO2QXs7WKvz+Y6WEyUob2IX3SqPUdsexiiO2XhBWV
+ CUENkTdx8bU7PU/B0cFewQMaEgbwf5EXS3tFcmEN65AMB1W1qmt0BYcOZ3ioqUW5pPPZMG/Au
+ Ar8OXa7pDkm2xfPlKQBjfV6tGytEllKbqCd9lNtD0+U8AQkD/+oIzkfMo7izNq2AGyoqL7EWi
+ +waQPelDKsW2wTrxu8dCyYY8alf/SisJEzyRdiqenBKhDo98LH4ZNTDAKzqHQ+qTS7KhfGhRA
+ d2XgI/MR97AL0InkRGrfADNaz9JS0S5bZgFDmcYIqCoOW4bZ+vh9Tlz8V09+V4gtuVICkOgqb
+ /iLULL5VzyTlz0y54onV8au5i198M7MGCfWRdyhc/K1rpWVmIpnD9c9bYFUCw31SuCOcloXA+
+ o2qUmCMKJgcGLoqjSMg8lk4C7DQG1ZOuwt2uZogm8ExehqeWbJwFhuErZH0H1Jfup47VV5YQ0
+ NuRD2a/5uEPVAFwaKrs7OClxKNv1tWPu5O4mNawcJJEgHIuMzb3U8IivcsoqkwQ7L+ryU7zKK
+ pvPUTwyoqyZbTp6SzRrZf3OyI8WpXnC3Nwqn8iXLjqqTM7YACEGucjV3Hj1OrGdLT/ee8/dID
+ GdzMI4AA80mzfZRGWvcmhrrvg+I3LCuC7HgEWAC/2LScEmav05xq2deWl6h0d85hxxDVxT/oc
+ 47el1CxY1pkMKm1Who2LwAjTnMmFAive1jPMSkNPZBFE1rhauAYW0lM2F78khefz49jcjlsKS
+ Nzyzs77CZi8kzRGjB97GcmuPO3Hnubz5cfsp0E7+/dxjXQCtZAFZ/M3TebtT6dUIOIN/MTruZ
+ /eeCeA9g3ztcjevUk2nrk7etriUUHuTV0TDXwPhPof8fHvhYscTZGd8h74ObmcPzdBqCGormB
+ XoiHYvpPWP7VFLW5LJfyFaVYfEFFKwXsB5iEGi7ZzdY336NfoZKNKwYcf0bROZBYHdszH23E3
+ OPvydcWP0C+6oOhE/nds6FxCoyfysXBFLQkyMSu4C3A1Tj8iaCxUyvhoqunNnToHJCIUnnOj1
+ I33MOCEoJwtr0dA814oym+8l7eOQLvdHss8LJQR1uqHEFICjyN2k7XnngBdgTXf6Jt5bB8FGy
+ WMX4cgbRS31vcOuVKel4EJn6aao6tMiCviLkeBiIJRRwOQOCQOZ+1fzOHaIMcN8zJCvTk23/f
+ eJ45Kgz7s9l3LNfZXEbmBmYfUq3J7Gckc0r2b44YUcAXFbGV97cTk4XQ/Uuht+6AFzmT8zFYU
+ wmbC9IYVE2JGzgAgRrUrJiZIQkA9abBfQ8jbNbVCeIdSlz72PJwzMp0AM8m/ll549FDZfrMdK
+ 28IESxEqkvfILUvW6LPUX7bKCI5s=
 X-Mailman-Approved-At: Thu, 27 Mar 2025 13:04:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,117 +92,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit 7da55c27e76749b9 ("drm/amd/display: Remove incorrect FP context
-start") removes the FP context protection of dml2_create(), and it said
-"All the DC_FP_START/END should be used before call anything from DML2".
+devm_request_free_mem_region() places resources at the end of the
+physical address space, DIRECT_MAP_PHYSMEM_END. If the the dma mask
+of a pci device is smaller than DIRECT_MAP_PHSYMEM_END then this
+resource is not dma accessible by the device which can cause the
+device to fallback to using 32bit dma which can lead to severe
+performance impacts.
 
-However, dml2_validate()/dml21_validate() are not protected from their
-callers, causing such errors:
+This adds the devm_request_free_mem_region_from_end() function which
+allows to select the endpoint from which to place the resource
+independently from DIRECT_MAP_PHYSMEM_END.
 
- do_fpu invoked from kernel context![#1]:
- CPU: 10 UID: 0 PID: 331 Comm: kworker/10:1H Not tainted 6.14.0-rc6+ #4
- Workqueue: events_highpri dm_irq_work_func [amdgpu]
- pc ffff800003191eb0 ra ffff800003191e60 tp 9000000107a94000 sp 9000000107a975b0
- a0 9000000140ce4910 a1 0000000000000000 a2 9000000140ce49b0 a3 9000000140ce49a8
- a4 9000000140ce49a8 a5 0000000100000000 a6 0000000000000001 a7 9000000107a97660
- t0 ffff800003790000 t1 9000000140ce5000 t2 0000000000000001 t3 0000000000000000
- t4 0000000000000004 t5 0000000000000000 t6 0000000000000000 t7 0000000000000000
- t8 0000000100000000 u0 ffff8000031a3b9c s9 9000000130bc0000 s0 9000000132400000
- s1 9000000140ec0000 s2 9000000132400000 s3 9000000140ce0000 s4 90000000057f8b88
- s5 9000000140ec0000 s6 9000000140ce4910 s7 0000000000000001 s8 9000000130d45010
- ra: ffff800003191e60 dml21_map_dc_state_into_dml_display_cfg+0x40/0x1140 [amdgpu]
-   ERA: ffff800003191eb0 dml21_map_dc_state_into_dml_display_cfg+0x90/0x1140 [amdgpu]
-  CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=CC DACM=CC -WE)
-  PRMD: 00000004 (PPLV0 +PIE -PWE)
-  EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
-  ECFG: 00071c1d (LIE=0,2-4,10-12 VS=7)
- ESTAT: 000f0000 [FPD] (IS= ECode=15 EsubCode=0)
-  PRID: 0014d010 (Loongson-64bit, Loongson-3C6000/S)
- Process kworker/10:1H (pid: 331, threadinfo=000000007bf9ddb0, task=00000000cc4ab9f3)
- Stack : 0000000100000000 0000043800000780 0000000100000001 0000000100000001
-         0000000000000000 0000078000000000 0000000000000438 0000078000000000
-         0000000000000438 0000078000000000 0000000000000438 0000000100000000
-         0000000100000000 0000000100000000 0000000100000000 0000000100000000
-         0000000000000001 9000000140ec0000 9000000132400000 9000000132400000
-         ffff800003408000 ffff800003408000 9000000132400000 9000000140ce0000
-         9000000140ce0000 ffff800003193850 0000000000000001 9000000140ec0000
-         9000000132400000 9000000140ec0860 9000000140ec0738 0000000000000001
-         90000001405e8000 9000000130bc0000 9000000140ec02a8 ffff8000031b5db8
-         0000000000000000 0000043800000780 0000000000000003 ffff8000031b79cc
-         ...
- Call Trace:
- [<ffff800003191eb0>] dml21_map_dc_state_into_dml_display_cfg+0x90/0x1140 [amdgpu]
- [<ffff80000319384c>] dml21_validate+0xcc/0x520 [amdgpu]
- [<ffff8000031b8948>] dc_validate_global_state+0x2e8/0x460 [amdgpu]
- [<ffff800002e94034>] create_validate_stream_for_sink+0x3d4/0x420 [amdgpu]
- [<ffff800002e940e4>] amdgpu_dm_connector_mode_valid+0x64/0x240 [amdgpu]
- [<900000000441d6b8>] drm_connector_mode_valid+0x38/0x80
- [<900000000441d824>] __drm_helper_update_and_validate+0x124/0x3e0
- [<900000000441ddc0>] drm_helper_probe_single_connector_modes+0x2e0/0x620
- [<90000000044050dc>] drm_client_modeset_probe+0x23c/0x1780
- [<9000000004420384>] __drm_fb_helper_initial_config_and_unlock+0x44/0x5a0
- [<9000000004403acc>] drm_client_dev_hotplug+0xcc/0x140
- [<ffff800002e9ab50>] handle_hpd_irq_helper+0x1b0/0x1e0 [amdgpu]
- [<90000000038f5da0>] process_one_work+0x160/0x300
- [<90000000038f6718>] worker_thread+0x318/0x440
- [<9000000003901b8c>] kthread+0x12c/0x220
- [<90000000038b1484>] ret_from_kernel_thread+0x8/0xa4
+Link: https://lore.kernel.org/all/20250322122351.3268-1-spasswolf@web.de/
 
-Unfortunately, protecting dml2_validate()/dml21_validate() out of DML2
-causes "sleeping function called from invalid context", so protect them
-with DC_FP_START() and DC_FP_END() inside.
+Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+=2D--
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  3 ++-
+ include/linux/ioport.h                   |  3 +++
+ kernel/resource.c                        | 31 ++++++++++++++++++------
+ 3 files changed, 28 insertions(+), 9 deletions(-)
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
----
- .../gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c    | 9 +++++++--
- drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c       | 5 +++++
- 2 files changed, 12 insertions(+), 2 deletions(-)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_migrate.c
+index d05d199b5e44..e1942fef3637 100644
+=2D-- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -1042,7 +1042,8 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *a=
+dev)
+ 		pgmap->range.end =3D adev->gmc.aper_base + adev->gmc.aper_size - 1;
+ 		pgmap->type =3D MEMORY_DEVICE_COHERENT;
+ 	} else {
+-		res =3D devm_request_free_mem_region(adev->dev, &iomem_resource, size);
++		res =3D devm_request_free_mem_region_from_end(adev->dev,
++				&iomem_resource, size, dma_get_mask(adev->dev));
+ 		if (IS_ERR(res))
+ 			return PTR_ERR(res);
+ 		pgmap->range.start =3D res->start;
+diff --git a/include/linux/ioport.h b/include/linux/ioport.h
+index 5385349f0b8a..a9a765721ab4 100644
+=2D-- a/include/linux/ioport.h
++++ b/include/linux/ioport.h
+@@ -407,6 +407,9 @@ walk_iomem_res_desc(unsigned long desc, unsigned long =
+flags, u64 start, u64 end,
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-index bbc798e039f5..d124c38fbfd3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-@@ -273,11 +273,16 @@ bool dml21_validate(const struct dc *in_dc, struct dc_state *context, struct dml
+ struct resource *devm_request_free_mem_region(struct device *dev,
+ 		struct resource *base, unsigned long size);
++struct resource *devm_request_free_mem_region_from_end(struct device *dev=
+,
++		struct resource *base, unsigned long size,
++		resource_size_t seek_end);
+ struct resource *request_free_mem_region(struct resource *base,
+ 		unsigned long size, const char *name);
+ struct resource *alloc_free_mem_region(struct resource *base,
+diff --git a/kernel/resource.c b/kernel/resource.c
+index 12004452d999..82f40407c02d 100644
+=2D-- a/kernel/resource.c
++++ b/kernel/resource.c
+@@ -1875,12 +1875,14 @@ EXPORT_SYMBOL(resource_list_free);
+ #endif
+
+ static resource_size_t gfr_start(struct resource *base, resource_size_t s=
+ize,
+-				 resource_size_t align, unsigned long flags)
++				 resource_size_t align, resource_size_t seek_end,
++				 unsigned long flags)
  {
- 	bool out = false;
- 
-+	DC_FP_START();
-+
- 	/* Use dml_validate_only for fast_validate path */
--	if (fast_validate) {
-+	if (fast_validate)
- 		out = dml21_check_mode_support(in_dc, context, dml_ctx);
--	} else
-+	else
- 		out = dml21_mode_check_and_programming(in_dc, context, dml_ctx);
-+
-+	DC_FP_END();
-+
- 	return out;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-index fc551c63c9e8..9cd140df132a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-@@ -732,11 +732,16 @@ bool dml2_validate(const struct dc *in_dc, struct dc_state *context, struct dml2
- 		return out;
- 	}
- 
-+	DC_FP_START();
-+
- 	/* Use dml_validate_only for fast_validate path */
- 	if (fast_validate)
- 		out = dml2_validate_only(context);
- 	else
- 		out = dml2_validate_and_build_resource(in_dc, context);
-+
-+	DC_FP_END();
-+
- 	return out;
- }
- 
--- 
-2.47.1
+ 	if (flags & GFR_DESCENDING) {
+ 		resource_size_t end;
 
+ 		end =3D min_t(resource_size_t, base->end, DIRECT_MAP_PHYSMEM_END);
++		end =3D min_t(resource_size_t, end, seek_end);
+ 		return end - size + 1;
+ 	}
+
+@@ -1920,8 +1922,8 @@ static void remove_free_mem_region(void *_res)
+ static struct resource *
+ get_free_mem_region(struct device *dev, struct resource *base,
+ 		    resource_size_t size, const unsigned long align,
+-		    const char *name, const unsigned long desc,
+-		    const unsigned long flags)
++		    resource_size_t seek_end, const char *name,
++		    const unsigned long desc, const unsigned long flags)
+ {
+ 	resource_size_t addr;
+ 	struct resource *res;
+@@ -1946,7 +1948,7 @@ get_free_mem_region(struct device *dev, struct resou=
+rce *base,
+ 	}
+
+ 	write_lock(&resource_lock);
+-	for (addr =3D gfr_start(base, size, align, flags);
++	for (addr =3D gfr_start(base, size, align, seek_end, flags);
+ 	     gfr_continue(base, addr, align, flags);
+ 	     addr =3D gfr_next(addr, align, flags)) {
+ 		if (__region_intersects(base, addr, size, 0, IORES_DESC_NONE) !=3D
+@@ -2021,17 +2023,30 @@ struct resource *devm_request_free_mem_region(stru=
+ct device *dev,
+ 	unsigned long flags =3D GFR_DESCENDING | GFR_REQUEST_REGION;
+
+ 	return get_free_mem_region(dev, base, size, GFR_DEFAULT_ALIGN,
+-				   dev_name(dev),
++				   DIRECT_MAP_PHYSMEM_END, dev_name(dev),
+ 				   IORES_DESC_DEVICE_PRIVATE_MEMORY, flags);
+ }
+ EXPORT_SYMBOL_GPL(devm_request_free_mem_region);
+
++struct resource *devm_request_free_mem_region_from_end(struct device *dev=
+,
++		struct resource *base, unsigned long size,
++		resource_size_t seek_end)
++{
++	unsigned long flags =3D GFR_DESCENDING | GFR_REQUEST_REGION;
++
++	return get_free_mem_region(dev, base, size, GFR_DEFAULT_ALIGN,
++				   seek_end, dev_name(dev),
++				   IORES_DESC_DEVICE_PRIVATE_MEMORY, flags);
++}
++EXPORT_SYMBOL_GPL(devm_request_free_mem_region_from_end);
++
+ struct resource *request_free_mem_region(struct resource *base,
+ 		unsigned long size, const char *name)
+ {
+ 	unsigned long flags =3D GFR_DESCENDING | GFR_REQUEST_REGION;
+
+-	return get_free_mem_region(NULL, base, size, GFR_DEFAULT_ALIGN, name,
++	return get_free_mem_region(NULL, base, size, GFR_DEFAULT_ALIGN,
++				   DIRECT_MAP_PHYSMEM_END, name,
+ 				   IORES_DESC_DEVICE_PRIVATE_MEMORY, flags);
+ }
+ EXPORT_SYMBOL_GPL(request_free_mem_region);
+@@ -2055,8 +2070,8 @@ struct resource *alloc_free_mem_region(struct resour=
+ce *base,
+ 	/* Default of ascending direction and insert resource */
+ 	unsigned long flags =3D 0;
+
+-	return get_free_mem_region(NULL, base, size, align, name,
+-				   IORES_DESC_NONE, flags);
++	return get_free_mem_region(NULL, base, size, align, DIRECT_MAP_PHYSMEM_E=
+ND,
++				   name, IORES_DESC_NONE, flags);
+ }
+ EXPORT_SYMBOL_GPL(alloc_free_mem_region);
+ #endif /* CONFIG_GET_FREE_REGION */
+=2D-
+2.49.0
+
+One of the problems (I'm sure there are more ...) with this patch is that
+it uses dma_get_mask(adev->dev) as the endpoint from which to place the
+memory, but dma_get_mask(adev->dev) returns the dma mask of the discrete
+GPU, but what actually is needed to avoid the bug would be the dma mask
+of the built-in GPU. In my case both are equal (44bits), but I'm not
+sure if they are equal in all cases.
+
+> So this patch does the trick for Bert, and I'm wondering what the best
+> fix here would be overall, because it's a tricky situation.
+>
+> Am I correct in assuming that with enough physical memory this bug
+> would trigger, with and without nokaslr?
+
+I think the bug triggers as soon as DIRECT_MAP_PHYSMEM_END is bigger
+then the dma mask of the integrated GPU.
+
+> I *think* the best approach going forward would be to add the above
+> quirk the the x86 memory setup code, but also issue a kernel warning at
+> that point with all the relevant information included, so that the
+> driver's use_dma32 bug can at least be indicated?
+>
+> That might also trigger for other systems, because if this scenario is
+> so spurious, I doubt it's the only affected driver ...
+>
+> Thanks,
+>
+>	Ingo
+
+Or one could make the endpoint from which the memory resource will be
+placed selectable.
+
+Bert Karwatzki
