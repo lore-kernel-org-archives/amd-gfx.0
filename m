@@ -4,71 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 906B3C3600B
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 14:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 048A8C3600B
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 15:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B4BD10E12C;
-	Thu, 27 Mar 2025 14:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A487810E904;
+	Thu, 27 Mar 2025 15:16:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JTIvMD8T";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XGd8at9p";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9035110E12C
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 14:29:31 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-38f2f391864so592119f8f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 07:29:31 -0700 (PDT)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F16A910E902
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 15:16:03 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2ff53b26af2so255606a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 08:16:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743085770; x=1743690570; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=/P/Lg/lelVJhb13kRNnRQXN8+MIvTIQZfQ8FoVfI6Pk=;
- b=JTIvMD8TfsLY3xW+l0bVK7adSJEEinvR7MujrFIWVrgfUn5BcCEDmWv9CZrha3TtIo
- /PbdX1v81KoqO1DyCwXV2kSgBvePffQ1Eag8C2+r3gxyKd5RYgHpgv/BU6tDXAVXVHYZ
- bMG+1Ht0N+iZPtSNXm3Qua+ZBMEybkV9Yv1t4sOGMRqauS7lNlAQTqG9YGiT1SYs7Q+1
- k5ke6DYkdyxGBXkkDXUsouyEKzUzlMGFbBYkQw662mNyivEhjGoSsHGcSY44oQjxddba
- 1Hbg23bA8RYbVo66Fo+MqblqQ/nc5Tn33sWih2EvhmBRHQVoBW8KHLfiV3mRZzmyPmzb
- pB1Q==
+ d=gmail.com; s=20230601; t=1743088563; x=1743693363; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tAy1DZKO5nbf6a9fwpIee3sq/gWQpWsafyuSOEKtu54=;
+ b=XGd8at9pWEhXHsAOnO4ris4qzDejOVaBbwrqC2DRqfarKwofQwYIpJn80y6sgHe1lV
+ QEulddMM8YFlXNYOlkWXUaJ+yGk7gDc3ThK80lmWX318oUHbxHvp4t0Y8vsrTA1dhXwx
+ 2zACE3FHr3gRL2BZChVpUSFOMKS/0VwqpuaPU9SExfFeHo225iDRn4U3rsS7+ZSpUP+s
+ DBP1jLzelLT1AXSVZS69KikFE6r+yx/f8e/CGbvrUUvMzBWKP1R95A6yOdB20VqZgQTh
+ zxNoBJRsWm39tLmzkhy3/KgV2qIBV6qcpx866/tpM7mTmTErZ22zVrPDvhTru+sJ2hPB
+ MBPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743085770; x=1743690570;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/P/Lg/lelVJhb13kRNnRQXN8+MIvTIQZfQ8FoVfI6Pk=;
- b=nLAfyILvjjj4kcPiqumx49h5AO64ysZXz/lku58KJnq6Wqeq0W6HFftIoKRwsjiLwR
- vwQSqQCW8bIKAZKOOxmgC3qqcuCcAKGawQgdfZ0i/mabZZRr3g/UgTYmUnNAQfhDDiPX
- 6nWqvTbGSU5x1GyCSOJXu51WXHdqnIXBqdUXanvZPBc0CriYQUi7XeFk+83/TTUsnL+d
- ph/uBpNpppKsrmqYt5j1R/Zxs0wLpWSPa/tAT/1N1PkzoAZ5GWV0z5wnVQ0Rjvr0S/nH
- WEaBMxSCrYOqBdxbd5wBIOznjrCyVBsrGEB8DsmnpNVg367HnfR86+tvJQAFCaIUGnya
- DpMQ==
-X-Gm-Message-State: AOJu0YwLJwNC4OMktJNKGHDt1DmTAWQfJ7Ss2KLa7BBOlUStpo+DbCiO
- M1IMi3BN7ytegIl/XyhXn2vKjVcUIuy0iROWZ1hZaqmB6cGP7f/X25EX5A==
-X-Gm-Gg: ASbGnctYmGT2kblPVu+ZzzkWm8beaTRb4bsKHuo38tmIlMgOIlBhasQxCjIsZkvzg/v
- 2Kk+9EdXrUsRQH7dPN2zO1ueEt23MA4WASVRJdFUJar8ku4FJIGPHQU+mnPwCfEms+MosY0FRlH
- AeL8l4srPSlOEWx05b4vlzNVFfbYdBhzYmwFMSyFlxclG1uAlr/z2kWI37GIyxDGsex/NN/j7sB
- +9vOL3BXBkl/KyXppMbEVSOkP/ogjo2uDab+Wjy3492eul+Z2iZOzwzrRQLAR7jieMndZR7P4Nw
- r21MVHUJ9gN5ngxc+SR+8Td7Xh6PuUvdWN5cuLUWKSSzqd22TlJAlAR6
-X-Google-Smtp-Source: AGHT+IG926S/WKmRXCBN3QUYWIhmozD4OIGqDN8ypnmYSlv2aSDx2Ap5KKX1y3XC5PPyR6nGBXtl4g==
-X-Received: by 2002:a5d:5849:0:b0:38f:483f:8319 with SMTP id
- ffacd0b85a97d-39ad17836f1mr3615152f8f.51.1743085769948; 
- Thu, 27 Mar 2025 07:29:29 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:15d9:f800:2d33:ae6d:5fb:b944])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9efc9bsm19776279f8f.87.2025.03.27.07.29.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Mar 2025 07:29:29 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org,
-	Alexander.Deucher@amd.com
-Subject: [PATCH] drm/amdgpu: immediately use GTT for new allocations
-Date: Thu, 27 Mar 2025 15:29:28 +0100
-Message-Id: <20250327142928.2193-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
+ d=1e100.net; s=20230601; t=1743088563; x=1743693363;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tAy1DZKO5nbf6a9fwpIee3sq/gWQpWsafyuSOEKtu54=;
+ b=cG1VeloPULPADbFnguf5RWKHI7iMAn1quNBzLfenJp6wR0cQAzo57CC5GS4rLf8/s9
+ MHhPN/JEHwrEvypsW0N99RrapTakiRADgk0Bxby+s1yaP5xvvDWZIBgMlUUrEK31xdrU
+ RF4JGymN7dFyalIezsAVUdKLnewbl6A7C+z9kvyfTM62YVKQ7xW8j3ZrripgI9z2Lxrk
+ BIflYDWr/rdUsPAnDTJ2BQhJTaeekbPP1p/ZPjq7rSzhG9q7+kejimTT91r0zfXngCdx
+ BQPco9U3+uR9/ynVjlm9sWMy1O7iN48Fwdahm3AUQpn9cKziqhOcxm0fvmv3zCLf7nbs
+ 27Qw==
+X-Gm-Message-State: AOJu0YxavjSJfMvC8zDijSaIGEiyVBQ80RmQgFR2Bqchxu2amUQOjfYg
+ w0vWtBbt7ODR0+OYs/QocXDde5wvjKLnBY7xOpy39kxw0U8zFUoW1DMmTZkM7lvT+CBGYyiumng
+ XJiv2JPG1NB1GavJ+kNcLBFx5jME=
+X-Gm-Gg: ASbGncvETP74X6LyAqznIS67+4PYuq9Hl3MxTaLHFk8N2mNMT2B3811AEaq1YfiO6H9
+ d+UQcrskDV8M8rt2r/dYcnY9BPWLe3CqmQZyj9wT3KTfv3IjL3REsOITHPgHkf9idM5dQHrS4AY
+ NWVt5UkPMp/u7Gj0fzRqgidQ/Svw==
+X-Google-Smtp-Source: AGHT+IFhjSZ+HHGb0m5KJ6F5Jn+C8GcQm2Vqzyzp/CglVYPGiU9eIgtAe7IQ18ojaZHzvgAQKBLOWL33vFQ7uNVYdrk=
+X-Received: by 2002:a17:90b:1e06:b0:2ff:7b41:c3cf with SMTP id
+ 98e67ed59e1d1-303b27141d1mr1874884a91.4.1743088563241; Thu, 27 Mar 2025
+ 08:16:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250327142928.2193-1-christian.koenig@amd.com>
+In-Reply-To: <20250327142928.2193-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 27 Mar 2025 11:15:51 -0400
+X-Gm-Features: AQ5f1JrPNllJ8YYmVvbiFjZyEeHtGT0rvOyLTl0gEeIZ38MYz0QdoDAykA6SzII
+Message-ID: <CADnq5_O-q+Zx56yrj6W0PPcWDLCQop3hxmPuFoviUUe8ptT8HQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: immediately use GTT for new allocations
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,33 +79,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Only use GTT as a fallback if we already have a backing store. This
-prevents evictions when an application constantly allocates and frees new
-memory.
+On Thu, Mar 27, 2025 at 10:29=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Only use GTT as a fallback if we already have a backing store. This
+> prevents evictions when an application constantly allocates and frees new
+> memory.
+>
+> Partially fixes
+> https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2833985.
+>
 
-Partially fixes
-https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2833985.
+Fixes: 216c1282dde3 ("drm/amdgpu: use GTT only as fallback for VRAM|GTT")
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index d09db052e282..d90e9daf5a50 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -163,8 +163,8 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
- 		 * When GTT is just an alternative to VRAM make sure that we
- 		 * only use it as fallback and still try to fill up VRAM first.
- 		 */
--		if (domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
--		    !(adev->flags & AMD_IS_APU))
-+		if (abo->tbo.resource && !(adev->flags & AMD_IS_APU) &&
-+		    domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
- 			places[c].flags |= TTM_PL_FLAG_FALLBACK;
- 		c++;
- 	}
--- 
-2.34.1
-
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_object.c
+> index d09db052e282..d90e9daf5a50 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -163,8 +163,8 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo=
+ *abo, u32 domain)
+>                  * When GTT is just an alternative to VRAM make sure that=
+ we
+>                  * only use it as fallback and still try to fill up VRAM =
+first.
+>                  */
+> -               if (domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_V=
+RAM &&
+> -                   !(adev->flags & AMD_IS_APU))
+> +               if (abo->tbo.resource && !(adev->flags & AMD_IS_APU) &&
+> +                   domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_V=
+RAM)
+>                         places[c].flags |=3D TTM_PL_FLAG_FALLBACK;
+>                 c++;
+>         }
+> --
+> 2.34.1
+>
