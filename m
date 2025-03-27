@@ -4,65 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 048A8C3600B
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 15:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 034C1C3600B
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 15:21:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A487810E904;
-	Thu, 27 Mar 2025 15:16:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEF3510E901;
+	Thu, 27 Mar 2025 15:21:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XGd8at9p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RTtVKWkn";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F16A910E902
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 15:16:03 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-2ff53b26af2so255606a91.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 08:16:03 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45AED10E901
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 15:21:35 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-223fd44daf8so3309845ad.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 08:21:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743088563; x=1743693363; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743088895; x=1743693695; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tAy1DZKO5nbf6a9fwpIee3sq/gWQpWsafyuSOEKtu54=;
- b=XGd8at9pWEhXHsAOnO4ris4qzDejOVaBbwrqC2DRqfarKwofQwYIpJn80y6sgHe1lV
- QEulddMM8YFlXNYOlkWXUaJ+yGk7gDc3ThK80lmWX318oUHbxHvp4t0Y8vsrTA1dhXwx
- 2zACE3FHr3gRL2BZChVpUSFOMKS/0VwqpuaPU9SExfFeHo225iDRn4U3rsS7+ZSpUP+s
- DBP1jLzelLT1AXSVZS69KikFE6r+yx/f8e/CGbvrUUvMzBWKP1R95A6yOdB20VqZgQTh
- zxNoBJRsWm39tLmzkhy3/KgV2qIBV6qcpx866/tpM7mTmTErZ22zVrPDvhTru+sJ2hPB
- MBPA==
+ bh=i7Kyy+Y+/IHK4SQ4bqB/mlqzHWTYE1F/ApgknHpeCyw=;
+ b=RTtVKWknyEl0bPL6mNt/1rLtb6RB77ptPtG0hIKu9AtwtG9lFXWftLC1ygUFOTd5+b
+ KMzCYJujYcap+BRnEZWo/LeykIm0CWpibPmZQZ4zHPIB1qvAP7SwrGgiLC1LP3grsVOB
+ E1SavwaBpebnZMoZmpRqZJIVbJc16JBXyCSsDjyNCiC5gND9/50I0HT739vykzr37wuy
+ mf4wswmBpz5snRIUOTw1Dcu9o7Yh9iVq/Y5OV1RKwxBLLZi2CUMONnO4WWyb0Dc8ip2S
+ ETuSlUKp0fNKDfaPhV4qmuKfpt97iv2hN0ElgheUN9+8U7C/SRMjx/7Tdlobee1Nq7l/
+ 4/JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743088563; x=1743693363;
+ d=1e100.net; s=20230601; t=1743088895; x=1743693695;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tAy1DZKO5nbf6a9fwpIee3sq/gWQpWsafyuSOEKtu54=;
- b=cG1VeloPULPADbFnguf5RWKHI7iMAn1quNBzLfenJp6wR0cQAzo57CC5GS4rLf8/s9
- MHhPN/JEHwrEvypsW0N99RrapTakiRADgk0Bxby+s1yaP5xvvDWZIBgMlUUrEK31xdrU
- RF4JGymN7dFyalIezsAVUdKLnewbl6A7C+z9kvyfTM62YVKQ7xW8j3ZrripgI9z2Lxrk
- BIflYDWr/rdUsPAnDTJ2BQhJTaeekbPP1p/ZPjq7rSzhG9q7+kejimTT91r0zfXngCdx
- BQPco9U3+uR9/ynVjlm9sWMy1O7iN48Fwdahm3AUQpn9cKziqhOcxm0fvmv3zCLf7nbs
- 27Qw==
-X-Gm-Message-State: AOJu0YxavjSJfMvC8zDijSaIGEiyVBQ80RmQgFR2Bqchxu2amUQOjfYg
- w0vWtBbt7ODR0+OYs/QocXDde5wvjKLnBY7xOpy39kxw0U8zFUoW1DMmTZkM7lvT+CBGYyiumng
- XJiv2JPG1NB1GavJ+kNcLBFx5jME=
-X-Gm-Gg: ASbGncvETP74X6LyAqznIS67+4PYuq9Hl3MxTaLHFk8N2mNMT2B3811AEaq1YfiO6H9
- d+UQcrskDV8M8rt2r/dYcnY9BPWLe3CqmQZyj9wT3KTfv3IjL3REsOITHPgHkf9idM5dQHrS4AY
- NWVt5UkPMp/u7Gj0fzRqgidQ/Svw==
-X-Google-Smtp-Source: AGHT+IFhjSZ+HHGb0m5KJ6F5Jn+C8GcQm2Vqzyzp/CglVYPGiU9eIgtAe7IQ18ojaZHzvgAQKBLOWL33vFQ7uNVYdrk=
-X-Received: by 2002:a17:90b:1e06:b0:2ff:7b41:c3cf with SMTP id
- 98e67ed59e1d1-303b27141d1mr1874884a91.4.1743088563241; Thu, 27 Mar 2025
- 08:16:03 -0700 (PDT)
+ bh=i7Kyy+Y+/IHK4SQ4bqB/mlqzHWTYE1F/ApgknHpeCyw=;
+ b=YwH6TwKCIGypxPwEWJHlEXQv5+DHdYCKyJwZwOukZ6bXRIE+ukLd/yY2pAHZcXW16j
+ LtQUoqV1r/8KCzrrbSDUmduFztiQuxypoQUvHIsAX8+z5LQ+YfD8fojeyQvxOYYJlY1w
+ f6F2XQKy5/Oiux/xmjZEVFn1250p6QeQBKgobu1zkqkfu9lX/z7bFk1/L/Xsk1Cn5u+m
+ CN4HhJQ4ZwNsyTcFkWvTRbycz+KyK9E2oOZysfn7SaC9Fr/QFXDkdwMsmDxm06Xn6HBS
+ KchAtLwp5f9WVdfoMxljLa5UsuGSEG3m85Y/+n/zBBPP27lsloZtNSmtzziThzGnDsrX
+ WcAg==
+X-Gm-Message-State: AOJu0YzTRH3G1zvutGxguuJh24ysyakUBMgAD+OaeWiKklvmg9kHMkQI
+ OuL8SJmiHdrwEBa+Bp3wbcEfiRsMSjobA7w2MUiUWAFVryjLAUFJr0t9+nF5ek633R9Ff+btaGH
+ 749KN3U40MjzdVjI1+QkGJg9vyE3FkQ==
+X-Gm-Gg: ASbGncsSnzKSH5mT7kpofDLlM5cin6sz1pppibba21cfLibYpwggz5ccWnv60ZrMRow
+ +Gh7MGFdeE02qa/cxICmhrEs5bNdyr7WvXzFhdVaT5j5spA0LzRTK2wmtfFwwhW2t9peVk0m9AK
+ 0NAJb2eTSvLlwKQ5ieqGBjYeyP4g==
+X-Google-Smtp-Source: AGHT+IHaDXI+Sex3zvExgb5d/LuWoSIihiE/MsHPeOGbSgtZqDYzsvbxmHBeESREdXDxkCuWrJ2sNMgJ4YwoVnEbhbw=
+X-Received: by 2002:a17:902:db0f:b0:223:5e86:efa9 with SMTP id
+ d9443c01a7336-22806874271mr19361095ad.8.1743088894455; Thu, 27 Mar 2025
+ 08:21:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250327142928.2193-1-christian.koenig@amd.com>
-In-Reply-To: <20250327142928.2193-1-christian.koenig@amd.com>
+References: <20250322183746.86002-1-alexandre.f.demers@gmail.com>
+ <20250322183746.86002-6-alexandre.f.demers@gmail.com>
+ <CADnq5_MKMrECPyheRymSxEYXA535kJURMng1AHsusp8WWvuUNw@mail.gmail.com>
+ <CAPEhTTHCoPewPo0C1WsEnSFBy32BfD39nk056O7GQkO7aaG4zQ@mail.gmail.com>
+In-Reply-To: <CAPEhTTHCoPewPo0C1WsEnSFBy32BfD39nk056O7GQkO7aaG4zQ@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 27 Mar 2025 11:15:51 -0400
-X-Gm-Features: AQ5f1JrPNllJ8YYmVvbiFjZyEeHtGT0rvOyLTl0gEeIZ38MYz0QdoDAykA6SzII
-Message-ID: <CADnq5_O-q+Zx56yrj6W0PPcWDLCQop3hxmPuFoviUUe8ptT8HQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: immediately use GTT for new allocations
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
+Date: Thu, 27 Mar 2025 11:21:21 -0400
+X-Gm-Features: AQ5f1JrwlnicPJ4HxDhB4FHazaWO16lwR6r1eqmpz_N4krlBXm4QqEdfdtsykRA
+Message-ID: <CADnq5_MxgEnG1ZozwtXYO_+WSGLB92EPKQdspDN5XWMjJKFZZw@mail.gmail.com>
+Subject: Re: [PATCH 6/5] drm/amdgpu: fix style in dce_v8_0.c and in vi.c
+To: Alexandre Demers <alexandre.f.demers@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,47 +82,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 27, 2025 at 10:29=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+On Thu, Mar 27, 2025 at 12:16=E2=80=AFAM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
 >
-> Only use GTT as a fallback if we already have a backing store. This
-> prevents evictions when an application constantly allocates and frees new
-> memory.
->
-> Partially fixes
-> https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2833985.
->
+> On Mon, Mar 24, 2025 at 2:21=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
+om> wrote:
+> >
+> > On Sat, Mar 22, 2025 at 2:48=E2=80=AFPM Alexandre Demers
+> > <alexandre.f.demers@gmail.com> wrote:
+> > >
+> > > Bring things on a single line and fix spacing.
+> > >
+> > > Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 10 +++-------
+> > >  drivers/gpu/drm/amd/amdgpu/vi.c       |  8 ++++++++
+> > >  2 files changed, 11 insertions(+), 7 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/=
+amd/amdgpu/dce_v8_0.c
+> > > index f008615343c3..533851beb27c 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> > > @@ -3233,8 +3233,7 @@ static const struct amd_ip_funcs dce_v8_0_ip_fu=
+ncs =3D {
+> > >         .set_powergating_state =3D dce_v8_0_set_powergating_state,
+> > >  };
+> > >
+> > > -static void
+> > > -dce_v8_0_encoder_mode_set(struct drm_encoder *encoder,
+> > > +static void dce_v8_0_encoder_mode_set(struct drm_encoder *encoder,
+> > >                           struct drm_display_mode *mode,
+> > >                           struct drm_display_mode *adjusted_mode)
+> > >  {
+> > > @@ -3330,8 +3329,7 @@ static void dce_v8_0_ext_commit(struct drm_enco=
+der *encoder)
+> > >
+> > >  }
+> > >
+> > > -static void
+> > > -dce_v8_0_ext_mode_set(struct drm_encoder *encoder,
+> > > +static void dce_v8_0_ext_mode_set(struct drm_encoder *encoder,
+> > >                       struct drm_display_mode *mode,
+> > >                       struct drm_display_mode *adjusted_mode)
+> > >  {
+> > > @@ -3343,8 +3341,7 @@ static void dce_v8_0_ext_disable(struct drm_enc=
+oder *encoder)
+> > >
+> > >  }
+> > >
+> > > -static void
+> > > -dce_v8_0_ext_dpms(struct drm_encoder *encoder, int mode)
+> > > +static void dce_v8_0_ext_dpms(struct drm_encoder *encoder, int mode)
+> > >  {
+> > >
+> > >  }
+> > > @@ -3407,7 +3404,6 @@ static void dce_v8_0_encoder_add(struct amdgpu_=
+device *adev,
+> > >                         amdgpu_encoder->devices |=3D supported_device=
+;
+> > >                         return;
+> > >                 }
+> > > -
+> > >         }
+> > >
+> > >         /* add a new one */
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/am=
+dgpu/vi.c
+> > > index a83505815d39..bcabcf27c3d0 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> > > @@ -61,19 +61,27 @@
+> > >
+> > >  #include "vid.h"
+> > >  #include "vi.h"
+> > > +
+> > >  #include "gmc_v8_0.h"
+> > >  #include "gmc_v7_0.h"
+> > > +
+> > >  #include "gfx_v8_0.h"
+> > > +
+> > >  #include "sdma_v2_4.h"
+> > >  #include "sdma_v3_0.h"
+> > > +
+> > >  #include "dce_v10_0.h"
+> > >  #include "dce_v11_0.h"
+> > > +
+> > >  #include "iceland_ih.h"
+> > >  #include "tonga_ih.h"
+> > >  #include "cz_ih.h"
+> > > +
+> > >  #include "uvd_v5_0.h"
+> > >  #include "uvd_v6_0.h"
+> > > +
+> > >  #include "vce_v3_0.h"
+> > > +
+> > >  #if defined(CONFIG_DRM_AMD_ACP)>  #include "amdgpu_acp.h"
+> > >  #endif
+> >
+> > What is the reason for these changes?  Unless this actually fixes some
+> > style warning, I'd drop this change.
+> >
+> > Alex
+> >
+> Readability. Nothing more, nothing less. I'm leaving this up to you to
+> decide if you want it in or not.
 
-Fixes: 216c1282dde3 ("drm/amdgpu: use GTT only as fallback for VRAM|GTT")
+Can you drop this hunk when you send your next respin?
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index d09db052e282..d90e9daf5a50 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -163,8 +163,8 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo=
- *abo, u32 domain)
->                  * When GTT is just an alternative to VRAM make sure that=
- we
->                  * only use it as fallback and still try to fill up VRAM =
-first.
->                  */
-> -               if (domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_V=
-RAM &&
-> -                   !(adev->flags & AMD_IS_APU))
-> +               if (abo->tbo.resource && !(adev->flags & AMD_IS_APU) &&
-> +                   domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_V=
-RAM)
->                         places[c].flags |=3D TTM_PL_FLAG_FALLBACK;
->                 c++;
->         }
-> --
-> 2.34.1
->
+> Alexandre
+> >
+> > > --
+> > > 2.49.0
+> > >
