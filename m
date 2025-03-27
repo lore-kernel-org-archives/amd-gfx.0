@@ -4,56 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC2D5C36011
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 13:04:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D95C1C3600B
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 13:21:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 105BC10E8CF;
-	Thu, 27 Mar 2025 13:04:48 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1B1E410E89F;
- Thu, 27 Mar 2025 09:54:08 +0000 (UTC)
-Received: from loongson.cn (unknown [223.64.68.198])
- by gateway (Coremail) with SMTP id _____8CxvOI_IOVnbRGoAA--.20965S3;
- Thu, 27 Mar 2025 17:54:07 +0800 (CST)
-Received: from localhost.localdomain (unknown [223.64.68.198])
- by front1 (Coremail) with SMTP id qMiowMAxSsQpIOVned1iAA--.26323S3;
- Thu, 27 Mar 2025 17:54:05 +0800 (CST)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Huacai Chen <chenhuacai@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Huacai Chen <chenhuacai@loongson.cn>, stable@vger.kernel.org
-Subject: [PATCH V2 2/3] drm/amd/display: Protect FPU in
- dml2_init()/dml21_init()
-Date: Thu, 27 Mar 2025 17:53:33 +0800
-Message-ID: <20250327095334.3327111-2-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20250327095334.3327111-1-chenhuacai@loongson.cn>
-References: <20250327095334.3327111-1-chenhuacai@loongson.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 807A510E8D6;
+	Thu, 27 Mar 2025 13:21:24 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M929m+fr";
+	dkim-atps=neutral
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8FD110E8D6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 13:21:23 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-2ff67f44fcaso223963a91.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 06:21:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743081683; x=1743686483; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oXLmKhldHcaRU1ROzFC03QGx0qvGh6kIqGs5Rn/VVeA=;
+ b=M929m+frXpe1PWRs1G/ROfWxUQ3qQI/+es1K5f8ynm7oqhnsX7FUkQ79O3wtaM7Hd5
+ Hu+WO3VxjHm6lAGBmMtSkO6tbW27m4/NhGMYVfTXauDT8FDEA04M27VbayCsRMmLvd4e
+ J9J0A3htNCwwCV2PtJkEAzuHmvjzx/BNTOihvCaYQtTks5BvLuhziWrLV0pAlOqYVC78
+ uEOr2ut+7ds3mbi4Ic3nShR5zpMS4FGtTcAANUnNXGDCmEqld+NhIDRFfd01i3VfM14l
+ llmUdRnMwMCbcTkx37gdNYmg5YCAIRB/jwmgrd6xNdnyE4G2YL76S07TuU4PxWyZmvWN
+ EIDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743081683; x=1743686483;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oXLmKhldHcaRU1ROzFC03QGx0qvGh6kIqGs5Rn/VVeA=;
+ b=LF2VaGG3mGnlYOBXGhTbrlFMDvv2vs0KQ7/hK19sdMOhFT917XN7Q8mSujrqJ6hmMw
+ se7yhz6gy0w20fK6bLfDY2/6IjCkl5hvXAVmU4bHv6zgNxI3/kDwF013a4c0afmJcp8d
+ V6gfaBSERGKy43aehqyfsbCpi2GqCcyNQs/LnN7/wE7Q+qlCDqc9ob0BBAw6yX13/RyU
+ kRIFseG1PrvqNTOn2r+83qgf/v/mhKw5jDCsaPMQOhw+zOZT7LvaKbwpH5BO0KknsgaV
+ aR416TTLQxQuoMvMLb4bXE3xMOw6bYGZEfGzMbrsahwNAXSvn9xz0FOeAn28sVsr4IfX
+ 8aTA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWsZHEzRQd7oMSQ8kUe05DvMdCW87XsOAAgy11D6LN4IcS/Hkx7Jo+u7mQuxIhf3X4izPKHG0lC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkWk4F9cQWulJhr6XLJFKa8/r5ettNODHx6etDOP8dv8cPqtMo
+ Ml0Kj1jwQDNabnnkpdQyj5y8q5EJZVWVDAzFqeq9EHo4LoeFHyjNQE0GXKLicukOx0xN1CKZi40
+ EdWtbPl+VjSIlk32LlUH1yAhi2xP8Cg==
+X-Gm-Gg: ASbGncvS+TNy4+Kv2thMKovdhd7HfLsYLKfawKCftmkOHTFiqdpQ/EjsqKxVyNK4VCK
+ bkgP/168Aop6njN5i/8L1yEIicvKUCrDg4SmELR5ByA5eXka+hrvY8eAWjUbDDDARjZPTWy1bNd
+ l9LtdXz4vmrhWpSfQDVj3gMJvpfqRqj0rlBynD
+X-Google-Smtp-Source: AGHT+IFGjFI0h7gtabND5jTjOkupbQeUI2156tnZYTj32c8sPKbiIE72kfO/5KOI5WF1bqdTxsAxF4hfjKfTuRzj39M=
+X-Received: by 2002:a17:90b:1d04:b0:2fe:8fa0:e7a1 with SMTP id
+ 98e67ed59e1d1-303b211144dmr1603499a91.2.1743081682968; Thu, 27 Mar 2025
+ 06:21:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowMAxSsQpIOVned1iAA--.26323S3
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3AFy5Kr1rCFWDJr4rGr4rWFX_yoW7Kry3pr
- W5Xr4rGrWrZF12yw1DZF4UXrWYq3Z3CFy8C348Jw1a9w1UWr1DJFyktrW7KrW5JF45AFy2
- q3ZrX3yUtry0k3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUvEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
- GcCE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2
- x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5
- McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
- 1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_
- JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
- CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0
- I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
- 8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
- UjIFyTuYvjxU4AhLUUUUU
-X-Mailman-Approved-At: Thu, 27 Mar 2025 13:04:44 +0000
+References: <20250325152407.2543116-1-srinivasan.shanmugam@amd.com>
+ <b30810ba-3e16-4f52-8b4a-070bda1bc129@amd.com>
+ <CADnq5_PcPDULfTjtkWGXRVpuJ3Wc770Be3QjrxkRDsw1E-VUeQ@mail.gmail.com>
+ <740940f4-055b-483b-88b7-072907539167@amd.com>
+ <fc461f19-44b8-4699-b3e6-c37e1b7dc76f@amd.com>
+ <5a04ac1b-6b83-40c4-b9f1-ca42bd53763c@amd.com>
+In-Reply-To: <5a04ac1b-6b83-40c4-b9f1-ca42bd53763c@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 27 Mar 2025 09:21:10 -0400
+X-Gm-Features: AQ5f1JrSS_j-U6jHcVPniPU4buZimhR0Kqe5aDTD4brJ98ct6TmW8R0KAEsWg1E
+Message-ID: <CADnq5_M6BhcHyQ9o7zsNgZU+8A0hwYugtaBr0GPCXH=z7mkGkQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix Manual Execution of Cleaner Shader in
+ Gang Submissions
+To: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,115 +88,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit 7da55c27e76749b9 ("drm/amd/display: Remove incorrect FP context
-start") removes the FP context protection of dml2_create(), and it said
-"All the DC_FP_START/END should be used before call anything from DML2".
+On Thu, Mar 27, 2025 at 5:37=E2=80=AFAM SRINIVASAN SHANMUGAM
+<srinivasan.shanmugam@amd.com> wrote:
+>
+>
+> On 3/27/2025 2:54 PM, Christian K=C3=B6nig wrote:
+>
+>
+> Over all this change doesn't seem to make much sense to me.
+>
+> Why exactly is isolation->spearhead not pointing to the dummy kernel job =
+we submit?
+>
+> Does the owner check or gang_submit check in
+> amdgpu_device_enforce_isolation() fail to set up the spearhead?
+>
+> I'm currently debugging exactly that.
+>
+> Good news is that I can reproduce the problem.
+>
+>
+> I have to take that back. I've tested the cleaner shader functionality a =
+bit this morning and as far as I can see this works exactly as intended.
+>
+> Srini, what exactly is your use case which doesn't work?
+>
+> Hi Christian, Good Morning!
+>
+> The usecase is to trigger the cleaner shader, using sysfs "run_cleaner_sh=
+ader" independent of  enabling "enforce_isolation", so that cleaner shader =
+packet gets submitted to COMP_1.0.0 ring by default, without prior enabling=
+ any enforce_isolation via sysfs,
 
-However, dml2_init()/dml21_init() are not protected from their callers,
-causing such errors:
+Right.  We want to be able to manually run the cleaner shader via
+sysfs regardless of whether runtime enforce isolation is enabled or
+not.
 
- do_fpu invoked from kernel context![#1]:
- CPU: 0 UID: 0 PID: 239 Comm: kworker/0:5 Not tainted 6.14.0-rc6+ #2
- Workqueue: events work_for_cpu_fn
- pc ffff80000319de80 ra ffff80000319de5c tp 900000010575c000 sp 900000010575f840
- a0 0000000000000000 a1 900000012f210130 a2 900000012f000000 a3 ffff80000357e268
- a4 ffff80000357e260 a5 900000012ea52cf0 a6 0000000400000004 a7 0000012c00001388
- t0 00001900000015e0 t1 ffff80000379d000 t2 0000000010624dd3 t3 0000006400000014
- t4 00000000000003e8 t5 0000005000000018 t6 0000000000000020 t7 0000000f00000064
- t8 000000000000002f u0 5f5e9200f8901912 s9 900000012d380010 s0 900000012ea51fd8
- s1 900000012f000000 s2 9000000109296000 s3 0000000000000001 s4 0000000000001fd8
- s5 0000000000000001 s6 ffff800003415000 s7 900000012d390000 s8 ffff800003211f80
-    ra: ffff80000319de5c dml21_apply_soc_bb_overrides+0x3c/0x960 [amdgpu]
-   ERA: ffff80000319de80 dml21_apply_soc_bb_overrides+0x60/0x960 [amdgpu]
-  CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=CC DACM=CC -WE)
-  PRMD: 00000004 (PPLV0 +PIE -PWE)
-  EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
-  ECFG: 00071c1d (LIE=0,2-4,10-12 VS=7)
- ESTAT: 000f0000 [FPD] (IS= ECode=15 EsubCode=0)
-  PRID: 0014d010 (Loongson-64bit, Loongson-3C6000/S)
- Process kworker/0:5 (pid: 239, threadinfo=00000000927eadc6, task=000000008fd31682)
- Stack : 00040dc000003164 0000000000000001 900000012f210130 900000012eabeeb8
-         900000012f000000 ffff80000319fe48 900000012f210000 900000012f210130
-         900000012f000000 900000012eabeeb8 0000000000000001 ffff8000031a0064
-         900000010575f9f0 900000012f210130 900000012eac0000 900000012ea80000
-         900000012f000000 ffff8000031cefc4 900000010575f9f0 ffff8000035859c0
-         ffff800003414000 900000010575fa78 900000012f000000 ffff8000031b4c50
-         0000000000000000 9000000101c9d700 9000000109c40000 5f5e9200f8901912
-         900000012d3c4bd0 900000012d3c5000 ffff8000034aed18 900000012d380010
-         900000012d3c4bd0 ffff800003414000 900000012d380000 ffff800002ea49dc
-         0000000000000001 900000012d3c6000 00000000ffffe423 0000000000010000
-         ...
- Call Trace:
- [<ffff80000319de80>] dml21_apply_soc_bb_overrides+0x60/0x960 [amdgpu]
- [<ffff80000319fe44>] dml21_init+0xa4/0x280 [amdgpu]
- [<ffff8000031a0060>] dml21_create+0x40/0x80 [amdgpu]
- [<ffff8000031cefc0>] dc_state_create+0x100/0x160 [amdgpu]
- [<ffff8000031b4c4c>] dc_create+0x44c/0x640 [amdgpu]
- [<ffff800002ea49d8>] amdgpu_dm_init+0x3f8/0x2060 [amdgpu]
- [<ffff800002ea6658>] dm_hw_init+0x18/0x60 [amdgpu]
- [<ffff800002b16738>] amdgpu_device_init+0x1938/0x27e0 [amdgpu]
- [<ffff800002b18e80>] amdgpu_driver_load_kms+0x20/0xa0 [amdgpu]
- [<ffff800002b0c8f0>] amdgpu_pci_probe+0x1b0/0x580 [amdgpu]
- [<900000000448eae4>] local_pci_probe+0x44/0xc0
- [<9000000003b02b18>] work_for_cpu_fn+0x18/0x40
- [<9000000003b05da0>] process_one_work+0x160/0x300
- [<9000000003b06718>] worker_thread+0x318/0x440
- [<9000000003b11b8c>] kthread+0x12c/0x220
- [<9000000003ac1484>] ret_from_kernel_thread+0x8/0xa4
+Alex
 
-Unfortunately, protecting dml2_init()/dml21_init() out of DML2 causes
-"sleeping function called from invalid context", so protect them with
-DC_FP_START() and DC_FP_END() inside.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
----
- drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 4 ++++
- drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c        | 4 ++++
- 2 files changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-index a6b8df1d96e8..bbc798e039f5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-@@ -86,6 +86,8 @@ static void dml21_init(const struct dc *in_dc, struct dml2_context **dml_ctx, co
- 	/* Store configuration options */
- 	(*dml_ctx)->config = *config;
- 
-+	DC_FP_START();
-+
- 	/*Initialize SOCBB and DCNIP params */
- 	dml21_initialize_soc_bb_params(&(*dml_ctx)->v21.dml_init, config, in_dc);
- 	dml21_initialize_ip_params(&(*dml_ctx)->v21.dml_init, config, in_dc);
-@@ -96,6 +98,8 @@ static void dml21_init(const struct dc *in_dc, struct dml2_context **dml_ctx, co
- 
- 	/*Initialize DML21 instance */
- 	dml2_initialize_instance(&(*dml_ctx)->v21.dml_init);
-+
-+	DC_FP_END();
- }
- 
- bool dml21_create(const struct dc *in_dc, struct dml2_context **dml_ctx, const struct dml2_configuration_options *config)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-index 68b882d28195..fc551c63c9e8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-@@ -776,11 +776,15 @@ static void dml2_init(const struct dc *in_dc, const struct dml2_configuration_op
- 		break;
- 	}
- 
-+	DC_FP_START();
-+
- 	initialize_dml2_ip_params(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.ip);
- 
- 	initialize_dml2_soc_bbox(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.soc);
- 
- 	initialize_dml2_soc_states(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.soc, &(*dml2)->v20.dml_core_ctx.states);
-+
-+	DC_FP_END();
- }
- 
- bool dml2_create(const struct dc *in_dc, const struct dml2_configuration_options *config, struct dml2_context **dml2)
--- 
-2.47.1
-
+>
+> AFAIK, this "isolation->spearhead" initialization is not being takencare =
+in this path "amdgpu_gfx_run_cleaner_shader -> amdgpu_gfx_run_cleaner_shade=
+r_job" (ie., when we trigger cleaner shader, using sysfs "run_cleaner_shade=
+r"), and this check "&job->base.s_fence->scheduled =3D=3D isolation->spearh=
+ead;"  is having the problem ie., "&job->base.s_fence->scheduled" address a=
+re is not matching with "isolation->spearhead" address, which results into =
+zero & thus fails to emit cleaner shader, when running using "run_cleaner_s=
+hader" sysfs entry, in "amdgpu_vm_flush()" function
+>
+> Best regards,
+>
+> Srini
+>
+>
+> Regards,
+> Christian.
+>
+> Regards,
+> Christian.
