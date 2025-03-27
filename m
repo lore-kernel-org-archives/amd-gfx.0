@@ -4,156 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DEA1C36008
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 00:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9EC5C36008
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Mar 2025 01:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67BD010E832;
-	Thu, 27 Mar 2025 00:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3366A10E836;
+	Thu, 27 Mar 2025 01:40:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="JxX6QXrG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aEPrfHMO";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2056.outbound.protection.outlook.com [40.107.236.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6229510E832
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 00:57:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XdzvLqcXWZwqxkrSRXAYryqurdJ93NLRG0sZl0kqubhrhkkGEWJ2+/JGoy6s67h69AsKYN3tX9PTUbmg7KtRq3QhJgOHb7epbwWI6Lzse/qXzRgKUgYt1EfQn1gpZ0e1UPVQIrGWeSdzP5JqE77FrxK7XcDG6nj7ufcfppINiYRQ+0hw1wNTSvHpb/WsMRsrvH1ZeSA1uPyj0tc+4MpokW2L1iL6UimN4pwmQgo8FMDv3/FXMDtP/ezlVDL6sub4R91DsizY/tv/KbszcNU0svWSA8gPGToOMhvFYXAo71gSRDvzocCuLZXFFMyWhGsiCv2Qg5WW9Hc7FgqvMSssVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hM4F6kIopP15SVre58pxw0mx70ciBStzudkKmt3ASYc=;
- b=CGh6TZ18MX4WYC6jr+5NaDeGbUQvKpxh1hegJ4ySnEXN2ADNMmdmapgvU3aUvFmoPhh9pqgxGLZVVH78EIoYYDlyA5MKJ8+w1jeWQLYG1bQ4MVrsqYcu/ZI93YlFelVc60S9xqVEF9Q7bw9CV8REsRnVXNoHi8wl0ttp1qLDzkAhtpybNAld1k3Fo51cRp3jfQQxRD5wNWNvHSLJbSB50J/x+wAmcE6dxxJFufr+TdJ6dEDIMeZz49P5Qf8wHiCoxaOnMp+x8rz+vTGcs1a6onmYkmLXUpODtspz2cSAFxAt5kjbU5RFOxEIFJ6wbX3e6BtLMrdK5xTh3it2T9CDIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hM4F6kIopP15SVre58pxw0mx70ciBStzudkKmt3ASYc=;
- b=JxX6QXrGxkAB5Vn5106G2eKWXM8cz4GcMorulzI4jO40+/eRBjIlPjEmOs+lLIcD3n4Y0rMQsX/zK9S4ofnKT5dIJaIdtRqzCWEIH5H9n6jD4UpB8N+Y6VxdF623Rs36Ps4cJgAcvFEjU51biMtLQtfFta9HxiQhlhc5FJdmEXTV2/zisFOyD5TIPOYyf3dtiS4FSzGHQpgj94TgqTVodP4q9O97xg4GRPAE1ijBTJ9JZCzpHHxHnBhU60YzJGMcFxDnOUDoSVJwq1oU/4DrJWR3CyfOkJ3hLSevgtjlUcl5B8rdgVR3HkPwEPz+8e9wAwQpExHd90HNjdaPEXyzSg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB7272.namprd12.prod.outlook.com (2603:10b6:806:2b6::7)
- by SA0PR12MB7462.namprd12.prod.outlook.com (2603:10b6:806:24b::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Thu, 27 Mar
- 2025 00:57:47 +0000
-Received: from SA1PR12MB7272.namprd12.prod.outlook.com
- ([fe80::a970:b87e:819a:1868]) by SA1PR12MB7272.namprd12.prod.outlook.com
- ([fe80::a970:b87e:819a:1868%6]) with mapi id 15.20.8534.031; Thu, 27 Mar 2025
- 00:57:47 +0000
-Message-ID: <09473909-4909-40b1-b3ad-1202b136e5a2@nvidia.com>
-Date: Thu, 27 Mar 2025 11:57:42 +1100
-User-Agent: Mozilla Thunderbird
-Subject: Re: commit 7ffb791423c7 breaks steam game
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Bert Karwatzki <spasswolf@web.de>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Ingo Molnar <mingo@kernel.org>, Kees Cook <kees@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Peter Zijlstra <peterz@infradead.org>,
- Andy Lutomirski <luto@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-References: <20250325101424.4478-1-spasswolf@web.de>
- <64945196-f05f-478e-a2b5-f0bd58345136@amd.com>
- <c66e2c03648370d5e5c0745f32ebd58367bbe48b.camel@web.de>
- <CAHk-=wh5Suzp0z7AnK0NgSKfEAWQJw7Dgv5eku=rzBuM1ugQDg@mail.gmail.com>
-Content-Language: en-US
-From: Balbir Singh <balbirs@nvidia.com>
-In-Reply-To: <CAHk-=wh5Suzp0z7AnK0NgSKfEAWQJw7Dgv5eku=rzBuM1ugQDg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BYAPR04CA0034.namprd04.prod.outlook.com
- (2603:10b6:a03:40::47) To SA1PR12MB7272.namprd12.prod.outlook.com
- (2603:10b6:806:2b6::7)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 443CE10E239;
+ Thu, 27 Mar 2025 01:40:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id B6A2EA41A06;
+ Thu, 27 Mar 2025 01:35:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43C08C4AF09;
+ Thu, 27 Mar 2025 01:40:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1743039645;
+ bh=q9uSLW6OCpSsPCyoD0AILZCu85cwI51PD3Gq6LoRAT0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=aEPrfHMORhAHHDx5pYmS871dRas33ypLiyzQCXvE63AWrx4QBynPgN0ud5Nd0CP6s
+ 10zJJOoz8c3UJVxFVd3vgFiGbVesoM3pkauNb9R6yUgoa8iCjKnXY4VBaM8RCLS4c/
+ tCEJTzfjcVl8AIdzBni2XueM08HAWsPaIHsNzNchQ5j6s6PEIyNVwi4HkUfdvzL8Xv
+ ddjiqmJJvAZqH3Wp5YxjNorEz5ynR8xX8y3Otw3qd4MJ28AF0NMnK9KYfQLrDcyQUK
+ d+5tmfFe118422WHAX/UsQRGXOlwCCtQbg2RLH335ceeHQb89gI25Z8jir19fa8MkV
+ Oi/owNAba4QIw==
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-5eb5ecf3217so833451a12.3; 
+ Wed, 26 Mar 2025 18:40:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV8eYwjIER9zIJOD8xF8X5D9wJGNAgqcR+YAG/cqGpZQJqkELasx4T7JDezfEwFcO0rC6Xg7ZUGgiqJ@lists.freedesktop.org,
+ AJvYcCVAQlZUCjL7pR8Op4KNADzR3SqwWW58/exlscoB/fx1Y6yMdR6rcOXAl8O3i8+pjA8Jg+6yUiK4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYFU7e295+I1rDyzv3esD7pRkgPRxSgNPNqSVQ5oXM7Op7uZlT
+ vWwMWTVzzewai8nT6xrvPXLrKnlQGpnmTY36yI8MjkqVCQHRgxju8JCNeDbI8Go8CR58sgkXcLj
+ YD0WViERgs7KEx+mDooETtKNBU2k=
+X-Google-Smtp-Source: AGHT+IGyGR323EJ4PHG17MLy4bhFlc+US9w9WGllywr1R9Q1ZE2kzBsmroFUWp6pyWFeFV9n6ge64EJB5n4l/44CJXI=
+X-Received: by 2002:a17:907:6e90:b0:ac2:b1e2:4b85 with SMTP id
+ a640c23a62f3a-ac6fae493e7mr121070166b.3.1743039643595; Wed, 26 Mar 2025
+ 18:40:43 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB7272:EE_|SA0PR12MB7462:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3edf4461-5bae-4562-0420-08dd6cca63b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cmN0NDFzZ1pvc21JSTd0Q0J2TGxtVUpoOFdkak82Qm9QdVpqOWlsQ2tpUTA4?=
- =?utf-8?B?RHdtSVRoSjlMc3JXWUkwdDljMUZoODg5c2VOajRpME5rSHIrM08xOXpRaVR1?=
- =?utf-8?B?S0VHNnZHTTN2bGlnWjg2dDlWY2lBakpPRlUrUXBUUkZEWWZCRDFvSmZMVGJx?=
- =?utf-8?B?ZHp2RnNQakc3RXJoWHlJOURZcXBaTDJRb25uUGtUQUV2Q0dDSEJKZWc4Tm9M?=
- =?utf-8?B?ejhHUDJsSExLbkd2N2hiMENmMVljWDhiTndjZkVNOGZMQldxZHFtSUl5d05H?=
- =?utf-8?B?OCt0MzBKYURkUzE0RWYzZEN2WUlZM0xUYzNHZ0RzS2cwN204d0VrY1ZpV2o4?=
- =?utf-8?B?UFMwRkQ1MlRKcE13eHVCRDMzRzJxa0VGSS9GS3lXMVdScytzZlZLK1FDODBV?=
- =?utf-8?B?cE9Cdm5ZVkNUVTdTeU9yN0FRNUUvZWRCUkZoNXMwUzBzNU1XZVpyK21MUlJn?=
- =?utf-8?B?UjlYUEo5eVRyNW1aMVJGTUh6Mm0rL3daTlhvSjY1WDhGbnNIODFib0Vwd2dR?=
- =?utf-8?B?QS85ZjdhM3MvcUVNcmJFZ3JoQm9HLzFWYVNaTzQ5RE1Rd3NIZStDcTZZNXB1?=
- =?utf-8?B?d0dIaTF1ak9uL0NKb3lTcUdkODVtNWZsNE1pdzkyTmZ3d0J3a2pLajM0eCth?=
- =?utf-8?B?ZUY4TzBQZmRVL0RncXEzUm9idENCc0NVemcxNThXdmdHZjVaVXJwM3JOWWhE?=
- =?utf-8?B?Y0kvWXlheThtRUlBbUlvWXVVdWM2NE9tMG90ZjZmM3ZKOG8wQi9yeTNHM3dO?=
- =?utf-8?B?em93emJSY0h3T1VXTWo1MmxGdjhXdU8rNU1mZGN3TDlxWHpsWWxhekJBdW96?=
- =?utf-8?B?cmlwWG84cFgvQ3U4eDJGU2tTZUpXYUtvK1RkK3RnSWhTOWhMSlRLbGRLbHlw?=
- =?utf-8?B?YU55N1d1VFZFanVUMHJtaVRaWTUwaWI3bi9WajI3Vk9XMER6OFU0ZnNCWGpv?=
- =?utf-8?B?VnJ0dklUR1dzVTJDNkJKcks2THNXNSswN0t3UHFWQ2hXZkMxSWY1VVgzS2Fk?=
- =?utf-8?B?RjdMUjBEcTdNTU1tQjAzdHpzcDcwZ0dGTTlrL29hc0pwOVJZWWtzR0dVakN6?=
- =?utf-8?B?YndqSkVjTkNzTVQvczZ3dDNZVGdudzN5NHEwRStBbFVpVCt5NXp4WHMySkFx?=
- =?utf-8?B?dlAwTGFLbUc2M2VYV3pUL2duZU4yTzRTaGt2MWZHTlBVRFh1Y1gxKzhnTlQ3?=
- =?utf-8?B?Nm5mR1BkMWExbXRQQUFDSTRjZkdScFdQQ0Z3YUNEd1RVcFJtM3pqRGx4aG1z?=
- =?utf-8?B?V0dxTSsvc1Y5azFZNVYxM0krb3FqaklWNGtpU0hGSTFwZlFrcFRxYTRpNVVI?=
- =?utf-8?B?NDhkU0psd09EdXRBY0h5Zmtja1dSQWIzVGFOM2ZLczFreEhUOTBPbWtwSXdR?=
- =?utf-8?B?SENrWUlncHYyU2xQWEZrY2xtQWxxdkJwU3RQeERkVEluTnlYL0x0a0ZaVnh6?=
- =?utf-8?B?em54MG1qTEI1aGNxYnBFKzAxZDJ0UjU2blVVWVMxNUExVU1OYk8wMWhvWFF1?=
- =?utf-8?B?UVlVKytMZHcyWWFhMkluUWUxeVY1WVFVK0pKdE9uV29TdHIrSUJ0NVU3OStB?=
- =?utf-8?B?TERDL0gyNTZkMytiZkdTTnJ2Rnpxbm8yWG55dUljY1ppU2JjTVphRzdBODBs?=
- =?utf-8?B?NFc0T2p5NHBsWFZGZGw4SGsxay8yeHdMcWlsTjVVaEtHVmhBd1g4bVhXMTZn?=
- =?utf-8?B?allGL2RlbDFGeTJUd2I3WGJYYURQNTlJby93TUhtM0g2STNscWlZMjUwNGhl?=
- =?utf-8?B?OVprL2VsYjlnNis2VDN2LzJMeHBncXE3dkxZTDFHMmMwNGVWYUxJMGlPbGNs?=
- =?utf-8?B?NCt5TU1rUDE4WWZZem5Hc1BRbVZpTC9vTHN3dEU5RFlZU25oWUJVb21zcDlH?=
- =?utf-8?Q?pgueIzilF70Ry?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB7272.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2ViRDBrckgxRXZyTzZkdG9LbHAzZ0d2R2M4bWpUYnB2bkh6aXhoUEdZbllS?=
- =?utf-8?B?MTNUTzR1US95RW1ORGpNSENtbTc2T0g1QnFSajI1Tm1kRUtWa2hSRERBYVNh?=
- =?utf-8?B?ZTFPRkQxS3crRXc3NUs1WTNsMnVxeW9FQXVLY3VWekI0UCszcEdwMHI5NUh6?=
- =?utf-8?B?SUR5Mk5hamYrdFRzSTdZMFBwQk5TdVBGalkreVR2eTdjS0J6WE42OHJkd3dm?=
- =?utf-8?B?bHM3dXM4VEFIUFJqVjc5TmpNTGlCUmhXa0hmK0JUcmxVWmRhNXFqUVZpTHIv?=
- =?utf-8?B?SEpwNEpndGl4NFZ2OXFtT0wwRGxpVG9KL0puWGptZyswL1BUQ3d4ZVAwM2Jh?=
- =?utf-8?B?NU5wZ0FOSXVVeTBqenV2aFdGM3pBNXFRWDNVYklUMlg3SHFuckhEcUxlQ0pn?=
- =?utf-8?B?dXJDdGU0cENjcXdwbzYxODFkT0dQODgySVFiTGZEMzBWQTA0UWROKzY1NDNR?=
- =?utf-8?B?NnFtMHhyd0k0RWJrWHFuOFRKR1Fva0ZpNWM2Q2ExaVZxNGJDc0RFWWhOR2xV?=
- =?utf-8?B?UGl6eDg5bGlraExTRzNkYUFnOGRVRmpRL2JVMFF0OEZjb2JmaGo1aXNHdTBY?=
- =?utf-8?B?b1g1KzVtZTVEODdySWJaSGE3cmhrdCtMajZTTld3c2VNOHZvaVRIbEsyVSt1?=
- =?utf-8?B?M2VTa21ldUc4QzBzNU92VUdwVmFRcnhPTXVObmZjeDhzS1k5NXJPRmJzd1k2?=
- =?utf-8?B?M3pJbFN1UHU2d1dlM0RlOFVMRFJOcXZpMGVzYlByMmJwMW1wU08rbnA0VlRu?=
- =?utf-8?B?MmlkeEd2RFNRM3l2QWZzelY5eU1xTjVSU0k5ZjErZ0NwY3JwTk54dHRHMkxh?=
- =?utf-8?B?QXNEbjRXemE5d1pId3A1eVFNUDArbU1Ia3NkNW0xeFE0bEN1ZmZkZlVwNjJV?=
- =?utf-8?B?SFcxM3VEUE41OXR1eUVkUUNuTU9MN21paHMwaEhKNU0zQTV6ZGl3VHJiRGxH?=
- =?utf-8?B?YjZ2MFlCVmpTdnR3dEQ2UUJqNmk1dDM4aHV1bEFDT0lSekExOHpQS2NIU2gz?=
- =?utf-8?B?d1BrME1qbld0NVY4TDJLNjZFbEhwYVBSMS9uOXczaEMweS9HU2ErNktiTm5w?=
- =?utf-8?B?VndJVVIzejRsaUxNbDVoZktrdWFJZk1mOEJhTlpXQWJHVEtZd1dzaEc0UmlE?=
- =?utf-8?B?d25mY1F2MnJ1NGRnL29ZSzFQeUdEUHIwV2ptdnlzaEhhdUxRdVA4UVZLYW11?=
- =?utf-8?B?STZmTDZwK0RDUFBwR21qWmJMTzFKQVR0YTZQc0ZrV2Y3TVpmK1Z6WDdvR3R6?=
- =?utf-8?B?aXAxOVc0L0dzVnF5VXp6WFpNM25nVVJxdUNWZjVlT1BHd3FENjJPUUYvb2Nt?=
- =?utf-8?B?MGtoOUh2N1ExWWJEUTV6anBkTU9wYzFQR0tzYUxQVWk2bzF2WmR5UzF3cG12?=
- =?utf-8?B?UzhMMjJjc2NkWmNZU2FyZDAvYnBIUURIUmE2ZUNORm9KYXZoZnA3cVZxM3B5?=
- =?utf-8?B?dXhHSThqcDF5NFBVd2c0czZxSzJRZTY1S3JmQXZzcXl3VHNvbzZQSXdpYkZy?=
- =?utf-8?B?U3A3bkQyNE1SL1R0bWYySDJxVG1kUmJRaVlVbWg4NFdxSUNuNGpkd3MxbitD?=
- =?utf-8?B?c0l2S3AzWWZnMDcyeDE5VTM4cW1XMmRiMkFZYXhUV1kxYng2eWhOZmVvUGty?=
- =?utf-8?B?dy9kT0NvcW5WbGtGRGhVTTU4OW1sOXZIa25UNUNnTkUwRzFNNWpuYjc3a09D?=
- =?utf-8?B?ZHltWENOdWZwdkRzNVZUNGtsN1NnSXoyc1NKeFdFMGZoSkFLSTQvRVQxdUZY?=
- =?utf-8?B?bDQ0d3E3S2NQVXpTT2RQNGpNNkVLc0lDRUR5Vk1SUjNNZzVzbW5WZENWM29L?=
- =?utf-8?B?U1Ntdk1wY3NGUzV2dFlzcVVycWEyVVBsMTVqQlRmejRJSWFlUncyZktOVUlX?=
- =?utf-8?B?WTkwZmpjc3A2NXBnRmU2MXFMUkxZVzgzL1pJUjVUMHdxUlVGZndNMUViOVJs?=
- =?utf-8?B?SHRxVEtCNVhpaGFrTENxUU1UTm0vcWp4QWtJVmtqOURxRG05VHM1S01xdjg2?=
- =?utf-8?B?Yy8wTXUvSkwvWHJzOEp4RFBOKzFQenQ3cjBkbUhKNzRHVUFOb0RXekVYUndO?=
- =?utf-8?B?emV2MG4rN3BUazhvbS85UDVCSG1EWW1lWVhCQ2d2MER6ZWhwbWZNQ3lYMWdN?=
- =?utf-8?Q?wIURtJjZj2G8b/fZHvu33fGeB?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3edf4461-5bae-4562-0420-08dd6cca63b6
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7272.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2025 00:57:47.0584 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X2bl5U3QPu61R00kuo6abkTQXPNoF4ulIAkJltTzRSviMQengsEGFYpZ1Phlvs1M7lperJdcCfK6og7BPas6Pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7462
+References: <20250318111717.2161235-1-chenhuacai@loongson.cn>
+ <b8c481f2-a280-4f86-8080-2c6dcffc4629@amd.com>
+ <CAAhV-H7cch+koOSJAFe70c8Pk02snK7M=andyfwbCgiNdg4aVg@mail.gmail.com>
+ <87d0601b-c1cb-402b-aecd-23a5d371da66@amd.com>
+ <712b77ef-c7f7-47a4-9609-47b179f15662@amd.com>
+In-Reply-To: <712b77ef-c7f7-47a4-9609-47b179f15662@amd.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 27 Mar 2025 09:40:34 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6AMm1X4zyhj7-jqiaCpd-Yfco88d4KODd5_jUfhyi8Cg@mail.gmail.com>
+X-Gm-Features: AQ5f1JqBNP2vWKy0ebphl5jK8Ow-iq2DOK-KtfaSYlTnWhMF0YAkpCHzkisR-pg
+Message-ID: <CAAhV-H6AMm1X4zyhj7-jqiaCpd-Yfco88d4KODd5_jUfhyi8Cg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Protect
+ dml2_create()/dml2_copy()/dml2_create_copy()
+To: Alex Hung <alex.hung@amd.com>, aurabindo.pillai@amd.com
+Cc: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, Austin.Zheng@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,58 +79,298 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/27/25 09:58, Linus Torvalds wrote:
-> On Wed, 26 Mar 2025 at 15:00, Bert Karwatzki <spasswolf@web.de> wrote:
->>
->> As Balbir Singh found out this memory comes from amdkfd
->> (kgd2kfd_init_zone_device()) with CONFIG_HSA_AMD_SVM=y. The memory gets placed
->> by devm_request_free_mem_region() which places the memory at the end of the
->> physical address space (DIRECT_MAP_PHYSMEM_END). DIRECT_MAP_PHYSMEM_END changes
->> when using nokaslr and so the memory shifts.
-> 
-> So I just want to say that having followed the thread as a spectator,
-> big kudos to everybody involved in this thing. Particularly to you,
-> Bart, for all your debugging and testing, and to Balbir for following
-> up and figuring it out.
-> 
-> Because this was a strange one.
-> 
+Hi, Alex,
 
-Thanks!
+On Thu, Mar 27, 2025 at 8:10=E2=80=AFAM Alex Hung <alex.hung@amd.com> wrote=
+:
+>
+> The following error messages showed up on an APU and a dGPU during testin=
+g.
+>
+> <3> [100.231411] BUG: sleeping function called from invalid context at
+> include/linux/sched/mm.h:321
+> <3> [100.231414] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid:
+> 1711, name: kms_color
+> <3> [100.231416] preempt_count: 2, expected: 0
+> <3> [100.231417] RCU nest depth: 0, expected: 0
+> <3> [100.231418] Preemption disabled at:
+> <3> [100.231419] [<ffffffffc0c2843b>] dc_fpu_begin+0x2b/0xc0 [amdgpu]
+> <4> [100.231626] CPU: 4 UID: 0 PID: 1711 Comm: kms_color Tainted: G
+>    W          6.12.0+ #1
+> <4> [100.231629] Tainted: [W]=3DWARN
+> <4> [100.231631] Call Trace:
+> <4> [100.231632]  <TASK>
+> <4> [100.231633]  dump_stack_lvl+0x5b/0x70
+> <4> [100.231638]  dump_stack+0x10/0x20
+> <4> [100.231639]  __might_resched+0x170/0x1d0
+> <4> [100.231643]  __might_sleep+0x44/0x70
+> <4> [100.231645]  __alloc_pages_noprof+0x22f/0x370
+> <4> [100.231649]  ___kmalloc_large_node+0x95/0x150
+> <4> [100.231651]  ? preempt_count_add+0x4e/0xc0
+> <4> [100.231653]  __kmalloc_large_noprof+0x1d/0xb0
+> <4> [100.231655]  dml2_create_copy+0x27/0x60 [amdgpu]
+> <4> [100.231827]  dc_state_create_copy+0x7e/0x170 [amdgpu]
+> <4> [100.231995]  update_planes_and_stream_state+0x23c/0x600 [amdgpu]
+> <4> [100.232189]  update_planes_and_stream_v2+0x22b/0x530 [amdgpu]
+> <4> [100.232366]  ? amdgpu_dm_atomic_commit_tail+0x1310/0x4100 [amdgpu]
+> <4> [100.232569]  ? commit_tail+0x96/0x140 [drm_kms_helper]
+> <4> [100.232577]  dc_update_planes_and_stream+0x5b/0xe0 [amdgpu]
+> <4> [100.232730]  amdgpu_dm_atomic_commit_tail+0x1fa7/0x4100 [amdgpu]
+> <4> [100.232908]  ? stack_depot_save_flags+0x2c/0x730
+> <4> [100.232915]  ? wait_for_completion_timeout+0x1d/0x30
+> <4> [100.232917]  commit_tail+0x96/0x140 [drm_kms_helper]
+> <4> [100.232923]  drm_atomic_helper_commit+0x12b/0x150 [drm_kms_helper]
+> <4> [100.232927]  drm_atomic_commit+0xad/0xe0 [drm]
+> <4> [100.232939]  ? __pfx___drm_printfn_info+0x10/0x10 [drm]
+> <4> [100.232956]  drm_atomic_helper_set_config+0x80/0xc0 [drm_kms_helper]
+> <4> [100.232961]  drm_mode_setcrtc+0x22e/0x910 [drm]
+> <4> [100.232975]  ? kfree+0x18f/0x350
+> <4> [100.232977]  ? __pfx_drm_mode_setcrtc+0x10/0x10 [drm]
+> <4> [100.232987]  drm_ioctl_kernel+0xa7/0x100 [drm]
+> <4> [100.233004]  drm_ioctl+0x29d/0x500 [drm]
+> <4> [100.233015]  ? __pfx_drm_mode_setcrtc+0x10/0x10 [drm]
+> <4> [100.233026]  ? _raw_spin_unlock_irqrestore+0x1f/0x40
+> <4> [100.233029]  amdgpu_drm_ioctl+0x4b/0x80 [amdgpu]
+> <4> [100.233131]  __x64_sys_ioctl+0x92/0xd0
+> <4> [100.233133]  x64_sys_call+0x1205/0x20d0
+> <4> [100.233136]  do_syscall_64+0x50/0x110
+> <4> [100.233138]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> <4> [100.233142] RIP: 0033:0x7fb21e71a94f
+> <4> [100.233144] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24
+> 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00
+> 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1f 48 8b 44 24 18 64 48 2b 04 25 28 00
+> <4> [100.233145] RSP: 002b:00007ffdd9a52e50 EFLAGS: 00000246 ORIG_RAX:
+> 0000000000000010
+> <4> [100.233148] RAX: ffffffffffffffda RBX: 00007ffdd9a52ee0 RCX:
+> 00007fb21e71a94f
+> <4> [100.233149] RDX: 00007ffdd9a52ee0 RSI: 00000000c06864a2 RDI:
+> 0000000000000005
+> <4> [100.233149] RBP: 00000000c06864a2 R08: 0000000000000000 R09:
+> 00005609537f7b08
+> <4> [100.233150] R10: 0000000000000000 R11: 0000000000000246 R12:
+> 0000000000000000
+> <4> [100.233151] R13: 0000000000000005 R14: 0000000000000000 R15:
+> 00005609537e2848
+> <4> [100.233152]  </TASK>
+This seems caused by dml2_allocate_memory(), to fix this we can only
+protect FPU in DML2, I can do it in the new version, but I want to
+listen Aurabindo's opinion.
 
->>  One can work around this by removing the GFR_DESCENDING flag from
->> devm_request_free_mem_region() so the memory gets placed right after the other
->> resources:
-> 
-> I worry that there might be other machines where that completely breaks things.
-> 
-> There are various historical reasons why we look for addresses in high
-> regions, ie on machines where there are various hidden IO regions that
-> aren't enumerated by e280 and aren't found by our usual PCI BAR
-> discovery because they are special hidden ones.
-> 
-> So then users of [devm_]request_free_mem_region() might end up getting
-> allocated a region that has some magic system resource in it.
-> 
-> And no, this shouldn't happen on any normal machine, but it has
-> definitely been a thing in the past.
-> 
-> So I'm very happy that you guys figured out what ended up happening,
-> but I'm not convinced that the devm_request_free_mem_region()
-> workaround is tenable.
-> 
-> So I think it needs to be more targeted to the HSA_AMD_SVM case than
-> touch the devm_request_free_mem_region() logic for everybody.
-> 
 
-I agree with your assessment, I was looking at whether bumping up
-max_pfn for DEVICE_PRIVATE memory mappings via add_pages() is the
-right thing to do, but I have not yet completed my code search.
+Huacai
 
-From my understanding, max_pfn should be used as the end of system
-RAM and direct_map_physmem_end as end of addressable memory. I proposed
-not updating max_pfn for zone device based add_pages() on x86 via a test
-patch that worked for Bert. This allows HSA_AMD_SVM, nokaslr, PCI_P2PDMA
-to all co-exist, but I need to audit all of the max_pfn usage and assumptions.
-
-Balbir Singh
+>
+> On 3/25/25 18:02, Alex Hung wrote:
+> >
+> >
+> > On 3/19/25 22:23, Huacai Chen wrote:
+> >> Hi, Alex,
+> >>
+> >> On Thu, Mar 20, 2025 at 10:16=E2=80=AFAM Alex Hung <alex.hung@amd.com>=
+ wrote:
+> >>>
+> >>>
+> >>>
+> >>> On 3/18/25 05:17, Huacai Chen wrote:
+> >>>> Commit 7da55c27e76749b9 ("drm/amd/display: Remove incorrect FP conte=
+xt
+> >>>> start") removes the FP context protection of dml2_create(), and it s=
+aid
+> >>>> "All the DC_FP_START/END should be used before call anything from
+> >>>> DML2".
+> >>>>
+> >>>> However, dml2_create()/dml2_copy()/dml2_create_copy() are not protec=
+ted
+> >>>> from their callers, causing such errors:
+> >>>>
+> >>>>    do_fpu invoked from kernel context![#1]:
+> >>>>    CPU: 0 UID: 0 PID: 239 Comm: kworker/0:5 Not tainted 6.14.0-rc6+ =
+#1
+> >>>>    Workqueue: events work_for_cpu_fn
+> >>>>    pc ffff80000319de80 ra ffff80000319de5c tp 900000010575c000 sp
+> >>>> 900000010575f840
+> >>>>    a0 0000000000000000 a1 900000012f210130 a2 900000012f000000 a3
+> >>>> ffff80000357e268
+> >>>>    a4 ffff80000357e260 a5 900000012ea52cf0 a6 0000000400000004 a7
+> >>>> 0000012c00001388
+> >>>>    t0 00001900000015e0 t1 ffff80000379d000 t2 0000000010624dd3 t3
+> >>>> 0000006400000014
+> >>>>    t4 00000000000003e8 t5 0000005000000018 t6 0000000000000020 t7
+> >>>> 0000000f00000064
+> >>>>    t8 000000000000002f u0 5f5e9200f8901912 s9 900000012d380010 s0
+> >>>> 900000012ea51fd8
+> >>>>    s1 900000012f000000 s2 9000000109296000 s3 0000000000000001 s4
+> >>>> 0000000000001fd8
+> >>>>    s5 0000000000000001 s6 ffff800003415000 s7 900000012d390000 s8
+> >>>> ffff800003211f80
+> >>>>       ra: ffff80000319de5c dml21_apply_soc_bb_overrides+0x3c/0x960
+> >>>> [amdgpu]
+> >>>>      ERA: ffff80000319de80 dml21_apply_soc_bb_overrides+0x60/0x960
+> >>>> [amdgpu]
+> >>>>     CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=3DCC DACM=3DCC -WE)
+> >>>>     PRMD: 00000004 (PPLV0 +PIE -PWE)
+> >>>>     EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
+> >>>>     ECFG: 00071c1d (LIE=3D0,2-4,10-12 VS=3D7)
+> >>>>    ESTAT: 000f0000 [FPD] (IS=3D ECode=3D15 EsubCode=3D0)
+> >>>>     PRID: 0014d010 (Loongson-64bit, Loongson-3C6000/S)
+> >>>>    Process kworker/0:5 (pid: 239, threadinfo=3D00000000927eadc6,
+> >>>> task=3D000000008fd31682)
+> >>>>    Stack : 00040dc000003164 0000000000000001 900000012f210130
+> >>>> 900000012eabeeb8
+> >>>>            900000012f000000 ffff80000319fe48 900000012f210000
+> >>>> 900000012f210130
+> >>>>            900000012f000000 900000012eabeeb8 0000000000000001
+> >>>> ffff8000031a0064
+> >>>>            900000010575f9f0 900000012f210130 900000012eac0000
+> >>>> 900000012ea80000
+> >>>>            900000012f000000 ffff8000031cefc4 900000010575f9f0
+> >>>> ffff8000035859c0
+> >>>>            ffff800003414000 900000010575fa78 900000012f000000
+> >>>> ffff8000031b4c50
+> >>>>            0000000000000000 9000000101c9d700 9000000109c40000
+> >>>> 5f5e9200f8901912
+> >>>>            900000012d3c4bd0 900000012d3c5000 ffff8000034aed18
+> >>>> 900000012d380010
+> >>>>            900000012d3c4bd0 ffff800003414000 900000012d380000
+> >>>> ffff800002ea49dc
+> >>>>            0000000000000001 900000012d3c6000 00000000ffffe423
+> >>>> 0000000000010000
+> >>>>            ...
+> >>>>    Call Trace:
+> >>>>    [<ffff80000319de80>] dml21_apply_soc_bb_overrides+0x60/0x960
+> >>>> [amdgpu]
+> >>>>    [<ffff80000319fe44>] dml21_init+0xa4/0x280 [amdgpu]
+> >>>>    [<ffff8000031a0060>] dml21_create+0x40/0x80 [amdgpu]
+> >>>>    [<ffff8000031cefc0>] dc_state_create+0x100/0x160 [amdgpu]
+> >>>>    [<ffff8000031b4c4c>] dc_create+0x44c/0x640 [amdgpu]
+> >>>>    [<ffff800002ea49d8>] amdgpu_dm_init+0x3f8/0x2060 [amdgpu]
+> >>>>    [<ffff800002ea6658>] dm_hw_init+0x18/0x60 [amdgpu]
+> >>>>    [<ffff800002b16738>] amdgpu_device_init+0x1938/0x27e0 [amdgpu]
+> >>>>    [<ffff800002b18e80>] amdgpu_driver_load_kms+0x20/0xa0 [amdgpu]
+> >>>>    [<ffff800002b0c8f0>] amdgpu_pci_probe+0x1b0/0x580 [amdgpu]
+> >>>>    [<900000000448eae4>] local_pci_probe+0x44/0xc0
+> >>>>    [<9000000003b02b18>] work_for_cpu_fn+0x18/0x40
+> >>>>    [<9000000003b05da0>] process_one_work+0x160/0x300
+> >>>>    [<9000000003b06718>] worker_thread+0x318/0x440
+> >>>>    [<9000000003b11b8c>] kthread+0x12c/0x220
+> >>>>    [<9000000003ac1484>] ret_from_kernel_thread+0x8/0xa4
+> >>>>
+> >>>> So protect dml2_create()/dml2_copy()/dml2_create_copy() with
+> >>>> DC_FP_START
+> >>>> and DC_FP_END.
+> >>>
+> >>> Hi Huacai,
+> >>>
+> >>> Can you try to put DC_FP_START DC_FP_END in the
+> >>> dml2_create()/dml2_copy()/dml2_create_copy()/dml2_validate() instead?
+> >>> The code will be cleaner and less error-prone to future changes.
+> >> At first I want to add them in
+> >> dml2_create()/dml2_copy()/dml2_create_copy()/dml2_validate(), but
+> >> commit 7da55c27e76749b9 ("drm/amd/display: Remove incorrect FP context
+> >> start")  said
+> >> that "All the DC_FP_START/END should be used before call anything from
+> >> DML2".
+> >>
+> >> Huacai
+> >
+> > Thanks. I sent them to testing, and will share results later.
+> >
+> >>
+> >>>
+> >>> Thanks.
+> >>>
+> >>>
+> >>>>
+> >>>> Cc: stable@vger.kernel.org
+> >>>> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> >>>> ---
+> >>>>    drivers/gpu/drm/amd/display/dc/core/dc_state.c | 16 +++++++++++++=
++++
+> >>>>    1 file changed, 16 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/
+> >>>> drivers/gpu/drm/amd/display/dc/core/dc_state.c
+> >>>> index 1b2cce127981..6e2cac08002d 100644
+> >>>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+> >>>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+> >>>> @@ -210,17 +210,23 @@ struct dc_state *dc_state_create(struct dc
+> >>>> *dc, struct dc_state_create_params *p
+> >>>>
+> >>>>    #ifdef CONFIG_DRM_AMD_DC_FP
+> >>>>        if (dc->debug.using_dml2) {
+> >>>> +             DC_FP_START();
+> >>>> +
+> >>>>                dml2_opt->use_clock_dc_limits =3D false;
+> >>>>                if (!dml2_create(dc, dml2_opt, &state->bw_ctx.dml2)) =
+{
+> >>>> +                     DC_FP_END();
+> >>>>                        dc_state_release(state);
+> >>>>                        return NULL;
+> >>>>                }
+> >>>>
+> >>>>                dml2_opt->use_clock_dc_limits =3D true;
+> >>>>                if (!dml2_create(dc, dml2_opt, &state-
+> >>>> >bw_ctx.dml2_dc_power_source)) {
+> >>>> +                     DC_FP_END();
+> >>>>                        dc_state_release(state);
+> >>>>                        return NULL;
+> >>>>                }
+> >>>> +
+> >>>> +             DC_FP_END();
+> >>>>        }
+> >>>>    #endif
+> >>>>
+> >>>> @@ -240,6 +246,8 @@ void dc_state_copy(struct dc_state *dst_state,
+> >>>> struct dc_state *src_state)
+> >>>>        dc_state_copy_internal(dst_state, src_state);
+> >>>>
+> >>>>    #ifdef CONFIG_DRM_AMD_DC_FP
+> >>>> +     DC_FP_START();
+> >>>> +
+> >>>>        dst_state->bw_ctx.dml2 =3D dst_dml2;
+> >>>>        if (src_state->bw_ctx.dml2)
+> >>>>                dml2_copy(dst_state->bw_ctx.dml2, src_state-
+> >>>> >bw_ctx.dml2);
+> >>>> @@ -247,6 +255,8 @@ void dc_state_copy(struct dc_state *dst_state,
+> >>>> struct dc_state *src_state)
+> >>>>        dst_state->bw_ctx.dml2_dc_power_source =3D
+> >>>> dst_dml2_dc_power_source;
+> >>>>        if (src_state->bw_ctx.dml2_dc_power_source)
+> >>>>                dml2_copy(dst_state->bw_ctx.dml2_dc_power_source,
+> >>>> src_state->bw_ctx.dml2_dc_power_source);
+> >>>> +
+> >>>> +     DC_FP_END();
+> >>>>    #endif
+> >>>>
+> >>>>        /* context refcount should not be overridden */
+> >>>> @@ -268,17 +278,23 @@ struct dc_state *dc_state_create_copy(struct
+> >>>> dc_state *src_state)
+> >>>>        new_state->bw_ctx.dml2 =3D NULL;
+> >>>>        new_state->bw_ctx.dml2_dc_power_source =3D NULL;
+> >>>>
+> >>>> +     DC_FP_START();
+> >>>> +
+> >>>>        if (src_state->bw_ctx.dml2 &&
+> >>>>                        !dml2_create_copy(&new_state->bw_ctx.dml2,
+> >>>> src_state->bw_ctx.dml2)) {
+> >>>> +             DC_FP_END();
+> >>>>                dc_state_release(new_state);
+> >>>>                return NULL;
+> >>>>        }
+> >>>>
+> >>>>        if (src_state->bw_ctx.dml2_dc_power_source &&
+> >>>>                        !dml2_create_copy(&new_state-
+> >>>> >bw_ctx.dml2_dc_power_source, src_state-
+> >>>> >bw_ctx.dml2_dc_power_source)) {
+> >>>> +             DC_FP_END();
+> >>>>                dc_state_release(new_state);
+> >>>>                return NULL;
+> >>>>        }
+> >>>> +
+> >>>> +     DC_FP_END();
+> >>>>    #endif
+> >>>>
+> >>>>        kref_init(&new_state->refcount);
+> >>>
+> >
+>
