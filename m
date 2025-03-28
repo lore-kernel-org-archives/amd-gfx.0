@@ -4,118 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507EDC28B20
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 04:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE6B6C28B20
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 05:10:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC8F510E97B;
-	Fri, 28 Mar 2025 04:05:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75D4310E082;
+	Fri, 28 Mar 2025 05:10:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PtTXR/PZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZKaPTSbe";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80C2C10E97B
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 04:05:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uHO+RYtQYzyMmgDVyO5IzTS+GAlXoZRGhcdoO0uhpmUvlwK4g4HkpjzPjuxZfGuilrfG+ACm3ztEUXgkTl3/OmhjlxP3Nfyq7CLvS+WPq1/NgaKS0rWuBLkjE2vvDBSSfGfA10B6HTV2XOi2iKE3RmLy5CNMdqXJ2nLjrAst5oVsu5wSDH4jhsCKs25LxMC3vlNwswvvaEOaDIxrAmURjxjvSzYypLK1hTz97hbzDmLfOb5UWrdiGrxAPcW14yeBBD4Y005/tMedw3oVPHEeN6P2psn0IuWtP+qbdk/SesRf5JExYsKzG7Jk5XQ0CZG4NEOq4p3JmoFJ6uuwuxYz0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WOdMTkOeIzCVyOgPcy/RGW6WCyvaALfUZY2yvS0iEik=;
- b=mRfWJ6tGY8uCmFfbDZBKyj/3kqZrQmXNOTg1t726m3Mk40UpFgZdeBrnFWT7EsgmeCWtsMOU1erF2WCwi/PTU1TR+z61vBSwSVfZnTFu38STEZE5iBLIhOj4b7bUwH3iaFZ/+FoFHD2+ovCZlzfLV5/b8Wy34oOvPi2RZlqJx45Aowxfw+rO/ohm/qgv+Gb7t6Vk/2KJRVM6gfxX+wF5bNIHKxlgQ/8NrU/1MsrmXoQksXOs/DmwqxIkyqM1rtFBLcJ2/wOCdRVaA9rZJj2Ebldz2Jog48J8s2G9QWvQzdJx2yld+zAdGgSH4/OSAlqNe2QYXTc6Ga/B9Urp35DspA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WOdMTkOeIzCVyOgPcy/RGW6WCyvaALfUZY2yvS0iEik=;
- b=PtTXR/PZWNWFT3/EIoNt1a7UCszhV16RuJAdCtPBg2sTiXz15Ec/+cEQYpokpvOft32GMb9unrUq0XIBc70jPIbBMShjQwVbfyrqSzBISvCxFPZ6CnLvmCGV3u0tLYMZkER4gef/SLDpGXs2FxTEsLOLPDXh6wkDFucb9aP+I2w=
-Received: from PH0PR07CA0112.namprd07.prod.outlook.com (2603:10b6:510:4::27)
- by IA1PR12MB8539.namprd12.prod.outlook.com (2603:10b6:208:446::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Fri, 28 Mar
- 2025 04:05:45 +0000
-Received: from SN1PEPF000252A1.namprd05.prod.outlook.com
- (2603:10b6:510:4:cafe::f9) by PH0PR07CA0112.outlook.office365.com
- (2603:10b6:510:4::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.43 via Frontend Transport; Fri,
- 28 Mar 2025 04:05:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A1.mail.protection.outlook.com (10.167.242.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Fri, 28 Mar 2025 04:05:44 +0000
-Received: from jc-d.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Mar
- 2025 23:05:43 -0500
-From: Jay Cornwall <jay.cornwall@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Jay Cornwall <jay.cornwall@amd.com>, Kent Russell <kent.russell@amd.com>
-Subject: [PATCH] Revert "drm/amdgpu: Increase KIQ invalidate_tlbs timeout"
-Date: Thu, 27 Mar 2025 23:05:25 -0500
-Message-ID: <20250328040525.3736064-1-jay.cornwall@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
+ [209.85.219.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE0A510E082
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 05:10:47 +0000 (UTC)
+Received: by mail-qv1-f50.google.com with SMTP id
+ 6a1803df08f44-6e8f4c50a8fso14862206d6.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 22:10:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743138647; x=1743743447; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TeihVEUGopJ/YxWEfaQBckPDZuf8W6lyDKLCwWOmtss=;
+ b=ZKaPTSbe+Ec1679vD1OMMv5O7wIODT9Y7vcpUH3AiplhsTxLHzABP16WuGDyX8+LXg
+ KsSRRkhhLlSWgev7YpEmEq/E27+IAMZJu0ng0sM7jaZuXivGVqyyAt2XnMPwHuq3bXnk
+ paZQ1bBMApZJOeVabxQgC3K4BJqrx3DRSR4PvIypLjrSLM5iRU80yVOJUqceyZ8LXb/r
+ jATa5CbRgC1w4fDPVqTvmQsD+l81Fg0zMuaFTR1OJk+DRZ1eXzm48UKPrhbjpQvDD4Ng
+ 4W1yH67XreWFay7vLRXC7AUd0HxFzboN2mUWHcD1s4XP9WClvgq29hDYFQWriPn6lz6A
+ kO5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743138647; x=1743743447;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TeihVEUGopJ/YxWEfaQBckPDZuf8W6lyDKLCwWOmtss=;
+ b=Dfj68CHZs3z7Lb/RTb1j8M0fIwBBumqJaKx8NEAudYWgaYVtJmVxYMVtoWpSBOwG1f
+ Btdom/Gh2HGYDj4WoEMmPwtAZqYMpmKyDMwawG9hA7hv3z6Rd5QAwfU2eAFuefqbB0vA
+ IU/EEWcKTQABOUFtak8rcBlT53JWmrL/DUZKpm/QfcM0PJCO2798UOl1cy2s6Or/zH0n
+ rc2o2sDJFy0xN2hydnFEhA1HOOE3Vu5QDPMu2oVSAInEdWfifDnaVFmisu77Tq2TkzrT
+ R30ddIOJ88bvqrsQ+JecaJw0pjBsmIaXrSjOK2HyWhecFUR77xYuPwBQC0Q/Y+LoUHyc
+ b8Gw==
+X-Gm-Message-State: AOJu0Yxx9Ux0PSw6N1A4X8LF4NcTnWGbVUCvuRMD9ajYF8kLO5quyQLb
+ JD/wz8QQBbEIklQOpiJzsEMiPtB7/ditrlnhL1dTT+IO4SqbMTzU4e4VSg==
+X-Gm-Gg: ASbGnctLPbcJOw9Vhz6G7UERWatd7Cq5W/4sqdSEu4i9FNzqQBN8YlakIEA7TL1sm92
+ pYbs+dGVeXweMDbHxo3NvDK5J2/IGH3Z7ypJBzP2MF7+1OY+mnIbJp9G5bZ5msHiHSHT7eAXAFH
+ pOIguQ2zuKCG21GB7ILtL0ouhJ8wvudn1oWtb8DxBqARXLRquO/B7rvvMwuQAhCOxCydaMGMTOg
+ Gdkgb8KCHl20n9EwZA/37NBj2kIKDKdwz1+HBBvZ24+6NGQj9LfFdttJcnA8g+aybxHqNlN+4k3
+ rLXUgooKV10ODY2l1eBTI3BwMPP3O3cMIGDZbHfnuG9x0YmosSQpyUKGhX6FG9AAvI8=
+X-Google-Smtp-Source: AGHT+IGyw9YmZIwR07N3+NnPU9UazoAtNvwMYMskNVIOsNh77W6Yb5mU+3fe3u+xHjDX1zX87tIlyQ==
+X-Received: by 2002:a05:6214:d6d:b0:6ed:cea:f63c with SMTP id
+ 6a1803df08f44-6ed23842661mr80084146d6.6.1743138646413; 
+ Thu, 27 Mar 2025 22:10:46 -0700 (PDT)
+Received: from localhost.localdomain ([38.74.25.248])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6eec979736esm6747996d6.109.2025.03.27.22.10.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Mar 2025 22:10:45 -0700 (PDT)
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexdeucher@gmail.com
+Subject: [PATCH V3 00/18] Properly wire defines,
+ shifts and masks in SI and cleanup
+Date: Fri, 28 Mar 2025 01:10:14 -0400
+Message-ID: <20250328051018.1025728-1-alexandre.f.demers@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A1:EE_|IA1PR12MB8539:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3657197-30a1-44d1-7dd0-08dd6dadd060
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+Um99AreB//FvmzZbcQiiD6CNYCTSXb65M53VeuKPQ6BeAhOPkUj7XHmXObZ?=
- =?us-ascii?Q?Q4kv3PQ2brxb94yCyFeESU95GGp0UjM3lnflNHuvpYCpWKN5UzDQ1a/gdSH4?=
- =?us-ascii?Q?K2o/J4vjNzfyVHFLyK1eu1Xh9XiSma7BKxdNxuvxrDT34vVbFunBnJwD/KAn?=
- =?us-ascii?Q?oNwAL0ZMmrEkrj8clmnUuH9n3vBLDBVmQLxiL/5qhY7a1HbbCczTdNapywwa?=
- =?us-ascii?Q?W0drVxUKO88KQBOAdQhbEXT7IcqazQI7V2zWFGUrz2sjUsnriJfB0wjQc1sT?=
- =?us-ascii?Q?sOYH4SwIRoEErfGtRR6g2PSuBVVYwHAfryLmgweDra7/Y1CDw0hqNJrqGSv9?=
- =?us-ascii?Q?dQaAJQUITDEBLH+YGJSO3y/ln7LQK3qob6gzku//FWkm+e4LvcxC0+KZuYZd?=
- =?us-ascii?Q?3+2MSiwePEr8gfJB9roYRyaoErSNdPIBZjjrWOvrEpnYJOTNjuMu6cG+xZ3M?=
- =?us-ascii?Q?nfA8gNN3kkd2jxfMKQgx6LpLZ1efGkbEkNyAJiiYOgTAwr+pVsGa1fLzgroM?=
- =?us-ascii?Q?4urqhIkNTuWJg4LEwaDfAvk8n+Elyqfqp2Wnbdpa1jWgLOiQiwW+Hmpct+fx?=
- =?us-ascii?Q?LtLcUHKUoStuwhJUjJ/qaDZ6c9sSL27quWGMDceSRALuGnKdqDwnmUqEj4EL?=
- =?us-ascii?Q?FqNC9su6rLzZtsY2EWBMIrSDfrTzkMgc949XZba/9S5CMK+aQehiVmJKpAjc?=
- =?us-ascii?Q?vlu/+UD/JfgW1cC3Yi6trTxupkCnZuIji3c0Zgh2E7c3jbkuCdm/yGNHvx+u?=
- =?us-ascii?Q?8eRqgfes/Ox5ZuHz9+jub2r9ICS/X+8Hcycy+PTtWVrR9LcZuF8diUWr8vEJ?=
- =?us-ascii?Q?PN5q6HoxJtGgmOyranI3EXs9GurxNvTxtgYh0zrntxq6N+SouQn9W34j2heN?=
- =?us-ascii?Q?+OcGEiNPkLnFV5TJ2Xmx/2J0ykoL7rNdivy8N66UErxsl3gOqUm5J8fStRVW?=
- =?us-ascii?Q?DIDkLfLUj3KDFBSoTrPSw0ZeZyCu2UevlRE8bJO42BqYW44TK1NP7omU9fAA?=
- =?us-ascii?Q?O818WoWAqprodHA9XV7Bj92RsLCVFsifhAw5obwWepRpjiuGmeej9zq+BZ8r?=
- =?us-ascii?Q?Ka61/qaCJwBIu3bIXEnJ+4gK6HKcjIMUS48s1YdXwi+hD2roW2+bIPJEr6mz?=
- =?us-ascii?Q?UP8Toofp783t0PIsvsORtc00TSvi7wSB+3ohSFpWKcQTEuTcLh/uahctvbs/?=
- =?us-ascii?Q?fiwQLqfTVD5urkI9yG+eC+hGEDJum4vV7DY7q+LmB12jIiX84HJ7AxPTkHFI?=
- =?us-ascii?Q?3gXYcJ8pHWuGgawqXPVUzrO4nHzwvcF4b2HNjKn5Z7Wnr6Ho7y9kk+5wa/IH?=
- =?us-ascii?Q?3Lek4Kx7XjYP6/DyFDDXHHTskH3cme9UJpJft6WbYxh21dXC6YdkhVL/8q9a?=
- =?us-ascii?Q?AtYKNj3S49xrT2vVCoeFowW7PW0wfoNExBWgctGrmrCBzy0sHcDmMrMVVlWo?=
- =?us-ascii?Q?7lapzR341Q8oPk+Ypxb+B+9SwZOEzgGt68BG+Z7DV9+ZRj138/n6/MT+QkPv?=
- =?us-ascii?Q?bNLPeKLwfvs3Ox0=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2025 04:05:44.8607 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3657197-30a1-44d1-7dd0-08dd6dadd060
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8539
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,70 +82,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit fdb90033846e2f23dfaaa01dc47fec7b94704d0e.
+The following series is intented to remove duplicated defines, shifts and masks or
+to classify them where they belong. si_enums.h has been used as a garbage can
+for anything and everything when moving SI code from radeon to amdgpu. 
 
-Reportedly causing unknown issue in memory management code:
+Where needed, the defines found under sid.h and si_enums.h were ported to DCE6,
+GFX6 and GMC6 defines, shifts and masks. There location was based on CIK and
+later.
 
-[  128.047288] amdgpu 0000:65:00.0: amdgpu: Failed to map peer:0000:46:00.0 mem_domain:2
-[...]
-[  137.815340] WARNING: CPU: 81 PID: 1006 at drivers/gpu/drm/ttm/ttm_bo.c:613 ttm_bo_unpin+0x7e/0x90 [ttm]
+However, most of them were already available, but not used where they could be.
 
-Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
-Cc: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 16 ++++------------
- 2 files changed, 5 insertions(+), 12 deletions(-)
+This series is running on my PITCAIRN setup without any visible drawbacks.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 3cdb5f8325aa..ffca74a476da 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -356,6 +356,7 @@ enum amdgpu_kiq_irq {
- 	AMDGPU_CP_KIQ_IRQ_DRIVER0 = 0,
- 	AMDGPU_CP_KIQ_IRQ_LAST
- };
-+#define SRIOV_USEC_TIMEOUT  1200000 /* wait 12 * 100ms for SRIOV */
- #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
- #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
- #define MAX_KIQ_REG_TRY 1000
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index c46e36a0cd9c..464625282872 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -699,10 +699,12 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 				   uint32_t flush_type, bool all_hub,
- 				   uint32_t inst)
- {
-+	u32 usec_timeout = amdgpu_sriov_vf(adev) ? SRIOV_USEC_TIMEOUT :
-+		adev->usec_timeout;
- 	struct amdgpu_ring *ring = &adev->gfx.kiq[inst].ring;
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq[inst];
- 	unsigned int ndw;
--	int r, cnt = 0;
-+	int r;
- 	uint32_t seq;
- 
- 	/*
-@@ -759,17 +761,7 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 
- 		amdgpu_ring_commit(ring);
- 		spin_unlock(&adev->gfx.kiq[inst].ring_lock);
--
--		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
--
--		might_sleep();
--		while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
--		       !amdgpu_reset_pending(adev->reset_domain)) {
--			msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
--			r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
--		}
--
--		if (cnt > MAX_KIQ_REG_TRY) {
-+		if (amdgpu_fence_wait_polling(ring, seq, usec_timeout) < 1) {
- 			dev_err(adev->dev, "timeout waiting for kiq fence\n");
- 			r = -ETIME;
- 		}
+V2: Drop unneeded comments.
+Remove "ix" prefix to some defines, since they are not indexes.
+Make sure each patch has a description.
+
+V3: Sending back only the ones that needed rework since the others were already 
+merged.
+Patch 10: Add "mm" prefix to some defines, since they are direct access memory mapped 
+registers
+Patches 11, 13 and 15: Correct accordingly to patch 10
+
+Alexandre Demers (18):
+  drm/amdgpu: move GFX6 defines into gfx_v6_0.c
+  drm/amdgpu: wire up defines, shifts and masks through SI code
+  drm/amdgpu: use proper defines, shifts and masks in DCE6 code
+  drm/amdgpu: remove PACKET3 duplicated defines from si_enums.h
+  drm/admgpu: move si_ih.c away from sid.h defines
+  drm/amdgpu: use GRPH_SECONDARY_SURFACE_ADDRESS_MASK with
+    GRPH_SECONDARY_SURFACE_ADDRESS in DCE6
+  drm/amdgpu: move DCE6 away from sid.h and si_enums.h defines
+  drm/amdgpu: add missing DMA defines, shifts and masks
+  drm/amdgpu: add missing GFX6 defines
+  drm/amdgpu: add missing SMU6 defines, shifts and masks
+  drm/pm/legacy-dpm: move SI away from sid.h and si_enums.h
+  drm/amdgpu: fix GFX6 variables for sid.h cleanup
+  drm/amdgpu: move si.c away from sid.h
+  drm/amdgpu: move si_dma.c away from sid.h and si_enums.h
+  drm/amdgpu: huge sid.h cleanup, drop substituted defines.
+  drm/amdgpu: keep removing sid.h dependency from si_dma.c
+  drm/amdgpu: cleanup DCE6 a bit more
+  drm/amdgpu: continue cleaning up sid.h and si_enums.h
+
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  176 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |   15 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |    2 +-
+ drivers/gpu/drm/amd/amdgpu/si.c               |  387 +++--
+ drivers/gpu/drm/amd/amdgpu/si_dma.c           |  116 +-
+ drivers/gpu/drm/amd/amdgpu/si_enums.h         |  234 +--
+ drivers/gpu/drm/amd/amdgpu/si_ih.c            |   17 +-
+ drivers/gpu/drm/amd/amdgpu/sid.h              | 1546 ++---------------
+ .../include/asic_reg/dce/dce_6_0_sh_mask.h    |    4 +-
+ .../drm/amd/include/asic_reg/gca/gfx_6_0_d.h  |    2 +
+ .../drm/amd/include/asic_reg/oss/oss_1_0_d.h  |   23 +-
+ .../include/asic_reg/oss/oss_1_0_sh_mask.h    |   43 +
+ .../drm/amd/include/asic_reg/smu/smu_6_0_d.h  |   44 +
+ .../include/asic_reg/smu/smu_6_0_sh_mask.h    |  190 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  358 ++--
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c    |   42 +-
+ 16 files changed, 1001 insertions(+), 2198 deletions(-)
+
 -- 
-2.34.1
+2.48.1
 
