@@ -4,157 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75760C36013
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 18:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10C3FC28B20
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 18:43:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB90E10EAA1;
-	Fri, 28 Mar 2025 18:27:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADAA610EAB5;
+	Fri, 28 Mar 2025 18:43:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PRmwZEI9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jAmupDVG";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08C0A10EAA0;
- Fri, 28 Mar 2025 18:27:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lf5IOwiJNEowRu4sqq/YVy5YzLd1hj8egalIcNnAQ//K8MwO6a5QQEwNlg+6bne8cfFsmeepwpKre5tJu9KjBnG+ON27sZkyW6ThftqjFg7eikciwpZbh7WyBrnc6UQHWZyOvCQM0b7o/eOUrO8cD+V3nC4zfDZ1CRVGjlOC57R7XekV7mo23HX0RuizyHA+5X6P6ObWx4Z8EnIpEce9Au5jSNlJIVYDShnXX9z0/IpBlAACmiXwVux8WTVzF9xhE520jNJGN/t8smraT/mvRe7871XoihVf/aygfP8ArGLsEfB+TN82hKJ654qpuf8TJxIKBYNMsDy/H0jJArr5ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MJxsIf0XMJZe47575DOsgdMKWEZQqIJi9dGTUd0bXRI=;
- b=JgJn51aNrlBMDY8Ud58vG5D85+jFclFRFNMufVBcHVJpGEZO31lrWYZr+PZDyEF9SajJhpF0Rb0i9OdCSECzjBSBNKc6VQLqjUfj7oyBCzOR4mIky7NL9/TD5CmWyDIfIFF6cFBXHIs8iHi+7NzHGIz+tulzXc0nmXQjJ0omnaxZiVt8NN9hEvLooK3vfOGMLBNrSZD75jm7xEKTEHMDE+ns5gTTZQfcWnvLrt8cBR+yrKqpCj98JFhrc3Xv2YBdmrisKQDdYbZMRN2JJ/rQSXw3tTjaNzPtygJDmls6JRM3SzUfnzqNPvTTGhaSkF0l7WEJA0egAZwqIHGdNMif5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MJxsIf0XMJZe47575DOsgdMKWEZQqIJi9dGTUd0bXRI=;
- b=PRmwZEI92LmI53xra5mdb4a6yj/sRSFjdZP1UuhcPwdAPfwCIu6XAllPx8ooXDp3r0Pv2a/GbZko8lzqOG0cZInbwh7DRkvGIRrIFWjF/Z3Kxmzp3ZKcl0diUTYcwbbjgyRtaYkfTbVdr7NT1YKKTjOMVS6rorlMxaA7dup3pGc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by IA1PR12MB6020.namprd12.prod.outlook.com (2603:10b6:208:3d4::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Fri, 28 Mar
- 2025 18:27:46 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.8534.043; Fri, 28 Mar 2025
- 18:27:45 +0000
-Message-ID: <4a4e462a-ac83-4515-a64e-25238fb67ef2@amd.com>
-Date: Fri, 28 Mar 2025 14:27:44 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amd/display: Protect
- dml2_create()/dml2_copy()/dml2_create_copy()
-To: Huacai Chen <chenhuacai@kernel.org>, Alex Hung <alex.hung@amd.com>
-Cc: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, Austin.Zheng@amd.com
-References: <20250318111717.2161235-1-chenhuacai@loongson.cn>
- <b8c481f2-a280-4f86-8080-2c6dcffc4629@amd.com>
- <CAAhV-H7cch+koOSJAFe70c8Pk02snK7M=andyfwbCgiNdg4aVg@mail.gmail.com>
- <87d0601b-c1cb-402b-aecd-23a5d371da66@amd.com>
- <712b77ef-c7f7-47a4-9609-47b179f15662@amd.com>
- <CAAhV-H6AMm1X4zyhj7-jqiaCpd-Yfco88d4KODd5_jUfhyi8Cg@mail.gmail.com>
-Content-Language: en-US
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-In-Reply-To: <CAAhV-H6AMm1X4zyhj7-jqiaCpd-Yfco88d4KODd5_jUfhyi8Cg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0216.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::27) To CH0PR12MB5284.namprd12.prod.outlook.com
- (2603:10b6:610:d7::13)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42EF610EAB5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 18:43:32 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-2ff62f9b6e4so562214a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 11:43:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743187412; x=1743792212; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9STj7lJS/erIrpAT/mEZTT68VNl5e1kIT0DietAH988=;
+ b=jAmupDVG6mDm/xqFz/8DxeA3YBtwcKDuYlmI4+UKN6U99D/2jHkavafoU37MQx0kkq
+ k5zN6QLdnKjuw3wRD8ioInbb5laLmevCndN5XoZpQgOgDu1SKCqwhZYwkiNhKxca+Fkl
+ a/yMmiIDsM0VyuLcm3asBqOsFSJ5E7ca415t+oItD3eooRo4Uer5XJqE6c90fepOaQjL
+ Tgwrdo3YZRhabEms/XQWBRmKUOBMoWEtSKrEyZ/w3IR/WSripJJeFtDt7Wq7nkJ9G6dg
+ g+qVVvpWoMbGKrY5LCj9tWevX2wol9FCQkDHf41kZ8tw5BMn7yLvaMytpK+GqyhoLVID
+ rOdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743187412; x=1743792212;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9STj7lJS/erIrpAT/mEZTT68VNl5e1kIT0DietAH988=;
+ b=H1G/Jz1J3juli9UwyukfzXLqFCW6gOnb0MWioqwNjShj3+DMpEOR0/fgUAMO35hdhW
+ 2r3fbX0bv4K2RvaMikv5LxpPErujypRO8hyJhlWe6dpOJzP2Bgjh1K9iH6XvmhKV3wMb
+ gf4I7a/45LPGlVztmTS6AQOviERaDIHZjsQq/kgRjrKlTKokfEFcvs5FxnOcG9vg8WnQ
+ P2HQnV9GX0I7etez8gnW3axrv2KBrpRhBQwvkbQ/tv6/jYqBPw47rZUDoPJGP7PUN9nP
+ JZgUDU1YwjWf2eDUyose3P3Rz0ewMZ6K+nmNuCauTWVnjo2lFySlvgLDHVdDRLiq/JCb
+ +PeA==
+X-Gm-Message-State: AOJu0YwGb1OzI4h55kiwJYZT8rfjNoA7qmWkKdUXUqRIQ4k8WjTeaH/t
+ ZpRWffgC2y1IYTHSXmkcV01pATSW6CzNH3CNK57CnGPBnTRF0QPMYSndadfnQMauilp94quIe4u
+ IuQ+9iCd/6Ndj3vAW6AJpNb2g9Uc=
+X-Gm-Gg: ASbGnct5O7VZzCZSjWWtXQQLL1wBGVmaam1NGldmGFYJapKH3ylmk2uoSPZbZqpgCqx
+ 1VgZvjEE2k42dHUn/1/4Y6KmR8I8O1Iwfi87GZoGnytqt0sWdDkM5o0+5Zl+Je4bBhSbCwCWIPl
+ TOEJ0qhIgKVdL2ba+vfCP7WmCmhg==
+X-Google-Smtp-Source: AGHT+IFR7u9JI/FVgcLJl3xNyCw0SOpMMRHKpEr1Kd94EW+POs293iFHXEJ6zuqv3pzWmxaVfZuIOMn0P3+8UVXd50c=
+X-Received: by 2002:a17:90b:4b8e:b0:2ff:4a6d:b359 with SMTP id
+ 98e67ed59e1d1-3053216394amr171341a91.7.1743187411433; Fri, 28 Mar 2025
+ 11:43:31 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|IA1PR12MB6020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45305235-5dfc-4237-7e7b-08dd6e263c42
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UGNMbExqa3pheVZwZ1RJdVl5T0ZSaFI1VkIwSld6UmFhRDBrWWhrUUcyUG9C?=
- =?utf-8?B?ZUdUVk5CYTR3MzlZYzdyTFR2S3JjeFppbTh0NjVsLzFKOUpHT1lmbXBvcUQr?=
- =?utf-8?B?a01yY0dnZld5Qll6ZDJWSUw5R0h3amVFUnRESzBiSFdXaG9aaHk1Y09RWmlt?=
- =?utf-8?B?OGNoWUpHVGIyTlgyMHQ4bFJUbTVSeUVRT2tUd3NWVlNyVUE2QkJWUFoyK1o2?=
- =?utf-8?B?cW45azFxQXZMWm9RNjY5T2NWMjRORCtjRUNJanhkc3BTTDA3bUZCV0hQUjNv?=
- =?utf-8?B?Q0pDVTJVL24xb2UzYmNzdUwrSWxBcXFjLzdEbTZUQ1JFbzV3WVZsb3ppYkhL?=
- =?utf-8?B?VkJkUkpQbFJjbWtqNlB2bzJTYmMrZ2ZoWUZLc3V0SXdobVJqNmdyZks1NDd5?=
- =?utf-8?B?L0J3TVhpRUxLUVZBbVhjWmRVNmMvZmlkY1pldEVnUnN0S25tYXZONjNrWWV4?=
- =?utf-8?B?RnNKOS8remhXbTE2UUM0bVNUYlZ3aHlSR25weWJMSVlHbGRDZ1dzWTZLUjdy?=
- =?utf-8?B?bXRnYkVrOUpHc0FzT1pZUmJnUE0xaStsQ3NPWlNhMmFNK1g3RDV6UEdUamJy?=
- =?utf-8?B?YjdEVy94ZzRvek5JSndNOFFMaUY4RFhvVHB4ZVk3bmVIZi8xNXprVmV6emRl?=
- =?utf-8?B?RkYrNEYvTTRneHpZUitUY0VWeHlGUm5xZEgzOWJTRG1KMUNIaFhGRW5JT2ho?=
- =?utf-8?B?TEdzQUpBeGJwWURTNndLdEFJZUdHN082V0RFQmZwR3NOejM3cUtDZjdmNnFr?=
- =?utf-8?B?MTA3cFArMmpBM2dNMHRkS0dydUhmcGFWT0pwZWtWYkcxbFRoaHJjdEgzVlRX?=
- =?utf-8?B?MG5tUnVIUE54WG92VVlJb2FwbGV1SjYvSTlXaXRYMVlrS2JsRXdGN2FiQ1Z5?=
- =?utf-8?B?Z1lDL3VuYVBSZ3l6aC9heVQzNWJpT25MaW9WamJ3T3hRVmM2NDJiZ1M4MUYw?=
- =?utf-8?B?T0MxRWJwdG43aC93VWFSZjFBMy9TVmZ3WEZlNDg4UHlvYy9Qb2FsWnFJaU01?=
- =?utf-8?B?TmRGdzgybzZmbEZtVnhpVVdERThkaVJzdW5MOTVLT2ovTkZ5WGhEYllhQTF2?=
- =?utf-8?B?QWQ5azhXeUd2MGZBRU1oRUg4Vkh6Q2R2WGVkR0lMc0Z0VjM1OFpDbmIxZzJk?=
- =?utf-8?B?RmEvdFhJTmFRdGFHOUllUVJpZ1dIMnhWYUhCZkMvWlhmSDdHMlZGSVlSMmt4?=
- =?utf-8?B?ZkFjS0NIYlBQcmlWWGVkcWF5TWk0V091cWtLUVp0b3crcndRQXJtb2JEZFQ5?=
- =?utf-8?B?Qk5iclhRd09NQ3dYbWlveVRjaXZLTHdLVFZzZGMxOTVRbmhlWSsyVXVHU09z?=
- =?utf-8?B?Kzkzb2NlYVp2VEgwM2FQbFAxd3VGSU9GQ1g0RG1WazViVjF3aFVQeTNNVGhu?=
- =?utf-8?B?a2IrY283WlZpbFJMT3huemoxTHdWYTNrMlQ5aVhyTWdWMDJGTXpOZXVLNTI5?=
- =?utf-8?B?RWlyK1MvZk5yR05QTjB0dk5qNFNTQlZaaVFZdW5VTGZCVzhpOVdLT2I5UmUr?=
- =?utf-8?B?aHpDL3NJeUFsQ3pNbWZydVcybFJTa2VER2NoQm85UjJTOTRrZTNkVS9SeHdM?=
- =?utf-8?B?dnovL1RONUNlQ2ZzeVl4eGh3Zmk0MFNxamQ4b09ITW9zNGRZTlZDVVp4bWoz?=
- =?utf-8?B?VExDTFB5WExEZnd1QVBBSWU2UDUrTXY2SlVGMi9BTzA3eE8wOXJ2YlZZL1lN?=
- =?utf-8?B?YjZ2MWIveU5STzlPeitXV1JJdVNiazg0dDZYTGY4UXczOVh0TnQ4aWxZd3VD?=
- =?utf-8?B?WUtPWEowTjhYcUVWL2w1eXM2eHl5WmV0MXRKNXEvWXhjZkJpb3ZETkdnVEZN?=
- =?utf-8?B?MUlGdkxpYXZYajZCYkdZeHhOOGltczJQbTNNZGRvUU9ITVowVlgrOW1mK2pQ?=
- =?utf-8?Q?oYP1yddEt+Z1r?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amhmOEgza25YMTlVRnAxUCtrSXVEaFN6TzZVZ2RpcG5CL1FLV1FFcEJqRHdM?=
- =?utf-8?B?Mm1GZGphOHppcWhlOFR1ZXdpK1hhREVUd0tQZUYweWNUOGhLR2lSZ1lMZXZx?=
- =?utf-8?B?a3NsM2hzSkJLRDM5M0VseTY4aG43NHRCQ2ZST3Y4OU9rV3FBU0VpbmwwUG9Z?=
- =?utf-8?B?eGlIUGppQXlCM2N0WkoxZFBLK25BcjhLdlY4TkpiMDh3dVZES0FMdXQ0Z3NK?=
- =?utf-8?B?WlRpL0M0VGJWVmxSSVFDVWJTRGI0Q3V2L3U2YXdJYzJubUdaQmJrVmJtd0Jv?=
- =?utf-8?B?R08rbXNFc3JRVEFnQm54dU9nTjNxS1hwQllvMnJ2R095UnlCdk5iLy9sRzZT?=
- =?utf-8?B?TGlUN21tQWpreVJtMG5yK3RybVVwN3VNUUVmbE9pNFJnaDhqNkZpUDdlclVD?=
- =?utf-8?B?OGx0andWVndqb1Juczh1MFlyOTNXekFjT0o1ZWd0eUx3UDFqdVpiR01YYnVS?=
- =?utf-8?B?MytUdFVtdzdpeVRDQk8zZndaSDdYbkppc0NtTXd3Vk01bHV5cHhKbm5nODd1?=
- =?utf-8?B?VjVaWWpQQ0ZkbzdjYVVQVlQwbEJjVkxsNDY5bnN1RS9sUkRLeHFxYldIQ20r?=
- =?utf-8?B?bmtBblFHQjFSZEtFZ1FVUmVYbmI2UlRjeTJGNTdOMnpIako0ZFFtSlMvQmZE?=
- =?utf-8?B?ODRxVURTUUc1MFZsaFhmM1AyQjhjZlNGNDk0TnI2dS92VERwZzFCMnN3UENi?=
- =?utf-8?B?VXhsSWtNYjBSYkFHVlpNdDNzckhKU3RNWFRqZHlqaC85RlNxdUprUkVtL2FM?=
- =?utf-8?B?S0QxRGRXdjY2c3VuekdZQU9GY2plQ0t5UG5heTByY1VHRmZCeWVIZVVnZEdG?=
- =?utf-8?B?emUwb2JveFhnZzVhR3FLVFNaSXNEQ2RLQUdUTjVkdS9oQ1BmSzRrb2FFbXNy?=
- =?utf-8?B?Ry9OZ214M2xjWGVhKy95aktzb0tLTWp5bUovVWY5SHVsSXZJTEd6NzM4UjBX?=
- =?utf-8?B?T3ZXYjdKVGFNTTFzQmQzOXVFTDZaVFU1dVNRZkN0SEF1Zk9Mbnd6Y0E4bFdx?=
- =?utf-8?B?RjZlYkRHcWtFbnk2MTQva3RtRXkrdG1ISXNlb1N5T0RZZlJrOFFHc29RL3JG?=
- =?utf-8?B?ZXYrZHRnTEM2TjFDRmtCVlFPNG5JWVFZWHBtTU5BRDNBMFYvc1NKMTVrREE2?=
- =?utf-8?B?VXlVNE03aERsZHZFNzAwRWlqUit3ZFJBMWFPeEY5Q2wxc0JXcFliaW4vSmhW?=
- =?utf-8?B?SDVncE90L0xIb2lId1VIL3g4dHZsNzlDQTNhRUM5aUZzd0Y4eHdheW9URUN5?=
- =?utf-8?B?RFpoV3AvS1NwckEzVmE0VVBTbVEvcnRRTmVNQzFCc0xndElzbEwvdm5sSHNv?=
- =?utf-8?B?N0FFb3BXbUliYjhNWWpPck13WkVIL3VzWUZTZFVkci9iYWZZSVkrdGd4THd0?=
- =?utf-8?B?T202cWRWOW9Renpmb3JEY3FPRitOQzBWY3FKVm4zL0hZdDNVcjZBT25tVHgw?=
- =?utf-8?B?dm9JWVptZk5xMGEwcEhjemFVazNZOGtWcWFkQWVpS1dXaUdvbVFXamdZL2xB?=
- =?utf-8?B?VFFqRGhFR2hyMWlzTlVwb08xWEhjZFo1ZE5hVlI2aExLMDFKdE8zNXF1Q3h2?=
- =?utf-8?B?bGlZMlk4ZE1NL3FFcjdYTFZucXpJSHNYMmhFaC9OWlFzZXI0N2NsUDg4K2pD?=
- =?utf-8?B?NXpQV3gzcVNWSmx4R2V4anZPR3paVHZuZlVsMHJSUEdFbEIrUTFSN0d4NTBS?=
- =?utf-8?B?dldIZVc5bndVWVdIK3M5MThXTGVvc2N3bFJhRGN6QW9pSWhxR2duYjlOR0N2?=
- =?utf-8?B?dnd3dFk4MkhCWXYxUUI3TzZKOW9nNHQyMXUyY05vazdkNGc1dDhhWG1ZVENX?=
- =?utf-8?B?QkU3UzkzRVdkRzIyRkJtRzM1bGFNRVBnKzg1a2hpWUdPT2dHRUxLYTQwak5p?=
- =?utf-8?B?aXdVcDVpa1M0a2tSZXJUYWhqRmNtbGhvTWdpR2Z4RUc4VWp0bHg0Z3dibmx6?=
- =?utf-8?B?RGdSVVZPUlU2SDkyWE9yNDFRRFBTUzFqaloya0FQaHVMRDlkUG9UUW5mdFN1?=
- =?utf-8?B?NTVmTmE5Wmtkcm9YcFZua3Y2Qjl3Qlp3VWlVUUsrR1Y5aHh1eFJSUlBiQllJ?=
- =?utf-8?B?QjNaSHVaTk05SEY0ZXl4V0g0aWxLcTFUQ1QxREhKc3JuS1gyQUxDVktIMGZ3?=
- =?utf-8?Q?w7NoPku/I9vYJM1nh2/Z8g5Fj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45305235-5dfc-4237-7e7b-08dd6e263c42
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2025 18:27:45.7386 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nndi9PeR9zPRCF3nCLecAKqVRaip4BYkjc9brPzvX77BhJnQvTSPIuUvjDmA9y953begjoeoXqnep2tCLmrrpA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6020
+References: <20250328051018.1025728-1-alexandre.f.demers@gmail.com>
+ <20250328051018.1025728-2-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250328051018.1025728-2-alexandre.f.demers@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 28 Mar 2025 14:43:19 -0400
+X-Gm-Features: AQ5f1JozXDzSaRmAgKfDFd6r0OlEqHlAih8pLreJeH26speicMfZLlKP47k-I6s
+Message-ID: <CADnq5_OirSQ0iho0zk3ZOJoDpwkeVMVKuC0GBWhBngrh+a9VXQ@mail.gmail.com>
+Subject: Re: [PATCH 10/18] drm/amdgpu: add missing SMU6 defines,
+ shifts and masks
+To: Alexandre Demers <alexandre.f.demers@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,89 +81,341 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 2025-03-26 21:40, Huacai Chen wrote:
-> Hi, Alex,
-> 
-> On Thu, Mar 27, 2025 at 8:10 AM Alex Hung <alex.hung@amd.com> wrote:
->>
->> The following error messages showed up on an APU and a dGPU during testing.
->>
->> <3> [100.231411] BUG: sleeping function called from invalid context at
->> include/linux/sched/mm.h:321
->> <3> [100.231414] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid:
->> 1711, name: kms_color
->> <3> [100.231416] preempt_count: 2, expected: 0
->> <3> [100.231417] RCU nest depth: 0, expected: 0
->> <3> [100.231418] Preemption disabled at:
->> <3> [100.231419] [<ffffffffc0c2843b>] dc_fpu_begin+0x2b/0xc0 [amdgpu]
->> <4> [100.231626] CPU: 4 UID: 0 PID: 1711 Comm: kms_color Tainted: G
->>     W          6.12.0+ #1
->> <4> [100.231629] Tainted: [W]=WARN
->> <4> [100.231631] Call Trace:
->> <4> [100.231632]  <TASK>
->> <4> [100.231633]  dump_stack_lvl+0x5b/0x70
->> <4> [100.231638]  dump_stack+0x10/0x20
->> <4> [100.231639]  __might_resched+0x170/0x1d0
->> <4> [100.231643]  __might_sleep+0x44/0x70
->> <4> [100.231645]  __alloc_pages_noprof+0x22f/0x370
->> <4> [100.231649]  ___kmalloc_large_node+0x95/0x150
->> <4> [100.231651]  ? preempt_count_add+0x4e/0xc0
->> <4> [100.231653]  __kmalloc_large_noprof+0x1d/0xb0
->> <4> [100.231655]  dml2_create_copy+0x27/0x60 [amdgpu]
->> <4> [100.231827]  dc_state_create_copy+0x7e/0x170 [amdgpu]
->> <4> [100.231995]  update_planes_and_stream_state+0x23c/0x600 [amdgpu]
->> <4> [100.232189]  update_planes_and_stream_v2+0x22b/0x530 [amdgpu]
->> <4> [100.232366]  ? amdgpu_dm_atomic_commit_tail+0x1310/0x4100 [amdgpu]
->> <4> [100.232569]  ? commit_tail+0x96/0x140 [drm_kms_helper]
->> <4> [100.232577]  dc_update_planes_and_stream+0x5b/0xe0 [amdgpu]
->> <4> [100.232730]  amdgpu_dm_atomic_commit_tail+0x1fa7/0x4100 [amdgpu]
->> <4> [100.232908]  ? stack_depot_save_flags+0x2c/0x730
->> <4> [100.232915]  ? wait_for_completion_timeout+0x1d/0x30
->> <4> [100.232917]  commit_tail+0x96/0x140 [drm_kms_helper]
->> <4> [100.232923]  drm_atomic_helper_commit+0x12b/0x150 [drm_kms_helper]
->> <4> [100.232927]  drm_atomic_commit+0xad/0xe0 [drm]
->> <4> [100.232939]  ? __pfx___drm_printfn_info+0x10/0x10 [drm]
->> <4> [100.232956]  drm_atomic_helper_set_config+0x80/0xc0 [drm_kms_helper]
->> <4> [100.232961]  drm_mode_setcrtc+0x22e/0x910 [drm]
->> <4> [100.232975]  ? kfree+0x18f/0x350
->> <4> [100.232977]  ? __pfx_drm_mode_setcrtc+0x10/0x10 [drm]
->> <4> [100.232987]  drm_ioctl_kernel+0xa7/0x100 [drm]
->> <4> [100.233004]  drm_ioctl+0x29d/0x500 [drm]
->> <4> [100.233015]  ? __pfx_drm_mode_setcrtc+0x10/0x10 [drm]
->> <4> [100.233026]  ? _raw_spin_unlock_irqrestore+0x1f/0x40
->> <4> [100.233029]  amdgpu_drm_ioctl+0x4b/0x80 [amdgpu]
->> <4> [100.233131]  __x64_sys_ioctl+0x92/0xd0
->> <4> [100.233133]  x64_sys_call+0x1205/0x20d0
->> <4> [100.233136]  do_syscall_64+0x50/0x110
->> <4> [100.233138]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> <4> [100.233142] RIP: 0033:0x7fb21e71a94f
->> <4> [100.233144] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24
->> 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00
->> 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1f 48 8b 44 24 18 64 48 2b 04 25 28 00
->> <4> [100.233145] RSP: 002b:00007ffdd9a52e50 EFLAGS: 00000246 ORIG_RAX:
->> 0000000000000010
->> <4> [100.233148] RAX: ffffffffffffffda RBX: 00007ffdd9a52ee0 RCX:
->> 00007fb21e71a94f
->> <4> [100.233149] RDX: 00007ffdd9a52ee0 RSI: 00000000c06864a2 RDI:
->> 0000000000000005
->> <4> [100.233149] RBP: 00000000c06864a2 R08: 0000000000000000 R09:
->> 00005609537f7b08
->> <4> [100.233150] R10: 0000000000000000 R11: 0000000000000246 R12:
->> 0000000000000000
->> <4> [100.233151] R13: 0000000000000005 R14: 0000000000000000 R15:
->> 00005609537e2848
->> <4> [100.233152]  </TASK>
-> This seems caused by dml2_allocate_memory(), to fix this we can only
-> protect FPU in DML2, I can do it in the new version, but I want to
-> listen Aurabindo's opinion.
-> 
+On Fri, Mar 28, 2025 at 1:10=E2=80=AFAM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
 >
+> They will be used later when switching away from sid.h/si_enums.h.
+>
+> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 
-It looks like dml21_apply_soc_bb_overrides() does have some division on 
-double variables. I'm curious why we dont see this on our side. Was this 
-seen on x86 or Loongson?
+Applied the series.  Thanks!
 
-I think your approach is correct. Thanks for taking time to fix this. We 
-can add it to weekly testing if you send us a patch.
+> ---
+>  .../drm/amd/include/asic_reg/smu/smu_6_0_d.h  |  44 ++++
+>  .../include/asic_reg/smu/smu_6_0_sh_mask.h    | 190 +++++++++++++++++-
+>  2 files changed, 230 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h b/drive=
+rs/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
+> index 6b10be61efc3..6e2459905abb 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
+> @@ -41,7 +41,49 @@
+>  #define ixLCAC_MC5_CNTL 0x012B
+>  #define ixLCAC_MC5_OVR_SEL 0x012C
+>  #define ixLCAC_MC5_OVR_VAL 0x012D
+> +
+> +#define mmCG_SPLL_FUNC_CNTL                            0x0180
+> +#define mmCG_SPLL_FUNC_CNTL_2                          0x0181
+> +#define mmCG_SPLL_FUNC_CNTL_3                          0x0182
+> +#define mmCG_SPLL_FUNC_CNTL_4                          0x0183
+> +#define mmCG_SPLL_STATUS                                       0x0185
+> +#define mmSPLL_CNTL_MODE                                       0x0186
+> +#define mmCG_SPLL_SPREAD_SPECTRUM                              0x0188
+> +#define mmCG_SPLL_SPREAD_SPECTRUM_2                    0x0189
+> +#define mmCG_SPLL_AUTOSCALE_CNTL                               0x018B
+> +#define mmMPLL_BYPASSCLK_SEL                           0x0197
+> +#define mmCG_CLKPIN_CNTL                                    0x0198
+> +#define mmCG_CLKPIN_CNTL_2                                  0x0199
+> +#define mmTHM_CLK_CNTL                                 0x019B
+> +#define mmMISC_CLK_CNTL                                        0x019C
+> +#define mmCG_THERMAL_CTRL                                      0x01C0
+> +#define mmCG_THERMAL_STATUS                            0x01C1
+> +#define mmCG_THERMAL_INT                                       0x01C2
+> +#define mmCG_MULT_THERMAL_CTRL                                 0x01C4
+> +#define mmCG_MULT_THERMAL_STATUS                                       0=
+x01C5
+> +#define mmCG_FDO_CTRL0                                 0x01D5
+> +#define mmCG_FDO_CTRL1                                 0x01D6
+> +#define mmCG_FDO_CTRL2                                 0x01D7
+> +#define mmCG_TACH_CTRL                                    0x01DC
+> +#define mmCG_TACH_STATUS                                  0x01DD
+> +#define mmGENERAL_PWRMGT                                  0x1E0
+> +#define mmCG_TPC                                            0x1E1
+> +#define mmSCLK_PWRMGT_CNTL                                  0x1E2
+> +#define mmTARGET_AND_CURRENT_PROFILE_INDEX                  0x01E6
+> +#define mmCG_FTV                                            0x01EF
+> +#define mmCG_FFCT_0                                         0x01F0
+> +#define mmCG_BSP                                          0x01FF
+> +#define mmCG_AT                                           0x0200
+> +#define mmCG_GIT                                          0x0201
+> +#define mmCG_SSP                                            0x0203
+> +#define mmCG_DISPLAY_GAP_CNTL                               0x020A
+> +#define mmCG_ULV_CONTROL                                       0x021E
+> +#define mmCG_ULV_PARAMETER                             0x021F
+> +#define mmSMC_SCRATCH0                                 0x0221
+> +#define mmCG_CAC_CTRL                                  0x022E
+> +
+>  #define ixSMC_PC_C 0x80000370
+> +
+>  #define ixTHM_TMON0_DEBUG 0x03F0
+>  #define ixTHM_TMON0_INT_DATA 0x0380
+>  #define ixTHM_TMON0_RDIL0_DATA 0x0300
+> @@ -110,6 +152,7 @@
+>  #define ixTHM_TMON1_RDIR7_DATA 0x0337
+>  #define ixTHM_TMON1_RDIR8_DATA 0x0338
+>  #define ixTHM_TMON1_RDIR9_DATA 0x0339
+> +
+>  #define mmGPIOPAD_A 0x05E7
+>  #define mmGPIOPAD_EN 0x05E8
+>  #define mmGPIOPAD_EXTERN_TRIG_CNTL 0x05F1
+> @@ -127,6 +170,7 @@
+>  #define mmGPIOPAD_STRENGTH 0x05E5
+>  #define mmGPIOPAD_SW_INT_STAT 0x05E4
+>  #define mmGPIOPAD_Y 0x05E9
+> +
+>  #define mmSMC_IND_ACCESS_CNTL 0x008A
+>  #define mmSMC_IND_DATA_0 0x0081
+>  #define mmSMC_IND_DATA 0x0081
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h b=
+/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
+> index 7d3925b7266e..3c6824b6b530 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
+> @@ -23,10 +23,142 @@
+>  #ifndef SMU_6_0_SH_MASK_H
+>  #define SMU_6_0_SH_MASK_H
+>
+> -#define CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV_MASK 0x03ffffffL
+> -#define CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV__SHIFT 0x00000000
+> -#define CG_SPLL_FUNC_CNTL__SPLL_REF_DIV_MASK 0x000003f0L
+> +#define CG_AT__CG_R_MASK 0x0000FFFFL
+> +#define CG_AT__CG_R__SHIFT 0x00000000
+> +#define CG_AT__CG_L_MASK 0xFFFF0000L
+> +#define CG_AT__CG_L__SHIFT 0x00000010
+> +
+> +#define CG_BSP__BSP_MASK 0x0000FFFFL
+> +#define CG_BSP__BSP__SHIFT 0x00000000
+> +#define CG_BSP__BSU_MASK 0x000F0000L
+> +#define CG_BSP__BSU__SHIFT 0x00000010
+> +
+> +#define CG_CAC_CTRL__CAC_WINDOW_MASK 0x00FFFFFFL
+> +#define CG_CAC_CTRL__CAC_WINDOW__SHIFT 0x00000000
+> +
+> +#define CG_CLKPIN_CNTL__XTALIN_DIVIDE_MASK 0x00000002L
+> +#define CG_CLKPIN_CNTL__XTALIN_DIVIDE__SHIFT 0x00000001
+> +#define CG_CLKPIN_CNTL__BCLK_AS_XCLK_MASK 0x00000004L
+> +#define CG_CLKPIN_CNTL__BCLK_AS_XCLK__SHIFT 0x00000002
+> +#define CG_CLKPIN_CNTL_2__FORCE_BIF_REFCLK_EN_MASK 0x00000008L
+> +#define CG_CLKPIN_CNTL_2__FORCE_BIF_REFCLK_EN__SHIFT 0x00000003
+> +#define CG_CLKPIN_CNTL_2__MUX_TCLK_TO_XCLK_MASK 0x00000100L
+> +#define CG_CLKPIN_CNTL_2__MUX_TCLK_TO_XCLK__SHIFT 0x00000008
+> +
+> +#define CG_DISPLAY_GAP_CNTL__DISP1_GAP_MASK 0x00000003L
+> +#define CG_DISPLAY_GAP_CNTL__DISP1_GAP__SHIFT 0x00000000
+> +#define CG_DISPLAY_GAP_CNTL__DISP2_GAP_MASK 0x0000000CL
+> +#define CG_DISPLAY_GAP_CNTL__DISP2_GAP__SHIFT 0x00000002
+> +#define CG_DISPLAY_GAP_CNTL__VBI_TIMER_COUNT_MASK 0x0003FFF0L
+> +#define CG_DISPLAY_GAP_CNTL__VBI_TIMER_COUNT__SHIFT 0x00000004
+> +#define CG_DISPLAY_GAP_CNTL__VBI_TIMER_UNIT_MASK 0x00700000
+> +#define CG_DISPLAY_GAP_CNTL__VBI_TIMER_UNIT__SHIFT 0x00000014
+> +#define CG_DISPLAY_GAP_CNTL__DISP1_GAP_MCHG_MASK 0x03000000L
+> +#define CG_DISPLAY_GAP_CNTL__DISP1_GAP_MCHG__SHIFT 0x00000018
+> +#define CG_DISPLAY_GAP_CNTL__DISP2_GAP_MCHG_MASK 0x0C000000L
+> +#define CG_DISPLAY_GAP_CNTL__DISP2_GAP_MCHG__SHIFT 0x0000001A
+> +
+> +#define CG_FFCT_0__UTC_0_MASK 0x000003FFL
+> +#define CG_FFCT_0__UTC_0__SHIFT 0x00000000
+> +#define CG_FFCT_0__DTC_0_MASK 0x000FFC00L
+> +#define CG_FFCT_0__DTC_0__SHIFT 0x0000000A
+> +
+> +#define CG_GIT__CG_GICST_MASK 0x0000FFFFL
+> +#define CG_GIT__CG_GICST__SHIFT 0x00000000
+> +#define CG_GIT__CG_GIPOT_MASK 0xFFFF0000L
+> +#define CG_GIT__CG_GIPOT__SHIFT 0x00000010
+> +
+> +#define CG_SPLL_FUNC_CNTL__SPLL_RESET_MASK 0x00000001L
+> +#define CG_SPLL_FUNC_CNTL__SPLL_RESET__SHIFT 0x00000000
+> +#define CG_SPLL_FUNC_CNTL__SPLL_SLEEP_MASK 0x00000002L
+> +#define CG_SPLL_FUNC_CNTL__SPLL_SLEEP__SHIFT 0x00000001
+> +#define CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN_MASK 0x00000008L
+> +#define CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN__SHIFT 0x00000003
+> +#define CG_SPLL_FUNC_CNTL__SPLL_REF_DIV_MASK 0x000003F0L
+>  #define CG_SPLL_FUNC_CNTL__SPLL_REF_DIV__SHIFT 0x00000004
+> +#define CG_SPLL_FUNC_CNTL__SPLL_PDIV_A_MASK 0x007F00000
+> +#define CG_SPLL_FUNC_CNTL__SPLL_PDIV_A__SHIFT 0x00000014
+> +#define CG_SPLL_FUNC_CNTL_2__SCLK_MUX_SEL_MASK 0x0000001FF
+> +#define CG_SPLL_FUNC_CNTL_2__SCLK_MUX_SEL__SHIFT 0x00000000
+> +#define CG_SPLL_FUNC_CNTL_2__SPLL_CTLREQ_CHG_MASK 0x00800000
+> +#define CG_SPLL_FUNC_CNTL_2__SPLL_CTLREQ_CHG__SHIFT 0x00000017
+> +#define CG_SPLL_FUNC_CNTL_2__SCLK_MUX_UPDATE_MASK 0x04000000
+> +#define CG_SPLL_FUNC_CNTL_2__SCLK_MUX_UPDATE__SHIFT 0x0000001A
+> +#define CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV_MASK 0x03FFFFFFL
+> +#define CG_SPLL_FUNC_CNTL_3__SPLL_FB_DIV__SHIFT 0x00000000
+> +#define CG_SPLL_FUNC_CNTL_3__SPLL_DITHEN_MASK 0x10000000L
+> +#define CG_SPLL_FUNC_CNTL_3__SPLL_DITHEN__SHIFT 0x0000001C
+> +#define CG_SPLL_STATUS__SPLL_CHG_STATUS_MASK 0x00000002L
+> +#define CG_SPLL_STATUS__SPLL_CHG_STATUS__SHIFT 0x00000001
+> +#define CG_SPLL_SPREAD_SPECTRUM__SSEN_MASK 0x00000001L
+> +#define CG_SPLL_SPREAD_SPECTRUM__SSEN__SHIFT 0x00000000
+> +#define CG_SPLL_SPREAD_SPECTRUM__CLK_S_MASK 0x0000FFF0L
+> +#define CG_SPLL_SPREAD_SPECTRUM__CLK_S__SHIFT 0x00000004
+> +#define CG_SPLL_SPREAD_SPECTRUM_2__CLK_V_MASK 0x00000200L
+> +#define CG_SPLL_SPREAD_SPECTRUM_2__CLK_V__SHIFT 0x00000000
+> +#define CG_SPLL_AUTOSCALE_CNTL__AUTOSCALE_ON_SS_CLEAR_MASK 0x03FFFFFFL
+> +#define CG_SPLL_AUTOSCALE_CNTL__AUTOSCALE_ON_SS_CLEAR__SHIFT 0x00000009
+> +
+> +#define CG_SSP__SST_MASK 0x0000FFFFL
+> +#define CG_SSP__SST__SHIFT 0x00000000
+> +#define CG_SSP__SSTU_MASK 0x000F0000L
+> +#define CG_SSP__SSTU__SHIFT 0x00000010
+> +
+> +#define CG_THERMAL_CTRL__DPM_EVENT_SRC_MASK 0x00000007L
+> +#define CG_THERMAL_CTRL__DPM_EVENT_SRC__SHIFT 0x00000000
+> +#define CG_THERMAL_CTRL__DIG_THERM_DPM_MASK 0x003FC000
+> +#define CG_THERMAL_CTRL__DIG_THERM_DPM__SHIFT 0x0000000E
+> +#define CG_THERMAL_STATUS__FDO_PWM_DUTY_MASK 0x0001FE00L
+> +#define CG_THERMAL_STATUS__FDO_PWM_DUTY__SHIFT 0x00000009
+> +#define CG_THERMAL_INT__DIG_THERM_INTH_MASK 0x0000FF00L
+> +#define CG_THERMAL_INT__DIG_THERM_INTH__SHIFT 0x00000008
+> +#define CG_THERMAL_INT__DIG_THERM_INTL_MASK 0x00FF0000L
+> +#define CG_THERMAL_INT__DIG_THERM_INTL__SHIFT 0x00000010
+> +#define CG_THERMAL_INT__THERM_INT_MASK_HIGH_MASK 0x01000000L
+> +#define CG_THERMAL_INT__THERM_INT_MASK_HIGH__SHIFT 0x00000018
+> +#define CG_THERMAL_INT__THERM_INT_MASK_LOW_MASK        0x02000000
+> +#define CG_THERMAL_INT__THERM_INT_MASK_LOW__SHIFT 0x00000019
+> +
+> +#define CG_MULT_THERMAL_CTRL__TEMP_SEL_MASK    0x0FF00000L
+> +#define CG_MULT_THERMAL_CTRL__TEMP_SEL__SHIFT 0x00000014
+> +#define CG_MULT_THERMAL_STATUS__ASIC_MAX_TEMP_MASK     0x000001FFL
+> +#define CG_MULT_THERMAL_STATUS__ASIC_MAX_TEMP__SHIFT 0x00000000
+> +#define CG_MULT_THERMAL_STATUS__CTF_TEMP_MASK  0x0003fe00L
+> +#define CG_MULT_THERMAL_STATUS__CTF_TEMP__SHIFT 0x00000009
+> +
+> +#define CG_FDO_CTRL0__FDO_STATIC_DUTY_MASK     0x000000FFL
+> +#define CG_FDO_CTRL0__FDO_STATIC_DUTY__SHIFT 0x00000000
+> +#define CG_FDO_CTRL1__FMAX_DUTY100_MASK        0x000000FFL
+> +#define CG_FDO_CTRL1__FMAX_DUTY100__SHIFT 0x00000000
+> +#define CG_FDO_CTRL2__TMIN_MASK        0x000000FFL
+> +#define CG_FDO_CTRL2__TMIN__SHIFT 0x00000000
+> +#define CG_FDO_CTRL2__FDO_PWM_MODE_MASK        0x00003800L
+> +#define CG_FDO_CTRL2__FDO_PWM_MODE__SHIFT 0x0000000B
+> +#define CG_FDO_CTRL2__TACH_PWM_RESP_RATE_MASK  0xFE000000L
+> +#define CG_FDO_CTRL2__TACH_PWM_RESP_RATE__SHIFT 0x00000019
+> +
+> +#define CG_TACH_CTRL__EDGE_PER_REV_MASK        0x00000007L
+> +#define CG_TACH_CTRL__EDGE_PER_REV__SHIFT 0x00000000
+> +#define CG_TACH_CTRL__TARGET_PERIOD_MASK       0xFFFFFFF8L
+> +#define CG_TACH_CTRL__TARGET_PERIOD__SHIFT 0x00000003
+> +#define CG_TACH_STATUS__TACH_PERIOD_MASK       0xFFFFFFFFL
+> +#define CG_TACH_STATUS__TACH_PERIOD__SHIFT 0x00000000
+> +
+> +#define GENERAL_PWRMGT__GLOBAL_PWRMGT_EN_MASK  0x00000001L
+> +#define GENERAL_PWRMGT__GLOBAL_PWRMGT_EN__SHIFT 0x00000000
+> +#define GENERAL_PWRMGT__STATIC_PM_EN_MASK      0x00000002L
+> +#define GENERAL_PWRMGT__STATIC_PM_EN__SHIFT 0x00000001
+> +#define GENERAL_PWRMGT__THERMAL_PROTECTION_DIS_MASK    0x00000004L
+> +#define GENERAL_PWRMGT__THERMAL_PROTECTION_DIS__SHIFT 0x00000002
+> +#define GENERAL_PWRMGT__THERMAL_PROTECTION_TYPE_MASK   0x00000008L
+> +#define GENERAL_PWRMGT__THERMAL_PROTECTION_TYPE__SHIFT 0x00000003
+> +#define GENERAL_PWRMGT__SW_SMIO_INDEX_MASK     0x00000040L
+> +#define GENERAL_PWRMGT__SW_SMIO_INDEX__SHIFT 0x00000006
+> +#define GENERAL_PWRMGT__VOLT_PWRMGT_EN_MASK    0x00000400L
+> +#define GENERAL_PWRMGT__VOLT_PWRMGT_EN__SHIFT 0x0000000A
+> +#define GENERAL_PWRMGT__DYN_SPREAD_SPECTRUM_EN_MASK    0x00800000L
+> +#define GENERAL_PWRMGT__DYN_SPREAD_SPECTRUM_EN__SHIFT 0x00000017
+> +
+>  #define GPIOPAD_A__GPIO_A_MASK 0x7fffffffL
+>  #define GPIOPAD_A__GPIO_A__SHIFT 0x00000000
+>  #define GPIOPAD_EN__GPIO_EN_MASK 0x7fffffffL
+> @@ -195,6 +327,7 @@
+>  #define GPIOPAD_SW_INT_STAT__SW_INT_STAT__SHIFT 0x00000000
+>  #define GPIOPAD_Y__GPIO_Y_MASK 0x7fffffffL
+>  #define GPIOPAD_Y__GPIO_Y__SHIFT 0x00000000
+> +
+>  #define LCAC_MC0_CNTL__MC0_ENABLE_MASK 0x00000001L
+>  #define LCAC_MC0_CNTL__MC0_ENABLE__SHIFT 0x00000000
+>  #define LCAC_MC0_CNTL__MC0_THRESHOLD_MASK 0x0001fffeL
+> @@ -243,6 +376,37 @@
+>  #define LCAC_MC5_OVR_SEL__MC5_OVR_SEL__SHIFT 0x00000000
+>  #define LCAC_MC5_OVR_VAL__MC5_OVR_VAL_MASK 0xffffffffL
+>  #define LCAC_MC5_OVR_VAL__MC5_OVR_VAL__SHIFT 0x00000000
+> +
+> +#define MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL_MASK 0x0000FF00L
+> +#define MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL__SHIFT 0x00000008
+> +
+> +#define SCLK_PWRMGT_CNTL__SCLK_PWRMGT_OFF_MASK 0x00000001L
+> +#define SCLK_PWRMGT_CNTL__SCLK_PWRMGT_OFF__SHIFT 0x00000000
+> +#define SCLK_PWRMGT_CNTL__SCLK_LOW_D1_MASK     0x00000002L
+> +#define SCLK_PWRMGT_CNTL__SCLK_LOW_D1__SHIFT 0x00000001
+> +#define SCLK_PWRMGT_CNTL__FIR_RESET_MASK       0x00000010L
+> +#define SCLK_PWRMGT_CNTL__FIR_RESET__SHIFT 0x00000004
+> +#define SCLK_PWRMGT_CNTL__FIR_FORCE_TREND_SEL_MASK     0x00000020L
+> +#define SCLK_PWRMGT_CNTL__FIR_FORCE_TREND_SEL__SHIFT 0x00000005
+> +#define SCLK_PWRMGT_CNTL__FIR_TREND_MODE_MASK  0x00000040L
+> +#define SCLK_PWRMGT_CNTL__FIR_TREND_MODE__SHIFT 0x00000006
+> +#define SCLK_PWRMGT_CNTL__DYN_GFX_CLK_OFF_EN_MASK      0x00000080L
+> +#define SCLK_PWRMGT_CNTL__DYN_GFX_CLK_OFF_EN__SHIFT 0x00000007
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_FORCE_ON_MASK        0x00000100L
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_FORCE_ON__SHIFT 0x00000008
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_REQUEST_OFF_MASK     0x00000200L
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_REQUEST_OFF__SHIFT 0x00000009
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_FORCE_OFF_MASK       0x00000400L
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_FORCE_OFF__SHIFT 0x0000000A
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D1_MASK     0x00000800L
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D1__SHIFT 0x0000000B
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D2_MASK     0x00001000L
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D2__SHIFT 0x0000000C
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D3_MASK     0x00002000L
+> +#define SCLK_PWRMGT_CNTL__GFX_CLK_OFF_ACPI_D3__SHIFT 0x0000000D
+> +#define SCLK_PWRMGT_CNTL__DYN_LIGHT_SLEEP_EN_MASK      0x00004000L
+> +#define SCLK_PWRMGT_CNTL__DYN_LIGHT_SLEEP_EN__SHIFT 0x0000000E
+> +
+>  #define SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_0_MASK 0x00000001L
+>  #define SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_0__SHIFT 0x00000000
+>  #define SMC_IND_ACCESS_CNTL__AUTO_INCREMENT_IND_1_MASK 0x00000100L
+> @@ -285,6 +449,7 @@
+>  #define SMC_RESP_1__SMC_RESP__SHIFT 0x00000000
+>  #define SMC_RESP_2__SMC_RESP_MASK 0xffffffffL
+>  #define SMC_RESP_2__SMC_RESP__SHIFT 0x00000000
+> +
+>  #define SPLL_CNTL_MODE__SPLL_CTLREQ_DLY_CNT_MASK 0x000ff000L
+>  #define SPLL_CNTL_MODE__SPLL_CTLREQ_DLY_CNT__SHIFT 0x0000000c
+>  #define SPLL_CNTL_MODE__SPLL_ENSAT_MASK 0x00000010L
+> @@ -293,9 +458,11 @@
+>  #define SPLL_CNTL_MODE__SPLL_FASTEN__SHIFT 0x00000003
+>  #define SPLL_CNTL_MODE__SPLL_LEGACY_PDIV_MASK 0x00000002L
+>  #define SPLL_CNTL_MODE__SPLL_LEGACY_PDIV__SHIFT 0x00000001
+> +#define SPLL_CNTL_MODE__SPLL_REFCLK_SEL_MASK 0x0C000000L
+> +#define SPLL_CNTL_MODE__SPLL_REFCLK_SEL__SHIFT 0x0000001A
+>  #define SPLL_CNTL_MODE__SPLL_RESET_EN_MASK 0x10000000L
+>  #define SPLL_CNTL_MODE__SPLL_RESET_EN__SHIFT 0x0000001c
+>  #define SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL_MASK 0x00000001L
+>  #define SPLL_CNTL_MODE__SPLL_SW_DIR_CONTROL__SHIFT 0x00000000
+>  #define SPLL_CNTL_MODE__SPLL_TEST_CLK_EXT_DIV_MASK 0x00000c00L
+>  #define SPLL_CNTL_MODE__SPLL_TEST_CLK_EXT_DIV__SHIFT 0x0000000a
+> @@ -303,10 +470,25 @@
+>  #define SPLL_CNTL_MODE__SPLL_TEST__SHIFT 0x00000002
+>  #define SPLL_CNTL_MODE__SPLL_VCO_MODE_MASK 0x60000000L
+>  #define SPLL_CNTL_MODE__SPLL_VCO_MODE__SHIFT 0x0000001d
+> +
+>  #define TARGET_AND_CURRENT_PROFILE_INDEX_1__CURR_PCIE_INDEX_MASK 0x0f000=
+000L
+>  #define TARGET_AND_CURRENT_PROFILE_INDEX_1__CURR_PCIE_INDEX__SHIFT 0x000=
+00018
+>  #define TARGET_AND_CURRENT_PROFILE_INDEX_1__TARG_PCIE_INDEX_MASK 0xf0000=
+000L
+>  #define TARGET_AND_CURRENT_PROFILE_INDEX_1__TARG_PCIE_INDEX__SHIFT 0x000=
+0001c
+> +
+> +#define TARGET_AND_CURRENT_PROFILE_INDEX__CURRENT_STATE_INDEX_MASK 0x000=
+000F0L
+> +#define TARGET_AND_CURRENT_PROFILE_INDEX__CURRENT_STATE_INDEX__SHIFT 0x0=
+0000004
+> +
+> +#define THM_CLK_CNTL__CMON_CLK_SEL_MASK 0x000000FFL
+> +#define THM_CLK_CNTL__CMON_CLK_SEL__SHIFT 0x00000000
+> +#define THM_CLK_CNTL__TMON_CLK_SEL_MASK 0x0000FF00L
+> +#define THM_CLK_CNTL__TMON_CLK_SEL__SHIFT 0x00000008
+> +
+> +#define MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL_MASK 0x000000FFL
+> +#define MISC_CLK_CNTL__DEEP_SLEEP_CLK_SEL__SHIFT 0x00000000
+> +#define MISC_CLK_CNTL__ZCLK_SEL_MASK 0x0000FF00L
+> +#define MISC_CLK_CNTL__ZCLK_SEL__SHIFT 0x00000008
+> +
+>  #define THM_TMON0_DEBUG__DEBUG_RDI_MASK 0x0000001fL
+>  #define THM_TMON0_DEBUG__DEBUG_RDI__SHIFT 0x00000000
+>  #define THM_TMON0_DEBUG__DEBUG_Z_MASK 0x0000ffe0L
+> --
+> 2.48.1
+>
