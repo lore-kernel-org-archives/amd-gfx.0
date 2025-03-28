@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CA22C28B20
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 19:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75BAAC28B20
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 19:12:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B909310E106;
-	Fri, 28 Mar 2025 19:04:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8674410E14C;
+	Fri, 28 Mar 2025 19:12:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OxZsQyth";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="STTu5pm/";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97A3810E106
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 19:04:44 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-224104a9230so6137215ad.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 12:04:44 -0700 (PDT)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC23F10E14C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 19:12:21 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-301b4f97cc1so597913a91.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 12:12:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743188684; x=1743793484; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743189141; x=1743793941; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KyFQKqys6ZpRKhAbWJgbRlS0/CFlF+NBYOVPN6mtFtE=;
- b=OxZsQythbuXWSsld82pyl1wOvf2KtsSS0d9xzWZ5FAgddliqHDVyNTcI5cKv4FyAJB
- PI639w5x1ZaU2qnAUKvDMndyaEqnA/CC8J7Rptdai4g7upecPqUsuP3ZqnFxn3ccd9zF
- YOc43BEnIGi1SknkANrb9tdnUB3m4rMtzdw9HDkHok0SyqKzWlpqbvOccD52xojIogjk
- YMHDz7t2xFxc1EBSkiYWsAf7xx+R6t4dve7WVLp1HrSFjUwc3m+hVbwSLMdOQD+Kw0Yx
- +HpcTPsFZ4recu0+OzE3qKCDxgEMMvrYP0UcKSgbiQUJKsebTURus5P56xbg7CSxQptr
- /AXg==
+ bh=L6M+jEfRxi9aOF05qt7QPWvhA2JfC+UvAQEiXq8eBmY=;
+ b=STTu5pm/lMser4plCp8hglwQnL3ahcCAvnyTyCTt/YbbFJDgTQBK4cNE31b9st8DG+
+ vYXn7RIjrZKVv/pcQh3CoCHSZ1dt7WocKSYHl0oQ73R1+hsxQowEZEQhAwqLIhuSpT5i
+ hvZgHX5XV0K03dBWl5FaetBiS3diP4ri/3lYkeXq4luZ2+B2ern7kfDRKAHEmoCYmMlH
+ V9DHuFVNHyRU9IaGa8rYfNSN0vxPNQcJsPMC+Thz7vubxncmvH5u7uIrViUOsGym1lL8
+ oI6RMyKqL+rdWJ8g3KaV/ovHaU+xLWIKMbNMmXBckWpgeEHAxysSUSs5BHZJc0EBonn+
+ ODow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743188684; x=1743793484;
+ d=1e100.net; s=20230601; t=1743189141; x=1743793941;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KyFQKqys6ZpRKhAbWJgbRlS0/CFlF+NBYOVPN6mtFtE=;
- b=hIsOG+o6Y3mrFPfiSi91jYJu6EEYh5IeLRoZyHGpBYK7HpeCg/vGU1WSJ8Wbmb5rYe
- CQ8k/vrNd3Qb0FFh213G9cj1WZcXi3lcLUMSEl1njLr6Ux6mG9jbC47/wafCOCIh4qyG
- TRLwfnGDTPrEGpPjEKJfoluywN5nttZjks1OPdwDuRYUGPqeg3qCeCWMEOGlsKeSbTim
- Yy/zecukBDf/fFylQj36VatjXr4TWG7GK23xBuu7PefR8VIDwQSRfGIH8MoqdYlnqHDV
- iwG6an/SALKho0lTFzrFlPPwQqvImd4smuohbuBAs6l36aCP/O2z8ifCVZRRqd37gtpF
- tt6w==
-X-Gm-Message-State: AOJu0YzFO/sTFg0KDcuTxWXCmS4EDHDzHgqmXQkKBw5vHuGCMm3NdOjD
- NtJEQmSoONUe77vvLS2sdRS05GShHYzB96tmR3hvT2TSI/V+AkayY1G9hxJWBouVUumyhB9iZRx
- 0K+3pEkwhXjnL40hzguXqw/cpaCh5Bg==
-X-Gm-Gg: ASbGncuHjX3sEKqH05vgvKKnkB3j04QdJ9ECsKsGtcMPCSGq6KA5Ah8SijsJowxWP1O
- 5QCU6S09jt6WYERXxqTb0i3gUeoeDHsZuFWgvYzCTXUXWptAjPoc4HMhvSzHz8ehbwBlmuaqqr1
- Umrj6esv/rHGKNrpUtjOtt4tqSAA==
-X-Google-Smtp-Source: AGHT+IHx6rHSRxVMK62gVuINuRb5Upz2JsIufIECQ1wopPtoCA0l9StOlYccKzait0lG9F7ajhOgT0e1JDRbRgsn5f0=
-X-Received: by 2002:a17:902:e946:b0:224:1579:b347 with SMTP id
- d9443c01a7336-2292f975354mr1479585ad.7.1743188683865; Fri, 28 Mar 2025
- 12:04:43 -0700 (PDT)
+ bh=L6M+jEfRxi9aOF05qt7QPWvhA2JfC+UvAQEiXq8eBmY=;
+ b=aUmRspkmZRSxKiVXcqAcvwNupwLT2dSxiyWQ2j9rnawYwANepS0iBTiM4BiSXvhI7D
+ uB/hyW41vJxRbywAzO2KQn6zt59j/hpJzp8WR9eXlQ4TLBcdK/GqrRZGxQqUx7DA2wNk
+ /3DJ46HNuAMKfaCI0/2NsV5JoNhrsf9bsD6EBAzwy6AQVB6b0XWI0SM2XozVGNQxELWw
+ p67pGV4tH+6sHjohwzSWl+v5/QiEkqYdZjpeREdSkoqXxTBJg/QskEEaXUAprHXC8poT
+ hWU+Ekzdu+WHIl26I0ijru7reecDnSNLKcMWjrbU3x5HGzuTYpwkK+TTF62qAUXqTZsO
+ Fyvw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUILHy34xVAQvHLdrRQ+ii9llQraBP7bzAGdZA16PLJaUj3dr7J0/Q89v/NPeAas02DA355+jgf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz12eMUsCCphNV1eiKq/Qy0FdyJ//71VZP/tuXtQb9rp8VYucoK
+ 5drBMSPCZLmFZB9veHcck3dmSYUVNMFFfWZQ+DcMp1/5OJ60FEG+lAn/VGWyaYy1cyss5ceSoXE
+ W2MSFJfA3FwbwcE6+sx1dur4yPnY=
+X-Gm-Gg: ASbGnctxSMzW7O0aKuqARDJvGZOcLgDPC+H1u8n4TMYIiT+6UowHWdiuktEF2pAMV94
+ TeJmAUDMVg+c/5d7udo2kJR84FaqplQLwIJ5LcmnXegObk77LEv74a8He6XWCEA7/DgFGMX/N3U
+ BTykQmiNYu+N87Eb8vyO0OEE/pVA==
+X-Google-Smtp-Source: AGHT+IG3E0KwPlFqdc+6OA/t6nErt2ZWXFmSlj0ZCEdi+9hNHixdAZsfUN1tk9pijeMOwdU6GZDqGsi0dZ1hIk3UxMY=
+X-Received: by 2002:a17:90b:1a8f:b0:2fe:b45b:e7ec with SMTP id
+ 98e67ed59e1d1-305321652a1mr179219a91.8.1743189141208; Fri, 28 Mar 2025
+ 12:12:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250327203858.3796086-1-superm1@kernel.org>
- <20250327203858.3796086-4-superm1@kernel.org>
-In-Reply-To: <20250327203858.3796086-4-superm1@kernel.org>
+References: <20250327195400.130758-1-natalie.vock@gmx.de>
+ <95e48cb3-2b9c-46ea-85e4-7ce730dbb816@amd.com>
+In-Reply-To: <95e48cb3-2b9c-46ea-85e4-7ce730dbb816@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Mar 2025 15:04:32 -0400
-X-Gm-Features: AQ5f1JqbsJU-nGc8lJbLT_zadqtkW38iD-qwhkB7Hf7QE-0NnPkOigc0qFS9_pg
-Message-ID: <CADnq5_PHok-aAjsYr0P-xbWowBU-0yRxgFGrkyxmcd_ZE2k1OA@mail.gmail.com>
-Subject: Re: [PATCH 03/14] drm/amd: Convert dev_err_once() messages to
- drm_err_once()
-To: Mario Limonciello <superm1@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, 
- Mario Limonciello <mario.limonciello@amd.com>
+Date: Fri, 28 Mar 2025 15:12:08 -0400
+X-Gm-Features: AQ5f1JqdylneLmvN725lmI7L6zeowNUw3izszfXWUH2qCVc4XWLzHfT6nThu33Y
+Message-ID: <CADnq5_Mohzo-yF_+o+Jf9AHOLQfQv-zzt3fd6zYKFtjpEfFp0A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add cgroups implementation
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Natalie Vock <natalie.vock@gmx.de>, amd-gfx@lists.freedesktop.org, 
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,54 +83,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 27, 2025 at 4:48=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
-rg> wrote:
->
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> The errors for power consumption in amdgpu_acpi_is_s0ix_active() are
-> under device scope. As they're drm errors, adjust to drm scope.
-
-Is there an advantage to drm vs dev scope?  I guess just consistency
-with core drm messages?  I presume the drm variants also print device
-information so we can differentiate between multiple GPUs in a system?
- That was why we transitioned from the DRM to the dev variants in the
-first place.
+Applied.  Thanks!
 
 Alex
 
+On Fri, Mar 28, 2025 at 9:03=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> Am 27.03.25 um 20:51 schrieb Natalie Vock:
+> > From: Maarten Lankhorst <dev@lankhorst.se>
+> >
+> > Similar to xe, enable some simple management of VRAM only.
+> >
+> > Co-developed-by: Maxime Ripard <mripard@kernel.org>
+> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_acpi.c
-> index 840901d65fed7..4372738bf2c9d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -1518,14 +1518,14 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_dev=
-ice *adev)
->          * in that case.
->          */
->         if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0)) {
-> -               dev_err_once(adev->dev,
-> +               drm_err_once(adev_to_drm(adev),
->                               "Power consumption will be higher as BIOS h=
-as not been configured for suspend-to-idle.\n"
->                               "To use suspend-to-idle change the sleep mo=
-de in BIOS setup.\n");
->                 return false;
->         }
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
->  #if !IS_ENABLED(CONFIG_AMD_PMC)
-> -       dev_err_once(adev->dev,
-> +       drm_err_once(adev_to_drm(adev),
->                       "Power consumption will be higher as the kernel has=
- not been compiled with CONFIG_AMD_PMC.\n");
->         return false;
->  #else
-> --
-> 2.43.0
+> > ---
+> >
+> > Resending this one since it got lost in the initial dmem cgroup
+> > submission. Probably needs to be merged through drm-misc-next since
+> > amd-staging-drm-next doesn't have dmem cgroups yet.
+> >
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > index ff5e52025266c..7b86d7f9d5d56 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > @@ -24,6 +24,7 @@
+> >
+> >  #include <linux/dma-mapping.h>
+> >  #include <drm/ttm/ttm_range_manager.h>
+> > +#include <drm/drm_drv.h>
+> >
+> >  #include "amdgpu.h"
+> >  #include "amdgpu_vm.h"
+> > @@ -908,6 +909,9 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev=
+)
+> >       struct ttm_resource_manager *man =3D &mgr->manager;
+> >       int err;
+> >
+> > +     man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev), "vram"=
+, adev->gmc.real_vram_size);
+> > +     if (IS_ERR(man->cg))
+> > +             return PTR_ERR(man->cg);
+> >       ttm_resource_manager_init(man, &adev->mman.bdev,
+> >                                 adev->gmc.real_vram_size);
+> >
+> >
+> > base-commit: 1822532477cb5f007313de4c70079c09aaa270d5
+> > --
+> > 2.49.0
+> >
 >
