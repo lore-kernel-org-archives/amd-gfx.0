@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75BAAC28B20
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 19:12:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18F34C28B20
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 19:14:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8674410E14C;
-	Fri, 28 Mar 2025 19:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94EB210EACD;
+	Fri, 28 Mar 2025 19:14:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="STTu5pm/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NlUINpIp";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC23F10E14C
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 19:12:21 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-301b4f97cc1so597913a91.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 12:12:21 -0700 (PDT)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCFDD10EACA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 19:14:26 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-2ff5544af03so534337a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 12:14:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743189141; x=1743793941; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743189266; x=1743794066; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=L6M+jEfRxi9aOF05qt7QPWvhA2JfC+UvAQEiXq8eBmY=;
- b=STTu5pm/lMser4plCp8hglwQnL3ahcCAvnyTyCTt/YbbFJDgTQBK4cNE31b9st8DG+
- vYXn7RIjrZKVv/pcQh3CoCHSZ1dt7WocKSYHl0oQ73R1+hsxQowEZEQhAwqLIhuSpT5i
- hvZgHX5XV0K03dBWl5FaetBiS3diP4ri/3lYkeXq4luZ2+B2ern7kfDRKAHEmoCYmMlH
- V9DHuFVNHyRU9IaGa8rYfNSN0vxPNQcJsPMC+Thz7vubxncmvH5u7uIrViUOsGym1lL8
- oI6RMyKqL+rdWJ8g3KaV/ovHaU+xLWIKMbNMmXBckWpgeEHAxysSUSs5BHZJc0EBonn+
- ODow==
+ bh=kawljUbq+bccO8k5zU1eJD742LIN7Wuqx1u9FsEzKws=;
+ b=NlUINpIppwByWJseSsJziyuMDLeeFLBsXqyAn0gfrOXS4QOCl3u2w/XkODdCqcI4VF
+ fjKGwL4qavgCnjONm5jy4O+lPsLD07SaKfo0gXXSgqstAvJZXrhgtn7MhUskJN1tG/3I
+ kwZ2B487QDn7CjpxgWvGG/nE8NGNvvVRLP4yd58hlRK+/ojeViLIUu3x0YPx8dnTPHnj
+ 30LFlCqBqe4qAe1PKWKNW6XMbdoZcaQsmJryzbYBIx0l2ImLgod3pToTFPEFBPMpoFyf
+ EVxj01RQ61yAOSDUlcDzJZg37Swuc/Hl6yYpXse2pWM53pvAXqjBMgrsqcmXYxm96s0F
+ qAqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743189141; x=1743793941;
+ d=1e100.net; s=20230601; t=1743189266; x=1743794066;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=L6M+jEfRxi9aOF05qt7QPWvhA2JfC+UvAQEiXq8eBmY=;
- b=aUmRspkmZRSxKiVXcqAcvwNupwLT2dSxiyWQ2j9rnawYwANepS0iBTiM4BiSXvhI7D
- uB/hyW41vJxRbywAzO2KQn6zt59j/hpJzp8WR9eXlQ4TLBcdK/GqrRZGxQqUx7DA2wNk
- /3DJ46HNuAMKfaCI0/2NsV5JoNhrsf9bsD6EBAzwy6AQVB6b0XWI0SM2XozVGNQxELWw
- p67pGV4tH+6sHjohwzSWl+v5/QiEkqYdZjpeREdSkoqXxTBJg/QskEEaXUAprHXC8poT
- hWU+Ekzdu+WHIl26I0ijru7reecDnSNLKcMWjrbU3x5HGzuTYpwkK+TTF62qAUXqTZsO
- Fyvw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUILHy34xVAQvHLdrRQ+ii9llQraBP7bzAGdZA16PLJaUj3dr7J0/Q89v/NPeAas02DA355+jgf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz12eMUsCCphNV1eiKq/Qy0FdyJ//71VZP/tuXtQb9rp8VYucoK
- 5drBMSPCZLmFZB9veHcck3dmSYUVNMFFfWZQ+DcMp1/5OJ60FEG+lAn/VGWyaYy1cyss5ceSoXE
- W2MSFJfA3FwbwcE6+sx1dur4yPnY=
-X-Gm-Gg: ASbGnctxSMzW7O0aKuqARDJvGZOcLgDPC+H1u8n4TMYIiT+6UowHWdiuktEF2pAMV94
- TeJmAUDMVg+c/5d7udo2kJR84FaqplQLwIJ5LcmnXegObk77LEv74a8He6XWCEA7/DgFGMX/N3U
- BTykQmiNYu+N87Eb8vyO0OEE/pVA==
-X-Google-Smtp-Source: AGHT+IG3E0KwPlFqdc+6OA/t6nErt2ZWXFmSlj0ZCEdi+9hNHixdAZsfUN1tk9pijeMOwdU6GZDqGsi0dZ1hIk3UxMY=
-X-Received: by 2002:a17:90b:1a8f:b0:2fe:b45b:e7ec with SMTP id
- 98e67ed59e1d1-305321652a1mr179219a91.8.1743189141208; Fri, 28 Mar 2025
- 12:12:21 -0700 (PDT)
+ bh=kawljUbq+bccO8k5zU1eJD742LIN7Wuqx1u9FsEzKws=;
+ b=fxZCp2swWHFC58ZmWJ0+XPhP33hPwE64PmW6bKUEAQMil82gI/WZjFQi53OOALBGWV
+ kAx/ZaOzEnx6S3yVhTqY398her5OclWomtrMBmSx4GtvJQiX0kOUdpHWUfGw0eyZ6v3/
+ OTM9BzQ9Rt7pDR4HPyi5rEp3pIahoi3QyJ4Anh2cIw0bNDBDg50IUNBvNuFTo/7NO20k
+ 7bCivzNVrhh/4jbnjEGvmfoZVgOtiEz0BjYN8d9Z0AHj+YnDLOCRoSdtp+ARRr1MkFJT
+ tDNsuDuTTlrTlpdi9BvRAJchnKeDRxy5L5YRXa6SW55X4rEbGNoKdLC/WUSUqm1g7Z7C
+ vcrQ==
+X-Gm-Message-State: AOJu0Yzw7tuH7BwWxLAEFM1+fzwYgLqDfwbwNtqBV+SZyfP5c+HNdo6I
+ I8UQVUIGxqevfvGkE1dvLkGF5bror1Vu5QCVscpBwFu96MDNDDVTeF8oJELpyMf2xqi4CADrRNM
+ k23ahH3rjQS/az+oeuCXDsa/lpBHMPw==
+X-Gm-Gg: ASbGncvL0Cj2hYgLXECq8pfbzSyp4VaOYhd2TVt6pwspi8snSvDhYRiBMdrmGsZYlOT
+ bbOIoRgjb0c1twv2TNMn0RGf2ybV20Xnwknbxk287kNWrpm08VWbWzTrFPTzdgmPG+vxrlYhmFX
+ Gq09CwPCpjWB9OLq/BuGRc9LsadA==
+X-Google-Smtp-Source: AGHT+IEs3ceyLBiPKCVN5a29HuQovTbEy48panJUW7/O/Yi5gGYYFxTFbmrMSb1+JzgRMaZr3f+ZTByztNtyJ7FuQbQ=
+X-Received: by 2002:a17:90b:390f:b0:2ff:4be6:c5e2 with SMTP id
+ 98e67ed59e1d1-3053216fadamr208880a91.7.1743189266275; Fri, 28 Mar 2025
+ 12:14:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250327195400.130758-1-natalie.vock@gmx.de>
- <95e48cb3-2b9c-46ea-85e4-7ce730dbb816@amd.com>
-In-Reply-To: <95e48cb3-2b9c-46ea-85e4-7ce730dbb816@amd.com>
+References: <20250109165756.26401-1-felix.kuehling@amd.com>
+In-Reply-To: <20250109165756.26401-1-felix.kuehling@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Mar 2025 15:12:08 -0400
-X-Gm-Features: AQ5f1JqdylneLmvN725lmI7L6zeowNUw3izszfXWUH2qCVc4XWLzHfT6nThu33Y
-Message-ID: <CADnq5_Mohzo-yF_+o+Jf9AHOLQfQv-zzt3fd6zYKFtjpEfFp0A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add cgroups implementation
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Natalie Vock <natalie.vock@gmx.de>, amd-gfx@lists.freedesktop.org, 
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>
+Date: Fri, 28 Mar 2025 15:14:13 -0400
+X-Gm-Features: AQ5f1Jo1o48eYXwy8AuRKziRttFXwn0FI0YKnF66KAosuaJHBm_9rGG_x1XVarM
+Message-ID: <CADnq5_N465Z58E9EroVDMtx2E=cAhGbJgC=TE6BhCsVdptwcmg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: allow pinning DMA-bufs into VRAM if all
+ importers can do P2P
+To: Felix Kuehling <felix.kuehling@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Pak Nin Lui <pak.lui@amd.com>, Simona Vetter <simona.vetter@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,62 +82,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Thu, Jan 9, 2025 at 12:07=E2=80=AFPM Felix Kuehling <felix.kuehling@amd.=
+com> wrote:
+>
+> From: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Try pinning into VRAM to allow P2P with RDMA NICs without ODP
+> support if all attachments can do P2P. If any attachment can't do
+> P2P just pin into GTT instead.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> Tested-by: Pak Nin Lui <pak.lui@amd.com>
+> Cc: Simona Vetter <simona.vetter@ffwll.ch>
+
+Applied along with the cgroups patch for amdgpu.
 
 Alex
 
-On Fri, Mar 28, 2025 at 9:03=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 25 +++++++++++++++------
+>  1 file changed, 18 insertions(+), 7 deletions(-)
 >
-> Am 27.03.25 um 20:51 schrieb Natalie Vock:
-> > From: Maarten Lankhorst <dev@lankhorst.se>
-> >
-> > Similar to xe, enable some simple management of VRAM only.
-> >
-> > Co-developed-by: Maxime Ripard <mripard@kernel.org>
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> > Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_dma_buf.c
+> index 8e81a83d37d84..83390143c2e9f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> @@ -72,11 +72,25 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmab=
+uf,
+>   */
+>  static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
+>  {
+> -       struct drm_gem_object *obj =3D attach->dmabuf->priv;
+> -       struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
+> +       struct dma_buf *dmabuf =3D attach->dmabuf;
+> +       struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(dmabuf->priv);
+> +       u32 domains =3D bo->preferred_domains;
 >
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> -       /* pin buffer into GTT */
+> -       return amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
+> +       dma_resv_assert_held(dmabuf->resv);
+> +
+> +       /*
+> +        * Try pinning into VRAM to allow P2P with RDMA NICs without ODP
+> +        * support if all attachments can do P2P. If any attachment can't=
+ do
+> +        * P2P just pin into GTT instead.
+> +        */
+> +       list_for_each_entry(attach, &dmabuf->attachments, node)
+> +               if (!attach->peer2peer)
+> +                       domains &=3D ~AMDGPU_GEM_DOMAIN_VRAM;
+> +
+> +       if (domains & AMDGPU_GEM_DOMAIN_VRAM)
+> +               bo->flags |=3D AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+> +
+> +       return amdgpu_bo_pin(bo, domains);
+>  }
 >
-> > ---
-> >
-> > Resending this one since it got lost in the initial dmem cgroup
-> > submission. Probably needs to be merged through drm-misc-next since
-> > amd-staging-drm-next doesn't have dmem cgroups yet.
-> >
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > index ff5e52025266c..7b86d7f9d5d56 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > @@ -24,6 +24,7 @@
-> >
-> >  #include <linux/dma-mapping.h>
-> >  #include <drm/ttm/ttm_range_manager.h>
-> > +#include <drm/drm_drv.h>
-> >
-> >  #include "amdgpu.h"
-> >  #include "amdgpu_vm.h"
-> > @@ -908,6 +909,9 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev=
-)
-> >       struct ttm_resource_manager *man =3D &mgr->manager;
-> >       int err;
-> >
-> > +     man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev), "vram"=
-, adev->gmc.real_vram_size);
-> > +     if (IS_ERR(man->cg))
-> > +             return PTR_ERR(man->cg);
-> >       ttm_resource_manager_init(man, &adev->mman.bdev,
-> >                                 adev->gmc.real_vram_size);
-> >
-> >
-> > base-commit: 1822532477cb5f007313de4c70079c09aaa270d5
-> > --
-> > 2.49.0
-> >
+>  /**
+> @@ -131,9 +145,6 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma=
+_buf_attachment *attach,
+>                 r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>                 if (r)
+>                         return ERR_PTR(r);
+> -
+> -       } else if (bo->tbo.resource->mem_type !=3D TTM_PL_TT) {
+> -               return ERR_PTR(-EBUSY);
+>         }
+>
+>         switch (bo->tbo.resource->mem_type) {
+> --
+> 2.34.1
 >
