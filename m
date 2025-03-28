@@ -4,120 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64CA3C28B20
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 10:19:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3329C36013
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 10:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C81410E9D3;
-	Fri, 28 Mar 2025 10:19:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9417E10E9CB;
+	Fri, 28 Mar 2025 10:28:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="in15CG5R";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OOplqAm5";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2075.outbound.protection.outlook.com [40.107.220.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B779F10E9E5
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 10:19:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bVZTRTJy/4qpSVHcgzKYUBJH6fUm8RWADMxjI/FwT0qh0qpC30upnYWcKKhyHB6gbuQR1lmu4usfJS1N/BS5JrC3kSNNxP24XSQqBE9zK6N4S3ef1wxeuIjMb52jUnRggMdpxZ3fD4kpTiPGM9LS5rO0QggG4qLqBM6JVlnfQPqRbVKEUZvUYWonuSAxne4wPVUOlc60Q8+VI5q90DDii79G7YA0LiF5bGl1Y6in/W3RcAeQH7+ymp3wA6JYrx8B7hE1K3cWkmkaMRvWcjlXDFquTux1Iqy+4NaLr+Ok4QW5yLoiXRC9WLU28YtH7VFo5n7RygJjAkqBWverp0EC6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RAYVvrLFbEiNFWAoCDLZHwXvmbVJN4ylbteV3eLw668=;
- b=e0b4Q69XvHcBJ2+RtjXnjazlfivdYJDaOFJQBrVp3YtbqXGlA45AfmkMBKaTMBjzU2bnn/Tyry/tZCB+lbeIcrRmJLWGSmL28o5L/5lkWSvqRUhxGxrkcIhr0CjWD6EtsCZwOEModchDCrYls+C9FS4sxdn4Q3YDb1HvzkV0dxSrmH0J7AjjzptCiC+7HX79uRsosx189bP4aiL0IXW4Fn4fHgY4/xk4zulR4UxWAVXW94pQdHeCLyAd50U7mBF1Dod8esENQezsJYmcRxWqkvmVEplOrdYfhhEa25xSdA1FR584KKMfKfsRX6kRFZ144onHeWaRjbgnFwBm7VCWmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RAYVvrLFbEiNFWAoCDLZHwXvmbVJN4ylbteV3eLw668=;
- b=in15CG5RQXFOpbrzuWCSnYT4dnrH9mezJCrv6xpzKdtXrCbiKR4z8y5RqKp14K8q2tHiew4w4lUR8bnGX3U0/yXTtPQwClGLUecDmeveRZrzj5xsV/zk/6bfywP88ooBNWhTxvDT2wd/LhgVgWiDZtyQv24nb8C+GxYLoLkRCFg=
-Received: from MW4PR03CA0063.namprd03.prod.outlook.com (2603:10b6:303:b6::8)
- by DS0PR12MB6654.namprd12.prod.outlook.com (2603:10b6:8:d1::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Fri, 28 Mar
- 2025 10:19:21 +0000
-Received: from SJ1PEPF000023D4.namprd21.prod.outlook.com
- (2603:10b6:303:b6:cafe::4b) by MW4PR03CA0063.outlook.office365.com
- (2603:10b6:303:b6::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.45 via Frontend Transport; Fri,
- 28 Mar 2025 10:19:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000023D4.mail.protection.outlook.com (10.167.244.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.2 via Frontend Transport; Fri, 28 Mar 2025 10:19:20 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 28 Mar
- 2025 05:19:20 -0500
-Received: from SYS-7048GR-TR.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 28 Mar 2025 05:19:19 -0500
-From: Emily Deng <Emily.Deng@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Jonathan.Kim@amd.com>
-CC: Emily Deng <Emily.Deng@amd.com>
-Subject: [PATCH] drm/amdkfd: sriov doesn't support per queue reset
-Date: Fri, 28 Mar 2025 18:19:17 +0800
-Message-ID: <20250328101917.4159629-1-Emily.Deng@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6963910E0F5;
+ Fri, 28 Mar 2025 10:28:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1743157682; x=1774693682;
+ h=message-id:date:mime-version:subject:cc:references:from:
+ to:in-reply-to:content-transfer-encoding;
+ bh=iK5DbF6ZP26z9nzakAbeS0c023kRx6KDUFmUXimrPVI=;
+ b=OOplqAm55sFwu5mb8CzQweJX5EW3KkXaKW9R+XqRCtBGXr2GiY8nRR4a
+ w7L6b/nMs4mDheGKAZRWO6fE/VqHNVbW4D+bHOxmpOBD/D66eJT6DTlKm
+ bfmNNQZjcAYecPWthSD0U4dFSmM0LSWc9zZgjXJHOzfshRVPWLwa5nr8r
+ 6vmaC1zcCsKgIWIzqwknvHoGVzrjIyOiK8kN/lSG7HQ2R80L1Zjg598L9
+ 2e2KlWKlbLLibdDCII3OTyOJHTuJs433JkcZW8QyGVVXbSNmbxHshMaQq
+ 2byg3FoSFk0BQbHE/VdGlnj8vpr02TQcBAEislUZYMhWLnFQ8Arb5RI+5 Q==;
+X-CSE-ConnectionGUID: uOv58qc6QGyuMmQa2/OpOA==
+X-CSE-MsgGUID: U4mGFiEYR+WVkBrDwSsFgw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11385"; a="48298090"
+X-IronPort-AV: E=Sophos;i="6.14,283,1736841600"; d="scan'208";a="48298090"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2025 03:28:02 -0700
+X-CSE-ConnectionGUID: jMerTHXxS26YYXubYNs80w==
+X-CSE-MsgGUID: crVKthn0SpurjSoZQUzVsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,283,1736841600"; d="scan'208";a="156345778"
+Received: from aiddamse-mobl3.gar.corp.intel.com (HELO [10.247.186.10])
+ ([10.247.186.10])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2025 03:27:59 -0700
+Message-ID: <fd1e4ddf-f123-4e72-beb8-1308bf7c32ab@linux.intel.com>
+Date: Fri, 28 Mar 2025 15:57:56 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: Emily.Deng@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D4:EE_|DS0PR12MB6654:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb45ae95-3c66-4b6e-8691-08dd6de2017a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|34020700016|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Xuh/9KoSDxk55yTpxq0aPtRDoeCsP/IHmOIaJiih+xIx8js6fapAt/3xrVlC?=
- =?us-ascii?Q?cqyrS9iSA72ElOG4dUoWJInHpR92N7Vg6zszyY6huNbYum1R2TqsO8DrJW0Y?=
- =?us-ascii?Q?J9DrznsjnJHGSDopMcdvmPL5NKo+YCuHHdqKKmcBOh/WGkRFmEck1fSGUl/Z?=
- =?us-ascii?Q?CRqstzbqEVitH47I9s19rnV5HhZULAoJoqqOBShibKHI9hh3MK4ya9eCs2gE?=
- =?us-ascii?Q?AEzdhDkLGoMzQ4nHBWB2fYG7OmazDH+aG/aJ4c32+xZjuJMtBuxi5EkjUPGy?=
- =?us-ascii?Q?DzZbNFPbZiMb/y3YruRNAKi2++9VzywemSDJDkfvDDOE/i9/1ceYs8cBDhha?=
- =?us-ascii?Q?a389vjE4e2PgBu7yACnAiOSOTVdtRlbcnB5l4gpHVNhCZP/CoEMI2r9XHKOl?=
- =?us-ascii?Q?m/rd2O4c+V1lCJC4KdZAn7Sv7t9awdJpE5GMqA7Ogncpzb6SU91lJ7t7ocOq?=
- =?us-ascii?Q?4jCfZZl4OdTX49uHHgcRr//lWDCTchrI6FKnYEUN+UcapWFPIjGDAML8bWa/?=
- =?us-ascii?Q?ZTDtP87xi5dyfqO32ITwoumaJZqfHOQgkoA98JzNaPRyan4kPbcPp315Sb3f?=
- =?us-ascii?Q?xGf2CRn4Ku04EvCaVRWofFyNiz46K7d+JfiKgOju90n6IB2EgTDrCjijas2Y?=
- =?us-ascii?Q?z0b6MMyfKnMrcP8QKVtCJXJCntnIHmjhKhzVSSEIAjecRhPNT5hDz1ZAua43?=
- =?us-ascii?Q?hARqQnAJ117ujoA6xKaM2ioQXmVfPOX3ya0jBE3IU5+8XWw9yqZf3EP5F82d?=
- =?us-ascii?Q?bmaOBn3uoqMkDMNDhfeji55f5XeLpGC/TEL5BZWM7Hr6orAO/SiTcg0BA9DK?=
- =?us-ascii?Q?nqwKrlOXn6rjSnGy8HSwn6oBHHwg+GAN44MJbbRP9LXlULECBVshnLoQrRPU?=
- =?us-ascii?Q?NL8fV2ngAURQP3wtiHHVbxPkT34xXgYrYNt1IpIoVOoUvmG3YUkF1L003T9L?=
- =?us-ascii?Q?a3bBUKnCYBvJvq1irnYNiwAlZcKDIif6fACoY4RTSQQLhFFC7m2yBcKMyVtE?=
- =?us-ascii?Q?wIJyUPcpTBTAvjcMRyjOdrynDemPhJbKIzAAikBRcxwim2QBU37Tx6HgGTV2?=
- =?us-ascii?Q?OHko6w81ESPa43NzOWvsC5bPLPjB9Ur05x1U1G6r+lfAgT5seWUZewRnjhUv?=
- =?us-ascii?Q?VM+9rqtBjAexkJUp9C3Vy+Bwxjfnnctr7Y38sdYoKyZzOtO3/8btDvE63zc1?=
- =?us-ascii?Q?Q2Y9LDPbFH8za7dCoHQEgBgg8JUeCwMOmc8an6wCkzsWzS9A3QRl4QvWK1kA?=
- =?us-ascii?Q?wUptMbNcd1i4sjsNt9grhP/QL2Sbfwk2BRe+YlrvQs6NjPRbrGV/YUXpHwO2?=
- =?us-ascii?Q?Au80JnDW/33ku7LELS6PJFhu6h9bgww2TFjdewbhQQ4tqwyiIV2EhtpsdJ8o?=
- =?us-ascii?Q?2XKFtAPmuhO7nIMTr6IUxKNtmoQhwUK74QT2mjXojPmTjkqE5FLODpOtOcav?=
- =?us-ascii?Q?E7sIGo/YatDAZlgDklCnHXRj/6ihIHQBLul52nnZYloGHi4H+6c5i+ivwf7d?=
- =?us-ascii?Q?aAy13CRS6bowRTI=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(34020700016)(36860700013)(1800799024)(376014)(82310400026);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2025 10:19:20.9938 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb45ae95-3c66-4b6e-8691-08dd6de2017a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D4.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6654
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/12] Generate CPER records for RAS and commit to CPER
+ ring
+Cc: amd-gfx@lists.freedesktop.org, "airlied@gmail.com" <airlied@gmail.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ ckoenig.leichtzumerken@gmail.com,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ simona@ffwll.ch
+References: <cover.1739519672.git.xiang.liu@amd.com>
+Content-Language: en-US
+From: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+To: Hawking.Zhang@amd.com, tao.zhou1@amd.com, Xiang Liu <xiang.liu@amd.com>
+In-Reply-To: <cover.1739519672.git.xiang.liu@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,27 +75,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disable per queue reset for sriov.
+Hi,
 
-Signed-off-by: Emily Deng <Emily.Deng@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Based on the discussions around using Netlink for RAS purposes, as
+summarized in this blog post [1] by Dave Airlie. I had proposed a series
+regarding RAS infrastructure in DRM [2].
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index e477d7509646..2c4711c67d8a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -2001,7 +2001,8 @@ static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
- 			dev->node_props.capability |=
- 				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
- 
--		dev->node_props.capability |= HSA_CAP_PER_QUEUE_RESET_SUPPORTED;
-+		if (!amdgpu_sriov_vf(dev->gpu->adev))
-+			dev->node_props.capability |= HSA_CAP_PER_QUEUE_RESET_SUPPORTED;
- 	} else {
- 		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10 |
- 					HSA_DBG_WATCH_ADDR_MASK_HI_BIT;
--- 
-2.34.1
+I came across your work, which appears to address related areas and I'm
+particularly interested in understanding how it aligns with or could be
+adapted to the ongoing discussions around leveraging Netlink for RAS.
+
+Could you share your perspective on the potential integration of your
+efforts with Netlink? Do you foresee any challenges or opportunities in
+aligning with the approach discussed in the above-mentioned blog post
+and series?
+
+Looking forward to your insights and any additional thoughts you may
+have on this topic.
+
+
+[1]
+https://airlied.blogspot.com/2022/09/accelerators-bof-outcomes-summary.html
+
+[2]
+https://lore.kernel.org/all/20231020155835.1295524-1-aravind.iddamsetty@linux.intel.com/
+
+
+Thanks,
+Aravind.
+On 14-02-2025 13:37, Xiang Liu wrote:
+> This patch series generate RAS CPER records for UE/DE/CE/BP threshold exceed
+> event. SMU_TYPE_CE banks are combined into 1 CPER entry, they could be CEs or
+> DEs or both. UEs and BPs are encoded into separate CPER entries.
+> 
+> RAS CPER records for CEs will be generated only after CEs count been queried.
+> 
+> All records are committed to a pure software ring with a limit size, new records
+> will flush older records when overflow happened. User can access the records by
+> reading debugfs node, which is read-only.
+> 
+> Hawking Zhang (5):
+>   drm/amd/include: Add amd cper header
+>   drm/amdgpu: Introduce funcs for populating CPER
+>   drm/amdgpu: Include ACA error type in aca bank
+>   drm/amdgpu: Introduce funcs for generating cper record
+>   drm/amdgpu: Generate cper records
+> 
+> Tao Zhou (4):
+>   drm/amdgpu: add RAS CPER ring buffer
+>   drm/amdgpu: read CPER ring via debugfs
+>   drm/amdgpu: add data write function for CPER ring
+>   drm/amdgpu: add mutex lock for cper ring
+> 
+> Xiang Liu (3):
+>   drm/amdgpu: Get timestamp from system time
+>   drm/amdgpu: Commit CPER entry
+>   drm/amdgpu: Generate bad page threshold cper records
+> 
+>  drivers/gpu/drm/amd/amdgpu/Makefile        |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   4 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c    |  46 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h    |  16 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c   | 559 +++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h   | 104 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   4 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   |  91 +++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |   2 +
+>  drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |   2 +
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c   |   2 +
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c    |   2 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c   |   2 +
+>  drivers/gpu/drm/amd/amdgpu/umc_v12_0.c     |   1 +
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c    |   2 +
+>  drivers/gpu/drm/amd/include/amd_cper.h     | 269 ++++++++++
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c        |   3 +
+>  19 files changed, 1075 insertions(+), 40 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
+>  create mode 100644 drivers/gpu/drm/amd/include/amd_cper.h
+> 
 
