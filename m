@@ -4,75 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 455BBC28B20
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AA58C28B20
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E26F310EA14;
-	Fri, 28 Mar 2025 13:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F303E10EA1B;
+	Fri, 28 Mar 2025 13:40:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cahCSsA6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A5ZKG7FF";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85D9F10EA14
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 13:27:35 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2ff67f44fcaso535380a91.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 06:27:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743168455; x=1743773255; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6phKcwwA7rDcDlsheU0FazxANtcKzYoGE7av43xk/dg=;
- b=cahCSsA67mxX0PG6a4F4fxGuFjxDVUpRa85byVp22fRhagFqbZKOQzpWkVjVS6vEP5
- kbMtUtv3EURkbSD7uW9rWwIZz+LCtaqfAVDz7d3tw63XzGmQhXoAxk5Meh8tuA52QnwR
- YLlbvOvpUIMdaPx7s9XYp1Rh/NUyQYZKPqiF7NGImzX1/YhaEHI9yd9WAWrLz8p4R6Ba
- 0SrPlZ8raj11ySrchVlMe90csLX6XZ2Z2T4qt28ZNiTh881YxkwZl3pyAkGrkJpKJdt+
- e4LU6WvzObtYevNsIuc2jbO5hlXtM+8V/aAK+YGV+HRaxtpVMf29uSnAXgjxeM8PrC50
- rTLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743168455; x=1743773255;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6phKcwwA7rDcDlsheU0FazxANtcKzYoGE7av43xk/dg=;
- b=QuBbnCi9KyiFpZQ7gNokhbiE2euch6lnlsOaqu88ntRBRlM8gN685JC/nomOfisihC
- YQWFpZ9BjzEs6hhyOTWHviG7UEefDR9ABpOBvkm44+odGr1JAC+J+qSN1mB/QmiYcWZd
- U1mL1lh1Pt0AcPubo7fRb+RgKNtL0V8fPyJNtVSBL2UXh5i5n6qmJj2aMPdQp/IeWU8F
- C9gjXhThn/wdxABtaWLDTXd1S7+mQH0MN5OtuJxIF3rPjfWi6rjKOgX+mc6vB+YxIxF5
- bEz3q8lByopI7xpvwKNAJ6p+xpFJNcea1Fuh/AfY3A1ZhnjXyiT2HhHl2MVUZHMR5/kA
- TBKA==
-X-Gm-Message-State: AOJu0YyUl7cGOsB4BwrpnaoTUlR+hNzdb/PTS6BcdA4UQ9K1XnZIdRO4
- ZBfYNcqdXqbREw61LKwCFFRVJURqvD/DuIb7XDLPJenxLGyDVU9rBBg3HEARgWsAbtLDvlFZNAn
- 3yiNyxzDmgj/cOKQP47vraXcMyoH+IQ==
-X-Gm-Gg: ASbGncsms20S5/DXX4muuxeYyQwAu6IXtdhnB7R7t2BgnTpwunquy1BKrB/pdVIBmQM
- ceeqjN6T0BIyQzsOZAIO5+WPc8TpBotZLxRaYWkQ+uEp8S+txJ/Zi949hSHVuSql8jrW4kfgTPV
- F2WOqKZtfMjLQmoQdu2DF+cTAkiQ==
-X-Google-Smtp-Source: AGHT+IFYN0vXbmKcArurzscLNVLFH6O7icWTDofoX8d6uyUfPMC3jR00+Ja1lqqdSelG0bZnJGZSK7ei1OGRVRoP6gg=
-X-Received: by 2002:a17:90b:4a02:b0:2fa:6055:17e7 with SMTP id
- 98e67ed59e1d1-303b279c933mr3843651a91.8.1743168454791; Fri, 28 Mar 2025
- 06:27:34 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250326045650.770578-1-kenneth.feng@amd.com>
- <CADnq5_PL8twwX9CMNBKMdyso5U+G_8P4MLXpBTFOoHXZxMOigw@mail.gmail.com>
- <DM4PR12MB51655AC13B9C27F262EB03608EA12@DM4PR12MB5165.namprd12.prod.outlook.com>
- <CADnq5_POhj-+8vHCVqek+wUw6DW+J+aMsX6FBUSwfy6h+rhAVg@mail.gmail.com>
- <DM4PR12MB516500FD3B6395D51C50134D8EA02@DM4PR12MB5165.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB516500FD3B6395D51C50134D8EA02@DM4PR12MB5165.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Mar 2025 09:27:22 -0400
-X-Gm-Features: AQ5f1Jr0xRET1OvtHDWJYkyJciRV2NjPrxCJMhbTGrfA2J7lSeOnumDmmPYWirg
-Message-ID: <CADnq5_OZdwn=BxvgFDhUvgaJmSuV_pi_6Odh5FNQfHL3GHW=iw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: port the workload profile setting logic
- into dm
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, 
- "Wentland, Harry" <Harry.Wentland@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5D410EA1B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 13:40:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F2HWiLjCMPy4BpG5EF2sWOnsbR+DrA7HHKhMpqzPrU/gR310R+kBvqYE5ByHdvklYo7/ZX+KVai/TVKCbVXdOJ65Tjy0vgW/zavDwt4H64xl6fIs8HUu3Uab84+JMu4tbBVP4bhUoCuQf+/J1xSbYjQYppQrWDMJgLN09bCbo47DW/GeC1yzWZjYWMQM1qxRhUZWVVneqNyr+4Sq8mtYsaUoyR7VA3nmltulGAv3XIwOjIAl0yUdlTmgMdOk/4jWtI4RtyaFasfPmjBR7BA1pLklcggj9eW1zxZrqy15wrGGXMNjTBSnUYp5nF/0keQHXVN8JUK/ufuSA93UhNGLlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ht7pdHxO8+/xX6UfE/ugippqIRwXDhJl4U5jwmr/hAA=;
+ b=l99BdhIkzplMepPfDTVdreaCz+jEcpsZqFkSwp4Fj+5Gu5s0964Y219c7kVKMJ3zYtWqR+5FGgA9r6xETo2EWYsVO/JOn5376km8dFYdldTEINSMhTUI6S6cKRZOToVv8dRKO3+0NWXNUJvSWVu1I9x4tHZEP+c8BdkqfF1QBde7FSXw0Y4lxWHip7vIBkgeidNP8yFq/BZ64dh7Mj4wk4rJJL0hAChnPqAePvs5zB1nfa6jUHMlGeTv+QjN7IPNNEue+qxIbdOOfBMn3Avczcp1PFftjFNmsvkDfszL2x+Fa9SEBiNHZaTW2Rr0WEYig+KUyaIfJh+rXH/n798bQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ht7pdHxO8+/xX6UfE/ugippqIRwXDhJl4U5jwmr/hAA=;
+ b=A5ZKG7FFs3+/DqLBK5EtIfToN0pNGnbv9xYUNMnpDNwYbN8/dw6X4djihEInTVgoJmQLxXNJvXEolF7NEzeW9FX97wpcS4jp0VY0AkgNVIC5qiEAK3tTNriYYu5NDc1syT0gJCZsGOkk+21QzCuyL63yf9F4YG1aQP34kxNhdk8=
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ by DS7PR12MB8081.namprd12.prod.outlook.com (2603:10b6:8:e6::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Fri, 28 Mar
+ 2025 13:40:12 +0000
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::989a:c38d:3dc7:97b7]) by BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::989a:c38d:3dc7:97b7%4]) with mapi id 15.20.8534.045; Fri, 28 Mar 2025
+ 13:40:11 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Cornwall, Jay" <Jay.Cornwall@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] Revert "drm/amdgpu: Increase KIQ invalidate_tlbs timeout"
+Thread-Topic: [PATCH] Revert "drm/amdgpu: Increase KIQ invalidate_tlbs timeout"
+Thread-Index: AQHbn5a0DjEdBqd7WEazs3VKXv+8IbOIjp9g
+Date: Fri, 28 Mar 2025 13:40:11 +0000
+Message-ID: <BL1PR12MB5898C47DC2CBA35DAC5F2C1A85A02@BL1PR12MB5898.namprd12.prod.outlook.com>
+References: <20250328040525.3736064-1-jay.cornwall@amd.com>
+In-Reply-To: <20250328040525.3736064-1-jay.cornwall@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=ae76ebe7-b88e-4be0-bbe0-9266f45cdb2d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-03-28T13:40:04Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|DS7PR12MB8081:EE_
+x-ms-office365-filtering-correlation-id: da543b77-6a2c-41f2-5986-08dd6dfe1041
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?Lwd45gUnlikoGamPnGU/3QRGB+NjthmWnsHOs4A+2TuYpdx1jlgANiHNNN3a?=
+ =?us-ascii?Q?WoXpWxLRtG6H8keMduYQdn1piWXm8LF9sc4lpe/qG/inHJLfJYun3IRZjOO7?=
+ =?us-ascii?Q?48ezLoHItSvA+5GbmiLWESZvqkbt1xEH7x1RzozvT+YAmssTCt6bqeMbQwoa?=
+ =?us-ascii?Q?VRhhnX9ckao/A/eZd4dCyNb0Py0QRbfAMukYjYm/SVRsY9IQbLcIGltIq4HZ?=
+ =?us-ascii?Q?yZMgVf4hqWA0uWpZmWTkY0obAohK4WvivqE/xNsKC6kWR0IsYn85NCU3KwIO?=
+ =?us-ascii?Q?9tPmLFA7y+4X5ELV5JKxcI04loUtAysahi70yUFK6n6VZNGUuHUwAoqhlmbD?=
+ =?us-ascii?Q?bnz/bJo3F+t96N52hk4DeMj/aJ3HnU+yXAF8gi0xKdVG0pkm+qaa2N94cyB5?=
+ =?us-ascii?Q?Q7BCXE13HW6Ed9dMd8gN56/prfG7zQUkrL5llkmlylk/0D4vwRx2snDp6lh4?=
+ =?us-ascii?Q?G7Yb+QuVUarOzj7b4GeMSjYMII2e7W2Hq4iJni+4HnSNG/YkhwV0rBLpgLTV?=
+ =?us-ascii?Q?159Lh8FnZptsrDu/wT0ZH9gu4Z1MuIaR2DZXP3dL7r883Z7x6gWA37vNVkX+?=
+ =?us-ascii?Q?Rt7aefSbile01knt/t2CeHRr2m8MwUq0VrxLy0KmJp6JW4W8IG6z2K7r5Yta?=
+ =?us-ascii?Q?bSfBkwyDGvVm7pCQ/5EL6pBPp2a/Td5hdJrld4Z1a/7OWneL5BjYAnwcVgK+?=
+ =?us-ascii?Q?sa56xuskiNieBvlnrQ+oqlwCu0s1H5SFxFhAdyRk6UAxFekSS6E56ARMuS8o?=
+ =?us-ascii?Q?7eoKT/wX3g4x3po9MwTJZEFytUi9rKaxiJP3aBz9PJ644auWztVlM5wm3ajm?=
+ =?us-ascii?Q?sIwEAnf55utyaW0vPHIt4d1OndEuZoS+RhUM5c8TuK19GqIneZ5ABVZ1jvSa?=
+ =?us-ascii?Q?v5IvnK8NJ5yJC0lw0NiCUKHXC5rq5crdxj7B/v2VT6Ha3+h7ti5XCsvCiQMd?=
+ =?us-ascii?Q?3NacbcXK8wCMkLNYq0UxsNSFDqN8jHJO8FMoymetjDYsaYlCtuJDbHmYSP3U?=
+ =?us-ascii?Q?m9xAdj28wuGtmm7fd99SOsxN973sBjsq9rPyWL4otsCGcnWNYkQ+/8MNoUuR?=
+ =?us-ascii?Q?Kg5Swwqgo2K1xmrWmWYofmsiRnWsAuQsEIxBZCxW7fGUXYiQFDxvFsuJWG/l?=
+ =?us-ascii?Q?jkIb7KH9x91T42bGFMvZuDy7DPCIy/K5zz7MYq20dWL6CrC0W59ldYyWGK19?=
+ =?us-ascii?Q?vyTuFXF+DKGvS1esS7fYbK8nDwCi/PAtsu+AebEttxaZ932VlUSlxTv8m/Nz?=
+ =?us-ascii?Q?JvPnZG8e+hMtGg7tmxXDZo+ieJBvLiKtPbhBoWUMgC6Q+S3abqRmyybr+fY4?=
+ =?us-ascii?Q?R4MIkNw3j/QDmCxLwEF9rgMAvMJ/W4hAI6sQXRdims43GNsg37HYeZaCvIhi?=
+ =?us-ascii?Q?duTJwAoXTMvzd9jlPf7VlAiLUruqMISFJRjH6C5MfKIv1COp+rBvh6QKYFED?=
+ =?us-ascii?Q?t5ddcLoVvxEKmyXiloxcDuzvC8PD85WJ?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qdIXNPDRR4HD0j6h/mcvxOLNP+NOj+oO6JAKTozIa2hjU5R+Kpnh1o3bpvQX?=
+ =?us-ascii?Q?FyCaPp36bF+5I0Y5bde85wmsrs7WZD11RC+O4Pnt4XG1RHIC4eAQnnzfyXZI?=
+ =?us-ascii?Q?Yz9MJQRJlx+zfaHAWru7P1jV2u69SrCXuycMztX/hM3isC6PnMTA10Q+RCGx?=
+ =?us-ascii?Q?xfYJ6CULLcRdJaSuMNLqn4lrA5RbWErKxa/NBOsYckILeOGolM7DeF7cLM7i?=
+ =?us-ascii?Q?ty+m/znAPNwnpoE2qP/PXBcUPidBLwh/RSAaIOISSk91Iwr8iW0d+TPgeX5N?=
+ =?us-ascii?Q?4c6yQDyJrNQHMw4yQ3piNOuOeqXOoHblpDrcU3Bo5S6lGirW1niRmqNQOmyg?=
+ =?us-ascii?Q?8CiCNMHDPoxQoQJo/L7q5/um28R9QukwoDNGeOZzfsZrPQF3HP0FHjHkgCAw?=
+ =?us-ascii?Q?dvi9jFaQG7/XvfryP0YqtmQYtKMQs8pu24XQvPLKobCtOSeniFo96ctjc7IX?=
+ =?us-ascii?Q?zz4ar30x9iif5sDjGcBu0BAFvtaBAtlfg5Zm1u0jYseHBau0nhIVH4DZ72v7?=
+ =?us-ascii?Q?X3ypPPHSBZZocGQDkq3cu9x1l23XoyMA9mUWJ8+TEP2aJVqPqCXIJGQtkPy2?=
+ =?us-ascii?Q?03oR0k41kbpjTlqtqUdLixEua+Dyq2FkVrums5wQT1m7q7nPsltsWUSFMX+s?=
+ =?us-ascii?Q?DCvC2fBqv84vA0ve1FHk+lxyhF2Z+bc42xFbcknkc5D+bGJo6/MlEIY83uNx?=
+ =?us-ascii?Q?1RAQKqfiQmHpn9BU+2JQhhE9nukG/RIucoQ8eQJr76PW8B4POM9w5ozQh/Hs?=
+ =?us-ascii?Q?L9dDCg0i7VDVFgWupqO8a++vdkuBHkhgsx9g6sJg1QGl3ffW++92FrdWZ+Tc?=
+ =?us-ascii?Q?nmle652svYv7abSnaFJPWRr6P9afQeY/5+I0c5Dyld5ohSFDLq2v906WSlvU?=
+ =?us-ascii?Q?Jgf/SPglk/XUQwtHbRgKmodbo2gFjkeK/qh382KoIunOeriQD0OvicRx/coD?=
+ =?us-ascii?Q?xLFMQc6j1Ul9ix+7NbABbpAsFr2vmIOqrkYMI2VqG91gIVdGjANIR0qcFw5+?=
+ =?us-ascii?Q?4UAFUMvIIq/QZ2AzEJamg070BboG0V9N5ONce0NdtSB+B5zjv2rq9r9IvJ+C?=
+ =?us-ascii?Q?StZClU3cobmQYX4pbfsckqUU8PXqiME+yeJkSJzhV4k+znaWQ1uCwTn99vyR?=
+ =?us-ascii?Q?w3QMKHUw68zcec87JrH/Dpyy+QcoMYssLoQjYgEr/ltve2fR/6qAtAFBygJ7?=
+ =?us-ascii?Q?xd8OreZcOFoSfm1n5yA02osaA8jTtmwfqZ45vRyr3xeCjK12mu4ZZzPG0gr7?=
+ =?us-ascii?Q?WUVA4NRCTelhR0vNO+8gNZtJ/b781hvChLFhu+m287ySaa5DrMMJpaZAm/jG?=
+ =?us-ascii?Q?0HfH3Ee/XJ2dZuqel4cTCS394hO3fZqHXBiO1q1CZN4tB2DFUD7R4dsFyAG9?=
+ =?us-ascii?Q?KqhKMXfjdky39BPXm2QmFAvB9wG1l1ZbRx2VoNxaWN4RRLZ8yhB1p0xICN3Y?=
+ =?us-ascii?Q?uNE1AYJqEV7ra10IJ+57o0/2XrXSBXS1TF2xNhQVaYiM9zhsJabwVL0Pc3Hc?=
+ =?us-ascii?Q?kxKSSE2PoBqHk9tw5emg5YbOn5vzitZR6PdvNSKqwB6JjEJgPO1ltM7UU4qR?=
+ =?us-ascii?Q?63TMPvc4Fus4dd/eyyM=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da543b77-6a2c-41f2-5986-08dd6dfe1041
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2025 13:40:11.8256 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dfPBq6oWtwjQi3hSj2VOHj0GKdIcABR9khjvth+gBhFkD99Mh0xVhDpNMj1yoIvMIrWzr6XQayxPQGuDYLEwyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8081
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,216 +154,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 27, 2025 at 10:37=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.co=
-m> wrote:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
+[Public]
+
+Reviewed-by: Kent Russell <kent.russell@amd.com>
+
+
+
 > -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Thursday, March 27, 2025 10:09 PM
-> To: Feng, Kenneth <Kenneth.Feng@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; Wang, Yang(Kevin) <KevinYang.Wang@amd.=
-com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wentland, Harry <Harr=
-y.Wentland@amd.com>
-> Subject: Re: [PATCH] drm/amd/display: port the workload profile setting l=
-ogic into dm
+> From: Cornwall, Jay <Jay.Cornwall@amd.com>
+> Sent: Friday, March 28, 2025 12:05 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Cornwall, Jay <Jay.Cornwall@amd.com>; Russell, Kent
+> <Kent.Russell@amd.com>
+> Subject: [PATCH] Revert "drm/amdgpu: Increase KIQ invalidate_tlbs timeout=
+"
 >
-> Caution: This message originated from an External Source. Use proper caut=
-ion when opening attachments, clicking links, or responding.
+> This reverts commit fdb90033846e2f23dfaaa01dc47fec7b94704d0e.
 >
+> Reportedly causing unknown issue in memory management code:
 >
-> On Thu, Mar 27, 2025 at 4:22=E2=80=AFAM Feng, Kenneth <Kenneth.Feng@amd.c=
-om> wrote:
-> >
-> > [AMD Official Use Only - AMD Internal Distribution Only]
-> >
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Wednesday, March 26, 2025 11:08 PM
-> > To: Feng, Kenneth <Kenneth.Feng@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Wang, Yang(Kevin)
-> > <KevinYang.Wang@amd.com>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>
-> > Subject: Re: [PATCH] drm/amd/display: port the workload profile
-> > setting logic into dm
-> >
-> > Caution: This message originated from an External Source. Use proper ca=
-ution when opening attachments, clicking links, or responding.
-> >
-> >
-> > On Wed, Mar 26, 2025 at 1:22=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.=
-com> wrote:
-> > >
-> > > Port the workload profile setting logic into dm before MALL optimizat=
-ion.
-> > >
-> > > Background:
-> > > MALL optimization strategy has changed in the firmware.Previously,
-> > > firmware does not care what workload type it is, once there is a
-> > > request from DAL for MALL, firmware immediately trigger the MALL sett=
-ing sequence on the SoC, so called D0i3.x idle power sequence.
-> > > Now, before the D0i3.x sequence starts, firmware always check if the
-> > > workload type is default, if it is not, then abort the D0i3.x sequenc=
-e.
-> > >
-> > > Issue:
-> > > Due to this strategy change, the task is moved to driver to make
-> > > sure if gfx is really idle and if it is, reset the workload to defaul=
-t.
-> > > Without this task, when DAL's work task for MALL optimization tries
-> > > to do the optimization request to DMCUB->pmfw, the workload type is a=
-lways 3D fullscreen or compute, then MALL will never be applied.
-> > >
-> > > Why:
-> > > The idle task for setting workload type back to default interval is
-> > > 1 second currently. The DAL's work task to optimize MALL always
-> > > starts before the idle task for setting workload type back to
-> > > default. There is no way to ask the idle task in the base driver to
-> > > reset the workload type ahead of the DAL's MALL setting work task kic=
-ks off. There could be a workaround which sets the idle task interval to 10=
- millisecond. However, this causes some call trace issues in which the work=
-queues is flushed.
-> >
-> > That should already fixed by this commit:
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> > /commit/?id=3Dde35994ecd2dd6148ab5a6c5050a1670a04dec77
-> >
-> > >
-> > > Side effect:
-> > > This solution is to port the logic in idle thread to DAL: check the
-> > > fence and make sure gfx is idle, then reset the workload type. It is
-> > > fine that when DAL's work task exits the MALL optimization, it does n=
-ot set back the workload type to 3d fullscreen or compute since the work ta=
-sk in base driver can make sure the workload type can be set back once ther=
-e are jobs in the ring.
-> >
-> > I guess this works because the workload ref count gets clamped to 0, bu=
-t this call is not balanced.  It also doesn't handle the VIDEO profile that=
- gets set when using VCN or the COMPUTE profile when KFD queues are active.=
-  Those would also prevent the idle optimizations.
-> > Also what happens if the profile changes after DC optimizations are ena=
-bled?  Does that cause the optimizations to exit or will they stay intact u=
-ntil DC tells it to exit?
-> >
-> > So I think we have two options:
-> > 1. always disable the 3D, compute, video profiles when entering the DAL=
- optimization. subsequently, additional job submissions may change the work=
-load.  will that be a problem?
-> > 2. Add a helper to pause workload profiles while the DC optimization is=
- active.  If the profile only has to be changed while enabling the DC optim=
-ization, we can just call it right before and right after the dc optimizati=
-ons.  Something like the attached patches should be a good starting point.
-> >
-> > Alex
-> >
-> > Hi Alex,
-> > In the attached patch, I guess smu->pause_workload is not needed since =
-workload can be switched after idle optimization is triggered. And smu_paus=
-e_power_profile may not need the bool flag since I still think that we don'=
-t need to take care of the imbalance of workload setting.
-> > That is said, we just need to set the workload to default when idle opt=
-imization is requested. When the idle optimization is cancelled from DAL, i=
-t doesn't need to restore the previous workload setting since the ring work=
- will set it.
-> > Attached is my patch. It works on my system. Let me know your thoughts.
+> [  128.047288] amdgpu 0000:65:00.0: amdgpu: Failed to map peer:0000:46:00=
+.0
+> mem_domain:2
+> [...]
+> [  137.815340] WARNING: CPU: 81 PID: 1006 at drivers/gpu/drm/ttm/ttm_bo.c=
+:613
+> ttm_bo_unpin+0x7e/0x90 [ttm]
 >
-> This will race with any command submissions unless you add a lock.  I thi=
-nk you want something like:
+> Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+> Cc: Kent Russell <kent.russell@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 16 ++++------------
+>  2 files changed, 5 insertions(+), 12 deletions(-)
 >
-> /* switch to the bootup default profile */ amdgpu_dpm_pause_power_profile=
-(adev, true); dc_allow_idle_optimizations(dm->dc, true);
-> /* resume existing profiles */
-> amdgpu_dpm_pause_power_profile(adev, false);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 3cdb5f8325aa..ffca74a476da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -356,6 +356,7 @@ enum amdgpu_kiq_irq {
+>       AMDGPU_CP_KIQ_IRQ_DRIVER0 =3D 0,
+>       AMDGPU_CP_KIQ_IRQ_LAST
+>  };
+> +#define SRIOV_USEC_TIMEOUT  1200000 /* wait 12 * 100ms for SRIOV */
+>  #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
+>  #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
+>  #define MAX_KIQ_REG_TRY 1000
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index c46e36a0cd9c..464625282872 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -699,10 +699,12 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct
+> amdgpu_device *adev, uint16_t pasid,
+>                                  uint32_t flush_type, bool all_hub,
+>                                  uint32_t inst)
+>  {
+> +     u32 usec_timeout =3D amdgpu_sriov_vf(adev) ? SRIOV_USEC_TIMEOUT :
+> +             adev->usec_timeout;
+>       struct amdgpu_ring *ring =3D &adev->gfx.kiq[inst].ring;
+>       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[inst];
+>       unsigned int ndw;
+> -     int r, cnt =3D 0;
+> +     int r;
+>       uint32_t seq;
 >
+>       /*
+> @@ -759,17 +761,7 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct
+> amdgpu_device *adev, uint16_t pasid,
 >
-> Alex
->
-> > Thanks.
-> >
-> > Kenneth
-> >
-> It works with your two patches, plus the attached one. Thanks.
-> By the way,  do you think we need a mutex lock when accessing smu->pause_=
-workload?
+>               amdgpu_ring_commit(ring);
+>               spin_unlock(&adev->gfx.kiq[inst].ring_lock);
+> -
+> -             r =3D amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT=
+);
+> -
+> -             might_sleep();
+> -             while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
+> -                    !amdgpu_reset_pending(adev->reset_domain)) {
+> -                     msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+> -                     r =3D amdgpu_fence_wait_polling(ring, seq,
+> MAX_KIQ_REG_WAIT);
+> -             }
+> -
+> -             if (cnt > MAX_KIQ_REG_TRY) {
+> +             if (amdgpu_fence_wait_polling(ring, seq, usec_timeout) < 1)=
+ {
+>                       dev_err(adev->dev, "timeout waiting for kiq fence\n=
+");
+>                       r =3D -ETIME;
+>               }
+> --
+> 2.34.1
 
-I think the pm.mutex handles this case.
-
-Alex
-
-> Kenneth
->
->
-> > >
-> > > Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> > > ---
-> > >  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 29 +++++++++++++++++=
-+-
-> > >  1 file changed, 28 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > > index 36a830a7440f..2adb3b72ed05 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > > @@ -244,6 +244,20 @@ static void amdgpu_dm_crtc_vblank_control_worker=
-(struct work_struct *work)
-> > >         struct vblank_control_work *vblank_work =3D
-> > >                 container_of(work, struct vblank_control_work, work);
-> > >         struct amdgpu_display_manager *dm =3D vblank_work->dm;
-> > > +       u32 i, fences =3D 0;
-> > > +       int r;
-> > > +       enum PP_SMC_POWER_PROFILE profile;
-> > > +       struct amdgpu_device *adev =3D drm_to_adev(dm->ddev);
-> > > +
-> > > +       if (adev->gfx.num_gfx_rings)
-> > > +               profile =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
-> > > +       else
-> > > +               profile =3D PP_SMC_POWER_PROFILE_COMPUTE;
-> > > +
-> > > +       for (i =3D 0; i < AMDGPU_MAX_GFX_RINGS; ++i)
-> > > +               fences +=3D amdgpu_fence_count_emitted(&adev->gfx.gfx=
-_ring[i]);
-> > > +       for (i =3D 0; i < (AMDGPU_MAX_COMPUTE_RINGS * AMDGPU_MAX_GC_I=
-NSTANCES); ++i)
-> > > +               fences +=3D
-> > > + amdgpu_fence_count_emitted(&adev->gfx.compute_ring[i]);
-> > >
-> > >         mutex_lock(&dm->dc_lock);
-> > >
-> > > @@ -271,8 +285,21 @@ static void amdgpu_dm_crtc_vblank_control_worker=
-(struct work_struct *work)
-> > >                         vblank_work->acrtc->dm_irq_params.allow_sr_en=
-try);
-> > >         }
-> > >
-> > > -       if (dm->active_vblank_irq_count =3D=3D 0)
-> > > +       if (dm->active_vblank_irq_count =3D=3D 0) {
-> > > +               if (adev->gfx.num_gfx_rings && !fences && !atomic_rea=
-d(&adev->gfx.total_submission_cnt)) {
-> > > +                       mutex_lock(&adev->gfx.workload_profile_mutex)=
-;
-> > > +                       if (adev->gfx.workload_profile_active) {
-> > > +                               r =3D amdgpu_dpm_switch_power_profile=
-(adev, profile, false);
-> > > +                               if (r)
-> > > +                               dev_warn(adev->dev, "(%d) failed to d=
-isable %s power profile mode\n", r,
-> > > +                                                                    =
-   profile =3D=3D PP_SMC_POWER_PROFILE_FULLSCREEN3D ?
-> > > +                                                                    =
-   "fullscreen 3D" : "compute");
-> > > +                               adev->gfx.workload_profile_active =3D=
- false;
-> > > +                       }
-> > > +                       mutex_unlock(&adev->gfx.workload_profile_mute=
-x);
-> > > +               }
-> > >                 dc_allow_idle_optimizations(dm->dc, true);
-> > > +       }
-> > >
-> > >         mutex_unlock(&dm->dc_lock);
-> > >
-> > > --
-> > > 2.34.1
-> > >
