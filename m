@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 774C5C36008
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 14:41:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB4EDC36013
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 14:54:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D719310E27C;
-	Sat, 29 Mar 2025 14:41:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB2A010E269;
+	Sat, 29 Mar 2025 14:53:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="Rc1aLNAz";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="QvfG2LXY";
 	dkim-atps=neutral
-Received: from mail-4022.protonmail.ch (mail-4022.protonmail.ch [185.70.40.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B53A89E36
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Mar 2025 14:41:04 +0000 (UTC)
+Received: from mail-4018.protonmail.ch (mail-4018.protonmail.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B858410E218
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 Mar 2025 14:53:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1743259262; x=1743518462;
- bh=zRwWsMDd5Kf2yQpedEA3Ka2dLpgNvYvwuOL0uYq4mxY=;
+ s=protonmail2; t=1743260032; x=1743519232;
+ bh=jP3J+eTrkEcK+jvMNEy3uIxgqi6Q8UGHrm8Bed83ABY=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=Rc1aLNAzRXE2Yoz6fwzKYhrF9MvwOXg3uZwjMwP7HdHM+IlXaJBH1sZcJSU2Cce6b
- ETL9gZ9avsgGQneudCn468NRnge9MCfaW2IX0jUGJ1kTGtH4C3PhyKNB4CPQWtMh84
- vvIPKqAyxNZa7hkbvRcnaKT8Exd4vqQGngmXshTH2a+ROmqFp/qguVCaDSBLV4O/2R
- sROg9IX4fcLHgp/auKzyvwNcpU5noLNRtxvzyhSeitYRfOqM8wK8HAX9/nlF1ayd4r
- 8QAOQyWX20UR+2f4fI1ZM0tVSB57/0ZOOiAZUQJodYBl1YCXsOWX3JUuB37JCMm8XD
- 699ohRqYBvniQ==
-Date: Sat, 29 Mar 2025 14:40:58 +0000
+ b=QvfG2LXYTEkMwEIbLBT+lmv3UV/tcUBPR0iso7W3YqZxOPBGYVHAyGL1QFRMHLB+k
+ 1uQYhtuunPP0G0XGOHxIRBmxRbQMT6eIygjTAj8lmnZAcCMkudN3w8FNPEDIyocJyL
+ 33I7EfGEMF8mTPjTDfVQVfHD+BnEn4TnoDQF06ydhI7AuLxu7Ol3ydUfEiRqbnOHbP
+ EoFcqGUuE1PXtzRZHeaYd1eovOzoQ4vC5ob8wnDhhixahq7mSbkDILcE1Djhl/E9wd
+ ldphFe31grus9ad4CqCnJrjZYzmCx0zKP1FUOGUCn8AgxArTNPjgf5uCkikYbfL89n
+ NOM3NFRri+KNQ==
+Date: Sat, 29 Mar 2025 14:53:46 +0000
 To: Alex Hung <alex.hung@amd.com>
 From: Simon Ser <contact@emersion.fr>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -40,13 +40,14 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
  sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
  louis.chauvet@bootlin.com
-Subject: Re: [PATCH V8 12/43] Documentation/gpu: document drm_colorop
-Message-ID: <SltZ89M6U3kGZgiUE-3RzJ5kyczz3pkSZL3PKSkUcHG7Dz8N2s9IcObx-P9A-NMYt6H817kloUcwl_8xmsHw7VX4pvupuJ4ebVKnMnWh7PU=@emersion.fr>
-In-Reply-To: <20250326234748.2982010-13-alex.hung@amd.com>
+Subject: Re: [PATCH V8 30/43] drm/colorop: add BT2020/BT709 OETF and Inverse
+ OETF
+Message-ID: <0jv9Mgs5Ahcp97O9hBA8bZLEGGT66SyHczz8ufCh0jePFjcyNKUU8mNAwPhX1HzCF67V-mh_Ir6QLmHPFlmXBTcJ6Mi7nQa1OWHiw2EQcyw=@emersion.fr>
+In-Reply-To: <20250326234748.2982010-31-alex.hung@amd.com>
 References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-13-alex.hung@amd.com>
+ <20250326234748.2982010-31-alex.hung@amd.com>
 Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: fe5806361cc6f8c9822d7543f869b84e57afdcbc
+X-Pm-Message-ID: 23c2d9e91355ff2e85f95a89fc3521e0b216de99
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -63,5 +64,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+Note, this patch adds new values in the middle of the enum. This is in
+general a breaking uAPI change: all enum values afterwards will get
+re-numbered.
+
+Maybe this patch should come before the PQ 125 one. In this series it
+shouldn't matter either way because we're also introducing the enum, but
+(1) who knows what/how distros might end up cherry-picking (2) future
+patches might take inspiration from this one.
+
+With that fixed:
 
 Reviewed-by: Simon Ser <contact@emersion.fr>
