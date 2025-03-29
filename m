@@ -4,70 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18F34C28B20
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 19:14:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A842BC36008
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 07:06:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94EB210EACD;
-	Fri, 28 Mar 2025 19:14:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2332C10E10F;
+	Sat, 29 Mar 2025 07:06:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NlUINpIp";
+	dkim=pass (2048-bit key; unprotected) header.d=fastmail.com header.i=@fastmail.com header.b="n1YXQgRD";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ls/ZWoJq";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCFDD10EACA
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 19:14:26 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-2ff5544af03so534337a91.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Mar 2025 12:14:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743189266; x=1743794066; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kawljUbq+bccO8k5zU1eJD742LIN7Wuqx1u9FsEzKws=;
- b=NlUINpIppwByWJseSsJziyuMDLeeFLBsXqyAn0gfrOXS4QOCl3u2w/XkODdCqcI4VF
- fjKGwL4qavgCnjONm5jy4O+lPsLD07SaKfo0gXXSgqstAvJZXrhgtn7MhUskJN1tG/3I
- kwZ2B487QDn7CjpxgWvGG/nE8NGNvvVRLP4yd58hlRK+/ojeViLIUu3x0YPx8dnTPHnj
- 30LFlCqBqe4qAe1PKWKNW6XMbdoZcaQsmJryzbYBIx0l2ImLgod3pToTFPEFBPMpoFyf
- EVxj01RQ61yAOSDUlcDzJZg37Swuc/Hl6yYpXse2pWM53pvAXqjBMgrsqcmXYxm96s0F
- qAqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743189266; x=1743794066;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=kawljUbq+bccO8k5zU1eJD742LIN7Wuqx1u9FsEzKws=;
- b=fxZCp2swWHFC58ZmWJ0+XPhP33hPwE64PmW6bKUEAQMil82gI/WZjFQi53OOALBGWV
- kAx/ZaOzEnx6S3yVhTqY398her5OclWomtrMBmSx4GtvJQiX0kOUdpHWUfGw0eyZ6v3/
- OTM9BzQ9Rt7pDR4HPyi5rEp3pIahoi3QyJ4Anh2cIw0bNDBDg50IUNBvNuFTo/7NO20k
- 7bCivzNVrhh/4jbnjEGvmfoZVgOtiEz0BjYN8d9Z0AHj+YnDLOCRoSdtp+ARRr1MkFJT
- tDNsuDuTTlrTlpdi9BvRAJchnKeDRxy5L5YRXa6SW55X4rEbGNoKdLC/WUSUqm1g7Z7C
- vcrQ==
-X-Gm-Message-State: AOJu0Yzw7tuH7BwWxLAEFM1+fzwYgLqDfwbwNtqBV+SZyfP5c+HNdo6I
- I8UQVUIGxqevfvGkE1dvLkGF5bror1Vu5QCVscpBwFu96MDNDDVTeF8oJELpyMf2xqi4CADrRNM
- k23ahH3rjQS/az+oeuCXDsa/lpBHMPw==
-X-Gm-Gg: ASbGncvL0Cj2hYgLXECq8pfbzSyp4VaOYhd2TVt6pwspi8snSvDhYRiBMdrmGsZYlOT
- bbOIoRgjb0c1twv2TNMn0RGf2ybV20Xnwknbxk287kNWrpm08VWbWzTrFPTzdgmPG+vxrlYhmFX
- Gq09CwPCpjWB9OLq/BuGRc9LsadA==
-X-Google-Smtp-Source: AGHT+IEs3ceyLBiPKCVN5a29HuQovTbEy48panJUW7/O/Yi5gGYYFxTFbmrMSb1+JzgRMaZr3f+ZTByztNtyJ7FuQbQ=
-X-Received: by 2002:a17:90b:390f:b0:2ff:4be6:c5e2 with SMTP id
- 98e67ed59e1d1-3053216fadamr208880a91.7.1743189266275; Fri, 28 Mar 2025
- 12:14:26 -0700 (PDT)
+X-Greylist: delayed 599 seconds by postgrey-1.36 at gabe;
+ Sat, 29 Mar 2025 07:06:10 UTC
+Received: from fhigh-a3-smtp.messagingengine.com
+ (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E45A10E10F;
+ Sat, 29 Mar 2025 07:06:10 +0000 (UTC)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 4A5F81140086;
+ Sat, 29 Mar 2025 02:56:10 -0400 (EDT)
+Received: from phl-imap-08 ([10.202.2.84])
+ by phl-compute-11.internal (MEProxy); Sat, 29 Mar 2025 02:56:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1743231370;
+ x=1743317770; bh=vumH7d4rQW5BYe5HanUCiNB23xXJsOYrUl2QaYve7x4=; b=
+ n1YXQgRD8q8eKKGqsTazsfG9EkJBa7oFyx1xTUhDrlNhfXNHNqYgn8IBp8lCH+2R
+ Gwa8y94kJpHkn/kwa44OjVCxMWujXH/hTo4GOLKFo46KLFdl9pQosOme/q2+/xDZ
+ hKjeK3upd/uq+FjFCNm816mOc5I2+NQzdT8YG3ZYg5liMbIkNK8Z/tFE1HD9DC5a
+ PJyezvujof7C1lt5K17aPySC4dCex9uw9qRQCPa0feWyvT1Ph/5BqwiZ0zHT0jCq
+ 4zWQNpRI4ckjLynCguyHa5HfA/W1B6gKbgkP2in/pH0wmveGqKTefAow64OtjJmv
+ 8ueeBkvcubYoMTlE6YSc8g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1743231370; x=
+ 1743317770; bh=vumH7d4rQW5BYe5HanUCiNB23xXJsOYrUl2QaYve7x4=; b=L
+ s/ZWoJqV9v9OgjHv6vuZ1xHsVVeJbm3PxyGQpgyHRCuw+ITBir+pRYEhyqz4LCJj
+ LKk/hBNvzJIVKXh7M2IcN9WruW+P2ty8QkI7UNzYVDL/c8N33vG9aG5igY4C69y/
+ SdRnYKIgHCKm2n4ErtbZ4eVD6UODra0YMY8pEOiNIlT6YgkVRWRl+jcr5F3jj5tj
+ aShS2fUqEJ1wCqAIjBwb3lnwO6kw3afkAhApTVH6H3hPnSidqqdBaJmTPFcziLY4
+ 5Q81i6EUx8+/Xb8vfWyFzFi8kGdPCbhLFyfeBRSdSd1OyGAW7jZ8W5Fovyrom7M7
+ Y8tJjrykyb73ArrHGoSPw==
+X-ME-Sender: <xms:iZnnZ2ERpUqrEjfAeAD3I8yPeju_weiGq5qO-DmOuRkHFzA1yW3xGw>
+ <xme:iZnnZ3WoR4EGMI815cWQTD3WhKBb2ObIArjwSHy5T0skh0Ou-Rd_VGqgm33CfbFL6
+ iQh63wI4u6-w-bG9OI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddujeefhedtucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+ pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+ gvnhhtshculddquddttddmnecujfgurhepofggfffhvfevkfgjfhfutgfgsehtjeertder
+ tddtnecuhfhrohhmpeflrghmvghsuceosgholhgurdiiohhnvgdvfeejfeesfhgrshhtmh
+ grihhlrdgtohhmqeenucggtffrrghtthgvrhhnpeetvefgveduhefhfedugfdvveeijefg
+ veffgfdthedvgeelkeefffffueefgeeivdenucffohhmrghinhepfhhrvggvuggvshhkth
+ hophdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+ ohhmpegsohhlugdriihonhgvvdefjeefsehfrghsthhmrghilhdrtghomhdpnhgspghrtg
+ hpthhtohepudegpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrlhgvgidrhhhu
+ nhhgsegrmhgurdgtohhmpdhrtghpthhtoheprghlvgigrghnuggvrhdruggvuhgthhgvrh
+ esrghmugdrtghomhdprhgtphhtthhopegruhhrrggsihhnughordhpihhllhgrihesrghm
+ ugdrtghomhdprhgtphhtthhopegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtg
+ homhdprhgtphhtthhopehhrghrrhihrdifvghnthhlrghnugesrghmugdrtghomhdprhgt
+ phhtthhopehsuhhnphgvnhhgrdhlihesrghmugdrtghomhdprhgtphhtthhopehsihhmoh
+ hnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghirhhlihgvugesghhmrghilhdrtgho
+ mhdprhgtphhtthhopehsihhquhgvihhrrgesihhgrghlihgrrdgtohhm
+X-ME-Proxy: <xmx:iZnnZwIwGCY3yWgsZjYiMe94nWQozmQhZ9lsnaGa0tSkTJ6hItDQMA>
+ <xmx:iZnnZwGpKTZWqO40SWQRC-oiAxMRl21T3esP28brx1oCBW0mcJ8q-g>
+ <xmx:iZnnZ8Wfw2Rp94T79iQOJB6yGO74qz44d_iZFjR5mreSqH29lxfhFQ>
+ <xmx:iZnnZzOhWEkl7FcX93-mGfBk5LdENSzoswwFIQBZL4c3cCd4Q3xtMw>
+ <xmx:ipnnZ9X9Wn12nuXREy-XFUYifF95n5osdDO44a1Bcfh7ZsZTb_hMExcb>
+Feedback-ID: ibd7e4881:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id B9B3518A006B; Sat, 29 Mar 2025 02:56:09 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-References: <20250109165756.26401-1-felix.kuehling@amd.com>
-In-Reply-To: <20250109165756.26401-1-felix.kuehling@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Mar 2025 15:14:13 -0400
-X-Gm-Features: AQ5f1Jo1o48eYXwy8AuRKziRttFXwn0FI0YKnF66KAosuaJHBm_9rGG_x1XVarM
-Message-ID: <CADnq5_N465Z58E9EroVDMtx2E=cAhGbJgC=TE6BhCsVdptwcmg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: allow pinning DMA-bufs into VRAM if all
- importers can do P2P
-To: Felix Kuehling <felix.kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Pak Nin Lui <pak.lui@amd.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: Td646725364a3d5c9
+Date: Fri, 28 Mar 2025 23:54:34 -0700
+From: James <bold.zone2373@fastmail.com>
+To: "Shuah Khan" <skhan@linuxfoundation.org>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ aurabindo.pillai@amd.com, alex.hung@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-Id: <8b73708c-4613-42a0-9d48-5bf6f0e01ced@app.fastmail.com>
+In-Reply-To: <476c5bb9-79c5-40b7-bba8-b52fb244e90e@linuxfoundation.org>
+References: <20250326070054.68355-1-bold.zone2373@fastmail.com>
+ <476c5bb9-79c5-40b7-bba8-b52fb244e90e@linuxfoundation.org>
+Subject: Re: [PATCH] drm/amd/display: replace use of msleep(<20) with
+ usleep_range for better accuracy
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,77 +110,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 9, 2025 at 12:07=E2=80=AFPM Felix Kuehling <felix.kuehling@amd.=
-com> wrote:
+On Fri, Mar 28, 2025, at 3:46 PM, Shuah Khan wrote:
+> On 3/26/25 01:00, James Flowers wrote:
+>> msleep < 20ms will often sleep for ~20ms (according to Documentation/timers/timers-howto.rst).
 >
-> From: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> Try pinning into VRAM to allow P2P with RDMA NICs without ODP
-> support if all attachments can do P2P. If any attachment can't do
-> P2P just pin into GTT instead.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-> Tested-by: Pak Nin Lui <pak.lui@amd.com>
-> Cc: Simona Vetter <simona.vetter@ffwll.ch>
+> Can you elaborate and explain why this change is necessary?
 
-Applied along with the cgroups patch for amdgpu.
+scripts/checkpatch.pl highlighted it as a possible issue since msleep can cause the delay to be unexpectedly closer to 20ms. However, perhaps it would be better to submit a V2 with the change as usleep_range(10000, 20000) to match the actual delay range that msleep(10) has, which would help avoid a regression like this: https://gitlab.freedesktop.org/drm/amd/-/issues/3559#note_2532546. 
 
-Alex
+Is there any appetite for drm/amd to change instances of msleep(x) (x being < 20) to usleep_range(x*1000, 20000), so that the range of delay is clear to readers unfamiliar with the msleep quirk? Please let me know and I can submit a V2.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 25 +++++++++++++++------
->  1 file changed, 18 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_dma_buf.c
-> index 8e81a83d37d84..83390143c2e9f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -72,11 +72,25 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmab=
-uf,
->   */
->  static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
->  {
-> -       struct drm_gem_object *obj =3D attach->dmabuf->priv;
-> -       struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
-> +       struct dma_buf *dmabuf =3D attach->dmabuf;
-> +       struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(dmabuf->priv);
-> +       u32 domains =3D bo->preferred_domains;
->
-> -       /* pin buffer into GTT */
-> -       return amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
-> +       dma_resv_assert_held(dmabuf->resv);
-> +
-> +       /*
-> +        * Try pinning into VRAM to allow P2P with RDMA NICs without ODP
-> +        * support if all attachments can do P2P. If any attachment can't=
- do
-> +        * P2P just pin into GTT instead.
-> +        */
-> +       list_for_each_entry(attach, &dmabuf->attachments, node)
-> +               if (!attach->peer2peer)
-> +                       domains &=3D ~AMDGPU_GEM_DOMAIN_VRAM;
-> +
-> +       if (domains & AMDGPU_GEM_DOMAIN_VRAM)
-> +               bo->flags |=3D AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> +
-> +       return amdgpu_bo_pin(bo, domains);
->  }
->
->  /**
-> @@ -131,9 +145,6 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma=
-_buf_attachment *attach,
->                 r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
->                 if (r)
->                         return ERR_PTR(r);
-> -
-> -       } else if (bo->tbo.resource->mem_type !=3D TTM_PL_TT) {
-> -               return ERR_PTR(-EBUSY);
->         }
->
->         switch (bo->tbo.resource->mem_type) {
-> --
-> 2.34.1
->
+There is at least one instance (fixed by commit 57995aa8ffb3e47a74763cf9106d34e9e8be9d8d) in drm/amdgpu where msleep(1) seemed to be causing an unexpectedly long delay, and so was replaced with usleep_range. An issue possibly related to that fix is https://gitlab.freedesktop.org/drm/amd/-/issues/462.
+
+Currently there are 37 msleep(1) calls that I can find in drm/amd. I'm just thinking that optimization opportunities like above could be found more easily if the delay range is made clear?
+
+Best regards,
+James Flowers
