@@ -4,98 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A842BC36008
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 07:06:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50FB5C36008
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 08:47:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2332C10E10F;
-	Sat, 29 Mar 2025 07:06:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B012010E211;
+	Sat, 29 Mar 2025 08:47:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fastmail.com header.i=@fastmail.com header.b="n1YXQgRD";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ls/ZWoJq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yl72oXYm";
 	dkim-atps=neutral
-X-Greylist: delayed 599 seconds by postgrey-1.36 at gabe;
- Sat, 29 Mar 2025 07:06:10 UTC
-Received: from fhigh-a3-smtp.messagingengine.com
- (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E45A10E10F;
- Sat, 29 Mar 2025 07:06:10 +0000 (UTC)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 4A5F81140086;
- Sat, 29 Mar 2025 02:56:10 -0400 (EDT)
-Received: from phl-imap-08 ([10.202.2.84])
- by phl-compute-11.internal (MEProxy); Sat, 29 Mar 2025 02:56:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1743231370;
- x=1743317770; bh=vumH7d4rQW5BYe5HanUCiNB23xXJsOYrUl2QaYve7x4=; b=
- n1YXQgRD8q8eKKGqsTazsfG9EkJBa7oFyx1xTUhDrlNhfXNHNqYgn8IBp8lCH+2R
- Gwa8y94kJpHkn/kwa44OjVCxMWujXH/hTo4GOLKFo46KLFdl9pQosOme/q2+/xDZ
- hKjeK3upd/uq+FjFCNm816mOc5I2+NQzdT8YG3ZYg5liMbIkNK8Z/tFE1HD9DC5a
- PJyezvujof7C1lt5K17aPySC4dCex9uw9qRQCPa0feWyvT1Ph/5BqwiZ0zHT0jCq
- 4zWQNpRI4ckjLynCguyHa5HfA/W1B6gKbgkP2in/pH0wmveGqKTefAow64OtjJmv
- 8ueeBkvcubYoMTlE6YSc8g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1743231370; x=
- 1743317770; bh=vumH7d4rQW5BYe5HanUCiNB23xXJsOYrUl2QaYve7x4=; b=L
- s/ZWoJqV9v9OgjHv6vuZ1xHsVVeJbm3PxyGQpgyHRCuw+ITBir+pRYEhyqz4LCJj
- LKk/hBNvzJIVKXh7M2IcN9WruW+P2ty8QkI7UNzYVDL/c8N33vG9aG5igY4C69y/
- SdRnYKIgHCKm2n4ErtbZ4eVD6UODra0YMY8pEOiNIlT6YgkVRWRl+jcr5F3jj5tj
- aShS2fUqEJ1wCqAIjBwb3lnwO6kw3afkAhApTVH6H3hPnSidqqdBaJmTPFcziLY4
- 5Q81i6EUx8+/Xb8vfWyFzFi8kGdPCbhLFyfeBRSdSd1OyGAW7jZ8W5Fovyrom7M7
- Y8tJjrykyb73ArrHGoSPw==
-X-ME-Sender: <xms:iZnnZ2ERpUqrEjfAeAD3I8yPeju_weiGq5qO-DmOuRkHFzA1yW3xGw>
- <xme:iZnnZ3WoR4EGMI815cWQTD3WhKBb2ObIArjwSHy5T0skh0Ou-Rd_VGqgm33CfbFL6
- iQh63wI4u6-w-bG9OI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddujeefhedtucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
- pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
- gvnhhtshculddquddttddmnecujfgurhepofggfffhvfevkfgjfhfutgfgsehtjeertder
- tddtnecuhfhrohhmpeflrghmvghsuceosgholhgurdiiohhnvgdvfeejfeesfhgrshhtmh
- grihhlrdgtohhmqeenucggtffrrghtthgvrhhnpeetvefgveduhefhfedugfdvveeijefg
- veffgfdthedvgeelkeefffffueefgeeivdenucffohhmrghinhepfhhrvggvuggvshhkth
- hophdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
- ohhmpegsohhlugdriihonhgvvdefjeefsehfrghsthhmrghilhdrtghomhdpnhgspghrtg
- hpthhtohepudegpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrlhgvgidrhhhu
- nhhgsegrmhgurdgtohhmpdhrtghpthhtoheprghlvgigrghnuggvrhdruggvuhgthhgvrh
- esrghmugdrtghomhdprhgtphhtthhopegruhhrrggsihhnughordhpihhllhgrihesrghm
- ugdrtghomhdprhgtphhtthhopegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtg
- homhdprhgtphhtthhopehhrghrrhihrdifvghnthhlrghnugesrghmugdrtghomhdprhgt
- phhtthhopehsuhhnphgvnhhgrdhlihesrghmugdrtghomhdprhgtphhtthhopehsihhmoh
- hnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghirhhlihgvugesghhmrghilhdrtgho
- mhdprhgtphhtthhopehsihhquhgvihhrrgesihhgrghlihgrrdgtohhm
-X-ME-Proxy: <xmx:iZnnZwIwGCY3yWgsZjYiMe94nWQozmQhZ9lsnaGa0tSkTJ6hItDQMA>
- <xmx:iZnnZwGpKTZWqO40SWQRC-oiAxMRl21T3esP28brx1oCBW0mcJ8q-g>
- <xmx:iZnnZ8Wfw2Rp94T79iQOJB6yGO74qz44d_iZFjR5mreSqH29lxfhFQ>
- <xmx:iZnnZzOhWEkl7FcX93-mGfBk5LdENSzoswwFIQBZL4c3cCd4Q3xtMw>
- <xmx:ipnnZ9X9Wn12nuXREy-XFUYifF95n5osdDO44a1Bcfh7ZsZTb_hMExcb>
-Feedback-ID: ibd7e4881:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id B9B3518A006B; Sat, 29 Mar 2025 02:56:09 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7731A10E1D9;
+ Sat, 29 Mar 2025 08:47:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BE1485C4182;
+ Sat, 29 Mar 2025 08:45:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7E4C4CEEA;
+ Sat, 29 Mar 2025 08:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1743238038;
+ bh=UPs6afNysjVF8h/3+Y75VzGR39u1ywbOKXOZ8qPthPk=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=Yl72oXYmvX3q8szjT5m48a1PdMNmH1xaHw7uXm97vmDe/A/rOqwx9AhwJlARJiTQ5
+ cKUreQwSu0TNLCX18YLW8RtAH5gjsDlhwOd1bNrlUGio+7hFmeLzztfNZgKtfQkS+M
+ 0FHgFP+8U37OuPibh+k2KRLZJKbiIZAik+lCiFMXXBigQ3w5dBwhieg+PwRzN+JQ8Y
+ mvjC7oD/19rUgmu27p97DONxJD46PBltYErTa3uPvOQfOqhtI7bOMosSSV/y9ED6fv
+ 7KNt24Go47baUNCwgJU36o6V3AZjNCXxEj7rRJ56pZQZUpPr0m4kBP9b2XnQUyYmRF
+ 8iKmslesaY+pA==
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-ac2a9a74d9cso535212066b.1; 
+ Sat, 29 Mar 2025 01:47:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWIeBE4WJQ8wc29/JVq2pKcZKBAqqJOIM5No8HDwq/JsVxp6DxoP37TMm2SvZtwKBnSioKN0giS@lists.freedesktop.org,
+ AJvYcCXK/l3+2W8dSoaM/qPhlmknECd4e7CKVZ/HMvnODSgqYpcCaE3AaqHhZlJQLaARntHXos9m3woj57X2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxeqvO1G/N7Bsx8Abqn7oNk5HVcXBHzbznqrr5W5dPG2eaGnATN
+ JYtEz2FbDla21xwlzV/R2gAMqyqi7KFgbZ/LXDK7SYnPWQ0FAorKiqcBVY3hDw/GU48v5SdwYvh
+ H9xJfkgjJG5+TMds4UzGatVC1vtg=
+X-Google-Smtp-Source: AGHT+IF0VwJJywkU/wSFDVMa3zB1GXQY8Jsc1CaI8i6cr3LbAsmuDOEj58wnqyoF+ZyYAKx5PRb6WxKG7WyUuzAv8Tc=
+X-Received: by 2002:a17:907:9693:b0:ac3:3fe4:3378 with SMTP id
+ a640c23a62f3a-ac738a0d30bmr188620766b.12.1743238036967; Sat, 29 Mar 2025
+ 01:47:16 -0700 (PDT)
 MIME-Version: 1.0
-X-ThreadId: Td646725364a3d5c9
-Date: Fri, 28 Mar 2025 23:54:34 -0700
-From: James <bold.zone2373@fastmail.com>
-To: "Shuah Khan" <skhan@linuxfoundation.org>, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- aurabindo.pillai@amd.com, alex.hung@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org
-Message-Id: <8b73708c-4613-42a0-9d48-5bf6f0e01ced@app.fastmail.com>
-In-Reply-To: <476c5bb9-79c5-40b7-bba8-b52fb244e90e@linuxfoundation.org>
-References: <20250326070054.68355-1-bold.zone2373@fastmail.com>
- <476c5bb9-79c5-40b7-bba8-b52fb244e90e@linuxfoundation.org>
-Subject: Re: [PATCH] drm/amd/display: replace use of msleep(<20) with
- usleep_range for better accuracy
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <20250318111717.2161235-1-chenhuacai@loongson.cn>
+ <b8c481f2-a280-4f86-8080-2c6dcffc4629@amd.com>
+ <CAAhV-H7cch+koOSJAFe70c8Pk02snK7M=andyfwbCgiNdg4aVg@mail.gmail.com>
+ <87d0601b-c1cb-402b-aecd-23a5d371da66@amd.com>
+ <712b77ef-c7f7-47a4-9609-47b179f15662@amd.com>
+ <CAAhV-H6AMm1X4zyhj7-jqiaCpd-Yfco88d4KODd5_jUfhyi8Cg@mail.gmail.com>
+ <4a4e462a-ac83-4515-a64e-25238fb67ef2@amd.com>
+In-Reply-To: <4a4e462a-ac83-4515-a64e-25238fb67ef2@amd.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 29 Mar 2025 16:47:09 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4+nxxoLrDb2rgGt_n3wZ4Pw6wOyJJWZ7+16XqLVorvJg@mail.gmail.com>
+X-Gm-Features: AQ5f1JpyQoLNtPjEGukjRjzBdFnwj3P_EQtLLbLcbs6kZ5m_sAja3ipoAi8Y-2Y
+Message-ID: <CAAhV-H4+nxxoLrDb2rgGt_n3wZ4Pw6wOyJJWZ7+16XqLVorvJg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Protect
+ dml2_create()/dml2_copy()/dml2_create_copy()
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>, Huacai Chen <chenhuacai@loongson.cn>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, Austin.Zheng@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,19 +82,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 28, 2025, at 3:46 PM, Shuah Khan wrote:
-> On 3/26/25 01:00, James Flowers wrote:
->> msleep < 20ms will often sleep for ~20ms (according to Documentation/timers/timers-howto.rst).
+Hi, Aurabindo,
+
+On Sat, Mar 29, 2025 at 2:27=E2=80=AFAM Aurabindo Pillai
+<aurabindo.pillai@amd.com> wrote:
 >
-> Can you elaborate and explain why this change is necessary?
+>
+>
+> On 2025-03-26 21:40, Huacai Chen wrote:
+> > Hi, Alex,
+> >
+> > On Thu, Mar 27, 2025 at 8:10=E2=80=AFAM Alex Hung <alex.hung@amd.com> w=
+rote:
+> >>
+> >> The following error messages showed up on an APU and a dGPU during tes=
+ting.
+> >>
+> >> <3> [100.231411] BUG: sleeping function called from invalid context at
+> >> include/linux/sched/mm.h:321
+> >> <3> [100.231414] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid=
+:
+> >> 1711, name: kms_color
+> >> <3> [100.231416] preempt_count: 2, expected: 0
+> >> <3> [100.231417] RCU nest depth: 0, expected: 0
+> >> <3> [100.231418] Preemption disabled at:
+> >> <3> [100.231419] [<ffffffffc0c2843b>] dc_fpu_begin+0x2b/0xc0 [amdgpu]
+> >> <4> [100.231626] CPU: 4 UID: 0 PID: 1711 Comm: kms_color Tainted: G
+> >>     W          6.12.0+ #1
+> >> <4> [100.231629] Tainted: [W]=3DWARN
+> >> <4> [100.231631] Call Trace:
+> >> <4> [100.231632]  <TASK>
+> >> <4> [100.231633]  dump_stack_lvl+0x5b/0x70
+> >> <4> [100.231638]  dump_stack+0x10/0x20
+> >> <4> [100.231639]  __might_resched+0x170/0x1d0
+> >> <4> [100.231643]  __might_sleep+0x44/0x70
+> >> <4> [100.231645]  __alloc_pages_noprof+0x22f/0x370
+> >> <4> [100.231649]  ___kmalloc_large_node+0x95/0x150
+> >> <4> [100.231651]  ? preempt_count_add+0x4e/0xc0
+> >> <4> [100.231653]  __kmalloc_large_noprof+0x1d/0xb0
+> >> <4> [100.231655]  dml2_create_copy+0x27/0x60 [amdgpu]
+> >> <4> [100.231827]  dc_state_create_copy+0x7e/0x170 [amdgpu]
+> >> <4> [100.231995]  update_planes_and_stream_state+0x23c/0x600 [amdgpu]
+> >> <4> [100.232189]  update_planes_and_stream_v2+0x22b/0x530 [amdgpu]
+> >> <4> [100.232366]  ? amdgpu_dm_atomic_commit_tail+0x1310/0x4100 [amdgpu=
+]
+> >> <4> [100.232569]  ? commit_tail+0x96/0x140 [drm_kms_helper]
+> >> <4> [100.232577]  dc_update_planes_and_stream+0x5b/0xe0 [amdgpu]
+> >> <4> [100.232730]  amdgpu_dm_atomic_commit_tail+0x1fa7/0x4100 [amdgpu]
+> >> <4> [100.232908]  ? stack_depot_save_flags+0x2c/0x730
+> >> <4> [100.232915]  ? wait_for_completion_timeout+0x1d/0x30
+> >> <4> [100.232917]  commit_tail+0x96/0x140 [drm_kms_helper]
+> >> <4> [100.232923]  drm_atomic_helper_commit+0x12b/0x150 [drm_kms_helper=
+]
+> >> <4> [100.232927]  drm_atomic_commit+0xad/0xe0 [drm]
+> >> <4> [100.232939]  ? __pfx___drm_printfn_info+0x10/0x10 [drm]
+> >> <4> [100.232956]  drm_atomic_helper_set_config+0x80/0xc0 [drm_kms_help=
+er]
+> >> <4> [100.232961]  drm_mode_setcrtc+0x22e/0x910 [drm]
+> >> <4> [100.232975]  ? kfree+0x18f/0x350
+> >> <4> [100.232977]  ? __pfx_drm_mode_setcrtc+0x10/0x10 [drm]
+> >> <4> [100.232987]  drm_ioctl_kernel+0xa7/0x100 [drm]
+> >> <4> [100.233004]  drm_ioctl+0x29d/0x500 [drm]
+> >> <4> [100.233015]  ? __pfx_drm_mode_setcrtc+0x10/0x10 [drm]
+> >> <4> [100.233026]  ? _raw_spin_unlock_irqrestore+0x1f/0x40
+> >> <4> [100.233029]  amdgpu_drm_ioctl+0x4b/0x80 [amdgpu]
+> >> <4> [100.233131]  __x64_sys_ioctl+0x92/0xd0
+> >> <4> [100.233133]  x64_sys_call+0x1205/0x20d0
+> >> <4> [100.233136]  do_syscall_64+0x50/0x110
+> >> <4> [100.233138]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> >> <4> [100.233142] RIP: 0033:0x7fb21e71a94f
+> >> <4> [100.233144] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24
+> >> 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 0=
+0
+> >> 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1f 48 8b 44 24 18 64 48 2b 04 25 28=
+ 00
+> >> <4> [100.233145] RSP: 002b:00007ffdd9a52e50 EFLAGS: 00000246 ORIG_RAX:
+> >> 0000000000000010
+> >> <4> [100.233148] RAX: ffffffffffffffda RBX: 00007ffdd9a52ee0 RCX:
+> >> 00007fb21e71a94f
+> >> <4> [100.233149] RDX: 00007ffdd9a52ee0 RSI: 00000000c06864a2 RDI:
+> >> 0000000000000005
+> >> <4> [100.233149] RBP: 00000000c06864a2 R08: 0000000000000000 R09:
+> >> 00005609537f7b08
+> >> <4> [100.233150] R10: 0000000000000000 R11: 0000000000000246 R12:
+> >> 0000000000000000
+> >> <4> [100.233151] R13: 0000000000000005 R14: 0000000000000000 R15:
+> >> 00005609537e2848
+> >> <4> [100.233152]  </TASK>
+> > This seems caused by dml2_allocate_memory(), to fix this we can only
+> > protect FPU in DML2, I can do it in the new version, but I want to
+> > listen Aurabindo's opinion.
+> >
+> >
+>
+> It looks like dml21_apply_soc_bb_overrides() does have some division on
+> double variables. I'm curious why we dont see this on our side. Was this
+> seen on x86 or Loongson?
+It is seen on Loongson.
 
-scripts/checkpatch.pl highlighted it as a possible issue since msleep can cause the delay to be unexpectedly closer to 20ms. However, perhaps it would be better to submit a V2 with the change as usleep_range(10000, 20000) to match the actual delay range that msleep(10) has, which would help avoid a regression like this: https://gitlab.freedesktop.org/drm/amd/-/issues/3559#note_2532546. 
+>
+> I think your approach is correct. Thanks for taking time to fix this. We
+> can add it to weekly testing if you send us a patch.
+V2 is sent, please take a look.
+https://lore.kernel.org/dri-devel/20250327095334.3327111-1-chenhuacai@loong=
+son.cn/T/#t
 
-Is there any appetite for drm/amd to change instances of msleep(x) (x being < 20) to usleep_range(x*1000, 20000), so that the range of delay is clear to readers unfamiliar with the msleep quirk? Please let me know and I can submit a V2.
-
-There is at least one instance (fixed by commit 57995aa8ffb3e47a74763cf9106d34e9e8be9d8d) in drm/amdgpu where msleep(1) seemed to be causing an unexpectedly long delay, and so was replaced with usleep_range. An issue possibly related to that fix is https://gitlab.freedesktop.org/drm/amd/-/issues/462.
-
-Currently there are 37 msleep(1) calls that I can find in drm/amd. I'm just thinking that optimization opportunities like above could be found more easily if the delay range is made clear?
-
-Best regards,
-James Flowers
+Huacai
