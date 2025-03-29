@@ -4,30 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37465C36008
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 14:57:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 887C3C36008
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 14:58:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10E4C10E284;
-	Sat, 29 Mar 2025 14:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2691B10E285;
+	Sat, 29 Mar 2025 14:58:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="PP5MG0uF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="rAAZmuGx";
 	dkim-atps=neutral
-Received: from mail-4022.protonmail.ch (mail-4022.protonmail.ch [185.70.40.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4198810E279;
- Sat, 29 Mar 2025 14:57:36 +0000 (UTC)
+X-Greylist: delayed 575 seconds by postgrey-1.36 at gabe;
+ Sat, 29 Mar 2025 14:58:15 UTC
+Received: from mail-244104.protonmail.ch (mail-244104.protonmail.ch
+ [109.224.244.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0CE110E285
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 Mar 2025 14:58:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1743260254; x=1743519454;
+ s=protonmail2; t=1743259718; x=1743518918;
  bh=zRwWsMDd5Kf2yQpedEA3Ka2dLpgNvYvwuOL0uYq4mxY=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=PP5MG0uFtSx9AtGOY2oEJVenTVWWwgnG0WMuI+fui/L+wByFkmJ+6v7RXU7Yj4vAA
- AC4X1mJwUAi/ZejstcmGiKXGLx3EZWHhNsIlihsxYXTfHrpnBcCtj+ZzhUVekp+TRH
- 7lvwbtzI40GQfGnJtjLQ7umsRp6p26zRWyZJ0TS/gSeKjlCDkBBCG2REmHPh17U9LW
- foyuwq0d6qnkaRNTKUZ+eZEPc0MWmLVRpJQuLz/jgUrl1Oki+yfdg8dMyI1zHRR551
- 7ypQIG97TMQN8I5vaEV4xDgyLR7EuPQ4dU6gbvubCfuzd1vfWcvVy2mhdYH9CMar5N
- bIWsLfJbMs+Eg==
-Date: Sat, 29 Mar 2025 14:57:29 +0000
+ b=rAAZmuGxqu419GCztwFx/cs2PuX6RlUR3VweuXBGgLE8/47FCkcr5uKAAITqi8hLG
+ xoW9VOl3/5k6JGUYtJPhK/Bh+jd2f/CZV8O55OFWib3n01y6rrTDEQ4GXTG7d3u7mr
+ W56xFyamkLxqEmWa3dmkDDOkoWiHqz9Z/Zyxse4zPJomwjRFkv7aeoIyl8JyfbxhBz
+ x4VNinyc5CX0j6adCfZQRVpCvZhCNGMgWSA2PVd1VGMDZBEuBTXWEQi/+l8FFE6BVl
+ sXlM/yHc1k6Jlm9lyRIiyvNm98ogwbmVo+ASCPjOGSXy5KyrSlSywSceHI610O7j5k
+ SP730EhgykZxw==
+Date: Sat, 29 Mar 2025 14:48:36 +0000
 To: Alex Hung <alex.hung@amd.com>
 From: Simon Ser <contact@emersion.fr>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -40,13 +43,13 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
  sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
  louis.chauvet@bootlin.com
-Subject: Re: [PATCH V8 40/43] drm/colorop: Add 3D LUT support to color pipeline
-Message-ID: <H2jNH5zziZR-onRw9TovQ0aA0CPmB6ox2v8lTUZvikYTjHI-UgCP6ER6L3R6kjQYszl9QNCfb-VfR0r-juKZf5GcU31Eg8KS4POrhgVbclY=@emersion.fr>
-In-Reply-To: <20250326234748.2982010-41-alex.hung@amd.com>
+Subject: Re: [PATCH V8 28/43] drm/colorop: Add PQ 125 EOTF and its inverse
+Message-ID: <_Yyvm1FTf4SaETjcDmCFOxoSr0oOyom0-HXF6P0yxjd1m_iaKIJcXLURx8jRsPkEbgjZEXG1LgP2yH-zXHyeM4yKT1ww-NSaORAVC-yIgAY=@emersion.fr>
+In-Reply-To: <20250326234748.2982010-29-alex.hung@amd.com>
 References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-41-alex.hung@amd.com>
+ <20250326234748.2982010-29-alex.hung@amd.com>
 Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 0bf479ded702113f6ac7b7a35b92c8c650abe069
+X-Pm-Message-ID: e60880b245023de10992c52b3cf430ddfd339231
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
