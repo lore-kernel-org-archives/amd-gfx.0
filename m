@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CE37C3600C
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 15:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE275C36008
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Mar 2025 15:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A97F510E28C;
-	Sat, 29 Mar 2025 15:41:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA1110E2C4;
+	Sat, 29 Mar 2025 15:48:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="Sn/Bm1ny";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="jbouPSB7";
 	dkim-atps=neutral
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39F4710E28C;
- Sat, 29 Mar 2025 15:41:29 +0000 (UTC)
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch
+ [109.224.244.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F5A10E2BD
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 Mar 2025 15:48:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1743262886; x=1743522086;
- bh=iX+NjG6//5Pav68yRmBKWk7QX1j36zmLPaTwaSHlNW0=;
+ s=protonmail2; t=1743263291; x=1743522491;
+ bh=7QvoOT9+Hwx2Qo1l1B0mfsYbRxw0zQjfLpU0BLarQFw=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=Sn/Bm1nyUlcTZSu/uH6ZkBgjU7niM8MjD7Yh3thP4rAQYFncDTxEJaKpuae1Ya01s
- FVitevCguYiihSHrcwuWHp6mfrIFa8B0T0qOTg60P5S5amhRtqH+ZMhdrhOZ3p4Pnp
- 518wTE/nwOb+olFts9pPrhpUJ3K78lM7VmQjzCM7riccDSCS3rb/xj/dZ5TPovDTbz
- djA6XUV4Z2HEEvfIHxMZ628asXLscpfKCATLBrYUYXv9Tgncl9IFpK0gdIQlRRVwkU
- cWHQRZTss4xWibkSe2V6ooz2HEdjfMqKBk78Z79ke0P2g7FmYKd4dF33AYiEGtxrZS
- f/P3Cl5NdpslQ==
-Date: Sat, 29 Mar 2025 15:41:22 +0000
+ b=jbouPSB71NefDvc9FuHkOIJTHy1VmTTjklEZFkmDVsDBXDPh3OIwBBzv13sndqMCq
+ IrlqsSkIyHoLExoierohk4yeKZ7cMuK/QdsZwyT+QlAVmiXaIn7VJM63qqyJHlfPCM
+ oOpss/X0FmvgTdLopMWF+5iqk2xZW+5/OA7UifH4iSyZb/kK9c/p3h3f9TrgSDurr/
+ iXq2qfIUGZgaT0lTYCe9Hhj46nEgs/hU8iHLP2RstGU7FFfC3nA3Hnq8tRK0WiNvA1
+ tDTEde38307EHfmyeAD92s+PgZI/ozwQgiqkd0xhCkaxjffhJkKpl9za12YQe0BgNP
+ 8eUgIsYiiHxug==
+Date: Sat, 29 Mar 2025 15:48:07 +0000
 To: Alex Hung <alex.hung@amd.com>
 From: Simon Ser <contact@emersion.fr>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -40,13 +41,14 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
  sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
  louis.chauvet@bootlin.com
-Subject: Re: [PATCH V8 39/43] drm/colorop: allow non-bypass colorops
-Message-ID: <X3qd7MSoVi1Bk64V4ScEVcuiy1xtthg7KdTstEs6DfJugsjsBSm7PXwacVpGsE0iMnAjcnXiy_O2PVX6yqOBOdty2AtrGye65uqYdTDN7dA=@emersion.fr>
-In-Reply-To: <20250326234748.2982010-40-alex.hung@amd.com>
+Subject: Re: [PATCH V8 43/43] drm/colorop: Add destroy functions for color
+ pipeline
+Message-ID: <_GmbIozpR3Vwp7BPlTFO3i1Kn2S3SIYiQLIbF4TEizuVzpkcUrTZWj87cDM8l_ArWVpCKWJVYJyrNX3ElPuu-fOb_J5C5dVhGfdLkQ5Y5k0=@emersion.fr>
+In-Reply-To: <20250326234748.2982010-44-alex.hung@amd.com>
 References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-40-alex.hung@amd.com>
+ <20250326234748.2982010-44-alex.hung@amd.com>
 Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 047550b4818e6b5308e6e8d65e445a22621107a9
+X-Pm-Message-ID: 630314200453f391807c79dbc1dbc970d9fda5e4
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -64,11 +66,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I'm personally not a fan of such boolean function arguments, especially
-when caller and callee are far apart. From the caller side, the meaning
-of the boolean argument is not immediately clear.
+I would prefer these functions to be introduced together with the
+patches adding functions to create objects and adding the new fields.
+That way it's easier to check the symmetry and at no point in the
+series there are memory leaks.
 
-I would prefer a "flags" argument, which can take a e.g.
-DRM_COLOROP_FLAG_ALLOW_BYPASS value.
-
-But I'm not feeling strongly about this.
+Additionally, I would avoid using the name "cleanup", which seems to
+have different semantics: for instance drm_plane_cleanup() doesn't kfree
+the pointer. "destroy" seems more appropriate here.
