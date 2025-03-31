@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E533C3601A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86C31C36019
 	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 20:17:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B891310E4A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D853810E4A3;
 	Mon, 31 Mar 2025 20:17:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ImWyEFwo";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iV190+93";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F17510E48C;
- Mon, 31 Mar 2025 20:17:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E001810E488;
+ Mon, 31 Mar 2025 20:17:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=GmzJIEigtZr3d7cCzWfe4NXz1hyj/J50h/gdffd7K/A=; b=ImWyEFwoIOchdfZofPiayA5OON
- h4hmFcS0S9Ma2aHyD65nWCXyoam8Bvzhq7kAb2dauzkxoa/ZjquWoV1iZIuYihgyebpnQeG+4Nt7A
- ThMXHEeORYgCf76t0xkh8lJ7In9JMiMBq9clNNuIboAFyEGIG5zf+mXbQmUUQkoak7GaTg9xJp/sP
- XjCw5NCRgmm1wfqQna7oD0i6acS37dUqMvy8MuRpgbU61BqjHB14gTR0ZzAVPcbAD4kuQ+Lymn6+k
- /+bWeNp4t6TO5AdaOr9qP/Dx4XmxGzUbUTY6tC6H2hRmXw94VHi9Lh0TbJa5vZNheiKWdqNlUZy7N
- MdJz+mSg==;
+ bh=UN8uS2rpcpUOHt1KpjEPD6+h7CnxA/QDfUGO4PwAjV4=; b=iV190+93m92Hl6KTSlfgCA8UxN
+ Qrj8GTOPFmduHjfNQrk1VQKFxXiU8PERsAIYhuvNDOP5Ra5kqLqPHNDlgCx7k5wvQVe3voZBbWcAt
+ 7Ux9fc8nJR6mp7lbsVoeWhCSvlsTecB3JPqQgyrm8qjxbYp9dNVZ5Dpu6tLrPHnauwTTt0Jh6QLR/
+ GkW5MdN7T52Ri/9tFWWhmwQ7OHbCri9iK/tw7PNTEg4pHJ0qC8Da++5nxI+H3O/NcK+cYKR+k/dio
+ aQPnXWwrVFs+VrZWUmKadWKxKfw8sCFpuvWr/NVCIG935XiBQZHK4M4fhRO6fLufnP5HgstgRGCUa
+ jOE5ntfg==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tzLZg-009M4S-EF; Mon, 31 Mar 2025 22:17:36 +0200
+ id 1tzLZe-009M44-6b; Mon, 31 Mar 2025 22:17:34 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -39,11 +39,11 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Subject: [RFC v3 14/14] drm/sched: Scale deadlines depending on queue depth
-Date: Mon, 31 Mar 2025 21:17:05 +0100
-Message-ID: <20250331201705.60663-15-tvrtko.ursulin@igalia.com>
+ Philipp Stanner <phasta@kernel.org>
+Subject: [RFC v3 11/14] drm/sched: Queue all free credits in one worker
+ invocation
+Date: Mon, 31 Mar 2025 21:17:02 +0100
+Message-ID: <20250331201705.60663-12-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250331201705.60663-1-tvrtko.ursulin@igalia.com>
 References: <20250331201705.60663-1-tvrtko.ursulin@igalia.com>
@@ -64,168 +64,222 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-So far deadline based scheduling was able to remove the need for separate
-run queues (per priority) and alleviate the starvation issues hampering
-FIFO when somewhat reasonable clients are concerned.
-
-Because the deadline implementation is however still based on the
-submission time as its baseline criteria, since the current DRM scheduler
-design makes it difficult to perhaps consider job (or entity) "runnable"
-timestamp as an alternative, it shares the same weakness as FIFO with
-clients which rapidly submit deep job queues. In those cases deadline
-scheduler will be similarly unfair as FIFO is.
-
-One simple approach to somewhat alleviate that and apply some fairness is
-to scale the relative deadlines by client queue depth.
-
-Apart from queue depth scaling is based on client priority, where kernel
-submissions are aggresively pulled in, while userspace priority levels are
-pushed out proportionately to the decrease in priority.
+There is no reason to queue just a single job if scheduler can take more
+and re-queue the worker to queue more. We can simply feed the hardware
+with as much as it can take in one go and hopefully win some latency.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c   | 39 ++++++++++++----------
- drivers/gpu/drm/scheduler/sched_internal.h |  4 ---
- drivers/gpu/drm/scheduler/sched_rq.c       |  4 +--
- include/drm/gpu_scheduler.h                |  6 ++--
- 4 files changed, 25 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/scheduler/sched_internal.h |   2 -
+ drivers/gpu/drm/scheduler/sched_main.c     | 127 ++++++++++-----------
+ drivers/gpu/drm/scheduler/sched_rq.c       |  17 +--
+ 3 files changed, 61 insertions(+), 85 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index c6ed0d1642f3..98be867dcf41 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -387,21 +387,25 @@ static ktime_t
- __drm_sched_entity_get_job_deadline(struct drm_sched_entity *entity,
- 				    ktime_t submit_ts)
- {
--	static const unsigned int d_us[] = {
--		[DRM_SCHED_PRIORITY_KERNEL] =    100,
--		[DRM_SCHED_PRIORITY_HIGH]   =   1000,
--		[DRM_SCHED_PRIORITY_NORMAL] =   5000,
--		[DRM_SCHED_PRIORITY_LOW]    = 100000,
-+	static const long d_us[] = {
-+		[DRM_SCHED_PRIORITY_KERNEL] = -1000,
-+		[DRM_SCHED_PRIORITY_HIGH]   =  1000,
-+		[DRM_SCHED_PRIORITY_NORMAL] =  2500,
-+		[DRM_SCHED_PRIORITY_LOW]    = 10000,
- 	};
-+	static const unsigned int shift[] = {
-+		[DRM_SCHED_PRIORITY_KERNEL] = 4,
-+		[DRM_SCHED_PRIORITY_HIGH]   = 0,
-+		[DRM_SCHED_PRIORITY_NORMAL] = 1,
-+		[DRM_SCHED_PRIORITY_LOW]    = 2,
-+	};
-+	const unsigned int prio = entity->priority;
-+	long d;
- 
--	return ktime_add_us(submit_ts, d_us[entity->priority]);
--}
-+	d = d_us[prio] *
-+	    ((spsc_queue_count(&entity->job_queue) + 1) << shift[prio]);
- 
--ktime_t
--drm_sched_entity_get_job_deadline(struct drm_sched_entity *entity,
--				  struct drm_sched_job *job)
--{
--	return __drm_sched_entity_get_job_deadline(entity, job->submit_ts);
-+	return ktime_add_us(submit_ts, d);
- }
- 
- /*
-@@ -575,7 +579,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 	struct drm_sched_entity *entity = sched_job->entity;
- 	struct drm_gpu_scheduler *sched =
- 		container_of(entity->rq, typeof(*sched), rq);
--	ktime_t submit_ts;
-+	ktime_t deadline_ts;
- 	bool first;
- 
- 	trace_drm_sched_job(sched_job, entity);
-@@ -585,16 +589,15 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 	/*
- 	 * After the sched_job is pushed into the entity queue, it may be
- 	 * completed and freed up at any time. We can no longer access it.
--	 * Make sure to set the submit_ts first, to avoid a race.
-+	 * Make sure to set the deadline_ts first, to avoid a race.
- 	 */
--	sched_job->submit_ts = submit_ts = ktime_get();
-+	sched_job->deadline_ts = deadline_ts =
-+		__drm_sched_entity_get_job_deadline(entity, ktime_get());
- 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
- 
- 	/* first job wakes up scheduler */
- 	if (first) {
--		submit_ts = __drm_sched_entity_get_job_deadline(entity,
--								submit_ts);
--		sched = drm_sched_rq_add_entity(entity, submit_ts);
-+		sched = drm_sched_rq_add_entity(entity, deadline_ts);
- 		if (sched)
- 			drm_sched_wakeup(sched);
- 	}
 diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
-index f50e54bfaccc..3d6e853e87b6 100644
+index fc0f05ce06af..4b3fc4a098bb 100644
 --- a/drivers/gpu/drm/scheduler/sched_internal.h
 +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-@@ -28,10 +28,6 @@ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
- 			       struct dma_fence *parent);
- void drm_sched_fence_finished(struct drm_sched_fence *fence, int result);
+@@ -4,8 +4,6 @@
+ #define _DRM_GPU_SCHEDULER_INTERNAL_H_
  
+ 
+-bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+-			 struct drm_sched_entity *entity);
+ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+ 
+ void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index b35450c45e7b..8aaa6a0dcc70 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -100,35 +100,6 @@ static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sched)
+ 	return credits;
+ }
+ 
+-/**
+- * drm_sched_can_queue -- Can we queue more to the hardware?
+- * @sched: scheduler instance
+- * @entity: the scheduler entity
+- *
+- * Return true if we can push at least one more job from @entity, false
+- * otherwise.
+- */
+-bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+-			 struct drm_sched_entity *entity)
+-{
+-	struct drm_sched_job *s_job;
 -
--ktime_t drm_sched_entity_get_job_deadline(struct drm_sched_entity *entity,
--					  struct drm_sched_job *job);
+-	s_job = drm_sched_entity_queue_peek(entity);
+-	if (!s_job)
+-		return false;
+-
+-	/* If a job exceeds the credit limit, truncate it to the credit limit
+-	 * itself to guarantee forward progress.
+-	 */
+-	if (s_job->credits > sched->credit_limit) {
+-		dev_WARN(sched->dev,
+-			 "Jobs may not exceed the credit limit, truncate.\n");
+-		s_job->credits = sched->credit_limit;
+-	}
+-
+-	return drm_sched_available_credits(sched) >= s_job->credits;
+-}
 -
  /**
-  * drm_sched_entity_queue_pop - Low level helper for popping queued jobs
-  *
+  * drm_sched_run_job_queue - enqueue run-job work
+  * @sched: scheduler instance
+@@ -945,54 +916,72 @@ static void drm_sched_run_job_work(struct work_struct *w)
+ {
+ 	struct drm_gpu_scheduler *sched =
+ 		container_of(w, struct drm_gpu_scheduler, work_run_job);
++	u32 job_credits, submitted_credits = 0;
+ 	struct drm_sched_entity *entity;
+-	struct dma_fence *fence;
+ 	struct drm_sched_fence *s_fence;
+ 	struct drm_sched_job *sched_job;
+-	int r;
++	struct dma_fence *fence;
+ 
+-	/* Find entity with a ready job */
+-	entity = drm_sched_rq_select_entity(sched, sched->rq);
+-	if (IS_ERR_OR_NULL(entity))
+-		return;	/* No more work */
++	while (!READ_ONCE(sched->pause_submit)) {
++		/* Find entity with a ready job */
++		entity = drm_sched_rq_select_entity(sched, sched->rq);
++		if (!entity)
++			break;	/* No more work */
++
++		/*
++		 * If a job exceeds the credit limit truncate it to guarantee
++		 * forward progress.
++		 */
++		sched_job = drm_sched_entity_queue_peek(entity);
++		job_credits = sched_job->credits;
++		if (dev_WARN_ONCE(sched->dev, job_credits > sched->credit_limit,
++				  "Jobs may not exceed the credit limit, truncating.\n"))
++			job_credits = sched_job->credits = sched->credit_limit;
++
++		if (job_credits > drm_sched_available_credits(sched)) {
++			complete_all(&entity->entity_idle);
++			break;
++		}
++
++		sched_job = drm_sched_entity_pop_job(entity);
++		if (!sched_job) {
++			/* Top entity is not yet runnable after all */
++			complete_all(&entity->entity_idle);
++			continue;
++		}
++
++		s_fence = sched_job->s_fence;
++		drm_sched_job_begin(sched_job);
++		trace_drm_run_job(sched_job, entity);
++		submitted_credits += job_credits;
++		atomic_add(job_credits, &sched->credit_count);
++
++		fence = sched->ops->run_job(sched_job);
++		drm_sched_fence_scheduled(s_fence, fence);
++
++		if (!IS_ERR_OR_NULL(fence)) {
++			int r;
++
++			/* Drop for original kref_init of the fence */
++			dma_fence_put(fence);
++
++			r = dma_fence_add_callback(fence, &sched_job->cb,
++						   drm_sched_job_done_cb);
++			if (r == -ENOENT)
++				drm_sched_job_done(sched_job, fence->error);
++			else if (r)
++				DRM_DEV_ERROR(sched->dev,
++					      "fence add callback failed (%d)\n", r);
++		} else {
++			drm_sched_job_done(sched_job, IS_ERR(fence) ?
++						      PTR_ERR(fence) : 0);
++		}
+ 
+-	sched_job = drm_sched_entity_pop_job(entity);
+-	if (!sched_job) {
+ 		complete_all(&entity->entity_idle);
+-		drm_sched_run_job_queue(sched);
+-		return;
+ 	}
+ 
+-	s_fence = sched_job->s_fence;
+-
+-	atomic_add(sched_job->credits, &sched->credit_count);
+-	drm_sched_job_begin(sched_job);
+-
+-	trace_drm_run_job(sched_job, entity);
+-	/*
+-	 * The run_job() callback must by definition return a fence whose
+-	 * refcount has been incremented for the scheduler already.
+-	 */
+-	fence = sched->ops->run_job(sched_job);
+-	complete_all(&entity->entity_idle);
+-	drm_sched_fence_scheduled(s_fence, fence);
+-
+-	if (!IS_ERR_OR_NULL(fence)) {
+-		r = dma_fence_add_callback(fence, &sched_job->cb,
+-					   drm_sched_job_done_cb);
+-		if (r == -ENOENT)
+-			drm_sched_job_done(sched_job, fence->error);
+-		else if (r)
+-			DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n", r);
+-
+-		dma_fence_put(fence);
+-	} else {
+-		drm_sched_job_done(sched_job, IS_ERR(fence) ?
+-				   PTR_ERR(fence) : 0);
+-	}
+-
+-	wake_up(&sched->job_scheduled);
+-	drm_sched_run_job_queue(sched);
++	if (submitted_credits)
++		wake_up(&sched->job_scheduled);
+ }
+ 
+ /**
 diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index 4b142a4c89d1..ffec9691d5a7 100644
+index 21ee96a37895..735bcb194c03 100644
 --- a/drivers/gpu/drm/scheduler/sched_rq.c
 +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -138,7 +138,6 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- {
- 	struct drm_sched_job *next_job;
- 	struct drm_sched_rq *rq;
--	ktime_t ts;
- 
- 	/*
- 	 * Update the entity's location in the min heap according to
-@@ -148,11 +147,10 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- 	if (!next_job)
- 		return;
- 
--	ts = drm_sched_entity_get_job_deadline(entity, next_job);
- 	spin_lock(&entity->lock);
- 	rq = entity->rq;
- 	spin_lock(&rq->lock);
--	drm_sched_rq_update_tree_locked(entity, rq, ts);
-+	drm_sched_rq_update_tree_locked(entity, rq, next_job->deadline_ts);
+@@ -164,9 +164,7 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+  *
+  * Find oldest waiting ready entity.
+  *
+- * Return an entity if one is found; return an error-pointer (!NULL) if an
+- * entity was ready, but the scheduler had insufficient credits to accommodate
+- * its job; return NULL, if no ready entity was found.
++ * Return an entity if one is found or NULL if no ready entity was found.
+  */
+ struct drm_sched_entity *
+ drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
+@@ -185,17 +183,8 @@ drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
+ 	}
  	spin_unlock(&rq->lock);
- 	spin_unlock(&entity->lock);
+ 
+-	if (!entity)
+-		return NULL;
+-
+-	/*
+-	 * If scheduler cannot take more jobs signal the caller to not consider
+-	 * lower priority queues.
+-	 */
+-	if (!drm_sched_can_queue(sched, entity))
+-		return ERR_PTR(-ENOSPC);
+-
+-	reinit_completion(&entity->entity_idle);
++	if (entity)
++		reinit_completion(&entity->entity_idle);
+ 
+ 	return entity;
  }
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 1e1dd16a0d9a..e0c3d84dd8b1 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -331,11 +331,11 @@ struct drm_sched_job {
- 	u64				id;
- 
- 	/**
--	 * @submit_ts:
-+	 * @deadline_ts:
- 	 *
--	 * When the job was pushed into the entity queue.
-+	 * Job deadline set at push time.
- 	 */
--	ktime_t                         submit_ts;
-+	ktime_t                         deadline_ts;
- 
- 	/**
- 	 * @sched:
 -- 
 2.48.0
 
