@@ -4,118 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E84A5C3600B
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 11:26:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E541C3600B
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 11:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E56510E3DE;
-	Mon, 31 Mar 2025 11:26:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36BEF10E3D7;
+	Mon, 31 Mar 2025 11:46:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kcQr25IP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fEYtBSlO";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2069.outbound.protection.outlook.com [40.107.244.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C8E110E3DE
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 11:26:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zQ0KyJG2iuc5B/6ERWbBosfGmxKpsIGkyH934B+W38TULu2ctW5O2RRB1ZJSXj59bUPI4WMcud0XtRah2kIrjjPHh/c6KaOpMvSqcYUQrnl+nC9n2Y9NWqWgKXnZuIvDNVjtqVC8vF2pqnRzWVKAP+u1GO036ePIs5sEq8yOBivMei4PO7GHtTlGFVYlFHPseTD9TGmumVOdbjv7m5cjE0MFKS6iuZJaWrSGgN4r7FS27r6g+loI+emEPKBK6yT9vm3fPQM0UxQDK6jnJSmNmLLPwfcCMVY4n5DRU97bshbGU0xSLhS4MItEADss4UrH5o+J178bIt/FSG93yEASaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O0nL0++gHculQrdXeEJoocnBmS3toSXxlb6Hh3MiVbw=;
- b=ECgsZ7aJMCud62l9Hicumcxu8qU8yQL8vnAFIE3DSUqpJF5SRzw6tvRd1YyFDOHqqDX2O+SQBiJuFDzxm1NKFLTDzIEAiVuwqcpwVTv/9N7UccU3gsymla2j+rt9p5nrtUg9fzpTevUJF6gVbrYcgknCcmBpFCV/BBTPwZsiorLqfCEJx52lOxn4nKcF1/t0Kj1Ae/z1+s5XZ9xKmEJ7uPs8/BJcWoGkX+ojOSaDZZKz035p8HvYtEqjLghBH90tY4NvRTh9+knq4CGp5FTdp7AeSkueacdBhw2YeUH5561fGx8WBZvtqsoel0vpexTsRB290IP2zd3uvzry8hFu0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O0nL0++gHculQrdXeEJoocnBmS3toSXxlb6Hh3MiVbw=;
- b=kcQr25IPm1p3ZaYhyS8KcZxSOvznsmZMjayFf+Ytiwtv2/SDRFQBDWHv6iccMOF5d3rk9I3lJihysD0jNwlJCvgCQdYRi6j7N7UOLsgfttX++aML9AKeKQzdllg7ZkIMV2h4eKlR43jYLp8xpEPM71BSmv1APMb/6WSY53Lp208=
-Received: from BY5PR13CA0026.namprd13.prod.outlook.com (2603:10b6:a03:180::39)
- by SA1PR12MB6725.namprd12.prod.outlook.com (2603:10b6:806:254::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Mon, 31 Mar
- 2025 11:26:49 +0000
-Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
- (2603:10b6:a03:180:cafe::b0) by BY5PR13CA0026.outlook.office365.com
- (2603:10b6:a03:180::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.21 via Frontend Transport; Mon,
- 31 Mar 2025 11:26:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Mon, 31 Mar 2025 11:26:49 +0000
-Received: from amdoffice.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 31 Mar
- 2025 06:26:47 -0500
-From: ZhenGuo Yin <zhenguo.yin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <shashank.sharma@amd.com>,
- <alexander.deucher@amd.com>, ZhenGuo Yin <zhenguo.yin@amd.com>
-Subject: [PATCH] drm/amdgpu: fix warning of drm_mm_clean
-Date: Mon, 31 Mar 2025 19:26:34 +0800
-Message-ID: <20250331112634.81008-1-zhenguo.yin@amd.com>
-X-Mailer: git-send-email 2.35.1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9152010E3D7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 11:46:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 62D9B440A2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 11:46:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A537EC4CEE5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 11:46:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1743421581;
+ bh=u9p15OXm9QZMTai0Gqz2IJw0gWsmXXWW9BWXZRpKvQs=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=fEYtBSlOFmnS9FWcnFnLjzCgnlu7b2kKqKIw2MwC6epbB64lpGjYpJAzNDcFNB64d
+ HUL8cagWLDUpWkuXxeFhxZLJpgfy2SCg/zth7Wwh2VcSiUj40U1h224UBYOcH/Vo0r
+ G+i3rMyfJePmIQ8SNvkS17L8STUl8Akw+9AI7u9PDNbXdYCX2+yTkuH0xOww4qffQ8
+ DfkhtlfzOSqW7Bku5XGtGFvPaPQ6qON/iKiiWDGqN8VU7KVxEvGzxEx95NSGmjXFoB
+ 8S/nWukTs0YkAMte1jcgd+H2GXgvA4X0vFOPs7alu9LjcHt3eWFFJRNU0QoJpOmpaZ
+ EeeJT6Af9u53g==
+Received: by mail-oa1-f41.google.com with SMTP id
+ 586e51a60fabf-2c76a1b574cso1305910fac.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 04:46:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsfBF3Dv2MC1wa9Un9EGQtW/aIxvUSedVbAjR6UHGxLioqVcUaZrJN1eZF4BaGkoFRNFrrpjBQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxLFqlmaJP+o1XVRVkG+YZhjdIksRlsLMtNwTnFycJrfmCA+3n/
+ qCDU/CK/4UjO0Gj0mXsOBcCVgXzTtRcNi1e+8OaH3C304p+L9BlfZEkli3V8ww0B5ae9OEvgZm9
+ fRWxqR1umm0nnfQnvnO6VWg63XJQ=
+X-Google-Smtp-Source: AGHT+IGLHSPjnj0ONYF56bwe4e8CV95FtIHFoYEUDj6FI0sTgHCoDe9OUqqcTrF3/hupBFyV4rvUitZaUVoNtiZpj4k=
+X-Received: by 2002:a05:6870:418d:b0:29e:255e:9551 with SMTP id
+ 586e51a60fabf-2cbcf474c3cmr4598743fac.2.1743421580976; Mon, 31 Mar 2025
+ 04:46:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|SA1PR12MB6725:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba5423b2-d54b-4276-449f-08dd7046edbf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|34020700016|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?SzukDJfNGwcQtVslL+vlOcV+S/oqvDE6/TD/xVymlF10ajLLAY/PNaYWkj2t?=
- =?us-ascii?Q?jFgf9bg3/MJhiSnbZ/l7WKpveOior2Sb7pYhuo/KxqE0qtRFfyID4CDQWG4/?=
- =?us-ascii?Q?kHYIM+7X4+2gz/JYvfm/uhtOiFwdVnxhXGDV/pWXCGHcjp843I1LBondXavQ?=
- =?us-ascii?Q?/KBQ7NgOwk73ir6hdvyXOYNILmbGu6Xxmka+IUNfFYnUKXoFs6Z1CDSLHklD?=
- =?us-ascii?Q?2ao2Q4BAfF2vgB2fVkSBPwcFM9DnoNBl7AQvZ+ccuBlH1KQ6u/1P2Y42QzZ/?=
- =?us-ascii?Q?t9YucKGUSehPlVTaNazBpwz2K2kqULMm7hmuQBdwsI9BaCyjNAd/fREz6LEZ?=
- =?us-ascii?Q?Rnjh09ljZ6Bg5HfjbMA85H9EA9Bw2aDI3yxMdnALBCK8elGa7s5LnWwWzmxl?=
- =?us-ascii?Q?N10gGMUnVYsuvcBpA7KhlgVzvUnSdEoFvWqn7RYRJs9ZeZHt3bprrZSlVGwz?=
- =?us-ascii?Q?TGytw6EuxtU926RyLq56GhPwv8wDFiEFmlL5BAbpQ3wRp8/D4rX/yF4G1wtX?=
- =?us-ascii?Q?NGG/GHS5Y8v69cEyP1fizBWiKTwshnM4J3uyX6YWN8aHFOdnI7KSF9pwX6p3?=
- =?us-ascii?Q?4DCQg/bUgU3IuJwUpOsnGBOigIdzDdnHtx44dPLfkFJKbxwtJ1YEAMhM0SL/?=
- =?us-ascii?Q?A5AOd1kLS5IWwtEyL5xXu4ux+sWUoI6Hxyxa6+KQTUr4DkxwjoNiV3dL4AK8?=
- =?us-ascii?Q?mdkVZ+9q2mGqj5CfOCCWA9TayqSky5IRteMlc6mDFXNBREbTiGXwgZXH6RHU?=
- =?us-ascii?Q?u3MeCsAMAbw+O+k6Jj9oy+gOetCVnY0ZdOZjhmcdDoaNz0XYgDAW4tzYTEXf?=
- =?us-ascii?Q?BkS+o7oVWQTzyVScPQi3EHd2jCV1u2dYdgZWHI9Lz7K65fwMh3Uj3nRyZ/jE?=
- =?us-ascii?Q?I96zcS+u9LfoC9Rr3Xu6tnSkK0VHDOr/Pv8BB65qFjim9eRYriXZYEx8N+Px?=
- =?us-ascii?Q?JDUZ5565ceWQ05TBBsunfC2BUo5VbocdcGt/+hvuQR0kPXbeV4ypPhdl5Fds?=
- =?us-ascii?Q?7A/2uoF/TFy2tngZMXiYLFKzT22nfn7b/yhITsSy7L8oWC7WtZcR6c5znVs8?=
- =?us-ascii?Q?rSRSm5A1HolCvtX/POzLsuzML0rs5SnUPh61jJxw0R5aDKSsZXZ+daRgGJIA?=
- =?us-ascii?Q?bUDYa1O01xiCEUu75Wl8+QQ49E0D6KkP6nKfxPWXUDqZSNcJu6Oa6TTF0hgL?=
- =?us-ascii?Q?9YYjBizPAitzqorFsF01bTt/4W5yKuMZYis3FIbyB9oGFg8aVPwYQQcA9af3?=
- =?us-ascii?Q?7esBGnjxCEfMGZc2Wy/sYZ5dSHm1V/NdFTCyuwFqmnw+3xK7h4UTNsC4Eudg?=
- =?us-ascii?Q?pZ8S6jwcs2fsSkne2o4OP7yn3bvMl9yB6caZG7+P/npn99+IbbKtR8q9BlYa?=
- =?us-ascii?Q?4I0VKIutLhQiGipeF/nuzRS5F3bmj2eILf0ZcUPReMQdG7bkZ3y4gJhf311z?=
- =?us-ascii?Q?vaWpLCbnjk1ujLFtUAGi1gL6BNhaF7ukPgqEuTV8dCeY1aLAZOkhVw=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(34020700016)(36860700013)(82310400026)(376014)(1800799024);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2025 11:26:49.3985 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba5423b2-d54b-4276-449f-08dd7046edbf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000204.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6725
+References: <61c3df83ab73aba0bc7a941a443cd7faf4cf7fb0.1743195250.git.soyer@irl.hu>
+In-Reply-To: <61c3df83ab73aba0bc7a941a443cd7faf4cf7fb0.1743195250.git.soyer@irl.hu>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Mon, 31 Mar 2025 13:46:10 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jBONZ7UFL0HCOV=7xmnUphL_UTV=_1PnYmR6n0oN4pcg@mail.gmail.com>
+X-Gm-Features: AQ5f1JpzlMUyTy2jsegu95KUagJIz4NmCHKhw5-yyzojW0dsktwnVlH68O3aG4M
+Message-ID: <CAJZ5v0jBONZ7UFL0HCOV=7xmnUphL_UTV=_1PnYmR6n0oN4pcg@mail.gmail.com>
+Subject: Re: [PATCH v2] ACPI: video: Handle fetching EDID as ACPI_TYPE_PACKAGE
+To: Gergo Koteles <soyer@irl.hu>, Hans de Goede <hdegoede@redhat.com>
+Cc: Len Brown <lenb@kernel.org>, Alex Hung <alex.hung@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, linux-acpi@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,47 +73,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Kernel doorbell BOs needs to be freed before ttm_fini.
+On Fri, Mar 28, 2025 at 10:09=E2=80=AFPM Gergo Koteles <soyer@irl.hu> wrote=
+:
+>
+> The _DDC method should return a buffer, or an integer in case of an error=
+.
+> But some Lenovo laptops incorrectly return EDID as buffer in ACPI package=
+.
+>
+> Calling _DDC generates this ACPI Warning:
+> ACPI Warning: \_SB.PCI0.GP17.VGA.LCD._DDC: Return type mismatch - \
+> found Package, expected Integer/Buffer (20240827/nspredef-254)
+>
+> Use the first element of the package to get the EDID buffer.
+>
+> The DSDT:
+>
+> Name (AUOP, Package (0x01)
+> {
+>         Buffer (0x80)
+>         {
+>         ...
+>         }
+> })
+>
+> ...
+>
+> Method (_DDC, 1, NotSerialized)  // _DDC: Display Data Current
+> {
+>         If ((PAID =3D=3D AUID))
+>         {
+>                 Return (AUOP) /* \_SB_.PCI0.GP17.VGA_.LCD_.AUOP */
+>         }
+>         ElseIf ((PAID =3D=3D IVID))
+>         {
+>                 Return (IVOP) /* \_SB_.PCI0.GP17.VGA_.LCD_.IVOP */
+>         }
+>         ElseIf ((PAID =3D=3D BOID))
+>         {
+>                 Return (BOEP) /* \_SB_.PCI0.GP17.VGA_.LCD_.BOEP */
+>         }
+>         ElseIf ((PAID =3D=3D SAID))
+>         {
+>                 Return (SUNG) /* \_SB_.PCI0.GP17.VGA_.LCD_.SUNG */
+>         }
+>
+>         Return (Zero)
+> }
+>
+> Link: https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/Apx_B_Video_Extension=
+s/output-device-specific-methods.html#ddc-return-the-edid-for-this-device
+> Cc: stable@vger.kernel.org
+> Fixes: c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if availa=
+ble for eDP")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4085
+> Signed-off-by: Gergo Koteles <soyer@irl.hu>
+> ---
+> Changes in v2:
+>  - Added comment
+>  - Improved commit message
+>  - Link to v1: https://lore.kernel.org/all/4cef341fdf7a0e877c50b502fc95ee=
+8be28aa811.1743129387.git.soyer@irl.hu/
 
-Fixes: 54c30d2a8def ("drm/amdgpu: create kernel doorbell pages")
-Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+Hans, any concerns here?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d4b01ef00025..b49604ade6c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4807,6 +4807,13 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	int i, idx;
- 	bool px;
- 
-+	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-+		iounmap(adev->rmmio);
-+		adev->rmmio = NULL;
-+		amdgpu_doorbell_fini(adev);
-+		drm_dev_exit(idx);
-+	}
-+
- 	amdgpu_device_ip_fini(adev);
- 	amdgpu_fence_driver_sw_fini(adev);
- 	amdgpu_ucode_release(&adev->firmware.gpu_info_fw);
-@@ -4847,14 +4854,6 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
- 		vga_client_unregister(adev->pdev);
- 
--	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
--
--		iounmap(adev->rmmio);
--		adev->rmmio = NULL;
--		amdgpu_doorbell_fini(adev);
--		drm_dev_exit(idx);
--	}
--
- 	if (IS_ENABLED(CONFIG_PERF_EVENTS))
- 		amdgpu_pmu_fini(adev);
- 	if (adev->mman.discovery_bin)
--- 
-2.35.1
-
+>  drivers/acpi/acpi_video.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+> index efdadc74e3f4..103f29661576 100644
+> --- a/drivers/acpi/acpi_video.c
+> +++ b/drivers/acpi/acpi_video.c
+> @@ -649,6 +649,13 @@ acpi_video_device_EDID(struct acpi_video_device *dev=
+ice, void **edid, int length
+>
+>         obj =3D buffer.pointer;
+>
+> +       /*
+> +        * Some buggy implementations incorrectly return the EDID buffer =
+in an ACPI package.
+> +        * In this case, extract the buffer from the package.
+> +        */
+> +       if (obj && obj->type =3D=3D ACPI_TYPE_PACKAGE && obj->package.cou=
+nt =3D=3D 1)
+> +               obj =3D &obj->package.elements[0];
+> +
+>         if (obj && obj->type =3D=3D ACPI_TYPE_BUFFER) {
+>                 *edid =3D kmemdup(obj->buffer.pointer, obj->buffer.length=
+, GFP_KERNEL);
+>                 ret =3D *edid ? obj->buffer.length : -ENOMEM;
+> @@ -658,7 +665,7 @@ acpi_video_device_EDID(struct acpi_video_device *devi=
+ce, void **edid, int length
+>                 ret =3D -EFAULT;
+>         }
+>
+> -       kfree(obj);
+> +       kfree(buffer.pointer);
+>         return ret;
+>  }
+>
+> --
+> 2.49.0
+>
