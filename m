@@ -4,167 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A27C1C3600B
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 16:34:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C325C3600B
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 16:39:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 438B589F01;
-	Mon, 31 Mar 2025 16:34:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 343C910E123;
+	Mon, 31 Mar 2025 16:39:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G3VvyeS2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R/O39XZF";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A08DD89F01;
- Mon, 31 Mar 2025 16:34:25 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2087.outbound.protection.outlook.com [40.107.100.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDB9910E123
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 16:39:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BnhWVs1545+km0e5mcFSQMVm/dJdXTGTlBuq9vYEd9xzl8iLCO3YLKg08fCi0VKrkS0OPVWgkQ8kBAi9xUb0+YCA1iqoSkBQgXn1k2WmqRLc7a4iPNO3g9yAFvAOKKFXypeFBwor7JbhXXxSUs8zhHGDvQG0P+jx61ncnrE0BkPAJZ0ILG73cd+AESZbXdIt9s/3zkzdyvgOkq3sOFDol6HWzBcE0K8X+Y6fZJgF6p/Jn97F5dS20tczok5P2gRaBgPqQipZlHW6TzvTSIvyJXqXSt2qMS0XlzqKqcIJ2ic1CLRsm2aKX4fmqDz/V/v7pGXX1CdXQHr2gbgcwSeTfA==
+ b=s9jNxov+QFVoCii8MJyqAP/LQf6v7iWdR0wj7T/Mhx9UWV7AKhZa88Y7eJ/jSijTVR3LpJW/1BZ3Ju6s1P3ZJvqo3sUDsq8+LhwyI8fE0x4i4EIyPtq7L4eZtDBA7YCvjmbyBDcoSYUNKnvMOaJZShANN6ni/lERbQN+lVPsYziBb8vi1wDRRUYKNDRki1JdwYGfZysk/GHO9+kdDzjuM4duLlyVTnOIPisDIdcyq4uFXU1+fSX+QPA5QEl/ncDXBlQfO+regoshAcJDL2D6jpsCoffNYA2roysqGc5Sk35uEgVOPKrnr0sVA21B58foVP86bS95vrDsQGjE0zgbnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mYfaSnntdkhmoFBbUFT+pP7y4D2l87OGDY/O8Pgllek=;
- b=Um7wJqkwmyg1y5mgDqOY+xOArWlrUUF6rTYttOIn/7QX1lbzCfstYD1U1Or/M/b4Fg5OtUUGqsCVBkRE86TIveD96sRSKVRhrR92fQbnHigQXXyBuS6jVaiNSdhMAX//fifISQLofZWNULEszuC06H+tPaKdDwXqw3U6m2jUKqrINe0M0gX/VbmWUznz7SnZKNKgERd2Iha7ARUX3M0snJeUNQ3u+cOZCVGol6Xzzi4Sdlxf7PZKHmiMy/5avXcTARznRqAyYkOwMo1gH56spLICFaMzoSamMN3PM55RlCm0VhLgwQ0WlvqMRL0wJLqf0Fo278Iwm0hnYEVPL6v0yw==
+ bh=swMORkMEX2o2I2FILhVJW2EypdJeWpHNsWXKduue5ks=;
+ b=mRJ2BwCL4aeBBAoQkIlpURrky+956E0p4T3yiO5laXQ3FR0+ky98NWdjU6SiOm8OG7tHbB9ZDnjP+Ja+JIXajKVr+D0E9+oi01uUoeQe43W3ubE9GvZNbK29d8++ZXGihGUHA7PpR9zICASznrPi2kvSUDesgNqKaMyapsIiRrk8kw/lzjUlcqWLUbcf7ySbp7lz3pn3hSudK0BqB2ixiRv+9/cMN3STdhWqMZuSE8ZmsDcap+1IK7eTCw6FWI/6y270JH67pAJwXMiSnPinSvGIGgkpYntS78XBJGKDPRXr7OLHTtDv2bg2SmgeW6oTzxyF/wtPsAYder6ZVJQ5AQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mYfaSnntdkhmoFBbUFT+pP7y4D2l87OGDY/O8Pgllek=;
- b=G3VvyeS2FQlEQCDVbUchpl56hS8rmtVezXwG1ZcQYuardVf6TsZ+ResQUA2s+iov6jsSeNYBpiTqbNzoxieU5DZjKyGkbOjgYMVQkrvrdLcFjbiKRSLFsEStWis8cCxEIxSr2w3lwQ3JB9r5kjzCzw002w418WQ5ESlHrrniD/w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by PH7PR12MB5653.namprd12.prod.outlook.com (2603:10b6:510:132::10) with
+ bh=swMORkMEX2o2I2FILhVJW2EypdJeWpHNsWXKduue5ks=;
+ b=R/O39XZF4XlsTP0tG5TR6g4xk07Q4oFK7dzP5cwQRmKVec3pXwKXK/KIuWjp1FaJ8o+6UPT0McdLb86ctKt2akoB1AwPuTUchh4CxGWrYYgUz0SJrbSMTIP9hZN1c5+a6oh3A9G5pQ7kG4hP9Hwb+/0YNN6VDJ7g/bKkD5FxnGc=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ PH0PR12MB7469.namprd12.prod.outlook.com (2603:10b6:510:1e9::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Mon, 31 Mar
- 2025 16:34:19 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8534.043; Mon, 31 Mar 2025
- 16:34:19 +0000
-Message-ID: <e6bac4d3-d445-48d6-8121-39895a09ccff@amd.com>
-Date: Mon, 31 Mar 2025 10:34:13 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V8 24/43] drm/amd/display: Skip color pipeline
- initialization for cursor plane
-To: Shengyu Qu <wiagn233@outlook.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
- uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
- quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
- sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
- louis.chauvet@bootlin.com
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-25-alex.hung@amd.com>
- <TYCPR01MB8437BA1D5FFC25AE63F731D198A22@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <0add5ab1-0717-42a8-8994-a381b635040b@amd.com>
- <TYCPR01MB8437ADBCD38143B223E9384A98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <9984f8e4-3f24-49d0-a7be-4f746dfbb4cc@amd.com>
- <TYCPR01MB8437D229F3DFFA7CA6CA02D198AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <a6489110-4e76-4977-a0d5-586e3b99ab0e@amd.com>
- <TYCPR01MB843722301025CE5047BCFA2898AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.47; Mon, 31 Mar
+ 2025 16:39:28 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6%2]) with mapi id 15.20.8534.043; Mon, 31 Mar 2025
+ 16:39:28 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Zuo, Jerry" <Jerry.Zuo@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
+ Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
+ ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
+ "Mohamed, Zaeem" <Zaeem.Mohamed@amd.com>, "Chiu, Solomon"
+ <Solomon.Chiu@amd.com>, "Hung, Alex" <Alex.Hung@amd.com>, "Zuo, Jerry"
+ <Jerry.Zuo@amd.com>
+Subject: RE: [PATCH 00/17] DC Patches Mar 24, 2024
+Thread-Topic: [PATCH 00/17] DC Patches Mar 24, 2024
+Thread-Index: AQHbnoi0B1aor2Uq8EOOm4ZZpQj4r7ONeTLA
+Date: Mon, 31 Mar 2025 16:39:28 +0000
+Message-ID: <DS0PR12MB6534A1380DD46A53B06E20589CAD2@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20250326195202.17343-1-Jerry.Zuo@amd.com>
+In-Reply-To: <20250326195202.17343-1-Jerry.Zuo@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <TYCPR01MB843722301025CE5047BCFA2898AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0159.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:7e::19) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=d9a5af08-e2dc-4df0-ae36-6929d9f862fb;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-03-31T16:37:17Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|PH0PR12MB7469:EE_
+x-ms-office365-filtering-correlation-id: dec4cfc6-a63e-43a7-9882-08dd70729af6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?FpGoK2gJTpEkbt59th/p8oPymfVpaPtjd2UYVJyW3VXHvIy59HLXhf95u0?=
+ =?iso-8859-1?Q?8fn+eP8m136eAtwWes550YZi9cB/eFo3I2UxNdEbiOl2yDRmSaHP0iyPl9?=
+ =?iso-8859-1?Q?MXpm09IZVb54oTU508bNnfYpITzhur56OZdVe+f0uZCu9NvFmqpaMHp4bB?=
+ =?iso-8859-1?Q?W0j2YwnWsts/+UUv17oEasncBFiU509IwR6AgiGImvrriHjwT0mD0bNeRI?=
+ =?iso-8859-1?Q?MJmMKhNwLVj9z0TS7W/x1UWPmLEU8x+UySGtSUuLG1BE4omCjXrZmieSfd?=
+ =?iso-8859-1?Q?yeBRMBt+THnkMvwiuQq15Vfd331HFDUBLafwc0iQR5zSMek54L4odt2Fz2?=
+ =?iso-8859-1?Q?JnwaFPqhunghjkqU5IOMvswgAdZbImV+VEAIkoAbWFb3UvS6pDvZnF2IXJ?=
+ =?iso-8859-1?Q?wrDq6mhWby8vq/ZjeLPKp6p40ZKrGIXygQn0oTdzelrZSlRA/XECiOsCxW?=
+ =?iso-8859-1?Q?XeoN1se+xp1SdE/xz4fXd2+/ETBGNp82dungoO25Hqu6vmFaG4pcFLgwck?=
+ =?iso-8859-1?Q?O0TS490LxL9Ri56YT63PKq1cQXebFHdx2vSQfEtx/DuUfthS4pvnhq6vQZ?=
+ =?iso-8859-1?Q?T60YncyPt84cwLqHI8KRL3flr0CABejWrvh48utp9hVMbeodKv8VvHPcjC?=
+ =?iso-8859-1?Q?VYdmy3dO4bOVR/Du6sPtbNG/Y3laIJvfQ0FAKos1XWBexHDrpucyQdfVxb?=
+ =?iso-8859-1?Q?m30Jt9WVityYMzaipBUJEC7pGts7V59CykWe+0QAuxROA436pYdAUVevYq?=
+ =?iso-8859-1?Q?T3urvjXKMmdLIPMCZ/japiBpyOgYngjuOlzVC1GQsotdlRAKSl44UGVj0H?=
+ =?iso-8859-1?Q?QDd6pJsPJpfN3k9TODr3Q/0MBZNg2/MInR8eJ8dBLiREfT6zESaVmFLbbk?=
+ =?iso-8859-1?Q?1bY4sylmEVPJeFS6zNtkgL+7V5cFq77uhYEY7ycif9KIcDPRdQgl728IPo?=
+ =?iso-8859-1?Q?D27DbZT3Q+UREhEjPpnWZyEe5cQJSH1ASadFb1bUX45iSm62YBvrZ23DBa?=
+ =?iso-8859-1?Q?yWix+6ez8P0ldSU05+FUyj6Tprl8in8TIk2K+WGc+VW1opRcVc+0nc8Leh?=
+ =?iso-8859-1?Q?15HLo14SRMeyIrCS5zQvYRuI5zaD/FgnkFopF99I3yGRXpFikNqFVIpwUK?=
+ =?iso-8859-1?Q?re/kb3ZqfXHYktnpgCpjkzKRdd4SqmTIjtvachtjcSfAd5HuE/cLH6dvPa?=
+ =?iso-8859-1?Q?u9+qq1vDtMjtQ2mrTyS8MUbQfFsWIYaRSr9FZD3ITBazTFEPilG+PkJXr5?=
+ =?iso-8859-1?Q?62FrtRdJS45ZNeeGqDs86L9UywNMHuxL4zTGY9HzNSutuQMGjmtNuVHb7J?=
+ =?iso-8859-1?Q?SfQWP7x5M6Ti6bo+Gm2AJ724NWbtiCb+MA45PPtcI60zBZl3HTM1e/PIQ0?=
+ =?iso-8859-1?Q?/c8RkK+T4bcLyzXGNo2QBH5twUI/OGOjaigNOxgr94rc1YahLjXLXY2ZM/?=
+ =?iso-8859-1?Q?PwCPsr+dH3DSThr41HPj4u0uuIPD8X68LbPcTGm2Jqoo3lTbv6ylojCGnu?=
+ =?iso-8859-1?Q?0UE9dfMovKBMytC3+hsIMX?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?ARccausR4B4Ao8Z3fPu7zDnJGhfPGB9FUwM5Z3qqzZXWKCgySNI7F/gIuq?=
+ =?iso-8859-1?Q?SnQbHEjlPOd0WR6BBgaFmuCN2wjKiPJof6V3YfbKyHPU0JGr7xtjFR61Ak?=
+ =?iso-8859-1?Q?0h+7NDea7m1vAwzXNh6Naup/28WN3lJM48LrwOLpQuwIIa9m/zobrNVF+H?=
+ =?iso-8859-1?Q?Mjz4WGFduidcsY95PQWL9iZ0m4ZqvVS0r4JOkQeA6zLxbVam+lFe3GQ4XB?=
+ =?iso-8859-1?Q?aYLWgJSUcpy3MedmH16C49kTP3sNE5QWl6pNLQGlQ3zYzjkIaj72m2srzg?=
+ =?iso-8859-1?Q?jTFD8gFe5DLen61Msvm2VbS2S3Q4iFtJOdCa8VjNy01O8ZVdgsxWBx7M+0?=
+ =?iso-8859-1?Q?lIZQpKqEYWCtZnVtVsDGFa/EofcNRCkCZfPg7MxZRSQ+Dq2YD5m8FyQ5Bn?=
+ =?iso-8859-1?Q?0Rx2xu/mZW7eOB3ZNyvtD5Ju5rGvoQRwLBOmxtDS/SWa6KgH0PcTKJoV5J?=
+ =?iso-8859-1?Q?MInBWQ/ciDanqSa6cw5hyv0wp4DNJVAQSZRQllwV9paJCi7s9MPeCMgJ4X?=
+ =?iso-8859-1?Q?cs4ROPFHku43ZxRjb77W8JdZZlGe0eLVty/oOuml6KB2bavxffriOx9hmr?=
+ =?iso-8859-1?Q?EYzQJcQ2BwWBMsTBXEiPSRfHJUDCPk6hssUspO/l5gxXWjj30Ut0cxGPvP?=
+ =?iso-8859-1?Q?keP3EmHRbr8W19V6fYV3nK+mYI+WbEmBtbfuF2t7U2EWZDJMbZDidsF5Cv?=
+ =?iso-8859-1?Q?DT2P/icHUlgflDvGx48BREJ7HccvxbIF+FzdAG9gwm1+pZP14h53uCDXb7?=
+ =?iso-8859-1?Q?kjsYqaIl57HS/PvyJVTr+HOsYtq9CeitaOtpoikORBCrIeYiCRod8NhnPg?=
+ =?iso-8859-1?Q?NF2XC5g2KWrMEiqbsZGvCHhdSK/0wqwtQXjGIkOQN9YLAkCUWkjUPWt/hy?=
+ =?iso-8859-1?Q?VgwpbXd5PXOel1JKAwBHICZd6IhDpnwqDusvpa2ZVHSV3KsJ/i+PfgYJmO?=
+ =?iso-8859-1?Q?KH7YEDS3s6gaiOXEw97PXwJKyrt+lIuQ32tfhaPWgeVhAieK1Ik3nDZoTc?=
+ =?iso-8859-1?Q?y3urXgK5HjyN4ruT+p1/VG4VO+9PCTsphijBPgZwO0yrJU1gizkt62PxYP?=
+ =?iso-8859-1?Q?0qLLkfiZZTeahyE/L7PpzWo2hz6zg5TzM9BXFT0T4gwdPHdAh2gWBELev+?=
+ =?iso-8859-1?Q?lSy/No0GMgyya9AMtujTcSHo8VVeaeggSFyv1DIRTdk5ZvJ/6alNXx9bvX?=
+ =?iso-8859-1?Q?oLmAkIXTaFw8FcUwhdu4DRdlAhdkaiW5+f4H+PVUPxNCr5eZR8kw6umUBy?=
+ =?iso-8859-1?Q?ji3sBIkH89DfaOO+Vk+3McHgYwRYL5bCus3xBYDAWSZZEORVK7j88o7SUM?=
+ =?iso-8859-1?Q?dv7aN1+YS/Jdb6pjEBH9/fEd7rBUjTYRovVaG3T7ldduzOsJAcBBkDqAYy?=
+ =?iso-8859-1?Q?0I3uI2r8BbsQf8X43lh0fJNVWFnDvaJi8urO82EyZjrSNJDRbs6owDM1sq?=
+ =?iso-8859-1?Q?fg5pyDDNureNYkxI9Vgx/i9cxYL7LjjKVfVWXVuX2vVvnKmhk40gdF2Avk?=
+ =?iso-8859-1?Q?BXba24PA5f4y5HcSW1VHOKF5vTU7rj4UeRFjOzqnTBtv9CthIcUPZfyhof?=
+ =?iso-8859-1?Q?LcwPE+hVdU6TKAccfl9SDR/QM3Sr5EgaGqW0blGwPtUmU0o7ZkDjuE3JDT?=
+ =?iso-8859-1?Q?X1SKjtzDvSYGw=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|PH7PR12MB5653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58ba9e59-301c-4ba1-6828-08dd7071e2bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZHdhRDJYVVRyU3NLUVV2Ylk5RU9JOWIySlhjczJDVTI1WE81K0U4NnpTTjdX?=
- =?utf-8?B?L1RmYTE2dHdrMEhDaThvbElwRk1Kc3hKc1h6ZENETnNDNDQ0SzNzeWc5eTc4?=
- =?utf-8?B?WFFsRTJZZzY1ZUtGb1Jtdm4wYkExKytMaGt6eDQ0VVhwNDZZSDh4aGZqMGc0?=
- =?utf-8?B?akNJVjJsT1RjR09mT2lkK3BxcmFDVEJQcnVSNE0vU2p0am5peFVqNHZQZGVl?=
- =?utf-8?B?SHdhZzVwa25jYW94cVhPbzB6YllwYURJWGsybitDSjlFdlh4OFJURkQvZWtT?=
- =?utf-8?B?NWJOajZScWFZalJXRm5ZUE1uODdEekZ2eHNRQmh3UVJpbnFXajFSTldKTUxM?=
- =?utf-8?B?MjlxM1p0MG1zd2cwNmRvckdTOVVKME9yV0xwZFUwS0NhUTVXaHhrT1JLbnBO?=
- =?utf-8?B?ckhicUVFbnFEekdscHRBN2Fsd1ZHS2oyelJHT2ZlYnFGYndCYzNVZmRjS0ZH?=
- =?utf-8?B?UjFaNFBpUFdlWnlCZFdkU2xIazhDNlM0RXdtb2hBZkVoT0Z4ZUhxckFuT1Nu?=
- =?utf-8?B?TDU0dnd6aDNRODVKUXNqdG5TNUk4T2xSaURsR0lZV1ArdTZBZjlkd25QWm9M?=
- =?utf-8?B?SmtPdGVhV09pQm5DM2xwYXNBSlJVR2xDODd0RFdrZWNXOWZrTmQvUmFVbkdy?=
- =?utf-8?B?ZWlra3NGbkJxK0hSRnUydG8rRDNMRm5vaXBiaVplY2R6dC9tQmZuZU11aXpa?=
- =?utf-8?B?c1Vqa0NUUXBEcW1CYis4Mk9FY1oxVkU3T3lnNnVvTFBSeC9pNXNGbFdMek10?=
- =?utf-8?B?aW9iVTRuZUJ4Sk0vS2FhTGt0SzQ5SGJkZFNGUFU0Q0NWY2lOQksrTVI2cHpz?=
- =?utf-8?B?YjBoUnlTK2ZRZDZleUpCWi9TdVVsUG5XWGg0dUlCMlpVQi9OR3AvNG9wYnV5?=
- =?utf-8?B?U0YzVVdFS1lVSkMxSG1nb09hWHFPWTE2bTJsbCt5ZGl4S1dUd1BMZy9XNk0v?=
- =?utf-8?B?Z3V5b1NUcHhHUDBrWDMzUnByeXpxcks2RmRZVWcraFh5bXNKcklqTVFDWFgv?=
- =?utf-8?B?aFkxTTRKaEE3R2YyYTRsM1QvS01UWEJQcWluckQvQ3BZcUZwVllHRHlIUGV5?=
- =?utf-8?B?RVNjWldBSEsyN09JeENHOEdYRmhDUzQ1NnBXQWszbm5xSkJKN1dPNlRGUzNn?=
- =?utf-8?B?bnZoY09UYW81bUhKQnN2UlRIc0s2dTFOLytYNS82UGt0WDJOS05YSjRKNk4v?=
- =?utf-8?B?dlJwSzdIWXl1OUJUdldob0dpMlNKeGdUUmpPZDhhQndRa3hmdWhmUytUejhW?=
- =?utf-8?B?V2w4c3VlaXVpNE9xSXo2NUtoVUp5MXhrTVF5N01YdzhreHUxMGJPcHhyZjRL?=
- =?utf-8?B?QzBHYW92RkZJeTVjOGR0Y0gvdGxjV2VqWkZwUjNSeTRPZ2doNnNYdTlOSE1z?=
- =?utf-8?B?NjlsTng5QW43MHdTdGNrWERPcU1NNE5senVwY0ExeTZpNGUvU0FnbGdNTERG?=
- =?utf-8?B?SDlJb3JmWHU0VTdqQW1RZkNVQ0tMOWVzdS9laXJZS1AxdUZTdG9waFZSckZB?=
- =?utf-8?B?Qk5yQ0RYZExJRlhiQ1ZhSlFXM3ZGdkFGeUl1WUFUNjRkR1E2aUNwdkFMZ2tp?=
- =?utf-8?B?SElJdlB6WjdYNkFHcVM1REx3NExQcExybit2RzdBOGFURTJiWVpsRWQ3NTNx?=
- =?utf-8?B?MHQweEI5MXc5WTN2SzkvdEZTTnNKK0lkOEZib2ZKRDlWZ2JWbm9VNHU4YnNo?=
- =?utf-8?B?RDBWWmFPNjdpem4weGxPbURxTkluSXBZS2VscWR4em1Zc1EwNWxlTzgyT1pv?=
- =?utf-8?B?TkxlK0plU1N3MFo0MklBK0xnQmhqUm9OV1JvTUN1RHJTd3EycXlFY0ZWNi84?=
- =?utf-8?B?MGxHZHhtQ043M2RxQllMVkZrN1ZOTjk1aEM1QnhOaEllakZaaGlQc1pFOS83?=
- =?utf-8?B?VE5KWnVnOVdUUkRldzIzTWxOeGNaZGY0c1E1VHhmUGdzdEdEaEEvTkV3N2tm?=
- =?utf-8?Q?pIIFo948HZU=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHp6Vjh2MUt0blZRU25yMEsyLzhIQ2RtaE9FWXBmNEFDSGlmM2piVXo1N0xH?=
- =?utf-8?B?VHErNGlvZHh6Y3k0U2p5RmZLbmt2SzFCdkozV3k2VVpvMDB1cFYwYXRETFNj?=
- =?utf-8?B?V01PTWFwb09oS2dDamkrZXQzUFhXMVlCNzg0SEQzMURpb0VCVmpkS2ZiZm95?=
- =?utf-8?B?ckJEcmZsTG12WDNSb3NacmhKNmJSZDBQVmxFYnBsWStabis3MURyTk8wa3A5?=
- =?utf-8?B?QjY3Vy9DVmFJNmMzZVNlWkNMK3QyK1pFdWdrczc2bnZrd1pYS3RDaVRsQlEv?=
- =?utf-8?B?ejdXUFlNSlhXSVJHdzNzQXdFNU9mZnlwZkhsUE8zNWlCbGlpdzBMR3g3dW84?=
- =?utf-8?B?RnFvRERQUzhvZWhXc2ZlaGI1MlhDTjA5amhtbGpjK3N6bks4SDNqdVg4MmVr?=
- =?utf-8?B?NExiMzBYYXA3cmQvZU1UOTJuWmpKbm4xY1JmOURGQ2xkQ2daNndRSGpjVFNN?=
- =?utf-8?B?Rk14VG8vejRPc2ZyWmlZczNNcXFIYXpoYUpnRzg3Tm5wNUQ2ZndLVjBoZDV6?=
- =?utf-8?B?Mkpmdkd3M1J0S0ZWVVZ0NFk3N3BMR0VVcUNVaGh5cC9rTVgwVkpiYklXVzQ5?=
- =?utf-8?B?ay9kTXR3eHBaUFVqRktuWkRqcy9GSlRFMnE2M3R5S0drWllweGV6YkRTTUVL?=
- =?utf-8?B?dDM0aXB4YnJKL0FpTmRJdE55SGJWZlcxQ3BOcDJWdVErMjdhaGl6Z05CV2hQ?=
- =?utf-8?B?ZVBPenY3aWo5MEZFdUY0VldabHgvWnlRSG5OSitPbk8vdkZqQ0ZqankwT2RV?=
- =?utf-8?B?ZElZNXVSYncydTVTeXhTSG9YUU5ZZkNsMlYrN0RkYlpPY2lVZEFvOXRiK2lx?=
- =?utf-8?B?LzFEQldnSTNhNUhkVm0rTUV4bThiSGxnVzdqakVlZUhRTDBVUGdVN3dDMjVa?=
- =?utf-8?B?d3dFSDhnTDdUQWt5UDBVa1VsaWxXWE0xRTR5Q0RwWHYzdkQvODdzQWNrZVFB?=
- =?utf-8?B?bWtjaHM0T2JLY0VscGtlRGRweElUT1pnV2Z6Z1dESlpHZSs5dm9NajlkQ0xN?=
- =?utf-8?B?VzJ5WXZJWUxjVE9DTEJvUEhjOGg5eWNTdlE4V2tLM2ZwWUNvSStLZ3lpNnkw?=
- =?utf-8?B?b0RDVkttNjhhYjIzNmgwVDlaV2VEazhtQnovOHozMHRwTjBoUkswNjhKNVUx?=
- =?utf-8?B?ZUxZSWgrS1pYVVJFKzVJNHRhYXlLRlNKclVYL1ZVdXpnNWo3NlJUSEZRcGRX?=
- =?utf-8?B?KzEySGNLZThsTXpoaDRHOWYwVUpwVDRFdHNUT2ZQdUg0UFpvai8vTzdDMXV0?=
- =?utf-8?B?bGxiRC9Pa2RFR1dBb0NlU0ZiYzVoOGhiSTJmbHJNWlJYV1krUk5NSlQ1aDlX?=
- =?utf-8?B?NHl6VkY1b0pGTW82QTJMV3pUVVd2V09ZT05SWVhrcDBSZlRnbEdDR2IxZ3pM?=
- =?utf-8?B?Z0dNRmlkTy8rYy93OXBrOVhCYmRybnhCdkF2dkVTTzhRY3hxTlppZWs1UlJ2?=
- =?utf-8?B?M2Y2SmxxZDZ4V1EvcEU0M3JSVmwvT2EvM2xEdnJyb2NmeWkxUXoya1EzOGI2?=
- =?utf-8?B?Q21LWHI3L0VoazJpRWlMR1N2RFhUb2N4M1RvTXdBMDN0MzJFRHlqSXNlV3Bw?=
- =?utf-8?B?Uk5FM01hc1dsVGdTd3p6b3BXZDR1cHpvODRwNjVhT0ViV3ZSdlNjcjY0M2hZ?=
- =?utf-8?B?RWorajN1bms0MnJidVU3N1QzaEQvOTNlNGRCWVBRZU1qTXZsYjZMemdUNHA5?=
- =?utf-8?B?Y3JidVJkWE1qSVNlRDlhY2s4a3ZadUgxZUI2RTYxQTZ0allBOTNsVG9xbU1t?=
- =?utf-8?B?UHFRNTB6TVhyZ0EvSS96VUlRcVpIRGo4U3ROMzJsL0ZOekwvYVpTdEVQTlp2?=
- =?utf-8?B?S2gxTDcrZWtzQ0k2MVFlVko3NzZ0ajNLRTFlN2hzWm16endTa3o4dTBqZkl6?=
- =?utf-8?B?aVA1K1FVTTBrYnNtNlhEWGwrdmdsbXFYQ3RRUW9PN3o2VHBnbmVPOGNRaXhS?=
- =?utf-8?B?TVBBK3ovWEYyc08vQ2Y1Uk0zTk40STR1bHF6TjUxbmJVNzZYdUV4d0czbkds?=
- =?utf-8?B?OVBkZFlEVS9Jd000SmlkM0MvNGlLeFhQNkloMEhaQ0plbHJrbXdUaFdwN0F2?=
- =?utf-8?B?bldGRXhHdWhSVTBPaVBVajhpbmF0KzZtUXBqM3l5YlJrakxUUFlXMk1kbEN4?=
- =?utf-8?Q?XRzJsEiCxnn+CtHfGWcfe34xX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58ba9e59-301c-4ba1-6828-08dd7071e2bd
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2025 16:34:19.6190 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4P9R0pdGWXYLmSS8a0uxpR4968ZhsnZnPfe6C2AwHkKIqk1yqZKq15kROVcSRBL/ILbq77MNsGeCh2Shu8YgNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5653
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dec4cfc6-a63e-43a7-9882-08dd70729af6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2025 16:39:28.4644 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Mnn9zgw0NEQBEeAMV2df3l6sjwqp/KcoZJFPZPL1kbCV5X+0ks6JRKRwARE5TgBNapHmXwPRS7wckTV4grk8WA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,100 +161,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[Public]
+
+Hi all,
+
+This week this patchset was tested on 4 systems, two dGPU and two APU based=
+, and tested across multiple display and connection types.
+
+APU
+        * Single Display eDP -> 1080p 60hz, 2560x1600 120hz, 1920x1200 165h=
+z
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
+, 4k 240hz (Includes USB-C to DP/HDMI adapters)
+        * Thunderbolt -> LG Ultrafine 5k
+        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
+lays, HP Hook G2 with 2x 4k60hz displays
+        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
+ DP and 1x 4k60hz HDMI displays
+        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
+ion supported by the dongle of 4k 120hz YUV420 12bpc.
+        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
+he adapter of 4k 120hz RGB 8bpc.
+
+DGPU
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multiple Display DP -> 4k240hz + 4k144hz
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
+        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
+isplays)
+
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to)
+        * Changing display configurations and settings
+        * Video/Audio playback
+        * Benchmark testing
+        * Suspend/Resume testing
+        * Feature testing (Freesync, HDCP, etc.)
+
+Automated testing includes (but is not limited to)
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
+
+The testing is mainly tested on the following displays, but occasionally th=
+ere are tests with other displays
+        * Samsung G8 Neo 4k240hz
+        * Samsung QN55QN95B 4k 120hz
+        * Acer XV322QKKV 4k144hz
+        * HP U27 4k Wireless 4k60hz
+        * LG 27UD58B 4k60hz
+        * LG 32UN650WA 4k60hz
+        * LG Ultrafine 5k 5k60hz
+        * AU Optronics B140HAN01.1 1080p 60hz eDP
+        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
+        * AU Optronics B160QAN02.L 2560x1600 120hz eDP
+
+The patchset consists of the amd-staging-drm-next branch (Head commit - 001=
+b75cd258042a9c366f07e1718b510763752a3 -> drm/amd/display: DC v3.2.326) with=
+ new patches added on top of it.
+
+Tested on Ubuntu 24.04.1, on Wayland and X11, using KDE Plasma and Gnome.
+
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Thank you,
+
+Dan Wheeler
+Sr. Technologist  |  AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+Facebook |  Twitter |  amd.com
 
 
-On 3/31/25 10:31, Shengyu Qu wrote:
-> Sorry for vague expression. I mean that I think we shouldn't register 
-> DRM_PLANE_TYPE_CURSOR in the driver, as we don't have actual hardware 
-> support.
+-----Original Message-----
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Sent: Wednesday, March 26, 2025 3:49 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
+Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
+uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Mohamed, Zaeem <Zaeem.M=
+ohamed@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Wheeler, Daniel <Dan=
+iel.Wheeler@amd.com>; Hung, Alex <Alex.Hung@amd.com>; Zuo, Jerry <Jerry.Zuo=
+@amd.com>
+Subject: [PATCH 00/17] DC Patches Mar 24, 2024
 
-This is not true. AMD has hardware cursor support.
+Summary:
 
-> 
-> 在 2025/4/1 0:26, Alex Hung 写道:
->>
->>
->> On 3/31/25 10:12, Shengyu Qu wrote:
->>> So currently we have to hope the compositor won't use 
->>> DRM_PLANE_TYPE_CURSOR planes at all.... Why do we still register 
->>> DRM_PLANE_TYPE_CURSOR in the driver?
->>
->> I am not sure what your question is. A compositor can choose or skip 
->> any hardware features, but this discussion is out of the scope.
->>
->>>
->>> 在 2025/4/1 0:06, Alex Hung 写道:
->>>>
->>>>
->>>> On 3/31/25 09:43, Shengyu Qu wrote:
->>>>> Hi,
->>>>>
->>>>> Thanks for reply. So currently we have to apply color conversion on 
->>>>> the background plane of the cursor to do some color space 
->>>>> conversion. What would happen if cursor and background plane needs 
->>>>> different conversion config? Or we just give the cursor a dedicated 
->>>>> plane?
->>>>
->>>> This scenario is not supported on AMD hardware, but software cursors 
->>>> on other plane types won't be affected.
->>>>
->>>>>
->>>>> Best regards,
->>>>> Shengyu
->>>>>
->>>>> 在 2025/3/31 22:28, Alex Hung 写道:
->>>>>>
->>>>>>
->>>>>> On 3/30/25 06:59, Shengyu Qu wrote:
->>>>>>> Hi,
->>>>>>>
->>>>>>> Do we really need to disable cursor plane color pipeline support? 
->>>>>>> I don't think we need to disable that if it is supported, since 
->>>>>>> there might be some user-defined colored cursor icon.
->>>>>>
->>>>>> This patch applies to AMD hardware only: https:// 
->>>>>> elixir.bootlin.com/ linux/v6.13/source/Documentation/gpu/amdgpu/ 
->>>>>> display/mpo- overview.rst#L101
->>>>>>
->>>>>>>
->>>>>>> Best regards,
->>>>>>> Shengyu
->>>>>>>
->>>>>>> For some unknown reason, seems my mail is not shown in the mail 
->>>>>>> list archive, so I resent it.
->>>>>>>
->>>>>>> 在 2025/3/27 7:47, Alex Hung 写道:
->>>>>>>> cursor plane does not need to have color pipeline.
->>>>>>>>
->>>>>>>> Signed-off-by: Alex Hung <alex.hung@amd.com>
->>>>>>>> ---
->>>>>>>> v7:
->>>>>>>>   - Add a commit messages
->>>>>>>>
->>>>>>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 +++
->>>>>>>>   1 file changed, 3 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/ 
->>>>>>>> amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/ 
->>>>>>>> amdgpu_dm_plane.c
->>>>>>>> index 9632b8b73e7e..b5b9b0b5da63 100644
->>>>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>>>>>> @@ -1792,6 +1792,9 @@ dm_plane_init_colorops(struct drm_plane 
->>>>>>>> *plane)
->>>>>>>>       struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES];
->>>>>>>>       int len = 0;
->>>>>>>> +    if (plane->type == DRM_PLANE_TYPE_CURSOR)
->>>>>>>> +        return 0;
->>>>>>>> +
->>>>>>>>       /* Create COLOR_PIPELINE property and attach */
->>>>>>>>       drm_plane_create_color_pipeline_property(plane, pipelines, 
->>>>>>>> len);
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
-> 
+* Improve vrr for replay and psr
+* Rewrite drm debug message
+* Fix clock issues for dcn32 and dcn401
+* Fix mst dsc mode validation issue
+
+Aric Cyr (1):
+  drm/amd/display: Promote DAL to 3.2.327
+
+Aurabindo Pillai (6):
+  drm/amd/display: convert DRM_ERROR to drm_err in
+    hpd_rx_irq_create_workqueue()
+  drm/amd/display: use drm_err in hpd rx offload
+  drm/amd/display: use drm_err in create_validate_stream_for_sink()
+  drm/amd/display: convert more DRM_ERROR to drm_err
+  drm/amd/display: use drm_info instead of DRM_INFO
+  drm/amd/display: use drm_warn instead of DRM_WARN
+
+Austin Zheng (1):
+  drm/amd/display: Set ODM Factor Based On DML Architecture
+
+ChunTao Tso (1):
+  drm/amd/display: Add a Panel Replay config option
+
+Dillon Varone (4):
+  drm/amd/display: Consider downspread against max clocks in DML2.1
+  drm/amd/display: Add Support for reg inbox0 for host->DMUB CMDs
+  drm/amd/display: Fix VUpdate offset calculations for dcn401
+  drm/amd/display: Fix Vertical Interrupt definitions for dcn32, dcn401
+
+Fangzhi Zuo (1):
+  drm/amd/display: Do Not Consider DSC if Valid Config Not Found
+
+Joshua Aberback (1):
+  drm/amd/display: Use meaningful size for block_sequence array
+
+Robin Chen (1):
+  drm/amd/display: Enable Replay Low Hz feature flag
+
+Tom Chung (1):
+  drm/amd/display: Do not enable Replay and PSR while VRR is on in
+    amdgpu_dm_commit_planes()
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 296 ++++++++---------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   4 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   6 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  17 +-
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 185 ++++++-----
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_helper.c    |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   7 +-
+ .../gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c |   3 +-
+ .../gpu/drm/amd/display/dc/dce/dmub_replay.c  |  19 +-
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      |   6 +-
+ .../dml2/dml21/src/dml2_mcg/dml2_mcg_dcn4.c   |   4 +
+ .../src/inc/dml2_internal_shared_types.h      |   6 +
+ .../display/dc/dml2/dml2_dc_resource_mgmt.c   |  24 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  44 +++
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |   1 +
+ .../amd/display/dc/hwss/dcn401/dcn401_init.c  |   2 +-
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |   8 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 +-
+ .../display/dc/irq/dcn32/irq_service_dcn32.c  |  61 +++-
+ .../dc/irq/dcn401/irq_service_dcn401.c        |  60 +++-
+ drivers/gpu/drm/amd/display/dc/irq_types.h    |   9 +
+ .../display/dc/link/protocols/link_dp_dpia.c  |   1 +
+ .../link/protocols/link_edp_panel_control.c   |   3 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 132 +++++---
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   4 +
+ .../drm/amd/display/dmub/src/dmub_dcn401.c    | 121 ++++---
+ .../drm/amd/display/dmub/src/dmub_dcn401.h    |   4 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 297 ++++++++++++------
+ 31 files changed, 858 insertions(+), 478 deletions(-)
+
+--
+2.43.0
 
