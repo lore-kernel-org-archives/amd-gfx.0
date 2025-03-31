@@ -4,82 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 270AFC3600B
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 12:34:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B5EDC3600B
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 13:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A013C10E3F0;
-	Mon, 31 Mar 2025 12:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F306410E036;
+	Mon, 31 Mar 2025 13:01:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GGnFF8JM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jzE9K3yR";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F21E610E0A1;
- Mon, 31 Mar 2025 12:34:28 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-43cec5cd73bso28123755e9.3; 
- Mon, 31 Mar 2025 05:34:28 -0700 (PDT)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D305C10E036
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 13:01:56 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-5e8be1bdb7bso7277137a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 06:01:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743424467; x=1744029267; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8C1B/iAjfxZB5rM4ON16gPgb8RTIZjhmtB4Xg7w4JZc=;
- b=GGnFF8JMaAZGTrLA1WW5gaf9vizGujfol8A/disyOSSq8xp/9xI6JOYQ81fgdGOtzL
- ALUroHl0hCNwEWy1oLCvxk+iZQSHXh4rtfemKCmoSqSKskJuCA6hP4h7FFJ88UMAFnIV
- M6OI3i2jWCd7vHKot2mtRBTyOBWVua6CJpVVve9Um0E2/CIEYoo37i7WqEwmcrC45NwF
- j+n0usfXbhcZo8KdlG80J9PRxX65EbGZIrpDfElgLfXauiWKNBFNG6SluOlDktPtSPwJ
- xtq7zKDHaNea/dt1lW5qSqpC6Scz1/DytZZUqXO/Nj+4jweaqULgeBtubZ4RZSmGo0e0
- 3Bbg==
+ d=gmail.com; s=20230601; t=1743426115; x=1744030915; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=PyYV+6i1M742MKfW1g8R4e1vz5xYGl0MG2XdbLrX/Cg=;
+ b=jzE9K3yRaaVrUZa/Rw/foOsmm96bBDD+yXpdfv/Dh+yuZ0Jd0QHZYjB34YjMo3ieJK
+ c3//if/j2VrqYWQjR1uSKUW7Dqq4WqEQD6kR3UiFDA/Qlo6q0hsnDFrjk0ep06MnZ8hR
+ x+epWrsvPcvC8QU2Ihm1MGoh+xiyr3F3mQyX65Zp36RiwVCVWEeBi6WDPZm+MzzU9Egf
+ GN150z40AvD0+B6cb3t/G2yPJS/zK7NDj1tjQkqPPGLzAv5ZQR5J6T738iskioFjYNtu
+ okuaiF1IqYvbza/XWpqYWO2wwjiVwME9fI56l0I4Zb253czn9+jThh8ZxsPil9hUFilw
+ K+lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743424467; x=1744029267;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8C1B/iAjfxZB5rM4ON16gPgb8RTIZjhmtB4Xg7w4JZc=;
- b=GFZUo3MikgXeu2wx9w+llFcIqzVh7Zcq+FL03LJmYgaC40NcSGe9NScOgp6SI+YJgf
- 3YsrtAW4Ajv362DQypeyiQIatdB4GOdW08g0jCeeMzvIVp1CvVhKcWwTcOhuEqNkGzKN
- t4DltVAyWPgbTyLxuws6e4Z5TJwxh7DMgaMOWrEfPqHDRyWNM4OyjikHK/3pFHrTlU5R
- XRIWhGOgseXzYEp5RGqn+ngjSvbMVMz/Qj/r8ySOLmIHa983s8cgJ7s+YNThz54WeT3T
- fx/1+z/J12wkdoArw8LS5UazLgspTjN1YzbWBRgP872Cs7vAuu/EyCAnqi77JgAU3rNU
- uaDg==
+ d=1e100.net; s=20230601; t=1743426115; x=1744030915;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=PyYV+6i1M742MKfW1g8R4e1vz5xYGl0MG2XdbLrX/Cg=;
+ b=WXe+Mgc0YTAx4KNG2Q1LsAUlWo5ahmf0E5/IhqURfru24TFjMgWXYv3eVnYQEumQj6
+ BVoVtgIu+dwES5faB5LTl7i1dJrJflaaPMH7+bYxLjkYjgNgN01QaPRlnfUDCgdXQpWI
+ YDojtCHYXqmcrGYVsODr2BaCo8gQVn6VxalrD6/II91eO01NkNJxlFNnhkIbpcByGeof
+ uwGxeyM9BJjbCCfzdxU9aVZDsb/tgHMujxRT9Wn7u6W4doldpwcJ6dAHigJWJpYFaK8F
+ NgeCXDxKQGfo+A1Fkex2Em2tluYnHOxroum8b7hj+Kgz7P9QBsNIdlDJlT9lHUofzFht
+ XMEA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVjX1Q0doOurlgO8dPyFab18gbMhdMhH7j2Zlq0bDmXd2zHytR5wVlMM6cRd9bH8kVfHfxWOHbvRaM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxT1HFAgEStt3xI7q2t8tkoDaaN2QPQpb8qBdK4wUUvHa3q6B9S
- j/AFNq2Ek4J2AxZi5UfOPU661/UFbpGyKoY5CircFTp5dcgvdaiW
-X-Gm-Gg: ASbGncvdvpy6MKAk/PlZQEyiMP5ETu4Xf2Mz2MAG76vSBfL0lSzMxz81n4NOaQc1kwI
- zDS1LytCug38c0hUsyejCyN0RqLiiiIOf/GdzpO9f8WkF+I3TnwLiGgrifd2kW2o9wpjjFXkYZC
- F3kcj/AJriePtOR+rsl941/VuGFSrCanzIUaStJpQFNPdSOzEDcwgMTgkNioFduyGS5i8IvPcGN
- cjPv0WRs1SQtlJTrRRTrPHXDwcCC+E6j4N9eo4Ql92SJx0GxA4oUM4NAh26AuJf/fHLlT2zBrXq
- Ff7dN+G4Gw5Xqps3eRtPZ/u6xkjsCC/Kj7YnI9GCnDMGssUydGUPw1TGO2C1C8nIQ+bM8UwzJh6
- cOTi2uRio
-X-Google-Smtp-Source: AGHT+IEfunH6HBm1Y7PMm/0AssIfHy3J3Wc1+rqe+wHnYUK4e/iGLilXY3nFa6l/MWKO2U0EbJxUpw==
-X-Received: by 2002:a5d:59ae:0:b0:391:1139:2653 with SMTP id
- ffacd0b85a97d-39c1211d013mr7275853f8f.52.1743424467274; 
- Mon, 31 Mar 2025 05:34:27 -0700 (PDT)
-Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ AJvYcCUhdI3p771AaHBb4gtn3wWZ4xv/jw5HKkNDGBzN6nVSYumcTx3x6sJBVwYda7cSjotMuHaTfhMW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxZJvEwNe5omZ7IsBZfcAKTYeZv+oy02JIVuMWiA3DybdQpjYu
+ 4h7Hs8IxVMgL5Ki+FMxVXKy0WCpXPTr76Ag6fhdrL1bMCXblmeBU
+X-Gm-Gg: ASbGncu9TGV1dC6V6L0APPAQN3dlYH/lZAYdPurKcFxRwIdEZjEXlD2Kyq36j58002N
+ m3AGdaeSmxOnNpB+XTv4XA0IJY7TSrjEnUWITvGcaKmyPMZMOPquCHukaNsH8qBQq8/9Haj4Jai
+ gzdl/ijq2LORlSLDE3Q51FWdBUIe9ocZD2a2YDcNLybm5JReuRLp1sX6Gj2jMTG4vMkNaaon0aw
+ bZ0aT86qliiztnkSFvZOLyO0W2bX6J+3T9zj6fc/3HbotNX0l79H28LJiUSr+9RtgdfHdP9NWBL
+ YwHNGFJFJ1d+PeFTVrnzyN+U1aI9Jo8QJkWI/cpCLiV1E7rJWcsaPk4e4g==
+X-Google-Smtp-Source: AGHT+IHCOS5gnTUqLdd9JsHhwfKBKv/zX3tdhM8e/X6w+8OF0DiBT7FF3mBScJJhIFPNpoAQ6Wg3FQ==
+X-Received: by 2002:a05:6402:51ca:b0:5e5:4807:5441 with SMTP id
+ 4fb4d7f45d1cf-5edfdd16b01mr8817975a12.30.1743426114924; 
+ Mon, 31 Mar 2025 06:01:54 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1526:9900:4cdf:63ca:5640:79f6])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b79e393sm11326406f8f.72.2025.03.31.05.34.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Mar 2025 05:34:26 -0700 (PDT)
-Message-ID: <2a2e9a4c-b888-45e1-a191-847dd8e7cb9d@gmail.com>
-Date: Mon, 31 Mar 2025 14:34:22 +0200
+ 4fb4d7f45d1cf-5edc16ed61esm5598206a12.34.2025.03.31.06.01.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Mar 2025 06:01:54 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: srinivasan.shanmugam@amd.com,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: use a dummy owner for sysfs triggered cleaner
+ shaders
+Date: Mon, 31 Mar 2025 15:01:51 +0200
+Message-Id: <20250331130152.2342-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: replace use of msleep(<20) with
- usleep_range for better accuracy
-To: James Flowers <bold.zone2373@fastmail.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- aurabindo.pillai@amd.com, alex.hung@amd.com, skhan@linuxfoundation.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20250326070054.68355-1-bold.zone2373@fastmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20250326070054.68355-1-bold.zone2373@fastmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,33 +86,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.03.25 um 08:00 schrieb James Flowers:
-> msleep < 20ms will often sleep for ~20ms (according to Documentation/timers/timers-howto.rst).
+Otherwise triggering sysfs multiple times without other submissions in
+between only runs the shader once.
 
-Our display team has to decide but I don't think that this patch is justified.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-The time given to msleep is just the minimum time necessary for some HW action to take place. Waiting longer than that is usually not harmful except when you want to optimize total operation time.
-
-Regards,
-Christian.
-
->
-> Signed-off-by: James Flowers <bold.zone2373@fastmail.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 2cd35392e2da..2d225735602b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -682,7 +682,7 @@ static bool execute_synaptics_rc_command(struct drm_dp_aux *aux,
->  		if (rc_cmd == cmd)
->  			// active is 0
->  			break;
-> -		msleep(10);
-> +		usleep_range(10000, 10200);
->  	}
->  
->  	// read rc result
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index f64675b2ab75..9d81eeef61e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1439,6 +1439,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct drm_gpu_scheduler *sched = &ring->sched;
+ 	struct drm_sched_entity entity;
++	static atomic_t counter;
+ 	struct dma_fence *f;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+@@ -1452,9 +1453,9 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 		goto err;
+ 	}
+ 
+-	r = amdgpu_job_alloc_with_ib(ring->adev, &entity, NULL,
+-				     64, 0,
+-				     &job);
++	r = amdgpu_job_alloc_with_ib(ring->adev, &entity,
++				     (void *)(long)atomic_inc_return(&counter),
++				     64, 0, &job);
+ 	if (r)
+ 		goto err;
+ 
+-- 
+2.34.1
 
