@@ -4,77 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5286EC36010
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 13:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F056C3600B
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Mar 2025 13:23:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A86410E121;
-	Mon, 31 Mar 2025 13:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0F8610E418;
+	Mon, 31 Mar 2025 13:23:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L7HuTHxK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t/KMf7Ad";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2086C10E036
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 13:01:58 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-5efe8d9ebdfso1493025a12.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 06:01:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743426117; x=1744030917; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ptwsooYawCv1qPQk6h6711+LQgiatbFGaayfaDSJYu4=;
- b=L7HuTHxKRB30ERFVJJvizSOsMiNkSNQasSUXM4x+9sw5ubvckRU4u82Rao4NqJGGQy
- ykNz/KAFZrYHdWyml4tGt5iMK39uKrnsQgEULLze+o6jZWXWi0KqNEuWD4k8iFvrK3k8
- 6me912jFxCFCuwisMqb8LVgcUaFfFB9//Ml+XfZIHx8reKbxGsF6gqGQ0nrTDJcF6IXF
- Tcg5L533IavjbDeR06Oyqg7yV/gVuuXwmSY46RiWXzn9OGjdRpiEZCMVsg03s51U2eNe
- BqkSe6V1Q7fS7NwQ4WBGo6agDgrETuf7GfZr/xfZ1LI93eGdkdw74o7nJSDrkbZvKV8g
- B0mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743426117; x=1744030917;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ptwsooYawCv1qPQk6h6711+LQgiatbFGaayfaDSJYu4=;
- b=IkO+2LSgq5kMI3Vi9hEUN3kxoKiWlaFmM6NfVZB9J4CP8JQspXn5oJFv4+Li6gUr6E
- Gzv3DCY5f7XhLEOS9+BpPyQ3WdefjFK8NPjXIZG6WBq53xrmAiscECG17lOOtFql0yQc
- ILHH2zKqecfToMA+5lcJJPmakV3CENYOgaPSH7J/w2bQbm2skMO6dJWFTPWhfcocx8F3
- nuyNyapn/s+/vEI2eyldVX6a97yVtA6LnEGDG5sq/Dg1y1AZ/r1wMnxqiBQkoGxra/Fl
- E0fRLeFy8263ED/aIEZOa7cB8m0xT+5HlPJNZ9sIYq708sLhZrFYByKTnzyT74Sxq9DA
- DwNw==
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36B4310E418
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 13:23:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4AA7D44CB2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 13:23:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EEE9C4CEEB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 13:23:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1743427420;
+ bh=BNvLxh5zFpguHH6d2CpK/g7iaez1WKqjMuDikvk/WsE=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=t/KMf7AdlJOt6yO09WNRUYCsZ3Pg/d9as77b3kAXaKnYEqjsLo8zJ3dcYd/tW5K58
+ adbprGvchIGbgCsCH1UH3FuL32t2/DGULEWY/fbhbYWhFWu22hebNSo0ZDEWrnhqa1
+ /JnZ30HmAnK+1829u+jf/s+RBNs0+ZFtyAkg5iBLPovVsiUZvv6Y7YVWJkczF4XeeO
+ r9yY2JimDoJRBXB+aOHMlNkedEvj77RZmrgIGWBV/2LBHZ8D5bz0DsTR2cjQob1v/Q
+ a2t1sgLfv1ihcVaLEnO9Jh2N56BbXovPourDE1rjEski+PSMjBs4sMIjAmlKCUW5Qt
+ glp+T9G4+mQ/w==
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-6021e3daeabso2096001eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Mar 2025 06:23:40 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVToOn1qNc0j3q3i346drDX967pcEy7U9qOlyedfTFMi9+Rrdh3zvhQ8eie816JeDmJYYl5/CR+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNuBGt4S3zyXC3kcTBylDGNTtA2W+rl4wSiI2eRZkx0XD20ajF
- sN5dQ8HPvBEVwVtYWShcDDy7h+4xfWPA2cYUsiywd2KzxgjNCk+UOdGFgMoa
-X-Gm-Gg: ASbGncvrRxrChJVLWO/35vmNttPop9iKD35OmrBuh6ALTfdfSQHW2fTXM+dFFXOGhBb
- 621xygWMI92+uHD5KWPbz1J9DoqF5y/yDONmR/mv8ubpktNaD6wiPdXOMRsjnACeHIAbeCbialH
- LvTTo60HISK9lfEPma/PSWswN0b18rws4eIi9cdLO+S5oOLQhLStxG6wETRWQ53jE/p7bpzfnuq
- aXgvYeuTl+rOBlkOI3Ac980etBuRb77avEZTFF0EfXtvNrESJLH955iAXsre72sLHbSEY5VYDsW
- B0tr01yytV1aKIQ7hpS13Re9hoKq7WNN6kTxyBL+h3V/kK8SebN1kdXQ9w==
-X-Google-Smtp-Source: AGHT+IFC68Oq0GFMr7VMDqg5cd0vuddY944vgPW12yuLkApvzFkQXnlBaFN+nKe2A+RSIRy6dpsm6g==
-X-Received: by 2002:a05:6402:4403:b0:5e5:bcd6:4ad8 with SMTP id
- 4fb4d7f45d1cf-5edfce94945mr6705633a12.9.1743426115834; 
- Mon, 31 Mar 2025 06:01:55 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:1526:9900:4cdf:63ca:5640:79f6])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5edc16ed61esm5598206a12.34.2025.03.31.06.01.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Mar 2025 06:01:55 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: srinivasan.shanmugam@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: revert "always sync the GFX pipe on ctx
- switch"
-Date: Mon, 31 Mar 2025 15:01:52 +0200
-Message-Id: <20250331130152.2342-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250331130152.2342-1-christian.koenig@amd.com>
-References: <20250331130152.2342-1-christian.koenig@amd.com>
+ AJvYcCVTZoDH0JV4Z5bBAGfrcUwzESmbAz0zEetjoUS9g0qZWD0DXkh+eOJHHkbI3uk9hjANsGOcvFiF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxx9xks662Bus6WeoT7UyDNUmc5dsgm7aDnFVAs97DfYUZZmN16
+ /LsO3EoLuOpuOo+G3qNQaCJF+2R1xp5eWGesPzliHcFqNfvKsd5uuDoUoe7H8PHjGa2jhxoqmAd
+ cQejpiwT3R/Dr4fx1XubptVAlhr4=
+X-Google-Smtp-Source: AGHT+IFpjRAG9jxkdHVT1kiTjIYNaocNQRJBpnWXCk7BJLlLGdHW5Rg4gN7sPQ9eXfl0WvbDapdST+EC1XbE9rhVC70=
+X-Received: by 2002:a05:6870:610d:b0:2c2:519e:d9a9 with SMTP id
+ 586e51a60fabf-2cbcf765ef8mr5111966fac.24.1743427419888; Mon, 31 Mar 2025
+ 06:23:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <61c3df83ab73aba0bc7a941a443cd7faf4cf7fb0.1743195250.git.soyer@irl.hu>
+ <CAJZ5v0jBONZ7UFL0HCOV=7xmnUphL_UTV=_1PnYmR6n0oN4pcg@mail.gmail.com>
+ <d3dfe61a-1d4d-4aa6-870c-61249799e6da@redhat.com>
+In-Reply-To: <d3dfe61a-1d4d-4aa6-870c-61249799e6da@redhat.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Mon, 31 Mar 2025 15:23:28 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hy7ge+vPgNXzo89=qu7pP-tPgbjUPRHUMdwUnSTpVXQQ@mail.gmail.com>
+X-Gm-Features: AQ5f1Jq2qoSpp3qytZmIhGEF74CJIGeXYn3IZnod2sw1TIK9OOzCAOUj43B2Xj4
+Message-ID: <CAJZ5v0hy7ge+vPgNXzo89=qu7pP-tPgbjUPRHUMdwUnSTpVXQQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ACPI: video: Handle fetching EDID as ACPI_TYPE_PACKAGE
+To: Hans de Goede <hdegoede@redhat.com>, Gergo Koteles <soyer@irl.hu>
+Cc: Len Brown <lenb@kernel.org>, Alex Hung <alex.hung@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, linux-acpi@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,45 +75,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit c2cc3648ba517a6c270500b5447d5a1efdad5936.
+On Mon, Mar 31, 2025 at 3:04=E2=80=AFPM Hans de Goede <hdegoede@redhat.com>=
+ wrote:
+>
+> Hi,
+>
+> On 31-Mar-25 1:46 PM, Rafael J. Wysocki wrote:
+> > On Fri, Mar 28, 2025 at 10:09=E2=80=AFPM Gergo Koteles <soyer@irl.hu> w=
+rote:
+> >>
+> >> The _DDC method should return a buffer, or an integer in case of an er=
+ror.
+> >> But some Lenovo laptops incorrectly return EDID as buffer in ACPI pack=
+age.
+> >>
+> >> Calling _DDC generates this ACPI Warning:
+> >> ACPI Warning: \_SB.PCI0.GP17.VGA.LCD._DDC: Return type mismatch - \
+> >> found Package, expected Integer/Buffer (20240827/nspredef-254)
+> >>
+> >> Use the first element of the package to get the EDID buffer.
+> >>
+> >> The DSDT:
+> >>
+> >> Name (AUOP, Package (0x01)
+> >> {
+> >>         Buffer (0x80)
+> >>         {
+> >>         ...
+> >>         }
+> >> })
+> >>
+> >> ...
+> >>
+> >> Method (_DDC, 1, NotSerialized)  // _DDC: Display Data Current
+> >> {
+> >>         If ((PAID =3D=3D AUID))
+> >>         {
+> >>                 Return (AUOP) /* \_SB_.PCI0.GP17.VGA_.LCD_.AUOP */
+> >>         }
+> >>         ElseIf ((PAID =3D=3D IVID))
+> >>         {
+> >>                 Return (IVOP) /* \_SB_.PCI0.GP17.VGA_.LCD_.IVOP */
+> >>         }
+> >>         ElseIf ((PAID =3D=3D BOID))
+> >>         {
+> >>                 Return (BOEP) /* \_SB_.PCI0.GP17.VGA_.LCD_.BOEP */
+> >>         }
+> >>         ElseIf ((PAID =3D=3D SAID))
+> >>         {
+> >>                 Return (SUNG) /* \_SB_.PCI0.GP17.VGA_.LCD_.SUNG */
+> >>         }
+> >>
+> >>         Return (Zero)
+> >> }
+> >>
+> >> Link: https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/Apx_B_Video_Extens=
+ions/output-device-specific-methods.html#ddc-return-the-edid-for-this-devic=
+e
+> >> Cc: stable@vger.kernel.org
+> >> Fixes: c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if ava=
+ilable for eDP")
+> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4085
+> >> Signed-off-by: Gergo Koteles <soyer@irl.hu>
+> >> ---
+> >> Changes in v2:
+> >>  - Added comment
+> >>  - Improved commit message
+> >>  - Link to v1: https://lore.kernel.org/all/4cef341fdf7a0e877c50b502fc9=
+5ee8be28aa811.1743129387.git.soyer@irl.hu/
+> >
+> > Hans, any concerns here?
+>
+> No the patch looks good to me:
+>
+> Reviewed-by: Hans de Goede <hdegoede@redhat.com>
 
-Turned out that this has some negative consequences for some workloads.
-Instead check if the cleaner shader should run directly.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index 802743efa3b3..5eab1c1a380c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -191,8 +191,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 	need_ctx_switch = ring->current_ctx != fence_ctx;
- 	if (ring->funcs->emit_pipeline_sync && job &&
- 	    ((tmp = amdgpu_sync_get_fence(&job->explicit_sync)) ||
--	     need_ctx_switch || amdgpu_vm_need_pipeline_sync(ring, job))) {
--
-+	     (amdgpu_sriov_vf(adev) && need_ctx_switch) ||
-+	     amdgpu_vm_need_pipeline_sync(ring, job))) {
- 		need_pipe_sync = true;
- 
- 		if (tmp)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index b5ddfcbbc9fc..5f0f9e4beea9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -689,7 +689,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		patch = amdgpu_ring_init_cond_exec(ring,
- 						   ring->cond_exe_gpu_addr);
- 
--	if (need_pipe_sync)
-+	if (need_pipe_sync || cleaner_shader_needed)
- 		amdgpu_ring_emit_pipeline_sync(ring);
- 
- 	if (cleaner_shader_needed)
--- 
-2.34.1
-
+OK, applied as 6.15-rc material, thanks!
