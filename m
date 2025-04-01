@@ -4,69 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01FC7C3601C
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Apr 2025 14:10:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1143CC36010
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Apr 2025 14:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9937210E5E1;
-	Tue,  1 Apr 2025 14:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A80CE10E5BB;
+	Tue,  1 Apr 2025 14:11:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=crpt.ru header.i=@crpt.ru header.b="LiC1Hdl3";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="fTRZxvJO";
 	dkim-atps=neutral
-Received: from mail.crpt.ru (mail.crpt.ru [91.236.205.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87CCB10E3FD;
- Mon, 31 Mar 2025 13:18:53 +0000 (UTC)
-Received: from mail.crpt.ru ([192.168.60.4])
- by mail.crpt.ru  with ESMTP id 52VDIe9H015652-52VDIe9J015652
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=OK);
- Mon, 31 Mar 2025 16:18:40 +0300
-Received: from EX2.crpt.local (192.168.60.4) by ex2.crpt.local (192.168.60.4)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Mon, 31 Mar
- 2025 16:18:40 +0300
-Received: from EX2.crpt.local ([192.168.60.4]) by EX2.crpt.local
- ([192.168.60.4]) with mapi id 15.01.2507.044; Mon, 31 Mar 2025 16:18:40 +0300
-From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
- <a.vatoropin@crpt.ru>
-To: Felix Kuehling <Felix.Kuehling@amd.com>
-CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
- <a.vatoropin@crpt.ru>, Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>
-Subject: [PATCH v2] drm/amdkfd: Change svm_range_get_info return type
-Thread-Topic: [PATCH v2] drm/amdkfd: Change svm_range_get_info return type
-Thread-Index: AQHboj9r5RaSSHXkwUiCl2J/gxqZZA==
-Date: Mon, 31 Mar 2025 13:18:40 +0000
-Message-ID: <20250331131833.68281-1-a.vatoropin@crpt.ru>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.200.60.21]
-x-kse-serverinfo: EX2.crpt.local, 9
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: Clean, bases: 3/31/2025 10:37:00 AM
-x-kse-attachment-filter-triggered-rules: Clean
-x-kse-attachment-filter-triggered-filters: Clean
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D92510E0F2;
+ Tue,  1 Apr 2025 14:11:15 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4ZRqfl4vDPz9v2D;
+ Tue,  1 Apr 2025 16:11:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1743516671;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UWO4IkTvj6t5QznUa6gZEHXmK1+yMQe07LiOKe2edaI=;
+ b=fTRZxvJOZg7fHaj4Wt4vzlS2WpArNGITZjTEEdY50nRTbZdPFNDzGwvTD8XSPVaFx7WDD0
+ huF0Cmnw9jc+aOBEsdatvA6goeuYLVymNo/EdZb5cS6FsVZbs0VBs5dSlNtL6fVkTcJmDN
+ CIF7PqV22Yr0kn/kV45dhevgBUGKjUr+TJ+2TzaUpsudUJ1nFkBnYJ86SB513zEhztHHTJ
+ Xfe07BZqGUSc924643g3MoovdjHFJwJH00K1w9l4w9wrL7X5l4ns24lM8Mw30v24Y27E0b
+ tVmqQBFRVgElTPLZjxTz6VjOqW0VUrNB14nvM9oYDvw0zbEzPP+YkO2NfcopsA==
+Message-ID: <fd0440ba-1a34-4cad-9e89-701dec7673b4@mailbox.org>
+Date: Tue, 1 Apr 2025 16:11:04 +0200
 MIME-Version: 1.0
-X-FEAS-Client-IP: 192.168.60.4
-X-FE-Policy-ID: 2:4:0:SYSTEM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
- c=relaxed/relaxed; 
- h=from:to:cc:subject:date:message-id:content-type:mime-version;
- bh=9lIdQkQX9NhVijtsyv+5cMKTdPnXRz7repYBlxwakX8=;
- b=LiC1Hdl3sEbAIU8+QDpAgP2xVY6l+ZTuywyeWuN4SfvZddDQyRoEUXv8H34ohMw2n3K9vdZTQlO6
- ZRW9oIwm9w1xqP85vFQ/9eeKU+htI2Awt9sZ3sIbbHHc9HHYrmGr1GCu6Rle8c4FHsS1t6JWEDF/
- RvaAN+zVM06KPAtHHKVUXF9qqBkVk81u58RH/u92KUpKYBKZEvqTk7oFEFvXMBkdZltT8yHHQQhQ
- dedUoSlQQ7G84w7skqTlbFm0DgTG1njR6qaqiwXpT+TjhoJ5b2F/hAMZ1x4Nnz9V6ZV/fTWURXTd
- jYeGTkHOBRQwKQbhAg5okbZra7dbJDp/3Yqe8Q==
-X-Mailman-Approved-At: Tue, 01 Apr 2025 14:10:13 +0000
+Subject: Re: [PATCH V8 24/43] drm/amd/display: Skip color pipeline
+ initialization for cursor plane
+To: Shengyu Qu <wiagn233@outlook.com>, Alex Hung <alex.hung@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com,
+ pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, aleixpol@kde.org, xaver.hugl@gmail.com,
+ victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
+ quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
+ marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
+References: <20250326234748.2982010-1-alex.hung@amd.com>
+ <20250326234748.2982010-25-alex.hung@amd.com>
+ <TYCPR01MB8437BA1D5FFC25AE63F731D198A22@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <0add5ab1-0717-42a8-8994-a381b635040b@amd.com>
+ <TYCPR01MB8437ADBCD38143B223E9384A98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <9984f8e4-3f24-49d0-a7be-4f746dfbb4cc@amd.com>
+ <TYCPR01MB8437D229F3DFFA7CA6CA02D198AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <a6489110-4e76-4977-a0d5-586e3b99ab0e@amd.com>
+ <TYCPR01MB843722301025CE5047BCFA2898AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <e6bac4d3-d445-48d6-8121-39895a09ccff@amd.com>
+ <TYCPR01MB84372C5EFC66F7CC9259FBBE98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <TYCPR01MB843757F4E7BFF224712BD68F98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <5eac0bab-60c2-4e94-9ab2-bad5f451c8c9@amd.com>
+ <63d2a14e-759f-44b6-99b4-de42b8d6b1e0@mailbox.org>
+ <TYCPR01MB8437C142C860FA03F06B5E6998AC2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <TYCPR01MB8437C142C860FA03F06B5E6998AC2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 66f552388c84b4d4a59
+X-MBO-RS-META: t93rft34tqkqyyekdk69x3gmz7bc1iz5
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,78 +86,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KU3RhdGljIGFu
-YWx5c2lzIHNob3dzIHRoYXQgcG9pbnRlciAic3ZtcyIgY2Fubm90IGJlIE5VTEwgYmVjYXVzZSBp
-dCBwb2ludHMNCnRvIHRoZSBvYmplY3QgInN0cnVjdCBzdm1fcmFuZ2VfbGlzdCIuIFJlbW92ZSB0
-aGUgZXh0cmEgTlVMTCBjaGVjay4gSXQgaXMNCm1lYW5pbmdsZXNzIGFuZCBoYXJtcyB0aGUgcmVh
-ZGFiaWxpdHkgb2YgdGhlIGNvZGUuDQoNCkluIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2lu
-Zm8oKSB0aGVyZSBpcyBubyBwb3NzaWJpbGl0eSBvZiBmYWlsdXJlLg0KVGhlcmVmb3JlLCB0aGUg
-Y2FsbGVyIG9mIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2luZm8oKSBkb2VzIG5vdCBuZWVk
-DQphIHJldHVybiB2YWx1ZS4gQ2hhbmdlIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2luZm8o
-KSByZXR1cm4gdHlwZSBmcm9tDQoiaW50IiB0byAidm9pZCIuIA0KDQpTaW5jZSB0aGUgZnVuY3Rp
-b24gc3ZtX3JhbmdlX2dldF9pbmZvKCkgaGFzIGEgcmV0dXJuIHR5cGUgb2YgInZvaWQiLiBUaGUN
-CmNhbGxlciBvZiB0aGUgZnVuY3Rpb24gc3ZtX3JhbmdlX2dldF9pbmZvKCkgZG9lcyBub3QgbmVl
-ZCBhIHJldHVybiB2YWx1ZS4NCkRlbGV0ZSBleHRyYSBjb2RlLg0KDQpGb3VuZCBieSBMaW51eCBW
-ZXJpZmljYXRpb24gQ2VudGVyIChsaW51eHRlc3Rpbmcub3JnKSB3aXRoIFNWQUNFLg0KDQpTaWdu
-ZWQtb2ZmLWJ5OiBBbmRyZXkgVmF0b3JvcGluIDxhLnZhdG9yb3BpbkBjcnB0LnJ1Pg0KLS0tDQp2
-MSAtPiB2MjogYWxzbyBjaGFuZ2UgcmV0dXJuIHR5cGUgb2Ygc3ZtX3JhbmdlX2dldF9pbmZvKCkg
-cGVyIEZlbGl4IEt1ZWhsaW5nIHN1Z2dlc3Rpb24NCg0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9jaGFyZGV2LmMgfCAgNCArLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
-a2ZkX3N2bS5jICAgICB8ICA3ICsrLS0tLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
-ZmRfc3ZtLmggICAgIHwgMTEgKysrKystLS0tLS0NCiAzIGZpbGVzIGNoYW5nZWQsIDggaW5zZXJ0
-aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X2NoYXJkZXYuYw0KaW5kZXggMWU5ZGQwMDYyMGJmLi5hMjE0OWFmYTU4MDMgMTAwNjQ0DQotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQorKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQpAQCAtMjAzOSw5ICsyMDM5LDcgQEAg
-c3RhdGljIGludCBjcml1X2dldF9wcm9jZXNzX29iamVjdF9pbmZvKHN0cnVjdCBrZmRfcHJvY2Vz
-cyAqcCwNCiANCiAJbnVtX2V2ZW50cyA9IGtmZF9nZXRfbnVtX2V2ZW50cyhwKTsNCiANCi0JcmV0
-ID0gc3ZtX3JhbmdlX2dldF9pbmZvKHAsICZudW1fc3ZtX3JhbmdlcywgJnN2bV9wcml2X2RhdGFf
-c2l6ZSk7DQotCWlmIChyZXQpDQotCQlyZXR1cm4gcmV0Ow0KKwlzdm1fcmFuZ2VfZ2V0X2luZm8o
-cCwgJm51bV9zdm1fcmFuZ2VzLCAmc3ZtX3ByaXZfZGF0YV9zaXplKTsNCiANCiAJKm51bV9vYmpl
-Y3RzID0gbnVtX3F1ZXVlcyArIG51bV9ldmVudHMgKyBudW1fc3ZtX3JhbmdlczsNCiANCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmMNCmluZGV4IDEwMDcxN2E5OGVjMS4uMWI3ZDU3YTFi
-MjQ1IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5jDQor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmMNCkBAIC00MDc2LDggKzQw
-NzYsOCBAQCBpbnQga2ZkX2NyaXVfcmVzdG9yZV9zdm0oc3RydWN0IGtmZF9wcm9jZXNzICpwLA0K
-IAlyZXR1cm4gcmV0Ow0KIH0NCiANCi1pbnQgc3ZtX3JhbmdlX2dldF9pbmZvKHN0cnVjdCBrZmRf
-cHJvY2VzcyAqcCwgdWludDMyX3QgKm51bV9zdm1fcmFuZ2VzLA0KLQkJICAgICAgIHVpbnQ2NF90
-ICpzdm1fcHJpdl9kYXRhX3NpemUpDQordm9pZCBzdm1fcmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtm
-ZF9wcm9jZXNzICpwLCB1aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMsDQorCQkJdWludDY0X3QgKnN2
-bV9wcml2X2RhdGFfc2l6ZSkNCiB7DQogCXVpbnQ2NF90IHRvdGFsX3NpemUsIGFjY2Vzc2liaWxp
-dHlfc2l6ZSwgY29tbW9uX2F0dHJfc2l6ZTsNCiAJaW50IG5hdHRyX2NvbW1vbiA9IDQsIG5hdHRy
-X2FjY2Vzc2liaWxpdHkgPSAxOw0KQEAgLTQwODksOCArNDA4OSw2IEBAIGludCBzdm1fcmFuZ2Vf
-Z2V0X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpwLCB1aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMs
-DQogCSpzdm1fcHJpdl9kYXRhX3NpemUgPSAwOw0KIA0KIAlzdm1zID0gJnAtPnN2bXM7DQotCWlm
-ICghc3ZtcykNCi0JCXJldHVybiAtRUlOVkFMOw0KIA0KIAltdXRleF9sb2NrKCZzdm1zLT5sb2Nr
-KTsNCiAJbGlzdF9mb3JfZWFjaF9lbnRyeShwcmFuZ2UsICZzdm1zLT5saXN0LCBsaXN0KSB7DQpA
-QCAtNDEzMiw3ICs0MTMwLDYgQEAgaW50IHN2bV9yYW5nZV9nZXRfaW5mbyhzdHJ1Y3Qga2ZkX3By
-b2Nlc3MgKnAsIHVpbnQzMl90ICpudW1fc3ZtX3JhbmdlcywNCiANCiAJcHJfZGVidWcoIm51bV9z
-dm1fcmFuZ2VzICV1IHRvdGFsX3ByaXZfc2l6ZSAlbGx1XG4iLCAqbnVtX3N2bV9yYW5nZXMsDQog
-CQkgKnN2bV9wcml2X2RhdGFfc2l6ZSk7DQotCXJldHVybiAwOw0KIH0NCiANCiBpbnQga2ZkX2Ny
-aXVfY2hlY2twb2ludF9zdm0oc3RydWN0IGtmZF9wcm9jZXNzICpwLA0KZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9zdm0uaA0KaW5kZXggNmVhMjNjNzgwMDljLi4wMWM3YTQ4Nzc5MDQgMTAwNjQ0
-DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmgNCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uaA0KQEAgLTE4NCw4ICsxODQsOCBAQCB2b2lk
-IHNjaGVkdWxlX2RlZmVycmVkX2xpc3Rfd29yayhzdHJ1Y3Qgc3ZtX3JhbmdlX2xpc3QgKnN2bXMp
-Ow0KIHZvaWQgc3ZtX3JhbmdlX2RtYV91bm1hcF9kZXYoc3RydWN0IGRldmljZSAqZGV2LCBkbWFf
-YWRkcl90ICpkbWFfYWRkciwNCiAJCQkgdW5zaWduZWQgbG9uZyBvZmZzZXQsIHVuc2lnbmVkIGxv
-bmcgbnBhZ2VzKTsNCiB2b2lkIHN2bV9yYW5nZV9kbWFfdW5tYXAoc3RydWN0IHN2bV9yYW5nZSAq
-cHJhbmdlKTsNCi1pbnQgc3ZtX3JhbmdlX2dldF9pbmZvKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwg
-dWludDMyX3QgKm51bV9zdm1fcmFuZ2VzLA0KLQkJICAgICAgIHVpbnQ2NF90ICpzdm1fcHJpdl9k
-YXRhX3NpemUpOw0KK3ZvaWQgc3ZtX3JhbmdlX2dldF9pbmZvKHN0cnVjdCBrZmRfcHJvY2VzcyAq
-cCwgdWludDMyX3QgKm51bV9zdm1fcmFuZ2VzLA0KKwkJCXVpbnQ2NF90ICpzdm1fcHJpdl9kYXRh
-X3NpemUpOw0KIGludCBrZmRfY3JpdV9jaGVja3BvaW50X3N2bShzdHJ1Y3Qga2ZkX3Byb2Nlc3Mg
-KnAsDQogCQkJICAgIHVpbnQ4X3QgX191c2VyICp1c2VyX3ByaXZfZGF0YSwNCiAJCQkgICAgdWlu
-dDY0X3QgKnByaXZfb2Zmc2V0KTsNCkBAIC0yMzcsMTMgKzIzNywxMiBAQCBzdGF0aWMgaW5saW5l
-IGludCBzdm1fcmFuZ2Vfc2NoZWR1bGVfZXZpY3Rfc3ZtX2JvKA0KIAlyZXR1cm4gLUVJTlZBTDsN
-CiB9DQogDQotc3RhdGljIGlubGluZSBpbnQgc3ZtX3JhbmdlX2dldF9pbmZvKHN0cnVjdCBrZmRf
-cHJvY2VzcyAqcCwNCi0JCQkJICAgICB1aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMsDQotCQkJCSAg
-ICAgdWludDY0X3QgKnN2bV9wcml2X2RhdGFfc2l6ZSkNCitzdGF0aWMgaW5saW5lIHZvaWQgc3Zt
-X3JhbmdlX2dldF9pbmZvKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwNCisJCQkJICAgICAgdWludDMy
-X3QgKm51bV9zdm1fcmFuZ2VzLA0KKwkJCQkgICAgICB1aW50NjRfdCAqc3ZtX3ByaXZfZGF0YV9z
-aXplKQ0KIHsNCiAJKm51bV9zdm1fcmFuZ2VzID0gMDsNCiAJKnN2bV9wcml2X2RhdGFfc2l6ZSA9
-IDA7DQotCXJldHVybiAwOw0KIH0NCiANCiBzdGF0aWMgaW5saW5lIGludCBrZmRfY3JpdV9jaGVj
-a3BvaW50X3N2bShzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAsDQotLSANCjIuNDMuMA0K
+On 2025-04-01 14:32, Shengyu Qu wrote:
+> 在 2025/4/1 17:56, Michel Dänzer 写道:
+>> On 2025-03-31 19:42, Alex Hung wrote:
+>>> On 3/31/25 11:04, Shengyu Qu wrote:
+>>>> Or we can add some kind of "linked with" info to plane's COLOR_PIPELINE property, to let userspace know that cursor plane and background plane share the same colorop config. So that userspace could do extra conversion on cursor image data to avoid display wrong cursor color.
+>>>
+>>> That's over-complicate and makes little sense for both device drivers and userspace applications.
+>>>
+>>> If any planes share same colorop config, a device driver exposes the same color pipeline with the same colorops.
+>>>
+>>> If a plane does not support color pipeline or a driver doesn't want to support it, there is no color pipeline and no color objects.
+>>
+>> I suspect using the cursor plane is generally higher priority for Wayland compositors than using overlay planes, because the former is critical for a responsive user experience.
+>>
+>> This requires that the amdgpu DC driver backs the cursor plane with a dedicated HW plane though (as it's already doing in some cases), to either fully support color pipelines for the cursor plane, or at least provide proper "no color pipeline" behaviour for it. Letting the effective behaviour be determined by the other planes which happen to be behind the cursor plane isn't usable for Wayland compositors.
+> Current behavior is just disable colorop for both background plane and cursor plane. 
+
+Are you saying the color pipeline is implicitly disabled for any KMS planes which happen to be overlapped by the cursor plane?
+
+That sounds like a no go.
+
+
+> I'm not sure how much planes does the hardware support, but if there are too less planes to use, maybe we still need to make use of the cursor background plane in the compositor.
+
+If the HW has too few planes to allow both the cursor & overlay planes to work correctly (regardless of their dimensions), the driver should not allow enabling both kinds of planes at the same time.
+
+
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
