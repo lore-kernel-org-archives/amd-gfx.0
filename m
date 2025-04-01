@@ -4,59 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8280BC36014
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Apr 2025 09:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD223C36014
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Apr 2025 10:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22F7210E527;
-	Tue,  1 Apr 2025 09:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6302710E553;
+	Tue,  1 Apr 2025 10:05:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hzZhNNUu";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="YhQnbN3P";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A15CE10E527;
- Tue,  1 Apr 2025 09:18:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1743499133; x=1775035133;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=S3+pOJoUuUOEkrcjFFOuXEmEJU8uMeYFcgKG22k7/t4=;
- b=hzZhNNUut3c3m6CrUwZNz0IBkE0RLrrQH89zBXUFV/y46QzaM7m98oQg
- zoGG4B1hxshIlYJfxi7HOXSulZhdc9W73j1/V3x7toAP6/cCbvEiQGacE
- 4fE4G1NyzrFEG9Vm/bG/NxrUgut5BHcPrhX2V7tdaUP/pAUYT5ZOkNJ2R
- L7U6H/pKi58YzhqhhmiUhLLqrwStgyD5CCi2pq1ecBNxT1B4ch4rhx4NY
- 75kl4ANQcNXSGGwzBfA5FurhBM2i0JNRKcpY6R11XBFGuObMDL6UAuhh/
- S4FcxhH3VMBbNPbyXYkIozd9r3cHtRASAzyIo9wX5KFK5nqA+t7Ol8rpU g==;
-X-CSE-ConnectionGUID: mPcfZ8qfSgqEOYpA6jjbSA==
-X-CSE-MsgGUID: aQCzSERRTxaCjGN1rg8pbw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11390"; a="43960438"
-X-IronPort-AV: E=Sophos;i="6.14,293,1736841600"; d="scan'208";a="43960438"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2025 02:18:53 -0700
-X-CSE-ConnectionGUID: l62pIIDVTpKQjS29hPejPw==
-X-CSE-MsgGUID: h1upR25NRkGMXNeVbsnwTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,293,1736841600"; d="scan'208";a="131541390"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.7])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2025 02:18:49 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, stable@vger.kernel.org
-Cc: Wayne Lin <Wayne.Lin@amd.com>, Jerry Zuo <jerry.zuo@amd.com>, Zaeem
- Mohamed <zaeem.mohamed@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- cascardo@igalia.com, imre.deak@intel.com
-Subject: Re: [PATCH 6.12] drm/amd/display: Don't write DP_MSTM_CTRL after LT
-In-Reply-To: <20250331145819.682274-1-cascardo@igalia.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250331145819.682274-1-cascardo@igalia.com>
-Date: Tue, 01 Apr 2025 12:18:46 +0300
-Message-ID: <87zfh02qa1.fsf@intel.com>
+X-Greylist: delayed 545 seconds by postgrey-1.36 at gabe;
+ Tue, 01 Apr 2025 10:05:25 UTC
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7678810E550;
+ Tue,  1 Apr 2025 10:05:25 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4ZRk0W3nTNz9stJ;
+ Tue,  1 Apr 2025 11:56:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1743501371;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iBt5tLaDB2fSpMRs+SjOGds3Pi+iDzfHllCKkb+bv34=;
+ b=YhQnbN3PAoOdKjtc1SsMpjZiRwPmSBIOQY5hlGhP7eMYUvk4VZJERGj3/Nh7G5HqU+yL1K
+ b3Zho/v5pn/alIt+h2Fw9Bzepd0TX4m+GUMvNCPPeADDMyyK1EjygOfZ0DfAJbHtQNk8PI
+ BSBa5XPguGXWiPF02OD97bW47R2VB5Vk3SUrovPEQboDkTIDJcHAOmRC7n9TgBcCNkFFuX
+ Z+LD6wwJ+KF/C2+ACftNktvLBM9loar+MpAjjQuhLa/kf3kpqcY1I/FMGRq50Bw2CgAUiG
+ oWnMVE/bxZKbqxwIYEGtpOVDDU18xKRgSq1wBVMURq0vMwgqxNozP3xmzAaY4w==
+Message-ID: <63d2a14e-759f-44b6-99b4-de42b8d6b1e0@mailbox.org>
+Date: Tue, 1 Apr 2025 11:56:04 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: Re: [PATCH V8 24/43] drm/amd/display: Skip color pipeline
+ initialization for cursor plane
+To: Alex Hung <alex.hung@amd.com>, Shengyu Qu <wiagn233@outlook.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com,
+ pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, aleixpol@kde.org, xaver.hugl@gmail.com,
+ victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
+ quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
+ marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
+References: <20250326234748.2982010-1-alex.hung@amd.com>
+ <20250326234748.2982010-25-alex.hung@amd.com>
+ <TYCPR01MB8437BA1D5FFC25AE63F731D198A22@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <0add5ab1-0717-42a8-8994-a381b635040b@amd.com>
+ <TYCPR01MB8437ADBCD38143B223E9384A98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <9984f8e4-3f24-49d0-a7be-4f746dfbb4cc@amd.com>
+ <TYCPR01MB8437D229F3DFFA7CA6CA02D198AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <a6489110-4e76-4977-a0d5-586e3b99ab0e@amd.com>
+ <TYCPR01MB843722301025CE5047BCFA2898AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <e6bac4d3-d445-48d6-8121-39895a09ccff@amd.com>
+ <TYCPR01MB84372C5EFC66F7CC9259FBBE98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <TYCPR01MB843757F4E7BFF224712BD68F98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
+ <5eac0bab-60c2-4e94-9ab2-bad5f451c8c9@amd.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <5eac0bab-60c2-4e94-9ab2-bad5f451c8c9@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: esnz54tjxhrx3qh6pkmczao1sn49dmoh
+X-MBO-RS-ID: 8d68b9ceeb8fe02e7ed
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,83 +85,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 31 Mar 2025, Thadeu Lima de Souza Cascardo <cascardo@igalia.com> wrote:
-> From: Wayne Lin <Wayne.Lin@amd.com>
->
-> [ Upstream commit bc068194f548ef1f230d96c4398046bf59165992 ]
->
-> [Why]
-> Observe after suspend/resme, we can't light up mst monitors under specific
-> mst hub.
+On 2025-03-31 19:42, Alex Hung wrote:
+> On 3/31/25 11:04, Shengyu Qu wrote:
+>> Or we can add some kind of "linked with" info to plane's COLOR_PIPELINE property, to let userspace know that cursor plane and background plane share the same colorop config. So that userspace could do extra conversion on cursor image data to avoid display wrong cursor color.
+> 
+> That's over-complicate and makes little sense for both device drivers and userspace applications.
+> 
+> If any planes share same colorop config, a device driver exposes the same color pipeline with the same colorops.
+> 
+> If a plane does not support color pipeline or a driver doesn't want to support it, there is no color pipeline and no color objects.
 
-This is already at stable backport stage, but it would really be helpful
-to log *which* specific mst hub we're talking about here. Now the
-information is lost in time, at least to outsiders.
+I suspect using the cursor plane is generally higher priority for Wayland compositors than using overlay planes, because the former is critical for a responsive user experience.
 
-BR,
-Jani.
+This requires that the amdgpu DC driver backs the cursor plane with a dedicated HW plane though (as it's already doing in some cases), to either fully support color pipelines for the cursor plane, or at least provide proper "no color pipeline" behaviour for it. Letting the effective behaviour be determined by the other planes which happen to be behind the cursor plane isn't usable for Wayland compositors.
 
-
-
-> The reason is that driver still writes DPCD DP_MSTM_CTRL after LT.
-> It's forbidden even we write the same value for that dpcd register.
->
-> [How]
-> We already resume the mst branch device dpcd settings during
-> resume_mst_branch_status(). Leverage drm_dp_mst_topology_queue_probe() to
-> only probe the topology, not calling drm_dp_mst_topology_mgr_resume() which
-> will set DP_MSTM_CTRL as well.
->
-> Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
-> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-> Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
-> Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++------------
->  1 file changed, 4 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index d9a3917d207e..c4c6538eabae 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3231,8 +3231,7 @@ static int dm_resume(void *handle)
->  	struct dm_atomic_state *dm_state = to_dm_atomic_state(dm->atomic_obj.state);
->  	enum dc_connection_type new_connection_type = dc_connection_none;
->  	struct dc_state *dc_state;
-> -	int i, r, j, ret;
-> -	bool need_hotplug = false;
-> +	int i, r, j;
->  	struct dc_commit_streams_params commit_params = {};
->  
->  	if (dm->dc->caps.ips_support) {
-> @@ -3427,23 +3426,16 @@ static int dm_resume(void *handle)
->  		    aconnector->mst_root)
->  			continue;
->  
-> -		ret = drm_dp_mst_topology_mgr_resume(&aconnector->mst_mgr, true);
-> -
-> -		if (ret < 0) {
-> -			dm_helpers_dp_mst_stop_top_mgr(aconnector->dc_link->ctx,
-> -					aconnector->dc_link);
-> -			need_hotplug = true;
-> -		}
-> +		drm_dp_mst_topology_queue_probe(&aconnector->mst_mgr);
->  	}
->  	drm_connector_list_iter_end(&iter);
->  
-> -	if (need_hotplug)
-> -		drm_kms_helper_hotplug_event(ddev);
-> -
->  	amdgpu_dm_irq_resume_late(adev);
->  
->  	amdgpu_dm_smu_write_watermarks_table(adev);
->  
-> +	drm_kms_helper_hotplug_event(ddev);
-> +
->  	return 0;
->  }
 
 -- 
-Jani Nikula, Intel
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
