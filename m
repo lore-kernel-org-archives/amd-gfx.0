@@ -4,74 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1143CC36010
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Apr 2025 14:11:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47546C36018
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Apr 2025 14:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A80CE10E5BB;
-	Tue,  1 Apr 2025 14:11:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 164FD10E5F2;
+	Tue,  1 Apr 2025 14:59:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="fTRZxvJO";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Vt60qDLK";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D92510E0F2;
- Tue,  1 Apr 2025 14:11:15 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4ZRqfl4vDPz9v2D;
- Tue,  1 Apr 2025 16:11:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1743516671;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UWO4IkTvj6t5QznUa6gZEHXmK1+yMQe07LiOKe2edaI=;
- b=fTRZxvJOZg7fHaj4Wt4vzlS2WpArNGITZjTEEdY50nRTbZdPFNDzGwvTD8XSPVaFx7WDD0
- huF0Cmnw9jc+aOBEsdatvA6goeuYLVymNo/EdZb5cS6FsVZbs0VBs5dSlNtL6fVkTcJmDN
- CIF7PqV22Yr0kn/kV45dhevgBUGKjUr+TJ+2TzaUpsudUJ1nFkBnYJ86SB513zEhztHHTJ
- Xfe07BZqGUSc924643g3MoovdjHFJwJH00K1w9l4w9wrL7X5l4ns24lM8Mw30v24Y27E0b
- tVmqQBFRVgElTPLZjxTz6VjOqW0VUrNB14nvM9oYDvw0zbEzPP+YkO2NfcopsA==
-Message-ID: <fd0440ba-1a34-4cad-9e89-701dec7673b4@mailbox.org>
-Date: Tue, 1 Apr 2025 16:11:04 +0200
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA5710E5FD;
+ Tue,  1 Apr 2025 14:59:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Dz4AjBZl0FeY67rC7WIKCKabLEHdUSe+H9IOtc9JH2s=; b=Vt60qDLKSAn1NOAbU28KBaJ8e8
+ MvR9A/Qqpv0c1V8s4hTpsmsO+1fDszm0aXEoOyFV58b0ha97OU0oenzbKU1Y+nEi8tDPpFpE1wZqO
+ 8QXLwy/cBeOsPZWi5m61WoPmERo1PAwCsTJ/XkLzy32xQw+DQV8GK0IA5v4efm7fwZ40TMg86bJrn
+ HF9NARq/mwuOnVlCl3zQ32OYt+DsQiXB9AEKSuJ6XIQlKbVK9JKvB55/khqE50uI7O8o7GRIrx7dk
+ M0W0vKLeujpvBx6nsymG9uRUnVC06s7Gc6Okoqj1bQ3zNhKGvzT/5dvEmKYtK5qoyx3IDZ7E11Ivf
+ Pxoym+1w==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tzd5a-009r7m-Oj; Tue, 01 Apr 2025 16:59:42 +0200
+Message-ID: <030635b9-d491-4e54-92dc-072e35b47e64@igalia.com>
+Date: Tue, 1 Apr 2025 15:59:42 +0100
 MIME-Version: 1.0
-Subject: Re: [PATCH V8 24/43] drm/amd/display: Skip color pipeline
- initialization for cursor plane
-To: Shengyu Qu <wiagn233@outlook.com>, Alex Hung <alex.hung@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, aleixpol@kde.org, xaver.hugl@gmail.com,
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-25-alex.hung@amd.com>
- <TYCPR01MB8437BA1D5FFC25AE63F731D198A22@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <0add5ab1-0717-42a8-8994-a381b635040b@amd.com>
- <TYCPR01MB8437ADBCD38143B223E9384A98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <9984f8e4-3f24-49d0-a7be-4f746dfbb4cc@amd.com>
- <TYCPR01MB8437D229F3DFFA7CA6CA02D198AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <a6489110-4e76-4977-a0d5-586e3b99ab0e@amd.com>
- <TYCPR01MB843722301025CE5047BCFA2898AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <e6bac4d3-d445-48d6-8121-39895a09ccff@amd.com>
- <TYCPR01MB84372C5EFC66F7CC9259FBBE98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <TYCPR01MB843757F4E7BFF224712BD68F98AD2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
- <5eac0bab-60c2-4e94-9ab2-bad5f451c8c9@amd.com>
- <63d2a14e-759f-44b6-99b4-de42b8d6b1e0@mailbox.org>
- <TYCPR01MB8437C142C860FA03F06B5E6998AC2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <TYCPR01MB8437C142C860FA03F06B5E6998AC2@TYCPR01MB8437.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v3 04/14] drm/sched: Clarify locked section in
+ drm_sched_rq_select_entity_fifo
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+References: <20250331201705.60663-1-tvrtko.ursulin@igalia.com>
+ <20250331201705.60663-5-tvrtko.ursulin@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20250331201705.60663-5-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 66f552388c84b4d4a59
-X-MBO-RS-META: t93rft34tqkqyyekdk69x3gmz7bc1iz5
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,33 +63,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-04-01 14:32, Shengyu Qu wrote:
-> 在 2025/4/1 17:56, Michel Dänzer 写道:
->> On 2025-03-31 19:42, Alex Hung wrote:
->>> On 3/31/25 11:04, Shengyu Qu wrote:
->>>> Or we can add some kind of "linked with" info to plane's COLOR_PIPELINE property, to let userspace know that cursor plane and background plane share the same colorop config. So that userspace could do extra conversion on cursor image data to avoid display wrong cursor color.
->>>
->>> That's over-complicate and makes little sense for both device drivers and userspace applications.
->>>
->>> If any planes share same colorop config, a device driver exposes the same color pipeline with the same colorops.
->>>
->>> If a plane does not support color pipeline or a driver doesn't want to support it, there is no color pipeline and no color objects.
->>
->> I suspect using the cursor plane is generally higher priority for Wayland compositors than using overlay planes, because the former is critical for a responsive user experience.
->>
->> This requires that the amdgpu DC driver backs the cursor plane with a dedicated HW plane though (as it's already doing in some cases), to either fully support color pipelines for the cursor plane, or at least provide proper "no color pipeline" behaviour for it. Letting the effective behaviour be determined by the other planes which happen to be behind the cursor plane isn't usable for Wayland compositors.
-> Current behavior is just disable colorop for both background plane and cursor plane. 
 
-Are you saying the color pipeline is implicitly disabled for any KMS planes which happen to be overlapped by the cursor plane?
+On 31/03/2025 21:16, Tvrtko Ursulin wrote:
+> Rq->lock only protects the tree walk so lets move the rest out.
 
-That sounds like a no go.
+I retract this one, reinit_completion has to be in the locked section 
+too. Next posting will be rebased accordingly but I will hold off 
+sending it out until more comments are received.
 
+Regards,
 
-> I'm not sure how much planes does the hardware support, but if there are too less planes to use, maybe we still need to make use of the cursor background plane in the compositor.
+Tvrtko
 
-If the HW has too few planes to allow both the cursor & overlay planes to work correctly (regardless of their dimensions), the driver should not allow enabling both kinds of planes at the same time.
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> ---
+>   drivers/gpu/drm/scheduler/sched_main.c | 31 ++++++++++++++------------
+>   1 file changed, 17 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index f593b88ab02c..357133e6d4d0 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -326,29 +326,32 @@ static struct drm_sched_entity *
+>   drm_sched_rq_select_entity_fifo(struct drm_gpu_scheduler *sched,
+>   				struct drm_sched_rq *rq)
+>   {
+> +	struct drm_sched_entity *entity = NULL;
+>   	struct rb_node *rb;
+>   
+>   	spin_lock(&rq->lock);
+>   	for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = rb_next(rb)) {
+> -		struct drm_sched_entity *entity;
+> -
+>   		entity = rb_entry(rb, struct drm_sched_entity, rb_tree_node);
+> -		if (drm_sched_entity_is_ready(entity)) {
+> -			/* If we can't queue yet, preserve the current entity in
+> -			 * terms of fairness.
+> -			 */
+> -			if (!drm_sched_can_queue(sched, entity)) {
+> -				spin_unlock(&rq->lock);
+> -				return ERR_PTR(-ENOSPC);
+> -			}
+> -
+> -			reinit_completion(&entity->entity_idle);
+> +		if (drm_sched_entity_is_ready(entity))
+>   			break;
+> -		}
+> +		else
+> +			entity = NULL;
+>   	}
+>   	spin_unlock(&rq->lock);
+>   
+> -	return rb ? rb_entry(rb, struct drm_sched_entity, rb_tree_node) : NULL;
+> +	if (!entity)
+> +		return NULL;
+> +
+> +	/*
+> +	 * If scheduler cannot take more jobs signal the caller to not consider
+> +	 * lower priority queues.
+> +	 */
+> +	if (!drm_sched_can_queue(sched, entity))
+> +		return ERR_PTR(-ENOSPC);
+> +
+> +	reinit_completion(&entity->entity_idle);
+> +
+> +	return entity;
+>   }
+>   
+>   /**
 
-
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
