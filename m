@@ -4,82 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E128C369A6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8AC4C369B2
 	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 720E710E955;
-	Thu,  3 Apr 2025 08:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8455010E942;
+	Thu,  3 Apr 2025 08:54:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ktv2pRs2";
+	dkim=pass (2048-bit key; unprotected) header.d=crpt.ru header.i=@crpt.ru header.b="Bv92W5Xs";
 	dkim-atps=neutral
-Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
- [209.85.166.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1B610E896;
- Wed,  2 Apr 2025 17:42:50 +0000 (UTC)
-Received: by mail-il1-f181.google.com with SMTP id
- e9e14a558f8ab-3d5eb0ec2bdso423565ab.2; 
- Wed, 02 Apr 2025 10:42:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615770; x=1744220570; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=l+xh63ngQpysf5TdioxYR9h/6SGMYGM5RCAWumi1pq0=;
- b=ktv2pRs2rB/ALk/dKy6makiuOYR3agTwm9tuhdP8Vse+8yWTdv4yaKH8adYSF0Mg0+
- +PSfV1odixJiVI5Ac1GoKjqMVKNHHvWZYuF0Ib/MZOvDzWsOpnoDH7sZsdEDju6lgfTb
- oxBNChgHsFEhO+aot5pzuRcT4iYuYDZQ7CsBHymo+yB3pRxXguQrQXspD2F3xEuiAHts
- DNKDB/GRat3zLWaSoAAadcc20QNSx6eqV09RdhkAJ1STmwIoy/VW16PiWXPYzQ0A1mAg
- RBkveVVIaICGsKgRn3PC/OLvIxkLbx90WuNZOxa5qxklAKfeCFnjtqXvmraFflmchp3n
- ii1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615770; x=1744220570;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=l+xh63ngQpysf5TdioxYR9h/6SGMYGM5RCAWumi1pq0=;
- b=rqrproJxEAaSU4dgiSSVISeca3iTTYN+QBWZ6V5XAP2zejboa0S4j2EvukPCk9aF32
- 3FB2Uyxf0a3RjKS+Xreumg61WqnIFBDij27ZARkHnynBbxODxvFQ0T8PECXjRCIr8JXc
- rwhR1bG2rPrsx/OEhekeYPIH4TxrVUc10DsPNUVZFMHf5y9U87whVsrfMzjiQB0PNWlm
- IFLsDQm7iCxjSip2WX3XQvrSGA3tAnKY+0jE7LQOWJWrpD4UoaiRUDq97p3pxe3Hdtsb
- 0R4056+b5jX6++DM3TEvEOHnHZuSAlDCwK6WlC5D7fHo6gGslRa/QhrGiJHLIzhK+TKp
- EeMg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVie0ScqzzkrVgmAspIn9MWKA+XWI3uXQ4k2cWeEfk0Y+iNswhtfHEWPAEKikLIc4GB7MPD1YVDk7KtTz/KKw==@lists.freedesktop.org,
- AJvYcCVltHXIkeMq2F7K3bpmvgLr0zGdDAO5QgIzagjE5gtSQAuhRSkg7s98J4E4i0MrT0p9rTMQDNSVNUso@lists.freedesktop.org,
- AJvYcCXLdeJH5WGAFkvHzvonxctcD9PU4a7xdIhAhDsqjh4gwAjnXnQ9CWSySFNNcU9JIadTEAjS8hfP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxnbG7Be2ahODMK42ZUmFoXg80HWA8WvwXmFIcrGO3QKPfxaPdz
- Oug6KweCUmepk12gamAAjFncxNWQkndui273Npb2sdb06krx1dcz
-X-Gm-Gg: ASbGncv2HWSpfE1IhIdOxv68leQNrM+Q2OSJf0q7EWOixGVWuHot5vxF0L+EqISrM1m
- BvPG5e19wXBEhKrOYa0DM17PfrnESnBhI2tmYd2A5kqUvUElWHpWBK3MEtpFUVPgkzg36xqhGZS
- Cr4/63v5QsL/zXViPRxWvRqIDtAVIOheIl3w+ZC0cyCmrihB4jIz/8DtZpOhqvpaPdUQtzfh0AL
- yvkPzhrqGOoknVhCdGXaRmyyawheP2bf5PPmlQYq6Dr+Zp/r0tYCZVrWp8KDRZIVtqlGSwQEViv
- NkF4qbCk02jsaEzmoeWlV/D12QlzfEooTP/MSKQy8hunmx7XPCn6DcW95R2OUl5Bq1ScxVDzATy
- M6w==
-X-Google-Smtp-Source: AGHT+IHfVFrzVXMnd2YBb1/YfvvBl5qCe+8rGWdMzMU5nSjNPKKxFlNTX09jmDed7K6kxVwAkyqtVg==
-X-Received: by 2002:a05:6e02:184e:b0:3d3:dcb8:1bf1 with SMTP id
- e9e14a558f8ab-3d5e08eb179mr230026675ab.3.1743615769662; 
- Wed, 02 Apr 2025 10:42:49 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:42:49 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 36/54] drm-dyndbg: DRM_CLASSMAP_USE in drm_crtc_helper
-Date: Wed,  2 Apr 2025 11:41:38 -0600
-Message-ID: <20250402174156.1246171-37-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
-References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+Received: from mail.crpt.ru (mail1.crpt.ru [91.236.205.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA4F10E180;
+ Wed,  2 Apr 2025 14:23:07 +0000 (UTC)
+Received: from mail.crpt.ru ([192.168.60.4])
+ by mail.crpt.ru  with ESMTP id 532ELdeE011735-532ELdeG011735
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=OK);
+ Wed, 2 Apr 2025 17:21:39 +0300
+Received: from EX2.crpt.local (192.168.60.4) by ex2.crpt.local (192.168.60.4)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Wed, 2 Apr
+ 2025 17:21:40 +0300
+Received: from EX2.crpt.local ([192.168.60.4]) by EX2.crpt.local
+ ([192.168.60.4]) with mapi id 15.01.2507.044; Wed, 2 Apr 2025 17:21:40 +0300
+From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>
+To: Harry Wentland <harry.wentland@amd.com>
+CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Hung
+ <alex.hung@amd.com>, Dillon Varone <dillon.varone@amd.com>, Roman Li
+ <roman.li@amd.com>, Ethan Carter Edwards <ethan@ethancedwards.com>, "Ivan
+ Lipski" <ivlipski@amd.com>, Iswara Nagulendran <iswara.nagulendran@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Rafal Ostrowski <rostrows@amd.com>, "Alvin
+ Lee" <alvin.lee2@amd.com>, Aric Cyr <aric.cyr@amd.com>, "Dr. David Alan
+ Gilbert" <linux@treblig.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
+ <lvc-project@linuxtesting.org>
+Subject: [PATCH] drm/amd/display: Remove the redundant NULL check
+Thread-Topic: [PATCH] drm/amd/display: Remove the redundant NULL check
+Thread-Index: AQHbo9qMmPuxivrTRU6kDAkV7hJQVA==
+Date: Wed, 2 Apr 2025 14:21:39 +0000
+Message-ID: <20250402142134.375176-1-a.vatoropin@crpt.ru>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.200.60.21]
+x-kse-serverinfo: EX2.crpt.local, 9
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: Clean, bases: 4/2/2025 11:23:00 AM
+x-kse-attachment-filter-triggered-rules: Clean
+x-kse-attachment-filter-triggered-filters: Clean
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-FEAS-Client-IP: 192.168.60.4
+X-FE-Policy-ID: 2:4:0:SYSTEM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
+ c=relaxed/relaxed; 
+ h=from:to:cc:subject:date:message-id:content-type:mime-version;
+ bh=6PWrRiayky3wtjPN+LAvVDtngWKjutbwbMbRB4bNvY4=;
+ b=Bv92W5XszD82x8OUXlHmeG3WxEyF8/J/xc7a3rLgP9XN7RvSRGP6LCf0oC8G0/C89pAE8sWkcJI/
+ ObK291pMPuTLT4qUOmA8JeKaPiKmT76ztfqwuec3lwEv5EVctNjlVDZT0JETAvUhk23sXybV3lne
+ McLGNotTjU2XjUiz6txO8BAfj0GAq7ZEPpGpcdIPQAKDwOCEe7Yrbhkb6AAynnaBr8zhJf2LOs3u
+ i6yY09Dd+B6hDMA+PHsAkgn5Kpp7CSsP3TiHRahzwz6aEFvCPd2iQX0OEwUX6N3VlNhat/xfXRE2
+ dQXjYOpr4gSH8qJcfT61QqqZlLaRa259dHuRYA==
 X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,44 +89,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
-
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
-
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
----
- drivers/gpu/drm/drm_crtc_helper.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index 0955f1c385dd..1d08d759f238 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -50,17 +50,7 @@
- 
- #include "drm_crtc_helper_internal.h"
- 
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DRM_CLASSMAP_USE(drm_debug_classes);
- 
- /**
-  * DOC: overview
--- 
-2.49.0
-
+RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KU3RhdGljIGFu
+YWx5c2lzIHNob3dzIHRoYXQgcG9pbnRlciAidGltaW5nIiBjYW5ub3QgYmUgTlVMTCBiZWNhdXNl
+IGl0DQpwb2ludHMgdG8gdGhlIG9iamVjdCAic3RydWN0IGRjX2NydGNfdGltaW5nIi4NCg0KUmVt
+b3ZlIHRoZSBleHRyYSBOVUxMIGNoZWNrLiBJdCBpcyBtZWFuaW5nbGVzcyBhbmQgaGFybXMgdGhl
+IHJlYWRhYmlsaXR5DQpvZiB0aGUgY29kZS4NCg0KRm91bmQgYnkgTGludXggVmVyaWZpY2F0aW9u
+IENlbnRlciAobGludXh0ZXN0aW5nLm9yZykgd2l0aCBTVkFDRS4NCg0KU2lnbmVkLW9mZi1ieTog
+QW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCi0tLQ0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY24zMC9kY24zMF9yZXNvdXJjZS5jIHwgMiAt
+LQ0KIDEgZmlsZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjbjMwL2RjbjMwX3Jlc291cmNlLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNuMzAvZGNuMzBfcmVz
+b3VyY2UuYw0KaW5kZXggMTMyMDJjZTMwZDY2Li43NmU4YzRkY2YzMzkgMTAwNjQ0DQotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNuMzAvZGNuMzBfcmVzb3Vy
+Y2UuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjbjMw
+L2RjbjMwX3Jlc291cmNlLmMNCkBAIC0xODkxLDggKzE4OTEsNiBAQCBzdGF0aWMgaW50IGdldF9y
+ZWZyZXNoX3JhdGUoc3RydWN0IGRjX3N0YXRlICpjb250ZXh0KQ0KIA0KIAkvKiBjaGVjayBpZiBy
+ZWZyZXNoIHJhdGUgYXQgbGVhc3QgMTIwaHogKi8NCiAJdGltaW5nID0gJmNvbnRleHQtPnN0cmVh
+bXNbMF0tPnRpbWluZzsNCi0JaWYgKHRpbWluZyA9PSBOVUxMKQ0KLQkJcmV0dXJuIDA7DQogDQog
+CWhfdl90b3RhbCA9IHRpbWluZy0+aF90b3RhbCAqIHRpbWluZy0+dl90b3RhbDsNCiAJaWYgKGhf
+dl90b3RhbCA9PSAwKQ0KLS0gDQoyLjQzLjANCg==
