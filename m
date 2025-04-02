@@ -4,39 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D038CC369B1
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F17CAC369AA
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9DF110E969;
-	Thu,  3 Apr 2025 08:54:20 +0000 (UTC)
-Received: from irl.hu (irl.hu [95.85.9.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDA9910E7FC;
- Wed,  2 Apr 2025 15:00:31 +0000 (UTC)
-Received: from [192.168.2.19] (51b692a2.dsl.pool.telekom.hu
- [::ffff:81.182.146.162]) (AUTH: CRAM-MD5 soyer@irl.hu, )
- by irl.hu with ESMTPSA
- id 0000000000080D7C.0000000067ED510D.000838A8; Wed, 02 Apr 2025 17:00:29 +0200
-Message-ID: <dfe09171d1968fd3a03784b04de23f9127adff8d.camel@irl.hu>
-Subject: Re: amdgpu_dm_connector_mode_valid regression
-From: Gergo Koteles <soyer@irl.hu>
-To: Dmitry Baryshkov <dbaryshkov@gmail.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, regressions@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Date: Wed, 02 Apr 2025 17:00:29 +0200
-In-Reply-To: <CALT56yPvDW1dLNdZK0kkn53kTa0HcVXgYXp9Gim4MH4YjgEncw@mail.gmail.com>
-References: <ed09edb167e74167a694f4854102a3de6d2f1433.camel@irl.hu>
- <8963a409dd575e040e5f07e4ad5e9c1d26b421f2.camel@irl.hu>
- <CALT56yPd-xfd=47xRxrCk4F3jib4Ti7kg8pRXy-gVAQpbOc=pw@mail.gmail.com>
- <e323219b52cda1891a55d12ad77a2b34edc8688b.camel@irl.hu>
- <CALT56yPvDW1dLNdZK0kkn53kTa0HcVXgYXp9Gim4MH4YjgEncw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-1.fc41) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id D276710E95E;
+	Thu,  3 Apr 2025 08:54:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i9sMANgy";
+	dkim-atps=neutral
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD1110E87F;
+ Wed,  2 Apr 2025 17:42:28 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-85b3f92c8dfso528739f.2; 
+ Wed, 02 Apr 2025 10:42:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743615747; x=1744220547; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1HVCxpeKRFzeSI1AhmlyvBuPBqCCJEuta9afFF5qwQI=;
+ b=i9sMANgyVawnzvrGjLqJPRGhs70gYkBi3JzhvTanyLeyoafr/ZnrScrAvW55vsYQIE
+ OxjBofEUizXY09mVfYTJ0W1B4hjmJ3w/oxo/O8qDsXsyzjul7eOXfum903jB47pVM06g
+ /U5kIATMnmHj0Dr520kpGSKoTKS92g8Z9nvTdNcGY0Zc/5bQqCh8TX8lgxWXFY6ZOrjo
+ gid+43N7xWNYaLPuk5V9gWtmmMwfWu7oLJlmF/IBnUkDEuPRng5WCts4i0CSiR5B3HF/
+ 9x/QIdhPq39yGmP7D3YdYIA3t42mOFOXKSWUEmqxQwgU/IEpsaR29huUKqZoMQeewxb4
+ FRlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743615747; x=1744220547;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1HVCxpeKRFzeSI1AhmlyvBuPBqCCJEuta9afFF5qwQI=;
+ b=KJAnAO5GgFarUjLz93tXRL47xXzlXFuEfmOjCbYu29NmQ7pmJRjJfoXLEbywDvUoh5
+ yiW6xiYbqoBHaXYMMywNhqUFluDxPZKvrIam2Gcr/hwvGVxoXCARHmfoRCV/9cP+SUU6
+ 4/5aDXNKyqR0hE/2oE9WPZ532P7FXsEybPXkfWPb6QcIE9ooBiK68zAO6PPNaWsURRtV
+ I+RWtcyPdy1hF8bIkhhf05tnnMWjtNhBgSVeBJK6WN5cglw7+pOkcaedDZwOeeH2CKgq
+ p4EeQ9eEgHKVK9W3N0/2GVJPrk70OmA+urEDTMmGdGjs01w5bba8+a0MHnnaowyEUxgz
+ IKXg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV5bWSGRJL9kYHl781wII5MLwivP1bJ1iucwlyoLK0gT04pGcx1biEo+xyLqaBJa5O3y9Y9F5gfcuqnYDxx9Q==@lists.freedesktop.org,
+ AJvYcCVFPKCdiuu27Gw83FnLiiDMwu9ICvcgvUQ6JDIqnf/vuQn7D4EyEtuJcyE+nZiV/uwH0c+pkFRZ@lists.freedesktop.org,
+ AJvYcCXpF9GdD9DqFUkmZ/uijTixd2yD8y6/6yAGvpddnkSQ+6Z2tLAYvLH4E8qjrX7rSttmjK6HOE+nN0m9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRLtsJ9T61eeF6+P1K2CPlTt770VY9WaicQ5qom+/g2ud+mPtR
+ P1HNYibyC3KGWFM9vaKqZbgc4EkgGv8eJQXOypOv92VgijIJ+aJa
+X-Gm-Gg: ASbGncvotkdih/uHx2LV0o1lDRmrITeJL7hZ/FT6wEo8BhoUuDnLifd+qXNX0FADVkw
+ w2td+cMsiZf2IEtXwivPZFaWT0APirjYaYKJYzHBOCwrmxUIkO7n4BvAV8zQBhO0GWuyQtxKE1t
+ T0nBpoAF5JUGVjx7GTb6OiGo0oPm+puQ1ZBizWIZ2w5gZ5fPPHNi4Nqjg+MATwQWA2OqOsxzRUd
+ 0vj4TB2+Rzoris6ZvblomlCrD2B37bR7HcySNGl2ZBt7GpiGmuX9BdWUBTZcyWjz8yXTUPcmZ7t
+ iyptTP6+6StkNyUN18VvK3CuoErzzJWtoFXiYhqnNWoe4B6t8WbiRz6FtRryuLNb9S/Ejb01Ror
+ 1Yg==
+X-Google-Smtp-Source: AGHT+IGlzPv/lWLR6oQjYV5JPNtW8nNh4plsjoqpQBkDo3jtIwkHZqjbr7e+0JVOkoajzQcuo3mWrg==
+X-Received: by 2002:a05:6e02:3c85:b0:3d3:d994:e92e with SMTP id
+ e9e14a558f8ab-3d5e09db5d3mr173949595ab.17.1743615747396; 
+ Wed, 02 Apr 2025 10:42:27 -0700 (PDT)
+Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
+ by smtp.googlemail.com with ESMTPSA id
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Apr 2025 10:42:26 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v3 14/54] dyndbg: hoist classmap-filter-by-modname up to
+ ddebug_add_module
+Date: Wed,  2 Apr 2025 11:41:16 -0600
+Message-ID: <20250402174156.1246171-15-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,85 +96,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+The body of ddebug_attach_module_classes() is dominated by a
+code-block that finds the contiguous subrange of classmaps matching on
+modname, and saves it into the ddebug_table's info record.
 
-On Wed, 2025-04-02 at 17:40 +0300, Dmitry Baryshkov wrote:
-> On Wed, 2 Apr 2025 at 17:35, Gergo Koteles <soyer@irl.hu> wrote:
-> >=20
-> > Hi Dmitry,
-> >=20
-> > On Wed, 2025-04-02 at 16:36 +0300, Dmitry Baryshkov wrote:
-> > > > >=20
-> > > > > It works if I call
-> > > > > drm_mode_set_crtcinfo((struct drm_display_mode *)mode, 0) before
-> > > > > create_validate_stream_for_sink()
-> > > > > in amdgpu_dm_connector_mode_valid()
-> > > > >=20
-> > > > > or
-> > > > >=20
-> > > > > if I comment out the decide_crtc_timing_for_drm_display_mode() in
-> > > > > create_stream_for_sink()
-> > > > >=20
-> > > > > but a better fix than these can be imagined :)
-> > >=20
-> > > Would it help if you force recalculate_timings to be true if
-> > > (drm_mode->crtc_clock =3D=3D 0)
-> > >=20
-> >=20
-> > Yes, it works with that one.
-> >=20
-> > But the code would start to become quite untraceable.
-> > duplicate mode in amdgpu_dm_connector_mode_valid()
-> > call drm_mode_set_crtcinfo() in amdgpu_dm_connector_mode_valid()
-> > duplicate mode in create_stream_for_sink()
-> > overwrite ctrc in decide_crtc_timing_for_drm_display_mode()
-> > if crtc_clock =3D=3D 0 call drm_mode_set_crtcinfo() again in
-> > create_stream_for_sink()
->=20
-> Well... Unfortunately I don't know AMD driver details to comment on
-> this. The fix that you've posted below at least resolves a regression
-> without requiring us to revert r/o drm_mode argument patches.
->=20
-> >=20
-> > saved_mode is never used after this, so I can't add the condition here
-> >         if (recalculate_timing)
-> >                 drm_mode_set_crtcinfo(&saved_mode, 0);
->=20
-> Agree
->=20
-> >=20
-> > This commit is related, I think:
-> > 1101185 ("drm/amd/display: fix the ability to use lower resolution
-> > modes on eDP")
-> >=20
-> > Regards,
-> > Gergo
-> >=20
-> > ---
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index bae83a129b5f..83c8c81d4015 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -6984,6 +6984,9 @@ create_stream_for_sink(struct drm_connector
-> > *connector,
-> >         if (recalculate_timing)
-> >                 drm_mode_set_crtcinfo(&saved_mode, 0);
-> >=20
-> > +       if (mode.crtc_clock =3D=3D 0)
-> > +               drm_mode_set_crtcinfo(&mode, 0);
-> > +
->=20
-> I'd say, please post this and let AMD maintainers act upon it.
->=20
->=20
+Implement this block in a macro to accommodate different component
+vectors in the "box" (as named in the for_subvec macro).
 
-This patch is probably not good yet, because I think it would bring up
-the problem mentioned in=C2=A01101185 ("drm/amd/display: fix the ability to
-use lower resolution modes on eDP") again.
+And hoist its invocation out of ddebug_attach_module_classes() up into
+ddebug_add_module().  This moves the filtering step up closer to
+dynamic_debug_init(), which effectively does the same for builtin
+pr_debug descriptors; segmenting them into subranges by modname.
 
-Maybe someone will come up with a better one.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ lib/dynamic_debug.c | 56 ++++++++++++++++++++++++++-------------------
+ 1 file changed, 32 insertions(+), 24 deletions(-)
 
-Regards,
-Gergo
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 104cf8abdf33..046c4ffb38f8 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -161,8 +161,8 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ }
+ 
+ static struct _ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
+-							const char *class_string,
+-							int *class_id)
++							 const char *class_string,
++							 int *class_id)
+ {
+ 	struct _ddebug_class_map *map;
+ 	int i, idx;
+@@ -1224,30 +1224,34 @@ static const struct proc_ops proc_fops = {
+ 
+ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
+ {
+-	struct _ddebug_class_map *cm;
+-	int i, nc = 0;
+-
+-	/*
+-	 * Find this module's classmaps in a subrange/wholerange of
+-	 * the builtin/modular classmap vector/section.  Save the start
+-	 * and length of the subrange at its edges.
+-	 */
+-	for_subvec(i, cm, di, maps) {
+-		if (!strcmp(cm->mod_name, dt->mod_name)) {
+-			if (!nc) {
+-				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+-					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
+-				dt->info.maps.start = cm;
+-			}
+-			nc++;
+-		}
+-	}
+-	if (nc) {
+-		dt->info.maps.len = nc;
+-		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
+-	}
++	vpr_info("module:%s attached %d classes\n", dt->mod_name, dt->info.maps.len);
+ }
+ 
++/*
++ * Walk the @_box->@_vec member, over @_vec.start[0..len], and find
++ * the contiguous subrange of elements matching on ->mod_name.  Copy
++ * the subrange into @_dst.  This depends on vars defd by caller.
++ *
++ * @_i:   caller provided counter var, init'd by macro
++ * @_sp:  cursor into @_vec.
++ * @_box: contains member named @_vec
++ * @_vec: an array-ref, with: .start .len fields.
++ * @_dst: an array-ref: to remember the module's subrange
++ */
++#define dd_mark_vector_subrange(_i, _dst, _sp, _box, _vec) ({		\
++	int nc = 0;							\
++	for_subvec(_i, _sp, _box, _vec) {				\
++		if (!strcmp((_sp)->mod_name, (_dst)->mod_name)) {	\
++			if (!nc++)					\
++				(_dst)->info._vec.start = (_sp);	\
++		} else {						\
++			if (nc)						\
++				break; /* end of consecutive matches */ \
++		}							\
++	}								\
++	(_dst)->info._vec.len = nc;					\
++})
++
+ /*
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -1255,6 +1259,8 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
++	struct _ddebug_class_map *cm;
++	int i;
+ 
+ 	if (!di->descs.len)
+ 		return 0;
+@@ -1277,6 +1283,8 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ 
+ 	INIT_LIST_HEAD(&dt->link);
+ 
++	dd_mark_vector_subrange(i, dt, cm, di, maps);
++
+ 	if (di->maps.len)
+ 		ddebug_attach_module_classes(dt, di);
+ 
+-- 
+2.49.0
 
