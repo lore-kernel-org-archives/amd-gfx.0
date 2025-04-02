@@ -4,84 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57A19C369A4
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12819C369B6
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E398A10E965;
-	Thu,  3 Apr 2025 08:54:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4308110E970;
+	Thu,  3 Apr 2025 08:54:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mdGUy1ip";
+	dkim=pass (2048-bit key; unprotected) header.d=crpt.ru header.i=@crpt.ru header.b="Vl+QS9kZ";
 	dkim-atps=neutral
-Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
- [209.85.166.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC27610E891;
- Wed,  2 Apr 2025 17:42:35 +0000 (UTC)
-Received: by mail-il1-f172.google.com with SMTP id
- e9e14a558f8ab-3d59c8f0979so3699155ab.0; 
- Wed, 02 Apr 2025 10:42:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615755; x=1744220555; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9crVnbk3XjpJrHsY0dIqQRNI8E7oyjJ17chOf0dhmBE=;
- b=mdGUy1ip1oNTrQl82mWfnAxzjQw2EyDhm0tsnS5Aj2CgXsRFAo1nHA7A8OWeAP6QvK
- Fjazu6NBE5+vu7vQygBw5+MS0sBr/fbXLANjUSw+Y7MId39OZFRTE+iB/h5Xko8kxqNF
- soD1TQ+mWJ03uZ+IlvEMA6e7YOULeUxGz68b6i0O0vft6dx8R4QC+6BWYtVvgk2RxnUr
- nFNU1En1XxCnfcTc61A3i9087fEZjKo6sU0vQvjUunLSXsG8xmqmWD96bX4weMYj8Wt5
- Ccn4kFHLTCsibRFfE0E3PymOePQqz3SmKKBoFTtArXAHV5Pvo8aTsAcReMKCSQDCCHrq
- XI/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615755; x=1744220555;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9crVnbk3XjpJrHsY0dIqQRNI8E7oyjJ17chOf0dhmBE=;
- b=pDOYVwcUCqMnmT3a2/nbC92I56X9rUZ4q+tRhhXmdOVkyUujzesGJdwnTYlXGgJ8zC
- wTZaVAXoC/I1oLaNHTWaNqTG8cQUYhEN4YoXpHiTi+p9AqmFAIOI6Ez13UMxwop/blZL
- l64QzIVtmh8e1CjAr5QZz/IYxiT9IyvuSLZqFkT7iGmDkLQJGg9/mONvoBvDeGTA6mmb
- gRsK0yr50ha2yqDG4uzNgfygqHeuefCl2vdcdJggjnpuMmFrz59AEXPdvrcKvNtIvGI4
- wLMJQHa1U609xoPbiU6zvc2g9+Xt06tmfWq/HojaKfcKLtche6O2bkl96VI2EsvZ0oeK
- s1fQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUxg29/yfSBAa4kWa3KS6tvQme1ClVxjmsuvdPUDWc8XDbnpX3me4MogBsMRHCrkfPdxN7Z+QkHwz0c9JW06w==@lists.freedesktop.org,
- AJvYcCVbYGpHTlUpSZeCE1c0KvRzUn6aA4Ex/VlCkpa0QOWF5kjze89dxrGyf01bpnO9pSxgTh3GgEPYpHM3@lists.freedesktop.org,
- AJvYcCX+N8uYhT1jzUeEjFZ+MUuxpqAWtnKjZuGUp6VRbsAZWwZXFQkbwafYqtegz+7wJpKaGxEDjY9D@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyD/ZimlTuGARbyJftll0f5TZ1hIaI757vQgIK4BcrHp4pwQo80
- v0IxV1gxkRb2HkeIMz559K8uKDNogJOd/52awzB6ggsJu2EMzkWx
-X-Gm-Gg: ASbGncuN0B7TNG3FG5LMiuXx2mN4O2fAf1wFwzHyhNsee4py0tlqM+ZDxIC4nRDgKB5
- As9VYBE8iooioONKfjcCTqzPmZSpSpdV/AkpMrgY9pgqDAGyR8wZyQUt4r/PtX6MVb92GkKGd9N
- R+RADglkhcr6rpNaqTBkJlweXTpzrzPPR6bfrZXSl3LZRkptCzMZbNmj8o+UemakLyH7JXZuYbk
- J5Eyum1tUmI7IECZnQjLpkfcz95nQfxRGYv6NORVolU9F0iWnJ6Ux+1SjJ4NpAQK4TsYKgluG54
- H9uSxjSVwayb5kvUU2jTw8AnfzUQrEnv7ALAoSaZiEt/Y3EKvyX43GNL2IkJrC8b+deroKq2cKo
- bdQ==
-X-Google-Smtp-Source: AGHT+IExGVMuJtN5hKLJ003ECDmgVw47CrV9YfzVs9KN7730OBh4HexWxFYIN3TSQJH5oTzEZWr1LA==
-X-Received: by 2002:a05:6e02:4406:10b0:3d3:de5f:af25 with SMTP id
- e9e14a558f8ab-3d6dca86dfemr5222605ab.0.1743615755159; 
- Wed, 02 Apr 2025 10:42:35 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:42:34 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 21/54] dyndbg-test: change do_prints testpoint to accept a
- loopct
-Date: Wed,  2 Apr 2025 11:41:23 -0600
-Message-ID: <20250402174156.1246171-22-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
-References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+Received: from mail.crpt.ru (mail1.crpt.ru [91.236.205.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB4010E856;
+ Wed,  2 Apr 2025 15:06:08 +0000 (UTC)
+Received: from mail.crpt.ru ([192.168.60.4])
+ by mail.crpt.ru  with ESMTP id 532F5uq5011368-532F5uq7011368
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=OK);
+ Wed, 2 Apr 2025 18:05:56 +0300
+Received: from EX2.crpt.local (192.168.60.4) by ex2.crpt.local (192.168.60.4)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Wed, 2 Apr
+ 2025 18:05:55 +0300
+Received: from EX2.crpt.local ([192.168.60.4]) by EX2.crpt.local
+ ([192.168.60.4]) with mapi id 15.01.2507.044; Wed, 2 Apr 2025 18:05:55 +0300
+From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>
+To: Kenneth Feng <kenneth.feng@amd.com>
+CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>, Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sunil Khatri
+ <sunil.khatri@amd.com>, Jesse Zhang <jesse.zhang@amd.com>, Tim Huang
+ <tim.huang@amd.com>, "chr[]" <chris@rudorff.com>, Boyuan Zhang
+ <boyuan.zhang@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lvc-patches@linuxtesting.org" <lvc-patches@linuxtesting.org>
+Subject: [PATCH] drm/amdgpu: Remove the redundant NULL check for the 'table'
+ object
+Thread-Topic: [PATCH] drm/amdgpu: Remove the redundant NULL check for the
+ 'table' object
+Thread-Index: AQHbo+C7eZhnXRFWGk6xqFGm4+h7bw==
+Date: Wed, 2 Apr 2025 15:05:55 +0000
+Message-ID: <20250402150551.388229-1-a.vatoropin@crpt.ru>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.200.60.21]
+x-kse-serverinfo: EX2.crpt.local, 9
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: Clean, bases: 4/2/2025 11:23:00 AM
+x-kse-attachment-filter-triggered-rules: Clean
+x-kse-attachment-filter-triggered-filters: Clean
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:05 +0000
+X-FEAS-Client-IP: 192.168.60.4
+X-FE-Policy-ID: 2:4:0:SYSTEM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
+ c=relaxed/relaxed; 
+ h=from:to:cc:subject:date:message-id:content-type:mime-version;
+ bh=CIvEwGy1ZRedZYHOxGiz3Jd0L6LjT1+0QPHuGHOebBU=;
+ b=Vl+QS9kZo0yTmuHLtzBDicCq6h0rx5fF3rSZez5KSNnqN7p3TI2tFGEw0o1UwihByu1OmKLKkSFt
+ B4mz54E+B0x7blnIFL2XR6c6birkAyWCgw10wJJ/zh1dWdN98pSsNEoIH2Y0GS3RVroTtZUh7/rk
+ UcuGet99JYg3aHB06uyXBdyF92jK5I3pDTsw2mumStPFNIdp4WA0lpaSBp6eqDZhJ7FJxMfARDo2
+ iptxg2PNJd2VakdmlsI/SV1QDdx2PwszirUxOHbs1QID9Pu+kkpH5kxgD4XFXzZpibK2JWQqBCeU
+ M+UaHUaslXbIbpwZqTNGv34xwNCnXpEmvDKtcg==
+X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,89 +86,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
-
-This allows its use as a scriptable load generator, to generate
-dynamic-prefix-emits for flag combinations vs undecorated messages.
-This will make it easy to assess the cost of the prefixing.
-
-Reading the ./do_prints node also prints messages (once) to the-log.
-
-NB: the count is clamped to 10000, chosen to be notice able, but not
-annoying, and not enough to accidentally flood the logs.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/test_dynamic_debug.c | 37 ++++++++++++++++++++++++++-----------
- 1 file changed, 26 insertions(+), 11 deletions(-)
-
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 9f9e3fddd7e6..4a3d2612ef60 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -29,18 +29,30 @@
- 
- #include <linux/module.h>
- 
--/* re-gen output by reading or writing sysfs node: do_prints */
--
--static void do_prints(void); /* device under test */
-+/* re-trigger debug output by reading or writing sysfs node: do_prints */
-+#define PRINT_CLAMP 10000
-+static void do_prints(unsigned int); /* device under test */
- static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
- {
--	do_prints();
-+	int rc;
-+	unsigned int ct;
-+
-+	rc = kstrtouint(instr, 0, &ct);
-+	if (rc) {
-+		pr_err("expecting numeric input, using 1 instead\n");
-+		ct = 1;
-+	}
-+	if (ct > PRINT_CLAMP) {
-+		ct = PRINT_CLAMP;
-+		pr_info("clamping print-count to %d\n", ct);
-+	}
-+	do_prints(ct);
- 	return 0;
- }
- static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
- {
--	do_prints();
--	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
-+	do_prints(1);
-+	return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
- }
- static const struct kernel_param_ops param_ops_do_prints = {
- 	.set = param_set_do_prints,
-@@ -191,17 +203,20 @@ static void do_levels(void)
- 	prdbg(V7);
- }
- 
--static void do_prints(void)
-+static void do_prints(unsigned int ct)
- {
--	pr_debug("do_prints:\n");
--	do_cats();
--	do_levels();
-+	/* maybe clamp this */
-+	pr_debug("do-prints %d times:\n", ct);
-+	for (; ct; ct--) {
-+		do_cats();
-+		do_levels();
-+	}
- }
- 
- static int __init test_dynamic_debug_init(void)
- {
- 	pr_debug("init start\n");
--	do_prints();
-+	do_prints(1);
- 	pr_debug("init done\n");
- 	return 0;
- }
--- 
-2.49.0
-
+RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KU3RhdGljIGFu
+YWx5c2lzIHNob3dzIHRoYXQgcG9pbnRlciAidGFibGUiIGNhbm5vdCBiZSBOVUxMIGJlY2F1c2Ug
+aXQgDQpwb2ludHMgdG8gdGhlIG9iamVjdCAic3RydWN0IGFtZGdwdV9jYWNfbGVha2FnZV90YWJs
+ZSIuDQoNClJlbW92ZSB0aGUgZXh0cmEgTlVMTCBjaGVjay4gSXQgaXMgbWVhbmluZ2xlc3MgYW5k
+IGhhcm1zIHRoZSByZWFkYWJpbGl0eQ0Kb2YgdGhlIGNvZGUuDQoNCkZvdW5kIGJ5IExpbnV4IFZl
+cmlmaWNhdGlvbiBDZW50ZXIgKGxpbnV4dGVzdGluZy5vcmcpIHdpdGggU1ZBQ0UuDQoNClNpZ25l
+ZC1vZmYtYnk6IEFuZHJleSBWYXRvcm9waW4gPGEudmF0b3JvcGluQGNycHQucnU+DQotLS0NCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL3BtL2xlZ2FjeS1kcG0vc2lfZHBtLmMgfCAzIC0tLQ0KIDEgZmls
+ZSBjaGFuZ2VkLCAzIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wbS9sZWdhY3ktZHBtL3NpX2RwbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdh
+Y3ktZHBtL3NpX2RwbS5jDQppbmRleCAxYzI1ZjMwMjNlOTMuLmQ2YWI2ZDc3NzdmOSAxMDA2NDQN
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vbGVnYWN5LWRwbS9zaV9kcG0uYw0KKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3NpX2RwbS5jDQpAQCAtMjYzMyw5ICsy
+NjMzLDYgQEAgc3RhdGljIGludCBzaV9nZXRfY2FjX3N0ZF92b2x0YWdlX21heF9taW4oc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogCXUzMiBpOw0KIAl1MzIgdjBfbG9hZGxpbmU7DQogDQot
+CWlmICh0YWJsZSA9PSBOVUxMKQ0KLQkJcmV0dXJuIC1FSU5WQUw7DQotDQogCSptYXggPSAwOw0K
+IAkqbWluID0gMHhGRkZGOw0KIA0KLS0gDQoyLjQzLjANCg==
