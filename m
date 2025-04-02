@@ -4,82 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE724C369B4
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB60C369A5
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1BF10E985;
-	Thu,  3 Apr 2025 08:54:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7501710E967;
+	Thu,  3 Apr 2025 08:54:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i9iDpHaM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y5q6srgQ";
 	dkim-atps=neutral
-Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
- [209.85.166.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DEAD10E8B3;
- Wed,  2 Apr 2025 17:43:04 +0000 (UTC)
-Received: by mail-il1-f169.google.com with SMTP id
- e9e14a558f8ab-3d6d84923c8so446585ab.0; 
- Wed, 02 Apr 2025 10:43:04 -0700 (PDT)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CEAC10E7E0;
+ Wed,  2 Apr 2025 13:36:53 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-ac2bb7ca40bso1362463066b.3; 
+ Wed, 02 Apr 2025 06:36:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615783; x=1744220583; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=v1ua5S//H69kDLjZ/ereYDRSGWaurp/ZUyrfcdHp8ig=;
- b=i9iDpHaMbiEm9Cl5tECbUBZcAR4vozFOSnmk5IlP74hcQ/hL44qTn2A1AxrEc45Pk0
- +vFrjrV/rVBXw03SNRuFuCzCCzEl+PPuTDU9vbToGCmqbPkBf89m9M0IT1d2uzYSDrnn
- NtqYl97woPAmUje/vpQLPhmAzQd4IxzBYTOz056xoxnt8pXyYHIYoJO1ZwT/LahLZ1QB
- femEKfYPU7Tr4UGlIBeoURvEEX3OHsNz3cRV7hCrkuWJcDvGZJ08v0TCD6HVtT8tIsGy
- 3pOrn90YdHjYR1zUD7+8NaYBV60ssBmYjtwwfOwTOY4p36mupZxRzxT96PWQEWhZ4YSV
- vrqw==
+ d=gmail.com; s=20230601; t=1743601012; x=1744205812; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=6YcnQVeAyHD8E7Z9q5MeYx0CrRnuZdFDj+LArbhVdEQ=;
+ b=Y5q6srgQVIGVIpzRgeboJpDIbB99IZHf5Ff5yQCjoPKhI4yhvfhLYBvzNv33TdSin4
+ BF3gPaGZnHsX5je8/PWR0bXfgXz073ugwOgKTWq8/rVotS9QnQXW7FqZzN0rzk94sE7D
+ YhrcQO80X3GgmVMkAvQ8uTU8eIHjqnKMi+nCdjHlyUQuloXElj3yasoleAFTDAIVFQlH
+ UgYwn36EIsw90vp44D5PLSGQobO6WnF0YN4jWvdDFgNLDUkxqEtHXOZK/xZk05sb79Ch
+ UyrAsTnlZSCPMkioLILdEWev4DAbFCvOirENKmYMt8Nhi1KwKe+P6sg3ZgRwIlOCOMMJ
+ CL3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615783; x=1744220583;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=v1ua5S//H69kDLjZ/ereYDRSGWaurp/ZUyrfcdHp8ig=;
- b=vpsPJSqFiAeYkw1QtPEcVlKoXzr5kyPsWa+N+sBX2q71OQ8I6U3Afwt5OOwubPNpay
- MFlQvmYN+CUz33XlVPQEGz+Xq6dc5W9RjpYHk9p+BBLY3FVRIpTnecxyrbk2V5epqmn+
- /D2DPFHxiwhbWtlpcTAaZSx2zFoQNiW17P7/HYaB0IUVJ8nPAjlikptXCI0sg/SqpxmB
- aUCGu3uvayZhd00HbWbkW1oh6But57GMsunTJuk5Csd0AixHXiNyTPBIYJrkWdn81Q3C
- qxSJ9LWzKR5FsMj4TurOWoHeCqpA+vHQ1Qo3ARCanQi25q87vL2rHSRxpCz3lqUMYGXs
- eejg==
+ d=1e100.net; s=20230601; t=1743601012; x=1744205812;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6YcnQVeAyHD8E7Z9q5MeYx0CrRnuZdFDj+LArbhVdEQ=;
+ b=PK0bCHlefThVOjb+j3+uwIUsXVMS9mV5kdg02OSRan5CEpXPYLuMIDPsA6YawWSEkK
+ Qy5RuhslR2MeNmrtyQUe7ealq/Sry2lkgavmWUH9JBYjwUoNNJGRzxNlw7OHUC67u0ym
+ zJkeuD1As7/kDkwdS4PC8CfhLro3PtBsFNnaCXfgpKx6O6ep4dUkbDb/NHUutZoHRwxm
+ e3w6G22EhMRzoEdIL8VgVywtLpzgTUhfspeRVb+w0VFCOvqXDXdq0WAhSXSggcxBdrAm
+ 476Qlt0+3NZwTySAAmYfqseG7TLMf5FEKJVWPVhwVDGVqhegxKdRboostsWBQ8SKfv8m
+ SQBg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUFgxTG7TmgutSpIpCytx8KujLX4PVFDwvlt8Y1ndhkX9dNhyCh++LoJJ/0QiTPLDFClN0v6odOPLKYjA7FYw==@lists.freedesktop.org,
- AJvYcCV/F4nf08/rOBguFthh6SSq+082dBV0swwmizQDstnLPvCreNvZYsL0wxclzQb7IUpWEBdyyin6@lists.freedesktop.org,
- AJvYcCV455/RbubEXcbJlWrGmU1tzf8Qf+4hSzx/WUY4fXDlNmqjBmDLZzDbK11gjMTRoTyjpkMqquw8cLBG@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyKAVSOtXYaaksCmT05mjwA6O7mDnbaOapUPYnHmVx5z/ZWOvx1
- IFIw7lf8iDLbPbR+ov47yfFWDVSZBJS+EM+D/kktFFUKB6/zRg5+
-X-Gm-Gg: ASbGnct98/lkycU9ygFbx7n7EFzpjsA2hI3XOVa2442ZXmsIyYlK8fQEfopCqM/RJ/v
- vAQpq+q06pWsisy1wP5EJeigO+F0YRnKBiy8sx29FhSykhKwehNenqZswmnnQPYottvFof8Z7gJ
- TcZKgmLuGLvl09cVDItpC++PaDBbrOvriqfQBbzPvpTzidS5ssCG0bHLhkZ9Bajicc76eT9O5iI
- u87+LCi//xc7i+squz5x7p75fkRkxbN7CWW0EgsaqfM9efmVv821A7cNITi3YrQWSIKIAjRBAwn
- 4ZaRP3+YIgdYYUYkrWKXzGGzi6wwweXhmJ/no2wFqHeo+ck9jkGEKn/SHQD1ZUq2UktP7xgYKsM
- ZJg==
-X-Google-Smtp-Source: AGHT+IFNbSL/mGRZnpcJ5fpN82ueS3a1gUICe3xx8i7wsRjblgimnfxJciryAt1b8LRjBn5RrhWasA==
-X-Received: by 2002:a05:6e02:12cf:b0:3d5:8937:f419 with SMTP id
- e9e14a558f8ab-3d5e093c0e0mr170520315ab.13.1743615783315; 
- Wed, 02 Apr 2025 10:43:03 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.43.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:43:03 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 51/54] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
-Date: Wed,  2 Apr 2025 11:41:53 -0600
-Message-ID: <20250402174156.1246171-52-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
-References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+ AJvYcCURsSKfDsF2y9IRjvpfUPrqnbGFQGXC6C7ocy93h14Z1ApeCbHKtv9qnO0xw6n8c0pJgBBFK+rnK84w@lists.freedesktop.org,
+ AJvYcCVs+tuLWRJYFuqQ1etzW8oPyajdKywCSWrPUq811XoCTsswG4YP8xOhfMffnDsdJIlBuU164kDD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQsQ6F9olx+wUyLAXdnYRmJObmhJUTjIJkfV7ch/raobp42RBK
+ rrEXeCqadxC0JEmGSwAZ83sm2e1encjHppy6813+AEtZT5/VSN/IhL73B3YEM/FmqA/Ir4+5yhd
+ pKLqoG2dlta8QP01eE3OoCkdSkh4=
+X-Gm-Gg: ASbGnctUW+d1eJ/7VhIAny/Xih5jHTDnYMykfwNQBKfeUyBwoM0EdOfUbm54ITMMSRO
+ pn604nkQArOMqgnTPzaOQRCYljJXFKZkMufFD+NFEniY5dkOiqBQstJem9BA1ThupolXkJW+ZjD
+ sMJ6GnpF7tD+UL5GgWychzkBCC4VGE5eecN+0Pvidr
+X-Google-Smtp-Source: AGHT+IGiRNUzPFdPSLLv3HybeyLyN8HPd/5lzM/oyvuyIgllHW/BtQW9F5MZSBv3hVR+Ngp7/Cv5R4OpJ+MTpbZUlWw=
+X-Received: by 2002:a17:907:9707:b0:ac3:8626:607 with SMTP id
+ a640c23a62f3a-ac782e3a8camr647737166b.38.1743601011777; Wed, 02 Apr 2025
+ 06:36:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <ed09edb167e74167a694f4854102a3de6d2f1433.camel@irl.hu>
+ <8963a409dd575e040e5f07e4ad5e9c1d26b421f2.camel@irl.hu>
+In-Reply-To: <8963a409dd575e040e5f07e4ad5e9c1d26b421f2.camel@irl.hu>
+From: Dmitry Baryshkov <dbaryshkov@gmail.com>
+Date: Wed, 2 Apr 2025 16:36:40 +0300
+X-Gm-Features: AQ5f1JquQhOZxQMjaSHZ3hNl0wenZmYuULWVR-_sE5d_ZmjrXEhKjyvAnCxSmPs
+Message-ID: <CALT56yPd-xfd=47xRxrCk4F3jib4Ti7kg8pRXy-gVAQpbOc=pw@mail.gmail.com>
+Subject: Re: amdgpu_dm_connector_mode_valid regression
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Dmitry Baryshkov <lumag@kernel.org>, regressions@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,28 +87,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The qxl driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+On Wed, 2 Apr 2025 at 15:00, Gergo Koteles <soyer@irl.hu> wrote:
+>
+> to: Dmitry's new address
+> cc: regressions
+>
+> On Wed, 2025-04-02 at 12:40 +0200, Gergo Koteles wrote:
+> > Hi,
+> >
+> > While playing with
+> > https://lore.kernel.org/all/61c3df83ab73aba0bc7a941a443cd7faf4cf7fb0.1743195250.git.soyer@irl.hu/
+> >
+> > I found a regression that prevented some EDID DTDs from being selected
+> > in some specific cases.
+> >
+> > This is the first bad commit:
+> > b255ce4 ("drm/amdgpu: don't change mode in
+> > amdgpu_dm_connector_mode_valid()")
+> >
+> > I think the problem is that decide_crtc_timing_for_drm_display_mode()
+> > function tries to copy the crtc information from the preferred mode,
+> > but that's not filled yet if the first one is the preferred one and
+> > it's not the one with the maximum refresh rate.
+> >
+> > amdgpu_dm_connector_mode_valid()
+> > create_validate_stream_for_sink()
+> > create_stream_for_sink()
+> > decide_crtc_timing_for_drm_display_mode(&mode, preferred_mode, scale)
+> >
+> > It works if I call
+> > drm_mode_set_crtcinfo((struct drm_display_mode *)mode, 0) before
+> > create_validate_stream_for_sink()
+> > in amdgpu_dm_connector_mode_valid()
+> >
+> > or
+> >
+> > if I comment out the decide_crtc_timing_for_drm_display_mode() in
+> > create_stream_for_sink()
+> >
+> > but a better fix than these can be imagined :)
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+Would it help if you force recalculate_timings to be true if
+(drm_mode->crtc_clock == 0)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index 417061ae59eb..c18577a3153d 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -66,6 +66,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
- MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
- module_param_named(num_heads, qxl_num_crtc, int, 0400);
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static struct drm_driver qxl_driver;
- static struct pci_driver qxl_pci_driver;
- 
+> >
+> > more information:
+> > https://gitlab.freedesktop.org/drm/amd/-/issues/4085
+> >
+> > Regards,
+> > Gergo
+> >
+>
+
+
 -- 
-2.49.0
-
+With best wishes
+Dmitry
