@@ -4,72 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4871AC369A9
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02E9CC369AB
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6686C10E95B;
-	Thu,  3 Apr 2025 08:54:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10A4910E961;
+	Thu,  3 Apr 2025 08:54:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="sBXeOag/";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="yMlCQGvA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X461quz7";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E777C10E709;
- Wed,  2 Apr 2025 12:00:51 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4ZSNjs4ZQ6z9tJM;
- Wed,  2 Apr 2025 14:00:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1743595249; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nl4l8of68HS2zq9TP8rEIRyIj3+DQpTOv77MizaWLHc=;
- b=sBXeOag/ghzZoGHeAe3RbBftpfhpPE+F29kbNcOpf+8x1Ce4eqP4hlkZCGZ7FCJW5FyvPC
- ZhPDf4zeyaPrzAgMipwjPznA1BA5FhR4cn3GOJt1TaaMuYi81oAzVl8Hbm7aiRuVjUk6kF
- rQJKUnvz1k7rdTn9UFZc9jZYSeCPvIc6gqEnNg9++as2dYfzsttDl6PaDReaygfZaW751S
- MTnRFwHNuRtNXeEWUf1o4sL2k2m2l3gvjEK/kXp06wflzEra856EJb+GXBtUTX0ckfYuCv
- rZgzu3cv99X9PuauSz39dL8qWKwoJDmpjkcOPfDPKvNMc9DR+E2fGbQ8B9R93Q==
-Message-ID: <58b680faeeeea1c317b43a34c71d978efe72009d.camel@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1743595247; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nl4l8of68HS2zq9TP8rEIRyIj3+DQpTOv77MizaWLHc=;
- b=yMlCQGvAJ2wZrrgWX/5TlbJhLsEV6fvuTB/oK/FVF7nBEmYhCoTwvsW0SOh1RsZyOA0ciC
- VeC5y1lgWokpbqkac1eyh5oWfr0UPOLGpTgzATkDk6gC8dW5KzJ3E2nLrQh78QqsXQ9274
- JB6jHSO4pqT+xEUQgbOczg82twAyUcRliD4ocqgoePbAY9nvjpgKv5TgirYVseLwDdpgx2
- YPZp9ievUegcYBcQ8uxhiRib6coTxXZ5prZXnvKAcFxC3dyr655WDTqEZ/lKAmYeL6jzDB
- n1KtdTfnnVI+s8MMhtoVFiyeK2U4DAwOmZNlUntUMKiZE7sEnh/yWnOtOeJPYA==
-Subject: Re: [RFC v3 06/14] drm/sched: Implement RR via FIFO
-From: Philipp Stanner <phasta@mailbox.org>
-To: Michel =?ISO-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>, 
- phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost <matthew.brost@intel.com>
-Date: Wed, 02 Apr 2025 14:00:43 +0200
-In-Reply-To: <264be6a0-b9be-4430-9de4-276456e34214@mailbox.org>
-References: <20250331201705.60663-1-tvrtko.ursulin@igalia.com>
- <20250331201705.60663-7-tvrtko.ursulin@igalia.com>
- <e4594adff1606e6a92714bbcad5838c3f100acdf.camel@mailbox.org>
- <264be6a0-b9be-4430-9de4-276456e34214@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29AA510E899;
+ Wed,  2 Apr 2025 17:42:53 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3d5e43e4725so476775ab.1; 
+ Wed, 02 Apr 2025 10:42:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743615772; x=1744220572; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FATfNmmYepyBuSsmf/EtXKQeipPGgu5dSGlE3AdOnp0=;
+ b=X461quz74ut6acwpjggJ80Dw4AAhBDuVeQV+S+cuPdy82WGts87eBSAorkr/rlDikg
+ qvpSo53+vIWYy1yAzhrVCeRFyj0EhM0vsn7uuLRyfKrvX7YagUS7rqM0ilSYEs1Ccik/
+ /HoXYnCyBFinbzXxmUrP3EYe2RqC2CJzABc0jp5PI7kmU5A8HRJ9OU2139yI+z6gRmbr
+ kSOmLpNUtpLD1DjJpao64yAKJB42jfdgvmjVuGvO+yx1tCY7P8xyJV5Kf9xis/7fsy02
+ 1jrHqoFQjDaccymolD86mW6/f/SmKW2cSV9ZtXjqJUBQ3MrBabIOuGARglyG0Q5UXbAB
+ pQbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743615772; x=1744220572;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FATfNmmYepyBuSsmf/EtXKQeipPGgu5dSGlE3AdOnp0=;
+ b=Q0OpzweKp8o1soNMGdTf0UX1g8U6eTPfaC4IBPGeXC7nlZFHGCPBZ1aDP2vPxQf1Ou
+ Q6PK8P3mcd3c4PYWE2wHSV2QpPcX+yN4ddUbQ5Dw4JXNdylE+cKdKedw+YD7aQUwDLNN
+ +24Sx1hkX4uRcOHHxj5fvfgW7CkZX/Rase5p1cNblYKOHlCZaOp7FdOCyj5zU0A4dVAe
+ Kdnm+XVLsfwMICnpA+rU50QPGjoUSDhl9BxMPt3p4M4KhT3MASYYZo6+Tq7YGjooIdnc
+ Y3+Vv0B3o+dazgpIIZS8qHW6dwjeQkX77F1bZ5Y3oDpxLa/XDVX4L8CwlrsLDI+Z9lfR
+ iK0g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVRU525boEL3jhOYNDtnfbvpc4paJOjLMkqfULQjnsrbvXtbBZuJ+/duwj+Zhmwl3SASKP9KULkcsnL9Rm6ww==@lists.freedesktop.org,
+ AJvYcCWBjQO0LLTkyPZ05IkFtu45OJlNA9se1X2JLh/QIsHCLhxOPhLBt43uRrn67Lrc58EaDtPEgUAz@lists.freedesktop.org,
+ AJvYcCWjymL+uuhZf48vUXjP7AtuX+B1HSrkHoqD4UDT9W3Bhwh+z2aebX458iv8uEDb1JdM6mQor5j7be2S@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVbSIXafq+AWPJdk8U+go3tAU7KTuXsIpMA/FtvhhmymcQEVES
+ lyccfxRXS2qzSj0xnOV/p7gdZqHryW6+xA0E7AzZjIzlCpgV1dQD
+X-Gm-Gg: ASbGnctNLP4BcCbBzaiWsgohIk9Jl0tquNkOIA62MEzAW6y+pjiB6P50EXFgU6+ChN5
+ W6y0nU7kfUhcVclbDVtB/+2YbXheWEXJebBd5jUdBVnoTiQAX9izQdMOKgJK/Q0Jie5o1RPybwP
+ PaQ0hYRtZ7IURgSj+Vn2kSbSl8pgO8DLwlPICDIRSpKhOmSKRMIz8ML1pZJRTxDWEAG8+qNFYGc
+ gU9MFl3jSMK27xQEkHgkKA1uxvk12I6RsOhhCouN141vgmPXGI0gZy36yvGdEtOu/+xn11zwnsX
+ G/1ooc156F7j1czyc//iotmsdI1dqtuzI02rYXpc5vJp5H1t+L5ZqKy9nR7r4XHEYLmNDdar0X6
+ FXA==
+X-Google-Smtp-Source: AGHT+IGe4ZjeecOx7VkTalotPIU8Orb/rdY2ZWXpy2CrhIYZ0sCG25kLdKxcJbOn9Bsi7SG3UWODzQ==
+X-Received: by 2002:a05:6e02:b4a:b0:3d4:36da:19a9 with SMTP id
+ e9e14a558f8ab-3d6d5535b1amr35121145ab.15.1743615772465; 
+ Wed, 02 Apr 2025 10:42:52 -0700 (PDT)
+Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
+ by smtp.googlemail.com with ESMTPSA id
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Apr 2025 10:42:52 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v3 39/54] drm-dyndbg: add DRM_CLASSMAP_USE to Xe driver
+Date: Wed,  2 Apr 2025 11:41:41 -0600
+Message-ID: <20250402174156.1246171-40-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-X-MBO-RS-META: 3er5ar3tgnfg8hfj9ga9j7z7yk49mgnj
-X-MBO-RS-ID: 0a9728b9762fa2d0e38
-X-Rspamd-Queue-Id: 4ZSNjs4ZQ6z9tJM
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,78 +92,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-04-02 at 12:58 +0200, Michel D=C3=A4nzer wrote:
-> On 2025-04-02 12:46, Philipp Stanner wrote:
-> > On Mon, 2025-03-31 at 21:16 +0100, Tvrtko Ursulin wrote:
-> > > Round-robin being the non-default policy and unclear how much it
-> > > is
-> > > used,
-> > > we can notice that it can be implemented using the FIFO data
-> > > structures if
-> > > we only invent a fake submit timestamp which is monotonically
-> > > increasing
-> > > inside drm_sched_rq instances.
-> > >=20
-> > > So instead of remembering which was the last entity the scheduler
-> > > worker
-> > > picked, we can bump the picked one to the bottom of the tree,
-> > > achieving
-> > > the same round-robin behaviour.
-> > >=20
-> > > Advantage is that we can consolidate to a single code path and
-> > > remove
-> > > a
-> > > bunch of code. Downside is round-robin mode now needs to lock on
-> > > the
-> > > job
-> > > pop path but that should not be visible.
-> >=20
-> > Why did you decide to do it that way and then later remove RR &
-> > FIFO
-> > alltogether in patch 10, basically?
-> >=20
-> > I think the far cleaner way for our development-process would be a
-> > separate patch(-series) that *removes* RR completely. Advantages
-> > are:
-> >=20
-> > =C2=A0=C2=A0 1. It should be relatively easy to do
-> > =C2=A0=C2=A0 2. It would simplify the existing code base independently =
-of
-> > what
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 happens with your RFC series here
-> > =C2=A0=C2=A0 3. Before changing everyone's scheduling policy to a compl=
-etely
-> > new,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 deadline-based one, we could first be su=
-re for a few release
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cycles that everyone is now on FIFO, est=
-ablishing common
-> > ground.
-> > =C2=A0=C2=A0 4. We could CC every- and anyone who might use RR or might=
- know
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 someone who does
-> > =C2=A0=C2=A0 5. If it turns out we screwed up and someone really relies=
- on
-> > RR, it
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 would be easy to revert.
-> >=20
-> > I am not aware of any RR users and have, in past discussions, never
-> > heard of any. So removing it is more tempting for the above
-> > reasons.
->=20
-> https://gitlab.freedesktop.org/drm/amd/-/issues/2516=C2=A0has a bunch of
-> RR users...
+Invoke DRM_CLASSMAP_USE from xe_drm_client.c.  When built with
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y, this tells dydnbg that Xe has
+drm.debug callsites.
 
-Right, there's a number of people complaining about the regression. But
-what I'm interested in is: how did it evolve since then. Are there
-distributions who set the module parameter? Does Steam do it? Or is it
-individual users who work around the problem that way?
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/xe/xe_drm_client.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-https://gitlab.freedesktop.org/drm/amd/-/issues/2516#note_2679509
+diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
+index 2d4874d2b922..756dba5c88f8 100644
+--- a/drivers/gpu/drm/xe/xe_drm_client.c
++++ b/drivers/gpu/drm/xe/xe_drm_client.c
+@@ -21,6 +21,8 @@
+ #include "xe_pm.h"
+ #include "xe_trace.h"
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /**
+  * DOC: DRM Client usage stats
+  *
+-- 
+2.49.0
 
-^ this comment for example seems to indicate that on newer Wayland
-versions part of the problem has vanished?
