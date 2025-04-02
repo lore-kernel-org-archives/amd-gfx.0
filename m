@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F17CAC369AA
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B3ABC369A3
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D276710E95E;
-	Thu,  3 Apr 2025 08:54:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E06AF10E968;
+	Thu,  3 Apr 2025 08:54:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i9sMANgy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OZ2jxgMl";
 	dkim-atps=neutral
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
- [209.85.166.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD1110E87F;
- Wed,  2 Apr 2025 17:42:28 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id
- ca18e2360f4ac-85b3f92c8dfso528739f.2; 
- Wed, 02 Apr 2025 10:42:28 -0700 (PDT)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 100DE10E8AD;
+ Wed,  2 Apr 2025 17:42:59 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3d43c972616so332285ab.0; 
+ Wed, 02 Apr 2025 10:42:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615747; x=1744220547; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743615778; x=1744220578; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1HVCxpeKRFzeSI1AhmlyvBuPBqCCJEuta9afFF5qwQI=;
- b=i9sMANgyVawnzvrGjLqJPRGhs70gYkBi3JzhvTanyLeyoafr/ZnrScrAvW55vsYQIE
- OxjBofEUizXY09mVfYTJ0W1B4hjmJ3w/oxo/O8qDsXsyzjul7eOXfum903jB47pVM06g
- /U5kIATMnmHj0Dr520kpGSKoTKS92g8Z9nvTdNcGY0Zc/5bQqCh8TX8lgxWXFY6ZOrjo
- gid+43N7xWNYaLPuk5V9gWtmmMwfWu7oLJlmF/IBnUkDEuPRng5WCts4i0CSiR5B3HF/
- 9x/QIdhPq39yGmP7D3YdYIA3t42mOFOXKSWUEmqxQwgU/IEpsaR29huUKqZoMQeewxb4
- FRlA==
+ bh=Tgy450ZES2ez3J/XkWzr8/KGFStO5bXfg+gAZCZdzzk=;
+ b=OZ2jxgMlwhtH+mfEESynlS+ELb613wLNpX4gHmYQXMzoSOs/BqQPPINLwTDJme5zX9
+ +jB+RrecSo/Tjf8WHsT2mFMKcxkpTi1x+S6e/e9xzgk7QBtw3rH8xmU+VAqTVj8a9jk/
+ +nVQz16pldq+jPqCW+MtokpZm6C9h3jqm/MzO4vawCWgXz9UtOBVCcVa/Y34CrHRvWWJ
+ I/hchmOeEW+ex/fa7yeclY30V8juFlBqWeN8MrqRM48ausbapg3J3z7vUBeY0i/xFzAQ
+ lCCd1XO4Bi/AFYvUZYYZ/19z/VqyokjVb+lBd6+NgfOIm9Mz4kOHw04OgDF6wEWSgwdO
+ ky1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615747; x=1744220547;
+ d=1e100.net; s=20230601; t=1743615778; x=1744220578;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1HVCxpeKRFzeSI1AhmlyvBuPBqCCJEuta9afFF5qwQI=;
- b=KJAnAO5GgFarUjLz93tXRL47xXzlXFuEfmOjCbYu29NmQ7pmJRjJfoXLEbywDvUoh5
- yiW6xiYbqoBHaXYMMywNhqUFluDxPZKvrIam2Gcr/hwvGVxoXCARHmfoRCV/9cP+SUU6
- 4/5aDXNKyqR0hE/2oE9WPZ532P7FXsEybPXkfWPb6QcIE9ooBiK68zAO6PPNaWsURRtV
- I+RWtcyPdy1hF8bIkhhf05tnnMWjtNhBgSVeBJK6WN5cglw7+pOkcaedDZwOeeH2CKgq
- p4EeQ9eEgHKVK9W3N0/2GVJPrk70OmA+urEDTMmGdGjs01w5bba8+a0MHnnaowyEUxgz
- IKXg==
+ bh=Tgy450ZES2ez3J/XkWzr8/KGFStO5bXfg+gAZCZdzzk=;
+ b=EJ7Z21TO/MOERhQLlvbM/Suus2q9XDzro1+Rvn6UhGuEflaxNSaqNNy7g5NWQS/gIz
+ Q6+/SbxMe5RfB9fYnkhnNjQJtYxuVusek8T0jy7+p+k6KAgANW4x13vOBndGFmYhHPRl
+ K7gd4Bs+E1mS8vCVKGmY0tbL17lrzmbwdVylvjT7ZFd1ckNm+3ErPlZIx8qxa+wLZBHT
+ BC5NvRc8ddihWItxOFLZtcOHj8BEdu2NWiIiiQOPCByn2TO8hO6HkBEUQKwEy0tr1FmN
+ XMiHpUWc6Cus61kdlzKHu3qFYN4j2TLgxTOIVHUlz6w0wQyfSr3QEbC7pAaLrppiXIKP
+ kzBw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5bWSGRJL9kYHl781wII5MLwivP1bJ1iucwlyoLK0gT04pGcx1biEo+xyLqaBJa5O3y9Y9F5gfcuqnYDxx9Q==@lists.freedesktop.org,
- AJvYcCVFPKCdiuu27Gw83FnLiiDMwu9ICvcgvUQ6JDIqnf/vuQn7D4EyEtuJcyE+nZiV/uwH0c+pkFRZ@lists.freedesktop.org,
- AJvYcCXpF9GdD9DqFUkmZ/uijTixd2yD8y6/6yAGvpddnkSQ+6Z2tLAYvLH4E8qjrX7rSttmjK6HOE+nN0m9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRLtsJ9T61eeF6+P1K2CPlTt770VY9WaicQ5qom+/g2ud+mPtR
- P1HNYibyC3KGWFM9vaKqZbgc4EkgGv8eJQXOypOv92VgijIJ+aJa
-X-Gm-Gg: ASbGncvotkdih/uHx2LV0o1lDRmrITeJL7hZ/FT6wEo8BhoUuDnLifd+qXNX0FADVkw
- w2td+cMsiZf2IEtXwivPZFaWT0APirjYaYKJYzHBOCwrmxUIkO7n4BvAV8zQBhO0GWuyQtxKE1t
- T0nBpoAF5JUGVjx7GTb6OiGo0oPm+puQ1ZBizWIZ2w5gZ5fPPHNi4Nqjg+MATwQWA2OqOsxzRUd
- 0vj4TB2+Rzoris6ZvblomlCrD2B37bR7HcySNGl2ZBt7GpiGmuX9BdWUBTZcyWjz8yXTUPcmZ7t
- iyptTP6+6StkNyUN18VvK3CuoErzzJWtoFXiYhqnNWoe4B6t8WbiRz6FtRryuLNb9S/Ejb01Ror
- 1Yg==
-X-Google-Smtp-Source: AGHT+IGlzPv/lWLR6oQjYV5JPNtW8nNh4plsjoqpQBkDo3jtIwkHZqjbr7e+0JVOkoajzQcuo3mWrg==
-X-Received: by 2002:a05:6e02:3c85:b0:3d3:d994:e92e with SMTP id
- e9e14a558f8ab-3d5e09db5d3mr173949595ab.17.1743615747396; 
- Wed, 02 Apr 2025 10:42:27 -0700 (PDT)
+ AJvYcCUNZJEExFPzgE+7yL9Bs64ZCI3QCK/NWSAroL0iVRL7MWSrjwhKFlJaSZhmv9TO8xwNMlcyvb86h9Tq@lists.freedesktop.org,
+ AJvYcCWVyEGrUSzda97GGDYdscekrJMP1YTSv3Gqw5kHgHQZUx43tEU6Fjrf+E5C4MXG3seRFkkXKOZS@lists.freedesktop.org,
+ AJvYcCX++gjBWgsp9dDz8r2d726FzXmEQ3y4Mx2BqDxXxg9+hYDAIuU3riWh7vzlpQyvkWMTJsoAI3X+kN+54Trv/A==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZ6l16x6CLBi8JtQettudnCDFDsL/iluTE6rYq9zotsiBJRp3Y
+ HepIaDOkzeqLIQ+8qrQf9VebsOdEAuXqfh89U6QzVpBpliN3Dd3u
+X-Gm-Gg: ASbGncvH37qdepvV/oXYoe8BxAr6KUyBuNB/sggHJyX1l8h+8eWAFr6nUpqHTuEl+6N
+ kW1CGKf3d5lcS75vstcMVLjQ/jqBQJsQvhX1D8T49EKRCAQRzIum54p83M+mngDFreSR81lX9gJ
+ Cq20mR7CvEScgGg5JU/dGmUvdBtYt/hszQLO54oiJrpWzmOCyLvMdkqvAUXlKpVlNh4rY469dpQ
+ aVESFJDp+mYsFLzglCpxx5P4jxtjutEKUWekC6J3ugef96ms4xa5Q2A9eQdRdxUSgr4Dr3xTUej
+ qyz8EMP3bHUKWIT/RtfYr+a6jXYvFGMj3ptUD1uJO34hw7G5sozVWt52mdgvtTzMyxC4p2NUA6i
+ q4A==
+X-Google-Smtp-Source: AGHT+IGOn5uIZhYGkruQeCbC1f+WjkFMEGOf33zX/XAEqkxeDsXMZ4VsYrJ+aFa+RIq7clpGvTTA5w==
+X-Received: by 2002:a05:6e02:1d9d:b0:3d4:2acc:81fa with SMTP id
+ e9e14a558f8ab-3d6dcb49685mr7363055ab.2.1743615778123; 
+ Wed, 02 Apr 2025 10:42:58 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.26
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:42:26 -0700 (PDT)
+ Wed, 02 Apr 2025 10:42:57 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
@@ -72,16 +72,15 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 14/54] dyndbg: hoist classmap-filter-by-modname up to
- ddebug_add_module
-Date: Wed,  2 Apr 2025 11:41:16 -0600
-Message-ID: <20250402174156.1246171-15-jim.cromie@gmail.com>
+Subject: [PATCH v3 45/54] drm-dyndbg: add DRM_CLASSMAP_USE to radeon
+Date: Wed,  2 Apr 2025 11:41:47 -0600
+Message-ID: <20250402174156.1246171-46-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
 References: <20250402174156.1246171-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:04 +0000
+X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,113 +95,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The body of ddebug_attach_module_classes() is dominated by a
-code-block that finds the contiguous subrange of classmaps matching on
-modname, and saves it into the ddebug_table's info record.
-
-Implement this block in a macro to accommodate different component
-vectors in the "box" (as named in the for_subvec macro).
-
-And hoist its invocation out of ddebug_attach_module_classes() up into
-ddebug_add_module().  This moves the filtering step up closer to
-dynamic_debug_init(), which effectively does the same for builtin
-pr_debug descriptors; segmenting them into subranges by modname.
+radeon has some DRM_UT_* debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg about its use of
+the class'd debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 56 ++++++++++++++++++++++++++-------------------
- 1 file changed, 32 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/radeon/radeon_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 104cf8abdf33..046c4ffb38f8 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -161,8 +161,8 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- }
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 267f082bc430..6eaac728e966 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -253,6 +253,8 @@ static const struct pci_device_id pciidlist[] = {
+ };
+ MODULE_DEVICE_TABLE(pci, pciidlist);
  
- static struct _ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
--							const char *class_string,
--							int *class_id)
-+							 const char *class_string,
-+							 int *class_id)
- {
- 	struct _ddebug_class_map *map;
- 	int i, idx;
-@@ -1224,30 +1224,34 @@ static const struct proc_ops proc_fops = {
- 
- static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
--	struct _ddebug_class_map *cm;
--	int i, nc = 0;
--
--	/*
--	 * Find this module's classmaps in a subrange/wholerange of
--	 * the builtin/modular classmap vector/section.  Save the start
--	 * and length of the subrange at its edges.
--	 */
--	for_subvec(i, cm, di, maps) {
--		if (!strcmp(cm->mod_name, dt->mod_name)) {
--			if (!nc) {
--				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
--					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
--				dt->info.maps.start = cm;
--			}
--			nc++;
--		}
--	}
--	if (nc) {
--		dt->info.maps.len = nc;
--		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
--	}
-+	vpr_info("module:%s attached %d classes\n", dt->mod_name, dt->info.maps.len);
- }
- 
-+/*
-+ * Walk the @_box->@_vec member, over @_vec.start[0..len], and find
-+ * the contiguous subrange of elements matching on ->mod_name.  Copy
-+ * the subrange into @_dst.  This depends on vars defd by caller.
-+ *
-+ * @_i:   caller provided counter var, init'd by macro
-+ * @_sp:  cursor into @_vec.
-+ * @_box: contains member named @_vec
-+ * @_vec: an array-ref, with: .start .len fields.
-+ * @_dst: an array-ref: to remember the module's subrange
-+ */
-+#define dd_mark_vector_subrange(_i, _dst, _sp, _box, _vec) ({		\
-+	int nc = 0;							\
-+	for_subvec(_i, _sp, _box, _vec) {				\
-+		if (!strcmp((_sp)->mod_name, (_dst)->mod_name)) {	\
-+			if (!nc++)					\
-+				(_dst)->info._vec.start = (_sp);	\
-+		} else {						\
-+			if (nc)						\
-+				break; /* end of consecutive matches */ \
-+		}							\
-+	}								\
-+	(_dst)->info._vec.len = nc;					\
-+})
++DRM_CLASSMAP_USE(drm_debug_classes);
 +
- /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-@@ -1255,6 +1259,8 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
-+	struct _ddebug_class_map *cm;
-+	int i;
+ static const struct drm_driver kms_driver;
  
- 	if (!di->descs.len)
- 		return 0;
-@@ -1277,6 +1283,8 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 
- 	INIT_LIST_HEAD(&dt->link);
- 
-+	dd_mark_vector_subrange(i, dt, cm, di, maps);
-+
- 	if (di->maps.len)
- 		ddebug_attach_module_classes(dt, di);
- 
+ static int radeon_pci_probe(struct pci_dev *pdev,
 -- 
 2.49.0
 
