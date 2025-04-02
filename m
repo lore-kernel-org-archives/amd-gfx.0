@@ -4,69 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B175FC369A7
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1199C3600C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5625710E95A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E585610E95F;
 	Thu,  3 Apr 2025 08:54:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=crpt.ru header.i=@crpt.ru header.b="FJsoM969";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b3sLMge6";
 	dkim-atps=neutral
-Received: from mail.crpt.ru (mail1.crpt.ru [91.236.205.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6344210E7D8;
- Wed,  2 Apr 2025 14:12:34 +0000 (UTC)
-Received: from mail.crpt.ru ([192.168.60.3])
- by mail.crpt.ru  with ESMTP id 532ECOEp031968-532ECOEr031968
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=OK);
- Wed, 2 Apr 2025 17:12:24 +0300
-Received: from EX2.crpt.local (192.168.60.4) by ex1.crpt.local (192.168.60.3)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Wed, 2 Apr
- 2025 17:12:25 +0300
-Received: from EX2.crpt.local ([192.168.60.4]) by EX2.crpt.local
- ([192.168.60.4]) with mapi id 15.01.2507.044; Wed, 2 Apr 2025 17:12:25 +0300
-From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
- <a.vatoropin@crpt.ru>
-To: Felix Kuehling <Felix.Kuehling@amd.com>
-CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
- <a.vatoropin@crpt.ru>, Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>
-Subject: [PATCH v3] drm/amdkfd: Change svm_range_get_info return type
-Thread-Topic: [PATCH v3] drm/amdkfd: Change svm_range_get_info return type
-Thread-Index: AQHbo9lC4BY/VWq2e0yOP4nLCPzxPA==
-Date: Wed, 2 Apr 2025 14:12:25 +0000
-Message-ID: <20250402141219.372650-1-a.vatoropin@crpt.ru>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.200.60.21]
-x-kse-serverinfo: EX1.crpt.local, 9
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: Clean, bases: 2/17/2025 9:52:00 AM
-x-kse-attachment-filter-triggered-rules: Clean
-x-kse-attachment-filter-triggered-filters: Clean
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 743E810E881;
+ Wed,  2 Apr 2025 17:42:22 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-85b4277d0fbso1642039f.0; 
+ Wed, 02 Apr 2025 10:42:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743615741; x=1744220541; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0gFevukveSt7PbWkbUevQGA0uvSXu+LT7vaKBaZctmY=;
+ b=b3sLMge6PF/u/40OnvL/Vt1pviufzM4XfFMeaZBFwEk8ezVFmk5jhs1Pq1n221Q1Dn
+ n0vRjxW/TT5H9HgpBLxhjBU9Q/QFpg3wZRxQlp1MYRxv1sxywfuzMKlcXwEQjTiQ4OG5
+ tT+O46NdzsanSmxOQzHvprZ/OhdaPD+yNqK4OKMFwRbPwtLEhdfqr1sKklts/KluyubW
+ PgDdMtz57jrZzpRei+eFKcACwWbBR8bsR86smO+2uuhO8W5apQn1WSDlYwc5XS/psTPO
+ a2k9J428JzHPkaMYzPWWzhLEzN093evmzog5Fx0X7+LkxxaoXGCCUAHx0UysaD+ci+dP
+ xWIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743615741; x=1744220541;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=0gFevukveSt7PbWkbUevQGA0uvSXu+LT7vaKBaZctmY=;
+ b=QSbc8glT3WSgzrdsweJLFx6mYwP6O4RgwqGl6UZY+SRd7qdO2VTYfOyP98GAxTO6gy
+ 7n1fMPNunOIVyJ7rjQYvCRX0sEiWFjfFELExHZXRLctSoZtXBW72Xep0d1eDwIvWsYIA
+ 6ucaCxjVCE8bVBUx6d3atbl/81qbos1Stv/O6dpdRKjnVJ6u/XDlM5/XqXIBlKOpSneJ
+ TOJWCJTV8GhvlClLEQ66pjQ5+30Za29SeMRii0fdoAypMnVp8rZc2OBnp1mlCLuHWqko
+ xzIF0miWbDJtNAN8YQIu5Mp2o6cFG+W3HFniEtbXnf4rhEvFIpHM6pDVa1AXh0cvjsff
+ T5kg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUunmf0ZmsJEXsWZd3NX45lEYpPvKJIuW6nppEXt1fzcJg4/BXQPu1KKR8o9CR/omN8AjFs0B1R@lists.freedesktop.org,
+ AJvYcCVv3you8wdqejjIgM9F/XPm5lbog6IpOaFBhToNzig2uEQpO0k9mR5OQAvfE+pWL2O14izxtMk3LHoz8ksMjQ==@lists.freedesktop.org,
+ AJvYcCWB9MPE5ELrI4WqlYP2bj/w5SV1QyRQhzQMgipYZVVSq8yE71FTgl9iEkOqbPckBJQem+DwuhcBGy8A@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvwbMGNVNz0cxXxSpsEbKasp74l5AkT3+MzPtbnf/EL5jnzFCy
+ TgnKkU9LFE2qtiu99XYdfMAIV6kx/piGLTq/cZlHbouSfdvnozWs
+X-Gm-Gg: ASbGncvkJGt2MRYpdeHAf22uK9H2EMTZyKyJ5QxIRKGXWfN82G7h0o7Aiy0hiNZmDlJ
+ ZBM8qkTcmGkakc2/6yKMY+MUNSnX487qbUGtsShYaFQIAKSLyBHn5ToB4FhuBJ2oqnLroG8lnL+
+ BEybBil19x+fSutyXpPw5WxMrzoK3yniHPVXgZPb1fn67/3/K68pUyb4lS/+6WyqH6rgDABD+EH
+ b6S9Zq8m7QzvZi4mbZwc6I8vOwjNM5tKtFVlm3pN4sEii8eL/DPzW5JeMiynQ0+O9rpMbk+njeC
+ 0mnLxX+p4V8z78niXiKQTgCdgWIxOceKBrCpOOn81YJEtxe6AtTVYfJp9jF05iDibzGL/ILxFys
+ gtA==
+X-Google-Smtp-Source: AGHT+IEV2XIR0LN/wAE2n62Y1VoOctpEVbSfU4OWKQUPEpcCeuWBTEhGGJZ77uLyoEnBh82Q9kZt3g==
+X-Received: by 2002:a05:6e02:3c85:b0:3d3:d994:e92e with SMTP id
+ e9e14a558f8ab-3d5e09db5d3mr173946165ab.17.1743615741560; 
+ Wed, 02 Apr 2025 10:42:21 -0700 (PDT)
+Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
+ by smtp.googlemail.com with ESMTPSA id
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Apr 2025 10:42:21 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v3 08/54] dyndbg: reduce verbose/debug clutter
+Date: Wed,  2 Apr 2025 11:41:10 -0600
+Message-ID: <20250402174156.1246171-9-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-X-FEAS-Client-IP: 192.168.60.3
-X-FE-Policy-ID: 2:4:0:SYSTEM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
- c=relaxed/relaxed; 
- h=from:to:cc:subject:date:message-id:content-type:mime-version;
- bh=LW6r9FmmgL8wgSDH1rANqK2rFnzYBzbw9u9WPWj5At8=;
- b=FJsoM969Fh78xU6SpjBQxzC2WiTfbku1m8KnjnVhzN8HHu3dvLlxZ1Zh5BRhtESs4MFM/f9Okn2s
- 38oZrzigKPyv1NVND7bPRHh/wyMJmGHvoT6d5z3QlHp7vbKm/dmYU4JIMZLalA6c86cmjT06SYyn
- kN69oxLJ7Y9d/9s1MoyNCvFMXd70WkMPP0ST5qyqcTuNWGKFoJ6vC9H5oWxFPuDM+KenzvZbSNcr
- JozRUPFdDXNL1SJRG7s2bFJ1U1dt7BNbdnmAsEpbW3h68idMgJ07WlSUtPUUs8LvWE4gj9koLrHG
- 7tZuh4dSAND2ux/DbGQUL32kgiwWocdd7PNb9Q==
-X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:05 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,83 +95,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KU3RhdGljIGFu
-YWx5c2lzIHNob3dzIHRoYXQgcG9pbnRlciAic3ZtcyIgY2Fubm90IGJlIE5VTEwgYmVjYXVzZSBp
-dCBwb2ludHMNCnRvIHRoZSBvYmplY3QgInN0cnVjdCBzdm1fcmFuZ2VfbGlzdCIuIFJlbW92ZSB0
-aGUgZXh0cmEgTlVMTCBjaGVjay4gSXQgaXMNCm1lYW5pbmdsZXNzIGFuZCBoYXJtcyB0aGUgcmVh
-ZGFiaWxpdHkgb2YgdGhlIGNvZGUuDQoNCkluIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2lu
-Zm8oKSB0aGVyZSBpcyBubyBwb3NzaWJpbGl0eSBvZiBmYWlsdXJlLg0KVGhlcmVmb3JlLCB0aGUg
-Y2FsbGVyIG9mIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2luZm8oKSBkb2VzIG5vdCBuZWVk
-DQphIHJldHVybiB2YWx1ZS4gQ2hhbmdlIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2luZm8o
-KSByZXR1cm4gdHlwZSBmcm9tDQoiaW50IiB0byAidm9pZCIuIA0KDQpTaW5jZSB0aGUgZnVuY3Rp
-b24gc3ZtX3JhbmdlX2dldF9pbmZvKCkgaGFzIGEgcmV0dXJuIHR5cGUgb2YgInZvaWQiLiBUaGUN
-CmNhbGxlciBvZiB0aGUgZnVuY3Rpb24gc3ZtX3JhbmdlX2dldF9pbmZvKCkgZG9lcyBub3QgbmVl
-ZCBhIHJldHVybiB2YWx1ZS4NCkRlbGV0ZSBleHRyYSBjb2RlLg0KDQpGb3VuZCBieSBMaW51eCBW
-ZXJpZmljYXRpb24gQ2VudGVyIChsaW51eHRlc3Rpbmcub3JnKSB3aXRoIFNWQUNFLg0KDQpTaWdu
-ZWQtb2ZmLWJ5OiBBbmRyZXkgVmF0b3JvcGluIDxhLnZhdG9yb3BpbkBjcnB0LnJ1Pg0KLS0tDQp2
-MSAtPiB2MjogYWxzbyBjaGFuZ2UgcmV0dXJuIHR5cGUgb2Ygc3ZtX3JhbmdlX2dldF9pbmZvKCkg
-cGVyIEZlbGl4IEt1ZWhsaW5nIHN1Z2dlc3Rpb24NCnYyIC0+IHYzOiBkZWxldGVkIGV4dHJhIGNv
-ZGUgaW4gdGhlIGZ1bmN0aW9uIGtmZF9jcml1X2NoZWNrcG9pbnRfc3ZtKCkNCg0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMgfCAgNCArLS0tDQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5jICAgICB8ICA5ICsrLS0tLS0tLQ0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uaCAgICAgfCAxMSArKysrKy0tLS0tLQ0KIDMgZmlsZXMg
-Y2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQppbmRleCAxZTlkZDAwNjIwYmYuLmEyMTQ5YWZh
-NTgwMyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2
-LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMNCkBAIC0y
-MDM5LDkgKzIwMzksNyBAQCBzdGF0aWMgaW50IGNyaXVfZ2V0X3Byb2Nlc3Nfb2JqZWN0X2luZm8o
-c3RydWN0IGtmZF9wcm9jZXNzICpwLA0KIA0KIAludW1fZXZlbnRzID0ga2ZkX2dldF9udW1fZXZl
-bnRzKHApOw0KIA0KLQlyZXQgPSBzdm1fcmFuZ2VfZ2V0X2luZm8ocCwgJm51bV9zdm1fcmFuZ2Vz
-LCAmc3ZtX3ByaXZfZGF0YV9zaXplKTsNCi0JaWYgKHJldCkNCi0JCXJldHVybiByZXQ7DQorCXN2
-bV9yYW5nZV9nZXRfaW5mbyhwLCAmbnVtX3N2bV9yYW5nZXMsICZzdm1fcHJpdl9kYXRhX3NpemUp
-Ow0KIA0KIAkqbnVtX29iamVjdHMgPSBudW1fcXVldWVzICsgbnVtX2V2ZW50cyArIG51bV9zdm1f
-cmFuZ2VzOw0KIA0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9z
-dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uYw0KaW5kZXggMTAwNzE3
-YTk4ZWMxLi5lYmRiYmI2MjBiMTEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGtmZC9rZmRfc3ZtLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0u
-Yw0KQEAgLTQwNzYsOCArNDA3Niw4IEBAIGludCBrZmRfY3JpdV9yZXN0b3JlX3N2bShzdHJ1Y3Qg
-a2ZkX3Byb2Nlc3MgKnAsDQogCXJldHVybiByZXQ7DQogfQ0KIA0KLWludCBzdm1fcmFuZ2VfZ2V0
-X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpwLCB1aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMsDQot
-CQkgICAgICAgdWludDY0X3QgKnN2bV9wcml2X2RhdGFfc2l6ZSkNCit2b2lkIHN2bV9yYW5nZV9n
-ZXRfaW5mbyhzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAsIHVpbnQzMl90ICpudW1fc3ZtX3JhbmdlcywN
-CisJCQl1aW50NjRfdCAqc3ZtX3ByaXZfZGF0YV9zaXplKQ0KIHsNCiAJdWludDY0X3QgdG90YWxf
-c2l6ZSwgYWNjZXNzaWJpbGl0eV9zaXplLCBjb21tb25fYXR0cl9zaXplOw0KIAlpbnQgbmF0dHJf
-Y29tbW9uID0gNCwgbmF0dHJfYWNjZXNzaWJpbGl0eSA9IDE7DQpAQCAtNDA4OSw4ICs0MDg5LDYg
-QEAgaW50IHN2bV9yYW5nZV9nZXRfaW5mbyhzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAsIHVpbnQzMl90
-ICpudW1fc3ZtX3JhbmdlcywNCiAJKnN2bV9wcml2X2RhdGFfc2l6ZSA9IDA7DQogDQogCXN2bXMg
-PSAmcC0+c3ZtczsNCi0JaWYgKCFzdm1zKQ0KLQkJcmV0dXJuIC1FSU5WQUw7DQogDQogCW11dGV4
-X2xvY2soJnN2bXMtPmxvY2spOw0KIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KHByYW5nZSwgJnN2bXMt
-Pmxpc3QsIGxpc3QpIHsNCkBAIC00MTMyLDcgKzQxMzAsNiBAQCBpbnQgc3ZtX3JhbmdlX2dldF9p
-bmZvKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwgdWludDMyX3QgKm51bV9zdm1fcmFuZ2VzLA0KIA0K
-IAlwcl9kZWJ1ZygibnVtX3N2bV9yYW5nZXMgJXUgdG90YWxfcHJpdl9zaXplICVsbHVcbiIsICpu
-dW1fc3ZtX3JhbmdlcywNCiAJCSAqc3ZtX3ByaXZfZGF0YV9zaXplKTsNCi0JcmV0dXJuIDA7DQog
-fQ0KIA0KIGludCBrZmRfY3JpdV9jaGVja3BvaW50X3N2bShzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAs
-DQpAQCAtNDE0OSw4ICs0MTQ2LDYgQEAgaW50IGtmZF9jcml1X2NoZWNrcG9pbnRfc3ZtKHN0cnVj
-dCBrZmRfcHJvY2VzcyAqcCwNCiAJc3RydWN0IG1tX3N0cnVjdCAqbW07DQogDQogCXN2bXMgPSAm
-cC0+c3ZtczsNCi0JaWYgKCFzdm1zKQ0KLQkJcmV0dXJuIC1FSU5WQUw7DQogDQogCW1tID0gZ2V0
-X3Rhc2tfbW0ocC0+bGVhZF90aHJlYWQpOw0KIAlpZiAoIW1tKSB7DQpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX3N2bS5oDQppbmRleCA2ZWEyM2M3ODAwOWMuLjAxYzdhNDg3NzkwNCAxMDA2NDQN
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uaA0KKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5oDQpAQCAtMTg0LDggKzE4NCw4IEBAIHZvaWQg
-c2NoZWR1bGVfZGVmZXJyZWRfbGlzdF93b3JrKHN0cnVjdCBzdm1fcmFuZ2VfbGlzdCAqc3Ztcyk7
-DQogdm9pZCBzdm1fcmFuZ2VfZG1hX3VubWFwX2RldihzdHJ1Y3QgZGV2aWNlICpkZXYsIGRtYV9h
-ZGRyX3QgKmRtYV9hZGRyLA0KIAkJCSB1bnNpZ25lZCBsb25nIG9mZnNldCwgdW5zaWduZWQgbG9u
-ZyBucGFnZXMpOw0KIHZvaWQgc3ZtX3JhbmdlX2RtYV91bm1hcChzdHJ1Y3Qgc3ZtX3JhbmdlICpw
-cmFuZ2UpOw0KLWludCBzdm1fcmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpwLCB1
-aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMsDQotCQkgICAgICAgdWludDY0X3QgKnN2bV9wcml2X2Rh
-dGFfc2l6ZSk7DQordm9pZCBzdm1fcmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpw
-LCB1aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMsDQorCQkJdWludDY0X3QgKnN2bV9wcml2X2RhdGFf
-c2l6ZSk7DQogaW50IGtmZF9jcml1X2NoZWNrcG9pbnRfc3ZtKHN0cnVjdCBrZmRfcHJvY2VzcyAq
-cCwNCiAJCQkgICAgdWludDhfdCBfX3VzZXIgKnVzZXJfcHJpdl9kYXRhLA0KIAkJCSAgICB1aW50
-NjRfdCAqcHJpdl9vZmZzZXQpOw0KQEAgLTIzNywxMyArMjM3LDEyIEBAIHN0YXRpYyBpbmxpbmUg
-aW50IHN2bV9yYW5nZV9zY2hlZHVsZV9ldmljdF9zdm1fYm8oDQogCXJldHVybiAtRUlOVkFMOw0K
-IH0NCiANCi1zdGF0aWMgaW5saW5lIGludCBzdm1fcmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9w
-cm9jZXNzICpwLA0KLQkJCQkgICAgIHVpbnQzMl90ICpudW1fc3ZtX3JhbmdlcywNCi0JCQkJICAg
-ICB1aW50NjRfdCAqc3ZtX3ByaXZfZGF0YV9zaXplKQ0KK3N0YXRpYyBpbmxpbmUgdm9pZCBzdm1f
-cmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpwLA0KKwkJCQkgICAgICB1aW50MzJf
-dCAqbnVtX3N2bV9yYW5nZXMsDQorCQkJCSAgICAgIHVpbnQ2NF90ICpzdm1fcHJpdl9kYXRhX3Np
-emUpDQogew0KIAkqbnVtX3N2bV9yYW5nZXMgPSAwOw0KIAkqc3ZtX3ByaXZfZGF0YV9zaXplID0g
-MDsNCi0JcmV0dXJuIDA7DQogfQ0KIA0KIHN0YXRpYyBpbmxpbmUgaW50IGtmZF9jcml1X2NoZWNr
-cG9pbnRfc3ZtKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwNCi0tIA0KMi40My4wDQo=
+currently, for verbose=3, these are logged (blank lines for clarity):
+
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+
+ dyndbg: op='+'
+ dyndbg: flags=0x1
+ dyndbg: *flagsp=0x1 *maskp=0xffffffff
+
+ dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: no matches for query
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+That is excessive, so this patch:
+ - shrinks 3 lines of 2nd stanza to single line
+ - drops 1st 2 lines of 3rd stanza
+   3rd line is like 1st, with result, not procedure.
+   2nd line is just status, retold in 4th, with more info.
+
+New output:
+
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+ dyndbg: op='+' flags=0x1 *flagsp=0x1 *maskp=0xffffffff
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+Also reduce verbose=3 messages in ddebug_add_module
+
+When modprobing a module, dyndbg currently logs/says "add-module", and
+then "skipping" if the module has no prdbgs.  Instead just check 1st
+and return quietly.
+
+no functional change
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+---
+-v2 squash several verbose cleanups together
+---
+ lib/dynamic_debug.c | 21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
+
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 55df35df093b..c609ff873224 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -264,9 +264,6 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	}
+ 	mutex_unlock(&ddebug_lock);
+ 
+-	if (!nfound && verbose)
+-		pr_info("no matches for query\n");
+-
+ 	return nfound;
+ }
+ 
+@@ -499,7 +496,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
+ 		return -EINVAL;
+ 	}
+-	v3pr_info("op='%c'\n", op);
+ 
+ 	for (; *str ; ++str) {
+ 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
+@@ -513,7 +509,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 			return -EINVAL;
+ 		}
+ 	}
+-	v3pr_info("flags=0x%x\n", modifiers->flags);
+ 
+ 	/* calculate final flags, mask based upon op */
+ 	switch (op) {
+@@ -529,7 +524,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		modifiers->flags = 0;
+ 		break;
+ 	}
+-	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
++	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
+ 
+ 	return 0;
+ }
+@@ -539,7 +534,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+ #define MAXWORDS 9
+-	int nwords, nfound;
++	int nwords;
+ 	char *words[MAXWORDS];
+ 
+ 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
+@@ -557,10 +552,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 		return -EINVAL;
+ 	}
+ 	/* actually go and implement the change */
+-	nfound = ddebug_change(&query, &modifiers);
+-	vpr_info_dq(&query, nfound ? "applied" : "no-match");
+-
+-	return nfound;
++	return ddebug_change(&query, &modifiers);
+ }
+ 
+ /* handle multiple queries in query string, continue on error, return
+@@ -1234,11 +1226,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
+ 
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
++
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
+ 
+ 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
+ 	if (dt == NULL) {
+-- 
+2.49.0
+
