@@ -4,83 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C11C369B4
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09BE3C369B6
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5E710E94F;
-	Thu,  3 Apr 2025 08:54:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WlT8F0uL";
-	dkim-atps=neutral
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DDE310E8A6;
- Wed,  2 Apr 2025 17:43:03 +0000 (UTC)
-Received: by mail-io1-f49.google.com with SMTP id
- ca18e2360f4ac-85e1b1f08a5so439339f.2; 
- Wed, 02 Apr 2025 10:43:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615782; x=1744220582; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/NT2KOV5clgY+fvBVb0kMabH8vqyg2O7PfGhDz8vOzc=;
- b=WlT8F0uLxkuzhT+UeyhzHvliGEs8XPXAjINLn8QJcEotYk2I53AqRrjjbUSasLaYQj
- VHJPBw7F+kTTb8nJMMXDDr6RHbbvZT5TwkyDbi/jwkzZu7VIsP7p0XfGxB4avYZzzJwN
- MO42r15sHp+fYki1G3Ebv57aPIOKa1MUldWyL8s9rLhl88RgDvagMjsNCiKdbxfDIkEM
- obLpcuLmRMcuZZtOMQSvi2SK70IbRFlqW9goyzxcNR9so0VwME8N3vdd3twzXLFxdCcv
- 3bKrkD1r827N1QRd60HP611tqxVg9UtjoYvoAA2yvdFQvk1F86t0BDykqln0kIK/UN1g
- xc1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615782; x=1744220582;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/NT2KOV5clgY+fvBVb0kMabH8vqyg2O7PfGhDz8vOzc=;
- b=WC5INumY4+lpJWXXhVIp+2P/AJ+Kurm5RMq4HDB6hpSgoeHF37oh/Qnj2PXhRvqTnV
- kdRZrFN0aUuBM8GFP6uPvfCjEKwRWuivE0J5WuEWtt2h2DazP6iE6FT9gyJIee2cPKqt
- daNQ+Kw2R3Q3Wx7D2NGH0yRuCeffXACv/zqlS1jDgarzcF2OeCQX8abPNSEIibUVBCM8
- oN/3pXUPz+iohwDk5I/d1hiM/Kgd23v1DJbUPS+dP921x+j1kPz03rscr64x0u30aYhm
- fMF+bJVYteJNVb6fyQ5AxFnUSPrpP1JjEuAZqn4NrMbsGuCnKJ43gCZ/4EIhtx+oBHqv
- 67zw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUpem54MPvpdwrtFI9QMRbTsuxYcCewjaiZbf3QCD8UXulobL/czPpfcUWgifITK3KUeBledA80@lists.freedesktop.org,
- AJvYcCUqXCO5IdT1bX3XHk+RooFm0H5cGbaLGtazJZZvuQ0IH+PkkgyQ1lkuPOrV5CTpHsGGvvX995fid7WDj6to6w==@lists.freedesktop.org,
- AJvYcCUy8KPTN9e817raJZHeC1r32s/nTG0k/V1xIKpJf8Qc7graBKtViCn+jGHuX0mRr9v3+crY9RLoeLcX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+FPl8me5MPZYEnznHrmGoHvsifY6iNMnzn7qJR5WmVToE74Jp
- Dd2XxLh1poJmAT10HjAuXbd6IYUobQlaDEZiI3xSkfe1B32vnknm
-X-Gm-Gg: ASbGncugJaGuZS8gXy+QcA2ObTRZNx0c2M+R0h8KI5KRbDoacxk8n366hui/phGKvPv
- wbo++oR1kEXYFB+xvGGbd1CMoUDSAqtTnHQRxV6QxtHmOcBdIG1eEVuwV4JmzodzkDTUiw8xXom
- o+Fqd7GJMgvq3W75RS+X7xfMIqIylkosnQiL4vmERfTxsP6mS4XlaWTXugqGePB8HH2MEuGSccy
- ptNqTWd6Nw3Yg3BzpzxP1GfXYpt2MMgRm4dCM2kuKFiFtj7+6ZW21eik/Jad3x1VtVZ1ve4Q8Xl
- F9kxs5l02eUST2H2T50Nx8n4mNmZZ4VnmE2eoLDBoArhtS+0f488R/rn/wInd4Q3L5vLPn7HGNG
- K0Py9BRFcUhsp
-X-Google-Smtp-Source: AGHT+IHugLKyVSM4152JdpDyO0IyiqFWhgdr4RcjxQiNgdLiEazciacIDXztJ7jfLMjeFRlO1pAg2Q==
-X-Received: by 2002:a05:6e02:1a21:b0:3d5:d6ad:286a with SMTP id
- e9e14a558f8ab-3d6d54bba56mr37037015ab.13.1743615782473; 
- Wed, 02 Apr 2025 10:43:02 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.43.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:43:02 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 50/54] drm-dyndbg: add DRM_CLASSMAP_USE to the gud driver
-Date: Wed,  2 Apr 2025 11:41:52 -0600
-Message-ID: <20250402174156.1246171-51-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
-References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51BAA10E959;
+	Thu,  3 Apr 2025 08:54:15 +0000 (UTC)
+Received: from irl.hu (irl.hu [95.85.9.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D82EC10E7D9;
+ Wed,  2 Apr 2025 14:35:13 +0000 (UTC)
+Received: from [192.168.2.19] (51b692a2.dsl.pool.telekom.hu
+ [::ffff:81.182.146.162]) (AUTH: CRAM-MD5 soyer@irl.hu, )
+ by irl.hu with ESMTPSA
+ id 0000000000080D7C.0000000067ED4B1A.00083746; Wed, 02 Apr 2025 16:35:06 +0200
+Message-ID: <e323219b52cda1891a55d12ad77a2b34edc8688b.camel@irl.hu>
+Subject: Re: amdgpu_dm_connector_mode_valid regression
+From: Gergo Koteles <soyer@irl.hu>
+To: Dmitry Baryshkov <dbaryshkov@gmail.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>, regressions@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Date: Wed, 02 Apr 2025 16:35:05 +0200
+In-Reply-To: <CALT56yPd-xfd=47xRxrCk4F3jib4Ti7kg8pRXy-gVAQpbOc=pw@mail.gmail.com>
+References: <ed09edb167e74167a694f4854102a3de6d2f1433.camel@irl.hu>
+ <8963a409dd575e040e5f07e4ad5e9c1d26b421f2.camel@irl.hu>
+ <CALT56yPd-xfd=47xRxrCk4F3jib4Ti7kg8pRXy-gVAQpbOc=pw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.3 (3.54.3-1.fc41) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:05 +0000
+X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,28 +50,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The gud driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+Hi Dmitry,
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+On Wed, 2025-04-02 at 16:36 +0300, Dmitry Baryshkov wrote:
+> > >=20
+> > > It works if I call
+> > > drm_mode_set_crtcinfo((struct drm_display_mode *)mode, 0) before
+> > > create_validate_stream_for_sink()
+> > > in amdgpu_dm_connector_mode_valid()
+> > >=20
+> > > or
+> > >=20
+> > > if I comment out the decide_crtc_timing_for_drm_display_mode() in
+> > > create_stream_for_sink()
+> > >=20
+> > > but a better fix than these can be imagined :)
+>=20
+> Would it help if you force recalculate_timings to be true if
+> (drm_mode->crtc_clock =3D=3D 0)
+>=20
+
+Yes, it works with that one.
+
+But the code would start to become quite untraceable.
+duplicate mode in amdgpu_dm_connector_mode_valid()
+call drm_mode_set_crtcinfo() in amdgpu_dm_connector_mode_valid()
+duplicate mode in create_stream_for_sink()
+overwrite ctrc in decide_crtc_timing_for_drm_display_mode()
+if crtc_clock =3D=3D 0 call drm_mode_set_crtcinfo() again in
+create_stream_for_sink()=20
+
+saved_mode is never used after this, so I can't add the condition here
+        if (recalculate_timing)
+                drm_mode_set_crtcinfo(&saved_mode, 0);
+
+This commit is related, I think:
+1101185 ("drm/amd/display: fix the ability to use lower resolution
+modes on eDP")
+
+Regards,
+Gergo
+
 ---
- drivers/gpu/drm/gud/gud_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index cb405771d6e2..3843c0e47169 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -32,6 +32,8 @@
- 
- #include "gud_internal.h"
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index bae83a129b5f..83c8c81d4015 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6984,6 +6984,9 @@ create_stream_for_sink(struct drm_connector
+*connector,
+        if (recalculate_timing)
+                drm_mode_set_crtcinfo(&saved_mode, 0);
+=20
++       if (mode.crtc_clock =3D=3D 0)
++               drm_mode_set_crtcinfo(&mode, 0);
 +
- /* Only used internally */
- static const struct drm_format_info gud_drm_format_r1 = {
- 	.format = GUD_DRM_FORMAT_R1,
--- 
-2.49.0
-
+        /*
+         * If scaling is enabled and refresh rate didn't change
+         * we copy the vic and polarities of the old timings
+--
