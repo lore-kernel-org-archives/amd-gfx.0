@@ -4,83 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 574CAC369A2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B175FC369A7
 	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D74610E936;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5625710E95A;
 	Thu,  3 Apr 2025 08:54:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qn1nIFBh";
+	dkim=pass (2048-bit key; unprotected) header.d=crpt.ru header.i=@crpt.ru header.b="FJsoM969";
 	dkim-atps=neutral
-Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
- [209.85.166.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1332010E888;
- Wed,  2 Apr 2025 17:42:26 +0000 (UTC)
-Received: by mail-il1-f177.google.com with SMTP id
- e9e14a558f8ab-3d6d6d82633so489545ab.0; 
- Wed, 02 Apr 2025 10:42:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615745; x=1744220545; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=c83dBzoIbcIM0DNfA5gVIyrKxy+OBEXIBjZPEG9Pdjo=;
- b=Qn1nIFBhgv+lBXQgCI34cdH8eO30+ViuDZFozjEtiDyUaVWpojH6jdYVuwi9ARhG0Z
- Vj8o6h6cQQIINSTeiibgXg5bmb4Lztk777/MgrEGkokKkiqML+QGB0a8z69Q44uM3/5+
- XfXMOEn9M7umzBW6EsPiozjQqQIYqKbYszi6h43BTIIbjOhd4q0N7cPp643BlZULfW1b
- UR+8T0oJt5RtibDngUrsUGkn8gY+P2BPRWF4NdOhbnEsLyZlWR7W1qkzrAcD7PUQCWVa
- 1YqCi3WJ8N/djRnHWBtSuodVuwvII+1WrGdDGA5lMSa/u3VIf5AXvKdj9s2DF7yGPUnw
- MJNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615745; x=1744220545;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=c83dBzoIbcIM0DNfA5gVIyrKxy+OBEXIBjZPEG9Pdjo=;
- b=aMdbKKWm0fPby2wHuu5SHsf5Ul3uESg8YD6ewlljlQ3+mV9h6LaRhBEIHuxTNU71TM
- w3ScQvtaCCFf4l9WJ9DZZOlOrXIy4TqS5/bt57WknKyeGFfRZktEhh04k1l7IzrgLKEx
- 1sbFPwDd0IsXyDzrlJRQ00pISYjd+c29zBbgwnNcbmPrvVBFMtzhVklTpzchU1ghTk4k
- cmFybYfqJiJBtAAy6N4lA+Kl/Y0ajgucSDMBPH55OR2VzsNAdU48455tDFIxJvhAMTfO
- kA+XFLD2KMLjVKNgrYznNamWQ0pj/7d9PWI2fy9bdZ0H0UKiHaaGY1r4eII/S8j21Wko
- Lizw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUob73jBe/JbYz5tRX/3MMxHKeQXtc2UlddXSlgQdB7QNJJKFUi8+pxuYepqR5e4ELhiYZnkYYOackM@lists.freedesktop.org,
- AJvYcCVaJbxc//lY7VDOfbtJsatdI3APkEems5mhLZWrgbCeAYaZ/9a6Yc1zwgqTHrdpVw8RnkkiHbWKkoxBguUQ2w==@lists.freedesktop.org,
- AJvYcCWmBXMcYxzPWL1vkC8tePlIM/6u7UBnC4iAaR8DfJPP1dIqAnxnGOKnfrvVC+HGIDDUmBNJv7Yz@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YysvAc0VsjkZCBKjTImI3uyn6qoKeSicTv9KtA21dCXgosjSx5v
- FVpPr5SUO7HBuJuo5REh5cQzbk36WNkWk259BRHMFeihRaW3RxyY
-X-Gm-Gg: ASbGnct8c8k7GesgKdOL8xtTl0ETs3EKz20XCOqt+qNLkudungmIXoeYM50rnQWudM3
- OhbaAeDETLyxcur3PfEvzFR10NtWXN0dev++ZEoBdlZDuRiD1hrM6OCN4PE5NiZ3otn2sBJ7I/M
- ouarTRpBWoSElbUbgsCnhuvWcZKGHS+oCrbq8mn4wMyaVt0lj7tZgjWuSGVtfTsxuXIz6TBTfnB
- mWW8+VimYSGvB86kLu1hFeAJi8aiKRu79WYpAs2xbGHxY/s9Jybo5xLwurIJ4CsHljlc5BevZcD
- tYdv9F+dqIfQiW5SIiDBMjLaa3tJNnURnIfjKLr28XegIJXFLnrNtqB6gVe4GCkS63Mc3OwGnZ8
- 57w==
-X-Google-Smtp-Source: AGHT+IG4VkEFZ5GxM5DWtdCptwmL6vD+yFvCbb5TkjAwVoCHsiKcA6mXmOduxT46XIJtI0tZSFL2lA==
-X-Received: by 2002:a05:6e02:1848:b0:3d0:443d:a5c3 with SMTP id
- e9e14a558f8ab-3d6d546a3e6mr38861015ab.3.1743615745299; 
- Wed, 02 Apr 2025 10:42:25 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:42:24 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 12/54] dyndbg: macrofy a 2-index for-loop pattern
-Date: Wed,  2 Apr 2025 11:41:14 -0600
-Message-ID: <20250402174156.1246171-13-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
-References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+Received: from mail.crpt.ru (mail1.crpt.ru [91.236.205.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6344210E7D8;
+ Wed,  2 Apr 2025 14:12:34 +0000 (UTC)
+Received: from mail.crpt.ru ([192.168.60.3])
+ by mail.crpt.ru  with ESMTP id 532ECOEp031968-532ECOEr031968
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=OK);
+ Wed, 2 Apr 2025 17:12:24 +0300
+Received: from EX2.crpt.local (192.168.60.4) by ex1.crpt.local (192.168.60.3)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Wed, 2 Apr
+ 2025 17:12:25 +0300
+Received: from EX2.crpt.local ([192.168.60.4]) by EX2.crpt.local
+ ([192.168.60.4]) with mapi id 15.01.2507.044; Wed, 2 Apr 2025 17:12:25 +0300
+From: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+CC: =?utf-8?B?0JLQsNGC0L7RgNC+0L/QuNC9INCQ0L3QtNGA0LXQuQ==?=
+ <a.vatoropin@crpt.ru>, Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>
+Subject: [PATCH v3] drm/amdkfd: Change svm_range_get_info return type
+Thread-Topic: [PATCH v3] drm/amdkfd: Change svm_range_get_info return type
+Thread-Index: AQHbo9lC4BY/VWq2e0yOP4nLCPzxPA==
+Date: Wed, 2 Apr 2025 14:12:25 +0000
+Message-ID: <20250402141219.372650-1-a.vatoropin@crpt.ru>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.200.60.21]
+x-kse-serverinfo: EX1.crpt.local, 9
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: Clean, bases: 2/17/2025 9:52:00 AM
+x-kse-attachment-filter-triggered-rules: Clean
+x-kse-attachment-filter-triggered-filters: Clean
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:04 +0000
+X-FEAS-Client-IP: 192.168.60.3
+X-FE-Policy-ID: 2:4:0:SYSTEM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
+ c=relaxed/relaxed; 
+ h=from:to:cc:subject:date:message-id:content-type:mime-version;
+ bh=LW6r9FmmgL8wgSDH1rANqK2rFnzYBzbw9u9WPWj5At8=;
+ b=FJsoM969Fh78xU6SpjBQxzC2WiTfbku1m8KnjnVhzN8HHu3dvLlxZ1Zh5BRhtESs4MFM/f9Okn2s
+ 38oZrzigKPyv1NVND7bPRHh/wyMJmGHvoT6d5z3QlHp7vbKm/dmYU4JIMZLalA6c86cmjT06SYyn
+ kN69oxLJ7Y9d/9s1MoyNCvFMXd70WkMPP0ST5qyqcTuNWGKFoJ6vC9H5oWxFPuDM+KenzvZbSNcr
+ JozRUPFdDXNL1SJRG7s2bFJ1U1dt7BNbdnmAsEpbW3h68idMgJ07WlSUtPUUs8LvWE4gj9koLrHG
+ 7tZuh4dSAND2ux/DbGQUL32kgiwWocdd7PNb9Q==
+X-Mailman-Approved-At: Thu, 03 Apr 2025 08:54:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,65 +81,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dynamic-debug has several __sections, each with <vecname>,
-num_<vecname>, and it iterates over these with a 2-index for-loop.
-These loops are fiddly with the 2 names.
-
-We have only 2 such loops now, but are getting more soon; lets
-embed/abstract the fiddlyness in the for_subvec() macro, and avoid
-repeating it going forward.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
----
- lib/dynamic_debug.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 85b8d32742ec..253eaf0a9bd6 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -128,6 +128,21 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
- 
-+
-+/*
-+ * simplify a repeated for-loop pattern walking N steps in a T _vec
-+ * member inside a struct _box.  It expects int i and T *_sp to be
-+ * declared in the caller.
-+ * @_i:  caller provided counter.
-+ * @_sp: cursor into _vec, to examine each item.
-+ * @_box: ptr to a struct containing @_vec member
-+ * @_vec: name of a sub-struct member in _box, with array-ref and length
-+ */
-+#define for_subvec(_i, _sp, _box, _vec)				       \
-+	for ((_i) = 0, (_sp) = (_box)->_vec;			       \
-+	     (_i) < (_box)->num_##_vec;				       \
-+	     (_i)++, (_sp)++)
-+
- static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
-@@ -155,7 +170,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	struct ddebug_class_map *map;
- 	int i, idx;
- 
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for_subvec(i, map, dt, classes) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -1220,8 +1235,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
--
-+	for_subvec(i, cm, di, classes) {
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
--- 
-2.49.0
-
+RnJvbTogQW5kcmV5IFZhdG9yb3BpbiA8YS52YXRvcm9waW5AY3JwdC5ydT4NCg0KU3RhdGljIGFu
+YWx5c2lzIHNob3dzIHRoYXQgcG9pbnRlciAic3ZtcyIgY2Fubm90IGJlIE5VTEwgYmVjYXVzZSBp
+dCBwb2ludHMNCnRvIHRoZSBvYmplY3QgInN0cnVjdCBzdm1fcmFuZ2VfbGlzdCIuIFJlbW92ZSB0
+aGUgZXh0cmEgTlVMTCBjaGVjay4gSXQgaXMNCm1lYW5pbmdsZXNzIGFuZCBoYXJtcyB0aGUgcmVh
+ZGFiaWxpdHkgb2YgdGhlIGNvZGUuDQoNCkluIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2lu
+Zm8oKSB0aGVyZSBpcyBubyBwb3NzaWJpbGl0eSBvZiBmYWlsdXJlLg0KVGhlcmVmb3JlLCB0aGUg
+Y2FsbGVyIG9mIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2luZm8oKSBkb2VzIG5vdCBuZWVk
+DQphIHJldHVybiB2YWx1ZS4gQ2hhbmdlIHRoZSBmdW5jdGlvbiBzdm1fcmFuZ2VfZ2V0X2luZm8o
+KSByZXR1cm4gdHlwZSBmcm9tDQoiaW50IiB0byAidm9pZCIuIA0KDQpTaW5jZSB0aGUgZnVuY3Rp
+b24gc3ZtX3JhbmdlX2dldF9pbmZvKCkgaGFzIGEgcmV0dXJuIHR5cGUgb2YgInZvaWQiLiBUaGUN
+CmNhbGxlciBvZiB0aGUgZnVuY3Rpb24gc3ZtX3JhbmdlX2dldF9pbmZvKCkgZG9lcyBub3QgbmVl
+ZCBhIHJldHVybiB2YWx1ZS4NCkRlbGV0ZSBleHRyYSBjb2RlLg0KDQpGb3VuZCBieSBMaW51eCBW
+ZXJpZmljYXRpb24gQ2VudGVyIChsaW51eHRlc3Rpbmcub3JnKSB3aXRoIFNWQUNFLg0KDQpTaWdu
+ZWQtb2ZmLWJ5OiBBbmRyZXkgVmF0b3JvcGluIDxhLnZhdG9yb3BpbkBjcnB0LnJ1Pg0KLS0tDQp2
+MSAtPiB2MjogYWxzbyBjaGFuZ2UgcmV0dXJuIHR5cGUgb2Ygc3ZtX3JhbmdlX2dldF9pbmZvKCkg
+cGVyIEZlbGl4IEt1ZWhsaW5nIHN1Z2dlc3Rpb24NCnYyIC0+IHYzOiBkZWxldGVkIGV4dHJhIGNv
+ZGUgaW4gdGhlIGZ1bmN0aW9uIGtmZF9jcml1X2NoZWNrcG9pbnRfc3ZtKCkNCg0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMgfCAgNCArLS0tDQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5jICAgICB8ICA5ICsrLS0tLS0tLQ0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uaCAgICAgfCAxMSArKysrKy0tLS0tLQ0KIDMgZmlsZXMg
+Y2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQppbmRleCAxZTlkZDAwNjIwYmYuLmEyMTQ5YWZh
+NTgwMyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2
+LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMNCkBAIC0y
+MDM5LDkgKzIwMzksNyBAQCBzdGF0aWMgaW50IGNyaXVfZ2V0X3Byb2Nlc3Nfb2JqZWN0X2luZm8o
+c3RydWN0IGtmZF9wcm9jZXNzICpwLA0KIA0KIAludW1fZXZlbnRzID0ga2ZkX2dldF9udW1fZXZl
+bnRzKHApOw0KIA0KLQlyZXQgPSBzdm1fcmFuZ2VfZ2V0X2luZm8ocCwgJm51bV9zdm1fcmFuZ2Vz
+LCAmc3ZtX3ByaXZfZGF0YV9zaXplKTsNCi0JaWYgKHJldCkNCi0JCXJldHVybiByZXQ7DQorCXN2
+bV9yYW5nZV9nZXRfaW5mbyhwLCAmbnVtX3N2bV9yYW5nZXMsICZzdm1fcHJpdl9kYXRhX3NpemUp
+Ow0KIA0KIAkqbnVtX29iamVjdHMgPSBudW1fcXVldWVzICsgbnVtX2V2ZW50cyArIG51bV9zdm1f
+cmFuZ2VzOw0KIA0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9z
+dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uYw0KaW5kZXggMTAwNzE3
+YTk4ZWMxLi5lYmRiYmI2MjBiMTEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGtmZC9rZmRfc3ZtLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0u
+Yw0KQEAgLTQwNzYsOCArNDA3Niw4IEBAIGludCBrZmRfY3JpdV9yZXN0b3JlX3N2bShzdHJ1Y3Qg
+a2ZkX3Byb2Nlc3MgKnAsDQogCXJldHVybiByZXQ7DQogfQ0KIA0KLWludCBzdm1fcmFuZ2VfZ2V0
+X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpwLCB1aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMsDQot
+CQkgICAgICAgdWludDY0X3QgKnN2bV9wcml2X2RhdGFfc2l6ZSkNCit2b2lkIHN2bV9yYW5nZV9n
+ZXRfaW5mbyhzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAsIHVpbnQzMl90ICpudW1fc3ZtX3JhbmdlcywN
+CisJCQl1aW50NjRfdCAqc3ZtX3ByaXZfZGF0YV9zaXplKQ0KIHsNCiAJdWludDY0X3QgdG90YWxf
+c2l6ZSwgYWNjZXNzaWJpbGl0eV9zaXplLCBjb21tb25fYXR0cl9zaXplOw0KIAlpbnQgbmF0dHJf
+Y29tbW9uID0gNCwgbmF0dHJfYWNjZXNzaWJpbGl0eSA9IDE7DQpAQCAtNDA4OSw4ICs0MDg5LDYg
+QEAgaW50IHN2bV9yYW5nZV9nZXRfaW5mbyhzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAsIHVpbnQzMl90
+ICpudW1fc3ZtX3JhbmdlcywNCiAJKnN2bV9wcml2X2RhdGFfc2l6ZSA9IDA7DQogDQogCXN2bXMg
+PSAmcC0+c3ZtczsNCi0JaWYgKCFzdm1zKQ0KLQkJcmV0dXJuIC1FSU5WQUw7DQogDQogCW11dGV4
+X2xvY2soJnN2bXMtPmxvY2spOw0KIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KHByYW5nZSwgJnN2bXMt
+Pmxpc3QsIGxpc3QpIHsNCkBAIC00MTMyLDcgKzQxMzAsNiBAQCBpbnQgc3ZtX3JhbmdlX2dldF9p
+bmZvKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwgdWludDMyX3QgKm51bV9zdm1fcmFuZ2VzLA0KIA0K
+IAlwcl9kZWJ1ZygibnVtX3N2bV9yYW5nZXMgJXUgdG90YWxfcHJpdl9zaXplICVsbHVcbiIsICpu
+dW1fc3ZtX3JhbmdlcywNCiAJCSAqc3ZtX3ByaXZfZGF0YV9zaXplKTsNCi0JcmV0dXJuIDA7DQog
+fQ0KIA0KIGludCBrZmRfY3JpdV9jaGVja3BvaW50X3N2bShzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAs
+DQpAQCAtNDE0OSw4ICs0MTQ2LDYgQEAgaW50IGtmZF9jcml1X2NoZWNrcG9pbnRfc3ZtKHN0cnVj
+dCBrZmRfcHJvY2VzcyAqcCwNCiAJc3RydWN0IG1tX3N0cnVjdCAqbW07DQogDQogCXN2bXMgPSAm
+cC0+c3ZtczsNCi0JaWYgKCFzdm1zKQ0KLQkJcmV0dXJuIC1FSU5WQUw7DQogDQogCW1tID0gZ2V0
+X3Rhc2tfbW0ocC0+bGVhZF90aHJlYWQpOw0KIAlpZiAoIW1tKSB7DQpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRrZmQva2ZkX3N2bS5oDQppbmRleCA2ZWEyM2M3ODAwOWMuLjAxYzdhNDg3NzkwNCAxMDA2NDQN
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uaA0KKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5oDQpAQCAtMTg0LDggKzE4NCw4IEBAIHZvaWQg
+c2NoZWR1bGVfZGVmZXJyZWRfbGlzdF93b3JrKHN0cnVjdCBzdm1fcmFuZ2VfbGlzdCAqc3Ztcyk7
+DQogdm9pZCBzdm1fcmFuZ2VfZG1hX3VubWFwX2RldihzdHJ1Y3QgZGV2aWNlICpkZXYsIGRtYV9h
+ZGRyX3QgKmRtYV9hZGRyLA0KIAkJCSB1bnNpZ25lZCBsb25nIG9mZnNldCwgdW5zaWduZWQgbG9u
+ZyBucGFnZXMpOw0KIHZvaWQgc3ZtX3JhbmdlX2RtYV91bm1hcChzdHJ1Y3Qgc3ZtX3JhbmdlICpw
+cmFuZ2UpOw0KLWludCBzdm1fcmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpwLCB1
+aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMsDQotCQkgICAgICAgdWludDY0X3QgKnN2bV9wcml2X2Rh
+dGFfc2l6ZSk7DQordm9pZCBzdm1fcmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpw
+LCB1aW50MzJfdCAqbnVtX3N2bV9yYW5nZXMsDQorCQkJdWludDY0X3QgKnN2bV9wcml2X2RhdGFf
+c2l6ZSk7DQogaW50IGtmZF9jcml1X2NoZWNrcG9pbnRfc3ZtKHN0cnVjdCBrZmRfcHJvY2VzcyAq
+cCwNCiAJCQkgICAgdWludDhfdCBfX3VzZXIgKnVzZXJfcHJpdl9kYXRhLA0KIAkJCSAgICB1aW50
+NjRfdCAqcHJpdl9vZmZzZXQpOw0KQEAgLTIzNywxMyArMjM3LDEyIEBAIHN0YXRpYyBpbmxpbmUg
+aW50IHN2bV9yYW5nZV9zY2hlZHVsZV9ldmljdF9zdm1fYm8oDQogCXJldHVybiAtRUlOVkFMOw0K
+IH0NCiANCi1zdGF0aWMgaW5saW5lIGludCBzdm1fcmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9w
+cm9jZXNzICpwLA0KLQkJCQkgICAgIHVpbnQzMl90ICpudW1fc3ZtX3JhbmdlcywNCi0JCQkJICAg
+ICB1aW50NjRfdCAqc3ZtX3ByaXZfZGF0YV9zaXplKQ0KK3N0YXRpYyBpbmxpbmUgdm9pZCBzdm1f
+cmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpwLA0KKwkJCQkgICAgICB1aW50MzJf
+dCAqbnVtX3N2bV9yYW5nZXMsDQorCQkJCSAgICAgIHVpbnQ2NF90ICpzdm1fcHJpdl9kYXRhX3Np
+emUpDQogew0KIAkqbnVtX3N2bV9yYW5nZXMgPSAwOw0KIAkqc3ZtX3ByaXZfZGF0YV9zaXplID0g
+MDsNCi0JcmV0dXJuIDA7DQogfQ0KIA0KIHN0YXRpYyBpbmxpbmUgaW50IGtmZF9jcml1X2NoZWNr
+cG9pbnRfc3ZtKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwNCi0tIA0KMi40My4wDQo=
