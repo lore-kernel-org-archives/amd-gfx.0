@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAA00C369A3
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C2CC369A5
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5548610E950;
-	Thu,  3 Apr 2025 08:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 187B310E953;
+	Thu,  3 Apr 2025 08:54:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="di2dQ8kQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HCq1V/zk";
 	dkim-atps=neutral
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
- [209.85.166.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 066CF10E89F;
- Wed,  2 Apr 2025 17:42:54 +0000 (UTC)
-Received: by mail-io1-f54.google.com with SMTP id
- ca18e2360f4ac-854a68f5a9cso2556039f.0; 
- Wed, 02 Apr 2025 10:42:53 -0700 (PDT)
+Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
+ [209.85.166.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E93DB10E8A2;
+ Wed,  2 Apr 2025 17:42:56 +0000 (UTC)
+Received: by mail-il1-f180.google.com with SMTP id
+ e9e14a558f8ab-3d45875d440so608125ab.0; 
+ Wed, 02 Apr 2025 10:42:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615773; x=1744220573; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743615776; x=1744220576; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lmnUjD6NKJR963XR8Ej2QuH8oZFh+mV0bkdDgwQtC1c=;
- b=di2dQ8kQQh7xS/JBDUgTAFXG+BQkZeJ9VU5iNc+aYc6xo3uDUZ8dW1SCEOhtbD1qXw
- xVLDFHErxs7b9DtgutNllNSq4tFO3I/6iVjbJ5nlFEul67wKTTPFZew+LQasAQaOtNBx
- IDm7eEoWYA5aEUf5jg0smCx5te7lq4D1NRjEOOh+AHviDb26fpV6LIVVolYaSe3SYx4b
- zWWITRBJZQLHLv+B8JnhG1zfScGKBgoY0yo63lnP/NMDI+/S+uJ3HgJgiKrRNf5xivPh
- dLNV2XtgkWkt+1DeSVpbKM5HPjbqK5/PMtudRssdqOYXQHU0Um4m/oeQ+Bfk6AOKq/TG
- zv7g==
+ bh=mR3GZQ988EXrhdMWSVSfrBHjk8VugzTeXVmkAtrRrJY=;
+ b=HCq1V/zkgDeioQL94AI/5A/igYvkwgyEjW5qYBtHrucDCVnAlpJEQcNjByKmafgLWB
+ jS6teYOprhEbYvmAimSXozZqGqiofZlQtRxwDA63Kb/RHbptggQsnEE8WNokS2wfhSja
+ T7/rz6cwlNcSowBqTfK9vwr1P02zUhGC7ncyPupZB+ZJuqCpLWbXBjEpPlUQX9t8arrw
+ 6jj2CohtyeP4tikT7irhqmOqKvbRfkUttUNIk3xCH/ITr7dZtXKD/ztomNfv5MDSp7qc
+ 4X9N5bLcMfFiC8EVnEB8VvojNrdGwgW/CTeEdHOToZgYWjWMvl1FDgLxJM9p/+YgtJ+4
+ M7IQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615773; x=1744220573;
+ d=1e100.net; s=20230601; t=1743615776; x=1744220576;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lmnUjD6NKJR963XR8Ej2QuH8oZFh+mV0bkdDgwQtC1c=;
- b=aa/7KBl2vC9HL1GuUJW/FrectgQquq1ifEswmRA0m2c6FdP0bkohOJORO76N6ui5ix
- KsAlTlTbeLB0zcKwWzvI7yxfVG+6y9A5xxFJHRYh8miz6BqMwNNoGbSnBmUOgYwED29n
- dEVHxP5McaqBh3MC2OEVf5wA4F57WUbcD6lLk0UVWYgDRRI7jOwcAxX3RfU+WCBIprkO
- 0kvnS+rBK8pCuFqOSKNVS/CZVKXChQNA6ERBNs+WgSv81Yb1T2KUIFnE/7D/HXJhL029
- 1RpRlTYldx1A6btVbjdweJuDXfv9Rwy8h+ZFKWmA9FjBWh/AFt44jIav2svy1XPmJ+08
- 7mTA==
+ bh=mR3GZQ988EXrhdMWSVSfrBHjk8VugzTeXVmkAtrRrJY=;
+ b=rrxpYEqux6DoYbfkunY6pxIEpt38l6cbTo7ebNTerdq1Z9P+1/z04Gx/fdiOYitjdC
+ Ha1DL+1k590nCBdW9BRaIGInir8Vp8305IY3DhvnUd/G8kntpuH32kRxgmJjvOWHdiwK
+ lw9sPd4Knx4QTyi5YcZ5bgA754Bmj90MzeN999j0nXs6crcoca7R433M7kTNpnfgSTM+
+ PrXp2JuspNovzDWn6/O07w4b0heMXA+DYQg+rxgW7XBrJCeS8FzhO5paStiavnkQkXT5
+ h6fZnfOZ1Pk88tW6nTr80pWORwuLhm50Bm6ooE8SnXchh2eTratJjW8XbVBsFOxtuLaw
+ JrHA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVsPehr/3GFlqjHqwIge6jc2fjPcPjR/hdvWNH8xawsEqESb0sjhFcLh0FMrVXmsUD2Q52ep/3N@lists.freedesktop.org,
- AJvYcCXd1a+dAjl/vujPIDcDAWq/2Yw8sURprRw0U0lLdoJirT/DSbPO0ouwhkNYMchMudm/tzgJNUn4YamH9k/DEw==@lists.freedesktop.org,
- AJvYcCXuXMTlpaMbq+ua0q+9xgZugdJE/rWM9H7uEkwwwynsPwIupitpiPwHCmnJiuxE2Q+Hn0ph/oKdZ6sP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyfrUZM8ssVk77SPFyLLKN8DLEyQCvN0vzcIExvHrLZ0KLdQm/F
- GHLOTXYTGoF7gQhlOmcVJqETDJF9AbyiuWnrvPi/aHqULdaZj0hk
-X-Gm-Gg: ASbGnctak1eozV8gPA3bJoFnSGmj5fN3O1dR26yf6rQNfzPHgY21vMnH1FNxjgzALba
- GOo2jRStL7LN23SqMiZNuJywV4I3t9IT6To5KeijGC7AquGhl3cYruzVelzFzFGCUjJrKcRUccm
- jDBUH2JTPl1AnUOK+hfvngp75mnxqFiaAFZkt7dpQDEyXhDTZ3htKHIFru7bYeTxsDE4Ts5WZZb
- cX50yAm6BhmXh6xh7SurJP/5BqTCnz4kRafFS+kPjege8gP4yD8GHwZopUgW3kRZ6hVJCuHr4WZ
- GF3sfaYu4Ij7bn8eE2n/nYSGkkViDTk6rRPi1m/F9Lzn0sg30F7Ly8prrWwPa1G0B+HrprbukYQ
- v8Q==
-X-Google-Smtp-Source: AGHT+IEsoNgpLODjysSkI25oKJsaNZz7XSjHcm/Nhcv9gVki2+9S2pVoYAXgC+K6TNfR04N0YUf8TQ==
-X-Received: by 2002:a05:6e02:3981:b0:3d3:d823:5402 with SMTP id
- e9e14a558f8ab-3d6d54a1420mr42397655ab.7.1743615773292; 
- Wed, 02 Apr 2025 10:42:53 -0700 (PDT)
+ AJvYcCW1DgFT+hPTzyYzFliafzfnWvQ8nMc3SQPOtAr8P0uB+jmnrKs/IUtoFSyiIlwCyg3d/47pXwQWRoWM@lists.freedesktop.org,
+ AJvYcCWxKkeI+IikTgmGzgpp4yKQwlFpplp2RONhZLUi9PpaGuJfIOcewdNiH0vK08WX7QhrRkMAj5KgPjig2A1Ypw==@lists.freedesktop.org,
+ AJvYcCXxTnEFVrLC71n08pEAuK4kvd9T0EeW0Of5YDTcHRSuxL+Q6coTF8s/779vB2JbegtFvyaqPpJ0@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjWf3gY4DikQffqgsRGU0iIHYvkAjRJMMsfl5gpzbblju5O138
+ 04MOZ5XZbj3ZkmSqbKA6sbhFuZXywm2Kimyn9PmH0HTGBkXlcA1q
+X-Gm-Gg: ASbGncs+rCEFDVyWwXCzvCkdi5K0bHFhOPtBCCuqkP2ep+dTZk7JSkAr/aJKJYEaTvF
+ Gi1oCPS2QwPgg5hkKafjC3gXxAzG6qXky/fxbG4UMh7rW13n+9QKjWvWAifzA4lKAwPF3jjshji
+ mNZ2agOl1U9QVRTFXrzt83o+jgLWbRdf/1Odq5zWCHt9WWUsJ7V4O/kFPitA2HI+wz7bbZ5TlR0
+ rLaL275ej8VygYTt8uYT5Wz9iuroUFFcFEmbrPxFJ4eT6mh+++pRWnaU8jUTkKsq3gEG+QrfXqV
+ G8Wq4wu+UwQK4SGsZnu6bOcOV7Har+NOOkXDb4GobU1i8TuptxMmL9pt2J/oDcr76aQslzx69kn
+ 9XQ==
+X-Google-Smtp-Source: AGHT+IGz0mzs+hYYK7NGp1ygOapy1Xtg2pb7btBR9FttZE3xaY/IeRPzMzWa7VzATtwuhacGo5/EtA==
+X-Received: by 2002:a05:6e02:c:b0:3d1:a34b:4d01 with SMTP id
+ e9e14a558f8ab-3d5e09090famr201390495ab.8.1743615776107; 
+ Wed, 02 Apr 2025 10:42:56 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.52
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:42:52 -0700 (PDT)
+ Wed, 02 Apr 2025 10:42:55 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
@@ -72,9 +72,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 40/54] drm-dyndbg: add DRM_CLASSMAP_USE to virtio_gpu
-Date: Wed,  2 Apr 2025 11:41:42 -0600
-Message-ID: <20250402174156.1246171-41-jim.cromie@gmail.com>
+Subject: [PATCH v3 43/54] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
+Date: Wed,  2 Apr 2025 11:41:45 -0600
+Message-ID: <20250402174156.1246171-44-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
 References: <20250402174156.1246171-1-jim.cromie@gmail.com>
@@ -95,28 +95,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-virtio_gpu has 10 DRM_UT_CORE debugs, make them controllable when
+etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
 CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs.
+class'd debugs as well as plain-old pr_debug()s
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_drv.c | 2 ++
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 6a67c6297d58..3bc4e6694fc2 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -45,6 +45,8 @@ static const struct drm_driver driver;
- 
- static int virtio_gpu_modeset = -1;
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+index 3e91747ed339..70759b7d338f 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+@@ -25,6 +25,8 @@
+ #include "etnaviv_mmu.h"
+ #include "etnaviv_perfmon.h"
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
- module_param_named(modeset, virtio_gpu_modeset, int, 0400);
- 
+ /*
+  * DRM operations:
+  */
 -- 
 2.49.0
 
