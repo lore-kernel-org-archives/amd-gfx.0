@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2D5FC3600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85D57C369A0
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 08:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D0310E939;
-	Thu,  3 Apr 2025 08:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED3D910E935;
+	Thu,  3 Apr 2025 08:54:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tx/UhFPw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MQgdNu3I";
 	dkim-atps=neutral
-Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
- [209.85.166.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A73B010E899;
- Wed,  2 Apr 2025 17:43:01 +0000 (UTC)
-Received: by mail-il1-f180.google.com with SMTP id
- e9e14a558f8ab-3d46ef71b6cso826725ab.3; 
- Wed, 02 Apr 2025 10:43:01 -0700 (PDT)
+Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
+ [209.85.166.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFB5810E88D;
+ Wed,  2 Apr 2025 17:42:33 +0000 (UTC)
+Received: by mail-il1-f178.google.com with SMTP id
+ e9e14a558f8ab-3cda56e1dffso521415ab.1; 
+ Wed, 02 Apr 2025 10:42:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615781; x=1744220581; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743615753; x=1744220553; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=phnE7T3rE82X9afYdUepg2ZaVnfZbBYGopazv1dsHzc=;
- b=Tx/UhFPwcCVmluMOd0jv39M7yAm2KrFLDuhg5PwjylzijiOBSmNcPJ/EjrnDhYYfKB
- UrDeK+njbVIrjgOEsTsTkasEeoFfM9+mF5IaHAEtcf8c27M66KxyBfbSgzzg/q5Pbcyq
- JWXqv1qPNMbKA1dKssNMh7DtpjVSmEGasQPl8eHmvLuTUi9O8QBu2k6xJX7EU73VVoj5
- M6lLhyXW+9j8A6VmnaZr9FP4cdYN/1UjAC+Qr3wYKAeJCwxFjqMGTmmfpHC02YmXzFfF
- BDPzdibpkkm9OCXJ7+5KzXvbEyk4tV53vhJEpBuaePIHvKm+nFp8uT+PviSsbDfebb60
- 6ZGw==
+ bh=KeKTBGUd8WybmXrxvv7lQQBEsMgzjZkVTc12353wK+U=;
+ b=MQgdNu3Ih5ntRcVdvtnXrLsZ44Wwv/Meiyyf2pfPZdsqvELar3LttChlt71sprduWf
+ iY2mfgWz+c9vxmCoePbre+7MPb5djgmsHv1jvLcJRKfji0LMh5rac65vGeWL3vEJOdrY
+ Q/CirkqGvxN/oTiOQ8EvB24qAP6oRZ9t+0t4f/TXyiwkiEJCVNFR7yOpklCdjdCcjNV6
+ 8qoqEUx+sn6dxndl3oCGRLRvJuORCPoaV0F7O3COxwmhQ8OoabrCN8zIUGxXum8Yvpr7
+ 3B9RWtefnX/K3OPNysjlRYxNE2lPzvWoSF2bqhnk2R471oKDCGyaTLMNsewLOBbgs8wh
+ YKSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615781; x=1744220581;
+ d=1e100.net; s=20230601; t=1743615753; x=1744220553;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=phnE7T3rE82X9afYdUepg2ZaVnfZbBYGopazv1dsHzc=;
- b=Xf4NZFwwvq9agJdmSP8e7hpXmBqT+uQDdnfpVIQbdPIs+wzCQ0j189HtADe8GevSqm
- W6RCRSDVCNhwX0rRK9g5o5HC4V4sVOJLspRaWhVATOzF18KorLuC7S76k5VMhhQhECO9
- fYPL3SGreINEZZyMcnKFVStwWVoiRu9zqADbusltarvrY/LhVUke4v9cal0BiWs99J1s
- jZrL4yvFfgJlYhrhScF4aShTNUHchMo1srynU55jR1RPvNQqeCnFp9U4PLWg33vQJXr+
- bgrdJUnPs2hlqS+wDXWiQudV4UXOr7BTuU0zvtd0xqoXHC3mekgLaLvZMedZ+v2voGXQ
- BVhw==
+ bh=KeKTBGUd8WybmXrxvv7lQQBEsMgzjZkVTc12353wK+U=;
+ b=Edz/szfVm9l3CHv8lKRkkWTQxMb+ZXVwYdj5G0dhIhhPlwRxXIMNfYxA9NBD0FO3TU
+ jLzttqqmv9BtuPgahrPIei8yKtg415kF9z7T5m2tuiVs28rWHH8KvdRXVzOEcidpL6bB
+ Q4B5JtUJ60NVUbWQxRMmEfuI++fB6cinddMN3Uao7bbA5FvZHXEGQrggcxVySlu+YSK2
+ e6+gxVFvY2xr4gbu0XRx7PReNisKSx3s2Xf/jDCHmx+JmjTBz4cO0tnbuobBrQsccfUN
+ LW57yngOzwysvoPT6oqZkJ1SZhgmoC8kAO51zjcIJ5yL7x2xyEuNE69XChE2KA6+vNA3
+ Wnhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUw7fdjDqczbsyC0OMWiRk7krr+4b0OX3lp/Qd6bkq+372PgFm4uotB6UG+mIk5toduMhcJADl9@lists.freedesktop.org,
- AJvYcCVFrVvqn2Mii6Fr51NJjS9XphqX81JssyXT9I4vPA2dvgkb6VAig0s83L69Fx7q/weGFZHKlzR2o4GAfVrn3Q==@lists.freedesktop.org,
- AJvYcCWXFySf/b5C+S8UC2VsOAQHztCuciEOcWDGudAv0KMpTBkwqL8JplY+luq73QtuEH4YY2yQJuXGiJGM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyA13URduWr/AmwPActFkegrwhfSpkMGih6IVibG0FZZO9NzQMz
- K8Zb0MWpePCoHvpycuFM4H8/HDXYVl3hlavMeax342MU+LQh6kjN
-X-Gm-Gg: ASbGnctuuxSwMCL7RhCs7Oi0xSKhPOBEfNJIwa4LUiEsHfmpRIhEEcNjHAB1bF6pp3h
- NXQYRBGKpd0mN22xDFOsdOTvfIAZCtHr6FaAxIHKxx2DGRBHFq6ACARY0uErd4q5BgYHSNV8jUa
- v/mdySKHhZPKyAhvlMjHEQxlPMKeMyFxZai7USAXMRv4ZQm2dyAigODqHb4oMSN4KJnBTlPUuZx
- CCz8iSbUgI65O2K7yfYtT0cdHjPRpb+tYmNTWBUV8AaCS/okDqaO8fHD8aFVkXqhh4Vy85VoGAh
- Lil+7Aewl2vdYnNWK3+7VSk2AzCnC/GLnQl9ppyFL0SyEjJYIKeLpjZegARIBhiq8cdp3bMYEav
- bVQ==
-X-Google-Smtp-Source: AGHT+IFuJV2A3WyeGyRKkWOVHXtPxLV1+Mi2JNfQFD+IYZFzlTa+4ZUBb0ebsjuh3kRTyYLqlLO2Zw==
-X-Received: by 2002:a05:6e02:180a:b0:3d0:4bce:cfa8 with SMTP id
- e9e14a558f8ab-3d6ca5b1d53mr103006025ab.3.1743615780941; 
- Wed, 02 Apr 2025 10:43:00 -0700 (PDT)
+ AJvYcCVd/cGyxxn8TpxkuEydjMz8Th2nxo81RLbweQtDQPN7cKMLZn9Ww+WoockvbLbxZsf4h2Dtf0AK@lists.freedesktop.org,
+ AJvYcCWlgA6xbL98wTTpsAC4YfsAIoVX0vOkc5dBCOeMfb/ExzLl1ECa1L4QbeM4xXhQOIMiMKmuYUZ6LtFmmwt7Pg==@lists.freedesktop.org,
+ AJvYcCXkSDVFFAcl3RyFbyvybrwRaARelt30rnTIR1hi+rzzTayaMPLo0tTn5JSKpZ7D6DlOB51byLsnGVwI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsKeTZIxltIZMuy2rQYjruYspsdvDBewnoI5eWKBIb3CHmPWu3
+ 16u+Z53Y9RFxaE7mK3N5HrgUV4Kp4WkSOmBw6rkB2rZCfI0X9iVs
+X-Gm-Gg: ASbGnctfMomIpqk+/XXUbb9Zzkefq/QBFpWyE2vp5yX83J5R/yxb9OY7qY5TiflDMuf
+ bguleI+auwfMUsBOTmNpzRO8VuYJROWpJFzBjxBjUQYa8pK7eDYPGA5YZBETqxajfjRTfibq7Ct
+ DyD8H7K+h2TJD+yFXFsAZ8ubq6wAtmecawXP1tkbqPhfE16nFZ/KzohF3Q/ERCq6HXqIw6796UJ
+ MUz/iTvwSL2LcL7VA47Y81G6UnJliBSWeOQTDy7lSe5S8oPmV6wAMNZ+OdFd/QAjCRZ0F5ZSv7M
+ 0BrqpKYqMkMXqXJc8I+odbvHZfoa1JAGilxZnoq6u+SU0RilIfB2VShxKJv9sp19gc6T9fniRA2
+ 6GQ==
+X-Google-Smtp-Source: AGHT+IFaC1YYyq2aq/rDOr7nftMb5mtnPTvXusfBx4cINuze69wt5nZYDtolFZPQAPv6upZ4KaK1zw==
+X-Received: by 2002:a05:6e02:3c82:b0:3cf:c7d3:e4b with SMTP id
+ e9e14a558f8ab-3d5e0a09a11mr204507425ab.21.1743615753003; 
+ Wed, 02 Apr 2025 10:42:33 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.43.00
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:43:00 -0700 (PDT)
+ Wed, 02 Apr 2025 10:42:32 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
@@ -72,9 +72,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 48/54] drm-dyndbg: add DRM_CLASSMAP_USE to udl driver
-Date: Wed,  2 Apr 2025 11:41:50 -0600
-Message-ID: <20250402174156.1246171-49-jim.cromie@gmail.com>
+Subject: [PATCH v3 19/54] dyndbg: detect class_id reservation conflicts
+Date: Wed,  2 Apr 2025 11:41:21 -0600
+Message-ID: <20250402174156.1246171-20-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
 References: <20250402174156.1246171-1-jim.cromie@gmail.com>
@@ -95,28 +95,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The udl driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+If a module _DEFINEs + _USEs 2 or more classmaps, it must devise them
+to share the per-module 0..62 class-id space; ie their respective
+base,+length reservations cannot overlap.
+
+To detect conflicts at modprobe, add ddebug_class_range_overlap(),
+call it from ddebug_add_module(), and WARN and return -EINVAL when
+they're detected.
+
+test_dynamic_debug.c:
+
+If built with -DFORCE_CLASSID_CONFLICT, the test-modules get 2 bad
+DYNDBG_CLASS_DEFINE declarations, into parent and the _submod.  These
+conflict with one of the good ones in the parent (D2_CORE..etc),
+causing the modprobe(s) to warn
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/udl/udl_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+---
+ lib/dynamic_debug.c      | 29 +++++++++++++++++++++++++++++
+ lib/test_dynamic_debug.c |  8 ++++++++
+ 2 files changed, 37 insertions(+)
 
-diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
-index 3ebe2ce55dfd..ba57c14454e5 100644
---- a/drivers/gpu/drm/udl/udl_main.c
-+++ b/drivers/gpu/drm/udl/udl_main.c
-@@ -19,6 +19,8 @@
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 53e261dbf81e..56b503af0b31 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1267,6 +1267,22 @@ static void ddebug_apply_class_users(const struct _ddebug_info *di)
+ 	(_dst)->info._vec.len = nc;					\
+ })
  
- #define NR_USB_REQUEST_CHANNEL 0x12
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
++static int __maybe_unused
++ddebug_class_range_overlap(struct _ddebug_class_map *cm,
++			   u64 *reserved_ids)
++{
++	u64 range = (((1ULL << cm->length) - 1) << cm->base);
 +
- #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
- #define WRITES_IN_FLIGHT (20)
- #define MAX_VENDOR_DESCRIPTOR_SIZE 256
++	if (range & *reserved_ids) {
++		pr_err("[%d..%d] on %s conflicts with %llx\n", cm->base,
++		       cm->base + cm->length - 1, cm->class_names[0],
++		       *reserved_ids);
++		return -EINVAL;
++	}
++	*reserved_ids |= range;
++	return 0;
++}
++
+ /*
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -1276,6 +1292,7 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 	struct ddebug_table *dt;
+ 	struct _ddebug_class_map *cm;
+ 	struct _ddebug_class_user *cli;
++	u64 reserved_ids = 0;
+ 	int i;
+ 
+ 	if (!di->descs.len)
+@@ -1301,6 +1318,13 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 	dd_mark_vector_subrange(i, dt, cm, di, maps);
+ 	dd_mark_vector_subrange(i, dt, cli, di, users);
+ 
++	for_subvec(i, cm, &dt->info, maps)
++		if (ddebug_class_range_overlap(cm, &reserved_ids))
++			goto cleanup;
++	for_subvec(i, cli, &dt->info, users)
++		if (ddebug_class_range_overlap(cli->map, &reserved_ids))
++			goto cleanup;
++
+ 	if (dt->info.maps.len)
+ 		ddebug_apply_class_maps(&dt->info);
+ 
+@@ -1313,6 +1337,11 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 
+ 	vpr_info("%3u debug prints in module %s\n", di->descs.len, di->mod_name);
+ 	return 0;
++cleanup:
++	WARN_ONCE("dyndbg multi-classmap conflict in %s\n", di->mod_name);
++	kfree(dt);
++	return -EINVAL;
++
+ }
+ 
+ /* helper for ddebug_dyndbg_(boot|module)_param_cb */
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 1070107f74f1..e42916b08fd4 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -128,6 +128,14 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM,
+ DYNAMIC_DEBUG_CLASSMAP_PARAM(disjoint_bits, p);
+ DYNAMIC_DEBUG_CLASSMAP_PARAM(level_num, p);
+ 
++#ifdef FORCE_CLASSID_CONFLICT
++/*
++ * Enable with -Dflag on compile to test overlapping class-id range
++ * detection.  This should warn on modprobes.
++ */
++DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
++#endif
++
+ #else /* TEST_DYNAMIC_DEBUG_SUBMOD */
+ 
+ /*
 -- 
 2.49.0
 
