@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0290BC3600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 15:48:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7A88C3600C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 16:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A37FE10E297;
-	Thu,  3 Apr 2025 15:48:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D71910E255;
+	Thu,  3 Apr 2025 16:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jOM9Z/ek";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KQw21rb7";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A44310E2BC
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Apr 2025 15:48:43 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-30363975406so171058a91.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Apr 2025 08:48:43 -0700 (PDT)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C157610E255
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Apr 2025 16:11:30 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2260202c2a1so1653715ad.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Apr 2025 09:11:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743695322; x=1744300122; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743696690; x=1744301490; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=V23suTCPv14itRvWPkYOs8Nuk94Gdlahr98awHVPMnY=;
- b=jOM9Z/ekwk62rGecz/CO7ghWw2PokvjnXsj74CoFhxbuk+xBYVmKe+HF/GVEL6VYBR
- INJNzx90eXALTXeToHnc42j2OYRiuU9r9lF4JGgFSqeO0NjTCDzAapfY4Tk8AsVcXT8e
- /lf+m6ge4737OGIJLyQcLYcnv3SpVgsLUkQ+3SSGySX6woJ2XK4Ky0gwDUX5sEX9U4/z
- u+hpQZsP8+b1A5vU5emuy6O54yo3pTBuzXMu7nxFABy7s/tD+WQ1xhlZy3Vv0eeZ7uBb
- fmYBhILZXy4a9aaWno1IeVJwM6bfKFsWtM+h1mUMtjVMrZbpGdsAbeg7UlhOupKe9qru
- EuZA==
+ bh=qZ/ySvOChJ8DuQKdQ0AlueMT4sCUgLBJOAJfnUFaq3A=;
+ b=KQw21rb77nqtMF0Zd6f2hiC3KhsIdfvSa+yn04+hHmyfv9OS83YalMAERYqELtvafH
+ B0Iv8Tuo0S8Z0k9KbmsBmCHtTPdFanr4edF310u05bMp21piRryjWJ8QNnQtBKw1XUiX
+ quGNFR6hOIDscNOW0ic4nQ/I2FeT4AM6OweOWQk9pmxf088zlcmWn+c14sMizKIfjUi3
+ I984UBRaxmszhUKMdU/i4To+4tp3LkLdh59JeELXhZYdvR8p26XDBPbd3vbHhANGr7Zo
+ eQ3Q3G8pmBjfrVjQS4DDjsQXXjZ/KdJauuNtuH/EGHVQ8p4NIfakjbh5viTxl9BdLqss
+ ccvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743695322; x=1744300122;
+ d=1e100.net; s=20230601; t=1743696690; x=1744301490;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=V23suTCPv14itRvWPkYOs8Nuk94Gdlahr98awHVPMnY=;
- b=vIDngMjr1X7I9w7HmzxJLGRMoMD/3uBaWXa170WwZPmfpqigNC70BuvYANnlEZZsrW
- yhe7zJgitXRf8wosX32ujxdXKwfAnvdkOd4YdHNdvXDXFMjGyWLrqBX4PrKOqVPBZkq1
- I+mEwfuZZFHzeCKcurpoGNDBwALu6Jgwvmn31c9Qerf1V4ZMitYo+NFmY2Safzml2R0L
- s2xZHp0FXjTCH6qVwGpJNWMwIWnuNSyj4tgGbqt32cf3VNuzcgvcARySLpiCllqBwIBW
- Kcc1Ee3vm1KXFEvIXQyJw66ZhBoMy+5vAun5oNRyqZFvTvJ8Okbh8VuuqO91j1piyZwU
- jFsg==
-X-Gm-Message-State: AOJu0Yx1u88watcl23gub8EIBI+qYpkygHr0cggyMi+6JtBh0jAW2RpR
- YM7YGXnG4GCDfKIymuRHSImOiI1UtwDxs94pc4qxL9xWrl1/i0Yp+AdS6bgD3aCsZFmMmQR2vKX
- o9j47BJojF3P0vdaZgERd6BoTkO8=
-X-Gm-Gg: ASbGnctlybCjc7Nez5im8wvVLUTn69u5tuajRwRVBHrSPc3GtyHTtJpZty2mQqSLTea
- n6AfQvHmqrWLZR4lBIRMm6lRN1Nr/tglfLbHgkPolHNVYnpUDoSODPaQGyiEryiVDDxqw73U8HR
- ff5leoxsL4xsht0TccTt9nYQb1QA==
-X-Google-Smtp-Source: AGHT+IGQEhssxOaznC8drviRViH5HlQTwVBElnJxgv1WdG8NuX6BUJgMXDiDQ7PeOtA9ZaSQx207OKFaJ2tTWzOxdUE=
-X-Received: by 2002:a17:90b:3a88:b0:301:ba2b:3bc6 with SMTP id
- 98e67ed59e1d1-306a496b929mr17091a91.7.1743695322500; Thu, 03 Apr 2025
- 08:48:42 -0700 (PDT)
+ bh=qZ/ySvOChJ8DuQKdQ0AlueMT4sCUgLBJOAJfnUFaq3A=;
+ b=HRVs436cgmICUMtolZUIqPffpAPETBymid84a+ns1e9Jhzg5UK1CZBY0FR73D5s2sb
+ UnM60uVMvhh5nd8LiqqMXMGhq+RoT6PLawt6ilrXfJEc6dPvBS+OFms4/kvzNYF4JNd8
+ 2eiLgUFB6dE/1XXfl1lq63aNtlfhmt5ILJWsDCfamBueL1gDeVafBO0a+gOMf4I/FvLt
+ w1Y4ofTuX5Ej9YdXbFPWHwWwxbtpun31DWw4/KhCgLGlBXy08Y3k83aGsnq7xqi04EMs
+ divVwdYHUqzpr6NReYnVXFtvlCOF/wdqxLinUzu3RSBz6RYge/D681Fg3R0LrMphEJow
+ o1pg==
+X-Gm-Message-State: AOJu0Yw0FF71X8W8SxZEuyLbflYlGxkHXdEnysb0WPTVew9ZPnZYy0zh
+ RjJ+vrPCkbk1ZMAgXvLWu4ssxPdvAy+j2rti8FAzY8DTN4nUhCuw6W3YSfL3axYDhIUgClPOMmL
+ 5TvXC8SZQJu9Nc62XN7HljhZqsVrcmw==
+X-Gm-Gg: ASbGnctMnf9amHewnjqfWsrlnBQRbx1wC7zrnTkgRRGSqt+zbxYMkOw9hDQDs7bVuW/
+ Jvq8XfrKrYfwac3Xq7O5+kck4DrD/dWzk9pP2nDXCP4A4c6lyPLsfq3WQaQIrYNCVBW4D1TIktm
+ 7kJQn2U4dZI1fbbEg1cnWsvDL/uA==
+X-Google-Smtp-Source: AGHT+IHfvJa4mmOraGql689TaG/0925b0de8DABdtwZrB1kAmBB2V3n4bfhXl67yF3XONZFF57EZpuEr0T1jvnL7Z9Y=
+X-Received: by 2002:a17:903:41cd:b0:21f:519:6bc6 with SMTP id
+ d9443c01a7336-2295eeec6aemr50564055ad.9.1743696690338; Thu, 03 Apr 2025
+ 09:11:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250403031148.1266785-1-superm1@kernel.org>
-In-Reply-To: <20250403031148.1266785-1-superm1@kernel.org>
+References: <20250403094355.1866897-1-jesse.zhang@amd.com>
+ <20250403094355.1866897-2-jesse.zhang@amd.com>
+In-Reply-To: <20250403094355.1866897-2-jesse.zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Apr 2025 11:48:31 -0400
-X-Gm-Features: AQ5f1JrTtbkTgW4qB1rZA0kq_DvMn_uWeowGgWal34bZVd09TcK3e9WtzqIPxqI
-Message-ID: <CADnq5_Nz76WBm8wsU8k4LUpXrjKk6AbJfYV0CpaV3sXAJ2McEQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd: Add pre-zen AMD hardware to PCIe dynamic
- switching exclusions
-To: Mario Limonciello <superm1@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, 
- Mario Limonciello <mario.limonciello@amd.com>
+Date: Thu, 3 Apr 2025 12:11:19 -0400
+X-Gm-Features: AQ5f1Jo9TvIlMs54DCkTq8SzcO5FZZYdL1V0icE6oDDRSgse_N8JIPyovoaZml8
+Message-ID: <CADnq5_POjQXnGokhv6JkmNXiptQKA_5xZc_DwVdhCpm_DwisJA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Enable TMZ support for GC 11.0.0
+To: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>, Tim.Huang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,81 +81,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 2, 2025 at 11:12=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
-rg> wrote:
+On Thu, Apr 3, 2025 at 5:44=E2=80=AFAM Jesse.zhang@amd.com <jesse.zhang@amd=
+.com> wrote:
 >
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> AMD RX580 when added AMD Phenom 2 has problems with overheating. This is =
-due to
+> Add IP_VERSION(11, 0, 0) to the list of GPU generations that support TMZ.
 
-I don't think this is entirely accurate.  I think the GPU gets hot
-because the device hangs due to a problem with changing the PCIe
-clocks.
-
-> changes with PCIe dynamic switching introduced by commit 466a7d115326e
-> ("drm/amd: Use the first non-dGPU PCI device for BW limits").
->
-> To avoid risks of other issues with old hardware require at least Zen har=
-dware
-> for AMD side to enable PCIe dynamic switching.
-
-I'm pretty sure PCIe reclocking worked on pre-Zen hardware.  We've
-supported this on our GPUs going back at least 15 or more years.  I
-suspect the actual problem is that some links may not reliably train
-at the full bandwidth on some motherboards.  Forcing a higher link
-speed may cause problems.  Maybe it would be better to limit the max
-PCIe link rate to whatever the link is currently trained to.  IIRC,
-PCIe links will train at the fastest link possible by default.  The
-previous behavior was to limit the max clock to the slowest link in
-the topology to save power, but then we changed it to use the fastest
-link possible based on the PCIe link caps.  Perhaps limiting it to the
-fastest currently trained link rate would be better.
+Are you sure about that?  TMZ will only work with user queues on gfx11 dGPU=
+s.
 
 Alex
 
 >
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4098
-> Fixes: 466a7d115326e ("drm/amd: Use the first non-dGPU PCI device for BW =
-limits")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 > ---
-> v2:
->  * Cover more hardware
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index a30111d2c3ea0..caa44ee788c8f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1854,6 +1854,9 @@ bool amdgpu_device_seamless_boot_supported(struct a=
-mdgpu_device *adev)
->   *
->   * https://edc.intel.com/content/www/us/en/design/products/platforms/det=
-ails/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/=
-005/pci-express-support/
->   * https://gitlab.freedesktop.org/drm/amd/-/issues/2663
-> + *
-> + * AMD Phenom II X6 1090T has a similar issue
-> + * https://gitlab.freedesktop.org/drm/amd/-/issues/4098
->   */
->  static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu=
-_device *adev)
->  {
-> @@ -1866,6 +1869,8 @@ static bool amdgpu_device_pcie_dynamic_switching_su=
-pported(struct amdgpu_device
->
->         if (c->x86_vendor =3D=3D X86_VENDOR_INTEL)
->                 return false;
-> +       if (c->x86_vendor =3D=3D X86_VENDOR_AMD && !cpu_feature_enabled(X=
-86_FEATURE_ZEN))
-> +               return false;
->  #endif
->         return true;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gmc.c
+> index 464625282872..1eb9242436ee 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -843,6 +843,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
+>         case IP_VERSION(9, 3, 0):
+>         /* GC 10.3.7 */
+>         case IP_VERSION(10, 3, 7):
+> +       case IP_VERSION(11, 0, 0):
+>         /* GC 11.0.1 */
+>         case IP_VERSION(11, 0, 1):
+>                 if (amdgpu_tmz =3D=3D 0) {
 > --
-> 2.43.0
+> 2.25.1
 >
