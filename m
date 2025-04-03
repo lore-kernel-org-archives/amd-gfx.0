@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 032B8C3601A
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:18:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4F24C36014
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:18:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95EEB10EAF5;
-	Thu,  3 Apr 2025 19:18:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89C1910EAF6;
+	Thu,  3 Apr 2025 19:18:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R0lQ4iPD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iXIKoKVT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBF1E10EAF5;
- Thu,  3 Apr 2025 19:18:07 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D09610EAF6;
+ Thu,  3 Apr 2025 19:18:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5F769614B7;
- Thu,  3 Apr 2025 19:18:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85447C4CEE3;
- Thu,  3 Apr 2025 19:18:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id C1C1C5C0F6E;
+ Thu,  3 Apr 2025 19:16:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1E47C4CEE8;
+ Thu,  3 Apr 2025 19:18:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743707887;
- bh=V1qxuGy8Y+Lg5Bwu/IvIatMzbJSrmut+cqT/owMEmmY=;
+ s=k20201202; t=1743707906;
+ bh=otqcOSfMoH3iQE8svAci/APa4hc6+FBjbvDY3rMfqic=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R0lQ4iPD9uSjAG4znbwWBM4jheKfHgc60GKkXy6CmT3ePS7Q6/M9fgb3lmoVhmz9q
- IdIfGbBAsRI7hZwSayaLTaGb/xRi53j7IJPKDm4P147J1Dv6akQT5ggXgEIOXgiaip
- zcOj4PeDtZE/ugkesaclor8xJSn/8hrRaeMcXGr4Bhy4EJo/DrRfA8XzCinuJMvp0x
- YPVLvLjQH/qjTGQaUxjjQVswLZprqMbIDqWsYO2OmJ96KZ0feIMchSlbdk5cuEZK+D
- 6nl6q1surz0toaBAT+04albKIN1EyAhYVm0qfPnF2OuMTi8FOj5YYvm+AOmTyzBonD
- 3eK5mtySrPWnA==
+ b=iXIKoKVTADhpZGsp9dkgLSlbtvh0538C2vQ7AUjU5Oi8+yUnfDbJM4g6pL3leomj9
+ /n9MCWtTvLm4TO2do8NNd8vRyV/TVf6NEdW4lVMBuxAzkM5JgZok1WvwClq3rML1i3
+ SIVsZxY28IGTKiLzg+zueOlv5Xmv0FTudD1biIY2EWPrLVzZo4RGrLUL9Uc80K2fW1
+ zdDGhKG9RnOswAaxc78Bo4PEOHFokjm9EttJXiJMt88NmsGEDmawFEtImUBYLOU9jk
+ 27Yl8JmBUGIamst1LXdlYsKTJIT1uVcWgjws+nmtx0jrsQQ6TBluFE4vSDH1ZZr0gM
+ 16IM+l8koAfHA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+Cc: Zhikai Zhai <zhikai.zhai@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, lijo.lazar@amd.com,
- sunil.khatri@amd.com, Hawking.Zhang@amd.com, Jun.Ma2@amd.com,
- Yunxiang.Li@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.12 28/33] drm/amdgpu: grab an additional reference
- on the gang fence v2
-Date: Thu,  3 Apr 2025 15:16:51 -0400
-Message-Id: <20250403191656.2680995-28-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, martin.leung@amd.com,
+ chiahsuan.chung@amd.com, bhuvanachandra.pinninti@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.6 02/23] drm/amd/display: Update Cursor request mode
+ to the beginning prefetch always
+Date: Thu,  3 Apr 2025 15:17:55 -0400
+Message-Id: <20250403191816.2681439-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250403191656.2680995-1-sashal@kernel.org>
-References: <20250403191656.2680995-1-sashal@kernel.org>
+In-Reply-To: <20250403191816.2681439-1-sashal@kernel.org>
+References: <20250403191816.2681439-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.12.21
+X-stable-base: Linux 6.6.85
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,55 +68,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Christian König <christian.koenig@amd.com>
+From: Zhikai Zhai <zhikai.zhai@amd.com>
 
-[ Upstream commit 0d9a95099dcb05b5f4719c830d15bf4fdcad0dc2 ]
+[ Upstream commit 4a4077b4b63a8404efd6d37fc2926f03fb25bace ]
 
-We keep the gang submission fence around in adev, make sure that it
-stays alive.
+[Why]
+The double buffer cursor registers is updated by the cursor
+vupdate event. There is a gap between vupdate and cursor data
+fetch if cursor fetch data reletive to cursor position.
+Cursor corruption will happen if we update the cursor surface
+in this gap.
 
-v2: fix memory leak on retry
+[How]
+Modify the cursor request mode to the beginning prefetch always
+and avoid wraparound calculation issues.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Acked-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Zhikai Zhai <zhikai.zhai@amd.com>
+Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 22 ++++++++-----------
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c |  2 +-
+ 2 files changed, 10 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 96845541b2d25..31d4df9688981 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6575,18 +6575,26 @@ struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
- {
- 	struct dma_fence *old = NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index ff38a85c4fa22..e71b79f5a66cd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -1930,20 +1930,11 @@ static void delay_cursor_until_vupdate(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 	dc->hwss.get_position(&pipe_ctx, 1, &position);
+ 	vpos = position.vertical_count;
  
-+	dma_fence_get(gang);
- 	do {
- 		dma_fence_put(old);
- 		old = amdgpu_device_get_gang(adev);
- 		if (old == gang)
- 			break;
+-	/* Avoid wraparound calculation issues */
+-	vupdate_start += stream->timing.v_total;
+-	vupdate_end += stream->timing.v_total;
+-	vpos += stream->timing.v_total;
+-
+ 	if (vpos <= vupdate_start) {
+ 		/* VPOS is in VACTIVE or back porch. */
+ 		lines_to_vupdate = vupdate_start - vpos;
+-	} else if (vpos > vupdate_end) {
+-		/* VPOS is in the front porch. */
+-		return;
+ 	} else {
+-		/* VPOS is in VUPDATE. */
+-		lines_to_vupdate = 0;
++		lines_to_vupdate = stream->timing.v_total - vpos + vupdate_start;
+ 	}
  
--		if (!dma_fence_is_signaled(old))
-+		if (!dma_fence_is_signaled(old)) {
-+			dma_fence_put(gang);
- 			return old;
-+		}
+ 	/* Calculate time until VUPDATE in microseconds. */
+@@ -1951,13 +1942,18 @@ static void delay_cursor_until_vupdate(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 		stream->timing.h_total * 10000u / stream->timing.pix_clk_100hz;
+ 	us_to_vupdate = lines_to_vupdate * us_per_line;
  
- 	} while (cmpxchg((struct dma_fence __force **)&adev->gang_submit,
- 			 old, gang) != old);
++	/* Stall out until the cursor update completes. */
++	if (vupdate_end < vupdate_start)
++		vupdate_end += stream->timing.v_total;
++
++	/* Position is in the range of vupdate start and end*/
++	if (lines_to_vupdate > stream->timing.v_total - vupdate_end + vupdate_start)
++		us_to_vupdate = 0;
++
+ 	/* 70 us is a conservative estimate of cursor update time*/
+ 	if (us_to_vupdate > 70)
+ 		return;
  
-+	/*
-+	 * Drop it once for the exchanged reference in adev and once for the
-+	 * thread local reference acquired in amdgpu_device_get_gang().
-+	 */
-+	dma_fence_put(old);
- 	dma_fence_put(old);
- 	return NULL;
+-	/* Stall out until the cursor update completes. */
+-	if (vupdate_end < vupdate_start)
+-		vupdate_end += stream->timing.v_total;
+ 	us_vupdate = (vupdate_end - vupdate_start + 1) * us_per_line;
+ 	udelay(us_to_vupdate + us_vupdate);
  }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
+index 39a57bcd78667..576acf2ce10dd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
+@@ -44,7 +44,7 @@ void hubp31_set_unbounded_requesting(struct hubp *hubp, bool enable)
+ 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
+ 
+ 	REG_UPDATE(DCHUBP_CNTL, HUBP_UNBOUNDED_REQ_MODE, enable);
+-	REG_UPDATE(CURSOR_CONTROL, CURSOR_REQ_MODE, enable);
++	REG_UPDATE(CURSOR_CONTROL, CURSOR_REQ_MODE, 1);
+ }
+ 
+ void hubp31_soft_reset(struct hubp *hubp, bool reset)
 -- 
 2.39.5
 
