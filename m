@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DABD7C3600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 770D9C3600C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:19:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 694AF10EB20;
-	Thu,  3 Apr 2025 19:19:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F52710EB24;
+	Thu,  3 Apr 2025 19:19:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uFFnwdDQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="evsnJNW2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 217FA10EB1F;
- Thu,  3 Apr 2025 19:19:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2915510EB1E;
+ Thu,  3 Apr 2025 19:19:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7CEAC4400C;
- Thu,  3 Apr 2025 19:19:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D59CC4CEE8;
- Thu,  3 Apr 2025 19:19:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 84E8F44BD8;
+ Thu,  3 Apr 2025 19:19:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7029CC4CEE3;
+ Thu,  3 Apr 2025 19:19:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743707981;
- bh=KdIfbpcRyecjOA55IM9hfeKdATnG6oEBPAHcpLycQDQ=;
+ s=k20201202; t=1743707988;
+ bh=M+LD18HVsFl5z7d34huX864eZca3XD7hkoqhhzG8Cjk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uFFnwdDQW/VJC2uge3yUFAlj6XTAVv7Wk8yT5xPuslLBqQbCDbHZ/tIgSpctGgaas
- AtXkgJYMLQa9B6ax2rrFW4yad583RhYkjpEtbJ9EF45iPaawyoxXhVuwm2BQLhzfqj
- kAO3CcfqZ6Y27tcz8UzNDyP01D60s+6ghSYDB9WS3e73AjEgYDJSr24g72KuqxxVDS
- Ms4Vl7eu7FWFq/v7SRKcYL1d43H96gDOhm7xrVpGUrwc+K0393OoawQaYt+MNQaYQA
- wgi5Jx9StZ149qucqgd3LcG9D1vQxAZ/fPlq6hKT7RD6ykd+Uh8eP7Lnoe4tXrson7
- vhAu30zhpcCDg==
+ b=evsnJNW2fye9gAKoqHlqhhbbBtCSFKVuNz0ahPpCcfN05/If0rNerpuum403Mcvkv
+ N9k4jNiX8/1Q4u5b/HKbs7nbc6a6SP942xtWKzseaaLyWqjc4Wjh1Jd+ReumxZtMyF
+ HzwbC7nwUdngWjM9w817oQA0cNef2R1O1tsFRE0ViL7FQdUU+wJ8ry2j74C5JrGvqi
+ Cw3iOkbm5JqykxJGT93oGuIPLF4Cj3UUAF0BmK1inb5tIY7J7NK3ibpCefgYokWYe/
+ aA6HSUXU6eyCW4RuwYMXoIWhpY9RYKkaAzfPB2WtGWHSHLuNhG85Y0HH2uua0Wn1JA
+ QdlP3geoz5gfg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.1 12/20] drm/amdkfd: Fix pqm_destroy_queue race with
- GPU reset
-Date: Thu,  3 Apr 2025 15:19:05 -0400
-Message-Id: <20250403191913.2681831-12-sashal@kernel.org>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, kenneth.feng@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ sunil.khatri@amd.com, boyuan.zhang@amd.com, Jun.Ma2@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.1 15/20] drm/amdgpu: handle
+ amdgpu_cgs_create_device() errors in amd_powerplay_create()
+Date: Thu,  3 Apr 2025 15:19:08 -0400
+Message-Id: <20250403191913.2681831-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250403191913.2681831-1-sashal@kernel.org>
 References: <20250403191913.2681831-1-sashal@kernel.org>
@@ -64,34 +64,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 7919b4cad5545ed93778f11881ceee72e4dbed66 ]
+[ Upstream commit 1435e895d4fc967d64e9f5bf81e992ac32f5ac76 ]
 
-If GPU in reset, destroy_queue return -EIO, pqm_destroy_queue should
-delete the queue from process_queue_list and free the resource.
+Add error handling to propagate amdgpu_cgs_create_device() failures
+to the caller. When amdgpu_cgs_create_device() fails, release hwmgr
+and return -ENOMEM to prevent null pointer dereference.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+[v1]->[v2]: Change error code from -EINVAL to -ENOMEM. Free hwmgr.
+
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 1918a3c06ac86..a15bf1e382767 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -429,7 +429,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 			pr_err("Pasid 0x%x destroy queue %d failed, ret %d\n",
- 				pqm->process->pasid,
- 				pqn->q->properties.queue_id, retval);
--			if (retval != -ETIME)
-+			if (retval != -ETIME && retval != -EIO)
- 				goto err_destroy_queue;
- 		}
- 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index eae4b4826f043..ab8ae74646649 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -51,6 +51,11 @@ static int amd_powerplay_create(struct amdgpu_device *adev)
+ 	hwmgr->adev = adev;
+ 	hwmgr->not_vf = !amdgpu_sriov_vf(adev);
+ 	hwmgr->device = amdgpu_cgs_create_device(adev);
++	if (!hwmgr->device) {
++		kfree(hwmgr);
++		return -ENOMEM;
++	}
++
+ 	mutex_init(&hwmgr->msg_lock);
+ 	hwmgr->chip_family = adev->family;
+ 	hwmgr->chip_id = adev->asic_type;
 -- 
 2.39.5
 
