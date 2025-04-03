@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E82C3600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:20:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB2C2C36014
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:20:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7C510EB28;
-	Thu,  3 Apr 2025 19:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC9210EB2E;
+	Thu,  3 Apr 2025 19:20:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VQ07aJZY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d59gyW7r";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F248510EB28;
- Thu,  3 Apr 2025 19:20:12 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A7AC10EB2E;
+ Thu,  3 Apr 2025 19:20:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 5A468A44666;
- Thu,  3 Apr 2025 19:14:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C28AC4CEE9;
- Thu,  3 Apr 2025 19:20:09 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D3B8B5C6C6A;
+ Thu,  3 Apr 2025 19:18:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38221C4CEE8;
+ Thu,  3 Apr 2025 19:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743708011;
- bh=kPL1CEsADV/4TIGWyac9i15zkG+j8F7+SHFAHkP5sUA=;
+ s=k20201202; t=1743708020;
+ bh=er1MmH+M82FspL5jq9X8etCH4kBkgrTGFvmfL3u1tC8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VQ07aJZYpY4DxMPi5wNNEl+ComOVNN+tmxdoqYFJBODVm6P+s3Z4mbFQGr7wUswfa
- V1AC28oACZELw5SE+/ccISDCZv79P9epbBIqyxNg3dkTphK7zEtWJeghz4606jvqe0
- WMls2U2x0igl4/EFoy4s9fooBr4OLkT9yn/fN7s5nz1CTQNEeEAZbgEX3/fGGXSyt5
- QsEadpi2rW3FyuIM7oWLFLNaCtsStSOFscTYnr/Q7+AHT3VxVA8csuhqnwaiUQ39B/
- bbsz7zXbUXEkD4UDwPC7wBw4wjpAPqMF0WZemQR3gZVdIJNM/KBpFChjimN7+CquqT
- IaFROg6+OQiDg==
+ b=d59gyW7rHX/eoJ6AoSS5rJRlrZfEyLGz/ocI0s0ixo+A9QI1NXj1rNvJjjF9dEJqz
+ CBz8hxGu3fLKWXzRWAzFbPrBdR5GWFaOedZRXqqu1uEEMe8wcKT9K9Wp/wzfM41OzS
+ cVY0Zuc/VOG7lutfSD2nC8e8ASnB88E02OesqLTLhTFPyHtEz2C9wi78SxO8u5gwBa
+ 1aIwQnmojLX8TjxR3JQD+mI4fKDivYtefctTioXOiPAGTCDqkVSJq4AwIRLvaolQPO
+ XlCW74MxRnvE0J/Krir/H8SlI04KRg7leIgw4kG1zpPMIBrVSMPpq1O036Yb3ybKhD
+ 6MfYdCW4ZtCQw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Zhikai Zhai <zhikai.zhai@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Zaeem Mohamed <zaeem.mohamed@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
+Cc: David Yat Sin <David.YatSin@amd.com>, Jay Cornwall <jay.cornwall@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, chiahsuan.chung@amd.com,
- bhuvanachandra.pinninti@amd.com, martin.leung@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.15 02/12] drm/amd/display: Update Cursor request
- mode to the beginning prefetch always
-Date: Thu,  3 Apr 2025 15:19:51 -0400
-Message-Id: <20250403192001.2682149-2-sashal@kernel.org>
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 5.15 07/12] drm/amdkfd: clamp queue size to minimum
+Date: Thu,  3 Apr 2025 15:19:56 -0400
+Message-Id: <20250403192001.2682149-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250403192001.2682149-1-sashal@kernel.org>
 References: <20250403192001.2682149-1-sashal@kernel.org>
@@ -68,93 +64,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhikai Zhai <zhikai.zhai@amd.com>
+From: David Yat Sin <David.YatSin@amd.com>
 
-[ Upstream commit 4a4077b4b63a8404efd6d37fc2926f03fb25bace ]
+[ Upstream commit e90711946b53590371ecce32e8fcc381a99d6333 ]
 
-[Why]
-The double buffer cursor registers is updated by the cursor
-vupdate event. There is a gap between vupdate and cursor data
-fetch if cursor fetch data reletive to cursor position.
-Cursor corruption will happen if we update the cursor surface
-in this gap.
+If queue size is less than minimum, clamp it to minimum to prevent
+underflow when writing queue mqd.
 
-[How]
-Modify the cursor request mode to the beginning prefetch always
-and avoid wraparound calculation issues.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Zhikai Zhai <zhikai.zhai@amd.com>
-Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: David Yat Sin <David.YatSin@amd.com>
+Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 22 ++++++++-----------
- .../gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c |  2 +-
- 2 files changed, 10 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 10 ++++++++++
+ include/uapi/linux/kfd_ioctl.h           |  2 ++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index bc603c8af3b66..b31c31c39783f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -1838,20 +1838,11 @@ static void delay_cursor_until_vupdate(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	dc->hwss.get_position(&pipe_ctx, 1, &position);
- 	vpos = position.vertical_count;
- 
--	/* Avoid wraparound calculation issues */
--	vupdate_start += stream->timing.v_total;
--	vupdate_end += stream->timing.v_total;
--	vpos += stream->timing.v_total;
--
- 	if (vpos <= vupdate_start) {
- 		/* VPOS is in VACTIVE or back porch. */
- 		lines_to_vupdate = vupdate_start - vpos;
--	} else if (vpos > vupdate_end) {
--		/* VPOS is in the front porch. */
--		return;
- 	} else {
--		/* VPOS is in VUPDATE. */
--		lines_to_vupdate = 0;
-+		lines_to_vupdate = stream->timing.v_total - vpos + vupdate_start;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 34c466e8eee98..7b2111be3019a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -191,6 +191,11 @@ static int set_queue_properties_from_user(struct queue_properties *q_properties,
+ 		return -EINVAL;
  	}
  
- 	/* Calculate time until VUPDATE in microseconds. */
-@@ -1859,13 +1850,18 @@ static void delay_cursor_until_vupdate(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 		stream->timing.h_total * 10000u / stream->timing.pix_clk_100hz;
- 	us_to_vupdate = lines_to_vupdate * us_per_line;
- 
-+	/* Stall out until the cursor update completes. */
-+	if (vupdate_end < vupdate_start)
-+		vupdate_end += stream->timing.v_total;
++	if (args->ring_size < KFD_MIN_QUEUE_RING_SIZE) {
++		args->ring_size = KFD_MIN_QUEUE_RING_SIZE;
++		pr_debug("Size lower. clamped to KFD_MIN_QUEUE_RING_SIZE");
++	}
 +
-+	/* Position is in the range of vupdate start and end*/
-+	if (lines_to_vupdate > stream->timing.v_total - vupdate_end + vupdate_start)
-+		us_to_vupdate = 0;
+ 	if (!access_ok((const void __user *) args->read_pointer_address,
+ 			sizeof(uint32_t))) {
+ 		pr_err("Can't access read pointer\n");
+@@ -395,6 +400,11 @@ static int kfd_ioctl_update_queue(struct file *filp, struct kfd_process *p,
+ 		return -EINVAL;
+ 	}
+ 
++	if (args->ring_size < KFD_MIN_QUEUE_RING_SIZE) {
++		args->ring_size = KFD_MIN_QUEUE_RING_SIZE;
++		pr_debug("Size lower. clamped to KFD_MIN_QUEUE_RING_SIZE");
++	}
 +
- 	/* 70 us is a conservative estimate of cursor update time*/
- 	if (us_to_vupdate > 70)
- 		return;
+ 	properties.queue_address = args->ring_base_address;
+ 	properties.queue_size = args->ring_size;
+ 	properties.queue_percent = args->queue_percentage;
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index af96af174dc47..48d747f3ee8db 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -50,6 +50,8 @@ struct kfd_ioctl_get_version_args {
+ #define KFD_MAX_QUEUE_PERCENTAGE	100
+ #define KFD_MAX_QUEUE_PRIORITY		15
  
--	/* Stall out until the cursor update completes. */
--	if (vupdate_end < vupdate_start)
--		vupdate_end += stream->timing.v_total;
- 	us_vupdate = (vupdate_end - vupdate_start + 1) * us_per_line;
- 	udelay(us_to_vupdate + us_vupdate);
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
-index 127055044cf1a..faab14e343a4e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
-@@ -44,7 +44,7 @@ void hubp31_set_unbounded_requesting(struct hubp *hubp, bool enable)
- 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
- 
- 	REG_UPDATE(DCHUBP_CNTL, HUBP_UNBOUNDED_REQ_MODE, enable);
--	REG_UPDATE(CURSOR_CONTROL, CURSOR_REQ_MODE, enable);
-+	REG_UPDATE(CURSOR_CONTROL, CURSOR_REQ_MODE, 1);
- }
- 
- void hubp31_soft_reset(struct hubp *hubp, bool reset)
++#define KFD_MIN_QUEUE_RING_SIZE		1024
++
+ struct kfd_ioctl_create_queue_args {
+ 	__u64 ring_base_address;	/* to KFD */
+ 	__u64 write_pointer_address;	/* from KFD */
 -- 
 2.39.5
 
