@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4E73C3600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82D75C3600C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:17:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 394FB10EADF;
-	Thu,  3 Apr 2025 19:17:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22C6E10EAE3;
+	Thu,  3 Apr 2025 19:17:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eixBv6YG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pY8kd994";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7924510EADD;
- Thu,  3 Apr 2025 19:17:22 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C90B10EAE6;
+ Thu,  3 Apr 2025 19:17:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D35875C077F;
- Thu,  3 Apr 2025 19:15:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71214C4CEE3;
- Thu,  3 Apr 2025 19:17:19 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id C3B3DA45A52;
+ Thu,  3 Apr 2025 19:12:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF707C4CEE9;
+ Thu,  3 Apr 2025 19:17:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743707841;
- bh=t6oZMi/9McYhjjwa54LfqnU8rhG4e5YDSNMDfVmx1Bw=;
+ s=k20201202; t=1743707856;
+ bh=M/wqt9H7ZmTOQzCHcV4voKIlYfrs7dNZt7/qJ00KdGI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eixBv6YGwNjRWwPmmhDvS3Z0f5tpqE3GRoB/OLiOCBo+ZJmgUSmvSU7kTSyTH3Kt+
- zTHWABryrFt8LFejbpLT0ngJsT62O+bEl1n7cVOOpIi835sZrQYzx+f5I0zq019Y+a
- ZZbWhYIpJNTiqHRLHFGeYwoWOCaH4kyMSGZsSIDMQb3jef/dombbpkmujwTK5ktGQd
- 89m/V56xt52YHIUb1BketlFpfJ9gsumxXYL4k3V2p+bzjOXIQKPgmXbMv9QptaSfL5
- CRRmTHS38fsRPFTwZvUBSCaYEJpuayeTQl49jGhVRIANjKu8agAw1/Lx58IsiP4MWm
- KLefIo9m2Vfsw==
+ b=pY8kd994u9hfpirzZVJV0w0KADr0XH9SZ0yg2uh7Alr1oG7qdQu4kBbwzMLJUlJbv
+ iqO2NkOSs6eygCZJohjFDpu5KUmQRbXnCH34PQZK85bTFt+ajohCgw4tU6RlqvV3SW
+ j5riX8ZXsFO9U+JT8Kbhvzi3FkyJtgPxitHdo28rS7uQT9kVwnk+4w5bpZ/52ZDwck
+ 5heyaryebAh3dZ3HZ1SM2gQL7uRcCNFr72WuSPzCHFzDhlF9nLe8N4cwxM21O2Ebtw
+ a7RUnOYd5foiRwOS8QG0U+j60ocWEskbuGWqJqg4CzL+L42Y3t1q1p4XBusJ9msDqb
+ +/3abAXEZjn+A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Philip Yang <Philip.Yang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: Mike Katsnelson <mike.katsnelson@amd.com>,
+ Ovidiu Bunea <ovidiu.bunea@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, srinivasan.shanmugam@amd.com,
- xiaogang.chen@amd.com, tvrtko.ursulin@igalia.com, mdaenzer@redhat.com,
- Yunxiang.Li@amd.com, xinhui.pan@amd.com, Longlong.Yao@amd.com,
- shane.xiao@amd.com, Hawking.Zhang@amd.com, jesse.zhang@amd.com,
- natalie.vock@gmx.de, amd-gfx@lists.freedesktop.org,
+ austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.12 05/33] drm/amdgpu: Unlocked unmap only clear page
- table leaves
-Date: Thu,  3 Apr 2025 15:16:28 -0400
-Message-Id: <20250403191656.2680995-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.12 13/33] drm/amd/display: stop DML2 from removing
+ pipes based on planes
+Date: Thu,  3 Apr 2025 15:16:36 -0400
+Message-Id: <20250403191656.2680995-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250403191656.2680995-1-sashal@kernel.org>
 References: <20250403191656.2680995-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.12.21
@@ -69,146 +67,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Mike Katsnelson <mike.katsnelson@amd.com>
 
-[ Upstream commit 23b645231eeffdaf44021debac881d2f26824150 ]
+[ Upstream commit 8adeff83a3b07fa6d0958ed51e1b38ba7469e448 ]
 
-SVM migration unmap pages from GPU and then update mapping to GPU to
-recover page fault. Currently unmap clears the PDE entry for range
-length >= huge page and free PTB bo, update mapping to alloc new PT bo.
-There is race bug that the freed entry bo maybe still on the pt_free
-list, reused when updating mapping and then freed, leave invalid PDE
-entry and cause GPU page fault.
+[Why]
+Transitioning from low to high resolutions at high refresh rates caused grey corruption.
+During the transition state, there is a period where plane size is based on low resultion
+state and ODM slices are based on high resoultion state, causing the entire plane to be
+contained in one ODM slice. DML2 would turn off the pipe for the ODM slice with no plane,
+causing an underflow since the pixel rate for the higher resolution cannot be supported on
+one pipe. This change stops DML2 from turning off pipes that are mapped to an ODM slice
+with no plane. This is possible to do without negative consequences because pipes can now
+take the minimum viewport and draw with zero recout size, removing the need to have the
+pipe turned off.
 
-By setting the update to clear only one PDE entry or clear PTB, to
-avoid unmap to free PTE bo. This fixes the race bug and improve the
-unmap and map to GPU performance. Update mapping to huge page will
-still free the PTB bo.
+[How]
+In map_pipes_from_plane(), remove "check" that skips ODM slices that are not covered by
+the plane. This prevents the pipes for those ODM slices from being freed.
 
-With this change, the vm->pt_freed list and work is not needed. Add
-WARN_ON(unlocked) in amdgpu_vm_pt_free_dfs to catch if unmap to free the
-PTB.
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Mike Katsnelson <mike.katsnelson@amd.com>
+Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  4 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 43 +++++++----------------
- 3 files changed, 13 insertions(+), 38 deletions(-)
+ .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 26 -------------------
+ 1 file changed, 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 73e02141a6e21..37d53578825b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2434,8 +2434,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	spin_lock_init(&vm->status_lock);
- 	INIT_LIST_HEAD(&vm->freed);
- 	INIT_LIST_HEAD(&vm->done);
--	INIT_LIST_HEAD(&vm->pt_freed);
--	INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
- 	INIT_KFIFO(vm->faults);
- 
- 	r = amdgpu_vm_init_entities(adev, vm);
-@@ -2607,8 +2605,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 
- 	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
- 
--	flush_work(&vm->pt_free_work);
--
- 	root = amdgpu_bo_ref(vm->root.bo);
- 	amdgpu_bo_reserve(root, true);
- 	amdgpu_vm_put_task_info(vm->task_info);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 52dd7cdfdc814..ee893527a4f1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -360,10 +360,6 @@ struct amdgpu_vm {
- 	/* BOs which are invalidated, has been updated in the PTs */
- 	struct list_head        done;
- 
--	/* PT BOs scheduled to free and fill with zero if vm_resv is not hold */
--	struct list_head	pt_freed;
--	struct work_struct	pt_free_work;
--
- 	/* contains the page directory */
- 	struct amdgpu_vm_bo_base     root;
- 	struct dma_fence	*last_update;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index f78a0434a48fa..54ae0e9bc6d77 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -546,27 +546,6 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
- 	amdgpu_bo_unref(&entry->bo);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+index 1ed21c1b86a5b..a966abd407881 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+@@ -532,26 +532,6 @@ static void calculate_odm_slices(const struct dc_stream_state *stream, unsigned
+ 	odm_slice_end_x[odm_factor - 1] = stream->src.width - 1;
  }
  
--void amdgpu_vm_pt_free_work(struct work_struct *work)
+-static bool is_plane_in_odm_slice(const struct dc_plane_state *plane, unsigned int slice_index, unsigned int *odm_slice_end_x, unsigned int num_slices)
 -{
--	struct amdgpu_vm_bo_base *entry, *next;
--	struct amdgpu_vm *vm;
--	LIST_HEAD(pt_freed);
+-	unsigned int slice_start_x, slice_end_x;
 -
--	vm = container_of(work, struct amdgpu_vm, pt_free_work);
+-	if (slice_index == 0)
+-		slice_start_x = 0;
+-	else
+-		slice_start_x = odm_slice_end_x[slice_index - 1] + 1;
 -
--	spin_lock(&vm->status_lock);
--	list_splice_init(&vm->pt_freed, &pt_freed);
--	spin_unlock(&vm->status_lock);
+-	slice_end_x = odm_slice_end_x[slice_index];
 -
--	/* flush_work in amdgpu_vm_fini ensure vm->root.bo is valid. */
--	amdgpu_bo_reserve(vm->root.bo, true);
+-	if (plane->clip_rect.x + plane->clip_rect.width < slice_start_x)
+-		return false;
 -
--	list_for_each_entry_safe(entry, next, &pt_freed, vm_status)
--		amdgpu_vm_pt_free(entry);
+-	if (plane->clip_rect.x > slice_end_x)
+-		return false;
 -
--	amdgpu_bo_unreserve(vm->root.bo);
+-	return true;
 -}
 -
- /**
-  * amdgpu_vm_pt_free_list - free PD/PT levels
-  *
-@@ -579,19 +558,15 @@ void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
- 			    struct amdgpu_vm_update_params *params)
- {
- 	struct amdgpu_vm_bo_base *entry, *next;
--	struct amdgpu_vm *vm = params->vm;
- 	bool unlocked = params->unlocked;
+ static void add_odm_slice_to_odm_tree(struct dml2_context *ctx,
+ 		struct dc_state *state,
+ 		struct dc_pipe_mapping_scratch *scratch,
+@@ -791,12 +771,6 @@ static void map_pipes_for_plane(struct dml2_context *ctx, struct dc_state *state
+ 	sort_pipes_for_splitting(&scratch->pipe_pool);
  
- 	if (list_empty(&params->tlb_flush_waitlist))
- 		return;
- 
--	if (unlocked) {
--		spin_lock(&vm->status_lock);
--		list_splice_init(&params->tlb_flush_waitlist, &vm->pt_freed);
--		spin_unlock(&vm->status_lock);
--		schedule_work(&vm->pt_free_work);
--		return;
--	}
-+	/*
-+	 * unlocked unmap clear page table leaves, warning to free the page entry.
-+	 */
-+	WARN_ON(unlocked);
- 
- 	list_for_each_entry_safe(entry, next, &params->tlb_flush_waitlist, vm_status)
- 		amdgpu_vm_pt_free(entry);
-@@ -899,7 +874,15 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 		incr = (uint64_t)AMDGPU_GPU_PAGE_SIZE << shift;
- 		mask = amdgpu_vm_pt_entries_mask(adev, cursor.level);
- 		pe_start = ((cursor.pfn >> shift) & mask) * 8;
--		entry_end = ((uint64_t)mask + 1) << shift;
-+
-+		if (cursor.level < AMDGPU_VM_PTB && params->unlocked)
-+			/*
-+			 * MMU notifier callback unlocked unmap huge page, leave is PDE entry,
-+			 * only clear one entry. Next entry search again for PDE or PTE leave.
-+			 */
-+			entry_end = 1ULL << shift;
-+		else
-+			entry_end = ((uint64_t)mask + 1) << shift;
- 		entry_end += cursor.pfn & ~(entry_end - 1);
- 		entry_end = min(entry_end, end);
- 
+ 	for (odm_slice_index = 0; odm_slice_index < scratch->odm_info.odm_factor; odm_slice_index++) {
+-		// We build the tree for one ODM slice at a time.
+-		// Each ODM slice shares a common OPP
+-		if (!is_plane_in_odm_slice(plane, odm_slice_index, scratch->odm_info.odm_slice_end_x, scratch->odm_info.odm_factor)) {
+-			continue;
+-		}
+-
+ 		// Now we have a list of all pipes to be used for this plane/stream, now setup the tree.
+ 		scratch->odm_info.next_higher_pipe_for_odm_slice[odm_slice_index] = add_plane_to_blend_tree(ctx, state,
+ 				plane,
 -- 
 2.39.5
 
