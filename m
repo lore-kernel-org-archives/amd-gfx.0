@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BCF9C3601A
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45D61C3601A
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:18:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D9D310EAFC;
-	Thu,  3 Apr 2025 19:18:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3D1310EB01;
+	Thu,  3 Apr 2025 19:18:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MOo7yTM0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iDIaNNxk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FFA910EAF9;
- Thu,  3 Apr 2025 19:18:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3567A10EB03;
+ Thu,  3 Apr 2025 19:18:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8DA08448E5;
- Thu,  3 Apr 2025 19:18:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19248C4CEE9;
- Thu,  3 Apr 2025 19:18:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9A6AD614BA;
+ Thu,  3 Apr 2025 19:18:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B22C4CEE3;
+ Thu,  3 Apr 2025 19:18:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743707913;
- bh=a9ONbC/GI5yKD6EzoRZ0UunHGO/W3XphgI/C8jmfoJI=;
+ s=k20201202; t=1743707927;
+ bh=kPhaR9pu1DzL0tQw09EuWpUvDoPfhkOJEDvDGoTvV2A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MOo7yTM0UCVXV3glAbjDKXO8m/tsKl28woNF7DsyyFqqn0rKn24wC0Jp7ajn5BxQJ
- 4/j7eoZ1wjRly6k545ojj28RhOl2f2WhZPe84BFfgJth1tjRL0ICQCrI+hA6/Q4Boo
- xVTTer6a5CEGnQXy/LHBywG6DkfeCb+1Uc/hYs1pN03EKaEMkJHvyoJI496828mi8t
- 5Qkixwlfhh6gVmPnFStQbufzf6illlo/XEcpuspP06LedUQapPsdryKVoce3cs7J96
- rKCop/n0KRapbctlO7mBzWfkLGMCw7pD8J6DPT3nV3laMTipiQbdSjRyMBXR/DxPBw
- 9C3stLJ55XK1g==
+ b=iDIaNNxkN9DLi6We3QoVzs9DirAhYMJSLM4tDreUYMH1DnK/kGf//je522ufMExhv
+ nbXIdYex40NbzaNCPcaafZmQMPzV+jZqZip9hjit4Y2pr4GBsQ17SrYokvZxKytdW4
+ t6rVxngKwMJWIKfaNNgTEJ6uFWczaBUVoNIl4+ERepn0UFtchQdHgE86WQd8fQD+Ut
+ SWCDvl7a3UPOT0ffDmIs1KWKGnUqJRVlX56QRCdC+2vkYAFr0pAeuUfK+8PzxC3+lS
+ 8ipIGqqchznof/mCCRVfjkGAv1zV+4z0Dmh1H3fIvka8izZ1J9LHhAD3D+gLUqtnr1
+ c55ueWRbZSbNg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Brendan Tam <Brendan.Tam@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
+Cc: David Yat Sin <David.YatSin@amd.com>, Jay Cornwall <jay.cornwall@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, aric.cyr@amd.com, siqueira@igalia.com,
- alex.hung@amd.com, roman.li@amd.com, dillon.varone@amd.com,
- Samson.Tam@amd.com, Syed.Hassan@amd.com, george.shen@amd.com,
- Cruise.Hung@amd.com, joshua.aberback@amd.com, PeiChen.Huang@amd.com,
- michael.strauss@amd.com, jerry.zuo@amd.com, ivlipski@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 03/23] drm/amd/display: add workaround flag to
- link to force FFE preset
-Date: Thu,  3 Apr 2025 15:17:56 -0400
-Message-Id: <20250403191816.2681439-3-sashal@kernel.org>
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.6 11/23] drm/amdkfd: clamp queue size to minimum
+Date: Thu,  3 Apr 2025 15:18:04 -0400
+Message-Id: <20250403191816.2681439-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250403191816.2681439-1-sashal@kernel.org>
 References: <20250403191816.2681439-1-sashal@kernel.org>
@@ -70,60 +64,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Brendan Tam <Brendan.Tam@amd.com>
+From: David Yat Sin <David.YatSin@amd.com>
 
-[ Upstream commit 51d1b338541dea83fec8e6f95d3e46fa469a73a8 ]
+[ Upstream commit e90711946b53590371ecce32e8fcc381a99d6333 ]
 
-[Why]
-There have been instances of some monitors being unable to link train on
-their reported link speed using their selected FFE preset. If a different
-FFE preset is found that has a higher rate of success during link training
-this workaround can be used to force its FFE preset.
+If queue size is less than minimum, clamp it to minimum to prevent
+underflow when writing queue mqd.
 
-[How]
-A new link workaround flag is made called force_dp_ffe_preset. The flag is
-checked in override_training_settings and will set lt_settings->ffe_preset
-which is null if the flag is not set. The flag is then set in
-override_lane_settings.
-
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: Brendan Tam <Brendan.Tam@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: David Yat Sin <David.YatSin@amd.com>
+Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h                             | 2 ++
- .../gpu/drm/amd/display/dc/link/protocols/link_dp_training.c    | 2 ++
- 2 files changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 10 ++++++++++
+ include/uapi/linux/kfd_ioctl.h           |  2 ++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index cc5e01df15135..88e64b280c90f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1563,7 +1563,9 @@ struct dc_link {
- 		bool dongle_mode_timing_override;
- 		bool blank_stream_on_ocs_change;
- 		bool read_dpcd204h_on_irq_hpd;
-+		bool force_dp_ffe_preset;
- 	} wa_flags;
-+	union dc_dp_ffe_preset forced_dp_ffe_preset;
- 	struct link_mst_stream_allocation_table mst_stream_alloc_table;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 8669677662d0c..35dc926f234e3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -212,6 +212,11 @@ static int set_queue_properties_from_user(struct queue_properties *q_properties,
+ 		return -EINVAL;
+ 	}
  
- 	struct dc_link_status link_status;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-index 9d1adfc09fb2a..51e88efee11e4 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-@@ -697,6 +697,8 @@ void override_training_settings(
- 		lt_settings->pre_emphasis = overrides->pre_emphasis;
- 	if (overrides->post_cursor2 != NULL)
- 		lt_settings->post_cursor2 = overrides->post_cursor2;
-+	if (link->wa_flags.force_dp_ffe_preset && !dp_is_lttpr_present(link))
-+		lt_settings->ffe_preset = &link->forced_dp_ffe_preset;
- 	if (overrides->ffe_preset != NULL)
- 		lt_settings->ffe_preset = overrides->ffe_preset;
- 	/* Override HW lane settings with BIOS forced values if present */
++	if (args->ring_size < KFD_MIN_QUEUE_RING_SIZE) {
++		args->ring_size = KFD_MIN_QUEUE_RING_SIZE;
++		pr_debug("Size lower. clamped to KFD_MIN_QUEUE_RING_SIZE");
++	}
++
+ 	if (!access_ok((const void __user *) args->read_pointer_address,
+ 			sizeof(uint32_t))) {
+ 		pr_err("Can't access read pointer\n");
+@@ -477,6 +482,11 @@ static int kfd_ioctl_update_queue(struct file *filp, struct kfd_process *p,
+ 		return -EINVAL;
+ 	}
+ 
++	if (args->ring_size < KFD_MIN_QUEUE_RING_SIZE) {
++		args->ring_size = KFD_MIN_QUEUE_RING_SIZE;
++		pr_debug("Size lower. clamped to KFD_MIN_QUEUE_RING_SIZE");
++	}
++
+ 	properties.queue_address = args->ring_base_address;
+ 	properties.queue_size = args->ring_size;
+ 	properties.queue_percent = args->queue_percentage & 0xFF;
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index cd924c959d732..1f753e72fa2c2 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -58,6 +58,8 @@ struct kfd_ioctl_get_version_args {
+ #define KFD_MAX_QUEUE_PERCENTAGE	100
+ #define KFD_MAX_QUEUE_PRIORITY		15
+ 
++#define KFD_MIN_QUEUE_RING_SIZE		1024
++
+ struct kfd_ioctl_create_queue_args {
+ 	__u64 ring_base_address;	/* to KFD */
+ 	__u64 write_pointer_address;	/* from KFD */
 -- 
 2.39.5
 
