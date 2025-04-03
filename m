@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 965A5C3600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:14:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD861C3600C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 19:14:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A56D10EA92;
-	Thu,  3 Apr 2025 19:14:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 675BD10EA95;
+	Thu,  3 Apr 2025 19:14:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K486Le4Y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NxcSm+jI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4504910EA92;
- Thu,  3 Apr 2025 19:14:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D93410EA95;
+ Thu,  3 Apr 2025 19:14:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A0AC543832;
- Thu,  3 Apr 2025 19:14:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF21CC4CEEC;
- Thu,  3 Apr 2025 19:14:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E1F6F5C6C67;
+ Thu,  3 Apr 2025 19:12:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE75C4CEEB;
+ Thu,  3 Apr 2025 19:14:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743707668;
- bh=c4UmLzJirykiDj9tqkoEAjFK8HkN7gf+2yTFLOTMjG8=;
+ s=k20201202; t=1743707681;
+ bh=gy4JnBXx4PTmo+dmXKxVNJWbwi1sY36BSovfHvFqApw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=K486Le4YmddXUsygrPAsvHJGJjjUvTZUzBSeM01FjI+FHH00J4jzNjZUkaECL+FWj
- 82KbH7/oMPFtmtwKRdBMTXSRrxGgIbs1Nzmg6U/Z9Hk2UZiGuxZU/YY8jKZpZm5hS+
- UkdG5UmfUCGQgF5Kvv5k9pIf0UQsEyJPY7QN1+3qudZYlinsr6MhhxLefXgMbgHRBL
- Zhb2eIh9iXdP/xiIRvX+Q1OD+DJDAF2VBMzHzEANsphnoqpuWxV8+1nLKyDmcFLZwS
- yxDMXJY/2P0ULt6/My4GKV21jzcG5n7EPEfHm+3Tu71fPpKy3pDhkHdFYWmpf5j48q
- S1QbN1LUkXipg==
+ b=NxcSm+jIpIsWzAffAWnsjSuEmpCufcEZ6LAozmhfMKgZeyXAcWtIPcYHL4RwA/jry
+ PGR+vSZOnnn2E7kHNn8XYdipgutuyynT03bY6yh9a50mWAl8C+0XOVqR7J6yua9H0m
+ EKGISzd6sJ6d6VA0pIhA2EXFhDInT8VQ1MIwyNGOBlOuEFL0j6HWz22ovyCZFa0PU9
+ PKpd/W2myEmeyNEPDXqyJ+zbb0b5MirtcadEO0E0apKFuQjoEoySmM+giUyz2pE1Pc
+ 4W7NgXDlwjD32NMWKFW1fO4crVZXMw2cvd6cM9dv5rwBqBAxXRqjJrGz/qetSi6QYH
+ z3NVL4nPdiZNA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Philip Yang <Philip.Yang@amd.com>, Kent Russell <kent.russell@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.14 25/44] drm/amdkfd: debugfs hang_hws skip GPU with
- MES
-Date: Thu,  3 Apr 2025 15:12:54 -0400
-Message-Id: <20250403191313.2679091-25-sashal@kernel.org>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, kenneth.feng@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ sunil.khatri@amd.com, boyuan.zhang@amd.com, Jun.Ma2@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.14 31/44] drm/amdgpu: handle
+ amdgpu_cgs_create_device() errors in amd_powerplay_create()
+Date: Thu,  3 Apr 2025 15:13:00 -0400
+Message-Id: <20250403191313.2679091-31-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250403191313.2679091-1-sashal@kernel.org>
 References: <20250403191313.2679091-1-sashal@kernel.org>
@@ -65,42 +64,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit fe9d0061c413f8fb8c529b18b592b04170850ded ]
+[ Upstream commit 1435e895d4fc967d64e9f5bf81e992ac32f5ac76 ]
 
-debugfs hang_hws is used by GPU reset test with HWS, for MES this crash
-the kernel with NULL pointer access because dqm->packet_mgr is not setup
-for MES path.
+Add error handling to propagate amdgpu_cgs_create_device() failures
+to the caller. When amdgpu_cgs_create_device() fails, release hwmgr
+and return -ENOMEM to prevent null pointer dereference.
 
-Skip GPU with MES for now, MES hang_hws debugfs interface will be
-supported later.
+[v1]->[v2]: Change error code from -EINVAL to -ENOMEM. Free hwmgr.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Kent Russell <kent.russell@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 5 +++++
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index a29374c864056..6cefd338f23de 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1593,6 +1593,11 @@ int kfd_debugfs_hang_hws(struct kfd_node *dev)
- 		return -EINVAL;
- 	}
- 
-+	if (dev->kfd->shared_resources.enable_mes) {
-+		dev_err(dev->adev->dev, "Inducing MES hang is not supported\n");
-+		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 686345f75f264..6cd327fecebbc 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -51,6 +51,11 @@ static int amd_powerplay_create(struct amdgpu_device *adev)
+ 	hwmgr->adev = adev;
+ 	hwmgr->not_vf = !amdgpu_sriov_vf(adev);
+ 	hwmgr->device = amdgpu_cgs_create_device(adev);
++	if (!hwmgr->device) {
++		kfree(hwmgr);
++		return -ENOMEM;
 +	}
 +
- 	return dqm_debugfs_hang_hws(dev->dqm);
- }
- 
+ 	mutex_init(&hwmgr->msg_lock);
+ 	hwmgr->chip_family = adev->family;
+ 	hwmgr->chip_id = adev->asic_type;
 -- 
 2.39.5
 
