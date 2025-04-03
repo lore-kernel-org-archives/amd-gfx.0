@@ -4,144 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FDD5C3600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 11:13:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A31AC3600C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 13:14:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C184810E222;
-	Thu,  3 Apr 2025 11:13:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03E3510E268;
+	Thu,  3 Apr 2025 13:14:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YkwnBz2p";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UivAnbT+";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2071.outbound.protection.outlook.com [40.107.95.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18B3010E222
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Apr 2025 11:13:49 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32F5610E268
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Apr 2025 13:14:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JqdDSsHWhfW2A0Dhakan5n/LgKOoOSyRgBKBIzt20+kyhtPRvDX9wKSTvkx+/R2bmyb7txwAHLhmYN3b3PUeNlLLaDtvWANWV3otoCbMRgM9x4rB72mVC94AoPuDpqc3vUEQXflfNTsiiESL5oD0/R/hUZklB0fX4GgRld6T2K4CTjQ1HBvTSHQX6rsYlu8TXI/cKlN+G1myLgaH9BZXpcRLQmdO1+XB+Mlsgq2ND9Utu5twHLW1x/bXMgU+BDdrFWdLytNmJdTMn+khfT909oDK5kRRTpF68J+2AdvUSPHPptO8rVtAEsgH+f+sEFjNvyOFd8M3wvHsS52vqDd31w==
+ b=Pp7TTnZXOsKKPSX3Fl4Al8wff9IcS8tgs0LU06NVNn1JMRf6tu2k3kqphQ77EN92xyTH6+wR/jtfYtLOhlVHq2Q85KYAOM/OCgRyWSW4CZqhWglW8A2s4FfTW60W7ucLcEu9vYWDENAkLdu+JL2Tk8I4oAi1C42iJ9WBhvNmL57G9L2/Yfxeecw9m00ZaxD7OUEEnWSGP2app16r3dyv18FKKgRX0cjQzzp+Dca6YV0mJHFxDPWd1PXuTipOQy1wzl4W/r6iMV2MHppXEyJKip2TAZKiWs/U8GpAdXdDN/HcTKBTjgDf1ELObwGIKVOxJ3WfFhUYPEhE8xK5B8a0cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M8d/P57wRqc6QIlL3SY6u8coTh/oEVwmfO8VLDHKm5o=;
- b=B9VOFhnkZpwLfdIyVY8sXSzVKsZuwVYb5v70SFqg2fR1Dz/PU9HX/XSqU+NlWmtmvhneR5PLy4SFShwfLockbKHqinA3l3/pOATu/TSoSBaHebt3hUYapNraV3JFSiXuTNMp5aFaSZF3ESaNoa6gHEuS3likHR8SXazOIFWB7EyrxGNSxB6jcUpGYwNEnigSljESHcAaTIKf1FWqtCZ42xWddPMIJOl1eWgqf7E3XaV4PevwilS2EUhcqoAYLIm2SCX3XdmaP4YQfHnFQ99dDYZ2SvYNvCBlUgQowN/FDeQOVKE4vYr1z5epBHwkOotitEQzAhuPUBLBb52DM7gk7w==
+ bh=7bj6bL10z/gDUBws7JzcXGYy8JqABDk+uj/V0TQKqHM=;
+ b=bQtL6wAX3k8hyz8GH4gmCRu2UasAEPlDgoEI+Kmcih7ckSeedEB2iZ6O16wobqwamq5/kBje74GYIC60A77VYnUEdBivLge5MeOpcRC3il+0CsS+hoTFwXTfZXZ/NQ3gqEfZwPaC0NZduLaFwTKkCRXnsjmwciJMGyCuF4AAs78QznZgz3MTRHwFvXcaa2yCaoANfUqUgalT6ARKpdaXWYr98J66WAcfnS0ggmQ6NSi7A89clUU0VT8C3ZVS9avk1h6l+iLHOxWG3yQDXuOa3ZkP06pOeJtBhuydQYOYnN7ZWddnDxwewDsLbJFeaYeql/dKYDt58RQBwyvo/bG2gw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M8d/P57wRqc6QIlL3SY6u8coTh/oEVwmfO8VLDHKm5o=;
- b=YkwnBz2p3xhd1fM3mVYqK1GrgreSizQOTZRiseq7vthllam/nSNukcvmfdKP9RL976cjbZuUoAkXVPZ19bz7KVPTIkLBV8n0Mr0juH2vIpOUwj0zh7es9yrqIgRWkd5shTMIUrNC/3goa9niousqfr+005Mk4aGt4LQzEJgwpnk=
-Received: from BL1PR12MB5254.namprd12.prod.outlook.com (2603:10b6:208:31e::21)
- by DS0PR12MB9447.namprd12.prod.outlook.com (2603:10b6:8:1b4::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.46; Thu, 3 Apr
- 2025 11:13:45 +0000
-Received: from BL1PR12MB5254.namprd12.prod.outlook.com
- ([fe80::eb1a:4c36:7d9d:6176]) by BL1PR12MB5254.namprd12.prod.outlook.com
- ([fe80::eb1a:4c36:7d9d:6176%4]) with mapi id 15.20.8583.043; Thu, 3 Apr 2025
- 11:13:45 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhou1,
- Tao" <Tao.Zhou1@amd.com>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: add loop bits for NPS2 RAS page retirement
-Thread-Topic: [PATCH] drm/amdgpu: add loop bits for NPS2 RAS page retirement
-Thread-Index: AQHbpGRvFx+yt+OxY0K+dJcE/M0TdLORyey9
-Date: Thu, 3 Apr 2025 11:13:45 +0000
-Message-ID: <BL1PR12MB5254BE1599635988908477D6FCAE2@BL1PR12MB5254.namprd12.prod.outlook.com>
-References: <20250403064812.5003-1-tao.zhou1@amd.com>
-In-Reply-To: <20250403064812.5003-1-tao.zhou1@amd.com>
+ bh=7bj6bL10z/gDUBws7JzcXGYy8JqABDk+uj/V0TQKqHM=;
+ b=UivAnbT+uSRvB2sOhJkxw0820nNehIwSupKz2orSprDFJOCi+O+rKobxxvWeBgM7m+Cfg5xWA9RNCOaBeRKKqOj8E8s4k++7neJRqVTA5QSacUFoGPKSFFQ/whRkf51OQQ69RNNQ/byXzM6ySXMQ4mGBVvWZspcX57RNEWgTlR8=
+Received: from SJ1PR12MB6292.namprd12.prod.outlook.com (2603:10b6:a03:455::20)
+ by SJ1PR12MB6265.namprd12.prod.outlook.com (2603:10b6:a03:458::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Thu, 3 Apr
+ 2025 13:14:38 +0000
+Received: from SJ1PR12MB6292.namprd12.prod.outlook.com
+ ([fe80::745c:1e06:be67:94af]) by SJ1PR12MB6292.namprd12.prod.outlook.com
+ ([fe80::745c:1e06:be67:94af%7]) with mapi id 15.20.8534.043; Thu, 3 Apr 2025
+ 13:14:38 +0000
+From: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhao, Victor"
+ <Victor.Zhao@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Disable ACA on VFs
+Thread-Topic: [PATCH] drm/amdgpu: Disable ACA on VFs
+Thread-Index: AQHbpBzaDrCy1jUBRUSPNykZbM8lHLORQUoAgACpyZA=
+Date: Thu, 3 Apr 2025 13:14:38 +0000
+Message-ID: <SJ1PR12MB6292F548541A4E067F98E68E8BAE2@SJ1PR12MB6292.namprd12.prod.outlook.com>
+References: <20250402221544.110496-1-victor.skvortsov@amd.com>
+ <PH7PR12MB8796818F46DFEB1AF4C16976B0AE2@PH7PR12MB8796.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB8796818F46DFEB1AF4C16976B0AE2@PH7PR12MB8796.namprd12.prod.outlook.com>
 Accept-Language: en-US
-Content-Language: en-GB
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-03T11:12:57.4164139Z;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=47b37be9-f6fb-4cd5-87a7-f90bbb69329f;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-x-ms-reactions: allow
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-03T03:00:59Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5254:EE_|DS0PR12MB9447:EE_
-x-ms-office365-filtering-correlation-id: e2d33f2a-217d-4f1b-f6ac-08dd72a0999c
+x-ms-traffictypediagnostic: SJ1PR12MB6292:EE_|SJ1PR12MB6265:EE_
+x-ms-office365-filtering-correlation-id: d6ed6208-1005-4fb2-aa4c-08dd72b17cb1
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|10070799003|376014|1800799024|38070700018|8096899003|7053199007;
-x-microsoft-antispam-message-info: =?us-ascii?Q?1L1l7gnZfDFETaNmtM07WjKzQ/KX8llBirWHhcBvTvT0SdAEPpyO2TVkU9yY?=
- =?us-ascii?Q?uVOgKq9HHCsw9DxAq0T2vjT41uVrBgipw4Q60oim09yuhJ9XW+E7CUNwZwu2?=
- =?us-ascii?Q?1wojUyCaCC2/W1WEqKfoy+Z22Nzhw01eAc5EuXESnuqJGBGCoNt6iH/UJZOJ?=
- =?us-ascii?Q?NO0dvaKw+H7RR5u6KxrkHz9auaaOIEOkOh1h8Fr7OqWqLavmix1U/Io3Vkj3?=
- =?us-ascii?Q?YR2pvpPKsjp3UE7e6Yi6AwbJGIMuO8zzypY2Bnk9BE7aqCFILCNfQ1TKhR4y?=
- =?us-ascii?Q?cH9rNFqxC4BCQfTeM4L4QzeQPu/1Z4fGF+3SDlfMRSqBV0kfcZ/K1NME0HnC?=
- =?us-ascii?Q?4mJtSV7pKdr/ziWBa5T3ayfaPjww3VlqAcFp0IgIS9sVWw5vRFeG1uwKMPQp?=
- =?us-ascii?Q?jNTi6LKpp9lWMO5cbsm9e5QUBuQdweE1pfsXwGzKy5SKKquCKkqzdSEcAayR?=
- =?us-ascii?Q?jy4NvH90xQ6An8k0kihw65NAvSJgc1okgZRgifhedPllPaIfyuIerodO5Mpd?=
- =?us-ascii?Q?MdKqsmt6KT5o/32ZHcqeNNCLtVvdFrx5B0zO8GNCVC5/td72QvcIuiKz+mJL?=
- =?us-ascii?Q?s6XWyBDvWopi8Vu1VB6ZranZ6BKDRtjwvOOMt/l2eR7Z2nySm0LHcGhEObXW?=
- =?us-ascii?Q?/mlGYX83rnOYazdFnxhTzuOOVcb+3cirqfeA6aJrX5g+7gg6tGFnbxrOYMq0?=
- =?us-ascii?Q?8H7S0lzz7bkTuU6ahIs7g4ySBXb5eIJwjor1XHxVZD7ZXrs7vPHnDusSGoPu?=
- =?us-ascii?Q?gmBSQsosETUazlyxJiJLHsQUa7WljYxJHELekFOaM9f/UGQpAh+KNp+xbUgX?=
- =?us-ascii?Q?adJf4She0WrTxhmjDYvsTle7+03VgPQH4HRl/mVlePPMutTJeY80Wlp+ArRo?=
- =?us-ascii?Q?P/AIBX5KHsOXo03MOaFyEd43Kt/cn4zD46hYvnrQW7l3G3bmXkGZTww8UF+j?=
- =?us-ascii?Q?pBV+titFUmgmqz46lWGBYwDQoHNVOMLVx05JbSbzOVJk+KG+mNRz5z1mpa6t?=
- =?us-ascii?Q?RieNzYwNtF2RtTv+if6Zn98BjgCHZ7TasukA23CStpuFrPOYLKea01zz8yre?=
- =?us-ascii?Q?6BxcP6RXpDKWoyKK2mrGGiXbvJX28Da8Z7ExkWG8v+i6OK4lSjF4Z3cmfpZA?=
- =?us-ascii?Q?VLONug7oTOwI6EcIfBNnk5+1Ibx1zOqh/sKKSdRByDL0PqnowMd1qiPUa9mI?=
- =?us-ascii?Q?VE5ozMNAnkUmvPhNyPKbbiEWC1NUi1c4FeM0oC2HAhktO7CJRAyrCdr9Y/My?=
- =?us-ascii?Q?c7CEvnLtW42XRtos7hnTWpZzXPIp478il28GnhsPg6oyPSpmJdKxkXbWXjFx?=
- =?us-ascii?Q?eUfWOUVZko4FqCCz+mhPGXXJ8FLE2xrzT+zDHeb+bdnhi9tRVgxxRt4zfhrM?=
- =?us-ascii?Q?SlJw2J9D/x1joLl/J2wOP5Z3/GTys+ln09iKWWNHkNOG/1y1f5holfvzbhPg?=
- =?us-ascii?Q?fyYa2VYhWjuD3Llb89ADVqAN7WOylY6A?=
+ ARA:13230040|1800799024|376014|366016|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?jhTjc56nZukzalT341WjBFhM4/ndvjiDWsZISiSzyplSP9lWghXCNn1eWJip?=
+ =?us-ascii?Q?sKglbNkRFdImEEqdIJXGbQ8QUFowWxRvnb5vMnGkQiDezBVx8kNDcVJciNFd?=
+ =?us-ascii?Q?qAjYCtS0cZeu3NZKTbML3OkUf5JzszXN2j/zCcTmLSrz3/iA7qfeTu46tRSS?=
+ =?us-ascii?Q?ssZgHufiBYRR5RKuZZb7BdW/YkJdHp4XDja5W6NS6PVItv7yfDmxBoR2ef/F?=
+ =?us-ascii?Q?N9/J0LsoqmC0Lnc0Q5jDh33LCgAqw8HNIS8d5csWz+Fy6HWLbQf1uUPuNGZ6?=
+ =?us-ascii?Q?g5+ni9NWMZVMqmfpIfJkihDiFCp8XaJwvyX1N8hnkKWUirGXJ4qy+HHpBSi/?=
+ =?us-ascii?Q?eEZXqUu+aJrbJkGs1CLwnA6s7PJWCzczThoQ5iaAMFpeR7b2gs1qOJ3K4DDY?=
+ =?us-ascii?Q?EQEVOGjLBDVnDG13gLBTbFaUu6+Irj6qQHYnvcFNxrRAJocLJGFYLVMYcUPz?=
+ =?us-ascii?Q?zrskdZEjOsbUlAUaaKfEWZfxX5IrhWeWp4SN9ymVQLPOQaptLAoCjuEFFP8e?=
+ =?us-ascii?Q?4jrC+aGhC4mcRMjnnAt6YAyxXPZUNu41WX4J42Bq3ZZLfDJRm0ynrzJW9GWB?=
+ =?us-ascii?Q?DCEI2W5FZtMoZTKFvpuV53vmjgOHvNK+mFeiHBVqbS6dmzG/L32wrDeLHry3?=
+ =?us-ascii?Q?vxa2g9Pt5tbfaFoJDMHRAE4cgMjMcRFRMroDQKB5zxdcmILSR4jSEo93mTsc?=
+ =?us-ascii?Q?rwaX/1nQ8FW5Iasb9udvse+Ue0UvcXqAQi+Pa+/IPzelrVNi4e+3Jlh5kcjg?=
+ =?us-ascii?Q?OO8WLAN9tzNwJ6CxEFCyWdekLYyRxVbbSHtvnZ4kf8m2b4EztEBNJTYjGVmx?=
+ =?us-ascii?Q?NYNN7wbQNQgXqT+3qoa4S3bwBtS7+9ZZlFHKa6viBPmy/F0ezWwt9w/Rv0lQ?=
+ =?us-ascii?Q?/CunLiD8bCDMvFvi8eElXUkCg0UXOujcYM9Vr3VQUBllv8t+VBObOawlU/WS?=
+ =?us-ascii?Q?7XVq3tOPO67WNcETi13p4KJNhBy3TspBFcplT7hekS0mJJ0njIo3DtUOrRFf?=
+ =?us-ascii?Q?iS3Hoa4vZk5Y9DK3RWSvoWLKZelcbCM6SLVA6iRzVwpiIcKK36eH9Q+W2VXu?=
+ =?us-ascii?Q?UHpVN14yJKyqEwIxI/zucI4N/K/STrkGuzitJz0n1YDoR1t+FrNCNC68l5LM?=
+ =?us-ascii?Q?8UnEGfh/1o1x7wISkEc2h+pJDKlFac0kR5qr74iV/rv5VVy0Oio6exj/0GTY?=
+ =?us-ascii?Q?nh7U6GViKwLbsmy3OJXE2/AaFKkKqtTYu4zSCVFVBOqsKUVOJHJi8JoWNqay?=
+ =?us-ascii?Q?Nse7y6c229jghBx3la4NU2eeVVHsesc8Q/P3Rrg/MMRmC9kllLGfw7+yQ0w/?=
+ =?us-ascii?Q?bKuvZtehA1VclDyg0ajGr5+eOgLIaq0fA51mujWnQTSAmygF87Y6Kaa0302L?=
+ =?us-ascii?Q?oGvXafwONyD1bdtdzW3qkWM0bWkx4K9wL70/qt4R+MdDHtpgm0vNbyik9Kw1?=
+ =?us-ascii?Q?sdbhJgA1cJrYa25RUPdQGpRk53HfXdid?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5254.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(376014)(1800799024)(38070700018)(8096899003)(7053199007);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SJ1PR12MB6292.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700018)(7053199007); DIR:OUT;
+ SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?i5Jk7kseEu10hc5RMsxOUZ5udIJnv/rGoNlznxnI/1DPyHPG1MI+DA6Y5SOd?=
- =?us-ascii?Q?/bcnAGddo9gXaOMRdpkccmk+/rMuAavbgllgKh/tIydPpfs34p4heH45Wqtu?=
- =?us-ascii?Q?98CTMyWgn0WRQlinyD3w3oM6NJeUe+T+23rM8rIGd8VzoAcQ0K2/FM9gQk1v?=
- =?us-ascii?Q?Cj+aGrp2n0jn8oUObR28yzBq7KNtvWUFvglQkanGoVkwgYPht5J32i0SEg22?=
- =?us-ascii?Q?3+szdrkJ43rOTddtUUZc7+LKscdW4WWZDGwmSFTRs+k4K5tFscv3/lzpRRPi?=
- =?us-ascii?Q?nPxFsjcDLJrhIm0Kd4/UqO86dTAbZU0toWHgCtw8Zx21WIAGg+NQeYmsckuv?=
- =?us-ascii?Q?OFEekgoSvS6dPsLoJ1kxoIT0KVgPLbtspaH51+hH7HmJjIq9zJdHYhyE6oRb?=
- =?us-ascii?Q?hcEUvx35hQCNZ8sYwG3Je6EDNUG/GCzzV6dAt41vYXqK3CMpv/6ysfdLtzai?=
- =?us-ascii?Q?Eg0cIJNb1MDNpCtYozb7evL/AkJ+OgPXSwdKpSZ3J8AoITw3baSQTjrd5ME3?=
- =?us-ascii?Q?zbuyiPvoHpvejpXZG3t/nX1LN2EdD82K00555muoC9VwWy8DdpGsMdn93SnC?=
- =?us-ascii?Q?JkCau/cXCX5cY86XGecJUEJzeqBmJG+bIRsLvz7E5KMfg+9HUMbKPUz9Gxwk?=
- =?us-ascii?Q?jbaNtRfm374KUrr9X0WLFc937wGo/nWpWYe1d9R1AlM1nM4ejqjEK2qByyZK?=
- =?us-ascii?Q?ENAGHt9dvy977f9KTE5TsfXQfhVryNvuhsaGbTgROrXagph+96C31EeWNwPC?=
- =?us-ascii?Q?ao7mmlEFT0nDG+gsxG9zSkOUWtIFth89k03oISKLC2cpDeAdAScGHy2RvP0w?=
- =?us-ascii?Q?2Gv/5TZN85KiPGofjGTTRJtXx8iBPJpRyIpoWEYPdlqDnoP+YmW2Hx7WSrPv?=
- =?us-ascii?Q?TBGx0BRGYjuxar00LsyvoUQYlVRKOguggfI2o+TIZP1S8epXBAgwkHBT+zfC?=
- =?us-ascii?Q?2LSV+qU9fWPaO5e7loMTU0WonNKMtd87Z/nQJA+1S6xalaoR/Nbo1T/mmLS9?=
- =?us-ascii?Q?uMN3PpOds3Ne6ryIiNE/Wm56msYKtd34HktihSkpAoT315OrBkYZh1NQk2in?=
- =?us-ascii?Q?6va1W4XbOQ2Yw6o0ViJ2s2L3vwrDAM1+IvH+retchXAA62dD6tSUehslI30d?=
- =?us-ascii?Q?MognQUAtkOGfW+/zbAf4TwFRXGwvGmx7+2y3eZAUIW+UPczNK8kL3opWwmtw?=
- =?us-ascii?Q?TrweF+DrwIkyolHrQ6QslwD6vLt92vD8TefRTEwyuJVkOqcU3oKu2qOuzyOS?=
- =?us-ascii?Q?nBAevtY3KmNjDAAsyg10kEiT2/QwddW0ivOvFExDD7qGcA0YaH6o2nV35zRB?=
- =?us-ascii?Q?E7E1p/db8Ujnh6cTgV8DEWNzDF7FRczFw5XMY9ePveal/FcgcH0ZNoW3Yqug?=
- =?us-ascii?Q?UWJAUHvvKgAnQVuq5srolLHO0yleF5Z7PFLr8c16OWW7B/oKBA4Olv9WNGKz?=
- =?us-ascii?Q?WhkcyKkqV6AcKSATld6iNvBfbAqZk1GOWCp66Rs6S40fgFn4MPFjqH5PFbAj?=
- =?us-ascii?Q?qW+o67v08Owz5xJjBScJmf8Oan8PTmICgm5yH9gFImvMopp75up4o3seeQJr?=
- =?us-ascii?Q?9Fywp/XOlXVIO0Gk+inkt2ZJ23ygmJlgTjqK7LcVYuQ5wKpvmMdrylppUSz8?=
- =?us-ascii?Q?F2sRDR8YhohNj/oi767SuNsQQ9O6aECHbtquhjXWLYQC?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5254BE1599635988908477D6FCAE2BL1PR12MB5254namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Ult93GZwA2l7lRAXqdaBzbziONhdVM2lIe/fDmDxxoii9p99rlEtP/6AO4fC?=
+ =?us-ascii?Q?dAKN+V0wDq8UESU6lVffTCS9gBg998RHYl0LLue43XvPnKod55J2vZP34gaY?=
+ =?us-ascii?Q?h5Si+2w0kr9Qe8SuXir3nk4HqXELc6gerhuhfoZRYp/QFC7qTZalqD954f2Y?=
+ =?us-ascii?Q?7XoDPH10aOWI0YbmMaULRtJozQVCv1Eb22egu4Bz4SaC+iuE8lU/NoLHmNqb?=
+ =?us-ascii?Q?LaGsvSwDsaO3dBR0Hvv2bEP9HMb3dDaErtv7VQnAPPy2597IBBKZzrVYq05u?=
+ =?us-ascii?Q?tKQLpZevtmnpp3s3kfIwwG5SvArA5wYOxrQnxWc7HesRr5fOHR0qI8SazDts?=
+ =?us-ascii?Q?ONilH6dQ186qx3xaP9yxLo0BcoMI4HYqIlfnyN2QCfMvuqPWcvSM/S8K3SAg?=
+ =?us-ascii?Q?WZBXhWGVbToCU37djM+PYyVKQH05pX+LlvFxJsKCbeXOqif6/mQasxC71RS2?=
+ =?us-ascii?Q?70fTdmnmKBWYq8KxVyJi8iqltsVNO0/mw5UwMsYurPm6mbuYcu8FJoVF1ukm?=
+ =?us-ascii?Q?TqOotkozAyqkKw9lBQNujSCT6qQJLqHuq22/boD9tqpsm60NJALhck3+pT/R?=
+ =?us-ascii?Q?E+/kSabacEUNrQ6VOc6C2reaxqy9ZePw4Xpcc3pRLhRri0WQdWm4AJwQlEf6?=
+ =?us-ascii?Q?JEq4Z/8OQ3Gj3CyKjn1zs1LhLnrgBP9mh47Bw8sxUZ8f38OCPcFYAspQzRAA?=
+ =?us-ascii?Q?o+pKL+luEiiBe0G+7GD9FQGG12SiuvsPtlz+HmHzpW6SW3iMC68E/Gd0P0S2?=
+ =?us-ascii?Q?o1dd4zrpu3LCFenW/Obnkim1fL4y0FKcLnt9yTNxR0Cm8bl9n2qbtUL3JVDu?=
+ =?us-ascii?Q?gx315kK/LCB0/14dJs6PF6kmoWenD/vX05RE6l3RiMjfDMCENbswByAe/VWI?=
+ =?us-ascii?Q?FwJ+of6JHg+0ZnSZ1wC1Ou3hgNC8Y0wx/rHiy86oCZW/aJyJ9Nj2NwOVt4TM?=
+ =?us-ascii?Q?/xpwKbxAs81xyGZj0dCMVVNZOnfqBdYymcDyQLUlfaCGEdlOCP1g3bn+ujIY?=
+ =?us-ascii?Q?/rn0BqbjfXFHbov/67P2A9vSYfZf+Dr4VIB56wFRGOg5wSYs0hExZ4RH3MSx?=
+ =?us-ascii?Q?s+ihGBYslxIw+ofpu8W+3mNwklBaJPp+pD3sDbU6siJCfHGn+k+fU500zkAA?=
+ =?us-ascii?Q?QHrTv0rv+OjXjbx7jrfIbSgikuxZ5T/ErVSXpNba5ngeM4UT9Gyf/B7mlSF8?=
+ =?us-ascii?Q?OMnKTeB93AFPvHCwdthNBdWdtCt8LSjdlphF/Lp97cXK0k+5aireJiBVKL8n?=
+ =?us-ascii?Q?vIQzoC+VE5+XBUeoRhgoG1+od4t5/FjK6djKL7jENGsOrZr0HrRkW5w5lPN/?=
+ =?us-ascii?Q?wBLwbQ5f+zvT2sKHZXfyGULLTrGJgXuVeJnvPRWkywTLvA2LntTHygXfmjYG?=
+ =?us-ascii?Q?ZYd8/1LsIphNCQppcdxxXuJddVStrYVT4KP+QaElpUcwgECBHrzscUTeeYf6?=
+ =?us-ascii?Q?YcNnd0GzyPf/kbU5kqgdF7uxaCwIUyGlXqOLfPwYKyeqLpPuSo0NaIRIJAK9?=
+ =?us-ascii?Q?bI4c3/HIxgOOb3C7HZMiX7O/mh65uwO4YeYBmlUguP7e3ytV6tzcZMUYTePn?=
+ =?us-ascii?Q?Q2zCUbh327DsX34WF5Y=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5254.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2d33f2a-217d-4f1b-f6ac-08dd72a0999c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2025 11:13:45.3487 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6292.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6ed6208-1005-4fb2-aa4c-08dd72b17cb1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2025 13:14:38.3117 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FHGQtY9Sqda0m9fZcm31obQmUiwAKWtLhD+fhvCFNlL2zgFe+xBoZ79DRgdA8bKSzvXzRDrjQFx4ZOWivnTaLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9447
+X-MS-Exchange-CrossTenant-userprincipalname: qsaPEepNeil/QzYAzAyQO7798IbD9D9P14g0sOiF4iXcrDI+UuD7HOlSfK2OcGK/OQvEMbLNWuGCVfw3CMGCnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6265
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,218 +158,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5254BE1599635988908477D6FCAE2BL1PR12MB5254namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
-
-Get Outlook for iOS<https://aka.ms/o0ukef>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Tao Zhou=
- <tao.zhou1@amd.com>
-Sent: Thursday, April 3, 2025 2:48:12 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH] drm/amdgpu: add loop bits for NPS2 RAS page retirement
-
-Support NPS2 UMC RAS.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 10 ++++++++++
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.h |  2 ++
- 2 files changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.c
-index 0e404c074975..da00d6b3b6a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -220,6 +220,13 @@ static int umc_v12_0_convert_error_address(struct amdg=
-pu_device *adev,
-                 nps =3D adev->gmc.gmc_funcs->query_mem_partition_mode(adev=
-);
-
-         /* other nps modes are taken as nps1 */
-+       if (nps =3D=3D AMDGPU_NPS2_PARTITION_MODE) {
-+               loop_bits[0] =3D UMC_V12_0_PA_CH5_BIT;
-+               loop_bits[1] =3D UMC_V12_0_PA_C2_BIT;
-+               loop_bits[2] =3D UMC_V12_0_PA_B1_BIT;
-+               loop_bits[3] =3D UMC_V12_0_PA_R12_BIT;
-+       }
-+
-         if (nps =3D=3D AMDGPU_NPS4_PARTITION_MODE) {
-                 loop_bits[0] =3D UMC_V12_0_PA_CH4_BIT;
-                 loop_bits[1] =3D UMC_V12_0_PA_CH5_BIT;
-@@ -517,6 +524,9 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_de=
-vice *adev,
-
-         if (adev->gmc.gmc_funcs->query_mem_partition_mode)
-                 nps =3D adev->gmc.gmc_funcs->query_mem_partition_mode(adev=
-);
-+
-+       if (nps =3D=3D AMDGPU_NPS2_PARTITION_MODE)
-+               shift_bit =3D UMC_V12_0_PA_B1_BIT;
-         if (nps =3D=3D AMDGPU_NPS4_PARTITION_MODE)
-                 shift_bit =3D UMC_V12_0_PA_B0_BIT;
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.h
-index 9298018d938f..056bbc038312 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
-@@ -65,12 +65,14 @@
- /* row bits in SOC physical address */
- #define UMC_V12_0_PA_R0_BIT 22
- #define UMC_V12_0_PA_R11_BIT 33
-+#define UMC_V12_0_PA_R12_BIT 34
- #define UMC_V12_0_PA_R13_BIT 35
- /* channel bit in SOC physical address */
- #define UMC_V12_0_PA_CH4_BIT 12
- #define UMC_V12_0_PA_CH5_BIT 13
- /* bank bit in SOC physical address */
- #define UMC_V12_0_PA_B0_BIT 19
-+#define UMC_V12_0_PA_B1_BIT 20
- /* row bits in MCA address */
- #define UMC_V12_0_MA_R0_BIT 10
-
---
-2.34.1
-
-
---_000_BL1PR12MB5254BE1599635988908477D6FCAE2BL1PR12MB5254namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> -----Original Message-----
+> From: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Sent: Wednesday, April 2, 2025 11:02 PM
+> To: Skvortsov, Victor <Victor.Skvortsov@amd.com>; amd-gfx@lists.freedeskt=
+op.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhao, Victor
+> <Victor.Zhao@amd.com>
+> Subject: RE: [PATCH] drm/amdgpu: Disable ACA on VFs
 >
-</head>
-<body>
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div>
-<div dir=3D"ltr">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;&n=
-bsp;</div>
-<div dir=3D"ltr"><br>
-</div>
-<div dir=3D"ltr">Regards,</div>
-<div dir=3D"ltr">Hawking</div>
-</div>
-<div id=3D"ms-outlook-mobile-body-separator-line" dir=3D"auto"><br>
-</div>
-<div id=3D"ms-outlook-mobile-signature">Get <a href=3D"https://aka.ms/o0uke=
-f">Outlook for iOS</a></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Tao Zhou &lt;tao.zhou1@amd.co=
-m&gt;<br>
-<b>Sent:</b> Thursday, April 3, 2025 2:48:12 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: add loop bits for NPS2 RAS page retirem=
-ent</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Support NPS2 UMC RAS.<br>
-<br>
-Signed-off-by: Tao Zhou &lt;tao.zhou1@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 10 ++++++++++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/umc_v12_0.h |&nbsp; 2 ++<br>
-&nbsp;2 files changed, 12 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.c<br>
-index 0e404c074975..da00d6b3b6a3 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-@@ -220,6 +220,13 @@ static int umc_v12_0_convert_error_address(struct amdg=
-pu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; nps =3D adev-&gt;gmc.gmc_funcs-&gt;query_mem_partitio=
-n_mode(adev);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* other nps modes are tak=
-en as nps1 */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (nps =3D=3D AMDGPU_NPS2_PARTITION_=
-MODE) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; loop_bits[0] =3D UMC_V12_0_PA_CH5_BIT;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; loop_bits[1] =3D UMC_V12_0_PA_C2_BIT;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; loop_bits[2] =3D UMC_V12_0_PA_B1_BIT;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; loop_bits[3] =3D UMC_V12_0_PA_R12_BIT;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (nps =3D=3D AMDGPU_NPS4=
-_PARTITION_MODE) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; loop_bits[0] =3D UMC_V12_0_PA_CH4_BIT;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; loop_bits[1] =3D UMC_V12_0_PA_CH5_BIT;<br>
-@@ -517,6 +524,9 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_de=
-vice *adev,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.gmc_funcs=
--&gt;query_mem_partition_mode)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; nps =3D adev-&gt;gmc.gmc_funcs-&gt;query_mem_partitio=
-n_mode(adev);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (nps =3D=3D AMDGPU_NPS2_PARTITION_=
-MODE)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; shift_bit =3D UMC_V12_0_PA_B1_BIT;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (nps =3D=3D AMDGPU_NPS4=
-_PARTITION_MODE)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; shift_bit =3D UMC_V12_0_PA_B0_BIT;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.h<br>
-index 9298018d938f..056bbc038312 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h<br>
-@@ -65,12 +65,14 @@<br>
-&nbsp;/* row bits in SOC physical address */<br>
-&nbsp;#define UMC_V12_0_PA_R0_BIT 22<br>
-&nbsp;#define UMC_V12_0_PA_R11_BIT 33<br>
-+#define UMC_V12_0_PA_R12_BIT 34<br>
-&nbsp;#define UMC_V12_0_PA_R13_BIT 35<br>
-&nbsp;/* channel bit in SOC physical address */<br>
-&nbsp;#define UMC_V12_0_PA_CH4_BIT 12<br>
-&nbsp;#define UMC_V12_0_PA_CH5_BIT 13<br>
-&nbsp;/* bank bit in SOC physical address */<br>
-&nbsp;#define UMC_V12_0_PA_B0_BIT 19<br>
-+#define UMC_V12_0_PA_B1_BIT 20<br>
-&nbsp;/* row bits in MCA address */<br>
-&nbsp;#define UMC_V12_0_MA_R0_BIT 10<br>
-&nbsp;<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> > -----Original Message-----
+> > From: Skvortsov, Victor <Victor.Skvortsov@amd.com>
+> > Sent: Thursday, April 3, 2025 6:16 AM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhao, Victor
+> > <Victor.Zhao@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Skvortsov,
+> > Victor <Victor.Skvortsov@amd.com>
+> > Subject: [PATCH] drm/amdgpu: Disable ACA on VFs
+> >
+> > VFs query RAS error counts directly from host with
+> > AMDGPU_RAS_VIRT_ERROR_COUNT_QUERY. When ACA is enabled, an
+> unusable
+> > aca_sysfs is created rather than amdgpu_ras_sysfs_create()
+> >
+> > Likewise, VFs depend on host support to query CPERs, rather than ACA
+> component.
+> >
+> > Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c |  4 ++--
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 10 ++++++----
+> >  2 files changed, 8 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+> > index 360e07a5c7c1..5a234eadae8b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+> > @@ -549,7 +549,7 @@ int amdgpu_cper_init(struct amdgpu_device *adev)  {
+> >       int r;
+> >
+> > -     if (!amdgpu_aca_is_enabled(adev))
+> > +     if (!amdgpu_aca_is_enabled(adev) &&
+> > + !amdgpu_sriov_ras_cper_en(adev))
+>
+> [Tao] can we put amdgpu_sriov_ras_cper_en into amdgpu_aca_is_enabled?
 
---_000_BL1PR12MB5254BE1599635988908477D6FCAE2BL1PR12MB5254namp_--
+[Victor] This will cause problems inside amdgpu_ras_sysfs_create() since VF=
+s use the legacy sysfs to report IP block error counts through AMDGPU_RAS_V=
+IRT_ERROR_COUNT_QUERY.
+
+>
+> >               return 0;
+> >
+> >       r =3D amdgpu_cper_ring_init(adev); @@ -568,7 +568,7 @@ int
+> > amdgpu_cper_init(struct amdgpu_device *adev)
+> >
+> >  int amdgpu_cper_fini(struct amdgpu_device *adev)  {
+> > -     if (!amdgpu_aca_is_enabled(adev))
+> > +     if (!amdgpu_aca_is_enabled(adev) &&
+> > + !amdgpu_sriov_ras_cper_en(adev))
+> >               return 0;
+> >
+> >       adev->cper.enabled =3D false;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > index ebf1f63d0442..5bb7673fd28e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > @@ -3794,10 +3794,12 @@ static void amdgpu_ras_check_supported(struct
+> > amdgpu_device *adev)
+> >               adev->ras_hw_enabled & amdgpu_ras_mask;
+> >
+> >       /* aca is disabled by default except for psp v13_0_6/v13_0_12/v13=
+_0_14 */
+> > -     adev->aca.is_enabled =3D
+> > -             (amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(1=
+3, 0, 6)
+> > ||
+> > -              amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(1=
+3, 0, 12)
+> > ||
+> > -              amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(1=
+3, 0,
+> > 14));
+> > +     if (!amdgpu_sriov_vf(adev)) {
+> > +             adev->aca.is_enabled =3D
+> > +                     (amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D
+> > IP_VERSION(13, 0, 6) ||
+> > +                     amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D
+> > IP_VERSION(13, 0, 12) ||
+> > +                     amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D
+> > IP_VERSION(13, 0, 14));
+> > +     }
+> >
+> >       /* bad page feature is not applicable to specific app platform */
+> >       if (adev->gmc.is_app_apu &&
+> > --
+> > 2.34.1
+>
+
