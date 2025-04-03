@@ -4,119 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CAFDC3600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 14:40:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0290BC3600C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 15:48:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1100110EA05;
-	Thu,  3 Apr 2025 14:40:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A37FE10E297;
+	Thu,  3 Apr 2025 15:48:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hZvRBepj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jOM9Z/ek";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2081.outbound.protection.outlook.com [40.107.236.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DD7D10EA08
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Apr 2025 14:40:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HGvdFlHpJR1lI+fE61vPhDUZsC2AQBqTsvBmk++ktAbc7IZIpTlD/lQrNi8M/0AnEhHkSafJhiKvgkths1LKWjBuf0adk2ff6gBe5Aujl2JCi1EGLM7WP0LPDk+VBn8zbzmYI5qkMFt813AqMQ9C7u5O1/kauOcJp31uHOz54RtbmSCvtr6804hW1dt9tJfmy7r1ec7JBZAlnjqa0IzSzR2FPkE0iFqChZuXI6cfyTSVlDLzibnBxyQHeBkRuNCuPV+7FrDUZky9fE1zu3+LEzOo8gCW1S2a5krZpR0eBDspZDTJxoq/PMEsbGWwtkM+A7qZcsFLVkuLZFbo8C1+fA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tqQKb/pUOoBs9MhYxXfZwLyQS82EPvxm+rYJXF/zlFk=;
- b=B0t5MQPWgYCKG9sMaVDEbADQe34W0iIk9LFhQ5iu3r+a7ps8zz9/eCYua3X1Fp/+1DCxjbqsln5R082TljYuRu2ny/Q9x2s7jp/UfxTcrzhwQsH/xZNmS+LQ0xuRm5x/CuKO/TVDuw6bpMpv3cfiXvwVBz7rURqZF0FO3z+WoVuNqLaoffzP55LxcQf8Mv0+EStPrxGGejSVbAh7gSJzERwikGmxSBurmDqLg08sxeSP067v40yqrr69N5U+ayfzj8vD3m/C1kMBkPbx5WwatWNwF045yRc/MMWKPy901fQGJJoiSe4PEGwSpgUIp7Z7M6MjBupMQLpJS4mPn3AA3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tqQKb/pUOoBs9MhYxXfZwLyQS82EPvxm+rYJXF/zlFk=;
- b=hZvRBepjvbcI2rq23b0uJMvlw1VAFkYS4+dzeNccWvPACvf+MRJUSBaaXnAMNllnSbqAlV7dlnk9eB6BB11ZxhWlPRqTQxh3VhOKKHI9I4ZC9AkLDL+TMmJUrMPDdQG7gArD9sJILfR14KsOF+2WeTSsOeadn1jbPTXlOpuSnW4=
-Received: from CH0PR13CA0010.namprd13.prod.outlook.com (2603:10b6:610:b1::15)
- by PH7PR12MB5617.namprd12.prod.outlook.com (2603:10b6:510:133::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Thu, 3 Apr
- 2025 14:40:35 +0000
-Received: from DS2PEPF00003441.namprd04.prod.outlook.com
- (2603:10b6:610:b1:cafe::5) by CH0PR13CA0010.outlook.office365.com
- (2603:10b6:610:b1::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.8 via Frontend Transport; Thu, 3
- Apr 2025 14:40:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Thu, 3 Apr 2025 14:40:33 +0000
-Received: from asrock-1e715-b03-3.mkm.dcgpu (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 3 Apr 2025 09:40:27 -0500
-From: Ellen Pan <yunru.pan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Victor.Skvortsov@amd.com>, <Ahmad.Rehman@amd.com>,
- <Shravankumar.Gande@amd.com>, Ellen Pan <yunru.pan@amd.com>
-Subject: [PATCH] drm/amdgpu: Direct ret in ras_reset_err_cnt on VF
-Date: Thu, 3 Apr 2025 10:40:16 -0400
-Message-ID: <20250403144016.30030-1-yunru.pan@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A44310E2BC
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Apr 2025 15:48:43 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-30363975406so171058a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Apr 2025 08:48:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743695322; x=1744300122; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=V23suTCPv14itRvWPkYOs8Nuk94Gdlahr98awHVPMnY=;
+ b=jOM9Z/ekwk62rGecz/CO7ghWw2PokvjnXsj74CoFhxbuk+xBYVmKe+HF/GVEL6VYBR
+ INJNzx90eXALTXeToHnc42j2OYRiuU9r9lF4JGgFSqeO0NjTCDzAapfY4Tk8AsVcXT8e
+ /lf+m6ge4737OGIJLyQcLYcnv3SpVgsLUkQ+3SSGySX6woJ2XK4Ky0gwDUX5sEX9U4/z
+ u+hpQZsP8+b1A5vU5emuy6O54yo3pTBuzXMu7nxFABy7s/tD+WQ1xhlZy3Vv0eeZ7uBb
+ fmYBhILZXy4a9aaWno1IeVJwM6bfKFsWtM+h1mUMtjVMrZbpGdsAbeg7UlhOupKe9qru
+ EuZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743695322; x=1744300122;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=V23suTCPv14itRvWPkYOs8Nuk94Gdlahr98awHVPMnY=;
+ b=vIDngMjr1X7I9w7HmzxJLGRMoMD/3uBaWXa170WwZPmfpqigNC70BuvYANnlEZZsrW
+ yhe7zJgitXRf8wosX32ujxdXKwfAnvdkOd4YdHNdvXDXFMjGyWLrqBX4PrKOqVPBZkq1
+ I+mEwfuZZFHzeCKcurpoGNDBwALu6Jgwvmn31c9Qerf1V4ZMitYo+NFmY2Safzml2R0L
+ s2xZHp0FXjTCH6qVwGpJNWMwIWnuNSyj4tgGbqt32cf3VNuzcgvcARySLpiCllqBwIBW
+ Kcc1Ee3vm1KXFEvIXQyJw66ZhBoMy+5vAun5oNRyqZFvTvJ8Okbh8VuuqO91j1piyZwU
+ jFsg==
+X-Gm-Message-State: AOJu0Yx1u88watcl23gub8EIBI+qYpkygHr0cggyMi+6JtBh0jAW2RpR
+ YM7YGXnG4GCDfKIymuRHSImOiI1UtwDxs94pc4qxL9xWrl1/i0Yp+AdS6bgD3aCsZFmMmQR2vKX
+ o9j47BJojF3P0vdaZgERd6BoTkO8=
+X-Gm-Gg: ASbGnctlybCjc7Nez5im8wvVLUTn69u5tuajRwRVBHrSPc3GtyHTtJpZty2mQqSLTea
+ n6AfQvHmqrWLZR4lBIRMm6lRN1Nr/tglfLbHgkPolHNVYnpUDoSODPaQGyiEryiVDDxqw73U8HR
+ ff5leoxsL4xsht0TccTt9nYQb1QA==
+X-Google-Smtp-Source: AGHT+IGQEhssxOaznC8drviRViH5HlQTwVBElnJxgv1WdG8NuX6BUJgMXDiDQ7PeOtA9ZaSQx207OKFaJ2tTWzOxdUE=
+X-Received: by 2002:a17:90b:3a88:b0:301:ba2b:3bc6 with SMTP id
+ 98e67ed59e1d1-306a496b929mr17091a91.7.1743695322500; Thu, 03 Apr 2025
+ 08:48:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|PH7PR12MB5617:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb5f7fe5-0640-4a35-512d-08dd72bd7dbe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?El4MJvRtqNTlmjzqrga+Aa6/4oshgw3Kso64YOronUsJvBmPq1wVI+cfK5yt?=
- =?us-ascii?Q?lVIdtqAaQE1ig09wNmU/OATWh0HJ7g1dNWG4UmfqbiKgk57mPbet3O3lAMIL?=
- =?us-ascii?Q?j9FXUCweAP3xUIwAKe7WOidjqEdVsIjasmTqWMu/bka9NdJV6OxvsuEAL5mk?=
- =?us-ascii?Q?lGavX8YF4P9gpccpLPHtTtNhlxcBNkazcZNUU2TtEziRAe+JPNp6PruC/UCj?=
- =?us-ascii?Q?79Hql9tpVK60NgCAqchPpl3cbrlB6h1jV7gKS/Fj8oHJ+StX6fKCsw5wRQEZ?=
- =?us-ascii?Q?k237CQIufdgvi5/X8GscqWIvl/ADGPsmIlUzzSyklkK5lMEeprmGWq2SlwKb?=
- =?us-ascii?Q?jQScfmzrgZ8lzfsFzH1U6jAnOCdd3xCAcK1xk7qUudnEnnourW0kGwqez3ma?=
- =?us-ascii?Q?lYydSdAVFlYdqF5Wh1Wdpx98w3S5mXlfIXBp3HYVikVkz89UwPMf+DoUkJDr?=
- =?us-ascii?Q?RF0ySx6K7Mw3ZSp6f2M7SN41DOQQaNaSTwLIVBhvrL/vZmqWzIKpQDADgkTK?=
- =?us-ascii?Q?NnXcuT3zofcQJXE9LbAUx4KW/J0HNV0nVhxmEpOg+0i9W2Ifsju1ZZ3+zasw?=
- =?us-ascii?Q?f0KVjn8EklrqyfdxfPwDTG4G3+AeSXKtS6Jjp6v5saexlFKTqO3s20yFTuwM?=
- =?us-ascii?Q?qVIVIpm6MapSgHlI69Qq+pm19E+HuhP+laNmwT+CjJH0hL7pSTTQ75BWhT+n?=
- =?us-ascii?Q?pmW9/wfSSNkVwjXr//83whHt6qGQgD5et7nK4K0TCbOSTzZvwARKW1WhX/2m?=
- =?us-ascii?Q?k+29H+6wEgFy1zkF1UO/AWOGl7yX/aXCcs0e9Gz0aIpZgJMoV8zb9+52fmZz?=
- =?us-ascii?Q?9PgK/532sVevE+IenycTxfJUZU7CgMVJsAsdTCWx/lDaMQDbJW9YEF1A6Ehs?=
- =?us-ascii?Q?BoRkTv3AL+SLCzWxb+R2Z5xwpYPhU5L7gPcMZ4JE1IKg9cIxGkusaGwyJeaM?=
- =?us-ascii?Q?2/OXNwc2C6BU7BSYCpJkb5lhQ2zvuUGgzOSUJanNFDA/yS9WjGFDNYJ8bUPK?=
- =?us-ascii?Q?NEYSDh+aS72C2/6oFa6ZKZoni+PxzaB5AdawpLtU+9TP8YG1MZxPbNB3cVUz?=
- =?us-ascii?Q?qs6hIHtjD7UxSdgBCVwN6UL426cvDs7y+UQARM1242EXFBDfbDMNImIi5HDJ?=
- =?us-ascii?Q?2BwVBCPSQE8OGBbbOGA5ffMCcYg0f6ZBBd/0Zqo0V73dpG58ixCFBbDRyIbb?=
- =?us-ascii?Q?iGZUsIe57QNXBxMvqgMveMS+1O64rL/QE1S5kmYTirUXO1J4DBUFQB+yrxzV?=
- =?us-ascii?Q?BrQzob5Jqq5vZsXMvcC3hLMSmrTWUex9op8Gm+B42g6eIfaGq6E2rau/+0XT?=
- =?us-ascii?Q?g2w2wJG7mTj8r4vBta6uQo2vZgSi0TOlk2jlXLdVU1hH0vYibfNSSQARHdNZ?=
- =?us-ascii?Q?B0J27hwKGZzJI0ftSM79YnGNgRYkFJ0IV0xejTa2e8v6EH0+Gx3Dlv4YVpIJ?=
- =?us-ascii?Q?QiLW37g7uhp6DPH/lxvhI/JQ56YVn5Mg1S24D83npUl/v0DX/NeZL3PmJnzH?=
- =?us-ascii?Q?WgZGaCCbKWlMknk=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2025 14:40:33.9707 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb5f7fe5-0640-4a35-512d-08dd72bd7dbe
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5617
+References: <20250403031148.1266785-1-superm1@kernel.org>
+In-Reply-To: <20250403031148.1266785-1-superm1@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 3 Apr 2025 11:48:31 -0400
+X-Gm-Features: AQ5f1JrTtbkTgW4qB1rZA0kq_DvMn_uWeowGgWal34bZVd09TcK3e9WtzqIPxqI
+Message-ID: <CADnq5_Nz76WBm8wsU8k4LUpXrjKk6AbJfYV0CpaV3sXAJ2McEQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd: Add pre-zen AMD hardware to PCIe dynamic
+ switching exclusions
+To: Mario Limonciello <superm1@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,32 +81,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With adding sriov_vf check, we directly return EOPNOTSUPP in
-ras_reset_error_count as we should not do anything on VF to reset RAS error
-count.
+On Wed, Apr 2, 2025 at 11:12=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
+rg> wrote:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> AMD RX580 when added AMD Phenom 2 has problems with overheating. This is =
+due to
 
-This also fixes the issue that loading guest driver causes register
-violations.
+I don't think this is entirely accurate.  I think the GPU gets hot
+because the device hangs due to a problem with changing the PCIe
+clocks.
 
-Signed-off-by: Ellen Pan <yunru.pan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +++
- 1 file changed, 3 insertions(+)
+> changes with PCIe dynamic switching introduced by commit 466a7d115326e
+> ("drm/amd: Use the first non-dGPU PCI device for BW limits").
+>
+> To avoid risks of other issues with old hardware require at least Zen har=
+dware
+> for AMD side to enable PCIe dynamic switching.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index ebf1f63d0442..f8cf9621097f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1498,6 +1498,9 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device *adev,
- 	    !amdgpu_ras_get_aca_debug_mode(adev))
- 		return -EOPNOTSUPP;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return -EOPNOTSUPP;
-+
- 	/* skip ras error reset in gpu reset */
- 	if ((amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) &&
- 	    ((smu_funcs && smu_funcs->set_debug_mode) ||
--- 
-2.34.1
+I'm pretty sure PCIe reclocking worked on pre-Zen hardware.  We've
+supported this on our GPUs going back at least 15 or more years.  I
+suspect the actual problem is that some links may not reliably train
+at the full bandwidth on some motherboards.  Forcing a higher link
+speed may cause problems.  Maybe it would be better to limit the max
+PCIe link rate to whatever the link is currently trained to.  IIRC,
+PCIe links will train at the fastest link possible by default.  The
+previous behavior was to limit the max clock to the slowest link in
+the topology to save power, but then we changed it to use the fastest
+link possible based on the PCIe link caps.  Perhaps limiting it to the
+fastest currently trained link rate would be better.
 
+Alex
+
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4098
+> Fixes: 466a7d115326e ("drm/amd: Use the first non-dGPU PCI device for BW =
+limits")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+> v2:
+>  * Cover more hardware
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index a30111d2c3ea0..caa44ee788c8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1854,6 +1854,9 @@ bool amdgpu_device_seamless_boot_supported(struct a=
+mdgpu_device *adev)
+>   *
+>   * https://edc.intel.com/content/www/us/en/design/products/platforms/det=
+ails/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/=
+005/pci-express-support/
+>   * https://gitlab.freedesktop.org/drm/amd/-/issues/2663
+> + *
+> + * AMD Phenom II X6 1090T has a similar issue
+> + * https://gitlab.freedesktop.org/drm/amd/-/issues/4098
+>   */
+>  static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu=
+_device *adev)
+>  {
+> @@ -1866,6 +1869,8 @@ static bool amdgpu_device_pcie_dynamic_switching_su=
+pported(struct amdgpu_device
+>
+>         if (c->x86_vendor =3D=3D X86_VENDOR_INTEL)
+>                 return false;
+> +       if (c->x86_vendor =3D=3D X86_VENDOR_AMD && !cpu_feature_enabled(X=
+86_FEATURE_ZEN))
+> +               return false;
+>  #endif
+>         return true;
+>  }
+> --
+> 2.43.0
+>
