@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6D72C3601A
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 05:22:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 285D7C3601A
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 05:42:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED3BB10E2E9;
-	Fri,  4 Apr 2025 05:22:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F014310E276;
+	Fri,  4 Apr 2025 05:42:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CTpb5/SP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rtd//EeV";
 	dkim-atps=neutral
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E52AD10E276
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Apr 2025 05:22:41 +0000 (UTC)
-Received: by mail-qt1-f174.google.com with SMTP id
- d75a77b69052e-476a720e806so15141971cf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Apr 2025 22:22:40 -0700 (PDT)
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1CB10E276
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Apr 2025 05:42:38 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-7c53b9d66fdso216653485a.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Apr 2025 22:42:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743744159; x=1744348959; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743745357; x=1744350157; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:to
  :from:from:to:cc:subject:date:message-id:reply-to;
- bh=YCeNF+jA8AluU9Ef4ebwTTVGi562FccM7C0+ptJGKfg=;
- b=CTpb5/SPYxTU6/dD8aeACP85ETjaZba+bezYHXbnIgudEt0XGBAyWtdq+BT7Fn0snP
- 12CRLVKL6R9vddyI9cKkAw5ZLjpF98QTKEkIcecfI9v5kh1TPFV+P921lHVQ+4ixUggr
- 0jb1CXWMnANuIuTM0XfQx2W9YBTmTeuj/9f/z1nvNkBuToKKVesnpehOb59M7oP1acK7
- r9uUvufF2NMS4MfsFTRxgW2Aug92Q1peS/aw4TeW+sTll/0MksCqH2lLhOS1iwTapdYN
- qsDLdW1kZg3inNbD6i6v/ZFLkv3ThBWoeg8nnIFuxcccHBy96/niQLLVtuMKmXEepN5K
- n2jA==
+ bh=ax4tFaDNfSBe8OwieuN54bJJ11A29N/Q1Dhvw5XXad0=;
+ b=Rtd//EeVz5hndxHUQZWySysnKTkekLHuhV76DcnCdVdfvfoE5Gcc3qsumNDutLbRH1
+ HWa7FHINlw1Ggl6/G0tmfdDMq4ZodtXWiITJHRSOJVL+qBSsstR7/DD9ze92CDVcUZfR
+ sDSU2Wba6AWhOIybUuMJc8bAiGgDhjcrk0ZpR15PJNG7XOm0PyO/hluMCFeHpz6SnWPq
+ jXmk0VUYTw5+ukpHYqLCvZ+Af25EFdTuWoOOrChvd2G96gjjfYfV9tOqU+ns1wa+M7nn
+ 6DtWYL9Y+xtxsoo5MPm6kIvE9qeNcAfD/R6MyVTaZiQhUEdpm7gK6iV5fKDl11/d4bDW
+ L+lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743744159; x=1744348959;
+ d=1e100.net; s=20230601; t=1743745357; x=1744350157;
  h=content-transfer-encoding:mime-version:message-id:date:subject:to
  :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YCeNF+jA8AluU9Ef4ebwTTVGi562FccM7C0+ptJGKfg=;
- b=OKDBsaogJyLdCkUv5QJfz1F2WIOX5AT9jhu4d/+IH+XryBWfvD8NHKU6s0hWSB0lsL
- UHcrHxXBC9dMYoD2dJ51JI8DZvMtFlOuQFUoso3ViNPYf8phtyftYzBeG41tekx6VGRF
- rPeflak20HEkVo9wCpaRkJyK70jtey2m0/lNQH+NtFg7jtmfsNJAkYGJGuV6S1lkHqCc
- sko6z+7TKfgjaWd8JpB3NQRzq7QEr0hGkHnZN1xpFcKZ3dE0pdYR7XWYO3G+1QhVpo4H
- ih4OV+k7U3uShC1J5xPl3BHhe8j9GspOTtAVM4hGog/XvFr1JtBdot2JQ0WaZTVpE15G
- BfrA==
-X-Gm-Message-State: AOJu0YwZa+RFfranJZtwrpavtdWVsNtwK/Bgkad7vVh4kbn1u6eQxpQm
- VhWIuFERRc588DV+P+XyhgoolWGzKgP4TToLkaPJF1Rv1pWvQvA+cWcoBA==
-X-Gm-Gg: ASbGncsYVTZhUQn0plkBUt9awKtyrjWPC53igFmblc0nbU8ghRIbUeXiv9waP6pG2CE
- f5cExCuXBqwpEKKEezoaCbsxN72ujtoeZ9pu2ryd495rZYvU3xCWKaRZAcGBy+wvu2QYLxjCD0G
- bqzV/AzXhd+MXXKvoY+JN1VIlLzWutkx99+qv/LypJ2JHBdAj7GTfIDERVFCi4ggMwu7cr6SkYn
- LJ9HcR0c7Twq5EYngaAO+O09RcGmmzWztEZCArnPgo6Lz+bTXPQFsrWnsK+XhOYhsnag6/KukHm
- 2r5JVReS3BO+0dtevOZkEn/mludNS0eXqtvo5r2nShiibkWUOLN+oyr4q5TKm8vRUHLo
-X-Google-Smtp-Source: AGHT+IEkVdsfvAiRUin7mp4C72av2f4APMxB77QRthFqfinrp1Kxny9F+pQjJ/p9jWBEquOVnq3KwQ==
-X-Received: by 2002:a05:622a:1353:b0:472:133f:93ae with SMTP id
- d75a77b69052e-479249d6aa3mr27577111cf.48.1743744159609; 
- Thu, 03 Apr 2025 22:22:39 -0700 (PDT)
+ bh=ax4tFaDNfSBe8OwieuN54bJJ11A29N/Q1Dhvw5XXad0=;
+ b=Ti2q8dWIkgLamiPkHHaV7ftgcONBMwOdIMNWhKa6jhbyt2gCx1ym9Gq9CbcbOkhf+D
+ XG9c5ms6XJDxvI+DWsVwMOHuUyKG5PB0/bBxjZB/H6j+DRAzs8G/hEFY50piGqfD+vDH
+ omj+nbiLUxr3qwUJKRg60fUnQO+FKvKqwFQtML3U651Xo2S1vSt3iZ3WlGK8JqaYsDXH
+ Rpz2iGhtwPdFntZ60dfNsqIUkkTYTZOe0gr7g6CvZU33nnV/Y5FTdEvlGkQ25pPq0PQN
+ EzhL1rxPfYp6xpMOIx87vXxy/fcd109XhPZTbMGKW+w6WUhSeeb598j59pS5L7XZq5Ee
+ Pj+w==
+X-Gm-Message-State: AOJu0YxGmcyrVe0DlmrtBJCjx0Y21O2vJdVaBKc+9urdnxXgE6x8uQT4
+ vcjptne8NJ8uqXx/3V3f1yJXMcY0HfJ65pfWXMW8zmPwwHlnLmmF0Xq6ig==
+X-Gm-Gg: ASbGnct3Iedy84DEmRZZGUNGj+rWMjuxHmGQV0q8cpC+MVl7mVBJuZ/a9czSorZynT4
+ xJI63tcljFDvLCXxiXNR/WZBFoMoQiMD7aIl2eGkM3yF3oh9H7tKbjVo4T3iv9+WauJfg88Qh1F
+ 112N7D59po6XajzIi3rKQZPAIFb3YMZPCpXTnHRlurFeYtQI+K0djRsKehdz6HuxZbwmWQos5UX
+ 9WtgV1nRA2t0IVw2P+Vc1kw2OaSqsctyvuGm/WAYdSkZsSRyhLQj5o254azNN+bkcHqu1GzvuIQ
+ 9x85I57nz90QAM67INUMUm+PWoStNa3Pkam27SdvG45OZZh0vQxv57fSi9aqAQCQuPeS
+X-Google-Smtp-Source: AGHT+IFXVQymHJZ1cFaK6B/y0ZoadDMTyTxlcaO2GZ2P3LwHOeQVzq2wozooy/Mc91NQnfxcAkfaog==
+X-Received: by 2002:a05:620a:192a:b0:7c5:6a04:d0a8 with SMTP id
+ af79cd13be357-7c774d27393mr296100385a.5.1743745357270; 
+ Thu, 03 Apr 2025 22:42:37 -0700 (PDT)
 Received: from localhost.localdomain ([38.121.253.36])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4791b071b42sm17238651cf.27.2025.04.03.22.22.38
+ af79cd13be357-7c76e96e566sm171746385a.63.2025.04.03.22.42.36
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Apr 2025 22:22:38 -0700 (PDT)
+ Thu, 03 Apr 2025 22:42:36 -0700 (PDT)
 From: Alexandre Demers <alexandre.f.demers@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 0/2] drm/amdgpu: typos and standardization
-Date: Fri,  4 Apr 2025 01:22:20 -0400
-Message-ID: <20250404052222.19955-1-alexandre.f.demers@gmail.com>
+Subject: [PATCH 0/2] drm/amdgpu: better complete DCE6 and GMC6
+Date: Fri,  4 Apr 2025 01:42:23 -0400
+Message-ID: <20250404054225.101791-1-alexandre.f.demers@gmail.com>
 X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -80,21 +80,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Typos were found in DCE, where hpd should have been used.
+First patch moves some DCE files around so they are distributed as are
+other DCE files
 
-DCE6/8: standardize the "interrupt" vs "irq" usage in function names
-with DCE10/11.
+Second patch implements gmc_v6_0_set_clockgating_state(), which was mostly
+there, but commented out. A few tweeks were needed to make it work under
+amdgpu.
 
 Alexandre Demers (2):
-  drm/amdgpu: fix typos in DCEs
-  drm/amdgpu: use "irq" in place of "interrupt" in DCE6/8 as in DCE10/11
+  drm/amd/display/dc: reclassify DCE6 resources and hw sequencer
+  drm/amdgpu: fill in gmc_v6_0_set_clockgating_state()
 
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 +--
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  7 ++---
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 28 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 16 +++++------
- .../drm/amd/display/dc/link/link_factory.c    |  2 +-
- 5 files changed, 28 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         | 44 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dce60/Makefile |  3 +-
+ drivers/gpu/drm/amd/display/dc/hwss/Makefile  | 24 ++++++----
+ .../dce60/dce60_hwseq.c}                      |  2 +-
+ .../dce60/dce60_hwseq.h}                      |  0
+ .../gpu/drm/amd/display/dc/resource/Makefile  | 24 ++++++----
+ .../dc/{ => resource}/dce60/dce60_resource.c  |  2 +-
+ .../dc/{ => resource}/dce60/dce60_resource.h  |  0
+ 8 files changed, 63 insertions(+), 36 deletions(-)
+ rename drivers/gpu/drm/amd/display/dc/{dce60/dce60_hw_sequencer.c => hwss/dce60/dce60_hwseq.c} (99%)
+ rename drivers/gpu/drm/amd/display/dc/{dce60/dce60_hw_sequencer.h => hwss/dce60/dce60_hwseq.h} (100%)
+ rename drivers/gpu/drm/amd/display/dc/{ => resource}/dce60/dce60_resource.c (99%)
+ rename drivers/gpu/drm/amd/display/dc/{ => resource}/dce60/dce60_resource.h (100%)
 
 -- 
 2.49.0
