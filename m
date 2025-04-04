@@ -4,77 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6951C36002
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Apr 2025 19:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF6C1C3601A
+	for <amd-gfx@archiver.kernel.org>; Sun,  6 Apr 2025 19:36:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AA4310E059;
-	Sun,  6 Apr 2025 19:35:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HoD3Fwe5";
-	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C30EF10E04F;
- Sat,  5 Apr 2025 03:13:08 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-22423adf751so27038175ad.2; 
- Fri, 04 Apr 2025 20:13:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743822788; x=1744427588; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=drXA/ORq1/goPnK4FHQgOKB7BhpRoZK6LoRjQ5OhHHo=;
- b=HoD3Fwe5ydhVZvBtdANV1n/LM0ZEKvV/VKHvXlwziX+JXR+I2XJ25TO42QrjkHH5Kf
- SNwuh5Qm/YccVtRf3e0aIhLyHCvNqSX6R8b2ewmvdLNTFQeIrAnyiThVXUcy8emFL8Yo
- RbREYXnIlsvwf1LXdst921u2c8M4Fy3t0koBF5s5kLtG77PqyAw+/FYRxWGcoLwaZImN
- H1hU4k0SI19oc990fbir0oqxL0taAzmc+4I/PtsomNM4mmcSJp+QLzBRBldoqQFI6jKS
- Rr7oJix0nTV+cCCjLpnqk/eZuAPwNh0oWToNXMY94S8UjUrNnG4fKicy0wvzDkGf69+Q
- OFkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743822788; x=1744427588;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=drXA/ORq1/goPnK4FHQgOKB7BhpRoZK6LoRjQ5OhHHo=;
- b=IzmMYjlce45HlHFFnQ70vcOd/qL2eEe2Q2IX2MxqwyFUHwcICF9l4J8Id71H45B7P9
- 7dugHRK9D0vVcZfJ30dvttXWmN5nWgoHQJL4q1W2Y5hSNZpGoUgiAzRTysHuRVbc9F9x
- OFPCxl05JuBECSVZuEuxHf5nBsvqqsG7G3h0P4TBzqoJxkieU20hNauQQukXUtK8l/Qg
- i2h32UBCn1sd42ssFCm+byyAdfD+5oLZfxBeVn2rh6+wS2ziYCGZ4V9Vua6ODnCgAy50
- r28CK88ww23XoDLKtNJDA9xJ79hBBcgLqBPJoSIIYOCpm4baVohgfZ+9QDwRmTmN5wfh
- Tdcg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrWn0iXy9r5dTx/XqO3y0u8KuyRca+huYiwG1RtENybIXpxHnDBhMcsx1QksKWt7IMv1n/iiCBxaE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgB5AxGkQ/Appa0b0KELiorUsw8v2A5OBiT2e72kJNfogfteor
- tydw7k/kXT5gnSrwekBT3yRB9lziWzzvDtfxiRe/Cxzmw8qcpVdI
-X-Gm-Gg: ASbGnctFmxzqg/TRnDoC6iCD297QkRgr/RuyRME86K3lD5ReDTYaH8gnYuSBbxF/itJ
- iZSXYBjsp0ITo29oyHsI+Io0qMmHbdJsKFV+BOgwL99+TmzWONAKwez47eRpo3E+Yu5S7oHoSNK
- L5ROB6SJGfEpsFMRHJ8FPkt18yeyMPNL5aLT5Sei3TgdB8hgQgyhC+a3qud+fYThlNp33HNpX4z
- RMJUU01w4VZVSiuW/yd2FFef0f5F3qt2mTnNBE0WgTo3253/KohGAX78wqzCgwxxA7WgEhBhQjB
- a50KzkLuRXraSqS1hFZv2VvkTf/RaBnqdktJePSfZxo/YgaDekdEMshIFKzvFQiJ
-X-Google-Smtp-Source: AGHT+IE3iEB32WmiGNtkvgzjIzILnbvUYJ6xa15e+n+H/vT9fCrVReqQW9kxkhkIbU/RbmW5+vXFnA==
-X-Received: by 2002:a17:903:1209:b0:224:76f:9e4a with SMTP id
- d9443c01a7336-22a8a05b5cdmr75324725ad.14.1743822788103; 
- Fri, 04 Apr 2025 20:13:08 -0700 (PDT)
-Received: from localhost.localdomain ([2401:4900:60dc:5afc:cf4e:e4c3:6b7:3c11])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-229785ad8d6sm40514395ad.1.2025.04.04.20.13.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Apr 2025 20:13:07 -0700 (PDT)
-From: Kevin Paul Reddy Janagari <kevinpaul468@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, sunil.khatri@amd.com, mario.limonciello@amd.com,
- aurabindo.pillai@amd.com, boyuan.zhang@amd.com, sunpeng.li@amd.com,
- dominik.kaszewski@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
- Kevin Paul Reddy Janagari <kevinpaul468@gmail.com>
-Subject: [PATCH] Fixed the warning at
- ./drivers/gpu/drm/amd/include/amd_shared.h:369
-Date: Sat,  5 Apr 2025 08:42:42 +0530
-Message-Id: <20250405031242.64373-1-kevinpaul468@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBF710E166;
+	Sun,  6 Apr 2025 19:35:56 +0000 (UTC)
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 529DD10E04D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Apr 2025 17:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cardosozeferino.com;
+ s=protonmail; t=1743787270; x=1744046470;
+ bh=dAnNBohRO0E7wcGA6C1BsoK61ZP6lpF9YYKacMs+B2Y=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+ List-Unsubscribe:List-Unsubscribe-Post;
+ b=mpNGy58U0bIvd6yHvdmV7/upWmC/XeakTxNslxRoMhLxg0vsOQIzK8ItmJzSyl3qe
+ c+12Mic9OCo3hzBKuQ6qkonvGkaPGOOceXY0DbcQpjGLYLm/07t8nOTeP8o+1xATdl
+ qNjuecY8ZWGsfatoYkFOHtp9jyj0x+H74Q7e/hoRhBR86HwVRbLvcb5Z8w6sHiB9dU
+ MHeNsro19HfXaIWyYOCJn4a82RhQTFesJAiM8AGPmZrvwYr0oqkElrl14uc8Rpem5z
+ 96nEf1Nuz6r6MpM2x/hGCBMZJ4mfvOVB+BXv1ERq8PD7r91AihdQZILOoZ757r9n05
+ PzSxvecW7ZATg==
+Date: Fri, 04 Apr 2025 17:21:06 +0000
+To: Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
+From: Leo <leo.cod@cardosozeferino.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH v2] drm/amd: Add pre-zen AMD hardware to PCIe dynamic
+ switching exclusions
+Message-ID: <d081405f-03e0-4021-af9c-b051b8676eb9@cardosozeferino.com>
+Feedback-ID: 79006605:user:proton
+X-Pm-Message-ID: 5ec6310484f4d3ad3673305b8fd38fddc914fea7
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sun, 06 Apr 2025 19:35:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,27 +51,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-warning: Incorrect use of kernel-doc format:
-* @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Check FW
+Em 03/04/2025 00:11, Mario Limonciello escreveu:
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>=20
+> AMD RX580 when added AMD Phenom 2 has problems with overheating. This is =
+due to
+> changes with PCIe dynamic switching introduced by commit 466a7d115326e
+> ("drm/amd: Use the first non-dGPU PCI device for BW limits").
+>=20
+> To avoid risks of other issues with old hardware require at least Zen har=
+dware
+> for AMD side to enable PCIe dynamic switching.
+>=20
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4098
+> Fixes: 466a7d115326e ("drm/amd: Use the first non-dGPU PCI device for BW =
+limits")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+> v2:
+>   * Cover more hardware
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index a30111d2c3ea0..caa44ee788c8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1854,6 +1854,9 @@ bool amdgpu_device_seamless_boot_supported(struct a=
+mdgpu_device *adev)
+>    *
+>    * https://edc.intel.com/content/www/us/en/design/products/platforms/de=
+tails/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2=
+/005/pci-express-support/
+>    * https://gitlab.freedesktop.org/drm/amd/-/issues/2663
+> + *
+> + * AMD Phenom II X6 1090T has a similar issue
+> + * https://gitlab.freedesktop.org/drm/amd/-/issues/4098
+>    */
+>   static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgp=
+u_device *adev)
+>   {
+> @@ -1866,6 +1869,8 @@ static bool amdgpu_device_pcie_dynamic_switching_su=
+pported(struct amdgpu_device
+>  =20
+>   =09if (c->x86_vendor =3D=3D X86_VENDOR_INTEL)
+>   =09=09return false;
+> +=09if (c->x86_vendor =3D=3D X86_VENDOR_AMD && !cpu_feature_enabled(X86_F=
+EATURE_ZEN))
+> +=09=09return false;
+>   #endif
+>   =09return true;
+>   }
 
-Signed-off-by: Kevin Paul Reddy Janagari <kevinpaul468@gmail.com>
----
- drivers/gpu/drm/amd/include/amd_shared.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I was able to test and confirm that this patch solve the issue 4098 on upst=
+ream linux kernel git. I could check that backporting it to LTS stable bran=
+ch 6.12 solve the issue with this series too. Tested on AMD 880G chipset, P=
+henom II x6 1090T processor with AMD Radeon RX 580 GPU.
 
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 4c95b885d1d0..c8eccee9b023 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -366,7 +366,7 @@ enum DC_DEBUG_MASK {
- 	DC_HDCP_LC_FORCE_FW_ENABLE = 0x80000,
- 
- 	/**
--	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Check FW
-+	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Check FW
- 	 * path failure, retry using legacy SW path.
- 	 */
- 	DC_HDCP_LC_ENABLE_SW_FALLBACK = 0x100000,
--- 
-2.39.5
+Tested-by: Leandro Pinheiro <leo.cod@cardosozeferino.com>
+
 
