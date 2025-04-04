@@ -4,76 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6026DC3601A
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 14:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E36AEC36010
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 18:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBB6410EBD2;
-	Fri,  4 Apr 2025 14:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D92510E272;
+	Fri,  4 Apr 2025 18:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z+o6qy6g";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RMGjSe8X";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B88A110EBD1
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Apr 2025 14:16:13 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso22169735e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Apr 2025 07:16:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743776171; x=1744380971; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=SmnrvoL1bRalkrB9XQZqK1CD4oZzfia6Il74IPnPdwA=;
- b=Z+o6qy6gnRrVKiDQXWsPbi/sP0XVqrghY5LUUlMSG6K0hsxGM3mw37wiGaLGecJyCx
- RP6r5nPrPtu1qLfUziguSi+Zse45r2k7ZeZbabQ3N/vbwyMusBeQ6pcO/49gUfyq12x5
- Mg5FiyorON6HRzWQr2gL1p6yjtjwKS/WCl+ZrTtLwXHJjadJBtc5MQ6WmDR8RVAKc0Ej
- 7giJrFNhiNoWlPZNU1KB6SZJGq6ULY/hWhb5kgh3FUyRCCmlSyAVmLp8KkqBsgnmj9hl
- KoiVIfzjs27PfmngK0P+b8H7FUzP7y0zneW2KJMkFvGJsLxHZechX6hZFjcL5KPzd42y
- p37Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743776171; x=1744380971;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SmnrvoL1bRalkrB9XQZqK1CD4oZzfia6Il74IPnPdwA=;
- b=XFxknBp1KZduZhqKYdIgFjDPbE/+Re6k+3NK3YrNwyKDOu+aMcQeOfDlzoYvynqza0
- Ep11Hjh5l/xyo5oWbmC3DqW0T6pd1bvoD5gMR8D398+qfNYSbfDuIFd6Jyd1QhheiAsH
- lPR9zX/X6v54D2lwlFoTjIEYLMcrD9RiFdx1O7pqAVyn1TEFYIkIiYvQPuiSqN+/EJh7
- GVp/xHYhQkxjAcK8HeAjqgwUFJcGGK62h89FFKjWGmZMBAg2ieC4JVe+xZOdWE3OBEPo
- Aa3L+KXDvuhb8T+b6y0wBqKTAEeQ2uOdT1reCkCeiVmXbPneOX1JugJeoVNui/X7Ku/W
- gRsg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUeBkU8x7XN6rcBflAd8dxHPJNRTtLMbev0CkCVJO6nwAjlelDzPXv+qrp761bMHk2CxNEuNDAc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz2uL5biKAf9zX69TnNxGgDQNtcqD4gfhXWoCjZ7n0qcygaSfXq
- tuj+0vifgFRz6I3sKFyzG5U6MnY33l9/TTx6pWbonaY5JrJZ7l/9tpWicnG042U=
-X-Gm-Gg: ASbGnctFjhl5cJ2MA8N6xI8blrzrsxgEnRN4MdDIq/PJOkngS4KXdoDLZv3bbLnBXZY
- jatpBhdaBFwyI7IqbUTRcbkKtBY0vUbgZhJPRrjSY/wK/q7/LtQZFp10SWxgUebwQkM9fVY2z1r
- Tzd9GKMmU3KphD0V4YjKFQ61pXhp7WlTaWUNmDsrgdd7nhJdfsJr9Q2QWVj2rbXsCDM+Smogk9T
- wNRWQ+HMV9Y7xOfyjS6JuBshfoN6AEYFsG7uY1FsZOZMXSXrPOKD/Pk1wUb6dsPnQlK6sTY9OJA
- PjcTc41A4sueHf/aekDO9k5AQca5dJAL2VOnbYvJPQVYykIvsd6+OZjNpg==
-X-Google-Smtp-Source: AGHT+IG4PNshhfNWT2z3TtyfUyyDMcekzvy5eRYwaX4dLM+QjpdWR50l908MLNyvpFYLuwyArlx2yQ==
-X-Received: by 2002:a05:600c:3109:b0:43d:9f2:6274 with SMTP id
- 5b1f17b1804b1-43ed0bde89dmr28402265e9.14.1743776170983; 
- Fri, 04 Apr 2025 07:16:10 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:157c:e200:b2b3:568d:2234:72c1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec364ec90sm47005485e9.27.2025.04.04.07.16.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Apr 2025 07:16:10 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: srinivasan.shanmugam@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: cleanup amdgpu_vm_flush v3
-Date: Fri,  4 Apr 2025 16:16:07 +0200
-Message-Id: <20250404141607.1451-2-christian.koenig@amd.com>
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2080.outbound.protection.outlook.com [40.107.95.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 231CD10E272
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Apr 2025 18:42:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l1wkl5WrQ6sdc+m/+dZsZNHIXAcT2UeajYOWYFOB4pg3PdFape9kwZB6SauDoYIJljcvPssS0n34RNRX1nLs0mxAxNvZgf/c/ui6DCIV7RnTsSz26rdP/Ssk2RNq3zteGmoOnfLrujA4BLC/2lOjBtdSB0KExoO9/NLe8Ms4sNZWZz3VYQxnaNEtn/bH789BS6fQ8hxs7SXMw04oroV3dYHkuX8vzWMyriKvs5pYHlwkkSOZOn07qmnXg5lQH/gcLvGPj08excCRJjcLA3S//PCAUjlLjPdCFGHW2nS1iygy/A/JkrSZ84MBufQue/R4cV/kdaORo3awe9WKAaJpAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0g1ax8qHfV6+R65/FYktKhXNuoE8BUJi9ZQTh5+icy0=;
+ b=VEoGp+EwTrmtIWM8tJFIOGUPp8xOrh/6J0gqyDY46e9dniWumhK/JTrmQEd9u/RsRaVEiezqe0qOST5qGQHKn7f+G5SZg+QvCi3j4Gbhi9YOHeyOk/zC5OLs9awC+rS2T9KSxjsY+GYLkz92HgJjzPoLO+h1KxuGoA/0P3l1lg4H8wnQkyUA6TQpjyuFkIxwA1aVhMdhOQrV375LPX2mLjI1WstUyTszN9p6zg0ANBhz4aHrnA3VjzQ0oK7wFyEmIaFWdo+6y1Fafhj6rNUDLeKWPBd+/ckH2vqdlEj04HU2QM0/LJXGmhfgVNNndNOf5VwA6stf5AfBXi/Vr1wT2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0g1ax8qHfV6+R65/FYktKhXNuoE8BUJi9ZQTh5+icy0=;
+ b=RMGjSe8XLToQ0Pg819mUet+X99yqXV9Bwgc4lUAF3RuROB6Vk7WnUt3uaCOYT4W4GpF+/svMfbtANoTp/yCyMo6GbP2rn5ngNPXW20JkdYe/JHxyjDBmwgyhGdKwTgY1cho65o8QIyPRGIdNaanl9b634aq1/xVc0fS/9bzLPbo=
+Received: from SJ0PR13CA0229.namprd13.prod.outlook.com (2603:10b6:a03:2c1::24)
+ by SA3PR12MB9107.namprd12.prod.outlook.com (2603:10b6:806:381::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8583.45; Fri, 4 Apr
+ 2025 18:42:33 +0000
+Received: from SJ1PEPF00001CE8.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::6d) by SJ0PR13CA0229.outlook.office365.com
+ (2603:10b6:a03:2c1::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.8 via Frontend Transport; Fri, 4
+ Apr 2025 18:42:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE8.mail.protection.outlook.com (10.167.242.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8606.22 via Frontend Transport; Fri, 4 Apr 2025 18:42:33 +0000
+Received: from asrock-1e715-b03-3.mkm.dcgpu (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Fri, 4 Apr 2025 13:42:32 -0500
+From: Ahmad Rehman <Ahmad.Rehman@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Victor.Skvortsov@amd.com>, Ahmad Rehman <Ahmad.Rehman@amd.com>
+Subject: [PATCH] drm/amdgpu: Modify register write via PSP
+Date: Fri, 4 Apr 2025 14:41:59 -0400
+Message-ID: <20250404184159.500250-1-Ahmad.Rehman@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250404141607.1451-1-christian.koenig@amd.com>
-References: <20250404141607.1451-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE8:EE_|SA3PR12MB9107:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47a3dfec-adbd-4c0c-357b-08dd73a87665
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vVFAxkYvIyeWnjHeEu2cscqPcFts3ky9+3DOq96EensSHQSn5lpZoqJGmiV+?=
+ =?us-ascii?Q?CRy0i0U5tNzEwSNLsjJibXblE1YdzBb9xzQ5jUVNPj2a5linH0GBJw2kT6p/?=
+ =?us-ascii?Q?Odb5Iyg28OCJMgIzO4UXzkOY0gdEybhGbHjKJ3rT+cwXfr0rGMNe1muv4X1t?=
+ =?us-ascii?Q?tQN3LkTnANhMhTXfu36bDzsCej8p/jW948cVYLNW8OnMkS5qSEk527nC/9nB?=
+ =?us-ascii?Q?1/t2po4abYCEAjUPRSgldMVS6esut4Wd/9WT6WWRZAlyR16m5qGAUWFBxfMK?=
+ =?us-ascii?Q?thDxRDESMLxS7Xp6DbiJ/D5xCpubro97X8+7MUy1oPn92HwUa9yqINDYqUm6?=
+ =?us-ascii?Q?UROCXbPq0mozc2pcdV88/BCBpQTEOjYOmVlfsfDh6tKPMYUbbBxudFxot65f?=
+ =?us-ascii?Q?nGKtUZGkXNOznUhsscPtol+Az8YquOXFkghhOCq2BNdjpcLYfd4uNSthQrnP?=
+ =?us-ascii?Q?23q8hk7d5BXDFxTUO9y0LgJ4mWE8x5orV8LNiXZCTAd1l6C+HyrN1/iRKidY?=
+ =?us-ascii?Q?TAOjoVeLdCO+BxqYuKw4Kxd6p/1pTwhTYn4zA1jegi3eVQ/wkhvIQNgFhrHc?=
+ =?us-ascii?Q?dNleUdDDA842rydue6sGjZawgAoKoiCQhei8DOD6jXPFaxW2Bfo1mY8+CQHA?=
+ =?us-ascii?Q?vnowc/0fJHHMJD+CAIA5aOz16UCpJOqRDacPzSrdogAeKWM/c4W90UJzZaaA?=
+ =?us-ascii?Q?3S0wN22KTUSH/XDczXRqWa/rJ+/UkXeZ0Z6C5voY1D02jODpfrkPfEyfxRky?=
+ =?us-ascii?Q?RNtu/q14kJcJMC5QGNjWw8PbGw9PZqariiyoBG9VIsRKW0+8M3JoaoZ6TFQa?=
+ =?us-ascii?Q?sZARRDiaemAOH2CDnk6pfPm8H2C6dlAmVJO70HhIWzzzILY4ZOj3qqVMU+JP?=
+ =?us-ascii?Q?rrAN/L61BtN+yARNmAJaTiGghFAi4ObODy+s/1xDgU7zuvPXdyxD3sVcJ1KO?=
+ =?us-ascii?Q?UNNIH+zr0RWlAFUoIs09BjMmpmoZ8JnybitD0HGfAdYaex/IHRRHPtrud0W6?=
+ =?us-ascii?Q?6wAscjiCP8Y2Cw52mNsrbPEYy8q/lPX2oVi54Nk2y94ra27HrE6BI2yr+Hu+?=
+ =?us-ascii?Q?9cINhVQjhXrMt9JD4rU/xHbckPcNzo9NPJN8LXb2/edCP6mqJSkX/ty1ObaD?=
+ =?us-ascii?Q?oo0y8JkRDY8ziXZKlokHSH0kUm5YrswKSTnBRceVGPfrMHnv0pSGPhcSY1lr?=
+ =?us-ascii?Q?GhKq0EbpFycIJpM32iNbN2olMiLFtV00wsbfPA4DU7CtphJJnRAcDmZIfLaQ?=
+ =?us-ascii?Q?QcrSR/tlPfKxPpQ5D1lw1DMdh8ISrItrfHbr93DeR8ZQFUeLt1bkkePrJ8cZ?=
+ =?us-ascii?Q?+lnSalq6yb9wad+dMynmkC0Ou+6mmNcPCNSBrsL5VU5m3W8ybpSfgFuxEoIg?=
+ =?us-ascii?Q?BC5ukh0e4fAEhNozVG+lHGhONjNhvYvPpFdiXWs5wwZf2dh00JT9y9BisCkr?=
+ =?us-ascii?Q?ITdJE/vriFFhEexAY5wu1i5HsEMPkybvWvtI+YM5mqjQEdoj1Y7cHLLZiGwC?=
+ =?us-ascii?Q?JpZyKIIRE2NuDTA=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2025 18:42:33.3272 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47a3dfec-adbd-4c0c-357b-08dd73a87665
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE8.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9107
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,222 +130,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit c2cc3648ba517a6c270500b5447d5a1efdad5936. Turned out
-that this has some negative consequences for some workloads. Instead check
-if the cleaner shader should run directly.
+This patch enables the logic where if PSP ring has
+initialized then submit the register write command
+via ring.
 
-While at it remove amdgpu_vm_need_pipeline_sync(), we also check again
-if the VMID has seen a GPU reset since last use and the gds switch
-setiing can be handled more simply as well.
-
-Also remove some duplicate checks and re-order and document the code.
-
-v2: restructure the while function
-v3: fix logic error pointed out by Srini
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Ahmad Rehman <Ahmad.Rehman@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 92 +++++++++-----------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  5 +-
- 3 files changed, 36 insertions(+), 64 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 17 ++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c |  2 +-
+ 2 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index 802743efa3b3..ff2ca984279a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -191,8 +191,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 	need_ctx_switch = ring->current_ctx != fence_ctx;
- 	if (ring->funcs->emit_pipeline_sync && job &&
- 	    ((tmp = amdgpu_sync_get_fence(&job->explicit_sync)) ||
--	     need_ctx_switch || amdgpu_vm_need_pipeline_sync(ring, job))) {
--
-+	     (amdgpu_sriov_vf(adev) && need_ctx_switch))) {
- 		need_pipe_sync = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index dbc3313fc141..8f34a277c821 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1189,15 +1189,22 @@ int psp_reg_program(struct psp_context *psp, enum psp_reg_prog_id reg,
+ 	if (reg >= PSP_REG_LAST)
+ 		return -EINVAL;
  
- 		if (tmp)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index b5ddfcbbc9fc..e6d7db8d40cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -596,37 +596,6 @@ void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev)
- 	}
- }
- 
--/**
-- * amdgpu_vm_need_pipeline_sync - Check if pipe sync is needed for job.
-- *
-- * @ring: ring on which the job will be submitted
-- * @job: job to submit
-- *
-- * Returns:
-- * True if sync is needed.
-- */
--bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
--				  struct amdgpu_job *job)
--{
--	struct amdgpu_device *adev = ring->adev;
--	unsigned vmhub = ring->vm_hub;
--	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
--
--	if (job->vmid == 0)
--		return false;
--
--	if (job->vm_needs_flush || ring->has_compute_vm_bug)
--		return true;
--
--	if (ring->funcs->emit_gds_switch && job->gds_switch_needed)
--		return true;
--
--	if (amdgpu_vmid_had_gpu_reset(adev, &id_mgr->ids[job->vmid]))
--		return true;
--
--	return false;
--}
--
- /**
-  * amdgpu_vm_flush - hardware flush the vm
-  *
-@@ -647,29 +616,31 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	unsigned vmhub = ring->vm_hub;
- 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
- 	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
--	bool spm_update_needed = job->spm_update_needed;
--	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
--		job->gds_switch_needed;
--	bool vm_flush_needed = job->vm_needs_flush;
--	bool cleaner_shader_needed = false;
--	bool pasid_mapping_needed = false;
--	struct dma_fence *fence = NULL;
-+	bool gds_switch_needed, vm_flush_needed, spm_update_needed,
-+	     cleaner_shader_needed, pasid_mapping_needed;
-+	struct dma_fence *fence;
- 	unsigned int patch;
- 	int r;
- 
-+	/* First of all figure out what needs to be done */
- 	if (amdgpu_vmid_had_gpu_reset(adev, id)) {
-+		need_pipe_sync = true;
- 		gds_switch_needed = true;
- 		vm_flush_needed = true;
- 		pasid_mapping_needed = true;
- 		spm_update_needed = true;
+-	cmd = acquire_psp_cmd_buf(psp);
++	/* Check if psp ring has initialized */
++	if (psp->km_ring.ring_mem && psp->km_ring.ring_size) {
++		cmd = acquire_psp_cmd_buf(psp);
++
++		psp_prep_reg_prog_cmd_buf(cmd, reg, value);
++		ret = psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr);
++
++		release_psp_cmd_buf(psp);
 +	} else {
-+		need_pipe_sync |= ring->has_compute_vm_bug;
-+		gds_switch_needed = job->gds_switch_needed;
-+		vm_flush_needed = job->vm_needs_flush;
-+		mutex_lock(&id_mgr->lock);
-+		if (id->pasid != job->pasid || !id->pasid_mapping ||
-+		    !dma_fence_is_signaled(id->pasid_mapping))
-+			pasid_mapping_needed = true;
-+		mutex_unlock(&id_mgr->lock);
-+		spm_update_needed = job->spm_update_needed;
- 	}
- 
--	mutex_lock(&id_mgr->lock);
--	if (id->pasid != job->pasid || !id->pasid_mapping ||
--	    !dma_fence_is_signaled(id->pasid_mapping))
--		pasid_mapping_needed = true;
--	mutex_unlock(&id_mgr->lock);
--
- 	gds_switch_needed &= !!ring->funcs->emit_gds_switch;
- 	vm_flush_needed &= !!ring->funcs->emit_vm_flush  &&
- 			job->vm_pd_addr != AMDGPU_BO_INVALID_OFFSET;
-@@ -681,15 +652,17 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		&job->base.s_fence->scheduled == isolation->spearhead;
- 
- 	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
--	    !cleaner_shader_needed)
-+	    !cleaner_shader_needed && !spm_update_needed)
- 		return 0;
- 
-+	/* Then aktually prepare the submission frame */
- 	amdgpu_ring_ib_begin(ring);
- 	if (ring->funcs->init_cond_exec)
- 		patch = amdgpu_ring_init_cond_exec(ring,
- 						   ring->cond_exe_gpu_addr);
- 
--	if (need_pipe_sync)
-+	if (need_pipe_sync || vm_flush_needed || cleaner_shader_needed ||
-+	    gds_switch_needed)
- 		amdgpu_ring_emit_pipeline_sync(ring);
- 
- 	if (cleaner_shader_needed)
-@@ -706,20 +679,31 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	if (spm_update_needed && adev->gfx.rlc.funcs->update_spm_vmid)
- 		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring, job->vmid);
- 
--	if (ring->funcs->emit_gds_switch &&
--	    gds_switch_needed) {
-+	if (gds_switch_needed)
- 		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
- 					    job->gds_size, job->gws_base,
- 					    job->gws_size, job->oa_base,
- 					    job->oa_size);
--	}
- 
- 	if (vm_flush_needed || pasid_mapping_needed || cleaner_shader_needed) {
- 		r = amdgpu_fence_emit(ring, &fence, NULL, 0);
- 		if (r)
- 			return r;
-+	} else {
-+		fence = NULL;
++		/* Program reg without ring via registers */
++		ret = psp_reg_program_no_ring(psp, value, reg);
 +	}
-+
-+	amdgpu_ring_patch_cond_exec(ring, patch);
-+
-+	/* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC */
-+	if (ring->funcs->emit_switch_buffer) {
-+		amdgpu_ring_emit_switch_buffer(ring);
-+		amdgpu_ring_emit_switch_buffer(ring);
- 	}
  
-+	amdgpu_ring_ib_end(ring);
-+
-+	/* And finally remember what the ring has executed */
- 	if (vm_flush_needed) {
- 		mutex_lock(&id_mgr->lock);
- 		dma_fence_put(id->last_flush);
-@@ -749,16 +733,6 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		mutex_unlock(&adev->enforce_isolation_mutex);
- 	}
- 	dma_fence_put(fence);
+-	psp_prep_reg_prog_cmd_buf(cmd, reg, value);
+-	ret = psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr);
+ 	if (ret)
+ 		dev_err(psp->adev->dev, "PSP failed to program reg id %d\n", reg);
+ 
+-	release_psp_cmd_buf(psp);
 -
--	amdgpu_ring_patch_cond_exec(ring, patch);
--
--	/* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC */
--	if (ring->funcs->emit_switch_buffer) {
--		amdgpu_ring_emit_switch_buffer(ring);
--		amdgpu_ring_emit_switch_buffer(ring);
--	}
--
--	amdgpu_ring_ib_end(ring);
- 	return 0;
+ 	return ret;
  }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index daa2f9b33620..e9ecdb96bafa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -493,7 +493,8 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		       struct ww_acquire_ctx *ticket,
- 		       int (*callback)(void *p, struct amdgpu_bo *bo),
- 		       void *param);
--int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job, bool need_pipe_sync);
-+int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
-+		    bool need_pipe_sync);
- int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
- 			  struct amdgpu_vm *vm, bool immediate);
- int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
-@@ -550,8 +551,6 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
- 			   uint32_t fragment_size_default, unsigned max_level,
- 			   unsigned max_bits);
- int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
--bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
--				  struct amdgpu_job *job);
- void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+index 4a43c9ab95a2..05935b2c99b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+@@ -208,7 +208,7 @@ static void mmhub_v1_8_init_tlb_regs(struct amdgpu_device *adev)
+ 				    MTYPE, MTYPE_UC);/* XXX for emulation. */
+ 		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);
  
- struct amdgpu_task_info *
+-		psp_reg_program_no_ring(&adev->psp, tmp, PSP_REG_MMHUB_L1_TLB_CNTL);
++		psp_reg_program(&adev->psp, PSP_REG_MMHUB_L1_TLB_CNTL, tmp);
+ 	} else {
+ 		inst_mask = adev->aid_mask;
+ 		for_each_inst(i, inst_mask) {
 -- 
 2.34.1
 
