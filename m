@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 661B9C36010
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 09:21:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF97C36010
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 09:27:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08DC710EB91;
-	Fri,  4 Apr 2025 09:21:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6044610EB9E;
+	Fri,  4 Apr 2025 09:27:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Cr25TP2z";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IV3Z5F0w";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3ACE10EB91;
- Fri,  4 Apr 2025 09:21:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88C3710EB9C;
+ Fri,  4 Apr 2025 09:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,36 +22,37 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=BCfGphijuoZpXmTdbyKfymTw3aWVRlQneQthSb+TRSI=; b=Cr25TP2zH5a0Nxtgc0mQoYzwFH
- BtevK8Si71BMl04q2PKCfhAycON0QGbghV+J8Jv+Ha/QhRX0eDXWbEzAkPPZCe3LK43+/u1mWkTUi
- YZ0boSPx7gapiYPHU55pWm/S66e3dnfocGd02b5xOYdYIzCxU7DGuO/RgsYi6TqlqUHvyrjdcHQzP
- +Z0hXEHedsNweXUFRz9cQ/MnJje0o9t9QFuoXlipPgGJYJgHlp/mJmnJQYubH7N2HGmFzYdl8qvaT
- sWCqaMoaaW4VDjAnD1f3Z8gmqO2GDf6IQ3xj1MjZjS7By5/LqtI+lTPybLezij2Cl8gtx6P2c3zLC
- ATfDpJFg==;
+ bh=8WQntQT5S1Y64ZNsp1wMA1VIX7q1/cGMWOmE9XAgcww=; b=IV3Z5F0wdpjRuJlcFigTwub2au
+ gAWExtMJkDw2wBptMHtDt103xO3pTmz2AAol6zi2cPc2KZzVLcEsPq5um5STDl2ONhNDkEXsFiCyV
+ zo5K5SzVtx+hbMvxzMMzJknf9LVKA2KOrb6X4gEeugNwmFEUigfux8uWCMsCy+d6ws+2TSlb/RhAr
+ 103SYO96CbkNw6pirPP3MXp/T/j9pfPmgph4Eo4JwMqLpdHvPRVse9R64o3TqZoPK9Q8InrDahF8z
+ NzMlK2YBEvT4jhaulSYvrtDYl3s0omDeT6nT8486UB7mMkp/jYOtC+uRMLeJ9kVzyeLzsG1BZXWDk
+ B8WL7ATg==;
 Received: from [90.241.98.187] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1u0dEf-00BHxu-PI; Fri, 04 Apr 2025 11:21:13 +0200
-Message-ID: <ce1af695-5d38-4b40-8f7c-3602fdcc9ef2@igalia.com>
-Date: Fri, 4 Apr 2025 10:21:12 +0100
+ id 1u0dKY-00BI7j-Nv; Fri, 04 Apr 2025 11:27:18 +0200
+Message-ID: <1ec3512d-6a41-4fef-9bf1-da31adc115b5@igalia.com>
+Date: Fri, 4 Apr 2025 10:27:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v3 00/14] Deadline DRM scheduler
+Subject: Re: [RFC v3 06/14] drm/sched: Implement RR via FIFO
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@redhat.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <pstanner@redhat.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- "Liu, Leo" <Leo.Liu@amd.com>
+ phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
 References: <20250331201705.60663-1-tvrtko.ursulin@igalia.com>
- <5d2a726c-bdf0-45e1-abfa-3ed8d1ffbed4@amd.com>
- <df0a7e4e-9de1-40a3-9aa6-4b9051dbd624@igalia.com>
- <6f56080c-57af-454d-bc06-ca230734f7ba@amd.com>
+ <20250331201705.60663-7-tvrtko.ursulin@igalia.com>
+ <e4594adff1606e6a92714bbcad5838c3f100acdf.camel@mailbox.org>
+ <264be6a0-b9be-4430-9de4-276456e34214@mailbox.org>
+ <58b680faeeeea1c317b43a34c71d978efe72009d.camel@mailbox.org>
+ <3bdd9d9a-e019-4469-a90b-92d105c67427@mailbox.org>
+ <84f1d69b-039b-4098-b0cd-33e0b92b048a@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <6f56080c-57af-454d-bc06-ca230734f7ba@amd.com>
+In-Reply-To: <84f1d69b-039b-4098-b0cd-33e0b92b048a@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,232 +70,107 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 02/04/2025 12:53, Christian König wrote:
-> Am 02.04.25 um 10:26 schrieb Tvrtko Ursulin:
->> On 02/04/2025 07:49, Christian König wrote:
->>>
->>> First of all, impressive piece of work.
->>
->> Thank you!
->>
->> I am not super happy though, since what would be much better is some sort of a CFS. But to do that would require to crack the entity GPU time tracking problem. That I tried two times so far and failed to find a generic, elegant and not too intrusive solution.
+On 02/04/2025 14:37, Christian König wrote:
+> Am 02.04.25 um 15:22 schrieb Michel Dänzer:
+>> On 2025-04-02 14:00, Philipp Stanner wrote:
+>>> On Wed, 2025-04-02 at 12:58 +0200, Michel Dänzer wrote:
+>>>> On 2025-04-02 12:46, Philipp Stanner wrote:
+>>>>> On Mon, 2025-03-31 at 21:16 +0100, Tvrtko Ursulin wrote:
+>>>>>> Round-robin being the non-default policy and unclear how much it
+>>>>>> is
+>>>>>> used,
+>>>>>> we can notice that it can be implemented using the FIFO data
+>>>>>> structures if
+>>>>>> we only invent a fake submit timestamp which is monotonically
+>>>>>> increasing
+>>>>>> inside drm_sched_rq instances.
+>>>>>>
+>>>>>> So instead of remembering which was the last entity the scheduler
+>>>>>> worker
+>>>>>> picked, we can bump the picked one to the bottom of the tree,
+>>>>>> achieving
+>>>>>> the same round-robin behaviour.
+>>>>>>
+>>>>>> Advantage is that we can consolidate to a single code path and
+>>>>>> remove
+>>>>>> a
+>>>>>> bunch of code. Downside is round-robin mode now needs to lock on
+>>>>>> the
+>>>>>> job
+>>>>>> pop path but that should not be visible.
+>>>>> Why did you decide to do it that way and then later remove RR &
+>>>>> FIFO
+>>>>> alltogether in patch 10, basically?
+>>>>>
+>>>>> I think the far cleaner way for our development-process would be a
+>>>>> separate patch(-series) that *removes* RR completely. Advantages
+>>>>> are:
+>>>>>
+>>>>>     1. It should be relatively easy to do
+>>>>>     2. It would simplify the existing code base independently of
+>>>>> what
+>>>>>        happens with your RFC series here
+>>>>>     3. Before changing everyone's scheduling policy to a completely
+>>>>> new,
+>>>>>        deadline-based one, we could first be sure for a few release
+>>>>>        cycles that everyone is now on FIFO, establishing common
+>>>>> ground.
+>>>>>     4. We could CC every- and anyone who might use RR or might know
+>>>>>        someone who does
+>>>>>     5. If it turns out we screwed up and someone really relies on
+>>>>> RR, it
+>>>>>        would be easy to revert.
+>>>>>
+>>>>> I am not aware of any RR users and have, in past discussions, never
+>>>>> heard of any. So removing it is more tempting for the above
+>>>>> reasons.
+>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/2516 has a bunch of
+>>>> RR users...
+>>> Right, there's a number of people complaining about the regression. But
+>>> what I'm interested in is: how did it evolve since then. Are there
+>>> distributions who set the module parameter? Does Steam do it? Or is it
+>>> individual users who work around the problem that way?
+>> I know only of the latter.
+>>> https://gitlab.freedesktop.org/drm/amd/-/issues/2516#note_2679509
 > 
-> When the numbers you posted hold true I think this solution here is perfectly sufficient. Keep in mind that GPU submission scheduling is a bit more complicated then classic I/O scheduling.
-> 
-> E.g. you have no idea how much work a GPU submission was until it is completed, for an other I/O transfer you know pre-hand how many bytes are transferred. That makes tracking things far more complicated.
-> 
->>
->>>> Lets look at the results:
->>>>
->>>> 1. Two normal priority deep queue clients.
->>>>
->>>> These ones submit one second worth of 8ms jobs. As fast as they can, no
->>>> dependencies etc. There is no difference in runtime between FIFO and qddl but
->>>> the latter allows both clients to progress with work more evenly:
->>>>
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/normal-normal.png
->>>>
->>>> (X axis is time, Y is submitted queue-depth, hence lowering of qd corresponds
->>>>     with work progress for both clients, tested with both schedulers separately.)
->>>
->>> This was basically the killer argument why we implemented FIFO in the first place. RR completely sucked on fairness when you have many clients submitting many small jobs.
->>>
->>> Looks like that the deadline scheduler is even better than FIFO in that regard, but I would also add a test with (for example) 100 clients doing submissions at the same time.
->>
->> I can try that. So 100 clients with very deep submission queues? How deep? Fully async? Or some synchronicity and what kind?
-> 
-> Not deep queues, more like 4-8 jobs maximum for each. Send all submissions roughly at the same time and with the same priority.
-> 
-> When you have 100 entities each submission from each entity should have ~99 other submissions in between them.
-> 
-> Record the minimum and maximum of that value and you should have a good indicator how well the algorithm performs.
-> 
-> You can then of course start to make it more complicated, e.g. 50 entities who have 8 submissions, each taking 4ms and 50 other entities who have 4 submissions, each taking 8ms.
+> Tvrtko, you should probably prepare a branch on fdo and let the people 
+> on that bug report test it.
 
-I started working on this "many clients test" and so far did not find a 
-definitive pattern to show a significant difference between different 
-schedulers.
-
->>>> 2. Same two clients but one is now low priority.
->>>>
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/normal-low.png
->>>>
->>>> Normal priority client is a solid line, low priority dotted. We can see how FIFO
->>>> completely starves the low priority client until the normal priority is fully
->>>> done. Only then the low priority client gets any GPU time.
->>>>
->>>> In constrast, qddl allows some GPU time to the low priority client.
->>>>
->>>> 3. Same clients but now high versus normal priority.
->>>>
->>>> Similar behaviour as in the previous one with normal a bit less de-prioritised
->>>> relative to high, than low was against normal.
->>>>
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/high-normal.png
->>>>
->>>> 4. Heavy load vs interactive client.
->>>>
->>>> Heavy client emits a 75% GPU load in the format of 3x 2.5ms jobs followed by a
->>>> 2.5ms wait.
->>>>
->>>> Interactive client emites a 10% GPU load in the format of 1x 1ms job followed
->>>> by a 9ms wait.
->>>>
->>>> This simulates an interactive graphical client used on top of a relatively heavy
->>>> background load but no GPU oversubscription.
->>>>
->>>> Graphs show the interactive client only and from now on, instead of looking at
->>>> the client's queue depth, we look at its "fps".
->>>>
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/heavy-interactive.png
->>>>
->>>> We can see that qddl allows a slighty higher fps for the interactive client
->>>> which is good.
->>>
->>> The most interesting question for this is what is the maximum frame time?
->>>
->>> E.g. how long needs the user to wait for a response from the interactive client at maximum?
->>
->> I did a quick measure of those metrics, for this workload only.
->>
->> Measured time from submit of the first job in the group (so frame), to time last job in a group finished, and then subtracted the expected jobs duration to get just the wait plus overheads latency.
->>
->> Five averaged runs:
->>
->>      min    avg    max     [ms]
->> FIFO    2.5    13.14    18.3
->> qddl    3.2    9.9    16.6
->>
->> So it is a bit better in max, more so in max latencies. Question is how representative is this synthetic workload of the real world.
-> 
-> Well if I'm not completely mistaken that is 9,2% better on max and nearly 24,6% better on average, the min time is negligible as far as I can see.
-> 
-> That is more than a bit better. Keep in mind that we usually deal with interactive GUIs and background worker use cases  which benefits a lot of that stuff.
-
-The improvement on that one and some other ones is nice indeed. I still 
-haven't found a regressing workload myself but Pierre-Eric has something 
-involving viewperf. We tried to simulate that via unit test but so far 
-did not get it to behave as bad with qddl as the real thing.
-
-I am parking this work for a week or so now but will come back to it.
-
-If in the meantime people want to experiment, my latest code is here:
+If people are interested to test I have two branches. This qddl approach:
 
 https://gitlab.freedesktop.org/tursulin/kernel/-/commits/drm-sched-deadline?ref_type=heads
 
-There is also a CFS like very early experiment at:
+And a very early CFS-like experiment:
 
 https://gitlab.freedesktop.org/tursulin/kernel/-/commits/drm-sched-cfs?ref_type=heads
 
-If that one works out it could perhaps be even better but it is far from 
-finished.
+I would certainly be very interested to get feedback.
+
+>>> ^ this comment for example seems to indicate that on newer Wayland
+>>> versions part of the problem has vanished?
+>> That's about using the Wine wayland driver (which uses the Wayland protocol directly) instead of the x11 driver (which uses the X11 protocol via Xwayland). Xwayland not being involved can avoid at least some of the issues (in particular, the scenario I described inhttps://gitlab.freedesktop.org/drm/amd/-/issues/2516#note_2119750 can't happen then). That doesn't solve the issues when Xwayland is involved though, just avoids them.
+>>
+> 
+>  From what I remember the bug condition is that the display server 
+> submits works after the client has started rendering the next frame. 
+> With RR that resulted in the display servers work to be picked first 
+> while with FIFO the clients works would be picked first.
+> 
+> Arguable that RR picked the display server was just coincident while 
+> with Tvrtko's work the fair queuing should make that perfectly intentional.
+> 
+> So this patch set here should (in theory) help a lot with that bug 
+> report and finally make RR superfluous.
+
+Disclaimer that it is way too generous to call what I made fair. It may 
+help with the above described case *if* the client has queue depth > 1, 
+which would then push out its deadline a bit further out so display 
+server could beat it even if submitted later. But it also may need 
+refining to account for currently executing jobs as the queue-depth too 
+(currently it does not). And also to perhaps base the deadline buckets 
+on some dynamically adjusting runtime measure rather than hardcoding them.
 
 Regards,
 
 Tvrtko
-
->>>> 5. Low priority GPU hog versus heavy-interactive.
->>>>
->>>> Low priority client: 3x 2.5ms jobs client followed by a 0.5ms wait.
->>>> Interactive client: 1x 0.5ms job followed by a 10ms wait.
->>>>
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/lowhog-interactive.png
->>>>
->>>> No difference between the schedulers.
->>>>
->>>> 6. Last set of test scenarios will have three subgroups.
->>>>
->>>> In all cases we have two interactive (synchronous, single job at a time) clients
->>>> with a 50% "duty cycle" GPU time usage.
->>>>
->>>> Client 1: 1.5ms job + 1.5ms wait (aka short bursty)
->>>> Client 2: 2.5ms job + 2.5ms wait (aka long bursty)
->>>>
->>>> a) Both normal priority.
->>>>
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/5050-short.png
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/5050-long.png
->>>>
->>>> Both schedulers favour the higher frequency duty cycle with qddl giving it a
->>>> little bit more which should be good for interactivity.
->>>>
->>>> b) Normal vs low priority.
->>>>
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/5050-normal-low-normal.png
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/5050-normal-low-low.png
->>>>
->>>> Qddl gives a bit more to the normal than low.
->>>>
->>>> c) High vs normal priority.
->>>>
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/5050-high-normal-high.png
->>>> https://people.igalia.com/tursulin/drm-sched-qddl/5050-high-normal-normal.png
->>>>
->>>> Again, qddl gives a bit more share to the higher priority client.
->>>>
->>>> On the overall qddl looks like a potential improvement in terms of fairness,
->>>> especially avoiding priority starvation. There do not appear to be any
->>>> regressions with the tested workloads.
->>>>
->>>> As before, I am looking for feedback, ideas for what kind of submission
->>>> scenarios to test. Testers on different GPUs would be very welcome too.
->>>>
->>>> And I should probably test round-robin at some point, to see if we are maybe
->>>> okay to drop unconditionally, it or further work improving qddl would be needed.
->>>>
->>>> v2:
->>>>    * Fixed many rebase errors.
->>>>    * Added some new patches.
->>>>    * Dropped single shot dependecy handling.
->>>>
->>>> v3:
->>>>    * Added scheduling quality unit tests.
->>>>    * Refined a tiny bit by adding some fairness.
->>>>    * Dropped a few patches for now.
->>>>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: Danilo Krummrich <dakr@redhat.com>
->>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>> Cc: Philipp Stanner <pstanner@redhat.com>
->>>> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->>>> Cc: Michel Dänzer <michel.daenzer@mailbox.org>
->>>>
->>>> Tvrtko Ursulin (14):
->>>>     drm/sched: Add some scheduling quality unit tests
->>>>     drm/sched: Avoid double re-lock on the job free path
->>>>     drm/sched: Consolidate drm_sched_job_timedout
->>>>     drm/sched: Clarify locked section in drm_sched_rq_select_entity_fifo
->>>>     drm/sched: Consolidate drm_sched_rq_select_entity_rr
->>>>     drm/sched: Implement RR via FIFO
->>>>     drm/sched: Consolidate entity run queue management
->>>>     drm/sched: Move run queue related code into a separate file
->>>>     drm/sched: Add deadline policy
->>>>     drm/sched: Remove FIFO and RR and simplify to a single run queue
->>>>     drm/sched: Queue all free credits in one worker invocation
->>>>     drm/sched: Embed run queue singleton into the scheduler
->>>>     drm/sched: De-clutter drm_sched_init
->>>>     drm/sched: Scale deadlines depending on queue depth
->>>>
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
->>>>    drivers/gpu/drm/scheduler/Makefile            |   2 +-
->>>>    drivers/gpu/drm/scheduler/sched_entity.c      | 121 ++--
->>>>    drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
->>>>    drivers/gpu/drm/scheduler/sched_internal.h    |  17 +-
->>>>    drivers/gpu/drm/scheduler/sched_main.c        | 581 ++++--------------
->>>>    drivers/gpu/drm/scheduler/sched_rq.c          | 188 ++++++
->>>>    drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
->>>>    .../gpu/drm/scheduler/tests/tests_scheduler.c | 548 +++++++++++++++++
->>>>    include/drm/gpu_scheduler.h                   |  17 +-
->>>>    15 files changed, 962 insertions(+), 579 deletions(-)
->>>>    create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
->>>>    create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
->>>>
->>>
->>
-> 
 
