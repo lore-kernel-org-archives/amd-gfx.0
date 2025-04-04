@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24FC8C36010
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59552C3601E
 	for <amd-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 05:42:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A85F10E2F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E7E410E2EF;
 	Fri,  4 Apr 2025 05:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kJZ+FQbs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GVNKfZ43";
 	dkim-atps=neutral
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C32BD10E2EF
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Apr 2025 05:42:39 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id
- af79cd13be357-7c5e39d1e0eso159984985a.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Apr 2025 22:42:39 -0700 (PDT)
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
+ [209.85.222.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48D7410E2EF
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Apr 2025 05:42:40 +0000 (UTC)
+Received: by mail-qk1-f179.google.com with SMTP id
+ af79cd13be357-7c5e39d1db2so97185885a.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Apr 2025 22:42:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743745358; x=1744350158; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743745359; x=1744350159; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=mcddbv3UtNlwB95lqIyYt+SeFiyoyaeS6b8krEcrIxk=;
- b=kJZ+FQbsHS8vE/tcCqiMi+4pAS32f/GLCR4LJ0u/BVBvyCDc3h45lnhI/EjKpoT91V
- qT+OK7q1cFdA0jiguFC8UwwQJ0ZbIHyysMAlc/5ZtkL9MLcVhZ3ALesnOxE8/uIeqiN0
- +UlzXShmotsbhYnUrVb+KkTPM9k3dcVYwi0ti/orKcxA6Us1tpk49L9NwuZ/ME9Wm3Wq
- tm1rC/sTyV/U7piuALROMmKRI4j3Y9yznelidPdWygSWaLWBQfLqhN2mrYb+sQr6vslT
- e7VJWw4hUDwpF/kI4nXpRa0NTOuJXk3PZD7lOXikzVIt4tbZuS06cCmPRp++MjATcjC8
- dNPw==
+ :reply-to; bh=Uz90HOw/eluV/Zl57BedSpSKoIqREVHSLoH3imcDggc=;
+ b=GVNKfZ437dtRTDM2V5JPYKxaGUjJJX5g7bbJK7VbC0xU3yWJPPvwnI42szQXzWkTP5
+ XDlE3RuWkxeMSs5q5KjVts7wd3uokPmCJD40YF1V3oDQvGKZ+GdqSgnAqPteiKUIrng9
+ Tm/v5g0M6yWKk8lKQHM/ZpB99d+ThB5C50JThseIjlSbwaGmQnuKd9oqcW8+8PxfSnWn
+ Xm5qV2GHie2Th5C81YuhWmpPE3qHWQ9onk63mo8dabuWBHvkqX9SVnniWW+c6+ZCkJwg
+ liasySDdSVeKj9STWvx7+EOgSK2cOItkyO8aHlByocRX1I683L3QqN92BzPbGHsk7urE
+ gfVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743745358; x=1744350158;
+ d=1e100.net; s=20230601; t=1743745359; x=1744350159;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mcddbv3UtNlwB95lqIyYt+SeFiyoyaeS6b8krEcrIxk=;
- b=wB9A5M6CRjjKXfCfuwGI9u064FKxeCC27P8IVhC8E/F5lMwDQ40DKdqyK+Ho3F2LPX
- kHCWhjLgkfFkBvHaAO0f4kW93GxxC+YhgQ2FMyXZG/YLYM1Hn4gDL17cnbiAJWCRRP0T
- dqUfXOKH1zCWc0QKDxpEua91d0Lr3fhqA+6pTVe5+2L3mb7IGkJV8e56KMGyIPIWHcf2
- 3XZgG9GZrTGbOdscL/bG2N5Dtd7rPKnDBR3/f9bcpvqrCOxbiHSbHL/C5kAXsh5T9FKk
- HZ6ryCI3qoX7Gw1+t8TYkZjI9WGWxwixRsU4mvrM+QyhaOse4rm9MiL2XfSNIMySniVo
- nSKQ==
-X-Gm-Message-State: AOJu0YytkwXfeXlwm3Wz9XJWdkmbZWwuvhIHchWmhP+Oi0+zlJzYwIdj
- uuIY9eBG9MLfDCL4dNerb1f4ZMfex4wTu6+1/Irz7nj3NhWwBUxtLDf31w==
-X-Gm-Gg: ASbGnctlevzPYtnSvE2Iy3hQCmkH9X/Kn1UQq6Nnx3iUN5pPE0vW9YFNv9g2DqFebnq
- Rpz3EAUYz7YyxD0WkY9YKQvaywgmCrHPgQl31sjdhaHEBNhs74E7D/OLm1+qw/sMZYQdvNkGoce
- DWTuoLq6S3g/P3i3oBeS9WVGWqAUF3WS3/PJe6dK7deN0jIEPIaGTAYW6QWkYYboOJ6f5xxUydO
- 0HyJMalGdGz5cOD3ja1YTCaogzjFcM8Vh53Um+Fv62SQnvJmMsIUhNTFqmyiz2ssYJ0+i+5iNts
- tT6VUFDeVIgpJsDLbtLf5BTbpdpCEE2XFLH6MNkH/7QHe1WENh/mV+FPTPj0G/zJL5jO
-X-Google-Smtp-Source: AGHT+IHjqp8r/rHYbPNemnX1gs1f7g6jc9RnzSRrnXHI2RfOV32463Sbbz5IO3ss/nKYD0xyOuIF2Q==
-X-Received: by 2002:a05:620a:190f:b0:7c5:49e3:3347 with SMTP id
- af79cd13be357-7c774dd7061mr238537585a.35.1743745358501; 
- Thu, 03 Apr 2025 22:42:38 -0700 (PDT)
+ bh=Uz90HOw/eluV/Zl57BedSpSKoIqREVHSLoH3imcDggc=;
+ b=tkzAZfJRunTqJ4uuhSHlsXUnjWWO44Y3i+Te19YMzoDGyXeFtDySbnQep/gbQRSuP2
+ rl6kV59cBEapKrl6BTisPJajNqdYvTI/EvOA4srt+jY0tq8Agmgapc2f/7evpqsa9RTc
+ cRFa7VqOQjG5nQ9H2tuExhG09X/DnHGgdixtP/pnwbAeIbnY1ign8tK1feNcUxzEv9bT
+ fGE0aUCDzz4Mx9CsWkxZD8EnJDhGk4O3gifEXg35Lh6sJwcBm/Su2Cswj2A1wBtgjw9u
+ hxXgSPfn4RhcAm96N6v+oFBJbbgvd9RD/sFwlmjaRZ7DXtK1lN350TZnZLkKhQdiF3et
+ vpvQ==
+X-Gm-Message-State: AOJu0Ywww9FqokcTji8MEMZK01o+DeNCrbTTKyARMaWF6bqs5pOnljAH
+ 6RvxmojAycyF/6V66jIHu2TGp0PEZa50EUIZOD3lqaAyFb3z6eDvQcKMhA==
+X-Gm-Gg: ASbGncv1iv8ym2vhIfH+85NZvZoG1nAbR5WMyqnHT6wDc/t2FDgn9FTeWv8Lw1xZOEU
+ rcucmOdsY7ZxY0bsv13xvESW3c7Ls66/yxE1YmycszOa/mNqzKZ8xUaButisaUrCGWa3lO+BXwa
+ fo/lODTxbUHql5SDud2RI8V234AZ2E6bXoL9VCfxcitLdbQvkop4Za3A274gh/BCepicd01hEP0
+ NauA2BuQCJ7HMcAoGG6H3UogXFuBwjRXvVQmWyBwMP5yVFxObDyqDaxBK9rMPK0xSXBdTJaGSkO
+ FFSaJqQsL3Rol5Z1KFfNgaQm93/mwTcHWhpFY/46t0dcOh+3xPiCCrtcN57sLsqMOXKQ
+X-Google-Smtp-Source: AGHT+IFoWQKFAHL93yobplY0e67LFogBvTKH8WCGzy/Pa/1KeVocY/WADrZLTzV0SGQG9E2uLKB7xQ==
+X-Received: by 2002:a05:620a:372c:b0:7c5:a5a2:eea3 with SMTP id
+ af79cd13be357-7c775a3a33bmr158023185a.34.1743745359081; 
+ Thu, 03 Apr 2025 22:42:39 -0700 (PDT)
 Received: from localhost.localdomain ([38.121.253.36])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c76e96e566sm171746385a.63.2025.04.03.22.42.37
+ af79cd13be357-7c76e96e566sm171746385a.63.2025.04.03.22.42.38
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Apr 2025 22:42:37 -0700 (PDT)
+ Thu, 03 Apr 2025 22:42:38 -0700 (PDT)
 From: Alexandre Demers <alexandre.f.demers@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amd/display/dc: reclassify DCE6 resources and hw
- sequencer
-Date: Fri,  4 Apr 2025 01:42:24 -0400
-Message-ID: <20250404054225.101791-2-alexandre.f.demers@gmail.com>
+Subject: [PATCH 2/2] drm/amdgpu: fill in gmc_v6_0_set_clockgating_state()
+Date: Fri,  4 Apr 2025 01:42:25 -0400
+Message-ID: <20250404054225.101791-3-alexandre.f.demers@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250404054225.101791-1-alexandre.f.demers@gmail.com>
 References: <20250404054225.101791-1-alexandre.f.demers@gmail.com>
@@ -84,164 +83,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Classify DCE6 resource and sequencer as they are for other DCE versions
+Pretty much was already there, just not ported to amdgpu.
 
-Put dce60_resource.c and .h under amd/display/dc/resource/dce60
-Put and rename dce60_hw_sequencer.c and .h under amd/display/dc/hwss/dce60
-
+Tested-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce60/Makefile |  3 +--
- drivers/gpu/drm/amd/display/dc/hwss/Makefile  | 24 ++++++++++++-------
- .../dce60/dce60_hwseq.c}                      |  2 +-
- .../dce60/dce60_hwseq.h}                      |  0
- .../gpu/drm/amd/display/dc/resource/Makefile  | 24 ++++++++++++-------
- .../dc/{ => resource}/dce60/dce60_resource.c  |  2 +-
- .../dc/{ => resource}/dce60/dce60_resource.h  |  0
- 7 files changed, 35 insertions(+), 20 deletions(-)
- rename drivers/gpu/drm/amd/display/dc/{dce60/dce60_hw_sequencer.c => hwss/dce60/dce60_hwseq.c} (99%)
- rename drivers/gpu/drm/amd/display/dc/{dce60/dce60_hw_sequencer.h => hwss/dce60/dce60_hwseq.h} (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => resource}/dce60/dce60_resource.c (99%)
- rename drivers/gpu/drm/amd/display/dc/{ => resource}/dce60/dce60_resource.h (100%)
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 44 +++++++++++++++++----------
+ 1 file changed, 28 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/Makefile b/drivers/gpu/drm/amd/display/dc/dce60/Makefile
-index eede83ad91fa..824f73eb3326 100644
---- a/drivers/gpu/drm/amd/display/dc/dce60/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dce60/Makefile
-@@ -25,8 +25,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index 2942fe8f80ec..6bfaf37464c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -626,17 +626,16 @@ static void gmc_v6_0_vm_decode_fault(struct amdgpu_device *adev,
+ 	       "write" : "read", block, mc_client, mc_id);
+ }
  
- CFLAGS_$(AMDDALPATH)/dc/dce60/dce60_resource.o = -Wno-override-init
+-/*
+ static const u32 mc_cg_registers[] = {
+-	MC_HUB_MISC_HUB_CG,
+-	MC_HUB_MISC_SIP_CG,
+-	MC_HUB_MISC_VM_CG,
+-	MC_XPB_CLK_GAT,
+-	ATC_MISC_CG,
+-	MC_CITF_MISC_WR_CG,
+-	MC_CITF_MISC_RD_CG,
+-	MC_CITF_MISC_VM_CG,
+-	VM_L2_CG,
++	mmMC_HUB_MISC_HUB_CG,
++	mmMC_HUB_MISC_SIP_CG,
++	mmMC_HUB_MISC_VM_CG,
++	mmMC_XPB_CLK_GAT,
++	mmATC_MISC_CG,
++	mmMC_CITF_MISC_WR_CG,
++	mmMC_CITF_MISC_RD_CG,
++	mmMC_CITF_MISC_VM_CG,
++	mmVM_L2_CG,
+ };
  
--DCE60 = dce60_timing_generator.o dce60_hw_sequencer.o \
--	dce60_resource.o
-+DCE60 = dce60_timing_generator.o
+ static const u32 mc_cg_ls_en[] = {
+@@ -671,7 +670,7 @@ static void gmc_v6_0_enable_mc_ls(struct amdgpu_device *adev,
  
- AMD_DAL_DCE60 = $(addprefix $(AMDDALPATH)/dc/dce60/,$(DCE60))
+ 	for (i = 0; i < ARRAY_SIZE(mc_cg_registers); i++) {
+ 		orig = data = RREG32(mc_cg_registers[i]);
+-		if (enable && (adev->cg_flags & AMDGPU_CG_SUPPORT_MC_LS))
++		if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_LS))
+ 			data |= mc_cg_ls_en[i];
+ 		else
+ 			data &= ~mc_cg_ls_en[i];
+@@ -688,7 +687,7 @@ static void gmc_v6_0_enable_mc_mgcg(struct amdgpu_device *adev,
  
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/Makefile b/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-index 40ecebea1ba0..49079cc2a255 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-@@ -27,6 +27,22 @@
- #  DCE
- ###############################################################################
+ 	for (i = 0; i < ARRAY_SIZE(mc_cg_registers); i++) {
+ 		orig = data = RREG32(mc_cg_registers[i]);
+-		if (enable && (adev->cg_flags & AMDGPU_CG_SUPPORT_MC_MGCG))
++		if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_MGCG))
+ 			data |= mc_cg_en[i];
+ 		else
+ 			data &= ~mc_cg_en[i];
+@@ -704,7 +703,7 @@ static void gmc_v6_0_enable_bif_mgls(struct amdgpu_device *adev,
  
-+HWSS_DCE60 = dce60_hwseq.o
-+
-+AMD_DAL_HWSS_DCE60 = $(addprefix $(AMDDALPATH)/dc/hwss/dce60/,$(HWSS_DCE60))
-+
-+AMD_DISPLAY_FILES += $(AMD_DAL_HWSS_DCE60)
-+
-+###############################################################################
-+
-+HWSS_DCE80 = dce80_hwseq.o
-+
-+AMD_DAL_HWSS_DCE80 = $(addprefix $(AMDDALPATH)/dc/hwss/dce80/,$(HWSS_DCE80))
-+
-+AMD_DISPLAY_FILES += $(AMD_DAL_HWSS_DCE80)
-+
-+###############################################################################
-+
- HWSS_DCE = dce_hwseq.o
+ 	orig = data = RREG32_PCIE(ixPCIE_CNTL2);
  
- AMD_DAL_HWSS_DCE = $(addprefix $(AMDDALPATH)/dc/hwss/dce/,$(HWSS_DCE))
-@@ -65,14 +81,6 @@ AMD_DAL_HWSS_DCE120 = $(addprefix $(AMDDALPATH)/dc/hwss/dce120/,$(HWSS_DCE120))
+-	if (enable && (adev->cg_flags & AMDGPU_CG_SUPPORT_BIF_LS)) {
++	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_BIF_LS)) {
+ 		data = REG_SET_FIELD(data, PCIE_CNTL2, SLV_MEM_LS_EN, 1);
+ 		data = REG_SET_FIELD(data, PCIE_CNTL2, MST_MEM_LS_EN, 1);
+ 		data = REG_SET_FIELD(data, PCIE_CNTL2, REPLAY_MEM_LS_EN, 1);
+@@ -727,7 +726,7 @@ static void gmc_v6_0_enable_hdp_mgcg(struct amdgpu_device *adev,
  
- AMD_DISPLAY_FILES += $(AMD_DAL_HWSS_DCE120)
+ 	orig = data = RREG32(mmHDP_HOST_PATH_CNTL);
  
--###############################################################################
--
--HWSS_DCE80 = dce80_hwseq.o
--
--AMD_DAL_HWSS_DCE80 = $(addprefix $(AMDDALPATH)/dc/hwss/dce80/,$(HWSS_DCE80))
--
--AMD_DISPLAY_FILES += $(AMD_DAL_HWSS_DCE80)
--
- ifdef CONFIG_DRM_AMD_DC_FP
- ###############################################################################
- # DCN
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.c
-similarity index 99%
-rename from drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.c
-rename to drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.c
-index 1fdeef47e4dc..d503bd054558 100644
---- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.c
-@@ -26,7 +26,7 @@
- #include "dm_services.h"
- #include "dc.h"
- #include "core_types.h"
--#include "dce60_hw_sequencer.h"
-+#include "dce60_hwseq.h"
+-	if (enable && (adev->cg_flags & AMDGPU_CG_SUPPORT_HDP_MGCG))
++	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_HDP_MGCG))
+ 		data = REG_SET_FIELD(data, HDP_HOST_PATH_CNTL, CLOCK_GATING_DIS, 0);
+ 	else
+ 		data = REG_SET_FIELD(data, HDP_HOST_PATH_CNTL, CLOCK_GATING_DIS, 1);
+@@ -743,7 +742,7 @@ static void gmc_v6_0_enable_hdp_ls(struct amdgpu_device *adev,
  
- #include "dce/dce_hwseq.h"
- #include "dce110/dce110_hwseq.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.h
-rename to drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.h
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/Makefile b/drivers/gpu/drm/amd/display/dc/resource/Makefile
-index 09320344d8e9..7f38957e81ad 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/resource/Makefile
-@@ -27,6 +27,22 @@
- #  DCE
- ###############################################################################
+ 	orig = data = RREG32(mmHDP_MEM_POWER_LS);
  
-+RESOURCE_DCE60 = dce60_resource.o
-+
-+AMD_DAL_RESOURCE_DCE60 = $(addprefix $(AMDDALPATH)/dc/resource/dce60/,$(RESOURCE_DCE60))
-+
-+AMD_DISPLAY_FILES += $(AMD_DAL_RESOURCE_DCE60)
-+
-+###############################################################################
-+
-+RESOURCE_DCE80 = dce80_resource.o
-+
-+AMD_DAL_RESOURCE_DCE80 = $(addprefix $(AMDDALPATH)/dc/resource/dce80/,$(RESOURCE_DCE80))
-+
-+AMD_DISPLAY_FILES += $(AMD_DAL_RESOURCE_DCE80)
-+
-+###############################################################################
-+
- RESOURCE_DCE100 = dce100_resource.o
+-	if (enable && (adev->cg_flags & AMDGPU_CG_SUPPORT_HDP_LS))
++	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_HDP_LS))
+ 		data = REG_SET_FIELD(data, HDP_MEM_POWER_LS, LS_ENABLE, 1);
+ 	else
+ 		data = REG_SET_FIELD(data, HDP_MEM_POWER_LS, LS_ENABLE, 0);
+@@ -751,7 +750,6 @@ static void gmc_v6_0_enable_hdp_ls(struct amdgpu_device *adev,
+ 	if (orig != data)
+ 		WREG32(mmHDP_MEM_POWER_LS, data);
+ }
+-*/
  
- AMD_DAL_RESOURCE_DCE100 = $(addprefix $(AMDDALPATH)/dc/resource/dce100/,$(RESOURCE_DCE100))
-@@ -57,14 +73,6 @@ AMD_DAL_RESOURCE_DCE120 = $(addprefix $(AMDDALPATH)/dc/resource/dce120/,$(RESOUR
+ static int gmc_v6_0_convert_vram_type(int mc_seq_vram_type)
+ {
+@@ -1097,6 +1095,20 @@ static int gmc_v6_0_process_interrupt(struct amdgpu_device *adev,
+ static int gmc_v6_0_set_clockgating_state(void *handle,
+ 					  enum amd_clockgating_state state)
+ {
++	bool gate = false;
++	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++	if (state == AMD_CG_STATE_GATE)
++		gate = true;
++
++	if (!(adev->flags & AMD_IS_APU)) {
++		gmc_v6_0_enable_mc_mgcg(adev, gate);
++		gmc_v6_0_enable_mc_ls(adev, gate);
++	}
++	gmc_v6_0_enable_bif_mgls(adev, gate);
++	gmc_v6_0_enable_hdp_mgcg(adev, gate);
++	gmc_v6_0_enable_hdp_ls(adev, gate);
++
+ 	return 0;
+ }
  
- AMD_DISPLAY_FILES += $(AMD_DAL_RESOURCE_DCE120)
- 
--###############################################################################
--
--RESOURCE_DCE80 = dce80_resource.o
--
--AMD_DAL_RESOURCE_DCE80 = $(addprefix $(AMDDALPATH)/dc/resource/dce80/,$(RESOURCE_DCE80))
--
--AMD_DISPLAY_FILES += $(AMD_DAL_RESOURCE_DCE80)
--
- ifdef CONFIG_DRM_AMD_DC_FP
- ###############################################################################
- # DCN
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-similarity index 99%
-rename from drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-rename to drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-index 889f314cac65..737c1b1d861a 100644
---- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-@@ -48,7 +48,7 @@
- #include "dce/dce_clock_source.h"
- #include "dce/dce_audio.h"
- #include "dce/dce_hwseq.h"
--#include "dce60/dce60_hw_sequencer.h"
-+#include "dce60/dce60_hwseq.h"
- #include "dce100/dce100_resource.h"
- #include "dce/dce_panel_cntl.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.h
-rename to drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.h
 -- 
 2.49.0
 
