@@ -4,71 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4529CC3601A
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Apr 2025 19:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A23C369A1
+	for <amd-gfx@archiver.kernel.org>; Sun,  6 Apr 2025 21:37:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4379F10E0A0;
-	Sun,  6 Apr 2025 19:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11C1E10E13F;
+	Sun,  6 Apr 2025 21:37:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="epJ1OeBN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lr8ldh5M";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF8D110E0A0
- for <amd-gfx@lists.freedesktop.org>; Sun,  6 Apr 2025 19:58:24 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-301317939a0so379067a91.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 06 Apr 2025 12:58:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743969502; x=1744574302; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cxcANlwy/TuT8NdysHDYuF4y6YQwyUXQsRmzniJmli0=;
- b=epJ1OeBNKyfQteM7oDalYWPKFJNlIon0T4Ns+p7yE761NMbahvIGMnxPW7FEEWg3qf
- CGNGFQmjcTMptEYvGeMc6I7V0wge1tsIdm+yCPYwW8lhKOhSgFGKjcbpR+M+oX3jB39X
- x2BmrWCDM1anUeN6KDpNlrTK3M5uozkn55IZsJTJ6pHGVuUyyPUVwe69uU4C9Xmy4rMk
- 3obPnZKv4qZsaoVDYL9AbbLJt2qWORLiUMmp04gjxFV7hNOi8HfeQXUiF0ck7lLv40U0
- ir6mkffZsOvWBqbUHHF1QzS0oqRoOcIJ3X+vwRekPa+g9Hk7F9HLGAtYUmORQ4qkjYlt
- WQHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743969502; x=1744574302;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cxcANlwy/TuT8NdysHDYuF4y6YQwyUXQsRmzniJmli0=;
- b=QmEGWBE/tmitfl/7LtMeyR1X7ufemLH72YRGLKRHBwsWhhiO/WLSrke6BqbpBKi3cb
- zXNOkMNvoa9cY5HjGTtMWRykXb7Rp24S14gng9jijOs0gFOaAiTSq1acYq4YlIi5O4cL
- fHseznPt2JCxnlWizOo+YSecKXXQ6UwgkVvrIl0GFPYRYrOOvCCO1Rhi2RdJxz4FZJ4N
- m2dlLNZu6Nj1QnVX6AnB5Z/zj3r2sHw/1F/FTSTkT+CUowrXezVRLeaEZF/baQ893GmK
- ucU53KsNr4AQqDW71/6/VRP/cPyzG7c4LIrdRP5muvxw/4stvHqsYlaUozDEXvRSaiGZ
- BDKw==
-X-Gm-Message-State: AOJu0YwBHrqdjLiYNBdyNGkEy7JhWU/+XK2sGYH/7OSvw0jsM8ux24i/
- zVnWsn4rxxHGyZ1RuxncsnodG71F+y1AaHEhD3n7eV6BNiI9qAshlYIoRqgbAcxN5sguFZZr/64
- 4Z6pGxM6vi+YXntikElBRlCnTZd7NneTK
-X-Gm-Gg: ASbGncuIoZPlCf7Z/emqR+j62oeXuu738965YO/yr7LM7ihnRDG+W/onkEuPoVaFzvk
- 4UePQW0tiuITcY0B81J0Dz8SdqfZNJFZ62KQKU7ScsuXeVAne0Cza7SYVXDXzM9Yv6Y4Wr1dE7m
- sLQ6qaSSP8+aYAXTTiZzu3f4yqHQ==
-X-Google-Smtp-Source: AGHT+IGtc+ldaOLm7KArL70HQY0VrWV1PdkFvz1jwPK7d6K9S9gz8W+9q2yV9oI0URUDJ5tAD/phWgEV3047IlKMYjg=
-X-Received: by 2002:a17:90b:4f89:b0:2ff:4b7a:f0a4 with SMTP id
- 98e67ed59e1d1-306a4865251mr5017956a91.3.1743969502145; Sun, 06 Apr 2025
- 12:58:22 -0700 (PDT)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B2410E13F
+ for <amd-gfx@lists.freedesktop.org>; Sun,  6 Apr 2025 21:37:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w2XwqT93gUnCkFiV+e1hRUrT3zWr0k28uvetTn3GjdM1mnpixVdYsKMzHRSebQH5wnD/eaBy9AIXFcTgkffjyUC9iSlOj1wFCpyv0IIKxiMnhcUBx6Hx+bWZZavf6k0Fr4pogHnSJBBvuHxuNhz3/3u2dglMHmkGB/B6qLRH6l/O/OmuCykzaeLCs/q+zgbVhh5cZpe+fyECD7o2HyMcU+W/RPoE1ARJWrVrqU3c04IWJQUI+p2uCO5sZ1RE3mYt+t8tvcw0RQ2JwgwCCYFM2juHABRALqZ5DFJhu22r5/QAHbnR1p8xs/KK0rjX1+wPGRDCS8ShcBkWMlwxxCUqhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=htVL5MufsfZgUEHlGnZZJ+CeBmF50Z47fHni2P0alyY=;
+ b=At5qEdboCvDrAYQV3aJFM8uIBf/gE1HPYeqSH9CtI3mTKhY49E7eyOl8Gnxg1JwIjV4ydzLSsuj5L/TvpN9sgokSQJaDvd08nPPjsryNJKam7lHs4Rg7xan4/MGG0BSbU2cHazthUxVtw0+axtiIkR48Rwt5R1YHiAoPBhMrt811j0mo2p+hnfEDerAjNde5QmvP7JWgIim3EJukdXjuBILTIX7aEDDob3utmGXr3W3+yegKxuVn76hYwXQZSDxNyZOv5h4xfkxGGQl92MovOfRxq4X017XaG1DhTQw7ukOO3ddULpUAptFTHwR+x3q61Ar7oDZiJvFJl1KUPDOpYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=htVL5MufsfZgUEHlGnZZJ+CeBmF50Z47fHni2P0alyY=;
+ b=lr8ldh5MYqAdFZhFZdWOXPUgiLMFieftRZUO1DDaEqB2ByKcvu2ZZJSMLlKYZFd/hjkDkJVVR9vJAgqnxPbPxEMKIFKPm+Q07zzY3vjMwPCGjiWCD/sEIHcjFnoJdjXcf2+aIUGw08iIjoxHRifKap+hFIMMA2XJnFZZ95voDJA=
+Received: from MW4PR03CA0125.namprd03.prod.outlook.com (2603:10b6:303:8c::10)
+ by CH1PPFDAD84AB72.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::627) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8583.46; Sun, 6 Apr
+ 2025 21:37:08 +0000
+Received: from MWH0EPF000971E7.namprd02.prod.outlook.com
+ (2603:10b6:303:8c:cafe::e7) by MW4PR03CA0125.outlook.office365.com
+ (2603:10b6:303:8c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.27 via Frontend Transport; Sun,
+ 6 Apr 2025 21:37:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E7.mail.protection.outlook.com (10.167.243.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8606.22 via Frontend Transport; Sun, 6 Apr 2025 21:37:07 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 6 Apr
+ 2025 16:37:06 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: cancel gfx idle work in device suspend for s0ix
+Date: Sun, 6 Apr 2025 17:36:47 -0400
+Message-ID: <20250406213647.48382-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-References: <20250403031148.1266785-1-superm1@kernel.org>
- <CADnq5_Nz76WBm8wsU8k4LUpXrjKk6AbJfYV0CpaV3sXAJ2McEQ@mail.gmail.com>
- <1d762b4d-3aae-4fad-b464-d1baa124e86e@kernel.org>
-In-Reply-To: <1d762b4d-3aae-4fad-b464-d1baa124e86e@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sun, 6 Apr 2025 15:58:10 -0400
-X-Gm-Features: ATxdqUFLFnmSSVproTi7WU_dg9mrbI-mS0B3mke3nK0PsoBa7IQn3-rY_-nB5eY
-Message-ID: <CADnq5_NKAHX1NOyS2GNx1v7uYq2d9D9op4BDqgbYxcCwD_QRjQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd: Add pre-zen AMD hardware to PCIe dynamic
- switching exclusions
-To: Mario Limonciello <superm1@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, 
- Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E7:EE_|CH1PPFDAD84AB72:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcd72aff-40d2-4f89-e84c-08dd75532e2a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wjCafG6Uku+8EnNLHWkahbcDzfuET5ZysN0skSeZ91+e6Yy/BQ6+wSoHecdB?=
+ =?us-ascii?Q?rdw1w6fQFvTT3CtdxL7oqcfHhepk4hrQ8usYG2gXKEv72QUxg9KP20zbEd4W?=
+ =?us-ascii?Q?kZle8i/z0u5CoT0fd1w8oeQOBpoH0MvDOJJa/qGcZZrlIC+F6/e1cI2AqwHi?=
+ =?us-ascii?Q?q5CYeGJMaC62Ou36qU0wmVWDIU1y3XNN5MAW3iAD6BRg6eHEZ+7yzfvsLTBj?=
+ =?us-ascii?Q?f2tMTzahTpsDL1CPGkiAgc3XG9guFL1JyefzQMANkhUUb1H+/qxN70qrWqRp?=
+ =?us-ascii?Q?4xoz+hQPuzH4BXKgbJV/K3W3iXhxjRS4hsA41YAcDKJl+QXNL7en3GdhW/2c?=
+ =?us-ascii?Q?rnG30Cf39Y7e66Q5ajJqZUzXw/+R2qOh9TYJ0vB5avbm0jDiEs4fPO4Kx7sR?=
+ =?us-ascii?Q?Q0ukFV994iAyIuvbbG24ou9/qckikjIGfYqMO/NCbjoPiecW5vts091cLVSN?=
+ =?us-ascii?Q?84/Rde7PZoT0ObcNMay/3v3+ni2+fC69eWLavg3yzMA5cLG1FirBJ286Ifjj?=
+ =?us-ascii?Q?sccn5LK+mWYOcFbMTz70hKx+lLlAf9qxjbvonjfrFDdp+Nv8sfUhCJfhNRUB?=
+ =?us-ascii?Q?2VvlOFTHCmw9deW8PsqjqrAw3sXFyTn4xKu5L2NJsiOzkIf6IoqyyFo8OlIY?=
+ =?us-ascii?Q?dqQU+GuqNUF7rhbVpJdvPkBcrOEtGT0FN6J/VU8FN5UHbX1Eg4XD0RVR4E1Z?=
+ =?us-ascii?Q?rNDdle2RZ90S0LojPNeYozw3hWo/Ri0+gTTcyhvEHq9lnFMenWKuH9zY6f7N?=
+ =?us-ascii?Q?cfJnS61C3uHGBCckcT/hEVHoFPw7X6p3s8VooXaJnl047j8FA31XxMeFJO+6?=
+ =?us-ascii?Q?inS/8bAmqpKt6CiujTwpQT11xOKHU5VyQXnTfhqcrl//fuYcgBjNNkVueomm?=
+ =?us-ascii?Q?XfTDsegRY9R1EazU/tu3T/o3BHGbo3u717nUAKSkwgGBediDHhY4NUv0375B?=
+ =?us-ascii?Q?zCgD7yhfaLWZCnlddEcANtY789R0FejYdkfjsgczWaTPpKN31KV/gMKHME3m?=
+ =?us-ascii?Q?Yb5Nne0BXHP7uJNtAxl0IY4fQYLxf13edOduCckm2s2dwhjwJjdUrz4P1g0D?=
+ =?us-ascii?Q?0/6eSS/2jNtveR7VL3jqz8cRK56kScPjzusLNsmnXSyIgi4VaxW1HAkxoNmW?=
+ =?us-ascii?Q?KEzDOv9Ms0ZoW7irU6ghDkvzrONEw7S/NrUCADVSWrjkTwS6HaEOco7yzeIo?=
+ =?us-ascii?Q?7zvuFdEXAFoW5Zue1Qpui9e2EpP+BZdPbx9QlunRweqEK0LiGLo2hEAdDx17?=
+ =?us-ascii?Q?vCJJrw4GIMblYT0JlKu+hbeaxPWmLfUfZm9pJhS/EQTgTHkpQm2wk95KLt4f?=
+ =?us-ascii?Q?KO6/k/9OKeWKOTWWs57EkrgG3yPO3Yv0J5wiUYUoolucu1MglVwJ7Eb/NaMO?=
+ =?us-ascii?Q?dCd8aHlzHEG+HLVKx/TXo2aoHqRmjM6caQBf0tSa6oDxc+yN6/45g299kpFe?=
+ =?us-ascii?Q?EfWuQXfyjsZREibPc3+gAKLiQhoIMV0gpFR8HHZvzHbKi0DCWFa3ibEeZPuO?=
+ =?us-ascii?Q?S7B5eHRgKs33rYg=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2025 21:37:07.2527 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcd72aff-40d2-4f89-e84c-08dd75532e2a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFDAD84AB72
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,128 +130,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 3, 2025 at 3:13=E2=80=AFPM Mario Limonciello <superm1@kernel.or=
-g> wrote:
->
-> On 4/3/2025 10:48 AM, Alex Deucher wrote:
-> > On Wed, Apr 2, 2025 at 11:12=E2=80=AFPM Mario Limonciello <superm1@kern=
-el.org> wrote:
-> >>
-> >> From: Mario Limonciello <mario.limonciello@amd.com>
-> >>
-> >> AMD RX580 when added AMD Phenom 2 has problems with overheating. This =
-is due to
-> >
-> > I don't think this is entirely accurate.  I think the GPU gets hot
-> > because the device hangs due to a problem with changing the PCIe
-> > clocks.
-> >
-> >> changes with PCIe dynamic switching introduced by commit 466a7d115326e
-> >> ("drm/amd: Use the first non-dGPU PCI device for BW limits").
-> >>
-> >> To avoid risks of other issues with old hardware require at least Zen =
-hardware
-> >> for AMD side to enable PCIe dynamic switching.
-> >
-> > I'm pretty sure PCIe reclocking worked on pre-Zen hardware.  We've
-> > supported this on our GPUs going back at least 15 or more years.  I
-> > suspect the actual problem is that some links may not reliably train
-> > at the full bandwidth on some motherboards.  Forcing a higher link
-> > speed may cause problems.
->
-> That seems odd to me it would advertise a higher link speed than it
-> could train at.
+This is normally handled in the gfx IP suspend callbacks, but
+for S0ix, those are skipped because we don't want to touch
+gfx.  So handle it in device suspend.
 
-That's why we train the link; to determine what speed is reliable.  It
-could be that there is a marginal trace on the motherboard that has
-deteriorated over time or was never reliable to begin with.   It would
-be interesting to know if the link used to work reliably on this
-board.
+Fixes: b9467983b774 ("drm/amdgpu: add dynamic workload profile switching for gfx10")
+Fixes: 963537ca2325 ("drm/amdgpu: add dynamic workload profile switching for gfx11")
+Fixes: 5f95a1549555 ("drm/amdgpu: add dynamic workload profile switching for gfx12")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
->
-> > Maybe it would be better to limit the max
-> > PCIe link rate to whatever the link is currently trained to.  IIRC,
-> > PCIe links will train at the fastest link possible by default.  The
-> > previous behavior was to limit the max clock to the slowest link in
-> > the topology to save power, but then we changed it to use the fastest
-> > link possible based on the PCIe link caps.  Perhaps limiting it to the
-> > fastest currently trained link rate would be better.
->
-> I mean that's essentially what happens when
-> amdgpu_device_pcie_dynamic_switching_supported() returns that it doesn't
-> work.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index c2c2ca7922d5c..8a14caeb808dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3641,6 +3641,13 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+ 			    adev, adev->ip_blocks[i].version->type))
+ 			continue;
+ 
++		/* Since we skip suspend for S0i3, we need to cancel the delayed
++		 * idle work here as the suspend callback never gets called.
++		 */
++		if (adev->in_s0ix &&
++		    adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX &&
++		    amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(10, 0, 0))
++			cancel_delayed_work_sync(&adev->gfx.idle_work);
+ 		/* skip suspend of gfx/mes and psp for S0ix
+ 		 * gfx is in gfxoff state, so on resume it will exit gfxoff just
+ 		 * like at runtime. PSP is also part of the always on hardware
+-- 
+2.49.0
 
-I mean rather than checking the PCIe caps, check the current link
-speed instead.  pcie_bandwidth_available() returns the speed and lanes
-of the slowest link in the topology; what we want is the current speed
-that the link upstream of the GPU is trained at.  If there is no
-USB4/TB or limited speed bridge upstream of the GPU, then that
-function should return the current speed of the link which would be
-fine.  The problem is that
-amdgpu_device_pcie_dynamic_switching_supported() returning false
-disables PCIe DPM so we don't dynamically change the PCIe speed/lanes
-at runtime.  I suspect that would work fine as long as we don't go
-past the current speed the link is currently trained at.
-
->
-> If your theory is right; maybe what we really need is a pile of DMI
-> quirks for M/B that are having this problem.
-
-Depends on whether it's a general problem or something specific to
-this particular board.  I.e., the slot on this board has deteriorated.
-I think what we want is to enable PCIe DPM, but just limit the link
-the the max current speed rather than the max speed.  If the links are
-reliable the links should train at the max speed on power up.
-
-Alex
-
->
-> >
-> > Alex
-> >
-> >>
-> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4098
-> >> Fixes: 466a7d115326e ("drm/amd: Use the first non-dGPU PCI device for =
-BW limits")
-> >> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> >> ---
-> >> v2:
-> >>   * Cover more hardware
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
-> >>   1 file changed, 5 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c
-> >> index a30111d2c3ea0..caa44ee788c8f 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >> @@ -1854,6 +1854,9 @@ bool amdgpu_device_seamless_boot_supported(struc=
-t amdgpu_device *adev)
-> >>    *
-> >>    * https://edc.intel.com/content/www/us/en/design/products/platforms=
-/details/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-o=
-f-2/005/pci-express-support/
-> >>    * https://gitlab.freedesktop.org/drm/amd/-/issues/2663
-> >> + *
-> >> + * AMD Phenom II X6 1090T has a similar issue
-> >> + * https://gitlab.freedesktop.org/drm/amd/-/issues/4098
-> >>    */
-> >>   static bool amdgpu_device_pcie_dynamic_switching_supported(struct am=
-dgpu_device *adev)
-> >>   {
-> >> @@ -1866,6 +1869,8 @@ static bool amdgpu_device_pcie_dynamic_switching=
-_supported(struct amdgpu_device
-> >>
-> >>          if (c->x86_vendor =3D=3D X86_VENDOR_INTEL)
-> >>                  return false;
-> >> +       if (c->x86_vendor =3D=3D X86_VENDOR_AMD && !cpu_feature_enable=
-d(X86_FEATURE_ZEN))
-> >> +               return false;
-> >>   #endif
-> >>          return true;
-> >>   }
-> >> --
-> >> 2.43.0
-> >>
->
