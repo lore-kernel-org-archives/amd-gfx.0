@@ -4,118 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A23C369A1
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Apr 2025 21:37:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F09C36002
+	for <amd-gfx@archiver.kernel.org>; Sun,  6 Apr 2025 23:07:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11C1E10E13F;
-	Sun,  6 Apr 2025 21:37:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EDFA10E044;
+	Sun,  6 Apr 2025 23:07:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lr8ldh5M";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iRcY6zOG";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57B2410E13F
- for <amd-gfx@lists.freedesktop.org>; Sun,  6 Apr 2025 21:37:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w2XwqT93gUnCkFiV+e1hRUrT3zWr0k28uvetTn3GjdM1mnpixVdYsKMzHRSebQH5wnD/eaBy9AIXFcTgkffjyUC9iSlOj1wFCpyv0IIKxiMnhcUBx6Hx+bWZZavf6k0Fr4pogHnSJBBvuHxuNhz3/3u2dglMHmkGB/B6qLRH6l/O/OmuCykzaeLCs/q+zgbVhh5cZpe+fyECD7o2HyMcU+W/RPoE1ARJWrVrqU3c04IWJQUI+p2uCO5sZ1RE3mYt+t8tvcw0RQ2JwgwCCYFM2juHABRALqZ5DFJhu22r5/QAHbnR1p8xs/KK0rjX1+wPGRDCS8ShcBkWMlwxxCUqhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=htVL5MufsfZgUEHlGnZZJ+CeBmF50Z47fHni2P0alyY=;
- b=At5qEdboCvDrAYQV3aJFM8uIBf/gE1HPYeqSH9CtI3mTKhY49E7eyOl8Gnxg1JwIjV4ydzLSsuj5L/TvpN9sgokSQJaDvd08nPPjsryNJKam7lHs4Rg7xan4/MGG0BSbU2cHazthUxVtw0+axtiIkR48Rwt5R1YHiAoPBhMrt811j0mo2p+hnfEDerAjNde5QmvP7JWgIim3EJukdXjuBILTIX7aEDDob3utmGXr3W3+yegKxuVn76hYwXQZSDxNyZOv5h4xfkxGGQl92MovOfRxq4X017XaG1DhTQw7ukOO3ddULpUAptFTHwR+x3q61Ar7oDZiJvFJl1KUPDOpYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=htVL5MufsfZgUEHlGnZZJ+CeBmF50Z47fHni2P0alyY=;
- b=lr8ldh5MYqAdFZhFZdWOXPUgiLMFieftRZUO1DDaEqB2ByKcvu2ZZJSMLlKYZFd/hjkDkJVVR9vJAgqnxPbPxEMKIFKPm+Q07zzY3vjMwPCGjiWCD/sEIHcjFnoJdjXcf2+aIUGw08iIjoxHRifKap+hFIMMA2XJnFZZ95voDJA=
-Received: from MW4PR03CA0125.namprd03.prod.outlook.com (2603:10b6:303:8c::10)
- by CH1PPFDAD84AB72.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::627) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8583.46; Sun, 6 Apr
- 2025 21:37:08 +0000
-Received: from MWH0EPF000971E7.namprd02.prod.outlook.com
- (2603:10b6:303:8c:cafe::e7) by MW4PR03CA0125.outlook.office365.com
- (2603:10b6:303:8c::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.27 via Frontend Transport; Sun,
- 6 Apr 2025 21:37:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E7.mail.protection.outlook.com (10.167.243.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Sun, 6 Apr 2025 21:37:07 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 6 Apr
- 2025 16:37:06 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: cancel gfx idle work in device suspend for s0ix
-Date: Sun, 6 Apr 2025 17:36:47 -0400
-Message-ID: <20250406213647.48382-1-alexander.deucher@amd.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0B6A10E15B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  6 Apr 2025 23:07:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=zPXSDMf5gwPk64ZO15b55ds7SZyqhwSZS5C8JZpE4NU=; b=iRcY6zOG5uNj34jMr441uOqEAI
+ El2p4hZqgtpkR7PMaEseWFodX1ep5WIjZ9QGeyUylvanmylqGQP2xXiwi5cccbNTYGhMBTPCw8Pcf
+ Lp2FOozN4QwnLMQYPvu8QlTGYrSNXL9E7WDtybZcnMnaOK/1yzKWgQE+dRhHPqWQx3mDpiNR0brC6
+ aJugNGYK9bBBQj23zg4hBkzsK9Kk3f/254m1oha7cXwLyW4pFTukqOXnHQ0eeJzIhtDoQsii05j3y
+ GxCyvrNtL4bectKXmWRgIjTT6RMeY638NVzixftTPyK+7YvBQGX7KjDQJ7yJpLMC7aRk2oDUDI/4v
+ AP8R5iUg==;
+Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
+ helo=maloca.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1u1Z5Q-00CfEV-P7; Mon, 07 Apr 2025 01:07:33 +0200
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH 5/6] drm/amdgpu/gfx: Assimilate gfx_v7_0_get_csb_buffer into
+ gfx_get_csb_buffer
+Date: Sun,  6 Apr 2025 17:03:00 -0600
+Message-ID: <20250406230703.2128148-6-siqueira@igalia.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250406230703.2128148-1-siqueira@igalia.com>
+References: <20250406230703.2128148-1-siqueira@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E7:EE_|CH1PPFDAD84AB72:EE_
-X-MS-Office365-Filtering-Correlation-Id: dcd72aff-40d2-4f89-e84c-08dd75532e2a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wjCafG6Uku+8EnNLHWkahbcDzfuET5ZysN0skSeZ91+e6Yy/BQ6+wSoHecdB?=
- =?us-ascii?Q?rdw1w6fQFvTT3CtdxL7oqcfHhepk4hrQ8usYG2gXKEv72QUxg9KP20zbEd4W?=
- =?us-ascii?Q?kZle8i/z0u5CoT0fd1w8oeQOBpoH0MvDOJJa/qGcZZrlIC+F6/e1cI2AqwHi?=
- =?us-ascii?Q?q5CYeGJMaC62Ou36qU0wmVWDIU1y3XNN5MAW3iAD6BRg6eHEZ+7yzfvsLTBj?=
- =?us-ascii?Q?f2tMTzahTpsDL1CPGkiAgc3XG9guFL1JyefzQMANkhUUb1H+/qxN70qrWqRp?=
- =?us-ascii?Q?4xoz+hQPuzH4BXKgbJV/K3W3iXhxjRS4hsA41YAcDKJl+QXNL7en3GdhW/2c?=
- =?us-ascii?Q?rnG30Cf39Y7e66Q5ajJqZUzXw/+R2qOh9TYJ0vB5avbm0jDiEs4fPO4Kx7sR?=
- =?us-ascii?Q?Q0ukFV994iAyIuvbbG24ou9/qckikjIGfYqMO/NCbjoPiecW5vts091cLVSN?=
- =?us-ascii?Q?84/Rde7PZoT0ObcNMay/3v3+ni2+fC69eWLavg3yzMA5cLG1FirBJ286Ifjj?=
- =?us-ascii?Q?sccn5LK+mWYOcFbMTz70hKx+lLlAf9qxjbvonjfrFDdp+Nv8sfUhCJfhNRUB?=
- =?us-ascii?Q?2VvlOFTHCmw9deW8PsqjqrAw3sXFyTn4xKu5L2NJsiOzkIf6IoqyyFo8OlIY?=
- =?us-ascii?Q?dqQU+GuqNUF7rhbVpJdvPkBcrOEtGT0FN6J/VU8FN5UHbX1Eg4XD0RVR4E1Z?=
- =?us-ascii?Q?rNDdle2RZ90S0LojPNeYozw3hWo/Ri0+gTTcyhvEHq9lnFMenWKuH9zY6f7N?=
- =?us-ascii?Q?cfJnS61C3uHGBCckcT/hEVHoFPw7X6p3s8VooXaJnl047j8FA31XxMeFJO+6?=
- =?us-ascii?Q?inS/8bAmqpKt6CiujTwpQT11xOKHU5VyQXnTfhqcrl//fuYcgBjNNkVueomm?=
- =?us-ascii?Q?XfTDsegRY9R1EazU/tu3T/o3BHGbo3u717nUAKSkwgGBediDHhY4NUv0375B?=
- =?us-ascii?Q?zCgD7yhfaLWZCnlddEcANtY789R0FejYdkfjsgczWaTPpKN31KV/gMKHME3m?=
- =?us-ascii?Q?Yb5Nne0BXHP7uJNtAxl0IY4fQYLxf13edOduCckm2s2dwhjwJjdUrz4P1g0D?=
- =?us-ascii?Q?0/6eSS/2jNtveR7VL3jqz8cRK56kScPjzusLNsmnXSyIgi4VaxW1HAkxoNmW?=
- =?us-ascii?Q?KEzDOv9Ms0ZoW7irU6ghDkvzrONEw7S/NrUCADVSWrjkTwS6HaEOco7yzeIo?=
- =?us-ascii?Q?7zvuFdEXAFoW5Zue1Qpui9e2EpP+BZdPbx9QlunRweqEK0LiGLo2hEAdDx17?=
- =?us-ascii?Q?vCJJrw4GIMblYT0JlKu+hbeaxPWmLfUfZm9pJhS/EQTgTHkpQm2wk95KLt4f?=
- =?us-ascii?Q?KO6/k/9OKeWKOTWWs57EkrgG3yPO3Yv0J5wiUYUoolucu1MglVwJ7Eb/NaMO?=
- =?us-ascii?Q?dCd8aHlzHEG+HLVKx/TXo2aoHqRmjM6caQBf0tSa6oDxc+yN6/45g299kpFe?=
- =?us-ascii?Q?EfWuQXfyjsZREibPc3+gAKLiQhoIMV0gpFR8HHZvzHbKi0DCWFa3ibEeZPuO?=
- =?us-ascii?Q?S7B5eHRgKs33rYg=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2025 21:37:07.2527 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcd72aff-40d2-4f89-e84c-08dd75532e2a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E7.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFDAD84AB72
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,36 +62,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is normally handled in the gfx IP suspend callbacks, but
-for S0ix, those are skipped because we don't want to touch
-gfx.  So handle it in device suspend.
+The gfx_v7_0_get_csb_buffer function is incorporated into
+gfx_get_csb_buffer, but it required to port some specific ASIC
+operations to the function. Additionally, this transition also
+eliminates some unnecessary code from gfx_v7_0_get_csb_buffer.
 
-Fixes: b9467983b774 ("drm/amdgpu: add dynamic workload profile switching for gfx10")
-Fixes: 963537ca2325 ("drm/amdgpu: add dynamic workload profile switching for gfx11")
-Fixes: 5f95a1549555 ("drm/amdgpu: add dynamic workload profile switching for gfx12")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 31 +++++++++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 68 +------------------------
+ 2 files changed, 28 insertions(+), 71 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c2c2ca7922d5c..8a14caeb808dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3641,6 +3641,13 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
- 			    adev, adev->ip_blocks[i].version->type))
- 			continue;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 71a25f626fee..57bf3282e797 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -2254,13 +2254,36 @@ void gfx_get_csb_buffer(struct amdgpu_device *adev, volatile u32 *buffer)
+ 		}
+ 	}
  
-+		/* Since we skip suspend for S0i3, we need to cancel the delayed
-+		 * idle work here as the suspend callback never gets called.
-+		 */
-+		if (adev->in_s0ix &&
-+		    adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX &&
-+		    amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(10, 0, 0))
-+			cancel_delayed_work_sync(&adev->gfx.idle_work);
- 		/* skip suspend of gfx/mes and psp for S0ix
- 		 * gfx is in gfxoff state, so on resume it will exit gfxoff just
- 		 * like at runtime. PSP is also part of the always on hardware
+-	// GFX8 specific operation
+-	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(8, 0, 0) &&
++	// GFX7 and GFX8
++	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(7, 0, 0) &&
+ 	    amdgpu_ip_version(adev, GC_HWIP, 0) <  IP_VERSION(9, 0, 0)) {
+ 		buffer[count++] = cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, 2));
+ 		buffer[count++] = cpu_to_le32(mmPA_SC_RASTER_CONFIG - PACKET3_SET_CONTEXT_REG_START);
+-		buffer[count++] = cpu_to_le32(adev->gfx.config.rb_config[0][0].raster_config);
+-		buffer[count++] = cpu_to_le32(adev->gfx.config.rb_config[0][0].raster_config_1);
++
++		// GFX8
++		if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(8, 0, 0)) {
++			buffer[count++] = cpu_to_le32(adev->gfx.config.rb_config[0][0].raster_config);
++			buffer[count++] = cpu_to_le32(adev->gfx.config.rb_config[0][0].raster_config_1);
++		}
++
++		// GFX7 Specific ASICs
++		if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(7, 0, 0) &&
++		    amdgpu_ip_version(adev, GC_HWIP, 0) <  IP_VERSION(8, 0, 0)) {
++			switch (adev->asic_type) {
++			case CHIP_BONAIRE:
++				buffer[count++] = cpu_to_le32(0x16000012);
++				buffer[count++] = cpu_to_le32(0x00000000);
++				break;
++			case CHIP_HAWAII:
++				buffer[count++] = cpu_to_le32(0x3a00161a);
++				buffer[count++] = cpu_to_le32(0x0000002e);
++				break;
++			default:
++				buffer[count++] = cpu_to_le32(0x00000000);
++				buffer[count++] = cpu_to_le32(0x00000000);
++				break;
++			}
++		}
+ 	}
+ 
+ 	// GFX10 and GFX11 specific operation.
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index 6423b7a31e84..759d52932842 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -885,7 +885,6 @@ static const u32 kalindi_rlc_save_restore_register_list[] = {
+ };
+ 
+ static u32 gfx_v7_0_get_csb_size(struct amdgpu_device *adev);
+-static void gfx_v7_0_get_csb_buffer(struct amdgpu_device *adev, volatile u32 *buffer);
+ static void gfx_v7_0_init_pg(struct amdgpu_device *adev);
+ static void gfx_v7_0_get_cu_info(struct amdgpu_device *adev);
+ 
+@@ -3884,70 +3883,6 @@ static u32 gfx_v7_0_get_csb_size(struct amdgpu_device *adev)
+ 	return count;
+ }
+ 
+-static void gfx_v7_0_get_csb_buffer(struct amdgpu_device *adev,
+-				    volatile u32 *buffer)
+-{
+-	u32 count = 0, i;
+-	const struct cs_section_def *sect = NULL;
+-	const struct cs_extent_def *ext = NULL;
+-
+-	if (adev->gfx.rlc.cs_data == NULL)
+-		return;
+-	if (buffer == NULL)
+-		return;
+-
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
+-	buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_BEGIN_CLEAR_STATE);
+-
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CONTEXT_CONTROL, 1));
+-	buffer[count++] = cpu_to_le32(0x80000000);
+-	buffer[count++] = cpu_to_le32(0x80000000);
+-
+-	for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
+-		for (ext = sect->section; ext->extent != NULL; ++ext) {
+-			if (sect->id == SECT_CONTEXT) {
+-				buffer[count++] =
+-					cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
+-				buffer[count++] = cpu_to_le32(ext->reg_index - PACKET3_SET_CONTEXT_REG_START);
+-				for (i = 0; i < ext->reg_count; i++)
+-					buffer[count++] = cpu_to_le32(ext->extent[i]);
+-			}
+-		}
+-	}
+-
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, 2));
+-	buffer[count++] = cpu_to_le32(mmPA_SC_RASTER_CONFIG - PACKET3_SET_CONTEXT_REG_START);
+-	switch (adev->asic_type) {
+-	case CHIP_BONAIRE:
+-		buffer[count++] = cpu_to_le32(0x16000012);
+-		buffer[count++] = cpu_to_le32(0x00000000);
+-		break;
+-	case CHIP_KAVERI:
+-		buffer[count++] = cpu_to_le32(0x00000000); /* XXX */
+-		buffer[count++] = cpu_to_le32(0x00000000);
+-		break;
+-	case CHIP_KABINI:
+-	case CHIP_MULLINS:
+-		buffer[count++] = cpu_to_le32(0x00000000); /* XXX */
+-		buffer[count++] = cpu_to_le32(0x00000000);
+-		break;
+-	case CHIP_HAWAII:
+-		buffer[count++] = cpu_to_le32(0x3a00161a);
+-		buffer[count++] = cpu_to_le32(0x0000002e);
+-		break;
+-	default:
+-		buffer[count++] = cpu_to_le32(0x00000000);
+-		buffer[count++] = cpu_to_le32(0x00000000);
+-		break;
+-	}
+-
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
+-	buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_END_CLEAR_STATE);
+-
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CLEAR_STATE, 0));
+-	buffer[count++] = cpu_to_le32(0);
+-}
+-
+ static void gfx_v7_0_init_pg(struct amdgpu_device *adev)
+ {
+ 	if (adev->pg_flags & (AMD_PG_SUPPORT_GFX_PG |
+@@ -4134,7 +4069,6 @@ static const struct amdgpu_rlc_funcs gfx_v7_0_rlc_funcs = {
+ 	.unset_safe_mode = gfx_v7_0_unset_safe_mode,
+ 	.init = gfx_v7_0_rlc_init,
+ 	.get_csb_size = gfx_v7_0_get_csb_size,
+-	.get_csb_buffer = gfx_v7_0_get_csb_buffer,
+ 	.get_cp_table_num = gfx_v7_0_cp_pg_table_num,
+ 	.resume = gfx_v7_0_rlc_resume,
+ 	.stop = gfx_v7_0_rlc_stop,
+@@ -4482,7 +4416,7 @@ static int gfx_v7_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	gfx_v7_0_constants_init(adev);
+ 
+ 	/* init CSB */
+-	adev->gfx.rlc.funcs->get_csb_buffer(adev, adev->gfx.rlc.cs_ptr);
++	gfx_get_csb_buffer(adev, adev->gfx.rlc.cs_ptr);
+ 	/* init rlc */
+ 	r = adev->gfx.rlc.funcs->resume(adev);
+ 	if (r)
 -- 
 2.49.0
 
