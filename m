@@ -4,71 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E2FFC369A1
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 20:06:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF347C36010
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 20:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8EEA10E567;
-	Mon,  7 Apr 2025 20:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB0A10E56A;
+	Mon,  7 Apr 2025 20:15:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gD5FjmoG";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="N5ZgV5Oa";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A52FF10E566
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 20:06:34 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-af5f28ecbcaso833658a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 13:06:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744056394; x=1744661194; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=P8kFLH8TPxPONXykroppuRDrHZSb3y2SsvZ6KoaB9jw=;
- b=gD5FjmoGl5gogp4B1Ul5AXW3tY077kkQTAH0/qwJloZtqalzshdGzwCF6cduz7aoQ1
- qLIBeVjVJwrH6HCMjFu9kNenrQbj1VWJWHe10P1m5YGQwJQ3e4GZkbszpWmxkvQRfnks
- XercJLQebKJWtEyDNm41dX9Ov6yjvMeSUvWAZykId65EuLwB3Vo4ZdtIkjjSECMkX5iN
- PkxNqqDNVQlzmHJvCkQnH4ZwiaJQJuXgfw6sTLSaZ0drWuR2nhBvr/ezZOusxcF0hs53
- 1Gvc7/5i3SK6QkpVcVKYmks79sbjT0nViinnKGSGElhtpMbierDPSvZEZNj2HZamwOtN
- T5mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744056394; x=1744661194;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=P8kFLH8TPxPONXykroppuRDrHZSb3y2SsvZ6KoaB9jw=;
- b=dWtpTPOSDx8rVi4OwGxj7LHLF/uWxyvp6fT9HAd6Gt04GWpncL1/ROtxZ944l0bLBU
- BkNDSY99YC+q8SK05KRy4/+FC33kQ2vA/m1w4NlZHJq/izmGkoPIubEopMhlOZomhrdc
- prHITweyWMYe4ACs5eD0XdUUC+6lLA5C7htRWqmPoIMyJ2Yxr3P4ia5GheNAx6I+hjof
- CydkD2LDBqhcU9YxNv6zZVXbmwv6wJ/v0wp2LX9ZhAH0HHWfE0leLzRGSUEjfzI4ah9W
- is8ceeiywQ8bXEJgjyC9SCpvKlTtIS/FRQKTdFfzF4wKK9OvrocCavo2W6uZMd86QRI7
- L9pw==
-X-Gm-Message-State: AOJu0YzltGoewOZiwDGLMxknw221Zhzz1kkB+8udDjvlEGEVWzog1TmQ
- bN+UZMGSFwjY6WgdhoSZfHqm8SApqGERBYqpzbLYdVcMCY8Zak7eGto2V2DdHRDKMj4lv3v4/H2
- AFT/0viUeCy4eVbvDit2kZwdN9LM=
-X-Gm-Gg: ASbGnctrF3fnoofLzs2q1+2KA5Dyk33RXJhkiUsnX7BQG+3skHmAh2T4OiJlQUkdAmZ
- pGiDgy0xVdPgfuFNWzjeO6/6cYTrL8gZhTHqsBb0RTK3pO5EfhrrNfxuwHrR1PrHLErZbghCoPE
- MusSbbBZhISfXEE3a4diTiZrSHZA==
-X-Google-Smtp-Source: AGHT+IFTIFaAtd9dHB2pOR9khhWuOUFVBaSz+dDQNpbxur6fjzwM4A4SnvlIuduoBLo4QAo7QIDgwWApK/cyWBvxhJc=
-X-Received: by 2002:a17:90b:1d8b:b0:2ee:acea:9ec4 with SMTP id
- 98e67ed59e1d1-306a48ff28amr6930941a91.3.1744056394085; Mon, 07 Apr 2025
- 13:06:34 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38A2D10E56A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 20:15:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=Izd2sQWWimn6mA0rKFuy/epalzxz1oAO8VipXRbq7ZQ=; b=N5ZgV5Oai6vtmgUzdR7GJYzzkT
+ nOdX2CNqnBnBcne5PGGs2winFNQpBc9/Kgw/b3mwFHkQFv+Mbicz/HYjcbHyGujqx64xe+EZGbAy3
+ ffD9Pp1JWXVLoG1dNq16l/30LdTxTLAZ6xLFVjvbM6Ft1XCTA4wuhIVcBOuAeSz7XOe+cqhWUc/86
+ f+a+cMLh5rPgXVpA73JnDX0iFY6/8ughsjWUX794ZnVOPQEn36hNfWrnD8cajvysawG/e1cUo8dyv
+ 0bIxVAMyFldKWw8C3he1Hkygi/wGXx77Fy1jelhtTBkWc88dwpBXQNASREbXoJTPHzmJg8ktrJl8Y
+ 5iWSFLcA==;
+Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
+ helo=maloca.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1u1ssA-00D1fT-FD; Mon, 07 Apr 2025 22:15:10 +0200
+Date: Mon, 7 Apr 2025 14:15:06 -0600
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: Re: [PATCH 0/6] Introduce a generic function to get the CSB buffer
+Message-ID: <ly3qevhqrqpnze5ffr5pwcybxsvy2u5oh743pdom4cl2fzndq5@mp42hlwy7hat>
+References: <20250406230703.2128148-1-siqueira@igalia.com>
+ <CADnq5_PXoWLMdG4a+pHkPn2PipgoNvb92-o8MVqEYxr+PVznKQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20250402091406.1641643-1-jesse.zhang@amd.com>
- <20250402091406.1641643-7-jesse.zhang@amd.com>
-In-Reply-To: <20250402091406.1641643-7-jesse.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Apr 2025 16:06:22 -0400
-X-Gm-Features: ATxdqUEHsxumHFqYYypHOO40UhiqufeJNOPROvxG5zfWKE1n9K3yq5cUfwEFpxY
-Message-ID: <CADnq5_Oc6w9bApPZYgnWhQMoYnax3ECGGVbXSuOao46wN=HXPg@mail.gmail.com>
-Subject: Re: [v3 7/7] drm/amd/amdgpu: Remove deprecated SDMA reset callback
- mechanism
-To: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>, jonathan.kim@amd.com,
- jiadong.zhu@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_PXoWLMdG4a+pHkPn2PipgoNvb92-o8MVqEYxr+PVznKQ@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,163 +62,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 2, 2025 at 5:15=E2=80=AFAM Jesse.zhang@amd.com <jesse.zhang@amd=
-.com> wrote:
->
-> From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
->
-> This patch removes the deprecated SDMA reset callback mechanism, which wa=
-s previously used to register pre-reset and post-reset callbacks for SDMA e=
-ngine resets.
->  The callback mechanism has been replaced with a more direct and efficien=
-t approach using `stop_queue` and `start_queue` functions in the ring's fun=
-ction table.
->
-> The SDMA reset callback mechanism allowed KFD and AMDGPU to register pre-=
-reset and post-reset functions for handling SDMA engine resets.
-> However, this approach added unnecessary complexity and was no longer nee=
-ded after the introduction of the `stop_queue` and `start_queue` functions =
-in the ring's function table.
->
-> 1. **Remove Callback Mechanism**:
->    - Removed the `amdgpu_sdma_register_on_reset_callbacks` function and i=
-ts associated data structures (`sdma_on_reset_funcs`).
->    - Removed the callback registration logic from the SDMA v4.4.2 initial=
-ization code.
->
-> 2. **Clean Up Related Code**:
->    - Removed the `sdma_v4_4_2_set_engine_reset_funcs` function, which was=
- used to register the callbacks.
->    - Removed the `sdma_v4_4_2_engine_reset_funcs` structure, which contai=
-ned the pre-reset and post-reset callback functions.
->
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+On 04/07, Alex Deucher wrote:
+> On Sun, Apr 6, 2025 at 7:07 PM Rodrigo Siqueira <siqueira@igalia.com> wrote:
+> >
+> > This patchset was inspired and made on top of the below series:
+> >
+> > https://lore.kernel.org/amd-gfx/20250319162225.3775315-1-alexander.deucher@amd.com/
+> >
+> > In the above series, there is a bug fix in many functions named
+> > gfx_vX_0_get_csb_buffer (where X ranges from 6 to 11). After closely
+> > looking at those functions, it became clear that most of the code could
+> > be shared from gfx6 to gfx11. Aside from the code duplication removal,
+> > this also improves maintainability since a bug fix in a shared function
+> > can be propagated to all ASICs.
+> >
+> > The first patch of this series created one dedicated file for
+> > encapsulating common GC registers (gc_common_offset.h); this series only
+> > adds registers associated with the CSB. In the future, this file can
+> > keep growing as we identify common registers to be shared in the
+> > gc_common_offset.h.
+> >
+> > The second patch introduces the generic gfx_get_csb_buffer function,
+> > which has the same implementation found in gfx_v10_0_get_csb_buffer and
+> > gfx_v11_0_get_csb_buffer (these two functions have the same code). After
+> > that, every patch is dedicated to absorbing one of the csb_buffer
+> > functions from gfx from 9 to 6; notice that some adaptations were
+> > required.
+> 
+> I don't really like the register header changes and moving all of the
+> IP version specific logic into the common code.  These register
+> headers are used in other places as well and moving some registers
+> into a common header can get confusing and may lead to bugs later if
+> other chips change the offset of these registers.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+In that case, what do you think if I just abstract the first part of the
+function for a V2? The first part is the same for all gfx from 6 to 11.
+Something like this:
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 24 ------------------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  8 --------
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 10 ----------
->  3 files changed, 42 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.c
-> index 26d7c0aca9a8..e8c7aadf9923 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -531,30 +531,6 @@ bool amdgpu_sdma_is_shared_inv_eng(struct amdgpu_dev=
-ice *adev, struct amdgpu_rin
->                 return false;
->  }
->
-> -/**
-> - * amdgpu_sdma_register_on_reset_callbacks - Register SDMA reset callbac=
-ks
-> - * @funcs: Pointer to the callback structure containing pre_reset and po=
-st_reset functions
-> - *
-> - * This function allows KFD and AMDGPU to register their own callbacks f=
-or handling
-> - * pre-reset and post-reset operations for engine reset. These are neede=
-d because engine
-> - * reset will stop all queues on that engine.
-> - */
-> -void amdgpu_sdma_register_on_reset_callbacks(struct amdgpu_device *adev,=
- struct sdma_on_reset_funcs *funcs)
-> -{
-> -       if (!funcs)
-> -               return;
-> -
-> -       /* Ensure the reset_callback_list is initialized */
-> -       if (!adev->sdma.reset_callback_list.next) {
-> -               INIT_LIST_HEAD(&adev->sdma.reset_callback_list);
-> -       }
-> -       /* Initialize the list node in the callback structure */
-> -       INIT_LIST_HEAD(&funcs->list);
-> -
-> -       /* Add the callback structure to the global list */
-> -       list_add_tail(&funcs->list, &adev->sdma.reset_callback_list);
-> -}
-> -
->  static int amdgpu_sdma_soft_reset(struct amdgpu_device *adev, u32 instan=
-ce_id)
->  {
->         u32 soft_reset;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.h
-> index 47d56fd0589f..419531cc8207 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> @@ -103,13 +103,6 @@ struct amdgpu_sdma_ras {
->         struct amdgpu_ras_block_object ras_block;
->  };
->
-> -struct sdma_on_reset_funcs {
-> -       int (*pre_reset)(struct amdgpu_device *adev, uint32_t instance_id=
-);
-> -       int (*post_reset)(struct amdgpu_device *adev, uint32_t instance_i=
-d);
-> -       /* Linked list node to store this structure in a list; */
-> -       struct list_head list;
-> -};
-> -
->  struct amdgpu_sdma {
->         struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
->         struct amdgpu_irq_src   trap_irq;
-> @@ -170,7 +163,6 @@ struct amdgpu_buffer_funcs {
->                                  uint32_t byte_count);
->  };
->
-> -void amdgpu_sdma_register_on_reset_callbacks(struct amdgpu_device *adev,=
- struct sdma_on_reset_funcs *funcs);
->  int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instan=
-ce_id);
->
->  #define amdgpu_emit_copy_buffer(adev, ib, s, d, b, t) (adev)->mman.buffe=
-r_funcs->emit_copy_buffer((ib),  (s), (d), (b), (t))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/a=
-md/amdgpu/sdma_v4_4_2.c
-> index a8330504692d..059b03d2aeef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> @@ -106,7 +106,6 @@ static void sdma_v4_4_2_set_buffer_funcs(struct amdgp=
-u_device *adev);
->  static void sdma_v4_4_2_set_vm_pte_funcs(struct amdgpu_device *adev);
->  static void sdma_v4_4_2_set_irq_funcs(struct amdgpu_device *adev);
->  static void sdma_v4_4_2_set_ras_funcs(struct amdgpu_device *adev);
-> -static void sdma_v4_4_2_set_engine_reset_funcs(struct amdgpu_device *ade=
-v);
->  static void sdma_v4_4_2_update_reset_mask(struct amdgpu_device *adev);
->
->  static u32 sdma_v4_4_2_get_reg_offset(struct amdgpu_device *adev,
-> @@ -1351,7 +1350,6 @@ static int sdma_v4_4_2_early_init(struct amdgpu_ip_=
-block *ip_block)
->         sdma_v4_4_2_set_vm_pte_funcs(adev);
->         sdma_v4_4_2_set_irq_funcs(adev);
->         sdma_v4_4_2_set_ras_funcs(adev);
-> -       sdma_v4_4_2_set_engine_reset_funcs(adev);
->
->         return 0;
->  }
-> @@ -1740,14 +1738,6 @@ static int sdma_v4_4_2_restore_queue(struct amdgpu=
-_ring *ring)
->         return sdma_v4_4_2_inst_start(adev, inst_mask, true);
->  }
->
-> -static struct sdma_on_reset_funcs sdma_v4_4_2_engine_reset_funcs =3D {
-> -};
-> -
-> -static void sdma_v4_4_2_set_engine_reset_funcs(struct amdgpu_device *ade=
-v)
-> -{
-> -       amdgpu_sdma_register_on_reset_callbacks(adev, &sdma_v4_4_2_engine=
-_reset_funcs);
-> -}
-> -
->  static int sdma_v4_4_2_set_trap_irq_state(struct amdgpu_device *adev,
->                                         struct amdgpu_irq_src *source,
->                                         unsigned type,
-> --
-> 2.25.1
->
+int gfx_get_pre_setup_csb_buffer(struct amdgpu_device *adev, volatile u32 *buffer)
+{
+       u32 count = 0, i;
+       const struct cs_section_def *sect = NULL;
+       const struct cs_extent_def *ext = NULL;
+       int ctx_reg_offset;
+
+       if (adev->gfx.rlc.cs_data == NULL)
+               return 1;
+       if (buffer == NULL)
+               return 1;
+
+       buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
+       buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_BEGIN_CLEAR_STATE);
+
+       buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CONTEXT_CONTROL, 1));
+       buffer[count++] = cpu_to_le32(0x80000000);
+       buffer[count++] = cpu_to_le32(0x80000000);
+
+       for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
+               for (ext = sect->section; ext->extent != NULL; ++ext) {
+                       if (sect->id == SECT_CONTEXT) {
+                               buffer[count++] =
+                                       cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
+                               buffer[count++] = cpu_to_le32(ext->reg_index -
+                                               PACKET3_SET_CONTEXT_REG_START);
+                               for (i = 0; i < ext->reg_count; i++)
+                                       buffer[count++] = cpu_to_le32(ext->extent[i]);
+                       }
+               }
+       }
+
+       return 0;
+}
+
+Thanks
+
+> 
+> Alex
+> 
+> >
+> > Thanks
+> >
+> > Rodrigo Siqueira (6):
+> >   drm/amd/amdgpu: Create a headears to keep some common GC registers
+> >   drm/amdgpu/gfx: Introduce generic gfx_get_csb_buffer
+> >   drm/amdgpu/gfx: Integrate gfx_v9_0_get_csb_buffer into
+> >     gfx_get_csb_buffer
+> >   drm/amdgpu/gfx: Absorb gfx_v8_0_get_csb_buffer into gfx_get_csb_buffer
+> >   drm/amdgpu/gfx: Assimilate gfx_v7_0_get_csb_buffer into
+> >     gfx_get_csb_buffer
+> >   drm/amdgpu/gfx: Merge gfx_v6_0_get_csb_buffer into gfx_get_csb_buffer
+> >
+> >  Documentation/gpu/amdgpu/amdgpu-glossary.rst  |   3 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       | 101 ++++++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |   1 +
+> >  drivers/gpu/drm/amd/amdgpu/cik.c              |   2 +
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |  51 +--------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  53 +--------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |  46 +-------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |  70 +-----------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |  51 +--------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |  43 +-------
+> >  drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c         |   1 +
+> >  drivers/gpu/drm/amd/amdgpu/si.c               |   2 +
+> >  drivers/gpu/drm/amd/amdgpu/vi.c               |   2 +
+> >  .../include/asic_reg/gc/gc_10_1_0_offset.h    |   3 -
+> >  .../include/asic_reg/gc/gc_10_3_0_offset.h    |   3 -
+> >  .../include/asic_reg/gc/gc_11_0_0_offset.h    |   2 -
+> >  .../include/asic_reg/gc/gc_11_0_3_offset.h    |   2 -
+> >  .../include/asic_reg/gc/gc_11_5_0_offset.h    |   2 -
+> >  .../include/asic_reg/gc/gc_12_0_0_offset.h    |   2 -
+> >  .../amd/include/asic_reg/gc/gc_9_0_offset.h   |   3 -
+> >  .../amd/include/asic_reg/gc/gc_9_1_offset.h   |   3 -
+> >  .../amd/include/asic_reg/gc/gc_9_2_1_offset.h |   3 -
+> >  .../amd/include/asic_reg/gc/gc_9_4_2_offset.h |   2 -
+> >  .../amd/include/asic_reg/gc/gc_9_4_3_offset.h |   2 -
+> >  .../include/asic_reg/gc/gc_common_offset.h    |  11 ++
+> >  .../drm/amd/include/asic_reg/gca/gfx_6_0_d.h  |   1 -
+> >  .../drm/amd/include/asic_reg/gca/gfx_7_0_d.h  |   1 -
+> >  .../drm/amd/include/asic_reg/gca/gfx_7_2_d.h  |   1 -
+> >  .../drm/amd/include/asic_reg/gca/gfx_8_0_d.h  |   1 -
+> >  .../drm/amd/include/asic_reg/gca/gfx_8_1_d.h  |   1 -
+> >  30 files changed, 141 insertions(+), 328 deletions(-)
+> >  create mode 100644 drivers/gpu/drm/amd/include/asic_reg/gc/gc_common_offset.h
+> >
+> > --
+> > 2.49.0
+> >
+
+-- 
+Rodrigo Siqueira
