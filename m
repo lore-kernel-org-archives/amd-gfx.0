@@ -4,65 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41D6DC369A2
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 15:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E4B2C3601E
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 15:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAC1B10E4D2;
-	Mon,  7 Apr 2025 15:03:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 167F610E4DA;
+	Mon,  7 Apr 2025 15:05:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X5O0VL/t";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VLNgmfpF";
 	dkim-atps=neutral
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 932A810E4D2
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 15:03:51 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id
- 41be03b00d2f7-af50aa04e07so418524a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 08:03:51 -0700 (PDT)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 194D110E4D9;
+ Mon,  7 Apr 2025 15:05:21 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-30363975406so847345a91.0; 
+ Mon, 07 Apr 2025 08:05:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744038229; x=1744643029; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1744038320; x=1744643120; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=33vq/DxPKJdUsd5PDYguTsqn5v76zDaKvATH+Ml4eMM=;
- b=X5O0VL/tZtPhI0dCwFE2NEUtgXTZ33Z/yEX3MIe/yWJFA/ABsA5HafwwfSn7qZ1n7W
- eZQKNBDsFjdgTsiFDxyk14IrLoPD3DHBfAFqIx+b4Vbd7Qr1U5HvWSL4X9e2zsmyqFlu
- jtA5bWa9cUEDlTgFGbmdSPLKiFN0dbll8U2c/bM1i/Nw6RJv2uIOymfFN3XM8LcFT7rN
- NJoDSckGEllx3Ros+5i44J5mPySIbOSqpCFDxBGRIXlNoCXwxcGvXSlwGh4XGMyuInXF
- 0dAHA3T+NcugROiQdx20Wel2HGMjI4mElO2Nt2o2xGQr7ZtUMpSQk07hsVt2m79tJpZa
- 01Nw==
+ bh=ssQkPgtWHpg5qaEQQQk7L7Pz6LQv2SK5PMPPrhZLDD0=;
+ b=VLNgmfpFVayBZZwKoLR5+f5oAP1IV7E4sm0o19efizYpcETW6iOU3luSbIogv7Crbf
+ qKecPyV74gtlkf+xgyljrzQFpf02AySPPT+Ft8Oc+/2AldXFOeS/9rAaHZ3a2BLqxurf
+ FCx5E4OPRt0vIDYEAqDfFNOIABuVERD/AA5ITH5RIICQacOFASnIeS3utwBMIVsmzVoP
+ 5+ddl4lcMR6jKBNiF+ODixQ/pos85ij6u3BXl62wA0UeKdNa4cARL77x6Knz0YB19Y3R
+ U/MSDoZCq78h2T9512dmedpNEis2oRMXSmTjCnxYk/qlrIokutAgnxp0+UQZHAIBEQJ0
+ zYoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744038229; x=1744643029;
+ d=1e100.net; s=20230601; t=1744038320; x=1744643120;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=33vq/DxPKJdUsd5PDYguTsqn5v76zDaKvATH+Ml4eMM=;
- b=L91igYeXyMbhzpTjkR2d2yrK0biGcP7SD/yluKaEXkCk+hnG4TbQDnhEYB9ftI1drS
- CfsO4I8mktzO2waDNnFSrKVkrJUdzjliXhJc+IwuiuBfIexBvyeReoTzmweiYmA4SD/S
- s3U1x0IQEAVagw7AgrGS9x7bQS9B5bNvkQAO9GcxVz8mStxxB1IemTXlrnvqR3Lb1KVf
- 87SlU2AgOFYGRPAaR0m88QNvxmekewN6HIcws5AukYK8i+j1IoN8bAJpc36QmwyiURSN
- pomIUgzVJO6MWqVWCLAJyv6H2POz6ub47FXVO37ZqUm+q2Ts6TuKepkQRWeBrWC55sYW
- vzPQ==
-X-Gm-Message-State: AOJu0YzbdP/jj9MHZgFXry9zvq76E9UoQiRB/WaiL7vgTyxlHNNZlzVy
- mNqSIGyKwm9ypVO/zrzpx5cybXintCd8JBnfwRx+n/AEBwuzJba61IPrENSuu5Wo0HOQiJshj2o
- K7LYf3VB77LrY2YzXlDjbOYwp+nXijA==
-X-Gm-Gg: ASbGnct7qhAT0CS+fRTJQjTEYFbQPpuUzA5RIG5t74IyB35vwbR5Re6FbQT+Hy/kEWE
- QwIObdYUPEbMW2U2jtS7pm61ZsFEBE7KOng71I8R8473/rHsNA3LK/r1kZiKI+ueXHsLAaA5vxX
- y6Su7eA+znABxJohhpSHT4mZzOLA==
-X-Google-Smtp-Source: AGHT+IEFkLPlLS8KA5/BWhIq/g4nOH6wtgUX2s2XwUXdd4FMLvnQJIiCQ72QdoimuswGk5czCWz9kBVJF+DnoclJcZM=
-X-Received: by 2002:a17:90b:3890:b0:2ff:5540:bb48 with SMTP id
- 98e67ed59e1d1-306a48bf3f7mr6779340a91.8.1744038228970; Mon, 07 Apr 2025
- 08:03:48 -0700 (PDT)
+ bh=ssQkPgtWHpg5qaEQQQk7L7Pz6LQv2SK5PMPPrhZLDD0=;
+ b=e/VNnn1TrpVC30onXYdEU0vDRhyvjaR5iTLqAplrxRcWPGZpAnAsjuNJ3ceOPhoVec
+ 6gk4S9NdbD4ctYXcWPdNri+3vGCr9KWaxcYDwFXa2fakatSsL+/5RaMv1jQTlEmxW1WG
+ pNjOtJyKLGarsww5nfEuRUPckdccGNZbZkVHNpeWU15HmW+U3MCIai9bwtN7CVqU6QQf
+ 2/lmk80xvU4eUwWQxT98gH9kcFZ0wkNQHDfMjClgcuxNiIkjLoRDXjoARVHZ/rq58/GQ
+ mIpdmwxvXRkXK6V40HZfyVgPw84CTsDA9IanhPdM0yd3agAA1ngwRsxrWO4IX4V2Dyjs
+ T1vw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV4oZgk7BUs0XOdmFQ3oERinwDhyGP45Zdr5ksEhlLn5ruYvX/gXy7kEejXvROceTvzsMd1WZLHBzw=@lists.freedesktop.org,
+ AJvYcCXvCTIeDODjUMIbO/IAhf26G+Dh0mG/3PCnqrx/W0DvGxAk/jJR3PXsnhnAJpdhp9Lz76Abbf/U@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyBXKv+oh9W2/BWHK9qxnTJzkD505mKS96fJDVr/7F4CVOit2sm
+ 25BtLQl2DMc6AuOkzyJRLRR0Q5a3W1NeQ/Exl3uBkdXBNS4dccMIIvhuyHfsUsP105iRjdVyStv
+ T/cfKz0UUMFU7ZCaU42nBgZ+2Wfs=
+X-Gm-Gg: ASbGncsBCtFCoHGMYLj2aisO4npUfXI20Tbr+P2LJGi/CEyiOUWVX5B2RHrF7xS/3fN
+ dm0foY8E5X14ziXvgKcN4vqkTWqIi7075Dnmz6RuxVXUhy6eqw435+m03uVzPkzhStNMOLYJ/lu
+ zD3k5Hoisb0ky2B83Tv0wSlvFHfg==
+X-Google-Smtp-Source: AGHT+IG3CcW8PNxBithByiKIoDwQtwb4MnM6pyE6J7swZNrMySsujjXMjLGzZDeXRyeckuo1cr6kBZnjAKY9R5oxkrk=
+X-Received: by 2002:a17:90b:1c91:b0:2ff:4be6:c5bd with SMTP id
+ 98e67ed59e1d1-306a496b0c7mr7190956a91.8.1744038320305; Mon, 07 Apr 2025
+ 08:05:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250404052222.19955-1-alexandre.f.demers@gmail.com>
-In-Reply-To: <20250404052222.19955-1-alexandre.f.demers@gmail.com>
+References: <20250407141823.44504-3-matthew.auld@intel.com>
+ <20250407141823.44504-4-matthew.auld@intel.com>
+ <a4b1190d-4d4f-4c66-9fb7-2be19d2ea3dc@gmail.com>
+In-Reply-To: <a4b1190d-4d4f-4c66-9fb7-2be19d2ea3dc@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Apr 2025 11:03:37 -0400
-X-Gm-Features: ATxdqUHL5mUjSkraorC0xCvwpP4qPytErmPSyvXv3w-uYjelmwVq1zhhSV507v8
-Message-ID: <CADnq5_OYjfyjkUfDCSkRPNrJ9ctu=o6TTFn9EoFxg2hvtk1TkA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] drm/amdgpu: typos and standardization
-To: Alexandre Demers <alexandre.f.demers@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Mon, 7 Apr 2025 11:05:08 -0400
+X-Gm-Features: ATxdqUFzbinX2Mkhe3iiE61F6xMhv6ybqKJIZzLsDt3WD66qk-EiQvU74RAp5zs
+Message-ID: <CADnq5_NKa0seCJs7XvxUemyWPFCsuO3dX=n34OVJVn0cz2DuzA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/dma_buf: fix page_link check
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,25 +88,50 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Fri, Apr 4, 2025 at 1:48=E2=80=AFAM Alexandre Demers
-<alexandre.f.demers@gmail.com> wrote:
+On Mon, Apr 7, 2025 at 10:42=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> Typos were found in DCE, where hpd should have been used.
+> Am 07.04.25 um 16:18 schrieb Matthew Auld:
+> > The page_link lower bits of the first sg could contain something like
+> > SG_END, if we are mapping a single VRAM page or contiguous blob which
+> > fits into one sg entry. Rather pull out the struct page, and use that i=
+n
+> > our check to know if we mapped struct pages vs VRAM.
+> >
+> > Fixes: f44ffd677fb3 ("drm/amdgpu: add support for exporting VRAM using =
+DMA-buf v3")
+> > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: <stable@vger.kernel.org> # v5.8+
 >
-> DCE6/8: standardize the "interrupt" vs "irq" usage in function names
-> with DCE10/11.
+> Good point, haven't thought about that at all since we only abuse the sg =
+table as DMA addr container.
 >
-> Alexandre Demers (2):
->   drm/amdgpu: fix typos in DCEs
->   drm/amdgpu: use "irq" in place of "interrupt" in DCE6/8 as in DCE10/11
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  7 ++---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 28 +++++++++----------
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 16 +++++------
->  .../drm/amd/display/dc/link/link_factory.c    |  2 +-
->  5 files changed, 28 insertions(+), 29 deletions(-)
+> Were is patch #1 from this series?
 >
-> --
-> 2.49.0
+> Thanks,
+> Christian.
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_dma_buf.c
+> > index 9f627caedc3f..c9842a0e2a1c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > @@ -184,7 +184,7 @@ static void amdgpu_dma_buf_unmap(struct dma_buf_att=
+achment *attach,
+> >                                struct sg_table *sgt,
+> >                                enum dma_data_direction dir)
+> >  {
+> > -     if (sgt->sgl->page_link) {
+> > +     if (sg_page(sgt->sgl)) {
+> >               dma_unmap_sgtable(attach->dev, sgt, dir, 0);
+> >               sg_free_table(sgt);
+> >               kfree(sgt);
 >
