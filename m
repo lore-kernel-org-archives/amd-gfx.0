@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1807C36010
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 20:03:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AA0EC36010
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 20:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A565E10E560;
-	Mon,  7 Apr 2025 20:03:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8A3310E561;
+	Mon,  7 Apr 2025 20:04:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iRU9o0Lb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NvLFSiep";
 	dkim-atps=neutral
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C21510E560
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 20:03:32 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-736ac19918cso714419b3a.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 13:03:32 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5489D10E561
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 20:04:33 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-2ff6ce72844so727254a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 13:04:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744056212; x=1744661012; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1744056273; x=1744661073; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=StCj6ftNBVsbSvcWD8xj4Ol9eodzxKb3Un1ICdqa6io=;
- b=iRU9o0LbfAQxLoXzqJpnoCGrexcNHJgcnMAR6pmo3AL1jjCkP6zs/CzGvzeZWTIdGo
- Bt8OmApj8bQFGIigr1ORchTY3x2Edtl7Uvt05YyT60bX3wQwjKP1ZTxRtttB624Q0QzB
- laZXMGjwRTYQ29tNuBKf7EWBYHCUVFFhh89znqsHNR+5WYY3iO4XAq9ulIJ7Po/2bgD0
- xIchjZIfT5alQFj7E3QEazBR7BrxJmhuGLtNjFbsJJSIhB8hkLpiPm+1+abwn9fKcJ4n
- qd74dfZcUfrs32tclrpY/JDkGKX9IXY/90QNpTGP1iltRbJCq1AFsJdNPhxUuOVyo1lv
- AkMg==
+ bh=mZKihXH+CKLIm0fs26Epi31aZiwAn7svh3gHdWjak90=;
+ b=NvLFSiepzMO8hdWSTo/ApXVsvbaC9NWIZ94plS4T9oWX8ML0A6H1AT+CA9pZk9Wau6
+ IcXYKhPY1NzZI3fEYDEyCXy7KasWtR4KiZBtJo41vIiCjq6WjX8MtlthqI2/OKRtDrKg
+ nAMOItykZ9Y6N0bqKBGea5c6uFUGzGkeor5aLGP7Rcrx5k2iU0C4bi2rg/x5KqamxblT
+ LEt/RcifDuH2TAbkqNrImS659IiMNuyX+bjprQkaKhJp5AUb8NdVpjhL/YXeHjrrCZRm
+ gHX8O//vLdTn/rNgTG0WCvPGELWO8gs19znNPG7GCnR+CTHsjqRPJWpfFpXYiu2yUtmd
+ SGlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744056212; x=1744661012;
+ d=1e100.net; s=20230601; t=1744056273; x=1744661073;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=StCj6ftNBVsbSvcWD8xj4Ol9eodzxKb3Un1ICdqa6io=;
- b=qEwWYXo/Y5JjPioNDpe0vr3Tu+5eP14rAvKO+tfWTAKFRnSRO7DpfSOHEnIeqkpEgZ
- 7oIxf8rOYln89oEl6tM5F8fzbPeLpBdpTx/DUAWmGpSfIDpNChmKrEU4QExJ+CNV/LI1
- QZIhz9JnlK0zkKPIcMvkxgWRai+p6rh3KhD1QRKdJs1coZMfH/SZTH93mwSWHISaPWm1
- SOYCxEsDh9HbpCBoGFRZtj8Zl+cgf9jaD9CYmCpEz7Y/ReDm0lz1SaLTm1oVVJQUiJmN
- OZzbsc4Dked1+0GbQR7UCBxVZvHigX62+gfcxqLT9m+YEUhTTsx+JwS8h7G5O3uOjRJ8
- Ojgw==
-X-Gm-Message-State: AOJu0YyY7cg1YNTz5WvLr73UyE0YzdkAeTelFojZs6dJZNlVYsLAMw0O
- Q8KNKNd2bTVa1nHT4NCPQ3AE6BVpy2s8D6q33lLfZ4oBAcslZYAVyHToqBpxYy1/sIcBnde4D+/
- w6StEzIddIdECQylodXnegSY8565w3A==
-X-Gm-Gg: ASbGnctbJrVU2IWdP8vvPHkB4bDadVhUIjOz4r0lBJ7MjU4c9NowU6YR83hZKUtlVvN
- z5jaRL99PiXxpsFkFy0whOY70Zk/DeSFXCOHFeq8n8/rNpgh+JoqKhwUuhXcKHMtQRtzYL6GAH0
- DSkmmThbXhEqRZ70oi1ijPcIYf1Q==
-X-Google-Smtp-Source: AGHT+IEdja9UOSZvbjjsCCV3GMc70H3nOdzYAG0J+MuCsqoq1QaA3BLUlEU1GrDDOEHMt7tdMLRNX5NOW8WrKJ1p3w8=
-X-Received: by 2002:a17:90b:4d06:b0:305:5f2c:c580 with SMTP id
- 98e67ed59e1d1-306a485adb4mr7035802a91.2.1744056211363; Mon, 07 Apr 2025
- 13:03:31 -0700 (PDT)
+ bh=mZKihXH+CKLIm0fs26Epi31aZiwAn7svh3gHdWjak90=;
+ b=doaYQ9L4TSyEah7IQ1FPewIwh3TycrxA6bBGLNA8R15BRY5wkPSow95ZscIW9eMoIE
+ KrvdaqyyibfDFUexPhThdUN9COEHkiv0T+QHW9w6dxJIpio1OzeNIdloyUYVh18uV2Nc
+ vF8rPMXR8rsBUxbDGMhqGdU1zQNuriqsZ+NRpWZu7XQEFsKxPljQ/5BP72jiKSX3tMLv
+ +V72D/q6ajd0XLBo868x8m+UOtJJAJV2elSS3ud24pJA03FhsqxJREzWjFG9Mw++fR71
+ upSdWVff5HOIXqJCAnmOTmAwF/GJM7XZEMWbAderH/FxIH3EzUtYnGJoZBU0ckc5Gjda
+ rPZA==
+X-Gm-Message-State: AOJu0YziPrBBCuQeBt0DIzWAvdmrXSVpaCXRxLBqsf03iZP0ODUGLxs0
+ eKxfovDWJg0H2o9QiAyxQtZhivL1C9uoZGIgZOb1DxBC+bxSFrLlTcwsOvjyUI2XRQaPK6I1YrI
+ bkCuMFpEts4DP8We05CX7J5zcTsm8Tg==
+X-Gm-Gg: ASbGncv25pNOYzmMEzV6HExYBu71VbUQ1do7uG7XdQXvHzCbOIQia7hqFz7hGL42XZI
+ lUCuMMlBCi01XSyLHXeYxE3NvRyatdZ75B9YJxpRvbhV7hMcERfjgtz0qwrNw3FT6qzm8U8nyKM
+ uhjKyzydwXbduSBg0SUEXaHl+3Lg==
+X-Google-Smtp-Source: AGHT+IGG1QkuyUb+fu5Pf/6iOp/dX9mQl1wwT66CJ+Auynuz3H0h6/EBbalWJyMFnjnAvPL/DPRp+Y/3uOWCeN+Clkw=
+X-Received: by 2002:a17:90b:1d0e:b0:2fe:b2ea:30f0 with SMTP id
+ 98e67ed59e1d1-306a4918ba6mr7146500a91.4.1744056272347; Mon, 07 Apr 2025
+ 13:04:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250402091406.1641643-1-jesse.zhang@amd.com>
- <20250402091406.1641643-2-jesse.zhang@amd.com>
-In-Reply-To: <20250402091406.1641643-2-jesse.zhang@amd.com>
+ <20250402091406.1641643-3-jesse.zhang@amd.com>
+In-Reply-To: <20250402091406.1641643-3-jesse.zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Apr 2025 16:03:20 -0400
-X-Gm-Features: ATxdqUFQg44PbTWG0UtBxmlKqgQo7SuakK4et0ssY-8ZS1BWrPVOoa3skffb3oo
-Message-ID: <CADnq5_ObdYGK3m8SiDFX2K74zp8223_c7zfGneywyL1UAk8kEQ@mail.gmail.com>
-Subject: Re: [v3 2/7] drm/amd/amdgpu: Implement SDMA soft reset directly for
- sdma v5
+Date: Mon, 7 Apr 2025 16:04:20 -0400
+X-Gm-Features: ATxdqUFAq_CrRCwmCA4hEfU-v97UUdoZL3gmn8F-x4z6NhwnMg5aFyk-lLYjQys
+Message-ID: <CADnq5_OSDkPeyNuNvwniQab7-YnXz=UYV8MQpHaJaNCFd5wYig@mail.gmail.com>
+Subject: Re: [v3 3/7] drm/amdgpu: Optimize SDMA v5.0 queue reset and stop logic
 To: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian Koenig <christian.koenig@amd.com>, jonathan.kim@amd.com,
@@ -86,118 +85,223 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Wed, Apr 2, 2025 at 5:23=E2=80=AFAM Jesse.zhang@amd.com <jesse.zhang@amd=
 .com> wrote:
 >
-> This patch introduces a new function `amdgpu_sdma_soft_reset` to handle S=
-DMA soft resets directly,
-> rather than relying on the DPM interface.
+> From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
 >
-> 1. **New `amdgpu_sdma_soft_reset` Function**:
->    - Implements a soft reset for SDMA engines by directly writing to the =
-hardware registers.
->    - Handles SDMA versions 4.x and 5.x separately:
->      - For SDMA 4.x, the existing `amdgpu_dpm_reset_sdma` function is use=
-d for backward compatibility.
->      - For SDMA 5.x, the driver directly manipulates the `GRBM_SOFT_RESET=
-` register to reset the specified SDMA instance.
+> This patch refactors the SDMA v5.0 queue reset and stop logic to improve
+> code readability, maintainability, and performance. The key changes inclu=
+de:
 >
-> 2. **Integration into `amdgpu_sdma_reset_engine`**:
->    - The `amdgpu_sdma_soft_reset` function is called during the SDMA rese=
-t process, replacing the previous call to `amdgpu_dpm_reset_sdma`.
+> 1. **Generalized `sdma_v5_0_gfx_stop` Function**:
+>    - Added an `inst_mask` parameter to allow stopping specific SDMA insta=
+nces
+>      instead of all instances. This is useful for resetting individual qu=
+eues.
 >
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> 2. **Simplified `sdma_v5_0_reset_queue` Function**:
+>    - Removed redundant loops and checks by directly using the `ring->me` =
+field
+>      to identify the SDMA instance.
+>    - Reused the `sdma_v5_0_gfx_stop` function to stop the queue, reducing=
+ code
+>      duplication.
+>
 > Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 46 +++++++++++++++++++++++-
->  1 file changed, 45 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 65 +++++++++++---------------
+>  1 file changed, 26 insertions(+), 39 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.c
-> index b51fe644940f..26d7c0aca9a8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -26,6 +26,8 @@
->  #include "amdgpu_sdma.h"
->  #include "amdgpu_ras.h"
->  #include "amdgpu_reset.h"
-> +#include "gc/gc_10_1_0_offset.h"
-> +#include "gc/gc_10_3_0_sh_mask.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v5_0.c
+> index e1348b6d9c6a..9501652f903d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -555,15 +555,15 @@ static void sdma_v5_0_ring_emit_fence(struct amdgpu=
+_ring *ring, u64 addr, u64 se
+>   * sdma_v5_0_gfx_stop - stop the gfx async dma engines
+>   *
+>   * @adev: amdgpu_device pointer
+> - *
+> + * @inst_mask: mask of dma engine instances to be disabled
+>   * Stop the gfx async dma ring buffers (NAVI10).
+>   */
+> -static void sdma_v5_0_gfx_stop(struct amdgpu_device *adev)
+> +static void sdma_v5_0_gfx_stop(struct amdgpu_device *adev, uint32_t inst=
+_mask)
+>  {
+>         u32 rb_cntl, ib_cntl;
+>         int i;
 >
->  #define AMDGPU_CSA_SDMA_SIZE 64
->  /* SDMA CSA reside in the 3rd page of CSA */
-> @@ -553,6 +555,48 @@ void amdgpu_sdma_register_on_reset_callbacks(struct =
-amdgpu_device *adev, struct
->         list_add_tail(&funcs->list, &adev->sdma.reset_callback_list);
->  }
+> -       for (i =3D 0; i < adev->sdma.num_instances; i++) {
+> +       for_each_inst(i, inst_mask) {
+>                 rb_cntl =3D RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(=
+adev, i, mmSDMA0_GFX_RB_CNTL));
+>                 rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_=
+ENABLE, 0);
+>                 WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmS=
+DMA0_GFX_RB_CNTL), rb_cntl);
+> @@ -655,9 +655,11 @@ static void sdma_v5_0_enable(struct amdgpu_device *a=
+dev, bool enable)
+>  {
+>         u32 f32_cntl;
+>         int i;
+> +       uint32_t inst_mask;
 >
-> +static int amdgpu_sdma_soft_reset(struct amdgpu_device *adev, u32 instan=
-ce_id)
-> +{
-> +       u32 soft_reset;
-> +       int r =3D 0;
-> +
-> +       switch (amdgpu_ip_version(adev, SDMA0_HWIP, 0)) {
-> +       case IP_VERSION(4, 4, 2):
-> +       case IP_VERSION(4, 4, 4):
-> +       case IP_VERSION(4, 4, 5):
-> +               /* For SDMA 4.x, use the existing DPM interface for backw=
-ard compatibility */
-> +               r =3D amdgpu_dpm_reset_sdma(adev, 1 << instance_id);
-> +               break;
-> +       case IP_VERSION(5, 0, 0):
-> +       case IP_VERSION(5, 0, 1):
-> +       case IP_VERSION(5, 0, 2):
-> +       case IP_VERSION(5, 0, 5):
-> +       case IP_VERSION(5, 2, 0):
-> +       case IP_VERSION(5, 2, 2):
-> +       case IP_VERSION(5, 2, 4):
-> +       case IP_VERSION(5, 2, 5):
-> +       case IP_VERSION(5, 2, 6):
-> +       case IP_VERSION(5, 2, 3):
-> +       case IP_VERSION(5, 2, 1):
-> +       case IP_VERSION(5, 2, 7):
-> +               /* For SDMA 5.x, directly manipulate the GRBM_SOFT_RESET =
-register */
-> +               soft_reset =3D RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> +               soft_reset |=3D 1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__S=
-HIFT << instance_id;
-> +               /* Issue the soft reset */
-> +               WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
-> +
-> +               udelay(50);
-> +               /* Clear the soft reset bit */
-> +               soft_reset &=3D ~(1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0_=
-_SHIFT << instance_id);
-> +               WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
-
-I would move this into a helper function in sdma_v5_0.c and just call
-that from here rather than including IP specific programming in this
-file.  E.g.,
-
-sdma_v5_0_soft_reset(adev, instance_id);
-
-Alex
-
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +
-> +       return r;
-> +}
-> +
->  /**
->   * amdgpu_sdma_reset_engine - Reset a specific SDMA engine
->   * @adev: Pointer to the AMDGPU device
-> @@ -587,7 +631,7 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *ad=
-ev, uint32_t instance_id)
->                 gfx_ring->funcs->stop_queue(gfx_ring);
+> +       inst_mask =3D GENMASK(adev->sdma.num_instances - 1, 0);
+>         if (!enable) {
+> -               sdma_v5_0_gfx_stop(adev);
+> +               sdma_v5_0_gfx_stop(adev, 1 << inst_mask);
+>                 sdma_v5_0_rlc_stop(adev);
+>         }
 >
->         /* Perform the SDMA reset for the specified instance */
-> -       ret =3D amdgpu_dpm_reset_sdma(adev, 1 << instance_id);
-> +       ret =3D amdgpu_sdma_soft_reset(adev, instance_id);
->         if (ret) {
->                 dev_err(adev->dev, "Failed to reset SDMA instance %u\n", =
-instance_id);
->                 goto exit;
+> @@ -1506,40 +1508,25 @@ static int sdma_v5_0_soft_reset(struct amdgpu_ip_=
+block *ip_block)
+>  static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring, unsigned int =
+vmid)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       int i, j, r;
+> -       u32 rb_cntl, ib_cntl, f32_cntl, freeze, cntl, preempt, soft_reset=
+, stat1_reg;
+> +       int j, r;
+> +       u32 f32_cntl, freeze, cntl, preempt, soft_reset, stat1_reg;
+> +       u32 inst_id;
+>
+>         if (amdgpu_sriov_vf(adev))
+>                 return -EINVAL;
+> -
+> -       for (i =3D 0; i < adev->sdma.num_instances; i++) {
+> -               if (ring =3D=3D &adev->sdma.instance[i].ring)
+> -                       break;
+> -       }
+> -
+> -       if (i =3D=3D adev->sdma.num_instances) {
+> -               DRM_ERROR("sdma instance not found\n");
+> -               return -EINVAL;
+> -       }
+> -
+> +       inst_id =3D ring->me;
+>         amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+>
+>         /* stop queue */
+> -       ib_cntl =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_=
+IB_CNTL));
+> -       ib_cntl =3D REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, =
+0);
+> -       WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL), ib=
+_cntl);
+> -
+> -       rb_cntl =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_=
+RB_CNTL));
+> -       rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, =
+0);
+> -       WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL), rb=
+_cntl);
+> +       sdma_v5_0_gfx_stop(adev, 1 << ring->me);
+>
+>         /* engine stop SDMA1_F32_CNTL.HALT to 1 and SDMAx_FREEZE freeze b=
+it to 1 */
+> -       freeze =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_FREEZ=
+E));
+> +       freeze =3D RREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0=
+_FREEZE));
+>         freeze =3D REG_SET_FIELD(freeze, SDMA0_FREEZE, FREEZE, 1);
+> -       WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_FREEZE), freeze)=
+;
+> +       WREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE), f=
+reeze);
+>
+>         for (j =3D 0; j < adev->usec_timeout; j++) {
+> -               freeze =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDM=
+A0_FREEZE));
+> +               freeze =3D RREG32(sdma_v5_0_get_reg_offset(adev, inst_id,=
+ mmSDMA0_FREEZE));
+>                 if (REG_GET_FIELD(freeze, SDMA0_FREEZE, FROZEN) & 1)
+>                         break;
+>                 udelay(1);
+> @@ -1547,7 +1534,7 @@ static int sdma_v5_0_reset_queue(struct amdgpu_ring=
+ *ring, unsigned int vmid)
+>
+>         /* check sdma copy engine all idle if frozen not received*/
+>         if (j =3D=3D adev->usec_timeout) {
+> -               stat1_reg =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mm=
+SDMA0_STATUS1_REG));
+> +               stat1_reg =3D RREG32(sdma_v5_0_get_reg_offset(adev, inst_=
+id, mmSDMA0_STATUS1_REG));
+>                 if ((stat1_reg & 0x3FF) !=3D 0x3FF) {
+>                         DRM_ERROR("cannot soft reset as sdma not idle\n")=
+;
+>                         r =3D -ETIMEDOUT;
+> @@ -1555,35 +1542,35 @@ static int sdma_v5_0_reset_queue(struct amdgpu_ri=
+ng *ring, unsigned int vmid)
+>                 }
+>         }
+>
+> -       f32_cntl =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_F32=
+_CNTL));
+> +       f32_cntl =3D RREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDM=
+A0_F32_CNTL));
+>         f32_cntl =3D REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 1);
+> -       WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), f32_c=
+ntl);
+> +       WREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_F32_CNTL),=
+ f32_cntl);
+>
+> -       cntl =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_CNTL));
+> +       cntl =3D RREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_C=
+NTL));
+>         cntl =3D REG_SET_FIELD(cntl, SDMA0_CNTL, UTC_L1_ENABLE, 0);
+> -       WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_CNTL), cntl);
+> +       WREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_CNTL), cnt=
+l);
+>
+>         /* soft reset SDMA_GFX_PREEMPT.IB_PREEMPT =3D 0 mmGRBM_SOFT_RESET=
+.SOFT_RESET_SDMA0/1 =3D 1 */
+> -       preempt =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_=
+PREEMPT));
+> +       preempt =3D RREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA=
+0_GFX_PREEMPT));
+>         preempt =3D REG_SET_FIELD(preempt, SDMA0_GFX_PREEMPT, IB_PREEMPT,=
+ 0);
+> -       WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_PREEMPT), pr=
+eempt);
+> +       WREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_GFX_PREEMP=
+T), preempt);
+>
+>         soft_reset =3D RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
+> -       soft_reset |=3D 1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << =
+i;
+> +       soft_reset |=3D 1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << =
+inst_id;
+>
+>         WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
+>
+>         udelay(50);
+>
+> -       soft_reset &=3D ~(1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT <=
+< i);
+> +       soft_reset &=3D ~(1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT <=
+< inst_id);
+>         WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
+>
+>         /* unfreeze*/
+> -       freeze =3D RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_FREEZ=
+E));
+> +       freeze =3D RREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0=
+_FREEZE));
+>         freeze =3D REG_SET_FIELD(freeze, SDMA0_FREEZE, FREEZE, 0);
+> -       WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_FREEZE), freeze)=
+;
+> +       WREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE), f=
+reeze);
+>
+> -       r =3D sdma_v5_0_gfx_resume_instance(adev, i, true);
+> +       r =3D sdma_v5_0_gfx_resume_instance(adev, inst_id, true);
+>
+>  err0:
+>         amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
 > --
 > 2.25.1
 >
