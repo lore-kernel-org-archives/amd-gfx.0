@@ -4,65 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A100C36010
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 14:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54358C36010
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 14:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 150E210E472;
-	Mon,  7 Apr 2025 14:17:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C73D610E488;
+	Mon,  7 Apr 2025 14:18:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JaN8RVMN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gL/8i1Zf";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7D5D10E472
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 14:17:23 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-af9b16eca8eso304301a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 07:17:23 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8290110E482
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 14:18:22 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-30363975406so839122a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 07:18:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744035443; x=1744640243; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1744035502; x=1744640302; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YNhRZPtJW5TnHTezndPQB3ppyawWTf68h9PuDQZ5kF8=;
- b=JaN8RVMN3MHB7ABaL7d0GatTuTq4SrnWvuN3pZ/2FTKFrHfp13CuDxJbo0Xd3wdBhu
- h5Ys70BMYKb7dYnAXhL0MsE7hNhUUNMTACjvDsWwM6G/siEw6+HKhlJr4tc1ZEMzhNDW
- iT6SqZGx5PC9krgohHCRxYPkb+qESWTk54BRSGUHrZssA9E7Ux9bnF+SKl0CZgg2FdoM
- /3ZXbEJ1vH5n+IGZVReSYmOhmH2a002vdJCHYTl3b+VJoa6AX3CHpwwX5t58TEntYi+S
- ZUndACKFPzhCrfcEKrU8i6dbIoVu8J8PXrNu+qgOMYCPV+vrrBt0btfyGejhRcS+Pfu8
- CXLw==
+ bh=mWX29h/XCFZL7IoGKQlLjxYjLTFGDstQ0MQTDFiDHpQ=;
+ b=gL/8i1ZfZwL0rF4sdIT3RQ6gog4kvNPt7/bfAVDIzk5SnRBPSU5ltDbaqC1z6Pqutv
+ Z3LdbbJXMSkyJgi+92aRDLVTwJU1cdCoYgNHkusEUvbAhO1zTscNKvOJ7qoBmDEucsSB
+ zyRn40HCpqqGvbpKy5YEMLkJpiVBs6ft5ur/RfPWG/3YAkpfiI54bMpc7ad5d6as9Z/K
+ MnUR25AtAw97j41+HMxNYjTy4RZvLmH1iIcfnWDTFLp1ZMsbkHvIoZhL0nqLcEWXg4/o
+ kMGJuzonFdp7/GEzTz+Q49uBU2+JWboYOyMKcGmENFOnMXACXlefHTOr0w1zZ1yRp1hN
+ UUsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744035443; x=1744640243;
+ d=1e100.net; s=20230601; t=1744035502; x=1744640302;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YNhRZPtJW5TnHTezndPQB3ppyawWTf68h9PuDQZ5kF8=;
- b=qvn2LOnEN4nAwu7LuL3FhiEJ4u+WEyH90eUBqQPdW2KueRaLIkiDYb3eSdNlBEBtft
- Oe3CyZgdgfBSDZ9eJOvgHv5Vqaec+9WceZWK/oD1MH/lxAU2tYWZJOaqfdxewCI4iug7
- KYaRFn4LrvW472xbBx0l2OuexIxKIuukRKv2D6Z8kFtl40zz+ixzjNTS8XjbEd2bpVk+
- kzZPvf475x7T/SUxLr4Y7uXbIFXRwF8QoseekU9XT99WZUUBRg1juW9IQAh9hhTkM1XG
- 1SAyAMhrwN2pOaBaN8ebRbcfRD9UI4qSbeZEIXN9/ve2QiXuB0NEZMfV9PltbTdUb4Sy
- QtAg==
-X-Gm-Message-State: AOJu0Yy+RYs0E7GbviZoC62nNcEGhdweerYXHY53DCV5y8EAu+H2Zywe
- +yxaMN84kx2KwUvI/RQaISw7ccqJtUfEvYBBUentDbmEgtyF4L0c05bdXxl9jivpiaft7sp96xt
- 0YsyGJuM1yh1tM6gdwta0XKhSmV6D3Q==
-X-Gm-Gg: ASbGncvMWE1vIK0ZUPYaVfkFV/CPWIWcAtuXWWO3DHzn/TVK+ft1ingQgXcyZf0nUbJ
- xsi4dr1DBQSnw2PxQF2T7DpbPTNNz2GUDsD42xh+vyTuGUl6DRWQ1hFoiMGC27gx2Ui1VPzFc6p
- yREWBoNkhWG0H8PDpnsxTCjhfGdQ==
-X-Google-Smtp-Source: AGHT+IH7d3hRZEetH4CvksYL1PjbVZtJl3wrymbWdcThXnWe+6dafmNYZ2SKP7kZ6TeumLFB9oEfk7dcoVo9f27rG8g=
-X-Received: by 2002:a17:90b:4b06:b0:2fe:b77a:2eba with SMTP id
- 98e67ed59e1d1-306a485b36amr6813584a91.1.1744035442950; Mon, 07 Apr 2025
- 07:17:22 -0700 (PDT)
+ bh=mWX29h/XCFZL7IoGKQlLjxYjLTFGDstQ0MQTDFiDHpQ=;
+ b=DT4bOkXVLg1PCEuPqAKimoYo5U2QY8MOCUZunNEpI5+vPzKkbT3TchSVUAOEYSymUP
+ WG0TbJOE+M+xIYQgO55UnPSM6Hut6LaX2fppTKI8pPwcGqx/tOdVnkHmpimE+T09k9KE
+ apf8Ha6dhay7+asrOC6mc8M/NO40qcgMq9tOpKluAstKHk3WkFl5p4j59bFH2/3FIt/g
+ gQUs64JsZD1Xox0dp98vZHuK79FZAqKGQL7zw5jH+VPxbxth0SPShdysUki4mUSqB3dA
+ cF5TxAlk3L1Zm57rGobAuruMf04uHso7R2dxVdRDuHVie4XyPIQ/xMn9o3yoelNqzOcl
+ h4IQ==
+X-Gm-Message-State: AOJu0YwO981RHlnl8KaK66tqu/9jNlsOH8RhFLd9Ya3nBwCGyXlrMqKL
+ qhjys0R9ZAEMZ9sTPs+0VFFvih5yq6zbRVd45IQvdPTPIVAbjiQCfSPiCwCRJrcijXAuX3K5loh
+ OJIyjZ+aHNp+2U1eqdtVfUeMhuuQhAw==
+X-Gm-Gg: ASbGncuRvDXcKgG/vInhGi3R2rJ9ZZGohfe7YYsQpFMA8PtZyqziTi9XIevkQsZ03Is
+ PL76Kgt2Nh8CESa5mXFDIvIfy3YzDQLOcinGdj3frA8SU6jAB2KY3LgPzxgL9Xfno+jK7r+4wf3
+ GBDEgXcpYjWQIpGLyIB3vrZdLY2A==
+X-Google-Smtp-Source: AGHT+IG9ZHust3a0b4a8GpriKEXc9BeaTAoewXRWFlSBkqmXuaE3xujYv3oILRw7q7Wguv6NZ6zU6ow0by0kcxGa9+E=
+X-Received: by 2002:a17:90a:d006:b0:306:b6ae:4d7a with SMTP id
+ 98e67ed59e1d1-306b6ae4e3bmr3468240a91.3.1744035501975; Mon, 07 Apr 2025
+ 07:18:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250328130857.4071486-1-alexander.deucher@amd.com>
- <20250328130857.4071486-2-alexander.deucher@amd.com>
-In-Reply-To: <20250328130857.4071486-2-alexander.deucher@amd.com>
+References: <20250326175122.1209403-1-alexander.deucher@amd.com>
+In-Reply-To: <20250326175122.1209403-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Apr 2025 10:17:11 -0400
-X-Gm-Features: ATxdqUF10fi1wFLtwCmGVGYVh2xip0eDqaQBS1ojvRc_JLIbgUwTSiAXtwwTsUs
-Message-ID: <CADnq5_Maeuqh+ywWsoR0LcSOnggT3ALtE3uwL-9GHfFhc3L9+Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu/mes12: optimize MES pipe FW version
- fetching
+Date: Mon, 7 Apr 2025 10:18:09 -0400
+X-Gm-Features: ATxdqUEouQrUAVDlWlhX3exxreydhXEYGFdgLoaZo30V5-P9IHXcDiqOekeOlIE
+Message-ID: <CADnq5_MsT6FD0g00H=DxuNj6B83nW8D47Y0k73b9Wavf0JXJkQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] Documentation: update KIQ documentation
 To: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -81,66 +79,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+Ping on this series?
+
 
 Alex
 
-On Fri, Mar 28, 2025 at 9:09=E2=80=AFAM Alex Deucher <alexander.deucher@amd=
+On Wed, Mar 26, 2025 at 1:52=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
 .com> wrote:
 >
-> Don't fetch it again if we already have it.  It seems the
-> registers don't reliably have the value at resume in some
-> cases.
+> KIQ is replaced with MES on GFX 11 and newer.
 >
-> Fixes: 785f0f9fe742 ("drm/amdgpu: Add mes v12_0 ip block support (v4)")
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 21 ++++++++++++---------
->  1 file changed, 12 insertions(+), 9 deletions(-)
+>  Documentation/gpu/amdgpu/driver-core.rst | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index bcabebd18fe84..8892858cfd9ae 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -1392,17 +1392,20 @@ static int mes_v12_0_queue_init(struct amdgpu_dev=
-ice *adev,
->                 mes_v12_0_queue_init_register(ring);
->         }
+> diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu=
+/amdgpu/driver-core.rst
+> index 7e3f5d1e9aaf4..81256318e93cf 100644
+> --- a/Documentation/gpu/amdgpu/driver-core.rst
+> +++ b/Documentation/gpu/amdgpu/driver-core.rst
+> @@ -140,7 +140,8 @@ Some useful constructs:
+>  KIQ (Kernel Interface Queue)
+>      This is a control queue used by the kernel driver to manage other gf=
+x
+>      and compute queues on the GFX/compute engine.  You can use it to
+> -    map/unmap additional queues, etc.
+> +    map/unmap additional queues, etc.  This is replaced by MES on
+> +    GFX 11 and newer hardware.
 >
-> -       /* get MES scheduler/KIQ versions */
-> -       mutex_lock(&adev->srbm_mutex);
-> -       soc21_grbm_select(adev, 3, pipe, 0, 0);
-> +       if (((pipe =3D=3D AMDGPU_MES_SCHED_PIPE) && !adev->mes.sched_vers=
-ion) ||
-> +           ((pipe =3D=3D AMDGPU_MES_KIQ_PIPE) && !adev->mes.kiq_version)=
-) {
-> +               /* get MES scheduler/KIQ versions */
-> +               mutex_lock(&adev->srbm_mutex);
-> +               soc21_grbm_select(adev, 3, pipe, 0, 0);
->
-> -       if (pipe =3D=3D AMDGPU_MES_SCHED_PIPE)
-> -               adev->mes.sched_version =3D RREG32_SOC15(GC, 0, regCP_MES=
-_GP3_LO);
-> -       else if (pipe =3D=3D AMDGPU_MES_KIQ_PIPE && adev->enable_mes_kiq)
-> -               adev->mes.kiq_version =3D RREG32_SOC15(GC, 0, regCP_MES_G=
-P3_LO);
-> +               if (pipe =3D=3D AMDGPU_MES_SCHED_PIPE)
-> +                       adev->mes.sched_version =3D RREG32_SOC15(GC, 0, r=
-egCP_MES_GP3_LO);
-> +               else if (pipe =3D=3D AMDGPU_MES_KIQ_PIPE && adev->enable_=
-mes_kiq)
-> +                       adev->mes.kiq_version =3D RREG32_SOC15(GC, 0, reg=
-CP_MES_GP3_LO);
->
-> -       soc21_grbm_select(adev, 0, 0, 0, 0);
-> -       mutex_unlock(&adev->srbm_mutex);
-> +               soc21_grbm_select(adev, 0, 0, 0, 0);
-> +               mutex_unlock(&adev->srbm_mutex);
-> +       }
->
->         return 0;
->  }
+>  IB (Indirect Buffer)
+>      A command buffer for a particular engine.  Rather than writing
 > --
 > 2.49.0
 >
