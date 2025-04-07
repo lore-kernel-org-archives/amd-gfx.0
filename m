@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D7A7C36010
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 15:03:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28429C369A2
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 15:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2F0310E4D8;
-	Mon,  7 Apr 2025 15:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2ED310E4CC;
+	Mon,  7 Apr 2025 15:03:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L3dtfkeE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dsXEHU4H";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE30710E4D8
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 15:03:11 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-2ff67f44fcaso882816a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 08:03:11 -0700 (PDT)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF38D10E4CC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 15:03:40 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-301a8b7398cso618212a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 08:03:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744038191; x=1744642991; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1744038217; x=1744643017; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nGGgNNW+Q/O/KTd8RUlkSi8a0KUUbS5hvK2VQQ7L/BU=;
- b=L3dtfkeEupCBiJ60W6CaGydME+4z8kCSiVzzDFaxTGoyR8/AXTckH7875nfIvLsaJM
- F/sy0QSLiNbHmttY/LljS8m4auHvdjIU4xslKL1m8W/46skcZQXxtR9rYvh1irdKnCAg
- PZ1eIUdYirh0EwfoFjFKBxbemOXcgImLzsGm9JwMXavKCviaQvMVVbXHprwlYs5YcndM
- zYR0GhsPfwHiySS8u8tlZfoGKbmJtSL3YP2ggEnFA1nBDWGKEO9Jnuhg8qcBtt2KsTcx
- MeDBf7kealtlet/SFNVbfSBjIIcwW3jULriHLDhzTzdQMpAYDLPH4vTz/zpC5mTSXg3s
- UcDA==
+ bh=2yojZax267NXAe7Fkl9Xv7AYU2Jn49mc8qIt9ACEv9g=;
+ b=dsXEHU4HVkDz26PxSvdtCrtAZSd1P1jZQEP5qHSHlEv/eFVB4tOq+CXTeRs/UGZqqW
+ rdxfgZ3zZdStWpJxM438htowE3G7+gIJBjsKX+5bOHWCbnHp/EgZnp8omk/wxu9vxIGc
+ q5LIuO/RY6vUiXa6JggB34IxYRdUUgBW7GSHjyklKLSCc0/qPFBY7h9kF0zLiwoc/Zf5
+ /R0eqkdpuY9HlmgegTtY3AVMzFtXbbgOFPJmzYWeDWAuPvVAwpjNk9DRK+fKYTMk0WPg
+ s7LJlYfU1U/GnPXHCtxzBuG+MIZQUlV3GqsYhpA8gJmPEqjb0vSqxK8wbFngI6WEfrUj
+ EjdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744038191; x=1744642991;
+ d=1e100.net; s=20230601; t=1744038217; x=1744643017;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nGGgNNW+Q/O/KTd8RUlkSi8a0KUUbS5hvK2VQQ7L/BU=;
- b=mdf4TrIdVsnLf+eTl98wbniCFLhi72RZ0dXSRK4YVDAkrSNyxX0m8niJ3KqNCklwfP
- hh7/FUtdqk5xA5Q0mtbRXJo+ut5wK47ZtMRZokFoeGEp9S++p9RprbM4C+lZeGDWx/5E
- npOjH/Tjx4KY1H+FZgtEpyR35vgZslfrrQzUmCNGyf9fleJxwvXq/5FpLSXfWBDXZte+
- c/giakbxwnI7/JTJP4JZEMK/az7AcuzxpI95mKjfA6Uf87Ow+6glHh3TeeE8liWUnxbs
- LxgMXGgKMC1PyaCL09QGZPh6XQYHYTW/LTz2qbMhEW+qN3CfY1e85/1UMiyYHWkOw+ny
- p02A==
-X-Gm-Message-State: AOJu0YznUBTGU8GxHsqWlCVkZan7fKZIg6JwxZWpsvXcDVtGjeh0xx4w
- T71rbvuc23XqlsB3pHCZEeN6CKWjKPwGcRTq+yRPd+6TDCFJVLgejN3llO9jD3YwMUmtRQrUt40
- mkFWyYWFCDE+1CQnzEAN+1e9c04/0+w==
-X-Gm-Gg: ASbGncuyAtF7Evav11nJs8iwC93wOwCv6cGMpswWj4G/GeI/6qGR5p0qhmxEAA1X57c
- kZkoCo/Mx1tG8+qE8QpOey8atVcMZGmgAhFi3IDLEYkUIkiqFST6GBiPWRX4jEUg3NDVApBI3w0
- 4/tZ4n/kMjcOxzurfdVjirSXpzpxup5Hx9s4ns
-X-Google-Smtp-Source: AGHT+IGA7Dqejs1jvjwuj2P9oh/9beu3daAiaogyjvOnY0h7ylgTGgravA8JCuYp6kN76F5G5kxiUJDxnMlR3IdO8No=
-X-Received: by 2002:a17:90b:1c8d:b0:301:1c11:aa7a with SMTP id
- 98e67ed59e1d1-306a4975b3cmr6520057a91.3.1744038191309; Mon, 07 Apr 2025
- 08:03:11 -0700 (PDT)
+ bh=2yojZax267NXAe7Fkl9Xv7AYU2Jn49mc8qIt9ACEv9g=;
+ b=N6R5iBZAPxOYTLLY6Gg38FPdorwWfeF883UQeKZfeq7RuZQoEPHpNV8mNncCWunv//
+ rScoio3f9N0xcxT8ItXXt2+T/EeO9PYz5jpxqsTbCn1250eLESyvART0Qj3Z8JpIrjtk
+ v+dQ4Aw0TD2D5mzDoI6oxMNbHWO0PGpkXtpMODpE3jboplD2TQQN8xbPUawl0XgnnSh1
+ A7GzxCQh1iDgYOevG+trh+CbloQ6T5IBggJ54foq8P15ZYxT9ZLqaqSEEC1maLno9INP
+ QmOaWc0yvP1PNdhjisaWASlEIWInrpGLZNfC1NUPx4qUiE6oCCTybKY9GTO64bTOcyye
+ m+5Q==
+X-Gm-Message-State: AOJu0Yzva75AQVYVNgLyADmDxerjo0mxYkuv9IBaxlk1C8TUZjoZEDHk
+ EVRQPQcLiaN2B4MDX/t4zHnfalHI98I0ssobFZrRp2MLKLOCCtpsyv1/GhE8tOXqETQp8KW8LCu
+ llf+Pbrbc+GvMunQXdOf/tmglZX5a/A==
+X-Gm-Gg: ASbGncv4sEAnv4ZOK0s+g1ui/WuEeL0H8GyqlLO2XPAXA4gxy3mgTLYEk833Ky412Z1
+ ys7Mdua6QgkJFtXq9A2mv2WvtowF9a8w0v66qHNmCHuGo97v5xKRWADCwWD4UbSVf87R0bdWNSR
+ O1W3XUovBeQR7mQ3qgkHziZCAl9w==
+X-Google-Smtp-Source: AGHT+IHhc7T+bVQYDUFiJ+tAwIH4MyNHk94SJygF5iwl5X3Oq3g073uGg9YKrojrBGJI4BpWyZ+mLMgpR7U8qVKYK+8=
+X-Received: by 2002:a17:90b:3a90:b0:2ff:5759:549a with SMTP id
+ 98e67ed59e1d1-306a48301a4mr7062195a91.1.1744038216587; Mon, 07 Apr 2025
+ 08:03:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250407055230.35519-1-alexandre.f.demers@gmail.com>
-In-Reply-To: <20250407055230.35519-1-alexandre.f.demers@gmail.com>
+References: <20250404054225.101791-1-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250404054225.101791-1-alexandre.f.demers@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Apr 2025 11:02:59 -0400
-X-Gm-Features: ATxdqUHbETZgMW2FXfJ1CXeaZKZmIiQJctsZ97LIVPqS0SeD1w_c58RsmV0ZQio
-Message-ID: <CADnq5_PK7d4T72_uutvw8UtjpeBEpkdRAuyYq_=rLJmwrkKqOw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: still cleanup sid.h
+Date: Mon, 7 Apr 2025 11:03:24 -0400
+X-Gm-Features: ATxdqUHwWw9E0RP5cAGwlJ51C7HDRIp6v8zFCilBGG7y7KTNOOEVomYiNwt_7R4
+Message-ID: <CADnq5_ONjgJWEep79yLf25R09jcO3xmB9SvnGfgGQnijNeoH6A@mail.gmail.com>
+Subject: Re: [PATCH 0/2] drm/amdgpu: better complete DCE6 and GMC6
 To: Alexandre Demers <alexandre.f.demers@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -81,123 +81,39 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Mon, Apr 7, 2025 at 1:52=E2=80=AFAM Alexandre Demers
+On Fri, Apr 4, 2025 at 1:43=E2=80=AFAM Alexandre Demers
 <alexandre.f.demers@gmail.com> wrote:
 >
-> The defines, shifts and masks are already available in dce_6_0_d.h,
-> dce_6_0_sh_mask.h.
+> First patch moves some DCE files around so they are distributed as are
+> other DCE files
 >
-> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/si.c  | 26 +++++++++++++-------------
->  drivers/gpu/drm/amd/amdgpu/sid.h | 16 ----------------
->  2 files changed, 13 insertions(+), 29 deletions(-)
+> Second patch implements gmc_v6_0_set_clockgating_state(), which was mostl=
+y
+> there, but commented out. A few tweeks were needed to make it work under
+> amdgpu.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu=
-/si.c
-> index 3b8c65a966b9..c21f97d89cbe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-> @@ -1278,24 +1278,24 @@ static bool si_read_disabled_bios(struct amdgpu_d=
-evice *adev)
->         u32 rom_cntl;
->         bool r;
+> Alexandre Demers (2):
+>   drm/amd/display/dc: reclassify DCE6 resources and hw sequencer
+>   drm/amdgpu: fill in gmc_v6_0_set_clockgating_state()
 >
-> -       bus_cntl =3D RREG32(R600_BUS_CNTL);
-> +       bus_cntl =3D RREG32(mmBUS_CNTL);
->         if (adev->mode_info.num_crtc) {
-> -               d1vga_control =3D RREG32(AVIVO_D1VGA_CONTROL);
-> -               d2vga_control =3D RREG32(AVIVO_D2VGA_CONTROL);
-> +               d1vga_control =3D RREG32(mmD1VGA_CONTROL);
-> +               d2vga_control =3D RREG32(mmD2VGA_CONTROL);
->                 vga_render_control =3D RREG32(mmVGA_RENDER_CONTROL);
->         }
->         rom_cntl =3D RREG32(R600_ROM_CNTL);
+>  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         | 44 ++++++++++++-------
+>  drivers/gpu/drm/amd/display/dc/dce60/Makefile |  3 +-
+>  drivers/gpu/drm/amd/display/dc/hwss/Makefile  | 24 ++++++----
+>  .../dce60/dce60_hwseq.c}                      |  2 +-
+>  .../dce60/dce60_hwseq.h}                      |  0
+>  .../gpu/drm/amd/display/dc/resource/Makefile  | 24 ++++++----
+>  .../dc/{ =3D> resource}/dce60/dce60_resource.c  |  2 +-
+>  .../dc/{ =3D> resource}/dce60/dce60_resource.h  |  0
+>  8 files changed, 63 insertions(+), 36 deletions(-)
+>  rename drivers/gpu/drm/amd/display/dc/{dce60/dce60_hw_sequencer.c =3D> h=
+wss/dce60/dce60_hwseq.c} (99%)
+>  rename drivers/gpu/drm/amd/display/dc/{dce60/dce60_hw_sequencer.h =3D> h=
+wss/dce60/dce60_hwseq.h} (100%)
+>  rename drivers/gpu/drm/amd/display/dc/{ =3D> resource}/dce60/dce60_resou=
+rce.c (99%)
+>  rename drivers/gpu/drm/amd/display/dc/{ =3D> resource}/dce60/dce60_resou=
+rce.h (100%)
 >
->         /* enable the rom */
-> -       WREG32(R600_BUS_CNTL, (bus_cntl & ~R600_BIOS_ROM_DIS));
-> +       WREG32(mmBUS_CNTL, (bus_cntl & ~BUS_CNTL__BIOS_ROM_DIS_MASK));
->         if (adev->mode_info.num_crtc) {
->                 /* Disable VGA mode */
-> -               WREG32(AVIVO_D1VGA_CONTROL,
-> -                      (d1vga_control & ~(AVIVO_DVGA_CONTROL_MODE_ENABLE =
-|
-> -                                         AVIVO_DVGA_CONTROL_TIMING_SELEC=
-T)));
-> -               WREG32(AVIVO_D2VGA_CONTROL,
-> -                      (d2vga_control & ~(AVIVO_DVGA_CONTROL_MODE_ENABLE =
-|
-> -                                         AVIVO_DVGA_CONTROL_TIMING_SELEC=
-T)));
-> +               WREG32(mmD1VGA_CONTROL,
-> +                      (d1vga_control & ~(D1VGA_CONTROL__D1VGA_MODE_ENABL=
-E_MASK |
-> +                                         D1VGA_CONTROL__D1VGA_TIMING_SEL=
-ECT_MASK)));
-> +               WREG32(mmD2VGA_CONTROL,
-> +                      (d2vga_control & ~(D1VGA_CONTROL__D1VGA_MODE_ENABL=
-E_MASK |
-> +                                         D1VGA_CONTROL__D1VGA_TIMING_SEL=
-ECT_MASK)));
->                 WREG32(mmVGA_RENDER_CONTROL,
->                        (vga_render_control & ~VGA_RENDER_CONTROL__VGA_VST=
-ATUS_CNTL_MASK));
->         }
-> @@ -1304,10 +1304,10 @@ static bool si_read_disabled_bios(struct amdgpu_d=
-evice *adev)
->         r =3D amdgpu_read_bios(adev);
->
->         /* restore regs */
-> -       WREG32(R600_BUS_CNTL, bus_cntl);
-> +       WREG32(mmBUS_CNTL, bus_cntl);
->         if (adev->mode_info.num_crtc) {
-> -               WREG32(AVIVO_D1VGA_CONTROL, d1vga_control);
-> -               WREG32(AVIVO_D2VGA_CONTROL, d2vga_control);
-> +               WREG32(mmD1VGA_CONTROL, d1vga_control);
-> +               WREG32(mmD2VGA_CONTROL, d2vga_control);
->                 WREG32(mmVGA_RENDER_CONTROL, vga_render_control);
->         }
->         WREG32(R600_ROM_CNTL, rom_cntl);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgp=
-u/sid.h
-> index 19889276d677..99f6dfae9b81 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sid.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
-> @@ -81,11 +81,6 @@
->  #define                MC_CG_ENABLE                            (1 << 18)
->  #define                MC_LS_ENABLE                            (1 << 19)
->
-> -#define MC_SHARED_CHMAP                                                0=
-x801
-> -#define                NOOFCHAN_SHIFT                                  1=
-2
-> -#define                NOOFCHAN_MASK                                   0=
-x0000f000
-> -#define MC_SHARED_CHREMAP                                      0x802
-> -
->  #define        MC_VM_FB_LOCATION                               0x809
->  #define        MC_VM_AGP_TOP                                   0x80A
->  #define        MC_VM_AGP_BOT                                   0x80B
-> @@ -664,17 +659,6 @@
->  #define CURSOR_WIDTH 64
->  #define CURSOR_HEIGHT 64
->
-> -#define AVIVO_D1VGA_CONTROL                                    0x00cc
-> -#       define AVIVO_DVGA_CONTROL_MODE_ENABLE            (1 << 0)
-> -#       define AVIVO_DVGA_CONTROL_TIMING_SELECT          (1 << 8)
-> -#       define AVIVO_DVGA_CONTROL_SYNC_POLARITY_SELECT   (1 << 9)
-> -#       define AVIVO_DVGA_CONTROL_OVERSCAN_TIMING_SELECT (1 << 10)
-> -#       define AVIVO_DVGA_CONTROL_OVERSCAN_COLOR_EN      (1 << 16)
-> -#       define AVIVO_DVGA_CONTROL_ROTATE                 (1 << 24)
-> -#define AVIVO_D2VGA_CONTROL                                    0x00ce
-> -
-> -#define R600_BUS_CNTL                                           0x1508
-> -#       define R600_BIOS_ROM_DIS                                (1 << 1)
->
->  #define R600_ROM_CNTL                              0x580
->  #       define R600_SCK_OVERWRITE                  (1 << 1)
 > --
 > 2.49.0
 >
