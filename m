@@ -4,49 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9929C3600C
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Apr 2025 23:07:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5001BC36010
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 05:40:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0C410E15F;
-	Sun,  6 Apr 2025 23:07:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E12C510E00C;
+	Mon,  7 Apr 2025 05:40:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mAGNbooQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z5yFFSCF";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E51410E150
- for <amd-gfx@lists.freedesktop.org>; Sun,  6 Apr 2025 23:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=7+pN2ZyDuGxf+9uiiXYtfShWeJ9aS4yQfrjGD3ygsso=; b=mAGNbooQgwkC1co3vIW2G9D40n
- KpSadcNH1eTYlGT1FkOtXHYB+NY104BBA5UTR0dGnZ5GeRmIvoMNmwLSXTVRsZcsLaxVXK/zbJuBM
- SXcNM6TC59m3qKK7/q4A+dF3/5amAHyGXpBU21JRcPzB2pYhR4tRzqBIPGtyZ9HFM1lLj6axyed3v
- 5GEcHV5Obl+SihbmaCiphnulZfka7ItJHJcfBvhAa5iya+SUjLmcihAWqfh1AC95pfmCUBGBz7DeZ
- 4M7gtzI/mqM6Cb3GslTCYjRKACwsNwHixVxBVZVRLm4MtS+iYLKB/ztU3Wau70hZ8aGutLppZqetW
- 7AeaO+cg==;
-Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
- helo=maloca.lan) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1u1Z5J-00CfEV-Rh; Mon, 07 Apr 2025 01:07:26 +0200
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 1/6] drm/amd/amdgpu: Create a headears to keep some common GC
- registers
-Date: Sun,  6 Apr 2025 17:02:56 -0600
-Message-ID: <20250406230703.2128148-2-siqueira@igalia.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250406230703.2128148-1-siqueira@igalia.com>
-References: <20250406230703.2128148-1-siqueira@igalia.com>
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
+ [209.85.161.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0033F10E00C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 05:40:22 +0000 (UTC)
+Received: by mail-oo1-f43.google.com with SMTP id
+ 006d021491bc7-6021b5d1c2fso321834eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 06 Apr 2025 22:40:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744004422; x=1744609222; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=lcQekedDka8GM+sZB3s0t0ImMA4H8JvoqX6cgQ+A6es=;
+ b=Z5yFFSCF8TmPAKg8CQegEuDfVtxhw/Krf+lWliNX71h2SNnYwjW+ta+hvqJIu33eD1
+ SLeZV3Nv/pFiqqhOatADaFcT6umLKvznmHI9DFPpSJGA0UoNXWGmDRTmzQah5hFpca0L
+ +D0Pwl9tF5Fc/6+eaS2rBLccdfxYerlTvK+Ymp/rRXm4ggni8bUGcqPQcq6iBSx5k4rY
+ Au0AuuAL86G5IaJH1gbteCp50uLMb18eX4k8Jqr/y2hwTt6QGu2Y3xZSCpwXzyznTGPZ
+ WrtK79DpOkJjRbaUJvMLz0eeGxgowf3Gs/WVX2eDKx2bZSgAbpbAX1vsL+4WuCP3H0CN
+ IJXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744004422; x=1744609222;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lcQekedDka8GM+sZB3s0t0ImMA4H8JvoqX6cgQ+A6es=;
+ b=Nk5P39zLN13S3JqxM1LJa3VDtW5lJrBBMDo7chegXFL0wtk8flhUxk+qUzTIhjU6Sa
+ D+WO3rK0thUXT7ELSRp70dmEqh9ENZRyc0CmbLPElrss0z2HnxPYvvOqM+kl9bqaMN3E
+ 1dCorFk6yp7N+76h+GI+qSnD+D0MzsEUm1nioiZKCguNtaRdQ99goTBAy6Z4gnMpu3//
+ VQbEV7KiqQM+zh9KKQbecRqXpNAvrWBKfbyfhxdNcGaC40TQ6Rwnq0BPs2YzyGnEr+y5
+ 2rfhWcY194Wsrh3PqHBW5WugOZUN6IzgcQ8PRMxBtcs+7Bns+ta7jYYDZ34lvPd0xwZo
+ rigw==
+X-Gm-Message-State: AOJu0YzHJCmCSmwx23LdHxVXDiC/+2Q0FQvE0xw3+v4V/WzngyGSWT6A
+ 3t66dH985vvFfLf2I2MVg36AoBiwnTM2Mx5H2J6jI3ohlQJfQ2IHdjmTU+hWjgP8Y/DMvWuf8hG
+ 9lf5y4k/B1KodjC8GIxJ3svjgtks=
+X-Gm-Gg: ASbGncvR4QZGnXkv8l6oJv5MunFHCTxHeFqPbC7+Ja4aNBGqIEYBdsyJ53cPHBiCWTl
+ qQPB7EFL9iSEJ73H4HQV1IAcWOjN3JwBgKPsn2MO5fLgQq5bj5iHXQWMbGXDNDNpbfTIl7djPoo
+ Eoi/HVO4CkRfvhAyNJZ/hGpqNrilg=
+X-Google-Smtp-Source: AGHT+IG6nLrLmMquZfjhlJAk0Jl1Ao043WoaBEIwJRudoYzT5Ah7kfUBSKzvThCV74Qw6mmQi5z907IG0r6fWx41Kwk=
+X-Received: by 2002:a05:6870:63a1:b0:29e:3b8e:66c8 with SMTP id
+ 586e51a60fabf-2cc9e5be818mr2203542fac.6.1744004421997; Sun, 06 Apr 2025
+ 22:40:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250324203328.4174703-1-alexander.deucher@amd.com>
+In-Reply-To: <20250324203328.4174703-1-alexander.deucher@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Mon, 7 Apr 2025 01:39:45 -0400
+X-Gm-Features: ATxdqUELL4udIvLc5OzXour95ASiemYQGSkRAINUnj6EJUP0yyouDrSnPEhCEIU
+Message-ID: <CAAxE2A7N5ZAVsTrF91gX+9hvNv3MEt_wrnc_GrPVn3+sudHKeQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: add UAPI to query if user queues are
+ supported
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, marek.olsak@amd.com, prike.liang@amd.com, 
+ sunil.khatri@amd.com, yogesh.mohanmarimuthu@amd.com
+Content-Type: multipart/alternative; boundary="0000000000000f5d4f063229ac9d"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,224 +79,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some GC registers are duplicated across multiple instances of GC offset
-files. This commit creates a new file named gc_common_offset.h that
-centralizes some common registers in a single file. Aside from
-eliminating multiple duplications, this approach also avoids including
-specific registers in generic files (e.g., amdgpu_gfx) and reduces the
-number of includes.
+--0000000000000f5d4f063229ac9d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c                   | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c                   | 4 +++-
- .../gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h   | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h   | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h   | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h   | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_offset.h   | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_12_0_0_offset.h   | 2 --
- drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h  | 2 --
- drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h  | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h    | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_9_4_2_offset.h    | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_9_4_3_offset.h    | 2 --
- .../gpu/drm/amd/include/asic_reg/gc/gc_common_offset.h   | 9 +++++++++
- 14 files changed, 13 insertions(+), 23 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/gc/gc_common_offset.h
+Reviewed-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index a1e3bb43babc..9f92acfdf00c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -32,6 +32,7 @@
- #include "nv.h"
- #include "nvd.h"
- 
-+#include "gc/gc_common_offset.h"
- #include "gc/gc_10_1_0_offset.h"
- #include "gc/gc_10_1_0_sh_mask.h"
- #include "smuio/smuio_11_0_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 58b10a72c0c9..2aea229ac4bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -33,6 +33,8 @@
- #include "soc21.h"
- #include "nvd.h"
- 
-+#include "gc/gc_common_offset.h"
-+
- #include "gc/gc_11_0_0_offset.h"
- #include "gc/gc_11_0_0_sh_mask.h"
- #include "smuio/smuio_13_0_6_offset.h"
-@@ -3565,7 +3567,7 @@ static int gfx_v11_0_cp_gfx_start(struct amdgpu_device *adev)
- 	}
- 
- 	ctx_reg_offset =
--		SOC15_REG_OFFSET(GC, 0, regPA_SC_TILE_STEERING_OVERRIDE) - PACKET3_SET_CONTEXT_REG_START;
-+		SOC15_REG_OFFSET(GC, 0, mmPA_SC_TILE_STEERING_OVERRIDE) - PACKET3_SET_CONTEXT_REG_START;
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_SET_CONTEXT_REG, 1));
- 	amdgpu_ring_write(ring, ctx_reg_offset);
- 	amdgpu_ring_write(ring, adev->gfx.config.pa_sc_tile_steering_override);
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
-index 4c8e7fdb6976..1e92f71f12b8 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
-@@ -5974,8 +5974,6 @@
- #define mmPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define mmPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define mmPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define mmPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define mmPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define mmCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define mmCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define mmCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
-index 5e15ac14b63c..555a3bc26614 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
-@@ -5603,8 +5603,6 @@
- #define mmPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define mmPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define mmPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define mmPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define mmPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define mmCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define mmCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define mmCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-index a3bcdf632066..b82c72d27cf9 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-@@ -5393,8 +5393,6 @@
- #define regPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define regPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define regPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define regPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define regPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define regCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define regCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define regCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h
-index 56e00252bff8..82a795135f87 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h
-@@ -5673,8 +5673,6 @@
- #define regPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define regPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define regPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define regPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define regPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define regCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define regCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define regCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_offset.h
-index d6c02cf815be..bf61fc0d3edd 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_offset.h
-@@ -4204,8 +4204,6 @@
- #define regPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define regPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define regPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define regPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define regPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define regCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define regCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define regCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_0_0_offset.h
-index 645d10bfbc79..d0df8d0df4e3 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_0_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_0_0_offset.h
-@@ -8404,8 +8404,6 @@
- #define regPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define regPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define regPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define regPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define regPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define regCB_CP_PIPEID                                                                                 0x00d9
- #define regCB_CP_PIPEID_BASE_IDX                                                                        1
- #define regCB_CP_VMID                                                                                   0x00da
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
-index 12d451e5475b..d5c31df4cea7 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
-@@ -3584,8 +3584,6 @@
- #define mmPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define mmPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define mmPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define mmPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define mmPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define mmCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define mmCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define mmCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h
-index d17d1e622e4f..a7d476b6c8e3 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h
-@@ -3814,8 +3814,6 @@
- #define mmPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define mmPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define mmPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define mmPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define mmPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define mmCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define mmCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define mmCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h
-index c30720277912..fc5c7abb35e7 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h
-@@ -3764,8 +3764,6 @@
- #define mmPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define mmPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define mmPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define mmPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define mmPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define mmCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define mmCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define mmCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_4_2_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_4_2_offset.h
-index 1a8a6a350789..e13fb8137820 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_4_2_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_4_2_offset.h
-@@ -1755,8 +1755,6 @@
- #define regPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define regPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define regPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define regPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define regPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define regCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define regCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define regCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_4_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_4_3_offset.h
-index 393963502b7a..845dbbbfd567 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_4_3_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_4_3_offset.h
-@@ -3995,8 +3995,6 @@
- #define regPA_SC_RASTER_CONFIG_1_BASE_IDX                                                               1
- #define regPA_SC_SCREEN_EXTENT_CONTROL                                                                  0x00d6
- #define regPA_SC_SCREEN_EXTENT_CONTROL_BASE_IDX                                                         1
--#define regPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
--#define regPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
- #define regCP_PERFMON_CNTX_CNTL                                                                         0x00d8
- #define regCP_PERFMON_CNTX_CNTL_BASE_IDX                                                                1
- #define regCP_PIPEID                                                                                    0x00d9
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_common_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_common_offset.h
-new file mode 100644
-index 000000000000..1f7c5f597c05
---- /dev/null
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_common_offset.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: MIT */
-+
-+#ifndef _gc_gc_common_offset
-+#define _gc_gc_common_offset
-+
-+#define mmPA_SC_TILE_STEERING_OVERRIDE                                                                 0x00d7
-+#define mmPA_SC_TILE_STEERING_OVERRIDE_BASE_IDX                                                        1
-+
-+#endif
--- 
-2.49.0
+For both patches.
 
+Marek
+
+On Mon, Mar 24, 2025 at 4:34=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com>
+wrote:
+
+> Add an INFO query to check if user queues are supported.
+>
+> v2: switch to a mask of IPs (Marek)
+> v3: move to drm_amdgpu_info_device (Marek)
+>
+> Cc: marek.olsak@amd.com
+> Cc: prike.liang@amd.com
+> Cc: sunil.khatri@amd.com
+> Cc: yogesh.mohanmarimuthu@amd.com
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 7 +++++++
+>  include/uapi/drm/amdgpu_drm.h           | 3 +++
+>  2 files changed, 10 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 3b7dfd56ccd0e..0ba3ef1e4a068 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1009,6 +1009,13 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
+> *data, struct drm_file *filp)
+>                         }
+>                 }
+>
+> +               if (adev->userq_funcs[AMDGPU_HW_IP_GFX])
+> +                       dev_info->userq_ip_mask |=3D (1 << AMDGPU_HW_IP_G=
+FX);
+> +               if (adev->userq_funcs[AMDGPU_HW_IP_COMPUTE])
+> +                       dev_info->userq_ip_mask |=3D (1 <<
+> AMDGPU_HW_IP_COMPUTE);
+> +               if (adev->userq_funcs[AMDGPU_HW_IP_DMA])
+> +                       dev_info->userq_ip_mask |=3D (1 << AMDGPU_HW_IP_D=
+MA);
+> +
+>                 ret =3D copy_to_user(out, dev_info,
+>                                    min((size_t)size, sizeof(*dev_info))) =
+?
+> -EFAULT : 0;
+>                 kfree(dev_info);
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
+h
+> index 5dbd9037afe75..ef97c0d78b8a0 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -1453,6 +1453,9 @@ struct drm_amdgpu_info_device {
+>         __u32 csa_size;
+>         /* context save area base virtual alignment for gfx11 */
+>         __u32 csa_alignment;
+> +       /* Userq IP mask (1 << AMDGPU_HW_IP_*) */
+> +       __u32 userq_ip_mask;
+> +       __u32 pad;
+>  };
+>
+>  struct drm_amdgpu_info_hw_ip {
+> --
+> 2.49.0
+>
+>
+
+--0000000000000f5d4f063229ac9d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Reviewed-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mai=
+lto:marek.olsak@amd.com" target=3D"_blank">marek.olsak@amd.com</a>&gt;</div=
+><div><br></div><div>For both patches.</div><div><br></div><div>Marek</div>=
+</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=
+On Mon, Mar 24, 2025 at 4:34=E2=80=AFPM Alex Deucher &lt;<a href=3D"mailto:=
+alexander.deucher@amd.com" target=3D"_blank">alexander.deucher@amd.com</a>&=
+gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Add a=
+n INFO query to check if user queues are supported.<br>
+<br>
+v2: switch to a mask of IPs (Marek)<br>
+v3: move to drm_amdgpu_info_device (Marek)<br>
+<br>
+Cc: <a href=3D"mailto:marek.olsak@amd.com" target=3D"_blank">marek.olsak@am=
+d.com</a><br>
+Cc: <a href=3D"mailto:prike.liang@amd.com" target=3D"_blank">prike.liang@am=
+d.com</a><br>
+Cc: <a href=3D"mailto:sunil.khatri@amd.com" target=3D"_blank">sunil.khatri@=
+amd.com</a><br>
+Cc: <a href=3D"mailto:yogesh.mohanmarimuthu@amd.com" target=3D"_blank">yoge=
+sh.mohanmarimuthu@amd.com</a><br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
+" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 7 +++++++<br>
+=C2=A0include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0| 3 +++<br>
+=C2=A02 files changed, 10 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c<br>
+index 3b7dfd56ccd0e..0ba3ef1e4a068 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+@@ -1009,6 +1009,13 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *=
+data, struct drm_file *filp)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;userq_=
+funcs[AMDGPU_HW_IP_GFX])<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0dev_info-&gt;userq_ip_mask |=3D (1 &lt;&lt; AMDGPU_HW_IP_GFX);<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;userq_=
+funcs[AMDGPU_HW_IP_COMPUTE])<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0dev_info-&gt;userq_ip_mask |=3D (1 &lt;&lt; AMDGPU_HW_IP_COMPUTE)=
+;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;userq_=
+funcs[AMDGPU_HW_IP_DMA])<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0dev_info-&gt;userq_ip_mask |=3D (1 &lt;&lt; AMDGPU_HW_IP_DMA);<br=
+>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D copy_to_use=
+r(out, dev_info,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0min((size_t)size, sizeo=
+f(*dev_info))) ? -EFAULT : 0;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 kfree(dev_info);<br=
+>
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
+br>
+index 5dbd9037afe75..ef97c0d78b8a0 100644<br>
+--- a/include/uapi/drm/amdgpu_drm.h<br>
++++ b/include/uapi/drm/amdgpu_drm.h<br>
+@@ -1453,6 +1453,9 @@ struct drm_amdgpu_info_device {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32 csa_size;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* context save area base virtual alignment for=
+ gfx11 */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32 csa_alignment;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Userq IP mask (1 &lt;&lt; AMDGPU_HW_IP_*) */=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 userq_ip_mask;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 pad;<br>
+=C2=A0};<br>
+<br>
+=C2=A0struct drm_amdgpu_info_hw_ip {<br>
+-- <br>
+2.49.0<br>
+<br>
+</blockquote></div>
+
+--0000000000000f5d4f063229ac9d--
