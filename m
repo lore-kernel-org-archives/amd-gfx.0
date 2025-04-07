@@ -4,63 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB78C369A2
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 15:01:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D7A7C36010
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 15:03:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631BD10E4CF;
-	Mon,  7 Apr 2025 15:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2F0310E4D8;
+	Mon,  7 Apr 2025 15:03:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EaLcRPus";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L3dtfkeE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 104E910E4CF;
- Mon,  7 Apr 2025 15:01:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744038117; x=1775574117;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=rhSATD/rKMtHYXDCE0o4Mbw5WsGF2rQbenLiBprMTa0=;
- b=EaLcRPusNz419kto1kltuCrg1NJkyITxLd/AjHqde/j4cPqDCz06+0Xu
- gtIJPi6AMo7L6Jfzd6hx+XOtxlydRwZOmpSLR6QESlgNXnuJVUFPfCB+v
- 0qBSQIvYVcSWYMD5NAoCcSLUeV/NVPAdEt+9t3CgcmrG3RmxrGh81sRvm
- U8JHZlEmvwWLn2+Is0UsQhqg8SV9TQg8i2KUkELpa0duRdRxdBNyNpdA8
- F6e2XduIc0v9EtCcOzzKzvDL7i4RWKYlmhhKoYbsit6kjf4wyiEmC8zuw
- AnZfZj0uyNAKKcDrSSBWhtwJi9/FX0s3GbnDvbfduNZVn3xYHnjjpFUjb w==;
-X-CSE-ConnectionGUID: Q21FCxquRmO7pIT9hFnE3A==
-X-CSE-MsgGUID: flNsaZ5kRICm1AmdTfIi+A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="70805895"
-X-IronPort-AV: E=Sophos;i="6.15,194,1739865600"; d="scan'208";a="70805895"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2025 08:01:52 -0700
-X-CSE-ConnectionGUID: 5VLNdyYJQle5h2IJpNU5DQ==
-X-CSE-MsgGUID: afOhJ7tASayu0qyv1q770Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,194,1739865600"; d="scan'208";a="132707010"
-Received: from oandoniu-mobl3.ger.corp.intel.com (HELO [10.245.245.196])
- ([10.245.245.196])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2025 08:01:50 -0700
-Message-ID: <53382877-076a-4bc4-8b70-e2f987b57f8a@intel.com>
-Date: Mon, 7 Apr 2025 16:01:47 +0100
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE30710E4D8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Apr 2025 15:03:11 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-2ff67f44fcaso882816a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Apr 2025 08:03:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744038191; x=1744642991; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nGGgNNW+Q/O/KTd8RUlkSi8a0KUUbS5hvK2VQQ7L/BU=;
+ b=L3dtfkeEupCBiJ60W6CaGydME+4z8kCSiVzzDFaxTGoyR8/AXTckH7875nfIvLsaJM
+ F/sy0QSLiNbHmttY/LljS8m4auHvdjIU4xslKL1m8W/46skcZQXxtR9rYvh1irdKnCAg
+ PZ1eIUdYirh0EwfoFjFKBxbemOXcgImLzsGm9JwMXavKCviaQvMVVbXHprwlYs5YcndM
+ zYR0GhsPfwHiySS8u8tlZfoGKbmJtSL3YP2ggEnFA1nBDWGKEO9Jnuhg8qcBtt2KsTcx
+ MeDBf7kealtlet/SFNVbfSBjIIcwW3jULriHLDhzTzdQMpAYDLPH4vTz/zpC5mTSXg3s
+ UcDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744038191; x=1744642991;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=nGGgNNW+Q/O/KTd8RUlkSi8a0KUUbS5hvK2VQQ7L/BU=;
+ b=mdf4TrIdVsnLf+eTl98wbniCFLhi72RZ0dXSRK4YVDAkrSNyxX0m8niJ3KqNCklwfP
+ hh7/FUtdqk5xA5Q0mtbRXJo+ut5wK47ZtMRZokFoeGEp9S++p9RprbM4C+lZeGDWx/5E
+ npOjH/Tjx4KY1H+FZgtEpyR35vgZslfrrQzUmCNGyf9fleJxwvXq/5FpLSXfWBDXZte+
+ c/giakbxwnI7/JTJP4JZEMK/az7AcuzxpI95mKjfA6Uf87Ow+6glHh3TeeE8liWUnxbs
+ LxgMXGgKMC1PyaCL09QGZPh6XQYHYTW/LTz2qbMhEW+qN3CfY1e85/1UMiyYHWkOw+ny
+ p02A==
+X-Gm-Message-State: AOJu0YznUBTGU8GxHsqWlCVkZan7fKZIg6JwxZWpsvXcDVtGjeh0xx4w
+ T71rbvuc23XqlsB3pHCZEeN6CKWjKPwGcRTq+yRPd+6TDCFJVLgejN3llO9jD3YwMUmtRQrUt40
+ mkFWyYWFCDE+1CQnzEAN+1e9c04/0+w==
+X-Gm-Gg: ASbGncuyAtF7Evav11nJs8iwC93wOwCv6cGMpswWj4G/GeI/6qGR5p0qhmxEAA1X57c
+ kZkoCo/Mx1tG8+qE8QpOey8atVcMZGmgAhFi3IDLEYkUIkiqFST6GBiPWRX4jEUg3NDVApBI3w0
+ 4/tZ4n/kMjcOxzurfdVjirSXpzpxup5Hx9s4ns
+X-Google-Smtp-Source: AGHT+IGA7Dqejs1jvjwuj2P9oh/9beu3daAiaogyjvOnY0h7ylgTGgravA8JCuYp6kN76F5G5kxiUJDxnMlR3IdO8No=
+X-Received: by 2002:a17:90b:1c8d:b0:301:1c11:aa7a with SMTP id
+ 98e67ed59e1d1-306a4975b3cmr6520057a91.3.1744038191309; Mon, 07 Apr 2025
+ 08:03:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu/dma_buf: fix page_link check
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-xe@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
-References: <20250407141823.44504-3-matthew.auld@intel.com>
- <20250407141823.44504-4-matthew.auld@intel.com>
- <a4b1190d-4d4f-4c66-9fb7-2be19d2ea3dc@gmail.com>
- <8ae9b377-5a2d-435f-8e29-ed393b984870@intel.com>
- <fee87af7-be0f-4bae-af1d-8c39923ec20b@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <fee87af7-be0f-4bae-af1d-8c39923ec20b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250407055230.35519-1-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250407055230.35519-1-alexandre.f.demers@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 7 Apr 2025 11:02:59 -0400
+X-Gm-Features: ATxdqUHbETZgMW2FXfJ1CXeaZKZmIiQJctsZ97LIVPqS0SeD1w_c58RsmV0ZQio
+Message-ID: <CADnq5_PK7d4T72_uutvw8UtjpeBEpkdRAuyYq_=rLJmwrkKqOw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: still cleanup sid.h
+To: Alexandre Demers <alexandre.f.demers@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,68 +79,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07/04/2025 15:46, Christian König wrote:
-> Am 07.04.25 um 16:44 schrieb Matthew Auld:
->> On 07/04/2025 15:32, Christian König wrote:
->>> Am 07.04.25 um 16:18 schrieb Matthew Auld:
->>>> The page_link lower bits of the first sg could contain something like
->>>> SG_END, if we are mapping a single VRAM page or contiguous blob which
->>>> fits into one sg entry. Rather pull out the struct page, and use that in
->>>> our check to know if we mapped struct pages vs VRAM.
->>>>
->>>> Fixes: f44ffd677fb3 ("drm/amdgpu: add support for exporting VRAM using DMA-buf v3")
->>>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: amd-gfx@lists.freedesktop.org
->>>> Cc: <stable@vger.kernel.org> # v5.8+
->>>
->>> Good point, haven't thought about that at all since we only abuse the sg table as DMA addr container.
->>>
->>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>>
->>> Were is patch #1 from this series?
->>
->> That one is xe specific:
->> https://lore.kernel.org/intel-xe/20250407141823.44504-3-matthew.auld@intel.com/T/#m4ef16e478cfc8853d4518448dd345a66d5a7f6d9
->>
->> I copied your approach with using page_link here, but with added sg_page().
-> 
-> Feel free to add my Acked-by to that one as well.
+Applied.  Thanks!
 
-Thanks.
+Alex
 
-> 
-> I just wanted to double check if we need to push the patches upstream together, but that looks like we can take each through individual branches.
-
-Sounds good.
-
-> 
-> Thanks,
-> Christian.
-> 
->>
->>>
->>> Thanks,
->>> Christian.
->>>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>> index 9f627caedc3f..c9842a0e2a1c 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>> @@ -184,7 +184,7 @@ static void amdgpu_dma_buf_unmap(struct dma_buf_attachment *attach,
->>>>                     struct sg_table *sgt,
->>>>                     enum dma_data_direction dir)
->>>>    {
->>>> -    if (sgt->sgl->page_link) {
->>>> +    if (sg_page(sgt->sgl)) {
->>>>            dma_unmap_sgtable(attach->dev, sgt, dir, 0);
->>>>            sg_free_table(sgt);
->>>>            kfree(sgt);
->>>
->>
-> 
-
+On Mon, Apr 7, 2025 at 1:52=E2=80=AFAM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
+>
+> The defines, shifts and masks are already available in dce_6_0_d.h,
+> dce_6_0_sh_mask.h.
+>
+> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/si.c  | 26 +++++++++++++-------------
+>  drivers/gpu/drm/amd/amdgpu/sid.h | 16 ----------------
+>  2 files changed, 13 insertions(+), 29 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu=
+/si.c
+> index 3b8c65a966b9..c21f97d89cbe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1278,24 +1278,24 @@ static bool si_read_disabled_bios(struct amdgpu_d=
+evice *adev)
+>         u32 rom_cntl;
+>         bool r;
+>
+> -       bus_cntl =3D RREG32(R600_BUS_CNTL);
+> +       bus_cntl =3D RREG32(mmBUS_CNTL);
+>         if (adev->mode_info.num_crtc) {
+> -               d1vga_control =3D RREG32(AVIVO_D1VGA_CONTROL);
+> -               d2vga_control =3D RREG32(AVIVO_D2VGA_CONTROL);
+> +               d1vga_control =3D RREG32(mmD1VGA_CONTROL);
+> +               d2vga_control =3D RREG32(mmD2VGA_CONTROL);
+>                 vga_render_control =3D RREG32(mmVGA_RENDER_CONTROL);
+>         }
+>         rom_cntl =3D RREG32(R600_ROM_CNTL);
+>
+>         /* enable the rom */
+> -       WREG32(R600_BUS_CNTL, (bus_cntl & ~R600_BIOS_ROM_DIS));
+> +       WREG32(mmBUS_CNTL, (bus_cntl & ~BUS_CNTL__BIOS_ROM_DIS_MASK));
+>         if (adev->mode_info.num_crtc) {
+>                 /* Disable VGA mode */
+> -               WREG32(AVIVO_D1VGA_CONTROL,
+> -                      (d1vga_control & ~(AVIVO_DVGA_CONTROL_MODE_ENABLE =
+|
+> -                                         AVIVO_DVGA_CONTROL_TIMING_SELEC=
+T)));
+> -               WREG32(AVIVO_D2VGA_CONTROL,
+> -                      (d2vga_control & ~(AVIVO_DVGA_CONTROL_MODE_ENABLE =
+|
+> -                                         AVIVO_DVGA_CONTROL_TIMING_SELEC=
+T)));
+> +               WREG32(mmD1VGA_CONTROL,
+> +                      (d1vga_control & ~(D1VGA_CONTROL__D1VGA_MODE_ENABL=
+E_MASK |
+> +                                         D1VGA_CONTROL__D1VGA_TIMING_SEL=
+ECT_MASK)));
+> +               WREG32(mmD2VGA_CONTROL,
+> +                      (d2vga_control & ~(D1VGA_CONTROL__D1VGA_MODE_ENABL=
+E_MASK |
+> +                                         D1VGA_CONTROL__D1VGA_TIMING_SEL=
+ECT_MASK)));
+>                 WREG32(mmVGA_RENDER_CONTROL,
+>                        (vga_render_control & ~VGA_RENDER_CONTROL__VGA_VST=
+ATUS_CNTL_MASK));
+>         }
+> @@ -1304,10 +1304,10 @@ static bool si_read_disabled_bios(struct amdgpu_d=
+evice *adev)
+>         r =3D amdgpu_read_bios(adev);
+>
+>         /* restore regs */
+> -       WREG32(R600_BUS_CNTL, bus_cntl);
+> +       WREG32(mmBUS_CNTL, bus_cntl);
+>         if (adev->mode_info.num_crtc) {
+> -               WREG32(AVIVO_D1VGA_CONTROL, d1vga_control);
+> -               WREG32(AVIVO_D2VGA_CONTROL, d2vga_control);
+> +               WREG32(mmD1VGA_CONTROL, d1vga_control);
+> +               WREG32(mmD2VGA_CONTROL, d2vga_control);
+>                 WREG32(mmVGA_RENDER_CONTROL, vga_render_control);
+>         }
+>         WREG32(R600_ROM_CNTL, rom_cntl);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgp=
+u/sid.h
+> index 19889276d677..99f6dfae9b81 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sid.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
+> @@ -81,11 +81,6 @@
+>  #define                MC_CG_ENABLE                            (1 << 18)
+>  #define                MC_LS_ENABLE                            (1 << 19)
+>
+> -#define MC_SHARED_CHMAP                                                0=
+x801
+> -#define                NOOFCHAN_SHIFT                                  1=
+2
+> -#define                NOOFCHAN_MASK                                   0=
+x0000f000
+> -#define MC_SHARED_CHREMAP                                      0x802
+> -
+>  #define        MC_VM_FB_LOCATION                               0x809
+>  #define        MC_VM_AGP_TOP                                   0x80A
+>  #define        MC_VM_AGP_BOT                                   0x80B
+> @@ -664,17 +659,6 @@
+>  #define CURSOR_WIDTH 64
+>  #define CURSOR_HEIGHT 64
+>
+> -#define AVIVO_D1VGA_CONTROL                                    0x00cc
+> -#       define AVIVO_DVGA_CONTROL_MODE_ENABLE            (1 << 0)
+> -#       define AVIVO_DVGA_CONTROL_TIMING_SELECT          (1 << 8)
+> -#       define AVIVO_DVGA_CONTROL_SYNC_POLARITY_SELECT   (1 << 9)
+> -#       define AVIVO_DVGA_CONTROL_OVERSCAN_TIMING_SELECT (1 << 10)
+> -#       define AVIVO_DVGA_CONTROL_OVERSCAN_COLOR_EN      (1 << 16)
+> -#       define AVIVO_DVGA_CONTROL_ROTATE                 (1 << 24)
+> -#define AVIVO_D2VGA_CONTROL                                    0x00ce
+> -
+> -#define R600_BUS_CNTL                                           0x1508
+> -#       define R600_BIOS_ROM_DIS                                (1 << 1)
+>
+>  #define R600_ROM_CNTL                              0x580
+>  #       define R600_SCK_OVERWRITE                  (1 << 1)
+> --
+> 2.49.0
+>
