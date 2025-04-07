@@ -4,52 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BD7C36010
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 07:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6634C3601E
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 07:59:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3967C10E2DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FE0B10E2E4;
 	Mon,  7 Apr 2025 07:59:24 +0000 (UTC)
-Received: from cstnet.cn (unknown [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C22D810E328;
- Mon,  7 Apr 2025 07:17:06 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-01 (Coremail) with SMTP id qwCowABXAAHfe_NnCWDSBg--.45177S2;
- Mon, 07 Apr 2025 15:16:49 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: hamza.mahfooz@amd.com, chiahsuan.chung@amd.com, sunil.khatri@amd.com,
- alex.hung@amd.com, aurabindo.pillai@amd.com, hersenxs.wu@amd.com,
- mario.limonciello@amd.com, mwen@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] drm/amd/display: Add error check for avi and vendor infoframe
- setup function
-Date: Mon,  7 Apr 2025 15:16:27 +0800
-Message-ID: <20250407071627.1666-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="dCfQ19ol";
+	dkim-atps=neutral
+X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
+ Mon, 07 Apr 2025 06:31:31 UTC
+Received: from out30-98.freemail.mail.aliyun.com
+ (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E67C10E176;
+ Mon,  7 Apr 2025 06:31:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1744007488; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=DObvmwmunJaaAhLjmCutZTbFoMNGkv4Jl5PNPWs0lKw=;
+ b=dCfQ19olUFh1wG7+ihVrn2FsRxOkkDY/I0JXUkAZuF9fnstr2cyYWYLvvAr8yB9hFcnXgY4exya85S0tr9NC9m1eQHzTk5PaXcTbL72egcFgnUTMplLkB0WcKQUm8mRSduUiQOkCt+AnCFnFjg8999YxYRqqzY4prl2BZgo9GrY=
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0WVoemxs_1744007180 cluster:ay36) by smtp.aliyun-inc.com;
+ Mon, 07 Apr 2025 14:26:21 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yang Li <yang.lee@linux.alibaba.com>,
+ Abaci Robot <abaci@linux.alibaba.com>
+Subject: [PATCH -next] drm/amdgpu: Improve documentation for
+ amdgpu_sdma_register_on_reset_callbacks
+Date: Mon,  7 Apr 2025 14:26:19 +0800
+Message-Id: <20250407062619.62026-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowABXAAHfe_NnCWDSBg--.45177S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF4UAr47KFW8CF47Jw1rtFb_yoW8Gw4Upw
- 48Ja4qvrWkWFZFyryUAF1ruFWYk3srJFW7Kr45Aw15W345CrZ8Ja1rJwn5t347uFWrA3ya
- y3WDZ3yxXF1vkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
- 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
- CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
- nIWIevJa73UjIFyTuYvjTRCnmRDUUUU
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgwFA2fzOj3udQACsG
 X-Mailman-Approved-At: Mon, 07 Apr 2025 07:59:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,32 +54,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function fill_stream_properties_from_drm_display_mode() calls the
-function drm_hdmi_avi_infoframe_from_display_mode() and the
-function drm_hdmi_vendor_infoframe_from_display_mode(), but does
-not check its return value. Log the error messages to prevent silent
-failure if either function fails.
+The function amdgpu_sdma_register_on_reset_callbacks lacked detailed
+parameter descriptions in its documentation. This patch improves the
+documentation by adding specific details about the parameters and their
+usage, enhancing clarity for developers.
 
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=20167
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0396429a64be..d6feafb8fa3d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6152,8 +6152,8 @@ static void fill_stream_properties_from_drm_display_mode(
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index 529c9696c2f3..add252368dc2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -539,6 +539,7 @@ bool amdgpu_sdma_is_shared_inv_eng(struct amdgpu_device *adev, struct amdgpu_rin
  
- 	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
- 		err = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame, (struct drm_connector *)connector, mode_in);
--                if (err < 0)
--                        dev_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
-+		if (err < 0)
-+			dev_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
- 		timing_out->vic = avi_frame.video_code;
- 		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame, (struct drm_connector *)connector, mode_in);
- 		if (err < 0)
+ /**
+  * amdgpu_sdma_register_on_reset_callbacks - Register SDMA reset callbacks
++ * @adev: Pointer to the amdgpu_device structure representing the GPU device
+  * @funcs: Pointer to the callback structure containing pre_reset and post_reset functions
+  *
+  * This function allows KFD and AMDGPU to register their own callbacks for handling
 -- 
-2.42.0.windows.2
+2.32.0.3.g01195cf9f
 
