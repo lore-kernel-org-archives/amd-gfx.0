@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF033C369A2
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 16:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 416DAC369A7
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 16:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88E4810E70C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE89D10E70E;
 	Tue,  8 Apr 2025 16:33:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=swemel.ru header.i=@swemel.ru header.b="BY4NRvtF";
+	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="oGONPp/8";
 	dkim-atps=neutral
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E09910E5FF;
- Tue,  8 Apr 2025 08:16:42 +0000 (UTC)
-From: Denis Arefev <arefev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
- t=1744100198;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KycvnFWvB7WLb2FMk02JJRuq8Z8TQ1r5p1fwmK7UuQI=;
- b=BY4NRvtF8TGoqRIlOh7vqXec44FXLXMcGrQLgiSlHUoZiE1Bc9+uNECT0fDAo27IT+iXqD
- hOzTflwyN46+PtVNtVol6lKGo+7HladIctIV9TD8NXhvUHw4PRBDt9Nvt5wArpvnnpUnEY
- bdd8fzIFmrOyE69kfnvxNS7XwQ209IY=
-To: alexdeucher@gmail.com
-Cc: Jun.Ma2@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, arefev@swemel.ru, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, kenneth.feng@amd.com,
- kevinyang.wang@amd.com, lijo.lazar@amd.com, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, mario.limonciello@amd.com, simona@ffwll.ch,
- srinivasan.shanmugam@amd.com
-Subject: Re: [PATCH] drm/amd/pm/smu11: Prevent division by zero
-Date: Tue,  8 Apr 2025 11:16:38 +0300
-Message-ID: <20250408081638.5295-1-arefev@swemel.ru>
-In-Reply-To: <CADnq5_O+TMVD0B28Q6CgzhAi1aDR5ofjogE18HDXrJOJ1XwbDQ@mail.gmail.com>
-References: <CADnq5_O+TMVD0B28Q6CgzhAi1aDR5ofjogE18HDXrJOJ1XwbDQ@mail.gmail.com>
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A28810E219;
+ Tue,  8 Apr 2025 11:54:08 +0000 (UTC)
+Received: from localhost (unknown [10.10.165.6])
+ by mail.ispras.ru (Postfix) with ESMTPSA id 3A9CC4076734;
+ Tue,  8 Apr 2025 11:54:06 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 3A9CC4076734
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+ s=default; t=1744113246;
+ bh=JyOGjE69537m8nOjE67m2ByYfIQmzkI/JFTbD1K+dYU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oGONPp/8rBYLgZpjCCxI71Hxa5+EIg0PbpNidhNaN9i6pWi4IzMBeaAmQzy4H6SuZ
+ /7kQWZpbTLT5/2hB1THrBtWLXuIXAdbj1veFCmxsYfnhBy69akVkVFc8Sfb/gqeI3i
+ P6XkTPS1zzQXowNAmnbsXCKLTyp7HZ5jd+4aDgz4=
+Date: Tue, 8 Apr 2025 14:54:06 +0300
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Denis Arefev <arefev@swemel.ru>, 
+ Alex Deucher <alexander.deucher@amd.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, lvc-project@linuxtesting.org, 
+ Chunming Zhou <david1.zhou@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
+Subject: Re: [lvc-project] [PATCH] drm/amdgpu: check a user-provided number
+ of BOs in list
+Message-ID: <qc72y52kt7vuwox4lhk42zligy5bslttselfoexse42mywtpps@ebqijs2tap2t>
+References: <20250408091755.10074-1-arefev@swemel.ru>
+ <e6ccef21-3ca5-4b5a-b18a-3ba45859569c@amd.com>
+ <bmdour3gw4tuwqgvvw764p4ot3nnltqm4e7n3edlbtpfazvp5c@cqe5dwgc66uy>
+ <f8810b13-01d1-4615-b6e2-2e791c48b466@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <f8810b13-01d1-4615-b6e2-2e791c48b466@amd.com>
 X-Mailman-Approved-At: Tue, 08 Apr 2025 16:33:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,32 +63,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index 189c6a32b6bd..54229b991858 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -1200,7 +1200,7 @@ int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
->         uint32_t crystal_clock_freq = 2500;
->         uint32_t tach_period;
->
-> -       if (speed == 0)
-> +       if (!speed || speed > UINT_MAX/8)
->                 return -EINVAL;
->         /*
->          * To prevent from possible overheat, some ASICs may have requirement
-> --
-> 2.43.0
->
+On Tue, 08. Apr 13:37, Christian König wrote:
+> Am 08.04.25 um 11:39 schrieb Fedor Pchelkin:
+> > On Tue, 08. Apr 11:26, Christian König wrote:
+> >> Am 08.04.25 um 11:17 schrieb Denis Arefev:
+> >>> The user can set any value to the variable ‘bo_number’, via the ioctl
+> >>> command DRM_IOCTL_AMDGPU_BO_LIST. This will affect the arithmetic
+> >>> expression ‘in->bo_number * in->bo_info_size’, which is prone to
+> >>> overflow. Add a valid value check.
+> >> As far as I can see that is already checked by kvmalloc_array().
+> >>
+> >> So adding this additional check manually is completely superfluous.
+> > Note that in->bo_number is of type 'u32' while kvmalloc_array() checks for
+> > an overflow in 'size_t', usually 64-bit.
+> >
+> > So it looks possible to pass some large 32-bit number, then multiply it by
+> > (comparatively small) in->bo_info_size and still remain in 64-bit bounds.
+> >
+> > And later that would likely result in a WARNING in
+> >
+> > void *__kvmalloc_node_noprof(DECL_BUCKET_PARAMS(size, b), gfp_t flags, int node)
+> > {
+> > ...
+> > 	/* Don't even allow crazy sizes */
+> > 	if (unlikely(size > INT_MAX)) {
+> > 		WARN_ON_ONCE(!(flags & __GFP_NOWARN));
+> > 		return NULL;
+> > 	}
+> >
+> > But the commit description lacks such details, I admit.
+> 
+> Yeah, so what? I'm perfectly aware that this can result in a warning, but that is just not something worth fixing.
 
-Hi Alex.
+It's a warning directly trigerrable by userspace. It's not the purpose of
+kernel warnings. The WARN checks inside the allocator imply that the
+in-kernel caller should be aware of what sizes he requests.
 
-The patch 'drm/amd/pm/smu11: Prevent division by zero' was sent 
-separately, not part of the patch series, maybe that's why it wasn't
-accepted. Should I resend it?
+If user can request an arbitrary size value then we should use __GFP_NOWARN
+and back on the allocator to return NULL in case it doesn't even try to
+satisfy an enormous memory allocation request (in which case it yells in
+the log without __GFP_NOWARN being passed). Maybe that would be a more
+appropriate thing here?
 
-Regards, Denis.
+Please see:
+https://lore.kernel.org/dm-devel/CAHk-=wi8Zer6tnqO-bz+WxFpMv9sPc-LxGRm_3poOtZegjhfrg@mail.gmail.com/
 
+On Wed, 3 Jan 2024 at 11:21, Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> On Wed, 3 Jan 2024 at 11:15, Mikulas Patocka <mpatocka@redhat.com> wrote:
+> >
+> > Should we use __GFP_NOWARN? (but this would shut up also genuine
+> > warnings).
+> 
+> This can only be fixed in the *caller*, which need to either
+> 
+>  (a) have saen limit checking that checks for an obviously safe limit
+> (please don't just make it INT_MAX to handle this one case - make it
+> something *reasonable*)
+> 
+> _or_
+> 
+>  (b) the __GPF_NOWARN with a very obvious "I handle a failed return
+> gracefully" handling all the way out to user space (error returns
+> and/or things like "fall back to smaller sizes")./
+> 
+> because a caller that just passes in a random value to kmalloc()
+> should continue to warn if that random value is unreasonable.
+> 
+> Exactly *because* we want all those crazy random tester robots to
+> actually find cases where people just randomly take untrusted lengths
+> from user space.
