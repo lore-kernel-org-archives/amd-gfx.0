@@ -4,67 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15640C369A1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82A0DC369A5
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 07:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FE9310E5EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D42810E5EC;
 	Tue,  8 Apr 2025 07:22:34 +0000 (UTC)
-X-Greylist: delayed 542 seconds by postgrey-1.36 at gabe;
- Tue, 08 Apr 2025 00:46:23 UTC
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
- [205.220.178.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8884210E194;
- Tue,  8 Apr 2025 00:46:23 +0000 (UTC)
-Received: from pps.filterd (m0250811.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 537N94AX020202;
- Tue, 8 Apr 2025 00:36:54 GMT
-Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.wrs.com
- [147.11.82.252])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 45tsr1k58r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 08 Apr 2025 00:36:53 +0000 (GMT)
-Received: from ala-exchng01.corp.ad.wrs.com (147.11.82.252) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Mon, 7 Apr 2025 17:36:52 -0700
-Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Mon, 7 Apr 2025 17:36:48 -0700
-From: <jianqi.ren.cn@windriver.com>
-To: <stable@vger.kernel.org>
-CC: <patches@lists.linux.dev>, <gregkh@linuxfoundation.org>,
- <linux-kernel@vger.kernel.org>, <jianqi.ren.cn@windriver.com>,
- <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
- <daniel@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <chiahsuan.chung@amd.com>,
- <alex.hung@amd.com>, <daniel.wheeler@amd.com>
-Subject: [PATCH 6.6.y] drm/amd/display: Check link_index before accessing
- dc->links[]
-Date: Tue, 8 Apr 2025 08:36:47 +0800
-Message-ID: <20250408003647.3361342-1-jianqi.ren.cn@windriver.com>
-X-Mailer: git-send-email 2.34.1
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D3B10E1EF;
+ Tue,  8 Apr 2025 02:20:45 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.141.245])
+ by APP-05 (Coremail) with SMTP id zQCowAA3dQ30h_RnricPBw--.24673S2;
+ Tue, 08 Apr 2025 10:20:37 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: hamza.mahfooz@amd.com, chiahsuan.chung@amd.com, sunil.khatri@amd.com,
+ alex.hung@amd.com, aurabindo.pillai@amd.com, hersenxs.wu@amd.com,
+ mario.limonciello@amd.com, mwen@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Wentao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH v2] drm/amd/display: Add error check for avi and vendor
+ infoframe setup function
+Date: Tue,  8 Apr 2025 10:20:18 +0800
+Message-ID: <20250408022018.2786-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.42.0.windows.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=Td6WtQQh c=1 sm=1 tr=0 ts=67f46fa5 cx=c_pps
- a=/ZJR302f846pc/tyiSlYyQ==:117 a=/ZJR302f846pc/tyiSlYyQ==:17
- a=XR8D0OoHHMoA:10 a=zd2uoN0lAAAA:8 a=t7CeM3EgAAAA:8 a=BwQGkkmVnK98ez6iplQA:9
- a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-ORIG-GUID: 5r75n8bMt50BzTocoZiDlGTAC4DERPC4
-X-Proofpoint-GUID: 5r75n8bMt50BzTocoZiDlGTAC4DERPC4
-X-Sensitive_Customer_Information: Yes
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-07_07,2025-04-07_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 mlxscore=0
- mlxlogscore=999 clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0
- impostorscore=0 phishscore=0 spamscore=0 suspectscore=0 priorityscore=1501
- classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.21.0-2502280000
- definitions=main-2504080002
+X-CM-TRANSID: zQCowAA3dQ30h_RnricPBw--.24673S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4UAr47KFyUJw47ZF4rAFb_yoW8uF1Dpw
+ 48ta4DtrWvqFZxCryUAFn5ua90k3s7JFy7Kr45Aw15W3s5KrZ3Ja1fJF1kJ39rZFZ5A3Wa
+ y3WUX3y7XF1vk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+ 1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+ 7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
+ 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+ 628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+ IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+ MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
+ WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+ 6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+ BIdaVFxhVjvjDU0xZFpf9x0pRHUDLUUUUU=
+X-Originating-IP: [124.16.141.245]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAgGA2f0eChG3AAAsY
 X-Mailman-Approved-At: Tue, 08 Apr 2025 07:22:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,46 +65,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+The function fill_stream_properties_from_drm_display_mode() calls the
+function drm_hdmi_avi_infoframe_from_display_mode() and the
+function drm_hdmi_vendor_infoframe_from_display_mode(), but does
+not check its return value. Log the error messages to prevent silent
+failure if either function fails.
 
-[ Upstream commit 8aa2864044b9d13e95fe224f32e808afbf79ecdf ]
-
-[WHY & HOW]
-dc->links[] has max size of MAX_LINKS and NULL is return when trying to
-access with out-of-bound index.
-
-This fixes 3 OVERRUN and 1 RESOURCE_LEAK issues reported by Coverity.
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[The macro MAX_LINKS is introduced by Commit 60df5628144b ("drm/amd/display:
- handle invalid connector indices") after 6.10. So here we still use the
- original array length MAX_PIPES * 2]
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
-Signed-off-by: He Zhe <zhe.he@windriver.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-Verified the build test
----
- drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c | 3 +++
- 1 file changed, 3 insertions(+)
+v2: Fix code diff error
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-index f365773d5714..e9b3c1c7a931 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-@@ -37,6 +37,9 @@
- #include "dce/dce_i2c.h"
- struct dc_link *dc_get_link_at_index(struct dc *dc, uint32_t link_index)
- {
-+	if (link_index >= (MAX_PIPES * 2))
-+		return NULL;
-+
- 	return dc->links[link_index];
- }
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5f216d626cbb..8fc6ba12c82d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6104,6 +6104,7 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	struct amdgpu_dm_connector *aconnector = NULL;
+ 	struct hdmi_vendor_infoframe hv_frame;
+ 	struct hdmi_avi_infoframe avi_frame;
++	ssize_t err;
+ 
+ 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+ 		aconnector = to_amdgpu_dm_connector(connector);
+@@ -6150,9 +6151,17 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	}
+ 
+ 	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+-		drm_hdmi_avi_infoframe_from_display_mode(&avi_frame, (struct drm_connector *)connector, mode_in);
++		err = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
++							       (struct drm_connector *)connector,
++							       mode_in);
++		if (err < 0)
++			dev_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
+ 		timing_out->vic = avi_frame.video_code;
+-		drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame, (struct drm_connector *)connector, mode_in);
++		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
++								  (struct drm_connector *)connector,
++								  mode_in);
++		if (err < 0)
++			dev_err(connector->dev, "Failed to setup vendor infoframe: %zd\n", err);
+ 		timing_out->hdmi_vic = hv_frame.vic;
+ 	}
  
 -- 
-2.34.1
+2.42.0.windows.2
 
