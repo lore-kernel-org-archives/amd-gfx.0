@@ -4,186 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 599BBC369A1
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Apr 2025 21:17:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71C9AC36010
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 01:52:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82CDC10E3F0;
-	Mon,  7 Apr 2025 21:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDFE910E1BA;
+	Tue,  8 Apr 2025 01:52:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3ZCzqvVH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0onpInRA";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2081.outbound.protection.outlook.com [40.107.96.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007F810E3E4;
- Mon,  7 Apr 2025 21:17:23 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2074.outbound.protection.outlook.com [40.107.100.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E74D710E1BA
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Apr 2025 01:52:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lZm0KUq+DH1dBH6c1vPHz0XQOkKehMATdTaDlV0MqbsYxHdwq4VTtptWwlsdGI8EHZUg7BNawEIBOtKpoOfz3MDMkBlR1Euvssb1OX1e1d3TcBNpHDPSftgV3WIS6b0D1TIbumILuosOwfE5Kzddv9Jlu2rQLSKKkvak4H7Piy9BTrVwdvz7jUry04FH6nU+wKsV814/Ak6FJDHFWhEDjXsZPS453ojbd7SfRhplFRxKBXi1YKcUL4w2Lt0V7bKe1KcF+IqOFZui/kQsDwZUIAuqQ+/FQfPiT63cjKayF/HRouUAff3McFc3qMKWYczaglyhWVtl5VUOoPQBxFwVZw==
+ b=zO9Jt6AACInHAqFnXSwlG09BFGFw1g4kowP72XI5HVkBnxhD+9xtPaRm+oqGDmC3rG2gddld0IgCCRl5izhTdTSX3dAqtn1aUWOHiDwMoY10ihAu9IuqIle9ZFo2N0DOLoUqQZkAecAtqmJny7DAgEun5Sf1GpksvfMhuV0jNtGJRoY6iJCfgZ3vBfZGuQYCV9SSUFRFGn5e8eiHSPoS5+D6ZmQWOToU5zAEQEuGGnyswEk+mQ5asAFyrKesOMUJwA/Lf3ZbffEkqjNNkP60hr3sHY+27esK9STVxiayenIZfeet8H8SSH9z5ofRX35HN4aLJ15lZbWqnkTl0zJWdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bt0kY3B9cBaLOg2P5DWFxYuKr5eNH9yDyKTrge+bUgI=;
- b=ezXhyk8cNcSD82MAIS6HHT3tSiIuFs83A3QUt7MRd0sEKdcH5kK/LZAPdEfa4+Rvr6Kvy5Miu0F9wVLr/uqZBke+eZQ8/NKQ3qiNgptv0U9WLLoYTs0SA0Od9sHFFXvrY8/Sd9Kt9yPdCT46LH5H00bQ4NKNuY8FTYEVDFR1CqSBzDErt2lOB7MeJvyUNJTAHK5wYukcjNz36xe/FPAhhyK7eB48Y4J7DheS/IPkWQuDM1t8cmFycQLB8nYCainibjZR2F0GuGblfG68Pxf9Q1/JtiC4CJdTF7MvOVPJ2T5+ilaYbfvIjp6Yf2Qi7g0noK90K8NbFZ+tFkzr3bbKrA==
+ bh=d4em4c217Vs0dMO8CUfIxVNvb+gYhIqnKejKIncL6uk=;
+ b=MGph0fe+BO4GvyPklwNtFZXKvZmjd5IMcSnsdI9ePm/PvBDBBNeYx3Bb0dLS/ox8TkfA2YjrSHK9ZeNpqrRZQR8VeabGB9nlYWk87kGsHjNCWtd8p4BSVsEJGTe9Zf0GWRPKHV41jmQyGhMbA8WkugBXATElDi408lUiQLeDCzrSS8rHafHpcg19DbaAAEEGE0kJwNa8c53obI1wjEJZXNh0QRhuVd58ipc6TNd/+pnJqMScPPV5nIskEq2dOdmS8sOA5jFaiflcRl5Cf+hZydryiuW6ipVCzoIsPavklKs5ZOttHLj6geYClIjdqCjxfqRHHlw4L4lbw1E3rWsYZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bt0kY3B9cBaLOg2P5DWFxYuKr5eNH9yDyKTrge+bUgI=;
- b=3ZCzqvVH2wvd8Bf+pJ6itzmTAEADuNVN/pvHM/4Z4Rb/7hfFaRfhbPDAyC3Zaj01WQ0V0tmVsb15b1FQ6vgrxTUbaxXMhHPhEncmvQIrveOyTAid82bw2pY//qzsqk/F3WyGR4VTIfgqAGOZaDu8cWA4tmQCURiH0GHGgFWOUlo=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.31; Mon, 7 Apr
- 2025 21:17:15 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42%6]) with mapi id 15.20.8606.029; Mon, 7 Apr 2025
- 21:17:15 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Arnd Bergmann <arnd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-CC: Arnd Bergmann <arnd@arndb.de>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <quic_carlv@quicinc.com>, Oded Gabbay <ogabbay@kernel.org>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, Dave Airlie <airlied@redhat.com>, Jocelyn Falempe
- <jfalempe@redhat.com>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Yongqin Liu <yongqin.liu@linaro.org>, John Stultz
- <jstultz@google.com>, Sui Jingfeng <suijingfeng@loongson.cn>, Lyude Paul
- <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Gerd Hoffmann
- <kraxel@redhat.com>, Zack Rusin <zack.rusin@broadcom.com>, Broadcom internal
- kernel review list <bcm-kernel-feedback-list@broadcom.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, =?iso-8859-1?Q?Thomas_Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Saurav Kashyap <skashyap@marvell.com>, Javed Hasan
- <jhasan@marvell.com>, "GR-QLogic-Storage-Upstream@marvell.com"
- <GR-QLogic-Storage-Upstream@marvell.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
- <martin.petersen@oracle.com>, Nilesh Javali <njavali@marvell.com>, Manish
- Rangankar <mrangankar@marvell.com>, Alex Williamson
- <alex.williamson@redhat.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Javier Martinez Canillas <javierm@redhat.com>, Jani Nikula
- <jani.nikula@intel.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- =?iso-8859-1?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>, Niklas Schnelle <schnelle@linux.ibm.com>, Dmitry
- Baryshkov <lumag@kernel.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux1394-devel@lists.sourceforge.net"
- <linux1394-devel@lists.sourceforge.net>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "virtualization@lists.linux.dev"
- <virtualization@lists.linux.dev>, "spice-devel@lists.freedesktop.org"
- <spice-devel@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, "linux-scsi@vger.kernel.org"
- <linux-scsi@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>
-Subject: RE: [RFC] PCI: add CONFIG_MMU dependency
-Thread-Topic: [RFC] PCI: add CONFIG_MMU dependency
-Thread-Index: AQHbp6mM3qqF8PZF602CPtcSaq/ibbOYtUcQ
-Date: Mon, 7 Apr 2025 21:17:14 +0000
-Message-ID: <BL1PR12MB51448EAE34D063B661C0F358F7AA2@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20250407104025.3421624-1-arnd@kernel.org>
-In-Reply-To: <20250407104025.3421624-1-arnd@kernel.org>
+ bh=d4em4c217Vs0dMO8CUfIxVNvb+gYhIqnKejKIncL6uk=;
+ b=0onpInRAM+xD4TfqxPIO0HrBHuurVO2O9D9I24gtFw9grhrE2mKI2TEzgz6Mnz488PxkSTp1q7YeCWCD49V+4y7pX5IqHgrIvZUZa8aGr2kfFJYI9Mtm3QOnEMSR72brJnrmnBDytdHC0XoJTxsPBkIBwEc9FPGVY+zu6fV+j7c=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ CH3PR12MB8727.namprd12.prod.outlook.com (2603:10b6:610:173::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.27; Tue, 8 Apr
+ 2025 01:52:20 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb%6]) with mapi id 15.20.8606.029; Tue, 8 Apr 2025
+ 01:52:20 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: remove the duplicated mes queue active state
+ setting
+Thread-Topic: [PATCH] drm/amdgpu: remove the duplicated mes queue active state
+ setting
+Thread-Index: AQHbn9fol7ZCr8Qn00Oh8raSIpTWYbOZEdCQ
+Date: Tue, 8 Apr 2025 01:52:19 +0000
+Message-ID: <DS7PR12MB6005ECD7C078520DADE94F0DFBB52@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20250328115219.1763423-1-Prike.Liang@amd.com>
+In-Reply-To: <20250328115219.1763423-1-Prike.Liang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=459762ed-1276-486d-90ea-afa6f1c890d5;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-04-07T21:16:26Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=272cc34e-d025-4354-b8a9-e4796597ec56;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-08T01:51:31Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SN7PR12MB6716:EE_
-x-ms-office365-filtering-correlation-id: 99af99be-3453-4c98-3efb-08dd761991e4
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|CH3PR12MB8727:EE_
+x-ms-office365-filtering-correlation-id: d88ae5e7-551d-4df2-5c04-08dd763fffa0
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|38070700018; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?MUA1S1EcKfudEbiHpAoV4FL8x36v4yY5Jf2syoI8/N+ywDR1yDhIyOF1Oi?=
- =?iso-8859-1?Q?H777sXJ5+SQYLYKgPey89wvbDdeEsF5SPKB74tI0pLvZRhC2p9hPifCqsW?=
- =?iso-8859-1?Q?QOl785yhMlmJyO5uT653yPtqRRd+jH0uuljseif2G1ODUaYzTH1KJHbg68?=
- =?iso-8859-1?Q?ADdbF1MN2tte6VCJYB83qTjFLaMXu1ZjHth9dUAB7wqw1oSzmnZ/GdBmzi?=
- =?iso-8859-1?Q?++8xswZM5oIUxAYWoaAZicHrtJeWPP4jEh0TOzFca+2cOILVCR2XdpsGpN?=
- =?iso-8859-1?Q?EksaYILg3GOETrgidyMWyUwaHsG5+cXSb/iuQuygvDxKegfclyIYzqf9lc?=
- =?iso-8859-1?Q?sgG9SZVEVNcXEfK3LZhFF433GY3fbUtoYVsqiOIL7Vk9TNBaOtW1U8FfDo?=
- =?iso-8859-1?Q?LBMKkN+T3pQ/BxRNE1twZrdsfTyv0bTbPuY2eOB3n0KqMZgHGM3001OMgg?=
- =?iso-8859-1?Q?i/vIo46UPu172AVBI2sqVcjC30iiK+wPbQRuqyGncqEPboJ1VGYlVzW/gO?=
- =?iso-8859-1?Q?0HlJoTH8NfF1weZ6xKZYk0at2jTeVFOXGevQSadfB7EL9+uSE+tzvdJrIM?=
- =?iso-8859-1?Q?vwF5qo8K6r4r4RGCxC51UFmHBsWMkOdIul5ce4Eb3KflWHCLIQ1bhGeB0h?=
- =?iso-8859-1?Q?nWnjfeAjIon9/7T7mcJWVZA9TvGJehnkDfv9EdmaP5lpEptBmjgHZUkS14?=
- =?iso-8859-1?Q?d7JtBUbLmavArh41/uhtTQfiJF8bVXDCnkmHQZEHDxruvJYXkptmNq8FuK?=
- =?iso-8859-1?Q?0wkJRSSnPGK9jb7cMsxiqAEWe9FEYlJSGm0wEBFvGU74R1Jg3ISTtBefpc?=
- =?iso-8859-1?Q?WDQCc5NObnvUWQN7VpryJZFtpOZqWd+B/Pin+LotWgyRsWX0f0UcOAGYi6?=
- =?iso-8859-1?Q?vPaiF3BYChPxqg+0VUPpOt5jyPj5ekGKqJTkS4QcN3OB4UEfMqGvofYOK7?=
- =?iso-8859-1?Q?NMJwnbbWrw957zPdcajMrD6OcL//RgxkTVnRERafQjflN0wLTs1dh4OFp8?=
- =?iso-8859-1?Q?r619IdyjzJ1LOa3LvYwqZmsrjIm0ZLM7NpqrvW/87zyhf0+oyAcKSqi74e?=
- =?iso-8859-1?Q?MYtbWUhgcUGdqjUqE5ziYwT1RWikojYXiWgNBuDxrtHLFD7X2EhtTeyKGV?=
- =?iso-8859-1?Q?GQ6WArPYWi5x7vQbtMWftc2JIEwQycSf8zZdzK49kIuKph7erYhKmmo3EL?=
- =?iso-8859-1?Q?rA+CJnHUakD561PDZrYHgLXKNBjn+8JhZnhyVPNlztCtR2Bh7YCT3RzmnC?=
- =?iso-8859-1?Q?O6O9XPrPyouqGa7qh/vHcxUyomAsKcY1LmXu0UvLvAykVb6XOPPmzQGRVg?=
- =?iso-8859-1?Q?uiwgzrwmiSyjV5RUdnEB8aAtiQfE3ehFR1lSM4TIAAoUPtt7TWsj08NEEI?=
- =?iso-8859-1?Q?KSZzLSOtbLljQozo/BblHSn/bzhEizCeIY0qs91oIeKDJb0oHygRqgERcb?=
- =?iso-8859-1?Q?zHruO3ypdrgEN5wCcgPdwS6WjCby2XADWhyevC/Rs1ysDnuZgbQBakjasb?=
- =?iso-8859-1?Q?QWoKeIqhDr/ZSHUuJZBZoB?=
+ ARA:13230040|366016|1800799024|376014|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?/MhQmF+GIZBblITPOYl+DojYekr0dzOPqAuac0RsylcUsORQdLcyxi2TE20m?=
+ =?us-ascii?Q?37z7y72eo/ayu1kRkNJk4U/5KZ2EtyY3wILvL+2euEYMKvFW1h2dIwqOkozK?=
+ =?us-ascii?Q?BoMZNiFexh5iS8qaLELV5xBZUdIqslby6N36qYTwSmvtcMuBBwsqkxqSgiXg?=
+ =?us-ascii?Q?Ir4mMyXiLUxw6hNJ9Pd3ARpKdfffM1D5yUGNEHoftZ3R8VAx7ltol0qOm2MN?=
+ =?us-ascii?Q?lFUUh2bQofDRdJdd93rloBtfBm09HaRga17WGfmJkpHcN8MIrFgmMdOsmEb2?=
+ =?us-ascii?Q?DMENeKAWI7F2GDBz2/3HDhsVlSB+lXHJPb2aqaRho5P2y6CEiebZcO7VsiJK?=
+ =?us-ascii?Q?XB57iIgGg0yfridav8KqfJMVy9WPLZ9aNZvbmTN4my1xLQifCugnXJSvLxCn?=
+ =?us-ascii?Q?ydxHlPQCwhNDzZ5eM/FXm4qa3xplQN8JRI0Saa0k2HBE7cC7Z5x/P3m73KHH?=
+ =?us-ascii?Q?WD9/zJRXvnrNw+l0IZyLhenG7n0jtiVeQsT6ZoUDOKma+47RdxfwjeQpTRT3?=
+ =?us-ascii?Q?bn5EUluEMFokMmYXcCpfO5qFsQPrVaO2oTqe4cbdPYZ/LuwcLefv379kvVsv?=
+ =?us-ascii?Q?pUkMMBzXXFi/3XkmECUrorU4ZYl9leA34IklSYqU3n0+GC8pJW22VV2vJ/ax?=
+ =?us-ascii?Q?aSs2QNnQbjKJ4CNXHzXLOirJGqj/4hofauFjPuCLnPjyj7rGPRz8T2fwn1QP?=
+ =?us-ascii?Q?20LzzUOtxHoHY5DVj/Wv6bHW8h/8Pn5tPXqH5pl8VBG8KwvcHUQAgzCw9ydt?=
+ =?us-ascii?Q?tLOe8UNuZskd3YC4Jv8/AUGsRyJZrnYatGFHbMJLCzbkGMb0X/aNUOJQkBiM?=
+ =?us-ascii?Q?+2kJE28plVruEKf3ZvcQBPv1pH86ha15o02K0+Ubc2oH2fV6AZwNa1p+n+2A?=
+ =?us-ascii?Q?fK/ALqAwSRFz64c2PUWUmf/vDAs7onM0V+4V8a/JxGd0Hr8y7TO2aaEjsZL6?=
+ =?us-ascii?Q?bYm0sG4omk2ERUyFsKEJbg73GOCUakUc7UfFIsJjZHaLKVuDMp3feLX41Hlj?=
+ =?us-ascii?Q?JHIazhl6wzEK1c0e0HMZvsKH7rXkfPWHTmuMamPZzw/BiiSIii5WqVPwzd9b?=
+ =?us-ascii?Q?3nEdAMpko3nhCW5YlMivGBT5GNl+rhDnrgVeRPeZBTx1Ik6FEbTEpKCp1DEo?=
+ =?us-ascii?Q?GRzyYxhPD3InXVGO3FTgX7a+exkRNVCumHFvivcRdQWzJig+VIhkqlxNB0Ss?=
+ =?us-ascii?Q?YOi6as3DhZMDEFUjYTCZjjCKqFpFB5//CilyEE21MaUMPzGdBuhH4e7jYCf8?=
+ =?us-ascii?Q?9JrxWQCWt84jxs/f27ljEQ4OEYdYtOXPABylwGjPetsiU+8iQOjeAPc8ymXM?=
+ =?us-ascii?Q?5MrdKcm05iID/lE5b7bjqOYhS811AZPoKId5p4ioD+SEHE/v99Z6o0XHXQZG?=
+ =?us-ascii?Q?Wdc5AGEIO+Jdj9PJVoDc2J8ipaVN0KJGm+bLiTQqCuHzK7TdsK2/hf1eXVgS?=
+ =?us-ascii?Q?1YOVpO/Pl0aH7lM3CWc4J97qbht2BpAo?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700018); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(38070700018); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?zV+YYkWlCLIpbTYox196BrUAW1aJi9foVZPe+ZwXQHCvn38sssIXpi/zP8?=
- =?iso-8859-1?Q?QkAc9oHAKVKxzm0jmktakaozzlGJCZ6mHeoV/ijKFG9xCvmj974F37OETr?=
- =?iso-8859-1?Q?ScbFvttBXxZr08+KAjvV5aOZhM/ADw7CNwmi9SoGx9BUzwXBFUriASyDje?=
- =?iso-8859-1?Q?Wpi1Qlifz3j5h46kBwcReytmu3iEaf94ZRAeWipx/DSNR3Qt1pIhvKndax?=
- =?iso-8859-1?Q?oUTYDpLucnj9RyL6KA+PmtDtnV0NwrZptattapPMxOXe7tbBbcoR+Bqr+8?=
- =?iso-8859-1?Q?THRy40IVJPzmmJaKxCTE/fVTLiIx0hXLL7IJQTXzu/ggDP2k23/OAlIJeT?=
- =?iso-8859-1?Q?HTwMaQ9VtF9st7cBUUT0cf2oLHUy7hmIl/aTrthn4b95Go6zNaqKS0hS9l?=
- =?iso-8859-1?Q?PwLFAlLFOq4gj2tIF2ixTBQrpQNGzwXxraNoUirZrHMyFe29ecxTd9+zc6?=
- =?iso-8859-1?Q?1GhfzAQCcq8rRascC9iQJ0vFBrtbnmmtTjFPwMnmcq9KG5CfCXBDfOfTFJ?=
- =?iso-8859-1?Q?HPXfgeuUdR+AcgUls9RqyF9+uoKl7TMUNTwistIjdJstATRcrmEAwNm+PC?=
- =?iso-8859-1?Q?hXiA4q+RXsizI1w1Q+jpKN5hMUoouOevLnqS5T7FC2wyjrcpDYuDaE8Uli?=
- =?iso-8859-1?Q?rJi+zsrQkX48jU/DxU1cZS0e/qJzJ+2WREppauTX60hcAroFZ1P5boS4be?=
- =?iso-8859-1?Q?GK4N8YRxbOiX+5GBDl0mrESrnNLYpJbIesrFilJNUtv0FO2u3OCAr8fdyq?=
- =?iso-8859-1?Q?QJTyGL83qVsnKdKA+QQLau4IBTmRcspA1ws9iXveTTgBf5u2JBDwAzf2AT?=
- =?iso-8859-1?Q?rHK3tav72GOj6s36BCJvOT9Xr7w0IJ2rOXmdcpSvtzQJoYAWjjfk2FlV0i?=
- =?iso-8859-1?Q?5FPuofYgNobrnIbZJ72+9P333BZhV+B6Sbhoo0tezRUytEWpNXxLeUUEHp?=
- =?iso-8859-1?Q?zyZXAt2AB4/VERl9ZaFf5k8x6iGu9hqhSKb5qsl8IRR4iV0rVBeE4HBYU4?=
- =?iso-8859-1?Q?jBsEPC0fE3nqsvAMSJq87IeOHfB4AwnLMBFrbx0o8pkA8aJ3qE3yfbmIS6?=
- =?iso-8859-1?Q?/GywMzYrlpf2JxrYNlx1qFmK6NKs1PA8L1BhQOZrZEMGCWjs/413UI8mNm?=
- =?iso-8859-1?Q?C7GKvfhePAv3+0iKjXADRLP+tUP4kRlDYB4bW4jKMPPMRzmFdwlf9BENGA?=
- =?iso-8859-1?Q?ULgil4O8oa+gUias6ktVNwXo+FMqwcJzk6hDarwGhCjA6hxtaynkahYjDl?=
- =?iso-8859-1?Q?MfubPR1aEGOmFv98mWau10NgIggm5Kct9wZy8WYSDwvEPjxd5EpwiKCaBT?=
- =?iso-8859-1?Q?OHiVAjMl7UMexe2MxE1NKFNIXNomHepC9zCBFekLv/zNlQjtQrNU92CoU5?=
- =?iso-8859-1?Q?Cx9dLfGAUSeayqz5hTh+n5y90QjcfroEVd7ddDsRhw5f+IgsyIQu51KHxQ?=
- =?iso-8859-1?Q?vfmMAB8WEb3AA/K9sowGrsTTy6QF3HKWJOdG33kOHk8GVLnMbQxfABD5XJ?=
- =?iso-8859-1?Q?2ddtpLlAPXhr/Nz2U2tWIqUASsDBKMinARFcMYXc5svrHqlwDBGkezXbu+?=
- =?iso-8859-1?Q?6X272fVn9TUmcQe1WPatYrG8qeDoXH2oVeHzvb7kmklyvBLe4dbMZgitII?=
- =?iso-8859-1?Q?tusnPH3+0+zj4=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WJamAYNMOcGiypZj9ZnlM8fLoL4H8aNs8X/PZ6ySgWq5bBwZaNNMbgNUwb2q?=
+ =?us-ascii?Q?6udZ8jPZXKA6Q9Hr8YM3PVfC/tEi3yB+F7xQjfU5qw5FEX00/jUPqGht879P?=
+ =?us-ascii?Q?/CwhJ/s4i8WQOzr6Yjky25Xxs8iVPQfvabgB+XY4N4Zninc3TjQ3kEypvD9g?=
+ =?us-ascii?Q?dyIy7Xu9aolfL8Ax6+7HdaEckXJ5ZBYIKSKAiHHwknB1ZZpmaYpsVxybymJn?=
+ =?us-ascii?Q?5kwcujZyRFiM+mRhH0MveSdIPvOTuiTZtFqz/bQoT+qCOKygDskbaCikmxUZ?=
+ =?us-ascii?Q?qENj5YAyBu+Jm0MMyWOZY697+k5rJBToPgREU/sQwXtsKgf7R4TFR4I7OR8j?=
+ =?us-ascii?Q?mVe1IkBWnuDvGRzYi98TCThQp18+qGSyaPTWQjEwox+Ap76MuEzJzkAXmKY9?=
+ =?us-ascii?Q?TCKErbtYGeVgSnadrjKawEJ5k7e648i9jg1Xp1wLLfiNcZGvjjzYCnrlva75?=
+ =?us-ascii?Q?nyqAs54JtAEWY4AcDnvYvjDjoXgzSs3dCHyRA9yuzsmLZSCBYQ0DJFkZ672W?=
+ =?us-ascii?Q?oWDqgaKrFklQgJRZWT0ricGQ//50xp8rB9i9FlUKdqZTjAWtGrQ2aFoQSOL9?=
+ =?us-ascii?Q?Ir/IED7MMl/EO3Qyih4NPCx+da03HIxWUvACfloVE6cseyrFlLSfolDRgkjz?=
+ =?us-ascii?Q?n+ByZifWKwzjZypmqYTLCY1lzi54E1heeH+LIlo7KVW78Jdi6VQshmcvD1Nc?=
+ =?us-ascii?Q?vINssacwlDr85y0Y1EKhTeAix+cauwY1Xk0LuOHWz6qajcT5Tq0nGsaEG6gY?=
+ =?us-ascii?Q?dQ/3cXLGGdyPiv8IC1dv9ecOx0YXu6S4oESf/YQ24h02C9sIcf5f8+p7Mtr5?=
+ =?us-ascii?Q?d8K4s/9pDs4T6HByCjMXZR8uZJZ+mIjXYQ8brX5IgbKvLhdhpPEzbAaM8gJq?=
+ =?us-ascii?Q?MEFWwYp3kdjusliAre3WL56DCvek0cBy2vosLUrou8wrKTV1FVSnDPyeUWZB?=
+ =?us-ascii?Q?3T5jMxvEgzi710o6aTnWBEVOrvbumM96TUF+tYE2NJP2aQRZTTvKK9jW2h6G?=
+ =?us-ascii?Q?QAabv3y8zjTtJIFBYHMYOkqcpu4uQ1o8oHohZXZzCUvjMCn0XUu1xLk0muUm?=
+ =?us-ascii?Q?8levP20KVs/yeLxXDrBmy7D/qo/rxmrbQDEctYd/nAQ84FWY2TpL8E8f5r3s?=
+ =?us-ascii?Q?pQD422oe9fYGb2c6lxxNSZT1qLhIQfS3f3X/LgbusyCLVnez/+k/kO9rtnp1?=
+ =?us-ascii?Q?VRTVw/AtUBOAeB18Sv7cFU+P8LTJ4paVMdgfKZcFH9ezeeBENQUDU7eOBZXp?=
+ =?us-ascii?Q?XxR85l7G6n/CTb4PRDfd7kg8O7XR5XV34nSZXqxOICy86PYy522MWSGukIse?=
+ =?us-ascii?Q?x8s9uzL6uBc9pLn1nwM69gS8/GVOO98JO5wK47X1KRoLKc0s9kyZXoBAJYo7?=
+ =?us-ascii?Q?5m31qVQrieMNx1FaJHbBACeStVn5ETmLfIOkMf9xcFfe91sgZpEZ6M3GGaty?=
+ =?us-ascii?Q?Kn4pB0STKFSSe77N/DWNA0xswjgTLQFjzt+Tniv7O4Pw+vzO81lNiiF5yUxB?=
+ =?us-ascii?Q?BW3CNbp1y7CD1pdVISk93+rUhmnZ/6BmBUiJDmcircOdzkJ8ybDjrKNWLrZl?=
+ =?us-ascii?Q?EXRRUw0vjHE6YrxAnf8=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99af99be-3453-4c98-3efb-08dd761991e4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2025 21:17:15.0125 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d88ae5e7-551d-4df2-5c04-08dd763fffa0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2025 01:52:20.0035 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4jyfTHcGD4AB7gMfQWphHL9Me7aBApmlp6OwMNzuIWcto+ebeCgrL9GfTTq1+TbWyvZ9IUkPz2Qb+Q2SQc5Leg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
+X-MS-Exchange-CrossTenant-userprincipalname: T3EU5JigaK8XblxSqYiR2n+dRpu0s6tKnfhJCVRQLtCY5mhI2P8ZHQlq0BL+nWss
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8727
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -198,410 +157,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Ping ..
+
+Regards,
+      Prike
 
 > -----Original Message-----
-> From: Arnd Bergmann <arnd@kernel.org>
-> Sent: Monday, April 7, 2025 6:38 AM
-> To: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Arnd Bergmann <arnd@arndb.de>; Jeff Hugo
-> <jeff.hugo@oss.qualcomm.com>; Carl Vanderlip <quic_carlv@quicinc.com>; Od=
-ed
-> Gabbay <ogabbay@kernel.org>; Takashi Sakamoto <o-takashi@sakamocchi.jp>;
-> Maarten Lankhorst <maarten.lankhorst@linux.intel.com>; Maxime Ripard
-> <mripard@kernel.org>; Thomas Zimmermann <tzimmermann@suse.de>; David
-> Airlie <airlied@gmail.com>; Simona Vetter <simona@ffwll.ch>; Deucher, Ale=
-xander
-> <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Dave Airlie <airlied@redhat.com>; Jocelyn
-> Falempe <jfalempe@redhat.com>; Patrik Jakobsson
-> <patrik.r.jakobsson@gmail.com>; Xinliang Liu <xinliang.liu@linaro.org>; T=
-ian Tao
-> <tiantao6@hisilicon.com>; Xinwei Kong <kong.kongxinwei@hisilicon.com>; Su=
-mit
-> Semwal <sumit.semwal@linaro.org>; Yongqin Liu <yongqin.liu@linaro.org>; J=
-ohn
-> Stultz <jstultz@google.com>; Sui Jingfeng <suijingfeng@loongson.cn>; Lyud=
-e Paul
-> <lyude@redhat.com>; Danilo Krummrich <dakr@kernel.org>; Gerd Hoffmann
-> <kraxel@redhat.com>; Zack Rusin <zack.rusin@broadcom.com>; Broadcom
-> internal kernel review list <bcm-kernel-feedback-list@broadcom.com>; Luca=
-s De
-> Marchi <lucas.demarchi@intel.com>; Thomas Hellstr=F6m
-> <thomas.hellstrom@linux.intel.com>; Rodrigo Vivi <rodrigo.vivi@intel.com>=
-;
-> Andrew Lunn <andrew+netdev@lunn.ch>; David S. Miller
-> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub Kicinski
-> <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Saurav Kashyap
-> <skashyap@marvell.com>; Javed Hasan <jhasan@marvell.com>; GR-QLogic-
-> Storage-Upstream@marvell.com; James E.J. Bottomley
-> <James.Bottomley@HansenPartnership.com>; Martin K. Petersen
-> <martin.petersen@oracle.com>; Nilesh Javali <njavali@marvell.com>; Manish
-> Rangankar <mrangankar@marvell.com>; Alex Williamson
-> <alex.williamson@redhat.com>; Geert Uytterhoeven <geert+renesas@glider.be=
->;
-> Javier Martinez Canillas <javierm@redhat.com>; Jani Nikula
-> <jani.nikula@intel.com>; Limonciello, Mario <Mario.Limonciello@amd.com>;
-> Thomas Wei=DFschuh <linux@weissschuh.net>; Lazar, Lijo <Lijo.Lazar@amd.co=
-m>;
-> Niklas Schnelle <schnelle@linux.ibm.com>; Dmitry Baryshkov
-> <lumag@kernel.org>; linux-arm-msm@vger.kernel.org; dri-
-> devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; linux1394-
-> devel@lists.sourceforge.net; amd-gfx@lists.freedesktop.org;
-> nouveau@lists.freedesktop.org; virtualization@lists.linux.dev; spice-
-> devel@lists.freedesktop.org; intel-xe@lists.freedesktop.org;
-> netdev@vger.kernel.org; linux-pci@vger.kernel.org; linux-scsi@vger.kernel=
-.org;
-> kvm@vger.kernel.org
-> Subject: [RFC] PCI: add CONFIG_MMU dependency
+> From: Liang, Prike <Prike.Liang@amd.com>
+> Sent: Friday, March 28, 2025 7:52 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
+> <Prike.Liang@amd.com>
+> Subject: [PATCH] drm/amdgpu: remove the duplicated mes queue active state
+> setting
 >
-> From: Arnd Bergmann <arnd@arndb.de>
+> The MES queue deactivation and active status are already set in
+> mes_userq_unmap|map(), so the caller needn't set the queue_active bit aga=
+in.
 >
-> It turns out that there are no platforms that have PCI but don't have an =
-MMU, so
-> adding a Kconfig dependency on CONFIG_PCI simplifies build testing kernel=
-s for
-> those platforms a lot, and avoids a lot of inadvertent build regressions.
->
-> Add a dependency for CONFIG_PCI and remove all the ones for PCI specific
-> device drivers that are currently marked not having it.
->
-> Link: https://lore.kernel.org/lkml/a41f1b20-a76c-43d8-8c36-
-> f12744327a54@app.fastmail.com/
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-For radeon, amdgpu:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-
-
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 > ---
->  drivers/accel/qaic/Kconfig              | 1 -
->  drivers/firewire/Kconfig                | 2 +-
->  drivers/gpu/drm/Kconfig                 | 2 +-
->  drivers/gpu/drm/amd/amdgpu/Kconfig      | 3 +--
->  drivers/gpu/drm/ast/Kconfig             | 2 +-
->  drivers/gpu/drm/gma500/Kconfig          | 2 +-
->  drivers/gpu/drm/hisilicon/hibmc/Kconfig | 1 -
->  drivers/gpu/drm/loongson/Kconfig        | 2 +-
->  drivers/gpu/drm/mgag200/Kconfig         | 2 +-
->  drivers/gpu/drm/nouveau/Kconfig         | 3 +--
->  drivers/gpu/drm/qxl/Kconfig             | 2 +-
->  drivers/gpu/drm/radeon/Kconfig          | 2 +-
->  drivers/gpu/drm/tiny/Kconfig            | 2 +-
->  drivers/gpu/drm/vmwgfx/Kconfig          | 2 +-
->  drivers/gpu/drm/xe/Kconfig              | 2 +-
->  drivers/net/ethernet/broadcom/Kconfig   | 1 -
->  drivers/pci/Kconfig                     | 1 +
->  drivers/pci/pci.c                       | 4 ++--
->  drivers/scsi/bnx2fc/Kconfig             | 1 -
->  drivers/scsi/bnx2i/Kconfig              | 1 -
->  drivers/vfio/pci/Kconfig                | 2 +-
->  21 files changed, 17 insertions(+), 23 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
 >
-> diff --git a/drivers/accel/qaic/Kconfig b/drivers/accel/qaic/Kconfig inde=
-x
-> a9f866230058..5e405a19c157 100644
-> --- a/drivers/accel/qaic/Kconfig
-> +++ b/drivers/accel/qaic/Kconfig
-> @@ -8,7 +8,6 @@ config DRM_ACCEL_QAIC
->       depends on DRM_ACCEL
->       depends on PCI && HAS_IOMEM
->       depends on MHI_BUS
-> -     depends on MMU
->       select CRC32
->       help
->         Enables driver for Qualcomm's Cloud AI accelerator PCIe cards tha=
-t are
-> diff --git a/drivers/firewire/Kconfig b/drivers/firewire/Kconfig index
-> 905c82e26ce7..a5f5e250223a 100644
-> --- a/drivers/firewire/Kconfig
-> +++ b/drivers/firewire/Kconfig
-> @@ -83,7 +83,7 @@ config
-> FIREWIRE_KUNIT_SELF_ID_SEQUENCE_HELPER_TEST
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> index b469b800119f..b9705cbec74d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -358,10 +358,8 @@ mes_userq_mqd_destroy(struct amdgpu_userq_mgr
+> *uq_mgr,  static int mes_userq_suspend(struct amdgpu_userq_mgr *uq_mgr,
+>                                  struct amdgpu_usermode_queue *queue)  {
+> -     if (queue->queue_active) {
+> +     if (queue->queue_active)
+>               mes_userq_unmap(uq_mgr, queue);
+> -             queue->queue_active =3D false;
+> -     }
 >
->  config FIREWIRE_OHCI
->       tristate "OHCI-1394 controllers"
-> -     depends on PCI && FIREWIRE && MMU
-> +     depends on PCI && FIREWIRE
->       help
->         Enable this driver if you have a FireWire controller based
->         on the OHCI specification.  For all practical purposes, this diff=
- --git
-> a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig index
-> 2cba2b6ebe1c..6e95d204597e 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -462,7 +462,7 @@ source "drivers/gpu/drm/imagination/Kconfig"
+>       return 0;
+>  }
+> @@ -379,8 +377,6 @@ static int mes_userq_resume(struct amdgpu_userq_mgr
+> *uq_mgr,
+>               DRM_ERROR("Failed to resume queue\n");
+>               return ret;
+>       }
+> -
+> -     queue->queue_active =3D true;
+>       return 0;
+>  }
 >
->  config DRM_HYPERV
->       tristate "DRM Support for Hyper-V synthetic video device"
-> -     depends on DRM && PCI && MMU && HYPERV
-> +     depends on DRM && PCI && HYPERV
->       select DRM_CLIENT_SELECTION
->       select DRM_KMS_HELPER
->       select DRM_GEM_SHMEM_HELPER
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> index 1a11cab741ac..058e3b3ad520 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> @@ -2,7 +2,7 @@
->
->  config DRM_AMDGPU
->       tristate "AMD GPU"
-> -     depends on DRM && PCI && MMU
-> +     depends on DRM && PCI
->       depends on !UML
->       select FW_LOADER
->       select DRM_CLIENT
-> @@ -68,7 +68,6 @@ config DRM_AMDGPU_CIK
->  config DRM_AMDGPU_USERPTR
->       bool "Always enable userptr write support"
->       depends on DRM_AMDGPU
-> -     depends on MMU
->       select HMM_MIRROR
->       select MMU_NOTIFIER
->       help
-> diff --git a/drivers/gpu/drm/ast/Kconfig b/drivers/gpu/drm/ast/Kconfig in=
-dex
-> da0663542e8a..242fbccdf844 100644
-> --- a/drivers/gpu/drm/ast/Kconfig
-> +++ b/drivers/gpu/drm/ast/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only  config DRM_AST
->       tristate "AST server chips"
-> -     depends on DRM && PCI && MMU
-> +     depends on DRM && PCI
->       select DRM_CLIENT_SELECTION
->       select DRM_GEM_SHMEM_HELPER
->       select DRM_KMS_HELPER
-> diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kcon=
-fig index
-> aa2ea128aa2f..a2acaa699dd5 100644
-> --- a/drivers/gpu/drm/gma500/Kconfig
-> +++ b/drivers/gpu/drm/gma500/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only  config DRM_GMA500
->       tristate "Intel GMA500/600/3600/3650 KMS Framebuffer"
-> -     depends on DRM && PCI && X86 && MMU && HAS_IOPORT
-> +     depends on DRM && PCI && X86 && HAS_IOPORT
->       select DRM_CLIENT_SELECTION
->       select DRM_KMS_HELPER
->       select FB_IOMEM_HELPERS if DRM_FBDEV_EMULATION diff --git
-> a/drivers/gpu/drm/hisilicon/hibmc/Kconfig b/drivers/gpu/drm/hisilicon/hib=
-mc/Kconfig
-> index 98d77d74999d..d1f3f5793f34 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/Kconfig
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
-> @@ -2,7 +2,6 @@
->  config DRM_HISI_HIBMC
->       tristate "DRM Support for Hisilicon Hibmc"
->       depends on DRM && PCI
-> -     depends on MMU
->       select DRM_CLIENT_SELECTION
->       select DRM_DISPLAY_HELPER
->       select DRM_DISPLAY_DP_HELPER
-> diff --git a/drivers/gpu/drm/loongson/Kconfig b/drivers/gpu/drm/loongson/=
-Kconfig
-> index 552edfec7afb..d739d51cf54c 100644
-> --- a/drivers/gpu/drm/loongson/Kconfig
-> +++ b/drivers/gpu/drm/loongson/Kconfig
-> @@ -2,7 +2,7 @@
->
->  config DRM_LOONGSON
->       tristate "DRM support for Loongson Graphics"
-> -     depends on DRM && PCI && MMU
-> +     depends on DRM && PCI
->       depends on LOONGARCH || MIPS || COMPILE_TEST
->       select DRM_CLIENT_SELECTION
->       select DRM_KMS_HELPER
-> diff --git a/drivers/gpu/drm/mgag200/Kconfig b/drivers/gpu/drm/mgag200/Kc=
-onfig
-> index 412dcbea0e2d..a962ae564a75 100644
-> --- a/drivers/gpu/drm/mgag200/Kconfig
-> +++ b/drivers/gpu/drm/mgag200/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only  config DRM_MGAG200
->       tristate "Matrox G200"
-> -     depends on DRM && PCI && MMU
-> +     depends on DRM && PCI
->       select DRM_CLIENT_SELECTION
->       select DRM_GEM_SHMEM_HELPER
->       select DRM_KMS_HELPER
-> diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kc=
-onfig
-> index 7b3e979c51ec..d1587639ebb0 100644
-> --- a/drivers/gpu/drm/nouveau/Kconfig
-> +++ b/drivers/gpu/drm/nouveau/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only  config DRM_NOUVEAU
->       tristate "Nouveau (NVIDIA) cards"
-> -     depends on DRM && PCI && MMU
-> +     depends on DRM && PCI
->       select IOMMU_API
->       select FW_LOADER
->       select FW_CACHE if PM_SLEEP
-> @@ -94,7 +94,6 @@ config DRM_NOUVEAU_SVM
->       bool "(EXPERIMENTAL) Enable SVM (Shared Virtual Memory) support"
->       depends on DEVICE_PRIVATE
->       depends on DRM_NOUVEAU
-> -     depends on MMU
->       depends on STAGING
->       select HMM_MIRROR
->       select MMU_NOTIFIER
-> diff --git a/drivers/gpu/drm/qxl/Kconfig b/drivers/gpu/drm/qxl/Kconfig in=
-dex
-> 69427eb8bed2..d8f24bcae34b 100644
-> --- a/drivers/gpu/drm/qxl/Kconfig
-> +++ b/drivers/gpu/drm/qxl/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only  config DRM_QXL
->       tristate "QXL virtual GPU"
-> -     depends on DRM && PCI && MMU && HAS_IOPORT
-> +     depends on DRM && PCI && HAS_IOPORT
->       select DRM_CLIENT_SELECTION
->       select DRM_KMS_HELPER
->       select DRM_TTM
-> diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kcon=
-fig index
-> f51bace9555d..c479f0c0dd5c 100644
-> --- a/drivers/gpu/drm/radeon/Kconfig
-> +++ b/drivers/gpu/drm/radeon/Kconfig
-> @@ -2,7 +2,7 @@
->
->  config DRM_RADEON
->       tristate "ATI Radeon"
-> -     depends on DRM && PCI && MMU
-> +     depends on DRM && PCI
->       depends on AGP || !AGP
->       select FW_LOADER
->       select DRM_CLIENT_SELECTION
-> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig =
-index
-> 54c84c9801c1..6ca12fe7f57a 100644
-> --- a/drivers/gpu/drm/tiny/Kconfig
-> +++ b/drivers/gpu/drm/tiny/Kconfig
-> @@ -37,7 +37,7 @@ config DRM_BOCHS
->
->  config DRM_CIRRUS_QEMU
->       tristate "Cirrus driver for QEMU emulated device"
-> -     depends on DRM && PCI && MMU
-> +     depends on DRM && PCI
->       select DRM_CLIENT_SELECTION
->       select DRM_KMS_HELPER
->       select DRM_GEM_SHMEM_HELPER
-> diff --git a/drivers/gpu/drm/vmwgfx/Kconfig b/drivers/gpu/drm/vmwgfx/Kcon=
-fig index
-> 6c3c2922ae8b..aab646b91ca9 100644
-> --- a/drivers/gpu/drm/vmwgfx/Kconfig
-> +++ b/drivers/gpu/drm/vmwgfx/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  config DRM_VMWGFX
->       tristate "DRM driver for VMware Virtual GPU"
-> -     depends on DRM && PCI && MMU
-> +     depends on DRM && PCI
->       depends on (X86 && HYPERVISOR_GUEST) || ARM64
->       select DRM_CLIENT_SELECTION
->       select DRM_TTM
-> diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig inde=
-x
-> 5c2f459a2925..2dec62737ff6 100644
-> --- a/drivers/gpu/drm/xe/Kconfig
-> +++ b/drivers/gpu/drm/xe/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only  config DRM_XE
->       tristate "Intel Xe Graphics"
-> -     depends on DRM && PCI && MMU && (m || (y && KUNIT=3Dy))
-> +     depends on DRM && PCI && (m || (y && KUNIT=3Dy))
->       select INTERVAL_TREE
->       # we need shmfs for the swappable backing store, and in particular
->       # the shmem_readpage() which depends upon tmpfs diff --git
-> a/drivers/net/ethernet/broadcom/Kconfig b/drivers/net/ethernet/broadcom/K=
-config
-> index eeec8bf17cf4..aa43984a05cf 100644
-> --- a/drivers/net/ethernet/broadcom/Kconfig
-> +++ b/drivers/net/ethernet/broadcom/Kconfig
-> @@ -96,7 +96,6 @@ config BNX2
->  config CNIC
->       tristate "QLogic CNIC support"
->       depends on PCI && (IPV6 || IPV6=3Dn)
-> -     depends on MMU
->       select BNX2
->       select UIO
->       help
-> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig index
-> da28295b4aac..9c0e4aaf4e8c 100644
-> --- a/drivers/pci/Kconfig
-> +++ b/drivers/pci/Kconfig
-> @@ -21,6 +21,7 @@ config GENERIC_PCI_IOMAP  menuconfig PCI
->       bool "PCI support"
->       depends on HAVE_PCI
-> +     depends on MMU
->       help
->         This option enables support for the PCI local bus, including
->         support for PCI-X and the foundations for PCI Express support.
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c index 4d7c9f64ea24..60=
-a20a0ac41f
-> 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -4257,7 +4257,7 @@ unsigned long __weak pci_address_to_pio(phys_addr_t
-> address)  #ifndef pci_remap_iospace  int pci_remap_iospace(const struct r=
-esource
-> *res, phys_addr_t phys_addr)  { -#if defined(PCI_IOBASE) &&
-> defined(CONFIG_MMU)
-> +#if defined(PCI_IOBASE)
->       unsigned long vaddr =3D (unsigned long)PCI_IOBASE + res->start;
->
->       if (!(res->flags & IORESOURCE_IO))
-> @@ -4290,7 +4290,7 @@ EXPORT_SYMBOL(pci_remap_iospace);
->   */
->  void pci_unmap_iospace(struct resource *res)  { -#if defined(PCI_IOBASE)=
- &&
-> defined(CONFIG_MMU)
-> +#if defined(PCI_IOBASE)
->       unsigned long vaddr =3D (unsigned long)PCI_IOBASE + res->start;
->
->       vunmap_range(vaddr, vaddr + resource_size(res)); diff --git
-> a/drivers/scsi/bnx2fc/Kconfig b/drivers/scsi/bnx2fc/Kconfig index
-> ecdc0f0f4f4e..3cf7e08df809 100644
-> --- a/drivers/scsi/bnx2fc/Kconfig
-> +++ b/drivers/scsi/bnx2fc/Kconfig
-> @@ -5,7 +5,6 @@ config SCSI_BNX2X_FCOE
->       depends on (IPV6 || IPV6=3Dn)
->       depends on LIBFC
->       depends on LIBFCOE
-> -     depends on MMU
->       select NETDEVICES
->       select ETHERNET
->       select NET_VENDOR_BROADCOM
-> diff --git a/drivers/scsi/bnx2i/Kconfig b/drivers/scsi/bnx2i/Kconfig inde=
-x
-> 0cc06c2ce0b8..75ace2302fed 100644
-> --- a/drivers/scsi/bnx2i/Kconfig
-> +++ b/drivers/scsi/bnx2i/Kconfig
-> @@ -4,7 +4,6 @@ config SCSI_BNX2_ISCSI
->       depends on NET
->       depends on PCI
->       depends on (IPV6 || IPV6=3Dn)
-> -     depends on MMU
->       select SCSI_ISCSI_ATTRS
->       select NETDEVICES
->       select ETHERNET
-> diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig index
-> c3bcb6911c53..2b0172f54665 100644
-> --- a/drivers/vfio/pci/Kconfig
-> +++ b/drivers/vfio/pci/Kconfig
-> @@ -1,6 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0-only  menu "VFIO support for PCI devi=
-ces"
-> -     depends on PCI && MMU
-> +     depends on PCI
->
->  config VFIO_PCI_CORE
->       tristate
 > --
-> 2.39.5
+> 2.34.1
 
