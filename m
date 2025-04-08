@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC2B8C3600C
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 08:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08197C369A1
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 08:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F0C410E611;
-	Tue,  8 Apr 2025 08:37:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF5E10E612;
+	Tue,  8 Apr 2025 08:37:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pBG10SM/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Tn9AEzyC";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2047.outbound.protection.outlook.com [40.107.102.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 817A810E611
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Apr 2025 08:37:30 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B80010E612
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Apr 2025 08:37:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NB4UxeDN46uSYPeoex3KFvnuGDfG8xyBgQAsFs3EJaz4ArRS6JrKAx+Sn/NXksErK0qSUX47niEYnINsuMacChn6OnyzGbsDoH/yBlckZuWAM6cEsnXTXv15ZA3vY8XTgNjfu5wTJwEedFjSV4fulviMvr36SOdMaxZxIn+ZhM1v18yhb7pWxUj9xM4PUztoOnAUC3RtlE+zpoh3C0fbRLe5EXzEpNU0xUu+9AobRkWdBkjEcIq6FYX5XpbzvT9ngOBUPci4LE4Z+QRfTfqrMQpxw19ew5HHE1jWzewORSdYKy20HlR0iH7ZguGiogTwzcAmsj+s0LChQDUgxPOKRg==
+ b=Q40BloneQGGJXGhQS3cqbKONQCCdcBZ3AHkboxLugqFwhyj1zQYEqj5sHIZpHWyBn1yIZ3reZHkH9tR10R+RNcd7SGx3ZuKjPAg0UIOyUHCOFkZLeZHgNhQCzGd+ZJdkNdvA2Hu6q4xN4hQyVFJgJwZzMnk8ECagy+Bis7cy3z4Zn185KXQRgtnFx9jdsEWiomJgAPaKH0Qbl23yBiaoNBY2zNtclYYrnelLkqAyjDKWDNQIqGPkBelG/OK9zDlkmNk2PJMizGiYkCG3vxQ7IMuMgiGzeAb6+8cM5Zq+k7LAUoqYgROnByDHUzXn+uqdNu2nmfN3NKP1ON/l5H62xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=za5P5WqTBiixpZTWjBQ/3yUbvho8fVAQL6tqdXCmxwI=;
- b=XbuY9RyzHX6YS5Hj8o8rHaC8O4dj5mfpHn4IQpWI+/HWCwoV79okkBFM9HhLFHRiz71cnZF26QHpx4U5T5OeD6+jOHYGCXvbwhFN5Rqd3sEZUWXXRETBzR/EctGXNx0gfiKdDr6lynd6vrgifHFgrqCluUoWrJxZXvViQAyOirsfOvuviHEeC4hDrYND++Q+I+Uq6sR6xCodiANzvun7cSXr2rVh6E1yaZQ6UnQY9Am94OsSvMnrtENCEtvKPuwr/JUNA4p8rCppV8+GXZuD40Fc4POaZaknoIwrbKp+S3yCqdr+NIdVIAerXu6St6j4CWLGcG/TbbnwZbWkb8LlOg==
+ bh=bIbPqrkoltpeQu/6+wZvaJnsa3VHXPxoMsEgqVigKDg=;
+ b=tZrdv/6T9iuQ89WVrB4s8ezEyjikUglFCQXPMcb2Gs4+KhT0Suk1o0EWhGfFBVpS8AzrX9dWW3ARuiYOJZIv30GOHCrnVof9rfPjI3gki5bDqkOY0ohqphmLFKsWGKSQ/JiPqVMT+SjHO5uQHuwg9N0/LdpsuKjp/FjHhItX943Gru6r0JVu+RsRvWVBZJoN23nKLFWlk49wgl6sf+vXtlfBHCCtBcynvqfAnurj/AcL10o6fuHmH1gu018eh/W4GXK9V1H0+S5j++a7fg8mlW2HprucJNXnfnNg63Y1jF2AYHX/O9/zNrpEV51gpH6ArlhFmZegBfLV3VCc2rxAgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=za5P5WqTBiixpZTWjBQ/3yUbvho8fVAQL6tqdXCmxwI=;
- b=pBG10SM/IEKVTTlRzA5zgInHiwbI37mF/CXkTUcoMiPGmFtfnf9yUC5gf7DsOwL7OyDNP5w2x0QDGODdinwIVffOnqHDBeGEyoTuSnX5FCP5pz1kYDQZBKeNRUNNa0+N1Z/vK3EWUUPRovmj6kYre9adHCg1W2fq4h2ECXMg5V4=
-Received: from BN0PR07CA0003.namprd07.prod.outlook.com (2603:10b6:408:141::15)
- by SA1PR12MB7318.namprd12.prod.outlook.com (2603:10b6:806:2b3::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8583.42; Tue, 8 Apr
- 2025 08:37:25 +0000
-Received: from BL6PEPF0001AB58.namprd02.prod.outlook.com
- (2603:10b6:408:141:cafe::cb) by BN0PR07CA0003.outlook.office365.com
- (2603:10b6:408:141::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.35 via Frontend Transport; Tue,
- 8 Apr 2025 08:37:24 +0000
+ bh=bIbPqrkoltpeQu/6+wZvaJnsa3VHXPxoMsEgqVigKDg=;
+ b=Tn9AEzyCQUyriVl9ejqnVDAljjPrP+XHQQsJXDR8TltkLnL6eEdnX0/sJbuHmwqykDVZOmbUq25IXWLa1Vm4ypGUES5Xrh6ShMtk5e2QAFe2RPdKq22/7FTg14+K28qkNAjYysQ81DsbJZSEVLsNqHnf1NeuSSNPDgYiD8cP+x4=
+Received: from BN8PR04CA0011.namprd04.prod.outlook.com (2603:10b6:408:70::24)
+ by DS4PR12MB9659.namprd12.prod.outlook.com (2603:10b6:8:27f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.34; Tue, 8 Apr
+ 2025 08:37:32 +0000
+Received: from BL6PEPF0001AB52.namprd02.prod.outlook.com
+ (2603:10b6:408:70:cafe::41) by BN8PR04CA0011.outlook.office365.com
+ (2603:10b6:408:70::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.36 via Frontend Transport; Tue,
+ 8 Apr 2025 08:37:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,30 +48,28 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB58.mail.protection.outlook.com (10.167.241.10) with Microsoft
+ BL6PEPF0001AB52.mail.protection.outlook.com (10.167.241.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Tue, 8 Apr 2025 08:37:24 +0000
+ 15.20.8606.22 via Frontend Transport; Tue, 8 Apr 2025 08:37:31 +0000
 Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Apr
- 2025 03:37:23 -0500
+ 2025 03:37:30 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Apr
- 2025 03:37:22 -0500
+ 2025 03:37:29 -0500
 Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 8 Apr 2025 03:37:10 -0500
+ via Frontend Transport; Tue, 8 Apr 2025 03:37:23 -0500
 From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  <jonathan.kim@amd.com>, <jiadong.zhu@amd.com>, "Jesse.zhang@amd.com"
- <Jesse.zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [v4 4/7] drm/amd/amdgpu: Refactor SDMA v5.0 reset logic into
- top_queue and restore_queue function
-Date: Tue, 8 Apr 2025 16:36:30 +0800
-Message-ID: <20250408083633.2300420-4-jesse.zhang@amd.com>
+ <Jesse.zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
+Subject: [v4 5/7] drm/amdgpu: Optimize SDMA v5.2 queue reset and stop logic
+Date: Tue, 8 Apr 2025 16:36:31 +0800
+Message-ID: <20250408083633.2300420-5-jesse.zhang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250408083633.2300420-1-jesse.zhang@amd.com>
 References: <20250408083633.2300420-1-jesse.zhang@amd.com>
@@ -82,52 +80,52 @@ Received-SPF: None (SATLEXMB05.amd.com: jesse.zhang@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB58:EE_|SA1PR12MB7318:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14f86e72-08c9-41ac-de20-08dd76789657
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB52:EE_|DS4PR12MB9659:EE_
+X-MS-Office365-Filtering-Correlation-Id: dae3286d-a34e-41c0-8708-08dd76789a8f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Nfi4TM2W+R7pVzcEtjpiI6nB8nnH7y20itGu+OKhpnV8ry89kekb/T/G0ctM?=
- =?us-ascii?Q?fzyzwOBKkqf3xWDIhZwMJkT8/1brOVaxmlG5aPwOCDK0E4AdS+4esmZ3fg0H?=
- =?us-ascii?Q?gKyB5E18+BpE+Eg8k2NW5RKB1sJzQLA2Q1K1cuXNBAODGxz9arTy39RkIw73?=
- =?us-ascii?Q?ac7RdJx8cWamjWOybf+k+wtjMFyE+XQF4Nqpih+U/4q7N9kiUlFva0GMotfI?=
- =?us-ascii?Q?QEEBsu8ITicUwwn9V5Shtrbb/tIMUZd0DfSxsnpDJ1WJg0n6lMoxX9sNow1e?=
- =?us-ascii?Q?ECLall/AskDqDrMwd3xuHCH3O4H25w7DQ6lB0XhbQLlSrS4GLb/tuOdFw08o?=
- =?us-ascii?Q?ReO/+K/kzIIumSncBSvUPFjBwIMnSZaHpmbCnMeF+ggNZQrWIi98ohrjUxaH?=
- =?us-ascii?Q?8eymZxzCOgJtnhJ8VI30RkilgS6zw0fbNh4gfZw1lqELoX+wZEG3po2f0bDg?=
- =?us-ascii?Q?Jif7uw33N8FtHyHItvKg1lxjHH2oW2PFcH9JL7kiQ7D0PYUx/MWxiB1pt1Fq?=
- =?us-ascii?Q?ff/G1nZoech6MF82m4eTIoVIfL9v2ai3H0w9UGDLUrl1vwBfx5FMPXVoY1qh?=
- =?us-ascii?Q?1TI3ZIXf9SKHWU+ytkXaDNi7uO2FFXraY9DtShB3aqeKP/ABsRXu7NwtyvUA?=
- =?us-ascii?Q?PhH4qigZuA6ADjjLHqVQ54OcVq852tX5xRAiLlwhmI4p5Uy3qAKhY6h7u9jZ?=
- =?us-ascii?Q?0k6WHlLAcmaJFvjYJmmuKaQjcEE9JpwTJEiFuBe7rRY8nw82pW6IkZQ865SI?=
- =?us-ascii?Q?1K40vTW0fS7iTtwX1i2U4v1VcKLYICS2K8IWvtZvPfjc3Z4aQKAIEORULe+q?=
- =?us-ascii?Q?7t1PJnJE2rENHNffwHX+xQwzP3iSIyg4rn00vxoqgkegEb/xL0SMbrzDnkLJ?=
- =?us-ascii?Q?LW34ax2dMq40dZ9woGEBGUlF21WE0dPCrLDjPgEQnQRGyb9bU3GxCxM3Sjsv?=
- =?us-ascii?Q?WAae9C/NMMirJJo+1EsCcWTvx1ZkEVF10MYEeoUUPsOBEfoD7qWngi/RsJMq?=
- =?us-ascii?Q?Yq4G8tSUShwibQ492Eu1bHfE4PdwjWStKa2NI0xr3WWgijl6EuDHrg7CdZEF?=
- =?us-ascii?Q?oY+GBTZ/4Y0IjxKS1T3c/URjIZNqCG8EXkTCAxyK0leQPazTnHp0lsqelXbh?=
- =?us-ascii?Q?SppjuQF55wTK0yx30zSXWcGY3tDi+jZA0vT3pMUPu+W7Xn5ndvgZdlG6JVRp?=
- =?us-ascii?Q?8h/TDy2eP0Z2Yk4E6Khu78u+W8CLQT/Xpw+6esvZDGxFV9Qv3WuMkYXwRbCq?=
- =?us-ascii?Q?kKPCoiOjm7Gw0K4WogvBvsVyCpUtEJ+WAK1RDvOvtQBVOT1GoTtp59a2Cku+?=
- =?us-ascii?Q?RmuH/fPeCzAePfkN36/f1uBzRFL+1iMLwJDtqL24QxIzeo791Y5q4TXE7n8U?=
- =?us-ascii?Q?NWPBbnp+glxklZeWsRcSmAuGIsXkak1AucyHnjKZZ1o/w4ofOlo98PxdOrYh?=
- =?us-ascii?Q?UW5dZlz55BrCp5xyFbwpjgrgnV2JlYhZX2AygOuVHZePryZ7llnyX2dh9WwV?=
- =?us-ascii?Q?K3kuc9Asnhf0i2k=3D?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LYXlXkw5Fow3/I/hJQY5p7f8WAN3xhuM6lFAx0V1ORHMMKR8ziVwMkRT1g4i?=
+ =?us-ascii?Q?G6DoCjg2k7+KhPs04as1AObsYT0NHO7PFtins87O2dX+fxFYjuKwNBZglct8?=
+ =?us-ascii?Q?2CXM51MtVIn6imrK8IHPc9Gd1ioa3EgKTVXOYPPhZMoaOO6z4XpDM3RLWHOf?=
+ =?us-ascii?Q?ERK6Ll5wK/0KrsDmlLI8MNePOhhaw2eU2YlVQlTUyxjiWmJrbz0OXrTDPaDE?=
+ =?us-ascii?Q?V8UsaFYl/iv82iniwsaV606qPCeYklfyXYP2ACIZbkKpsDIFoGZpBC+4F0sZ?=
+ =?us-ascii?Q?V5K/GnR0E7qLhAP8L/S53FewLV9tZLzFY975tenl7hdXWO3MKrPs9OU2BMYi?=
+ =?us-ascii?Q?JbjPrM5bRvrzjvDjfKAZvATbRkP9TKdlQPXyGukNZtTSxI/kGZagvj2YG5hy?=
+ =?us-ascii?Q?3FmpRgqd/5X8ehkVaL2rSTBUkLIZLnwTrMkQhqApmlti5FuzIpaimRxNL2kk?=
+ =?us-ascii?Q?SkxIskFrPGZwh/MKbJbHEXhbwPxjZ/a49BbGJuaqmZjBoOrjsg+tm2dOiXq1?=
+ =?us-ascii?Q?MEylBH0yjdTK4uq96Kgd5Ru/aCelbjhMaaBveJLTzvRdlc8ANw/0U4URtdQV?=
+ =?us-ascii?Q?ikzSHBa7q/FkyNse0Wp3WlFQap/htnrPeh1YtvKgfDzUH+OLjXY4cyIsauc2?=
+ =?us-ascii?Q?JSjmSNwYYppwBonE2EQQxrzUfEPTSsDXFtJlkeVOuYXZFlQeZ1IkSZSzziQq?=
+ =?us-ascii?Q?VZoXr/RnycAdyFn2owu0rW+My4Eq/JI1B4usuHSPzXm3guVCJkQUIQB+nkhJ?=
+ =?us-ascii?Q?QITJrPZXOgSUoYcMNkkvvdfuGMlAbsLFA9S5ckbdgvWpyLlQS3Xo2wiGa94J?=
+ =?us-ascii?Q?Qd89zQDtRZgfFZ3LdKnc6Xcf5mVjPLUsGhkB0vWjjSuwNtb80fcLv9hQPffh?=
+ =?us-ascii?Q?aQfgWqHDckZASxeWk2gwuAiS2JWJFqwZQegf/FOzLtZs8ViriuKrafKL+Fbc?=
+ =?us-ascii?Q?H/NYn4UqTpP4uNvqXxjC06uW0k84jI8q2lk7ueiGs2meetCMoH8SPLXWF0m1?=
+ =?us-ascii?Q?K+UeVmJrDYPKTm6P9/TSOJNymckSeZ2OwMYt/PmCs5a4q6JozV/HCO1SX7a/?=
+ =?us-ascii?Q?v8r/LVHnY+S7r35/DbZRpWUIPQw9m3MuDJ6jS0ilJEgX4EDsYelivnn4m3ms?=
+ =?us-ascii?Q?03rM6a0NmTAujcTp2F/mS0gMrWLz7OgxF8a58M56ZaIpv8gq7yEjDhC14wEk?=
+ =?us-ascii?Q?9Xe9MkVQPwMwnyqhZ+bXG7nUJkmGsvonBBlb7Sfzl71uPhZV0n7n65UtNAgm?=
+ =?us-ascii?Q?z3J5KFCHHAw89qFXMWXNkikBqeOW47UF/XfEUcZEpa5Qdo5Se3fIvlqN91ja?=
+ =?us-ascii?Q?B4b7kAI8aNNFcvjUzLYou8h7FfpKi7u0m2mXTxIL8xHQRyAaLCH0sKfeC7Av?=
+ =?us-ascii?Q?BdQkHzqmy8lRXveQ6PR6W9L6aQR8xHtR4wu8io3WY5RzBnq4Vc6x16p38AfX?=
+ =?us-ascii?Q?lWN8hJct+xvnB6gVw+KE/Xv2ET04GGE7goA62S9WTyf/Q2rLnUTcuN5GIpxb?=
+ =?us-ascii?Q?lYIzq6k6fwo+d9I=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 08:37:24.6503 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14f86e72-08c9-41ac-de20-08dd76789657
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 08:37:31.7260 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dae3286d-a34e-41c0-8708-08dd76789a8f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB58.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB52.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7318
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9659
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,118 +142,167 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
 
-This patch refactors the SDMA v5.0 reset logic by splitting the `sdma_v5_0_reset_queue` function into two separate functions: `sdma_v5_0_stop_queue` and `sdma_v5_0_restore_queue`.
- This change aligns with the new SDMA reset mechanism, where the reset process is divided into stopping the queue, performing the reset, and restoring the queue.
+This patch refactors the SDMA v5.2 queue reset and stop logic to improve
+code readability, maintainability, and performance. The key changes include:
 
-    1. **Split `sdma_v5_0_reset_queue`**:
-       - Extracted the queue stopping logic into `sdma_v5_0_stop_queue`.
-       - Extracted the queue restoration logic into `sdma_v5_0_restore_queue`.
-       - The soft reset step is now handled by the caller (`amdgpu_sdma_reset_engine`).
+1. **Generalized `sdma_v5_2_gfx_stop` Function**:
+	- Added an `inst_mask` parameter to allow stopping specific SDMA instances
+	  instead of all instances. This is useful for resetting individual queues.
 
-    2. **Update Ring Functions**:
-       - Added `stop_queue` and `start_queue` to the `sdma_v5_0_ring_funcs` structure to support the new reset mechanism.
-
-v2: remove the suspend_user_queues param when calling amdgpu_sdma_reset_engine()
-v3: Update stop_queue/start_queue function paramters to use ring pointer instead of device/instance(Christian)
-v4: The general coding style is to declare variables like "i" or "r" last. E.g. longest lines first and short lasts.(Chritian)
-v5: move stop_queue/start_queue to struct amdgpu_sdma_instance and rename them. (Alex)
+2. **Simplified `sdma_v5_2_reset_queue` Function**:
+	- Removed redundant loops and checks by directly using the `ring->me` field
+	  to identify the SDMA instance.
+	- Reused the `sdma_v5_2_gfx_stop` function to stop the queue, reducing code
+	  duplication.
 
 Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 43 +++++++++++++++++---------
- 1 file changed, 28 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 64 +++++++++++---------------
+ 1 file changed, 26 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 38eee309b27e..5c354552c47f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -112,6 +112,8 @@ static void sdma_v5_0_set_ring_funcs(struct amdgpu_device *adev);
- static void sdma_v5_0_set_buffer_funcs(struct amdgpu_device *adev);
- static void sdma_v5_0_set_vm_pte_funcs(struct amdgpu_device *adev);
- static void sdma_v5_0_set_irq_funcs(struct amdgpu_device *adev);
-+static int sdma_v5_0_stop_queue(struct amdgpu_ring *ring);
-+static int sdma_v5_0_restore_queue(struct amdgpu_ring *ring);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 6f9a5ff7880e..6972f5dd63ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -405,15 +405,15 @@ static void sdma_v5_2_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
+  * sdma_v5_2_gfx_stop - stop the gfx async dma engines
+  *
+  * @adev: amdgpu_device pointer
+- *
++ * @inst_mask: mask of dma engine instances to be disabled
+  * Stop the gfx async dma ring buffers.
+  */
+-static void sdma_v5_2_gfx_stop(struct amdgpu_device *adev)
++static void sdma_v5_2_gfx_stop(struct amdgpu_device *adev,  uint32_t inst_mask)
+ {
+ 	u32 rb_cntl, ib_cntl;
+ 	int i;
  
- static const struct soc15_reg_golden golden_settings_sdma_5[] = {
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSDMA0_CHICKEN_BITS, 0xffbf1f0f, 0x03ab0107),
-@@ -1350,6 +1352,8 @@ static int sdma_v5_0_soft_reset_engine(struct amdgpu_device *adev, u32 instance_
- }
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
++	for_each_inst(i, inst_mask) {
+ 		rb_cntl = RREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL));
+ 		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
+ 		WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL), rb_cntl);
+@@ -504,9 +504,11 @@ static void sdma_v5_2_enable(struct amdgpu_device *adev, bool enable)
+ {
+ 	u32 f32_cntl;
+ 	int i;
++	uint32_t inst_mask;
  
- static const struct amdgpu_sdma_funcs sdma_v5_0_sdma_funcs = {
-+	.stop_kernel_queue = &sdma_v5_0_stop_queue,
-+	.start_kernel_queue = &sdma_v5_0_restore_queue,
- 	.soft_reset_kernel_queue = &sdma_v5_0_soft_reset_engine,
- };
++	inst_mask = GENMASK(adev->sdma.num_instances - 1, 0);
+ 	if (!enable) {
+-		sdma_v5_2_gfx_stop(adev);
++		sdma_v5_2_gfx_stop(adev, inst_mask);
+ 		sdma_v5_2_rlc_stop(adev);
+ 	}
  
-@@ -1537,17 +1541,25 @@ static int sdma_v5_0_soft_reset(struct amdgpu_ip_block *ip_block)
- static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring, unsigned int vmid)
+@@ -1448,40 +1450,26 @@ static int sdma_v5_2_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring, unsigned int vmid)
  {
  	struct amdgpu_device *adev = ring->adev;
--	int j, r;
--	u32 f32_cntl, freeze, cntl, preempt, soft_reset, stat1_reg;
--	u32 inst_id;
-+	u32 inst_id = ring->me;
-+
-+	return amdgpu_sdma_reset_engine(adev, inst_id);
-+}
-+
-+static int sdma_v5_0_stop_queue(struct amdgpu_ring *ring)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	u32 f32_cntl, freeze, cntl, preempt, stat1_reg;
-+	u32 inst_id = ring->me;
-+	int j, r = 0;
+-	int i, j, r;
+-	u32 rb_cntl, ib_cntl, f32_cntl, freeze, cntl, preempt, soft_reset, stat1_reg;
++	int j, r;
++	u32 f32_cntl, freeze, cntl, preempt, soft_reset, stat1_reg;
++	u32 inst_id;
  
  	if (amdgpu_sriov_vf(adev))
  		return -EINVAL;
--	inst_id = ring->me;
-+
+ 
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		if (ring == &adev->sdma.instance[i].ring)
+-			break;
+-	}
+-
+-	if (i == adev->sdma.num_instances) {
+-		DRM_ERROR("sdma instance not found\n");
+-		return -EINVAL;
+-	}
+-
++	inst_id = ring->me;
  	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
  
  	/* stop queue */
--	sdma_v5_0_gfx_stop(adev, 1 << ring->me);
-+	sdma_v5_0_gfx_stop(adev, inst_id);
+-	ib_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL));
+-	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, 0);
+-	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL), ib_cntl);
+-
+-	rb_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL));
+-	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
+-	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL), rb_cntl);
++	sdma_v5_2_gfx_stop(adev, 1 << ring->me);
  
- 	/* engine stop SDMA1_F32_CNTL.HALT to 1 and SDMAx_FREEZE freeze bit to 1 */
- 	freeze = RREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE));
-@@ -1583,17 +1595,19 @@ static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring, unsigned int vmid)
- 	preempt = RREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_GFX_PREEMPT));
+ 	/*engine stop SDMA1_F32_CNTL.HALT to 1 and SDMAx_FREEZE freeze bit to 1 */
+-	freeze = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE));
++	freeze = RREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE));
+ 	freeze = REG_SET_FIELD(freeze, SDMA0_FREEZE, FREEZE, 1);
+-	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE), freeze);
++	WREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE), freeze);
+ 
+ 	for (j = 0; j < adev->usec_timeout; j++) {
+-		freeze = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE));
++		freeze = RREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE));
+ 
+ 		if (REG_GET_FIELD(freeze, SDMA0_FREEZE, FROZEN) & 1)
+ 			break;
+@@ -1490,7 +1478,7 @@ static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring, unsigned int vmid)
+ 
+ 
+ 	if (j == adev->usec_timeout) {
+-		stat1_reg = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_STATUS1_REG));
++		stat1_reg = RREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_STATUS1_REG));
+ 		if ((stat1_reg & 0x3FF) != 0x3FF) {
+ 			DRM_ERROR("cannot soft reset as sdma not idle\n");
+ 			r = -ETIMEDOUT;
+@@ -1498,37 +1486,37 @@ static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring, unsigned int vmid)
+ 		}
+ 	}
+ 
+-	f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
++	f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_F32_CNTL));
+ 	f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 1);
+-	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), f32_cntl);
++	WREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_F32_CNTL), f32_cntl);
+ 
+-	cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
++	cntl = RREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_CNTL));
+ 	cntl = REG_SET_FIELD(cntl, SDMA0_CNTL, UTC_L1_ENABLE, 0);
+-	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), cntl);
++	WREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_CNTL), cntl);
+ 
+ 	/* soft reset SDMA_GFX_PREEMPT.IB_PREEMPT = 0 mmGRBM_SOFT_RESET.SOFT_RESET_SDMA0/1 = 1 */
+-	preempt = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_PREEMPT));
++	preempt = RREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_GFX_PREEMPT));
  	preempt = REG_SET_FIELD(preempt, SDMA0_GFX_PREEMPT, IB_PREEMPT, 0);
- 	WREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_GFX_PREEMPT), preempt);
-+err0:
-+	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
-+	return r;
-+}
+-	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_PREEMPT), preempt);
++	WREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_GFX_PREEMPT), preempt);
  
--	soft_reset = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
--	soft_reset |= 1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << inst_id;
--
--	WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
--
--	udelay(50);
--
--	soft_reset &= ~(1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << inst_id);
--	WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
-+static int sdma_v5_0_restore_queue(struct amdgpu_ring *ring)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	u32 inst_id = ring->me;
-+	u32 freeze;
-+	int r;
+ 	soft_reset = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
+-	soft_reset |= 1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << i;
++	soft_reset |= 1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << inst_id;
  
-+	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
- 	/* unfreeze*/
- 	freeze = RREG32(sdma_v5_0_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE));
+ 
+ 	WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
+ 
+ 	udelay(50);
+ 
+-	soft_reset &= ~(1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << i);
++	soft_reset &= ~(1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << inst_id);
+ 
+ 	WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
+ 
+ 	/* unfreeze and unhalt */
+-	freeze = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE));
++	freeze = RREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE));
  	freeze = REG_SET_FIELD(freeze, SDMA0_FREEZE, FREEZE, 0);
-@@ -1601,7 +1615,6 @@ static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring, unsigned int vmid)
+-	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE), freeze);
++	WREG32(sdma_v5_2_get_reg_offset(adev, inst_id, mmSDMA0_FREEZE), freeze);
  
- 	r = sdma_v5_0_gfx_resume_instance(adev, inst_id, true);
+-	r = sdma_v5_2_gfx_resume_instance(adev, i, true);
++	r = sdma_v5_2_gfx_resume_instance(adev, inst_id, true);
  
--err0:
+ err0:
  	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
- 	return r;
- }
 -- 
 2.25.1
 
