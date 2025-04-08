@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FDA7C369A4
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 07:22:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DFE1C3600C
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 07:22:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA3510E208;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A665210E5E6;
 	Tue,  8 Apr 2025 07:22:33 +0000 (UTC)
 Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
  [205.220.166.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BEFD10E1D8;
- Tue,  8 Apr 2025 03:25:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2069210E0D1;
+ Tue,  8 Apr 2025 01:34:22 +0000 (UTC)
 Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5383GKqd014976;
- Mon, 7 Apr 2025 20:25:02 -0700
+ by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5380c1mS014981;
+ Mon, 7 Apr 2025 17:44:05 -0700
 Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.wrs.com
  [147.11.82.252])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 45tyt4b0k1-1
+ by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 45tyt4auy7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 07 Apr 2025 20:25:01 -0700 (PDT)
-Received: from ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) by
+ Mon, 07 Apr 2025 17:44:05 -0700 (PDT)
+Received: from ala-exchng01.corp.ad.wrs.com (147.11.82.252) by
  ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Mon, 7 Apr 2025 20:25:01 -0700
+ 15.1.2507.43; Mon, 7 Apr 2025 17:44:04 -0700
 Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
- ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Mon, 7 Apr 2025 20:24:57 -0700
+ ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server id
+ 15.1.2507.43 via Frontend Transport; Mon, 7 Apr 2025 17:44:00 -0700
 From: <jianqi.ren.cn@windriver.com>
 To: <stable@vger.kernel.org>
 CC: <patches@lists.linux.dev>, <gregkh@linuxfoundation.org>,
@@ -38,31 +38,31 @@ CC: <patches@lists.linux.dev>, <gregkh@linuxfoundation.org>,
  <daniel@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>, <chiahsuan.chung@amd.com>,
  <alex.hung@amd.com>, <daniel.wheeler@amd.com>, <hersenxs.wu@amd.com>
-Subject: [PATCH 5.10.y] drm/amd/display: Skip inactive planes within
+Subject: [PATCH 5.15.y] drm/amd/display: Skip inactive planes within
  ModeSupportAndSystemConfiguration
-Date: Tue, 8 Apr 2025 11:24:56 +0800
-Message-ID: <20250408032456.3437393-1-jianqi.ren.cn@windriver.com>
+Date: Tue, 8 Apr 2025 08:43:59 +0800
+Message-ID: <20250408004359.3361615-1-jianqi.ren.cn@windriver.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 5-F-MLBWDWSd1-w6nLaD6MTbksbZORpR
-X-Authority-Analysis: v=2.4 cv=RMSzH5i+ c=1 sm=1 tr=0 ts=67f4970d cx=c_pps
+X-Proofpoint-ORIG-GUID: 16JNChR1K2X632q4hsA7As2mDto1yWOU
+X-Authority-Analysis: v=2.4 cv=RMSzH5i+ c=1 sm=1 tr=0 ts=67f47155 cx=c_pps
  a=/ZJR302f846pc/tyiSlYyQ==:117 a=/ZJR302f846pc/tyiSlYyQ==:17
  a=XR8D0OoHHMoA:10 a=zd2uoN0lAAAA:8 a=t7CeM3EgAAAA:8 a=jWJrOWpaenu_S2W2EP4A:9
  a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-GUID: 5-F-MLBWDWSd1-w6nLaD6MTbksbZORpR
+X-Proofpoint-GUID: 16JNChR1K2X632q4hsA7As2mDto1yWOU
 X-Sensitive_Customer_Information: Yes
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-08_01,2025-04-07_01,2024-11-22_01
+ definitions=2025-04-07_07,2025-04-07_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  phishscore=0 impostorscore=0
  lowpriorityscore=0 mlxscore=0 malwarescore=0 suspectscore=0
- mlxlogscore=999 spamscore=0 priorityscore=1501 adultscore=0 clxscore=1015
+ mlxlogscore=999 spamscore=0 priorityscore=1501 adultscore=0 clxscore=1011
  bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
  adjust=0 reason=mlx scancount=1 engine=8.21.0-2502280000
- definitions=main-2504080022
+ definitions=main-2504080003
 X-Mailman-Approved-At: Tue, 08 Apr 2025 07:22:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,14 +102,14 @@ Signed-off-by: He Zhe <zhe.he@windriver.com>
 ---
 Verified the build test
 ---
- .../drm/amd/display/dc/dml/display_mode_vba.c | 27 ++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ .../drm/amd/display/dc/dml/display_mode_vba.c | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-index b32093136089..7dfcb1e0a6ff 100644
+index 0fad15020c74..2beca0b06925 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-@@ -825,11 +825,30 @@ static unsigned int CursorBppEnumToBits(enum cursor_bpp ebpp)
+@@ -867,11 +867,30 @@ static unsigned int CursorBppEnumToBits(enum cursor_bpp ebpp)
  	}
  }
  
@@ -140,22 +140,18 @@ index b32093136089..7dfcb1e0a6ff 100644
  
  	mode_lib->vba.VoltageLevel = mode_lib->vba.cache_pipes[0].clks_cfg.voltage;
  	mode_lib->vba.ReturnBW = mode_lib->vba.ReturnBWPerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb];
-@@ -849,8 +868,14 @@ void ModeSupportAndSystemConfiguration(struct display_mode_lib *mode_lib)
- 		mode_lib->vba.DISPCLK = soc->clock_limits[mode_lib->vba.VoltageLevel].dispclk_mhz;
+@@ -892,6 +911,11 @@ void ModeSupportAndSystemConfiguration(struct display_mode_lib *mode_lib)
  
  	// Total Available Pipes Support Check
--	for (k = 0; k < mode_lib->vba.NumberOfActivePlanes; ++k)
-+	for (k = 0; k < mode_lib->vba.NumberOfActivePlanes; ++k) {
+ 	for (k = 0; k < mode_lib->vba.NumberOfActivePlanes; ++k) {
 +		pipe_idx = get_pipe_idx(mode_lib, k);
 +		if (pipe_idx == -1) {
 +			ASSERT(0);
 +			continue; // skip inactive planes
 +		}
  		total_pipes += mode_lib->vba.DPPPerPlane[k];
-+	}
+ 	}
  	ASSERT(total_pipes <= DC__NUM_DPP__MAX);
- }
- 
 -- 
 2.34.1
 
