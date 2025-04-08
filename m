@@ -4,123 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55722C3600C
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 06:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60155C369A1
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 07:09:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F4F10E5CE;
-	Tue,  8 Apr 2025 06:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60E6510E5E4;
+	Tue,  8 Apr 2025 07:09:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q3ARMvFH";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="E9nqgCVi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fc+rOtNR";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EbOOEp/X";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9XvxjXgw";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C620D10E5CE
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Apr 2025 06:33:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=doNF7MZLEqB0QNGZ8c/RGQRJ/QII6y8xjKa9O4qop59hG2SjQ2COZZtSLwrSh4USxDQGiUUXTSF/EuxhtxNbxOFm1d756YU5pgpOLhLKeEweW0mOPC3djqernRnKGBoOc0CqnntJ29XU2c7aZ62ANND3GaZNJGTx4IuabI12fy2FbiO+4LXjPqU2ExnvG3sRhHy0idjA/lm5EccQJJ/hza7AfxbaOP7b2dl1zQafSviUXzEyNW0q6DjwuCpJXy7y6TIBEi8xlfRPAdVGFVdpuVBvIq9Qz/9wNSkY/p79ngL3rjljquxbHEjt32E3z/21YhwUvOvcU4AoV4t1IEopoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y4IHpfWG2f5Ncrb4wLtLmnzIGmTSQFkffG/tkinF0Fc=;
- b=Wov0lIN4SDpi8GspTeGEMlkWQ3W3OPh7unW/z3gJswsdnhxQ8OiCyFDkWv33HQdxL5munLARQafFaHS/Vwr0oikTbFDEeCC9F3vRGVj3XtcKTTKN0no6hoEoZ5b94d2N1epIJSmxt+E+WvAFhtDVaPd3SKU7LDlZtoXrX9pFAgF1AQznsSNZKc8MT0ol/ASpK+9fEbEEFIHaA180izx2aRKrlRxj+rKmtrixP9h/J7doKKBLcu/0nGP2ur2c4/WNMxeDgdd0fIenHNKDDAQq2zbMSHIc/3ZXdwVLsT5KxC7C5TXMDg9bETNa/p1liPRbVhVE61Z0SrAhAlO2++JAuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y4IHpfWG2f5Ncrb4wLtLmnzIGmTSQFkffG/tkinF0Fc=;
- b=q3ARMvFHvl4JfFe6i8KjmJ/4J9YYf3aw32shfF2HMkfie9jI1MObR02M2uHkdr8Ap8kvAJ9+y1YzL8oGdrK5AF+z0HfMYGEaUw3aqptErozHJL7ZrohGUBSnQGYFuWA8BuW1fxg1ZEw2PZogpJNxi1PoOgx5m6zgOuTKwcis798=
-Received: from BY3PR04CA0010.namprd04.prod.outlook.com (2603:10b6:a03:217::15)
- by IA1PR12MB8287.namprd12.prod.outlook.com (2603:10b6:208:3f5::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.33; Tue, 8 Apr
- 2025 06:33:01 +0000
-Received: from SJ1PEPF0000231E.namprd03.prod.outlook.com
- (2603:10b6:a03:217:cafe::20) by BY3PR04CA0010.outlook.office365.com
- (2603:10b6:a03:217::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.35 via Frontend Transport; Tue,
- 8 Apr 2025 06:33:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF0000231E.mail.protection.outlook.com (10.167.242.230) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Tue, 8 Apr 2025 06:33:00 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Apr
- 2025 01:32:59 -0500
-Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 8 Apr 2025 01:32:52 -0500
-From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- <Tim.Huang@amd.com>, <lijo.lazar@amd.com>, "Jesse.zhang@amd.com"
- <jesse.zhang@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [v2 2/2] drm/amdgpu: Enable TMZ support for GC 11.0.0
-Date: Tue, 8 Apr 2025 14:32:45 +0800
-Message-ID: <20250408063245.2270202-2-jesse.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250408063245.2270202-1-jesse.zhang@amd.com>
-References: <20250408063245.2270202-1-jesse.zhang@amd.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF74810E5E0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Apr 2025 07:09:21 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E05D721185;
+ Tue,  8 Apr 2025 07:09:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1744096160; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=qcYfPtObY4jh9a6cHQvRsmyN2GB/2/EyepTsdOdigSY=;
+ b=E9nqgCVizC8D11EpAMrOUIfRJ8t+u/yoovk3BP4qSGLMC15KXEENlT6en2S7N5QDIV+5Xq
+ +xg1r3Wymxp46FydsIgToYQU1i3oBzaYOdmX0iFWr5xvjBB196TD9pTYBXqIXFcsPFKsPu
+ sEstyUkZJ/CkpgwoDY+GJ1s9WTU/Rjs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1744096160;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=qcYfPtObY4jh9a6cHQvRsmyN2GB/2/EyepTsdOdigSY=;
+ b=fc+rOtNRwgYFY/LzFrV25eAZg26XHGnT9A11NebaUsPV0JcgPA1AS8BBC6zD8y2BPASJW1
+ c+uWDppVac8RMIAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1744096159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=qcYfPtObY4jh9a6cHQvRsmyN2GB/2/EyepTsdOdigSY=;
+ b=EbOOEp/XIStnfEp1OpfGOzY1tiNTR7eVjZMYawRezrTvjYzvUlT+1ZZ8LLyn0Y7CUS6z0V
+ jVmL0Pxu3TuEKMe5FHsYZ9Anh9Pxd0D3tqAOAjLBdWFsN1SBRduBvh6jKsPopGsg2/CZY9
+ bQcKrZrvM5YVhcsZEW/iU9FCcz05IFY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1744096159;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=qcYfPtObY4jh9a6cHQvRsmyN2GB/2/EyepTsdOdigSY=;
+ b=9XvxjXgw2A23RHPCpw1ZCEd6KYbRF0yeo8/+DsOVeKZFfcU1sUeOKwwFgXJvcV+xvr9fXN
+ L1DdxePbVHpWAmAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B98B13691;
+ Tue,  8 Apr 2025 07:09:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id e4XMEJ7L9GeCNgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 08 Apr 2025 07:09:18 +0000
+Message-ID: <cb61c4e3-3f23-4b36-8128-5fca46405e61@suse.de>
+Date: Tue, 8 Apr 2025 09:09:17 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: jesse.zhang@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231E:EE_|IA1PR12MB8287:EE_
-X-MS-Office365-Filtering-Correlation-Id: d378716e-6a03-4061-155f-08dd76673569
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6oS0q2cXes6/maIulUzQDeRk1e6a/8TpIsPev8tiAEb1luTkh/LS5IojG3C+?=
- =?us-ascii?Q?Qu6R4LuLBjdnG5G4PeSUkHXjA8puPm58ppsVe5lW05yWWhmBm3aJfv9kzrdo?=
- =?us-ascii?Q?bDqqw/tHq3hUPYeJkc8QnOOwcfwMEjTrg7D4Pgp/U/8DKqfOjSQin1t9jvVz?=
- =?us-ascii?Q?F9Fb5w8oc7wifhKvpFFhhaduEqbtp4FKWIKMsAFVMBxwE6xQFNoXarTt7aJo?=
- =?us-ascii?Q?ySXwyo4sNUVWEeTn9IAw8v4lUCjjmyfgoruJ6F2jtpA57SPr5SznNHddAC79?=
- =?us-ascii?Q?ShaVFWxlOwaFb2+vOYqM0ZV7Fw5aIh2xO3Z4i2Yq1M1aJ9dbJrwPQQo1mSSQ?=
- =?us-ascii?Q?PWvrbavvkAkmFy0WsrpBrRZu1+uaxPfpkhhoCtKnDrZ3u3B6gueAl4geItei?=
- =?us-ascii?Q?jTEO83SJ2BS2GuVfi8fNZ1EloUKjFz4eQhEb/uZFqX4n9XjbT9xwYeOlX8Ck?=
- =?us-ascii?Q?S5IfRz159PTNaK5BnEcmOIVR12UhCqEoB2q0DgWeIHUk7L/vVpoM/j98OyUJ?=
- =?us-ascii?Q?8oQWJXuteRY4vOQCmmhubvXD+1DMJoCYqRTFgrG8HdWA78q7ANvwoxvjfGQM?=
- =?us-ascii?Q?9I7QN1Ei9T6KCMIZ7h5GM+gvzz+CyIYDaiIDvPJnywba3wFbaBYJ3loEclPt?=
- =?us-ascii?Q?z+gYe2CK6Sr9JDWCg+P0J0QvGzWopqt2HvUC4NuGkoKAA0jojwra9tFftg85?=
- =?us-ascii?Q?5PjAzlzQmqt1YLPB2+XPTv+odHs9q3SQmwspB0UBfWI0JMe1kx12NQTr6hYl?=
- =?us-ascii?Q?b63P8MWKmg08zW5CRyT1PNQkg9sR5INKQwdPLQ3nI2p5FeMLhgZ2Lczk7m1R?=
- =?us-ascii?Q?DXbqPOTUMuSSbXU87keExSDWN4RIqmxP2rV8q6Ob6J9Le9M5YfmkDiiynSES?=
- =?us-ascii?Q?G6+7UKo6sGJTD5+Le38ebkChSaZukWPkf7ZQ1m5q6Yme9uPs405nlBhpSLJA?=
- =?us-ascii?Q?oQh3/DgoTYQIP613LF4XGUiaiAMZMfN3nY3juL4S4RM9G42l9X+S8h8JKGrJ?=
- =?us-ascii?Q?ZXHSmoZBD6ZtfrfJkmx/zF9yhOStpW9XxgGhNiaHVRuK5XjFVlCJfUz82FzT?=
- =?us-ascii?Q?q/xDS6r7heZZegZzQTh/wNYphkQPOAg0Ix71kbWA56zb5lItOdtzDHQtnbI8?=
- =?us-ascii?Q?XvyWcJnaIzW3KnQLMYxZL2GL9KK7nvkQQ3Cm2ohPw1OK6DrdVHQAVL+fstIo?=
- =?us-ascii?Q?4z7EHhBoVLQO9s4Av4oKfKaF5HtW+X5khDZFYN9W+EW/fJRcZRRZzBbr1wC2?=
- =?us-ascii?Q?2bmTFwgSfuuwqdU0qJaYTUKoCigpI6UI3KJbxpJam7VKAA+N3kgk6dd+Dmns?=
- =?us-ascii?Q?5rSVK9ZIRBjEwFJmoY8HbsThOcznAaRshUldQYFZtqwm5fXAIpWOVh2uv6HZ?=
- =?us-ascii?Q?kpktusO/5skQwx2RFrgcDV6MKVVBdLoZngSgnwuFmStBqwoC88YozRmxstxc?=
- =?us-ascii?Q?uuigkm7fgSoPRSTGLzUIiqjEHCi+BlRH946RNt29EilyeWngUoksxQ=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 06:33:00.4704 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d378716e-6a03-4061-155f-08dd76673569
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8287
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] PCI: add CONFIG_MMU dependency
+To: Arnd Bergmann <arnd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <quic_carlv@quicinc.com>, Oded Gabbay <ogabbay@kernel.org>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
+ <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
+ Sui Jingfeng <suijingfeng@loongson.cn>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ Zack Rusin <zack.rusin@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Saurav Kashyap <skashyap@marvell.com>, Javed Hasan <jhasan@marvell.com>,
+ GR-QLogic-Storage-Upstream@marvell.com,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Nilesh Javali <njavali@marvell.com>,
+ Manish Rangankar <mrangankar@marvell.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Lijo Lazar <lijo.lazar@amd.com>, Niklas Schnelle <schnelle@linux.ibm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-scsi@vger.kernel.org, kvm@vger.kernel.org
+References: <20250407104025.3421624-1-arnd@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20250407104025.3421624-1-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ TAGGED_RCPT(0.00)[renesas,netdev]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[arndb.de,oss.qualcomm.com,quicinc.com,kernel.org,sakamocchi.jp,linux.intel.com,gmail.com,ffwll.ch,amd.com,redhat.com,linaro.org,hisilicon.com,google.com,loongson.cn,broadcom.com,intel.com,lunn.ch,davemloft.net,marvell.com,HansenPartnership.com,oracle.com,glider.be,weissschuh.net,linux.ibm.com,vger.kernel.org,lists.freedesktop.org,lists.sourceforge.net,lists.linux.dev];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_GT_50(0.00)[65];
+ R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,25 +177,347 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add GC11.0.0 to the list of GPU generations that support TMZ.
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 464625282872..1eb9242436ee 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -843,6 +843,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
- 	case IP_VERSION(9, 3, 0):
- 	/* GC 10.3.7 */
- 	case IP_VERSION(10, 3, 7):
-+	case IP_VERSION(11, 0, 0):
- 	/* GC 11.0.1 */
- 	case IP_VERSION(11, 0, 1):
- 		if (amdgpu_tmz == 0) {
+Am 07.04.25 um 12:38 schrieb Arnd Bergmann:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> It turns out that there are no platforms that have PCI but don't have an MMU,
+> so adding a Kconfig dependency on CONFIG_PCI simplifies build testing kernels
+> for those platforms a lot, and avoids a lot of inadvertent build regressions.
+>
+> Add a dependency for CONFIG_PCI and remove all the ones for PCI specific
+> device drivers that are currently marked not having it.
+>
+> Link: https://lore.kernel.org/lkml/a41f1b20-a76c-43d8-8c36-f12744327a54@app.fastmail.com/
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+For gpu/drm/
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>   drivers/accel/qaic/Kconfig              | 1 -
+>   drivers/firewire/Kconfig                | 2 +-
+>   drivers/gpu/drm/Kconfig                 | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/Kconfig      | 3 +--
+>   drivers/gpu/drm/ast/Kconfig             | 2 +-
+>   drivers/gpu/drm/gma500/Kconfig          | 2 +-
+>   drivers/gpu/drm/hisilicon/hibmc/Kconfig | 1 -
+>   drivers/gpu/drm/loongson/Kconfig        | 2 +-
+>   drivers/gpu/drm/mgag200/Kconfig         | 2 +-
+>   drivers/gpu/drm/nouveau/Kconfig         | 3 +--
+>   drivers/gpu/drm/qxl/Kconfig             | 2 +-
+>   drivers/gpu/drm/radeon/Kconfig          | 2 +-
+>   drivers/gpu/drm/tiny/Kconfig            | 2 +-
+>   drivers/gpu/drm/vmwgfx/Kconfig          | 2 +-
+>   drivers/gpu/drm/xe/Kconfig              | 2 +-
+>   drivers/net/ethernet/broadcom/Kconfig   | 1 -
+>   drivers/pci/Kconfig                     | 1 +
+>   drivers/pci/pci.c                       | 4 ++--
+>   drivers/scsi/bnx2fc/Kconfig             | 1 -
+>   drivers/scsi/bnx2i/Kconfig              | 1 -
+>   drivers/vfio/pci/Kconfig                | 2 +-
+>   21 files changed, 17 insertions(+), 23 deletions(-)
+>
+> diff --git a/drivers/accel/qaic/Kconfig b/drivers/accel/qaic/Kconfig
+> index a9f866230058..5e405a19c157 100644
+> --- a/drivers/accel/qaic/Kconfig
+> +++ b/drivers/accel/qaic/Kconfig
+> @@ -8,7 +8,6 @@ config DRM_ACCEL_QAIC
+>   	depends on DRM_ACCEL
+>   	depends on PCI && HAS_IOMEM
+>   	depends on MHI_BUS
+> -	depends on MMU
+>   	select CRC32
+>   	help
+>   	  Enables driver for Qualcomm's Cloud AI accelerator PCIe cards that are
+> diff --git a/drivers/firewire/Kconfig b/drivers/firewire/Kconfig
+> index 905c82e26ce7..a5f5e250223a 100644
+> --- a/drivers/firewire/Kconfig
+> +++ b/drivers/firewire/Kconfig
+> @@ -83,7 +83,7 @@ config FIREWIRE_KUNIT_SELF_ID_SEQUENCE_HELPER_TEST
+>   
+>   config FIREWIRE_OHCI
+>   	tristate "OHCI-1394 controllers"
+> -	depends on PCI && FIREWIRE && MMU
+> +	depends on PCI && FIREWIRE
+>   	help
+>   	  Enable this driver if you have a FireWire controller based
+>   	  on the OHCI specification.  For all practical purposes, this
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 2cba2b6ebe1c..6e95d204597e 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -462,7 +462,7 @@ source "drivers/gpu/drm/imagination/Kconfig"
+>   
+>   config DRM_HYPERV
+>   	tristate "DRM Support for Hyper-V synthetic video device"
+> -	depends on DRM && PCI && MMU && HYPERV
+> +	depends on DRM && PCI && HYPERV
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_KMS_HELPER
+>   	select DRM_GEM_SHMEM_HELPER
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> index 1a11cab741ac..058e3b3ad520 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -2,7 +2,7 @@
+>   
+>   config DRM_AMDGPU
+>   	tristate "AMD GPU"
+> -	depends on DRM && PCI && MMU
+> +	depends on DRM && PCI
+>   	depends on !UML
+>   	select FW_LOADER
+>   	select DRM_CLIENT
+> @@ -68,7 +68,6 @@ config DRM_AMDGPU_CIK
+>   config DRM_AMDGPU_USERPTR
+>   	bool "Always enable userptr write support"
+>   	depends on DRM_AMDGPU
+> -	depends on MMU
+>   	select HMM_MIRROR
+>   	select MMU_NOTIFIER
+>   	help
+> diff --git a/drivers/gpu/drm/ast/Kconfig b/drivers/gpu/drm/ast/Kconfig
+> index da0663542e8a..242fbccdf844 100644
+> --- a/drivers/gpu/drm/ast/Kconfig
+> +++ b/drivers/gpu/drm/ast/Kconfig
+> @@ -1,7 +1,7 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   config DRM_AST
+>   	tristate "AST server chips"
+> -	depends on DRM && PCI && MMU
+> +	depends on DRM && PCI
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_GEM_SHMEM_HELPER
+>   	select DRM_KMS_HELPER
+> diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
+> index aa2ea128aa2f..a2acaa699dd5 100644
+> --- a/drivers/gpu/drm/gma500/Kconfig
+> +++ b/drivers/gpu/drm/gma500/Kconfig
+> @@ -1,7 +1,7 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   config DRM_GMA500
+>   	tristate "Intel GMA500/600/3600/3650 KMS Framebuffer"
+> -	depends on DRM && PCI && X86 && MMU && HAS_IOPORT
+> +	depends on DRM && PCI && X86 && HAS_IOPORT
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_KMS_HELPER
+>   	select FB_IOMEM_HELPERS if DRM_FBDEV_EMULATION
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/Kconfig b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
+> index 98d77d74999d..d1f3f5793f34 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/Kconfig
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
+> @@ -2,7 +2,6 @@
+>   config DRM_HISI_HIBMC
+>   	tristate "DRM Support for Hisilicon Hibmc"
+>   	depends on DRM && PCI
+> -	depends on MMU
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_DISPLAY_HELPER
+>   	select DRM_DISPLAY_DP_HELPER
+> diff --git a/drivers/gpu/drm/loongson/Kconfig b/drivers/gpu/drm/loongson/Kconfig
+> index 552edfec7afb..d739d51cf54c 100644
+> --- a/drivers/gpu/drm/loongson/Kconfig
+> +++ b/drivers/gpu/drm/loongson/Kconfig
+> @@ -2,7 +2,7 @@
+>   
+>   config DRM_LOONGSON
+>   	tristate "DRM support for Loongson Graphics"
+> -	depends on DRM && PCI && MMU
+> +	depends on DRM && PCI
+>   	depends on LOONGARCH || MIPS || COMPILE_TEST
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_KMS_HELPER
+> diff --git a/drivers/gpu/drm/mgag200/Kconfig b/drivers/gpu/drm/mgag200/Kconfig
+> index 412dcbea0e2d..a962ae564a75 100644
+> --- a/drivers/gpu/drm/mgag200/Kconfig
+> +++ b/drivers/gpu/drm/mgag200/Kconfig
+> @@ -1,7 +1,7 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   config DRM_MGAG200
+>   	tristate "Matrox G200"
+> -	depends on DRM && PCI && MMU
+> +	depends on DRM && PCI
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_GEM_SHMEM_HELPER
+>   	select DRM_KMS_HELPER
+> diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
+> index 7b3e979c51ec..d1587639ebb0 100644
+> --- a/drivers/gpu/drm/nouveau/Kconfig
+> +++ b/drivers/gpu/drm/nouveau/Kconfig
+> @@ -1,7 +1,7 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   config DRM_NOUVEAU
+>   	tristate "Nouveau (NVIDIA) cards"
+> -	depends on DRM && PCI && MMU
+> +	depends on DRM && PCI
+>   	select IOMMU_API
+>   	select FW_LOADER
+>   	select FW_CACHE if PM_SLEEP
+> @@ -94,7 +94,6 @@ config DRM_NOUVEAU_SVM
+>   	bool "(EXPERIMENTAL) Enable SVM (Shared Virtual Memory) support"
+>   	depends on DEVICE_PRIVATE
+>   	depends on DRM_NOUVEAU
+> -	depends on MMU
+>   	depends on STAGING
+>   	select HMM_MIRROR
+>   	select MMU_NOTIFIER
+> diff --git a/drivers/gpu/drm/qxl/Kconfig b/drivers/gpu/drm/qxl/Kconfig
+> index 69427eb8bed2..d8f24bcae34b 100644
+> --- a/drivers/gpu/drm/qxl/Kconfig
+> +++ b/drivers/gpu/drm/qxl/Kconfig
+> @@ -1,7 +1,7 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   config DRM_QXL
+>   	tristate "QXL virtual GPU"
+> -	depends on DRM && PCI && MMU && HAS_IOPORT
+> +	depends on DRM && PCI && HAS_IOPORT
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_KMS_HELPER
+>   	select DRM_TTM
+> diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kconfig
+> index f51bace9555d..c479f0c0dd5c 100644
+> --- a/drivers/gpu/drm/radeon/Kconfig
+> +++ b/drivers/gpu/drm/radeon/Kconfig
+> @@ -2,7 +2,7 @@
+>   
+>   config DRM_RADEON
+>   	tristate "ATI Radeon"
+> -	depends on DRM && PCI && MMU
+> +	depends on DRM && PCI
+>   	depends on AGP || !AGP
+>   	select FW_LOADER
+>   	select DRM_CLIENT_SELECTION
+> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
+> index 54c84c9801c1..6ca12fe7f57a 100644
+> --- a/drivers/gpu/drm/tiny/Kconfig
+> +++ b/drivers/gpu/drm/tiny/Kconfig
+> @@ -37,7 +37,7 @@ config DRM_BOCHS
+>   
+>   config DRM_CIRRUS_QEMU
+>   	tristate "Cirrus driver for QEMU emulated device"
+> -	depends on DRM && PCI && MMU
+> +	depends on DRM && PCI
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_KMS_HELPER
+>   	select DRM_GEM_SHMEM_HELPER
+> diff --git a/drivers/gpu/drm/vmwgfx/Kconfig b/drivers/gpu/drm/vmwgfx/Kconfig
+> index 6c3c2922ae8b..aab646b91ca9 100644
+> --- a/drivers/gpu/drm/vmwgfx/Kconfig
+> +++ b/drivers/gpu/drm/vmwgfx/Kconfig
+> @@ -1,7 +1,7 @@
+>   # SPDX-License-Identifier: GPL-2.0
+>   config DRM_VMWGFX
+>   	tristate "DRM driver for VMware Virtual GPU"
+> -	depends on DRM && PCI && MMU
+> +	depends on DRM && PCI
+>   	depends on (X86 && HYPERVISOR_GUEST) || ARM64
+>   	select DRM_CLIENT_SELECTION
+>   	select DRM_TTM
+> diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
+> index 5c2f459a2925..2dec62737ff6 100644
+> --- a/drivers/gpu/drm/xe/Kconfig
+> +++ b/drivers/gpu/drm/xe/Kconfig
+> @@ -1,7 +1,7 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   config DRM_XE
+>   	tristate "Intel Xe Graphics"
+> -	depends on DRM && PCI && MMU && (m || (y && KUNIT=y))
+> +	depends on DRM && PCI && (m || (y && KUNIT=y))
+>   	select INTERVAL_TREE
+>   	# we need shmfs for the swappable backing store, and in particular
+>   	# the shmem_readpage() which depends upon tmpfs
+> diff --git a/drivers/net/ethernet/broadcom/Kconfig b/drivers/net/ethernet/broadcom/Kconfig
+> index eeec8bf17cf4..aa43984a05cf 100644
+> --- a/drivers/net/ethernet/broadcom/Kconfig
+> +++ b/drivers/net/ethernet/broadcom/Kconfig
+> @@ -96,7 +96,6 @@ config BNX2
+>   config CNIC
+>   	tristate "QLogic CNIC support"
+>   	depends on PCI && (IPV6 || IPV6=n)
+> -	depends on MMU
+>   	select BNX2
+>   	select UIO
+>   	help
+> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+> index da28295b4aac..9c0e4aaf4e8c 100644
+> --- a/drivers/pci/Kconfig
+> +++ b/drivers/pci/Kconfig
+> @@ -21,6 +21,7 @@ config GENERIC_PCI_IOMAP
+>   menuconfig PCI
+>   	bool "PCI support"
+>   	depends on HAVE_PCI
+> +	depends on MMU
+>   	help
+>   	  This option enables support for the PCI local bus, including
+>   	  support for PCI-X and the foundations for PCI Express support.
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 4d7c9f64ea24..60a20a0ac41f 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -4257,7 +4257,7 @@ unsigned long __weak pci_address_to_pio(phys_addr_t address)
+>   #ifndef pci_remap_iospace
+>   int pci_remap_iospace(const struct resource *res, phys_addr_t phys_addr)
+>   {
+> -#if defined(PCI_IOBASE) && defined(CONFIG_MMU)
+> +#if defined(PCI_IOBASE)
+>   	unsigned long vaddr = (unsigned long)PCI_IOBASE + res->start;
+>   
+>   	if (!(res->flags & IORESOURCE_IO))
+> @@ -4290,7 +4290,7 @@ EXPORT_SYMBOL(pci_remap_iospace);
+>    */
+>   void pci_unmap_iospace(struct resource *res)
+>   {
+> -#if defined(PCI_IOBASE) && defined(CONFIG_MMU)
+> +#if defined(PCI_IOBASE)
+>   	unsigned long vaddr = (unsigned long)PCI_IOBASE + res->start;
+>   
+>   	vunmap_range(vaddr, vaddr + resource_size(res));
+> diff --git a/drivers/scsi/bnx2fc/Kconfig b/drivers/scsi/bnx2fc/Kconfig
+> index ecdc0f0f4f4e..3cf7e08df809 100644
+> --- a/drivers/scsi/bnx2fc/Kconfig
+> +++ b/drivers/scsi/bnx2fc/Kconfig
+> @@ -5,7 +5,6 @@ config SCSI_BNX2X_FCOE
+>   	depends on (IPV6 || IPV6=n)
+>   	depends on LIBFC
+>   	depends on LIBFCOE
+> -	depends on MMU
+>   	select NETDEVICES
+>   	select ETHERNET
+>   	select NET_VENDOR_BROADCOM
+> diff --git a/drivers/scsi/bnx2i/Kconfig b/drivers/scsi/bnx2i/Kconfig
+> index 0cc06c2ce0b8..75ace2302fed 100644
+> --- a/drivers/scsi/bnx2i/Kconfig
+> +++ b/drivers/scsi/bnx2i/Kconfig
+> @@ -4,7 +4,6 @@ config SCSI_BNX2_ISCSI
+>   	depends on NET
+>   	depends on PCI
+>   	depends on (IPV6 || IPV6=n)
+> -	depends on MMU
+>   	select SCSI_ISCSI_ATTRS
+>   	select NETDEVICES
+>   	select ETHERNET
+> diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
+> index c3bcb6911c53..2b0172f54665 100644
+> --- a/drivers/vfio/pci/Kconfig
+> +++ b/drivers/vfio/pci/Kconfig
+> @@ -1,6 +1,6 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   menu "VFIO support for PCI devices"
+> -	depends on PCI && MMU
+> +	depends on PCI
+>   
+>   config VFIO_PCI_CORE
+>   	tristate
+
 -- 
-2.25.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
