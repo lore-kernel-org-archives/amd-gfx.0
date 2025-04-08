@@ -4,121 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3F6FC369A4
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 16:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 973F3C369A2
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 16:33:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A01D110E6EB;
-	Tue,  8 Apr 2025 16:00:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mxGMuiK5";
-	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B90AC10E6E3
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Apr 2025 16:00:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eQK5imYt7x5cSs/WSNCpvfFRDP/HwM3HE3Caw0U/n8jdTWYpDE/PAdzELzqCA8XP7t9BW0RIAq3/+28mWZ6lab4O/qeMLvWQDNEGO36TZWDz5qJTmb9aLO2IF81DpRUy6av47tUwCaDxHa23kqsE7LKggmykGHdjuM3okuqkDvq48myyyNDwtxgIKw7Ap//TK8p3fabjTXSnlg1Am1R4sFxeknNjUQt5s6MQSslceqDATmDTFB4iFZKTSnTayevbC2Nw5475zNM88m7eTC+kWztAoNwWX3BWADyMyhbafhExW8bUjPS9+2aixmOSCBD1GcVyDRYP2nzzyyWWk4wBOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vnDpO8OKiaPsYdMn4XLz+uMmkxKuJ/CL7JNUcEEDQkc=;
- b=EXgcmyJlrVtyOr/cF+aMdyHlkALQD90PRJObrJ2YLka86YZdIswJUkfVZNHszpj3hIc3x90eWDj2aNfCObU20JGvNP+xIkh/hjAHtaLWo5Ab3rsjZzReVtsd/2tOr/dQfaDAHo5ysomi3DUQiNU9ir+NA+xjJbx5JDUCJOjZzoqv+02UDyCwzquTMveF6JV0RXcdGcoghb6mey+9awFkknTkYC/eZXu3jvYvCT4wLA+teSCLBFJ90A5AzEGoUMBC4rXLtKUs6HYKKw+XgeCgUPPEILjaeKqEpvZfLP61q3D3BR5DBrZ4U/UkcWYYurWde1PR2b1SumWA8lUznS1tww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vnDpO8OKiaPsYdMn4XLz+uMmkxKuJ/CL7JNUcEEDQkc=;
- b=mxGMuiK5XFZLxkDAPCTDYpfJQCldUoZgGOir3GlwJ5R5dT9PDRkt7lZZilgDSd+ZqVk+W0p/7T8/moxkcuWrxeH86+daQrfldgsBUd0Ay71q6CSwT5lZDn32pG0hIs9XbCf7RiadESiBPsUAE6vumVRaRoR9KLO9y1HM0n0/Kk8=
-Received: from SJ0PR05CA0089.namprd05.prod.outlook.com (2603:10b6:a03:332::34)
- by MN0PR12MB6174.namprd12.prod.outlook.com (2603:10b6:208:3c5::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.21; Tue, 8 Apr
- 2025 16:00:18 +0000
-Received: from SJ1PEPF00001CE7.namprd03.prod.outlook.com
- (2603:10b6:a03:332:cafe::d1) by SJ0PR05CA0089.outlook.office365.com
- (2603:10b6:a03:332::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.10 via Frontend Transport; Tue,
- 8 Apr 2025 16:00:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CE7.mail.protection.outlook.com (10.167.242.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Tue, 8 Apr 2025 16:00:18 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Apr
- 2025 11:00:16 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu/mes12: use the device value for enforce
- isolation
-Date: Tue, 8 Apr 2025 11:59:59 -0400
-Message-ID: <20250408160000.3149409-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250408160000.3149409-1-alexander.deucher@amd.com>
-References: <20250408160000.3149409-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FCE510E70A;
+	Tue,  8 Apr 2025 16:33:47 +0000 (UTC)
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com
+ [209.85.222.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA90310E1B6;
+ Tue,  8 Apr 2025 10:22:38 +0000 (UTC)
+Received: by mail-ua1-f43.google.com with SMTP id
+ a1e0cc1a2514c-86fbb48fc7fso2206344241.2; 
+ Tue, 08 Apr 2025 03:22:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744107756; x=1744712556;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SsrLZDcWMMgz5qw73ZarBN4RUT9hrtTKFIK6rblk8+Q=;
+ b=lm/ZS/sv8arx94+K44Egu34etTi5wQ0btuHzNPVMO+APTX51sXblclE8F2xic+zisl
+ SWJprctHnbtCUdjQtEPH666VgH8TG3jXesWnYXpdsX7ZGZ8DCAfPZZmtos3uB8O7jyjE
+ 3bAEGgHQpn8JK++5IZG6V/VAscHcj0JezoQ5IvP++fseuKxcPNq2T48MVaNR+pjEEGnW
+ XVkT0TMSrRrodyVDIfw0dGdUPn1DjGZQ9M0tQ3+s4mEtavwqAtT120bn1EuqVusC0jDt
+ 9lzra6LYhJ93pDczaOcfr+lG2DTgkKAZ2Ftpfn2+LNGYOmKIgurq7YEhKB5ojl144NEE
+ oM5Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU+qbMCQwocOmbKelBc7R+eOR+tmNILjli9HzUvhMca+rIJJ2FE20iwZ8Q+/b3iMyANqZBB9Fszbd4=@lists.freedesktop.org,
+ AJvYcCW+J/zN+T2Y+30xJIxEbyFdv0iCsH7H6tW00HEBq3s8dTp5DK2fTnJWYivOK9ptf5AQRYY/P8BN+Q==@lists.freedesktop.org,
+ AJvYcCWIivXAWXmeGzc8fv4Waj3/7/T/dxK6yMnKoGdTCvyVmR8Ui9Iif4Zq2aaR7938PEcDXZIunAl30aET@lists.freedesktop.org,
+ AJvYcCXoDrJZpeLE5POeEOKD0NSzA7HwDEdFS6LQ7znUe2bgRUSQUxTiS/f/alV4En4KFVXPetzr3rZ7jqYsocE=@lists.freedesktop.org,
+ AJvYcCXp8BqQhp9pEC3H5pIUJ/cYwc8+cpnMWnp08qxwxFAHvPi5txiW7EyvHyd3U0DN/8boSdwAfMQt@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy98Fy37oBzqfiBr4YEBsBFd6Nv59u8j+seKKn3Dc0K8aZoie0w
+ Vgpb01qKw1fKsL6QHzzwa9maI3e369DM5jpWkLlIsXt8XgTgOB9o9dO98REP
+X-Gm-Gg: ASbGncsSuzikQzihBbDtlAnkSHgrrImMDAu41UxSAP9A6NFTMgMDZ8AgCpw8ffR0D8E
+ GOwXFWhLM6vzn2m9jymnO7xtfk055D8/i3qRs5LpPpYQ5EingDyCjbJwSqKhASXCMfsvnl/vXhl
+ AHN44ici6i8lFaLbaNUgepVFCu+BGqfAN0Z1aBHFBPSSe0H8YwRVM/EluMdZkb5LqIjCJs18UyP
+ dHHxJkG7embJhenBk2+BDXzpHWOqv9w6PFK3JH+PncQ3NJ0Rw9I8KAlseah1Ym64b70pbqBvgUd
+ 7KyBmvqDf4jQVjroYv+jjWdjqkdg4P/LDxX+eupy1Z8fL+xBXS+awmWTuR7NwltphjffW5Q3lXD
+ sMFHm+9qEV+A=
+X-Google-Smtp-Source: AGHT+IEu3/WALeb+M1gb4eg0+1+Zi5CNrsqyjVsWR7pnaKjL+f0FR1Q6MkGM5f8ZZooLJYyS9DkQFQ==
+X-Received: by 2002:a05:6102:f88:b0:4c3:858:f07c with SMTP id
+ ada2fe7eead31-4c856901e0dmr11101080137.14.1744107756292; 
+ Tue, 08 Apr 2025 03:22:36 -0700 (PDT)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com.
+ [209.85.221.169]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-4c9b457dee6sm292970137.19.2025.04.08.03.22.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Apr 2025 03:22:35 -0700 (PDT)
+Received: by mail-vk1-f169.google.com with SMTP id
+ 71dfb90a1353d-525b44ec88aso2690488e0c.3; 
+ Tue, 08 Apr 2025 03:22:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU7gB3d+u825eaDYGNt/t37J+g2zTk8eI37b9l9yMk6o/r04Y1iDz/tXPlBZngpvXH7I3a8BzGZ@lists.freedesktop.org,
+ AJvYcCUD6fjvbtVv8JfzSbwIHR079op518vtTPLfx+oWaodSb2/lw2i3qc2zjhUWzoT22ztGuzVWxNZryUs=@lists.freedesktop.org,
+ AJvYcCUf121ITyiDFN30KQP+uVehEetmh/zRtdJSpw59nuLZiXB0kvAU0fh10Omtzr0R3C7V4sn/tHNxpg==@lists.freedesktop.org,
+ AJvYcCW3GNZGvJ8ukpJGC9Nq6neen01JrRJLEwC31Xn9y+I+WOjYZTfvYGN4weYkH92ei2Z85VrFntrjCc9J@lists.freedesktop.org,
+ AJvYcCXOIf2W8gSSjXT6/Ny9gDJG1eboq2ugieMa+ZsmLEfBwhqrLRiHtQwiBaD70Z5hsp2C6u10LNEIIDOtUoo=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:2b91:b0:4c4:e415:6737 with SMTP id
+ ada2fe7eead31-4c856a8cf46mr12241766137.23.1744107755579; Tue, 08 Apr 2025
+ 03:22:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE7:EE_|MN0PR12MB6174:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95c883da-d6c1-46e3-2e49-08dd76b67598
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YTeoqPPWGH1oElxHH6TwKLPBQsEApKerRxWYD8IUwIc3Q/c69N4eyLXin+iC?=
- =?us-ascii?Q?7o48fnHJdEcEcqkvD+0NQBrn0xafya6XjWmSrZCU2lCbGKXZBubRqa4s06+c?=
- =?us-ascii?Q?iyxI6A/nfxgPpolpOKT32hwCnDidzNWjauzVKKSRe+cg0saGCDk08l8VGlZi?=
- =?us-ascii?Q?xkgF1f6sPdHnECoF+ZfiEEhKez/EW+wIZiMOl2TpS5wEL+E15GJ4/W2u1Bcd?=
- =?us-ascii?Q?UYefhUWarjRuRhloZnk1irjriel4n8V154+F/EXO9RWz+noBks8XZ2xmIrJy?=
- =?us-ascii?Q?kmKNJ3PPElSeCOAtAdXkCVvkOvJTMtnfE47ZQquVoxGJg7e4CSg9domAyRaq?=
- =?us-ascii?Q?lvQJ63YubY/PjY/xuT9bOfV9GXLX2ho5Ictg3IB930YFKfvCxyi5+Hw4AEdG?=
- =?us-ascii?Q?lpX4fqfnqsSOuEUzZCnjvUsUg/fG7dPGrkXwH5d4J0xvURYZcMzaSNrWBlDc?=
- =?us-ascii?Q?QXkZGGiwJqAvjDlVCi6lEYmAQyCGWxWL7n6128LIpIuIhsXF5HDg9UNavYQN?=
- =?us-ascii?Q?AcTb+2NDsLDZiVOwuywp9z4CSHRdCd/Y2Q+X5x9GsLtiAF3UBIjk9Fs/CZ8l?=
- =?us-ascii?Q?TwZLDNrBl+vAuF065e/+9IKx5ikP2gbxASLK0UwTVmiMFBdgdZxYJ8qjJf8K?=
- =?us-ascii?Q?pdMk/FhMJuue8G5YlphIe/+JtyROAIoRY0Nk3gJoQQuBBJcZxAyQ/tbpiraH?=
- =?us-ascii?Q?8yexNzDW2rZlq1Msx1Muh56N/kqdxhaIn7DV9FYvr/T2wMcd/ysToThvjI5W?=
- =?us-ascii?Q?CHSj0eREh5pgiFl8h7h2jqd7rGu36Ymivyk/oPyozoZF594SaazZEZ6HpQHc?=
- =?us-ascii?Q?B6cENw3QB7HfC34ONZoL9krNLAwPoQUOpQLVkz8pKO351vmIVX8gORnOn+qe?=
- =?us-ascii?Q?1Tn7B1L9ZyFXGsuomasMwmMjbJ5zQe8yJs6oqKzBNGCILcimmUU+L6gWuhdc?=
- =?us-ascii?Q?4ZjsXSTUBk4rdQuoRe7yoDAj61AFqAmpPhHm5pMJIZjUNSde29cbbMpslQSA?=
- =?us-ascii?Q?EA4pdZIfIpyOfvr6+GiNd1V0/95GSzYUjNrvSyBuIQdXB11g+NyT7f2Ex3h8?=
- =?us-ascii?Q?SlPhqL6IqJ3SlcNq22IOFRnIwb+H0w3Dwt1dtJhar9Y8ybA/sZMrB8nelroo?=
- =?us-ascii?Q?IQigNfetWsXFPqOaTR//IKbV770GWbQBZSLTJEZGMr3Tr8GtZJ7JqC9e4Ppe?=
- =?us-ascii?Q?weTjlZ3MEyZNTmj+vRb0icCg3jSMMstpBX5Zt4WGcQVoZRa+yiRRajSF1s11?=
- =?us-ascii?Q?NJXaRqvRP9d0+v3sgvA6tmbheluk2CcOatmepnuHTqesqOA47Lerm8iYaB71?=
- =?us-ascii?Q?A1dq+2Wai+sz1sG47VeLQ+4Q+HNYZWnUxuiqOW54jYYhlMvEbxuzr0ayr218?=
- =?us-ascii?Q?rgkcxSszOlTGWbDAmgvSTihWI30+ZwG51/0zrS+YyUDMM549bS9dDrlY1kka?=
- =?us-ascii?Q?2kh+s+bVfSoQjfNmgU0hQJ3yE2u5ALXKHm5y+S5+FGxAD3I/s0Xr/A180QiE?=
- =?us-ascii?Q?TTLKNtXO2v+D4hE=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 16:00:18.3949 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95c883da-d6c1-46e3-2e49-08dd76b67598
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6174
+References: <20250407104025.3421624-1-arnd@kernel.org>
+In-Reply-To: <20250407104025.3421624-1-arnd@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Apr 2025 12:22:23 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWN=wurw7qz0t2ovMkUNu0BJRAMv_0U63Lqs2MGxkVnHw@mail.gmail.com>
+X-Gm-Features: ATxdqUE9l7FjkqlZMDiGBpUM7CUSkyfcARh2bgkw-zOenNlQ3qLl0OOY1x_PRRI
+Message-ID: <CAMuHMdWN=wurw7qz0t2ovMkUNu0BJRAMv_0U63Lqs2MGxkVnHw@mail.gmail.com>
+Subject: Re: [RFC] PCI: add CONFIG_MMU dependency
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Carl Vanderlip <quic_carlv@quicinc.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, 
+ Tian Tao <tiantao6@hisilicon.com>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu <yongqin.liu@linaro.org>, 
+ John Stultz <jstultz@google.com>, Sui Jingfeng <suijingfeng@loongson.cn>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Saurav Kashyap <skashyap@marvell.com>, Javed Hasan <jhasan@marvell.com>, 
+ GR-QLogic-Storage-Upstream@marvell.com, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Nilesh Javali <njavali@marvell.com>, 
+ Manish Rangankar <mrangankar@marvell.com>,
+ Alex Williamson <alex.williamson@redhat.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Jani Nikula <jani.nikula@intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Niklas Schnelle <schnelle@linux.ibm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux1394-devel@lists.sourceforge.net, amd-gfx@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ kvm@vger.kernel.org, Greg Ungerer <gerg@linux-m68k.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 08 Apr 2025 16:33:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,26 +131,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the local setting rather than the global parameter.
+Hi Arnd,
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+CC Gerg
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index 8892858cfd9ae..be43e19b7b7fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -762,7 +762,7 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_mes *mes, int pipe)
- 				pipe * (AMDGPU_MES_LOG_BUFFER_SIZE + AMDGPU_MES_MSCRATCH_SIZE);
- 	}
- 
--	if (enforce_isolation)
-+	if (adev->enforce_isolation[0])
- 		mes_set_hw_res_pkt.limit_single_process = 1;
- 
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
--- 
-2.49.0
+On Mon, 7 Apr 2025 at 12:40, Arnd Bergmann <arnd@kernel.org> wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> It turns out that there are no platforms that have PCI but don't have an MMU,
+> so adding a Kconfig dependency on CONFIG_PCI simplifies build testing kernels
+> for those platforms a lot, and avoids a lot of inadvertent build regressions.
+>
+> Add a dependency for CONFIG_PCI and remove all the ones for PCI specific
+> device drivers that are currently marked not having it.
+>
+> Link: https://lore.kernel.org/lkml/a41f1b20-a76c-43d8-8c36-f12744327a54@app.fastmail.com/
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
+Thanks for your patch!
+
+> --- a/drivers/pci/Kconfig
+> +++ b/drivers/pci/Kconfig
+> @@ -21,6 +21,7 @@ config GENERIC_PCI_IOMAP
+>  menuconfig PCI
+>         bool "PCI support"
+>         depends on HAVE_PCI
+> +       depends on MMU
+>         help
+>           This option enables support for the PCI local bus, including
+>           support for PCI-X and the foundations for PCI Express support.
+
+While having an MMU is a hardware feature, I consider disabling MMU
+support software configuration.  So this change prevents people from
+disabling MMU support on a system that has both a PCI bus and an MMU.
+But other people may not agree, or care?
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
