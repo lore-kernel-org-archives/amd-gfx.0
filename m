@@ -4,200 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99369C369A1
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 13:14:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65BF6C36002
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 13:15:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC9910E8BB;
-	Wed,  9 Apr 2025 13:14:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A3B110E8A2;
+	Wed,  9 Apr 2025 13:15:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dRAxgQmC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kDJMfYeT";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 915D610E8A2;
- Wed,  9 Apr 2025 13:14:45 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2088.outbound.protection.outlook.com [40.107.102.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B44C910E8A2
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Apr 2025 13:15:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fs6Tj49ilOSPjZCMn89VKsxECJkHEJ1iimhQ3la4D92d62B34dCxN4Mbe24Tvjr/s0e8DK4eAa8iPgOUr/GjyOvM4cLXhkAsRCJ3gEHfp8cXdqTsgUy81UHDQMg5yUyOK9+7eAPCacyD2P/CFM1Rw5vv1XfqmyXF0q/GgPRFAI0eIY0sEpAg4N/DvUF3rQVZjKtQFPwJ6DknbyKFDDfufwG4Mvlm1PuazJjpvO4vzS8WpX83aV0tWkgIzoz09QS7g3hb9Kwi/b+YjG/FdCd2GzX+YdNcAsS16p53oNuP2fU2oJNqMboTg4JU4w8Ofskb4yYEoVWTTOECli2LyXLEeg==
+ b=E0Snx8JNWbWc2IvMckNbgQBOVuTULcYHYpL3JyiCsMj+CvFnn9tL0nFsZzCfFzm6TM0zSulOAjNphPMu14MXmYialoxmDPzT1KVZ/FjkXHmkudp3ja75YOX4rvN0x07qAYgGnFsqAySnrPir+BMXDcah2atoLNwAtKMykTTLLWM1Nx17a8sNh9IEwcNmnbnAQWmLF9JcG1pbYQvb/8MRE9ptjhPOzV6gZWpTXMNnaHo7B2tY4xOFYMENwBukMssHDqMVEZwCUlCPPSfrWAu1SGiAAsHKiwbTs555lFeOgZJ2zlKn2J1RZMOFMIf8McguizAmj1hjfzd+OoAczakOZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+beTUDOeGNcOa9/1Qw0Po1vYpAh/ASpjaKzQowXQFMM=;
- b=cpIdX/Uh4vTdc15HV1pK7QnOQYS19BUWHPeZaw+dkmVuRKj3VX4KT4+2FzMz9jaoi/rYQG4fiyDrke5PKgFzby0rh/liNoClAKMdw6EynNKEfMGj+8ypLaFpb3mkeh/0zMZwoJAx2JK6hv0s7Vtx8OpUdGgn3zIcEHPp0ulUDUwVK+dqFdM/nV+7zTadSKq/OIbNAd6DYJvzxSE8GMnDRBXhO34K0JlgqgL90r/tdTmAvDN5KmjEVyp8Qy2a0on/0gniRdIaHz9QyI5qiudyDDxhi0eKWSR0PpaNM5c/JWnbUbOEkaoR+DFTgEm249Qc4ScZ3GUVOXmbjc+uFDnJ3w==
+ bh=SlSg3/0o47VVGsYZ8UOolHakU7pT4xBHi3U8lx0SgGQ=;
+ b=n4TwExCfx+vZmUYqhol/ix66PJvj26NNdQLDJ8nikRaAN3GeZgaAkJxWF4i7YPqyeVlRceAW+JIkUJPlC8zlVDFy2vQusEFYrw+tl4wzeMgr60/RMxJIFbUc80t9lMp7QGc2wjq9+sCWJNIDp0GzDtle7qNSGZ30NWTc+QmpXaaRpJZLuIRN89K6xW+WVdFoLxbhBfwZ+ZF1e29gZRE2dPFCrawP3FJamTjO/eYXWp2cV8bmifgQoeRYfdk+gFlCLPLdOrgiV8+wc1xTNz/QwnkYO4s9IWdo4OSTYTMUhbrVv2SMdQ2/Hh9Ujp9V0oYbqEDot8RWuB4xmeTZhert/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+beTUDOeGNcOa9/1Qw0Po1vYpAh/ASpjaKzQowXQFMM=;
- b=dRAxgQmC0zNMbEAs8630LRhZD7iHx+pvTbJdw0KYo1Wu9xxEjc2bM4KDjVyn5Het56savKyeuFzgPrDzCRKEv3ZoZKXVfzPDVZ5+tP2u+pTUgleTZAEzqI+39szz+z2V26wfmzPl+SneAqXqmFD7i1msqJzMFhTfKFmLt8U4ykM=
-Received: from SA1PR12MB8599.namprd12.prod.outlook.com (2603:10b6:806:254::7)
- by PH7PR12MB7892.namprd12.prod.outlook.com (2603:10b6:510:27e::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8583.46; Wed, 9 Apr
- 2025 13:14:42 +0000
-Received: from SA1PR12MB8599.namprd12.prod.outlook.com
- ([fe80::25da:4b98:9743:616b]) by SA1PR12MB8599.namprd12.prod.outlook.com
- ([fe80::25da:4b98:9743:616b%5]) with mapi id 15.20.8606.033; Wed, 9 Apr 2025
- 13:14:42 +0000
-From: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>
-To: Philipp Stanner <phasta@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Frank Binns <frank.binns@imgtec.com>,
- Matt Coster <matt.coster@imgtec.com>, Qiang Yu <yuq825@gmail.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
- <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry
- Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, Dave
- Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Matthew Brost
- <matthew.brost@intel.com>, "Huang, Ray" <Ray.Huang@amd.com>, Matthew Auld
- <matthew.auld@intel.com>, Melissa Wen <mwen@igalia.com>,
- =?iso-8859-1?Q?Ma=EDra_Canal?= <mcanal@igalia.com>, Zack Rusin
- <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, =?iso-8859-1?Q?Thomas_Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Bas Nieuwenhuizen
- <bas@basnieuwenhuizen.nl>, "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Huang, Tim" <Tim.Huang@amd.com>,
- "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>, "Jamadar,
- Saleemkhan" <Saleemkhan.Jamadar@amd.com>, "Khatri, Sunil"
- <Sunil.Khatri@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, Ma Jun <Jun.Ma2@amd.com>, "Huang, JinHuiEric"
- <JinHuiEric.Huang@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>, "SHANMUGAM,
- SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Xiao, Jack" <Jack.Xiao@amd.com>, 
- Friedrich Vock <friedrich.vock@gmx.de>, =?iso-8859-1?Q?Michel_D=E4nzer?=
- <mdaenzer@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>, Anna-Maria
- Behnsen <anna-maria@linutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>, Dan Carpenter
- <dan.carpenter@linaro.org>
-CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "lima@lists.freedesktop.org" <lima@lists.freedesktop.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
- "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] dma-fence: Improve docu for
- dma_fence_check_and_signal()
-Thread-Topic: [PATCH 2/2] dma-fence: Improve docu for
- dma_fence_check_and_signal()
-Thread-Index: AQHbqUgKH5m0Y2vyt0qwPWKmlhdvzbObSmeA
-Date: Wed, 9 Apr 2025 13:14:42 +0000
-Message-ID: <SA1PR12MB85990C007B278312B023783BEDB42@SA1PR12MB8599.namprd12.prod.outlook.com>
-References: <20250409120640.106408-2-phasta@kernel.org>
- <20250409120640.106408-4-phasta@kernel.org>
-In-Reply-To: <20250409120640.106408-4-phasta@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-09T13:14:41.695Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=SlSg3/0o47VVGsYZ8UOolHakU7pT4xBHi3U8lx0SgGQ=;
+ b=kDJMfYeTcR5NpvZhPerK5ulzO0HKiWhZvef/NZL6JQhd7l+7uhlL7zmTz1TnBOWhp4F9QydAbU3xLD/djGYUBRITt0JtKCQPCxKh6tkZGTj5HQcuPjUxsmkQaWHnGwIRvJ+vog3b+siBjLmIZCp45JKrkrFotduXQItwkt3BOXY=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB8599:EE_|PH7PR12MB7892:EE_
-x-ms-office365-filtering-correlation-id: 5f375aab-a741-4b98-702c-08dd77687d68
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|38070700018|8096899003|921020; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?qsAR5voT6dCTiouAFvKMVy8ByjdxNedFMpA7mKgDMhneJraJe3SqAnymaF?=
- =?iso-8859-1?Q?NjTD3FfOhSRy08AU+647wsiKXkxJCcLeXxw0zV2FhVejRdrpZHGkpzCjRP?=
- =?iso-8859-1?Q?y+822xUzER98wjVpDv+7oFiI7B90sDXbdj6WdiELzFKAtjkg7cqvZxgDlM?=
- =?iso-8859-1?Q?/0j3B34JeAE7BHzNE7RLJKU+67PVr68POW9fQL5+PUGY75R87+8zD6BDOt?=
- =?iso-8859-1?Q?LnOHdHwPtd/xX4M2T4bbNBvDe6OzZEWXJ5FSLU1KP/gE+3Th8Ck5Ap0C9F?=
- =?iso-8859-1?Q?Eek+Tp/ZqBj7OZon0WniC0rgVunqK9BNiViBIP0FcnOMJq+ryK2olXoXVK?=
- =?iso-8859-1?Q?EwCdlIXlMqsD8sS5UA9lDbaqc/OuOY535sbCqPWyuepM5uA7T9IhBv8mYg?=
- =?iso-8859-1?Q?IXC/zOzf3y3TidjO5L/99XuzLklE9r4oHu4i4XHBrVlhqO1GpWm0GYaWGV?=
- =?iso-8859-1?Q?hFuyLmZ4dl9QNtQbICU7OeoQl4KxCOtg7XWMmPzCflu9avqqtogvg2cR3c?=
- =?iso-8859-1?Q?eH8qYEYD0D7Rex8mrh3yjadUfDJP7FrkABThQYDVxpu2wWS9iY4sHfPqVb?=
- =?iso-8859-1?Q?dEQcIV5bKiXOQPIaukWxWExvobRFu47qXVkNm0phKMlOOXFJ7isO0M3EYS?=
- =?iso-8859-1?Q?zrMW0HFauLl62cfPYenB84QdWY5B+kfCBNqNuU/VDj34fBYuvVn3EnZMdh?=
- =?iso-8859-1?Q?RWXZiNPJqZTuBkBoIGf6Se53J7xspHhlIRL6kb2GciQCf59iSZyEJF/KRW?=
- =?iso-8859-1?Q?9X/uOUlGQZKfPadhUK2lelP1fHQVRwhZb5jy4KWvKIvaqdocJ50OPe7eiU?=
- =?iso-8859-1?Q?BtMuS+ggWBUe7P57MuCq3ksjnGVjuy79tPxOt0yDuWUvXsA/5sNOFaHpTr?=
- =?iso-8859-1?Q?qp0m1s2EvTz6I5HYV/93WA9Ak7wio6x6P89vOL17xZKrPbEgSpyEpdMGcp?=
- =?iso-8859-1?Q?4dmPRpI4F4J+2rzPkMC0lPff54+/VH7L3IGPqB8YI7dwdNBFhcnJnjMNCM?=
- =?iso-8859-1?Q?1DjMrUlxmVfKDvymT4M0YnSEEcxmZ7bFU7i7d71rtvZxZZKdcnjtJAEncH?=
- =?iso-8859-1?Q?LZVisWfsIUJY4Ml2dOaeOki6kgVvg3D5GHGC7Dnf/ymME2+Q1WR0Cdzuph?=
- =?iso-8859-1?Q?rT045e2IwG199H/zBFhobc8v2JMPa+81yjg/8XzBJGnl9II5/4tnKrCHxL?=
- =?iso-8859-1?Q?4MPIEwYEZ1uOiICjm2HEaV3Ta9s3IxGeqJ8W9mIV3ZBdmvfupi3Sh8K93S?=
- =?iso-8859-1?Q?CLjLD52u2AjTs6YeFPw4if3axvBPYRO0bE4sbnX83l+adD1XGkO5OG3CYt?=
- =?iso-8859-1?Q?yKVUyqNFQd29xGmsgf4OmzcO6ZZ83e7I2PXXKC9LY+QV6hJadvb/57kh8Z?=
- =?iso-8859-1?Q?bXvQ+2Il6mG37c8wXFLh6/t1RVQ+q/LfEl0KkHVkLoCG47+gkqq87Ldt1q?=
- =?iso-8859-1?Q?29S3s49uS7piL1MYSJHOwZPBYfq8RJlWdjOa+D0Cag6T6S+6FkkRhKznuy?=
- =?iso-8859-1?Q?1krAyKadON3vn3QP4dqAXJqoMbMrbECf+reUCOcgGejdhrDWQ0GpKpxdFT?=
- =?iso-8859-1?Q?U31LMN0=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB8599.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700018)(8096899003)(921020);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?aetH4S6mEIbmpXy8Y1HXh0pSRIaffU5Z2tcmHFLF9aaB0Mcf5rsfltdcsd?=
- =?iso-8859-1?Q?v62yJ9T+uXRe08NJLfyNmnQpjNIh1d+IeFwGQSh0X/hnGaueX2aMkauoiS?=
- =?iso-8859-1?Q?/a0sm+Mt+qehnxs6VkSKvaf7qsoFucu8FV4hCc1iMRkMw93R9+56l7c3NM?=
- =?iso-8859-1?Q?rpjB0CjTS4Xe5I0Sq96dvUMzGbWedamCs7ZGJVSqDeLvWdYM+aQwsCMrPe?=
- =?iso-8859-1?Q?JIIkU1pY/FIhfmwOv3FMJPG2iAVfqP2Pb7Zw1pLETs/RvAaYrxRBXIaxmX?=
- =?iso-8859-1?Q?hq9ZTZF/CTPcQD4pUXdIIxkUt1LZR9F48U0n+rVQ+sIINA4933wQ3HVPzZ?=
- =?iso-8859-1?Q?JfTHV9kLPgp37MEIdV7+6gMMIIM7hNn/7cgLpVAP2BNYxtOGD5RJ3ZdtmY?=
- =?iso-8859-1?Q?/aQvav+vgnhHgmI2K3O0EkFmR233SPHwl2yOFtsCu0Nbh9vN+bgsKqejp5?=
- =?iso-8859-1?Q?Ch/9mzsGrY/yzU5b0b7PLrZC54cMHyEATRcqmnAeNRCr2Id6zwPQjuYFM0?=
- =?iso-8859-1?Q?6WX4ZMIYKK20IYMOOpQ9Ar+ReEbvNvPDkjFfswIUmOXyR8p5jcPqx0nLPC?=
- =?iso-8859-1?Q?haisgcgryUvWu6S9rrWG8pbOlpcJ58ilq9Abs1duKFWq/Sw5P/1n01a5Ri?=
- =?iso-8859-1?Q?qfE6U9YAxyIHbJlmmsBsjHsEBmtFmqxbKtjFbxs80l4ix+BmqZKoj4HX9D?=
- =?iso-8859-1?Q?VT8UYLtcm3rwDWfgRsMjGHu8rzZaIrOFhq+grei7rnV9vXoJkQx7HGlEMq?=
- =?iso-8859-1?Q?9zMEZXDrlS1c9PHt/+vtWTfQa12RedCFs66NxSJyvDMGl5KQC6lLKk+fzO?=
- =?iso-8859-1?Q?icsPF7ZXNBUsgjMakAgsYfwWiYwTi6fSU4WAhsMh1pyOS8+EF7YyvR3aTY?=
- =?iso-8859-1?Q?PZjurL2tDOxLJOtupNkmuxQqPO01WTNwvA0xtihBz16rMfiYT2MN196WWh?=
- =?iso-8859-1?Q?5uJOdjFRyyzQaiUzPCJs7ckHJW5lJdcE4LY8888Gpd3MN+MBGcbZnK14AL?=
- =?iso-8859-1?Q?8XU6nU731DtdadXF8/Cj3YsshYx4uWqqGe0kNTgi2iGhXsqJIPmt4Fv4SV?=
- =?iso-8859-1?Q?tVKB6C06iNmDFH/ITukhplyXx/iXvokMRp6cUJfeS/dz5hCES3oFbrp50I?=
- =?iso-8859-1?Q?2aYLAaYQ9v1nAQusAi3NvRoH18sHIFcD28GYKeYeZr2letsHvelQT1PnHR?=
- =?iso-8859-1?Q?metCVxtvF71kOjG2XQ2eiderogBQKBE+5/rzMHgtqwbMg9vss2AxYgxt6U?=
- =?iso-8859-1?Q?lcLjG+RENdGv/GJyrbFrslwOQ53PR5OkwTdB4nTk91GsGE1etlpqFhBVyi?=
- =?iso-8859-1?Q?e9V5c9itMsS2R8F/yN/lZ0p78cI8aRtBFTlhgMfn/KnNfZ7eO1F7xwHKkQ?=
- =?iso-8859-1?Q?3Al4LTHvhJQd2akIv4DXyU6oXOCglNZQvhaSIVkHKvVQCqVYiFFzScj4tm?=
- =?iso-8859-1?Q?d0YRAd1buF/Y09HCgeOoRj2ZGM9O/p0NriafwYhdAGw1wtMnJRdnZpVbVk?=
- =?iso-8859-1?Q?qDy3MKyvnoVFnqxsYKdsSXu9I3LQmkgj7zcaTj6BCxL03B4kCr3Sgyc04s?=
- =?iso-8859-1?Q?/YNnlovr8lyQgF4hB7N2l7ZgaQ7nWFMpJpijidrGdg80794l7HAqd+OulQ?=
- =?iso-8859-1?Q?IqGSKWpQNkfRE=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_SA1PR12MB85990C007B278312B023783BEDB42SA1PR12MB8599namp_"
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by SA1PR12MB8144.namprd12.prod.outlook.com (2603:10b6:806:337::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.34; Wed, 9 Apr
+ 2025 13:15:44 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2%3]) with mapi id 15.20.8632.021; Wed, 9 Apr 2025
+ 13:15:43 +0000
+Message-ID: <965773b6-40fd-481e-8699-ae7234cc1934@amd.com>
+Date: Wed, 9 Apr 2025 18:45:39 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: cleanup amdgpu_vm_flush v5
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20250409104500.2169-1-christian.koenig@amd.com>
+Content-Language: en-US
+From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250409104500.2169-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0051.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::6) To IA0PR12MB8208.namprd12.prod.outlook.com
+ (2603:10b6:208:409::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|SA1PR12MB8144:EE_
+X-MS-Office365-Filtering-Correlation-Id: 401f28e3-584a-4928-daeb-08dd7768a1f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MGVpaWZ1aG4vSzRCNGN3dzkvWkRsTTFWS1ZrVDdNQVZPeHBtNndPNDJzYllX?=
+ =?utf-8?B?bmRmUlRiTnlKbHZoemx2QUkrMkRSVGN3VjA0V3pQdTN0WEptN3VuQUN5bC9Y?=
+ =?utf-8?B?T01PNHNERHNOeGp4RjFCSVF6M1MvNEZNa3NEVnY3bXUwTlBQeEhvVWU2YUNL?=
+ =?utf-8?B?L25ocU45M3RRWVNqdVZzYVljWC9VRk5qMmZYM21PbmFZUDVTbGNkcVJEVVMz?=
+ =?utf-8?B?NlFsTCtQT3Q4UkpXVVFnUzJqUzJTYVI1MEoxVTNpK0U2UzNrRGFxSTVlNlJM?=
+ =?utf-8?B?VUYxTjhJZ0h6OE9Td1VaNGFxR01Na3lJYTlNRG1RSzFrL09hdzFuTFZ5M1Q0?=
+ =?utf-8?B?VmhJYTUySTVNTkZVQTdHNVVJeWFjZjM5V3pJVE9kU1RhZE1ZYWE3UUU3Z0xh?=
+ =?utf-8?B?amVtTUI0UE11NnE5aG1DdWExSmo5WmJwRUY5ellEVFRMcVpWanVPN0ZYTmZ1?=
+ =?utf-8?B?b29iV1hpOXh2MmlrYmZSNGVSZUQxa0R5aUVSdHJQTjJoY0VaSlpzS0QwVlRL?=
+ =?utf-8?B?TmpoUk4zNjlCZlU4OXQ4MVdWMFRqc0p3VjV4OGt4WC9tR3NGdTEyVU5SWmI1?=
+ =?utf-8?B?TWI0Z2UzdEVIR1hMSmhiMWFqaEhkQUpDZXo2WVdLaEdiM1kvTTRidnRJMTVh?=
+ =?utf-8?B?Q3VFelpSTEVob0Z1OVgvSUNsTk9XSmkwODJiUkY2ZVhPYVNkc256dmFNMW1P?=
+ =?utf-8?B?dFNhRXc1a3ZpV2l1amlsQlNSbnBsaDVuQWN2NUdRNHlvbnZ3b0Q4Yks1ZDRY?=
+ =?utf-8?B?WjdYcWM4VWRpdUJmVXVxSHcrellyeFREc1VVdmxHenJqeGhEc2s2MVFPWVln?=
+ =?utf-8?B?Nyt6eDhZSC9uOFJUMHVzTzNzTEQ5L2lLUVVFcGE0ZVV6SHI5V3daVXdpRmZG?=
+ =?utf-8?B?VitoTjRuRUNQWlJWcUI5d1J1c1pLSUZxQ1VuMEdHc3VFTlJNRlV2bzlLQ1pW?=
+ =?utf-8?B?YmN3aHdVMEltck5KN0tac1VBTUtrbVFUSVB1Qk1panBRbG84ZDI4bWc4cCsw?=
+ =?utf-8?B?dnJEYUtncHk5bDVoaGZ4bzJ5bzNHekxFby9uR0xCS3BjQkhuYmxPNTdnWk5J?=
+ =?utf-8?B?Yy8wejZwYXVwSVNteUNzU2huT0JQajg0WlRKdFRjNkxJNjlqcTh6dDVhak9U?=
+ =?utf-8?B?Y3U0OTI5SzBmc3A5Q3N5aWJvcm5oMys1bzJXRElVNnpnUlRpMHRuWGJETzcw?=
+ =?utf-8?B?dm9JbEJqbEhqOFNGWVFYTldHNGJxRXhJRi8zdTRERElXdForeGQ3S2QyZFcr?=
+ =?utf-8?B?S1I3aEdWV2d1N0VMOWVkdTlnSStzZTFqUkhaS0lhUVhtQzMyRXJjdlJvZTFk?=
+ =?utf-8?B?OTZQN0NwREY3a0Nrb3RGSC9SQVVHbnpLeUlBaUt2SXFIRkZtZ0NjTlJUdjBZ?=
+ =?utf-8?B?VkRBSDVNM0VEVFBFNHoyL2p1NDYvTkYzZ0JUcklNa01QMXhwU0wrc0ZhNWJi?=
+ =?utf-8?B?R3JQWFZzRDlkWXJNbjNqc0VrUjh6MHU3QlM5K1VHWXRSWHVINDZzWHNwRFVm?=
+ =?utf-8?B?QVppUVJVL3JmMWJRRTVwTW1nR0MzeGhLMCtnbVZrTm5rWkk1SEFFQ2gyVXBX?=
+ =?utf-8?B?VHZRV05LTFFPVVBibkJjN0FrbTFXaGRVaEFpMjRIUkU3UmRTUmVOWEF3bzFa?=
+ =?utf-8?B?TDhKMERrSlZzOHlpcjNSTW5ZUmJSMmpYTFVsM01kTXFiaXVNdmNCMWNvNk45?=
+ =?utf-8?B?NjNxMHJXd05iaTltbDNaZHkwTzgvMWFUSnBPMWdJWHZLaWJ6QW95cGZSZzcx?=
+ =?utf-8?B?QVhLcVZSWlVURVhHSWFuY3pxR0FJRElveXpkTS9tREtBUzk0ck41N1RLNDFC?=
+ =?utf-8?B?MjljYTB5enBVdUZSbkdzWER5Q1R1d3pVK2oxQ0hESlFsNkFZSk9lVG00enZR?=
+ =?utf-8?Q?zt1a8twCRegL9?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rkk3dmVGUXVZWlhrcHdVM1ZCbkpNTFpNMXIydnVwQjZlVW5oSndIUXk5N1RJ?=
+ =?utf-8?B?NDU5bEVuUnFNTUZUQUljNHFFTitUK1NOSzREa3lYNlVydTdhMGdMNEJsSmpE?=
+ =?utf-8?B?Nk5WTW5oOUJCWEZ2NlEwL2VQOVg1Z2pNVE9TeTdvVGFKUnZ4TUduL2srWVNU?=
+ =?utf-8?B?Tm5LbjhXNEo2NVU0Y2VyM0dHWFdTTFU3a2EvL1VCU2JpZjBpMlNYMFdqcnB0?=
+ =?utf-8?B?U0U5NHFpSEw0ay9mOHZJWjhTWVh6NHF1b1g2cTJ2UEg5NnEyaGx0aVlrNDNs?=
+ =?utf-8?B?OHhQNXZSWW5jeExGcmFqSnlrTTBLeUs4QnBoQzN4Sld3V0NHNG8rVi9sMHpV?=
+ =?utf-8?B?ckR6WnZZZXU2emhTZDJLN1VOcGdLR2QxbmpMRDNPQzJjc3VlS2FrbC9VTWkw?=
+ =?utf-8?B?SFBLb2ZxZmFrMWRsU2Rqb1RjUjRuWXVtWU5jZWpNSjZqRjdBek5MK3NDQlZw?=
+ =?utf-8?B?b1oyeXFzSi9KRHh5OUtLSDZQelFKWVZ2S0huMTJTU1M4NEpXRVVPTUU0Z1hR?=
+ =?utf-8?B?UzZ4YmdKYTZwYXFNRTlaZHlPNUhPTmV6QTYrVHBCU0sycHlidUJtZDZad0sw?=
+ =?utf-8?B?cE1vcVp6NVFUeUE2Y211a0VnRlBNbEdObFJ2dXpIT1kyQ0hsSFJBUUErbTB2?=
+ =?utf-8?B?TDJVcDhKdWt5WmlWbEFmdVFXT3hZOElpTnNBOW5nQUpCeno1K25admtBbDNI?=
+ =?utf-8?B?K2hac1FNaUdsNDVkbWFiZWUzU1gxbUNscjI0ZkphOHpiZm1qa2FDM0lWZHN5?=
+ =?utf-8?B?STBzOVpUV0N0ZXJ2QlQ4TDFPQmNmSlFaTHR4REdCaEVpU0lIUlpBQW00TXk3?=
+ =?utf-8?B?TUlxVTVBamtnakZPY2VTaGlOT0hWaDhUVmNnbkZTeXIxTy9jbUNqaTFxQkFx?=
+ =?utf-8?B?eVBEN25iUzY3aVBHaU9HcFJOdy9jMEN2M3lQUDg5RnlFTFA4aVNYeCs1clNF?=
+ =?utf-8?B?Q1A5dWxMQjhpN1lHZ3ozNjRzU3oweUtIM25LcEVOL2dJZjJMY2djQTdSZldl?=
+ =?utf-8?B?QmFDTUhaUksrcTRhbTFKQzJhYnVJakVlYXZXa0IvL2NEYThkL2ZCb2hmT0RX?=
+ =?utf-8?B?Q3BCWFphcXFZcmV6eTlZOVFHVTM0N0xCVUw2Y0Q0NVplbVpZNmlPMkR4eUJI?=
+ =?utf-8?B?ZjgyVWZldXl4Q0RxSzZoWTJhQzNVNm1UWEVDeEt6aWMrdmN4S0R5VFQvTmMr?=
+ =?utf-8?B?M1NkdlRGVmZtNi93VHZBb2NvQzJrVzlqMjBwTzBpNURzandhYjFsUVA1d0Jm?=
+ =?utf-8?B?VEM0Wmc3clAyajRFeDYyUzNxYStyTWdrbW5HYkxtN2lYMWRDMEhYSXBHRzQv?=
+ =?utf-8?B?Ny96S0cxc3hadlNXQ2t1Q29pcDNYczBJc0RDQU5vR0laSGUxWVdyYUZzUHdR?=
+ =?utf-8?B?MzZyMmFrN1lUamNUMHFxZWVaLzVDSERheUJPNS9Xd0ZwOVA5R2VsU1RxdXRj?=
+ =?utf-8?B?NDFSLy9QY093bzNobE9rVGlrNVdOYVZvUTB2QXZuUHh4NHFoZGhKT1FidnZw?=
+ =?utf-8?B?bWw2eG1ERGVXUEF4am5iaTFHN2RDS0NaOUREbmJRdEpnY3dlTTU3cW1sMWFs?=
+ =?utf-8?B?VnRJRXZzV2tndUtNcHJOQlZPeitKckE0ZWZwelZjUzBlaGFQblJkbVhUZGtV?=
+ =?utf-8?B?R1hIRVl5NkxJQmprdjJrNnY0SktyQndDL0dvelB1dnViayt3ODhrcldPRmlP?=
+ =?utf-8?B?RmwyVWwyQ1BRNDA3WDNUd0RTL2I4MFhqVjdyTEVWNWdaUGVMUVMzREhMN3pM?=
+ =?utf-8?B?QW9FeFBEdjFWZFJZeFNmajlRMkIxcFQ4dzJtVThjeHBZUHhZcW1ZT0xkeU1L?=
+ =?utf-8?B?U2lxckFaUW9mQS8rN0VXeERRTUw4Q005aFlmRmtVMHR3TU1wN1RPQS92cmJS?=
+ =?utf-8?B?bjBjZkJ3YzNpSDc4R2RhWHR1a0xZR2l2MXJCR0Z4bmc3MDZsRWdIV3pacnIw?=
+ =?utf-8?B?eVV6M1Y2L2s3ZUhQQ3MrOU9pdVMxYk9vVG5INnpGQ2cvYWNxZmxVUDkrOXh2?=
+ =?utf-8?B?bnZ1WWZ0dFFCVUg0NmlNQ1NOM0cxMVpCQjI2VU9CaHZDK21qWHdSY0pUcEJ1?=
+ =?utf-8?B?OEE3Y0lpSTJJZE5yTG94eXhtaFBNZFNUb3A0MG8wcFBJelBpWVd0UGZVc1ND?=
+ =?utf-8?Q?HWf2uNFGM+64nx5UhlK3bwnLF?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 401f28e3-584a-4928-daeb-08dd7768a1f0
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8599.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f375aab-a741-4b98-702c-08dd77687d68
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2025 13:14:42.0701 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /9Mxv07spe1AZbizOl6ybzdOSBMXEPOJs2ZeKdh6K46r6HDm4rfWKhMw67+n0Vfw2+TbczNNQ5/jl5HfGtLSdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7892
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 13:15:43.8210 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hWurqu9wTgfBgiwHvmuL59Re6Z8sXLIF25Qt9zonn2vgQb7lpzE2iDxvyrwvwG+kLfBNE0fj7gs3AcS+lWo54Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8144
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -212,352 +159,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SA1PR12MB85990C007B278312B023783BEDB42SA1PR12MB8599namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Hi Philipp,
-
-I feel like the problem has two parts. The documentation does not make expl=
-icit that DMA_FENCE_FLAG_SIGNALED_BIT is "caching" the hardware state when =
-a fence is backed by hardware, so what dma_fence_is_signaled here is doing =
-is just busting that cache; when the hardware signals the fence, the dma_fe=
-nce is considered signaled, just with a stale cache. It looks like because =
-of this omission nouveau has made an assumption that there could be a canon=
-ical path to signaling dma_fence but in reality, anyone could call dma_fenc=
-e_signal at any time if it realized that the cache is stale.
-
-I do think that the caching behavior here may be confusing and it could be =
-a good idea to separate out the concept of a software fence vs a hardware f=
-ence.
-
-Regards,
-Teddy
-
-________________________________
-From: Philipp Stanner
-Sent: Wednesday, April 09, 2025 08:06
-To: Sumit Semwal; Gustavo Padovan; Koenig, Christian; Kuehling, Felix; Deuc=
-her, Alexander; Xinhui Pan; David Airlie; Simona Vetter; Maarten Lankhorst;=
- Maxime Ripard; Thomas Zimmermann; Lucas Stach; Russell King; Christian Gme=
-iner; Jani Nikula; Joonas Lahtinen; Rodrigo Vivi; Tvrtko Ursulin; Frank Bin=
-ns; Matt Coster; Qiang Yu; Rob Clark; Sean Paul; Konrad Dybcio; Abhinav Kum=
-ar; Dmitry Baryshkov; Marijn Suijten; Lyude Paul; Danilo Krummrich; Boris B=
-rezillon; Rob Herring; Steven Price; Dave Airlie; Gerd Hoffmann; Matthew Br=
-ost; Philipp Stanner; Huang, Ray; Matthew Auld; Melissa Wen; Ma=EDra Canal;=
- Zack Rusin; Broadcom internal kernel review list; Lucas De Marchi; Thomas =
-Hellstr=F6m; Bas Nieuwenhuizen; Wang, Yang(Kevin); Zhang, Jesse(Jie); Huang=
-, Tim; Sundararaju, Sathishkumar; Jamadar, Saleemkhan; Khatri, Sunil; Lazar=
-, Lijo; Zhang, Hawking; Ma Jun; Li, Yunxiang (Teddy); Huang, JinHuiEric; Ka=
-mal, Asad; SHANMUGAM, SRINIVASAN; Xiao, Jack; Friedrich Vock; Michel D=E4nz=
-er; Geert Uytterhoeven; Anna-Maria Behnsen; Thomas Gleixner; Frederic Weisb=
-ecker; Dan Carpenter
-Cc: linux-media@vger.kernel.org; dri-devel@lists.freedesktop.org; linaro-mm=
--sig@lists.linaro.org; linux-kernel@vger.kernel.org; amd-gfx@lists.freedesk=
-top.org; etnaviv@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; li=
-ma@lists.freedesktop.org; linux-arm-msm@vger.kernel.org; freedreno@lists.fr=
-eedesktop.org; nouveau@lists.freedesktop.org; virtualization@lists.linux.de=
-v; spice-devel@lists.freedesktop.org; intel-xe@lists.freedesktop.org
-Subject: [PATCH 2/2] dma-fence: Improve docu for dma_fence_check_and_signal=
-()
-
-The documentation of the return value of dma_fence_check_and_signal()
-and dma_fence_check_and_signal_locked() reads as if the returned boolean
-only describes whether dma_fence_signal() (or similar) has been called
-before this function call already. That's not the case, since
-dma_fence_ops.signaled() usually just checks through the sequence number
-whether the hardware is finished with a fence. That doesn't mean a
-signaling function has been called already.
-
-Make the documentation clearer.
-
-Move the Return: documentation to the end, since that's the officially
-recommended docu style.
-
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- include/linux/dma-fence.h | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
-
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index dc2ad171458b..3df370b2cc7c 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -385,14 +385,21 @@ void dma_fence_enable_sw_signaling(struct dma_fence *=
-fence);
-  * dma_fence_check_and_signal_locked - Checks a fence and signals it if ne=
-cessary
-  * @fence: the fence to check
-  *
-- * Returns true if the fence was already signaled, false if not. Since thi=
-s
-- * function doesn't enable signaling, it is not guaranteed to ever return
-- * true if dma_fence_add_callback(), dma_fence_wait() or
-+ * Checks whether the fence was already signaled, and, if not, whether
-+ * &struct dma_fence_ops.signaled indicates that it should be signaled. If=
- so,
-+ * the fence gets signaled here.
-+ *
-+ * Since this function doesn't enable signaling, it is not guaranteed to e=
-ver
-+ * return true if dma_fence_add_callback(), dma_fence_wait() or
-  * dma_fence_enable_sw_signaling() haven't been called before.
-  *
-  * This function requires &dma_fence.lock to be held.
-  *
-  * See also dma_fence_check_and_signal().
-+ *
-+ * Return: true if the fence was already signaled, or if
-+ * &struct dma_fence_ops.signaled is implemented and indicates that this f=
-ence
-+ * can be treated as signaled; false otherwise.
-  */
- static inline bool
- dma_fence_check_and_signal_locked(struct dma_fence *fence)
-@@ -412,9 +419,12 @@ dma_fence_check_and_signal_locked(struct dma_fence *fe=
-nce)
-  * dma_fence_check_and_signal - Checks a fence and signals it if necessary
-  * @fence: the fence to check
-  *
-- * Returns true if the fence was already signaled, false if not. Since thi=
-s
-- * function doesn't enable signaling, it is not guaranteed to ever return
-- * true if dma_fence_add_callback(), dma_fence_wait() or
-+ * Checks whether the fence was already signaled, and, if not, whether
-+ * &struct dma_fence_ops.signaled indicates that it should be signaled. If=
- so,
-+ * the fence gets signaled here.
-+ *
-+ * Since this function doesn't enable signaling, it is not guaranteed to e=
-ver
-+ * return true if dma_fence_add_callback(), dma_fence_wait() or
-  * dma_fence_enable_sw_signaling() haven't been called before.
-  *
-  * It's recommended for seqno fences to call dma_fence_signal when the
-@@ -423,6 +433,10 @@ dma_fence_check_and_signal_locked(struct dma_fence *fe=
-nce)
-  * value of this function before calling hardware-specific wait instructio=
-ns.
-  *
-  * See also dma_fence_check_and_signal_locked().
-+ *
-+ * Return: true if the fence was already signaled, or if
-+ * &struct dma_fence_ops.signaled is implemented and indicates that this f=
-ence
-+ * can be treated as signaled; false otherwise.
-  */
- static inline bool
- dma_fence_check_and_signal(struct dma_fence *fence)
---
-2.48.1
-
-
---_000_SA1PR12MB85990C007B278312B023783BEDB42SA1PR12MB8599namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Hi Philipp,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-I feel like the problem has two parts. The documentation does not make expl=
-icit that DMA_FENCE_FLAG_SIGNALED_BIT is &quot;caching&quot; the hardware s=
-tate when a fence is backed by hardware, so what dma_fence_is_signaled here=
- is doing is just busting that cache; when
- the hardware signals the fence, the dma_fence is considered signaled, just=
- with a stale cache. It looks like because of this omission nouveau has mad=
-e an assumption that there could be a canonical path to signaling dma_fence=
- but in reality, anyone could call
- dma_fence_signal at any&nbsp;time if it realized that the cache is stale.<=
-/div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-I do think that the caching behavior here may be confusing and it could be =
-a good idea to separate out the concept of a software fence vs a hardware f=
-ence.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Regards,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Teddy</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<hr style=3D"display: inline-block; width: 98%;">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<b>From:</b>&nbsp;Philipp Stanner<br>
-<b>Sent:</b>&nbsp;Wednesday, April 09, 2025 08:06<br>
-<b>To:</b>&nbsp;Sumit Semwal; Gustavo Padovan; Koenig, Christian; Kuehling,=
- Felix; Deucher, Alexander; Xinhui Pan; David Airlie; Simona Vetter; Maarte=
-n Lankhorst; Maxime Ripard; Thomas Zimmermann; Lucas Stach; Russell King; C=
-hristian Gmeiner; Jani Nikula; Joonas
- Lahtinen; Rodrigo Vivi; Tvrtko Ursulin; Frank Binns; Matt Coster; Qiang Yu=
-; Rob Clark; Sean Paul; Konrad Dybcio; Abhinav Kumar; Dmitry Baryshkov; Mar=
-ijn Suijten; Lyude Paul; Danilo Krummrich; Boris Brezillon; Rob Herring; St=
-even Price; Dave Airlie; Gerd Hoffmann;
- Matthew Brost; Philipp Stanner; Huang, Ray; Matthew Auld; Melissa Wen; Ma=
-=EDra Canal; Zack Rusin; Broadcom internal kernel review list; Lucas De Mar=
-chi; Thomas Hellstr=F6m; Bas Nieuwenhuizen; Wang, Yang(Kevin); Zhang, Jesse=
-(Jie); Huang, Tim; Sundararaju, Sathishkumar;
- Jamadar, Saleemkhan; Khatri, Sunil; Lazar, Lijo; Zhang, Hawking; Ma Jun; L=
-i, Yunxiang (Teddy); Huang, JinHuiEric; Kamal, Asad; SHANMUGAM, SRINIVASAN;=
- Xiao, Jack; Friedrich Vock; Michel D=E4nzer; Geert Uytterhoeven; Anna-Mari=
-a Behnsen; Thomas Gleixner; Frederic
- Weisbecker; Dan Carpenter<br>
-<b>Cc:</b>&nbsp;linux-media@vger.kernel.org; dri-devel@lists.freedesktop.or=
-g; linaro-mm-sig@lists.linaro.org; linux-kernel@vger.kernel.org; amd-gfx@li=
-sts.freedesktop.org; etnaviv@lists.freedesktop.org; intel-gfx@lists.freedes=
-ktop.org; lima@lists.freedesktop.org;
- linux-arm-msm@vger.kernel.org; freedreno@lists.freedesktop.org; nouveau@li=
-sts.freedesktop.org; virtualization@lists.linux.dev; spice-devel@lists.free=
-desktop.org; intel-xe@lists.freedesktop.org<br>
-<b>Subject:</b>&nbsp;[PATCH 2/2] dma-fence: Improve docu for dma_fence_chec=
-k_and_signal()
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-size: 11pt;">The documentation of the return value of dm=
-a_fence_check_and_signal()<br>
-and dma_fence_check_and_signal_locked() reads as if the returned boolean<br=
+On 4/9/2025 4:15 PM, Christian König wrote:
+> This reverts commit c2cc3648ba517a6c270500b5447d5a1efdad5936. Turned out
+> that this has some negative consequences for some workloads. Instead check
+> if the cleaner shader should run directly.
 >
-only describes whether dma_fence_signal() (or similar) has been called<br>
-before this function call already. That's not the case, since<br>
-dma_fence_ops.signaled() usually just checks through the sequence number<br=
+> While at it remove amdgpu_vm_need_pipeline_sync(), we also check again
+> if the VMID has seen a GPU reset since last use and the gds switch
+> setiing can be handled more simply as well.
 >
-whether the hardware is finished with a fence. That doesn't mean a<br>
-signaling function has been called already.<br>
-<br>
-Make the documentation clearer.<br>
-<br>
-Move the Return: documentation to the end, since that's the officially<br>
-recommended docu style.<br>
-<br>
-Signed-off-by: Philipp Stanner &lt;phasta@kernel.org&gt;<br>
----<br>
-&nbsp;include/linux/dma-fence.h | 26 ++++++++++++++++++++------<br>
-&nbsp;1 file changed, 20 insertions(+), 6 deletions(-)<br>
-<br>
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h<br>
-index dc2ad171458b..3df370b2cc7c 100644<br>
---- a/include/linux/dma-fence.h<br>
-+++ b/include/linux/dma-fence.h<br>
-@@ -385,14 +385,21 @@ void dma_fence_enable_sw_signaling(struct dma_fence *=
-fence);<br>
-&nbsp; * dma_fence_check_and_signal_locked - Checks a fence and signals it =
-if necessary<br>
-&nbsp; * @fence: the fence to check<br>
-&nbsp; *<br>
-- * Returns true if the fence was already signaled, false if not. Since thi=
-s<br>
-- * function doesn't enable signaling, it is not guaranteed to ever return<=
-br>
-- * true if dma_fence_add_callback(), dma_fence_wait() or<br>
-+ * Checks whether the fence was already signaled, and, if not, whether<br>
-+ * &amp;struct dma_fence_ops.signaled indicates that it should be signaled=
-. If so,<br>
-+ * the fence gets signaled here.<br>
-+ *<br>
-+ * Since this function doesn't enable signaling, it is not guaranteed to e=
-ver<br>
-+ * return true if dma_fence_add_callback(), dma_fence_wait() or<br>
-&nbsp; * dma_fence_enable_sw_signaling() haven't been called before.<br>
-&nbsp; *<br>
-&nbsp; * This function requires &amp;dma_fence.lock to be held.<br>
-&nbsp; *<br>
-&nbsp; * See also dma_fence_check_and_signal().<br>
-+ *<br>
-+ * Return: true if the fence was already signaled, or if<br>
-+ * &amp;struct dma_fence_ops.signaled is implemented and indicates that th=
-is fence<br>
-+ * can be treated as signaled; false otherwise.<br>
-&nbsp; */<br>
-&nbsp;static inline bool<br>
-&nbsp;dma_fence_check_and_signal_locked(struct dma_fence *fence)<br>
-@@ -412,9 +419,12 @@ dma_fence_check_and_signal_locked(struct dma_fence *fe=
-nce)<br>
-&nbsp; * dma_fence_check_and_signal - Checks a fence and signals it if nece=
-ssary<br>
-&nbsp; * @fence: the fence to check<br>
-&nbsp; *<br>
-- * Returns true if the fence was already signaled, false if not. Since thi=
-s<br>
-- * function doesn't enable signaling, it is not guaranteed to ever return<=
-br>
-- * true if dma_fence_add_callback(), dma_fence_wait() or<br>
-+ * Checks whether the fence was already signaled, and, if not, whether<br>
-+ * &amp;struct dma_fence_ops.signaled indicates that it should be signaled=
-. If so,<br>
-+ * the fence gets signaled here.<br>
-+ *<br>
-+ * Since this function doesn't enable signaling, it is not guaranteed to e=
-ver<br>
-+ * return true if dma_fence_add_callback(), dma_fence_wait() or<br>
-&nbsp; * dma_fence_enable_sw_signaling() haven't been called before.<br>
-&nbsp; *<br>
-&nbsp; * It's recommended for seqno fences to call dma_fence_signal when th=
-e<br>
-@@ -423,6 +433,10 @@ dma_fence_check_and_signal_locked(struct dma_fence *fe=
-nce)<br>
-&nbsp; * value of this function before calling hardware-specific wait instr=
-uctions.<br>
-&nbsp; *<br>
-&nbsp; * See also dma_fence_check_and_signal_locked().<br>
-+ *<br>
-+ * Return: true if the fence was already signaled, or if<br>
-+ * &amp;struct dma_fence_ops.signaled is implemented and indicates that th=
-is fence<br>
-+ * can be treated as signaled; false otherwise.<br>
-&nbsp; */<br>
-&nbsp;static inline bool<br>
-&nbsp;dma_fence_check_and_signal(struct dma_fence *fence)<br>
---<br>
-2.48.1<br>
-<br>
-</div>
-</div>
-</body>
-</html>
+> Also remove some duplicate checks and re-order and document the code.
+>
+> v2: restructure the while function
+> v3: fix logic error pointed out by Srini
+> v4: fix typo in comment, fix crash caused by incorrect check
+> v5: once more fix the logic
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c |  6 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 94 ++++++++++----------------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  5 +-
+>   3 files changed, 39 insertions(+), 66 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> index 802743efa3b3..30b58772598c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -189,10 +189,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+>   	}
+>   
+>   	need_ctx_switch = ring->current_ctx != fence_ctx;
+> -	if (ring->funcs->emit_pipeline_sync && job &&
+> -	    ((tmp = amdgpu_sync_get_fence(&job->explicit_sync)) ||
+> -	     need_ctx_switch || amdgpu_vm_need_pipeline_sync(ring, job))) {
+> -
+> +	if ((job && (tmp = amdgpu_sync_get_fence(&job->explicit_sync))) ||
 
---_000_SA1PR12MB85990C007B278312B023783BEDB42SA1PR12MB8599namp_--
+
+Direct assignment in if condition looks like may not be allowed, may be 
+can we split this logic , something like below:?
+
+/* Check if job is present and get the fence */
+if (job) {
+     tmp = amdgpu_sync_get_fence(&job->explicit_sync);
+}
+
+/* Check if pipe sync is needed */
+if ((tmp || (amdgpu_sriov_vf(adev) && need_ctx_switch))) {
+     need_pipe_sync = true;
+
+
+> +	     (amdgpu_sriov_vf(adev) && need_ctx_switch)) {
+>   		need_pipe_sync = true;
+>   
+>   		if (tmp)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index b5ddfcbbc9fc..8e99dbd70968 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -596,37 +596,6 @@ void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev)
+>   	}
+>   }
+>   
+> -/**
+> - * amdgpu_vm_need_pipeline_sync - Check if pipe sync is needed for job.
+> - *
+> - * @ring: ring on which the job will be submitted
+> - * @job: job to submit
+> - *
+> - * Returns:
+> - * True if sync is needed.
+> - */
+> -bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
+> -				  struct amdgpu_job *job)
+> -{
+> -	struct amdgpu_device *adev = ring->adev;
+> -	unsigned vmhub = ring->vm_hub;
+> -	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+> -
+> -	if (job->vmid == 0)
+> -		return false;
+> -
+> -	if (job->vm_needs_flush || ring->has_compute_vm_bug)
+> -		return true;
+> -
+> -	if (ring->funcs->emit_gds_switch && job->gds_switch_needed)
+> -		return true;
+> -
+> -	if (amdgpu_vmid_had_gpu_reset(adev, &id_mgr->ids[job->vmid]))
+> -		return true;
+> -
+> -	return false;
+> -}
+> -
+>   /**
+>    * amdgpu_vm_flush - hardware flush the vm
+>    *
+> @@ -647,43 +616,49 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>   	unsigned vmhub = ring->vm_hub;
+>   	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+>   	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
+> -	bool spm_update_needed = job->spm_update_needed;
+> -	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
+> -		job->gds_switch_needed;
+> -	bool vm_flush_needed = job->vm_needs_flush;
+> -	bool cleaner_shader_needed = false;
+> -	bool pasid_mapping_needed = false;
+> -	struct dma_fence *fence = NULL;
+> +	bool gds_switch_needed, vm_flush_needed, spm_update_needed,
+> +	     cleaner_shader_needed
+
+
+I think, should we initialize the "cleaner_shader_needed" here, 
+cleaner_shader_needed = false?
+
+
+> , pasid_mapping_needed;
+> +	struct dma_fence *fence;
+>   	unsigned int patch;
+>   	int r;
+>   
+> +	/* First of all figure out what needs to be done */
+>   	if (amdgpu_vmid_had_gpu_reset(adev, id)) {
+> +		need_pipe_sync = true;
+>   		gds_switch_needed = true;
+>   		vm_flush_needed = true;
+>   		pasid_mapping_needed = true;
+>   		spm_update_needed = true;
+> +	} else {
+> +		gds_switch_needed = job->gds_switch_needed;
+> +		vm_flush_needed = job->vm_needs_flush;
+> +		mutex_lock(&id_mgr->lock);
+> +		pasid_mapping_needed = id->pasid != job->pasid ||
+> +			!id->pasid_mapping ||
+> +			!dma_fence_is_signaled(id->pasid_mapping);
+> +		mutex_unlock(&id_mgr->lock);
+> +		spm_update_needed = job->spm_update_needed;
+> +		need_pipe_sync |= ring->has_compute_vm_bug || vm_flush_needed ||
+> +			cleaner_shader_needed || gds_switch_needed;
+>   	}
+>   
+> -	mutex_lock(&id_mgr->lock);
+> -	if (id->pasid != job->pasid || !id->pasid_mapping ||
+> -	    !dma_fence_is_signaled(id->pasid_mapping))
+> -		pasid_mapping_needed = true;
+> -	mutex_unlock(&id_mgr->lock);
+> -
+> +	need_pipe_sync &= !!ring->funcs->emit_pipeline_sync;
+>   	gds_switch_needed &= !!ring->funcs->emit_gds_switch;
+>   	vm_flush_needed &= !!ring->funcs->emit_vm_flush  &&
+>   			job->vm_pd_addr != AMDGPU_BO_INVALID_OFFSET;
+>   	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
+>   		ring->funcs->emit_wreg;
+> +	spm_update_needed &= !!adev->gfx.rlc.funcs->update_spm_vmid;
+>   
+>   	cleaner_shader_needed = adev->gfx.enable_cleaner_shader &&
+>   		ring->funcs->emit_cleaner_shader && job->base.s_fence &&
+>   		&job->base.s_fence->scheduled == isolation->spearhead;
+>   
+>   	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
+> -	    !cleaner_shader_needed)
+> +	    !cleaner_shader_needed && !spm_update_needed)
+>   		return 0;
+>   
+> +	/* Then actually prepare the submission frame */
+>   	amdgpu_ring_ib_begin(ring);
+>   	if (ring->funcs->init_cond_exec)
+>   		patch = amdgpu_ring_init_cond_exec(ring,
+> @@ -703,23 +678,34 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>   	if (pasid_mapping_needed)
+>   		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
+>   
+> -	if (spm_update_needed && adev->gfx.rlc.funcs->update_spm_vmid)
+> +	if (spm_update_needed)
+>   		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring, job->vmid);
+>   
+> -	if (ring->funcs->emit_gds_switch &&
+> -	    gds_switch_needed) {
+> +	if (gds_switch_needed)
+>   		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
+>   					    job->gds_size, job->gws_base,
+>   					    job->gws_size, job->oa_base,
+>   					    job->oa_size);
+> -	}
+>   
+>   	if (vm_flush_needed || pasid_mapping_needed || cleaner_shader_needed) {
+>   		r = amdgpu_fence_emit(ring, &fence, NULL, 0);
+>   		if (r)
+>   			return r;
+> +	} else {
+> +		fence = NULL;
+> +	}
+> +
+> +	amdgpu_ring_patch_cond_exec(ring, patch);
+> +
+> +	/* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC */
+> +	if (ring->funcs->emit_switch_buffer) {
+> +		amdgpu_ring_emit_switch_buffer(ring);
+> +		amdgpu_ring_emit_switch_buffer(ring);
+>   	}
+>   
+> +	amdgpu_ring_ib_end(ring);
+> +
+> +	/* And finally remember what the ring has executed */
+>   	if (vm_flush_needed) {
+>   		mutex_lock(&id_mgr->lock);
+>   		dma_fence_put(id->last_flush);
+> @@ -749,16 +735,6 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>   		mutex_unlock(&adev->enforce_isolation_mutex);
+>   	}
+>   	dma_fence_put(fence);
+> -
+> -	amdgpu_ring_patch_cond_exec(ring, patch);
+> -
+> -	/* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC */
+> -	if (ring->funcs->emit_switch_buffer) {
+> -		amdgpu_ring_emit_switch_buffer(ring);
+> -		amdgpu_ring_emit_switch_buffer(ring);
+> -	}
+> -
+> -	amdgpu_ring_ib_end(ring);
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index daa2f9b33620..e9ecdb96bafa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -493,7 +493,8 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		       struct ww_acquire_ctx *ticket,
+>   		       int (*callback)(void *p, struct amdgpu_bo *bo),
+>   		       void *param);
+> -int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job, bool need_pipe_sync);
+> +int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+> +		    bool need_pipe_sync);
+>   int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   			  struct amdgpu_vm *vm, bool immediate);
+>   int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+> @@ -550,8 +551,6 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
+>   			   uint32_t fragment_size_default, unsigned max_level,
+>   			   unsigned max_bits);
+>   int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
+> -bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
+> -				  struct amdgpu_job *job);
+>   void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
+>   
+>   struct amdgpu_task_info *
