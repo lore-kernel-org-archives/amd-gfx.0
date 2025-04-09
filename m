@@ -4,99 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C751DC369A8
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:08:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 152E2C369A6
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEE4F10E00F;
-	Thu, 10 Apr 2025 13:08:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C69C10E9A4;
+	Thu, 10 Apr 2025 13:08:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="qoq0l8CR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="W3KKMJ+S";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BFC610E886;
- Wed,  9 Apr 2025 12:51:52 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4ZXjWR652Hz9sn9;
- Wed,  9 Apr 2025 14:51:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1744203109; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y1KOsl3bM2Nc82jWkBpwB9pBWedP0INipQprBLc0j5o=;
- b=qoq0l8CRDL+UCLVS3PHrT3P1vR961xDbvNHjxml9bfKWX4A8AKek0gxWwmdmbupugwQeUa
- Or+iNbsFczg2uc1qjLHcrFuRpL+GzZagbMm58iileZJozNcIGY1Wxql/PZKK+5bG8ZsWq2
- 2YoNz9CTr+r/TtXKi8y1ULJZxxI6uQrf97iP25KM8X3lfdIHeDBuYN1kXSv4fCXzbScnTT
- yLuadRHPxEojfM+iEAtJ0zGXkOO/SSAIQW6CFfEy729P3TxL/gTXnIHf4mkGow540KskXM
- nrcgR++I+jzbqfsLLSFAJ5yiAQoZy2b6Yx0KmrVsiTq4Af3cCbXv1hYpqyHV5w==
-Message-ID: <73d41cd84c73b296789b654e45125bfce88e0dbf.camel@mailbox.org>
-Subject: Re: [PATCH 1/2] dma-fence: Rename dma_fence_is_signaled()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
- <phasta@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,  Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Qiang Yu
- <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>,  Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>,  Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,  Steven Price
- <steven.price@arm.com>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann
- <kraxel@redhat.com>,  Matthew Brost <matthew.brost@intel.com>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Melissa Wen
- <mwen@igalia.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Zack
- Rusin <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Bas Nieuwenhuizen
- <bas@basnieuwenhuizen.nl>,  Yang Wang <kevinyang.wang@amd.com>, Jesse Zhang
- <jesse.zhang@amd.com>, Tim Huang <tim.huang@amd.com>,  Sathishkumar S
- <sathishkumar.sundararaju@amd.com>, Saleemkhan Jamadar
- <saleemkhan.jamadar@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, Lijo
- Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Ma Jun
- <Jun.Ma2@amd.com>, Yunxiang Li <Yunxiang.Li@amd.com>, Eric Huang
- <jinhuieric.huang@amd.com>, Asad Kamal <asad.kamal@amd.com>, Srinivasan
- Shanmugam <srinivasan.shanmugam@amd.com>,  Jack Xiao <Jack.Xiao@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>, Michel =?ISO-8859-1?Q?D=E4nzer?=
- <mdaenzer@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Anna-Maria Behnsen <anna-maria@linutronix.de>, Thomas Gleixner
- <tglx@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, Dan
- Carpenter <dan.carpenter@linaro.org>,  linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org,  amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org,  intel-gfx@lists.freedesktop.org,
- lima@lists.freedesktop.org,  linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,  nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev,  spice-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Date: Wed, 09 Apr 2025 14:51:14 +0200
-In-Reply-To: <20250409143917.31303d22@collabora.com>
-References: <20250409120640.106408-2-phasta@kernel.org>
- <20250409120640.106408-3-phasta@kernel.org>
- <20250409143917.31303d22@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E89C10E8CA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Apr 2025 13:56:51 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-39c0dfad22aso4181670f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Apr 2025 06:56:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1744207010; x=1744811810; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=2KhGefPiMXnLVMM2ovp7nBVf2mWzMUXA0dYdZ6nMa4g=;
+ b=W3KKMJ+SSovFJ5/fZP1J7UkLcupe5oxM1l7+UOnotZOhI6yE1jrqSrILfzrjh52H/6
+ VttideT2oo4CWsDYYL2vzTBDk1M127zSivoL98PLtRRsmGgn95jxDsqjKGj6cWfku4az
+ lVQwzcGgHn+TPXlZm1O43ejkZVrYdl/6p++U12g4S2Qtm36QVNoJY6vNj/niFtQH9wst
+ M7o+xNuBezU5GfUUcnF6lz3B5yumqMMkhcSt7jgYH/Y1Y0vyVgTdPcbZSrWLNqXDJ/KO
+ k84y+AJUzQvhbk5ic8h8jVhoRLa6eNN5HchF74nB199BKdhxUXQei0uUPAIZTQqu8Z2o
+ yYfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744207010; x=1744811810;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2KhGefPiMXnLVMM2ovp7nBVf2mWzMUXA0dYdZ6nMa4g=;
+ b=M4c2sacmP3nICkG7q2u5OmcUE/IeYlHomteTC2xeZjofA1jhIXxJXKMeIvKqM0/zFu
+ nRX+CGv983uCdUWEDVnSUJ0bDQ+QsNA0gWz/PgFiYFXLIhOmdXJIrQg+4DWu2/kEYtTe
+ lUv+HACm/0qVSNSjiQNOHVEHuPnWTS34xtdT8HmBFMtqJxeHbjSniZO/E6FKOOcCnMw0
+ 1yHWWgkQogaabFLb7XRx/ywjUMdGb51u5NNhvEO2o7JRcVrxkzFUgJHSnskWLdrJGBns
+ GFs+kyh/l14Y6iXAKR8KCiyiNqEDpNQr5ESpLC8WqlM1ELevCQO/o8DVwhLcoSAowFAj
+ WWhw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVX5pcX8cw/u51StcDq8mqMYaXwuukNjNQk7ifvKublo5ckyVSseHlFqMgwDQdGF3Y9JESFrBD2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcDcc+BSYF9WxCtWi8P0H39JC2M/pDnI2+WWfDdJQLwZ4U9RyZ
+ m6KgLCnZ6KQBK/XNpyIEADgV7t60avdjjTZZhaLbeJ1SdEGZ+uJMOw4n8FzWZT8=
+X-Gm-Gg: ASbGnct1WM1+mdWxnrd9NwL4tTdf/b++RTbwCmRopWqKO2sZOlj7x7OZwGKZKNyC1TL
+ xwB7gl6IQ/PBae8CvSN1Phszc9caj/t7jJRF8hts+Zn4G0gjuBTSQ1UCGBKSKhHexKiW16X9NjX
+ ni1j8aa4e1kDnkin6ztCn6sWDzRFmMLsJ78l6InuYWEEyX/A5u2vM7MJClZwHIvtpbu2d8edqLz
+ YuPoMpOpJ8cNSj1EPpeUTktIfHhlzqpt0jGTUPINCXbu0x7S6TV7LQOPNs7BX05WMjRTC5Rbq7t
+ 2/owoEg6Y5ao8XzcQJiVkWGjFXIjCbCb1baCQv/i+3YlWg==
+X-Google-Smtp-Source: AGHT+IEohHlZ85DUwuSFSGD1pk1w5ujoX+pwAIxYbtzA3G9O232e3I5wT4SlYwuuqqwwTGTCOcljrQ==
+X-Received: by 2002:a05:6000:2585:b0:39c:3475:b35a with SMTP id
+ ffacd0b85a97d-39d87aceed8mr2822123f8f.28.1744207009847; 
+ Wed, 09 Apr 2025 06:56:49 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-39d8937734esm1727458f8f.32.2025.04.09.06.56.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Apr 2025 06:56:49 -0700 (PDT)
+Date: Wed, 9 Apr 2025 16:56:46 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Ce Sun <cesun102@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: Replace tmp_adev with hive in
+ amdgpu_pci_slot_reset
+Message-ID: <a6e37b47-a089-436d-be55-da298e844d14@stanley.mountain>
+References: <20250409133955.26169-1-cesun102@amd.com>
+ <a79917f2-0883-4855-9802-9c1f127c8f02@amd.com>
 MIME-Version: 1.0
-X-MBO-RS-META: 7iy136p8m6py4oeaepzr7ogfmahipjtt
-X-MBO-RS-ID: b1321202fe5ffc9b996
-X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:17 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a79917f2-0883-4855-9802-9c1f127c8f02@amd.com>
+X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,73 +85,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-04-09 at 14:39 +0200, Boris Brezillon wrote:
-> Hi Philipp,
->=20
-> On Wed,=C2=A0 9 Apr 2025 14:06:37 +0200
-> Philipp Stanner <phasta@kernel.org> wrote:
->=20
-> > dma_fence_is_signaled()'s name strongly reads as if this function
-> > were
-> > intended for checking whether a fence is already signaled. Also the
-> > boolean it returns hints at that.
-> >=20
-> > The function's behavior, however, is more complex: it can check
-> > with a
-> > driver callback whether the hardware's sequence number indicates
-> > that
-> > the fence can already be treated as signaled, although the
-> > hardware's /
-> > driver's interrupt handler has not signaled it yet. If that's the
-> > case,
-> > the function also signals the fence.
-> >=20
-> > (Presumably) this has caused a bug in Nouveau (unknown commit),
-> > where
-> > nouveau_fence_done() uses the function to check a fence, which
-> > causes a
-> > race.
-> >=20
-> > Give the function a more obvious name.
->=20
-> This is just my personal view on this, but I find the new name just
-> as
-> confusing as the old one. It sounds like something is checked, but
-> it's
-> clear what, and then the fence is forcibly signaled like it would be
-> if
-> you call drm_fence_signal(). Of course, this clarified by the doc,
-> but
-> given the goal was to make the function name clearly reflect what it
-> does, I'm not convinced it's significantly better.
->=20
-> Maybe dma_fence_check_hw_state_and_propagate(), though it might be
-> too long of name. Oh well, feel free to ignore this comments if a
-> majority is fine with the new name.
+On Wed, Apr 09, 2025 at 07:19:25PM +0530, Lazar, Lijo wrote:
+> 
+> 
+> On 4/9/2025 7:09 PM, Ce Sun wrote:
+> > Checking hive is more readable.
+> > 
+> > The following smatch warning:
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6820 amdgpu_pci_slot_reset()
+> > warn: iterator used outside loop: 'tmp_adev'
+> > 
+> > Fixes: 8ba904f54148 ("drm/amdgpu: Multi-GPU DPC recovery support")
+> > Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> > Signed-off-by: Ce Sun <cesun102@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index 60269fba5745..6fb234832ff3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -6784,8 +6784,8 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
+> >  	struct drm_device *dev = pci_get_drvdata(pdev);
+> >  	struct amdgpu_device *adev = drm_to_adev(dev);
+> >  	struct amdgpu_reset_context reset_context;
+> > -	struct amdgpu_device *tmp_adev = NULL;
+> > -	struct amdgpu_hive_info *hive = NULL;
+> > +	struct amdgpu_device *tmp_adev;
+> > +	struct amdgpu_hive_info *hive;
+> >  	struct list_head device_list;
+> >  	int r = 0, i;
+> >  	u32 memsize;
+> > @@ -6846,7 +6846,7 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
+> >  		dev_info(adev->dev, "PCIe error recovery succeeded\n");
+> >  	} else {
+> >  		dev_err(adev->dev, "PCIe error recovery failed, err:%d\n", r);
+> > -		if (tmp_adev) {
+> > +		if (hive) {
+> 
+> This doesn't look correct. I think the original logic is to have a
+> single device list or multi-device list when there is a hive. Now this
+> skips the step for single device case.
+> 
 
-Yoa, the name isn't perfect (the perfect name describing the whole
-behavior would be
-dma_fence_check_if_already_signaled_then_check_hardware_state_and_propa
-gate() ^^'
+I don't know what the original intentions were, but what I know is that
+this code will behave exactly the same as the original code.
 
-My intention here is to have the reader realize "watch out, the fence
-might get signaled here!", which is probably the most important event
-regarding fences, which can race, invoke the callbacks and so on.
-
-For details readers will then check the documentation.
-
-But I'm of course open to see if there's a majority for this or that
-name.
-
-P.
-
-
->=20
-> Regards,
->=20
-> Boris
+regards,
+dan carpenter
 
