@@ -4,65 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E264C36002
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 06:03:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7249FC36002
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 07:25:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF1710E305;
-	Wed,  9 Apr 2025 06:03:39 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dbe0x5TW";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3938310E305;
- Wed,  9 Apr 2025 06:03:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744178618; x=1775714618;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=4xHqhPgdW8TYcTqscponCgob90BA2s/YzsyIWQJriDY=;
- b=dbe0x5TWHyna646FJ7kEsfPWxIQp6alhgQCrgZ3rHQNoxE2Ic9y0mcrY
- 145TTWH5kufa6z4jx7vuYuSwHEtzPu937OdLTMgLs0x6/T4F0f9uYRPF6
- ie4w9ChvzAU9hJSL0kwfUlO5lm60Xzc1xCzdUcF2whqbCqD1vcaMRI8hL
- SegPhEyVToIOMcmiJDGtj5EJ+9uVtmZ3/4bM+rhfq1P5rpijNFDOi8bDw
- pQ7vMcZQta0I4v2vOJy2HEqKewK4FDmdQLvyp3gvTBoBGp92xuZ/C/4u7
- uzIN9Or8u/Yo8v0wspQkO/kx9jw9yv/r/J4LMXOSwbA5MEUfqfE0DvomZ A==;
-X-CSE-ConnectionGUID: yt0WkK3vQBuxc96X9dwklQ==
-X-CSE-MsgGUID: 8m2Sv8B7T7Cr7/0ctIgs8w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="45756778"
-X-IronPort-AV: E=Sophos;i="6.15,199,1739865600"; d="scan'208";a="45756778"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2025 23:03:04 -0700
-X-CSE-ConnectionGUID: 6NCazJJkS4CXXx6fTKPOhg==
-X-CSE-MsgGUID: F1VGdALsRbGwrqJ8DRVZ1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,199,1739865600"; d="scan'208";a="159463384"
-Received: from lkp-server01.sh.intel.com (HELO b207828170a5) ([10.239.97.150])
- by fmviesa001.fm.intel.com with ESMTP; 08 Apr 2025 23:02:55 -0700
-Received: from kbuild by b207828170a5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1u2OWT-0008Md-0p;
- Wed, 09 Apr 2025 06:02:53 +0000
-Date: Wed, 9 Apr 2025 14:01:54 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- hamza.mahfooz@amd.com, chiahsuan.chung@amd.com,
- sunil.khatri@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
- hersenxs.wu@amd.com, mario.limonciello@amd.com, mwen@igalia.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/amd/display: Add error check for avi and vendor
- infoframe setup function
-Message-ID: <202504091350.V54m3vD1-lkp@intel.com>
-References: <20250408022018.2786-1-vulab@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0835A10E7EA;
+	Wed,  9 Apr 2025 07:25:52 +0000 (UTC)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F76810E7B7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Apr 2025 02:40:15 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5deb6482cso522024a12.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Apr 2025 19:40:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google; t=1744166413; x=1744771213;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=IOQlV1YENNqfnMcYfC29B125TJM1XhvCjinQE4wwzk8=;
+ b=TESGkZB2K0k0Rc0xzUqYhcERh9J59fpIkZA4ng/SToa1Sb9wSnMRaTHVnBNodIxYCn
+ B1JNbleNqGyIyM4GsSOdMWoUD73Sm8ZrxtQHJr/ecnD/U38oVbcn+b85dU54A4ZGVUBz
+ pp13mtdOh6bnU9CaqHL4/ozh3dNvURgrR4Ji8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744166413; x=1744771213;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=IOQlV1YENNqfnMcYfC29B125TJM1XhvCjinQE4wwzk8=;
+ b=Yv/TquqN7uA6twmd7gUuvakheg5bnSORwI7qFaDK8v+OzVg+WsKFCUHCSMLc9isttM
+ oV1o56grsmu8v+NgE70p4wUHaNSgq5b9ej/TeqGHmYGeTxntpWIn0JAxJ2m8jjApJog0
+ WKsBVhAuMbaZZhDTdVv8I4BIolwyJdFR7vVyNFT7omrJFS1bDtoEMPYwKonrNnC2zOPl
+ YKLsNObmLqAM9prM48Ni83cSDUw/Cge23vNahlrc909JMBuk6KZdz40pYO4s7ACIuRXG
+ 4E6vk/SCHcuOkuV9mhBxzGzaQa9QkkkZdJxbjiLEN4921AVu3czqvmfkFkeySlbpwJgY
+ H2Gg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWkRvxo7mF6YGwYzJC9F9MqbNxeOwMQR2QRH6xmFzF4cJlryvA6PP7eNqjyILegGuYf+o6IpKMn@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3HRIeYyDiKxTvqZJthawU/ND+6pxPE3HZ2FeRxmdPm3nuCPBx
+ clo7CQMIm17O67VqOW3VqkNrInocAH1jPdQV5bdi7/CsuNn6wkMpjwaPdD6T/guAdeCx1W5qHd8
+ grWs=
+X-Gm-Gg: ASbGnctH8Ji9Y5jEmCIh+eNPI5eoSu9r3NyrtGWWdQobiR7+VPud7/6BpmO39/kYDaF
+ C9PJDTOI8ERPKZJtseW58oOneCLmUbAeVyx28A473XZVDVHKEKYJoKNcn1KYhzfgsK8FSOMO9o4
+ CNqFK77xbKB2iynwYYUDkTIPkVQ/QPj3yMFQvqCyu5kWMQVra/AngL3F5yhoaqD8jwKqGw92XR1
+ CxOzW3/p6b51ZanegGOB/TjYa2US5R5rltSDwPeJo7e9aBVt+NEPrjYVZXQj38wblVbshSIElCZ
+ Y2XOMse4JPPM5gq/DIc7RV5HsZbtT45inYUdTkeA8FImcJR10kezcT6+LuYgI8E+lzhg6CZenbu
+ wEI7rMuGDm/8sM4FlhcA=
+X-Google-Smtp-Source: AGHT+IGuxUwKc7L5SGRPLJTbR114TFdaZ4G8zVxJNfUwxOy/FrcN5uQAw7D3ZG2wXQre/d+tBE1jOQ==
+X-Received: by 2002:a17:906:c156:b0:ac2:d5d3:2b77 with SMTP id
+ a640c23a62f3a-aca9c019bd7mr113632766b.8.1744166412755; 
+ Tue, 08 Apr 2025 19:40:12 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com.
+ [209.85.208.53]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acaa1cb414dsm12260966b.121.2025.04.08.19.40.11
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Apr 2025 19:40:12 -0700 (PDT)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5deb6482cso521990a12.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Apr 2025 19:40:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWG0oLBdkUhPU67iuW5XOfChVybCX7HXjW1U6FedYsWJlFRJ9oprYP3yteGOwLTE5Oj7hQw4XwA@lists.freedesktop.org
+X-Received: by 2002:a17:907:86ac:b0:ac7:334d:3217 with SMTP id
+ a640c23a62f3a-ac81a611619mr581097266b.12.1744166411592; Tue, 08 Apr 2025
+ 19:40:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250408022018.2786-1-vulab@iscas.ac.cn>
+References: <20250408091755.10074-1-arefev@swemel.ru>
+ <e6ccef21-3ca5-4b5a-b18a-3ba45859569c@amd.com>
+ <bmdour3gw4tuwqgvvw764p4ot3nnltqm4e7n3edlbtpfazvp5c@cqe5dwgc66uy>
+ <f8810b13-01d1-4615-b6e2-2e791c48b466@amd.com>
+ <qc72y52kt7vuwox4lhk42zligy5bslttselfoexse42mywtpps@ebqijs2tap2t>
+ <edc08eb4-63dd-402c-82df-af6898d499a9@amd.com>
+ <pmby7iowvxuomsbuxebttosz245j7ngw5enbl72dq675nrgvve@ugkvzeihbtut>
+In-Reply-To: <pmby7iowvxuomsbuxebttosz245j7ngw5enbl72dq675nrgvve@ugkvzeihbtut>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 8 Apr 2025 19:39:55 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whLixL8-iYt1qH0-YvEnVsYtryZaN5Da0qoBBhKsBnumw@mail.gmail.com>
+X-Gm-Features: ATxdqUFiHF52bUvLryR7rfFOaLA0UC5CBMTbxxULmYgSReDeZj_UCJwCfpJ84AQ
+Message-ID: <CAHk-=whLixL8-iYt1qH0-YvEnVsYtryZaN5Da0qoBBhKsBnumw@mail.gmail.com>
+Subject: Re: [lvc-project] [PATCH] drm/amdgpu: check a user-provided number of
+ BOs in list
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Denis Arefev <arefev@swemel.ru>, Alex Deucher <alexander.deucher@amd.com>, 
+ Simona Vetter <simona@ffwll.ch>, lvc-project@linuxtesting.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 09 Apr 2025 07:25:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,176 +104,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Wentao,
+On Tue, 8 Apr 2025 at 09:07, Fedor Pchelkin <pchelkin@ispras.ru> wrote:
+>
+> > Linus comment is about kvmalloc(), but the code here is using
+> > kvmalloc_array() which as far as I know is explicitly made to safely
+> > allocate arrays with parameters provided by userspace.
 
-kernel test robot noticed the following build errors:
+No.
 
-[auto build test ERROR on drm-exynos/exynos-drm-next]
-[also build test ERROR on linus/master v6.15-rc1 next-20250408]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+ABSOLUTELY NOTHING CAN ALLOCATE ARRAYS WITH PARAMETERS PROVIDED BY USER SPACE.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-amd-display-Add-error-check-for-avi-and-vendor-infoframe-setup-function/20250408-102113
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
-patch link:    https://lore.kernel.org/r/20250408022018.2786-1-vulab%40iscas.ac.cn
-patch subject: [PATCH v2] drm/amd/display: Add error check for avi and vendor infoframe setup function
-config: arm64-randconfig-003-20250409 (https://download.01.org/0day-ci/archive/20250409/202504091350.V54m3vD1-lkp@intel.com/config)
-compiler: clang version 15.0.7 (https://github.com/llvm/llvm-project 8dfdcc7b7bf66834a761bd8de445840ef68e4d1a)
-rustc: rustc 1.78.0 (9b00956e5 2024-04-29)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250409/202504091350.V54m3vD1-lkp@intel.com/reproduce)
+All kvmalloc_array() does is to check for overflow on the multiplication.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202504091350.V54m3vD1-lkp@intel.com/
+That does *not* mean that you can then just blindly take user space
+input and pass it to kvmalloc_array().
 
-All errors (new ones prefixed by >>):
+That could easily cause the machine to run out of memory immediately,
+for example. Or just cause huge latency issues. Or any number of other
+things.
 
->> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6221:12: error: incompatible pointer types passing 'struct drm_device *const' to parameter of type 'const struct device *' [-Werror,-Wincompatible-pointer-types]
-                           dev_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
-                                   ^~~~~~~~~~~~~~
-   include/linux/dev_printk.h:154:44: note: expanded from macro 'dev_err'
-           dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-                                                     ^~~
-   include/linux/dev_printk.h:110:11: note: expanded from macro 'dev_printk_index_wrap'
-                   _p_func(dev, fmt, ##__VA_ARGS__);                       \
-                           ^~~
-   include/linux/dev_printk.h:86:36: note: passing argument to parameter 'dev' here
-   void _dev_err(const struct device *dev, const char *fmt, ...)
-                                      ^
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6227:12: error: incompatible pointer types passing 'struct drm_device *const' to parameter of type 'const struct device *' [-Werror,-Wincompatible-pointer-types]
-                           dev_err(connector->dev, "Failed to setup vendor infoframe: %zd\n", err);
-                                   ^~~~~~~~~~~~~~
-   include/linux/dev_printk.h:154:44: note: expanded from macro 'dev_err'
-           dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-                                                     ^~~
-   include/linux/dev_printk.h:110:11: note: expanded from macro 'dev_printk_index_wrap'
-                   _p_func(dev, fmt, ##__VA_ARGS__);                       \
-                           ^~~
-   include/linux/dev_printk.h:86:36: note: passing argument to parameter 'dev' here
-   void _dev_err(const struct device *dev, const char *fmt, ...)
-                                      ^
-   2 errors generated.
+> [27651.163361] WARNING: CPU: 3 PID: 183060 at mm/util.c:657 __kvmalloc_node_noprof+0xc1/0xd0
+> [27651.163411] CPU: 3 UID: 0 PID: 183060 Comm: a.out Not tainted 6.13.9-200.fc41.x86_64 #1
+> [27651.163412] Hardware name: ASUS System Product Name/PRIME X670E-PRO WIFI, BIOS 3035 09/05/2024
+> [27651.163413] RIP: 0010:__kvmalloc_node_noprof+0xc1/0xd0
+> [27651.163424] Call Trace:
+> That's just
+>
+>     union drm_amdgpu_bo_list bo_list;
+>     int fd, ret;
+>
+>     memset(&bo_list, 0, sizeof(bo_list));
+>
+>     fd = open(DEVICE_PATH, O_RDWR);
+>
+>     bo_list.in.bo_number = 1 << 31;
+>     ret = ioctl(fd, DRM_IOCTL_AMDGPU_BO_LIST, &bo_list);
 
+Yes, exactly, and that's bogus code in the DRM layer to just blindly
+trust user space.
 
-vim +6221 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+User space input absolutely has to be validated for sanity.
 
-  6156	
-  6157	static void fill_stream_properties_from_drm_display_mode(
-  6158		struct dc_stream_state *stream,
-  6159		const struct drm_display_mode *mode_in,
-  6160		const struct drm_connector *connector,
-  6161		const struct drm_connector_state *connector_state,
-  6162		const struct dc_stream_state *old_stream,
-  6163		int requested_bpc)
-  6164	{
-  6165		struct dc_crtc_timing *timing_out = &stream->timing;
-  6166		const struct drm_display_info *info = &connector->display_info;
-  6167		struct amdgpu_dm_connector *aconnector = NULL;
-  6168		struct hdmi_vendor_infoframe hv_frame;
-  6169		struct hdmi_avi_infoframe avi_frame;
-  6170		ssize_t err;
-  6171	
-  6172		if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
-  6173			aconnector = to_amdgpu_dm_connector(connector);
-  6174	
-  6175		memset(&hv_frame, 0, sizeof(hv_frame));
-  6176		memset(&avi_frame, 0, sizeof(avi_frame));
-  6177	
-  6178		timing_out->h_border_left = 0;
-  6179		timing_out->h_border_right = 0;
-  6180		timing_out->v_border_top = 0;
-  6181		timing_out->v_border_bottom = 0;
-  6182		/* TODO: un-hardcode */
-  6183		if (drm_mode_is_420_only(info, mode_in)
-  6184				&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
-  6185			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-  6186		else if (drm_mode_is_420_also(info, mode_in)
-  6187				&& aconnector
-  6188				&& aconnector->force_yuv420_output)
-  6189			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-  6190		else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
-  6191				&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
-  6192			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
-  6193		else
-  6194			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-  6195	
-  6196		timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
-  6197		timing_out->display_color_depth = convert_color_depth_from_display_info(
-  6198			connector,
-  6199			(timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
-  6200			requested_bpc);
-  6201		timing_out->scan_type = SCANNING_TYPE_NODATA;
-  6202		timing_out->hdmi_vic = 0;
-  6203	
-  6204		if (old_stream) {
-  6205			timing_out->vic = old_stream->timing.vic;
-  6206			timing_out->flags.HSYNC_POSITIVE_POLARITY = old_stream->timing.flags.HSYNC_POSITIVE_POLARITY;
-  6207			timing_out->flags.VSYNC_POSITIVE_POLARITY = old_stream->timing.flags.VSYNC_POSITIVE_POLARITY;
-  6208		} else {
-  6209			timing_out->vic = drm_match_cea_mode(mode_in);
-  6210			if (mode_in->flags & DRM_MODE_FLAG_PHSYNC)
-  6211				timing_out->flags.HSYNC_POSITIVE_POLARITY = 1;
-  6212			if (mode_in->flags & DRM_MODE_FLAG_PVSYNC)
-  6213				timing_out->flags.VSYNC_POSITIVE_POLARITY = 1;
-  6214		}
-  6215	
-  6216		if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-  6217			err = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
-  6218								       (struct drm_connector *)connector,
-  6219								       mode_in);
-  6220			if (err < 0)
-> 6221				dev_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
-  6222			timing_out->vic = avi_frame.video_code;
-  6223			err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
-  6224									  (struct drm_connector *)connector,
-  6225									  mode_in);
-  6226			if (err < 0)
-  6227				dev_err(connector->dev, "Failed to setup vendor infoframe: %zd\n", err);
-  6228			timing_out->hdmi_vic = hv_frame.vic;
-  6229		}
-  6230	
-  6231		if (aconnector && is_freesync_video_mode(mode_in, aconnector)) {
-  6232			timing_out->h_addressable = mode_in->hdisplay;
-  6233			timing_out->h_total = mode_in->htotal;
-  6234			timing_out->h_sync_width = mode_in->hsync_end - mode_in->hsync_start;
-  6235			timing_out->h_front_porch = mode_in->hsync_start - mode_in->hdisplay;
-  6236			timing_out->v_total = mode_in->vtotal;
-  6237			timing_out->v_addressable = mode_in->vdisplay;
-  6238			timing_out->v_front_porch = mode_in->vsync_start - mode_in->vdisplay;
-  6239			timing_out->v_sync_width = mode_in->vsync_end - mode_in->vsync_start;
-  6240			timing_out->pix_clk_100hz = mode_in->clock * 10;
-  6241		} else {
-  6242			timing_out->h_addressable = mode_in->crtc_hdisplay;
-  6243			timing_out->h_total = mode_in->crtc_htotal;
-  6244			timing_out->h_sync_width = mode_in->crtc_hsync_end - mode_in->crtc_hsync_start;
-  6245			timing_out->h_front_porch = mode_in->crtc_hsync_start - mode_in->crtc_hdisplay;
-  6246			timing_out->v_total = mode_in->crtc_vtotal;
-  6247			timing_out->v_addressable = mode_in->crtc_vdisplay;
-  6248			timing_out->v_front_porch = mode_in->crtc_vsync_start - mode_in->crtc_vdisplay;
-  6249			timing_out->v_sync_width = mode_in->crtc_vsync_end - mode_in->crtc_vsync_start;
-  6250			timing_out->pix_clk_100hz = mode_in->crtc_clock * 10;
-  6251		}
-  6252	
-  6253		timing_out->aspect_ratio = get_aspect_ratio(mode_in);
-  6254	
-  6255		stream->out_transfer_func.type = TF_TYPE_PREDEFINED;
-  6256		stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
-  6257		if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-  6258			if (!adjust_colour_depth_from_display_info(timing_out, info) &&
-  6259			    drm_mode_is_420_also(info, mode_in) &&
-  6260			    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
-  6261				timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-  6262				adjust_colour_depth_from_display_info(timing_out, info);
-  6263			}
-  6264		}
-  6265	
-  6266		stream->output_color_space = get_output_color_space(timing_out, connector_state);
-  6267		stream->content_type = get_output_content_type(connector_state);
-  6268	}
-  6269	
+There's a very real reason why we have things like PATH_MAX.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Could we allocate any amount of memory for user paths, with the
+argument that path length shouldn't be limited to some (pretty small)
+number?
+
+Sure. We *could* do that.
+
+And that would be a huge mistake. Limiting and sanity-checking user
+space arguments isn't just a good idea - it's an absolute requirement.
+
+So that kvmalloc warning exists *exactly* so that you will get a
+warning if you do something stupid like just blindly trust user space.
+
+Because no, "doesn't overflow" isn't even remotely a valid limit. A
+real limit on memory allocations - and most other things, for that
+matter - needs to be about practical real issues, not about something
+like  "this doesn't overflow".
+
+            Linus
