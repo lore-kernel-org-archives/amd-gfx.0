@@ -4,59 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 549E6C3601E
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:08:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E55DC369A9
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:08:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 872E610E9E5;
-	Thu, 10 Apr 2025 13:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B6E10E9C0;
+	Thu, 10 Apr 2025 13:08:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="H9kbCebU";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="SCv/+zgi";
 	dkim-atps=neutral
 Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F012F10E800;
- Wed,  9 Apr 2025 08:03:44 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EF6D10E8DB;
+ Wed,  9 Apr 2025 14:04:47 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4ZXb711qMBz9t4w;
- Wed,  9 Apr 2025 10:03:41 +0200 (CEST)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4ZXl7b31gbz9sms;
+ Wed,  9 Apr 2025 16:04:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1744185821; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1744207483; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7fqznLAyvHu/jJ9za6hfLAeZqCvQ3xojCZMtgLC3XYw=;
- b=H9kbCebUZR1c7HOrQgYjPIYBVEFAXQSWcq6/p1UyaFsQL5RVW8qDJPZJDp+qC3GjKNVxRt
- DRZL0n/rENniKePXYZaCqEJY0i7wRIVO8nj1NZnDeePrW2Dn3W1dB+9XWKWpB33dMcfYJ9
- J2f7juccWHrQ6rBYVzSeuDhek0t6v0Y1omaNC+VbHOyOLNiRNHXjOlg+v77wj55CLq6kZe
- I8GCkSKnPB7VGieK0t/tUrz6+VwPURjf1eHIX/aqKevwbGEZET2BfNY4v4zU1C5ZKlQMsV
- q1BjHRuzslbwi9G5yJVXKkWQP5uTYc6Ftpwgx9gaAtErlzy1rplwxy1+/krYeg==
-Message-ID: <2486e9eba3806f8e7fc3df724e916929a627fac7.camel@mailbox.org>
-Subject: Re: [PATCH v8 00/10] Improve gpu_scheduler trace events + UAPI
+ bh=4eNcZ24PeZ6CGi/BByczkF4dSaDfbXFUAvZaMNmgbRE=;
+ b=SCv/+zgi+3jwe96veE9zj2YFHn30KMzLO6ozOr7bXQ9pkfx6SJpfeAUu2/rZgRl3Fc5kCx
+ b+2Rvo8Rm0EY8x1vaWCK0uOtnUFdRWErCCUO5XkNF+gkE7yopRU1k3GgXQpKwQBDCadAWC
+ XLX1eevJKmgOaWueW9q0YddYeUtudaBddvBmdBAZAW+xzSVtd3/WTVPLelYg9bxpRj7wcI
+ ya797xQExxBcaQRgDM7pfqeYm0fsje90pfNWwTYqTzA422PfXt1eVN9+d5VR6sqwNutsTD
+ xTRYazM50e3ceIrs0Y2jLyX2AOLun+px2wVcrv6oLhLk6heaYP2B+fMM1UrYAQ==
+Message-ID: <4c5d9342b8e2e04c3928ebba003d4f9ab06659b0.camel@mailbox.org>
+Subject: Re: [PATCH 1/2] drm/sched: add drm_sched_prealloc_dependency_slots v2
 From: Philipp Stanner <phasta@mailbox.org>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>, Pierre-Eric
- Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Tvrtko Ursulin
- <tvrtko.ursulin@igalia.com>, Philipp Stanner <phasta@kernel.org>, Danilo
- Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-arm-msm@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, nouveau@lists.freedesktop.org
-Date: Wed, 09 Apr 2025 10:03:34 +0200
-In-Reply-To: <f3416edf-46f8-4296-86bd-600ab629fe60@damsy.net>
-References: <20250320095818.40622-1-pierre-eric.pelloux-prayer@amd.com>
- <f3416edf-46f8-4296-86bd-600ab629fe60@damsy.net>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ phasta@kernel.org, tvrtko.ursulin@igalia.com, dakr@kernel.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Matthew Wilcox <willy@infradead.org>
+Date: Wed, 09 Apr 2025 16:04:41 +0200
+In-Reply-To: <c2ed3d7e-d5c3-4d74-8365-fdb3f46f6a3a@gmail.com>
+References: <20250321155852.15162-1-christian.koenig@amd.com>
+ <867c3abac8a222fa42921a6725e85fe459bc9d5e.camel@mailbox.org>
+ <c2ed3d7e-d5c3-4d74-8365-fdb3f46f6a3a@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-META: ac77wnkq97cnh7ipc437xrje46qmhgfq
-X-MBO-RS-ID: 890d0c8e5ddfbadb243
-X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:16 +0000
+X-MBO-RS-ID: 5ad11815f6510f54c95
+X-MBO-RS-META: qr9bugj9tkqwotc8re1961omkey8uhz7
+X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,151 +67,188 @@ Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-04-09 at 09:52 +0200, Pierre-Eric Pelloux-Prayer wrote:
-> Hi,
++Cc Matthew
+
+On Wed, 2025-04-09 at 15:55 +0200, Christian K=C3=B6nig wrote:
+> Am 09.04.25 um 12:28 schrieb Philipp Stanner:
+> > On Fri, 2025-03-21 at 16:58 +0100, Christian K=C3=B6nig wrote:
+> > > Sometimes drivers need to be able to submit multiple jobs which
+> > > depend on
+> > > each other to different schedulers at the same time, but using
+> > > drm_sched_job_add_dependency() can't fail any more after the
+> > > first
+> > > job is
+> > > initialized.
+> > >=20
+> > > This function preallocate memory for dependency slots so that no
+> > > ENOMEM
+> > > can come later while adding dependencies.
+> > >=20
+> > > v2: rework implementation an documentation
+> > >=20
+> > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > ---
+> > > =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 44
+> > > ++++++++++++++++++++++++--
+> > > =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 ++
+> > > =C2=A02 files changed, 43 insertions(+), 3 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > index 4d4219fbe49d..ee3701f346b2 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > @@ -852,6 +852,39 @@ void drm_sched_job_arm(struct drm_sched_job
+> > > *job)
+> > > =C2=A0}
+> > > =C2=A0EXPORT_SYMBOL(drm_sched_job_arm);
+> > > =C2=A0
+> > > +/**
+> > > + * drm_sched_job_prealloc_dependency_slots - avoid ENOMEM on
+> > > adding
+> > > dependencies
+> > > + * @job: scheduler job where dependencies will be added
+> > > + * @num_deps: number of dependencies to preallocate slots for
+> > > +=C2=A0 *
+> > > + * Sometimes drivers need to be able to submit multiple jobs
+> > > which
+> > > depend on
+> > > + * each other to different schedulers at the same time, but
+> > > using
+> > > + * drm_sched_job_add_dependency() can't fail any more after the
+> > > first job is
+> > > + * initialized.
+> > > + *
+> > > + * This function preallocate memory for dependency slots so that
+> > > no
+> > > ENOMEM can
+> > > + * come later while adding dependencies.
+> > > + *
+> > > + * Return:
+> > > + * 0 on success, or an error on failing to expand the array.
+> > > + */
+> > > +int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job
+> > > *job,
+> > > +					=C2=A0=C2=A0=C2=A0 unsigned int
+> > > num_deps)
+> > > +{
+> > > +	u32 id =3D 0;
+> > > +	int ret;
+> > > +
+> > > +	while (num_deps--) {
+> > > +		ret =3D xa_alloc(&job->dependencies, &id,
+> > > XA_ZERO_ENTRY,
+> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xa_limit_32b, GFP_KERNEL);
+> > I've had some time to re-read the xarray documentation and I think
+> > that
+> > this is what xa_reserve() was born for. The Book of
+> > Documentation/core-
+> > api/xarray.rst sayeth:
+> >=20
+> > "Sometimes you need to ensure that a subsequent call to xa_store()
+> > will not need to allocate memory.=C2=A0 The xa_reserve() function
+> > will store a reserved entry at the indicated index.=C2=A0 Users of the
+> > normal API will see this entry as containing ``NULL``."
+> >=20
+> > That's far better, this way we don't have to use that more or less
+> > xarray-internal flag.
 >=20
-> I've rebased the series on top of drm-next, applied the minor tweaks
-> suggested by Tvrtko on v8 and=20
-> the R-b tags. The result can be found on gitlab.fdo:
+> Yeah I have seen that as well. The reason why I didn't followed this
+> route was that I wasn't sure if I then need to check for NULL entries
+> while iterating over the XA.
 >=20
-> https://gitlab.freedesktop.org/pepp/linux/-/commits/improve_gpu_scheduler=
-_trace_v9
+> Additional to that I couldn't figure out of hand how to determine a
+> the next free index slot.
 >=20
-> I believe it's ready to be merged, unless I've missed something?
+> Have you found any example how to use that? I mean the documentation
+> could certainly be improved a bit.
 
-Has slipped my radar for a while, sorry.
+Maybe Matthew can help us out here?
 
-I browsed over the series=20
+Matthew, what would be the idiomatic way to do this, and can we help
+out with improving the Xarray's documentation?
 
-Can you pro forma send the v9 (with the scheduler maintainers also in
-the cover letter's CC) with the changelog, please?
-
-Then I'd ACK and someone (probably me?) can take it in.
-
-Thanks
+Thx,
 P.
 
 >=20
-> Thanks,
-> Pierre-Eric
+> Regards,
+> Christian.
 >=20
-> Le 20/03/2025 =C3=A0 10:57, Pierre-Eric Pelloux-Prayer a =C3=A9crit=C2=A0=
-:
-> > Hi,
 > >=20
-> > The initial goal of this series was to improve the drm and amdgpu
-> > trace events to be able to expose more of the inner workings of
-> > the scheduler and drivers to developers via tools.
 > >=20
-> > Then, the series evolved to become focused only on gpu_scheduler.
-> > The changes around vblank events will be part of a different
-> > series, as well as the amdgpu ones.
+> > > +		if (ret !=3D 0)
+> > > +			return ret;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slots);
+> > > +
+> > > =C2=A0/**
+> > > =C2=A0 * drm_sched_job_add_dependency - adds the fence as a job
+> > > dependency
+> > > =C2=A0 * @job: scheduler job to add the dependencies to
+> > > @@ -878,10 +911,15 @@ int drm_sched_job_add_dependency(struct
+> > > drm_sched_job *job,
+> > > =C2=A0	 * engines involved, rather than the number of BOs.
+> > > =C2=A0	 */
+> > > =C2=A0	xa_for_each(&job->dependencies, index, entry) {
+> > > -		if (entry->context !=3D fence->context)
+> > > +		if (xa_is_zero(entry)) {
+> > > +			/*
+> > > +			 * Reserved entries must not alloc
+> > > memory,
+> > > but let's
+> > > +			 * use GFP_ATOMIC just to be on the
+> > > defensive side.
+> > > +			*/
+> > > +			xa_store(&job->dependencies, index,
+> > > fence,
+> > > GFP_ATOMIC);
+> > And regarding this =E2=80=93 it can actually never happen, but you prov=
+ide
+> > ATOMIC just to be sure?
 > >=20
-> > Moreover Sima suggested to make some trace events stable uAPI,
-> > so tools can rely on them long term.
+> > I think it would be better if we'd just run into an obvious bug
+> > here
+> > instead, so like a deadlock with GFP_KERNEL.
 > >=20
-> > The first patches extend and cleanup the gpu scheduler events,
-> > then add a documentation entry in drm-uapi.rst.
+> > That's how we do it with pointers that cannot be NULL, too. If the
+> > impossible were to happen and it were NULL, we'd crash.
 > >=20
-> > The last 2 patches are new in v8. One is based on a suggestion
-> > from Tvrtko and gets rid of drm_sched_job::id. The other is a
-> > cleanup of amdgpu trace events to use the fence=3D%llu:%llu format.
+> > P.
 > >=20
-> > The drm_sched_job patches don't affect gpuvis which has code to
-> > parse
-> > the gpu_scheduler events but these events are not enabled.
-> >=20
-> > Changes since v7:
-> > * uint64_t -> u64
-> > * reworked dependencies tracing (Tvrtko)
-> > * use common name prefix for all events (Tvrtko)
-> > * dropped drm_sched_job::id (Tvrtko)
-> >=20
-> > Useful links:
-> > - userspace tool using the updated events:
-> > https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
-> > - v7:
-> > https://lists.freedesktop.org/archives/dri-devel/2025-January/488117.ht=
-ml
-> >=20
-> > Pierre-Eric Pelloux-Prayer (10):
-> > =C2=A0=C2=A0 drm/debugfs: output client_id in in drm_clients_info
-> > =C2=A0=C2=A0 drm/sched: store the drm client_id in drm_sched_fence
-> > =C2=A0=C2=A0 drm/sched: add device name to the drm_sched_process_job ev=
-ent
-> > =C2=A0=C2=A0 drm/sched: cleanup gpu_scheduler trace events
-> > =C2=A0=C2=A0 drm/sched: trace dependencies for gpu jobs
-> > =C2=A0=C2=A0 drm/sched: add the drm_client_id to the drm_sched_run/exec=
-_job
-> > events
-> > =C2=A0=C2=A0 drm/sched: cleanup event names
-> > =C2=A0=C2=A0 drm/doc: document some tracepoints as uAPI
-> > =C2=A0=C2=A0 drm: get rid of drm_sched_job::id
-> > =C2=A0=C2=A0 drm/amdgpu: update trace format to match gpu_scheduler_tra=
-ce
-> >=20
-> > =C2=A0 Documentation/gpu/drm-uapi.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 19 ++++
-> > =C2=A0 drivers/accel/amdxdna/aie2_ctx.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c=C2=A0=C2=A0=C2=A0 |=
-=C2=A0=C2=A0 2 +-
-> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 8 +-
-> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_job.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 32 ++----
-> > =C2=A0 drivers/gpu/drm/drm_debugfs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 =
-+-
-> > =C2=A0 drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c=C2=A0 |=C2=A0=C2=A0=
- 2 +-
-> > =C2=A0 drivers/gpu/drm/imagination/pvr_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> > =C2=A0 drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +-
-> > =C2=A0 drivers/gpu/drm/imagination/pvr_queue.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> > =C2=A0 drivers/gpu/drm/lima/lima_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> > =C2=A0 drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
-> > =C2=A0 drivers/gpu/drm/lima/lima_sched.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 drivers/gpu/drm/msm/msm_gem_submit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 8 +-
-> > =C2=A0 drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 drivers/gpu/drm/panfrost/panfrost_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> > =C2=A0 drivers/gpu/drm/panthor/panthor_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> > =C2=A0 drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +-
-> > =C2=A0 drivers/gpu/drm/panthor/panthor_sched.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 .../gpu/drm/scheduler/gpu_scheduler_trace.h=C2=A0=C2=A0 | 103
-> > +++++++++++++-----
-> > =C2=A0 drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 16 ++-
-> > =C2=A0 drivers/gpu/drm/scheduler/sched_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +-
-> > =C2=A0 drivers/gpu/drm/scheduler/sched_internal.h=C2=A0=C2=A0=C2=A0 |=
-=C2=A0=C2=A0 2 +-
-> > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 11 +-
-> > =C2=A0 drivers/gpu/drm/v3d/v3d_submit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> > =C2=A0 drivers/gpu/drm/xe/xe_sched_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 13 ++-
-> > =C2=A0 30 files changed, 186 insertions(+), 96 deletions(-)
-> >=20
+> > > +		} else if (entry->context !=3D fence->context) {
+> > > =C2=A0			continue;
+> > > -
+> > > -		if (dma_fence_is_later(fence, entry)) {
+> > > +		} else if (dma_fence_is_later(fence, entry)) {
+> > > =C2=A0			dma_fence_put(entry);
+> > > =C2=A0			xa_store(&job->dependencies, index,
+> > > fence,
+> > > GFP_KERNEL);
+> > > =C2=A0		} else {
+> > > diff --git a/include/drm/gpu_scheduler.h
+> > > b/include/drm/gpu_scheduler.h
+> > > index 1a7e377d4cbb..916e820b27ff 100644
+> > > --- a/include/drm/gpu_scheduler.h
+> > > +++ b/include/drm/gpu_scheduler.h
+> > > @@ -632,6 +632,8 @@ int drm_sched_job_init(struct drm_sched_job
+> > > *job,
+> > > =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 credits, void *owner=
+);
+> > > =C2=A0void drm_sched_job_arm(struct drm_sched_job *job);
+> > > =C2=A0void drm_sched_entity_push_job(struct drm_sched_job *sched_job)=
+;
+> > > +int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job
+> > > *job,
+> > > +					=C2=A0=C2=A0=C2=A0 unsigned int
+> > > num_deps);
+> > > =C2=A0int drm_sched_job_add_dependency(struct drm_sched_job *job,
+> > > =C2=A0				 struct dma_fence *fence);
+> > > =C2=A0int drm_sched_job_add_syncobj_dependency(struct drm_sched_job
+> > > *job,
+>=20
 
