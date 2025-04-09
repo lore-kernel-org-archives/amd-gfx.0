@@ -4,148 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79227C369A1
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 13:49:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68A43C369A1
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 13:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05A0210E8C6;
-	Wed,  9 Apr 2025 13:49:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D68D10E8D8;
+	Wed,  9 Apr 2025 13:55:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kYTrzorr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mBHVpzi1";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4643A10E8C6
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Apr 2025 13:49:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bvilJd4F40LMTVwh0kE/KEZ2ja3v0OBSrR45O5xUwD13+6NFdbBDyqALo1rwO+3kgBIV96/+xUjdpkPitc1YfmVrwNQ9bS2ZVBXjsQs8H7G6UILg1Uq8lICe392o9YWloBW2TdsgWtqmk3nvnvLBZ4KLAOH0jOTO6jg6NL00FPcTsMxKxbqG+IeqY4OYM0XxKpUwa/To/VtzNdTreuxHIHfhZpA0Ia1/bnuC+RXAWK/9ckxmIECNkvcGi95ZvvxEaoKocs1kSiLBSFKZI3CfMXTxEy8cFKpzfn06ZjlPbaLQDYILPJXsU7/r3ydmNzFEYoOax80gDPAhC2j5mgyxQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FQhjCqu3cP0xP6qDp5ZVhaEVxNsWG2p8pIn+q66xa9w=;
- b=toQoryjygA5RCchzkUyYajf+eHDRNQe/qiL5ca6RGwhUicjH+pc62dT+mbo7tjmQO6CH+qYaGPZwFpltX2vORrhpelTUHmWQmDFpfTLGNJ/LsKXaX49lkm5oc15/+9hJLNu/7rtsBBXTL7/Pya9n3vdJApKdg0uIcUf3pc9H0Z06/FqZPOQh4SgjnJUEBupKc++vX+D0an7G+2wMLeQUS8joptsF6S6Ks4NuAekd6a7LnCz/KZCjQIpP0XtIgXGJh2SRJaROzrlHhn0nh3omR1Weq4gIATeXopZxrANzFtERrpmuB9pUweQmxfLXyOgp2k7Ns/VMQOligAyD0RnlEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FQhjCqu3cP0xP6qDp5ZVhaEVxNsWG2p8pIn+q66xa9w=;
- b=kYTrzorrF2ZAHLWKwAhpm16RWp1bNxlCZRgrhOcR+7aMwr1No7SAjN0G70b0AyNxKbukqq3HDrFOa7fYqr8tkURAji36dGmAfB3Koi8p2GPFXhFTAAb9N8W7MquKW8Nh9aQUPPJbhtfslMhGxJe27EFlOWWKWaWUYaHmSsJEJdU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- BL3PR12MB6404.namprd12.prod.outlook.com (2603:10b6:208:3b4::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8632.23; Wed, 9 Apr 2025 13:49:30 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8606.029; Wed, 9 Apr 2025
- 13:49:30 +0000
-Message-ID: <a79917f2-0883-4855-9802-9c1f127c8f02@amd.com>
-Date: Wed, 9 Apr 2025 19:19:25 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Replace tmp_adev with hive in
- amdgpu_pci_slot_reset
-To: Ce Sun <cesun102@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: dan.carpenter@linaro.org
-References: <20250409133955.26169-1-cesun102@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20250409133955.26169-1-cesun102@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4P287CA0124.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b2::10) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3110010E8CA;
+ Wed,  9 Apr 2025 13:55:06 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-3913958ebf2so6056781f8f.3; 
+ Wed, 09 Apr 2025 06:55:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744206905; x=1744811705; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=kO32TsjGJaDwkdrneW/05FyiQbBo7obTRsjfSXKR83o=;
+ b=mBHVpzi1gs2ZElVS0jhYvlQph0hGXX8ZYURIgK2pE5QPSg0vRvj9885UXYEd21pJse
+ Dv2rp4ijRWVZxarpSuzPs6pho/dcIU16DpNagXEQLXLvvUzz2i5pxKlta3jWUxE9N7A4
+ u1OQW4shDFPLOPmHgpPZHu1BbQoN0hnq1y5wjY4/IUYhwCuzj0CgK/EiOsqkyn4XG/57
+ cHAmIiRfgWzTlbm4B/fVAzUCarfrf8QRJpEjqkHkeYb58XVcUmZUHEPR8gBsE4opAH+R
+ M2keHbTkjxkFut0aBjN19ePo/WmGTY3eJAFQ0XovGZ0endTIkBZL3/7UW/updzSE9Tsh
+ bqHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744206905; x=1744811705;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kO32TsjGJaDwkdrneW/05FyiQbBo7obTRsjfSXKR83o=;
+ b=G2pM4RTRK7gOI2L3kqbPSbQF3HvHvFK2NayggBT3YL50le34JtyWQBZF/Yyiki9PzW
+ frRGBRTboKkH5x/jJ0mEV1vzny+2OyrzxCjP+0MgtytEngRbf7Mrb0YJ9NLe7ztd/4Ub
+ rxwuOv/31CvB3YBRBStoqGrDY9oXDol7tMC6+dwVqBM9uW727fKgm5hTgP4rOrw29XiI
+ pRz42UoxcA/E5HVRwTppNip7gWgxvtPIGaI5iqWWd24W6cxizJr5erC883QoLLJ8APnZ
+ 6FAwUiM4EjXSVnzjD3xKvy/CNOCIyD+9afWppd1MBdwm28NUf6FRxaV4uSsF0EYXECGH
+ A1pg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUfihrVx9Ajx8UcZAX0laiwkdg9aZ/S3bytBTFtS250rfcPHqY2yvID8x6J6pCPIYPnrTlsXmOL@lists.freedesktop.org,
+ AJvYcCXCh8xvtnf1SNc4Tvkaux2F3U89oBfxdCNEHxdf14d7RmXgJUxtw6wU5Uls3jvnLJCeXRrFjR43b/yf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQFXa1pJewU/8ZqKYTfukISRhBwmzYc15tp3Mz2J6k/u453A2V
+ fsRgWLyYRaI/KQ0p9CTWz2n7hxpuA6yW9zRrp/BgziXbW0Ld6RFv
+X-Gm-Gg: ASbGncunX81la0eO+4wO/Ek44AZRx46KKND1C5wfmf1qcj1OgXPJ1KJLA0fPfyW3j+7
+ bDK0gGV6HneW46p9GmpYgLQxOTiC7WU3GsLRgtFGyPLYMkS3ky9mgq5952BudMbberQZSfcYKLp
+ W5n7qMiXL+slWw7keSvy+g/n7vZkyPhiHVQyFMsnU4Wv4kBBONyGCV+CydTU8Rdu3kSf9vfHuXo
+ cySOw8exUVxE32rK7J8h3JifuH43OJzk0+aPDd0pxrW8jPOYp6IHLV85P/6fSWrapHYa8p1RWbB
+ FD5asksg2OO62UC4P89o7gULyYHg8QqsIWCZGRGDaSXJOoI1F0NULnE5snHQmbL5jEVF2tlrJYZ
+ qBwEC
+X-Google-Smtp-Source: AGHT+IETub3WH2124sgzIzSNbJGv/sM4qtu5ztzqI+7EzvjsIht1Rs/N7WUGb+5zRhJPZHJoiedvbw==
+X-Received: by 2002:a05:6000:1867:b0:38f:28dc:ec23 with SMTP id
+ ffacd0b85a97d-39d87aa8294mr2390763f8f.19.1744206904475; 
+ Wed, 09 Apr 2025 06:55:04 -0700 (PDT)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43f204c500bsm21820855e9.0.2025.04.09.06.55.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Apr 2025 06:55:03 -0700 (PDT)
+Message-ID: <c2ed3d7e-d5c3-4d74-8365-fdb3f46f6a3a@gmail.com>
+Date: Wed, 9 Apr 2025 15:55:02 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|BL3PR12MB6404:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e76ecac-56f8-449a-750a-08dd776d59bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Qm9KSENjNGRrZ2doa2VZVmdxZzlpaFNHS2tOaGNKMnBEd3lTaG9iRVBocEtn?=
- =?utf-8?B?RW5JR1VkajdCN3VCaXY4bW4xZDZkYUtyVDU2WVFnS2tpQU0wbzE0RUhOSFNs?=
- =?utf-8?B?d01wNmVJaHZLbjNLSUJSWWdEanBndzBZMEtZUlF5b1h0Rm53bXEzdGVWMmRW?=
- =?utf-8?B?bUQycHV6eE5wZHd1NDBpUUNaV1BSMlFEZzdCdVl5TFlXMVIzcUZENnVsM2hR?=
- =?utf-8?B?R05NMkJBM2dvQlFUODk4NFM0dTJYam1JSWgxSWw3ZkFFV2trTENMelptRFVX?=
- =?utf-8?B?ZmFlQm1XeWU3NVltREVMcGE4dXFNR1ptRGR1Y25xZXNGWmI0TUJJUzJRZVpW?=
- =?utf-8?B?am1xMnUzYWMxV3R5VWdPQU03d2U4S21waTR4dTFJZnRxajVzOGdWWXptdkR2?=
- =?utf-8?B?ak83V2VUWWxHK2VvT0xqVHpuZ3k0VFBzQUhmRUthdVVDb3BYeEJPZVM4Nk00?=
- =?utf-8?B?TTNiYkdPU3hRYkNGc0hBYXk5T0V5M2RwZ3dIWGdVNm50ZmhNNjcxRVBFVmxu?=
- =?utf-8?B?NzNaT0cvZjg4VTV2WmlYeStJbjVvYkdyb1VvcVdJaDBwUlhxZFVabFJFYzNP?=
- =?utf-8?B?K0RRU3p6L01QQ21EaFhBTmF6Z29iNEZaTEJkNkwrM3FuYnF0N3NrS2VCSWhH?=
- =?utf-8?B?eWdGWjZxTjV2bzg2NWxJTGkrRFpPSWhyWDhNVFhuZ3hUWUtxRDByWGRZMk12?=
- =?utf-8?B?REVCY1l2Yi9hT29jOUtmekJ6VGtEUC96MmxLcm1BMElEV3JnbUtzbnZ4dENp?=
- =?utf-8?B?TlFVYnBKQ1Y5aTNrNldyNWNKczgya0svVzhEK2pTYkU3dFBpWDlQUFBMYlVX?=
- =?utf-8?B?Yi9VeTNaZUhJbFNTZlZCMGloRVFSc1RGYzR4UUpPdCsvR1FGa1I5bXAwbURm?=
- =?utf-8?B?WnJaU2c2eFc3U3lrdHI4b1BQK0JoYUsyNUVPNlZwdnY4S1hSNWhkV2o0OWVV?=
- =?utf-8?B?eE1uaUFET1B4eE5BU2VxY1JOcWlpSWtnb0NOUVQ3bTEyS2FLd3FFUXhUTXU2?=
- =?utf-8?B?NFlCOEU1WDBnam1YWmJ6bHQ3VjNxalBzUGluMEpDQmRqQVlBdTZQVjZwN05M?=
- =?utf-8?B?Qml0Nm9qYm9GZjNRSy9NUkVsbEtoZUp3Uy9xMXRwanE3VDA3b213RkFkOVJ3?=
- =?utf-8?B?WWJMRnVTekdUL0U4THZQYkp4bjllVGdrOWhGMHM4S1VsNDFJTThZNVZtMXkr?=
- =?utf-8?B?R3RVSFcrUUtGMHl1eUJrMExLUUhndVFNajh5eENtMVhTUEpwSzV5MFBCeHBO?=
- =?utf-8?B?bGllbDFVbFdhOW9tNnJUbjVOK1ptNnMvNVloQytNNzhJVFlKTllyNjduSDZr?=
- =?utf-8?B?alc1ZkYyTkZYWXFtSlZiNlEyY3J5S2tDS0ZpTS9NSUJFWDkzZTFqcERQWFBi?=
- =?utf-8?B?M0hubDErR3dGbUFsVW0yQVJSTFRDejdvWHhhbWJDREREQzVidUZwVXhMWm5v?=
- =?utf-8?B?WHhPV3ZVSGdGNWY0eGJVSStXVEdDL3JSMUllVEVRVFNVWjZZZm84ekE2L2pM?=
- =?utf-8?B?QkRDNXcxbldraXRKNG5IK0JTWXVPSzhXUVU2angrWDJxWVNtZ0Rxd3JUK2t5?=
- =?utf-8?B?U1FlQWdZTVBzYjBzQzJXOUEwaE1JM0k1L1RpSHloWDQ4QnRLRmNSaGVJMDhz?=
- =?utf-8?B?NnJad3ZKUlRHc0hPaXpJcG44dTJZVUNyRmxhUjBGbGxES0VCdjl2NWZ5Ullq?=
- =?utf-8?B?OXNsYm5TUFpDOU04bmhyNFZaOG5XOTFFY1JGZjZmRTFSTjNoVUR5VG5aV2FB?=
- =?utf-8?B?QU16U0tnM3pPNG94QW1uM241d1ErVUw0WnNGcktLd0pGektOcWhIays3TDU5?=
- =?utf-8?B?TE94dTRZTGtVajdyRncrOTY3bUFjdThXMWJnVGRldWtuZWFDV2M2L096TTNR?=
- =?utf-8?Q?gCLhl9LQ9wi3X?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnZES3d5VWVST0p6a2JzNEJMWUs3MVZ1d0x4cnJXd1RUWUthNkRwMm5ack9j?=
- =?utf-8?B?Q0tKZzVIZlRGN0EyUnloVmF6c0wzWVRtZjZaTlJJQnRCRTFUVzFHWlVFeXYr?=
- =?utf-8?B?ZTF6SDJNNnZBYnp4N1NuQW5jcjBkeW4wZkU5VGR4b1MyMjl6alRQZlgvT1M2?=
- =?utf-8?B?WUh6Z1BWbXVRZC9rdk1tSmRuODZVeHpOSHo0Sk1aSng0eFFnM3FqWk1EMnFW?=
- =?utf-8?B?dyt2VE1XYkJIYXhsRnY1UEdqVU5rTE5hZWlTemQzVjVBMFZqaVdCYjJqeEJD?=
- =?utf-8?B?b1RqbzNHN0ptZEhXT2ZVMTZlR0VFWkt6aEFLMC9LMmVmNWxpMWlUeVdld1ho?=
- =?utf-8?B?YnU2WnRCVGVFeEpueG43VHBkaFFsRVVnRGVROTc3NHpYRFJocGJJSDhZQlN5?=
- =?utf-8?B?cW5McEVxU3JUOVJNdTdWVXVubE12Z0R6bkdXa1J1SjA1Vmc0K0RpMjdENG9o?=
- =?utf-8?B?bDF4VTRpR1dGQVRmQWRadjMwV0hDRGlnVXZBSGlVSE5wWGhCT3Z0bGtuZTR6?=
- =?utf-8?B?OE5XZ2p3SnFwK3h4d0tvNDhoTUdNT1diYTZCOUdzS1JLRmFVb2x6M1l2Tmdj?=
- =?utf-8?B?bFdPK3ZrOEw1aFpKdnh5UEdYQ1JvUVJta1ROV2VkVGZmSm9OK0hwaXlYVDE3?=
- =?utf-8?B?d01pNmIzSFQxSXlwTWFpUjErMjU3aUNsSkhoeWllRXhoQWptRnhSOEgzdlhL?=
- =?utf-8?B?VGhaTUZxYkRTMCtMc3lhVE0rbExjcUp4NEkyWEIxZmNPazJ6Ny93eUIvZWRM?=
- =?utf-8?B?ZVBjc3BEclRVTDBZVS83RUtvNkNDTFpnKzgreC9nSkk5V1dPcit5ckpPdDBp?=
- =?utf-8?B?ZE9wMEhwdW53aGhnWXExZ3J1cEdoYW9rbld5MjFSc3ZWNXUvVUxXVkpTZXBT?=
- =?utf-8?B?c0VGYmo2N1RESWNvSWliY3pwRTRIRUFUUndNeENkeU5CVU02clV1RHY5bUlL?=
- =?utf-8?B?OE9kUWJDalJIMUNIVWdRd1dTeExhdE83Vk5RZmhJNVc5eDUrWUViRXZQcWRY?=
- =?utf-8?B?NXZnbHozYnRNSVdUaVhibHdDOFdGeXhCbUFlaEd3b2RNUEw3bnYreGRSK3lG?=
- =?utf-8?B?VncxeFhwRUVDSzF2UmVvTnJiVXJNeE1nekJWczN5TWxlTUJuZm9GVXQ1dm5T?=
- =?utf-8?B?V1ZoeFhuSkVsZzBCMGVUNUtXTjNVZEdhdERvQlJTN203S05MVU9laXQvMTZ0?=
- =?utf-8?B?T2lBT1VhQ1pKNEJxTWcxQ0Jzc2pKaHhZR0ZQL0N2U2ZtS01OTi9vR2N4ajNt?=
- =?utf-8?B?Ky9qenJHTHlHN0tZVDFhYVZKNFc3RmtSSS91YmxVTkdvWmxEOXdsd1VyL2JI?=
- =?utf-8?B?QjdQRDJMWUcyV2luQWFjRm13ZTNkSjB1T25hUElEMzBFVXBuNUttWklJRk5o?=
- =?utf-8?B?UFlST2I3QUdPQVJFQzROZjBZdFJNQzR3T2drNkxnK1JOT2NSclVwSk9GNUJz?=
- =?utf-8?B?Yk9MU09sbmZUemNOOHRMaXloQ1RaWlJrVHNTcVNZVVh6dys2bDlnVWQ4V2No?=
- =?utf-8?B?ZU1CYTlxNkdla0dvZW9ndks3Y05sL3ZZS2dvd3NIdjMwTlVkZjBYOWxHTTlW?=
- =?utf-8?B?VVozdHNNbnhMU0x6R0tpVlVwUlQxczlsQ3M2ZUpDV09NcHZlVE4rcUZmWU9T?=
- =?utf-8?B?dHhod3JSdHhYekdkdjdCdlJsN2w3dE1GbVU1WHN6L3crSllMQ0xjQlpQT052?=
- =?utf-8?B?Y3pFYXREcWM5TXQ3N251OHRYR1B0WUwrRVpzak1JSEFkSnhESHNOS0VRQ2pr?=
- =?utf-8?B?U1hBU1o2OHBUY3RVdFZIN0FZUXdvcnNmY2ZGTHRmdHdhWEwzZHZRZUtDZHJB?=
- =?utf-8?B?S21rOENjaWFrSjd1L04rM090Q0dzOUlJdWc0Rm5GbEpYbkgyRFBRaGh1L2py?=
- =?utf-8?B?S25DVis5L2RPRG5INEtieUJIaFI0SU8zdHF2OTRzVXJuMTljaTZ4WjJVMk45?=
- =?utf-8?B?eS8rSzJQVG56VTZXbUJobmdKb3BxZzVNS2pnd0k0MmJ4ckxueXhpZDY0cmpP?=
- =?utf-8?B?UWwxOTZ2Y3NOaWdXcHlRbWROaXpZc2R4ZUQzcFhkZDBhWmRSVmN4NEQ1dTFF?=
- =?utf-8?B?VWc3d3ljSm9VbGNoc01tVEpqck10SnBCQUdoWHVEeExQcVhrTW8wU2NCeEJD?=
- =?utf-8?Q?F5x4kFlDPIzrQbPRTlMOMQa5Z?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e76ecac-56f8-449a-750a-08dd776d59bd
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 13:49:30.1846 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D2pmHvGNr9FBRd1DPfNjBZkHNmObzSormfBCFxnxL8Fhba7pxw+MnG1TXTwVUG2g
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6404
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/sched: add drm_sched_prealloc_dependency_slots v2
+To: phasta@kernel.org, tvrtko.ursulin@igalia.com, dakr@kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20250321155852.15162-1-christian.koenig@amd.com>
+ <867c3abac8a222fa42921a6725e85fe459bc9d5e.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <867c3abac8a222fa42921a6725e85fe459bc9d5e.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,51 +91,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 09.04.25 um 12:28 schrieb Philipp Stanner:
+> On Fri, 2025-03-21 at 16:58 +0100, Christian König wrote:
+>> Sometimes drivers need to be able to submit multiple jobs which
+>> depend on
+>> each other to different schedulers at the same time, but using
+>> drm_sched_job_add_dependency() can't fail any more after the first
+>> job is
+>> initialized.
+>>
+>> This function preallocate memory for dependency slots so that no
+>> ENOMEM
+>> can come later while adding dependencies.
+>>
+>> v2: rework implementation an documentation
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>  drivers/gpu/drm/scheduler/sched_main.c | 44
+>> ++++++++++++++++++++++++--
+>>  include/drm/gpu_scheduler.h            |  2 ++
+>>  2 files changed, 43 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+>> b/drivers/gpu/drm/scheduler/sched_main.c
+>> index 4d4219fbe49d..ee3701f346b2 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -852,6 +852,39 @@ void drm_sched_job_arm(struct drm_sched_job
+>> *job)
+>>  }
+>>  EXPORT_SYMBOL(drm_sched_job_arm);
+>>  
+>> +/**
+>> + * drm_sched_job_prealloc_dependency_slots - avoid ENOMEM on adding
+>> dependencies
+>> + * @job: scheduler job where dependencies will be added
+>> + * @num_deps: number of dependencies to preallocate slots for
+>> +  *
+>> + * Sometimes drivers need to be able to submit multiple jobs which
+>> depend on
+>> + * each other to different schedulers at the same time, but using
+>> + * drm_sched_job_add_dependency() can't fail any more after the
+>> first job is
+>> + * initialized.
+>> + *
+>> + * This function preallocate memory for dependency slots so that no
+>> ENOMEM can
+>> + * come later while adding dependencies.
+>> + *
+>> + * Return:
+>> + * 0 on success, or an error on failing to expand the array.
+>> + */
+>> +int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job
+>> *job,
+>> +					    unsigned int num_deps)
+>> +{
+>> +	u32 id = 0;
+>> +	int ret;
+>> +
+>> +	while (num_deps--) {
+>> +		ret = xa_alloc(&job->dependencies, &id,
+>> XA_ZERO_ENTRY,
+>> +			       xa_limit_32b, GFP_KERNEL);
+> I've had some time to re-read the xarray documentation and I think that
+> this is what xa_reserve() was born for. The Book of Documentation/core-
+> api/xarray.rst sayeth:
+>
+> "Sometimes you need to ensure that a subsequent call to xa_store()
+> will not need to allocate memory.  The xa_reserve() function
+> will store a reserved entry at the indicated index.  Users of the
+> normal API will see this entry as containing ``NULL``."
+>
+> That's far better, this way we don't have to use that more or less
+> xarray-internal flag.
 
+Yeah I have seen that as well. The reason why I didn't followed this route was that I wasn't sure if I then need to check for NULL entries while iterating over the XA.
 
-On 4/9/2025 7:09 PM, Ce Sun wrote:
-> Checking hive is more readable.
-> 
-> The following smatch warning:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6820 amdgpu_pci_slot_reset()
-> warn: iterator used outside loop: 'tmp_adev'
-> 
-> Fixes: 8ba904f54148 ("drm/amdgpu: Multi-GPU DPC recovery support")
-> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Signed-off-by: Ce Sun <cesun102@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 60269fba5745..6fb234832ff3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6784,8 +6784,8 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
->  	struct drm_device *dev = pci_get_drvdata(pdev);
->  	struct amdgpu_device *adev = drm_to_adev(dev);
->  	struct amdgpu_reset_context reset_context;
-> -	struct amdgpu_device *tmp_adev = NULL;
-> -	struct amdgpu_hive_info *hive = NULL;
-> +	struct amdgpu_device *tmp_adev;
-> +	struct amdgpu_hive_info *hive;
->  	struct list_head device_list;
->  	int r = 0, i;
->  	u32 memsize;
-> @@ -6846,7 +6846,7 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
->  		dev_info(adev->dev, "PCIe error recovery succeeded\n");
->  	} else {
->  		dev_err(adev->dev, "PCIe error recovery failed, err:%d\n", r);
-> -		if (tmp_adev) {
-> +		if (hive) {
+Additional to that I couldn't figure out of hand how to determine a the next free index slot.
 
-This doesn't look correct. I think the original logic is to have a
-single device list or multi-device list when there is a hive. Now this
-skips the step for single device case.
+Have you found any example how to use that? I mean the documentation could certainly be improved a bit.
 
-Thanks,
-Lijo
->  			list_for_each_entry(tmp_adev, &device_list, reset_list)
->  				amdgpu_device_unset_mp1_state(tmp_adev);
->  			amdgpu_device_unlock_reset_domain(adev->reset_domain);
+Regards,
+Christian.
+
+>
+>
+>> +		if (ret != 0)
+>> +			return ret;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slots);
+>> +
+>>  /**
+>>   * drm_sched_job_add_dependency - adds the fence as a job dependency
+>>   * @job: scheduler job to add the dependencies to
+>> @@ -878,10 +911,15 @@ int drm_sched_job_add_dependency(struct
+>> drm_sched_job *job,
+>>  	 * engines involved, rather than the number of BOs.
+>>  	 */
+>>  	xa_for_each(&job->dependencies, index, entry) {
+>> -		if (entry->context != fence->context)
+>> +		if (xa_is_zero(entry)) {
+>> +			/*
+>> +			 * Reserved entries must not alloc memory,
+>> but let's
+>> +			 * use GFP_ATOMIC just to be on the
+>> defensive side.
+>> +			*/
+>> +			xa_store(&job->dependencies, index, fence,
+>> GFP_ATOMIC);
+> And regarding this – it can actually never happen, but you provide
+> ATOMIC just to be sure?
+>
+> I think it would be better if we'd just run into an obvious bug here
+> instead, so like a deadlock with GFP_KERNEL.
+>
+> That's how we do it with pointers that cannot be NULL, too. If the
+> impossible were to happen and it were NULL, we'd crash.
+>
+> P.
+>
+>> +		} else if (entry->context != fence->context) {
+>>  			continue;
+>> -
+>> -		if (dma_fence_is_later(fence, entry)) {
+>> +		} else if (dma_fence_is_later(fence, entry)) {
+>>  			dma_fence_put(entry);
+>>  			xa_store(&job->dependencies, index, fence,
+>> GFP_KERNEL);
+>>  		} else {
+>> diff --git a/include/drm/gpu_scheduler.h
+>> b/include/drm/gpu_scheduler.h
+>> index 1a7e377d4cbb..916e820b27ff 100644
+>> --- a/include/drm/gpu_scheduler.h
+>> +++ b/include/drm/gpu_scheduler.h
+>> @@ -632,6 +632,8 @@ int drm_sched_job_init(struct drm_sched_job *job,
+>>  		       u32 credits, void *owner);
+>>  void drm_sched_job_arm(struct drm_sched_job *job);
+>>  void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+>> +int drm_sched_job_prealloc_dependency_slots(struct drm_sched_job
+>> *job,
+>> +					    unsigned int num_deps);
+>>  int drm_sched_job_add_dependency(struct drm_sched_job *job,
+>>  				 struct dma_fence *fence);
+>>  int drm_sched_job_add_syncobj_dependency(struct drm_sched_job *job,
 
