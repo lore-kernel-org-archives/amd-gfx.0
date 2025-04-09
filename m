@@ -4,54 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E81BC3601E
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83A4EC369A6
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E96510E9AE;
-	Thu, 10 Apr 2025 13:09:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 509CF10E9B4;
+	Thu, 10 Apr 2025 13:09:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=crpt.ru header.i=@crpt.ru header.b="QxOAjVvY";
+	dkim=pass (4096-bit key; secure) header.d=ijzerbout.nl header.i=@ijzerbout.nl header.b="YlmtSUyk";
 	dkim-atps=neutral
-X-Greylist: delayed 914 seconds by postgrey-1.36 at gabe;
- Thu, 10 Apr 2025 03:16:49 UTC
-Received: from mail.crpt.ru (mail.crpt.ru [91.236.205.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D608010E07C;
- Thu, 10 Apr 2025 03:16:49 +0000 (UTC)
-Received: from ssp-soft.crpt.local ([10.200.60.21])
- (user=ssp.nesin@crpt.ru mech=LOGIN bits=0)
- by mail.crpt.ru  with ESMTP id 53A30vLN031928-53A30vLQ031928
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Thu, 10 Apr 2025 06:01:07 +0300
-From: Rostislav Nesin <ssp.nesin@crpt.ru>
-To: Austin Zheng <austin.zheng@amd.com>
-Cc: Rostislav Nesin <ssp.nesin@crpt.ru>, Jun Lei <jun.lei@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-Subject: [PATCH] drm/amd/display: drop unimplemented mode_422 code
-Date: Thu, 10 Apr 2025 09:56:15 +0700
-Message-Id: <20250410025615.466691-1-ssp.nesin@crpt.ru>
-X-Mailer: git-send-email 2.34.1
+Received: from bout3.ijzerbout.nl (bout3.ijzerbout.nl [136.144.140.114])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9BCA710E20D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Apr 2025 18:28:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ijzerbout.nl; s=key;
+ t=1744223279; bh=yjh43TtDm+paZlNIRlrqPwPQ02q0Bjp2xXCqZ3x0O0c=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=YlmtSUykxFWQOWVLo+nuJDSq9I10JBfzx/66JhXKSVrahZo3YJ6OrGtlr9ANrHZj2
+ V6XiMqpK5OtKbhC9wJdVENM3IBjJ66WuPAP9VObAoATnjkuDNDJz4p45IsRtoD8KMz
+ tShzVjfUHsGSeiN3XfKjI1xAFznPtdmevsMFKTnsxebUPkfu1JweZZDOdU8xEjU4Yi
+ 8DG8G7XynnQFT8ZdBW1c8E/DdiJmtu3vsy5gXtsAeSJUlfYELB3eJE6fXpJV3Ypmjn
+ t43MuhuOhLr8gEyXgjLs1OUb9idkDTmKBM5JxNeJqp5Ekw5rCqvcr13L1grwRvDLXL
+ F7OiH+2W5w1zuhq4YoL4LoYvuFpPg0VXZLdlg1bn9au7WqqcpmUlmzoarSv7ACMc/l
+ HDwo9v86T+VRmsczy+3/ce+MLITfcvq7ZinrzpvgqusM99Hs251S1IyT6RmsO1YtQm
+ ybww8NKSL6xDVxDqKEpVZ5GZDehNJYj2uHsiBNfB8ejnoRbI7nZAICrUIdivrqLQbF
+ evOy9P93l28c/7HPtSJFzkn9x4KHSr0gGvjZzUoRUkvYyr5PMPbY1kiSt/ItmkOhCV
+ VPLKBd34n1pTFkHGCwPPsP7RgP5RRPFgKB4o+9UCEM0UAsa3jjocytrCV1KQs98aB7
+ 2B+/mq2B1o77rBAHWz5a3fjs=
+Received: from [IPV6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a] (racer.ijzerbout.nl
+ [IPv6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a])
+ by bout3.ijzerbout.nl (Postfix) with ESMTPSA id 7B4B8162A2C;
+ Wed,  9 Apr 2025 20:27:58 +0200 (CEST)
+Message-ID: <bf7bfe6f-69d7-4166-b3c4-010f7b9f3113@ijzerbout.nl>
+Date: Wed, 9 Apr 2025 20:27:56 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-FEAS-Auth-User: ssp.nesin@crpt.ru
-X-FEAS-Client-IP: 10.200.60.21
-X-FE-Envelope-From: ssp.nesin@crpt.ru
-X-FE-Policy-ID: 0:9:0:SYSTEM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=crpt.ru; s=crpt.ru;
- c=relaxed/relaxed; 
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=aJnlOc2MZbnzRaxt4YVojmTOsBIq3iMeqYiPZsFM6rI=;
- b=QxOAjVvYXCP4EwwFJEwlXGacWmrAlGiE17vYCMlETksgsSWS5sada96M6CplShrTRBahw0nX3Wv1
- Y++Q3+nkofowN2tk4+KcmLIhNBDDpqgcPNStv0v45Ey7yyM4CW7AeGLB0v6ahDdKmGn1XiRMzCEN
- aFtFUIVUp3DuHwIVUl0gpIPQMT39EDmEPFdQhXGnBAd9Q1yKNsD3jMqDBQVmH+q8mzqAGzjcGexj
- dpy2jUdX+pLcVGJj1xkV3H2YOXBCwlys33DBDTkzctHJi9Uj4Eu+TmstZ6s0vzXp23as7PuCha6W
- bitrHTnrgpIz8J3lU/pU+BbgiHQEYUJ9+xrsaA==
-X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:15 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND RFC v4 3/6] drm/display: dp: use new DCPD access
+ helpers
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
+ <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Jani Nikula <jani.nikula@intel.com>
+References: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
+ <20250324-drm-rework-dpcd-access-v4-3-e80ff89593df@oss.qualcomm.com>
+Content-Language: en-US
+From: Kees Bakker <kees@ijzerbout.nl>
+In-Reply-To: <20250324-drm-rework-dpcd-access-v4-3-e80ff89593df@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,65 +84,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The variable mode_422 is initialized to zero, making if (mode_422)
-always false.
-
-Removing this unimplemented code and the redundant check simplifies
-the code without affecting functionality.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Signed-off-by: Rostislav Nesin <ssp.nesin@crpt.ru>
----
- .../amd/display/dc/dml/dml1_display_rq_dlg_calc.c  | 14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
-index 88dc2b97e7bf..0cfd931a3e6f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
-@@ -1027,7 +1027,6 @@ void dml1_rq_dlg_get_dlg_params(
- 	unsigned int dlg_vblank_start;
- 	bool dcc_en;
- 	bool dual_plane;
--	bool mode_422;
- 	unsigned int access_dir;
- 	unsigned int bytes_per_element_l;
- 	unsigned int bytes_per_element_c;
-@@ -1199,7 +1198,6 @@ void dml1_rq_dlg_get_dlg_params(
- 	dcc_en = e2e_pipe_param->pipe.src.dcc;
- 	dual_plane = is_dual_plane(
- 			(enum source_format_class) e2e_pipe_param->pipe.src.source_format);
--	mode_422 = 0; /* TODO */
- 	access_dir = (e2e_pipe_param->pipe.src.source_scan == dm_vert); /* vp access direction: horizontal or vertical accessed */
- 	bytes_per_element_l = get_bytes_per_element(
- 			(enum source_format_class) e2e_pipe_param->pipe.src.source_format,
-@@ -1548,8 +1546,8 @@ void dml1_rq_dlg_get_dlg_params(
- 	req_per_swath_ub_l = rq_dlg_param->rq_l.req_per_swath_ub;
- 	req_per_swath_ub_c = rq_dlg_param->rq_c.req_per_swath_ub;
- 	meta_row_height_l = rq_dlg_param->rq_l.meta_row_height;
--	swath_width_pixels_ub_l = 0;
--	swath_width_pixels_ub_c = 0;
-+	swath_width_pixels_ub_l = swath_width_ub_l;
-+	swath_width_pixels_ub_c = swath_width_ub_c;
- 	scaler_rec_in_width_l = 0;
- 	scaler_rec_in_width_c = 0;
- 	dpte_row_height_l = rq_dlg_param->rq_l.dpte_row_height;
-@@ -1587,14 +1585,6 @@ void dml1_rq_dlg_get_dlg_params(
- 	if (disp_dlg_regs->refcyc_per_meta_chunk_nom_l >= (unsigned int) dml_pow(2, 23))
- 		disp_dlg_regs->refcyc_per_meta_chunk_nom_l = dml_pow(2, 23) - 1;
- 
--	if (mode_422) {
--		swath_width_pixels_ub_l = swath_width_ub_l * 2; /* *2 for 2 pixel per element */
--		swath_width_pixels_ub_c = swath_width_ub_c * 2;
--	} else {
--		swath_width_pixels_ub_l = swath_width_ub_l * 1;
--		swath_width_pixels_ub_c = swath_width_ub_c * 1;
--	}
--
- 	if (htaps_l <= 1)
- 		min_hratio_fact_l = 2.0;
- 	else if (htaps_l <= 6) {
+Op 24-03-2025 om 12:51 schreef Dmitry Baryshkov:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> Switch drm_dp_helper.c to use new set of DPCD read / write helpers.
+>
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/display/drm_dp_helper.c | 296 +++++++++++++-------------------
+>   1 file changed, 116 insertions(+), 180 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index 410be0be233ad94702af423262a7d98e21afbfeb..e2439c8a7fefe116b04aaa689b557e2387b05540 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> [...]
+> @@ -3542,7 +3509,7 @@ int drm_dp_pcon_frl_configure_2(struct drm_dp_aux *aux, int max_frl_mask,
+>   	else
+>   		buf &= ~DP_PCON_FRL_LINK_TRAIN_EXTENDED;
+>   
+> -	ret = drm_dp_dpcd_writeb(aux, DP_PCON_HDMI_LINK_CONFIG_2, buf);
+> +	return drm_dp_dpcd_write_byte(aux, DP_PCON_HDMI_LINK_CONFIG_2, buf);
+>   	if (ret < 0)
+>   		return ret;
+>   
+Don't forget to delete the remainder of the function.
+Also the variable `ret` isn't used anymore.
 -- 
-2.34.1
-
+Kees
