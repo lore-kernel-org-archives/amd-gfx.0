@@ -4,70 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB4F4C36010
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 20:50:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F9AC36002
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 05:20:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1FF310E756;
-	Tue,  8 Apr 2025 20:50:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1CC610E7D4;
+	Wed,  9 Apr 2025 05:20:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gD8Xdr7B";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Tz0oNzNh";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 450A010E756
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Apr 2025 20:50:41 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2ff73032ac0so843388a91.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Apr 2025 13:50:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744145441; x=1744750241; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uUCnJmrjuunZkChhlgfDbZvajHsqtAE7K9EsEzMEvG4=;
- b=gD8Xdr7BgRsSo7ZZeW21A2uq0sYLJiEm0umIExZXElHP9JInBhC8Z9eknG6GXWvfZu
- FIUPsJcReFzo4H06fBlwEHzm5cqUqcv2QnGVvi48y/ze4j8efAQDGT2FzMgbHNZTOIyP
- WiyrWNhLTRyg1qEFODadQXdSJ2FcZ9fMkFAldWsJzBA9kfEsj8cGa8A6O88ZOgB0FYCk
- dfm26yRXzIAxLkvtePRIMTG1TR89dr/3bWsD9caN5yYwizEE0gTGZyDHeKEghWbBqQ5q
- QuOZn/xJtwPrjEtJiylwVbZ1z1NMXitZOIGhX7qsqKS739yul3INQYs/UtQcZmj11DW6
- M+zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744145441; x=1744750241;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uUCnJmrjuunZkChhlgfDbZvajHsqtAE7K9EsEzMEvG4=;
- b=cAg+Ujx9wO7LnOrwXwNX29Pxh/sKZx8aqF+O+Lo2t/gLMqVn1FtW+gTFy2NL8dtl6g
- hYnxnWaprt7RGL2wXgKp2z7n4w3v8ketvGJiVcs8uGhYlS9/zbNbAfHYuKvlVlsHXEf6
- QEz5UhmU7rIUY1nDP3NSjKncUIDPX1FMzMFp8FBh2Fr35HzJZKtlqJ16/VD7SLYA8nlt
- djDmYONGvffr5oIDRYcsuzytbWpTBU6VSWXoiBjBuwac2jK/bxqYfneWpdWuBLOWrlnq
- 2A8EU1z87Hd3aiKvp04LCFqG/dLxGX3sGIvE8VUwXeFt2A+7hKjGntW6kaMNfgQpFGMl
- RLkg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2oq3jcw2l9S7Cl1pFYj5zbEVMIpvB/J+Qw4vZ6gQ2D8PXYzI+esR3u8s1UV7RqwCDM5Y/SNWl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwyHTiIg+CJ6A3MqCrNFgXMmDagL2FgXKTiTCsnTa8umGO7V4QU
- Pn0rNmLmYqVeOMudXwoh8ibCz8qKBCdZrY8lMimOneWtj8rddOEe1eeX6WMcBkFfnYWwGX0ioZL
- SMoFLQVT6clgyZXLeRHyPxKz9m3o=
-X-Gm-Gg: ASbGncuUBUy7Sd+GnJhmad276vKz8cP+ZHn5d4RA5Sl1izBsCPybFRvFCMUxb+ZupUy
- hr2W5fxfKKM4GFbirtb5kHd6cSaA+Mi7p+sS10bgFqGw+5rdGdcQ8Rc1j8ccK68KVxCT2d5L/yZ
- YNSeErhx3GdTjTDNeXYs8qBcxOwQ==
-X-Google-Smtp-Source: AGHT+IH55/qT6/x/KoaJCz8i9hwbfRBliMvCfkd7+fWOXu9eUNRugRPUbDDwNCF/yGrQFcC839bJ0AqN68TdIpVJ83M=
-X-Received: by 2002:a17:90b:1b42:b0:305:5f20:b28c with SMTP id
- 98e67ed59e1d1-306dbc30564mr312271a91.5.1744145441009; Tue, 08 Apr 2025
- 13:50:41 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1748010E111;
+ Wed,  9 Apr 2025 05:20:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1744176055; x=1775712055;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=qEER/RgVCOioJPbMmsKJ72fps24z+FpHP98LKMZRgy8=;
+ b=Tz0oNzNhrbSsbpX9baFOciG05kkYmROvnzZGZygIOLrOBV6Xk5AnNnGp
+ BOfixlSSgSs77rAjanB3uHe6VTgZiME4uD/Nfkxla63RA/LD9C7Sjcptj
+ XXE5G38E2SQVjFBoRf/HWsDCfz+kIoZ5xBVkZi9NxOwgRKpl0Of20qoHF
+ ThAkKqNAuvIaeDUD+/pDS6ry1pIF8zmfRZdg/8fAwUK8uREPVAUyJmTOs
+ KFdtug1bcyVgI2OKxYPPYJb1kVAIe9ZrdPW4AHrqV7foBU0JRDuEsO+5k
+ p8e2Ay3EgkWTUH05lqM6xLjjMXqeAkxTvv+qR9xaHF30aQOCm5yKbJhRQ Q==;
+X-CSE-ConnectionGUID: JbHaQKgoQ06MPED5X86iOQ==
+X-CSE-MsgGUID: z881i1RbQWyJ4CZQCtbNVg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="45348891"
+X-IronPort-AV: E=Sophos;i="6.15,199,1739865600"; d="scan'208";a="45348891"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2025 22:20:54 -0700
+X-CSE-ConnectionGUID: 5otkT78iTxWk/lUttB9mag==
+X-CSE-MsgGUID: 3fmEncnOSRSVDKK+BN7tWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,199,1739865600"; d="scan'208";a="133601185"
+Received: from lkp-server01.sh.intel.com (HELO b207828170a5) ([10.239.97.150])
+ by fmviesa004.fm.intel.com with ESMTP; 08 Apr 2025 22:20:49 -0700
+Received: from kbuild by b207828170a5 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1u2Nri-0008H5-1s;
+ Wed, 09 Apr 2025 05:20:46 +0000
+Date: Wed, 9 Apr 2025 13:20:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: oe-kbuild-all@lists.linux.dev, hamza.mahfooz@amd.com,
+ chiahsuan.chung@amd.com, sunil.khatri@amd.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, hersenxs.wu@amd.com,
+ mario.limonciello@amd.com, mwen@igalia.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>
+Subject: Re: [PATCH v2] drm/amd/display: Add error check for avi and vendor
+ infoframe setup function
+Message-ID: <202504091230.CXdkQbvK-lkp@intel.com>
+References: <20250408022018.2786-1-vulab@iscas.ac.cn>
 MIME-Version: 1.0
-References: <20250408153018.1770-1-christian.koenig@amd.com>
-In-Reply-To: <20250408153018.1770-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Apr 2025 16:50:29 -0400
-X-Gm-Features: ATxdqUE4BFisDtfecETTArMmEQ0jNAJqUU3ubEZgPGviXm6mi-a1OQ3f144vApk
-Message-ID: <CADnq5_Ohx_9gvBQchLJDDhX+GddUMX+o6A79cLO7+CBfbFGB-Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: use a dummy owner for sysfs triggered
- cleaner shaders v3
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: srinivasan.shanmugam@amd.com, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250408022018.2786-1-vulab@iscas.ac.cn>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,65 +77,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 8, 2025 at 11:30=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Otherwise triggering sysfs multiple times without other submissions in
-> between only runs the shader once.
->
-> v2: add some comment
-> v3: re-add missing cast
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index f64675b2ab75..76237961a08f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1439,9 +1439,11 @@ static int amdgpu_gfx_run_cleaner_shader_job(struc=
-t amdgpu_ring *ring)
->         struct amdgpu_device *adev =3D ring->adev;
->         struct drm_gpu_scheduler *sched =3D &ring->sched;
->         struct drm_sched_entity entity;
-> +       static atomic_t counter;
->         struct dma_fence *f;
->         struct amdgpu_job *job;
->         struct amdgpu_ib *ib;
-> +       void * owner;
->         int i, r;
->
->         /* Initialize the scheduler entity */
-> @@ -1452,9 +1454,15 @@ static int amdgpu_gfx_run_cleaner_shader_job(struc=
-t amdgpu_ring *ring)
->                 goto err;
->         }
->
-> -       r =3D amdgpu_job_alloc_with_ib(ring->adev, &entity, NULL,
-> -                                    64, 0,
-> -                                    &job);
-> +       /*
-> +        * Use some unique dummy value as the owner to make sure we execu=
-te
-> +        * the cleaner shader on each submission. The value just need to =
-change
-> +        * for each submission and is otherwise meaningless.
-> +        */
-> +       owner =3D (void *)(unsigned long)atomic_inc_return(&counter),
+Hi Wentao,
 
-missing semicolon at the end.
+kernel test robot noticed the following build errors:
 
-Alex
+[auto build test ERROR on drm-exynos/exynos-drm-next]
+[also build test ERROR on linus/master v6.15-rc1 next-20250408]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> +
-> +       r =3D amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
-> +                                    64, 0, &job);
->         if (r)
->                 goto err;
->
-> --
-> 2.34.1
->
+url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-amd-display-Add-error-check-for-avi-and-vendor-infoframe-setup-function/20250408-102113
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+patch link:    https://lore.kernel.org/r/20250408022018.2786-1-vulab%40iscas.ac.cn
+patch subject: [PATCH v2] drm/amd/display: Add error check for avi and vendor infoframe setup function
+config: csky-randconfig-001-20250409 (https://download.01.org/0day-ci/archive/20250409/202504091230.CXdkQbvK-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250409/202504091230.CXdkQbvK-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202504091230.CXdkQbvK-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/linux/device.h:15,
+                    from include/linux/acpi.h:14,
+                    from include/linux/i2c.h:13,
+                    from include/drm/display/drm_dp_helper.h:27,
+                    from drivers/gpu/drm/amd/amdgpu/../display/dc/os_types.h:37,
+                    from drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services_types.h:29,
+                    from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:29:
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In function 'fill_stream_properties_from_drm_display_mode':
+>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6221:42: error: passing argument 1 of '_dev_err' from incompatible pointer type [-Wincompatible-pointer-types]
+    6221 |                         dev_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
+         |                                 ~~~~~~~~~^~~~~
+         |                                          |
+         |                                          struct drm_device *
+   include/linux/dev_printk.h:110:25: note: in definition of macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                         ^~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6221:25: note: in expansion of macro 'dev_err'
+    6221 |                         dev_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
+         |                         ^~~~~~~
+   include/linux/dev_printk.h:86:36: note: expected 'const struct device *' but argument is of type 'struct drm_device *'
+      86 | void _dev_err(const struct device *dev, const char *fmt, ...)
+         |               ~~~~~~~~~~~~~~~~~~~~~^~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6227:42: error: passing argument 1 of '_dev_err' from incompatible pointer type [-Wincompatible-pointer-types]
+    6227 |                         dev_err(connector->dev, "Failed to setup vendor infoframe: %zd\n", err);
+         |                                 ~~~~~~~~~^~~~~
+         |                                          |
+         |                                          struct drm_device *
+   include/linux/dev_printk.h:110:25: note: in definition of macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                         ^~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6227:25: note: in expansion of macro 'dev_err'
+    6227 |                         dev_err(connector->dev, "Failed to setup vendor infoframe: %zd\n", err);
+         |                         ^~~~~~~
+   include/linux/dev_printk.h:86:36: note: expected 'const struct device *' but argument is of type 'struct drm_device *'
+      86 | void _dev_err(const struct device *dev, const char *fmt, ...)
+         |               ~~~~~~~~~~~~~~~~~~~~~^~~
+
+
+vim +/_dev_err +6221 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+
+  6156	
+  6157	static void fill_stream_properties_from_drm_display_mode(
+  6158		struct dc_stream_state *stream,
+  6159		const struct drm_display_mode *mode_in,
+  6160		const struct drm_connector *connector,
+  6161		const struct drm_connector_state *connector_state,
+  6162		const struct dc_stream_state *old_stream,
+  6163		int requested_bpc)
+  6164	{
+  6165		struct dc_crtc_timing *timing_out = &stream->timing;
+  6166		const struct drm_display_info *info = &connector->display_info;
+  6167		struct amdgpu_dm_connector *aconnector = NULL;
+  6168		struct hdmi_vendor_infoframe hv_frame;
+  6169		struct hdmi_avi_infoframe avi_frame;
+  6170		ssize_t err;
+  6171	
+  6172		if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+  6173			aconnector = to_amdgpu_dm_connector(connector);
+  6174	
+  6175		memset(&hv_frame, 0, sizeof(hv_frame));
+  6176		memset(&avi_frame, 0, sizeof(avi_frame));
+  6177	
+  6178		timing_out->h_border_left = 0;
+  6179		timing_out->h_border_right = 0;
+  6180		timing_out->v_border_top = 0;
+  6181		timing_out->v_border_bottom = 0;
+  6182		/* TODO: un-hardcode */
+  6183		if (drm_mode_is_420_only(info, mode_in)
+  6184				&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+  6185			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+  6186		else if (drm_mode_is_420_also(info, mode_in)
+  6187				&& aconnector
+  6188				&& aconnector->force_yuv420_output)
+  6189			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+  6190		else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
+  6191				&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+  6192			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+  6193		else
+  6194			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+  6195	
+  6196		timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+  6197		timing_out->display_color_depth = convert_color_depth_from_display_info(
+  6198			connector,
+  6199			(timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
+  6200			requested_bpc);
+  6201		timing_out->scan_type = SCANNING_TYPE_NODATA;
+  6202		timing_out->hdmi_vic = 0;
+  6203	
+  6204		if (old_stream) {
+  6205			timing_out->vic = old_stream->timing.vic;
+  6206			timing_out->flags.HSYNC_POSITIVE_POLARITY = old_stream->timing.flags.HSYNC_POSITIVE_POLARITY;
+  6207			timing_out->flags.VSYNC_POSITIVE_POLARITY = old_stream->timing.flags.VSYNC_POSITIVE_POLARITY;
+  6208		} else {
+  6209			timing_out->vic = drm_match_cea_mode(mode_in);
+  6210			if (mode_in->flags & DRM_MODE_FLAG_PHSYNC)
+  6211				timing_out->flags.HSYNC_POSITIVE_POLARITY = 1;
+  6212			if (mode_in->flags & DRM_MODE_FLAG_PVSYNC)
+  6213				timing_out->flags.VSYNC_POSITIVE_POLARITY = 1;
+  6214		}
+  6215	
+  6216		if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+  6217			err = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
+  6218								       (struct drm_connector *)connector,
+  6219								       mode_in);
+  6220			if (err < 0)
+> 6221				dev_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
+  6222			timing_out->vic = avi_frame.video_code;
+  6223			err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
+  6224									  (struct drm_connector *)connector,
+  6225									  mode_in);
+  6226			if (err < 0)
+  6227				dev_err(connector->dev, "Failed to setup vendor infoframe: %zd\n", err);
+  6228			timing_out->hdmi_vic = hv_frame.vic;
+  6229		}
+  6230	
+  6231		if (aconnector && is_freesync_video_mode(mode_in, aconnector)) {
+  6232			timing_out->h_addressable = mode_in->hdisplay;
+  6233			timing_out->h_total = mode_in->htotal;
+  6234			timing_out->h_sync_width = mode_in->hsync_end - mode_in->hsync_start;
+  6235			timing_out->h_front_porch = mode_in->hsync_start - mode_in->hdisplay;
+  6236			timing_out->v_total = mode_in->vtotal;
+  6237			timing_out->v_addressable = mode_in->vdisplay;
+  6238			timing_out->v_front_porch = mode_in->vsync_start - mode_in->vdisplay;
+  6239			timing_out->v_sync_width = mode_in->vsync_end - mode_in->vsync_start;
+  6240			timing_out->pix_clk_100hz = mode_in->clock * 10;
+  6241		} else {
+  6242			timing_out->h_addressable = mode_in->crtc_hdisplay;
+  6243			timing_out->h_total = mode_in->crtc_htotal;
+  6244			timing_out->h_sync_width = mode_in->crtc_hsync_end - mode_in->crtc_hsync_start;
+  6245			timing_out->h_front_porch = mode_in->crtc_hsync_start - mode_in->crtc_hdisplay;
+  6246			timing_out->v_total = mode_in->crtc_vtotal;
+  6247			timing_out->v_addressable = mode_in->crtc_vdisplay;
+  6248			timing_out->v_front_porch = mode_in->crtc_vsync_start - mode_in->crtc_vdisplay;
+  6249			timing_out->v_sync_width = mode_in->crtc_vsync_end - mode_in->crtc_vsync_start;
+  6250			timing_out->pix_clk_100hz = mode_in->crtc_clock * 10;
+  6251		}
+  6252	
+  6253		timing_out->aspect_ratio = get_aspect_ratio(mode_in);
+  6254	
+  6255		stream->out_transfer_func.type = TF_TYPE_PREDEFINED;
+  6256		stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
+  6257		if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+  6258			if (!adjust_colour_depth_from_display_info(timing_out, info) &&
+  6259			    drm_mode_is_420_also(info, mode_in) &&
+  6260			    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
+  6261				timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+  6262				adjust_colour_depth_from_display_info(timing_out, info);
+  6263			}
+  6264		}
+  6265	
+  6266		stream->output_color_space = get_output_color_space(timing_out, connector_state);
+  6267		stream->content_type = get_output_content_type(connector_state);
+  6268	}
+  6269	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
