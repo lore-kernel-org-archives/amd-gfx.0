@@ -4,130 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2EB6C369A6
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:02:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 549E6C3601E
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:08:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2279E10E99D;
-	Thu, 10 Apr 2025 13:02:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 872E610E9E5;
+	Thu, 10 Apr 2025 13:08:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nuNX/OcR";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="H9kbCebU";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8BD510E9A0
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 13:01:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G+TOasecq4VIciEaUEsuEhlkkvvADFT2ZXfGynq38tI9KIJVIWSlrxRVdN+ziWgBBfpONcxLborVa/Vczfsbzj2immqw8q3sNqiGufMBocZyW+Hph8uC1l+zIrG1uWEoyTqF8/7cpiPOz1gVKlIsqlZeVGqYik8Dy7nWg0POHjb5uT1mnfRePyOPklSrp4Maex+sCpaXD58TRQ6Ol8ur4v5PRMFf4gLSggXbS3zm+aSp3ggH2h9ZtJb5XEqd5/eWciYCdun1VlHwz+vxO21QoLqhW527FFPkLpa9CoaHXP6eLd4xvxJj/EVoYjw1harVARFt0yO+b3asAOJx19khkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c9U7SdX0vkabIwpSAktTMNMwaWr/6pNfHjCSuE+oQM0=;
- b=l+YmLd3kH/OokaSVPT9MHRvO/1XpsiUAjRfmuht+Q2a/Po34cjewEpm69hPqHehsBcwBlR76Trf+gDz4GnN0rudZfZBd6R15ZnUBy/DyIAvqGxmwLF+e3WBlR9p+mPuuTwzLFhyIKLUR13RCvzyXn49oW3gEf/atjdd/iMucN5rQFOYVtlZMJw/JCxG0F087r4DowkTWda/AdhOf71En13ewyDqVVK0WDW8TRZuxFZGjc709XUJdKj0EzjB0ssQ7JMpJIfqoVwsnZ3hI1tJ6XqYc+zOI9oaWBZElGc3kl47pApj6t5whYwmKMm0oVdRD13oOMgALphj6SDVTSL0h0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c9U7SdX0vkabIwpSAktTMNMwaWr/6pNfHjCSuE+oQM0=;
- b=nuNX/OcRyl6XXHJT2BYUA/uYHvsE2XaPHzR6BVimhuv6zWyl43Z1fDSLLqBZRjJPf5MqdQwjPcNpYf05WPQQy39hmPEny2WPNt1AKRG+fSeLxDH6hcS0sci0ibqnmek1yNLbdP0OEN0AlPtoPqUEF0tnp8gjThIFez+mpXYdtdg=
-Received: from MN2PR15CA0048.namprd15.prod.outlook.com (2603:10b6:208:237::17)
- by PH7PR12MB6955.namprd12.prod.outlook.com (2603:10b6:510:1b8::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.35; Thu, 10 Apr
- 2025 13:01:54 +0000
-Received: from BL02EPF0002992C.namprd02.prod.outlook.com
- (2603:10b6:208:237:cafe::c1) by MN2PR15CA0048.outlook.office365.com
- (2603:10b6:208:237::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.23 via Frontend Transport; Thu,
- 10 Apr 2025 13:01:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0002992C.mail.protection.outlook.com (10.167.249.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8632.13 via Frontend Transport; Thu, 10 Apr 2025 13:01:53 +0000
-Received: from sathish-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 10 Apr 2025 08:01:51 -0500
-From: Sathishkumar S <sathishkumar.sundararaju@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Leo Liu <Leo.Liu@amd.com>, Zhang Hawking <Hawking.Zhang@amd.com>,
- Sathishkumar S <sathishkumar.sundararaju@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Enable doorbell for JPEG5_0_1
-Date: Thu, 10 Apr 2025 18:31:13 +0530
-Message-ID: <20250410130113.2834113-2-sathishkumar.sundararaju@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250410130113.2834113-1-sathishkumar.sundararaju@amd.com>
-References: <20250410130113.2834113-1-sathishkumar.sundararaju@amd.com>
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F012F10E800;
+ Wed,  9 Apr 2025 08:03:44 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4ZXb711qMBz9t4w;
+ Wed,  9 Apr 2025 10:03:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1744185821; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7fqznLAyvHu/jJ9za6hfLAeZqCvQ3xojCZMtgLC3XYw=;
+ b=H9kbCebUZR1c7HOrQgYjPIYBVEFAXQSWcq6/p1UyaFsQL5RVW8qDJPZJDp+qC3GjKNVxRt
+ DRZL0n/rENniKePXYZaCqEJY0i7wRIVO8nj1NZnDeePrW2Dn3W1dB+9XWKWpB33dMcfYJ9
+ J2f7juccWHrQ6rBYVzSeuDhek0t6v0Y1omaNC+VbHOyOLNiRNHXjOlg+v77wj55CLq6kZe
+ I8GCkSKnPB7VGieK0t/tUrz6+VwPURjf1eHIX/aqKevwbGEZET2BfNY4v4zU1C5ZKlQMsV
+ q1BjHRuzslbwi9G5yJVXKkWQP5uTYc6Ftpwgx9gaAtErlzy1rplwxy1+/krYeg==
+Message-ID: <2486e9eba3806f8e7fc3df724e916929a627fac7.camel@mailbox.org>
+Subject: Re: [PATCH v8 00/10] Improve gpu_scheduler trace events + UAPI
+From: Philipp Stanner <phasta@mailbox.org>
+To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>, Pierre-Eric
+ Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Tvrtko Ursulin
+ <tvrtko.ursulin@igalia.com>, Philipp Stanner <phasta@kernel.org>, Danilo
+ Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, lima@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-arm-msm@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, nouveau@lists.freedesktop.org
+Date: Wed, 09 Apr 2025 10:03:34 +0200
+In-Reply-To: <f3416edf-46f8-4296-86bd-600ab629fe60@damsy.net>
+References: <20250320095818.40622-1-pierre-eric.pelloux-prayer@amd.com>
+ <f3416edf-46f8-4296-86bd-600ab629fe60@damsy.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992C:EE_|PH7PR12MB6955:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bc2257f-f79a-49ef-5308-08dd782fdda3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RWxFSWNPWExaNzN3U0NlbTczK1JVOVlqUGJBN3pUQ2dwOE1TVlA0THVXOG5j?=
- =?utf-8?B?VzdRVE43TDJNMVE2aWxjREZiM2lEUkNKNnEvUjFzYXE4NHlRekZRbU5rNkR4?=
- =?utf-8?B?elVUYjhEUEJJWTNLT1FBeWU2aHFuS0k4SUVDTkZiY2RsQ09wZHYwMXF4bU01?=
- =?utf-8?B?UWlEMEF4Umx5Tk5JWUJOMnkvbHdvcy9CVGdCL3hiclJUVWNmdGk0RnFLWXFx?=
- =?utf-8?B?MEQxTFplYkorcEZ1SDBGcUZYZXREMGFTRUtkcHBKdCtUNlVmSjE3TjJJVEJs?=
- =?utf-8?B?TGdIeWpBTUFHbE1wNGlTM0dkTFV1Tkg1M21VOEZSUkg3ZFVVWC9MVDRKWVJu?=
- =?utf-8?B?cXpXb21vQ3hkV3pUOUNMdjRWMm1vVlIwL0o4akZETkhvZkwxZ2hiT1NMZlBH?=
- =?utf-8?B?NWJ5SytnTWNzVU1sYU50ay83aHdyUitpR0duYitLK0lvWHdQdXBlc2lHcDVI?=
- =?utf-8?B?RTFmRit6a0xUWEZ0bGw0bTlab3lTSVlnUVdXSnh5UDFEZGZ0bkVHOXUrZ2E2?=
- =?utf-8?B?K0F1dHZZZm9PVmVDUHRMZXdVaGpXNVNBNFZWb0Z3Y3RoUTVPOGYvTTdaeHFo?=
- =?utf-8?B?Uk8xZTV5TGQxWEFZWTd4QlloZWo1WUNFQ3pNSW1jNkVXYUZVeGVqTzdFaTBk?=
- =?utf-8?B?RjZFM1JHVTdsQnkvVHVnSGI1WXpQWnpJMzQxZDR0QWkvUUFUVGhPVXkwcUxR?=
- =?utf-8?B?ZWVYZ056V3dWbXgxb0pldy90QTAwOTZNeVp6RklCWVpaV3AwRms0SGFjQVBX?=
- =?utf-8?B?bXJsMElRTU1GY3QrelZwZk1xRnBBbnh6VFZHbTBFOXRITmxZaU9LV1V2ZWN6?=
- =?utf-8?B?cTM5Ynd0WDN3YkIrRVdiSWNQRGxZejg1VHJMU21TUXY2QzdBb2RTVDBlNzRZ?=
- =?utf-8?B?ejUyMzNKMmxPc2hVSHJuTDdzU1YrRy9NOS90alE1UTU0QUZncFh4cm5BVW14?=
- =?utf-8?B?KzEzY1V0RStIT0djbTZkazJOaVNkSzFRZXJVM0hWN0ZydE9GQjJNYnRwd0xD?=
- =?utf-8?B?VGpFN2xsckd3VUFGV3V3ZktTVEQ4emVxbXFzaTFyeTB5TnNmc0hEQTJtLzlY?=
- =?utf-8?B?NDRMU3FiNXRzYVZvQ2hrWHpYVm4wNDBZSjFBOE9PdDZoZXV4cDhHVUdrazFM?=
- =?utf-8?B?RTRrUmRKQzlNQmE2Q2FOK3hwS2xMOTRmM0xDWHdxS0tXMURBek4rekczQkg2?=
- =?utf-8?B?eWRJK09yOUVYTXdvNXlXZGM1SndSY1VieHNNeHNseXZOSHhUdmxHYUYzaTk0?=
- =?utf-8?B?UndoU1VVM0Y3L1RnaGJYYmE5ZjJkcFNYNFM4N0lwcSthNTlLeFh1VGZvZE5a?=
- =?utf-8?B?aDV1UU4rMlNQZUl1SEJnNm16cUhUQkZlN3lPTDloMjFzb0MzazN3WTZyUU5B?=
- =?utf-8?B?aEowdy9Xc1cxRSsxNlhHV09vZVRFT0FPcTZKZjY0VXQ2b0Z2K1dxb1dBZCtD?=
- =?utf-8?B?WEloQ1hKb1Y2Q0J1OUdtNDRXMmZoT21QTGNpSWh5WmlpTWxoUFJoWmExTVJ0?=
- =?utf-8?B?aGJZdzMyWFZlRENSU2FGTmpCVG83a0ZhbDczOWpISU5CdFVaVmRGTGlIQW5x?=
- =?utf-8?B?NE1VamJ6U1RuaEpiNlB1dWdGbXpCNnViZTRNRlVZaFFOdkpuSXRtdUt0Vm1t?=
- =?utf-8?B?akZEQWJKVW9HbVFYS2NJWHJXbWNkVEZHLzB1K0p0ZitCT2Z0U016WEI5NlVz?=
- =?utf-8?B?RUcvbzlqNGFrYXdRUWRIL2dKdlo4bEdMMFlUVlhTSHJUamZTZVlrSnNFN0JW?=
- =?utf-8?B?RHZsS2Q1SjdiZDUzZXVVR1V2T0c5Y0Q5WVUxOUtvUERtSHVkYURIWk5VVGdV?=
- =?utf-8?B?d3dDNXhXSXY5VHNBWm1HTTFzMFFuYjVaSjRxV3JqZE9hL0t1VHFtZlRMYnBk?=
- =?utf-8?B?UzcreTRGRFNabDN3RUpBRDl2RkxjcTFGYXRpMFIzTXJ2cFBwNjdzb243RDVY?=
- =?utf-8?B?WUNwOUF2WjdlelRadXlTYUJ6alpIUWt5QWFwdFdJNnNsMVdxYS9Dakt0MHJL?=
- =?utf-8?B?M2lxQ3ovb21Ed1JNaDlnUVU4TGh0dlB4aW5CZTFFU3VlaDRaRzFFc1d1dE0w?=
- =?utf-8?Q?d69jkK?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2025 13:01:53.3274 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bc2257f-f79a-49ef-5308-08dd782fdda3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6955
+X-MBO-RS-META: ac77wnkq97cnh7ipc437xrje46qmhgfq
+X-MBO-RS-ID: 890d0c8e5ddfbadb243
+X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,61 +68,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable doorbell for JPEG5_0_1 and adjust index for VCN5_0_1.
+On Wed, 2025-04-09 at 09:52 +0200, Pierre-Eric Pelloux-Prayer wrote:
+> Hi,
+>=20
+> I've rebased the series on top of drm-next, applied the minor tweaks
+> suggested by Tvrtko on v8 and=20
+> the R-b tags. The result can be found on gitlab.fdo:
+>=20
+> https://gitlab.freedesktop.org/pepp/linux/-/commits/improve_gpu_scheduler=
+_trace_v9
+>=20
+> I believe it's ready to be merged, unless I've missed something?
 
-Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+Has slipped my radar for a while, sorry.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-index 218e16b68f1d..6f73033d78b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-@@ -156,7 +156,7 @@ static int jpeg_v5_0_1_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 		for (j = 0; j < adev->jpeg.num_jpeg_rings; ++j) {
- 			ring = &adev->jpeg.inst[i].ring_dec[j];
--			ring->use_doorbell = false;
-+			ring->use_doorbell = true;
- 			ring->vm_hub = AMDGPU_MMHUB0(adev->jpeg.inst[i].aid_id);
- 			if (!amdgpu_sriov_vf(adev)) {
- 				ring->doorbell_index =
-@@ -264,7 +264,7 @@ static int jpeg_v5_0_1_hw_init(struct amdgpu_ip_block *ip_block)
- 			ring = &adev->jpeg.inst[i].ring_dec[j];
- 			if (ring->use_doorbell)
- 				WREG32_SOC15_OFFSET(VCN, GET_INST(VCN, i), regVCN_JPEG_DB_CTRL,
--						    (ring->pipe ? (ring->pipe - 0x15) : 0),
-+						    ring->pipe,
- 						    ring->doorbell_index <<
- 						    VCN_JPEG_DB_CTRL__OFFSET__SHIFT |
- 						    VCN_JPEG_DB_CTRL__EN_MASK);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-index 581d8629b9d9..4b2e6a033831 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-@@ -126,7 +126,7 @@ static int vcn_v5_0_1_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 		ring = &adev->vcn.inst[i].ring_enc[0];
- 		ring->use_doorbell = true;
--		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 9 * vcn_inst;
-+		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 11 * vcn_inst;
- 
- 		ring->vm_hub = AMDGPU_MMHUB0(adev->vcn.inst[i].aid_id);
- 		sprintf(ring->name, "vcn_unified_%d", adev->vcn.inst[i].aid_id);
-@@ -213,7 +213,7 @@ static int vcn_v5_0_1_hw_init(struct amdgpu_ip_block *ip_block)
- 		if (ring->use_doorbell)
- 			adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
- 				((adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
--				 9 * vcn_inst),
-+				 11 * vcn_inst),
- 				adev->vcn.inst[i].aid_id);
- 
- 		/* Re-init fw_shared, if required */
--- 
-2.48.1
+I browsed over the series=20
+
+Can you pro forma send the v9 (with the scheduler maintainers also in
+the cover letter's CC) with the changelog, please?
+
+Then I'd ACK and someone (probably me?) can take it in.
+
+Thanks
+P.
+
+>=20
+> Thanks,
+> Pierre-Eric
+>=20
+> Le 20/03/2025 =C3=A0 10:57, Pierre-Eric Pelloux-Prayer a =C3=A9crit=C2=A0=
+:
+> > Hi,
+> >=20
+> > The initial goal of this series was to improve the drm and amdgpu
+> > trace events to be able to expose more of the inner workings of
+> > the scheduler and drivers to developers via tools.
+> >=20
+> > Then, the series evolved to become focused only on gpu_scheduler.
+> > The changes around vblank events will be part of a different
+> > series, as well as the amdgpu ones.
+> >=20
+> > Moreover Sima suggested to make some trace events stable uAPI,
+> > so tools can rely on them long term.
+> >=20
+> > The first patches extend and cleanup the gpu scheduler events,
+> > then add a documentation entry in drm-uapi.rst.
+> >=20
+> > The last 2 patches are new in v8. One is based on a suggestion
+> > from Tvrtko and gets rid of drm_sched_job::id. The other is a
+> > cleanup of amdgpu trace events to use the fence=3D%llu:%llu format.
+> >=20
+> > The drm_sched_job patches don't affect gpuvis which has code to
+> > parse
+> > the gpu_scheduler events but these events are not enabled.
+> >=20
+> > Changes since v7:
+> > * uint64_t -> u64
+> > * reworked dependencies tracing (Tvrtko)
+> > * use common name prefix for all events (Tvrtko)
+> > * dropped drm_sched_job::id (Tvrtko)
+> >=20
+> > Useful links:
+> > - userspace tool using the updated events:
+> > https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
+> > - v7:
+> > https://lists.freedesktop.org/archives/dri-devel/2025-January/488117.ht=
+ml
+> >=20
+> > Pierre-Eric Pelloux-Prayer (10):
+> > =C2=A0=C2=A0 drm/debugfs: output client_id in in drm_clients_info
+> > =C2=A0=C2=A0 drm/sched: store the drm client_id in drm_sched_fence
+> > =C2=A0=C2=A0 drm/sched: add device name to the drm_sched_process_job ev=
+ent
+> > =C2=A0=C2=A0 drm/sched: cleanup gpu_scheduler trace events
+> > =C2=A0=C2=A0 drm/sched: trace dependencies for gpu jobs
+> > =C2=A0=C2=A0 drm/sched: add the drm_client_id to the drm_sched_run/exec=
+_job
+> > events
+> > =C2=A0=C2=A0 drm/sched: cleanup event names
+> > =C2=A0=C2=A0 drm/doc: document some tracepoints as uAPI
+> > =C2=A0=C2=A0 drm: get rid of drm_sched_job::id
+> > =C2=A0=C2=A0 drm/amdgpu: update trace format to match gpu_scheduler_tra=
+ce
+> >=20
+> > =C2=A0 Documentation/gpu/drm-uapi.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 19 ++++
+> > =C2=A0 drivers/accel/amdxdna/aie2_ctx.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 2 +-
+> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 8 +-
+> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_job.h=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 32 ++----
+> > =C2=A0 drivers/gpu/drm/drm_debugfs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 =
++-
+> > =C2=A0 drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c=C2=A0 |=C2=A0=C2=A0=
+ 2 +-
+> > =C2=A0 drivers/gpu/drm/imagination/pvr_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> > =C2=A0 drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +-
+> > =C2=A0 drivers/gpu/drm/imagination/pvr_queue.h=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> > =C2=A0 drivers/gpu/drm/lima/lima_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> > =C2=A0 drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
+> > =C2=A0 drivers/gpu/drm/lima/lima_sched.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> > =C2=A0 drivers/gpu/drm/msm/msm_gem_submit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 8 +-
+> > =C2=A0 drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> > =C2=A0 drivers/gpu/drm/panfrost/panfrost_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> > =C2=A0 drivers/gpu/drm/panthor/panthor_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> > =C2=A0 drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> > =C2=A0 drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +-
+> > =C2=A0 drivers/gpu/drm/panthor/panthor_sched.h=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> > =C2=A0 .../gpu/drm/scheduler/gpu_scheduler_trace.h=C2=A0=C2=A0 | 103
+> > +++++++++++++-----
+> > =C2=A0 drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 16 ++-
+> > =C2=A0 drivers/gpu/drm/scheduler/sched_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +-
+> > =C2=A0 drivers/gpu/drm/scheduler/sched_internal.h=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 2 +-
+> > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 11 +-
+> > =C2=A0 drivers/gpu/drm/v3d/v3d_submit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> > =C2=A0 drivers/gpu/drm/xe/xe_sched_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 13 ++-
+> > =C2=A0 30 files changed, 186 insertions(+), 96 deletions(-)
+> >=20
 
