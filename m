@@ -4,74 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 733A4C369A9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0690AC369A6
 	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:08:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D56B310E9A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05BDD10E9A0;
 	Thu, 10 Apr 2025 13:08:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="s4hjW5Y4";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="WwF7PIVq";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54EEB10E88E
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Apr 2025 12:48:39 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-3914aba1ce4so5448698f8f.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Apr 2025 05:48:39 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38EC210E258
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Apr 2025 17:27:32 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-ac3fcf5ab0dso1220124966b.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Apr 2025 10:27:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1744202918; x=1744807718; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nN+f3xNhDo5f6/GPhgaHpLiZWIHJJ1BBuI8jav4LKKU=;
- b=s4hjW5Y44QfGGouo1lSmeuUYTQdREbWLQgt61GEEshz17b7wHnm/zwWqjHYZ8M3FsT
- p7AXJNFUdj1sT1isu+EwrCytswQQOjqpCWXGO4FwfK9Jb2q7o6s6rYPCFx/W+m7Qj0j/
- +s9NPwW3h+wEsCYxbDLm6wBX++XH9Nd8yCa1kyH2IQZnWQrE6dRBQVZZgJgITn8Zx7rG
- VTmQ+wU7iz8wja6fa3AwgYX9mV1LjLiCM7tfZEyGbye/+6BGX2tWT0aomOHJ0/XyN5lB
- v/mMZO8icni04YnQq5IQ+65j7rxEw8qSo0zYeSwlM/mvPaoh8Ja7kM5PoU26qB9g+2t+
- tdXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744202918; x=1744807718;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=linux-foundation.org; s=google; t=1744219651; x=1744824451;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nN+f3xNhDo5f6/GPhgaHpLiZWIHJJ1BBuI8jav4LKKU=;
- b=QODV07HoPL8MkWwi3YxoE5SVo5U+u/MlCl0YzC8fPPQ9qwHLPyfpCOQXrhNyvte+bt
- 1qkAMzTr7lwFIN/7zvRbPKOnJrMcv9XwhG8vN1FabiG2xvolv9tpRiVGPPZAMlZ6LMb7
- +cDW4lmUQgCMYa3RGdxvpdvaFe81E3j1uKb6PC19EGF7moAWZpU33eCyPkZ2BcK10M1C
- +iPnr/keHnCUwfuRWxC9IgGefXWGqminBX5glQgPPOGYjPlMo7PwZ1j2n+0fuxF+q3fU
- ZS2MJVPeIRKAxt7YI4s1ww296a2XOVIv06j41DHYNgF90BgtsM1BMPOTB7rbNuGoBjEX
- nY/g==
-X-Gm-Message-State: AOJu0YyPbr3GA4wXNghhEHJWurZJ7wF+T01qSOAUvJbjO50Tr6O2NWqx
- AklcsrRJOhE0prJ8sTLbouhnCxW3xTPL3voAfJ7wkWT3AUxZj6+lZ9PUSVCvLI8=
-X-Gm-Gg: ASbGncua/2FB9h4HZD+fOIJv9KEFV0Pcrpm0laV5169PdzgE43vY/0p6tGT+9FKfdKn
- Zbo+rEjnzSOlQ/aWoNPVPRutmjHtb9mlCk06KeyojKoF/p+yYfK2WR6xNEp3rqPuOBTTUoIHLSZ
- tD8MHnn+ycMkq769Yesmj4359BbHJO107zfpxkLFNW4diSCbqhRWbW4EsLfR5TNKvaw88tMs+Nr
- iCHnnpzAaVqrc5ppPd/5CR/TgsLpJpkRVL6QljYSOvRsjShBOmDhAU6ZRNMPgeEO5qzDTqygnFB
- ui4+knPOTF+X+aUGCbeopJLVHdtrc4xKlB7DiMcIgBBLBg==
-X-Google-Smtp-Source: AGHT+IGSuX5V0wmZRJqF/nbfqv0ZMV7sS8GfNZARq2yeaAei7PLfbUhLoEiTzCX7DN0Xon4EYLUFuw==
-X-Received: by 2002:a05:6000:2289:b0:39b:f12c:385e with SMTP id
- ffacd0b85a97d-39d87ab3086mr2835111f8f.20.1744202918110; 
- Wed, 09 Apr 2025 05:48:38 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-39d89377901sm1585596f8f.36.2025.04.09.05.48.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Apr 2025 05:48:37 -0700 (PDT)
-Date: Wed, 9 Apr 2025 15:48:34 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Ce Sun <cesun102@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v1 1/1] drm/amdgpu: fix a smatch static checker warning
- in amdgpu_pci_slot_reset
-Message-ID: <5ea78eb0-3af4-4cbf-9700-9d38796a18bc@stanley.mountain>
-References: <cover.1744200284.git.cesun102@amd.com>
- <464215422a8b934b9280fac884f6f389b64fca05.1744200284.git.cesun102@amd.com>
+ bh=pK2SJRHEMGZQKPPhXQK2rlcnL3fUmvPRMjfdbeZZl1I=;
+ b=WwF7PIVqv2Wqgl8vRkTs4ceEFKEw6lpnQxBnzHs0dEF7PgmgfA5xzvtkq6VuExHS8X
+ QV9QA7AJGdoVeMbmKqDk+zGPauG0iR4f17qMDPOZJRm7W5BHDBziyE/AhLSpnqd094vc
+ HiZqEpUaDXOZ0yj0H/fYlTDpG03DKEL4/ZwHI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744219651; x=1744824451;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pK2SJRHEMGZQKPPhXQK2rlcnL3fUmvPRMjfdbeZZl1I=;
+ b=ECkvkGl/RNjsfifMv6YOhsmRG55OdA//VX3IDtaixBAPb71pvEEdbh1J6D0otANfdS
+ I20aMEkHeR0xx6/r1EY7HUkBlhSooD4xCy2Zoy6LFIWR/ZsOQ+QUCmG7vulDkNAqFmMT
+ 036KfcBlUjbqAGzDf+qLSFvpga/qVHX+NEOdNc7aK4IllOgfjDmtOybiw9Y1V+MbD2Sz
+ b7TfboQtLGpH/6z8p59tMWOW5IVaikxvfcuEua5kshw8iA9SO1QQ4zqDBee0jEWIqWz8
+ NHe6i1Cyxx4TRVNTznk0BPMGF7VGiiXxFG1pq9y7UHxCngmVrRm2duAgonyfYTWg2tpr
+ UTxw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWFdwrQM1WXZZ33jnqnMLTTaWHovcNGK40BG4ut1AG7xwP7G+IQ68cv+i9vVJrhjkJb8Wf50dfB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGCGKHzy68peXO6dCQUQaNDkKx/YVXdN0Bh90vXW6xWrhIYjov
+ FADW7qa/hyYYvXbhKqbUgGez2Q3/84k0+/Cawrh5l8XTo93NxMg4iCO4I+rHZqtCRT54rYU5Zf+
+ l4ls=
+X-Gm-Gg: ASbGncsb+YjhkM6Q1SoqnsvR6j6zsB2eVGpS4WTYdmBJJxXq1wjq5R/QHASU5agdipi
+ oHgvNsqwtDC3sjl8W6GRSfFY6SB58Ok3n9UcL/bDa0ShHVtDqwrTedrO/NESnY5a0qKH4P05weC
+ 8mrfvzPhSTjCPK+QGsjkRkPOZbDqck4pbvSceancwE8ligNUiWGwoFSH7XP6ts6hOPxcjBzlTET
+ 9XsmYdiGrlA0B5rrWMsNCCB/GEiG2D1/q+VTbBItDOG5Y2XzyfPb0cwFlB62mY+Sv80V83WW43c
+ UKTVBW0c2u/Vk/z40GO3p/2Orp//vNOvaNriW7ISB+c3J0UTubHRSpkkBfFCPIYvAbNwo4jz+7y
+ lp2RDG2Z0eAVHErg=
+X-Google-Smtp-Source: AGHT+IGY0ozLwlRMiGMj61XwDURaoV2RC1bOrZCXWZ75Otz85DEsmDpP9DsFoV/mirWje3xwXawvUQ==
+X-Received: by 2002:a17:907:2ce6:b0:ac7:37da:cd46 with SMTP id
+ a640c23a62f3a-aca9b72f852mr339605466b.49.1744219651090; 
+ Wed, 09 Apr 2025 10:27:31 -0700 (PDT)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com.
+ [209.85.218.46]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acaa1be8fd8sm127479966b.39.2025.04.09.10.27.30
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Apr 2025 10:27:30 -0700 (PDT)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-ac41514a734so1224981366b.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Apr 2025 10:27:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWhnPTkEyvAOyN2X7DR5RCRuEjvQ7efl3Pr+xTG7kiJpYcIPdQXImZc4MC+tCe/y0ZQ1untTNEl@lists.freedesktop.org
+X-Received: by 2002:a17:907:3e8c:b0:ac7:c59e:fc3e with SMTP id
+ a640c23a62f3a-aca9b67684bmr382920066b.25.1744219649909; Wed, 09 Apr 2025
+ 10:27:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <464215422a8b934b9280fac884f6f389b64fca05.1744200284.git.cesun102@amd.com>
-X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:32 +0000
+References: <20250408091755.10074-1-arefev@swemel.ru>
+ <e6ccef21-3ca5-4b5a-b18a-3ba45859569c@amd.com>
+ <bmdour3gw4tuwqgvvw764p4ot3nnltqm4e7n3edlbtpfazvp5c@cqe5dwgc66uy>
+ <f8810b13-01d1-4615-b6e2-2e791c48b466@amd.com>
+ <qc72y52kt7vuwox4lhk42zligy5bslttselfoexse42mywtpps@ebqijs2tap2t>
+ <edc08eb4-63dd-402c-82df-af6898d499a9@amd.com>
+ <pmby7iowvxuomsbuxebttosz245j7ngw5enbl72dq675nrgvve@ugkvzeihbtut>
+ <CAHk-=whLixL8-iYt1qH0-YvEnVsYtryZaN5Da0qoBBhKsBnumw@mail.gmail.com>
+ <437e12e2-ac0d-4a97-bd55-39ee03979526@amd.com>
+In-Reply-To: <437e12e2-ac0d-4a97-bd55-39ee03979526@amd.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 9 Apr 2025 10:27:13 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjLQzkTTDwJ+ZdVdgNKMg958petkdsu-+m7s9UL6PVCRg@mail.gmail.com>
+X-Gm-Features: ATxdqUGsb92LP0ScG527vuGNoNqzICJmAsHs4dqdA5fj_-LSDqiGYUn4VgwYYwc
+Message-ID: <CAHk-=wjLQzkTTDwJ+ZdVdgNKMg958petkdsu-+m7s9UL6PVCRg@mail.gmail.com>
+Subject: Re: [lvc-project] [PATCH] drm/amdgpu: check a user-provided number of
+ BOs in list
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Fedor Pchelkin <pchelkin@ispras.ru>, Denis Arefev <arefev@swemel.ru>, 
+ Alex Deucher <alexander.deucher@amd.com>, Simona Vetter <simona@ffwll.ch>, 
+ lvc-project@linuxtesting.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ David Airlie <airlied@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,19 +111,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 09, 2025 at 08:10:01PM +0800, Ce Sun wrote:
-> Fixes smatch warning:
-> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6820 amdgpu_pci_slot_reset()
-> warn: iterator used outside loop: 'tmp_adev'
-> 
-> Fixes: 8ba904f54148 ("drm/amdgpu: Multi-GPU DPC recovery support")
-> 
+On Wed, 9 Apr 2025 at 00:29, Christian K=C3=B6nig <christian.koenig@amd.com=
+> wrote:
+>
+> I mean open coding the limit checks everywhere certainly works, but as fa=
+r as I can see it would be more defensive if we do that inside kvmalloc_arr=
+ay().
 
-Thanks.  This doesn't change how the code works so probably the Fixes tag
-isn't required.  But it doesn't hurt anything either.  Static checker
-warnings are a gray area.
+No.
 
-regards,
-dan carpenter
+If we add some limit to kvmalloc_array(), I guarantee that people will
+just then call it with ~0UL.
 
+Making it all entirely pointless.
+
+So thus the "kvmalloc_array() warns about unreasonable uses
+unconditionally, at a limit that is high enough to be useful, and low
+enough that the automated code randomization tools will hopefully
+trigger it and find bad code that doesn't validate kernel input".
+
+> BTW we have been running into the kvmalloc() check on valid use cases as =
+well.
+
+*IF* you do proper validation, you can just use the raw vmalloc()
+interfaces by hand and avoid it all.
+
+The VM layer allows larger allocations. But the "this is a simple
+allocation, choose kmalloc or vmalloc automatically based on size"
+helper says "you are being simple, I'm going to check your arguments
+are actually sane".
+
+So the drm code can easily have a function that validates the input
+for your specific cases, and then you (a) don't need the helper
+function that does the overflow protection and (b) don't want it.
+
+But it should actually validate arguments for real sanity at that
+point. Not just open-code kvmalloc() without the sanity check.
+
+             Linus
