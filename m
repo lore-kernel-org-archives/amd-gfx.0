@@ -4,208 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C860C36002
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 14:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94D19C369A4
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 14:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFCD610E90E;
-	Wed,  9 Apr 2025 14:10:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3928F10E8F6;
+	Wed,  9 Apr 2025 14:36:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E4EBVk4V";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RlG4lU+i";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D71D610E8D6;
- Wed,  9 Apr 2025 14:10:50 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2040.outbound.protection.outlook.com [40.107.237.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7758B10E8F6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Apr 2025 14:36:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n5lRKNBT4ze5CBSfVFcsTlPPa7rXk9Nq4RACOQ4A90ZqtLyCRuKk2Uor/FWEt7YoyD2NrlHCLbFWZ3l2O5YShd8ErmLz7rDYIUl/UynEs1Un06zSn5F4ZMVl9jyrAfnkdI4W+F2TLRa6u/HvGsnVzUr7Qaxc1214frvAdL42/s2tgjZwzlYgCDMCuOq1OQS8y2SvMS5K7OP80WgBwdYBVOTKF5Ygxn+rZXpnmINx1deg/06Jm0RbkeeF2bPxUdFiU2FZ9GPLFgcXGxrUsmb2m9gPp0vnvgXsDnwqMdeu/ILLkMmIYvcIYvSiYKqjtXCn/pfq/fNzuqQI+erL+AlTow==
+ b=amA53w5nLJQvx5brZiwWaEwut2Xhrv+oKe8aQMtFeUVIn/N/rZhEJwoqgkmqeQXheu+UtOvkqBSalJ7Heez+TKpCAXbyeImkSG9oOHVNoFVyXAj5Oo7B4JL/oOsXBKG9gjJXe63/jttbZn5jz/5fnlmGGi4WQ2rj1ggeKg7yWcrrs5saI78POjXrrvzgiAlzYJi37BPNVoXvNKvVuaVI3McTYitifwyGv5QjRcZoMJXH4OxN4/YtWALm2E33csouWJSoloBdBqO8sS2Ctvfu61m+3vtoBmfA9nwe9GUVzo1OcyVZwNXmNOhjaeZXbd5G5HzUP/ZAO7aGdALmEtH9Hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J5gm/pWGj+7ED1yjql1cFf353+H6d1DolAXK/7P2vQM=;
- b=r0h60jFqQd48CkfPjL7eCDDFwKF7g16Nwvj4N7RgGnJe7Rp3BmvjtN0CB9sHd2ASi6staBFfWsAkLdqpziA35sLpmwLdSD6Tt8Zt7xL4uJEJbSWHjciPGVGTezmdebvuB1WfCFcI1Sc8AgIkEsWxqVIcj1dGoRUgyuBDak31NJavw7Cno4vYK7GSxW77EhSxdEVwAMHmZohlFvPSbuLDLT3HT7W1IrbYxjb1k7ChhoDC2WGc8sdKLv+v5yK4i27r5IYJ5Kngn1omjtd2zveF0s2e9ZXnKdXD/YCQ/iInfUQtmXspToWWxetqhhJrfEKVyZXizHoBRJAKb+yOsNkIYQ==
+ bh=bZGJIzqIW8BA7v7GIcSwFD2E5yXM2VT+7VNTtojTT9E=;
+ b=l9UGkqAskRykadNY35Lteio3zND3R2FejHNvKmxo/HKu9opHBcbQGr0ZBp8jseQHgX6XTPCY8/4rck3QP33qij4z54WyhwBoZ+CPUyFYWW7kKrs/p6N2AoQxNd2UNR1n1ZyiYLnLDqLXCAKZLa/097KZdh6zDT/xt0XWoYIpdX8Hj1j2K/EoFMNS4H0O36zemSwg46wyJFQp5na5ndGDgO6C5lPEIh1VCkBOO+p5no0dyWKmm+hqiul3HKBNJ4B9IM4Sxpfbt5NUzX6lgBsmfMnhdJVnAm/NKedtA+x88jyACdYjZzHZe9KXya052LB9EYwmIw2yNL/PLuG3W4+uGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J5gm/pWGj+7ED1yjql1cFf353+H6d1DolAXK/7P2vQM=;
- b=E4EBVk4VPNNoTU/u7S9QuLBzdaYTEX808PsYYBGU8FG1X4R4QjB2qdLkJ7xrxwN6HzFCyh5XHGFf7aXXuQA1TLoqT1LSpBN2bOBUM/oe7kMqpApmWfz6CKApRccWcY8x6W/qaKz3LdzSpxzsapn9cmlBuUPetFtnCdDiVhQryTE=
+ bh=bZGJIzqIW8BA7v7GIcSwFD2E5yXM2VT+7VNTtojTT9E=;
+ b=RlG4lU+i0NbUuz13+eMVYmHFuLJbQhfYUT5Z0uPvx3CUrGDQsLfPnb9adFl6Rkz2TS+kGTcynZxaYX1OY6QG6OYwflJZ2zqnwTz0kk63k+bGzSoLBK7n5UnVY7r8RIfDtdyUFDIvc4q5ZuN4+Ldtj+uoldZPEJwVa7vxF1hwJzM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB7181.namprd12.prod.outlook.com (2603:10b6:510:22a::17)
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by MN0PR12MB6078.namprd12.prod.outlook.com (2603:10b6:208:3ca::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.21; Wed, 9 Apr
- 2025 14:10:46 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8632.021; Wed, 9 Apr 2025
- 14:10:46 +0000
-Message-ID: <334e843c-d7fe-4e33-b4fc-f3d18226465a@amd.com>
-Date: Wed, 9 Apr 2025 16:10:25 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.34; Wed, 9 Apr
+ 2025 14:36:01 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2%3]) with mapi id 15.20.8632.021; Wed, 9 Apr 2025
+ 14:36:00 +0000
+Message-ID: <243270dd-f7a6-4eee-a5c7-904085b25472@amd.com>
+Date: Wed, 9 Apr 2025 20:05:55 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dma-fence: Rename dma_fence_is_signaled()
-To: phasta@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Frank Binns <frank.binns@imgtec.com>,
- Matt Coster <matt.coster@imgtec.com>, Qiang Yu <yuq825@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Lyude Paul
- <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Matthew Brost <matthew.brost@intel.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Zack Rusin <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Yang Wang <kevinyang.wang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
- Tim Huang <tim.huang@amd.com>,
- Sathishkumar S <sathishkumar.sundararaju@amd.com>,
- Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Yunxiang Li <Yunxiang.Li@amd.com>, Eric Huang <jinhuieric.huang@amd.com>,
- Asad Kamal <asad.kamal@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Friedrich Vock <friedrich.vock@gmx.de>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-References: <20250409120640.106408-2-phasta@kernel.org>
- <20250409120640.106408-3-phasta@kernel.org>
- <20250409143917.31303d22@collabora.com>
- <73d41cd84c73b296789b654e45125bfce88e0dbf.camel@mailbox.org>
- <72eb974dfea8fa1167cf97e29848672223f6fc5b.camel@mailbox.org>
- <ab7d1937-d0e9-45f8-8f7d-ddd7a1a9d3d5@amd.com>
- <9a90f7f14c22c01aa28d89aa91bf4dfa4049c062.camel@mailbox.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: adjust enforce_isolation handling
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250408160000.3149409-1-alexander.deucher@amd.com>
+ <20250408160000.3149409-3-alexander.deucher@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <9a90f7f14c22c01aa28d89aa91bf4dfa4049c062.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0154.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250408160000.3149409-3-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SG2PR01CA0166.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:28::22) To IA0PR12MB8208.namprd12.prod.outlook.com
+ (2603:10b6:208:409::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB7181:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9cd019ed-815f-482c-1a46-08dd7770525e
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|MN0PR12MB6078:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9b6debe-1669-42c7-7696-08dd7773d8fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ekVCK1Z4aUc1R0pmQ0ZYaVlJVmx1UVFheVMycFgyNEh3RVAvdFUycTkzRlJY?=
- =?utf-8?B?bVR6TDF1KytKUkMyUlVFQzYxTDBUYXg5MHhUUlF1QjE2OGh2bk9MWnJUVHFy?=
- =?utf-8?B?c1ptbDhsUFp2eS9ndHoxbllaS2hnZUFCV2s3c1BWMFd4aHY1dUdwbGJLVVhq?=
- =?utf-8?B?Q05zOTlpbEFsTjd1WDhRWHRRUFJVR2pFWkQ2M0l4ZnhjWnNJZnh3aldBUmhM?=
- =?utf-8?B?d0lJMFdFSVNESWowa1Zoem13MlkvZXhjRVRGajhUcVp2dHZkNE13VFEvakpQ?=
- =?utf-8?B?cVdQaHBSSjUySktwNmY0Rllxd2htdHR5bWs0ZElhMmNIajl5UGhCOHdGVnVY?=
- =?utf-8?B?Z1owZ2hZYWZ3bmd4U29kcjZORXEyQ2UvalJrNi9zRzdZUzlIVUxuN05yU3BZ?=
- =?utf-8?B?R1F0VUloRTdKN0t5MWlFM3diWXg1ZW8vTTVKeEVFeURLK0pEVmN2d3cwVzkr?=
- =?utf-8?B?d0xHNUhJYzJUdG9mY240RXNBb3pNQWRxSmV1d1lNQ2JlK3JRVi9IUWY4d3Vu?=
- =?utf-8?B?bDZXdG1ZM0tZd05CN09VaiszUVlKNWQvRXc0NmZTeUs4YWlhMldJb2x3WjdQ?=
- =?utf-8?B?YXJPOHNIKzdreVpBcEh1UkNkZzAvVGhOWTZPZFFQL3pIRE1xK1Q4ZDR1b0l1?=
- =?utf-8?B?dUhZK3NqS1dPQ0tXYmdMMWRIRFZSSmFYeFRyN0tWRUxFZ2V3UEFqRHArck9s?=
- =?utf-8?B?aU1iWUYyTnRMOFlQWDNRbHB0MHBPb29rSW9xQVBWdngrdXJxb1FlNUs2Yk9B?=
- =?utf-8?B?STE3SHp4MlBVaDZJZkJCZFFsMnVWcnZPdGhxNHM0R3BkVk1ETnFlUHpFSTNI?=
- =?utf-8?B?QWFLQnNSVGFPa3U4bWR3UGQyL2JxaDhvK05YTHo1UEVTWEhHVk1ad0x4UW12?=
- =?utf-8?B?TmpiNEg0TTVDd3JVYU9DQnlleXlyVUFhc2hlQ1daTVdXMEFXMWdKaUhkZjBQ?=
- =?utf-8?B?VDd5VUpJYVVMTHBMdThnaTRTNWJ6MGtMUFV1RlowS2Q3eXIrUFJTMVlFenNO?=
- =?utf-8?B?M1BLTFBaZGgrb3Z6dk1HL0Ivb01RbitmYmo2Z3Bac09MN1lFcTVlc215ank1?=
- =?utf-8?B?QndjTFF3bEc0a203Zy96UnNLbHYrTGdoZTlzNDhxTzlrSFBySDVlcGpNbzlt?=
- =?utf-8?B?RXB0bGZwUjNHdmJldjl3ZkVJcmFlS2NSV012T24vZStLM2pUUGNOUWFkek1O?=
- =?utf-8?B?ditBV29GNkwzNzNTRGdSOXUvUUFaa0tPZjd0cmZKQ3ltN2VLUWJQUjZwWkdK?=
- =?utf-8?B?clhIQlZ5QmVJQjFZc29oSlQvNWtVdGVET1FGMjZ1MXVWV1NaZXVMRllHc0dl?=
- =?utf-8?B?dWthL1FabHJjazRLTk45QWV4Y0JUaWdxcVlwOXJZTnltWXc5VFFoV0lKUFc2?=
- =?utf-8?B?RXh4UHpRK2paL0h4THJUalFyL3JGSGw2NCt3RTh6WHZTQ3cwaFJESmp0RTFq?=
- =?utf-8?B?R3kwc2JTaEFHbERwbjkraFk2bURubVIyeGZ1Zjk4c3BMQmgyYzE5MzNpZjAv?=
- =?utf-8?B?aDBWS3RydWhSNnRaRWp0Vk1pa3RUUll4NzBjN2lRWFZOOWpveTQ0VUFvT3BN?=
- =?utf-8?B?YmlURTg2dDE1bDEwL1JNZXJZbnl2djdmbGF2Z252OWVJMWVhWkhvUWRCZFhk?=
- =?utf-8?B?cG5qcVFCcVJBeW9zeG9Td0Zvd3RSd2p2S0xiMWZ6bElQUE4ybVg3VllrdTZ0?=
- =?utf-8?B?eGxBQmIybStYcStwdHh0MDI3R0ZTVTRNNVh5T0NuOHgzdXRXOWhYeWxINThS?=
- =?utf-8?B?V1pUS2ZiMnlOaml2ZGhudW41T1BuSFlNek1kRDFZNytIKzZ6TFg3aXVFL052?=
- =?utf-8?B?eTlGQzhibHkvRWdNQWt2T002R3dvMy8vVDdTZGFHNENWanlGZ0t3RllPWlR3?=
- =?utf-8?Q?xBo2M35OcowmX?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aWFtQjRHaFhNTzNJb25CV0NmanZzWEU1ZDhWcEU0M3RNNW9UbEV4eWhGeXJ3?=
+ =?utf-8?B?cnViNVZ2aXY4aVNLWDYwYlVMV1JkVXpDSVB1RkxjeXVyT1dENTlaTmd3RDBC?=
+ =?utf-8?B?dFFIYXBtY2V1TjR4V2JDeEJGRzVQMm1paE1GenU3RHVFd2R6WTRxMHBNVlo5?=
+ =?utf-8?B?T2M2dncvMEo2dEtCNzBnQVIxeW1QbEhTVTYzaHl2TUZKSVA4emZzUFc1b2VM?=
+ =?utf-8?B?TXY4T210OUJBN2g5MW9qZzUvVkxWSWZUS0VRaHpnQTlMYzk5azI4QmRROEEy?=
+ =?utf-8?B?d2I1b2duRHF4dzJiR3k4c29mYmVzT1lEOEhSQzVWaFI5TXlkTjh3Zk4xMHZ0?=
+ =?utf-8?B?Ukc4bytSNDlTcUVpSmxGQnBLK0lWRzRlRzVGMW1vTTZ0c0x4OW9sVUZJZk9l?=
+ =?utf-8?B?S3lubE55S25QSHJxdm1MZ1pNNnJwS2s2M0tmKzcwTnhzVUhPUkVkMUl3c1hD?=
+ =?utf-8?B?Z1lZbllGTkdPcTloQy83Nnl3NWtPOGNQUGV1bFdvYVk3REUyTFFOekZOdXRh?=
+ =?utf-8?B?ZGRTc2VvNll1UEtIQ3ZPc2J5SzJJVURLeE5MTDlNLzkyZ2lRamdWMWpoM2lW?=
+ =?utf-8?B?L0tGc0djVkRDZTRIaVVrRjQxM0IxZTBjOUliMU10SUZ3cWV0RUQzV0ZTckt2?=
+ =?utf-8?B?bzhnQ2g5WllnT0RUcG1HdkUwcEk1bHBjNHhtc3JPU1pzMkw1QW96ZFNxL2xk?=
+ =?utf-8?B?cHRhWG9NcWVoMWpXUVFBOFEzL0ZCZUx6QllFWGZnRGdkWEcwQkZtVXJVRytv?=
+ =?utf-8?B?MXk3TUVQTWFtVWpXNEoxblg0eFJJNEdOYUw0eEYvWFhGdWVXTGZVampmcStj?=
+ =?utf-8?B?Q1p2TTlWWktndjhpNVl0UUdWRTlvUFpUQ0F0RW9US0JieGhzU2VDWTdsVWVm?=
+ =?utf-8?B?SXNhTDUrL0RkNmFyL0hpVFVQVXBYT3ZHNGU2UEt2MlVSSFlXMWIweHhaUmRJ?=
+ =?utf-8?B?d04zdi92V3FIU1lTYnlhOGt3NTQrYW1LdHNwSXZrTzhLbXpnaFUrRTI3ZUVW?=
+ =?utf-8?B?WUlLN2dTSTZkNUdUQ21pSFFkOEEwWXRtZ1FTQ3RqTC94K0FScDliNkRyL3du?=
+ =?utf-8?B?QkN0Q09lYmFRZXZVRkxoTnZWbitISGI3MTNQcDg5bkg2L2xXbkhOT3ViOWcx?=
+ =?utf-8?B?Qi9CdXdTWmxJb2VHRCttZE9UYVhSQ212LzIyZ1RkVmhZTjM0MG90T0ZYWmFG?=
+ =?utf-8?B?MUJhbldYRTgvem1LdkhBYzcyckdZZ2g5ZjIvRW9jYjhTakxIMHhTK1EzTUd1?=
+ =?utf-8?B?aG1sQVZhMHFNOXJwTHNKb0hhZEJ1ZGtOajVOekp6WnhXaFJSbUVZb09UOFJD?=
+ =?utf-8?B?RUt2bFdXMXdjdlcvWWkwR2hxdlRCTnQ1Vm9rWC95L1ZOTC9KWWdTN3l5QVJr?=
+ =?utf-8?B?RjNKUGswaVMvMWlNZDRtbDF6M2lRTTRhcEVXQUNrNlFCc3lGa1l2Sm5IZkk2?=
+ =?utf-8?B?cE40cm5Hb1FMRFdINlBOdi9qcTh0MWE0cEpBUVJ3YzdsanZLdTRmQkQvREp6?=
+ =?utf-8?B?TEhkdmdHdFVBM2xEU1kwcFBCNk9tTnQ0NUxKNGJGYzFGUHE1aThOclRjSVRj?=
+ =?utf-8?B?THQ2WlVFb1o1UkFOc2VyZW9zQkhUaCt0SWNSakFValB6N2J4WUV5TnBsSXpp?=
+ =?utf-8?B?ekt0TDlWWUptcEQwSHk0aGJlZTExQytpZjNwclpma0J0Z3hXamJaek1md1J1?=
+ =?utf-8?B?SXI4RnVtb3BhcTRyeXcxcWo1ZFVDWjhQZGdCZ3QxbDlwVEVQUWpjMXcwdUdM?=
+ =?utf-8?B?a0JRbnRnTWFpSGxmamM1N1BSaUtQL3k4bjZPU0FWTHRVbUwxWEd0Zjd3QXFQ?=
+ =?utf-8?B?S0Y1czltN0wzOTZaVHExKy9HMi9zNFFNRzlEOUhieDlwUXE4Q1lBZ3F0alpM?=
+ =?utf-8?B?dXU3QytuVUwycUF2R2xINmJyalhBRWVvYTZCU3dVOWFSSFFBZjRtMk5KUmRP?=
+ =?utf-8?Q?6tWRkHj1+sQ=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(7053199007); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RlJOMEttOFh6b29oMDVSdTNBd2Z5bGlCSTNXR3g0cldqenNEUUM0dFBGbkpp?=
- =?utf-8?B?c3pVcnl4RmhHVDdNUS85L0FvY3BubUo1OFlDV2pOd1NXY2I5bnFtcmdGenMr?=
- =?utf-8?B?SVllWE1RRGp5a0MraXdMc2Zsa3F4KzV6VFB5YU4yckhvVDNJcFVqR3ZPOHB0?=
- =?utf-8?B?clY5TTBXKzJMTHBnd0dhT0NrbUZEeFk2d2I5KzJaZTZRNC9zTld4L3kvRHVK?=
- =?utf-8?B?d1Y3UFA1elIxS0pDVktyVkVSWS9HQXRncjZqSmppQThHVTFCRG9jS2dYZTJW?=
- =?utf-8?B?aVBuemF3dFdxaU81aURVNTEwV3F3cmVJV096ektSK3pSY2R3MjFlU1RUSlJB?=
- =?utf-8?B?K1RPQVlodlBWN3l4V29zdnZOWitzd0xUaUlZdUttbnFYQzZaWmdTaGxhQ1Nk?=
- =?utf-8?B?eGk4NDVaNmphUlV2STN0MkZYenZrQ2pzOFQyMFUxeDRpQk5zWG9EYnBrUTFN?=
- =?utf-8?B?WVpkUGE4ZDd5QUhOcGJFamFORVZ6NkhudytvT1d6bk1uNkFXNiswenhUMElm?=
- =?utf-8?B?M0k3bGhMNnNnS3dkYVRrRGtnWTRaZkdHQUQvWGVGQnNkUEpUL1ViakFOTVZW?=
- =?utf-8?B?TFpwZG5ON0ZZRmhMQU5RS0EyWjVKYlB2ZmpseG5DdnVmNWs0dE5EYmU1SFh3?=
- =?utf-8?B?T2xlQzVBRG8xZisrREowWExHTWpiVWs2T2Z5bVBRNzNScGRpcWNwUEZrUEpD?=
- =?utf-8?B?V2xodFl2OFYydFUwbHRRTmxIbjF2VTB5RDRvZm1JbXBFa3lLMk8rWkcxQjk4?=
- =?utf-8?B?UGNENHJIMmQvN25oT053MVJMbzZwQ0tEd3BrVXRlYXYyRnNFVW82RXBHWDhJ?=
- =?utf-8?B?MlNEOURNZmI4TFlpY0JXdTJ6Z0hKbXhkNFVidlJvWDRDOVZQenZLbXZWZWZP?=
- =?utf-8?B?bDJsWmV2MDl2YlNUc1BuYVJ4Rk1YSXljZjJhdDQ1UHNxL09qL3gxbFhKQ0VR?=
- =?utf-8?B?cmswTTRYQUhNSGMreG9uYStMTjJuWVBrOEFSWjlEM05oQzZzUzhneXd0WmIx?=
- =?utf-8?B?TzV1eFUvemRzcUZtUHdkU09BeDdBUmhxZ3JYcXpvZW5SRk44cmhpU1JtQWk4?=
- =?utf-8?B?RnlJdHE2VHg5R1ZxaEFDOGd2dUxaYkROaVZINCtuOEt4SEZmWGhocWQxbksv?=
- =?utf-8?B?Tk1rYWlWOFZJaVoxM2Ewd0pSL21FTG4wZ0JHL1RPYzlTVFVxTEg0ekRvOXZa?=
- =?utf-8?B?eXRUYjhaYyszcnRQRGhQR1RpY2dNNG5YaGMyZHlHM1l1YlhxY2ZxOFNGUlE5?=
- =?utf-8?B?NGpuanp0bXVLbVN6N0hGV3NyRko0VXRWYnhsbENybENVTUdmU2RzUnQ3YlVQ?=
- =?utf-8?B?blBSREphSEVyTThTUkt5eFVsVkZNZUIzakxDWHI4cTArbDk5MHR3REFtUVdt?=
- =?utf-8?B?U2toa2YwSVhxbmoxQTVIcjZzM2pWL3lML0IzZUxHOEg2SjBFL1BZQ0krajhy?=
- =?utf-8?B?bXY1TzBsUm1yTHlHakdkaW9KWGNXVGxCY3dNeHAvc2Y3UkpxcC83NWZKNGli?=
- =?utf-8?B?T2c2YnF5UFRURXdtOHRvQWEwZWJNQlJpQm9jUytIeGc2cGs3elRNd2JBU08y?=
- =?utf-8?B?MWI2SVFIbnBxVS9wbEh0Ykh2RFp5eDNiQkdNeS9Eemk4R3J2TGNFOGFMVFdi?=
- =?utf-8?B?RzFGWnI3emYyRnEvRTV3WTdGbkV1akc3eUVmQkloTUZXSDEzZE9DSnZhNVFj?=
- =?utf-8?B?My9kZTc5MXU5WW1mZ3czYUN3QlRiQStLL0hwUHk2TUhQcmMxN3FUTVMrYkhB?=
- =?utf-8?B?bU43ancyYkhNd3doeURsOHo4ZUtwYTdkODdqYllWMStoOGswQ1VBLzRZMDlq?=
- =?utf-8?B?Y1hnYnZWQWc1azF0L2MyN0VUbHZXc0NmMi9uYWJ4TzJVaWUrYkZCK0ljMFhF?=
- =?utf-8?B?UHhac1ZtekdrQi9odXBjZ2pHbFQ3blIvMTVRYVNBU2NYTkEzUGZHci9sREJ0?=
- =?utf-8?B?c2VIeFIzK2RPWi80eC9MRHlGK2JTQzQvc2gxZVZmcGloMCt1TjBGQnJzcE42?=
- =?utf-8?B?N3NBRHg0TUhRYWdWK0NmZWg1VG1vYllNWGp5MldXd1BwM2dQakNWTmtxWkFK?=
- =?utf-8?B?ZkhTR243ZERuemxTaTZPM1F6eFJZM0NLUlNMd2prNkhqcEp3VXBkbWltNUJJ?=
- =?utf-8?Q?tsMzOE4IsmVFn6Tzkqy+AJENV?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NThhVEMrbXM2RnNEMmJheWs1UTdtTVdLTjlyd0hPUVRNY3JoODVHNFYyUUIy?=
+ =?utf-8?B?VW5PYXpaWGd4NGZnV1A3WmMvUkt5NzUwVEdWVy91dE40NjZMd3ZjdzhYYmht?=
+ =?utf-8?B?dTVGeVpoQXN4MUFPSkVmUCs2bUc5Tnc5OVpFM0Y0Q3dZa3BuZ0pzR3FNZDN1?=
+ =?utf-8?B?TXU5RlB1WU5aNjArWVg2SUlJaytOOVNNbHBITkRPWUlad3l6VFQzcWlkVjU2?=
+ =?utf-8?B?M0lXMWt5R0Y5MUVXdmZXYjRrRXlyTUp3MnE1WVNJU3BiU1lCQ2JYS2N1LzVY?=
+ =?utf-8?B?WVExd21nUFVGTU81NDExZmVXeUpWYWU5NVpLYUtuNHYxcnBOTGpGZXNxRVdG?=
+ =?utf-8?B?a3dYZVRReitGMHY0K0tMRkVPRjFCZm9WazhXYVhMK1pxejRsVTkySDA5emNi?=
+ =?utf-8?B?QmdOMUI5dHpQd0NQNzM0L2tUUVZLM2Y5Qmt0MklxbXlHUVlYbHhBSi9ISzhV?=
+ =?utf-8?B?QTF3RDQ3RjBsa1V1MXc3YVV1ZzdjaTZvUlNCMmlJQmJSWHpXbTEwZTNTdzUy?=
+ =?utf-8?B?ai9HODNwanhYTFd4UjhwdnVuY25DOTlRSEJYek9UbkNjWllobHRUZ2xTQm0v?=
+ =?utf-8?B?Q0xBalJRUFQ5MWxUdndWSWZOVGI1ZUNTK0R3dm51VWFldnFHRTF2NExCb0Qy?=
+ =?utf-8?B?Vlg0UWR5dXAwRnBYdi9mbUE2VUx0Q09GZzhTNFhxNWc0YWVYNUVDN0I2Q2x5?=
+ =?utf-8?B?cVFnaU1WTWg1YzN5Y2VNQ20rb0ZmdDB6dEJwcVNpbmZKYlV4NjBkb25qbGw4?=
+ =?utf-8?B?cHJxektzbGNaQnJ6a2tSeU51RXZqak1XMFdFYW1NMWlFZ0xVNU9OVFZJZXRs?=
+ =?utf-8?B?aWNuaTVwQmFSR1MrMjVYZUEyRy9mbGV6bCt6TEFsdXE1TzRsRG9YUnJGeEFI?=
+ =?utf-8?B?WlB3RFlEUU5OT3hQRHdmc25rWE1rM28wSVpJRUR2OE0xYzF4Q2FjWHBEeExI?=
+ =?utf-8?B?b0g0a21DVGcrTHhqZE82eDY4TjZjeGNOdlAzdnZUK2EvaC9ubmZYdS9EN1F4?=
+ =?utf-8?B?bXZRcVJlelVqa0tvbTQzbnViZmlmR2drRkVTMVBGMlFXYVZEOFNHRVJqc0Zp?=
+ =?utf-8?B?OHFoK2o1K0dvMzVvVXREMW9KMTcrbDYvZFE4YlNjblNoLytVN3lTMlRFaUZH?=
+ =?utf-8?B?ZHNpc0lIWmw3ZzJsUi9Kc0lBVlY1T3hwNFAyRnJWeEt0UXhUdGRMR2tiUEkw?=
+ =?utf-8?B?RUwxVnF0Wk52SnBnN21oT0IzaWVjRDZYQ29pRkV6L0NCc21WTWt0bjBPK21X?=
+ =?utf-8?B?WFVIUStIM21sNW8zUng5SXAyWGZzcU12NGRyREVDdGczaHQvQlR5dnJWejd1?=
+ =?utf-8?B?STU5ZE5qWHkrQ245bTRMVjR4dmpRVTZNdlJPMTRvbm1DMWhTUVFZa3hOcUk1?=
+ =?utf-8?B?TlFxcTl5R1hxa0FITENkTW0yTHJoL2p0NHhtZDNNYWw2ZVVFSEQzb2F2cUdG?=
+ =?utf-8?B?c3hBTEFpaG9DbkluTDhwcmQrYVM5U3lkOGFvL0lsV0dnRXJEbElESXRINzg3?=
+ =?utf-8?B?cFpQclNmN3hrYS9wTzFlMGpTdnQ5ZG81T2lDejhPNlFuTkZjbHY3ekVPZkZB?=
+ =?utf-8?B?QTJQN1pVNXVwbDlDekVNRFFpMkxwWk5uMkJMN1duWmxOTnhPakVwK1JnWUFK?=
+ =?utf-8?B?aDVxaGo3YkNjeWZUSzBYOGRMYWhBaG5GNWhWYVl4Nlc1OXJxZ2xXRUIzMytR?=
+ =?utf-8?B?N0szTzRlamhFZnNWVm9vcXRBejdXSjNNMi9pUjQ3UXNOb1ZwM0hETVdjK1E5?=
+ =?utf-8?B?V2gycnJvNzdaUVJITStVdTh2Q3B3SW0xMThZRytoYWZtTWdncTFuZmY3bkhM?=
+ =?utf-8?B?TUY0MGVjTXBiTDZ0MzBMRWNBRVFGMGdYSFBvWncrTHNrM3pFRzY1SHNPc0dU?=
+ =?utf-8?B?SlJER0Z4VHZUUUtvWS9GZlhhRnFueklSeGFJVDNVTXpldHpPRU05RVBjZm1Y?=
+ =?utf-8?B?bzUxb3luOVFPRVRXekxBblFJaDBvNnVlVGQxSkRwQVZScmR5NXFGVnlsQWtm?=
+ =?utf-8?B?SXpjSXRlSmx0R1VtTjJiTkRKQUt5T28wUFZjTFNDODhLNWNYVXM3Y0NBS3Rz?=
+ =?utf-8?B?RDNFNUVxZ3dkcTF4NmxUTXg2ZzlYN2lWaEVxbi9RWjBMaEtHYVNoY1VvbHVs?=
+ =?utf-8?Q?zEEFdFpC0Xe1lOZi7DorILHbO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9cd019ed-815f-482c-1a46-08dd7770525e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9b6debe-1669-42c7-7696-08dd7773d8fe
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 14:10:46.1606 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 14:36:00.6853 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BqkYUP04hlzALEOAK1ebLVP68+FMla8PSl7i430KrBlKO3HgVv+npQmgci0yszC7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7181
+X-MS-Exchange-CrossTenant-UserPrincipalName: rKc5ryWSPav2CsuRzUzQ30o4Q1v4KWj6WyDtMoQdS3hC/Hxy5BqIpdk+E07GZcYNrKNk5UOVFs4giEvLeQNlyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6078
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -220,147 +160,378 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.04.25 um 16:01 schrieb Philipp Stanner:
-> On Wed, 2025-04-09 at 15:14 +0200, Christian König wrote:
->> Am 09.04.25 um 14:56 schrieb Philipp Stanner:
->>> On Wed, 2025-04-09 at 14:51 +0200, Philipp Stanner wrote:
->>>> On Wed, 2025-04-09 at 14:39 +0200, Boris Brezillon wrote:
->>>>> Hi Philipp,
->>>>>
->>>>> On Wed,  9 Apr 2025 14:06:37 +0200
->>>>> Philipp Stanner <phasta@kernel.org> wrote:
->>>>>
->>>>>> dma_fence_is_signaled()'s name strongly reads as if this
->>>>>> function
->>>>>> were
->>>>>> intended for checking whether a fence is already signaled.
->>>>>> Also
->>>>>> the
->>>>>> boolean it returns hints at that.
->>>>>>
->>>>>> The function's behavior, however, is more complex: it can
->>>>>> check
->>>>>> with a
->>>>>> driver callback whether the hardware's sequence number
->>>>>> indicates
->>>>>> that
->>>>>> the fence can already be treated as signaled, although the
->>>>>> hardware's /
->>>>>> driver's interrupt handler has not signaled it yet. If that's
->>>>>> the
->>>>>> case,
->>>>>> the function also signals the fence.
->>>>>>
->>>>>> (Presumably) this has caused a bug in Nouveau (unknown
->>>>>> commit),
->>>>>> where
->>>>>> nouveau_fence_done() uses the function to check a fence,
->>>>>> which
->>>>>> causes a
->>>>>> race.
->>>>>>
->>>>>> Give the function a more obvious name.
->>>>> This is just my personal view on this, but I find the new name
->>>>> just
->>>>> as
->>>>> confusing as the old one. It sounds like something is checked,
->>>>> but
->>>>> it's
->>>>> clear what, and then the fence is forcibly signaled like it
->>>>> would
->>>>> be
->>>>> if
->>>>> you call drm_fence_signal(). Of course, this clarified by the
->>>>> doc,
->>>>> but
->>>>> given the goal was to make the function name clearly reflect
->>>>> what
->>>>> it
->>>>> does, I'm not convinced it's significantly better.
->>>>>
->>>>> Maybe dma_fence_check_hw_state_and_propagate(), though it might
->>>>> be
->>>>> too long of name. Oh well, feel free to ignore this comments if
->>>>> a
->>>>> majority is fine with the new name.
->>>> Yoa, the name isn't perfect (the perfect name describing the
->>>> whole
->>>> behavior would be
->>>> dma_fence_check_if_already_signaled_then_check_hardware_state_and
->>>> _pro
->>>> pa
->>>> gate() ^^'
->>>>
->>>> My intention here is to have the reader realize "watch out, the
->>>> fence
->>>> might get signaled here!", which is probably the most important
->>>> event
->>>> regarding fences, which can race, invoke the callbacks and so on.
->>>>
->>>> For details readers will then check the documentation.
->>>>
->>>> But I'm of course open to see if there's a majority for this or
->>>> that
->>>> name.
->>> how about:
->>>
->>> dma_fence_check_hw_and_signal() ?
->> I don't think that renaming the function is a good idea in the first
->> place.
->>
->> What the function does internally is an implementation detail of the
->> framework.
->>
->> For the code using this function it's completely irrelevant if the
->> function might also signal the fence, what matters for the caller is
->> the returned status of the fence. I think this also counts for the
->> dma_fence_is_signaled() documentation.
-> It does obviously matter. As it's currently implemented, a lot of
-> important things happen implicitly.
 
-Yeah, but that's ok.
-
-The code who calls this is the consumer of the interface and so shouldn't need to know this. That's why we have created the DMA fence framework in the first place.
-
-For the provider side when a driver or similar implements the interface the relevant documentation is the dma_fence_ops structure.
-
-> I only see improvement by making things more obvious.
+On 4/8/2025 9:30 PM, Alex Deucher wrote:
+> Switch from a bool to an enum and allow more options
+> for enforce isolation.  There are now 3 modes of operation:
+> - Disabled (0)
+> - Enabled (serialization and cleaner shader) (1)
+> - Enabled in legacy mode (no serialization or cleaner shader) (2)
+> This provides better flexibility for more use cases.
 >
-> In any case, how would you call a wrapper that just does
-> test_bit(IS_SIGNALED, …) ?
-
-Broken, that was very intentionally removed quite shortly after we created the framework.
-
-We have a few cases were implementations do check that for their fences, but consumers should never be allowed to touch such internals.
-
-Regards,
-Christian.
-
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 11 +++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 16 +++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 22 ++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 12 +++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       | 39 ++++++++++++++-----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c       |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  3 +-
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        |  2 +-
+>   .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 11 +++---
+>   12 files changed, 93 insertions(+), 30 deletions(-)
 >
-> P.
->
->> What we should improve is the documentation of the dma_fence_ops-
->>> enable_signaling and dma_fence_ops->signaled callbacks.
->> Especially see the comment about reference counts on enable_signaling
->> which is missing on the signaled callback. That is most likely the
->> root cause why nouveau implemented enable_signaling correctly but not
->> the other one.
->>
->> But putting that aside I think we should make nails with heads and
->> let the framework guarantee that the fences stay alive until they are
->> signaled (one way or another). This completely removes the burden to
->> keep a reference on unsignaled fences from the drivers /
->> implementations and make things more over all more defensive.
->>
->> Regards,
->> Christian.
->>
->>> P.
->>>
->>>> P.
->>>>
->>>>
->>>>> Regards,
->>>>>
->>>>> Boris
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 804d377037095..468c6ce09e3ef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -230,7 +230,7 @@ extern int amdgpu_force_asic_type;
+>   extern int amdgpu_smartshift_bias;
+>   extern int amdgpu_use_xgmi_p2p;
+>   extern int amdgpu_mtype_local;
+> -extern bool enforce_isolation;
+> +extern int amdgpu_enforce_isolation;
+>   #ifdef CONFIG_HSA_AMD
+>   extern int sched_policy;
+>   extern bool debug_evictions;
+> @@ -873,6 +873,13 @@ struct amdgpu_init_level {
+>   struct amdgpu_reset_domain;
+>   struct amdgpu_fru_info;
+>   
+> +enum amdgpu_enforce_isolation_mode {
+> +	AMDGPU_ENFORCE_ISOLATION_DISABLE = 0,
+> +	AMDGPU_ENFORCE_ISOLATION_ENABLE = 1,
+> +	AMDGPU_ENFORCE_ISOLATION_ENABLE_LEGACY = 2,
+> +};
+> +
+> +
+>   /*
+>    * Non-zero (true) if the GPU has VRAM. Zero (false) otherwise.
+>    */
+> @@ -1224,7 +1231,7 @@ struct amdgpu_device {
+>   
+>   	/* Protection for the following isolation structure */
+>   	struct mutex                    enforce_isolation_mutex;
+> -	bool				enforce_isolation[MAX_XCP];
+> +	enum amdgpu_enforce_isolation_mode	enforce_isolation[MAX_XCP];
+>   	struct amdgpu_isolation {
+>   		void			*owner;
+>   		struct dma_fence	*spearhead;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 4a5cd7a111fc4..34a688fc5bf35 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -296,7 +296,21 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+>   				       num_ibs[i], &p->jobs[i]);
+>   		if (ret)
+>   			goto free_all_kdata;
+> -		p->jobs[i]->enforce_isolation = p->adev->enforce_isolation[fpriv->xcp_id];
+> +		switch (p->adev->enforce_isolation[fpriv->xcp_id]) {
+> +		case AMDGPU_ENFORCE_ISOLATION_DISABLE:
+> +		default:
+> +			p->jobs[i]->enforce_isolation = false;
+> +			p->jobs[i]->run_cleaner_shader = false;
+> +			break;
+> +		case AMDGPU_ENFORCE_ISOLATION_ENABLE:
+> +			p->jobs[i]->enforce_isolation = true;
+> +			p->jobs[i]->run_cleaner_shader = true;
+> +			break;
+> +		case AMDGPU_ENFORCE_ISOLATION_ENABLE_LEGACY:
+> +			p->jobs[i]->enforce_isolation = true;
+> +			p->jobs[i]->run_cleaner_shader = false;
 
+
+Hi Alex,
+
+Even for legacy enforce_isolation, just to double check, we expect 
+cleaner shader to run, cz by default when we trigger modprobe amdgpu 
+enforce_isolation = 1, for this usecase, we expect cleaner shader to be 
+triggered that means legacy , am I correct pls?
+
+Best regards,
+Srini
+
+
+> +			break;
+> +		}
+>   	}
+>   	p->gang_leader = p->jobs[p->gang_leader_idx];
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 8b43f350447a9..700304bbe3982 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2115,8 +2115,26 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
+>   
+>   	adev->firmware.load_type = amdgpu_ucode_get_load_type(adev, amdgpu_fw_load_type);
+>   
+> -	for (i = 0; i < MAX_XCP; i++)
+> -		adev->enforce_isolation[i] = !!enforce_isolation;
+> +	for (i = 0; i < MAX_XCP; i++) {
+> +		switch (amdgpu_enforce_isolation) {
+> +		case -1:
+> +		case 0:
+> +		default:
+> +			/* disable */
+> +			adev->enforce_isolation[i] = AMDGPU_ENFORCE_ISOLATION_DISABLE;
+> +			break;
+> +		case 1:
+> +			/* enable */
+> +			adev->enforce_isolation[i] =
+> +				AMDGPU_ENFORCE_ISOLATION_ENABLE;
+> +			break;
+> +		case 2:
+> +			/* enable legacy mode */
+> +			adev->enforce_isolation[i] =
+> +				AMDGPU_ENFORCE_ISOLATION_ENABLE_LEGACY;
+> +			break;
+> +		}
+> +	}
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index d7b27b7a0d519..5132003d85a29 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -179,7 +179,7 @@ uint amdgpu_pg_mask = 0xffffffff;
+>   uint amdgpu_sdma_phase_quantum = 32;
+>   char *amdgpu_disable_cu;
+>   char *amdgpu_virtual_display;
+> -bool enforce_isolation;
+> +int amdgpu_enforce_isolation = -1;
+>   int amdgpu_modeset = -1;
+>   
+>   /* Specifies the default granularity for SVM, used in buffer
+> @@ -1038,11 +1038,13 @@ module_param_named(user_partt_mode, amdgpu_user_partt_mode, uint, 0444);
+>   
+>   
+>   /**
+> - * DOC: enforce_isolation (bool)
+> - * enforce process isolation between graphics and compute via using the same reserved vmid.
+> + * DOC: enforce_isolation (int)
+> + * enforce process isolation between graphics and compute.
+> + * (-1 = auto, 0 = disable, 1 = enable, 2 = enable legacy mode)
+>    */
+> -module_param(enforce_isolation, bool, 0444);
+> -MODULE_PARM_DESC(enforce_isolation, "enforce process isolation between graphics and compute . enforce_isolation = on");
+> +module_param_named(enforce_isolation, amdgpu_enforce_isolation, int, 0444);
+> +MODULE_PARM_DESC(enforce_isolation,
+> +"enforce process isolation between graphics and compute. (-1 = auto, 0 = disable, 1 = enable, 2 = enable legacy mode)");
+>   
+>   /**
+>    * DOC: modeset (int)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index ff53401aae5a4..9b4272fbc470c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1460,6 +1460,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+>   		goto err;
+>   
+>   	job->enforce_isolation = true;
+> +	/* always run the cleaner shader */
+> +	job->run_cleaner_shader = true;
+>   
+>   	ib = &job->ibs[0];
+>   	for (i = 0; i <= ring->funcs->align_mask; ++i)
+> @@ -1591,7 +1593,7 @@ static ssize_t amdgpu_gfx_set_run_cleaner_shader(struct device *dev,
+>    * Provides the sysfs read interface to get the current settings of the 'enforce_isolation'
+>    * feature for each GPU partition. Reading from the 'enforce_isolation'
+>    * sysfs file returns the isolation settings for all partitions, where '0'
+> - * indicates disabled and '1' indicates enabled.
+> + * indicates disabled, '1' indicates enabled, and '2' indicates enabled in legacy mode.
+>    *
+>    * Return: The number of bytes read from the sysfs file.
+>    */
+> @@ -1626,9 +1628,10 @@ static ssize_t amdgpu_gfx_get_enforce_isolation(struct device *dev,
+>    * @count: The size of the input data
+>    *
+>    * This function allows control over the 'enforce_isolation' feature, which
+> - * serializes access to the graphics engine. Writing '1' or '0' to the
+> - * 'enforce_isolation' sysfs file enables or disables process isolation for
+> - * each partition. The input should specify the setting for all partitions.
+> + * serializes access to the graphics engine. Writing '1', '2', or '0' to the
+> + * 'enforce_isolation' sysfs file enables (full or legacy) or disables process
+> + * isolation for each partition. The input should specify the setting for all
+> + * partitions.
+>    *
+>    * Return: The number of bytes written to the sysfs file.
+>    */
+> @@ -1665,13 +1668,29 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(struct device *dev,
+>   		return -EINVAL;
+>   
+>   	for (i = 0; i < num_partitions; i++) {
+> -		if (partition_values[i] != 0 && partition_values[i] != 1)
+> +		if (partition_values[i] != 0 &&
+> +		    partition_values[i] != 1 &&
+> +		    partition_values[i] != 2)
+>   			return -EINVAL;
+>   	}
+>   
+>   	mutex_lock(&adev->enforce_isolation_mutex);
+> -	for (i = 0; i < num_partitions; i++)
+> -		adev->enforce_isolation[i] = partition_values[i];
+> +	for (i = 0; i < num_partitions; i++) {
+> +		switch (partition_values[i]) {
+> +		case 0:
+> +		default:
+> +			adev->enforce_isolation[i] = AMDGPU_ENFORCE_ISOLATION_DISABLE;
+> +			break;
+> +		case 1:
+> +			adev->enforce_isolation[i] =
+> +				AMDGPU_ENFORCE_ISOLATION_ENABLE;
+> +			break;
+> +		case 2:
+> +			adev->enforce_isolation[i] =
+> +				AMDGPU_ENFORCE_ISOLATION_ENABLE_LEGACY;
+> +			break;
+> +		}
+> +	}
+>   	mutex_unlock(&adev->enforce_isolation_mutex);
+>   
+>   	amdgpu_mes_update_enforce_isolation(adev);
+> @@ -2026,7 +2045,7 @@ amdgpu_gfx_enforce_isolation_wait_for_kfd(struct amdgpu_device *adev,
+>   	bool wait = false;
+>   
+>   	mutex_lock(&adev->enforce_isolation_mutex);
+> -	if (adev->enforce_isolation[idx]) {
+> +	if (adev->enforce_isolation[idx] == AMDGPU_ENFORCE_ISOLATION_ENABLE) {
+>   		/* set the initial values if nothing is set */
+>   		if (!adev->gfx.enforce_isolation_jiffies[idx]) {
+>   			adev->gfx.enforce_isolation_jiffies[idx] = jiffies;
+> @@ -2093,7 +2112,7 @@ void amdgpu_gfx_enforce_isolation_ring_begin_use(struct amdgpu_ring *ring)
+>   	amdgpu_gfx_enforce_isolation_wait_for_kfd(adev, idx);
+>   
+>   	mutex_lock(&adev->enforce_isolation_mutex);
+> -	if (adev->enforce_isolation[idx]) {
+> +	if (adev->enforce_isolation[idx] == AMDGPU_ENFORCE_ISOLATION_ENABLE) {
+>   		if (adev->kfd.init_complete)
+>   			sched_work = true;
+>   	}
+> @@ -2130,7 +2149,7 @@ void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring *ring)
+>   		return;
+>   
+>   	mutex_lock(&adev->enforce_isolation_mutex);
+> -	if (adev->enforce_isolation[idx]) {
+> +	if (adev->enforce_isolation[idx] == AMDGPU_ENFORCE_ISOLATION_ENABLE) {
+>   		if (adev->kfd.init_complete)
+>   			sched_work = true;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index 4c4e087230ac5..359c19de9a5b9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -588,7 +588,7 @@ void amdgpu_vmid_mgr_init(struct amdgpu_device *adev)
+>   	}
+>   	/* alloc a default reserved vmid to enforce isolation */
+>   	for (i = 0; i < (adev->xcp_mgr ? adev->xcp_mgr->num_xcps : 1); i++) {
+> -		if (adev->enforce_isolation[i])
+> +		if (adev->enforce_isolation[i] != AMDGPU_ENFORCE_ISOLATION_DISABLE)
+>   			amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(i));
+>   	}
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> index ce6b9ba967fff..f2c049129661f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -78,6 +78,7 @@ struct amdgpu_job {
+>   
+>   	/* enforce isolation */
+>   	bool			enforce_isolation;
+> +	bool			run_cleaner_shader;
+>   
+>   	uint32_t		num_ibs;
+>   	struct amdgpu_ib	ibs[];
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index 36f2e87161264..38ea64d87a0ac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -768,7 +768,7 @@ int amdgpu_mes_update_enforce_isolation(struct amdgpu_device *adev)
+>   	if (adev->enable_mes && adev->gfx.enable_cleaner_shader) {
+>   		mutex_lock(&adev->enforce_isolation_mutex);
+>   		for (i = 0; i < (adev->xcp_mgr ? adev->xcp_mgr->num_xcps : 1); i++) {
+> -			if (adev->enforce_isolation[i])
+> +			if (adev->enforce_isolation[i] == AMDGPU_ENFORCE_ISOLATION_ENABLE)
+>   				r |= amdgpu_mes_set_enforce_isolation(adev, i, true);
+>   			else
+>   				r |= amdgpu_mes_set_enforce_isolation(adev, i, false);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index b5ddfcbbc9fc9..dadf6715b98be 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -676,7 +676,8 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>   	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
+>   		ring->funcs->emit_wreg;
+>   
+> -	cleaner_shader_needed = adev->gfx.enable_cleaner_shader &&
+> +	cleaner_shader_needed = job->run_cleaner_shader &&
+> +		adev->gfx.enable_cleaner_shader &&
+>   		ring->funcs->emit_cleaner_shader && job->base.s_fence &&
+>   		&job->base.s_fence->scheduled == isolation->spearhead;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 344d32268c3cd..f7aa45775eadb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -724,7 +724,7 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_mes *mes)
+>   					mes->event_log_gpu_addr;
+>   	}
+>   
+> -	if (adev->enforce_isolation[0])
+> +	if (adev->enforce_isolation[0] == AMDGPU_ENFORCE_ISOLATION_ENABLE)
+>   		mes_set_hw_res_pkt.limit_single_process = 1;
+>   
+>   	return mes_v11_0_submit_pkt_and_poll_completion(mes,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> index be43e19b7b7fa..b0e042a4cea19 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -762,7 +762,7 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_mes *mes, int pipe)
+>   				pipe * (AMDGPU_MES_LOG_BUFFER_SIZE + AMDGPU_MES_MSCRATCH_SIZE);
+>   	}
+>   
+> -	if (adev->enforce_isolation[0])
+> +	if (adev->enforce_isolation[0] == AMDGPU_ENFORCE_ISOLATION_ENABLE)
+>   		mes_set_hw_res_pkt.limit_single_process = 1;
+>   
+>   	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> index 2893fd5e5d003..fa28c57692b86 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> @@ -43,7 +43,7 @@ static int pm_map_process_v9(struct packet_manager *pm,
+>   	memset(buffer, 0, sizeof(struct pm4_mes_map_process));
+>   	packet->header.u32All = pm_build_pm4_header(IT_MAP_PROCESS,
+>   					sizeof(struct pm4_mes_map_process));
+> -	if (adev->enforce_isolation[kfd->node_id])
+> +	if (adev->enforce_isolation[kfd->node_id] == AMDGPU_ENFORCE_ISOLATION_ENABLE)
+>   		packet->bitfields2.exec_cleaner_shader = 1;
+>   	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+>   	packet->bitfields2.process_quantum = 10;
+> @@ -102,7 +102,8 @@ static int pm_map_process_aldebaran(struct packet_manager *pm,
+>   	memset(buffer, 0, sizeof(struct pm4_mes_map_process_aldebaran));
+>   	packet->header.u32All = pm_build_pm4_header(IT_MAP_PROCESS,
+>   			sizeof(struct pm4_mes_map_process_aldebaran));
+> -	if (adev->enforce_isolation[knode->node_id])
+> +	if (adev->enforce_isolation[knode->node_id] ==
+> +	    AMDGPU_ENFORCE_ISOLATION_ENABLE)
+>   		packet->bitfields2.exec_cleaner_shader = 1;
+>   	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+>   	packet->bitfields2.process_quantum = 10;
+> @@ -165,9 +166,9 @@ static int pm_runlist_v9(struct packet_manager *pm, uint32_t *buffer,
+>   	 * hws_max_conc_proc has been done in
+>   	 * kgd2kfd_device_init().
+>   	 */
+> -	concurrent_proc_cnt = adev->enforce_isolation[kfd->node_id] ?
+> -			1 : min(pm->dqm->processes_count,
+> -			kfd->max_proc_per_quantum);
+> +	concurrent_proc_cnt = (adev->enforce_isolation[kfd->node_id] ==
+> +			       AMDGPU_ENFORCE_ISOLATION_ENABLE) ?
+> +		1 : min(pm->dqm->processes_count, kfd->max_proc_per_quantum);
+>   
+>   	packet = (struct pm4_mes_runlist *)buffer;
+>   
