@@ -4,103 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 483EFC3601E
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ECD6C369A6
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 13:09:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C997610E9BB;
-	Thu, 10 Apr 2025 13:09:20 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="LS9up8sz";
-	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1BF210E931;
- Wed,  9 Apr 2025 15:04:27 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4ZXmSR19b9z9t7P;
- Wed,  9 Apr 2025 17:04:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1744211063; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vXNbrTLUQrlYNydORT5K+rP57dVB2oADM2jV2AgBth4=;
- b=LS9up8szfCpBJACvt4gXa2EtpB97sVavX67wzRPpNDGRm6AHGs0RWhd+AXtPqRnp9op8zM
- yE04pWSHbv+2bVCH/VYb7yTY+oy+qVUAZ4WW9/6lnP3PpHLGzc4tcRtTF4O7CQkK3tXhvX
- cCiMrZuEgIld1a2KfjtHsIUu/oAQCKCx7fGs11u4gWzMoATXWnWjLCYPUuT99rUvw0HFVE
- FckYqYRVDbBSXy1btg0Kjd2aoH0hjFAIPruG1nC4IsLJddiCYtoMfHQpDpP9RKPQBOiAnR
- HJHimkXP9tmHGGqthFRauJolLOimIaLd2csSieO9zeWinLAUXQxNFxqKta20mA==
-Message-ID: <0b2fc70d8fae566c8ca43bafc929e2bd19725924.camel@mailbox.org>
-Subject: Re: [PATCH 1/2] dma-fence: Rename dma_fence_is_signaled()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,  Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Qiang Yu
- <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>,  Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>,  Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,  Steven Price
- <steven.price@arm.com>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann
- <kraxel@redhat.com>,  Matthew Brost <matthew.brost@intel.com>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Melissa Wen
- <mwen@igalia.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Zack
- Rusin <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Bas Nieuwenhuizen
- <bas@basnieuwenhuizen.nl>,  Yang Wang <kevinyang.wang@amd.com>, Jesse Zhang
- <jesse.zhang@amd.com>, Tim Huang <tim.huang@amd.com>,  Sathishkumar S
- <sathishkumar.sundararaju@amd.com>, Saleemkhan Jamadar
- <saleemkhan.jamadar@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, Lijo
- Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Ma Jun
- <Jun.Ma2@amd.com>, Yunxiang Li <Yunxiang.Li@amd.com>, Eric Huang
- <jinhuieric.huang@amd.com>, Asad Kamal <asad.kamal@amd.com>, Srinivasan
- Shanmugam <srinivasan.shanmugam@amd.com>,  Jack Xiao <Jack.Xiao@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>, Michel =?ISO-8859-1?Q?D=E4nzer?=
- <mdaenzer@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Anna-Maria Behnsen <anna-maria@linutronix.de>, Thomas Gleixner
- <tglx@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, Dan
- Carpenter <dan.carpenter@linaro.org>,  linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org,  amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org,  intel-gfx@lists.freedesktop.org,
- lima@lists.freedesktop.org,  linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,  nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev,  spice-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Date: Wed, 09 Apr 2025 17:04:00 +0200
-In-Reply-To: <334e843c-d7fe-4e33-b4fc-f3d18226465a@amd.com>
-References: <20250409120640.106408-2-phasta@kernel.org>
- <20250409120640.106408-3-phasta@kernel.org>
- <20250409143917.31303d22@collabora.com>
- <73d41cd84c73b296789b654e45125bfce88e0dbf.camel@mailbox.org>
- <72eb974dfea8fa1167cf97e29848672223f6fc5b.camel@mailbox.org>
- <ab7d1937-d0e9-45f8-8f7d-ddd7a1a9d3d5@amd.com>
- <9a90f7f14c22c01aa28d89aa91bf4dfa4049c062.camel@mailbox.org>
- <334e843c-d7fe-4e33-b4fc-f3d18226465a@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0AD410E9BD;
+	Thu, 10 Apr 2025 13:09:21 +0000 (UTC)
+X-Greylist: delayed 1399 seconds by postgrey-1.36 at gabe;
+ Thu, 10 Apr 2025 07:16:26 UTC
+Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
+ [205.220.178.238])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F045410E35F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 07:16:26 +0000 (UTC)
+Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
+ by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53A5JE4P018232;
+ Thu, 10 Apr 2025 06:52:34 GMT
+Received: from nam11-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11lp2170.outbound.protection.outlook.com [104.47.58.170])
+ by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 45tug8pgm3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Apr 2025 06:52:34 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yKA/7FlmSEGfa8OaOxi55FXhH851fXnhFPw+6yC0NiuatgecCR8pluupoy6fO5UgPyXCf17WO0jaY4zUq59l5ELj7RTHLE2RGBrqfBHMsC8sSB5xB+gbsX2eYM+Rc4sZr2A8DlQTreC83OEp2PHESQ/LV0OiOibKe2V/MK0Xqwn7zcFHFOyZCZ3RgcgKwey+jMFv+Fw923qx45ncby+b70QU1kphlKjqpTkHkCe0fDm2vUeQh+wApy/fe6DuhS4ppuxnTvndflKCj7u/rvn0RzZdjuIvIV7oD/fDRW9rpIpTH5liH8thCuT0uh5ncuVj08P7d4KUGsGkfH7DIuB3Iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bPgz8AwzZCzTLku5OKLLwSi1UVCeY8qSYO1r4LH4ew0=;
+ b=gkPgL7tX7bqOVQHLrF9Sjrj+BLX4ErRTFnePAWXS42GwQZdyg2UiTuAnanvv+Fq+i2GeeeHsNNOM4uT85iXAXwHsPu80wtU4IddZF5N2bFBMctP2vPFGex8nlqvy3M0x6uz827QFU911guJVWHA68FZlzJG8EvyEaHP/07GBu1C7hSEjB/SNX5i3dtR5BnkiD5zks5zEzYwq5LZs0/EDOcmbg27hUMa/rHw1GHB0mpDyaBTiNby6TzSA+ZS35oCIZoCxLtqGNF+lDj7ZDoSkwHtMFDfvjVTmeY3QcWo2b6A/8+ToNgi7sL3SfMiyXa/eKoBsCrJK/CUkyek/Va951w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=eng.windriver.com; dkim=pass header.d=eng.windriver.com; arc=none
+Received: from DM6PR11MB3324.namprd11.prod.outlook.com (2603:10b6:5:59::15) by
+ IA0PR11MB7863.namprd11.prod.outlook.com (2603:10b6:208:40c::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.21; Thu, 10 Apr
+ 2025 06:52:27 +0000
+Received: from DM6PR11MB3324.namprd11.prod.outlook.com
+ ([fe80::fd0:4a9d:56d7:c039]) by DM6PR11MB3324.namprd11.prod.outlook.com
+ ([fe80::fd0:4a9d:56d7:c039%4]) with mapi id 15.20.8606.028; Thu, 10 Apr 2025
+ 06:52:27 +0000
+From: Zhi Yang <Zhi.Yang@eng.windriver.com>
+To: stable@vger.kernel.org, srinivasan.shanmugam@amd.com
+Cc: zhe.he@windriver.com, xiangyu.chen@windriver.com, harry.wentland@amd.com, 
+ sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, sashal@kernel.org, wayne.lin@amd.com,
+ wenjing.liu@amd.com, hanghong.ma@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 5.15.y] drm/amd/display: Add null checks for 'stream' and
+ 'plane' before dereferencing
+Date: Thu, 10 Apr 2025 14:52:08 +0800
+Message-Id: <20250410065208.848340-1-Zhi.Yang@eng.windriver.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SGBP274CA0021.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b0::33)
+ To DM6PR11MB3324.namprd11.prod.outlook.com
+ (2603:10b6:5:59::15)
 MIME-Version: 1.0
-X-MBO-RS-META: 9wh48drngnos9i43y9zpcu5f5mrpihgx
-X-MBO-RS-ID: f0082fb0ff96fc9be99
-X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:27 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR11MB3324:EE_|IA0PR11MB7863:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe7dc89a-1ac8-4299-5c33-08dd77fc4151
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|52116014|7416014|1800799024|376014|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ScC6Ox+W26WxJ/FdgahAIlTPcR63+BP0oXY6VF3btWC5j5uAf6/JcYkl1p3o?=
+ =?us-ascii?Q?PNmjNf5UZ9M6ty+WbslyfJyOOIt0HBp0qut0PvYt2o+szx8tBhPgzLwkoMlI?=
+ =?us-ascii?Q?4P8Z3famcc99zhrgPf5+W3HpvGyjG8TKC+wTRSWRaXi8tBIwx2CSOyIESone?=
+ =?us-ascii?Q?NayOzZXEHIbZ6Gw9QZp7shMkmsQgKGBt/cGszT9810l0oQd/TJLDAn/02i1e?=
+ =?us-ascii?Q?32UccH4AyAv/ghcrd5kTFFO1tm8d2VT8KDt34JPAfvWVM5bzaDIn4Gw59Mj4?=
+ =?us-ascii?Q?04foHHzlXsADE/PEXyLUtAYzI8kCZxc4/XlzLdib0R4NKNMpmSQodg37ehdB?=
+ =?us-ascii?Q?08OnVFD0LGv+YMHKuquKwqszzIA0Uh7IlHSgeHNsDTkjQBq7ioGcK0R0dL08?=
+ =?us-ascii?Q?i45jAuYOESXyrca0mZeLVLioQH/2drSFKuBu1LZdddqhNrquMCrJIBAPpx9m?=
+ =?us-ascii?Q?yavzapWFgV+6MRWLuH2UOVnKSPeSbdkgjA9SmpFf2DYR1vOm6MiyrrAfSmZ9?=
+ =?us-ascii?Q?eE60vVzuwV71mzk1RzZwZGFMKBP5R+jGgbJlSqJxkHbGq7dYE7r+JsuudDmA?=
+ =?us-ascii?Q?Xn5SUk5i2g1fK4MM7+85D3g6Ne96wk7HWmDmnWjmYynKiUlwZIFBLqO5OM8C?=
+ =?us-ascii?Q?cyeGoYx0HeJRW3OWOfdqcLh9QqXEZLIVojy/7MzV1qFfjG2Gw7iXnl4JTzyB?=
+ =?us-ascii?Q?m3fXpeTBiRF83Vmr1EFt1v0MgidL6C/sgM9qmF2ihd0quOv2LohXl5zyd1dT?=
+ =?us-ascii?Q?98ExAfR2fEu9XO94g3PKxusn7cTyM4TF0N8YxM6Kfd3niP8l0UUKgscN8xlu?=
+ =?us-ascii?Q?fpKeCbJfdW+O09R9ab+ZFuUBAg/+vjuBqqLmpYeCMiCp5ea2ZKQJ0nkZoleP?=
+ =?us-ascii?Q?joL0ysjUKeIvZoU2xyj//HMlugoSe63xusNUTPijOxeETQaINVMOWMGRZaoF?=
+ =?us-ascii?Q?W64IVr/gIObZEBvOi72BWhenOhkMWsZ8vLSrPDlTYIoNaO5qMVBHOsLySDHZ?=
+ =?us-ascii?Q?HISQLnq/iHLgxZz2VcHGjQn0wQBwGveeLebqFf4wZ/DYc4GHno/ws4mFK27p?=
+ =?us-ascii?Q?dNyt2CJljsN8WVS3+i9hvM9zGicn/acJWdttW06iySFAhafsy+01FEmrecLa?=
+ =?us-ascii?Q?zBK99deg63w/ICCdiruQFSs9KwYT0qnUBV/zxv3VUv5wkTmqVaa4JaFAE1J+?=
+ =?us-ascii?Q?BWy/PoFOKkvYsARDmQstOWEDteyCj1uVw7lBSEQH3rWSY8EY9iiVL7YkL88R?=
+ =?us-ascii?Q?OVh4u6ekFXgvvNFa19LoMFFQg+ZHLtfvzK1ktlQuN8lMJ5yQHCaE8qeG8FtB?=
+ =?us-ascii?Q?zWLVLpHF9L/cCcf9pyGEj1dGvxAefaFVI+bSttoReTo55cG6vbuN+9ItpWOs?=
+ =?us-ascii?Q?x3/IZ7U/wdpjMcsksog1+JOouDdnt4DzHbuj2I4d8BlGr8iKYq8fFEep4vdL?=
+ =?us-ascii?Q?+hc5yZUia9ECV4f1RGmLgXaH+bEMmJc/?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB3324.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(52116014)(7416014)(1800799024)(376014)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?iecCqHWyUV/YVHGmaC7jfAl7xBj7C2aqDGJHOMdGl61qtkUWbK0iq8PHPDIC?=
+ =?us-ascii?Q?cxRRX/unZHlkstXlZjwLyYhF0lRGolSRlzDO77smWxd+XxMpe9BpfMV9DHtB?=
+ =?us-ascii?Q?O965mAFwknVEB/nW1va0WXeTxj9IV9v7/JY1q8/QwdZmxU1Ojg17bC5Vqgf0?=
+ =?us-ascii?Q?aLfeMjjJMAaQ5xqSt/QiXSxFFH55U+NtlaorHvz2AsicMxUiayElBqX8ozv2?=
+ =?us-ascii?Q?omb7XQM6ndT2I5GoLhWPlXNFirYeG7aoNXluwdcVthfO8h8dItFIyb90ql/j?=
+ =?us-ascii?Q?ps5OUUbwPv9pmqs1ROKUOZPHtXinyJxiH2z3YWJBwM79LzQKFfjKu1Qcetir?=
+ =?us-ascii?Q?t+/rIyj7VQFUoRcrqUNDdWx4q10TiBbveh/mGiFinDOWVrORlwbd7XBIPL/O?=
+ =?us-ascii?Q?4fOeZo8GH0OhfPBqaGnNOcy3oKYJI7640G9on/O22cS7+bMijijiSFFWsTwU?=
+ =?us-ascii?Q?xB4ATIU11znCYpvIgi8AMxYSbWbeQqC5lks2+eKG0TIvXUGnwBUr8ujoOSQg?=
+ =?us-ascii?Q?8w7IMUrs5ysgJRwA2sJ3zfopJtLHbNdrr9JazZlHC1FVNwYusDGMx4jXl3CA?=
+ =?us-ascii?Q?zfpLc5fhJcwEVp9IK2sUONkvs6/0loU0q8EG9zS7xuCDEZoBoOPwLXTugk1a?=
+ =?us-ascii?Q?uVbgn4Sktnj7c/SPt8/h4fthg9HLHsb22qplfzcClk3VcIUKuzBFmZh09f+a?=
+ =?us-ascii?Q?Mks27TVBv4XH8EzyRPAERT5bvqCljKB0oFBFlZg+f5T8l8yxp0UUg4BGnO7R?=
+ =?us-ascii?Q?sBsVoUVS26KJCT4grh4l8RQ5/Gtbq/8XFADPqAvmSGLh07imwG5BLQUz1d2j?=
+ =?us-ascii?Q?lE2VSSSiqD+PRjiIOhPeE0MI50DSJKCtyu7tJUJPZ5/bOby7CM/hCU5uf6y5?=
+ =?us-ascii?Q?sjd8iVgMH9JXfkvRDmARDKCl0aj4n3YR1LGZJLFDVVzVgWKi3z+3BGnkluaO?=
+ =?us-ascii?Q?hotxDMcGJaHt7eJ/uqaaXQ4g0djMB5xq3DniPZJ0oNRcri/EhSGiPHon4DA2?=
+ =?us-ascii?Q?vmHBna9M7vIwc6/jrDMh5qEGAT7hCvwGqY2ytBKhL8gkArbiPbMppTaP1sOa?=
+ =?us-ascii?Q?qyiCc/xg/5bT3QOUSMbMq3TBbkVHY6JXzMGTa2dBJVH3wiqJtORVPtF7cIQ/?=
+ =?us-ascii?Q?3I1OJnoIsebvYGfbgQR9GRO+mjn6M4ARxS70KaVU0KefRVmYcKZa1sjdv022?=
+ =?us-ascii?Q?IqIBew8B55uO9j47n048APmkkfRCBNdyNm1x3Bz7lBhA4NxqIBwiKDCR8OVp?=
+ =?us-ascii?Q?DJhshF9SN8O5ko13S0PWGJ3sEv2svzrSuNURv/aPC3itguZyNzPwU522F1ZB?=
+ =?us-ascii?Q?OY+srnkRXiLx0QgXBvBXzJHJp94VTz+gQ+JFejGS31CXLUe6TWKqEqfrVMQt?=
+ =?us-ascii?Q?s0yaPsalpZFXpbfYZU+V1JMNiz3BKlQ+30bHB5BRiEPbQcBLBwlAmx5FzrsM?=
+ =?us-ascii?Q?Fb6jbrrIN+g041bniS1rEU/vNO1rYHG4phNkiMpB+5sKZiqQmWcDy2J+oVLI?=
+ =?us-ascii?Q?7uLH6CrwX280AKTGtSHfHAW9uCyXsyJhojvUyaxEia6SYG5qvxAB8ir0PC70?=
+ =?us-ascii?Q?wZCbsWEUiuSVHwIdVI0BoWn/dAwYBzmZ3bVv29Hs?=
+X-OriginatorOrg: eng.windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe7dc89a-1ac8-4299-5c33-08dd77fc4151
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3324.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2025 06:52:27.0044 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vlLIYHwIRAsrylueHwtce4kLygz1JADG/JtFHX5cYRhCsPP2a8Bspta4Ob9eq/Cj69bzRjzoJw9lmXFdBYZL8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7863
+X-Proofpoint-GUID: on4DC2W6eu5omi1nB6LfpV1R2wK6pP6n
+X-Authority-Analysis: v=2.4 cv=YJefyQGx c=1 sm=1 tr=0 ts=67f76ab2 cx=c_pps
+ a=sGbpJkUcFVeWJOR+0qTsNQ==:117 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19 a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19
+ a=xqWC_Br6kY4A:10 a=XR8D0OoHHMoA:10
+ a=zd2uoN0lAAAA:8 a=t7CeM3EgAAAA:8 a=fmkVBTeLr2XkT1_ESlIA:9
+ a=FdTzh2GWekK77mhwV6Dw:22 a=Omh45SbU8xzqK50xPoZQ:22
+X-Proofpoint-ORIG-GUID: on4DC2W6eu5omi1nB6LfpV1R2wK6pP6n
+X-Sensitive_Customer_Information: Yes
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-09_06,2025-04-08_04,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 bulkscore=0 mlxlogscore=999 adultscore=0 lowpriorityscore=0
+ mlxscore=0 clxscore=1011 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.21.0-2502280000
+ definitions=main-2504100050
+X-Mailman-Approved-At: Thu, 10 Apr 2025 13:08:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,208 +167,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-04-09 at 16:10 +0200, Christian K=C3=B6nig wrote:
-> Am 09.04.25 um 16:01 schrieb Philipp Stanner:
-> > On Wed, 2025-04-09 at 15:14 +0200, Christian K=C3=B6nig wrote:
-> > > Am 09.04.25 um 14:56 schrieb Philipp Stanner:
-> > > > On Wed, 2025-04-09 at 14:51 +0200, Philipp Stanner wrote:
-> > > > > On Wed, 2025-04-09 at 14:39 +0200, Boris Brezillon wrote:
-> > > > > > Hi Philipp,
-> > > > > >=20
-> > > > > > On Wed,=C2=A0 9 Apr 2025 14:06:37 +0200
-> > > > > > Philipp Stanner <phasta@kernel.org> wrote:
-> > > > > >=20
-> > > > > > > dma_fence_is_signaled()'s name strongly reads as if this
-> > > > > > > function
-> > > > > > > were
-> > > > > > > intended for checking whether a fence is already
-> > > > > > > signaled.
-> > > > > > > Also
-> > > > > > > the
-> > > > > > > boolean it returns hints at that.
-> > > > > > >=20
-> > > > > > > The function's behavior, however, is more complex: it can
-> > > > > > > check
-> > > > > > > with a
-> > > > > > > driver callback whether the hardware's sequence number
-> > > > > > > indicates
-> > > > > > > that
-> > > > > > > the fence can already be treated as signaled, although
-> > > > > > > the
-> > > > > > > hardware's /
-> > > > > > > driver's interrupt handler has not signaled it yet. If
-> > > > > > > that's
-> > > > > > > the
-> > > > > > > case,
-> > > > > > > the function also signals the fence.
-> > > > > > >=20
-> > > > > > > (Presumably) this has caused a bug in Nouveau (unknown
-> > > > > > > commit),
-> > > > > > > where
-> > > > > > > nouveau_fence_done() uses the function to check a fence,
-> > > > > > > which
-> > > > > > > causes a
-> > > > > > > race.
-> > > > > > >=20
-> > > > > > > Give the function a more obvious name.
-> > > > > > This is just my personal view on this, but I find the new
-> > > > > > name
-> > > > > > just
-> > > > > > as
-> > > > > > confusing as the old one. It sounds like something is
-> > > > > > checked,
-> > > > > > but
-> > > > > > it's
-> > > > > > clear what, and then the fence is forcibly signaled like it
-> > > > > > would
-> > > > > > be
-> > > > > > if
-> > > > > > you call drm_fence_signal(). Of course, this clarified by
-> > > > > > the
-> > > > > > doc,
-> > > > > > but
-> > > > > > given the goal was to make the function name clearly
-> > > > > > reflect
-> > > > > > what
-> > > > > > it
-> > > > > > does, I'm not convinced it's significantly better.
-> > > > > >=20
-> > > > > > Maybe dma_fence_check_hw_state_and_propagate(), though it
-> > > > > > might
-> > > > > > be
-> > > > > > too long of name. Oh well, feel free to ignore this
-> > > > > > comments if
-> > > > > > a
-> > > > > > majority is fine with the new name.
-> > > > > Yoa, the name isn't perfect (the perfect name describing the
-> > > > > whole
-> > > > > behavior would be
-> > > > > dma_fence_check_if_already_signaled_then_check_hardware_state
-> > > > > _and
-> > > > > _pro
-> > > > > pa
-> > > > > gate() ^^'
-> > > > >=20
-> > > > > My intention here is to have the reader realize "watch out,
-> > > > > the
-> > > > > fence
-> > > > > might get signaled here!", which is probably the most
-> > > > > important
-> > > > > event
-> > > > > regarding fences, which can race, invoke the callbacks and so
-> > > > > on.
-> > > > >=20
-> > > > > For details readers will then check the documentation.
-> > > > >=20
-> > > > > But I'm of course open to see if there's a majority for this
-> > > > > or
-> > > > > that
-> > > > > name.
-> > > > how about:
-> > > >=20
-> > > > dma_fence_check_hw_and_signal() ?
-> > > I don't think that renaming the function is a good idea in the
-> > > first
-> > > place.
-> > >=20
-> > > What the function does internally is an implementation detail of
-> > > the
-> > > framework.
-> > >=20
-> > > For the code using this function it's completely irrelevant if
-> > > the
-> > > function might also signal the fence, what matters for the caller
-> > > is
-> > > the returned status of the fence. I think this also counts for
-> > > the
-> > > dma_fence_is_signaled() documentation.
-> > It does obviously matter. As it's currently implemented, a lot of
-> > important things happen implicitly.
->=20
-> Yeah, but that's ok.
->=20
-> The code who calls this is the consumer of the interface and so
-> shouldn't need to know this. That's why we have created the DMA fence
-> framework in the first place.
->=20
-> For the provider side when a driver or similar implements the
-> interface the relevant documentation is the dma_fence_ops structure.
->=20
-> > I only see improvement by making things more obvious.
-> >=20
-> > In any case, how would you call a wrapper that just does
-> > test_bit(IS_SIGNALED, =E2=80=A6) ?
->=20
-> Broken, that was very intentionally removed quite shortly after we
-> created the framework.
->=20
-> We have a few cases were implementations do check that for their
-> fences, but consumers should never be allowed to touch such
-> internals.
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-There is theory and there is practice. In practice, those internals are
-being used by Nouveau, i915, Xe, vmgfx and radeon.
+commit 15c2990e0f0108b9c3752d7072a97d45d4283aea upstream.
 
-So it seems that we failed quite a bit at communicating clearly how the
-interface should be used.
+This commit adds null checks for the 'stream' and 'plane' variables in
+the dcn30_apply_idle_power_optimizations function. These variables were
+previously assumed to be null at line 922, but they were used later in
+the code without checking if they were null. This could potentially lead
+to a null pointer dereference, which would cause a crash.
 
-And, to repeat myself, with both name and docu of that function, I
-think it is very easy to misunderstand what it's doing. You say that it
-shouldn't matter =E2=80=93 and maybe that's true, in theory. In practice, i=
-t
-does matter. In practice, APIs get misused and have side-effects. And
-making that harder is desirable.
+The null checks ensure that 'stream' and 'plane' are not null before
+they are used, preventing potential crashes.
 
-In any case, I might have to add another such call to Nouveau, because
-the solution preferred by you over the callback causes another race.
-Certainly one could solve this in a clean way, but someone has to do
-the work, and we're talking about more than a few hours here.
+Fixes the below static smatch checker:
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn30/dcn30_hwseq.c:938 dcn30_apply_idle_power_optimizations() error: we previously assumed 'stream' could be null (see line 922)
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn30/dcn30_hwseq.c:940 dcn30_apply_idle_power_optimizations() error: we previously assumed 'plane' could be null (see line 922)
 
-In any case, be so kind and look at patch 2 and tell me there if you're
-at least OK with making the documentation more detailed.
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Zhi Yang <Zhi.Yang@windriver.com>
+Signed-off-by: He Zhe <zhe.he@windriver.com>
+---
+Build test passed.
+---
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-P.
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > P.
-> >=20
-> > > What we should improve is the documentation of the dma_fence_ops-
-> > > > enable_signaling and dma_fence_ops->signaled callbacks.
-> > > Especially see the comment about reference counts on
-> > > enable_signaling
-> > > which is missing on the signaled callback. That is most likely
-> > > the
-> > > root cause why nouveau implemented enable_signaling correctly but
-> > > not
-> > > the other one.
-> > >=20
-> > > But putting that aside I think we should make nails with heads
-> > > and
-> > > let the framework guarantee that the fences stay alive until they
-> > > are
-> > > signaled (one way or another). This completely removes the burden
-> > > to
-> > > keep a reference on unsignaled fences from the drivers /
-> > > implementations and make things more over all more defensive.
-> > >=20
-> > > Regards,
-> > > Christian.
-> > >=20
-> > > > P.
-> > > >=20
-> > > > > P.
-> > > > >=20
-> > > > >=20
-> > > > > > Regards,
-> > > > > >=20
-> > > > > > Boris
->=20
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 81547178a934..30716b88136c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -784,6 +784,9 @@ bool dcn30_apply_idle_power_optimizations(struct dc *dc, bool enable)
+ 			stream = dc->current_state->streams[0];
+ 			plane = (stream ? dc->current_state->stream_status[0].plane_states[0] : NULL);
+ 
++			if (!stream || !plane)
++				return false;
++
+ 			if (stream && plane) {
+ 				cursor_cache_enable = stream->cursor_position.enable &&
+ 						plane->address.grph.cursor_cache_addr.quad_part;
+-- 
+2.34.1
 
