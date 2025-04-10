@@ -4,112 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0448AC36010
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7A5FC369A9
 	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 12:24:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 970EF10EB91;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F18210EB94;
 	Fri, 11 Apr 2025 12:24:49 +0000 (UTC)
-Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com
- [209.85.222.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDAFD10EAF6;
- Fri, 11 Apr 2025 06:36:27 +0000 (UTC)
-Received: by mail-ua1-f66.google.com with SMTP id
- a1e0cc1a2514c-86c29c0acdfso636175241.3; 
- Thu, 10 Apr 2025 23:36:27 -0700 (PDT)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WPBIV2xY";
+	dkim-atps=neutral
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F24210EA04
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 16:24:55 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-39c2688619bso624221f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 09:24:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1744302294; x=1744907094; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/Q0HEw3hrYVGi9s56H8x5ezvg01Afiad6GaTNJBgE4g=;
+ b=WPBIV2xYzXx2f1YnKFJWHS1hfjhzZukFalWUFE7oyKohHg8GdFngV1eeYRuPOjDtiF
+ iV6cwuEbX+rvwB8hGRxwGstVvtEtTngWfdK9QJsIIfzc0PJRMpi+vBnBxfDwvTmMkXYn
+ v1DIXqeZUuyW2htKu29edUJ8u4VUsXFwop6Sh+kakw0BAx3Qkoze5rspb+r7BF7cbNJt
+ qefgL3VeHhNh3ylyMw+OWm18FuPg8zncDaqfIazYFEkdF9Gg9+2U+UuqQEKYlRo4bjSm
+ vEq8qXAKCmMHk+fA8UVnbtlnoKFOvoMakFEOu/FtWLejzvCAp5Go1gGSkqTzNl2aGrtz
+ jPgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744353386; x=1744958186;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6YaWTI7DWsK4VeI0QvD2ZFS0NMVC1Fl7xtwp7U/95NA=;
- b=hBKlqu/f0G7gNcaqmRPUn1YkPNsK2CDudWe8DgTek50+AEkxSGxnzl6tZqbzPiU6i5
- 5bObl3pgciG+MzrazJAq+5i1NEJ6dB0bly1F3XJKousmC6/a8i1VsWB/EjK3pQM7Y8tP
- 0AaFcCfSvj2bNQg+731UUgctCAuclCNUj1eUf6GBSRWOIccebQk4xIDaOx3MN+4bD9Ef
- nmAMnx1RmitrKKpaCAjZi2uiT0wFaSklWQjJgmbbNlTrAEnV80r0Cpk5gEKAj3El1JYE
- +ShNX45ZkI60B8YP2IssrMGFr2oHTlp3dLFHF72do7LYON5ebKsuFBClQshZVWyECtte
- +pig==
+ d=1e100.net; s=20230601; t=1744302294; x=1744907094;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/Q0HEw3hrYVGi9s56H8x5ezvg01Afiad6GaTNJBgE4g=;
+ b=tLcjDCk5Ava5AloqQxV4xda5h+4IODv/hUG6HDnJohagJbgrOHilZW5UOyOUW0Sq0l
+ hftIZsy7+YaPg2XN238khbFLc7OiG3NDKYk1G98KMRZe44d7h+VXSUpmw5Kr2A5ufQLv
+ QNhmLrb7BczjU8MMqHzcB/3TQIPxjtnR14vqelVAqvnQIU5KH9O8SQpht2T1CGm3A7PM
+ dudkdULgs+Da7Wg4zjyDIdQMeMZ3rcuh3eHZPL4UVlpS/jMcJ0FkUmK861XwxsFGOnsR
+ xqvnzHFVHHqipE5RbuHRbErW9jwY5mWrKHr3UinvT2PZJk/2DgHoLj436w/jkQTx5L0j
+ XGMQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUidUUdvFZXWCi68Zh7uXN26IcnLR6QDt1MS1bi9reE7nYC3h5nBHqG6AulKu6TnrmQBADBwHEl@lists.freedesktop.org,
- AJvYcCVZXhuY4zPOswHFyquSHJYxWXfr6SUzvC/dM2fSDuVChFY0riQa9BHJORCZqQnFvRDrRXI5Ea2/Sw==@lists.freedesktop.org,
- AJvYcCVkyso6F/gOlWX4mIAAT3N7DKuuHQFwoq8voKHkI9KCwjlT9pAlG+n1VeSTNRUcnAYyITQFswc3udq7@lists.freedesktop.org,
- AJvYcCWRq8Jaqv1z64NHNGfzESlaQXX2qAjcIQ27GKCECtCYxAwGiN9l68ikwLZAnkvjDSpgq5vIST8Bx40=@lists.freedesktop.org,
- AJvYcCXxkTJ07xtDwHFCftVxbdzwfbKhWXKGrByJWxo+liZdzu0xtS4ielqOxGmYL099dvoF12bI9RzMf3Cg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwudWQLA3hKTqvSa+Noqkl15S8wRtDSOUonQPnp6zlwB4QTFNvY
- 3ubIz9WeZbky0a8lCgQ3Bj8J6lRtd4uhhFtG9Il5TYxJJnwlZgSp9d3+TdtDQLHJYg==
-X-Gm-Gg: ASbGncuB6mhnGq2VCei4FEFPyB2XB3sl1ZP/3/qLBjFuoJgVKuyZyN5ggHEa6Bj28g8
- mYYMO73l2uafBXw392GZFtBrLfhLByiYPVIY6iZNPjxOcd1O3diGdo1E7I22sG6WpzHGHtS0VyB
- VALsZ+ysvgRkTddr4atGvPdm6dfxEPlTtZq00GX1wx2F0sF0misJw4qQmqNud5+oGeDLIgIqUuP
- 5yWMAQsPka54KugugW/YSDpD8m3eOvcDMJ+liiH3E8R8umEsTZuhDUsriFalLRwAxt3y5ShBQO3
- Qk6EsxRurDRpsDfijLUyIA2xqJ1x1ENVaNF/4tk9k9ORFI1tc7z8Enf52nvvsKnEatep0zE/dLm
- QR1s=
-X-Google-Smtp-Source: AGHT+IFzEv8rIHpiVq68+W9fVA+/1iVlMjr9RuJ0K/S6DybYhZxTJvAFT1OUHl5h9LQ9nT6nIu1GEA==
-X-Received: by 2002:a05:6102:3c8c:b0:4bb:cf25:c5a7 with SMTP id
- ada2fe7eead31-4c9e4ef1620mr811557137.7.1744353386480; 
- Thu, 10 Apr 2025 23:36:26 -0700 (PDT)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com.
- [209.85.222.41]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-4c9c9738083sm920049137.4.2025.04.10.23.36.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 23:36:26 -0700 (PDT)
-Received: by mail-ua1-f41.google.com with SMTP id
- a1e0cc1a2514c-86718c2c3b9so655975241.2; 
- Thu, 10 Apr 2025 23:36:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCU8ACPRR26NTq7BV26fL1uiaSDzzLgH/Yq5K4YxFdKKG0tGVyk/7tz6q8qohQLB0g/PJ+6A6HWMaO6g@lists.freedesktop.org,
- AJvYcCVIAnQdewypRuZ18B3R7P2XfQcHhNClVRCOdAXpO1X9TnigVNrFzckPc3LWxlwYdSubGdzE+Tk3@lists.freedesktop.org,
- AJvYcCW9SxIqWLwKKj+joTaqQRJ6bGL6xBCRB8M/QrFGWUpw8w7dSHqC96EztiptGM6f0tedSxH4Gv7OW7Q=@lists.freedesktop.org,
- AJvYcCWgOTSk0qftP7qNEd4EruhhVyb2hjkbmPA4J1A00LTrTIhZRZJKnKinFuexTusot4/PBEXzFMeepk6z@lists.freedesktop.org,
- AJvYcCXq1Wn64S8V1eJBtjCDdqgh0f/eGfTLK3EFtigVUnXkoNLnzCOzFfaN183TvTZzR3swSSkaoIpDTQ==@lists.freedesktop.org
-X-Received: by 2002:a05:6102:5489:b0:4c1:924e:1a2a with SMTP id
- ada2fe7eead31-4c9e504c3aemr736947137.25.1744353386128; Thu, 10 Apr 2025
- 23:36:26 -0700 (PDT)
+ AJvYcCWKh2UpsjCQfb9u8NFiruXgrhEu5dXs1aKvEHmVux1QJ9FgTJsJRpWFi7wVOKgmkjMLf6482d75@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwIjiUGjXUL+knLUOoA/9lscnAvNJ2fH8Bk+wZMXucIr/CVYczL
+ sU2Ai/dWGgva0UlfghFrq+rC1ZEI3OU+qJ0Iva+WU2pdx/pDj79utHDHyl6GKi0=
+X-Gm-Gg: ASbGnct/+eCKQMqy11RxMRcEU7cVCzTTMFsy+AuKM3oYYFtOSMhKgOCAP4lXJISDUEa
+ BqocPQz2onSSW7ylsCCMbiQ7sZDh7lagSYSln0RYG1XCpbnawu0Ejv/o1lCKDn70O2/FclhXH7m
+ Ah3wFdaALoZHPtwk7BXnjBvlIth0IDU0wz+Som77lUOPHwjdOmLnDEDiGHTdd+e+xIX9oKBLcvy
+ yISvkxAHqmElhynqeMz6ZtxTunUqVf1WpA8dvXqT2Y/L+ZJoFWelSkx+GD/KAks/+Hblj+Ieqg9
+ Rx2NMeptXf9FxSH10jzF5Lxa2SNrIE0qDQFWlcS79aIXrw==
+X-Google-Smtp-Source: AGHT+IE5gbRW9QyJ582gnS5/K6En7dv4OcdtzrH6WqFi8GhS+S5YHvq23DQaLTjIP0Syy2HVbmP5YA==
+X-Received: by 2002:a05:6000:1785:b0:39c:dfa:e1bb with SMTP id
+ ffacd0b85a97d-39d8f4dcf9amr2828748f8f.42.1744302293770; 
+ Thu, 10 Apr 2025 09:24:53 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-39d89402a08sm5153257f8f.100.2025.04.10.09.24.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Apr 2025 09:24:53 -0700 (PDT)
+Date: Thu, 10 Apr 2025 19:24:50 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Arvind Yadav <Arvind.Yadav@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH next] drm/amdgpu: Fix double free in
+ amdgpu_userq_fence_driver_alloc()
+Message-ID: <5ff4d367-b5bd-40ae-9529-56d08ea6c1d0@stanley.mountain>
 MIME-Version: 1.0
-References: <20250410163218.15130-1-ville.syrjala@linux.intel.com>
- <20250410163218.15130-5-ville.syrjala@linux.intel.com>
-In-Reply-To: <20250410163218.15130-5-ville.syrjala@linux.intel.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 11 Apr 2025 08:36:13 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUt4UkiTqe6T1QPxAwJdLnQfaDjw7_cKYtTx9WVed9Z0w@mail.gmail.com>
-X-Gm-Features: ATxdqUGG68dHUm49IQV8G2NJ_HEDfXWabJxNBHJkOpQT2upH4xlbmyKOguLtNHo
-Message-ID: <CAMuHMdUt4UkiTqe6T1QPxAwJdLnQfaDjw7_cKYtTx9WVed9Z0w@mail.gmail.com>
-Subject: Re: [PATCH 04/19] drm: Pass the format info to .fb_create()
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Maxime Ripard <mripard@kernel.org>, 
- Russell King <linux@armlinux.org.uk>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- amd-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Fri, 11 Apr 2025 12:24:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,35 +91,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 10 Apr 2025 at 18:33, Ville Syrjala
-<ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Pass long the format information from the top to .fb_create()
+The goto frees "fence_drv" so this is a double free bug.  There is no
+need to call amdgpu_seq64_free(adev, fence_drv->va) since the seq64
+allocation failed so change the goto to goto free_fence_drv.  Also
+propagate the error code from amdgpu_seq64_alloc() instead of hard coding
+it to -ENOMEM.
 
-s/long/along/
+Fixes: e7cf21fbb277 ("drm/amdgpu: Few optimization and fixes for userq fence driver")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-> so that we can avoid redundant (and somewhat expensive) lookups
-> in the drivers.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index a4953d668972..b012fece91e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -84,11 +84,8 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
+ 	/* Acquire seq64 memory */
+ 	r = amdgpu_seq64_alloc(adev, &fence_drv->va, &fence_drv->gpu_addr,
+ 			       &fence_drv->cpu_addr);
+-	if (r) {
+-		kfree(fence_drv);
+-		r = -ENOMEM;
+-		goto free_seq64;
+-	}
++	if (r)
++		goto free_fence_drv;
+ 
+ 	memset(fence_drv->cpu_addr, 0, sizeof(u64));
+ 
+-- 
+2.47.2
 
-[...]
-
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-
->  drivers/gpu/drm/renesas/shmobile/shmob_drm_kms.c       |  3 ++-
-
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
