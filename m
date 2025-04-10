@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0454EC3601E
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 16:18:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAA9EC3601E
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 16:32:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81FB010E9FA;
-	Thu, 10 Apr 2025 16:18:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A74C310EA11;
+	Thu, 10 Apr 2025 16:32:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="tTwDU/FS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R2YdDgzS";
 	dkim-atps=neutral
-Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch
- [109.224.244.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B4E810E9FA
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 16:18:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1744301897; x=1744561097;
- bh=3OrBhjjKfrQrfSbH/4amearvQ/guLXPqW6egb+h95MU=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=tTwDU/FSQNRgai4+0Q4Ha8Q6/cL/p9chvievaUqHNP5eKPo8Q9lswLkCWtiC3I9hK
- Jnx51SukWnYcGc0oTqIdAGT8ulvUFQuKmqbfI9Y8EEb9mufGqelmxbLSZ7C9RJnUoh
- flepH40xj0+lw6N7M3kRpHFd4B+dSirptRsV0+bnICyW6+ugZt4MXvHDSr98WYw4Ax
- j+kr9T+fc5bNv4Co8DCrJseZNo6GlRzFrusdribheOXPE8O4X6XLvOLHn1Z3K6TqC0
- rEUWD+NCe8h10/UjpMu5sZYGPZSFQVMNZ06IBiJBSoRyXcOHi+2xfJfuTomwQHuGU3
- yXfxzecCfIgrA==
-Date: Thu, 10 Apr 2025 16:18:10 +0000
-To: Alex Hung <alex.hung@amd.com>
-From: Simon Ser <contact@emersion.fr>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, leo.liu@amd.com,
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
- uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
- quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
- sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
- louis.chauvet@bootlin.com
-Subject: Re: [PATCH V8 43/43] drm/colorop: Add destroy functions for color
- pipeline
-Message-ID: <MR-ewrD_HzmW-bQzgnYRqWk-QZD9s9aF4dZ4EeGYrvtlarHFwQP0K1aCD9F3RUwEoOdHOYgmIeapScgP0j4SczvXn_2UDdSoYYJ0tZ-Tz1E=@emersion.fr>
-In-Reply-To: <a8aae4e1-59ed-4a03-a4f5-6f70cd92ebd0@amd.com>
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-44-alex.hung@amd.com>
- <_GmbIozpR3Vwp7BPlTFO3i1Kn2S3SIYiQLIbF4TEizuVzpkcUrTZWj87cDM8l_ArWVpCKWJVYJyrNX3ElPuu-fOb_J5C5dVhGfdLkQ5Y5k0=@emersion.fr>
- <a8aae4e1-59ed-4a03-a4f5-6f70cd92ebd0@amd.com>
-Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 525a1ec65c83036ee84b42b1015d2502d53865c0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82C2010EA0E;
+ Thu, 10 Apr 2025 16:32:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1744302756; x=1775838756;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=rB/ljIGme2GzwJsuSZYmtYPYCAYkV1Q/JbAmzs0mIQ0=;
+ b=R2YdDgzS/wRRETOufIOecEa8xVk6MJlCXfHbe+nj/eSjnwlbrh37ZZtY
+ E2wMY7MmDYqpEeY4XXxxlOiKMNimhzhEZ//a/XBu8x4RiNF4NqKi/BZ9Y
+ xLKrwnDmN/HU0+7QfXA4Nusk63OS9Bq/s6mzfJNqLm42gNNs3/z19w3K+
+ 8Af9SFzxnVP+DJ8f+S0g0Z6H+ogOu21Y1aXHkEbTTEH2yBb6I/ffVp00D
+ RqI5qu2zE3AGCTDgqZ2vvYz1AirPa2+lghO5HJF1L4DsWSrfMo0/AxgpP
+ ffuRg/WtTrYEquEk53eJzdkNLnDe2qaWRFrWhGEKoUhyw8U7WBdD3/f2M g==;
+X-CSE-ConnectionGUID: lAujcjkTSgqVI7FiK+4KpA==
+X-CSE-MsgGUID: fHN2O34CQvKWHgHOuWbvKA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11400"; a="57219963"
+X-IronPort-AV: E=Sophos;i="6.15,202,1739865600"; d="scan'208";a="57219963"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2025 09:32:34 -0700
+X-CSE-ConnectionGUID: J4cM+0VvT5m2OcdNX6DGvg==
+X-CSE-MsgGUID: gp5lZHCBSmqezCfA82wmag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,202,1739865600"; d="scan'208";a="134128855"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by orviesa005.jf.intel.com with SMTP; 10 Apr 2025 09:32:23 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 10 Apr 2025 19:32:21 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 01/19] drm: Pass pixel_format+modifier to .get_format_info()
+Date: Thu, 10 Apr 2025 19:32:00 +0300
+Message-ID: <20250410163218.15130-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250410163218.15130-1-ville.syrjala@linux.intel.com>
+References: <20250410163218.15130-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,32 +71,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, April 1st, 2025 at 04:42, Alex Hung <alex.hung@amd.com> wrote:
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-> On 3/29/25 09:48, Simon Ser wrote:
->=20
-> > I would prefer these functions to be introduced together with the
-> > patches adding functions to create objects and adding the new fields.
-> > That way it's easier to check the symmetry and at no point in the
-> > series there are memory leaks.
->=20
-> The object creation and new fields are introduced in different patches.
-> I divided this patch by introducing these functions in a patch, and 2.
-> adding callers when needed to avoid memory leaks.
+Decouple .get_format_info() from struct drm_mode_fb_cmd2 and just
+pass the pixel format+modifier combo in by hand.
 
-Could we introduce the destructor together with the function creating a
-colorop, as a thin kfree() wrapper, and add cleanup for new fields in
-that destructor in the same commit where the new fields are introduced?
+We may want to use .get_format_info() outside of the normal
+addfb paths where we won't have a struct drm_mode_fb_cmd2, and
+creating a temporary one just for this seems silly.
 
-> > Additionally, I would avoid using the name "cleanup", which seems to
-> > have different semantics: for instance drm_plane_cleanup() doesn't kfre=
-e
-> > the pointer. "destroy" seems more appropriate here.
->=20
-> How about the following changes, i.e., freeing pointer is moved out of
-> the cleanup function, and keeping the names.
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h | 2 +-
+ drivers/gpu/drm/drm_fourcc.c                            | 3 ++-
+ drivers/gpu/drm/i915/display/intel_fb.c                 | 9 +++++----
+ drivers/gpu/drm/i915/display/intel_fb.h                 | 2 +-
+ include/drm/drm_mode_config.h                           | 2 +-
+ 6 files changed, 12 insertions(+), 10 deletions(-)
 
-I don't really see the upside, because (1) the creator function allocates
-(so there is an asymmetry between the creator and destructor) and (2) all
-callers of the destructor function will always want to kfree(), but I'd be
-fine with that.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 3e0f45f1711c..69d715b6abd3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -92,9 +92,9 @@ enum dm_micro_swizzle {
+ 	MICRO_SWIZZLE_R = 3
+ };
+ 
+-const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
++const struct drm_format_info *amdgpu_dm_plane_get_format_info(u32 pixel_format, u64 modifier)
+ {
+-	return amdgpu_lookup_format_info(cmd->pixel_format, cmd->modifier[0]);
++	return amdgpu_lookup_format_info(pixel_format, modifier);
+ }
+ 
+ void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+index 615d2ab2b803..ea2619b507db 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+@@ -58,7 +58,7 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 			 unsigned long possible_crtcs,
+ 			 const struct dc_plane_cap *plane_cap);
+ 
+-const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
++const struct drm_format_info *amdgpu_dm_plane_get_format_info(u32 pixel_format, u64 modifier);
+ 
+ void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+ 				    bool *per_pixel_alpha, bool *pre_multiplied_alpha,
+diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
+index 3a94ca211f9c..f79fff8209fd 100644
+--- a/drivers/gpu/drm/drm_fourcc.c
++++ b/drivers/gpu/drm/drm_fourcc.c
+@@ -395,7 +395,8 @@ drm_get_format_info(struct drm_device *dev,
+ 	const struct drm_format_info *info = NULL;
+ 
+ 	if (dev->mode_config.funcs->get_format_info)
+-		info = dev->mode_config.funcs->get_format_info(mode_cmd);
++		info = dev->mode_config.funcs->get_format_info(mode_cmd->pixel_format,
++							       mode_cmd->modifier[0]);
+ 
+ 	if (!info)
+ 		info = drm_format_info(mode_cmd->pixel_format);
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index 2b0e0f220442..b83c42fe3233 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -421,21 +421,22 @@ unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier)
+ 
+ /**
+  * intel_fb_get_format_info: Get a modifier specific format information
+- * @cmd: FB add command structure
++ * @pixel_format: pixel format
++ * @modifier: modifier
+  *
+  * Returns:
+  * Returns the format information for @cmd->pixel_format specific to @cmd->modifier[0],
+  * or %NULL if the modifier doesn't override the format.
+  */
+ const struct drm_format_info *
+-intel_fb_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
++intel_fb_get_format_info(u32 pixel_format, u64 modifier)
+ {
+-	const struct intel_modifier_desc *md = lookup_modifier_or_null(cmd->modifier[0]);
++	const struct intel_modifier_desc *md = lookup_modifier_or_null(modifier);
+ 
+ 	if (!md || !md->formats)
+ 		return NULL;
+ 
+-	return lookup_format_info(md->formats, md->format_count, cmd->pixel_format);
++	return lookup_format_info(md->formats, md->format_count, pixel_format);
+ }
+ 
+ static bool plane_caps_contain_any(u8 caps, u8 mask)
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
+index bdd76b372957..7d1267fbeee2 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.h
++++ b/drivers/gpu/drm/i915/display/intel_fb.h
+@@ -47,7 +47,7 @@ u64 *intel_fb_plane_get_modifiers(struct intel_display *display,
+ bool intel_fb_plane_supports_modifier(struct intel_plane *plane, u64 modifier);
+ 
+ const struct drm_format_info *
+-intel_fb_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
++intel_fb_get_format_info(u32 pixel_format, u64 modifier);
+ 
+ bool
+ intel_format_info_is_yuv_semiplanar(const struct drm_format_info *info,
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index 4b8f0370b79b..6fca0362bc31 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -95,7 +95,7 @@ struct drm_mode_config_funcs {
+ 	 * The format information specific to the given fb metadata, or
+ 	 * NULL if none is found.
+ 	 */
+-	const struct drm_format_info *(*get_format_info)(const struct drm_mode_fb_cmd2 *mode_cmd);
++	const struct drm_format_info *(*get_format_info)(u32 pixel_format, u64 modifier);
+ 
+ 	/**
+ 	 * @mode_valid:
+-- 
+2.49.0
+
