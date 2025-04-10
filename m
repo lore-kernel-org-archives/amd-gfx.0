@@ -4,62 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95ED7C369AA
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 19:38:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB57C3601E
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 20:50:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA90110EA62;
-	Thu, 10 Apr 2025 19:38:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3565610E39C;
+	Thu, 10 Apr 2025 20:50:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="wVQCA8aJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3g8+cH4F";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A1D10E13B;
- Thu, 10 Apr 2025 19:38:49 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
- [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 49D26496;
- Thu, 10 Apr 2025 21:36:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1744313809;
- bh=GCCAmsHlK3qWhJJZ26NmLMuSmLEL0uEUI1P5vUDd5BU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=wVQCA8aJK2QHMH/gV9bXlJ8RP8VvP/RBF8v4s3HhR/o893Hz8Ef6BxLaSgDuaTeFt
- ii5BOzKVVKFrpy0Vux5wkZnvsfBzjQ1lyd0OueATguTV1erkmHj0sk/+9u4U52D7HD
- yZn7WzP+1RXZPCpu43wlhyX4QSFDPUfw9UE2QNvI=
-Date: Thu, 10 Apr 2025 22:38:22 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Russell King <linux@armlinux.org.uk>,
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev
-Subject: Re: [PATCH 05/19] drm: Allow the caller to pass in the format info
- to drm_helper_mode_fill_fb_struct()
-Message-ID: <20250410193822.GE27834@pendragon.ideasonboard.com>
-References: <20250410163218.15130-1-ville.syrjala@linux.intel.com>
- <20250410163218.15130-6-ville.syrjala@linux.intel.com>
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484BA10E39C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 20:50:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HxCWp9CscXjU2F+hHhRK/OcUSKSHLKJMmjppaPu5MJJIC+kOEeiW7wJJHA9AdnMsUl5QsKHpShzOePY2+fyLrLJLCuMbbYmrFiaLYSfMkl4BNoUUah4R3DhFUjD/GCCe15QD7MlzlyjuwOZR3F4pXs3vWxxN3d1qOxiTD3O4Jer9yvMourhm+H6OoUZ9YQ5mkpCeKqATYJc1qD8m95vZkWC+NRpoVRFYLeKPdshBJbPkwKVkV8QQSR2t2zyvc3yapFguAQ+MasDdta3WUq8xLs9T3SrG44x+IErjADBnTpE2aKvUQJkXDJBuxTHLp7ov/gVlSwh9dXrthyCQZbXfMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fdQxOStmDtQDAdSoZIyg9jLzeqgbo54m+mT3/omjoq4=;
+ b=dJk5jEirGBkpyhLBPhp0llKl7jdT09WPeYMBGH/+vZOjvhH/fjyIIWEprUiPtaWXwpw4/ecmrN6NhYS40U7n1UXIlDxKmvgbSrX0bZAnxQAWZ/Osv3HfZ7RV8YP/uUbX4EfCmP9ZmwlwOqf3dpIK8b3ZxPgBmYZa5yo7wVY3RFQq2N5LZwaqEOgCEOOMRy6TIK8WPy9aE8Jhz+ooVsCMGNUkW25Wn8ajYlD8HLgak07hxNr56YMei0+s9YmzhbRSz+Ee7ISRszbDaRDi7QJ+PQARNDebY78sz3Z4DqPdhCp2i+M5gekPj8RhfGRYGbB0NrJVmFkaf6iMGZ4XXc8YiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fdQxOStmDtQDAdSoZIyg9jLzeqgbo54m+mT3/omjoq4=;
+ b=3g8+cH4Fg/PbkWfqmrqT9eHNxLT0//Ix8+sZ0l6JxaBqVRU5i6ihxQVu3SmRJWxdhO68SICeiKFk7W5HBoWMHO+05/fXF8RVvh+T68bnA39HUGZoFAgG4v5r9TRVLJgUB4uy2WqrzWOrpiMXeN33sp9ESSGAhw+QsTqX/QKBb24=
+Received: from CY5PR12MB6034.namprd12.prod.outlook.com (2603:10b6:930:2e::12)
+ by SA1PR12MB7175.namprd12.prod.outlook.com (2603:10b6:806:2b2::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.34; Thu, 10 Apr
+ 2025 20:50:02 +0000
+Received: from CY5PR12MB6034.namprd12.prod.outlook.com
+ ([fe80::4d3d:786:6806:c34f]) by CY5PR12MB6034.namprd12.prod.outlook.com
+ ([fe80::4d3d:786:6806:c34f%4]) with mapi id 15.20.8632.021; Thu, 10 Apr 2025
+ 20:50:02 +0000
+From: "Rehman, Ahmad" <Ahmad.Rehman@amd.com>
+To: "Pan, Ellen" <Yunru.Pan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>, "Gande, Shravan kumar"
+ <Shravankumar.Gande@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Direct ret in ras_reset_err_cnt on VF
+Thread-Topic: [PATCH] drm/amdgpu: Direct ret in ras_reset_err_cnt on VF
+Thread-Index: AQHbpKZZE6YGsTjhS0CREjkl2F02YbOdaurQ
+Date: Thu, 10 Apr 2025 20:50:01 +0000
+Message-ID: <CY5PR12MB603498F622FF7B6F26EBCE698FB72@CY5PR12MB6034.namprd12.prod.outlook.com>
+References: <20250403144016.30030-1-yunru.pan@amd.com>
+In-Reply-To: <20250403144016.30030-1-yunru.pan@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=5788c2c4-72c0-434b-a8c3-1c6221935eff;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-10T20:49:52Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR12MB6034:EE_|SA1PR12MB7175:EE_
+x-ms-office365-filtering-correlation-id: a9caf6ab-d352-47d5-0c5e-08dd787143cd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?R6R4EVSajwnx+CAWlJXyXX7s6HLiCAyi40NiWVUWUCE/9Ng3UEc7eMOF13tc?=
+ =?us-ascii?Q?PNIwv2pcXmuLlRQRYYqx/9jcp3UoEPBPPz3bKp0tly4+ktedEaGy4FexHQNe?=
+ =?us-ascii?Q?54sdM6emYnh57d2W9zf/GF8GoJDN3viXltX8XKCiJzASRyd27CwrqAyn9NGD?=
+ =?us-ascii?Q?lJ/SYJtNE8g5EemFdvD17hgeT116J87YLzS4jgZ2ARidJarG0USoge1AQ+5w?=
+ =?us-ascii?Q?LwxeiYo06HMBoiSuY7aNhFktdwqI9aTqLcE6uJ3FrawrTW/Fi8GfyL91NNSA?=
+ =?us-ascii?Q?+7uhaYcY1dnYnkEDq3lFFK/SvCskK06UvCGsMwcfv6FZ2AGYjPvZbV75jKE4?=
+ =?us-ascii?Q?FiJWRrMuX45ejVFav81zqRnj7DZWiTndikrYutGdyQHpJYCIsjAd7Wt/QI3e?=
+ =?us-ascii?Q?5CNpiUSoJoUGCpo+3EofNO8VNbbJzxjkAy2QsNe8NgxpbCYuIzJTYGCNdDug?=
+ =?us-ascii?Q?MjhupTDNyKGbVrgzxtArqX5rb6As/2vIM3OAJz5RtyXl6hlNTWrFyq2lr5XF?=
+ =?us-ascii?Q?2GGo8jTSPqYmkK7fZ+X8nrfYyOPVBwInx5TwTH3gEH7Lax56Gvg/rJmpfwPh?=
+ =?us-ascii?Q?L4m+ORoxu9hOxs+44uI0rUHilWnSCUQg6yU6wFWgBBsUibxYCti8jklJJ0K6?=
+ =?us-ascii?Q?TRYKHD6Hy7PkGi4JxtGPaPOC4R6BwueTkh+Q7+FU3IGa/mbQan47PBN26cDR?=
+ =?us-ascii?Q?JOvHwazGKlpVRuqPzjnBLMs+IkBN/TfPUbuxP2NAVen0vC6dnqJT8i6iDRvU?=
+ =?us-ascii?Q?h5WXZ2YwH8sJn+EigTZLveWtGADKEJbwm/TIx7ntOZlXKmkzev9xIUPE8/Kh?=
+ =?us-ascii?Q?tq2/qWlUiO6EtpKTs/6JdSuaJnaiTSVD0fvjeCt8jg7YSoX6BajUpxx+evUm?=
+ =?us-ascii?Q?cvJcPELCJegVd+VcOSVBs+VtR8rLyDfDZPeBcWUhOZiLXPTa6GbBUQEisbTJ?=
+ =?us-ascii?Q?M8x5d/ZqE8IOAPgwaD3eXeGSmKKiph8Lrly4lhugE0FQu3FN1R+c5PdWTTFA?=
+ =?us-ascii?Q?oVuna6QMFuriCPFnW+actVEYVEj820yL/IWWNtoaKhlrLZSHEqzrZiimyufB?=
+ =?us-ascii?Q?4WhjQTkwp0ItbTEnUxOLDfpelGOc8IafJOncTmIeulE0TmG1CdaYd+FxWal/?=
+ =?us-ascii?Q?yjZXc/jAyRgUBHcXJELS+9BNqXDUxdQUEM2b5lx604uSv9Jj/fmorXVW4kb6?=
+ =?us-ascii?Q?MTt/sX599UgCbkAlpXffq7gzV2KvOXShhPk0N8IK3/yMZ0xKptDRj5xQkapy?=
+ =?us-ascii?Q?NfVBTBg5LB93elICVmzrpl2telRIKxajywM34Z6m6j+jfruD3qRfRTzfBbhk?=
+ =?us-ascii?Q?hEZbMdK/1+c6uKIkChldPzB2eEwiDX9DgrWp0S5bCJ0YKPgRq2FQoqwFAs3B?=
+ =?us-ascii?Q?Sikrg3GLjsXEPCQxfYAuehU+dY7EboNJqih/69ZcNezhPazBlGCkuJ6j9+5G?=
+ =?us-ascii?Q?ZbGyZniPMXd+anr0R73oAg7lbtUcQxR4IpBzn8G2s/vkp4MpFaa/JgHdN8Os?=
+ =?us-ascii?Q?5TrL0Ba4ALlZm6E=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6034.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700018)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nBrWcB9p8bML5O3pIc+g3Ul3gg02MKQB14pODrMJZDIrKAg1MMrffPCeLieK?=
+ =?us-ascii?Q?WUTjU1748sXptP2E8ZjvnNiiMEcPXt8/UQALi6BBwM9492dZYvhB1CrlYjzJ?=
+ =?us-ascii?Q?3LO6ID889phaNbgM6Usf2Gu9nFHNnH+8Oyzt7WtpVo2t+nZbQy10PHPJejkd?=
+ =?us-ascii?Q?6WHmGcmo3Sj6OSrIieX5kWTHrWVQwxdcFUl2ow5st72R9+sJi1VXet8FIxCh?=
+ =?us-ascii?Q?5/CO0cwbg0Lllg4xuB5+raroCAiVHP1aYaBerZw9672nu5zrSUqObOKDfZFU?=
+ =?us-ascii?Q?LBN/v5qDm9NuRUYiwLqV109fLUw+nQTZpf1YRVUvqWxljb0dbn+m+M7m+pBT?=
+ =?us-ascii?Q?5xcDnGKuwoUFkJBk21fN5Yewbu9C+Fk5aUKgrWCgn/br+YHZoN0PvV1fTUwo?=
+ =?us-ascii?Q?dhSKbzqy0t4INVNbc1LP51u6diAUmiKKEeFPtdl8OTM/O+2YzGCdIoQZmYjz?=
+ =?us-ascii?Q?CclE9WZSKePjdPpTAHtlayeTgde+7GyE3QU+RbXEgzwBpNu4Yeb8NcOwm3aR?=
+ =?us-ascii?Q?0JAXweX/uQWKgAtYisRuYh+DOFhcyM5l8DjBwx4v4tBBHzhL/a0yzE+rEKqh?=
+ =?us-ascii?Q?USSviklr20HUHehfa7vw9+QVJhHVc8R6TguQlGAFF2HPQImsWnhTWmluj9BI?=
+ =?us-ascii?Q?+GEjR1pcafvMHY1c84zJWqel0y9l2lw8UX25T1P0Uj5y8kLXWBBSBeXVbD6p?=
+ =?us-ascii?Q?YBXny1yuOAZFtZG/kQXG25JBHEmBwOXUX+N7I4Y6Hh1V8eW/TyBBnMvoBxPt?=
+ =?us-ascii?Q?U4tAARlHygzwVg6FjtJAAXgpnY661syKgenH+RiAELPAtJGpKlFLvSnNN0CH?=
+ =?us-ascii?Q?aahahBO+u3CjfIPwN7eW+KC4TLKoJMhyPUirmwOkbGymGDCngkcUPrZnRhHE?=
+ =?us-ascii?Q?XNEENNhpcowCxqsVbQUK3cetGFhiZlP53g+E0dHDBVrw4Z3aG309rkKgAXJw?=
+ =?us-ascii?Q?y1pRhcfGCPsqJHqymd2pP49xLcu6n3g/rEL0pas0H0a+NJCxxjHJwpuTSuPe?=
+ =?us-ascii?Q?4mLphG6RiuKtks3Ddl3yu/wgb0bS9JfoN8vq01mhzFAI5hqKa1lTxQVVLQq6?=
+ =?us-ascii?Q?ebMzHX6pd8f1KVOR/Cv/av5D/3D+fs0JjH6vlJ/URw1HsWYFoPbAYo5zUpPJ?=
+ =?us-ascii?Q?IgdxUVjCT8qmIQVPx/X9qeYqyKAKjsRWdXRGkqVf8+C1bBiFDPvrLbbiLtPf?=
+ =?us-ascii?Q?7qUM8Wn8SOgakv2RxHDEiXFxyQivp2W3xE0CP5ThfHwPgCmlH2T3xpVdYbUD?=
+ =?us-ascii?Q?bjiiPtSoIUlFuXVeMTeqvY9Vj2gKCG2ZADYDecUUGUoeCIHZ+bkieRCRbdap?=
+ =?us-ascii?Q?CpU/Q9vi/2NJ7ZqztVdXp9VdxfaFAGXZrPgp9AaBMKNsDWbnhXja4cHWkMA5?=
+ =?us-ascii?Q?z/f8W69goRCul40NMgvIUrGKUQMwjtl0XHymd/3v9XL2s30dJLpleyMF9L7o?=
+ =?us-ascii?Q?P3oE3BSHnIghnxPXAsEsS9PbglPwUg15gff4qeV1RsMbtUx1aLwHoGKlUyTT?=
+ =?us-ascii?Q?RZWe6Jdf5GXrpwBVR2oCzL3mEeqvIdJ/WBwQE0k99dLZC0YDQN2jjrxfmt4b?=
+ =?us-ascii?Q?0bNnN6UtNL80iNbqoGw=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250410163218.15130-6-ville.syrjala@linux.intel.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6034.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9caf6ab-d352-47d5-0c5e-08dd787143cd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2025 20:50:02.0601 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: D0g3bZgkuQUgMSuXtG1L/cRmVctIHg7ryUFvMZPzE0j/e3NWinIC8LeVt1nmMfmW27RsUCx2sKhxdpP068RQ1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7175
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,346 +158,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Ville,
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Thank you for the patch.
+Reviewed-by: Ahmad Rehman <Ahmad.Rehman@amd.com>
 
-On Thu, Apr 10, 2025 at 07:32:04PM +0300, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> Soon all drivers should have the format info already available in the
-> places where they call drm_helper_mode_fill_fb_struct(). Allow it to
-> be passed along into drm_helper_mode_fill_fb_struct() instead of doing
-> yet another redundant lookup.
-> 
-> Start by always passing in NULL and still doing the extra lookup.
-> The actual changes to avoid the lookup will follow.
-> 
-> Done with cocci (with some manual fixups):
-> @@
-> identifier dev, fb, mode_cmd;
-> expression get_format_info;
-> @@
-> void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
->                                     struct drm_framebuffer *fb,
-> +                                    const struct drm_format_info *info,
->                                     const struct drm_mode_fb_cmd2 *mode_cmd)
-> {
-> ...
-> - fb->format = get_format_info;
-> + fb->format = info ?: get_format_info;
-> ...
-> }
-> 
-> @@
-> identifier dev, fb, mode_cmd;
-> @@
-> void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
->                                     struct drm_framebuffer *fb,
-> +                                    const struct drm_format_info *info,
->                                     const struct drm_mode_fb_cmd2 *mode_cmd);
-> 
-> @@
-> expression dev, fb, mode_cmd;
-> @@
-> drm_helper_mode_fill_fb_struct(dev, fb
-> +	       ,NULL
-> 	       ,mode_cmd);
-> 
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Russell King <linux@armlinux.org.uk>
-> Cc: Inki Dae <inki.dae@samsung.com>
-> Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
-> Cc: Kyungmin Park <kyungmin.park@samsung.com>
-> Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Dmitry Baryshkov <lumag@kernel.org>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Mikko Perttunen <mperttunen@nvidia.com>
-> Cc: Gerd Hoffmann <kraxel@redhat.com>
-> Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> Cc: Gurchetan Singh <gurchetansingh@chromium.org>
-> Cc: Chia-I Wu <olvaffe@gmail.com>
-> Cc: Zack Rusin <zack.rusin@broadcom.com>
-> Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: nouveau@lists.freedesktop.org
-> Cc: linux-tegra@vger.kernel.org
-> Cc: virtualization@lists.linux.dev
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Thanks,
+Ahmad
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+-----Original Message-----
+From: Pan, Ellen <Yunru.Pan@amd.com>
+Sent: Thursday, April 3, 2025 10:40 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>; Rehman, Ahmad <Ahmad.Rehm=
+an@amd.com>; Gande, Shravan kumar <Shravankumar.Gande@amd.com>; Pan, Ellen =
+<Yunru.Pan@amd.com>
+Subject: [PATCH] drm/amdgpu: Direct ret in ras_reset_err_cnt on VF
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c             | 2 +-
->  drivers/gpu/drm/arm/display/komeda/komeda_framebuffer.c | 2 +-
->  drivers/gpu/drm/armada/armada_fb.c                      | 2 +-
->  drivers/gpu/drm/drm_gem_framebuffer_helper.c            | 2 +-
->  drivers/gpu/drm/drm_modeset_helper.c                    | 6 ++++--
->  drivers/gpu/drm/exynos/exynos_drm_fb.c                  | 2 +-
->  drivers/gpu/drm/gma500/framebuffer.c                    | 2 +-
->  drivers/gpu/drm/i915/display/intel_fb.c                 | 2 +-
->  drivers/gpu/drm/msm/msm_fb.c                            | 2 +-
->  drivers/gpu/drm/nouveau/nouveau_display.c               | 2 +-
->  drivers/gpu/drm/omapdrm/omap_fb.c                       | 2 +-
->  drivers/gpu/drm/radeon/radeon_display.c                 | 2 +-
->  drivers/gpu/drm/tegra/fb.c                              | 2 +-
->  drivers/gpu/drm/virtio/virtgpu_display.c                | 2 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                     | 4 ++--
->  include/drm/drm_modeset_helper.h                        | 2 ++
->  16 files changed, 21 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index 10c57ded0e3e..4cbbae543e34 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -1202,7 +1202,7 @@ static int amdgpu_display_gem_fb_verify_and_init(struct drm_device *dev,
->  	int ret;
->  
->  	rfb->base.obj[0] = obj;
-> -	drm_helper_mode_fill_fb_struct(dev, &rfb->base, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, &rfb->base, NULL, mode_cmd);
->  	/* Verify that the modifier is supported. */
->  	if (!drm_any_plane_has_format(dev, mode_cmd->pixel_format,
->  				      mode_cmd->modifier[0])) {
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_framebuffer.c b/drivers/gpu/drm/arm/display/komeda/komeda_framebuffer.c
-> index 29b05482f713..acd8e505ebc7 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_framebuffer.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_framebuffer.c
-> @@ -178,7 +178,7 @@ komeda_fb_create(struct drm_device *dev, struct drm_file *file,
->  		return ERR_PTR(-EINVAL);
->  	}
->  
-> -	drm_helper_mode_fill_fb_struct(dev, &kfb->base, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, &kfb->base, NULL, mode_cmd);
->  
->  	if (kfb->base.modifier)
->  		ret = komeda_fb_afbc_size_check(kfb, file, mode_cmd);
-> diff --git a/drivers/gpu/drm/armada/armada_fb.c b/drivers/gpu/drm/armada/armada_fb.c
-> index 597720e229c2..7e94ec5bd4f4 100644
-> --- a/drivers/gpu/drm/armada/armada_fb.c
-> +++ b/drivers/gpu/drm/armada/armada_fb.c
-> @@ -64,7 +64,7 @@ struct armada_framebuffer *armada_framebuffer_create(struct drm_device *dev,
->  	dfb->mod = config;
->  	dfb->fb.obj[0] = &obj->obj;
->  
-> -	drm_helper_mode_fill_fb_struct(dev, &dfb->fb, mode);
-> +	drm_helper_mode_fill_fb_struct(dev, &dfb->fb, NULL, mode);
->  
->  	ret = drm_framebuffer_init(dev, &dfb->fb, &armada_fb_funcs);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/drm_gem_framebuffer_helper.c b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-> index 1b58823e14b1..dc9cb6cdcfd6 100644
-> --- a/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-> @@ -74,7 +74,7 @@ drm_gem_fb_init(struct drm_device *dev,
->  	unsigned int i;
->  	int ret;
->  
-> -	drm_helper_mode_fill_fb_struct(dev, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, fb, NULL, mode_cmd);
->  
->  	for (i = 0; i < num_planes; i++)
->  		fb->obj[i] = obj[i];
-> diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
-> index dff14af68832..ae2a83ecb1cf 100644
-> --- a/drivers/gpu/drm/drm_modeset_helper.c
-> +++ b/drivers/gpu/drm/drm_modeset_helper.c
-> @@ -72,6 +72,7 @@ EXPORT_SYMBOL(drm_helper_move_panel_connectors_to_head);
->   * drm_helper_mode_fill_fb_struct - fill out framebuffer metadata
->   * @dev: DRM device
->   * @fb: drm_framebuffer object to fill out
-> + * @info: pixel format information
->   * @mode_cmd: metadata from the userspace fb creation request
->   *
->   * This helper can be used in a drivers fb_create callback to pre-fill the fb's
-> @@ -79,13 +80,14 @@ EXPORT_SYMBOL(drm_helper_move_panel_connectors_to_head);
->   */
->  void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
->  				    struct drm_framebuffer *fb,
-> +				    const struct drm_format_info *info,
->  				    const struct drm_mode_fb_cmd2 *mode_cmd)
->  {
->  	int i;
->  
->  	fb->dev = dev;
-> -	fb->format = drm_get_format_info(dev, mode_cmd->pixel_format,
-> -					 mode_cmd->modifier[0]);
-> +	fb->format = info ? : drm_get_format_info(dev, mode_cmd->pixel_format,
-> +						  mode_cmd->modifier[0]);
->  	fb->width = mode_cmd->width;
->  	fb->height = mode_cmd->height;
->  	for (i = 0; i < 4; i++) {
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fb.c b/drivers/gpu/drm/exynos/exynos_drm_fb.c
-> index 9ae526825726..7091d31835ec 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fb.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fb.c
-> @@ -76,7 +76,7 @@ exynos_drm_framebuffer_init(struct drm_device *dev,
->  		fb->obj[i] = &exynos_gem[i]->base;
->  	}
->  
-> -	drm_helper_mode_fill_fb_struct(dev, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, fb, NULL, mode_cmd);
->  
->  	ret = drm_framebuffer_init(dev, fb, &exynos_drm_fb_funcs);
->  	if (ret < 0) {
-> diff --git a/drivers/gpu/drm/gma500/framebuffer.c b/drivers/gpu/drm/gma500/framebuffer.c
-> index a4a18ec2dd56..f9ade8361354 100644
-> --- a/drivers/gpu/drm/gma500/framebuffer.c
-> +++ b/drivers/gpu/drm/gma500/framebuffer.c
-> @@ -47,7 +47,7 @@ static int psb_framebuffer_init(struct drm_device *dev,
->  	if (mode_cmd->pitches[0] & 63)
->  		return -EINVAL;
->  
-> -	drm_helper_mode_fill_fb_struct(dev, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, fb, NULL, mode_cmd);
->  	fb->obj[0] = obj;
->  	ret = drm_framebuffer_init(dev, fb, &psb_fb_funcs);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-> index dd1d5c00395e..80a90bf1c75c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-> @@ -2253,7 +2253,7 @@ int intel_framebuffer_init(struct intel_framebuffer *intel_fb,
->  		goto err_frontbuffer_put;
->  	}
->  
-> -	drm_helper_mode_fill_fb_struct(display->drm, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(display->drm, fb, NULL, mode_cmd);
->  
->  	for (i = 0; i < fb->format->num_planes; i++) {
->  		unsigned int stride_alignment;
-> diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-> index 4aef51cef3d5..0615427e85ce 100644
-> --- a/drivers/gpu/drm/msm/msm_fb.c
-> +++ b/drivers/gpu/drm/msm/msm_fb.c
-> @@ -222,7 +222,7 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
->  		msm_fb->base.obj[i] = bos[i];
->  	}
->  
-> -	drm_helper_mode_fill_fb_struct(dev, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, fb, NULL, mode_cmd);
->  
->  	ret = drm_framebuffer_init(dev, fb, &msm_framebuffer_funcs);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-> index 3df388784bd3..dd069aaac9f4 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-> @@ -321,7 +321,7 @@ nouveau_framebuffer_new(struct drm_device *dev,
->  	if (!(fb = *pfb = kzalloc(sizeof(*fb), GFP_KERNEL)))
->  		return -ENOMEM;
->  
-> -	drm_helper_mode_fill_fb_struct(dev, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, fb, NULL, mode_cmd);
->  	fb->obj[0] = gem;
->  
->  	ret = drm_framebuffer_init(dev, fb, &nouveau_framebuffer_funcs);
-> diff --git a/drivers/gpu/drm/omapdrm/omap_fb.c b/drivers/gpu/drm/omapdrm/omap_fb.c
-> index 36afcd1c1fd7..30c81e2e5d6b 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_fb.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_fb.c
-> @@ -440,7 +440,7 @@ struct drm_framebuffer *omap_framebuffer_init(struct drm_device *dev,
->  		plane->dma_addr  = 0;
->  	}
->  
-> -	drm_helper_mode_fill_fb_struct(dev, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, fb, NULL, mode_cmd);
->  
->  	ret = drm_framebuffer_init(dev, fb, &omap_framebuffer_funcs);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-> index 85b714ac9882..b4bf5dfeea2d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_display.c
-> +++ b/drivers/gpu/drm/radeon/radeon_display.c
-> @@ -1302,7 +1302,7 @@ radeon_framebuffer_init(struct drm_device *dev,
->  {
->  	int ret;
->  	fb->obj[0] = obj;
-> -	drm_helper_mode_fill_fb_struct(dev, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, fb, NULL, mode_cmd);
->  	ret = drm_framebuffer_init(dev, fb, &radeon_fb_funcs);
->  	if (ret) {
->  		fb->obj[0] = NULL;
-> diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
-> index 24907573e758..d359683f5ce6 100644
-> --- a/drivers/gpu/drm/tegra/fb.c
-> +++ b/drivers/gpu/drm/tegra/fb.c
-> @@ -114,7 +114,7 @@ struct drm_framebuffer *tegra_fb_alloc(struct drm_device *drm,
->  	if (!fb)
->  		return ERR_PTR(-ENOMEM);
->  
-> -	drm_helper_mode_fill_fb_struct(drm, fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(drm, fb, NULL, mode_cmd);
->  
->  	for (i = 0; i < fb->format->num_planes; i++)
->  		fb->obj[i] = &planes[i]->gem;
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
-> index f9a98fbbabd1..93763b91bab5 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_display.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_display.c
-> @@ -73,7 +73,7 @@ virtio_gpu_framebuffer_init(struct drm_device *dev,
->  
->  	vgfb->base.obj[0] = obj;
->  
-> -	drm_helper_mode_fill_fb_struct(dev, &vgfb->base, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, &vgfb->base, NULL, mode_cmd);
->  
->  	ret = drm_framebuffer_init(dev, &vgfb->base, &virtio_gpu_fb_funcs);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-> index 2d48a28cda9c..35965e29e408 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-> @@ -548,7 +548,7 @@ static int vmw_kms_new_framebuffer_surface(struct vmw_private *dev_priv,
->  		goto out_err1;
->  	}
->  
-> -	drm_helper_mode_fill_fb_struct(dev, &vfbs->base.base, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, &vfbs->base.base, NULL, mode_cmd);
->  	memcpy(&vfbs->uo, uo, sizeof(vfbs->uo));
->  	vmw_user_object_ref(&vfbs->uo);
->  
-> @@ -634,7 +634,7 @@ static int vmw_kms_new_framebuffer_bo(struct vmw_private *dev_priv,
->  	}
->  
->  	vfbd->base.base.obj[0] = &bo->tbo.base;
-> -	drm_helper_mode_fill_fb_struct(dev, &vfbd->base.base, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, &vfbd->base.base, NULL, mode_cmd);
->  	vfbd->base.bo = true;
->  	vfbd->buffer = vmw_bo_reference(bo);
->  	*out = &vfbd->base;
-> diff --git a/include/drm/drm_modeset_helper.h b/include/drm/drm_modeset_helper.h
-> index 995fd981cab0..7e3d4c5a7f66 100644
-> --- a/include/drm/drm_modeset_helper.h
-> +++ b/include/drm/drm_modeset_helper.h
-> @@ -26,6 +26,7 @@
->  struct drm_crtc;
->  struct drm_crtc_funcs;
->  struct drm_device;
-> +struct drm_format_info;
->  struct drm_framebuffer;
->  struct drm_mode_fb_cmd2;
->  
-> @@ -33,6 +34,7 @@ void drm_helper_move_panel_connectors_to_head(struct drm_device *);
->  
->  void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
->  				    struct drm_framebuffer *fb,
-> +				    const struct drm_format_info *info,
->  				    const struct drm_mode_fb_cmd2 *mode_cmd);
->  
->  int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
+With adding sriov_vf check, we directly return EOPNOTSUPP in ras_reset_erro=
+r_count as we should not do anything on VF to reset RAS error count.
 
--- 
-Regards,
+This also fixes the issue that loading guest driver causes register violati=
+ons.
 
-Laurent Pinchart
+Signed-off-by: Ellen Pan <yunru.pan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index ebf1f63d0442..f8cf9621097f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1498,6 +1498,9 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device=
+ *adev,
+            !amdgpu_ras_get_aca_debug_mode(adev))
+                return -EOPNOTSUPP;
+
++       if (amdgpu_sriov_vf(adev))
++               return -EOPNOTSUPP;
++
+        /* skip ras error reset in gpu reset */
+        if ((amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) &&
+            ((smu_funcs && smu_funcs->set_debug_mode) ||
+--
+2.34.1
+
