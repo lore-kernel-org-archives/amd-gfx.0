@@ -4,141 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C654FC3601E
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 15:23:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 137F9C3601E
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Apr 2025 15:56:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5762A10E9F6;
-	Thu, 10 Apr 2025 15:23:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B0D10E9F7;
+	Thu, 10 Apr 2025 15:56:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MXx6DyTf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ID6BjmyP";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2070.outbound.protection.outlook.com [40.107.236.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B8F910E9F6
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 15:23:25 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2082.outbound.protection.outlook.com [40.107.95.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 309C010E9F7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 15:56:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YN5b9uBnZI7QPsXqqk0aSDpwHLs5I38nQjMMHVnsubMvyxqXqzz4/1Ybj+srHPqqA9ekGUkGk9MnudnRW/xWIxsDcnecL1gy4wJewqX9tmjDqQ1kjEtmOFWsAkuOPe+V5f0Fs2GZDAyKi+V0RhlrWSYbmLH2O4sC3eBuDVRP6WEwJv8Ex7pf3IRQ77j7lBl9LrvuFFVUvIcSjAk8zujrnDbZ2LFZ8+cp+JSdTY/Y+vvVDR9dazdpmJcBT7jbfqF3wBwz0qO3EFRiuzjiuoUCTWis0+b3oAt7jv/7nSXtzUrI2PXMXIRPXQjw128PO9iVT1QVqvIqEqIP0jeXkxrrdQ==
+ b=maRDO8BExYuu6RKYeE8MnHgVfnzR24pDT15L6Gjmo94jKfJ1ERj7ib6rQGiL72yOQ/9TReZVzwnCr6oayDm9Ag8sqy/T/RyTKn44YbupzMQojk3wyDe/J46nd1VWyLZnPAB4ObnH1b8vwzRRS8LnmkixaUzAlls64Nd71O5TIpFaTtzMFhlqf4lfYouTAum4byuSm00YOnbch/CDw4ftoYqVqrlr8ppRm6Wo3K8hTlcJZx/cfz5am38QDUUHK2b9If6QAPUmKv5xrvfPtnZlrmvQUqK9+vIl76g5Nx3KFVSKIxYvAng0xYeqRjGOSEELs74n25ik9TlmTmLhZWeJuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jW0/GNn6Ww5H+GHhK1FvXgk+CJfbLIlDmHR6oF8piEI=;
- b=ercK6KxYZqNbpYmp/kBBUMD23IyDXkcNL2516sWeMm6C/GvoOmQz3MBAW3csW8FWW9zIjGqTZ/ZlpmLhFKOo1mwu6WyvMfag/FHqGeux0LBTmFF9nm1bAo3gQjOTsHnAU1sfjLtbLfCPGrA+744dXHgABaqWtVuWgMLo/AmPo0OxjY1L6Sn7ueETmnbyqwomCLBm2W+a9Ta0uFXYy61zv9JzZcqhXYsKZXrGDfAmaJMGVveLnM7oMPwX8YrcwTAULkMeDkFywTRYzSRXxv7uvk+rXKldC2V8JFn2OGmTSnduB5jcEEwcfkxzdEstdvEsV7f3Syrp3mLHkq74867cFw==
+ bh=QDGBjbuXs7/ena4ukexibUYOwMgbF9bI2AZ9gSS7xdA=;
+ b=Js682TYdKiPZT8A7oxJ2a47a98rMDecrZIAfY0vH/+4HRzB+KGRANFZM4QAFARg664ebpoGPQmjwo5i55OhrORi8LoamrjqkcnuBHQIVCCzUT1vebZzSliTYzjCUOYEyldxxDeKPOR+ttNuRMp4Dvnc3xPSAQKV93kiBdU7mthuueUhIW1gbCIFJns+6WNolBWGoszus2zyBcdzmpuDpzBxGHG1IraYCnxQ/Ofn1eKxGgEB2ZhWREcEY5vUZMIddLwk5d/zgdT0btCF/aZkmRZ4cJFm5vRJQ2J9bHsXLWC52r5iTXceNvi9pLyMD+WP6qHT+sMv3wSy9J0NZeWCnZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jW0/GNn6Ww5H+GHhK1FvXgk+CJfbLIlDmHR6oF8piEI=;
- b=MXx6DyTfEcPvPR+MielaRPWR+g1/yqK71lhDJsY2V8o2wgX9PFmeKDuKXOmo5tWgse28MabiJjqcAtEfYIHo+3PyRFPezJtR64FxgXngQwdgLMaq7fU/fWy2QezI1S+O16omdHRdHQN1SiNu0LxY6ud13aO9sU5yPhmEBzoKvM8=
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by BY5PR12MB4258.namprd12.prod.outlook.com (2603:10b6:a03:20d::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.21; Thu, 10 Apr
- 2025 15:23:21 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.8632.021; Thu, 10 Apr 2025
- 15:23:20 +0000
-From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/display/dml2: use vzalloc rather than kzalloc
-Thread-Topic: [PATCH] drm/amd/display/dml2: use vzalloc rather than kzalloc
-Thread-Index: AQHbqZg2SX7DjF3QLk+cN7cFR9VlsbOc8tgI
-Date: Thu, 10 Apr 2025 15:23:20 +0000
-Message-ID: <CH0PR12MB5284C8F92852DFB1581ECA148BB72@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20250409214138.1293048-1-alexander.deucher@amd.com>
-In-Reply-To: <20250409214138.1293048-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-10T15:23:20.025Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=QDGBjbuXs7/ena4ukexibUYOwMgbF9bI2AZ9gSS7xdA=;
+ b=ID6BjmyP987AdtWFcHrffMPp5ygGwKHeQ4sJNMzBubk59MJtY+gciBVh59HKL3cUxN1nk/i4iTLtR3C/Zv9YPo0wCik+O4S2bsMbuMu5+d0fS5FDEHRgJVM1CRDLL1M0YMVUZVELUWa8G7s+Wfo4mo81cv5HWKkvnVaOfueIZQc=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|BY5PR12MB4258:EE_
-x-ms-office365-filtering-correlation-id: 80aa48ad-0e4e-4621-f8c1-08dd7843a086
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|13003099007|38070700018|7053199007|8096899003;
-x-microsoft-antispam-message-info: =?us-ascii?Q?1TNHDnLvy2BrZcM+AUCWZuhfK9H+BvQemZi4DmkRwjhoTkM73zWUc+Fo300Z?=
- =?us-ascii?Q?GaluZPv9ISy4rGv8ihn79TOx4j0l/VSg0YwpgDOKpPWlg+pS1gtkPLQPRZEb?=
- =?us-ascii?Q?YXowAlNNyyJ+zxA7qBTgNzCzjuk+HlVcazR/BmeUhzXAlPwRKDkp5CyYoRWp?=
- =?us-ascii?Q?nYzlA1aTyEroTZY9daBN+pqpyiDiYhAAamgQ/J3LnvXY+wrTnQAbByIJZtqB?=
- =?us-ascii?Q?5pxYMtvQEuR8MEQwIfxHuYVsqPXbGZO2ok4nP5y26gqQsAWs/Pl5RwHqIoS0?=
- =?us-ascii?Q?lz0gEpgKG976zQWe8PNup06P10C6zxXSDTU6kDe6f0Vh9dMgA10npsKTL/Ci?=
- =?us-ascii?Q?1dfgVVQiFtYABWwHmbM3RKXAW74Bm1xhgXTFBfMdak+4RZJUc0WZeEdpct60?=
- =?us-ascii?Q?pwULMULqJcajGA1ES2XFenEPL5Ls++PcV6h5vnL589hkHQlebqXjvLTs8+nY?=
- =?us-ascii?Q?xh+0jwSndDpcAPKqhCzatmSMaMJuxqU0poqk+bLwNV61AAET8FPw19h6Fh71?=
- =?us-ascii?Q?1Ix8IoXn3rejRS0gc+T80VvM9+cKPitfQBU6tHHt9EnbAkfZ+Oz9moqUDdOU?=
- =?us-ascii?Q?BklvzloYNfrYkrS5lU8lNis/GHqHrHjJ/PSi7qRVYRlMvyZ/gv4so8635bdp?=
- =?us-ascii?Q?lmlOaI2dAFgjtI498HWwicy3H0Td8eRrhaaf6dLVbQ8O8G6VMwEDWw0I29Av?=
- =?us-ascii?Q?m3+/Nj3pdQWoj97F+9Hesk5wjWiS871FcW99+Yy/L4rm1AcsLY/6MsPZz7OK?=
- =?us-ascii?Q?Lx6FuSCJcUmOqxAzn28KeWaKOACFZllwAIwhUSWAxxUhituMrZA1TWT5UHhk?=
- =?us-ascii?Q?3msgApY8vBCK29Nolw35lijV73qEOis17iwdWoZ0g1AsUgau/7EL9mdyeOha?=
- =?us-ascii?Q?3ATDiYYR/Y4V2tWnhL9r5KIUr+83YPeEFcCopJCczvEA7dy/GVz9l4ajgNEl?=
- =?us-ascii?Q?0iXU2kLhPey35BstUFK4/W5icnzCVVW2iQtDe3Nq0TwKng2vPJFeoayNJrGa?=
- =?us-ascii?Q?+DPb/PY8GzA0q0Zx7oxFF1vIp/J01Ip1YNqORKBJ80iOTWrPAE93FCSddUwl?=
- =?us-ascii?Q?eVkhtkgRQ1aDVmx/1autBF+lqGuOXyoqtKk0cRdWQzcZylazpi3MvIEUGera?=
- =?us-ascii?Q?XhNrexEVV+Gq26yZJMTVYvl+cxel7eiIiToICV6gjIrWrl0LfujjyGsqOOwP?=
- =?us-ascii?Q?QGqG1FIPpapbTq57RrMYkyLqv2dDQg4gjFViy8UMtxhSvt7lW/rEAbKqaDI+?=
- =?us-ascii?Q?khKF9mCZjdVGQeKmks+jbJlP8PldbtWTgK6qoJ0h4tgSC+K8WhphLaqtg23S?=
- =?us-ascii?Q?tTMEsvIm79syLJeeyUyjSTOJVF6VEFa2Y6V+UK/2tudQpHmnsK4iFfQUJSaj?=
- =?us-ascii?Q?GYpW8wuEBZA1jFOe2g71wl8urTg0Yo62QIXbhzgN3V4OJXTFNvMka5PcrCip?=
- =?us-ascii?Q?QzATe2h4dMw=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(13003099007)(38070700018)(7053199007)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tgfjn4U+t+0bVDcXES5nVPhpCfR+GGwQMnz8/mU3Clbo3dk+hpo3SuFcKDSc?=
- =?us-ascii?Q?M6sHjkfZfFKdp6pF7plACviDJhvbMhqLy16Y/QfPaOkkzydp8pIAEbxXCfD1?=
- =?us-ascii?Q?MP0CLOwsGTOsafmvKMal6ID/B//flt0z9NkV6+oEUK51Uts4645UhDAA36jI?=
- =?us-ascii?Q?vjB0cD6W8DOcoYVmaP5ok8NxUVFvoHvFsCWlyG4yIk1uSQl9QiygVq3lHG8Q?=
- =?us-ascii?Q?p4nL6tM9wnmSeLrAYqakrmumWDiIIbaCFfSbOEUwE2NMbeb2raO8Hzqykm+l?=
- =?us-ascii?Q?qYdMp2BKiqwPlRYmdDCAHBGv8PefHguOWAdZuVBLyBQujp2IA2rj0ekAj3v1?=
- =?us-ascii?Q?oUj2JLyHMOLFKvMd0od+NYvsE3/GKogCZWYxhSK3cT+HPvEGQXxN/fLJrTtU?=
- =?us-ascii?Q?6w6t9w4mc7FYD6cAhwbF5h+XSEm4scTTrbHLBufVim+JroGNbM4C2pbM99tH?=
- =?us-ascii?Q?qlVgxEFaQK/OS6wRUETh6W1zDV5CJ3jzVkqFVqPjkjY+UBCMwcbUBQihG9pk?=
- =?us-ascii?Q?07WNqys1JgEwXAF6T6z9zTZxBMSm7wiVQVzQjLKOeed6E82sEE1Nx9zd/M8T?=
- =?us-ascii?Q?6hIWu2SinfXhi1gg4uyHuKR2deohVz0w5oeTjQBmxbX8NzkF+FIXSdkzbka0?=
- =?us-ascii?Q?wA6qKFqFfODbpC1Mo1HFzh5JfJkZv9LGRD3EsuolDo7mAZe2cjkR7CPDMYzd?=
- =?us-ascii?Q?0+0ZbGW9S5ICzYzOMH56FL2GIFmKkCl9boVgner3ew02/UJDeQkaB+Csglkr?=
- =?us-ascii?Q?W6+Q5zsV8Uh15nzjOuQqYFEeH3kvOR/Ebn56ai0DDdTluaGRTCaHcovT/Ag9?=
- =?us-ascii?Q?dEtl5PNQf0IY0u7I4CixXomVQ1UXBzTBF8w5B9aR3XfkY/H09U3xjo87QeZO?=
- =?us-ascii?Q?EIoM/I8VUejs2xutlVFCJjycEccxVEGVLqdy/7kpztDQsBrBbfqkqWH/cy4Q?=
- =?us-ascii?Q?f8bS1bZnGsit2x4fbPnApDVerLN9UO5ADr+YrbofkRK6+mnCIFmtETPwoR3d?=
- =?us-ascii?Q?+rqE0Kw0v9M9MxkdCXqS0V/Ujpg8JH3R5n44JpjBywTF+X1R8iP9KCSeQ/X8?=
- =?us-ascii?Q?7tdW3ev+Q0YWX/2tWpm5G77gooDHlwrxqsBGTI9SKvwpzChh3Jt3dvEBbZN6?=
- =?us-ascii?Q?A7SmyfcxXTNeRAcjv8p3uJEiYP4q++fLSxbJtO8qQ6sAD5P/gy0N+AwTBwiy?=
- =?us-ascii?Q?3TXTawQdIp5Qem1KhCZwMJcPsMVLK0VoQqdlxYY9m1ZcO6v1fo2g5KmPR2Gt?=
- =?us-ascii?Q?TvigZfDfzezw8ZE8grJKi8CQpcZRVjwrIMZr033xbGbT03ar12EZBlm5Gf4u?=
- =?us-ascii?Q?TYPWlq+Q9eCbSW4432BFXoDa7hOzNa6RpeM043rp1a3YiVeJ/iYEnOMpVH2e?=
- =?us-ascii?Q?uIAwAiNoa9m1C+eaz/pPnVQFX3KKzzQoJ9udupm3rndLShqNfJG718ncWXBt?=
- =?us-ascii?Q?0Xi+c4yNrLKiT+x0/x79RE0NXJKNC07Z+fHIzdwMsbkk8Lfg9RgY690yopz5?=
- =?us-ascii?Q?zv4DJpVgYDN/GVgEz3QdZKG8jzyaLaV52UY4+jcDQExf8VVxECWKnHEAnu8O?=
- =?us-ascii?Q?jxs67lmWFKHTidUE9Yo=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB5284C8F92852DFB1581ECA148BB72CH0PR12MB5284namp_"
+Received: from BN9PR12MB5052.namprd12.prod.outlook.com (2603:10b6:408:135::19)
+ by SA1PR12MB8945.namprd12.prod.outlook.com (2603:10b6:806:375::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.29; Thu, 10 Apr
+ 2025 15:56:45 +0000
+Received: from BN9PR12MB5052.namprd12.prod.outlook.com
+ ([fe80::7714:4f80:f3e1:60cf]) by BN9PR12MB5052.namprd12.prod.outlook.com
+ ([fe80::7714:4f80:f3e1:60cf%5]) with mapi id 15.20.8632.024; Thu, 10 Apr 2025
+ 15:56:45 +0000
+Subject: Re: [PATCH 1/2 v2] drm/amdgpu: Add fw minimum version check for
+ usermode queue
+To: Alex Deucher <alexdeucher@gmail.com>, Arvind Yadav <Arvind.Yadav@amd.com>
+Cc: Christian.Koenig@amd.com, alexander.deucher@amd.com,
+ sunil.khatri@amd.com, shashank.sharma@amd.com, amd-gfx@lists.freedesktop.org
+References: <20250410145646.51008-1-Arvind.Yadav@amd.com>
+ <CADnq5_MeKHVv8YLsxvnBKpUD74Te2K6E1aYtAHJZ+b7+_ZRj8A@mail.gmail.com>
+From: "Yadav, Arvind" <arvyadav@amd.com>
+Message-ID: <a82f9e20-a731-f857-6e09-373251524c44@amd.com>
+Date: Thu, 10 Apr 2025 21:26:38 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
+In-Reply-To: <CADnq5_MeKHVv8YLsxvnBKpUD74Te2K6E1aYtAHJZ+b7+_ZRj8A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: PN4P287CA0078.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:26b::16) To BN9PR12MB5052.namprd12.prod.outlook.com
+ (2603:10b6:408:135::19)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5052:EE_|SA1PR12MB8945:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e89043c-ff47-463e-c366-08dd78484ae8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dVhDYWJqaHdqVjMxYkdIQlhvaVJzMUNzQk91Uy9CWkhZRTlCMSs4aTlvaXhC?=
+ =?utf-8?B?Yy9haDJ3Q0RvUU13bno1OUhscWs2NER5NEtxUTJwdlBVdW53TnZsbXE4eTJ1?=
+ =?utf-8?B?dDE3MzhyUnllYzlQZ2dQTGdiSXV0WGdQQWR1enorVE9SdDhSeEtTMEQ4Yk1X?=
+ =?utf-8?B?UW84M1I5R1EycGpNUXZoOTBISEV4R2c5K3R0dU01SVBnWW1uUVBXMXErNHpr?=
+ =?utf-8?B?UkdOV0RUN3E0aDh1Wmh4NnNyRTY0cThXeVg4MXZJWGkzamE4N3k4NUNySjJU?=
+ =?utf-8?B?aEltNmQxY3ZqMWZXbjBpY0JsdnFXLzRxY2RFeEIvNnNaTTcyMTJVeVR6eVpH?=
+ =?utf-8?B?Ui85TTVTbDJQZVNWOHluWklNd2xqeHl1dVNwKzNFTlhsOWV1dXdVd2MyMUJt?=
+ =?utf-8?B?Qm5SZGkrVFJ0Tm1iZTZuOEMzNFY5KytodUcyaFpNQVY0UWtVVmZna3REbzQz?=
+ =?utf-8?B?MkRIYnlsNXcxRHFBTXpRMEtlUXRtcW4vaUdRV0lOR3haMmI0Umw2WXRRb243?=
+ =?utf-8?B?czBkUEtCaDJQQlp2NHZFbnc1MDFHc0V1amVPczhzeENLTTgybDl6WVppdG5q?=
+ =?utf-8?B?OXlOaGY4YWJpajhORTZKWXc2dXpLV0habm5DNXNVejMvbVB0Unk3MTdFdCtU?=
+ =?utf-8?B?TnlrQ3lKOVR0WUJhWEliZkNtY1dmQ09hbHJxRzFJSndpZXNDNVZTclVjZms1?=
+ =?utf-8?B?c3dDQjd1SW5xOGFwSHpNbCt4WUx1ZFNTYWljVmNyTXE3bnZxbmVwY1p2NkRa?=
+ =?utf-8?B?OVkySlNXNytxSk9HVGU1ckpsTmQvaFR1Z1B0L0s2UkdHdlZQOXpCMWgvZ3d4?=
+ =?utf-8?B?TUloSDdIeCsrWjdkaURJWGlQZGViTVhXMGU5RVVXSUpSM2dhZjdrNFB4SHpn?=
+ =?utf-8?B?R1dEb1QxWXNTeVlhMnhLR05HNXRJekttZlVjUFJWQXQ4TElsc2xKNm9FeDI0?=
+ =?utf-8?B?bk9BbVRCV0J0NytTamR2Y0ZTNFJDeG8vNVFCSlhCdU9rc1Q5ZHhEUTRxWTY3?=
+ =?utf-8?B?cFg5Y0l1Z3laWDBmMFdGbGdxeWR0dHpSRzl6Q2hUeXpUM0I5N1JOcTE3YWpj?=
+ =?utf-8?B?dmZHbVdXc29PZVg3RityYVZhSE1NS0NidW9Rd1JZSTFIb0Y1MERrSXhhRnBB?=
+ =?utf-8?B?akdoNTI4alNGTml4U3FIbW5RYUJ1Q1BsN21PWTU2TXA1UDg0aWRSODJVdjJu?=
+ =?utf-8?B?am1hd05xaFdmM0gwUTVCSkh5Wjh1ZEVyUWlVQTB1eERJdWRpcjNZRnlYTzBS?=
+ =?utf-8?B?YTRxbUdPUzBSUGdIZjg2UmhYTWtmLzZHcXpjYlpZUmY5U1pxdEl0eUpNQ2dr?=
+ =?utf-8?B?M21sblV5aS9TbjRwa1hLVWRaUGc2MmxrNkhaNVIzczZzakFoRXIzTmQxN2dT?=
+ =?utf-8?B?bG1FZkQrMTFlcE14UTc0c0prbGRnOVVOUUQ5dFROOExEdkZEOGdOaXRWcThP?=
+ =?utf-8?B?ZDR3UTBXR1dnS01VWWlHa2lhNVhIQWZwN0tSZzMxZDdBWnRSSERseG5IdGRp?=
+ =?utf-8?B?YmZSSFBmMVh5dWZLVjM0V0F4Z2Izcm94a3BaL0Y3MTRFOVdxb2NtMTdoR24r?=
+ =?utf-8?B?NElSbWxsQ2RIMlFhZGpRd3FWdHNoVjNFL0cxelNHNU5ERndUK0dKTkF3WGxF?=
+ =?utf-8?B?MDlGOHprNE1KUDd2N2ZEcy92aVl4cUFjSmRVSnJsUnIvYkJvNnNoanBxVFlX?=
+ =?utf-8?B?KzE3NEZJKzJyKzJDWXBqNkFRSWJHVW5qUjZBVzg2SENSZ1VCeVQwRzg1SWY4?=
+ =?utf-8?B?Rm5kQSthY21GNG5lZnpvUjRmQ1dwVFJJeGk1Z0krUzhOeEpXb3NzV2ViRzZz?=
+ =?utf-8?B?MUtxTWpEVnNONDhZWVpwN1NJRDR0dFUybFBBOFJvUGEzamN4REJRU2NtZEh0?=
+ =?utf-8?Q?IaZDZu323/uHK?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5052.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MEw3YWJvWjJ2KzVjb1hEaENIRlhHZ3R6RTRSb05QREdtRnBNNWsxYkNFVjRM?=
+ =?utf-8?B?MUVoT3g0Vy84NDZrM0NybnVhcjZTYWZ2Y1RhdDdWazhzZms1a01xby8xWDlL?=
+ =?utf-8?B?eTBTa1NVVFh3NTZ3M2FDSXBORnpTcTN5WHNtRVdyU1k3N0orWHVkQldKSlNY?=
+ =?utf-8?B?WW9IeC9XSnk1WlQ5L3M2dFlVQTlvc0pPRGVFUGFtTEdMWm14TzNnSEMvTnNH?=
+ =?utf-8?B?bE5TOUppUy92M0FqbGlrQlNVdWltRHVnNlFJakhmd3llYmkwZVBkTDFDZWFZ?=
+ =?utf-8?B?T3dieU92RzN4Z0xtKytHMEJRVithY0Q0Q2tYSGZnQjNGS2tLc1plZFJQS1ln?=
+ =?utf-8?B?UXI4Y215T3F5bkM1cHV4TzhRajdZQjJSeTgrenEwSURCb3F1UEc4dTRHOUtm?=
+ =?utf-8?B?SC9aRXVUTWRWT3VidGxwVyt3d3dVZ3lZdXI0UVVCQjZqSms4V3hrMk10SWlV?=
+ =?utf-8?B?aEIxQnlHekVFYUY4SnRlV3FGeEhKS1pEczkvMHVoN3pQWDNXNUVKaEd6WEhM?=
+ =?utf-8?B?YWI3ZzdFdDJydXpHL3pnTTd5MDM3bGlFck9hUzhReFU1cGU2UGFDOFJRSkhQ?=
+ =?utf-8?B?dnVRYlk0eXlHai9IaDJrUVdyZzROSUNVaWI3WlVSOThBYW5nR2pvdzJuNEFO?=
+ =?utf-8?B?WDFDeEliQlJlYUdpQmNRMlNxbGhsYVBhWElxKy85N3ZoeEJWZHRqN0x6ZVVi?=
+ =?utf-8?B?OHp6SzU0b09kMXdJa01ycklqM3Q4b1NHS2Z0MUh2aG12SE9NY0JFQWNpR2hP?=
+ =?utf-8?B?elJqWUF6Yk1nVFNWaXZxZGZNOUNBZEdZdDZEeGhYWHZGYVJDQ1NWUXdvUFJt?=
+ =?utf-8?B?eGF0RnpETWpFTWl3QzhvV2JMSEJPcVNmUlp0djZZUmgxSzcza3hxczlUWjFt?=
+ =?utf-8?B?MkYzU3hxdTBhT3NPY0U0Y3I5MlBwbHhkSWk5Ym9WY3lVc01hbmwzNmlQcThO?=
+ =?utf-8?B?aUFuVDhMK3RyS2ZuUklpS0tsbUFlMkNZMEhVU1ZZVjVHS3I4WkxSTVdJcTg2?=
+ =?utf-8?B?K29XdG0rYmVFVG9TNUd4NVUzTGs0dFVqeG5wYnVwdDJXdU94dzljMG9yZnIx?=
+ =?utf-8?B?VjZrdjE0NTZXQnNGaHVUNEJ2MkZwWnVRNU9qNGErY3hQY3cxRUwrbHErWHVU?=
+ =?utf-8?B?dVRPMEdwbEMyV08vR28xUE9zam14ZVNMVzBTOXUrRlM3UWZhck5FaWk5TDE4?=
+ =?utf-8?B?SVhlN3hIMS9IM2Y4aHVjMVE3SmhrekRQNzF2TTBjK29tVHdWV2tla2xGdktk?=
+ =?utf-8?B?UmVDcXJCVW9pbU1QalRFbC9nT1NtanQvb0hCSmdkMG1LRFAxRTVWS0NnYlZB?=
+ =?utf-8?B?ZGNXMk5VcVI3V1Z6bDF1bTZKUTZiRnd6YWJzN2E2RzZtZ0RqZ1gzQXkzeUxV?=
+ =?utf-8?B?d0xzWk1LK2VOVUNqZU9pZmxvNlc1WmxnYmRqeWxPY0F0azhsSXkwaDNWeGFi?=
+ =?utf-8?B?M3JKUGJhTUdidUsxcDUrSVR4Mi8wV2pLc1dNNDIweEJITE5RQzdEN3lQSnFG?=
+ =?utf-8?B?OUJ0eW5Qdmg0a3B0YnQvdEVkbEN4WGRlQ3JGWWxnVFNFTkJ2WnQ3Zm12ektS?=
+ =?utf-8?B?MHJNQTljUEJzcUcyUkR4ZDN6emRJZkFidEUwcng5RUpiMTN5UXFqY0tkbUNk?=
+ =?utf-8?B?Z1BiM0hpUFE3bmNvdjhVQ0F4Q29Yd09nMFNOZGd3YkRmenEvMGo0UXFGNE9F?=
+ =?utf-8?B?K01DOFpCU1dvMnJCQ3F1ejdXRXc1MG9jWGk2TVdQRDNwSFRodmw1aWpMeGpW?=
+ =?utf-8?B?VEJqVitnNEpicngrNWlpRUNCMmQzem9GQVhtZnVPdTJjTUNnOFpXNXhzRWNv?=
+ =?utf-8?B?UVdTVnhvOFovVEtVQnpGOWk0d2l3M2xMY2NKbExnamVqVWlSODVyRWZ1V2FG?=
+ =?utf-8?B?RHJrd3RrSVJyZWRPN2g1djZZcDN1c1dVWE9UV3dORnliNEMwWDlWNWFUVzhr?=
+ =?utf-8?B?cnpOWWJFajIzTmhicG1mYnMzSEZrcmpOa2I1MnVUNEpURzVxYStPcldrU29V?=
+ =?utf-8?B?Z2tLKy9jMzkvQksvRXBFajF3WDNFRWoySldXWDlUcEV1UytiSWJLN012R3R4?=
+ =?utf-8?B?Q0VkVjNhMkdkQWFTL3EzakZnb2Z4dWxMMEdteDd1NFdHOTBiOFNRQTdiK2No?=
+ =?utf-8?Q?J5zywbPbsRfBu3r8UJVHcTTI/?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e89043c-ff47-463e-c366-08dd78484ae8
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5052.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80aa48ad-0e4e-4621-f8c1-08dd7843a086
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2025 15:23:20.7486 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wjj+/tkcW/jwpfFgotQPZ1erTIcYGoZF8Bkd62d8WG9FqO49q09mKLLSZmtubBRhxtK+mOav2JCEy6nQm3lePw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4258
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2025 15:56:44.9914 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ohxcNFtJgnEcbSgsafyV0BsJ1/Z7Iuaw7asXQFkJT0ZC5gTSI+QGWPhlvyUsCGjKlhGHwv3yRU+DZYWD8Fb1zw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8945
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,325 +163,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB5284C8F92852DFB1581ECA148BB72CH0PR12MB5284namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On 4/10/2025 8:50 PM, Alex Deucher wrote:
+> On Thu, Apr 10, 2025 at 10:57 AM Arvind Yadav <Arvind.Yadav@amd.com> wrote:
+>> This patch is load usermode queue based on FW support for gfx11.
+>> CP Ucode FW version: [PFP = 2530, ME = 2390, MEC = 2600, MES = 120]
+>>
+>> v2: Addressed review comments from Alex.
+>>      - Just check the firmware versions directly.
+>>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian Koenig <christian.koenig@amd.com>
+>> Cc: Shashank Sharma <shashank.sharma@amd.com>
+>> Cc: Sunil Khatri <sunil.khatri@amd.com>
+>> Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 10 ++++++++--
+>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> index 91d29f482c3c..62dcdba589cb 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> @@ -1632,7 +1632,10 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+>>          case IP_VERSION(11, 0, 3):
+>>   #ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+>>                  /* add firmware version checks here */
+>> -               if (0) {
+>> +               if (adev->gfx.me_fw_version  >= 2390 &&
+>> +                   adev->gfx.pfp_fw_version >= 2530 &&
+>> +                   adev->gfx.mec_fw_version >= 2600 &&
+>> +                   adev->mes.fw_version[0] >= 120) {
+>>                          adev->userq_funcs[AMDGPU_HW_IP_GFX] = &userq_mes_funcs;
+>>                          adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] = &userq_mes_funcs;
+>>                  }
+>> @@ -1646,7 +1649,10 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+>>          case IP_VERSION(11, 5, 3):
+>>   #ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+>>                  /* add firmware version checks here */
+>> -               if (0) {
+>> +               if (adev->gfx.me_fw_version  >= 2390 &&
+>> +                   adev->gfx.pfp_fw_version >= 2530 &&
+>> +                   adev->gfx.mec_fw_version >= 2600 &&
+>> +                   adev->mes.fw_version[0] >= 120) {
+> Are you sure this is correct?  I didn't think the firmware is ready
+> yet for these families.
+These version is shared by Mario. I have also added you in that mail.
+Firmware Type    navi4x    Navi3x
+PFP                        2840    2530
+ME                         2780    2390
+MEC                       3050    2600
 
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-
---
-
-Regards,
-Jay
-________________________________
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Wednesday, April 9, 2025 5:41 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Pillai, Aurabindo <Aura=
-bindo.Pillai@amd.com>
-Subject: [PATCH] drm/amd/display/dml2: use vzalloc rather than kzalloc
-
-The structures are large and they do not require continuous
-memory so use vzalloc.
-
-Fixes: 70839da63605 ("drm/amd/display: Add new DCN401 sources")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4126
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 11 ++++++-----
- drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c    |  6 ++++--
- 2 files changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/dr=
-ivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-index 94e99e540691c..5d16f36ec95c8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-@@ -2,6 +2,7 @@
- //
- // Copyright 2024 Advanced Micro Devices, Inc.
-
-+#include <linux/vmalloc.h>
-
- #include "dml2_internal_types.h"
- #include "dml_top.h"
-@@ -13,11 +14,11 @@
-
- static bool dml21_allocate_memory(struct dml2_context **dml_ctx)
- {
--       *dml_ctx =3D kzalloc(sizeof(struct dml2_context), GFP_KERNEL);
-+       *dml_ctx =3D vzalloc(sizeof(struct dml2_context));
-         if (!(*dml_ctx))
-                 return false;
-
--       (*dml_ctx)->v21.dml_init.dml2_instance =3D kzalloc(sizeof(struct dm=
-l2_instance), GFP_KERNEL);
-+       (*dml_ctx)->v21.dml_init.dml2_instance =3D vzalloc(sizeof(struct dm=
-l2_instance));
-         if (!((*dml_ctx)->v21.dml_init.dml2_instance))
-                 return false;
-
-@@ -27,7 +28,7 @@ static bool dml21_allocate_memory(struct dml2_context **d=
-ml_ctx)
-         (*dml_ctx)->v21.mode_support.display_config =3D &(*dml_ctx)->v21.d=
-isplay_config;
-         (*dml_ctx)->v21.mode_programming.display_config =3D (*dml_ctx)->v2=
-1.mode_support.display_config;
-
--       (*dml_ctx)->v21.mode_programming.programming =3D kzalloc(sizeof(str=
-uct dml2_display_cfg_programming), GFP_KERNEL);
-+       (*dml_ctx)->v21.mode_programming.programming =3D vzalloc(sizeof(str=
-uct dml2_display_cfg_programming));
-         if (!((*dml_ctx)->v21.mode_programming.programming))
-                 return false;
-
-@@ -115,8 +116,8 @@ bool dml21_create(const struct dc *in_dc, struct dml2_c=
-ontext **dml_ctx, const s
-
- void dml21_destroy(struct dml2_context *dml2)
- {
--       kfree(dml2->v21.dml_init.dml2_instance);
--       kfree(dml2->v21.mode_programming.programming);
-+       vfree(dml2->v21.dml_init.dml2_instance);
-+       vfree(dml2->v21.mode_programming.programming);
- }
-
- static void dml21_calculate_rq_and_dlg_params(const struct dc *dc, struct =
-dc_state *context, struct resource_context *out_new_hw_state,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/g=
-pu/drm/amd/display/dc/dml2/dml2_wrapper.c
-index 04316d719426a..525b7d04bf84c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-@@ -24,6 +24,8 @@
-  *
-  */
-
-+#include <linux/vmalloc.h>
-+
- #include "display_mode_core.h"
- #include "dml2_internal_types.h"
- #include "dml2_utils.h"
-@@ -750,7 +752,7 @@ bool dml2_validate(const struct dc *in_dc, struct dc_st=
-ate *context, struct dml2
-
- static inline struct dml2_context *dml2_allocate_memory(void)
- {
--       return (struct dml2_context *) kzalloc(sizeof(struct dml2_context),=
- GFP_KERNEL);
-+       return (struct dml2_context *) vzalloc(sizeof(struct dml2_context))=
-;
- }
-
- static void dml2_init(const struct dc *in_dc, const struct dml2_configurat=
-ion_options *config, struct dml2_context **dml2)
-@@ -824,7 +826,7 @@ void dml2_destroy(struct dml2_context *dml2)
-
-         if (dml2->architecture =3D=3D dml2_architecture_21)
-                 dml21_destroy(dml2);
--       kfree(dml2);
-+       vfree(dml2);
- }
-
- void dml2_extract_dram_and_fclk_change_support(struct dml2_context *dml2,
---
-2.49.0
-
-
---_000_CH0PR12MB5284C8F92852DFB1581ECA148BB72CH0PR12MB5284namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+~arvind
+> Alex
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Reviewed-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"color: inherit;" class=3D"elementToProof" id=3D"Signature">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
---</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Jay<br>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander &l=
-t;Alexander.Deucher@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, April 9, 2025 5:41 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Pillai, Au=
-rabindo &lt;Aurabindo.Pillai@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display/dml2: use vzalloc rather than kzall=
-oc</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The structures are large and they do not require c=
-ontinuous<br>
-memory so use vzalloc.<br>
-<br>
-Fixes: 70839da63605 (&quot;drm/amd/display: Add new DCN401 sources&quot;)<b=
-r>
-Closes: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/4126">ht=
-tps://gitlab.freedesktop.org/drm/amd/-/issues/4126</a><br>
-Cc: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 11 ++++++----=
--<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c&nbsp;&nbsp;&nbsp; =
-|&nbsp; 6 ++++--<br>
-&nbsp;2 files changed, 10 insertions(+), 7 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/dr=
-ivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c<br>
-index 94e99e540691c..5d16f36ec95c8 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c<br>
-@@ -2,6 +2,7 @@<br>
-&nbsp;//<br>
-&nbsp;// Copyright 2024 Advanced Micro Devices, Inc.<br>
-&nbsp;<br>
-+#include &lt;linux/vmalloc.h&gt;<br>
-&nbsp;<br>
-&nbsp;#include &quot;dml2_internal_types.h&quot;<br>
-&nbsp;#include &quot;dml_top.h&quot;<br>
-@@ -13,11 +14,11 @@<br>
-&nbsp;<br>
-&nbsp;static bool dml21_allocate_memory(struct dml2_context **dml_ctx)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dml_ctx =3D kzalloc(sizeof(struct dm=
-l2_context), GFP_KERNEL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dml_ctx =3D vzalloc(sizeof(struct dm=
-l2_context));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(*dml_ctx))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*dml_ctx)-&gt;v21.dml_init.dml2_inst=
-ance =3D kzalloc(sizeof(struct dml2_instance), GFP_KERNEL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*dml_ctx)-&gt;v21.dml_init.dml2_inst=
-ance =3D vzalloc(sizeof(struct dml2_instance));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!((*dml_ctx)-&gt;v21.d=
-ml_init.dml2_instance))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;<br>
-@@ -27,7 +28,7 @@ static bool dml21_allocate_memory(struct dml2_context **d=
-ml_ctx)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*dml_ctx)-&gt;v21.mode_su=
-pport.display_config =3D &amp;(*dml_ctx)-&gt;v21.display_config;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*dml_ctx)-&gt;v21.mode_pr=
-ogramming.display_config =3D (*dml_ctx)-&gt;v21.mode_support.display_config=
-;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*dml_ctx)-&gt;v21.mode_programming.p=
-rogramming =3D kzalloc(sizeof(struct dml2_display_cfg_programming), GFP_KER=
-NEL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*dml_ctx)-&gt;v21.mode_programming.p=
-rogramming =3D vzalloc(sizeof(struct dml2_display_cfg_programming));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!((*dml_ctx)-&gt;v21.m=
-ode_programming.programming))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;<br>
-@@ -115,8 +116,8 @@ bool dml21_create(const struct dc *in_dc, struct dml2_c=
-ontext **dml_ctx, const s<br>
-&nbsp;<br>
-&nbsp;void dml21_destroy(struct dml2_context *dml2)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(dml2-&gt;v21.dml_init.dml2_inst=
-ance);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(dml2-&gt;v21.mode_programming.p=
-rogramming);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vfree(dml2-&gt;v21.dml_init.dml2_inst=
-ance);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vfree(dml2-&gt;v21.mode_programming.p=
-rogramming);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void dml21_calculate_rq_and_dlg_params(const struct dc *dc, st=
-ruct dc_state *context, struct resource_context *out_new_hw_state,<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/g=
-pu/drm/amd/display/dc/dml2/dml2_wrapper.c<br>
-index 04316d719426a..525b7d04bf84c 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c<br>
-@@ -24,6 +24,8 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;<br>
-+#include &lt;linux/vmalloc.h&gt;<br>
-+<br>
-&nbsp;#include &quot;display_mode_core.h&quot;<br>
-&nbsp;#include &quot;dml2_internal_types.h&quot;<br>
-&nbsp;#include &quot;dml2_utils.h&quot;<br>
-@@ -750,7 +752,7 @@ bool dml2_validate(const struct dc *in_dc, struct dc_st=
-ate *context, struct dml2<br>
-&nbsp;<br>
-&nbsp;static inline struct dml2_context *dml2_allocate_memory(void)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (struct dml2_context *) kzallo=
-c(sizeof(struct dml2_context), GFP_KERNEL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (struct dml2_context *) vzallo=
-c(sizeof(struct dml2_context));<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void dml2_init(const struct dc *in_dc, const struct dml2_confi=
-guration_options *config, struct dml2_context **dml2)<br>
-@@ -824,7 +826,7 @@ void dml2_destroy(struct dml2_context *dml2)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dml2-&gt;architecture =
-=3D=3D dml2_architecture_21)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dml21_destroy(dml2);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(dml2);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vfree(dml2);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;void dml2_extract_dram_and_fclk_change_support(struct dml2_context *d=
-ml2,<br>
--- <br>
-2.49.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CH0PR12MB5284C8F92852DFB1581ECA148BB72CH0PR12MB5284namp_--
+>>                          adev->userq_funcs[AMDGPU_HW_IP_GFX] = &userq_mes_funcs;
+>>                          adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] = &userq_mes_funcs;
+>>                  }
+>> --
+>> 2.34.1
+>>
