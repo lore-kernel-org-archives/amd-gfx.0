@@ -4,149 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41269C369A9
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 12:09:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39097C36010
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 12:15:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F6B110EB89;
-	Fri, 11 Apr 2025 12:09:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA1610EB8C;
+	Fri, 11 Apr 2025 12:15:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uQnc7HWA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LIAp5qZ3";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A75A10EB97;
- Fri, 11 Apr 2025 12:09:53 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2063.outbound.protection.outlook.com [40.107.96.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E574710EB8C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Apr 2025 12:15:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QDAp2WZaZm5jhcYbu5iQbDyeE6bkEQ/PjoQ8mPHKbmvVWG199lYp/FIZVr4uHmzbuicLxKNrs83hZwRSsQ5/Axyeso2h7+0H0WZvhiwwFKRCKnegYLNACLkjXZDMGdItWZ+yfxoBzY/akwvXwLd1l4glB3NFoGTBq+oUBVY/5quxWb8LM4o58YRe3Fqi3Y9tnegqksEqkbnsiHgNmpTDi9dkKL6dWbW3bKoITCJokPxMXcHRag3/LBW7r/mXR52vamVjZiFt7lB088cjPYkYM7fUNO3I+qeb2UQPWTIah5FyGSJpj7QI/lcP5l7bO6Ayt+bEiKwQyW0Iz/daWH+G6g==
+ b=uFcPUPIK64XdWnF7tsN98xR71B60+fcOpfLH5hmTf/W+nJhm1zyLrNCoHlVLuRbUSgd39tnoweKd3tnVDQgNuQvknW+TDfb7OWKVBdEfaP70pajfvEZWp9MLeCB1g0Qw4d6gcubnScMArfDfRtkT7LVoxKwrQyMcR05v7ZHwLID1jTcOaxBBoVf+aA8f4ZZv8dr4sidvYbr+xwp47leKY5+0rviRZNzVtDTKUm5h4ScnIyW11/uG5H+iwMejmXm4owiW4dXQMNLx1zwoyeLgyxDAH3ZtcFoF9fB04R3FoKcvQ/xO5vM3B40zjQSUFET7i6oVCSWO0W9NbGfkj2Qc7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J0GssiOZZXVc3itm+w2h/33CWpHlF1jFD7vEv+03Yus=;
- b=F4tkuGcOLyKYzpu5YrAIVKwBy+OASB+TBcUaxpKW9kUpZwAY9A7S3AtCr1vpS50aMpjye0XdG6JFyXAvL3l//ILAGpWlFeWSuRBCJ+DUT91gAXdw+6E9cWkoqyul99xZo8YYqOkaTgV27eHDuZ3P7ZIs1SVsb7kN8UAJdQQ06gG08k//CxHupIpZ/LhkGTZwamYW5iARzqhqRlhQEMkfZ6nZ08c5GPxkh/192QyQTLliazjXKIagJlsUR2PIWlOR80SvWe0nFBe8s+ou2AAu+7TifpGgP2zvhhJt5ntlHYTndiuCHazQr0Vo/0B9qDSAXZsTU0/3kI8pT1hDLf+BvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Xn9TKtc1vwnV1pTsqCkeRVBqApUgNmQ2cbW63zVk3zs=;
+ b=NTQCO7/srnmqs/iPLX6OMm56Qjdqv+ApM2QeDeGum2BoDVmnW6KzewJfLDEvJzt3MYvpgjZ3fjrmyiQJ5XEFfnrpF6zSBIdfWM6Dfq1v4q4zK2Sw7otecXuMg6AZn/ffbIRbrYthOXsqfWIbjGLdr5MJSWzDy3KTYsAa+EHqMJhJPi9YqxgjC2oTaAPbxtwlUPTN5NW+ONMmrr9Iomb8AXQXOUsQFBsQwxDYnZ8D9q1W3HdMQqROJSWnPG6Z/Z3nXnBCxVpU7cl7MZmwGSGwVVCLiF4lvPcKNgocV9u8jg30hyCfMuaOApoe+7MQMgdE7u7j2LkmpHIlFuhMh8rVuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J0GssiOZZXVc3itm+w2h/33CWpHlF1jFD7vEv+03Yus=;
- b=uQnc7HWA10fRcC4G75p7if2g1BGFxJwMpIzG3YG/T965dfZvOQV7B/TJ1EAF14VyhTqExrmx+LJuxTRra872qEFMvZzP9NO7EIkE4taMVpY7x0tHsqqMhVDq9c4XQAXYahpJ3rFv/IlYJB8kAHOFT9j/qBqG+whkW2TwkkbvNtI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB7027.namprd12.prod.outlook.com (2603:10b6:510:1be::19)
+ bh=Xn9TKtc1vwnV1pTsqCkeRVBqApUgNmQ2cbW63zVk3zs=;
+ b=LIAp5qZ3bc5oJ337xYokWn17U1C+CE8U5GPqyhHyo3shwaRSIbrIVIJtWtGTYjk+vFs1d0ciBO9rDtezGF9ZAZICGePcBzHU/yw1UyzSO4DCsz1ensHi879ffyesHuB1cpimjnlllHMhDeEGX9YiRgVnz2AGjcjSyF0IdIaqoYE=
+Received: from BYAPR07CA0085.namprd07.prod.outlook.com (2603:10b6:a03:12b::26)
+ by CYYPR12MB8750.namprd12.prod.outlook.com (2603:10b6:930:be::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.33; Fri, 11 Apr
- 2025 12:09:48 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8632.021; Fri, 11 Apr 2025
- 12:09:48 +0000
-Message-ID: <15b041aa-f87b-4e8a-8144-cabd07e19001@amd.com>
-Date: Fri, 11 Apr 2025 14:09:44 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: function to get process name and pid
-To: Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>
-References: <20250411112622.4075526-1-sunil.khatri@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250411112622.4075526-1-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0018.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::23) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.34; Fri, 11 Apr
+ 2025 12:15:43 +0000
+Received: from SJ1PEPF000023D9.namprd21.prod.outlook.com
+ (2603:10b6:a03:12b:cafe::51) by BYAPR07CA0085.outlook.office365.com
+ (2603:10b6:a03:12b::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.26 via Frontend Transport; Fri,
+ 11 Apr 2025 12:15:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF000023D9.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.0 via Frontend Transport; Fri, 11 Apr 2025 12:15:42 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 11 Apr
+ 2025 07:15:40 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: Use generic hdp flush function
+Date: Fri, 11 Apr 2025 17:45:23 +0530
+Message-ID: <20250411121524.589317-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB7027:EE_
-X-MS-Office365-Filtering-Correlation-Id: 106f8bde-36e7-4aa3-77f7-08dd78f1c138
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D9:EE_|CYYPR12MB8750:EE_
+X-MS-Office365-Filtering-Correlation-Id: af16e404-b410-46d2-8d2e-08dd78f294bd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?N0VhcHA1M3lLYVZmdUZwMytlRzMzV0loQ20zQm1FWFc2NXVTK013U0FjT3JF?=
- =?utf-8?B?RFd1RU44em1PdmZRZVdxbVo2TzBVbWdvWTBVbEt3TXdUUFlIc2NaeU5scFRr?=
- =?utf-8?B?b1pEOTM0ZTZiaXQvOVg2dkN0QTdJaDFCUnRJOU1jVit6SFhnN1BmUzNYRnhU?=
- =?utf-8?B?ZjNCd2J6a1E2VmgwVitFckh3VXhSZFdQZlZGdXhlUW1pMU9zeTZwSjVud01y?=
- =?utf-8?B?SytNanFyckRHOVg1THhEbURkQlVrNW40NEx0U2pmNVZVam9tcTUrNHJROXg1?=
- =?utf-8?B?ZldLTnNnSGxIaE9ZWUZpaFBYWURVUE9DVnJwdmtOQm9RMkptejNLbHN3VlpK?=
- =?utf-8?B?SUUxdUJjaTJYVDUrMVJzUU1LaW0rSWxFVGNBdUpJN0NCcy9wcjJsSXp1bXJm?=
- =?utf-8?B?bmE5WmVyOWZ4RHBoK0RKdlF4aytyeFBiVGpxNHU1WmQ1WTRHQmFtdlhkN0lx?=
- =?utf-8?B?RDQ0ZkV4TWg4Zi9IK1UyTDJGZ0ZyOGRkNnIvVnllaU1CSjZ5d093OTFxVkhq?=
- =?utf-8?B?a3kwQy9BdUVNamJ1QThwREUwZGJkMWx5bjNGcEQ3MEtQWWRaL0NaNXk4eEJ5?=
- =?utf-8?B?MnNuVWs5RGdwQ3NnWDhPcEhkdmR5S0VVUTVVSmMyZ1UxWllDVGFjc0hYNGJT?=
- =?utf-8?B?M3VmNDNFak40TGpXNU9keE4vS1RuT2gybnpaUVJROW0yeUhmdWFvQWR4d29J?=
- =?utf-8?B?ODBPUVkvdjVUa2twQXpnZm5ieTF3cWtnRm9hRTc3OVVxRjg5Wkd6VUpsTDRH?=
- =?utf-8?B?amtQL0R3SlIrZCs0N25JZzBHSGI0ZXEvSnhjZXp5OFphK2NPUGhaa3oxMi8v?=
- =?utf-8?B?allUV2ZWWnpXTGNDYzlFRHFuSUdaazlEQm1CUmlwQ0JuVG5oMnBWSjBOVGhF?=
- =?utf-8?B?RStBbnFRcVo5YkJzV1dsbjNUL0dkeXlTRWJOM3NuejNtdVpDL3ZtblRRTGVG?=
- =?utf-8?B?aW01S09vRko3SHh0aDlXRUdMUTJxNExOK0NOZTl1dStIYXpPTms4K24vQjJ0?=
- =?utf-8?B?SS9ESi9oTFRxUUlYZnplZk9hc3gvdTM5Nkc3Wk1aRXdWZjkxZThVK0pqdDd6?=
- =?utf-8?B?UVJYam0wYjdZaGMxYTlQNEhqK1BYNFVtcmdiWUl6NEFBWGE0QldlbVQwcWVn?=
- =?utf-8?B?ODlZc2lwZk5yZUtseFdLd2tjT0NTc2xXUFVBT0wzV1pXbXhOa21KVXBZOHZt?=
- =?utf-8?B?V0hjYWxYenc4UjNOQm1jcW9CZ0pFVUtQcmVJR2pCbmFuYUtIZzhGeVlwMUZB?=
- =?utf-8?B?NmUyYTg5MjZWalZiSklKdWo3VjZmT2tKVVQ2NEdvTlAzQnJwekwxN1pnNTR3?=
- =?utf-8?B?N0ZVK0Zmb1Izck5FN1R2cFFnYVMvS2NLQTNndE1sN0N5TldFN25DWGxkZWVz?=
- =?utf-8?B?NTRhRTBNemtzSDMwZGlFYlBITDRpVVFnbWROd0xtcFE0ZVFxcG0rOFlvcGNU?=
- =?utf-8?B?RzhNc1FvcGo4NThWSWJSNW90QUNxeXhkZnJIQ0J3aE5BNlkyeHk4b0tWNTNn?=
- =?utf-8?B?MmtwTU9ZMGtUS21kWk52MysxOWxBNDdBanpPRnF1RmpZbmhYSHFMM0tQVHp1?=
- =?utf-8?B?UllCMS9FSUpGcElwNHBCb2FJUEp4dXZhbG1uNXV5WHp1TmwrZDBHcGN5clJ2?=
- =?utf-8?B?ZktJd1NBaGk0blZCVWtiNE9Ld2lydDFadzhSNXp2d0NLaVFUOUJpSHQ3V25Q?=
- =?utf-8?B?b29MOHRkM0oxTWtCTnQxd0FNYkZxRDRFbjd4ZWFkTHRibDk2QklycnVheUY5?=
- =?utf-8?B?U29USWpSMXZTNUk0OWdJQXVVeW0vZkF1SW1PRmRNQnYvdDBtMEJqcFlucnNn?=
- =?utf-8?B?a2Q5V1hmRm5kSXhjaGEwdVhtM2pPVllkdmNicTg0SWVJYnJIeitzRWhmVXc4?=
- =?utf-8?B?WW50N3dGUDkvV08veEx2aEc1K1ZIT1MzTnhkUTJGZHA4WEszam9EaVkxdllh?=
- =?utf-8?Q?UbFOfnlLCEY=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VXpDdDZ5L1hrK0JwMkdGeDlXbkk5cytHWnNBY3QvVzc4dGtBNXRrNXpVaGNC?=
- =?utf-8?B?dkNyWVZ4UmhCWEhlMnB0RnBrZmtidkthSHRVWUlEOFlhUk5OeVpqK0c0SG1l?=
- =?utf-8?B?UWZhMEQ0YlYrREptUnczTXI0UFhuajFYd29FU25YUUI4RDlEMlUzNU9ESDMr?=
- =?utf-8?B?ZGpnWUJLdlh4bG5idzV4bVFySk9kYVEvL20xWFVlL0pEeEI1S1JIaEJXOW12?=
- =?utf-8?B?c1k5L0NRc0dJNmcwQlNkZ3phU3lDUmxvM2NyN1lXeHdwb2t3YVdvRjVSVnBK?=
- =?utf-8?B?L3RHWTNqZkVyTzJwSE5iMXF2aG5pdGswV1ZRL1haR1ZtanBvblJzRk5XWWgw?=
- =?utf-8?B?Ny9kRzZiTGJLbjRad3MydkphYWQ3ZVUyRVEyVjMvZUJpNHNnOEhtQ3BUTTYx?=
- =?utf-8?B?Zm15bW1UdUZBYVM1ZDYwUWY3NDZTVUduVXQvV084QVNUT29tNlhEdXFhSXpG?=
- =?utf-8?B?c0U4SVFpcmxkUE5jcHpBdjFKTk1rUk5UbllVQkZVcjMwMG83NGtYSStJZXVO?=
- =?utf-8?B?OEpVZHpLclA0RklyZU5FSlpCay85bWcyUmJoc09ZVU1pZUo5ZVhGUkFwODVr?=
- =?utf-8?B?ZXBXWU5vK2huaVRiSlowZ1ZvZE5SOFRIR01SeU5janlnNVd4WnZlY2lGWlB5?=
- =?utf-8?B?eUhRbnYrVVl1a2poR1dCbXNGTzFIa3BZRUt3SXFibmtjV3RRZUpEM0Vwei91?=
- =?utf-8?B?a2duS2FDWmxrcmpZdG1wQ3JRcDBrVys2d2owWXlOTzZYUlV2QUthREZCZi83?=
- =?utf-8?B?OXFKMHM2aW5RTzZjcGg1NHpqZmFlMTE5bGhMb0FrQ3U5VFF1RkF4dUQ0V3h1?=
- =?utf-8?B?Zy9PQVJXL1Q3OHRROURYRTltRHo2QjNpVmxHcnZSTFdKRmhBb2ZPYmp6MXJw?=
- =?utf-8?B?TkJrTVVqZWhjK21Sb1NhVE41WlR4QWc4c3U0VzdUSitRcG1IQmJlV2svQWJL?=
- =?utf-8?B?UkJlOWN4akpCNzd3UzlYcjNNd1VreUlmVWdBbjk2L0RYRTVqNWtRdlNkckhC?=
- =?utf-8?B?azEwQTZFRUY3blRQc1ZrM1hCQ1FnLzBxL1BuckgxSm1ja1B6T2gvUEtjMDdE?=
- =?utf-8?B?cEpmSVRFUGxEdjVOY1d1OTFCN09rZG0vS2NXQWFJYjM1MXhvSkkvNW1lRkxV?=
- =?utf-8?B?SHJkcDk2S1FhRGZqWkZmWkVVdDdRcmdHR0xRaWtzZ0FidGhzL3ByKzM3RGdL?=
- =?utf-8?B?Y2xVNHpjaWxYTUFoQnpsWmpNZGlJcnk5VHlIaE1VKzVBcFlKNGVYU2tIZ2lN?=
- =?utf-8?B?SUlCU2ZaTWJPd3R4MnBxRElmNndXWkVKeHROVk9XNGpjT2M5VGlGTTc2SXVI?=
- =?utf-8?B?ejdMMHVIMm8zZzdqY0k5VVhaYjNCbUl4SGlTYjNqcll5MmVYNTBwTFdMRkpD?=
- =?utf-8?B?bDkyMGg2MnVqT2hUdjdFUVpGSXdLQzUydVRwbC9DUXNZa1Era2lCbkUzTm94?=
- =?utf-8?B?VGNuU0tOeFpLVC8rZnRZMk8yYkhEeVFZRGlzUWtwL1RjLzNJWjFPcVJCQ3FX?=
- =?utf-8?B?eWpXLzlkTnU0djVGZXVaREw2eXBTdVppc3djUjR5M2JRUG9GUnBOT1B3Z3oy?=
- =?utf-8?B?bFQ3NFY2eGpIZVRJOXJIZHp6Y0h0Z3VsYmIzMVpnV2NZLzFha09sa3JMcHZM?=
- =?utf-8?B?azloZG5ZYW9BMWk0ZktsZEVqZVJEUlhKUTFwdmlsNThIYVZHcmZ0clp4Smhh?=
- =?utf-8?B?VURHQlRrWVVuUjRJZ1dBVVdXN3J4bU5nd3phdTJNRTRJckY3VGs5cCtHWVlS?=
- =?utf-8?B?L3prKzAyN0JjV1Y3OWdFWWFZb3A3ZUtkMS81WjBXYVVja1Z4S0hYcFRtWENl?=
- =?utf-8?B?eGw4eFN6WVN2TzV6WnBHNWxucHQyV3RLR3FHN2llY29qSXFzS3l2WFJwQWF1?=
- =?utf-8?B?UTZMajJWc3NSc1BHVE15emltM0wwU3R5UnlGZEZjY09OdndaWUgwYWJvbnFU?=
- =?utf-8?B?SkkyYUhYN2RTN0FycG5rMXpiekFPTWVTVG1OMU5VWEIyU0Z3aGZMTzdXQStF?=
- =?utf-8?B?dlp4QWl0bVI3bVJ3STU1RTNsTnNaZ1FjTCt6a2tuNTUvaEM0bGswV3o0QnA3?=
- =?utf-8?B?emhzRmx3bUFtOWxLU1AwdGFIaURmQ1V3REpYM0VQc1UzSDd2ZURWWnVaTkx4?=
- =?utf-8?Q?VMNPSMEvJW2f9CBbC65LG4+jX?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MgC3Qr9moSQIxh1nlOdw2wRi0D4m56ZHxcDOHT//Iq+jwQW1fdo+y8NnmisN?=
+ =?us-ascii?Q?6SxU9rbqZVrqT83Qnv/QLCm/2HsSI8IugRV1lKN76s3EQbTBh08jF3AJS0Az?=
+ =?us-ascii?Q?lNYtV1tygUVE0ir6OcCwQGGCQbfs6G/6p/UZU7bZaTDIOt9xOitIFGLy6Lug?=
+ =?us-ascii?Q?IkL0tBlH6aCbJH1BL0cB2Kr0+ejh1nyJJj/rVX3JT94Oaw4p75PuZmNGhN0L?=
+ =?us-ascii?Q?g/DG0UEXaG0wSWEFL0Uq+Gf4rT2Tu13g5vgUkaObq3gB/umqwQHHevMuTIKe?=
+ =?us-ascii?Q?Gngw5XzA0HDTslnBoiNulPs4wseE3JQmrs7h78yBf5m8QLVrQCkDgSncPe6B?=
+ =?us-ascii?Q?+we2dNvJHKNFQlq7EtXJPUzhHYKOYwL+rvRc9vGyWtBRll9ZjBX51j90YPL3?=
+ =?us-ascii?Q?kywBked1SkxGWELWuprsRjCaG4AdWl7vUupHcEY8iLeO/X5S/lqck+8nYcF2?=
+ =?us-ascii?Q?tX5936Q5BLfjafJUwTKSfAxq6F3oXAV92s+GQ01Ed6o5lEQm6j7C48JiisNI?=
+ =?us-ascii?Q?LmFq2vaEO6PIi7H6Mm5ZG0vt/z7W9K0mJ+nxFdJStslTRrlkdjtYsi7rieGb?=
+ =?us-ascii?Q?P++xx2F2Y0CmQJlkdIPGIOQppnPZXT7TKpQOE6DE3lFKnFog+6hpArcA2WAU?=
+ =?us-ascii?Q?RwEMvwevpekziyHvc0sWsu36QOVWMrHNu5tADtckuEh3rdVj8QEldHwoIfIF?=
+ =?us-ascii?Q?/jcmI4DCzisb62ja4GLX9+XMlOvEuO2ljyCNdRRNeg5Yz/j/goD2LgrYNLNJ?=
+ =?us-ascii?Q?iBxjX2mVgtFTYp5gdvgA/TgCa3h76pwOHIL0+i/Vh17YDM1lkr7tnWpvQ2Wp?=
+ =?us-ascii?Q?B1vKUYIDrDt4p5OA/06L4wko93ZaKQnAIcVDl1vpUhVrm3KMaKyD9K71/9LH?=
+ =?us-ascii?Q?t6B6aAK8KvEcY0f/vrftXBznVAyM+qmklbA3vSL4hXxSh/aVnzMsHyj6MG8H?=
+ =?us-ascii?Q?8fl6xUAnt8FWB6Aq4YtkeUxmlCCysEViqLaQM/G5jSnplxZ3In+N1iTP2WJH?=
+ =?us-ascii?Q?4wHmGc38poVYRllzGB90O2i3fbI06lGz2EaeUNo1XvNPZh0YaTKXB2CxlFCT?=
+ =?us-ascii?Q?AWzRk/GkUT1vu59o/GptUfSiYePFsl3YQ08XisqlyHP010gk65eIyCTTH1ko?=
+ =?us-ascii?Q?HYJ7laQcj9tFpZU8oP7OFGzP8U/sL8xUx5hmV2sH/7QmXeHYAFoxCw+SDWS1?=
+ =?us-ascii?Q?5P97mV3z2EevcstAjBOXmg/eqY67twYpHpPlvc5KsuTlIuA56ArhfBIAX+xF?=
+ =?us-ascii?Q?qZBZ7+72Wd8laY3PpqQSw1dhviU6+pUrtqONcZ4HAZ4WRnDvoajg4H2UXecY?=
+ =?us-ascii?Q?1lPFcFVImoHgj5oqDQcg/P2H3vTf5Bnn85ELzLf315dSyNdD9TcALMKuD3qv?=
+ =?us-ascii?Q?rehKgFEt/eD0ELVvYGpQpsOEiWOgKdNfQtwK8nSRQgnjAneY2wwzLKLW0LUE?=
+ =?us-ascii?Q?qB0UBa3wcg32yznflbw/sipezSjL2XMgn9cVZv+4C2sZWCrQ3QdaY65CXRyW?=
+ =?us-ascii?Q?+ePkx+Ndc98XwyG0ehqAWzJ2GmAWDKDSDhgH?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 106f8bde-36e7-4aa3-77f7-08dd78f1c138
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2025 12:09:48.3251 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2025 12:15:42.7878 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af16e404-b410-46d2-8d2e-08dd78f294bd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8RfWf2gVF4VgcjI9NTveEqLgRMmH/FNvzWy0f7K77Z9O7z3GvotVfpucSpyCzaAQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7027
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D9.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8750
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,76 +130,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.04.25 um 13:26 schrieb Sunil Khatri:
-> Add helper function which get the process information for
-> the drm_file and updates the user provided character buffer
-> with the information of process name and pid as a string.
+Except HDP v5.2 all use a common logic for HDP flush. Use a generic
+function. HDP v5.2 forces NO_KIQ logic, revisit it later.
 
-Hi Sunil,
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c | 21 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h |  2 ++
+ drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c   | 13 +------------
+ drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c   | 13 +------------
+ drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c   | 13 +------------
+ drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c   | 13 +------------
+ 6 files changed, 27 insertions(+), 48 deletions(-)
 
-you need to send this out together with the patch which makes use of the new function.
-
-Regards,
-Christian.
-
->
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> ---
->  drivers/gpu/drm/drm_file.c | 30 ++++++++++++++++++++++++++++++
->  include/drm/drm_file.h     |  1 +
->  2 files changed, 31 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index cb5f22f5bbb6..4434258d21b5 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -965,6 +965,36 @@ void drm_show_fdinfo(struct seq_file *m, struct file *f)
->  }
->  EXPORT_SYMBOL(drm_show_fdinfo);
->  
-> +/**
-> + * drm_process_info - Fill info string with process name and pid
-> + * @file_priv: context of interest for process name and pid
-> + * @proc_info: user char ptr to write the string to
-> + * @buff_size: size of the buffer passed for the string
-> + *
-> + * This update the user provided buffer with process
-> + * name and pid information for @file_priv
-> + */
-> +void drm_process_info(struct drm_file *file_priv, char *proc_info, size_t buff_size)
-> +{
-> +	struct task_struct *task;
-> +	struct pid *pid;
-> +	struct drm_device *dev = file_priv->minor->dev;
-> +
-> +	if (!proc_info) {
-> +		drm_err(dev, "Invalid user buffer\n");
-> +		return;
-> +	}
-> +
-> +	rcu_read_lock();
-> +	pid = rcu_dereference(file_priv->pid);
-> +	task = pid_task(pid, PIDTYPE_TGID);
-> +	if (task)
-> +		snprintf(proc_info, buff_size, "comm:%s pid:%d", task->comm, task->pid);
-> +
-> +	rcu_read_unlock();
-> +}
-> +EXPORT_SYMBOL(drm_process_info);
-> +
->  /**
->   * mock_drm_getfile - Create a new struct file for the drm device
->   * @minor: drm minor to wrap (e.g. #drm_device.primary)
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index f0ef32e9fa5e..c01b34936968 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -501,6 +501,7 @@ void drm_print_memory_stats(struct drm_printer *p,
->  
->  void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
->  void drm_show_fdinfo(struct seq_file *m, struct file *f);
-> +void drm_process_info(struct drm_file *file_priv, char *proc_info, size_t buff_size);
->  
->  struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
->  
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+index b6cf801939aa..7fd8f09c28e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+@@ -22,6 +22,7 @@
+  */
+ #include "amdgpu.h"
+ #include "amdgpu_ras.h"
++#include <uapi/linux/kfd_ioctl.h>
+ 
+ int amdgpu_hdp_ras_sw_init(struct amdgpu_device *adev)
+ {
+@@ -46,3 +47,23 @@ int amdgpu_hdp_ras_sw_init(struct amdgpu_device *adev)
+ 	/* hdp ras follows amdgpu_ras_block_late_init_default for late init */
+ 	return 0;
+ }
++
++void amdgpu_hdp_generic_flush(struct amdgpu_device *adev,
++			      struct amdgpu_ring *ring)
++{
++	if (!ring || !ring->funcs->emit_wreg) {
++		WREG32((adev->rmmio_remap.reg_offset +
++			KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >>
++			       2,
++		       0);
++		RREG32((adev->rmmio_remap.reg_offset +
++			KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >>
++		       2);
++	} else {
++		amdgpu_ring_emit_wreg(ring,
++				      (adev->rmmio_remap.reg_offset +
++				       KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >>
++					      2,
++				      0);
++	}
++}
+\ No newline at end of file
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+index 7b8a6152dc8d..4cfd932b7e91 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+@@ -44,4 +44,6 @@ struct amdgpu_hdp {
+ };
+ 
+ int amdgpu_hdp_ras_sw_init(struct amdgpu_device *adev);
++void amdgpu_hdp_generic_flush(struct amdgpu_device *adev,
++			      struct amdgpu_ring *ring);
+ #endif /* __AMDGPU_HDP_H__ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+index f1dc13b3ab38..e6c0d86d3486 100644
+--- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+@@ -36,17 +36,6 @@
+ #define HDP_MEM_POWER_CTRL__RC_MEM_POWER_LS_EN_MASK     0x00020000L
+ #define mmHDP_MEM_POWER_CTRL_BASE_IDX   0
+ 
+-static void hdp_v4_0_flush_hdp(struct amdgpu_device *adev,
+-				struct amdgpu_ring *ring)
+-{
+-	if (!ring || !ring->funcs->emit_wreg) {
+-		WREG32((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+-		RREG32((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2);
+-	} else {
+-		amdgpu_ring_emit_wreg(ring, (adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+-	}
+-}
+-
+ static void hdp_v4_0_invalidate_hdp(struct amdgpu_device *adev,
+ 				    struct amdgpu_ring *ring)
+ {
+@@ -180,7 +169,7 @@ struct amdgpu_hdp_ras hdp_v4_0_ras = {
+ };
+ 
+ const struct amdgpu_hdp_funcs hdp_v4_0_funcs = {
+-	.flush_hdp = hdp_v4_0_flush_hdp,
++	.flush_hdp = amdgpu_hdp_generic_flush,
+ 	.invalidate_hdp = hdp_v4_0_invalidate_hdp,
+ 	.update_clock_gating = hdp_v4_0_update_clock_gating,
+ 	.get_clock_gating_state = hdp_v4_0_get_clockgating_state,
+diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
+index 43195c079748..8bc001dc9f63 100644
+--- a/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
+@@ -27,17 +27,6 @@
+ #include "hdp/hdp_5_0_0_sh_mask.h"
+ #include <uapi/linux/kfd_ioctl.h>
+ 
+-static void hdp_v5_0_flush_hdp(struct amdgpu_device *adev,
+-				struct amdgpu_ring *ring)
+-{
+-	if (!ring || !ring->funcs->emit_wreg) {
+-		WREG32((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+-		RREG32((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2);
+-	} else {
+-		amdgpu_ring_emit_wreg(ring, (adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+-	}
+-}
+-
+ static void hdp_v5_0_invalidate_hdp(struct amdgpu_device *adev,
+ 				    struct amdgpu_ring *ring)
+ {
+@@ -217,7 +206,7 @@ static void hdp_v5_0_init_registers(struct amdgpu_device *adev)
+ }
+ 
+ const struct amdgpu_hdp_funcs hdp_v5_0_funcs = {
+-	.flush_hdp = hdp_v5_0_flush_hdp,
++	.flush_hdp = amdgpu_hdp_generic_flush,
+ 	.invalidate_hdp = hdp_v5_0_invalidate_hdp,
+ 	.update_clock_gating = hdp_v5_0_update_clock_gating,
+ 	.get_clock_gating_state = hdp_v5_0_get_clockgating_state,
+diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c
+index a88d25a06c29..ec20daf4272c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c
+@@ -30,17 +30,6 @@
+ #define regHDP_CLK_CNTL_V6_1	0xd5
+ #define regHDP_CLK_CNTL_V6_1_BASE_IDX 0
+ 
+-static void hdp_v6_0_flush_hdp(struct amdgpu_device *adev,
+-				struct amdgpu_ring *ring)
+-{
+-	if (!ring || !ring->funcs->emit_wreg) {
+-		WREG32((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+-		RREG32((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2);
+-	} else {
+-		amdgpu_ring_emit_wreg(ring, (adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+-	}
+-}
+-
+ static void hdp_v6_0_update_clock_gating(struct amdgpu_device *adev,
+ 					 bool enable)
+ {
+@@ -149,7 +138,7 @@ static void hdp_v6_0_get_clockgating_state(struct amdgpu_device *adev,
+ }
+ 
+ const struct amdgpu_hdp_funcs hdp_v6_0_funcs = {
+-	.flush_hdp = hdp_v6_0_flush_hdp,
++	.flush_hdp = amdgpu_hdp_generic_flush,
+ 	.update_clock_gating = hdp_v6_0_update_clock_gating,
+ 	.get_clock_gating_state = hdp_v6_0_get_clockgating_state,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c
+index 49f7eb4fbd11..ed1debc03507 100644
+--- a/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c
+@@ -27,17 +27,6 @@
+ #include "hdp/hdp_7_0_0_sh_mask.h"
+ #include <uapi/linux/kfd_ioctl.h>
+ 
+-static void hdp_v7_0_flush_hdp(struct amdgpu_device *adev,
+-				struct amdgpu_ring *ring)
+-{
+-	if (!ring || !ring->funcs->emit_wreg) {
+-		WREG32((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+-		RREG32((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2);
+-	} else {
+-		amdgpu_ring_emit_wreg(ring, (adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+-	}
+-}
+-
+ static void hdp_v7_0_update_clock_gating(struct amdgpu_device *adev,
+ 					 bool enable)
+ {
+@@ -137,7 +126,7 @@ static void hdp_v7_0_get_clockgating_state(struct amdgpu_device *adev,
+ }
+ 
+ const struct amdgpu_hdp_funcs hdp_v7_0_funcs = {
+-	.flush_hdp = hdp_v7_0_flush_hdp,
++	.flush_hdp = amdgpu_hdp_generic_flush,
+ 	.update_clock_gating = hdp_v7_0_update_clock_gating,
+ 	.get_clock_gating_state = hdp_v7_0_get_clockgating_state,
+ };
+-- 
+2.25.1
 
