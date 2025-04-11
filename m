@@ -4,118 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2586C36010
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 05:18:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B3E6C369A8
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 06:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63F1210E210;
-	Fri, 11 Apr 2025 05:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B691610EAFE;
+	Fri, 11 Apr 2025 06:47:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eZ2MwrEv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hfVUahIz";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 309FC10E210
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Apr 2025 05:18:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RDJsYD3ytD1Vv4p48DjfsGTJjy2CEyqLRlvyEwwCbshZXBeMJlg+b+Mecz3vZTuIvp40ro5+LpptzRl8Vm96sjs4R+1NofhDOXv2zqY1Tp+Y4urZX9gX8G636dOcOYAW6+q3M0AOhhys+MtEJe3N4/0c0PFGN2biO036Chk8nfhw2oZHax2cYMxf+g8qUxgoGJ0zEMOt2jb4mOx4ShV5KUq6n8GecnCJOFhfkcgimZ1JnIacY5tC44Hij2FNV9GhAfvsNoFp0O0kIox3yx5N4w8ciC8PDEX+LZVkPwS7hQhHN1seSYdwWGHxPWp3SFUY0X07Xy3bns5eiF79JIArrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iNa4UH8rb8Jt5h/o8dyc2aobOWeXMR4EH2dMeoH8SZo=;
- b=K0A1Sl0s+clPepdAMZHu/xnzNyL2qirJNLgL/VDt9rH8+aejnyLFv17S1jHMfyYw1vXyw9000cKZHQOogEJ1Z/0H0tzp01NVJ1FGkzhamHQSjOYZus8LFjeSCSGnv2M+/12pEQ3/PlOLKUp83X18T26CylwkD1rv2P5dvRXFxtIYKGa6fXr6zPhdoVtMKEHYOnlo3Tv0Mnkiw4CTI9IbQbL8CyzDbu7tLOB9X/PAfr0fBOzwza8mjbvrIJqi1aePKkSa72Sq4e1zel7sX5jKWzY1X4AhR+utzhhdb7G8u89Osji/lR+UvumUxNtXBrEngmXphegap4HDZO8xjQa6NQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iNa4UH8rb8Jt5h/o8dyc2aobOWeXMR4EH2dMeoH8SZo=;
- b=eZ2MwrEvx3rBwj8O/HTMGdqlJO62jJoj/wGy1Prg0dceEyG8HO2EsyUoAQ2Kg6pcrQWdQoR0b8iLU7/Y4oRpAvnQnq1KUDn1KfC6UeYG6sps3Ak567T3AgBI2mFRkdGmvJdaz+B633Pev1gpM/R6PqXq71HDMZiJBidqipqB8Aw=
-Received: from MN2PR19CA0059.namprd19.prod.outlook.com (2603:10b6:208:19b::36)
- by DS7PR12MB5766.namprd12.prod.outlook.com (2603:10b6:8:75::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.27; Fri, 11 Apr
- 2025 05:18:02 +0000
-Received: from BN1PEPF00005FFE.namprd05.prod.outlook.com
- (2603:10b6:208:19b:cafe::de) by MN2PR19CA0059.outlook.office365.com
- (2603:10b6:208:19b::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.26 via Frontend Transport; Fri,
- 11 Apr 2025 05:18:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF00005FFE.mail.protection.outlook.com (10.167.243.230) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Fri, 11 Apr 2025 05:18:02 +0000
-Received: from canli-build.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 11 Apr
- 2025 00:18:00 -0500
-From: Candice Li <candice.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Candice Li <candice.li@amd.com>
-Subject: [PATCH] drm/amdgpu: Set RAS EEPROM table version to v3 for umc v12_5
-Date: Fri, 11 Apr 2025 13:17:03 +0800
-Message-ID: <20250411051703.320093-1-candice.li@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDE8010EAFC;
+ Fri, 11 Apr 2025 06:47:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1744354048; x=1775890048;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=/90g/2EQRcB3FNYFGnUA2egHqY373R1YOX60mLJ7BCY=;
+ b=hfVUahIzkBwP2XyWjwQbFhB9ayQF9m+T5G9Bw2haq4OkIvtfQr3fe8Lj
+ FvJkMMp6i1dgUmrR9vE9YgnPiic1sfbK2TQS47APEsjyyUG20z2RAd+f1
+ Jv1q9Sv+G8MwVf+73b2t8/UP6fvrEcUQKr5J8TB8MuuNsG1AZ6SPqm8og
+ mv/IODYYqBOpVqGSaDG6iqa5RiX/JAZEhJcWUg3oInFY/E2uVyQ9z9+Si
+ rP9xzQHO5VQDLbbrhaqJKXp76TDzpOZf+yu+6XjWNrP079yvdzqHP4TAK
+ T9CEv1j8KAHDZRdo3X+2YQdQgVBt6P2xNhOoq0shA07susLQqwYUy5zLD w==;
+X-CSE-ConnectionGUID: CW1OSUO+SWukKRM/Y8YzDA==
+X-CSE-MsgGUID: hUID5Y6dTMutb5if4IYvuA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11400"; a="68382219"
+X-IronPort-AV: E=Sophos;i="6.15,203,1739865600"; d="scan'208";a="68382219"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2025 23:47:28 -0700
+X-CSE-ConnectionGUID: vWue6Y3WRfm3Hzxtz+YttA==
+X-CSE-MsgGUID: 03S5jIHxRuGcb8+nMD380A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,203,1739865600"; d="scan'208";a="134275244"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by orviesa005.jf.intel.com with SMTP; 10 Apr 2025 23:47:24 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 11 Apr 2025 09:47:23 +0300
+Date: Fri, 11 Apr 2025 09:47:23 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 01/19] drm: Pass pixel_format+modifier to
+ .get_format_info()
+Message-ID: <Z_i6-5vR_W-G0Vat@intel.com>
+References: <20250410163218.15130-1-ville.syrjala@linux.intel.com>
+ <20250410163218.15130-2-ville.syrjala@linux.intel.com>
+ <20250410192745.GA27834@pendragon.ideasonboard.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFE:EE_|DS7PR12MB5766:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1dbdde1-66bf-4b9f-d30d-08dd78b83b4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?u7hQIIIxCGBHjzWHYu1cQuwLnmD/D6YSGYUrRQHtHpB6mBRup2QPUcvMSCYa?=
- =?us-ascii?Q?UesjiWTaS+jlmaq6ORqvwgzwcjxHfYz9u1iIhow9G1xQSpoiolpc1s+j4RR+?=
- =?us-ascii?Q?FQgcVF4F+7flzbI8Y8+8JtqoGyAWokuLpkHClc0q7pwO8R3oLJGqR6J9hDWk?=
- =?us-ascii?Q?wReozZCbviGoTnbIJcOgCv5rwEPQKst8VkaeXM1h3gCjRD9Kc4um42SjHo4d?=
- =?us-ascii?Q?OkPpk18O9mU+MB16eVmyGpQrdCNzDjEWzSX/fs4DoS2kJCv+qAVu7mMliR5E?=
- =?us-ascii?Q?mDyp4o341ulM/Zlum0CyWXeYNWeOAk8k0CIIzgTbebPLMYH+BzPXDgkOeCj9?=
- =?us-ascii?Q?4XCD/7AJ7gjoFZGhg2eUl6onU1wkGPkms2T48Zj79LgrdoaO9eK6dwGZoJAN?=
- =?us-ascii?Q?y/hsVOxEF0eWPshfcLkmXX01IWBokLvXRTod1Vw1hBDl2Dknd1+Xzm+n8XaK?=
- =?us-ascii?Q?n96NOzzFC5J6kctb4i8fP1zMOCNkyuPJYd9WnfFTp+bWWs/azVjz18tMZP/s?=
- =?us-ascii?Q?o/33jyM2dFeha2Y0qRQ49tvxBGtyDK8foeHIC1ROkzNnDMGq052hi89CA428?=
- =?us-ascii?Q?NPb43HhYhdd+SLl1xHRFxgTGBjRRh+e/ibkVRMJAa+MLvhTbDRG/2jl0clr9?=
- =?us-ascii?Q?v2XoEOER/wy/vCWkcvwz4E7i+RVle8HgrC6GW/o/1RvYsMb5HBakIIJfHxoy?=
- =?us-ascii?Q?VlpEwSegxTmrF7RRCsQLYS/ha0TE9j+P10CGXbCuevSvldItVISe8DjyknAo?=
- =?us-ascii?Q?sVcNpZithWo7WfwgnBNuKkqsxysGzAV9V5/NFTetmCEIW6SvZ4le0JGZqNzX?=
- =?us-ascii?Q?qDIwOpuJ29GVqrKFA71B7+wbvES0Pxjg08LxMIZ54J9elWwSOtc3s1eumCJK?=
- =?us-ascii?Q?8S7+T8gygb+/49ZLezEyhSY2tvvevHhMhfFr0AgR6pF/qqgyAMh844IwDEwc?=
- =?us-ascii?Q?asfT9ekPoeBKYSPy35CCiZCObevidxX0h9EOcQ0sHtuPs/8TX8P+kOHsHjNJ?=
- =?us-ascii?Q?FMYEWa3qYRwSGOCJG0YF83YDIE5AV2pqVdFeRZyZed/cx1Pu8gTxYftDBnZ4?=
- =?us-ascii?Q?X2l4gaRWGnEiqyI1fwa321i25OAfz3hmoyXToScv1VSEPJxLh8nvEIFQSRIJ?=
- =?us-ascii?Q?3zkMi0/D/ZgsPkBgDz9PabBYF+aQ0dG8IIFSGAWgy0WAptAWdnVskBYLUZxS?=
- =?us-ascii?Q?SL1nTEu9ax/denEtf1uhjWUmQEqLAzt63WjfsJSAQobrwYYL5EDAcMK1PfHD?=
- =?us-ascii?Q?lsrRpuuSRkmcZYpRt7PBZASsFtR7GxRQPu53woEabjvp98q3cmDlyYhbpfWO?=
- =?us-ascii?Q?UhflFXNSFyRUChhFwuO23eCghwNYFKH5SHiLnTysWGkoRS3l+mF3mA3HSWj2?=
- =?us-ascii?Q?fGFaKLucvsEY/WECjQTBLO12bE24XFniqiT8EGM8PXHHHPuDKDZu3lfStQDt?=
- =?us-ascii?Q?3BGT1JxMBwVF2SlILFM2l8FnppNpXoqDlka/ORob6xqwnu2OIlrWQ95FCBrT?=
- =?us-ascii?Q?D8NJRdzCQhbC20rHZQjSynHfWBGVGgtQJjEw?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2025 05:18:02.0215 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1dbdde1-66bf-4b9f-d30d-08dd78b83b4c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5766
+In-Reply-To: <20250410192745.GA27834@pendragon.ideasonboard.com>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,25 +75,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set RAS EEPROM table version to v3 for umc v12_5.
+On Thu, Apr 10, 2025 at 10:27:45PM +0300, Laurent Pinchart wrote:
+> Hi Ville,
+> 
+> Thank you for the patch.
+> 
+> On Thu, Apr 10, 2025 at 07:32:00PM +0300, Ville Syrjala wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > 
+> > Decouple .get_format_info() from struct drm_mode_fb_cmd2 and just
+> > pass the pixel format+modifier combo in by hand.
+> > 
+> > We may want to use .get_format_info() outside of the normal
+> > addfb paths where we won't have a struct drm_mode_fb_cmd2, and
+> > creating a temporary one just for this seems silly.
+> > 
+> > Cc: Harry Wentland <harry.wentland@amd.com>
+> > Cc: Leo Li <sunpeng.li@amd.com>
+> > Cc: Rodrigo Siqueira <siqueira@igalia.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 4 ++--
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h | 2 +-
+> >  drivers/gpu/drm/drm_fourcc.c                            | 3 ++-
+> >  drivers/gpu/drm/i915/display/intel_fb.c                 | 9 +++++----
+> >  drivers/gpu/drm/i915/display/intel_fb.h                 | 2 +-
+> >  include/drm/drm_mode_config.h                           | 2 +-
+> >  6 files changed, 12 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > index 3e0f45f1711c..69d715b6abd3 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > @@ -92,9 +92,9 @@ enum dm_micro_swizzle {
+> >  	MICRO_SWIZZLE_R = 3
+> >  };
+> >  
+> > -const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
+> > +const struct drm_format_info *amdgpu_dm_plane_get_format_info(u32 pixel_format, u64 modifier)
+> >  {
+> > -	return amdgpu_lookup_format_info(cmd->pixel_format, cmd->modifier[0]);
+> > +	return amdgpu_lookup_format_info(pixel_format, modifier);
+> >  }
+> >  
+> >  void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> > index 615d2ab2b803..ea2619b507db 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> > @@ -58,7 +58,7 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+> >  			 unsigned long possible_crtcs,
+> >  			 const struct dc_plane_cap *plane_cap);
+> >  
+> > -const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
+> > +const struct drm_format_info *amdgpu_dm_plane_get_format_info(u32 pixel_format, u64 modifier);
+> >  
+> >  void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+> >  				    bool *per_pixel_alpha, bool *pre_multiplied_alpha,
+> > diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
+> > index 3a94ca211f9c..f79fff8209fd 100644
+> > --- a/drivers/gpu/drm/drm_fourcc.c
+> > +++ b/drivers/gpu/drm/drm_fourcc.c
+> > @@ -395,7 +395,8 @@ drm_get_format_info(struct drm_device *dev,
+> >  	const struct drm_format_info *info = NULL;
+> >  
+> >  	if (dev->mode_config.funcs->get_format_info)
+> > -		info = dev->mode_config.funcs->get_format_info(mode_cmd);
+> > +		info = dev->mode_config.funcs->get_format_info(mode_cmd->pixel_format,
+> > +							       mode_cmd->modifier[0]);
+> >  
+> >  	if (!info)
+> >  		info = drm_format_info(mode_cmd->pixel_format);
+> > diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> > index 2b0e0f220442..b83c42fe3233 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> > @@ -421,21 +421,22 @@ unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier)
+> >  
+> >  /**
+> >   * intel_fb_get_format_info: Get a modifier specific format information
+> > - * @cmd: FB add command structure
+> > + * @pixel_format: pixel format
+> > + * @modifier: modifier
+> >   *
+> >   * Returns:
+> >   * Returns the format information for @cmd->pixel_format specific to @cmd->modifier[0],
+> >   * or %NULL if the modifier doesn't override the format.
+> 
+> This needs to be updated too.
+> 
+> >   */
+> >  const struct drm_format_info *
+> > -intel_fb_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
+> > +intel_fb_get_format_info(u32 pixel_format, u64 modifier)
+> >  {
+> > -	const struct intel_modifier_desc *md = lookup_modifier_or_null(cmd->modifier[0]);
+> > +	const struct intel_modifier_desc *md = lookup_modifier_or_null(modifier);
+> >  
+> >  	if (!md || !md->formats)
+> >  		return NULL;
+> >  
+> > -	return lookup_format_info(md->formats, md->format_count, cmd->pixel_format);
+> > +	return lookup_format_info(md->formats, md->format_count, pixel_format);
+> >  }
+> >  
+> >  static bool plane_caps_contain_any(u8 caps, u8 mask)
+> > diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
+> > index bdd76b372957..7d1267fbeee2 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_fb.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_fb.h
+> > @@ -47,7 +47,7 @@ u64 *intel_fb_plane_get_modifiers(struct intel_display *display,
+> >  bool intel_fb_plane_supports_modifier(struct intel_plane *plane, u64 modifier);
+> >  
+> >  const struct drm_format_info *
+> > -intel_fb_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
+> > +intel_fb_get_format_info(u32 pixel_format, u64 modifier);
+> >  
+> >  bool
+> >  intel_format_info_is_yuv_semiplanar(const struct drm_format_info *info,
+> > diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> > index 4b8f0370b79b..6fca0362bc31 100644
+> > --- a/include/drm/drm_mode_config.h
+> > +++ b/include/drm/drm_mode_config.h
+> > @@ -95,7 +95,7 @@ struct drm_mode_config_funcs {
+> >  	 * The format information specific to the given fb metadata, or
+> >  	 * NULL if none is found.
+> 
+> And here too. The full documentation block states
+> 
+> 	/**
+> 	 * @get_format_info:
+> 	 *
+> 	 * Allows a driver to return custom format information for special
+> 	 * fb layouts (eg. ones with auxiliary compression control planes).
+> 	 *
+> 	 * RETURNS:
+> 	 *
+> 	 * The format information specific to the given fb metadata, or
+> 	 * NULL if none is found.
+> 	 */
+> 
+> Updating the RETURNS section is easy, but the text before that is
+> problematic. If the intent was to support formats with auxialiary
+> compression control planes, this won't be possible anymore if we pass
+> cmd->modifier[0] only. Is that an issue, or was this a foreseen use case
+> that never materialized ? If we don't need to support this anymore then
+> the code change is fine, and the documentation should be updated
+> accordingly.
 
-Signed-off-by: Candice Li <candice.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 1 +
- 1 file changed, 1 insertion(+)
+There is actually only one modifier despite having an array of
+modifiers in the uapi struct. framebuffer_check() will enforce
+modifier[N]==modifier[0] for all N.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index c985d58fdd7ddc..2c58e09e56f95d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -418,6 +418,7 @@ static void amdgpu_ras_set_eeprom_table_version(struct amdgpu_ras_eeprom_control
- 		hdr->version = RAS_TABLE_VER_V2_1;
- 		return;
- 	case IP_VERSION(12, 0, 0):
-+	case IP_VERSION(12, 5, 0):
- 		hdr->version = RAS_TABLE_VER_V3;
- 		return;
- 	default:
 -- 
-2.25.1
-
+Ville Syrjälä
+Intel
