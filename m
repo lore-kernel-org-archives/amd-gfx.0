@@ -4,103 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52F9FC36010
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 12:24:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9BF5C36010
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 12:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99C5410EB92;
-	Fri, 11 Apr 2025 12:24:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B99F10EB9C;
+	Fri, 11 Apr 2025 12:47:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="DkesvRPb";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="AFKm5rGx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aTfcuCZR";
 	dkim-atps=neutral
-X-Greylist: delayed 577 seconds by postgrey-1.36 at gabe;
- Fri, 11 Apr 2025 10:11:11 UTC
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53F4D10EB5C;
- Fri, 11 Apr 2025 10:11:09 +0000 (UTC)
-Received: from phl-compute-03.internal (phl-compute-03.phl.internal
- [10.202.2.43])
- by mailfout.phl.internal (Postfix) with ESMTP id BF8911380226;
- Fri, 11 Apr 2025 06:01:28 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-03.internal (MEProxy); Fri, 11 Apr 2025 06:01:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- invisiblethingslab.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm2; t=1744365688; x=1744452088; bh=z5cs1W8tVA
- bJ3ZA2qMajWH2YzqXLYeH4TnXCQKM1qc8=; b=DkesvRPbaObCmJtnsaeuQhyWuE
- jBT+v0SPalOYX2jilqnBC88s9Kpn3iKmJ0z3Ig7eYDIYd1PmwDW8ldGxpT3o+qeU
- gZICnCYqz0pBx9EV1Q7Ya1h0tqVhUCf2kHf75wALwToRTJpflOgAQHTfLvIf89AY
- RKKuPQ3Q6mIVJoKMM7NAk1AWF2LpRlf53Bg0PbRZcp0fS4iDhNpLEisur+bBxWSQ
- qKXZGy6szUcI+TO5NQlQKjUOGDz7HThAz837SzRDnBFSpl72AMg8r+oIZKcoBZjp
- ZtmNyM+NfJnQvFhm7LfN1Qm5v0DjpD6atDcaQ/DNMNtFz/0Jo7iltkwDpJJw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1744365688; x=
- 1744452088; bh=z5cs1W8tVAbJ3ZA2qMajWH2YzqXLYeH4TnXCQKM1qc8=; b=A
- FKm5rGx2BLCYEndgJ7mw3IN+L37G97Xeyaci4YKzEJ6xen2Y6XaE57Ucczz1kRnU
- 1L82wq/s8jPk4vsMp6G2p8X4rLrHGFAphiiB4Y3hs0g0CmVlc31BeUxkHUZU8dRf
- WGILwzfEVGNCou7acgL+VcOgkwQmJL8DPTn7dw4wog123nihpwYJm2U5vIXvLS1/
- zYGlcHfY9qxX1oXufcEVGpzkO/Gp2QPubG06TZFraW14ADQBNhTFMM3W0LpqVfN8
- mkqg1QCQGOaG3Y47ljRt30aWD6OUEyYsb6S7vp8AzO7UgdOnoNqbPbup6nb8stYx
- oWCMHGXW5LzQ635kHpI5Q==
-X-ME-Sender: <xms:eOj4Z18WohOqzZh-qJlmkzeCbSsRkR8now3uvVLiJJiUCE7KntVeFQ>
- <xme:eOj4Z5v8pkWUzauwqvKEZMar3D6uq_IUrubosCzJknM-vQMjHEJUM0HLy1ccc8X-E
- ni4SIsyRSa0OQ>
-X-ME-Received: <xmr:eOj4ZzAoUe-SJf3YXEDsTikSMVm2w2BYN9d9l7VW-KtuoeMIiZ43A-FmMEjwEmZBzJGAnWHaishA_BRniFUk_LNw3UECHcHTfg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvudduhedvucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
- pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
- gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtgfgjgesthekredttddt
- jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
- eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
- ggftrfgrthhtvghrnhephefgteevgfefgeetteefueeuvefhfeektdelhfeuffeuleefhf
- dvgeffkefgieegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
- rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
- dpnhgspghrtghpthhtohepuddvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehs
- ohihvghrsehirhhlrdhhuhdprhgtphhtthhopegusggrrhihshhhkhhovhesghhmrghilh
- drtghomhdprhgtphhtthhopehluhhmrghgsehkvghrnhgvlhdrohhrghdprhgtphhtthho
- pehrvghgrhgvshhsihhonhhssehlihhsthhsrdhlihhnuhigrdguvghvpdhrtghpthhtoh
- epughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgt
- phhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprh
- gtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
- pdhrtghpthhtohephhguvghgohgvuggvsehrvgguhhgrthdrtghomhdprhgtphhtthhope
- grlhgvgigrnhguvghrrdguvghutghhvghrsegrmhgurdgtohhm
-X-ME-Proxy: <xmx:eOj4Z5eozMALmK2q7WTH3Y7NW2p5xx8GWN8pEMuDFLJ0mi2F1s7-AQ>
- <xmx:eOj4Z6M2E5C1Nn_VE7HWQ6o8uJmm9wXtXpaRTTwA_4eNQUMH7eOrBw>
- <xmx:eOj4Z7lRb9TdtFPHrQO6x-e0jhSIgjFA_uFcvgcYaS_cA_PWhH_7Zw>
- <xmx:eOj4Z0uT-62w59kPKHqk3P3hXEjVInJ-nq6VqMNpiEPHU0iV2RAm8w>
- <xmx:eOj4Zz3ztczLsdEPlh51aY9pvfDh_6eqGCOVKW2rVT7VRP6SMyDLSRaI>
-Feedback-ID: i1568416f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 11 Apr 2025 06:01:26 -0400 (EDT)
-Date: Fri, 11 Apr 2025 12:01:24 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Gergo Koteles <soyer@irl.hu>
-Cc: Dmitry Baryshkov <dbaryshkov@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>, regressions@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: Re: amdgpu_dm_connector_mode_valid regression
-Message-ID: <Z_jodBrNFdEpJRKA@mail-itl>
-References: <ed09edb167e74167a694f4854102a3de6d2f1433.camel@irl.hu>
- <8963a409dd575e040e5f07e4ad5e9c1d26b421f2.camel@irl.hu>
- <CALT56yPd-xfd=47xRxrCk4F3jib4Ti7kg8pRXy-gVAQpbOc=pw@mail.gmail.com>
- <e323219b52cda1891a55d12ad77a2b34edc8688b.camel@irl.hu>
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D4D910EB9C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Apr 2025 12:47:43 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-301001bc6a8so279634a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Apr 2025 05:47:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744375662; x=1744980462; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=K+yybrggFwRAsQiRt99WyhZWGB0o+zi51+S0PwFndXo=;
+ b=aTfcuCZRriwoDP65Oc9yY5UeAd5nMMTBuBeRRF41zboN9eZSGBRkEYHo/bpkOeAsUT
+ qb3CxgeyieLnnUu1ug05spLK01l8+UpV0BWF51JNN8dJWZZvgc1iaBGfX8njYIdy9pjx
+ kTMWhb4SPHJ73wrV47K/xyykCNflfZas3ImfKbq61yUjfaJMGE8KEE1yc3OTgAa+dTfv
+ PIPxqr7vocTzJrkbWNrJFqAqFNzQYBkEhY8iuyltuDpuYszAy+OEoCcqKgCHgYe+TvTX
+ 9kBXMtNSWvC+U2ZlSUSxZseaziUrvQ9DebF1qHa7an43zsFQNYwSiqOuop5Bo+fDRmxk
+ rsIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744375662; x=1744980462;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=K+yybrggFwRAsQiRt99WyhZWGB0o+zi51+S0PwFndXo=;
+ b=cTGR6RkN//PLH0AbjcPHg6BnaGlfc7LnW53gXVIiOOXgF7bpa+qr3+Ka3FT/Syw5JG
+ 8ENZuXHMDAaDgoQZrEwIIl0ZW0VUVMv76EunxUIQ9lQgCduYsokpmmAOAKeIw3QjFzta
+ Uem6G+fAKplINteBuAsRHNSZFhbVShFurHIazyZG9bnLKJyirej3fRCYac+9QKFtkc80
+ Ge7ctDGY6atqRt6wwu8djM6VB2dFUoULK6Kro80PamMIOdvrCDlz5KVpMXsxf2l2xfnf
+ Cw+KZa6/dsH/79ErlFiJ6OHczGejEs9lV6SMGdYH+Tn6GpWIlSpHMM1Wgm1IDlLtQQJ6
+ pmeA==
+X-Gm-Message-State: AOJu0Yx3yakPCULwhTXIUOeEyHzNcRs3Ml8/5mbpgUVgkbbgNCmOyAVe
+ MjbLsgFkcBFr+4/3d0VQJtp/27klbYNZoWfSfuhD8ENbCynhEbxCQLqnpvBAVSCXkde87UIJa32
+ 6LVnQxz8tQ2w2SQjYE3GEYNWnfAo=
+X-Gm-Gg: ASbGnct9+FLY93SBRj3CDwZoObnONWlHxJf6wprRuec6/oIFd8rOoV5z1HRNvyfly2m
+ LscFtOIU/2u7EFXy4Rw9Ctta9UEm4NxWSYyBjRv/nf2QcXmdmb2LCvFW6vDFVVNulvIHbF9Y5Om
+ tWrwAGGLV1AavBltXlyP+zow==
+X-Google-Smtp-Source: AGHT+IGFozpbX/w2ged2l9Q4QEtNNIJnI/C1R5+bST/hYImIlrNEpWp97hk+47kErhT0daZgnkRM4EbHYRzAFojz+4I=
+X-Received: by 2002:a17:90b:3a8b:b0:2fe:b972:a2c3 with SMTP id
+ 98e67ed59e1d1-308235c3c9emr1585806a91.0.1744375662316; Fri, 11 Apr 2025
+ 05:47:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; x-action=pgp-signed
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e323219b52cda1891a55d12ad77a2b34edc8688b.camel@irl.hu>
-X-Mailman-Approved-At: Fri, 11 Apr 2025 12:24:49 +0000
+References: <20250411121524.589317-1-lijo.lazar@amd.com>
+ <20250411121524.589317-2-lijo.lazar@amd.com>
+In-Reply-To: <20250411121524.589317-2-lijo.lazar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 11 Apr 2025 08:47:29 -0400
+X-Gm-Features: ATxdqUFyCqpEgixUgbUQIZkeG5xR2UHEWH_qcTSJiyH62Ie08x344woJp8gATng
+Message-ID: <CADnq5_NFi1T16zkWj5PsdjQZat+80wRNm2+3U+PME-g2hcJ5yA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Use the right function for hdp flush
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,69 +81,315 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+On Fri, Apr 11, 2025 at 8:16=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
+>
+> There are a few prechecks made before HDP flush like a flush is not
+> required on APU bare metal. Using hdp callback directly bypasses those
+> checks. Use amdgpu_device_flush_hdp which takes care of prechecks.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Hi,
-
-On Wed, Apr 02, 2025 at 04:35:05PM +0200, Gergo Koteles wrote:
-> Hi Dmitry,
-> 
-> But the code would start to become quite untraceable.
-> duplicate mode in amdgpu_dm_connector_mode_valid()
-> call drm_mode_set_crtcinfo() in amdgpu_dm_connector_mode_valid()
-> duplicate mode in create_stream_for_sink()
-> overwrite ctrc in decide_crtc_timing_for_drm_display_mode()
-> if crtc_clock == 0 call drm_mode_set_crtcinfo() again in
-> create_stream_for_sink() 
-
-FWIW I'm affected by the same issue (on HP ProBook 445 G7, with AMD
-Ryzen 5 4500U). And the patch quoted below fixes it for me too.
-
-> 
-> saved_mode is never used after this, so I can't add the condition here
->         if (recalculate_timing)
->                 drm_mode_set_crtcinfo(&saved_mode, 0);
-> 
-> This commit is related, I think:
-> 1101185 ("drm/amd/display: fix the ability to use lower resolution
-> modes on eDP")
-> 
-> Regards,
-> Gergo
-> 
 > ---
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index bae83a129b5f..83c8c81d4015 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6984,6 +6984,9 @@ create_stream_for_sink(struct drm_connector
-> *connector,
->         if (recalculate_timing)
->                 drm_mode_set_crtcinfo(&saved_mode, 0);
->  
-> +       if (mode.crtc_clock == 0)
-> +               drm_mode_set_crtcinfo(&mode, 0);
-> +
->         /*
->          * If scaling is enabled and refresh rate didn't change
->          * we copy the vic and polarities of the old timings
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c |  8 ++++----
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 12 ++++++------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c |  6 +++---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/psp_v13_0.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/psp_v14_0.c |  2 +-
+>  10 files changed, 23 insertions(+), 23 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v10_0.c
+> index f5dcb72a6bf5..00eb4cfecf8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -6172,7 +6172,7 @@ static int gfx_v10_0_cp_gfx_load_pfp_microcode(stru=
+ct amdgpu_device *adev)
+>         }
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         tmp =3D RREG32_SOC15(GC, 0, mmCP_PFP_IC_BASE_CNTL);
+>         tmp =3D REG_SET_FIELD(tmp, CP_PFP_IC_BASE_CNTL, VMID, 0);
+> @@ -6250,7 +6250,7 @@ static int gfx_v10_0_cp_gfx_load_ce_microcode(struc=
+t amdgpu_device *adev)
+>         }
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         tmp =3D RREG32_SOC15(GC, 0, mmCP_CE_IC_BASE_CNTL);
+>         tmp =3D REG_SET_FIELD(tmp, CP_CE_IC_BASE_CNTL, VMID, 0);
+> @@ -6327,7 +6327,7 @@ static int gfx_v10_0_cp_gfx_load_me_microcode(struc=
+t amdgpu_device *adev)
+>         }
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         tmp =3D RREG32_SOC15(GC, 0, mmCP_ME_IC_BASE_CNTL);
+>         tmp =3D REG_SET_FIELD(tmp, CP_ME_IC_BASE_CNTL, VMID, 0);
+> @@ -6702,7 +6702,7 @@ static int gfx_v10_0_cp_compute_load_microcode(stru=
+ct amdgpu_device *adev)
+>         }
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         tmp =3D RREG32_SOC15(GC, 0, mmCP_CPC_IC_BASE_CNTL);
+>         tmp =3D REG_SET_FIELD(tmp, CP_CPC_IC_BASE_CNTL, CACHE_POLICY, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 91d29f482c3c..fa39ae17222f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -2481,7 +2481,7 @@ static int gfx_v11_0_config_me_cache(struct amdgpu_=
+device *adev, uint64_t addr)
+>         }
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         tmp =3D RREG32_SOC15(GC, 0, regCP_ME_IC_BASE_CNTL);
+>         tmp =3D REG_SET_FIELD(tmp, CP_ME_IC_BASE_CNTL, VMID, 0);
+> @@ -2525,7 +2525,7 @@ static int gfx_v11_0_config_pfp_cache(struct amdgpu=
+_device *adev, uint64_t addr)
+>         }
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         tmp =3D RREG32_SOC15(GC, 0, regCP_PFP_IC_BASE_CNTL);
+>         tmp =3D REG_SET_FIELD(tmp, CP_PFP_IC_BASE_CNTL, VMID, 0);
+> @@ -2570,7 +2570,7 @@ static int gfx_v11_0_config_mec_cache(struct amdgpu=
+_device *adev, uint64_t addr)
+>         }
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         tmp =3D RREG32_SOC15(GC, 0, regCP_CPC_IC_BASE_CNTL);
+>         tmp =3D REG_SET_FIELD(tmp, CP_CPC_IC_BASE_CNTL, CACHE_POLICY, 0);
+> @@ -3206,7 +3206,7 @@ static int gfx_v11_0_cp_gfx_load_pfp_microcode_rs64=
+(struct amdgpu_device *adev)
+>         amdgpu_bo_unreserve(adev->gfx.pfp.pfp_fw_data_obj);
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         WREG32_SOC15(GC, 0, regCP_PFP_IC_BASE_LO,
+>                 lower_32_bits(adev->gfx.pfp.pfp_fw_gpu_addr));
+> @@ -3424,7 +3424,7 @@ static int gfx_v11_0_cp_gfx_load_me_microcode_rs64(=
+struct amdgpu_device *adev)
+>         amdgpu_bo_unreserve(adev->gfx.me.me_fw_data_obj);
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         WREG32_SOC15(GC, 0, regCP_ME_IC_BASE_LO,
+>                 lower_32_bits(adev->gfx.me.me_fw_gpu_addr));
+> @@ -4620,7 +4620,7 @@ static int gfx_v11_0_gfxhub_enable(struct amdgpu_de=
+vice *adev)
+>         if (r)
+>                 return r;
+>
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         value =3D (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_ALWAY=
+S) ?
+>                 false : true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index 2474006b1a34..f347921fa909 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -2389,7 +2389,7 @@ static int gfx_v12_0_cp_gfx_load_pfp_microcode_rs64=
+(struct amdgpu_device *adev)
+>         amdgpu_bo_unreserve(adev->gfx.pfp.pfp_fw_data_obj);
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         WREG32_SOC15(GC, 0, regCP_PFP_IC_BASE_LO,
+>                 lower_32_bits(adev->gfx.pfp.pfp_fw_gpu_addr));
+> @@ -2533,7 +2533,7 @@ static int gfx_v12_0_cp_gfx_load_me_microcode_rs64(=
+struct amdgpu_device *adev)
+>         amdgpu_bo_unreserve(adev->gfx.me.me_fw_data_obj);
+>
+>         if (amdgpu_emu_mode =3D=3D 1)
+> -               adev->hdp.funcs->flush_hdp(adev, NULL);
+> +               amdgpu_device_flush_hdp(adev, NULL);
+>
+>         WREG32_SOC15(GC, 0, regCP_ME_IC_BASE_LO,
+>                 lower_32_bits(adev->gfx.me.me_fw_gpu_addr));
+> @@ -3503,7 +3503,7 @@ static int gfx_v12_0_gfxhub_enable(struct amdgpu_de=
+vice *adev)
+>         if (r)
+>                 return r;
+>
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         value =3D (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_ALWAY=
+S) ?
+>                 false : true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v10_0.c
+> index b6ac4c7adc8a..7648e977b44b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -268,7 +268,7 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_dev=
+ice *adev, uint32_t vmid,
+>         ack =3D hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+>
+>         /* flush hdp cache */
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         /* This is necessary for SRIOV as well as for GFXOFF to function
+>          * properly under bare metal
+> @@ -965,7 +965,7 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device=
+ *adev)
+>         adev->hdp.funcs->init_registers(adev);
+>
+>         /* Flush HDP after it is initialized */
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         value =3D (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_ALWAY=
+S) ?
+>                 false : true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v11_0.c
+> index 5c91d4445418..7f5ca170f141 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -229,7 +229,7 @@ static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_dev=
+ice *adev, uint32_t vmid,
+>         ack =3D hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+>
+>         /* flush hdp cache */
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         /* This is necessary for SRIOV as well as for GFXOFF to function
+>          * properly under bare metal
+> @@ -895,7 +895,7 @@ static int gmc_v11_0_gart_enable(struct amdgpu_device=
+ *adev)
+>                 return r;
+>
+>         /* Flush HDP after it is initialized */
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         value =3D (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_ALWAY=
+S) ?
+>                 false : true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v12_0.c
+> index d544419e3b44..b645d3e6a6c8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -297,7 +297,7 @@ static void gmc_v12_0_flush_gpu_tlb(struct amdgpu_dev=
+ice *adev, uint32_t vmid,
+>                 return;
+>
+>         /* flush hdp cache */
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         /* This is necessary for SRIOV as well as for GFXOFF to function
+>          * properly under bare metal
+> @@ -877,7 +877,7 @@ static int gmc_v12_0_gart_enable(struct amdgpu_device=
+ *adev)
+>                 return r;
+>
+>         /* Flush HDP after it is initialized */
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         value =3D (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_ALWAY=
+S) ?
+>                 false : true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.c
+> index 8d3560314e5b..53050176c244 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -2425,7 +2425,7 @@ static int gmc_v9_0_hw_init(struct amdgpu_ip_block =
+*ip_block)
+>         adev->hdp.funcs->init_registers(adev);
+>
+>         /* After HDP is initialized, flush HDP.*/
+> -       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +       amdgpu_device_flush_hdp(adev, NULL);
+>
+>         if (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_ALWAYS)
+>                 value =3D false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/psp_v11_0.c
+> index bb5dfc410a66..215543575f47 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+> @@ -533,7 +533,7 @@ static int psp_v11_0_memory_training(struct psp_conte=
+xt *psp, uint32_t ops)
+>                         }
+>
+>                         memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
+> -                       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +                       amdgpu_device_flush_hdp(adev, NULL);
+>                         vfree(buf);
+>                         drm_dev_exit(idx);
+>                 } else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd=
+/amdgpu/psp_v13_0.c
+> index 17f1ccd8bd53..f5f616ab20e7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+> @@ -610,7 +610,7 @@ static int psp_v13_0_memory_training(struct psp_conte=
+xt *psp, uint32_t ops)
+>                         }
+>
+>                         memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
+> -                       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +                       amdgpu_device_flush_hdp(adev, NULL);
+>                         vfree(buf);
+>                         drm_dev_exit(idx);
+>                 } else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c b/drivers/gpu/drm/amd=
+/amdgpu/psp_v14_0.c
+> index 7c49c3f3c388..256288c6cd78 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
+> @@ -498,7 +498,7 @@ static int psp_v14_0_memory_training(struct psp_conte=
+xt *psp, uint32_t ops)
+>                         }
+>
+>                         memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
+> -                       adev->hdp.funcs->flush_hdp(adev, NULL);
+> +                       amdgpu_device_flush_hdp(adev, NULL);
+>                         vfree(buf);
+>                         drm_dev_exit(idx);
+>                 } else {
 > --
-
-- -- 
-Best Regards,
-Marek Marczykowski-Górecki
-Invisible Things Lab
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf46HQACgkQ24/THMrX
-1ywBfAf/SX79WOL0Rv1cL2F/YeEUbr6b/FxZ6W+xsFCi38UxcN0PKCGalQ76jT5r
-LAyy1zPedAAdGu+JdQ8abrVfPbSXnzLUcUZNN75kGHixS1c/TqfP4L9ymZ6Z5rAB
-BUt579EkdDZlm2dZ0mxwHcdoArv7fK05Fb+l3Vd645w5MK0fmwWPesCeBaEiwG2S
-ZiuSOWcJBL0yPPzvRaVPD5FCgjjjEhQ2fZZinqhwVy1LNA6OBXQrVvNhOazFVjKq
-rQV1YLG4gCBu6TD6NaETrPMevmZmovuo7o4/6Y5vJQexhQv3eaaxE5dh/0AaWovJ
-FqW2VrxvWXz6HgOokPpfispYzpMgEQ==
-=+SPC
------END PGP SIGNATURE-----
+> 2.25.1
+>
