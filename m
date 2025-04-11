@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C40EC369A2
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 20:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38919C369A2
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 20:14:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6E4B10EC9C;
-	Fri, 11 Apr 2025 20:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C18D10EC9D;
+	Fri, 11 Apr 2025 20:14:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KaP2OuLH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qyLedVMx";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A3510EC9B;
- Fri, 11 Apr 2025 20:14:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9CD710EC9A;
+ Fri, 11 Apr 2025 20:14:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=af0YOPhxxT7oseIiamLQLUGtR5wWdlc5QpGqJ79jKxk=; b=KaP2OuLH+isAY2+k4ENpARO5U8
- CZveCeOmksB31u/j087zdS8oiZv/3bI9mphL3v+xvnbPD7bOJvD2QhUd6bYeZkf7aWiwq8i5lo6/g
- C3MAytQm2vkZPX7WJ8ril8iOdz20vhRG6mdSQaOOt0ThRcxS/JVD/50dZykGi4fjZme8HSwPTAHPe
- IUAnmaL1wcNzwuSUNuXSxlVjD3MLMlUJ221+yPGr6dv4VH1F/g0hQhR5rr5B1b43DmgxQBJdXwoUJ
- 0QcqPZbb6Y6cZfy8+mdFENFmFHld2tplG0nGxXoh9RbWUpdfHPlwCiJz322tpZtA7nrepsulfkqNl
- HkLmknsA==;
+ bh=yyhXtMF9oUIWnT6Vs+9eGMKsH6B2P/2tukc5ckGCwdo=; b=qyLedVMxkJqsPjTqPqZ1dTy6A3
+ hZ8JiruXHPxBS4M9KHqjK3MuJOZ59obSgytEb/1xBORwNPONks35Uw6G74f2+UToUdMesk7CJQUWD
+ JCHypvr9I5fbEuOUSquGMIpR3T27agtBSJzsU6Cva3r6a76Hg97RTC6DbK+q6qVRZZOyrPfocjR0S
+ 6PHfIKg0jUCBzqD2j7zmOwgIoTAedmwBa3EygD99ukXRcA7VVSbDMTMSOSPr5BtFA2QERmDUD6kxp
+ SXVky/MlWObaktf1qPPF/JDW1qSuDbyABTgvqbt76v3AxoKHowUVbwmzUdtROz8/XYsRAODoDZ9VV
+ 9p7P9sWA==;
 Received: from [189.6.35.67] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1u3Klj-00FIP5-3M; Fri, 11 Apr 2025 22:14:31 +0200
+ id 1u3Kls-00FIP5-De; Fri, 11 Apr 2025 22:14:41 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: Alex Hung <alex.hung@amd.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
@@ -40,10 +40,9 @@ To: Alex Hung <alex.hung@amd.com>,
  airlied@gmail.com, simona@ffwll.ch
 Cc: Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: [PATCH 10/13] drm/amd/display: create a function to fill dc_sink with
- edid data
-Date: Fri, 11 Apr 2025 17:08:40 -0300
-Message-ID: <20250411201333.151335-11-mwen@igalia.com>
+Subject: [PATCH 12/13] drm/amd/display: add drm_edid to dc_sink
+Date: Fri, 11 Apr 2025 17:08:42 -0300
+Message-ID: <20250411201333.151335-13-mwen@igalia.com>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250411201333.151335-1-mwen@igalia.com>
 References: <20250411201333.151335-1-mwen@igalia.com>
@@ -63,63 +62,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rodrigo Siqueira <siqueira@igalia.com>
+Add Linux opaque object to dc_sink for storing edid data cross driver,
+drm_edid. Also include the Linux call to free this object, the
+drm_edid_free()
 
-As part of the effort of stopping using raw edid, this commit move the
-copy of the edid in DC to a dedicated function that will allow the usage
-of drm_edid in the next steps.
-
-Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
-Co-developer--by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c      | 8 ++++++++
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h      | 2 ++
- drivers/gpu/drm/amd/display/dc/link/link_detection.c | 3 +--
- 3 files changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c | 7 +++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h | 1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_sink.c   | 3 +++
+ drivers/gpu/drm/amd/display/dc/dc.h             | 3 +++
+ 4 files changed, 14 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
-index fab873b091f5..39fcaa16a14a 100644
+index 39fcaa16a14a..fa0f0e61f05d 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
-@@ -17,3 +17,11 @@ bool dc_edid_is_same_edid(struct dc_sink *prev_sink,
-        return (memcmp(old_edid->raw_edid,
-                       new_edid->raw_edid, new_edid->length) == 0);
- }
-+
-+void dc_edid_copy_edid_to_dc(struct dc_sink *dc_sink,
-+			     const void *edid,
-+			     int len)
-+{
-+	memmove(dc_sink->dc_edid.raw_edid, (const uint8_t *) edid, len);
-+	dc_sink->dc_edid.length = len;
-+}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
-index 7e3b1177bc8a..f42cd5bbc730 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
-@@ -7,5 +7,7 @@
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: MIT
+ #include "amdgpu_dm/dc_edid.h"
+ #include "dc.h"
++#include <drm/drm_edid.h>
  
  bool dc_edid_is_same_edid(struct dc_sink *prev_sink,
+ 			  struct dc_sink *current_sink)
+@@ -25,3 +26,9 @@ void dc_edid_copy_edid_to_dc(struct dc_sink *dc_sink,
+ 	memmove(dc_sink->dc_edid.raw_edid, (const uint8_t *) edid, len);
+ 	dc_sink->dc_edid.length = len;
+ }
++
++
++void dc_edid_sink_edid_free(struct dc_sink *sink)
++{
++	drm_edid_free(sink->drm_edid);
++}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
+index f42cd5bbc730..2c76768be459 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
+@@ -9,5 +9,6 @@ bool dc_edid_is_same_edid(struct dc_sink *prev_sink,
  			  struct dc_sink *current_sink);
-+void dc_edid_copy_edid_to_dc(struct dc_sink *dc_sink,
-+			     const void *edid, int len);
+ void dc_edid_copy_edid_to_dc(struct dc_sink *dc_sink,
+ 			     const void *edid, int len);
++void dc_edid_sink_edid_free(struct dc_sink *sink);
  
  #endif /* __DC_EDID_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index e748721f31e4..978d2b4a4d29 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1410,8 +1410,7 @@ struct dc_sink *link_add_remote_sink(
- 	if (!dc_sink)
- 		return NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
+index 455fa5dd1420..3774a3245506 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
+@@ -26,6 +26,7 @@
+ #include "dm_services.h"
+ #include "dm_helpers.h"
+ #include "core_types.h"
++#include "dc_edid.h"
  
--	memmove(dc_sink->dc_edid.raw_edid, (const uint8_t *) edid, len);
--	dc_sink->dc_edid.length = len;
-+	dc_edid_copy_edid_to_dc(dc_sink, edid, len);
+ /*******************************************************************************
+  * Private functions
+@@ -65,6 +66,8 @@ void dc_sink_retain(struct dc_sink *sink)
+ static void dc_sink_free(struct kref *kref)
+ {
+ 	struct dc_sink *sink = container_of(kref, struct dc_sink, refcount);
++
++	dc_edid_sink_edid_free(sink);
+ 	kfree(sink->dc_container_id);
+ 	kfree(sink);
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index d60cd9d23848..0d4e6ea1821b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -46,6 +46,8 @@
  
- 	if (!link_add_remote_sink_helper(
- 			link,
+ #include "dmub/inc/dmub_cmd.h"
+ 
++#include <drm/drm_edid.h>
++
+ struct abm_save_restore;
+ 
+ /* forward declaration */
+@@ -2430,6 +2432,7 @@ struct scdc_caps {
+ struct dc_sink {
+ 	enum signal_type sink_signal;
+ 	struct dc_edid dc_edid; /* raw edid */
++	const struct drm_edid *drm_edid; /* Linux DRM edid*/
+ 	struct dc_edid_caps edid_caps; /* parse display caps */
+ 	struct dc_container_id *dc_container_id;
+ 	uint32_t dongle_max_pix_clk;
 -- 
 2.47.2
 
