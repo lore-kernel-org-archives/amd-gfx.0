@@ -4,78 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7A5FC369A9
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 12:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52F9FC36010
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 12:24:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F18210EB94;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99C5410EB92;
 	Fri, 11 Apr 2025 12:24:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WPBIV2xY";
+	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="DkesvRPb";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="AFKm5rGx";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F24210EA04
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 16:24:55 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-39c2688619bso624221f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Apr 2025 09:24:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1744302294; x=1744907094; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/Q0HEw3hrYVGi9s56H8x5ezvg01Afiad6GaTNJBgE4g=;
- b=WPBIV2xYzXx2f1YnKFJWHS1hfjhzZukFalWUFE7oyKohHg8GdFngV1eeYRuPOjDtiF
- iV6cwuEbX+rvwB8hGRxwGstVvtEtTngWfdK9QJsIIfzc0PJRMpi+vBnBxfDwvTmMkXYn
- v1DIXqeZUuyW2htKu29edUJ8u4VUsXFwop6Sh+kakw0BAx3Qkoze5rspb+r7BF7cbNJt
- qefgL3VeHhNh3ylyMw+OWm18FuPg8zncDaqfIazYFEkdF9Gg9+2U+UuqQEKYlRo4bjSm
- vEq8qXAKCmMHk+fA8UVnbtlnoKFOvoMakFEOu/FtWLejzvCAp5Go1gGSkqTzNl2aGrtz
- jPgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744302294; x=1744907094;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/Q0HEw3hrYVGi9s56H8x5ezvg01Afiad6GaTNJBgE4g=;
- b=tLcjDCk5Ava5AloqQxV4xda5h+4IODv/hUG6HDnJohagJbgrOHilZW5UOyOUW0Sq0l
- hftIZsy7+YaPg2XN238khbFLc7OiG3NDKYk1G98KMRZe44d7h+VXSUpmw5Kr2A5ufQLv
- QNhmLrb7BczjU8MMqHzcB/3TQIPxjtnR14vqelVAqvnQIU5KH9O8SQpht2T1CGm3A7PM
- dudkdULgs+Da7Wg4zjyDIdQMeMZ3rcuh3eHZPL4UVlpS/jMcJ0FkUmK861XwxsFGOnsR
- xqvnzHFVHHqipE5RbuHRbErW9jwY5mWrKHr3UinvT2PZJk/2DgHoLj436w/jkQTx5L0j
- XGMQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWKh2UpsjCQfb9u8NFiruXgrhEu5dXs1aKvEHmVux1QJ9FgTJsJRpWFi7wVOKgmkjMLf6482d75@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwIjiUGjXUL+knLUOoA/9lscnAvNJ2fH8Bk+wZMXucIr/CVYczL
- sU2Ai/dWGgva0UlfghFrq+rC1ZEI3OU+qJ0Iva+WU2pdx/pDj79utHDHyl6GKi0=
-X-Gm-Gg: ASbGnct/+eCKQMqy11RxMRcEU7cVCzTTMFsy+AuKM3oYYFtOSMhKgOCAP4lXJISDUEa
- BqocPQz2onSSW7ylsCCMbiQ7sZDh7lagSYSln0RYG1XCpbnawu0Ejv/o1lCKDn70O2/FclhXH7m
- Ah3wFdaALoZHPtwk7BXnjBvlIth0IDU0wz+Som77lUOPHwjdOmLnDEDiGHTdd+e+xIX9oKBLcvy
- yISvkxAHqmElhynqeMz6ZtxTunUqVf1WpA8dvXqT2Y/L+ZJoFWelSkx+GD/KAks/+Hblj+Ieqg9
- Rx2NMeptXf9FxSH10jzF5Lxa2SNrIE0qDQFWlcS79aIXrw==
-X-Google-Smtp-Source: AGHT+IE5gbRW9QyJ582gnS5/K6En7dv4OcdtzrH6WqFi8GhS+S5YHvq23DQaLTjIP0Syy2HVbmP5YA==
-X-Received: by 2002:a05:6000:1785:b0:39c:dfa:e1bb with SMTP id
- ffacd0b85a97d-39d8f4dcf9amr2828748f8f.42.1744302293770; 
- Thu, 10 Apr 2025 09:24:53 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-39d89402a08sm5153257f8f.100.2025.04.10.09.24.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Apr 2025 09:24:53 -0700 (PDT)
-Date: Thu, 10 Apr 2025 19:24:50 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Arvind Yadav <Arvind.Yadav@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH next] drm/amdgpu: Fix double free in
- amdgpu_userq_fence_driver_alloc()
-Message-ID: <5ff4d367-b5bd-40ae-9529-56d08ea6c1d0@stanley.mountain>
+X-Greylist: delayed 577 seconds by postgrey-1.36 at gabe;
+ Fri, 11 Apr 2025 10:11:11 UTC
+Received: from fout-a2-smtp.messagingengine.com
+ (fout-a2-smtp.messagingengine.com [103.168.172.145])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53F4D10EB5C;
+ Fri, 11 Apr 2025 10:11:09 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.phl.internal
+ [10.202.2.43])
+ by mailfout.phl.internal (Postfix) with ESMTP id BF8911380226;
+ Fri, 11 Apr 2025 06:01:28 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-03.internal (MEProxy); Fri, 11 Apr 2025 06:01:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm2; t=1744365688; x=1744452088; bh=z5cs1W8tVA
+ bJ3ZA2qMajWH2YzqXLYeH4TnXCQKM1qc8=; b=DkesvRPbaObCmJtnsaeuQhyWuE
+ jBT+v0SPalOYX2jilqnBC88s9Kpn3iKmJ0z3Ig7eYDIYd1PmwDW8ldGxpT3o+qeU
+ gZICnCYqz0pBx9EV1Q7Ya1h0tqVhUCf2kHf75wALwToRTJpflOgAQHTfLvIf89AY
+ RKKuPQ3Q6mIVJoKMM7NAk1AWF2LpRlf53Bg0PbRZcp0fS4iDhNpLEisur+bBxWSQ
+ qKXZGy6szUcI+TO5NQlQKjUOGDz7HThAz837SzRDnBFSpl72AMg8r+oIZKcoBZjp
+ ZtmNyM+NfJnQvFhm7LfN1Qm5v0DjpD6atDcaQ/DNMNtFz/0Jo7iltkwDpJJw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1744365688; x=
+ 1744452088; bh=z5cs1W8tVAbJ3ZA2qMajWH2YzqXLYeH4TnXCQKM1qc8=; b=A
+ FKm5rGx2BLCYEndgJ7mw3IN+L37G97Xeyaci4YKzEJ6xen2Y6XaE57Ucczz1kRnU
+ 1L82wq/s8jPk4vsMp6G2p8X4rLrHGFAphiiB4Y3hs0g0CmVlc31BeUxkHUZU8dRf
+ WGILwzfEVGNCou7acgL+VcOgkwQmJL8DPTn7dw4wog123nihpwYJm2U5vIXvLS1/
+ zYGlcHfY9qxX1oXufcEVGpzkO/Gp2QPubG06TZFraW14ADQBNhTFMM3W0LpqVfN8
+ mkqg1QCQGOaG3Y47ljRt30aWD6OUEyYsb6S7vp8AzO7UgdOnoNqbPbup6nb8stYx
+ oWCMHGXW5LzQ635kHpI5Q==
+X-ME-Sender: <xms:eOj4Z18WohOqzZh-qJlmkzeCbSsRkR8now3uvVLiJJiUCE7KntVeFQ>
+ <xme:eOj4Z5v8pkWUzauwqvKEZMar3D6uq_IUrubosCzJknM-vQMjHEJUM0HLy1ccc8X-E
+ ni4SIsyRSa0OQ>
+X-ME-Received: <xmr:eOj4ZzAoUe-SJf3YXEDsTikSMVm2w2BYN9d9l7VW-KtuoeMIiZ43A-FmMEjwEmZBzJGAnWHaishA_BRniFUk_LNw3UECHcHTfg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvudduhedvucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+ pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+ gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtgfgjgesthekredttddt
+ jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+ eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+ ggftrfgrthhtvghrnhephefgteevgfefgeetteefueeuvefhfeektdelhfeuffeuleefhf
+ dvgeffkefgieegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+ rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+ dpnhgspghrtghpthhtohepuddvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehs
+ ohihvghrsehirhhlrdhhuhdprhgtphhtthhopegusggrrhihshhhkhhovhesghhmrghilh
+ drtghomhdprhgtphhtthhopehluhhmrghgsehkvghrnhgvlhdrohhrghdprhgtphhtthho
+ pehrvghgrhgvshhsihhonhhssehlihhsthhsrdhlihhnuhigrdguvghvpdhrtghpthhtoh
+ epughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgt
+ phhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprh
+ gtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+ pdhrtghpthhtohephhguvghgohgvuggvsehrvgguhhgrthdrtghomhdprhgtphhtthhope
+ grlhgvgigrnhguvghrrdguvghutghhvghrsegrmhgurdgtohhm
+X-ME-Proxy: <xmx:eOj4Z5eozMALmK2q7WTH3Y7NW2p5xx8GWN8pEMuDFLJ0mi2F1s7-AQ>
+ <xmx:eOj4Z6M2E5C1Nn_VE7HWQ6o8uJmm9wXtXpaRTTwA_4eNQUMH7eOrBw>
+ <xmx:eOj4Z7lRb9TdtFPHrQO6x-e0jhSIgjFA_uFcvgcYaS_cA_PWhH_7Zw>
+ <xmx:eOj4Z0uT-62w59kPKHqk3P3hXEjVInJ-nq6VqMNpiEPHU0iV2RAm8w>
+ <xmx:eOj4Zz3ztczLsdEPlh51aY9pvfDh_6eqGCOVKW2rVT7VRP6SMyDLSRaI>
+Feedback-ID: i1568416f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Apr 2025 06:01:26 -0400 (EDT)
+Date: Fri, 11 Apr 2025 12:01:24 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Dmitry Baryshkov <dbaryshkov@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, regressions@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Subject: Re: amdgpu_dm_connector_mode_valid regression
+Message-ID: <Z_jodBrNFdEpJRKA@mail-itl>
+References: <ed09edb167e74167a694f4854102a3de6d2f1433.camel@irl.hu>
+ <8963a409dd575e040e5f07e4ad5e9c1d26b421f2.camel@irl.hu>
+ <CALT56yPd-xfd=47xRxrCk4F3jib4Ti7kg8pRXy-gVAQpbOc=pw@mail.gmail.com>
+ <e323219b52cda1891a55d12ad77a2b34edc8688b.camel@irl.hu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+Content-Type: text/plain; charset=utf-8; x-action=pgp-signed
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e323219b52cda1891a55d12ad77a2b34edc8688b.camel@irl.hu>
 X-Mailman-Approved-At: Fri, 11 Apr 2025 12:24:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,37 +115,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The goto frees "fence_drv" so this is a double free bug.  There is no
-need to call amdgpu_seq64_free(adev, fence_drv->va) since the seq64
-allocation failed so change the goto to goto free_fence_drv.  Also
-propagate the error code from amdgpu_seq64_alloc() instead of hard coding
-it to -ENOMEM.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-Fixes: e7cf21fbb277 ("drm/amdgpu: Few optimization and fixes for userq fence driver")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index a4953d668972..b012fece91e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -84,11 +84,8 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
- 	/* Acquire seq64 memory */
- 	r = amdgpu_seq64_alloc(adev, &fence_drv->va, &fence_drv->gpu_addr,
- 			       &fence_drv->cpu_addr);
--	if (r) {
--		kfree(fence_drv);
--		r = -ENOMEM;
--		goto free_seq64;
--	}
-+	if (r)
-+		goto free_fence_drv;
- 
- 	memset(fence_drv->cpu_addr, 0, sizeof(u64));
- 
--- 
-2.47.2
+Hi,
 
+On Wed, Apr 02, 2025 at 04:35:05PM +0200, Gergo Koteles wrote:
+> Hi Dmitry,
+> 
+> But the code would start to become quite untraceable.
+> duplicate mode in amdgpu_dm_connector_mode_valid()
+> call drm_mode_set_crtcinfo() in amdgpu_dm_connector_mode_valid()
+> duplicate mode in create_stream_for_sink()
+> overwrite ctrc in decide_crtc_timing_for_drm_display_mode()
+> if crtc_clock == 0 call drm_mode_set_crtcinfo() again in
+> create_stream_for_sink() 
+
+FWIW I'm affected by the same issue (on HP ProBook 445 G7, with AMD
+Ryzen 5 4500U). And the patch quoted below fixes it for me too.
+
+> 
+> saved_mode is never used after this, so I can't add the condition here
+>         if (recalculate_timing)
+>                 drm_mode_set_crtcinfo(&saved_mode, 0);
+> 
+> This commit is related, I think:
+> 1101185 ("drm/amd/display: fix the ability to use lower resolution
+> modes on eDP")
+> 
+> Regards,
+> Gergo
+> 
+> ---
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index bae83a129b5f..83c8c81d4015 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6984,6 +6984,9 @@ create_stream_for_sink(struct drm_connector
+> *connector,
+>         if (recalculate_timing)
+>                 drm_mode_set_crtcinfo(&saved_mode, 0);
+>  
+> +       if (mode.crtc_clock == 0)
+> +               drm_mode_set_crtcinfo(&mode, 0);
+> +
+>         /*
+>          * If scaling is enabled and refresh rate didn't change
+>          * we copy the vic and polarities of the old timings
+> --
+
+- -- 
+Best Regards,
+Marek Marczykowski-Górecki
+Invisible Things Lab
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf46HQACgkQ24/THMrX
+1ywBfAf/SX79WOL0Rv1cL2F/YeEUbr6b/FxZ6W+xsFCi38UxcN0PKCGalQ76jT5r
+LAyy1zPedAAdGu+JdQ8abrVfPbSXnzLUcUZNN75kGHixS1c/TqfP4L9ymZ6Z5rAB
+BUt579EkdDZlm2dZ0mxwHcdoArv7fK05Fb+l3Vd645w5MK0fmwWPesCeBaEiwG2S
+ZiuSOWcJBL0yPPzvRaVPD5FCgjjjEhQ2fZZinqhwVy1LNA6OBXQrVvNhOazFVjKq
+rQV1YLG4gCBu6TD6NaETrPMevmZmovuo7o4/6Y5vJQexhQv3eaaxE5dh/0AaWovJ
+FqW2VrxvWXz6HgOokPpfispYzpMgEQ==
+=+SPC
+-----END PGP SIGNATURE-----
