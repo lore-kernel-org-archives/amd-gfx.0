@@ -4,85 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D47C369B4
-	for <amd-gfx@archiver.kernel.org>; Sat, 12 Apr 2025 16:08:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA9ACC369AE
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Apr 2025 20:22:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D4D210E2F1;
-	Sat, 12 Apr 2025 16:08:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A4B010E062;
+	Sat, 12 Apr 2025 20:21:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zhyGdhEo";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dL1tAsOx";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7931010E0A4
- for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 14:28:45 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-39c266c2dd5so2421743f8f.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 07:28:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1744468124; x=1745072924; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Yug8Lg77jkFOaaSI2hhnGA0YoGthbaYjMrZs5RGYQTk=;
- b=zhyGdhEoxqONFclnTWorn31LGd6WOJI9ant+mweJQKsXj5LzevrvsnNc2iPvjFqDkt
- FC5cwr3zwV+QetoRVcYvo6Q7O1M4e+dUwOADqWbzgBYqzjH/AoBpbZMVqfT4UQ0HN3CX
- 1J/ehYwKn4B+UXPqhKqQrI7awI+jKneeXm3naxK74ofz6nl0Wa/GJcgBYDZhO3HbVDD9
- w+wvjb2o59+7BH9quHtO/BtnMQ525n5Rbhjn26DwNIQfakIoV4vIq9Y8la0pyCXakScd
- hp4xO/K0+Nk3UoIkN5yEbF4JqSndJV5WlgdfMGvFP2Vx8LYiEOuT3O6R4KM6d4l+SUvf
- s8Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744468124; x=1745072924;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Yug8Lg77jkFOaaSI2hhnGA0YoGthbaYjMrZs5RGYQTk=;
- b=t7sK/E750KOVJp2dLs65M1HyP3mkHr9AEDh9RUid+VgRp9aT3ZdZKGmyxXlymOehOq
- tGzx/OXiWGpYsNE3xKFdKa0DMb0CUTqZhHWEN6lrrAkaEz285CM9YvL5++OfUV5jlNd5
- ngdkTfZPEmqQaEfx5n+KIbsMjtBvZgYFGUKlfyiS1RUD/zk2inSZQIoIQ6z48cqrfjue
- pPMdgSBPqGunBhP+KsHkOGV6THFbEkYNhIe9pDxDi4ESScV4lqmL9y3uQ3G/PVcXIrjd
- vfPJsxm0OPec+HuhqskVhBqcfrG6Ue/YOHNO2nRP7fQ10xAD81AJSTzziL+tWut+gKvd
- HcqQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXf2xtW9T6JAxFUeeXneR09J998aeJrpP+xFiibwaIaCqcuDV2GjjdAJJvHSB8uxWRgqpt6tR/r@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1cD2Y0ADkmrv3xmXzNil/jhc4L9nuO1HqeK2sjEodn6RnZn8J
- ER/zzK+6wIauEMClwak8t24+CbSm5soJXLk8RICxmWmJGbMGAjftKDlhx2iKk8U=
-X-Gm-Gg: ASbGncuXgFxb9fiAjLVbnZhXEmXxmVcrkVaFBmXPo8lzIWPSKrYNfdWoZZRHK/exdNg
- pc0zveZFfFc92YcOi8NoudDPwWAGyMtNCCiOySZ3MiFv0HLYN6z92yGfvZPDgJhvJ3t5c9Tm7i3
- baLMlGWcknx8tfblePKCpAQmuCtPA/MQqvtcaXAoGqJjoiYPJP4IdRjq4AVjr0UOJcKl/bCGMVv
- vCnCV67SEfOVrjc07u4jVbegj6jfkkLwzHyW7YKudQubUXO4EF7mVKSH2pWsEVMwZT5PZqH0bDN
- +KoTprYOvfo4RuXa0uBYaJwKNGBkTgwpYIhFaIODyUc+Bl+DSAXSCKUQ
-X-Google-Smtp-Source: AGHT+IH34D5glm0+0TkKdRd2QqYl+pfjKMVxmTngaZruRkPsk03mWnWy81pDX8UHh5AZeQmoxzxDVQ==
-X-Received: by 2002:a05:6000:2507:b0:390:e311:a8c7 with SMTP id
- ffacd0b85a97d-39ea51ecbecmr5651152f8f.5.1744468123668; 
- Sat, 12 Apr 2025 07:28:43 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-39eae96c074sm5086157f8f.28.2025.04.12.07.28.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Apr 2025 07:28:43 -0700 (PDT)
-Date: Sat, 12 Apr 2025 17:28:39 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: "Yadav, Arvind" <arvyadav@amd.com>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Arvind Yadav <Arvind.Yadav@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH next] drm/amdgpu: Fix double free in
- amdgpu_userq_fence_driver_alloc()
-Message-ID: <344bcc64-bf13-4726-8530-48eca7d643d1@stanley.mountain>
-References: <5ff4d367-b5bd-40ae-9529-56d08ea6c1d0@stanley.mountain>
- <92b7d28e-6103-4c76-17dd-6ae94552a043@amd.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6064010E3EA
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 20:21:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=/KxcI6y3Ifn2tOh8CvtWeFMyx9wOP+2JmAc4GGa2xL0=; b=dL1tAsOxF6G4sx9FmNJH63FjLk
+ St33PMHETIhc2eAeEHF5/Tb75tfe+sb+ljadPSg2jYBRYu+5nEUB8S6L2WaUd2LeNrEpGsW5J/mhA
+ 3zBqxhoYAjaW3c6XsShnJ/B/k0jdKhdSim29zhoawEGYgVfUyiWUEN10IjneBfeHOjEBlK2gUhJ9x
+ W33Yp6iS911O4zpM0Vf6UUbu8fymGrjdmSKyN6ebw7fOU8PT8z5kFNdecNGY0XnkirgUS7MG11zdm
+ VC6KhDaooJD3q7McJbV3xv9bM26dFswPnAPA+jbxTo7/MR2UR3Zgpk1YK9TIqH15D80ChUXcdPgnV
+ CZ4SaBgg==;
+Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
+ helo=maloca.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1u3hMN-00Fepq-4I; Sat, 12 Apr 2025 22:21:51 +0200
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH v2 3/9] drm/amdgpu/gfx: Use CSB helpers in
+ gfx_v10_0_get_csb_buffer
+Date: Sat, 12 Apr 2025 14:21:08 -0600
+Message-ID: <20250412202134.3025051-4-siqueira@igalia.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250412202134.3025051-1-siqueira@igalia.com>
+References: <20250412202134.3025051-1-siqueira@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <92b7d28e-6103-4c76-17dd-6ae94552a043@amd.com>
-X-Mailman-Approved-At: Sat, 12 Apr 2025 16:07:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,22 +61,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 10, 2025 at 10:29:31PM +0530, Yadav, Arvind wrote:
-> Please change this also instead of 'goto free_fence_drv' just return err.
-> 
->         fence_drv = kzalloc(sizeof(*fence_drv), GFP_KERNEL);
->         if (!fence_drv) {
->                 DRM_ERROR("Failed to allocate memory for fence driver\n");
->                 r = -ENOMEM;
->                 goto free_fence_drv; // this should be replace by return.
->         }
-> 
-> ~arvind
+Remove duplicate code by using CSB helpers.
 
-I noticed that when I was writing my patch as well.  I'm always in favor
-of direct returns, but it makes the patch confusing to add this unrelated
-cleanup...  I'll send it as a separate patch.
+Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 34 ++++----------------------
+ 1 file changed, 5 insertions(+), 29 deletions(-)
 
-regards,
-dan carpenter
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 00eb4cfecf8f..b478fef4beb9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4325,9 +4325,7 @@ static u32 gfx_v10_0_get_csb_size(struct amdgpu_device *adev)
+ static void gfx_v10_0_get_csb_buffer(struct amdgpu_device *adev,
+ 				    volatile u32 *buffer)
+ {
+-	u32 count = 0, i;
+-	const struct cs_section_def *sect = NULL;
+-	const struct cs_extent_def *ext = NULL;
++	u32 count = 0;
+ 	int ctx_reg_offset;
+ 
+ 	if (adev->gfx.rlc.cs_data == NULL)
+@@ -4335,37 +4333,15 @@ static void gfx_v10_0_get_csb_buffer(struct amdgpu_device *adev,
+ 	if (buffer == NULL)
+ 		return;
+ 
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
+-	buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_BEGIN_CLEAR_STATE);
+-
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CONTEXT_CONTROL, 1));
+-	buffer[count++] = cpu_to_le32(0x80000000);
+-	buffer[count++] = cpu_to_le32(0x80000000);
+-
+-	for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
+-		for (ext = sect->section; ext->extent != NULL; ++ext) {
+-			if (sect->id == SECT_CONTEXT) {
+-				buffer[count++] =
+-					cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
+-				buffer[count++] = cpu_to_le32(ext->reg_index -
+-						PACKET3_SET_CONTEXT_REG_START);
+-				for (i = 0; i < ext->reg_count; i++)
+-					buffer[count++] = cpu_to_le32(ext->extent[i]);
+-			}
+-		}
+-	}
++	count = amdgpu_gfx_csb_preamble_start(buffer);
++	count = amdgpu_gfx_csb_data_parser(adev, buffer, count);
+ 
+-	ctx_reg_offset =
+-		SOC15_REG_OFFSET(GC, 0, mmPA_SC_TILE_STEERING_OVERRIDE) - PACKET3_SET_CONTEXT_REG_START;
++	ctx_reg_offset = SOC15_REG_OFFSET(GC, 0, mmPA_SC_TILE_STEERING_OVERRIDE) - PACKET3_SET_CONTEXT_REG_START;
+ 	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, 1));
+ 	buffer[count++] = cpu_to_le32(ctx_reg_offset);
+ 	buffer[count++] = cpu_to_le32(adev->gfx.config.pa_sc_tile_steering_override);
+ 
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
+-	buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_END_CLEAR_STATE);
+-
+-	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CLEAR_STATE, 0));
+-	buffer[count++] = cpu_to_le32(0);
++	amdgpu_gfx_csb_preamble_end(buffer, count);
+ }
+ 
+ static void gfx_v10_0_rlc_fini(struct amdgpu_device *adev)
+-- 
+2.49.0
 
