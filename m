@@ -4,16 +4,16 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE55AC369B6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C599AC369B1
 	for <amd-gfx@archiver.kernel.org>; Sat, 12 Apr 2025 20:22:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFEC610E3E9;
-	Sat, 12 Apr 2025 20:22:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4B5010E3F3;
+	Sat, 12 Apr 2025 20:22:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YaRloFuy";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hoX+xrg1";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E02810E062
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E8A410E3E8
  for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 20:21:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
@@ -22,26 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=2XE89Othe5plp3nGLDQZj2weKSROT0bUbceqDcNzKw4=; b=YaRloFuyS97C3C27l4Iok/FrFB
- m/0WzxqeEZIEwz4bxYL9nCSMgOj3lbUC7uok0QqR8mBVhiZE8f0J2RE/G0KeUu0oLbv+wXYD2cCWG
- wu97tI38CGI0gCbDaaWK6CWVGtwo0z1YFwi/YPAc7E8QsE9EwcV18gIt7PUuJD/D0jEMZHDXHglsC
- kNfdCuCr6VxOvvQ66VLvBPRzJvRMsj6rsXqUNVj0tQko4ADexZYTZ/w9DGUThdcxPESSoVKpF4BLI
- 8sT95/RniefaahmqmYH4F2o5x3x1uxIYg/Y3UzPc0XX2F3irE4n/5zxIkra372lyNhka1hLlgdkVr
- 618yeGrw==;
+ bh=kY1sZ+p+TL3EoomzS7WdsAR+qBGI2zvrWknoHjpaKLI=; b=hoX+xrg1Bu48H0ah3mtm4HXD2Q
+ IV90Z+fo1JP3siC2Q8CU5YUJ9anLEr2V1hbyL5xiuDKW2H7ET6scZSbjajWH1Mt98hyJuD3DuuFJ+
+ E6LINmP9AOpcybMnEDe1Nu3Hg+uxuQZUI4GRwjfrhByHwNkCnwJ8gdT0nZ5p4rmfCwJnsrU53XmKk
+ z5S5pU5Osy97rvwlieMcycZ2tNcdPUgaGKs7ipMLFTp6E9Nd46Agc/rJPjPsqMqAKqGLkQPopJ2+x
+ BnkAFq4m/+idvTdR9TKCau6rwX+soot+KsP/mSqe2ga1jFktr3AgWrvZTeA5+kTlJmEhG0skCMoeN
+ ll8UA5yg==;
 Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
  helo=maloca.lan) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1u3hML-00Fepq-EE; Sat, 12 Apr 2025 22:21:49 +0200
+ id 1u3hMJ-00Fepq-O7; Sat, 12 Apr 2025 22:21:48 +0200
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
  Mario Limonciello <mario.limonciello@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH v2 2/9] drm/amdgpu/gfx: Use CSB helpers in
- gfx_v11_0_get_csb_buffer
-Date: Sat, 12 Apr 2025 14:21:07 -0600
-Message-ID: <20250412202134.3025051-3-siqueira@igalia.com>
+Subject: [PATCH v2 1/9] drm/amdgpu/gfx: Introduce helpers for CSB manipulation
+Date: Sat, 12 Apr 2025 14:21:06 -0600
+Message-ID: <20250412202134.3025051-2-siqueira@igalia.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250412202134.3025051-1-siqueira@igalia.com>
 References: <20250412202134.3025051-1-siqueira@igalia.com>
@@ -61,72 +60,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Part of the code in gfx_v11_0_get_csb_buffer can be removed in favor of
-some GFX CSB helpers. This commit removes the duplicated part for the
-GFX 11 CSB function.
+From GFX6 to GFX11, there is a function for getting the CSB buffer to be
+put into the hardware. Three common parts are duplicated in all of these
+GFX functions:
+
+1. Prepare the CSB preamble.
+2. Parser the CS data.
+3. End the CSB preamble.
+
+This commit creates helpers to be used from GFX6 to GFX11.
 
 Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 34 ++++----------------------
- 1 file changed, 5 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 69 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 ++
+ 2 files changed, 72 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index ac90f823e596..b943b3069160 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -848,9 +848,7 @@ static u32 gfx_v11_0_get_csb_size(struct amdgpu_device *adev)
- static void gfx_v11_0_get_csb_buffer(struct amdgpu_device *adev,
- 				    volatile u32 *buffer)
- {
--	u32 count = 0, i;
--	const struct cs_section_def *sect = NULL;
--	const struct cs_extent_def *ext = NULL;
-+	u32 count = 0;
- 	int ctx_reg_offset;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 7fc4e62536e1..b86ebbba59aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -33,6 +33,7 @@
+ #include "amdgpu_reset.h"
+ #include "amdgpu_xcp.h"
+ #include "amdgpu_xgmi.h"
++#include "nvd.h"
  
- 	if (adev->gfx.rlc.cs_data == NULL)
-@@ -858,37 +856,15 @@ static void gfx_v11_0_get_csb_buffer(struct amdgpu_device *adev,
- 	if (buffer == NULL)
- 		return;
- 
--	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
--	buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_BEGIN_CLEAR_STATE);
--
--	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CONTEXT_CONTROL, 1));
--	buffer[count++] = cpu_to_le32(0x80000000);
--	buffer[count++] = cpu_to_le32(0x80000000);
--
--	for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
--		for (ext = sect->section; ext->extent != NULL; ++ext) {
--			if (sect->id == SECT_CONTEXT) {
--				buffer[count++] =
--					cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
--				buffer[count++] = cpu_to_le32(ext->reg_index -
--						PACKET3_SET_CONTEXT_REG_START);
--				for (i = 0; i < ext->reg_count; i++)
--					buffer[count++] = cpu_to_le32(ext->extent[i]);
--			}
--		}
--	}
-+	count = amdgpu_gfx_csb_preamble_start(buffer);
-+	count = amdgpu_gfx_csb_data_parser(adev, buffer, count);
- 
--	ctx_reg_offset =
--		SOC15_REG_OFFSET(GC, 0, regPA_SC_TILE_STEERING_OVERRIDE) - PACKET3_SET_CONTEXT_REG_START;
-+	ctx_reg_offset = SOC15_REG_OFFSET(GC, 0, regPA_SC_TILE_STEERING_OVERRIDE) - PACKET3_SET_CONTEXT_REG_START;
- 	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, 1));
- 	buffer[count++] = cpu_to_le32(ctx_reg_offset);
- 	buffer[count++] = cpu_to_le32(adev->gfx.config.pa_sc_tile_steering_override);
- 
--	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
--	buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_END_CLEAR_STATE);
--
--	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CLEAR_STATE, 0));
--	buffer[count++] = cpu_to_le32(0);
-+	amdgpu_gfx_csb_preamble_end(buffer, count);
+ /* delay 0.1 second to enable gfx off feature */
+ #define GFX_OFF_DELAY_ENABLE         msecs_to_jiffies(100)
+@@ -2241,6 +2242,74 @@ void amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring)
+ 	schedule_delayed_work(&ring->adev->gfx.idle_work, GFX_PROFILE_IDLE_TIMEOUT);
  }
  
- static void gfx_v11_0_rlc_fini(struct amdgpu_device *adev)
++/**
++ * amdgpu_gfx_csb_preamble_start - Set CSB preamble start
++ *
++ * @buffer: This is an output variable that gets the PACKET3 preamble setup.
++ *
++ * Return:
++ * return the latest index.
++ */
++u32 amdgpu_gfx_csb_preamble_start(volatile u32 *buffer)
++{
++	u32 count = 0;
++
++	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
++	buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_BEGIN_CLEAR_STATE);
++
++	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CONTEXT_CONTROL, 1));
++	buffer[count++] = cpu_to_le32(0x80000000);
++	buffer[count++] = cpu_to_le32(0x80000000);
++
++	return count;
++}
++
++/**
++ * amdgpu_gfx_csb_data_parser - Parser CS data
++ *
++ * @adev: amdgpu_device pointer used to get the CS data and other gfx info.
++ * @buffer: This is an output variable that gets the PACKET3 preamble end.
++ * @count: Index to start set the preemble end.
++ *
++ * Return:
++ * return the latest index.
++ */
++u32 amdgpu_gfx_csb_data_parser(struct amdgpu_device *adev, volatile u32 *buffer, u32 count)
++{
++	const struct cs_section_def *sect = NULL;
++	const struct cs_extent_def *ext = NULL;
++	u32 i;
++
++	for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
++		for (ext = sect->section; ext->extent != NULL; ++ext) {
++			if (sect->id == SECT_CONTEXT) {
++				buffer[count++] = cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
++				buffer[count++] = cpu_to_le32(ext->reg_index - PACKET3_SET_CONTEXT_REG_START);
++
++				for (i = 0; i < ext->reg_count; i++)
++					buffer[count++] = cpu_to_le32(ext->extent[i]);
++			}
++		}
++	}
++
++	return count;
++}
++
++/**
++ * amdgpu_gfx_csb_preamble_end - Set CSB preamble end
++ *
++ * @buffer: This is an output variable that gets the PACKET3 preamble end.
++ * @count: Index to start set the preemble end.
++ */
++void amdgpu_gfx_csb_preamble_end(volatile u32 *buffer, u32 count)
++{
++	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0));
++	buffer[count++] = cpu_to_le32(PACKET3_PREAMBLE_END_CLEAR_STATE);
++
++	buffer[count++] = cpu_to_le32(PACKET3(PACKET3_CLEAR_STATE, 0));
++	buffer[count++] = cpu_to_le32(0);
++}
++
+ /*
+  * debugfs for to enable/disable gfx job submission to specific core.
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index caaddab31023..c359530e530e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -598,6 +598,9 @@ void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring *ring);
+ void amdgpu_gfx_profile_idle_work_handler(struct work_struct *work);
+ void amdgpu_gfx_profile_ring_begin_use(struct amdgpu_ring *ring);
+ void amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring);
++u32 amdgpu_gfx_csb_preamble_start(volatile u32 *buffer);
++u32 amdgpu_gfx_csb_data_parser(struct amdgpu_device *adev, volatile u32 *buffer, u32 count);
++void amdgpu_gfx_csb_preamble_end(volatile u32 *buffer, u32 count);
+ 
+ void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
 -- 
 2.49.0
 
