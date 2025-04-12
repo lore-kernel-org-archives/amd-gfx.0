@@ -4,80 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9010CC369B2
-	for <amd-gfx@archiver.kernel.org>; Sat, 12 Apr 2025 16:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D47C369B4
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Apr 2025 16:08:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B68710E2E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D4D210E2F1;
 	Sat, 12 Apr 2025 16:08:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aojnun1L";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zhyGdhEo";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC07D10E1B0
- for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 14:39:37 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-3995ff6b066so1520780f8f.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 07:39:37 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7931010E0A4
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 14:28:45 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-39c266c2dd5so2421743f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 07:28:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1744468776; x=1745073576; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nm2H6iLUjvnbWXFUPqhKNdAW5lLeAEyGiUbQz3duIYw=;
- b=aojnun1LH6pxhQHeApgWfMfYkTyDzzs5enuEom35MbN7TFOPwSf47NGxPVTwhVyqwq
- LhLdpl5tnzXPdaxcYQ43qHs+ICigiNfeYuPQmr/w41FabJ5AvrOPNHJB2Axup/NXyWVS
- s7XAq9uqxFRXyaE7QNHtKSywoIca6dp+nSs76v3h1x8qLD+nR+RXLaHZI6T+6gEn2TkB
- tJ09ldlp2qwAyWzHMheOwXvGfG8nYstjZS8wvn1rZmuzUPQvRvnPpbZwmT4qx/k4sh+2
- rcfMaeeJvclEn/CBvP/ScWQP30pINpA/0uRViyOnE0jYWHJp6tlagK5s7CYep2SLKneU
- 5P8A==
+ d=linaro.org; s=google; t=1744468124; x=1745072924; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=Yug8Lg77jkFOaaSI2hhnGA0YoGthbaYjMrZs5RGYQTk=;
+ b=zhyGdhEoxqONFclnTWorn31LGd6WOJI9ant+mweJQKsXj5LzevrvsnNc2iPvjFqDkt
+ FC5cwr3zwV+QetoRVcYvo6Q7O1M4e+dUwOADqWbzgBYqzjH/AoBpbZMVqfT4UQ0HN3CX
+ 1J/ehYwKn4B+UXPqhKqQrI7awI+jKneeXm3naxK74ofz6nl0Wa/GJcgBYDZhO3HbVDD9
+ w+wvjb2o59+7BH9quHtO/BtnMQ525n5Rbhjn26DwNIQfakIoV4vIq9Y8la0pyCXakScd
+ hp4xO/K0+Nk3UoIkN5yEbF4JqSndJV5WlgdfMGvFP2Vx8LYiEOuT3O6R4KM6d4l+SUvf
+ s8Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744468776; x=1745073576;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nm2H6iLUjvnbWXFUPqhKNdAW5lLeAEyGiUbQz3duIYw=;
- b=Hu/mWmi42d+gQY/j+aMvOUv0Dnngvdd/l0GZSzkX3L32ybjkxR23+3GxsQvDRt9JaU
- n7NnXcW6S7OrVfjhdfdljEyKzdoFB5dMMuJEEzDo14vgvzZnGPqyeRx4+RRy+0kozQTA
- e4OWLLHK0rW0Ov/GkE+pZze9ejCtgrfW56SO6oA2JgC7YVfClbzhOB/Y5q4+IeUMeo78
- VA0KeCfN/wQC7XIZajujWkJ4qANRE94R+NKM/B9hImR5pWetRQPA1/RHnWFJCJ7+P9gt
- HRJUhL90cwcooe+dxFBIyuIqNx/Rlo1n8hwAh8ToZyn8H67SRPHSxeNNQfPPq5y1WLnI
- /9sA==
+ d=1e100.net; s=20230601; t=1744468124; x=1745072924;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Yug8Lg77jkFOaaSI2hhnGA0YoGthbaYjMrZs5RGYQTk=;
+ b=t7sK/E750KOVJp2dLs65M1HyP3mkHr9AEDh9RUid+VgRp9aT3ZdZKGmyxXlymOehOq
+ tGzx/OXiWGpYsNE3xKFdKa0DMb0CUTqZhHWEN6lrrAkaEz285CM9YvL5++OfUV5jlNd5
+ ngdkTfZPEmqQaEfx5n+KIbsMjtBvZgYFGUKlfyiS1RUD/zk2inSZQIoIQ6z48cqrfjue
+ pPMdgSBPqGunBhP+KsHkOGV6THFbEkYNhIe9pDxDi4ESScV4lqmL9y3uQ3G/PVcXIrjd
+ vfPJsxm0OPec+HuhqskVhBqcfrG6Ue/YOHNO2nRP7fQ10xAD81AJSTzziL+tWut+gKvd
+ HcqQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWoALj755dRSZ7RjMlBh4TNTYlJhhYJbjHT9dSHbcaodIkS9X93HtA3/t7pk1oGxx5tYXxv2YTk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8AFP51AE7DoBxBb0CsFD5iysYA1ErsP/zLDzHdrZ7WAT4WZCK
- wyYmJcPI9PMs1AcdC6w//zdrH2zHIcNq1I/JVfdApbPkUaHsc727KXMxVcaSJxU=
-X-Gm-Gg: ASbGncsfl6PeN8C+WbUKiqGJetKoUrDuqTXrRNe5zGfE+CHcK7Lhy2u+w9a6/Jrr38f
- BZRDRmNHNrr1xYLMtBzKVyiazQoGg1AU2rAN4F6iizlZbwpTc2noRUFWbbKnqlrBOMAYg+FsO8r
- 4A7K02Qhi743mMsC3RbpA51L2ARKRto5VrFcLlYBioYNnvN7g/sUHiDUiR6+8iraX4T/MxYwqSk
- x0qJ4WG86fXk3ncpjGPhPj6ORnyMAqXOOc1DuuFh7ogjvMHdGt+ZxgGUcczk/21AFuTv4jKgIDn
- 4hIF22VpnzpoYBOOAw6L8SsMsQjgiW3aNv6A8846D+croA==
-X-Google-Smtp-Source: AGHT+IFPnZPQh+rWoYat/40mbIFtQogM3jyiLm0FL3fS2Hmqy/RSAmRPjVkSRty4HpjLKUq4NyrWdQ==
-X-Received: by 2002:a5d:6d88:0:b0:38d:e401:fd61 with SMTP id
- ffacd0b85a97d-39eaaecab8bmr4810516f8f.49.1744468776133; 
- Sat, 12 Apr 2025 07:39:36 -0700 (PDT)
+ AJvYcCXf2xtW9T6JAxFUeeXneR09J998aeJrpP+xFiibwaIaCqcuDV2GjjdAJJvHSB8uxWRgqpt6tR/r@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1cD2Y0ADkmrv3xmXzNil/jhc4L9nuO1HqeK2sjEodn6RnZn8J
+ ER/zzK+6wIauEMClwak8t24+CbSm5soJXLk8RICxmWmJGbMGAjftKDlhx2iKk8U=
+X-Gm-Gg: ASbGncuXgFxb9fiAjLVbnZhXEmXxmVcrkVaFBmXPo8lzIWPSKrYNfdWoZZRHK/exdNg
+ pc0zveZFfFc92YcOi8NoudDPwWAGyMtNCCiOySZ3MiFv0HLYN6z92yGfvZPDgJhvJ3t5c9Tm7i3
+ baLMlGWcknx8tfblePKCpAQmuCtPA/MQqvtcaXAoGqJjoiYPJP4IdRjq4AVjr0UOJcKl/bCGMVv
+ vCnCV67SEfOVrjc07u4jVbegj6jfkkLwzHyW7YKudQubUXO4EF7mVKSH2pWsEVMwZT5PZqH0bDN
+ +KoTprYOvfo4RuXa0uBYaJwKNGBkTgwpYIhFaIODyUc+Bl+DSAXSCKUQ
+X-Google-Smtp-Source: AGHT+IH34D5glm0+0TkKdRd2QqYl+pfjKMVxmTngaZruRkPsk03mWnWy81pDX8UHh5AZeQmoxzxDVQ==
+X-Received: by 2002:a05:6000:2507:b0:390:e311:a8c7 with SMTP id
+ ffacd0b85a97d-39ea51ecbecmr5651152f8f.5.1744468123668; 
+ Sat, 12 Apr 2025 07:28:43 -0700 (PDT)
 Received: from localhost ([196.207.164.177])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-43f235a5b08sm120684135e9.33.2025.04.12.07.39.35
+ ffacd0b85a97d-39eae96c074sm5086157f8f.28.2025.04.12.07.28.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Apr 2025 07:39:35 -0700 (PDT)
-Date: Sat, 12 Apr 2025 17:39:32 +0300
+ Sat, 12 Apr 2025 07:28:43 -0700 (PDT)
+Date: Sat, 12 Apr 2025 17:28:39 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+To: "Yadav, Arvind" <arvyadav@amd.com>
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Arvind Yadav <Arvind.Yadav@amd.com>,
  Shashank Sharma <shashank.sharma@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] drm/amdgpu: Fix double free in
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH next] drm/amdgpu: Fix double free in
  amdgpu_userq_fence_driver_alloc()
-Message-ID: <d4583e103f65e850f886babcf1b290b0855ba04c.1744468610.git.dan.carpenter@linaro.org>
-References: <cover.1744468610.git.dan.carpenter@linaro.org>
+Message-ID: <344bcc64-bf13-4726-8530-48eca7d643d1@stanley.mountain>
+References: <5ff4d367-b5bd-40ae-9529-56d08ea6c1d0@stanley.mountain>
+ <92b7d28e-6103-4c76-17dd-6ae94552a043@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <cover.1744468610.git.dan.carpenter@linaro.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <92b7d28e-6103-4c76-17dd-6ae94552a043@amd.com>
 X-Mailman-Approved-At: Sat, 12 Apr 2025 16:07:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,38 +97,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The goto frees "fence_drv" so this is a double free bug.  There is no
-need to call amdgpu_seq64_free(adev, fence_drv->va) since the seq64
-allocation failed so change the goto to goto free_fence_drv.  Also
-propagate the error code from amdgpu_seq64_alloc() instead of hard coding
-it to -ENOMEM.
+On Thu, Apr 10, 2025 at 10:29:31PM +0530, Yadav, Arvind wrote:
+> Please change this also instead of 'goto free_fence_drv' just return err.
+> 
+>         fence_drv = kzalloc(sizeof(*fence_drv), GFP_KERNEL);
+>         if (!fence_drv) {
+>                 DRM_ERROR("Failed to allocate memory for fence driver\n");
+>                 r = -ENOMEM;
+>                 goto free_fence_drv; // this should be replace by return.
+>         }
+> 
+> ~arvind
 
-Fixes: e7cf21fbb277 ("drm/amdgpu: Few optimization and fixes for userq fence driver")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
-v2: No change.
+I noticed that when I was writing my patch as well.  I'm always in favor
+of direct returns, but it makes the patch confusing to add this unrelated
+cleanup...  I'll send it as a separate patch.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index a4953d668972..b012fece91e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -84,11 +84,8 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
- 	/* Acquire seq64 memory */
- 	r = amdgpu_seq64_alloc(adev, &fence_drv->va, &fence_drv->gpu_addr,
- 			       &fence_drv->cpu_addr);
--	if (r) {
--		kfree(fence_drv);
--		r = -ENOMEM;
--		goto free_seq64;
--	}
-+	if (r)
-+		goto free_fence_drv;
- 
- 	memset(fence_drv->cpu_addr, 0, sizeof(u64));
- 
--- 
-2.47.2
+regards,
+dan carpenter
 
