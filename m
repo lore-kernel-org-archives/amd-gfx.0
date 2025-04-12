@@ -4,50 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E48FC369A2
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 20:14:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF00FC369A1
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Apr 2025 08:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1791210EC9F;
-	Fri, 11 Apr 2025 20:14:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCC110E19D;
+	Sat, 12 Apr 2025 08:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jbJ3GdEB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oSSk47Kk";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD02410EC9F;
- Fri, 11 Apr 2025 20:14:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=m8gbsGs53QKdVE+LfHoqxDJxPZHx8u+jvP1YMHlVLQ0=; b=jbJ3GdEBhfFNMP70XnbA0ndrAM
- riGCuyzrSc/7J7pWMypt9bAqRljRobgYU/cXmx0lp5x09T1VXIapVe636/OF1pUZjF62C14qj6/bh
- pvRlisS7AMqeyKim/n4Be03FyM6wxBOfcY1cyjW0sikfsqzCctaAwplU1a3Qq7qn89jrKny7FIRbc
- O69wEI8suohPmhKYQi0FeN8GJ7aWFYgDJUIZgrOMCuB15/1AKFfXk7/e3dzCkdzY9EQz+k85lj7Un
- WvO6K9ZK8fqU2Wr2dg3W3emm5GPJ04XhLcGr03RXs+WCDvRm6eTeQAa5O8ZyKWnSC9WyxyumBV4ZT
- KmqOd8Cg==;
-Received: from [189.6.35.67] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1u3Klx-00FIP5-6N; Fri, 11 Apr 2025 22:14:46 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: Alex Hung <alex.hung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: [PATCH 13/13] drm/amd/display: move dc_sink from dc_edid to drm_edid
-Date: Fri, 11 Apr 2025 17:08:43 -0300
-Message-ID: <20250411201333.151335-14-mwen@igalia.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250411201333.151335-1-mwen@igalia.com>
-References: <20250411201333.151335-1-mwen@igalia.com>
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26A8610E1C3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Apr 2025 08:03:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VHUsJrA2DAUicnoOWIQAZf6XETUxc/cZvuySAb+KwUICr7S8uFVK9HwEDKLQWXfmKZpTWPsl+Z75ywYfsW5i5KRSuGqbN22i/Iw2lMqbmY7T6Xpi/xJkaPjGischwTqlQoVZuT0ffKqcT7AgvtOCrTwEKmbqBBb+uszzRDZDExq0TjUSoiQHY8FfVu2SeJCuSeYM9ujK26G/x7gYuBX4trdOa9utb70jVimP1tZDIVFB0XtLLZ4wuGifqcKzSMR3p5ySFKP8Mglj37p1nPxI2ULgqoTcbaa3l5nUyBqHhN/AlWu9paUu49jFBoBMLku0OlDrHXN66DBmnfdAw0FSKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ChCGtXtBppPk1h+iB86VBZGEsUshBPIr4Ug6xJfiIXM=;
+ b=wyRwWRndQOkkFetO5ycqfDshoi8j2HruOfcVSU6PguepNP8AG/fTQIwLDqBkTR9X/6Zxz5wOrTOgCrM1AGJtnoohMkpKFwd4ckyDphPSx0ElGoA0SqFOTbitia1HJLgfDIeOQMMaiuPou2dMjdOXcxOs5KIifn/I6Vz5BN8LJHtrHjynZgTEvW/iGXU6iVo5Jv2EX5bJl414Id30GrRv1iAqdVxZBwJfmnWMuiHi/A4Urbzx+poZV8ffxtRSMYiAaYd71EZrpjRd0TvYFreiEkWr8sOyK9XFYfF/4FW80CEXp6ZwWqZklFH+VUrH4CvOgDuuxrKCCEeN7weqA/fgqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ChCGtXtBppPk1h+iB86VBZGEsUshBPIr4Ug6xJfiIXM=;
+ b=oSSk47KkVg8PIa+8eiPQPs3ijcjt1OjktEyM7Nbw3/pXXFgdMYtyK9e1AuG8kSVImZFyMliJj/2zCEXmgxIW4l+7a8PTmzH7ubd3etKUnktBrk5uY+maWxjL4ugf2IcOjcjE0nSAZJ0m4gR0SWxZzHcpbujPVb3bZSN3w56QQKU=
+Received: from MN2PR08CA0025.namprd08.prod.outlook.com (2603:10b6:208:239::30)
+ by SN7PR12MB8004.namprd12.prod.outlook.com (2603:10b6:806:341::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.27; Sat, 12 Apr
+ 2025 08:03:41 +0000
+Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
+ (2603:10b6:208:239:cafe::3) by MN2PR08CA0025.outlook.office365.com
+ (2603:10b6:208:239::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.30 via Frontend Transport; Sat,
+ 12 Apr 2025 08:03:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.0 via Frontend Transport; Sat, 12 Apr 2025 08:03:41 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sat, 12 Apr
+ 2025 03:03:39 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>
+CC: <alexander.deucher@amd.com>, <marek.olsak@amd.com>, "Arunpravin Paneer
+ Selvam" <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Add queue id support to the user queue wait
+ IOCTL
+Date: Sat, 12 Apr 2025 13:33:27 +0530
+Message-ID: <20250412080327.2687-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|SN7PR12MB8004:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fe2db38-5080-4b6f-f08e-08dd79988a22
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aHJhaXBYc1hOWDFXb1dwc2hSRGhXZVZISzJWbllqMENLRGlNaER0bEZhcmR3?=
+ =?utf-8?B?clh4cmVkLzMxMGc2dFR4bFhGOGszRTJpTXVVR3VaVVk4VWpZa0dYVml2OElT?=
+ =?utf-8?B?NFNSQUszR2htYVdEZ1JCYTdmVkxBR1puVGV2YlJPUDdCaC9SUkR6dmpaNHBh?=
+ =?utf-8?B?VGZlem9DaElaRXBndnZGMS9uMGtOVXpFWlJEcmd0cWxuZ2hva1VtcGxNaXFE?=
+ =?utf-8?B?bU8rY2NrT2RWU05Xc2ZGUCs1cHJIZG40aU1kNk5ybjFKaitPSHh1S2lZeXE4?=
+ =?utf-8?B?N2ZNMUgwcGh6QTZwQ1NZQjdqZEtueGNZaVhCOGVhTEJkdVZLaU55WUVEZ1ky?=
+ =?utf-8?B?QlltbUh6WDN5ZENPN3JkZ2xjRzRyZUJuWTVaQ280NXRYN3J3QWtkZURJMTJi?=
+ =?utf-8?B?OFRjRzNPVUV6ZUlFNHVwZkhPQ29Ob2V1OVRFQTBFKzg0WWI3aUtHemhmYUU5?=
+ =?utf-8?B?cUN0QWNGcWF6Qzc0QWZ1VERjY1Q0ZmxrOC9hWjhIQTFGWjY2eWdKVU5sbnFp?=
+ =?utf-8?B?UENPOGZYeXQwK2hDTEFsZXNGSnJnajRNM0I3V2RCb0ZreWpHYTlQSFJXTXRJ?=
+ =?utf-8?B?RC91N2p4TnNicDMzVHBPTXd4TUpuNDY4czNmdUliY3pzek5SaHZvM1pUbkcr?=
+ =?utf-8?B?eDM2a2hkWG9mWjhKdk40ZW1pQjFGaDJ1Q3ZvVDh6bVoxa1hmUnFwQmR0SjBQ?=
+ =?utf-8?B?eW5EMFVJUkZoWGh0dmttNlJSUHpvVXRxQnhTQUhDQXVQUWpTREt3Vi91WVF5?=
+ =?utf-8?B?UWxuYkkxVXFWcWFhVEhnSTR3SGJQNTJPR1hjVHBxaHJXcktmUnJFRS9tblVr?=
+ =?utf-8?B?ejdkVUlOMW9HQmhWUW5NSWRUS25yV0hwdmtBdElYZTZ1VEtES0x2bEhXWXAr?=
+ =?utf-8?B?S081YmgweER6aU9pRzMya05UQ0hoUHlKYzVOc1VydEpOMmVycGVSd3dmS1dP?=
+ =?utf-8?B?VEF3azFZa3VGUUVOWTZPMHpsV2NzU3VvcFZnaG56QkVEdEVLUGJWT1VwN3d1?=
+ =?utf-8?B?KzNwakJxN1lLMW42M0M0Mng5N0VZUHFkVUZmN3BIaERUQnBmVnZMbDlNRDMv?=
+ =?utf-8?B?bFc4Q0txaHEvTUNKUDN3NU15NE5WN3U0WU04Yk1Kd0htQzhiU2o1VzVaYk5w?=
+ =?utf-8?B?MkEwUVczejBybERTSHBNQmVvTTlhcHVIbmJiTEdtSkpmZmt2dldLeEYrUTJ5?=
+ =?utf-8?B?R3RGQURLRU9zZWd5TjdTNG03ZW9jRzU1ZUJZUFExaDZyL09WMW9iaGxGYTFu?=
+ =?utf-8?B?T0hYZy9MMjV0NERzUHZiYmhtZFJ1cGFLNjlqdll1WlVvbjNBQmtxMFFILzRK?=
+ =?utf-8?B?YzR5K25GYS9HZm00V3dXNEdxbGdOQjlJciswNFpJVUtRV0xVdllJR2dKM1pF?=
+ =?utf-8?B?TE9kRVhTaDJmaS9KbERnZXZSNjNIbUNhREd5NkVRK1cyVE10Y29zTVVCRkZQ?=
+ =?utf-8?B?NngvRjJYT0IrSUpaUUhEQVUwd3g0Ti96VE40UHFIa2o1NWtrWXBXZFV1YlpW?=
+ =?utf-8?B?S1BXYTdmazdFVHhIdmE4UURjVTNkLytxOEV3Y3ZoblZubGlSc0ZUZXUxTFk5?=
+ =?utf-8?B?VmxQWmxleE91ekZQTnkzekFDWTAxR3QxYnpEdVRSNUxSOE9qRTd0T1RCV25Q?=
+ =?utf-8?B?ai9IU1ZyWGRPb3Y4Um5sSHhzMHA4MmFlMWp3WTlidnNtakFhd2JNWmJjelpI?=
+ =?utf-8?B?KzE3NzkwZXRHT3FMQXA4enVUdUFmYjJMeVZNS3VLVnhPbE1IVzNyak11VTEz?=
+ =?utf-8?B?ZWttWmh5ME5qQk80QkE1NTNhZjc0YUZGM0JxWEFMbW4xa1JtSUluOUJSVlF6?=
+ =?utf-8?B?N2hTYjZPaTE0RGdNZU5DZHV5dnFTTDFxZXhxWEJkeXVkNFpKekdWVWJxT3Bm?=
+ =?utf-8?B?b2xEZXBDWXlJMnlKRlU1S2oxMXFXdUpUUlVwN2M2WVhKYzB5RVBzM1ZHbnpp?=
+ =?utf-8?B?TU1rTGZUN2Q5SFBaTndlZ2NNbjRidDlQSW5RNnlhS3NjRUpyLytJQlhxcGo0?=
+ =?utf-8?B?VnZPZnB5anJBPT0=?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2025 08:03:41.5593 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fe2db38-5080-4b6f-f08e-08dd79988a22
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B371.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8004
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,300 +140,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reduce direct handling of edid data by resorting to drm helpers that
-deal with this info inside drm_edid infrastructure.
+Add queue id support to the user queue wait IOCTL
+drm_amdgpu_userq_wait structure.
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+This is required to retrieve the wait user queue and maintain
+the fence driver references in it so that the user queue in
+the same context releases their reference to the fence drivers
+at some point before queue destruction.
+
+Otherwise, we would gather those references until we
+don't have any more space left and crash.
+
+v2: Modify the UAPI comment as per the mesa and libdrm UAPI comment.
+
+Libdrm MR: https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/408
+Mesa MR: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/34493
+
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 +++++++------------
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 24 +++++------------
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 21 +++++----------
- .../gpu/drm/amd/display/amdgpu_dm/dc_edid.c   | 26 +++++++++----------
- .../gpu/drm/amd/display/amdgpu_dm/dc_edid.h   |  1 +
- .../drm/amd/display/dc/link/link_detection.c  |  3 ++-
- 6 files changed, 40 insertions(+), 61 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 20 +++++++++++--------
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c |  1 -
+ include/uapi/drm/amdgpu_drm.h                 |  6 ++++++
+ 4 files changed, 18 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3cad6d9153f7..3598f0091551 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -68,6 +68,7 @@
- #endif
- #include "amdgpu_dm_psr.h"
- #include "amdgpu_dm_replay.h"
-+#include "dc_edid.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index a4953d668972..83bb2737c92e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -97,7 +97,6 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
+ 	spin_lock_init(&fence_drv->fence_list_lock);
  
- #include "ivsrcid/ivsrcid_vislands30.h"
+ 	fence_drv->adev = adev;
+-	fence_drv->fence_drv_xa_ptr = &userq->fence_drv_xa;
+ 	fence_drv->context = dma_fence_context_alloc(1);
+ 	get_task_comm(fence_drv->timeline_name, current);
  
-@@ -3862,6 +3863,8 @@ void amdgpu_dm_update_connector_after_detect(
- 	 * 2. Send an event and let userspace tell us what to do
- 	 */
- 	if (sink) {
-+		const struct drm_edid *drm_edid = sink->drm_edid;
+@@ -591,6 +590,9 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 	u32 num_syncobj, num_read_bo_handles, num_write_bo_handles;
+ 	struct drm_amdgpu_userq_fence_info *fence_info = NULL;
+ 	struct drm_amdgpu_userq_wait *wait_info = data;
++	struct amdgpu_fpriv *fpriv = filp->driver_priv;
++	struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
++	struct amdgpu_usermode_queue *waitq;
+ 	struct drm_gem_object **gobj_write;
+ 	struct drm_gem_object **gobj_read;
+ 	struct dma_fence **fences = NULL;
+@@ -840,6 +842,10 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 			fences[num_fences++] = fence;
+ 		}
+ 
++		waitq = idr_find(&userq_mgr->userq_idr, wait_info->waitq_id);
++		if (!waitq)
++			goto free_fences;
 +
- 		/*
- 		 * TODO: check if we still need the S3 mode update workaround.
- 		 * If yes, put it here.
-@@ -3873,16 +3876,15 @@ void amdgpu_dm_update_connector_after_detect(
+ 		for (i = 0, cnt = 0; i < num_fences; i++) {
+ 			struct amdgpu_userq_fence_driver *fence_drv;
+ 			struct amdgpu_userq_fence *userq_fence;
+@@ -868,14 +874,12 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 			 * Otherwise, we would gather those references until we don't
+ 			 * have any more space left and crash.
+ 			 */
+-			if (fence_drv->fence_drv_xa_ptr) {
+-				r = xa_alloc(fence_drv->fence_drv_xa_ptr, &index, fence_drv,
+-					     xa_limit_32b, GFP_KERNEL);
+-				if (r)
+-					goto free_fences;
++			r = xa_alloc(&waitq->fence_drv_xa, &index, fence_drv,
++				     xa_limit_32b, GFP_KERNEL);
++			if (r)
++				goto free_fences;
  
- 		aconnector->dc_sink = sink;
- 		dc_sink_retain(aconnector->dc_sink);
--		if (sink->dc_edid.length == 0) {
-+
-+		if (!drm_edid_valid(drm_edid)) {
- 			aconnector->drm_edid = NULL;
- 			hdmi_cec_unset_edid(aconnector);
- 			if (aconnector->dc_link->aux_mode) {
- 				drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
- 			}
- 		} else {
--			const struct edid *edid = (const struct edid *)sink->dc_edid.raw_edid;
--
--			aconnector->drm_edid = drm_edid_alloc(edid, sink->dc_edid.length);
-+			aconnector->drm_edid = drm_edid_dup(sink->drm_edid);
- 			drm_edid_connector_update(connector, aconnector->drm_edid);
+-				amdgpu_userq_fence_driver_get(fence_drv);
+-			}
++			amdgpu_userq_fence_driver_get(fence_drv);
  
- 			hdmi_cec_set_edid(aconnector);
-@@ -7523,12 +7525,8 @@ static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
- 	aconnector->drm_edid = drm_edid;
- 	/* Update emulated (virtual) sink's EDID */
- 	if (dc_em_sink && dc_link) {
--		// FIXME: Get rid of drm_edid_raw()
--		const struct edid *edid = drm_edid_raw(drm_edid);
--
- 		memset(&dc_em_sink->edid_caps, 0, sizeof(struct dc_edid_caps));
--		memmove(dc_em_sink->dc_edid.raw_edid, edid,
--			(edid->extensions + 1) * EDID_LENGTH);
-+		dc_edid_copy_edid_to_dc(dc_em_sink, drm_edid, 0);
- 		dm_helpers_parse_edid_caps(dc_link, dc_em_sink);
- 	}
- }
-@@ -7561,7 +7559,6 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
- 			.sink_signal = SIGNAL_TYPE_VIRTUAL
- 	};
- 	const struct drm_edid *drm_edid;
--	const struct edid *edid;
- 	struct i2c_adapter *ddc;
+ 			/* Store drm syncobj's gpu va address and value */
+ 			fence_info[cnt].va = fence_drv->va;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+index f0a91cc02880..d5090a6bcdde 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+@@ -55,7 +55,6 @@ struct amdgpu_userq_fence_driver {
+ 	spinlock_t fence_list_lock;
+ 	struct list_head fences;
+ 	struct amdgpu_device *adev;
+-	struct xarray *fence_drv_xa_ptr;
+ 	char timeline_name[TASK_COMM_LEN];
+ };
  
- 	if (dc_link && dc_link->aux_mode)
-@@ -7581,12 +7578,9 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
- 
- 	aconnector->drm_edid = drm_edid;
- 
--	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
--	aconnector->dc_em_sink = dc_link_add_remote_sink(
--		aconnector->dc_link,
--		(uint8_t *)edid,
--		(edid->extensions + 1) * EDID_LENGTH,
--		&init_params);
-+	aconnector->dc_em_sink = dc_link_add_remote_sink(aconnector->dc_link,
-+							 drm_edid, 0,
-+							 &init_params);
- 
- 	if (aconnector->base.force == DRM_FORCE_ON) {
- 		aconnector->dc_sink = aconnector->dc_link->local_sink ?
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 3082582c1579..c56c1e36f539 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -47,6 +47,7 @@
- #include "dm_helpers.h"
- #include "ddc_service_types.h"
- #include "clk_mgr.h"
-+#include "dc_edid.h"
- 
- static void apply_edid_quirks(struct drm_device *dev,
- 			      const struct drm_edid *drm_edid,
-@@ -101,20 +102,16 @@ enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
- 	struct amdgpu_dm_connector *aconnector = link->priv;
- 	struct drm_connector *connector = &aconnector->base;
- 	struct drm_device *dev = connector->dev;
--	struct edid *edid_buf;
--	const struct drm_edid *drm_edid;
-+	const struct drm_edid *drm_edid = sink->drm_edid;
- 	struct drm_edid_product_id product_id;
- 	struct dc_edid_caps *edid_caps = &sink->edid_caps;
- 	int sad_count;
- 	int i = 0;
- 	enum dc_edid_status result = EDID_OK;
- 
--	edid_buf = (struct edid *) &sink->dc_edid.raw_edid;
--	if (!edid_caps || !edid_buf)
-+	if (!edid_caps || !drm_edid)
- 		return EDID_BAD_INPUT;
- 
--	drm_edid = drm_edid_alloc(edid_buf, EDID_LENGTH * (edid_buf->extensions + 1));
--
- 	if (!drm_edid_valid(drm_edid))
- 		result = EDID_BAD_CHECKSUM;
- 
-@@ -137,10 +134,8 @@ enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
- 	apply_edid_quirks(dev, drm_edid, edid_caps);
- 
- 	sad_count = drm_eld_sad_count(connector->eld);
--	if (sad_count <= 0) {
--		drm_edid_free(drm_edid);
-+	if (sad_count <= 0)
- 		return result;
--	}
- 
- 	edid_caps->audio_mode_count = min(sad_count, DC_MAX_AUDIO_DESC_COUNT);
- 	for (i = 0; i < edid_caps->audio_mode_count; ++i) {
-@@ -160,8 +155,6 @@ enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
- 	else
- 		edid_caps->speaker_flags = DEFAULT_SPEAKER_LOCATION;
- 
--	drm_edid_free(drm_edid);
--
- 	return result;
- }
- 
-@@ -993,7 +986,6 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 	int retry = 3;
- 	enum dc_edid_status edid_status;
- 	const struct drm_edid *drm_edid;
--	const struct edid *edid;
- 
- 	if (link->aux_mode)
- 		ddc = &aconnector->dm_dp_aux.aux.ddc;
-@@ -1023,11 +1015,7 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 		if (!drm_edid)
- 			return EDID_NO_RESPONSE;
- 
--		edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
--		sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
--		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
--
--		/* We don't need the original edid anymore */
-+		sink->drm_edid = drm_edid_dup(drm_edid);
- 		drm_edid_free(drm_edid);
- 
- 		edid_status = dm_helpers_parse_edid_caps(link, sink);
-@@ -1053,6 +1041,8 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 
- 		test_response.bits.EDID_CHECKSUM_WRITE = 1;
- 
-+		// TODO: drm_edid doesn't have a helper for dp_write_dpcd yet
-+		dc_edid_copy_edid_to_sink(sink);
- 		dm_helpers_dp_write_dpcd(ctx,
- 					link,
- 					DP_TEST_EDID_CHECKSUM,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 075e8a5be47c..e3de1526397d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -333,12 +333,10 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 					.link = aconnector->dc_link,
- 					.sink_signal = SIGNAL_TYPE_DISPLAY_PORT_MST };
- 
--				dc_sink = dc_link_add_remote_sink(
--					aconnector->dc_link,
--					NULL,
--					0,
--					&init_params);
--
-+				dc_sink = dc_link_add_remote_sink(aconnector->dc_link,
-+								  NULL,
-+								  0,
-+								  &init_params);
- 				if (!dc_sink) {
- 					DRM_ERROR("Unable to add a remote sink\n");
- 					return 0;
-@@ -371,15 +369,10 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 		struct dc_sink_init_data init_params = {
- 				.link = aconnector->dc_link,
- 				.sink_signal = SIGNAL_TYPE_DISPLAY_PORT_MST };
--		const struct edid *edid;
--
--		edid = drm_edid_raw(aconnector->drm_edid); // FIXME: Get rid of drm_edid_raw()
--		dc_sink = dc_link_add_remote_sink(
--			aconnector->dc_link,
--			(uint8_t *)edid,
--			(edid->extensions + 1) * EDID_LENGTH,
--			&init_params);
- 
-+		dc_sink = dc_link_add_remote_sink(aconnector->dc_link,
-+						  aconnector->drm_edid, 0,
-+						  &init_params);
- 		if (!dc_sink) {
- 			DRM_ERROR("Unable to add a remote sink\n");
- 			return 0;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
-index fa0f0e61f05d..b398c9c5e04f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
-@@ -6,25 +6,25 @@
- bool dc_edid_is_same_edid(struct dc_sink *prev_sink,
- 			  struct dc_sink *current_sink)
- {
--	struct dc_edid *old_edid = &prev_sink->dc_edid;
--	struct dc_edid *new_edid = &current_sink->dc_edid;
--
--       if (old_edid->length != new_edid->length)
--               return false;
--
--       if (new_edid->length == 0)
--               return false;
--
--       return (memcmp(old_edid->raw_edid,
--                      new_edid->raw_edid, new_edid->length) == 0);
-+	return drm_edid_is_edid_eq(prev_sink->drm_edid, current_sink->drm_edid);
- }
- 
- void dc_edid_copy_edid_to_dc(struct dc_sink *dc_sink,
- 			     const void *edid,
- 			     int len)
- {
--	memmove(dc_sink->dc_edid.raw_edid, (const uint8_t *) edid, len);
--	dc_sink->dc_edid.length = len;
-+	dc_sink->drm_edid = drm_edid_dup((const struct drm_edid *) edid);
-+}
-+
-+void dc_edid_copy_edid_to_sink(struct dc_sink *sink)
-+{
-+	const struct edid *edid;
-+	uint32_t edid_length;
-+
-+	edid = drm_edid_raw(sink->drm_edid); // FIXME: Get rid of drm_edid_raw()
-+	edid_length = EDID_LENGTH * (edid->extensions + 1);
-+	memcpy(sink->dc_edid.raw_edid, (uint8_t *) edid, edid_length);
-+	sink->dc_edid.length = edid_length;
- }
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
-index 2c76768be459..a95cc6ccc743 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
-@@ -9,6 +9,7 @@ bool dc_edid_is_same_edid(struct dc_sink *prev_sink,
- 			  struct dc_sink *current_sink);
- void dc_edid_copy_edid_to_dc(struct dc_sink *dc_sink,
- 			     const void *edid, int len);
-+void dc_edid_copy_edid_to_sink(struct dc_sink *sink);
- void dc_edid_sink_edid_free(struct dc_sink *sink);
- 
- #endif /* __DC_EDID_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index 978d2b4a4d29..40cf1f0aa7cf 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1142,6 +1142,7 @@ static bool detect_link_and_local_sink(struct dc_link *link,
- 			dp_trace_init(link);
- 
- 		/* Connectivity log: detection */
-+		dc_edid_copy_edid_to_sink(sink);
- 		for (i = 0; i < sink->dc_edid.length / DC_EDID_BLOCK_SIZE; i++) {
- 			CONN_DATA_DETECT(link,
- 					 &sink->dc_edid.raw_edid[i * DC_EDID_BLOCK_SIZE],
-@@ -1424,7 +1425,7 @@ struct dc_sink *link_add_remote_sink(
- 	 * parsing fails
- 	 */
- 	if (edid_status != EDID_OK && edid_status != EDID_PARTIAL_VALID) {
--		dc_sink->dc_edid.length = 0;
-+		drm_edid_free(dc_sink->drm_edid);
- 		dm_error("Bad EDID, status%d!\n", edid_status);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+index ecd49cf15b2a..7c754ba56cff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+@@ -73,7 +73,6 @@ amdgpu_userqueue_cleanup(struct amdgpu_userq_mgr *uq_mgr,
  	}
  
+ 	uq_funcs->mqd_destroy(uq_mgr, queue);
+-	queue->fence_drv->fence_drv_xa_ptr = NULL;
+ 	amdgpu_userq_fence_driver_free(queue);
+ 	idr_remove(&uq_mgr->userq_idr, queue_id);
+ 	kfree(queue);
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index ef97c0d78b8a..2195810ae42d 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -501,6 +501,12 @@ struct drm_amdgpu_userq_fence_info {
+ };
+ 
+ struct drm_amdgpu_userq_wait {
++	/**
++	 * @waitq_id: Queue handle used by the userq wait IOCTL to retrieve the
++	 * wait queue and maintain the fence driver references in it.
++	 */
++	__u32	waitq_id;
++	__u32	pad;
+ 	/**
+ 	 * @syncobj_handles: The list of syncobj handles submitted by the user queue
+ 	 * job to get the va/value pairs.
 -- 
-2.47.2
+2.34.1
 
