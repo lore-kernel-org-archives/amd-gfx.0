@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E95DC3601E
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 07:23:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 366D2C369B2
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 07:23:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E040C10E2F7;
-	Mon, 14 Apr 2025 07:23:45 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 526C510E2D8;
- Mon, 14 Apr 2025 03:15:07 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-01 (Coremail) with SMTP id qwCowADXfwCtffxnLIbCCA--.13743S2;
- Mon, 14 Apr 2025 11:14:54 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com
-Cc: chiahsuan.chung@amd.com, hamza.mahfooz@amd.com, sunil.khatri@amd.com,
- aurabindo.pillai@amd.com, hersenxs.wu@amd.com, mario.limonciello@amd.com,
- mwen@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH v3] drm/amd/display: Add error check for avi and vendor
- infoframe setup function
-Date: Mon, 14 Apr 2025 11:14:39 +0800
-Message-ID: <20250414031439.1895-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F7010E4A0;
+	Mon, 14 Apr 2025 07:23:46 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="BGhT3Y2j";
+	dkim-atps=neutral
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1F8310E1D9;
+ Sun, 13 Apr 2025 11:31:26 +0000 (UTC)
+Received: from localhost (unknown [10.10.165.18])
+ by mail.ispras.ru (Postfix) with ESMTPSA id 0BC784487873;
+ Sun, 13 Apr 2025 11:31:17 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 0BC784487873
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+ s=default; t=1744543877;
+ bh=RoiB+6K4balMwOqjDxvX20TNHB/AXBNeQ7kZn+PUhFo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BGhT3Y2jA6UXr23ZvjvPSC3lQHFla1z13HdxeE12BwQW7gHpRBlU2RYKL1X8CTEvs
+ VAehhf7gDVJR699V+u55SA7u6KGM6NgAL6g2RDpcfXJuMGBddA3SrIMLpsZPCgi0k6
+ brurd1tyjLnTPWRxThtAuBSWEzbFxg0SB0lbeE3w=
+Date: Sun, 13 Apr 2025 14:31:16 +0300
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Denis Arefev <arefev@swemel.ru>, Alex Deucher <alexander.deucher@amd.com>, 
+ Simona Vetter <simona@ffwll.ch>, lvc-project@linuxtesting.org,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
+Subject: Re: [lvc-project] [PATCH] drm/amdgpu: check a user-provided number
+ of BOs in list
+Message-ID: <fgd6hrllcwj2guhr4mwzfblhausluczprlbjqhsqiqeshoq2g2@jgi4rgufn6wx>
+References: <e6ccef21-3ca5-4b5a-b18a-3ba45859569c@amd.com>
+ <bmdour3gw4tuwqgvvw764p4ot3nnltqm4e7n3edlbtpfazvp5c@cqe5dwgc66uy>
+ <f8810b13-01d1-4615-b6e2-2e791c48b466@amd.com>
+ <qc72y52kt7vuwox4lhk42zligy5bslttselfoexse42mywtpps@ebqijs2tap2t>
+ <edc08eb4-63dd-402c-82df-af6898d499a9@amd.com>
+ <pmby7iowvxuomsbuxebttosz245j7ngw5enbl72dq675nrgvve@ugkvzeihbtut>
+ <CAHk-=whLixL8-iYt1qH0-YvEnVsYtryZaN5Da0qoBBhKsBnumw@mail.gmail.com>
+ <437e12e2-ac0d-4a97-bd55-39ee03979526@amd.com>
+ <CAHk-=wjLQzkTTDwJ+ZdVdgNKMg958petkdsu-+m7s9UL6PVCRg@mail.gmail.com>
+ <b7286f30-15ac-4803-b204-0fe6f2423f73@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowADXfwCtffxnLIbCCA--.13743S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF4UAr47KFyUJw47ZF4rAFb_yoW8uw1Upw
- 48t34qyrW0qFZxCryUAFn5ua90k3s7JFy7Kr45Aw15W3s5KrZxJa1fJF1kJ3y7ZFZ5A3Wa
- y3WUX3y2qF1vk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPYb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjc
- xK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
- Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JV
- WxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
- 0VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxkIecxEwV
- AFwVW8GwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
- 14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIx
- kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
- wI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
- 4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pKLvKUU
- UUUU=
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgwMA2f8WvF21QABsX
+In-Reply-To: <b7286f30-15ac-4803-b204-0fe6f2423f73@amd.com>
 X-Mailman-Approved-At: Mon, 14 Apr 2025 07:23:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,52 +68,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function fill_stream_properties_from_drm_display_mode() calls the
-function drm_hdmi_avi_infoframe_from_display_mode() and the
-function drm_hdmi_vendor_infoframe_from_display_mode(), but does
-not check its return value. Log the error messages to prevent silent
-failure if either function fails.
+On Thu, 10. Apr 11:07, Christian König wrote:
+> Am 09.04.25 um 19:27 schrieb Linus Torvalds:
+> > The VM layer allows larger allocations. But the "this is a simple
+> > allocation, choose kmalloc or vmalloc automatically based on size"
+> > helper says "you are being simple, I'm going to check your arguments
+> > are actually sane".
+> >
+> > So the drm code can easily have a function that validates the input
+> > for your specific cases, and then you (a) don't need the helper
+> > function that does the overflow protection and (b) don't want it.
+> >
+> > But it should actually validate arguments for real sanity at that
+> > point. Not just open-code kvmalloc() without the sanity check.
+> 
+> Yeah, exactly that has been proposed by driver maintainers before and we just rejected it on the subsystem maintainers level.
+> 
+> For this particular use case here I will propose some hopefully high enough hard coded limit, but I can't guarantee that this will work for all use cases.
 
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-v3: Fix error-logging function error
-v2: Fix code diff error
+FWIW, the current code anyway has this limit being some sort of 4Gb, not
+more.
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+The resulting calculation of `bytes` wraps at 32 bits albeit itself being
+of type *unsigned long*.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5f216d626cbb..cdf1a07aa8af 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6104,6 +6104,7 @@ static void fill_stream_properties_from_drm_display_mode(
- 	struct amdgpu_dm_connector *aconnector = NULL;
- 	struct hdmi_vendor_infoframe hv_frame;
- 	struct hdmi_avi_infoframe avi_frame;
-+	ssize_t err;
- 
- 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
- 		aconnector = to_amdgpu_dm_connector(connector);
-@@ -6150,9 +6151,17 @@ static void fill_stream_properties_from_drm_display_mode(
- 	}
- 
- 	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
--		drm_hdmi_avi_infoframe_from_display_mode(&avi_frame, (struct drm_connector *)connector, mode_in);
-+		err = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
-+							       (struct drm_connector *)connector,
-+							       mode_in);
-+		if (err < 0)
-+			drm_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
- 		timing_out->vic = avi_frame.video_code;
--		drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame, (struct drm_connector *)connector, mode_in);
-+		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
-+								  (struct drm_connector *)connector,
-+								  mode_in);
-+		if (err < 0)
-+			drm_err(connector->dev, "Failed to setup vendor infoframe: %zd\n", err);
- 		timing_out->hdmi_vic = hv_frame.vic;
- 	}
- 
--- 
-2.42.0.windows.2
+	/* copy the handle array from userspace to a kernel buffer */
+	r = -EFAULT;
+	if (likely(info_size == in->bo_info_size)) {
+		unsigned long bytes = in->bo_number *
+			in->bo_info_size;
+
+		if (copy_from_user(info, uptr, bytes))
+			goto error_free;
 
