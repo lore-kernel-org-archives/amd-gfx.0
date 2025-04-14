@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 532D8C369B5
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 10:10:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8136BC369B2
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 10:21:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF97C10E567;
-	Mon, 14 Apr 2025 10:10:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2493810E554;
+	Mon, 14 Apr 2025 10:21:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BsnJpmcF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kwHQdDmL";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9257510E549;
- Mon, 14 Apr 2025 10:10:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9466E10E53D;
+ Mon, 14 Apr 2025 10:21:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744625424; x=1776161424;
+ t=1744626062; x=1776162062;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=dzANcdKlHKk/XlVKBMN3bAA4Jx6duIYSfj2CAHTpMN8=;
- b=BsnJpmcFntMV5YzngxnuIplrpC+UjOywSr+RGVx+aY30CzoDCHnxNbvc
- KyI0/A7c5hk20GxuoiTBUcU3TpqyhyVLibIYqW5HuIogHLoK7kSsZiLfZ
- fVyMyklHAGEHmavo2QIidw4TbAmW8gYre4VeV2ocT5sB1s2HhAEkXcSE6
- k/8en/4gSX6z9IGXK3hnpCVKq8oZxarVIoicANFqGOE3//palFL/HJmAY
- H3i3YtnuvAoq5WIH19W7PQ/jKVR8UhuiA8n1NFooYrlNbdh/NPjI5pP0n
- 8ZVdMqpim4ZOOS+vgzuzNz5lfpEid1xN6t3ZHYl9gVH67zgFIhtr2tf4S w==;
-X-CSE-ConnectionGUID: vTIkK1+rTrScVIyeTd4msA==
-X-CSE-MsgGUID: QZsTcV+4QAOt6G5DjfM8mg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11402"; a="45999068"
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="45999068"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ bh=NRTyA2oPBXqo+yL9c1QYigI3LXmRHbIoYMh4Lt8Zwzs=;
+ b=kwHQdDmLJKFl01jqHWl9mM/3hFKJ2ab27GbOfu+huzfKuMg9CEemPU0F
+ zzBhT5ClWwS76XPkshj9UmqVP0HCyK7+O7PwK6tejKpsRKhLBQwdfgZC9
+ 3+fgDlK5nz98/7nxkALT0hRJgUCwd8afYMWI0Msp845iKXau77LnJif4T
+ XMdkFMUx0tE7nTLvMCdY2wTtbfhvc6oNLYXiVqmRucDmGggiNT306MJL3
+ iQ10diUm93Htq/gVfhbyp8EY5fHXSFNNbcAqDS9TN42GrkfOF7n88tbFb
+ 3q1JsIBKJ+TvfbKfJoly2eub7BQO5uxxydj2CYVc3uSaTvDZTttwfe4XZ A==;
+X-CSE-ConnectionGUID: 49Lm7K8TSfmu177ej4Lezw==
+X-CSE-MsgGUID: xZ1thO55TgmNezlVqIzlgA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11402"; a="46000217"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="46000217"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2025 03:10:23 -0700
-X-CSE-ConnectionGUID: imantNFPSvqq1YnOzMcZZA==
-X-CSE-MsgGUID: E9yHHkecRDWZiu5bF5pWIw==
+ 14 Apr 2025 03:21:02 -0700
+X-CSE-ConnectionGUID: gEsZRX2nRlyPNlDch1qp7A==
+X-CSE-MsgGUID: 76/I0z8HRYag5oEcI7jueQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="134532754"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="129628140"
 Received: from bergbenj-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.246.205])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2025 03:10:18 -0700
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2025 03:20:58 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Melissa Wen <mwen@igalia.com>, Alex Hung <alex.hung@amd.com>, Mario
  Limonciello <mario.limonciello@amd.com>, Rodrigo Siqueira
@@ -50,13 +50,14 @@ To: Melissa Wen <mwen@igalia.com>, Alex Hung <alex.hung@amd.com>, Mario
  simona@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  kernel-dev@igalia.com
-Subject: Re: [PATCH 03/13] drm/amd/display: parse display name from drm_eld
-In-Reply-To: <20250411201333.151335-4-mwen@igalia.com>
+Subject: Re: [PATCH 13/13] drm/amd/display: move dc_sink from dc_edid to
+ drm_edid
+In-Reply-To: <20250411201333.151335-14-mwen@igalia.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20250411201333.151335-1-mwen@igalia.com>
- <20250411201333.151335-4-mwen@igalia.com>
-Date: Mon, 14 Apr 2025 13:10:16 +0300
-Message-ID: <87fribt5o7.fsf@intel.com>
+ <20250411201333.151335-14-mwen@igalia.com>
+Date: Mon, 14 Apr 2025 13:20:54 +0300
+Message-ID: <87cydft56h.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,57 +75,32 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, 11 Apr 2025, Melissa Wen <mwen@igalia.com> wrote:
-> We don't need to parse dc_edid to get the display name since it's
-> already set in drm_eld which in turn had it values updated when updating
-> connector with the opaque drm_edid.
->
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index e93adb7e48a5..faea6b7fb3f3 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -34,7 +34,7 @@
->  #include <drm/amdgpu_drm.h>
->  #include <drm/drm_edid.h>
->  #include <drm/drm_fixed.h>
-> -
-> +#include <drm/drm_eld.h>
->  #include "dm_services.h"
->  #include "amdgpu.h"
->  #include "dc.h"
-> @@ -90,6 +90,7 @@ static void apply_edid_quirks(struct drm_device *dev, struct edid *edid, struct
->  	}
->  }
->  
-> +#define AMDGPU_ELD_DISPLAY_NAME_SIZE_IN_CHARS 13
->  /**
->   * dm_helpers_parse_edid_caps() - Parse edid caps
->   *
-> @@ -132,9 +133,10 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
->  	edid_caps->manufacture_week = product_id.week_of_manufacture;
->  	edid_caps->manufacture_year = product_id.year_of_manufacture;
->  
-> -	drm_edid_get_monitor_name(edid_buf,
-> -				  edid_caps->display_name,
-> -				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
-> +	memset(edid_caps->display_name, 0, AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
-> +	memcpy(edid_caps->display_name,
-> +	       &connector->eld[DRM_ELD_MONITOR_NAME_STRING],
-> +	       AMDGPU_ELD_DISPLAY_NAME_SIZE_IN_CHARS);
+> +void dc_edid_copy_edid_to_sink(struct dc_sink *sink)
+> +{
+> +	const struct edid *edid;
+> +	uint32_t edid_length;
+> +
+> +	edid = drm_edid_raw(sink->drm_edid); // FIXME: Get rid of drm_edid_raw()
+> +	edid_length = EDID_LENGTH * (edid->extensions + 1);
 
-It's not that simple. The monitor name in ELD is not fixed length (see
-drm_eld_mnl()) and neither is it guaranteed to be NUL terminated.
+I guess none of my concern, really, but here's a hint:
+
+The underlying reason for me to create struct drm_edid to begin with,
+make it opaque, and to go through all the trouble of converting tons of
+code from struct edid to struct drm_edid was exactly the above statement
+being replicated all over the place. It's fundamentally incompatible
+with the HF-EEODB EDID extension block.
 
 BR,
 Jani.
 
 
+
+> +	memcpy(sink->dc_edid.raw_edid, (uint8_t *) edid, edid_length);
+> +	sink->dc_edid.length = edid_length;
+>  }
 >  
->  	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+>  
 
 -- 
 Jani Nikula, Intel
