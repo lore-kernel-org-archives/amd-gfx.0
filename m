@@ -4,55 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9F19C369B5
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 13:26:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F51C369B2
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 13:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 147F710E5B7;
-	Mon, 14 Apr 2025 13:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EB0510E5BB;
+	Mon, 14 Apr 2025 13:27:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l1JpGONG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Urp0phb3";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15AF610E5B8;
- Mon, 14 Apr 2025 13:26:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF8FB10E5BB;
+ Mon, 14 Apr 2025 13:27:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 595BBA49E2E;
- Mon, 14 Apr 2025 13:21:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E6CC4CEE2;
- Mon, 14 Apr 2025 13:26:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CDFDA4A540;
+ Mon, 14 Apr 2025 13:27:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0185CC4CEEB;
+ Mon, 14 Apr 2025 13:27:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744637209;
- bh=SdDfakErbtdXom8mNq43V5dM1oZ0WLZRyARK7WSfqzw=;
+ s=k20201202; t=1744637276;
+ bh=PNaP345gDSSlxLCmwD5j7Q5zUx3k3pb511nj8ViwC28=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=l1JpGONG+RcbEWd30Kzz9TuwD+D5Cse5EIrCCnU0eH8twfL9GLfyjPnFlV3ji3nxP
- SXyK09P72LVDmVFuBYQSxBdrqWJdJx3TWbGJvd7SJkOtkYkmweDpMxKctWdsnDg5HW
- NeZKaGDTqEF1ic6gpQti55dpj8oKji7gt2918LgGUd8raoxYx4HcNlchiJq/HYghXr
- Dc2ezFo3ecWsAjJLATzLVP0+6ichFcz4kwJvP4Adaeov8zOUbk/21bMiKYDK64LDSH
- C9heVxRZnw7qKCJqYi/CBtX94k0IMpMyS1kG0zqJma7t0X80GyHZ/uPYKIuTswut+4
- psdH+h1/XFxOQ==
+ b=Urp0phb3LQJBjCnNWZ0Rmx3qlgewZXlnRKfflWGQkjqw0gh/YKhbaZ05t6Vh1iywo
+ N+EnhRaUPpE2ZMqXhwHD2dGbVntu7pwKE3gk21JG5ZtutEFP9BWYgeN40nvX08Q6x5
+ QsMzDo+vzrKnqC1ybTurlFohoupT899kD6KMR8jOUVJnRPCPXlqQC59YAnWeWff+Qc
+ WkXWkyQlNuhp3V0pv/v1MaZ/qr7yV7jZjwcGR73kEstnfuWYfjgkOd1AWtxAKflnPE
+ POgpnusFSjXi56UMqFJ2m5bJJNgN+IeKDC0cF+Jo7u4oDM+f+xVbte/EhIaQKABuyb
+ 1IKYQIM/3dGDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Felix Kuehling <felix.kuehling@amd.com>, Pak Nin Lui <pak.lui@amd.com>,
+Cc: Emily Deng <Emily.Deng@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, sumit.semwal@linaro.org,
- Yunxiang.Li@amd.com, matthew.auld@intel.com, tvrtko.ursulin@igalia.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: [PATCH AUTOSEL 6.14 15/34] drm/amdgpu: allow pinning DMA-bufs into
- VRAM if all importers can do P2P
-Date: Mon, 14 Apr 2025 09:25:51 -0400
-Message-Id: <20250414132610.677644-15-sashal@kernel.org>
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.13 13/34] drm/amdkfd: sriov doesn't support per
+ queue reset
+Date: Mon, 14 Apr 2025 09:27:07 -0400
+Message-Id: <20250414132729.679254-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250414132610.677644-1-sashal@kernel.org>
-References: <20250414132610.677644-1-sashal@kernel.org>
+In-Reply-To: <20250414132729.679254-1-sashal@kernel.org>
+References: <20250414132729.679254-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.14.2
+X-stable-base: Linux 6.13.11
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,70 +64,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Christian König <christian.koenig@amd.com>
+From: Emily Deng <Emily.Deng@amd.com>
 
-[ Upstream commit f5e7fabd1f5c65b2e077efcdb118cfa67eae7311 ]
+[ Upstream commit ba6d8f878d6180d4d0ed0574479fc1e232928184 ]
 
-Try pinning into VRAM to allow P2P with RDMA NICs without ODP
-support if all attachments can do P2P. If any attachment can't do
-P2P just pin into GTT instead.
+Disable per queue reset for sriov.
 
-Acked-by: Simona Vetter <simona.vetter@ffwll.ch>
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Tested-by: Pak Nin Lui <pak.lui@amd.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>
+Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+Reviewed-by: Jonathan Kim <jonathan.kim@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 25 +++++++++++++++------
- 1 file changed, 18 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index 9f627caedc3f6..ee47f239c8c12 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -75,11 +75,25 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
-  */
- static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
- {
--	struct drm_gem_object *obj = attach->dmabuf->priv;
--	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-+	struct dma_buf *dmabuf = attach->dmabuf;
-+	struct amdgpu_bo *bo = gem_to_amdgpu_bo(dmabuf->priv);
-+	u32 domains = bo->preferred_domains;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 9476e30d6baa1..f45fb81cacd2f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1999,7 +1999,8 @@ static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
+ 			dev->node_props.capability |=
+ 				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
  
--	/* pin buffer into GTT */
--	return amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
-+	dma_resv_assert_held(dmabuf->resv);
-+
-+	/*
-+	 * Try pinning into VRAM to allow P2P with RDMA NICs without ODP
-+	 * support if all attachments can do P2P. If any attachment can't do
-+	 * P2P just pin into GTT instead.
-+	 */
-+	list_for_each_entry(attach, &dmabuf->attachments, node)
-+		if (!attach->peer2peer)
-+			domains &= ~AMDGPU_GEM_DOMAIN_VRAM;
-+
-+	if (domains & AMDGPU_GEM_DOMAIN_VRAM)
-+		bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-+
-+	return amdgpu_bo_pin(bo, domains);
- }
- 
- /**
-@@ -134,9 +148,6 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
- 		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
- 		if (r)
- 			return ERR_PTR(r);
--
--	} else if (bo->tbo.resource->mem_type != TTM_PL_TT) {
--		return ERR_PTR(-EBUSY);
- 	}
- 
- 	switch (bo->tbo.resource->mem_type) {
+-		dev->node_props.capability |= HSA_CAP_PER_QUEUE_RESET_SUPPORTED;
++		if (!amdgpu_sriov_vf(dev->gpu->adev))
++			dev->node_props.capability |= HSA_CAP_PER_QUEUE_RESET_SUPPORTED;
+ 	} else {
+ 		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10 |
+ 					HSA_DBG_WATCH_ADDR_MASK_HI_BIT;
 -- 
 2.39.5
 
