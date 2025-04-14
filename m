@@ -4,55 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 366D2C369B2
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 07:23:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66D39C369A2
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 07:23:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0F7010E4A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA59310E4A5;
 	Mon, 14 Apr 2025 07:23:46 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="BGhT3Y2j";
-	dkim-atps=neutral
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1F8310E1D9;
- Sun, 13 Apr 2025 11:31:26 +0000 (UTC)
-Received: from localhost (unknown [10.10.165.18])
- by mail.ispras.ru (Postfix) with ESMTPSA id 0BC784487873;
- Sun, 13 Apr 2025 11:31:17 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 0BC784487873
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
- s=default; t=1744543877;
- bh=RoiB+6K4balMwOqjDxvX20TNHB/AXBNeQ7kZn+PUhFo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BGhT3Y2jA6UXr23ZvjvPSC3lQHFla1z13HdxeE12BwQW7gHpRBlU2RYKL1X8CTEvs
- VAehhf7gDVJR699V+u55SA7u6KGM6NgAL6g2RDpcfXJuMGBddA3SrIMLpsZPCgi0k6
- brurd1tyjLnTPWRxThtAuBSWEzbFxg0SB0lbeE3w=
-Date: Sun, 13 Apr 2025 14:31:16 +0300
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Denis Arefev <arefev@swemel.ru>, Alex Deucher <alexander.deucher@amd.com>, 
- Simona Vetter <simona@ffwll.ch>, lvc-project@linuxtesting.org,
- linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
-Subject: Re: [lvc-project] [PATCH] drm/amdgpu: check a user-provided number
- of BOs in list
-Message-ID: <fgd6hrllcwj2guhr4mwzfblhausluczprlbjqhsqiqeshoq2g2@jgi4rgufn6wx>
-References: <e6ccef21-3ca5-4b5a-b18a-3ba45859569c@amd.com>
- <bmdour3gw4tuwqgvvw764p4ot3nnltqm4e7n3edlbtpfazvp5c@cqe5dwgc66uy>
- <f8810b13-01d1-4615-b6e2-2e791c48b466@amd.com>
- <qc72y52kt7vuwox4lhk42zligy5bslttselfoexse42mywtpps@ebqijs2tap2t>
- <edc08eb4-63dd-402c-82df-af6898d499a9@amd.com>
- <pmby7iowvxuomsbuxebttosz245j7ngw5enbl72dq675nrgvve@ugkvzeihbtut>
- <CAHk-=whLixL8-iYt1qH0-YvEnVsYtryZaN5Da0qoBBhKsBnumw@mail.gmail.com>
- <437e12e2-ac0d-4a97-bd55-39ee03979526@amd.com>
- <CAHk-=wjLQzkTTDwJ+ZdVdgNKMg958petkdsu-+m7s9UL6PVCRg@mail.gmail.com>
- <b7286f30-15ac-4803-b204-0fe6f2423f73@amd.com>
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C1A910E111;
+ Mon, 14 Apr 2025 06:36:37 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.141.245])
+ by APP-05 (Coremail) with SMTP id zQCowABHhQ3xrPxn6qzlCA--.18678S2;
+ Mon, 14 Apr 2025 14:36:34 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH RESEND] drm/amd/pm/powerplay/smumgr/fiji_smumgr: Fix wrong
+ return value of fiji_populate_smc_boot_level()
+Date: Mon, 14 Apr 2025 14:36:11 +0800
+Message-ID: <20250414063611.2100-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.42.0.windows.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b7286f30-15ac-4803-b204-0fe6f2423f73@amd.com>
+X-CM-TRANSID: zQCowABHhQ3xrPxn6qzlCA--.18678S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF43Wr4xZw43CF4kCF47CFg_yoW5GF15pr
+ WDXrZIv39YyanrJrnrtFs2qr4S9FyxJFW8G3y7C34rZw1UtrW8Zr40ya4ayF48GFyIkws3
+ X342gFWUGr4Ika7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_GF1l42xK82IYc2Ij64vIr4
+ 1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+ 67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+ 8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAv
+ wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+ v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU8D7aUUUUU
+X-Originating-IP: [124.16.141.245]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAgMA2f8nB469QAAsd
 X-Mailman-Approved-At: Mon, 14 Apr 2025 07:23:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,36 +61,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 10. Apr 11:07, Christian König wrote:
-> Am 09.04.25 um 19:27 schrieb Linus Torvalds:
-> > The VM layer allows larger allocations. But the "this is a simple
-> > allocation, choose kmalloc or vmalloc automatically based on size"
-> > helper says "you are being simple, I'm going to check your arguments
-> > are actually sane".
-> >
-> > So the drm code can easily have a function that validates the input
-> > for your specific cases, and then you (a) don't need the helper
-> > function that does the overflow protection and (b) don't want it.
-> >
-> > But it should actually validate arguments for real sanity at that
-> > point. Not just open-code kvmalloc() without the sanity check.
-> 
-> Yeah, exactly that has been proposed by driver maintainers before and we just rejected it on the subsystem maintainers level.
-> 
-> For this particular use case here I will propose some hopefully high enough hard coded limit, but I can't guarantee that this will work for all use cases.
+The return value of fiji_populate_smc_boot_level() is always 0, which
+represent the failure of the function. The result of phm_find_boot_level()
+should be recored and return. An error handling is also needed to
+phm_find_boot_level() to reset the boot level when the function fails.
+A proper implementation can be found in tonga_populate_smc_boot_level().
 
-FWIW, the current code anyway has this limit being some sort of 4Gb, not
-more.
+Fixes: dcaf3483ae46 ("drm/amd/pm/powerplay/smumgr/fiji_smumgr: Remove unused variable 'result'")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ .../drm/amd/pm/powerplay/smumgr/fiji_smumgr.c | 23 +++++++++++++------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-The resulting calculation of `bytes` wraps at 32 bits albeit itself being
-of type *unsigned long*.
-
-	/* copy the handle array from userspace to a kernel buffer */
-	r = -EFAULT;
-	if (likely(info_size == in->bo_info_size)) {
-		unsigned long bytes = in->bo_number *
-			in->bo_info_size;
-
-		if (copy_from_user(info, uptr, bytes))
-			goto error_free;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
+index 5e43ad2b2956..7d0cb3741b94 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
+@@ -1600,19 +1600,28 @@ static int fiji_populate_smc_uvd_level(struct pp_hwmgr *hwmgr,
+ static int fiji_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
+ 		struct SMU73_Discrete_DpmTable *table)
+ {
++	int result = 0;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+ 
+ 	table->GraphicsBootLevel = 0;
+ 	table->MemoryBootLevel = 0;
+ 
+ 	/* find boot level from dpm table */
+-	phm_find_boot_level(&(data->dpm_table.sclk_table),
+-			    data->vbios_boot_state.sclk_bootup_value,
+-			    (uint32_t *)&(table->GraphicsBootLevel));
++	result = phm_find_boot_level(&(data->dpm_table.sclk_table),
++				     data->vbios_boot_state.sclk_bootup_value,
++				     (uint32_t *)&(table->GraphicsBootLevel));
++	if (result) {
++		table->GraphicsBootLevel = 0;
++		return 0;
++	}
+ 
+-	phm_find_boot_level(&(data->dpm_table.mclk_table),
+-			    data->vbios_boot_state.mclk_bootup_value,
+-			    (uint32_t *)&(table->MemoryBootLevel));
++	result = phm_find_boot_level(&(data->dpm_table.mclk_table),
++				     data->vbios_boot_state.mclk_bootup_value,
++				     (uint32_t *)&(table->MemoryBootLevel));
++	if (result) {
++		table->MemoryBootLevel = 0;
++		return 0;
++	}
+ 
+ 	table->BootVddc  = data->vbios_boot_state.vddc_bootup_value *
+ 			VOLTAGE_SCALE;
+@@ -1625,7 +1634,7 @@ static int fiji_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
+ 	CONVERT_FROM_HOST_TO_SMC_US(table->BootVddci);
+ 	CONVERT_FROM_HOST_TO_SMC_US(table->BootMVdd);
+ 
+-	return 0;
++	return result;
+ }
+ 
+ static int fiji_populate_smc_initailial_state(struct pp_hwmgr *hwmgr)
+-- 
+2.42.0.windows.2
 
