@@ -4,52 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F51C369B2
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 13:27:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A73C369B9
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 13:27:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EB0510E5BB;
-	Mon, 14 Apr 2025 13:27:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 778FD10E5BA;
+	Mon, 14 Apr 2025 13:27:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Urp0phb3";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vAZkuqJ7";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="C4vIW1/z";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vAZkuqJ7";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="C4vIW1/z";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF8FB10E5BB;
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D24EF10E5BE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Apr 2025 13:27:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8561B21978;
  Mon, 14 Apr 2025 13:27:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CDFDA4A540;
- Mon, 14 Apr 2025 13:27:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0185CC4CEEB;
- Mon, 14 Apr 2025 13:27:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744637276;
- bh=PNaP345gDSSlxLCmwD5j7Q5zUx3k3pb511nj8ViwC28=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Urp0phb3LQJBjCnNWZ0Rmx3qlgewZXlnRKfflWGQkjqw0gh/YKhbaZ05t6Vh1iywo
- N+EnhRaUPpE2ZMqXhwHD2dGbVntu7pwKE3gk21JG5ZtutEFP9BWYgeN40nvX08Q6x5
- QsMzDo+vzrKnqC1ybTurlFohoupT899kD6KMR8jOUVJnRPCPXlqQC59YAnWeWff+Qc
- WkXWkyQlNuhp3V0pv/v1MaZ/qr7yV7jZjwcGR73kEstnfuWYfjgkOd1AWtxAKflnPE
- POgpnusFSjXi56UMqFJ2m5bJJNgN+IeKDC0cF+Jo7u4oDM+f+xVbte/EhIaQKABuyb
- 1IKYQIM/3dGDQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Emily Deng <Emily.Deng@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.13 13/34] drm/amdkfd: sriov doesn't support per
- queue reset
-Date: Mon, 14 Apr 2025 09:27:07 -0400
-Message-Id: <20250414132729.679254-13-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250414132729.679254-1-sashal@kernel.org>
-References: <20250414132729.679254-1-sashal@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1744637276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=XG5qFk/NLltNPetuvGXPnrMUafh+SGQXfbwHTiUyjm4=;
+ b=vAZkuqJ7Z2fYHXz/68xUQEx1FcAyXiqXhv1tzLkqMf2b9YdqJsQyVvuL7iEb4IxXbEVGwY
+ 6p+QvV7cJHc/wFR9MF4uIPYFqu5zWGBqDKwkpwZwa4CQfclorHeplelEekXtEBMo8HB8PI
+ a4vkr3RWFlHkLjsGAVrSolrVkKtRAAU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1744637276;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=XG5qFk/NLltNPetuvGXPnrMUafh+SGQXfbwHTiUyjm4=;
+ b=C4vIW1/z6liPKq2j+Brg4i4CwEtH8DknLeEfCXioqxiLtbZpL7c3lTHR5GDcB3/ZCxx/0O
+ VHYoGVpB6LQNTMBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1744637276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=XG5qFk/NLltNPetuvGXPnrMUafh+SGQXfbwHTiUyjm4=;
+ b=vAZkuqJ7Z2fYHXz/68xUQEx1FcAyXiqXhv1tzLkqMf2b9YdqJsQyVvuL7iEb4IxXbEVGwY
+ 6p+QvV7cJHc/wFR9MF4uIPYFqu5zWGBqDKwkpwZwa4CQfclorHeplelEekXtEBMo8HB8PI
+ a4vkr3RWFlHkLjsGAVrSolrVkKtRAAU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1744637276;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=XG5qFk/NLltNPetuvGXPnrMUafh+SGQXfbwHTiUyjm4=;
+ b=C4vIW1/z6liPKq2j+Brg4i4CwEtH8DknLeEfCXioqxiLtbZpL7c3lTHR5GDcB3/ZCxx/0O
+ VHYoGVpB6LQNTMBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C468136A7;
+ Mon, 14 Apr 2025 13:27:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id BmBOFVwN/WdGfQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 14 Apr 2025 13:27:56 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/2] drm/amdgpu: Avoid struct drm_gem_object.import_attach
+Date: Mon, 14 Apr 2025 15:23:33 +0200
+Message-ID: <20250414132449.566772-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.13.11
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[5];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,34 +100,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Emily Deng <Emily.Deng@amd.com>
+Avoid the use of struct drm_gem_object.import_attach to get the
+object's dma-buf or test for an imported buffer. The import_attach
+field in struct drm_gem_object is an artifact of the import process,
+but should not be used otherwise.
 
-[ Upstream commit ba6d8f878d6180d4d0ed0574479fc1e232928184 ]
+The helper drm_gem_is_imported() tests if a GEM object's buffer
+has been imported into the driver. The corresponding dma-buf is
+referenced by the object itself. Both cases avoid import_attach.
 
-Disable per queue reset for sriov.
+Thomas Zimmermann (2):
+  drm/amdgpu: Test for imported buffers with drm_gem_is_imported()
+  drm/amdgpu: Use dma_buf from GEM object instance
 
-Signed-off-by: Emily Deng <Emily.Deng@amd.com>
-Reviewed-by: Jonathan Kim <jonathan.kim@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     |  5 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 14 ++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  6 +++---
+ 6 files changed, 15 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 9476e30d6baa1..f45fb81cacd2f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1999,7 +1999,8 @@ static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
- 			dev->node_props.capability |=
- 				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
- 
--		dev->node_props.capability |= HSA_CAP_PER_QUEUE_RESET_SUPPORTED;
-+		if (!amdgpu_sriov_vf(dev->gpu->adev))
-+			dev->node_props.capability |= HSA_CAP_PER_QUEUE_RESET_SUPPORTED;
- 	} else {
- 		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10 |
- 					HSA_DBG_WATCH_ADDR_MASK_HI_BIT;
 -- 
-2.39.5
+2.49.0
 
