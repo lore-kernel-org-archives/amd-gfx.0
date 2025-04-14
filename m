@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F050CC369A2
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 13:31:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61967C369B8
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 13:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E41710E5D6;
-	Mon, 14 Apr 2025 13:31:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D887110E5DD;
+	Mon, 14 Apr 2025 13:32:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kpAWitE+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WtBjhF1c";
 	dkim-atps=neutral
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com
- [209.85.221.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C18A10E5D4;
- Mon, 14 Apr 2025 13:31:15 +0000 (UTC)
-Received: by mail-vk1-f174.google.com with SMTP id
- 71dfb90a1353d-523f58d7322so248738e0c.1; 
- Mon, 14 Apr 2025 06:31:15 -0700 (PDT)
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com
+ [209.85.222.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B975510E5D8;
+ Mon, 14 Apr 2025 13:32:25 +0000 (UTC)
+Received: by mail-ua1-f53.google.com with SMTP id
+ a1e0cc1a2514c-871a7ebd638so232235241.3; 
+ Mon, 14 Apr 2025 06:32:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744637474; x=1745242274; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1744637545; x=1745242345; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VYko5P0Uj9dxBvgZY4N+74k0M8yvQGkjvUrVryWcOYM=;
- b=kpAWitE+NJLo/i/xcqx2R+U4Zytb3hcGyjVPj9SrPuw6KFj6decebHwemOB8YQQ8ou
- WYxH4y2l/+MJtystHmECk/6adIpRgYHmFiVZ76cbZUkcaPMUSl/gQXUMgCFG+Rz4DVHe
- WeNaSsaPBqBDXV82SuAe6stj4VXxqBDEUiyN43NQ3U5oRAVDjVyAR0N1/TMb6fjy74uv
- 4QGEthcjofytOgI89D52n87GrX2KMkq5S5DlQMfWLErxE2svLrh5qh8BBk8HFUSpaX7/
- ryHCqf9FQ+EjnXWBlAqxpjqH/YsG4dIE+6HUwMvwOs88CgeZWA8kvF2g/74W4v90ApJc
- q3cQ==
+ bh=cLbWjqIEu3IvN7/Kn44+Q64WEI5oH2m78Com7pvnOMU=;
+ b=WtBjhF1c9Z0vO/Ju4X11wqy1uGzMlsvmHto4KuD8kjcvhsr8gWWSyJ5NnEGFay8V2S
+ sai46M2Q/vXxRPRLlqReHKrquT9mSwyKlQUFCeozryNP6pW838Q7Lh/2vS5sv9vKysnK
+ ik227JSAWZx8xnCR9IriLkbyq03VRbp4PPD4hCrjgwsFq5Xj4kxVcLoYx2wbSoB95Jwb
+ /4D6WxWirkd+2dqIyKDNIPVs3ZuihqwCeumNgyhOqGtg650d3+01/ooKOoBZ2G5+wa8Q
+ EGcKBiEXcg8xIBYDwuSBJHEumalj5Nbf1pOGqu8sakdJj5+DgLJs7FDY4OYiM7qBwnD+
+ YMig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744637474; x=1745242274;
+ d=1e100.net; s=20230601; t=1744637545; x=1745242345;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VYko5P0Uj9dxBvgZY4N+74k0M8yvQGkjvUrVryWcOYM=;
- b=u8uuA5iHcHjscJ1DNZpktK646K4Wt/idYPOnCKs7vPR77yWDWtoSnN8mzGKQc4j0YJ
- B4QTrAn5qY+z/CprJcuum/+1M6q/sH1etAHJwBycTAU8QpTG5z2ZiO5CWWDSRk5gKU4f
- xQgjPd6fMrKQZhTFDLfszggzKfaYDTgeJWxlJQoIHpV55Ze/wHxuq3UHn/LvXsNA82e2
- g79IIlHFepMpADQ/23wkaJ/YUJ1Xgai72v3vhogHR9wV187ZYK1iscYUBVbfOt63UbzY
- x4d1XS+maH2VaRX8TOFrDmTPKlDxvZLll9LKmECWRE4J3OR0Jv5zmeF1Hd67tscN5tg0
- 8XTA==
+ bh=cLbWjqIEu3IvN7/Kn44+Q64WEI5oH2m78Com7pvnOMU=;
+ b=QJDNQ3KmHB2d+sWn1NuGriCFnzBItX9ncEDKfwAfpoNiJTZ2cxjNokBn7SI5EqUVpC
+ Th4Qb68m7E//Ecq4ARcsMenJVaDskmKrf2ilhq4KzxiHEbrmPoRBWWLr84JV+jbHwDp1
+ uPYdkk/SKdVoyocQFqaOjfPtH4XpnBYNYOa4SenjlD2gqjVELGB8u+JZMQ4Vc4QOEJan
+ If5Jhc367WI6L1q8kS7fpvqMVwSMLGXYP8ieZsaLouAbIRRdUsSXtDDAqVRUCRD6Pdu3
+ F3Nqqd7B7Xs/bLH/lOjP+ejvemTFX+9SpPBc42MKukZGHLh0qsqz4rp9WfWs1zHlVNNJ
+ ZyeQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUhuHw7W17WOgzLfMlBD1Dc0Wu9hh1D1MnRIm2YAquOHNcBdAlFk5D+Ca96/Xxpfuxe6s25e8cv@lists.freedesktop.org,
- AJvYcCWw8xK0aFOSSS8N3QEREkDjy94agvuaxEP790fzFadPdTfUPiWRNnbECfmG6rRI4x7xLYn4gYZjoqqR@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwTkf6xhsvoof/c6KgXsinmlfOMgRLWJQDXkjafXiBxU+OfN/Hg
- pjr9LZxX3drhjXA5S8/YPD7aTCBQQK09h07QrF6e9QLnD4xvxp4BhiiIGPKdrER8c0sYAacXZGz
- irvEx2vMqAwUGoAta672Cf+ddibo=
-X-Gm-Gg: ASbGnctIGkMJ/+teDd33AOvHbWXl3nydaIAzv+E21IXdj002xaL6ysJbDpST1xSs5Qn
- 5VihbxEgWZHtp4TYyeM4qcXOHO3wkCFbOvuOn7nUXMHLBRkYLKsGVGo1qPlJZb34qG5/Rhz2sJH
- WZQll6yJMkMWGuLmal/ICQlA==
-X-Google-Smtp-Source: AGHT+IHU9FwQkANqVWq6HB4deVY97gLIMf5+FLJTdy75WKChAzk9OeMBEaB4Pi9kHLb3C3nJNsVYA0qgr7byQiE5wXc=
-X-Received: by 2002:a05:6122:da1:b0:516:20fe:d5d8 with SMTP id
- 71dfb90a1353d-527c359ccf4mr1741010e0c.2.1744637474078; Mon, 14 Apr 2025
- 06:31:14 -0700 (PDT)
+ AJvYcCU3bc56F7nY/FbgXibIiTbgQ4fCcF3IaZRc7K33vGnxj4NinfpYId2fMw02Wfy3PrZcAhkxlewLqOX3@lists.freedesktop.org,
+ AJvYcCWhVPiEr9ek6N+KNGdAg5lt3XTYiLINaxumtIZkUvHmZdFf5dss2P+6fbF2rhfX6cBSrQIP3l6/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyWGkLauHEEArQ2jxt6bFCkirShHpBBiYkTmGCoQowDXbcmSVcY
+ LiA8xVYZvuHE/OX18LO3fjmRy8NwwPSe0oplcm3l98jN6ggOZr0FD+X+BwzwiNx5gotAYj2UbSo
+ gvxfyTovA7KUX1v4sks040qx7UVc=
+X-Gm-Gg: ASbGnctcC9AVhSWY5KjDDA930TcgyCNxSjcrrPfiX0kdprzRBkF6r2QGkGseWxOvfm7
+ rsPLPtaODkWlM1fNvSl8R/I/TsDR1WXcNBPXtNQiYuRt26kDfeGf8M1Fe/hmvjo722/ttQQngyY
+ y1VbgIkOIVZ5wYTUIPIRyRsg==
+X-Google-Smtp-Source: AGHT+IF7IOfl7G3RHuUMkW9G3NUZ1c6AeYBhcFA/0srYwHNBMQNbCBke1d4i0DzNdtUmmahoewD0PR3r989Z7nXMJeg=
+X-Received: by 2002:a05:6102:1526:b0:4c1:7646:714b with SMTP id
+ ada2fe7eead31-4c9e509f68dmr2714727137.8.1744637544260; Mon, 14 Apr 2025
+ 06:32:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250414132848.679855-1-sashal@kernel.org>
- <20250414132848.679855-11-sashal@kernel.org>
-In-Reply-To: <20250414132848.679855-11-sashal@kernel.org>
+References: <20250414132610.677644-1-sashal@kernel.org>
+ <20250414132610.677644-15-sashal@kernel.org>
+In-Reply-To: <20250414132610.677644-15-sashal@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Apr 2025 09:31:01 -0400
-X-Gm-Features: ATxdqUHGTxjstZXt6MENE-PXqnTQyUOB_COxTyDCeu_fpv9Pwmta6iiK5pHbslw
-Message-ID: <CADnq5_PqqY07uBERuSGC--+=dsffxydrPrvzt7pw6SfmmqbDjw@mail.gmail.com>
-Subject: Re: [PATCH AUTOSEL 6.12 11/30] drm/amdgpu: allow pinning DMA-bufs
+Date: Mon, 14 Apr 2025 09:32:12 -0400
+X-Gm-Features: ATxdqUHJqYR9htHgMYIluI0e4GkanXvhCUfhX9nDEKqwCQY5PEKlQtBXD_SK1DY
+Message-ID: <CADnq5_MFOtBZ0_UtRbZ2fRGzgdr5+2ZkNwY-Ot_V2qo1wUPaYw@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 6.14 15/34] drm/amdgpu: allow pinning DMA-bufs
  into VRAM if all importers can do P2P
 To: Sasha Levin <sashal@kernel.org>
 Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
@@ -92,7 +92,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 14, 2025 at 9:29=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+On Mon, Apr 14, 2025 at 9:26=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
 te:
 >
 > From: Christian K=C3=B6nig <christian.koenig@amd.com>
@@ -112,8 +112,7 @@ te:
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-This should not go to stable.  It depends on dmem groups.
-
+This should not go to stable.  It depends on dmem cgroups.
 
 Alex
 
@@ -123,10 +122,10 @@ Alex
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/dr=
 m/amd/amdgpu/amdgpu_dma_buf.c
-> index 8e81a83d37d84..83390143c2e9f 100644
+> index 9f627caedc3f6..ee47f239c8c12 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -72,11 +72,25 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmab=
+> @@ -75,11 +75,25 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmab=
 uf,
 >   */
 >  static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
@@ -158,7 +157,7 @@ uf,
 >  }
 >
 >  /**
-> @@ -131,9 +145,6 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma=
+> @@ -134,9 +148,6 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma=
 _buf_attachment *attach,
 >                 r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
 >                 if (r)
