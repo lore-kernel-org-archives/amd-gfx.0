@@ -4,49 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE630C369AB
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 10:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B254C369B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 10:17:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F2E110E705;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DECC10E70F;
 	Tue, 15 Apr 2025 10:17:14 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B93F10E701;
- Tue, 15 Apr 2025 10:08:45 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-03 (Coremail) with SMTP id rQCowACnUD0gMP5nO6j8CA--.18963S2;
- Tue, 15 Apr 2025 18:08:33 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH v2] drm/amd/pm/powerplay/smumgr/fiji_smumgr: Add error check
- in fiji_populate_smc_boot_level()
-Date: Tue, 15 Apr 2025 18:08:13 +0800
-Message-ID: <20250415100813.3071-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="GcTC8O6X";
+	dkim-atps=neutral
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 531DF10E5A2;
+ Mon, 14 Apr 2025 12:49:02 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4ZbnCt1JYcz9tWk;
+ Mon, 14 Apr 2025 14:48:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1744634938; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=faT4q+fQ4Hn37MPBwMk9K8OzFUqq0CdDFuY4LhelCJo=;
+ b=GcTC8O6XiFxnvo5i11DnEUNzsVokGmJSpuYuPw7dEUVOFdFGL20bfDiQ7ZP350hoi2KFO9
+ MmfsQ43JbykkJT2etGtPqR7hp00D5kBj2BeoDvdxJ8FRI83wiibMJYunueyjuXZ2cbaPMm
+ gSyPIIbMVqd1i7JAhWUSwSyujUWuWkx2mZNyCXdxLZQ8UnR/GIp8cqdvBvEYcHWCBT96fX
+ pCDweewVRaxQQF+5sabKV7jgV7t9WWW8bdxSKyb2Y8Pte5xuIkY8Yuy2ss/DQTR+St+bZy
+ fpOd0fzbS48oQIdrDz09QRo+DQ8ng1p/vWm1O11mSAghd/maXedn3ff5j/Qoag==
+Message-ID: <7c86f63ae8a9d1ad45f768cc4535d277d422dc81.camel@mailbox.org>
+Subject: Re: [PATCH 1/2] drm/sched: add drm_sched_prealloc_dependency_slots v2
+From: Philipp Stanner <phasta@mailbox.org>
+To: phasta@kernel.org, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, tvrtko.ursulin@igalia.com,
+ dakr@kernel.org,  dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: Matthew Wilcox <willy@infradead.org>
+Date: Mon, 14 Apr 2025 14:48:54 +0200
+In-Reply-To: <4c5d9342b8e2e04c3928ebba003d4f9ab06659b0.camel@mailbox.org>
+References: <20250321155852.15162-1-christian.koenig@amd.com>
+ <867c3abac8a222fa42921a6725e85fe459bc9d5e.camel@mailbox.org>
+ <c2ed3d7e-d5c3-4d74-8365-fdb3f46f6a3a@gmail.com>
+ <4c5d9342b8e2e04c3928ebba003d4f9ab06659b0.camel@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACnUD0gMP5nO6j8CA--.18963S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uw4xCr1kAr1rKw13CrW7Arb_yoW5JrWrpr
- 9xXrZIv395tanxJrnrtan2qr4S9Fy8JFWUCay7C34rXw1jqryUZr40ya4aya18GFyIkwsa
- q3ZFga4UCr4Ik3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
- 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
- CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
- nIWIevJa73UjIFyTuYvjfU52NtDUUUU
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRENA2f+IlI5yQAAsP
+X-MBO-RS-META: 8j8ipn9ahks6aa3g47761d4h5gpa1hbz
+X-MBO-RS-ID: 29596a4485cf1dbd468
 X-Mailman-Approved-At: Tue, 15 Apr 2025 10:17:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,64 +66,252 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The return value of fiji_populate_smc_boot_level() is needs to be checked.
-An error handling is also needed to phm_find_boot_level() to reset the
-boot level when the function fails. A proper implementation can be found
-in tonga_populate_smc_boot_level().
+On Wed, 2025-04-09 at 16:04 +0200, Philipp Stanner wrote:
+> +Cc Matthew
+>=20
+> On Wed, 2025-04-09 at 15:55 +0200, Christian K=C3=B6nig wrote:
+> > Am 09.04.25 um 12:28 schrieb Philipp Stanner:
+> > > On Fri, 2025-03-21 at 16:58 +0100, Christian K=C3=B6nig wrote:
+> > > > Sometimes drivers need to be able to submit multiple jobs which
+> > > > depend on
+> > > > each other to different schedulers at the same time, but using
+> > > > drm_sched_job_add_dependency() can't fail any more after the
+> > > > first
+> > > > job is
+> > > > initialized.
+> > > >=20
+> > > > This function preallocate memory for dependency slots so that
+> > > > no
+> > > > ENOMEM
+> > > > can come later while adding dependencies.
+> > > >=20
+> > > > v2: rework implementation an documentation
+> > > >=20
+> > > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > ---
+> > > > =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 44
+> > > > ++++++++++++++++++++++++--
+> > > > =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 ++
+> > > > =C2=A02 files changed, 43 insertions(+), 3 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > index 4d4219fbe49d..ee3701f346b2 100644
+> > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > @@ -852,6 +852,39 @@ void drm_sched_job_arm(struct
+> > > > drm_sched_job
+> > > > *job)
+> > > > =C2=A0}
+> > > > =C2=A0EXPORT_SYMBOL(drm_sched_job_arm);
+> > > > =C2=A0
+> > > > +/**
+> > > > + * drm_sched_job_prealloc_dependency_slots - avoid ENOMEM on
+> > > > adding
+> > > > dependencies
+> > > > + * @job: scheduler job where dependencies will be added
+> > > > + * @num_deps: number of dependencies to preallocate slots for
+> > > > +=C2=A0 *
+> > > > + * Sometimes drivers need to be able to submit multiple jobs
+> > > > which
+> > > > depend on
+> > > > + * each other to different schedulers at the same time, but
+> > > > using
+> > > > + * drm_sched_job_add_dependency() can't fail any more after
+> > > > the
+> > > > first job is
+> > > > + * initialized.
+> > > > + *
+> > > > + * This function preallocate memory for dependency slots so
+> > > > that
+> > > > no
+> > > > ENOMEM can
+> > > > + * come later while adding dependencies.
+> > > > + *
+> > > > + * Return:
+> > > > + * 0 on success, or an error on failing to expand the array.
+> > > > + */
+> > > > +int drm_sched_job_prealloc_dependency_slots(struct
+> > > > drm_sched_job
+> > > > *job,
+> > > > +					=C2=A0=C2=A0=C2=A0 unsigned int
+> > > > num_deps)
+> > > > +{
+> > > > +	u32 id =3D 0;
+> > > > +	int ret;
+> > > > +
+> > > > +	while (num_deps--) {
+> > > > +		ret =3D xa_alloc(&job->dependencies, &id,
+> > > > XA_ZERO_ENTRY,
+> > > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xa_limit_32b, GFP_KERNEL);
+> > > I've had some time to re-read the xarray documentation and I
+> > > think
+> > > that
+> > > this is what xa_reserve() was born for. The Book of
+> > > Documentation/core-
+> > > api/xarray.rst sayeth:
+> > >=20
+> > > "Sometimes you need to ensure that a subsequent call to
+> > > xa_store()
+> > > will not need to allocate memory.=C2=A0 The xa_reserve() function
+> > > will store a reserved entry at the indicated index.=C2=A0 Users of th=
+e
+> > > normal API will see this entry as containing ``NULL``."
+> > >=20
+> > > That's far better, this way we don't have to use that more or
+> > > less
+> > > xarray-internal flag.
 
-Fixes: dcaf3483ae46 ("drm/amd/pm/powerplay/smumgr/fiji_smumgr: Remove unused variable 'result'")
-Cc: stable@vger.kernel.org # v5.11+
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-v2: Fix error code.
+I've tried to look through the code and think it through=E2=80=A6
 
- .../drm/amd/pm/powerplay/smumgr/fiji_smumgr.c | 23 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 6 deletions(-)
+> >=20
+> > Yeah I have seen that as well. The reason why I didn't followed
+> > this
+> > route was that I wasn't sure if I then need to check for NULL
+> > entries
+> > while iterating over the XA.
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
-index 5e43ad2b2956..78ba22f249b2 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
-@@ -1600,19 +1600,30 @@ static int fiji_populate_smc_uvd_level(struct pp_hwmgr *hwmgr,
- static int fiji_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
- 		struct SMU73_Discrete_DpmTable *table)
- {
-+	int result = 0;
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 
- 	table->GraphicsBootLevel = 0;
- 	table->MemoryBootLevel = 0;
- 
- 	/* find boot level from dpm table */
--	phm_find_boot_level(&(data->dpm_table.sclk_table),
--			    data->vbios_boot_state.sclk_bootup_value,
--			    (uint32_t *)&(table->GraphicsBootLevel));
-+	result = phm_find_boot_level(&(data->dpm_table.sclk_table),
-+				     data->vbios_boot_state.sclk_bootup_value,
-+				     (uint32_t *)&(table->GraphicsBootLevel));
-+	if (result != 0) {
-+		table->GraphicsBootLevel = 0;
-+		pr_err("VBIOS did not find boot engine clock value in dependency table. Using Graphics DPM level 0!\n");
-+		result = 0;
-+	}
- 
--	phm_find_boot_level(&(data->dpm_table.mclk_table),
--			    data->vbios_boot_state.mclk_bootup_value,
--			    (uint32_t *)&(table->MemoryBootLevel));
-+	result = phm_find_boot_level(&(data->dpm_table.mclk_table),
-+				     data->vbios_boot_state.mclk_bootup_value,
-+				     (uint32_t *)&(table->MemoryBootLevel));
-+	if (result != 0) {
-+		table->MemoryBootLevel = 0;
-+		pr_err("VBIOS did not find boot engine clock value in dependency table. Using Memory DPM level 0!\n");
-+		result = 0;
-+	}
- 
- 	table->BootVddc  = data->vbios_boot_state.vddc_bootup_value *
- 			VOLTAGE_SCALE;
--- 
-2.42.0.windows.2
+AFAICS, when you use xa_reserve(), xa_load() and xa_for_each() will
+return NULL for the reserved entries =E2=80=93 therefore potentially blowin=
+g up
+the scheduler without NULL checks, when someone uses the new prealloc
+function without actually filling in the dependencies later.
+At least the documentation says so:
+
+"The xa_reserve() function will store a reserved entry at the indicated
+index.  Users of the normal API will see this entry as containing
+``NULL``."
+
+So that's definitely not a good idea.
+
+
+BUT the same seems to be the case for xa_alloc(=E2=80=A6, XA_ZERO_ENTRY, =
+=E2=80=A6)?
+
+xa_load() will *definitely* return NULL, since it utilizes
+xa_zero_to_null(). We have one use, in sched_entity.c. That use should
+only ever evaluate a valid dependency, so can't realistically speaking
+be NULL.
+
+So the more interesting question is how, xa_for_each(), our main work
+horse, behaves. It uses xa_find(), which uses xas_find(), which=E2=80=A6 se=
+ems
+to be OK?
+
+xa_find()'s docu says:
+"* Return: The entry, if found, otherwise %NULL."
+
+???
+
+I agree we should aim for documenting that better. It could also make
+sense to _consider_ changing xa_for_each() so that it doesn't return
+reserved entries, but only 'used' entries.
+
+
+P.
+
+
+> >=20
+> > Additional to that I couldn't figure out of hand how to determine a
+> > the next free index slot.
+> >=20
+> > Have you found any example how to use that? I mean the
+> > documentation
+> > could certainly be improved a bit.
+>=20
+> Maybe Matthew can help us out here?
+>=20
+> Matthew, what would be the idiomatic way to do this, and can we help
+> out with improving the Xarray's documentation?
+>=20
+> Thx,
+> P.
+>=20
+> >=20
+> > Regards,
+> > Christian.
+> >=20
+> > >=20
+> > >=20
+> > > > +		if (ret !=3D 0)
+> > > > +			return ret;
+> > > > +	}
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slots);
+> > > > +
+> > > > =C2=A0/**
+> > > > =C2=A0 * drm_sched_job_add_dependency - adds the fence as a job
+> > > > dependency
+> > > > =C2=A0 * @job: scheduler job to add the dependencies to
+> > > > @@ -878,10 +911,15 @@ int drm_sched_job_add_dependency(struct
+> > > > drm_sched_job *job,
+> > > > =C2=A0	 * engines involved, rather than the number of BOs.
+> > > > =C2=A0	 */
+> > > > =C2=A0	xa_for_each(&job->dependencies, index, entry) {
+> > > > -		if (entry->context !=3D fence->context)
+> > > > +		if (xa_is_zero(entry)) {
+> > > > +			/*
+> > > > +			 * Reserved entries must not alloc
+> > > > memory,
+> > > > but let's
+> > > > +			 * use GFP_ATOMIC just to be on the
+> > > > defensive side.
+> > > > +			*/
+> > > > +			xa_store(&job->dependencies, index,
+> > > > fence,
+> > > > GFP_ATOMIC);
+> > > And regarding this =E2=80=93 it can actually never happen, but you
+> > > provide
+> > > ATOMIC just to be sure?
+> > >=20
+> > > I think it would be better if we'd just run into an obvious bug
+> > > here
+> > > instead, so like a deadlock with GFP_KERNEL.
+> > >=20
+> > > That's how we do it with pointers that cannot be NULL, too. If
+> > > the
+> > > impossible were to happen and it were NULL, we'd crash.
+> > >=20
+> > > P.
+> > >=20
+> > > > +		} else if (entry->context !=3D fence->context) {
+> > > > =C2=A0			continue;
+> > > > -
+> > > > -		if (dma_fence_is_later(fence, entry)) {
+> > > > +		} else if (dma_fence_is_later(fence, entry)) {
+> > > > =C2=A0			dma_fence_put(entry);
+> > > > =C2=A0			xa_store(&job->dependencies, index,
+> > > > fence,
+> > > > GFP_KERNEL);
+> > > > =C2=A0		} else {
+> > > > diff --git a/include/drm/gpu_scheduler.h
+> > > > b/include/drm/gpu_scheduler.h
+> > > > index 1a7e377d4cbb..916e820b27ff 100644
+> > > > --- a/include/drm/gpu_scheduler.h
+> > > > +++ b/include/drm/gpu_scheduler.h
+> > > > @@ -632,6 +632,8 @@ int drm_sched_job_init(struct drm_sched_job
+> > > > *job,
+> > > > =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 credits, void *own=
+er);
+> > > > =C2=A0void drm_sched_job_arm(struct drm_sched_job *job);
+> > > > =C2=A0void drm_sched_entity_push_job(struct drm_sched_job
+> > > > *sched_job);
+> > > > +int drm_sched_job_prealloc_dependency_slots(struct
+> > > > drm_sched_job
+> > > > *job,
+> > > > +					=C2=A0=C2=A0=C2=A0 unsigned int
+> > > > num_deps);
+> > > > =C2=A0int drm_sched_job_add_dependency(struct drm_sched_job *job,
+> > > > =C2=A0				 struct dma_fence *fence);
+> > > > =C2=A0int drm_sched_job_add_syncobj_dependency(struct drm_sched_job
+> > > > *job,
+> >=20
+>=20
 
