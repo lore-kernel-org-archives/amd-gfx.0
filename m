@@ -4,72 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70EC6C369B8
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 13:29:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F050CC369A2
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 13:31:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE5C510E5CF;
-	Mon, 14 Apr 2025 13:29:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E41710E5D6;
+	Mon, 14 Apr 2025 13:31:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HBHvUoCs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kpAWitE+";
 	dkim-atps=neutral
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
- [209.85.221.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D39EE10E5C0;
- Mon, 14 Apr 2025 13:29:25 +0000 (UTC)
-Received: by mail-vk1-f181.google.com with SMTP id
- 71dfb90a1353d-523f58d7322so248474e0c.1; 
- Mon, 14 Apr 2025 06:29:25 -0700 (PDT)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com
+ [209.85.221.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C18A10E5D4;
+ Mon, 14 Apr 2025 13:31:15 +0000 (UTC)
+Received: by mail-vk1-f174.google.com with SMTP id
+ 71dfb90a1353d-523f58d7322so248738e0c.1; 
+ Mon, 14 Apr 2025 06:31:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744637365; x=1745242165; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1744637474; x=1745242274; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gIG3nYBZANIFgu52jyjhWW3N+y09Fbww46hgtWyndUw=;
- b=HBHvUoCspV6M1mjO6Y9vhWDoNsYGn1w/JdrNwedwuf7QCj49gAZskVvnLoDbbBiETx
- xQ1YmFchlFNIdA/GC+LxHAw8qBW/t3SAXkV6IPjdkJduZRGUznPiRB7VsdvsipWtxGF1
- o7AM7b2GLicIePW+E9bbuBASee7cIZX/iMHxjs98zlPLTfqLTF341nQlhwsvVVO+rDg0
- t4ImkrAsmuINrirY433A1hPyyaCbZzGUt43voUTR9vX0kGCp7FEnxxQ+Riyln6nXeryj
- CRqMQspaogDTtzXdoDY5Gu7QjlnekpiHlcoyGbNVCzEIA4AUC3Tnzw/3rbqUgwF1DTks
- Eojg==
+ bh=VYko5P0Uj9dxBvgZY4N+74k0M8yvQGkjvUrVryWcOYM=;
+ b=kpAWitE+NJLo/i/xcqx2R+U4Zytb3hcGyjVPj9SrPuw6KFj6decebHwemOB8YQQ8ou
+ WYxH4y2l/+MJtystHmECk/6adIpRgYHmFiVZ76cbZUkcaPMUSl/gQXUMgCFG+Rz4DVHe
+ WeNaSsaPBqBDXV82SuAe6stj4VXxqBDEUiyN43NQ3U5oRAVDjVyAR0N1/TMb6fjy74uv
+ 4QGEthcjofytOgI89D52n87GrX2KMkq5S5DlQMfWLErxE2svLrh5qh8BBk8HFUSpaX7/
+ ryHCqf9FQ+EjnXWBlAqxpjqH/YsG4dIE+6HUwMvwOs88CgeZWA8kvF2g/74W4v90ApJc
+ q3cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744637365; x=1745242165;
+ d=1e100.net; s=20230601; t=1744637474; x=1745242274;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gIG3nYBZANIFgu52jyjhWW3N+y09Fbww46hgtWyndUw=;
- b=OI3U6AudSjPcIhY7jnZND0FmNxkYR/0L0i9PoQILy+bIghkR59fvW4C2l4YWF4lzC1
- Tvizbe1k/enqYGwl7ojUfuggbacZDUSPeS3r91tGuAt7o8vhqMQrCEBUOFO0TESubtQT
- Rb0rDZ+2UlEdvkK9LPnyV0lEEqp+ZUwl1GvtVDFyt3uVdC00EqIKcFqaRaiherflrr4G
- Gq9YWitX6Hjp0ZxG8GAu5Do7aDJI8Qu17gyftuwnI7L9n2wWFn+IOCDOV4UwB63LGVy9
- O7Don4oInBu+6CCbOeuiPMzwrijXX/JPTQ6i9apft5vrm7YX8ZsYwa2G4xim953ntIMu
- WeJA==
+ bh=VYko5P0Uj9dxBvgZY4N+74k0M8yvQGkjvUrVryWcOYM=;
+ b=u8uuA5iHcHjscJ1DNZpktK646K4Wt/idYPOnCKs7vPR77yWDWtoSnN8mzGKQc4j0YJ
+ B4QTrAn5qY+z/CprJcuum/+1M6q/sH1etAHJwBycTAU8QpTG5z2ZiO5CWWDSRk5gKU4f
+ xQgjPd6fMrKQZhTFDLfszggzKfaYDTgeJWxlJQoIHpV55Ze/wHxuq3UHn/LvXsNA82e2
+ g79IIlHFepMpADQ/23wkaJ/YUJ1Xgai72v3vhogHR9wV187ZYK1iscYUBVbfOt63UbzY
+ x4d1XS+maH2VaRX8TOFrDmTPKlDxvZLll9LKmECWRE4J3OR0Jv5zmeF1Hd67tscN5tg0
+ 8XTA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUG1btBhwincOLZk1QHLcPK2UwTlfVNXYmyen5jY9kiokC2SgwKaedJPYxnXkOFK5ADG4SUN4YB@lists.freedesktop.org,
- AJvYcCWMbp5rTqqlykesDz9w0Xfox6AdDNxKUmJVpKncbpjlNpAEiJ+k8XGFBZt+VdNQReNvM56+JF7WWjen@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjIq2BAeef48YpWQnih0RQkxlD9qzIg/KD1SfiV1a1XVcpzaUk
- si3JXee3zWoCJ9nnaZztqpxLvEKOiA3nuMAvxh4vSgFvx0wSBnhhdg+3VHVQ0aDdi2reC12plDo
- Jte2X5tKLs0z7WYONBSXRW+s8SEY=
-X-Gm-Gg: ASbGncsZ1JZbhJHSIzZxDHxx4jPwSCuE7sgJ8YKXHa1k4f33e4DviC/975Hga8lzwlK
- tpNDlw4kVNfYSZhtmZwHA23eAcXWma2VPk/ZzEDkcETMzVYbnV7o6AjhHFu7vOKM39ZoR9W5KZX
- 8xnk5rCs+sGpXcjLfJMBE71I/uEfD+6M7v
-X-Google-Smtp-Source: AGHT+IG6g+fPMqIcko5cV+T9c+jrMKIzJVLV4IR5A3Y/Uj+5/l+H4zy3gxbLj+sMLQriAlG/2Nxbv0zeR9OXLxHkxgE=
-X-Received: by 2002:a05:6102:5e82:b0:4c3:52f:175b with SMTP id
- ada2fe7eead31-4c9e504ca1amr2508561137.6.1744637364455; Mon, 14 Apr 2025
- 06:29:24 -0700 (PDT)
+ AJvYcCUhuHw7W17WOgzLfMlBD1Dc0Wu9hh1D1MnRIm2YAquOHNcBdAlFk5D+Ca96/Xxpfuxe6s25e8cv@lists.freedesktop.org,
+ AJvYcCWw8xK0aFOSSS8N3QEREkDjy94agvuaxEP790fzFadPdTfUPiWRNnbECfmG6rRI4x7xLYn4gYZjoqqR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwTkf6xhsvoof/c6KgXsinmlfOMgRLWJQDXkjafXiBxU+OfN/Hg
+ pjr9LZxX3drhjXA5S8/YPD7aTCBQQK09h07QrF6e9QLnD4xvxp4BhiiIGPKdrER8c0sYAacXZGz
+ irvEx2vMqAwUGoAta672Cf+ddibo=
+X-Gm-Gg: ASbGnctIGkMJ/+teDd33AOvHbWXl3nydaIAzv+E21IXdj002xaL6ysJbDpST1xSs5Qn
+ 5VihbxEgWZHtp4TYyeM4qcXOHO3wkCFbOvuOn7nUXMHLBRkYLKsGVGo1qPlJZb34qG5/Rhz2sJH
+ WZQll6yJMkMWGuLmal/ICQlA==
+X-Google-Smtp-Source: AGHT+IHU9FwQkANqVWq6HB4deVY97gLIMf5+FLJTdy75WKChAzk9OeMBEaB4Pi9kHLb3C3nJNsVYA0qgr7byQiE5wXc=
+X-Received: by 2002:a05:6122:da1:b0:516:20fe:d5d8 with SMTP id
+ 71dfb90a1353d-527c359ccf4mr1741010e0c.2.1744637474078; Mon, 14 Apr 2025
+ 06:31:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250414063611.2100-1-vulab@iscas.ac.cn>
-In-Reply-To: <20250414063611.2100-1-vulab@iscas.ac.cn>
+References: <20250414132848.679855-1-sashal@kernel.org>
+ <20250414132848.679855-11-sashal@kernel.org>
+In-Reply-To: <20250414132848.679855-11-sashal@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Apr 2025 09:29:12 -0400
-X-Gm-Features: ATxdqUG4Qb2Ft6FqGFxR47VXph-78DAr6grKjDU9soRx-alt8lzMAqt-V5Z6ysU
-Message-ID: <CADnq5_N_-0cd69Zh3zJ0k6xEVs5N7XoJQjdZp+v_kUvqHoTVRA@mail.gmail.com>
-Subject: Re: [PATCH RESEND] drm/amd/pm/powerplay/smumgr/fiji_smumgr: Fix wrong
- return value of fiji_populate_smc_boot_level()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+Date: Mon, 14 Apr 2025 09:31:01 -0400
+X-Gm-Features: ATxdqUHGTxjstZXt6MENE-PXqnTQyUOB_COxTyDCeu_fpv9Pwmta6iiK5pHbslw
+Message-ID: <CADnq5_PqqY07uBERuSGC--+=dsffxydrPrvzt7pw6SfmmqbDjw@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 6.12 11/30] drm/amdgpu: allow pinning DMA-bufs
+ into VRAM if all importers can do P2P
+To: Sasha Levin <sashal@kernel.org>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, Felix Kuehling <felix.kuehling@amd.com>,
+ Pak Nin Lui <pak.lui@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ airlied@gmail.com, 
+ simona@ffwll.ch, sumit.semwal@linaro.org, Yunxiang.Li@amd.com, 
+ matthew.auld@intel.com, tvrtko.ursulin@igalia.com, 
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,92 +92,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 14, 2025 at 3:24=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
+On Mon, Apr 14, 2025 at 9:29=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
 >
-> The return value of fiji_populate_smc_boot_level() is always 0, which
-> represent the failure of the function. The result of phm_find_boot_level(=
-)
-> should be recored and return. An error handling is also needed to
-> phm_find_boot_level() to reset the boot level when the function fails.
-> A proper implementation can be found in tonga_populate_smc_boot_level().
+> From: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
-> Fixes: dcaf3483ae46 ("drm/amd/pm/powerplay/smumgr/fiji_smumgr: Remove unu=
-sed variable 'result'")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  .../drm/amd/pm/powerplay/smumgr/fiji_smumgr.c | 23 +++++++++++++------
->  1 file changed, 16 insertions(+), 7 deletions(-)
+> [ Upstream commit f5e7fabd1f5c65b2e077efcdb118cfa67eae7311 ]
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c b/driv=
-ers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
-> index 5e43ad2b2956..7d0cb3741b94 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
-> @@ -1600,19 +1600,28 @@ static int fiji_populate_smc_uvd_level(struct pp_=
-hwmgr *hwmgr,
->  static int fiji_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
->                 struct SMU73_Discrete_DpmTable *table)
->  {
-> +       int result =3D 0;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
+> Try pinning into VRAM to allow P2P with RDMA NICs without ODP
+> support if all attachments can do P2P. If any attachment can't do
+> P2P just pin into GTT instead.
 >
->         table->GraphicsBootLevel =3D 0;
->         table->MemoryBootLevel =3D 0;
->
->         /* find boot level from dpm table */
-> -       phm_find_boot_level(&(data->dpm_table.sclk_table),
-> -                           data->vbios_boot_state.sclk_bootup_value,
-> -                           (uint32_t *)&(table->GraphicsBootLevel));
-> +       result =3D phm_find_boot_level(&(data->dpm_table.sclk_table),
-> +                                    data->vbios_boot_state.sclk_bootup_v=
-alue,
-> +                                    (uint32_t *)&(table->GraphicsBootLev=
-el));
-> +       if (result) {
-> +               table->GraphicsBootLevel =3D 0;
-> +               return 0;
+> Acked-by: Simona Vetter <simona.vetter@ffwll.ch>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> Tested-by: Pak Nin Lui <pak.lui@amd.com>
+> Cc: Simona Vetter <simona.vetter@ffwll.ch>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-This will skip setting the voltages later below.
+This should not go to stable.  It depends on dmem groups.
 
-> +       }
->
-> -       phm_find_boot_level(&(data->dpm_table.mclk_table),
-> -                           data->vbios_boot_state.mclk_bootup_value,
-> -                           (uint32_t *)&(table->MemoryBootLevel));
-> +       result =3D phm_find_boot_level(&(data->dpm_table.mclk_table),
-> +                                    data->vbios_boot_state.mclk_bootup_v=
-alue,
-> +                                    (uint32_t *)&(table->MemoryBootLevel=
-));
-> +       if (result) {
-> +               table->MemoryBootLevel =3D 0;
-> +               return 0;
-
-Same here.
-
-If you are intending to match the logic in
-tonga_populate_smc_boot_level(), the existing code already does that
-(minus the error message).  This change would break that.  Returning
-early may break working devices.
 
 Alex
 
-> +       }
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 25 +++++++++++++++------
+>  1 file changed, 18 insertions(+), 7 deletions(-)
 >
->         table->BootVddc  =3D data->vbios_boot_state.vddc_bootup_value *
->                         VOLTAGE_SCALE;
-> @@ -1625,7 +1634,7 @@ static int fiji_populate_smc_boot_level(struct pp_h=
-wmgr *hwmgr,
->         CONVERT_FROM_HOST_TO_SMC_US(table->BootVddci);
->         CONVERT_FROM_HOST_TO_SMC_US(table->BootMVdd);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_dma_buf.c
+> index 8e81a83d37d84..83390143c2e9f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> @@ -72,11 +72,25 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmab=
+uf,
+>   */
+>  static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
+>  {
+> -       struct drm_gem_object *obj =3D attach->dmabuf->priv;
+> -       struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
+> +       struct dma_buf *dmabuf =3D attach->dmabuf;
+> +       struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(dmabuf->priv);
+> +       u32 domains =3D bo->preferred_domains;
 >
-> -       return 0;
-> +       return result;
+> -       /* pin buffer into GTT */
+> -       return amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
+> +       dma_resv_assert_held(dmabuf->resv);
+> +
+> +       /*
+> +        * Try pinning into VRAM to allow P2P with RDMA NICs without ODP
+> +        * support if all attachments can do P2P. If any attachment can't=
+ do
+> +        * P2P just pin into GTT instead.
+> +        */
+> +       list_for_each_entry(attach, &dmabuf->attachments, node)
+> +               if (!attach->peer2peer)
+> +                       domains &=3D ~AMDGPU_GEM_DOMAIN_VRAM;
+> +
+> +       if (domains & AMDGPU_GEM_DOMAIN_VRAM)
+> +               bo->flags |=3D AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+> +
+> +       return amdgpu_bo_pin(bo, domains);
 >  }
 >
->  static int fiji_populate_smc_initailial_state(struct pp_hwmgr *hwmgr)
+>  /**
+> @@ -131,9 +145,6 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma=
+_buf_attachment *attach,
+>                 r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>                 if (r)
+>                         return ERR_PTR(r);
+> -
+> -       } else if (bo->tbo.resource->mem_type !=3D TTM_PL_TT) {
+> -               return ERR_PTR(-EBUSY);
+>         }
+>
+>         switch (bo->tbo.resource->mem_type) {
 > --
-> 2.42.0.windows.2
+> 2.39.5
 >
