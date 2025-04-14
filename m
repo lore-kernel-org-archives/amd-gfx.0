@@ -4,93 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB0AC369B5
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 09:35:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89095C369B2
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 09:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFC4A10E507;
-	Mon, 14 Apr 2025 09:35:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C78C10E502;
+	Mon, 14 Apr 2025 09:43:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f2IE+SLi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ff/rbbz8";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 194F710E03F;
- Mon, 14 Apr 2025 09:35:29 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-43cf0d787eeso46837125e9.3; 
- Mon, 14 Apr 2025 02:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744623327; x=1745228127; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1ReQI8fCjbqB0sMWedrxivkrJnzKXv16ZXvVj7cgD7w=;
- b=f2IE+SLiZpnz1DM+pC7aDPQw9P1kbdvohZjfWc2Ew5/218kl0/ehVET92Z/bxP+ntg
- zwEagH5TF3zUXbmrH1XxMwAGZdg27GRu7DF5uNxSgCssOoKrZZsHioYD0hT6JaMDmEDs
- 9igiQSYsGPHCgG0XV5/r/WkLLVP8ssxScJnOY2WTxAknv+JLDYG9mYUg/e69PRg17kBI
- Bc9EDuzAS+kHrGjlElfIN4edXT+f1TxHsvZuQ6PSc0d+jiANVv00HX7/AMUWYNP9TcG7
- NaY/WzVUOLysx7r8poha5E/h7gDwJl56MSoQSQSw3dbcEh2J/9dmOh6lsP0fT1bsXRp1
- jq/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744623327; x=1745228127;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1ReQI8fCjbqB0sMWedrxivkrJnzKXv16ZXvVj7cgD7w=;
- b=n1S85Oiru/rd2Uh9ELRXa7NOvecjU6nw9bc1TXeMFF1GJNHibb6HO034zSwM2jasYQ
- FNC4lehqpkpdaM/VDx5Cihl0BShG/E0ENevSL9/Dbn4WB/1Hk/askRIFDa+DpANGx3p0
- SO/UxqGzO1T01UY32GQSgHbTnwSq5IZHTH2x3cDM8hH85tDeUOLPhQbwRd0973krwATq
- 0wMjsQ96npaO8VtfS6OQ0jlTtgGC/YpsHnBDKzNEq9Q/zxiztuarGwlooYu0fD1CDM0C
- 8kPx+kJ5a3NixHVc9rnf6i+c+bck2eIzPxYmJV0/WBp6nDlxfh7n/cx1pkWKwmxmgzvk
- KTwg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUqsRFR52zdyqlIk0sXeIMUimCgWf2MvxtRuR1o8ufgZnqwawVwAE9gFXh2jreHkDYdzd54I7or@lists.freedesktop.org,
- AJvYcCXhp/xtrkoOZtU0NoypGSBl3sabEv/fFtFbivDSYVr1+DmFkK5V9mF2NhClunDX/Y/1dlypOCMvaM/F@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxEa/9WPifuRfcQnA28VBIGqGl1kHwhn6zmKqP16QgEP2hldDVF
- em/3Vf8J5OSYqdLf1bDJP9SE+erYoPlR37xhwBg4xt2hLyyQvbyt
-X-Gm-Gg: ASbGncuIFBcMIe6J8ZJ9HsKZjRt0kK5UBMpGuU5Z8c1XROKjFVU3JHqAASzpHgVXj40
- jSVNN2XMpZZN4rraqbKm0YCMbNOL0Q+iYneqO4t4uU/XIe7iKhUQAnhZYTfP0E0/caIzNdfFxWN
- x3w4LTXtKEEcjznvj3ilnx8ZtUGtqWHNcvMNuA/CMwlIVSZCKoQQIw9aDiX8MInhlwSi41nPm31
- rrAl4O6wJfIDTRnbI7m6jifRHkRdeIzJPQ+k5fJQi6+3M0M+MrUzBU8mD4BgtkIjgZWcDCvu4pp
- ZyaGF3b0Z3eCXUxoDVPgllmDZQ6KIAIYGUT6JIVEXqwQJhSfiAs8zl+RlyUP32n9U0mN2A==
-X-Google-Smtp-Source: AGHT+IFiIGr5NntN9eiv+X0gsiCw+Hdtz7/Xb6Uz5r7mI+EQClj1RzPK0mSFcrdIvisSut9yt1ZlrA==
-X-Received: by 2002:a7b:c047:0:b0:43c:ec97:75db with SMTP id
- 5b1f17b1804b1-43f41fffc3amr55868505e9.11.1744623327064; 
- Mon, 14 Apr 2025 02:35:27 -0700 (PDT)
-Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f2338db0dsm175261215e9.7.2025.04.14.02.35.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 02:35:26 -0700 (PDT)
-Message-ID: <44f0bf71-c689-46de-bfdc-e4a24b9fb921@gmail.com>
-Date: Mon, 14 Apr 2025 11:35:24 +0200
-MIME-Version: 1.0
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2088.outbound.protection.outlook.com [40.107.223.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C30C610E508
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Apr 2025 09:42:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SjHdCpTXbHZEaSvEv+c1dHJtnoOa4wPDu3ZEsX00395iwpgXHnujzH6iARM05c/GSsbbLNOaOsEoSvS8W6T91gv2CGsj0wHThi43u8zgROwsdyjwulKPK1ekmoe1ICvxEVqXzH3UMROjSUlQYjKI2do+wMylCOSil2pY3RSDJdTEBPLb4x0IqJZYIM0DIMwmrFpfMaoX/CCyWJxhBDdZQZpGiLKZRWmnUbtf5d/5GFAcUWJLvcf6MghI0MAPrnGKa7tW+VJLxCIvP0pgEw9R5lBMUG4Jz3SZkoAZmRef6nu+WWcRJtzy8nbSvIArDSmlUwYW+Nij11LAz4vIWg2cWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1DltZzubCxVzWmVoNfaPnyypUlCUAadTGakfmOYB/pY=;
+ b=fCM2T60416h9Qvrv/yMygBiGPhwIb9/Z/yFHhyVQ3uuHj47B6mVSSEUNLkCWYVCqq2Sqxbns3kQ51Po3jLZWR07znkAedxpZGCNc6NL3AMgXLPtb5Ss+TDAf9V6EumdSCRg4QMrcWrY3QVrf83j5ND8e4vSnwcQ2GslaODVh43IzW7US8mvpajrnzyZJ/g3EFG3LPP07995GNpqiIr4C8AZdP0/lKQijnEoleMMUwhOaXvph5HGLTvZEfcdp1+Hzte3qUTWKG64wdUG3hKwgeFji6KhQfXryMiyC3nQeFtMyr2jpcLAybtx+9SiIOdhW65OqnGt0RaF903f61vk6HA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1DltZzubCxVzWmVoNfaPnyypUlCUAadTGakfmOYB/pY=;
+ b=Ff/rbbz8PirnKwqIrAT7KX/JzKh4ISfqjNQvjBeq/PwSRj4zTGRnAAaDO+atjQgSzMnw6mUZDn3QimUkOq5e59sdmcbYyRE5x3jl5bJJkaJjYaHGybRIcvIqRD5qG03HUAnEgf8sl8W5zEp2jF+Vh26MEAo6Fa8Gp+Rh1yyhnSg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by SA1PR12MB6726.namprd12.prod.outlook.com (2603:10b6:806:255::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Mon, 14 Apr
+ 2025 09:42:48 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::2b0e:7fc3:1d21:5d2e]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::2b0e:7fc3:1d21:5d2e%3]) with mapi id 15.20.8632.025; Mon, 14 Apr 2025
+ 09:42:48 +0000
+Content-Type: multipart/alternative;
+ boundary="------------4jUUCfEPdK5BEeRMh7zYwZi2"
+Message-ID: <4d804b27-c89c-4503-8d36-2e9a35a483e1@amd.com>
+Date: Mon, 14 Apr 2025 15:12:44 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [lvc-project] [PATCH] drm/amdgpu: check a user-provided number of
- BOs in list
-To: Fedor Pchelkin <pchelkin@ispras.ru>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Denis Arefev <arefev@swemel.ru>, Alex Deucher <alexander.deucher@amd.com>,
- Simona Vetter <simona@ffwll.ch>, lvc-project@linuxtesting.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>
-References: <e6ccef21-3ca5-4b5a-b18a-3ba45859569c@amd.com>
- <bmdour3gw4tuwqgvvw764p4ot3nnltqm4e7n3edlbtpfazvp5c@cqe5dwgc66uy>
- <f8810b13-01d1-4615-b6e2-2e791c48b466@amd.com>
- <qc72y52kt7vuwox4lhk42zligy5bslttselfoexse42mywtpps@ebqijs2tap2t>
- <edc08eb4-63dd-402c-82df-af6898d499a9@amd.com>
- <pmby7iowvxuomsbuxebttosz245j7ngw5enbl72dq675nrgvve@ugkvzeihbtut>
- <CAHk-=whLixL8-iYt1qH0-YvEnVsYtryZaN5Da0qoBBhKsBnumw@mail.gmail.com>
- <437e12e2-ac0d-4a97-bd55-39ee03979526@amd.com>
- <CAHk-=wjLQzkTTDwJ+ZdVdgNKMg958petkdsu-+m7s9UL6PVCRg@mail.gmail.com>
- <b7286f30-15ac-4803-b204-0fe6f2423f73@amd.com>
- <fgd6hrllcwj2guhr4mwzfblhausluczprlbjqhsqiqeshoq2g2@jgi4rgufn6wx>
+Subject: Re: [PATCH 1/4] drm/amdgpu/gfx11: properly reference EOP interrupts
+ for userqs
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250413160608.2198429-1-alexander.deucher@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <fgd6hrllcwj2guhr4mwzfblhausluczprlbjqhsqiqeshoq2g2@jgi4rgufn6wx>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <20250413160608.2198429-1-alexander.deucher@amd.com>
+X-ClientProxiedBy: PN4PR01CA0058.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:274::10) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|SA1PR12MB6726:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6fb381f-d827-4927-5494-08dd7b38b763
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VVNSaGxPeXB2QzFZR0RoMHY1MGU5YmduOFZRcnJYM1ZjejVUQk1lL3BDa3Vp?=
+ =?utf-8?B?RExCQ1QwNmpQUjBoVERhN3U0QU53QklIZmYrTW5tMmx0dDVKOElqbkhMNVVp?=
+ =?utf-8?B?cXEzS01QRE1QcW9nSGV5ZHJUYkxwNGwyYjltb1JaelgrZTdvNUMvWE9JYXcy?=
+ =?utf-8?B?MmVIL2VMRE5MY2UyTHVVMHpxL3NhOTYzSlFoS0RVeFUrQTF2ejhiZDlrOTds?=
+ =?utf-8?B?SldOTzNaYWNGTVhXNG1VRzZMKzZwck1PdHNvQ1dGM3Z5Z0N3NGxuNDNlcXE4?=
+ =?utf-8?B?TVN6dC80cnlnaXlYbnp6cHc4ZGpkYktKSXBNRWxpc2FWMWsxczhNWEVZSjJQ?=
+ =?utf-8?B?Y2ZSMnRoVHBiMGNEemdBWFJBelJWaGR4eUR1Y3JzTXNCS1A4YVczQ21CVWxq?=
+ =?utf-8?B?K2YrdllTQ1RidFQwVjFHRFFlb0tnQU01VDQxRUxlTUcrMUhlRmkrd1ptY3JD?=
+ =?utf-8?B?Z2FrWkZTM2RZaDh5TjRJdytzeUJuRmtIeFl5VkVQb1ZkcEtIUVM4QmFGMWY3?=
+ =?utf-8?B?UVhrS01IaTB2VEdmTHZhcE42ZHRnemxtUUFpVEQwOHlmUzB5ZDJEQUdqUVk3?=
+ =?utf-8?B?a3k5VkQ4QS9oTVU0QUVMckVFQTk3WFd5Z2tGR3g0bW1rQTJrUTFkWkZRa2tE?=
+ =?utf-8?B?OExiT3hNSWpCd1JvTlFDSCtHb3JoblgvWVpMV2VWT0ZFU21rMGxNTDdqSXVH?=
+ =?utf-8?B?L3puYUM5YURjc2pVMXRlNmZtQU1zcktJYUxyUTVqZHpmL3RnaFBjSG1YTElU?=
+ =?utf-8?B?WDZkMmw0UTJJS1Z0KzM1ZjNJeFdmQVZKb3dhRHMxSk1sUjI1cVowTGJiQTEv?=
+ =?utf-8?B?RjF4b0N1ZUxIYVp1aEh3dU8xV3lOK1QyTEI0UEhyb3VaMURlak5lMnBjRE50?=
+ =?utf-8?B?UHA2SFo0RXVmOWQwc21Qd1hvKzJSbzZnNW1UeElHdkJUbTdvWnM1bFpOa1hq?=
+ =?utf-8?B?M1l2NjkxU2tzUDRwaDllV2RIOStIVE5hNFZFZGgwamt0dngwbWlxdndmbVIz?=
+ =?utf-8?B?NktKVDdyK1RNT1luZGRVcXZoR1ppcnJTNkV0ZW9KSjY3dUFSSitoVGFXM2JM?=
+ =?utf-8?B?WmwyUXVhakplckhXQUQ1WkdVdzYvV0t4OEZTT1JmZmtjb2lmRXpKaEd5TU9R?=
+ =?utf-8?B?SnI0NjZ2TGQ5eWRySWVNSmJOWDRycmhaWU5mYStjUFc5R2gwbnlvamNxMFBW?=
+ =?utf-8?B?dUtNbFplR2xSSEg4R0svNEE2SktWdTZRS1RqNllxMlZ1Nlo0dGVGdnZBOC9a?=
+ =?utf-8?B?Q2VYUlREamZDZCtVNUY5MGtqRjlMdkZXQmlXeVVqRGhuMmFLalkyU0JrVDRD?=
+ =?utf-8?B?VzFkSDQ1eEZDSmRUQXBncmR1d0lBUDFJMjg3eTlBOFdMZ1hDTHlweUx3Y21N?=
+ =?utf-8?B?T0ttRGUzYi9uYlp1UXkxVnM4cHBHZERScU95c0tMeXMyU2htQlRGNUlZWFZ3?=
+ =?utf-8?B?eDZRaFllYUQ3dGh0MHVNR1FFbXFpL2JPTyt1VXB3UnJXT2EzVkF2eGhOQzV4?=
+ =?utf-8?B?d3d4U1RJTlpkWXovaUVZczlsL3FQYzRKMW1OT2lwdWxTQnFTS3k4R1dsQWJ5?=
+ =?utf-8?B?VnIwNS9qTjNiMDRrWnBQSEN6ZVAyMVBUcU1iWFZTMklwd2F3VktHQ0N1aFZp?=
+ =?utf-8?B?RHIrNldxZ1hJb0I3c01zaXNzWVdNR2I5TTlrSml0bk1OZUxHd3l2Y2w2dVIv?=
+ =?utf-8?B?TFFlVEFVYTd1YWZSN0NDYUZ4cjgyMDd3OFgwdnRpY3VNWHovS0xKOXZla2pM?=
+ =?utf-8?B?NHlhcFVzOUtIR3ZBbWlhcHFzUXFTc0xzL3Y5endVNWU3WXpHcWF3amxBbG5i?=
+ =?utf-8?B?cGJCTEtwMGx0UGZQTjFFOUQxT2dLVlN1cUpvV29NeFc5dTZ3bXRCZG9zQlEv?=
+ =?utf-8?B?ZTg0bDlKZHRHU1hidVZlWDBFbnFuRGhmbk4xMlRqaHZrUEE9PQ==?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2l0eWJxdmRsSVdueWpDeGhwOGVFVVorMWNBeVl5T3p6UnhhRGFLZzRKZk5Z?=
+ =?utf-8?B?b0YzVGJhSUpUQ2tXNDcycHJQMStnQlZWanFNM0Q2ZU9KWlZRWFZ3WU9weVgx?=
+ =?utf-8?B?Z2U4K0JGVmJzVU0zd3Jaejhyc3N3WWJ4YTI0Smo0Ym5yY3FOTWs2T2MyalBQ?=
+ =?utf-8?B?YzdZVHNKSWJIQXBLM256bTNBMXdyaTdZRXBoZXFWSVFHQitHaWgzTi9id0VB?=
+ =?utf-8?B?aE5DYlpLWDc3eC84K1pRZXRmRmw1UTdtbDJhYWdENW9CWEpCVW0yMzFCS0w5?=
+ =?utf-8?B?a01aV1RLTmF1c2VmaWZUTlF6ZFNWcUJmb2RuOFY5UUx5KzdCcS9hMFBaQlZI?=
+ =?utf-8?B?b002VDhzcVBxemYwS3dsUC9qTVhQRlFEaGtUU3dpVlc2MkE2Y1lMMUhQTlFm?=
+ =?utf-8?B?OWlEaFdnVmtyNTlEVERHaHNrZkNtalNJRS9lWGxMT0EwZUpkaUw3REQ3WTlW?=
+ =?utf-8?B?S2xuNlk3bUxRaHA4T1pac1FuY3VOVEVnQWl1WS9ITDVnNVpQVmwyeFBkZGIy?=
+ =?utf-8?B?UitWTDN5M04zN1BBMXQ1N3RkZGxOK0ZrbUxKeDZ6N3BRSURYMEJrTWtmaytu?=
+ =?utf-8?B?dkcvaUo2b1QrK2pZV3ZQeUJhZkExT3BCa3N2Uy9BQmdqUCszVGt1Tit6cDdL?=
+ =?utf-8?B?R2Q4bkFVMWt6WGx5ZGRPNll3bDM3dnJZRjJHaWxJNnR4UWV1aFNGU2dCMTRz?=
+ =?utf-8?B?akpMR2x3NW1INTZGR3RVYk50bnRjZ1lOa2hIMnpqc3Z2U2dBVld0eEIvdW1V?=
+ =?utf-8?B?eFF4R3RYZ2VKdUVHRFlHN3FJV0V6aTgxNnVwUTB2QnY3SzlaRm8zd3VFR2Yy?=
+ =?utf-8?B?UytJQzBVT3AvOHJnQjk3dEk5Z0VPL0VWUzlYSEpVc3hTQkZ4OGI5ZXlrTUdS?=
+ =?utf-8?B?WHlsY29OUTZJVVZSODZnV0N1VEZ0WUU5ZUtZU3J3SVorRStmZU42a2dkc2JV?=
+ =?utf-8?B?QTBMaXI2UWxzTUZMU2NXZzBMUmJPcDlRTVFIclljNFNtNEZteWdrT3lTZmYx?=
+ =?utf-8?B?ME0yRGovc3NsaCthdHF5UFl5QVJnMUorMmZBdHE4MlJtVlJKZTFvL1ZKaXJv?=
+ =?utf-8?B?ZTJJSHJYa1BMUGw0bTdlMWdSemx0clA1ZHRNYmtBQi9IREV1VDIwRGdEbGZx?=
+ =?utf-8?B?M3ByNVVXV0JtUU10T1RnK0wrVmYyeUFUbWtBQVpzaXlrOEhPNTRvMS9GbzVt?=
+ =?utf-8?B?U1p2eHdQdUVKakRWU2xaTWlkZVQ2TzVxNlFacTVDWC9jMlRQbDhPa3pvMW9B?=
+ =?utf-8?B?QnNnWGN2SVNEUDVvTEcxNFZKUjR1clNrWVlXVnJZY3M2UzN5dmNTY2N2MlVW?=
+ =?utf-8?B?NFFUMTVsaUhTdjZMMHVTUXBPa2x3WUFHYmpBMGZrcXI0eDZKaWFkdEJsUXRJ?=
+ =?utf-8?B?VFpKL2hwU1NSUFVLNW4wcUh6ZWplYVMxSEtxZ05zSGxQR05reFlTODYwakpU?=
+ =?utf-8?B?aXRsMTM2bmRvZDBKa3pSc2tRQVZlKzBUOUE3TEV2U2pzcG45dFVkZm1qQjRx?=
+ =?utf-8?B?ZlBlTVlsWlNmYmZhaUk5eDFHV2NwQ2lXTEVMT0JEWXAyekdkWS9IRTFGWDBa?=
+ =?utf-8?B?TkNEeGhlWmNDak5SMzNJMGdPQzk5b09YanNYVVlxMUgxZEc1ZlFDV1hMK1h2?=
+ =?utf-8?B?N0JzREg3SW96NDFYdTF0bDk0VDdhRkcvZ3BGOHk5bUxZb0orMVh3WWJyYlpM?=
+ =?utf-8?B?RTFPSjR6djNIYTBpTm9jSFdiOGJvdDFEd0NGdXlScCthZDRUcHNUKzlmNTZQ?=
+ =?utf-8?B?KzVmU0RGck00cEsyamVPbjJBV3loaElwcGpGRmovQXh2eFduWHc0QkJtOTVW?=
+ =?utf-8?B?Ym45YzFBRnN0aXJwRTJ1YTc1VTk3ejVISDVLMEpYc2xxWlAza3lDNEExb0Q4?=
+ =?utf-8?B?RmNSdTR2a3BRNVp2bmdLS09RL0lPT2tiUjhoSVpwUjBjM244Nm9QVlpLUDRP?=
+ =?utf-8?B?Y3FnaWxIMHVHYU5udS9qazNrejhNUDh1NE44UHhocmd4QXl4TlZoVVlGY3Jh?=
+ =?utf-8?B?TnZ0azlCQ0NWdXZlT0gvSjZybkZYUktieURQeTVxS05iN1RnaW9ZcEFXdzBH?=
+ =?utf-8?B?MlhKVUovbnM2WDVXY0NkNVBnSmEwc2xwMXlEb3I4ZHdrYkxxWUsrOXMwSzJE?=
+ =?utf-8?Q?qXFC2raVHW2iTNx8f/a1fjhes?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6fb381f-d827-4927-5494-08dd7b38b763
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 09:42:48.4370 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5uIgLI3+iKWMVBqdzK3JxgHT860eXCylbuvWCmIuVCryPi2FKZZJKJlvuL5nwQTRHpMDpsuNQEY+bI//WEPHdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6726
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,46 +159,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.04.25 um 13:31 schrieb Fedor Pchelkin:
-> On Thu, 10. Apr 11:07, Christian König wrote:
->> Am 09.04.25 um 19:27 schrieb Linus Torvalds:
->>> The VM layer allows larger allocations. But the "this is a simple
->>> allocation, choose kmalloc or vmalloc automatically based on size"
->>> helper says "you are being simple, I'm going to check your arguments
->>> are actually sane".
->>>
->>> So the drm code can easily have a function that validates the input
->>> for your specific cases, and then you (a) don't need the helper
->>> function that does the overflow protection and (b) don't want it.
->>>
->>> But it should actually validate arguments for real sanity at that
->>> point. Not just open-code kvmalloc() without the sanity check.
->> Yeah, exactly that has been proposed by driver maintainers before and we just rejected it on the subsystem maintainers level.
->>
->> For this particular use case here I will propose some hopefully high enough hard coded limit, but I can't guarantee that this will work for all use cases.
-> FWIW, the current code anyway has this limit being some sort of 4Gb, not
-> more.
+--------------4jUUCfEPdK5BEeRMh7zYwZi2
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+This is how i see the future of this code and we can do based on it now 
+itself.
+disable_kq = 0, Use kernel queues.
+disable_kq = 1, Use User queues.
+
+In case of kernel queues we should not be even calling 
+gfx_v11_0_set_userq_eop_interrupts at all. Instead its better if we add 
+a this check "if (adev->userq_funcs[AMDGPU_HW_IP_GFX])" before calling 
+the gfx_v11_0_set_userq_eop_interrupts. I am assuming there wont be any 
+mixed use of kernel|user queues together. Let me know if you think 
+otherwise. Regards Sunil Khatri
+
+On 4/13/2025 9:36 PM, Alex Deucher wrote:
+> Regardless of whether we disable kernel queues, we need
+> to take an extra reference to the pipe interrupts for
+> user queues to make sure they stay enabled in case we
+> disable them for kernel queues.
 >
-> The resulting calculation of `bytes` wraps at 32 bits albeit itself being
-> of type *unsigned long*.
-
-Yeah that is a *much* more serious bug. Thanks for pointing that out.
-
-This should probably be using size_t here and applying the limit to the bo_number before the calculation.
-
-And a bo_info_size which doesn't match the expected size should be rejected and not worked around like it currently is.
-
-Thanks,
-Christian.
-
+> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 9 ++++++---
+>   1 file changed, 6 insertions(+), 3 deletions(-)
 >
-> 	/* copy the handle array from userspace to a kernel buffer */
-> 	r = -EFAULT;
-> 	if (likely(info_size == in->bo_info_size)) {
-> 		unsigned long bytes = in->bo_number *
-> 			in->bo_info_size;
->
-> 		if (copy_from_user(info, uptr, bytes))
-> 			goto error_free;
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 7274334ecd6fa..40d3c05326c02 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -4836,10 +4836,10 @@ static int gfx_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
+>   static int gfx_v11_0_set_userq_eop_interrupts(struct amdgpu_device *adev,
+>   					      bool enable)
+>   {
+> -	if (adev->gfx.disable_kq) {
+> -		unsigned int irq_type;
+> -		int m, p, r;
+> +	unsigned int irq_type;
+> +	int m, p, r;
+>   
+> +	if (adev->userq_funcs[AMDGPU_HW_IP_GFX]) {
+>   		for (m = 0; m < adev->gfx.me.num_me; m++) {
+>   			for (p = 0; p < adev->gfx.me.num_pipe_per_me; p++) {
+>   				irq_type = AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP + p;
+> @@ -4853,7 +4853,9 @@ static int gfx_v11_0_set_userq_eop_interrupts(struct amdgpu_device *adev,
+>   					return r;
+>   			}
+>   		}
+> +	}
+>   
+> +	if (adev->userq_funcs[AMDGPU_HW_IP_COMPUTE]) {
+>   		for (m = 0; m < adev->gfx.mec.num_mec; ++m) {
+>   			for (p = 0; p < adev->gfx.mec.num_pipe_per_mec; p++) {
+>   				irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP
+> @@ -4870,6 +4872,7 @@ static int gfx_v11_0_set_userq_eop_interrupts(struct amdgpu_device *adev,
+>   			}
+>   		}
+>   	}
+> +
+>   	return 0;
+>   }
+>   
+--------------4jUUCfEPdK5BEeRMh7zYwZi2
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p>This is how i see the future of this code and we can do based on
+      it now itself.<br>
+      disable_kq = 0, Use kernel queues.<br>
+      disable_kq = 1, Use User queues.<br>
+      <br>
+      In case of kernel queues we should not be even calling <span style="white-space: pre-wrap">gfx_v11_0_set_userq_eop_interrupts at all. Instead its better if we add a this check &quot;if (adev-&gt;userq_funcs[AMDGPU_HW_IP_GFX])&quot; before calling the </span><span style="white-space: pre-wrap">gfx_v11_0_set_userq_eop_interrupts.
+
+I am assuming there wont be any mixed use of kernel|user queues together. Let me know if you think otherwise.
+
+Regards
+Sunil Khatri 
+</span></p>
+    <div class="moz-cite-prefix">On 4/13/2025 9:36 PM, Alex Deucher
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20250413160608.2198429-1-alexander.deucher@amd.com">
+      <pre wrap="" class="moz-quote-pre">Regardless of whether we disable kernel queues, we need
+to take an extra reference to the pipe interrupts for
+user queues to make sure they stay enabled in case we
+disable them for kernel queues.
+
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 7274334ecd6fa..40d3c05326c02 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -4836,10 +4836,10 @@ static int gfx_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
+ static int gfx_v11_0_set_userq_eop_interrupts(struct amdgpu_device *adev,
+ 					      bool enable)
+ {
+-	if (adev-&gt;gfx.disable_kq) {
+-		unsigned int irq_type;
+-		int m, p, r;
++	unsigned int irq_type;
++	int m, p, r;
+ 
++	if (adev-&gt;userq_funcs[AMDGPU_HW_IP_GFX]) {
+ 		for (m = 0; m &lt; adev-&gt;gfx.me.num_me; m++) {
+ 			for (p = 0; p &lt; adev-&gt;gfx.me.num_pipe_per_me; p++) {
+ 				irq_type = AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP + p;
+@@ -4853,7 +4853,9 @@ static int gfx_v11_0_set_userq_eop_interrupts(struct amdgpu_device *adev,
+ 					return r;
+ 			}
+ 		}
++	}
+ 
++	if (adev-&gt;userq_funcs[AMDGPU_HW_IP_COMPUTE]) {
+ 		for (m = 0; m &lt; adev-&gt;gfx.mec.num_mec; ++m) {
+ 			for (p = 0; p &lt; adev-&gt;gfx.mec.num_pipe_per_mec; p++) {
+ 				irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP
+@@ -4870,6 +4872,7 @@ static int gfx_v11_0_set_userq_eop_interrupts(struct amdgpu_device *adev,
+ 			}
+ 		}
+ 	}
++
+ 	return 0;
+ }
+ 
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------4jUUCfEPdK5BEeRMh7zYwZi2--
