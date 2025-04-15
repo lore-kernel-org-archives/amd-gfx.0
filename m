@@ -4,177 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A733C369AB
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 15:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09AE4C369AB
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 15:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3807E10E7C7;
-	Tue, 15 Apr 2025 15:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 903B810E12F;
+	Tue, 15 Apr 2025 15:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lyPhSpwe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b/8o5bAU";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2079.outbound.protection.outlook.com [40.107.212.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8535C10E7CF;
- Tue, 15 Apr 2025 15:05:46 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1E810E12F;
+ Tue, 15 Apr 2025 15:29:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cMtgO3BFFI8FhNsXYysYiRu1PD8JTXEvtgGwGZIF0/xwtkG2WuGQ451JKg4wcxqu6rFusnU5W1TCuM7Cnt0zutTiJsgvSZAl7qtjgM0+7tsfn1Ialz/bk39fHlYsnMljsDa51E+pSfX5VW12nj2snagVynkpsdbIHECXigfd3TRoLT0g2PGD3Luaa0iiWQ4BAz/O+iLclitmnIAD5s6i4HCaMBMVwwvmG0H5HMFSfRHAWhr7UVp/PjyYTtYuj36ynP9CoHcYxnuuFyMwxjM0bECSR9K/O1b6DqAUjqR/kWTd5pIcr2A2DpcuQutnwj8X8//KZcmClruJ3xH9AwJA9g==
+ b=tyUQwdzVxBjydn5QUH2MxCCLGuyAUPQopGZDzanrfVMx9lvaTTicPmW86foamK2cMwUbAhKqAxdNhejHAhAo2mvLIRa7muAjPz6Riv8aAelYXLNuXK47zE7r6N0FQj+XH/EMAUbjqbI6q0FewaUN670/FphH9vptXaGsEBYDoz8DYJR3p52ncdjsjFxiNGmvjCGYrO4kSYOKkyBcRjFaP+wW01nx7MrwGaLnaSuCGgzrJST+micmAYv6f5qmAM1qtNDMWADRgJSpzjWZFyM8BIF+/3yqoDU6MMw23YgpeKxdU/QhD4KUGPJY7q5LU1ZXNnJpRc8wgyhTyFTwqN3p4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/v9UPeI4rKsczjav9qLDo6ODWiqF0Y8pFBiCw8eMK80=;
- b=juR30mlfKpVcLgliIpJV7apNH+f4juBJyL0GCq5wJ43DJGtYG06emiqzIoKcEF6ysPSc/vbuL+k/sfMImQJQ1AdJNUPg06p/Y5B+vBSoP20mYKmJlrBR0fiaMhZIZogez02Wkzm2cndsWYHyHAd9vFdbn2wI9mEHAzqQcUakYhzFPMe5q9Gvw4fXP3i1nBKzQMxmWamz8tBTCt2KJw8m8FxZzcSLDhng/gGAQVJdDKoo6XP82+c6Qo4qihNUNmbV+MDdnWbkX6tI3xMIV49jRWAcdN/DGRsYDfggMb98sEB502hIguN2eCjoudfiNuZs6E9UUtQLmcuKgwnwTQAjvA==
+ bh=ScndWZf/f1/UfriXH8CI0IwlKf2O7ZyQbxyAKR+Le1I=;
+ b=JNzx6U2B3kUvwHW1NLgZIQWiTokJL1SU3neGWEDZvQWVgezEBYrjCsEKFDP4XIvIHXOvZXNeC+LfAS7RAHe/aED0gW6AZw08dTEKvLcNtH7Uqz60HlwBeCcEj/ORCtatuDdQ8k9JVauyRQp/sPYbZDhQRySUNISTXlKDsnQh5lON8BegpbYaRliP9CpnYLvVxHvKrMSI52HKt8Tf/NtSwg/lBnpLA9Gqh9nleB1ecHYYr5zlZ0TvziTT4R5yqSnlp3t2TyxLs2mfnYs7rVk1mnlVqHdc0OEVaGnp0hrDB57BADkSvjBE1GD99MIj7aZm3QgLTYwXnpI1ymrvcsRauQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/v9UPeI4rKsczjav9qLDo6ODWiqF0Y8pFBiCw8eMK80=;
- b=lyPhSpwei5Qo6tPwNbsSaGaEHxIztshbvgYp8rbx80XJMkVZ2qeahl2/4QkLkN9pwLfoxWKSp9pwUss0XPSaEzUz+aidg0zbfsI/mVmxsj+U+rpsON82elr2fK1ShG2mvUzvuqlPC2k/XCRj9NBV6cRUlPqHMUmTcT6UjdFMYyM=
+ bh=ScndWZf/f1/UfriXH8CI0IwlKf2O7ZyQbxyAKR+Le1I=;
+ b=b/8o5bAUtvBa0rT4ShyBW2tJRf7OuqMGt9+J6J+M/+KuA1jFdNKo49WRPa/0sViRl9o1X/RSF8niOryShElXnlSDOE+IHR2KGDTL3h2Ra4q/LXLgK6ltHgmqtSLgcIC2fRqwuyZsmyQNU7p+5XbnWoCf5+ogOFak0dA+c/2oNAA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ0PR12MB5438.namprd12.prod.outlook.com (2603:10b6:a03:3ba::23)
- by CY5PR12MB6526.namprd12.prod.outlook.com (2603:10b6:930:31::20)
+ by MN0PR12MB6245.namprd12.prod.outlook.com (2603:10b6:208:3c3::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.35; Tue, 15 Apr
- 2025 15:05:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.33; Tue, 15 Apr
+ 2025 15:29:17 +0000
 Received: from SJ0PR12MB5438.namprd12.prod.outlook.com
  ([fe80::65b2:12d5:96ba:dd44]) by SJ0PR12MB5438.namprd12.prod.outlook.com
  ([fe80::65b2:12d5:96ba:dd44%3]) with mapi id 15.20.8632.036; Tue, 15 Apr 2025
- 15:05:43 +0000
-Message-ID: <3ca1958f-62e0-4a5c-837b-3cd705acc181@amd.com>
-Date: Tue, 15 Apr 2025 11:05:36 -0400
+ 15:29:17 +0000
+Message-ID: <a557d929-7bf9-4a52-96fb-ed7a696744c2@amd.com>
+Date: Tue, 15 Apr 2025 11:29:10 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V8 32/43] drm/colorop: Add 1D Curve Custom LUT type
-To: "Shankar, Uma" <uma.shankar@intel.com>, Simon Ser <contact@emersion.fr>
-Cc: Alex Hung <alex.hung@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- "leo.liu@amd.com" <leo.liu@amd.com>,
- "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
- "pekka.paalanen@collabora.com" <pekka.paalanen@collabora.com>,
- "mwen@igalia.com" <mwen@igalia.com>, "jadahl@redhat.com"
- <jadahl@redhat.com>, "sebastian.wick@redhat.com"
- <sebastian.wick@redhat.com>,
- "shashank.sharma@amd.com" <shashank.sharma@amd.com>,
- "agoins@nvidia.com" <agoins@nvidia.com>, "joshua@froggi.es"
- <joshua@froggi.es>, "mdaenzer@redhat.com" <mdaenzer@redhat.com>,
- "aleixpol@kde.org" <aleixpol@kde.org>,
- "xaver.hugl@gmail.com" <xaver.hugl@gmail.com>,
- "victoria@system76.com" <victoria@system76.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "quic_naseer@quicinc.com" <quic_naseer@quicinc.com>,
- "quic_cbraga@quicinc.com" <quic_cbraga@quicinc.com>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- "marcan@marcan.st" <marcan@marcan.st>,
- "Liviu.Dudau@arm.com" <Liviu.Dudau@arm.com>,
- "sashamcintosh@google.com" <sashamcintosh@google.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
+Subject: Re: Pipeline vs. no pipeline (Re: [PATCH V8 06/43] drm/colorop: Add
+ 1D Curve subtype)
+To: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
+Cc: Daniel Stone <daniel@fooishbar.org>, Simon Ser <contact@emersion.fr>,
+ Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
+ quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
+ sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
+ louis.chauvet@bootlin.com
 References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-33-alex.hung@amd.com>
- <CY5PR11MB63441E057180C043C51230A3F4B22@CY5PR11MB6344.namprd11.prod.outlook.com>
- <fzuE3KXuocsKA0I9kWXruyw7IVbw3jwH2yeh59SfE0Qb0SGxa29rrj9X_XgNCdmj1vWgxLO619xyJY3r5R3hsZK6ElIkTvbyNfu40x1SiZM=@emersion.fr>
- <CY5PR11MB63449DBA54519766E345CADAF4B22@CY5PR11MB6344.namprd11.prod.outlook.com>
+ <20250326234748.2982010-7-alex.hung@amd.com>
+ <CAPj87rOh=1OuASau+fjL_z+XBs-P=jUiQgjJjWXQZt1FYFC==w@mail.gmail.com>
+ <46R4JuwCeyu56R2FsAN-j6n0Pu5VSeLdju8KUycQ3PF5cVQrlUO3C5SX8CgpRJ-QL5_-XS2ds94pPjhzEl6hOo3iyLl0y_d0Syzinn7BxSY=@emersion.fr>
+ <CAPj87rOpp8CE_kmcJmp69pM5NhxBkLOGp-BKdALX4F8GL5-29Q@mail.gmail.com>
+ <87fd7840-b021-4d3a-9d0b-2724e941c5dc@amd.com>
+ <20250410105343.606bb75c@eldfell>
 Content-Language: en-US
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <CY5PR11MB63449DBA54519766E345CADAF4B22@CY5PR11MB6344.namprd11.prod.outlook.com>
+In-Reply-To: <20250410105343.606bb75c@eldfell>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0063.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d2::28) To SJ0PR12MB5438.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4PR01CA0476.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d6::16) To SJ0PR12MB5438.namprd12.prod.outlook.com
  (2603:10b6:a03:3ba::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5438:EE_|CY5PR12MB6526:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd48c26f-b77d-4237-b338-08dd7c2efe23
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5438:EE_|MN0PR12MB6245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10e43cb3-4bf7-49e9-8572-08dd7c32491b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|376014|366016|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?N3F3UW50Znp2bnJTM2hwN2tzZEZ0RHlzRURZTHpud0tOYzhuSGg1ckJ0Tmxx?=
- =?utf-8?B?RTJzQjEzMlVSSTA5TWpXSHVCR1RKZW9lRU9SSjdlZGFJQXFrZWppdEVORTNh?=
- =?utf-8?B?QkVuNmhNVmptYzgrampuZ0pVODJseC9mOU4zN0c5T0MyVW5PczFNWDkveCt1?=
- =?utf-8?B?cUc3S3BVOFdvaXVmRG81UXN0N3NzRWNIMjU4Q09abHVjWDVsd0Z6cnFCWGxU?=
- =?utf-8?B?b2ZYWWhIazN3T1JMbGZaNzdYVDh2WjJndG9qM3NDdFBQR09iVGx4M3lhbGQv?=
- =?utf-8?B?QlpqWC9mQUxEZmNnZUZhaTM3S08zamd2clFPbHBjTzhJR1pITmJIdXU0RlZT?=
- =?utf-8?B?OXNNTkpJRWhIUVlCWEpZVERiVXhUL1ArV3dXcGM1Zi92dVB5WXNXZ2NTa1dR?=
- =?utf-8?B?SVp0dGk5WWxwYXl5OWxNa3ZJR0VxRXBTbUR4SVlmYW1Ec2g5Nk9MQ2JkT2dS?=
- =?utf-8?B?Y3VYVHc3YUpocmhORzRIeEpqYVNQUVRpNzh1R3o4YVZaNk1EVHhVaHBFVzhx?=
- =?utf-8?B?NU44b0tVY2E4c2VSSmdOWXZScmRPQzdxTUdmb1VRV1llVFNvUkhPOUFNYzdS?=
- =?utf-8?B?NllzenZQWmk2aW1PRkpoeTFzUDgwQ2w1U2RaV3dDUEJnK1NYWUxXbTN2UjNQ?=
- =?utf-8?B?OHg2REZNaUhzQmIxQ1I2Y2EyZDdaOWwydzFHamNEK1QwaHkra3d3aExOc2Zo?=
- =?utf-8?B?Q3hNZzdUOGttTzlYWjM5TWhlU1AyRDk5c1NEYXlzd1ptaFlrVFlNNWRlakZy?=
- =?utf-8?B?cGpURVowK2ZYa1d3dVBNUnpJVkFUb3U2SXdTNnNNSE4xZjN3S0I2Ym1Nd0RS?=
- =?utf-8?B?QW9xK1N3Nlg5RTY4ckJxYlFaNjR0NmxxYkE5bk1kVEZwT2ZjM3dQeUNER0Fw?=
- =?utf-8?B?blZRMkExK3VESEFOZWxKaGRrVmdFUnRYR2V1VVBUMFVFWVFnZnBlaEsrSHNy?=
- =?utf-8?B?OWJsSGdJZ204Q3p3UEFVUTI0RWdGbnFQWXU3MUdmWVJiU0IrNkhzRGtnaTFq?=
- =?utf-8?B?Vi9GSWVWcUxUREpOYTBtVVdtU0ZvelMvSDJyaEFMWHo5d1lUQXJZTlVEZmNq?=
- =?utf-8?B?cUFBRCtlU1d3QzlZWFQrZ3U3eUo0Tnoxd1d1UlE2VlJDYkNEZWNVRThxTGcw?=
- =?utf-8?B?S1ZmVHJXOU1EYnp6eTFoUUM1L3JVUm82MU9pTFNyL2MyZEQwd24zMVpSZmx3?=
- =?utf-8?B?bzJkYXRhV3lyeXFzUU5EVXpxaDBZdHNFcXFQbDkvaXEvOU1ERzNDREVUMlV5?=
- =?utf-8?B?MWZkU3hRU0dyZkJiaTJtZnhObG5ySVBGcnFjckI1REZHT3FZZjAwdk5Od0R2?=
- =?utf-8?B?Z2VGU252UTZBeEVuajl5M2NlYytQdUl0L0lWYlQvV1h1eDc2UldnNzlMSG94?=
- =?utf-8?B?cm15ZXpkSlJtc3lrUUo1bmtWS2wxQXpaSHpIaysyODVsOHh0d08vNjMwcUE0?=
- =?utf-8?B?YUJ1VEcxQXZ3NUh4d3A4MDh5SUt2RE5rWk93UXA0R0xTK0lyMkw3TE43dHEw?=
- =?utf-8?B?QmxRUXFta3pWOWtxbk5JL0tpTEtaNExBWG5uODBPanFNY2cwSHQ3NEszTnlo?=
- =?utf-8?B?anhBU2kzWm1MSTF1ZjdYSkI0Q1NGOXpwOEhGRjFQeiszN28ydHkwd1lXTWZV?=
- =?utf-8?B?SXJYd1A4dVdJQXliLzc2UjRRNzB2bkZ0VWpxU2ZhQTFaQW52WWl4UUU4aUhJ?=
- =?utf-8?B?ZUc3b3BGblkwYSthK1lEQkVpNURPOVFubmJJazNrM1VZVGpSL3QvZ1A5Y050?=
- =?utf-8?B?K1hXak1lRDU4UHkrQ0wzSzlySlVtZDhyVDE4c3Y2ODd3S25GTlhZcDlPaGtR?=
- =?utf-8?Q?dqnNdEm+XLJGqFwSlmt7hFTbQKl/y2m1+QUAk=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cGpHOGVLaVA4eUw1VnZTZkhZSkkyVjYyRnpKSDRVNWtEM3BFOW5CWUhsMy9h?=
+ =?utf-8?B?c0ZBMHRPZEZ0TFpsbHV6d2FyWjVBU1doNHF1RVlOdmZONkkyT0dQMEFrWVUz?=
+ =?utf-8?B?aGpqN1RLN3NvY0hlVDIyQ1NiaHZJcUp1RzVYeTQ2eEQ0QzY0cUpmNVhjODJM?=
+ =?utf-8?B?cDF2aU80eGFqbHFubStnTTBJNTZtblhidW5sV1FnTTFzMDdmYThhMmlaNWM3?=
+ =?utf-8?B?RVhvWllUR1dwSnFQYmtwTjh6d3FjUXpRRndmR3lGaWlKN3VReE5pOTRzRXk3?=
+ =?utf-8?B?NE1yVUtVbCt6S1NvcjY5MGhZbklJNzdEZVNudUwyZWN2dWVJZ2pLVUsrNEhH?=
+ =?utf-8?B?WUVoYzB4MUlRUi9mQ08vajh6b3FhTXowbFp0Z1g4OE1xL1hOQ0R1ZkRrMExI?=
+ =?utf-8?B?ZmFHSEhWaFVjMWdTaHhNK281WHlEOE4ycUtndWJFc3ZKcTJOQml2a3JRelp1?=
+ =?utf-8?B?M21sZnJiSG10SzI5UmNBWXplRFdON2VBY2VhMXNGYkJOTUV1ZkhldUp3NVlM?=
+ =?utf-8?B?LzZEcVhIQjlMbjNjNDN1MlhVWmFDbUJzRG51QkpMKzVsc3o0a2h4N1FleCtI?=
+ =?utf-8?B?MnpiU1dzUEVpMzJZS0JZZnRlWi9WcWZLRkNxdmVxemUzbitqRnYwdnpiNmh6?=
+ =?utf-8?B?STVvQkJUL01PM3piMG50ZS9yODNrZG1veE51bmxIK3lGc3V4c1ZRcVdCSDRl?=
+ =?utf-8?B?MlVOeHZ5YjMxOUd4REFxbVBYengrWDY1bFZoeTFaOUFtYldKUll0ZElHY3lr?=
+ =?utf-8?B?eDVLdUZWMzQwU0hOdWhVVmt6WVhGRVBDYk9iQllxNjFWUmNKd2wwR0hrUVky?=
+ =?utf-8?B?RVJJRjN3clIyY3dhbWZORE5DczR0MFVESVFqUkJXSjJVZWZMSVV0RWQ2L01m?=
+ =?utf-8?B?RGNQSGw2RU5PSjN1QlJiRUd3R3Z6dGJIOGxRQTJkN0d1aW0yaUpDZlpyNnhB?=
+ =?utf-8?B?S2ZPY043TE9YQnZoZnAyRzZJaktzYzlxdGUxRjVPR3RWRzdyZndsRWhNVFdr?=
+ =?utf-8?B?QTZ4dGN4cjBGQXNaakNQbUNTUHBnWTR4T29Tbk1hUVh4clg1V081a2NQZ29D?=
+ =?utf-8?B?bmNQVTdVV2l0MXFRM2l3YWZjRElEK2o5akhmVml5SVAreVlBSmxhWVlrWDZl?=
+ =?utf-8?B?dE4yalJmemk4ZnEwM1hOelVPdndLUm41eHpCWVJYV3ljNmMrZzA5eXJwQ2RM?=
+ =?utf-8?B?cjg3T2M0NE02bHp3cFJEcU9qcXVUZUEreWZoSUZGV0Jtem1jTTc5c2lSYjJY?=
+ =?utf-8?B?dldHd01RZlRQWFNWc1NsVWhxNTJmVXBUQ3h6bE1sV2pvam1Xd0ZNRHI4bm5z?=
+ =?utf-8?B?UGdubW1XdUtpRlBhMXo0OVZGMHBLQi80cjJ4Z3ZuV3laNHl0K0xQSThKbTZ0?=
+ =?utf-8?B?NStKQzg5ejlkV3VxeVg0QTRWSFB5SmxzSGZwUDJSV2ZCQ2czSjBJZFBRd2Fp?=
+ =?utf-8?B?YVJWaTBvK0VFVXErWGVTT2NhZGhRcnc5cUtxZVorM3NmdWloZmpQQzl6U1N0?=
+ =?utf-8?B?aTI4NjNaSzdsSmxmdFFaSnFZVU5QSm16MXo2bElid0ZZVS9Md2tRK3RQTVhU?=
+ =?utf-8?B?ZXdnYkNOb2FDdkk1ZjkyWENYdTdlMHhFK0JQSC9pM3daMmRoSS94Z0ZvWHNo?=
+ =?utf-8?B?Ty84aW1pTmt0cG5PMjRuRnp1UU5kVUozTExuMHBxR0tKVHdmR2NzL1hyN1BU?=
+ =?utf-8?B?RllBRXZ1bGoxcG85Nk5JZEM0eFlyajJPMWpKQ0o4RE9CYUM4dGgvRW8vMzZy?=
+ =?utf-8?B?YmJNa1cyN2h4OHJkOExrOEdoVXdLb3NVVS82R3NOeVE0MGxOVk5EVEZqS3ZP?=
+ =?utf-8?B?MzRQWUhvWm5mcGduMUdjcngrVnNOT2twamd0d1lWVlFhV2JVd1R0amdRS3o0?=
+ =?utf-8?B?ZEpSUDBTNEY5TTJ5OXpQdFMvZWtWWWVEaG9XYjJRRG8zQnNyY2V0RjZ4eitk?=
+ =?utf-8?Q?q3riRPyi97k=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR12MB5438.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(376014)(366016)(7053199007); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEt0K21hUWM3OVFPbGgya0FxZENxWU1WdXhqbUhJblVGNXRmTGloZTBIaCta?=
- =?utf-8?B?QnA3MFF4NnpvUHVWeTZOVkUrOHlmYWRZVXNCR3gzcS90c3JlaURDWVJ6T3c5?=
- =?utf-8?B?M096alEzdEJHekVHZHdJaEdLOUFVc3FMS1BuaklqYVl3VFpBcWU2UFVPeWha?=
- =?utf-8?B?UUZWVlUyOFRaRCtkd0hhY1lVVnZ0VmtyaDlTSCtIejFFb1NvQzhJMHhrNy9q?=
- =?utf-8?B?UXNYdk9wUW5GWkRXak1zNHlOWThFS2FXTDMzcW9lOHR1VHBzUVhtYkxieko5?=
- =?utf-8?B?QzEwYkRpY29YOVg5SFk0dDNZZExqQ3RlV2lMYVUydGhlbmVySFIyQ3lRSC9u?=
- =?utf-8?B?YU1PVmU5SVora1FFU1R3Vjc1TFN4WGZxUWtlRUEvcTZ5V0t1MUg1NFljMXNp?=
- =?utf-8?B?a3NmVjVIOWNYZDIyU2p2Q2YrZlQ3RXNnVVo1eXF4N1Q3MXRmYXNSMXZ3Wmhx?=
- =?utf-8?B?ZDRacnhXd2NIYVYwRUNWZW9uRmloSkxuamZnNU9hUFVsd1ROT2xtTnI1SS8x?=
- =?utf-8?B?SkRwc1FHZXdlYkhZU3hlYUMzemxXNzZCN2tXWVl6Mm9QSWdzWUE4WjNITFNk?=
- =?utf-8?B?M1k5eEV3Y2k5anc3T0EyQVAxTkk5dlVVVU5GMzViVjhQYVIrZEM0MGs3bUNx?=
- =?utf-8?B?cUlPMCtaNUxDUDhJR0d6TmhtdWxaZ2d3QW9TSllpcnBxSEpQL0RzRmw3S1Aw?=
- =?utf-8?B?RFVTNVJyOWV0Q0VOZ21US0hFWjl3WHNxb1V1NU9ONjB6UHo3UzF2QUU4RCtF?=
- =?utf-8?B?U3JqMUdTbDNzL1I0Wjl6NVZxRUJad1pzYU5YTlNUVVdaNnZHTWF5ZUtjbWxu?=
- =?utf-8?B?RFhJUUpYSEFlejhBcmovR3R4cUtkbE1pOVBOQjBJUHNNT3JpdWpTdGNRNkMw?=
- =?utf-8?B?RDFibnRsK002NkFDTW5CUmlNbFdQdGtETWlwQmdlaFMxWVRhRUZpOW9jcmVi?=
- =?utf-8?B?T2JKMElDN1E3blZMSVd2R2ZIaTZFYVAzVWRDY01PQncwbWQxVVNGeGtjNFc0?=
- =?utf-8?B?emc0Y2R2eWdOUFJqVzJ3bHViZHdaQXJrNlZCU3pCRTE4RnQ5SUdPNlNRZzdv?=
- =?utf-8?B?cTFOMTNXRVVSVWM2WkxnMDhuaWJJMjQ1YVVDTGxFZ3VxTFpJbTVYaG94OHNH?=
- =?utf-8?B?cHdqbWZ5N2JMRVExZ3dUYTVPSFQ5ZGtxd091YXhBMHVBVTdLYlAxeEkvWHBO?=
- =?utf-8?B?V2R6bjVaUmZGbEhuOXFCVzVUSTl5V1J0d2pRaUhoLzVKSzhpdGpJWFJHRzly?=
- =?utf-8?B?NTZCbkFBUXM4VHhVL215M2JoQU1HOVZwbVdna0dGWW8vNVkxRWVqZk9TRmVS?=
- =?utf-8?B?Yk53R0Vtc002bzJZV1RtaVR5SVhjcTltZHBnTUNBSEdCZVMwWis0eVVIbjg0?=
- =?utf-8?B?RXN6alg3Z3RYaHBDSXNucjlUclYyWjZmY0l0N21KbzQzNThQWEZraHZVZkl1?=
- =?utf-8?B?R1d5SU1DVHRSbnU4dTgyRnYxNDY0V1FJYlMzb3JScjNaWlpLQmZmU3FXcEFU?=
- =?utf-8?B?WGFaSHhPZHR6cjdFWEhpc0t6d0JpQmZuM3pKOHJLWisyOEVZYnVJMnlRV1Jr?=
- =?utf-8?B?TS9CbnVBRmVKWGlUcVlHY2pDL3VSVEVrakYzZVYrdXRqRExTcU56RDZINFBE?=
- =?utf-8?B?VmtxakMxd21GZ3dRRUE1SjB4SFY5UTV5Qit1RGR6Z0QxZndJNGRnbDU0dDRX?=
- =?utf-8?B?RE53aDhzajFNR2hxY1lGM3VKcjI1SmdBbkdZcThTSGFlb2lCdWhmT2RUUDFE?=
- =?utf-8?B?YXF0Tm5iRFJPdzZzdmlUN1RESzYxS09DbEVBNmZLekRNYWdwVy9vZU5iM0ll?=
- =?utf-8?B?S2kzQTdER09sTmtOVCs4OEo0VGhWN3hIMUxIT1ZoRHp1d3o3YkJnckxmVjc4?=
- =?utf-8?B?Ui9GWnBQS1FHK3F2bnB2VnN4UXlzalpTUFd4M1VJdUFCdGZnWnZ2cW5uaHY5?=
- =?utf-8?B?ODU5dU9qSTBPRU1wUVJtMGdueVN2WitaMUZwUGhGTjF5WTRHQzhrRVltV0ky?=
- =?utf-8?B?L3ZMVGROMGdibnVTTlhnWGpPei9KUGFyUzhVTFVlR0wxWUM0L2lTUWRwMEhq?=
- =?utf-8?B?NHF4Q0wydlI3dFNLYVgwWWlhck5XMnMweTR6eGFlaU5yTTZJVGRuSGVMNUN0?=
- =?utf-8?Q?R+1YvfbXMTOU00vuF1PnUlsf5?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWM3V2lKOFJlNm1RVTVsUWFkbjBuMzRkNi9QNXVzeHRaVFpFeDNoOVM0V3NV?=
+ =?utf-8?B?NXJOdmpWSzZ0SlFSR1FOQldySUZmRmZ0WXNpK2hZWlRPdVlhYzByTG5xMWM4?=
+ =?utf-8?B?UThzOTZqS1FjUDV3ZzlRc0EvMmh0Nis2TnM0Ly9xTEFoVUg1KzJYV2pIb2h2?=
+ =?utf-8?B?eVJma1BOS1o1RmhSTjlvbjhhbE5BL3ZRaVgyM0NjWUNEVm9FTHhkdUJqT2VK?=
+ =?utf-8?B?aHc5VHVCRWhjOVlkMkpaU05ROWlpRC9CbE0wY1lpeHM0VG9WOU9zQWN1RC9B?=
+ =?utf-8?B?S3I4UDJzcWVGTS9FQWR6L1BVVzA5aW5OOWEwSUoydm56c1NrdUVZSjVRNVo4?=
+ =?utf-8?B?b0JEZlZiZkd3dzRDeVlUcFZ3WnVwRWw1L0lxOU5td2ZXWFFNckhiR28ySHFS?=
+ =?utf-8?B?bGsxb2c3WEhkT1NqQVpGdFdFYUNENFpYK1A5ZjNpdlE4NFZsc1lWVzFORnEy?=
+ =?utf-8?B?YUJpOVRsVzNNbi9uV2YyZVdZSXJlMjk4VzFTbE5kWStpaWNpUHprNnQvQnJ6?=
+ =?utf-8?B?ajZSUTMrbjFxUkdIWlp0RjVPQitkc0c0QXdSclliS1RLSVVIQytaaTRLUXFD?=
+ =?utf-8?B?eGdrdXBZbHBxKzFWVnlyMkJqVGdIZ3NQaWxFd1VwMTVnbVVSZStSUjFkWXdW?=
+ =?utf-8?B?cVN0ditEVXFESS9manhDQ0RZZnBUcXZPNkVmNCtBWXRTQ2VRbXVITWZMNVky?=
+ =?utf-8?B?YUJ5T090cElheitlYVBqR0NwUzBEYk16bVpVTE1uUHpqcGpjWjRXUW1PMnkw?=
+ =?utf-8?B?UDBackltMEZnNHRLS0RoZEZmQjY3eDJ4RU11Yy9TbEJtSTgra2Y0cDJKdjVr?=
+ =?utf-8?B?cUtzN1N0Qy9tN3JBaUVBemlsSDRzaWFIVDA5ekpicTQ5akl3RmVvTU9CamV3?=
+ =?utf-8?B?MDdUTlpzRFc1VVN5WUlDWldPS2doaE84dWg2dWJZTHB3R0gxd2VUQzZ3Z1Ey?=
+ =?utf-8?B?OEJlNGMrOGs4TzJYU1B2NC9kNm4xdmxVc3ZFa2xwV29zVTBKZk5DcjBqbmhj?=
+ =?utf-8?B?MEI4KzJzTDdGdUh2eFd1VVpTNy9EWFZUQTRtUk5qaEMyc3ErbjQxb0V0N3Na?=
+ =?utf-8?B?ZUFRZ09kYjRMSFdEMnRzYUxiVEhleUFZdEtxRWd0NnQ1ZlppSmxHeHZETnZT?=
+ =?utf-8?B?eGlUUnkzNGhPbjFpZFVEOTJHUDZLeVRZMzAyRWVzSmwzKzR4MHB2OFZUKytn?=
+ =?utf-8?B?c1dJOTVwem1VYUtmMk9TUWpqdGJSZk5UK0JaVy83eVFaeDJpQU5Gb0NUSnZV?=
+ =?utf-8?B?K1JOLzlFWVorZzRJbldIdHExcm9XRTRlT09nbmRKWWtqRXM4TlJsZXpWbHUx?=
+ =?utf-8?B?THlNR0dvMmM5L2YvTVFWSGlTYmdlV2Ixcytid0NUN2FYMjJrWTN3eXRmQjd5?=
+ =?utf-8?B?QTE5S1NLcDdOcit6WHBzc0w1dXJKM21LVWw5L1crWHJoSDZPZk8vQTh0cno2?=
+ =?utf-8?B?ZkFJQm0vbUx4ejZkYlZhekxIT0RVdEV0MUhodVh3ckc2V2Z6Ym9TTzNZRzdu?=
+ =?utf-8?B?Y0dRYVBMQ2l6OElQN2YzM0h5ZHRIK2pxV2RXUUk3dEt4ZTVVamhjQjloaWJZ?=
+ =?utf-8?B?eUpZSWc3SWpFUHVuOTJhRkI0ZXQzd3ZxN0h2OExLU3RTbnJxVUp2M0FiRDFD?=
+ =?utf-8?B?TElNdnltS1crUzIrSDBENnFzNnVWc2wySFVCOWJoTXVEd215WWQ4U293bVVL?=
+ =?utf-8?B?bVNYRC85NXYyMUlVT0RZVmZHa3VRMHZPNDQ1SzZ3UkMvS3pIcExPV1hMNzJL?=
+ =?utf-8?B?YUZpZy9sWEdVcEFFWnpWM0VVVXpkZUx5N2QvK2trTjAvU2dtcWN5S2txNzVC?=
+ =?utf-8?B?VFVVbEZCc2NiVjhoNC9uQmw3RW5hVHhENVFrVXh3QWw3clp6NFprUTF1RmZZ?=
+ =?utf-8?B?MmkwV2Y2U2t3c3AwSCtHc05HbzYvd3MvSmhIVll0cFhJMTJkWExKZk9pWHhn?=
+ =?utf-8?B?dXN0T0VZRFllaWYvZjhxRjB4SDE5MTYrQkU0QzVPMWlvOEVhMm50TWdFblhO?=
+ =?utf-8?B?alVxL1YvN3ZUNEJCdjJlRkVrZUdTbnFqNXNocmd3MW5pRzVwNmNDNXltTHRh?=
+ =?utf-8?B?VUFJZmptRUx1Z0VYZ0k4TGJRZ3dGUkZyOCtGR1NVM2tzSnpjYjJ0Qkg3ckVo?=
+ =?utf-8?Q?cNkHpQ++fkA6Fwyf7PW7/KIuG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd48c26f-b77d-4237-b338-08dd7c2efe23
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10e43cb3-4bf7-49e9-8572-08dd7c32491b
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5438.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2025 15:05:43.2401 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2025 15:29:17.5336 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qkyGbWsfI9SxANSgAiXFkNGBecEKX6c2DRrYlXpkR7wlUSDHAh3C8ownNRCqvpMN24GZm0K0Vl+o/dy7izmKAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6526
+X-MS-Exchange-CrossTenant-UserPrincipalName: agSGsLsNJP7M0ra33owFOPa52QXS78iQ578tMlQIf5ShbaZJ1DieEhZUCpcpscgrJ+JSVoosYFxoY/iMCEcGkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6245
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,65 +179,94 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2025-04-15 02:40, Shankar, Uma wrote:
+On 2025-04-10 03:53, Pekka Paalanen wrote:
+> On Tue, 8 Apr 2025 13:30:46 -0400
+> Harry Wentland <harry.wentland@amd.com> wrote:
 > 
+>> On 2025-04-08 12:40, Daniel Stone wrote:
+>>> Hi there,
+>>>
+>>> On Tue, 1 Apr 2025 at 20:53, Simon Ser <contact@emersion.fr> wrote:  
+>>>> On Tuesday, April 1st, 2025 at 17:14, Daniel Stone <daniel@fooishbar.org> wrote:  
 > 
->> -----Original Message-----
->> From: Simon Ser <contact@emersion.fr>
->> Sent: Tuesday, April 15, 2025 11:47 AM
->> To: Shankar, Uma <uma.shankar@intel.com>
->> Cc: Alex Hung <alex.hung@amd.com>; dri-devel@lists.freedesktop.org; amd-
->> gfx@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; wayland-
->> devel@lists.freedesktop.org; harry.wentland@amd.com; leo.liu@amd.com;
->> ville.syrjala@linux.intel.com; pekka.paalanen@collabora.com;
->> mwen@igalia.com; jadahl@redhat.com; sebastian.wick@redhat.com;
->> shashank.sharma@amd.com; agoins@nvidia.com; joshua@froggi.es;
->> mdaenzer@redhat.com; aleixpol@kde.org; xaver.hugl@gmail.com;
->> victoria@system76.com; daniel@ffwll.ch; quic_naseer@quicinc.com;
->> quic_cbraga@quicinc.com; quic_abhinavk@quicinc.com; marcan@marcan.st;
->> Liviu.Dudau@arm.com; sashamcintosh@google.com; Borah, Chaitanya Kumar
->> <chaitanya.kumar.borah@intel.com>; louis.chauvet@bootlin.com
->> Subject: RE: [PATCH V8 32/43] drm/colorop: Add 1D Curve Custom LUT type
+> ...
+> 
+>>>>> 1. Is it guaranteed that, if any plane on a device supports the
+>>>>> COLOR_PIPELINE property, all planes will support COLOR_PIPELINE?
+>>>>> (Given the amdgpu cursor-plane discussion, it looks like no, which is
+>>>>> unfortunate but oh well.)  
+>>>>
+>>>> I don't think so. (They could all expose a COLOR_PIPELINE with the only
+>>>> choice as the zero bypass pipeline, but that sounds silly.)  
+>>>
+>>> Works for me: so any planes could not have colour pipelines, and the
+>>> result would be undefined (well, less defined) colour.  
 >>
->> On Tuesday, April 15th, 2025 at 08:09, Shankar, Uma <uma.shankar@intel.com>
->> wrote:
->>
->>> We want to have just one change in the way we expose the hardware
->>> capabilities else all looks good in general.
->>
->> I would really recommend leaving this as a follow-up extension. It's a complicated
->> addition that requires more discussion.
+>> Yes, basically it would be what we have now (without color pipelines).
 > 
-> Hi Simon,
-> We have tried to solve the complex part and made it simple to understand and implement
-> along with a reference implementation [1] (can also help add the same for AMD case as well).
-> Without this we will end up with up 2 interfaces for 1dL Lut which is not nice where the one above
-> will be able to cover the current one. Let us know the problems with the proposed interface and we can
-> work to fix the same. But having a common and single interface is good and the current one will not fit
-> Intel's color pipeline distribution so the generic one anyways will be needed, and it will benefit userspace
-> to know the underlying LUT distribution to compute the LUT samples.
+> Hi,
 > 
-> [1] https://patchwork.freedesktop.org/series/129812/
+> I see Alex wrote:
+> 
+>> In order to support YUV we'll need to add COLOR_ENCODING and COLOR_RANGE
+>> support to the color pipeline. I have sketched these out already but
+>> don't have it all hooked up yet. This should not hinder adoption of this
+>> API for gaming use-cases.
+> 
+> Was it considered to be able to lift the full-range RGB restriction
+> from the color pipelines, eventually leading to the possibility of
+> scanning out limited-range YCbCr bit-identical, giving userspace access
+> to the sub-black and super-white ranges for e.g. BT.814 purposes?
 > 
 
-I think there is a lot of value in giving userspace a simple LUT
-to work with. There are many compositors and many compositor
-maintainers. When someone new jumps into color management usually
-same thing happens. It starts with "it's not too complicated",
-and then over a period of time progresses to "this is very much
-non-trivial" as understanding one bit usually opens ten more
-questions.
+For AMD HW design and validation assumes that the pipeline is
+dealing with our internal floating point format and RGB values.
+Anything beyond that is somewhat undefined. Things might work
+as one expects but the product was definitely not designed and
+validated for that usage.
 
-Forcing people to deal with another level of complexity will
-discourage implementations and be counterproductive to furthering
-adoption of color operations for HW acceleration, IMO.
+I assume other HW design makes similar assumptions.
 
-I'm am not opposed to a complex LUT definition but I don't think
-it should replace a simple and well-understood definition.
+> These questions are pointing in the direction of a bypass
+> COLOR_PIPELINE being different from no COLOR_PIPELINE. I assume a
+> bypass pipeline needs to shovel values through unchanged, while
+> "without color pipelines" would need the old COLOR_ENCODING and
+> COLOR_RANGE properties.
+> 
+
+What I take it to mean is that this iteration of COLOR_PIPELINE
+only allows for RGB pipelines as YCbCr ones are underspecified
+without COLOR_RANGE and COLOR_ENCODING. For RGB a bypass pipeline
+should be the same as no COLOR_PIPELINE.
+
+> That reminds me of yet another question: if the framebuffer is limited
+> range, and it's not converted to full-range at the start of a color
+> pipeline, how will the sub-black and super-white ranges be represented?
+> Will they be negative and greater than 1.0 values, respectively? This
+> would be meaningful for the colorops being defined now, as I assume
+> people might implicitly limit their thinking to the [0.0, 1.0] range,
+> or at least exclude negative values.
+> 
+
+Without COLOR_RANGE there is no way to know whether the input is limited
+or full.
+
+Is your question about when we have COLOR_RANGE specified? If that is
+set to LIMITED then I expect the values to get expanded at the beginning
+of the pipeline. In that case it's probably a HW or driver implementation
+detail whether the sub-blacks or super-whites will still be represented
+(as negative or >1.0 values) or clipped.
+
+> The 3x4 CTM colorop is not yet explicit on whether it clamps its inputs
+> or outputs. Should all colorops be explicit about it?
+> 
+
+Do we expect all HW/drivers to be able to support the same behavior?
+Is this critical to using the colorop?
 
 Harry
 
-> Regards,
-> Uma Shankar
 > 
+> Thanks,
+> pq
 
