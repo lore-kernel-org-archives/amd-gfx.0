@@ -4,73 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B82FFC369B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 12:12:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6906C369B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 12:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DEAE10E758;
-	Tue, 15 Apr 2025 12:12:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 398B610E760;
+	Tue, 15 Apr 2025 12:21:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PsYpDT+v";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gQtiAoog";
 	dkim-atps=neutral
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 716A510E758
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Apr 2025 12:12:51 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-5e5cd420781so10723474a12.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Apr 2025 05:12:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744719170; x=1745323970; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=lKSnC/2//tUpd7HBVCO4IK5JyZZu86W2tAoWpXZhfCI=;
- b=PsYpDT+vGoqtwFUb56OR4nSH4kUzzp/5AQcs2P7SVecxm34/K9Iy7p260hmvbcwgmf
- CX1tV/fdRl8c33u0unpcZknhakCvMLK9h4V1dH1DJYhktvZe4THww0tJujn8TSiRdFe1
- dKFPywFLd0+0ITEQ3GZuKOXUUzwKVrjMS5609UuJP/FiUtJYzxr1M1b5jFaqHUcKNeHx
- 58k+gqDNKHmcMOJXGufpEAnxlmNi8oUgfKEHr+c9cfArMbEhAedmlfzOAF2L+OFEdyHY
- baLd2gsfGyqDpcVEfzKTP/LwclBBSPp9EGBhbGzRoPiFWeyDvo/PPl53Mm+RHYOMlnvk
- v+rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744719170; x=1745323970;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lKSnC/2//tUpd7HBVCO4IK5JyZZu86W2tAoWpXZhfCI=;
- b=a79LyVUUx+JFRCUQozRsPoosX+o1LoDdKlHQqxKpm0RWCNJ30WxFIcJ+gLDvrsQyDm
- ubnj8cHVHffqLFb/De0ZOlqkZ7034ob/4pAWRZuDGDT769Msm+dOiHYP7Mv/7gPhMiXW
- l3hy/y9Uxa8LILebr/ptE/f7IqVP+IKtiR34oQv7EdooLNqFfi046nnEk15z2P3GJBMN
- hhm5p5A69ZJaYGrf8eI5TXOu7f8iJG0dD9zJ65vKxMxKyoJrZNZk4h1TNZ0i4Drj+eUL
- slINK2zhInyPL6iWJZcAB3RqHwcxu7svnCbCzShoxl7pnVRR8jQ4nUDRBlLHsH1jpb5X
- W8/w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVa24Xa7tbXnv5cxKP9QNiYRYgBzjeAvXzv1Sk40zhXrp7K2f2xga5KcLBYbwm4TBq/dri3mw9Z@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwBS3zhvobxLPiH5IhGcZ8bw5yBONZgyYoQ/3WlFkCl3/Pbb7jn
- TgkLFMQF3zETfClDcGDFtFr3zd9t2eN12Bm3wCqnIt6RPRGsAqfEjgkIkiC7bMs=
-X-Gm-Gg: ASbGncub0ehrKV2dUj6rG2RFiIS+yc4tbLEuzvNdkY8vgMXQ2uCs9d7tiFmgXjgQvx+
- Ho8DdQ8I5Itv8BLv186KO9VZ4mDeBIz0mpM4yqnYiDwE/kLWQsWpSZgHnv9yBHxJ4jaDJvpISKo
- xu7aZzqIE1DI6tuWAgi9gOSIM5xFLzmvyg6URj0qyP90JK5QjzzYm0DZZ+pFYntGjPVUhuL74Ud
- +z3GpKhKJ4iVlanA0TUfOTso8Y9GOnjYEuHT3Maxfl550CW+g5TtnK/o6ldMooMgTgR90mAjpeX
- I8JRWmiAQFra4PQHon0Urim5nif6lMx0PJASnflKxJNV1o64fcx5gDdUUb0Aad4o
-X-Google-Smtp-Source: AGHT+IE24aNUzUl/jm5QzP1iw/jDEM9uc3FDvEtn2zFr+kitPt510JjE2P47P12WpWOQqVoJe+RF9w==
-X-Received: by 2002:a05:6402:3508:b0:5ee:497:d713 with SMTP id
- 4fb4d7f45d1cf-5f370116437mr12686735a12.33.1744719169511; 
- Tue, 15 Apr 2025 05:12:49 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:1550:aa00:a9b5:feeb:fc45:2ec3])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f36f068f09sm6520553a12.36.2025.04.15.05.12.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Apr 2025 05:12:49 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: srinivasan.shanmugam@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: cleanup amdgpu_vm_flush v7
-Date: Tue, 15 Apr 2025 14:12:48 +0200
-Message-Id: <20250415121248.5389-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2041.outbound.protection.outlook.com [40.107.92.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD8610E75F;
+ Tue, 15 Apr 2025 12:21:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y/g1ErNaU4SkWWkxe3BJiV6/UJQPGCiYkJjel1imog3dSY3Xui7r9tcWHQpzIJ7whae4EMd+NhlBvGhCt/ugauYOAaAD2QA8fjrL8ABlcV4Avpyu7+2OKJ+m8JZhQC4qtrADg3dIy1nu5OuobCAoVFSp39S+W9t2S+60fsZg430sxHsyr03NtldnWKsPkSK1MPCAvvTC5jIwEIhZmfke4NcoAtJeck/1Xdr1SFfP2nmZeOukFyiQrQZ/d9cxsBXalQqrquIEOqC0jQPKRliKaKZ4qk9gYS/VVunZO/F6Wl68oaPO/Xg0a7ZnMT6RwfnNV1Gf4//0G0FMi9X2YPKZkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1UTPn9s04fok2EbkhKoF119VU+H1iuDzKCfIUG0/RQE=;
+ b=pEvfKIWjS8IzjRKaennNBUqEXfBGnBwlIB4hXa4c6nQ50gVe7G7PfFG39ajzuxAfHLlIBoEa5I6xB1KkUm63FoyPgp/q8P0Xqzqa/ySPLkqrhs6Q0gHuf+9l7rHbLnmn12PAhs1mzZwo2j0Fp7XKTKxx/+Sisyr/xob6T5DGi/RQ+TD2IidkF9VwWcx7GuVdkQZqyD3iVrvwFSIL3WS7n3fFPDELw9gOfDhS1k6/bdREK9RvsJLHlKEN6WMuik5lbLyFhG5llt4syYSsLW4RAdS6S32e7F61q3IJtF4Xs4sX2u0jjVHtaCeokST61A9Dik7zVUS+Lk7Nz3uxGrnJWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1UTPn9s04fok2EbkhKoF119VU+H1iuDzKCfIUG0/RQE=;
+ b=gQtiAoogPL8IZKXjn6seCOHAMYkmZhu6p9hliBT1JOSoip9/31hj6m0ZGPaSCbiNa9MsOQRODpwFO7bTxXT7UPZGMFihblqIYSFXiQAtpoFygu8eNYoPCeVWsXFxmiJse8K0t4jhevXNhoOQHHI+Xic9JkzqJ7NmKxlyhapCgcQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB7553.namprd12.prod.outlook.com (2603:10b6:208:43f::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.34; Tue, 15 Apr
+ 2025 12:21:10 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8632.025; Tue, 15 Apr 2025
+ 12:21:09 +0000
+Message-ID: <c4c03523-15b4-435b-9c01-28a256d47f34@amd.com>
+Date: Tue, 15 Apr 2025 14:21:01 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] drm: function to get process name and pid
+To: Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+References: <20250415112550.297292-1-sunil.khatri@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250415112550.297292-1-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0259.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b5::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7553:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17650a76-d50a-4eea-176e-08dd7c1800f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Z1pWb2xKYnd6L0JGNUlvb2NLMm8zQ3dJK1JiYU53bFhQUytMWnJtRzFmZmlW?=
+ =?utf-8?B?czE4L09TTmZhNFpDQVBXTGw4akpSWCs2TkgzdXpzLzVCUXBVdnd3V250YkVv?=
+ =?utf-8?B?RU1sajJRQlBEV0czeTlPNWJraXYrajd6dE5NSisyTHhCUEFNbDI1VWR3WVdo?=
+ =?utf-8?B?OEs2aklOc1hObHpKY1lhajlLOE5wVWlNSmZEbHdZODdQbGN0OUlZV2RzSmxR?=
+ =?utf-8?B?Y2Z0LzA3VzlvazdTMzBNL09neStnZTFVeS9nVjIzWVJUQWRIZkI1dG1INDJW?=
+ =?utf-8?B?cGIyeFFKMk83VzhMdHc0cmk5NWV5eHptd2x5RGF1ck5hQlpTVklvbk1HQS83?=
+ =?utf-8?B?SldmZWR1Z2tDZnFCUkRTZU9GZ2N2U1hOa0RQNzBGRHVlMjFrVUd4ZXhxbDg4?=
+ =?utf-8?B?VnFkcUtJSnlvYjRPb1pVV0hpczlBM1Y1RS9TYldvalYwN2h2L2xLNklCelY4?=
+ =?utf-8?B?TzBZbVo0eEpkOXFScnVGUG91aWFBTFJTOGdTU2E4ZUZnamxnaDZ4UDEyNlBE?=
+ =?utf-8?B?QmoxVDg3eHI0bUJPOEtxM3ppN1JPTHBlVjluQ28yajl4RFZBdE4xMnpYRFds?=
+ =?utf-8?B?STQ5OHkxMVluUDhhRXhRNVhvMm1hV2tTMWJnQ3ZlU2NzT2xZNFZFcmM3QVRJ?=
+ =?utf-8?B?VUVOSzkrVGxXL1RDdituZnlmVmIzTXN2VlVGeGM4M0dZenNqRXVSR2ZUYU1M?=
+ =?utf-8?B?cEVPWUxMTVMvUWxpTEZPQVl6ZDBJelU3ZkZST0duYzAxK3UrbXFMTnd0b0JZ?=
+ =?utf-8?B?MG9iNGJvR3hKQ3dmU0RuL2JBUlVVcjcrU1B0Qy9EcGFEdUltUHlzVmVGWXc5?=
+ =?utf-8?B?U1RlTWs0WlF1aUFEU3RxSitORXJ0RTJPSGJyQUtyb2hwTzVMRHlPdzJJV3Uv?=
+ =?utf-8?B?dFRJaDN3OEVTRHZkbXZ3VHJJenhGNHNkVUp6d1VlcXQ3N0NuYUJPR2lxTlRZ?=
+ =?utf-8?B?c3pLbFFxc1A2SFozQjk0SFBzZjZqUVVtV254VXdSSG4rNHRmb0V6K3JNc1d0?=
+ =?utf-8?B?LzlFdmduTXpnSVBMdXpFZG9DNzJnTm4wUXpsSjRJREt6bjc1LzJXMnYxMEtz?=
+ =?utf-8?B?Z1NWTm50Skh5ck1FUTA3dXJBRnZVdkloUG1RQnA4QWZHb0daWmFmTStHR011?=
+ =?utf-8?B?TVpsTmtmdG84TU56Q0VpbVdJSDM2cTVkdWZENXA0L3phNjlQTjZvR3BaVEhm?=
+ =?utf-8?B?cUFVWGcyZUJjdXNEUmJoTFRUOThHOHNQWkd3VjFKc1F1Z0Jpb1d5YnN1Z2k2?=
+ =?utf-8?B?QTdiMUFnQUR3R2dmbmxMelpIcmIreUFkNURjUDZlclFJQVU0bmlucS81b0h1?=
+ =?utf-8?B?V01INy9GOExjYnVhLzdIeVlOU0NmRHZqN1NJYndkRE8vb2xvSm1iUEZRRlNj?=
+ =?utf-8?B?Zkp4KzFtd1dTeThGcTQ3aW55T3EwQWNSbkZPNnJRRVFNbVVGSlVuVUpSUUpn?=
+ =?utf-8?B?dVUzRXF3aElVS3l6M01QS1E0WnVUOEJ4NjBCS2lyaWw1RC9TTFRPMk96anV5?=
+ =?utf-8?B?S0s4aWYyTUFaV21WUFVPOEovK2JKdGpOS0l2ZnVSVXU1QklLSmgvWXVMVW1p?=
+ =?utf-8?B?ZlJjeTBQYVVuNmNacFRxbzFKNysySnR2VUE4dzludWUvVlp5cnpJQmdkRzRZ?=
+ =?utf-8?B?eU51WnlTUmJHTTRrUFFuR0dYQUV5a3g4bFpVQ1NkMGdwb0MwQWlRTzZkWDk3?=
+ =?utf-8?B?b0syLzUvOFNONmZucEtDWnEwK2U3dFdYZG5nd3o5RmUrWDNTcUFBbTBUZWpk?=
+ =?utf-8?B?VmR1bVpPNjJIVG03OFAwblkxeTA3ZFdYMENwL3drSXNTU2hwOW9OaE14STVY?=
+ =?utf-8?B?QVJaSEJqcWVNcjFxZ25TU1EvbnVIcWJOejBkMG85OTEwNzkxaHAwNFNIY29q?=
+ =?utf-8?B?L1ZvMEoyQ05NWGlYRlYxNWJ0NElsaXhNWUh0ZXFHUzJrZzBYaEF5bEt6SmFB?=
+ =?utf-8?Q?Ja3UiHDQZFI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnpCSEFreU13U2xiVGNkaE5keXNKcXVpejM3OGltZXdHUTU3cUtOQ0NqNjZR?=
+ =?utf-8?B?Qll5WUhtSXg5dHpYdUR5MXRGeXF5YXlHNEZTTGc1S0sycWYwRzVEZlJmYjhK?=
+ =?utf-8?B?aEV2cFVsSzl2Q0ZHRmZUTHlnTkdQZ1VDWjdGNnFNY3dhclp1RFFnUHZGUGtz?=
+ =?utf-8?B?bVZsS0JiYytMU0sxempjQVFZNnBqRThDVUpEUlNCTVlmaUVYWTRrWEdCSTU1?=
+ =?utf-8?B?RXUwV05GMXplVlRmcXFIVVd0Z2hwUEdJWVBQVkRKVmlBdG5ubHJWaFFVd3k0?=
+ =?utf-8?B?OWNyWERURVlpN0ladytJTE4vbHI1dm5JNXVEeFVBaVFFeThGKzF0eGxQZGJT?=
+ =?utf-8?B?NGw4TUh2V1Jrc1l4WFRTYjRnM0tMNkhiTW14NFdWbTFwN2s5OHpSNy9RY1ZL?=
+ =?utf-8?B?cm4zSENFbzRUODQvbHBjNzZha1BxS3lXYVJvY0wyQlF4RWk1dVp3QktITHNU?=
+ =?utf-8?B?NXJXeWdBdzdiL3lxS1hrekVKTzJTbEtvR2lQN2NnSzZQRGw4U3RYQ0pESS9J?=
+ =?utf-8?B?SEZRN3J5ekFDRXVZaWEvekdDbzdpQURtSWhYaklIWXlNclZ5aVk3TThDM01x?=
+ =?utf-8?B?cnVUZFJOS0ZrcFRtNUJFZ05uY2kvbEZSdHFMejhqRDlrdEEvUmhqdXhPcDYr?=
+ =?utf-8?B?K3VsMnpob1pOeE1FcWg2UWNRRzVQTllDd1dWTnBHeTZQaTFhZ0l0RnRsRWxM?=
+ =?utf-8?B?bXJlRFVLUVdwNVNqZTMrRW5rVkMxN2FhV1NuUkpPYzhoUXFYeFA4TVlVN2hF?=
+ =?utf-8?B?OHUzZlI3cjhWKzlJQnZFbzNxMmZpcDUzRUg1QnY2RTVpaWNIM2VqUm4xdm4x?=
+ =?utf-8?B?Z0I3U0ZNL3dFdHV5c3JrZGFZTk95WTgrc3pWSHFZQktpT2FQRW9wOEpxdEJh?=
+ =?utf-8?B?dDlscEpSUnk2T0czdEd4aFlocFFsMFdKdS81U3QzSW5mTFhwV2tUNXJPb2JX?=
+ =?utf-8?B?Q1VaVFplTk41ajNWME4yWUhVdEdWbmtLYTFwUE0xSGtQNVM4LzdlY0VlRkFo?=
+ =?utf-8?B?ZGFTWENZd043d0ZxR2loVDRJK1VGSXZBSDhvVWNVWG0xSU0vMUx0SVd5Vncv?=
+ =?utf-8?B?My8vRzdzYWNFZ285cVl4ZUl6YW1OYm9oMmpjTlZNaUV5aFNKdzdwUnFKZnNJ?=
+ =?utf-8?B?NFlPWjVVSjAxa1Q5dnBpL0F5L3Z6cjQwYXNLdWFYNmlnc2NlOGJMbk9aaXBn?=
+ =?utf-8?B?R0t6c0w0M2s0OFFQNDJkWGNEMENqalB0L0VTb1RvaGdLb0pJM3Y1cmVBVDRm?=
+ =?utf-8?B?Y2xXUGpJcDZ3cVZBaEtIUHdzeDlCTjRBbXRPZk5uR2h6UkI2ZXN2Nkpsb3di?=
+ =?utf-8?B?QzR5OUNjTEpDUkU2akVnYW9NQUtsZWdvV0JsckxHa0trS2x6QXE4ZG5rU1pi?=
+ =?utf-8?B?UzdpUWQrRDIrOWEyV29RaDVpTFJJUnRFMW9HRy9aaXNSYWZVUUlPSXVDN3BQ?=
+ =?utf-8?B?UDBNblBRRVUvQ1RscVp1cVFrNXNIZ1pSSmdDWEU3YlpoREI1TURHREwrVHhr?=
+ =?utf-8?B?VkxRbkNOaGdKSDNrT0UzUzZ3cVVvNHZrRVM3N2MrcGVQNmxsNjZXY0hzZ3FX?=
+ =?utf-8?B?aFh0MjM2K3FuV25CRVNRMlkxbnR3T2NzNVByR0NhNnNOY3hRdzhpUzZZQ1A1?=
+ =?utf-8?B?Y2tnL1ZuZVJsQ3pnZmJRNjlsK2JxRTZSYTV1OFJFd1JmdUNJa0NQNXdmR29a?=
+ =?utf-8?B?bll2cVV4SWhHaGtSL0pFYkxVZTJNUmlPeDg4Zk9GWE9wKzh2RGJmbFNwWmll?=
+ =?utf-8?B?RGFZNUUzNlVIZFJjRG1IYit3bzlwY0JSL0RDS3RINnprVFpBMU1kTUkvVHlx?=
+ =?utf-8?B?Vm41NWJZVnZqOXVGbHNVbHN4R2NBMGJZMzZNRStidU90NW9aNlpBSndMOVoy?=
+ =?utf-8?B?ZUswSHF0Nk1ZNDdMWXhEYkk3dlBIRldtbTJXY2RtSWF3V3NmMkhHUFZtbTdj?=
+ =?utf-8?B?RzdIZEE3blZLZWQ3QXExM1hwVmxYOFNrR1pMSmlZMGlINWtaL2w5SjR5bkJQ?=
+ =?utf-8?B?c25zZkxlM0czSG8wdFdOMlpET3l0T0w5NmcrbzlNTmlKUG5wQlRUSHlubnVE?=
+ =?utf-8?B?b1dGRm9JVTlUTUFnbGpLN2grbVBCdEhqei9vUk04VmdWV0lIWXJ3UVdGVk9t?=
+ =?utf-8?Q?tGqskkI5hHVVosjSczgwspSvT?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17650a76-d50a-4eea-176e-08dd7c1800f6
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2025 12:21:09.6291 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2Wy7Hfr0ix2Rq6ld6fMFgu/8x02Bfzj4XfS3Ncrki/cNi4eBIbRbeh8FCIg+053U
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7553
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,241 +163,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit c2cc3648ba517a6c270500b5447d5a1efdad5936. Turned out
-that this has some negative consequences for some workloads. Instead check
-if the cleaner shader should run directly.
+Am 15.04.25 um 13:25 schrieb Sunil Khatri:
+> Add helper function which get the process information for
+> the drm_file and updates the user provided character buffer
+> with the information of process name and pid as a string.
+>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/drm_file.c | 34 ++++++++++++++++++++++++++++++++++
+>  include/drm/drm_file.h     |  1 +
+>  2 files changed, 35 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index c299cd94d3f7..728a60975f5e 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -986,6 +986,40 @@ void drm_show_fdinfo(struct seq_file *m, struct file *f)
+>  }
+>  EXPORT_SYMBOL(drm_show_fdinfo);
+>  
+> +/**
+> + * drm_process_info - Fill info string with process name and pid
+> + * @file_priv: context of interest for process name and pid
+> + * @proc_info: user char ptr to write the string to
+> + * @buff_size: size of the buffer passed for the string
+> + *
+> + * This update the user provided buffer with process
+> + * name and pid information for @file_priv
+> + */
+> +void drm_process_info(struct drm_file *file_priv, char *proc_info, size_t buff_size)
+> +{
+> +	struct task_struct *task;
+> +	struct pid *pid;
+> +	struct drm_device *dev = file_priv->minor->dev;
+> +
+> +	if (!proc_info) {
+> +		drm_WARN_ON_ONCE(dev, "Invalid user buffer\n");
+> +		return;
+> +	}
+> +
+> +	mutex_lock(&file_priv->client_name_lock);
+> +	rcu_read_lock();
+> +	pid = rcu_dereference(file_priv->pid);
+> +	task = pid_task(pid, PIDTYPE_TGID);
+> +	if (task)
+> +		snprintf(proc_info, buff_size, "client_name:%s proc:%s pid:%d",
+> +			 file_priv->client_name ? file_priv->client_name : "Unset",
+> +			 task->comm, task->pid);
 
-While at it remove amdgpu_vm_need_pipeline_sync(), we also check again
-if the VMID has seen a GPU reset since last use and the gds switch
-setiing can be handled more simply as well.
+Client name should probably come after the others. And you can reduce file_priv->client_name ? file_priv->client_name : "Unset" to just file_priv->client_name ?: "Unset".
 
-Also remove some duplicate checks and re-order and document the code.
+Regards,
+Christian.
 
-v2: restructure the while function
-v3: fix logic error pointed out by Srini
-v4: fix typo in comment, fix crash caused by incorrect check
-v5: once more fix the logic
-v6: separate cleaner shader checks as suggested by Srini
-v7: re-order incorrect check
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 106 ++++++++++---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |   5 +-
- 3 files changed, 46 insertions(+), 71 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index 802743efa3b3..30b58772598c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -189,10 +189,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 	}
- 
- 	need_ctx_switch = ring->current_ctx != fence_ctx;
--	if (ring->funcs->emit_pipeline_sync && job &&
--	    ((tmp = amdgpu_sync_get_fence(&job->explicit_sync)) ||
--	     need_ctx_switch || amdgpu_vm_need_pipeline_sync(ring, job))) {
--
-+	if ((job && (tmp = amdgpu_sync_get_fence(&job->explicit_sync))) ||
-+	     (amdgpu_sriov_vf(adev) && need_ctx_switch)) {
- 		need_pipe_sync = true;
- 
- 		if (tmp)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 3911c78f8282..afef297161dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -707,37 +707,6 @@ void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev)
- 	}
- }
- 
--/**
-- * amdgpu_vm_need_pipeline_sync - Check if pipe sync is needed for job.
-- *
-- * @ring: ring on which the job will be submitted
-- * @job: job to submit
-- *
-- * Returns:
-- * True if sync is needed.
-- */
--bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
--				  struct amdgpu_job *job)
--{
--	struct amdgpu_device *adev = ring->adev;
--	unsigned vmhub = ring->vm_hub;
--	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
--
--	if (job->vmid == 0)
--		return false;
--
--	if (job->vm_needs_flush || ring->has_compute_vm_bug)
--		return true;
--
--	if (ring->funcs->emit_gds_switch && job->gds_switch_needed)
--		return true;
--
--	if (amdgpu_vmid_had_gpu_reset(adev, &id_mgr->ids[job->vmid]))
--		return true;
--
--	return false;
--}
--
- /**
-  * amdgpu_vm_flush - hardware flush the vm
-  *
-@@ -758,44 +727,52 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	unsigned vmhub = ring->vm_hub;
- 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
- 	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
--	bool spm_update_needed = job->spm_update_needed;
--	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
--		job->gds_switch_needed;
--	bool vm_flush_needed = job->vm_needs_flush;
--	bool cleaner_shader_needed = false;
--	bool pasid_mapping_needed = false;
--	struct dma_fence *fence = NULL;
-+	bool gds_switch_needed, vm_flush_needed, spm_update_needed,
-+	     cleaner_shader_needed, pasid_mapping_needed;
-+	struct dma_fence *fence;
- 	unsigned int patch;
- 	int r;
- 
-+	/* First of all figure out what needs to be done */
- 	if (amdgpu_vmid_had_gpu_reset(adev, id)) {
-+		need_pipe_sync = true;
- 		gds_switch_needed = true;
- 		vm_flush_needed = true;
- 		pasid_mapping_needed = true;
- 		spm_update_needed = true;
-+		cleaner_shader_needed = true;
-+	} else {
-+		gds_switch_needed = job->gds_switch_needed;
-+		vm_flush_needed = job->vm_needs_flush;
-+		mutex_lock(&id_mgr->lock);
-+		pasid_mapping_needed = id->pasid != job->pasid ||
-+			!id->pasid_mapping ||
-+			!dma_fence_is_signaled(id->pasid_mapping);
-+		mutex_unlock(&id_mgr->lock);
-+		spm_update_needed = job->spm_update_needed;
-+		cleaner_shader_needed = job->run_cleaner_shader &&
-+			job->base.s_fence && &job->base.s_fence->scheduled ==
-+			isolation->spearhead;
-+		need_pipe_sync |= ring->has_compute_vm_bug || vm_flush_needed ||
-+			cleaner_shader_needed || gds_switch_needed;
- 	}
- 
--	mutex_lock(&id_mgr->lock);
--	if (id->pasid != job->pasid || !id->pasid_mapping ||
--	    !dma_fence_is_signaled(id->pasid_mapping))
--		pasid_mapping_needed = true;
--	mutex_unlock(&id_mgr->lock);
--
-+	/* Then check the pre-requisites */
-+	need_pipe_sync &= !!ring->funcs->emit_pipeline_sync;
- 	gds_switch_needed &= !!ring->funcs->emit_gds_switch;
- 	vm_flush_needed &= !!ring->funcs->emit_vm_flush  &&
- 			job->vm_pd_addr != AMDGPU_BO_INVALID_OFFSET;
- 	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
- 		ring->funcs->emit_wreg;
--
--	cleaner_shader_needed = job->run_cleaner_shader &&
--		adev->gfx.enable_cleaner_shader &&
--		ring->funcs->emit_cleaner_shader && job->base.s_fence &&
--		&job->base.s_fence->scheduled == isolation->spearhead;
-+	spm_update_needed &= !!adev->gfx.rlc.funcs->update_spm_vmid;
-+	cleaner_shader_needed &= adev->gfx.enable_cleaner_shader &&
-+		ring->funcs->emit_cleaner_shader;
- 
- 	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
--	    !cleaner_shader_needed)
-+	    !cleaner_shader_needed && !spm_update_needed)
- 		return 0;
- 
-+	/* Then actually prepare the submission frame */
- 	amdgpu_ring_ib_begin(ring);
- 	if (ring->funcs->init_cond_exec)
- 		patch = amdgpu_ring_init_cond_exec(ring,
-@@ -815,23 +792,34 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	if (pasid_mapping_needed)
- 		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
- 
--	if (spm_update_needed && adev->gfx.rlc.funcs->update_spm_vmid)
-+	if (spm_update_needed)
- 		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring, job->vmid);
- 
--	if (ring->funcs->emit_gds_switch &&
--	    gds_switch_needed) {
-+	if (gds_switch_needed)
- 		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
- 					    job->gds_size, job->gws_base,
- 					    job->gws_size, job->oa_base,
- 					    job->oa_size);
--	}
- 
- 	if (vm_flush_needed || pasid_mapping_needed || cleaner_shader_needed) {
- 		r = amdgpu_fence_emit(ring, &fence, NULL, 0);
- 		if (r)
- 			return r;
-+	} else {
-+		fence = NULL;
-+	}
-+
-+	amdgpu_ring_patch_cond_exec(ring, patch);
-+
-+	/* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC */
-+	if (ring->funcs->emit_switch_buffer) {
-+		amdgpu_ring_emit_switch_buffer(ring);
-+		amdgpu_ring_emit_switch_buffer(ring);
- 	}
- 
-+	amdgpu_ring_ib_end(ring);
-+
-+	/* And finally remember what the ring has executed */
- 	if (vm_flush_needed) {
- 		mutex_lock(&id_mgr->lock);
- 		dma_fence_put(id->last_flush);
-@@ -861,16 +849,6 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		mutex_unlock(&adev->enforce_isolation_mutex);
- 	}
- 	dma_fence_put(fence);
--
--	amdgpu_ring_patch_cond_exec(ring, patch);
--
--	/* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC */
--	if (ring->funcs->emit_switch_buffer) {
--		amdgpu_ring_emit_switch_buffer(ring);
--		amdgpu_ring_emit_switch_buffer(ring);
--	}
--
--	amdgpu_ring_ib_end(ring);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index f3ad687125ad..c9578b7f670c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -498,7 +498,8 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		       struct ww_acquire_ctx *ticket,
- 		       int (*callback)(void *p, struct amdgpu_bo *bo),
- 		       void *param);
--int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job, bool need_pipe_sync);
-+int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
-+		    bool need_pipe_sync);
- int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
- 			  struct amdgpu_vm *vm, bool immediate);
- int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
-@@ -559,8 +560,6 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
- 			   uint32_t fragment_size_default, unsigned max_level,
- 			   unsigned max_bits);
- int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
--bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
--				  struct amdgpu_job *job);
- void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
- 
- struct amdgpu_task_info *
--- 
-2.34.1
+> +
+> +	rcu_read_unlock();
+> +	mutex_unlock(&file_priv->client_name_lock);
+> +}
+> +EXPORT_SYMBOL(drm_process_info);
+> +
+>  /**
+>   * mock_drm_getfile - Create a new struct file for the drm device
+>   * @minor: drm minor to wrap (e.g. #drm_device.primary)
+> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> index 94d365b22505..a972be73a615 100644
+> --- a/include/drm/drm_file.h
+> +++ b/include/drm/drm_file.h
+> @@ -507,6 +507,7 @@ void drm_print_memory_stats(struct drm_printer *p,
+>  
+>  void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
+>  void drm_show_fdinfo(struct seq_file *m, struct file *f);
+> +void drm_process_info(struct drm_file *file_priv, char *proc_info, size_t buff_size);
+>  
+>  struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
+>  
 
