@@ -4,66 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CD66C369BD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 903B8C369C5
 	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F0DC10E863;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 679AA10E864;
 	Wed, 16 Apr 2025 07:25:02 +0000 (UTC)
-Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
- [205.220.166.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC2D110E06F;
- Wed, 16 Apr 2025 01:17:38 +0000 (UTC)
-Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53FLTtKH026884;
- Tue, 15 Apr 2025 18:17:28 -0700
-Received: from ala-exchng02.corp.ad.wrs.com (ala-exchng02.wrs.com
- [147.11.82.254])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 45ykf3m21r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 15 Apr 2025 18:17:27 -0700 (PDT)
-Received: from ala-exchng01.corp.ad.wrs.com (147.11.82.252) by
- ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Tue, 15 Apr 2025 18:17:27 -0700
-Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Tue, 15 Apr 2025 18:17:22 -0700
-From: <jianqi.ren.cn@windriver.com>
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>
-CC: <patches@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <jianqi.ren.cn@windriver.com>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <sashal@kernel.org>, <chiahsuan.chung@amd.com>, <alex.hung@amd.com>,
- <mario.limonciello@amd.com>, <hersenxs.wu@amd.com>,
- <Wayne.Lin@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <daniel.wheeler@amd.com>
-Subject: [PATCH 6.6.y] drm/amd/display: Stop amdgpu_dm initialize when link
- nums greater than max_links
-Date: Wed, 16 Apr 2025 09:17:21 +0800
-Message-ID: <20250416011721.388632-1-jianqi.ren.cn@windriver.com>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TyDFvOIt";
+	dkim-atps=neutral
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 795AF10E385;
+ Tue, 15 Apr 2025 20:17:35 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-7040ac93c29so61983197b3.3; 
+ Tue, 15 Apr 2025 13:17:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744748254; x=1745353054; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=T2f4lqBJ3KU4xN2C63AmFZML3WVt9PkuM4udxa8upYQ=;
+ b=TyDFvOItHgQ6PIePchxvq++seiVfSRa8d7sGKdjjCNaPBwKn41viTQQZyRGExw5+1+
+ inJO5ol5Dl0xn7mRvSbpL0UWBckjChJJaj/z1z8alJ1oOhLiMis3BwCdZTBlbk1U8fLr
+ voE0HXSz1nQKlQSGglLwjkc14XYGEwwhM1y+lYBI5CcezqlRlPtV5ulg6GeS7F/CDMJY
+ U8pnJSWvV7VcgsrPULmzwbNuG94NbW9aP59SiZuRGPXM0mN4mKxrIAuY3uHnesCeVkRV
+ 24gnnDSJvJW2BHooLJwX8JB7iq6evzbLfEQt0V/Vle5iyXyqfGpZfvcVIejFQkrkoX3J
+ l/mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744748254; x=1745353054;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=T2f4lqBJ3KU4xN2C63AmFZML3WVt9PkuM4udxa8upYQ=;
+ b=pxORBRsxeriHXsGdER+v57PVFXRjZtjEacZiBav9UVjxj6dntP2kLYwqOh9HMgajm7
+ 2RYaw0iWV0xBvONyWGvnSzqbvWIRXrsc/7IbUzYPjCo4quX8fD0U73xQ48E3xZtJy0nO
+ gR+w8+SWA1GlSKJZifkAHV9L117LftPqA2gtAhIcIyqjk2CnzsI9GTBLb6g0V/51++Km
+ 3hravM+Zyd/NOHf8hLaYyHbN3FK9HFzKQtjFKXSudsosTc4b3PfMyHt/fI2PsZSUuEWJ
+ QfdWxFJo/IJ+LlgKfCdXX1Kz0WgxCY7QGWGfYRHiq7C+1/YwFfVa/HFtr5gv2Wkqnsxw
+ EfLw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV2BzGdPN/1QkCnGGrkE6NJg2el53BwUIr20VQwmXpoHBtRHKpCc6jj4qu4P+D06COtfwYUVd0EcpYEJwuyGw==@lists.freedesktop.org,
+ AJvYcCV4g1BPhLdrfxfKt8lTYn6j/gVZsT4mfV6qI+1zCLuQXrwQWi3TATwvJcpdzqFgdhmbqscGqsKh@lists.freedesktop.org,
+ AJvYcCVVk3Isvcf1pWoThEltZFYGKGiMZ6sJ9xyFYw6OEKUotmGMLwqbL4jlJS4n2K8c6l47Ez2I6ESKEAXF@lists.freedesktop.org,
+ AJvYcCX5U1D26KF3fHzM1WUI/GsphSocpkjykwRmYnrFPeEdaFA1DHBGgUwKZBMV2veUPmMwY/VVwmS2xsMR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzqNXsqSOIVOLXAFlhA9eiAGLKN2v0bBs/vYdkSpnhB+NjX4tKs
+ m0mFuAu843yrXj7uYJmEUeHk8KQeVV5tV75HBKowfoS+Xp38ZWLcsfoKuOoPfSpcJDfijRQ9t1Z
+ nVro7NWUDGpNlRC6mEa3w0AtLut4=
+X-Gm-Gg: ASbGncven1SvycU7Qo2MtsXFNszPkV0gSBOI8Q5pUKNVo8hy9OcnjedWo6G0ple3MhN
+ Qk2+fEgDyyTIl39htCyPC0FwdKapoOX4RtLr9i5DdM/Mq/Fdt4LBvnt4bWK064keZFr8t8C3Isq
+ bKhhXW/4So/mG4PCQ5DHQ1FUCKBZ8/8kA=
+X-Google-Smtp-Source: AGHT+IHASz86QMUepPNXOhocPuVmLHD9gr+x/9kxgl75W95uEZj+zDqeKUtyT5YmfO9onCBuAwS9eq00pIaqEmsXvA4=
+X-Received: by 2002:a05:690c:4491:b0:702:5927:cf74 with SMTP id
+ 00721157ae682-706aca34f9emr12312777b3.0.1744748254431; Tue, 15 Apr 2025
+ 13:17:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: LH7tt6KhLRL9kj2Wk1n5cAMBVGlZEKGa
-X-Authority-Analysis: v=2.4 cv=Wd0Ma1hX c=1 sm=1 tr=0 ts=67ff0527 cx=c_pps
- a=K4BcnWQioVPsTJd46EJO2w==:117 a=K4BcnWQioVPsTJd46EJO2w==:17
- a=XR8D0OoHHMoA:10 a=zd2uoN0lAAAA:8 a=t7CeM3EgAAAA:8 a=V2FjD2v6pYOrjI9wGFEA:9
- a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-GUID: LH7tt6KhLRL9kj2Wk1n5cAMBVGlZEKGa
-X-Sensitive_Customer_Information: Yes
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-15_09,2025-04-15_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- lowpriorityscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0 phishscore=0
- mlxlogscore=999 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.21.0-2502280000
- definitions=main-2504160008
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+ <20250402174156.1246171-24-jim.cromie@gmail.com>
+ <d97fa4de-ee0c-4bee-9cf2-cd3a343e3439@bootlin.com>
+In-Reply-To: <d97fa4de-ee0c-4bee-9cf2-cd3a343e3439@bootlin.com>
+From: jim.cromie@gmail.com
+Date: Tue, 15 Apr 2025 14:17:07 -0600
+X-Gm-Features: ATxdqUH2ijE33CYVEiEjLWi5zzDtsvJCrFygD06lZ-2beemv0ZLcXrrrFfEANFE
+Message-ID: <CAJfuBxxR9GZwRmVCuu=at2RUXT_pUWHrG4V61G+WjQSKJnh2Fg@mail.gmail.com>
+Subject: Re: [PATCH v3 23/54] dyndbg: treat comma as a token separator
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch, 
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 16 Apr 2025 07:25:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,64 +92,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hersen Wu <hersenxs.wu@amd.com>
-
-[ Upstream commit cf8b16857db702ceb8d52f9219a4613363e2b1cf ]
-
-[Why]
-Coverity report OVERRUN warning. There are
-only max_links elements within dc->links. link
-count could up to AMDGPU_DM_MAX_DISPLAY_INDEX 31.
-
-[How]
-Make sure link count less than max_links.
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[Minor conflict resolved due to code context change. And the macro MAX_LINKS
- is introduced by Commit 60df5628144b ("drm/amd/display: handle invalid
- connector indices") after 6.10. So here we still use the original array
- length MAX_PIPES * 2]
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
-Signed-off-by: He Zhe <zhe.he@windriver.com>
----
-Verified the build test
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3696b9112c74..28f2b4022d34 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4484,17 +4484,17 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 		}
- 	}
- 
-+	if (link_cnt > (MAX_PIPES * 2)) {
-+		DRM_ERROR(
-+			"KMS: Cannot support more than %d display indexes\n",
-+				MAX_PIPES * 2);
-+		goto fail;
-+	}
-+
- 	/* loops over all connectors on the board */
- 	for (i = 0; i < link_cnt; i++) {
- 		struct dc_link *link = NULL;
- 
--		if (i > AMDGPU_DM_MAX_DISPLAY_INDEX) {
--			DRM_ERROR(
--				"KMS: Cannot support more than %d display indexes\n",
--					AMDGPU_DM_MAX_DISPLAY_INDEX);
--			continue;
--		}
+On Tue, Apr 15, 2025 at 4:05=E2=80=AFAM Louis Chauvet <louis.chauvet@bootli=
+n.com> wrote:
+>
+>
+>
+> Le 02/04/2025 =C3=A0 19:41, Jim Cromie a =C3=A9crit :
+> > Treat comma as a token terminator, just like a space.  This allows a
+> > user to avoid quoting hassles when spaces are otherwise needed:
+> >
+> >   :#> modprobe drm dyndbg=3Dclass,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+> >
+> > or as a boot arg:
+> >
+> >   drm.dyndbg=3Dclass,DRM_UT_CORE,+p  # todo: support multi-query here
+> >
+> > Given the many ways a boot-line +args can be assembled and then passed
+> > in/down/around shell based tools, this may allow side-stepping all
+> > sorts of quoting hassles thru those layers.
+> >
+> > existing query format:
+> >
+> >   modprobe test_dynamic_debug dyndbg=3D"class D2_CORE +p"
+> >
+> > new format:
+> >
+> >   modprobe test_dynamic_debug dyndbg=3Dclass,D2_CORE,+p
+> >
+> > ALSO
+> >
+> > selftests-dyndbg: add comma_terminator_tests
+> >
+> > New fn validates parsing and effect of queries using combinations of
+> > commas and spaces to delimit the tokens.
+> >
+> > It manipulates pr-debugs in builtin module/params, so might have deps
+> > I havent foreseen on odd configurations.
+> >
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> > Co-developed-by: =C5=81ukasz Bartosik <ukaszb@chromium.org>
+> > Signed-off-by: =C5=81ukasz Bartosik <ukaszb@chromium.org>
+> > ---
+> > - skip comma tests if no builtins
+> > -v3 squash in tests and doc
+> > ---
+> >   .../admin-guide/dynamic-debug-howto.rst       |  9 +++++---
+> >   lib/dynamic_debug.c                           | 17 +++++++++++----
+> >   .../dynamic_debug/dyndbg_selftest.sh          | 21 ++++++++++++++++++=
 -
- 		aconnector = kzalloc(sizeof(*aconnector), GFP_KERNEL);
- 		if (!aconnector)
- 			goto fail;
--- 
-2.34.1
+> >   3 files changed, 39 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Docume=
+ntation/admin-guide/dynamic-debug-howto.rst
+> > index 63a511f2337b..e2dbb5d9b314 100644
+> > --- a/Documentation/admin-guide/dynamic-debug-howto.rst
+> > +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+> > @@ -78,11 +78,12 @@ Command Language Reference
+> >   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+> >
+> >   At the basic lexical level, a command is a sequence of words separate=
+d
+> > -by spaces or tabs.  So these are all equivalent::
+> > +by spaces, tabs, or commas.  So these are all equivalent::
+> >
+> >     :#> ddcmd file svcsock.c line 1603 +p
+> >     :#> ddcmd "file svcsock.c line 1603 +p"
+> >     :#> ddcmd '  file   svcsock.c     line  1603 +p  '
+> > +  :#> ddcmd file,svcsock.c,line,1603,+p
+> >
+> >   Command submissions are bounded by a write() system call.
+> >   Multiple commands can be written together, separated by ``;`` or ``\n=
+``::
+> > @@ -167,9 +168,11 @@ module
+> >       The given string is compared against the module name
+> >       of each callsite.  The module name is the string as
+> >       seen in ``lsmod``, i.e. without the directory or the ``.ko``
+> > -    suffix and with ``-`` changed to ``_``.  Examples::
+> > +    suffix and with ``-`` changed to ``_``.
+> >
+> > -     module sunrpc
+> > +    Examples::
+> > +
+> > +     module,sunrpc   # with ',' as token separator
+> >       module nfsd
+> >       module drm*     # both drm, drm_kms_helper
+> >
+> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> > index 0d603caadef8..5737f1b4eba8 100644
+> > --- a/lib/dynamic_debug.c
+> > +++ b/lib/dynamic_debug.c
+> > @@ -299,6 +299,14 @@ static int ddebug_change(const struct ddebug_query=
+ *query, struct flag_settings
+> >       return nfound;
+> >   }
+> >
+> > +static char *skip_spaces_and_commas(const char *str)
+> > +{
+> > +     str =3D skip_spaces(str);
+> > +     while (*str =3D=3D ',')
+> > +             str =3D skip_spaces(++str);
+> > +     return (char *)str;
+> > +}
+> > +
+> >   /*
+> >    * Split the buffer `buf' into space-separated words.
+> >    * Handles simple " and ' quoting, i.e. without nested,
+> > @@ -312,8 +320,8 @@ static int ddebug_tokenize(char *buf, char *words[]=
+, int maxwords)
+> >       while (*buf) {
+> >               char *end;
+> >
+> > -             /* Skip leading whitespace */
+> > -             buf =3D skip_spaces(buf);
+> > +             /* Skip leading whitespace and comma */
+> > +             buf =3D skip_spaces_and_commas(buf);
+> >               if (!*buf)
+> >                       break;  /* oh, it was trailing whitespace */
+> >               if (*buf =3D=3D '#')
+> > @@ -329,7 +337,7 @@ static int ddebug_tokenize(char *buf, char *words[]=
+, int maxwords)
+> >                               return -EINVAL; /* unclosed quote */
+> >                       }
+> >               } else {
+> > -                     for (end =3D buf; *end && !isspace(*end); end++)
+> > +                     for (end =3D buf; *end && !isspace(*end) && *end =
+!=3D ','; end++)
+> >                               ;
+>
+> Why don't you use the skip_spaces_and_commas here?
 
+yes, thx. I will.
+
+>
+> >                       if (end =3D=3D buf) {
+> >                               pr_err("parse err after word:%d=3D%s\n", =
+nwords,
+> > @@ -601,7 +609,8 @@ static int ddebug_exec_queries(char *query, const c=
+har *modname)
+> >               if (split)
+> >                       *split++ =3D '\0';
+> >
+> > -             query =3D skip_spaces(query);
+> > +             query =3D skip_spaces_and_commas(query);
+> > +
+> >               if (!query || !*query || *query =3D=3D '#')
+> >                       continue;
+> >
+> > diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b=
+/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> > index 465fad3f392c..c7bf521f36ee 100755
+> > --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> > +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> > @@ -216,7 +216,7 @@ function check_err_msg() {
+> >   function basic_tests {
+> >       echo -e "${GREEN}# BASIC_TESTS ${NC}"
+> >       if [ $LACK_DD_BUILTIN -eq 1 ]; then
+> > -     echo "SKIP"
+> > +     echo "SKIP - test requires params, which is a builtin module"
+> >       return
+> >       fi
+> >       ddcmd =3D_ # zero everything
+> > @@ -238,8 +238,27 @@ EOF
+> >       ddcmd =3D_
+> >   }
+> >
+> > +function comma_terminator_tests {
+> > +    echo -e "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
+> > +    if [ $LACK_DD_BUILTIN -eq 1 ]; then
+> > +     echo "SKIP - test requires params, which is a builtin module"
+> > +     return
+> > +    fi
+> > +    # try combos of spaces & commas
+> > +    check_match_ct '\[params\]' 4 -r
+> > +    ddcmd module,params,=3D_           # commas as spaces
+> > +    ddcmd module,params,+mpf         # turn on module's pr-debugs
+> > +    check_match_ct =3Dpmf 4
+> > +    ddcmd ,module ,, ,  params, -p
+> > +    check_match_ct =3Dmf 4
+> > +    ddcmd " , module ,,, ,  params, -m"      #
+> > +    check_match_ct =3Df 4
+> > +    ddcmd =3D_
+> > +}
+> > +
+> >   tests_list=3D(
+> >       basic_tests
+> > +    comma_terminator_tests
+> >   )
+> >
+> >   # Run tests
+>
+> --
+> Louis Chauvet, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>
+>
