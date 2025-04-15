@@ -4,20 +4,20 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC0BFC369B5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 11:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC61C369B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 11:26:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8E110E747;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5AAD10E748;
 	Tue, 15 Apr 2025 11:26:19 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4C410E747;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 886BD10E749;
  Tue, 15 Apr 2025 11:26:18 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 53FBPxUq297322; Tue, 15 Apr 2025 16:55:59 +0530
+ 53FBPxmH297312; Tue, 15 Apr 2025 16:55:59 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 53FBPxvu297321;
- Tue, 15 Apr 2025 16:55:59 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 53FBPvXR297311;
+ Tue, 15 Apr 2025 16:55:57 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
@@ -25,13 +25,10 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 3/4] drm/amdgpu: update the error logging for more
- information
-Date: Tue, 15 Apr 2025 16:55:49 +0530
-Message-Id: <20250415112550.297292-3-sunil.khatri@amd.com>
+Subject: [PATCH v2 1/4] drm: function to get process name and pid
+Date: Tue, 15 Apr 2025 16:55:47 +0530
+Message-Id: <20250415112550.297292-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250415112550.297292-1-sunil.khatri@amd.com>
-References: <20250415112550.297292-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -48,143 +45,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add process and pid information in the userqueue error
-logging to make it more useful in resolving the error
-by logs.
-
-Sample log:
-[   42.444297] [drm:amdgpu_userqueue_wait_for_signal [amdgpu]] *ERROR* Timed out waiting for fence f=000000001c74d978 for comm:Xwayland pid:3427
-[   42.444669] [drm:amdgpu_userqueue_suspend [amdgpu]] *ERROR* Not suspending userqueue, timeout waiting for comm:Xwayland pid:3427
-[   42.824729] [drm:amdgpu_userqueue_wait_for_signal [amdgpu]] *ERROR* Timed out waiting for fence f=0000000074407d3e for comm:systemd-logind pid:1058
-[   42.825082] [drm:amdgpu_userqueue_suspend [amdgpu]] *ERROR* Not suspending userqueue, timeout waiting for comm:systemd-logind pid:1058
+Add helper function which get the process information for
+the drm_file and updates the user provided character buffer
+with the information of process name and pid as a string.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 47 +++++++++++++++----
- 1 file changed, 39 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_file.c | 34 ++++++++++++++++++++++++++++++++++
+ include/drm/drm_file.h     |  1 +
+ 2 files changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-index 1867520ba258..eb96c12e02e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-@@ -38,12 +38,17 @@ amdgpu_userqueue_cleanup(struct amdgpu_userq_mgr *uq_mgr,
- 	struct amdgpu_device *adev = uq_mgr->adev;
- 	const struct amdgpu_userq_funcs *uq_funcs = adev->userq_funcs[queue->queue_type];
- 	struct dma_fence *f = queue->last_fence;
-+	struct drm_file *file;
-+	char proc_log[50];
- 	int ret;
- 
- 	if (f && !dma_fence_is_signaled(f)) {
- 		ret = dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
- 		if (ret <= 0) {
--			DRM_ERROR("Timed out waiting for fence f=%p\n", f);
-+			file = uq_mgr->file;
-+			drm_process_info(file, proc_log, sizeof(proc_log));
-+			DRM_ERROR("Timed out waiting for fence f=%p for %s\n",
-+				  f, proc_log);
- 			return;
- 		}
- 	}
-@@ -431,6 +436,8 @@ amdgpu_userqueue_resume_all(struct amdgpu_userq_mgr *uq_mgr)
- 	const struct amdgpu_userq_funcs *userq_funcs;
- 	struct amdgpu_usermode_queue *queue;
- 	int queue_id;
-+	struct drm_file *file;
-+	char proc_log[50];
- 	int ret = 0;
- 
- 	/* Resume all the queues for this process */
-@@ -439,8 +446,13 @@ amdgpu_userqueue_resume_all(struct amdgpu_userq_mgr *uq_mgr)
- 		ret |= userq_funcs->map(uq_mgr, queue);
- 	}
- 
--	if (ret)
--		DRM_ERROR("Failed to map all the queues\n");
-+	if (ret) {
-+		file = uq_mgr->file;
-+		drm_process_info(file, proc_log, sizeof(proc_log));
-+		DRM_ERROR("Failed to map all the queue for %s\n",
-+			  proc_log);
-+		}
-+
- 	return ret;
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index c299cd94d3f7..728a60975f5e 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -986,6 +986,40 @@ void drm_show_fdinfo(struct seq_file *m, struct file *f)
  }
+ EXPORT_SYMBOL(drm_show_fdinfo);
  
-@@ -589,6 +601,8 @@ amdgpu_userqueue_suspend_all(struct amdgpu_userq_mgr *uq_mgr)
- 	const struct amdgpu_userq_funcs *userq_funcs;
- 	struct amdgpu_usermode_queue *queue;
- 	int queue_id;
-+	struct drm_file *file;
-+	char proc_log[50];
- 	int ret = 0;
- 
- 	/* Try to unmap all the queues in this process ctx */
-@@ -597,8 +611,13 @@ amdgpu_userqueue_suspend_all(struct amdgpu_userq_mgr *uq_mgr)
- 		ret += userq_funcs->unmap(uq_mgr, queue);
- 	}
- 
--	if (ret)
--		DRM_ERROR("Couldn't unmap all the queues\n");
-+	if (ret) {
-+		file = uq_mgr->file;
-+		drm_process_info(file, proc_log, sizeof(proc_log));
-+		DRM_ERROR("Couldn't unmap all the queues for %s\n",
-+			  proc_log);
-+		}
++/**
++ * drm_process_info - Fill info string with process name and pid
++ * @file_priv: context of interest for process name and pid
++ * @proc_info: user char ptr to write the string to
++ * @buff_size: size of the buffer passed for the string
++ *
++ * This update the user provided buffer with process
++ * name and pid information for @file_priv
++ */
++void drm_process_info(struct drm_file *file_priv, char *proc_info, size_t buff_size)
++{
++	struct task_struct *task;
++	struct pid *pid;
++	struct drm_device *dev = file_priv->minor->dev;
 +
- 	return ret;
- }
++	if (!proc_info) {
++		drm_WARN_ON_ONCE(dev, "Invalid user buffer\n");
++		return;
++	}
++
++	mutex_lock(&file_priv->client_name_lock);
++	rcu_read_lock();
++	pid = rcu_dereference(file_priv->pid);
++	task = pid_task(pid, PIDTYPE_TGID);
++	if (task)
++		snprintf(proc_info, buff_size, "client_name:%s proc:%s pid:%d",
++			 file_priv->client_name ? file_priv->client_name : "Unset",
++			 task->comm, task->pid);
++
++	rcu_read_unlock();
++	mutex_unlock(&file_priv->client_name_lock);
++}
++EXPORT_SYMBOL(drm_process_info);
++
+ /**
+  * mock_drm_getfile - Create a new struct file for the drm device
+  * @minor: drm minor to wrap (e.g. #drm_device.primary)
+diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+index 94d365b22505..a972be73a615 100644
+--- a/include/drm/drm_file.h
++++ b/include/drm/drm_file.h
+@@ -507,6 +507,7 @@ void drm_print_memory_stats(struct drm_printer *p,
  
-@@ -606,6 +625,8 @@ static int
- amdgpu_userqueue_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
- {
- 	struct amdgpu_usermode_queue *queue;
-+	struct drm_file *file;
-+	char proc_log[50];
- 	int queue_id, ret;
+ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
+ void drm_show_fdinfo(struct seq_file *m, struct file *f);
++void drm_process_info(struct drm_file *file_priv, char *proc_info, size_t buff_size);
  
- 	idr_for_each_entry(&uq_mgr->userq_idr, queue, queue_id) {
-@@ -615,7 +636,10 @@ amdgpu_userqueue_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
- 			continue;
- 		ret = dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
- 		if (ret <= 0) {
--			DRM_ERROR("Timed out waiting for fence f=%p\n", f);
-+			file = uq_mgr->file;
-+			drm_process_info(file, proc_log, sizeof(proc_log));
-+			DRM_ERROR("Timed out waiting for fence f=%p for %s\n",
-+				  f, proc_log);
- 			return -ETIMEDOUT;
- 		}
- 	}
-@@ -628,19 +652,26 @@ amdgpu_userqueue_suspend(struct amdgpu_userq_mgr *uq_mgr,
- 			 struct amdgpu_eviction_fence *ev_fence)
- {
- 	int ret;
-+	struct drm_file *file;
-+	char proc_log[50];
- 	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
- 	struct amdgpu_eviction_fence_mgr *evf_mgr = &fpriv->evf_mgr;
- 
- 	/* Wait for any pending userqueue fence work to finish */
- 	ret = amdgpu_userqueue_wait_for_signal(uq_mgr);
- 	if (ret) {
--		DRM_ERROR("Not suspending userqueue, timeout waiting for work\n");
-+		file = uq_mgr->file;
-+		drm_process_info(file, proc_log, sizeof(proc_log));
-+		DRM_ERROR("Not suspending userqueue, timeout waiting for %s\n",
-+			  proc_log);
- 		return;
- 	}
- 
- 	ret = amdgpu_userqueue_suspend_all(uq_mgr);
- 	if (ret) {
--		DRM_ERROR("Failed to evict userqueue\n");
-+		file = uq_mgr->file;
-+		drm_process_info(file, proc_log, sizeof(proc_log));
-+		DRM_ERROR("Failed to evict userqueue for %s\n", proc_log);
- 		return;
- 	}
+ struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
  
 -- 
 2.34.1
