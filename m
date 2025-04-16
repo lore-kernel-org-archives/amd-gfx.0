@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73317C369B1
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A6DC369B1
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D78810E867;
-	Wed, 16 Apr 2025 07:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4BDF10E86C;
+	Wed, 16 Apr 2025 07:29:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gaqFbA2A";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="U0u9Z6b9";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 061CD10E867;
- Wed, 16 Apr 2025 07:26:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0C3910E86C;
+ Wed, 16 Apr 2025 07:29:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,32 +22,31 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JwobS364zmSsD5+VPW6jxonJjGIzHyIDQmMvrDv4xWM=; b=gaqFbA2AVj69FCrf1RLy5eujHl
- BCObck6GgXhzv707OiHQX7zT+myC0HP19ezTXSCOo+vu8J5s6KSKs8Y+UgbzqerpoKZqJKYgAG2AU
- YIHv2gybOKQ5oCdedABA/vUO1FfuFaha5hS7OFejU/ohd6XdJUxNqmyo7WlscQYmFUqUN9Cpjglpf
- MDXCesnkmzV3zHpmvaT+4wGcFkhXSSERfQ+JoZqnlcVcKF8ibmkHlvOknFSzBEcGEElMQfOab1G+j
- B9K66sGm0GJ2YDCPyn3yi/b/qfnay3KttUbGloR9MMi13anmfdRuRsaveY4vp/TrMQgoNuqTduo9F
- xygfPXYQ==;
+ bh=Ia4B45pMDmZ3UwY9Bd4jR/lwQE2ezYjp7vEdsGcZgWI=; b=U0u9Z6b9xfpzzZC9L1kjIZguNj
+ hyqJ2apa/3vr7X7PbWRbtTIXxtaghOpSd7xEQ++Ll0XwFJY4d6RRKwMPf37RPs8mvSP2/nXcxCnk0
+ RaNlEE8SubDeFTbexpwpTvlr9K4Zwrb3oTz3b9VDi9DuWVY/yyeH0Dd2tXvvMOAx1jKrJ66PlpMBK
+ A+5YWB+3SROFfgAMgD2DFfGSkWBPOF+0AEmgc7spkhIC+PgD66Qi3ZmEwXG4HxcXvz19cGnV23G99
+ V5/xnQezYniR98OEtNh5EaIRWIfPrRcZ+mfzovL6CBnawI2sBjYIv/mzWGLTXht5TW3qrdnPy0A+z
+ FqqgcT2w==;
 Received: from [90.241.98.187] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1u4xAP-00HH5l-65; Wed, 16 Apr 2025 09:26:41 +0200
-Message-ID: <34b082d4-b320-4eb3-8b36-fb63ffca3730@igalia.com>
-Date: Wed, 16 Apr 2025 08:26:40 +0100
+ id 1u4xDT-00HHAl-TH; Wed, 16 Apr 2025 09:29:51 +0200
+Message-ID: <dcc0921c-d0f1-491c-b5f8-ef0be4d08dfb@igalia.com>
+Date: Wed, 16 Apr 2025 08:29:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] drm/amdgpu: use drm_file_err in logging to also
- dump process information
+Subject: Re: [PATCH v3 2/4] drm/amdgpu: add drm_file reference in userq_mgr
 To: Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 References: <20250415184318.2465197-1-sunil.khatri@amd.com>
- <20250415184318.2465197-3-sunil.khatri@amd.com>
+ <20250415184318.2465197-2-sunil.khatri@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250415184318.2465197-3-sunil.khatri@amd.com>
+In-Reply-To: <20250415184318.2465197-2-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -66,96 +65,52 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 15/04/2025 19:43, Sunil Khatri wrote:
-> add process and pid information in the userqueue error
-> logging to make it more useful in resolving the error
-> by logs.
+> drm_file will be used in usermode queues code to
+> enable better process information in logging and hence
+> add drm_file part of the userq_mgr struct.
 > 
-> Sample log:
-> [   42.444297] [drm:amdgpu_userqueue_wait_for_signal [amdgpu]] *ERROR* Timed out waiting for fence f=000000001c74d978 for comm:Xwayland pid:3427
-> [   42.444669] [drm:amdgpu_userqueue_suspend [amdgpu]] *ERROR* Not suspending userqueue, timeout waiting for comm:Xwayland pid:3427
-> [   42.824729] [drm:amdgpu_userqueue_wait_for_signal [amdgpu]] *ERROR* Timed out waiting for fence f=0000000074407d3e for comm:systemd-logind pid:1058
-> [   42.825082] [drm:amdgpu_userqueue_suspend [amdgpu]] *ERROR* Not suspending userqueue, timeout waiting for comm:systemd-logind pid:1058
+> update the drm_file pointer in userq_mgr for each
+> amdgpu_driver_open_kms.
 > 
 > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 14 ++++++++------
->   1 file changed, 8 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h | 1 +
+>   2 files changed, 2 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> index 1867520ba258..05c1ee27a319 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -43,7 +43,7 @@ amdgpu_userqueue_cleanup(struct amdgpu_userq_mgr *uq_mgr,
->   	if (f && !dma_fence_is_signaled(f)) {
->   		ret = dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
->   		if (ret <= 0) {
-> -			DRM_ERROR("Timed out waiting for fence f=%p\n", f);
-> +			drm_file_err(uq_mgr->file, "Timed out waiting for fence f=%p\n", f);
-
-You decided to leave %p after all?
-
->   			return;
->   		}
->   	}
-> @@ -440,7 +440,8 @@ amdgpu_userqueue_resume_all(struct amdgpu_userq_mgr *uq_mgr)
->   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 3d319687c1c9..3de3071d66ee 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1436,6 +1436,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
 >   
->   	if (ret)
-> -		DRM_ERROR("Failed to map all the queues\n");
-> +		drm_file_err(uq_mgr->file, "Failed to map all the queue\n");
-
-You lost the plural by accident.
-
-I am also not sure "all the queues" makes sense in this context versus 
-"all queues" but it's inconsequential really.
-
-> +
->   	return ret;
->   }
+>   	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
 >   
-> @@ -598,7 +599,8 @@ amdgpu_userqueue_suspend_all(struct amdgpu_userq_mgr *uq_mgr)
->   	}
->   
->   	if (ret)
-> -		DRM_ERROR("Couldn't unmap all the queues\n");
-> +		drm_file_err(uq_mgr->file, "Couldn't unmap all the queues\n");
-> +
->   	return ret;
->   }
->   
-> @@ -615,7 +617,7 @@ amdgpu_userqueue_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
->   			continue;
->   		ret = dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
->   		if (ret <= 0) {
-> -			DRM_ERROR("Timed out waiting for fence f=%p\n", f);
-> +			drm_file_err(uq_mgr->file, "Timed out waiting for fence f=%p\n", f);
->   			return -ETIMEDOUT;
->   		}
->   	}
-> @@ -634,13 +636,13 @@ amdgpu_userqueue_suspend(struct amdgpu_userq_mgr *uq_mgr,
->   	/* Wait for any pending userqueue fence work to finish */
->   	ret = amdgpu_userqueue_wait_for_signal(uq_mgr);
->   	if (ret) {
-> -		DRM_ERROR("Not suspending userqueue, timeout waiting for work\n");
-> +		drm_file_err(uq_mgr->file, "Not suspending userqueue, timeout waiting\n");
->   		return;
->   	}
->   
->   	ret = amdgpu_userqueue_suspend_all(uq_mgr);
->   	if (ret) {
-> -		DRM_ERROR("Failed to evict userqueue\n");
-> +		drm_file_err(uq_mgr->file, "Failed to evict userqueue\n");
->   		return;
+> +	fpriv->userq_mgr.file = file_priv;
+>   	r = amdgpu_userq_mgr_init(&fpriv->userq_mgr, adev);
 
-It is pre-existing but strikes me as odd that failure to 
-amdgpu_userqueue_suspend_all() logs a failure to *evict* instead of 
-suspend (as the previous log does). Anyway, I did not look at the 
-surrounding code so just thinking out loud.
+It's a bit of a layering violation since amdgpu_userq_mgr_init() is the 
+place which otherwise initialises fpriv->user_mgr. One day someome might 
+put a memset in there for example. Anyway, I think it would be nicer if 
+you passed fpriv to that function. Potentially instead of adev. Looks 
+like that would be cleaner "design".
 
 Regards,
 
 Tvrtko
 
->   	}
+>   	if (r)
+>   		DRM_WARN("Can't setup usermode queues, use legacy workload submission only\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
+> index 381b9c6f0573..fe51a45f7ee4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
+> @@ -77,6 +77,7 @@ struct amdgpu_userq_mgr {
+>   	struct amdgpu_device		*adev;
+>   	struct delayed_work		resume_work;
+>   	struct list_head		list;
+> +	struct drm_file			*file;
+>   };
 >   
+>   struct amdgpu_db_info {
 
