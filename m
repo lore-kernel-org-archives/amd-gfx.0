@@ -4,83 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C594CC369C4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B63C369BD
 	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:41:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5431A10E91C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5091910E91B;
 	Wed, 16 Apr 2025 13:41:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XWuoy2rF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AQAyKQgN";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28DF410E8CB
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Apr 2025 11:25:33 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-43cfba466b2so68997345e9.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Apr 2025 04:25:33 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADEAE10E24E;
+ Wed, 16 Apr 2025 09:11:50 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-224019ad9edso86622385ad.1; 
+ Wed, 16 Apr 2025 02:11:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1744802732; x=1745407532; darn=lists.freedesktop.org;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=M1SJQCGEYPEhCrI3qgX6t+obEkrQ6EqASbeC+/fQb1k=;
- b=XWuoy2rF6Dbaq0acQ5kK8Mj13JSKXvRH0kkJAW4RrwVqXKh2HBvjhZT9cH24eUOxOf
- bnUNaN7LnaLEOGTQS4d6gODkY16j/KvafO7tZtc3NmALwAVH452QmXRRNNRYfIBTafG2
- qVKn7NYzoeuEd+T4O9zWMex+8Z7MCmmq+mh+5vKTFFEJocIk51YslkrxB9s+rvisE0Ju
- h4DH2WX6aoMskYIT+jtIvkbWjZs2eZTb3p9rtomo6qAY9hASZtKUXd1LSxT6nz5e5Kx8
- tNhZp7bOV293nohwtW3MjIwFWRmoYzDYmjG7SqOLyPz362YwucxJstUzP8PiJcdqtAhq
- I0EA==
+ d=gmail.com; s=20230601; t=1744794710; x=1745399510; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3ijzgK4iv6W9/SkZI5SFAq7Ny3NSkdxIDk62807ZYl0=;
+ b=AQAyKQgNpfg7Nlb7lf7LRF/B2BvHpe+DIFcjgAyTHgW7Y5s5hfeO2VrriR4iSrSQXh
+ NEiGz0fediu+kzdKnbNoghp2eO45zxMGFzCKr9lYAH/C1RiP/6fpSimUVfPlBnq6wehp
+ z3BN844STvgFThRnvvwAF6YSv0WOAQ09J3jwRIL0Z20pUbjfaCoaz/VF9xUXnkgscUG+
+ pEDbrQ7RGyvY66x0Vxs/eaP94pHD0dUxqSypXsZ6XI83J72PQR1ZiWyk7nZlMcBg/d89
+ mzqoacqOP3g4bcvOb+dtOGmiKbRQgqOMPpWO929C+yw7uxb7OHXDGOmKjYl3zfrfjyKR
+ Wxig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744802732; x=1745407532;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-transfer-encoding:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=M1SJQCGEYPEhCrI3qgX6t+obEkrQ6EqASbeC+/fQb1k=;
- b=JHLNwkD9ATrZfAENLl71sYZKodlPi7wTH5Lts/m4HJw+FraYXafjSxrWAX/Q9wFLyz
- B41m1eFAJCalx2viO+F3iAjHBMrFWqm5BYcMttGYgiPuImfd5yiG6oAheCOGgA517A/J
- 0u2/SObK13fGYnkH1pGHFe4ZZxPLREuwCfq402wIetSOyMP9TfSaVQnxaOg9TLEHkl5Z
- VND0om76uhHJfgF0LOqjClfbX4JG6MZNbQg3JAbjmc48kTW5LxI/9SVnmFhwzKYA+SJ6
- NQaHxZ0agheSyTp8wWkRKm+5+hLDF0dptcjGOaWd75Mirp55HtgpuZUXlH3cDZy3zJVc
- XTag==
+ d=1e100.net; s=20230601; t=1744794710; x=1745399510;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3ijzgK4iv6W9/SkZI5SFAq7Ny3NSkdxIDk62807ZYl0=;
+ b=WbM2HfL/h3hpPsnIBao/Q3nyf91fdYC6sac6peFLMcPMg3kgLiCpdL/AnD1N+PRQr1
+ cYGhf3J0HOV80Hlr+aaAD8coG7y+hj9fVZy4PBdjkN5ayWfozJGz8E85+jR54+rd/x97
+ BjnrirVh5Qm353ARjU+Zedds+TiMYHzNBq8bV83QwLsR/to/yQuE84bUe2Q4DQ726/YA
+ 2eZUbWQ42K8pksmrlkJbkXUGXDy3u+e1ey7kIc3BGoRt2VQBLxuQDZkqqreV1l9ah9Vz
+ 9mQDQvGZgMie1NpqTQdlLwXOZVzTDl2tByElvyXdBxwNioxp6840xcH5ej3s/6GYkBaK
+ aRJw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXn9/5L3+Iv4SyWaikyCTie/wo/ES/MsQeGkrD/zdqlgbuc73JHWFGyvbCYVbsCU/DxU4pl0I/N@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMiAWEFFmFUS7bkOWTO97Gm0uGBJQ4iQL9uEHO6ngIKl5eWsRJ
- MuMMwKyQ83mn2HuXCYh3dAEl2JIrCvX7Ad/7RQI6It+a+dbz4/2gqHenjCIMJTY=
-X-Gm-Gg: ASbGncspcqL4WAOiApA7AVbbDwgsSOYC4lMY9TVdG030oFC7vliHfOM3WM6t4bhBmml
- vL+rB2iEbnKDpnUuOODyauei3dqvC9zYLFDkK1HFRRh+Bt/EatPEpsHsq+sBkll8tazcVLW+tSV
- MPVnsMQMd5Vb41sT44LF+AjmVtMGfvDtO7cxFsuT2N32nvgnVYmjLA1CSiDs/ZopuNk/EDcVwId
- mNNw0UmjekbgNxBbbFzPi0RDYs2Sds7vP+ezE/QqijgaYxc9E1Ty4V29SOcxGzD4Bv0YktBWyPl
- rxL3LjgtW7k6y3oWmMjJOAwGKNlRgV1VLOvzDOEB
-X-Google-Smtp-Source: AGHT+IE2uGk7viULXRHwcMC6GtLWc6X+31aPOyWo4guoKeQ4IlVtxGCdVZQNStIgzEReOhLBuSGQSQ==
-X-Received: by 2002:a05:600c:3d0c:b0:43d:b85:1831 with SMTP id
- 5b1f17b1804b1-4405d5bd218mr15007975e9.0.1744802731815; 
- Wed, 16 Apr 2025 04:25:31 -0700 (PDT)
-Received: from localhost ([2.216.7.124]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4405b5adb6fsm18524045e9.40.2025.04.16.04.25.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 04:25:31 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Apr 2025 12:25:30 +0100
-Message-Id: <D980Y4WDV662.L4S7QAU72GN2@linaro.org>
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Fugang Duan" <fugang.duan@cixtech.com>, "alexander.deucher@amd.com"
- <alexander.deucher@amd.com>, "frank.min@amd.com" <frank.min@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "david.belanger@amd.com" <david.belanger@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>, "Peter Chen"
- <peter.chen@cixtech.com>, "cix-kernel-upstream"
- <cix-kernel-upstream@cixtech.com>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>
-Subject: =?utf-8?q?Re:_=E5=9B=9E=E5=A4=8D:_[REGRESSION]_amdgpu:_async_system_error?=
- =?utf-8?q?_exception_from_hdp=5Fv5=5F0=5Fflush=5Fhdp()?=
-X-Mailer: aerc 0.20.0
-References: <D97FB92117J2.PXTNFKCIRWAS@linaro.org>
- <SI2PR06MB5041FB15F8DBB44916FB6430F1BD2@SI2PR06MB5041.apcprd06.prod.outlook.com>
-In-Reply-To: <SI2PR06MB5041FB15F8DBB44916FB6430F1BD2@SI2PR06MB5041.apcprd06.prod.outlook.com>
+ AJvYcCX5IQAqwIz1X4FCTD+rqeRv29pAASoIOmomHti4eX8z2S55DGM94rVi0P6gX1x97O7/xKJimgitTWpf@lists.freedesktop.org,
+ AJvYcCXQp1AYwHeSta7Nz52RlFJa92NbujCEg1WBAEWi0l96YNDzsVMoU+n0pHE9vjyUqEFaYB751Gxl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywk0GuFD/TtLi3cBboR5WMwOc1RCvzOIqWaskrVZkpxSvvDwZIZ
+ Y/mbh/esRal/N1NuEXKBCGIyZFZX08kQbt31vvxgraD1i/HNVqY=
+X-Gm-Gg: ASbGnctAo0td/dV4bddNed3Y2pUruGWR4nis3Z6m+t87bWDeRnXGeZO37lMB9aH+D67
+ d4aMTTiEXmsKUOB+JZphwmamY7v90ffzFq2IK3NouZReyddlfblq7rUalT6ndxxWibKIIWiG5Xb
+ w/63yYiavrllMCupvRXPzEkrWIqGfxkm7loRTWmq9FRr4b97+7aZQgeKzpav+1cmHmEdos64wxy
+ +0IZABe2oLhXSEIIPXZeoVXR9fuPoj/cOQQsFF1gb17f6crHHsC6vOHoIMzwegQaUtf2sPsdok8
+ 1V4ljZnojAjFYXvge6nTUaGEwb1riLKfACWDhd/EWOgbIV9taAGzaic8uaeTz9Q7QUewwX+y3Qs
+ cvaP5B2Palu2p
+X-Google-Smtp-Source: AGHT+IHDqfPMPJDX6LvxJT/QXWmU2cwXxlIuD/lorTF2upHPyZaXQWfeUnGYg7CHwP7bV4uUaeb+XA==
+X-Received: by 2002:a17:902:d2c7:b0:220:ff3f:6cba with SMTP id
+ d9443c01a7336-22c3596b9dcmr21242515ad.38.1744794709972; 
+ Wed, 16 Apr 2025 02:11:49 -0700 (PDT)
+Received: from mac.lan (syn-066-215-112-203.res.spectrum.com. [66.215.112.203])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-22c33ef0f41sm9185545ad.41.2025.04.16.02.11.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Apr 2025 02:11:49 -0700 (PDT)
+From: Luke Hofstetter <ldhofstetter@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sunil Khatri <sunil.khatri@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Boyuan Zhang <boyuan.zhang@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Luke Hofstetter <ldhofstetter@gmail.com>
+Subject: [PATCH] drm/amd/include: fix kernel-doc formatting in amd_shared.h
+Date: Wed, 16 Apr 2025 02:11:40 -0700
+Message-ID: <20250416091143.67704-1-ldhofstetter@gmail.com>
+X-Mailer: git-send-email 2.49.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 16 Apr 2025 13:41:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,34 +94,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed Apr 16, 2025 at 4:12 AM BST, Fugang Duan wrote:
-> =E5=8F=91=E4=BB=B6=E4=BA=BA: Alexey Klimov <alexey.klimov@linaro.org> =E5=
-=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2025=E5=B9=B44=E6=9C=8816=E6=97=A5 2:28
->>#regzbot introduced: v6.12..v6.13
+when doing make htmldocs, Sphinx complained about in-line documentation
+in enum DC_DEBUG_MASK, so reformatted documentation to define each
+member in kernel-doc comment above the enum instead.
 
-[..]
+Signed-off-by: Luke Hofstetter <ldhofstetter@gmail.com>
+---
+ drivers/gpu/drm/amd/include/amd_shared.h | 124 ++++++-----------------
+ 1 file changed, 32 insertions(+), 92 deletions(-)
 
->>The only change related to hdp_v5_0_flush_hdp() was
->>cf424020e040 drm/amdgpu/hdp5.0: do a posting read when flushing HDP
->>
->>Reverting that commit ^^ did help and resolved that problem. Before sendi=
-ng
->>revert as-is I was interested to know if there supposed to be a proper fi=
-x for
->>this or maybe someone is interested to debug this or have any suggestions=
-.
->>
-> Can you revert the change and try again https://gitlab.com/linux-kernel/l=
-inux/-/commit/cf424020e040be35df05b682b546b255e74a420f
-
-Please read my email in the first place.
-Let me quote just in case:
-
->The only change related to hdp_v5_0_flush_hdp() was
->cf424020e040 drm/amdgpu/hdp5.0: do a posting read when flushing HDP
-
->Reverting that commit ^^ did help and resolved that problem.
-
-Thanks,
-Alexey
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index 4c95b885d1d0..7074ec3b467f 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -255,120 +255,60 @@ enum DC_FEATURE_MASK {
+ 
+ /**
+  * enum DC_DEBUG_MASK - Bits that are useful for debugging the Display Core IP
++ * @DC_DISABLE_PIPE_SPLIT: If set, disable pipe-splitting
++ * @DC_DISABLE_STUTTER: If set, disable memory stutter mode
++ * @DC_DISABLE_DSC: If set, disable display stream compression
++ * @DC_DISABLE_CLOCK_GATING: If set, disable clock gating optimizations
++ * @DC_DISABLE_PSR: If set, disable Panel self refresh v1 and PSR-SU
++ * @DC_FORCE_SUBVP_MCLK_SWITCH: If set, force mclk switch in subvp, even
++ *	 							if mclk switch in vblank is possible
++ * @DC_DISABLE_MPO: If set, disable multi-plane offloading
++ * @DC_ENABLE_DPIA_TRACE: If set, enable trace logging for DPIA
++ * @DC_ENABLE_DML2: If set, force usage of DML2, even if the DCN version
++ *	 				does not default to it.
++ * @DC_DISABLE_PSR_SU: If set, disable PSR SU
++ * @DC_DISABLE_REPLAY: If set, disable Panel Replay
++ * @DC_DISABLE_IPS: If set, disable all Idle Power States, all the time.
++ *	 				If more than one IPS debug bit is set, the lowest bit takes
++ *	 				precedence. For example, if DC_FORCE_IPS_ENABLE and
++ *	 				DC_DISABLE_IPS_DYNAMIC are set, then DC_DISABLE_IPS_DYNAMIC takes
++ *	 				precedence.
++ * @DC_DISABLE_IPS_DYNAMIC: If set, disable all IPS, all the time,
++ *	 						*except* when driver goes into suspend.
++ * @DC_DISABLE_IPS2_DYNAMIC: If set, disable IPS2 (IPS1 allowed) if
++ *	 						there is an enabled display. Otherwise, enable all IPS.
++ * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
++ * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
++ *	 					  eDP display from ACPI _DDC method.
++ * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
++ * @DC_DISABLE_SUBVP: If set, disable DCN Sub-Viewport feature in amdgpu driver.
++ * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: If set, disable support for custom brightness curves
++ * @DC_HDCP_LC_FORCE_FW_ENABLE: If set, use HDCP Locality Check FW
++ *	 					        path regardless of reported HW capabilities.
++ * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Check FW
++ *	                              path failure, retry using legacy SW path.
+  */
+ enum DC_DEBUG_MASK {
+-	/**
+-	 * @DC_DISABLE_PIPE_SPLIT: If set, disable pipe-splitting
+-	 */
+ 	DC_DISABLE_PIPE_SPLIT = 0x1,
+-
+-	/**
+-	 * @DC_DISABLE_STUTTER: If set, disable memory stutter mode
+-	 */
+ 	DC_DISABLE_STUTTER = 0x2,
+-
+-	/**
+-	 * @DC_DISABLE_DSC: If set, disable display stream compression
+-	 */
+ 	DC_DISABLE_DSC = 0x4,
+-
+-	/**
+-	 * @DC_DISABLE_CLOCK_GATING: If set, disable clock gating optimizations
+-	 */
+ 	DC_DISABLE_CLOCK_GATING = 0x8,
+-
+-	/**
+-	 * @DC_DISABLE_PSR: If set, disable Panel self refresh v1 and PSR-SU
+-	 */
+ 	DC_DISABLE_PSR = 0x10,
+-
+-	/**
+-	 * @DC_FORCE_SUBVP_MCLK_SWITCH: If set, force mclk switch in subvp, even
+-	 * if mclk switch in vblank is possible
+-	 */
+ 	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
+-
+-	/**
+-	 * @DC_DISABLE_MPO: If set, disable multi-plane offloading
+-	 */
+ 	DC_DISABLE_MPO = 0x40,
+-
+-	/**
+-	 * @DC_ENABLE_DPIA_TRACE: If set, enable trace logging for DPIA
+-	 */
+ 	DC_ENABLE_DPIA_TRACE = 0x80,
+-
+-	/**
+-	 * @DC_ENABLE_DML2: If set, force usage of DML2, even if the DCN version
+-	 * does not default to it.
+-	 */
+ 	DC_ENABLE_DML2 = 0x100,
+-
+-	/**
+-	 * @DC_DISABLE_PSR_SU: If set, disable PSR SU
+-	 */
+ 	DC_DISABLE_PSR_SU = 0x200,
+-
+-	/**
+-	 * @DC_DISABLE_REPLAY: If set, disable Panel Replay
+-	 */
+ 	DC_DISABLE_REPLAY = 0x400,
+-
+-	/**
+-	 * @DC_DISABLE_IPS: If set, disable all Idle Power States, all the time.
+-	 * If more than one IPS debug bit is set, the lowest bit takes
+-	 * precedence. For example, if DC_FORCE_IPS_ENABLE and
+-	 * DC_DISABLE_IPS_DYNAMIC are set, then DC_DISABLE_IPS_DYNAMIC takes
+-	 * precedence.
+-	 */
+ 	DC_DISABLE_IPS = 0x800,
+-
+-	/**
+-	 * @DC_DISABLE_IPS_DYNAMIC: If set, disable all IPS, all the time,
+-	 * *except* when driver goes into suspend.
+-	 */
+ 	DC_DISABLE_IPS_DYNAMIC = 0x1000,
+-
+-	/**
+-	 * @DC_DISABLE_IPS2_DYNAMIC: If set, disable IPS2 (IPS1 allowed) if
+-	 * there is an enabled display. Otherwise, enable all IPS.
+-	 */
+ 	DC_DISABLE_IPS2_DYNAMIC = 0x2000,
+-
+-	/**
+-	 * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
+-	 */
+ 	DC_FORCE_IPS_ENABLE = 0x4000,
+-	/**
+-	 * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
+-	 * eDP display from ACPI _DDC method.
+-	 */
+ 	DC_DISABLE_ACPI_EDID = 0x8000,
+-
+-	/**
+-	 * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
+-	 */
+ 	DC_DISABLE_HDMI_CEC = 0x10000,
+-
+-	/**
+-	 * @DC_DISABLE_SUBVP: If set, disable DCN Sub-Viewport feature in amdgpu driver.
+-	 */
+ 	DC_DISABLE_SUBVP = 0x20000,
+-	/**
+-	 * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: If set, disable support for custom brightness curves
+-	 */
+ 	DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE = 0x40000,
+-
+-	/**
+-	 * @DC_HDCP_LC_FORCE_FW_ENABLE: If set, use HDCP Locality Check FW
+-	 * path regardless of reported HW capabilities.
+-	 */
+ 	DC_HDCP_LC_FORCE_FW_ENABLE = 0x80000,
+-
+-	/**
+-	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Check FW
+-	 * path failure, retry using legacy SW path.
+-	 */
+ 	DC_HDCP_LC_ENABLE_SW_FALLBACK = 0x100000,
+ };
+ 
+-- 
+2.49.0
 
