@@ -4,51 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A6DC369B1
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:29:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEB27C369BA
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4BDF10E86C;
-	Wed, 16 Apr 2025 07:29:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8DE10E24C;
+	Wed, 16 Apr 2025 07:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="U0u9Z6b9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l+RyrMEs";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0C3910E86C;
- Wed, 16 Apr 2025 07:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Ia4B45pMDmZ3UwY9Bd4jR/lwQE2ezYjp7vEdsGcZgWI=; b=U0u9Z6b9xfpzzZC9L1kjIZguNj
- hyqJ2apa/3vr7X7PbWRbtTIXxtaghOpSd7xEQ++Ll0XwFJY4d6RRKwMPf37RPs8mvSP2/nXcxCnk0
- RaNlEE8SubDeFTbexpwpTvlr9K4Zwrb3oTz3b9VDi9DuWVY/yyeH0Dd2tXvvMOAx1jKrJ66PlpMBK
- A+5YWB+3SROFfgAMgD2DFfGSkWBPOF+0AEmgc7spkhIC+PgD66Qi3ZmEwXG4HxcXvz19cGnV23G99
- V5/xnQezYniR98OEtNh5EaIRWIfPrRcZ+mfzovL6CBnawI2sBjYIv/mzWGLTXht5TW3qrdnPy0A+z
- FqqgcT2w==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1u4xDT-00HHAl-TH; Wed, 16 Apr 2025 09:29:51 +0200
-Message-ID: <dcc0921c-d0f1-491c-b5f8-ef0be4d08dfb@igalia.com>
-Date: Wed, 16 Apr 2025 08:29:51 +0100
-MIME-Version: 1.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BFCD10E16F;
+ Wed, 16 Apr 2025 07:51:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YEjGyVA/pGNJ0njcE3zOgt9EPw+jOru7iv1DeIwHqgq4mVMxEbjVflVEV5JaPtLjtZ8QGPxblq3PfPGSLdUiAPwPZE/CY82qfOZkuLHuQl19qbpFdG1lKFQvmrd1f5w781kn9fIzBL5TN1UbxIVHbsHpRvwox/bnIzLuVNd/afQRYlHDOZKWHAzH4WxuVaxFgAptkHrmHgt2ch+75a6Qtmqh1nqWk84LjLMVb1yUsrI+zmRwdUKCbdLdqgPynzsxpju0B9HuHpVAeILqYvxPWMKvsOPz22AyZhnIttO8kYTL/zKmiyj7kFbxlZxc9FebAmp4l5oGXPMw8b14fQryYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OXmd4EOEzKPNaBtfmn0vFjHNJVt3LHwpJlOcSdHVEmg=;
+ b=CHX+KB90CDpMpjNH96pE0skunKt40ytEtsfLCjxaHHMzStoZjhBadffJ+P0t1z5GZS4/G1AH4CkElru3XUSz3TbfYX+AmWhkeVM1mvCzwTYQGB1vTdLrLRpq72dAnhx2FiByjYV5HpfOml9NFJfwy0speVgnyphMt3P0z4BdIjemOAuJHs3tQNJ4G8q98qCtl698FGr8xrN5gdPTqoIsPZGPnxa57lD2OaJuRhOTvm//HHeJQOVCZexrxv6ssCuvdJH6n53ze9YAN4YYAutd0p6R65zrPr59JAmoOe4YHoFPGK/HF9ioUscFTrIPZTBM9sOdvNU2gazA5h98sdBj0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OXmd4EOEzKPNaBtfmn0vFjHNJVt3LHwpJlOcSdHVEmg=;
+ b=l+RyrMEsB1DU7kjoqihpgfdoqfu4yQHeTE83EXQmAnuVe/xFEJzNg6MCPXa0snnBplacBFweAMkhDpcgTB0Bk022s23cKWMm+ud+Od5ujqUlfqLZLMWzMTXXhP86cY6R+l6yRYSY/rIOIjgqPejpxwQXspcG4SLffPxBu81FDGk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB6138.namprd12.prod.outlook.com (2603:10b6:208:3ea::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.22; Wed, 16 Apr
+ 2025 07:51:08 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8632.025; Wed, 16 Apr 2025
+ 07:51:08 +0000
+Message-ID: <241a9bbb-6d59-4c24-8e18-a0acebc6f536@amd.com>
+Date: Wed, 16 Apr 2025 09:51:02 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] drm/amdgpu: add drm_file reference in userq_mgr
-To: Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-References: <20250415184318.2465197-1-sunil.khatri@amd.com>
- <20250415184318.2465197-2-sunil.khatri@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250415184318.2465197-2-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH RFC] drm/amdgpu: Block userspace mapping of IO
+To: Ujwal Kundur <ujwal.kundur@gmail.com>, alexander.deucher@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, lijo.lazar@amd.com,
+ sunil.khatri@amd.com, Hawking.Zhang@amd.com, Jun.Ma2@amd.com,
+ Yunxiang.Li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20250416072825.3790-1-ujwal.kundur@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250416072825.3790-1-ujwal.kundur@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0119.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6138:EE_
+X-MS-Office365-Filtering-Correlation-Id: e91b7746-547c-41df-5ec0-08dd7cbb72b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZkFhclhMOE55T0RWMis4OFllM2YxaTlSYzlqYmpxYmsvZkJaMGNJbkZDQi9J?=
+ =?utf-8?B?SmRDLzQxbnVwOVNwUGxRUGM2TE9FNm5nVm5wZnJHQURUQTdrUXFMdGZuYVNk?=
+ =?utf-8?B?eUJpSERtdElMUHEvWitlQ1R6TmRHWFlDb2krRnl5KzVCQWRMQWNRS0JBZ3Qw?=
+ =?utf-8?B?UVhQVjNOMmtkR1VlbnYwS3RlUkEwSHBLWHBSeVRNS0xRbTRiMHl0VEhCM24v?=
+ =?utf-8?B?enlsZExKejZJVkRGOStCQkZ5MVV4YXZEdWhwUEswbGlJVEVjWHRZdEpzeTVJ?=
+ =?utf-8?B?Tmt6WDM5MWE2bi8xMVlGUkhlb3AzRzZjUmZ5UVFjMm81Q3V2bjArdStFL2F1?=
+ =?utf-8?B?RWRzdHloMnlBUXY3dnlOeWVDVkZQS01jMmNaNGUxak1OVjNSbW1oNkNBb0tm?=
+ =?utf-8?B?a3NrSnpLVk1Vc2hRWnpWNmNpNlpzWmdxSDFnMzVHQlU5VlNweWlJaGtkRjJi?=
+ =?utf-8?B?eENNL1FPci90Vm9QRVdEdEIxVDlsTmRpbjJWMFowZjNDSWtLVkxRNWNYWlFv?=
+ =?utf-8?B?N1k2SEJTY0VTenFJYmdUbU9BY0J4SW8yM0J3SWMwLzVkZ2dYNnprcGdsRk44?=
+ =?utf-8?B?bTkzZHhzcjdWei96N0pmcnNZYVp5anBpOU13cTFHWUVveC84OEZuSnlHMjVN?=
+ =?utf-8?B?UDRHb2JPTTd2T0toelZnWXp0OHhHYW9xa2hSbjVmWFA2cHJGSnY4Ymo3UXRv?=
+ =?utf-8?B?aVVCVnBOWlV2S2R5Uy85VHBldEtTZmdRL3JINmMrUzZjSXN5TWZrTE94THp6?=
+ =?utf-8?B?bHVzQlF5NGxueTk1ejR1ZFdxcnpDSFpWaWJMQTZISHVpa3BXVDE3VU1jM2Y4?=
+ =?utf-8?B?R3JnOWlPcWFSRTF1NjdGWGlXTGF2K3JlZWM2MTVTbkt0bUd1ZjluYSs3UFo4?=
+ =?utf-8?B?bHI5ZEhOT05UV25VT00rQjkrQnBFVlZaYXoyOXV2d3FJYmR3aDhkTXlnK2xH?=
+ =?utf-8?B?OVhhMmxadnNzNE5QSTNESndRbTZvMmI3RjhVMnZWSE92dU04aXVEWlV4dlY3?=
+ =?utf-8?B?UjJpWi8xQXM3b1VjZ3Z1QUZmU1RLRkJ0SU14a2QrdnZ3SEpheFMzMkxEZnE1?=
+ =?utf-8?B?ak1FV2Y1Y2RkTDJPSmRLWHBoSnlWY2NDNTNSTi9RaUlpcnlIUG1BT0k1dDdo?=
+ =?utf-8?B?cTV6Z3RiTHQrejlaZFVzWjZIQWZKSk15dVB2WFRWTDdaRkdmVlZaT0hiVmpt?=
+ =?utf-8?B?d3FnSXg5M0g3S05iUWF5emlnVnplYnJWVUJnK1NyUFpQUWowS1dBYUFub3dK?=
+ =?utf-8?B?ZVNvc1dPTWNUT3g4RkdSclRCbktXQVRPb2dSS08wc0VkeS81ZldoVmtTSC9U?=
+ =?utf-8?B?QjZBSTVjM2wvZ09tYUdOVWpFcFZBcDBDQ1NGTG5qMGVic0FZZy9ub2ZXU1hG?=
+ =?utf-8?B?eS9zeS9MUm82aWUxUDE3WC9SSThsMWtEcW5teENjQjlxbmt5L3o1eUVJM08x?=
+ =?utf-8?B?RDRtOFRLTWQ3Qmw2Wk51TEg0cjRKK25jL09OMGhOOG4xMVI1OHdXbmtITlpR?=
+ =?utf-8?B?alVRU05UalFJYjJQeTZ5QzhtdXNIK1BEWU56S0kzNUx4OFVtRERNU1RHbnV4?=
+ =?utf-8?B?MnVDZFV5YmdrcW9yRklsRXJvYnFlSEZyR3pRUUE5MThqUVZEQWRNaG92SGVy?=
+ =?utf-8?B?c2xvbFNTVExmZzJMVXU0VWdVREVCbXFXSEFMeFRtYmRHNkNVTkxBdWxkV0pG?=
+ =?utf-8?B?R1JsSytNUklDMmt0aUxkL3F6cTdaQVFzOHBxSmM5c1ZldmRqU01rWlppbFRU?=
+ =?utf-8?B?WnFXZzZNL0k3cTRxY1NjTzg1Z2hVaElpUVlBVWRDa0hrQThoRzR4RGVjaVN4?=
+ =?utf-8?B?d2JzNW12T3g4aXBvanFlRDBxS0FkT2pGSjlNUG9BM1VxZ3l3UnBUWDBleWc2?=
+ =?utf-8?B?Y1hzdFMrRDZpMW9remU0b0EvVHJoQTZ1dnpuQ2RITitISTlibW9mUy9xTmpv?=
+ =?utf-8?Q?Js4ZMMZrcK8=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mmx3RWpqVlNvT3RITjFhU2hQNVBCbTRsNUNIZ3lKZmVtMkMyNlNyQzZ6RGk2?=
+ =?utf-8?B?Zno1UVJ3bHZneHYrQU1FbFRVREtMUU9QU1FQb0plZnlnZk1mNjV5eGFhaWd2?=
+ =?utf-8?B?VHdQZWo1dGNJTlR4dllQVFJoZTJneUE4dWpWSzUrYUdjaXk0ZkZBODBUZnVx?=
+ =?utf-8?B?WFhyWXBib2FrNEttbXczODJJZXJCWWRDWVBpbHVyNHpTd2VZR0dMT3dNWVZ4?=
+ =?utf-8?B?Zkw5MHNvOUdQcHdhcG93YyszOEswa1ZHZ1N3Z3U0SXMzZ1N5YWg2T3pSMzhZ?=
+ =?utf-8?B?b2VIR3VxU1VkN1JmU3FsTm5lblV2L0s3WnY1WEFpeEVTZEJQL1h1bGdmOERX?=
+ =?utf-8?B?TVJCb0h5eERxR3Nkb1ZCZnBidU5kNnVrMkRFZytOTnRFV2xJUkZxTUhSdUo4?=
+ =?utf-8?B?ZUZUdmRZSXloOG43NWxOaUtENFJEVFJWdzd1SHZDRVg0cGpEZ2tlTGVpOExt?=
+ =?utf-8?B?QUM1eGVVenF5LzA4dy8wbVFvWDYyKzl5cTMwVXgySENhZXpzcXhQOTVlSytI?=
+ =?utf-8?B?UGRUMXZwKzI0RlNZRHVJR1JVOURPeC9QZU0yOFlKbjFzWWxJR0ttaDdMdFFT?=
+ =?utf-8?B?djg4V2dNeElpYmN5dE5JYXRMNGY0YXhlQWxBcCtGb2oyRFdBZkhHUTliWFJ3?=
+ =?utf-8?B?K1lkWU5LTlJPUHpNZE4yVzk1SHg1NnFwbGlVTTNlVFVEVGVsM0xhdEVHU3VZ?=
+ =?utf-8?B?NTZkUDJ3MmZvaHdXMXdjd1RUNUhVZFRVK2NXV2dBcGcyRHJPQysrYUkvc0ha?=
+ =?utf-8?B?R3JkYmRYNUZUOHRka2gyZ01ubmZPSFVkZlBaOTNBOURXTGtybW94aDdwcG5i?=
+ =?utf-8?B?QnRlR3hQbUx6N3AxSDBoL1cyakUwTkdhNVZMVHpQbmc0QkRwczlDR29iM3k5?=
+ =?utf-8?B?eERaV0pMbkpvOXE2N1ZMVGxzNUFGakFqK0lLUXhibXYvOEFJUVpnSVNvYitM?=
+ =?utf-8?B?NDV3VWluOUwrZkU1R2ZSQnhoU2psOXU5UHkrbW8xcFJVWGsrbzUxRHFSRC84?=
+ =?utf-8?B?K3JCU0phN3RTNi9FVFB0dzdmQXU1YkNLeHRReTd6bUZZdGo4RjNnand1NThR?=
+ =?utf-8?B?Qzg0S1lqR3BHTzJydHljVkduTjEzYzVUN0p5NXozT2g3TUxraVdjc2hZNGR0?=
+ =?utf-8?B?RzBlUFlvcTl3TVoyOCsvQ21NTW5WMG1PaEhZeEtTRys4amsyREYzbzNqbXVH?=
+ =?utf-8?B?MlVpMy9oUTBvZUdUSlllc3hnbm5vdGRMZnNzdlNXaCtENjFlbEZYcnN6S1Nr?=
+ =?utf-8?B?cm5vTXdsSzN3a21idGVuK0xLTzVndExDaFRobWR2aGQ1NXJ5YlNCNVQ3ay9h?=
+ =?utf-8?B?WWlKN2thN1VyakpBMG0zKzhVN2haQzMxYm5HdEFlajl6czdYcDJVWlZpeGZi?=
+ =?utf-8?B?SDFpYkZZL1ZVUjFUVVpRQ3BRTzg1aklheGNsS3JaUmI2dzltcklPZklCN3pr?=
+ =?utf-8?B?bnNzSWxMVW5qR0srR2NzWFRLbkFhWU9RODdnYXFRTG5tbTRHK0lhc3djdXQ2?=
+ =?utf-8?B?bTJ4ZXNoOTVKZWkxSW0zVm9hSW9CbW9VU2FQSElCVkdUb3c2MXlIVC9KMklI?=
+ =?utf-8?B?RlEyVzNjbjEybURZR0tLeTFkZlRRd2RGaXk0WDVxc1VLYkJXWmFrMnlOT1BO?=
+ =?utf-8?B?VnNDUTRFd0k5OUdaYjlOakdFNXRFMFdjVld4aGVHemI0ZzYzS3U3WTlXK3Fo?=
+ =?utf-8?B?RHZyMFV3WWdod1R6T0xoTzBTZ1N0OTFYd3grOUhyRjVnZ2VSZStYQjQ2Yzc3?=
+ =?utf-8?B?aFhkeXBFeDhsRjdpTEcxKzZrMWYwMGs3S2MrcDlCd3NndjlWMnAraFJiS3Vr?=
+ =?utf-8?B?UTlCVHN4T21aNlhNZ3ZqRWR1S3hzNE1yZWpiMWsvRHp5OVF4R09YRlVGU0dk?=
+ =?utf-8?B?VUUva0x6NFYxdVgxYityUWJJcklKaVBNbzBTYURVUEkyaStPeUlnam1FWmxh?=
+ =?utf-8?B?cDh3L1VNeG5nMWxvNkhCVFpJQ0NuV3VwendEN25NYkZzVm8xWWVmMEsxdmlW?=
+ =?utf-8?B?MXhmUCtTKzdrTnNPYmVJanFhV0FDbkhMTmRaak5UUjBQazF1empoWjJXZ1FO?=
+ =?utf-8?B?RlZyVkRiWGdZczJJczRVU1ZmSzhQQkxWMFBGeDhTY0pCY3A3bUEwbGFLeUdk?=
+ =?utf-8?Q?o2mjAnZpt/pzFviXDEMC+DL8u?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e91b7746-547c-41df-5ec0-08dd7cbb72b7
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 07:51:08.3727 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ggD6dzBWOlEdiZTJ4E2VvxcrFzCCi/z++uJ181zzZyf136k+cc5rpxZfJIhiDRO9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6138
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,54 +163,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 16.04.25 um 09:28 schrieb Ujwal Kundur:
+> This is a RFC patch for blocking userspace mapping of IO register(s)
+> before ioremap() calls are made. Out of the available IRQ sources, CRTC
+> seemed the most appropriate for this task, however I'm not quite sure
+> about that as well as the type, which I've set to 0.
 
-On 15/04/2025 19:43, Sunil Khatri wrote:
-> drm_file will be used in usermode queues code to
-> enable better process information in logging and hence
-> add drm_file part of the userq_mgr struct.
-> 
-> update the drm_file pointer in userq_mgr for each
-> amdgpu_driver_open_kms.
-> 
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Hui what? Why do you think that grabbing a reference to an interrupt would block userspace mapping of IO registers?
+
+Christian.
+
+>
+> If I understand correctly, we actually want to block certain ioctls from
+> userspace that can interfere with ioremap but I don't see a dedicated
+> source for that.
+>
+> Signed-off-by: Ujwal Kundur <ujwal.kundur@gmail.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h | 1 +
->   2 files changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 3d319687c1c9..3de3071d66ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1436,6 +1436,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
->   
->   	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
->   
-> +	fpriv->userq_mgr.file = file_priv;
->   	r = amdgpu_userq_mgr_init(&fpriv->userq_mgr, adev);
-
-It's a bit of a layering violation since amdgpu_userq_mgr_init() is the 
-place which otherwise initialises fpriv->user_mgr. One day someome might 
-put a memset in there for example. Anyway, I think it would be nicer if 
-you passed fpriv to that function. Potentially instead of adev. Looks 
-like that would be cleaner "design".
-
-Regards,
-
-Tvrtko
-
->   	if (r)
->   		DRM_WARN("Can't setup usermode queues, use legacy workload submission only\n");
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-> index 381b9c6f0573..fe51a45f7ee4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-> @@ -77,6 +77,7 @@ struct amdgpu_userq_mgr {
->   	struct amdgpu_device		*adev;
->   	struct delayed_work		resume_work;
->   	struct list_head		list;
-> +	struct drm_file			*file;
->   };
->   
->   struct amdgpu_db_info {
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index a30111d2c3ea..365af52af6e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -47,6 +47,7 @@
+>  #include <linux/vga_switcheroo.h>
+>  #include <linux/efi.h>
+>  #include "amdgpu.h"
+> +#include "amdgpu_irq.h"
+>  #include "amdgpu_trace.h"
+>  #include "amdgpu_i2c.h"
+>  #include "atom.h"
+> @@ -4367,7 +4368,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  	ratelimit_set_flags(&adev->throttling_logging_rs, RATELIMIT_MSG_ON_RELEASE);
+>  
+>  	/* Registers mapping */
+> -	/* TODO: block userspace mapping of io register */
+> +	/* Block userspace mapping of io register */
+> +	amdgpu_irq_put(adev, &adev->crtc_irq, 0);
+> +
+>  	if (adev->asic_type >= CHIP_BONAIRE) {
+>  		adev->rmmio_base = pci_resource_start(adev->pdev, 5);
+>  		adev->rmmio_size = pci_resource_len(adev->pdev, 5);
+> @@ -4380,6 +4383,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  		atomic_set(&adev->pm.pwr_state[i], POWER_STATE_UNKNOWN);
+>  
+>  	adev->rmmio = ioremap(adev->rmmio_base, adev->rmmio_size);
+> +
+> +	amdgpu_irq_get(adev, &adev->crtc_irq, 0);
+> +
+>  	if (!adev->rmmio)
+>  		return -ENOMEM;
+>  
 
