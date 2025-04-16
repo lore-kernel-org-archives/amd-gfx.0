@@ -4,121 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAA1EC369B1
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 05:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C24C369BA
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 06:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91D1810E82B;
-	Wed, 16 Apr 2025 05:32:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E669E10E075;
+	Wed, 16 Apr 2025 06:54:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yf8xjJfF";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="nVeEG6Il";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A80B910E82B
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Apr 2025 05:32:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pq5Gvr/kKKpBb17lTOKDs/0T5bJPsRoMi7mGYGgaLlUK3goyqi5ADwRK2mSNgpJascKLUNblGffUYnKa0gP2mOBXoplqGZ5UgtVY5/Sg1C5BLT36PybJnsDmCx+sESWYhIXM+pN8AOVA7F3BEhzvyK7Nez4rJxwgZKSHxoAjFvCBXelgsuDgUTs0Fo7aeDRQX8V0VoaELrnYsf1LYu7P7iHn4iQFh1dgQJHQ/TEHfrj1pYMB/z+GNqyBea5pFzYSoc10l7oBD3U6kD+PvXyB4xWR/nSqrKNN+4+GOQchNpp6a0RzWYyd/8zi9s/17lUHdjrVn6WbTCYgsI6lL0YPzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jPeZbnFqg1ru8Gxl9dALO+rk6K+L/8VaBiB8SGuJYzY=;
- b=hkW2d0rzLndLAR5zSiL6e0PQYxNdCk7Knjjp+Afb4n1DNO04wpPAkbek7q0/UO78RFZ+MPL6zHnFOzqA2+KIYITd2Y9OQwGtTXT8X/c4WLJyyQ1xBEL8HCrf8zdf/C+gIbWIL3bb5mfw6YqeiwfbaBsr8dwUooCQ9N5IZ+HuWMHGcY24ZmSxNm12OTCwQ+1+qeaoa99LPofXDkR9fKH+Aqh/qEJKkYG+fLsfV7kknXfIV8OKFxrjrYHUsOMxEH+EN3RcdWo7tEY2CsKnFu1dKLX38tA35mAWd18AZyC6L71w1PBthyRyTP1/ir617KYFfFN+gGfF3/H7ZOqtL/G+Ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jPeZbnFqg1ru8Gxl9dALO+rk6K+L/8VaBiB8SGuJYzY=;
- b=yf8xjJfFoz7FdyNH8K3NhEfpcoCSybsGPKPkIoXdpZjk2F0ybcAO8u8Yr5Eot1KUgQ78uZiMuORunad5k5UqHqBVo/4qKBn4DfJrjC/c6ihQR/C81KZhV5/D0+Xm7oEeojqd+gUi+AkFnV8dXXKVnZunVh0cn3MXBUOlQ1GsDRA=
-Received: from SJ0PR13CA0028.namprd13.prod.outlook.com (2603:10b6:a03:2c0::33)
- by IA1PR12MB6212.namprd12.prod.outlook.com (2603:10b6:208:3e4::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Wed, 16 Apr
- 2025 05:31:58 +0000
-Received: from SJ1PEPF0000231E.namprd03.prod.outlook.com
- (2603:10b6:a03:2c0:cafe::30) by SJ0PR13CA0028.outlook.office365.com
- (2603:10b6:a03:2c0::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.10 via Frontend Transport; Wed,
- 16 Apr 2025 05:31:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF0000231E.mail.protection.outlook.com (10.167.242.230) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Wed, 16 Apr 2025 05:31:57 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Apr
- 2025 00:31:54 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>
-CC: <hawking.zhang@amd.com>, <le.ma@amd.com>, <shiwu.zhang@amd.com>,
- <asad.kamal@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH v2 7/7] drm/amd/pm: Add board voltage node to hwmon
-Date: Wed, 16 Apr 2025 13:31:27 +0800
-Message-ID: <20250416053127.377955-7-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20250416053127.377955-1-asad.kamal@amd.com>
-References: <20250416053127.377955-1-asad.kamal@amd.com>
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6746D10E075;
+ Wed, 16 Apr 2025 06:54:24 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5BE351FCE6;
+ Wed, 16 Apr 2025 06:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1744786463;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=O/In5MB7NJMfzIVEsxk6wg6QzhO+mqCOjwFfiIYzhsE=;
+ b=nVeEG6Ilq1F8uNVZODKJcKr+PudB35NWUyxJbUKnsCso3teBHFmJ49oHaC11dIW0PFK7Is
+ e+EXFW00tgyJ7j0VrKzFk5jhYh3Aomn28yi/zimT/T/Qjvnhe/BMp/CboIaYcLCdF2iViO
+ NreLfa+jw3NmtWkTHNsg+4aVWOXYmeaChedP4IFQJz0ZNNRfktQKxnFLwPEX3k/eyaHYkQ
+ xsFccxMoNesL/XOxGAtL9lr1vTK7Iivd3mkmCaSp9UwzdhBeJYfEPmmZc/kqkkkHzSwDA7
+ 7wwEsMtPXr65CmDk0pC6DOwDTiUGtT3zaC0lb8ZKolokUp6Kzcpq8hn8n2lm+g==
+Message-ID: <ca082495-0df0-432d-8269-d51525f8795a@bootlin.com>
+Date: Wed, 16 Apr 2025 08:54:19 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 20/54] dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE args
+ at compile-time
+To: jim.cromie@gmail.com
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+ <20250402174156.1246171-21-jim.cromie@gmail.com>
+ <428d9ffb-70bb-42f3-bf4e-416cfd90f88c@bootlin.com>
+ <CAJfuBxx17bgvP5PyP25yKoLXGp-3q1jdaNYKvJkE+8+BL9Akaw@mail.gmail.com>
+Content-Language: en-US
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
+ 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
+In-Reply-To: <CAJfuBxx17bgvP5PyP25yKoLXGp-3q1jdaNYKvJkE+8+BL9Akaw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231E:EE_|IA1PR12MB6212:EE_
-X-MS-Office365-Filtering-Correlation-Id: 215a65a1-051a-4eb9-cc81-08dd7ca8016f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?T8Hdwr8FLQiVcStTUUlm23ITIl3pK/lKWD69wth6q/5MvXgsjpPKUCOSS2z8?=
- =?us-ascii?Q?OTPT8ej0BfVlK71qPEmcEY/h74BIdVTPncBVPb8avFPjf2HHtNmbf/WX/yUD?=
- =?us-ascii?Q?s+QfoBf727Legwio4C1bA5scsbH8/IKeame7RtQNAQaLfax4DodupSIlzeaE?=
- =?us-ascii?Q?mjZi8DvQsR54JPRYIgqkgnIUBBoCa6EetHJ//nsX7lm9sKhnGPZeGVmkP5KV?=
- =?us-ascii?Q?4b3lCYtF9/F/3UWSzboDYW7uXLuC0vMJB+YUxAZl70VFpU17h8JlFQrPXkWK?=
- =?us-ascii?Q?y4ppmmUate2mhxRmKQIvnwl7RjMH3BPHVJ0JbdH8FTcTWRYCDAgY4yHLUos6?=
- =?us-ascii?Q?/1z0gLgzwnU+3leuK54x75LLWpd3FclrEOW1GrQpJAuXCgaUBNe3qMo2V8Ms?=
- =?us-ascii?Q?mzCbRRhG32K3ifXSnq8l7kizaTQPcD6UcoYi84TqL2C2/5CSvj5r6g+d6Df+?=
- =?us-ascii?Q?ZsfTFZ+DAOAzU1lIUqFbbC8L8zhXJqwwrZiBaQy2qKzY+dds4wNaa/LpovCs?=
- =?us-ascii?Q?zY93Y4HnpU58GD0MXBJm1MTtiyphDQXNw/DfSQRcZsQw4C48rLLixmFRWfzz?=
- =?us-ascii?Q?5P+UJP3wnc6P0RPPClHT+Ce1AJQuPXONqkhpZpnZ2g2ji1eegF+3hXPVaDfk?=
- =?us-ascii?Q?eZreKS3D4sdbNjkH9vKJEUsRXXVL1KIo6pN4vW86TFlPUS446NFmiqFn28Mx?=
- =?us-ascii?Q?ttBfaLZhyp+mFFsdLAYpGhIolsL+eIaWUnZVHirsLUAnasyXsed2I2y/8AkE?=
- =?us-ascii?Q?RFXh9LT1Y2vnnUlqxgpP34Y+PicmseWDFv1wDvXN73KEwLn+AmoFKHZOmyoB?=
- =?us-ascii?Q?T5Bu0FtlxzoVO/oUjiuvhPUxTctQ6uaUa/ws/k46ps0D2nSbdmaYySnduZlg?=
- =?us-ascii?Q?xURhuk/YB0qPQGRoEkl2PpwgAgVsBpRhRtASo+WCLgPKBIGhCYGJKPUp9Y/N?=
- =?us-ascii?Q?VPcMlaEKmxVBNiu4RGRBfZ1U8Bc8H5Ur00/s7DsSfgXDvEcEEMW29dxxc1JG?=
- =?us-ascii?Q?MsIGnMExJ1ZqWyKi+/oNDlfbwTjzpBxem0iuVeNORovLzw5oJjvzmegUPX8Q?=
- =?us-ascii?Q?bh1bT/ZUW8kvTaSIxoxIl1orkAcOnS2t5r1Er1EBhzpseMPYDT3U4J13gvDg?=
- =?us-ascii?Q?oZAWXqBPLgc9MyVmFywRVYFknhT+LTT/+ZNscvV5HwyE4aT9dh9tQ6Y8iO1j?=
- =?us-ascii?Q?QbNGxhcsTYkAu2Qc81KhcjqBw9uXBU8H/VIefKeVpyWYIf+FvMg40u2wxMo/?=
- =?us-ascii?Q?V0Et/7gA/fwt+0YR9ADbmg1r3ZPS0RG67xvwySImsEzveXyCw0g9nsoVquQ7?=
- =?us-ascii?Q?iNFRbgcPWNc7nPKTz0rRDQgnq7O+Aoqdabhg1RMrRHJ9+YB10WSF+Onzk3gI?=
- =?us-ascii?Q?EdGVr1hqABcRB0BVgMTNgIX/1OHtxz4OE+GJ81OpXmN6NnEaESemyBqiie0K?=
- =?us-ascii?Q?wR7J2L53bzYOR0e67+DKrtdy97OzUcT0tb2+szci7DAO2jt63+ntR9GsuAqF?=
- =?us-ascii?Q?8K8CgkR+9JEMAwIUb1NQtXRiGNl68834VOWt?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 05:31:57.5526 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 215a65a1-051a-4eb9-cc81-08dd7ca8016f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6212
+X-GND-State: clean
+X-GND-Score: 0
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvvdehjedtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecunecujfgurhepkfffgggfuffvvehfhfgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepkeeivedtfeegtdekheethedttddtfefhhfegjeeljeejleduvdfhudegvdekheevnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppeeltddrkeelrdduieefrdduvdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepledtrdekledrudeifedruddvjedphhgvlhhopegludelvddrudeikedrtddrvddtngdpmhgrihhlfhhrohhmpehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopedufedprhgtphhtthhopehjihhmrdgtrhhomhhivgesghhmrghilhdrtghomhdprhgtphhtthhopehjsggrrhhonhesrghkrghmrghirdgtohhmpdhrtghpthhtohepghhrvghgkhhhsehlihhnuhigfhhouhhnuggrthhiohhnrdhorhhgpdhrtghpthhtohepuhhkrghsiigssegthhhrohhmihhumhdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrn
+ hgvlhdrohhrghdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehinhhtvghlqdhgvhhtqdguvghvsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,131 +125,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add and expose board voltage node as vddboard to hwmon for smu_v13_0_6
 
-v2: Replace ip check with supported sensor attribute(Lijo)
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
----
- .../gpu/drm/amd/include/kgd_pp_interface.h    |  1 +
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 34 +++++++++++++++++++
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 10 ++++++
- 3 files changed, 45 insertions(+)
+Le 15/04/2025 à 21:54, jim.cromie@gmail.com a écrit :
+> On Tue, Apr 15, 2025 at 4:04 AM Louis Chauvet <louis.chauvet@bootlin.com> wrote:
+>>
+>>
+>>
+>> Le 02/04/2025 à 19:41, Jim Cromie a écrit :
+>>> Add __DYNAMIC_DEBUG_CLASSMAP_CHECK to implement the following
+>>> arg-checks at compile-time:
+>>>
+>>>        0 <= _base < 63
+>>>        class_names is not empty
+>>>        class_names[0] is a string
+>>
+>> I don't see where this is checked, did I miss something?
+> 
+> kinda/sorta ?   theres no explicit check for "string".
+> BUT
+> this would fail, cuz 1 doesnt fit into a char* arr[0]
 
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index 21dc956b5f35..0f7542d7074b 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -128,6 +128,7 @@ enum amd_pp_sensors {
- 	AMDGPU_PP_SENSOR_CPU_CLK,
- 	AMDGPU_PP_SENSOR_VDDNB,
- 	AMDGPU_PP_SENSOR_VDDGFX,
-+	AMDGPU_PP_SENSOR_VDDBOARD,
- 	AMDGPU_PP_SENSOR_UVD_VCLK,
- 	AMDGPU_PP_SENSOR_UVD_DCLK,
- 	AMDGPU_PP_SENSOR_VCE_ECCLK,
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 922def51685b..5537dcf23b5c 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2944,6 +2944,23 @@ static ssize_t amdgpu_hwmon_show_vddgfx(struct device *dev,
- 	return sysfs_emit(buf, "%d\n", vddgfx);
- }
- 
-+static ssize_t amdgpu_hwmon_show_vddboard(struct device *dev,
-+					  struct device_attribute *attr,
-+					  char *buf)
-+{
-+	struct amdgpu_device *adev = dev_get_drvdata(dev);
-+	u32 vddboard;
-+	int r;
-+
-+	/* get the voltage */
-+	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDBOARD,
-+					    (void *)&vddboard);
-+	if (r)
-+		return r;
-+
-+	return sysfs_emit(buf, "%d\n", vddboard);
-+}
-+
- static ssize_t amdgpu_hwmon_show_vddgfx_label(struct device *dev,
- 					      struct device_attribute *attr,
- 					      char *buf)
-@@ -2951,6 +2968,12 @@ static ssize_t amdgpu_hwmon_show_vddgfx_label(struct device *dev,
- 	return sysfs_emit(buf, "vddgfx\n");
- }
- 
-+static ssize_t amdgpu_hwmon_show_vddboard_label(struct device *dev,
-+						struct device_attribute *attr,
-+						char *buf)
-+{
-+	return sysfs_emit(buf, "vddboard\n");
-+}
- static ssize_t amdgpu_hwmon_show_vddnb(struct device *dev,
- 				       struct device_attribute *attr,
- 				       char *buf)
-@@ -3294,6 +3317,8 @@ static SENSOR_DEVICE_ATTR(in0_input, S_IRUGO, amdgpu_hwmon_show_vddgfx, NULL, 0)
- static SENSOR_DEVICE_ATTR(in0_label, S_IRUGO, amdgpu_hwmon_show_vddgfx_label, NULL, 0);
- static SENSOR_DEVICE_ATTR(in1_input, S_IRUGO, amdgpu_hwmon_show_vddnb, NULL, 0);
- static SENSOR_DEVICE_ATTR(in1_label, S_IRUGO, amdgpu_hwmon_show_vddnb_label, NULL, 0);
-+static SENSOR_DEVICE_ATTR(in2_input, S_IRUGO, amdgpu_hwmon_show_vddboard, NULL, 0);
-+static SENSOR_DEVICE_ATTR(in2_label, S_IRUGO, amdgpu_hwmon_show_vddboard_label, NULL, 0);
- static SENSOR_DEVICE_ATTR(power1_average, S_IRUGO, amdgpu_hwmon_show_power_avg, NULL, 0);
- static SENSOR_DEVICE_ATTR(power1_input, S_IRUGO, amdgpu_hwmon_show_power_input, NULL, 0);
- static SENSOR_DEVICE_ATTR(power1_cap_max, S_IRUGO, amdgpu_hwmon_show_power_cap_max, NULL, 0);
-@@ -3341,6 +3366,8 @@ static struct attribute *hwmon_attributes[] = {
- 	&sensor_dev_attr_in0_label.dev_attr.attr,
- 	&sensor_dev_attr_in1_input.dev_attr.attr,
- 	&sensor_dev_attr_in1_label.dev_attr.attr,
-+	&sensor_dev_attr_in2_input.dev_attr.attr,
-+	&sensor_dev_attr_in2_label.dev_attr.attr,
- 	&sensor_dev_attr_power1_average.dev_attr.attr,
- 	&sensor_dev_attr_power1_input.dev_attr.attr,
- 	&sensor_dev_attr_power1_cap_max.dev_attr.attr,
-@@ -3492,6 +3519,13 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 	     attr == &sensor_dev_attr_in1_label.dev_attr.attr))
- 		return 0;
- 
-+	/* only few boards support vddboard */
-+	if ((attr == &sensor_dev_attr_in2_input.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_in2_label.dev_attr.attr) &&
-+	     amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDBOARD,
-+					     (void *)&tmp) == -EOPNOTSUPP)
-+		return 0;
-+
- 	/* no mclk on APUs other than gc 9,4,3*/
- 	if (((adev->flags & AMD_IS_APU) && (gc_ver != IP_VERSION(9, 4, 3))) &&
- 	    (attr == &sensor_dev_attr_freq2_input.dev_attr.attr ||
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 4df35bc1a902..9d993338752d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -1652,6 +1652,7 @@ static int smu_v13_0_6_read_sensor(struct smu_context *smu,
- 				   enum amd_pp_sensors sensor, void *data,
- 				   uint32_t *size)
- {
-+	struct smu_13_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
- 	int ret = 0;
- 
- 	if (amdgpu_ras_intr_triggered())
-@@ -1696,6 +1697,15 @@ static int smu_v13_0_6_read_sensor(struct smu_context *smu,
- 		ret = smu_v13_0_get_gfx_vdd(smu, (uint32_t *)data);
- 		*size = 4;
- 		break;
-+	case AMDGPU_PP_SENSOR_VDDBOARD:
-+		if (smu_v13_0_6_cap_supported(smu, SMU_CAP(BOARD_VOLTAGE))) {
-+			*(uint32_t *)data = dpm_context->board_volt;
-+			*size = 4;
-+			break;
-+		} else {
-+			ret = -EOPNOTSUPP;
-+			break;
-+		}
- 	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
- 	default:
- 		ret = -EOPNOTSUPP;
+You are totally right, I was looking for a static_assert, but the 
+compiler do some checks too, sorry!
+
+>>> +DYNDBG_CLASSMAP_DEFINE(fail_str_type, 0, 0, 1 /* not a string */);
+> 
+> Im perhaps over-simplifying the description
+> 
+>>
+>>>        (class_names.length + _base) < 63
+>>>
+>>> These compile-time checks will prevent several misuses; 4 such
+>>> examples are added to test_dynamic_debug_submod.ko, and will fail
+>>> compilation if -DDD_MACRO_ARGCHECK is added to cflags.  This wouldn't
+>>> be a useful CONFIG_ item, since it breaks the build.
+>>>
+>>> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>>> ---
+>>> v3- $macro_name =~ s/DYNDBG/DYNAMIC_DEBUG/
+>>>
+>>> prev-
+>>> - split static-asserts to __DYNDBG_CLASSMAP_CHECK
+>>> - move __DYNDBG_CLASSMAP_CHECK above kdoc for DYNDBG_CLASSMAP_DEFINE
+>>>     silences kernel-doc warnings
+>>> ---
+>>>    include/linux/dynamic_debug.h |  9 +++++++++
+>>>    lib/test_dynamic_debug.c      | 11 +++++++++++
+>>>    2 files changed, 20 insertions(+)
+>>>
+>>> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+>>> index 9af825c84e70..4941ef2adb46 100644
+>>> --- a/include/linux/dynamic_debug.h
+>>> +++ b/include/linux/dynamic_debug.h
+>>> @@ -99,6 +99,14 @@ struct _ddebug_class_map {
+>>>        enum ddebug_class_map_type map_type;
+>>>    };
+>>>
+>>> +#define __DYNAMIC_DEBUG_CLASSMAP_CHECK(_clnames, _base)                      \
+>>> +     static_assert(((_base) >= 0 && (_base) < _DPRINTK_CLASS_DFLT),  \
+>>> +                   "_base must be in 0..62");                        \
+>>> +     static_assert(ARRAY_SIZE(_clnames) > 0,                         \
+>>> +                   "classnames array size must be > 0");             \
+>>> +     static_assert((ARRAY_SIZE(_clnames) + (_base)) < _DPRINTK_CLASS_DFLT, \
+>>> +                   "_base + classnames.length exceeds range")
+>>> +
+>>>    /**
+>>>     * DYNAMIC_DEBUG_CLASSMAP_DEFINE - define debug classes used by a module.
+>>>     * @_var:   name of the classmap, exported for other modules coordinated use.
+>>> @@ -112,6 +120,7 @@ struct _ddebug_class_map {
+>>>     */
+>>>    #define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)             \
+>>>        static const char *_var##_classnames[] = { __VA_ARGS__ };       \
+>>
+>> Or maybe it was already enforced by this, but in this case the commit
+>> message contains too much checks.
+>>
+>>> +     __DYNAMIC_DEBUG_CLASSMAP_CHECK(_var##_classnames, (_base));     \
+>>>        extern struct _ddebug_class_map _var;                           \
+>>>        struct _ddebug_class_map __aligned(8) __used                    \
+>>>                __section("__dyndbg_class_maps") _var = {               \
+>>> diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+>>> index e42916b08fd4..9f9e3fddd7e6 100644
+>>> --- a/lib/test_dynamic_debug.c
+>>> +++ b/lib/test_dynamic_debug.c
+>>> @@ -146,8 +146,19 @@ DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
+>>>    DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
+>>>    DYNAMIC_DEBUG_CLASSMAP_USE(map_level_num);
+>>>
+>>> +#if defined(DD_MACRO_ARGCHECK)
+>>> +/*
+>>> + * Exersize compile-time arg-checks in DYNDBG_CLASSMAP_DEFINE.
+>>> + * These will break compilation.
+>>> + */
+>>> +DYNDBG_CLASSMAP_DEFINE(fail_base_neg, 0, -1, "NEGATIVE_BASE_ARG");
+>>> +DYNDBG_CLASSMAP_DEFINE(fail_base_big, 0, 100, "TOOBIG_BASE_ARG");
+>>> +DYNDBG_CLASSMAP_DEFINE(fail_str_type, 0, 0, 1 /* not a string */);
+>>> +DYNDBG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 /* ,empty */);
+>>>    #endif
+>>>
+>>> +#endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
+>>> +
+>>>    /* stand-in for all pr_debug etc */
+>>>    #define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
+>>>
+>>
+>> --
+>> Louis Chauvet, Bootlin
+>> Embedded Linux and Kernel engineering
+>> https://bootlin.com
+>>
+>>
+
 -- 
-2.46.0
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
