@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 684BEC369B1
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75B66C369BA
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:18:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA66010E850;
-	Wed, 16 Apr 2025 07:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0323210E229;
+	Wed, 16 Apr 2025 07:18:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VuVgYL3T";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lrldXKG0";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF7710E850;
- Wed, 16 Apr 2025 07:07:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A09E310E069;
+ Wed, 16 Apr 2025 07:18:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,31 +22,32 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=dMRiJm2KJYp44dVClTZBKYCG1IgyRQDRM15b0tYnjm0=; b=VuVgYL3TARMvPPSOvnBzgYTq/x
- dLTkXVF0Bv1Vb/dDxUfYRS56Pea0/mrAhQlwb8ALtiVOyj4rlYc2un8V1fk7peFRD64zNUodCco05
- Sfzw52vyaUhy4F3w98n2igQxkl1LKAQQCz0xd2qPWvlIzTBOCjzRpivGvNKUt6CUI6Qf+9X9JNFhH
- U8TLRHCS1+XEi7SHstxfOIp7SgKP1eW+aILkZVlzK/roT04b0fDCGCqdJfr8yuCZ6Covw5zi5ZV0A
- t/MiExysEoAW9PBDhEeaD4Lrfu/2BS4TCQhb45CeQzNE/iVFVZOpUkOyQ7O+fTNFphLmt9J4bXp+W
- Du6F2uGg==;
+ bh=W6LUzSvf2LpqyWyKvbisRrYhreu5O68DA4zDrUc0rM8=; b=lrldXKG0eaOLLfM2Aix1+8N8lx
+ laRVVtdLfI2tG0TPseltuBil6qY3lDUFkRTpJ+bZgVoJadeBDIn+hxiUKk2n9bT9iCTFm/xC3tOa+
+ 9Yx9gEfov0rXoHT1yM7ui8HEozrBGActFvNldj3amP3rxZL0SpCRTw6CYuqRIN7Wmg3WPALzj8ThB
+ 0xOGVfrPest55BAz5QfLmic/te1Tr/R5JLSAu/zbi1YWl0FOhwMWizz06GJEGakmwxsc1xDVwBBSq
+ VG6P3eMcI1MI8JjaGUGxgc5CVXSOKF4KE8OifCqeSMUc5DY+H7TsORx4sXdvIQbYEUBHp6HkNDHlW
+ 18UEsF7A==;
 Received: from [90.241.98.187] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1u4wrn-00HGaN-3H; Wed, 16 Apr 2025 09:07:27 +0200
-Message-ID: <830a2b61-8965-4193-98de-d462a641737f@igalia.com>
-Date: Wed, 16 Apr 2025 08:07:26 +0100
+ id 1u4x21-00HGr6-SB; Wed, 16 Apr 2025 09:18:01 +0200
+Message-ID: <8b5614f3-4500-4bf3-b497-cc5cd8b9a5e7@igalia.com>
+Date: Wed, 16 Apr 2025 08:18:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] drm: add function drm_file_err to print proc
- information too
+Subject: Re: [PATCH v3 4/4] drm/amdgpu: change DRM_ERROR to drm_file_err in
+ amdgpu_userqueue.c
 To: Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 References: <20250415184318.2465197-1-sunil.khatri@amd.com>
+ <20250415184318.2465197-4-sunil.khatri@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250415184318.2465197-1-sunil.khatri@amd.com>
+In-Reply-To: <20250415184318.2465197-4-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -65,85 +66,264 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 15/04/2025 19:43, Sunil Khatri wrote:
-> Add a drm helper function which get the process information for
-> the drm_file and append the process information using the existing
-> drm_err.
+> change the DRM_ERROR to drm_file_err which gives the drm device
+> information too which is useful in case of multiple GPU's and also
+> add process information.
 > 
 > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->   include/drm/drm_file.h | 40 ++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 40 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 59 +++++++++++--------
+>   1 file changed, 33 insertions(+), 26 deletions(-)
 > 
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 94d365b22505..e329299a2b2c 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -37,6 +37,7 @@
->   #include <uapi/drm/drm.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> index 05c1ee27a319..e07dff14256c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -123,25 +123,25 @@ int amdgpu_userqueue_create_object(struct amdgpu_userq_mgr *uq_mgr,
 >   
->   #include <drm/drm_prime.h>
-> +#include <drm/drm_print.h>
+>   	r = amdgpu_bo_create(adev, &bp, &userq_obj->obj);
+>   	if (r) {
+> -		DRM_ERROR("Failed to allocate BO for userqueue (%d)", r);
+> +		drm_file_err(uq_mgr->file, "Failed to allocate BO for userqueue (%d)", r);
+>   		return r;
+>   	}
 >   
->   struct dma_fence;
->   struct drm_file;
-> @@ -446,6 +447,45 @@ static inline bool drm_is_accel_client(const struct drm_file *file_priv)
->   	return file_priv->minor->type == DRM_MINOR_ACCEL;
->   }
+>   	r = amdgpu_bo_reserve(userq_obj->obj, true);
+>   	if (r) {
+> -		DRM_ERROR("Failed to reserve BO to map (%d)", r);
+> +		drm_file_err(uq_mgr->file, "Failed to reserve BO to map (%d)", r);
+>   		goto free_obj;
+>   	}
 >   
-> +/**
-> + * drm_file_err - Fill info string with process name and pid
-> + * @file_priv: context of interest for process name and pid
-> + * @fmt: prinf() like format string
-> + *
-> + * This update the user provided buffer with process
-> + * name and pid information for @file_priv
-> + */
-> +__printf(2, 3)
-> +static inline void drm_file_err(struct drm_file *file_priv, const char *fmt, ...)
-> +{
-> +	struct task_struct *task;
-> +	struct pid *pid;
-> +	struct drm_device *dev = file_priv->minor->dev;
-> +	char new_fmt[256];
-> +	char final_fmt[512];
-> +	va_list args;
-> +
-> +	mutex_lock(&file_priv->client_name_lock);
-> +	rcu_read_lock();
-> +	pid = rcu_dereference(file_priv->pid);
-> +	task = pid_task(pid, PIDTYPE_TGID);
-> +
-> +	if (drm_WARN_ON_ONCE(dev, !task))
-> +		return;
-> +
-> +	snprintf(new_fmt, sizeof(new_fmt), "proc:%s pid:%d client_name:%s %s",
-> +		task->comm, task->pid, file_priv->client_name ?: "Unset", fmt);
-> +
-> +	va_start(args, fmt);
-> +	vsnprintf(final_fmt, sizeof(final_fmt), new_fmt, args);
-> +
-> +	drm_err(dev, "%s", final_fmt);
-> +	va_end(args);
-> +
-> +	rcu_read_unlock();
-> +	mutex_unlock(&file_priv->client_name_lock);
-> +}
-> +
+>   	r = amdgpu_ttm_alloc_gart(&(userq_obj->obj)->tbo);
+>   	if (r) {
+> -		DRM_ERROR("Failed to alloc GART for userqueue object (%d)", r);
+> +		drm_file_err(uq_mgr->file, "Failed to alloc GART for userqueue object (%d)", r);
+>   		goto unresv;
+>   	}
+>   
+>   	r = amdgpu_bo_kmap(userq_obj->obj, &userq_obj->cpu_ptr);
+>   	if (r) {
+> -		DRM_ERROR("Failed to map BO for userqueue (%d)", r);
+> +		drm_file_err(uq_mgr->file, "Failed to map BO for userqueue (%d)", r);
+>   		goto unresv;
+>   	}
+>   
+> @@ -177,7 +177,7 @@ amdgpu_userqueue_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+>   
+>   	gobj = drm_gem_object_lookup(filp, db_info->doorbell_handle);
+>   	if (gobj == NULL) {
+> -		DRM_ERROR("Can't find GEM object for doorbell\n");
+> +		drm_file_err(uq_mgr->file, "Can't find GEM object for doorbell\n");
+>   		return -EINVAL;
+>   	}
+>   
+> @@ -187,13 +187,15 @@ amdgpu_userqueue_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+>   	/* Pin the BO before generating the index, unpin in queue destroy */
+>   	r = amdgpu_bo_pin(db_obj->obj, AMDGPU_GEM_DOMAIN_DOORBELL);
+>   	if (r) {
+> -		DRM_ERROR("[Usermode queues] Failed to pin doorbell object\n");
+> +		drm_file_err(uq_mgr->file,
+> +			"[Usermode queues] Failed to pin doorbell object\n");
 
-I was hoping something primitive could be enough. With no temporary 
-stack space required. Primitive on the level of (but simplified for 
-illustration purpose):
+Indentation could be off here (and a few more below), if it isn't my 
+email client not displaying it properly.
 
-#define some_err(_file, _fmt, ...) \
-	drm_err(dev, "client-%s: " _fmt, (_this)->client_name, ##__VA_ARGS__)
+>   		goto unref_bo;
+>   	}
+>   
+>   	r = amdgpu_bo_reserve(db_obj->obj, true);
+>   	if (r) {
+> -		DRM_ERROR("[Usermode queues] Failed to pin doorbell object\n");
+> +		drm_file_err(uq_mgr->file,
+> +			"[Usermode queues] Failed to pin doorbell object\n");
+>   		goto unpin_bo;
+>   	}
+>   
+> @@ -215,14 +217,16 @@ amdgpu_userqueue_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+>   		break;
+>   
+>   	default:
+> -		DRM_ERROR("[Usermode queues] IP %d not support\n", db_info->queue_type);
+> +	drm_file_err(uq_mgr->file,
+> +			"[Usermode queues] IP %d not support\n", db_info->queue_type);
+>   		r = -EINVAL;
+>   		goto unpin_bo;
+>   	}
+>   
+>   	index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
+>   					     db_info->doorbell_offset, db_size);
+> -	DRM_DEBUG_DRIVER("[Usermode queues] doorbell index=%lld\n", index);
+> +	drm_dbg_driver(adev_to_drm(uq_mgr->adev),
+> +		       "[Usermode queues] doorbell index=%lld\n", index);
 
-Am I missing something or that would work?
+This and others are technically okay but not what the commit message 
+says. I'd say either split them into a separate patch or change the 
+commit message to just say something like "Add device and client 
+information to userq logging" so you give patch a wider mandate. ;)
+
+>   	amdgpu_bo_unreserve(db_obj->obj);
+>   	return index;
+>   
+> @@ -249,7 +253,7 @@ amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id)
+>   
+>   	queue = amdgpu_userqueue_find(uq_mgr, queue_id);
+>   	if (!queue) {
+> -		DRM_DEBUG_DRIVER("Invalid queue id to destroy\n");
+> +		drm_dbg_driver(adev_to_drm(uq_mgr->adev), "Invalid queue id to destroy\n");
+>   		mutex_unlock(&uq_mgr->userq_mutex);
+>   		return -EINVAL;
+>   	}
+> @@ -282,7 +286,8 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   	if (args->in.ip_type != AMDGPU_HW_IP_GFX &&
+>   	    args->in.ip_type != AMDGPU_HW_IP_DMA &&
+>   	    args->in.ip_type != AMDGPU_HW_IP_COMPUTE) {
+> -		DRM_ERROR("Usermode queue doesn't support IP type %u\n", args->in.ip_type);
+> +		drm_file_err(uq_mgr->file,
+> +			"Usermode queue doesn't support IP type %u\n", args->in.ip_type);
+>   		return -EINVAL;
+>   	}
+>   
+> @@ -304,14 +309,16 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   
+>   	uq_funcs = adev->userq_funcs[args->in.ip_type];
+>   	if (!uq_funcs) {
+> -		DRM_ERROR("Usermode queue is not supported for this IP (%u)\n", args->in.ip_type);
+> +		drm_file_err(uq_mgr->file,
+> +			"Usermode queue is not supported for this IP (%u)\n",
+> +			args->in.ip_type);
+>   		r = -EINVAL;
+>   		goto unlock;
+>   	}
+>   
+>   	queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
+>   	if (!queue) {
+> -		DRM_ERROR("Failed to allocate memory for queue\n");
+> +		drm_file_err(uq_mgr->file, "Failed to allocate memory for queue\n");
+>   		r = -ENOMEM;
+>   		goto unlock;
+>   	}
+> @@ -327,7 +334,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   	/* Convert relative doorbell offset into absolute doorbell index */
+>   	index = amdgpu_userqueue_get_doorbell_index(uq_mgr, &db_info, filp);
+>   	if (index == (uint64_t)-EINVAL) {
+> -		DRM_ERROR("Failed to get doorbell for queue\n");
+> +		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
+>   		kfree(queue);
+>   		goto unlock;
+>   	}
+> @@ -336,13 +343,13 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   	xa_init_flags(&queue->fence_drv_xa, XA_FLAGS_ALLOC);
+>   	r = amdgpu_userq_fence_driver_alloc(adev, queue);
+>   	if (r) {
+> -		DRM_ERROR("Failed to alloc fence driver\n");
+> +		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
+>   		goto unlock;
+>   	}
+>   
+>   	r = uq_funcs->mqd_create(uq_mgr, &args->in, queue);
+>   	if (r) {
+> -		DRM_ERROR("Failed to create Queue\n");
+> +		drm_file_err(uq_mgr->file, "Failed to create Queue\n");
+
+My OCD is upset by inconsistencies of queue vs Queue and queue vs 
+usermode queue vs user queue. Looks like a good opportunity to tidy 
+things up while touching the lines.
+
+>   		amdgpu_userq_fence_driver_free(queue);
+>   		kfree(queue);
+>   		goto unlock;
+> @@ -350,7 +357,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   
+>   	qid = idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ_COUNT, GFP_KERNEL);
+>   	if (qid < 0) {
+> -		DRM_ERROR("Failed to allocate a queue id\n");
+> +		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
+>   		amdgpu_userq_fence_driver_free(queue);
+>   		uq_funcs->mqd_destroy(uq_mgr, queue);
+>   		kfree(queue);
+> @@ -360,7 +367,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   
+>   	r = uq_funcs->map(uq_mgr, queue);
+>   	if (r) {
+> -		DRM_ERROR("Failed to map Queue\n");
+> +		drm_file_err(uq_mgr->file, "Failed to map Queue\n");
+>   		idr_remove(&uq_mgr->userq_idr, qid);
+>   		amdgpu_userq_fence_driver_free(queue);
+>   		uq_funcs->mqd_destroy(uq_mgr, queue);
+> @@ -388,7 +395,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>   			return -EINVAL;
+>   		r = amdgpu_userqueue_create(filp, args);
+>   		if (r)
+> -			DRM_ERROR("Failed to create usermode queue\n");
+> +			drm_file_err(filp, "Failed to create usermode queue\n");
+
+Not really a kernel wide error if userspace passed invalid arguements to 
+the ioctl. Usually it is good to avoid allowing userspace at will log 
+spamming.
 
 Regards,
 
 Tvrtko
 
->   void drm_file_update_pid(struct drm_file *);
+>   		break;
 >   
->   struct drm_minor *drm_minor_acquire(struct xarray *minors_xa, unsigned int minor_id);
+>   	case AMDGPU_USERQ_OP_FREE:
+> @@ -406,11 +413,11 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>   			return -EINVAL;
+>   		r = amdgpu_userqueue_destroy(filp, args->in.queue_id);
+>   		if (r)
+> -			DRM_ERROR("Failed to destroy usermode queue\n");
+> +			drm_file_err(filp, "Failed to destroy usermode queue\n");
+>   		break;
+>   
+>   	default:
+> -		DRM_DEBUG_DRIVER("Invalid user queue op specified: %d\n", args->in.op);
+> +		drm_dbg_driver(dev, "Invalid user queue op specified: %d\n", args->in.op);
+>   		return -EINVAL;
+>   	}
+>   
+> @@ -479,7 +486,7 @@ amdgpu_userqueue_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
+>   		ret = amdgpu_vm_lock_pd(vm, &exec, 2);
+>   		drm_exec_retry_on_contention(&exec);
+>   		if (unlikely(ret)) {
+> -			DRM_ERROR("Failed to lock PD\n");
+> +			drm_file_err(uq_mgr->file, "Failed to lock PD\n");
+>   			goto unlock_all;
+>   		}
+>   
+> @@ -519,7 +526,7 @@ amdgpu_userqueue_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
+>   		bo = bo_va->base.bo;
+>   		ret = amdgpu_userqueue_validate_vm_bo(NULL, bo);
+>   		if (ret) {
+> -			DRM_ERROR("Failed to validate BO\n");
+> +			drm_file_err(uq_mgr->file, "Failed to validate BO\n");
+>   			goto unlock_all;
+>   		}
+>   
+> @@ -550,7 +557,7 @@ amdgpu_userqueue_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
+>   
+>   	ret = amdgpu_eviction_fence_replace_fence(&fpriv->evf_mgr, &exec);
+>   	if (ret)
+> -		DRM_ERROR("Failed to replace eviction fence\n");
+> +		drm_file_err(uq_mgr->file, "Failed to replace eviction fence\n");
+>   
+>   unlock_all:
+>   	drm_exec_fini(&exec);
+> @@ -569,13 +576,13 @@ static void amdgpu_userqueue_resume_worker(struct work_struct *work)
+>   
+>   	ret = amdgpu_userqueue_validate_bos(uq_mgr);
+>   	if (ret) {
+> -		DRM_ERROR("Failed to validate BOs to restore\n");
+> +		drm_file_err(uq_mgr->file, "Failed to validate BOs to restore\n");
+>   		goto unlock;
+>   	}
+>   
+>   	ret = amdgpu_userqueue_resume_all(uq_mgr);
+>   	if (ret) {
+> -		DRM_ERROR("Failed to resume all queues\n");
+> +		drm_file_err(uq_mgr->file, "Failed to resume all queues\n");
+>   		goto unlock;
+>   	}
+>   
 
