@@ -4,72 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C66A5C369C5
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:41:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DADFC369C2
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:41:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95A2C10E91F;
-	Wed, 16 Apr 2025 13:41:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5282010E922;
+	Wed, 16 Apr 2025 13:41:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hKTrvxQg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FaGXBAS3";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49B3910E8D5;
- Wed, 16 Apr 2025 11:44:03 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-7fd35b301bdso7386413a12.2; 
- Wed, 16 Apr 2025 04:44:03 -0700 (PDT)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0344F10E86F;
+ Wed, 16 Apr 2025 07:33:22 +0000 (UTC)
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-af6a315b491so5656507a12.1; 
+ Wed, 16 Apr 2025 00:33:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744803843; x=1745408643; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=AZEe1RfOvu1q7GUgcepVbmiSBnsNo8L/yZQuZJXUvpo=;
- b=hKTrvxQgvJG+9mDBHGfVU5MFEjkxbaTsRtqLavM3apmGU/8a0628ncW6HXXnPWCD+2
- VLfg/FS/nuETaZRDGibNKTVGnTws2LKpbTMbHcgXJQLZs28l3mSeY9xw2e/TKZO/w8EB
- x6/9PVGKMrH2zviICJARd11mJNiObO7oZ5zWvqE9k4UXKalrAseNkdCjntAvNtPnlmyW
- 4j5yTxlJ7e2t9bobh92O05OlWeEkQQ09FnjKnqiL9UG8+6lvMAR7OYOwso3kyG2hvD03
- Uos/9/x/ujftsCU3FkKLvzbyw3kTHa7ndyyiZk7QAgaUrmXZ6nsG9N1kSmm6wcKU2ejU
- x4tg==
+ d=gmail.com; s=20230601; t=1744788802; x=1745393602; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=BHkkBSUEnJtBBjxdrXpYHYmA889tBVCePybNfFBjZCM=;
+ b=FaGXBAS3L6BCT+zPYPQdH4p4BthJjOPM8e48gkHHyKbZ9tINJ2cJJJlIKc3oBFOMon
+ 9uRcPwSAnpx60Oc87WQhcsle6C2lPVICQHpXmbvUTqTdbzSxcg/Rm/NzbevTOm7yamal
+ ddeswogx8APaPfFhEvBcdonqxM6hWNIBQvnAku5EOv6C+QikG5Ww0C2M1ZdsoY5jkqiG
+ bGYXaKi6I+NF/d6YIQrl0dkCho3j2PDGWCv+ANnFyIo3nZVOyTVo3qUbmueV7pf59wkX
+ r+mlktSoJSqSr2oXuoBboI8hADIMd7kjsMN5cFqLUfYlY9/8LdEDtmmetGdbhwV3PFlU
+ 4c3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744803843; x=1745408643;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1744788802; x=1745393602;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=AZEe1RfOvu1q7GUgcepVbmiSBnsNo8L/yZQuZJXUvpo=;
- b=wP4m7ejgfSjLrXZjUZFZqfUwk6w7FWSYPKSagFrpbcKX77qPCPQPlVtUyOjRL4mWgn
- OMc+5Ewv60qZwofzdvsYOnyaAWOTfqkfFkPV8SeBTu9KGhsir5tAZ5wnzJ4yQuQKF46U
- RDcIyMg4/r6c3sCkFie1qqW5jKLmzMps1q2ayI/NTQEl3/mOW/DQ5pESd/NnHE4BGUZ9
- m8IueJoV/ilVomVAjzHBT5A02VT/q9Vz/YsqqGApbKouU+MiVF/O/2wp2BGfK9yFBJq5
- M6A0iBXepJtPRjeiOd0Cm7NjNB0OcXoPnJedzZ94bHBpzWRt0O3VZVVSCUXLVSgjuyT6
- WSvA==
+ bh=BHkkBSUEnJtBBjxdrXpYHYmA889tBVCePybNfFBjZCM=;
+ b=lmD48SnnG6EtVE/HiWLJtUl6cu7FUEBrfiH5NPOHTY7C87efcXwzylpurIrN96SNOE
+ Ra4hcatmSWR5LsgQBkahepfA22hAZWR7bFokvP2F/GylxV/2k+jvGnUZg/ocHzeFGyjW
+ 1WkflwzupS/y0UV407H6Jlb6CL2H1SncJ6cGSYlyWOT4W3vCm/b4u0EaK4OCBxzD0YYz
+ ANNRItBs3RIpzJ3rdnJrSjQiApaxl7w10nxjIFx3knf8wCFZ+VgVog/N7WkkDCmKFIW2
+ 3o9R2SHjgRQjp0P7ZusdzbcMeePNUxzx405hD9pBdshc9xe9EGW1czwlhQxx8vGyMKSh
+ DC3w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUIu8+kOrjKJnbdN4djHGvOBO+4GynyzTdZyhIUyjr5y/UA9lD5fn/JAho71eUpNFDRLs31ZFE4xFJm@lists.freedesktop.org,
- AJvYcCVTRHo66GpSo2cPQ8tdkotDQXvs5ArvrgcDj7Kuv9bMBgrtCRC7e8JSE4JNOvD9Khwd7eQMdRbe@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwX+5s/7nq293XPPtNGhugJMnrGj4/6AR52xI9h0Gub81vdZ1HP
- nuqsZw5ksXeaNXX/LCuRczTcVaPsWMYfVLVW1F2QIp2yaGoJr9rrGzCV5lyH+ljEmMEcH7hqTRo
- kZHyTc89EVGdEkhQ/Tqydjqyg7g==
-X-Gm-Gg: ASbGncsPpBGy7tDcXb7hVAmwVk8M3jrDBB+DkhwhRCA67Qp51qxsisx1GDFXSr2KGct
- 5NgvzlFtLo6jnqJTfWIMyj9CQre4n47j9y0y+t5ic31nl16kA0D19gbS0I5GudrNIWJdE6A9kCO
- k9TeLMfuIdV+h4lTcGWaYXC5DXuEG7/Ep7vj/7g2hxQQ4zrdXmsthEE9M=
-X-Google-Smtp-Source: AGHT+IHRzDwjfA3VhiXoJ9w7CvBGnZUfl1D3wlF7cVjsZnBUO1T3cpj1g1gCRyxquxD7cm2X4+bYulvm0qakj3Q2+Fc=
-X-Received: by 2002:a17:90b:1f92:b0:2ee:ad18:b309 with SMTP id
- 98e67ed59e1d1-30863d1de84mr2289142a91.3.1744803842763; Wed, 16 Apr 2025
- 04:44:02 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250416072825.3790-1-ujwal.kundur@gmail.com>
- <241a9bbb-6d59-4c24-8e18-a0acebc6f536@amd.com>
-In-Reply-To: <241a9bbb-6d59-4c24-8e18-a0acebc6f536@amd.com>
+ AJvYcCVE1zifNmpH+AURj3V1UeiNQtfhcpu1r6E6iaRb9I6fUpyiClEA7kuytL2Fw0rBjiefkb8LNk03@lists.freedesktop.org,
+ AJvYcCWJqEF4sorBQaaaWc+Jk+NpY7vKBMfY4nbmrczI27WUoIKyso9PNRzt8iQXDUr61Dhr4YaILaJM3exK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxx9XWe0tBCD5PuSh8phnoM9LFCH6etiAjc7DDtRd7WYCCvcBxJ
+ vlZBVablMtHmJRPl66gEroVQA/OwJN2pQNAZu5mFRoSPk+DtbbQ=
+X-Gm-Gg: ASbGncvvXprzEnjEJnNP/EIWJtVEHJvzMwSMmW0RxE7RBITqaKJiAy7ZtFruJYMJ3rE
+ /BdwSsMalEUpcAETAvUkcMhcN7qQdv0j/uk2O3FpB+4MAplT88w0yspBsltgvHmWgTbPQO9E7Ak
+ zFGSU+yaenpooD2HQDied3Zz8DdM8X+3Je7DFxHq7Y7Ns3NfDdaDv5avXCOhoBwZuqamffFCBoB
+ 40STCjzThiDsSh+aVsBsPT8tUyf+40bOxJYHSKjhVY5Cr0piXNEQPnuZwgR0Mlzf/kKqjZ4tJMy
+ /wd+PJa9eHTlcirttolfUmozo0DeRMqWOf7nJtPt4C0EJOGMrw9p
+X-Google-Smtp-Source: AGHT+IFLWgEp5oj4dvUn/SbRKIWaHPfRDLLf1Fv5DfWee3CnAQT0vY2xt1RkVb9UhgQN+Oqxzum4Aw==
+X-Received: by 2002:a17:90b:5824:b0:2ee:f687:6acb with SMTP id
+ 98e67ed59e1d1-30863f1936cmr1284633a91.13.1744788802331; 
+ Wed, 16 Apr 2025 00:33:22 -0700 (PDT)
+Received: from debian.ujwal.com ([152.58.237.59])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-308611f3e51sm863339a91.16.2025.04.16.00.33.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Apr 2025 00:33:21 -0700 (PDT)
 From: Ujwal Kundur <ujwal.kundur@gmail.com>
-Date: Wed, 16 Apr 2025 17:13:50 +0530
-X-Gm-Features: ATxdqUHlTjwJQjfOZfGM2sNeVWakgF2t5Ff-hXQ0-Ap1ykAmMwP7TjWL6pmkSIw
-Message-ID: <CALkFLLLKT=4LD_YFJdq8QdzybknRQW+W3P-3GnJzT1eoYuGg8A@mail.gmail.com>
-Subject: Re: [PATCH RFC] drm/amdgpu: Block userspace mapping of IO
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch, 
- lijo.lazar@amd.com, sunil.khatri@amd.com, Hawking.Zhang@amd.com, 
- Jun.Ma2@amd.com, Yunxiang.Li@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, lijo.lazar@amd.com,
+ sunil.khatri@amd.com, Hawking.Zhang@amd.com, Jun.Ma2@amd.com,
+ Yunxiang.Li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ujwal Kundur <ujwal.kundur@gmail.com>
+Subject: [PATCH RFC] drm/amdgpu: Block userspace mapping of IO
+Date: Wed, 16 Apr 2025 12:58:26 +0530
+Message-Id: <20250416072825.3790-1-ujwal.kundur@gmail.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 16 Apr 2025 13:41:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,13 +90,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks for your response.
+This is a RFC patch for blocking userspace mapping of IO register(s)
+before ioremap() calls are made. Out of the available IRQ sources, CRTC
+seemed the most appropriate for this task, however I'm not quite sure
+about that as well as the type, which I've set to 0.
 
-> Hui what? Why do you think that grabbing a reference to an interrupt would block userspace mapping of IO registers?
+If I understand correctly, we actually want to block certain ioctls from
+userspace that can interfere with ioremap but I don't see a dedicated
+source for that.
 
-It looks like I am missing a lot of pieces to do this, I'll try again
-once I have a better understanding.
+Signed-off-by: Ujwal Kundur <ujwal.kundur@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Sorry about that and thanks again for your time.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a30111d2c3ea..365af52af6e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -47,6 +47,7 @@
+ #include <linux/vga_switcheroo.h>
+ #include <linux/efi.h>
+ #include "amdgpu.h"
++#include "amdgpu_irq.h"
+ #include "amdgpu_trace.h"
+ #include "amdgpu_i2c.h"
+ #include "atom.h"
+@@ -4367,7 +4368,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	ratelimit_set_flags(&adev->throttling_logging_rs, RATELIMIT_MSG_ON_RELEASE);
+ 
+ 	/* Registers mapping */
+-	/* TODO: block userspace mapping of io register */
++	/* Block userspace mapping of io register */
++	amdgpu_irq_put(adev, &adev->crtc_irq, 0);
++
+ 	if (adev->asic_type >= CHIP_BONAIRE) {
+ 		adev->rmmio_base = pci_resource_start(adev->pdev, 5);
+ 		adev->rmmio_size = pci_resource_len(adev->pdev, 5);
+@@ -4380,6 +4383,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 		atomic_set(&adev->pm.pwr_state[i], POWER_STATE_UNKNOWN);
+ 
+ 	adev->rmmio = ioremap(adev->rmmio_base, adev->rmmio_size);
++
++	amdgpu_irq_get(adev, &adev->crtc_irq, 0);
++
+ 	if (!adev->rmmio)
+ 		return -ENOMEM;
+ 
+-- 
+2.20.1
 
---- Ujwal.
