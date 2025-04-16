@@ -4,154 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7ECCC369BD
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 14:55:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A10BC369BD
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 15:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA1310E95F;
-	Wed, 16 Apr 2025 14:55:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13C3710E95C;
+	Wed, 16 Apr 2025 15:04:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d3pzRBHM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hxcVJEuw";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2043.outbound.protection.outlook.com [40.107.101.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B036D10E95B;
- Wed, 16 Apr 2025 14:55:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y839x7qV8S5zQS4iqRXetPBmHn61RfOGtP1ULNcKUovQipmwLBl3xRdfDPNKvyVNdhrbu4D2MSzESTU0QVPY+88N7NTCVTFIbUGb4o9023G+L/SF6gRQ4Ef3B616hjP1vS7u9cXvRuM6U4hJOmQw884DBla2vZTX5A7YdepWTgYydhELM5+489pbwTwFLCTgKskrLuT+CP1BsdMdproEMHSadzRAizJPyOLv1dKeAzbV/sTC9an4zl5WlEpRh4AcehLff3s2u8N9Bv0YmPtMJr94ZjRUfW6BS4zrV3iwMfkEnCmzxhb1H8iyeym6p/WmoYceGwT5Z9M9JVhjMfvOCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CiZx5H2cpxqR/CzM0A2N7YTdeQA69MvixRQ47qYw79c=;
- b=wC2TAJtEvkBDVbCqPeWKwXPo2suglKrJm2DN0MblCZ574srXWwHKioXUCn7tggCDOeBYdxx7wVxqOmeGDPuK017XMewO4NN8lbZYeqvn14z0l5xJeU1HNqUcDepEiR0FCrmQWlcY2bIo0DSxJvfRGjhbPgwfuPOesu0Fqjhxv+E7UuIZTez9fV4MCa439dvDIT7NRIP4hfvmJybQYSe79Hp3cwBE8155fmMMxUYuKymQtkkHyJgKoNjRFWyHw60kkDjcQjsNekuVSbRU0pC+Sv0x05BRTO8gVvZM6DeV+KTvoOOqzqaeKi23I9jqcLMFgmw1PEI+8Xnn8MscGdsPTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CiZx5H2cpxqR/CzM0A2N7YTdeQA69MvixRQ47qYw79c=;
- b=d3pzRBHMJB9uGRsJpV7T2vaXXwI4zuD+KcZeoWOO7Oc35HbVghO9AD67d/gQPQ/mWk/fD7lJsbsUgAwOhLfDYeetSkV5G08b49C4P7mR1kCqQxxr9q8K8Nhtch/ma8tKjK8mp/StKLdd8MMYGY4EgwppwuzuBS9Zm0lJ9fof6F4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by SJ5PPFFA661D690.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::9ab) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.34; Wed, 16 Apr
- 2025 14:55:17 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::2b0e:7fc3:1d21:5d2e]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::2b0e:7fc3:1d21:5d2e%3]) with mapi id 15.20.8655.021; Wed, 16 Apr 2025
- 14:55:17 +0000
-Content-Type: multipart/alternative;
- boundary="------------P0B0YtBHtcMoPnqsbor5cOxj"
-Message-ID: <00d67957-e47f-4c7b-a700-c1324e3b03db@amd.com>
-Date: Wed, 16 Apr 2025 20:25:11 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/5] drm: add macro drm_file_err to print process info
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-References: <20250416133144.862023-1-sunil.khatri@amd.com>
- <87lds0p4jh.fsf@intel.com>
-Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <87lds0p4jh.fsf@intel.com>
-X-ClientProxiedBy: PN4P287CA0131.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b1::9) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84E4310E95C;
+ Wed, 16 Apr 2025 15:04:17 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-3032a9c7cfeso1245242a91.1; 
+ Wed, 16 Apr 2025 08:04:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744815857; x=1745420657; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MVFtqQNk5rkPP5VSi8xT3sOzTBsKiZnfpOajhh4Y93U=;
+ b=hxcVJEuwJtomkqwKP8W9lD419VAebfUZGGeAGK28lCIP4ropcCIc3y5hfCplt0QApE
+ x2MW4eb3ny00xsOhcqtTZSsIsSNUtcTv33NOq/pQiH/oS+UArm6fKj1cw9OPzuqpC4FU
+ CGei7YYqbSXTj2xWPeCaTFY7NUNGZe7DkWvHXuY2d/3bnKwsuh4dJL42NCU8RI/Ok+Hj
+ n9DMnfU+btEntM95ygBFeybrcMPP/+qX/nM5W5AnispCzcwumY9SOINgGzxi3JJ0r1rX
+ XeH7hyuYISXK5x3yr/0W4lzRniykUT4pLYcFrEpQz9VsYPUrWjaX885ZxV0mZy4lLltN
+ 0/Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744815857; x=1745420657;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MVFtqQNk5rkPP5VSi8xT3sOzTBsKiZnfpOajhh4Y93U=;
+ b=waXMQcl0DobBA8Qysq1RpIQzqk+ozkZxMpevSYeweTLxgsKx4depJPRDXkoNprl62M
+ QaNm4gUsUpwThVL+tMPeLc/RaneMZw7f0QeDzOsBhPmD5CiRCf+w198v/e3S5AkLaFnu
+ ZgVxU40H6QWUDamo85SE4QT/WhswTxGSRAJFl0cOBV/urXfY3mce73rIpOeBLh4sZrpa
+ D8AbHWdShe4HGPIIRvaabOBYvXw/m5LAz29vGlxY8orG3itvRguj3mf6Y/ma3ruD28hF
+ OYBqNQ+/jgmoCXCtPrfa5PhEPJ6YnMaxBy4iErjOBcHwQKue8eTySgwPJ1i8vOgH8Rw3
+ o7SQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVUHOdNyxSLeN7mlEqOdRWfhr4nZspwzbgRXRWYFSSZbTvKgBKqqBjMgvqYq1tJI81UWb958VJo@lists.freedesktop.org,
+ AJvYcCWW+2UYPmuLl3yjeKAAUUWuPuy+ucILGBGUpWg0O1Bp8pd/WqFnAqBEvGV7moIzS21oLXAcW5E94U9i@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxWseQyD53pmHMVTOiPvZ9qemz3AAmO7wFj1eOVNi64le7XFIyk
+ rKU9be1UEVyXHTZfSQ43Bb5vSgfJjI83WgIcnlsJXhM51ddw/rPr9geEAa29FXQoaWr6FE6UUu7
+ ic48w3R3gp+E6cwN/nNMrJ0rOJSk=
+X-Gm-Gg: ASbGncscfpq8KcSigjIyTGKcF8zGEVEdiqfJnMEy/mjFY9E2jxxjK6cx8+nNdnXcB96
+ meTRBapMeV4LyNc3f9dcpiOXQORzrFPW6ykPsdAVc5s5+jGj4+8Gh/d+l5DCFUsWQaHfhLfk/jx
+ n6pfUfAhVmk7JAECy5A/pRA1PAi8ZVPcMj
+X-Google-Smtp-Source: AGHT+IGyfxnt/aNFxXm8FZac7BhXF4m820MtTk5Qy0SGVUawuMIbjEGblrp/5GK7oCsMVC9lWrRKZepGO5Ypf/O3GMc=
+X-Received: by 2002:a17:90b:384c:b0:306:b6ae:4d7a with SMTP id
+ 98e67ed59e1d1-30864165e44mr1146372a91.3.1744815856672; Wed, 16 Apr 2025
+ 08:04:16 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|SJ5PPFFA661D690:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbf31e32-e437-4d77-2344-08dd7cf6b369
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?b1NxVHF0S2NsVTN6QWsrczhVTHFXOENRR2xJbkVZMEZUeHlEZStPM3RpNEVG?=
- =?utf-8?B?MmpoMS9XSU12Z3I0dEluQXhUcjBrSkN6QmdtU2w3U2E1bU9pUm9aNzNaa1dJ?=
- =?utf-8?B?Smd1V1hvYzVzcXFiL1FzMVZ1a1pOWWNVUmQ5ejVtSE5aRWZwcStmOVBtejBG?=
- =?utf-8?B?VEhxNkNvelRlbVdMWVFyZktPRnIvR2RaR3k0T0xWZHZpSGY5eHhHdGdrRVEr?=
- =?utf-8?B?ZzAyOVJBb3hvb05kKzBwc3RHdGxBNXRPalIxOUNZOG1IUk9rRzYvM21RcnFj?=
- =?utf-8?B?S3l3eDU5c3RMQnJEeWVObStkWjdkMFBFejA0MDgvNkU3UjBpVzZLS3JyTXhl?=
- =?utf-8?B?ZkNCTzd1b256WTRTbmMxbFptRXJDNXRmbHhsdklVT0lwT0M2UnRqS09TSUtn?=
- =?utf-8?B?R3FYSklBWGhNRnE2RnNwR0RRZzcxTTdvTUphMVNSblZhWTE2ZTBRRW1HeG12?=
- =?utf-8?B?VzZvYmFqWVdBVTliQmFWVzI1aVpvQkE5TXpuWVd6OGFuS1ZGY3JNV2hURFdH?=
- =?utf-8?B?VTE0SmxLak81V1FDNDhBdEdsSTUxUVBnbHZrcUV2eWxWL1ZKL0VTZTZYanFa?=
- =?utf-8?B?SzI2OHZPb25yUGtpMmV4YWNvRDZNR21vRDVvTUtrSmpGWGpsUUpybGcyNzFD?=
- =?utf-8?B?RmlHTWRweTVaTkQ3bGRNMXlNS3ZBUjZPZkl3MmEybGE1RjdlMC9KR0RaeS8r?=
- =?utf-8?B?N2R6RUw5aXlheGErVHYyQ1ZsNSsraUNHVXdYeElEajFhWkJEREthTktRRGI0?=
- =?utf-8?B?aUlsN3hBOUtlUjVSSFVBL29IS0VEMHpoU0I2dURKNHBxcWJEM3U5WkhLTkw3?=
- =?utf-8?B?S01Qeks2c2Z3QkY5S05oZmgzNTRPYUltTHhSOXJxY0pWd0tMdHhtTU9CbTR6?=
- =?utf-8?B?RUlaRmpSREt6R2hNWXJsa2U4eC9TT09sZCtwTmtSdGxORmY1aHhiN2E1Znow?=
- =?utf-8?B?VzA4bW5vL0xjVXZ0VWNaek5WK1ZOMjNCMlMwOVZraTBCUE5sdUpLUFg2cE9m?=
- =?utf-8?B?bGhKSmFUNkNzNHY1MEhqK2RlL2YybGI5M1YvcXdGYVVtU2Eyd24rWGJxcVdO?=
- =?utf-8?B?YXYyYmpCeGh2bXB4WWlXMnl2TWx6Zm5zeEhWN2M5RGRzV0tXdWQ1dlRQbVRJ?=
- =?utf-8?B?VUpGS0l0UU9BVDcvd3lORnB0ZTJDMytMRHhaVWlDY2VvVStxaXd5SWtvSDVp?=
- =?utf-8?B?d0pBWldqZHpoMExlWXhLSjZkVjRsMkloRFlLOXJMZU1Ta0t3M1AwcGNxcjh5?=
- =?utf-8?B?d0xNWEVSSFkxLzI2bXkyRGV2c09sOWhPYWd4UUJub2tqc0NoM1hSS2YyeXNy?=
- =?utf-8?B?QVluR25MKyt5MmdTRFNnalhYbTl4OHo2aEJINC9IYzJDOFRmT2VjekdrZ2hU?=
- =?utf-8?B?SkhxM0tDdUdRZFErQkhNVG85dnN5NlhpOERSMXdBT0lKdDQxN3JaMXRwUFRC?=
- =?utf-8?B?MFhZa2pXZmpQWndKdEsxSnBzWFdONEtZS0JUMmxvZjdyTlVQRlFjUkVuUkF1?=
- =?utf-8?B?UVJSNEFtQmFDbXFrUENaYklUUk5rK3NTWUtSOXZGVUl0SHBzMG1VaW96RXpj?=
- =?utf-8?B?SzdYcnByRE5KWGFhc2llU1JCTWNzNGhZUVVNSExGQkV1ajlyTCtjWU5HamVv?=
- =?utf-8?B?Z3BjT0JtN3M3Smk4RHMvZERENjlHZU5Rb1E0aXRWTmRnN0Y5U1JnM0NBTlJj?=
- =?utf-8?B?SjNRUGVBYU5pVHdqaEZMc2x4YmRuOUNOZXA3UFI1Q2NQS3RMcnpySVZ0WS80?=
- =?utf-8?B?aU9McHV0c0ZHNzVHa2IzY2t0M1IvTXBxK09VcnFJWUI2b1JveGxTbGVCNUVN?=
- =?utf-8?B?VkdRTWU4SlY3KzZEN0JKYVVjVVBZcnJhRlZuaTF5TVdvUDkyRlFod21EdXhD?=
- =?utf-8?B?eHFiSU1sNnMrbEsvd1drVHhiNFFpSTkrZUtCenowYmM4OHBzVHFiTXYwakVm?=
- =?utf-8?Q?yqNH/5x8/TI=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(8096899003); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elFNNzA4L3FrRFRSUHRWNVlQamcra3V1SHIwRDBnTU11RkkxZ0hyVHJoVmdu?=
- =?utf-8?B?TkxISGhBcDhKQXVvMmJ0dGFlOGdnYUVnUDVYT2lBeUVuNjF3UEZCc1ZjZmY1?=
- =?utf-8?B?NWd4OGZ1d2dhT1J2a2JsMWNFanpCdCtpVlpzczNaRmxwT3cvU1pxRGdzUG9j?=
- =?utf-8?B?NDM0UXkzQXViTEVYY1k3bVFhNnlsY3d5Q3NiRENjM1pva05pZ0owMW5acFMx?=
- =?utf-8?B?Y1NBcnoydHZZZ0lHTC9NZllndFBCZmpuSVVTNmxnOW5MMzE2dlArdDl5RFRn?=
- =?utf-8?B?eWJKdXVOb0ZMbWRzSDBJZUNhdGdvblFwZm9IK2NMRzlnODR6Q09BUTh1TEpR?=
- =?utf-8?B?V2tVeEU0Z1VUYUNHK1N3TUE1ZWtoWExxOVJZWnBUVVJXdEgvK2VqeXJFT2Zo?=
- =?utf-8?B?YmgrbElzTWp4bXQ2QlBnakxDUmJ1dFlMYlhaTFhGQk5ybkdVUWJ6UmJWazJq?=
- =?utf-8?B?U25Zcnh4SDdOQm9IMHhZUHpMSU9OUGRzSHpaNGlPQ01mTWxOUFZUTzlXU25Z?=
- =?utf-8?B?ZTFKRHF1aWhoZDhFYlN3bkt6R2FDZkdYSkJjbG1ncWhXcUs0UFgvWHRoYWky?=
- =?utf-8?B?M09WVDBEZWFPNVc1OTUyNWQzdWxqaENJOHp0SHJNU2F0bng1WnhVM0t0OVE5?=
- =?utf-8?B?a0ZGYytKeUluREZJRmFnTHVZRzFWVzNoOEFIMVJjbFZjaUVocnBLNm5KeHYw?=
- =?utf-8?B?Zm5FbFEybXBnMXRGUEcwS0RuckZkeXFZbEJRdUNJME9uV3I2bHk1clhkUFhJ?=
- =?utf-8?B?ZS96c0o0YnlaYWdQWWk5bG4rSHhxc0t3cDdVQkc2NDlLdXNjdysrY3NWYTAv?=
- =?utf-8?B?MmwySGhrRTQyUEl2MndvVkRwVXUvK0lBTVpFZVZCcHQ1aDdlc29WRkF5bnM5?=
- =?utf-8?B?Sm5VK0Zzb2tIeFc5aGZzZHJvVTI5Q0wrYjNQbTRra2twdjZJdzlpWjl2dHBk?=
- =?utf-8?B?ZUZ4WHAvQUpaR21IdFhyY3ppK2JoZUtPVjFraHN0WjF4eVFsZC8xZ1lYZWNz?=
- =?utf-8?B?bGFBa2l3TjAvZ0UyY09pZmhiLzZELzI2clRiLzhaa2h1L2dZUC82UFpZckZE?=
- =?utf-8?B?Z1FsOWRlV3FVbW9rLzdHbUx2a1JoNGRrTG5kQ01Zb2xsM21Ka3J4c2V1RitK?=
- =?utf-8?B?bURqbUxzT3pnQ3hxalFSdG1hVG1zdWdpaHNHRDVkUHFsZ21KTHk5RVRmVndz?=
- =?utf-8?B?cFZFODI5bWplOW4yOG91VXFwZ0FzemVKRHhsZjQ3Y242RnlNODB6T3hTdlQw?=
- =?utf-8?B?Y1dyN2IxTUdzaWpaT0F3QnAwd1NVQkxNNVZnbHR0NXgxWGNlUGdJcU82OFh5?=
- =?utf-8?B?TDlrcWFFaGRwdkd1ZE1FeGxleGxGeGFwVS9FY3o2dkhnUitLME1wZjh6dy8z?=
- =?utf-8?B?YTk3aHpsclBFRzRmS0dKTDJqMnlrUEFvTlpwSkM0ZWM5Z1FScm81QWIxSldw?=
- =?utf-8?B?MTJGaUZpM3JkbnJ2Nm5yYmhjMUlhNUVhWEQvY3BYZVhBbmpDTElFUTltWXc0?=
- =?utf-8?B?NTYrWWFHQXdaa2dqWnRoTVNCcXFyOU1OK2poaStEQW5WSlRWRnpRcFo1NmR1?=
- =?utf-8?B?OWVoRUs0Yll6K3dtM0dURGhWMjJmWVloaHFMZEVmd01taFFNaWxjYTFXTXA2?=
- =?utf-8?B?aUlWV08xNXJjd0pMT1dZSnQ1TmJ4OTcwRzVZMHd0TkRJVTRDRklnUUt0UlFH?=
- =?utf-8?B?WDMvR3hTTW5pemdtYlB6MTdJbHEwVUwzYWFsYTUvZWhoaGZ3TXZKVWVuTGUv?=
- =?utf-8?B?UERQODdEeDV1bVl3SmozZEZQWm9EOE9SazNZMHd1S2k3VU10UW9iVXZ1N0NP?=
- =?utf-8?B?bWFSTEZ5RG1sRGU0L3VpQVJ1UW15aXRsMGVBRThLMm9pejhtR3VEbmlGdXFV?=
- =?utf-8?B?ZkZTeVN5ZjVPclZFaE5FL1dPd1lzRDVycjdKRnNHaTlEa2N1R1FZNm9nOUxO?=
- =?utf-8?B?eVJvMHF4YmhUYWNoait2ei9kVFJkMUJlRzFnLzVkQ1NseXgrS2tUZ2YrUWt1?=
- =?utf-8?B?cjZWZEkxcXRQdVptSExJSlp3VDlnV2crZGF0eFVkdnFyaEpxRmx5c2Q0MnR4?=
- =?utf-8?B?cVFYRnBLSkNvakFhMjBTTTU5RFRyK0t0WmZkTjJDQnBHaUJhdkN0UjRrQTd3?=
- =?utf-8?Q?8AsLZzxcr84Ak4uomgKUNwTKh?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbf31e32-e437-4d77-2344-08dd7cf6b369
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 14:55:17.3629 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8PXQFU9OEXOAfFmUHRhSKEwFJHZCfgHq8kRPunUREsAcv18khftl+F9cBGbiEpIaKvYeEz5Rm4aICgLHO7qcxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFFA661D690
+References: <Z678TNhCbTk363Tw@kspp>
+ <864c7dd5-0deb-4adb-a1cf-c8a809514d7e@embeddedor.com>
+ <217b00f5-d03d-4624-9ba9-d838199ef7b9@embeddedor.com>
+In-Reply-To: <217b00f5-d03d-4624-9ba9-d838199ef7b9@embeddedor.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 16 Apr 2025 11:04:04 -0400
+X-Gm-Features: ATxdqUGn4UAwWKO9rc3w4V2DzzsBrEKuE_v_1b78ZJI7oY5ijYXBcUz8pBjEKwc
+Message-ID: <CADnq5_M5Jv4A5CXAKY2Qd-dhrfmecnauRtVY_ghSsut7i=KNww@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/pm: Avoid multiple
+ -Wflex-array-member-not-at-end warnings
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Kenneth Feng <kenneth.feng@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ Kees Cook <keescook@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,297 +93,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------P0B0YtBHtcMoPnqsbor5cOxj
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Can you resend, I can't seem to find the original emails.
+Additionally, all of the NISLANDS structures are unused in amdgpu, so
+those could be removed.
 
-
-On 4/16/2025 7:55 PM, Jani Nikula wrote:
-> On Wed, 16 Apr 2025, Sunil Khatri<sunil.khatri@amd.com> wrote:
->> Add a drm helper macro which append the process information for
->> the drm_file over drm_err.
->>
->> Signed-off-by: Sunil Khatri<sunil.khatri@amd.com>
->> ---
->>   include/drm/drm_file.h | 41 +++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 41 insertions(+)
->>
->> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
->> index 94d365b22505..5ae5ad1048fb 100644
->> --- a/include/drm/drm_file.h
->> +++ b/include/drm/drm_file.h
->> @@ -37,6 +37,7 @@
->>   #include <uapi/drm/drm.h>
->>   
->>   #include <drm/drm_prime.h>
->> +#include <drm/drm_print.h>
-> Not a fan of including drm_print.h everywhere that drm_file.h is
-> included. We've been trying to get rid of this, and go the other
-> way. It's really hard to manage dependencies when everything ends up
-> including everything.
-
-Sure, right thing to do, will update. Not sure why i added it, may be in 
-initial versions needed that :)
-
-regards Sunil
-
->>   
->>   struct dma_fence;
->>   struct drm_file;
->> @@ -446,6 +447,46 @@ static inline bool drm_is_accel_client(const struct drm_file *file_priv)
->>   	return file_priv->minor->type == DRM_MINOR_ACCEL;
->>   }
->>   
->> +static struct task_struct *drm_task_lock(struct drm_file *file_priv)
->> +					__attribute__((__maybe_unused));
-> inline is the keyword you're missing here, and that's why you've had to
-> add maybe unused...
-
-I guess that's true. Let me try that and will make it inline if no warning.
-
-Regards
-Sunil
-
+Alex
+On Wed, Apr 16, 2025 at 12:48=E2=80=AFAM Gustavo A. R. Silva
+<gustavo@embeddedor.com> wrote:
 >
->> +static struct task_struct *drm_task_lock(struct drm_file *file_priv)
->> +{
->> +	struct task_struct *task;
->> +	struct pid *pid;
->> +
->> +	mutex_lock(&file_priv->client_name_lock);
->> +	rcu_read_lock();
->> +	pid = rcu_dereference(file_priv->pid);
->> +	task = pid_task(pid, PIDTYPE_TGID);
->> +	return task;
->> +}
->> +
->> +static void drm_task_unlock(struct drm_file *file_priv) __attribute__((__maybe_unused));
->> +static void drm_task_unlock(struct drm_file *file_priv)
->> +{
->> +	rcu_read_unlock();
->> +	mutex_unlock(&file_priv->client_name_lock);
->> +}
-> ...but *why* are you inlining these? To make this header self-contained,
-> I think you'd need to add maybe sched.h, pid.h, rcupdate.h, mutex.h, or
-> something. I consider static inlines actively harmful if they force you
-> to pull in a lot of other headers.
-
-It builds and works well and i dont see the need to sched.h and etc. I 
-dont see which function you mean by inlining here, mind to share which 
-functions ?
-
-Regards Sunil Khatri
-
+> Hi all,
 >
->> +/**
->> + * drm_file_err - Fill info string with process name and pid
->> + * @file_priv: context of interest for process name and pid
->> + * @fmt: prinf() like format string
->> + *
->> + * This update the user provided buffer with process
->> + * name and pid information for @file_priv
->> + */
->> +#define drm_file_err(file_priv, fmt, ...)						\
->> +	do {										\
->> +		struct task_struct *task;						\
->> +		struct drm_device *dev = file_priv->minor->dev;				\
->> +											\
->> +		task = drm_task_lock(file_priv);					\
->> +		drm_err(dev, "comm: %s pid: %d client: %s " fmt,			\
->> +			task ? task->comm : "", task ? task->pid : 0,			\
->> +			file_priv->client_name ?: "Unset", ##__VA_ARGS__);		\
->> +		drm_task_unlock(file_priv);						\
->> +	} while (0)
->> +
-> For that matter, why is *this* inline? For debugs it makes a little more
-> sense when it adds the function, but drm_err() doesn't.
-
-Not getting to know which function again you mean inline here ?
-
-Regards
-Sunil Khatri
-
+> Friendly ping (second one): who can take this patch, please? =F0=9F=99=82
 >
-> Make all of these real functions, no need to include drm_print.h, and
-> everything is better.
-Sure i will do that and thanks a lot for those inputs.
+> Thanks!
+> -Gustavo
 >
-> BR,
-> Jani.
+> On 11/03/25 02:10, Gustavo A. R. Silva wrote:
+> > Hi all,
+> >
+> > Friendly ping: who can take this, please? :)
+> >
+> > Thanks!
+> > --
+> > Gustavo
+> >
+> > On 14/02/25 18:48, Gustavo A. R. Silva wrote:
+> >> -Wflex-array-member-not-at-end was introduced in GCC-14, and we are
+> >> getting ready to enable it, globally.
+> >>
+> >> So, in order to avoid ending up with a flexible-array member in the
+> >> middle of other structs, we use the `struct_group_tagged()` helper
+> >> to create a new tagged `struct NISLANDS_SMC_SWSTATE_HDR` (and `struct
+> >> SISLANDS_SMC_SWSTATE_HDR`). This structures group together all the
+> >> members of the flexible `struct NISLANDS_SMC_SWSTATE` (and `struct
+> >> SISLANDS_SMC_SWSTATE`) except the flexible array.
+> >>
+> >> As a result, the array is effectively separated from the rest of the
+> >> members without modifying the memory layout of the flexible structure.
+> >> We then change the type of the middle struct members currently causing
+> >> trouble from `struct NISLANDS_SMC_SWSTATE` to `struct
+> >> NISLANDS_SMC_SWSTATE_HDR` (and from `struct SISLANDS_SMC_SWSTATE` to
+> >> `struct SISLANDS_SMC_SWSTATE_HDR`).
+> >>
+> >> We also want to ensure that when new members need to be added to the
+> >> flexible structure, they are always included within the newly created
+> >> tagged struct. For this, we use `static_assert()`. This ensures that
+> >> the memory layout for both the flexible structure and the new tagged
+> >> struct is the same after any changes.
+> >>
+> >> This approach avoids having to implement `struct NISLANDS_SMC_SWSTATE_=
+HDR`
+> >> (and `struct SISLANDS_SMC_SWSTATE_HDR`) as a completely separate struc=
+ture,
+> >> thus preventing having to maintain two independent but basically ident=
+ical
+> >> structures, closing the door to potential bugs in the future.
+> >>
+> >> We also use `container_of()` whenever we need to retrieve a pointer to
+> >> the flexible structure, through which we can access the flexible-array
+> >> member, if necessary.
+> >>
+> >> So, with this changes, fix the following warnings:
+> >>
+> >> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/sislands_smc.h:218:49: war=
+ning: structure containing a flexible array member is not at the end of ano=
+ther
+> >> structure [-Wflex-array-member-not-at-end]
+> >> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/si_dpm.h:819:41: warning: =
+structure containing a flexible array member is not at the end of another s=
+tructure [-
+> >> Wflex-array-member-not-at-end]
+> >> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/si_dpm.h:818:41: warning: =
+structure containing a flexible array member is not at the end of another s=
+tructure [-
+> >> Wflex-array-member-not-at-end]
+> >> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/si_dpm.h:817:41: warning: =
+structure containing a flexible array member is not at the end of another s=
+tructure [-
+> >> Wflex-array-member-not-at-end]
+> >> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/si_dpm.h:816:41: warning: =
+structure containing a flexible array member is not at the end of another s=
+tructure [-
+> >> Wflex-array-member-not-at-end]
+> >>
+> >> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> >> ---
+> >>   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  7 ++++--
+> >>   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h    | 23 +++++++++++------=
+--
+> >>   .../gpu/drm/amd/pm/legacy-dpm/sislands_smc.h  | 15 ++++++++----
+> >>   3 files changed, 29 insertions(+), 16 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/=
+drm/amd/pm/legacy-dpm/si_dpm.c
+> >> index a87dcf0974bc..2c9d473d122f 100644
+> >> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> >> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> >> @@ -5234,7 +5234,8 @@ static int si_init_smc_table(struct amdgpu_devic=
+e *adev)
+> >>       table->driverState.flags =3D table->initialState.flags;
+> >>       table->driverState.levelCount =3D table->initialState.levelCount=
+;
+> >> -    table->driverState.levels[0] =3D table->initialState.level;
+> >> +    container_of(&table->driverState, SISLANDS_SMC_SWSTATE, __hdr)->l=
+evels[0] =3D
+> >> +                                table->initialState.level;
+> >>       ret =3D si_do_program_memory_timing_parameters(adev, amdgpu_boot=
+_state,
+> >>                                SISLANDS_INITIAL_STATE_ARB_INDEX);
+> >> @@ -5755,7 +5756,9 @@ static int si_upload_sw_state(struct amdgpu_devi=
+ce *adev,
+> >>       int ret;
+> >>       u32 address =3D si_pi->state_table_start +
+> >>           offsetof(SISLANDS_SMC_STATETABLE, driverState);
+> >> -    SISLANDS_SMC_SWSTATE *smc_state =3D &si_pi->smc_statetable.driver=
+State;
+> >> +    SISLANDS_SMC_SWSTATE *smc_state =3D
+> >> +        container_of(&si_pi->smc_statetable.driverState,
+> >> +                 SISLANDS_SMC_SWSTATE, __hdr);
+> >>       size_t state_size =3D struct_size(smc_state, levels,
+> >>                       new_state->performance_level_count);
+> >>       memset(smc_state, 0, state_size);
+> >> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h b/drivers/gpu/=
+drm/amd/pm/legacy-dpm/si_dpm.h
+> >> index 11cb7874a6bb..62530f89ebdf 100644
+> >> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
+> >> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
+> >> @@ -784,12 +784,17 @@ typedef struct NISLANDS_SMC_HW_PERFORMANCE_LEVEL=
+ NISLANDS_SMC_HW_PERFORMANCE_LEV
+> >>   struct NISLANDS_SMC_SWSTATE
+> >>   {
+> >> -    uint8_t                             flags;
+> >> -    uint8_t                             levelCount;
+> >> -    uint8_t                             padding2;
+> >> -    uint8_t                             padding3;
+> >> -    NISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[];
+> >> +    /* New members MUST be added within the struct_group() macro belo=
+w. */
+> >> +    struct_group_tagged(NISLANDS_SMC_SWSTATE_HDR, __hdr,
+> >> +        uint8_t                             flags;
+> >> +        uint8_t                             levelCount;
+> >> +        uint8_t                             padding2;
+> >> +        uint8_t                             padding3;
+> >> +    );
+> >> +    NISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[];
+> >>   };
+> >> +static_assert(offsetof(struct NISLANDS_SMC_SWSTATE, levels) =3D=3D si=
+zeof(struct NISLANDS_SMC_SWSTATE_HDR),
+> >> +          "struct member likely outside of struct_group_tagged()");
+> >>   typedef struct NISLANDS_SMC_SWSTATE NISLANDS_SMC_SWSTATE;
+> >> @@ -813,10 +818,10 @@ struct NISLANDS_SMC_STATETABLE
+> >>       uint32_t                            lowSMIO[NISLANDS_MAX_NO_VREG=
+_STEPS];
+> >>       NISLANDS_SMC_VOLTAGEMASKTABLE       voltageMaskTable;
+> >>       PP_NIslands_DPM2Parameters          dpm2Params;
+> >> -    NISLANDS_SMC_SWSTATE                initialState;
+> >> -    NISLANDS_SMC_SWSTATE                ACPIState;
+> >> -    NISLANDS_SMC_SWSTATE                ULVState;
+> >> -    NISLANDS_SMC_SWSTATE                driverState;
+> >> +    struct NISLANDS_SMC_SWSTATE_HDR        initialState;
+> >> +    struct NISLANDS_SMC_SWSTATE_HDR        ACPIState;
+> >> +    struct NISLANDS_SMC_SWSTATE_HDR        ULVState;
+> >> +    struct NISLANDS_SMC_SWSTATE_HDR        driverState;
+> >>       NISLANDS_SMC_HW_PERFORMANCE_LEVEL   dpmLevels[NISLANDS_MAX_SMC_P=
+ERFORMANCE_LEVELS_PER_SWSTATE - 1];
+> >>   };
+> >> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h b/driver=
+s/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
+> >> index 90ec411c5029..1711e3e35e80 100644
+> >> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
+> >> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
+> >> @@ -172,12 +172,17 @@ struct SISLANDS_SMC_HW_PERFORMANCE_LEVEL {
+> >>   typedef struct SISLANDS_SMC_HW_PERFORMANCE_LEVEL SISLANDS_SMC_HW_PER=
+FORMANCE_LEVEL;
+> >>   struct SISLANDS_SMC_SWSTATE {
+> >> -    uint8_t                             flags;
+> >> -    uint8_t                             levelCount;
+> >> -    uint8_t                             padding2;
+> >> -    uint8_t                             padding3;
+> >> +    /* New members MUST be added within the struct_group() macro belo=
+w. */
+> >> +    struct_group_tagged(SISLANDS_SMC_SWSTATE_HDR, __hdr,
+> >> +        uint8_t                             flags;
+> >> +        uint8_t                             levelCount;
+> >> +        uint8_t                             padding2;
+> >> +        uint8_t                             padding3;
+> >> +    );
+> >>       SISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[];
+> >>   };
+> >> +static_assert(offsetof(struct SISLANDS_SMC_SWSTATE, levels) =3D=3D si=
+zeof(struct SISLANDS_SMC_SWSTATE_HDR),
+> >> +          "struct member likely outside of struct_group_tagged()");
+> >>   typedef struct SISLANDS_SMC_SWSTATE SISLANDS_SMC_SWSTATE;
+> >> @@ -215,7 +220,7 @@ struct SISLANDS_SMC_STATETABLE {
+> >>       struct SISLANDS_SMC_SWSTATE_SINGLE    initialState;
+> >>       struct SISLANDS_SMC_SWSTATE_SINGLE    ACPIState;
+> >>       struct SISLANDS_SMC_SWSTATE_SINGLE    ULVState;
+> >> -    SISLANDS_SMC_SWSTATE            driverState;
+> >> +    struct SISLANDS_SMC_SWSTATE_HDR        driverState;
+> >>       SISLANDS_SMC_HW_PERFORMANCE_LEVEL    dpmLevels[SISLANDS_MAX_SMC_=
+PERFORMANCE_LEVELS_PER_SWSTATE];
+> >>   };
+> >
 >
->>   void drm_file_update_pid(struct drm_file *);
->>   
->>   struct drm_minor *drm_minor_acquire(struct xarray *minors_xa, unsigned int minor_id);
---------------P0B0YtBHtcMoPnqsbor5cOxj
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/16/2025 7:55 PM, Jani Nikula
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:87lds0p4jh.fsf@intel.com">
-      <pre wrap="" class="moz-quote-pre">On Wed, 16 Apr 2025, Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a> wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Add a drm helper macro which append the process information for
-the drm_file over drm_err.
-
-Signed-off-by: Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a>
----
- include/drm/drm_file.h | 41 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
-
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 94d365b22505..5ae5ad1048fb 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -37,6 +37,7 @@
- #include &lt;uapi/drm/drm.h&gt;
- 
- #include &lt;drm/drm_prime.h&gt;
-+#include &lt;drm/drm_print.h&gt;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Not a fan of including drm_print.h everywhere that drm_file.h is
-included. We've been trying to get rid of this, and go the other
-way. It's really hard to manage dependencies when everything ends up
-including everything.
-</pre>
-    </blockquote>
-    <p><span style="white-space: pre-wrap">Sure, right thing to do, will update. Not sure why i added it, may be in initial versions needed that :)</span></p>
-    <p><span style="white-space: pre-wrap">regards
-Sunil
-</span></p>
-    <blockquote type="cite" cite="mid:87lds0p4jh.fsf@intel.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-    </blockquote>
-    <blockquote type="cite" cite="mid:87lds0p4jh.fsf@intel.com">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre"> 
- struct dma_fence;
- struct drm_file;
-@@ -446,6 +447,46 @@ static inline bool drm_is_accel_client(const struct drm_file *file_priv)
- 	return file_priv-&gt;minor-&gt;type == DRM_MINOR_ACCEL;
- }
- 
-+static struct task_struct *drm_task_lock(struct drm_file *file_priv)
-+					__attribute__((__maybe_unused));
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-inline is the keyword you're missing here, and that's why you've had to
-add maybe unused...</pre>
-    </blockquote>
-    <p>I guess that's true. Let me try that and will make it inline if
-      no warning. <br>
-    </p>
-    <p>Regards<br>
-      Sunil<br>
-    </p>
-    <blockquote type="cite" cite="mid:87lds0p4jh.fsf@intel.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+static struct task_struct *drm_task_lock(struct drm_file *file_priv)
-+{
-+	struct task_struct *task;
-+	struct pid *pid;
-+
-+	mutex_lock(&amp;file_priv-&gt;client_name_lock);
-+	rcu_read_lock();
-+	pid = rcu_dereference(file_priv-&gt;pid);
-+	task = pid_task(pid, PIDTYPE_TGID);
-+	return task;
-+}
-+
-+static void drm_task_unlock(struct drm_file *file_priv) __attribute__((__maybe_unused));
-+static void drm_task_unlock(struct drm_file *file_priv)
-+{
-+	rcu_read_unlock();
-+	mutex_unlock(&amp;file_priv-&gt;client_name_lock);
-+}
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-...but *why* are you inlining these? To make this header self-contained,
-I think you'd need to add maybe sched.h, pid.h, rcupdate.h, mutex.h, or
-something. I consider static inlines actively harmful if they force you
-to pull in a lot of other headers.
-</pre>
-    </blockquote>
-    <p><span style="white-space: pre-wrap">It builds and works well and i dont see the need to sched.h and etc. I dont see which function you mean by inlining here, mind to share which functions ?</span></p>
-    <p><span style="white-space: pre-wrap">Regards
-Sunil Khatri
-</span></p>
-    <blockquote type="cite" cite="mid:87lds0p4jh.fsf@intel.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+/**
-+ * drm_file_err - Fill info string with process name and pid
-+ * @file_priv: context of interest for process name and pid
-+ * @fmt: prinf() like format string
-+ *
-+ * This update the user provided buffer with process
-+ * name and pid information for @file_priv
-+ */
-+#define drm_file_err(file_priv, fmt, ...)						\
-+	do {										\
-+		struct task_struct *task;						\
-+		struct drm_device *dev = file_priv-&gt;minor-&gt;dev;				\
-+											\
-+		task = drm_task_lock(file_priv);					\
-+		drm_err(dev, &quot;comm: %s pid: %d client: %s &quot; fmt,			\
-+			task ? task-&gt;comm : &quot;&quot;, task ? task-&gt;pid : 0,			\
-+			file_priv-&gt;client_name ?: &quot;Unset&quot;, ##__VA_ARGS__);		\
-+		drm_task_unlock(file_priv);						\
-+	} while (0)
-+
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-For that matter, why is *this* inline? For debugs it makes a little more
-sense when it adds the function, but drm_err() doesn't.</pre>
-    </blockquote>
-    <p>Not getting to know which function again you mean inline here ? <br>
-    </p>
-    <p>Regards<br>
-      Sunil Khatri<br>
-    </p>
-    <blockquote type="cite" cite="mid:87lds0p4jh.fsf@intel.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Make all of these real functions, no need to include drm_print.h, and
-everything is better.</pre>
-    </blockquote>
-    Sure i will do that and thanks a lot for those inputs.<br>
-    <blockquote type="cite" cite="mid:87lds0p4jh.fsf@intel.com">
-      <pre wrap="" class="moz-quote-pre">
-
-BR,
-Jani.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre"> void drm_file_update_pid(struct drm_file *);
- 
- struct drm_minor *drm_minor_acquire(struct xarray *minors_xa, unsigned int minor_id);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------P0B0YtBHtcMoPnqsbor5cOxj--
