@@ -4,155 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2037DC369C7
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 22:32:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5256C369BD
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 23:02:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00C7F10E9D6;
-	Wed, 16 Apr 2025 22:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB0910E13F;
+	Wed, 16 Apr 2025 23:02:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Sy2ywE//";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dje3MelL";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2085.outbound.protection.outlook.com [40.107.100.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFB410E9D6;
- Wed, 16 Apr 2025 22:31:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wdjLa+x5n/vlLa8/Vcpul2ul7ffrzQBl90mJmJwUX6x81ijnfY6XpDyXmkF8lnFwQtaIs57EPdeC/2xpSouRQ+zqo9G97bYYA5OmBOEVxBLFuSFqcLQkbZAMP23cpvEYCjkxnfQnUcxHUakMmWUaa9FNSCAxvNF/Wwt8SrhP9ITlZRfNRRPtThiaPtqvBDbFBS7xF8lwBsCRfh5vSodyU7bfuc5Zdv70CQ1EtSKHvPD9HApUHQAMPN0DD4EogwIzAPrE+a/Y2Q6vZob0vE1F16m1t3lPEsJi2Vtw88wKx8icyc9iVcNAF/svW0YbXrlzSLgPfWEaBOxe69WzrWORBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=90uIpUm9QxHF/8zcaJNx3U0fp9qWpaBX9GKE+N+89bE=;
- b=l/lAJiE4wuAJb7v8u4VlFg31R/N3NXNE8R+a5ESWpQC6m18G0RL5N+VdgZk7YW7xN+sTjxjZgg/ovp+By6FtxSMiJmFSyytYIdBqbOqL1rAYUwxnpOmXiTcL4KfRVfBSza18ZLT1y1tzrWNwlfYlx/JzFT8RUiGY7+slIuzXQRI4lcczYhCqSF0B9NIpmfYiLIpSAw9mmy7HIrBi9BqtTHgO5CFW/xq7O0Nd5pm4tsNDQRJh6xUyA+kKJPWJ06if5tX+HZtrDZhuD9UTQ1E+xu+D74gt5rxSb84mQve/DA7dO0D0jZpTDvAluSbamZULy5prDb3SR7Wy83xQoqE7Fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=90uIpUm9QxHF/8zcaJNx3U0fp9qWpaBX9GKE+N+89bE=;
- b=Sy2ywE//yZGuX8p+rlpcFiyw90UUdci62oYc1m6boPowFp/oeuD+6X6QVoIG/cTOz8WVUlm7/+CKuAUGJjctbmZqWerBdUh+VkHvXGq1eBy4qNJ6AJm5T3+jRIsyEFCVS/ZG0y5jBrCF+u4jTcddND8D3UW44TgLMRanlIKkeEc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by CY5PR12MB6034.namprd12.prod.outlook.com (2603:10b6:930:2e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.35; Wed, 16 Apr
- 2025 22:31:56 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8632.030; Wed, 16 Apr 2025
- 22:31:55 +0000
-Message-ID: <6809f10c-010d-4953-8133-a0293a317b5c@amd.com>
-Date: Wed, 16 Apr 2025 16:31:53 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amd/display: Add error check for avi and vendor
- infoframe setup function
-To: Wentao Liang <vulab@iscas.ac.cn>, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: chiahsuan.chung@amd.com, hamza.mahfooz@amd.com, sunil.khatri@amd.com,
- aurabindo.pillai@amd.com, hersenxs.wu@amd.com, mario.limonciello@amd.com,
- mwen@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250414031439.1895-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20250414031439.1895-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0111.namprd03.prod.outlook.com
- (2603:10b6:303:b7::26) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D14110E13F;
+ Wed, 16 Apr 2025 23:02:14 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-22409402574so301235ad.1; 
+ Wed, 16 Apr 2025 16:02:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744844534; x=1745449334; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NqTe+Ty3z3+ddmQAyRlIGIeZpUBjytRKMYY9HBbylrw=;
+ b=dje3MelLfsEEiTJuFDgplTbnz+YsDsps5r3eeoCznZYDqkapqapCLtYl1MW9VQzxdJ
+ yCIh1yhMGK4u7CQg0OLQtgFUK1QoynDmhxK4m5jD7lk6C/1kcjiQy4vGM/I3yTGcekom
+ 2A4uh9Y0yGF/AXVSzAKT/NVz7Z/GmnZa+vyypQ4PA7zxUhzkHY/YU1wjU6sVPMaxQ7FC
+ 3dgwInLrnQyDo/A/nI/bSxrOydEbNnOiQhLXVjRaGA1/69AqTpENi/JAnpaWb6Na93kL
+ D9JDVGWgpQnFOMHMqM3RfH0UoMyyBRinW4R3T56rvoFjP3h4G4proJQJYE1m6ymWE18J
+ 01VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744844534; x=1745449334;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NqTe+Ty3z3+ddmQAyRlIGIeZpUBjytRKMYY9HBbylrw=;
+ b=GYhBZCfWrAYNlkjgHajOs8Y+ZjVyTxpvduLNQIPu17TfVYQOUiT4re39mf6NK80owt
+ hwK8ULJqVLKnM6VUt0YNMopmuu4fHvTZTVP+fqOZRcWEYLWawslyKxY6DmK0B9asLhrm
+ WuM9L7x3bYPjHfQwAd1oAwG3jQ2ZOz9q+HCMOQez3GRXU+vVBxGuawA6nvg7HRv8v6ob
+ iO8g1f03oCeCMr7bbEzZ0CAKClAMfKdKVpZhpvL3v9LFuQZkNwn9EwIW6F7k9/eYqnlH
+ uu6NJ/cniog3KzAXpfASVXJDgC+5KeBT+uKrh/ToLqhTCKlQmoml9QjNnTRg25eUhLyB
+ hFtw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVTYVjSJzj5QF6DywmnrySI94UPLIG8eZjQWlcKDtqFLjqYrsudKHv/V7HGkloYIjMvuRai3NZUDVqW@lists.freedesktop.org,
+ AJvYcCXFDdUFkh8iCZVA33tFMHMd6tvfhw2kJdrMtT7aPH/qC05U0FEutYK49LlrQ8OaLl+f7EiT1wEb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGXYaSFf9aVW4wQA9ou/ZOgR7tW9u/FrUQD0PmGeW4Zsc9TkWa
+ VmVyF3qfrMsfoaGUL9a4PVlM5oGEHEJpVzUUzYIGZLJCwdFQTKZf8jtRwDoFHbiQ7JH3LsAUAii
+ mEckYQnqhGKzri89wgoAf3WVT5D0=
+X-Gm-Gg: ASbGncsNt9QUu5H666Iod65pdaS9U2Q9u5mpL9qN0AEWPWzwn1EqUrtk3AT6i46hWne
+ 2S4aujxuVvELLK/kr2f8QlOIpqX+AMkUJbpYwwnX9JvtVtHJqKwnwUn8yKOmoHGOf2TUnsrTb5c
+ jW6SIMGNc0x45ocFY++d5wX78uPw6Mq3vc
+X-Google-Smtp-Source: AGHT+IHaS1bY31CQcgrxhxR+ofsJjVnuVFQYhCiG9dkrzbmwmtfrPhBROuBFGksgadbGj5vQeORbSzp7QnfZYRRVwDc=
+X-Received: by 2002:a17:902:d2cb:b0:22c:336f:cb5c with SMTP id
+ d9443c01a7336-22c41200358mr5210055ad.6.1744844533623; Wed, 16 Apr 2025
+ 16:02:13 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|CY5PR12MB6034:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11cbd63b-3597-4aeb-add8-08dd7d367e3c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dmNwa3NjaGhnMThVUmcrdldKaWxQWVVFU29XNFhxMXo1alJEblQ5dXpLNytO?=
- =?utf-8?B?QUExZ1A2S28ycytVWU1YSUp3b1NIbkxsVGFTVFU4VnN1cXhyZzRYZXVySmNK?=
- =?utf-8?B?RHlmVloycE1nbjBUUzVEVVViMk5ibXdWc0gzQ1ltalF1R3lzN2VMR29aYklU?=
- =?utf-8?B?WFJVSkJQTFpBZWlhM1dBQmk2T1k3bnc2OVRON3ZyeUM2SmVpNUJJYnBpblFJ?=
- =?utf-8?B?cCtocmFQMUVjZGFkcFB6dWN2KzZaWE5SVFFPcEdrUWcxemRXNWpKa3laS0hh?=
- =?utf-8?B?N3p3RUxBTGVPOTloQXQ4MUZkYTlmc2trMUY3RmhLdjlGQUZPZSs4KzhTNFFx?=
- =?utf-8?B?aGtvTURVRnU2TlN0d3krTG1DTXN6clNXblkwYUh0WmNnN0lQYTFYdUlvK0pi?=
- =?utf-8?B?ZzUvTkwvb1JEeWR6TTlGZEFrN20vejFnbnU3cUh0dlRJczdpSTlXSTllalZh?=
- =?utf-8?B?U0dPQVduQkw2N3FwN0Z1c2VpTkdHU1dWeC85R2VYajNXUDk0OUp0NnpRWGpE?=
- =?utf-8?B?WjcrU1hkNzZXNUtGd2R2OEswUEJXSG5ja0U0bVdhTWRoN1ZDNmpkb2xuZnpI?=
- =?utf-8?B?cWpQN0pBRE5zaFVXZEd6Sjc4aDdCaU9sODcxWmlTaENBNmlpbWVENWY2VnA4?=
- =?utf-8?B?L1NpRGMvcGoraGlHL2htd1NwbzVZbzJaejZNN2J2aFNIZ3NnS1YySStiSVdV?=
- =?utf-8?B?cGFFaE93SEg5ZlkxNmc0ZGFrM2lrNW50WW04bW5GaTNvdmRNVWVORllvMU44?=
- =?utf-8?B?RWNVblZ3THk5eTdsNUV5OXU2TUFNQk1Zd3FIM2ZQMlVweVZiRnFHdFc2S0o2?=
- =?utf-8?B?M3dyYXZJMFNQZUhsNCtHWlZQNU8rSE9JNGRiWU9VNWloelVHL3AxdlpnQjdN?=
- =?utf-8?B?RUVVV2hKRDlyR0VsaDkyU1lockdmdGFCdkNaMUI4U2hic1lrY2RHMDc2cVlB?=
- =?utf-8?B?YTQ1cHdkOHVaWFpLWjdES2pWSExyanV4Um5rT216VHhJMkc1aUR1SXNjZFl6?=
- =?utf-8?B?SXlBWE41VUZLOUl5MmxvUmlrRlo1ZDJocVlvWWQzeFdMNkZ6eXArNGZOS0xr?=
- =?utf-8?B?Tk9wOXZwTEk5NEEvS1F3MmFTUFdyTTBwS010dDNBVVUzNnQyczVhZTdBdndh?=
- =?utf-8?B?d09HODIwNnhzbzFlOTNZZm5UY01EUTh4QWRxemVzeGhuaDVSbVZ4NG9SNW9U?=
- =?utf-8?B?R1FCUm8xN1BlOXZGTkRCb0grb2w3Wnh1azhLSGpYdGRFcGZQbUliVUs0YzFR?=
- =?utf-8?B?UWN4TW5WVzJwejVYWm5PZ2tVK1pOd0xTVTlGNld4SlFSb2drUm9XUzhVdkds?=
- =?utf-8?B?WWJWZXZENUpRYk9rdzBzOWhxNWhFQllNUlRETUpCQkJXT1Y1TzkxenFwS3NM?=
- =?utf-8?B?QkU3WTFEWWRGRE5jRGx0Tml4Q1Y4dDRzaFJJVmNPQ3VRNVQxS3l0bGNvdnBD?=
- =?utf-8?B?anFhMU9leVBmSGE1enpjR3lLQVBHUTllM2JGOGRiVERjK3dzd3lqbXM4bXBy?=
- =?utf-8?B?bmJRZCtKUkM2elM0OUkvQ1I2ZlVXd2t5U0tJT3NMaFlqb3MyV1pOcVV3OXg0?=
- =?utf-8?B?WGlCZFBIUElsUDhIUjlOU2NQNXFLclh0SStrTWFuU2Y1L0phbXNoSG9xZmlW?=
- =?utf-8?B?MzlTNjR6M281ZTlJQjlWb0FXMW05ckhoaDgwMVpTcVVmVTgyNHJCUHBaNHhC?=
- =?utf-8?B?NkZMbGo5SGREb0RnbDVkMHQ1Nk5ENjc5Wk1Cai9JYjBsbUlmTVc4NDl3eTZR?=
- =?utf-8?B?M3l4Q2gwbkFjN2ZVMHIxanZralQxZStlaThPS0U4ZDcxaVYvLysyd3NueGlU?=
- =?utf-8?B?MXIzRVJUbDNQcm90djRqQ0dibUo2SjRTRGZvT2srODExZitFUlZWVHc0ZXdY?=
- =?utf-8?B?NHBIQTM1T3BGU2hlZXFrN0paNVNZQ2tkYktHTFJPWWp2MmY3SmtXMXlJT1Fo?=
- =?utf-8?Q?OtjegvR3FtE=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFowQ2w1WWg1Y2h6bGdZU0EyMUN6b1NtUFN2R0xnQ3ZnZ1BBekE1QytwaXVO?=
- =?utf-8?B?ZEtCNllYcFJielRlUWoyLy9OUzY5N09BdnhOZEVVV1o4UlAvRmUwaWVaRWNW?=
- =?utf-8?B?cWNPRWI3cXVtTmVYNGJScTdmMDJGeTdTOFYxSXR4K0p5bzJRcHRUM3JCMDF0?=
- =?utf-8?B?b0ZGOUNTTzdud0hrb2NuTVYwSGtBL2JSSyt0a1FTWkZ2aWpXdU1kQzlva3Rz?=
- =?utf-8?B?djZZVm9rZmhBa1BwR0pHQkJTZDhxSlRIOWpSZFhwak8wUnE5YjFQcWp5QzNn?=
- =?utf-8?B?WWREamVyc1dRV2dRWXIzVXVqR1R4NXFSRVYzcmt5RjBDNGxBUG9XaXJjbHdF?=
- =?utf-8?B?cmZoK0Q3SC9WQTJld2ptWkxNTHc5QmlrdHRhL3FRM1p0THl4clhqSlh6MWVm?=
- =?utf-8?B?dzNBM3lHS1VsRlYyU211OEttSW9BU1RXVUkwZFNDcnB2cGpVZU9hNW8zN005?=
- =?utf-8?B?Z0ovU2tXRG1WYnQ5NmtvWjMzTWJ3VVVlMTJZVGFWd0FGRmE2VEcyRmdNZElu?=
- =?utf-8?B?bmhzR2xqK0dqQ1E1SnJpYWxjemVqYUlIdTlTeitjQm9xWHB3Mm9ab2ttckg4?=
- =?utf-8?B?bURWNzZYdW05dENuT3dKbVRoVGFNMVhBSnU2RURodFFQcC8wclNlNGlWNzNs?=
- =?utf-8?B?VmhUak9tTWNVdXdjd280UHRCeSsrUlg2ekR1Rit5SlpMTmN1bEY0Ym9IcHBB?=
- =?utf-8?B?V2E3NE5pZkEvenJWZ1E4cXRIdktiNHg0eDRxUEdXWGFGcHZmSjFSSFVDdlNV?=
- =?utf-8?B?MHR4bTBjUWYybTNtUm9POVppMTBiNCtRZXFpbTJzZ1VUNG4yeWliWkxEV2xK?=
- =?utf-8?B?c1NEUllUZ0V3bGZ4aGJlUDlFclFtSnBmYSt5eVRiampOVzRIZXdwSUV2SGVo?=
- =?utf-8?B?N2hndDRYNU9SR2tEdi9XaHY5dlN4YnpYQkxlVWxjQm5QcGQ4SWNKYUdIWmFK?=
- =?utf-8?B?KzIrWWxrY2JVYkRiSnY2MVRsVzdFWlgvVFlvSjdNaHRuNUJsZUllVHh4WjhF?=
- =?utf-8?B?NHpVNmNmMVM4cVF1Ti9HekRZemxZSkhUMDFvWmF5bTk3L3RRUFZHQ0RGbHZ6?=
- =?utf-8?B?d0d4ZHkveHV5VUtqT0hLWG9sSkFlR0RSM3dpRzUvU1ZnRjJGcnZJRHhicENj?=
- =?utf-8?B?UkJhbnZKV0JGUzJLQkpYNHFwZ1NRbUpzQm45SVdJR0MzUWNrRWpPZys3ODh1?=
- =?utf-8?B?YUZISmFya3ZLZ0lNVmhUNmNha0pQMVlPOVgwWmtzQTROelJzSFZlYmdRWEFF?=
- =?utf-8?B?Nk1LZVFsTXRxT0hjN3JWNkVEZzlFME5Ma21iNXFkdEJZVjAvT3grZ1hRZm84?=
- =?utf-8?B?bUdtcVZoK2w0dEQ0RXQ0L3cyemRKckt0V3NXZWVYbzR1VkdIMUczWkZPZ01l?=
- =?utf-8?B?b0ZDMVlYVU9kazQwMms2SXZEU1NxQlBKcGxSTy94aFh2eWt5Um0zRmM4dndU?=
- =?utf-8?B?d09GblBJeU0vbGFzR1V6Nlh4TUE4eVpnQzVuYkpYcUV6L3FqalUyaXVCK3ds?=
- =?utf-8?B?MCtYTXVPMDl6Y1ZuSFVTSHFZYWl1OEE5MlB5cnF3Ky9FQm4vS3E2YlZuMDg3?=
- =?utf-8?B?WklScGplMTdpQ0kzVzJKTDRXWXU2T0RUNFFvZHYxMXl5WVFINzQ0Nkc4bTZZ?=
- =?utf-8?B?SXAwSXQyaFpwZGJyODJoSU9hdldUWFl3VitoZE9XUTRDOUNzUms5QVdVSzRx?=
- =?utf-8?B?bFEvVXVMbURHRlVwLzN2ZDg2R1NKaktLV1A2OXBRRHNNOVkvUUxONXVKcjlV?=
- =?utf-8?B?Q2FRVjBoYU5GeTB1VERuWUp2NmRkdFpjQ3BQZGQyNm9YODduQWMzYiszeFE2?=
- =?utf-8?B?azFRdUJyYnBaTnFORUs4b2tzQmM1YVUxcGk4R0pmejNaMTAzUDlrY2VneFVY?=
- =?utf-8?B?QnRSK0FkY0wwcEEydWE0NklTYldxZXFKZEU1djB3QU1abFZsNXBtNFpxbUJR?=
- =?utf-8?B?Rkl5Mm1UcS9IcVk3U0xJVEY4aGNDMWw5TEZadW9IOVZtYXdRNkVuTlhNb1N6?=
- =?utf-8?B?b0Y2NFJ2RjdFK2ZVM3RiTmpjMGFpOWZtRHprN3BXUFBYcWk5bER4RlcvMy9R?=
- =?utf-8?B?dzh6OCtldlI5TW5CTW1SYlF1eUNmemtGV3hsbDFVckRvejRlSVZnZWpBNGNI?=
- =?utf-8?Q?N8rX3xMVra0AqYTljGqbN5Tdj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11cbd63b-3597-4aeb-add8-08dd7d367e3c
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 22:31:55.7980 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6O22M3M5uS7FTXuc1+wqiTbdypeeZ0orRDnsgaEabC2gDHZ2Ej7n5VbwrbO1hy4TiIOhsK9Yqs1qRnF+OWlUyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6034
+References: <20250415115601.3238-1-vulab@iscas.ac.cn>
+In-Reply-To: <20250415115601.3238-1-vulab@iscas.ac.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 16 Apr 2025 19:02:02 -0400
+X-Gm-Features: ATxdqUE6UyN97V93fs49qKRwAvpsbbW-l0GWDGUMvi0e8zP-zEuL0dwIz0J5DKo
+Message-ID: <CADnq5_N05vb5awWxfGzHJ4yBCE-89feKfmkOY96+6b38=R4Daw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm/powerplay/smumgr/vegam_smumgr: Fix error
+ handling in vegam_populate_smc_boot_level()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
+ Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,53 +86,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+On Tue, Apr 15, 2025 at 8:33=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
+>
+> In vegam_populate_smc_boot_level(), the return value of
+> phm_find_boot_level() is 0 or negative error code and the
+> "if (result)" branch statement will never run into the true
+> branch. Besides, this will skip setting the voltages later
+> below. Returning early may break working devices.
+>
+> Add an error handling to phm_find_boot_level() to reset the
+> boot level when the function fails. A proper implementation
+> can be found in tonga_populate_smc_boot_level().
+>
+> Fixes: 4a1132782200 ("drm/amd/powerplay: return errno code to caller when=
+ error occur")
+> Cc: stable@vger.kernel.org # v5.6+
 
-On 4/13/25 21:14, Wentao Liang wrote:
-> The function fill_stream_properties_from_drm_display_mode() calls the
-> function drm_hdmi_avi_infoframe_from_display_mode() and the
-> function drm_hdmi_vendor_infoframe_from_display_mode(), but does
-> not check its return value. Log the error messages to prevent silent
-> failure if either function fails.
-> 
+I don't know that this is a fix per se so I don't think stable is appropria=
+te.
+
+This is probably ok, but TBH, I don't really remember how the pptables
+were set up on these old chips and whether changing the current
+behavior would actually fix or break anything.  I'd be more inclined
+to just leave the logic as is lest something break.
+
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
-> v3: Fix error-logging function error
-> v2: Fix code diff error
-> 
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++--
->   1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 5f216d626cbb..cdf1a07aa8af 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6104,6 +6104,7 @@ static void fill_stream_properties_from_drm_display_mode(
->   	struct amdgpu_dm_connector *aconnector = NULL;
->   	struct hdmi_vendor_infoframe hv_frame;
->   	struct hdmi_avi_infoframe avi_frame;
-> +	ssize_t err;
->   
->   	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
->   		aconnector = to_amdgpu_dm_connector(connector);
-> @@ -6150,9 +6151,17 @@ static void fill_stream_properties_from_drm_display_mode(
->   	}
->   
->   	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-> -		drm_hdmi_avi_infoframe_from_display_mode(&avi_frame, (struct drm_connector *)connector, mode_in);
-> +		err = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
-> +							       (struct drm_connector *)connector,
-> +							       mode_in);
-> +		if (err < 0)
-> +			drm_err(connector->dev, "Failed to setup avi infoframe: %zd\n", err);
->   		timing_out->vic = avi_frame.video_code;
-> -		drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame, (struct drm_connector *)connector, mode_in);
-> +		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
-> +								  (struct drm_connector *)connector,
-> +								  mode_in);
-> +		if (err < 0)
-> +			drm_err(connector->dev, "Failed to setup vendor infoframe: %zd\n", err);
->   		timing_out->hdmi_vic = hv_frame.vic;
->   	}
->   
-
+>  .../drm/amd/pm/powerplay/smumgr/vegam_smumgr.c    | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c b/dri=
+vers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
+> index 34c9f59b889a..c68dd12b858a 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
+> @@ -1374,15 +1374,20 @@ static int vegam_populate_smc_boot_level(struct p=
+p_hwmgr *hwmgr,
+>         result =3D phm_find_boot_level(&(data->dpm_table.sclk_table),
+>                         data->vbios_boot_state.sclk_bootup_value,
+>                         (uint32_t *)&(table->GraphicsBootLevel));
+> -       if (result)
+> -               return result;
+> +       if (result !=3D 0) {
+> +               table->GraphicsBootLevel =3D 0;
+> +               pr_err("VBIOS did not find boot engine clock value in dep=
+endency table. Using Graphics DPM level 0!\n");
+> +               result =3D 0;
+> +       }
+>
+>         result =3D phm_find_boot_level(&(data->dpm_table.mclk_table),
+>                         data->vbios_boot_state.mclk_bootup_value,
+>                         (uint32_t *)&(table->MemoryBootLevel));
+> -
+> -       if (result)
+> -               return result;
+> +       if (result !=3D 0) {
+> +               table->MemoryBootLevel =3D 0;
+> +               pr_err("VBIOS did not find boot engine clock value in dep=
+endency table. Using Memory DPM level 0!\n");
+> +               result =3D 0;
+> +       }
+>
+>         table->BootVddc  =3D data->vbios_boot_state.vddc_bootup_value *
+>                         VOLTAGE_SCALE;
+> --
+> 2.42.0.windows.2
+>
