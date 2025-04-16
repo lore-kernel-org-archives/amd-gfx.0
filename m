@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 382BFC369BA
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CD66C369BD
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07C2910E85F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F0DC10E863;
 	Wed, 16 Apr 2025 07:25:02 +0000 (UTC)
 Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
  [205.220.166.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B471B10E812;
- Wed, 16 Apr 2025 01:18:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC2D110E06F;
+ Wed, 16 Apr 2025 01:17:38 +0000 (UTC)
 Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53FLTtKK026884;
- Tue, 15 Apr 2025 18:18:03 -0700
-Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.wrs.com
- [147.11.82.252])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 45ykf3m22p-2
+ by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53FLTtKH026884;
+ Tue, 15 Apr 2025 18:17:28 -0700
+Received: from ala-exchng02.corp.ad.wrs.com (ala-exchng02.wrs.com
+ [147.11.82.254])
+ by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 45ykf3m21r-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 15 Apr 2025 18:18:02 -0700 (PDT)
+ Tue, 15 Apr 2025 18:17:27 -0700 (PDT)
 Received: from ala-exchng01.corp.ad.wrs.com (147.11.82.252) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server
+ ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Tue, 15 Apr 2025 18:18:02 -0700
+ 15.1.2507.43; Tue, 15 Apr 2025 18:17:27 -0700
 Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
  ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Tue, 15 Apr 2025 18:17:57 -0700
+ 15.1.2507.43 via Frontend Transport; Tue, 15 Apr 2025 18:17:22 -0700
 From: <jianqi.ren.cn@windriver.com>
 To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>
 CC: <patches@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
@@ -39,20 +39,20 @@ CC: <patches@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
  <mario.limonciello@amd.com>, <hersenxs.wu@amd.com>,
  <Wayne.Lin@amd.com>, <amd-gfx@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>, <daniel.wheeler@amd.com>
-Subject: [PATCH 5.15.y] drm/amd/display: Stop amdgpu_dm initialize when link
+Subject: [PATCH 6.6.y] drm/amd/display: Stop amdgpu_dm initialize when link
  nums greater than max_links
-Date: Wed, 16 Apr 2025 09:17:56 +0800
-Message-ID: <20250416011756.388682-1-jianqi.ren.cn@windriver.com>
+Date: Wed, 16 Apr 2025 09:17:21 +0800
+Message-ID: <20250416011721.388632-1-jianqi.ren.cn@windriver.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: WiArEsKtr1xJHsjJisY3yyVFgV34DNI4
-X-Authority-Analysis: v=2.4 cv=Wd0Ma1hX c=1 sm=1 tr=0 ts=67ff054b cx=c_pps
- a=/ZJR302f846pc/tyiSlYyQ==:117 a=/ZJR302f846pc/tyiSlYyQ==:17
+X-Proofpoint-ORIG-GUID: LH7tt6KhLRL9kj2Wk1n5cAMBVGlZEKGa
+X-Authority-Analysis: v=2.4 cv=Wd0Ma1hX c=1 sm=1 tr=0 ts=67ff0527 cx=c_pps
+ a=K4BcnWQioVPsTJd46EJO2w==:117 a=K4BcnWQioVPsTJd46EJO2w==:17
  a=XR8D0OoHHMoA:10 a=zd2uoN0lAAAA:8 a=t7CeM3EgAAAA:8 a=V2FjD2v6pYOrjI9wGFEA:9
  a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-GUID: WiArEsKtr1xJHsjJisY3yyVFgV34DNI4
+X-Proofpoint-GUID: LH7tt6KhLRL9kj2Wk1n5cAMBVGlZEKGa
 X-Sensitive_Customer_Information: Yes
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
@@ -101,17 +101,20 @@ Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
  connector indices") after 6.10. So here we still use the original array
  length MAX_PIPES * 2]
 Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
+Signed-off-by: He Zhe <zhe.he@windriver.com>
+---
+Verified the build test
 ---
  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++-------
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a33ca712a89c..b1f4d8a84e1b 100644
+index 3696b9112c74..28f2b4022d34 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4321,17 +4321,17 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+@@ -4484,17 +4484,17 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 		}
  	}
- #endif
  
 +	if (link_cnt > (MAX_PIPES * 2)) {
 +		DRM_ERROR(
