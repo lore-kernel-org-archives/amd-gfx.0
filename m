@@ -4,36 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB64C369C1
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 18:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1BFC369B1
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 04:46:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A53B10E376;
-	Tue, 15 Apr 2025 18:43:46 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94FFC10E14D;
- Tue, 15 Apr 2025 18:43:43 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 53FIhNtY2465232; Wed, 16 Apr 2025 00:13:23 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 53FIhNSl2465231;
- Wed, 16 Apr 2025 00:13:23 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 4/4] drm/amdgpu: change DRM_ERROR to drm_file_err in
- amdgpu_userqueue.c
-Date: Wed, 16 Apr 2025 00:13:18 +0530
-Message-Id: <20250415184318.2465197-4-sunil.khatri@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD9410E827;
+	Wed, 16 Apr 2025 04:46:06 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M06o7hFt";
+	dkim-atps=neutral
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2351B10E839
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Apr 2025 04:46:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xiby2d1gd++dTHGxYITurraP+KhQCSsBZzx8bC0KyrT/EQeXa86osXYzN/W1nQqwuB03T/9Xt76+lB5SFejFVrshR2qg7uXLI926O9QK8TcSZKZ6/0ccvGX3iZ9jHNah7eb8I5W7McKlaWKzYL2EKNYWXYoWgSi+MX/AszTPhtK988H7O4U8wqvJHkkZKVJAnElDmXIvSfimtPCAinY6cWGo/ko3YqW2gPTDu4tz5MxsmnbmLZu2FhOHsw7yt+Xszhj4WF8+0VDE93amyxvNTraODuh9FuqToZDsN/HjidfSR4X1/Mf1SW3JKdOaQorzclX1eAq0Yl+EAp+qKtwHfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WOSUTjZokd0qmySaemTfH4tzLtI4R+C9RZJnsMCufJs=;
+ b=Aunnu1L85HoCE/g75A7OxchcyMELFOYOKJKRy1CELaSk+K1b9WhDwx5wwBaL4Srppn/yAkKWPOHusXfjwuLNuZRahncoaglHhnvwr0o0vZSIjPFt8RDghKutw/B1gFpesNOvGIpD1NrFJeLLFr2+LzNAfWKVKob7l7UnDWxip2S0kUxd7erqZu5b/my0x2RPe06OmYij+DzYV7qWaT3b02y9bdWI9frFY2gjFR5Iuz298kBX8wlCJ/+RV6r9Q0erft9fLXzIyr1asv6/5C2EE38f8DWHM0d2YUrFW3GkJmcjHCNMMjpoz/i7pGyY2kqJrIuCEXZ8b4rjzb7E1jThyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WOSUTjZokd0qmySaemTfH4tzLtI4R+C9RZJnsMCufJs=;
+ b=M06o7hFtPMAImZqWUZq7dcBuVn+SbmrRciCDCD97lBaipqqGv5o/AelSmVSH5R+EKi2tAO8LPThSU1IkGEMqvV0qWB/+iS6SdqJY5CoIBAqz+VgMSkWtT0Y5LovohqMfo9Atg2Sw19H02+Mif1l7xvkNZFn7z2VmGwr3xeVQJug=
+Received: from MN0PR03CA0019.namprd03.prod.outlook.com (2603:10b6:208:52f::29)
+ by DS7PR12MB5767.namprd12.prod.outlook.com (2603:10b6:8:76::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.30; Wed, 16 Apr
+ 2025 04:45:56 +0000
+Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
+ (2603:10b6:208:52f:cafe::af) by MN0PR03CA0019.outlook.office365.com
+ (2603:10b6:208:52f::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.35 via Frontend Transport; Wed,
+ 16 Apr 2025 04:45:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Wed, 16 Apr 2025 04:45:56 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 15 Apr
+ 2025 23:45:54 -0500
+From: Felix Kuehling <felix.kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, <yang.su2@amd.com>, <hao.zhou@amd.com>,
+ <asher.song@amd.com>, <pak.lui@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: Allow P2P access through XGMI
+Date: Wed, 16 Apr 2025 00:45:28 -0400
+Message-ID: <20250416044529.1147595-2-felix.kuehling@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250415184318.2465197-1-sunil.khatri@amd.com>
-References: <20250415184318.2465197-1-sunil.khatri@amd.com>
+In-Reply-To: <20250416044529.1147595-1-felix.kuehling@amd.com>
+References: <20250416044529.1147595-1-felix.kuehling@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|DS7PR12MB5767:EE_
+X-MS-Office365-Filtering-Correlation-Id: 146ce899-0df0-4ec4-c2db-08dd7ca193ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4K7vN7JgrJ978r1n9mc7vMTJc92Aqtb81/p44EvWOj9miGCRALJ9Lqa0dOox?=
+ =?us-ascii?Q?MqhnTJ67VZsymZuU1ak9TVq5dcF2xJzYzTybwKPUx4Aa1A0mzmoRGpCOatmF?=
+ =?us-ascii?Q?XORWtFLDQKfl3DFK6wIBeYWrKpu6BvBURgey7N/pmjtIqLoyXHtluuxiu/Al?=
+ =?us-ascii?Q?QLKxQlt3zGNWXR12dmAciKTiJncH1GL7qLCBHvbiOTsS19lT89FaIjNpDgYP?=
+ =?us-ascii?Q?QHIUKx1rLfzI0kqxZwlWfP83AH4ZeBiKmaChwuO3xXet97FlqljcP3tY45SP?=
+ =?us-ascii?Q?xFYWHC6DBIDXBze9wsJ59lneQIcSlVBfIzQeGdSG3oO1fQ9Mw95FiOcfTdqt?=
+ =?us-ascii?Q?YH1j/MGxVo/QtTc9A485GiiUSVhKDcU+J2DYHdF6ERTAiNubGEaYqpfD/ZxA?=
+ =?us-ascii?Q?g4vZQOdYVUpT5yu+1dAULC1LL9hyZReFzUtQBfxrMtB2sqAZj1loM0VV/2ZS?=
+ =?us-ascii?Q?Mvda55XlVHxc4/W8TfZ1wMzyZW7v9Z3DwgPTr9GfV9TQ/ZvZb5BVwK2UE7T5?=
+ =?us-ascii?Q?5Q+vNJpKHZC9bo0VdCYLuQm09nMczw0iuI1HnlgmHkeVgw65GXyne7SuEUQT?=
+ =?us-ascii?Q?XS7XrjShhuZc8x/Hle73tkY/D3F4gGtA5nWwwm0DvP4q+zyggiAYQBOdWln1?=
+ =?us-ascii?Q?wGRqAsOHAH6jEwztqu0g8QVLRlFgssBkB0XIy+DKVa5VonBqPeJ+kKGxELH4?=
+ =?us-ascii?Q?uJgM0/l0lrLlGKhPsoWMazWBLkCAUilpAPVBEnJfenvyaCtMO+ty93Oc0Mj9?=
+ =?us-ascii?Q?zG7YjdNQoT7XNnfNcLyJlYPU6uMMK58DKOp34s4+vMa/dwZ4f3/g9IFq4Vsr?=
+ =?us-ascii?Q?9A25Oh0lQH8aZI+dZ/SumLciYJGYDpepWfmmxVE8ynr/wr2kKV+sSFaBH2Cr?=
+ =?us-ascii?Q?Er4K/e7mj+5MQqT3tDDW4elrrxYj1Nj0JmZPzLEKRw07KUF4uEdOWl/ZoAMc?=
+ =?us-ascii?Q?yOPDj1Klp7vmH/smLKXQUijXACuKnk9hiHOVCHNirkqdl3YBNgt91idxiz1K?=
+ =?us-ascii?Q?ta6q63Ru/YZ6UOz+ESSy49VnFSmSLEz20e/Cz2smiHKmcSpwnFCoINzLRp7J?=
+ =?us-ascii?Q?0eNB7NCQgJMy5PU8P0wn5EUOs11PYFkmnWhufLOCrE2VtzIzVNHI5PS0f2pL?=
+ =?us-ascii?Q?+ph9zT/tjg1WpeHhUeGbWkG2upKtqiu5PE7IEBNh9I5XbD0D/ua4WvWK0HzX?=
+ =?us-ascii?Q?cAcVLpYeFVGiChMPv8he6mB+OPiyBRzZbXbcIHvdBBvRvaIyEZtJnQ4uymN/?=
+ =?us-ascii?Q?f1aS/eJhRtQmaSyK+WhTXPudj0E0UNkgsAaB2raFL0OEhSXtnJXAjExlWDEl?=
+ =?us-ascii?Q?MgtGv/mBUxAvk3+UbYVW9kHbMA5tkBeQNWK9IjRjFIGoAhgjIyLmvRRFBck2?=
+ =?us-ascii?Q?vqcs1AswIDrUgRZzLInRpe789+ATQ3zSmZS4l/AlgWYACqnTVZrY4xUC8PK4?=
+ =?us-ascii?Q?oRUdLs6v0fKGoZDRTzmhzkzcr0+7leTQVCHssD2JNNY+UVZQ7chYdMf/2mwp?=
+ =?us-ascii?Q?fU/NOaSMmyVjYd+8g3sCzfFK+gaKnVMPyPP8?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 04:45:56.5138 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 146ce899-0df0-4ec4-c2db-08dd7ca193ab
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5767
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,241 +133,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-change the DRM_ERROR to drm_file_err which gives the drm device
-information too which is useful in case of multiple GPU's and also
-add process information.
+If peer memory is accessible through XGMI, allow leaving it in VRAM
+rather than forcing its migration to GTT on DMABuf attachment.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 59 +++++++++++--------
- 1 file changed, 33 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 31 ++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-index 05c1ee27a319..e07dff14256c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-@@ -123,25 +123,25 @@ int amdgpu_userqueue_create_object(struct amdgpu_userq_mgr *uq_mgr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index 9abe592968ab3..a72c17230fd37 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -43,6 +43,30 @@
+ #include <linux/dma-fence-array.h>
+ #include <linux/pci-p2pdma.h>
  
- 	r = amdgpu_bo_create(adev, &bp, &userq_obj->obj);
- 	if (r) {
--		DRM_ERROR("Failed to allocate BO for userqueue (%d)", r);
-+		drm_file_err(uq_mgr->file, "Failed to allocate BO for userqueue (%d)", r);
- 		return r;
- 	}
++static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
++
++/**
++ * dma_buf_attach_adev - Helper to get adev of an attachment
++ *
++ * @attach: attachment
++ *
++ * Returns:
++ * A struct amdgpu_device * if the attaching device is an amdgpu device or
++ * partition, NULL otherwise.
++ */
++static struct amdgpu_device *dma_buf_attach_adev(struct dma_buf_attachment *attach)
++{
++	if (attach->importer_ops == &amdgpu_dma_buf_attach_ops) {
++		struct drm_gem_object *obj = attach->importer_priv;
++		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
++		struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
++
++		return adev;
++	}
++
++	return NULL;
++}
++
+ /**
+  * amdgpu_dma_buf_attach - &dma_buf_ops.attach implementation
+  *
+@@ -54,11 +78,13 @@
+ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+ 				 struct dma_buf_attachment *attach)
+ {
++	struct amdgpu_device *attach_adev = dma_buf_attach_adev(attach);
+ 	struct drm_gem_object *obj = dmabuf->priv;
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
  
- 	r = amdgpu_bo_reserve(userq_obj->obj, true);
- 	if (r) {
--		DRM_ERROR("Failed to reserve BO to map (%d)", r);
-+		drm_file_err(uq_mgr->file, "Failed to reserve BO to map (%d)", r);
- 		goto free_obj;
- 	}
+-	if (pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
++	if (!amdgpu_dmabuf_is_xgmi_accessible(attach_adev, bo) &&
++	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
+ 		attach->peer2peer = false;
  
- 	r = amdgpu_ttm_alloc_gart(&(userq_obj->obj)->tbo);
- 	if (r) {
--		DRM_ERROR("Failed to alloc GART for userqueue object (%d)", r);
-+		drm_file_err(uq_mgr->file, "Failed to alloc GART for userqueue object (%d)", r);
- 		goto unresv;
- 	}
+ 	amdgpu_vm_bo_update_shared(bo);
+@@ -477,6 +503,9 @@ bool amdgpu_dmabuf_is_xgmi_accessible(struct amdgpu_device *adev,
+ 	struct drm_gem_object *obj = &bo->tbo.base;
+ 	struct drm_gem_object *gobj;
  
- 	r = amdgpu_bo_kmap(userq_obj->obj, &userq_obj->cpu_ptr);
- 	if (r) {
--		DRM_ERROR("Failed to map BO for userqueue (%d)", r);
-+		drm_file_err(uq_mgr->file, "Failed to map BO for userqueue (%d)", r);
- 		goto unresv;
- 	}
- 
-@@ -177,7 +177,7 @@ amdgpu_userqueue_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
- 
- 	gobj = drm_gem_object_lookup(filp, db_info->doorbell_handle);
- 	if (gobj == NULL) {
--		DRM_ERROR("Can't find GEM object for doorbell\n");
-+		drm_file_err(uq_mgr->file, "Can't find GEM object for doorbell\n");
- 		return -EINVAL;
- 	}
- 
-@@ -187,13 +187,15 @@ amdgpu_userqueue_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
- 	/* Pin the BO before generating the index, unpin in queue destroy */
- 	r = amdgpu_bo_pin(db_obj->obj, AMDGPU_GEM_DOMAIN_DOORBELL);
- 	if (r) {
--		DRM_ERROR("[Usermode queues] Failed to pin doorbell object\n");
-+		drm_file_err(uq_mgr->file,
-+			"[Usermode queues] Failed to pin doorbell object\n");
- 		goto unref_bo;
- 	}
- 
- 	r = amdgpu_bo_reserve(db_obj->obj, true);
- 	if (r) {
--		DRM_ERROR("[Usermode queues] Failed to pin doorbell object\n");
-+		drm_file_err(uq_mgr->file,
-+			"[Usermode queues] Failed to pin doorbell object\n");
- 		goto unpin_bo;
- 	}
- 
-@@ -215,14 +217,16 @@ amdgpu_userqueue_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
- 		break;
- 
- 	default:
--		DRM_ERROR("[Usermode queues] IP %d not support\n", db_info->queue_type);
-+	drm_file_err(uq_mgr->file,
-+			"[Usermode queues] IP %d not support\n", db_info->queue_type);
- 		r = -EINVAL;
- 		goto unpin_bo;
- 	}
- 
- 	index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
- 					     db_info->doorbell_offset, db_size);
--	DRM_DEBUG_DRIVER("[Usermode queues] doorbell index=%lld\n", index);
-+	drm_dbg_driver(adev_to_drm(uq_mgr->adev),
-+		       "[Usermode queues] doorbell index=%lld\n", index);
- 	amdgpu_bo_unreserve(db_obj->obj);
- 	return index;
- 
-@@ -249,7 +253,7 @@ amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id)
- 
- 	queue = amdgpu_userqueue_find(uq_mgr, queue_id);
- 	if (!queue) {
--		DRM_DEBUG_DRIVER("Invalid queue id to destroy\n");
-+		drm_dbg_driver(adev_to_drm(uq_mgr->adev), "Invalid queue id to destroy\n");
- 		mutex_unlock(&uq_mgr->userq_mutex);
- 		return -EINVAL;
- 	}
-@@ -282,7 +286,8 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	if (args->in.ip_type != AMDGPU_HW_IP_GFX &&
- 	    args->in.ip_type != AMDGPU_HW_IP_DMA &&
- 	    args->in.ip_type != AMDGPU_HW_IP_COMPUTE) {
--		DRM_ERROR("Usermode queue doesn't support IP type %u\n", args->in.ip_type);
-+		drm_file_err(uq_mgr->file,
-+			"Usermode queue doesn't support IP type %u\n", args->in.ip_type);
- 		return -EINVAL;
- 	}
- 
-@@ -304,14 +309,16 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 
- 	uq_funcs = adev->userq_funcs[args->in.ip_type];
- 	if (!uq_funcs) {
--		DRM_ERROR("Usermode queue is not supported for this IP (%u)\n", args->in.ip_type);
-+		drm_file_err(uq_mgr->file,
-+			"Usermode queue is not supported for this IP (%u)\n",
-+			args->in.ip_type);
- 		r = -EINVAL;
- 		goto unlock;
- 	}
- 
- 	queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
- 	if (!queue) {
--		DRM_ERROR("Failed to allocate memory for queue\n");
-+		drm_file_err(uq_mgr->file, "Failed to allocate memory for queue\n");
- 		r = -ENOMEM;
- 		goto unlock;
- 	}
-@@ -327,7 +334,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	/* Convert relative doorbell offset into absolute doorbell index */
- 	index = amdgpu_userqueue_get_doorbell_index(uq_mgr, &db_info, filp);
- 	if (index == (uint64_t)-EINVAL) {
--		DRM_ERROR("Failed to get doorbell for queue\n");
-+		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
- 		kfree(queue);
- 		goto unlock;
- 	}
-@@ -336,13 +343,13 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	xa_init_flags(&queue->fence_drv_xa, XA_FLAGS_ALLOC);
- 	r = amdgpu_userq_fence_driver_alloc(adev, queue);
- 	if (r) {
--		DRM_ERROR("Failed to alloc fence driver\n");
-+		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
- 		goto unlock;
- 	}
- 
- 	r = uq_funcs->mqd_create(uq_mgr, &args->in, queue);
- 	if (r) {
--		DRM_ERROR("Failed to create Queue\n");
-+		drm_file_err(uq_mgr->file, "Failed to create Queue\n");
- 		amdgpu_userq_fence_driver_free(queue);
- 		kfree(queue);
- 		goto unlock;
-@@ -350,7 +357,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 
- 	qid = idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ_COUNT, GFP_KERNEL);
- 	if (qid < 0) {
--		DRM_ERROR("Failed to allocate a queue id\n");
-+		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
- 		amdgpu_userq_fence_driver_free(queue);
- 		uq_funcs->mqd_destroy(uq_mgr, queue);
- 		kfree(queue);
-@@ -360,7 +367,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 
- 	r = uq_funcs->map(uq_mgr, queue);
- 	if (r) {
--		DRM_ERROR("Failed to map Queue\n");
-+		drm_file_err(uq_mgr->file, "Failed to map Queue\n");
- 		idr_remove(&uq_mgr->userq_idr, qid);
- 		amdgpu_userq_fence_driver_free(queue);
- 		uq_funcs->mqd_destroy(uq_mgr, queue);
-@@ -388,7 +395,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
- 			return -EINVAL;
- 		r = amdgpu_userqueue_create(filp, args);
- 		if (r)
--			DRM_ERROR("Failed to create usermode queue\n");
-+			drm_file_err(filp, "Failed to create usermode queue\n");
- 		break;
- 
- 	case AMDGPU_USERQ_OP_FREE:
-@@ -406,11 +413,11 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
- 			return -EINVAL;
- 		r = amdgpu_userqueue_destroy(filp, args->in.queue_id);
- 		if (r)
--			DRM_ERROR("Failed to destroy usermode queue\n");
-+			drm_file_err(filp, "Failed to destroy usermode queue\n");
- 		break;
- 
- 	default:
--		DRM_DEBUG_DRIVER("Invalid user queue op specified: %d\n", args->in.op);
-+		drm_dbg_driver(dev, "Invalid user queue op specified: %d\n", args->in.op);
- 		return -EINVAL;
- 	}
- 
-@@ -479,7 +486,7 @@ amdgpu_userqueue_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
- 		ret = amdgpu_vm_lock_pd(vm, &exec, 2);
- 		drm_exec_retry_on_contention(&exec);
- 		if (unlikely(ret)) {
--			DRM_ERROR("Failed to lock PD\n");
-+			drm_file_err(uq_mgr->file, "Failed to lock PD\n");
- 			goto unlock_all;
- 		}
- 
-@@ -519,7 +526,7 @@ amdgpu_userqueue_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
- 		bo = bo_va->base.bo;
- 		ret = amdgpu_userqueue_validate_vm_bo(NULL, bo);
- 		if (ret) {
--			DRM_ERROR("Failed to validate BO\n");
-+			drm_file_err(uq_mgr->file, "Failed to validate BO\n");
- 			goto unlock_all;
- 		}
- 
-@@ -550,7 +557,7 @@ amdgpu_userqueue_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
- 
- 	ret = amdgpu_eviction_fence_replace_fence(&fpriv->evf_mgr, &exec);
- 	if (ret)
--		DRM_ERROR("Failed to replace eviction fence\n");
-+		drm_file_err(uq_mgr->file, "Failed to replace eviction fence\n");
- 
- unlock_all:
- 	drm_exec_fini(&exec);
-@@ -569,13 +576,13 @@ static void amdgpu_userqueue_resume_worker(struct work_struct *work)
- 
- 	ret = amdgpu_userqueue_validate_bos(uq_mgr);
- 	if (ret) {
--		DRM_ERROR("Failed to validate BOs to restore\n");
-+		drm_file_err(uq_mgr->file, "Failed to validate BOs to restore\n");
- 		goto unlock;
- 	}
- 
- 	ret = amdgpu_userqueue_resume_all(uq_mgr);
- 	if (ret) {
--		DRM_ERROR("Failed to resume all queues\n");
-+		drm_file_err(uq_mgr->file, "Failed to resume all queues\n");
- 		goto unlock;
- 	}
++	if (!adev)
++		return false;
++
+ 	if (obj->import_attach) {
+ 		struct dma_buf *dma_buf = obj->import_attach->dmabuf;
  
 -- 
 2.34.1
