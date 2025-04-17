@@ -4,33 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E5A8C369B2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 09:25:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3828EC369B2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 09:31:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C7010E1B1;
-	Thu, 17 Apr 2025 09:25:36 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D28B910E19E;
- Thu, 17 Apr 2025 09:25:34 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 53H9PHJ82241626; Thu, 17 Apr 2025 14:55:17 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 53H9PFcS2241625;
- Thu, 17 Apr 2025 14:55:15 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH] drm/schedular: fix the warning in drm_sched_job_done
-Date: Thu, 17 Apr 2025 14:55:14 +0530
-Message-Id: <20250417092514.2241612-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD62710E1C7;
+	Thu, 17 Apr 2025 09:31:18 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VNYHiDNi";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BD6C10E1C7;
+ Thu, 17 Apr 2025 09:31:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=V1d5EIBpCNDGqdaaS+OAWrNdD5MdtoajN7H4iYPcTMw=; b=VNYHiDNiv2evSNt4E3funDa+Y8
+ yZ+jVHJhkBk5xEvuDazhUuO4JlJ4m4YVV7FhLXB6KgBRLfE0sJ+HSOuMq8643TlKblHJCkLYZ2sYT
+ RSTqSo3AQXAri/VjirzIviqEb6T+gUx16iDEQAy+j2641Ahdl+6GEtb9h835kimGUiDHwrY5oWaP3
+ tlwGwlAwVNxcnscV5cPbgyOCS/yu5TOdsP4OZRoplXRq2e+ESld99WRwGGd1Ua0U/ciiY+OgVBThb
+ ZZgSEgRGbyAPidZD5N3d/J0/8aOL3V41H3sKhHBC6w5ps4/OW+oZ1D6yFB1tMylKK2qySccYtcZYS
+ z41D1WgA==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1u5LaR-000khT-Lr; Thu, 17 Apr 2025 11:31:11 +0200
+Message-ID: <cfaffac8-e1cb-4a1f-b35c-7832a5da2d98@igalia.com>
+Date: Thu, 17 Apr 2025 10:31:10 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/schedular: fix the warning in drm_sched_job_done
+To: Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+References: <20250417092514.2241612-1-sunil.khatri@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20250417092514.2241612-1-sunil.khatri@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,26 +63,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the below warning.
-scheduler/sched_main.c:397: warning: Function parameter or struct member 'result' not described in 'drm_sched_job_done'
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/scheduler/sched_main.c | 1 +
- 1 file changed, 1 insertion(+)
+[Added Philipp and Danilo to cc.]
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index bfea608a7106..2b5cf2bdf900 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -390,6 +390,7 @@ static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
- /**
-  * drm_sched_job_done - complete a job
-  * @s_job: pointer to the job which is done
-+ * @result: passed dma fence error
-  *
-  * Finish the job's fence and wake up the worker thread.
-  */
--- 
-2.34.1
+On 17/04/2025 10:25, Sunil Khatri wrote:
+> Fix the below warning.
+> scheduler/sched_main.c:397: warning: Function parameter or struct member 'result' not described in 'drm_sched_job_done'
+> 
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>   drivers/gpu/drm/scheduler/sched_main.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index bfea608a7106..2b5cf2bdf900 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -390,6 +390,7 @@ static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+>   /**
+>    * drm_sched_job_done - complete a job
+>    * @s_job: pointer to the job which is done
+> + * @result: passed dma fence error
+>    *
+>    * Finish the job's fence and wake up the worker thread.
+>    */
+
+s/drm\/schedular:/drm\/sched:/
+
+With that:
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Optionally, "passed dma fence error" could perhaps be improved to say 
+something like "Error code to set on the scheduler fence".
+
+Regards,
+
+Tvrtko
 
