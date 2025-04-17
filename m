@@ -4,81 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A586EC369B2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 07:39:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF3B4C369C7
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 08:28:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BDF410E16B;
-	Thu, 17 Apr 2025 07:39:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5FAC10EA25;
+	Thu, 17 Apr 2025 08:28:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HUxdb1lt";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=haloniitty.fi header.i=@haloniitty.fi header.b="wRZzuKaM";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E85A810E16B
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Apr 2025 07:39:46 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-43cf680d351so9036525e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Apr 2025 00:39:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744875585; x=1745480385; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=UMbddTsOAJfYZzdedQ7ccwYPXjfIK8mQE1jDQD2a3D0=;
- b=HUxdb1ltMawIg305nQ7nKa1jiIlPIvpfBCi/J47lzRmJp6AMsGi1ob+CbYwUovU3My
- FtGP58tfKex2GoimPb9HmAexfPP82rE5FIjwGBiyVOxqQNf+aYFjkOAuyg/RBaDHS1ub
- H4q53TEpu8D1C9tYg5oDZw9Go5AIjr7JeBVSXZMT8AZv8ixgKC2QUuLFARE9usZgisyC
- bInyE0IHJT5C3IUnbUlESbicemiKO3TputhTb4MAxH2DwCCd4c9/ofNZpt/j6W6dlQWp
- oCxtyDtrcRvxBgTzezkS/9gQ4iJOefvRItPn4Wo3c61daRvrp8HvBAQ6Ao5+jnuitmps
- W4wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744875585; x=1745480385;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UMbddTsOAJfYZzdedQ7ccwYPXjfIK8mQE1jDQD2a3D0=;
- b=JpY38bTabgyTPPYgxyKlBqjOWyMGyVfEz68U9NKvYWGb0llfYPU+cG4elbXEtFlUWt
- FX0dHBJ8aLrDKlAJd3JsBFh8bL6vIJme5/+b2zSLwF60fGCx4B4qEMZnGb8Jg8OF1VtN
- GPAtu4oy9jjY1HE64yBJj4YccvmH3UdpGGSHi+jf23+0F2S5aBTmlM4qYEonZ+Rx2pmd
- 26+QT1KNXqnv8nkMVGxe2ocg0OjoyejekaPhNs7cxec8vCDWH5OWQi9CPGouydBX0/P2
- kteBdFBnqtmmAlEz9NOo4HZuJeefyRgLzGVaMIFD5uU7tLcsQe7RqFs7PeVKoy6TycCU
- YPhg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXFBMguG9t/UVxbaYu6ciqsbHSXzqzepIonhZyBUxQ5vFak2NQUeWCX8hEamc1GIfDbkEIfAA/X@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkUWgYMNTh6aagUKySmWZKp6Av5ibtwS6afTVIsmWa9iWzpIXd
- v7xPCdBMfVD5C5suIeNP75NuhSKH3w4zlswtS31d+RBzabi0CWSj
-X-Gm-Gg: ASbGnct4Apl7AmfJtNbdZ+vPRFAEjZxcY4l9kit33XxkBhLGQdlYVUVqv1wBrOxc0OW
- LghqvD8uUSXh79/UI+2hbA2m2OrMT8+oNDt7NuuioW2N7s0N66PBquMgIaZ4lUdSkRFKiqpTbil
- oAD+8Wg9jF3gL5BAwzs+ubpsdLZDeHjU73/ec86KiWanbESiA8XAeTmTEUNcvPyvO2GBORqG0DG
- 6mXsm6jxYb0sNhNVkuugcrB6dx3j53JF1icLCcbIG4VbOreo5k7eQT/pLJIY1vkyguxF8PU7Fr2
- BfXh3eD9e1+wYDsAsh7E1qLngHBK9QfIO8HyOh1aK6ZM9hnNUnoRaAnOAQ8v782cjMHueA==
-X-Google-Smtp-Source: AGHT+IG3aMlHw0Hx1h+ZMHkUFFozJcuG+wj3jnhfpBMAdJCQxdzRKyxZ6wDUljlpqwOAurGSyWRilg==
-X-Received: by 2002:a5d:5f52:0:b0:39c:30f7:a599 with SMTP id
- ffacd0b85a97d-39eea304084mr1302018f8f.18.1744875585302; 
- Thu, 17 Apr 2025 00:39:45 -0700 (PDT)
-Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4405b58d0d9sm42933765e9.31.2025.04.17.00.39.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 00:39:44 -0700 (PDT)
-Message-ID: <1a4990eb-a0cd-43fb-95aa-19dcae93e03c@gmail.com>
-Date: Thu, 17 Apr 2025 09:39:44 +0200
+Received: from whm50.louhi.net (whm50.louhi.net [77.240.19.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0313810E176;
+ Thu, 17 Apr 2025 08:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=haloniitty.fi; s=default; h=Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=EdxL7RR3vaLFxp+eSndToozeUAVvDpIEbuKT+wJsI0E=; b=wRZzuKaM1u6nSuKqklhfzZdSh/
+ m/uNcxGqZ4RDRUpbjVzTif6ZbtGsM+K2vo2GVpxER0X0D71QK09kkvJxgIj4jrOz0WBj1lWA23YsF
+ Mur2FjxwXKQdB9TraYIPqVMTTC6RaV2ejTi0DTqLNnFyGemhcoyzRwk6PrLvEUMDxHbSraiMtwlip
+ u4KlJ/+6KRL+IK4oFj+Ccnv7pvMXLtr+Ul+I1k4FZAlvCA6e7JBG8XJS2kWKU+lvoLutU4WOWT8FX
+ sxGBE2Dyz7FaL2EGGlOIZZrqbu+27WueTD/aFWzhCEjqKFkSZN0wKkpGlq0Q0aGGa6XzQC8eRYFYl
+ d8wVI18w==;
+Received: from [194.136.85.206] (port=37528 helo=eldfell)
+ by whm50.louhi.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.1)
+ (envelope-from <pekka.paalanen@haloniitty.fi>)
+ id 1u5Kc5-000000007EA-1M9Q; Thu, 17 Apr 2025 11:28:49 +0300
+Date: Thu, 17 Apr 2025 11:28:46 +0300
+From: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Daniel Stone <daniel@fooishbar.org>, Simon Ser <contact@emersion.fr>,
+ Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
+ quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
+ sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
+ louis.chauvet@bootlin.com
+Subject: Re: Pipeline vs. no pipeline (Re: [PATCH V8 06/43] drm/colorop: Add
+ 1D Curve subtype)
+Message-ID: <20250417112846.123ff9bd@eldfell>
+In-Reply-To: <a557d929-7bf9-4a52-96fb-ed7a696744c2@amd.com>
+References: <20250326234748.2982010-1-alex.hung@amd.com>
+ <20250326234748.2982010-7-alex.hung@amd.com>
+ <CAPj87rOh=1OuASau+fjL_z+XBs-P=jUiQgjJjWXQZt1FYFC==w@mail.gmail.com>
+ <46R4JuwCeyu56R2FsAN-j6n0Pu5VSeLdju8KUycQ3PF5cVQrlUO3C5SX8CgpRJ-QL5_-XS2ds94pPjhzEl6hOo3iyLl0y_d0Syzinn7BxSY=@emersion.fr>
+ <CAPj87rOpp8CE_kmcJmp69pM5NhxBkLOGp-BKdALX4F8GL5-29Q@mail.gmail.com>
+ <87fd7840-b021-4d3a-9d0b-2724e941c5dc@amd.com>
+ <20250410105343.606bb75c@eldfell>
+ <a557d929-7bf9-4a52-96fb-ed7a696744c2@amd.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] drm/amdgpu: free the evf when the attached bo release
-To: "Liang, Prike" <Prike.Liang@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20250416085029.2278563-1-Prike.Liang@amd.com>
- <20250416085029.2278563-4-Prike.Liang@amd.com>
- <366de5ed-2234-45e6-9c2a-d21e83899b7b@amd.com>
- <DS7PR12MB60059F4F5364FEA720438EB2FBBD2@DS7PR12MB6005.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DS7PR12MB60059F4F5364FEA720438EB2FBBD2@DS7PR12MB6005.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="Sig_/P.oIU0pYWfg5XCiY89Ox5Vt";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - whm50.louhi.net
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - haloniitty.fi
+X-Get-Message-Sender-Via: whm50.louhi.net: authenticated_id:
+ pekka.paalanen@haloniitty.fi
+X-Authenticated-Sender: whm50.louhi.net: pekka.paalanen@haloniitty.fi
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,153 +88,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.04.25 um 16:47 schrieb Liang, Prike:
-> [Public]
->
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Wednesday, April 16, 2025 7:07 PM
->> To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
->> Subject: Re: [PATCH 4/4] drm/amdgpu: free the evf when the attached bo release
->>
->> Am 16.04.25 um 10:50 schrieb Prike Liang:
->>> Free the evf when the attached bo released. The evf still be dependent
->>> on and referred to by the attached bo that is scheduled by the kernel
->>> queue SDMA or gfx after the evf signalled.
->>>
->>> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
->>> ---
->>>  .../drm/amd/amdgpu/amdgpu_eviction_fence.c    | 31 ++++++++++++++++---
->>>  .../drm/amd/amdgpu/amdgpu_eviction_fence.h    |  1 +
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  1 +
->>>  3 files changed, 28 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
->>> index b34225bbd85d..60be1ac5047d 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
->>> @@ -27,6 +27,7 @@
->>>
->>>  #define work_to_evf_mgr(w, name) container_of(w, struct
->>> amdgpu_eviction_fence_mgr, name)  #define evf_mgr_to_fpriv(e)
->>> container_of(e, struct amdgpu_fpriv, evf_mgr)
->>> +#define fence_to_evf(f)  container_of(f, struct
->>> +amdgpu_eviction_fence, base)
->>>
->>>  static const char *
->>>  amdgpu_eviction_fence_get_driver_name(struct dma_fence *fence) @@
->>> -47,7 +48,7 @@ int  amdgpu_eviction_fence_replace_fence(struct
->>> amdgpu_eviction_fence_mgr *evf_mgr,
->>>                                 struct drm_exec *exec)
->>>  {
->>> -   struct amdgpu_eviction_fence *old_ef, *new_ef;
->>> +   struct amdgpu_eviction_fence *new_ef;
->>>     struct drm_gem_object *obj;
->>>     unsigned long index;
->>>     int ret;
->>> @@ -72,7 +73,6 @@ amdgpu_eviction_fence_replace_fence(struct
->>> amdgpu_eviction_fence_mgr *evf_mgr,
->>>
->>>     /* Update the eviction fence now */
->>>     spin_lock(&evf_mgr->ev_fence_lock);
->>> -   old_ef = evf_mgr->ev_fence;
->>>     evf_mgr->ev_fence = new_ef;
->>>     spin_unlock(&evf_mgr->ev_fence_lock);
->>>
->>> @@ -102,9 +102,6 @@ amdgpu_eviction_fence_replace_fence(struct
->> amdgpu_eviction_fence_mgr *evf_mgr,
->>>             }
->>>     }
->>>
->>> -   /* Free old fence */
->>> -   if (old_ef)
->>> -           dma_fence_put(&old_ef->base);
->> That change looks completely incorrect to me, you will now leak the old fence.
-> The eviction fence is attached and shared by all the restored validated VM BOs during UQ restore, and at this placement the eviction fence is only detached from one of the BOs. Using amdgpu_userq_remove_all_eviction_fences() will walk over the resv objects and detach the fence from the resv objs when freeing the BO.
+--Sig_/P.oIU0pYWfg5XCiY89Ox5Vt
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Yeah, but that doesn't justify this change here. See you're completely messing up the fence reference count with that.
+On Tue, 15 Apr 2025 11:29:10 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
->
-> But there's a problem: even though dropping all the evf attached to VM BOs with this patch, the evf still referred to by the SDMA and GFX kernel queue jobs at the case when enabling the kq and uq at the same time. Thoughts?
+> On 2025-04-10 03:53, Pekka Paalanen wrote:
+> > On Tue, 8 Apr 2025 13:30:46 -0400
+> > Harry Wentland <harry.wentland@amd.com> wrote:
+> >  =20
+> >> On 2025-04-08 12:40, Daniel Stone wrote: =20
+> >>> Hi there,
+> >>>
+> >>> On Tue, 1 Apr 2025 at 20:53, Simon Ser <contact@emersion.fr> wrote:  =
+ =20
+> >>>> On Tuesday, April 1st, 2025 at 17:14, Daniel Stone <daniel@fooishbar=
+.org> wrote:   =20
+> >=20
+> > ...
+> >  =20
+> >>>>> 1. Is it guaranteed that, if any plane on a device supports the
+> >>>>> COLOR_PIPELINE property, all planes will support COLOR_PIPELINE?
+> >>>>> (Given the amdgpu cursor-plane discussion, it looks like no, which =
+is
+> >>>>> unfortunate but oh well.)   =20
+> >>>>
+> >>>> I don't think so. (They could all expose a COLOR_PIPELINE with the o=
+nly
+> >>>> choice as the zero bypass pipeline, but that sounds silly.)   =20
+> >>>
+> >>> Works for me: so any planes could not have colour pipelines, and the
+> >>> result would be undefined (well, less defined) colour.   =20
+> >>
+> >> Yes, basically it would be what we have now (without color pipelines).=
+ =20
+> >=20
+> > Hi,
+> >=20
+> > I see Alex wrote:
+> >  =20
+> >> In order to support YUV we'll need to add COLOR_ENCODING and COLOR_RAN=
+GE
+> >> support to the color pipeline. I have sketched these out already but
+> >> don't have it all hooked up yet. This should not hinder adoption of th=
+is
+> >> API for gaming use-cases. =20
+> >=20
+> > Was it considered to be able to lift the full-range RGB restriction
+> > from the color pipelines, eventually leading to the possibility of
+> > scanning out limited-range YCbCr bit-identical, giving userspace access
+> > to the sub-black and super-white ranges for e.g. BT.814 purposes?
+> >  =20
+>=20
+> For AMD HW design and validation assumes that the pipeline is
+> dealing with our internal floating point format and RGB values.
+> Anything beyond that is somewhat undefined. Things might work
+> as one expects but the product was definitely not designed and
+> validated for that usage.
+>=20
+> I assume other HW design makes similar assumptions.
 
-Mhm, the eviction fence is always added as bookmark isn't it? As long as the GFX and SDMA jobs are not for evicting something then they should only depend on fences with usage < bookmark.
+Hi Harry,
 
-Can you dig up when they are added to the dependencies of the job?
+if that's just about minor rounding effects in conversion between
+integer and internal formats, I wouldn't be too worried.
+
+But if the internal format has severe limitations, like cannot
+represent negative values, or smaller than -0.999 or bigger than 1.999
+for example, then that is something userspace needs to know.
+
+> > These questions are pointing in the direction of a bypass
+> > COLOR_PIPELINE being different from no COLOR_PIPELINE. I assume a
+> > bypass pipeline needs to shovel values through unchanged, while
+> > "without color pipelines" would need the old COLOR_ENCODING and
+> > COLOR_RANGE properties.
+> >  =20
+>=20
+> What I take it to mean is that this iteration of COLOR_PIPELINE
+> only allows for RGB pipelines as YCbCr ones are underspecified
+> without COLOR_RANGE and COLOR_ENCODING. For RGB a bypass pipeline
+> should be the same as no COLOR_PIPELINE.
+
+I'm thinking of the future extension of the color pipeline framework.
+I'm concerned that not considering limited range YCbCr might make
+adding support for it later much harder than it needs to be.
+
+Xaver's point about scRGB is a really good one: we don't need YCbCr in
+order to encounter nominal values outside of [0.0, 1.0]. We don't even
+need scRGB, any conversion from a bigger to a small color space can
+produce them and we should understand what to expect when that happens.
+
+> > That reminds me of yet another question: if the framebuffer is limited
+> > range, and it's not converted to full-range at the start of a color
+> > pipeline, how will the sub-black and super-white ranges be represented?
+> > Will they be negative and greater than 1.0 values, respectively? This
+> > would be meaningful for the colorops being defined now, as I assume
+> > people might implicitly limit their thinking to the [0.0, 1.0] range,
+> > or at least exclude negative values.
+> >  =20
+>=20
+> Without COLOR_RANGE there is no way to know whether the input is limited
+> or full.
+>=20
+> Is your question about when we have COLOR_RANGE specified? If that is
+> set to LIMITED then I expect the values to get expanded at the beginning
+> of the pipeline. In that case it's probably a HW or driver implementation
+> detail whether the sub-blacks or super-whites will still be represented
+> (as negative or >1.0 values) or clipped.
+>=20
+> > The 3x4 CTM colorop is not yet explicit on whether it clamps its inputs
+> > or outputs. Should all colorops be explicit about it?
+> >  =20
+>=20
+> Do we expect all HW/drivers to be able to support the same behavior?
+> Is this critical to using the colorop?
+
+It is critical. It does not have to be the same for all hardware and
+drivers, if there is a colorop property or type indicating it. But it
+cannot be a hidden driver/hw implementation detail.
+
 
 Thanks,
-Christian.
+pq
 
-PS: Please stop calling the eviction fence evf.
+--Sig_/P.oIU0pYWfg5XCiY89Ox5Vt
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
->
->>>     return 0;
->>>
->>>  free_err:
->>> @@ -237,6 +234,30 @@ void amdgpu_eviction_fence_detach(struct
->> amdgpu_eviction_fence_mgr *evf_mgr,
->>>     dma_fence_put(stub);
->>>  }
->>>
->>> +void amdgpu_userq_remove_all_eviction_fences(struct amdgpu_bo *bo)
->> Please name that amdgpu_eviction_fence_remove_all().
-> Noted.
->
->> Regards,
->> Christian.
->>
->>> +{
->>> +   struct dma_resv *resv = &bo->tbo.base._resv;
->>> +   struct dma_fence *fence, *stub;
->>> +   struct dma_resv_iter cursor;
->>> +
->>> +   dma_resv_assert_held(resv);
->>> +
->>> +   stub = dma_fence_get_stub();
->>> +   dma_resv_for_each_fence(&cursor, resv,
->> DMA_RESV_USAGE_BOOKKEEP, fence) {
->>> +           struct amdgpu_eviction_fence *ev_fence;
->>> +
->>> +           ev_fence = fence_to_evf(fence);
->>> +           if (!ev_fence || !dma_fence_is_signaled(&ev_fence->base))
->>> +                   continue;
->>> +
->>> +           dma_resv_replace_fences(resv, fence->context, stub,
->>> +                           DMA_RESV_USAGE_BOOKKEEP);
->>> +
->>> +   }
->>> +
->>> +   dma_fence_put(stub);
->>> +}
->>> +
->>>  int amdgpu_eviction_fence_init(struct amdgpu_eviction_fence_mgr
->>> *evf_mgr)  {
->>>     /* This needs to be done one time per open */ diff --git
->>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
->>> index fcd867b7147d..da99ac322a2e 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
->>> @@ -66,4 +66,5 @@ amdgpu_eviction_fence_signal(struct
->>> amdgpu_eviction_fence_mgr *evf_mgr,  int
->>> amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr
->> *evf_mgr,
->>>                                 struct drm_exec *exec);
->>> +void amdgpu_userq_remove_all_eviction_fences(struct amdgpu_bo *bo);
->>>  #endif
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> index 1e73ce30d4d7..f001018a01eb 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> @@ -1392,6 +1392,7 @@ void amdgpu_bo_release_notify(struct
->> ttm_buffer_object *bo)
->>>     amdgpu_vram_mgr_set_cleared(bo->resource);
->>>     dma_resv_add_fence(&bo->base._resv, fence,
->> DMA_RESV_USAGE_KERNEL);
->>>     dma_fence_put(fence);
->>> +   amdgpu_userq_remove_all_eviction_fences(abo);
->>>
->>>  out:
->>>     dma_resv_unlock(&bo->base._resv);
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmgAu74ACgkQI1/ltBGq
+qqfhkBAAlgYfrf0nlQ0YD9StXMhw7CRQk8iI2oyu1fZu3BdiE5HDopASqYn0a9bw
+0SPYABY+AjrstL263gVJLHXgvoUK9p+pLBR7ne8r8oOg2kZemFKyya2pdfzY2/1d
+u4r+iTrNPt4V1g3pt66Ll1glhCMu54DZ7t8ZMV6qPxJmrBYhk3E7Qd4JjiMaNaiA
+Uj+oJr5lzTSDre93GV0QwgGZqfxdCrgbY2C5gUuuMCT8KlDTlu+LMxOwaMEFB2Uq
+Fl2LW8COlgysDno3EcntcdGZMB1yZrz9XHD909RqPb8q3WtT9X8+8eJXnKpglGx5
+tGKjdOTCIpfuctbstmp1nFot/jwpv4IVcpH7v6R7Nx9O3iutjD2AsV1L9K6IBCpI
+nQqk5ZvuSAaQuPyN6N5SDEarPMc7OgC+2Rbc0Z1Tr9i6giql9BcTDFTRK4fjoUTw
+9eLlHowhcX6zO8Xa0eXsGX1PAQuaTqTq5f78WAaZrWs8vpv9E8xh4p89o/ZMbgo3
+4Q1kkyqg33L1ir8Nz7KBLgA/eQ5o1bLjsyD3kuIH+/po4JUodmF6ZoIEpev+5AWb
+pL8YoSC/HKDKy6sOOLuSujmjKoTViKRYVj4m9HDRk+N6T20uNa7nH/uyAU0N0tud
+Lew/56wXms3/Wa8mIn4PWsEzUZfTbtdB7qsMvKmjSDsb7Dg4AJY=
+=Fuum
+-----END PGP SIGNATURE-----
+
+--Sig_/P.oIU0pYWfg5XCiY89Ox5Vt--
