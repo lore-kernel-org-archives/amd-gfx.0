@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1609BC369C7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33FFBC369CA
 	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 09:34:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2075910EA76;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4480010EA78;
 	Thu, 17 Apr 2025 09:34:26 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 271CB10EA74;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 315DD10EA75;
  Thu, 17 Apr 2025 09:34:23 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 53H9YBcr2242527; Thu, 17 Apr 2025 15:04:11 +0530
+ 53H9YBEt2242522; Thu, 17 Apr 2025 15:04:11 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 53H9YBmG2242526;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 53H9YB6A2242521;
  Thu, 17 Apr 2025 15:04:11 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
@@ -25,12 +25,10 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 2/2] drm/radeon: fix the warning for radeon_cs_parser_fini
-Date: Thu, 17 Apr 2025 15:04:09 +0530
-Message-Id: <20250417093409.2242506-2-sunil.khatri@amd.com>
+Subject: [PATCH 1/2] drm/ttm: fix the warning for hit_low and evict_low
+Date: Thu, 17 Apr 2025 15:04:08 +0530
+Message-Id: <20250417093409.2242506-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250417093409.2242506-1-sunil.khatri@amd.com>
-References: <20250417093409.2242506-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -47,26 +45,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the below warning message.
-radeon/radeon_cs.c:418: warning: Excess function parameter 'backoff' description in 'radeon_cs_parser_fini'
+fix the below warning messages:
+ttm/ttm_bo.c:1098: warning: Function parameter or struct member 'hit_low' not described in 'ttm_bo_swapout_walk'
+ttm/ttm_bo.c:1098: warning: Function parameter or struct member 'evict_low' not described in 'ttm_bo_swapout_walk'
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/radeon/radeon_cs.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/ttm/ttm_bo.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
-index 64b26bfeafc9..b8e6202f1d5b 100644
---- a/drivers/gpu/drm/radeon/radeon_cs.c
-+++ b/drivers/gpu/drm/radeon/radeon_cs.c
-@@ -409,7 +409,6 @@ static int cmp_size_smaller_first(void *priv, const struct list_head *a,
-  * radeon_cs_parser_fini() - clean parser states
-  * @parser:	parser structure holding parsing context.
-  * @error:	error number
-- * @backoff:	indicator to backoff the reservation
-  *
-  * If error is set than unvalidate buffer, otherwise just free memory
-  * used by parsing context.
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 95b86003c50d..33fefdcc6323 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -1093,7 +1093,8 @@ struct ttm_bo_swapout_walk {
+ 	struct ttm_lru_walk walk;
+ 	/** @gfp_flags: The gfp flags to use for ttm_tt_swapout() */
+ 	gfp_t gfp_flags;
+-
++	/** @hit_low: flag to mark low */
++	/** @evict_low:  flag for low eviction */
+ 	bool hit_low, evict_low;
+ };
+ 
 -- 
 2.34.1
 
