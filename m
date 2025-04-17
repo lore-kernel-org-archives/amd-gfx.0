@@ -4,34 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C425BC369CB
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 09:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E5A8C369B2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 09:25:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39E3F10EA73;
-	Thu, 17 Apr 2025 09:14:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3C7010E1B1;
+	Thu, 17 Apr 2025 09:25:36 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9F2F10EA68;
- Thu, 17 Apr 2025 09:14:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D28B910E19E;
+ Thu, 17 Apr 2025 09:25:34 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 53H9DxZc2240407; Thu, 17 Apr 2025 14:43:59 +0530
+ 53H9PHJ82241626; Thu, 17 Apr 2025 14:55:17 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 53H9DxiA2240406;
- Thu, 17 Apr 2025 14:43:59 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 53H9PFcS2241625;
+ Thu, 17 Apr 2025 14:55:15 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
  Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v6 2/5] drm/amdgpu: add drm_file reference in userq_mgr
-Date: Thu, 17 Apr 2025 14:43:52 +0530
-Message-Id: <20250417091355.2240384-2-sunil.khatri@amd.com>
+Subject: [PATCH] drm/schedular: fix the warning in drm_sched_job_done
+Date: Thu, 17 Apr 2025 14:55:14 +0530
+Message-Id: <20250417092514.2241612-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250417091355.2240384-1-sunil.khatri@amd.com>
-References: <20250417091355.2240384-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -48,43 +45,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_file will be used in usermode queues code to
-enable better process information in logging and hence
-add drm_file part of the userq_mgr struct.
-
-update the drm_file pointer in userq_mgr for each
-amdgpu_driver_open_kms.
+Fix the below warning.
+scheduler/sched_main.c:397: warning: Function parameter or struct member 'result' not described in 'drm_sched_job_done'
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/scheduler/sched_main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 3d319687c1c9..3de3071d66ee 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1436,6 +1436,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- 	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
- 
-+	fpriv->userq_mgr.file = file_priv;
- 	r = amdgpu_userq_mgr_init(&fpriv->userq_mgr, adev);
- 	if (r)
- 		DRM_WARN("Can't setup usermode queues, use legacy workload submission only\n");
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-index 381b9c6f0573..fe51a45f7ee4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.h
-@@ -77,6 +77,7 @@ struct amdgpu_userq_mgr {
- 	struct amdgpu_device		*adev;
- 	struct delayed_work		resume_work;
- 	struct list_head		list;
-+	struct drm_file			*file;
- };
- 
- struct amdgpu_db_info {
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index bfea608a7106..2b5cf2bdf900 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -390,6 +390,7 @@ static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+ /**
+  * drm_sched_job_done - complete a job
+  * @s_job: pointer to the job which is done
++ * @result: passed dma fence error
+  *
+  * Finish the job's fence and wake up the worker thread.
+  */
 -- 
 2.34.1
 
