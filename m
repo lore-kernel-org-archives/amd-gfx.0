@@ -4,63 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54281C369B2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 08:55:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23DADC369B2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Apr 2025 08:58:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A7210E193;
-	Thu, 17 Apr 2025 08:55:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C532210E10E;
+	Thu, 17 Apr 2025 08:58:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iByu2/Xf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2xsFWpM1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 706DE10E193;
- Thu, 17 Apr 2025 08:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744880138; x=1776416138;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=HY0IJdZ0xUrLxc/f5sk/9tuJaU9s69AQTdtLNO8zLPo=;
- b=iByu2/Xfp64H9NVKEI5EEwANB6wfIjto6Os0PTowU10Rax3dVSsDwVas
- 1+lJQg9InDuujtDFffuu3S4qsEfeKegps5tvUgylQjBbFEkuZWMhPKL7x
- 8USFoxaT9tGx/o8q1J25SXMlayfRQvaqHnwDMRwAAd1+XVCKuiyJO9Ma6
- iVHU4yGa4ffdu/M4JCc6wtSGYmtYqFFZdUkUm5is8SMhlM6xNLToDw7vj
- M2NuF9WxjBgNNGSAmqEYMlFo0MYEeKmL+0c8Ky5y63eSRRMreI18cSvgj
- aq5uz7k8TCXE5ucYfxtV5rKYmrI5tm3rygtniDhyfLnUsuIKib5PS7HDN A==;
-X-CSE-ConnectionGUID: 6PJv+KEETxGnNBwVOIFcnQ==
-X-CSE-MsgGUID: uUKUraUXQGmZki4VtzZJzA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11405"; a="45691687"
-X-IronPort-AV: E=Sophos;i="6.15,218,1739865600"; d="scan'208";a="45691687"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2025 01:55:35 -0700
-X-CSE-ConnectionGUID: MRFAzu9HQV21dmpc4DID/Q==
-X-CSE-MsgGUID: FfP6mRDuQm+XTQKAEhNA5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,218,1739865600"; d="scan'208";a="131284750"
-Received: from dprybysh-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.139])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2025 01:55:30 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Luke Hofstetter <ldhofstetter@gmail.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sunil
- Khatri <sunil.khatri@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Boyuan Zhang <boyuan.zhang@amd.com>, Leo Li <sunpeng.li@amd.com>, Dominik
- Kaszewski <dominik.kaszewski@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Luke
- Hofstetter <ldhofstetter@gmail.com>
-Subject: Re: [PATCH] drm/amd/include: fix kernel-doc formatting in amd_shared.h
-In-Reply-To: <20250416091143.67704-1-ldhofstetter@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250416091143.67704-1-ldhofstetter@gmail.com>
-Date: Thu, 17 Apr 2025 11:55:26 +0300
-Message-ID: <877c3jp3pd.fsf@intel.com>
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2047.outbound.protection.outlook.com [40.107.101.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9D2F10E10E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Apr 2025 08:58:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NwCvlkyBJIHK/rRbQ5J3FStbwMd3Po/7w7UTjsDF5Fu2AQJ/8Di/s6Wze9I7Yy/8eoN7Rnnwig/Hnt6WOhs2JF0KSFeg7rsmQtjpk9BtmJMe6/I4NqMOp9mETqpsNUrm7yCYMjvLfH4ZUBKrsdZptRmOQZxaW71vpMJa+FwwoAgEIGZST5ML/ZWllankIarYzatbU4RjJiYkKgJ9VYVKmQ/L4MEIg1yzuz+rflC1HaCf7TLO3IPz6kuYBDFN9KPhorRXkg2vShfRjOikunAhEkBVDANiV6CzLMlwQNJ6u1eGMVUnNbrrC8CB/Zq52ZFLZ1wc0qE5cTwsvwIxbYJPeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OXdYWYMMO5Vh0US+ZgbwGtbxOPkFrlyr63Ty6IloU7o=;
+ b=sP7w/LNakz1rBFslwrz5g6C9mD61NDKBH80zw1oLWeuYXZREVlH7ppMPw97QUzqIQtsICpymyj3aPLvMVxFGntzpTDC5amXz2NiTtVsrp5ZdOn96twrQv0VmCmSwRxxxrOy4VomEendzy8gn/KkD1dW303FMVRIcaEa5UrlXZFR8BYRsLucX8D+ZqbRmMlU3bVXHdyBICcP+HSgnk18eI5Z9AGKRGK6/hXlg6Yb8XaijeFZKXGk8o8lfn+E/JAnCl7SqxFUpui7AZyIgFkkIsj7B67f+URKMvWTwREuZFEWmo2TO19SlISiVCxmDU/rdui6g9qV1cIXUsU47oOM8jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OXdYWYMMO5Vh0US+ZgbwGtbxOPkFrlyr63Ty6IloU7o=;
+ b=2xsFWpM11ckL2yuyMdEZZiYYEUpo3+V6N2knfUREGAI4GuB2wFT8ZPRoEe7kfs/5eD+lHgJlhxirRMoUotHYaPApXXFyA6TB38Yv7CJabg0YWgON0kIcffwLUoDisvMqrw5M+ATGL5eFA12dneqg4qyopzIIHfHL4kYyJkOymPk=
+Received: from CH5P223CA0020.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::9)
+ by MN0PR12MB6343.namprd12.prod.outlook.com (2603:10b6:208:3c0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.35; Thu, 17 Apr
+ 2025 08:58:45 +0000
+Received: from DS2PEPF00003441.namprd04.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::3b) by CH5P223CA0020.outlook.office365.com
+ (2603:10b6:610:1f3::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.22 via Frontend Transport; Thu,
+ 17 Apr 2025 08:58:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Thu, 17 Apr 2025 08:58:45 +0000
+Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Apr
+ 2025 03:58:42 -0500
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Tao Zhou <tao.zhou1@amd.com>
+Subject: [PATCH 2/6] drm/amdgpu: adjust high bits for RAS retired page
+Date: Thu, 17 Apr 2025 16:58:28 +0800
+Message-ID: <20250417085832.36455-2-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250417085832.36455-1-tao.zhou1@amd.com>
+References: <20250417085832.36455-1-tao.zhou1@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|MN0PR12MB6343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5148dcfb-9df1-49e0-4e3b-08dd7d8e0f83
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?G6j+/zt5D23FQlsf34SXBj1ioDHpyby5FIqeBVaooXYg3uU2/LdmxGqdrHon?=
+ =?us-ascii?Q?BitrSvbhAlJVYtBtud+0OSph/1Az4RNsMSFhfXNFEGFcfnQloFz1JJ4t1cep?=
+ =?us-ascii?Q?FnK1Q0HvcyGWQcFdcrcYd2mlsZT3C9XDCjeLd2QIfZM3Qe6ARbf3Zkyf305T?=
+ =?us-ascii?Q?Jc8WAhsLmrMNOVL6CU+s4HMLhhrif1aSTXD15HTj8I2fWUpSwWUtIV9KRg+V?=
+ =?us-ascii?Q?G7eFSMm5+zt4evBcePf1ZplWLrl1Fo2zXfLN5eTeEC3nUNrYpCGQnu4LThf9?=
+ =?us-ascii?Q?AJ9MUpX8g3Ufw9oXqHCv+mrvPcubOneijZ+f/utjq0U2raP1Oyr/UZFxD4UW?=
+ =?us-ascii?Q?3UgPZ3TxjHnwfkka4hr6W1808ks3EcdKY6eXgM4b0kvXV5a2voPAEIhRpy2n?=
+ =?us-ascii?Q?ZVgmEh01WrQW+QuakAKku4J9AvT38zHEjVr4SUgNzn269lme3wty2bHOAfqZ?=
+ =?us-ascii?Q?RB37su1gdHOTG5d3e3HH6shgjxOHMOmStRau5MHCDA7Y0yVCS9KhKEDO3BfY?=
+ =?us-ascii?Q?E90BREFvZMAXRUQJ/7mD/23b8qvCfbFp6AFgzpyYXsTLJw0kt+SVtpOWbfLF?=
+ =?us-ascii?Q?sg5JI6ji0mNI8taW6q2dViN1SCKl2ZmiJFbF2CgbPjPig8FmfTDStuT2J/1S?=
+ =?us-ascii?Q?J6NVn3zKWKuG3rqOfMLK5EJ5axSEvJLaF0AAU2F4V60WF12hThfd/LDO+lL2?=
+ =?us-ascii?Q?LKSPN+dEPoZTJK+GQNO82B57Ijapgq18RucqaidPACosQRWWJiXdbQ3r+kOa?=
+ =?us-ascii?Q?0di25vp8n4YdxQFA7HHatINFTpdnydafawpP1rEm0GZQrPDOX0gGqkyPGcRB?=
+ =?us-ascii?Q?QU8WtP7u5xu2/AfXVgkyMS1jfoSHxnBPr0SIfdS2wLBPMrLthKgGJ1krqKtf?=
+ =?us-ascii?Q?aooPzQ+8g5TL6YSaWqhBZw8MyYbFfEOFBpzV8/VKJuBsDrvc+lVknwmHIRCI?=
+ =?us-ascii?Q?7dZfMduRuywaj8OppxEps37YDG0hki20uTeoizfLUOGZkE+PkNNNAJ5z/EW7?=
+ =?us-ascii?Q?B92qnOWAgNq2WbjeHTkoyL3tMkliIuxogdeZOYQg1/TcczJHEi3oNWFCZLq8?=
+ =?us-ascii?Q?tSgLpiIJSNWXHK60ccVlPwiC6tv52ZuT13v/9xgRloRkvjcRH0ctaASUSSoE?=
+ =?us-ascii?Q?zCrX3Fj3zZ3OlrdUIGJapyfBQT0MrUBKEB+dGjoGbDVMThFp4kQOjRUl54K7?=
+ =?us-ascii?Q?QPVg73oudDyxeQQQsBz9wgbqPJ/yP2dkH33Ass6rmWNXuDnidoQFzfwbQ54+?=
+ =?us-ascii?Q?g94XdUELIgzFOeEUVjp9WBnbk6WzJHQvdUEEaru39TEYvgejuNMWSf7hLOVI?=
+ =?us-ascii?Q?cBTCOJbg9IJvZ4L7COJvMtra1gLv79cmksL/d8ply5qSx1DHAo7/zei9uHq2?=
+ =?us-ascii?Q?YOyJ8WKJocuN+f2Eppg2/EptE1iVwYcvme3MVI+u65bHrjr6D2mwVnHtHTWP?=
+ =?us-ascii?Q?Gj2L2YY76XH3dinro028QomTq7AFTjkjocPaEikvFcBUdkrm1k67Six2f2ZR?=
+ =?us-ascii?Q?kWXgwAKlGXwUNH/0cHHQfdsq/n0KSYxqp2dW?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2025 08:58:45.4632 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5148dcfb-9df1-49e0-4e3b-08dd7d8e0f83
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6343
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,180 +132,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 16 Apr 2025, Luke Hofstetter <ldhofstetter@gmail.com> wrote:
-> when doing make htmldocs, Sphinx complained about in-line documentation
-> in enum DC_DEBUG_MASK, so reformatted documentation to define each
-> member in kernel-doc comment above the enum instead.
+Per UMC address conversion algorithm, the high row bits of UMC MCA
+address are changed when they're converted into normalized address
+on specific ASICs.
 
-Why? What's the error message exactly? I think what you have now is the
-preferred style. If it really doesn't work for enums, kernel-doc should
-be fixed.
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-BR,
-Jani.
-
->
-> Signed-off-by: Luke Hofstetter <ldhofstetter@gmail.com>
-> ---
->  drivers/gpu/drm/amd/include/amd_shared.h | 124 ++++++-----------------
->  1 file changed, 32 insertions(+), 92 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-> index 4c95b885d1d0..7074ec3b467f 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -255,120 +255,60 @@ enum DC_FEATURE_MASK {
->  
->  /**
->   * enum DC_DEBUG_MASK - Bits that are useful for debugging the Display Core IP
-> + * @DC_DISABLE_PIPE_SPLIT: If set, disable pipe-splitting
-> + * @DC_DISABLE_STUTTER: If set, disable memory stutter mode
-> + * @DC_DISABLE_DSC: If set, disable display stream compression
-> + * @DC_DISABLE_CLOCK_GATING: If set, disable clock gating optimizations
-> + * @DC_DISABLE_PSR: If set, disable Panel self refresh v1 and PSR-SU
-> + * @DC_FORCE_SUBVP_MCLK_SWITCH: If set, force mclk switch in subvp, even
-> + *	 							if mclk switch in vblank is possible
-> + * @DC_DISABLE_MPO: If set, disable multi-plane offloading
-> + * @DC_ENABLE_DPIA_TRACE: If set, enable trace logging for DPIA
-> + * @DC_ENABLE_DML2: If set, force usage of DML2, even if the DCN version
-> + *	 				does not default to it.
-> + * @DC_DISABLE_PSR_SU: If set, disable PSR SU
-> + * @DC_DISABLE_REPLAY: If set, disable Panel Replay
-> + * @DC_DISABLE_IPS: If set, disable all Idle Power States, all the time.
-> + *	 				If more than one IPS debug bit is set, the lowest bit takes
-> + *	 				precedence. For example, if DC_FORCE_IPS_ENABLE and
-> + *	 				DC_DISABLE_IPS_DYNAMIC are set, then DC_DISABLE_IPS_DYNAMIC takes
-> + *	 				precedence.
-> + * @DC_DISABLE_IPS_DYNAMIC: If set, disable all IPS, all the time,
-> + *	 						*except* when driver goes into suspend.
-> + * @DC_DISABLE_IPS2_DYNAMIC: If set, disable IPS2 (IPS1 allowed) if
-> + *	 						there is an enabled display. Otherwise, enable all IPS.
-> + * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
-> + * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
-> + *	 					  eDP display from ACPI _DDC method.
-> + * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
-> + * @DC_DISABLE_SUBVP: If set, disable DCN Sub-Viewport feature in amdgpu driver.
-> + * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: If set, disable support for custom brightness curves
-> + * @DC_HDCP_LC_FORCE_FW_ENABLE: If set, use HDCP Locality Check FW
-> + *	 					        path regardless of reported HW capabilities.
-> + * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Check FW
-> + *	                              path failure, retry using legacy SW path.
->   */
->  enum DC_DEBUG_MASK {
-> -	/**
-> -	 * @DC_DISABLE_PIPE_SPLIT: If set, disable pipe-splitting
-> -	 */
->  	DC_DISABLE_PIPE_SPLIT = 0x1,
-> -
-> -	/**
-> -	 * @DC_DISABLE_STUTTER: If set, disable memory stutter mode
-> -	 */
->  	DC_DISABLE_STUTTER = 0x2,
-> -
-> -	/**
-> -	 * @DC_DISABLE_DSC: If set, disable display stream compression
-> -	 */
->  	DC_DISABLE_DSC = 0x4,
-> -
-> -	/**
-> -	 * @DC_DISABLE_CLOCK_GATING: If set, disable clock gating optimizations
-> -	 */
->  	DC_DISABLE_CLOCK_GATING = 0x8,
-> -
-> -	/**
-> -	 * @DC_DISABLE_PSR: If set, disable Panel self refresh v1 and PSR-SU
-> -	 */
->  	DC_DISABLE_PSR = 0x10,
-> -
-> -	/**
-> -	 * @DC_FORCE_SUBVP_MCLK_SWITCH: If set, force mclk switch in subvp, even
-> -	 * if mclk switch in vblank is possible
-> -	 */
->  	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
-> -
-> -	/**
-> -	 * @DC_DISABLE_MPO: If set, disable multi-plane offloading
-> -	 */
->  	DC_DISABLE_MPO = 0x40,
-> -
-> -	/**
-> -	 * @DC_ENABLE_DPIA_TRACE: If set, enable trace logging for DPIA
-> -	 */
->  	DC_ENABLE_DPIA_TRACE = 0x80,
-> -
-> -	/**
-> -	 * @DC_ENABLE_DML2: If set, force usage of DML2, even if the DCN version
-> -	 * does not default to it.
-> -	 */
->  	DC_ENABLE_DML2 = 0x100,
-> -
-> -	/**
-> -	 * @DC_DISABLE_PSR_SU: If set, disable PSR SU
-> -	 */
->  	DC_DISABLE_PSR_SU = 0x200,
-> -
-> -	/**
-> -	 * @DC_DISABLE_REPLAY: If set, disable Panel Replay
-> -	 */
->  	DC_DISABLE_REPLAY = 0x400,
-> -
-> -	/**
-> -	 * @DC_DISABLE_IPS: If set, disable all Idle Power States, all the time.
-> -	 * If more than one IPS debug bit is set, the lowest bit takes
-> -	 * precedence. For example, if DC_FORCE_IPS_ENABLE and
-> -	 * DC_DISABLE_IPS_DYNAMIC are set, then DC_DISABLE_IPS_DYNAMIC takes
-> -	 * precedence.
-> -	 */
->  	DC_DISABLE_IPS = 0x800,
-> -
-> -	/**
-> -	 * @DC_DISABLE_IPS_DYNAMIC: If set, disable all IPS, all the time,
-> -	 * *except* when driver goes into suspend.
-> -	 */
->  	DC_DISABLE_IPS_DYNAMIC = 0x1000,
-> -
-> -	/**
-> -	 * @DC_DISABLE_IPS2_DYNAMIC: If set, disable IPS2 (IPS1 allowed) if
-> -	 * there is an enabled display. Otherwise, enable all IPS.
-> -	 */
->  	DC_DISABLE_IPS2_DYNAMIC = 0x2000,
-> -
-> -	/**
-> -	 * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
-> -	 */
->  	DC_FORCE_IPS_ENABLE = 0x4000,
-> -	/**
-> -	 * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
-> -	 * eDP display from ACPI _DDC method.
-> -	 */
->  	DC_DISABLE_ACPI_EDID = 0x8000,
-> -
-> -	/**
-> -	 * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
-> -	 */
->  	DC_DISABLE_HDMI_CEC = 0x10000,
-> -
-> -	/**
-> -	 * @DC_DISABLE_SUBVP: If set, disable DCN Sub-Viewport feature in amdgpu driver.
-> -	 */
->  	DC_DISABLE_SUBVP = 0x20000,
-> -	/**
-> -	 * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: If set, disable support for custom brightness curves
-> -	 */
->  	DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE = 0x40000,
-> -
-> -	/**
-> -	 * @DC_HDCP_LC_FORCE_FW_ENABLE: If set, use HDCP Locality Check FW
-> -	 * path regardless of reported HW capabilities.
-> -	 */
->  	DC_HDCP_LC_FORCE_FW_ENABLE = 0x80000,
-> -
-> -	/**
-> -	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Check FW
-> -	 * path failure, retry using legacy SW path.
-> -	 */
->  	DC_HDCP_LC_ENABLE_SW_FALLBACK = 0x100000,
->  };
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index da00d6b3b6a3..d715cfde6aec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -180,7 +180,7 @@ static int umc_v12_0_convert_error_address(struct amdgpu_device *adev,
+ 					struct ta_ras_query_address_output *addr_out,
+ 					bool dump_addr)
+ {
+-	uint32_t col, col_lower, row, row_lower, bank;
++	uint32_t col, col_lower, row, row_lower, row_high, bank;
+ 	uint32_t channel_index = 0, umc_inst = 0;
+ 	uint32_t i, loop_bits[UMC_V12_0_RETIRE_LOOP_BITS];
+ 	uint64_t soc_pa, column, err_addr;
+@@ -243,9 +243,18 @@ static int umc_v12_0_convert_error_address(struct amdgpu_device *adev,
+ 	paddr_out->pa.pa = soc_pa;
+ 	/* get column bit 0 and 1 in mca address */
+ 	col_lower = (err_addr >> 1) & 0x3ULL;
+-	/* MA_R13_BIT will be handled later */
++	/* extra row bit will be handled later */
+ 	row_lower = (err_addr >> UMC_V12_0_MA_R0_BIT) & 0x1fffULL;
+ 
++	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0)) {
++		row_high = (soc_pa >> UMC_V12_0_PA_R13_BIT) & 0x3ULL;
++		/* it's 2.25GB in each channel, from MCA address to PA
++		 * [R14 R13] is converted if the two bits value are 0x3,
++		 * get them from PA instead of MCA address.
++		 */
++		row_lower |= (row_high << 13);
++	}
++
+ 	if (!err_data && !dump_addr)
+ 		goto out;
+ 
 -- 
-Jani Nikula, Intel
+2.34.1
+
