@@ -4,74 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 408B1C369CA
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Apr 2025 13:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F9D7C369AB
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Apr 2025 13:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0BA710E204;
-	Fri, 18 Apr 2025 13:25:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5C9C10E20B;
+	Fri, 18 Apr 2025 13:33:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SNW26AgR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oUGWCpeN";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 372CC10E1FA;
- Fri, 18 Apr 2025 13:25:44 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2240ff0bd6eso2703515ad.0; 
- Fri, 18 Apr 2025 06:25:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744982743; x=1745587543; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nyC6qiVT+u6rR7PgNOginiie1BVxcpXDs4+aZTBzC9Y=;
- b=SNW26AgRWPDN7jEjaP2Jfuy4CKhgDCJVlQUoWX37oOnBSnazunYu2WfUZ1dASbpN66
- N5ussMNcTUfWxEqCMbMvSWyfOGkZAaQssfzGRmdexyWSfFFS1egciYRbs2XPSs0ymFH0
- xGtubC49k7r2qNtWqZ6yoBX3kgGlvRsMA2sXx0KoXirOH/FBOYaj9bMOnJxeWYj7UMXF
- FZzQ0C7UmEcMh+p3ggMq4JSlCm2gq6K1WmZ9i/IrshxaMT8w5QjqBHl58y/FSbHqk0f9
- pq0REYBkN5s0xFTVUnBLvE2ElP7n3QXedOFKMdldfQzUj2mAiPSxQ8oG3gwGxqdkjY26
- K53Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744982743; x=1745587543;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nyC6qiVT+u6rR7PgNOginiie1BVxcpXDs4+aZTBzC9Y=;
- b=Qm4QjS5vh4seSeRhkfe2q+JMYcVA2Fb1D5OY6+i4qWPB32DFKQ8LJ4EfthwCCgsH7M
- w+ZYaJSf1vy8abYEhooI6OQIBmdkwdUsS7Nsqh4YLmVvWrnfJo4bguZmkGX/PD5V8WLS
- iv4WzKwLJ7keccHBIfTMa26NylTQMGcxLhOACrmc8fQluDLUf59KYqOAwx1VWRaS+b8b
- VxVWBI6sE+sEJyHjZxTLLjsm1xtUalWssr4p6rC38jkZTbJ4YA+O/QEFHkjqJGiXwNPq
- iK4P1pojTPXC/GGpZdPH0ls8XH2oXYAYQxhdKsjzI/AV8avZiKOEC30bjXcEf8+yshIe
- kdNA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUxA1L3qSSZX82vxxfAr3xElJZ48371etSvejw8yK4JhD4uGClyZuWyHXqBlOTz+PX+mifDZ7yp@lists.freedesktop.org,
- AJvYcCVG+qPisDObSwhgRcsbUpBeQANqnkKpVDr9rmWKmKsrnCV+QwyiPtW/RCAJ8q+H+Tv6uxLjAxlkMoe+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSGvGLPKfsY7URMN1koFEgktNv6alJbNStZnyOzIrXVtIgPC6F
- Bi/Q8nDto8EDIookQIkp8yYpT8+ubwV0FxUuD/xOqCkIupie3aceykMzObDLN+uN3a05/3T9KY4
- TTmHeq7IGWR7zd0P2h1NMhmLFIbU=
-X-Gm-Gg: ASbGncuQWtEBwRRt4dTKAylH1ylB268tOnQbPk8VKrgUed/LoIc2rR2WpTCW+/nKEAy
- Xl+rvA1/8APfMqypFrzO71yeBUmZOqtmwwlU+jvz03dDBnSjFyTZ0CJb22qoLnoL1kG9mxgon/L
- V2eqnxsFmFD6AsYesfX+wQ0g==
-X-Google-Smtp-Source: AGHT+IEkg5l32NGk3QoxdJcXn0CidWWNtFY5WaOURIUpxvd0XNAJikgTjGRg3HBLp/wS28RhXBbDrZYprx9XXbEdsWo=
-X-Received: by 2002:a17:902:fc46:b0:21f:3e2d:7d43 with SMTP id
- d9443c01a7336-22c5361fd79mr16154295ad.13.1744982743399; Fri, 18 Apr 2025
- 06:25:43 -0700 (PDT)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2072.outbound.protection.outlook.com [40.107.236.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D99D110EB9A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Apr 2025 13:33:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vsTOZQJgrt2efg9GJq8ihCWaRqCx/oB2sqIHUDPii8QbDnG5cu793swm6Q7sqQTDCIbywblo2R6LdeHIpxqFKsRZmdf+Koe46ysQZ0GLCQepwe0NC+LwaZ673+gSmt2AmKIoft7Nb9/e3H0Kq64yg+jnmlcoHKr0c5sRA5K09AKYO50kFJM0mJunDwvZpcFjgltflJ01wwdsa5LeSLdEfNEHkHa4khjqm5+zXBGWyHdKKSd/63UIX75voy2MCGid5FYceRoZI/fYDZOIgHbaqi0VTq07kbYQx/S+mc52i8Zx8jhYcEUhwZEGrrNwz6w82+a70pSABZf7f21N6fKkyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JrtIwilBUrYh1q7qHd2E6MRP02bT3pMkWSNtoMjpdEM=;
+ b=G2tK8M3HPVOuR2ZpvFRZeEx7JRQgXFmhLXiqsdOSmFwCOFfKy9zPksfDGMtELlCvrmLhzXq4O49VT8EVJyXkztjzhviimQVnyKj7KFQ+AT0iHwUUT7ZYzhSj469wbMApOFdOv/b2bfmMw9a8/dT7kL+t2vfFEsAcLXG5r31Z/2LcQ7QqoPE9tZ/sZ0ULWWN7rZ31RSCiIXZT50bnxyxo8YiQvjqVSs5t0JNzPWez4OowmFhI28cHIiukdzn/fRF/2zOFmHuXyy50hsK4VQ8k6ikVbzMX7MsuZuaqCWpNGY1wXuNsbKuIRpZ1u+qOGW5kvJp+rhWCOL0bE5qNMTBSUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JrtIwilBUrYh1q7qHd2E6MRP02bT3pMkWSNtoMjpdEM=;
+ b=oUGWCpeNQeE6/9A9uRMD7txJ/Bnw/AvStU1uaYRwML5heSMpKO1IldCmuKAhRZSZXiUrU/WG5/Nt9goggoJHQlvsOHW5S8RaImet6rAu0+ihZqIaWn1lojNOeGno4QjQJmiibLNb2TsqeBa8JT0dFnRdhdgfNDX14EFdYfhUigI=
+Received: from CH0PR03CA0088.namprd03.prod.outlook.com (2603:10b6:610:cc::33)
+ by MN2PR12MB4304.namprd12.prod.outlook.com (2603:10b6:208:1d0::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.25; Fri, 18 Apr
+ 2025 13:33:08 +0000
+Received: from CH1PEPF0000AD77.namprd04.prod.outlook.com
+ (2603:10b6:610:cc:cafe::25) by CH0PR03CA0088.outlook.office365.com
+ (2603:10b6:610:cc::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.18 via Frontend Transport; Fri,
+ 18 Apr 2025 13:33:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD77.mail.protection.outlook.com (10.167.244.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Fri, 18 Apr 2025 13:33:07 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 18 Apr
+ 2025 08:33:05 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: don't remap HDP registers if page size is > 4K
+Date: Fri, 18 Apr 2025 09:32:53 -0400
+Message-ID: <20250418133253.2453955-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-References: <20250418002117.130612-1-linux@treblig.org>
- <20250418002117.130612-5-linux@treblig.org>
-In-Reply-To: <20250418002117.130612-5-linux@treblig.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 18 Apr 2025 09:25:31 -0400
-X-Gm-Features: ATxdqUFslTsaOCqwA3wvaxSTpSZ6IN0_tcLcXqKz9RibnGUgvP0nVR7xs914qb8
-Message-ID: <CADnq5_PWLjCAfPx_2K+r=tuwf=+dN4iP1-OnyfP8mgXsR1Ting@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amd/display: Remove unused *vbios_smu_set_dprefclk
-To: linux@treblig.org
-Cc: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com, 
- siqueira@igalia.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD77:EE_|MN2PR12MB4304:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8247b99-5ff2-49d4-1992-08dd7e7d8de3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wDKfC6hOFyiwEPihsAFThkxv/CULYztGZAnlmqTWnKQOisyXVa0qz4k7QN43?=
+ =?us-ascii?Q?GH5FUh81DSKUz4rl5HYrBsGvidXLLkOUcGZCWFBFPTm8PYyao2C48m8IC3GZ?=
+ =?us-ascii?Q?GQZRaUNbaI+PoIa4OG2WUlu9UqAn4XRLnjNbjMQi37xcNa/pktoHIAcerhuA?=
+ =?us-ascii?Q?wN1DdM2gUNW4VzJ65taSaRmVbk/INDvToJ7KGZOg8/ulM66k2GaeWaOWniSE?=
+ =?us-ascii?Q?znb2+Csqizpb6Y3O1/iPrgmwOKEnXR7Aejya+24PzkjaRkLCR+tTWvqyH87V?=
+ =?us-ascii?Q?SdUSXaT8u1ZLyqBYLDIeTAmvqLqUGfl63ihaESG8OmrmyemQdLP5JSeAefyK?=
+ =?us-ascii?Q?IS+dFfOH0N2Z6yPuH5L5PCVwKA8ERZNWlLw4j2ad8mgxllG6nhZxN0DSDVYP?=
+ =?us-ascii?Q?uHx66aSZsmWGDnyi/hDO6ew4EtiLrColQv5C54BtUjy5eI8GKF4lXUMZ84JZ?=
+ =?us-ascii?Q?LwoWmi5zu/gMQO63y2wKsAtmtgSdhJDhnY4H6MjM2qJJDFxXOPe/fZgJ1iGY?=
+ =?us-ascii?Q?m8IRCTCReI5F90wOd00HxRWnCzWH3iUWOCD6cqpiX1DGMHrih1RfMpGdHtiQ?=
+ =?us-ascii?Q?NUYSXRFTqsDsi5SQQmowKXBd/qdMtg3tPNAi7JbIBtR8s+N3cRSkBV95hMdf?=
+ =?us-ascii?Q?KogBZeRNhAQIv91Yz3JrJvfC/gqj96l7ftuqD2P1rymLNtU9rVwcRT+fdPd/?=
+ =?us-ascii?Q?TBdIzKWSa29tk8IgUDj0q+LOWZX6WWkq92lWrqCzkIN7dcvOkcFfcINd8N5Z?=
+ =?us-ascii?Q?tuTaUsGRBrLCQWtLwCEHlxRw/6RVni1Tb1sV2AA2l1330ICMsFuAuidDjle1?=
+ =?us-ascii?Q?cA0OD+zxEPU4apYgE6sVMKu6jcs1FsLtAbVfdkE3AyCgUw4euWifR1h92PS/?=
+ =?us-ascii?Q?hrSNj+n/zbCOy46NJSwe28WqoCV6u4aAYia2rWZsm5o+vU8dQEQpSIYQhPqg?=
+ =?us-ascii?Q?umbWBLouXLUD4lclcJKbPFGTG10xiwEyE83LXKnHlZvUXXSNgaLtqC1L1IOb?=
+ =?us-ascii?Q?caRX2+0W4Ci/OpReju8qVIeRqc9g82+ToIFdD3EA/luXbWctlJ+pKZ+YqkHq?=
+ =?us-ascii?Q?OQcKYCwcQRV77TzrJf4P3vguFTToQFAI54tICgPBZ7WS3o2042p1e45MwnJt?=
+ =?us-ascii?Q?gCBmAXyxpEy561j9zCzHS0i2znl43OBvIrE/KjMpcYBCA4K8fR4x8Eh849wW?=
+ =?us-ascii?Q?lqtgtZhW0HgxacwzSkyDWagSqQiRIIfzcAk06/uwAhO0MT0du9u2p3HQG9Wq?=
+ =?us-ascii?Q?5AiTWHfW+fgunwtyTWmvcPAEwsqXZDBDt0E7ZhEMtGucN4vqTAtR8j+tSDTM?=
+ =?us-ascii?Q?dvUorB925T2BVz+dIwLDi6J14HZ5Ha7njoL8p+NaGt9y0P6nOsnp9yH6gtYV?=
+ =?us-ascii?Q?xWyoRpYW0mAM4TIpf2GJpbO64e6rK2PMHparCdU1iuTrEjWtV2tk7xANWro+?=
+ =?us-ascii?Q?ecTTkpqAZoC3b1yo7KtLmIG4F/+HiYLLJ3IURZNpOtX03Vbt2Afv1KNH0niZ?=
+ =?us-ascii?Q?WC6dmIujXmBvYOHUGe6B7syoEBS1HshISqI4?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2025 13:33:07.2335 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8247b99-5ff2-49d4-1992-08dd7e7d8de3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD77.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4304
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,121 +130,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied patches 1, 3, 4.  Thanks!
+We remap the HDP registers to an open part of the MMIO
+aperture if page size is <= 4K, but if it's > 4k, we remap
+the HDP registers back to themselves.  Rather than doing
+that, just skip the remap.
 
-On Thu, Apr 17, 2025 at 8:28=E2=80=AFPM <linux@treblig.org> wrote:
->
-> From: "Dr. David Alan Gilbert" <linux@treblig.org>
->
-> rn_vbios_smu_set_dprefclk() was added in 2019 by
-> commit 4edb6fc91878 ("drm/amd/display: Add Renoir clock manager")
-> rv1_vbios_smu_set_dprefclk() was also added in 2019 by
-> commit dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
->
-> neither have been used.
->
-> Remove them.
->
-> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
-> ---
->  .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c       | 14 --------------
->  .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.h       |  1 -
->  .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c        | 14 --------------
->  .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h        |  1 -
->  4 files changed, 30 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbi=
-os_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_s=
-mu.c
-> index 19897fa52e7e..d82a52319088 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.=
-c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.=
-c
-> @@ -142,17 +142,3 @@ int rv1_vbios_smu_set_dispclk(struct clk_mgr_interna=
-l *clk_mgr, int requested_di
->
->         return actual_dispclk_set_mhz * 1000;
->  }
-> -
-> -int rv1_vbios_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr)
-> -{
-> -       int actual_dprefclk_set_mhz =3D -1;
-> -
-> -       actual_dprefclk_set_mhz =3D rv1_vbios_smu_send_msg_with_param(
-> -                       clk_mgr,
-> -                       VBIOSSMC_MSG_SetDprefclkFreq,
-> -                       khz_to_mhz_ceil(clk_mgr->base.dprefclk_khz));
-> -
-> -       /* TODO: add code for programing DP DTO, currently this is down b=
-y command table */
-> -
-> -       return actual_dprefclk_set_mhz * 1000;
-> -}
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbi=
-os_smu.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_s=
-mu.h
-> index 083cb3158859..81d7c912549c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.=
-h
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.=
-h
-> @@ -27,6 +27,5 @@
->  #define DAL_DC_DCN10_RV1_CLK_MGR_VBIOS_SMU_H_
->
->  int rv1_vbios_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int requ=
-ested_dispclk_khz);
-> -int rv1_vbios_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr);
->
->  #endif /* DAL_DC_DCN10_RV1_CLK_MGR_VBIOS_SMU_H_ */
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbio=
-s_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu=
-.c
-> index 23b390245b5d..5a633333dbb5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c
-> @@ -164,20 +164,6 @@ int rn_vbios_smu_set_dispclk(struct clk_mgr_internal=
- *clk_mgr, int requested_dis
->         return actual_dispclk_set_mhz * 1000;
->  }
->
-> -int rn_vbios_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr)
-> -{
-> -       int actual_dprefclk_set_mhz =3D -1;
-> -
-> -       actual_dprefclk_set_mhz =3D rn_vbios_smu_send_msg_with_param(
-> -                       clk_mgr,
-> -                       VBIOSSMC_MSG_SetDprefclkFreq,
-> -                       khz_to_mhz_ceil(clk_mgr->base.dprefclk_khz));
-> -
-> -       /* TODO: add code for programing DP DTO, currently this is down b=
-y command table */
-> -
-> -       return actual_dprefclk_set_mhz * 1000;
-> -}
-> -
->  int rn_vbios_smu_set_hard_min_dcfclk(struct clk_mgr_internal *clk_mgr, i=
-nt requested_dcfclk_khz)
->  {
->         int actual_dcfclk_set_mhz =3D -1;
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbio=
-s_smu.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu=
-.h
-> index 1ce19d875358..f76fad87f0e1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
-> @@ -30,7 +30,6 @@ enum dcn_pwr_state;
->
->  int rn_vbios_smu_get_smu_version(struct clk_mgr_internal *clk_mgr);
->  int rn_vbios_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int reque=
-sted_dispclk_khz);
-> -int rn_vbios_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr);
->  int rn_vbios_smu_set_hard_min_dcfclk(struct clk_mgr_internal *clk_mgr, i=
-nt requested_dcfclk_khz);
->  int rn_vbios_smu_set_min_deep_sleep_dcfclk(struct clk_mgr_internal *clk_=
-mgr, int requested_min_ds_dcfclk_khz);
->  void rn_vbios_smu_set_phyclk(struct clk_mgr_internal *clk_mgr, int reque=
-sted_phyclk_khz);
-> --
-> 2.49.0
->
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nv.c    | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/soc24.c | 2 +-
+ 4 files changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 50e77d9b30afa..890f846b80607 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -1002,7 +1002,8 @@ static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
+ 	 * for the purpose of expose those registers
+ 	 * to process space
+ 	 */
+-	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
++	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev) &&
++	    (PAGE_SIZE <= 4096))
+ 		adev->nbio.funcs->remap_hdp_registers(adev);
+ 	/* enable the doorbell aperture */
+ 	adev->nbio.funcs->enable_doorbell_aperture(adev, true);
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index c457be3a3c56f..ef24201ffad52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -1297,7 +1297,8 @@ static int soc15_common_hw_init(struct amdgpu_ip_block *ip_block)
+ 	 * for the purpose of expose those registers
+ 	 * to process space
+ 	 */
+-	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
++	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev) &&
++	    (PAGE_SIZE <= 4096))
+ 		adev->nbio.funcs->remap_hdp_registers(adev);
+ 
+ 	/* enable the doorbell aperture */
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index ad36c96478a82..23d4117287702 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -877,7 +877,8 @@ static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
+ 	 * for the purpose of expose those registers
+ 	 * to process space
+ 	 */
+-	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
++	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev) &&
++	    (PAGE_SIZE <= 4096))
+ 		adev->nbio.funcs->remap_hdp_registers(adev);
+ 	/* enable the doorbell aperture */
+ 	adev->nbio.funcs->enable_doorbell_aperture(adev, true);
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index 972b449ab89fa..71ba1fa8a8899 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -486,7 +486,7 @@ static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block)
+ 	 * for the purpose of expose those registers
+ 	 * to process space
+ 	 */
+-	if (adev->nbio.funcs->remap_hdp_registers)
++	if (adev->nbio.funcs->remap_hdp_registers && (PAGE_SIZE <= 4096))
+ 		adev->nbio.funcs->remap_hdp_registers(adev);
+ 
+ 	if (adev->df.funcs->hw_init)
+-- 
+2.49.0
+
