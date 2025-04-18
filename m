@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B1B0C369C9
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Apr 2025 08:14:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CC34C369AB
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Apr 2025 08:14:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2D410E17D;
-	Fri, 18 Apr 2025 08:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C15E510EB86;
+	Fri, 18 Apr 2025 08:14:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="Cfl1PH6V";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="ogchH08G";
 	dkim-atps=neutral
 Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B78F910E1E9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94E7F10E0B7;
  Fri, 18 Apr 2025 00:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
  ; s=bytemarkmx;
  h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=BecQJkrNlQ3akqTLtmWZkyczre6xMs/aCGibLOPB01w=; b=Cfl1PH6VxrumXzxO
- FIJ7mklfUDbioGEtV/c74t5Kh0ODglK+4khCKmzxcSRuQgejcLuwvef8X8JbH+UOEbMr5ETgBxATX
- kXYwbx4QiNiFtIXbFa/TOAFxT7Z9EiYeYvaC8ru/4vyMPof/wHsB1+Ha8VXow+Fv27I6areuggdrw
- tsYYmnA6tTnPEJUHG0lfzaYf9QVIMumpQjqz5ampkkbcDVI/qJoY22Y4PV6G59sTY0Ha7jlufCRhw
- RI6zwZi6KqP2/Nt6LvRQmh4fcuz/Hkb/tQarPZvxdjdhAhzi7x5H9TaqPN5bm1XSCiTuTu79nJ98Q
- 26rQzRn9klPVN058HQ==;
+ :Subject; bh=n5RAqA3OL5SQ+Vv2m3AsajeMYO7tR1OhXLpj2nJvWfQ=; b=ogchH08GG7S6jGFs
+ zZSPUt012HvnLilKm0IUmbyVAHlKlq/QbrIj6J+RV9iTovW/Ujkz6xkgbt3RsZzY7JzPzbVKw1LLZ
+ zBGOxVZRuYfRok0OMg6qe7BysWO1K1JuY+hAdrHCyyiQfYcUOUMOVOnG6Mdq4C0jW0GYpQ84Ovbgj
+ i3MoWUM+/vcGu/l09CiGMf2D3pN1I1zOHNxdaZoXCjZoroOIQA1UpCw/DLKM0yfpt8NYcSEAQ98hj
+ cb9hoAJ7MdDlqfB41n14xDEwmwgdsW/Hy9HRyYjOZ5hkAjnQ1vrrBO0g/UIHZlwf8acaeoC6E+Gpg
+ ucVqeS6KKdO4QgM/dQ==;
 Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
  by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1u5ZTs-00CPl8-0H;
- Fri, 18 Apr 2025 00:21:20 +0000
+ (envelope-from <linux@treblig.org>) id 1u5ZTr-00CPl8-02;
+ Fri, 18 Apr 2025 00:21:19 +0000
 From: linux@treblig.org
 To: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  siqueira@igalia.com, christian.koenig@amd.com
 Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 3/4] drm/radeon: Remove unused radeon_fence_wait_any
-Date: Fri, 18 Apr 2025 01:21:16 +0100
-Message-ID: <20250418002117.130612-4-linux@treblig.org>
+Subject: [PATCH 1/4] drm/radeon/radeon_audio: Remove unused
+ r600_hdmi_audio_workaround
+Date: Fri, 18 Apr 2025 01:21:14 +0100
+Message-ID: <20250418002117.130612-2-linux@treblig.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250418002117.130612-1-linux@treblig.org>
 References: <20250418002117.130612-1-linux@treblig.org>
@@ -59,85 +60,63 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-radeon_fence_wait_any() last use was removed in 2023's
-commit 254986e324ad ("drm/radeon: Use the drm suballocation manager
-implementation.")
+The last use of r600_hdmi_audio_workaround() was removed by 2014's
+commit 6e72376dcc66 ("radeon/audio: consolidate audio_mode_set()
+functions")
 
 Remove it.
 
 Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
- drivers/gpu/drm/radeon/radeon.h       |  3 --
- drivers/gpu/drm/radeon/radeon_fence.c | 42 ---------------------------
- 2 files changed, 45 deletions(-)
+ drivers/gpu/drm/radeon/r600_hdmi.c   | 22 ----------------------
+ drivers/gpu/drm/radeon/radeon_asic.h |  1 -
+ 2 files changed, 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
-index 58111fdf520d..53f6378b6db6 100644
---- a/drivers/gpu/drm/radeon/radeon.h
-+++ b/drivers/gpu/drm/radeon/radeon.h
-@@ -394,9 +394,6 @@ long radeon_fence_wait_timeout(struct radeon_fence *fence, bool interruptible, l
- int radeon_fence_wait(struct radeon_fence *fence, bool interruptible);
- int radeon_fence_wait_next(struct radeon_device *rdev, int ring);
- int radeon_fence_wait_empty(struct radeon_device *rdev, int ring);
--int radeon_fence_wait_any(struct radeon_device *rdev,
--			  struct radeon_fence **fences,
--			  bool intr);
- struct radeon_fence *radeon_fence_ref(struct radeon_fence *fence);
- void radeon_fence_unref(struct radeon_fence **fence);
- unsigned radeon_fence_count_emitted(struct radeon_device *rdev, int ring);
-diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
-index 8ff4f18b51a9..5b5b54e876d4 100644
---- a/drivers/gpu/drm/radeon/radeon_fence.c
-+++ b/drivers/gpu/drm/radeon/radeon_fence.c
-@@ -574,48 +574,6 @@ int radeon_fence_wait(struct radeon_fence *fence, bool intr)
- 		return r;
+diff --git a/drivers/gpu/drm/radeon/r600_hdmi.c b/drivers/gpu/drm/radeon/r600_hdmi.c
+index 661f374f5f27..9758f3a9df75 100644
+--- a/drivers/gpu/drm/radeon/r600_hdmi.c
++++ b/drivers/gpu/drm/radeon/r600_hdmi.c
+@@ -290,28 +290,6 @@ int r600_hdmi_buffer_status_changed(struct drm_encoder *encoder)
+ 	return result;
  }
  
--/**
-- * radeon_fence_wait_any - wait for a fence to signal on any ring
-- *
-- * @rdev: radeon device pointer
-- * @fences: radeon fence object(s)
-- * @intr: use interruptable sleep
-- *
-- * Wait for any requested fence to signal (all asics).  Fence
-- * array is indexed by ring id.  @intr selects whether to use
-- * interruptable (true) or non-interruptable (false) sleep when
-- * waiting for the fences. Used by the suballocator.
-- * Returns 0 if any fence has passed, error for all other cases.
+-/*
+- * write the audio workaround status to the hardware
 - */
--int radeon_fence_wait_any(struct radeon_device *rdev,
--			  struct radeon_fence **fences,
--			  bool intr)
+-void r600_hdmi_audio_workaround(struct drm_encoder *encoder)
 -{
--	uint64_t seq[RADEON_NUM_RINGS];
--	unsigned int i, num_rings = 0;
--	long r;
+-	struct drm_device *dev = encoder->dev;
+-	struct radeon_device *rdev = dev->dev_private;
+-	struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
+-	struct radeon_encoder_atom_dig *dig = radeon_encoder->enc_priv;
+-	uint32_t offset = dig->afmt->offset;
+-	bool hdmi_audio_workaround = false; /* FIXME */
+-	u32 value;
 -
--	for (i = 0; i < RADEON_NUM_RINGS; ++i) {
--		seq[i] = 0;
--
--		if (!fences[i])
--			continue;
--
--		seq[i] = fences[i]->seq;
--		++num_rings;
--	}
--
--	/* nothing to wait for ? */
--	if (num_rings == 0)
--		return -ENOENT;
--
--	r = radeon_fence_wait_seq_timeout(rdev, seq, intr, MAX_SCHEDULE_TIMEOUT);
--	if (r < 0)
--		return r;
--
--	return 0;
+-	if (!hdmi_audio_workaround ||
+-	    r600_hdmi_is_audio_buffer_filled(encoder))
+-		value = 0; /* disable workaround */
+-	else
+-		value = HDMI0_AUDIO_TEST_EN; /* enable workaround */
+-	WREG32_P(HDMI0_AUDIO_PACKET_CONTROL + offset,
+-		 value, ~HDMI0_AUDIO_TEST_EN);
 -}
 -
- /**
-  * radeon_fence_wait_next - wait for the next fence to signal
-  *
+ void r600_hdmi_audio_set_dto(struct radeon_device *rdev,
+ 			     struct radeon_crtc *crtc, unsigned int clock)
+ {
+diff --git a/drivers/gpu/drm/radeon/radeon_asic.h b/drivers/gpu/drm/radeon/radeon_asic.h
+index 8f5e07834fcc..9e697f10f9ca 100644
+--- a/drivers/gpu/drm/radeon/radeon_asic.h
++++ b/drivers/gpu/drm/radeon/radeon_asic.h
+@@ -401,7 +401,6 @@ void r600_audio_set_dto(struct drm_encoder *encoder, u32 clock);
+ void r600_hdmi_update_avi_infoframe(struct drm_encoder *encoder, void *buffer,
+ 				    size_t size);
+ void r600_hdmi_update_ACR(struct drm_encoder *encoder, uint32_t clock);
+-void r600_hdmi_audio_workaround(struct drm_encoder *encoder);
+ int r600_hdmi_buffer_status_changed(struct drm_encoder *encoder);
+ void r600_hdmi_update_audio_settings(struct drm_encoder *encoder);
+ u32 r600_get_xclk(struct radeon_device *rdev);
 -- 
 2.49.0
 
