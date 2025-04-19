@@ -4,77 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39ABCC369AB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA4DDC369D5
 	for <amd-gfx@archiver.kernel.org>; Mon, 21 Apr 2025 09:34:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4E788A3E;
-	Mon, 21 Apr 2025 09:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6053610E24E;
+	Mon, 21 Apr 2025 09:34:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mw8woiHW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZjC1vZYX";
 	dkim-atps=neutral
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E11410E127;
- Sat, 19 Apr 2025 17:47:27 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-72ec926e828so797848a34.0; 
- Sat, 19 Apr 2025 10:47:27 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18E6410E067;
+ Sat, 19 Apr 2025 12:40:14 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-39c1efc4577so1533350f8f.0; 
+ Sat, 19 Apr 2025 05:40:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745084846; x=1745689646; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=l9p/9GPno78DZ3qtYAcJxFBAogUfeTY9SwXa+83U50I=;
- b=mw8woiHWQHz95USCEEf8SjQvbBJUXhnf7y0gVuNut9sh4PNqFfEVkMJhbiXpd2R1Vb
- HXAaxrT7v3uqwRGX0zyztOwnIJKlo54HjDB7LjijXXfxd9y/C1jFpeO4UaeCU2RQPiDW
- AxFw0PFa5+V4uEcpCf7H3EjubiU0qz5yIpdwxuH0xCqBJESBE1CuliOUV+yE+8kvLvf/
- SDPyGIu2UxwH83yKW0TPc42MtA8dPoyv/4dDq9ok8Q0rZy6F+njz0NH6k4YGyHWVqL3Y
- wOGN6xH42HnIbScvh/V4NHC+RKZH8AYPRfV6BmjiSi8Rhs8RNiyRC/WeiUKqxhTvqpWT
- 0BNw==
+ d=gmail.com; s=20230601; t=1745066413; x=1745671213; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=NFkUoIalnF11ld77bLxt7fgP6SNTAES2GfYghBL6rQU=;
+ b=ZjC1vZYXKvqnbb5rE1fLswO+PZjToGL73SCKrFPXWa9uivdagfa898rD7RwknQQItx
+ 1vtF3tc9grEoJBRLDAtSs+Lxg2BpVZvf+2scnFJSYZvj5H31IzqawukmHRB5vB70DNp2
+ RGxqfQjy0clAioq9Xfl/73044oFskNj4wdG8MexZ+TzJ3a5ZeOJldMDI4Ocjaf2PVyjk
+ 2vq8GhLzGHpwSApfYeoLodlji0X5ol0FB4vt1xEXeCSEqLlPggWYBstmly7+z6h6tFOd
+ 2+4bv9yRf+hJDYC7/0Tv//o86ObE7nCa3uchN2y/KhBksqsjib4aPbJiaZcSLVgIbeOo
+ xEAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745084846; x=1745689646;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=l9p/9GPno78DZ3qtYAcJxFBAogUfeTY9SwXa+83U50I=;
- b=SqiYm53IXbIEw45PGXCCxIb3+6onYE2S6I/y5vZaPoUjJzy5saqLLw5rXx7DV5ULrc
- ts8WEojGKMiCk9oXpz2BHRHz5ezoAf379POCqJDvPsyL3sb8sgsLFSX/M45OuaO+bxi2
- lm2OGgJS2l1BA5J38fDYHJ3LBT8cUXbBycrZMYfr53/0VlPsJsDj0QCVpL+8jHwymfe/
- BDt6KN4YUEh+5Hp5/HvYzRLnR+PR4Hy0slHLg38w/A/s1uITJv4ZM+1yye1Jpzhmix+p
- F87Ky8/s/WzxLpmlnTaZ5+m/4DFwsw9TXUtIJ5gM6+BE72BriXRAmEJ6aeFZqzaEran3
- Kegg==
+ d=1e100.net; s=20230601; t=1745066413; x=1745671213;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=NFkUoIalnF11ld77bLxt7fgP6SNTAES2GfYghBL6rQU=;
+ b=Hb/vVv+thuGNLdk0MbjjKDnWd5QapL6U5FRGlsm5nHGSwLHgYnhU+OgV+t4X3iRg5S
+ edixexxfSvLeCwIpy0H/jnffIpAp3rB510QJ2FVkQJIN/6eTpcDgjviDEhSyBC03Glay
+ 58tgIHevl3XeKMrOGArJHk0ir6gCISzoF2xEG2RnVoUCQ/T7moMV8TP3z5aDn50oK5su
+ +lYdIE1Q9i5dvjsZr1GaqVTKTAsQoQIXx/EZjS2IdxCpEl5EHM858iT4y3Mpy+/7Z5tF
+ 37EWhxv/UrlEFnEAjlQGPJp/y+juNJjRzW0+TbY/N/fETpTrvT75tjlh4zfCeww43HVc
+ Bmdg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUvSEDzHYyq/RW++6BEFS47xGguh00nBJTcEB4zSemCjMdr3kzvKGJMZAEG7/1SHZPZYjwY66Hgqpio@lists.freedesktop.org,
- AJvYcCWRA/eu5rcY1vTsHaHJ6m0mB/uJ9tCE+xc8QePv5WcMRake2vOc5DObPHFqkb/AVzX9pOGVlazV@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyqhIFFrJEvvl0R3/Wz/hUIBSQC3RVmqVaC+5pSfWkYQyF/eXfX
- AFz15ckmU71+OHJTQeKxSGipi5pZqBILLTV3cvglDvYzbFrM0I0Q
-X-Gm-Gg: ASbGncsWshwLuyNYfQT+t0IKUCxcNqAxW72J4uaQnRvApwZT/Fxa2fgSnDg+3Tkxgm+
- i2JZBaOtAKPZwUji8mYa09GKP8CZ/NB152TMKZScK6GKS+5vVRNpCf5/oScD3A5tKN2U82SIy8V
- aFirSBdmf1/MXqUccoQ+92geFlqIV19BRnFOCe5vfuSNLibPQLXuOsf66BEE3XOyPat2dA7hAzZ
- vVIxl+UsozWTS37E8+ZTOMdmh7ZZn/QFpx4MgB3iZ//VoS4a2cFZKQY+vHj036NYlrHT0HUiS9e
- 5mATvwMfakOp8p0I1fFj4OP3FaD1bPvZiMEcu1/WNf6XpVSbb4PijvJfC8xsO8tq3w==
-X-Google-Smtp-Source: AGHT+IH7fN/A8iC5n1j7ocQhspXTJ6+h7siteXgS4p4hgqZk5bAH4bdltKLh7cf5EfIBHx46fSjAIg==
-X-Received: by 2002:a05:6830:3696:b0:72a:327:eed3 with SMTP id
- 46e09a7af769-730061fb6d7mr4115147a34.5.1745084846232; 
- Sat, 19 Apr 2025 10:47:26 -0700 (PDT)
-Received: from c65201v1.fyre.ibm.com ([170.225.223.22])
+ AJvYcCU4wPRIPq2vWLta9SgxL7j9yVPV7IQD2u95EHXw7nFb6VhB4kEnVNsfXs/9b0DhlTVjItDgkxWN@lists.freedesktop.org,
+ AJvYcCUoGd3hkgCwIhpRZFCacLr2dDUfyj5dxKWjC9ZpDzXsJb5vH0wxViQ+EbyUc45S/KfFVXN2izEqzkzH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxYdGTW5bWGtnInAymr2uhM/yRfqi7XDTzoa24pSoNkbnT65Nht
+ mJ8Rt49gc46pVgbyFZn+ppW6ovwpuxN8GZmwTOxnoLxBDf0rqt1v
+X-Gm-Gg: ASbGncuqA54lMI3X22WqlPC/JggbokzQvF1DNyid9WC0CDuzNwSRVh6Tq409156/8xb
+ ZwuyQmqhKZz/qQMqFDz9o29ziBsiVJ2FEPph6uC1DsBXv2kYiiqv5xpbYTHoOcVs6Ot3sp9snlY
+ 4tMmdj7XcoR/jTdaFQrTCwnAfzLJWsnbb6BqixA1C81BsYYefpLwpB4eaasQjwFx/D/Ej3+kVFM
+ QnKiTu5ttdQEMdAJe3iC5JchN0kiQ+DvMaKUpFTL0vDKL2Cud9zjb9a7IioTbIyngJW/4s7fJzq
+ pngDO2m4bVTo7BkGqhuqKIMmBBOfb9+F8Y08ZEtiw/3sSKnUi4U=
+X-Google-Smtp-Source: AGHT+IFboMiS1OBXG31n80CyHp6JDhmg/N+nheK2n0bl8jjO9adfQrgtg8IV8w1jkzVYvN4ECODmcQ==
+X-Received: by 2002:a05:6000:4606:b0:39e:e698:b661 with SMTP id
+ ffacd0b85a97d-39efba80464mr4001990f8f.32.1745066412769; 
+ Sat, 19 Apr 2025 05:40:12 -0700 (PDT)
+Received: from localhost.localdomain ([46.10.223.24])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-730047af85bsm773268a34.19.2025.04.19.10.47.24
+ ffacd0b85a97d-39efa4a4f06sm5808353f8f.92.2025.04.19.05.40.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Apr 2025 10:47:25 -0700 (PDT)
-From: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, sunil.khatri@amd.com, mario.limonciello@amd.com,
- aurabindo.pillai@amd.com
-Cc: boyuan.zhang@amd.com, sunpeng.li@amd.com, dominik.kaszewski@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
-Subject: [PATCH] drm: Fix for kernel doc warning
-Date: Sat, 19 Apr 2025 10:46:08 -0700
-Message-ID: <20250419174608.20993-1-chelsyratnawat2001@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Sat, 19 Apr 2025 05:40:12 -0700 (PDT)
+Date: Sat, 19 Apr 2025 15:40:09 +0300
+From: "Nikola Z. Ivanov" <zlatistiv@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
+ airlied@gmail.com, simona@ffwll.ch, aurabindo.pillai@amd.com,
+ marek.olsak@amd.com, 
+ roman.li@amd.com, make24@iscas.ac.cn, jfalempe@redhat.com, ivlipski@amd.com, 
+ karthi.kandasamy@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd: Replace calls to kmalloc()+memcpy()+free(old) with
+ krealloc()
+Message-ID: <bgwysgwai2p4d564s5pod5xw2q27r6egqkkiycjt6v5xtwnpwi@jh5ogfr75rfi>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 21 Apr 2025 09:34:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,28 +90,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Added colon in kernel-doc comment to fix the warning.
+Possibly gets rid of some redundant calls to memcpy.
 
-drivers/gpu/drm/amd/include/amd_shared.h:369: warning: Incorrect use of kernel-doc format:          * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Check FW
-
-Signed-off-by: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
+Signed-off-by: Nikola Z. Ivanov <zlatistiv@gmail.com>
 ---
- drivers/gpu/drm/amd/include/amd_shared.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 4c95b885d1d0..c8eccee9b023 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -366,7 +366,7 @@ enum DC_DEBUG_MASK {
- 	DC_HDCP_LC_FORCE_FW_ENABLE = 0x80000,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 56bc2644e492..7ffd0d8f9897 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -146,7 +146,7 @@ static void amdgpu_dm_plane_add_modifier(uint64_t **mods, uint64_t *size, uint64
  
- 	/**
--	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Check FW
-+	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Check FW
- 	 * path failure, retry using legacy SW path.
- 	 */
- 	DC_HDCP_LC_ENABLE_SW_FALLBACK = 0x100000,
+ 	if (*cap - *size < 1) {
+ 		uint64_t new_cap = *cap * 2;
+-		uint64_t *new_mods = kmalloc(new_cap * sizeof(uint64_t), GFP_KERNEL);
++		uint64_t *new_mods = krealloc(*mods, new_cap * sizeof(uint64_t), GFP_KERNEL);
+ 
+ 		if (!new_mods) {
+ 			kfree(*mods);
+@@ -154,8 +154,6 @@ static void amdgpu_dm_plane_add_modifier(uint64_t **mods, uint64_t *size, uint64
+ 			return;
+ 		}
+ 
+-		memcpy(new_mods, *mods, sizeof(uint64_t) * *size);
+-		kfree(*mods);
+ 		*mods = new_mods;
+ 		*cap = new_cap;
+ 	}
 -- 
-2.43.0
+2.49.0
 
