@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B44D9C369D3
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Apr 2025 21:07:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B918DC369C2
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Apr 2025 21:58:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D02D610E499;
-	Mon, 21 Apr 2025 21:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF97110E106;
+	Mon, 21 Apr 2025 21:58:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KnzRxVoE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fFtgHgPG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D67D110E499
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Apr 2025 21:06:56 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89CEA10E0F4;
+ Mon, 21 Apr 2025 21:58:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C18DA43EBC;
- Mon, 21 Apr 2025 21:06:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD02C4CEE4;
- Mon, 21 Apr 2025 21:06:48 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 61C7BA4BE8F;
+ Mon, 21 Apr 2025 21:53:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23DE7C4CEE4;
+ Mon, 21 Apr 2025 21:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745269609;
- bh=1G71rRpUNwbXVMFlRZ7oP/AdMuXQneNAKOTA7rZEPVg=;
+ s=k20201202; t=1745272719;
+ bh=jTKO/ZVih+JbltPyJqGvHcdaODnrapZSlfJDyMxef4Y=;
  h=From:To:Cc:Subject:Date:From;
- b=KnzRxVoE7EdDLcOVoRSYXzHh5etgjV0ZWCnrxD8mwQC1zzh2MhHMtUVBwwG2XOXmR
- gKB2/IK/ZXFXbxazhvN11CA06Vpiru96dubys+xRqVckQ+3mPcflCs4bw4onBN9vzp
- LJ/Ls/ZA9Lwpuq5P9wdCncwF2SYjWC2KdgTHI34EMm/Snb30fATuMDy4IYf+m/4mc5
- dHTCUcjeTWQhUqARJmTQboYqVtRRGz4chcO46YhfA3BbqaUHnPm23zEQ4mjPF1GAeu
- JieuBCFKqWU94q/1KEYwN03GcsP3b4xpm5TfWHaK+a6/Df7/SLJ5kqYYODy7toy1Dl
- TgAdWMkJiT0+g==
-From: Mario Limonciello <superm1@kernel.org>
-To: amd-gfx@lists.freedesktop.org
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
- Vicki Pfau <vi@endrift.com>
-Subject: [PATCH RESEND 1/2] drm/amd: Allow printing VanGogh OD SCLK levels
- without setting dpm to manual
-Date: Mon, 21 Apr 2025 16:06:38 -0500
-Message-ID: <20250421210639.1138228-1-superm1@kernel.org>
-X-Mailer: git-send-email 2.43.0
+ b=fFtgHgPGy3B/E/XUe25ID7SWmNeqPWBZxkCVdbHHYL+A51fXREBW8icOwy2DQ1PGZ
+ smwFCDE95c6RimcL1YJg9aTDuUYltW33fZi9YMbmACjVwDjG1z/PAFzPST6qh01MnH
+ 9KJSw7OSA6E9BHLHw176HqTRC4XPgsDEIMZuXyGRPFfOSmsgg6pEqS/z4I5JiAvYNr
+ ALH/HpWab/u82LXnJcB/8M/YqWo/ANNAuKYDerSBBuD6gQBtYA/ubzdJWSfczHdRIS
+ 7wM4umVvzxVlGqeqvyjSTgjjbS9aqm1I7po1F3gwmV6MCpIxTwvLmyidAoekEfb/Xw
+ lKL/3oJrWjufw==
+From: Kees Cook <kees@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Kees Cook <kees@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jesse Zhang <jesse.zhang@amd.com>,
+ Tim Huang <Tim.Huang@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alexander Richards <electrodeyt@gmail.com>,
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Al Viro <viro@zeniv.linux.org.uk>, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: [PATCH] drm/amdgpu/atom: Work around vbios NULL offset false positive
+Date: Mon, 21 Apr 2025 14:58:34 -0700
+Message-Id: <20250421215833.work.924-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2865; i=kees@kernel.org;
+ h=from:subject:message-id; bh=jTKO/ZVih+JbltPyJqGvHcdaODnrapZSlfJDyMxef4Y=;
+ b=owGbwMvMwCVmps19z/KJym7G02pJDBls+zvvHM+YreCqfKrQev31s18a+6e/XrJg684vsbzLU
+ 48ZvEp82VHKwiDGxSArpsgSZOce5+Lxtj3cfa4izBxWJpAhDFycAjCRDQEMPxkXbGaK6YjXLGtc
+ O/0tz4G3f7gCeBMVuF2kjIJqT2+zt2T47+lbZ/C35qeel/qk3j0vTpQrS/tNEXbtmxJf8EMws6S
+ BFwA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,79 +74,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+GCC really does not want to consider NULL (or near-NULL) addresses as
+valid, so calculations based off of NULL end up getting range-tracked into
+being an offset wthin a 0 byte array. It gets especially mad about this:
 
-Several other ASICs allow printing OD SCLK levels without setting DPM
-control to manual.  When OD is disabled it will show the range the
-hardware supports. When OD is enabled it will show what values have
-been programmed. Adjust VanGogh to work the same.
+                if (vbios_str == NULL)
+                        vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
+	...
+        if (vbios_str != NULL && *vbios_str == 0)
+                vbios_str++;
 
-Cc: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
-Reported-by: Vicki Pfau <vi@endrift.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+It sees this as being "sizeof(BIOS_ATOM_PREFIX) - 1" byte offset from
+NULL, when building with -Warray-bounds (and the coming
+-fdiagnostic-details flag):
+
+In function 'atom_get_vbios_pn',
+    inlined from 'amdgpu_atom_parse' at drivers/gpu/drm/amd/amdgpu/atom.c:1553:2:
+drivers/gpu/drm/amd/amdgpu/atom.c:1447:34: error: array subscript 0 is outside array bounds of 'unsigned char[0]' [-Werror=array-bounds=]
+ 1447 |         if (vbios_str != NULL && *vbios_str == 0)
+      |                                  ^~~~~~~~~~
+  'amdgpu_atom_parse': events 1-2
+ 1444 |                 if (vbios_str == NULL)
+      |                    ^
+      |                    |
+      |                    (1) when the condition is evaluated to true
+......
+ 1447 |         if (vbios_str != NULL && *vbios_str == 0)
+      |                                  ~~~~~~~~~~
+      |                                  |
+      |                                  (2) out of array bounds here
+In function 'amdgpu_atom_parse':
+cc1: note: source object is likely at address zero
+
+As there isn't a sane way to convince it otherwise, hide vbios_str from
+GCC's optimizer to avoid the warning so we can get closer to enabling
+-Warray-bounds globally.
+
+Signed-off-by: Kees Cook <kees@kernel.org>
 ---
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 37 ++++++++-----------
- 1 file changed, 15 insertions(+), 22 deletions(-)
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Jesse Zhang <jesse.zhang@amd.com>
+Cc: Tim Huang <Tim.Huang@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: Alexander Richards <electrodeyt@gmail.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+---
+ drivers/gpu/drm/amd/amdgpu/atom.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index a55ea76d73996..2c9869feba610 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -666,7 +666,6 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
- {
- 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
- 	SmuMetrics_t metrics;
--	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
- 	int i, idx, size = 0, ret = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0;
- 	bool cur_value_match_level = false;
-@@ -682,31 +681,25 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index 81d195d366ce..427b073de2fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1444,6 +1444,7 @@ static void atom_get_vbios_pn(struct atom_context *ctx)
+ 		if (vbios_str == NULL)
+ 			vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
+ 	}
++	OPTIMIZER_HIDE_VAR(vbios_str);
+ 	if (vbios_str != NULL && *vbios_str == 0)
+ 		vbios_str++;
  
- 	switch (clk_type) {
- 	case SMU_OD_SCLK:
--		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
--			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
--			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
--			(smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
--			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
--			(smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq);
--		}
-+		size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
-+		size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
-+		(smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
-+		size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
-+		(smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq);
- 		break;
- 	case SMU_OD_CCLK:
--		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
--			size += sysfs_emit_at(buf, size, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
--			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
--			(smu->cpu_actual_soft_min_freq > 0) ? smu->cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
--			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
--			(smu->cpu_actual_soft_max_freq > 0) ? smu->cpu_actual_soft_max_freq : smu->cpu_default_soft_max_freq);
--		}
-+		size += sysfs_emit_at(buf, size, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
-+		size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
-+		(smu->cpu_actual_soft_min_freq > 0) ? smu->cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
-+		size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
-+		(smu->cpu_actual_soft_max_freq > 0) ? smu->cpu_actual_soft_max_freq : smu->cpu_default_soft_max_freq);
- 		break;
- 	case SMU_OD_RANGE:
--		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
--			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
--			size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
--				smu->gfx_default_hard_min_freq, smu->gfx_default_soft_max_freq);
--			size += sysfs_emit_at(buf, size, "CCLK: %7uMhz %10uMhz\n",
--				smu->cpu_default_soft_min_freq, smu->cpu_default_soft_max_freq);
--		}
-+		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
-+		size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
-+			smu->gfx_default_hard_min_freq, smu->gfx_default_soft_max_freq);
-+		size += sysfs_emit_at(buf, size, "CCLK: %7uMhz %10uMhz\n",
-+			smu->cpu_default_soft_min_freq, smu->cpu_default_soft_max_freq);
- 		break;
- 	case SMU_SOCCLK:
- 		/* the level 3 ~ 6 of socclk use the same frequency for vangogh */
 -- 
-2.43.0
+2.34.1
 
