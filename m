@@ -4,60 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26FA0C369CA
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Apr 2025 17:14:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE3BFC369AB
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Apr 2025 04:06:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9458510E231;
-	Fri, 18 Apr 2025 17:14:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lnvfy0p2";
-	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57C7610E231;
- Fri, 18 Apr 2025 17:14:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id B6914A4B577;
- Fri, 18 Apr 2025 17:08:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6707DC4CEF3;
- Fri, 18 Apr 2025 17:14:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744996442;
- bh=OZmjqaYou2hOWVgwSLN1prGm2SZUlosb+4HXW4GaF/s=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lnvfy0p2QOMF7gsoDLe3MV10TIIRdiZCaTWZzcqt8sOh+iFB7VU3UQNMfzYkk3LKj
- WCXFCPMaCWZUGhIK6W0OoUuVfApXNaER0yt6pOIQ0E0P3niqeAO2w5qfc3kQ4OIZOt
- jnqRxMOtiDmSPYVZ8aXK+bDGo86NzcIaQmmj/2YDW6B4DFPaVJ7VhjPuLDrqrZbDW9
- PgwntmM117DGIqmHuZ3ZkddPfpa7n4oT73b9+vNy/aCNNlWz3oFhiP6p0jc5+Qwhk4
- wINXj47NC05MDQJIRJpvKnL+WtzajVq6rHpxi81qxO7N9B448ya/3NCwXwJl0N+amy
- T0FiOeZsq5d8w==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id E25EDCE11D5; Fri, 18 Apr 2025 10:14:01 -0700 (PDT)
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: kernel-team@meta.com, Andrew Morton <akpm@linux-foundation.org>,
- Kuniyuki Iwashima <kuniyu@amazon.com>, Mateusz Guzik <mjguzik@gmail.com>,
- Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
- John Ogness <john.ogness@linutronix.de>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jon Pan-Doh <pandoh@google.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Karolina Stolarek <karolina.stolarek@oracle.com>,
- "Paul E. McKenney" <paulmck@kernel.org>, kernel test robot <lkp@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 ratelimit 05/14] drm/amd/pm: Avoid open-coded use of
- ratelimit_state structure's internals
-Date: Fri, 18 Apr 2025 10:13:50 -0700
-Message-Id: <20250418171359.1187719-5-paulmck@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <4edcefb0-cdbd-4422-8a08-ffc091de158e@paulmck-laptop>
-References: <4edcefb0-cdbd-4422-8a08-ffc091de158e@paulmck-laptop>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DACC410E050;
+	Mon, 21 Apr 2025 04:06:42 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB85210E050
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Apr 2025 04:06:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l5KFPsqgNEHtGyq8z1i/DeSDhtsVo8VMdJOwOI+e545q244AbCtuZ+TV/oMs4mlL+iPiv7DNF0gxg9jV0ZoFPPYIQSKBtLpiVjwrx9qMaWlLQeXQ9TDR9+6SkF1NUq/TAzatfbveU3JJPtoQwMWXBTLKuQ5U1zpi8n8R3gKP2FE1N+OOHB0Ag3kyfQoqlMW5bvAUIdX6HtqRa4wVbUQv732Mh5XWSwMnbgfENxxGT01cVu5liBBvyo8Q6V5Cv6X2tWiFrWnjE9X44MPsTesMHMqANyLOJ2L5c2zxOVRrPLra5svFSKZH0UJBmn34uvDefssb7hL9e7GT86ZQSscCAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z94bXiwMoMdHHjcT84XvxSppale2ouokV7dj/g3Iopk=;
+ b=Tkq5bktdaOkj3QqQ0Q5dYIi9rxQ/EZmdU+Z7Vfw293lrA54ddGj2oV3mWABkxh2nVAr5GxntlGPku6/dsCCzXwgXGzk5l6RoO0K4eXAUksj9yoWOkmEf3TUxVr9kHH73BYgaq/1IDt2tRvGsn7ZDF8gnfOiE/8YtyuxXFcbzqTV0EVBdgGWA2tjaXCF1M9QYOEn8tDrNRLbHPB71Qu+BgOmd6xIyIO7VlGczK0Q03fcU/qc/gqlxHC3eT7/Rcerz6ktUzqpDp4SIkAC93sMiVxLduHZG/x9Day4rubEk8DHyTuIXUM597Pl/2BGzRsUTuQaUzg7E0xc4l921BGPBnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z94bXiwMoMdHHjcT84XvxSppale2ouokV7dj/g3Iopk=;
+ b=1P4MIwgTtH2NX7HbZ3U51OQ73NwC49StSIMSqOZZRazNfHzcBBrwREiMsTsDDIVV30iC4oviJhH3pEMspmHIPdKS5IpCd2TAhOWqV7fKQwGtTcmAi8WBaJLOQ7qOJnPqC5oOsp5rPBn22buRDaxcpDHDrJuSKgJw7HQk89FQSwU=
+Received: from LV3P220CA0017.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::6)
+ by SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.33; Mon, 21 Apr
+ 2025 04:06:27 +0000
+Received: from BN1PEPF00005FFF.namprd05.prod.outlook.com
+ (2603:10b6:408:234:cafe::96) by LV3P220CA0017.outlook.office365.com
+ (2603:10b6:408:234::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.35 via Frontend Transport; Mon,
+ 21 Apr 2025 04:06:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00005FFF.mail.protection.outlook.com (10.167.243.231) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Mon, 21 Apr 2025 04:06:26 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Sun, 20 Apr 2025 23:06:22 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Tom Chung
+ <chiahsuan.chung@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ "Roman Li" <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>, Dan Carpenter
+ <dan.carpenter@linaro.org>
+Subject: [PATCH v2] drm/amd/display: Fix NULL pointer dereferences in
+ dm_update_crtc_state() v2
+Date: Mon, 21 Apr 2025 09:36:10 +0530
+Message-ID: <20250421040610.3794293-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250312023409.2687233-1-srinivasan.shanmugam@amd.com>
+References: <20250312023409.2687233-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFF:EE_|SA0PR12MB7091:EE_
+X-MS-Office365-Filtering-Correlation-Id: d80d01b1-9710-41b7-3854-08dd8089e2f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?XQ6YbrW6/OUC3j12U3pqjwm3MU2nAPcN+P+Rnhm1HwPxGUTQJnB70rGhDx62?=
+ =?us-ascii?Q?BQyslNFmpQS3ergcZzHIf9rhFKXAq4YCesUSshqCTTrSdjBSsNWR2DS6BTBR?=
+ =?us-ascii?Q?uyI5eFUB0hpONBpY6ruORPcN59wcrk2JPTuNsrYqMpZ3f3DYO3b9ABLLnZP+?=
+ =?us-ascii?Q?HZwx+xHjKfqt75m+lSeiNaqJVd+N7nmi814ltcMSgH1Ar+iNCq2jWz0Aw/Tw?=
+ =?us-ascii?Q?OaRnEm4e9LlBEDtXDHksy3x9hjXBio4IfMFfdZHv+sDvzAlpCl84TTTvVvGk?=
+ =?us-ascii?Q?g7vUf5a2h8tPKqMg2arhHwTJdVB5L0lx5LsUpacDWnXhCfAoDrLu7uN8ooGj?=
+ =?us-ascii?Q?OpGuwyMtNFT885ORMtorcNCmr7DeZGTluaJGJQ44vrkAJjpKma32XdMpMDQK?=
+ =?us-ascii?Q?x/NGZsaKdSZQviofJRsL1y0zNzuKzs3hqCIlM0RJIuEHrMseqBMKy+lwZV/z?=
+ =?us-ascii?Q?mkeQJ3BSt0bpk2VEdIMNC/cEGcjk4rZ2qtTZSS9Ckj8wazBde84PTg4FkwWf?=
+ =?us-ascii?Q?k2vhkaS79kjllWXjTP4hDL/6g2ztlRWL7JqwMbilG9m4GHaZ/WBLdhiu4UkH?=
+ =?us-ascii?Q?MypAc86ZUNyngnJbtcK2qhselSRJilz+Jya8R9V+PQvJ5TQTzKjVY7z+WPLc?=
+ =?us-ascii?Q?suI2BgoI8We/wQY+nBItubSZ2EUEK5i9NWVkoLUQM8JCG6x4/7HYQis+c8Jj?=
+ =?us-ascii?Q?3ZEVADfx9DrTbfHH8wcphklJY8jRjm1VORrKC6MRntX2s/4XLPqD9KF7V4Fk?=
+ =?us-ascii?Q?x3rTjg7l6DM0VF9OYonIwh2mdU7f0cZQ7Ca83cgCW0xiJbSHRUHAZCvHblzk?=
+ =?us-ascii?Q?nvh4p2ht84LTsIroeZ8PG1p3VIdylCF5HPQnMx023jr/MTOQz9KDXl1KWLST?=
+ =?us-ascii?Q?L3P+wxR5ujxXMA/oJhaFu+G5UAis0LVbS3ak4qR9/dJGV0/Wj7fS5LPq0wKf?=
+ =?us-ascii?Q?ehAY4xV1cxtlSdj5o0yosd18xoVj9R1A5rcStIlYR8errbckUpXTAu+0EcWO?=
+ =?us-ascii?Q?BnEbUqzgZEG9n+2WsEsLkUpTEBNM1DexLIjeFwHKULAlARmnzurL9DetueA7?=
+ =?us-ascii?Q?JxYRVVv8OrrIB06kF5S0SSVOAiuXhWvMiUDEsJPRwaXgyL5sq2aCmdjwkszr?=
+ =?us-ascii?Q?evs/m+RPNBgd0qRVuhyhkkeUkj66Y+oBMFKzPo5YK/k2BGN+3BAg4NNC08EM?=
+ =?us-ascii?Q?MkJchTNkhs/Gjj7TrieZG9PMN01SsMYmLJ9M1HhDpzPbMV+cxRqKR+dfN+26?=
+ =?us-ascii?Q?n0M5VXIPL3o6AiDY0xJAyy3OJ5eIkhO1/2Bsyl9jkRshsLoaFqvtnpA6diz1?=
+ =?us-ascii?Q?+NSE1Kayig7Eoci8GNEfJdLyACW5w8gydgam04w0529HhSpYMorweg7+TZq0?=
+ =?us-ascii?Q?pe/mH/617gTjtYZLwi5jLrwN5WbLzpl/knSePoJj7m4OT7zdPsqggXTmxiqV?=
+ =?us-ascii?Q?gU4poLqRo6kKmLrtcYbuW0M6TvQ9v11VFmY5dELG05b9MqVxkcGD0vXfOMHL?=
+ =?us-ascii?Q?q14Sa9qjpqNUD2kXg1GtxYpOLjuLbm3BwC07?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2025 04:06:26.2434 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d80d01b1-9710-41b7-3854-08dd8089e2f0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7091
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,63 +135,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The amdgpu_set_thermal_throttling_logging() function directly accesses
-the ratelimit_state structure's ->missed field, which work, but which
-also makes it more difficult to change this field.  Therefore, make
-use of the ratelimit_state_reset_miss() function instead of directly
-accessing the ->missed field.
+Added checks for NULL values after retrieving drm_new_conn_state
+to prevent dereferencing NULL pointers.
 
-Nevertheless, open-coded use of ->burst and ->interval is still permitted,
-for example, for runtime sysfs adjustment of these fields.
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:10751 dm_update_crtc_state()
+	warn: 'drm_new_conn_state' can also be NULL
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202503180826.EiekA1MB-lkp@intel.com/
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Kenneth Feng <kenneth.feng@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: <amd-gfx@lists.freedesktop.org>
-Cc: <dri-devel@lists.freedesktop.org>
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+    10672 static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+    10673                          struct drm_atomic_state *state,
+    10674                          struct drm_crtc *crtc,
+    10675                          struct drm_crtc_state *old_crtc_state,
+    10676                          struct drm_crtc_state *new_crtc_state,
+    10677                          bool enable,
+    10678                          bool *lock_and_validation_needed)
+    10679 {
+    10680         struct dm_atomic_state *dm_state = NULL;
+    10681         struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
+    10682         struct dc_stream_state *new_stream;
+    10683         int ret = 0;
+    10684
+    ...
+    10703
+    10704         /* TODO This hack should go away */
+    10705         if (connector && enable) {
+    10706                 /* Make sure fake sink is created in plug-in scenario */
+    10707                 drm_new_conn_state = drm_atomic_get_new_connector_state(state,
+    10708                                                                         connector);
+
+drm_atomic_get_new_connector_state() can't return error pointers, only NULL.
+
+    10709                 drm_old_conn_state = drm_atomic_get_old_connector_state(state,
+    10710                                                                         connector);
+    10711
+    10712                 if (IS_ERR(drm_new_conn_state)) {
+                                     ^^^^^^^^^^^^^^^^^^
+
+    10713                         ret = PTR_ERR_OR_ZERO(drm_new_conn_state);
+
+Calling PTR_ERR_OR_ZERO() doesn't make sense.  It can't be success.
+
+    10714                         goto fail;
+    10715                 }
+    10716
+    ...
+    10748
+    10749                 dm_new_crtc_state->abm_level = dm_new_conn_state->abm_level;
+    10750
+--> 10751                 ret = fill_hdr_info_packet(drm_new_conn_state,
+                                                     ^^^^^^^^^^^^^^^^^^ Unchecked dereference
+
+    10752                                            &new_stream->hdr_static_metadata);
+    10753                 if (ret)
+    10754                         goto fail;
+    10755
+
+v2: Modified the NULL pointer check for drm_new_conn_state in the
+    dm_update_crtc_state function to  include a warning via WARN_ON and
+    return -EINVAL to indicate an invalid state when the pointer is NULL.
+
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 922def51685b0..d533c79f7e215 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1606,7 +1606,6 @@ static ssize_t amdgpu_set_thermal_throttling_logging(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	long throttling_logging_interval;
--	unsigned long flags;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 31a5b8fc4dc4..3d2ff5d58067 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10858,8 +10858,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 		drm_old_conn_state = drm_atomic_get_old_connector_state(state,
+ 									connector);
  
- 	ret = kstrtol(buf, 0, &throttling_logging_interval);
-@@ -1617,18 +1616,12 @@ static ssize_t amdgpu_set_thermal_throttling_logging(struct device *dev,
- 		return -EINVAL;
+-		if (IS_ERR(drm_new_conn_state)) {
+-			ret = PTR_ERR_OR_ZERO(drm_new_conn_state);
++		if (WARN_ON(!drm_new_conn_state)) {
++			ret = -EINVAL;
+ 			goto fail;
+ 		}
  
- 	if (throttling_logging_interval > 0) {
--		raw_spin_lock_irqsave(&adev->throttling_logging_rs.lock, flags);
- 		/*
- 		 * Reset the ratelimit timer internals.
- 		 * This can effectively restart the timer.
- 		 */
--		adev->throttling_logging_rs.interval =
--			(throttling_logging_interval - 1) * HZ;
--		adev->throttling_logging_rs.begin = 0;
--		adev->throttling_logging_rs.printed = 0;
--		adev->throttling_logging_rs.missed = 0;
--		raw_spin_unlock_irqrestore(&adev->throttling_logging_rs.lock, flags);
--
-+		ratelimit_state_reset_interval(&adev->throttling_logging_rs,
-+					       (throttling_logging_interval - 1) * HZ);
- 		atomic_set(&adev->throttling_logging_enabled, 1);
- 	} else {
- 		atomic_set(&adev->throttling_logging_enabled, 0);
 -- 
-2.40.1
+2.34.1
 
