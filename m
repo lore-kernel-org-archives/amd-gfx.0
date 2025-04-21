@@ -4,42 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 376EDC369C2
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 08:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E53D5C369D8
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 08:15:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFA2D10E523;
-	Tue, 22 Apr 2025 08:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7452D10E53C;
+	Tue, 22 Apr 2025 08:15:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NLWHP5Nv";
+	dkim=pass (1024-bit key; unprotected) header.d=nppct.ru header.i=@nppct.ru header.b="Dij3bC6l";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE7AD10E4FF
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 06:31:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 57255A4BBB3;
- Tue, 22 Apr 2025 06:25:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35F1C4CEE9;
- Tue, 22 Apr 2025 06:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1745303468;
- bh=NTj4NJqYSupaKoPMbk0RtczS9wWj3svkFjpNxd6UNKE=;
- h=Subject:To:Cc:From:Date:From;
- b=NLWHP5NvxMa8CKEYIOca2haZn6gWGLxFDK2dU3OX6ubjbPaytfEHMMcJFcw3Iu6hO
- RpBWKQv9GhRo1VxfUrIwE7DSRM7pk4TFWi4OgntIoRsG0EqHfvl7AEX8iKAUbOtugP
- Z/0ARTkjV77heZJdo94K/cvQsWm8/uF2tJou/12Y=
-Subject: Patch "drm/amdgpu/dma_buf: fix page_link check" has been added to the
- 6.14-stable tree
-To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, gregkh@linuxfoundation.org, matthew.auld@intel.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Apr 2025 08:30:32 +0200
-Message-ID: <2025042232-buffalo-cultural-01b4@gregkh>
+Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6BEC10E27A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Apr 2025 15:09:35 +0000 (UTC)
+Received: from mail.nppct.ru (localhost [127.0.0.1])
+ by mail.nppct.ru (Postfix) with ESMTP id BAB081C0E83
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Apr 2025 18:09:32 +0300 (MSK)
+Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
+ reason="pass (just generated,
+ assumed good)" header.d=nppct.ru
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
+ content-transfer-encoding:mime-version:x-mailer:message-id:date
+ :date:subject:subject:to:from:from; s=dkim; t=1745248167; x=
+ 1746112168; bh=Mxlmt4OMFp+4CmM5qiqrCkALSFahEOttbOImrEbkWRQ=; b=D
+ ij3bC6lGnm6Q3iujMwVbFqCxRts3jzWT0mOGpdPt+L2bfm0AG2hq7YiFU7oInpso
+ MpI09cfrTU4wOZGXEnvXscAJP9g8s47MwybKO8m2Kh+niewmrleNMNF/0U0PM/p5
+ 7Q49UxdlLkRq+2iPEIjkzedEIo2ERzmq+4yt+wV+r0=
+X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
+Received: from mail.nppct.ru ([127.0.0.1])
+ by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id VI1IE6elNR1x for <amd-gfx@lists.freedesktop.org>;
+ Mon, 21 Apr 2025 18:09:27 +0300 (MSK)
+Received: from localhost.localdomain (unknown [87.249.24.51])
+ by mail.nppct.ru (Postfix) with ESMTPSA id D4DA01C08C3;
+ Mon, 21 Apr 2025 18:09:11 +0300 (MSK)
+From: Alexey Nepomnyashih <sdl@nppct.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alexey Nepomnyashih <sdl@nppct.ru>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sasha Levin <sashal@kernel.org>,
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Friedrich Vock <friedrich.vock@gmx.de>, Victor Zhao <Victor.Zhao@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: restrict the hw sched jobs upper bound
+Date: Mon, 21 Apr 2025 15:09:03 +0000
+Message-ID: <20250421150905.732842-1-sdl@nppct.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Tue, 22 Apr 2025 08:15:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,67 +70,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The amdgpu_sched_hw_submission parameter controls the number of hardware
+jobs that can be scheduled concurrently per ring. This value is later
+multiplied by ring->max_dw to compute buffer offsets or command patch
+regions.
 
-This is a note to let you know that I've just added the patch titled
+If amdgpu_sched_hw_submission is set too high (by user input via module
+parameter), the multiplication can overflow, resulting in corrupted memory
+offsets or ring buffer overflows.
 
-    drm/amdgpu/dma_buf: fix page_link check
+Clamp amdgpu_sched_hw_submission to a practical upper bound (e.g. 2^16)
+to prevent arithmetic overflow when computing ring buffer offsets during
+initialization, especially in jpeg_v1_0_start().
 
-to the 6.14-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-The filename of the patch is:
-     drm-amdgpu-dma_buf-fix-page_link-check.patch
-and it can be found in the queue-6.14 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From c0dd8a9253fadfb8e5357217d085f1989da4ef0a Mon Sep 17 00:00:00 2001
-From: Matthew Auld <matthew.auld@intel.com>
-Date: Mon, 7 Apr 2025 15:18:25 +0100
-Subject: drm/amdgpu/dma_buf: fix page_link check
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Matthew Auld <matthew.auld@intel.com>
-
-commit c0dd8a9253fadfb8e5357217d085f1989da4ef0a upstream.
-
-The page_link lower bits of the first sg could contain something like
-SG_END, if we are mapping a single VRAM page or contiguous blob which
-fits into one sg entry. Rather pull out the struct page, and use that in
-our check to know if we mapped struct pages vs VRAM.
-
-Fixes: f44ffd677fb3 ("drm/amdgpu: add support for exporting VRAM using DMA-buf v3")
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v5.8+
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org # v5.9+
+Fixes: 5d5bd5e32e6e ("drm/amdgpu: restrict the hw sched jobs number to power of two")
+Signed-off-by: Alexey Nepomnyashih <sdl@nppct.ru>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -184,7 +184,7 @@ static void amdgpu_dma_buf_unmap(struct
- 				 struct sg_table *sgt,
- 				 enum dma_data_direction dir)
- {
--	if (sgt->sgl->page_link) {
-+	if (sg_page(sgt->sgl)) {
- 		dma_unmap_sgtable(attach->dev, sgt, dir, 0);
- 		sg_free_table(sgt);
- 		kfree(sgt);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 018dfccd771b..69217a021b0e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2056,6 +2056,10 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
+ 		dev_warn(adev->dev, "sched hw submission jobs (%d) must be at least 2\n",
+ 			 amdgpu_sched_hw_submission);
+ 		amdgpu_sched_hw_submission = 2;
++	} else if (amdgpu_sched_hw_submission > 65536) {
++		dev_warn(adev->dev, "sched hw submission jobs (%d) is too large\n",
++			 amdgpu_sched_hw_submission);
++		amdgpu_sched_hw_submission = 65536;
+ 	} else if (!is_power_of_2(amdgpu_sched_hw_submission)) {
+ 		dev_warn(adev->dev, "sched hw submission jobs (%d) must be a power of 2\n",
+ 			 amdgpu_sched_hw_submission);
+-- 
+2.43.0
 
-
-Patches currently in stable-queue which might be from matthew.auld@intel.com are
-
-queue-6.14/drm-xe-dma_buf-stop-relying-on-placement-in-unmap.patch
-queue-6.14/drm-xe-use-local-fence-in-error-path-of-xe_migrate_clear.patch
-queue-6.14/drm-amdgpu-dma_buf-fix-page_link-check.patch
-queue-6.14/drm-xe-userptr-fix-notifier-vs-folio-deadlock.patch
