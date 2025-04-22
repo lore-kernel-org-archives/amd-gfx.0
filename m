@@ -4,91 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9327DC369D3
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 07:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94C1AC369D7
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 07:38:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01D5A10E653;
-	Wed, 23 Apr 2025 07:38:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B256110E410;
+	Wed, 23 Apr 2025 07:38:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j9oAGDrV";
+	dkim=pass (1024-bit key; secure) header.d=tnxip.de header.i=@tnxip.de header.b="udVglPLk";
+	dkim=permerror (0-bit key) header.d=tnxip.de header.i=@tnxip.de header.b="5N0swRhc";
+	dkim=pass (1024-bit key; secure) header.d=tnxip.de header.i=@tnxip.de header.b="vHLhOeVo";
+	dkim=permerror (0-bit key) header.d=tnxip.de header.i=@tnxip.de header.b="9cRJuF/S";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33CC510E5D6
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 15:59:07 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-39c1efc457bso3360674f8f.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 08:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1745337546; x=1745942346; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1hAheUb7/AxYlrzvi7p9cQwyJGov/uzXYHxHoxFstwc=;
- b=j9oAGDrVnis9UH4RSE59tCliQxQZAQLHihxP6AbKsTbDirb+/Jb1aaxcLqS1cplgTl
- BkCg+2Zpe3Dyf2GJA1P4BYjDXMFCA2idKdVju0HSZKwSUd+ugM8ERkjWDByOAaqHDsR8
- rsx9pLQKPpMwyOfLm+RsN6Kx3OzZukDIaTFNE8A0tz0/BhwFgMabGYlWF4CD2IEmJmS2
- t05ItE8dOWYf0Qchxx+U0f0l+z7grXvq89yNlcN2oeLJuib4cx3LfnOQncVvzZf1s6Bp
- nBiFUb8tj3GQPc7r8GgxbsjFM5I7ItfPvNDdAfiZFsc7eaxF6I5Qhw632eQLXaAmDQIF
- GjZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745337546; x=1745942346;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=1hAheUb7/AxYlrzvi7p9cQwyJGov/uzXYHxHoxFstwc=;
- b=eYtRNUz9SeFYAkHQ7FlCpgrKqYqIfputLztVNYTWT+zH+BJxFfRqf25T+9v6ecuugi
- jVlBPKuHk5QXr3RlzS9pvTFkV8oA7icnTKtko6wLK3InoaMeyA1ruPYQ0ynY98rAcN9C
- jr2aAlOCeCM0Hp4QQ8TingPnH9mI2+rvAFcba6tHLGiWInCFEvyNy1Rw/WELCrFGkYZN
- MLrQyKfHoWmpL6dKpqiXmwF+oY3xAQq8Dw8g2T9CoIus+L0y/H4MDSBO37QExtj6xfU7
- j7MT5oGIbO+51MrXsuemiEdmf3BqijeX5kws4VA8UO01TI50ADzB/xOeJ6Urr9oS7TE0
- nSJw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUM4KFE2zr9YS/rB6RC7akLz3pFRP1Wt5b8ejEBDo1PU8hTP0r8TJtjmcOeugtN6HeEIYyP7/Mh@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzpv/L4RlIprgr4blY55wr0SdhciiBFTnY9Vy7kua0SeGAFQGSD
- +GssgmCGPlR8+RAvmE1iFU4EJaME23grIzzMQH4DoAxhA5imMZ1JHCVjrhIe7bU=
-X-Gm-Gg: ASbGncvHvMAgX0TG5uCxBINTKwgfQP09SaNihQc83pXkyLeljS6B094Z4PGoVbNrP46
- XcimYD6Os6eQgaQFhgDEnnSQpQPN1FStmw5Uop1+9ZCvSU3fQNV2bItumWPvKCv6DT4+f9++lc8
- o32tsGiKnwQiHLn/gA/3JjG0wSvpZDQ5jp8neEs+f6Wh2wNM0u/MUjLgkDSBfoabzGjUpk0eZlz
- SqVomu1kK9EN+0Nig6BXQETmqocdRJDqCBpdsusKD2lQ6Xe4QZxsj9r32AcdTxaXyJAA8SOeC+W
- Pc/miqhySdpypaR6J2J9Ve8hmwickHKwjl6gUk5LTbIxTw==
-X-Google-Smtp-Source: AGHT+IFeH0S2vE5n+XA/l4vfJhnhOuJ0R4qy6RCQGw7qpnpnlen7t2GaUFL3M60QTyETclUPXi4vdg==
-X-Received: by 2002:a5d:6d87:0:b0:39c:1257:c96e with SMTP id
- ffacd0b85a97d-39efbb02224mr11882093f8f.58.1745337545702; 
- Tue, 22 Apr 2025 08:59:05 -0700 (PDT)
-Received: from localhost ([2a00:2381:fd67:101:6c39:59e6:b76d:825])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4406d5d74a1sm176570345e9.37.2025.04.22.08.59.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 08:59:05 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from mail.tnxip.de (mail.tnxip.de [49.12.77.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 388CA10E32E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 17:14:06 +0000 (UTC)
+Received: from gw.tnxip.de (unknown
+ [IPv6:fdc7:1cc3:ec03:1:53ff:b0bd:adc1:f59b])
+ by mail.tnxip.de (Postfix) with ESMTPS id A66A9208AD;
+ Tue, 22 Apr 2025 19:14:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tnxip.de; s=mail-vps; 
+ t=1745342040;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pmhjuH+w65IlrJW3d0eREmPSmX6+6SCmrTB2F4r0QYo=;
+ b=udVglPLkUgWKgPY7gK+DmQTNUQw/5Jui1p+WyRenHmv8Kup/5fIexGHgdfdd5lk/ax5nl5
+ 19edY2nwkr52qMu9UrRWpfF57OMPuTDIQOUpL7aqyxvoqqt1EuQXivswZkC1V9P+KmQkvK
+ fdoIHKrMiPREivDm7xceI2Ub/k60tiI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=tnxip.de;
+ s=mail-vps-ed; t=1745342040;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pmhjuH+w65IlrJW3d0eREmPSmX6+6SCmrTB2F4r0QYo=;
+ b=5N0swRhcGR17xI9DMMaCjNVyOPxvD0sOEl/nnuB7D49XRw0gYPN2QWlaXyQOgSL7HyqloQ
+ 4igYFQCJcJ0aWYDQ==
+Received: from [IPV6:2a04:4540:8c0e:8d00:d82a:67de:9a1a:30a4] (unknown
+ [IPv6:2a04:4540:8c0e:8d00:d82a:67de:9a1a:30a4])
+ by gw.tnxip.de (Postfix) with ESMTPSA id 637FD7800000000000716;
+ Tue, 22 Apr 2025 19:13:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tnxip.de; s=mail-gw;
+ t=1745342039;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pmhjuH+w65IlrJW3d0eREmPSmX6+6SCmrTB2F4r0QYo=;
+ b=vHLhOeVoFLRncLODnvVKKp1yvofyTdtb6OJA3tEi5WI3LgrqzLAaiA9vnbKQVV3GHUWJPk
+ uyTMhUqS8hisrhM1Ut8cqzWzxBDLxGm5/T5VF2TRUGr+eqx/RQRH0sze1EYLNENdjBPxKD
+ pkao3iXy/fu4kZ4MacgvXgwT0wtJBIY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=tnxip.de;
+ s=mail-gw-ed; t=1745342039;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pmhjuH+w65IlrJW3d0eREmPSmX6+6SCmrTB2F4r0QYo=;
+ b=9cRJuF/SPs1C6t2K2d9DjhUaWJUjEuqMXtOj1Vgpt/JoTCcx2upcAEE1mX7IsBMonHq0hH
+ ZJzt3Y51NbeA3NBg==
+Message-ID: <16cafbef-2acc-4c45-9d9d-ee88e0ebe6fb@tnxip.de>
+Date: Tue, 22 Apr 2025 19:13:55 +0200
+MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: possible bug with RDNA4 and AMS
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: amd-gfx@lists.freedesktop.org
+References: <63d93ed2-1ace-430f-980d-27199ffc5b3e@tnxip.de>
+ <ef362484-b1a1-4175-a519-8335409f1146@mailbox.org>
+Content-Language: en-US, de-DE
+From: =?UTF-8?Q?Malte_Schr=C3=B6der?= <malte.schroeder@tnxip.de>
+In-Reply-To: <ef362484-b1a1-4175-a519-8335409f1146@mailbox.org>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Apr 2025 16:59:04 +0100
-Message-Id: <D9DAIUZXIWH3.1L7CV6GEX4C9M@linaro.org>
-Cc: "Fugang Duan" <fugang.duan@cixtech.com>, "alexander.deucher@amd.com"
- <alexander.deucher@amd.com>, "frank.min@amd.com" <frank.min@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>, "david.belanger@amd.com"
- <david.belanger@amd.com>, "christian.koenig@amd.com"
- <christian.koenig@amd.com>, "Peter Chen" <peter.chen@cixtech.com>,
- "cix-kernel-upstream" <cix-kernel-upstream@cixtech.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>
-Subject: =?utf-8?q?Re:_=E5=9B=9E=E5=A4=8D:_[REGRESSION]_amdgpu:_async_system_error?=
- =?utf-8?q?_exception_from_hdp=5Fv5=5F0=5Fflush=5Fhdp()?=
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Alex Deucher" <alexdeucher@gmail.com>
-X-Mailer: aerc 0.20.0
-References: <D97FB92117J2.PXTNFKCIRWAS@linaro.org>
- <SI2PR06MB5041FB15F8DBB44916FB6430F1BD2@SI2PR06MB5041.apcprd06.prod.outlook.com>
- <D980Y4WDV662.L4S7QAU72GN2@linaro.org>
- <CADnq5_NT0syV8wB=MZZRDONsTNSYwNXhGhNg9LOFmn=MJP7d9Q@mail.gmail.com>
- <SI2PR06MB504138A5BEA1E1B3772E8527F1BC2@SI2PR06MB5041.apcprd06.prod.outlook.com>
- <CADnq5_M=YiMVvMpGaFhn2T3jRWGY2FrsUwCVPG6HupmTzZCYug@mail.gmail.com>
- <D9CT4HS7F067.J0GJHAGHI9G9@linaro.org>
- <CADnq5_ML25QA7xD+bLqNprO3zzTxJYLkiVw-KmeP-N6TqNHRYA@mail.gmail.com>
-In-Reply-To: <CADnq5_ML25QA7xD+bLqNprO3zzTxJYLkiVw-KmeP-N6TqNHRYA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 23 Apr 2025 07:38:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,68 +93,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue Apr 22, 2025 at 2:00 PM BST, Alex Deucher wrote:
-> On Mon, Apr 21, 2025 at 10:21=E2=80=AFPM Alexey Klimov <alexey.klimov@lin=
-aro.org> wrote:
+On 22/04/2025 17:28, Michel Dänzer wrote:
+> On 2025-04-20 21:38, Malte Schröder wrote:
+>> Hi,
 >>
->> On Thu Apr 17, 2025 at 2:08 PM BST, Alex Deucher wrote:
->> > On Wed, Apr 16, 2025 at 8:43=E2=80=AFPM Fugang Duan <fugang.duan@cixte=
-ch.com> wrote:
->> >>
->> >> =E5=8F=91=E4=BB=B6=E4=BA=BA: Alex Deucher <alexdeucher@gmail.com> =E5=
-=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2025=E5=B9=B44=E6=9C=8816=E6=97=A5 22:49
->> >> >=E6=94=B6=E4=BB=B6=E4=BA=BA: Alexey Klimov <alexey.klimov@linaro.org=
+>> finally found this list, I hope it's the right place for this. I
+>> recently swapped my trusty RX 6900 XT with a shiny new RX 9070 XT (aka
+>> RDNA2 to 4). Now, when I start kwin_wayland my desktop is a flickering
+>> mess. As a workaround I can set KWIN_DRM_NO_AMS, it is working with
+>> this. Afaik this disables the use of atomic mode setting. So I guess
+>> there is a bug in either amdgpu kernel side, libdrm or mesa.
+> FWIW, if it's a user-space issue, it's most likely in kwin. Mesa doesn't use KMS directly in this scenario, and libdrm is just a thin wrapper around KMS ioctls.
 >
->> >> >On Wed, Apr 16, 2025 at 9:48=E2=80=AFAM Alexey Klimov <alexey.klimov=
-@linaro.org> wrote:
->> >> >>
->> >> >> On Wed Apr 16, 2025 at 4:12 AM BST, Fugang Duan wrote:
->> >> >> > =E5=8F=91=E4=BB=B6=E4=BA=BA: Alexey Klimov <alexey.klimov@linaro=
-.org> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2025=E5=B9=B44=E6=9C=8816
->> >> >=E6=97=A5 2:28
->> >> >> >>#regzbot introduced: v6.12..v6.13
->> >> >> >>The only change related to hdp_v5_0_flush_hdp() was
->> >> >> >>cf424020e040 drm/amdgpu/hdp5.0: do a posting read when flushing =
-HDP
->> >> >> >>
->> >> >> >>Reverting that commit ^^ did help and resolved that problem. Bef=
-ore
-
-[..]
-
->> > OK.  that patch won't change anything then.  Can you try this patch in=
-stead?
->>
->> Config I am using is basically defconfig wrt memory parameters, yeah, i =
-use 4k.
->>
->> So I tested that patch, thank you, and some other different configuratio=
-ns --
->> nothing helped. Exactly the same behaviour with the same backtrace.
->
-> Did you test the first (4k check) or the second (don't remap on ARM) patc=
-h?
-
-The second one. I think you mentioned that first one won't help for 4k page=
-s.
+I only encountered this issue after upgrading my GPU. My config has been
+running fine with the Navi21 GPU.
 
 
->> So it seems that it is firmware problem after all?
->
-> There is no GPU firmware involved in this operation.  It's just a
-> posted write.  E.g., we write to a register to flush the HDP write
-> queue and then read the register back to make sure the write posted.
-> If the second patch didn't help, then perhaps there is some issue with
-> MMIO access on your platform?
+Anyways, I found there is already an open ticket:
 
-I didn't mean GPU firmware at all. I only had uefi/EL3 firmwares in mind.
+https://gitlab.freedesktop.org/drm/amd/-/issues/4057
 
-Completely out of the blue, based on nothing, do you think that
-adding delay/some mem barrier between write and read might help?
-I wonder if host data path code should be executed during common desktop
-usage as a common user then why it doesn't break later. But yeah, I also
-think this is this motherboard problem. Thank you.
+I also was hitting https://gitlab.freedesktop.org/drm/amd/-/issues/4144.
 
-Thanks,
-Alexey
+
+Strange that I didn't manage to find these. My search engine foo must
+have been weak...
+
+
+Regards
+
+Malte
 
