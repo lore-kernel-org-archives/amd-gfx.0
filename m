@@ -4,62 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DACAC369C2
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 11:11:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D54C369C2
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 12:48:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E54DB10E1DD;
-	Tue, 22 Apr 2025 11:11:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4960A10E596;
+	Tue, 22 Apr 2025 12:48:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LRFLGJxy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QSCp68do";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A386510E082;
- Tue, 22 Apr 2025 11:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1745320285; x=1776856285;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=GgJCNAGMvR0NtaDv652psAyvJcAiYqq6JDbJevX2YzQ=;
- b=LRFLGJxyExyYtTdo92WIuPboslWB8LkS+A9cUPZDE0LWCBBsY5P3n+dW
- dhlLqr6yWUWin1Zl0CATi1B7v37h+jXOcHMdIW5PYDtzy0TgLKij2KsEz
- iJJT9sj2mYjO5Bto/DO+4L6iH9M2wM9gVve+41t2aLqoW7ljC6XISIR7U
- tco0Tl0mQbFzdYVKW5dMf+uQS+wjKbMooN0YVokTPO3qcExQawnQ8s7bC
- DMSTKqW6w4oU/DB2JGxWZk80HpYxtgeoHl+9K7MNBWaIFyiVLxJKTqMRe
- gGbIPnu6r8PgOQ0OnT4GXnsU0nn6GkGZM2ryWhEP1bMaSclP51gEBciZr A==;
-X-CSE-ConnectionGUID: YVS5rxG3Tj+iVFRRooSJqQ==
-X-CSE-MsgGUID: P3mxRykSREGJ00sPne598w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11410"; a="57537200"
-X-IronPort-AV: E=Sophos;i="6.15,230,1739865600"; d="scan'208";a="57537200"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2025 04:11:22 -0700
-X-CSE-ConnectionGUID: YdRcZeB1TpiEuEaveCHjDg==
-X-CSE-MsgGUID: 7y+61/VvTvaQNkl5z4jmSg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,230,1739865600"; d="scan'208";a="169189240"
-Received: from lkp-server01.sh.intel.com (HELO 050dd05385d1) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 22 Apr 2025 04:11:18 -0700
-Received: from kbuild by 050dd05385d1 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1u7BX1-0000tP-2l;
- Tue, 22 Apr 2025 11:11:15 +0000
-Date: Tue, 22 Apr 2025 19:10:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, YiPeng.Chai@amd.com, tao.zhou1@amd.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: Re: [PATCH RESEND] drm/amdgpu: Remove redundant return value checks
- for amdgpu_ras_error_data_init
-Message-ID: <202504221807.hOSkO5OB-lkp@intel.com>
-References: <20250422073505.2378-1-vulab@iscas.ac.cn>
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 200F510E1AD;
+ Tue, 22 Apr 2025 10:26:34 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-43ce71582e9so39690505e9.1; 
+ Tue, 22 Apr 2025 03:26:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1745317593; x=1745922393; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=g7SxF5DbGT5htrrk5YgOA+scpYjVb9Z25iQ9Uytxx0w=;
+ b=QSCp68do+C2Uattg5NfH8q7rDxMCTE7Cw+uJcWGoPZGlCGpL5F1TW6/jIerVxIY+IV
+ o1ZBxzel2YasK5fuVKVACQHMe7ifXL7mP4qKKqC+RTmP/i5j+1XJGI2OKWZzBm/zuv8B
+ q49OhjxNYsI4xBAt4JDmVj70oo6BgvIoKP62wpjBgQGsmYK57wtOihTuxeYuGUjZBs+d
+ eM57dPIONwdSq2b2vPqS7aopYhj7C1liL0i0w8pvCXRr7HevTxXBmS0KGCC5EcECYgOw
+ zgbN5ZLE9vmj6vYBaieRo4HIViODGX61VXHpOWR2wHJLzFR3v1a95eu7BgCChwqsDvMa
+ hhew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745317593; x=1745922393;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=g7SxF5DbGT5htrrk5YgOA+scpYjVb9Z25iQ9Uytxx0w=;
+ b=mLXICC/DF/XVkMvB1viSTozQ+dDKcL3JqKbH7FiRSxqyyobMPRwMWTlgsoqAWoffLm
+ sH+yJU+syMUpi1viNZvMaCl/vajvS33LHhemx8KdMiV3mLe9c2om56t9VdBuYPwsOuKt
+ 63jb63iJCsD2JUAD0VHyvzGiI9jsPVUbRxOvUo50EG2pIQl6+uBe22E+0TGR07GJ15UE
+ qbfqg4hsGG+geq7zuA5dLuipqo1DJg8XJEFwU1gORisvhs2StndkJR13Rd9pnB+W0zN4
+ LF2Fg20EJWHm8cjOKSx+ykYMYtmH/gDuJ2IIAF0oA4I147L/u/ynuohDbhCUu/xcv5cX
+ XiPA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUmqkytU9dhxNbw6aDY0AmAApUgMahBoG+2PqBVDFdZUK1YgOW0PIX9Br5nq4WVee/9EgM8ZgkkF3lQ@lists.freedesktop.org,
+ AJvYcCUnZJLEq8dIpSCNEQG9F9/c4AbR2KcHo8OU7hOVnRFKYRoYQcsJr/c3wBgedbx/lzW/qJPSBmZX@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7soT7++PMQa+ljIstHP46x4dsPx+pTdRBqwke+tslDQCUGEmT
+ lHlk+ZWeEuPMoVJbsqHZ1/N0Q5ltdAyV9IdcujOSdNeG7z24W+ES
+X-Gm-Gg: ASbGnctNOtHfpcyJ15M0uqFkkozEwSSUTdCP08U29kH3Xswr3NSFVrHbERJBHq0uy2M
+ AGJ3TtV7oxR7KgFbVNSJ3UHgJkrtLw17RydER2lk+uMtSk7ge7t2gm+afBXAyIYm/5qiVfkFDbi
+ nNz/4tG3WJ3yW5MZqziKxUHD1b6o7grIYnBJkz4iQtYnBBq4M9ovwus7giJY9PqifuRT16SwDkE
+ aSlj8nVzDljpdrloR9kBVIKaX3hodVNSy0zPqm2Wz6uJPsexJL+ST6UfnHX4vt61nlE/MvmRYMh
+ XLKydzPAQdDVxFdhbRYiuhIm50+7I0U33M7T7ZlHsQ==
+X-Google-Smtp-Source: AGHT+IGlq5aQo6biEBoKrYltKM02BlS5tU2XYCn2QzFs14ArIDjnApRfpVJZzbfhnaPVk4Nsu5WREQ==
+X-Received: by 2002:a05:600c:4ecc:b0:43d:db5:7af8 with SMTP id
+ 5b1f17b1804b1-4406ac0f3c0mr111465995e9.21.1745317592548; 
+ Tue, 22 Apr 2025 03:26:32 -0700 (PDT)
+Received: from localhost ([194.120.133.58])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4406d5acccdsm165855825e9.11.2025.04.22.03.26.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Apr 2025 03:26:32 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amdgpu: Fix spelling mistake "rounter" -> "rounter"
+Date: Tue, 22 Apr 2025 11:26:26 +0100
+Message-ID: <20250422102626.29965-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250422073505.2378-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 22 Apr 2025 12:48:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,80 +90,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Wentao,
+There is a spelling mistake with the array utcl2_rounter_str, it
+appears it should be utcl2_router_str. Fix it.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-[auto build test ERROR on drm-exynos/exynos-drm-next]
-[also build test ERROR on linus/master v6.15-rc3 next-20250417]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-amdgpu-Remove-redundant-return-value-checks-for-amdgpu_ras_error_data_init/20250422-153759
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
-patch link:    https://lore.kernel.org/r/20250422073505.2378-1-vulab%40iscas.ac.cn
-patch subject: [PATCH RESEND] drm/amdgpu: Remove redundant return value checks for amdgpu_ras_error_data_init
-config: i386-buildonly-randconfig-005-20250422 (https://download.01.org/0day-ci/archive/20250422/202504221807.hOSkO5OB-lkp@intel.com/config)
-compiler: clang version 20.1.2 (https://github.com/llvm/llvm-project 58df0ef89dd64126512e4ee27b4ac3fd8ddf6247)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250422/202504221807.hOSkO5OB-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202504221807.hOSkO5OB-lkp@intel.com/
-
-All error/warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:170:6: warning: unused variable 'ret' [-Wunused-variable]
-     170 |         int ret;
-         |             ^~~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:690:44: error: expected ';' after expression
-     690 |         amdgpu_ras_error_data_init(&obj->err_data)
-         |                                                   ^
-         |                                                   ;
-   1 warning and 1 error generated.
-
-
-vim +690 drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-
-   664	
-   665	/* make one obj and return it. */
-   666	static struct ras_manager *amdgpu_ras_create_obj(struct amdgpu_device *adev,
-   667			struct ras_common_if *head)
-   668	{
-   669		struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-   670		struct ras_manager *obj;
-   671	
-   672		if (!adev->ras_enabled || !con)
-   673			return NULL;
-   674	
-   675		if (head->block >= AMDGPU_RAS_BLOCK_COUNT)
-   676			return NULL;
-   677	
-   678		if (head->block == AMDGPU_RAS_BLOCK__MCA) {
-   679			if (head->sub_block_index >= AMDGPU_RAS_MCA_BLOCK__LAST)
-   680				return NULL;
-   681	
-   682			obj = &con->objs[AMDGPU_RAS_BLOCK__LAST + head->sub_block_index];
-   683		} else
-   684			obj = &con->objs[head->block];
-   685	
-   686		/* already exist. return obj? */
-   687		if (alive_obj(obj))
-   688			return NULL;
-   689	
- > 690		amdgpu_ras_error_data_init(&obj->err_data)
-   691	
-   692		obj->head = *head;
-   693		obj->adev = adev;
-   694		list_add(&obj->node, &con->head);
-   695		get_obj(obj);
-   696	
-   697		return obj;
-   698	}
-   699	
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index d81449f9d822..c48cd47b531f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -1547,7 +1547,7 @@ static void gfx_v9_4_2_log_utc_edc_count(struct amdgpu_device *adev,
+ {
+ 	uint32_t bank, way, mem;
+ 	static const char * const vml2_way_str[] = { "BIGK", "4K" };
+-	static const char * const utcl2_rounter_str[] = { "VMC", "APT" };
++	static const char * const utcl2_router_str[] = { "VMC", "APT" };
+ 
+ 	mem = instance % blk->num_mem_blocks;
+ 	way = (instance / blk->num_mem_blocks) % blk->num_ways;
+@@ -1568,7 +1568,7 @@ static void gfx_v9_4_2_log_utc_edc_count(struct amdgpu_device *adev,
+ 		dev_info(
+ 			adev->dev,
+ 			"GFX SubBlock UTCL2_ROUTER_IFIF%d_GROUP0_%s, SED %d, DED %d\n",
+-			bank, utcl2_rounter_str[mem], sec_cnt, ded_cnt);
++			bank, utcl2_router_str[mem], sec_cnt, ded_cnt);
+ 		break;
+ 	case ATC_L2_CACHE_2M:
+ 		dev_info(
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.49.0
+
