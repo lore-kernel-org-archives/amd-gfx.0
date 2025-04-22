@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8D56C369D9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1933AC369CB
 	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 08:15:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74B2310E535;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB7F10E537;
 	Tue, 22 Apr 2025 08:15:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N9dHOmo/";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UR0PiMgm";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD7510E500
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 06:35:40 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1BB610E500
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 06:34:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E60E85C58EE;
- Tue, 22 Apr 2025 06:33:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C6AC4CEE9;
- Tue, 22 Apr 2025 06:35:39 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id DD6EDA4BB34;
+ Tue, 22 Apr 2025 06:29:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5F5C4CEE9;
+ Tue, 22 Apr 2025 06:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1745303739;
- bh=bZqkhwr3NmBDgPG066rDljCJbnwaKghPQjIhiztSo6w=;
+ s=korg; t=1745303694;
+ bh=MKEXiB/t6Jttew9KVFTjnWxR50MEMX9yiYXnSViVvO0=;
  h=Subject:To:Cc:From:Date:From;
- b=N9dHOmo/t6eLsqDG2PJm7JdjZqDW8WBUW0fq6e6UrfxkQiGMBB/5/C5a2+sv3qwOx
- N0+F9MxyjhQwnYMEAcpFON8P+ONbd3Qs3dq2AZGbjqrvvb0HmCej9n7wygL/quaYlq
- Kt15BgbvvROQsXeBFdWaGRrn8i8CRmg+/mFnCOWY=
+ b=UR0PiMgmNHRhYByMK7G4kH6tIoeUXghhjp0X7x3cgzrOtvvbBJ2P3g/zaytKogWFt
+ xPZI8C+H5yVOFCal/Eh28CGRFh0+SCWeaCGh47OgW1ax7AwzXXILZQh/GgYEtJSZcM
+ wzAR0A+Ik93wuiFNoeod2IHfCJkAylBIjwlAm/u0=
 Subject: Patch "drm/amdgpu/dma_buf: fix page_link check" has been added to the
- 6.12-stable tree
+ 5.15-stable tree
 To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com, gregkh@linuxfoundation.org, matthew.auld@intel.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Apr 2025 08:35:10 +0200
-Message-ID: <2025042210-wronged-correct-4a40@gregkh>
+Date: Tue, 22 Apr 2025 08:34:39 +0200
+Message-ID: <2025042239-bronchial-try-67d4@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -60,12 +60,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/amdgpu/dma_buf: fix page_link check
 
-to the 6.12-stable tree which can be found at:
+to the 5.15-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-amdgpu-dma_buf-fix-page_link-check.patch
-and it can be found in the queue-6.12 subdirectory.
+and it can be found in the queue-5.15 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -102,7 +102,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -181,7 +181,7 @@ static void amdgpu_dma_buf_unmap(struct
+@@ -225,7 +225,7 @@ static void amdgpu_dma_buf_unmap(struct
  				 struct sg_table *sgt,
  				 enum dma_data_direction dir)
  {
@@ -115,7 +115,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from matthew.auld@intel.com are
 
-queue-6.12/drm-xe-dma_buf-stop-relying-on-placement-in-unmap.patch
-queue-6.12/drm-xe-use-local-fence-in-error-path-of-xe_migrate_clear.patch
-queue-6.12/drm-amdgpu-dma_buf-fix-page_link-check.patch
-queue-6.12/drm-xe-userptr-fix-notifier-vs-folio-deadlock.patch
+queue-5.15/drm-amdgpu-dma_buf-fix-page_link-check.patch
