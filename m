@@ -4,80 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 334CBC369C2
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 13:46:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F03D0C369C2
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 13:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD54610E5B1;
-	Tue, 22 Apr 2025 13:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B0510E110;
+	Tue, 22 Apr 2025 13:59:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NAwpafNH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WjIwsUVm";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 119C210E5B1;
- Tue, 22 Apr 2025 13:46:13 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-308218fed40so547790a91.0; 
- Tue, 22 Apr 2025 06:46:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745329572; x=1745934372; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zKAXYEa6/VLh0NZkKTBiPYID8+vaPzcEPkeHsNwXQDg=;
- b=NAwpafNHvYTUe+7u6YsbUxSxBoGtyEDEUJ+JZIOQXURivOwIWAq+vtSs6299N7VcJX
- TfLu3C8UpKs6OIR3jUw5Y4Wt99dKzTpeygOHxhhE+hzoWyLQL64+88CspUEZrO1XWYZm
- BXPTh5H9At6NqdkYsES9We0N6AdcnJzUP8a30ceODpo24Ti6P67B9B+omwhFnJJfT7gT
- yL3RjvroeG0Y7tdXh3fF7Gkp3cZTiMwa/mU4TZRFcnQnEZf9+Le1qnR3uHOsCbFmFaIJ
- wHBrKgjMSIjV87h9ki5KWk787Umna5hqpx75XzscyQbxc6i+zVMohW1rLYLYtUFUiHSA
- am8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745329572; x=1745934372;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zKAXYEa6/VLh0NZkKTBiPYID8+vaPzcEPkeHsNwXQDg=;
- b=F8umQ6+cTI5XWgvxTBpazIZBFmYaa6JAg08GLPZYiOCF/A1Q6W8ojjSNgEV266UjG4
- H2lnKBr3eNVLMDbiRDDjAUan1BCYaUKKeF8glQSqNNJj3PhaVJgIGmDsYy0aNL5vCSNp
- ZMRcA9INcqg2OCFQqSJKkcHSwouy62mOKjpEy+POY63+jngaWJzequsVK+8Q9jOokXXF
- ArhZi+DZgJkzsYe2UdnLUH0hpLqj9iR8fOrJ4ZGDYKMDT2QdmyYt4YsqQ2b/zK0dBNG7
- k/OALla5ttpRs7k/bdnlr78QUsPsFcU8P5x9Vh94FCh+408lHyWWv0P9h1JGkdMjWo5z
- 6JUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWemTwNLtvZ/X5la+en1dcffc4EPsws8xTclXlEPpvVsZvOhysCg0hyu97EXCu1o7MNuk1KyLaz@lists.freedesktop.org,
- AJvYcCXgZ+ZUh1MbOjyUjmeGXMMtvfLHtDgRv1P+9JE3qzvYESvRJlN3LIMsehuMvUNTFEONNRJqtq4g9EgH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwILGl3zQNco+ynl0RTJsdrbR3Hqm+G5t6LDQ16XXnhnYvwRmZp
- AZtVbkdM9sSrphqoKK2YKKXpQIbithK1nStzX2Zp3kIfcks+icfaWiCOewVaRyPwPZSFW3A1OAB
- /JywkpoHnRW4YDLzJIQsjwOOnWovR8A==
-X-Gm-Gg: ASbGncsljWwGByx4OTDmODeZivIdrDQd3FswjOLQbw5Qq7ZE+EFV2gQ8OOFVjsAUw59
- n0lHTjDAgD65vFWAbX0PL5CmSNg8We47YnhTSF2MHsCByUR+VjLaKdECF9jkVV2KkF4aaFxsFDW
- DMLatxvD1Ddc58rAcOojn4zp59LV41TzR1
-X-Google-Smtp-Source: AGHT+IECnr/zJ2E6MF2usCsrGfyxjTBBW7hk5J/2Up1103fbS/c9RJz2TNwlZsPntlffsfti9rw7Z0c8MEnIm+0fhCM=
-X-Received: by 2002:a17:90b:1c83:b0:2fe:a747:935a with SMTP id
- 98e67ed59e1d1-3087bbc70efmr8381367a91.4.1745329572515; Tue, 22 Apr 2025
- 06:46:12 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D4F010E110
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 13:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ZFL2Y5hpWKwUbW7MY57pWfOhg51Zg05LJCObQSenl34=; b=WjIwsUVmNTW4gOlH+hvRZx8U5M
+ NFoPKg2xAdois0NviY9Gc90fsG0H9r76gm9cBSktku0xco9SDqiREY123ffxeEinmaucteJ4u0/r4
+ buXvmQrIUHzObv10grAZjPvu7GQ+JOghN+zvUL+0tmSBFMruMeXri1/gY+NEWeakrtbByhhOCpL9t
+ F8i5GNjsUcSiHJcFUjHU8LTHgoqT2YTlssH/tu8RWhgyNm4iFIp8c4kxLZ1PYr0VZ1dYrz/S/ZOZC
+ bSd1OGx8ohnnF42MFfEZdEBEokCQcEinvGKlawe/Ttg9UqS27yIn8rP1OuN3KMgzJTI5otFsgQDsP
+ jOVURZ4Q==;
+Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
+ helo=maloca.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1u7EA7-006StP-8z; Tue, 22 Apr 2025 15:59:47 +0200
+Date: Tue, 22 Apr 2025 07:59:41 -0600
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: Re: [PATCH v2] drm/amdgpu: Add documentation to some parts of the
+ AMDGPU ring and wb
+Message-ID: <p5o5jovbtbilyb32skmtp7a53o2fylyhk6x5onb2zsd6kgwqrl@usvdp4fzuul3>
+References: <20250421222427.392362-1-siqueira@igalia.com>
+ <CADnq5_NUzggmAmf3nSpOp0r3gnSLWiDM0rc6Cy2Y5yXFvkSXuw@mail.gmail.com>
 MIME-Version: 1.0
-References: <20250418083129.9739-1-arefev@swemel.ru>
- <PH7PR12MB56852EECD78C11BD15157AF383BB2@PH7PR12MB5685.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB56852EECD78C11BD15157AF383BB2@PH7PR12MB5685.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Apr 2025 09:46:00 -0400
-X-Gm-Features: ATxdqUGU-CCMs4qZcsvRTip94orySY_8TgzWOPynOQ5mL61RjWPeZ4592c9uXKo
-Message-ID: <CADnq5_NLEUZget2naQm9bYH1EsrvbhJCGd7yPN+=9Z_kKmUOCw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: check a user-provided number of BOs in list
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Denis Arefev <arefev@swemel.ru>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Chunming Zhou <david1.zhou@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_NUzggmAmf3nSpOp0r3gnSLWiDM0rc6Cy2Y5yXFvkSXuw@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,63 +63,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On 04/22, Alex Deucher wrote:
+> On Mon, Apr 21, 2025 at 6:24 PM Rodrigo Siqueira <siqueira@igalia.com> wrote:
+> >
+> > Add some random documentation associated with the ring buffer
+> > manipulations and writeback.
+> 
+> I think this will result in documentation warnings if not all of the
+> elements in the structure are documented?  If so, maybe it would be
 
-On Tue, Apr 22, 2025 at 5:13=E2=80=AFAM Koenig, Christian
-<Christian.Koenig@amd.com> wrote:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> ________________________________________
-> Von: Denis Arefev <arefev@swemel.ru>
-> Gesendet: Freitag, 18. April 2025 10:31
-> An: Deucher, Alexander
-> Cc: Koenig, Christian; David Airlie; Simona Vetter; Andrey Grodzovsky; Ch=
-unming Zhou; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org=
-; linux-kernel@vger.kernel.org; lvc-project@linuxtesting.org; stable@vger.k=
-ernel.org
-> Betreff: [PATCH v2] drm/amdgpu: check a user-provided number of BOs in li=
-st
->
-> The user can set any value to the variable =E2=80=98bo_number=E2=80=99, v=
-ia the ioctl
-> command DRM_IOCTL_AMDGPU_BO_LIST. This will affect the arithmetic
-> expression =E2=80=98in->bo_number * in->bo_info_size=E2=80=99, which is p=
-rone to
-> overflow. Add a valid value check.
->
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
->
-> Fixes: 964d0fbf6301 ("drm/amdgpu: Allow to create BO lists in CS ioctl v3=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Denis Arefev <arefev@swemel.ru>
-> ---
-> V1 -> V2:
-> Set a reasonable limit 'USHRT_MAX' for 'bo_number' it as Christian K=C3=
-=B6nig <christian.koenig@amd.com> suggested
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_bo_list.c
-> index 702f6610d024..85f7ee1e085d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> @@ -189,6 +189,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdg=
-pu_bo_list_in *in,
->         struct drm_amdgpu_bo_list_entry *info;
->         int r;
->
-> +       if (!in->bo_number || in->bo_number > USHRT_MAX)
-> +               return -EINVAL;
-> +
->         info =3D kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
->         if (!info)
->                 return -ENOMEM;
-> --
-> 2.43.0
->
+This warning will likely be triggered only per struct, right? For the
+case of the struct amdgpu_wb I can try to complete all the missing
+fields for the next version. Regarding the writeback struct, I'm only
+familiar with the display writeback where DCN writes the same data from
+scanout in a memory buffer (at a scanout time). Does this writeback
+behave similarly to the one from DCN?
+
+> better to make then as regular comments rather than kerneldoc.
+> 
+> Alex
+> 
+> >
+> > Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h      | 28 +++++++++++++++++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 37 ++++++++++++++++++++++++
+> >  2 files changed, 64 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > index cc26cf1bd843..6d2ae8d027e5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -522,9 +522,35 @@ int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
+> >
+> >  struct amdgpu_wb {
+> >         struct amdgpu_bo        *wb_obj;
+> > +
+> > +       /**
+> > +        * @wb:
+> > +        *
+> > +        * Pointer to the first writeback slot. In terms of CPU address
+> > +        * this value can be accessed directly by using the offset as an index.
+> > +        * For the GPU address, it is necessary to use gpu_addr and the offset.
+> > +        */
+> >         volatile uint32_t       *wb;
+> > +
+> > +       /**
+> > +        * @gpu_addr:
+> > +        *
+> > +        * Writeback base address in the GPU.
+> > +        */
+> >         uint64_t                gpu_addr;
+> > -       u32                     num_wb; /* Number of wb slots actually reserved for amdgpu. */
+> > +
+> > +       /**
+> > +        * @num_wb:
+> > +        *
+> > +        * Number of writeback slots reserved for amdgpu.
+> > +        */
+> > +       u32                     num_wb;
+> > +
+> > +       /**
+> > +        * @used:
+> > +        *
+> > +        * Track the writeback slot already used.
+> > +        */
+> >         unsigned long           used[DIV_ROUND_UP(AMDGPU_MAX_WB, BITS_PER_LONG)];
+> >         spinlock_t              lock;
+> >  };
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > index ec4de8df34e7..20805dacd66c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -241,6 +241,9 @@ struct amdgpu_ring_funcs {
+> >         bool (*is_guilty)(struct amdgpu_ring *ring);
+> >  };
+> >
+> > +/**
+> > + * amdgpu_ring - Holds ring information
+> > + */
+> >  struct amdgpu_ring {
+> >         struct amdgpu_device            *adev;
+> >         const struct amdgpu_ring_funcs  *funcs;
+> > @@ -255,10 +258,44 @@ struct amdgpu_ring {
+> >         u64                     wptr;
+> >         u64                     wptr_old;
+> >         unsigned                ring_size;
+> > +
+> > +       /**
+> > +        * @max_dw:
+> > +        *
+> > +        * Maximum number of DWords for ring allocation. This information is
+> > +        * provided at the ring initialization time, and each IP block can
+> > +        * specify a specific value.
+> > +        */
+> >         unsigned                max_dw;
+> > +
+> > +       /**
+> > +        * @count_dw:
+> > +        *
+> > +        * Count DWords: this value starts with the maximum amount of DWords
+> > +        * supported by the ring. This value is updated based on the ring
+> > +        * manipulation.
+> > +        */
+> >         int                     count_dw;
+> >         uint64_t                gpu_addr;
+> > +
+> > +       /**
+> > +        * @ptr_mask:
+> > +        *
+> > +        * Some IPs provide support for 64-bit pointers and others for 32-bit
+> > +        * only; this behavior is component-specific and defined by the field
+> > +        * support_64bit_ptr. If the IP block supports 64-bits, the mask
+> > +        * 0xffffffffffffffff is set; otherwise, this value assumes buf_mask.
+> > +        * Notice that this field is used to keep wptr under a valid range.
+> > +        */
+> >         uint64_t                ptr_mask;
+> > +
+> > +       /**
+> > +        * @buf_mask:
+> > +        *
+> > +        * Buffer mask is a value used to keep wptr count under its
+> > +        * thresholding. Buffer mask initialized during the ring buffer
+> > +        * initialization time, and it is defined as (ring_size / 4) -1.
+> > +        */
+> >         uint32_t                buf_mask;
+> >         u32                     idx;
+> >         u32                     xcc_id;
+
+Since we are here, what is this XCC and XCP? I guess those are focused
+on datacenter GPUs, right? Also, what do those acronyms stand by?
+
+Thanks
+
+> > --
+> > 2.49.0
+> >
+
+-- 
+Rodrigo Siqueira
