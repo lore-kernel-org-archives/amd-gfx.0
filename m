@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDCC2C369D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 08:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15B36C369D9
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 08:15:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A55010E53B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9EC10E53E;
 	Tue, 22 Apr 2025 08:15:56 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IBSLx4+O";
-	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB0E610E500
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 06:35:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id EA0E1A4B9A8;
- Tue, 22 Apr 2025 06:29:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DD5C4CEE9;
- Tue, 22 Apr 2025 06:35:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1745303702;
- bh=Y8WUO+e+EjJa1sehowEuzBjgKjQIS6Bkvz+jY4t9T04=;
- h=Subject:To:Cc:From:Date:From;
- b=IBSLx4+OAfhlglfl7m1RhUxUVOv6lgL3g+sXyXCKc1kzAbmC1EqgyTIPPp9sNQJ5q
- B0bRDEi3znzr3NDz4v4asbM9PRiQZttweDakKEe6fFKQw4abnSezsLgMPKkRup1H6C
- C1hi3fH5787SmqMUezxkAh3DWqoWkA2c9cP1vlKI=
-Subject: Patch "drm/amdgpu/dma_buf: fix page_link check" has been added to the
- 6.1-stable tree
-To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, gregkh@linuxfoundation.org, matthew.auld@intel.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Apr 2025 08:34:52 +0200
-Message-ID: <2025042252-playset-darkish-ea58@gregkh>
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1FA810E152;
+ Tue, 22 Apr 2025 02:18:31 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.141.245])
+ by APP-01 (Coremail) with SMTP id qwCowABH7f1u_AZo5+MACw--.9989S2;
+ Tue, 22 Apr 2025 10:18:22 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH RESEND] drm/amd/display: Add dp_decide_lane_settings() to
+ ensure compatibility
+Date: Tue, 22 Apr 2025 10:17:58 +0800
+Message-ID: <20250422021758.1963-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.42.0.windows.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+X-CM-TRANSID: qwCowABH7f1u_AZo5+MACw--.9989S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4UGr1DuryxWr4UAr1xGrg_yoW8ur4Dpa
+ 18KFyDJF1UtrW0qa98tF1I9rW5Wa18C3y7Ar9rGasYyry5AF1Ik3y5Cr9Fkr9rGFWkA3yY
+ q3W8Ca1Duwn0kFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9E14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI4
+ 8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
+ wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
+ v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
+ Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
+ AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbKhF3UUUUU==
+X-Originating-IP: [124.16.141.245]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcAA2gG6ExYQgAAsY
 X-Mailman-Approved-At: Tue, 22 Apr 2025 08:15:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,64 +63,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The dp_perform_128b_132b_channel_eq_done_sequence() calls
+dp_get_lane_status_and_lane_adjust() but lacks dp_decide_lane_settings().
+The dp_get_lane_status_and_lane_adjust() and dp_decide_lane_settings()
+functions are essential for DisplayPort link training in the Linux kernel,
+with the former retrieving lane status and adjustment needs, and the
+latter determining optimal lane configurations. This omission risks
+compatibility issues, particularly with lower-quality cables or displays,
+as the system cannot dynamically adjust to hardware limitations,
+potentially leading to failed connections. Add dp_decide_lane_settings()
+to enable adaptive lane configuration.
 
-This is a note to let you know that I've just added the patch titled
-
-    drm/amdgpu/dma_buf: fix page_link check
-
-to the 6.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amdgpu-dma_buf-fix-page_link-check.patch
-and it can be found in the queue-6.1 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From c0dd8a9253fadfb8e5357217d085f1989da4ef0a Mon Sep 17 00:00:00 2001
-From: Matthew Auld <matthew.auld@intel.com>
-Date: Mon, 7 Apr 2025 15:18:25 +0100
-Subject: drm/amdgpu/dma_buf: fix page_link check
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Matthew Auld <matthew.auld@intel.com>
-
-commit c0dd8a9253fadfb8e5357217d085f1989da4ef0a upstream.
-
-The page_link lower bits of the first sg could contain something like
-SG_END, if we are mapping a single VRAM page or contiguous blob which
-fits into one sg entry. Rather pull out the struct page, and use that in
-our check to know if we mapped struct pages vs VRAM.
-
-Fixes: f44ffd677fb3 ("drm/amdgpu: add support for exporting VRAM using DMA-buf v3")
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v5.8+
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 630168a97314 ("drm/amd/display: move dp link training logic to link_dp_training")
+Cc: stable@vger.kernel.org # 6.3+
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../amd/display/dc/link/protocols/link_dp_training_128b_132b.c  | 2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -210,7 +210,7 @@ static void amdgpu_dma_buf_unmap(struct
- 				 struct sg_table *sgt,
- 				 enum dma_data_direction dir)
- {
--	if (sgt->sgl->page_link) {
-+	if (sg_page(sgt->sgl)) {
- 		dma_unmap_sgtable(attach->dev, sgt, dir, 0);
- 		sg_free_table(sgt);
- 		kfree(sgt);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
+index db87cfe37b5c..99aae3e43106 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
+@@ -176,6 +176,8 @@ static enum link_training_result dp_perform_128b_132b_cds_done_sequence(
+ 		wait_time += lt_settings->cds_pattern_time;
+ 		status = dp_get_lane_status_and_lane_adjust(link, lt_settings, dpcd_lane_status,
+ 						&dpcd_lane_status_updated, dpcd_lane_adjust, DPRX);
++		dp_decide_lane_settings(lt_settings, dpcd_lane_adjust,
++				lt_settings->hw_lane_settings, lt_settings->dpcd_lane_settings);
+ 		if (status != DC_OK) {
+ 			result = LINK_TRAINING_ABORT;
+ 		} else if (dp_is_symbol_locked(lt_settings->link_settings.lane_count, dpcd_lane_status) &&
+-- 
+2.42.0.windows.2
 
-
-Patches currently in stable-queue which might be from matthew.auld@intel.com are
-
-queue-6.1/drm-amdgpu-dma_buf-fix-page_link-check.patch
