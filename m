@@ -4,121 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 091A7C369D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 13:24:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81F81C369C2
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 13:25:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A244A10E5A0;
-	Tue, 22 Apr 2025 13:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24E0310E59A;
+	Tue, 22 Apr 2025 13:25:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2kxSNfbc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T3+JUvYz";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 218AF10E59A
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 13:24:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=glPJupPMg9DeffICCITfgD2Vdi7BSrAHvlwgixI3RsEKzVENrtqO1RzWn7b3LDdnnKNB2Hg7IcbdNcakCyjaH07yhKYEj15pZfhII8ZpjUQQNeWVm+K+E/GH3GxRCNZ1UaSjVWoembjgVDHCgzx10wGhhX0oLY2DHkaNpAzsS+pKfucgHW8HTPsvSDc2et+U4B7DSFBFpnZCJ2cstMG3CoHMr5LqOYLEiY3BJHKTdmz1oI2F8wYQfY35fawU7rcQVxwThBoKpM0p68OwzFucGQwGRwUeHwo7+CJcsPFeOXHuv4Y3FCNRcpePLE18Ir85kVUEbH+Ya6kTIEt3VJWkoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5tLIDvnvglNcdQrVVOhzCmC4yRrhAvPoVkU1zQXx4OU=;
- b=v9N4sMyPKS366YFlUVELt4DaijLYhES4HtxLu/zfbDR1x2Q4ZuVxXr+w5Ag74AfL3+sjBbuYHMyOsq/a9K5kNRcznGeRpK74tezYivTs6Kw9PAWFBr7Fq+HQdys0GUObDxQESI584rcS8hLlFo352VDZzrAxFI6capRxUkAvppgflTE44VJCgIYBjPMpSn87H8gM6Ykjfv6dM716dHIDviLi2S8kMYi1JNcLbnPeQQy9mhNzvKYayDL7AsNZ+rL9GLAn2qpNHeHERLC+k8Qjw0DneZTFJ/u8bOqVPNzPDlrENELBGEsm81GW60NsZkENKzQ7sk4wIlTOEi2aOyXC9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5tLIDvnvglNcdQrVVOhzCmC4yRrhAvPoVkU1zQXx4OU=;
- b=2kxSNfbcNRtoFb0LZwLu0sE+W+tQpFPioVpY+AZmzbbfaoVZE80aucRzYYGD4rUDpKoKTyebTvZ3Mtal21uAD07Ef1XnjB1VWAJAGtIHWYMmeelpNdKkW46j6p/9phwv8Ihp1Mxo+jKBbBZr5GIYJJdmkQ34s3SL6OL2zkxxrmc=
-Received: from SJ0PR05CA0050.namprd05.prod.outlook.com (2603:10b6:a03:33f::25)
- by MW4PR12MB7117.namprd12.prod.outlook.com (2603:10b6:303:221::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.29; Tue, 22 Apr
- 2025 13:24:07 +0000
-Received: from MWH0EPF000989E8.namprd02.prod.outlook.com
- (2603:10b6:a03:33f:cafe::b7) by SJ0PR05CA0050.outlook.office365.com
- (2603:10b6:a03:33f::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.14 via Frontend Transport; Tue,
- 22 Apr 2025 13:24:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E8.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Tue, 22 Apr 2025 13:24:06 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Apr
- 2025 08:24:04 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
- <Prike.Liang@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu: set the evf name to identify the userq case
-Date: Tue, 22 Apr 2025 21:23:52 +0800
-Message-ID: <20250422132352.3988185-2-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250422132352.3988185-1-Prike.Liang@amd.com>
-References: <20250422132352.3988185-1-Prike.Liang@amd.com>
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1FF610E59A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 13:25:52 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-b01d8d976faso317792a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 06:25:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1745328352; x=1745933152; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MUzemUBnMpV3Ry3+nLDrwijz5rbusCoaSHWrRFUaRJ8=;
+ b=T3+JUvYzS2oGug1PTOtJH6QdGxaUayidRWAeJzAVuJQm0XhLlaorvOBHoYEw2+ty+0
+ Bd9Tf0vHsq9MjHUqRS6I0+H8ymXhMndhEJOEciwlLZdobW88z2IQKFBzjrJJXGKoPKIN
+ 3eFY9JiwLYPsVB4khuk4Xlzca1JPo+2iGJ06TWcOsu/m5EluczF5bAZnU5Ivg+NZrbWc
+ bqp1s8Su83M39hT3Tcppex0HFW45kvzOXgkr9b2w/akjhRjNurhXSXn8LVoYU+srJPoa
+ AhHtnz4V8G46VrFRIvUDLqPAgdvvL4MIIzjWcT/fIF34wg/HC/A39Edw3YM42ERAPU+L
+ Krbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745328352; x=1745933152;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MUzemUBnMpV3Ry3+nLDrwijz5rbusCoaSHWrRFUaRJ8=;
+ b=Vl0EMqZArp+82YZ/5IqIRfO49fIk29zV0DdCEraV6vrFksQYbhsgsIDHcp5i6Le9Wk
+ LrcIB2XIGCV8ypBNt8HcrbA4PDMZKBh7h8rUUw60LMPocPMGTGuCBaAgzdIYVVcaNsN1
+ IyuQ6Prdu/H+wslH5GpXH/939HJBdXhlW7Nq/yxevhzowkMXyoEik8m+GL5CYQ7iNA/V
+ MST2G/IykENTIdUkrvgZ7JEmtJMPZea9mNpvceSoeBUpTcj6TgJn9KYq/g1Nl2rLhqWj
+ cvCO6b9N4Tp9wMvHcI7htLrGX+zDqmkqbwPLlEVW+grTW322ROp4G+7on6wYvhGYs3Ub
+ qIig==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX3CleAxJGp2XeoSf8VKmSGuhV50AF/CxpNMgb8je62JTvexZXt37ajHr9vCDzMWOQy+fhWdu6V@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrEJs6581qKVFqqC+S8YsV1HLEFIkKn8hL9b6XYhe6zDv/vl+D
+ dNPen13WUsR7zkE4qusp+0F8qrmQlxluJ+kfnTS/9f9pyOV6x22gSJJYofm0lfmcHckNiASl+ap
+ OFqUwiJarJPIF2BxLefPjEyMVYEE=
+X-Gm-Gg: ASbGncu/Vg4svJXQlFN1rCMcyToWSRr5amQDs+R8Ht/iBXWULBoNbBnpaegkJ+4INJD
+ F67PR6e5PCAFZ9OGQPTXsSOf5sg1wjEj1fzS89kP6kPvk7xHaJXywOL/zVAiVKEGijO0jFAq8ES
+ aEQXqDAHHUSKmfI75YekMcMA==
+X-Google-Smtp-Source: AGHT+IHPf+wCWEIf/EjWJgHv8KY58Mw7ruMIMvEqR2uS4aC++EvRu6YRopkpAfLID2uShGc3RuYfdX0uKcfbhbSPqx0=
+X-Received: by 2002:a17:90b:3b8d:b0:2fe:b77a:2eba with SMTP id
+ 98e67ed59e1d1-3087bb426aemr9264593a91.1.1745328352106; Tue, 22 Apr 2025
+ 06:25:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E8:EE_|MW4PR12MB7117:EE_
-X-MS-Office365-Filtering-Correlation-Id: a61b8cea-077a-475a-f7e8-08dd81a0f56f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wm3aLWYHmP3D9MPzv5tUm/BhEp5KuVJ4SATTgfE8e0dUzMpu40TCXl843a9X?=
- =?us-ascii?Q?WiQpH+qsk/WSEfn0KmoYHpwM34DhNVCNTVABcReX8tCc+efGkPRi3NJq3fvT?=
- =?us-ascii?Q?ZCFpEQmSN1iI1MixFajyLvx5Nbvb2ENR/FoFZ6ns57JVhMuqhlNpC5Bkh69W?=
- =?us-ascii?Q?33iYR+0rVqHru6J2uTsPeP6s+7DArn0oMCGeNL9o7IRgJVPIMuQIkoLbdjuZ?=
- =?us-ascii?Q?WyQdCoV/MuKL2HGbK8zkYPumnSCQk5GdCPYGzt9i/A+4aDtNSDohtD0BgRPa?=
- =?us-ascii?Q?8aWphBR6LyxQXFX1o+elOrI5cxA/X/APuia49ccDhbo4NAnZrGoYrg+ij3tL?=
- =?us-ascii?Q?mHaZJzEULAtQQTdKgCZD8l7DGfXNym0JWFz79DDH1YI3pOB2Quuy9eTtscIl?=
- =?us-ascii?Q?UMNI8ZY+XIUq0YgnPOPaQz8Y1OrBTSLsPFJ0kCsBJmn/mUVrpnDP5XEQ3e+g?=
- =?us-ascii?Q?xluLU9RKxLUaYdEAAOIglVMmialrv0tlHliMEW+Stf9GGU4rkANIizMQ0UwM?=
- =?us-ascii?Q?9/S1BPV+eW4uddqfea769oPzq5tKicoSTlOTk8kAPkvVGTpwat6rAhkmzzH9?=
- =?us-ascii?Q?41NaZNI4yT5cqpSzcEKEPODtjuEAM0ldQJfaLzLrCGk3y5NTGQrzgqptvjjZ?=
- =?us-ascii?Q?RDGVDUXx6mAPv/sLTSQpUn/6unepSXfidhjHeE1ViwY4bQwZz99yFAJIsHYx?=
- =?us-ascii?Q?HMV56KTA/f+KZRr9JTWE3OsHntVm0Al5r7s/KrGhsVWo24N7t1Eg9dzPXqGf?=
- =?us-ascii?Q?B8lJx/BQ49apagRyE/esaW1LcRyj3FLvgH1vCB8pLAYKi/w5Wz15LmYPVEko?=
- =?us-ascii?Q?aJlbF78++E5fP91rUaJiFdHSKI7X326vqvEeFl3GqAs4oC904LVBEz1Ssklw?=
- =?us-ascii?Q?Y+KMUmPi+r1o+VPpkl8pvDS1QNaS4LF3l0tVeqFA70dI3DIdfpfCw4arIc+j?=
- =?us-ascii?Q?SHU271RnWBAoWnR0wRrQBXjyvLSRitPXi8OSZHQX6Kd9EP8RBEACQyxBm14G?=
- =?us-ascii?Q?HtkxMI6et254/iwz5lU/qbglgZIojlUMrZRDOfiXDcdpiCMd4KBHb/rNJgxz?=
- =?us-ascii?Q?Ilyz9O1tUqVowO1WqlIK7Tzv6z6ak89JvR45L6M74h6tSnS3kWO+j5hpXlfo?=
- =?us-ascii?Q?wMV+sru5ecw5DtqVRT3lXpZTggPJE34xEMAf63Dq7EELl5hgmw/MATNYh5yN?=
- =?us-ascii?Q?ZCxBkh1I7fl5lQuUL3xvRJGDnLYswS6kjQ5JzY/qSBxO8M8h1+qvqrwMl3PW?=
- =?us-ascii?Q?HntbQd+xtfzJ2XVyeUB/aLOyWv38bUNgWKqsodHVEroKkklfvJUBaTxxadVs?=
- =?us-ascii?Q?k3G1G1S/eOwXeFEaGFHoHzyFqbQw6XxYNIDIOu22OsP0F2TSPJlEQ3L/raj0?=
- =?us-ascii?Q?axMs8ukCzh9OJIKo1CQ55gNIeTUqO/D+xFKsnWr36OQgbOIB4QdviLYKw5eR?=
- =?us-ascii?Q?6MweOL2TgVsKApKXYDZcDq0qaTLIu3In+8DD69ksgApCAUWB/8YL1wG+Do8F?=
- =?us-ascii?Q?y3zdslsBPQIGbmjloCa/J1x4D4zwxBfF0RFC?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2025 13:24:06.7359 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a61b8cea-077a-475a-f7e8-08dd81a0f56f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7117
+References: <20250421222427.392362-1-siqueira@igalia.com>
+In-Reply-To: <20250421222427.392362-1-siqueira@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 22 Apr 2025 09:25:39 -0400
+X-Gm-Features: ATxdqUE6rNTfHapuLu7M87n7acvJCuGWaFFkxdPuCYY3_VFlYTJfzdZKENrJU8g
+Message-ID: <CADnq5_NUzggmAmf3nSpOp0r3gnSLWiDM0rc6Cy2Y5yXFvkSXuw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Add documentation to some parts of the
+ AMDGPU ring and wb
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org, 
+ kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,26 +85,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The evf fence name can clearly identify the userq usage.
+On Mon, Apr 21, 2025 at 6:24=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
+>
+> Add some random documentation associated with the ring buffer
+> manipulations and writeback.
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I think this will result in documentation warnings if not all of the
+elements in the structure are documented?  If so, maybe it would be
+better to make then as regular comments rather than kerneldoc.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-index 0075469550b0..610f447ede9b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-@@ -31,7 +31,7 @@
- static const char *
- amdgpu_eviction_fence_get_driver_name(struct dma_fence *fence)
- {
--	return "amdgpu";
-+	return "amdgpu_eviction_fence";
- }
- 
- static const char *
--- 
-2.34.1
+Alex
 
+>
+> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h      | 28 +++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 37 ++++++++++++++++++++++++
+>  2 files changed, 64 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index cc26cf1bd843..6d2ae8d027e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -522,9 +522,35 @@ int amdgpu_file_to_fpriv(struct file *filp, struct a=
+mdgpu_fpriv **fpriv);
+>
+>  struct amdgpu_wb {
+>         struct amdgpu_bo        *wb_obj;
+> +
+> +       /**
+> +        * @wb:
+> +        *
+> +        * Pointer to the first writeback slot. In terms of CPU address
+> +        * this value can be accessed directly by using the offset as an =
+index.
+> +        * For the GPU address, it is necessary to use gpu_addr and the o=
+ffset.
+> +        */
+>         volatile uint32_t       *wb;
+> +
+> +       /**
+> +        * @gpu_addr:
+> +        *
+> +        * Writeback base address in the GPU.
+> +        */
+>         uint64_t                gpu_addr;
+> -       u32                     num_wb; /* Number of wb slots actually re=
+served for amdgpu. */
+> +
+> +       /**
+> +        * @num_wb:
+> +        *
+> +        * Number of writeback slots reserved for amdgpu.
+> +        */
+> +       u32                     num_wb;
+> +
+> +       /**
+> +        * @used:
+> +        *
+> +        * Track the writeback slot already used.
+> +        */
+>         unsigned long           used[DIV_ROUND_UP(AMDGPU_MAX_WB, BITS_PER=
+_LONG)];
+>         spinlock_t              lock;
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.h
+> index ec4de8df34e7..20805dacd66c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -241,6 +241,9 @@ struct amdgpu_ring_funcs {
+>         bool (*is_guilty)(struct amdgpu_ring *ring);
+>  };
+>
+> +/**
+> + * amdgpu_ring - Holds ring information
+> + */
+>  struct amdgpu_ring {
+>         struct amdgpu_device            *adev;
+>         const struct amdgpu_ring_funcs  *funcs;
+> @@ -255,10 +258,44 @@ struct amdgpu_ring {
+>         u64                     wptr;
+>         u64                     wptr_old;
+>         unsigned                ring_size;
+> +
+> +       /**
+> +        * @max_dw:
+> +        *
+> +        * Maximum number of DWords for ring allocation. This information=
+ is
+> +        * provided at the ring initialization time, and each IP block ca=
+n
+> +        * specify a specific value.
+> +        */
+>         unsigned                max_dw;
+> +
+> +       /**
+> +        * @count_dw:
+> +        *
+> +        * Count DWords: this value starts with the maximum amount of DWo=
+rds
+> +        * supported by the ring. This value is updated based on the ring
+> +        * manipulation.
+> +        */
+>         int                     count_dw;
+>         uint64_t                gpu_addr;
+> +
+> +       /**
+> +        * @ptr_mask:
+> +        *
+> +        * Some IPs provide support for 64-bit pointers and others for 32=
+-bit
+> +        * only; this behavior is component-specific and defined by the f=
+ield
+> +        * support_64bit_ptr. If the IP block supports 64-bits, the mask
+> +        * 0xffffffffffffffff is set; otherwise, this value assumes buf_m=
+ask.
+> +        * Notice that this field is used to keep wptr under a valid rang=
+e.
+> +        */
+>         uint64_t                ptr_mask;
+> +
+> +       /**
+> +        * @buf_mask:
+> +        *
+> +        * Buffer mask is a value used to keep wptr count under its
+> +        * thresholding. Buffer mask initialized during the ring buffer
+> +        * initialization time, and it is defined as (ring_size / 4) -1.
+> +        */
+>         uint32_t                buf_mask;
+>         u32                     idx;
+>         u32                     xcc_id;
+> --
+> 2.49.0
+>
