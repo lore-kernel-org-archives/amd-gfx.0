@@ -4,81 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C2BCC369C2
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 13:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 705DEC369C2
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 13:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5AF410E59E;
-	Tue, 22 Apr 2025 13:22:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1147410E2C3;
+	Tue, 22 Apr 2025 13:24:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fwtDsSSI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xMTcn6HH";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C44C510E59E;
- Tue, 22 Apr 2025 13:22:38 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2ff6ce72844so569673a91.2; 
- Tue, 22 Apr 2025 06:22:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745328158; x=1745932958; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pBILyizekAjPCmmmdo2HKqcc4V7w+tmXlAj3jy+pQkY=;
- b=fwtDsSSIHV6G+AQ82M6/o6UvsF3qDu0kAxaHaxJELoaTGTXIs+LSpi7/yZwkA+SIxu
- SY5e2CKtY2xnSpOmAK45+GaD1aiNUM7xf/Npe6S/ladVNdHY0lhx3QhD6/jiuXFN6yd3
- XUwqGpK8FEmlomedfySl/8aciVXLsN9rfXCcmHvUuXuNDqLXHkcTcAa2Jdyn5N0Yia1U
- g44ojHmenvXKn3YxCQOU4eDeH8C7hp+uMOOuyaRq2IojKEsokpex9JnUdXATDRg10PiT
- kJUAYu/SuOT4TNojAzjYab0dnoCX2sEiJIvBxOEgGhv8KlVUh12yHqHQIPIQeDxisg2l
- /VJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745328158; x=1745932958;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pBILyizekAjPCmmmdo2HKqcc4V7w+tmXlAj3jy+pQkY=;
- b=lWR8eoJ2LDi0Xg7TTz/BLmoUIEwvZbbh/ncD33y0tqeaaPYfweGrLTt08u6kGk6kN0
- iJe2o94JYLLuiHjgA0kTENYe56h3/F0YJjpuymO0kUtBKz0VZ8a2qcwcQmUWPHiEVeTN
- /y/dpT/OjRNuZuqOrq0MKXKrILcdrARf+/NQb3XLp3JDyyZowauRkfWyEJHCynFQHCUp
- a8OK3Uqlwr+ujECexqk8+iFH7R3njlWFRDlSp4uRo7WGy0G7p5ccUa8E8PgihWSUFqEW
- vvV7TZkW1CPmJuSipI8agD6Hb6syUWHvQB3Ea0IgPxrOLo2y/F2/3CB7Wkwc9evIP1LJ
- gwuw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWHbFbyQhg0DT9AdEM4YNjRbislONWjXtnalOHg2+E24KslFKVdYR7mZs1LB3BpXMbvCi7fKNxk0x19@lists.freedesktop.org,
- AJvYcCWgOgFkfIQK9a5xEuJ/WLNl6E2i/0/THR7Nz4ezICyz4+yW5LTPgluak4Y3u86KphkzzYoWBlrO@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxT4EYUong75urd8mwaaEXm2X1VgBEqMj7yv5RbMeHiRTHT+5Cd
- PJGOJRlV0tZnaNHPYLnwyVcg7tldbFmdD1K9I1POacTdEAIZdCYXO3J25+b58akrneH+rGhMJ5b
- 81kxspJxt91hbh1jRDWD6K3DpZxUB3A==
-X-Gm-Gg: ASbGncth9+/Y37s+SeumeBp6o6eb2mLQiJHziBUzmMflOfD3NeoDX+LIawfUkp6JP9O
- /jTBSOPo7RuYolpKOLAbTJwBunpoa72MSNomYjA6nJro0q8DFwpo7AJMYe98sRLDqO2A4fxHnI4
- G9Nbhai5CfdEUSIPVOCa2dlhP1wXW73ywW
-X-Google-Smtp-Source: AGHT+IEHxIXJ57o2vAr1MKjS3Ux5RQVm7gJxKy8BTvCUtNN6vjof8j5ax/+3hlrY42ZuLwk/zzHCuS0iACWxFSW1XL4=
-X-Received: by 2002:a17:90b:3b8d:b0:2fe:b77a:2eba with SMTP id
- 98e67ed59e1d1-3087bb426aemr9258177a91.1.1745328158110; Tue, 22 Apr 2025
- 06:22:38 -0700 (PDT)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED3D10E2C3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 13:24:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w1VUsxlfGXwvohy4zgJvCRzo9X8ArvPFfmSbTS/Ln+ssO2naMO7wV9ykLAUgHRNW6tDi7PXW6in+Cu82s7P+OjjRrLZom/UENJfWdW6nTwxpjzIlGrcUGHYKyTnsL2bqZGIO6wMTKyKyf9IRG82zY85WqiDiU3X00ogtE+1ebLSr9RPh2HSxUodC9yftmFGK8j9wJ7drUQVRCfAPOigpSDG9Df59pZgg2SQOFz5kvkOgxwgSgMh625cIs8PIvPtGL1TyvhqSvY5TA2yibMjdYp95C+tYGIZHB77VskEfcIlE/llD3TJh+YS7ly9Z0Ii96Qi9KPLA0jX8UqpzPt7A1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hHbxRF0kx2cAZrHTKY0S7Qg9nXEVbQ2jg++TfUMmAMU=;
+ b=ZK/eaPVo364GE2HUjJ9zS4Drvi+gfNfxYAUzzy7Lao0Vr9O98166CROgpYfPfYkj1YyKiG6UM66RXSrSmHDFtz19YjaKE1axr3EQRxhKBXFxJrszcY4dlp88qZuTh+x3SkZAXaNB/uzmuqkn0fipuPnQUmkkgCNexr51KQ+flERwPFvfhd1lqx8yRt08vH5vpdA+PI1oO0zqBIhW/2ScB1o7tYit8ThtchqlA8Domhvc0zqeD0fPtEOL6rUi5jXnNklWNUm1L73dc5nltScIKi2ojR67kPQ8Yw4KCMboLBLe8llnytelLFSbFSeHIgeZmC1JRvL2O2H02HhU09udrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hHbxRF0kx2cAZrHTKY0S7Qg9nXEVbQ2jg++TfUMmAMU=;
+ b=xMTcn6HHuGo2qNhxcVfyMYBkiW6N3vcfBJQDtlhKx/BZ8RxE1jlUx0l5lDUL454iSW17Isv+jbzDTIPjQj/VPMwzqb6C+He1fJToiZQTE5zHzmb0M118xkZkGtiAs1PzhjCXfig8RjhPJ036i0BGwCHsAE7bX4bLuVB/stA5ms8=
+Received: from SJ0PR05CA0046.namprd05.prod.outlook.com (2603:10b6:a03:33f::21)
+ by DS7PR12MB6288.namprd12.prod.outlook.com (2603:10b6:8:93::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8655.35; Tue, 22 Apr 2025 13:24:05 +0000
+Received: from MWH0EPF000989E8.namprd02.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::bf) by SJ0PR05CA0046.outlook.office365.com
+ (2603:10b6:a03:33f::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.10 via Frontend Transport; Tue,
+ 22 Apr 2025 13:24:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989E8.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Tue, 22 Apr 2025 13:24:04 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Apr
+ 2025 08:24:02 -0500
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
+ <Prike.Liang@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: add the evf attached gem obj resv dump
+Date: Tue, 22 Apr 2025 21:23:51 +0800
+Message-ID: <20250422132352.3988185-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20250421215833.work.924-kees@kernel.org>
-In-Reply-To: <20250421215833.work.924-kees@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Apr 2025 09:22:26 -0400
-X-Gm-Features: ATxdqUGJQNgaoaG-hS1nqNwSeL05Pe4-dnmCjl-rEQJYX-mGdL9-b6jNGkZx9D0
-Message-ID: <CADnq5_MbGS+DBRZhQccqP-o50vvv6uiT31msefRTw5bMydAAKg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/atom: Work around vbios NULL offset false
- positive
-To: Kees Cook <kees@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Jesse Zhang <jesse.zhang@amd.com>, Tim Huang <Tim.Huang@amd.com>, 
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alexander Richards <electrodeyt@gmail.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Al Viro <viro@zeniv.linux.org.uk>, 
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E8:EE_|DS7PR12MB6288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9608a898-6297-452d-d4d0-08dd81a0f43e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BWmmLN3vREfViQ7yFlTdNhTXrRuwl66nc/NpwP1XI8Nry0lXi6Ria1Q0p2uQ?=
+ =?us-ascii?Q?mk6V4FJEbq6oeytjBTKzfJ4qg4bMG9tEFb0iOpt2HtcBVKQhcvALsRb+n56Y?=
+ =?us-ascii?Q?RNMyTuX8J7fEGjX/ibrNyQR3YR0jPKgNtGhfnV391KIOqU9rszIn8H9zXAWT?=
+ =?us-ascii?Q?iPOPYI/7zYZYU2GS9FaBaEgXAyoVH+jzW8r+Xkcs9F8RkqkU1xjwCtxD1i3E?=
+ =?us-ascii?Q?yqNiSngJsejWeH1UbJa6XC1ROrTxwwbDfmbnsfJM+7A4sBSSAtSN4UNe0HwA?=
+ =?us-ascii?Q?AJX3gNJDolWqWNOK82dXOXfnKVX8R9hRC0r26dEw7E3j4S6Twh9SC5T2uQo5?=
+ =?us-ascii?Q?XFdWSHCc+MUODKRioPE70CBc4ykE02PmUlHJ5nsXRVl9LuEDcK0vNojo4/dd?=
+ =?us-ascii?Q?DvhDQ27ODBUq4DIVMOYGr1JE9pEPQjTg29WupedKh5/sksxL7Xqa7b1GHxUJ?=
+ =?us-ascii?Q?Emi4wT2R8QjOSQeUCaP5ly1hcHHMz+mvb1bj+tmZTQOyi6qySX+9kctApIMS?=
+ =?us-ascii?Q?3rO9h7PSvhM/pNAXeNWGud297CsoV+senWBpwVh81gt8auqB+y4I+mldjWTk?=
+ =?us-ascii?Q?ZSNgOlWzS1c1YSdl6aO2ofuyBKSXwnayOEQ/BTzLglIYkLCe8ajFWsusqw6o?=
+ =?us-ascii?Q?vdFv2eJGFe8RyM8UFFK68jJ/rVxXSY/lHGryindGmOz8nqdM0Ixsfl9+Ri/g?=
+ =?us-ascii?Q?h1h+QvEMbTuycVuFHDa0Jgo+DlFCHyedvJE6bh3krLCDOqXvtVUeCzus5StZ?=
+ =?us-ascii?Q?BVboKPsVY7UBWepwqP3pipGpsArTFX8XOT7rIT2gwaVPAn5S5fuFMTAywIS5?=
+ =?us-ascii?Q?JjCRV461pbS+NysGgmDUr7z8anSfBFnjV7F/SeB69C/QhrqlNDyCwreVZixv?=
+ =?us-ascii?Q?ZZt+7PSImI6/Cpei6Wmet7vrZcCob+QDh5adIX+SNaZGUBPLCzccHM0VbCMO?=
+ =?us-ascii?Q?KK17RKZrVAgEbS0J9fYj3aPLZKVtT+VQNjAn5dMuWcEVsHr8UZc5gWTKLaMr?=
+ =?us-ascii?Q?DX0smMcFosjFQY4Ez5ipRaW67bSpubyC9UVJZ7aygZJigaFgE61svFIXXXHL?=
+ =?us-ascii?Q?SW2kZ1+kFsIQE9uKTCdrkmLMCh6XXSztSD6LHfefxqS/x5M7n8GZ0eNKqvDJ?=
+ =?us-ascii?Q?Nyb3PswxPqoH23QT2VwxLdYExjYZ8ux8MTFsZAQu8UG3dIqhwY3ez5QpkPNO?=
+ =?us-ascii?Q?Rw1BT7LrikMKbUmZWrIjhudrSumxNIsgLgasr0lemYKV2uKyKtSPvwoR+Z6K?=
+ =?us-ascii?Q?GwFU225uG49dYaNWnhVLYqYh1JIW5f4R+NcdS/KpWdgpDHsf62KODWuXeTKR?=
+ =?us-ascii?Q?udisEhv7nR2F4tEelfmUjf5bgLlsBQJl2fiO4ekko9QZrY+X1Q2ZNO1msO76?=
+ =?us-ascii?Q?xvcOIW2upDARqRz2Kfdm57Tb30XnxKCwy4eCUd6aJzvjkJI3g/RE7KAmdIIC?=
+ =?us-ascii?Q?UKtWpzr2vV1JMpmWq5Qyg7Vl5AYAijdERaaY1K7Y8PXT6wkbEE/YLwEPPWej?=
+ =?us-ascii?Q?Po6pbHxgMzQVR8rFuV+gwVdoioZ17tt02aip?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2025 13:24:04.7358 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9608a898-6297-452d-d4d0-08dd81a0f43e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,91 +131,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 21, 2025 at 5:59=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
->
-> GCC really does not want to consider NULL (or near-NULL) addresses as
-> valid, so calculations based off of NULL end up getting range-tracked int=
-o
-> being an offset wthin a 0 byte array. It gets especially mad about this:
->
->                 if (vbios_str =3D=3D NULL)
->                         vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
->         ...
->         if (vbios_str !=3D NULL && *vbios_str =3D=3D 0)
->                 vbios_str++;
->
-> It sees this as being "sizeof(BIOS_ATOM_PREFIX) - 1" byte offset from
-> NULL, when building with -Warray-bounds (and the coming
-> -fdiagnostic-details flag):
->
-> In function 'atom_get_vbios_pn',
->     inlined from 'amdgpu_atom_parse' at drivers/gpu/drm/amd/amdgpu/atom.c=
-:1553:2:
-> drivers/gpu/drm/amd/amdgpu/atom.c:1447:34: error: array subscript 0 is ou=
-tside array bounds of 'unsigned char[0]' [-Werror=3Darray-bounds=3D]
->  1447 |         if (vbios_str !=3D NULL && *vbios_str =3D=3D 0)
->       |                                  ^~~~~~~~~~
->   'amdgpu_atom_parse': events 1-2
->  1444 |                 if (vbios_str =3D=3D NULL)
->       |                    ^
->       |                    |
->       |                    (1) when the condition is evaluated to true
-> ......
->  1447 |         if (vbios_str !=3D NULL && *vbios_str =3D=3D 0)
->       |                                  ~~~~~~~~~~
->       |                                  |
->       |                                  (2) out of array bounds here
-> In function 'amdgpu_atom_parse':
-> cc1: note: source object is likely at address zero
->
-> As there isn't a sane way to convince it otherwise, hide vbios_str from
-> GCC's optimizer to avoid the warning so we can get closer to enabling
-> -Warray-bounds globally.
->
-> Signed-off-by: Kees Cook <kees@kernel.org>
+This debug dump will help on debugging the evf attached gem obj fence
+related issue.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Do you want me to pick this up, or do you want to take this through
-some other tree?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index d09db052e282..1e73ce30d4d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1675,7 +1675,11 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
+ 	amdgpu_bo_print_flag(m, bo, VRAM_CONTIGUOUS);
+ 	amdgpu_bo_print_flag(m, bo, VM_ALWAYS_VALID);
+ 	amdgpu_bo_print_flag(m, bo, EXPLICIT_SYNC);
+-
++	/* Add the gem obj resv fence dump*/
++	if (dma_resv_trylock(bo->tbo.base.resv)) {
++		dma_resv_describe(bo->tbo.base.resv, m);
++		dma_resv_unlock(bo->tbo.base.resv);
++	}
+ 	seq_puts(m, "\n");
+ 
+ 	return size;
+-- 
+2.34.1
 
-Thanks,
-
-Alex
-
-> ---
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-> Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Jesse Zhang <jesse.zhang@amd.com>
-> Cc: Tim Huang <Tim.Huang@amd.com>
-> Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Cc: Alexander Richards <electrodeyt@gmail.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> ---
->  drivers/gpu/drm/amd/amdgpu/atom.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
-pu/atom.c
-> index 81d195d366ce..427b073de2fc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-> @@ -1444,6 +1444,7 @@ static void atom_get_vbios_pn(struct atom_context *=
-ctx)
->                 if (vbios_str =3D=3D NULL)
->                         vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
->         }
-> +       OPTIMIZER_HIDE_VAR(vbios_str);
->         if (vbios_str !=3D NULL && *vbios_str =3D=3D 0)
->                 vbios_str++;
->
-> --
-> 2.34.1
->
