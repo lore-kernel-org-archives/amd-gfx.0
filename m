@@ -4,67 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34200C369C2
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Apr 2025 20:43:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF1CC369C2
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 00:01:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4F5A10E3AD;
-	Tue, 22 Apr 2025 20:43:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5775210E3D1;
+	Wed, 23 Apr 2025 00:01:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jz/eaKt/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cP38n3Tu";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A724010E3AD
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 20:43:16 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-30363975406so686547a91.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Apr 2025 13:43:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745354596; x=1745959396; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VTlImnC1F95Pseriw1ifyTC89Z4nvhNKRq8zYU5UvXc=;
- b=jz/eaKt/Pn6jCep2L9C85as6991Lvi44tSIab+59zrxTWGuwX/z97wxRWtUvXO5i2x
- VD+3sL0njdn8pLuQ+d69ujZGJKwCTJXZF4SI6HxetUzSEAH5LYouMftjuhzFVZMq1mV0
- 64VpnOzd0i2g73cibVbjcOEUyO9Q9H7I90/GOAcpZhTsuQXaQE51LofIDZBUmrRNu70x
- gP7Ow/k5PgL0cJdW7jA+EyZqmJTUTdcJDYyc/sgUE1Or02+IC9MdiXUvizVsnh32Oa/y
- TmvQI4T5GEucieOIr5Rb5H1nq9hD7E7SVyMUNUY9qqhJ799Nfl6E+Juy9dw38oBzfBUx
- 7QFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745354596; x=1745959396;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VTlImnC1F95Pseriw1ifyTC89Z4nvhNKRq8zYU5UvXc=;
- b=nmh1x3c5ddYjlqFTbKUQFDoYtxG4r22pBYUxTZTQIFBNWGc0CZQt0ubwGp9xsXqjyK
- Oe2rUpQwv3b+VsZyY7W+wAtvvmXYAUSaeEbWBcXGSJhdZiSVv/ke3eykib7DiLGLHvxL
- H8JgfFKyuMLcmjxEJM3rtzprMpu/ArsDSkHj8VFX81uzaHnn3VVGE3Ku4SgkzXk40tXp
- josQotXIbFf9FGQo2i/PZ9pb8MroIc7wnv1l1JfQHBh3pH8uuxYtx9qprfRAsaevz468
- bWUJNQOJs2ZoC1/cDUFefywqJgrn4AonTjkyTMllP6aNQ6Et93JAWvjd6z0A2jmxJ+z6
- 68Lg==
-X-Gm-Message-State: AOJu0YwCKpyKJj949oA7Vn632FM+43lnfS8EARo6lJEqvCQeLeqkIKm0
- iHq9F6e61Wp3qFg4b6h65eEvALMRkdkk+mWHETMh1hldOQ1V0utrVQarauaJPRsIQof3JDB8FoT
- LysXookifiduRCpRBMhTUz64UgLB7UQ==
-X-Gm-Gg: ASbGncvFnFXQui1kgl1D7I/2AxTiMyYX3nHcuZE9ooYeeDXuXQffbAZhPW4bsIZCU9h
- dqRynWPj2DFYiK7Q88USYKpcv2NHMgT7D3V/99uaS6LyE3yzWpKwMIyABG4w4xNIcCD5EJpZ5kS
- hVh6sVJQMr/SMS6HJ8+lsbyQ==
-X-Google-Smtp-Source: AGHT+IFcVabgbblpTy8M45Wzwb5bYXu62BXK12ZfSB+zUNKaOzZO7K9lyW1mEJAgbLrdkXWpmukP+CYsrSkW8Q0E8oE=
-X-Received: by 2002:a17:90b:1d0b:b0:301:ba2b:3bc6 with SMTP id
- 98e67ed59e1d1-3087be020admr8955827a91.7.1745354595938; Tue, 22 Apr 2025
- 13:43:15 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59C4110E3CB;
+ Wed, 23 Apr 2025 00:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1745366485; x=1776902485;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=weyfJbTWEyO2rrCelTiBVub3jIwlIWeXRb7GV7JeALo=;
+ b=cP38n3TuYcDo+msPmaJujhuuqpghrWOmi+aIagCWm4j3YpDQD4wALcq2
+ UD+rAtzqsK7dMGsMprru3mGZPuRQzu+Ni6rv5/+5mTEq67UIrcKfTY7Gb
+ Zf+Dpqt6xMuJ6vfGU/eP8ajQhoHoiwuMnH3yU0JAhpEzMFC4XkwUOeikJ
+ yl7y2270QMfnt2DUSx/zbY3OIZXeQYQaeh8E3HSHKyrs87ObcJcJKybCf
+ KaUjorqUTMXm3JCaQI6V4FyiycfXF28y7hFx5jaNLL0eiig/nBXf1RQWZ
+ GyBa+4Y8csSQqYzNwbrmQnDsbQbwvA4vqdtXR0TCIOwnYyCsUQ67G+MpG g==;
+X-CSE-ConnectionGUID: uk1skquTQZyPg9sJjkKoGA==
+X-CSE-MsgGUID: Jp54gLvxQKqv8eDZaQ3TEA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11411"; a="64473719"
+X-IronPort-AV: E=Sophos;i="6.15,232,1739865600"; d="scan'208";a="64473719"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2025 17:01:25 -0700
+X-CSE-ConnectionGUID: KXlNhm73REuidp51nGuUyw==
+X-CSE-MsgGUID: ODJS1dHkRcGIMYUxL3/eNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,232,1739865600"; d="scan'208";a="137141044"
+Received: from lkp-server01.sh.intel.com (HELO 050dd05385d1) ([10.239.97.150])
+ by orviesa004.jf.intel.com with ESMTP; 22 Apr 2025 17:01:21 -0700
+Received: from kbuild by 050dd05385d1 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1u7NYF-0001Pb-1G;
+ Wed, 23 Apr 2025 00:01:19 +0000
+Date: Wed, 23 Apr 2025 08:00:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, YiPeng.Chai@amd.com, tao.zhou1@amd.com
+Cc: oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] drm/amdgpu: Remove redundant return value checks
+ for amdgpu_ras_error_data_init
+Message-ID: <202504230730.y8eas9Se-lkp@intel.com>
+References: <20250422073505.2378-1-vulab@iscas.ac.cn>
 MIME-Version: 1.0
-References: <20250422201104.639320-1-Amber.Lin@amd.com>
-In-Reply-To: <20250422201104.639320-1-Amber.Lin@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Apr 2025 16:43:04 -0400
-X-Gm-Features: ATxdqUGWlgKg678ac4s89XZoMcyOO9y8G_WdtUp5wC3pyRBeEUA1tcZaqZBLr3Q
-Message-ID: <CADnq5_MrHhPUCbsHYUhEkFhGT37n1hmgFuEpdfiMJgVfUJD8mw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: Set SDMA_RLCx_IB_CNTL/SWITCH_INSIDE_IB
-To: Amber Lin <Amber.Lin@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250422073505.2378-1-vulab@iscas.ac.cn>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,40 +73,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 22, 2025 at 4:39=E2=80=AFPM Amber Lin <Amber.Lin@amd.com> wrote=
-:
->
-> When submitting MQD to CP, set SDMA_RLCx_IB_CNTL/SWITCH_INSIDE_IB bit so
-> it'll allow SDMA preemption if there is a massive command buffer of
-> long-running SDMA commands.
->
-> Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+Hi Wentao,
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+kernel test robot noticed the following build errors:
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gp=
-u/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> index 80320a6c8854..116932a20b3f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> @@ -495,6 +495,10 @@ static void update_mqd_sdma(struct mqd_manager *mm, =
-void *mqd,
->         m->sdma_engine_id =3D q->sdma_engine_id;
->         m->sdma_queue_id =3D q->sdma_queue_id;
->         m->sdmax_rlcx_dummy_reg =3D SDMA_RLC_DUMMY_DEFAULT;
-> +       /* Allow context switch so we don't cross-process starve with a m=
-assive
-> +        * command buffer of long-running SDMA commands
-> +        */
-> +       m->sdmax_rlcx_ib_cntl |=3D SDMA0_GFX_IB_CNTL__SWITCH_INSIDE_IB_MA=
-SK;
->
->         q->is_active =3D QUEUE_IS_ACTIVE(*q);
->  }
-> --
-> 2.34.1
->
+[auto build test ERROR on drm-exynos/exynos-drm-next]
+[also build test ERROR on linus/master drm/drm-next drm-misc/drm-misc-next v6.15-rc3 next-20250422]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-amdgpu-Remove-redundant-return-value-checks-for-amdgpu_ras_error_data_init/20250422-153759
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+patch link:    https://lore.kernel.org/r/20250422073505.2378-1-vulab%40iscas.ac.cn
+patch subject: [PATCH RESEND] drm/amdgpu: Remove redundant return value checks for amdgpu_ras_error_data_init
+config: x86_64-buildonly-randconfig-001-20250423 (https://download.01.org/0day-ci/archive/20250423/202504230730.y8eas9Se-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250423/202504230730.y8eas9Se-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202504230730.y8eas9Se-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c: In function 'amdgpu_reserve_page_direct':
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:170:13: warning: unused variable 'ret' [-Wunused-variable]
+     170 |         int ret;
+         |             ^~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c: In function 'amdgpu_ras_create_obj':
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:690:51: error: expected ';' before 'obj'
+     690 |         amdgpu_ras_error_data_init(&obj->err_data)
+         |                                                   ^
+         |                                                   ;
+     691 | 
+     692 |         obj->head = *head;
+         |         ~~~                                        
+
+
+vim +690 drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+
+   664	
+   665	/* make one obj and return it. */
+   666	static struct ras_manager *amdgpu_ras_create_obj(struct amdgpu_device *adev,
+   667			struct ras_common_if *head)
+   668	{
+   669		struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+   670		struct ras_manager *obj;
+   671	
+   672		if (!adev->ras_enabled || !con)
+   673			return NULL;
+   674	
+   675		if (head->block >= AMDGPU_RAS_BLOCK_COUNT)
+   676			return NULL;
+   677	
+   678		if (head->block == AMDGPU_RAS_BLOCK__MCA) {
+   679			if (head->sub_block_index >= AMDGPU_RAS_MCA_BLOCK__LAST)
+   680				return NULL;
+   681	
+   682			obj = &con->objs[AMDGPU_RAS_BLOCK__LAST + head->sub_block_index];
+   683		} else
+   684			obj = &con->objs[head->block];
+   685	
+   686		/* already exist. return obj? */
+   687		if (alive_obj(obj))
+   688			return NULL;
+   689	
+ > 690		amdgpu_ras_error_data_init(&obj->err_data)
+   691	
+   692		obj->head = *head;
+   693		obj->adev = adev;
+   694		list_add(&obj->node, &con->head);
+   695		get_obj(obj);
+   696	
+   697		return obj;
+   698	}
+   699	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
