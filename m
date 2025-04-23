@@ -4,73 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51F17C369CB
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 13:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49623C369CB
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 13:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAF3F10E6AD;
-	Wed, 23 Apr 2025 13:48:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2DD410E6BC;
+	Wed, 23 Apr 2025 13:58:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X0y9M8QV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KrbCiXSR";
 	dkim-atps=neutral
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9260A10E6AD
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 13:48:49 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id
- 41be03b00d2f7-b0ec7f3a205so285308a12.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 06:48:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745416129; x=1746020929; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6vVAfGIc63CIWO9pd7JpzNLwSs6/YsJYkFTdIIwA+Yo=;
- b=X0y9M8QVBhCswyEhd649D3v72y5GtR7PO6nHXsznZVT8l1VUOkiO0XHVMNVz0fxxCo
- mdbikL6LtfisWp2tv4lEiF9F4Mk+cHfMgHBGfzs5slY0UkAvPuzCk1p5ZHCVvr9rvdY4
- sibREYx9LxqKROZSk9tWlMDjpXEoweyqYK1c6j+b3m+mWAeSMyMarD597Cb3SCtDyjrC
- E92RGXZe5Xk1gyTIsSBCjg9SmG5R7CufzzEiC3OCmrphn/6MP5G/WPUziwtoiJZrTFQ9
- lZ6rvFsVUkpQ01hYYL5iwFSA2G0tbYan9KGeN10m0Nb+sBFUC5gBwIHN2H7PMCgOMNxY
- vPgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745416129; x=1746020929;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6vVAfGIc63CIWO9pd7JpzNLwSs6/YsJYkFTdIIwA+Yo=;
- b=Fuk2YIc4o2Dt1ZfWwnh3FglfVepw1AA5zOj8MDKAL3TqKgL69IB9EzVj66jjowPbg+
- 1bjh/UGA7fk/0h68XkL/XFe0XasCtsLzewuGKKPchfC8dUJj4MfMjMqCijp+cxTFkLVb
- R/6TOQRhxMWYcbVQJOhFIaDBZzN8C/7XY3CFuY6Itgd6bQqNnR6az1/EHtS8UI9OYCEI
- y9jOK1ASs9O7uupX56rn6sJvZls4uTGzVkCRXpU24BDmxPsy9xfXcSgaRHAck5ksyytE
- QdUEgB8FUl3krZHUU7xV7U5hppz0TwyLylvfhThdDw5IXkKUDvzyBljToNxc48XV/kE0
- cvBQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUMpvYuBU9kWmMCZPpJGaB8/Yd4FpKLdvjrMvi9xH9T+fwOCmsc0FH2jj0TnP1vAHhMvEy4O+5b@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywqa0S0x+zFhTochKW1Yp2uBVmblVrSdbyQ6ywZUxjX71bt37Bz
- zccYujwQQFe1meq7dmYd5CeuiXfsJHTnRBg6LsnCuaBGAF7/MuVuiaBYnjbDvXLtKBPshgNY7dF
- mI9XqJcnbo97hk3YCFX1JYSeOugccXQ==
-X-Gm-Gg: ASbGncsm2X4FeELtohfsLJHrl9yaKf7BNl7nHKlb52zOQR1KeCrR3/Mgo2W50K7trxa
- v4I2O0MvuBNGW83g6S3qs9YCiB9DQImjY/mumVIQC3EFm5dldnuqUUV/mg2FU6Kr2Vej43eA1dn
- h4ccVMcbfuLXFGDgR2d2/GT8I0RYKlG4Zu
-X-Google-Smtp-Source: AGHT+IHEnrWi56MmakALp5nL0wx5OoeCmFVh1tvEy7D8UBkzSnYMimcRTPXue5dt2lANp751ba8Z4SRxr5cF4y9cgHA=
-X-Received: by 2002:a17:90b:380c:b0:305:5f25:59ad with SMTP id
- 98e67ed59e1d1-309dee7834fmr1664835a91.7.1745416128754; Wed, 23 Apr 2025
- 06:48:48 -0700 (PDT)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97EB610E6B5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 13:58:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YvOk2e7aQe+duEP6EMQEd/TAbdA7TpgZ5ABIns2M+mJ8b0OReLkOdMd725EAPLxyUKgDLF3dhlx/UJ9HlRLo87VhvYInNNuMUjW3w+vbKsE7tzK8eVsFHMHVUMs9wPAgZbqrIzru7JTbNx7HDpfDf/MA+bt3G3qMhdOQ/7+LWrcII5opKaIjeUnGHaY1K1Cf0XuBLOh1hvgIdt0YFf8Av0AnvrKadWwo9+uAVKWI9/8Gp7fA88KSwZL7Qk2hU7BB5wUXw8qtWsr7C324A584ZlOnaDh1aM2x2lwFDZ2GsKwv12OPlPtZER2aOj8rIQ1EBwLkdcMncjO3PXDAdMrhbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gB3BZc6bl1RPGxg1IJIptGu52AtIJ1362NoQ+UzoXt4=;
+ b=UQU3RNnu1LYB/bI6rIsniXca4o3RX8pvh6VmXUCxSx3Eiha7no7kYxYeXSsDBR9Zly/mu1BU0LoeLzomAZBe+SeeFha9hMWndA1CHiK8Uny/fV4ZzjgPA2kvP12lRbpvo2vVHrF9xB+qqhc6RgnG8FkqjSE7wjpWgJYJlLFrV108tTZU08DgGXOeipVCtFjIvSXeI+7qacZM8EOOB+zuwuGKs9kJQ/fleipUaQ7tpIdYwws4Xf+PaNhoFC0z2IblOCvBFJmvlL8WUBsRusTJWOooA+AzhbgQAH2HeBeyDp3hvEavvzvGXaDlj4bPMIBzSPMn4vGYf4F8IfO6yRcSKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gB3BZc6bl1RPGxg1IJIptGu52AtIJ1362NoQ+UzoXt4=;
+ b=KrbCiXSRCa2OLghqf6irWneLgDTYs3EXY4Uhy2usCVC/zHSq6rsyYR3WgbV0VQ6IDlRXNVEosxu39fKXSxuQg+KyiQlpLJ7YQ6vESW9lzhdLsEE02NXiKg/P5Ollj+xgQMjpKXeG2+Qpxoun2IL22mYGfkycfA9/kI9Y1E1cVu0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV8PR12MB9407.namprd12.prod.outlook.com (2603:10b6:408:1f9::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.29; Wed, 23 Apr
+ 2025 13:58:30 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8678.021; Wed, 23 Apr 2025
+ 13:58:29 +0000
+Message-ID: <337da064-628f-4746-8609-e17c2d0b7d56@amd.com>
+Date: Wed, 23 Apr 2025 15:58:24 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amdgpu: properly release the eviction fences
+To: Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com
+References: <20250423132604.4002242-1-Prike.Liang@amd.com>
+ <20250423132604.4002242-2-Prike.Liang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250423132604.4002242-2-Prike.Liang@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL6PEPF00013E11.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:22e:400:0:1001:0:17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20250423093359.4424-1-Arvind.Yadav@amd.com>
- <7bd591c8-8101-431c-980d-edadfe26b047@amd.com>
-In-Reply-To: <7bd591c8-8101-431c-980d-edadfe26b047@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 23 Apr 2025 09:48:37 -0400
-X-Gm-Features: ATxdqUHYcxlOhsJBdbm0ofD6bl0sAWpCvQbnDuNwUI3bsEi_iXryQny9pMVE98Y
-Message-ID: <CADnq5_Obbx8Zvm7ViGDHhT-bk7aMsb=03OMZfEcY8r_MLBU2gA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: remove DRM_AMDGPU_NAVI3X_USERQ config for
- UQ
-To: "Khatri, Sunil" <sukhatri@amd.com>
-Cc: Arvind Yadav <Arvind.Yadav@amd.com>, Christian.Koenig@amd.com, 
- alexander.deucher@amd.com, sunil.khatri@amd.com, 
- Arunpravin.PaneerSelvam@amd.com, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9407:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8544e61d-f0de-4179-65b5-08dd826eed53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TXBRVmtucStXZFJCcVRsbUNwUCtDaDlOTkdJdWp1ZVo1UzdqWUZ6QVRKVS9m?=
+ =?utf-8?B?RktUdUpYb3FyL01wa0JmMHFqdFFxbU0xdTZLNFI2eVN1K1F1MG9ZNjdHTC90?=
+ =?utf-8?B?RWFaWHQySHc3RjhhczdFdFRyTDA1T2c4bVREWHZZbDFIUExGR1pOdkN0TmVX?=
+ =?utf-8?B?MEpJcHpZUzEvTG1CcGN5ZlM0WWZHT2VXRmVNWDB2Unl0bGJQbUxkQ3c2S2xV?=
+ =?utf-8?B?Y3ovS2tqTTVhdGtvMFZZRjZzRjR5M1pGT0J1dWdhWHlHNnMrc1FxRkJXUkZ2?=
+ =?utf-8?B?RDlYazNXdEJKcmxnNUZ6MTh6V21TU3JPUUJrL29meEgxYmFRNk4yRE1BNllC?=
+ =?utf-8?B?YmNESzZaWnpqZzZQNys1a2F0QlJOTFl1MnhCSmk3bjJUVXd4QUZDWHVIRDRz?=
+ =?utf-8?B?MDhrRGJpYW9VdEd2T0dQd3psSkNjMHVBdXJhTm9aS1d0TlMzdytlSTZmY0Z2?=
+ =?utf-8?B?M3hPR0h1RU5jdHNnbXptOHlBam1UTXRPMmZWNEFPZDdoNFJXT1FyM1NkV1di?=
+ =?utf-8?B?QWFvTllTdGZzRVk3SU9UemF1MUszV0hBQUUvMzQxYXRaWHBYU3hML05mVEhI?=
+ =?utf-8?B?djNqUDlNbnB1RWsyTWRpa3hVbnBuY0txc0xZakR4TzRlUEJqVTM5U3dVWDlG?=
+ =?utf-8?B?VWVyNkZYWHVNbm14SVlTNjB5YW90amVUdkJFSmduTUZGMlk2QUVoRURaWXlS?=
+ =?utf-8?B?WStrZEJOa1ZFZnlSQlZDSjdJL2xKUmdrWkVzTjRoYW1Sb2xPV2NhaDU4RjFx?=
+ =?utf-8?B?NEllR1prN1phWmxrU1hwbnhNZkw4RnphelRaZFpqVlErWDlHWjZwSGJZNWZu?=
+ =?utf-8?B?aVdlNm5Oa1JiblRqTk0zckE2aXFrc2x2K1RTQ0ZaeEZiQmVDbS9JMnVmeFFv?=
+ =?utf-8?B?U1g0V0U4K1dmSzh6eUlGK2U1SG5scEZzOHRIZGNGT3c0VVB5MUxtN1ZxZmhX?=
+ =?utf-8?B?YytMTkE2eEJHZnl0QllHUFlkV2RQSHo3WkZMeFZNOUVpRlozWENiYzlrZ1dx?=
+ =?utf-8?B?aFBMRWFhNmtkQVpldFY2T082bDRHdXRQTzlFQjNHbExpYWRBV1ROVkdWTHRk?=
+ =?utf-8?B?Tjd2UnUrNEMzcWUrS1daR0dBejNSTVpFNFVkVk9TN01CRFJ4NExtcUJiSWZ4?=
+ =?utf-8?B?MmNjakw3STBVaDVjSUxEdnZTMDNEOFZlWG9saHBCZzdkT0M2WVRmSDlTK2lU?=
+ =?utf-8?B?Nm5xL0QxVStLMlcvQ3A0Um5TTHluQzdoWWV5YUQzaGs1bENpZXFrK3Z0Vm5H?=
+ =?utf-8?B?VGZUUjV2VmI1Q0ZpdjhDa0lJbGwyaW5lUjJnWnpWU1ZTK1pIQVVIU1hlckZn?=
+ =?utf-8?B?WUhwNThIcjcycW9BSHNGQSt3ZDF6MTBCc2Y3MTJUTWVNU1dIOGVBRlRURmNo?=
+ =?utf-8?B?OWpIZ0NFSVhhc1VOUVBXVXVpc1JDT2FNeTk0S1hZWkF2SU0xRlJzRHVnSEpo?=
+ =?utf-8?B?TDlEWXZaZXNzN0g2MWVOcVdWUnVWL2RLalpCNzJndGlUbVJNMkZqS2d3NGZy?=
+ =?utf-8?B?cTBGMkxLMzhGQ0RyclJWM3luYXBDUVJSeFU4TTNWSEhwT2VMMVhYMllJK3o4?=
+ =?utf-8?B?bmhJcWtxRTQ5cmRqV05LcnlBTFFNd1A4RktWa3ZwZUFRQUd6ZUkyYlA5UjEv?=
+ =?utf-8?B?dEdEa3gyTkJMMnR4TWlkVVFZZUdwUGhWQ1VheGFtV1RadjdXemdCc2lWUXh6?=
+ =?utf-8?B?Q2NJZE9TQldQWU9LNDFqWEFtUUduc3RDUVdORlp2Ky9DS1R3WjlzNk9XY1RR?=
+ =?utf-8?B?dnY4bHQwM1g5N3VtdGM4Sk90aHJ5bnhOVE9vVDQ4N1lZcUhHQXhLMFFXY0gx?=
+ =?utf-8?B?OGxqRFR5citYNEtBaXIxZmpJaEtxN0plNEhhaGFLOEY1QWhyL2pscXp5T3Ar?=
+ =?utf-8?B?aFlmOUpMZEs4NGhnWDBYbDZRNDlSNVUvdmNVMzhMOTlMQWM5YVVWbFpFVnVn?=
+ =?utf-8?Q?xF3RCupLi00=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTA1bVVCWVBwemRWZVVpT0pYQVZmeHZuUGFteGp4Z3REUjdNTDQxQTlZVzBa?=
+ =?utf-8?B?bDZYaHBId3VzWlIvT1Bzd1FrR2k2N1lpWW9uSnVlaEV5dWxUMnVUTlZoVHlD?=
+ =?utf-8?B?SmFtMmpDaXFmWnBnOGZ4bjlxUDc2QnJZSUhubUppYVUrZVVvSTlLbW5VdmZu?=
+ =?utf-8?B?cHAyaTlOZTFHemEyV215UDF2OUtPTTY0Q0gxRklROEwrRXZ4aHhsSFQvUDgv?=
+ =?utf-8?B?aVdNeWM0T0VvTTdUd2pxR056NWk3S2J4aEEveHRmdWczRjhjQnEzbzZLRW1K?=
+ =?utf-8?B?MUUwem9wVCtRVEsvWlR5d1diT1ZpclFaM3BUYjhuaU4yTnhmelZuRm9ySnBt?=
+ =?utf-8?B?Q0V4STBzeGljZzI0SURnUlZBWG0xRlNqK1ZCTzMva3JPSTNVdWJCUVliZ044?=
+ =?utf-8?B?N2h3dkVUbnQ4NUJ5YXFBblEvUGlGZzhYcDdqSEN2ejFaSmNJTnVEUlRxNElk?=
+ =?utf-8?B?N1pOenYvd05YNzR2OFBUeWt4YmwrRlRkck1RQkFORVlFeGVlcFNBQk9vVEoz?=
+ =?utf-8?B?Si82YUM3bVlRM1czVDZ2MnVXeXFmM3J5ODFwUHU2REtCSC9oRy90MlcwWUNV?=
+ =?utf-8?B?b0dkMnlRbHZsRUlHREdxek92RjZiTHFxSENtWTQxRTJRVDRlcnA3aXZaT3pM?=
+ =?utf-8?B?Q0Vwb3dkSW9VMWJ2SmdvV3FWOC9vRzg1dW52MVhNL0kxY09uYlBweHpWUTdj?=
+ =?utf-8?B?R0pROVFiYXBBZjBVZkpRQjVINXRjRml5SWRNaWZ5YUtuT0F4d0RuQ04wZmZm?=
+ =?utf-8?B?c2NZRXAxV1VJRkJMalJPdlhqT214bHliNjRreGpoeHI4TDU1YmJjaU5YMFEr?=
+ =?utf-8?B?Q3E2VXRwNTlEN0JaSU5qbzlNMndiQXpvV2dseGtXZEVGcmc1K3ZBM1ZlRk8x?=
+ =?utf-8?B?K1ZKTFdEd2o2aXpUV2lXS0ZhZEs1NGxyTENGMURTdG1mNGs5ekVrcnhyU3Nj?=
+ =?utf-8?B?MHNNRGRiWnYvSkhMa3ZjV2ZxRzlGQnVZQkJna3lRTFZCbXQ4d20zWDZ1RFlZ?=
+ =?utf-8?B?WU05ZkMrM3ZuUUMzVHErcWp5V3N5aWVIM0dFRmRJajZFd2QzNmdGWVkrVjdB?=
+ =?utf-8?B?V1dDcFlqS2dQQzcvS2UzY2IweVYxMnRrdmVXZTExZTBJY2lqeVpOd0pMYTYv?=
+ =?utf-8?B?Zk10M1dhN29sVEc3WmQ4NG9xVFBGdGVOVHhmMUpDODcrbUN6Q2ROTVZYbnFF?=
+ =?utf-8?B?UGtwVHNIS0VaYStNT2lQaTVTeHZsd0JzbTl5dWpib0t3ZjAzcVZ2ZC9RYlY3?=
+ =?utf-8?B?M0hLWGkvOTBYNmNhS2dqcHV1WmpRVTVpbVFieVpuSlJ6YjZLZzZ4UWYrenFL?=
+ =?utf-8?B?bnV5WVdYKzNRRURrR3VveUNBU0dab0lKN055V2VvbVoweS9KZHd5Uk92YWJP?=
+ =?utf-8?B?aUpyRWVWNFR2ZWordUptWERDTWFlT1hGNzZJYzJQLzVmMkx0UHJrVStrUU9J?=
+ =?utf-8?B?ZmxGb1FGYmdFcUU2eWdIbUFISENzVGtWNVpvdnE1a2tyVElONGZwMmR0UDNE?=
+ =?utf-8?B?R3lpWFNRVDRLSkM3d1V0MGdoUmE1cERtL0R5RlkvY0JjczU0Rks4N0VjU2th?=
+ =?utf-8?B?eXB0WGJOMmwzY2ltVXgyV0JxOEtkWDdVbmJZc09NQkJFdDBBNjBVUXlwc0Q2?=
+ =?utf-8?B?Y0kxY0dhWkJRb1Qvc1FJdm5FTmk4cFZGSExyMGRla2dXc0R1MjhLdU9YVjg3?=
+ =?utf-8?B?RHYrQ1U1YzJqZTJaT2lQaHRZeno3UWEyYzc5ekNPK3RrVHArUEtiN0J0RTNj?=
+ =?utf-8?B?eURBcmNNTnlzMzVpbVZSUFhhYXFocnF0VG5RTW5DbWVOMGcyTWxablBKM1h1?=
+ =?utf-8?B?UUxrMFVCSkViblVYMzlDdkg5OS9BVWN0cDhuTWI3cFl0bVBiUVVEaWE3K2Uz?=
+ =?utf-8?B?eGtFRnd3dklETGhudGovUkwvQ1NTVk8vQnFReWFrS3lFSDcweGJIM043am9X?=
+ =?utf-8?B?anlTRThTVVN4VjJVc1k4QTltdFpwaGFDd1AzZDNmcno5RmFBVysxS0VzbGN6?=
+ =?utf-8?B?YnlZeHlsbzROMUZkd1dUNkxzN2pqQ2ZTM3U3SkRTWGpyc3I2Z09ER1Eza0px?=
+ =?utf-8?B?d1J0U3U4eUZZandIaTJQV09xTjdOcUN1UER0Q2l4Z3pPYXJPMWRUeTgwRjBN?=
+ =?utf-8?Q?8dQrhhx+TXBL1mqdtIRxO9xNZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8544e61d-f0de-4179-65b5-08dd826eed53
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 13:58:29.8481 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2B0+eh7nFB/8IUNcQOC47xi2kS2VPLNSlgtvNv/ghLCARON9KM70OLPPtcpGPn1B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,355 +161,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 23, 2025 at 6:03=E2=80=AFAM Khatri, Sunil <sukhatri@amd.com> wr=
-ote:
->
-> LGTM, Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
->
-> I think you should also get an acknowledgement from Alex too before
-> pushing to ASDN.
+On 4/23/25 15:26, Prike Liang wrote:
+> The following cases require releasing and deferring the
+> eviction fences properly
+> 
+> 1) Detach the old eviction fences before attaching a new one.
+> 2) Drop the eviction fence init reference.
+> 3) Correct the attached eviction fence reference.
+> 4) Free the eviction fence when the attached BOs are released.
+> 
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  .../drm/amd/amdgpu/amdgpu_eviction_fence.c    | 53 +++++++++++++++----
+>  .../drm/amd/amdgpu/amdgpu_eviction_fence.h    |  2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  1 +
+>  3 files changed, 45 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> index d86e611a9ff4..a47db865c530 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> @@ -70,11 +70,6 @@ amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>  		return -ENOMEM;
+>  	}
+>  
+> -	/* Update the eviction fence now */
+> -	spin_lock(&evf_mgr->ev_fence_lock);
+> -	old_ef = evf_mgr->ev_fence;
+> -	evf_mgr->ev_fence = new_ef;
+> -	spin_unlock(&evf_mgr->ev_fence_lock);
 
-Please go ahead.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+That is certainly incorrect. The new fence *must* be made public before attaching it to the existing BOs.
 
->
-> Regards
-> Sunil khatri
->
-> On 4/23/2025 3:03 PM, Arvind Yadav wrote:
-> > DRM_AMDGPU_NAVI3X_USERQ config support is not required for
-> > usermode queue.
-> >
-> > v2: rebase.
-> >
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Christian Koenig <christian.koenig@amd.com>
-> > Cc: Sunil Khatri <sunil.khatri@amd.com>
-> > Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> > Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/Kconfig             |  8 --------
-> >   drivers/gpu/drm/amd/amdgpu/Makefile            |  2 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c     |  7 +------
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c        |  5 +----
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c      |  8 --------
-> >   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    | 18 -----------------=
--
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c         |  4 ----
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c         |  2 --
-> >   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c         |  3 +--
-> >   drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c         |  3 ---
-> >   10 files changed, 4 insertions(+), 56 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/a=
-mdgpu/Kconfig
-> > index 7b95221d2f3d..1a11cab741ac 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> > +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> > @@ -96,14 +96,6 @@ config DRM_AMDGPU_WERROR
-> >         Add -Werror to the build flags for amdgpu.ko.
-> >         Only enable this if you are warning code for amdgpu.ko.
-> >
-> > -config DRM_AMDGPU_NAVI3X_USERQ
-> > -     bool "Enable amdgpu usermode queues"
-> > -     depends on DRM_AMDGPU
-> > -     default n
-> > -     help
-> > -       Choose this option to enable GFX usermode queue support for GFX=
-/SDMA/Compute
-> > -          workload submission. This feature is experimental and suppor=
-ted on GFX11+.
-> > -
-> >   source "drivers/gpu/drm/amd/acp/Kconfig"
-> >   source "drivers/gpu/drm/amd/display/Kconfig"
-> >   source "drivers/gpu/drm/amd/amdkfd/Kconfig"
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/=
-amdgpu/Makefile
-> > index 8595e05c691b..87080c06e5fc 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> > @@ -177,7 +177,7 @@ amdgpu-y +=3D \
-> >       mes_v12_0.o \
-> >
-> >   # add GFX userqueue support
-> > -amdgpu-$(CONFIG_DRM_AMDGPU_NAVI3X_USERQ) +=3D mes_userqueue.o
-> > +amdgpu-y +=3D mes_userqueue.o
-> >
-> >   # add UVD block
-> >   amdgpu-y +=3D \
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_device.c
-> > index b96e0613ea7e..fe68ba9997ae 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -3513,9 +3513,7 @@ static int amdgpu_device_ip_fini_early(struct amd=
-gpu_device *adev)
-> >       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
-> >
-> >       amdgpu_amdkfd_suspend(adev, false);
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >       amdgpu_userq_suspend(adev);
-> > -#endif
-> >
-> >       /* Workaround for ASICs need to disable SMC first */
-> >       amdgpu_device_smu_fini_early(adev);
-> > @@ -5086,9 +5084,7 @@ int amdgpu_device_suspend(struct drm_device *dev,=
- bool notify_clients)
-> >
-> >       if (!adev->in_s0ix) {
-> >               amdgpu_amdkfd_suspend(adev, adev->in_runpm);
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >               amdgpu_userq_suspend(adev);
-> > -#endif
-> >       }
-> >
-> >       r =3D amdgpu_device_evict_resources(adev);
-> > @@ -5156,11 +5152,10 @@ int amdgpu_device_resume(struct drm_device *dev=
-, bool notify_clients)
-> >               r =3D amdgpu_amdkfd_resume(adev, adev->in_runpm);
-> >               if (r)
-> >                       goto exit;
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> > +
-> >               r =3D amdgpu_userq_resume(adev);
-> >               if (r)
-> >                       goto exit;
-> > -#endif
-> >       }
-> >
-> >       r =3D amdgpu_device_ip_late_init(adev);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gfx.c
-> > index cb9ffb17ab98..cc5d6250ac69 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > @@ -1980,9 +1980,7 @@ static void amdgpu_gfx_kfd_sch_ctrl(struct amdgpu=
-_device *adev, u32 idx,
-> >               if (adev->gfx.userq_sch_req_count[idx] =3D=3D 0) {
-> >                       cancel_delayed_work_sync(&adev->gfx.enforce_isola=
-tion[idx].work);
-> >                       if (!adev->gfx.userq_sch_inactive[idx]) {
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >                               amdgpu_userq_stop_sched_for_enforce_isola=
-tion(adev, idx);
-> > -#endif
-> >                               if (adev->kfd.init_complete)
-> >                                       amdgpu_amdkfd_stop_sched(adev, id=
-x);
-> >                               adev->gfx.userq_sch_inactive[idx] =3D tru=
-e;
-> > @@ -2040,9 +2038,8 @@ void amdgpu_gfx_enforce_isolation_handler(struct =
-work_struct *work)
-> >               /* Tell KFD to resume the runqueue */
-> >               WARN_ON_ONCE(!adev->gfx.userq_sch_inactive[idx]);
-> >               WARN_ON_ONCE(adev->gfx.userq_sch_req_count[idx]);
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> > +
-> >               amdgpu_userq_start_sched_for_enforce_isolation(adev, idx)=
-;
-> > -#endif
-> >               if (adev->kfd.init_complete)
-> >                       amdgpu_amdkfd_start_sched(adev, idx);
-> >               adev->gfx.userq_sch_inactive[idx] =3D false;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_userq.c
-> > index b0e8098a3988..451890ee3fb7 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > @@ -129,7 +129,6 @@ amdgpu_userq_active(struct amdgpu_userq_mgr *uq_mgr=
-)
-> >       return ret;
-> >   }
-> >
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >   static struct amdgpu_usermode_queue *
-> >   amdgpu_userq_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
-> >   {
-> > @@ -520,13 +519,6 @@ int amdgpu_userq_ioctl(struct drm_device *dev, voi=
-d *data,
-> >
-> >       return r;
-> >   }
-> > -#else
-> > -int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
-> > -                    struct drm_file *filp)
-> > -{
-> > -     return -ENOTSUPP;
-> > -}
-> > -#endif
-> >
-> >   static int
-> >   amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/=
-gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> > index be068e8e37d1..3288c2ff692e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> > @@ -216,7 +216,6 @@ void amdgpu_userq_fence_driver_put(struct amdgpu_us=
-erq_fence_driver *fence_drv)
-> >       kref_put(&fence_drv->refcount, amdgpu_userq_fence_driver_destroy)=
-;
-> >   }
-> >
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >   static int amdgpu_userq_fence_alloc(struct amdgpu_userq_fence **userq=
-_fence)
-> >   {
-> >       *userq_fence =3D kmem_cache_alloc(amdgpu_userq_fence_slab, GFP_AT=
-OMIC);
-> > @@ -288,7 +287,6 @@ static int amdgpu_userq_fence_create(struct amdgpu_=
-usermode_queue *userq,
-> >
-> >       return 0;
-> >   }
-> > -#endif
-> >
-> >   static const char *amdgpu_userq_fence_get_driver_name(struct dma_fenc=
-e *f)
-> >   {
-> > @@ -343,7 +341,6 @@ static const struct dma_fence_ops amdgpu_userq_fenc=
-e_ops =3D {
-> >       .release =3D amdgpu_userq_fence_release,
-> >   };
-> >
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >   /**
-> >    * amdgpu_userq_fence_read_wptr - Read the userq wptr value
-> >    *
-> > @@ -594,15 +591,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *d=
-ev, void *data,
-> >
-> >       return r;
-> >   }
-> > -#else
-> > -int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
-> > -                           struct drm_file *filp)
-> > -{
-> > -     return -ENOTSUPP;
-> > -}
-> > -#endif
-> >
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >   int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
-> >                           struct drm_file *filp)
-> >   {
-> > @@ -968,10 +957,3 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev=
-, void *data,
-> >
-> >       return r;
-> >   }
-> > -#else
-> > -int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
-> > -                         struct drm_file *filp)
-> > -{
-> > -     return -ENOTSUPP;
-> > -}
-> > -#endif
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v11_0.c
-> > index ac7ac58e25a6..519b82f77cff 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > @@ -1630,7 +1630,6 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_blo=
-ck *ip_block)
-> >       case IP_VERSION(11, 0, 0):
-> >       case IP_VERSION(11, 0, 2):
-> >       case IP_VERSION(11, 0, 3):
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >               if (!adev->gfx.disable_uq &&
-> >                   adev->gfx.me_fw_version  >=3D 2390 &&
-> >                   adev->gfx.pfp_fw_version >=3D 2530 &&
-> > @@ -1639,7 +1638,6 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_blo=
-ck *ip_block)
-> >                       adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_me=
-s_funcs;
-> >                       adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D &user=
-q_mes_funcs;
-> >               }
-> > -#endif
-> >               break;
-> >       case IP_VERSION(11, 0, 1):
-> >       case IP_VERSION(11, 0, 4):
-> > @@ -1647,13 +1645,11 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_b=
-lock *ip_block)
-> >       case IP_VERSION(11, 5, 1):
-> >       case IP_VERSION(11, 5, 2):
-> >       case IP_VERSION(11, 5, 3):
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >               /* add firmware version checks here */
-> >               if (0 && !adev->gfx.disable_uq) {
-> >                       adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_me=
-s_funcs;
-> >                       adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D &user=
-q_mes_funcs;
-> >               }
-> > -#endif
-> >               break;
-> >       default:
-> >               break;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v12_0.c
-> > index dfa0830a4eb1..f09d96bfee16 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > @@ -1416,7 +1416,6 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_blo=
-ck *ip_block)
-> >       switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-> >       case IP_VERSION(12, 0, 0):
-> >       case IP_VERSION(12, 0, 1):
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >               if (!adev->gfx.disable_uq &&
-> >                   adev->gfx.me_fw_version  >=3D 2780 &&
-> >                   adev->gfx.pfp_fw_version >=3D 2840 &&
-> > @@ -1425,7 +1424,6 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_blo=
-ck *ip_block)
-> >                       adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_me=
-s_funcs;
-> >                       adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D &user=
-q_mes_funcs;
-> >               }
-> > -#endif
-> >               break;
-> >       default:
-> >               break;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/a=
-md/amdgpu/sdma_v6_0.c
-> > index 6bb36187a53d..da5b5d64f137 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> > @@ -1363,11 +1363,10 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_b=
-lock *ip_block)
-> >       else
-> >               DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n"=
-);
-> >
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >       /* add firmware version checks here */
-> >       if (0 && !adev->sdma.disable_uq)
-> >               adev->userq_funcs[AMDGPU_HW_IP_DMA] =3D &userq_mes_funcs;
-> > -#endif
-> > +
-> >       r =3D amdgpu_sdma_sysfs_reset_mask_init(adev);
-> >       if (r)
-> >               return r;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/a=
-md/amdgpu/sdma_v7_0.c
-> > index 943c6446a0a7..befe013b11a7 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> > @@ -1338,12 +1338,9 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_bl=
-ock *ip_block)
-> >       else
-> >               DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n"=
-);
-> >
-> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> >       /* add firmware version checks here */
-> >       if (0 && !adev->sdma.disable_uq)
-> >               adev->userq_funcs[AMDGPU_HW_IP_DMA] =3D &userq_mes_funcs;
-> > -#endif
-> > -
-> >
-> >       return r;
-> >   }
+>  
+>  	/* Attach the new fence */
+>  	drm_exec_for_each_locked_object(exec, index, obj) {
+> @@ -82,6 +77,16 @@ amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>  
+>  		if (!bo)
+>  			continue;
+> +
+> +		/*detach the old eviction fence first*/
+> +		amdgpu_eviction_fence_detach(evf_mgr, bo);
+
+That's completely nonsense. The old eviction fence is signaled at this state and doesn't need to be detached.
+
+> +
+> +		/* Update the eviction fence now */
+> +		spin_lock(&evf_mgr->ev_fence_lock);
+> +		old_ef = evf_mgr->ev_fence;
+> +		evf_mgr->ev_fence = new_ef;
+> +		spin_unlock(&evf_mgr->ev_fence_lock);
+> +
+>  		ret = amdgpu_eviction_fence_attach(evf_mgr, bo);
+>  		if (ret) {
+>  			DRM_ERROR("Failed to attch new eviction fence\n");
+> @@ -89,9 +94,10 @@ amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>  		}
+>  	}
+>  
+> -	/* Free old fence */
+> +	/* Free the init eviction fence which was referred by the dma_init*/
+>  	if (old_ef)
+>  		dma_fence_put(&old_ef->base);
+
+The comment isn't really helpful. Additional to that it's valid to call dma_fence_put() with a NULL fence to we can drop the extra if check.
+
+> +
+>  	return 0;
+>  
+>  free_err:
+> @@ -189,7 +195,6 @@ void amdgpu_eviction_fence_destroy(struct amdgpu_eviction_fence_mgr *evf_mgr)
+>  int amdgpu_eviction_fence_attach(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>  				 struct amdgpu_bo *bo)
+>  {
+> -	struct dma_fence *ef;
+>  	struct amdgpu_eviction_fence *ev_fence;
+>  	struct dma_resv *resv = bo->tbo.base.resv;
+>  	int ret;
+> @@ -205,10 +210,12 @@ int amdgpu_eviction_fence_attach(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>  
+>  	spin_lock(&evf_mgr->ev_fence_lock);
+>  	ev_fence = evf_mgr->ev_fence;
+> -	if (ev_fence) {
+> -		ef = dma_fence_get(&ev_fence->base);
+> -		dma_resv_add_fence(resv, ef, DMA_RESV_USAGE_BOOKKEEP);
+> -	}
+> +	/*
+> +	 * The dma_resv_add_fence() already refer to the added fence, hence in this
+> +	 * placement needn't refer to the armed fence anymore.
+> +	 */
+
+Please drop that comment.
+
+> +	if (ev_fence)
+> +		dma_resv_add_fence(resv, &ev_fence->base, DMA_RESV_USAGE_BOOKKEEP);
+>  	spin_unlock(&evf_mgr->ev_fence_lock);
+>  
+>  	return 0;
+> @@ -224,6 +231,30 @@ void amdgpu_eviction_fence_detach(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>  	dma_fence_put(stub);
+>  }
+>  
+> +void amdgpu_remove_all_eviction_fences(struct amdgpu_bo *bo)
+> +{
+> +	struct dma_resv *resv = &bo->tbo.base._resv;
+> +	struct dma_fence *fence, *stub;
+> +	struct dma_resv_iter cursor;
+> +
+> +	dma_resv_assert_held(resv);
+> +
+> +	stub = dma_fence_get_stub();
+> +	dma_resv_for_each_fence(&cursor, resv, DMA_RESV_USAGE_BOOKKEEP, fence) {
+> +		struct amdgpu_eviction_fence *ev_fence;
+> +
+> +		ev_fence = fence_to_evf(fence);
+> +		if (!ev_fence || !dma_fence_is_signaled(&ev_fence->base))
+> +			continue;
+> +
+> +		dma_resv_replace_fences(resv, fence->context, stub,
+> +				DMA_RESV_USAGE_BOOKKEEP);
+> +
+> +	}
+> +
+> +	dma_fence_put(stub);
+> +}
+> +
+>  int amdgpu_eviction_fence_init(struct amdgpu_eviction_fence_mgr *evf_mgr)
+>  {
+>  	/* This needs to be done one time per open */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
+> index fcd867b7147d..7e6c55a334e0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
+> @@ -42,6 +42,7 @@ struct amdgpu_eviction_fence_mgr {
+>  };
+>  
+>  /* Eviction fence helper functions */
+> +#define fence_to_evf(f)  container_of(f, struct amdgpu_eviction_fence, base)
+>  struct amdgpu_eviction_fence *
+>  amdgpu_eviction_fence_create(struct amdgpu_eviction_fence_mgr *evf_mgr);
+>  
+> @@ -66,4 +67,5 @@ amdgpu_eviction_fence_signal(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>  int
+>  amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>  				    struct drm_exec *exec);
+> +void amdgpu_remove_all_eviction_fences(struct amdgpu_bo *bo);
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index dbe57996a481..6d3eacffbcb9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1322,6 +1322,7 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
+>  	amdgpu_vram_mgr_set_cleared(bo->resource);
+>  	dma_resv_add_fence(&bo->base._resv, fence, DMA_RESV_USAGE_KERNEL);
+>  	dma_fence_put(fence);
+> +	amdgpu_remove_all_eviction_fences(abo);
+
+That's a really bad idea. We only did that for the KFD eviction fence because we didn't had any other choice.
+
+For the user queue eviction fence we should rather do that in amdgpu_gem_object_close() e.g. when amdgpu_vm_bo_del() is called.
+
+Regards,
+Christian.
+
+>  
+>  out:
+>  	dma_resv_unlock(&bo->base._resv);
+
