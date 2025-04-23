@@ -4,152 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D57B9C369CB
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 14:06:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FD6BC369CB
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 14:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E960210E6B5;
-	Wed, 23 Apr 2025 14:06:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00E1E10E081;
+	Wed, 23 Apr 2025 14:17:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MQBZFtFu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mVCq3YMe";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2059.outbound.protection.outlook.com [40.107.101.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 255F510E6B5
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 14:06:21 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5729110E081
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 14:16:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FQ+w9p1hgcUX4FHATJGCoxa8qPUYg33mWkJZRMzKNB6jnr+YfT2WN1oLrmcSsggj5Q73Fex5Rtf23EN/mBWw+MI/5GQ6g75UPT44xW/ezXWYy7O/1I2S4a3JysAxhR/dINPnfvRnp1/FASyGQcik8NMBEfL3t7HC1NqVltZ7T7QzSgQTOWu0fJqRsvOkaPAp+3+6J3iqGHSHVF3wmQndUwW8xSLcKIe6TMfjxFHCtLaN3ayHzduyW7qr1fAWSjtLROgxcDGawNP8X7K8TVhvA6VJH79rtG/3kkFIj3584EFqBX7G0Legw7unVPmDBgQmr63RWKL+a4l+jvwPqjJj2g==
+ b=jY+I8+mSMzrtwMO+s7MsvOwY9bqgyfbyBC5bWPqghATIFTkJhacgfPbBVYiWXRFqIJu4gBJUPo+8uhSiLfXiYyxslvZlgQbaducbZyepJEh5h6/3iJpCctH62gidySgRrS4MgpHy27MFyLJrz9EZkwHfHepNACvIoDUtGrN/SlFfeaCn6vqE6y73KdJWORsH52ESS/xXkhLFanyvRFppsuOxaFeGhVnHozrlzWQiH5LX3G/HyonmYmtfdZ0lt3CBB7uORNC2fcc7m1g8jYmIVEOReNIRbhD2UR4DzfaZ0ivFoCjRn5KTiIUGF7zdlCiCedwy3K3UdhmTDWetcXwCSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iReZKcaG8sT/K9H51XA3GC69MLgI7zo7CW2TD3IzaNU=;
- b=PFPqPnXBziyYs7c7pm/iOW0YGZ43KGCXiiK+pK5Vjxe+sad06zeA0TW1mxMyQVd/KpLhhlWLKVv4BP3uQI0yvmrbgl/5LWBrVJ2foV7B082Hpklyu0nTurVh75qZKTMscSu4T471rdaIYKDngN0i+ny/tAF21XX+uMFLvYFmrvAkI58xYm5HqlUvOCtj+XL03PWf0PgJhIhJpBrahpNIu6DT0vcLbvYTgbU+BTZTPcnqBT2nizTA3hUCOrHXk6IxWYfUR1GajWwOv+ce/vED5+fmD1fAW/ZjPGHi+I5R+/vbfWkrx5yL2w39UIgo8qQ4FLY566EBF12vsviYkMWcUg==
+ bh=SxPfxGCi8rAiEA7MxSUa745/i+54Skv/1+Zp1H+nibM=;
+ b=G3cLz0G3oLp69BU0vS5HPT/cz08Du0nBVrw3gRs87uK5uiQNV+B677uMVmwF74Jlur59GV1wXGoArteaUB9kUWpH0DZ5UdQl001IaYZvSq6/SxhyjADVb82CVmjjQgxTCUfuLUSIy7Dx7JjYPYHIZz1g8yTetdQNUOO28qK78xrx+oqHjnkKVDQnJHrIXNzE0hB2S15epx0nACLv0aMR9eWTKZQBceT9Y502t90cp4qqkZhC8QCCizg1sdbU8qQMvYpBIUdDxtWXZCU6afs3v2wbzWIXW2PJEHYC5Glzclbkitff583bkwuanTTB5fnI2wxMGaV9VhQ7iNMnqwQRSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iReZKcaG8sT/K9H51XA3GC69MLgI7zo7CW2TD3IzaNU=;
- b=MQBZFtFuYNqsz3NrkROd/dXSw58JY8zlU5V70FWENFUJ8nN8GM073iT/XHQv05HzHFUndBibtCZSutIrmsKOJ76oIp467aDUm27BcPTbv2PSNp4q0V8RyanAI/goasu2jl8WGJB/ptVwZxQdhHTWUSofpOIIeJIRUCak8bE4iNA=
-Received: from DS7PR12MB6046.namprd12.prod.outlook.com (2603:10b6:8:85::20) by
- CY8PR12MB7610.namprd12.prod.outlook.com (2603:10b6:930:9a::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8655.35; Wed, 23 Apr 2025 14:06:15 +0000
-Received: from DS7PR12MB6046.namprd12.prod.outlook.com
- ([fe80::959f:de78:963f:9f38]) by DS7PR12MB6046.namprd12.prod.outlook.com
- ([fe80::959f:de78:963f:9f38%6]) with mapi id 15.20.8678.021; Wed, 23 Apr 2025
- 14:06:15 +0000
-From: "Zhu, Yihan" <Yihan.Zhu@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Pillai,
- Aurabindo" <Aurabindo.Pillai@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "Kazlauskas, Nicholas"
- <Nicholas.Kazlauskas@amd.com>, "Chung, ChiaHsuan (Tom)"
- <ChiaHsuan.Chung@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Hung, Alex" <Alex.Hung@amd.com>, Dan Carpenter
- <dan.carpenter@linaro.org>
-Subject: RE: [PATCH] drm/amd/display: Fix NULL pointer dereference for
- program_lut_mode in dcn401_populate_mcm_luts
-Thread-Topic: [PATCH] drm/amd/display: Fix NULL pointer dereference for
- program_lut_mode in dcn401_populate_mcm_luts
-Thread-Index: AQHbtFQhVWuBEQk9PEKVrL3RAior5LOxSJWQ
-Date: Wed, 23 Apr 2025 14:06:15 +0000
-Message-ID: <DS7PR12MB6046CAF8F49C38AD3C08A03DE3BA2@DS7PR12MB6046.namprd12.prod.outlook.com>
-References: <20250423133156.3877781-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20250423133156.3877781-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=38650af4-5c33-4d77-9103-70b43fdba636;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-23T14:04:25Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
+ bh=SxPfxGCi8rAiEA7MxSUa745/i+54Skv/1+Zp1H+nibM=;
+ b=mVCq3YMee56B0wCPR03ZUZGtk1RQq5uDSd/gSNANaAjlLZQCjzs6uSxf8cMLRjHH3ZWvOkE7nBMDpwyKwc8uHCsGeL26nSI5dLKvOS1iHZnjSywRSg9R+2tS8e+MUnpmKcblBl9VhIgrSmd7Lvw/LBOBlOYQQv4AL2+0xS+tipE=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6046:EE_|CY8PR12MB7610:EE_
-x-ms-office365-filtering-correlation-id: 39502426-90a8-48e9-ffea-08dd827002e8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?KlX9ZVD8aOpQlAAXTP9jA4n8gnikkxCpzvK+QaVNHQ9eM8UPwj9goT61n7v9?=
- =?us-ascii?Q?mQJzY4fH51Q7mxTTy/fIXO6KBTXhUmPTiu1cDq5TKAHgbgIncdpjgG3mL4iY?=
- =?us-ascii?Q?fbDgOuWY+mF1SfKn/qL01k3Xe0jBJZSCQfYOSOPShY3UaatSvl8mlcJGvHxN?=
- =?us-ascii?Q?ghlD1v6O/HgE5F8XJ1Gjk0bc3ialTXWWidgOJ4+pxn7j9BNW9oEyZmGbQcKP?=
- =?us-ascii?Q?DrzdCnHdmOQ/8whwyNgqjrAYHib9LBZfRTKIqNSTq72V8HRAeweGbjVhIyfY?=
- =?us-ascii?Q?RlGaU5IHqSGEeamIulaVUvbOKxhX2gEMgJTrO6em1/zddJEh9kv1cjLxjoaL?=
- =?us-ascii?Q?EZxP8YYphw+EeoJnFo9J84RcQ5wY5vaSq3CLFjd51ZsobnPn184BaE5yv2zg?=
- =?us-ascii?Q?esIjgV0xAcxk3mo1GJPQmL83GzK9rVjB0fz/DnVGF87wrBTRGRWezb03Vovy?=
- =?us-ascii?Q?qE2Kfz1Bvv2aqY6oFzF+mnnxoiu0JrhZidZt0kCUx6ZwsGrqD3WTuEkMeOzJ?=
- =?us-ascii?Q?ZVmdBFHnFlVaKaD1CwAoyz4LHpNfqSS5MX4YiyzmSRre+9KvdQtWcwz+ubiF?=
- =?us-ascii?Q?FK+DPYN7hTyxwD51AINC9KsvgDWh8X3+9j5yaN8f8dsD8tfNldSwO60pPidw?=
- =?us-ascii?Q?5x0ykKdO1wcxOA8Oc/uswn4kUmfgn7WfYg5vjcOiVevbSmaP9lweFlwxn9S1?=
- =?us-ascii?Q?EqhsOtJpl2Uxh5RjSIc9Li76MC9Ayi2TxP8q5WE09APaCJw4kkdYny7VxJON?=
- =?us-ascii?Q?5KzkFOGfYYPCd7o10GaS9H0bK71bHaBPJgzj28ovOT3kRjDC/NirfMUt9Nde?=
- =?us-ascii?Q?adhxaU02OJNyUB1T/PaZN+919ZIDfer9cQ69DZ2HpfZ6O8UVx779yxQrWDg9?=
- =?us-ascii?Q?KGf5kB+M6S/iA95jOiZvpcOHxY+cZvh/3I1AG+rPWSTvZNmYpRbw5CAOiUs+?=
- =?us-ascii?Q?RFwqa5m2XRVdLDVZxRBLMIN1xzF565TovErlPSJydQrHSym1GhJn8uhEm9tw?=
- =?us-ascii?Q?9kEjLk8eI/BOycDDhLtqfOTSc9fej72oMncRgcRGQ0aBmMd5aZTA7EaFhnRu?=
- =?us-ascii?Q?PDHQSIMfIDGhE/CZKC8XcKInsTqFqyDivsBoBozCnkhTqm6u31v5YaxYPGTG?=
- =?us-ascii?Q?iiSlb7c1nYXXmxbCwjr9ZiaI0H/NPBG3jcow8e5UzUl+VemZtwYuLmJVKkp+?=
- =?us-ascii?Q?0CTbsOfSk6imPkLshbuNMGldqxgIIJzuAwjZt4F6URIY5PRuHCv7ODpu8a3K?=
- =?us-ascii?Q?rF4L7IiEDcxQDBYdc4YaTkpXryl5omUQ/pm3FbmeydkW40RGDDEe5/FvHWlN?=
- =?us-ascii?Q?a0X4SZ6VS6U+tZui6Hg60A+BRAkvTGOXD52YUblJknni1uDCaw1MhEjCK45a?=
- =?us-ascii?Q?EGrtGi5+jGmJ3FIf1o6ux56NINtdhNyx0zF+Cgud7bE2iijgQWhtVw5kU6Xg?=
- =?us-ascii?Q?/Zeo4blxxFwvCbJ7ta4bCF3l2ehRZXncDp8FBDBy8Oa6/QpERrlpBWn2pTzR?=
- =?us-ascii?Q?VB7Xddnv7yOOoj8=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6046.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KOraId41WjETrKqpRjFs32xcopmT5ADMIbGoQuAJUF+j6qgTmZ1s3QFkDqDB?=
- =?us-ascii?Q?FJqwW/UqxA2HzEOnCR+4KrK67TqGxzL7ypR8h4Yf4Icl8HYit3lUVYQbrXHp?=
- =?us-ascii?Q?daPQJCl0AdquDumh+SwF+qSExG3UZFVBX59MvGdCHDWdjFCuidsiUlRwW3ei?=
- =?us-ascii?Q?qJMud6Yyg52xkkAzr5F0yfD/kFwnoZePWl+UQnh9y8boYoD6clg1LPLHL8R1?=
- =?us-ascii?Q?lFbir3fmbRXsBvd1Siha20wB0adkjQ6IJ7l5mhHVuYJmUer7x4M9HO7G8JQu?=
- =?us-ascii?Q?QuEox/VW4zPIyODdLzN+eWl8eZUYU22tneVH6GvFavSpSOgDB/zoKQfBRTLY?=
- =?us-ascii?Q?3bkrByynPN6KV7pKWBrFqdUWQY5SzTJJM1lfGlnME0tRRRH6ZbYFz4LEalwM?=
- =?us-ascii?Q?GCO8rokkSeiY0RzzIrAa7aCCfZwemk0cM3a0pCstyTjQWCrrZvxrcbkknwUf?=
- =?us-ascii?Q?VUGWrQr+yQ2CZcXq4K0cDp0lWc6QNHUo4J2+FIouPhgR3QuXFuBpIA2vfuS/?=
- =?us-ascii?Q?+VaooSuJjw4q5gL8JZ2ba8rbRlIPSOu8/HOnrDHsTGZsFQApq/AWR7PMVAg5?=
- =?us-ascii?Q?jCyCklDVBgmytLo0hZsmK3kbbROZcy1CPBmQYp7w3bz/0YA42BYzTNFYDciB?=
- =?us-ascii?Q?Cy90h+ZX8P5h+aZgZ58zZCOhNd18C6QCzxsXtSd69pgUHPO+HC3eZgaE/hfs?=
- =?us-ascii?Q?BiQQXSIabBTdIZ5zEDgKOKclfpElIYo0bFYUrm3SfCnw8Fk4rFn3f5jiQtK/?=
- =?us-ascii?Q?b+qSCwxzQcvxo854H3104NJfH8Ce85oaRbmiW5bt7K0Eu0zkzqN/XpwzoK1t?=
- =?us-ascii?Q?e94XsSqfN6jYegQi0Ss2I6wA21TUxpBR/6NgBkz0UxBlCRx7ATlcUwcBXDLC?=
- =?us-ascii?Q?jbZ+SN7DT6YmWcu9i4Gv0Gz8dHJuHs51ziFbBF6ABLDjPeYOQOKOuMzNNQuq?=
- =?us-ascii?Q?YVK/NNSbax3M3p9Nmiv2XMguG7XzJCMv8J356UzTmL6ofcfFoXHljuSnR+rL?=
- =?us-ascii?Q?Mw8egLW4/vSl/OjVpRWc/C0eJkFMdwIggfu+RcUBNqdZBepZLxcedOi5xIVV?=
- =?us-ascii?Q?isgBobY42jEa7eJwPehYp98Ukd5uqt8PcBGnKkwvbIP0CeQ8krFAcpDnIaLz?=
- =?us-ascii?Q?8Ipb/haDkzIsF1cU4WgTo+39LiY55Pe39iROn+vc+dRjJFRxDlX+QpVZAwuZ?=
- =?us-ascii?Q?BZZdspi3QdIpUIJYM18j/S6oLpZ20wGObh8ZJke0vRQjS8ePi3Fj9F0rUZTs?=
- =?us-ascii?Q?WgDrezvegAaSP7WkhX6jxLWiZGBmspW101fDkqHwsGMTr5t0dSV0t5iuL99N?=
- =?us-ascii?Q?dx03SYG7SPNpIn0pLw7W2+gL+AqZ25SbBQ7wAq/gCS6vrpIXeaU1LXCvR18V?=
- =?us-ascii?Q?u68PhYvqTeDwU2rhvWPsC5yLg8FeH/e5AemC+bIJXjy6kkZ6+YfCYDiuimuV?=
- =?us-ascii?Q?zO8ZBDP0M3mKasnIjK0AIwwQVPbH58R8TCTzPVlLhlHbN3OQ7gJi5ifvZhBr?=
- =?us-ascii?Q?CZnQiScaV6eQzeTwkk0G1SQl7CYnmalGhIT62MNRrOB/N/6sbXbZR5Kej0WJ?=
- =?us-ascii?Q?As12ot9VJWAs0wCyRTU=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by DM4PR12MB8560.namprd12.prod.outlook.com (2603:10b6:8:189::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.34; Wed, 23 Apr
+ 2025 14:16:48 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2%3]) with mapi id 15.20.8655.033; Wed, 23 Apr 2025
+ 14:16:48 +0000
+Message-ID: <5d91cf87-a509-4302-89b1-960c5da72c5d@amd.com>
+Date: Wed, 23 Apr 2025 19:46:42 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix NULL pointer dereference for
+ program_lut_mode in dcn401_populate_mcm_luts
+To: "Zhu, Yihan" <Yihan.Zhu@amd.com>,
+ "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
+ "Hung, Alex" <Alex.Hung@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
+References: <20250423133156.3877781-1-srinivasan.shanmugam@amd.com>
+ <DS7PR12MB6046CAF8F49C38AD3C08A03DE3BA2@DS7PR12MB6046.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+In-Reply-To: <DS7PR12MB6046CAF8F49C38AD3C08A03DE3BA2@DS7PR12MB6046.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0132.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:bf::16) To IA0PR12MB8208.namprd12.prod.outlook.com
+ (2603:10b6:208:409::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|DM4PR12MB8560:EE_
+X-MS-Office365-Filtering-Correlation-Id: f50c9e30-dc59-4601-532c-08dd82717bdc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OVdSZnI0UkxyeXhEOXBkZFNtSmRIVVZWNkdRRlFIS2ZnblE5bXU4OEl0Ykcx?=
+ =?utf-8?B?WGpzTmhYTnZ0U255WXRMNTk5WjJnN3kwMnp6WFlBT1hXbVc2b0tDNWFVTXRj?=
+ =?utf-8?B?ZFR6ZFB1L0U0dWR6cWdMVWJFemIyQTlTQXVsVDcxcXdDUTMwWUROQUYvcVJW?=
+ =?utf-8?B?b0M3MWIxREI5NmdYTVBydzdvQjhOOEpheGw2eStUNlE0Y2FCUTRBa0xVYUIy?=
+ =?utf-8?B?dHBXaks5bDZwZnhsVXQ2dW9FZU1abzBnaGpxSlBieDc1Y3RmVThPYWMvbllw?=
+ =?utf-8?B?TGdBRGM2K2toYk85L01Ga0Q5dGI4ZHJVVWRIZlp3cmhHVUIxZkdId04xcmRh?=
+ =?utf-8?B?V25KRXJGWk1wUDFnZ1pTM3llSjdoZWloQWhsOWJzYjhMMHhUdHZxbGFmL2RG?=
+ =?utf-8?B?L1lkWFA4alpudmhtdWNCQ0sxZk85bGdUaUFaczNXelNrdk1Rb3diU0szQWlU?=
+ =?utf-8?B?SThCbm9kNndoM0RsZVQ0bWMyVW9tZXFtb1llQjZuOXdpY0VzSnNBWWswK2dp?=
+ =?utf-8?B?QlVMM3NyVUJjMWtBK2YyZEM2NC9tQUdBVU54YWFIdWw0ZFJoNy8wcG9oQ0dp?=
+ =?utf-8?B?eENDbStaWlVvNm9YVXFpcHRSRzQzODREK0NQTm9SVWd0dGdoVkRQWStLbjFm?=
+ =?utf-8?B?NkkzQms3RW53Qk9ZUlZIczBxR1RCVk1iYkZBd3BBM3FscVc0RlhGMTZuVmk2?=
+ =?utf-8?B?NXMycURhNXZLSGFpWWRaZXFnVFllR3p1SWdzSWJpQXBteGxNS08zOGFIQ0FE?=
+ =?utf-8?B?M01rQk9lMXhERWE0cnhwajNZbEt0bGJvemJLemJ1dkZnSXRlY0hQNTU4TEtQ?=
+ =?utf-8?B?UXR5OHFSRzBCWWIzanRwdjk0MlpiSlBhcUFCSXJhOGI2ZERjeFRTYWZBRWVi?=
+ =?utf-8?B?UlY0Z3MvWFRPajZvRTRCUVNjdkVPMjRvRS84aEQ4UGNJdjNhbXpJZjU1RklC?=
+ =?utf-8?B?ekJsak5QcTRGb3pHTEZSYW9xMUtHaEtXZjJtS21KbHlMN3FkT1hvbHkxZitz?=
+ =?utf-8?B?N0N5UHB6S2ZUNWwrZVhoaHhKWXdUM0dzVmE3ZTF5SmFac29neUxKQ2w1b3E5?=
+ =?utf-8?B?bHBpOXBOcHBOd2Q3NlV4Z0VqUkhkRU9jcHFyUzhHV2crUy9LVHVGbjJEYUxo?=
+ =?utf-8?B?UGFDY0tDUDJ6K2JlWDhuNGNhcTU3VUNhSzB0SnJaWkVaZ3dVaWx6MC8rSTFp?=
+ =?utf-8?B?MUl1YW1rT3Fla2hvUVFXaGJwYUJkeG15MTFiN3MyYStPb3NkUjBQM1RxV3Bh?=
+ =?utf-8?B?em15eDluRS9lY3ZSL1BlaHhLRDRiaE9Hay9ydzBXNGNWZG5rcGNkRFZGK29n?=
+ =?utf-8?B?eGlnTS9IMEwvRG9VVmUrNTVydnpFb1BSeFZ0aEE2b0Y1OUNwODhKdG41cTRr?=
+ =?utf-8?B?Mlk5dExSUFA1YjBxbGtJUzUvVE9EaGJ3dXRiTGVHcXZTeklHRGZxbElwWFR2?=
+ =?utf-8?B?WFh5eStlUFluQmY5d1dmYnVGTGhkY2hzNmFxa3RlZ2h4dkRUZFlxc3pMbS9j?=
+ =?utf-8?B?c2NYYzVMZ083RG5yUnFoUjhCd00xMGZ1WUdpbHpNa0tMeU5kRFR0eGVVYSt4?=
+ =?utf-8?B?SkZJUGhJVHd6dHcrZ3JJeElWOTd1R3Z4TXltUVhBVGFkRUU0MVcydlZaOGw0?=
+ =?utf-8?B?a3VqZFVCaXlXbHZxYVVKa1VvQ205dVZ1V3ZSdGdHOGZ0V1lCRGd5S0ZDYVZC?=
+ =?utf-8?B?b09uYmEva2t1MWl5NjFyQVc1L2tSWUVDRDdWUkhKdnMybGIrVVpaS3lWZDk5?=
+ =?utf-8?B?TVNBRFpxVXZpejhGbnYzcUFpV3ZMNGlQU1lZUmlRUksvbUdEZE9malNHa1Mx?=
+ =?utf-8?B?OTRnbHd2d3hLSndCQnZzbHZPV3U4VG5NRjF5V1BwMGJaSGhOc0JFTFFNcDJl?=
+ =?utf-8?B?WWprM08zSDlKV0I1bk96Qm55NmVRa2p2R0k3ZWxRS1BMcVpSTDBUYUlSU3Vp?=
+ =?utf-8?Q?kU5r5OeBoL0=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGsxQmFJOGwvV21hUkZCSDU2cVFMWVM5UVVuNzczVnJvMUU1cCs2aHQwOXg1?=
+ =?utf-8?B?NVE1YXQvSDRnT2VhTkI4UXpFVGk3U0kwbGZwemRDb2VhOEZBSUU2NmRVYkk2?=
+ =?utf-8?B?TmZ4L21rSVRzQ2JLWTFjYzdES0hvaUpOQ0d1N3NUK0g5N01VRHNpZXNTQlZv?=
+ =?utf-8?B?NVVPZmFEanZpQmtWODZkczA0YXA2Z2pPTnpLTnExS1R0M2J4c3hhZ082cVor?=
+ =?utf-8?B?TURrQVhkb3VWMUZ2WTh6aGh3Y3o3QTA3d0RFQjBxK05ucmQrUmhyV2Y4WDJw?=
+ =?utf-8?B?em02R3NWUlNIMUNYT01MSkRRT1VQaE1odmRLcVR5bGJNMDZXTGhob3puVjB1?=
+ =?utf-8?B?aFdlOTNoK1MzbDhYalFWclhEMUZQdTIwb0cvOXRNV3lTbEIxZ3ZpV2Jrc0VU?=
+ =?utf-8?B?emx5NFVkREJaa3JQalVqOWd4aGhlanpMaE8wRldTd0VERkx4bmcwMExXWWpl?=
+ =?utf-8?B?a28rMW0zWUVuZ0p0ekNCZUNnaTZ0M3FmbDNqNkt5aWJGbnlZSGY4dmV5eDdH?=
+ =?utf-8?B?T2hpL2dZQmpLUXZiVm50dDBScmxYWkV5SUgwakVNeHlCMXAxbmd6TVlQaFNv?=
+ =?utf-8?B?NVhjeWIxNURyNE1uMHl5cytQMzVjTlIrUDBYNm5Zd2JkL2FMemdpZ01MQVJn?=
+ =?utf-8?B?b0pYa3k0clJsSHllTG54SnVyRUN4WlBpb2FXa1dDZ29vY1VjcHpXMFJBRUZM?=
+ =?utf-8?B?L3d6T0Y0RDFmZjMwRUlEaTJQYjVObnEvV3J2ZWtTU2RzQzQxWnhOMDRZa01J?=
+ =?utf-8?B?dzFtUkRUYnJMTTYzWnA1TUNuZ3p2S1dicEVneTZHRGlCZTc3U2E0TWR6OHkx?=
+ =?utf-8?B?K2MzYmU1SWNEQzUvSFRMUmprM1drQmUyVCt5MmNmNlZJTXBWcnB1M3cwNlds?=
+ =?utf-8?B?NzJwWW5ZNXJ6Rjc4TCsyVlBiK0pRMjhTSWNVbStQV25qN3NBN2diTk9adGdW?=
+ =?utf-8?B?RDB5bzhIbFBuUjM5NGNDUTJzSG9scjgvS3N2R3VycG9ZbU9hL3hoaGdiYXl5?=
+ =?utf-8?B?bHJ0TEFwZ0NISFpnYjA4NUdpT3VyQUxOcHR3emE0bFlnWlFKVW1uck1ZcVIz?=
+ =?utf-8?B?N2UyVGhNclc0V2tOVStNclgyN3JCZ3NLakVHQ09rUFZ0eE9pdi9paXJCVzds?=
+ =?utf-8?B?eEtMTTlMalRXYkwzTGt2WVVWWk9VK2phRndZZ3dpV0lhYmVLNlF3dzhLZElQ?=
+ =?utf-8?B?NXB6U0xCSGhyUGVYK0E4bjlGRkF5SjZvVHVkNEN4SDZTREVWWHI0SnNvdUdu?=
+ =?utf-8?B?VnRwMlNyVnRqNE5YVmNuTGMxcFR1OGtmWUdueE16eG5WMTIreGZ3cmJNWnJz?=
+ =?utf-8?B?SCtzaU9QQk0zZkE4Zld4ZVdwUGxmZU44M3JZSjQ1N3I1dE5sd3F4STBkVEYr?=
+ =?utf-8?B?UENFdk5rcGdzVnRsc1pKUzZwVkMxc216ekJXRlBjUGcwcUduTkhWNHFxZTAw?=
+ =?utf-8?B?dEt1UDdYMERPUUhSbStOSk1OT1pOSVZoWWZla2VSdk9kTWFCc3lVVE5JbDZ5?=
+ =?utf-8?B?enJvenZNTms4bU9ISTVnSU93eHdaN09QTHpsQit3Y1hDcjBaNFFIYW96Q09Z?=
+ =?utf-8?B?Tm1XZUZzOXZuTktIN0d3SGhWQllpeVBIbjRCdGtwRFllZ2RiQUhFc1BFSkdR?=
+ =?utf-8?B?Vmh0dGU1OVJ4OWF2WXZxOEF6aUUrMnpLOUt3dUxhZ2ZvenBhTG9PUmlYVC85?=
+ =?utf-8?B?UHg0MjJBU3BGczZVKzZmSjdadTZiOXg1UnNZOHc3cGpWbE0wTGhuK3pjcHJK?=
+ =?utf-8?B?RVBxWkxrTTEyN2NXVE93MUNhZ2xXWnN5QlRhOXJvQUFKWEdCZEZ5NFNmMG9j?=
+ =?utf-8?B?L2Y0eWgvTVF0d0doVzNodURWQnpNVXA5V3JodDBiK003bEJRMUIxMk5DZ09T?=
+ =?utf-8?B?T3ZtcVFpZTNwMlhOWkV5bXFIdzdBQUdYUjZadjB0MlhtTmt4S29mT3N6ZVpR?=
+ =?utf-8?B?ZUdMKzd4RHRIMDdVVlN2Q3lYSlArQjh0L3JVdUFVQzg0Q0dSTm5wR0xETEoy?=
+ =?utf-8?B?NTJ4MmNDTENxc0drUTh6eEgrZm5ZTy9BbnkzNk9LME1FM1RZTW5JZmpnQm1J?=
+ =?utf-8?B?dnNja1BaWkh4UmQxRVBZQVM2QUo1amVFMnp0aXZuQ05pbzZ4N2lFa3ZwUmJt?=
+ =?utf-8?Q?r0arisNcKVIRLJIUoSXPHB2eO?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f50c9e30-dc59-4601-532c-08dd82717bdc
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6046.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39502426-90a8-48e9-ffea-08dd827002e8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Apr 2025 14:06:15.2632 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: s2oA2ANv+DerGb0NsJ9xx0jUVrMFONk4oWttFC9ub4C0l7dhzQeKQKTpnh+b/vdnVCmZ1KZIppagSd/2zcYRXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7610
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 14:16:48.0951 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Px3d+LqaSSSYVmARLCfn/jOHN5TwSaRWrJdSYOO9aA0/eqzCpIFmLzAjnGerlyI8NgYpCIkiNFdhXyCd6hGcWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8560
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,96 +168,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-Hi Srini,
-
-Thanks for helping add missing NULL pointer check in the Linux side. Is the=
-re any further actions needed from me?
-
-This fix looks good to me, approved.
-Reviewed-by: Yihan Zhu <yihanzhu@amd.com>
+On 4/23/2025 7:36 PM, Zhu, Yihan wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Hi Srini,
+>
+> Thanks for helping add missing NULL pointer check in the Linux side. Is there any further actions needed from me?
 
 
-Regards,
-Yihan Z
+Hi Yihan,
 
------Original Message-----
-From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-Sent: Wednesday, April 23, 2025 9:32 AM
-To: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMU=
-GAM@amd.com>; Zhu, Yihan <Yihan.Zhu@amd.com>; Wentland, Harry <Harry.Wentla=
-nd@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Chung, Chi=
-aHsuan (Tom) <ChiaHsuan.Chung@amd.com>; Rodrigo Siqueira <Rodrigo.Siqueira@=
-amd.com>; Li, Roman <Roman.Li@amd.com>; Hung, Alex <Alex.Hung@amd.com>; Dan=
- Carpenter <dan.carpenter@linaro.org>
-Subject: [PATCH] drm/amd/display: Fix NULL pointer dereference for program_=
-lut_mode in dcn401_populate_mcm_luts
+Thanks for your quick review.
 
-This commit introduces a NULL pointer check for
-mpc->funcs->program_lut_mode in the dcn401_populate_mcm_luts function.
-The previous implementation directly called program_lut_mode without valida=
-ting its existence, which could lead to a NULL pointer dereference.
+No further action is needed from your side at this point. Appreciate 
+your support!
 
-With this change, the function is now only invoked if
-mpc->funcs->program_lut_mode is not NULL
+Best regards,
+Srini
 
-Fixes the below:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c:720 dcn=
-401_populate_mcm_luts()
-error: we previously assumed 'mpc->funcs->program_lut_mode' could be null (=
-see line 701)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c
-    642 void dcn401_populate_mcm_luts(struct dc *dc,
-    643                 struct pipe_ctx *pipe_ctx,
-    644                 struct dc_cm2_func_luts mcm_luts,
-    645                 bool lut_bank_a)
-    646 {
-        ...
-    716                 }
-    717                 if (m_lut_params.pwl) {
-    718                         if (mpc->funcs->mcm.populate_lut)
-    719                                 mpc->funcs->mcm.populate_lut(mpc, m=
-_lut_params, lut_bank_a, mpcc_id);
---> 720                         mpc->funcs->program_lut_mode(mpc, MCM_LUT_S=
-HAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
-
-Cc: Yihan Zhu <yihanzhu@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/dr=
-ivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index 8611eb9607df..ae7194da5987 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -717,7 +717,8 @@ void dcn401_populate_mcm_luts(struct dc *dc,
-                if (m_lut_params.pwl) {
-                        if (mpc->funcs->mcm.populate_lut)
-                                mpc->funcs->mcm.populate_lut(mpc, m_lut_par=
-ams, lut_bank_a, mpcc_id);
--                       mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, M=
-CM_LUT_ENABLE, lut_bank_a, mpcc_id);
-+                       if (mpc->funcs->program_lut_mode)
-+                               mpc->funcs->program_lut_mode(mpc, MCM_LUT_S=
-HAPER, MCM_LUT_ENABLE,
-+lut_bank_a, mpcc_id);
-                }
-        }
-
---
-2.34.1
-
+>
+> This fix looks good to me, approved.
+> Reviewed-by: Yihan Zhu <yihanzhu@amd.com>
+>
+>
+> Regards,
+> Yihan Z
+>
+> -----Original Message-----
+> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+> Sent: Wednesday, April 23, 2025 9:32 AM
+> To: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Zhu, Yihan <Yihan.Zhu@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>; Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>; Li, Roman <Roman.Li@amd.com>; Hung, Alex <Alex.Hung@amd.com>; Dan Carpenter <dan.carpenter@linaro.org>
+> Subject: [PATCH] drm/amd/display: Fix NULL pointer dereference for program_lut_mode in dcn401_populate_mcm_luts
+>
+> This commit introduces a NULL pointer check for
+> mpc->funcs->program_lut_mode in the dcn401_populate_mcm_luts function.
+> The previous implementation directly called program_lut_mode without validating its existence, which could lead to a NULL pointer dereference.
+>
+> With this change, the function is now only invoked if
+> mpc->funcs->program_lut_mode is not NULL
+>
+> Fixes the below:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c:720 dcn401_populate_mcm_luts()
+> error: we previously assumed 'mpc->funcs->program_lut_mode' could be null (see line 701)
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c
+>      642 void dcn401_populate_mcm_luts(struct dc *dc,
+>      643                 struct pipe_ctx *pipe_ctx,
+>      644                 struct dc_cm2_func_luts mcm_luts,
+>      645                 bool lut_bank_a)
+>      646 {
+>          ...
+>      716                 }
+>      717                 if (m_lut_params.pwl) {
+>      718                         if (mpc->funcs->mcm.populate_lut)
+>      719                                 mpc->funcs->mcm.populate_lut(mpc, m_lut_params, lut_bank_a, mpcc_id);
+> --> 720                         mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
+>
+> Cc: Yihan Zhu <yihanzhu@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+> index 8611eb9607df..ae7194da5987 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+> @@ -717,7 +717,8 @@ void dcn401_populate_mcm_luts(struct dc *dc,
+>                  if (m_lut_params.pwl) {
+>                          if (mpc->funcs->mcm.populate_lut)
+>                                  mpc->funcs->mcm.populate_lut(mpc, m_lut_params, lut_bank_a, mpcc_id);
+> -                       mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
+> +                       if (mpc->funcs->program_lut_mode)
+> +                               mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE,
+> +lut_bank_a, mpcc_id);
+>                  }
+>          }
+>
+> --
+> 2.34.1
+>
