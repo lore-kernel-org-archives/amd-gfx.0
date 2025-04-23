@@ -4,124 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22CDAC369D1
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 13:32:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51F17C369CB
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 13:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B686510E6A9;
-	Wed, 23 Apr 2025 13:32:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF3F10E6AD;
+	Wed, 23 Apr 2025 13:48:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h1CMkiNh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X0y9M8QV";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 976E810E6A6
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 13:32:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y4iwXurdYFChykFw9iY5rDv9lX03eY3Knbu4zeSHGR6fkN6cHTcMqyJ2yqtfqP+sAX9hhsosan9KdTGV05IRdK3h6Lj6/XeOch6EPhwRSbIoLxJun9s6MJhilRo68cFFxvpPlbAMXQNTqpBnlxpYUP3pKLg4S18YCmOCmavUdc6KEE1yg2DUpXhdr7n/wDKcbZpFoEIGPhks3vh7+xuybFhpu/hjLZ81w1inkx0XMu65vRoopKc+JQrJBD1IgCHC/cmW3Yup1xuRtUMO3xemzEDf9bid6H5AoEMvCayWmLZHf1HOL4QRU5fbIhfQlvC9iHxoMt2MdSUvSEhL2dCpPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WdTM7kHLsSTtDHRffDKfMM3r/4jTWWfM/ollTTXGKVE=;
- b=LhbQQBj5tP5x0piA4CG/C90iTkp/bqG3nk3B2EtnoEDPjMMtnkOAz/OMwVKg66t5R1fhtUjUviY+AYToykelcwwD0CRHsBwGeUssuP8GnbIiGwytAwgs/B4meIMaL+vEs9sPBlJwUELSvlxh8UHjlXEOYzzlF0VKVPUph6Aw54JmWSLOXxwTaFP+DTO1nujryR/HR4e+nABZBxwNdRoHPSaydFgB5dMd8FymRbXUU3M787OGLgUZQfZp8nXxK61DaHBuv/nGBxlYQ3KAEyplVAYYwVUBfX+3d5l8/5sFTJ7rTNEig4uQIT9jSwdKp5hRNmtu8wKZJDz7jAjyQ06tKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WdTM7kHLsSTtDHRffDKfMM3r/4jTWWfM/ollTTXGKVE=;
- b=h1CMkiNhXD2M7Nch2rbcwwpMv/jBXSK2duXzTukYmwAC4A+YlaWVjeeWWBbi36MjIH0aSlMQ+lha7Fb/8gFVkttb34On/ZfBvabqQSZotruKy+pqsJfYnHgweT50VoBVJTImVxCPLNhKx55VhHEB0ZQXL7HTTPqG7n9OF6W3HTY=
-Received: from BL1P223CA0030.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::35)
- by MW4PR12MB7016.namprd12.prod.outlook.com (2603:10b6:303:218::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.35; Wed, 23 Apr
- 2025 13:32:12 +0000
-Received: from BL02EPF0001A103.namprd05.prod.outlook.com
- (2603:10b6:208:2c4:cafe::74) by BL1P223CA0030.outlook.office365.com
- (2603:10b6:208:2c4::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.37 via Frontend Transport; Wed,
- 23 Apr 2025 13:32:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A103.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Wed, 23 Apr 2025 13:32:11 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 23 Apr 2025 08:32:08 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Yihan Zhu <yihanzhu@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>, Alex Hung
- <alex.hung@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
-Subject: [PATCH] drm/amd/display: Fix NULL pointer dereference for
- program_lut_mode in dcn401_populate_mcm_luts
-Date: Wed, 23 Apr 2025 19:01:56 +0530
-Message-ID: <20250423133156.3877781-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9260A10E6AD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 13:48:49 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-b0ec7f3a205so285308a12.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 06:48:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1745416129; x=1746020929; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6vVAfGIc63CIWO9pd7JpzNLwSs6/YsJYkFTdIIwA+Yo=;
+ b=X0y9M8QVBhCswyEhd649D3v72y5GtR7PO6nHXsznZVT8l1VUOkiO0XHVMNVz0fxxCo
+ mdbikL6LtfisWp2tv4lEiF9F4Mk+cHfMgHBGfzs5slY0UkAvPuzCk1p5ZHCVvr9rvdY4
+ sibREYx9LxqKROZSk9tWlMDjpXEoweyqYK1c6j+b3m+mWAeSMyMarD597Cb3SCtDyjrC
+ E92RGXZe5Xk1gyTIsSBCjg9SmG5R7CufzzEiC3OCmrphn/6MP5G/WPUziwtoiJZrTFQ9
+ lZ6rvFsVUkpQ01hYYL5iwFSA2G0tbYan9KGeN10m0Nb+sBFUC5gBwIHN2H7PMCgOMNxY
+ vPgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745416129; x=1746020929;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6vVAfGIc63CIWO9pd7JpzNLwSs6/YsJYkFTdIIwA+Yo=;
+ b=Fuk2YIc4o2Dt1ZfWwnh3FglfVepw1AA5zOj8MDKAL3TqKgL69IB9EzVj66jjowPbg+
+ 1bjh/UGA7fk/0h68XkL/XFe0XasCtsLzewuGKKPchfC8dUJj4MfMjMqCijp+cxTFkLVb
+ R/6TOQRhxMWYcbVQJOhFIaDBZzN8C/7XY3CFuY6Itgd6bQqNnR6az1/EHtS8UI9OYCEI
+ y9jOK1ASs9O7uupX56rn6sJvZls4uTGzVkCRXpU24BDmxPsy9xfXcSgaRHAck5ksyytE
+ QdUEgB8FUl3krZHUU7xV7U5hppz0TwyLylvfhThdDw5IXkKUDvzyBljToNxc48XV/kE0
+ cvBQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUMpvYuBU9kWmMCZPpJGaB8/Yd4FpKLdvjrMvi9xH9T+fwOCmsc0FH2jj0TnP1vAHhMvEy4O+5b@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywqa0S0x+zFhTochKW1Yp2uBVmblVrSdbyQ6ywZUxjX71bt37Bz
+ zccYujwQQFe1meq7dmYd5CeuiXfsJHTnRBg6LsnCuaBGAF7/MuVuiaBYnjbDvXLtKBPshgNY7dF
+ mI9XqJcnbo97hk3YCFX1JYSeOugccXQ==
+X-Gm-Gg: ASbGncsm2X4FeELtohfsLJHrl9yaKf7BNl7nHKlb52zOQR1KeCrR3/Mgo2W50K7trxa
+ v4I2O0MvuBNGW83g6S3qs9YCiB9DQImjY/mumVIQC3EFm5dldnuqUUV/mg2FU6Kr2Vej43eA1dn
+ h4ccVMcbfuLXFGDgR2d2/GT8I0RYKlG4Zu
+X-Google-Smtp-Source: AGHT+IHEnrWi56MmakALp5nL0wx5OoeCmFVh1tvEy7D8UBkzSnYMimcRTPXue5dt2lANp751ba8Z4SRxr5cF4y9cgHA=
+X-Received: by 2002:a17:90b:380c:b0:305:5f25:59ad with SMTP id
+ 98e67ed59e1d1-309dee7834fmr1664835a91.7.1745416128754; Wed, 23 Apr 2025
+ 06:48:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A103:EE_|MW4PR12MB7016:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84ede460-471b-4cba-f7bc-08dd826b4101
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CfFhwwDxJg56U/7/VhqZMZ7ztvN2P2i9fvpGZCxKnRfeGUDCalTubmMPch0y?=
- =?us-ascii?Q?wyC1DjxU4DLewnuvMbyMMcx/Co/PimZrPkoiZAC7zihrF7um5WznceaHh+Hu?=
- =?us-ascii?Q?UpFY4tzDCU/lupVdKeUaTBwz1byFjJ9TM/3LEkhvyOCRqHSohsAbJMq2K0Mz?=
- =?us-ascii?Q?q+GNCDGwHPTrhcEo4IBS4ntLfrn8RmH49lioLM6X8bcieuYauv2KWoZQf2P/?=
- =?us-ascii?Q?tlKUPwg0rN4RXQSs99snPm3K9ycgcPKoilgLVn6zbiDF4CHTVrWMfTDacoxN?=
- =?us-ascii?Q?j1ZKKjPgFJmTSD7nMV+O2XDvXgC7Lt34w2wyEYjSxaAHQ5GelxyrjWsZKEI+?=
- =?us-ascii?Q?alTygSggbAGK4LJ0AfyB322iBgCE9b4bSkqj1vw3/VkSeEsgrbebrZkJIGDH?=
- =?us-ascii?Q?hzWkXnQZb7cDsRP7/uSl/JCEptqxBlod9CctjgjPvZo1fjdb9n6CXYlmfkw0?=
- =?us-ascii?Q?R0NALAeWBoYHI/GPuMmZaq+nZPlCFX0zK09H+/Y1dS70P9fgwv7uo6y/Jr3t?=
- =?us-ascii?Q?YQqphmHU6QBdHbMzAb4T4imQ0bAx8aQEQNWZGMPgr1xrJh6knb37pRlLv6rg?=
- =?us-ascii?Q?z6lelTRMGlY8DOoSJ34VZQnv2mNM+twdHNTImDGVHnMIk5iNJhN8ws4RrmtU?=
- =?us-ascii?Q?324REs9KC1bmBPc9VPp85th5X1AezHl/KCxfjvqI2MHkqR9HiXu7pHdgRkG/?=
- =?us-ascii?Q?ayUNSpFBZonMsJ0//4jp7BCDR29IrhaB8lQgR1FsSorM5Udi8+XUaU8t1G+M?=
- =?us-ascii?Q?9AtXow91dlsJdA6zH0uXWum28xUTfgteeoNCVBJDF9xmW7mgbHhBwG8CgCbl?=
- =?us-ascii?Q?gpr+xE8SJippVXXf/hfsIaMps/t6Ut5BBpEVvjVVX+EZWAQ4uImaWzjIsxFL?=
- =?us-ascii?Q?JocjJULfG6lBPr1mmEVLGo541yUOqs+aOwuATIUVslkadCFWlvrigsUz8lX0?=
- =?us-ascii?Q?S5EMZoII9s8wTPSTM0Y+eztFkLurdn3inechHmCpfv3gyGW18xRa/KuInH/O?=
- =?us-ascii?Q?ZGR6139PSgHphHvh098vgrek0JumGgI+zCgeZo1QOvgs61X3LkW1Fjlf9w5+?=
- =?us-ascii?Q?KYiydJhonP/JU+cXfBJCvR88RE/MqIW4bfPnPnFSRf5KVnh4PwU/GCw8b1Lj?=
- =?us-ascii?Q?foaG2kfjFfUF1UaoaaDMdxWLjqvur0eKMmEypUnMBqd/cs4iilyX1ycPo2IK?=
- =?us-ascii?Q?D99W40GeYidZShTm0d/+YXiXQwjllrs8WhjA/hrO9RwvfO4//yfKbi3l677J?=
- =?us-ascii?Q?HRu23BpJJhJOAuh980Kaudbwq0kuFz9+6uTJAbdjGJnx8+D1+d5VV3FDrM0J?=
- =?us-ascii?Q?fXWxk973ceKzBqFg0Ye8pELxHsb5rOQjvOYg65gX2gkWkXLBjhPL5kC+l+Xo?=
- =?us-ascii?Q?5mFS+UvHLekr4EIueSZOiqskjxFMXPVIkcN0RIVq0TDrWSJfIYg0NSMijEsy?=
- =?us-ascii?Q?OUY/G3jIgJWONq9sGCBv7gnk7Qd4q1mjbmxZpk9jyr5jxmzD/FFdzecwUK2I?=
- =?us-ascii?Q?aSGE84DtKzxl6tGr6xtlHvk6z0TLm2UVSOBM?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 13:32:11.9769 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84ede460-471b-4cba-f7bc-08dd826b4101
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A103.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7016
+References: <20250423093359.4424-1-Arvind.Yadav@amd.com>
+ <7bd591c8-8101-431c-980d-edadfe26b047@amd.com>
+In-Reply-To: <7bd591c8-8101-431c-980d-edadfe26b047@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 23 Apr 2025 09:48:37 -0400
+X-Gm-Features: ATxdqUHYcxlOhsJBdbm0ofD6bl0sAWpCvQbnDuNwUI3bsEi_iXryQny9pMVE98Y
+Message-ID: <CADnq5_Obbx8Zvm7ViGDHhT-bk7aMsb=03OMZfEcY8r_MLBU2gA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: remove DRM_AMDGPU_NAVI3X_USERQ config for
+ UQ
+To: "Khatri, Sunil" <sukhatri@amd.com>
+Cc: Arvind Yadav <Arvind.Yadav@amd.com>, Christian.Koenig@amd.com, 
+ alexander.deucher@amd.com, sunil.khatri@amd.com, 
+ Arunpravin.PaneerSelvam@amd.com, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,61 +85,355 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit introduces a NULL pointer check for
-mpc->funcs->program_lut_mode in the dcn401_populate_mcm_luts function.
-The previous implementation directly called program_lut_mode without
-validating its existence, which could lead to a NULL pointer
-dereference.
+On Wed, Apr 23, 2025 at 6:03=E2=80=AFAM Khatri, Sunil <sukhatri@amd.com> wr=
+ote:
+>
+> LGTM, Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+>
+> I think you should also get an acknowledgement from Alex too before
+> pushing to ASDN.
 
-With this change, the function is now only invoked if
-mpc->funcs->program_lut_mode is not NULL
+Please go ahead.
 
-Fixes the below:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c:720 dcn401_populate_mcm_luts()
-error: we previously assumed 'mpc->funcs->program_lut_mode' could be null (see line 701)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c
-    642 void dcn401_populate_mcm_luts(struct dc *dc,
-    643                 struct pipe_ctx *pipe_ctx,
-    644                 struct dc_cm2_func_luts mcm_luts,
-    645                 bool lut_bank_a)
-    646 {
-	...
-    716                 }
-    717                 if (m_lut_params.pwl) {
-    718                         if (mpc->funcs->mcm.populate_lut)
-    719                                 mpc->funcs->mcm.populate_lut(mpc, m_lut_params, lut_bank_a, mpcc_id);
---> 720                         mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
-
-Cc: Yihan Zhu <yihanzhu@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index 8611eb9607df..ae7194da5987 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -717,7 +717,8 @@ void dcn401_populate_mcm_luts(struct dc *dc,
- 		if (m_lut_params.pwl) {
- 			if (mpc->funcs->mcm.populate_lut)
- 				mpc->funcs->mcm.populate_lut(mpc, m_lut_params, lut_bank_a, mpcc_id);
--			mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
-+			if (mpc->funcs->program_lut_mode)
-+				mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
- 		}
- 	}
- 
--- 
-2.34.1
-
+>
+> Regards
+> Sunil khatri
+>
+> On 4/23/2025 3:03 PM, Arvind Yadav wrote:
+> > DRM_AMDGPU_NAVI3X_USERQ config support is not required for
+> > usermode queue.
+> >
+> > v2: rebase.
+> >
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Christian Koenig <christian.koenig@amd.com>
+> > Cc: Sunil Khatri <sunil.khatri@amd.com>
+> > Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> > Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/Kconfig             |  8 --------
+> >   drivers/gpu/drm/amd/amdgpu/Makefile            |  2 +-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c     |  7 +------
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c        |  5 +----
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c      |  8 --------
+> >   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    | 18 -----------------=
+-
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c         |  4 ----
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c         |  2 --
+> >   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c         |  3 +--
+> >   drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c         |  3 ---
+> >   10 files changed, 4 insertions(+), 56 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/a=
+mdgpu/Kconfig
+> > index 7b95221d2f3d..1a11cab741ac 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> > +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> > @@ -96,14 +96,6 @@ config DRM_AMDGPU_WERROR
+> >         Add -Werror to the build flags for amdgpu.ko.
+> >         Only enable this if you are warning code for amdgpu.ko.
+> >
+> > -config DRM_AMDGPU_NAVI3X_USERQ
+> > -     bool "Enable amdgpu usermode queues"
+> > -     depends on DRM_AMDGPU
+> > -     default n
+> > -     help
+> > -       Choose this option to enable GFX usermode queue support for GFX=
+/SDMA/Compute
+> > -          workload submission. This feature is experimental and suppor=
+ted on GFX11+.
+> > -
+> >   source "drivers/gpu/drm/amd/acp/Kconfig"
+> >   source "drivers/gpu/drm/amd/display/Kconfig"
+> >   source "drivers/gpu/drm/amd/amdkfd/Kconfig"
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/=
+amdgpu/Makefile
+> > index 8595e05c691b..87080c06e5fc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> > @@ -177,7 +177,7 @@ amdgpu-y +=3D \
+> >       mes_v12_0.o \
+> >
+> >   # add GFX userqueue support
+> > -amdgpu-$(CONFIG_DRM_AMDGPU_NAVI3X_USERQ) +=3D mes_userqueue.o
+> > +amdgpu-y +=3D mes_userqueue.o
+> >
+> >   # add UVD block
+> >   amdgpu-y +=3D \
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index b96e0613ea7e..fe68ba9997ae 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -3513,9 +3513,7 @@ static int amdgpu_device_ip_fini_early(struct amd=
+gpu_device *adev)
+> >       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+> >
+> >       amdgpu_amdkfd_suspend(adev, false);
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >       amdgpu_userq_suspend(adev);
+> > -#endif
+> >
+> >       /* Workaround for ASICs need to disable SMC first */
+> >       amdgpu_device_smu_fini_early(adev);
+> > @@ -5086,9 +5084,7 @@ int amdgpu_device_suspend(struct drm_device *dev,=
+ bool notify_clients)
+> >
+> >       if (!adev->in_s0ix) {
+> >               amdgpu_amdkfd_suspend(adev, adev->in_runpm);
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >               amdgpu_userq_suspend(adev);
+> > -#endif
+> >       }
+> >
+> >       r =3D amdgpu_device_evict_resources(adev);
+> > @@ -5156,11 +5152,10 @@ int amdgpu_device_resume(struct drm_device *dev=
+, bool notify_clients)
+> >               r =3D amdgpu_amdkfd_resume(adev, adev->in_runpm);
+> >               if (r)
+> >                       goto exit;
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> > +
+> >               r =3D amdgpu_userq_resume(adev);
+> >               if (r)
+> >                       goto exit;
+> > -#endif
+> >       }
+> >
+> >       r =3D amdgpu_device_ip_late_init(adev);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gfx.c
+> > index cb9ffb17ab98..cc5d6250ac69 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > @@ -1980,9 +1980,7 @@ static void amdgpu_gfx_kfd_sch_ctrl(struct amdgpu=
+_device *adev, u32 idx,
+> >               if (adev->gfx.userq_sch_req_count[idx] =3D=3D 0) {
+> >                       cancel_delayed_work_sync(&adev->gfx.enforce_isola=
+tion[idx].work);
+> >                       if (!adev->gfx.userq_sch_inactive[idx]) {
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >                               amdgpu_userq_stop_sched_for_enforce_isola=
+tion(adev, idx);
+> > -#endif
+> >                               if (adev->kfd.init_complete)
+> >                                       amdgpu_amdkfd_stop_sched(adev, id=
+x);
+> >                               adev->gfx.userq_sch_inactive[idx] =3D tru=
+e;
+> > @@ -2040,9 +2038,8 @@ void amdgpu_gfx_enforce_isolation_handler(struct =
+work_struct *work)
+> >               /* Tell KFD to resume the runqueue */
+> >               WARN_ON_ONCE(!adev->gfx.userq_sch_inactive[idx]);
+> >               WARN_ON_ONCE(adev->gfx.userq_sch_req_count[idx]);
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> > +
+> >               amdgpu_userq_start_sched_for_enforce_isolation(adev, idx)=
+;
+> > -#endif
+> >               if (adev->kfd.init_complete)
+> >                       amdgpu_amdkfd_start_sched(adev, idx);
+> >               adev->gfx.userq_sch_inactive[idx] =3D false;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_userq.c
+> > index b0e8098a3988..451890ee3fb7 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > @@ -129,7 +129,6 @@ amdgpu_userq_active(struct amdgpu_userq_mgr *uq_mgr=
+)
+> >       return ret;
+> >   }
+> >
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >   static struct amdgpu_usermode_queue *
+> >   amdgpu_userq_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
+> >   {
+> > @@ -520,13 +519,6 @@ int amdgpu_userq_ioctl(struct drm_device *dev, voi=
+d *data,
+> >
+> >       return r;
+> >   }
+> > -#else
+> > -int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+> > -                    struct drm_file *filp)
+> > -{
+> > -     return -ENOTSUPP;
+> > -}
+> > -#endif
+> >
+> >   static int
+> >   amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> > index be068e8e37d1..3288c2ff692e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> > @@ -216,7 +216,6 @@ void amdgpu_userq_fence_driver_put(struct amdgpu_us=
+erq_fence_driver *fence_drv)
+> >       kref_put(&fence_drv->refcount, amdgpu_userq_fence_driver_destroy)=
+;
+> >   }
+> >
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >   static int amdgpu_userq_fence_alloc(struct amdgpu_userq_fence **userq=
+_fence)
+> >   {
+> >       *userq_fence =3D kmem_cache_alloc(amdgpu_userq_fence_slab, GFP_AT=
+OMIC);
+> > @@ -288,7 +287,6 @@ static int amdgpu_userq_fence_create(struct amdgpu_=
+usermode_queue *userq,
+> >
+> >       return 0;
+> >   }
+> > -#endif
+> >
+> >   static const char *amdgpu_userq_fence_get_driver_name(struct dma_fenc=
+e *f)
+> >   {
+> > @@ -343,7 +341,6 @@ static const struct dma_fence_ops amdgpu_userq_fenc=
+e_ops =3D {
+> >       .release =3D amdgpu_userq_fence_release,
+> >   };
+> >
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >   /**
+> >    * amdgpu_userq_fence_read_wptr - Read the userq wptr value
+> >    *
+> > @@ -594,15 +591,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *d=
+ev, void *data,
+> >
+> >       return r;
+> >   }
+> > -#else
+> > -int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+> > -                           struct drm_file *filp)
+> > -{
+> > -     return -ENOTSUPP;
+> > -}
+> > -#endif
+> >
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >   int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+> >                           struct drm_file *filp)
+> >   {
+> > @@ -968,10 +957,3 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev=
+, void *data,
+> >
+> >       return r;
+> >   }
+> > -#else
+> > -int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+> > -                         struct drm_file *filp)
+> > -{
+> > -     return -ENOTSUPP;
+> > -}
+> > -#endif
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v11_0.c
+> > index ac7ac58e25a6..519b82f77cff 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > @@ -1630,7 +1630,6 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+> >       case IP_VERSION(11, 0, 0):
+> >       case IP_VERSION(11, 0, 2):
+> >       case IP_VERSION(11, 0, 3):
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >               if (!adev->gfx.disable_uq &&
+> >                   adev->gfx.me_fw_version  >=3D 2390 &&
+> >                   adev->gfx.pfp_fw_version >=3D 2530 &&
+> > @@ -1639,7 +1638,6 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+> >                       adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_me=
+s_funcs;
+> >                       adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D &user=
+q_mes_funcs;
+> >               }
+> > -#endif
+> >               break;
+> >       case IP_VERSION(11, 0, 1):
+> >       case IP_VERSION(11, 0, 4):
+> > @@ -1647,13 +1645,11 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_b=
+lock *ip_block)
+> >       case IP_VERSION(11, 5, 1):
+> >       case IP_VERSION(11, 5, 2):
+> >       case IP_VERSION(11, 5, 3):
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >               /* add firmware version checks here */
+> >               if (0 && !adev->gfx.disable_uq) {
+> >                       adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_me=
+s_funcs;
+> >                       adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D &user=
+q_mes_funcs;
+> >               }
+> > -#endif
+> >               break;
+> >       default:
+> >               break;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v12_0.c
+> > index dfa0830a4eb1..f09d96bfee16 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > @@ -1416,7 +1416,6 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+> >       switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+> >       case IP_VERSION(12, 0, 0):
+> >       case IP_VERSION(12, 0, 1):
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >               if (!adev->gfx.disable_uq &&
+> >                   adev->gfx.me_fw_version  >=3D 2780 &&
+> >                   adev->gfx.pfp_fw_version >=3D 2840 &&
+> > @@ -1425,7 +1424,6 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+> >                       adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_me=
+s_funcs;
+> >                       adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D &user=
+q_mes_funcs;
+> >               }
+> > -#endif
+> >               break;
+> >       default:
+> >               break;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v6_0.c
+> > index 6bb36187a53d..da5b5d64f137 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> > @@ -1363,11 +1363,10 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_b=
+lock *ip_block)
+> >       else
+> >               DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n"=
+);
+> >
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >       /* add firmware version checks here */
+> >       if (0 && !adev->sdma.disable_uq)
+> >               adev->userq_funcs[AMDGPU_HW_IP_DMA] =3D &userq_mes_funcs;
+> > -#endif
+> > +
+> >       r =3D amdgpu_sdma_sysfs_reset_mask_init(adev);
+> >       if (r)
+> >               return r;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v7_0.c
+> > index 943c6446a0a7..befe013b11a7 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> > @@ -1338,12 +1338,9 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_bl=
+ock *ip_block)
+> >       else
+> >               DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n"=
+);
+> >
+> > -#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+> >       /* add firmware version checks here */
+> >       if (0 && !adev->sdma.disable_uq)
+> >               adev->userq_funcs[AMDGPU_HW_IP_DMA] =3D &userq_mes_funcs;
+> > -#endif
+> > -
+> >
+> >       return r;
+> >   }
