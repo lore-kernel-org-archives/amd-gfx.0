@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96A1BC369D1
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 13:26:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22CDAC369D1
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 13:32:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 437E510E69F;
-	Wed, 23 Apr 2025 13:26:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B686510E6A9;
+	Wed, 23 Apr 2025 13:32:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="a4sWprQ5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h1CMkiNh";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2085.outbound.protection.outlook.com [40.107.96.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C50AF10E69F
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 13:26:22 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 976E810E6A6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Apr 2025 13:32:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b8agdLdZszkz4Gc4Kd3rLQOKQNifFeTo1luT5c8gJ/yKHhpUtVyzdtKRQlnlr4CvLqN8ounNahOoKMzsniyHjDwCnlXuH1RkqosULAR6fqbNnGPBa3hybaLG6yjE4nfcsTqeSArzX7fhLTc2mprgwi75dIQ8e+cTfK5tpxCzbcxMUy2/OsHkRvZYaM5uT1vPCplEvFUx2ODq7DhzWkkneLg7LbIsmfXGwSi29Lb9Uyw9obIo1l2d/TEbcHYeexV6UGvCW3GuMDcHMzdELfQtlQEELmGfkpA0a+YH5QE5RkDRZgfVR9xWgM370YLkEv352Glsjh9flkC1R5nAtoMfIQ==
+ b=Y4iwXurdYFChykFw9iY5rDv9lX03eY3Knbu4zeSHGR6fkN6cHTcMqyJ2yqtfqP+sAX9hhsosan9KdTGV05IRdK3h6Lj6/XeOch6EPhwRSbIoLxJun9s6MJhilRo68cFFxvpPlbAMXQNTqpBnlxpYUP3pKLg4S18YCmOCmavUdc6KEE1yg2DUpXhdr7n/wDKcbZpFoEIGPhks3vh7+xuybFhpu/hjLZ81w1inkx0XMu65vRoopKc+JQrJBD1IgCHC/cmW3Yup1xuRtUMO3xemzEDf9bid6H5AoEMvCayWmLZHf1HOL4QRU5fbIhfQlvC9iHxoMt2MdSUvSEhL2dCpPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FOEYBed5bjjyXvkYjxfd52UDluoYG0IhsAT68zEy7gs=;
- b=YOD51kBHWnzh1N4B0ZvUSt2gvhSqsKNbOD6RSAREaykLyuUjcPAs0PvqkvJnl4/lKK4loYr7qX4zSc2cWiAaq/eOR2+nvvi5X7V088lfakI5aKgsWRs6Q+a5WHSGI7X5dH5sjB+81HLO8oQCMJEUP+F57oQlvlfAQIhUksNZXf6Sfijt3YJXa+S89wgfndIao9IcKZNCKT78n5NYx+GHdi8iqtCp1E984B69eeZMKxGJ3mbyIxRZYBc3t38QF4xBg8YlWgJ8nbTPOte4nS+EnYNh9BoL5tVGb/8uI+yBO9kS/3XzVjOLRE2AhKz9F/S5IwRNl51YMvPOkxMWS+Kh0g==
+ bh=WdTM7kHLsSTtDHRffDKfMM3r/4jTWWfM/ollTTXGKVE=;
+ b=LhbQQBj5tP5x0piA4CG/C90iTkp/bqG3nk3B2EtnoEDPjMMtnkOAz/OMwVKg66t5R1fhtUjUviY+AYToykelcwwD0CRHsBwGeUssuP8GnbIiGwytAwgs/B4meIMaL+vEs9sPBlJwUELSvlxh8UHjlXEOYzzlF0VKVPUph6Aw54JmWSLOXxwTaFP+DTO1nujryR/HR4e+nABZBxwNdRoHPSaydFgB5dMd8FymRbXUU3M787OGLgUZQfZp8nXxK61DaHBuv/nGBxlYQ3KAEyplVAYYwVUBfX+3d5l8/5sFTJ7rTNEig4uQIT9jSwdKp5hRNmtu8wKZJDz7jAjyQ06tKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FOEYBed5bjjyXvkYjxfd52UDluoYG0IhsAT68zEy7gs=;
- b=a4sWprQ51NfNqEc5JUUliyGPGpaXDlqtdXSOPmqxep6XxsnZpEVgADBr/jYhHLd3i3Yv/hmyA47cVWaqStRE7nyOv491cGIQ7FZXFnISvogTULpDZ6T9IwNY8oLJfFXZyh81Q485f/CpvbIt2ruiDpCuR9+WoQVDZ15S1tlxc3U=
-Received: from BN9PR03CA0268.namprd03.prod.outlook.com (2603:10b6:408:ff::33)
- by DM6PR12MB4316.namprd12.prod.outlook.com (2603:10b6:5:21a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.37; Wed, 23 Apr
- 2025 13:26:18 +0000
-Received: from BL6PEPF0001AB4A.namprd04.prod.outlook.com
- (2603:10b6:408:ff:cafe::ec) by BN9PR03CA0268.outlook.office365.com
- (2603:10b6:408:ff::33) with Microsoft SMTP Server (version=TLS1_3,
+ bh=WdTM7kHLsSTtDHRffDKfMM3r/4jTWWfM/ollTTXGKVE=;
+ b=h1CMkiNhXD2M7Nch2rbcwwpMv/jBXSK2duXzTukYmwAC4A+YlaWVjeeWWBbi36MjIH0aSlMQ+lha7Fb/8gFVkttb34On/ZfBvabqQSZotruKy+pqsJfYnHgweT50VoBVJTImVxCPLNhKx55VhHEB0ZQXL7HTTPqG7n9OF6W3HTY=
+Received: from BL1P223CA0030.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::35)
+ by MW4PR12MB7016.namprd12.prod.outlook.com (2603:10b6:303:218::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.35; Wed, 23 Apr
+ 2025 13:32:12 +0000
+Received: from BL02EPF0001A103.namprd05.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::74) by BL1P223CA0030.outlook.office365.com
+ (2603:10b6:208:2c4::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.37 via Frontend Transport; Wed,
- 23 Apr 2025 13:26:18 +0000
+ 23 Apr 2025 13:32:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,77 +48,80 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB4A.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ BL02EPF0001A103.mail.protection.outlook.com (10.167.241.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Wed, 23 Apr 2025 13:26:18 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Apr
- 2025 08:26:14 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
- <Prike.Liang@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: properly release the eviction fences
-Date: Wed, 23 Apr 2025 21:26:04 +0800
-Message-ID: <20250423132604.4002242-2-Prike.Liang@amd.com>
+ 15.20.8655.12 via Frontend Transport; Wed, 23 Apr 2025 13:32:11 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 23 Apr 2025 08:32:08 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Yihan Zhu <yihanzhu@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
+Subject: [PATCH] drm/amd/display: Fix NULL pointer dereference for
+ program_lut_mode in dcn401_populate_mcm_luts
+Date: Wed, 23 Apr 2025 19:01:56 +0530
+Message-ID: <20250423133156.3877781-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250423132604.4002242-1-Prike.Liang@amd.com>
-References: <20250423132604.4002242-1-Prike.Liang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4A:EE_|DM6PR12MB4316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72df844e-ebcb-48e4-3ca4-08dd826a6e08
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A103:EE_|MW4PR12MB7016:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84ede460-471b-4cba-f7bc-08dd826b4101
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/e4yGBQ8ykBc2FMJSZzSjlfV1KMpVJgy3OPoF/xBcbRREbDzpKrs71OWuXDU?=
- =?us-ascii?Q?xu/aweMfYJiJ4yX7VV/8167PeKEWeUxCIOI1GYA8ZqV7vnHof2/Pa5I/RmDp?=
- =?us-ascii?Q?vuBza5T3eEfMeyboq/3MX0QglwciNdLmlKA+LhQtkSpZJULZU4iIrb9rBiFx?=
- =?us-ascii?Q?rrHElNJHEMHR6IRhs0BjTHUrBppv9wVdzAF8SZikhi322YauNjsdBIe6u+PV?=
- =?us-ascii?Q?DZitz3ZwElJmUhdyqwLrywFWMR25HiJRL0rRlGGwci/OPWM/wsoZOnidnypO?=
- =?us-ascii?Q?b4SZd4HVcmln6UqfLFE942nT0YqzYMWSkZR3GmdI6TpupFOf2LsPzJUvG9oC?=
- =?us-ascii?Q?3c5oM22jzyt++S1GdnfmteC9P1vI+JZsyWGXC7kVdxzAmvJ0wb+3tz40Joji?=
- =?us-ascii?Q?8vWlxO8tcFh1zT34nlJ73jq6ZJC6aSwFknTso5KAwQ5jDp5PcTqG8tJ+Ku1U?=
- =?us-ascii?Q?V131pkXimwvIrLc5GEfacimKkZxA3gpavvaN48J+REeHD2CGq8h+b0bgycZJ?=
- =?us-ascii?Q?zMk8fuHiLncnGXvltnMUkdVcbx3GAPHPxZhWXr5iCKIzRjxlTy49UFymoN+v?=
- =?us-ascii?Q?Uf9ZmC/Mn/ZkqVn4rbJd8TrvNXCLdJMT9rzzwI+oKu75DmMbNpN//6mUFrYQ?=
- =?us-ascii?Q?tomEqebaRPH+CHoa1E2V9xiSfuygh/MVGlyg55PT6iRjzTrQ82g6bHpdF3Up?=
- =?us-ascii?Q?KmuXqGKM+cUeDUG9zN3T4xk+Sh7WfCvqFcQR6CkfpWw5RnELywMtlpIu4v0O?=
- =?us-ascii?Q?mWFw0RKao+vLR4tLY4Vn0R3dX8UlfZ3Zd3cVwj5t2PzUeeUNsZBeZhEiUykK?=
- =?us-ascii?Q?7tJOUimaXYuCn4pXiTkmlkmYrSAir6I+8r/tijUGKGhalVjylmU5RVIFphBG?=
- =?us-ascii?Q?FqZyXBYydQQaDmv9K9YeLRl9l+7/5pgKSHPFbPB6jERgkJ7UnlL0J1ZYoMFt?=
- =?us-ascii?Q?qUHHw9WiuNLbZyS1Tkzn413ReEYXOhGAjgJjf36/ouggesuQEnvquooiR94Y?=
- =?us-ascii?Q?jCxR1zev5xfEtmdJWf5+sfaloscMjSEZ4hG2kdMVVc8p7v/ozRkP3d/9DUH1?=
- =?us-ascii?Q?fO9iNJbNi5Y4lnIJQz2prS33LX/GziLmchFQcBIZTVm4k5CIvdfBjHzQSFWq?=
- =?us-ascii?Q?jc6B9BGXdR/lUmvQxQpfl+fMPQ1QaHrrPha+tfpUBGAd4ir/9TM3l/nRmbzH?=
- =?us-ascii?Q?9El1U33kj5LIuEWRR0i+bsXWhqD0i+28crG9F74JiXdKJfXfe4S//LQ8Bgpk?=
- =?us-ascii?Q?GZfR7wDObZgalA9jZZ/yY2hk41EzX052ECFedoVQIgxowtjN+VgW0KdM/HvZ?=
- =?us-ascii?Q?Izi/kCiup2PQrf98EDC2qsZsNNrxBlmhEOsY+ZFFAyXJvSPrS/6yarmXy32T?=
- =?us-ascii?Q?NGZmHtrQ3BLzC/Yi7PxqyrRGODn0lF9bda5nEpsWOMR2i+e3GIELDk03Us0/?=
- =?us-ascii?Q?d2FwD+DERNb89JG2yqUdp5PwYL3g0h7Wtlz7II1t7wlkco8L5MiIaQ3mpGGw?=
- =?us-ascii?Q?p0FYZ+EXcdakkPB1uxly4AQFd5fOLeiI5s1P?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CfFhwwDxJg56U/7/VhqZMZ7ztvN2P2i9fvpGZCxKnRfeGUDCalTubmMPch0y?=
+ =?us-ascii?Q?wyC1DjxU4DLewnuvMbyMMcx/Co/PimZrPkoiZAC7zihrF7um5WznceaHh+Hu?=
+ =?us-ascii?Q?UpFY4tzDCU/lupVdKeUaTBwz1byFjJ9TM/3LEkhvyOCRqHSohsAbJMq2K0Mz?=
+ =?us-ascii?Q?q+GNCDGwHPTrhcEo4IBS4ntLfrn8RmH49lioLM6X8bcieuYauv2KWoZQf2P/?=
+ =?us-ascii?Q?tlKUPwg0rN4RXQSs99snPm3K9ycgcPKoilgLVn6zbiDF4CHTVrWMfTDacoxN?=
+ =?us-ascii?Q?j1ZKKjPgFJmTSD7nMV+O2XDvXgC7Lt34w2wyEYjSxaAHQ5GelxyrjWsZKEI+?=
+ =?us-ascii?Q?alTygSggbAGK4LJ0AfyB322iBgCE9b4bSkqj1vw3/VkSeEsgrbebrZkJIGDH?=
+ =?us-ascii?Q?hzWkXnQZb7cDsRP7/uSl/JCEptqxBlod9CctjgjPvZo1fjdb9n6CXYlmfkw0?=
+ =?us-ascii?Q?R0NALAeWBoYHI/GPuMmZaq+nZPlCFX0zK09H+/Y1dS70P9fgwv7uo6y/Jr3t?=
+ =?us-ascii?Q?YQqphmHU6QBdHbMzAb4T4imQ0bAx8aQEQNWZGMPgr1xrJh6knb37pRlLv6rg?=
+ =?us-ascii?Q?z6lelTRMGlY8DOoSJ34VZQnv2mNM+twdHNTImDGVHnMIk5iNJhN8ws4RrmtU?=
+ =?us-ascii?Q?324REs9KC1bmBPc9VPp85th5X1AezHl/KCxfjvqI2MHkqR9HiXu7pHdgRkG/?=
+ =?us-ascii?Q?ayUNSpFBZonMsJ0//4jp7BCDR29IrhaB8lQgR1FsSorM5Udi8+XUaU8t1G+M?=
+ =?us-ascii?Q?9AtXow91dlsJdA6zH0uXWum28xUTfgteeoNCVBJDF9xmW7mgbHhBwG8CgCbl?=
+ =?us-ascii?Q?gpr+xE8SJippVXXf/hfsIaMps/t6Ut5BBpEVvjVVX+EZWAQ4uImaWzjIsxFL?=
+ =?us-ascii?Q?JocjJULfG6lBPr1mmEVLGo541yUOqs+aOwuATIUVslkadCFWlvrigsUz8lX0?=
+ =?us-ascii?Q?S5EMZoII9s8wTPSTM0Y+eztFkLurdn3inechHmCpfv3gyGW18xRa/KuInH/O?=
+ =?us-ascii?Q?ZGR6139PSgHphHvh098vgrek0JumGgI+zCgeZo1QOvgs61X3LkW1Fjlf9w5+?=
+ =?us-ascii?Q?KYiydJhonP/JU+cXfBJCvR88RE/MqIW4bfPnPnFSRf5KVnh4PwU/GCw8b1Lj?=
+ =?us-ascii?Q?foaG2kfjFfUF1UaoaaDMdxWLjqvur0eKMmEypUnMBqd/cs4iilyX1ycPo2IK?=
+ =?us-ascii?Q?D99W40GeYidZShTm0d/+YXiXQwjllrs8WhjA/hrO9RwvfO4//yfKbi3l677J?=
+ =?us-ascii?Q?HRu23BpJJhJOAuh980Kaudbwq0kuFz9+6uTJAbdjGJnx8+D1+d5VV3FDrM0J?=
+ =?us-ascii?Q?fXWxk973ceKzBqFg0Ye8pELxHsb5rOQjvOYg65gX2gkWkXLBjhPL5kC+l+Xo?=
+ =?us-ascii?Q?5mFS+UvHLekr4EIueSZOiqskjxFMXPVIkcN0RIVq0TDrWSJfIYg0NSMijEsy?=
+ =?us-ascii?Q?OUY/G3jIgJWONq9sGCBv7gnk7Qd4q1mjbmxZpk9jyr5jxmzD/FFdzecwUK2I?=
+ =?us-ascii?Q?aSGE84DtKzxl6tGr6xtlHvk6z0TLm2UVSOBM?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 13:26:18.0187 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72df844e-ebcb-48e4-3ca4-08dd826a6e08
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 13:32:11.9769 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84ede460-471b-4cba-f7bc-08dd826b4101
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A103.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4316
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,152 +136,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The following cases require releasing and deferring the
-eviction fences properly
+This commit introduces a NULL pointer check for
+mpc->funcs->program_lut_mode in the dcn401_populate_mcm_luts function.
+The previous implementation directly called program_lut_mode without
+validating its existence, which could lead to a NULL pointer
+dereference.
 
-1) Detach the old eviction fences before attaching a new one.
-2) Drop the eviction fence init reference.
-3) Correct the attached eviction fence reference.
-4) Free the eviction fence when the attached BOs are released.
+With this change, the function is now only invoked if
+mpc->funcs->program_lut_mode is not NULL
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Fixes the below:
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c:720 dcn401_populate_mcm_luts()
+error: we previously assumed 'mpc->funcs->program_lut_mode' could be null (see line 701)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c
+    642 void dcn401_populate_mcm_luts(struct dc *dc,
+    643                 struct pipe_ctx *pipe_ctx,
+    644                 struct dc_cm2_func_luts mcm_luts,
+    645                 bool lut_bank_a)
+    646 {
+	...
+    716                 }
+    717                 if (m_lut_params.pwl) {
+    718                         if (mpc->funcs->mcm.populate_lut)
+    719                                 mpc->funcs->mcm.populate_lut(mpc, m_lut_params, lut_bank_a, mpcc_id);
+--> 720                         mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
+
+Cc: Yihan Zhu <yihanzhu@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- .../drm/amd/amdgpu/amdgpu_eviction_fence.c    | 53 +++++++++++++++----
- .../drm/amd/amdgpu/amdgpu_eviction_fence.h    |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  1 +
- 3 files changed, 45 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-index d86e611a9ff4..a47db865c530 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-@@ -70,11 +70,6 @@ amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 		return -ENOMEM;
- 	}
- 
--	/* Update the eviction fence now */
--	spin_lock(&evf_mgr->ev_fence_lock);
--	old_ef = evf_mgr->ev_fence;
--	evf_mgr->ev_fence = new_ef;
--	spin_unlock(&evf_mgr->ev_fence_lock);
- 
- 	/* Attach the new fence */
- 	drm_exec_for_each_locked_object(exec, index, obj) {
-@@ -82,6 +77,16 @@ amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 
- 		if (!bo)
- 			continue;
-+
-+		/*detach the old eviction fence first*/
-+		amdgpu_eviction_fence_detach(evf_mgr, bo);
-+
-+		/* Update the eviction fence now */
-+		spin_lock(&evf_mgr->ev_fence_lock);
-+		old_ef = evf_mgr->ev_fence;
-+		evf_mgr->ev_fence = new_ef;
-+		spin_unlock(&evf_mgr->ev_fence_lock);
-+
- 		ret = amdgpu_eviction_fence_attach(evf_mgr, bo);
- 		if (ret) {
- 			DRM_ERROR("Failed to attch new eviction fence\n");
-@@ -89,9 +94,10 @@ amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 8611eb9607df..ae7194da5987 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -717,7 +717,8 @@ void dcn401_populate_mcm_luts(struct dc *dc,
+ 		if (m_lut_params.pwl) {
+ 			if (mpc->funcs->mcm.populate_lut)
+ 				mpc->funcs->mcm.populate_lut(mpc, m_lut_params, lut_bank_a, mpcc_id);
+-			mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
++			if (mpc->funcs->program_lut_mode)
++				mpc->funcs->program_lut_mode(mpc, MCM_LUT_SHAPER, MCM_LUT_ENABLE, lut_bank_a, mpcc_id);
  		}
  	}
  
--	/* Free old fence */
-+	/* Free the init eviction fence which was referred by the dma_init*/
- 	if (old_ef)
- 		dma_fence_put(&old_ef->base);
-+
- 	return 0;
- 
- free_err:
-@@ -189,7 +195,6 @@ void amdgpu_eviction_fence_destroy(struct amdgpu_eviction_fence_mgr *evf_mgr)
- int amdgpu_eviction_fence_attach(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 				 struct amdgpu_bo *bo)
- {
--	struct dma_fence *ef;
- 	struct amdgpu_eviction_fence *ev_fence;
- 	struct dma_resv *resv = bo->tbo.base.resv;
- 	int ret;
-@@ -205,10 +210,12 @@ int amdgpu_eviction_fence_attach(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 
- 	spin_lock(&evf_mgr->ev_fence_lock);
- 	ev_fence = evf_mgr->ev_fence;
--	if (ev_fence) {
--		ef = dma_fence_get(&ev_fence->base);
--		dma_resv_add_fence(resv, ef, DMA_RESV_USAGE_BOOKKEEP);
--	}
-+	/*
-+	 * The dma_resv_add_fence() already refer to the added fence, hence in this
-+	 * placement needn't refer to the armed fence anymore.
-+	 */
-+	if (ev_fence)
-+		dma_resv_add_fence(resv, &ev_fence->base, DMA_RESV_USAGE_BOOKKEEP);
- 	spin_unlock(&evf_mgr->ev_fence_lock);
- 
- 	return 0;
-@@ -224,6 +231,30 @@ void amdgpu_eviction_fence_detach(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 	dma_fence_put(stub);
- }
- 
-+void amdgpu_remove_all_eviction_fences(struct amdgpu_bo *bo)
-+{
-+	struct dma_resv *resv = &bo->tbo.base._resv;
-+	struct dma_fence *fence, *stub;
-+	struct dma_resv_iter cursor;
-+
-+	dma_resv_assert_held(resv);
-+
-+	stub = dma_fence_get_stub();
-+	dma_resv_for_each_fence(&cursor, resv, DMA_RESV_USAGE_BOOKKEEP, fence) {
-+		struct amdgpu_eviction_fence *ev_fence;
-+
-+		ev_fence = fence_to_evf(fence);
-+		if (!ev_fence || !dma_fence_is_signaled(&ev_fence->base))
-+			continue;
-+
-+		dma_resv_replace_fences(resv, fence->context, stub,
-+				DMA_RESV_USAGE_BOOKKEEP);
-+
-+	}
-+
-+	dma_fence_put(stub);
-+}
-+
- int amdgpu_eviction_fence_init(struct amdgpu_eviction_fence_mgr *evf_mgr)
- {
- 	/* This needs to be done one time per open */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
-index fcd867b7147d..7e6c55a334e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
-@@ -42,6 +42,7 @@ struct amdgpu_eviction_fence_mgr {
- };
- 
- /* Eviction fence helper functions */
-+#define fence_to_evf(f)  container_of(f, struct amdgpu_eviction_fence, base)
- struct amdgpu_eviction_fence *
- amdgpu_eviction_fence_create(struct amdgpu_eviction_fence_mgr *evf_mgr);
- 
-@@ -66,4 +67,5 @@ amdgpu_eviction_fence_signal(struct amdgpu_eviction_fence_mgr *evf_mgr,
- int
- amdgpu_eviction_fence_replace_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 				    struct drm_exec *exec);
-+void amdgpu_remove_all_eviction_fences(struct amdgpu_bo *bo);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index dbe57996a481..6d3eacffbcb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1322,6 +1322,7 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
- 	amdgpu_vram_mgr_set_cleared(bo->resource);
- 	dma_resv_add_fence(&bo->base._resv, fence, DMA_RESV_USAGE_KERNEL);
- 	dma_fence_put(fence);
-+	amdgpu_remove_all_eviction_fences(abo);
- 
- out:
- 	dma_resv_unlock(&bo->base._resv);
 -- 
 2.34.1
 
