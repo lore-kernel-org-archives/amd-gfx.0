@@ -4,67 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA3DC369AB
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Apr 2025 18:51:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EEE2C369AB
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Apr 2025 19:11:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AE7A10E03A;
-	Thu, 24 Apr 2025 18:51:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DDC210E464;
+	Thu, 24 Apr 2025 19:11:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dUCIHvrq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E4q4vSS3";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1C010E03A
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Apr 2025 18:51:47 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-224172f32b3so2951895ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Apr 2025 11:51:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745520707; x=1746125507; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XHqM7ETlXPdm3etcDSO//7VNgw5l+xNoLweXLG0Ra90=;
- b=dUCIHvrqfXBZppCAY7pPVnmmcfEjOWlgKwRbNKkj/MVdGiJxxZlZqLIZCizJzRHw2v
- faVTjXqaY0Bu7OJLMH3POqkYL/5ACwVP3o2Ggc1xD0OOnnXvaSXrLoZXTtj0z09gekxQ
- WWmcTp4xvbtjdlGAEsBt3keQIMO/at1hi1FpqZ9641bT/TaUjO02vpKUV+DuAYRL1UPo
- IwE7plKH6cXcmMX6N/88VEF7TBZIJfY+vP8HWqlzkwyLk99oeO6oYSCVZMVRjC7VFBpP
- bqQbrGMr3QYajBrxe1VI3FBFvhiGbhEJNgwglfPsPXcOfY/Z2MKeR81oLj7VnjjoXSCL
- H2AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745520707; x=1746125507;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XHqM7ETlXPdm3etcDSO//7VNgw5l+xNoLweXLG0Ra90=;
- b=TOKX+I59nh3Lwlz0oXdaaOCdsOth/BBWiotWK63EGTpx5YHcd0yyipLMG+9WLML/XM
- bReT/Fl0EsyjlBhfltVQpKmKytr0/d8Fxw9Dg+d0g5Wvb/9QfqUeNae/zYr4g+XwxVVu
- FLrN4mOHIMnvoFR+d04onzcipbdOBK9lNkjxLXTex3skRygH10IWmjz0cNaa26lI5f57
- f13FHAfCxAImqTo7VcUduSF5jSic+/3mdfDX3t6dWa5q9XbWFN5PoI2G/QCNi1GbOM8U
- tA+Rcx6OFzQHx5eMvYsCl5J9pxKCoVXqhPHh3yiYNwpeZrlFhvI5Ze53+7ispzj7vdtP
- Yc6A==
-X-Gm-Message-State: AOJu0Yw3fth6VwKhlXlpIvs0ejqBujBV7l7iHfzisTa7OL5d8hVBw33e
- X/gjvzJjRRE9UQ2gHOU+HoG+foB1+QAkAw+p1Kr3hmg7YLtU3ucdjyne9lbLxGiy22NK87FTA3r
- 3WVk8zjgzv9QJrn+nnzmUCLVQXwxkDg==
-X-Gm-Gg: ASbGncshM1KKrZGWB9XMU9onuFvEg4PdRRQynHnOTWvdUOUngBA3PxXP6kczYfMAYBq
- sZ0h4r/pbREgpOMYDMyPGkmD4MBCo+4C5DVC5N1pHLfaO8ByCKWX88dYdujr+pNnsbYvymlAwp6
- 5O5ALCHT5k0ipyvrAar6gv4g==
-X-Google-Smtp-Source: AGHT+IFQSzQro6b3XrNp3D1sY2qB0YeX3GTyPSccLxcIztf+r4Htc337VV6geHEzvWLZ6TQR4AuMMpYIy3GJF/pmGGA=
-X-Received: by 2002:a17:90a:8592:b0:309:f0d4:6e7f with SMTP id
- 98e67ed59e1d1-309f0d46f1dmr899939a91.5.1745520707080; Thu, 24 Apr 2025
- 11:51:47 -0700 (PDT)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2072.outbound.protection.outlook.com [40.107.236.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75A4210E464;
+ Thu, 24 Apr 2025 19:10:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a8t4aH0eda7/JDOItBsidwzI4nfAV0zG3RDdajOyFAdBVgJYknIQb381zKUj07KvB392Ht2BjchhfYAPHgMPxMkXNBHKxqT2qBM5kt4SDa/glMjXuKfLCzb0BfBPQjLr/AZRyHbXRCuJZeIfuCr7C7MX4zsQFfXukdIiXwlbPHdZHF+oR9IgrJg2VPxN3g9jLk9Lrz/0L0LnBnEBsBjNd69pLq7w2bhv40V8iRdZKQPcUVZGNPWcdGne/B1f0wSRyxeDKmQnwXfH6imfFSRcMfGGxDJKc/qpFg9oZppRto1fafb7S2ecrjSIG9Pzrb4wGWHlX7ygBYdZo1kUOsDJ2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+gkK1DqKhsVSzpioKT3IGn2oWyXZWyaqJ5BMAEpoYWk=;
+ b=uvSFNkgXgJabs16NXcV0Ir82VBhIxPnsLnynT3OGtYV1Z0Ivd9JZhg/U8W2oDjZXtrzN7wokKK74sDPJuZrtcyTkG5c7HyfUcIrumaoTyn/d6w++Qdq0BD06D8+FEXoWqqbi4LVLUscrDXn8yJF77q86wS564GfCy25zsXQgnP6SQjVjIWJ7rlZkKYVuoXUdZmWS2SH9xbhaBeDXwlBbb3Cxicmp7jRL7cP2gAD4VOlFZDa1D7WjDcs5ejc/YX11SpEFm3xLDU/i7h9h6STXDBuO2y/RMAwqhfcnYH8ub9D5Q+Ux3D5p7/aAKZZ3ynRIGSL1f7G2HzYTv127AqLV3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+gkK1DqKhsVSzpioKT3IGn2oWyXZWyaqJ5BMAEpoYWk=;
+ b=E4q4vSS3AiMDT2vmBnEv783OCONkpLNxcygmiIeTVYzeUX6D+EBynNg3NI3b5r5z2txYK3GpQQtv51QtqCviE5cAhU0gHm03FkDNorwPfRR6T4MRynrmZ0eu6xhrBr8p388z7dMSJaBNTPu2hVTJ9JA8S2o6qgTPgt+4I9wvxAA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CY1PR12MB9581.namprd12.prod.outlook.com (2603:10b6:930:fe::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.23; Thu, 24 Apr
+ 2025 19:10:51 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%7]) with mapi id 15.20.8678.024; Thu, 24 Apr 2025
+ 19:10:51 +0000
+Message-ID: <060be9f5-e5bd-421f-9168-5a7e709959f7@amd.com>
+Date: Thu, 24 Apr 2025 15:10:46 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "drm/amd/display: Hardware cursor changes color
+ when switched to software cursor"
+To: Melissa Wen <mwen@igalia.com>, sunpeng.li@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: Michel Daenzer <michel.daenzer@mailbox.org>, Alex Hung
+ <alex.hung@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
+ Nevenko Stupar <Nevenko.Stupar@amd.com>, Roman Li <roman.li@amd.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20250422150427.59679-1-mwen@igalia.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20250422150427.59679-1-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0251.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::15) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20250403104821.2507-1-nipetrov@amd.com>
-In-Reply-To: <20250403104821.2507-1-nipetrov@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 24 Apr 2025 14:51:35 -0400
-X-Gm-Features: ATxdqUHJv_eHTXKQHePAkVJkqBAolp4ZbiSTAKfhaLQbK51Q9c4x0VtRvPNeoeM
-Message-ID: <CADnq5_Ndu6o4Td3LMRYHsR030nRL=_t42ue_NYzAG72BsgKXJQ@mail.gmail.com>
-Subject: Re: [PATCH] SWDEV-513979 - Fix for BSOD on Hyper-V host side
-To: Nikola Petrovic <nipetrov@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CY1PR12MB9581:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27aaa2dc-ce86-413e-77bf-08dd8363ba4c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VWpnQnVjeFNUZjRZZHVjdUV6N0txQUJwZmJER3c0dzVKcGtXam9lQWpFVFVS?=
+ =?utf-8?B?US9HU1hYVFJnY0VZV2MyS21vQThidUVRR3dtLzVOekw2V2xhZ3U2SmNCVWc4?=
+ =?utf-8?B?NG0yYitaZEVTQThZbk1Ya1RWcVJQaWRQREEzTDhiVHVieVpXcjcwZWVVOHNm?=
+ =?utf-8?B?dHZEZDhaTjBQMVZ2M3owVFVOL1ExSjk2bkZOVTN4ZDhIajlIQXZKVkRGR2FY?=
+ =?utf-8?B?dVJXSTJFNWdoMVVzaDFiWUVlMUZ0OVpDU0p1K3NES3BaR2ZtdVc4V2E3K1VZ?=
+ =?utf-8?B?UnRZOGROWDNvTXhhUTRwS1dBUDRYUzB2TjZ3eTVKK0N4TTM1V3cvQUdDNHlk?=
+ =?utf-8?B?OHBYUGhWVTlLTUVTQllSSXlBM2VCQUFHT1dEdHJWMndTT0t1OE41eVNoOG1w?=
+ =?utf-8?B?QTh0dGpNL3E2bU5BUU9sZUJXY3hDLzdUQzArVUZxMWh6dFY3MzVHL3h4Zms3?=
+ =?utf-8?B?dWtSdkY0M2xCODkvTGFidUhhVk94a2FCS2dyVTlrWmc4ZlRpenE5YW1DUlRv?=
+ =?utf-8?B?Y3M4V2VLVitjNVFOM1ByM0FxVTB2cHlvZzdkZmNLUERVNTBNRUQwSWQyRkRS?=
+ =?utf-8?B?YmkyTGdhT0NHTHNzSlQ0TVk1R1hmZndiTGJqcHloaGRqNi9GUit6V2p6SlpE?=
+ =?utf-8?B?VkFqRGI1bzUxSmpkMnN2WGVEalBLYjhoZFZwVmh5YVlmNzNubFlWK0QrM0E0?=
+ =?utf-8?B?WnN3cGM1Vi9XY1NzTXlWbEZETm1XN2l2WGhTYS9PT1pJS2pVWUxPL2kvL202?=
+ =?utf-8?B?RVVjWENsVUJhTXhubXVzZVFTdjRIaWpyWng5VSsrU1FMckVHOS9vTXBDTVFX?=
+ =?utf-8?B?TWo4L21ydzVZRmpTdWFvZHN4MW95RExMMlpiTndFVGc5Y2FXL29yekZoUUJC?=
+ =?utf-8?B?SHJ3MVZoVXZ1OThGWUZETjBZY3F4bElJYW0zYzJYV2YxWS9yUUE2VzQyeWZE?=
+ =?utf-8?B?bEZoeXo0Z055ZWQ3azhyNHJzcG9EaHlFT2JGaVUrQTRNa2V6azlpMnhhbDhj?=
+ =?utf-8?B?L3k4alpiKzdsRlFqdFhoUjRpdUlwWWdJL1NDUHZ4QnUxTWhuUFN1OGs3TDZ1?=
+ =?utf-8?B?b3A5cGxTVUxnTFdyYUxtQUMyMlNnQlcxUXV0WkJJV2NPTXBhTVF0U1hJL3ZU?=
+ =?utf-8?B?cStCbFFYNnROZEFvRWpPSGZ6b0NDODRNVEx2OFowck5HR1ZEbXcvYVlTSXpz?=
+ =?utf-8?B?eFpXamdEV2Z0akxtMzdTblpqZmU0aTZVWlhBOGpubzBZTG1UTW5DM3JRV0Q3?=
+ =?utf-8?B?VnRvL0NxOE1oOUJBM2tvZityREdpcHdKaDVBYWFESnlaZXZmOTRqQWlFZ2o2?=
+ =?utf-8?B?YWovdWV3ZkYwNDg5S2NCSitVVk42WU5YdnFuZjZBbURRdFN2NmtIaFdsUThk?=
+ =?utf-8?B?SmhYbXY0bGh6czVZVjVIS0d6N3U5ZGxnOStyZFBUMWNVOXNLR0owdHl0ajkz?=
+ =?utf-8?B?NEwwNkJ6L092YXVkbXg2Nm1PZDRtZVJ1dyttTXpDQmxjeWRyK0E3UmpFNE9N?=
+ =?utf-8?B?Z0czNjBacmh5WEczTzhucmh5Q0M0ZnpVL0dQTkcyOStqclNNdThEZkJQcXZS?=
+ =?utf-8?B?aGVzZklhb1I4RnJpRElmUHBaWjlTVUpXYlhzbm9laHg4dm9ZWmJudGNsRmVx?=
+ =?utf-8?B?U0RiVmY4eGRrUkFCeHRoMVdOYUpUbFNsZmRsL3pFMityN2dQdVh6anIrU21H?=
+ =?utf-8?B?VDNMaE1uTFp3SEc5NzgzdDNkMXBBSS8zdm1wL1lZYTFBdSttb2JIckNuSlpu?=
+ =?utf-8?B?aCsrWE51N2pxa1RlbWlnMnNkdUprL1crRHpZNWFac1hEZFZEWmtVR0Y5ZGh3?=
+ =?utf-8?Q?KvVX1111e4Iq9psAM8LjYBu2Mwbtn8gdQzqsY=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGtRK3JWa2hnSEMxRkh4K2JaWTR4RCt0WTkxSjBOb1pXOWRqZEZsVWl4UVlQ?=
+ =?utf-8?B?NHhER1hpa3h2RGJxUlRYbWZMeHc2RE5XcFB6S1k1aE4xQjhKRmlZcllkMFZW?=
+ =?utf-8?B?U3E0R1RFN1IyQjNUaEZnRld0bXZpV05YaHVXQzh2eW40eWl1NmFibVFYYklx?=
+ =?utf-8?B?NFdmNTdoZ2tONnRsRlNHM3hSd2UrZllDcXVucXhhM1Z5RGN6c2ZVWm53YSt2?=
+ =?utf-8?B?MHpNcWt1ajJvdUtEbW1DZU5pcUJrNVpLamZMbnVkWitVYmNFQ1NiM3prenNF?=
+ =?utf-8?B?SWhxRzhmcUI2WUs0VGN0cUk3ZTVBbXVCYWhQRTdQbU1pRWN5OVhwS2o2aGFH?=
+ =?utf-8?B?ZnNuTG56eWtnSUY3V05tUnFDNzMyWVdaTmNTK1E0d0hVd3J0NnFiQ2NHbndM?=
+ =?utf-8?B?SUxMK1lvTjlzNmdVMG5zVWc1Q1czRkp5ME93SktPNWxJeGh0UjBIVWg2UHRJ?=
+ =?utf-8?B?VVhRaEt6QlpUWDRzUlpEekRCTy9nMHZ3OTlJcGpFWFJWMG91RTRoRW1kRllQ?=
+ =?utf-8?B?M2JId2h4V0kwUkUyVTNjQ001UDhkQ3ZMU1pocmpzbjZhOGJ2eUloZ2Yyalp5?=
+ =?utf-8?B?RjR2S1dtdlRGSzlTeWdtaE04aVVpbU9CeG5tM3Q5NkNKUkxuZ2xoTm15b0pH?=
+ =?utf-8?B?VFR5WWoxbnFxVjZOQlEyNVN5bDBTN0lRaDA4ZjlMSTZzWUZqbVEwNU9Cakkx?=
+ =?utf-8?B?WUh6OWJrcndsamZJVEdoeGNuNkJ3c1krVFNycVdaY2NPOHp2c1M0aUdabEZS?=
+ =?utf-8?B?VW56L2RCV3d4SFpyNjluUURTOVhHRGJ1aU5sYU9yUU9SMVpWd014N3kwN2Q4?=
+ =?utf-8?B?TU1pZXU5Sm9RSUloMkNGUVVURUpzNWt0Z0RsaGVDQ0lUNzV2MW1Ib0RBZFpl?=
+ =?utf-8?B?SXBUUkJha2Nna3AxRjBUNjNzaUgxeHlQdGxZWklranRqSGxWS3FSZVVJYzll?=
+ =?utf-8?B?QUpHTnZVVmJoZjZodEtJS1NqUVZnbldWUG9ic0w2L1VsWnR6Z3lUS3Y2N3Vt?=
+ =?utf-8?B?WmFoZTY4ZVJhWmUyQWRhN0hySDVhdlEwOFEwZUQ2eUsyRzVueHh1T29KZ0tS?=
+ =?utf-8?B?WmRsWWhJOGNTaXI4RC9qcEdLZmNPZ3l3dDlVLzhoN0N3QWdaMTZNL1YwRkdo?=
+ =?utf-8?B?d0FGeXhFbk1ySFR2RWhWbmFXR0FtelJrdm5SQk5wM0h2Z0hUbUpoalpLTmVw?=
+ =?utf-8?B?Z2w2UkpWUm91UjRTSkxqS3VZdXhvUytKK2ltRnlxQ3ZPODVhcmRUNlZTV3lK?=
+ =?utf-8?B?UkJ6VG9WWkd3THRwK00raThrUlhad3dmM1d4TjdhWStmbDVFVU5OdXlNWXNL?=
+ =?utf-8?B?SGRWSTVsTkFSUGVBQ3RLRURFQ3pxZzA2MVdaZjB6WG03R3E1R2g0dVVVRWw1?=
+ =?utf-8?B?RlVjK09qMjF2aFdHL2lWOGNBbVp3UitycGIyeUt4VWx4bk0zS2dCVlgyS29W?=
+ =?utf-8?B?bUw2VFdYY3kzajFNMWp6d1VTT3ZWanZKNk1ZU082NEpLMWtiMkhqS3dPOWp5?=
+ =?utf-8?B?UkRBM0VkeDJvVU5LaUFWektabGhLQWR3VzdhUHJTOGtvSjdSUGpWd0Q2czly?=
+ =?utf-8?B?Q1NiWG13UmIzT1h6c3lXbDRIL1JZVmMyTUU1aXl4ZTFxQThGSDRXNUFvUXlh?=
+ =?utf-8?B?Z1lyUlFWM2JjSnUxNzlreGZ0UzlpTHRYeXl2RmJQU2FIVEFIYUdYWEQrRGV6?=
+ =?utf-8?B?RXliMXpESElLRG9rZWRMNExnOEM0ZGJPOTZvYU5teWQxUXdZSGxweUNpSDJJ?=
+ =?utf-8?B?RmViV1A4cUlMMmN1djRNSW1ySVFPUkZ3N1B4UDJqNGk0cWhNMHVjQi9TOWor?=
+ =?utf-8?B?Rk1tTHdjcDFuODRndEl0K2NNbDZGODBFTWtKd0plK3hMbm0zczU5ZkZ3Wllp?=
+ =?utf-8?B?UTd5ZU82ZE0reVp0U0k4dXhBNkY5MS9qaXdTaENDNHcvUWFJYTVCQTJhYnNn?=
+ =?utf-8?B?dDNQYmdrcFhPRlAzdjFGd2pyaXo1Z2xlMitCbU9oOVZMRG9aUHN4cENpTHJm?=
+ =?utf-8?B?emV1QktKZVdia2xObU9MRWRudDFVNDdmUHoxV0VJQlhnUm5aek52WlljZ0I2?=
+ =?utf-8?B?Rm02M29EVDd4cERNdmxmcFMwRWdWWnlPelU3bWhXTUlhRFZ2b3NlNFNBUTZX?=
+ =?utf-8?Q?6r8/Vsk6weNKABF/+B97RU01T?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27aaa2dc-ce86-413e-77bf-08dd8363ba4c
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2025 19:10:50.9212 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SctSfxpHj1MOrNbA2fqt51CALwgzIcdMEBhzvoY38L2bguYhMf5/iJ0AkWfNoquCovRTIjH7Jdysrh7ghy4SOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9581
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,45 +166,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 3, 2025 at 6:58=E2=80=AFAM Nikola Petrovic <nipetrov@amd.com> w=
-rote:
 
-Please fix the patch title.  It should say something like:
 
-drm/amdgpu: fix reset handling with Hyper-V
-
-You also need a patch description describing why the change is needed.
-And finally, your patch is missing your Signed-off-by.
-
-Alex
-
->
+On 2025-04-22 10:58, Melissa Wen wrote:
+> This reverts commit 272e6aab14bbf98d7a06b2b1cd6308a02d4a10a1.
+> 
+> Applying degamma curve to the cursor by default breaks Linux userspace
+> expectation.
+> 
+> On Linux, AMD display manager enables cursor degamma ROM just for
+> implict sRGB on HW versions where degamma is split into two blocks:
+> degamma ROM for pre-defined TFs and `gamma correction` for user/custom
+> curves, and degamma ROM settings doesn't apply to cursor plane.
+> 
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1513
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2803
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4144
+> Reported-by: Michel Dänzer <michel.daenzer@mailbox.org>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index a30111d2c3ea..0f337a0bdee8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5307,11 +5307,12 @@ static int amdgpu_device_reset_sriov(struct amdgp=
-u_device *adev,
->         struct amdgpu_hive_info *hive =3D NULL;
->
->         if (test_bit(AMDGPU_HOST_FLR, &reset_context->flags)) {
-> +               r =3D amdgpu_virt_wait_reset(adev);
-> +               if(r)
-> +                       return r;
->                 if (!amdgpu_ras_get_fed_status(adev))
-> -                       amdgpu_virt_ready_to_reset(adev);
-> -               amdgpu_virt_wait_reset(adev);
-> +                       r =3D amdgpu_virt_reset_gpu(adev);
->                 clear_bit(AMDGPU_HOST_FLR, &reset_context->flags);
-> -               r =3D amdgpu_virt_request_full_gpu(adev, true);
->         } else {
->                 r =3D amdgpu_virt_reset_gpu(adev);
->         }
-> --
-> 2.43.0
->
+> 
+> Hi,
+> 
+> I suspect there is a conflict of interest between OSes here, because
+> this is not the first time this mechanism has been removed from the
+> DC shared-code and after reintroduced [1].
+> 
+> I'd suggest that other OSes set the `dc_cursor_attributes
+> attribute_flags.bits.ENABLE_CURSOR_DEGAMMA` to true by default, rather
+> than removing the mechanism that is valid for the Linux driver. Similar
+> to what the Linux AMD DM does for the implicit sRGB [2][3], but in their
+> case, they just need to initialize with 1.
+> 
+
+That's a good suggestion and I started that conversation with
+Windows devs.
+
+Is there an IGT test that would test for this behavior? Without
+an IGT test I think we're apt to end back here again at some
+point.
+
+Harry
+
+> Finally, thanks Michel for pointing this issue out to me and noticing
+> the similarity to previous solution.
+> 
+> [1] https://gitlab.freedesktop.org/agd5f/linux/-/commit/d9fbd64e8e317
+> [2] https://gitlab.freedesktop.org/agd5f/linux/-/commit/857b835f
+> [3] https://gitlab.freedesktop.org/agd5f/linux/-/commit/66eba12a
+> 
+> Best Regards,
+> 
+> Melissa
+> 
+>  drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
+> index 1236e0f9a256..712aff7e17f7 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
+> @@ -120,10 +120,11 @@ void dpp401_set_cursor_attributes(
+>  	enum dc_cursor_color_format color_format = cursor_attributes->color_format;
+>  	int cur_rom_en = 0;
+>  
+> -	// DCN4 should always do Cursor degamma for Cursor Color modes
+>  	if (color_format == CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA ||
+>  		color_format == CURSOR_MODE_COLOR_UN_PRE_MULTIPLIED_ALPHA) {
+> -		cur_rom_en = 1;
+> +		if (cursor_attributes->attribute_flags.bits.ENABLE_CURSOR_DEGAMMA) {
+> +			cur_rom_en = 1;
+> +		}
+>  	}
+>  
+>  	REG_UPDATE_3(CURSOR0_CONTROL,
+
