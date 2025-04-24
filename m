@@ -4,41 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A3B1C369D5
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 07:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2569DC369D1
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 07:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C81110E8AA;
-	Fri, 25 Apr 2025 07:39:21 +0000 (UTC)
-Received: from irl.hu (irl.hu [95.85.9.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED0BE10E0CF;
- Thu, 24 Apr 2025 09:06:42 +0000 (UTC)
-Received: from [192.168.2.19] (51b69338.dsl.pool.telekom.hu
- [::ffff:81.182.147.56]) (AUTH: CRAM-MD5 soyer@irl.hu, )
- by irl.hu with ESMTPSA
- id 0000000000084239.000000006809FF1B.000C6449; Thu, 24 Apr 2025 11:06:34 +0200
-Message-ID: <a2dbbf4e79c42b99d0772db5712f52a430864240.camel@irl.hu>
-Subject: Re: amdgpu_dm_connector_mode_valid regression
-From: Gergo Koteles <soyer@irl.hu>
-To: Marek =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Dmitry Baryshkov <dbaryshkov@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>, regressions@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Date: Thu, 24 Apr 2025 11:06:34 +0200
-In-Reply-To: <aAn6wsnJ-6mqK4vR@mail-itl>
-References: <ed09edb167e74167a694f4854102a3de6d2f1433.camel@irl.hu>
- <8963a409dd575e040e5f07e4ad5e9c1d26b421f2.camel@irl.hu>
- <CALT56yPd-xfd=47xRxrCk4F3jib4Ti7kg8pRXy-gVAQpbOc=pw@mail.gmail.com>
- <e323219b52cda1891a55d12ad77a2b34edc8688b.camel@irl.hu>
- <Z_jodBrNFdEpJRKA@mail-itl> <aAn6wsnJ-6mqK4vR@mail-itl>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-1.fc41) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id A481910E8A8;
+	Fri, 25 Apr 2025 07:39:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="Nr4pd4D2";
+	dkim-atps=neutral
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A3F10E315;
+ Thu, 24 Apr 2025 14:50:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=YjpXgRpWlie3nhUpkIBO8PbIJqJF6f6xuXD5Vo6dKLk=; b=Nr4pd4D2RRdqU3qS
+ FoRqDTjUb3bVXqrUZ4Utexrrlomo82+grWdiEb+9+iB7IIvVw51zUGq1eJ61E5cJF5HbXZGc3NGjW
+ uONY7rAWk+Ag9Ly0cTZvzj0NdtkWaj++mYLni+mScGQKRQpIOXozGDCv+3Kpq8XuB+n0MKdm+ta8V
+ uVhKmqpNHq8YhVI2H06NACBPCai6RkKI1YareY2dRcfj9EGJtUzLAUz05ptxtoUi9wz0FK1In5CIv
+ dWNq19qsvCJAEInsyxdXwswM8vf5JKqgdztdkFGgkMD5CKo2oXXOx5PxC3NvLi0CYKEnYrpJbAoAE
+ v/As6Gk3CpU0LfrjBw==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+ (envelope-from <dg@treblig.org>) id 1u7xts-00Ddmv-1u;
+ Thu, 24 Apr 2025 14:50:04 +0000
+Date: Thu, 24 Apr 2025 14:50:04 +0000
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alexander.deucher@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] drm/radeon: Remove unused radeon_doorbell_free
+Message-ID: <aApPnAA_QLYhNn71@gallifrey>
+References: <20250418002117.130612-1-linux@treblig.org>
+ <20250418002117.130612-3-linux@treblig.org>
+ <ab85b3c9-46cc-4148-9de5-dcaabea130ea@wanadoo.fr>
+ <CADnq5_MrEQ2XGbNho6xd9Um0R6kEEpZBeu0e-97o6-D=juD0gw@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_MrEQ2XGbNho6xd9Um0R6kEEpZBeu0e-97o6-D=juD0gw@mail.gmail.com>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-21-amd64 (x86_64)
+X-Uptime: 14:49:51 up 351 days,  2:03,  1 user,  load average: 0.04, 0.02, 0.00
+User-Agent: Mutt/2.2.12 (2023-09-09)
 X-Mailman-Approved-At: Fri, 25 Apr 2025 07:39:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,38 +65,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Marek,
-
-On Thu, 2025-04-24 at 10:48 +0200, Marek Marczykowski-G=C3=B3recki wrote:
-> On Fri, Apr 11, 2025 at 12:01:28PM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> >=20
+* Alex Deucher (alexdeucher@gmail.com) wrote:
+> On Fri, Apr 18, 2025 at 2:18 AM Christophe JAILLET
+> <christophe.jaillet@wanadoo.fr> wrote:
+> >
+> > Le 18/04/2025 à 02:21, linux@treblig.org a écrit :
+> > > From: "Dr. David Alan Gilbert" <linux@treblig.org>
+> > >
+> > > radeon_doorbell_free() was added in 2013 by
+> > > commit 75efdee11b5d ("drm/radeon: implement simple doorbell page
+> > > allocator")
+> > > but never used.
+> >
 > > Hi,
-> >=20
-> > On Wed, Apr 02, 2025 at 04:35:05PM +0200, Gergo Koteles wrote:
-> > > Hi Dmitry,
-> > >=20
-> > > But the code would start to become quite untraceable.
-> > > duplicate mode in amdgpu_dm_connector_mode_valid()
-> > > call drm_mode_set_crtcinfo() in amdgpu_dm_connector_mode_valid()
-> > > duplicate mode in create_stream_for_sink()
-> > > overwrite ctrc in decide_crtc_timing_for_drm_display_mode()
-> > > if crtc_clock =3D=3D 0 call drm_mode_set_crtcinfo() again in
-> > > create_stream_for_sink()=20
-> >=20
-> > FWIW I'm affected by the same issue (on HP ProBook 445 G7, with AMD
-> > Ryzen 5 4500U). And the patch quoted below fixes it for me too.
->=20
-> I've re-tested it with 6.15-rc3 and the issue is still there. Is there
-> something I can do to help fixing it before final 6.15 is out?
->=20
+> >
+> > I think than instead of being removed, it should be used in the error
+> > handling path of cik_init() and in cik_fini().
+> 
+> Yes, ideally.  Care to make a patch to fix that?
 
-This patch has been accepted into the the amd drm-fixes-6.15 branch, so
-hopefully it will be fixed in 6.15-rc4.
+I can have a look at that.
 
-https://lore.kernel.org/dri-devel/24439c13a014e1cd200785db6f3dcf08f4773eb3.=
-1743612701.git.soyer@irl.hu/
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/drm-fixes-6.15
+Dave
 
-Gergo
-
+> Thanks,
+> 
+> Alex
+> 
+> >
+> > CJ
+> >
+> > >
+> > > Remove it.
+> > >
+> > > Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+> > > ---
+> > >   drivers/gpu/drm/radeon/radeon.h        |  1 -
+> > >   drivers/gpu/drm/radeon/radeon_device.c | 14 --------------
+> > >   2 files changed, 15 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+> > > index 8605c074d9f7..58111fdf520d 100644
+> > > --- a/drivers/gpu/drm/radeon/radeon.h
+> > > +++ b/drivers/gpu/drm/radeon/radeon.h
+> > > @@ -686,7 +686,6 @@ struct radeon_doorbell {
+> > >   };
+> > >
+> > >   int radeon_doorbell_get(struct radeon_device *rdev, u32 *page);
+> > > -void radeon_doorbell_free(struct radeon_device *rdev, u32 doorbell);
+> > >
+> > >   /*
+> > >    * IRQS.
+> > > diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+> > > index bbd39348a7ab..4127ffb4bb6f 100644
+> > > --- a/drivers/gpu/drm/radeon/radeon_device.c
+> > > +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> > > @@ -392,20 +392,6 @@ int radeon_doorbell_get(struct radeon_device *rdev, u32 *doorbell)
+> > >       }
+> > >   }
+> > >
+> > > -/**
+> > > - * radeon_doorbell_free - Free a doorbell entry
+> > > - *
+> > > - * @rdev: radeon_device pointer
+> > > - * @doorbell: doorbell index
+> > > - *
+> > > - * Free a doorbell allocated for use by the driver (all asics)
+> > > - */
+> > > -void radeon_doorbell_free(struct radeon_device *rdev, u32 doorbell)
+> > > -{
+> > > -     if (doorbell < rdev->doorbell.num_doorbells)
+> > > -             __clear_bit(doorbell, rdev->doorbell.used);
+> > > -}
+> > > -
+> > >   /*
+> > >    * radeon_wb_*()
+> > >    * Writeback is the method by which the GPU updates special pages
+> >
+-- 
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
