@@ -4,121 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40680C369C2
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Apr 2025 05:54:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F942C369AB
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Apr 2025 05:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8929110E439;
-	Thu, 24 Apr 2025 05:54:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC67A10E724;
+	Thu, 24 Apr 2025 05:59:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lM82eo2u";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MuwUjJ4R";
 	dkim-atps=neutral
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2051.outbound.protection.outlook.com [40.107.243.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1D0D10E240
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Apr 2025 05:54:48 +0000 (UTC)
+ (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDE3C10E724
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Apr 2025 05:59:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wTlqmd/Q92AmtPYrGaqBim/zhk779rkv9weGqz9oex3fvTktqOMhCZ8CLQZh/68sLy8SvsjrvHkkSg3DgmeS0ysOZmwejAFta990mVQ2i5Xf7uiEA9IzLLMODtV3MnY945nsueL85udlBeh/kJkN8Sel0rt2HQrulN+/Pc7v3llaFGIsDpRIvQCkVxLAffeGbl1dPl27G98hUAFVVZwm5qV2gk4IZd5iIB3m/eWQidszROhdR0q2Lg+VfbcjWOjK8W8J8m6wWpFWRjCfZoVV3fyiAQNpS1viBjhZrsAF6qDmsLHbkMAoMqVMCxcjSO4JNT5iWqOcjvr8DeAWiJcRRQ==
+ b=v9+Jp2Xlvh0O6zR600J/ladidOIOtyXnTuQ2fwv7BZHpzK33OAY4NOwKxIZjeHrl/WLnygOQOSZV7hkdI7b1jqmaByzJWc1R2XyVfBe/S448ufZ5EuUTvuWdZ5hBb4xdP8auMRWOX9Df3sEiUrwt+ct0Gndv+9qt9i1NlsQ/7Hu6v+NWJ27ytxXbU4kO/SyYjftN0Lwyuo0QB9K+5qZvYMh0Y5UiRMaaQJJskJpzqSKW2naLcGQhdbqruZ+DViSF6Ph3PvfyOH4CaBhq0DoeL5DeIm0UPXQ/vA+mPPtNqT02QAhKZCJ4TaT6auq5sTE93vALvrXKAMOgpcV49E5WQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rvsduWPf/w91THafS1WpRL5DyTb8CrJHE/p5pubX+bQ=;
- b=f3POiBJNZqzBnB5CriC1IatUrKFH/iHldTTa1aUnAxRJbJuZ+amKA+cTMPMQJMzd1ndIVpyzM0tJX4kQ/aCfJnv3GFeAt8kMrf0oPz9S9jGbwMUYHrTcwfvQGRZ4/b9OFK7j7u4k9pWZkKQjd0L8HKxzZ2V5S0BOKldvkorH/8zEeO4NP1Duhbff1Duflp12Gfos1GbtgdZ+SVqq9KxcgB3DJbfikQlypB0WkvprWJ+VfI6oKzb6gl7Bh4IExBqAyXiQb0CmoER6uSKojju053DJPjk038QS67/s8yeVX+4rmLlSfyTKWuWtwyqg6520Ioca8Qu1Uvcx3ILDMI93Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=aX1SIcripqz3G3ow1w6GBn8s3Vpr10DJsz/47vniSeE=;
+ b=zNyCR4E7T9zX9XZRFdOaAp2c8+hsQXOLOGOrbWUP1v5SPsuiWTiIj/xD8Ia7LgsuL6F0RSPJkfnlyd6Z2TPNN7uwj6CZBeloEhq4PTLJ+fdO8KEZCaa7FA62uK7PTUt4UJ7AfA+Mwm1wULUhRW2xkQ5G+j3sNpSw2wSrB3LSKUVI/iemikYYVrCHCffB/5S80Ru97jY3BsShHuYe4MrP2JynU+5Pzu6XgCv1NeOSXk9Dv2S965GUePq9wDssCVykP4UtkFa5qQwkabfrTZ8StusCAlLy/AtaIwu3T6fLrLyBL0vgxps5K8ophefRYeBY0nqApoZCBhMla3xbgiYw5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rvsduWPf/w91THafS1WpRL5DyTb8CrJHE/p5pubX+bQ=;
- b=lM82eo2ufbDabj9Joc9aW9eCmu2bUybFwnm1YsB8MH+w13PWSfT0x9VARY3Grjyd7VXIBNYdOwRaNSChjTBUZfbImtpixaEMkYZ5W9+KTznBj/6I9onteoAsZoY38K0gQRorlTVjD8v/Kyj9x204K556ou5YNxFXA/exdQloTXs=
-Received: from DM6PR02CA0076.namprd02.prod.outlook.com (2603:10b6:5:1f4::17)
- by DS0PR12MB7948.namprd12.prod.outlook.com (2603:10b6:8:152::17) with
+ bh=aX1SIcripqz3G3ow1w6GBn8s3Vpr10DJsz/47vniSeE=;
+ b=MuwUjJ4RY+62EZ/gMjUEbLalNiWiobOmUE+mVFKbBQ/4eOUgU/veQaf8tG8jVjLZTtrpi+gtV8pIqnAPGnPF0aFhWPRhBPofIyNU//hnzUSZFJq+T2L6nGMGKh1+D0UWAznDkeoDCQQDE1CBjuKteTOBJ/4KrLWpP0QYvmJUdaw=
+Received: from DM4PR12MB5261.namprd12.prod.outlook.com (2603:10b6:5:398::22)
+ by DS7PR12MB9550.namprd12.prod.outlook.com (2603:10b6:8:24e::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.23; Thu, 24 Apr
- 2025 05:54:42 +0000
-Received: from DS3PEPF000099D6.namprd04.prod.outlook.com
- (2603:10b6:5:1f4:cafe::c6) by DM6PR02CA0076.outlook.office365.com
- (2603:10b6:5:1f4::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.32 via Frontend Transport; Thu,
- 24 Apr 2025 05:54:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D6.mail.protection.outlook.com (10.167.17.7) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Thu, 24 Apr 2025 05:54:42 +0000
-Received: from shane-u20.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 24 Apr
- 2025 00:54:40 -0500
-From: Shane Xiao <shane.xiao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, Felix Kuehling <Felix.Kuehling@amd.com>, 
- <christian.koenig@amd.com>, Philip Yang <Philip.Yang@amd.com>
-CC: Shane Xiao <shane.xiao@amd.com>
-Subject: [PATCH 2/2] amd/amdkfd: Trigger segfault for early userptr unmmapping
-Date: Thu, 24 Apr 2025 13:54:26 +0800
-Message-ID: <20250424055426.1471075-2-shane.xiao@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250424055426.1471075-1-shane.xiao@amd.com>
-References: <20250424055426.1471075-1-shane.xiao@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D6:EE_|DS0PR12MB7948:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c86524a-b4a0-4ac5-a1eb-08dd82f48215
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?AZpynbLleujjNp8+Wc2GQ5FXpVoUT1gflc3Xiy9gka8B9S4X0WNhXwUeHpiv?=
- =?us-ascii?Q?9uUEdO9uZsbYvowhPPc4ePoxigwC1X7LZ10S39xRCjnB+/Tfx9NvXD7Rs1YW?=
- =?us-ascii?Q?K5CiJ+tzpVd9mm3UPHplKHxlTfnxv4kfmyLJw9rmkeQgB2vDK39rGP/Nt3DF?=
- =?us-ascii?Q?BLX16WM90afdPf4qppBjrsaEFIIoUKPTWqkRHj7HB4FWgSsfejhkw16IQsKZ?=
- =?us-ascii?Q?56OL0upyxXfwO5xBsPbbLHkfn5JQBSNEReXYpnyOU5tsEpK0jFmkQhyA0jE9?=
- =?us-ascii?Q?rt8KeG97dOA8HOuxDN2bnobJFOQn9WNMmPFOez7hZWrsN06iNhmMHdwxr6GS?=
- =?us-ascii?Q?jwsiTkaBlwt1XtdzNn3fRNVYkalRiARZuAsofO0fGEVhOzm3P4To/KnK8+M/?=
- =?us-ascii?Q?/w4WjM0iCQGvG26hCSoJEAuHzAFBc+4J24c8yK/8W/J2XqegEPbkDm7g8yIm?=
- =?us-ascii?Q?tevnVVb1LGF41QbFTceQtKA9xKhyWcQfH1LKyNwLYeVnCJac1+bPUMHnUwp7?=
- =?us-ascii?Q?7YuK7Z1uYehQ5r8owkxKnxspEty5+p/Pk7nW5qt3gZJVi/lMP/oUnGILaps9?=
- =?us-ascii?Q?iTXM9PDzQli2D2J8mAUpwT43/aSeUZKdOu7ELR0vphm/hIn7B35vL9L/E7OL?=
- =?us-ascii?Q?KN47dvn/EDyKxfx/Tn4zekPT/y9I0XM/rQsFxdiEaVbd+rcS+Pp2GwK36O6b?=
- =?us-ascii?Q?CkjHueasP0Rh78cjsFygEbaXWtFL2LG3Qb0/bh6/F2Ntm2GzZ4R52JFxVSed?=
- =?us-ascii?Q?b3TOLLGRoqiLynFVFRP3fseqS95/KnRZoqGS22RLJBqvTD6sql/kPvczWdde?=
- =?us-ascii?Q?u9veh8/VJP+mvcpbAf26WfmMiFmVy7A9sUmwd/DwDiWckvxV52uSoXpt8Y6c?=
- =?us-ascii?Q?QzEgkf8vi42K3jDV0vxr85c2bUrTAqpPrStWebrUK9sd9zwMGvn8Ci9O/iNN?=
- =?us-ascii?Q?s95xlYphTLcudozr+pAki1CzBQ1N+qJ3SxWyh/t950aY7NB5Ox41epjXT0i+?=
- =?us-ascii?Q?sQROOf28P72FNuGBg3o2OYt7G/BfuAK84yQBWLDLG6dnkIBDT5FcXSPSkLfU?=
- =?us-ascii?Q?3yQY7VC3okA0GRHflq7WSPY1UXQul55xW8QUTn+csy5QBk8k8uMaIL2qM3hQ?=
- =?us-ascii?Q?X5qYo5wv1bBm3hXq7cwhUSKR0vqLoDHF0oCW0SyMNlf0CL5nF6mPbFREX85p?=
- =?us-ascii?Q?auAI07ZTTBtPP2tkBiEaxTs4QUH/QBkYvsWUezBWVsfo0CmM8Q2qaGiWvJhM?=
- =?us-ascii?Q?8Na+5LWz0FprO0gTqjvcn+7nYbRcFU5a1lEDUGgHq8sdwXu112h1cR2qcKN9?=
- =?us-ascii?Q?PU0UuiCK3Vguh6RaFgm+cY2rCQdhLWid63+DayFgU8THY9P3KlXVAVwxKyaH?=
- =?us-ascii?Q?KSb+qD9u6/TCDKar82HGvalLGSfqs6cbzxM6ME352gr3pNUbffJLbfJpASEc?=
- =?us-ascii?Q?PAl/wG6u0hn53K7IuqYN56/BiKVPzDLeLfB/7buyyIR6uuJii8WEd16JFbE9?=
- =?us-ascii?Q?4nytx95dZcKzAfOO1jk24LcIMBkagCCVwPWi?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.27; Thu, 24 Apr
+ 2025 05:59:49 +0000
+Received: from DM4PR12MB5261.namprd12.prod.outlook.com
+ ([fe80::e175:f839:8e2e:2885]) by DM4PR12MB5261.namprd12.prod.outlook.com
+ ([fe80::e175:f839:8e2e:2885%5]) with mapi id 15.20.8678.021; Thu, 24 Apr 2025
+ 05:59:49 +0000
+From: "Xiao, Shane" <shane.xiao@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, "Yang, Philip" <Philip.Yang@amd.com>
+Subject: RE: [PATCH] amd/amdkfd: Trigger segfault for early userptr unmmapping
+Thread-Topic: [PATCH] amd/amdkfd: Trigger segfault for early userptr unmmapping
+Thread-Index: AQHbtDU6F4iFaGa3cEuCFM4kP0SL3rOxMTmAgAEhhOA=
+Date: Thu, 24 Apr 2025 05:59:49 +0000
+Message-ID: <DM4PR12MB52615EE9E9D0B99EDDDDD9859D852@DM4PR12MB5261.namprd12.prod.outlook.com>
+References: <20250423095036.1413882-1-shane.xiao@amd.com>
+ <991a1499-69be-494d-bff7-810134a8bbcd@amd.com>
+In-Reply-To: <991a1499-69be-494d-bff7-810134a8bbcd@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=abda426e-bd61-46e8-a118-65f17d87388f;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-04-24T05:57:14Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5261:EE_|DS7PR12MB9550:EE_
+x-ms-office365-filtering-correlation-id: cc1bdc30-837c-4805-c527-08dd82f53948
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?jY8TodPGBF+g0ha2VYwezz0737eOCZoAppKkBjhys1BLm0+m7D/nhZLlwJAu?=
+ =?us-ascii?Q?mWv+bWuStMBPMHT7hVhLwfBxJbd7WyAp1eYd6THKoRoVdPuuqOPWSWQkB7Iw?=
+ =?us-ascii?Q?BwqUkSW48IUzjD0L/QCgipum+8vdrForXj/UH91Ck/hyTuivTI4tMzO5p8yB?=
+ =?us-ascii?Q?3H/jgT8ApH8qhe6rkdCIvcGT+NlCtNEvKLmEKzsMwLRRQcvxFdLWyyQYwCxJ?=
+ =?us-ascii?Q?8Ipe/rPkZ/p9gCxn8u7aZDWhUOH/00MV5aSeOxNZ7lfaK9CvGvvbq40N7kBu?=
+ =?us-ascii?Q?ZT8kGLOpWPScvhyrF56EYqGk6DBlMdMcbalk6FObeIWwv9MIWbH2CBWOohRJ?=
+ =?us-ascii?Q?vzpiBkSRLjWq5m0T7yV+LZAGdvEurhLzIYY+1kBfzqtBHrPN9wHMxlGvfnwi?=
+ =?us-ascii?Q?7i2rmf0ZigFROIpOk3dcKoQOTDkbu7J//nQiZvWVrb0jciZtQqsmaeJ8uTp9?=
+ =?us-ascii?Q?41aGNXAKYHcWtaY3h+Z+FTw9l+OlgaMGQQijsKD+fM5RibOgPAq10I4eIQiz?=
+ =?us-ascii?Q?S9UWtyg2BvpiJrKogDdUh53BpK/MjvodXERb0aRwqey3wvlNCwr/Y5t17iRh?=
+ =?us-ascii?Q?d3+Kz7+g77Xlp5XVzNwsrBWy/q7LOMDQ8ZUYgPUpdBqLnTl9/H9p+PEaMwTo?=
+ =?us-ascii?Q?y9kAEcFc5qA3zdesUTIBXSjz1ZbKluhWfnlGLG5sEhWj2T1cONrTjLssZC4s?=
+ =?us-ascii?Q?CqafyBQWbA+BxRM1e6oJ7kzDeDg3Iny4pVkBIMgX4nqtfYQ5HjscPGa82jBf?=
+ =?us-ascii?Q?J6szSlpv9Gja1CbWoNUS/GVZC9FRCCnLpn21MB06oMSB+YRgqjllxfTn42+3?=
+ =?us-ascii?Q?6FSXfSf/e6X0PaTLBd5ovo/HoZTleMA+6tZ0G/KPqbgCn5j4xJPyLxkgBOiH?=
+ =?us-ascii?Q?wvclPQAsQfk7v/Uhki1EBS76YfBST2pzmHn1YyzHeSf8Jf/5w/rZ7R6qTqYq?=
+ =?us-ascii?Q?oQKTp2wyrFSmgIhjryMd+aIvkG9fa3o2VflO/Xk+WFQokqZzL9tn5MdgYBRM?=
+ =?us-ascii?Q?OIQm0SgoUIu3ESKzFFYiD4igrWha2QXL6qKEiCeukW81N3rUneDI0QizKT9I?=
+ =?us-ascii?Q?VZx+eao9AYa4VXAlksc1EFIhW8f3pYsbc7XXX5Bg6yaAj4v8fNEUmc6XX3yD?=
+ =?us-ascii?Q?h9pv3Y9vQBxU++bT4Jn52/1bZVmr9AbtpNJ6BYmE5B+tS/GhgmlBb3ycSlPg?=
+ =?us-ascii?Q?npR3hvmLVRkBj+ktVd7rw9imFG5+0/f37ks5WeV+QREP+A2XrYrH+753rhSz?=
+ =?us-ascii?Q?UHs6+cVoe5eyycD/iar0C5aWSIw6NsrjYNnwAdYAE5dUpHS8Z2KgIIaGcjgG?=
+ =?us-ascii?Q?vUx9o2S2L0JWfV2wxIs2MbHtTm7TcnsptSllHMC8uEK0dv2a0eequyeGcbUz?=
+ =?us-ascii?Q?dfc7Q1d5phWFNEVZ+z3H/lRMYPhCpP7ABzTe9AFidKFjmx5qIwf/GSMiaQcD?=
+ =?us-ascii?Q?0B6puXYkSRQHftHLSlROo4vuejnI1kOZ4gnSWtDSnceBlGw+sS2NgVsNfCWh?=
+ =?us-ascii?Q?3ef9lt4D3uHCM6w=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5261.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
  SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CsOAyujJ+eWFy01SD8/7kknL0q2+8CRX+jht4U5dt03izi+VpjRoi9uQf0VU?=
+ =?us-ascii?Q?OIH01sN7wxMrAVU3aRbPKriZ0US1mRvGPv4Z/fVhQh3FJXR3HlQA9MhLjYih?=
+ =?us-ascii?Q?Bm7m7RFYFtgtmwD5Lyj/4j8ufVZq7gkRNaSiVo6g/MjenGgmbJPULNJOEaoq?=
+ =?us-ascii?Q?kCqmaXfZkWaPlZSo+LbjfIXAdZUdOL33MDvw5KeXyoVyAEXNUCxN5rHkhnmB?=
+ =?us-ascii?Q?cj6MOUAJJef9OBRNb16ZZPByJqePiOa+oKlR4LJ1tvbrhIoxLQ06ymJH8GZZ?=
+ =?us-ascii?Q?NDA9n9w2WGXTAEDrgtA6KxtByBCJ0isZpD09O/ta06RIRSvOmIBtFSXLde0k?=
+ =?us-ascii?Q?0T3lF2qB32ERzGv9G35bB3M29M3Tq65bz6/sMFm/OOchRWRJItBu9lUGIEKO?=
+ =?us-ascii?Q?Ou/DRmgOyzqCbLTUzSWDwfAKhS3oivH1PjH1OgQKEXgfHleHmLUXdtTn6yiP?=
+ =?us-ascii?Q?0YsdnwTw3yylbiNwNVYseRoUg3Ja5xP4Tmpvngpzy1q0+ZWo5aG9s3teCw8P?=
+ =?us-ascii?Q?RhqU9qw1aJB81xfJ/QU8+FFK+h7YLsr8g0jyR5spYDOJp+ADMpDkWNQobdes?=
+ =?us-ascii?Q?AP0fekx1oN49Z16dKc/LSApwPvWf+FHLImU7cbMytWcP6MmuYFgGf1CrNyzP?=
+ =?us-ascii?Q?KY9u74oe2LnaVm70MRgGvNVy0yUUPXLA5Hx4mw7eIheF7XMCFyuRTm9gErDl?=
+ =?us-ascii?Q?8xdDamuwurgV4N6s3Zyv1AMOFW/9FCe6D9D80FDEBXHe2vRPN9zmSs0evp9x?=
+ =?us-ascii?Q?9j7AUAoSugLadydrxFf7izp6uh4MHPCkrNIeZaWkVFPLXnfmJbFFIS59dmwr?=
+ =?us-ascii?Q?LXF78BLAlsAsBkt5gY0H+U8e2aIZqNGuwALKBAeq1zfbHVH6M/x10ygMTV/c?=
+ =?us-ascii?Q?QH2Nl90/USyHAvLP1ZyqJAKiQWiyBN0IisV9SG4bp7UoE2pZK71oHkjPxyK+?=
+ =?us-ascii?Q?8LmoUGcwsWwMX5eFiqx2PPgUb1tVxNLWyohzo72LsX5C3JoqZaivq68IpWSD?=
+ =?us-ascii?Q?oLfiYwH5rGLln3mvfa7LMG2dholrdIbuhXWjn5tyEUWgiNoVnnT45Sx8yYgW?=
+ =?us-ascii?Q?ieq+TtWbs5y9Hh73zU7QurvQJKNos1v4Ivz8CtPInT6PWXZXaawVFUYZ53kP?=
+ =?us-ascii?Q?gLHj+ld4G6wFYxIBsLp/goCSS6Ql+MNVKGQVuQxEwpuuirtFCutMjnr7aGYI?=
+ =?us-ascii?Q?tNSRI99Du/Me8vnH6XC+6+AfM6VREqk0d2dHEvrUn1hkra5NXQTxLkbAVy5q?=
+ =?us-ascii?Q?bn6YgqRofqkM47LywPNCbSWVTw23sc3XzfqRP/FQcPvYUfiVeR9nIw/tVHj2?=
+ =?us-ascii?Q?lSjw4X4EtuKOvsTMbE2cf6H+usZMWX/AXObU5hkCMdRTnneL0Af2pN8C+uU8?=
+ =?us-ascii?Q?J8mjk9Ub6VLUQZ4iYqN+2ckhyfHCMedA945P3uSq2vaodP3MUco8to96AD9R?=
+ =?us-ascii?Q?6F8VcfjeHtRxKrFD/dBTYqyeepwkCl1Ucfu+xV1XT4fzP0WM6UO8X2T2w545?=
+ =?us-ascii?Q?5CNouJhhx4WzBFFx5COu5uat4GSJWED+Cf9jJj/+HIpIZWtm/rdQjyxJgfYV?=
+ =?us-ascii?Q?FiFNNd8oCE5W03Ljsv4=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2025 05:54:42.1627 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c86524a-b4a0-4ac5-a1eb-08dd82f48215
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D6.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7948
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5261.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc1bdc30-837c-4805-c527-08dd82f53948
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2025 05:59:49.5816 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Sv44NXIA85RlniL3YdD1zyzAHjPJ5CnJTF7XgazVb+k5/2NW3CwBUEZbqhFfxLkPAX6kr2Hamho4B2+jh4SuTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9550
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,96 +157,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If applications unmap the memory before destroying the userptr, it needs
-trigger a segfault to notify user space to correct the free sequence in
-VM debug mode.
+[Public]
 
-v2: Send GPU access fault to user space
+> -----Original Message-----
+> From: Koenig, Christian <Christian.Koenig@amd.com>
+> Sent: Wednesday, April 23, 2025 8:40 PM
+> To: Xiao, Shane <shane.xiao@amd.com>; amd-gfx@lists.freedesktop.org;
+> Kuehling, Felix <Felix.Kuehling@amd.com>; Yang, Philip
+> <Philip.Yang@amd.com>
+> Subject: Re: [PATCH] amd/amdkfd: Trigger segfault for early userptr
+> unmmapping
+>
+>
+>
+> On 4/23/25 11:50, Shane Xiao wrote:
+> > If applications unmap the memory before destroying the userptr, it
+> > needs trigger a segfault to notify user space to correct the free
+> > sequence in VM debug mode.
+> >
+> > Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> > index d2ec4130a316..259b38424b7f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> > @@ -2559,6 +2559,16 @@ static int update_invalid_user_pages(struct
+> amdkfd_process_info *process_info,
+> >                     if (ret !=3D -EFAULT)
+> >                             return ret;
+> >
+> > +                   /* If applications unmaps memory before destroying
+> the userptr
+> > +                    * from the KFD, trigger a segmentation fault in VM
+> debug mode.
+> > +                    */
+> > +                   if (amdgpu_ttm_adev(bo->tbo.bdev)->debug_vm) {
+>
+> Using debug_vm works for now, but maybe we should have a separate debug
+> flag for this.
 
-Signed-off-by: Shane Xiao <shane.xiao@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 14 +++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_events.c       | 20 +++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  3 +++
- 3 files changed, 37 insertions(+)
+I have added a new debug_vm_userptr bit in the new patch series.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index d2ec4130a316..876e9df34adf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2496,6 +2496,7 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 	struct ttm_operation_ctx ctx = { false, false };
- 	uint32_t invalid;
- 	int ret = 0;
-+	uint64_t userptr = 0;
- 
- 	mutex_lock(&process_info->notifier_lock);
- 
-@@ -2559,6 +2560,19 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 			if (ret != -EFAULT)
- 				return ret;
- 
-+			/* If applications unmap memory before destroying the userptr
-+			 * from the KFD, trigger a segmentation fault in VM debug mode.
-+			 */
-+			if (amdgpu_ttm_adev(bo->tbo.bdev)->debug_vm_userptr) {
-+				amdgpu_ttm_tt_get_userptr(&bo->tbo, userptr);
-+				pr_err("User space unmap memory before destroying a userptr that refers to it\n");
-+				pr_err("The unmap userptr address is 0x%llx\n", userptr);
-+
-+				// Send GPU VM fault to user space
-+				kfd_signal_vm_fault_event_with_userptr(kfd_lookup_process_by_pid(process_info->pid),
-+						amdgpu_ttm_adev(bo->tbo.bdev)->kfd.dev, userptr);
-+			}
-+
- 			ret = 0;
- 		}
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index fecdb6794075..89943d2146a4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1177,6 +1177,26 @@ void kfd_signal_hw_exception_event(u32 pasid)
- 	kfd_unref_process(p);
- }
- 
-+void kfd_signal_vm_fault_event_with_userptr(struct kfd_process *p,
-+		struct kfd_dev *dev , uint64_t userptr)
-+{
-+	struct kfd_process_device *pdd;
-+	struct kfd_hsa_memory_exception_data exception_data;
-+	int i;
-+
-+	memset(&exception_data, 0, sizeof(exception_data));
-+	exception_data.va = userptr;
-+	exception_data.failure.NotPresent = 1;
-+
-+	// Send VM seg fault to all kfd process device
-+	for (i = 0; i < p->n_pdds; i++) {
-+		pdd = p->pdds[i];
-+		exception_data.gpu_id = pdd->user_gpu_id;
-+		kfd_evict_process_device(pdd);
-+		kfd_signal_vm_fault_event(pdd, NULL, &exception_data);
-+	}
-+}
-+
- void kfd_signal_vm_fault_event(struct kfd_process_device *pdd,
- 				struct kfd_vm_fault_info *info,
- 				struct kfd_hsa_memory_exception_data *data)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index f6aedf69c644..34f47dc1cbbd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1507,6 +1507,9 @@ int kfd_event_create(struct file *devkfd, struct kfd_process *p,
- int kfd_get_num_events(struct kfd_process *p);
- int kfd_event_destroy(struct kfd_process *p, uint32_t event_id);
- 
-+void kfd_signal_vm_fault_event_with_userptr(struct kfd_process *p,
-+				struct kfd_dev *dev , uint64_t userptr);
-+
- void kfd_signal_vm_fault_event(struct kfd_process_device *pdd,
- 				struct kfd_vm_fault_info *info,
- 				struct kfd_hsa_memory_exception_data *data);
--- 
-2.25.1
+>
+> > +                           amdgpu_ttm_tt_get_userptr(&bo->tbo,
+> userptr);
+> > +                           pr_err("User space unmap memory before
+> destroying a userptr that refers to it\n");
+> > +                           pr_err("The unmap userptr address is
+> 0x%llx\n", userptr);
+> > +                           send_sig(SIGSEGV, get_pid_task(process_info=
+-
+> >pid, PIDTYPE_PID),
+> > +0);
+>
+> Drivers should *never* mess with send_sig() directly. We made the mistake=
+ to
+> allow that with the KFD already.
+>
+> We should rather send this as GPU access fault or something like that.
+
+Sure, already done it in the new patch.
+
+Best regards,
+Shane
+
+>
+> Regards,
+> Christian.
+>
+> > +                   }
+> > +
+> >                     ret =3D 0;
+> >             }
+> >
 
