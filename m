@@ -4,46 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A7A1C369D3
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 07:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AC46C369D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 07:39:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA50E10E8A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA70D10E8A7;
 	Fri, 25 Apr 2025 07:39:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=abv.bg header.i=@abv.bg header.b="I8pMzi8/";
+	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="ZsmY+OzE";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="lHGhLUpZ";
 	dkim-atps=neutral
-X-Greylist: delayed 561 seconds by postgrey-1.36 at gabe;
- Thu, 24 Apr 2025 15:24:28 UTC
-Received: from pop36.abv.bg (pop36.abv.bg [194.153.145.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 426B310E834
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Apr 2025 15:24:28 +0000 (UTC)
-Received: from smtp.abv.bg (localhost [127.0.0.1])
- by pop36.abv.bg (Postfix) with ESMTP id 6B4C91805D2D;
- Thu, 24 Apr 2025 18:14:56 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abv.bg; s=smtp-out;
- t=1745507696; bh=MPc9jSI1zCl6BTdIscu6ybN1aJS6kPg8y/OMmaKXouI=;
- h=Date:From:To:Cc:Subject:From;
- b=I8pMzi8/zHh5bNJGwhoMxzJiVcHML1GBgsIK7eGdSFX9xuyebQNayivyvD9YR5lbs
- V0qgliH47GWcprFXGtP5M996bKEbT2htoowfrDpU8BuONA/AZY/lXpdCcx1gt2mwy1
- RssQamanLsZF90fVP+2O6d76EYThn375EJW5Avow=
-X-HELO: laptop
-Authentication-Results: smtp.abv.bg;
- auth=pass (login) smtp.auth=ivan.shamliev.dev@abv.bg
-Received: from pop-144.92.escom.bg (HELO laptop) (93.183.144.92)
- by smtp.abv.bg (qpsmtpd/0.96) with ESMTPSA (ECDHE-RSA-AES256-GCM-SHA384
- encrypted); Thu, 24 Apr 2025 18:14:56 +0300
-Date: Thu, 24 Apr 2025 18:14:53 +0300
-From: Ivan Shamliev <ivan.shamliev.dev@abv.bg>
-To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ivan.shamliev.dev@abv.bg
-Subject: [PATCH] drm/amd/display: Use true/false for boolean variables in
- DML2 core files
-Message-ID: <20250424181453.3f78a2a9@laptop>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
+Received: from fout-a8-smtp.messagingengine.com
+ (fout-a8-smtp.messagingengine.com [103.168.172.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C99A110E111;
+ Thu, 24 Apr 2025 08:48:11 +0000 (UTC)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfout.phl.internal (Postfix) with ESMTP id CAB27138076D;
+ Thu, 24 Apr 2025 04:48:07 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-11.internal (MEProxy); Thu, 24 Apr 2025 04:48:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1745484487;
+ x=1745570887; bh=moUx0r6Zq8JwwGRRoRpEamtclvFlhO2+mjvAHef9WeQ=; b=
+ ZsmY+OzEb1pQg4GiC4JG4Sh5g+Ip+k6fuayHtkGVKQ+IjcAqVxY/D+FAS3CVT9FB
+ bg29pfm41Lck3qQ0nffQ9xF94B1iZA4/5xt3cwjzEo7tkMc3i+haiyiXmfPPuWLf
+ I9QHoVUY/Bhn795UHXTMVgVXG8nzaix/igvDa79xsIv++E+SWUZHpsUwmm06VBhw
+ E2SHliyjCtS7CGWkP0gEBedsT+nvNY01YWL+BSLCqKgkzdmbp9l04pOAdw0iiRgO
+ LMgJxWjdyO820kBGpJoqJuA2UnB35x1uLKDuoLpPPKsrCciLTKO5wupwYfd4MyiY
+ E48ZjxUYOxysFpM8N8tTlg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1745484487; x=1745570887; bh=moUx0r6Zq8JwwGRRoRpEamtclvFlhO2+mjv
+ AHef9WeQ=; b=lHGhLUpZQ9XRUW06rGYsOJZ+OA+9JUUWyUfWkkz2DjS0HftXE7s
+ Puk7F8F5vbVFydidVwxpmpEhnfr09aPPoQOJXcLVDpD36eZWskRdyV/MPYBPw7QU
+ IXgt9CGIk5eNG5vI5hp1BfJ+zBD6EpsCgC6z51fOVGnXZzmpLW9/DwxHaH4OId6F
+ QhaeIG9lJVAL+moq4p1G/i0J7x1X2fzRlUMfsMg57qlnnz8xyLKFQHIpSi/l4Vij
+ cVD/wLO2sQ+S9gtU2Bwh50YfPNLuJQ+9btw1HUJUqbbECMegks3lhTlbLw564bol
+ bM5rHHEt/4oA6Tv55AC2g4roroZCiT2RrJg==
+X-ME-Sender: <xms:x_oJaDotSKYiM2R2_3OoS3yD-5pJrI8bx9yPpKJRzJ9rk8LvGtoCsQ>
+ <xme:x_oJaNp5y-pgrTNpg7MxfBTkwBvTfsIc5fO_MXizIXALjBzgVAtItlU2HlP7Eb-oZ
+ qlwFI6y1jQCiw>
+X-ME-Received: <xmr:x_oJaAMWdSCNpaQpUnwW9sv5MKsuG3e3IgR2fZfNdrGQTZWjTshkHFl_cudhZbN1g7Z84lj3JH00ZnuuyfagnH8ZduTFO_ipNg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeeltdefucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+ pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+ gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+ jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+ eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+ ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
+ dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+ rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+ dpnhgspghrtghpthhtohepuddvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehs
+ ohihvghrsehirhhlrdhhuhdprhgtphhtthhopegusggrrhihshhhkhhovhesghhmrghilh
+ drtghomhdprhgtphhtthhopehluhhmrghgsehkvghrnhgvlhdrohhrghdprhgtphhtthho
+ pehrvghgrhgvshhsihhonhhssehlihhsthhsrdhlihhnuhigrdguvghvpdhrtghpthhtoh
+ epughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgt
+ phhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprh
+ gtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+ pdhrtghpthhtohephhguvghgohgvuggvsehrvgguhhgrthdrtghomhdprhgtphhtthhope
+ grlhgvgigrnhguvghrrdguvghutghhvghrsegrmhgurdgtohhm
+X-ME-Proxy: <xmx:x_oJaG59SC0ie0iwmzaqx2MElZOGTcF7BgPvDNKXGsdCK7sCX-ycxg>
+ <xmx:x_oJaC4AOqptvFe75JzIIoHYAJ4tciwEHu3v3woNbQtHFavZlhfHkQ>
+ <xmx:x_oJaOgDKiZ4-XDkuT9cjxeo_C-MqFqlP0gtyAaXlUaA24pN0XO7Eg>
+ <xmx:x_oJaE6r4zv8apJtEI8fuJtpJJFQK3epsNsNk0JdcXsdfcpXpWDqdA>
+ <xmx:x_oJaBD3p2rjIbttTnFuS0qHrVsa-1zlCddRfvwQxDaC1fvlSEaINl1l>
+Feedback-ID: i1568416f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Apr 2025 04:48:05 -0400 (EDT)
+Date: Thu, 24 Apr 2025 10:48:02 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Dmitry Baryshkov <dbaryshkov@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, regressions@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Subject: Re: amdgpu_dm_connector_mode_valid regression
+Message-ID: <aAn6wsnJ-6mqK4vR@mail-itl>
+References: <ed09edb167e74167a694f4854102a3de6d2f1433.camel@irl.hu>
+ <8963a409dd575e040e5f07e4ad5e9c1d26b421f2.camel@irl.hu>
+ <CALT56yPd-xfd=47xRxrCk4F3jib4Ti7kg8pRXy-gVAQpbOc=pw@mail.gmail.com>
+ <e323219b52cda1891a55d12ad77a2b34edc8688b.camel@irl.hu>
+ <Z_jodBrNFdEpJRKA@mail-itl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="0nQ5TDnVhV5gn1bQ"
+Content-Disposition: inline
+In-Reply-To: <Z_jodBrNFdEpJRKA@mail-itl>
 X-Mailman-Approved-At: Fri, 25 Apr 2025 07:39:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,154 +114,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-=46rom 694c017112d176af07c2a65f015a8e73d6895e81 Mon Sep 17 00:00:00 2001
-From: Ivan Shamliev <ivan.shamliev.dev@abv.bg>
-Date: Thu, 24 Apr 2025 11:00:08 +0300
-Subject: [PATCH] drm/amd/display: Use true/false for boolean variables in D=
-ML2
- core files
 
-Replace 0 and 1 with false and true for boolean variables in
-dml2_core_dcn4_calcs.c and dml2_core_utils.c to align with the Linux
-kernel coding style guidelines, which recommend using C99 bool type
-with true/false values.
+--0nQ5TDnVhV5gn1bQ
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Apr 2025 10:48:02 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Dmitry Baryshkov <dbaryshkov@gmail.com>,
+	Dmitry Baryshkov <lumag@kernel.org>, regressions@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Harry Wentland <harry.wentland@amd.com>
+Subject: Re: amdgpu_dm_connector_mode_valid regression
 
-Signed-off-by: Ivan Shamliev <ivan.shamliev.dev@abv.bg>
----
- .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c   | 16 ++++++++--------
- .../dml2/dml21/src/dml2_core/dml2_core_utils.c   |  8 ++++----
- 2 files changed, 12 insertions(+), 12 deletions(-)
+On Fri, Apr 11, 2025 at 12:01:28PM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+>=20
+> Hi,
+>=20
+> On Wed, Apr 02, 2025 at 04:35:05PM +0200, Gergo Koteles wrote:
+> > Hi Dmitry,
+> >=20
+> > But the code would start to become quite untraceable.
+> > duplicate mode in amdgpu_dm_connector_mode_valid()
+> > call drm_mode_set_crtcinfo() in amdgpu_dm_connector_mode_valid()
+> > duplicate mode in create_stream_for_sink()
+> > overwrite ctrc in decide_crtc_timing_for_drm_display_mode()
+> > if crtc_clock =3D=3D 0 call drm_mode_set_crtcinfo() again in
+> > create_stream_for_sink()=20
+>=20
+> FWIW I'm affected by the same issue (on HP ProBook 445 G7, with AMD
+> Ryzen 5 4500U). And the patch quoted below fixes it for me too.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_c=
-ore_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/=
-dml2_core_dcn4_calcs.c
-index 4c504cb0e1c5..c299fe4b3b74 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn=
-4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn=
-4_calcs.c
-@@ -4962,11 +4962,11 @@ static double get_urgent_bandwidth_required(
- 		l->adj_factor_cur_pre =3D UrgentBurstFactorCursorPre[k];
-=20
- 		bool is_phantom =3D dml_is_phantom_pipe(&display_cfg->plane_descriptors[=
-k]);
--		bool exclude_this_plane =3D 0;
-+		bool exclude_this_plane =3D false;
-=20
- 		// Exclude phantom pipe in bw calculation for non svp prefetch state
- 		if (state_type !=3D dml2_core_internal_soc_state_svp_prefetch && is_phan=
-tom)
--			exclude_this_plane =3D 1;
-+			exclude_this_plane =3D true;
-=20
- 		// The qualified row bandwidth, qual_row_bw, accounts for the regular no=
-n-flip row bandwidth when there is no possible immediate flip or HostVM inv=
-alidation flip.
- 		// The qual_row_bw is zero if HostVM is possible and only non-zero and e=
-qual to row_bw(i) if immediate flip is not allowed for that pipe.
-@@ -7163,13 +7163,13 @@ static unsigned int get_qos_param_index(unsigned lo=
-ng uclk_freq_khz, const struc
- static unsigned int get_active_min_uclk_dpm_index(unsigned long uclk_freq_=
-khz, const struct dml2_soc_state_table *clk_table)
- {
- 	unsigned int i;
--	bool clk_entry_found =3D 0;
-+	bool clk_entry_found =3D false;
-=20
- 	for (i =3D 0; i < clk_table->uclk.num_clk_values; i++) {
- 		dml2_printf("DML::%s: clk_table.uclk.clk_values_khz[%d] =3D %d\n", __fun=
-c__, i, clk_table->uclk.clk_values_khz[i]);
-=20
- 		if (uclk_freq_khz =3D=3D clk_table->uclk.clk_values_khz[i]) {
--			clk_entry_found =3D 1;
-+			clk_entry_found =3D true;
- 			break;
- 		}
- 	}
-@@ -8502,7 +8502,7 @@ static bool dml_core_mode_support(struct dml2_core_ca=
-lcs_mode_support_ex *in_out
-=20
- 	for (k =3D 0; k < mode_lib->ms.num_active_planes; ++k) {
- 		double line_time_us =3D (double)display_cfg->stream_descriptors[display_=
-cfg->plane_descriptors[k].stream_index].timing.h_total / ((double)display_c=
-fg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].timi=
-ng.pixel_clock_khz / 1000);
--		bool cursor_not_enough_urgent_latency_hiding =3D 0;
-+		bool cursor_not_enough_urgent_latency_hiding =3D false;
-=20
- 		if (display_cfg->plane_descriptors[k].cursor.num_cursors > 0) {
- 			calculate_cursor_req_attributes(
-@@ -11097,7 +11097,7 @@ static bool dml_core_mode_programming(struct dml2_c=
-ore_calcs_mode_programming_ex
- 		mode_lib->soc.qos_parameters.qos_params.dcn4x.fabric_max_transport_laten=
-cy_margin);
-=20
- 	for (k =3D 0; k < s->num_active_planes; ++k) {
--		bool cursor_not_enough_urgent_latency_hiding =3D 0;
-+		bool cursor_not_enough_urgent_latency_hiding =3D false;
- 		s->line_times[k] =3D display_cfg->stream_descriptors[display_cfg->plane_=
-descriptors[k].stream_index].timing.h_total /
- 			((double)display_cfg->stream_descriptors[display_cfg->plane_descriptors=
-[k].stream_index].timing.pixel_clock_khz / 1000);
-=20
-@@ -12199,10 +12199,10 @@ void dml2_core_calcs_get_dpte_row_height(
-=20
- static bool is_dual_plane(enum dml2_source_format_class source_format)
- {
--	bool ret_val =3D 0;
-+	bool ret_val =3D false;
-=20
- 	if ((source_format =3D=3D dml2_420_12) || (source_format =3D=3D dml2_420_=
-8) || (source_format =3D=3D dml2_420_10) || (source_format =3D=3D dml2_rgbe=
-_alpha))
--		ret_val =3D 1;
-+		ret_val =3D true;
-=20
- 	return ret_val;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_c=
-ore_utils.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_=
-core_utils.c
-index 2504d9c2ec34..215fd80cdc8d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_uti=
-ls.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_uti=
-ls.c
-@@ -533,13 +533,13 @@ unsigned int dml2_core_utils_get_qos_param_index(unsi=
-gned long uclk_freq_khz, co
- unsigned int dml2_core_utils_get_active_min_uclk_dpm_index(unsigned long u=
-clk_freq_khz, const struct dml2_soc_state_table *clk_table)
- {
- 	unsigned int i;
--	bool clk_entry_found =3D 0;
-+	bool clk_entry_found =3D false;
-=20
- 	for (i =3D 0; i < clk_table->uclk.num_clk_values; i++) {
- 		dml2_printf("DML::%s: clk_table.uclk.clk_values_khz[%d] =3D %d\n", __fun=
-c__, i, clk_table->uclk.clk_values_khz[i]);
-=20
- 		if (uclk_freq_khz =3D=3D clk_table->uclk.clk_values_khz[i]) {
--			clk_entry_found =3D 1;
-+			clk_entry_found =3D true;
- 			break;
- 		}
- 	}
-@@ -555,10 +555,10 @@ unsigned int dml2_core_utils_get_active_min_uclk_dpm_=
-index(unsigned long uclk_fr
-=20
- bool dml2_core_utils_is_dual_plane(enum dml2_source_format_class source_fo=
-rmat)
- {
--	bool ret_val =3D 0;
-+	bool ret_val =3D false;
-=20
- 	if (dml2_core_utils_is_420(source_format) || dml2_core_utils_is_422_plana=
-r(source_format) || (source_format =3D=3D dml2_rgbe_alpha))
--		ret_val =3D 1;
-+		ret_val =3D true;
-=20
- 	return ret_val;
- }
+I've re-tested it with 6.15-rc3 and the issue is still there. Is there
+something I can do to help fixing it before final 6.15 is out?
+
 --=20
-2.43.0
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--0nQ5TDnVhV5gn1bQ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmgJ+sIACgkQ24/THMrX
+1yzQtwf/V1Kwj5a1YqzIurMPiJsNiEryIIzzNggnyRm78T9GwN33DU6aKpvdbcwH
+q4Iz18yFSH2T8suYaXLjan3o4HkwIh6shkMRJ1S+J8KRP1vinn9Olq0pDu7bCxrl
+98+lRYOQpl7n1s8Ne2Mw/z2aaUuE4rd2lKym9YrkkPhvijC7A3XeUqRSS8mkdydw
+gkx4Up1lc0hp0X1o90fc7UJYaxM231XjnT+HqVEYNsnt/8bsaj2FN09SJwsBmVTk
+481dT17Ts2ffRRAw+4lp6ecY3Y+RIbKkvC0rra+y5XFaFzd6O7hQ9MrKxqkLH4xK
+WyLBwwfno2qFjv2Y2lzONmiSwS2YGw==
+=x2tm
+-----END PGP SIGNATURE-----
+
+--0nQ5TDnVhV5gn1bQ--
