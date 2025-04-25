@@ -4,120 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5534BC369D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 18:41:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72615C369C2
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 19:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB2A310E996;
-	Fri, 25 Apr 2025 18:41:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15A8510E027;
+	Fri, 25 Apr 2025 19:59:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3QRsYWu9";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ncTrHHJG";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2065.outbound.protection.outlook.com [40.107.96.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4604A10E993
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 18:41:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m2e1FolQz62OPFn2mUQktytVMi0Qa/SFTH/a75S1jPY9Evp9VE6ZoQHsPQm0rzznxkJvm6NhYIGtwqQ8ky/GWR7oMkNf9xm/Zd7h+2yviIH6KVTNI8UZbP+CdOc791FiBjkDdbyDYrLlfx5btw+l4BkErAe6qTXWSHPne3Lg2eSV9vSTMzvOatwaimNjAmVJOYgN0uSoi7bQK/LytkGvuC0VR6v/of8v3UEUodbw/RDrhTZ6Xcf9fC3AXOmeuM1PGdLBM09tUnF9mEHIyi8QWhKzuw3/zMLzQsErrpkLOEbI+6EXzwa05NW2aO3N6I/3Xv7wr1pFVMCiE+f7jxPI7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dz7EH0Rqrz8abJ07Z/AAld1wQqTttzgP/H9bgTvp9A4=;
- b=MzJ3ykEna5JLYa3pSMmY5WSWXVyK/F7zZo3a26IC27MqiCvwb7r2Lbs0+c/EpniR4AvZBdaKrU7luwYApK6uEotAfd9k6h8amDE8vzNGS6JX/2jspyn7pebX+eNZ3PU3ctHRiql1QGoWrBW2v7imqBW/xywLuBwv3PsAZ+PnNdMYTxc2GCE0QUyjykQJoptHqmVzMSeVBDUFICUa0TunllMtW77nuEQaQCKreuPMppk+ChuljDsnb6rqrKkJKp54w2vcCAwuq4T4RJa56BDhTeTOPPl3Q56+0L8ft2KQ2baxxuJIX8TJL8yO9pwuMPnBP5dTHOAZnReD+OhxWn8Ftw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dz7EH0Rqrz8abJ07Z/AAld1wQqTttzgP/H9bgTvp9A4=;
- b=3QRsYWu9lMM4mEx7xJz5wzlG1a7S28AjkEDSm+NkvxDHJJTrx9f48MQDW/VkHrrvl738Sl2makBGj9txk+IqkVcH6suYctRAgxtbUC4RWLk3ZasMz2u9FTX66r7TfbK+3Zu3UTtIhCCkDAdGVWSaYFl+/6TBvb92CPcwOJt6i6c=
-Received: from DM6PR11CA0049.namprd11.prod.outlook.com (2603:10b6:5:14c::26)
- by PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.26; Fri, 25 Apr
- 2025 18:41:46 +0000
-Received: from DS2PEPF00003447.namprd04.prod.outlook.com
- (2603:10b6:5:14c:cafe::c0) by DM6PR11CA0049.outlook.office365.com
- (2603:10b6:5:14c::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.40 via Frontend Transport; Fri,
- 25 Apr 2025 18:41:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003447.mail.protection.outlook.com (10.167.17.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Fri, 25 Apr 2025 18:41:46 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Apr
- 2025 13:41:43 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 8/8] drm/amdgpu/userq: enable support for creating gangs
-Date: Fri, 25 Apr 2025 14:41:25 -0400
-Message-ID: <20250425184125.166270-8-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250425184125.166270-1-alexander.deucher@amd.com>
-References: <20250425184125.166270-1-alexander.deucher@amd.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADE7C10E027;
+ Fri, 25 Apr 2025 19:59:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=Rft/VMLG85HS5hQH2g2PgJNBINfikizGEu9oLhFhw9c=; b=ncTrHHJGWYcmYnb6MI264juTNH
+ lt7OmS5g3TSQ7CY9oITVAO6obRNSk2sKIu60pYMVE/yBCeyjUi9RASvehf9H+Z6ChlN7IcltiJ7VC
+ 9urVcshtdpE4k12vEOUOgTskhnysUejN8sgw5YsxRnBzzy604QIGd1OLnoud/Tk3cM035yp+e0TfD
+ 66nL3pqWTKQN6vAbLhckbAHsA3Y3IiY6UErE5JzNzw4aMfQtEjVbFfjOC06tkTjpRQRta2zJt4W36
+ cGCC/d5pTs/+YHKMf5jkFib839MHkGkbELlPnixZH9EAksUEXVnsDMiH8hSq7DefHig0HMItrvvru
+ ynefQznQ==;
+Received: from [189.6.35.67] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1u8PCO-008Tsm-4a; Fri, 25 Apr 2025 21:59:00 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: Michel Daenzer <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: log color state for DCN401
+Date: Fri, 25 Apr 2025 16:58:27 -0300
+Message-ID: <20250425195853.307330-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|PH7PR12MB5997:EE_
-X-MS-Office365-Filtering-Correlation-Id: 652dc394-2873-4c4c-2127-08dd8428d542
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?SR//bxxv8CFUt5PxthtbSg1efnNIzVRhWW+Zwdl48R+f+XWlD5SW0XGCWwBx?=
- =?us-ascii?Q?fdHR+ok06cLoV6t+ejyNWEmUmUv/87ZeKSzuI2iF4axcnKgR8z+TPxPdxsNY?=
- =?us-ascii?Q?sUxR7q+2h4RHNun+tlIMrll2zrhS6+6vYcUr71TITp4+rewvNfUTIk/GQjhc?=
- =?us-ascii?Q?7jznZJ7uPdCHZC5ZIsmdQmrabTJsB5B8UPX889WyZyuIi0MW9ekWvWgd5Lgf?=
- =?us-ascii?Q?b4yP2ix3X8yKbtgm0mbbgO2IA3gemF6cjhRwG9vfNXlCPYVaZqboJlpFhJnS?=
- =?us-ascii?Q?ASfAg0SIoVUKk8JmM5w/gWjpWwDxUIO2CFxX8+E/8M6mhNas0ZyPQM7vkj+2?=
- =?us-ascii?Q?VsjSatcBKOR+WZEbkl5zZyunkAKy90MdaYpPlqbV9C/vcIZZfTUKDwFJrqMX?=
- =?us-ascii?Q?wGliVrUr2tTho1B74daj5AQeV2ia7oYiqMiVXmXVzFyeTiwCItPiis4JeCWp?=
- =?us-ascii?Q?d4Rphzg8Ao+71iMz1lbwUJ0YKvZim3l3wYVa333eQfbgEmimNNz9O0VsSif8?=
- =?us-ascii?Q?Axp9Ui8tLetfABVmpPiUbX6eO368dj/0uoJCl89tQHAd3Euo08RhwV8AEC0x?=
- =?us-ascii?Q?VDziFXX4pefiU5NqWquoUyq1Wg0GRynRlii8x4HOBnLUpDf7vscL+CPY5aR1?=
- =?us-ascii?Q?3xr3HufdSOancRDG/hhcFYdXBbrlUKWDCSxzzYQYV56Yc0qqDMVratMrN21Z?=
- =?us-ascii?Q?o6Q5oTckbzwX8o1o70DX5YiVnQDMOaJ7Px0vdkfQEEP1fxkEpPCweK/qQX3j?=
- =?us-ascii?Q?o//I92uMsyiANla6MRKMQA0xL9/pOHRjVO6PTwJ+m5S5Aq4CqNsoXLqzouBn?=
- =?us-ascii?Q?UoZabdQmTFeDtuHo92pxyvWvlY2KTsGMECqkOQ/CcI1M2LA+hNjw4Tr6abaI?=
- =?us-ascii?Q?49dqwpqyY5aHi4ej6+SCqxrCrFpsehdgCfd+UexrnXUvhrQE5+geQNHrQThi?=
- =?us-ascii?Q?9gVSAK+yQ+bZCQ7LpvzQpIdNd5IB3ePfYyASfYWccoMWZC5BbJYNh3L+7Ryy?=
- =?us-ascii?Q?bkq2Je+/9as8jHHmK7n3mJC/TE4iIBfYFQAJ4oZwShvCKgKPTSg9X9Lfp3Ly?=
- =?us-ascii?Q?669aKvbc7eXVBiKA2XBu4Jo4GtfEOCvsqvPaQlPYcNwy5knlE9wDaLHBLWon?=
- =?us-ascii?Q?AsRwAdDZSOMLNhECM2UempvGET1j1bIzMZKqsB3TTBRm6XTwt6rQ2FYXSW6T?=
- =?us-ascii?Q?WomqqqyKrrC+JurI1MnEaKzc4PSXvJRLrgGVIzLu1lI87LXmgan4oTexWc3M?=
- =?us-ascii?Q?69qxXPYh85SqC9PcHojFDB8KOuO/enJpKhXwQG3sm5Hy27N0gWm0q53hPb2m?=
- =?us-ascii?Q?b56hUrwrSirmG3stE9kdqzM8Jzib6H+z7O4/C1ErHn8aJzhvLMnMgG9FvK8h?=
- =?us-ascii?Q?O7uttpzKrsZyfjnf66bRNDHNAIUFTbqTzLzWe13S/aQHF9dA0Jt4tjDD+vqV?=
- =?us-ascii?Q?exJmJb/l9jgedgv1gGylQH1QcfuzDO8pigWOY07Z2l/DHf3/qneLbNl45N17?=
- =?us-ascii?Q?CKZ1ei7bNXYj+v6SdY/uevuAW2o+3RwOqO7o?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2025 18:41:46.6980 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 652dc394-2873-4c4c-2127-08dd8428d542
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003447.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5997
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,85 +59,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Gangs are sets of userqs that schedule together.  You
-specify the primary and secondary queues and the scheduler
-will make sure they always run at the same time.
+Add missing DTN logs for DCN401 to improve debugging tools.  There is no
+DPP gamut_remap log: from `ddp_set_gamut_remap = NULL`, there is no DPP
+gamut_remap. Also, log doesn't say anything yet about the position of
+MPC shaper+3dlut+blndlut, that can be set before or after blending in
+this hw version. This moviment is also the reason that there is no log
+for DPP shaper+3dlut+blndlut too.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 52 +++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+ .../amd/display/dc/dpp/dcn401/dcn401_dpp.c    |  16 ++-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 120 ++++++++++++++++++
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |   3 +
+ .../amd/display/dc/hwss/dcn401/dcn401_init.c  |   1 +
+ .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    |  32 ++++-
+ 5 files changed, 169 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index e56fae10400db..95e1495d9a24c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -561,6 +561,51 @@ amdgpu_userq_query_status(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
+index 97bf26fa3573..b89e35d2bc0c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
+@@ -44,12 +44,24 @@
+ 
+ void dpp401_read_state(struct dpp *dpp_base, struct dcn_dpp_state *s)
+ {
+-	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
++	struct dcn401_dpp *dpp = TO_DCN401_DPP(dpp_base);
++	uint32_t gamcor_lut_mode;
+ 
+ 	REG_GET(DPP_CONTROL,
+ 		DPP_CLOCK_ENABLE, &s->is_enabled);
++	// Pre-degamma (ROM)
++	REG_GET_2(PRE_DEGAM,
++		  PRE_DEGAM_MODE, &s->pre_dgam_mode,
++		  PRE_DEGAM_SELECT, &s->pre_dgam_select);
+ 
+-	// TODO: Implement for DCN4
++	// Gamma Correction (RAM)
++	REG_GET(CM_GAMCOR_CONTROL,
++		CM_GAMCOR_MODE_CURRENT, &s->gamcor_mode);
++	if (s->gamcor_mode) {
++		REG_GET(CM_GAMCOR_CONTROL, CM_GAMCOR_SELECT_CURRENT, &gamcor_lut_mode);
++		if (!gamcor_lut_mode)
++			s->gamcor_mode = LUT_RAM_A; // Otherwise, LUT_RAM_B
++	}
  }
  
-+static int
-+amdgpu_userq_create_gang(struct drm_file *filp, union drm_amdgpu_userq *args)
+ void dpp401_dpp_setup(
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 8611eb9607df..76043caaadbc 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -32,6 +32,7 @@
+ #include "dcn32/dcn32_hwseq.h"
+ #include "dcn401_hwseq.h"
+ #include "dcn401/dcn401_resource.h"
++#include "dcn401/dcn401_mpc.h"
+ #include "dc_state_priv.h"
+ #include "link_enc_cfg.h"
+ 
+@@ -78,6 +79,125 @@ static void dcn401_initialize_min_clocks(struct dc *dc)
+ 			true);
+ }
+ 
++void dcn401_log_color_state(struct dc *dc,
++			   struct dc_log_buffer_ctx *log_ctx)
 +{
-+	struct amdgpu_usermode_queue *primary_queue, *secondary_queue;
-+	struct amdgpu_fpriv *fpriv = filp->driver_priv;
-+	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
-+	const struct amdgpu_userq_funcs *userq_funcs;
-+	struct amdgpu_device *adev = uq_mgr->adev;
-+	int primary_queue_id = args->in_cg.primary_queue_id;
-+	int secondary_queue_id = args->in_cg.secondary_queue_id;
-+	int r;
++	struct dc_context *dc_ctx = dc->ctx;
++	struct resource_pool *pool = dc->res_pool;
++	int i;
 +
-+	mutex_lock(&uq_mgr->userq_mutex);
-+	primary_queue = amdgpu_userq_find(uq_mgr, primary_queue_id);
-+	if (!primary_queue) {
-+		dev_err(adev->dev, "Invalid gang primary queue id\n");
-+		mutex_unlock(&uq_mgr->userq_mutex);
-+		return -EINVAL;
-+	}
-+	if ((primary_queue->queue_type != AMDGPU_HW_IP_GFX) &&
-+	    (primary_queue->queue_type != AMDGPU_HW_IP_COMPUTE)) {
-+		dev_err(adev->dev, "Invalid gang primary queue type\n");
-+		mutex_unlock(&uq_mgr->userq_mutex);
-+		return -EINVAL;
-+	}
-+	secondary_queue = amdgpu_userq_find(uq_mgr, secondary_queue_id);
-+	if (!secondary_queue) {
-+		dev_err(adev->dev, "Invalid gang secondary queue id\n");
-+		mutex_unlock(&uq_mgr->userq_mutex);
-+		return -EINVAL;
-+	}
-+	if ((secondary_queue->queue_type != AMDGPU_HW_IP_GFX) &&
-+	    (secondary_queue->queue_type != AMDGPU_HW_IP_COMPUTE)) {
-+		dev_err(adev->dev, "Invalid gang secondary queue type\n");
-+		mutex_unlock(&uq_mgr->userq_mutex);
-+		return -EINVAL;
-+	}
++	DTN_INFO("DPP:  DGAM ROM  DGAM ROM type  DGAM LUT  SHAPER mode"
++		 "  3DLUT mode  3DLUT bit depth  3DLUT size  RGAM mode"
++		 "  GAMUT adjust  "
++		 "C11        C12        C13        C14        "
++		 "C21        C22        C23        C24        "
++		 "C31        C32        C33        C34        \n");
 +
-+	userq_funcs = adev->userq_funcs[primary_queue->queue_type];
-+	r = userq_funcs->set_gang(uq_mgr, primary_queue, secondary_queue);
-+	mutex_unlock(&uq_mgr->userq_mutex);
++	for (i = 0; i < pool->pipe_count; i++) {
++		struct dpp *dpp = pool->dpps[i];
++		struct dcn_dpp_state s = {0};
 +
-+	return r;
++		dpp->funcs->dpp_read_state(dpp, &s);
++
++		if (!s.is_enabled)
++			continue;
++
++		DTN_INFO("[%2d]:  %7x  %13s  %8s",
++			 dpp->inst,
++			 s.pre_dgam_mode,
++			 (s.pre_dgam_select == 0) ? "sRGB" :
++			  ((s.pre_dgam_select == 1) ? "Gamma 2.2" :
++			  ((s.pre_dgam_select == 2) ? "Gamma 2.4" :
++			  ((s.pre_dgam_select == 3) ? "Gamma 2.6" :
++			  ((s.pre_dgam_select == 4) ? "BT.709" :
++			  ((s.pre_dgam_select == 5) ? "PQ" :
++			  ((s.pre_dgam_select == 6) ? "HLG" :
++						      "Unknown")))))),
++			 (s.gamcor_mode == 0) ? "Bypass" :
++			  ((s.gamcor_mode == 1) ? "RAM A" :
++						  "RAM B"));
++		DTN_INFO("\n");
++	}
++	DTN_INFO("\n");
++	DTN_INFO("DPP Color Caps: input_lut_shared:%d  icsc:%d"
++		 "  dgam_ram:%d  dgam_rom: srgb:%d,bt2020:%d,gamma2_2:%d,pq:%d,hlg:%d"
++		 "  post_csc:%d  gamcor:%d  dgam_rom_for_yuv:%d  3d_lut:%d"
++		 "  blnd_lut:%d  oscs:%d\n\n",
++		 dc->caps.color.dpp.input_lut_shared,
++		 dc->caps.color.dpp.icsc,
++		 dc->caps.color.dpp.dgam_ram,
++		 dc->caps.color.dpp.dgam_rom_caps.srgb,
++		 dc->caps.color.dpp.dgam_rom_caps.bt2020,
++		 dc->caps.color.dpp.dgam_rom_caps.gamma2_2,
++		 dc->caps.color.dpp.dgam_rom_caps.pq,
++		 dc->caps.color.dpp.dgam_rom_caps.hlg,
++		 dc->caps.color.dpp.post_csc,
++		 dc->caps.color.dpp.gamma_corr,
++		 dc->caps.color.dpp.dgam_rom_for_yuv,
++		 dc->caps.color.dpp.hw_3d_lut,
++		 dc->caps.color.dpp.ogam_ram,
++		 dc->caps.color.dpp.ocsc);
++
++	DTN_INFO("MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE"
++		 "  SHAPER mode  3DLUT mode  3DLUT bit-depth  3DLUT size  OGAM mode  OGAM LUT"
++		 "  GAMUT adjust  "
++		 "C11        C12        C13        C14        "
++		 "C21        C22        C23        C24        "
++		 "C31        C32        C33        C34        \n");
++
++	for (i = 0; i < pool->mpcc_count; i++) {
++		struct mpcc_state s = {0};
++
++		pool->mpc->funcs->read_mpcc_state(pool->mpc, i, &s);
++
++		if (s.opp_id != 0xf) {
++			mpc401_get_gamut_remap(pool->mpc, i,  &s.gamut_remap);
++
++			DTN_INFO("[%2d]:  %2xh  %2xh  %6xh  %4d  %10d  %7d  %12d  %4d  %11s %11s %16s %11s %10s %9s"
++				 "  %-12s  "
++				 "%010lld %010lld %010lld %010lld "
++				 "%010lld %010lld %010lld %010lld "
++				 "%010lld %010lld %010lld %010lld\n",
++				i, s.opp_id, s.dpp_id, s.bot_mpcc_id,
++				s.mode, s.alpha_mode, s.pre_multiplied_alpha, s.overlap_only,
++				s.idle,
++				(s.shaper_lut_mode == 1) ? "RAM A" :
++				 ((s.shaper_lut_mode == 2) ? "RAM B" :
++							     "Bypass"),
++				(s.lut3d_mode == 1) ? "RAM A" :
++				 ((s.lut3d_mode == 2) ? "RAM B" :
++							"Bypass"),
++				(s.lut3d_bit_depth <= 0) ? "12-bit" : "10-bit",
++				(s.lut3d_size == 0) ? "17x17x17" : "9x9x9",
++				(s.rgam_mode == 0) ? "Bypass" :
++				 ((s.rgam_mode == 2) ? "RAM" :
++						       "Unknown"),
++				(s.rgam_mode == 1) ? "B" : "A",
++				(s.gamut_remap.gamut_adjust_type == 0) ? "Bypass" :
++					((s.gamut_remap.gamut_adjust_type == 1) ? "HW" :
++										  "SW"),
++				s.gamut_remap.temperature_matrix[0].value,
++				s.gamut_remap.temperature_matrix[1].value,
++				s.gamut_remap.temperature_matrix[2].value,
++				s.gamut_remap.temperature_matrix[3].value,
++				s.gamut_remap.temperature_matrix[4].value,
++				s.gamut_remap.temperature_matrix[5].value,
++				s.gamut_remap.temperature_matrix[6].value,
++				s.gamut_remap.temperature_matrix[7].value,
++				s.gamut_remap.temperature_matrix[8].value,
++				s.gamut_remap.temperature_matrix[9].value,
++				s.gamut_remap.temperature_matrix[10].value,
++				s.gamut_remap.temperature_matrix[11].value);
++		}
++	}
++	DTN_INFO("\n");
++	DTN_INFO("MPC Color Caps: gamut_remap:%d, 3dlut:%d, ogam_ram:%d, ocsc:%d\n\n",
++		 dc->caps.color.mpc.gamut_remap,
++		 dc->caps.color.mpc.num_3dluts,
++		 dc->caps.color.mpc.ogam_ram,
++		 dc->caps.color.mpc.ocsc);
 +}
 +
- int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
- 		       struct drm_file *filp)
+ void dcn401_program_gamut_remap(struct pipe_ctx *pipe_ctx)
  {
-@@ -611,6 +656,13 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
- 		if (r)
- 			DRM_ERROR("Failed to query usermode queue status\n");
- 		break;
-+	case AMDGPU_USERQ_OP_CREATE_GANG:
-+		if (args->in_cg.pad)
-+			return -EINVAL;
-+		r = amdgpu_userq_create_gang(filp, args);
-+		if (r)
-+			DRM_ERROR("Failed to create usermode queue gang\n");
-+		break;
- 	default:
- 		DRM_DEBUG_DRIVER("Invalid user queue op specified: %d\n", args->in.op);
- 		return -EINVAL;
+ 	unsigned int i = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
+index ce65b4f6c672..5a6c6c6ff66e 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
+@@ -35,6 +35,9 @@ void dcn401_program_gamut_remap(struct pipe_ctx *pipe_ctx);
+ 
+ void dcn401_init_hw(struct dc *dc);
+ 
++void dcn401_log_color_state(struct dc *dc,
++			    struct dc_log_buffer_ctx *log_ctx);
++
+ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
+ 				const struct dc_plane_state *plane_state);
+ bool dcn401_set_output_transfer_func(struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
+index fe7aceb2f510..839bafa1df34 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
+@@ -50,6 +50,7 @@ static const struct hw_sequencer_funcs dcn401_funcs = {
+ 	.setup_stereo = dcn10_setup_stereo,
+ 	.set_avmute = dcn30_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
++	.log_color_state = dcn401_log_color_state,
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
+index 98cf0cbd59ba..ba36465e0b79 100644
+--- a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
+@@ -575,8 +575,38 @@ void mpc401_get_gamut_remap(struct mpc *mpc,
+ 		arr_reg_val, ARRAY_SIZE(arr_reg_val));
+ }
+ 
++static void mpc401_read_mpcc_state(struct mpc *mpc,
++				   int mpcc_inst,
++				   struct mpcc_state *s)
++{
++	struct dcn401_mpc *mpc401 = TO_DCN401_MPC(mpc);
++
++	REG_GET(MPCC_OPP_ID[mpcc_inst], MPCC_OPP_ID, &s->opp_id);
++	REG_GET(MPCC_TOP_SEL[mpcc_inst], MPCC_TOP_SEL, &s->dpp_id);
++	REG_GET(MPCC_BOT_SEL[mpcc_inst], MPCC_BOT_SEL, &s->bot_mpcc_id);
++	REG_GET_4(MPCC_CONTROL[mpcc_inst], MPCC_MODE, &s->mode,
++			MPCC_ALPHA_BLND_MODE, &s->alpha_mode,
++			MPCC_ALPHA_MULTIPLIED_MODE, &s->pre_multiplied_alpha,
++			MPCC_BLND_ACTIVE_OVERLAP_ONLY, &s->overlap_only);
++	REG_GET_2(MPCC_STATUS[mpcc_inst], MPCC_IDLE, &s->idle,
++			MPCC_BUSY, &s->busy);
++
++	/* Color blocks state */
++	REG_GET(MPCC_MCM_SHAPER_CONTROL[mpcc_inst], MPCC_MCM_SHAPER_MODE_CURRENT, &s->shaper_lut_mode);
++	REG_GET(MPCC_MCM_3DLUT_MODE[mpcc_inst],
++		MPCC_MCM_3DLUT_MODE_CURRENT,  &s->lut3d_mode);
++	REG_GET(MPCC_MCM_3DLUT_READ_WRITE_CONTROL[mpcc_inst],
++		MPCC_MCM_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
++	REG_GET(MPCC_MCM_3DLUT_MODE[mpcc_inst], MPCC_MCM_3DLUT_SIZE, &s->lut3d_size);
++	REG_GET(MPCC_MCM_1DLUT_CONTROL[mpcc_inst],
++		MPCC_MCM_1DLUT_MODE_CURRENT, &s->rgam_mode);
++	REG_GET(MPCC_MCM_1DLUT_CONTROL[mpcc_inst],
++		MPCC_MCM_1DLUT_SELECT_CURRENT, &s->rgam_lut);
++
++}
++
+ static const struct mpc_funcs dcn401_mpc_funcs = {
+-	.read_mpcc_state = mpc1_read_mpcc_state,
++	.read_mpcc_state = mpc401_read_mpcc_state,
+ 	.insert_plane = mpc1_insert_plane,
+ 	.remove_mpcc = mpc1_remove_mpcc,
+ 	.mpc_init = mpc32_mpc_init,
 -- 
-2.49.0
+2.47.2
 
