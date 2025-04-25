@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A19B8C369D1
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 10:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E217C369DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 10:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E988510E939;
-	Fri, 25 Apr 2025 10:20:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5820210E913;
+	Fri, 25 Apr 2025 10:21:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="E9wy1yTm";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WA6nFysl";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF1910E908;
- Fri, 25 Apr 2025 10:20:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF2510E901;
+ Fri, 25 Apr 2025 10:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=3k6wnWtfk37tpvOXzWyYJid0WKTvAmuclOxrOrk8zyE=; b=E9wy1yTmcAiSYnDn8+NYV/ULoz
- 46BTib6Xtk4s3xsWByU3VmCnGgu5dSpLyTTQ9rxx+rGQDA1MHE6OIKRoK51VDVWQZI97DPUlql5wx
- ltZFKhI2dPogkO9JRadtOMLAsoBEPpun07ON3JQ/oCqPOnYqG6SHuFOE3WNLDiQDcPEeiJr4vdr6Q
- Q5xbCbhAYpiHb5empDEiFR0gY+fjOlm9U9fKAyMeJZh2I7pazBOkIylDFM+90DbQgmDCxysf3k2XE
- JElZxE0yk/gsjA9A02r2UoGgIV5E96xmF/tCi0J8xPkNceu31pZlt+QOqLSqtVdkSULaiEUazadfS
- 5fWsL0aQ==;
+ bh=YUpXISaD8FCOKbvB+o4N/dI2f61rZTbwpzXIFlKxA48=; b=WA6nFyslkbp5btyN005XXfJfDj
+ H8TYTaoaNnOUmQjlWP9y6QXb/j8NaI3SL9djXAtXZmlKzpmwUbhw9XiFDTK1ir0mF8pxdV8SF4S7/
+ tHpkbtqzv25g0vLU33SdNo/kQVWU8aHbRiltpZX5tp2QD2Rbo/Ygu1vS7KKU3R/QWHyCtSdTtgzfP
+ u2lrxYbru4sfs/IA6cVvGBXOTLF2/Z5eIxW8xNFz9mRiyCf/ECyWG2iFSpBI7ZDmZkQnsUOtxl6v3
+ CTRnAu+ACHB9llg1HOTB/YDMyYjC7X5DxSqeNTktW1P9ACFO4qLeNRoRcvWuFVsEzu39zaynkQX1p
+ HiEZNzYQ==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1u8GAk-008GrZ-5K; Fri, 25 Apr 2025 12:20:42 +0200
+ id 1u8GAt-008Gt0-Lr; Fri, 25 Apr 2025 12:20:51 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -39,11 +39,11 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Subject: [RFC v4 01/16] drm/sched: Add some scheduling quality unit tests
-Date: Fri, 25 Apr 2025 11:20:19 +0100
-Message-ID: <20250425102034.85133-2-tvrtko.ursulin@igalia.com>
+ Philipp Stanner <phasta@kernel.org>
+Subject: [RFC v4 14/16] drm/sched: Remove FIFO and RR and simplify to a single
+ run queue
+Date: Fri, 25 Apr 2025 11:20:32 +0100
+Message-ID: <20250425102034.85133-15-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
 References: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
@@ -64,761 +64,555 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To make evaluating different scheduling policies easier (no need for
-external benchmarks) and perfectly repetable, lets add some synthetic
-workloads built upon mock scheduler unit test infrastructure.
+If the new fair policy is at least as good as FIFO and we can afford to
+remove round-robin, we can simplify the scheduler code by making the
+scheduler to run queue relationship always 1:1 and remove some code.
 
-Focus is on two parallel clients (two threads) submitting different job
-patterns and logging their progress and some overall metrics. This is
-repeated for both scheduler credit limit 1 and 2.
-
-Example test output:
-
-  Normal and low:
-                    pct1 cps1 qd1;  pct2 cps2 qd2
-        +     0ms:   0     0    0;   0     0    0
-        +   104ms: 100  1240  112; 100  1240  125
-        +   209ms: 100     0   99; 100     0  125
-        +   313ms: 100     0   86; 100     0  125
-        +   419ms: 100     0   73; 100     0  125
-        +   524ms: 100     0   60; 100     0  125
-        +   628ms: 100     0   47; 100     0  125
-        +   731ms: 100     0   34; 100     0  125
-        +   836ms: 100     0   21; 100     0  125
-        +   939ms: 100     0    8; 100     0  125
-        +  1043ms:               ; 100     0  120
-        +  1147ms:               ; 100     0  107
-        +  1252ms:               ; 100     0   94
-        +  1355ms:               ; 100     0   81
-        +  1459ms:               ; 100     0   68
-        +  1563ms:               ; 100     0   55
-        +  1667ms:               ; 100     0   42
-        +  1771ms:               ; 100     0   29
-        +  1875ms:               ; 100     0   16
-        +  1979ms:               ; 100     0    3
-    0: prio=normal sync=0 elapsed_ms=1015ms (ideal_ms=1000ms) cycle_time(min,avg,max)=134,222,978 us latency_time(min,avg,max)=134,222,978
-us
-    1: prio=low sync=0 elapsed_ms=2009ms (ideal_ms=1000ms) cycle_time(min,avg,max)=134,215,806 us latency_time(min,avg,max)=134,215,806 us
-
-There we have two clients represented in the two respective columns, with
-their progress logged roughly every 100 milliseconds. The metrics are:
-
- - pct - Percentage progress of the job submit part
- - cps - Cycles per second
- - qd  - Queue depth - number of submitted unfinished jobs
-
-The cycles per second metric is inherent to the fact that workload
-patterns are a data driven cycling sequence of:
-
- - Submit 1..N jobs
- - Wait for Nth job to finish (optional)
- - Sleep (optional)
- - Repeat from start
-
-In this particular example we have a normal priority and a low priority
-clients both spamming the scheduler with 8ms jobs with no sync and no
-sleeping. Hence they build a very deep queues and we can see how the low
-priority client is completely starved until the normal finishes.
-
-Note that the PCT and CPS metrics are irrelevant for "unsync" clients
-since they manage to complete all of their cycles instantenuously.
-
-A different example would be:
-
-  Heavy and interactive:
-                    pct1 cps1 qd1;  pct2 cps2 qd2
-        +     0ms:   0     0    0;   0     0    0
-        +   106ms:   5    40    3;   5    40    0
-        +   209ms:   9    40    0;   9    40    0
-        +   314ms:  14    50    3;  14    50    0
-        +   417ms:  18    40    0;  18    40    0
-        +   522ms:  23    50    3;  23    50    0
-        +   625ms:  27    40    0;  27    40    1
-        +   729ms:  32    50    0;  32    50    0
-        +   833ms:  36    40    1;  36    40    0
-        +   937ms:  40    40    0;  40    40    0
-        +  1041ms:  45    50    0;  45    50    0
-        +  1146ms:  49    40    1;  49    40    1
-        +  1249ms:  54    50    0;  54    50    0
-        +  1353ms:  58    40    1;  58    40    0
-        +  1457ms:  62    40    0;  62    40    1
-        +  1561ms:  67    50    0;  67    50    0
-        +  1665ms:  71    40    1;  71    40    0
-        +  1772ms:  76    50    0;  76    50    0
-        +  1877ms:  80    40    1;  80    40    0
-        +  1981ms:  84    40    0;  84    40    0
-        +  2085ms:  89    50    0;  89    50    0
-        +  2189ms:  93    40    1;  93    40    0
-        +  2293ms:  97    40    0;  97    40    1
-
-In this case client one is submitting 3x 2.5ms jobs, waiting for the 3rd
-and then sleeping for 2.5ms (in effect causing 75% GPU load, minus the
-overheads). Second client is submitting 1ms jobs, waiting for each to
-finish and sleeping for 9ms (effective 10% GPU load). Here we can see
-the PCT and CPS reflecting real progress.
+Also, now that the FIFO policy is gone the tree of entities is not a FIFO
+tree any more so rename it to just the tree.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
- .../gpu/drm/scheduler/tests/tests_scheduler.c | 631 ++++++++++++++++++
- 2 files changed, 633 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  23 ++--
+ drivers/gpu/drm/scheduler/sched_entity.c   |  29 +----
+ drivers/gpu/drm/scheduler/sched_internal.h |   9 +-
+ drivers/gpu/drm/scheduler/sched_main.c     | 133 +++++----------------
+ drivers/gpu/drm/scheduler/sched_rq.c       |  53 +++-----
+ include/drm/gpu_scheduler.h                |  13 +-
+ 6 files changed, 62 insertions(+), 198 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/tests/Makefile b/drivers/gpu/drm/scheduler/tests/Makefile
-index 5bf707bad373..9ec185fbbc15 100644
---- a/drivers/gpu/drm/scheduler/tests/Makefile
-+++ b/drivers/gpu/drm/scheduler/tests/Makefile
-@@ -2,6 +2,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index acb21fc8b3ce..9440af58073b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -459,25 +459,22 @@ drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
  
- drm-sched-tests-y := \
-         mock_scheduler.o \
--        tests_basic.o
-+        tests_basic.o \
-+        tests_scheduler.o
+ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+ {
++	struct drm_sched_rq *rq = sched->rq;
++	struct drm_sched_entity *s_entity;
+ 	struct drm_sched_job *s_job;
+-	struct drm_sched_entity *s_entity = NULL;
+-	int i;
  
- obj-$(CONFIG_DRM_SCHED_KUNIT_TEST) += drm-sched-tests.o
-diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-new file mode 100644
-index 000000000000..b66321ef7abe
---- /dev/null
-+++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-@@ -0,0 +1,631 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2025 Valve Corporation */
+ 	/* Signal all jobs not yet scheduled */
+-	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+-		struct drm_sched_rq *rq = sched->sched_rq[i];
+-		spin_lock(&rq->lock);
+-		list_for_each_entry(s_entity, &rq->entities, list) {
+-			while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
+-				struct drm_sched_fence *s_fence = s_job->s_fence;
++	spin_lock(&rq->lock);
++	list_for_each_entry(s_entity, &rq->entities, list) {
++		while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
++			struct drm_sched_fence *s_fence = s_job->s_fence;
+ 
+-				dma_fence_signal(&s_fence->scheduled);
+-				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
+-				dma_fence_signal(&s_fence->finished);
+-			}
++			dma_fence_signal(&s_fence->scheduled);
++			dma_fence_set_error(&s_fence->finished, -EHWPOISON);
++			dma_fence_signal(&s_fence->finished);
+ 		}
+-		spin_unlock(&rq->lock);
+ 	}
++	spin_unlock(&rq->lock);
+ 
+ 	/* Signal all jobs already scheduled to HW */
+ 	list_for_each_entry(s_job, &sched->pending_list, list) {
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 4481d5645138..d149df2a2050 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -98,8 +98,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 	entity->guilty = guilty;
+ 	entity->num_sched_list = num_sched_list;
+ 	entity->priority = priority;
+-	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
+-			      DRM_SCHED_PRIORITY_KERNEL : priority;
+ 	/*
+ 	 * It's perfectly valid to initialize an entity without having a valid
+ 	 * scheduler attached. It's just not valid to use the scheduler before it
+@@ -109,30 +107,14 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+ 
+-	if (num_sched_list && !sched_list[0]->sched_rq) {
++	if (num_sched_list && !sched_list[0]->rq) {
+ 		/* Since every entry covered by num_sched_list
+ 		 * should be non-NULL and therefore we warn drivers
+ 		 * not to do this and to fix their DRM calling order.
+ 		 */
+ 		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+ 	} else if (num_sched_list) {
+-		enum drm_sched_priority p = entity->priority;
+-
+-		/*
+-		 * The "priority" of an entity cannot exceed the number of
+-		 * run-queues of a scheduler. Protect against num_rqs being 0,
+-		 * by converting to signed. Choose the lowest priority
+-		 * available.
+-		 */
+-		if (p >= sched_list[0]->num_user_rqs) {
+-			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num_user_rqs:%u\n",
+-				p, sched_list[0]->num_user_rqs);
+-			p = max_t(s32,
+-				 (s32)sched_list[0]->num_user_rqs - 1,
+-				 (s32)DRM_SCHED_PRIORITY_KERNEL);
+-			entity->priority = p;
+-		}
+-		entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
++		entity->rq = sched_list[0]->rq;
+ 	}
+ 
+ 	init_completion(&entity->entity_idle);
+@@ -580,7 +562,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 
+ 	spin_lock(&entity->lock);
+ 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+-	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
++	rq = sched ? sched->rq : NULL;
+ 	if (rq != entity->rq) {
+ 		drm_sched_rq_remove_entity(entity->rq, entity);
+ 		entity->rq = rq;
+@@ -604,7 +586,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ {
+ 	struct drm_sched_entity *entity = sched_job->entity;
+ 	bool first;
+-	ktime_t submit_ts;
+ 
+ 	trace_drm_sched_job(sched_job, entity);
+ 	atomic_inc(entity->rq->sched->score);
+@@ -613,16 +594,14 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 	/*
+ 	 * After the sched_job is pushed into the entity queue, it may be
+ 	 * completed and freed up at any time. We can no longer access it.
+-	 * Make sure to set the submit_ts first, to avoid a race.
+ 	 */
+-	sched_job->submit_ts = submit_ts = ktime_get();
+ 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
+ 
+ 	/* first job wakes up scheduler */
+ 	if (first) {
+ 		struct drm_gpu_scheduler *sched;
+ 
+-		sched = drm_sched_rq_add_entity(entity, submit_ts);
++		sched = drm_sched_rq_add_entity(entity);
+ 		if (sched)
+ 			drm_sched_wakeup(sched);
+ 	}
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index b675941b58a0..2d55f265a092 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -15,13 +15,6 @@ struct drm_sched_entity_stats {
+ 	u64		vruntime;
+ };
+ 
+-/* Used to choose between FIFO and RR job-scheduling */
+-extern int drm_sched_policy;
+-
+-#define DRM_SCHED_POLICY_RR	0
+-#define DRM_SCHED_POLICY_FIFO	1
+-#define DRM_SCHED_POLICY_FAIR	2
+-
+ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+ 			 struct drm_sched_entity *entity);
+ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+@@ -32,7 +25,7 @@ struct drm_sched_entity *
+ drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
+ 			   struct drm_sched_rq *rq);
+ struct drm_gpu_scheduler *
+-drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
++drm_sched_rq_add_entity(struct drm_sched_entity *entity);
+ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+ 				struct drm_sched_entity *entity);
+ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index d63c10c19f21..a2be0a097e75 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -83,15 +83,6 @@
+ #define CREATE_TRACE_POINTS
+ #include "gpu_scheduler_trace.h"
+ 
+-int drm_sched_policy = DRM_SCHED_POLICY_FAIR;
+-
+-/**
+- * DOC: sched_policy (int)
+- * Used to override default entities scheduling policy in a run queue.
+- */
+-MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entities on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " = Round Robin, " __stringify(DRM_SCHED_POLICY_FIFO) " = FIFO, " __stringify(DRM_SCHED_POLICY_FAIR) " = Fair (default).");
+-module_param_named(sched_policy, drm_sched_policy, int, 0444);
+-
+ static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sched)
+ {
+ 	u32 credits;
+@@ -835,34 +826,6 @@ void drm_sched_wakeup(struct drm_gpu_scheduler *sched)
+ 	drm_sched_run_job_queue(sched);
+ }
+ 
+-/**
+- * drm_sched_select_entity - Select next entity to process
+- *
+- * @sched: scheduler instance
+- *
+- * Return an entity to process or NULL if none are found.
+- *
+- * Note, that we break out of the for-loop when "entity" is non-null, which can
+- * also be an error-pointer--this assures we don't process lower priority
+- * run-queues. See comments in the respectively called functions.
+- */
+-static struct drm_sched_entity *
+-drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+-{
+-	struct drm_sched_entity *entity = NULL;
+-	int i;
+-
+-	/* Start with the highest priority.
+-	 */
+-	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+-		entity = drm_sched_rq_select_entity(sched, sched->sched_rq[i]);
+-		if (entity)
+-			break;
+-	}
+-
+-	return IS_ERR(entity) ? NULL : entity;
+-}
+-
+ /**
+  * drm_sched_get_finished_job - fetch the next finished job to be destroyed
+  *
+@@ -979,8 +942,8 @@ static void drm_sched_run_job_work(struct work_struct *w)
+ 	int r;
+ 
+ 	/* Find entity with a ready job */
+-	entity = drm_sched_select_entity(sched);
+-	if (!entity)
++	entity = drm_sched_rq_select_entity(sched, sched->rq);
++	if (IS_ERR_OR_NULL(entity))
+ 		return;	/* No more work */
+ 
+ 	sched_job = drm_sched_entity_pop_job(entity);
+@@ -1045,8 +1008,6 @@ static struct workqueue_struct *drm_sched_alloc_wq(const char *name)
+  */
+ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_args *args)
+ {
+-	int i;
+-
+ 	sched->ops = args->ops;
+ 	sched->credit_limit = args->credit_limit;
+ 	sched->name = args->name;
+@@ -1056,13 +1017,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 	sched->score = args->score ? args->score : &sched->_score;
+ 	sched->dev = args->dev;
+ 
+-	if (args->num_rqs > DRM_SCHED_PRIORITY_COUNT) {
+-		/* This is a gross violation--tell drivers what the  problem is.
+-		 */
+-		dev_err(sched->dev, "%s: num_rqs cannot be greater than DRM_SCHED_PRIORITY_COUNT\n",
+-			__func__);
+-		return -EINVAL;
+-	} else if (sched->sched_rq) {
++	if (sched->rq) {
+ 		/* Not an error, but warn anyway so drivers can
+ 		 * fine-tune their DRM calling order, and return all
+ 		 * is good.
+@@ -1082,21 +1037,11 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 		sched->own_submit_wq = true;
+ 	}
+ 
+-	sched->num_user_rqs = args->num_rqs;
+-	sched->num_rqs = drm_sched_policy != DRM_SCHED_POLICY_FAIR ?
+-			 args->num_rqs : 1;
+-	sched->sched_rq = kmalloc_array(sched->num_rqs,
+-					sizeof(*sched->sched_rq),
+-					GFP_KERNEL | __GFP_ZERO);
+-	if (!sched->sched_rq)
++	sched->rq = kmalloc(sizeof(*sched->rq), GFP_KERNEL | __GFP_ZERO);
++	if (!sched->rq)
+ 		goto Out_check_own;
+ 
+-	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+-		sched->sched_rq[i] = kzalloc(sizeof(*sched->sched_rq[i]), GFP_KERNEL);
+-		if (!sched->sched_rq[i])
+-			goto Out_unroll;
+-		drm_sched_rq_init(sched, sched->sched_rq[i]);
+-	}
++	drm_sched_rq_init(sched, sched->rq);
+ 
+ 	init_waitqueue_head(&sched->job_scheduled);
+ 	INIT_LIST_HEAD(&sched->pending_list);
+@@ -1111,12 +1056,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 
+ 	sched->ready = true;
+ 	return 0;
+-Out_unroll:
+-	for (--i ; i >= DRM_SCHED_PRIORITY_KERNEL; i--)
+-		kfree(sched->sched_rq[i]);
+ 
+-	kfree(sched->sched_rq);
+-	sched->sched_rq = NULL;
+ Out_check_own:
+ 	if (sched->own_submit_wq)
+ 		destroy_workqueue(sched->submit_wq);
+@@ -1148,25 +1088,21 @@ EXPORT_SYMBOL(drm_sched_init);
+  */
+ void drm_sched_fini(struct drm_gpu_scheduler *sched)
+ {
 +
-+#include <linux/delay.h>
-+#include <linux/kthread.h>
-+#include <linux/ktime.h>
-+
-+#include "sched_tests.h"
-+
-+/*
-+ * DRM scheduler scheduler tests exercise load balancing decisions ie. entity
-+ * selection logic.
-+ */
-+
-+static int drm_sched_scheduler_init(struct kunit *test)
-+{
-+	struct drm_mock_scheduler *sched;
-+
-+	sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
-+	sched->base.credit_limit = 1;
-+
-+	test->priv = sched;
-+
-+	return 0;
-+}
-+
-+static int drm_sched_scheduler_init2(struct kunit *test)
-+{
-+	struct drm_mock_scheduler *sched;
-+
-+	sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
-+	sched->base.credit_limit = 2;
-+
-+	test->priv = sched;
-+
-+	return 0;
-+}
-+
-+static void drm_sched_scheduler_exit(struct kunit *test)
-+{
-+	struct drm_mock_scheduler *sched = test->priv;
-+
-+	drm_mock_sched_fini(sched);
-+}
-+
-+static void drm_sched_scheduler_queue_overhead(struct kunit *test)
-+{
-+	struct drm_mock_scheduler *sched = test->priv;
-+	struct drm_mock_sched_entity *entity;
-+	const unsigned int job_us = 1000;
-+	const unsigned int jobs = 1000;
-+	const unsigned int total_us = jobs * job_us;
-+	struct drm_mock_sched_job *job, *first;
-+	ktime_t start, end;
-+	bool done;
-+	int i;
-+
-+	/*
-+	 * Deep queue job at a time processing (single credit).
-+	 *
-+	 * This measures the overhead of picking and processing a job at a time
-+	 * by comparing the ideal total "GPU" time of all submitted jobs versus
-+	 * the time actually taken.
-+	 */
-+
-+	KUNIT_ASSERT_EQ(test, sched->base.credit_limit, 1);
-+
-+	entity = drm_mock_sched_entity_new(test,
-+					   DRM_SCHED_PRIORITY_NORMAL,
-+					   sched);
-+
-+	for (i = 0; i <= jobs; i++) {
-+		job = drm_mock_sched_job_new(test, entity);
-+		if (i == 0)
-+			first = job; /* Extra first job blocks the queue */
-+		else
-+			drm_mock_sched_job_set_duration_us(job, job_us);
-+		drm_mock_sched_job_submit(job);
-+	}
-+
-+	done = drm_mock_sched_job_wait_scheduled(first, HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+
-+	start = ktime_get();
-+	i = drm_mock_sched_advance(sched, 1); /* Release the queue */
-+	KUNIT_ASSERT_EQ(test, i, 1);
-+
-+	done = drm_mock_sched_job_wait_finished(job,
-+						usecs_to_jiffies(total_us) * 5);
-+	end = ktime_get();
-+	KUNIT_ASSERT_TRUE(test, done);
-+
-+	pr_info("Expected %uus, actual %lldus\n",
-+		total_us,
-+		ktime_to_us(ktime_sub(end, start)));
-+
-+	drm_mock_sched_entity_free(entity);
-+}
-+
-+static void drm_sched_scheduler_ping_pong(struct kunit *test)
-+{
-+	struct drm_mock_sched_job *job, *first, *prev = NULL;
-+	struct drm_mock_scheduler *sched = test->priv;
-+	struct drm_mock_sched_entity *entity[2];
-+	const unsigned int job_us = 1000;
-+	const unsigned int jobs = 1000;
-+	const unsigned int total_us = jobs * job_us;
-+	ktime_t start, end;
-+	bool done;
-+	int i;
-+
-+	/*
-+	 * Two entitites in inter-dependency chain.
-+	 *
-+	 * This measures the overhead of picking and processing a job at a time,
-+	 * where each job depends on the previous one from the diffferent
-+	 * entity, by comparing the ideal total "GPU" time of all submitted jobs
-+	 * versus the time actually taken.
-+	 */
-+
-+	KUNIT_ASSERT_EQ(test, sched->base.credit_limit, 1);
-+
-+	for (i = 0; i < ARRAY_SIZE(entity); i++)
-+		entity[i] = drm_mock_sched_entity_new(test,
-+						      DRM_SCHED_PRIORITY_NORMAL,
-+						      sched);
-+
-+	for (i = 0; i <= jobs; i++) {
-+		job = drm_mock_sched_job_new(test, entity[i & 1]);
-+		if (i == 0)
-+			first = job; /* Extra first job blocks the queue */
-+		else
-+			drm_mock_sched_job_set_duration_us(job, job_us);
-+		if (prev)
-+			drm_sched_job_add_dependency(&job->base,
-+						     dma_fence_get(&prev->base.s_fence->finished));
-+		drm_mock_sched_job_submit(job);
-+		prev = job;
-+	}
-+
-+	done = drm_mock_sched_job_wait_scheduled(first, HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+
-+	start = ktime_get();
-+	i = drm_mock_sched_advance(sched, 1); /* Release the queue */
-+	KUNIT_ASSERT_EQ(test, i, 1);
-+
-+	done = drm_mock_sched_job_wait_finished(job,
-+						usecs_to_jiffies(total_us) * 5);
-+	end = ktime_get();
-+	KUNIT_ASSERT_TRUE(test, done);
-+
-+	pr_info("Expected %uus, actual %lldus\n",
-+		total_us,
-+		ktime_to_us(ktime_sub(end, start)));
-+
-+	for (i = 0; i < ARRAY_SIZE(entity); i++)
-+		drm_mock_sched_entity_free(entity[i]);
-+}
-+
-+static struct kunit_case drm_sched_scheduler_overhead_tests[] = {
-+	KUNIT_CASE_SLOW(drm_sched_scheduler_queue_overhead),
-+	KUNIT_CASE_SLOW(drm_sched_scheduler_ping_pong),
-+	{}
-+};
-+
-+static struct kunit_suite drm_sched_scheduler_overhead = {
-+	.name = "drm_sched_scheduler_overhead_tests",
-+	.init = drm_sched_scheduler_init,
-+	.exit = drm_sched_scheduler_exit,
-+	.test_cases = drm_sched_scheduler_overhead_tests,
-+};
-+
-+struct drm_sched_client_params {
-+	enum drm_sched_priority priority;
-+	unsigned int job_cnt;
-+	unsigned int job_us;
-+	unsigned int wait_us;
-+	bool sync;
-+};
-+
-+struct drm_sched_test_params {
-+	const char *description;
-+	struct drm_sched_client_params client[2];
-+};
-+
-+static const struct drm_sched_test_params drm_sched_cases[] = {
-+	{
-+		.description = "Normal and normal",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 8000,
-+			.wait_us = 0,
-+			.sync = false,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 8000,
-+			.wait_us = 0,
-+			.sync = false,
-+		},
-+	},
-+	{
-+		.description = "Normal and low",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 8000,
-+			.wait_us = 0,
-+			.sync = false,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_LOW,
-+			.job_cnt = 1,
-+			.job_us = 8000,
-+			.wait_us = 0,
-+			.sync = false,
-+		},
-+	},
-+	{
-+		.description = "High and normal",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_HIGH,
-+			.job_cnt = 1,
-+			.job_us = 8000,
-+			.wait_us = 0,
-+			.sync = false,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 8000,
-+			.wait_us = 0,
-+			.sync = false,
-+		},
-+	},
-+	{
-+		.description = "High and low",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_HIGH,
-+			.job_cnt = 1,
-+			.job_us = 8000,
-+			.wait_us = 0,
-+			.sync = false,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_LOW,
-+			.job_cnt = 1,
-+			.job_us = 8000,
-+			.wait_us = 0,
-+			.sync = false,
-+		},
-+	},
-+	{
-+		.description = "50 and 50",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 1500,
-+			.wait_us = 1500,
-+			.sync = true,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 2500,
-+			.wait_us = 2500,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "50 and 50 low",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 1500,
-+			.wait_us = 1500,
-+			.sync = true,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_LOW,
-+			.job_cnt = 1,
-+			.job_us = 2500,
-+			.wait_us = 2500,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "50 high and 50",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_HIGH,
-+			.job_cnt = 1,
-+			.job_us = 1500,
-+			.wait_us = 1500,
-+			.sync = true,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 2500,
-+			.wait_us = 2500,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "Low hog and interactive",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_LOW,
-+			.job_cnt = 3,
-+			.job_us = 2500,
-+			.wait_us = 500,
-+			.sync = false,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 500,
-+			.wait_us = 10000,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "Heavy and interactive",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 3,
-+			.job_us = 2500,
-+			.wait_us = 2500,
-+			.sync = true,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 1000,
-+			.wait_us = 9000,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "Very heavy and interactive",
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 4,
-+			.job_us = 50000,
-+			.wait_us = 1,
-+			.sync = true,
-+		},
-+		.client[1] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 1,
-+			.job_us = 1000,
-+			.wait_us = 9000,
-+			.sync = true,
-+		},
-+	},
-+};
-+
-+static void
-+drm_sched_desc(const struct drm_sched_test_params *params, char *desc)
-+{
-+	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(drm_sched_scheduler_two_clients,
-+		  drm_sched_cases,
-+		  drm_sched_desc);
-+
-+struct test_client_stats {
-+	unsigned long min_us;
-+	unsigned long max_us;
-+	unsigned long avg_us;
-+};
-+
-+struct test_client {
-+	struct kunit *test;
-+
-+	struct drm_mock_sched_entity	*entity;
-+
-+	struct kthread_worker	*worker;
-+	struct kthread_work	work;
-+
-+	unsigned int id;
-+	ktime_t duration;
-+
-+	struct drm_sched_client_params params;
-+
-+	ktime_t ideal_duration;
-+	unsigned int cycles;
-+	unsigned int cycle;
-+	ktime_t	start;
-+	ktime_t	end;
-+	bool done;
-+
-+	struct test_client_stats cycle_time;
-+	struct test_client_stats latency_time;
-+};
-+
-+static void
-+update_stats(struct test_client_stats *stats, unsigned int n, unsigned long us)
-+{
-+	if (us > stats->max_us)
-+		stats->max_us = us;
-+	if (us < stats->min_us)
-+		stats->min_us = us;
-+	stats->avg_us = DIV_ROUND_UP(n * stats->avg_us + us, n + 1);
-+}
-+
-+static void drm_sched_client_work(struct kthread_work *work)
-+{
-+	struct test_client *client = container_of(work, typeof(*client), work);
-+	const long sync_wait = MAX_SCHEDULE_TIMEOUT;
-+	unsigned int cycle, work_us, period_us;
-+	struct drm_mock_sched_job *job = NULL;
-+
-+	work_us = client->params.job_cnt * client->params.job_us;
-+	period_us = work_us + client->params.wait_us;
-+	client->cycles = DIV_ROUND_UP(ktime_to_us(client->duration), period_us);
-+	client->ideal_duration = us_to_ktime(client->cycles * period_us);
-+
-+	client->start = ktime_get();
-+
-+	for (cycle = 0; cycle < client->cycles; cycle++) {
-+		unsigned int batch;
-+		unsigned long us;
-+		ktime_t t;
-+
-+		if (READ_ONCE(client->done))
++	struct drm_sched_rq *rq = sched->rq;
+ 	struct drm_sched_entity *s_entity;
+-	int i;
+ 
+ 	drm_sched_wqueue_stop(sched);
+ 
+-	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+-		struct drm_sched_rq *rq = sched->sched_rq[i];
+-
+-		spin_lock(&rq->lock);
+-		list_for_each_entry(s_entity, &rq->entities, list)
+-			/*
+-			 * Prevents reinsertion and marks job_queue as idle,
+-			 * it will be removed from the rq in drm_sched_entity_fini()
+-			 * eventually
+-			 */
+-			s_entity->stopped = true;
+-		spin_unlock(&rq->lock);
+-		kfree(sched->sched_rq[i]);
+-	}
++	spin_lock(&rq->lock);
++	list_for_each_entry(s_entity, &rq->entities, list)
++		/*
++		 * Prevents reinsertion and marks job_queue as idle,
++		 * it will be removed from the rq in drm_sched_entity_fini()
++		 * eventually
++		 */
++		s_entity->stopped = true;
++	spin_unlock(&rq->lock);
+ 
+ 	/* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
+ 	wake_up_all(&sched->job_scheduled);
+@@ -1177,8 +1113,8 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
+ 	if (sched->own_submit_wq)
+ 		destroy_workqueue(sched->submit_wq);
+ 	sched->ready = false;
+-	kfree(sched->sched_rq);
+-	sched->sched_rq = NULL;
++	kfree(sched->rq);
++	sched->rq = NULL;
+ }
+ EXPORT_SYMBOL(drm_sched_fini);
+ 
+@@ -1193,35 +1129,28 @@ EXPORT_SYMBOL(drm_sched_fini);
+  */
+ void drm_sched_increase_karma(struct drm_sched_job *bad)
+ {
+-	int i;
+-	struct drm_sched_entity *tmp;
+-	struct drm_sched_entity *entity;
+ 	struct drm_gpu_scheduler *sched = bad->sched;
++	struct drm_sched_entity *entity, *tmp;
++	struct drm_sched_rq *rq = sched->rq;
+ 
+ 	/* don't change @bad's karma if it's from KERNEL RQ,
+ 	 * because sometimes GPU hang would cause kernel jobs (like VM updating jobs)
+ 	 * corrupt but keep in mind that kernel jobs always considered good.
+ 	 */
+-	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
+-		atomic_inc(&bad->karma);
++	if (bad->s_priority == DRM_SCHED_PRIORITY_KERNEL)
++		return;
+ 
+-		for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+-			struct drm_sched_rq *rq = sched->sched_rq[i];
++	atomic_inc(&bad->karma);
+ 
+-			spin_lock(&rq->lock);
+-			list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
+-				if (bad->s_fence->scheduled.context ==
+-				    entity->fence_context) {
+-					if (entity->guilty)
+-						atomic_set(entity->guilty, 1);
+-					break;
+-				}
+-			}
+-			spin_unlock(&rq->lock);
+-			if (&entity->list != &rq->entities)
+-				break;
++	spin_lock(&rq->lock);
++	list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
++		if (bad->s_fence->scheduled.context == entity->fence_context) {
++			if (entity->guilty)
++				atomic_set(entity->guilty, 1);
 +			break;
-+
-+		t = ktime_get();
-+		for (batch = 0; batch < client->params.job_cnt; batch++) {
-+			job = drm_mock_sched_job_new(client->test,
-+						     client->entity);
-+			drm_mock_sched_job_set_duration_us(job,
-+							   client->params.job_us);
-+			drm_mock_sched_job_submit(job);
-+		}
-+
-+		if (client->params.sync)
-+			drm_mock_sched_job_wait_finished(job, sync_wait);
-+
-+		t = ktime_sub(ktime_get(), t);
-+		us = ktime_to_us(t);
-+		update_stats(&client->cycle_time, cycle, us);
-+		if (ktime_to_us(t) >= (long)work_us)
-+			us = ktime_to_us(t) - work_us;
-+		else if (WARN_ON_ONCE(client->params.sync))
-+			us = 0;
-+		update_stats(&client->latency_time, cycle, us);
-+		WRITE_ONCE(client->cycle, cycle);
-+
-+		if (READ_ONCE(client->done))
-+			break;
-+
-+		if (client->params.wait_us)
-+			fsleep(client->params.wait_us);
-+		else
-+			cond_resched();
-+	}
-+
-+	client->done = drm_mock_sched_job_wait_finished(job, sync_wait);
-+	client->end = ktime_get();
-+}
-+
-+static const char *prio_str(enum drm_sched_priority prio)
-+{
-+	switch (prio) {
-+	case DRM_SCHED_PRIORITY_KERNEL:
-+		return "kernel";
-+	case DRM_SCHED_PRIORITY_LOW:
-+		return "low";
-+	case DRM_SCHED_PRIORITY_NORMAL:
-+		return "normal";
-+	case DRM_SCHED_PRIORITY_HIGH:
-+		return "high";
-+	default:
-+		return "???";
-+	}
-+}
-+
-+static void drm_sched_scheduler_two_clients_test(struct kunit *test)
-+{
-+	const struct drm_sched_test_params *params = test->param_value;
-+	struct drm_mock_scheduler *sched = test->priv;
-+	struct test_client client[2] = { };
-+	unsigned int prev_cycle[2] = { };
-+	unsigned int i, j;
-+	ktime_t start;
-+
-+	/*
-+	 * Same job stream from from two clients.
-+	 */
-+
-+	for (i = 0; i < ARRAY_SIZE(client); i++)
-+		client[i].entity =
-+			drm_mock_sched_entity_new(test,
-+						  params->client[i].priority,
-+						  sched);
-+
-+	for (i = 0; i < ARRAY_SIZE(client); i++) {
-+		client[i].test = test;
-+		client[i].id = i;
-+		client[i].duration = ms_to_ktime(1000);
-+		client[i].params = params->client[i];
-+		client[i].cycle_time.min_us = ~0UL;
-+		client[i].latency_time.min_us = ~0UL;
-+		client[i].worker =
-+			kthread_create_worker(0, "%s-%u", __func__, i);
-+		if (IS_ERR(client[i].worker)) {
-+			for (j = 0; j < i; j++)
-+				kthread_destroy_worker(client[j].worker);
-+			KUNIT_FAIL(test, "Failed to create worker!\n");
-+		}
-+
-+		kthread_init_work(&client[i].work, drm_sched_client_work);
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(client); i++)
-+		kthread_queue_work(client[i].worker, &client[i].work);
-+
-+	/*
-+	 * The clients (workers) can be a mix of async (deep submission queue),
-+	 * sync (one job at a time), or something in between. Therefore it is
-+	 * difficult to display a single metric representing their progress.
-+	 *
-+	 * Each struct drm_sched_client_params describes the actual submission
-+	 * pattern which happens in the following steps:
-+	 *  1. Submit N jobs
-+	 *  2. Wait for last submitted job to finish
-+	 *  3. Sleep for U micro-seconds
-+	 *  4. Goto 1. for C cycles
-+	 *
-+	 * Where number of cycles is calculated to match the target client
-+	 * duration from the respective struct drm_sched_test_params.
-+	 *
-+	 * To asses scheduling behaviour what we output for both clients is:
-+	 *  - pct: Percentage progress of the jobs submitted
-+	 *  - cps: "Cycles" per second (where one cycle is one 1.-4. above)
-+	 *  -  qd: Number of outstanding jobs in the client/entity
-+	 */
-+
-+	start = ktime_get();
-+	pr_info("%s:\n\t            pct1 cps1 qd1;  pct2 cps2 qd2\n",
-+		params->description);
-+	while (!READ_ONCE(client[0].done) || !READ_ONCE(client[1].done)) {
-+		unsigned int pct[2], qd[2], cycle[2], cps[2];
-+
-+		for (i = 0; i < ARRAY_SIZE(client); i++) {
-+			qd[i] = spsc_queue_count(&client[i].entity->base.job_queue);
-+			cycle[i] = READ_ONCE(client[i].cycle);
-+			cps[i] = DIV_ROUND_UP(1000 * (cycle[i] - prev_cycle[i]),
-+					      100);
-+			if (client[i].cycles)
-+				pct[i] = DIV_ROUND_UP(100 * (1 + cycle[i]),
-+						      client[i].cycles);
-+			else
-+				pct[i] = 0;
-+			prev_cycle[i] = cycle[i];
-+		}
-+
-+		if (READ_ONCE(client[0].done))
-+			pr_info("\t+%6lldms:               ; %3u %5u %4u\n",
-+				ktime_to_ms(ktime_sub(ktime_get(), start)),
-+				pct[1], cps[1], qd[1]);
-+		else if (READ_ONCE(client[1].done))
-+			pr_info("\t+%6lldms: %3u %5u %4u;\n",
-+				ktime_to_ms(ktime_sub(ktime_get(), start)),
-+				pct[0], cps[0], qd[0]);
-+		else
-+			pr_info("\t+%6lldms: %3u %5u %4u; %3u %5u %4u\n",
-+				ktime_to_ms(ktime_sub(ktime_get(), start)),
-+				pct[0], cps[0], qd[0],
-+				pct[1], cps[1], qd[1]);
-+		msleep(100);
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(client); i++) {
-+		kthread_flush_work(&client[i].work);
-+		kthread_destroy_worker(client[i].worker);
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(client); i++)
-+		KUNIT_ASSERT_TRUE(test, client[i].done);
-+
-+	for (i = 0; i < ARRAY_SIZE(client); i++) {
-+		pr_info("    %u: prio=%s sync=%u elapsed_ms=%lldms (ideal_ms=%lldms) cycle_time(min,avg,max)=%lu,%lu,%lu us latency_time(min,avg,max)=%lu,%lu,%lu us",
-+			i,
-+			prio_str(params->client[i].priority),
-+			params->client[i].sync,
-+			ktime_to_ms(ktime_sub(client[i].end, client[i].start)),
-+			ktime_to_ms(client[i].ideal_duration),
-+			client[i].cycle_time.min_us,
-+			client[i].cycle_time.avg_us,
-+			client[i].cycle_time.max_us,
-+			client[i].latency_time.min_us,
-+			client[i].latency_time.avg_us,
-+			client[i].latency_time.max_us);
-+		drm_mock_sched_entity_free(client[i].entity);
-+	}
-+}
-+
-+static const struct kunit_attributes drm_sched_scheduler_two_clients_attr = {
-+	.speed = KUNIT_SPEED_SLOW,
-+};
-+
-+static struct kunit_case drm_sched_scheduler_two_clients_tests[] = {
-+	KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_test,
-+			      drm_sched_scheduler_two_clients_gen_params,
-+			      drm_sched_scheduler_two_clients_attr),
-+	{}
-+};
-+
-+static struct kunit_suite drm_sched_scheduler_two_clients1 = {
-+	.name = "drm_sched_scheduler_two_clients_one_credit_tests",
-+	.init = drm_sched_scheduler_init,
-+	.exit = drm_sched_scheduler_exit,
-+	.test_cases = drm_sched_scheduler_two_clients_tests,
-+};
-+
-+static struct kunit_suite drm_sched_scheduler_two_clients2 = {
-+	.name = "drm_sched_scheduler_two_clients_two_credits_tests",
-+	.init = drm_sched_scheduler_init2,
-+	.exit = drm_sched_scheduler_exit,
-+	.test_cases = drm_sched_scheduler_two_clients_tests,
-+};
-+
-+kunit_test_suites(&drm_sched_scheduler_overhead,
-+		  &drm_sched_scheduler_two_clients1,
-+		  &drm_sched_scheduler_two_clients2);
+ 		}
+ 	}
++	spin_unlock(&rq->lock);
+ }
+ EXPORT_SYMBOL(drm_sched_increase_karma);
+ 
+diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+index fd1cf89911e6..69ccdbd5af6c 100644
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ -16,7 +16,7 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
+ 	return ktime_before(ea->oldest_job_waiting, eb->oldest_job_waiting);
+ }
+ 
+-static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
++static void drm_sched_rq_remove_tree_locked(struct drm_sched_entity *entity,
+ 					    struct drm_sched_rq *rq)
+ {
+ 	lockdep_assert_held(&entity->lock);
+@@ -28,7 +28,7 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
+ 	}
+ }
+ 
+-static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
++static void drm_sched_rq_update_tree_locked(struct drm_sched_entity *entity,
+ 					    struct drm_sched_rq *rq,
+ 					    ktime_t ts)
+ {
+@@ -40,7 +40,7 @@ static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+ 	lockdep_assert_held(&entity->lock);
+ 	lockdep_assert_held(&rq->lock);
+ 
+-	drm_sched_rq_remove_fifo_locked(entity, rq);
++	drm_sched_rq_remove_tree_locked(entity, rq);
+ 
+ 	entity->oldest_job_waiting = ts;
+ 
+@@ -65,16 +65,6 @@ void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
+ 	rq->sched = sched;
+ }
+ 
+-static ktime_t
+-drm_sched_rq_get_rr_deadline(struct drm_sched_rq *rq)
+-{
+-	lockdep_assert_held(&rq->lock);
+-
+-	rq->rr_deadline = ktime_add_ns(rq->rr_deadline, 1);
+-
+-	return rq->rr_deadline;
+-}
+-
+ static ktime_t
+ drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
+ {
+@@ -103,10 +93,11 @@ drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
+  * Returns a DRM scheduler pre-selected to handle this entity.
+  */
+ struct drm_gpu_scheduler *
+-drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
++drm_sched_rq_add_entity(struct drm_sched_entity *entity)
+ {
+ 	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_rq *rq;
++	ktime_t ts;
+ 
+ 	/* Add the entity to the run queue */
+ 	spin_lock(&entity->lock);
+@@ -126,14 +117,9 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+ 		list_add_tail(&entity->list, &rq->entities);
+ 	}
+ 
+-	if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
+-		ts = drm_sched_rq_get_min_vruntime(rq);
+-		ts = drm_sched_entity_restore_vruntime(entity, ts);
+-	} else if (drm_sched_policy == DRM_SCHED_POLICY_RR) {
+-		ts = drm_sched_rq_get_rr_deadline(rq);
+-	}
+-
+-	drm_sched_rq_update_fifo_locked(entity, rq, ts);
++	ts = drm_sched_rq_get_min_vruntime(rq);
++	ts = drm_sched_entity_restore_vruntime(entity, ts);
++	drm_sched_rq_update_tree_locked(entity, rq, ts);
+ 
+ 	spin_unlock(&rq->lock);
+ 	spin_unlock(&entity->lock);
+@@ -162,7 +148,7 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+ 	atomic_dec(rq->sched->score);
+ 	list_del_init(&entity->list);
+ 
+-	drm_sched_rq_remove_fifo_locked(entity, rq);
++	drm_sched_rq_remove_tree_locked(entity, rq);
+ 
+ 	spin_unlock(&rq->lock);
+ }
+@@ -183,23 +169,14 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+ 	if (next_job) {
+ 		ktime_t ts;
+ 
+-		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
+-			ts = drm_sched_entity_get_job_ts(entity);
+-		else if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+-			ts = next_job->submit_ts;
+-		else
+-			ts = drm_sched_rq_get_rr_deadline(rq);
+-
+-		drm_sched_rq_update_fifo_locked(entity, rq, ts);
++		ts = drm_sched_entity_get_job_ts(entity);
++		drm_sched_rq_update_tree_locked(entity, rq, ts);
+ 	} else {
+-		drm_sched_rq_remove_fifo_locked(entity, rq);
++		ktime_t min_vruntime;
+ 
+-		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
+-			ktime_t min_vruntime;
+-
+-			min_vruntime = drm_sched_rq_get_min_vruntime(rq);
+-			drm_sched_entity_save_vruntime(entity, min_vruntime);
+-		}
++		drm_sched_rq_remove_tree_locked(entity, rq);
++		min_vruntime = drm_sched_rq_get_min_vruntime(rq);
++		drm_sched_entity_save_vruntime(entity, min_vruntime);
+ 	}
+ 	spin_unlock(&rq->lock);
+ 	spin_unlock(&entity->lock);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index c6169cbf909b..e9ff24c076aa 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -151,8 +151,6 @@ struct drm_sched_entity {
+ 	 */
+ 	struct spsc_queue		job_queue;
+ 
+-	enum drm_sched_priority         rq_priority;
+-
+ 	/**
+ 	 * @fence_seq:
+ 	 *
+@@ -339,13 +337,6 @@ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f);
+ struct drm_sched_job {
+ 	u64				id;
+ 
+-	/**
+-	 * @submit_ts:
+-	 *
+-	 * When the job was pushed into the entity queue.
+-	 */
+-	ktime_t                         submit_ts;
+-
+ 	/**
+ 	 * @sched:
+ 	 *
+@@ -557,9 +548,7 @@ struct drm_gpu_scheduler {
+ 	atomic_t			credit_count;
+ 	long				timeout;
+ 	const char			*name;
+-	u32                             num_rqs;
+-	u32                             num_user_rqs;
+-	struct drm_sched_rq             **sched_rq;
++	struct drm_sched_rq             *rq;
+ 	wait_queue_head_t		job_scheduled;
+ 	atomic64_t			job_id_count;
+ 	struct workqueue_struct		*submit_wq;
 -- 
 2.48.0
 
