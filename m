@@ -4,52 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E217C369DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 10:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31877C369C2
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 13:59:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5820210E913;
-	Fri, 25 Apr 2025 10:21:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 354E210E2E5;
+	Fri, 25 Apr 2025 13:59:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WA6nFysl";
+	dkim=pass (1024-bit key; secure) header.d=riseup.net header.i=@riseup.net header.b="TDP8TXou";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF2510E901;
- Fri, 25 Apr 2025 10:20:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=YUpXISaD8FCOKbvB+o4N/dI2f61rZTbwpzXIFlKxA48=; b=WA6nFyslkbp5btyN005XXfJfDj
- H8TYTaoaNnOUmQjlWP9y6QXb/j8NaI3SL9djXAtXZmlKzpmwUbhw9XiFDTK1ir0mF8pxdV8SF4S7/
- tHpkbtqzv25g0vLU33SdNo/kQVWU8aHbRiltpZX5tp2QD2Rbo/Ygu1vS7KKU3R/QWHyCtSdTtgzfP
- u2lrxYbru4sfs/IA6cVvGBXOTLF2/Z5eIxW8xNFz9mRiyCf/ECyWG2iFSpBI7ZDmZkQnsUOtxl6v3
- CTRnAu+ACHB9llg1HOTB/YDMyYjC7X5DxSqeNTktW1P9ACFO4qLeNRoRcvWuFVsEzu39zaynkQX1p
- HiEZNzYQ==;
-Received: from [81.79.92.254] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1u8GAt-008Gt0-Lr; Fri, 25 Apr 2025 12:20:51 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-Subject: [RFC v4 14/16] drm/sched: Remove FIFO and RR and simplify to a single
- run queue
-Date: Fri, 25 Apr 2025 11:20:32 +0100
-Message-ID: <20250425102034.85133-15-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
-References: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
+X-Greylist: delayed 512 seconds by postgrey-1.36 at gabe;
+ Fri, 25 Apr 2025 13:58:59 UTC
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E24110E136;
+ Fri, 25 Apr 2025 13:58:59 +0000 (UTC)
+Received: from fews01-sea.riseup.net (fews01-sea-pn.riseup.net [10.0.1.109])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx1.riseup.net (Postfix) with ESMTPS id 4ZkZ3f06PTzDqKZ;
+ Fri, 25 Apr 2025 13:50:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1745589022; bh=7CqMt7D2Ad0OtcbJ1KHWSMCb8AnEr8Q/w8mxHLM8Iq0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=TDP8TXouRJvmjkbDW0zM2MYo8wbQeIbhhopfc2AquK3PaIlEalj7HWSGq05WDh4zw
+ wOTyPwVxb0MOltnpnrNUOntEYq9oi1sUKAMBiT4PxdeYHgPEF/Lmibw34uqkIpAP9x
+ 4smaVArG5jbXPL7o3rp5xcKjifTqEsF75sVisS2U=
+X-Riseup-User-ID: CFB9761A7B9478EF00DD78B6ADCE1D1E1118B035738A5D013E1345A46ECCA270
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews01-sea.riseup.net (Postfix) with ESMTPSA id 4ZkZ3V09HPzJstx;
+ Fri, 25 Apr 2025 13:50:13 +0000 (UTC)
+Message-ID: <e03200db-3e24-49e6-87d4-a9253401c494@riseup.net>
+Date: Fri, 25 Apr 2025 10:50:07 -0300
 MIME-Version: 1.0
+Subject: Re: [PATCH V8 40/43] drm/colorop: Add 3D LUT support to color pipeline
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com,
+ pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
+ quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
+ sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
+ louis.chauvet@bootlin.com
+References: <20250326234748.2982010-1-alex.hung@amd.com>
+ <20250326234748.2982010-41-alex.hung@amd.com>
+Content-Language: en-US
+From: Leandro Ribeiro <leandrohr@riseup.net>
+In-Reply-To: <20250326234748.2982010-41-alex.hung@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,555 +70,315 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If the new fair policy is at least as good as FIFO and we can afford to
-remove round-robin, we can simplify the scheduler code by making the
-scheduler to run queue relationship always 1:1 and remove some code.
 
-Also, now that the FIFO policy is gone the tree of entities is not a FIFO
-tree any more so rename it to just the tree.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  23 ++--
- drivers/gpu/drm/scheduler/sched_entity.c   |  29 +----
- drivers/gpu/drm/scheduler/sched_internal.h |   9 +-
- drivers/gpu/drm/scheduler/sched_main.c     | 133 +++++----------------
- drivers/gpu/drm/scheduler/sched_rq.c       |  53 +++-----
- include/drm/gpu_scheduler.h                |  13 +-
- 6 files changed, 62 insertions(+), 198 deletions(-)
+On 3/26/25 20:47, Alex Hung wrote:
+> It is to be used to enable HDR by allowing userpace to create and pass
+> 3D LUTs to kernel and hardware.
+> 
+> new drm_colorop_type: DRM_COLOROP_3D_LUT.
+> 
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> ---
+> v8:
+>  - Fix typo in subject (Simon Ser)
+>  - Update documentation for DRM_COLOROP_3D_LUT (Simon Ser)
+>  - Delete empty lines (Simon Ser)
+> 
+> v7:
+>  - Simplify 3D LUT by removing lut_3d_modes and related functions (Simon Ser)
+> 
+>  drivers/gpu/drm/drm_atomic.c      |  6 +++
+>  drivers/gpu/drm/drm_atomic_uapi.c |  6 +++
+>  drivers/gpu/drm/drm_colorop.c     | 72 +++++++++++++++++++++++++++++++
+>  include/drm/drm_colorop.h         | 21 +++++++++
+>  include/uapi/drm/drm_mode.h       | 33 ++++++++++++++
+>  5 files changed, 138 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 0efb0ead204a..ef47a06344f3 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -806,6 +806,12 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>  	case DRM_COLOROP_MULTIPLIER:
+>  		drm_printf(p, "\tmultiplier=%llu\n", state->multiplier);
+>  		break;
+> +	case DRM_COLOROP_3D_LUT:
+> +		drm_printf(p, "\tsize=%d\n", colorop->lut_size);
+> +		drm_printf(p, "\tinterpolation=%s\n",
+> +			   drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolation));
+> +		drm_printf(p, "\tdata blob id=%d\n", state->data ? state->data->base.id : 0);
+> +		break;
+>  	default:
+>  		break;
+>  	}
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 947c18e8bf9b..d5d464b4d0f6 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -719,6 +719,10 @@ static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
+>  	case DRM_COLOROP_CTM_3X4:
+>  		size = sizeof(struct drm_color_ctm_3x4);
+>  		break;
+> +	case DRM_COLOROP_3D_LUT:
+> +		size = colorop->lut_size * colorop->lut_size * colorop->lut_size *
+> +		       sizeof(struct drm_color_lut);
+> +		break;
+>  	default:
+>  		/* should never get here */
+>  		return -EINVAL;
+> @@ -771,6 +775,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+>  		*val = state->multiplier;
+>  	} else if (property == colorop->lut_size_property) {
+>  		*val = colorop->lut_size;
+> +	} else if (property == colorop->lut3d_interpolation_property) {
+> +		*val = colorop->lut3d_interpolation;
+>  	} else if (property == colorop->data_property) {
+>  		*val = (state->data) ? state->data->base.id : 0;
+>  	} else {
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+> index e03706e7179b..224c6be237d2 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+> @@ -67,6 +67,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
+>  	{ DRM_COLOROP_1D_LUT, "1D LUT" },
+>  	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
+>  	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
+> +	{ DRM_COLOROP_3D_LUT, "3D LUT"},
+>  };
+>  
+>  static const char * const colorop_curve_1d_type_names[] = {
+> @@ -82,6 +83,11 @@ static const struct drm_prop_enum_list drm_colorop_lut1d_interpolation_list[] =
+>  	{ DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR, "Linear" },
+>  };
+>  
+> +
+> +static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] = {
+> +	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
+> +};
+> +
+>  /* Init Helpers */
+>  
+>  static int drm_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
+> @@ -349,6 +355,51 @@ int drm_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
+>  }
+>  EXPORT_SYMBOL(drm_colorop_mult_init);
+>  
+> +int drm_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *colorop,
+> +			   struct drm_plane *plane,
+> +			   uint32_t lut_size,
+> +			   enum drm_colorop_lut3d_interpolation_type interpolation,
+> +			   bool allow_bypass)
+> +{
+> +	struct drm_property *prop;
+> +	int ret;
+> +
+> +	ret = drm_colorop_init(dev, colorop, plane, DRM_COLOROP_3D_LUT, allow_bypass);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* LUT size */
+> +	prop = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE  | DRM_MODE_PROP_ATOMIC,
+> +					 "SIZE", 0, UINT_MAX);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	colorop->lut_size_property = prop;
+> +	drm_object_attach_property(&colorop->base, colorop->lut_size_property, lut_size);
+> +	colorop->lut_size = lut_size;
+> +
+> +	/* interpolation */
+> +	prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE, "LUT3D_INTERPOLATION",
+> +					drm_colorop_lut3d_interpolation_list,
+> +					ARRAY_SIZE(drm_colorop_lut3d_interpolation_list));
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	colorop->lut3d_interpolation_property = prop;
+> +	drm_object_attach_property(&colorop->base, prop, interpolation);
+> +	colorop->lut3d_interpolation = interpolation;
+> +
+> +	/* data */
+> +	ret = drm_colorop_create_data_prop(dev, colorop);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_colorop_reset(colorop);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_colorop_3dlut_init);
+> +
+>  static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop,
+>  							struct drm_colorop_state *state)
+>  {
+> @@ -441,7 +492,13 @@ static const char * const colorop_type_name[] = {
+>  	[DRM_COLOROP_1D_LUT] = "1D LUT",
+>  	[DRM_COLOROP_CTM_3X4] = "3x4 Matrix",
+>  	[DRM_COLOROP_MULTIPLIER] = "Multiplier",
+> +	[DRM_COLOROP_3D_LUT] = "3D LUT",
+>  };
+> +
+> +static const char * const colorop_lu3d_interpolation_name[] = {
+> +	[DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL] = "Tetrahedral",
+> +};
+> +
+>  static const char * const colorop_lut1d_interpolation_name[] = {
+>  	[DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR] = "Linear",
+>  };
+> @@ -477,6 +534,21 @@ const char *drm_get_colorop_lut1d_interpolation_name(enum drm_colorop_lut1d_inte
+>  	return colorop_lut1d_interpolation_name[type];
+>  }
+>  
+> +/**
+> + * drm_get_colorop_lut3d_interpolation_name - return a string for interpolation type
+> + * @type: interpolation type to compute name of
+> + *
+> + * In contrast to the other drm_get_*_name functions this one here returns a
+> + * const pointer and hence is threadsafe.
+> + */
+> +const char *drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_interpolation_type type)
+> +{
+> +	if (WARN_ON(type >= ARRAY_SIZE(colorop_lu3d_interpolation_name)))
+> +		return "unknown";
+> +
+> +	return colorop_lu3d_interpolation_name[type];
+> +}
+> +
+>  /**
+>   * drm_colorop_set_next_property - sets the next pointer
+>   * @colorop: drm colorop
+> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+> index c89d5eb44856..e999d5ceb8a5 100644
+> --- a/include/drm/drm_colorop.h
+> +++ b/include/drm/drm_colorop.h
+> @@ -281,6 +281,14 @@ struct drm_colorop {
+>  	 */
+>  	enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
+>  
+> +	/**
+> +	 * @lut3d_interpolation:
+> +	 *
+> +	 * Read-only
+> +	 * Interpolation for DRM_COLOROP_3D_LUT
+> +	 */
+> +	enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
+> +
+>  	/**
+>  	 * @lut1d_interpolation_property:
+>  	 *
+> @@ -309,6 +317,13 @@ struct drm_colorop {
+>  	 */
+>  	struct drm_property *lut_size_property;
+>  
+> +	/**
+> +	 * @lut3d_interpolation_property:
+> +	 *
+> +	 * Read-only property for DRM_COLOROP_3D_LUT interpolation
+> +	 */
+> +	struct drm_property *lut3d_interpolation_property;
+> +
+>  	/**
+>  	 * @data_property:
+>  	 *
+> @@ -362,6 +377,11 @@ int drm_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop
+>  			     struct drm_plane *plane, bool allow_bypass);
+>  int drm_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
+>  			      struct drm_plane *plane, bool allow_bypass);
+> +int drm_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *colorop,
+> +			   struct drm_plane *plane,
+> +			   uint32_t lut_size,
+> +			   enum drm_colorop_lut3d_interpolation_type interpolation,
+> +			   bool allow_bypass);
+>  
+>  struct drm_colorop_state *
+>  drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
+> @@ -412,6 +432,7 @@ const char *drm_get_colorop_type_name(enum drm_colorop_type type);
+>   */
+>  const char *drm_get_colorop_curve_1d_type_name(enum drm_colorop_curve_1d_type type);
+>  const char *drm_get_colorop_lut1d_interpolation_name(enum drm_colorop_lut1d_interpolation_type type);
+> +const char *drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_interpolation_type type);
+>  
+>  void drm_colorop_set_next_property(struct drm_colorop *colorop, struct drm_colorop *next);
+>  
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index d76c8ffe5408..88fafbdeb2a2 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -930,6 +930,39 @@ enum drm_colorop_type {
+>  	 * property.
+>  	 */
+>  	DRM_COLOROP_MULTIPLIER,
+> +
+> +	/**
+> +	 * @DRM_COLOROP_3D_LUT:
+> +	 *
+> +	 * enum string "3D LUT"
+> +	 *
+> +	 * A 3D LUT of &drm_color_lut entries,
+> +	 * packed into a blob via the DATA property. The driver's expected
+> +	 * LUT size is advertised via the SIZE property, i.e., a 3D LUT with
+> +	 * 17x17x17 entries will have SIZE set to 17.
+> +	 *
+> +	 * The DATA blob is a 3D array of struct drm_color_lut with dimension
+> +	 * length of "lut_size".
+> +	 * The LUT elements are traversed like so:
+> +	 *
+> +	 *   for R in range 0..n
+> +	 *     for G in range 0..n
+> +	 *       for B in range 0..n
+> +	 *         color = lut3d[R][G][B]
+> +	 */
+> +	DRM_COLOROP_3D_LUT,
+> +};
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index acb21fc8b3ce..9440af58073b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -459,25 +459,22 @@ drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
- 
- void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
- {
-+	struct drm_sched_rq *rq = sched->rq;
-+	struct drm_sched_entity *s_entity;
- 	struct drm_sched_job *s_job;
--	struct drm_sched_entity *s_entity = NULL;
--	int i;
- 
- 	/* Signal all jobs not yet scheduled */
--	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
--		struct drm_sched_rq *rq = sched->sched_rq[i];
--		spin_lock(&rq->lock);
--		list_for_each_entry(s_entity, &rq->entities, list) {
--			while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
--				struct drm_sched_fence *s_fence = s_job->s_fence;
-+	spin_lock(&rq->lock);
-+	list_for_each_entry(s_entity, &rq->entities, list) {
-+		while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
-+			struct drm_sched_fence *s_fence = s_job->s_fence;
- 
--				dma_fence_signal(&s_fence->scheduled);
--				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
--				dma_fence_signal(&s_fence->finished);
--			}
-+			dma_fence_signal(&s_fence->scheduled);
-+			dma_fence_set_error(&s_fence->finished, -EHWPOISON);
-+			dma_fence_signal(&s_fence->finished);
- 		}
--		spin_unlock(&rq->lock);
- 	}
-+	spin_unlock(&rq->lock);
- 
- 	/* Signal all jobs already scheduled to HW */
- 	list_for_each_entry(s_job, &sched->pending_list, list) {
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 4481d5645138..d149df2a2050 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -98,8 +98,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->guilty = guilty;
- 	entity->num_sched_list = num_sched_list;
- 	entity->priority = priority;
--	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
--			      DRM_SCHED_PRIORITY_KERNEL : priority;
- 	/*
- 	 * It's perfectly valid to initialize an entity without having a valid
- 	 * scheduler attached. It's just not valid to use the scheduler before it
-@@ -109,30 +107,14 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	RCU_INIT_POINTER(entity->last_scheduled, NULL);
- 	RB_CLEAR_NODE(&entity->rb_tree_node);
- 
--	if (num_sched_list && !sched_list[0]->sched_rq) {
-+	if (num_sched_list && !sched_list[0]->rq) {
- 		/* Since every entry covered by num_sched_list
- 		 * should be non-NULL and therefore we warn drivers
- 		 * not to do this and to fix their DRM calling order.
- 		 */
- 		pr_warn("%s: called with uninitialized scheduler\n", __func__);
- 	} else if (num_sched_list) {
--		enum drm_sched_priority p = entity->priority;
--
--		/*
--		 * The "priority" of an entity cannot exceed the number of
--		 * run-queues of a scheduler. Protect against num_rqs being 0,
--		 * by converting to signed. Choose the lowest priority
--		 * available.
--		 */
--		if (p >= sched_list[0]->num_user_rqs) {
--			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num_user_rqs:%u\n",
--				p, sched_list[0]->num_user_rqs);
--			p = max_t(s32,
--				 (s32)sched_list[0]->num_user_rqs - 1,
--				 (s32)DRM_SCHED_PRIORITY_KERNEL);
--			entity->priority = p;
--		}
--		entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
-+		entity->rq = sched_list[0]->rq;
- 	}
- 
- 	init_completion(&entity->entity_idle);
-@@ -580,7 +562,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 
- 	spin_lock(&entity->lock);
- 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
--	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
-+	rq = sched ? sched->rq : NULL;
- 	if (rq != entity->rq) {
- 		drm_sched_rq_remove_entity(entity->rq, entity);
- 		entity->rq = rq;
-@@ -604,7 +586,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- {
- 	struct drm_sched_entity *entity = sched_job->entity;
- 	bool first;
--	ktime_t submit_ts;
- 
- 	trace_drm_sched_job(sched_job, entity);
- 	atomic_inc(entity->rq->sched->score);
-@@ -613,16 +594,14 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 	/*
- 	 * After the sched_job is pushed into the entity queue, it may be
- 	 * completed and freed up at any time. We can no longer access it.
--	 * Make sure to set the submit_ts first, to avoid a race.
- 	 */
--	sched_job->submit_ts = submit_ts = ktime_get();
- 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
- 
- 	/* first job wakes up scheduler */
- 	if (first) {
- 		struct drm_gpu_scheduler *sched;
- 
--		sched = drm_sched_rq_add_entity(entity, submit_ts);
-+		sched = drm_sched_rq_add_entity(entity);
- 		if (sched)
- 			drm_sched_wakeup(sched);
- 	}
-diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
-index b675941b58a0..2d55f265a092 100644
---- a/drivers/gpu/drm/scheduler/sched_internal.h
-+++ b/drivers/gpu/drm/scheduler/sched_internal.h
-@@ -15,13 +15,6 @@ struct drm_sched_entity_stats {
- 	u64		vruntime;
- };
- 
--/* Used to choose between FIFO and RR job-scheduling */
--extern int drm_sched_policy;
--
--#define DRM_SCHED_POLICY_RR	0
--#define DRM_SCHED_POLICY_FIFO	1
--#define DRM_SCHED_POLICY_FAIR	2
--
- bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
- 			 struct drm_sched_entity *entity);
- void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
-@@ -32,7 +25,7 @@ struct drm_sched_entity *
- drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
- 			   struct drm_sched_rq *rq);
- struct drm_gpu_scheduler *
--drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
-+drm_sched_rq_add_entity(struct drm_sched_entity *entity);
- void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
- 				struct drm_sched_entity *entity);
- void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index d63c10c19f21..a2be0a097e75 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -83,15 +83,6 @@
- #define CREATE_TRACE_POINTS
- #include "gpu_scheduler_trace.h"
- 
--int drm_sched_policy = DRM_SCHED_POLICY_FAIR;
--
--/**
-- * DOC: sched_policy (int)
-- * Used to override default entities scheduling policy in a run queue.
-- */
--MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entities on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " = Round Robin, " __stringify(DRM_SCHED_POLICY_FIFO) " = FIFO, " __stringify(DRM_SCHED_POLICY_FAIR) " = Fair (default).");
--module_param_named(sched_policy, drm_sched_policy, int, 0444);
--
- static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sched)
- {
- 	u32 credits;
-@@ -835,34 +826,6 @@ void drm_sched_wakeup(struct drm_gpu_scheduler *sched)
- 	drm_sched_run_job_queue(sched);
- }
- 
--/**
-- * drm_sched_select_entity - Select next entity to process
-- *
-- * @sched: scheduler instance
-- *
-- * Return an entity to process or NULL if none are found.
-- *
-- * Note, that we break out of the for-loop when "entity" is non-null, which can
-- * also be an error-pointer--this assures we don't process lower priority
-- * run-queues. See comments in the respectively called functions.
-- */
--static struct drm_sched_entity *
--drm_sched_select_entity(struct drm_gpu_scheduler *sched)
--{
--	struct drm_sched_entity *entity = NULL;
--	int i;
--
--	/* Start with the highest priority.
--	 */
--	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
--		entity = drm_sched_rq_select_entity(sched, sched->sched_rq[i]);
--		if (entity)
--			break;
--	}
--
--	return IS_ERR(entity) ? NULL : entity;
--}
--
- /**
-  * drm_sched_get_finished_job - fetch the next finished job to be destroyed
-  *
-@@ -979,8 +942,8 @@ static void drm_sched_run_job_work(struct work_struct *w)
- 	int r;
- 
- 	/* Find entity with a ready job */
--	entity = drm_sched_select_entity(sched);
--	if (!entity)
-+	entity = drm_sched_rq_select_entity(sched, sched->rq);
-+	if (IS_ERR_OR_NULL(entity))
- 		return;	/* No more work */
- 
- 	sched_job = drm_sched_entity_pop_job(entity);
-@@ -1045,8 +1008,6 @@ static struct workqueue_struct *drm_sched_alloc_wq(const char *name)
-  */
- int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_args *args)
- {
--	int i;
--
- 	sched->ops = args->ops;
- 	sched->credit_limit = args->credit_limit;
- 	sched->name = args->name;
-@@ -1056,13 +1017,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
- 	sched->score = args->score ? args->score : &sched->_score;
- 	sched->dev = args->dev;
- 
--	if (args->num_rqs > DRM_SCHED_PRIORITY_COUNT) {
--		/* This is a gross violation--tell drivers what the  problem is.
--		 */
--		dev_err(sched->dev, "%s: num_rqs cannot be greater than DRM_SCHED_PRIORITY_COUNT\n",
--			__func__);
--		return -EINVAL;
--	} else if (sched->sched_rq) {
-+	if (sched->rq) {
- 		/* Not an error, but warn anyway so drivers can
- 		 * fine-tune their DRM calling order, and return all
- 		 * is good.
-@@ -1082,21 +1037,11 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
- 		sched->own_submit_wq = true;
- 	}
- 
--	sched->num_user_rqs = args->num_rqs;
--	sched->num_rqs = drm_sched_policy != DRM_SCHED_POLICY_FAIR ?
--			 args->num_rqs : 1;
--	sched->sched_rq = kmalloc_array(sched->num_rqs,
--					sizeof(*sched->sched_rq),
--					GFP_KERNEL | __GFP_ZERO);
--	if (!sched->sched_rq)
-+	sched->rq = kmalloc(sizeof(*sched->rq), GFP_KERNEL | __GFP_ZERO);
-+	if (!sched->rq)
- 		goto Out_check_own;
- 
--	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
--		sched->sched_rq[i] = kzalloc(sizeof(*sched->sched_rq[i]), GFP_KERNEL);
--		if (!sched->sched_rq[i])
--			goto Out_unroll;
--		drm_sched_rq_init(sched, sched->sched_rq[i]);
--	}
-+	drm_sched_rq_init(sched, sched->rq);
- 
- 	init_waitqueue_head(&sched->job_scheduled);
- 	INIT_LIST_HEAD(&sched->pending_list);
-@@ -1111,12 +1056,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
- 
- 	sched->ready = true;
- 	return 0;
--Out_unroll:
--	for (--i ; i >= DRM_SCHED_PRIORITY_KERNEL; i--)
--		kfree(sched->sched_rq[i]);
- 
--	kfree(sched->sched_rq);
--	sched->sched_rq = NULL;
- Out_check_own:
- 	if (sched->own_submit_wq)
- 		destroy_workqueue(sched->submit_wq);
-@@ -1148,25 +1088,21 @@ EXPORT_SYMBOL(drm_sched_init);
-  */
- void drm_sched_fini(struct drm_gpu_scheduler *sched)
- {
-+
-+	struct drm_sched_rq *rq = sched->rq;
- 	struct drm_sched_entity *s_entity;
--	int i;
- 
- 	drm_sched_wqueue_stop(sched);
- 
--	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
--		struct drm_sched_rq *rq = sched->sched_rq[i];
--
--		spin_lock(&rq->lock);
--		list_for_each_entry(s_entity, &rq->entities, list)
--			/*
--			 * Prevents reinsertion and marks job_queue as idle,
--			 * it will be removed from the rq in drm_sched_entity_fini()
--			 * eventually
--			 */
--			s_entity->stopped = true;
--		spin_unlock(&rq->lock);
--		kfree(sched->sched_rq[i]);
--	}
-+	spin_lock(&rq->lock);
-+	list_for_each_entry(s_entity, &rq->entities, list)
-+		/*
-+		 * Prevents reinsertion and marks job_queue as idle,
-+		 * it will be removed from the rq in drm_sched_entity_fini()
-+		 * eventually
-+		 */
-+		s_entity->stopped = true;
-+	spin_unlock(&rq->lock);
- 
- 	/* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
- 	wake_up_all(&sched->job_scheduled);
-@@ -1177,8 +1113,8 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
- 	if (sched->own_submit_wq)
- 		destroy_workqueue(sched->submit_wq);
- 	sched->ready = false;
--	kfree(sched->sched_rq);
--	sched->sched_rq = NULL;
-+	kfree(sched->rq);
-+	sched->rq = NULL;
- }
- EXPORT_SYMBOL(drm_sched_fini);
- 
-@@ -1193,35 +1129,28 @@ EXPORT_SYMBOL(drm_sched_fini);
-  */
- void drm_sched_increase_karma(struct drm_sched_job *bad)
- {
--	int i;
--	struct drm_sched_entity *tmp;
--	struct drm_sched_entity *entity;
- 	struct drm_gpu_scheduler *sched = bad->sched;
-+	struct drm_sched_entity *entity, *tmp;
-+	struct drm_sched_rq *rq = sched->rq;
- 
- 	/* don't change @bad's karma if it's from KERNEL RQ,
- 	 * because sometimes GPU hang would cause kernel jobs (like VM updating jobs)
- 	 * corrupt but keep in mind that kernel jobs always considered good.
- 	 */
--	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
--		atomic_inc(&bad->karma);
-+	if (bad->s_priority == DRM_SCHED_PRIORITY_KERNEL)
-+		return;
- 
--		for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
--			struct drm_sched_rq *rq = sched->sched_rq[i];
-+	atomic_inc(&bad->karma);
- 
--			spin_lock(&rq->lock);
--			list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
--				if (bad->s_fence->scheduled.context ==
--				    entity->fence_context) {
--					if (entity->guilty)
--						atomic_set(entity->guilty, 1);
--					break;
--				}
--			}
--			spin_unlock(&rq->lock);
--			if (&entity->list != &rq->entities)
--				break;
-+	spin_lock(&rq->lock);
-+	list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
-+		if (bad->s_fence->scheduled.context == entity->fence_context) {
-+			if (entity->guilty)
-+				atomic_set(entity->guilty, 1);
-+			break;
- 		}
- 	}
-+	spin_unlock(&rq->lock);
- }
- EXPORT_SYMBOL(drm_sched_increase_karma);
- 
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index fd1cf89911e6..69ccdbd5af6c 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -16,7 +16,7 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
- 	return ktime_before(ea->oldest_job_waiting, eb->oldest_job_waiting);
- }
- 
--static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
-+static void drm_sched_rq_remove_tree_locked(struct drm_sched_entity *entity,
- 					    struct drm_sched_rq *rq)
- {
- 	lockdep_assert_held(&entity->lock);
-@@ -28,7 +28,7 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
- 	}
- }
- 
--static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
-+static void drm_sched_rq_update_tree_locked(struct drm_sched_entity *entity,
- 					    struct drm_sched_rq *rq,
- 					    ktime_t ts)
- {
-@@ -40,7 +40,7 @@ static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
- 	lockdep_assert_held(&entity->lock);
- 	lockdep_assert_held(&rq->lock);
- 
--	drm_sched_rq_remove_fifo_locked(entity, rq);
-+	drm_sched_rq_remove_tree_locked(entity, rq);
- 
- 	entity->oldest_job_waiting = ts;
- 
-@@ -65,16 +65,6 @@ void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
- 	rq->sched = sched;
- }
- 
--static ktime_t
--drm_sched_rq_get_rr_deadline(struct drm_sched_rq *rq)
--{
--	lockdep_assert_held(&rq->lock);
--
--	rq->rr_deadline = ktime_add_ns(rq->rr_deadline, 1);
--
--	return rq->rr_deadline;
--}
--
- static ktime_t
- drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
- {
-@@ -103,10 +93,11 @@ drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
-  * Returns a DRM scheduler pre-selected to handle this entity.
-  */
- struct drm_gpu_scheduler *
--drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
-+drm_sched_rq_add_entity(struct drm_sched_entity *entity)
- {
- 	struct drm_gpu_scheduler *sched;
- 	struct drm_sched_rq *rq;
-+	ktime_t ts;
- 
- 	/* Add the entity to the run queue */
- 	spin_lock(&entity->lock);
-@@ -126,14 +117,9 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
- 		list_add_tail(&entity->list, &rq->entities);
- 	}
- 
--	if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
--		ts = drm_sched_rq_get_min_vruntime(rq);
--		ts = drm_sched_entity_restore_vruntime(entity, ts);
--	} else if (drm_sched_policy == DRM_SCHED_POLICY_RR) {
--		ts = drm_sched_rq_get_rr_deadline(rq);
--	}
--
--	drm_sched_rq_update_fifo_locked(entity, rq, ts);
-+	ts = drm_sched_rq_get_min_vruntime(rq);
-+	ts = drm_sched_entity_restore_vruntime(entity, ts);
-+	drm_sched_rq_update_tree_locked(entity, rq, ts);
- 
- 	spin_unlock(&rq->lock);
- 	spin_unlock(&entity->lock);
-@@ -162,7 +148,7 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
- 	atomic_dec(rq->sched->score);
- 	list_del_init(&entity->list);
- 
--	drm_sched_rq_remove_fifo_locked(entity, rq);
-+	drm_sched_rq_remove_tree_locked(entity, rq);
- 
- 	spin_unlock(&rq->lock);
- }
-@@ -183,23 +169,14 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- 	if (next_job) {
- 		ktime_t ts;
- 
--		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
--			ts = drm_sched_entity_get_job_ts(entity);
--		else if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
--			ts = next_job->submit_ts;
--		else
--			ts = drm_sched_rq_get_rr_deadline(rq);
--
--		drm_sched_rq_update_fifo_locked(entity, rq, ts);
-+		ts = drm_sched_entity_get_job_ts(entity);
-+		drm_sched_rq_update_tree_locked(entity, rq, ts);
- 	} else {
--		drm_sched_rq_remove_fifo_locked(entity, rq);
-+		ktime_t min_vruntime;
- 
--		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
--			ktime_t min_vruntime;
--
--			min_vruntime = drm_sched_rq_get_min_vruntime(rq);
--			drm_sched_entity_save_vruntime(entity, min_vruntime);
--		}
-+		drm_sched_rq_remove_tree_locked(entity, rq);
-+		min_vruntime = drm_sched_rq_get_min_vruntime(rq);
-+		drm_sched_entity_save_vruntime(entity, min_vruntime);
- 	}
- 	spin_unlock(&rq->lock);
- 	spin_unlock(&entity->lock);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index c6169cbf909b..e9ff24c076aa 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -151,8 +151,6 @@ struct drm_sched_entity {
- 	 */
- 	struct spsc_queue		job_queue;
- 
--	enum drm_sched_priority         rq_priority;
--
- 	/**
- 	 * @fence_seq:
- 	 *
-@@ -339,13 +337,6 @@ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f);
- struct drm_sched_job {
- 	u64				id;
- 
--	/**
--	 * @submit_ts:
--	 *
--	 * When the job was pushed into the entity queue.
--	 */
--	ktime_t                         submit_ts;
--
- 	/**
- 	 * @sched:
- 	 *
-@@ -557,9 +548,7 @@ struct drm_gpu_scheduler {
- 	atomic_t			credit_count;
- 	long				timeout;
- 	const char			*name;
--	u32                             num_rqs;
--	u32                             num_user_rqs;
--	struct drm_sched_rq             **sched_rq;
-+	struct drm_sched_rq             *rq;
- 	wait_queue_head_t		job_scheduled;
- 	atomic64_t			job_id_count;
- 	struct workqueue_struct		*submit_wq;
--- 
-2.48.0
+Hi,
+
+I'm experimenting with V7 of the this API on Weston, using the AMD driver,
+and I'm seeing issues with the usage of 3D LUT's: channels R and B being
+swapped.
+On Weston, the 3D LUT is constructed as:
+
+for B in range 0..n
+    for G in range 0..n
+       for R in range 0..n
+           index = R + n * (G + n * B)
+           lut[index].red   = foo
+           lut[index].green = foo
+           lut[index].blue  = foo
+
+To map that to DRM_COLOROP_3D_LUT, we do:
+
+for B in range 0..n
+    for G in range 0..n
+       for R in range 0..n
+           index_weston = R + n * (G + n * B)
+           index_kernel = B + n * (G + n * R)
+           lut_kernel[index_kernel].red   = lut[index_weston].red
+           lut_kernel[index_kernel].green = lut[index_weston].green
+           lut_kernel[index_kernel].blue  = lut[index_weston].blue
+
+If I ignore the documentation and use the same indices, everything works
+fine regarding the color channels.
+
+Maybe there's a bug in our Weston code, but writing this just to confirm
+that the documentation and the AMD driver are matching.
+
+Thanks,
+Leandro
+
+> +
+> +/**
+> + * enum drm_colorop_lut3d_interpolation_type - type of 3DLUT interpolation
+> + */
+> +enum drm_colorop_lut3d_interpolation_type {
+> +	/**
+> +	 * @DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL:
+> +	 *
+> +	 * Tetrahedral 3DLUT interpolation
+> +	 */
+> +	DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
+>  };
+>  
+>  /**
 
