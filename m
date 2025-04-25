@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ABE4C369D8
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 18:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCFCC369C2
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 18:39:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31F5810E988;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA1B10E98A;
 	Fri, 25 Apr 2025 18:39:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bGtzkMFG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HNXlMGTj";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D419B10E979
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2968710E33A
  for <amd-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 18:39:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lwWYNaaO7qnkqjhL6t30WfIVffvlErl6EymJj/IMEjTazOblJIf09ZRYk0WylQv9r3Ody57oqQG8hHUdwNiAT/2vjTl42GuyQ43O4Ie0RQDxMTHjgfozEJ0yhG2QtdaWVLrU413EW6j/E38vT22trnrQOHRInR6Nixt5VEj3dN73Ww5abSPxj4RohmCf1Ru2Qv/mGOPAmxMeutQjy+u0mE1TLJWZVUDc/bABOFa6/KDHgWQ5fctcxd6MrrgIL3Cxtl9AYfrRAQKABr9nMdFfN9G7gpPjb5oJ4nVeqyejrLD0SfjSXsCTEpsLIjOKRfMKWQPeh5YJhj6chw/2KqXUwg==
+ b=dbhEyz/lTjFUyejXYxZb+OyLEh0CowojJ1j2NSnYlft3j9C/nvU5cJU82zddRjvTX0d3pFjSFqWMf/Qeo8JTnAStLNpjEVKwPsc9eapiqskj5u7+J9dmdb6va5lDbULo55vBW1nwGEohSi2hwS+HgdfBOmQeITzOn5kbNDa1vqjozUvU7aGJ7GVw3SnMFavmXpNyImu2Qu3L1m65UDoOZL4ZF1OzdU4H28WLQWz4KLDfTktY4lu376zudKxZUpxSCfMtkNFf7Xr6moa4mJlJOsswLmo6smneNP169y2PFkw+VDyl9L4zo4EcXxJyladJlToZVnGA/K83LX4M1TLNrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=haLJbq2ZIGb9Iawf8vuyHcl9IB4FffsLdfI/ZApi2W8=;
- b=HZ5TZte2nQ55b8sk3G2z38tEYlrWobOMNnCpg6Ad7Fwk57fFZ+pXpZWMFIsN5cbE4oEGshpDVfxWegi3omkRuuzsFs0qSDrLl9msiPUeX5NjDUjjVX675jcbJU/xii5vCLrBeitwsNQ77LQFK8ajdF+sL+x1XpWUuSjcibj7JMEo5uC4BDJPSHGuWheaLdCUP4JN84h3IedHMN/QuJFy5oOYH21vSXrhXEVSPJbjqtINKCv/eCp4rHqfa3rSBMSioupGvFTGBij19vref21HftBdSSe4903DmK9NdbSusqb/qFaDTM9kVwjvDfhU54ijnxcgiZxf0NLE5WgSWsFMJg==
+ bh=RM4TFGum+T8C7zi/HBEbTC6LXVz/QfX3UdHkUkW4l38=;
+ b=F4a4J0uwjemXuLBo+gStvrmgTXew+iyV9QvHeuiJhEQvFEasnQD+6NG5KPLhDbPsjIqIDvYa55aBUIABtC5dm6EijeiVtulIjDoH3OKrB3nkDl7hKFWKPlmIuo1wsSn7v9wFTMXmbWBN2DiQb+yoA474DthefnXjsfi/X+76U00XO1k0vmz2Q4eH3xehilk+cD3LONORCxk7eDvvUcVXo881NJy/jltdEHdhuE4b4YKXUIQE/1X3pg+LB6E260S4Vbwr02FV8zvtRI68mEbI7IuFxJglkvQrcfd/rJ+G4VdvDzeWNpQCtt2Bw22cRoYQvZLuaGaRCV0vYCXDJNgjXg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=haLJbq2ZIGb9Iawf8vuyHcl9IB4FffsLdfI/ZApi2W8=;
- b=bGtzkMFGvTjyLRUdQXxhANGJml8S+M9hUTLIQebPM2oX/jkq4n5M14h3LPPc01uOmdfLL2MbZr+b+f2qXhhjcWPpRrLdm0Ovs/yK/8h8Zm071iXNmWE4dzSvg/lx6rsbHRO+laIUrPzNN2ti2B3+nADanljLurbf/pO6HpFPwUU=
-Received: from DS7PR03CA0305.namprd03.prod.outlook.com (2603:10b6:8:2b::25) by
- MW4PR12MB7014.namprd12.prod.outlook.com (2603:10b6:303:218::8) with
+ bh=RM4TFGum+T8C7zi/HBEbTC6LXVz/QfX3UdHkUkW4l38=;
+ b=HNXlMGTj4DHO64Fk+vzrX7HWrKCfj1qXCUOKb+bInok3Hnk5TRIijWI/P7KDZn0ySKqF+2k8bd4CZV9RYQuNfIQtyiBe3If+4c3XV2cEU4iHmKQF8wryBRZnipDHDCRPM7uXsr0bfgwwZsD52drjq9RCzA/Ai0JNgC3TcOQujuY=
+Received: from DS7PR03CA0308.namprd03.prod.outlook.com (2603:10b6:8:2b::31) by
+ DS0PR12MB8018.namprd12.prod.outlook.com (2603:10b6:8:149::12) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8678.27; Fri, 25 Apr 2025 18:39:14 +0000
+ 15.20.8678.27; Fri, 25 Apr 2025 18:39:13 +0000
 Received: from DS2PEPF00003446.namprd04.prod.outlook.com
- (2603:10b6:8:2b:cafe::fd) by DS7PR03CA0305.outlook.office365.com
- (2603:10b6:8:2b::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.36 via Frontend Transport; Fri,
- 25 Apr 2025 18:39:13 +0000
+ (2603:10b6:8:2b:cafe::d8) by DS7PR03CA0308.outlook.office365.com
+ (2603:10b6:8:2b::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.38 via Frontend Transport; Fri,
+ 25 Apr 2025 18:39:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,17 +50,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS2PEPF00003446.mail.protection.outlook.com (10.167.17.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Fri, 25 Apr 2025 18:39:13 +0000
+ 15.20.8655.12 via Frontend Transport; Fri, 25 Apr 2025 18:39:12 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Apr
- 2025 13:39:11 -0500
+ 2025 13:39:10 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 9/9] drm/amdgpu/userq: implement support for query status
-Date: Fri, 25 Apr 2025 14:38:55 -0400
-Message-ID: <20250425183855.165199-9-alexander.deucher@amd.com>
+Subject: [PATCH 8/9] drm/amdgpu: add UAPI for user queue query status
+Date: Fri, 25 Apr 2025 14:38:54 -0400
+Message-ID: <20250425183855.165199-8-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250425183855.165199-1-alexander.deucher@amd.com>
 References: <20250425183855.165199-1-alexander.deucher@amd.com>
@@ -72,52 +72,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003446:EE_|MW4PR12MB7014:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1791e50d-d00f-419e-08a3-08dd84287a18
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003446:EE_|DS0PR12MB8018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 059af430-ac8b-41f7-7262-08dd8428797f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?d2UXTn/6JbFrLJ60zOCddm0UKm6OjF70jOxAY4X7UHOHW7Pj4db7q1HJX5gM?=
- =?us-ascii?Q?zbo3O6fOXy8Bi/9ip9pGuUbTaRp2A/ta5jkIqTtiEnjaaH14K0PDobH/ZA6g?=
- =?us-ascii?Q?033WS628A9+Ahm9cabjnZMNW48yGt7/AFXJmTBVO4VaPj9uw/j76gUGs+QMM?=
- =?us-ascii?Q?lJ1nUPVcCv1nTY051j2BjrY1yZEc7wC66K4yWSFiJpisleXxDUYqrNZj3mdi?=
- =?us-ascii?Q?DACKgTi5CMnbj7ZBRNZw3vsrh4mcJ1mg+IBRYRYMLUQr4mp0jpzQrkCGcFRQ?=
- =?us-ascii?Q?EaQrJd+Slnw2IVrQO92rcjCED5PPO4A3bJ2OhYNs1s+hgd6JHV53xvFchraA?=
- =?us-ascii?Q?H883YJrti+AauZl7z2jE+EBICiVI3u0RyjxKhHO+ZQWhStl6i33PiggkIyJK?=
- =?us-ascii?Q?ATfp8r1GOjNM4ZJQJadOcNfeLnRd1GMiVRdfCbO5qgCk6oMS/XZPqlxtyp6C?=
- =?us-ascii?Q?Hr8UhQ+C60YcBZgM13lbxJHvwMagQxcr9NS5L3GaOrCsi4mRHThpGHnwxdd4?=
- =?us-ascii?Q?wUXmclpb35+sH2jV3KHZndvD38y1NW0GSMKV5l2pY8HL5u/RypfbRu8mxKYI?=
- =?us-ascii?Q?ADRbW7Mx0X7B01kSats5Xjf6JHuY6rpRJsTOO77CunPQvFXi5mVCRxCi1+Rd?=
- =?us-ascii?Q?Fw/ohERNq2BYD0P+v3qgs45NvF283xVFMgvR41+Dy4GaISbXv7hc8+vuWlsw?=
- =?us-ascii?Q?pl5q3zApYZY2Tf+V2tefLNzan1TINoue0UC5fFz6WMQMMIX4m9q0Wvim6cxm?=
- =?us-ascii?Q?rCq9LYu9OykDp7tLJzP4I6rYeHqbKIyERn9JEnlEO6+wvIjkX12QXsktU6yw?=
- =?us-ascii?Q?Ia29Z9IHlajwrwiSSkl9I+JgGYs+hC9LdZZeqtcpdq6IpOYOjdAfsslb56FQ?=
- =?us-ascii?Q?dozVKfT4hjAfinh2AAPDKoxSRHRVKjl9N1I6T7B5KgLnjw7PWpEVRPt+SFDZ?=
- =?us-ascii?Q?bups9O1RXnFq65g/60zOENea+NiGYcRheGTA0InFf6MS2f9v6xWHwAt64HIw?=
- =?us-ascii?Q?MAK6hPWmNLOAiU2CVABlbBpbcKPguq0nB3/DUcP35o9dy1zRISc6kCOgMlWr?=
- =?us-ascii?Q?znK9wrVRQ4OUPM9sHzhmsOits/jEjrn1mgAstGcZwk0F4sGqOLst8KzRT5ia?=
- =?us-ascii?Q?nlZ0Xx5JUoJsULaZ2fdMpspnd+fV5XofJtjvl6D0kDmIjWj9pMA68E7TG8x1?=
- =?us-ascii?Q?brCn8A4kMwKoargrsdrbqvzSKmkOSXYtCbude7l5JiI7t3TIGKHKHxkg6g/5?=
- =?us-ascii?Q?Jfb3mEs5PRmXbGqpaT478QFlGZZFfBp8WRDIm7y3oYKnqoUjXzuDvQC7iSzv?=
- =?us-ascii?Q?/aTEd5voqWW7oLTl0AgtmK0fOUJwpC15YclsBQC7sXH0rLokMBXXZD3pzPuz?=
- =?us-ascii?Q?Q17B0DqfMt8FsLacJaWmUPE0MuKq1eyfQN/NRmesBlcw9HCa88pacauFUyRF?=
- =?us-ascii?Q?EezXPlc07wsHs9h2yathIhYHloWTZ+ypwEcgMQYR/5Q+DeArnMBaHZZ19J77?=
- =?us-ascii?Q?xdB0LQiSxzeF9W/SLxrFv6r/3M0UizmIXxrc?=
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eoshwKXS+zYfvP8ghikWktn85f1fbNoAzHbU9XpIjZ0Xv3WbhDwdIo2HZJac?=
+ =?us-ascii?Q?W+2p6x3Ox3iP2D3Rcd3UH7FtQzAPrp5EwPplKqxwSmeWFsbJMnhHJznV4vKv?=
+ =?us-ascii?Q?TSFUM7MhR6pj5Lh4t7K/NMFDRKXVl3lxlTISnImS50waQu2XX+oc30gmZUW9?=
+ =?us-ascii?Q?4+M/LqYevuuaLEQzqfneurxGx1kwGeBT+mHBSamu0pzo3IB9dggch7x8bPHw?=
+ =?us-ascii?Q?pm/euXu7QYs55spqJdeHZ61XSGWTeaMdaBHJwUpf1F09SS/g4wG8/WB6HpKG?=
+ =?us-ascii?Q?SHQYFxDK1/e7698LyUGKDC+IE1w+M2PpiWe+d/ceE6YElM449e4nMRqEyqoW?=
+ =?us-ascii?Q?xhTaArrRMmppxgi2SFzwIqY47Xq6ql9FqU9bnqFrNmNeznArgwxacRpHy9Bg?=
+ =?us-ascii?Q?nVXLaQlSmWcfaTqoxmGLGdx2B/2dW04PUuoV67oD3xzg/VbppynRheyrjETI?=
+ =?us-ascii?Q?jj+dfpUa1SCLvzIfGXsDi71CAn+HLcuqGo6wdxIDBxJtq1M50TpaQ3m9jlGF?=
+ =?us-ascii?Q?U7iiH2pRBP6LhilTOs8Jg15eFKqKQV0QpxXtmnL+mnaplqTKMlNWnJ9J//2p?=
+ =?us-ascii?Q?iXxM8KaceuPbUGPelwHfR4RCawcsXiTd1Jg24WcgerG2MG9CO/7N8owHoe04?=
+ =?us-ascii?Q?S+QSWtUjKTUINwqHbLBu6NtY8OTmd/7R0Aq+iFZO0qQ5yxTQ39kwxzL7iB1h?=
+ =?us-ascii?Q?m7++KAS7bvlw1Oxki83JRQaMyUR5sSdmODZXCqyaJvaOy9LOQHh823wSsYeo?=
+ =?us-ascii?Q?r6ppaUO/sVrLzzjjr5+CHZmByqnYtqFPrPEjcah+vgfC+HfWDLYxUc9FlBiS?=
+ =?us-ascii?Q?x5INBypjCJ/+yQrxcuw8+7G0fygDv4ChqYrlFdAiNVh+DC7Q0zPM+29YMu/W?=
+ =?us-ascii?Q?MUfqBjJrrLPoCoDNRIsQSJ8O42FuVkcoCb24nAcRIAjSvFxpcRzYDtu2Mns8?=
+ =?us-ascii?Q?EW8cG7UReMz6HR6HlLnArQRZPZKWlDM2/0QhtLUcJznr73jkWpVeLWDHWz4M?=
+ =?us-ascii?Q?d3OUGtvnAOLE1/9IfDPC1sHCsYRQ+wgdWiaPMP1Kb33g8rZhQL8E45Y4wZnD?=
+ =?us-ascii?Q?ZQHDXIR1SHnuS8b5z/0jtWKbe6wQOiMv+MRAnFV+K4hDxaWxz+rlaqojO1JX?=
+ =?us-ascii?Q?pbAOJiu//khzxenZHUHvxBlZloMrAPrt0i3hBBYTG74HgCjSd5RNvUvSs3Bq?=
+ =?us-ascii?Q?8wWi3C7RXZlrsJ2WvPijOzVtX5O9DNVpqKS8UAGp+fZ0KCo4dNRIXB9RMPTD?=
+ =?us-ascii?Q?WjFULbQP8xjAwcKjtOxq6az4PVQ9H5x2Cwo1oj+1vqCzaOwMERIckv3Ycr1Z?=
+ =?us-ascii?Q?LmqixqfGlUNy/4j/TzefgeooLnrRkVN1EJgWoINg+EDUO96YqLtTqcc9hsix?=
+ =?us-ascii?Q?hTdePawTnI0BdXtt6bepWwKk5yqvdRrrHTfHvAcVQpghI9lXZcQcNMxoOeyh?=
+ =?us-ascii?Q?0oROHqrFD64rSamCEAOZuMwBSFwKmBt3euKo32LM+oCt8P+OiA2Swg738QVr?=
+ =?us-ascii?Q?bHuIPfLrv8C5+65TaY5sjh0+5Pi+Jbj/+MrY?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2025 18:39:13.7651 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1791e50d-d00f-419e-08a3-08dd84287a18
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2025 18:39:12.7652 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 059af430-ac8b-41f7-7262-08dd8428797f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003446.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7014
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8018
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,99 +132,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Query the status of the user queue, currently whether
-the queue is hung and whether or not VRAM is lost.
+Add an API to query queue status such as whether the
+queue is hung or whether vram is lost.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 47 ++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  1 +
- 2 files changed, 47 insertions(+), 1 deletion(-)
+ include/uapi/drm/amdgpu_drm.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 4be46fa76ceba..e56fae10400db 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -460,6 +460,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	queue->queue_type = args->in.ip_type;
- 	queue->vm = &fpriv->vm;
- 	queue->priority = priority;
-+	queue->generation = amdgpu_vm_generation(adev, &fpriv->vm);
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 1fd96474e64c0..56f052a10ff38 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -328,6 +328,7 @@ union drm_amdgpu_ctx {
+ /* user queue IOCTL operations */
+ #define AMDGPU_USERQ_OP_CREATE	1
+ #define AMDGPU_USERQ_OP_FREE	2
++#define AMDGPU_USERQ_OP_QUERY_STATUS	3
  
- 	db_info.queue_type = queue->queue_type;
- 	db_info.doorbell_handle = queue->doorbell_handle;
-@@ -532,6 +533,34 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	return r;
- }
+ /* queue priority levels */
+ /* low < normal low < normal high < high */
+@@ -340,6 +341,12 @@ union drm_amdgpu_ctx {
+ /* for queues that need access to protected content */
+ #define AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE  (1 << 2)
  
-+static int
-+amdgpu_userq_query_status(struct drm_file *filp, union drm_amdgpu_userq *args)
-+{
-+	struct amdgpu_fpriv *fpriv = filp->driver_priv;
-+	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
-+	struct amdgpu_device *adev = uq_mgr->adev;
-+	struct amdgpu_usermode_queue *queue;
-+	int queue_id = args->in.queue_id;
 +
-+	mutex_lock(&uq_mgr->userq_mutex);
++/* the queue is hung */
++#define AMDGPU_USERQ_QUERY_STATUS_FLAGS_HUNG    (1 << 0)
++/* indicate vram lost since queue was created */
++#define AMDGPU_USERQ_QUERY_STATUS_FLAGS_VRAMLOST (1 << 1)
 +
-+	queue = amdgpu_userq_find(uq_mgr, queue_id);
-+	if (!queue) {
-+		dev_err(adev->dev, "Invalid queue id to query\n");
-+		mutex_unlock(&uq_mgr->userq_mutex);
-+		return -EINVAL;
-+	}
-+	args->out_qs.flags = 0;
-+	if (queue->state == AMDGPU_USERQ_STATE_HUNG)
-+		args->out_qs.flags |= AMDGPU_USERQ_QUERY_STATUS_FLAGS_HUNG;
-+	if (queue->generation != amdgpu_vm_generation(adev, &fpriv->vm))
-+		args->out_qs.flags |= AMDGPU_USERQ_QUERY_STATUS_FLAGS_VRAMLOST;
-+
-+	mutex_unlock(&uq_mgr->userq_mutex);
-+
-+	return 0;
-+}
-+
- int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
- 		       struct drm_file *filp)
- {
-@@ -565,7 +594,23 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
- 		if (r)
- 			DRM_ERROR("Failed to destroy usermode queue\n");
- 		break;
--
-+	case AMDGPU_USERQ_OP_QUERY_STATUS:
-+		if (args->in.ip_type ||
-+		    args->in.doorbell_handle ||
-+		    args->in.doorbell_offset ||
-+		    args->in.flags ||
-+		    args->in.queue_va ||
-+		    args->in.queue_size ||
-+		    args->in.rptr_va ||
-+		    args->in.wptr_va ||
-+		    args->in.wptr_va ||
-+		    args->in.mqd ||
-+		    args->in.mqd_size)
-+			return -EINVAL;
-+		r = amdgpu_userq_query_status(filp, args);
-+		if (r)
-+			DRM_ERROR("Failed to query usermode queue status\n");
-+		break;
- 	default:
- 		DRM_DEBUG_DRIVER("Invalid user queue op specified: %d\n", args->in.op);
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 6ede08dd821d2..35a08ee59d893 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -65,6 +65,7 @@ struct amdgpu_usermode_queue {
- 	struct dma_fence	*last_fence;
- 	u32			xcp_id;
- 	int			priority;
-+	uint64_t		generation;
+ /*
+  * This structure is a container to pass input configuration
+  * info for all supported userqueue related operations.
+@@ -421,9 +428,16 @@ struct drm_amdgpu_userq_out {
+ 	__u32 _pad;
  };
  
- struct amdgpu_userq_funcs {
++/* The structure to carry output of userqueue ops */
++struct drm_amdgpu_userq_out_query_state {
++	__u32 flags;
++	__u32 _pad;
++};
++
+ union drm_amdgpu_userq {
+ 	struct drm_amdgpu_userq_in in;
+ 	struct drm_amdgpu_userq_out out;
++	struct drm_amdgpu_userq_out_query_state out_qs;
+ };
+ 
+ /* GFX V11 IP specific MQD parameters */
 -- 
 2.49.0
 
