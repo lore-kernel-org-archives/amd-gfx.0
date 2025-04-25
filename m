@@ -4,16 +4,16 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80F7CC369D5
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 10:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45BFFC369D1
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 10:20:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2E7410E903;
-	Fri, 25 Apr 2025 10:20:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 019DA10E906;
+	Fri, 25 Apr 2025 10:20:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cIJ4ahQI";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fuwZk7gf";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 776FD10E903;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0022910E913;
  Fri, 25 Apr 2025 10:20:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Y8soDPZA7/hA92ocjdIVQhuV+dBxGvdeyCOWl5SemgE=; b=cIJ4ahQISPZHdsslykIRdWOlbJ
- /r/7hcNjWS7EGpH9bB3/pq6btD/ZqTtTuBntQF5eiisEc/Pf+froapyl2lp0VOjsy+XJK8A2n1axu
- AZZRkhRxpuIVRNlB0S7wi5+z2YdepMWjc0DNce7NBa/kyNcBgyfoeqjttdY8zGR8s76wKPDov0MDt
- hSRqQI8a0s9qkHczH8Kja8G5iYQobca7VdfPEGZc8EIVStcbjnNsXfM0jk9MpCFGnYmHSBso4qNG1
- CCbHAUeemwpW4Ewli3Rd78UjYYF0DjG3qFnXX1fXVmWSoWGnT+XTyVX18Yk6LeoMLSq29tjePRwIF
- l+umdiQg==;
+ bh=eGFktW14eDA/4ScKaJOiqdHxlBWPMUR03vI1+F3NjMw=; b=fuwZk7gfjEolXA5mdFlBMkjE5C
+ JWmDMosQqj6xS0KQY8hS2ARCkyLqUaKWGK/UtYoIO1hwIx+CXgmpKaYC6ESi/UnJNomeOntAm72iH
+ JpnRmNQXqZIQ6qOcjpuu5bm025y6CVNWglNUxAWlxGnzTvGV4UwE0KnR0yNRdQVXaqZAvFfxGhcOd
+ BI+6kFwQBlwprAFSDxiucnKLHM8ECxhs4GpQhnwxJC2+OIYQWBOlB6Eh8UaztG2PLVB3ri6A1ibe0
+ iQXjHjigiwDxh4GNSZibBmpfvvyZaAY2s8PQsMcjvgijLuZeJCVIrucDFmmAa8YIggy52PWRQy1NO
+ zzDDFO3g==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1u8GAn-008Grt-3J; Fri, 25 Apr 2025 12:20:45 +0200
+ id 1u8GAp-008GsF-82; Fri, 25 Apr 2025 12:20:47 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -40,9 +40,9 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [RFC v4 05/16] drm/sched: Consolidate drm_sched_job_timedout
-Date: Fri, 25 Apr 2025 11:20:23 +0100
-Message-ID: <20250425102034.85133-6-tvrtko.ursulin@igalia.com>
+Subject: [RFC v4 08/16] drm/sched: Consolidate entity run queue management
+Date: Fri, 25 Apr 2025 11:20:26 +0100
+Message-ID: <20250425102034.85133-9-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
 References: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
@@ -63,15 +63,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reduce to one spin_unlock for hopefully a little bit clearer flow in the
-function. It may appear that there is a behavioural change with the
-drm_sched_start_timeout_unlocked() now not being called if there were
-initially no jobs on the pending list, and then some appeared after
-unlock, however if the code would rely on the TDR handler restarting
-itself then it would fail to do that if the job arrived on the pending
-list after the check.
-
-Also fix one stale comment while touching the function.
+Move the code dealing with entities entering and exiting run queues to
+helpers to logically separate it from jobs entering and exiting entities.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -79,70 +72,248 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 37 +++++++++++++-------------
- 1 file changed, 18 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c   | 60 ++-------------
+ drivers/gpu/drm/scheduler/sched_internal.h |  8 +-
+ drivers/gpu/drm/scheduler/sched_main.c     | 87 +++++++++++++++++++---
+ 3 files changed, 83 insertions(+), 72 deletions(-)
 
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index bbb7f3d3e3e8..8362184fe431 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -469,19 +469,9 @@ drm_sched_job_dependency(struct drm_sched_job *job,
+ 	return NULL;
+ }
+ 
+-static ktime_t
+-drm_sched_rq_get_rr_deadline(struct drm_sched_rq *rq)
+-{
+-	lockdep_assert_held(&rq->lock);
+-
+-	rq->rr_deadline = ktime_add_ns(rq->rr_deadline, 1);
+-
+-	return rq->rr_deadline;
+-}
+-
+ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ {
+-	struct drm_sched_job *sched_job, *next_job;
++	struct drm_sched_job *sched_job;
+ 
+ 	sched_job = drm_sched_entity_queue_peek(entity);
+ 	if (!sched_job)
+@@ -512,27 +502,7 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ 
+ 	spsc_queue_pop(&entity->job_queue);
+ 
+-	/*
+-	 * Update the entity's location in the min heap according to
+-	 * the timestamp of the next job, if any.
+-	 */
+-	next_job = drm_sched_entity_queue_peek(entity);
+-	if (next_job) {
+-		struct drm_sched_rq *rq;
+-		ktime_t ts;
+-
+-		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+-			ts = next_job->submit_ts;
+-		else
+-			ts = drm_sched_rq_get_rr_deadline(rq);
+-
+-		spin_lock(&entity->lock);
+-		rq = entity->rq;
+-		spin_lock(&rq->lock);
+-		drm_sched_rq_update_fifo_locked(entity, rq, ts);
+-		spin_unlock(&rq->lock);
+-		spin_unlock(&entity->lock);
+-	}
++	drm_sched_rq_pop_entity(entity);
+ 
+ 	/* Jobs and entities might have different lifecycles. Since we're
+ 	 * removing the job from the entities queue, set the jobs entity pointer
+@@ -614,30 +584,10 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 	/* first job wakes up scheduler */
+ 	if (first) {
+ 		struct drm_gpu_scheduler *sched;
+-		struct drm_sched_rq *rq;
+ 
+-		/* Add the entity to the run queue */
+-		spin_lock(&entity->lock);
+-		if (entity->stopped) {
+-			spin_unlock(&entity->lock);
+-
+-			DRM_ERROR("Trying to push to a killed entity\n");
+-			return;
+-		}
+-
+-		rq = entity->rq;
+-		sched = rq->sched;
+-
+-		spin_lock(&rq->lock);
+-		drm_sched_rq_add_entity(rq, entity);
+-		if (drm_sched_policy == DRM_SCHED_POLICY_RR)
+-			submit_ts = drm_sched_rq_get_rr_deadline(rq);
+-		drm_sched_rq_update_fifo_locked(entity, rq, submit_ts);
+-
+-		spin_unlock(&rq->lock);
+-		spin_unlock(&entity->lock);
+-
+-		drm_sched_wakeup(sched);
++		sched = drm_sched_rq_add_entity(entity, submit_ts);
++		if (sched)
++			drm_sched_wakeup(sched);
+ 	}
+ }
+ EXPORT_SYMBOL(drm_sched_entity_push_job);
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index 599cf6e1bb74..8e7e477bace3 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -12,13 +12,11 @@ extern int drm_sched_policy;
+ 
+ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+ 
+-void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+-			     struct drm_sched_entity *entity);
++struct drm_gpu_scheduler *
++drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
+ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+ 				struct drm_sched_entity *entity);
+-
+-void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+-				     struct drm_sched_rq *rq, ktime_t ts);
++void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
+ 
+ void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
+ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
 diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index a45b02fd2af3..a26cc11c8ade 100644
+index 2bac478a50bf..d3e16e5d2e38 100644
 --- a/drivers/gpu/drm/scheduler/sched_main.c
 +++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -516,38 +516,37 @@ static void drm_sched_job_begin(struct drm_sched_job *s_job)
- 
- static void drm_sched_job_timedout(struct work_struct *work)
+@@ -144,15 +144,18 @@ static __always_inline bool drm_sched_entity_compare_before(struct rb_node *a,
+ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
+ 					    struct drm_sched_rq *rq)
  {
--	struct drm_gpu_scheduler *sched;
-+	struct drm_gpu_scheduler *sched =
-+		container_of(work, struct drm_gpu_scheduler, work_tdr.work);
-+	enum drm_gpu_sched_stat status;
- 	struct drm_sched_job *job;
--	enum drm_gpu_sched_stat status = DRM_GPU_SCHED_STAT_NOMINAL;
--
--	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
++	lockdep_assert_held(&entity->lock);
++	lockdep_assert_held(&rq->lock);
++
+ 	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+ 		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
+ 		RB_CLEAR_NODE(&entity->rb_tree_node);
+ 	}
+ }
  
- 	/* Protects against concurrent deletion in drm_sched_get_finished_job */
- 	spin_lock(&sched->job_list_lock);
- 	job = list_first_entry_or_null(&sched->pending_list,
- 				       struct drm_sched_job, list);
--
- 	if (job) {
- 		/*
- 		 * Remove the bad job so it cannot be freed by concurrent
--		 * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
--		 * is parked at which point it's safe.
-+		 * drm_sched_get_finished_job. It will be reinserted back after
-+		 * scheduler worker is stopped at which point it's safe.
- 		 */
- 		list_del_init(&job->list);
--		spin_unlock(&sched->job_list_lock);
+-void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+-				     struct drm_sched_rq *rq,
+-				     ktime_t ts)
++static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
++					    struct drm_sched_rq *rq,
++					    ktime_t ts)
+ {
+ 	/*
+ 	 * Both locks need to be grabbed, one to protect from entity->rq change
+@@ -187,25 +190,58 @@ static void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
+ 	rq->sched = sched;
+ }
+ 
++static ktime_t
++drm_sched_rq_get_rr_deadline(struct drm_sched_rq *rq)
++{
++	lockdep_assert_held(&rq->lock);
++
++	rq->rr_deadline = ktime_add_ns(rq->rr_deadline, 1);
++
++	return rq->rr_deadline;
++}
++
+ /**
+  * drm_sched_rq_add_entity - add an entity
+  *
+- * @rq: scheduler run queue
+  * @entity: scheduler entity
++ * @ts: submission timestamp
+  *
+  * Adds a scheduler entity to the run queue.
++ *
++ * Returns a DRM scheduler pre-selected to handle this entity.
+  */
+-void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+-			     struct drm_sched_entity *entity)
++struct drm_gpu_scheduler *
++drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+ {
+-	lockdep_assert_held(&entity->lock);
+-	lockdep_assert_held(&rq->lock);
++	struct drm_gpu_scheduler *sched;
++	struct drm_sched_rq *rq;
+ 
+-	if (!list_empty(&entity->list))
+-		return;
++	/* Add the entity to the run queue */
++	spin_lock(&entity->lock);
++	if (entity->stopped) {
++		spin_unlock(&entity->lock);
+ 
+-	atomic_inc(rq->sched->score);
+-	list_add_tail(&entity->list, &rq->entities);
++		DRM_ERROR("Trying to push to a killed entity\n");
++		return NULL;
 +	}
-+	spin_unlock(&sched->job_list_lock);
++
++	rq = entity->rq;
++	spin_lock(&rq->lock);
++	sched = rq->sched;
++
++	if (list_empty(&entity->list)) {
++		atomic_inc(sched->score);
++		list_add_tail(&entity->list, &rq->entities);
++	}
++
++	if (drm_sched_policy == DRM_SCHED_POLICY_RR)
++		ts = drm_sched_rq_get_rr_deadline(rq);
++	drm_sched_rq_update_fifo_locked(entity, rq, ts);
++
++	spin_unlock(&rq->lock);
++	spin_unlock(&entity->lock);
++
++	return sched;
+ }
  
--		status = job->sched->ops->timedout_job(job);
-+	if (!job)
-+		return;
+ /**
+@@ -234,6 +270,33 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+ 	spin_unlock(&rq->lock);
+ }
  
--		/*
--		 * Guilty job did complete and hence needs to be manually removed
--		 * See drm_sched_stop doc.
--		 */
--		if (sched->free_guilty) {
--			job->sched->ops->free_job(job);
--			sched->free_guilty = false;
--		}
--	} else {
--		spin_unlock(&sched->job_list_lock);
-+	status = job->sched->ops->timedout_job(job);
++void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
++{
++	struct drm_sched_job *next_job;
++	struct drm_sched_rq *rq;
++	ktime_t ts;
 +
 +	/*
-+	 * Guilty job did complete and hence needs to be manually removed. See
-+	 * documentation for drm_sched_stop.
++	 * Update the entity's location in the min heap according to
++	 * the timestamp of the next job, if any.
 +	 */
-+	if (sched->free_guilty) {
-+		job->sched->ops->free_job(job);
-+		sched->free_guilty = false;
- 	}
- 
- 	if (status != DRM_GPU_SCHED_STAT_ENODEV)
++	next_job = drm_sched_entity_queue_peek(entity);
++	if (!next_job)
++		return;
++
++	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
++		ts = next_job->submit_ts;
++	else
++		ts = drm_sched_rq_get_rr_deadline(rq);
++
++	spin_lock(&entity->lock);
++	rq = entity->rq;
++	spin_lock(&rq->lock);
++	drm_sched_rq_update_fifo_locked(entity, rq, ts);
++	spin_unlock(&rq->lock);
++	spin_unlock(&entity->lock);
++}
++
+ /**
+  * drm_sched_rq_select_entity - Select an entity which provides a job to run
+  *
 -- 
 2.48.0
 
