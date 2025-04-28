@@ -4,129 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA25C369D5
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Apr 2025 15:55:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75690C369DC
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Apr 2025 16:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B35E110E5C3;
-	Mon, 28 Apr 2025 15:55:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E49C610E5DA;
+	Mon, 28 Apr 2025 16:15:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ydtadeex";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N1fjwyKc";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A25910E5C3
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Apr 2025 15:55:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mSuVSjFP0OR1Dm2YWFZuL6Po7cMghotox8uqPHAbXOoD7kIVPUuVtMAQZPQs3qhOqvAH000NoqNvMNNSTqLi/ubcTaHd6BPT2OWW9gDa8ZCm6P3X91ja27QgqSjv/xHDW0yk8YUGbi0wJ0MMAM2dQ4tJdskgk9HBNhCLNo61jm8kITfZ1yz38IM9yCU2+8IRSXX3fQ3c80vg6nUIqKfYO/HjK0AcYOLvZvLwe3DxNdY0qC+ahoZ8g0EpK/QjTY8OBTerrQuIRikdqyhD4tmMJWK1naWM1zxSO7gO8ZO0zaU5a0rU9zgZiU1iBTb4zD03bIMvFhsqKSEKXa1LsU8e4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vaXwi6MOp9+q4ZzHu9SR7UPDSlrYf03nRQf+K/OU5M0=;
- b=DqxJkxrs/SBQVVc4aNYBCWgVMgXdxveW70WbefOX4rBhUmMMWnlgTaCuNA++VL47C572VVw8I575ugwzr5LyyEFQ3J1D3KvW2ah+neGZhXNkUSiAQe2QECyhZ1lNG9VF4NylluONEl4NJ9bYe8e3KGJA+/cKdyQ0UdtABt7FJioy7KWNnxgqk//mziwAbnEv5XbEcdpq92s7jywOPIUfvzWk+DfyS3zppmu4F1ndCL++6kdiE0OM1oDQ4dvHzxu7mY2r7IM87lI08Ggq2VX82iYm2RlixI7QTrumjxW2ibOGz4tX2dxheLpEAezavUWcsWJaMUOYdAEB1CC1VMmNNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vaXwi6MOp9+q4ZzHu9SR7UPDSlrYf03nRQf+K/OU5M0=;
- b=ydtadeexh04LHBjFvh1Uk5qdarLmbDzjjVaM5pNO2cvQIBF8hGw/WY+IWQqefD5t4XXbs8NY5718A2MH0m5VK0BkqYydp6gJX08PEMMTBNFW11edmoyGm5vpb+P9kG04rJFjuXVD3oEkaS77DmE79x8THSmaWLQtweOP/+Lvhb4=
-Received: from BYAPR07CA0087.namprd07.prod.outlook.com (2603:10b6:a03:12b::28)
- by MW6PR12MB7069.namprd12.prod.outlook.com (2603:10b6:303:238::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.30; Mon, 28 Apr
- 2025 15:55:47 +0000
-Received: from SJ1PEPF00002311.namprd03.prod.outlook.com
- (2603:10b6:a03:12b:cafe::91) by BYAPR07CA0087.outlook.office365.com
- (2603:10b6:a03:12b::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.36 via Frontend Transport; Mon,
- 28 Apr 2025 15:55:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002311.mail.protection.outlook.com (10.167.242.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8678.33 via Frontend Transport; Mon, 28 Apr 2025 15:55:47 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Apr
- 2025 10:55:42 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Denis Arefev <arefev@swemel.ru>, <stable@vger.kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: check a user-provided number of BOs in list
-Date: Mon, 28 Apr 2025 11:55:13 -0400
-Message-ID: <20250428155513.915888-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
+ [209.85.160.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C112610E5D6;
+ Mon, 28 Apr 2025 16:15:53 +0000 (UTC)
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-2cc4e4f0ecaso650173fac.2; 
+ Mon, 28 Apr 2025 09:15:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1745856953; x=1746461753; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=625Su6G6JIpX11Ojx93m4M2400O4rexIxBDv+Rj6McU=;
+ b=N1fjwyKcS3qYk9gXvF8DHJwhIIO08xLma0lppOX0b5/k8Jq79vTxIZQFvQ3nrSkFl9
+ 33OaFNQ4XJZrXJXAGjXFClVpySCrn0Sy3MwUpGlUWtwj8NV5XsuDsO4vfN24DR3v8Lg9
+ Za7hzGGpnD+dBGctaM6WvSxAk4+ORXK7Rem7xPAOrgAI/EER7RmFIbSdhXdYabzfS8rM
+ 3klaB7MQ6gBHfEXHOyFFukbgQ9cw24XBKT8Gc/PhmF9ZIftH3kSpPP2U8OXCcgmubROt
+ p9vmpdoTNYfgNqciuMvqzmcQuAkXGBQhcMd5TkzfF1Kygjc+Ut/zsh9LAVKWdSkF4ykL
+ GtRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745856953; x=1746461753;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=625Su6G6JIpX11Ojx93m4M2400O4rexIxBDv+Rj6McU=;
+ b=Db3M4OkWbM6m44YRIW9NC91R2fV35TwelgyT86UN15eGLYfd9QFk9uwT1we5HmXD1g
+ 86JQZm1hkhX/id+TyQnfMTzLQ3J0UDbHKPMnKhdeT1t4GepgjohMbHXRo2KGtDO9coWy
+ m85I6Ym8d06irdvAlNe1aV8KDqm7eV8kO+uH6QQHYjuQx94ZLafOjwRRrs+9zdeqkSWo
+ syFGRPKIr//s8EYnYAvfGL++g+2udZk0OeJPNda7ri6GW9feC0g/UzjWXG3Wz5h/kkMp
+ eYzYGSloPD+HqpdeW0EgXStmQjqKLcC+BBzoRHGbjdsZ5+tGbGPqi9/7uy95pjno9qzw
+ aeEA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWKfAx87wIpsZhM8jX3KpichBmVqIyH9jJFnru7BzvbHDNl/SVPfjU26fdBckt1LObg/fM8PB29@lists.freedesktop.org,
+ AJvYcCWjKngXGD0H/FFkMbzU18wGmufP2hYKvnssLLkrl84r+Xvg7Jcst2NVZWOSwkDb04XVXCsRN9UosiiF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzoAL0aoA1JJD2kKwX3yvbuPch/h3Op90Dg2oDvcCmoQdz777eI
+ o0HNCHbu8OtciqAU/QiiDXoz6XoGsJCPWFTyu3OPitRrQl2EDusmSwH/WBNuhsqaqDpIo1i7OuN
+ oVucWyTsnxQBeQHqfT1qhCYgTVGA=
+X-Gm-Gg: ASbGncuxM1MbWyWNol4iCv21WF6sbYcyCGhgcEDGQJybBagtmwJVsV5/RjmKYL21enr
+ j/kK7Ld5x3Kr0vtM2SQtq9txvvz5BU4urHKHZ2luBif8qexjEfWjMVYzDjNIh9sxNtfpdUVl6PH
+ naFg9pIppfGVYRRJWTGab/dGccMJGyWpbhuA==
+X-Google-Smtp-Source: AGHT+IGdrY1v6ZxJpECxVeTu+uVWa7p+zIj9G2pZJ7AvCvB2bYhWcha0KCFNzd0sQ+to2uZ2ncpldVtKgAZnSiOe5QA=
+X-Received: by 2002:a05:6871:3785:b0:296:dded:7d82 with SMTP id
+ 586e51a60fabf-2d99d87b1e5mr2412837fac.7.1745856952737; Mon, 28 Apr 2025
+ 09:15:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002311:EE_|MW6PR12MB7069:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd695168-787f-46f9-9d51-08dd866d2455
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?emNrMTdQSksyUFdSTTh4aGVyRk4zdWh1bkpCMElyc2owODU5L21HWDEzUWZm?=
- =?utf-8?B?djQ4N20xZHpsOTJNUC9zNkE0OXoxMWxCNDRKZDhqVjR6V1BqeFRxY0tNL2wr?=
- =?utf-8?B?WkhTUlJZTXpqK1p4azdTdnNJbFBBQ1ZNakZXc2IrZ3ZPZVN4eUhRSGFlbjBB?=
- =?utf-8?B?aE0rODdzNWxKSDRucEZhQ29VTE1jNWVFRUpvSEQrQi84Nk50Qm80K1dpWGNF?=
- =?utf-8?B?My92Szl1YkxMU2hFUm9lQzd3Sm5RWFZFUEZMRHZOSVFlRytGNStNbElUZ0pu?=
- =?utf-8?B?WHMybjVkL2g0Y2JENkNrQ2pMWE8rbG5GVFdSTTFMUjJacEJla2hsLzl6WWx2?=
- =?utf-8?B?NDJ4eVl5ZDVBZDlxNHd0WWY2RFUveitrbkIzdTA5T2RVTFYzb2p5ckdtU3N0?=
- =?utf-8?B?VDNkNjVKeXExN1ozZHBoRmliSmFRYk5kVGVRV1lMbUpjbGVQMHNhT2lUWnEr?=
- =?utf-8?B?d1Fhd0I4NmdZL1ZpWGhzU0lVeHM4eFVxbVB3b2pGZ0RTWDVJU05IUXQ3QzFR?=
- =?utf-8?B?SDV2OTZ3YmtKOEI5dEdBTHZQTnppeml4ZlVXL1NiaGV6OTk1OE12eDVpZ01m?=
- =?utf-8?B?dDdKKzQ5ZDJvL0FiMmR3VG1TUnZ0YkpmNGVLSTlkNmZYbUgyczIzWnBwQzNH?=
- =?utf-8?B?aVFXalZXNXQvVVZUQ1ZrUnVsYkIxMTluV3JHSk1IUXZ1MnlqMGp5VTB0WjBF?=
- =?utf-8?B?eWVOV2RQWGVnYm0xV1VhZlM3ZSt2SUlFcVZhTnMrbVVNTE1pUzBDSEo2SkI3?=
- =?utf-8?B?M3J6bGtMMDl6bFFDYTZybU9EWFVhSlJTRHpIYlpaaHhNd1daZmZDRmM0ZEht?=
- =?utf-8?B?Mmt4dHIxYjJQOTh6UWd5QmJabWh6TEdoWHV6REhMRXVLVUN5VllPcnhkakRr?=
- =?utf-8?B?eGF5N2ZKN3BGbDdqUFhXR0NWZGhQZ21MR2hvcDJkaytBSWlOak1iZWNJSmVq?=
- =?utf-8?B?NW5BVFNJcVlnSTQyRTVzT3h3Y2NYb20wTkR1bGVWeERvYVZpdS9KNGVqdDFQ?=
- =?utf-8?B?L0s5c3cxZEhtMWpqNy8rQmt1UFVqcVl3UkplaDFqd3R1bzM5dUg5VDBncjFu?=
- =?utf-8?B?bGxTaytlL015eU5ta3BKOXFwWlE4K09Ra1V6dFpOLy90bE44RXB5eVZ2TjVm?=
- =?utf-8?B?MUFMWnluako0SllMMU9BOU1MQ2lXNU12NEdHdVd5ajFnVGZYdWdnYTlLbGFG?=
- =?utf-8?B?dG1XdzJpaHRqUERSUUU1MWFEeDVUaGUrL3hmRlNiWnlRMXRQZm5DYVAvZklq?=
- =?utf-8?B?bTB1RU1MTG1IektER2d6YnpCK3cvdGFVQnk2bHFqaG9oeGJWdllrRndGb0ti?=
- =?utf-8?B?Qkd0SE9hWGRFdm5acHIvdDF6SEpuTDR1K3pPRlp3WSsxTlY5dFpVLzlXdGFY?=
- =?utf-8?B?N1BUeGNDeEFxT1NQTnYydzQ4b3R3dTBLczlkaWNpUE55bGJIdlNLNms5SlJi?=
- =?utf-8?B?bWpBVG5DZDlkOHFtZCtxUlNZaGdrU1E4N3VBejBJWGpmYytIbm9VZkxKOEdN?=
- =?utf-8?B?ZXVEeENkTVZYRGZUQ1BER3pZY0NwSTRmSW9WR29pUHg3SjZrYklaT0VLVnlz?=
- =?utf-8?B?RUxZcWxMUkEwK0ZlM2pPcTB1R2NwTUxSYlNacnFOc3pRYktISVlYOG1OQUpW?=
- =?utf-8?B?RXBvUHluR1ZEWkpnTTNHa3ZuUllNMndyUGhwK0o4bzhTaENKa1FmRDg4Vm90?=
- =?utf-8?B?QjhLeUZESTVQOXRBdS9iZ0lCeGt4WmhwRDlpRGlkOTBlb3hMcXM1ckhtbSt0?=
- =?utf-8?B?U2x0UzArdTMwRGdlUytmaU4xSlJhY2VmZGU4WXRXcFVOVGRsV1Btd3Fzck5x?=
- =?utf-8?B?MWVzejJHcU84ZG0zTFk3c2NoeGVwcDRyVWNxMVJycTc3ci9ZY0tyMGFYWDVG?=
- =?utf-8?B?M1FKbXdacTI3emhHWU85TUh3UGNrZy9GSU9Ga0dmMllVTnJpd0dkNmdnUnl4?=
- =?utf-8?B?NnBIMFdsek5NRzBESmFXNG1iT3psRFUwbUJISTlyZjRQbkxqWkJUNXV2ODAy?=
- =?utf-8?B?NlgzaFpHbEZVTUJHRkVmL1RzejI4eFpLSkpvSENKa1JpR29relQvWVRtakhD?=
- =?utf-8?Q?0Cnsma?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 15:55:47.4199 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd695168-787f-46f9-9d51-08dd866d2455
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002311.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7069
+References: <20250418083129.9739-1-arefev@swemel.ru>
+ <PH7PR12MB56852EECD78C11BD15157AF383BB2@PH7PR12MB5685.namprd12.prod.outlook.com>
+ <CADnq5_NLEUZget2naQm9bYH1EsrvbhJCGd7yPN+=9Z_kKmUOCw@mail.gmail.com>
+ <BL1PR12MB5144467CB7C017E030A4C3E3F7BB2@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <9e4700f6-df58-4685-b4fe-6b53fc1c5222@amd.com>
+ <CADnq5_O-tqQ4y7sNx0nMD_0aTFO0H7_vVg=umaPXUbBLFmwnJg@mail.gmail.com>
+ <9d7392ed-20fd-4237-89bf-483f9930e09e@amd.com>
+In-Reply-To: <9d7392ed-20fd-4237-89bf-483f9930e09e@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Mon, 28 Apr 2025 12:15:17 -0400
+X-Gm-Features: ATxdqUF37oWobmIRsedM_vT_GOu3WjICoWYx2ZpZ4fn-y3KNuXo73_fRHK4QS_c
+Message-ID: <CAAxE2A5TYC3L9D0+fqHEUyhWcO0rAJ2RqJWbUx3=1n5JqJMUyg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: check a user-provided number of BOs in list
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ Denis Arefev <arefev@swemel.ru>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chunming Zhou <david1.zhou@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>, 
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: multipart/alternative; boundary="0000000000007f251d0633d8ff88"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,40 +94,356 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Denis Arefev <arefev@swemel.ru>
+--0000000000007f251d0633d8ff88
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The user can set any value to the variable ‘bo_number’, via the ioctl
-command DRM_IOCTL_AMDGPU_BO_LIST. This will affect the arithmetic
-expression ‘in->bo_number * in->bo_info_size’, which is prone to
-overflow. Add a valid value check.
+USHRT_MAX seems too low. Traces for workstation apps create 20-30k BOs,
+which is not very far from the limit. RADV doesn't suballocate BOs. Neither
+GL nor VK has a ilmit on the number of BOs that can be created. The
+hypothetical maximum number of BOs that can be allocated on a GPU with 32GB
+of addressable memory is 8 million.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Marek
 
-v2: drop 0 check as a BO list of 0 is valid (Alex)
+On Mon, Apr 28, 2025 at 10:53=E2=80=AFAM Christian K=C3=B6nig <christian.ko=
+enig@amd.com>
+wrote:
 
-Fixes: 964d0fbf6301 ("drm/amdgpu: Allow to create BO lists in CS ioctl v3")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 3 +++
- 1 file changed, 3 insertions(+)
+> On 4/24/25 15:40, Alex Deucher wrote:
+> > On Wed, Apr 23, 2025 at 10:29=E2=80=AFAM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >>
+> >> On 4/22/25 18:26, Deucher, Alexander wrote:
+> >>> [Public]
+> >>>
+> >>>> -----Original Message-----
+> >>>> From: Alex Deucher <alexdeucher@gmail.com>
+> >>>> Sent: Tuesday, April 22, 2025 9:46 AM
+> >>>> To: Koenig, Christian <Christian.Koenig@amd.com>
+> >>>> Cc: Denis Arefev <arefev@swemel.ru>; Deucher, Alexander
+> >>>> <Alexander.Deucher@amd.com>; David Airlie <airlied@gmail.com>;
+> Simona Vetter
+> >>>> <simona@ffwll.ch>; Andrey Grodzovsky <andrey.grodzovsky@amd.com>;
+> >>>> Chunming Zhou <david1.zhou@amd.com>; amd-gfx@lists.freedesktop.org;
+> dri-
+> >>>> devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; lvc-
+> >>>> project@linuxtesting.org; stable@vger.kernel.org
+> >>>> Subject: Re: [PATCH v2] drm/amdgpu: check a user-provided number of
+> BOs in list
+> >>>>
+> >>>> Applied.  Thanks!
+> >>>
+> >>> This change beaks the following IGT tests:
+> >>>
+> >>> igt@amdgpu/amd_vcn@vcn-decoder-create-decode-destroy
+> @vcn-decoder-create
+> >>> igt@amdgpu/amd_vcn@vcn-decoder-create-decode-destroy
+> @vcn-decoder-decode
+> >>> igt@amdgpu/amd_vcn@vcn-decoder-create-decode-destroy
+> @vcn-decoder-destroy
+> >>> igt@amdgpu/amd_jpeg_dec@amdgpu_cs_jpeg_decode
+> >>> igt@amdgpu/amd_cs_nop@cs-nops-with-nop-compute0
+> @cs-nop-with-nop-compute0
+> >>> igt@amdgpu/amd_cs_nop@cs-nops-with-sync-compute0
+> @cs-nop-with-sync-compute0
+> >>> igt@amdgpu/amd_cs_nop@cs-nops-with-fork-compute0
+> @cs-nop-with-fork-compute0
+> >>> igt@amdgpu/amd_cs_nop@cs-nops-with-sync-fork-compute0
+> @cs-nop-with-sync-fork-compute0
+> >>> igt@amdgpu/amd_basic@userptr-with-ip-dma@userptr
+> >>> igt@amdgpu/amd_basic@cs-compute-with-ip-compute@cs-compute
+> >>> igt@amdgpu/amd_basic@cs-sdma-with-ip-dma@cs-sdma
+> >>> igt@amdgpu/amd_basic@eviction-test-with-ip-dma@eviction_test
+> >>> igt@amdgpu/amd_cp_dma_misc@gtt_to_vram-amdgpu_hw_ip_compute0
+> >>> igt@amdgpu/amd_cp_dma_misc@vram_to_gtt-amdgpu_hw_ip_compute0
+> >>> igt@amdgpu/amd_cp_dma_misc@vram_to_vram-amdgpu_hw_ip_compute0
+> >>
+> >>
+> >> Could it be that we used BO list with zero entries for those?
+> >
+> > Yes.  Dropping the 0 check fixed them.  E.g.,
+> >
+> > +       if (in->bo_number > USHRT_MAX)
+> > +               return -EINVAL;
+>
+>
+> Feel free to keep my rb on that version as well.
+>
+> Christian.
+>
+> >
+> > Alex
+> >
+> >>
+> >> Christian.
+> >>
+> >>>
+> >>> Alex
+> >>>
+> >>>>
+> >>>> On Tue, Apr 22, 2025 at 5:13=E2=80=AFAM Koenig, Christian <
+> Christian.Koenig@amd.com>
+> >>>> wrote:
+> >>>>>
+> >>>>> [AMD Official Use Only - AMD Internal Distribution Only]
+> >>>>>
+> >>>>> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >>>>>
+> >>>>> ________________________________________
+> >>>>> Von: Denis Arefev <arefev@swemel.ru>
+> >>>>> Gesendet: Freitag, 18. April 2025 10:31
+> >>>>> An: Deucher, Alexander
+> >>>>> Cc: Koenig, Christian; David Airlie; Simona Vetter; Andrey
+> Grodzovsky;
+> >>>>> Chunming Zhou; amd-gfx@lists.freedesktop.org;
+> >>>>> dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org;
+> >>>>> lvc-project@linuxtesting.org; stable@vger.kernel.org
+> >>>>> Betreff: [PATCH v2] drm/amdgpu: check a user-provided number of BOs
+> in
+> >>>>> list
+> >>>>>
+> >>>>> The user can set any value to the variable =E2=80=98bo_number=E2=80=
+=99, via the ioctl
+> >>>>> command DRM_IOCTL_AMDGPU_BO_LIST. This will affect the arithmetic
+> >>>>> expression =E2=80=98in->bo_number * in->bo_info_size=E2=80=99, whic=
+h is prone to
+> >>>>> overflow. Add a valid value check.
+> >>>>>
+> >>>>> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> >>>>>
+> >>>>> Fixes: 964d0fbf6301 ("drm/amdgpu: Allow to create BO lists in CS
+> ioctl
+> >>>>> v3")
+> >>>>> Cc: stable@vger.kernel.org
+> >>>>> Signed-off-by: Denis Arefev <arefev@swemel.ru>
+> >>>>> ---
+> >>>>> V1 -> V2:
+> >>>>> Set a reasonable limit 'USHRT_MAX' for 'bo_number' it as Christian
+> >>>>> K=C3=B6nig <christian.koenig@amd.com> suggested
+> >>>>>
+> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 3 +++
+> >>>>>  1 file changed, 3 insertions(+)
+> >>>>>
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> >>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> >>>>> index 702f6610d024..85f7ee1e085d 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> >>>>> @@ -189,6 +189,9 @@ int amdgpu_bo_create_list_entry_array(struct
+> >>>> drm_amdgpu_bo_list_in *in,
+> >>>>>         struct drm_amdgpu_bo_list_entry *info;
+> >>>>>         int r;
+> >>>>>
+> >>>>> +       if (!in->bo_number || in->bo_number > USHRT_MAX)
+> >>>>> +               return -EINVAL;
+> >>>>> +
+> >>>>>         info =3D kvmalloc_array(in->bo_number, info_size, GFP_KERNE=
+L);
+> >>>>>         if (!info)
+> >>>>>                 return -ENOMEM;
+> >>>>> --
+> >>>>> 2.43.0
+> >>>>>
+> >>
+>
+>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 702f6610d0243..81875df6295bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -189,6 +189,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
- 	struct drm_amdgpu_bo_list_entry *info;
- 	int r;
- 
-+	if (in->bo_number > USHRT_MAX)
-+		return -EINVAL;
-+
- 	info = kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
- 	if (!info)
- 		return -ENOMEM;
--- 
-2.49.0
+--0000000000007f251d0633d8ff88
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div>USHRT_MAX seems too low. Traces for workstation apps =
+create 20-30k BOs, which is not very far from the limit. RADV doesn&#39;t s=
+uballocate BOs. Neither GL nor VK has a ilmit on the number of BOs that can=
+ be created. The hypothetical maximum number of BOs that can be allocated o=
+n a GPU with 32GB of addressable memory is 8 million.</div><div><br></div><=
+div>Marek</div></div><br><div class=3D"gmail_quote gmail_quote_container"><=
+div dir=3D"ltr" class=3D"gmail_attr">On Mon, Apr 28, 2025 at 10:53=E2=80=AF=
+AM Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd.com">chr=
+istian.koenig@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">On 4/24/25 15:40, Alex Deucher wrote:<br>
+&gt; On Wed, Apr 23, 2025 at 10:29=E2=80=AFAM Christian K=C3=B6nig<br>
+&gt; &lt;<a href=3D"mailto:christian.koenig@amd.com" target=3D"_blank">chri=
+stian.koenig@amd.com</a>&gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; On 4/22/25 18:26, Deucher, Alexander wrote:<br>
+&gt;&gt;&gt; [Public]<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; -----Original Message-----<br>
+&gt;&gt;&gt;&gt; From: Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail=
+.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt;<br>
+&gt;&gt;&gt;&gt; Sent: Tuesday, April 22, 2025 9:46 AM<br>
+&gt;&gt;&gt;&gt; To: Koenig, Christian &lt;<a href=3D"mailto:Christian.Koen=
+ig@amd.com" target=3D"_blank">Christian.Koenig@amd.com</a>&gt;<br>
+&gt;&gt;&gt;&gt; Cc: Denis Arefev &lt;<a href=3D"mailto:arefev@swemel.ru" t=
+arget=3D"_blank">arefev@swemel.ru</a>&gt;; Deucher, Alexander<br>
+&gt;&gt;&gt;&gt; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com" target=3D=
+"_blank">Alexander.Deucher@amd.com</a>&gt;; David Airlie &lt;<a href=3D"mai=
+lto:airlied@gmail.com" target=3D"_blank">airlied@gmail.com</a>&gt;; Simona =
+Vetter<br>
+&gt;&gt;&gt;&gt; &lt;<a href=3D"mailto:simona@ffwll.ch" target=3D"_blank">s=
+imona@ffwll.ch</a>&gt;; Andrey Grodzovsky &lt;<a href=3D"mailto:andrey.grod=
+zovsky@amd.com" target=3D"_blank">andrey.grodzovsky@amd.com</a>&gt;;<br>
+&gt;&gt;&gt;&gt; Chunming Zhou &lt;<a href=3D"mailto:david1.zhou@amd.com" t=
+arget=3D"_blank">david1.zhou@amd.com</a>&gt;; <a href=3D"mailto:amd-gfx@lis=
+ts.freedesktop.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>; dr=
+i-<br>
+&gt;&gt;&gt;&gt; <a href=3D"mailto:devel@lists.freedesktop.org" target=3D"_=
+blank">devel@lists.freedesktop.org</a>; <a href=3D"mailto:linux-kernel@vger=
+.kernel.org" target=3D"_blank">linux-kernel@vger.kernel.org</a>; lvc-<br>
+&gt;&gt;&gt;&gt; <a href=3D"mailto:project@linuxtesting.org" target=3D"_bla=
+nk">project@linuxtesting.org</a>; <a href=3D"mailto:stable@vger.kernel.org"=
+ target=3D"_blank">stable@vger.kernel.org</a><br>
+&gt;&gt;&gt;&gt; Subject: Re: [PATCH v2] drm/amdgpu: check a user-provided =
+number of BOs in list<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Applied.=C2=A0 Thanks!<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; This change beaks the following IGT tests:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; igt@amdgpu/amd_vcn@vcn-decoder-create-decode-destroy@vcn-decod=
+er-create<br>
+&gt;&gt;&gt; igt@amdgpu/amd_vcn@vcn-decoder-create-decode-destroy@vcn-decod=
+er-decode<br>
+&gt;&gt;&gt; igt@amdgpu/amd_vcn@vcn-decoder-create-decode-destroy@vcn-decod=
+er-destroy<br>
+&gt;&gt;&gt; igt@amdgpu/amd_jpeg_dec@amdgpu_cs_jpeg_decode<br>
+&gt;&gt;&gt; igt@amdgpu/amd_cs_nop@cs-nops-with-nop-compute0@cs-nop-with-no=
+p-compute0<br>
+&gt;&gt;&gt; igt@amdgpu/amd_cs_nop@cs-nops-with-sync-compute0@cs-nop-with-s=
+ync-compute0<br>
+&gt;&gt;&gt; igt@amdgpu/amd_cs_nop@cs-nops-with-fork-compute0@cs-nop-with-f=
+ork-compute0<br>
+&gt;&gt;&gt; igt@amdgpu/amd_cs_nop@cs-nops-with-sync-fork-compute0@cs-nop-w=
+ith-sync-fork-compute0<br>
+&gt;&gt;&gt; igt@amdgpu/amd_basic@userptr-with-ip-dma@userptr<br>
+&gt;&gt;&gt; igt@amdgpu/amd_basic@cs-compute-with-ip-compute@cs-compute<br>
+&gt;&gt;&gt; igt@amdgpu/amd_basic@cs-sdma-with-ip-dma@cs-sdma<br>
+&gt;&gt;&gt; igt@amdgpu/amd_basic@eviction-test-with-ip-dma@eviction_test<b=
+r>
+&gt;&gt;&gt; igt@amdgpu/amd_cp_dma_misc@gtt_to_vram-amdgpu_hw_ip_compute0<b=
+r>
+&gt;&gt;&gt; igt@amdgpu/amd_cp_dma_misc@vram_to_gtt-amdgpu_hw_ip_compute0<b=
+r>
+&gt;&gt;&gt; igt@amdgpu/amd_cp_dma_misc@vram_to_vram-amdgpu_hw_ip_compute0<=
+br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Could it be that we used BO list with zero entries for those?<br>
+&gt; <br>
+&gt; Yes.=C2=A0 Dropping the 0 check fixed them.=C2=A0 E.g.,<br>
+&gt; <br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (in-&gt;bo_number &gt; USHRT_MAX)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL=
+;<br>
+<br>
+<br>
+Feel free to keep my rb on that version as well.<br>
+<br>
+Christian.<br>
+<br>
+&gt; <br>
+&gt; Alex<br>
+&gt; <br>
+&gt;&gt;<br>
+&gt;&gt; Christian.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Alex<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; On Tue, Apr 22, 2025 at 5:13=E2=80=AFAM Koenig, Christian =
+&lt;<a href=3D"mailto:Christian.Koenig@amd.com" target=3D"_blank">Christian=
+.Koenig@amd.com</a>&gt;<br>
+&gt;&gt;&gt;&gt; wrote:<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; [AMD Official Use Only - AMD Internal Distribution Onl=
+y]<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailt=
+o:christian.koenig@amd.com" target=3D"_blank">christian.koenig@amd.com</a>&=
+gt;<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; ________________________________________<br>
+&gt;&gt;&gt;&gt;&gt; Von: Denis Arefev &lt;<a href=3D"mailto:arefev@swemel.=
+ru" target=3D"_blank">arefev@swemel.ru</a>&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Gesendet: Freitag, 18. April 2025 10:31<br>
+&gt;&gt;&gt;&gt;&gt; An: Deucher, Alexander<br>
+&gt;&gt;&gt;&gt;&gt; Cc: Koenig, Christian; David Airlie; Simona Vetter; An=
+drey Grodzovsky;<br>
+&gt;&gt;&gt;&gt;&gt; Chunming Zhou; <a href=3D"mailto:amd-gfx@lists.freedes=
+ktop.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>;<br>
+&gt;&gt;&gt;&gt;&gt; <a href=3D"mailto:dri-devel@lists.freedesktop.org" tar=
+get=3D"_blank">dri-devel@lists.freedesktop.org</a>; <a href=3D"mailto:linux=
+-kernel@vger.kernel.org" target=3D"_blank">linux-kernel@vger.kernel.org</a>=
+;<br>
+&gt;&gt;&gt;&gt;&gt; <a href=3D"mailto:lvc-project@linuxtesting.org" target=
+=3D"_blank">lvc-project@linuxtesting.org</a>; <a href=3D"mailto:stable@vger=
+.kernel.org" target=3D"_blank">stable@vger.kernel.org</a><br>
+&gt;&gt;&gt;&gt;&gt; Betreff: [PATCH v2] drm/amdgpu: check a user-provided =
+number of BOs in<br>
+&gt;&gt;&gt;&gt;&gt; list<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; The user can set any value to the variable =E2=80=98bo=
+_number=E2=80=99, via the ioctl<br>
+&gt;&gt;&gt;&gt;&gt; command DRM_IOCTL_AMDGPU_BO_LIST. This will affect the=
+ arithmetic<br>
+&gt;&gt;&gt;&gt;&gt; expression =E2=80=98in-&gt;bo_number * in-&gt;bo_info_=
+size=E2=80=99, which is prone to<br>
+&gt;&gt;&gt;&gt;&gt; overflow. Add a valid value check.<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Found by Linux Verification Center (<a href=3D"http://=
+linuxtesting.org" rel=3D"noreferrer" target=3D"_blank">linuxtesting.org</a>=
+) with SVACE.<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Fixes: 964d0fbf6301 (&quot;drm/amdgpu: Allow to create=
+ BO lists in CS ioctl<br>
+&gt;&gt;&gt;&gt;&gt; v3&quot;)<br>
+&gt;&gt;&gt;&gt;&gt; Cc: <a href=3D"mailto:stable@vger.kernel.org" target=
+=3D"_blank">stable@vger.kernel.org</a><br>
+&gt;&gt;&gt;&gt;&gt; Signed-off-by: Denis Arefev &lt;<a href=3D"mailto:aref=
+ev@swemel.ru" target=3D"_blank">arefev@swemel.ru</a>&gt;<br>
+&gt;&gt;&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&gt;&gt; V1 -&gt; V2:<br>
+&gt;&gt;&gt;&gt;&gt; Set a reasonable limit &#39;USHRT_MAX&#39; for &#39;bo=
+_number&#39; it as Christian<br>
+&gt;&gt;&gt;&gt;&gt; K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd.=
+com" target=3D"_blank">christian.koenig@amd.com</a>&gt; suggested<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 3 =
++++<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 1 file changed, 3 insertions(+)<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list=
+.c<br>
+&gt;&gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c<br>
+&gt;&gt;&gt;&gt;&gt; index 702f6610d024..85f7ee1e085d 100644<br>
+&gt;&gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c<br>
+&gt;&gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c<br>
+&gt;&gt;&gt;&gt;&gt; @@ -189,6 +189,9 @@ int amdgpu_bo_create_list_entry_ar=
+ray(struct<br>
+&gt;&gt;&gt;&gt; drm_amdgpu_bo_list_in *in,<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_amdgpu_bo_=
+list_entry *info;<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!in-&gt;bo_number || i=
+n-&gt;bo_number &gt; USHRT_MAX)<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0return -EINVAL;<br>
+&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info =3D kvmalloc_arr=
+ay(in-&gt;bo_number, info_size, GFP_KERNEL);<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!info)<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0return -ENOMEM;<br>
+&gt;&gt;&gt;&gt;&gt; --<br>
+&gt;&gt;&gt;&gt;&gt; 2.43.0<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;<br>
+<br>
+</blockquote></div>
+
+--0000000000007f251d0633d8ff88--
