@@ -4,49 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE01BC3ABA9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BEF6C369DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D01210E6E1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4FB110E6E9;
 	Wed, 30 Apr 2025 07:55:09 +0000 (UTC)
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24CE010E41F;
- Tue, 29 Apr 2025 13:23:16 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-05 (Coremail) with SMTP id zQCowACHwwu60hBoFAOvDQ--.44558S2;
- Tue, 29 Apr 2025 21:23:11 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, YiPeng.Chai@amd.com, tao.zhou1@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH v2] drm/amdgpu: Remove redundant return value checks for
- amdgpu_ras_error_data_init
-Date: Tue, 29 Apr 2025 13:22:39 +0800
-Message-ID: <20250429052240.963-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowACHwwu60hBoFAOvDQ--.44558S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuw17Xw4UJF1fuw18KFykKrg_yoWxJFyUpF
- WrJw1DZryUZFnrJrykAFyUuasIyw1SvFy8KF40ya4I93W5CrW5XF1rtw40q3ZrKr4DCwsI
- vrWDW3yUWF1qvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBI14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2jI8I6cxK6x804I0_JFv_Gryl8cAvFVAK0II2c7
- xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE
- 2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjc
- xK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
- Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JV
- WxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
- 0VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28Icx
- kI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
- xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42
- IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY
- 6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aV
- CY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb8hL5UUUUU==
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwsHA2gQm1yCWwABsv
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [58.251.27.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A499B10E48D;
+ Tue, 29 Apr 2025 13:17:43 +0000 (UTC)
+Received: from mxde.zte.com.cn (unknown [10.35.20.165])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mxct.zte.com.cn (FangMail) with ESMTPS id 4Zn17x6tl6zW7s;
+ Tue, 29 Apr 2025 21:17:33 +0800 (CST)
+Received: from mxhk.zte.com.cn (unknown [192.168.250.138])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxde.zte.com.cn (FangMail) with ESMTPS id 4Zn17x0ntPz54hQm;
+ Tue, 29 Apr 2025 21:17:33 +0800 (CST)
+Received: from mxct.zte.com.cn (unknown [192.168.251.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4Zn17t2MT5z5B1K0;
+ Tue, 29 Apr 2025 21:17:30 +0800 (CST)
+Received: from mse-db.zte.com.cn (unknown [10.5.228.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mxct.zte.com.cn (FangMail) with ESMTPS id 4Zn17W5ltPz51SYN;
+ Tue, 29 Apr 2025 21:17:11 +0800 (CST)
+Received: (from root@localhost) by mse-db.zte.com.cn id 53TDHCXI085256;
+ Tue, 29 Apr 2025 21:17:12 +0800 (+08)
+ (envelope-from liu.song13@zte.com.cn)
+Message-Id: <202504291317.53TDHCXI085256@mse-db.zte.com.cn>
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+ by mse-fl1.zte.com.cn with SMTP id 53TAhmmO003471;
+ Tue, 29 Apr 2025 18:43:48 +0800 (+08)
+ (envelope-from liu.song13@zte.com.cn)
+Received: from mapi (xaxapp04[null]) by mapi (Zmail) with MAPI id mid31;
+ Tue, 29 Apr 2025 18:43:51 +0800 (CST)
+Date: Tue, 29 Apr 2025 18:43:51 +0800 (CST)
+X-Zmail-TransId: 2afb6810ad675fe-954e2
+X-Mailer: Zmail v1.0
+Mime-Version: 1.0
+From: <liu.song13@zte.com.cn>
+To: <felix.kuehling@amd.com>
+Cc: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <liu.xuemei1@zte.com.cn>,
+ <jiang.xuexin@zte.com.cn>, <xue.zhihong@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIHYyXSBkcm0vYW1ka2ZkOiBlbmFibGUga2ZkIG9uIFJJU0NWIHN5c3RlbXM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL: mse-db.zte.com.cn 53TDHCXI085256
+X-MSS: AUDITRELEASE@mse-db.zte.com.cn
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6810D16C.001/4Zn17x6tl6zW7s
 X-Mailman-Approved-At: Wed, 30 Apr 2025 07:55:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,157 +75,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function amdgpu_ras_error_data_init() always returns 0, making its
-return value checks redundant. This patch changes its return type to
-void and removes all unnecessary checks in the callers.
+From: Xuemei Liu <liu.xuemei1@zte.com.cn>
 
-This simplifies the code and avoids confusion about the function's
-behavior. Additionally, this change keeps the usage consistent within
-amdgpu_ras_do_page_retirement(), which also does not check the return
-value.
+KFD has been confirmed that can run on RISCV systems. It's necessary to
+support CONFIG_HSA_AMD on RISCV.
 
-Fixes: 5b1270beb380 ("drm/amdgpu: add ras_err_info to identify RAS error source")
-Cc: stable@vger.kernel.org # 6.7+
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Xuemei Liu <liu.xuemei1@zte.com.cn>
 ---
-v2: Add a missing semicolon
+ drivers/gpu/drm/amd/amdkfd/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 19 +++++--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c |  8 ++------
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c  |  3 +--
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c  |  3 +--
- 5 files changed, 10 insertions(+), 25 deletions(-)
+diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
+index d3c3d3ab7225..62e88e5362e9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/Kconfig
++++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+@@ -5,7 +5,7 @@
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 4c9fa24dd972..5be391ebeca3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -182,9 +182,7 @@ static int amdgpu_reserve_page_direct(struct amdgpu_device *adev, uint64_t addre
- 		return 0;
- 	}
- 
--	ret = amdgpu_ras_error_data_init(&err_data);
--	if (ret)
--		return ret;
-+	amdgpu_ras_error_data_init(&err_data);
- 
- 	memset(&err_rec, 0x0, sizeof(struct eeprom_table_record));
- 	err_data.err_addr = &err_rec;
-@@ -687,8 +685,7 @@ static struct ras_manager *amdgpu_ras_create_obj(struct amdgpu_device *adev,
- 	if (alive_obj(obj))
- 		return NULL;
- 
--	if (amdgpu_ras_error_data_init(&obj->err_data))
--		return NULL;
-+	amdgpu_ras_error_data_init(&obj->err_data);
- 
- 	obj->head = *head;
- 	obj->adev = adev;
-@@ -1428,9 +1425,7 @@ static int amdgpu_ras_query_error_status_with_event(struct amdgpu_device *adev,
- 	if (!obj)
- 		return -EINVAL;
- 
--	ret = amdgpu_ras_error_data_init(&err_data);
--	if (ret)
--		return ret;
-+	amdgpu_ras_error_data_init(&err_data);
- 
- 	if (!amdgpu_ras_get_error_query_mode(adev, &error_query_mode))
- 		return -EINVAL;
-@@ -2255,9 +2250,7 @@ static void amdgpu_ras_interrupt_umc_handler(struct ras_manager *obj,
- 	if (!data->cb)
- 		return;
- 
--	ret = amdgpu_ras_error_data_init(&err_data);
--	if (ret)
--		return;
-+	amdgpu_ras_error_data_init(&err_data);
- 
- 	/* Let IP handle its data, maybe we need get the output
- 	 * from the callback to update the error type/count, etc
-@@ -4623,13 +4616,11 @@ void amdgpu_ras_inst_reset_ras_error_count(struct amdgpu_device *adev,
- 	}
- }
- 
--int amdgpu_ras_error_data_init(struct ras_err_data *err_data)
-+void amdgpu_ras_error_data_init(struct ras_err_data *err_data)
- {
- 	memset(err_data, 0, sizeof(*err_data));
- 
- 	INIT_LIST_HEAD(&err_data->err_node_list);
--
--	return 0;
- }
- 
- static void amdgpu_ras_error_node_release(struct ras_err_node *err_node)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 6db772ecfee4..5f88e70fbf5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -931,7 +931,7 @@ void amdgpu_ras_inst_reset_ras_error_count(struct amdgpu_device *adev,
- 					   uint32_t reg_list_size,
- 					   uint32_t instance);
- 
--int amdgpu_ras_error_data_init(struct ras_err_data *err_data);
-+void amdgpu_ras_error_data_init(struct ras_err_data *err_data);
- void amdgpu_ras_error_data_fini(struct ras_err_data *err_data);
- int amdgpu_ras_error_statistic_ce_count(struct ras_err_data *err_data,
- 					struct amdgpu_smuio_mcm_config_info *mcm_info,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index 896f3609b0ee..5de6e332c2cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -52,9 +52,7 @@ int amdgpu_umc_page_retirement_mca(struct amdgpu_device *adev,
- 	struct ras_err_data err_data;
- 	int ret;
- 
--	ret = amdgpu_ras_error_data_init(&err_data);
--	if (ret)
--		return ret;
-+	amdgpu_ras_error_data_init(&err_data);
- 
- 	err_data.err_addr =
- 		kcalloc(adev->umc.max_ras_err_cnt_per_query,
-@@ -230,9 +228,7 @@ int amdgpu_umc_pasid_poison_handler(struct amdgpu_device *adev,
- 			};
- 			struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head);
- 
--			ret = amdgpu_ras_error_data_init(&err_data);
--			if (ret)
--				return ret;
-+			amdgpu_ras_error_data_init(&err_data);
- 
- 			ret = amdgpu_umc_do_page_retirement(adev, &err_data, NULL, reset);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-index a26a9be58eac..d4bdfe280c88 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -364,8 +364,7 @@ static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device
- 	struct ras_err_data err_data;
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
- 
--	if (amdgpu_ras_error_data_init(&err_data))
--		return;
-+	amdgpu_ras_error_data_init(&err_data);
- 
- 	if (adev->asic_type == CHIP_ALDEBARAN)
- 		bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, mmBIF_DOORBELL_INT_CNTL_ALDE);
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index 8a0a63ac88d2..c79ed1adf681 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -537,8 +537,7 @@ static void nbio_v7_9_handle_ras_controller_intr_no_bifring(struct amdgpu_device
- 	struct ras_err_data err_data;
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
- 
--	if (amdgpu_ras_error_data_init(&err_data))
--		return;
-+	amdgpu_ras_error_data_init(&err_data);
- 
- 	bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
- 
+ config HSA_AMD
+  bool "HSA kernel driver for AMD GPU devices"
+- depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64)
++ depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64 || (RISCV && 64BIT))
+  select HMM_MIRROR
+  select MMU_NOTIFIER
+  select DRM_AMDGPU_USERPTR
 -- 
-2.42.0.windows.2
-
+2.25.1
