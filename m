@@ -4,80 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2274EC3ABAB
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 586C1C369DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB6210E6EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7537410E6ED;
 	Wed, 30 Apr 2025 07:55:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KMMwirGa";
+	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="dsdCvVA2";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E357010E15E;
- Wed, 30 Apr 2025 00:08:47 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-739b3fe7ce8so6256534b3a.0; 
- Tue, 29 Apr 2025 17:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745971727; x=1746576527; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=8+F+v5m6yj3cGcoqMHs7EgZ+8PI4PBW7+WB/WP9mOT0=;
- b=KMMwirGa5ETllFLZ7AflDHwXDmvbqvKX2aeNR2rPL8BpXERWVmuuuiPypbPmdS3AgK
- hXT1iEM1ldriAXUHwXq+k92dFxXvGS1qEAR29XdacSVRvL062CMWMAqZnrwYEP/WcB8J
- O51NX9MxpJjFLEvjK8cuH2T8926e6tCtukRuMzil5Ja7YHUi1BWjv5ePh+VFvlIWQFwu
- Dh/+Ao/gG8zXTf2j8CW8sO1qTEtipNc55Ixdw5j4+wNT4fpdncZ+pvjntl6OlP3RKtXI
- MvARkSACRT/1fwKtybiswV1IXVBKQbHSp1SoGVgioNt4wtyR2We2s8oRdsOfOsfaoojn
- FWlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745971727; x=1746576527;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8+F+v5m6yj3cGcoqMHs7EgZ+8PI4PBW7+WB/WP9mOT0=;
- b=hey2XPnb2zOVc8GbHZADTj2mcWFTilxj83IYoPNpfEqT+MgdjaAeYpb0+SOYdwE0g6
- Pu8DW/EDDOCOBzbjuUcfyxcFVBYx+kd7z4eoVPjrClHtuubWEyPgovyxQDLzcxsYS38C
- 8pqrUGaqySaqakwQFD8ksNrwuFtSRtxgJ+GJh3VA1h+CyM1+YsE8rve5Xs4PbTkmd7i0
- gTOrt3u1rLElrPApP//o42PlPlsdu7kPzmkNgyHqCYGzX0wMSURadxjAPQ6FHtQks9CR
- KcLqKiS2hhxi8l+qXYr1jwgT2mOM69gxeM40ohkhbQRX2tZw/h/3euwFedmumGlOTP0o
- 8bcg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQjBq6sWuROTCUsP+Ht39Hm6equbQEP5h/vo+FlhYNVuEhcdWkPaLkdqrXNPWo7M7dGSIPYmYC@lists.freedesktop.org,
- AJvYcCWoRG/d1yEAaxl2qYV9KKGUVcdYZ2aC+p6m82DicAVkKCfNYISoPeUNkykFopdckybXdCwHCJeldok2@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsiCVXZj6bEuvuppiBud1f90TaHilVOlyti0uj7mLqMVd89axD
- ngKZtGuKBxrkRRDF8Nc9Bex433ljbDbtbYM51SHVWaTom/CoQ6hK
-X-Gm-Gg: ASbGnct7L+UtTAw5f7213OQ8X5j2+fVJDQavFASanAe/mScBwPoX10goN8qnkpjNcAo
- l16omzbB5DLaBemB4Rxi5jQMh6nuN8BkhrDdL6A2hMaxalOrIWk+6DSdYy2uEoTATCdFxAx6DGN
- Q8kNkq16f9l99Bs9kGdId3k/mSpavcwBMjXlnazMz5hXpmawycxSekkH/zzblJvkH/WbNMPa2so
- BrLwHgoScN88BIoFxfcqUf2ZoyRp7b17fu4vK7VOIWM6xnGUB74dU4qnBVVPquuDUA0ADIyExn/
- TXDZYVjtSacMtrsbFaiiGxcLkgavQRVvkcPGGK3lT8pN0aXcfS08IxCEvnvNmvpTEwIFMlz3KIA
- mKd8=
-X-Google-Smtp-Source: AGHT+IECAs9dAkCdTV1JKhc8aELYWoCdrQ/KmD683RmorBGh+SWjqjFVNNX1pZKKJckCVqivBXYNWw==
-X-Received: by 2002:a05:6a21:3943:b0:1f5:5aac:f345 with SMTP id
- adf61e73a8af0-20a898108f6mr1319400637.36.1745971726671; 
- Tue, 29 Apr 2025 17:08:46 -0700 (PDT)
-Received: from fernando-Dell-G15-5520..
- ([2804:14c:38:8026:7a68:45ae:9be2:4d64])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b15f4b1749dsm9557910a12.0.2025.04.29.17.08.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Apr 2025 17:08:46 -0700 (PDT)
-From: Antonio Fernando Silva e Cruz Filho <fernando.cruz.ctt@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: andrenogueiraribeiro@usp.br,
- Antonio Fernando Silva e Cruz Filho <fernando.cruz.ctt@gmail.com>,
- =?UTF-8?q?Andr=C3=A9=20Nogueira=20Ribeiro?= <r.andrenogueira@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Rename program_timing function for better
- debugging
-Date: Tue, 29 Apr 2025 21:08:20 -0300
-Message-ID: <20250430000835.34139-1-fernando.cruz.ctt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+X-Greylist: delayed 481 seconds by postgrey-1.36 at gabe;
+ Tue, 29 Apr 2025 13:16:09 UTC
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2128B10E0A7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Apr 2025 13:16:09 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E1BA340E021A; 
+ Tue, 29 Apr 2025 13:08:03 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+ reason="fail (body has been altered)"
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id wrGf7WWtCOB6; Tue, 29 Apr 2025 13:08:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1745932079; bh=UFz6C4O5CnyTyz6Ioj0i9bidH2Ii+o7JdCGRWIRCBcg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dsdCvVA2QiRbyK7Tgf0rPbpAdHNCJi7GVPYiOQzy8uD699rZfmUjFypwrSjfA1cC8
+ uzAjyFNSv1JtUUqpr5wG2zzdX9MowPEr7GZ5kY4rTrN634GGtS3kfyCYOYW7S0pm+d
+ HtO5S7s92ji7gXqonzzwj93pVCgm3gRo/klC7V+g2iHkGEjNTaiXSzQblRhX1P0gK+
+ cmY3ceMPwt+vPfq9pO9+wAmjApqiNEJ+wjWGwZE8vu0htffqvIY/slrRM4F8qtkRVv
+ 2cIrPTsogY4h/ONhc8VBi6Ho2errJeRtH93j6UHtqGnANtz0iTGpIhknzoNphNfCyE
+ vxYtM82/S5cy0LqYzgtrUV9hFEhD5sbWs8gsBuQ0iwAO0hgGk6apAbVQf74AFMeOaK
+ RaTFlQYFJuncwkKolWDTqD9go/zMhEUunypuwcvusa0F4d0MyQDXp6c21jlJW94DU8
+ iQ05nf2RyzG1wnBclGR4Vf1GUv/91mbtMFI3zZh9LfE6IZYBsDS6Fu6+YaeP70czM8
+ IB5eezC6cAjJmqhl4bRhBZAi8OEGfZQwqRH4tTvaDDmtT4QKZrQ2GAUHADjtJH7toG
+ ehRplvTGDKxuCYx0ybMdNnTlSsmDI7FghCUD+Khqp+M9FZIQt0chRIt+a4CVsc5A4H
+ jbLyzgPZjEguc8x1aHKYy5m8=
+Received: from zn.tnic (p579690ee.dip0.t-ipconnect.de [87.150.144.238])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DF86E40E0173;
+ Tue, 29 Apr 2025 13:07:56 +0000 (UTC)
+Date: Tue, 29 Apr 2025 15:07:49 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: amd-gfx@lists.freedesktop.org
+Cc: Marcus =?utf-8?Q?R=C3=BCckert?= <amd@nordisch.org>
+Subject: Re: Display Port handling errors out when monitor is slow to wake up
+Message-ID: <20250429130749.GBaBDPJSol4WXi-G-r@fat_crate.local>
+References: <15eca28818c4fad674bb2f33df7b3277563ba56d.camel@nordisch.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <15eca28818c4fad674bb2f33df7b3277563ba56d.camel@nordisch.org>
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 30 Apr 2025 07:55:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,43 +74,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[WHY]
-Improve the output when using the ftrace debug feature,
-making it easier to identify which function is currently being executed.
++ amdgpu folks.
 
-[HOW]
-Rename the program_timing function to a name that
-includes the path to the function's file.
+On Tue, Apr 29, 2025 at 02:51:21PM +0200, Marcus R=C3=BCckert wrote:
+> Hardware:=20
+> - ASUS ROG Swift OLED PG27AQDP =20
+> - XFX Mercury Radeon RX 9070 XT OC Gaming Edition with RGB, 16GB GDDR6,=
+ HDMI, 3x DP RX-97TRGBBB9
+>=20
+> Kernel:
+> - kernel-default-6.15~rc4-1.1.g62ec7c7.x86_64 from https://build.opensu=
+se.org/project/show/Kernel:HEAD
+>=20
+> The monitor is really slow on waking up - or even switching mode e.g. w=
+hen going from console to wayland with 480Hz.
+> When I turn on the monitor before I wake up wayland via keyboard/mouse,=
+ no error comes. If I wake up wayland first and then start the monitor:
+>=20
+> ```
+> [Tue Apr 29 13:49:54 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1118: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) =
+failed
+> [Tue Apr 29 13:49:54 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1123: core_link_write_dpcd (DP_LANE_COUNT_SET) f=
+ailed
+> [Tue Apr 29 13:49:54 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1151: core_link_write_dpcd (DP_LINK_BW_SET) fail=
+ed
+> [Tue Apr 29 13:49:55 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1118: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) =
+failed
+> [Tue Apr 29 13:49:55 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1123: core_link_write_dpcd (DP_LANE_COUNT_SET) f=
+ailed
+> [Tue Apr 29 13:49:55 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1151: core_link_write_dpcd (DP_LINK_BW_SET) fail=
+ed
+> [Tue Apr 29 13:49:56 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1118: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) =
+failed
+> [Tue Apr 29 13:49:56 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1123: core_link_write_dpcd (DP_LANE_COUNT_SET) f=
+ailed
+> [Tue Apr 29 13:49:56 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1151: core_link_write_dpcd (DP_LINK_BW_SET) fail=
+ed
+> [Tue Apr 29 13:49:57 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1118: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) =
+failed
+> [Tue Apr 29 13:49:57 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1123: core_link_write_dpcd (DP_LANE_COUNT_SET) f=
+ailed
+> [Tue Apr 29 13:49:57 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
+* dpcd_set_link_settings:1151: core_link_write_dpcd (DP_LINK_BW_SET) fail=
+ed
+> [Tue Apr 29 13:49:58 2025] [  T70365] amdgpu 0000:03:00.0: [drm] enabli=
+ng link 1 failed: 15
+> ```
+>=20
+> Feel free to ping me if you need more information.
+>=20
+>    darix
+>=20
+> ```
+> --=20
+> Always remember:
+>   Never accept the world as it appears to be.
+>     Dare to see it for what it could be.
+>       The world can always use more heroes.
+>=20
+>=20
+>=20
+>=20
+> ```
+>=20
 
-Signed-off-by: Antonio Fernando Silva e Cruz Filho <fernando.cruz.ctt@gmail.com>
-Co-developed-by: André Nogueira Ribeiro <r.andrenogueira@gmail.com>
-Signed-off-by: André Nogueira Ribeiro <r.andrenogueira@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--=20
+Regards/Gruss,
+    Boris.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c
-index 003a9330c..88e7a1fc9 100644
---- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c
-@@ -105,7 +105,7 @@ static void program_pix_dur(struct timing_generator *tg, uint32_t pix_clk_100hz)
- 	dm_write_reg(tg->ctx, addr, value);
- }
- 
--static void program_timing(struct timing_generator *tg,
-+static void dce80_timing_generator_program_timing(struct timing_generator *tg,
- 	const struct dc_crtc_timing *timing,
- 	int vready_offset,
- 	int vstartup_start,
-@@ -185,7 +185,7 @@ static void dce80_timing_generator_enable_advanced_request(
- 
- static const struct timing_generator_funcs dce80_tg_funcs = {
- 		.validate_timing = dce110_tg_validate_timing,
--		.program_timing = program_timing,
-+		.program_timing = dce80_timing_generator_program_timing,
- 		.enable_crtc = dce110_timing_generator_enable_crtc,
- 		.disable_crtc = dce110_timing_generator_disable_crtc,
- 		.is_counter_moving = dce110_timing_generator_is_counter_moving,
--- 
-2.43.0
-
+https://people.kernel.org/tglx/notes-about-netiquette
