@@ -4,74 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A93C4C369DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Apr 2025 15:04:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86BCEC369DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Apr 2025 15:07:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD3F10E4C3;
-	Tue, 29 Apr 2025 15:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C41D010E4D1;
+	Tue, 29 Apr 2025 15:07:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CDJGxset";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lmIBLT2W";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C11310E4D2
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Apr 2025 15:04:25 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-227c7e4d5feso11845885ad.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Apr 2025 08:04:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745939065; x=1746543865; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yj7OpkCavTC+Fvw0TBcruibytd6TOhMII3aPSDZGlVA=;
- b=CDJGxsetgLYbHtkMhKabcCLGJxK+2+yXNJoXZPhMq4XvO5RWYCbN8bC+4YH6ch/Wuh
- dmHWPc/Blaiiur0sqFgQWU+iv8Y7fmmabEPY2WBSCq+94kx1KO31Bm8GB12zInKOGZaY
- w7eoz9ttUuwn8h8Klu3LY8RyLxd6m24kDhILBYB7CV45i0EQwyHG2/rw5IzdDs71y72f
- MzWzcSMrqMxdjETSofGiTq0ovdyVoX5p6LYoU/g6JemwfUgOhTiLUL3E6Erfn8iGaGmK
- B9OWMrrBYXb37fD6Ri2ddvOFmpkp1718eQz+WeAbpNMDiDS3MnCCjVc4GfSGizAVcTbb
- z/Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745939065; x=1746543865;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yj7OpkCavTC+Fvw0TBcruibytd6TOhMII3aPSDZGlVA=;
- b=OJkS3J5LuNe0uq8/39DS5skIFuwsXZ68BQuM0jlVy57sIy0F8Bfu1VwvY4daX/4mKT
- N6mNcAN1/Pf4rKOOTsIxFmsxy7Rnt+VgX21WtkZqcn+up36EvYnPg/rnmSKNH87AIeX/
- 8+kuS7sQU6DVSatEvTs0MMOUq6nf9PgkgkEkYmFGwdth593mY3Nt0E/5oLmtTxqEAj2N
- lE2hlfKUWZbmszagewXrpra/ymleQleDTz4Iz1IyNgJAH2mwXdMVrMr44oTiU8ZQU8Ij
- ZqiajLJ5veEWauhxSPaQHtmp/kb0PkBoCjlKf0n3MxiZxXO/WFPW8XkHpXza64t0gKhz
- hkuw==
-X-Gm-Message-State: AOJu0YwQ8NNASW8BCFvpxiYMI70BMSc6hp8RAlQuh46Z1zFQUdpqmHaJ
- anro0OSOuxVD89+NHfahHO/MSmAdLkpzA5e2dYhloyDdPAG+XkiamDxZ4VtKTHKH8UNcH75eXLD
- KJoAVHBRlfGhapkSblR+2rEt4fTA=
-X-Gm-Gg: ASbGnctO3MagDGZ3Mo9wuM5V4bsZKD0hzIzLx5ODiaA6F8FIK0hEXOJLi8TkkRQh/r9
- /LFgcK4YcW4dMxAtUi4rZc9CBiMlB+X1sEvqvIGGU7u0OW6lyTpAxMtWrsH/dfW/zD7/IePbv8V
- twYNbfQzTastRvC22yCZ0337RxQu5GOZks
-X-Google-Smtp-Source: AGHT+IEGwBQcgGM1A0OarT0irBDYCgN2U0ax96pByBpCKUShyNnznJe/Tl16FXmdeOedWUxXHB5Gax7gC4ePL66w0m4=
-X-Received: by 2002:a17:903:2305:b0:224:10a2:cad1 with SMTP id
- d9443c01a7336-22dbf63d296mr92568845ad.10.1745939064203; Tue, 29 Apr 2025
- 08:04:24 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09D6810E4B8;
+ Tue, 29 Apr 2025 15:07:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gLdkWShXbv37H0Ogxnu9/ttzpAczFtiFiysleQlUVIXqyqy7A0pPSauZksrTEZXtnR55ThEqFQbRcLE/PmnYPJ5Q0faxPHKPCgGXARe1NiEwuhCjjRRY+4pKpImEuRdjXwpimkPKIsR87JhVjDpxGK1+PSgq4ipgqOGGuoL5yZTK9Ci0/hVv9LPzz6dUACTGALvTOZrSriJ43o65UDdT211zP3GhoC5my+jhHxJ9bt73+CoVt6+PavKljLGFPtRrLkjz+5K70pCpus6+69/3OkgYlp0tRVrbwMrFoHqqtZwkSPQ8pmbnOdliGHGXnCIBNwjllJATxH146jUcnnpeIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QHyDJQB6VKoiPdfYG4G0UYl6bnJBJeRmRYs8z9tD8To=;
+ b=rZGwlXDqZw2KluoNLirOVNbM+VlCtLkvbM9dgIReT4wDrnfQx8fW3Tib7rte9I0wbQ7mmvWEmpjH35eBZiihmZ8HKIHghEZqWWKA3GwrocTgeKACPVPYoHopOn5rhnGiwT+XfH0Jkowwzgk/TULDEULqZ4jDDgqPc0uKDhTkKpSmgidso666eRlMSxQCyOxfiVJXqAz9NTmfzfb22wtgvtT/GDNgD3jimkgXS4ID1JOtlcVpL+wdKTHuZ6GNLtj684t2UFs98uCjD7TiBXCt79sQ1RMGMKI6Md/fy1MH3vbnr/5IfVqXLODSPiRZ3mIBMwhMJ/ZddO7aZaCqXS9IQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QHyDJQB6VKoiPdfYG4G0UYl6bnJBJeRmRYs8z9tD8To=;
+ b=lmIBLT2WHulqdHH+NrHF2mmVrCwO62+sYu3ismTY2hndoQOSJjKAg9NjyRq3F+yb+uZn0lXIz99hmZFs1tWh78z5Wy5sWmjT1zjKt4Afa59KbQD3I0eLZWRVKNO/YNDUEE7piLrYVbxlvHrP0JUHi7m+QrZHtls3+f0GFPP4e2Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB6186.namprd12.prod.outlook.com (2603:10b6:208:3e6::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.31; Tue, 29 Apr
+ 2025 15:07:38 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8678.028; Tue, 29 Apr 2025
+ 15:07:38 +0000
+Message-ID: <47eded5b-2efd-4e8e-8cbf-c7e4cacd3059@amd.com>
+Date: Tue, 29 Apr 2025 17:07:33 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v4 02/16] drm/sched: Add some more scheduling quality unit
+ tests
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
+ <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+References: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
+ <20250425102034.85133-3-tvrtko.ursulin@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250425102034.85133-3-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0403.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cf::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20250428135514.20775-1-ray.wu@amd.com>
- <20250428135514.20775-19-ray.wu@amd.com>
-In-Reply-To: <20250428135514.20775-19-ray.wu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Apr 2025 11:04:12 -0400
-X-Gm-Features: ATxdqUHxUWXGiGRtSgQPyu43mk12LzFKn9zMjqad4iGWKr3l5oGmFxQRgY3la-g
-Message-ID: <CADnq5_NV3D1txYenNsit-3H6uqJDJ+rgOSHPbOtta24HmXqD+g@mail.gmail.com>
-Subject: Re: [PATCH 18/28] drm/amd/display: Remove unnecessary
- DC_FP_START/DC_FP_END
-To: Ray Wu <ray.wu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>, 
- Roman Li <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
- Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, 
- Zaeem Mohamed <zaeem.mohamed@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Hung <alex.hung@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6186:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe42e8d7-2cd5-4e70-a325-08dd872f94a4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UVlBUEplOWRyWmpBc2U5allWbE1oM05QUUF6YXNGZ3J0dWtVcHMzb3hrN2U0?=
+ =?utf-8?B?QnYwVWFjaktvTEUwVlZIa3JMdUFWNjRyczZsZDdlaUY0OTZRVkhzK0l0b2o3?=
+ =?utf-8?B?eFFMVnYwSzdVSEtSeGRad2xvVld3SVNoZVVpMEl2K1JPWWsrOTdSK01pNzNX?=
+ =?utf-8?B?Z1NRNkpvOWhndnJNeEU0V05kUU5iakpGeDNzRERpSnBqWHRSSklvNTg4WDRW?=
+ =?utf-8?B?QnBsbmxlS05yNnZzSU50ZmV1VGpyS1lYM29WbE1JNlpCMmEzdjFjZXN0OFND?=
+ =?utf-8?B?dXpKNGpoTFQ0MTRvMTNrUEp5VkJnTFhpNVlzNWxUZmZlakQwMlErbXdJZDIy?=
+ =?utf-8?B?WGlkdWdrSDEzMG1MS2doaW0weUI2MC9KQWJvSnJJSTAzZnppSHRtSTY2Y2ox?=
+ =?utf-8?B?eXRpWmNFVW45RE84djRRZ0pqYm1CUW9idjRKTXJ0bWJ1SmVlSnF4Nmk1d2Rz?=
+ =?utf-8?B?R0JabHJ1dHRSeWN6OXYvRGpRNWhUc1B3cnJnNER0LzlHcS9LMDJUTU9lN1dk?=
+ =?utf-8?B?V3RiOWMxVllXUzNsTmowUk9teDJMQnhlQ21tU3Bnb3orSWsyemlHOGJIMFVx?=
+ =?utf-8?B?R3Z1STBxMG82KzBEaEZkOUVrUVRNK2J4d2g4dUx1UUJUZVB6VUo0cnhqVWpp?=
+ =?utf-8?B?NFFrTStkUEcwYUd3ZjFScElxQVl0WlJjS3FDMWg1ckpPdFppSkZVajZYM0NU?=
+ =?utf-8?B?RUJENGlycU9IWnBxa3BhVjlzNnQwVkI1c2FiMUFacUxvcnlQSXA5a0xkdk1R?=
+ =?utf-8?B?WGZza25lRmVjUUtKNUdtQlZLTk9VeitMWDd5OHVFSGZxQUFPTjZsV0p5VUNs?=
+ =?utf-8?B?YjBEUDNNUE9XUU03K295YWhxMUJSLzBETXZmWUp4ODJnREpMMFRGQUUzZkxm?=
+ =?utf-8?B?UHU2WDR6YmgvQ3pnZmlEb3FSNEh4aENCYUlSUWl6eEJYVHJOd2VYeTYreXBz?=
+ =?utf-8?B?Y1NBdjJyVlhvL3VPeEdiRktCNzJiejFlQ3dJZGFydFZlck9vT3FJTWxtVlVr?=
+ =?utf-8?B?aXZMUUwzK1h4ZHVONzByR0dvREpXaTNSTDdwU2tRQTQrNXV4TE1LMklPSG02?=
+ =?utf-8?B?Q1A4cmhkM3NvM29ZWmZCNmlDQW0ybElYMENWK1c3V1k5ZDB2ZXcyRDZSdTUx?=
+ =?utf-8?B?VHJCSC9LVDRKeFZTUUVjUllSdXRTVGZtU3U4MjFxUnF1Wk12YzBTcThqck9l?=
+ =?utf-8?B?UzR0dnpqR3hvR01MWmw3bW5qbUR6Rk9hdGovZVdOaFpBZisxdDBMT0RHdmt1?=
+ =?utf-8?B?SURtcjdvY1NKT0NnK2Q5U1pjZ2lqTXJTQUlWcXphaERCMDhuQ1lDWTJBSU12?=
+ =?utf-8?B?c0JWZFpmZUlHOThUTU1JQnM1aXJZZEUxY1JQWGhNUlpVWTJNbVZWYVhrRVF2?=
+ =?utf-8?B?KzhMVEUweXYwVk9YNmsyUWNGLzF5YXFFaFcvbUhBL200aEEraUorZUFaampk?=
+ =?utf-8?B?dnYxQjIvcjFmWEtmMFBsUStQTlkrVVpnWW5Xb0dBSWhqaFFEUUwyYjlzZGtE?=
+ =?utf-8?B?bDByOUdiam91VjhibTZMVHBSY1dYdDgzSzVpSjVvOWhyN0Q3NHc4cFJFWUVt?=
+ =?utf-8?B?aGZXMVlkbjJtM2JuRHR5dmhBNVdSZkhkbmlkMXU1c0lRRzVTbnRNcmVrZDFq?=
+ =?utf-8?B?eDdTVTY3clFWdUsrSUFxdkdUcm5tMm9RdHF6VHlrSzVXVGFORHE1SHFrQ0NM?=
+ =?utf-8?B?S2FWRHhlNmZiVHJRWWRLUmlPZ2MwV0pIdnprR2RDMTdjZk1lcGZIUndQWHZE?=
+ =?utf-8?B?TDVYTUtzNms2dWlmV3dPOENWMVB1cmdtWWxrOW12aklHVElvSStLenc1bzdT?=
+ =?utf-8?B?RDZOd1VyT1VtK09Vb1BBQlp0NFBHTGJFS1J2aVNhWCtXZ1d3OTBocU1Ecllj?=
+ =?utf-8?B?cGdtK1ZHWnQ3a1pTV3RpMWlTRVJ4bnNSSncwT2ZZcUFJajNPYldESVVwTnZj?=
+ =?utf-8?Q?+N6VBXrCdCk=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YlJUeWprQlo1L1pGM2dTNVVNUHRIcGdJdDB0bzZvNlFjV0Y3RXduZ0FhUkhM?=
+ =?utf-8?B?QzBEd29aOVZLVGFrbjZRaWNTWTNvYTdkakgvcFBEM05FRFNCWjhLam5MVHFW?=
+ =?utf-8?B?bVVtLzJWNlVaU3Y1RE1VS0Fqd0dIcnNVdFVRSE9GTVVPcnBrajhxYllDY0lu?=
+ =?utf-8?B?M1FTQ0tnODRneXp1azRscGVoSkhKMWgvT24xZ2J4VGRMQUtGVXFmVXlsVFNU?=
+ =?utf-8?B?d2xHN3ZsZG9LRzFBRkN2RDhzVGxYNXJldXZjd3dMcitDOHREUm9UN0pHZmxY?=
+ =?utf-8?B?ZXNDTjQzK2l4Uk15cmJUUTJMMUl2c2RFRUNUakVIOVI2d0VsOTBad0UyV1lY?=
+ =?utf-8?B?RXZ6eTFIekppV01HNzF0dE0vL1Fzd2xwZ1NyQmVDN0doMDRQSm5hL1dCSS9i?=
+ =?utf-8?B?bkxqUk9FSFI5NklpSGdQZDVjeGVuOTdNaFNrZjRjZGJrT1VDZ0dkWm1PcU81?=
+ =?utf-8?B?OVlyVng4OGFURlRVMDBvYTI4Q1M3aWdwTy9HSi9sbkM4SWdlZVpHZ0JsOTBs?=
+ =?utf-8?B?VmhJa0RWcmZjSExaa1Bsa3hhamdVSU1scVFTZHJ3VjdJOHZYdlQvRFYyUEwz?=
+ =?utf-8?B?THYzaWZQVG9uZ2pRQmQvMFZESmd2ZmhzdjFpQ3paM0hPWldOdkxWWEdOYjgv?=
+ =?utf-8?B?QWRHeEwreENvMmJmMW1qSm1aOEQ3MFRia3ByRGZ3ZzRNUlVkMjFHR25LMFBl?=
+ =?utf-8?B?TFE4MTNsTlZKWUVGMmdBSDJ3SEtxRTRiWTNrbFdFNllDMUo1cmZWNUdOV1FR?=
+ =?utf-8?B?TXlnTzUyNkJ5UDF5RnNZSW1IQ3YwV01ySXRiUkZCWkpTQzIyVUJPMGEyU2Ru?=
+ =?utf-8?B?L09ZVW1wcytZRDU0YnlnbC80UzRSMzdMUG1qbDh6U254UWJGeFA2Vmg3RWxa?=
+ =?utf-8?B?bG1FMVVuQnh5WkI0VmRDNng2bVJuZUtRVm5oRGhwTktyZ2k2UnRIQWJCQmdF?=
+ =?utf-8?B?Ym1NbHN1WENZMzdlN3orWmRtUHFRV1g4ZWhFUjROSmVpaDVGV25CdU9JdzNV?=
+ =?utf-8?B?M2U1dGNLTzhsL1pCTHlwLzJUZ0MwdFAwWTdQdXU4RlhDWXZvOGlRVWJiaWRl?=
+ =?utf-8?B?UTlGbnR2UHhOYlhZTURkYVQvbjJMMG9zY1g0VDlYMEFEc2dIMEhWNGNPUkRh?=
+ =?utf-8?B?NUMwZlF2OVBVWUk5KytXeUpYVDVyRXU2T0gzaHhaU1E0WDhaclUvS2NkdTdm?=
+ =?utf-8?B?RkRvYzc3bGRISGtscEJzVlRXYW9hVWNla0dXcldqMmhCNnZJMnBUMFJLOGRW?=
+ =?utf-8?B?aVJtdDRuTzA2ZmVYbmR3MEVLQkloQ3ZBUXdveUpYUUlLUnkrVGNjL3p4ZmND?=
+ =?utf-8?B?ZWhPNTZRRzBmSDYydkN4Q29FcExyVEJxb01OWEhjSFd2ZGlMb3VFdDVEVEhW?=
+ =?utf-8?B?ajBtNFdScW9mbXE0MkluOFphdkdvSHZyd0tENlJhZnFaUXB6dFY3T0NJZnk0?=
+ =?utf-8?B?dE9WN3pDaUFYQXVicWZEL05HOEJ4OGFFcFR1RVQ1cGprYjlUTkUrZWsyTWdz?=
+ =?utf-8?B?Zzg4RzB2cXZKRDdYRHovT1VkejlsdHFJRVBrK1Bjbi9zUHBaVmQyVFd0SGM5?=
+ =?utf-8?B?NVRLZ0tLU1BZTXNjZERYbWVMTUJ0N3VmNU9aT042aXAwY1htd1Qrc0dxdU9N?=
+ =?utf-8?B?Z2w1TFUzbDMxU2l5NzVJWitLRXVFR244a0pjK2NrcTJaNE8vV0V6QlUxcVBW?=
+ =?utf-8?B?VEx5K1BhRjRwZ2ZQTFozeXl0bGVBMnBxdmtxaEFqQ0FRT1JtVXJncFpkQWZT?=
+ =?utf-8?B?UTVvSzBiOUJVakFoUDRpbHdDcWZERjl6UjZNbTNjd0oyQSt2cGQ5RHZkTytJ?=
+ =?utf-8?B?L0NxYnFZaXVuY29tYVcvd0wvNGVJWW5tRUlyVTRKOWJwYmxqNUZsallZZldw?=
+ =?utf-8?B?bmhkWFo5b2lDSnpyTmNFclJXZ2k4aVJZSEVZYkVpVGhPaTdWSmo5WDFsWmFi?=
+ =?utf-8?B?dTdEMjZzclpsVGRhODlnbUlmNThxczRnMkV2OTFZVXFaektTTG1TbGE4UFlq?=
+ =?utf-8?B?WWg2aUoxU3pwVkRyN0ZBa29LTFJXMW9ndVpSeFMwSGkxSDA3eFV0UTZua3Vi?=
+ =?utf-8?B?RGhySDFEN2NkRjhtVlNJQU9Wa0NYZ25yejJMcGdXTWxUR2ZEZVVLTmsvMXNS?=
+ =?utf-8?Q?ssDAsODSU/mLphpxgKutlhJDb?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe42e8d7-2cd5-4e70-a325-08dd872f94a4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2025 15:07:38.6845 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JpZzbDD/dX3GLeb9bYTCYUkatxVD9apR09zIaSmnGY9PYkFOI/AFci2v+Y3y1kVc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6186
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,59 +166,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 28, 2025 at 9:57=E2=80=AFAM Ray Wu <ray.wu@amd.com> wrote:
->
-> From: Alex Hung <alex.hung@amd.com>
->
-> [WHY & HOW]
-> Remove the unnecessary DC_FP_START/DC_FP_END pair to reduce time in
-> preempt_disable. It also fixes "BUG: sleeping function called from
-> invalid context" error messages because of calling kzalloc with
-> GFP_KERNEL which can sleep.
+On 4/25/25 12:20, Tvrtko Ursulin wrote:
+> This time round we explore the rate of submitted job queue processing
+> with multiple identical parallel clients.
+> 
+> Example test output:
+> 
+> 3 clients:
+>         t               cycle:     min  avg max : ...
+>         +     0ms                   0    0    0 :   0   0   0
+>         +   102ms                   2    2    2 :   2   2   2
+>         +   208ms                   5    6    6 :   6   5   5
+>         +   310ms                   8    9    9 :   9   9   8
+> ...
+>         +  2616ms                  82   83   83 :  83  83  82
+>         +  2717ms                  83   83   83 :  83  83  83
+>     avg_max_min_delta(x100)=60
+> 
+> Every 100ms for the duration of the test test logs how many jobs each
+> client had completed, prefixed by minimum, average and maximum numbers.
+> When finished overall average delta between max and min is output as a
+> rough indicator to scheduling fairness.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-Is this safe?  If this function uses FP or calls a function which uses
-FP, removing these will lead to register corruption.
+Acked-by: Christian König <christian.koenig@amd.com>
 
-Alex
-
->
-> Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Ray Wu <ray.wu@amd.com>
 > ---
->  .../gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 6 ------
->  1 file changed, 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> index 2a59cc61ed8c..944650cb13de 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> @@ -2114,8 +2114,6 @@ static bool dcn32_resource_construct(
->  #define REG_STRUCT dccg_regs
->         dccg_regs_init();
->
-> -       DC_FP_START();
-> -
->         ctx->dc_bios->regs =3D &bios_regs;
->
->         pool->base.res_cap =3D &res_cap_dcn32;
-> @@ -2501,14 +2499,10 @@ static bool dcn32_resource_construct(
->         if (ASICREV_IS_GC_11_0_3(dc->ctx->asic_id.hw_internal_rev) && (dc=
-->config.sdpif_request_limit_words_per_umc =3D=3D 0))
->                 dc->config.sdpif_request_limit_words_per_umc =3D 16;
->
-> -       DC_FP_END();
-> -
->         return true;
->
->  create_fail:
->
-> -       DC_FP_END();
-> -
->         dcn32_resource_destruct(pool);
->
->         return false;
-> --
-> 2.43.0
->
+>  .../gpu/drm/scheduler/tests/tests_scheduler.c | 186 +++++++++++++++++-
+>  1 file changed, 185 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> index b66321ef7abe..d70b47d7bf7a 100644
+> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> @@ -181,6 +181,7 @@ struct drm_sched_client_params {
+>  
+>  struct drm_sched_test_params {
+>  	const char *description;
+> +	unsigned int num_clients;
+>  	struct drm_sched_client_params client[2];
+>  };
+>  
+> @@ -626,6 +627,189 @@ static struct kunit_suite drm_sched_scheduler_two_clients2 = {
+>  	.test_cases = drm_sched_scheduler_two_clients_tests,
+>  };
+>  
+> +
+> +static const struct drm_sched_test_params drm_sched_many_cases[] = {
+> +	{
+> +		.description = "2 clients",
+> +		.num_clients = 2,
+> +		.client[0] = {
+> +			.priority = DRM_SCHED_PRIORITY_NORMAL,
+> +			.job_cnt = 4,
+> +			.job_us = 1000,
+> +			.wait_us = 0,
+> +			.sync = true,
+> +		},
+> +	},
+> +	{
+> +		.description = "3 clients",
+> +		.num_clients = 3,
+> +		.client[0] = {
+> +			.priority = DRM_SCHED_PRIORITY_NORMAL,
+> +			.job_cnt = 4,
+> +			.job_us = 1000,
+> +			.wait_us = 0,
+> +			.sync = true,
+> +		},
+> +	},
+> +	{
+> +		.description = "7 clients",
+> +		.num_clients = 7,
+> +		.client[0] = {
+> +			.priority = DRM_SCHED_PRIORITY_NORMAL,
+> +			.job_cnt = 4,
+> +			.job_us = 1000,
+> +			.wait_us = 0,
+> +			.sync = true,
+> +		},
+> +	},
+> +	{
+> +		.description = "13 clients",
+> +		.num_clients = 13,
+> +		.client[0] = {
+> +			.priority = DRM_SCHED_PRIORITY_NORMAL,
+> +			.job_cnt = 4,
+> +			.job_us = 1000,
+> +			.wait_us = 0,
+> +			.sync = true,
+> +		},
+> +	},
+> +	{
+> +		.description = "31 clients",
+> +		.num_clients = 31,
+> +		.client[0] = {
+> +			.priority = DRM_SCHED_PRIORITY_NORMAL,
+> +			.job_cnt = 2,
+> +			.job_us = 1000,
+> +			.wait_us = 0,
+> +			.sync = true,
+> +		},
+> +	},
+> +};
+> +
+> +KUNIT_ARRAY_PARAM(drm_sched_scheduler_many_clients,
+> +		  drm_sched_many_cases,
+> +		  drm_sched_desc);
+> +
+> +static void drm_sched_scheduler_many_clients_test(struct kunit *test)
+> +{
+> +	const struct drm_sched_test_params *params = test->param_value;
+> +	struct drm_mock_scheduler *sched = test->priv;
+> +	const unsigned int clients = params->num_clients;
+> +	unsigned int i, j, delta_total = 0, loops = 0;
+> +	struct test_client *client;
+> +	unsigned int *prev_cycle;
+> +	ktime_t start;
+> +	char *buf;
+> +
+> +	/*
+> +	 * Many clients with deep-ish async queues.
+> +	 */
+> +
+> +	buf = kunit_kmalloc(test, PAGE_SIZE, GFP_KERNEL);
+> +	client = kunit_kcalloc(test, clients, sizeof(*client), GFP_KERNEL);
+> +	prev_cycle = kunit_kcalloc(test, clients, sizeof(*prev_cycle),
+> +				   GFP_KERNEL);
+> +
+> +	for (i = 0; i < clients; i++)
+> +		client[i].entity =
+> +			drm_mock_sched_entity_new(test,
+> +						  DRM_SCHED_PRIORITY_NORMAL,
+> +						  sched);
+> +
+> +	for (i = 0; i < clients; i++) {
+> +		client[i].test = test;
+> +		client[i].id = i;
+> +		client[i].params = params->client[0];
+> +		client[i].duration = ms_to_ktime(1000 / clients);
+> +		client[i].cycle_time.min_us = ~0UL;
+> +		client[i].latency_time.min_us = ~0UL;
+> +		client[i].worker =
+> +			kthread_create_worker(0, "%s-%u", __func__, i);
+> +		if (IS_ERR(client[i].worker)) {
+> +			for (j = 0; j < i; j++)
+> +				kthread_destroy_worker(client[j].worker);
+> +			KUNIT_FAIL(test, "Failed to create worker!\n");
+> +		}
+> +
+> +		kthread_init_work(&client[i].work, drm_sched_client_work);
+> +	}
+> +
+> +	for (i = 0; i < clients; i++)
+> +		kthread_queue_work(client[i].worker, &client[i].work);
+> +
+> +	start = ktime_get();
+> +	pr_info("%u clients:\n\tt\t\tcycle:\t  min    avg    max : ...\n", clients);
+> +	for (;;) {
+> +		unsigned int min = ~0;
+> +		unsigned int max = 0;
+> +		unsigned int total = 0;
+> +		bool done = true;
+> +		char pbuf[16];
+> +
+> +		memset(buf, 0, PAGE_SIZE);
+> +		for (i = 0; i < clients; i++) {
+> +			unsigned int cycle, cycles;
+> +
+> +			cycle = READ_ONCE(client[i].cycle);
+> +			cycles = READ_ONCE(client[i].cycles);
+> +
+> +			snprintf(pbuf, sizeof(pbuf), " %3d", cycle);
+> +			strncat(buf, pbuf, PAGE_SIZE);
+> +
+> +			total += cycle;
+> +			if (cycle < min)
+> +				min = cycle;
+> +			if (cycle > max)
+> +				max = cycle;
+> +
+> +			if (!min || (cycle + 1) < cycles)
+> +				done = false;
+> +		}
+> +
+> +		loops++;
+> +		delta_total += max - min;
+> +
+> +		pr_info("\t+%6lldms\t\t  %3u  %3u  %3u :%s\n",
+> +			ktime_to_ms(ktime_sub(ktime_get(), start)),
+> +			min, DIV_ROUND_UP(total, clients), max, buf);
+> +
+> +		if (done)
+> +			break;
+> +
+> +		msleep(100);
+> +	}
+> +
+> +	pr_info("    avg_max_min_delta(x100)=%u\n",
+> +		loops ? DIV_ROUND_UP(delta_total * 100, loops) : 0);
+> +
+> +	for (i = 0; i < clients; i++) {
+> +		kthread_flush_work(&client[i].work);
+> +		kthread_destroy_worker(client[i].worker);
+> +	}
+> +
+> +	for (i = 0; i < clients; i++)
+> +		drm_mock_sched_entity_free(client[i].entity);
+> +}
+> +
+> +static const struct kunit_attributes drm_sched_scheduler_many_clients_attr = {
+> +	.speed = KUNIT_SPEED_SLOW,
+> +};
+> +
+> +static struct kunit_case drm_sched_scheduler_many_clients_tests[] = {
+> +	KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_many_clients_test,
+> +			      drm_sched_scheduler_many_clients_gen_params,
+> +			      drm_sched_scheduler_many_clients_attr),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite drm_sched_scheduler_many_clients = {
+> +	.name = "drm_sched_scheduler_many_clients_tests",
+> +	.init = drm_sched_scheduler_init2,
+> +	.exit = drm_sched_scheduler_exit,
+> +	.test_cases = drm_sched_scheduler_many_clients_tests,
+> +};
+> +
+>  kunit_test_suites(&drm_sched_scheduler_overhead,
+>  		  &drm_sched_scheduler_two_clients1,
+> -		  &drm_sched_scheduler_two_clients2);
+> +		  &drm_sched_scheduler_two_clients2,
+> +		  &drm_sched_scheduler_many_clients);
+
