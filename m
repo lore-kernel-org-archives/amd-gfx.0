@@ -4,62 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BEF6C369DC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD4B5C369D9
 	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4FB110E6E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81CEC10E6E7;
 	Wed, 30 Apr 2025 07:55:09 +0000 (UTC)
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [58.251.27.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A499B10E48D;
- Tue, 29 Apr 2025 13:17:43 +0000 (UTC)
-Received: from mxde.zte.com.cn (unknown [10.35.20.165])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mxct.zte.com.cn (FangMail) with ESMTPS id 4Zn17x6tl6zW7s;
- Tue, 29 Apr 2025 21:17:33 +0800 (CST)
-Received: from mxhk.zte.com.cn (unknown [192.168.250.138])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mxde.zte.com.cn (FangMail) with ESMTPS id 4Zn17x0ntPz54hQm;
- Tue, 29 Apr 2025 21:17:33 +0800 (CST)
-Received: from mxct.zte.com.cn (unknown [192.168.251.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mxhk.zte.com.cn (FangMail) with ESMTPS id 4Zn17t2MT5z5B1K0;
- Tue, 29 Apr 2025 21:17:30 +0800 (CST)
-Received: from mse-db.zte.com.cn (unknown [10.5.228.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mxct.zte.com.cn (FangMail) with ESMTPS id 4Zn17W5ltPz51SYN;
- Tue, 29 Apr 2025 21:17:11 +0800 (CST)
-Received: (from root@localhost) by mse-db.zte.com.cn id 53TDHCXI085256;
- Tue, 29 Apr 2025 21:17:12 +0800 (+08)
- (envelope-from liu.song13@zte.com.cn)
-Message-Id: <202504291317.53TDHCXI085256@mse-db.zte.com.cn>
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
- by mse-fl1.zte.com.cn with SMTP id 53TAhmmO003471;
- Tue, 29 Apr 2025 18:43:48 +0800 (+08)
- (envelope-from liu.song13@zte.com.cn)
-Received: from mapi (xaxapp04[null]) by mapi (Zmail) with MAPI id mid31;
- Tue, 29 Apr 2025 18:43:51 +0800 (CST)
-Date: Tue, 29 Apr 2025 18:43:51 +0800 (CST)
-X-Zmail-TransId: 2afb6810ad675fe-954e2
-X-Mailer: Zmail v1.0
-Mime-Version: 1.0
-From: <liu.song13@zte.com.cn>
-To: <felix.kuehling@amd.com>
-Cc: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <liu.xuemei1@zte.com.cn>,
- <jiang.xuexin@zte.com.cn>, <xue.zhihong@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIHYyXSBkcm0vYW1ka2ZkOiBlbmFibGUga2ZkIG9uIFJJU0NWIHN5c3RlbXM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL: mse-db.zte.com.cn 53TDHCXI085256
-X-MSS: AUDITRELEASE@mse-db.zte.com.cn
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6810D16C.001/4Zn17x6tl6zW7s
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GAsFfYPS";
+	dkim-atps=neutral
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C33F410E158
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Apr 2025 17:52:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 594F55C3AD5;
+ Tue, 29 Apr 2025 17:49:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1422C4CEE3;
+ Tue, 29 Apr 2025 17:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1745949129;
+ bh=x8UL9Fx91CSyn/hVtA7O0R8Z/lZU4Y2oR7lWcsCA11s=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=GAsFfYPSKIE62IsUxYz7ZkgFloT2tMIpk+FTWMziePcALHd0WJS/9IL6f70VW2lEb
+ 8JhXgPabARpfGYhuhgpMQAC2UkwoECJqY+NDx3bAZOV7vNBEQqYq3FZ4ORUPUzlyHi
+ 3p8xB03aRNoQGs/f/vuaqg/v1R84oRGceBrXl3dI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 5.15 183/373] drm/amdgpu/dma_buf: fix page_link check
+Date: Tue, 29 Apr 2025 18:41:00 +0200
+Message-ID: <20250429161130.688822528@linuxfoundation.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250429161123.119104857@linuxfoundation.org>
+References: <20250429161123.119104857@linuxfoundation.org>
+User-Agent: quilt/0.68
+X-stable: review
+X-Patchwork-Hint: ignore
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 30 Apr 2025 07:55:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,28 +60,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xuemei Liu <liu.xuemei1@zte.com.cn>
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-KFD has been confirmed that can run on RISCV systems. It's necessary to
-support CONFIG_HSA_AMD on RISCV.
+------------------
 
-Signed-off-by: Xuemei Liu <liu.xuemei1@zte.com.cn>
+From: Matthew Auld <matthew.auld@intel.com>
+
+commit c0dd8a9253fadfb8e5357217d085f1989da4ef0a upstream.
+
+The page_link lower bits of the first sg could contain something like
+SG_END, if we are mapping a single VRAM page or contiguous blob which
+fits into one sg entry. Rather pull out the struct page, and use that in
+our check to know if we mapped struct pages vs VRAM.
+
+Fixes: f44ffd677fb3 ("drm/amdgpu: add support for exporting VRAM using DMA-buf v3")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v5.8+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/amdkfd/Kconfig | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
-index d3c3d3ab7225..62e88e5362e9 100644
---- a/drivers/gpu/drm/amd/amdkfd/Kconfig
-+++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
-@@ -5,7 +5,7 @@
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -225,7 +225,7 @@ static void amdgpu_dma_buf_unmap(struct
+ 				 struct sg_table *sgt,
+ 				 enum dma_data_direction dir)
+ {
+-	if (sgt->sgl->page_link) {
++	if (sg_page(sgt->sgl)) {
+ 		dma_unmap_sgtable(attach->dev, sgt, dir, 0);
+ 		sg_free_table(sgt);
+ 		kfree(sgt);
 
- config HSA_AMD
-  bool "HSA kernel driver for AMD GPU devices"
-- depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64)
-+ depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64 || (RISCV && 64BIT))
-  select HMM_MIRROR
-  select MMU_NOTIFIER
-  select DRM_AMDGPU_USERPTR
--- 
-2.25.1
+
