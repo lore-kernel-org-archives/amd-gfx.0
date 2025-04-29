@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE75DC369DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Apr 2025 22:40:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFB2CC369DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Apr 2025 23:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1FFB10E147;
-	Tue, 29 Apr 2025 22:40:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD3E10E538;
+	Tue, 29 Apr 2025 23:51:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ovs0rO3B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B1WagvpW";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA7BA10E147;
- Tue, 29 Apr 2025 22:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
- Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=J+J3skU2IvMAiOOU893l9+DnbBdfScGVX4fOk3owrO0=; b=ovs0rO3BucKTwHg2e6Y4Rs7RVg
- zmQJkM3tLS5ADq5j3050AnJSmCJyyF7g/kOMKOs3Ao7U8TZ734T/Wy5dqKqjayKRukgDTK7IxFiHB
- nSwHSFqXyusTOclGmQSDdiNWygTRh5knEfRjt8aZIO9Hjyy6ToTbw7i4AHFJMCTh2c0iivATYehEN
- FyjIuH1AGnD1O5zOyk8o4En0A03B8csCspYIa3J4EpZPI6Wyp3ENroar595desOKBkJeOherfEsiN
- 78lrcb/XniSA7ZwnkSNB7/JuAdiBLK297l3XhUmaj+tw5a9PvpedZoaIfS5xVlexOqLDSnfjPYjlh
- 5vXuvfyg==;
-Received: from [189.6.35.67] (helo=[192.168.0.55])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1u9tbg-000YBA-L9; Wed, 30 Apr 2025 00:39:48 +0200
-Message-ID: <83af5681-7061-427b-a429-785b70a14652@igalia.com>
-Date: Tue, 29 Apr 2025 19:39:42 -0300
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE4CA10E1E0;
+ Tue, 29 Apr 2025 23:51:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 108315C47C4;
+ Tue, 29 Apr 2025 23:48:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD52C4CEE3;
+ Tue, 29 Apr 2025 23:51:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745970668;
+ bh=7Mqkh/DfpJaKhMCrCkYPgeCnFVkfSR9IgPhX19vd/Ro=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=B1WagvpW60CqVWXkFLuP8fPR+m4iqUOyTztr/4o0QmZxWYenuuh09hQNSNdR/Eck2
+ IhJ548iVz8fE7YoT0bsyX/iNiI/mT6HhdQY79EHVZIlc7v4+voePt4UtXX6UCTLpZv
+ bs5OY2uVp6HELoEwQnG8d5w+IRBHS7VHsImadFGcewzjVD8e/NqdM/kYDf5hllQ7WD
+ nEbe7tR3etWgrlhTNohaVyZUyj/Txwsb77N8sas2XP0GvtESuIMVAnOnZ3dlAkMD+A
+ J1/3OkHW85tqvZ95sUwlM4RctoGffYBMxVkWPdlNOeaPJ09YcCfVLWT/tn8AWnjFtF
+ 9isf6B8FdPiVA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Nicholas Susanto <nsusanto@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Mark Broadworth <mark.broadworth@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, Charlene.Liu@amd.com, chiahsuan.chung@amd.com,
+ nicholas.kazlauskas@amd.com, paul.hsieh@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.14 32/39] drm/amd/display: Enable urgent latency
+ adjustment on DCN35
+Date: Tue, 29 Apr 2025 19:49:59 -0400
+Message-Id: <20250429235006.536648-32-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250429235006.536648-1-sashal@kernel.org>
+References: <20250429235006.536648-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: no 3D and blnd LUT as DPP color caps for
- DCN401
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: Michel Daenzer <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20250425205236.318520-1-mwen@igalia.com>
-Content-Language: en-US
-In-Reply-To: <20250425205236.318520-1-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.14.4
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,32 +68,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Nicholas Susanto <nsusanto@amd.com>
 
+[ Upstream commit 756c85e4d0ddc497b4ad5b1f41ad54e838e06188 ]
 
-On 25/04/2025 17:52, Melissa Wen wrote:
-> Match what is declared as DPP color caps with hw caps. DCN401 has MPC
-> shaper+3D+blnd LUTs that are movable before and after blending (get from
-> plane or stream), but no DPP shaper+3D+blend LUTs.
-Correction: shaper+3D LUTs movable, and no DPP blend LUT.
->
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->   .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c  | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-> index 5b7148bb1701..3b142e662c7b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-> @@ -1937,8 +1937,8 @@ static bool dcn401_resource_construct(
->   	dc->caps.color.dpp.gamma_corr = 1;
->   	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
->   
-> -	dc->caps.color.dpp.hw_3d_lut = 1;
-> -	dc->caps.color.dpp.ogam_ram = 1;
-> +	dc->caps.color.dpp.hw_3d_lut = 0;
-> +	dc->caps.color.dpp.ogam_ram = 0;
->   	// no OGAM ROM on DCN2 and later ASICs
->   	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
->   	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
+[Why]
+
+Urgent latency adjustment was disabled on DCN35 due to issues with P0
+enablement on some platforms. Without urgent latency, underflows occur
+when doing certain high timing configurations. After testing, we found
+that reenabling urgent latency didn't reintroduce p0 support on multiple
+platforms.
+
+[How]
+
+renable urgent latency on DCN35 and setting it to 3000 Mhz.
+
+This reverts commit 3412860cc4c0c484f53f91b371483e6e4440c3e5.
+
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Nicholas Susanto <nsusanto@amd.com>
+Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+Tested-by: Mark Broadworth <mark.broadworth@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit cd74ce1f0cddffb3f36d0995d0f61e89f0010738)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
+index 47d785204f29c..beed7adbbd43e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
+@@ -195,9 +195,9 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_5_soc = {
+ 	.dcn_downspread_percent = 0.5,
+ 	.gpuvm_min_page_size_bytes = 4096,
+ 	.hostvm_min_page_size_bytes = 4096,
+-	.do_urgent_latency_adjustment = 0,
++	.do_urgent_latency_adjustment = 1,
+ 	.urgent_latency_adjustment_fabric_clock_component_us = 0,
+-	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
++	.urgent_latency_adjustment_fabric_clock_reference_mhz = 3000,
+ };
+ 
+ void dcn35_build_wm_range_table_fpu(struct clk_mgr *clk_mgr)
+-- 
+2.39.5
 
