@@ -4,61 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 586C1C369DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1FF3C3ABA9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7537410E6ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC88C10E6F1;
 	Wed, 30 Apr 2025 07:55:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="dsdCvVA2";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PsXztbLJ";
 	dkim-atps=neutral
-X-Greylist: delayed 481 seconds by postgrey-1.36 at gabe;
- Tue, 29 Apr 2025 13:16:09 UTC
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2128B10E0A7
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Apr 2025 13:16:09 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E1BA340E021A; 
- Tue, 29 Apr 2025 13:08:03 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
- reason="fail (body has been altered)"
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id wrGf7WWtCOB6; Tue, 29 Apr 2025 13:08:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1745932079; bh=UFz6C4O5CnyTyz6Ioj0i9bidH2Ii+o7JdCGRWIRCBcg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dsdCvVA2QiRbyK7Tgf0rPbpAdHNCJi7GVPYiOQzy8uD699rZfmUjFypwrSjfA1cC8
- uzAjyFNSv1JtUUqpr5wG2zzdX9MowPEr7GZ5kY4rTrN634GGtS3kfyCYOYW7S0pm+d
- HtO5S7s92ji7gXqonzzwj93pVCgm3gRo/klC7V+g2iHkGEjNTaiXSzQblRhX1P0gK+
- cmY3ceMPwt+vPfq9pO9+wAmjApqiNEJ+wjWGwZE8vu0htffqvIY/slrRM4F8qtkRVv
- 2cIrPTsogY4h/ONhc8VBi6Ho2errJeRtH93j6UHtqGnANtz0iTGpIhknzoNphNfCyE
- vxYtM82/S5cy0LqYzgtrUV9hFEhD5sbWs8gsBuQ0iwAO0hgGk6apAbVQf74AFMeOaK
- RaTFlQYFJuncwkKolWDTqD9go/zMhEUunypuwcvusa0F4d0MyQDXp6c21jlJW94DU8
- iQ05nf2RyzG1wnBclGR4Vf1GUv/91mbtMFI3zZh9LfE6IZYBsDS6Fu6+YaeP70czM8
- IB5eezC6cAjJmqhl4bRhBZAi8OEGfZQwqRH4tTvaDDmtT4QKZrQ2GAUHADjtJH7toG
- ehRplvTGDKxuCYx0ybMdNnTlSsmDI7FghCUD+Khqp+M9FZIQt0chRIt+a4CVsc5A4H
- jbLyzgPZjEguc8x1aHKYy5m8=
-Received: from zn.tnic (p579690ee.dip0.t-ipconnect.de [87.150.144.238])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DF86E40E0173;
- Tue, 29 Apr 2025 13:07:56 +0000 (UTC)
-Date: Tue, 29 Apr 2025 15:07:49 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: amd-gfx@lists.freedesktop.org
-Cc: Marcus =?utf-8?Q?R=C3=BCckert?= <amd@nordisch.org>
-Subject: Re: Display Port handling errors out when monitor is slow to wake up
-Message-ID: <20250429130749.GBaBDPJSol4WXi-G-r@fat_crate.local>
-References: <15eca28818c4fad674bb2f33df7b3277563ba56d.camel@nordisch.org>
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADFA810E431
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Apr 2025 17:22:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 27A94A4BBFD;
+ Tue, 29 Apr 2025 17:17:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3119FC4CEE3;
+ Tue, 29 Apr 2025 17:22:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1745947371;
+ bh=C9LD6vzDzBSTx7uPhqEBopsL7zCZMFkonfYdvKkGjrg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=PsXztbLJtBVdeDFuMfnWs4p/GP72YSYzVddRY/uw0PBP/ckK8tTSacvRcymcWBG/r
+ 4HfnQDYLV0RlgXbgY0nuQ+JGNLdBsnJ8DJXYXse8937wOeaGnfZYXKrNmDwYwSOpwB
+ ktUTTvLq0SkwrsrxNQWRQP7a1j5slFhtTv4Ao2Xc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 229/286] drm/amdgpu/dma_buf: fix page_link check
+Date: Tue, 29 Apr 2025 18:42:13 +0200
+Message-ID: <20250429161117.356383957@linuxfoundation.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250429161107.848008295@linuxfoundation.org>
+References: <20250429161107.848008295@linuxfoundation.org>
+User-Agent: quilt/0.68
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <15eca28818c4fad674bb2f33df7b3277563ba56d.camel@nordisch.org>
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 30 Apr 2025 07:55:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,83 +61,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ amdgpu folks.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-On Tue, Apr 29, 2025 at 02:51:21PM +0200, Marcus R=C3=BCckert wrote:
-> Hardware:=20
-> - ASUS ROG Swift OLED PG27AQDP =20
-> - XFX Mercury Radeon RX 9070 XT OC Gaming Edition with RGB, 16GB GDDR6,=
- HDMI, 3x DP RX-97TRGBBB9
->=20
-> Kernel:
-> - kernel-default-6.15~rc4-1.1.g62ec7c7.x86_64 from https://build.opensu=
-se.org/project/show/Kernel:HEAD
->=20
-> The monitor is really slow on waking up - or even switching mode e.g. w=
-hen going from console to wayland with 480Hz.
-> When I turn on the monitor before I wake up wayland via keyboard/mouse,=
- no error comes. If I wake up wayland first and then start the monitor:
->=20
-> ```
-> [Tue Apr 29 13:49:54 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1118: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) =
-failed
-> [Tue Apr 29 13:49:54 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1123: core_link_write_dpcd (DP_LANE_COUNT_SET) f=
-ailed
-> [Tue Apr 29 13:49:54 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1151: core_link_write_dpcd (DP_LINK_BW_SET) fail=
-ed
-> [Tue Apr 29 13:49:55 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1118: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) =
-failed
-> [Tue Apr 29 13:49:55 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1123: core_link_write_dpcd (DP_LANE_COUNT_SET) f=
-ailed
-> [Tue Apr 29 13:49:55 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1151: core_link_write_dpcd (DP_LINK_BW_SET) fail=
-ed
-> [Tue Apr 29 13:49:56 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1118: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) =
-failed
-> [Tue Apr 29 13:49:56 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1123: core_link_write_dpcd (DP_LANE_COUNT_SET) f=
-ailed
-> [Tue Apr 29 13:49:56 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1151: core_link_write_dpcd (DP_LINK_BW_SET) fail=
-ed
-> [Tue Apr 29 13:49:57 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1118: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) =
-failed
-> [Tue Apr 29 13:49:57 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1123: core_link_write_dpcd (DP_LANE_COUNT_SET) f=
-ailed
-> [Tue Apr 29 13:49:57 2025] [  T70365] amdgpu 0000:03:00.0: [drm] *ERROR=
-* dpcd_set_link_settings:1151: core_link_write_dpcd (DP_LINK_BW_SET) fail=
-ed
-> [Tue Apr 29 13:49:58 2025] [  T70365] amdgpu 0000:03:00.0: [drm] enabli=
-ng link 1 failed: 15
-> ```
->=20
-> Feel free to ping me if you need more information.
->=20
->    darix
->=20
-> ```
-> --=20
-> Always remember:
->   Never accept the world as it appears to be.
->     Dare to see it for what it could be.
->       The world can always use more heroes.
->=20
->=20
->=20
->=20
-> ```
->=20
+------------------
 
---=20
-Regards/Gruss,
-    Boris.
+From: Matthew Auld <matthew.auld@intel.com>
 
-https://people.kernel.org/tglx/notes-about-netiquette
+[ Upstream commit c0dd8a9253fadfb8e5357217d085f1989da4ef0a ]
+
+The page_link lower bits of the first sg could contain something like
+SG_END, if we are mapping a single VRAM page or contiguous blob which
+fits into one sg entry. Rather pull out the struct page, and use that in
+our check to know if we mapped struct pages vs VRAM.
+
+Fixes: f44ffd677fb3 ("drm/amdgpu: add support for exporting VRAM using DMA-buf v3")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v5.8+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index bbbacc7b6c463..e4d0a9377e712 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -357,7 +357,7 @@ static void amdgpu_dma_buf_unmap(struct dma_buf_attachment *attach,
+ 				 struct sg_table *sgt,
+ 				 enum dma_data_direction dir)
+ {
+-	if (sgt->sgl->page_link) {
++	if (sg_page(sgt->sgl)) {
+ 		dma_unmap_sgtable(attach->dev, sgt, dir, 0);
+ 		sg_free_table(sgt);
+ 		kfree(sgt);
+-- 
+2.39.5
+
+
+
