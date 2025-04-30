@@ -4,76 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE36CC3ABAC
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 14:21:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E308FC369D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 14:22:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B5F10E2A7;
-	Wed, 30 Apr 2025 14:21:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8832C10E7A6;
+	Wed, 30 Apr 2025 14:22:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mE5QUwUR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TY+endvN";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBF810E2AE;
- Wed, 30 Apr 2025 14:21:01 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2ff62f9b6e4so888803a91.0; 
- Wed, 30 Apr 2025 07:21:01 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA88410E7A6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 14:22:06 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2264aefc3b5so15421875ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 07:22:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746022861; x=1746627661; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1746022926; x=1746627726; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=sZmQwZmxB+/0iwMhAswU29lyI7OcK6uMy67401DmTrQ=;
- b=mE5QUwURjcYe7a0wNo+pWNXcewqdJA2GHkYvVCAH0mrxgL20dp02uk/M58yBjPlxAW
- X8+MZ5l3qS4p7qHq0KttVzmelWNWxoeURfft5aSFiYQhk/ABe8G/mPHY402/V9D1Lebr
- tAgQE+bmHg58Jgjhd6r/Isa+9re9BGB3hXKPrt8ViDmBqOkHnZJW6LuTZsyX5sl629f1
- lvgiVVn47ixvx72vXf+QNUDdfTi5PV/YCjJMtQvD81M1JDiNCJlN9d/m/WYBoHgNcrfX
- VHybUjX8P6ssMYdHZxDk4BzEldk01NBb6yH1ej3EqNpecyKnOvO0uGB7O1sX4wnOVfUl
- zgGg==
+ bh=UoMCq6NDBhFYU5deFAf0IfHwHevuptdIrRF9Or7gGpQ=;
+ b=TY+endvNFVONuwIm9C2ePqyEqkYu7gxg3hANrK7gmM8nJTaLe49YJqNI0p82T1tJ8j
+ iWnJHORgjq+olcfVHlC1DNMn5iIM+StNH7CvXlswXSTEwCNE0QGPWiggKZ3SAdJDTk7B
+ GZKMko0S/5Pu5/gXtpV8A+beOsUdBu9b8FAD+0d0vIxfUjIim5a7XO63iAd6Y5n7c7ex
+ MKtji/9l0TJOyCD11uAffnkL+Qvoljt0WB3a7e5xLeh4BEVWiGY7bWIBph+hyuHfZIqi
+ gO2+yfJlwmvxckDlqZGMoIixB8v55EmA4rJQpf7g3XlIhiFUSvIGjTd3YlUMZEvU4JDu
+ 24hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746022861; x=1746627661;
+ d=1e100.net; s=20230601; t=1746022926; x=1746627726;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=sZmQwZmxB+/0iwMhAswU29lyI7OcK6uMy67401DmTrQ=;
- b=E6rA/Akh0AU+6+11G/jPGZajIfR7egR3HeyLkr8ZtBWGh1VTigI8/po4NcdPTNZ5+6
- a9lSgAIBtuhZzJba3qZbf043uptiDBan4JcAWsjforhSqA3cF8PAhNPCU6oQ+x7H7GkH
- B/GU+D0WVAWGFtkYcS4wrv+Zb9R1DsX/V322j2gK5da7NWOFKfRBsR8YwsoiJHJbmVr0
- wWRDSAvldtfmObCsYT5dTRvB8GIHP2bA1RhL3tNCKEqOvi+tUnz49WoQCQFo8MODwgmB
- AQh9Ooos1O+W9xjk/cDbrKjHonOZ0xcWzkM7iCJ7ZsenobMrr2SFUo8Z0xd5O7IcEdYv
- bsvA==
+ bh=UoMCq6NDBhFYU5deFAf0IfHwHevuptdIrRF9Or7gGpQ=;
+ b=Fusgg/OCp5u7l8rFxHLMarxGa7tTHBBdBJ/cGJWpD9QmWQE1L3fwyNPt0g3u8m9//E
+ 8fJtuwkYJYuqRewwgCsIkxJxON5BX1qokEtFbHvfzDY0rbJ61+OwjXS/a2kjOsmPOXAB
+ qfMXX7BsJLF0EwyO0oHea2M6gfrx+/ri66lNyiHPc1uXsOv1jD1Wxs6luHY1AYUPT/1V
+ gYsF9j+7dTKJzo7UfaKy+Q3iPZxDO1n3x1hBtgp3Wx9qoJK9colFPTXqasvn9ifnwbWI
+ R6VDUFgz/Db6sOl+wsTOWL5FKjXS4wVH3nL8qO35c0T3Y3av9le+GLg+LOl+tAXVav1K
+ z/yw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXPflRC0tj+CjyCwVW3Qmi20wYVJ6Hu5rs05fCKTeHCZr5bHOTw6JgNTQEVTjqfeLKAffloOv0TGxbg@lists.freedesktop.org,
- AJvYcCXxIZP9nSqt72JJoTeXOkiOO0pMfPeUNVPbwjxpEPlJnGjjFZAYJg7Oagl/GYlZTM89IMY+/QGV@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRbNBbHuAyW5iD0VI/SPQxVOGcU6DA20JnYD6aa4aVqXe+LfXW
- KQDltB2jPrxstEUeYzWEGHgEXaeYjEeufx4rq3Gl9awCeOvz2bFzcafGO9cmQkBOdoF0R4WGmDp
- VOClZb0NwKnQybX0GWKn/jWFwcRo=
-X-Gm-Gg: ASbGncsFkKTAi7bRF1YIq+xpraKAOa38Fz7awJmNBraZcXeRyApHCiis8xfgcxnV02o
- ktOWPCIYA8jMNX5MyF8abrtZ8z8Cn9AwrPjyL3gMO58t+W/rwBx6W0M93E4w6RR5AyArZ+XSJ6W
- ong/U1YuxIgsr/LN2r8ga77Ui525GVZ3sM
-X-Google-Smtp-Source: AGHT+IHrRGSCtx7yYWpJEIC2bzjI16vhGr+WvXakgytHAWV7umJvxRTzyd+RXip4iCHcc3z9o9KqkLvAU+fqkw7MRxw=
-X-Received: by 2002:a17:90b:1b52:b0:2ee:acea:9ec4 with SMTP id
- 98e67ed59e1d1-30a34a7903fmr1258142a91.3.1746022860936; Wed, 30 Apr 2025
- 07:21:00 -0700 (PDT)
+ AJvYcCXGiXyZDUwkOz2WFk7SCxtErhx0kdcdnDp3w3c2oWHQkoH17i2Bk9YJF3//CC3dg/By4yB8cIQ1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSONb3oE46YL6YTHcuMTERcwydcOt/IvXZhAsIoqtekvdB9NnK
+ FchRsr5CCUEj21qLjcg0JtdgD0eShd4NnHPTv/lIBlteTGdEoKcpJJs6t7hKtjaApVhzuwPUNJp
+ Cs/5Nz4xqrlj+Ra3CC97lmfc5DyTw/w==
+X-Gm-Gg: ASbGncsWPpUGsHJG1tkrHMjX4uqKdUJC28xqjjKb44JLbj5Uli4jT08eqJbcLHUM4tv
+ rRVPNWIJ3EkJ6ck4y8mHxpo07B+zHjXxExXPM3djGh82j3+y9RS+kEFVFnyiCOV6ACQzJJdlUg7
+ /01Bo7KUM3u8DVypv7sigdqA==
+X-Google-Smtp-Source: AGHT+IEswVx/ROP8dXmJaUkSTxzTlqgo9gyCeaL+ifhoqnmNmC2sqC3LA/Nw95waOJzp3s6e2uj94O1oaOwDkErobLs=
+X-Received: by 2002:a17:903:1b24:b0:223:f9a4:dc25 with SMTP id
+ d9443c01a7336-22df5836c79mr16097345ad.14.1746022926333; Wed, 30 Apr 2025
+ 07:22:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <aBHZuejTTKkdnGaZ@stanley.mountain>
-In-Reply-To: <aBHZuejTTKkdnGaZ@stanley.mountain>
+References: <20250429175022.1636538-1-alexander.deucher@amd.com>
+ <9379f31c-392e-4ad2-d19b-f2c1a6917208@amd.com>
+In-Reply-To: <9379f31c-392e-4ad2-d19b-f2c1a6917208@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 30 Apr 2025 10:20:49 -0400
-X-Gm-Features: ATxdqUEB0H-Jbi4I5kCfhljTEmMnfaxoRCMWULH3c0gZNlkLYq2fJo8Njqfwsus
-Message-ID: <CADnq5_O0CmTSScncQ5kV=BciZdEZ+D_THNEis+Lfy1ENPJ-+pQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/userq: remove unnecessary NULL check
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Shashank Sharma <shashank.sharma@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Arvind Yadav <Arvind.Yadav@amd.com>, 
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel-janitors@vger.kernel.org
+Date: Wed, 30 Apr 2025 10:21:54 -0400
+X-Gm-Features: ATxdqUHjCXyp8209Pazz3J2XJDZafL8FbQpzFBR3rQctqhON1hquyTgrTCxXgrg
+Message-ID: <CADnq5_PVhhfGie2iRcoZbL9-gbsaUXDAd0+4x28hStoY0DA7TQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: properly handle GC vs MM in
+ amdgpu_vmid_mgr_init()
+To: "Yadav, Arvind" <arvyadav@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Arvind Yadav <Arvind.Yadav@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,36 +84,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 30, 2025 at 4:13=E2=80=AFAM Dan Carpenter <dan.carpenter@linaro=
-.org> wrote:
+On Wed, Apr 30, 2025 at 1:05=E2=80=AFAM Yadav, Arvind <arvyadav@amd.com> wr=
+ote:
 >
-> The "ticket" pointer points to in the middle of the &exec struct so it
-> can't be NULL.  Remove the check.
+> Reviewed-by: Arvind Yadav <Arvind.Yadav@amd.com>
 >
-> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> On 4/29/2025 11:20 PM, Alex Deucher wrote:
+> > When kernel queues are disabled, all GC vmids are available
+> > for the scheduler.  MM vmids are still managed by the driver
+> > so make all 16 available.
+> >
+> > Also fix gmc 10 vs 11 mix up in
+> > commit 1f61fc28b939 ("drm/amdgpu/mes: make more vmids available when di=
+sable_kq=3D1")
+> >
+> > Fixes: 1f61fc28b939 ("drm/amdgpu/mes: make more vmids available when di=
+sable_kq=3D1")
+> > Cc: Arvind Yadav <Arvind.Yadav@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 8 ++++++--
+> >   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 2 +-
+> >   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 2 +-
+> >   3 files changed, 8 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ids.c
+> > index 359c19de9a5b9..c7a6d40ded5c3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> > @@ -576,8 +576,12 @@ void amdgpu_vmid_mgr_init(struct amdgpu_device *ad=
+ev)
+> >               INIT_LIST_HEAD(&id_mgr->ids_lru);
+> >               id_mgr->reserved_use_count =3D 0;
+> >
+> > -             /* manage only VMIDs not used by KFD */
+> > -             id_mgr->num_ids =3D adev->vm_manager.first_kfd_vmid;
+> > +             if (AMDGPU_IS_MMHUB0(i) ||
+> > +                 AMDGPU_IS_MMHUB1(i))
+> > +                     id_mgr->num_ids =3D 16;
+> > +             else
+> > +                     /* manage only VMIDs not used by KFD */
+> > +                     id_mgr->num_ids =3D adev->vm_manager.first_kfd_vm=
+id;
 
-Applied.  Thanks!
+We need to handle pre GC 10 here as well.  I just sent out an updated patch=
+.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index b0e8098a3988..7505d920fb3d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -631,7 +631,7 @@ amdgpu_userq_validate_bos(struct amdgpu_userq_mgr *uq=
-_mgr)
->                         clear =3D false;
->                         unlock =3D true;
->                 /* The caller is already holding the reservation lock */
-> -               } else if (ticket && dma_resv_locking_ctx(resv) =3D=3D ti=
-cket) {
-> +               } else if (dma_resv_locking_ctx(resv) =3D=3D ticket) {
->                         clear =3D false;
->                         unlock =3D false;
->                 /* Somebody else is using the BO right now */
-> --
-> 2.47.2
->
+Alex
+
+> >
+> >               /* skip over VMID 0, since it is the system VM */
+> >               for (j =3D 1; j < id_mgr->num_ids; ++j) {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gmc_v10_0.c
+> > index 7648e977b44bc..a3e2787501f18 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > @@ -896,7 +896,7 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block=
+ *ip_block)
+> >        * amdgpu graphics/compute will use VMIDs 1-7
+> >        * amdkfd will use VMIDs 8-15
+> >        */
+> > -     adev->vm_manager.first_kfd_vmid =3D adev->gfx.disable_kq ? 1 : 8;
+> > +     adev->vm_manager.first_kfd_vmid =3D 8;
+> >
+> >       amdgpu_vm_manager_init(adev);
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gmc_v11_0.c
+> > index 7f5ca170f141a..917d894a1316a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> > @@ -828,7 +828,7 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block=
+ *ip_block)
+> >        * amdgpu graphics/compute will use VMIDs 1-7
+> >        * amdkfd will use VMIDs 8-15
+> >        */
+> > -     adev->vm_manager.first_kfd_vmid =3D 8;
+> > +     adev->vm_manager.first_kfd_vmid =3D adev->gfx.disable_kq ? 1 : 8;
+> >
+> >       amdgpu_vm_manager_init(adev);
+> >
