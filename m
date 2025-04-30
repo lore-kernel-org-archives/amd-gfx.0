@@ -4,56 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3888C3ABA3
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 May 2025 13:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B5FCC3ABA9
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 May 2025 13:05:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70E210E850;
-	Thu,  1 May 2025 13:05:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2ADF10E857;
+	Thu,  1 May 2025 13:05:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=nordisch.org header.i=@nordisch.org header.b="U+TxjzIu";
-	dkim=pass (1024-bit key; secure) header.d=nordisch.org header.i=@nordisch.org header.b="JfQx60BU";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hs5MgAWq";
 	dkim-atps=neutral
-X-Greylist: delayed 339 seconds by postgrey-1.36 at gabe;
- Wed, 30 Apr 2025 23:34:17 UTC
-Received: from tengu.nordisch.org (tengu.nordisch.org [138.201.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D05210E14D
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 23:34:17 +0000 (UTC)
-Received: from [192.168.3.6] (fortress.wg.nordisch.org [192.168.3.6])
- by tengu.nordisch.org (Postfix) with ESMTPSA id 2513B75B728;
- Thu, 01 May 2025 01:28:24 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=nordisch.org;
- s=tengu_ed25519; t=1746055704;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XDUEgyQuETsjtturu6RqQZ44HHx7WCsRfSeWlLxTKoo=;
- b=U+TxjzIuC0YLICJge4eQQmXxuwecS5HBGrRLHORLbCzmwoZNWimwiVrg8H5dUHQPBv5KNH
- zwFZo950O4Au5NDg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nordisch.org;
- s=tengu_rsa; t=1746055704;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XDUEgyQuETsjtturu6RqQZ44HHx7WCsRfSeWlLxTKoo=;
- b=JfQx60BUEX0oxkoAlSiN9W80l7PqHVkkXn7sfOwXqVxqwyfNrARUQ25SgNIJDHyPxu/7m5
- Tr/vxSLtHsmkNBR9otHrEhBUlcD+p55gAVzM9zkai0ePcke4+pND1dHJEsmhLlII7SM/LI
- i13VLQFw0UynbqyC2qhy+53r1FIGRM4=
-Message-ID: <688457c1079a5cdbb81a0dd21e6d744e72c89101.camel@nordisch.org>
-Subject: Re: amdgpu: Reproducible soft lockups when playing games
-From: Marcus =?ISO-8859-1?Q?R=FCckert?= <amd@nordisch.org>
-To: Alex Deucher <alexdeucher@gmail.com>, Borislav Petkov <bp@alien8.de>
-Cc: amd-gfx@lists.freedesktop.org
-Date: Thu, 01 May 2025 01:28:23 +0200
-In-Reply-To: <CADnq5_PBjOYV5TH5EDXBVvth1ZX6S_TcpDOKOMrbDJUEDzkTww@mail.gmail.com>
-References: <123e013307ad395b3e26c2dd53fb99594191dda0.camel@nordisch.org>
- <20250429130929.GCaBDPiT_CwyKmHB5o@fat_crate.local>
- <CADnq5_PBjOYV5TH5EDXBVvth1ZX6S_TcpDOKOMrbDJUEDzkTww@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.1 
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 660C810E717
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 08:05:18 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-441ab63a415so23473425e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 01:05:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1746000317; x=1746605117; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qD6CtIO/TisXjPtHYMRMSY8vPIJC8aCPMTopK7WpI/k=;
+ b=hs5MgAWqQnJZ/N2FCOjtup2RwKlamYdJpPYW45yLSbkEzCjWR4EOtby75117HmrIz3
+ 8nQVfW5T4Vfua7g4T05cWBp7/QYojmVyhtShN8sEc5dlY5vHjxTxGHGJyz7wq/9ze+ne
+ zXZl4dPfjKvarNY+d0N5Lpd3+WVuTLfQevvGx2rBbsJAoxABdG6LoCkeD3SnPk/gQiLR
+ 3APcE0eIzdPI9xXPjyXJa1+DDWnYWPMqv0qPQ1L657E6vt2CdNKlMb1cHZ8mB/+YKd0N
+ G+t/tIm8YegusI5UHhJ98e1qYz0N1PnutaXMB7gul6uzNFTOPAo8kK7xq6zU9WabMh0L
+ jtfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746000317; x=1746605117;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qD6CtIO/TisXjPtHYMRMSY8vPIJC8aCPMTopK7WpI/k=;
+ b=licJbH5TY1N7NasNiw9npXYOhnimf5W5W1qDAj5RvcGLGBXp7AxUbEfkzIgCzx4eZh
+ DZ+fxgcVYj/nItkgYB+3mCxmm3SCXJENiIjubDepJD0TfmDr/BuC99YPnJEPPvBkEK44
+ ypTCygtRsMPokacvmjZBcnIUDwdcpM2IU0PH3hdUX6UN0rmyX1TzAKC6K/9Qwnv8jzdY
+ vjf21zL/A6hwfOrcJhWuDGoSw4pAhsabq2i08ak7XkM3fXxnQDJRxIydBiWJ7p4XRAtg
+ TNHnxX+6srYPFFsnAQfAr5dWpjS6KPKkFbhcwneDddn1KwqWxSJotFF2+ZdyO2nMcHQH
+ lkPg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVBd3yYr3Ks7Jg+8Gv23GpyPyMhKme77YphSJGRWdDq/A4cCIlXjb5kDQpik/cOdMj48RyaiUTK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YybLeq6VfCyMG361ai5OymCN3p5T8khy3wEhTyVRZWBz/NqktNt
+ YDkHjOskIIsdiC6kkjXtrRzoGTdQyOEYlSpdIRxmpNAwGQhidZEVdOnZSLGYRRU=
+X-Gm-Gg: ASbGncvE05AByBsoEnGu1zhAQh5j7RegVeuOvGuHbUI3fZ/iNBPs3mZQjwC0ulvQVmf
+ wGnCY5AxV7nS2UzWtvO7llV2b48GRoRaiEkq1uYgfyDNmXk+1hohE291rvLAlmhXU/OfmqT8qyi
+ 8huv4UsZVbZZxLIQYUPbDUZIVkoFsDMNTYbUApR+DZzihvmdDZB1y8ZY15jSGNaQ2Lo/PAr3MCF
+ aDkmmA7ASZqwpi+gM2AIbChKZoyo14KX4KWa5LpKj+NWL/8RWJ2suyDUtSsqiOXWDgpJ0jVXdHy
+ buMUY4iziwjv/P9ivZ4SU+AccXr1vW6ey/XgGLFtZPlgOA==
+X-Google-Smtp-Source: AGHT+IHdEtFR63Z6oiW9IVvngwXx6ZQiZzLOjAXgoM9uBkm6EKIWAveHvb1hm/cJiMmkSf12Z002jw==
+X-Received: by 2002:a05:600c:c054:b0:43d:300f:fa1d with SMTP id
+ 5b1f17b1804b1-441b1f5fffbmr15536155e9.31.1746000317302; 
+ Wed, 30 Apr 2025 01:05:17 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-441b2b20c3fsm15479405e9.28.2025.04.30.01.05.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Apr 2025 01:05:16 -0700 (PDT)
+Date: Wed, 30 Apr 2025 11:05:13 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Arvind Yadav <Arvind.Yadav@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/amdgpu/userq: remove unnecessary NULL check
+Message-ID: <aBHZuejTTKkdnGaZ@stanley.mountain>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Thu, 01 May 2025 13:05:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,59 +90,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-04-30 at 09:55 -0400, Alex Deucher wrote:
-> please make sure your kernel has these three patches:
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/?id=3D4408b59eeacfea777aae397177f49748cadde5ce
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/?id=3Dafcdf51d97cd58dd7a2e0aa8acbaea5108fa6826
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/?id=3D366e77cd4923c3aa45341e15dcaf3377af9b042f
+The "ticket" pointer points to in the middle of the &exec struct so it
+can't be NULL.  Remove the check.
 
-I am kinda sure that's the patches Takashi backported into our 6.14.3.
-They are already part of 6.15.rc4 no?
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> soft recover kills stuck shaders, so I'd suggest trying a newer
-> version of mesa and LLVM.=C2=A0 If that doesn't help, please file a ticke=
-t
-> here:
-
-Newer Mesa is building although I didnt see anything radv related.
-
-I am curious in https://gitlab.freedesktop.org/drm/amd/-/issues/4192
-there is a lot more details about the crash than what I see. with what
-kind of flags/environment variables do I have to run to get the same?
-
-An observation from my latest crash:
-
-```
-May 01 01:05:59 steam[223306]: radv/amdgpu: The CS has been cancelled
-because the context is lost. This context is guilty of a soft recovery.
-May 01 01:06:05 steam[223306]: Game Recording - game stopped
-[gameid=3D2357570]
-May 01 01:06:05 steam[223306]: Removing process 352353 for gameID
-2357570
-```
-
-Is the game launched by steam inheriting that context or could it
-really be the steam process triggering it? As 223306 would be
-
-
-```
-~/.local/share/Steam/ubuntu12_32/steam-runtime/usr/libexec/steam-
-runtime-tools-0/srt-logger --sh-syntax --rotate=3D8388608 --log-directory
-/home/darix/.local/share/Steam/logs --filename console-linux.txt --log-
-fd=3D7 --journal-fd=3D5 --parse-level-prefix
-```
-
-It claims "game recording" but that is actually turned off and their
-LD_PRELOAD-s are blocked because of
-https://github.com/ValveSoftware/steam-for-linux/issues/11446
-
---=20
-Always remember:
-  Never accept the world as it appears to be.
-    Dare to see it for what it could be.
-      The world can always use more heroes.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index b0e8098a3988..7505d920fb3d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -631,7 +631,7 @@ amdgpu_userq_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
+ 			clear = false;
+ 			unlock = true;
+ 		/* The caller is already holding the reservation lock */
+-		} else if (ticket && dma_resv_locking_ctx(resv) == ticket) {
++		} else if (dma_resv_locking_ctx(resv) == ticket) {
+ 			clear = false;
+ 			unlock = false;
+ 		/* Somebody else is using the BO right now */
+-- 
+2.47.2
 
