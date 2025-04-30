@@ -4,47 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91841C3ABA9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2274EC3ABAB
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 07:55:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49E8110E6EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB6210E6EF;
 	Wed, 30 Apr 2025 07:55:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oMBS43ce";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KMMwirGa";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF3210E431;
- Tue, 29 Apr 2025 17:22:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 7F6A4A4BA4D;
- Tue, 29 Apr 2025 17:16:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8DFC4CEE3;
- Tue, 29 Apr 2025 17:22:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1745947323;
- bh=vcdzTl+QczwVR83WV54k0qNtVOZx4LuD8n8JziW8GsY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oMBS43cebPdsA9AaDARHvViKbM833eLHOj8QaPUkndniHUuv8csqMk25cwQsYt1uZ
- 5w/hQREwxxkEw1uiUhj/E2hC7IscME777vvy0QlQFiBNqFLCwNLlZ0vtomBjFjlLSN
- 8hNSGSBdB4jK9WAfsIHFeVvMdI1U2Ub0QUgIJg+4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Lee Jones <lee.jones@linaro.org>, Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 227/286] drm/amd/amdgpu/amdgpu_vram_mgr: Add missing
- descriptions for dev and dir
-Date: Tue, 29 Apr 2025 18:42:11 +0200
-Message-ID: <20250429161117.276432663@linuxfoundation.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250429161107.848008295@linuxfoundation.org>
-References: <20250429161107.848008295@linuxfoundation.org>
-User-Agent: quilt/0.68
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E357010E15E;
+ Wed, 30 Apr 2025 00:08:47 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-739b3fe7ce8so6256534b3a.0; 
+ Tue, 29 Apr 2025 17:08:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1745971727; x=1746576527; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=8+F+v5m6yj3cGcoqMHs7EgZ+8PI4PBW7+WB/WP9mOT0=;
+ b=KMMwirGa5ETllFLZ7AflDHwXDmvbqvKX2aeNR2rPL8BpXERWVmuuuiPypbPmdS3AgK
+ hXT1iEM1ldriAXUHwXq+k92dFxXvGS1qEAR29XdacSVRvL062CMWMAqZnrwYEP/WcB8J
+ O51NX9MxpJjFLEvjK8cuH2T8926e6tCtukRuMzil5Ja7YHUi1BWjv5ePh+VFvlIWQFwu
+ Dh/+Ao/gG8zXTf2j8CW8sO1qTEtipNc55Ixdw5j4+wNT4fpdncZ+pvjntl6OlP3RKtXI
+ MvARkSACRT/1fwKtybiswV1IXVBKQbHSp1SoGVgioNt4wtyR2We2s8oRdsOfOsfaoojn
+ FWlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745971727; x=1746576527;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=8+F+v5m6yj3cGcoqMHs7EgZ+8PI4PBW7+WB/WP9mOT0=;
+ b=hey2XPnb2zOVc8GbHZADTj2mcWFTilxj83IYoPNpfEqT+MgdjaAeYpb0+SOYdwE0g6
+ Pu8DW/EDDOCOBzbjuUcfyxcFVBYx+kd7z4eoVPjrClHtuubWEyPgovyxQDLzcxsYS38C
+ 8pqrUGaqySaqakwQFD8ksNrwuFtSRtxgJ+GJh3VA1h+CyM1+YsE8rve5Xs4PbTkmd7i0
+ gTOrt3u1rLElrPApP//o42PlPlsdu7kPzmkNgyHqCYGzX0wMSURadxjAPQ6FHtQks9CR
+ KcLqKiS2hhxi8l+qXYr1jwgT2mOM69gxeM40ohkhbQRX2tZw/h/3euwFedmumGlOTP0o
+ 8bcg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUQjBq6sWuROTCUsP+Ht39Hm6equbQEP5h/vo+FlhYNVuEhcdWkPaLkdqrXNPWo7M7dGSIPYmYC@lists.freedesktop.org,
+ AJvYcCWoRG/d1yEAaxl2qYV9KKGUVcdYZ2aC+p6m82DicAVkKCfNYISoPeUNkykFopdckybXdCwHCJeldok2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxsiCVXZj6bEuvuppiBud1f90TaHilVOlyti0uj7mLqMVd89axD
+ ngKZtGuKBxrkRRDF8Nc9Bex433ljbDbtbYM51SHVWaTom/CoQ6hK
+X-Gm-Gg: ASbGnct7L+UtTAw5f7213OQ8X5j2+fVJDQavFASanAe/mScBwPoX10goN8qnkpjNcAo
+ l16omzbB5DLaBemB4Rxi5jQMh6nuN8BkhrDdL6A2hMaxalOrIWk+6DSdYy2uEoTATCdFxAx6DGN
+ Q8kNkq16f9l99Bs9kGdId3k/mSpavcwBMjXlnazMz5hXpmawycxSekkH/zzblJvkH/WbNMPa2so
+ BrLwHgoScN88BIoFxfcqUf2ZoyRp7b17fu4vK7VOIWM6xnGUB74dU4qnBVVPquuDUA0ADIyExn/
+ TXDZYVjtSacMtrsbFaiiGxcLkgavQRVvkcPGGK3lT8pN0aXcfS08IxCEvnvNmvpTEwIFMlz3KIA
+ mKd8=
+X-Google-Smtp-Source: AGHT+IECAs9dAkCdTV1JKhc8aELYWoCdrQ/KmD683RmorBGh+SWjqjFVNNX1pZKKJckCVqivBXYNWw==
+X-Received: by 2002:a05:6a21:3943:b0:1f5:5aac:f345 with SMTP id
+ adf61e73a8af0-20a898108f6mr1319400637.36.1745971726671; 
+ Tue, 29 Apr 2025 17:08:46 -0700 (PDT)
+Received: from fernando-Dell-G15-5520..
+ ([2804:14c:38:8026:7a68:45ae:9be2:4d64])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b15f4b1749dsm9557910a12.0.2025.04.29.17.08.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Apr 2025 17:08:46 -0700 (PDT)
+From: Antonio Fernando Silva e Cruz Filho <fernando.cruz.ctt@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: andrenogueiraribeiro@usp.br,
+ Antonio Fernando Silva e Cruz Filho <fernando.cruz.ctt@gmail.com>,
+ =?UTF-8?q?Andr=C3=A9=20Nogueira=20Ribeiro?= <r.andrenogueira@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Rename program_timing function for better
+ debugging
+Date: Tue, 29 Apr 2025 21:08:20 -0300
+Message-ID: <20250430000835.34139-1-fernando.cruz.ctt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -63,48 +93,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+[WHY]
+Improve the output when using the ftrace debug feature,
+making it easier to identify which function is currently being executed.
 
-------------------
+[HOW]
+Rename the program_timing function to a name that
+includes the path to the function's file.
 
-From: Lee Jones <lee.jones@linaro.org>
-
-[ Upstream commit 2c8645b7a6974b33744b677e9ddc89650776af46 ]
-
-Fixes the following W=1 kernel build warning(s):
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:648: warning: Function parameter or member 'dev' not described in 'amdgpu_vram_mgr_free_sgt'
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:648: warning: Function parameter or member 'dir' not described in 'amdgpu_vram_mgr_free_sgt'
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Lee Jones <lee.jones@linaro.org>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Stable-dep-of: c0dd8a9253fa ("drm/amdgpu/dma_buf: fix page_link check")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Antonio Fernando Silva e Cruz Filho <fernando.cruz.ctt@gmail.com>
+Co-developed-by: André Nogueira Ribeiro <r.andrenogueira@gmail.com>
+Signed-off-by: André Nogueira Ribeiro <r.andrenogueira@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 0c6b7c5ecfec8..2c3a94e939bab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -531,6 +531,8 @@ int amdgpu_vram_mgr_alloc_sgt(struct amdgpu_device *adev,
-  * amdgpu_vram_mgr_alloc_sgt - allocate and fill a sg table
-  *
-  * @adev: amdgpu device pointer
-+ * @dev: device pointer
-+ * @dir: data direction of resource to unmap
-  * @sgt: sg table to free
-  *
-  * Free a previously allocate sg table.
+diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c
+index 003a9330c..88e7a1fc9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c
++++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_timing_generator.c
+@@ -105,7 +105,7 @@ static void program_pix_dur(struct timing_generator *tg, uint32_t pix_clk_100hz)
+ 	dm_write_reg(tg->ctx, addr, value);
+ }
+ 
+-static void program_timing(struct timing_generator *tg,
++static void dce80_timing_generator_program_timing(struct timing_generator *tg,
+ 	const struct dc_crtc_timing *timing,
+ 	int vready_offset,
+ 	int vstartup_start,
+@@ -185,7 +185,7 @@ static void dce80_timing_generator_enable_advanced_request(
+ 
+ static const struct timing_generator_funcs dce80_tg_funcs = {
+ 		.validate_timing = dce110_tg_validate_timing,
+-		.program_timing = program_timing,
++		.program_timing = dce80_timing_generator_program_timing,
+ 		.enable_crtc = dce110_timing_generator_enable_crtc,
+ 		.disable_crtc = dce110_timing_generator_disable_crtc,
+ 		.is_counter_moving = dce110_timing_generator_is_counter_moving,
 -- 
-2.39.5
-
-
+2.43.0
 
