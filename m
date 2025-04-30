@@ -4,70 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D29AC369DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 21:40:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B9E7C369D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 21:44:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2DC710E123;
-	Wed, 30 Apr 2025 21:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E515E10E124;
+	Wed, 30 Apr 2025 21:44:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BjxjunkF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LPWYoElM";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC74410E123
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 21:39:59 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-2ff6b9a7f91so36880a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 14:39:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746049199; x=1746653999; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vLEPVWK0arDEUtwliIpxPflFwn6s5Cg1IQcr+SylnTw=;
- b=BjxjunkFR5dsgkn215sIW9QAv4OP1h6xgiCskYuwcJAY4QGEqCunne6NcM9mOkQfBh
- urJpjXWj3hE24bYgEunZ/zHDPX4UCLbMZ0BJ0wxF3KvdWd8nOYYoykrs+UDJjtQH+fhH
- e9Gk42zEJI7uzHNyVBwFOFyROwk9NgAlc8YeBPA+KZBAEkscXY/2XJs530kKhu5Rkw16
- sWKTY6fzTi2Mm7aPchg0St0C89/ORfdIdndhNeNJlWo5JEYxggUL12zI9acjl+gRD4lK
- gTtR3y8ItFGPJHG4ytBMbVMCWbsO9257+d8zy7Go17Wrr9wNkRVvEx4LUAFf6mEzHoJQ
- BOtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746049199; x=1746653999;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vLEPVWK0arDEUtwliIpxPflFwn6s5Cg1IQcr+SylnTw=;
- b=YQ1gyUozZX8IwfB270Ok6fB+MN05ebmgQsas9Vd+vRwpmTrUWF1r91+M3LoWXYH4em
- Qyjy0qfilWuOhkcBgZxHNUnsu4oOoOqPRWxkXI0UYwV0H+s/Aj+GVOuYfuxpgBswa0SX
- 44QCSYWIy4hFcIevMrjCFKAFsfbSc5yxKbWYLYpDMJ6WKSxh1Xj+uyGGupTe0ehHFJJW
- AiPDQo7futc4odni5IavYMdq0GQuxH/BJPJpfM4JWF+nP1gT+wwxhEXE81rjSU97B/aB
- VTw0P/hFkMakKXzk62FkKMJamiVJgRAumv/sTm0txuf1JhzZI4I7InFlJYCtnVRIEbt+
- j5Iw==
-X-Gm-Message-State: AOJu0Yzg3N0iaaMUwSZ12f/+iFV94NmJyXoVtxOxti7OF8Tsj8tMNVcs
- IQATRkMlw7B1WTLRpAqBvDRKXcglqxP9fpttLt5XADk6CvYi2cJpbNQUA/MoXuqaWW/eLZvVD/w
- RKurOUy3iXZ1Wj50IfVZsTm1Y+yw=
-X-Gm-Gg: ASbGncsjrs9o3VnLir8gDFyk23yOala8bKvdQJ3eG1w0Bn5bJxsrLyI8lpIXlBZ0nhu
- C2rqsAF9aZoukIs/GSXXX9PO5QCl3YpgCjtJf4zqBPnnREdwNqGMdE2bH7VmaD9tkZPMKlvYzTt
- tMdysvxxxhya0AsD+Bs++o2g==
-X-Google-Smtp-Source: AGHT+IGCKzq6mI+5zDxsz+5a7cz4DgSh8Tq4ink5W4A2oHRFL4yPsCwLtwBkYcg/DRiUxHq7PpmFxz9xax0lk5C2evc=
-X-Received: by 2002:a17:90b:3ec1:b0:2fe:b77a:2eba with SMTP id
- 98e67ed59e1d1-30a3ba8cdefmr1275468a91.1.1746049198985; Wed, 30 Apr 2025
- 14:39:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250429112429.5646-1-john.olender@gmail.com>
- <20250429112429.5646-3-john.olender@gmail.com>
-In-Reply-To: <20250429112429.5646-3-john.olender@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 30 Apr 2025 17:39:47 -0400
-X-Gm-Features: ATxdqUGsBLjTQzKFzjbGCN7205BmwWsbE7Cwc7APRTGg2PqiWTODg6YTrM7hV8A
-Message-ID: <CADnq5_OBUWJj5uqbB78wLkbBAMtoRUy=Nes1O6garEQceCLB3Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/2] drm/amdgpu/uvd: Ensure vcpu bos are within the
- uvd segment
-To: John Olender <john.olender@gmail.com>,
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2088.outbound.protection.outlook.com [40.107.101.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A3D010E124
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 21:44:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IjiAdmlfHB0B0xAu1VQfM+3wUOgYZYsBT3xo/RVd1Jj704LeLwNGbzjjp/M9i7TynJ72+xfUEGaCquJ0x+/Jl7t/ovTkhIQcqaOtcHILm7qhYNAaCqo+DWnan1BE2jFY0bysfd7t9t0xs0XMJmpLV87U003H7bd0aiTnKSo2YI33wEDvI0PfNeHyYzzpqgTysjKHTCBae82yUGKP0RIZeuxJl5sBBwFsNw0F7c40Y2t9GM3Pm5iKFSH5zIyWfyQMJ01bcwDWCaF+ytriDjGv97MA7ArEDBYlQLaVuirqD6AhvJNL9b05Y6ae/y2qSiLsXmZwnhdYDIiX6HJQjmFnkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=85hvn/A230rr5l/8+a5Si5SFWhAVgMcnDSbwulgnIs0=;
+ b=rCUVYqLjYyrZZHB9IvM1O0RlYCITaTgnijpmYzTTTTIxVh3rL0D3iS/lZAKCfGN3c0iRyz0e6yFApW61NOb2NR3wVTw/IUAoDZwzFxlJP4zSKnkhD1z5MclFos6WYrKGSpgucIPuGMj3ktKhmDF9MKfsSM+0I5vLSYoxvznivTmwtA1a4Zyfnw7oMx/m3WYT2xDgcOHM18qQ3vBAc2O08lSsZieaHmwAe0yKr+YXnICGC2oCdK0oK9jxLTuACpZsF6Z/2U3QkVDz1D+zYys8U9nlnX1qpgFjqD4UAkPMpnQIYB+PdPl3iKXNH+/dab94Fwpl+9sCBDlCYlckx42NfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=85hvn/A230rr5l/8+a5Si5SFWhAVgMcnDSbwulgnIs0=;
+ b=LPWYoElMymtFjRBItcLvpuc/fWdykogY6xNqduL8VxR+ZaeVg082dkz6V4RWxNSa4djTKo1PiKK7MNiFsJovv/0Og5BtKCPjz2N5X3g36ohtbbbS+VGEu6BjOi5dPEXDLUaTg8xrofk5IiTXna1itpDRxB/O3Uo+cu0MyKs33GU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by CH1PPFC8B3B7859.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::622) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.27; Wed, 30 Apr
+ 2025 21:44:46 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350%5]) with mapi id 15.20.8678.033; Wed, 30 Apr 2025
+ 21:44:45 +0000
+Message-ID: <2150d713-d9bf-400e-b51b-aee835431991@amd.com>
+Date: Thu, 1 May 2025 03:14:38 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/2] drm/amdgpu: amdgpu_vram_mgr_new(): Clamp lpfn to
+ total vram
+To: Alex Deucher <alexdeucher@gmail.com>,
+ John Olender <john.olender@gmail.com>,
  Christian Koenig <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, arunpravin.paneerselvam@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: amd-gfx@lists.freedesktop.org
+References: <20250429112429.5646-1-john.olender@gmail.com>
+ <20250429112429.5646-2-john.olender@gmail.com>
+ <CADnq5_OMd-oHqPV9cC-GQGjf4OnN7EdvL3T9gopC-rEPMWs0vA@mail.gmail.com>
+Content-Language: en-US
+From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <CADnq5_OMd-oHqPV9cC-GQGjf4OnN7EdvL3T9gopC-rEPMWs0vA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BMXPR01CA0091.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:54::31) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|CH1PPFC8B3B7859:EE_
+X-MS-Office365-Filtering-Correlation-Id: 769bf272-1019-4289-1532-08dd883038ef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TUZKNk43RU91QVFkdmZpOXdaRDNIYTFDS2NWaXhMVlptWC9VMmdSVmN5WCtx?=
+ =?utf-8?B?SUFUajBlUVdSdm9HQnkvVXo5ck8wd0pMZHE1NE84YlN6OWpMWmhNS0tERFdM?=
+ =?utf-8?B?R0tWUU1OTU9xTGlmcnV2MWUxS09PbU5YeFBUc3pKZWo5SWl0UGJaNmhGOWVX?=
+ =?utf-8?B?NnRiekZSalNkWHp1NTZOc2sxdjBhOTJhTU5YN0gyQlFaOGpiUlQvU1dVcTlJ?=
+ =?utf-8?B?RDQzZHNYOUZtR1RvRHJPcWQ4WUxQQzRsdUNsUFM5YVdkTlp2VVJuNXY0VURR?=
+ =?utf-8?B?WnJEY0g1aGZlcWt4WWJVQ1VlT1ErSU9nVnorLzNaKzN0a0oyZWtBTmppK0xo?=
+ =?utf-8?B?dU0rMzVmOW9EOGdTSlppSHBSMDBvaWJ2RXZnOExxV0JMUHdVS09yZW9rdkpY?=
+ =?utf-8?B?N2M0L3RuK3YrOFduRklCS0JJdEczbDh0ZGxyRjFJMlNkelpEajRQenNNaDBM?=
+ =?utf-8?B?b0tkc2h1OEl4eURXQ1UvMEN4aTJuUXZVMmhmVmZZWmJ6dHJEV1BLWmhwVDVR?=
+ =?utf-8?B?OFlSYnpwc21PQjlobUlKN3VSMnlkTzVNRndOTHIrK0xsLzdoVWZtZTk2WjAw?=
+ =?utf-8?B?V1c1QVhFRFpoelRMSEhuSjhKZ3gwRnk3SWFZazdHOFFPbGsvRjVFc2hFem9N?=
+ =?utf-8?B?bXNhK0s2Yks5VVBrRXlTUm5Ia0plVGoxTEo0NHphWktCQzN4bE5KWS9tQkhw?=
+ =?utf-8?B?eFBDc3hiRE56c2FRL084bDNaUFA3N0hxMzFnS3ZJWmRUL21nbFFGTUdYdlNP?=
+ =?utf-8?B?UFZCVFpsbWRTb29GVXZ3SnE0RktORmw1UmtXL2x4VFVPMTN3NlJhc0Jmd2tj?=
+ =?utf-8?B?aWVlNFNjbGVjUDZyY0t6NVlyUHNBOVdJblFzVTFrNHdudzhyaXpvYTZFenl3?=
+ =?utf-8?B?NGtKcUVNdXVEVWt2MnNwTVExSGpqWURHY2hsMnkrMFZTOEs2L01KNVptenU1?=
+ =?utf-8?B?blhjeEMrZnY2MWVVRkVtZENYbG5xaGpmQjBYZUUycy9lZitkTmlXZnozUXVI?=
+ =?utf-8?B?OCtRTEZZUmtMK1U2MkJhYVRnV2RYZWEvd09MSFY1eFRndlF4aUdseGV0MGtv?=
+ =?utf-8?B?TlpQQTJlZklLQUdVbFY3a0VVUkk3UTZ6c3hxZTAvRWJEdEovTVJVOGpRRlV4?=
+ =?utf-8?B?c0s5Sy9sNXBsQkZqMmdyRjhpMnU0Rkh0NkQ1ZjI3WDBNQnlHUjFtTG00QVRJ?=
+ =?utf-8?B?S2NtanhCZjBkb00vbkNsNzljY1JVNnRMa1NudVgvc3crSTRjNTVpN2FJc0ZC?=
+ =?utf-8?B?NWZqMi9Kb1kzb0dYdDdVZXNSWXMxakZrQlpOdFQ0UWlROFROazl0bnh4dVlk?=
+ =?utf-8?B?aHVkWHgxOEt1cFBRZkF2NkhUTUFZRFh0RVJ6NHZEYUEyc0Q2cEFZNjlNU0xp?=
+ =?utf-8?B?RVRCVXFTTUhDQ3BQck1qUWJudExrMXRaQThEVlB4Zk1KcENUdXMzYldqazJK?=
+ =?utf-8?B?SThseVJMV1VJWXNOeFFyVjFRNjdycnl4QXBUY1NyR0pMZTFLN1JMR2txTEF0?=
+ =?utf-8?B?a1IxeHZZeEkyZlFyYlNXQjEwemtZZEt5OWt0d2grK2RMSDZQaHR3ZDBhOWVQ?=
+ =?utf-8?B?K3BsQUhGYk1ENExRZVBEL0l6UzQ5UUxzcDNTUUQyUUlPalozeCt0RGNveHFX?=
+ =?utf-8?B?RTRmNHpZbmVBNjdNc0JXZkhjbFZvRHRyLzdFZjI4WllmOU1jd3hTUmwrNmN6?=
+ =?utf-8?B?YU4vZWRxUjBnaXBiTUVReVNOQUhvWjdnT1YwcFovcWc0L25iSyszWVdrdXE0?=
+ =?utf-8?B?b3E4TzhVYVZaK09HQjMyNlBub2JoVGxRWmlWanpzSzRQVlQwajk3cmt3Yldr?=
+ =?utf-8?Q?RaWv/bL/Q//ZR1DY7CGYWSRUgtsVrhv9Va/N8=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aERTZkdwcDBzaWZYSXo2aUpYVTUrK2tSZGZDanRTOXAyUnNCWktWVmxVdWFU?=
+ =?utf-8?B?Nm9JM0RzTDhSVDZqQVRSSUwrWURCai9LcmFBNURBM3IrN3RhZFpWTW9vRTRn?=
+ =?utf-8?B?cVpWV09RNVZBTklkbDY3bi9BYThUQXAvZHpoWkZ3VERzeVJySHV2cnlHVnhE?=
+ =?utf-8?B?QlBaeFpyaXpIc3N1TjV0dGY5enpjK1JRUUNqQ3FlUzZ0cmFST2xUMTA4WFNs?=
+ =?utf-8?B?dmdneVFEaFByK0NxOWtYVTFzRkxPYXZQMlVaU1NUYVduMlYzRm4vR0ZsSW1C?=
+ =?utf-8?B?a0JxT2p3RnErcHY3ZEFkMFQ1ejQwMmNSdGhnWUM1WTJTdlJXS0RuVkpOYmhO?=
+ =?utf-8?B?aHpmd2pJN2VpdVU5K3hYVjlzdWZvWDVpS2U3aXRaUGZaRTlpNGdpRlo5TUJ6?=
+ =?utf-8?B?aDEyNW51M0U0ZnNWZDhJcHFRQzdvUkVDVUNyK1ZnSTIzQjcvWFNiR1hINFFu?=
+ =?utf-8?B?bHZaUjQwalVHNjlCczVTenlROGVLcGplcUx5UWtreVJCN3FxMTZxMnNVNzMx?=
+ =?utf-8?B?YWVNZUxFUnVYMnlEZ29GNVpKTU1KSHFFd3pDVndZMStXQmNYSkdvTkNPSm1W?=
+ =?utf-8?B?TkE1eEJ6ZlZRcHp2QVh4MVBoempVV2k3Q0NncFA3UVdkU2ZxSlNYZFB4RWVW?=
+ =?utf-8?B?SnpXVnlHK0F2UkJUTGtZNGluTUplUUlVRUdmWXM2Qm1kNGJYT2hzVWdNcFoy?=
+ =?utf-8?B?Ni9sam5EaDZxbjZGL20ySGJkV0ZsRkt4SUpPWS96YkRNYXhVdTNsTUJadnlH?=
+ =?utf-8?B?aDJIVXdvWXo1Y0M4SVJzVVRDRDR0ZmRqbmU2S2gybVllRG5xTzc1VWduUjBU?=
+ =?utf-8?B?bmVMdGVGZUZmZk1lWDZWV3drZVU3QVpISzlxM24wVXVHMWFwamNiTU5GWVJ5?=
+ =?utf-8?B?Q0xkdVhTdWlDMkpuUzk1U3BHdkpXVTU1akdRSGFjV1ZaZ1ExbmNkaEdmSWxE?=
+ =?utf-8?B?NVhiWFlGNVBOM01qMXh3cVIvcmk1SDMyQ0hUNkdtTWxZcVgyWUM1T1JTSU5k?=
+ =?utf-8?B?bnFNTzV0RWJLelEwYUw1SXJFUTVENUFWMHkyZXZxSlFWZk92TlBCejcycjM4?=
+ =?utf-8?B?Tmk2Q1puWXhDSXZKblkrYmdOdHJqcStXM2oybUR2VjNKZnd5M2Vua2FEdTRq?=
+ =?utf-8?B?Q1ZjbUFHNVA4cFJqZWpMY1A2aFFyWWZ6V1dJRldhdEdkaTRFOHhaS1VEcndn?=
+ =?utf-8?B?ZG9Ea205RUYvMmxpWGVzZ3B5SEVXU3psRDc4T3ZuRTlsUjgzWkdTNXlvTDR3?=
+ =?utf-8?B?dzFvbVhrMXVLbVBJZytrQVZIWWkwVDRMYXBSL0hlZlN0aWRaMFJIeHBBTWFO?=
+ =?utf-8?B?QnMwT1VoMWEyZU1ieTZTTGVHUzFoc0FKTGo3S1gxQzJBL09ScFQyenF4SUJF?=
+ =?utf-8?B?WjN5REJ1emJRakY3eGtlaHZCQnJsazJlYjRWUXVza2FiZ0NLK1B5bVJvR3I4?=
+ =?utf-8?B?OXNFeFBCVmlQRkZWL1ZIbFFnK2h5ZEkyVVBZRG81RkRlMHdadk1MYlNRR1Vo?=
+ =?utf-8?B?N09ONjFsTU80c1hzRFpNbUV5S2tQYjVIcW5GOHMxeTJXWUlSdUdRQmoyNXhC?=
+ =?utf-8?B?TkViVkpSemtYODAyc0IyaEZ4STZaNFIyS3pBWk5LUytFQmFDNVp6U2ZCV3lI?=
+ =?utf-8?B?dkxXQjhtOTRtOUFoL09aNG51MFVxKzE3VWNGNndUSlBPUkpEYkFIMmQ0eHpT?=
+ =?utf-8?B?blE0KzdUWWgrSThOUWNhODNtT2Q2TFJ6UTNaaXpXVWo0aW5IdTRENXNRMVZX?=
+ =?utf-8?B?a21JVW81aFV5endKelArSUlaKytwbnlxbzVLZW8vNW9oTHJwN1NvNU83b01Y?=
+ =?utf-8?B?UnVjb0N5R2hhNjVLOG5qSTNHSUQ1TnFVT2FxRVIxQXk3ejdicjF1V2NyMTND?=
+ =?utf-8?B?dVhpWWxYTmZicjl5V3c3ZkVmMGwrUWdBMms5RHoyaFhPcXFuakI5dUZyTXYz?=
+ =?utf-8?B?czBqcjNuekdKTk9yTzlxa0FwU050RDRPaXlkZEFSUU4yRDhUVDk4R0NkRTZh?=
+ =?utf-8?B?RmhMVENqOEt2VWt6S1lqV1R0U0Q3bjgyc2V0OHErMURlcTBTNzJmYmpwU21w?=
+ =?utf-8?B?WHJOZC96b0tFL2dwZlIxUm9POUJzZ2dFRDdHR0xxeStyOHlULzVGMG9Ea1dn?=
+ =?utf-8?Q?8EEeHHVsiTpELzTQ6YgRPsFZ9?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 769bf272-1019-4289-1532-08dd883038ef
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2025 21:44:45.5513 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5jMVXWpxg9CGFh6tYphySpXN+epYDVhbm6IeZhWR6LBVr2URIAn/igN3l1TNObmGGF4YtJ8iTay/WH8ZzOyHgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFC8B3B7859
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,125 +163,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Christian
 
-On Tue, Apr 29, 2025 at 7:25=E2=80=AFAM John Olender <john.olender@gmail.co=
-m> wrote:
->
-> If the vcpu bos are allocated outside the uvd segment,
-> amdgpu_uvd_ring_test_ib() times out waiting on the ring's fence.
->
-> See amdgpu_fence_driver_start_ring() for more context.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3851
-> Signed-off-by: John Olender <john.olender@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 36 ++++++++++++++-----------
->  1 file changed, 21 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_uvd.c
-> index 74758b5ffc6c..a6b3e75ffa2d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -139,15 +139,20 @@ static void amdgpu_uvd_force_into_uvd_segment(struc=
-t amdgpu_bo *abo);
->
->  static int amdgpu_uvd_create_msg_bo_helper(struct amdgpu_device *adev,
->                                            uint32_t size,
-> -                                          struct amdgpu_bo **bo_ptr)
-> +                                          struct amdgpu_bo **bo_ptr,
-> +                                          bool interruptible)
->  {
-> -       struct ttm_operation_ctx ctx =3D { true, false };
-> +       struct ttm_operation_ctx ctx =3D { interruptible, false };
->         struct amdgpu_bo *bo =3D NULL;
-> +       u32 initial_domain =3D AMDGPU_GEM_DOMAIN_GTT;
->         void *addr;
->         int r;
->
-> +       if (!interruptible && adev->uvd.address_64_bit)
-> +               initial_domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
-> +
->         r =3D amdgpu_bo_create_reserved(adev, size, PAGE_SIZE,
-> -                                     AMDGPU_GEM_DOMAIN_GTT,
-> +                                     initial_domain,
->                                       &bo, NULL, &addr);
->         if (r)
->                 return r;
-> @@ -319,19 +324,23 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
->         if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PSP)
->                 bo_size +=3D AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr->ucode=
-_size_bytes) + 8);
->
-> +       /* from uvd v5.0 HW addressing capacity increased to 64 bits */
-> +       if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_U=
-VD, 5, 0))
-> +               adev->uvd.address_64_bit =3D true;
-> +
->         for (j =3D 0; j < adev->uvd.num_uvd_inst; j++) {
->                 if (adev->uvd.harvest_config & (1 << j))
->                         continue;
-> -               r =3D amdgpu_bo_create_kernel(adev, bo_size, PAGE_SIZE,
-> -                                           AMDGPU_GEM_DOMAIN_VRAM |
-> -                                           AMDGPU_GEM_DOMAIN_GTT,
 
-I think we can just make this VRAM only.  Or something like:
-adev->uvd.address_64_bit ? AMDGPU_GEM_DOMAIN_GTT : AMDGPU_GEM_DOMAIN_VRAM
+On 5/1/2025 2:50 AM, Alex Deucher wrote:
+> + Christian
+>
+> On Tue, Apr 29, 2025 at 7:24 AM John Olender <john.olender@gmail.com> wrote:
+>> The drm_mm allocator tolerated being passed end > mm->size, but the
+>> drm_buddy allocator does not.
+>>
+>> Restore the pre-buddy-allocator behavior of allowing such placements.
+>>
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3448
+>> Signed-off-by: John Olender <john.olender@gmail.com>
+> This looks correct to me.
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+I was thinking that we should return an error when lpfn > man->size.
 
-If that fixes it, this should be tagged with:
-Fixes: 58ab2c08d708 ("drm/amdgpu: use VRAM|GTT for a bunch of kernel
-allocations")
+Regards,
+Arun.
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> index 2d7f82e98df9..abdc52b0895a 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> @@ -463,7 +463,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>          int r;
+>>
+>>          lpfn = (u64)place->lpfn << PAGE_SHIFT;
+>> -       if (!lpfn)
+>> +       if (!lpfn || lpfn > man->size)
+>>                  lpfn = man->size;
+>>
+>>          fpfn = (u64)place->fpfn << PAGE_SHIFT;
+>> --
+>> 2.47.2
+>>
 
-Alex
-
-> -                                           &adev->uvd.inst[j].vcpu_bo,
-> -                                           &adev->uvd.inst[j].gpu_addr,
-> -                                           &adev->uvd.inst[j].cpu_addr);
-> +               r =3D amdgpu_uvd_create_msg_bo_helper(adev, bo_size,
-> +                               &adev->uvd.inst[j].vcpu_bo, false);
->                 if (r) {
->                         dev_err(adev->dev, "(%d) failed to allocate UVD b=
-o\n", r);
->                         return r;
->                 }
-> +               adev->uvd.inst[j].gpu_addr =3D
-> +                               amdgpu_bo_gpu_offset(adev->uvd.inst[j].vc=
-pu_bo);
-> +               adev->uvd.inst[j].cpu_addr =3D
-> +                               amdgpu_bo_kptr(adev->uvd.inst[j].vcpu_bo)=
-;
->         }
->
->         for (i =3D 0; i < adev->uvd.max_handles; ++i) {
-> @@ -339,11 +348,8 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
->                 adev->uvd.filp[i] =3D NULL;
->         }
->
-> -       /* from uvd v5.0 HW addressing capacity increased to 64 bits */
-> -       if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_U=
-VD, 5, 0))
-> -               adev->uvd.address_64_bit =3D true;
-> -
-> -       r =3D amdgpu_uvd_create_msg_bo_helper(adev, 128 << 10, &adev->uvd=
-.ib_bo);
-> +       r =3D amdgpu_uvd_create_msg_bo_helper(adev, 128 << 10, &adev->uvd=
-.ib_bo,
-> +                       true);
->         if (r)
->                 return r;
->
-> @@ -1236,7 +1242,7 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *=
-ring, uint32_t handle,
->         if (direct) {
->                 bo =3D adev->uvd.ib_bo;
->         } else {
-> -               r =3D amdgpu_uvd_create_msg_bo_helper(adev, 4096, &bo);
-> +               r =3D amdgpu_uvd_create_msg_bo_helper(adev, 4096, &bo, tr=
-ue);
->                 if (r)
->                         return r;
->         }
-> --
-> 2.47.2
->
