@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA589C369D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 21:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D29AC369DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 21:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88C0710E013;
-	Wed, 30 Apr 2025 21:21:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2DC710E123;
+	Wed, 30 Apr 2025 21:40:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mEGPLdLM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BjxjunkF";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9ECE10E013
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 21:21:09 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-73de140046eso62688b3a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 14:21:09 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC74410E123
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 21:39:59 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-2ff6b9a7f91so36880a91.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 14:39:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746048069; x=1746652869; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1746049199; x=1746653999; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dCtIEoqSgDyYIjoIu4tSLUAXWzMYb6kClJRKK4zaU8U=;
- b=mEGPLdLMUhbBT+un/1EAl0RHfYLGgrevYmugPbk2XTSj6NOMuU8arQkB2tlPsj2j6G
- ceZ52KGivatjMHMuArAwCJwPRkfLnOAAaWpdeuJ3R3aqSqLjwBLlB8Me9TjikPgvzmdK
- 9sS9376t/l/RfslB45jf0UB4o/zpqvyz5QzHLJlSP+q3pydg3gqHd449PeSZ07WyvWIa
- g2a6qLquJBe7/663mG94UwNrIwnFMmyrzoTA04CUYPz/IN0IxSk1vq/KVvZKqYYy413Z
- RjGj5pSVtSfz/5mc9+KE9hatAFRIg/wEHfr/SxOJF1qvdut5HIm7FZ1kWTZ12WK45FWO
- dxtw==
+ bh=vLEPVWK0arDEUtwliIpxPflFwn6s5Cg1IQcr+SylnTw=;
+ b=BjxjunkFR5dsgkn215sIW9QAv4OP1h6xgiCskYuwcJAY4QGEqCunne6NcM9mOkQfBh
+ urJpjXWj3hE24bYgEunZ/zHDPX4UCLbMZ0BJ0wxF3KvdWd8nOYYoykrs+UDJjtQH+fhH
+ e9Gk42zEJI7uzHNyVBwFOFyROwk9NgAlc8YeBPA+KZBAEkscXY/2XJs530kKhu5Rkw16
+ sWKTY6fzTi2Mm7aPchg0St0C89/ORfdIdndhNeNJlWo5JEYxggUL12zI9acjl+gRD4lK
+ gTtR3y8ItFGPJHG4ytBMbVMCWbsO9257+d8zy7Go17Wrr9wNkRVvEx4LUAFf6mEzHoJQ
+ BOtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746048069; x=1746652869;
+ d=1e100.net; s=20230601; t=1746049199; x=1746653999;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dCtIEoqSgDyYIjoIu4tSLUAXWzMYb6kClJRKK4zaU8U=;
- b=Yh3AlDASxi+cjyWBtsuMpjHiwhFd7ojEhPuL8UCuJ3QyJIZT4FSGGkfCyGldjVyUPs
- VhHOMjODs8uH1A8RHDlsROIHke71wLVO1V7pcBF63AHfl6pk/AdBTsUsmGIFPdiHjP+Y
- Qn/pVmJF03pE5A6OnsXHAla7PJ69zwHgMKXLHRBnywd2W38CR4pOJUVH7Zy4GX+w/G5p
- W3y4nKqsW6OD6O5L8L6Oqsl2LA17XSi/VJnRfmHAfqo1GkkM2oXo1jzIb72FexUZUIht
- ELEvYeWRWEM3j5miSHNZOSyKo0jtyyVVx0Ki2f8F7igKflm/BQRjQVhAJqumLfKf7coN
- NIgA==
-X-Gm-Message-State: AOJu0YwumbgCEanaPrGrT89x4eKmwQ2Fh1UxIaWwwKxR8kVYHfOOYYwH
- CjBsX7RvvwD+vjnxvAoQZysMyst6sjQABJJn2/TMR7WGabxttuxOludBNRrNsJQF1RWuAajwvf+
- dccBVJ0CKZ69qe5oRnqa/VphHk60=
-X-Gm-Gg: ASbGncvSdBgSZoLmL7GipB6LPORcNtY+ohnBcRaipu1VvGQV9bqV0oHPFXodfUErAW0
- fZx+JSbwmucf8PqqZvAIl5klZSWGK8f/60pFdHnsHaIpbJOaBXBEHvrY8mg3iHJR4uFhe6IQo3M
- UiB3K/zPApmw3VIL6Bz6PCHw==
-X-Google-Smtp-Source: AGHT+IFE+mO6GqCa6/cWogO99bXLNfryNCzp8GblKEXxWJ9wdYvdzinmbUnDMP4Fjvls2cS74eGaaQP5uQi7VH4jMUc=
-X-Received: by 2002:a17:90b:17c6:b0:304:eacf:8bba with SMTP id
- 98e67ed59e1d1-30a34a77e55mr2312340a91.4.1746048069401; Wed, 30 Apr 2025
- 14:21:09 -0700 (PDT)
+ bh=vLEPVWK0arDEUtwliIpxPflFwn6s5Cg1IQcr+SylnTw=;
+ b=YQ1gyUozZX8IwfB270Ok6fB+MN05ebmgQsas9Vd+vRwpmTrUWF1r91+M3LoWXYH4em
+ Qyjy0qfilWuOhkcBgZxHNUnsu4oOoOqPRWxkXI0UYwV0H+s/Aj+GVOuYfuxpgBswa0SX
+ 44QCSYWIy4hFcIevMrjCFKAFsfbSc5yxKbWYLYpDMJ6WKSxh1Xj+uyGGupTe0ehHFJJW
+ AiPDQo7futc4odni5IavYMdq0GQuxH/BJPJpfM4JWF+nP1gT+wwxhEXE81rjSU97B/aB
+ VTw0P/hFkMakKXzk62FkKMJamiVJgRAumv/sTm0txuf1JhzZI4I7InFlJYCtnVRIEbt+
+ j5Iw==
+X-Gm-Message-State: AOJu0Yzg3N0iaaMUwSZ12f/+iFV94NmJyXoVtxOxti7OF8Tsj8tMNVcs
+ IQATRkMlw7B1WTLRpAqBvDRKXcglqxP9fpttLt5XADk6CvYi2cJpbNQUA/MoXuqaWW/eLZvVD/w
+ RKurOUy3iXZ1Wj50IfVZsTm1Y+yw=
+X-Gm-Gg: ASbGncsjrs9o3VnLir8gDFyk23yOala8bKvdQJ3eG1w0Bn5bJxsrLyI8lpIXlBZ0nhu
+ C2rqsAF9aZoukIs/GSXXX9PO5QCl3YpgCjtJf4zqBPnnREdwNqGMdE2bH7VmaD9tkZPMKlvYzTt
+ tMdysvxxxhya0AsD+Bs++o2g==
+X-Google-Smtp-Source: AGHT+IGCKzq6mI+5zDxsz+5a7cz4DgSh8Tq4ink5W4A2oHRFL4yPsCwLtwBkYcg/DRiUxHq7PpmFxz9xax0lk5C2evc=
+X-Received: by 2002:a17:90b:3ec1:b0:2fe:b77a:2eba with SMTP id
+ 98e67ed59e1d1-30a3ba8cdefmr1275468a91.1.1746049198985; Wed, 30 Apr 2025
+ 14:39:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250429112429.5646-1-john.olender@gmail.com>
- <20250429112429.5646-2-john.olender@gmail.com>
-In-Reply-To: <20250429112429.5646-2-john.olender@gmail.com>
+ <20250429112429.5646-3-john.olender@gmail.com>
+In-Reply-To: <20250429112429.5646-3-john.olender@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 30 Apr 2025 17:20:58 -0400
-X-Gm-Features: ATxdqUGFeOzr53AA_I6nEUFJBs_qFF9K_ppnrQgR3pR5PGXeuWsDPueZt4te0jQ
-Message-ID: <CADnq5_OMd-oHqPV9cC-GQGjf4OnN7EdvL3T9gopC-rEPMWs0vA@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/2] drm/amdgpu: amdgpu_vram_mgr_new(): Clamp lpfn to
- total vram
+Date: Wed, 30 Apr 2025 17:39:47 -0400
+X-Gm-Features: ATxdqUGsBLjTQzKFzjbGCN7205BmwWsbE7Cwc7APRTGg2PqiWTODg6YTrM7hV8A
+Message-ID: <CADnq5_OBUWJj5uqbB78wLkbBAMtoRUy=Nes1O6garEQceCLB3Q@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/2] drm/amdgpu/uvd: Ensure vcpu bos are within the
+ uvd segment
 To: John Olender <john.olender@gmail.com>,
  Christian Koenig <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, arunpravin.paneerselvam@amd.com
@@ -84,39 +84,123 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 + Christian
 
-On Tue, Apr 29, 2025 at 7:24=E2=80=AFAM John Olender <john.olender@gmail.co=
+On Tue, Apr 29, 2025 at 7:25=E2=80=AFAM John Olender <john.olender@gmail.co=
 m> wrote:
 >
-> The drm_mm allocator tolerated being passed end > mm->size, but the
-> drm_buddy allocator does not.
+> If the vcpu bos are allocated outside the uvd segment,
+> amdgpu_uvd_ring_test_ib() times out waiting on the ring's fence.
 >
-> Restore the pre-buddy-allocator behavior of allowing such placements.
+> See amdgpu_fence_driver_start_ring() for more context.
 >
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3448
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3851
 > Signed-off-by: John Olender <john.olender@gmail.com>
-
-This looks correct to me.
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 36 ++++++++++++++-----------
+>  1 file changed, 21 insertions(+), 15 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 2d7f82e98df9..abdc52b0895a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -463,7 +463,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_ma=
-nager *man,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_uvd.c
+> index 74758b5ffc6c..a6b3e75ffa2d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -139,15 +139,20 @@ static void amdgpu_uvd_force_into_uvd_segment(struc=
+t amdgpu_bo *abo);
+>
+>  static int amdgpu_uvd_create_msg_bo_helper(struct amdgpu_device *adev,
+>                                            uint32_t size,
+> -                                          struct amdgpu_bo **bo_ptr)
+> +                                          struct amdgpu_bo **bo_ptr,
+> +                                          bool interruptible)
+>  {
+> -       struct ttm_operation_ctx ctx =3D { true, false };
+> +       struct ttm_operation_ctx ctx =3D { interruptible, false };
+>         struct amdgpu_bo *bo =3D NULL;
+> +       u32 initial_domain =3D AMDGPU_GEM_DOMAIN_GTT;
+>         void *addr;
 >         int r;
 >
->         lpfn =3D (u64)place->lpfn << PAGE_SHIFT;
-> -       if (!lpfn)
-> +       if (!lpfn || lpfn > man->size)
->                 lpfn =3D man->size;
+> +       if (!interruptible && adev->uvd.address_64_bit)
+> +               initial_domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
+> +
+>         r =3D amdgpu_bo_create_reserved(adev, size, PAGE_SIZE,
+> -                                     AMDGPU_GEM_DOMAIN_GTT,
+> +                                     initial_domain,
+>                                       &bo, NULL, &addr);
+>         if (r)
+>                 return r;
+> @@ -319,19 +324,23 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
+>         if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PSP)
+>                 bo_size +=3D AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr->ucode=
+_size_bytes) + 8);
 >
->         fpfn =3D (u64)place->fpfn << PAGE_SHIFT;
+> +       /* from uvd v5.0 HW addressing capacity increased to 64 bits */
+> +       if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_U=
+VD, 5, 0))
+> +               adev->uvd.address_64_bit =3D true;
+> +
+>         for (j =3D 0; j < adev->uvd.num_uvd_inst; j++) {
+>                 if (adev->uvd.harvest_config & (1 << j))
+>                         continue;
+> -               r =3D amdgpu_bo_create_kernel(adev, bo_size, PAGE_SIZE,
+> -                                           AMDGPU_GEM_DOMAIN_VRAM |
+> -                                           AMDGPU_GEM_DOMAIN_GTT,
+
+I think we can just make this VRAM only.  Or something like:
+adev->uvd.address_64_bit ? AMDGPU_GEM_DOMAIN_GTT : AMDGPU_GEM_DOMAIN_VRAM
+
+If that fixes it, this should be tagged with:
+Fixes: 58ab2c08d708 ("drm/amdgpu: use VRAM|GTT for a bunch of kernel
+allocations")
+
+Alex
+
+> -                                           &adev->uvd.inst[j].vcpu_bo,
+> -                                           &adev->uvd.inst[j].gpu_addr,
+> -                                           &adev->uvd.inst[j].cpu_addr);
+> +               r =3D amdgpu_uvd_create_msg_bo_helper(adev, bo_size,
+> +                               &adev->uvd.inst[j].vcpu_bo, false);
+>                 if (r) {
+>                         dev_err(adev->dev, "(%d) failed to allocate UVD b=
+o\n", r);
+>                         return r;
+>                 }
+> +               adev->uvd.inst[j].gpu_addr =3D
+> +                               amdgpu_bo_gpu_offset(adev->uvd.inst[j].vc=
+pu_bo);
+> +               adev->uvd.inst[j].cpu_addr =3D
+> +                               amdgpu_bo_kptr(adev->uvd.inst[j].vcpu_bo)=
+;
+>         }
+>
+>         for (i =3D 0; i < adev->uvd.max_handles; ++i) {
+> @@ -339,11 +348,8 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
+>                 adev->uvd.filp[i] =3D NULL;
+>         }
+>
+> -       /* from uvd v5.0 HW addressing capacity increased to 64 bits */
+> -       if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_U=
+VD, 5, 0))
+> -               adev->uvd.address_64_bit =3D true;
+> -
+> -       r =3D amdgpu_uvd_create_msg_bo_helper(adev, 128 << 10, &adev->uvd=
+.ib_bo);
+> +       r =3D amdgpu_uvd_create_msg_bo_helper(adev, 128 << 10, &adev->uvd=
+.ib_bo,
+> +                       true);
+>         if (r)
+>                 return r;
+>
+> @@ -1236,7 +1242,7 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *=
+ring, uint32_t handle,
+>         if (direct) {
+>                 bo =3D adev->uvd.ib_bo;
+>         } else {
+> -               r =3D amdgpu_uvd_create_msg_bo_helper(adev, 4096, &bo);
+> +               r =3D amdgpu_uvd_create_msg_bo_helper(adev, 4096, &bo, tr=
+ue);
+>                 if (r)
+>                         return r;
+>         }
 > --
 > 2.47.2
 >
