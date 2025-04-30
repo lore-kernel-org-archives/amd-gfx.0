@@ -4,77 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33AF5C3ABA9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:59:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 191FBC369D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 13:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A102B10E0C3;
-	Wed, 30 Apr 2025 12:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2DA010E2E6;
+	Wed, 30 Apr 2025 13:00:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N6pWC7HH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b7GF+TDe";
 	dkim-atps=neutral
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C31810E051;
- Wed, 30 Apr 2025 12:58:58 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-b16c64b8cbcso544352a12.3; 
- Wed, 30 Apr 2025 05:58:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746017938; x=1746622738; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9dQgDsBrKKb7LUHfJaqvSu3D4gwYk1wUfztt+eVLekw=;
- b=N6pWC7HHoONLEmMheaHr9mnkzPC8yGazEeNv0+ztmY1Gp+cOJlKUYFE1gqo1DJuOIV
- 1brtK2ETMvf5rfDVjSWG9fp3SNC5kx5ztLq16/j9YCOQ27/fge6vo4rPPuNq2CKMz11d
- +kqGIztOXNXJScHBjQB9CQyIK9Ldkk9e76OqZkfmawREtR3DYb9qbtmzqLqYFBNyD1Kx
- irPBn6oewG+tdP1vThDFrad82aciQEjZdWhrSlsWmUPsEFB5lpHG/1hFpFx4ydB0vz14
- mp/SlvUz4Tcc3ADTCdtpmTK5VhIkRQhJ84HQohx4DQUzAbS+KFQ2cmkonG6MUeFVHM+e
- Ps7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746017938; x=1746622738;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9dQgDsBrKKb7LUHfJaqvSu3D4gwYk1wUfztt+eVLekw=;
- b=hSicYC00vGa4bf5ooLavsqCxt+e//QC/c4dwBnN9UPki7R/bZW95iRz7avl5qdZrqw
- 4n7bJxK3uxD7fyYL1kZO+fFkLrc1jvyA9RrDM8tMbsFDfciZUACET5bcv60axcG/zO3n
- DK1DOmq+SQxDmdyl2QcZHL1qG+tiqZuRPw1/4/0LX3qvs2dzcl6+T85C5ST9DC+YJsaG
- 0H7/1bbA9iWQL64ZlauLNMtUW6FmKvvsDmSdVie6Fc88EKVlQ1uSUmNj8QFtkm7LOQV8
- tFZikiBwbqacuikOYQqDVnC2Y9eYtvlGszLeWg9DOThigOOOM8TfKLTsTlc5ZL2E2uCm
- CJRQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU09UhpwgfG4oUvEYvbKREgJ1p8v65eoE4Lk9Zrjjl7oUovautRhcoP0gA308aCib4hQmA2eX31@lists.freedesktop.org,
- AJvYcCUjgeE5TK43Q8YUt3hqDECpRfLzDRNXihTxQBb+p7YVWzZtSsxWZojGfRuAZyNxMjobkWk3pCjd1Aq0@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy3nVqnMvJRy4h+Ilek8VkjpNz3HS/ankgkfJQ5YaJ3KeXj9rFQ
- lMdGx6rcQ4Ba/51TDVUYFI24iJ51PAhxfS4gtWPVkE7l8ByOTbW+TdGdFrBaqsneZ1PPbaeo4Ac
- ZqS2TcgPge89llILEwhi3CCw46EE=
-X-Gm-Gg: ASbGncuAkCKjeN9XQZNPt2IV+Pkzlse3oHsu+3rhSdod8j9vVKDc9C7Aa2hZ5bKOFXE
- 2TnxxznKcZVAWOHHauCvsZoxuPlrs+Zncm2soIQyZvi7BtQsF9Iimjuva7rOXfOIBbWbaRv5UKa
- w972W5oWTEaKX3sND0uLcTr09dA5Ws/lNP
-X-Google-Smtp-Source: AGHT+IHPHDfrVZ0RLZ1bQoLDYi3iVYqbjTOtxBO8xR4L/VADlcQSd95Z8b6hZvsjpcRtLCg5EcVqWeVLl2E0ftk48Ew=
-X-Received: by 2002:a17:90b:4d0a:b0:2fe:b2ea:30f0 with SMTP id
- 98e67ed59e1d1-30a3bb65eb8mr270758a91.4.1746017937898; Wed, 30 Apr 2025
- 05:58:57 -0700 (PDT)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2066.outbound.protection.outlook.com [40.107.236.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B079110E2E6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 13:00:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OXJQ5Xyw07yhbsSvZQ+RmLpokNK62/QfBXHXEB7j1/wF95MJh89xtwjQzwSXYPvJgUmkKg+5VL9xn3QDTrBZ6ptw0x16lNUxVMWvUHwhi9JShp/NXuG15u+P2GniNZ60hcve08kfXqFIi5Ae3HpZIUdLmCl8YwNxkacC+DoZQXnEPQhtl4ojUkPXYuOS9cZHlCLKc0cEEGtFdNoFOWik+2LktupzP+6Zb4Fg94NWAZ1G9j8E5Oe5ybw7XHl4yj7KJLYIUrMQzwk6RHuuWCNE+yh8PaPcmXu0A/s1iMTFeRkNWWvARWNqxR18CjPoQes/ViEzOYcr5WpaOZdMklvdeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U6Rokjj6x6gt+GvepjPGewbq36h73oKRk3wqxQb1kBg=;
+ b=gCC7HCiO7NQ+bLI8j8EZ3w9EYKIslgu9nI+qXztWrOPQGIhA8S2BwayKboUeIyvtLu1DfJ1Nqj/y9ITkjV+vdCxreSZQrZxTiD+79um9uOq4WJiId8JBVjMO/Hy9IFAmWYdd8kh0TAqY5P+l7gZZge092CWKTVa76odqmetYNGVH41P0054bT2oyniCODXqfKZzxqE1n/GCTEz8yYwQctX/FJoYvVQH3KE+e/aznjKfLoa7J+pUNZIT/wg75RsM4ZYP52CsmD/fXmAfPKSdM9ITMJbAkMiS4IBTIxpLiIumtoDi8UEEvH97U1hvM0Nq4KAh8ssrNYkfsAVOaOHCZnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U6Rokjj6x6gt+GvepjPGewbq36h73oKRk3wqxQb1kBg=;
+ b=b7GF+TDebHtPrmkAOjZkhudoQ9y+xIk8ETuR36dFxrSyPlobSypRz4TVgFMUO6I8fT270QvusN5KOhUkRpn/svi9VlFub2KqO9KD65L1gG3C+ulbzFKslBhZ45fZU0Y+3dlStGKZEaGRwFSAotdn5tSm6fqB+klEm+mo13tInfI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6376.namprd12.prod.outlook.com (2603:10b6:8:a0::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.33; Wed, 30 Apr
+ 2025 13:00:04 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8678.028; Wed, 30 Apr 2025
+ 13:00:04 +0000
+Message-ID: <f662eee4-2ee3-4fd1-85d4-2f104937847d@amd.com>
+Date: Wed, 30 Apr 2025 15:00:00 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drm/amdgpu: enable pdb0 for hibernation on SRIOV
+To: Samuel Zhang <guoqing.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: victor.zhao@amd.com, haijun.chang@amd.com, Alexander.Deucher@amd.com,
+ Emily Deng <Emily.Deng@amd.com>
+References: <20250430101638.649274-1-guoqing.zhang@amd.com>
+ <20250430101638.649274-4-guoqing.zhang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250430101638.649274-4-guoqing.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FRYP281CA0011.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::21)
+ To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20250429235006.536648-1-sashal@kernel.org>
- <20250429235006.536648-33-sashal@kernel.org>
-In-Reply-To: <20250429235006.536648-33-sashal@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 30 Apr 2025 08:58:45 -0400
-X-Gm-Features: ATxdqUFE2oLBHIj4SHrxk1wfj1ZCoBa2urs6nrnbqf5-qqwOEYtXEpH592CaLS8
-Message-ID: <CADnq5_Neg_tkGf2JVT+QuAuU06EY=XwBXBH680JFXyfW4FwUMg@mail.gmail.com>
-Subject: Re: [PATCH AUTOSEL 6.14 33/39] drm/amdgpu: Allow P2P access through
- XGMI
-To: Sasha Levin <sashal@kernel.org>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Felix Kuehling <felix.kuehling@amd.com>, Hao Zhou <hao.zhou@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com, simona@ffwll.ch, 
- Yunxiang.Li@amd.com, tvrtko.ursulin@igalia.com, matthew.auld@intel.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6376:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0025267a-681c-4f69-b34c-08dd87e6ecd5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?V1BHdVQ5d3gwMnpZNm5ndU1XMnppaXI0eWJBbUNGUTA4L1Iwdm9JYXpNcWhx?=
+ =?utf-8?B?ZDgzV0lEekFKanY2UUxjSW9WMU8vaGZHUE5Qbi9EZ01zcUdQai9UNXYvMlE2?=
+ =?utf-8?B?aGF3bzkwTTlrcGM3a1ArYmorMVFoeENodUhNaWhTNkhlWDY0Tnd2dndkVG9E?=
+ =?utf-8?B?KzJZVHRqNHZOdHhjbkI2UVdyL2pBMk5RcW9IVnVrTU8zZmFhUnZKZ25ydlU0?=
+ =?utf-8?B?YTcwMU9pWEk0dU50SDdRT0xzcGRtaTNmSG44eTVXTGdZUUJTaUJ4ekZXQW9y?=
+ =?utf-8?B?M1dzTXNkMGZSOFMwaFJaangrMldFT2xyd2RIZlRhWXR5cnN5R2RPTmVFUkpJ?=
+ =?utf-8?B?UWhwWkN6VWdUSFBibEg2bkNYcU11U2piQlZZenBrWUYra2RoU0hHbzdXR0JN?=
+ =?utf-8?B?MkxvTWxTYUQrUzFlTGcvTGU5ZGJTVHJOdXhyUWJGOUFiWmJFWWpKOXNIWHVF?=
+ =?utf-8?B?bFdRa3h2YjdudDB5NkV0aE5jcDJTMGlSNUtHNWRmaVBGSmNNNG1TTFkwb1JX?=
+ =?utf-8?B?eHZzMEtaaFJEUWpsVTdWWmJTdHV4WnZQM1dmUTNLYWFNa0FUV3VlWGl4MGxC?=
+ =?utf-8?B?aXVsU0FaR2o2UVRGbGJDQlFiZ3FINW5uQ3VwUm9pcTc1d0h1d0psVzc0MVUz?=
+ =?utf-8?B?SThwQjBUT1g2djNBbjBpVFJ0elR3OTMycGZxR3R3eDcrb2o0VXZraFdaU1N5?=
+ =?utf-8?B?K1NGdWhDVG5BWHNPQWpybGlZZDF2amR0OG5XTnZrQXgrczFDcWV4eUhsaUw1?=
+ =?utf-8?B?YzVKd1NLOG14ZXpDbmtzVUpad1NsT2FPZm1CZWM4WWhIVGNEcVFjVG5jUFJ5?=
+ =?utf-8?B?dnVsRFkzZUFHWWgrNElnanU1U0VuRHpRQ3U3cXI2dmVXZk45eXNsR2s2YklM?=
+ =?utf-8?B?TGlvclltOFptUVl0VmtjUWRJUGxqQWduN0JNV1dJUEJnK0UrcXhHWFNRaWNV?=
+ =?utf-8?B?eTB3TnMzaUJheDhOTHk0aTVibkNmd1ViZ056QzdMMmZDaWFPRjRwVFlqMnpJ?=
+ =?utf-8?B?ZEZBQzRpUUNNT3V2ZFJaOUNIOUxOdVNHaGk1TjY0SlArWjhLakczZm9scEFT?=
+ =?utf-8?B?V1ozRjJSdm1XakdnTHlsa01za0xiVkFoa0lqS3RxTHV4VStoeFRCV25CQ0kw?=
+ =?utf-8?B?aGVGdENiQ2hVTUV6a2lQWmpVanNEcDlxb3hzaUdva3NkUG0xckR0dVNicUE1?=
+ =?utf-8?B?Q0lUNzhLZHBLK1NnaTVYUWUrN20rcjRreUp0bjRWcnlCZUY5Qm9RMGJsZW1D?=
+ =?utf-8?B?RHpTTkVCa1czVUx4eXJIdlRvcDN0VTh1ZERwQ0NPRVR4bUtEd2xCWDlOY2Yz?=
+ =?utf-8?B?VGtUK3RFYkZkZGZnQU51ZXF1NW5HL2dwTkxIUG9aU3BKUFhRdmIrVHNTajho?=
+ =?utf-8?B?TFhmc3VtSGQ4QXF1ZnRobFlhSHNDckNOcm5KcldGbG1CZzRDeVh2SzQyNU9l?=
+ =?utf-8?B?R2s5QkdIclRXRU0rYUxzTlBmdEMyNlNUL1Q4bG50TmxuTUdSRWdXTlFNRitT?=
+ =?utf-8?B?WVNBWmVaeENEZmlRVm9jclh3czk3OExESmZ4L05uU3puQ0ZXTkMyMGI2MWoy?=
+ =?utf-8?B?dGRqb1FFR0xyL3UrK0xaQzlXb0p4bUJoclNQRkVNaFpRZUpVcm5tZ2JFYWFY?=
+ =?utf-8?B?RjRHQUxFZXdXOVJCcC94c2JYb2g3L3kyNFFtSkJ6UVJhRXNvZXpRaDhuZCtC?=
+ =?utf-8?B?OXc2SnVWU2hiMk1haENRK0EwV1BEdkpodGVEU1U1WnVXY0Y3TFlEV1NWVzF1?=
+ =?utf-8?B?a05CbXIwVHRRcVBlSm8zalBkUCtLUzBUNG9XLzllejU2UHVmZUhrbm1xWnor?=
+ =?utf-8?B?bFJSdkRlWWgyQnh3dTNLejFYQlhRaWZOUkFvMUVPM3VXYXlXSm95MVZFaHZJ?=
+ =?utf-8?B?TFFrZUx6OERIaWk3NDd0QWFjcWxUQ2U5R0V0S0VGT0k4Y0lndDR2SVRCSVJk?=
+ =?utf-8?Q?xiYRwNaMXN4=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OWhaSVladjUyT0Mwc3NWdFVyU2RwODFNY3U1R1Baa0NHWk5rYlB2SVRGcVJC?=
+ =?utf-8?B?a2ozL0pPUHpBU2FvZ2pUcGI3N0luNGYxY0s0RUlORmVhbHdRdk84bDJhUXMv?=
+ =?utf-8?B?Tm5RQTlLZnFmUWZ2UGVJb1FpVUk1bUR0SjV6UnVzRnVFVVQxQ0lVOGlqOE1R?=
+ =?utf-8?B?ek1aSHY3TUhvMnhocVpYbEFESndUbzB5THlZNElVSVdhQmpvMHQwL3JCQjRs?=
+ =?utf-8?B?TkJFKy9iTmlNR3V0dERWZ1gveFFiUUpwcVdKelhlV3pzRHgxeWZjWmdUanlI?=
+ =?utf-8?B?SlQwRFhMaytzd0RhVzFJN3h4ZkdCMGN5a2VZRG1TMldKckNxbGhCVVAzTndj?=
+ =?utf-8?B?a1BQQTlaK2orbjBqa01lcWRrVWFiNHpNWUwvWEpQZktJOEw1WFRaRXdudFdG?=
+ =?utf-8?B?bC9FbVdlbkhKczFTVzlIbHhHNW5jckNoeVV6ZEI5UlFMTVVoZDZiU0J5RDNC?=
+ =?utf-8?B?MUc2aXBTeWx3VFZpUkhUVlM1WjJ0UnMrVXEweFZTcWcvTURLb2x0aXZwVVFX?=
+ =?utf-8?B?NEVvemhvSE9BRVp6QlRPc2I5TmtoVWF3bU1EWHlUMHZqelEzWE8ra3FhbmhI?=
+ =?utf-8?B?Q3FYbG0yOTdiLzZmeGJldEZDN0ovekt2ODR4TCtEYjlGdzg1QVYrQ3ViZEhG?=
+ =?utf-8?B?MEk1VGozTi83b2w0TEJhYnRHaVZrWmQrTjBzZWJMZ2NOb0VoNVVGdjFVNEF3?=
+ =?utf-8?B?d3VhSlNkdU1uVHlNWXNUdTRyT3pPeEhSMDV4aHpMazRmRUpBQ2sxUm5TaTZa?=
+ =?utf-8?B?dU5JWUhWQXdGbkZQSWhZNFVQVmZRbmZkZzh6ODVoTEpqc2svNHIvUGxORmZp?=
+ =?utf-8?B?UTg5Z3NsR2hIVVAwb1Z3ZG84dVozK2dIWWlIQlZPeE9SeE41M2FmL0pDQnhO?=
+ =?utf-8?B?Q05IN2lkWTgwbWp4NHRndXJIcnZsVkI2cWFacGdtVVdLTU1PWmI4WGNHeThn?=
+ =?utf-8?B?OTVVYjJtWStlZUhqdVgwdDNJaDByUkcrSk5rU0NIR25zQXRXWEFJM0l5aGhC?=
+ =?utf-8?B?VnVYTVJWQ0RKM1Y1Z1o3aFZOY1ZJM1lWbVdvTi9XaG1sOVBLcjhCak9zZDU1?=
+ =?utf-8?B?SkRlUVZ1UXlNOWdZZEt5b2tPU0lVVW5HMUN5SVYyQ0RNajF4TkNBUzk0cGQ3?=
+ =?utf-8?B?YzZ3a1ZZeHB4N1FCSHpZOFJiZHNLWlpaZDIxT2lMMis5UzVNSXNrajh0c1hL?=
+ =?utf-8?B?bUczUTA3WFNwQW9Sd2NLMnRhTm1mdDA1THFSRXVKeHFjTHZMckVSY1FXdzNo?=
+ =?utf-8?B?dGVlQk5vRWNmWFRsMjE3S3hPYXB6QVNwYk1VZ2RZK1BKcEhpSHhyZWFiQ0U4?=
+ =?utf-8?B?enl5MEllamVTV0plRVlFVmsrUDNFRzhBYXF3QmJlWkI2Q1d2YzNyWi9jNlhJ?=
+ =?utf-8?B?MitXbzN0a2p5dDlqS2NYNElxa3VRc0ZUVzl2SzZxcEg4b0VyZHJFN2JmM21E?=
+ =?utf-8?B?Y0t5VENIN2ZNRTFCNHZFd3drY3NPMGgwQ1lkcFY4TG4yakZvSExJekVmbWdL?=
+ =?utf-8?B?ZXpKVmtuYzdoZGxRN2NpVmMxc1kxOWVSYnNxK3hHbkF3M3MvQk9KRThjcDlo?=
+ =?utf-8?B?WTlHVHo3MGFkRHJzTXhPS0Z1RHkxSk1tVVZYTmNUd3hEZFNoaXU3bUw5bGFz?=
+ =?utf-8?B?cHorK1RaRExmR1VuK2hyN2VNaXFvN0tKUEg2b1l0RnV6Si9KaTE1UHhsNDht?=
+ =?utf-8?B?Q095ZTk3eWpUc1BUTlpPOWRiS2RkUlpkTjkreE5YRGYybzhSUjMzOHFqZUtr?=
+ =?utf-8?B?TldLOTgxM3E5SjlXVndQb0IxajB5UmZnbk9iQ0VuaEcwYkxiL1htalZab3Fz?=
+ =?utf-8?B?eFlLMktsb3RQTnhXMnZPbG14R0ZlUXlqdEZMejRvRlI0dW9WM1p5M01Lc0dS?=
+ =?utf-8?B?aGZqeDYvR2NJR0Vsb0w0eFhueE5YVG5YRDl2QnpUem15NEdXOVdrVTNVa1Ar?=
+ =?utf-8?B?UEREdENUNWlMZ3BMeUpTSWVucDdQKzFwVXhOMmxqbWhuY2Y1NWtqWEwrc3hl?=
+ =?utf-8?B?cWlqb28vMEV1UW9lYUFPdXp2VW5zRS9Na3AwT1FlVDRDdlRkRXhPZnAva0hH?=
+ =?utf-8?B?Z0psNHpyRDdQdTgvWW5qOGxCbUI5bk8rRDBwbWdIVkRIU1NiN2xOOFlJc2dE?=
+ =?utf-8?Q?PpxFVZMoC3IXKMzPg3CSMgzRx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0025267a-681c-4f69-b34c-08dd87e6ecd5
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2025 13:00:04.4903 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kqCYiWOMWP9BQD4ycH0TkGuSVfrf4RhZU9vBB1vYW9BdDx6Rx7bz99udQsnw4zX1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6376
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,96 +162,222 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 29, 2025 at 7:51=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> From: Felix Kuehling <felix.kuehling@amd.com>
->
-> [ Upstream commit a92741e72f91b904c1d8c3d409ed8dbe9c1f2b26 ]
->
-> If peer memory is accessible through XGMI, allow leaving it in VRAM
-> rather than forcing its migration to GTT on DMABuf attachment.
->
-> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-> Tested-by: Hao (Claire) Zhou <hao.zhou@amd.com>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> (cherry picked from commit 372c8d72c3680fdea3fbb2d6b089f76b4a6d596a)
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-This patch is only applicable to 6.15 and newer.  Please drop for stable.
-
-Alex
-
-
+On 4/30/25 12:16, Samuel Zhang wrote:
+> When switching to new GPU index after hibernation and then resume,
+> VRAM offset of each VRAM BO will be changed, and the cached gpu
+> addresses needed to updated.
+> 
+> This is to enable pdb0 and switch to use pdb0-based virtual gpu
+> address by default in amdgpu_bo_create_reserved(). since the virtual
+> addresses do not change, this can avoid the need to update all
+> cached gpu addresses all over the codebase.
+> 
+> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 30 ++++++++++++++++++++-
->  1 file changed, 29 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_dma_buf.c
-> index c9842a0e2a1cd..cb043296f9aec 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -43,6 +43,29 @@
->  #include <linux/dma-fence-array.h>
->  #include <linux/pci-p2pdma.h>
->
-> +static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
-> +
-> +/**
-> + * dma_buf_attach_adev - Helper to get adev of an attachment
-> + *
-> + * @attach: attachment
-> + *
-> + * Returns:
-> + * A struct amdgpu_device * if the attaching device is an amdgpu device =
-or
-> + * partition, NULL otherwise.
-> + */
-> +static struct amdgpu_device *dma_buf_attach_adev(struct dma_buf_attachme=
-nt *attach)
-> +{
-> +       if (attach->importer_ops =3D=3D &amdgpu_dma_buf_attach_ops) {
-> +               struct drm_gem_object *obj =3D attach->importer_priv;
-> +               struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
-> +
-> +               return amdgpu_ttm_adev(bo->tbo.bdev);
-> +       }
-> +
-> +       return NULL;
-> +}
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 42 ++++++++++++++++++------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 16 ++++++---
+>  4 files changed, 46 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index ef6eaddc2ccb..3b3f9843ef7a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -38,6 +38,8 @@
+>  #include <drm/drm_drv.h>
+>  #include <drm/ttm/ttm_tt.h>
+>  
+> +static const u64 four_gb = 0x100000000ULL;
 > +
 >  /**
->   * amdgpu_dma_buf_attach - &dma_buf_ops.attach implementation
+>   * amdgpu_gmc_pdb0_alloc - allocate vram for pdb0
 >   *
-> @@ -54,11 +77,13 @@
->  static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
->                                  struct dma_buf_attachment *attach)
+> @@ -250,15 +252,26 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc
 >  {
-> +       struct amdgpu_device *attach_adev =3D dma_buf_attach_adev(attach)=
-;
->         struct drm_gem_object *obj =3D dmabuf->priv;
->         struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
->         struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
->
-> -       if (pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
-> +       if (!amdgpu_dmabuf_is_xgmi_accessible(attach_adev, bo) &&
-> +           pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
->                 attach->peer2peer =3D false;
->
->         amdgpu_vm_bo_update_shared(bo);
-> @@ -459,6 +484,9 @@ bool amdgpu_dmabuf_is_xgmi_accessible(struct amdgpu_d=
-evice *adev,
->         struct drm_gem_object *obj =3D &bo->tbo.base;
->         struct drm_gem_object *gobj;
->
-> +       if (!adev)
-> +               return false;
+>  	u64 hive_vram_start = 0;
+>  	u64 hive_vram_end = mc->xgmi.node_segment_size * mc->xgmi.num_physical_nodes - 1;
+> -	mc->vram_start = mc->xgmi.node_segment_size * mc->xgmi.physical_node_id;
+> -	mc->vram_end = mc->vram_start + mc->xgmi.node_segment_size - 1;
 > +
->         if (obj->import_attach) {
->                 struct dma_buf *dma_buf =3D obj->import_attach->dmabuf;
->
-> --
-> 2.39.5
->
+> +	if (adev->gmc.xgmi.connected_to_cpu) {
+> +		mc->vram_start = mc->xgmi.node_segment_size * mc->xgmi.physical_node_id;
+> +		mc->vram_end = mc->vram_start + mc->xgmi.node_segment_size - 1;
+> +		dev_info(adev->dev, "VRAM: %lluM 0x%016llX - 0x%016llX (%lluM used)\n",
+> +				mc->mc_vram_size >> 20, mc->vram_start,
+> +				mc->vram_end, mc->real_vram_size >> 20);
+> +	} else {
+> +		/* reset vram_start to 0 to switch the returned GPU address of
+> +		 * amdgpu_bo_create_reserved() from FB aperture to GART aperture.
+> +		 */
+> +		mc->vram_start = 0;
+
+You need to setup mc->vram_end here as well.
+
+> +		hive_vram_end = ALIGN(hive_vram_end + 1, four_gb) - 1;
+
+Don't touch hive_vram_end here. When this isn't 4GiB aligned we have a problem with node_segment_size.
+
+> +	}
+> +
+>  	mc->gart_start = hive_vram_end + 1;
+>  	mc->gart_end = mc->gart_start + mc->gart_size - 1;
+>  	mc->fb_start = hive_vram_start;
+>  	mc->fb_end = hive_vram_end;
+> -	dev_info(adev->dev, "VRAM: %lluM 0x%016llX - 0x%016llX (%lluM used)\n",
+> -			mc->mc_vram_size >> 20, mc->vram_start,
+> -			mc->vram_end, mc->real_vram_size >> 20);
+
+Please keep that print here 
+
+> +
+>  	dev_info(adev->dev, "GART: %lluM 0x%016llX - 0x%016llX\n",
+>  			mc->gart_size >> 20, mc->gart_start, mc->gart_end);
+>  }
+> @@ -277,7 +290,6 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc
+>  void amdgpu_gmc_gart_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc,
+>  			      enum amdgpu_gart_placement gart_placement)
+>  {
+> -	const uint64_t four_gb = 0x100000000ULL;
+>  	u64 size_af, size_bf;
+>  	/*To avoid the hole, limit the max mc address to AMDGPU_GMC_HOLE_START*/
+>  	u64 max_mc_address = min(adev->gmc.mc_mask, AMDGPU_GMC_HOLE_START - 1);
+> @@ -678,8 +690,7 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>  				     &job);
+>  	if (r)
+>  		goto error_alloc;
+> -
+> -	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
+> +	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo ?: adev->gart.bo);
+
+
+Move that change into a separate patch.
+
+>  	job->vm_needs_flush = true;
+>  	job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
+>  	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
+> @@ -1057,6 +1068,7 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+>  	u64 vram_addr = adev->vm_manager.vram_base_offset -
+>  		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+>  	u64 vram_end = vram_addr + vram_size;
+> +	u64 vram_last = vram_end, vram_pa;
+>  	u64 gart_ptb_gpu_pa = amdgpu_gmc_vram_pa(adev, adev->gart.bo);
+>  	int idx;
+>  
+> @@ -1069,11 +1081,21 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+>  	flags |= AMDGPU_PTE_FRAG((adev->gmc.vmid0_page_table_block_size + 9*1));
+>  	flags |= AMDGPU_PDE_PTE_FLAG(adev);
+>  
+> +	if (!adev->gmc.xgmi.connected_to_cpu) {
+> +		/* always start from current device so that the GART address can keep
+> +		 * consistent when hibernate-resume with different GPUs.
+> +		 */
+> +		vram_addr = adev->vm_manager.vram_base_offset;
+> +		vram_end = vram_addr + vram_size;
+> +	}
+> +
+>  	/* The first n PDE0 entries are used as PTE,
+>  	 * pointing to vram
+>  	 */
+> -	for (i = 0; vram_addr < vram_end; i++, vram_addr += pde0_page_size)
+> -		amdgpu_gmc_set_pte_pde(adev, adev->gmc.ptr_pdb0, i, vram_addr, flags);
+> +	for (i = 0; vram_addr < vram_end; i++, vram_addr += pde0_page_size) {
+> +		vram_pa = (vram_addr >= vram_last) ? (vram_addr - vram_size) : vram_addr;
+> +		amdgpu_gmc_set_pte_pde(adev, adev->gmc.ptr_pdb0, i, vram_pa, flags);
+> +	}
+
+Hui? That doesn't seem to make any sense.
+
+>  
+>  	/* The n+1'th PDE0 entry points to a huge
+>  	 * PTB who has more than 512 entries each
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 291d96168a57..778c7506bb2d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -308,6 +308,7 @@ struct amdgpu_gmc {
+>  	struct amdgpu_bo		*pdb0_bo;
+>  	/* CPU kmapped address of pdb0*/
+>  	void				*ptr_pdb0;
+> +	bool enable_pdb0;
+>  
+>  	/* MALL size */
+>  	u64 mall_size;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+> index cb25f7f0dfc1..5ebb92ac9fd7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+> @@ -180,7 +180,7 @@ gfxhub_v1_2_xcc_init_system_aperture_regs(struct amdgpu_device *adev,
+>  		/* In the case squeezing vram into GART aperture, we don't use
+>  		 * FB aperture and AGP aperture. Disable them.
+>  		 */
+> -		if (adev->gmc.pdb0_bo) {
+> +		if (adev->gmc.pdb0_bo && !amdgpu_sriov_vf(adev)) {
+>  			WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_FB_LOCATION_TOP, 0);
+>  			WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
+>  			WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_AGP_TOP, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 3c950c75dea1..42c38848763b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1682,6 +1682,11 @@ static int gmc_v9_0_early_init(struct amdgpu_ip_block *ip_block)
+>  		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+>  	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
+>  
+> +	adev->gmc.enable_pdb0 = adev->gmc.xgmi.connected_to_cpu;
+> +	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
+> +	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) ||
+> +	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0))
+> +	    adev->gmc.enable_pdb0 = amdgpu_sriov_vf(adev);
+>  	return 0;
+>  }
+>  
+> @@ -1730,7 +1735,10 @@ static void gmc_v9_0_vram_gtt_location(struct amdgpu_device *adev,
+>  		amdgpu_gmc_sysvm_location(adev, mc);
+>  	} else {
+>  		amdgpu_gmc_vram_location(adev, mc, base);
+> -		amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
+> +		if (adev->gmc.enable_pdb0)
+> +			amdgpu_gmc_sysvm_location(adev, mc);
+> +		else
+> +			amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
+
+That is nonsense. You need to adjust the if above and not here.
+
+The amdgpu_gmc_vram_location() function should never be called when PDB0 is in use.
+
+Regards,
+Christian.
+
+>  		if (!amdgpu_sriov_vf(adev) && (amdgpu_agp == 1))
+>  			amdgpu_gmc_agp_location(adev, mc);
+>  	}
+> @@ -1841,7 +1849,7 @@ static int gmc_v9_0_gart_init(struct amdgpu_device *adev)
+>  		return 0;
+>  	}
+>  
+> -	if (adev->gmc.xgmi.connected_to_cpu) {
+> +	if (adev->gmc.enable_pdb0) {
+>  		adev->gmc.vmid0_page_table_depth = 1;
+>  		adev->gmc.vmid0_page_table_block_size = 12;
+>  	} else {
+> @@ -1867,7 +1875,7 @@ static int gmc_v9_0_gart_init(struct amdgpu_device *adev)
+>  		if (r)
+>  			return r;
+>  
+> -		if (adev->gmc.xgmi.connected_to_cpu)
+> +		if (adev->gmc.enable_pdb0)
+>  			r = amdgpu_gmc_pdb0_alloc(adev);
+>  	}
+>  
+> @@ -2372,7 +2380,7 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
+>  {
+>  	int r;
+>  
+> -	if (adev->gmc.xgmi.connected_to_cpu)
+> +	if (adev->gmc.enable_pdb0)
+>  		amdgpu_gmc_init_pdb0(adev);
+>  
+>  	if (adev->gart.bo == NULL) {
+
