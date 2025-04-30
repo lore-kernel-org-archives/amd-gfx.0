@@ -4,48 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49892C3ABA9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 14:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC1B7C369D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 14:17:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D061C10E2A1;
-	Wed, 30 Apr 2025 14:12:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2024910E310;
+	Wed, 30 Apr 2025 14:17:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="esh8rwrY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H0bBQuyN";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D88F10E2A1;
- Wed, 30 Apr 2025 14:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=8NkAPdsDA+GAai+dpOUrcWSplZWq+eaxInVZJvEG6rw=; b=esh8rwrYGMmMw97lEnnQQw7pqn
- WllfVfW5lTH2G2yF+WffXccNjYkX0ROtncE1rmemdt0V/bKcBkO0Y11Ar1urTSPtYCKG8DYmB2Kuh
- 0RYYivmNpbId3Jve007i0XJOwQHM9QSVng+d+SILPpo6gDZpxNX3qDbLKgt2k1sE9V72y9HQELZ88
- Xlg6huiXXW03X5e3wiDyzKKIY+5s/3pO0e2Vo6bRKKyw183HSv2A9zZaVAytfAxGWdSfhpNoy2PGW
- JxDsfxGbL7oMcplQePMhDbjQbJzbSzLOFRQMr/CRKlcN2GL8y026cP6jgjTJ8Yx6CXiNuitp6mlg6
- FH9WIrcg==;
-Received: from [189.6.35.67] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uA89W-000vTV-4q; Wed, 30 Apr 2025 16:12:03 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- rostrows@amd.com, chiahsuan.chung@amd.com, dillon.varone@amd.com,
- austin.zheng@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: [PATCH] drm/amd/display: Fix null check of pipe_ctx->plane_state for
- update_dchubp_dpp
-Date: Wed, 30 Apr 2025 11:11:47 -0300
-Message-ID: <20250430141156.827763-1-mwen@igalia.com>
-X-Mailer: git-send-email 2.47.2
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8935110E310;
+ Wed, 30 Apr 2025 14:17:11 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2ff73032ac0so816925a91.3; 
+ Wed, 30 Apr 2025 07:17:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746022631; x=1746627431; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WSlVXVVMvz31qCvWMPBMvG74WqaN+y9IYmd4m+IHQyY=;
+ b=H0bBQuyNjtyVA++vtdWbHrzUUXcW6zlgihZFrZmGM6WnkCBkjq5CeuvNomHJ3xR6CH
+ KHynU9zlZWewPraqWp/qibtIPrC3N7XK1y9vqR2FgxGSniRfaAoKS6FN/vEZfrP2HjyA
+ EpiCq+bkg38ghoTIKolJnhhj+jSbyYcmM6PGrryq9TyadGMwH2m5fvbsfhMHxANdRQVV
+ Wt9Znt1nBABOEplvUEz95L5mzSmkFJh5UQtcK6e6zL47F5bJVXeGBrkXbNUM3T1U/Le3
+ RM4OEfS7UY1ZpSXYTnMcSh7E+bnXLpMGizF3tjI8kxwj+PVDNRceH1EMuMUiuKti3KQg
+ aUMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746022631; x=1746627431;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=WSlVXVVMvz31qCvWMPBMvG74WqaN+y9IYmd4m+IHQyY=;
+ b=VsvZJrYvWcTy3jIrBtzidtUDyt7TyMe09DUZM0ZbAPDiO7y6kOlX/f8W7l2O/B4FVO
+ jm7llY2UdvKV0MqyesbJZz4+dZp6tg0bs4d479umcKtRNAJ2CV3b4GN6zmDvcPT3J956
+ 7SlyLm3rVE2/igAui70eYm18kZb4IAgY1TqJfjQPyXgAAks75ETMjgL8NP2xszoXuPLx
+ dK439pegtz4Y02Ooztrd9Ome5Vns5626dTXm2OXwIrOp/Tqzd2CapRolVXy9flW5rwQR
+ tz4/z5zUCgD5148xkipNTd7L59gnm9A5cRJ71/A0pSOe6pZMzPj+pIHRrthISgTaOUAQ
+ +1yQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUUBBqqg4N68g45qFa8Y+ortO0erjxJx5CF1AkJXPf0B8AohFfy86s8KVpY/8xKJum+mND7oy9X@lists.freedesktop.org,
+ AJvYcCWBPBVwZRFRjZhz7aYrFn+UpO2u8eBAYNNkAcUUsTl4ureR394l1I9kd/7VildG5VB1WAY7vMlLTXhs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx4tXNdzqij7aCT/2yPbFZlaY/QZviegDhZN96nZuvEqwkn2fDj
+ Bj1UH3ApPw33j5J8OTcGkJRsXfVSRg9xgJolg6POvIxuAovS3BToA9u0NuriUTZwdls9kikAN2p
+ 2WlraN4pZMaWNNJ1a6XttHBZLqhM=
+X-Gm-Gg: ASbGncuXzZ5z3aazz2SN75v0m9yzvE1MJK8nkt0s9ndl8JQEiXOQdHRySfHoc+0z7cZ
+ nzSw0ng4muGyqDPkr0oX96sPNzPwI01qKkvh5tfQyDE8NCuzDS25RqRfZjJGEMtvCYrOlIY+zAp
+ xCdIZVEFCvFlQUF4gn1Ryi2EZmvs+VQ7kW
+X-Google-Smtp-Source: AGHT+IEsfJs4pvbYzJLHEbrtPsBpdHlb9L4LbI8uQIA2ApHhlUqkt00XJv91Tvsb80npmYzja/ty8yI1I+/ccdOAIK0=
+X-Received: by 2002:a17:90b:4b8c:b0:2fe:a747:935a with SMTP id
+ 98e67ed59e1d1-30a34a77995mr1572249a91.4.1746022630946; Wed, 30 Apr 2025
+ 07:17:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <aBHY1IPONYHyybrf@stanley.mountain>
+In-Reply-To: <aBHY1IPONYHyybrf@stanley.mountain>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 30 Apr 2025 10:16:59 -0400
+X-Gm-Features: ATxdqUFaSbipfJtE5jKOtwie3btM5g0OcKmN5NYnJ-guEp-HRyAs3L7vBIggiks
+Message-ID: <CADnq5_OTeCQ3v5xQP1KOT=Oa7vRxDpjiNLn69Gg8TZaikNLpaQ@mail.gmail.com>
+Subject: Re: [PATCH next] drm/amdgpu/userq: Call unreserve on error in
+ amdgpu_userq_fence_read_wptr()
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Arvind Yadav <Arvind.Yadav@amd.com>, 
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel-janitors@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,35 +90,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Similar to commit 6a057072ddd1 ("drm/amd/display: Fix null check for
-pipe_ctx->plane_state in dcn20_program_pipe") that addresses a null
-pointer dereference on dcn20_update_dchubp_dpp. This is the same
-function hooked for update_dchubp_dpp in dcn401, with the same issue.
-Fix possible null pointer deference on dcn401_program_pipe too.
+Applied.  Thanks!
 
-Fixes: 63ab80d9ac0ad ("drm/amd/display: DML2.1 Post-Si Cleanup")
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index 8611eb9607df..c8c8a17ff183 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -2259,9 +2259,9 @@ void dcn401_program_pipe(
- 				dc->res_pool->hubbub, pipe_ctx->plane_res.hubp->inst, pipe_ctx->hubp_regs.det_size);
- 	}
- 
--	if (pipe_ctx->update_flags.raw ||
--		(pipe_ctx->plane_state && pipe_ctx->plane_state->update_flags.raw) ||
--		pipe_ctx->stream->update_flags.raw)
-+	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.raw ||
-+	    pipe_ctx->plane_state->update_flags.raw ||
-+	    pipe_ctx->stream->update_flags.raw))
- 		dc->hwss.update_dchubp_dpp(dc, pipe_ctx, context);
- 
- 	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.bits.enable ||
--- 
-2.47.2
-
+On Wed, Apr 30, 2025 at 4:08=E2=80=AFAM Dan Carpenter <dan.carpenter@linaro=
+.org> wrote:
+>
+> This error path should call amdgpu_bo_unreserve() before returning.
+>
+> Fixes: d8675102ba32 ("drm/amdgpu: add vm root BO lock before accessing th=
+e vm")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index be068e8e37d1..57169a8224be 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -373,6 +373,7 @@ static int amdgpu_userq_fence_read_wptr(struct amdgpu=
+_usermode_queue *queue,
+>
+>         mapping =3D amdgpu_vm_bo_lookup_mapping(queue->vm, addr >> PAGE_S=
+HIFT);
+>         if (!mapping) {
+> +               amdgpu_bo_unreserve(queue->vm->root.bo);
+>                 DRM_ERROR("Failed to lookup amdgpu_bo_va_mapping\n");
+>                 return -EINVAL;
+>         }
+> --
+> 2.47.2
+>
