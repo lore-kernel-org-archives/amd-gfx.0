@@ -4,148 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D13F6C369D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 09:19:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A3EC369D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 09:29:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B50D10E0E3;
-	Wed, 30 Apr 2025 09:19:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A742710E2B5;
+	Wed, 30 Apr 2025 09:29:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2dztl5vm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WIKrnbrd";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA8B210E0E3
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 09:19:23 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2081.outbound.protection.outlook.com [40.107.100.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 311D110E0EA;
+ Wed, 30 Apr 2025 09:29:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nsU/Rr5sp7Slx/dQARERlntd9BP6omzqV7n0zbs6LLRmYmjeRL99K+TEw+DyhursNvruVy4CI3bH4rgIlJZXWfjIYqfO54+4aVfJYk/5ZR15MPV4I1gGP5ERlMuOf3X1pFA7HLBAQK8Zb8ph0bojqmSA05CaVIOmCcmZsTi42LS2pzSVOol3PKTvovrsLptK1aYD0+tTOljvswPDbaKcVUiuePcctRgUx1JEM78oXRR/Gz/iDoyaL1rMW9h2gn7VfPVcT4hcFf1p+7B1/vDTWPN7ononUGdLaTuk+FjfwSKdCyY+Tf36OYqG69wWqSkf1zbtyVKSEbeUajNLhaBIFw==
+ b=kVNpH5LaMvQ5sYx66Rro0IpThbPZnKbjQdR9SWnKx+RDwaNU9tJo1/zCnpwPIJYJee83XI6S9NI7TXndkgjUTdpdeOiIG1WgbVg67kDud5sWx3UDBLhNw+3/TpGvjFysXmOxCxjyTe/5Ge+LC/gQlzRE/eifb1vDZUm1w26bu/eDwG8sGk8Bl0UZBwRPL/VptJKaqncVyu4qVGCO4nKjY6SEMUbAbAz8rcObPc/DC/wG3Aqemuj8tc717xiIgqTdndadodT5V0yCkqI6tIV1JQbbhTsloTaaK97F2+QscFWK6pp1NJIyLnUwYoIqH5ptymcRZxwe+Lv5ngCLX8uTlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yk5zif4wN/P7m0SqgGB+po5ZbS9YBlY+UhtAcLTEKa4=;
- b=tyAuNjtwwEmNJQpOAir8cp+pNXpL2joTtVfBH2JmzH+FMRvbK5wIfz2SP1/Dq0UljWcKI3rQU+ZRp3FQ37BByL0haYVrCw+QUsYxwRw43AOu21DMC0vLeVlxig5yoxIj7OtOrX2dcqYx2uEjVI4tt4rtbg2Mdf/no/6e0XxPLd8Zh/tey/bspd97/UE9awAGl5twelcocfSlMWxXyYr9EjrQk+9BJslUMYKFTcO0a2Fdaft5xtyMLZAM+aQkzjOgV7ZUdavOJuzWN+PWuC+GnFt5Q636yTpJMxZRhTZD86JARB2fHWDGapKpRHm5uAwobLKEgwLlOO+Dxk2a6iv9sw==
+ bh=vm7tcFIfrT1y1Mh+QkpbGd020vwpdH3XxIGLRvJlO0s=;
+ b=A8MB8+arG0WQsqCwpWqsqX6gUAe8t+pfNdgKIBVVQfGK2E+0UYen2/P2X0+Ycpwm0xkK5IWYpw25Hew9GnJvRF4k4R3o4hHe0Kmykb0oK5MgiIVhJ34TM0jr+s1OdSWBitJk45zNNyaXpqcDBpwGrjUi+39StotDuHf/IN1uSm0MrnxsmN2PqbFHQYVmUcVs1hUe+4WjqzBfDU3dwJahjXOyc/49uFHpVTgooWaBdrhDIzyhBxrtAjmYa60ZIa3n5xUBPscBsUiCOJCVbM6LRlGt45CquBohKJn3CIn3HrfgVLRTSq0VF7qf1P/XhQK4kDfJjk5HGr8n6UdysVQaIQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yk5zif4wN/P7m0SqgGB+po5ZbS9YBlY+UhtAcLTEKa4=;
- b=2dztl5vm0xsjqgsChXeweghr6DsNahGfCLCmCrKWhbStQsAUEHWPHbRwzJR4nT1Tj/n/NxtVHWcpDYclTc3tJW2iQSgW/+Oxiq+SJD064u7TbDfY1Xf7bdTGeX1wiVqWcNUzCxkui7U2Q/Yj8YRpxPGAKOXUs3ERmBY/xz2y1UM=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SA1PR12MB7037.namprd12.prod.outlook.com (2603:10b6:806:24c::21)
+ bh=vm7tcFIfrT1y1Mh+QkpbGd020vwpdH3XxIGLRvJlO0s=;
+ b=WIKrnbrd7TVrcgWZC5ildWtfKB8MJNzLHRM4iUUMzd/c+tDM0DPn9EN6BZk7gnjq9PfgThnSnL8VFmLrV80Pw28brRm6p7UQWs28jKDhEvU8qQ8DyyRzWCADcp8cztMGtUwSXffsMwv5tN3LRwio914PUF+FIb2+olRsy6J9nGg=
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by IA0PR12MB7580.namprd12.prod.outlook.com (2603:10b6:208:43b::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.30; Wed, 30 Apr
- 2025 09:19:19 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%4]) with mapi id 15.20.8699.012; Wed, 30 Apr 2025
- 09:19:19 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH 7/7] drm/amdgpu: set vram type for GC 9.5.0
-Thread-Topic: [PATCH 7/7] drm/amdgpu: set vram type for GC 9.5.0
-Thread-Index: AQHbuamOvDsZGn3fgkqqsuWB7v2oC7O77c1AgAAAd9A=
-Date: Wed, 30 Apr 2025 09:19:19 +0000
-Message-ID: <BN9PR12MB52578BA228EE87DF25597ACDFC832@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20250430082550.60109-1-tao.zhou1@amd.com>
- <20250430082550.60109-7-tao.zhou1@amd.com>
- <BN9PR12MB52572D59351ED50A0C894D47FC832@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB52572D59351ED50A0C894D47FC832@BN9PR12MB5257.namprd12.prod.outlook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.33; Wed, 30 Apr
+ 2025 09:28:59 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::6216:e70a:9c8b:7abb]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::6216:e70a:9c8b:7abb%4]) with mapi id 15.20.8678.028; Wed, 30 Apr 2025
+ 09:28:59 +0000
+From: "Sharma, Shashank" <Shashank.Sharma@amd.com>
+To: Dan Carpenter <dan.carpenter@linaro.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+CC: "Koenig, Christian" <Christian.Koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Khatri, Sunil"
+ <Sunil.Khatri@amd.com>, "Yadav, Arvind" <Arvind.Yadav@amd.com>, "Paneer
+ Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>
+Subject: Re: [PATCH] drm/amdgpu/userq: remove unnecessary NULL check
+Thread-Topic: [PATCH] drm/amdgpu/userq: remove unnecessary NULL check
+Thread-Index: AQHbuaafXj+ToMha9UKDB0nXuzBGwbO77W5J
+Date: Wed, 30 Apr 2025 09:28:59 +0000
+Message-ID: <MW4PR12MB566769E097E394ED607DBD9CF2832@MW4PR12MB5667.namprd12.prod.outlook.com>
+References: <aBHZuejTTKkdnGaZ@stanley.mountain>
+In-Reply-To: <aBHZuejTTKkdnGaZ@stanley.mountain>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=daba74e4-06bb-4b54-ad05-7fb5f2b9ce63;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-30T09:16:32Z;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-30T09:28:58.835Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SA1PR12MB7037:EE_
-x-ms-office365-filtering-correlation-id: a2e49f26-e4e7-40af-7856-08dd87c81658
+x-ms-traffictypediagnostic: MW4PR12MB5667:EE_|IA0PR12MB7580:EE_
+x-ms-office365-filtering-correlation-id: 8121cdc9-0bac-4a09-e216-08dd87c96fee
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?zdGETCephNeWFCeFxavH2TRUZMz6MdHGSICMuRX4IN1xd1QCv+BsrEZsfMY/?=
- =?us-ascii?Q?tH6hg95jZnY+WQERwo7IQ7PFKW57s88gplTbI5w2g4S06aujPIyHC7HajKfr?=
- =?us-ascii?Q?TNfMHPapIiDCCWB9ShHAGBPeVxg56IF//Z+F+ZdBHMhIiay1WxDlf47yZ8fA?=
- =?us-ascii?Q?Q+hwK4553Gu6HCaPbEWKcjWiB8qUtLKmjNRbA/RZ/WvLL08P/a9NzIXI3fiR?=
- =?us-ascii?Q?gR7p5Zn5Y89TYnQhPMtC/FHm0RPOvvjZMbVUC3D2Zx/gMhmb6bJb75Vg4KX7?=
- =?us-ascii?Q?0dMYXh51Y7FiaXjFkUP2x2EiAy1KV/y7Io/F9RQZoK+IOfH+86sGVgD6xrD4?=
- =?us-ascii?Q?8HPRHZkdFHBULZUMQQ/o+/Na6N+QYH8hEwDb1OrSJ/gGEu9dEm5qXo2H+3qt?=
- =?us-ascii?Q?raUpjAGHSGLMN8MZFwKm1Xg1W2/oMOxu/hAz9ZiBV88ImLKXkDDRCG6B0/ZO?=
- =?us-ascii?Q?Ak8VLwXrDWXmYX2YdwIxVriCj5yY3Z+CiLLdV6xPSEfr2OaYXNwTepNfKLwr?=
- =?us-ascii?Q?WGXkmpR+tPrfGjJ8vqNMKWbFR59dGz6InrfxXdw5RlZMdvT2ivdQGxnfm8V7?=
- =?us-ascii?Q?ChgzXP6Ujlt9FDO1WxcYywonDAMNUpTf4B+Uwodn7GwhetdhcPR7AsiZFMHm?=
- =?us-ascii?Q?6jqrIa+ohJzroFCAicdUT5QXyqV+qjdd6KJ5yFAm6zT6gj7b3Y6ntxWaT29y?=
- =?us-ascii?Q?4etK8Oejbw93UQejP90UkTs3YW8Tf6NguBXFxC3jJ6k5II8XcxbW4uOjhYKR?=
- =?us-ascii?Q?Zeir2Oy5Nc+9hunXpAJYV5iwpENDsIGlQ8IE2ak5RocaSefInudUQRBT5JVB?=
- =?us-ascii?Q?qmjvO7pij5iSN9SnOirOr8aHHidFO3K3eZQN+d5p4RrHXSRgtHxZLljpHLwC?=
- =?us-ascii?Q?gEEnzaakzyQd0DBFrz8m51DSn6Acv3SLm8E9thprIRW15Sdt+9zPreRL+kW3?=
- =?us-ascii?Q?pPlswPd4tWpA02kY/jkWye5WmlqQIKPmff8WJTzSYiXN1ZGM/OC3cN55H4QF?=
- =?us-ascii?Q?Kp91/7/MENJkZgGa5DtK5ungKMijZux70nNJMt/V7l2ZSp0jmv4iOzhtl/hj?=
- =?us-ascii?Q?9Ld0XhBHjT3x1Un5EDckQODqxTgJ2lEL+2dZaUHzhBRlopqkqJsUkZerCzyH?=
- =?us-ascii?Q?5RZL0HLoQFBnNcTcMilznf3D91eZRnmjplQIJbNg49qMJe+klFzD4ZL//7Or?=
- =?us-ascii?Q?/QhbiSSQfp7aYGihIZycF5gko+2MdJYRsSss5RFjNF9hwRBlCcekLlUf+INu?=
- =?us-ascii?Q?eI8VtV6xtdY+1iirX2SLdzVlH3DktmXhQ1TOu83+GLreigoon2/oNhlhECJ3?=
- =?us-ascii?Q?m9tQoF0PJARmJETUYWpmUR7GNU1pWmXf9DQz7xaHVm5IfdZYhXRbn6Z1dleL?=
- =?us-ascii?Q?H9lTyHFgUC8pM0iom+Bt07C8ngjZKMK36s18NBvZQUPFUUi0P+WyqoQGumoY?=
- =?us-ascii?Q?hd2+44MjLl4Cj9eyHep13d+7EEbxkdcctrxzNzhhtYYGi7Z1JR8CJbO8hkWR?=
- =?us-ascii?Q?nwVEHCgdeUDKH38=3D?=
+ ARA:13230040|366016|376014|1800799024|8096899003|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?2dNxSdFeRIcQjr6Qo+G/zPVm0h0LqtCD8CUMEJ55F6e49BRPswcWH0htDa?=
+ =?iso-8859-1?Q?XYQ0d//Yi2q/fvJkEamlkkoCZVgLpIDe73miYUfJ+lcV/vV0gToGD39PZZ?=
+ =?iso-8859-1?Q?GYT4kA/kMs6RI5mi3N5SHMk5L8S5D9LWLUdKJMMI2URLC/S2zN6xZNAKQz?=
+ =?iso-8859-1?Q?pDaUjF9pVszzdu9n4mdFoJ8Ca9wmyJKXz3uNxhgshbp+Aw7m1WAAtENxSi?=
+ =?iso-8859-1?Q?d6XhNyzgcu6yFZgI5Lzn5umceUBTnS+9ot+otXtQIkFJv/Z74hnAdkKI2c?=
+ =?iso-8859-1?Q?wrUH0SpwybIlj3kbZcR9ONvM1iIEMBGmJptHc1+RQPX6gfkWFg+4bokvZw?=
+ =?iso-8859-1?Q?LnzspclT4Jkq8V3iiJ3hvVuCoRDX46PxYv8TBEvkmKAo/TNsQ9IYRO1Xle?=
+ =?iso-8859-1?Q?ogRbHfKKoJ7MqQ3Z/2y/6ZfiGnf+IQP+jx4ketq1VnX9UicvBIqW04w7z1?=
+ =?iso-8859-1?Q?TtGPJXAQ2dalNFHMyIHYIJ7eUi1Q0upXXuuUcpr4m1nffby4USLMqEj0Te?=
+ =?iso-8859-1?Q?pfcfhj4SbXV6H92FTBpzEwmDDYTnQbBE3PZ/p0y6b4zTu0Zh9VBKnMpkqA?=
+ =?iso-8859-1?Q?/4CzGSXCBtZ8QJywv3EjlioXppHp+4ovh8bbOaqVkhCgchp1bztqnyavPK?=
+ =?iso-8859-1?Q?iPOs4sPnHsmA9dMvxpxGwj/jZJxClzDkDfKnqiWFgWEllEnj5NDwiDLHuK?=
+ =?iso-8859-1?Q?+2CZo4F81NBw5rqgmH89Ay8S/EsgckC7/7XkNlmbZYIzQZXReABs3tbZji?=
+ =?iso-8859-1?Q?2q3HyTZnmuDCiSD1yNrtL1Cq4nlxztq0+z18Knf3vUwly36aHqNPT8lzHr?=
+ =?iso-8859-1?Q?zuUh2MzbfGCfOjCg3zmidhMOqRSluJPFAKiNsr7SHzJC7TabJ0PfD+bfAl?=
+ =?iso-8859-1?Q?S4VCUWgcD1ARC3vLnHfEq2Thj+ShzWO5MUMqAJAcBBkpgEvaEp+dgiRCU0?=
+ =?iso-8859-1?Q?k3vI6z4oFNrh8l+kRP9adLuSnKuAV0+CLo8ww/HM4W/0TifhB0lH+Rffer?=
+ =?iso-8859-1?Q?8QjmXIXAg1QMuJjWZ77AgE9CWzxBRocoTdCbV3Ek3uKZ/bywjJg7371JWy?=
+ =?iso-8859-1?Q?zG+SjQc1qxwfVHOvjidzumYUAECu7PpO6RpakrG+zUsK1HsNHZHyWmD40g?=
+ =?iso-8859-1?Q?ZbFcj5ZIXVlNCf99dPvh9uDj72/gQ0bE6gkUMtfzMWypiaVjIUAQm0m66N?=
+ =?iso-8859-1?Q?6NPwj4atZ3BMjPXQC8X8HtP1960vJmdrhKwZEnPBVjIdDt9J9QlSsZvCZK?=
+ =?iso-8859-1?Q?PcFZ28keobZKUAX223Ec89B5HuBmvtYP7t+LNDLHchbf6xzMz/u85h0wMQ?=
+ =?iso-8859-1?Q?Ny5hlGnFYnhtPtLHLFWmM7g8vRWg90DGxIrhl/Bsq7IyrRrZL/lqiOkoIj?=
+ =?iso-8859-1?Q?mxbSThAao4DnpkgnN/f/V8XGLVTRhDOso/jDAfL6IBvra33yIwtwqwj2At?=
+ =?iso-8859-1?Q?d2tHDngY/tSa44m8hKtJUs12At5Z+GL9nGeyKs/dLHgXafSBvUzSO5+OGS?=
+ =?iso-8859-1?Q?/npGaqIqg4IafM/58BuaQEHBUuSPcYPVf7snA3Kjh5T6wC8azQBy2TNEZk?=
+ =?iso-8859-1?Q?LbDefTw=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(8096899003)(38070700018)(7053199007);
+ DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?00q+9997+Vi631Kzo8uhIkdt/HpNJqZ0DK/iRlGJ53DlBEHhM2dMuz/cOAJW?=
- =?us-ascii?Q?RCTBLoi8qUUUbL8/a62OsuKAr28hVF0qDucZ1k+SXzIYhC1CyKo6SyCi3FHq?=
- =?us-ascii?Q?BLAWEjXPqBACdsUdCjHgAcFSlbtLXVn9QMyU8xoerWqZBVPTZlWfL1trRvPJ?=
- =?us-ascii?Q?obJaCdwu3jG9VDEoWkXQ3uDhZfPi8knCCH5Xnd8mvgZPfOY8ECbsdXpC5cTq?=
- =?us-ascii?Q?k7gudj0piQTCKcbtYfEGCz/01zPBKHRqQmM2EfTr1ZHGCo0gjYrUWbzLDHyw?=
- =?us-ascii?Q?e+kfjnfOQ3DVHq1X9bhYlsXaqINUEfioYbkl6GNUpjsbDK3RnUi06o9M6GaG?=
- =?us-ascii?Q?sfdD4P8Pzdd/YNIe3aitU3I/NdqfRmvJQ/bSUxMLT8AMDZEAk+1e2sW49Fv0?=
- =?us-ascii?Q?6r1cqgCgDB3vXJP60MM1qtt1TdCaSOokROTe26k0IuZE+4imuZo3As2cOEy7?=
- =?us-ascii?Q?bJqMrbg7tr2Lys4HENulOtHAJxin6DJJpanm9MRqjBnFpvAeWAkzilmnjNOE?=
- =?us-ascii?Q?Nw4vsNktBCfyPIz1D2nD/Kt3K5uRcI6jS5RLlw0ZPBiNdhh21nbzsmwdsVGf?=
- =?us-ascii?Q?uIK8TbzksmiMdLvo9MVavRvZkYnH7RZfFIx/Aetks+Z+Rc86XAQG/FdbgAsV?=
- =?us-ascii?Q?xfHUEg610EBygJRQz07H1QrEOwq7UnXOptKyQqWpdAx/pFIShkL3fBNVg4aW?=
- =?us-ascii?Q?uacYmv/zlkFFMN50PxAq/00mZ7al87ebJ204lxsASOOd3adv+9MvymcYz5sT?=
- =?us-ascii?Q?BEcMZ+hjtKqAduFR4LE9eI75KC0fJB6JrSLhIIRIdMJLmOhQVAxduE8frZ4X?=
- =?us-ascii?Q?i6aWchwqv7LgY9an9R6RToitKL+BdGSZLNLES4XPK2tfk6oxBZ8zGnxsYlaX?=
- =?us-ascii?Q?sqILl6r75OInbuVRIWs9L/XD7jjWd/MLSHyXNwrpvNyjFZ2vAsJhsn7OSIw1?=
- =?us-ascii?Q?hSgCDV+eTbpyMkelv9dLJJ3Imj3dfJMoKywVXhd9idceSoFzp/f4ZoKgBbJm?=
- =?us-ascii?Q?1BiPrVs42Bb9d5JtufhFbrG5kC1pkGZXjjxu75Xb0lqF7t0u8Ug5w1t+jZQJ?=
- =?us-ascii?Q?A62fjSpRcQzV/21r7P0UxvNjzGCtx3ZYImO9jAnDjkLx/qLSsUA0XWSF1l83?=
- =?us-ascii?Q?w3W3+KH0wz2CO4ZJX/Qd6CXZDGoNaMMnXPSZrTTpMN6QdkqnqocNfnq/3gNO?=
- =?us-ascii?Q?1kXTnkahQnNgW2YsENdgmxmKqpJwXCzcH3CbdKmgRykhGFo06Ng80Gm2eIk0?=
- =?us-ascii?Q?Bl3tgkw4+sSNTF3+mEQZT0d9L4Zfts1AtUjUYmTy+FzqaYivtxNewxNkOHzg?=
- =?us-ascii?Q?vo+ClxA72vbXQmpsS4qzVU+A1wemj1byTylokVDtwcnBLQekCbDerYvW9lm9?=
- =?us-ascii?Q?AYbeZ9Vehwl27FQIRJWHEmO1FEqZUbeF8PyFUdN/ZJwiWIIOw74/Cy4gOaU/?=
- =?us-ascii?Q?GT1MKw3Gj4hRebOvJ0pLxYkL+M0sz7b9NOXy18bVyMLs1i1RQXaVdMtdeGtp?=
- =?us-ascii?Q?jceGrPxccsEm3FhT40OlW0hOOfWUxJtumCWUGqPPqu9xkkmDstE3Tkoh8bjd?=
- =?us-ascii?Q?5mZPkZYerIN/zabho7I=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?lC3tOCw8ZZyh0uvGWOX0qz7+6aqUaadC+fHKvXME/LsxsPmWQEzBbkjrbZ?=
+ =?iso-8859-1?Q?/P+y+y3AIRSSJMXZGwSQ7Gjz1ZShKzvZ3dqKWmrSUAp7m8b1p/igWte64e?=
+ =?iso-8859-1?Q?G2ehUL9BUrXrRyQQV06nkd40HrlTfOO8iLi9QYHcf76JYrI+/k+yZZiyHg?=
+ =?iso-8859-1?Q?fMjJUQDwZ1jMn9ZJ7+En68cHNXfkSvKAfG+1MOAms1MeC4n/BXCRf+E12+?=
+ =?iso-8859-1?Q?9OvbhpYlm8TfjiMsUy5K+MwQcv+Tx208nzCGx7QU+bXri8n5aw7jqMsAjH?=
+ =?iso-8859-1?Q?E39H0rQlSIOUrRsyJHPIxB1rvsraYN/u4vGgs3gdYZH9EHX5Ku3YtT74kf?=
+ =?iso-8859-1?Q?57Oux+U2q3iGbrKd9bClpgl+Jk7AKpHqC1qHViMIZrhvzFoW1E8lqrs05a?=
+ =?iso-8859-1?Q?HEiDKXO6uE6a+sIYyMIaCXo0U2AOI/oy7W9N/BGJ5w5+b9oADk4ebB5tOR?=
+ =?iso-8859-1?Q?AeUKffoJlscfz3Bpmpl6NvICFeZmX/3yLTpX//Qgn+p3n0k/cKiS4lU/S8?=
+ =?iso-8859-1?Q?YhoB0Q2vtQFst0p23lQAuOOHninJ0Fz+Mbo3wul+usMHbnYkkB87puWOMW?=
+ =?iso-8859-1?Q?NzPMvivF95bEvioQkNykbooKrJX/lKHXChj8eWSydbFK/1VCOxCvni2/zA?=
+ =?iso-8859-1?Q?NRIlhwTvgz/unq483CzD3Wck0DjoV9dQIvhYQ1C6If+7ZX29yUyJshGFwW?=
+ =?iso-8859-1?Q?a/7AynVt7WbPdleG/IioCnRH0ssyoIAIaMkps2+grT78e6cJibc2877Tt6?=
+ =?iso-8859-1?Q?gV4U/bJlqzPVMmBKfUEWktcuhay0lgXcNfZ6+N1Vwposu1mSOTZQSCFwpR?=
+ =?iso-8859-1?Q?yR6JT8NhsH1my9DJEEUmserVDan+skawodh2t+XdQz6JiMYQt4nmgFbag6?=
+ =?iso-8859-1?Q?1wFj/UBt//hTL0OE0+xL4lBWRX2auKG68YJWR7fmOWgJ7UQwv+I+u7x3ks?=
+ =?iso-8859-1?Q?K7qar4RMO31PnbZ8IxVv0M+Rxg6LAkCEOJWWQLLo0W95avGhXp50MAaL6n?=
+ =?iso-8859-1?Q?aclv0aniXlJ/uwXjs1DYeWTfSPnI6U8xXUEeIQlF1gnnoiSK6hDEWlko6M?=
+ =?iso-8859-1?Q?SaupO0RYn9se594WYpn7/8a+3zIXN9Cdx2MAhbKWD3SgyBD84dV8G4UvHJ?=
+ =?iso-8859-1?Q?NjlMWikVGieBC3KAWEpvSbTKllYhcDaeRFX3SVMCTy0gxQzW4b9lvr5pXJ?=
+ =?iso-8859-1?Q?/hGUe3FeNaVJYJStQeK21Fqv9VNxtN5nP0sJ2ciWrRTvMd//Q+V087wmfj?=
+ =?iso-8859-1?Q?/7UqDY0QSb1S0y5vYiGF+EjSZVmWmzi/GNFP6Mlem46Ze1NUCBanmkpWYC?=
+ =?iso-8859-1?Q?ouWm5Gz4ma69C86DPAfF78jj1zSTWxr59lo/oOkG2ChHg/GYU5w0Ajm+PL?=
+ =?iso-8859-1?Q?swkHvfhIH0CvipcznJ5jvCCi314iUXsFY4t5rEP1au+0+ovaiEuJcAPO15?=
+ =?iso-8859-1?Q?9nU8c18aJMToJ2NvHlvL6470RHKxjUYjGZxHYMTuT2IYyjjkegW35WHiV6?=
+ =?iso-8859-1?Q?vLMypCZnX9yjAAiyN3y77pM28JGnyiZCvghUFRjDJfabnCYx6IcSwhicoN?=
+ =?iso-8859-1?Q?T0IunKMT/epFEv157QoXnGqYm6dQhPPPwp5DvogFEZ6zbYSVKbzhiYLnHd?=
+ =?iso-8859-1?Q?zJoYQHWad0jgE=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_MW4PR12MB566769E097E394ED607DBD9CF2832MW4PR12MB5667namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2e49f26-e4e7-40af-7856-08dd87c81658
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2025 09:19:19.3964 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8121cdc9-0bac-4a09-e216-08dd87c96fee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2025 09:28:59.2247 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: g+IeAAIzyIKoOomEEa/lc9c6baVYTUUR3fcMSkujkTpbyuvvAQgheVGyXOc5h4manJVJpUC1Hd8Ut+c97Ek4Iw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7037
+X-MS-Exchange-CrossTenant-userprincipalname: Fqucf19/aY5Yzw4DYJM5VjKvTpkTqj/gobhjksW7YOf+VdU/53k5RRnzOLNbGDlNmj3Id1dBRTxysVIt3YAnrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7580
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,75 +164,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Hit send too quickly. please drop the vendor since it is not needed.
-
-With that fixed. The patch is
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhang, H=
-awking
-Sent: Wednesday, April 30, 2025 17:17
-To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH 7/7] drm/amdgpu: set vram type for GC 9.5.0
+--_000_MW4PR12MB566769E097E394ED607DBD9CF2832MW4PR12MB5667namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hello Dan,
 
-"vendor" is not needed at this stage.
+________________________________
+From: Dan Carpenter
+Sent: Wednesday, April 30, 2025 10:05 AM
+To: Deucher, Alexander
+Cc: Koenig, Christian; David Airlie; Simona Vetter; Sharma, Shashank; Khatr=
+i, Sunil; Yadav, Arvind; Paneer Selvam, Arunpravin; amd-gfx@lists.freedeskt=
+op.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; kern=
+el-janitors@vger.kernel.org
+Subject: [PATCH] drm/amdgpu/userq: remove unnecessary NULL check
 
-Regards,
-Hawking
+The "ticket" pointer points to in the middle of the &exec struct so it
+can't be NULL.  Remove the check.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
-Sent: Wednesday, April 30, 2025 16:26
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH 7/7] drm/amdgpu: set vram type for GC 9.5.0
-
-Set vram type and vendor so we can take different actions per the type.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c
-index 464015fc2012..ac21197bf0de 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -64,6 +64,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_userq.c
+index b0e8098a3988..7505d920fb3d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -631,7 +631,7 @@ amdgpu_userq_validate_bos(struct amdgpu_userq_mgr *uq_m=
+gr)
+                         clear =3D false;
+                         unlock =3D true;
+                 /* The caller is already holding the reservation lock */
+-               } else if (ticket && dma_resv_locking_ctx(resv) =3D=3D tick=
+et) {
++               } else if (dma_resv_locking_ctx(resv) =3D=3D ticket) {
 
- #include "amdgpu_ras.h"
- #include "amdgpu_xgmi.h"
-+#include "atom.h"
+Its a Nack for me, There are a few situations (particularly during the firs=
+t launch of the desktop, and also when eviction fence and new queue creatio=
+n are working in parallel) where this ticket can be NULL, we observed it du=
+ring the stress validation and hence added this check,
 
- /* add these here since we already include dce12 headers and these are for=
- DCN */
- #define mmHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION                             =
-                             0x055d
-@@ -2075,6 +2076,11 @@ static void gmc_v9_4_3_init_vram_info(struct amdgpu_=
-device *adev)  {
-        adev->gmc.vram_type =3D AMDGPU_VRAM_TYPE_HBM;
-        adev->gmc.vram_width =3D 128 * 64;
-+
-+       if (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 5, 0))=
- {
-+               adev->gmc.vram_type =3D AMDGPU_VRAM_TYPE_HBM3E;
-+               adev->gmc.vram_vendor =3D SAMSUNG;
-+       }
- }
+Regards,
+Shashank
 
- static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+
+                         clear =3D false;
+                         unlock =3D false;
+                 /* Somebody else is using the BO right now */
 --
-2.34.1
+2.47.2
 
+
+--_000_MW4PR12MB566769E097E394ED607DBD9CF2832MW4PR12MB5667namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
+ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Hello Dan,</div>
+<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
+ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<b>From:</b>&nbsp;Dan Carpenter<br>
+<b>Sent:</b>&nbsp;Wednesday, April 30, 2025 10:05 AM<br>
+<b>To:</b>&nbsp;Deucher, Alexander<br>
+<b>Cc:</b>&nbsp;Koenig, Christian; David Airlie; Simona Vetter; Sharma, Sha=
+shank; Khatri, Sunil; Yadav, Arvind; Paneer Selvam, Arunpravin; amd-gfx@lis=
+ts.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kern=
+el.org; kernel-janitors@vger.kernel.org<br>
+<b>Subject:</b>&nbsp;[PATCH] drm/amdgpu/userq: remove unnecessary NULL chec=
+k </div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">The &quot;ticket&q=
+uot; pointer points to in the middle of the &amp;exec struct so it<br>
+can't be NULL.&nbsp; Remove the check.<br>
+<br>
+Signed-off-by: Dan Carpenter &lt;dan.carpenter@linaro.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_userq.c<br>
+index b0e8098a3988..7505d920fb3d 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
+@@ -631,7 +631,7 @@ amdgpu_userq_validate_bos(struct amdgpu_userq_mgr *uq_m=
+gr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear=
+ =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unloc=
+k =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* The caller is already holding the reservation lock=
+ */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; } else if (ticket &amp;&amp; dma_resv_locking_ctx(resv) =3D=3D t=
+icket) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; } else if (dma_resv_locking_ctx(resv) =3D=3D ticket) {</div>
+<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
+margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, C=
+alibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
+margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, C=
+alibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+Its a Nack for me, There are a few situations (particularly during the firs=
+t launch of the desktop, and also when eviction fence and new queue creatio=
+n are working in parallel) where this ticket can be NULL, we observed it du=
+ring&nbsp;the stress validation and hence
+ added this check,&nbsp;</div>
+<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
+margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, C=
+alibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
+margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, C=
+alibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
+margin-right: 0px; margin-left: 0px; font-family: Aptos, Aptos_EmbeddedFont=
+, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; col=
+or: rgb(0, 0, 0);">
+Shashank</div>
+<div style=3D"font-size: 11pt; color: rgb(0, 0, 0);"><br>
+</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
+</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unloc=
+k =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Somebody else is using the BO right now */<br>
+--<br>
+2.47.2<br>
+<br>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MW4PR12MB566769E097E394ED607DBD9CF2832MW4PR12MB5667namp_--
