@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B9F2C369D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 17:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA589C369D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 21:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C866510E11D;
-	Wed, 30 Apr 2025 17:02:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88C0710E013;
+	Wed, 30 Apr 2025 21:21:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZRRWJS9r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mEGPLdLM";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F46F10E100
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 17:02:40 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-224104a9230so102775ad.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 10:02:40 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9ECE10E013
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 21:21:09 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-73de140046eso62688b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 14:21:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746032559; x=1746637359; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1746048069; x=1746652869; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hrcTk95DO0WXpBvqp53JmQpzotGvILWdaMy7unXEkms=;
- b=ZRRWJS9rW1A5RflI9x9evTc+6PnGaA4Qq1CZK+QRzmHRNoJ4BulhXP3FW7++W+oVt+
- CHxN090GikQ218KLr0qxQFs68WZVmQsXd58xCWGN2XsnQ56xX49usGMQnPUq9mftU/cQ
- mseck/P0Z2pQIkeDTTjpYycKx3xxkVMfyn56rnUfvW1mcj5n4nzIAF3LmxMKQ1y3jlwh
- W4P/Q/VT5cMVq2VbWAnsZOx2KBdjBUx95vqrNf6hA9bdz0TlIosL8LDpAQTfSIji2Qvr
- MVuUR+Y4reQHvyP7GLIvof8xM9knMLs8aokcDxbx+z9hYBss65/o4k9DURgAZaHxRIMf
- ZvxA==
+ bh=dCtIEoqSgDyYIjoIu4tSLUAXWzMYb6kClJRKK4zaU8U=;
+ b=mEGPLdLMUhbBT+un/1EAl0RHfYLGgrevYmugPbk2XTSj6NOMuU8arQkB2tlPsj2j6G
+ ceZ52KGivatjMHMuArAwCJwPRkfLnOAAaWpdeuJ3R3aqSqLjwBLlB8Me9TjikPgvzmdK
+ 9sS9376t/l/RfslB45jf0UB4o/zpqvyz5QzHLJlSP+q3pydg3gqHd449PeSZ07WyvWIa
+ g2a6qLquJBe7/663mG94UwNrIwnFMmyrzoTA04CUYPz/IN0IxSk1vq/KVvZKqYYy413Z
+ RjGj5pSVtSfz/5mc9+KE9hatAFRIg/wEHfr/SxOJF1qvdut5HIm7FZ1kWTZ12WK45FWO
+ dxtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746032559; x=1746637359;
+ d=1e100.net; s=20230601; t=1746048069; x=1746652869;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hrcTk95DO0WXpBvqp53JmQpzotGvILWdaMy7unXEkms=;
- b=UB646M6bLBnhqFwkO4NiJHcK1iwyEr5SzJPGWSsTRYpwFDNCiTjHVwJ07M5AOa4tRk
- OQuRbJleAtGBiJsH/CoiIlH7ZW9tV7bMEJHq7IlzPWM5KQQ4nne7GsbX59K/uRqjXFW5
- 6I6F8zXxR2umuPVmYy7BD22+abYKHncEOScQQjBx7Jbvd0QOppe+y6k51Z6/eIjnEfJ+
- OEVMRhUZ/62ImtRM6T7SIMuXBhmSLMUYPfxTPYO9zmewvslgnks2lMLCBVvx+TUvD1rM
- LG6+SPRvmRHbIMBjfS/9vOUXlPMDxuZx5kyVIEzDzohgERoeNqVNEUXokfLHPTsVn2QJ
- /UnQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVtruBVCQFVBpHsc+Nsm7pdwXJoyZvgxgh1uVRM2gHvD/9O16ia40b/UfAA621jnr/KkRvqhR6R@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzclT9casLZZGqauB4PmrLjGHDkEHHj+nelPNrUpfL5ouQd1Fim
- W9pVF0byTsBhK75fMESkIz4yiD5A5XKsirJhLLA4zPXHOg8ETa1+//+ARaWvMEeopoqqaY0h+Gi
- +pGi1gi0HlKVKrAH1C4bcWVd5M5s=
-X-Gm-Gg: ASbGncu74ymemW7WHxPMzjb5tozNggf+5fkmdgrFonaon7kGbtU3sbmCFYLS7MBCobU
- DJRxM8xfzlW/VDwaZPifolrsagzp4QxdSVDF7/Dr8S2ZnfBiVA4Wxx+nwhHvb7Hj8Ot8l80JDoF
- ELAMQS7Lm4DKOndz67YaBa7g==
-X-Google-Smtp-Source: AGHT+IGZYtRTwkllesTRS6LfZJGNRe2tk8jPxJIyPAkvCTQw1p/1ZLuwwpCgEwZVztSYRGzbzfv9HlDmzTOpXAE7hcg=
-X-Received: by 2002:a17:902:db06:b0:224:10b0:4ee5 with SMTP id
- d9443c01a7336-22df56afd7amr17603035ad.0.1746032559481; Wed, 30 Apr 2025
- 10:02:39 -0700 (PDT)
+ bh=dCtIEoqSgDyYIjoIu4tSLUAXWzMYb6kClJRKK4zaU8U=;
+ b=Yh3AlDASxi+cjyWBtsuMpjHiwhFd7ojEhPuL8UCuJ3QyJIZT4FSGGkfCyGldjVyUPs
+ VhHOMjODs8uH1A8RHDlsROIHke71wLVO1V7pcBF63AHfl6pk/AdBTsUsmGIFPdiHjP+Y
+ Qn/pVmJF03pE5A6OnsXHAla7PJ69zwHgMKXLHRBnywd2W38CR4pOJUVH7Zy4GX+w/G5p
+ W3y4nKqsW6OD6O5L8L6Oqsl2LA17XSi/VJnRfmHAfqo1GkkM2oXo1jzIb72FexUZUIht
+ ELEvYeWRWEM3j5miSHNZOSyKo0jtyyVVx0Ki2f8F7igKflm/BQRjQVhAJqumLfKf7coN
+ NIgA==
+X-Gm-Message-State: AOJu0YwumbgCEanaPrGrT89x4eKmwQ2Fh1UxIaWwwKxR8kVYHfOOYYwH
+ CjBsX7RvvwD+vjnxvAoQZysMyst6sjQABJJn2/TMR7WGabxttuxOludBNRrNsJQF1RWuAajwvf+
+ dccBVJ0CKZ69qe5oRnqa/VphHk60=
+X-Gm-Gg: ASbGncvSdBgSZoLmL7GipB6LPORcNtY+ohnBcRaipu1VvGQV9bqV0oHPFXodfUErAW0
+ fZx+JSbwmucf8PqqZvAIl5klZSWGK8f/60pFdHnsHaIpbJOaBXBEHvrY8mg3iHJR4uFhe6IQo3M
+ UiB3K/zPApmw3VIL6Bz6PCHw==
+X-Google-Smtp-Source: AGHT+IFE+mO6GqCa6/cWogO99bXLNfryNCzp8GblKEXxWJ9wdYvdzinmbUnDMP4Fjvls2cS74eGaaQP5uQi7VH4jMUc=
+X-Received: by 2002:a17:90b:17c6:b0:304:eacf:8bba with SMTP id
+ 98e67ed59e1d1-30a34a77e55mr2312340a91.4.1746048069401; Wed, 30 Apr 2025
+ 14:21:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250429134739.1523228-1-alexander.deucher@amd.com>
- <60f0bac7-cc46-444f-8985-efe889ec4ac3@mailbox.org>
-In-Reply-To: <60f0bac7-cc46-444f-8985-efe889ec4ac3@mailbox.org>
+References: <20250429112429.5646-1-john.olender@gmail.com>
+ <20250429112429.5646-2-john.olender@gmail.com>
+In-Reply-To: <20250429112429.5646-2-john.olender@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 30 Apr 2025 13:02:28 -0400
-X-Gm-Features: ATxdqUEURMjuvQnnTn_oS5keIkc86r6Vw34bRPK73SF6HQ6MJAK2hnzyxsec3K0
-Message-ID: <CADnq5_Muw-vCqWZ+OnPnJWnX4gKDFr=S0s9dwV-sobTe9DzzRg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/psp: mark securedisplay TA as optional
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Wed, 30 Apr 2025 17:20:58 -0400
+X-Gm-Features: ATxdqUGFeOzr53AA_I6nEUFJBs_qFF9K_ppnrQgR3pR5PGXeuWsDPueZt4te0jQ
+Message-ID: <CADnq5_OMd-oHqPV9cC-GQGjf4OnN7EdvL3T9gopC-rEPMWs0vA@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/2] drm/amdgpu: amdgpu_vram_mgr_new(): Clamp lpfn to
+ total vram
+To: John Olender <john.olender@gmail.com>,
+ Christian Koenig <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, arunpravin.paneerselvam@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,50 +82,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 30, 2025 at 4:04=E2=80=AFAM Michel D=C3=A4nzer
-<michel.daenzer@mailbox.org> wrote:
->
-> On 2025-04-29 15:47, Alex Deucher wrote:
-> > This is an optional TA which is only available on
-> > certain embedded systems.  Mark it as optional to avoid
-> > user confusion.  This mirrors what we already do for
-> > other optional TAs.
-> >
-> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4181
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_psp.c
-> > index d54bb13772622..1c843b888475e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > @@ -2214,7 +2214,8 @@ static int psp_securedisplay_initialize(struct ps=
-p_context *psp)
-> >
-> >       if (!psp->securedisplay_context.context.bin_desc.size_bytes ||
-> >           !psp->securedisplay_context.context.bin_desc.start_addr) {
-> > -             dev_info(psp->adev->dev, "SECUREDISPLAY: securedisplay ta=
- ucode is not available\n");
-> > +             dev_info(psp->adev->dev,
-> > +                      "SECUREDISPLAY: optional securedisplay ta ucode =
-is not available\n");
-> >               return 0;
-> >       }
-> >
->
-> Does it need to be dev_info, or could it be dev_dbg?
++ Christian
 
-The customers that do use these optional TAs generally want
-notification of their absence.
-
-Alex
-
+On Tue, Apr 29, 2025 at 7:24=E2=80=AFAM John Olender <john.olender@gmail.co=
+m> wrote:
 >
+> The drm_mm allocator tolerated being passed end > mm->size, but the
+> drm_buddy allocator does not.
 >
+> Restore the pre-buddy-allocator behavior of allowing such placements.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3448
+> Signed-off-by: John Olender <john.olender@gmail.com>
+
+This looks correct to me.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 2d7f82e98df9..abdc52b0895a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> @@ -463,7 +463,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_ma=
+nager *man,
+>         int r;
+>
+>         lpfn =3D (u64)place->lpfn << PAGE_SHIFT;
+> -       if (!lpfn)
+> +       if (!lpfn || lpfn > man->size)
+>                 lpfn =3D man->size;
+>
+>         fpfn =3D (u64)place->fpfn << PAGE_SHIFT;
 > --
-> Earthling Michel D=C3=A4nzer       \        GNOME / Xwayland / Mesa devel=
-oper
-> https://redhat.com             \               Libre software enthusiast
+> 2.47.2
+>
