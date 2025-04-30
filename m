@@ -4,48 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 035FCC369D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 14:26:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0635C369D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 14:29:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98D8710E7B9;
-	Wed, 30 Apr 2025 14:26:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A1910E330;
+	Wed, 30 Apr 2025 14:29:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DdHkeBoB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nIQMEgIP";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A4F610E7B9;
- Wed, 30 Apr 2025 14:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=GulsZdAoZUK9PljRW5UNNscPehd8J2wGaFKzKGg9ZhU=; b=DdHkeBoB+s+nbikAmALHnRMlsP
- kby8FjHE8HUxXeI3sCFsHhEgDQvUS2lVNp++PKtdpRiFdo0e+QUnRsgg/3l3mpBNeBSuHCJmfj49W
- 80zno4xxZFptnZBh3vPITUB0lmtDfIFbRiqkM1FqKHIc1kxNmXqfFryx1aViI41oQm9d+Jp6/YU7Q
- CTEwZJTfvPE09QaV1zBLAdLstoklhtunYQDIeec2f0PFDKDUqVq5/x0ga8nGFGO+ksDIOKfBu9wy+
- cmA56Ki6P5cdqzZbicsGm/FLTzsr01SE+7cyqMzlNYYPfOugahHHzzw8VX+f+8etK8w3eK+7Es0Y2
- HtIaDXJw==;
-Received: from [189.6.35.67] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uA8NF-000vo2-Au; Wed, 30 Apr 2025 16:26:15 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: [PATCH 5/5] drm/amd/display: remove duplicated program_pipe code on
- dcn401
-Date: Wed, 30 Apr 2025 11:20:11 -0300
-Message-ID: <20250430142549.829861-6-mwen@igalia.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250430142549.829861-1-mwen@igalia.com>
-References: <20250430142549.829861-1-mwen@igalia.com>
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B30FD10E330
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 14:29:46 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2ff62f9b6e4so891174a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 07:29:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746023386; x=1746628186; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ut+6UCHt+MA+z+KIGehMgcSk+Kt1wIvxxrRvYc8zTKQ=;
+ b=nIQMEgIP2GREQZe59Zt8ru8JjG6UDYp2ucFWbvs4TuQ/f+SBPGJVMZR2ZrJYFeTiB7
+ wj/cgH/oAagfB3xF4eCrbmeE1/GCs5u7j6HDImMdOkDuFtx1CM5n1ncs/j38DYzgJb9w
+ K1YmT0sLpdq2QOA2UO1LvpU34QxsxvNgieFzAKPKnmF5v9FcDl6N+sOZxTG8LLdEkWjJ
+ d1rRmY707xvQB33tNUa2QDtTYyc/uroMt8arE1cKVTtnRuaioMvKL6YpelvSezeqXGMv
+ Q3CwpP9wvAdZBxlHpioHeadxc1gVo4//yhWpBjjhtYTrpCA4M4yrAswqT/SvlV6+9A0Z
+ a0Sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746023386; x=1746628186;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ut+6UCHt+MA+z+KIGehMgcSk+Kt1wIvxxrRvYc8zTKQ=;
+ b=AsWcYjTpEy3271PX/P3IKY4KbpCL0f55uUR8Dj1tSe3ArnGbfEyPMswMIxSTwe0WKl
+ ilwhRVxRhMFskloHpTNWnrVdrtRPfHOBQo4/xEhV08pNKsWMKQfLH1zCLm48avI4XLIV
+ 2eIWO7gfo4xz4kx8VCKAceSO7kLXIAUfOk/w4znOvrzbnGAnLR5U2HwqIPeXbt+kpedG
+ XjTIAEIJyTmdtWe7s3exom8Lcio2S633Q4uZnFiWHNNDwGsmUUgQUqFIqj6qT8L5y3WM
+ gNdNtaPISIt/lir+Wu8JsH9eSCmLjMuqkQbq3mYbEO0oFmwTjHvNz5Jtiu92od+0LnQr
+ 1j4Q==
+X-Gm-Message-State: AOJu0Yyzcr0dUv60sHOmM9Ks5XTsDLe2gTdm+9IZImuUPIvdAA5UdAkV
+ 9ImIb86I6UcAqulMsLBKa3O5X9uMGevEB1NM9dCIfOUAYYWRog+dksFok685OAaa9NZaixf2N0R
+ W8vBvMBszUMFPcPsSa2Wbx6zRtfM=
+X-Gm-Gg: ASbGncsemYrRDC9rIWctaafffD4OKyG1O+dBoMEn6H8+sOKSFDVvpYQ2E18lWTFEH0y
+ KoFAo27OIAtvYJbucaKaMBprtCgD31Co1HIVXFmrt5dRpcJwKuHCj+j4Kv8q01dodosOu5eS2QJ
+ P6VgGuuxfnxb/4P+YyQGNiMIf95Tc3Sw/F
+X-Google-Smtp-Source: AGHT+IHzXaGkwLqvJJ4ye6p2IunqpDnUDWx7oh2DkljW3Kbmlg/IkzQL/klAfPyNTGe6+hOXQPS36KfspZU+E+v/o70=
+X-Received: by 2002:a17:90b:1648:b0:2ff:5759:549a with SMTP id
+ 98e67ed59e1d1-30a349d354amr1554700a91.1.1746023386159; Wed, 30 Apr 2025
+ 07:29:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250430040512.307765-1-ganglxie@amd.com>
+In-Reply-To: <20250430040512.307765-1-ganglxie@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 30 Apr 2025 10:29:33 -0400
+X-Gm-Features: ATxdqUG6xe7JlNV4SalqF4m5awDX2am7J6leh0jHojx7CxTJcUerWF-IHHBzflM
+Message-ID: <CADnq5_OOoTsgbTLeeQKucpneBttS9bvmBZHC0JNdmgWnne4Lgw@mail.gmail.com>
+Subject: Re: [PATCH] Refine RAS bad page records counting and parsing in
+ eeprom V3
+To: ganglxie <ganglxie@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, tao.zhou1@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,168 +80,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reduce code duplication by reusing dcn20_program_pipe since both
-dcn401/dcn20_program_pipe now does the same thing and so its caller on
-dcn401.
+On Wed, Apr 30, 2025 at 12:13=E2=80=AFAM ganglxie <ganglxie@amd.com> wrote:
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 126 ------------------
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |   4 -
- 2 files changed, 130 deletions(-)
+Please fix the patch title.  Please add a drm/amdgpu prefix.  E.g.,
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index 10c3ca86df65..dbdfd6502b5c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -2214,132 +2214,6 @@ void dcn401_program_tg(struct dc *dc,
- 		hws->funcs.setup_vupdate_interrupt(dc, pipe_ctx);
- }
- 
--void dcn401_program_pipe(
--	struct dc *dc,
--	struct pipe_ctx *pipe_ctx,
--	struct dc_state *context)
--{
--	struct dce_hwseq *hws = dc->hwseq;
--
--	/* Only need to unblank on top pipe */
--	if (resource_is_pipe_type(pipe_ctx, OTG_MASTER)) {
--		if (pipe_ctx->update_flags.bits.enable ||
--			pipe_ctx->update_flags.bits.odm ||
--			pipe_ctx->stream->update_flags.bits.abm_level)
--			hws->funcs.blank_pixel_data(dc, pipe_ctx,
--				!pipe_ctx->plane_state ||
--				!pipe_ctx->plane_state->visible);
--	}
--
--	/* Only update TG on top pipe */
--	if (pipe_ctx->update_flags.bits.global_sync && !pipe_ctx->top_pipe
--		&& !pipe_ctx->prev_odm_pipe)
--		dcn401_program_tg(dc, pipe_ctx, context, hws);
--
--	if (pipe_ctx->update_flags.bits.odm)
--		hws->funcs.update_odm(dc, context, pipe_ctx);
--
--	if (pipe_ctx->update_flags.bits.enable) {
--		if (hws->funcs.enable_plane)
--			hws->funcs.enable_plane(dc, pipe_ctx, context);
--		else
--			dc->hwss.enable_plane(dc, pipe_ctx, context);
--
--		if (dc->res_pool->hubbub->funcs->force_wm_propagate_to_pipes)
--			dc->res_pool->hubbub->funcs->force_wm_propagate_to_pipes(dc->res_pool->hubbub);
--	}
--
--	if (pipe_ctx->update_flags.bits.det_size) {
--		if (dc->res_pool->hubbub->funcs->program_det_size)
--			dc->res_pool->hubbub->funcs->program_det_size(
--				dc->res_pool->hubbub, pipe_ctx->plane_res.hubp->inst, pipe_ctx->det_buffer_size_kb);
--		if (dc->res_pool->hubbub->funcs->program_det_segments)
--			dc->res_pool->hubbub->funcs->program_det_segments(
--				dc->res_pool->hubbub, pipe_ctx->plane_res.hubp->inst, pipe_ctx->hubp_regs.det_size);
--	}
--
--	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.raw ||
--	    pipe_ctx->plane_state->update_flags.raw ||
--	    pipe_ctx->stream->update_flags.raw))
--		dc->hwss.update_dchubp_dpp(dc, pipe_ctx, context);
--
--	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.bits.enable ||
--		pipe_ctx->plane_state->update_flags.bits.hdr_mult))
--		hws->funcs.set_hdr_multiplier(pipe_ctx);
--
--	if (hws->funcs.populate_mcm_luts) {
--		if (pipe_ctx->plane_state) {
--			hws->funcs.populate_mcm_luts(dc, pipe_ctx, pipe_ctx->plane_state->mcm_luts,
--				pipe_ctx->plane_state->lut_bank_a);
--			pipe_ctx->plane_state->lut_bank_a = !pipe_ctx->plane_state->lut_bank_a;
--		}
--	}
--
--	if (pipe_ctx->plane_state &&
--		(pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
--			pipe_ctx->plane_state->update_flags.bits.gamma_change ||
--			pipe_ctx->plane_state->update_flags.bits.lut_3d ||
--			pipe_ctx->update_flags.bits.enable))
--		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
--
--	/* dcn10_translate_regamma_to_hw_format takes 750us to finish
--	 * only do gamma programming for powering on, internal memcmp to avoid
--	 * updating on slave planes
--	 */
--	if (pipe_ctx->update_flags.bits.enable ||
--		pipe_ctx->update_flags.bits.plane_changed ||
--		pipe_ctx->stream->update_flags.bits.out_tf ||
--		(pipe_ctx->plane_state &&
--			pipe_ctx->plane_state->update_flags.bits.output_tf_change))
--		hws->funcs.set_output_transfer_func(dc, pipe_ctx, pipe_ctx->stream);
--
--	/* If the pipe has been enabled or has a different opp, we
--	 * should reprogram the fmt. This deals with cases where
--	 * interation between mpc and odm combine on different streams
--	 * causes a different pipe to be chosen to odm combine with.
--	 */
--	if (pipe_ctx->update_flags.bits.enable
--		|| pipe_ctx->update_flags.bits.opp_changed) {
--
--		pipe_ctx->stream_res.opp->funcs->opp_set_dyn_expansion(
--			pipe_ctx->stream_res.opp,
--			COLOR_SPACE_YCBCR601,
--			pipe_ctx->stream->timing.display_color_depth,
--			pipe_ctx->stream->signal);
--
--		pipe_ctx->stream_res.opp->funcs->opp_program_fmt(
--			pipe_ctx->stream_res.opp,
--			&pipe_ctx->stream->bit_depth_params,
--			&pipe_ctx->stream->clamping);
--	}
--
--	/* Set ABM pipe after other pipe configurations done */
--	if ((pipe_ctx->plane_state && pipe_ctx->plane_state->visible)) {
--		if (pipe_ctx->stream_res.abm) {
--			dc->hwss.set_pipe(pipe_ctx);
--			pipe_ctx->stream_res.abm->funcs->set_abm_level(pipe_ctx->stream_res.abm,
--				pipe_ctx->stream->abm_level);
--		}
--	}
--
--	if (pipe_ctx->update_flags.bits.test_pattern_changed) {
--		struct output_pixel_processor *odm_opp = pipe_ctx->stream_res.opp;
--		struct bit_depth_reduction_params params;
--
--		memset(&params, 0, sizeof(params));
--		odm_opp->funcs->opp_program_bit_depth_reduction(odm_opp, &params);
--		dc->hwss.set_disp_pattern_generator(dc,
--			pipe_ctx,
--			pipe_ctx->stream_res.test_pattern_params.test_pattern,
--			pipe_ctx->stream_res.test_pattern_params.color_space,
--			pipe_ctx->stream_res.test_pattern_params.color_depth,
--			NULL,
--			pipe_ctx->stream_res.test_pattern_params.width,
--			pipe_ctx->stream_res.test_pattern_params.height,
--			pipe_ctx->stream_res.test_pattern_params.offset);
--	}
--}
--
- bool dcn401_update_bandwidth(
- 	struct dc *dc,
- 	struct dc_state *context)
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-index acfdc856f543..5f3d9e7364ca 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-@@ -97,10 +97,6 @@ void dcn401_program_tg(struct dc *dc,
- 		       struct pipe_ctx *pipe_ctx,
- 		       struct dc_state *context,
- 		       struct dce_hwseq *hws);
--void dcn401_program_pipe(
--	struct dc *dc,
--	struct pipe_ctx *pipe_ctx,
--	struct dc_state *context);
- void dcn401_perform_3dlut_wa_unlock(struct pipe_ctx *pipe_ctx);
- bool dcn401_update_bandwidth(struct dc *dc, struct dc_state *context);
- void dcn401_detect_pipe_changes(
--- 
-2.47.2
+drm/amdgpu: Refine RAS bad page records counting and parsing in eeprom V3
 
+
+>
+> there is only MCA records in V3, no need to care about PA records.
+> recalculate the value of ras_num_bad_pages when parsing failed and
+> go on with the left records instead of quit.
+>
+> Signed-off-by: ganglxie <ganglxie@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 61 +++++++++++++++----------
+>  1 file changed, 36 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ras.c
+> index e85143acf3a2..32f41f151c82 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -2889,6 +2889,7 @@ static int __amdgpu_ras_convert_rec_from_rom(struct=
+ amdgpu_device *adev,
+>                 if (amdgpu_ras_mca2pa_by_idx(adev, bps, err_data))
+>                         return -EINVAL;
+>         }
+> +
+>         return __amdgpu_ras_restore_bad_pages(adev, err_data->err_addr,
+>                                                                         a=
+dev->umc.retire_unit);
+>  }
+> @@ -2903,7 +2904,7 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *=
+adev,
+>                         &adev->psp.ras_context.ras->eeprom_control;
+>         enum amdgpu_memory_partition nps =3D AMDGPU_NPS1_PARTITION_MODE;
+>         int ret =3D 0;
+> -       uint32_t i;
+> +       uint32_t i =3D 0;
+>
+>         if (!con || !con->eh_data || !bps || pages <=3D 0)
+>                 return 0;
+> @@ -2924,28 +2925,31 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device=
+ *adev,
+>         mutex_lock(&con->recovery_lock);
+>
+>         if (from_rom) {
+> -               for (i =3D 0; i < pages; i++) {
+> -                       if (control->ras_num_recs - i >=3D adev->umc.reti=
+re_unit) {
+> -                               if ((bps[i].address =3D=3D bps[i + 1].add=
+ress) &&
+> -                                   (bps[i].mem_channel =3D=3D bps[i + 1]=
+.mem_channel)) {
+> -                                       //deal with retire_unit records a=
+ time
+> -                                       ret =3D __amdgpu_ras_convert_rec_=
+array_from_rom(adev,
+> -                                                                       &=
+bps[i], &err_data, nps);
+> -                                       if (ret)
+> -                                               goto free;
+> -                                       i +=3D (adev->umc.retire_unit - 1=
+);
+> +               /* there is no pa recs in V3, so skip pa recs processing =
+*/
+> +               if (control->tbl_hdr.version < RAS_TABLE_VER_V3) {
+> +                       for (i =3D 0; i < pages; i++) {
+> +                               if (control->ras_num_recs - i >=3D adev->=
+umc.retire_unit) {
+> +                                       if ((bps[i].address =3D=3D bps[i =
++ 1].address) &&
+> +                                               (bps[i].mem_channel =3D=
+=3D bps[i + 1].mem_channel)) {
+> +                                               /* deal with retire_unit =
+records a time */
+> +                                               ret =3D __amdgpu_ras_conv=
+ert_rec_array_from_rom(adev,
+> +                                                                        =
+       &bps[i], &err_data, nps);
+> +                                               if (ret)
+> +                                                       control->ras_num_=
+bad_pages -=3D adev->umc.retire_unit;
+> +                                               i +=3D (adev->umc.retire_=
+unit - 1);
+> +                                       } else {
+> +                                               break;
+> +                                       }
+>                                 } else {
+>                                         break;
+>                                 }
+> -                       } else {
+> -                               break;
+>                         }
+>                 }
+>                 for (; i < pages; i++) {
+>                         ret =3D __amdgpu_ras_convert_rec_from_rom(adev,
+>                                 &bps[i], &err_data, nps);
+>                         if (ret)
+> -                               goto free;
+> +                               control->ras_num_bad_pages -=3D adev->umc=
+.retire_unit;
+>                 }
+>         } else {
+>                 ret =3D __amdgpu_ras_restore_bad_pages(adev, bps, pages);
+> @@ -3040,21 +3044,28 @@ static int amdgpu_ras_load_bad_pages(struct amdgp=
+u_device *adev)
+>                 dev_err(adev->dev, "Failed to load EEPROM table records!"=
+);
+>         } else {
+>                 if (adev->umc.ras && adev->umc.ras->convert_ras_err_addr)=
+ {
+> -                       for (i =3D 0; i < control->ras_num_recs; i++) {
+> -                               if ((control->ras_num_recs - i) >=3D adev=
+->umc.retire_unit) {
+> -                                       if ((bps[i].address =3D=3D bps[i =
++ 1].address) &&
+> -                                               (bps[i].mem_channel =3D=
+=3D bps[i + 1].mem_channel)) {
+> -                                               control->ras_num_pa_recs =
++=3D adev->umc.retire_unit;
+> -                                               i +=3D (adev->umc.retire_=
+unit - 1);
+> +                       /*In V3, there is no pa recs, and some cases(when=
+ address=3D=3D0) may be parsed
+> +                       as pa recs, so add verion check to avoid it.
+> +                       */
+> +                       if (control->tbl_hdr.version < RAS_TABLE_VER_V3) =
+{
+> +                               for (i =3D 0; i < control->ras_num_recs; =
+i++) {
+> +                                       if ((control->ras_num_recs - i) >=
+=3D adev->umc.retire_unit) {
+> +                                               if ((bps[i].address =3D=
+=3D bps[i + 1].address) &&
+> +                                                       (bps[i].mem_chann=
+el =3D=3D bps[i + 1].mem_channel)) {
+> +                                                       control->ras_num_=
+pa_recs +=3D adev->umc.retire_unit;
+> +                                                       i +=3D (adev->umc=
+.retire_unit - 1);
+> +                                               } else {
+> +                                                       control->ras_num_=
+mca_recs +=3D
+> +                                                                        =
+       (control->ras_num_recs - i);
+> +                                                       break;
+> +                                               }
+>                                         } else {
+> -                                               control->ras_num_mca_recs=
+ +=3D
+> -                                                                       (=
+control->ras_num_recs - i);
+> +                                               control->ras_num_mca_recs=
+ +=3D (control->ras_num_recs - i);
+>                                                 break;
+>                                         }
+> -                               } else {
+> -                                       control->ras_num_mca_recs +=3D (c=
+ontrol->ras_num_recs - i);
+> -                                       break;
+>                                 }
+> +                       } else {
+> +                               control->ras_num_mca_recs =3D control->ra=
+s_num_recs;
+>                         }
+>                 }
+>
+> --
+> 2.34.1
+>
