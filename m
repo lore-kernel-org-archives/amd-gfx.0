@@ -4,73 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B5FCC3ABA9
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 May 2025 13:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF21FC369DC
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 May 2025 13:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2ADF10E857;
-	Thu,  1 May 2025 13:05:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55A2E10E858;
+	Thu,  1 May 2025 13:05:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hs5MgAWq";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WP/7U1gi";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 660C810E717
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 08:05:18 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-441ab63a415so23473425e9.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 01:05:18 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7584F10E6E0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 08:01:30 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso49530055e9.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 01:01:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746000317; x=1746605117; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1746000089; x=1746604889; darn=lists.freedesktop.org;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=qD6CtIO/TisXjPtHYMRMSY8vPIJC8aCPMTopK7WpI/k=;
- b=hs5MgAWqQnJZ/N2FCOjtup2RwKlamYdJpPYW45yLSbkEzCjWR4EOtby75117HmrIz3
- 8nQVfW5T4Vfua7g4T05cWBp7/QYojmVyhtShN8sEc5dlY5vHjxTxGHGJyz7wq/9ze+ne
- zXZl4dPfjKvarNY+d0N5Lpd3+WVuTLfQevvGx2rBbsJAoxABdG6LoCkeD3SnPk/gQiLR
- 3APcE0eIzdPI9xXPjyXJa1+DDWnYWPMqv0qPQ1L657E6vt2CdNKlMb1cHZ8mB/+YKd0N
- G+t/tIm8YegusI5UHhJ98e1qYz0N1PnutaXMB7gul6uzNFTOPAo8kK7xq6zU9WabMh0L
- jtfw==
+ bh=XVsI8LQZj8BwCLrRgRJ4kPnlB5Zuoj8Y+TGCFkKkR4M=;
+ b=WP/7U1gisQS563aL7Aqc7+tb1DdzSYPbbKHY6bFBak/sVNILS9ECpg2JwHS1fzTuQX
+ nZNDstANvymWalIfsHpcINGaprjYd147EQYMSyBKpHN7Zox2iO8Jf+EcE9FFL8ITLtpS
+ rBw4SzMmlvCXaixriE3F2Esr5vaq0548kCLLX/bJl+b93O0u5njtw7Wr6yaXNUypla9i
+ aU74kuw+7BTXsw3ZXC3frmuFu5qQOnL9zwns0KGGXqmMmmex8+ustJ1wXZDYA016bThH
+ N65zke5qwvGWbsPgWA04eMtknN3JXozvLx1msb2nBF5exJ0tZnY+/KihTGolS80T6Eup
+ VfJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746000317; x=1746605117;
+ d=1e100.net; s=20230601; t=1746000089; x=1746604889;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qD6CtIO/TisXjPtHYMRMSY8vPIJC8aCPMTopK7WpI/k=;
- b=licJbH5TY1N7NasNiw9npXYOhnimf5W5W1qDAj5RvcGLGBXp7AxUbEfkzIgCzx4eZh
- DZ+fxgcVYj/nItkgYB+3mCxmm3SCXJENiIjubDepJD0TfmDr/BuC99YPnJEPPvBkEK44
- ypTCygtRsMPokacvmjZBcnIUDwdcpM2IU0PH3hdUX6UN0rmyX1TzAKC6K/9Qwnv8jzdY
- vjf21zL/A6hwfOrcJhWuDGoSw4pAhsabq2i08ak7XkM3fXxnQDJRxIydBiWJ7p4XRAtg
- TNHnxX+6srYPFFsnAQfAr5dWpjS6KPKkFbhcwneDddn1KwqWxSJotFF2+ZdyO2nMcHQH
- lkPg==
+ bh=XVsI8LQZj8BwCLrRgRJ4kPnlB5Zuoj8Y+TGCFkKkR4M=;
+ b=CoUTH3R8bO1EcMvqUtl6lXZ8eau+fGzJ5x8eX/pm5F9So5oZTrRl7iz7oBFQfIGkOJ
+ 1TBLMTJyh/IBlIRS+olV9iEG1E9IBF2qjJwLGTrmAK/8geVZS5ZqfQXJuEKzwLbXM80J
+ mdMl6m/xrtVrbYHsMzx9a6Z32FcRFbHUibQTq6R2Gs620F50SEj1+Meu5zVecsVXDlIP
+ vv+iWW+i6sSNv7RAnFLXXvAcdk9+Btrdvma3wMqEa2Zu5t+E3ZPZiW/qK3EYSzxPf2FT
+ n6BsfQbkVWknO5PwXXqBLgp+cM0+Qdph8loOZZAvApdJ2gSBFhYrrFElZF1ipYhtzmT1
+ f+HQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBd3yYr3Ks7Jg+8Gv23GpyPyMhKme77YphSJGRWdDq/A4cCIlXjb5kDQpik/cOdMj48RyaiUTK@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YybLeq6VfCyMG361ai5OymCN3p5T8khy3wEhTyVRZWBz/NqktNt
- YDkHjOskIIsdiC6kkjXtrRzoGTdQyOEYlSpdIRxmpNAwGQhidZEVdOnZSLGYRRU=
-X-Gm-Gg: ASbGncvE05AByBsoEnGu1zhAQh5j7RegVeuOvGuHbUI3fZ/iNBPs3mZQjwC0ulvQVmf
- wGnCY5AxV7nS2UzWtvO7llV2b48GRoRaiEkq1uYgfyDNmXk+1hohE291rvLAlmhXU/OfmqT8qyi
- 8huv4UsZVbZZxLIQYUPbDUZIVkoFsDMNTYbUApR+DZzihvmdDZB1y8ZY15jSGNaQ2Lo/PAr3MCF
- aDkmmA7ASZqwpi+gM2AIbChKZoyo14KX4KWa5LpKj+NWL/8RWJ2suyDUtSsqiOXWDgpJ0jVXdHy
- buMUY4iziwjv/P9ivZ4SU+AccXr1vW6ey/XgGLFtZPlgOA==
-X-Google-Smtp-Source: AGHT+IHdEtFR63Z6oiW9IVvngwXx6ZQiZzLOjAXgoM9uBkm6EKIWAveHvb1hm/cJiMmkSf12Z002jw==
-X-Received: by 2002:a05:600c:c054:b0:43d:300f:fa1d with SMTP id
- 5b1f17b1804b1-441b1f5fffbmr15536155e9.31.1746000317302; 
- Wed, 30 Apr 2025 01:05:17 -0700 (PDT)
+ AJvYcCUWY4iNCMp5xvLUAsRng1qIYqy43g9oiDiPem9A13YV6uyH+3qKzMP0bMvQBwIJX7ldWkEgH0kv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7P6fxfuOwdqC1YZoJP/9+1ZawTNzVT39xqKVX5I+iJkgJAl7k
+ p3Y/gNHNTujqtG586R6tq8h+D0pIJOM0Bhr+e+ocEr7+uuU57PRiSaqELygX4co=
+X-Gm-Gg: ASbGnctZoTAlX1U+m62BqckwPAXQoha656G49u3q1zMhBxibjayIurFxBVYmvqwF31r
+ vS6TvNkk6hFv7MgrR5+dZODDrNdD8lj8GuwNeBZu1bbq5WzZ+G5nQahi72NO0L0WMuJcSfh08eh
+ u9iEZReYehyL2CVGkeWJwxVW7jTCu7qcOy7Djv+IHQFK8MMHB+vcNmwFS0a0yJ5fArV/Gm6l2wM
+ C3FHWnHoKWG/BB3uiysiJrYyLqC2MCOuN+YaLpkF57G19GxizZYA1SqRtBrTP2V3FaoozWvIG1K
+ mZGmQksp3lefvR1feJMBYgCVpPxutE7r7sUcq6ASsvqbKg==
+X-Google-Smtp-Source: AGHT+IGSWw5YzFLfOEVeGZ2sMxce5ruW0SonDB1/HWE46YfPkACQqdVyQiIV6naiuky8x9154Y7AYg==
+X-Received: by 2002:a05:600c:35cc:b0:43c:f470:7605 with SMTP id
+ 5b1f17b1804b1-441b1f33a80mr15531415e9.12.1746000088903; 
+ Wed, 30 Apr 2025 01:01:28 -0700 (PDT)
 Received: from localhost ([196.207.164.177])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-441b2b20c3fsm15479405e9.28.2025.04.30.01.05.16
+ 5b1f17b1804b1-441b2b5951asm15364615e9.0.2025.04.30.01.01.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Apr 2025 01:05:16 -0700 (PDT)
-Date: Wed, 30 Apr 2025 11:05:13 +0300
+ Wed, 30 Apr 2025 01:01:28 -0700 (PDT)
+Date: Wed, 30 Apr 2025 11:01:24 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Arvind Yadav <Arvind.Yadav@amd.com>,
  Shashank Sharma <shashank.sharma@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, Arvind Yadav <Arvind.Yadav@amd.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/userq: remove unnecessary NULL check
-Message-ID: <aBHZuejTTKkdnGaZ@stanley.mountain>
+Subject: [PATCH next] drm/amdgpu/userq: Call unreserve on error in
+ amdgpu_userq_fence_read_wptr()
+Message-ID: <aBHY1IPONYHyybrf@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -90,27 +91,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The "ticket" pointer points to in the middle of the &exec struct so it
-can't be NULL.  Remove the check.
+This error path should call amdgpu_bo_unreserve() before returning.
 
+Fixes: d8675102ba32 ("drm/amdgpu: add vm root BO lock before accessing the vm")
 Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index b0e8098a3988..7505d920fb3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -631,7 +631,7 @@ amdgpu_userq_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
- 			clear = false;
- 			unlock = true;
- 		/* The caller is already holding the reservation lock */
--		} else if (ticket && dma_resv_locking_ctx(resv) == ticket) {
-+		} else if (dma_resv_locking_ctx(resv) == ticket) {
- 			clear = false;
- 			unlock = false;
- 		/* Somebody else is using the BO right now */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index be068e8e37d1..57169a8224be 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -373,6 +373,7 @@ static int amdgpu_userq_fence_read_wptr(struct amdgpu_usermode_queue *queue,
+ 
+ 	mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, addr >> PAGE_SHIFT);
+ 	if (!mapping) {
++		amdgpu_bo_unreserve(queue->vm->root.bo);
+ 		DRM_ERROR("Failed to lookup amdgpu_bo_va_mapping\n");
+ 		return -EINVAL;
+ 	}
 -- 
 2.47.2
 
