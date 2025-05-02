@@ -4,76 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3322C3ABAA
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 16:17:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3AA4C3ABAA
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 16:37:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7040F10E951;
-	Fri,  2 May 2025 16:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3458E10E95A;
+	Fri,  2 May 2025 16:37:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZC+3Uj5V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lZ82AaDm";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8B4C10E951
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 May 2025 16:17:25 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-ac2bdea5a38so313609466b.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 May 2025 09:17:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746202644; x=1746807444; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=XCQbHIy2jWvAYrJI0+hadYu8+75NvtGT4UUM9b/XC0w=;
- b=ZC+3Uj5V0/UbW9GuRSVAnYSw8ooJ2mFd12jclb6JcL+qcwhy6W8LFb2LMOoc0K6zLA
- 6es9/e2jLxeab5i+odmwzXp6TfbfMBrGqwjgwHEqh5nMWw6m2vaLaJlhv2Rc5+1SegGx
- phBJ2NXsfxEH4sJ8WM/iECNiDxt4oswPOWL6j+oTEn/p43v5Wu4Yd2fDHUrEL5buNh+9
- NHpvFuk45Y8Lq7kbsmkSIFKJy+onmhhTmGCPo7qzvJ3UMYOVTwZjT2o3ebEaVk9JqgJH
- zucYOdm4Du9yTENBnWbnNeuoEOIskT8oXL0P+Vsl0n/1gQu4bNGl+cV2QXArXAM7ufMl
- fVrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746202644; x=1746807444;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XCQbHIy2jWvAYrJI0+hadYu8+75NvtGT4UUM9b/XC0w=;
- b=q6lYO8AODmgc9sm7H3KI6vBZEs6DuqiT6uPejPW4fQ24AKoqLyH9vezbWw9FFFQ/xq
- A8cQRlDecTAC0OC/MPHZO42GdXve4mgRSZ/yfbPAzjS5ZNxxwdl+jl6S93/En0X4FkhW
- BwPNzXegiv2gpFbgNeWEpZHOTNDMJgkgPlERlVoYAYAgyXtZhQopYbrzC1ee2W9dj+G4
- 5Zv5hpQVY0zIS9+xBscFNB3BzMgdD7+Q+BQWndVmVLjswqVuXK0dtnvbET/xYBvdAcvv
- OYSw2QBGz6MncZAdlHdHKn6gutl2h1HZTtIkxGzn9lB6GUkKuCWaAEG+fVJQaoqIvyF5
- Nbpw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWvZbQtuTavoNdygEopNr0clG/aoDyBGIzNwgUT9fCTs2+68m0gIj+91KqzMPcvXC/TNhqs/shm@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCeJSCZ2Mt0LPcLcaskhyzhWulEVyyLhXa2M6vPqxBa8RkAV8r
- 9Wfdy0VHAQqAXG/qa4ILAhqMcKXtF3brV+3Qe2IJKE+YR/VB10ad
-X-Gm-Gg: ASbGnctF7eY2+mbZViidUlgwUu6ZebEVRE1ooLlDQxK70NZRvW46neXdp2q09OO6Xs/
- 0wPV6ykGZPpW6DdzSU92tN7o+I8mfiPu7n+g8hStyOjlosMNbm8bJu2c3LsznWkxIlIrDUyTbB5
- NAow4CE8vjgeMPfxD2mrl8zOF1Bk/sybH7Nmo8wqJD0R7S4GQdP20jbo/pYJL+wup8cdPrGuX4v
- N8sLkFRE80Mq4xCVXmBu27K0MUQt8bzuSko/QUvy8eHHCGsBQvKi4rrbUIjawvWIiuRD4KMxq3s
- kTjvXTs5WSL0mcN6jvpNqNFipKDvbI/3pDhmJiGJdf18MWFcq5HsxjeZFtRMaxjn
-X-Google-Smtp-Source: AGHT+IG9oTSnEydizAUCzQPziK2mvb2DjOjdk84MgY5XVqn0X2KE/7YnpGftd0pgvU7G3nZjAGmq4A==
-X-Received: by 2002:a17:907:7da4:b0:ace:c43a:63e9 with SMTP id
- a640c23a62f3a-ad17aeff6c5mr340784666b.42.1746202644254; 
- Fri, 02 May 2025 09:17:24 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:15b1:4a00:5585:4c76:3645:c6fa])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad189509088sm68748766b.146.2025.05.02.09.17.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 May 2025 09:17:23 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: Alexander.Deucher@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/amdgpu: rework gfx10 queue reset
-Date: Fri,  2 May 2025 18:17:20 +0200
-Message-Id: <20250502161720.1704-5-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250502161720.1704-1-christian.koenig@amd.com>
-References: <20250502161720.1704-1-christian.koenig@amd.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA7210E959;
+ Fri,  2 May 2025 16:37:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id ED18B5C0361;
+ Fri,  2 May 2025 16:35:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FDE5C4CEE4;
+ Fri,  2 May 2025 16:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1746203844;
+ bh=zkjGpsaRxlCJjZrZYRcHo/RpmmsbcMbgHrhUqEoVd08=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lZ82AaDmaI2Ox8Aa2T+rewKITIjyKAwlfozcZOgkxnGnVyGdbyehK0k3S0z7PF8OW
+ fNfx4eudrdsA6kNl+sx+DEZw4dNBOwOSTCM0oaC4W7z1wHRrMSwB/1Gdzf+zqLdaVJ
+ AQ0hwb4xb+NPUQT8yBvNyYOTfSUd72W/ZTLj2eYrOwgmadz9nSnTFTkOYun3/yJXzx
+ lBhOq4wuY23uA7oe4xGcIeppvbhgYAVJFUAGGjq5j16GY3gDm7IURjlsfZTK/9/+1L
+ K0d8jJvn/kxvGIlVQGIQQu/rBUyFX1UbTMP6dz3S1UdwR3Y36F48U2yMZbM/T14zGg
+ EJLqiirpt6oHA==
+Message-ID: <ed250538-0e6c-400d-af03-b9b0d32b3133@kernel.org>
+Date: Fri, 2 May 2025 11:37:23 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 1/2] PM: Add suspend and hibernate notifications for after
+ freeze
+To: Alex Deucher <alexander.deucher@amd.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:HIBERNATION (aka Software Suspend, aka swsusp)"
+ <linux-pm@vger.kernel.org>
+References: <20250501211734.2434369-1-superm1@kernel.org>
+ <20250501211734.2434369-2-superm1@kernel.org>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20250501211734.2434369-2-superm1@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,143 +64,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Apply the same changes to gfx10 as done to gfx9.
+On 5/1/2025 4:17 PM, Mario Limonciello wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> Suspend and hibernate notifications are available specifically when
+> the sequence starts and finishes.  However there are no notifications
+> during the process when tasks have been frozen.
+> 
+> Introduce two new events `PM_SUSPEND_POST_FREEZE` and
+> `PM_HIBERNATE_POST_FREEZE` that drivers can subscribe to and take
+> different actions specifically knowing userspace is frozen.
+> 
+> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>   Documentation/driver-api/pm/notifiers.rst | 19 ++++++++++++++++---
+>   include/linux/suspend.h                   | 14 ++++++++------
+>   kernel/power/hibernate.c                  |  9 +++++++--
+>   kernel/power/suspend.c                    | 13 +++++++++----
+>   4 files changed, 40 insertions(+), 15 deletions(-)
+> 
+> diff --git a/Documentation/driver-api/pm/notifiers.rst b/Documentation/driver-api/pm/notifiers.rst
+> index 186435c43b77e..6a1912fbee214 100644
+> --- a/Documentation/driver-api/pm/notifiers.rst
+> +++ b/Documentation/driver-api/pm/notifiers.rst
+> @@ -32,6 +32,18 @@ will be called upon the following events by the PM core:
+>   	additional work is done between the notifiers and the invocation of PM
+>   	callbacks for the "freeze" transition.
+>   
+> +``PM_HIBERNATION_POST_FREEZE``
+> +	The system is going to hibernate and tasks have just been frozen.
+> +
+> +``PM_SUSPEND_PREPARE``
+> +	The system is going to suspend, tasks will be frozen immediately.  This
+> +	is different from ``PM_HIBERNATION_PREPARE`` above, because in this case
+> +	additional work is done between the notifiers and the invocation of PM
+> +	callbacks for the "freeze" transition.
 
-The general idea to reset the whole kernel queue and then asking the kiq
-to map it again didn't worked at all. Background is that we don't use per
-application kernel queues for gfx10 on Linux for performance reasons.
+I accidentally created this section ``PM_SUSPEND_PREPARE`` (there 
+already is one for PM_SUSPEND_PREPARE that is totally fine).
 
-So instead use the gfx9 approach here as well and only reset all
-submissions from a specific VMID instead of the whole queue.
+If conceptually the rest of the patch makes sense I will drop this section.
 
-Navi 10 seems to be stable, but Navi 2x still shows hangs during over
-night testing. This needs more investigation, but the result is clearly
-better than before.
+> +
+> +``PM_SUSPEND_POST_FREEZE``
+> +	The system is going to suspend and tasks have just been frozen.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 57 ++++++++------------------
- 1 file changed, 16 insertions(+), 41 deletions(-)
+Looking again, I think this is better put between (the correct) 
+PM_SUSPEND_PREPARE and PM_POST_SUSPEND.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 75ea071744eb..41cc0d6db15b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -8746,7 +8746,17 @@ static void gfx_v10_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- 	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
- 	uint32_t seq = ring->fence_drv.sync_seq;
- 	uint64_t addr = ring->fence_drv.gpu_addr;
-+	struct amdgpu_device *adev = ring->adev;
- 
-+	amdgpu_ring_emit_reg_wait(ring,
-+				  SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET),
-+				  0, 0xffff);
-+	amdgpu_ring_emit_wreg(ring,
-+			      SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET),
-+			      0);
-+	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
-+			       ring->fence_drv.sync_seq,
-+			       AMDGPU_FENCE_FLAG_EXEC);
- 	gfx_v10_0_wait_reg_mem(ring, usepfp, 1, 0, lower_32_bits(addr),
- 			       upper_32_bits(addr), seq, 0xffffffff, 4);
- }
-@@ -9046,21 +9056,6 @@ static void gfx_v10_0_ring_emit_reg_write_reg_wait(struct amdgpu_ring *ring,
- 							   ref, mask);
- }
- 
--static void gfx_v10_0_ring_soft_recovery(struct amdgpu_ring *ring,
--					 unsigned int vmid)
--{
--	struct amdgpu_device *adev = ring->adev;
--	uint32_t value = 0;
--
--	value = REG_SET_FIELD(value, SQ_CMD, CMD, 0x03);
--	value = REG_SET_FIELD(value, SQ_CMD, MODE, 0x01);
--	value = REG_SET_FIELD(value, SQ_CMD, CHECK_VMID, 1);
--	value = REG_SET_FIELD(value, SQ_CMD, VM_ID, vmid);
--	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
--	WREG32_SOC15(GC, 0, mmSQ_CMD, value);
--	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
--}
--
- static void
- gfx_v10_0_set_gfx_eop_interrupt_state(struct amdgpu_device *adev,
- 				      uint32_t me, uint32_t pipe,
-@@ -9529,38 +9524,21 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ring *ring, unsigned int vmid)
- 	struct amdgpu_ring *kiq_ring = &kiq->ring;
- 	unsigned long flags;
- 	u32 tmp;
--	u64 addr;
- 	int r;
- 
- 	if (amdgpu_sriov_vf(adev))
- 		return -EINVAL;
- 
--	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
--		return -EINVAL;
--
- 	spin_lock_irqsave(&kiq->ring_lock, flags);
- 
--	if (amdgpu_ring_alloc(kiq_ring, 5 + 7 + 7 + kiq->pmf->map_queues_size)) {
-+	if (amdgpu_ring_alloc(kiq_ring, 5)) {
- 		spin_unlock_irqrestore(&kiq->ring_lock, flags);
- 		return -ENOMEM;
- 	}
- 
--	addr = amdgpu_bo_gpu_offset(ring->mqd_obj) +
--		offsetof(struct v10_gfx_mqd, cp_gfx_hqd_active);
- 	tmp = REG_SET_FIELD(0, CP_VMID_RESET, RESET_REQUEST, 1 << vmid);
--	if (ring->pipe == 0)
--		tmp = REG_SET_FIELD(tmp, CP_VMID_RESET, PIPE0_QUEUES, 1 << ring->queue);
--	else
--		tmp = REG_SET_FIELD(tmp, CP_VMID_RESET, PIPE1_QUEUES, 1 << ring->queue);
--
- 	gfx_v10_0_ring_emit_wreg(kiq_ring,
- 				 SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET), tmp);
--	gfx_v10_0_wait_reg_mem(kiq_ring, 0, 1, 0,
--			       lower_32_bits(addr), upper_32_bits(addr),
--			       0, 1, 0x20);
--	gfx_v10_0_ring_emit_reg_wait(kiq_ring,
--				     SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET), 0, 0xffffffff);
--	kiq->pmf->kiq_map_queues(kiq_ring, ring);
- 	amdgpu_ring_commit(kiq_ring);
- 
- 	spin_unlock_irqrestore(&kiq->ring_lock, flags);
-@@ -9569,13 +9547,12 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ring *ring, unsigned int vmid)
- 	if (r)
- 		return r;
- 
--	r = gfx_v10_0_kgq_init_queue(ring, true);
--	if (r) {
--		DRM_ERROR("fail to init kgq\n");
--		return r;
--	}
-+	if (amdgpu_ring_alloc(ring, 7 + 7 + 5 + 7))
-+		return -ENOMEM;
-+	gfx_v10_0_ring_emit_pipeline_sync(ring);
-+	amdgpu_ring_commit(ring);
- 
--	return amdgpu_ring_test_ring(ring);
-+	return gfx_v10_0_ring_test_ib(ring, AMDGPU_QUEUE_RESET_TIMEOUT);
- }
- 
- static int gfx_v10_0_reset_kcq(struct amdgpu_ring *ring,
-@@ -9882,7 +9859,6 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
- 	.emit_wreg = gfx_v10_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
--	.soft_recovery = gfx_v10_0_ring_soft_recovery,
- 	.emit_mem_sync = gfx_v10_0_emit_mem_sync,
- 	.reset = gfx_v10_0_reset_kgq,
- 	.emit_cleaner_shader = gfx_v10_0_ring_emit_cleaner_shader,
-@@ -9923,7 +9899,6 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_compute = {
- 	.emit_wreg = gfx_v10_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
--	.soft_recovery = gfx_v10_0_ring_soft_recovery,
- 	.emit_mem_sync = gfx_v10_0_emit_mem_sync,
- 	.reset = gfx_v10_0_reset_kcq,
- 	.emit_cleaner_shader = gfx_v10_0_ring_emit_cleaner_shader,
--- 
-2.34.1
+If conceptually the rest of the patch makes sense I will move it to that 
+section.
+
+> +
+>   ``PM_POST_HIBERNATION``
+>   	The system memory state has been restored from a hibernation image or an
+>   	error occurred during hibernation.  Device restore callbacks have been
+> @@ -54,9 +66,10 @@ will be called upon the following events by the PM core:
+>   	resume callbacks have been executed and tasks have been thawed.
+>   
+>   It is generally assumed that whatever the notifiers do for
+> -``PM_HIBERNATION_PREPARE``, should be undone for ``PM_POST_HIBERNATION``.
+> -Analogously, operations carried out for ``PM_SUSPEND_PREPARE`` should be
+> -reversed for ``PM_POST_SUSPEND``.
+> +``PM_HIBERNATION_PREPARE`` and ``PM_HIBERNATION_POST_FREEZE``, should be undone
+> +for ``PM_POST_HIBERNATION``.
+> +Analogously, operations carried out for ``PM_SUSPEND_PREPARE`` and ``PM_SUSPEND_POST_FREEZE``
+> +should be reversed for ``PM_POST_SUSPEND``.
+>   
+>   Moreover, if one of the notifiers fails for the ``PM_HIBERNATION_PREPARE`` or
+>   ``PM_SUSPEND_PREPARE`` event, the notifiers that have already succeeded for that
+> diff --git a/include/linux/suspend.h b/include/linux/suspend.h
+> index da6ebca3ff774..704e6579b0df6 100644
+> --- a/include/linux/suspend.h
+> +++ b/include/linux/suspend.h
+> @@ -422,12 +422,14 @@ static inline int is_hibernate_resume_dev(dev_t dev) { return 0; }
+>   #endif
+>   
+>   /* Hibernation and suspend events */
+> -#define PM_HIBERNATION_PREPARE	0x0001 /* Going to hibernate */
+> -#define PM_POST_HIBERNATION	0x0002 /* Hibernation finished */
+> -#define PM_SUSPEND_PREPARE	0x0003 /* Going to suspend the system */
+> -#define PM_POST_SUSPEND		0x0004 /* Suspend finished */
+> -#define PM_RESTORE_PREPARE	0x0005 /* Going to restore a saved image */
+> -#define PM_POST_RESTORE		0x0006 /* Restore failed */
+> +#define PM_HIBERNATION_PREPARE		0x0001 /* Going to hibernate */
+> +#define PM_HIBERNATION_POST_FREEZE	0x0002 /* Prepared for hibernation and tasks have been frozen */
+> +#define PM_POST_HIBERNATION		0x0003 /* Hibernation finished */
+> +#define PM_SUSPEND_PREPARE		0x0004 /* Going to suspend the system */
+> +#define PM_SUSPEND_POST_FREEZE		0x0005 /* Prepared and tasks have been frozen */
+> +#define PM_POST_SUSPEND			0x0006 /* Suspend finished */
+> +#define PM_RESTORE_PREPARE		0x0007 /* Going to restore a saved image */
+> +#define PM_POST_RESTORE			0x0008 /* Restore failed */
+>   
+>   extern struct mutex system_transition_mutex;
+>   
+> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+> index f0db9d1896e80..f896056ad2e5d 100644
+> --- a/kernel/power/hibernate.c
+> +++ b/kernel/power/hibernate.c
+> @@ -783,11 +783,15 @@ int hibernate(void)
+>   	if (error)
+>   		goto Exit;
+>   
+> +	error = pm_notifier_call_chain_robust(PM_HIBERNATION_POST_FREEZE, PM_POST_HIBERNATION);
+> +	if (error)
+> +		goto Thaw;
+> +
+>   	lock_device_hotplug();
+>   	/* Allocate memory management structures */
+>   	error = create_basic_memory_bitmaps();
+>   	if (error)
+> -		goto Thaw;
+> +		goto Unlock_hotplug;
+>   
+>   	error = hibernation_snapshot(hibernation_mode == HIBERNATION_PLATFORM);
+>   	if (error || freezer_test_done)
+> @@ -833,8 +837,9 @@ int hibernate(void)
+>   
+>    Free_bitmaps:
+>   	free_basic_memory_bitmaps();
+> - Thaw:
+> + Unlock_hotplug:
+>   	unlock_device_hotplug();
+> + Thaw:
+>   	if (snapshot_test) {
+>   		pm_pr_dbg("Checking hibernation image\n");
+>   		error = swsusp_check(false);
+> diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
+> index 8eaec4ab121d4..bc6654e8cdc80 100644
+> --- a/kernel/power/suspend.c
+> +++ b/kernel/power/suspend.c
+> @@ -377,13 +377,18 @@ static int suspend_prepare(suspend_state_t state)
+>   	trace_suspend_resume(TPS("freeze_processes"), 0, true);
+>   	error = suspend_freeze_processes();
+>   	trace_suspend_resume(TPS("freeze_processes"), 0, false);
+> -	if (!error)
+> -		return 0;
+> +	if (error)
+> +		goto Restore;
+> +	error = pm_notifier_call_chain_robust(PM_SUSPEND_POST_FREEZE, PM_POST_SUSPEND);
+> +	if (error)
+> +		goto Thaw;
+>   
+> -	dpm_save_failed_step(SUSPEND_FREEZE);
+> -	pm_notifier_call_chain(PM_POST_SUSPEND);
+> +	return 0;
+> + Thaw:
+> +	suspend_thaw_processes();
+>    Restore:
+>   	pm_restore_console();
+> +	dpm_save_failed_step(SUSPEND_FREEZE);
+>   	return error;
+>   }
+>   
 
