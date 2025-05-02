@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60189C3ABAC
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 12:34:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D4FC3ABAA
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 12:34:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE51510E904;
-	Fri,  2 May 2025 12:34:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 504FF10E8DA;
+	Fri,  2 May 2025 12:34:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hP+Egst8";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LJ38NhgE";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2481810E8F4;
- Fri,  2 May 2025 12:34:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1ADE10E8F8;
+ Fri,  2 May 2025 12:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=vnDTXACFSsJdnZxvl2grVKdl5UHiQMP+UlIlGTKO04A=; b=hP+Egst8RRN+UojJXcJXpz3q+z
- 43mOdcDIp9FVcY/76FNHi5pKqKRS6NWLanaEm065tf71W4B6SovIYjG9UQrrxRv3btkC0RxP9A0Z7
- JCNV+AosPT+MQz5e5ATXd3J0OifANeeo7SAFJEXfESMU2vem8Z9mpgkxjduuzSQCW1R+G+0cJ3AQf
- FuGccjg+braaHUhgdIV4xZiW0M+NrFOxJhgIr4R2aR9Md8maAjSUasnIUqKUeSLXv107f9j6naE9y
- rdl+gLs4AHgbPElHOfAhf9wyGvQCxLadLh0M1qp2S/D9U6gMQWqxR2A0Iabj08W/mxanMmQNF51th
- QWL9MGaA==;
+ bh=f2VSDYGiIhTWixkxkfaR6y3xKfT2+aWWhDhb6UvZACU=; b=LJ38NhgEDVfSVFeuz/jmqTZ2Ah
+ 2XnZSTDzx/SpE2jOFuBcLUY/mLcVxjSOUz4Tfn7XyNA0LpcQDLjHqWh5asVymstu3CX70kh0QDzYl
+ CZs5cXxx4TOIVwXVCYgDz3moy4LDprqVw9TAoldxOEhoi0dG5012Y5c/TYGuUSjMGLJU9XJJXLy35
+ kDDgS4qFwv2FF3RkjodR1QrMOhtecYbb1JFbxeS8GhLqiiwik8Da3m7MZbe+GL3eBAtvIoSMpiX6L
+ 3usRx44SW/m5AsS9cdKUSn2ZvPL0GeJPFOfERcXopVmMEC4QLEnb7oqCtru3nPD5xKsgzFBuqgFep
+ S8j1GVfQ==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uApYp-0025GB-Re; Fri, 02 May 2025 14:34:03 +0200
+ id 1uApYo-0025Fz-BQ; Fri, 02 May 2025 14:34:01 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -40,9 +40,9 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [RFC 05/23] drm/sched: Consolidate drm_sched_job_timedout
-Date: Fri,  2 May 2025 13:32:38 +0100
-Message-ID: <20250502123256.50540-6-tvrtko.ursulin@igalia.com>
+Subject: [RFC 03/23] drm/sched: De-clutter drm_sched_init
+Date: Fri,  2 May 2025 13:32:36 +0100
+Message-ID: <20250502123256.50540-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
 References: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
@@ -63,15 +63,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reduce to one spin_unlock for hopefully a little bit clearer flow in the
-function. It may appear that there is a behavioural change with the
-drm_sched_start_timeout_unlocked() now not being called if there were
-initially no jobs on the pending list, and then some appeared after
-unlock, however if the code would rely on the TDR handler restarting
-itself then it would fail to do that if the job arrived on the pending
-list after the check.
-
-Also fix one stale comment while touching the function.
+Move work queue allocation into a helper for a more streamlined function
+body.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -79,70 +72,67 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 37 +++++++++++++-------------
- 1 file changed, 18 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 33 ++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index d482ecc436d8..788d52547f2d 100644
+index ca5028f7a4e9..1ddf293cf223 100644
 --- a/drivers/gpu/drm/scheduler/sched_main.c
 +++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -516,38 +516,37 @@ static void drm_sched_job_begin(struct drm_sched_job *s_job)
+@@ -83,12 +83,6 @@
+ #define CREATE_TRACE_POINTS
+ #include "gpu_scheduler_trace.h"
  
- static void drm_sched_job_timedout(struct work_struct *work)
- {
--	struct drm_gpu_scheduler *sched;
-+	struct drm_gpu_scheduler *sched =
-+		container_of(work, struct drm_gpu_scheduler, work_tdr.work);
-+	enum drm_gpu_sched_stat status;
- 	struct drm_sched_job *job;
--	enum drm_gpu_sched_stat status = DRM_GPU_SCHED_STAT_NOMINAL;
+-#ifdef CONFIG_LOCKDEP
+-static struct lockdep_map drm_sched_lockdep_map = {
+-	.name = "drm_sched_lockdep_map"
+-};
+-#endif
 -
--	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
+ int drm_sched_policy = DRM_SCHED_POLICY_FIFO;
  
- 	/* Protects against concurrent deletion in drm_sched_get_finished_job */
- 	spin_lock(&sched->job_list_lock);
- 	job = list_first_entry_or_null(&sched->pending_list,
- 				       struct drm_sched_job, list);
--
- 	if (job) {
- 		/*
- 		 * Remove the bad job so it cannot be freed by concurrent
--		 * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
--		 * is parked at which point it's safe.
-+		 * drm_sched_get_finished_job. It will be reinserted back after
-+		 * scheduler worker is stopped at which point it's safe.
- 		 */
- 		list_del_init(&job->list);
--		spin_unlock(&sched->job_list_lock);
-+	}
-+	spin_unlock(&sched->job_list_lock);
+ /**
+@@ -1258,6 +1252,25 @@ static void drm_sched_run_job_work(struct work_struct *w)
+ 	drm_sched_run_job_queue(sched);
+ }
  
--		status = job->sched->ops->timedout_job(job);
-+	if (!job)
-+		return;
- 
--		/*
--		 * Guilty job did complete and hence needs to be manually removed
--		 * See drm_sched_stop doc.
--		 */
--		if (sched->free_guilty) {
--			job->sched->ops->free_job(job);
--			sched->free_guilty = false;
--		}
--	} else {
--		spin_unlock(&sched->job_list_lock);
-+	status = job->sched->ops->timedout_job(job);
++static struct workqueue_struct *drm_sched_alloc_wq(const char *name)
++{
++#if (IS_ENABLED(CONFIG_LOCKDEP))
++	static struct lockdep_map map = {
++		.name = "drm_sched_lockdep_map"
++	};
 +
 +	/*
-+	 * Guilty job did complete and hence needs to be manually removed. See
-+	 * documentation for drm_sched_stop.
++	 * Avoid leaking a lockdep map on each drm sched creation and
++	 * destruction by using a single lockdep map for all drm sched
++	 * allocated submit_wq.
 +	 */
-+	if (sched->free_guilty) {
-+		job->sched->ops->free_job(job);
-+		sched->free_guilty = false;
- 	}
++
++	return alloc_ordered_workqueue_lockdep_map(name, WQ_MEM_RECLAIM, &map);
++#else
++	return alloc_ordered_workqueue(name, WQ_MEM_RECLAIM);
++#endif
++}
++
+ /**
+  * drm_sched_init - Init a gpu scheduler instance
+  *
+@@ -1298,13 +1311,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 		sched->submit_wq = args->submit_wq;
+ 		sched->own_submit_wq = false;
+ 	} else {
+-#ifdef CONFIG_LOCKDEP
+-		sched->submit_wq = alloc_ordered_workqueue_lockdep_map(args->name,
+-								       WQ_MEM_RECLAIM,
+-								       &drm_sched_lockdep_map);
+-#else
+-		sched->submit_wq = alloc_ordered_workqueue(args->name, WQ_MEM_RECLAIM);
+-#endif
++		sched->submit_wq = drm_sched_alloc_wq(args->name);
+ 		if (!sched->submit_wq)
+ 			return -ENOMEM;
  
- 	if (status != DRM_GPU_SCHED_STAT_ENODEV)
 -- 
 2.48.0
 
