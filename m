@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B37C3ABB7
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 12:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3031C3ABAD
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 12:34:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 793F510E927;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BB3210E926;
 	Fri,  2 May 2025 12:34:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jZ8PUeUe";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CjstujTb";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A374010E90E;
- Fri,  2 May 2025 12:34:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3B310E91A;
+ Fri,  2 May 2025 12:34:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=9HIhNSQb8q8YuXYiabmhb3WYTznfC02IYzth4QbOQ3A=; b=jZ8PUeUe+lKD6VNkWHZ57dnnH8
- 7phDxlpXO8E2E4AeemvyfXEehRN/Du6tcjVNbzuK1Cxb0HAYawqiAyzB7V6323yzUTydYsWJ4IBp2
- VXvYK9+ahDiED7ClCMonVvm4755YegXCLMHFuRgnOZO8KbnYSuPx+qpGYRhOHMsskFVJxZDQ/ffqq
- jiTpcHO/GC1gpotx4tsoaUEgOk/Cr8HTMbm2/7X0gkhy9ygDb/E0EYPe7Mn+mi0OLVb99l8V9Neze
- Y4L9hwMJg6037VHfstEaLzf08DsmA4Rr3rP5G+kiIFfKrOI21/tGeq9rs9AR1qSPyGs4cbGCuEyHt
- cno403pw==;
+ bh=7wmjAKSHQPpDV3ofbtLJ6fwSEP+CBte33IWF4Kal1Ak=; b=CjstujTb0R24uJivymabkvUQhe
+ zx84WwclLcqhfORgVJwRECQ28ib2b8p/QJPCF+2P0IIic6PEQ+SR3r7JrSQnpL3sw4CQ2JOC11EBu
+ LstDKLukR0U1icDAVii7012vKe62+6SSyNcrsMBJNb1NXrJ20H4r9wmyi7xsLlZ6nmdldO9lXO4sl
+ eXyQGXcuituG0y8aXI43zHep4741e4WpCTMHddYEpDNvcYkyC7dZnTWQBVuhvsVePIgy9DPlUwWW+
+ 4oBZp+CGBP7VAcxP8FxZ19Kg8BUuBgVgb/aZa2WyTiRjC2MOnfAkuYiCWTrB9RfhiwNyCirfvHm1n
+ r+1baPAA==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uApYu-0025H7-D2; Fri, 02 May 2025 14:34:07 +0200
+ id 1uApYy-0025I8-QE; Fri, 02 May 2025 14:34:11 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-Subject: [RFC 11/23] drm/sched: Account entity GPU time
-Date: Fri,  2 May 2025 13:32:44 +0100
-Message-ID: <20250502123256.50540-12-tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [RFC 17/23] cgroup: Add the DRM cgroup controller
+Date: Fri,  2 May 2025 13:32:50 +0100
+Message-ID: <20250502123256.50540-18-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
 References: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,203 +59,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To implement fair scheduling we need a view into the GPU time consumed by
-entities. Problem we have is that jobs and entities objects have decoupled
-lifetimes, where at the point we have a view into accurate GPU time, we
-cannot link back to the entity any longer.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Solve this by adding a light weight entity stats object which is reference
-counted by both entity and the job and hence can safely be used from
-either side.
-
-With that, the only other thing we need is to add a helper for adding the
-job's GPU time into the respective entity stats object, and call it once
-the accurate GPU time has been calculated.
+Skeleton controller without any functionality.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c   | 29 ++++++++++++++++
- drivers/gpu/drm/scheduler/sched_internal.h | 40 ++++++++++++++++++++++
- drivers/gpu/drm/scheduler/sched_main.c     |  6 +++-
- include/drm/gpu_scheduler.h                |  5 +++
- 4 files changed, 79 insertions(+), 1 deletion(-)
+ include/linux/cgroup_drm.h    |  7 +++++
+ include/linux/cgroup_subsys.h |  4 +++
+ init/Kconfig                  |  5 +++
+ kernel/cgroup/Makefile        |  1 +
+ kernel/cgroup/drm.c           | 58 +++++++++++++++++++++++++++++++++++
+ 5 files changed, 75 insertions(+)
+ create mode 100644 include/linux/cgroup_drm.h
+ create mode 100644 kernel/cgroup/drm.c
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 8362184fe431..6431650c3fe7 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -32,6 +32,29 @@
- 
- #include "gpu_scheduler_trace.h"
- 
+diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+new file mode 100644
+index 000000000000..3e51fe517791
+--- /dev/null
++++ b/include/linux/cgroup_drm.h
+@@ -0,0 +1,7 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (c) 2025 Valve Corporation */
 +
-+void drm_sched_entity_stats_release(struct kref *kref)
-+{
-+	struct drm_sched_entity_stats *stats =
-+		container_of(kref, typeof(*stats), kref);
++#ifndef _CGROUP_DRM_H
++#define _CGROUP_DRM_H
 +
-+	kfree(stats);
-+}
-+
-+static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
-+{
-+	struct drm_sched_entity_stats *stats;
-+
-+	stats = kzalloc(sizeof(*stats), GFP_KERNEL);
-+	if (!stats)
-+		return NULL;
-+
-+	kref_init(&stats->kref);
-+	spin_lock_init(&stats->lock);
-+
-+	return stats;
-+}
-+
- /**
-  * drm_sched_entity_init - Init a context entity used by scheduler when
-  * submit to HW ring.
-@@ -65,6 +88,11 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 		return -EINVAL;
- 
- 	memset(entity, 0, sizeof(struct drm_sched_entity));
-+
-+	entity->stats = drm_sched_entity_stats_alloc();
-+	if (!entity->stats)
-+		return -ENOMEM;
-+
- 	INIT_LIST_HEAD(&entity->list);
- 	entity->rq = NULL;
- 	entity->guilty = guilty;
-@@ -339,6 +367,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
- 
- 	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
- 	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-+	drm_sched_entity_stats_put(entity->stats);
- }
- EXPORT_SYMBOL(drm_sched_entity_fini);
- 
-diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
-index ee13a986b920..014416cadb3e 100644
---- a/drivers/gpu/drm/scheduler/sched_internal.h
-+++ b/drivers/gpu/drm/scheduler/sched_internal.h
-@@ -3,6 +3,15 @@
- #ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
- #define _DRM_GPU_SCHEDULER_INTERNAL_H_
- 
-+#include <linux/ktime.h>
-+#include <linux/kref.h>
-+#include <linux/spinlock.h>
-+
-+struct drm_sched_entity_stats {
-+	struct kref	kref;
-+	spinlock_t	lock;
-+	ktime_t		runtime;
-+};
- 
- /* Used to choose between FIFO and RR job-scheduling */
- extern int drm_sched_policy;
-@@ -93,4 +102,35 @@ drm_sched_entity_is_ready(struct drm_sched_entity *entity)
- 	return true;
- }
- 
-+void drm_sched_entity_stats_release(struct kref *kref);
-+
-+static inline struct drm_sched_entity_stats *
-+drm_sched_entity_stats_get(struct drm_sched_entity_stats *stats)
-+{
-+	kref_get(&stats->kref);
-+
-+	return stats;
-+}
-+
-+static inline void
-+drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
-+{
-+	kref_put(&stats->kref, drm_sched_entity_stats_release);
-+}
-+
-+static inline void
-+drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
-+{
-+	struct drm_sched_entity_stats *stats = job->entity_stats;
-+	struct drm_sched_fence *s_fence = job->s_fence;
-+	ktime_t start, end;
-+
-+	start = dma_fence_timestamp(&s_fence->scheduled);
-+	end = dma_fence_timestamp(&s_fence->finished);
-+
-+	spin_lock(&stats->lock);
-+	stats->runtime = ktime_add(stats->runtime, ktime_sub(end, start));
-+	spin_unlock(&stats->lock);
-+}
-+
++#endif	/* _CGROUP_DRM_H */
+diff --git a/include/linux/cgroup_subsys.h b/include/linux/cgroup_subsys.h
+index 3fd0bcbf3080..2ad172c9fba2 100644
+--- a/include/linux/cgroup_subsys.h
++++ b/include/linux/cgroup_subsys.h
+@@ -69,6 +69,10 @@ SUBSYS(misc)
+ SUBSYS(dmem)
  #endif
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 56b963d1ad55..94f99c78ef8f 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -615,6 +615,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
- 	job->sched = sched;
- 	job->s_priority = entity->priority;
- 	job->id = atomic64_inc_return(&sched->job_id_count);
-+	job->entity_stats = drm_sched_entity_stats_get(entity->stats);
  
- 	drm_sched_fence_init(job->s_fence, job->entity);
- }
-@@ -805,6 +806,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *job)
- 		 * been called.
- 		 */
- 		dma_fence_put(&job->s_fence->finished);
-+		drm_sched_entity_stats_put(job->entity_stats);
- 	} else {
- 		/* The job was aborted before it has been committed to be run;
- 		 * notably, drm_sched_job_arm() has not been called.
-@@ -953,8 +955,10 @@ static void drm_sched_free_job_work(struct work_struct *w)
- 		container_of(w, struct drm_gpu_scheduler, work_free_job);
- 	struct drm_sched_job *job;
++#if IS_ENABLED(CONFIG_CGROUP_DRM)
++SUBSYS(drm)
++#endif
++
+ /*
+  * The following subsystems are not supported on the default hierarchy.
+  */
+diff --git a/init/Kconfig b/init/Kconfig
+index 63f5974b9fa6..02789e15c6e6 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -1157,6 +1157,11 @@ config CGROUP_DMEM
+ 	  As an example, it allows you to restrict VRAM usage for applications
+ 	  in the DRM subsystem.
  
--	while ((job = drm_sched_get_finished_job(sched)))
-+	while ((job = drm_sched_get_finished_job(sched))) {
-+		drm_sched_entity_stats_job_add_gpu_time(job);
- 		sched->ops->free_job(job);
++config CGROUP_DRM
++	bool "DRM controller"
++	help
++	  Provides the DRM subsystem controller.
++
+ config CGROUP_FREEZER
+ 	bool "Freezer controller"
+ 	help
+diff --git a/kernel/cgroup/Makefile b/kernel/cgroup/Makefile
+index ede31601a363..c39799312cfd 100644
+--- a/kernel/cgroup/Makefile
++++ b/kernel/cgroup/Makefile
+@@ -8,4 +8,5 @@ obj-$(CONFIG_CPUSETS) += cpuset.o
+ obj-$(CONFIG_CPUSETS_V1) += cpuset-v1.o
+ obj-$(CONFIG_CGROUP_MISC) += misc.o
+ obj-$(CONFIG_CGROUP_DMEM) += dmem.o
++obj-$(CONFIG_CGROUP_DRM) += drm.o
+ obj-$(CONFIG_CGROUP_DEBUG) += debug.o
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+new file mode 100644
+index 000000000000..55947a009e04
+--- /dev/null
++++ b/kernel/cgroup/drm.c
+@@ -0,0 +1,58 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2025 Valve Corporation */
++
++#include <linux/cgroup.h>
++#include <linux/cgroup_drm.h>
++#include <linux/slab.h>
++
++struct drm_cgroup_state {
++	struct cgroup_subsys_state css;
++};
++
++struct drm_root_cgroup_state {
++	struct drm_cgroup_state drmcs;
++};
++
++static struct drm_root_cgroup_state root_drmcs;
++
++static inline struct drm_cgroup_state *
++css_to_drmcs(struct cgroup_subsys_state *css)
++{
++	return container_of(css, struct drm_cgroup_state, css);
++}
++
++static void drmcs_free(struct cgroup_subsys_state *css)
++{
++	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
++
++	if (drmcs != &root_drmcs.drmcs)
++		kfree(drmcs);
++}
++
++static struct cgroup_subsys_state *
++drmcs_alloc(struct cgroup_subsys_state *parent_css)
++{
++	struct drm_cgroup_state *drmcs;
++
++	if (!parent_css) {
++		drmcs = &root_drmcs.drmcs;
++	} else {
++		drmcs = kzalloc(sizeof(*drmcs), GFP_KERNEL);
++		if (!drmcs)
++			return ERR_PTR(-ENOMEM);
 +	}
- 
- 	drm_sched_run_job_queue(sched);
- }
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 1073cc569cce..d186e7a8bb1f 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -71,6 +71,8 @@ enum drm_sched_priority {
- 	DRM_SCHED_PRIORITY_COUNT
- };
- 
-+struct drm_sched_entity_stats;
 +
- /**
-  * struct drm_sched_entity - A wrapper around a job queue (typically
-  * attached to the DRM file_priv).
-@@ -109,6 +111,8 @@ struct drm_sched_entity {
- 	 */
- 	struct drm_sched_rq		*rq;
- 
-+	struct drm_sched_entity_stats	*stats;
++	return &drmcs->css;
++}
 +
- 	/**
- 	 * @sched_list:
- 	 *
-@@ -351,6 +355,7 @@ struct drm_sched_job {
- 
- 	struct drm_sched_fence		*s_fence;
- 	struct drm_sched_entity         *entity;
-+	struct drm_sched_entity_stats	*entity_stats;
- 
- 	enum drm_sched_priority		s_priority;
- 	u32				credits;
++struct cftype files[] = {
++	{ } /* Zero entry terminates. */
++};
++
++struct cgroup_subsys drm_cgrp_subsys = {
++	.css_alloc	= drmcs_alloc,
++	.css_free	= drmcs_free,
++	.early_init	= false,
++	.legacy_cftypes	= files,
++	.dfl_cftypes	= files,
++};
 -- 
 2.48.0
 
