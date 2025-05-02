@@ -4,119 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DD16C3ABAA
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 19:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49678C3ABAA
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 20:32:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 619B910E8C3;
-	Fri,  2 May 2025 19:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6BE610E072;
+	Fri,  2 May 2025 20:32:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kbYBJTD8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GUXzI+wW";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7D9210E1C7
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 May 2025 19:49:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XkStAEYU5xm7r43YJ+NqRYH0KUtrrNnw6KS20QHJWv9fJ2R54MpCX5LXgult3gUHsruIGThERjecaZFcLyEIbpu7vg2SVHK7iBfmy3+lVsG99PDVX3iSCYRxtDUdQ/Zc4Y8Af+9F6amvWCfXNsR4kfY/dMV4fFascMwD5u4RxkP3Y6ZhwgT1iICt1hXkHLg3Idn6u6ZChGXYtfGdsWBrw8ifnaWnlYE1vYnkMuU1gUzFplxuRRFvAqitby5njbA83EnubkdeeYVqOAV/UY6DtXktnstVOWb+UBV5ineHFiJzOFudyuwIJk7S+DAeulEqz4sQKpfD5jbyGXj76nUcjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZTp3IwoGtpf8N7no4AkFnoAiejm3WDuL73gWSeVfg+I=;
- b=LMSJAkOjQ48YW+uzCtxSZLtwGiB3Fz4gA2FU+KVqPFLXpUHK17W78g2n5jHcDROR/e+Jf2Ug6LzZrQkPvY85dKLQuSXnxjhH32JYwzmDXIYkZiV337jbTzkuz5hiaGWB7IOAmI9ZAPFop5fgShlj/amDq1n9Tp1GZ1lmlPcDDY/LdeU/MBD1RgYEAc4LmBk4bTcbVg+d0TlnVQeyeacHoCGgQwp02HVA4mciJYDgBS8QYaYG7razh+TO/iX2RPfI6jE3vLAj2yj9RTPGapOqNvkXF44d4Z62ffTepUk+0ZMp5E8hcskYTp0RUnK/HBmi1V/NUqtWZawkT+R0UO4TyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZTp3IwoGtpf8N7no4AkFnoAiejm3WDuL73gWSeVfg+I=;
- b=kbYBJTD80Z03TZeAs6JflGs/gJzhhfRPwweLKFzlU9K9DYm9cVQUH0qSlTJu07Up5XGKME4HaWQMFsIo+MGzLHaNS88rkPoRYBOmluptCfik3m7NE3apJEZqZZEf5HiMe2S4E5qeml8xtovytLMa5aNnbmzvZMLRmL+Fk4yq26U=
-Received: from MW4PR02CA0012.namprd02.prod.outlook.com (2603:10b6:303:16d::35)
- by DS0PR12MB7512.namprd12.prod.outlook.com (2603:10b6:8:13a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.37; Fri, 2 May
- 2025 19:49:34 +0000
-Received: from CY4PEPF0000EE3E.namprd03.prod.outlook.com
- (2603:10b6:303:16d:cafe::9e) by MW4PR02CA0012.outlook.office365.com
- (2603:10b6:303:16d::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.24 via Frontend Transport; Fri,
- 2 May 2025 19:49:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3E.mail.protection.outlook.com (10.167.242.16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8699.20 via Frontend Transport; Fri, 2 May 2025 19:49:32 +0000
-Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 2 May 2025 14:49:31 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Eric Huang <jinhuieric.huang@amd.com>
-Subject: [PATCH] drm/amdkfd: change error to warning message for SDMA queues
- creation
-Date: Fri, 2 May 2025 15:49:18 -0400
-Message-ID: <20250502194918.214212-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A745710E072
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 May 2025 20:32:20 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-73de145c639so342469b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 May 2025 13:32:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746217940; x=1746822740; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9uqjNvIOmpv9qHMV2mSEQ2E6PQfnDmIC+9gPYhzGLRA=;
+ b=GUXzI+wWcBWFBoyaMqAHoOmkSG+ZIyEff4SRtD1mwwu0bksuH89LEQQOmW0XMNXQ9S
+ 1YBbwY6TeK8GokHns0GmdrxPdPSOcBVFNihr6IYL1WYGwB93b+ihVlYmzcNTP8rqb5hs
+ maL+1Ou1ln2Gbc9GmM6sZcZFcIn5h5ZFzUJFBErNMKN95rKkXRX8EeFlQx5E+w5JY51g
+ m96RnUhnO947+dfzXub4pLQg9il2orQ9p9BfucoNjxSmbc7tI8/2VOoDJCiM6uWvIFmh
+ 5bLJhJPaweO1+shUe5jhev9TIsIdA4/SXPj+WLpU4dMgpD50XVqlmoZ0BgnLAuSdPPM0
+ OqnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746217940; x=1746822740;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9uqjNvIOmpv9qHMV2mSEQ2E6PQfnDmIC+9gPYhzGLRA=;
+ b=C8j9JbyXlTfyX6nQ1eJumR1GOOyx65x8y2ex+vh0JNb2gIKiP1qNIuhjQ5++94dTaH
+ szFoPOKtNzXPUdtoplWf+Qq6qxfad6cBNOmqg1NWjXogEgpKKXlptO8SebNlJPkHV4tG
+ LmZomCbUg8syMQSIqQdVGD4oS6VNScvxpJKM79yoKeYIkG8yJsZQCV4gmlAT3pBO2EZz
+ Y/MCTOC2To3t43M8MeUnbrxrSnGSYdvAO757rzKarqVQ5FkjE6wAT8UQ011g/LmqgruI
+ aO9niFoO0SzQbSp1UOYmj3OfNRfn+ZW/PgzeewEQ0x19GYeh/4qwGAXuEPQ0bY4aubcu
+ ol7A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW0RHXyn1PuLqdxAWX8/wRDLW/osIR+3VQ+kbb32xqqCG6dHoTTJ974Sx6WfV+FJEtENmwjKEvS@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyWM77aDqb+drsJY84oHMdRknC31pxcHTPkC9nVrOBEX7TK5yNN
+ hAJ3HexEUC7aV99cnaR7S2wfS8+qc5N6LPFdqGq4PNJNQ1cafeIW+DY7QMv7OZG33C25ss5o3m1
+ i6eP5cpjYJRRwFA6qTJRtis3ysX0=
+X-Gm-Gg: ASbGnct/Ipws354YNh7tswwFjYiDLCGf/wGFQ8yUs/3TesNkQZQWqJbvRIA0VFV5lia
+ tfwlKf/qW5+liO5029jGLA4Arl2iHIYUfFywV3eCa5xqsUFhkY0PT0ko3F4T308ddcmtBTIUdbV
+ qEjoMHt3j5q/qEstovSELd1g==
+X-Google-Smtp-Source: AGHT+IGpsEn3LlaUachssPzQdIGJifZvj7NlRUDTsSVHRPHj46wHC+wyc1b0wMa3GftKzRnBxeW0Uio24lplzLCZ2V8=
+X-Received: by 2002:a17:90b:4d07:b0:306:b6ae:4d7a with SMTP id
+ 98e67ed59e1d1-30a4e69f90dmr2387811a91.3.1746217939904; Fri, 02 May 2025
+ 13:32:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3E:EE_|DS0PR12MB7512:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7b9e19d-2d60-41e2-dbcc-08dd89b2759e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jtVbNVt6aKEIKSGyBr6LM3qMcKv4+UQIKpP5ywzTwFxW8UZLIAxDQCL1XOc5?=
- =?us-ascii?Q?xwbJl66Brb6E/nJKLXWoNnvi6bgDPCrtnUuOCrEuX3vnOm8RsjkkNxizWaqf?=
- =?us-ascii?Q?i16C+UPGsam2hqB2lvrq6XKRCXRevEFi1Kek6YitcwLDfieHIBafh0vcswgO?=
- =?us-ascii?Q?AMfmDD2rXJak0oD76Lm6g3Ume+Xxbx1rY+DnDdNZtuU0jgbPUU0sgWAQTX6t?=
- =?us-ascii?Q?ERRt8jlD3CAtsZggQjqQ41phrnlOwVTbqbo5LVgI5pxVIZ5eBIPpbGAuTL/i?=
- =?us-ascii?Q?ZNurwvfNbE5VU0/bTNigzVU2owDNA1srW6NeVbygWSDpemcblsfrYMqGJrpN?=
- =?us-ascii?Q?9pBDEUDjKDU3PjsTMtWcF50/vtThsK/nMlPMYsSI47fwLJ7SGbKjfNrL4boO?=
- =?us-ascii?Q?vla0otQ3ojbryOQ1JjoRjMu+C3qExcSM3rWz9qHkZDT+TNwCCKgwKGyjsdxO?=
- =?us-ascii?Q?VCiBASDlFtzcQFerugMA4FMi28+72liULhNqXIoNXCR+Au091JEE4eyBdTLe?=
- =?us-ascii?Q?yLidfcq/2kMrb2++RiPyEI+RBfZAgfor0YmTQpo8dsB7na09n4K8gahIgbg9?=
- =?us-ascii?Q?FR4TCiYxHqOBWWf5uiOGqnuCfTnGXxh1xvhubO18/Df2LhB6DVXlzDt/2+69?=
- =?us-ascii?Q?Ush99YRcGg/YMhryZrRXbLKtrlImn1kV70md0aiMVeQv1TkJziM9Dwa6Do2u?=
- =?us-ascii?Q?VaRGarjrcDOJb9/tDjQHdDpcYU+y5U96QBNMkkIipR2QMYtMZyB02qgLEcuI?=
- =?us-ascii?Q?XLpk+z1HEoV2NiFpjDkd/N8Hnt9W2kdr4Y+zUmrR5VnLZQzInp6QtBGgrXIq?=
- =?us-ascii?Q?44mgepKhrYW2ZcYTD/PWSEpz4WjzvlXL8R40yVKw3pX5RYxK0ocK26wDk0pJ?=
- =?us-ascii?Q?NvUKTZDaZUKCYzO51H6tS3qP+U+FGxONRHtae4uFcLkcGsyoudll4Wlc3ymL?=
- =?us-ascii?Q?pr7E/3Ujo2t2IZpn4/jyGwXrT0NTcAiAAJNwUO5TahdJmPoBBrIdDF9FY6uh?=
- =?us-ascii?Q?jlpZooYzTYis1QiPcprrRwHSPtJk/y9rsd7B85nqblPqlx6f8bJCyj56OLmX?=
- =?us-ascii?Q?63CC3IIeYyvfB/Q36oRQMdEiVODWmka1ZwWWgyE3n/KEIFF8Qn35AbZYpeg5?=
- =?us-ascii?Q?OGyFXm3ELuDnLj2QqpKTxFkcgeKS0kWEL1AGnT6tho8ZUrj8j2poiutJ2V47?=
- =?us-ascii?Q?GxPvgE9CX6FoZ9KGtfph3D+l2w0iDJ5kjyxvp4FGJ04xRKV8Ep+Q3p384i8D?=
- =?us-ascii?Q?QCNcWIoVqlRUS8J778jXyoA0Vp0vAGMVvhkAitz24pEqc8GJ0o/5P1UFoxgN?=
- =?us-ascii?Q?Nxj0/a8caTaOndrrVQkpEQIHGWsRH10KqVRC3P9A6GP8GGiQDYF/mWZv6+6p?=
- =?us-ascii?Q?+SNuvvpCca2W0WbchNRPO9j9S48H7rCSae/Hy3v5ScQk0o23CcLiBJzJz0zq?=
- =?us-ascii?Q?XJuvcmESEh3qrdfYLc8vlkXGpjvRSAb4JCC0Rto+21NYDTJN4drEUuTqb+6h?=
- =?us-ascii?Q?YOOk2/0W+Q8CGGbH0wgjr7p0bjlt3AWN1MTa?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2025 19:49:32.5571 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7b9e19d-2d60-41e2-dbcc-08dd89b2759e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7512
+References: <20250501200931.358989-1-alexander.deucher@amd.com>
+ <20250501200931.358989-2-alexander.deucher@amd.com>
+ <b9884f1d-91fd-4b0c-9a81-acc5bd53c891@amd.com>
+In-Reply-To: <b9884f1d-91fd-4b0c-9a81-acc5bd53c891@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 2 May 2025 16:32:08 -0400
+X-Gm-Features: ATxdqUF4zRt_117_Jb3vv3IrsPkpN6hXjQv9ZtYrWhQxIIxcqZI97IMC7LoQXKM
+Message-ID: <CADnq5_P2GgCTWihgCQp=tKiatRqe-VY5acKgcVRMYiYdvwnVdQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: fix pm notifier handling
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,76 +83,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SDMA doesn't support oversubsciption, it is the user matter to create
-queues over HW limit, but not supposed to be a KFD error.
+On Fri, May 2, 2025 at 3:39=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> On 5/1/2025 3:09 PM, Alex Deucher wrote:
+> > Set the s3/s0ix and s4 flags in the pm notifier so that we can skip
+> > the resource evictions properly in pm prepare based on whether
+> > we are suspending or hibernating.  Drop the eviction as processes
+> > are not frozen at this time, we we can end up getting stuck trying
+> > to evict VRAM while applications continue to submit work which
+> > causes the buffers to get pulled back into VRAM.
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4178
+> > Fixes: 2965e6355dcd ("drm/amd: Add Suspend/Hibernate notification callb=
+ack support")
+> > Cc: Mario Limonciello <mario.limonciello@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 25 +++++++++++----------=
+-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 22 ++-----------------
+> >   2 files changed, 15 insertions(+), 32 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 71d95f16067a4..d232e4a26d7bf 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -4974,28 +4974,29 @@ static int amdgpu_device_evict_resources(struct=
+ amdgpu_device *adev)
+> >    * @data: data
+> >    *
+> >    * This function is called when the system is about to suspend or hib=
+ernate.
+> > - * It is used to evict resources from the device before the system goe=
+s to
+> > - * sleep while there is still access to swap.
+> > + * It is used to set the appropriate flags so that eviction can be opt=
+imized
+> > + * in the pm prepare callback.
+> >    */
+> >   static int amdgpu_device_pm_notifier(struct notifier_block *nb, unsig=
+ned long mode,
+> >                                    void *data)
+> >   {
+> >       struct amdgpu_device *adev =3D container_of(nb, struct amdgpu_dev=
+ice, pm_nb);
+> > -     int r;
+> >
+> >       switch (mode) {
+> >       case PM_HIBERNATION_PREPARE:
+> >               adev->in_s4 =3D true;
+> > -             fallthrough;
+> > +             break;
+> > +     case PM_POST_HIBERNATION:
+> > +             adev->in_s4 =3D false;
+> > +             break;
+> >       case PM_SUSPEND_PREPARE:
+> > -             r =3D amdgpu_device_evict_resources(adev);
+> > -             /*
+> > -              * This is considered non-fatal at this time because
+> > -              * amdgpu_device_prepare() will also fatally evict resour=
+ces.
+> > -              * See https://gitlab.freedesktop.org/drm/amd/-/issues/37=
+81
+> > -              */
+> > -             if (r)
+> > -                     drm_warn(adev_to_drm(adev), "Failed to evict reso=
+urces, freeze active processes if problems occur: %d\n", r);
+> > +             if (amdgpu_acpi_is_s0ix_active(adev))
+>
+> I don't believe this is valid "this early".
+>
+> pm_suspend()
+> ->enter_state()
+> ->->suspend_prepare()
+> ->->-> Call notification chains for PM_SUSPEND_PREPARE
+> ->->suspend_devices_and_enter()
+> ->->-> Set pm_suspend_target_state
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
----
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 14 ++++++++------
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 11 +++++++++--
- 2 files changed, 17 insertions(+), 8 deletions(-)
+hmmm.  Is there a way to determine whether we are going into hibernate
+vs. suspend in the pm prepare function?  I guess we could set
+adev->in_s4 here and then check if in_s4 is set in pm prepare, and if
+not, then call this logic to set the suspend flags in the prepare
+callback.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index c610e172a2b8..76359c6a3f3a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1576,8 +1576,9 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
- 	int bit;
- 
- 	if (q->properties.type == KFD_QUEUE_TYPE_SDMA) {
--		if (bitmap_empty(dqm->sdma_bitmap, KFD_MAX_SDMA_QUEUES)) {
--			dev_err(dev, "No more SDMA queue to allocate\n");
-+		if (bitmap_empty(dqm->sdma_bitmap, get_num_sdma_queues(dqm))) {
-+			dev_warn(dev, "No more SDMA queue to allocate (%d total queues)\n",
-+				 get_num_sdma_queues(dqm));
- 			return -ENOMEM;
- 		}
- 
-@@ -1602,8 +1603,9 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
- 		q->properties.sdma_queue_id = q->sdma_id /
- 				kfd_get_num_sdma_engines(dqm->dev);
- 	} else if (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI) {
--		if (bitmap_empty(dqm->xgmi_sdma_bitmap, KFD_MAX_SDMA_QUEUES)) {
--			dev_err(dev, "No more XGMI SDMA queue to allocate\n");
-+		if (bitmap_empty(dqm->xgmi_sdma_bitmap, get_num_xgmi_sdma_queues(dqm))) {
-+			dev_warn(dev, "No more XGMI SDMA queue to allocate (%d total queues)\n",
-+				 get_num_xgmi_sdma_queues(dqm));
- 			return -ENOMEM;
- 		}
- 		if (restore_sdma_id) {
-@@ -1662,8 +1664,8 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
- 		}
- 
- 		if (!free_bit_found) {
--			dev_err(dev, "No more SDMA queue to allocate for target ID %i\n",
--				q->properties.sdma_engine_id);
-+			dev_warn(dev, "No more SDMA queue to allocate for target ID %i (%d total queues)\n",
-+				 q->properties.sdma_engine_id, num_queues);
- 			return -ENOMEM;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 7eb370b68159..6d5fa57d4a23 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -451,8 +451,15 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 	}
- 
- 	if (retval != 0) {
--		pr_err("process pid %d DQM create queue type %d failed. ret %d\n",
--			pqm->process->lead_thread->pid, type, retval);
-+		if ((type == KFD_QUEUE_TYPE_SDMA ||
-+		    type == KFD_QUEUE_TYPE_SDMA_XGMI ||
-+		    type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) &&
-+		    retval == -ENOMEM)
-+			pr_warn("process pid %d DQM create queue type %d failed. ret %d\n",
-+				pqm->process->lead_thread->pid, type, retval);
-+		else
-+			pr_err("process pid %d DQM create queue type %d failed. ret %d\n",
-+				pqm->process->lead_thread->pid, type, retval);
- 		goto err_create_queue;
- 	}
- 
--- 
-2.34.1
+Alex
 
+>
+> > +                     adev->in_s0ix =3D true;
+> > +             else if (amdgpu_acpi_is_s3_active(adev))
+> > +                     adev->in_s3 =3D true;
+> > +             break;
+> > +     case PM_POST_SUSPEND:
+> > +             adev->in_s0ix =3D adev->in_s3 =3D false;
+> >               break;
+> >       }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_drv.c
+> > index cec041a556013..6599fb6313220 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -2572,10 +2572,6 @@ static int amdgpu_pmops_suspend(struct device *d=
+ev)
+> >       struct drm_device *drm_dev =3D dev_get_drvdata(dev);
+> >       struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
+> >
+> > -     if (amdgpu_acpi_is_s0ix_active(adev))
+> > -             adev->in_s0ix =3D true;
+> > -     else if (amdgpu_acpi_is_s3_active(adev))
+> > -             adev->in_s3 =3D true;
+> >       if (!adev->in_s0ix && !adev->in_s3) {
+> >               /* don't allow going deep first time followed by s2idle t=
+he next time */
+> >               if (adev->last_suspend_state !=3D PM_SUSPEND_ON &&
+> > @@ -2608,7 +2604,6 @@ static int amdgpu_pmops_resume(struct device *dev=
+)
+> >   {
+> >       struct drm_device *drm_dev =3D dev_get_drvdata(dev);
+> >       struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
+> > -     int r;
+> >
+> >       if (!adev->in_s0ix && !adev->in_s3)
+> >               return 0;
+> > @@ -2617,12 +2612,7 @@ static int amdgpu_pmops_resume(struct device *de=
+v)
+> >       if (!pci_device_is_present(adev->pdev))
+> >               adev->no_hw_access =3D true;
+> >
+> > -     r =3D amdgpu_device_resume(drm_dev, true);
+> > -     if (amdgpu_acpi_is_s0ix_active(adev))
+> > -             adev->in_s0ix =3D false;
+> > -     else
+> > -             adev->in_s3 =3D false;
+> > -     return r;
+> > +     return amdgpu_device_resume(drm_dev, true);
+> >   }
+> >
+> >   static int amdgpu_pmops_freeze(struct device *dev)
+> > @@ -2643,13 +2633,8 @@ static int amdgpu_pmops_freeze(struct device *de=
+v)
+> >   static int amdgpu_pmops_thaw(struct device *dev)
+> >   {
+> >       struct drm_device *drm_dev =3D dev_get_drvdata(dev);
+> > -     struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
+> > -     int r;
+> >
+> > -     r =3D amdgpu_device_resume(drm_dev, true);
+> > -     adev->in_s4 =3D false;
+> > -
+> > -     return r;
+> > +     return amdgpu_device_resume(drm_dev, true);
+> >   }
+> >
+> >   static int amdgpu_pmops_poweroff(struct device *dev)
+> > @@ -2662,9 +2647,6 @@ static int amdgpu_pmops_poweroff(struct device *d=
+ev)
+> >   static int amdgpu_pmops_restore(struct device *dev)
+> >   {
+> >       struct drm_device *drm_dev =3D dev_get_drvdata(dev);
+> > -     struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
+> > -
+> > -     adev->in_s4 =3D false;
+> >
+> >       return amdgpu_device_resume(drm_dev, true);
+> >   }
+>
