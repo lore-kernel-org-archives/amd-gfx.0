@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F0BFC3ABAC
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 16:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C31BC3ABAA
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 16:51:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43D110E95E;
-	Fri,  2 May 2025 16:46:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2FC810E95D;
+	Fri,  2 May 2025 16:51:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NcrU7vHD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d2kbVe0X";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7D0210E95E
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 May 2025 16:46:55 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-2ff6ce72844so251084a91.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 May 2025 09:46:55 -0700 (PDT)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6529310E95D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 May 2025 16:51:28 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2ff53b26af2so221843a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 May 2025 09:51:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746204415; x=1746809215; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1746204688; x=1746809488; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SljCBxHVd2ZEY1llCunKnXRD4c6KvmyOLrd13qoolk8=;
- b=NcrU7vHDqlaGW3makkRC4xjnGpSbwz6NseoT4EswppDH/PabklxrxR5GJrIZUpG7EH
- 8I3zPYdfp2O1DCZpmjxF6d4qI0UxY/gJR5Do27c7qRXCMjGEqpa8p9gH/utRYQWLvD/i
- 8yXrw5QRbpYbwDaRdbmF3y1aCEoBALgyolbWnfl8R0IjyWNKLXPdNtpKRE4EVQm1oRm7
- 0dGXPlWjKosCDVnFL21Minc4GvYxLvFleFWR1y/kgZecO2TDWsne9TCazVnASDNN5tnj
- 7LgCrvm2UZxl2JjbsBJti6V5G72rGqVznVHF4OkicpJfmr6eUjkRllapqmrX1fA/nSah
- gYFQ==
+ bh=Wz7DSu7GabkxS2eMKZ0fsTT614lyRMBDPrGC89v6T7M=;
+ b=d2kbVe0XeO7Qq/q6KchN5nzZY/0dZMA0C625F+TKrk8mA9rC9HIa3G21xzhpGGHqxk
+ mJrmyE6eL3t6uwDD4os9FvzN1V23LbpWO3baT8qHq9k/Qiu55uNtaTZGQZnmv5QNG4TL
+ P0qB3HEnW4u3zct603YIB5CuQXF3bam6mGfSpZu7n8ZTqzYDRH5OHyxGeA3cEpVcSpnu
+ MhSiTURyNl7lJVd7/eesb1zOthUIB6E/Oob5WztsHC2SNaK0IxUPwWgjQLkimXPLt1dM
+ uQ69GYXWn7cKq1kPgay+OEQ9n+gg77wECYAIw4hFrSm7FZufd2kAktgT/lxqjFYhIHH6
+ aFrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746204415; x=1746809215;
+ d=1e100.net; s=20230601; t=1746204688; x=1746809488;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SljCBxHVd2ZEY1llCunKnXRD4c6KvmyOLrd13qoolk8=;
- b=MBG5z8Ct/YX2ztICBViCvkcN1BOURJ08QYmn86pPdkUHEorvkxwcm2mHNiBUju8wKN
- 9ou0582faYmRQEsAWtvHCQQM7hquu7VAogUgowjQn1OUwFA8Klj9nywTKJrusAfdyAEK
- SdSg7KOVqHunlMmPiY8izcvOOnQT2JrdZCIsH8VV0pTkntDaY6OTNHUKXzatOm27lAje
- RCQmrqjjXfSkli/eVhniWY/5++MZwT/TzOfMIG3y2PTi1mkfCX4x1l39iq9uXhuoe+MH
- CYy/woaLRBVvHQnG1BLGQbNS+Y84BtkFABL17jUwsNW3ychUA0o/muvUgBiydXW6gT2I
- a5jA==
+ bh=Wz7DSu7GabkxS2eMKZ0fsTT614lyRMBDPrGC89v6T7M=;
+ b=eLYqK4WxCnChgOKMcvbLacCgSNMa5b/IuZSJWAFUEhOEz8VYU94+INx5e7+GGLtZ0/
+ 6TFRQDaenBZjDgd94brlmTOUvFEmKDCQe3XE8xrkVVPwrdBjG8kpZrzwhvSSA7UbEE5+
+ BiBk+4WmeE7NAyknwM9BAI1n/odrhTzFO3x7aGykTR5eHcsxaHywLJ0IDmcR+F6jCugN
+ rSYt0hx7tNz+JNKqkGD0jjUOY+knNJrTVt2V4E2Rt9n20ZpcwLiLonviZ8qas1X4LPBd
+ YSxqDN8J1asytY2m8TR5WXHbatNy6q5KN+uZwGuWr9Y2kXJIj0+359E5Q1z1SClCbq9Z
+ 9npg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUKUubUDaYf8FcucevQyrE/H8s5ehfFINaYx1gNVMhX8/tFgODHeqAWOvWs0lDhevi8kPYKbTX0@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyBUvFTJPvD7vk4eupOWwEHYu0wqzb3d/oG1do0y8Z7m9rVBnWa
- 7iPfGIBRgqnzP8+9+J3Y7x/e5M4DRfo/1fX7Hb9G2pb1yiqqsXpBvh3tNXPkC6fHKF7b45549BZ
- ULV37xPQnrDnzV1l5VxaOL+6BjaQ=
-X-Gm-Gg: ASbGncuBeVzfF23xhT7dNCtOyarj+sUlsuLeIiYfJhOHq5zF5yBoK28BOGYkI6NauXA
- 69o5FKklliKcFy/WSDh4xjaZJsofESvKaCt1+YcYYuC3vbzlCuvYv1bZN+bSbG4yqoTeQrloY8p
- yfOlaGVcD+2ue73w7MtR+LfA==
-X-Google-Smtp-Source: AGHT+IE0AastPoaobxu7yEKYlWS2EukC9LWWouQvlu4pqCoUgDCnID+W6Bo5Q9Yn0pyTectK+t5S3DEIBQLhC5iAG9s=
-X-Received: by 2002:a17:90a:e7d1:b0:2ff:4be6:c5bd with SMTP id
- 98e67ed59e1d1-30a4e6f8612mr2062376a91.8.1746204415230; Fri, 02 May 2025
- 09:46:55 -0700 (PDT)
+ AJvYcCWyxlhaQTbBGPwNCcH0MhzmsNdtxTOrnRT6lfem+pZhPNpJ5u+yqMWAKNAduIx35/sJv1TshcpR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxwiRPft+FmkHc5vXRZqnI+cjSqDRMrbzDtmbVGeuP26xWCFppV
+ rjpcZ0O3z1i8oKsmD7J0Si8Qmc9ekTTl0dI8c745lw58nqmMYNKzQOqulMZTAsJAdy+h0POpOzE
+ yGAj5dUoIpK093PRNL94VR6oJlosesG06
+X-Gm-Gg: ASbGncvkYdlSBJZbTDbozCCotN61ZyI7KvSF2x+USPt85uQE6aeRIipudUDiXnu4g3x
+ Re86Qus6mp5cHmjRBBAw3J1x8hhUFNrMt26C5s9aGjlIXbmOE1DVd4Geap9uFYRyC0KH2DBXoTZ
+ ++pTPvqW7SA+yx8VqHVzVg2KpFWAemLu7o
+X-Google-Smtp-Source: AGHT+IGe9ALqZTyzAbO/D6XjVDzsGnqabmATv2bLhMQfAgIWJZBg43H9VpGNKYpksXmSmp1IzrmzYYI1+zavsKU2nSQ=
+X-Received: by 2002:a17:90b:1642:b0:30a:28e2:a003 with SMTP id
+ 98e67ed59e1d1-30a4e621a86mr1942070a91.3.1746204687782; Fri, 02 May 2025
+ 09:51:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250502161720.1704-1-christian.koenig@amd.com>
- <20250502161720.1704-4-christian.koenig@amd.com>
-In-Reply-To: <20250502161720.1704-4-christian.koenig@amd.com>
+References: <20250428105031.1147636-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250428105031.1147636-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 2 May 2025 12:46:44 -0400
-X-Gm-Features: ATxdqUHD-MZVDfbSNy78BFa_31IK-aFmmc98ua9qMHJcM3APE4086A-lL5-vFYQ
-Message-ID: <CADnq5_N0a3HNTpuFDYVyhcTSPCU=7G2nTRNE6Z9XiwQqynqV6A@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/amdgpu: rework gfx8 queue reset
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Date: Fri, 2 May 2025 12:51:14 -0400
+X-Gm-Features: ATxdqUFiG5s7I4Mre1_odPMhEH8EBWQTMyu3A_BOaocGwlrntu2nzYc5B2BCGsU
+Message-ID: <CADnq5_OrQu9TnCxaFqaNnHFMzVcmh8QmYzN=iv81PgabvY+jMw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add Support for enforcing isolation without
+ Cleaner Shader
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,170 +83,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 2, 2025 at 12:43=E2=80=AFPM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+On Mon, Apr 28, 2025 at 7:28=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
-> Apply the same changes to gfx8 as done to gfx9.
+> Adjusted the enforce isolation setting handling to include the ability
+> to disable the cleaner shader without affecting isolation between tasks.
 >
-> Untested and probably needs some more work.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+
+Please update the module parameter documentation in amdgpu_drv.c as
+well.  With that fixed:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 86 ++++++++++++---------------
->  1 file changed, 38 insertions(+), 48 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     | 4 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 7 ++++++-
+>  4 files changed, 16 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v8_0.c
-> index 5ee2237d8ee8..8dd1ffecfa81 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -6140,12 +6140,45 @@ static void gfx_v8_0_ring_emit_fence_gfx(struct a=
-mdgpu_ring *ring, u64 addr,
->
->  }
->
-> +static void gfx_v8_0_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
-> +                                 int mem_space, int opt, uint32_t addr0,
-> +                                 uint32_t addr1, uint32_t ref, uint32_t =
-mask,
-> +                                 uint32_t inv)
-> +{
-> +       amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
-> +       amdgpu_ring_write(ring,
-> +                         /* memory (1) or register (0) */
-> +                         (WAIT_REG_MEM_MEM_SPACE(mem_space) |
-> +                          WAIT_REG_MEM_OPERATION(opt) | /* wait */
-> +                          WAIT_REG_MEM_FUNCTION(3) |  /* equal */
-> +                          WAIT_REG_MEM_ENGINE(eng_sel)));
-> +
-> +       WARN_ON(mem_space && addr0 & 0x3); /* Dword align */
-> +       amdgpu_ring_write(ring, addr0);
-> +       amdgpu_ring_write(ring, addr1);
-> +       amdgpu_ring_write(ring, ref);
-> +       amdgpu_ring_write(ring, mask);
-> +       amdgpu_ring_write(ring, inv); /* poll interval */
-> +}
-> +
-> +static void gfx_v8_0_ring_emit_reg_wait(struct amdgpu_ring *ring, uint32=
-_t reg,
-> +                                       uint32_t val, uint32_t mask)
-> +{
-> +       gfx_v8_0_wait_reg_mem(ring, 0, 0, 0, reg, 0, val, mask, 0x20);
-> +}
-> +
->  static void gfx_v8_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
->  {
->         int usepfp =3D (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX);
->         uint32_t seq =3D ring->fence_drv.sync_seq;
->         uint64_t addr =3D ring->fence_drv.gpu_addr;
->
-> +       gfx_v8_0_ring_emit_reg_wait(ring, mmCP_VMID_RESET, 0, 0xffff);
-> +       amdgpu_ring_emit_wreg(ring, mmCP_VMID_RESET, 0);
-> +       amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
-> +                              ring->fence_drv.sync_seq,
-> +                              AMDGPU_FENCE_FLAG_EXEC);
-> +
->         amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
->         amdgpu_ring_write(ring, (WAIT_REG_MEM_MEM_SPACE(1) | /* memory */
->                                  WAIT_REG_MEM_FUNCTION(3) | /* equal */
-> @@ -6339,46 +6372,6 @@ static void gfx_v8_0_ring_emit_wreg(struct amdgpu_=
-ring *ring, uint32_t reg,
->         amdgpu_ring_write(ring, val);
->  }
->
-> -static void gfx_v8_0_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
-> -                                 int mem_space, int opt, uint32_t addr0,
-> -                                 uint32_t addr1, uint32_t ref, uint32_t =
-mask,
-> -                                 uint32_t inv)
-> -{
-> -       amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
-> -       amdgpu_ring_write(ring,
-> -                         /* memory (1) or register (0) */
-> -                         (WAIT_REG_MEM_MEM_SPACE(mem_space) |
-> -                          WAIT_REG_MEM_OPERATION(opt) | /* wait */
-> -                          WAIT_REG_MEM_FUNCTION(3) |  /* equal */
-> -                          WAIT_REG_MEM_ENGINE(eng_sel)));
-> -
-> -       if (mem_space)
-> -               BUG_ON(addr0 & 0x3); /* Dword align */
-> -       amdgpu_ring_write(ring, addr0);
-> -       amdgpu_ring_write(ring, addr1);
-> -       amdgpu_ring_write(ring, ref);
-> -       amdgpu_ring_write(ring, mask);
-> -       amdgpu_ring_write(ring, inv); /* poll interval */
-> -}
-> -
-> -static void gfx_v8_0_ring_emit_reg_wait(struct amdgpu_ring *ring, uint32=
-_t reg,
-> -                                       uint32_t val, uint32_t mask)
-> -{
-> -       gfx_v8_0_wait_reg_mem(ring, 0, 0, 0, reg, 0, val, mask, 0x20);
-> -}
-> -
-> -static void gfx_v8_0_ring_soft_recovery(struct amdgpu_ring *ring, unsign=
-ed vmid)
-> -{
-> -       struct amdgpu_device *adev =3D ring->adev;
-> -       uint32_t value =3D 0;
-> -
-> -       value =3D REG_SET_FIELD(value, SQ_CMD, CMD, 0x03);
-> -       value =3D REG_SET_FIELD(value, SQ_CMD, MODE, 0x01);
-> -       value =3D REG_SET_FIELD(value, SQ_CMD, CHECK_VMID, 1);
-> -       value =3D REG_SET_FIELD(value, SQ_CMD, VM_ID, vmid);
-> -       WREG32(mmSQ_CMD, value);
-> -}
-> -
->  static void gfx_v8_0_set_gfx_eop_interrupt_state(struct amdgpu_device *a=
-dev,
->                                                  enum amdgpu_interrupt_st=
-ate state)
->  {
-> @@ -6875,14 +6868,13 @@ static int gfx_v8_0_reset_kgq(struct amdgpu_ring =
-*ring, unsigned int vmid)
->         if (r)
->                 return r;
->
-> -       if (amdgpu_ring_alloc(ring, 7 + 12 + 5))
-> +       if (amdgpu_ring_alloc(ring, 7 + 12 + 5 + 7))
->                 return -ENOMEM;
-> -       gfx_v8_0_ring_emit_fence_gfx(ring, ring->fence_drv.gpu_addr,
-> -                                    ring->fence_drv.sync_seq, AMDGPU_FEN=
-CE_FLAG_EXEC);
-> -       gfx_v8_0_ring_emit_reg_wait(ring, mmCP_VMID_RESET, 0, 0xffff);
-> -       gfx_v8_0_ring_emit_wreg(ring, mmCP_VMID_RESET, 0);
->
-> -       return amdgpu_ring_test_ring(ring);
-> +       gfx_v8_0_ring_emit_pipeline_sync(ring);
-> +       amdgpu_ring_commit(ring);
-> +
-> +       return gfx_v8_0_ring_test_ib(ring, AMDGPU_QUEUE_RESET_TIMEOUT);
->  }
->
->  static const struct amd_ip_funcs gfx_v8_0_ip_funcs =3D {
-> @@ -6948,7 +6940,6 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring=
-_funcs_gfx =3D {
->         .emit_cntxcntl =3D gfx_v8_ring_emit_cntxcntl,
->         .init_cond_exec =3D gfx_v8_0_ring_emit_init_cond_exec,
->         .emit_wreg =3D gfx_v8_0_ring_emit_wreg,
-> -       .soft_recovery =3D gfx_v8_0_ring_soft_recovery,
->         .emit_mem_sync =3D gfx_v8_0_emit_mem_sync,
->         .reset =3D gfx_v8_0_reset_kgq,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index cc26cf1bd843..7e5ae8f1f0a9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -878,6 +878,7 @@ enum amdgpu_enforce_isolation_mode {
+>         AMDGPU_ENFORCE_ISOLATION_DISABLE =3D 0,
+>         AMDGPU_ENFORCE_ISOLATION_ENABLE =3D 1,
+>         AMDGPU_ENFORCE_ISOLATION_ENABLE_LEGACY =3D 2,
+> +       AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER =3D 3,
 >  };
-> @@ -6983,7 +6974,6 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring=
-_funcs_compute =3D {
->         .insert_nop =3D amdgpu_ring_insert_nop,
->         .pad_ib =3D amdgpu_ring_generic_pad_ib,
->         .emit_wreg =3D gfx_v8_0_ring_emit_wreg,
-> -       .soft_recovery =3D gfx_v8_0_ring_soft_recovery,
-
-Same here.
-
-Alex
-
->         .emit_mem_sync =3D gfx_v8_0_emit_mem_sync_compute,
->         .emit_wave_limit =3D gfx_v8_0_emit_wave_limit,
->  };
+>
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index 0941b3495b2c..9ea0d9b71f48 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -310,6 +310,10 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *=
+p,
+>                         p->jobs[i]->enforce_isolation =3D true;
+>                         p->jobs[i]->run_cleaner_shader =3D false;
+>                         break;
+> +               case AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER:
+> +                       p->jobs[i]->enforce_isolation =3D true;
+> +                       p->jobs[i]->run_cleaner_shader =3D false;
+> +                       break;
+>                 }
+>         }
+>         p->gang_leader =3D p->jobs[p->gang_leader_idx];
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index fe68ba9997ae..8330e30f0caf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2163,6 +2163,11 @@ static int amdgpu_device_check_arguments(struct am=
+dgpu_device *adev)
+>                         adev->enforce_isolation[i] =3D
+>                                 AMDGPU_ENFORCE_ISOLATION_ENABLE_LEGACY;
+>                         break;
+> +               case 3:
+> +                       /* enable only process isolation without submitti=
+ng cleaner shader */
+> +                       adev->enforce_isolation[i] =3D
+> +                               AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADE=
+R;
+> +                       break;
+>                 }
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 8f1a2f7b03c1..9d4396ca52ac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1689,7 +1689,8 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(str=
+uct device *dev,
+>         for (i =3D 0; i < num_partitions; i++) {
+>                 if (partition_values[i] !=3D 0 &&
+>                     partition_values[i] !=3D 1 &&
+> -                   partition_values[i] !=3D 2)
+> +                   partition_values[i] !=3D 2 &&
+> +                   partition_values[i] !=3D 3)
+>                         return -EINVAL;
+>         }
+>
+> @@ -1708,6 +1709,10 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(st=
+ruct device *dev,
+>                         adev->enforce_isolation[i] =3D
+>                                 AMDGPU_ENFORCE_ISOLATION_ENABLE_LEGACY;
+>                         break;
+> +               case 3:
+> +                       adev->enforce_isolation[i] =3D
+> +                               AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADE=
+R;
+> +                       break;
+>                 }
+>         }
+>         mutex_unlock(&adev->enforce_isolation_mutex);
 > --
 > 2.34.1
 >
