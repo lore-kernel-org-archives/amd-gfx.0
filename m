@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCC9C3ABB8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3322C3ABAA
 	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 16:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C4D10E923;
-	Fri,  2 May 2025 16:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7040F10E951;
+	Fri,  2 May 2025 16:17:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EKvo4ICu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZC+3Uj5V";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D77810E951
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8B4C10E951
  for <amd-gfx@lists.freedesktop.org>; Fri,  2 May 2025 16:17:25 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-ac2a81e41e3so393163966b.1
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-ac2bdea5a38so313609466b.0
  for <amd-gfx@lists.freedesktop.org>; Fri, 02 May 2025 09:17:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1746202644; x=1746807444; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hp/INaGdeIbsNHymOzZ3YEWDLRpWD7uUdZorTJbSbEQ=;
- b=EKvo4ICuXslSgaEZquSrYyn0mpeN0aIbAcWzaScoE4A55R6oE+5amv3nzGICrvskEP
- ZczgGXJRNWv/UrhPhPonI8vep52YH749+YtvsVz4RzCSIpRGcb+80H/hT3AyqJTDXMRJ
- ZLfHOZWiVvtXt4qB+ohHCHDHFTz+UFAVW8RjFyyY/RbzpUOcq3fmGfG3sHu86Y6Fsv/9
- p/1lkBWbi24z+F7vF86W0zYqb3qrp8zWgMhG6xc2vQDI5GBuFEd2kPAGHzcS+pIAGKCT
- dItClqV2j6FNfYZM0Bwvv4xcgWOhE81QKllEKWF2gowZXXKtwri3+8hs2OGMEaIPjF/m
- r/3A==
+ :reply-to; bh=XCQbHIy2jWvAYrJI0+hadYu8+75NvtGT4UUM9b/XC0w=;
+ b=ZC+3Uj5V0/UbW9GuRSVAnYSw8ooJ2mFd12jclb6JcL+qcwhy6W8LFb2LMOoc0K6zLA
+ 6es9/e2jLxeab5i+odmwzXp6TfbfMBrGqwjgwHEqh5nMWw6m2vaLaJlhv2Rc5+1SegGx
+ phBJ2NXsfxEH4sJ8WM/iECNiDxt4oswPOWL6j+oTEn/p43v5Wu4Yd2fDHUrEL5buNh+9
+ NHpvFuk45Y8Lq7kbsmkSIFKJy+onmhhTmGCPo7qzvJ3UMYOVTwZjT2o3ebEaVk9JqgJH
+ zucYOdm4Du9yTENBnWbnNeuoEOIskT8oXL0P+Vsl0n/1gQu4bNGl+cV2QXArXAM7ufMl
+ fVrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1746202644; x=1746807444;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hp/INaGdeIbsNHymOzZ3YEWDLRpWD7uUdZorTJbSbEQ=;
- b=GTpN5QH5LVXCmMHF7XIblY5f+Gb1n7d13PLhnym8VdSmnz6WaPIIW+zdXOzLiIhORu
- o/nkKReakrMCXL+DpFUJ3UBfi943TiZNAHhc3NSBXNcR5fea4hxz2ZQIIXM5v8PIhMKw
- 9WDdqWv3liLPC+PXjaBVflUbS1zNR57YYK9LbhLxdbOk8sNKxKHH+UNb+BOarqWoFMO7
- eQ+t+jkC5vMTb4T3oqsfvpzTd6BX4STnx+vZusXKdOPuZRfJ5LwH2AVjdJeCA6vpxOKG
- 3TbUqm6R9js0FI5ShswP5s5a7tESLXhbD3ABqqXh9atE9M1PamTtb3v6zLZTuQb+se5X
- 94yg==
+ bh=XCQbHIy2jWvAYrJI0+hadYu8+75NvtGT4UUM9b/XC0w=;
+ b=q6lYO8AODmgc9sm7H3KI6vBZEs6DuqiT6uPejPW4fQ24AKoqLyH9vezbWw9FFFQ/xq
+ A8cQRlDecTAC0OC/MPHZO42GdXve4mgRSZ/yfbPAzjS5ZNxxwdl+jl6S93/En0X4FkhW
+ BwPNzXegiv2gpFbgNeWEpZHOTNDMJgkgPlERlVoYAYAgyXtZhQopYbrzC1ee2W9dj+G4
+ 5Zv5hpQVY0zIS9+xBscFNB3BzMgdD7+Q+BQWndVmVLjswqVuXK0dtnvbET/xYBvdAcvv
+ OYSw2QBGz6MncZAdlHdHKn6gutl2h1HZTtIkxGzn9lB6GUkKuCWaAEG+fVJQaoqIvyF5
+ Nbpw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUR9AWYQxL68SV/vfWfu6C0kh0aU/SZUoAmzzx6ydTbC1HtBTSGOuKIOHpAdl0zNUBkkPuPOXMO@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyakPo7hIsIUsw/9rd41W0G+hYjDqjc3caTlFiGee9o7ogkkD99
- eB2ov2wJUYICGHc4L794W1yNoWTzV9bU4gm6SCyM/C235gZ4uwFIaJezmFBf3o4=
-X-Gm-Gg: ASbGncuAjodWILFD3V2RRdwKNeCIdGzSp6xAQ3d1RR4ZVleIxXHkGvhNsy0kuS/tL6f
- VHVZH6Y2+NIizelaMybwLf8wUNfB3Q/me/dMervW+BvFvlX1AS1lJ5TYj6t4v5co8BjJ9qjA5NC
- CgQZLoYJ51leYi6nav776DemvG+f0KyaARkiCIs0VEro2Ma4vNiEMmyw1Ts+lCwNyIb730T9IoW
- 7Jv+OuyHernEFCBuIqhYTEDUS/otaVTwIC3nMeDj6d8IxGs0Arwa9oXBU3i7n1jVzT0FAU4aqZz
- hXKl4a7zt2LijhHJEiKAt9u2caUeyRW+XgRysCum+YwQajceWUTfSuvThHxDLCph
-X-Google-Smtp-Source: AGHT+IFvH1AcM6JoqMmsMW9VJeo/qenk8bY4D5BX+z3xOgrv/UI5RFPG7axV1QCOx2D7YSfuOTiumA==
-X-Received: by 2002:a17:907:803:b0:ac7:66fb:6a07 with SMTP id
- a640c23a62f3a-ad17ad1aca4mr365579666b.6.1746202643617; 
- Fri, 02 May 2025 09:17:23 -0700 (PDT)
+ AJvYcCWvZbQtuTavoNdygEopNr0clG/aoDyBGIzNwgUT9fCTs2+68m0gIj+91KqzMPcvXC/TNhqs/shm@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCeJSCZ2Mt0LPcLcaskhyzhWulEVyyLhXa2M6vPqxBa8RkAV8r
+ 9Wfdy0VHAQqAXG/qa4ILAhqMcKXtF3brV+3Qe2IJKE+YR/VB10ad
+X-Gm-Gg: ASbGnctF7eY2+mbZViidUlgwUu6ZebEVRE1ooLlDQxK70NZRvW46neXdp2q09OO6Xs/
+ 0wPV6ykGZPpW6DdzSU92tN7o+I8mfiPu7n+g8hStyOjlosMNbm8bJu2c3LsznWkxIlIrDUyTbB5
+ NAow4CE8vjgeMPfxD2mrl8zOF1Bk/sybH7Nmo8wqJD0R7S4GQdP20jbo/pYJL+wup8cdPrGuX4v
+ N8sLkFRE80Mq4xCVXmBu27K0MUQt8bzuSko/QUvy8eHHCGsBQvKi4rrbUIjawvWIiuRD4KMxq3s
+ kTjvXTs5WSL0mcN6jvpNqNFipKDvbI/3pDhmJiGJdf18MWFcq5HsxjeZFtRMaxjn
+X-Google-Smtp-Source: AGHT+IG9oTSnEydizAUCzQPziK2mvb2DjOjdk84MgY5XVqn0X2KE/7YnpGftd0pgvU7G3nZjAGmq4A==
+X-Received: by 2002:a17:907:7da4:b0:ace:c43a:63e9 with SMTP id
+ a640c23a62f3a-ad17aeff6c5mr340784666b.42.1746202644254; 
+ Fri, 02 May 2025 09:17:24 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15b1:4a00:5585:4c76:3645:c6fa])
  by smtp.gmail.com with ESMTPSA id
  a640c23a62f3a-ad189509088sm68748766b.146.2025.05.02.09.17.23
@@ -65,9 +65,9 @@ X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: Alexander.Deucher@amd.com,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/5] drm/amdgpu: rework gfx8 queue reset
-Date: Fri,  2 May 2025 18:17:19 +0200
-Message-Id: <20250502161720.1704-4-christian.koenig@amd.com>
+Subject: [PATCH 5/5] drm/amdgpu: rework gfx10 queue reset
+Date: Fri,  2 May 2025 18:17:20 +0200
+Message-Id: <20250502161720.1704-5-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250502161720.1704-1-christian.koenig@amd.com>
 References: <20250502161720.1704-1-christian.koenig@amd.com>
@@ -88,98 +88,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Apply the same changes to gfx8 as done to gfx9.
+Apply the same changes to gfx10 as done to gfx9.
 
-Untested and probably needs some more work.
+The general idea to reset the whole kernel queue and then asking the kiq
+to map it again didn't worked at all. Background is that we don't use per
+application kernel queues for gfx10 on Linux for performance reasons.
+
+So instead use the gfx9 approach here as well and only reset all
+submissions from a specific VMID instead of the whole queue.
+
+Navi 10 seems to be stable, but Navi 2x still shows hangs during over
+night testing. This needs more investigation, but the result is clearly
+better than before.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 86 ++++++++++++---------------
- 1 file changed, 38 insertions(+), 48 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 57 ++++++++------------------
+ 1 file changed, 16 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 5ee2237d8ee8..8dd1ffecfa81 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -6140,12 +6140,45 @@ static void gfx_v8_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64 addr,
- 
- }
- 
-+static void gfx_v8_0_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
-+				  int mem_space, int opt, uint32_t addr0,
-+				  uint32_t addr1, uint32_t ref, uint32_t mask,
-+				  uint32_t inv)
-+{
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
-+	amdgpu_ring_write(ring,
-+			  /* memory (1) or register (0) */
-+			  (WAIT_REG_MEM_MEM_SPACE(mem_space) |
-+			   WAIT_REG_MEM_OPERATION(opt) | /* wait */
-+			   WAIT_REG_MEM_FUNCTION(3) |  /* equal */
-+			   WAIT_REG_MEM_ENGINE(eng_sel)));
-+
-+	WARN_ON(mem_space && addr0 & 0x3); /* Dword align */
-+	amdgpu_ring_write(ring, addr0);
-+	amdgpu_ring_write(ring, addr1);
-+	amdgpu_ring_write(ring, ref);
-+	amdgpu_ring_write(ring, mask);
-+	amdgpu_ring_write(ring, inv); /* poll interval */
-+}
-+
-+static void gfx_v8_0_ring_emit_reg_wait(struct amdgpu_ring *ring, uint32_t reg,
-+					uint32_t val, uint32_t mask)
-+{
-+	gfx_v8_0_wait_reg_mem(ring, 0, 0, 0, reg, 0, val, mask, 0x20);
-+}
-+
- static void gfx_v8_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 75ea071744eb..41cc0d6db15b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -8746,7 +8746,17 @@ static void gfx_v10_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
  	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
  	uint32_t seq = ring->fence_drv.sync_seq;
  	uint64_t addr = ring->fence_drv.gpu_addr;
++	struct amdgpu_device *adev = ring->adev;
  
-+	gfx_v8_0_ring_emit_reg_wait(ring, mmCP_VMID_RESET, 0, 0xffff);
-+	amdgpu_ring_emit_wreg(ring, mmCP_VMID_RESET, 0);
++	amdgpu_ring_emit_reg_wait(ring,
++				  SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET),
++				  0, 0xffff);
++	amdgpu_ring_emit_wreg(ring,
++			      SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET),
++			      0);
 +	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
 +			       ring->fence_drv.sync_seq,
 +			       AMDGPU_FENCE_FLAG_EXEC);
-+
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
- 	amdgpu_ring_write(ring, (WAIT_REG_MEM_MEM_SPACE(1) | /* memory */
- 				 WAIT_REG_MEM_FUNCTION(3) | /* equal */
-@@ -6339,46 +6372,6 @@ static void gfx_v8_0_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t reg,
- 	amdgpu_ring_write(ring, val);
+ 	gfx_v10_0_wait_reg_mem(ring, usepfp, 1, 0, lower_32_bits(addr),
+ 			       upper_32_bits(addr), seq, 0xffffffff, 4);
+ }
+@@ -9046,21 +9056,6 @@ static void gfx_v10_0_ring_emit_reg_write_reg_wait(struct amdgpu_ring *ring,
+ 							   ref, mask);
  }
  
--static void gfx_v8_0_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
--				  int mem_space, int opt, uint32_t addr0,
--				  uint32_t addr1, uint32_t ref, uint32_t mask,
--				  uint32_t inv)
--{
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
--	amdgpu_ring_write(ring,
--			  /* memory (1) or register (0) */
--			  (WAIT_REG_MEM_MEM_SPACE(mem_space) |
--			   WAIT_REG_MEM_OPERATION(opt) | /* wait */
--			   WAIT_REG_MEM_FUNCTION(3) |  /* equal */
--			   WAIT_REG_MEM_ENGINE(eng_sel)));
--
--	if (mem_space)
--		BUG_ON(addr0 & 0x3); /* Dword align */
--	amdgpu_ring_write(ring, addr0);
--	amdgpu_ring_write(ring, addr1);
--	amdgpu_ring_write(ring, ref);
--	amdgpu_ring_write(ring, mask);
--	amdgpu_ring_write(ring, inv); /* poll interval */
--}
--
--static void gfx_v8_0_ring_emit_reg_wait(struct amdgpu_ring *ring, uint32_t reg,
--					uint32_t val, uint32_t mask)
--{
--	gfx_v8_0_wait_reg_mem(ring, 0, 0, 0, reg, 0, val, mask, 0x20);
--}
--
--static void gfx_v8_0_ring_soft_recovery(struct amdgpu_ring *ring, unsigned vmid)
+-static void gfx_v10_0_ring_soft_recovery(struct amdgpu_ring *ring,
+-					 unsigned int vmid)
 -{
 -	struct amdgpu_device *adev = ring->adev;
 -	uint32_t value = 0;
@@ -188,48 +142,89 @@ index 5ee2237d8ee8..8dd1ffecfa81 100644
 -	value = REG_SET_FIELD(value, SQ_CMD, MODE, 0x01);
 -	value = REG_SET_FIELD(value, SQ_CMD, CHECK_VMID, 1);
 -	value = REG_SET_FIELD(value, SQ_CMD, VM_ID, vmid);
--	WREG32(mmSQ_CMD, value);
+-	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+-	WREG32_SOC15(GC, 0, mmSQ_CMD, value);
+-	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
 -}
 -
- static void gfx_v8_0_set_gfx_eop_interrupt_state(struct amdgpu_device *adev,
- 						 enum amdgpu_interrupt_state state)
- {
-@@ -6875,14 +6868,13 @@ static int gfx_v8_0_reset_kgq(struct amdgpu_ring *ring, unsigned int vmid)
+ static void
+ gfx_v10_0_set_gfx_eop_interrupt_state(struct amdgpu_device *adev,
+ 				      uint32_t me, uint32_t pipe,
+@@ -9529,38 +9524,21 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ring *ring, unsigned int vmid)
+ 	struct amdgpu_ring *kiq_ring = &kiq->ring;
+ 	unsigned long flags;
+ 	u32 tmp;
+-	u64 addr;
+ 	int r;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		return -EINVAL;
+ 
+-	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+-		return -EINVAL;
+-
+ 	spin_lock_irqsave(&kiq->ring_lock, flags);
+ 
+-	if (amdgpu_ring_alloc(kiq_ring, 5 + 7 + 7 + kiq->pmf->map_queues_size)) {
++	if (amdgpu_ring_alloc(kiq_ring, 5)) {
+ 		spin_unlock_irqrestore(&kiq->ring_lock, flags);
+ 		return -ENOMEM;
+ 	}
+ 
+-	addr = amdgpu_bo_gpu_offset(ring->mqd_obj) +
+-		offsetof(struct v10_gfx_mqd, cp_gfx_hqd_active);
+ 	tmp = REG_SET_FIELD(0, CP_VMID_RESET, RESET_REQUEST, 1 << vmid);
+-	if (ring->pipe == 0)
+-		tmp = REG_SET_FIELD(tmp, CP_VMID_RESET, PIPE0_QUEUES, 1 << ring->queue);
+-	else
+-		tmp = REG_SET_FIELD(tmp, CP_VMID_RESET, PIPE1_QUEUES, 1 << ring->queue);
+-
+ 	gfx_v10_0_ring_emit_wreg(kiq_ring,
+ 				 SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET), tmp);
+-	gfx_v10_0_wait_reg_mem(kiq_ring, 0, 1, 0,
+-			       lower_32_bits(addr), upper_32_bits(addr),
+-			       0, 1, 0x20);
+-	gfx_v10_0_ring_emit_reg_wait(kiq_ring,
+-				     SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET), 0, 0xffffffff);
+-	kiq->pmf->kiq_map_queues(kiq_ring, ring);
+ 	amdgpu_ring_commit(kiq_ring);
+ 
+ 	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+@@ -9569,13 +9547,12 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ring *ring, unsigned int vmid)
  	if (r)
  		return r;
  
--	if (amdgpu_ring_alloc(ring, 7 + 12 + 5))
-+	if (amdgpu_ring_alloc(ring, 7 + 12 + 5 + 7))
- 		return -ENOMEM;
--	gfx_v8_0_ring_emit_fence_gfx(ring, ring->fence_drv.gpu_addr,
--				     ring->fence_drv.sync_seq, AMDGPU_FENCE_FLAG_EXEC);
--	gfx_v8_0_ring_emit_reg_wait(ring, mmCP_VMID_RESET, 0, 0xffff);
--	gfx_v8_0_ring_emit_wreg(ring, mmCP_VMID_RESET, 0);
+-	r = gfx_v10_0_kgq_init_queue(ring, true);
+-	if (r) {
+-		DRM_ERROR("fail to init kgq\n");
+-		return r;
+-	}
++	if (amdgpu_ring_alloc(ring, 7 + 7 + 5 + 7))
++		return -ENOMEM;
++	gfx_v10_0_ring_emit_pipeline_sync(ring);
++	amdgpu_ring_commit(ring);
  
 -	return amdgpu_ring_test_ring(ring);
-+	gfx_v8_0_ring_emit_pipeline_sync(ring);
-+	amdgpu_ring_commit(ring);
-+
-+	return gfx_v8_0_ring_test_ib(ring, AMDGPU_QUEUE_RESET_TIMEOUT);
++	return gfx_v10_0_ring_test_ib(ring, AMDGPU_QUEUE_RESET_TIMEOUT);
  }
  
- static const struct amd_ip_funcs gfx_v8_0_ip_funcs = {
-@@ -6948,7 +6940,6 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_gfx = {
- 	.emit_cntxcntl = gfx_v8_ring_emit_cntxcntl,
- 	.init_cond_exec = gfx_v8_0_ring_emit_init_cond_exec,
- 	.emit_wreg = gfx_v8_0_ring_emit_wreg,
--	.soft_recovery = gfx_v8_0_ring_soft_recovery,
- 	.emit_mem_sync = gfx_v8_0_emit_mem_sync,
- 	.reset = gfx_v8_0_reset_kgq,
- };
-@@ -6983,7 +6974,6 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_compute = {
- 	.insert_nop = amdgpu_ring_insert_nop,
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.emit_wreg = gfx_v8_0_ring_emit_wreg,
--	.soft_recovery = gfx_v8_0_ring_soft_recovery,
- 	.emit_mem_sync = gfx_v8_0_emit_mem_sync_compute,
- 	.emit_wave_limit = gfx_v8_0_emit_wave_limit,
- };
+ static int gfx_v10_0_reset_kcq(struct amdgpu_ring *ring,
+@@ -9882,7 +9859,6 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
+ 	.emit_wreg = gfx_v10_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
+ 	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
+-	.soft_recovery = gfx_v10_0_ring_soft_recovery,
+ 	.emit_mem_sync = gfx_v10_0_emit_mem_sync,
+ 	.reset = gfx_v10_0_reset_kgq,
+ 	.emit_cleaner_shader = gfx_v10_0_ring_emit_cleaner_shader,
+@@ -9923,7 +9899,6 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_compute = {
+ 	.emit_wreg = gfx_v10_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
+ 	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
+-	.soft_recovery = gfx_v10_0_ring_soft_recovery,
+ 	.emit_mem_sync = gfx_v10_0_emit_mem_sync,
+ 	.reset = gfx_v10_0_reset_kcq,
+ 	.emit_cleaner_shader = gfx_v10_0_ring_emit_cleaner_shader,
 -- 
 2.34.1
 
