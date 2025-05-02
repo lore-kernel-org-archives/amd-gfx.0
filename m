@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF375C3ABAD
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 12:34:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F69DC3ABAA
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 12:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACEA410E931;
-	Fri,  2 May 2025 12:34:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E13B010E93A;
+	Fri,  2 May 2025 12:34:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="e2RJW7Xg";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="s2YqRzk9";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81F9E10E91D;
- Fri,  2 May 2025 12:34:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CFE210E931;
+ Fri,  2 May 2025 12:34:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,24 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=72snEt3ZzIW9rCkBuxuK9L1bR23Zmo75BZXUOhGYdvY=; b=e2RJW7XgafGb747SInnNIFYX1s
- BApOwORHSFQFoj+b8vNGqQ7qEj0pI6mRJR89xtQu+9jTdxM8YBYFNiZoGqufhqBs+u5MGsFPvxJVu
- CBZskHU9TGyfjxrFWZWEC9Z6lT3MxWgaBA+vtwILwO3o1z6UxPuQ5QISlsD6nfCZX9lx/Q+NOC28s
- hmzvIWoSowSRl0P1SpE3SQbLDqC0Cq3llmbfPit5p2XXWGUae7MLFuRXfhfLzJK5z0XIcE6RgwKP7
- xBHXpBWG2XmedS6pesvWa/B7pp9l6BLY4d0m4Yeaais41msl7KrxrhRuGyBHg0BvUym1F8riCPtJi
- J0JSERZA==;
+ bh=+s6ZYqOc3/xbSeofHQv6+dQsdSP4hTK/ZwaWWTgpIMw=; b=s2YqRzk9EvS5k9Bl2N0Q/WbFdr
+ bkQv0JzShjHNByS9xXYwd9MfFKEyu77TivbvJuw2ADUw4E4F4SZ2LHi09QnQU/Y+9JALIOLH/0ur4
+ 7HjLrKJhTSPBVHX1k/dfqvE12B5CYXo4JSVEMzLrYW0rKAiFSbIFxU00bV0eI8miVgA4madZqGhQj
+ sZrDjxkxZzyAKGQ0kMjiudG7mX102DTnqez2ai/dDR+WjewyZQxgVAVxETmKVNsOMkDsJR59nmZzB
+ olPmUPlrQpcNy1FErV8slQiDKAfRDMe6VTdv0GbKv/YZUlvXKRKugjByrkg31wcgSiwaq3LepQHWR
+ WIwO3ikA==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uApZ0-0025IT-9G; Fri, 02 May 2025 14:34:13 +0200
+ id 1uApZ3-0025J8-5j; Fri, 02 May 2025 14:34:16 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 19/23] cgroup/drm: Add scheduling weight callback
-Date: Fri,  2 May 2025 13:32:52 +0100
-Message-ID: <20250502123256.50540-20-tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [RFC 23/23] drm/amdgpu: Register with the DRM scheduling cgroup
+ controller
+Date: Fri,  2 May 2025 13:32:56 +0100
+Message-ID: <20250502123256.50540-24-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
 References: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
@@ -59,132 +60,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Connect the driver to the DRM scheduling cgroup controller by using the
+appropriate DRM scheduler helpers.
 
-Add a new callback via which the drm cgroup controller will be notifying
-clients about their scheduling weight.
-
-At the same time, in order to reduce the amount of tracking with drivers
-which will not support any sort of control from the drm cgroup controller
-side, lets express the funcionality as opt-in and use the presence of
-drm_cgroup_ops as an activation criteria.
+First part is tracking the scheduling entities belonging to clients and
+second is to register the weight change notification helper in the driver
+specific struct drm_cgroup_ops.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- include/drm/drm_drv.h | 26 ++++++++++++++++++++++++++
- kernel/cgroup/drm.c   | 27 +++++++++++++++++++++++++++
- 2 files changed, 53 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 13 ++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  9 +++++++++
+ 3 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index a43d707b5f36..4267ed1e63f1 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -169,6 +169,22 @@ enum drm_driver_feature {
- 	DRIVER_HAVE_IRQ			= BIT(30),
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index c43d1b6e5d66..f9c0d15006cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -22,6 +22,7 @@
+  * Authors: monk liu <monk.liu@amd.com>
+  */
+ 
++#include <linux/cgroup_drm.h>
+ #include <drm/drm_auth.h>
+ #include <drm/drm_drv.h>
+ #include "amdgpu.h"
+@@ -258,6 +259,8 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 	if (cmpxchg(&ctx->entities[hw_ip][ring], NULL, entity))
+ 		goto cleanup_entity;
+ 
++	drm_sched_cgroup_track_sched_entity(ctx->filp, &entity->entity);
++
+ 	return 0;
+ 
+ cleanup_entity:
+@@ -331,6 +334,7 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
+ 	memset(ctx, 0, sizeof(*ctx));
+ 
+ 	kref_init(&ctx->refcount);
++	ctx->filp = filp;
+ 	ctx->mgr = mgr;
+ 	spin_lock_init(&ctx->ring_lock);
+ 
+@@ -511,10 +515,15 @@ static void amdgpu_ctx_do_release(struct kref *ref)
+ 	ctx = container_of(ref, struct amdgpu_ctx, refcount);
+ 	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+ 		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
++			struct drm_sched_entity *entity;
++
+ 			if (!ctx->entities[i][j])
+ 				continue;
+ 
+-			drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
++			entity = &ctx->entities[i][j]->entity;
++			drm_sched_cgroup_untrack_sched_entity(ctx->filp,
++							      entity);
++			drm_sched_entity_destroy(entity);
+ 		}
+ 	}
+ 
+@@ -941,6 +950,8 @@ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+ 					continue;
+ 
+ 				entity = &ctx->entities[i][j]->entity;
++				drm_sched_cgroup_untrack_sched_entity(ctx->filp,
++								      entity);
+ 				drm_sched_entity_fini(entity);
+ 			}
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 85376baaa92f..b8afd069c277 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -44,6 +44,7 @@ struct amdgpu_ctx_entity {
+ 
+ struct amdgpu_ctx {
+ 	struct kref			refcount;
++	struct drm_file			*filp;
+ 	struct amdgpu_ctx_mgr		*mgr;
+ 	unsigned			reset_counter;
+ 	unsigned			reset_counter_query;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 24ee4710f807..927522429b04 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2950,6 +2950,12 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
  };
  
-+/**
-+ * struct drm_cgroup_ops
-+ *
-+ * This structure contains callbacks that drivers can provide if they are able
-+ * support the functionalities implemented by the DRM cgroup controller.
-+ */
-+struct drm_cgroup_ops {
-+	/**
-+	 * @notify_weight:
-+	 *
-+	 * Optional callback used by the DRM core to notify clients of their
-+	 * scheduling weight.
-+	 */
-+	void (*notify_weight) (struct drm_file *, unsigned int weight);
-+};
-+
- /**
-  * struct drm_driver - DRM driver structure
-  *
-@@ -431,6 +447,16 @@ struct drm_driver {
- 	 * some examples.
- 	 */
- 	const struct file_operations *fops;
-+
 +#ifdef CONFIG_CGROUP_DRM
-+	/**
-+	 * @cg_ops:
-+	 *
-+	 * Optional pointer to driver callbacks facilitating integration with
-+	 * the DRM cgroup controller.
-+	 */
-+	const struct drm_cgroup_ops *cg_ops;
++static const struct drm_cgroup_ops amdgpu_drm_cgroup_ops = {
++	.notify_weight = drm_sched_cgroup_notify_weight,
++};
 +#endif
- };
- 
- void *__devm_drm_dev_alloc(struct device *parent,
-diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-index e9dc1e7cc4a4..ea7655edf86a 100644
---- a/kernel/cgroup/drm.c
-+++ b/kernel/cgroup/drm.c
-@@ -7,6 +7,8 @@
- #include <linux/mutex.h>
- #include <linux/slab.h>
- 
-+#include <drm/drm_drv.h>
 +
- struct drm_cgroup_state {
- 	struct cgroup_subsys_state css;
+ static const struct drm_driver amdgpu_kms_driver = {
+ 	.driver_features =
+ 	    DRIVER_ATOMIC |
+@@ -2968,6 +2974,9 @@ static const struct drm_driver amdgpu_kms_driver = {
+ #ifdef CONFIG_PROC_FS
+ 	.show_fdinfo = amdgpu_show_fdinfo,
+ #endif
++#ifdef CONFIG_CGROUP_DRM
++	.cg_ops = &amdgpu_drm_cgroup_ops,
++#endif
  
-@@ -29,6 +31,22 @@ css_to_drmcs(struct cgroup_subsys_state *css)
- 	return container_of(css, struct drm_cgroup_state, css);
- }
+ 	.gem_prime_import = amdgpu_gem_prime_import,
  
-+static void __maybe_unused
-+drmcs_notify_weight(struct drm_cgroup_state *drmcs)
-+{
-+	struct drm_file *fpriv;
-+
-+	lockdep_assert_held(&drmcg_mutex);
-+
-+	list_for_each_entry(fpriv, &drmcs->clients, clink) {
-+		const struct drm_cgroup_ops *cg_ops =
-+			fpriv->minor->dev->driver->cg_ops;
-+
-+		if (cg_ops && cg_ops->notify_weight)
-+			cg_ops->notify_weight(fpriv, 0);
-+	}
-+}
-+
- static void drmcs_free(struct cgroup_subsys_state *css)
- {
- 	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
-@@ -59,6 +77,9 @@ void drmcgroup_client_open(struct drm_file *file_priv)
- {
- 	struct drm_cgroup_state *drmcs;
- 
-+	if (!file_priv->minor->dev->driver->cg_ops)
-+		return;
-+
- 	drmcs = css_to_drmcs(task_get_css(current, drm_cgrp_id));
- 
- 	mutex_lock(&drmcg_mutex);
-@@ -74,6 +95,9 @@ void drmcgroup_client_close(struct drm_file *file_priv)
- 
- 	drmcs = css_to_drmcs(file_priv->__css);
- 
-+	if (!file_priv->minor->dev->driver->cg_ops)
-+		return;
-+
- 	mutex_lock(&drmcg_mutex);
- 	list_del(&file_priv->clink);
- 	file_priv->__css = NULL;
-@@ -88,6 +112,9 @@ void drmcgroup_client_migrate(struct drm_file *file_priv)
- 	struct drm_cgroup_state *src, *dst;
- 	struct cgroup_subsys_state *old;
- 
-+	if (!file_priv->minor->dev->driver->cg_ops)
-+		return;
-+
- 	mutex_lock(&drmcg_mutex);
- 
- 	old = file_priv->__css;
 -- 
 2.48.0
 
