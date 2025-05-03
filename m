@@ -4,76 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14678C369DC
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 May 2025 09:20:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F07C3ABB7
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 May 2025 09:20:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7123710E0AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E2210E043;
 	Sun,  4 May 2025 09:20:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YlqxA5gs";
+	dkim=pass (1024-bit key; secure) header.d=nordisch.org header.i=@nordisch.org header.b="OgXCRqGn";
+	dkim=permerror (0-bit key) header.d=nordisch.org header.i=@nordisch.org header.b="FaQAbq0L";
 	dkim-atps=neutral
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34DC010E0F3;
- Sat,  3 May 2025 04:03:02 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-7390d21bb1cso2986242b3a.2; 
- Fri, 02 May 2025 21:03:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746244982; x=1746849782; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=CJ2Tkvvfpj90dmnZ0mNyuTsk+45XAVhzjrPr9zSBiKQ=;
- b=YlqxA5gsmbF1F8Rv5l1X/TDNnhFVIcEcACN9jRq0bWopyYd2jouV//KHdq1n9YasNF
- 7r5OQItBAZkgV0Go/jVKA0o/jsULVJp4oFwxSvw42NpG67HhKgeaIseTRc4d7cdf2IDZ
- u209LARTIOqOh70CRwuwRjoJXyQQdQgQcNhg83Q2sKu8P3EPW1nH2h3nhPQP1p7EJs7p
- JMoHjJBkjXxjBHF51gPj71FeyER5Qht/cVZ7I9/5AZyfXqTvGDHWCzeNtyEvFbm41eM4
- iGXBjpNxuZqyQs9ExmMrPrKG8C/7wPHaGOg99qXUt3mr8HwJIqemJbkxByMnpPITjIY7
- k0Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746244982; x=1746849782;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CJ2Tkvvfpj90dmnZ0mNyuTsk+45XAVhzjrPr9zSBiKQ=;
- b=aS042CEq6hrhGbt9/6wseGATeDj0iNDeIkT+GRND0pqTWBF5kVcU/2rVgqzRSM8QNa
- n8y7CMPuBj+NVVK/gfKP85qbm2rPI0AgET1fucRqf+tK7t7gpcW0R/CT0kBzykb3E1HV
- 4PUo6fTekbCXaMJDZ4wTXngqJ59sUaPVZryy16LvjCCoeJKW/dBb3sTaRD4UgIN4ySF1
- rwzJuOLYj3JVWrIPGKGymNsDn7/R0I5RNDC38fGT/F9Udw9TkSQ77q0Fc9eYYXXdFiPh
- Y6A8igkbzHlvNhxGldC3mthSRcYGbfKy8tZNMSSbjjy15A6lVHeqssw8vctW/lNJ6MDG
- V6Fw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV9qBuRqjIWXbQtn5pQHDZiN46DegWBMuuP839UkHfpncY9dnXRvLqEfFDZVTuJ9C7If64RnORG@lists.freedesktop.org,
- AJvYcCVkgrokRIGI/UcBbW3dyicqhWrnQWMbRwKIwfHi9P3UXRM8NQUX5z0CTT19NJlygvxUcXUGVFGfnKpm@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhSNZn8QbTZkYt2uRjVgt+uVskmbNZTXieXbqRlTHmoHDRPWFj
- 6W8a8KVBNC9Nm4AtsXRxcH1MBjnNeTzSwdDzraY74GSLq9zef5bS
-X-Gm-Gg: ASbGncuk7Dj08X9f2b3o2s8kVhtzSPiZXZqHENlm1sWvM/m+uytZcEDUFwOQvfa3ZcG
- qxWCFTrZG3SDIAYBV1ep1Cr0AMYKW6FLuzjvnkAMm4v8zWF1zvxveSdtakSqc+DFAy/p0tGYyJl
- CSyJWwSVuEPf4mqNJjTHK1JpCgnmFlgKbKh9Gu9kD3m6p5maUHLIKOGm/tG3v8WY9KjpMmYJeUz
- cQ/snNiLE6myjwDfwikzTQxF6m4rXe0cSSQnu65iTEJVA/TnnuHzt5d2VlSWAFHquXH/QK5RHDm
- w2fJJ/EUtPZ9VMUYLG4lUky+uzn/EUGJY2lkd/Fa8WSZJlW49xj3arko
-X-Google-Smtp-Source: AGHT+IGgla39AeJLTSauxjt9SDkJfyqCogvLUunOgNXcPWLrTk8t8UYfKdnxG2Cy1AkqYmPH6lYIOg==
-X-Received: by 2002:a05:6a00:aa05:b0:736:33fd:f57d with SMTP id
- d2e1a72fcca58-74058ae66dcmr5964879b3a.17.1746244981418; 
- Fri, 02 May 2025 21:03:01 -0700 (PDT)
-Received: from localhost.localdomain ([2804:14c:33:8de4:c9a7:81c0:bb40:1785])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74059064cf2sm2520944b3a.142.2025.05.02.21.02.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 May 2025 21:03:00 -0700 (PDT)
-From: Sebastian Aguilera Novoa <saguileranbr@gmail.com>
-X-Google-Original-From: Sebastian Aguilera Novoa <saguileran@ime.usp.br>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: saguileran@ime.usp.br, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v2] drm/amd/display/dc/irq: Remove duplications of hpd_ack
- function from IRQ
-Date: Sat,  3 May 2025 00:59:46 -0300
-Message-ID: <20250503035949.11132-1-saguileran@ime.usp.br>
-X-Mailer: git-send-email 2.43.0
+Received: from tengu.nordisch.org (unknown [138.201.201.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D98EF10E0B7
+ for <amd-gfx@lists.freedesktop.org>; Sat,  3 May 2025 02:57:29 +0000 (UTC)
+Received: from [192.168.3.6] (fortress.wg.nordisch.org [192.168.3.6])
+ by tengu.nordisch.org (Postfix) with ESMTPSA id F12CE766F09;
+ Sat, 03 May 2025 04:57:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nordisch.org;
+ s=tengu_rsa; t=1746241038;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=77+U92Nliwz1Y9GhB5zaSrT5PC13YSpJb05RufmfIic=;
+ b=OgXCRqGnBA7LCVp6wi2rlnkuXwt2xBs8XiwlH+IoaiiSMVHcG+RoFEZnvx5tprgyox5O/v
+ owY2xf3KlcB3cy7gkda14vYa7ECtpxJU3OFuZltVGhiYy4LCbXQ/87Oj1+5N8LrPcY3Df+
+ Cc3jQaccTvspPH/rBsuIK3JLbkKIyf0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=nordisch.org;
+ s=tengu_ed25519; t=1746241038;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=77+U92Nliwz1Y9GhB5zaSrT5PC13YSpJb05RufmfIic=;
+ b=FaQAbq0L51nyN/eBHsYihtZ5XMO3yrIo7XTVV/BSWhymLwUcuGghYRaT9/mHZSmFc2Lq/+
+ xP1kyB/GZUdjGABQ==
+Message-ID: <70453a8d3eb51477c49170db87b2397d02d12b15.camel@nordisch.org>
+Subject: Re: amdgpu: Reproducible soft lockups when playing games
+From: Marcus =?ISO-8859-1?Q?R=FCckert?= <amd@nordisch.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Borislav Petkov <bp@alien8.de>, amd-gfx@lists.freedesktop.org
+Date: Sat, 03 May 2025 04:57:17 +0200
+In-Reply-To: <CADnq5_OfudYrLEf2OWqhaC2LWVOc_rGBs+NaizT2MfmxU=sZsA@mail.gmail.com>
+References: <123e013307ad395b3e26c2dd53fb99594191dda0.camel@nordisch.org>
+ <20250429130929.GCaBDPiT_CwyKmHB5o@fat_crate.local>
+ <CADnq5_PBjOYV5TH5EDXBVvth1ZX6S_TcpDOKOMrbDJUEDzkTww@mail.gmail.com>
+ <688457c1079a5cdbb81a0dd21e6d744e72c89101.camel@nordisch.org>
+ <CADnq5_OfudYrLEf2OWqhaC2LWVOc_rGBs+NaizT2MfmxU=sZsA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 May 2025 09:20:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,894 +69,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The major of dcn and dce irqs share a copy-pasted collection
-of copy-pasted function, which is: hpd_ack.
+On Thu, 2025-05-01 at 09:32 -0400, Alex Deucher wrote:
+> On Wed, Apr 30, 2025 at 7:28=E2=80=AFPM Marcus R=C3=BCckert <amd@nordisch=
+.org>
+> wrote:
+> >=20
+> > On Wed, 2025-04-30 at 09:55 -0400, Alex Deucher wrote:
+> > > please make sure your kernel has these three patches:
+> > > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
+t/commit/?id=3D4408b59eeacfea777aae397177f49748cadde5ce
+> > > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
+t/commit/?id=3Dafcdf51d97cd58dd7a2e0aa8acbaea5108fa6826
+> > > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
+t/commit/?id=3D366e77cd4923c3aa45341e15dcaf3377af9b042f
+> >=20
+> > I am kinda sure that's the patches Takashi backported into our
+> > 6.14.3.
+> > They are already part of 6.15.rc4 no?
+>=20
+> Yes, I think so.
 
-This patch removes the multiple copy-pasted by moving them to
-the irq_service.c and make the irq_service's
-calls the functions implemented by the irq_service.c
-instead.
+FWIW: I could trigger another flip_done timeout.
 
-The hpd_ack function is replaced by hpd0_ack and hpd1_ack, the
-required constants are also added.
+https://gitlab.freedesktop.org/drm/amd/-/issues/4201
 
-The changes were not tested on actual hardware. I am only able
-to verify that the changes keep the code compileable and do my
-best to look repeatedly if I am not actually changing any code.
+video stream (might even be using hardware decoding) seems like a good
+trigger for this. I think most of my flip_done issues had twitch
+running while doing something.
 
-Signed-off-by: Sebastian Aguilera Novoa <saguileran@ime.usp.br>
----
- .../dc/irq/dce120/irq_service_dce120.c        | 29 +--------
- .../display/dc/irq/dce60/irq_service_dce60.c  | 31 +--------
- .../display/dc/irq/dce80/irq_service_dce80.c  | 31 +--------
- .../display/dc/irq/dcn10/irq_service_dcn10.c  | 29 +--------
- .../display/dc/irq/dcn20/irq_service_dcn20.c  | 29 +--------
- .../dc/irq/dcn201/irq_service_dcn201.c        | 29 +--------
- .../display/dc/irq/dcn21/irq_service_dcn21.c  | 29 +--------
- .../display/dc/irq/dcn30/irq_service_dcn30.c  | 30 +--------
- .../dc/irq/dcn302/irq_service_dcn302.c        | 19 +-----
- .../dc/irq/dcn303/irq_service_dcn303.c        | 19 +-----
- .../display/dc/irq/dcn31/irq_service_dcn31.c  | 29 +--------
- .../dc/irq/dcn314/irq_service_dcn314.c        | 29 +--------
- .../dc/irq/dcn315/irq_service_dcn315.c        | 29 +--------
- .../display/dc/irq/dcn32/irq_service_dcn32.c  | 29 +--------
- .../display/dc/irq/dcn35/irq_service_dcn35.c  | 29 +--------
- .../dc/irq/dcn351/irq_service_dcn351.c        | 29 +--------
- .../display/dc/irq/dcn36/irq_service_dcn36.c  | 29 +--------
- .../dc/irq/dcn401/irq_service_dcn401.c        | 29 +--------
- .../gpu/drm/amd/display/dc/irq/irq_service.c  | 64 +++++++++++++++++++
- .../gpu/drm/amd/display/dc/irq/irq_service.h  |  8 +++
- 20 files changed, 90 insertions(+), 489 deletions(-)
+> > > soft recover kills stuck shaders, so I'd suggest trying a newer
+> > > version of mesa and LLVM.=C2=A0 If that doesn't help, please file a
+> > > ticket
+> > > here:
+> >=20
+> > Newer Mesa is building although I didnt see anything radv related.
+> >=20
+> > I am curious in
+> > https://gitlab.freedesktop.org/drm/amd/-/issues/4192
+> > there is a lot more details about the crash than what I see. with
+> > what
+> > kind of flags/environment variables do I have to run to get the
+> > same?
+> >=20
+>=20
+> That issue is directly related to suspend and resume.=C2=A0 I.e., the
+> issues only happen after a suspend cycle.=C2=A0 Is that also what you are
+> seeing?
 
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c b/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-index 953f4a4dacad..33ce470e4c88 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-@@ -37,36 +37,9 @@
- 
- #include "ivsrcid/ivsrcid_vislands30.h"
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce60/irq_service_dce60.c b/drivers/gpu/drm/amd/display/dc/irq/dce60/irq_service_dce60.c
-index 2c72074310c7..d777b85e70da 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dce60/irq_service_dce60.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dce60/irq_service_dce60.c
-@@ -46,36 +46,9 @@
- 
- #include "dc_types.h"
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			DC_HPD1_INT_STATUS,
--			DC_HPD1_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		DC_HPD1_INT_CONTROL,
--		DC_HPD1_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd1_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-@@ -391,5 +364,3 @@ struct irq_service *dal_irq_service_dce60_create(
- 	dce60_irq_construct(irq_service, init_data);
- 	return irq_service;
- }
--
--
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c b/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-index 49317934ef4f..3a9163acb49b 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-@@ -37,36 +37,9 @@
- 
- #include "dc_types.h"
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			DC_HPD1_INT_STATUS,
--			DC_HPD1_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		DC_HPD1_INT_CONTROL,
--		DC_HPD1_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd1_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-@@ -303,5 +276,3 @@ struct irq_service *dal_irq_service_dce80_create(
- 	dce80_irq_construct(irq_service, init_data);
- 	return irq_service;
- }
--
--
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c b/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-index 9ca28565a9d1..4ce9edd16344 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-@@ -129,36 +129,9 @@ static enum dc_irq_source to_dal_irq_source_dcn10(struct irq_service *irq_servic
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-index 916f0c974637..5847af0e66cb 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-@@ -130,36 +130,9 @@ static enum dc_irq_source to_dal_irq_source_dcn20(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-index 1d61d475d36f..6417011d2246 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-@@ -80,36 +80,9 @@ static enum dc_irq_source to_dal_irq_source_dcn201(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-index 42cdfe6c3538..71d2f065140b 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-@@ -132,36 +132,9 @@ static enum dc_irq_source to_dal_irq_source_dcn21(struct irq_service *irq_servic
- 	return DC_IRQ_SOURCE_INVALID;
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c b/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
-index a443a8abb1ea..2a4080bdcf6b 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
-@@ -139,36 +139,9 @@ static enum dc_irq_source to_dal_irq_source_dcn30(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-@@ -447,4 +420,3 @@ struct irq_service *dal_irq_service_dcn30_create(
- 	dcn30_irq_construct(irq_service, init_data);
- 	return irq_service;
- }
--
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c b/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
-index 8ffc7e2c681a..624f1ac309f8 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
-@@ -126,26 +126,9 @@ static enum dc_irq_source to_dal_irq_source_dcn302(struct irq_service *irq_servi
- 	}
- }
- 
--static bool hpd_ack(struct irq_service *irq_service, const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status = get_reg_field_value(value, HPD0_DC_HPD_INT_STATUS, DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(value, current_status ? 0 : 1, HPD0_DC_HPD_INT_CONTROL, DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 		.set = NULL,
--		.ack = hpd_ack
-+		.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c b/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
-index 262bb8b74b15..137caffae916 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
-@@ -77,26 +77,9 @@ static enum dc_irq_source to_dal_irq_source_dcn303(struct irq_service *irq_servi
- 	}
- }
- 
--static bool hpd_ack(struct irq_service *irq_service, const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status = get_reg_field_value(value, HPD0_DC_HPD_INT_STATUS, DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(value, current_status ? 0 : 1, HPD0_DC_HPD_INT_CONTROL, DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 		.set = NULL,
--		.ack = hpd_ack
-+		.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
-index 53e78ae7eecf..921cb167d920 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
-@@ -128,36 +128,9 @@ static enum dc_irq_source to_dal_irq_source_dcn31(struct irq_service *irq_servic
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-index e0563e880432..0118fd6e5db0 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-@@ -130,36 +130,9 @@ static enum dc_irq_source to_dal_irq_source_dcn314(struct irq_service *irq_servi
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-index 2ef22299101a..adebfc888618 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-@@ -135,36 +135,9 @@ static enum dc_irq_source to_dal_irq_source_dcn315(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
-index f839afacd5a5..e9e315c75d76 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
-@@ -129,36 +129,9 @@ static enum dc_irq_source to_dal_irq_source_dcn32(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs  = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c b/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
-index ea8c271171bc..79e5e8c137ca 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
-@@ -127,36 +127,9 @@ static enum dc_irq_source to_dal_irq_source_dcn35(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c b/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
-index 7ec8e0de2f01..163b8ee9ebf7 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
-@@ -106,36 +106,9 @@ static enum dc_irq_source to_dal_irq_source_dcn351(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c b/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
-index ea958628f8b8..f716ab0fd30e 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
-@@ -105,36 +105,9 @@ static enum dc_irq_source to_dal_irq_source_dcn36(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c b/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
-index 8499e505cf3e..fd9bb1950c20 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
-@@ -109,36 +109,9 @@ static enum dc_irq_source to_dal_irq_source_dcn401(
- 	}
- }
- 
--static bool hpd_ack(
--	struct irq_service *irq_service,
--	const struct irq_source_info *info)
--{
--	uint32_t addr = info->status_reg;
--	uint32_t value = dm_read_reg(irq_service->ctx, addr);
--	uint32_t current_status =
--		get_reg_field_value(
--			value,
--			HPD0_DC_HPD_INT_STATUS,
--			DC_HPD_SENSE_DELAYED);
--
--	dal_irq_service_ack_generic(irq_service, info);
--
--	value = dm_read_reg(irq_service->ctx, info->enable_reg);
--
--	set_reg_field_value(
--		value,
--		current_status ? 0 : 1,
--		HPD0_DC_HPD_INT_CONTROL,
--		DC_HPD_INT_POLARITY);
--
--	dm_write_reg(irq_service->ctx, info->enable_reg, value);
--
--	return true;
--}
--
- static struct irq_source_info_funcs hpd_irq_info_funcs = {
- 	.set = NULL,
--	.ack = hpd_ack
-+	.ack = hpd0_ack
- };
- 
- static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-index eca3d7ee7e4e..b595a11c5eaf 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-@@ -41,6 +41,16 @@
- #include "reg_helper.h"
- #include "irq_service.h"
- 
-+//HPD0_DC_HPD_INT_STATUS
-+#define HPD0_DC_HPD_INT_STATUS__DC_HPD_SENSE_DELAYED_MASK		0x00000010L
-+#define HPD0_DC_HPD_INT_CONTROL__DC_HPD_INT_POLARITY_MASK		0x00000100L
-+#define HPD0_DC_HPD_INT_STATUS__DC_HPD_SENSE_DELAYED__SHIFT		0x4
-+#define HPD0_DC_HPD_INT_CONTROL__DC_HPD_INT_POLARITY__SHIFT     0x8
-+//HPD1_DC_HPD_INT_STATUS
-+#define DC_HPD1_INT_STATUS__DC_HPD1_SENSE_DELAYED_MASK			0x10
-+#define DC_HPD1_INT_STATUS__DC_HPD1_SENSE_DELAYED__SHIFT		0x4
-+#define DC_HPD1_INT_CONTROL__DC_HPD1_INT_POLARITY_MASK			0x100
-+#define DC_HPD1_INT_CONTROL__DC_HPD1_INT_POLARITY__SHIFT		0x8
- 
- 
- #define CTX \
-@@ -177,3 +187,57 @@ enum dc_irq_source dal_irq_service_to_irq_source(
- 		src_id,
- 		ext_id);
- }
-+
-+bool hpd0_ack(
-+	struct irq_service *irq_service,
-+	const struct irq_source_info *info)
-+{
-+	uint32_t addr = info->status_reg;
-+	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-+	uint32_t current_status =
-+		get_reg_field_value(
-+			value,
-+			HPD0_DC_HPD_INT_STATUS,
-+			DC_HPD_SENSE_DELAYED);
-+
-+	dal_irq_service_ack_generic(irq_service, info);
-+
-+	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-+
-+	set_reg_field_value(
-+		value,
-+		current_status ? 0 : 1,
-+		HPD0_DC_HPD_INT_CONTROL,
-+		DC_HPD_INT_POLARITY);
-+
-+	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-+
-+	return true;
-+}
-+
-+bool hpd1_ack(
-+	struct irq_service *irq_service,
-+	const struct irq_source_info *info)
-+{
-+	uint32_t addr = info->status_reg;
-+	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-+	uint32_t current_status =
-+		get_reg_field_value(
-+			value,
-+			DC_HPD1_INT_STATUS,
-+			DC_HPD1_SENSE_DELAYED);
-+
-+	dal_irq_service_ack_generic(irq_service, info);
-+
-+	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-+
-+	set_reg_field_value(
-+		value,
-+		current_status ? 0 : 1,
-+		DC_HPD1_INT_CONTROL,
-+		DC_HPD1_INT_POLARITY);
-+
-+	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-+
-+	return true;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.h b/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-index b178f85944cd..bbcef3d2fe33 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-+++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-@@ -82,4 +82,12 @@ void dal_irq_service_set_generic(
- 	const struct irq_source_info *info,
- 	bool enable);
- 
-+bool hpd0_ack(
-+	struct irq_service *irq_service,
-+	const struct irq_source_info *info);
-+
-+bool hpd1_ack(
-+	struct irq_service *irq_service,
-+	const struct irq_source_info *info);
-+
- #endif
--- 
-2.43.0
+Nope. I am just referencing it as it contains more details than I see,
+and I wonder what I have to do to get the same amount of extra details
+to provide more useful information for you.
+
+> > An observation from my latest crash:
+> >=20
+> > ```
+> > May 01 01:05:59 steam[223306]: radv/amdgpu: The CS has been
+> > cancelled
+> > because the context is lost. This context is guilty of a soft
+> > recovery.
+> > May 01 01:06:05 steam[223306]: Game Recording - game stopped
+> > [gameid=3D2357570]
+> > May 01 01:06:05 steam[223306]: Removing process 352353 for gameID
+> > 2357570
+> > ```
+> >=20
+> > Is the game launched by steam inheriting that context or could it
+> > really be the steam process triggering it? As 223306 would be
+>=20
+> The kernel driver stops accepting commands from a process if it
+> caused
+> a hang unless the process recreates its context.=C2=A0 I'm not really sur=
+e
+> what's going on here based on the limited context, but I suspect the
+> game causes a GPU hang so the recording process stopped because of
+> that.
+
+on the front of the ring timeout bug: I saw that dxvk had at least one
+issue with RDNA4 and ring timeout.
+
+https://github.com/doitsujin/dxvk/issues/4756
+
+So i switched from glorrious eggroll's build to proton experimental
+from valve. I have not seen any more ring timeout bugs since.
+
+Which made me wonder why the context shows a steam binary as the owner
+of the context and now the wine/game process underneath and if this
+could be improved.
+
+hth
+
+   darix
+
+--=20
+Always remember:
+  Never accept the world as it appears to be.
+    Dare to see it for what it could be.
+      The world can always use more heroes.
+
 
