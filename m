@@ -4,46 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB55EC3ABB0
-	for <amd-gfx@archiver.kernel.org>; Sat,  3 May 2025 20:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54600C3ABAA
+	for <amd-gfx@archiver.kernel.org>; Sat,  3 May 2025 21:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31C9710E21E;
-	Sat,  3 May 2025 20:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D27A10E228;
+	Sat,  3 May 2025 21:19:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g74FYqQj";
+	dkim=pass (2048-bit key; unprotected) header.d=fastmail.com header.i=@fastmail.com header.b="UpORUabr";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="noE3qTIf";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F42D10E03C
- for <amd-gfx@lists.freedesktop.org>; Sat,  3 May 2025 20:39:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=OfRskOe2zsu2q+61vGkLhT5wiHVUhOiqBnire9yymKM=; b=g74FYqQjnNovX/J3wwlefnVocT
- mUwkfq/zAOERElqp2Ft3nJYOdJaB5GrjH1CudZ6MdhVFTLUflyXpodEesyyYF6uRHjrlMZqk3hqRX
- ZTdBJeelv7SMcjA8xczZuDWYVVD9y/rXakocU8gPZnpCpwIlHbkpaMJwqHELcVaNaSgeCN1o5HvSy
- Yp0NPK2ruvsETqPCwzxiIvwLdVR49Frcdb7OJ3bvm85P6LQEnKsEC1qNrDZ2sCA4ioTelnclIoL+h
- QoHM7nGyqCWr0HrtWHhV8xxDJ/tg7lrN0ccve4n7zdowovfh6/P1k0iYHLF71e+Aa0wiUOl7U4o+0
- aTE/BSvQ==;
-Received: from [193.32.248.132] (helo=debian.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uBJbU-002dFw-KF; Sat, 03 May 2025 22:39:25 +0200
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH v3 2/2] Documentation/gpu: Add new entries to amdgpu glossary
-Date: Sat,  3 May 2025 14:38:43 -0600
-Message-ID: <20250503203905.346049-3-siqueira@igalia.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250503203905.346049-1-siqueira@igalia.com>
-References: <20250503203905.346049-1-siqueira@igalia.com>
+Received: from fhigh-b1-smtp.messagingengine.com
+ (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6653710E227;
+ Sat,  3 May 2025 21:19:20 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.phl.internal
+ [10.202.2.43])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 26924254013E;
+ Sat,  3 May 2025 17:19:19 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-03.internal (MEProxy); Sat, 03 May 2025 17:19:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+ cc:cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to; s=fm3; t=1746307159; x=1746393559; bh=Un/bt6UrGtVYI4PFhsLl7
+ CgrGuxCoSHY1s4qLoGbllQ=; b=UpORUabrLd8cN76Jaq6K2gkqwM7By3HBukQma
+ oUYNv0zXHW7u1PBaHzM7HW5affDXjNZ6QxE9keHf3gIm8NH6qgOL9SDjyMWEaLmp
+ DX4ZwEu064lFTe0tzfIvhlf6z6A+oza0qbmWRUlVXRyhgXQYu5cuQf1JBnwoWeAj
+ br+/0Xw5ccuojAyfUM0UAbPJ9lBhHxF2BeFGiAz5neZ/7F+9cMaUc4TW5aw1mOKW
+ UUALRcAuacdYt5NWiNGFgdMiqtDbtGx7Z4NAlsEku7p6/u/FQEARs1Ph7vILrU4M
+ PtH8XOVHSEX176ZtdQLQjrK/nA+WMFZuc8j8ITV3PsugRLsdA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1746307159; x=1746393559; bh=Un/bt6UrGtVYI4PFhsLl7CgrGuxCoSHY1s4
+ qLoGbllQ=; b=noE3qTIfgRvJF1xbUDmZjlGPJqUtmlmmzmNHLBHNmKeseXZUH99
+ MhnejinCiEDwlQGxPa4qlDqYHKrUA0UofCwvHMRMLOw3isU0NbLSHAA2qZJ9mc9C
+ 9Oxu+uZB8RTi1ucJJ+2VLtFf5Vu+DPI+TzagPShBeYonJ+tTVmdS59jq92190p4w
+ 3IaYsaObLcT9m65qyGCCiAqnBDCXE9osT5V8mCI6sNjb8pFu3H08/hPtWqxPX/4r
+ gyMF4sJJgblnP+yfl1S1FV2pdGHB++60UqGGbohd2AGqufg51HA4RNFAnHHfgIv/
+ h6IZbJYvanDUz0+yY38Xwn/flEc4+ACLqgw==
+X-ME-Sender: <xms:VogWaMuH_f-vO3iJMZCF0uUZlGFNoJi-rDgUdE_2klNulzM8XkZJfw>
+ <xme:VogWaJdPDUhJkqOu_SPXr92ZC2z0BApsMm_PUKDHSYwij04eAfx9lbAOiu5UqMFhi
+ bx-5OJNsu3K3LmCoPI>
+X-ME-Received: <xmr:VogWaHzlwOtLlAxTcG6J8wE3FZOYiyPgHK_CGYXnrQ5qjJnW6jjN0JdDiQLNPRffUiFp9cwTwqt5q4mOA69jlx9Ev2VNDRET9Y-tFFLbhcxsY1pU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvjeeifeelucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+ pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucenucfjughrpefhvf
+ evufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeflrghmvghsucfhlhhofigvrhhs
+ uceosgholhgurdiiohhnvgdvfeejfeesfhgrshhtmhgrihhlrdgtohhmqeenucggtffrrg
+ htthgvrhhnpefhvefgkeeiuddtudfhgefgiedvuefhhedtffejtddtfeekieefieejveet
+ hfegheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ gsohhlugdriihonhgvvdefjeefsehfrghsthhmrghilhdrtghomhdpnhgspghrtghpthht
+ ohepudeipdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehhrghrrhihrdifvghnth
+ hlrghnugesrghmugdrtghomhdprhgtphhtthhopehsuhhnphgvnhhgrdhlihesrghmugdr
+ tghomhdprhgtphhtthhopehsihhquhgvihhrrgesihhgrghlihgrrdgtohhmpdhrtghpth
+ htoheprghlvgigrghnuggvrhdruggvuhgthhgvrhesrghmugdrtghomhdprhgtphhtthho
+ pegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomhdprhgtphhtthhopegrih
+ hrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhl
+ rdgthhdprhgtphhtthhopegrlhhvihhnrdhlvggvvdesrghmugdrtghomhdprhgtphhtth
+ hopeiirggvvghmrdhmohhhrghmvggusegrmhgurdgtohhm
+X-ME-Proxy: <xmx:VogWaPOJggpnPRy39gdK-KmQ1lH-vrPZCA_Q0myv6HK8vhG5tK-81A>
+ <xmx:VogWaM_SzOP117tFfJ1ArzIaxdsWp-Qh2InRVKwDbzeCXsFPfu0f3g>
+ <xmx:VogWaHVYVl2__DEJXwZ2AEln8aPqwAFiM1PP73GXA09lopxGJB8xQA>
+ <xmx:VogWaFdZtsW59lP3kU3fTGc8PQpvp4HSy31odCNxts-iQA4ENVwTiQ>
+ <xmx:VogWaKrZt3rFDrJvHAiEGqVBDy7aqY01UZpTRjDteXaGD9Ahhy5hfsnv>
+Feedback-ID: ibd7e4881:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 3 May 2025 17:19:16 -0400 (EDT)
+From: James Flowers <bold.zone2373@fastmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alvin.lee2@amd.com, zaeem.mohamed@amd.com,
+ alex.hung@amd.com, skhan@linuxfoundation.org
+Cc: James Flowers <bold.zone2373@fastmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev
+Subject: [PATCH v2] drm/amd/display: adds kernel-doc comment for
+ dc_stream_remove_writeback()
+Date: Sat,  3 May 2025 14:18:51 -0700
+Message-ID: <20250503211902.70141-1-bold.zone2373@fastmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -60,108 +102,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
----
- Documentation/gpu/amdgpu/amdgpu-glossary.rst | 33 ++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+Adds kernel-doc for externally linked dc_stream_remove_writeback function.
 
-diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-index 8e6af7cc76c2..70aceff4bdc6 100644
---- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-+++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-@@ -24,6 +24,9 @@ we have a dedicated glossary for Display Core at
-     CIK
-       Sea Islands
+Signed-off-by: James Flowers <bold.zone2373@fastmail.com>
+---
+V1 -> V2: Corrected checkpatch warnings and errors
+
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index e6e41678525f..b883fb24fa12 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -569,6 +569,14 @@ bool dc_stream_fc_disable_writeback(struct dc *dc,
+ 	return true;
+ }
  
-+    CB
-+      Color Buffer
-+
-     CP
-       Command Processor
- 
-@@ -39,6 +42,9 @@ we have a dedicated glossary for Display Core at
-     CU
-       Compute Unit
- 
-+    DB
-+      Depth Buffer
-+
-     DFS
-       Digital Frequency Synthesizer
- 
-@@ -63,6 +69,12 @@ we have a dedicated glossary for Display Core at
-     GC
-       Graphics and Compute
- 
-+    GDS
-+      Global Data Share
-+
-+    GE
-+      Geometry Engine
-+
-     GMC
-       Graphic Memory Controller
- 
-@@ -128,6 +140,9 @@ we have a dedicated glossary for Display Core at
-     MQD
-       Memory Queue Descriptor
- 
-+    PA
-+      Primitive Assembler / Physical Address
-+
-     PFP
-       Pre-Fetch Parser (Graphics)
- 
-@@ -146,6 +161,9 @@ we have a dedicated glossary for Display Core at
-       the GFX block. It's involved in GFX power management and SR-IOV, among
-       other things.
- 
-+    SC
-+      Scan Converter
-+
-     SDMA
-       System DMA
- 
-@@ -164,6 +182,9 @@ we have a dedicated glossary for Display Core at
-     SMU/SMC
-       System Management Unit / System Management Controller
- 
-+    SPI
-+      Shader Processor Input
-+
-     SRLC
-       Save/Restore List Control
- 
-@@ -176,6 +197,9 @@ we have a dedicated glossary for Display Core at
-     SS
-       Spread Spectrum
- 
-+    SX
-+      Shader Execution / Shader Export
-+
-     TA
-       Trusted Application
- 
-@@ -185,6 +209,9 @@ we have a dedicated glossary for Display Core at
-     TOC
-       Table of Contents
- 
-+    UMSCH
-+      User Mode Scheduler
-+
-     UVD
-       Unified Video Decoder
- 
-@@ -202,3 +229,9 @@ we have a dedicated glossary for Display Core at
- 
-     VPE
-       Video Processing Engine
-+
-+    XCC
-+      Accelerator Core Complex
-+
-+    XCP
-+      Accelerator Core Partition
++/**
++ * dc_stream_remove_writeback() - Disables writeback and removes writeback info.
++ * @dc: Display core control structure.
++ * @stream: Display core stream state.
++ * @dwb_pipe_inst: Display writeback pipe.
++ *
++ * Return: returns true on success, false otherwise.
++ */
+ bool dc_stream_remove_writeback(struct dc *dc,
+ 		struct dc_stream_state *stream,
+ 		uint32_t dwb_pipe_inst)
 -- 
-2.47.2
+2.49.0
 
