@@ -4,152 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39FFEC3ABAC
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 May 2025 23:16:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 832A6C369D9
+	for <amd-gfx@archiver.kernel.org>; Sat,  3 May 2025 12:23:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4D5710E97A;
-	Fri,  2 May 2025 23:16:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85B6810E209;
+	Sat,  3 May 2025 12:23:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L2rr8FxX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qiWVXOzD";
 	dkim-atps=neutral
 Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2048.outbound.protection.outlook.com [40.107.100.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED6310E975;
- Fri,  2 May 2025 23:16:47 +0000 (UTC)
+ (mail-bn8nam04on2063.outbound.protection.outlook.com [40.107.100.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B57C10E39F
+ for <amd-gfx@lists.freedesktop.org>; Sat,  3 May 2025 12:23:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WLOJRNLoF+hORg4VVvyXfPEA7VhnsMVSADwPXHII+a4Jm9gmwLGj2ms14jzD9YayUJxlF2UHz8s6icAgHRPqEMqAa4Yu5O4tymFGSS3AXX8nSLP7Eq/T+iI/RcyAnnh5mwYEE1/LPSEbGWtQzDEzbe7wUdrh+Y+DZtt17mOIrZ5txesbS8LSt+C1gjj5d4YafvGykNZwFTYU6W+FqbViRjyGKTOeUiMtvDBigJrwU2eDacMAAKH2OK/ttN8Zn9ZxMIOr716g2RyAZAcAirIKtv8+KH0U9ncKmCxmPAOV8JkrNkwJjGZVdE7IKEPbjkPdJe5a9zxGawzfM8abHM85Sw==
+ b=i28hONKT7B5/VhMhesL0FVtlSkOLnslZHDJTGwQJhZSW3lwBlbgJOaGT0mRP89IsGwZMPHlupF/j+0umNyITL7omuUCist5ZDu9iNqrHXPlHWX3ueaEyKZh7tM0TmqHQC1aOUJbxnR12E/Z5YKafrJUFifFDoZBkWGl6QxdL68xTcvTY9fsR65wXXZuKFqGRnSsWe3bxdyHFRUWVpk6m9U2pDlT+u9pIly5iKRO7KDIYe3BXeAyFlAw1ECETyX70dXnbeRsin2LUqjnjjeTW57p2BzLJ2UB4OX+zVPZX3X9NnSf2U/RlDY/PwboBkl/v2Xd6q///E9hpGNIP6tO6dw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lePTMexvxkTcrme1YUOubjj2TcMdDK5HLjTf3MruRhY=;
- b=Kcj1uC72+mjf+lMAZ9uS3RZ7V1XbwrcvJKdNJS8wSiJBIgEMzn2/TEDAgqyk2IhNjvuW1pahDQ8zPhIzdOU5b+svmyCJ2WVNSE5L0I4SmQvXRHL4jax+16gaEL/GBBr7VJgkEOikl13CRxcaSr1iR11hrGAYRnJqT8hrI+xXIchDPOHx/SsES3u853EYy/1t8t0g8Zq0FKjXTLgTaNDU6VYP2HmpE3Nt1UKGlSsNwqElSmrBX8F2AagcRYoNbPulDdlEA19z9wOHnzlv4by5W/hrkFiT0jNBiuHMqIHxkJpIBQgsFk/bodgPaAhkCL7TAWDMBXn+gFVuj599DBDuZA==
+ bh=tnwePc+vTWvSaZIczSbo+p8NITITWJb6m04VdoT3Tek=;
+ b=oJKUsMrhASQwA8kgfSLwQzrW81ETvrrTCpNMb2U0R/DrXSluIUuGEtadJXM2hOfZQbhuRrJbI6wFPSpavNh9xUC3U99cOV+F/WcT9tBYsFeYX3iPQq3lXRdTg8mj80Xa1/hcZsWIg2CS06MDJ3ziMFCHovzLxygoec4KBLOM+6dHEVOWCHM8jADJ2AFJJk7Q9Y4mG88NwDsb9hnHrhyeuIOoHu2Q7I3YxPELcMjeQK/hBHm+WF6xsl5O4ZMcyISl1Z1TCa7sosyUmNNiKRSGbGTpjPOFSyGLndf7B261+5uGBAf0IA+9sh2DWLNp4xW5Bv/+fURAf10mK/+SYy1kUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lePTMexvxkTcrme1YUOubjj2TcMdDK5HLjTf3MruRhY=;
- b=L2rr8FxXHE/YxAuo9xmkF9fycbiDbyjsNbWLTytO6wXxzgmL7mqinS/+FnarrXMXShd147D/vdFDpVcSUBu6TVOKT1qPIWZYG4hjTMDg7mJlMcHUMyhuNgFOcRc3iVWUAWJJT4L7JfPiOGFmXBNDSkca9Ltj8H/Y3k/+Q79yEyI=
+ bh=tnwePc+vTWvSaZIczSbo+p8NITITWJb6m04VdoT3Tek=;
+ b=qiWVXOzDEIqcpCEs3iOPDwJQWlB4OJnsffKUlwfORgSzauytICp8eOGnUo4RT/STEdvfoZJgSPANJOaOpyXAEn2RCIlPCwsMnYDqBMrspaehMQH6HYHoxVh2rfjwDUUFoBFOotj3p9vj1tUVgMT+wyjP3Azn0cTKYfaupEOZ46w=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by CY8PR12MB8196.namprd12.prod.outlook.com (2603:10b6:930:78::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.19; Fri, 2 May
- 2025 23:16:43 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%5]) with mapi id 15.20.8699.019; Fri, 2 May 2025
- 23:16:43 +0000
-Message-ID: <f78f68ba-80e0-47ca-97a2-37a15d076e68@amd.com>
-Date: Fri, 2 May 2025 17:16:39 -0600
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by LV2PR12MB5799.namprd12.prod.outlook.com (2603:10b6:408:179::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.22; Sat, 3 May
+ 2025 12:23:09 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350%5]) with mapi id 15.20.8699.021; Sat, 3 May 2025
+ 12:23:08 +0000
+Message-ID: <70f66e11-7baa-4aed-ac88-f823305001e3@amd.com>
+Date: Sat, 3 May 2025 17:53:02 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display/dc/irq: Remove duplications of hpd_ack
- function from IRQ
-To: Sebastian Aguilera Novoa <saguileranbr@gmail.com>,
- harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: saguileran@ime.usp.br, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20250501225343.76300-1-saguileran@ime.usp.br>
+Subject: Re: [RFC PATCH 1/2] drm/amdgpu: amdgpu_vram_mgr_new(): Clamp lpfn to
+ total vram
+To: John Olender <john.olender@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Christian Koenig <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20250429112429.5646-1-john.olender@gmail.com>
+ <20250429112429.5646-2-john.olender@gmail.com>
+ <CADnq5_OMd-oHqPV9cC-GQGjf4OnN7EdvL3T9gopC-rEPMWs0vA@mail.gmail.com>
+ <2150d713-d9bf-400e-b51b-aee835431991@amd.com>
+ <474bf7c1-f42a-4738-8ce0-24fced3b051c@gmail.com>
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20250501225343.76300-1-saguileran@ime.usp.br>
+From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <474bf7c1-f42a-4738-8ce0-24fced3b051c@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0006.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::28) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN4P287CA0029.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:26f::17) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|CY8PR12MB8196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d9978f1-5c70-40dd-228f-08dd89cf66c0
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|LV2PR12MB5799:EE_
+X-MS-Office365-Filtering-Correlation-Id: 780f438f-e0d6-49c7-6d84-08dd8a3d4305
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YjA2MEhJRGt6UURTRWFZWVMwQWVHMHdPOGZiVUFuMWxEOWhGdCtsZHhlRS9R?=
- =?utf-8?B?NEg5UmJXU3NMd0RENk9SMWpVRlJaOGRFZDJPbmhPbnN1UUJ1QkM3TUpmRnhI?=
- =?utf-8?B?ZUZtNTNhdHY2MWpUY1FMcnVncXgvMFllelVPNWV5ZkhWYmVJbzNIWVVzYmVm?=
- =?utf-8?B?cTEzZ0RMbGhNMWc4SG1WeHRzNnl5TE41clUrVHBSYjJ1eWtDNDZpU2xSMVpP?=
- =?utf-8?B?SDVwM3JrQ2MvMHN4bHo4cEpVeUZyVDZUNnV0Qm10Yk01OWlXUTBHSzJZZjR2?=
- =?utf-8?B?S0FKYkxHRXpJMnpjbXRUS1RZUldMS3VpdGdGeGhTbXZzNk9IeGk1RGRsd1Q3?=
- =?utf-8?B?RFZDenJiMUR3S2NKV0VzNXUxK011M05HNHpiaUUxTzc0cTgveVJMY1pNQ3ov?=
- =?utf-8?B?dGVxMGtmYUFFV3YwWlkxZjQzeVU4Z2I1M1pXVDc0d1JXVlk2M0FrbWRQeFhT?=
- =?utf-8?B?dUZxWjlSSDdEbDl2OElnallxeitpMFlmWnkyTitPYkFMZmwwR2hDT0ZuU1Z1?=
- =?utf-8?B?QytqV2dMK25HeUMxU0FmdDBHQSs4WGs4NEtaRmQ5eTJDWjRoOWhUSGdEeTV1?=
- =?utf-8?B?OGVWYURyZUdwOHlZczNvbTdsOUVjcWRtbkw3SUppNzFTNDhKWEtFZFJIbGpn?=
- =?utf-8?B?eGRpNTJteDFqSWdscWlQM1FJejVOVHlocitmNnd2ckRUVTg5Wk9Rd0g1blFx?=
- =?utf-8?B?UDdLQlRjZTdQU241TFIrMlp4RXdmanpSWm50T3dmODFhZmdMMkFmVUVMTjhL?=
- =?utf-8?B?MzVCdUJ2UzBBcmtUdWV4WTB2cCtYQXROdHh4S25tYlFQaHZ2N2R3VklLUVpp?=
- =?utf-8?B?MFlUVElCMkZLZW95WEMwL052cVFBc2VkSmxKZzJmTHRPcXJLV01jQnlWV0U2?=
- =?utf-8?B?a2JFWXBUYkZKR0RhWXBNL3VqY2ZhT3pFU3ZwZDBQRDZqT2Vsc0x1aGprZWRD?=
- =?utf-8?B?N1F5eGRvQi9ZbUhFc1c5STIyVUNJRFFHb2RrU1JmSHBCVjJBbVV0LzU0WEM2?=
- =?utf-8?B?bTBMTjk0M2RDZE9jaU5Xa1JhUFd0STVJMGVSTFIvUTl0bitZNkxDS3BrQWlp?=
- =?utf-8?B?RURqUk0rczRCd3VWYlVNZEdJMENndkZmRHVjTTYrZW1YNEpycTJsQkgrS29h?=
- =?utf-8?B?MUJHSkh5d1pObTZwU3VET3p3N0ZYc1hEQWI3QVVoMHppenYzQ1V6bHNObTNV?=
- =?utf-8?B?dXp5bDBaQ2VhaWlRQW5IRWZhVzVobmlNQTFYVFRQUFVxNmFJcWZBcmRSa2hR?=
- =?utf-8?B?cjdNL3JrYU5GZ2k2dGd3ZkhBWXp6U1UwNHpieGlUdDlQUzBjRStRNHpiMkhL?=
- =?utf-8?B?cWRzYVVFcHFCK2pEOTFwMDcycmRtVG1wLzZ2cVVta1d5SUZCRUhDaTFGTHBH?=
- =?utf-8?B?b00zZ2lEZTEvR1JadzRtbFdVVHhOUDNoU0tBbytXL0hIRnZPUmZOd0tIdXd4?=
- =?utf-8?B?SnpJK1RuaS9NY0lyOS9XN3pQUEwyN28zYmNUb2h3VHQzQWVGRDNreE02MG9a?=
- =?utf-8?B?Y2ZNU2FDT3NZYVdSUUlCN1FtSzRZUEN4OVFEWENnQkdqaU15Z1BIajRUL1cz?=
- =?utf-8?B?Q0IvVmkyenBQY0FvZktCbzNld2x3NHh5WTAvdHlWeGhiMXhjR0RONEtJT3Z6?=
- =?utf-8?B?bW52UXVUWGtrU0VpNUpBSWhsczYvL3BDTkQrKzcvOTdpQjlhdXV2TDc2emFY?=
- =?utf-8?B?MndxdzdSZVpIZTRWaW5IeGZ2OTAydDJFMHlUUVlUY3FPTnYza2ROdUhSZ1hU?=
- =?utf-8?B?cld5MVNOK1VtSHFpVU5sdStiSVFlMXZraXZVbVl0aGNnVWJBaDdyTkRUMlMr?=
- =?utf-8?B?K0M4ZnQ3TEExWXJRcXBYaXFwc3pMY3BlcDNZZWhXbVQveHZTUmJnaU1VaFdM?=
- =?utf-8?B?MnFwUHgvaWt3NWc2UytDbU9PdlRCK3Z2U2t4c2taenZHYUdCenl2ZEZnVHla?=
- =?utf-8?Q?uUOtODNpVfE=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QUlzNFFvYlMrcEZyMW4vNEdrNWpjYnRkdUxWZmVvQURmQXE2VVRtWUVhSXB4?=
+ =?utf-8?B?dU5zM2R0THRBZU4yb2x2Y051Yi9kKzV0YVIvaGhLOFJHRW80bi81K29tcm5Q?=
+ =?utf-8?B?NEoxQ2RGYUx5UHRKOVVQazBsN1QycktDd2x3M0E4dkY2TjlOR0VETVVLWXVz?=
+ =?utf-8?B?VlJ0UG84TDhOVEF4ekZrNVlKOTN2M00vSHVYVVFCeEpEZnV1STkyTkFDYWFl?=
+ =?utf-8?B?M3Jmalpoa3hBVGFJdUw0WmpLNmNzOFBTREhBVWZNRTlEZDloMFEzeGF3cnhU?=
+ =?utf-8?B?SlMxcWpGek1oM2lYQ0Q0V1FuSWtOeCs4TCtyT2VkdFpUT0pxMjY4VDFyaUxp?=
+ =?utf-8?B?VUw3a1AyV3p2bG43bFVtMEtpSW5tcy92R0dhVGtrcXNUZ203a0ZTaUFPWFUy?=
+ =?utf-8?B?TXcwK2hJazVoWktwTkp6ZktPTW9vVW5TVmsxNmc3QStuZ3c4OFNFMGhlVk9t?=
+ =?utf-8?B?QWFHdk00SktZTk9wMmVGZWNhaldGVUo1WVlXSUhyajZKSmpEeDVqT25PUVdK?=
+ =?utf-8?B?MnFEUnR6QVFXMnAzbmR4WjVTQXlkQkUvS0x0cTg0OWVScmtlN2FxV3RDY1M0?=
+ =?utf-8?B?MzRreDEveElmWmd1bjhqYzg2dUgyZ1dyZjMzNnV2dStRaUZKTlV2aEJBSVdE?=
+ =?utf-8?B?Q2lGT0FHby9laWVVUHhETGhLVFRMczhsWCtFY3B3b0lEQkdVcjdNb1BOVVhV?=
+ =?utf-8?B?eW1mZDhBaWZBM25xVVZPY1ladi90bW11cUJoTmhZZkR0UzNJcmlNV0h3QnNZ?=
+ =?utf-8?B?d09mcEFSL1FIa0l0UG9OZHNUUjhxbDZkMURFTlRBWDQvbXkzTmlxQ295b01D?=
+ =?utf-8?B?NytMblZOREs3alEwTC8xMG11SnVVQzg3ODV3L3NRRWtVQUpIeHlzWnBZaTZB?=
+ =?utf-8?B?Z0xnTFhrZG04MkdWMVMyR3hIZSs3L05ReU1JbEZ2VzM0amRNUW90a1N3MmJ0?=
+ =?utf-8?B?c3B0RzVCa0RwNE9vWmhWbGQwaEgvYy9ZWDJ5c29ZK1REdTQ1NlB1OFdvUHlm?=
+ =?utf-8?B?b3EyK000U0lWTHBYaEp4WHducFU5dmJBcVpOT0U4dmJuZ3hNd2lJYlNEcjVZ?=
+ =?utf-8?B?dTk0UDNBR09Rb3NCbjJrTlpwQ3g1R0d6ZDB4amgySDhoRTR4Y1dKcUVFY08y?=
+ =?utf-8?B?NUxRck9wS0tteUZkUnRHa2c3RTlmK011QW4yM09vTEZEeWs0aFFTZ3NkK05X?=
+ =?utf-8?B?MmYvU25wTm84dm02NFZkbVVxYkNzTU45RFZLU2twdExHTnMvZ1VPSGJBSk42?=
+ =?utf-8?B?ZXNBOHUwc3gxbkJaZ0RNT1o5SEVXU096OThoWmZZOWJXN2tGMnp1blBybW90?=
+ =?utf-8?B?S3phMzRVRXZ6dSt6aVhNdWoyOFBrRVRwbCtXYmRUSSs3azFMaFdYa2ZZOW1J?=
+ =?utf-8?B?Q2VES3VwVE9VaDZ2eC9xNndJcnRZVldTWWlMSzNUV1paaVVLaTVGR3ZrQkVy?=
+ =?utf-8?B?azlVcDBHRzdubldNZEJQcHNDa2xtcGsrTHltS2taenpENUxMendBbkZidFNN?=
+ =?utf-8?B?bXdCZ2dDLytXMDZTTk5icFc3NlV0TFM5b3A5LzlLdVdpY1NFMUIwU2YxbFVH?=
+ =?utf-8?B?RjFCeHVVZXlFZVFyUU5Nc2o2T1JqTjloMGlCMkF2Ty9RVUVJdXZ6ZW15Si9o?=
+ =?utf-8?B?TCtvdFFCSG8zcFpiREZTNTlCbnlNSW5EL3B0M2l2cDdjY0Y4N2ZLSnY3ZE5s?=
+ =?utf-8?B?QmlJeWdXUk9PZGN3N2M0d2Q0VzZQVjZ3dXQxc3U2blVEYlJQR1N0MFYvOXd6?=
+ =?utf-8?B?dWlEOTVtekt3NU1IVDRUcFJNNldCUmtmRVFhSC9DYnhrRmNJNG83WkFIU29y?=
+ =?utf-8?Q?JL0qzgnTe81q3U3lV0QPDTcsKYrAG9qv3fN9w=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q09BOS9nSG5WNXhxMCsycXovMTRiOTdob0VVOVhLQ2FnVDZINjk0N0lKQXQ5?=
- =?utf-8?B?YUU1NXJCRUxWY0JHdVlLWUFXMktYcDRpZE5vcFViTmZ1YVZqQlc3WnEvejF3?=
- =?utf-8?B?R2EreEdDZ3VqT2V2QTFYMDVHbXRta0h3N1NPT0dnUUR0elFGK0RONEEra0sw?=
- =?utf-8?B?NnM2MUFRWE9xQ0syeDc5TDhhQit3WXlaWnBSQS9ORzE4YTl3S3ZwSmVETDBC?=
- =?utf-8?B?TDVZaWs0NkpKN0dBQkdRbjVXMUlva3UrT2p5RmNPaWE3NUJLTUtsQXZSd2o1?=
- =?utf-8?B?bnc4TVBEeCswdUovZ3dHU0ZJaHpFYWN1MUlYK1JIOFd6RWxiYWkxSjc4MmJ2?=
- =?utf-8?B?UkdhTStjMU04Y2V6WTRRbVZSNk9Eb3hFc20zUDVTUjUxY3liMlE5YWN6TVQ5?=
- =?utf-8?B?aVdaVHJtSWY1Uy9ueHAveTZVc3FtVHpPVFpKbmswSGdiTE1GblFscEVZVmQr?=
- =?utf-8?B?eWZRSHVRbEVjaWNDdDgzejlsTHdpOGplekFaeUtUTWxNNnlMZTlZZzVJUUxn?=
- =?utf-8?B?dHN4TTBFdVRxK3J2QWZzS2lTUGFrMVBOQ3Z6MnBBbzQvUmtCUXhxb2JQbGN4?=
- =?utf-8?B?cnlwN0VaOG5jVUhSMURLK0Fra2E4WTluU3FTQ0M3Z3dZUzg3UmM5SHJPTUxZ?=
- =?utf-8?B?Z21oazZKQkxXOTRLWUd1WkJlZ1F0UUk2VEh6TFMrbGlCR04rSWdvdXVxSlpL?=
- =?utf-8?B?QzI2WlIwVUt6WE5JM2Z4VGxaZWdUczdjUXQyYmZmK2VkLzB2UXJtbXhONVRl?=
- =?utf-8?B?QjdYZXpWTGpiUWdva2JWcVhZT1VDNC9jaEFVcnBPbk5wcmdmbmVQVFhZaHFo?=
- =?utf-8?B?bVpBZEZjV0tRc2FaQ0NCWXphUVBsWFZBWWtBejJSS2k1UUUzbkRvaEhuYVoy?=
- =?utf-8?B?amRDVXV6aHlLRlF1TXdnNlpPUGhwbkZzY2M0RjdBNVl2Z3Vlc2Y0eTIzeWw5?=
- =?utf-8?B?OGd0UEp0djc1NjMvVmpzUkk3VEp2TVB4cnFEb0sxK3hrbjNWa3hqM0R3ZC9v?=
- =?utf-8?B?RTlObHlKai9DWVdDNjlPSDk3bGJJRFNRMTB0bDBGRkcxSy9Ma1VKWVRjOU5h?=
- =?utf-8?B?MEF3ZDVHR2hMNGRkbGtYL0JtL3hHV3JpQ0ZqbkU5TVJVdWZhUkdzVHo5bk84?=
- =?utf-8?B?dDNDa3dNMC9aTTZOTGhrWmI2Z29kTVkvYjBNT2Z1WGxzTGZ5eDZhbTRDWHlJ?=
- =?utf-8?B?ejJMeXN0SnJpc2VFWSs2cFVwSE9ZTGJPVjdyM3QzTTJtcDFNbWxwZ1R5TVg2?=
- =?utf-8?B?MUVLSVVkcEd2alE0UFNUNFVlQXZUdk9uTHE2Z0VmSVFCUXlJMzFCTmttSis0?=
- =?utf-8?B?Z0c0TEVJREg4TDBHZERBdS9jS2NMeTc1dFNBcXlKY3BsRzhDTmJ1USttWld4?=
- =?utf-8?B?dHhBYTNUVEZ1M3FXbk5lQTNwRXJtdzJwbGlmMHJ4MFNpQXBsVHRudFpaMnNx?=
- =?utf-8?B?WFBVWkJXL3RzUkxHR3pMS0RMK1ZmV3lhTUVUZ3dWZjZGMW9YeVMxdTVoMEFh?=
- =?utf-8?B?WURZZnRxWUkxS0lSWStRdTZ6M0dKNUprRzBUeFV6L0ZLMGNlVjdKU2tiNnpQ?=
- =?utf-8?B?QTJFejRLL0xsNWhZV0JyWG1BRjdkMmUrczQxWGdLK0VjU0tUNGZXd3dJRnZi?=
- =?utf-8?B?QndYUURWR2dCTGkxNUpLanlVbSszTXRqVmRWa05yTUd3dzJOTCtSbGZFcWdO?=
- =?utf-8?B?MGY0WG5Ec1Q3WFMzSSt1aGd6Z0J2dTRaM2E2azdwS0RuNWdVdXVWM0Zid2s4?=
- =?utf-8?B?RzNuNzZiWmhEQlc4OHBYaHlCZDBCQ2twTmRoY2tjNUkxMmZzakY5L3hWODFj?=
- =?utf-8?B?V2syQm1iUEREVGYyT0xCVFJzYU53YkFKMEFNekRqTVVqamlSUS9OejFXVWNl?=
- =?utf-8?B?RFE2TzNOdzY5RHZCNmZjYjZHTU5mbnZwV3BMNCtzZWZPZVRuKzlvaVJFN0JH?=
- =?utf-8?B?bzFia2dYVUZjbjZtbU8rRGNMbk5VVmtxK09RV0FoRTViLzJQY1Z6RndjaG8z?=
- =?utf-8?B?bnF5S2NmV2lNWlozTDFYemVQcEEvVFZQY1BVOFlmcGhJUjlLVnpEaW56Qk9m?=
- =?utf-8?B?MExoMGhjL3N2aXBrWFlUVW1DK2xwZTZtZ2FiVGtMQnRpcGRYbzdKakxRWVRk?=
- =?utf-8?Q?pV+AFqvhuCewgDSaJz8vlzn2C?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWtwc1drRmNkZ2VkT0h2RXEvZTEyM3p0OWxXS2xUTStFQytmcmtwdGYwdWo1?=
+ =?utf-8?B?SWIyQUpXdWdINS9xTEJvZ1F4ZXZsRTJTZmQ2czI0R2twZmsvTXdDa0NHeGpM?=
+ =?utf-8?B?VzJkbGRWemFzSzIyTU90T01jMkV4cWlCdW1NZ1NnSkM1bmN3bkdkTHBpNEZ4?=
+ =?utf-8?B?eGVPTXZpVXhNVTRNT2w0clUycnFQOWNUczhlUm1CRi9vMXZ5bzFTMGhrdmQx?=
+ =?utf-8?B?ZkpJY2pOM3NSWFhwYnIzcTFoQlVNNysraTRQU1c2OXFqSWdWaDFmb2ZMd0pZ?=
+ =?utf-8?B?aWtCZ0VsQmpZa2x1Mis0cjNIME1FaTZFYXVWdGZ2ZDdlV1hYMGRSb2M1VHJr?=
+ =?utf-8?B?a0U3WThiY2pmbGJ6ZmJ2em9NbWdnazV4cDZUUHFNZXB1RzhBMXFsSGM1S2pk?=
+ =?utf-8?B?SzBsVnlBUzdaWmVlcTVMVmVvWGRlbHNXam1lTWpQdWNHT0J1MFJYVmVXTE5x?=
+ =?utf-8?B?QTliZzFKS0QrMVE4TTdNa1Bvemc2VFVPMTY2Qm5qV2h3UE5VVGVoSWVqUktF?=
+ =?utf-8?B?NEd1TmN0MUs5WjNzeThiTWdqWVVRTWhHSW9ZNEJJTVBxT0ozSDJoeEwwMkxH?=
+ =?utf-8?B?SmhuSmVWRGJMeGFraHF3ejdHU3kySGZNcE9nM2UzcGR3aUtIU0l6RTN3Zmk0?=
+ =?utf-8?B?dFYyZGpJNHhBSVVSaWRoTTFubmh6eE5PZlpCY2JaK1o0M2FUa3F5a2J0RnRn?=
+ =?utf-8?B?MWFzUFR3NVorZ0p2Yis2cVh4QnIwUTBCTFl1YmYxYnQ0ZVFnTTRxTXpmL3Ew?=
+ =?utf-8?B?K21ZalVIQ1hlckVDMzM1eHpSVzNwc0RUMHNEYTQxb3U5alZUWGlnczErTWZD?=
+ =?utf-8?B?aUdzRkJZd3ozZE8yRERyMEJFak9wSjNDUy9LcDhFVWhiTy84aDZ5R25wMnBj?=
+ =?utf-8?B?bmF4RHpuYzgzVUwwbWVUbmxMdmhFenZQQ3NGVUFEaFpnS3FRY05QZ2hSNWJ0?=
+ =?utf-8?B?NkIrWk45UUZWbStpNGZLOWJNYzdmbVVvb0w4MWQrNWFpVlYxMmtYSUZLU0dW?=
+ =?utf-8?B?bUxwSEExTG1kd0JENSthOGdzNmVCMjdHWjVia0VaNkVQQmZldU83eStsQmhy?=
+ =?utf-8?B?ZUtJMHJUd3oxMWhOYXdLaEMxNkUvc01yTzhLV0IzSGNEWWFKL1YwalhvWUVw?=
+ =?utf-8?B?TmxHM3VLWjY2NXhOenJDOHZWbjRlL1dPaHpiaUQ3MndOdmkvaldLY0RDblpW?=
+ =?utf-8?B?a0JiblRzbWgxRzN5enlnZitEZGQ1bUs3Sktyb0xtSlRtNXViLzN2Zm9CWkhl?=
+ =?utf-8?B?U2dVc2owZ01zM1dtdGlFaHFnN0dMbU5WUzNmOW5UMU1tR0FZRjE1ZVhkdkd5?=
+ =?utf-8?B?ZnBZdHpXdWFwVEVsUmhGbGdwa3NjUiticUUwZDRTR1J5bTVGQjlwd3h1L2ZB?=
+ =?utf-8?B?aHl5a3YzcVFrMStOekhNM0NZVG0rNW4xaXBDOG1nVnVwZ1VIOTYvTjNCTTZO?=
+ =?utf-8?B?Rk04RjBBNCtyOFFjRnE5dWs0WUhvRHpxWklMTUgveXI5NzhtYmpKVmZ0Wkov?=
+ =?utf-8?B?aExRWmhVNSsyS0VMMG1nTFZWdld2R3ZlZ1pmMWtKSEZLd1kwRm5QRUtiSGJQ?=
+ =?utf-8?B?ZGRLYUdJS0g5TXZ2QzFuZzhhTGs5cUFoY01UYmZIcURXWDJGcGZTa0E0aDRt?=
+ =?utf-8?B?Y3FhQmVOT2F6Z1ZleXo1MTFqdCtoR1Z2OFVUKzlLZWRmMFF2TkVJa0hxYm1j?=
+ =?utf-8?B?Kzd3bTZ1Zmc3TGs0T0pidnB4ZUdCRlc1UjZWVDRzamgwSWVsQUJ1K1oxZ2Zu?=
+ =?utf-8?B?Wmw2TnhKMVMzZllsSVpta1dCM0ZJcHp0S0ZWNXVFajNBTGFSZG5SaVhMYzk2?=
+ =?utf-8?B?bjZ4V2lEeldDMVR1cFVPSDN5V0ZwWExMaSszK1JGTFc2MWowV0RyM3BvVzVE?=
+ =?utf-8?B?Y0doTUlnWVZtSEtRdnV0Y3FMYzhRcm9Ca1RCbmYxdHFWODQ4cmhNOUFYNFBv?=
+ =?utf-8?B?aXh5S0I0WEh5d0d2TmhIMjBHNENZQlFxNVdYcU8rdVRIc1BUcWZZNENuR3pa?=
+ =?utf-8?B?QmxTcERZdGRPUDRORWNIVFFVbnpwYkkzTWpuaWt0eFA0bXgwVkpqcXJJR3lj?=
+ =?utf-8?B?NUFPZmpiNlNQUDlXMERpQ3FLdElDbnRhSkp6blVybld1RjJxM3N0M3J2WGNY?=
+ =?utf-8?Q?MM1LkrOZa9G14ACkNgS8Ee+mu?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d9978f1-5c70-40dd-228f-08dd89cf66c0
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 780f438f-e0d6-49c7-6d84-08dd8a3d4305
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2025 23:16:43.4002 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2025 12:23:08.4675 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t3Bx5ms5rXYteNGfAHnTG91kgi6QCUPCdMLdP6qrBM/iequSJGaSilX34KQ87AxbHNDewV3I+omN2QTdVmcYuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8196
+X-MS-Exchange-CrossTenant-UserPrincipalName: WUBrfCyzyMDwSb1u+mbnulzRzfPdyVLw8KMOeNNhsufzEKls6ydHKLu0RsWbeDS6Dgz2Jp2tfJGN2KbA6dfJdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5799
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,933 +165,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-Thanks for fixing this.
-
-However, I think checkpatch reports some warnings, including spacing 
-warning and a mismatch author name vs SOB as below. Once they are fixed 
-in V2 I will send them to test.
-
-$ ./scripts/checkpatch.pl 
-drm-amd-display-dc-irq-Remove-duplications-of-hpd_ack-function-from-IRQ.patch.patch
-WARNING: please, no space before tabs
-#816: FILE: drivers/gpu/drm/amd/display/dc/irq/irq_service.c:44:
-+#define HPD0_DC_HPD_INT_STATUS__DC_HPD_SENSE_DELAYED_MASK 
-^I0x00000010L$
-
-WARNING: please, no space before tabs
-#817: FILE: drivers/gpu/drm/amd/display/dc/irq/irq_service.c:45:
-+#define HPD0_DC_HPD_INT_CONTROL__DC_HPD_INT_POLARITY_MASK 
-^I0x00000100L$
-
-WARNING: please, no space before tabs
-#821: FILE: drivers/gpu/drm/amd/display/dc/irq/irq_service.c:49:
-+#define DC_HPD1_INT_STATUS__DC_HPD1_SENSE_DELAYED_MASK ^I^I^I0x10$
-
-WARNING: please, no space before tabs
-#822: FILE: drivers/gpu/drm/amd/display/dc/irq/irq_service.c:50:
-+#define DC_HPD1_INT_STATUS__DC_HPD1_SENSE_DELAYED__SHIFT ^I^I0x4$
-
-WARNING: please, no space before tabs
-#823: FILE: drivers/gpu/drm/amd/display/dc/irq/irq_service.c:51:
-+#define DC_HPD1_INT_CONTROL__DC_HPD1_INT_POLARITY_MASK ^I^I^I0x100$
-
-WARNING: please, no space before tabs
-#824: FILE: drivers/gpu/drm/amd/display/dc/irq/irq_service.c:52:
-+#define DC_HPD1_INT_CONTROL__DC_HPD1_INT_POLARITY__SHIFT ^I^I0x8$
-
-WARNING: From:/Signed-off-by: email address mismatch: 'From: Sebastian 
-Aguilera Novoa <saguileranbr@gmail.com>' != 'Signed-off-by: Sebastian 
-Aguilera Novoa <saguileran@ime.usp.br>'
 
 
-On 5/1/25 16:53, Sebastian Aguilera Novoa wrote:
-> The major of dcn and dce irqs share a copy-pasted collection
-> of copy-pasted function, which is: hpd_ack.
-> 
-> This patch removes the multiple copy-pasted by moving them to
-> the irq_service.c and make the irq_service's
-> calls the functions implemented by the irq_service.c
-> instead.
-> 
-> The hpd_ack function is replaced by hpd0_ack and hpd1_ack, the
-> required constants are also added.
-> 
-> The changes were not tested on actual hardware. I am only able
-> to verify that the changes keep the code compileable and do my
-> best to look repeatedly if I am not actually changing any code.
-> 
-> Signed-off-by: Sebastian Aguilera Novoa <saguileran@ime.usp.br>
-> ---
->   .../dc/irq/dce120/irq_service_dce120.c        | 29 +--------
->   .../display/dc/irq/dce60/irq_service_dce60.c  | 31 +--------
->   .../display/dc/irq/dce80/irq_service_dce80.c  | 31 +--------
->   .../display/dc/irq/dcn10/irq_service_dcn10.c  | 29 +--------
->   .../display/dc/irq/dcn20/irq_service_dcn20.c  | 29 +--------
->   .../dc/irq/dcn201/irq_service_dcn201.c        | 29 +--------
->   .../display/dc/irq/dcn21/irq_service_dcn21.c  | 29 +--------
->   .../display/dc/irq/dcn30/irq_service_dcn30.c  | 30 +--------
->   .../dc/irq/dcn302/irq_service_dcn302.c        | 19 +-----
->   .../dc/irq/dcn303/irq_service_dcn303.c        | 19 +-----
->   .../display/dc/irq/dcn31/irq_service_dcn31.c  | 29 +--------
->   .../dc/irq/dcn314/irq_service_dcn314.c        | 29 +--------
->   .../dc/irq/dcn315/irq_service_dcn315.c        | 29 +--------
->   .../display/dc/irq/dcn32/irq_service_dcn32.c  | 29 +--------
->   .../display/dc/irq/dcn35/irq_service_dcn35.c  | 29 +--------
->   .../dc/irq/dcn351/irq_service_dcn351.c        | 29 +--------
->   .../display/dc/irq/dcn36/irq_service_dcn36.c  | 29 +--------
->   .../dc/irq/dcn401/irq_service_dcn401.c        | 29 +--------
->   .../gpu/drm/amd/display/dc/irq/irq_service.c  | 63 +++++++++++++++++++
->   .../gpu/drm/amd/display/dc/irq/irq_service.h  |  8 +++
->   20 files changed, 89 insertions(+), 489 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c b/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-> index 953f4a4dacad..33ce470e4c88 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-> @@ -37,36 +37,9 @@
->   
->   #include "ivsrcid/ivsrcid_vislands30.h"
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce60/irq_service_dce60.c b/drivers/gpu/drm/amd/display/dc/irq/dce60/irq_service_dce60.c
-> index 2c72074310c7..d777b85e70da 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dce60/irq_service_dce60.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dce60/irq_service_dce60.c
-> @@ -46,36 +46,9 @@
->   
->   #include "dc_types.h"
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			DC_HPD1_INT_STATUS,
-> -			DC_HPD1_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		DC_HPD1_INT_CONTROL,
-> -		DC_HPD1_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd1_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> @@ -391,5 +364,3 @@ struct irq_service *dal_irq_service_dce60_create(
->   	dce60_irq_construct(irq_service, init_data);
->   	return irq_service;
->   }
-> -
-> -
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c b/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-> index 49317934ef4f..3a9163acb49b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-> @@ -37,36 +37,9 @@
->   
->   #include "dc_types.h"
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			DC_HPD1_INT_STATUS,
-> -			DC_HPD1_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		DC_HPD1_INT_CONTROL,
-> -		DC_HPD1_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd1_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> @@ -303,5 +276,3 @@ struct irq_service *dal_irq_service_dce80_create(
->   	dce80_irq_construct(irq_service, init_data);
->   	return irq_service;
->   }
-> -
-> -
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c b/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-> index 9ca28565a9d1..4ce9edd16344 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-> @@ -129,36 +129,9 @@ static enum dc_irq_source to_dal_irq_source_dcn10(struct irq_service *irq_servic
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-> index 916f0c974637..5847af0e66cb 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-> @@ -130,36 +130,9 @@ static enum dc_irq_source to_dal_irq_source_dcn20(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-> index 1d61d475d36f..6417011d2246 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-> @@ -80,36 +80,9 @@ static enum dc_irq_source to_dal_irq_source_dcn201(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> index 42cdfe6c3538..71d2f065140b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> @@ -132,36 +132,9 @@ static enum dc_irq_source to_dal_irq_source_dcn21(struct irq_service *irq_servic
->   	return DC_IRQ_SOURCE_INVALID;
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c b/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
-> index a443a8abb1ea..2a4080bdcf6b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
-> @@ -139,36 +139,9 @@ static enum dc_irq_source to_dal_irq_source_dcn30(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> @@ -447,4 +420,3 @@ struct irq_service *dal_irq_service_dcn30_create(
->   	dcn30_irq_construct(irq_service, init_data);
->   	return irq_service;
->   }
-> -
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c b/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
-> index 8ffc7e2c681a..624f1ac309f8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
-> @@ -126,26 +126,9 @@ static enum dc_irq_source to_dal_irq_source_dcn302(struct irq_service *irq_servi
->   	}
->   }
->   
-> -static bool hpd_ack(struct irq_service *irq_service, const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status = get_reg_field_value(value, HPD0_DC_HPD_INT_STATUS, DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(value, current_status ? 0 : 1, HPD0_DC_HPD_INT_CONTROL, DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   		.set = NULL,
-> -		.ack = hpd_ack
-> +		.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c b/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
-> index 262bb8b74b15..137caffae916 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
-> @@ -77,26 +77,9 @@ static enum dc_irq_source to_dal_irq_source_dcn303(struct irq_service *irq_servi
->   	}
->   }
->   
-> -static bool hpd_ack(struct irq_service *irq_service, const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status = get_reg_field_value(value, HPD0_DC_HPD_INT_STATUS, DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(value, current_status ? 0 : 1, HPD0_DC_HPD_INT_CONTROL, DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   		.set = NULL,
-> -		.ack = hpd_ack
-> +		.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
-> index 53e78ae7eecf..921cb167d920 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
-> @@ -128,36 +128,9 @@ static enum dc_irq_source to_dal_irq_source_dcn31(struct irq_service *irq_servic
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-> index e0563e880432..0118fd6e5db0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-> @@ -130,36 +130,9 @@ static enum dc_irq_source to_dal_irq_source_dcn314(struct irq_service *irq_servi
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-> index 2ef22299101a..adebfc888618 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-> @@ -135,36 +135,9 @@ static enum dc_irq_source to_dal_irq_source_dcn315(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
-> index f839afacd5a5..e9e315c75d76 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
-> @@ -129,36 +129,9 @@ static enum dc_irq_source to_dal_irq_source_dcn32(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs  = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c b/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
-> index ea8c271171bc..79e5e8c137ca 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
-> @@ -127,36 +127,9 @@ static enum dc_irq_source to_dal_irq_source_dcn35(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c b/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
-> index 7ec8e0de2f01..163b8ee9ebf7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
-> @@ -106,36 +106,9 @@ static enum dc_irq_source to_dal_irq_source_dcn351(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c b/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
-> index ea958628f8b8..f716ab0fd30e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
-> @@ -105,36 +105,9 @@ static enum dc_irq_source to_dal_irq_source_dcn36(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c b/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
-> index 8499e505cf3e..fd9bb1950c20 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
-> @@ -109,36 +109,9 @@ static enum dc_irq_source to_dal_irq_source_dcn401(
->   	}
->   }
->   
-> -static bool hpd_ack(
-> -	struct irq_service *irq_service,
-> -	const struct irq_source_info *info)
-> -{
-> -	uint32_t addr = info->status_reg;
-> -	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> -	uint32_t current_status =
-> -		get_reg_field_value(
-> -			value,
-> -			HPD0_DC_HPD_INT_STATUS,
-> -			DC_HPD_SENSE_DELAYED);
-> -
-> -	dal_irq_service_ack_generic(irq_service, info);
-> -
-> -	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> -
-> -	set_reg_field_value(
-> -		value,
-> -		current_status ? 0 : 1,
-> -		HPD0_DC_HPD_INT_CONTROL,
-> -		DC_HPD_INT_POLARITY);
-> -
-> -	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> -
-> -	return true;
-> -}
-> -
->   static struct irq_source_info_funcs hpd_irq_info_funcs = {
->   	.set = NULL,
-> -	.ack = hpd_ack
-> +	.ack = hpd0_ack
->   };
->   
->   static struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-> index eca3d7ee7e4e..fe593eba1246 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-> @@ -41,6 +41,15 @@
->   #include "reg_helper.h"
->   #include "irq_service.h"
->   
-> +#define HPD0_DC_HPD_INT_STATUS__DC_HPD_SENSE_DELAYED_MASK     	0x00000010L
-> +#define HPD0_DC_HPD_INT_CONTROL__DC_HPD_INT_POLARITY_MASK     	0x00000100L
-> +#define HPD0_DC_HPD_INT_STATUS__DC_HPD_SENSE_DELAYED__SHIFT		0x4
-> +#define HPD0_DC_HPD_INT_CONTROL__DC_HPD_INT_POLARITY__SHIFT     0x8
-> +
-> +#define DC_HPD1_INT_STATUS__DC_HPD1_SENSE_DELAYED_MASK 			0x10
-> +#define DC_HPD1_INT_STATUS__DC_HPD1_SENSE_DELAYED__SHIFT 		0x4
-> +#define DC_HPD1_INT_CONTROL__DC_HPD1_INT_POLARITY_MASK 			0x100
-> +#define DC_HPD1_INT_CONTROL__DC_HPD1_INT_POLARITY__SHIFT 		0x8
->   
->   
->   #define CTX \
-> @@ -177,3 +186,57 @@ enum dc_irq_source dal_irq_service_to_irq_source(
->   		src_id,
->   		ext_id);
->   }
-> +
-> +bool hpd0_ack(
-> +	struct irq_service *irq_service,
-> +	const struct irq_source_info *info)
-> +{
-> +	uint32_t addr = info->status_reg;
-> +	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> +	uint32_t current_status =
-> +		get_reg_field_value(
-> +			value,
-> +			HPD0_DC_HPD_INT_STATUS,
-> +			DC_HPD_SENSE_DELAYED);
-> +
-> +	dal_irq_service_ack_generic(irq_service, info);
-> +
-> +	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> +
-> +	set_reg_field_value(
-> +		value,
-> +		current_status ? 0 : 1,
-> +		HPD0_DC_HPD_INT_CONTROL,
-> +		DC_HPD_INT_POLARITY);
-> +
-> +	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> +
-> +	return true;
-> +}
-> +
-> +bool hpd1_ack(
-> +	struct irq_service *irq_service,
-> +	const struct irq_source_info *info)
-> +{
-> +	uint32_t addr = info->status_reg;
-> +	uint32_t value = dm_read_reg(irq_service->ctx, addr);
-> +	uint32_t current_status =
-> +		get_reg_field_value(
-> +			value,
-> +			DC_HPD1_INT_STATUS,
-> +			DC_HPD1_SENSE_DELAYED);
-> +
-> +	dal_irq_service_ack_generic(irq_service, info);
-> +
-> +	value = dm_read_reg(irq_service->ctx, info->enable_reg);
-> +
-> +	set_reg_field_value(
-> +		value,
-> +		current_status ? 0 : 1,
-> +		DC_HPD1_INT_CONTROL,
-> +		DC_HPD1_INT_POLARITY);
-> +
-> +	dm_write_reg(irq_service->ctx, info->enable_reg, value);
-> +
-> +	return true;
-> +}
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.h b/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-> index b178f85944cd..bbcef3d2fe33 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-> @@ -82,4 +82,12 @@ void dal_irq_service_set_generic(
->   	const struct irq_source_info *info,
->   	bool enable);
->   
-> +bool hpd0_ack(
-> +	struct irq_service *irq_service,
-> +	const struct irq_source_info *info);
-> +
-> +bool hpd1_ack(
-> +	struct irq_service *irq_service,
-> +	const struct irq_source_info *info);
-> +
->   #endif
+On 5/2/2025 9:02 PM, John Olender wrote:
+> On 4/30/25 5:44 PM, Paneer Selvam, Arunpravin wrote:
+>>
+>> On 5/1/2025 2:50 AM, Alex Deucher wrote:
+>>> + Christian
+>>>
+>>> On Tue, Apr 29, 2025 at 7:24 AM John Olender <john.olender@gmail.com>
+>>> wrote:
+>>>> The drm_mm allocator tolerated being passed end > mm->size, but the
+>>>> drm_buddy allocator does not.
+>>>>
+>>>> Restore the pre-buddy-allocator behavior of allowing such placements.
+>>>>
+>>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3448
+>>>> Signed-off-by: John Olender <john.olender@gmail.com>
+>>> This looks correct to me.
+>>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>> I was thinking that we should return an error when lpfn > man->size.
+>>
+>> Regards,
+>> Arun.
+> This patch restores the previous behavior in the spirit of "Do not crash
+> the kernel".  The existing uvd placements are pretty clear in their
+> intent and were accepted until the switch to drm_buddy.  I think it's
+> fair to consider their style as expected.
+>
+> With that in mind, I'm not sure amdgpu_vram_mgr is the place this change
+> really belongs.  That is, I think it's worth asking:
+>
+> 1) Why does drm_mm accept end > mm->size without complaint?
+> 2) Why doesn't drm_buddy do the same?
+
+I remember that during the development of DRM buddy , we had a 
+discussion with Intel folks and decided to
+return an error in DRM buddy when end > mm->size. This was done to 
+ensure that, at the driver level,  lpfn
+has the correct value.
+
+I will modify this at drm_buddy to match with drm_mm and send the patch.
+
+Regards,
+Arun.
+>
+> Thanks,
+> John
+>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
+>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/
+>>>> gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>> index 2d7f82e98df9..abdc52b0895a 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>> @@ -463,7 +463,7 @@ static int amdgpu_vram_mgr_new(struct
+>>>> ttm_resource_manager *man,
+>>>>           int r;
+>>>>
+>>>>           lpfn = (u64)place->lpfn << PAGE_SHIFT;
+>>>> -       if (!lpfn)
+>>>> +       if (!lpfn || lpfn > man->size)
+>>>>                   lpfn = man->size;
+>>>>
+>>>>           fpfn = (u64)place->fpfn << PAGE_SHIFT;
+>>>> -- 
+>>>> 2.47.2
+>>>>
 
