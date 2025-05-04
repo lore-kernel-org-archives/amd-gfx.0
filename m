@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F30C369DC
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 May 2025 22:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08D7BC369DC
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 May 2025 22:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C35510E096;
-	Sun,  4 May 2025 22:12:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A10B010E0A7;
+	Sun,  4 May 2025 22:12:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Fu+es2FT";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WW8TM61K";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0456810E096
- for <amd-gfx@lists.freedesktop.org>; Sun,  4 May 2025 22:12:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDB6710E0A7
+ for <amd-gfx@lists.freedesktop.org>; Sun,  4 May 2025 22:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=IU/vzOPQz+J3QqjLrISXm2dlZT7vfLS+7j4aMLTE+OI=; b=Fu+es2FTyp/qZtMYh5TlzkvjWw
- k2g8cgMXoD54KoQMFURl/nl1S11AzkvcGA89dkO/qqABDElB+7AWGkQaMyTPHbKRO5zgn7yB9k+n2
- DJsZVIYqxJvzz3sLga3GYS+pvdIlzT3Cu/rLIza3L7jzJPLk03lmUJObkBFMnNyfpkGSTUZTfmzXn
- AV3fy2QVK2jCbzfdZNcS5xGppnEk9tkIwr+ugjlbh0tQMwCQRC54E6vNE5+fNfPdXRhi3/pnryY8T
- gDQa20caJrEypXrpyj2YnS+G0g5IhdsF4f+Xi0Nm1FG1HKQm1FbVmQGsnNeMX6eX1ayHZ07zrRfpe
- s7oLaHnA==;
+ bh=oPraoCrItN5nK7ZuC0um7aiU01NY86Im/ONrnVcrQa0=; b=WW8TM61KTZOKcqDCnrakijT2X6
+ p8A0n+ScaX9mGH0CssgSTK2nEbpy7HEWmPBujY8OmI/jUj/16lySCEpVF+KEwgppqxbg0TqymLcNo
+ 5zzbqgKw495+DYBh1Xc2OxeQumwIgma3MvJaDAODcfZVO5uuFlT0dAAdlzoUMPcytOywE2zy/PRaW
+ ypmBF9GVDSyZk0Rhq9MQHQsEHax7b2aHDdpjXf3hN1DsJZcJnkugikEEoFKC+KhuWVPRX9lIECuVb
+ D0M8oLK7wLxojNmQ2KIvozRN5ILtUBITy8YYv0TVzoWogo5ylAuOvQn3hEakkg62ccLooRJRge0yf
+ 4xpEGInw==;
 Received: from [193.32.248.132] (helo=debian.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uBhWY-003Pr1-SW; Mon, 05 May 2025 00:12:22 +0200
+ id 1uBhWb-003Pr1-RS; Mon, 05 May 2025 00:12:25 +0200
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
@@ -40,9 +40,10 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Alex Hung <alex.hung@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 3/4] drm/amd/display: Uses optc31_disable_crtc for DCN35
-Date: Sun,  4 May 2025 16:11:30 -0600
-Message-ID: <20250504221154.409695-4-siqueira@igalia.com>
+Subject: [PATCH 4/4] drm/amd/display: Replace dcn35_update_odm with
+ dcn314_update_odm
+Date: Sun,  4 May 2025 16:11:31 -0600
+Message-ID: <20250504221154.409695-5-siqueira@igalia.com>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250504221154.409695-1-siqueira@igalia.com>
 References: <20250504221154.409695-1-siqueira@igalia.com>
@@ -62,68 +63,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The optc35_disable_crtc() function is a copy & paste from
-optc31_disable_crtc. This commit removes the duplication in favor of
-using optc31_disable_crtc.
+dcn35_update_odm has the same implementation as dcn314_update_odm. This
+commit removes the duplicate implementation by using dcn314_update_odm
+in the DCN35 code.
 
 Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 ---
- .../amd/display/dc/optc/dcn35/dcn35_optc.c    | 35 +------------------
- 1 file changed, 1 insertion(+), 34 deletions(-)
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 52 -------------------
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   |  2 -
+ .../amd/display/dc/hwss/dcn35/dcn35_init.c    |  2 +-
+ .../amd/display/dc/hwss/dcn351/dcn351_init.c  |  3 +-
+ 4 files changed, 3 insertions(+), 56 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-index 5835aa6c3c18..ec12aead3ced 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-@@ -109,39 +109,6 @@ static void optc35_set_odm_combine(struct timing_generator *optc, int *opp_id, i
- 	optc1->opp_count = opp_cnt;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+index 922b8d71cf1a..abcbd1759465 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+@@ -420,58 +420,6 @@ static unsigned int get_odm_config(struct pipe_ctx *pipe_ctx, unsigned int *opp_
+ 	return opp_count;
  }
  
--/* disable_crtc */
--static bool optc35_disable_crtc(struct timing_generator *optc)
+-void dcn35_update_odm(struct dc *dc, struct dc_state *context, struct pipe_ctx *pipe_ctx)
 -{
--	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+-	struct pipe_ctx *odm_pipe;
+-	int opp_cnt = 0;
+-	int opp_inst[MAX_PIPES] = {0};
+-	int odm_slice_width = resource_get_odm_slice_dst_width(pipe_ctx, false);
+-	int last_odm_slice_width = resource_get_odm_slice_dst_width(pipe_ctx, true);
+-	struct mpc *mpc = dc->res_pool->mpc;
+-	int i;
 -
--	REG_UPDATE_5(OPTC_DATA_SOURCE_SELECT,
--			OPTC_SEG0_SRC_SEL, 0xf,
--			OPTC_SEG1_SRC_SEL, 0xf,
--			OPTC_SEG2_SRC_SEL, 0xf,
--			OPTC_SEG3_SRC_SEL, 0xf,
--			OPTC_NUM_OF_INPUT_SEGMENT, 0);
+-	opp_cnt = get_odm_config(pipe_ctx, opp_inst);
 -
--	REG_UPDATE(OPTC_MEMORY_CONFIG,
--			OPTC_MEM_SEL, 0);
+-	if (opp_cnt > 1)
+-		pipe_ctx->stream_res.tg->funcs->set_odm_combine(
+-				pipe_ctx->stream_res.tg,
+-				opp_inst, opp_cnt,
+-				odm_slice_width, last_odm_slice_width);
+-	else
+-		pipe_ctx->stream_res.tg->funcs->set_odm_bypass(
+-				pipe_ctx->stream_res.tg, &pipe_ctx->stream->timing);
 -
--	/* disable otg request until end of the first line
--	 * in the vertical blank region
--	 */
--	REG_UPDATE(OTG_CONTROL,
--			OTG_MASTER_EN, 0);
+-	if (mpc->funcs->set_out_rate_control) {
+-		for (i = 0; i < opp_cnt; ++i) {
+-			mpc->funcs->set_out_rate_control(
+-					mpc, opp_inst[i],
+-					false,
+-					0,
+-					NULL);
+-		}
+-	}
 -
--	REG_UPDATE(CONTROL,
--			VTG0_ENABLE, 0);
+-	for (odm_pipe = pipe_ctx->next_odm_pipe; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe) {
+-		odm_pipe->stream_res.opp->funcs->opp_pipe_clock_control(
+-				odm_pipe->stream_res.opp,
+-				true);
+-	}
 -
--	/* CRTC disabled, so disable  clock. */
--	REG_WAIT(OTG_CLOCK_CONTROL,
--			OTG_BUSY, 0,
--			1, 100000);
--	optc1_clear_optc_underflow(optc);
+-	if (pipe_ctx->stream_res.dsc) {
+-		struct pipe_ctx *current_pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[pipe_ctx->pipe_idx];
 -
--	return true;
+-		update_dsc_on_stream(pipe_ctx, pipe_ctx->stream->timing.flags.DSC);
+-
+-		/* Check if no longer using pipe for ODM, then need to disconnect DSC for that pipe */
+-		if (!pipe_ctx->next_odm_pipe && current_pipe_ctx->next_odm_pipe &&
+-				current_pipe_ctx->next_odm_pipe->stream_res.dsc) {
+-			struct display_stream_compressor *dsc = current_pipe_ctx->next_odm_pipe->stream_res.dsc;
+-			/* disconnect DSC block from stream */
+-			dsc->funcs->dsc_disconnect(dsc);
+-		}
+-	}
 -}
 -
- static void optc35_phantom_crtc_post_enable(struct timing_generator *optc)
+ void dcn35_dpp_root_clock_control(struct dce_hwseq *hws, unsigned int dpp_inst, bool clock_on)
  {
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
-@@ -411,7 +378,7 @@ static struct timing_generator_funcs dcn35_tg_funcs = {
- 		.setup_vertical_interrupt2 = optc1_setup_vertical_interrupt2,
- 		.program_global_sync = optc1_program_global_sync,
- 		.enable_crtc = optc31_enable_crtc,
--		.disable_crtc = optc35_disable_crtc,
-+		.disable_crtc = optc31_disable_crtc,
- 		.immediate_disable_crtc = optc31_immediate_disable_crtc,
- 		.phantom_crtc_post_enable = optc35_phantom_crtc_post_enable,
- 		/* used by enable_timing_synchronization. Not need for FPGA */
+ 	if (!hws->ctx->dc->debug.root_clock_optimization.bits.dpp)
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
+index 0b1d6f608edd..6ca6924e7379 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
+@@ -31,8 +31,6 @@
+ 
+ struct dc;
+ 
+-void dcn35_update_odm(struct dc *dc, struct dc_state *context, struct pipe_ctx *pipe_ctx);
+-
+ void dcn35_dsc_pg_control(struct dce_hwseq *hws, unsigned int dsc_inst, bool power_on);
+ 
+ void dcn35_dpp_root_clock_control(struct dce_hwseq *hws, unsigned int dpp_inst, bool clock_on);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
+index a3ccf805bd16..3a14c6374324 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
+@@ -155,7 +155,7 @@ static const struct hwseq_private_funcs dcn35_private_funcs = {
+ 	.dpstream_root_clock_control = dcn35_dpstream_root_clock_control,
+ 	.physymclk_root_clock_control = dcn35_physymclk_root_clock_control,
+ 	.program_all_writeback_pipes_in_tree = dcn30_program_all_writeback_pipes_in_tree,
+-	.update_odm = dcn35_update_odm,
++	.update_odm = dcn314_update_odm,
+ 	.set_hdr_multiplier = dcn10_set_hdr_multiplier,
+ 	.verify_allow_pstate_change_high = dcn10_verify_allow_pstate_change_high,
+ 	.wait_for_blank_complete = dcn20_wait_for_blank_complete,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
+index 58f2be2a326b..24bd1bbf4461 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
+@@ -30,6 +30,7 @@
+ #include "dcn30/dcn30_hwseq.h"
+ #include "dcn301/dcn301_hwseq.h"
+ #include "dcn31/dcn31_hwseq.h"
++#include "dcn314/dcn314_hwseq.h"
+ #include "dcn32/dcn32_hwseq.h"
+ #include "dcn35/dcn35_hwseq.h"
+ #include "dcn351/dcn351_hwseq.h"
+@@ -150,7 +151,7 @@ static const struct hwseq_private_funcs dcn351_private_funcs = {
+ 	.dpstream_root_clock_control = dcn35_dpstream_root_clock_control,
+ 	.physymclk_root_clock_control = dcn35_physymclk_root_clock_control,
+ 	.program_all_writeback_pipes_in_tree = dcn30_program_all_writeback_pipes_in_tree,
+-	.update_odm = dcn35_update_odm,
++	.update_odm = dcn314_update_odm,
+ 	.set_hdr_multiplier = dcn10_set_hdr_multiplier,
+ 	.verify_allow_pstate_change_high = dcn10_verify_allow_pstate_change_high,
+ 	.wait_for_blank_complete = dcn20_wait_for_blank_complete,
 -- 
 2.47.2
 
