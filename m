@@ -4,57 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F07C3ABB7
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 May 2025 09:20:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F69DC369DC
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 May 2025 21:48:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69E2210E043;
-	Sun,  4 May 2025 09:20:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B380B10E04D;
+	Sun,  4 May 2025 21:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=nordisch.org header.i=@nordisch.org header.b="OgXCRqGn";
-	dkim=permerror (0-bit key) header.d=nordisch.org header.i=@nordisch.org header.b="FaQAbq0L";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h7P/+PWc";
 	dkim-atps=neutral
-Received: from tengu.nordisch.org (unknown [138.201.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D98EF10E0B7
- for <amd-gfx@lists.freedesktop.org>; Sat,  3 May 2025 02:57:29 +0000 (UTC)
-Received: from [192.168.3.6] (fortress.wg.nordisch.org [192.168.3.6])
- by tengu.nordisch.org (Postfix) with ESMTPSA id F12CE766F09;
- Sat, 03 May 2025 04:57:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nordisch.org;
- s=tengu_rsa; t=1746241038;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=77+U92Nliwz1Y9GhB5zaSrT5PC13YSpJb05RufmfIic=;
- b=OgXCRqGnBA7LCVp6wi2rlnkuXwt2xBs8XiwlH+IoaiiSMVHcG+RoFEZnvx5tprgyox5O/v
- owY2xf3KlcB3cy7gkda14vYa7ECtpxJU3OFuZltVGhiYy4LCbXQ/87Oj1+5N8LrPcY3Df+
- Cc3jQaccTvspPH/rBsuIK3JLbkKIyf0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=nordisch.org;
- s=tengu_ed25519; t=1746241038;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=77+U92Nliwz1Y9GhB5zaSrT5PC13YSpJb05RufmfIic=;
- b=FaQAbq0L51nyN/eBHsYihtZ5XMO3yrIo7XTVV/BSWhymLwUcuGghYRaT9/mHZSmFc2Lq/+
- xP1kyB/GZUdjGABQ==
-Message-ID: <70453a8d3eb51477c49170db87b2397d02d12b15.camel@nordisch.org>
-Subject: Re: amdgpu: Reproducible soft lockups when playing games
-From: Marcus =?ISO-8859-1?Q?R=FCckert?= <amd@nordisch.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Borislav Petkov <bp@alien8.de>, amd-gfx@lists.freedesktop.org
-Date: Sat, 03 May 2025 04:57:17 +0200
-In-Reply-To: <CADnq5_OfudYrLEf2OWqhaC2LWVOc_rGBs+NaizT2MfmxU=sZsA@mail.gmail.com>
-References: <123e013307ad395b3e26c2dd53fb99594191dda0.camel@nordisch.org>
- <20250429130929.GCaBDPiT_CwyKmHB5o@fat_crate.local>
- <CADnq5_PBjOYV5TH5EDXBVvth1ZX6S_TcpDOKOMrbDJUEDzkTww@mail.gmail.com>
- <688457c1079a5cdbb81a0dd21e6d744e72c89101.camel@nordisch.org>
- <CADnq5_OfudYrLEf2OWqhaC2LWVOc_rGBs+NaizT2MfmxU=sZsA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.1 
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22B7B10E04D
+ for <amd-gfx@lists.freedesktop.org>; Sun,  4 May 2025 21:48:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=sg39utf2c1ql4amw9qa2S45jKi6lfkEbW7vvwyilMG8=; b=h7P/+PWcxLHXETSqgRZgmuo9He
+ Kl6VhpSCGTkmUy5UucMjGc8o027zPgQRUtKHZwjYrSR3I8PcRi2vyVfaenGVG022P/SJ/eHgHnnd0
+ Y9wL4Oaf4XOgS1wsrC9GLpTRUQImGC9zVRn70OC+AvREFfSU9VChNiqL/PIGNLzRqDpOr7niY5ivw
+ nfynX7i+xIWORGnPZ+VvMygHBqz32YR+dhvZ96BUcyebNscYSSUXLh+EeiD5czw3nxW22craM1KeE
+ DzEI3wvjDqTRyxyAz0BB0fXGdSA4pFsYKdxXU90LTYBQXa9zRZLJB21iSbcm88hbXJchK/uQWEGn7
+ jOru0cDA==;
+Received: from [193.32.248.132] (helo=debian.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uBh9G-003PPH-E2; Sun, 04 May 2025 23:48:17 +0200
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH 2/6] drm/amd/amdgpu: Avoid re-parser CSB in
+ gfx_v7_0_cp_gfx_start
+Date: Sun,  4 May 2025 15:47:35 -0600
+Message-ID: <20250504214801.406245-3-siqueira@igalia.com>
+X-Mailer: git-send-email 2.47.2
+In-Reply-To: <20250504214801.406245-1-siqueira@igalia.com>
+References: <20250504214801.406245-1-siqueira@igalia.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Sun, 04 May 2025 09:20:06 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,101 +61,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-05-01 at 09:32 -0400, Alex Deucher wrote:
-> On Wed, Apr 30, 2025 at 7:28=E2=80=AFPM Marcus R=C3=BCckert <amd@nordisch=
-.org>
-> wrote:
-> >=20
-> > On Wed, 2025-04-30 at 09:55 -0400, Alex Deucher wrote:
-> > > please make sure your kernel has these three patches:
-> > > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
-t/commit/?id=3D4408b59eeacfea777aae397177f49748cadde5ce
-> > > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
-t/commit/?id=3Dafcdf51d97cd58dd7a2e0aa8acbaea5108fa6826
-> > > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
-t/commit/?id=3D366e77cd4923c3aa45341e15dcaf3377af9b042f
-> >=20
-> > I am kinda sure that's the patches Takashi backported into our
-> > 6.14.3.
-> > They are already part of 6.15.rc4 no?
->=20
-> Yes, I think so.
+Remove the unnecessary parser of the CSB buffer in the GFX7, and
+directly use the result from "adev->gfx.rlc.cs_ptr".
 
-FWIW: I could trigger another flip_done timeout.
+Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 20 +++++---------------
+ 1 file changed, 5 insertions(+), 15 deletions(-)
 
-https://gitlab.freedesktop.org/drm/amd/-/issues/4201
-
-video stream (might even be using hardware decoding) seems like a good
-trigger for this. I think most of my flip_done issues had twitch
-running while doing something.
-
-> > > soft recover kills stuck shaders, so I'd suggest trying a newer
-> > > version of mesa and LLVM.=C2=A0 If that doesn't help, please file a
-> > > ticket
-> > > here:
-> >=20
-> > Newer Mesa is building although I didnt see anything radv related.
-> >=20
-> > I am curious in
-> > https://gitlab.freedesktop.org/drm/amd/-/issues/4192
-> > there is a lot more details about the crash than what I see. with
-> > what
-> > kind of flags/environment variables do I have to run to get the
-> > same?
-> >=20
->=20
-> That issue is directly related to suspend and resume.=C2=A0 I.e., the
-> issues only happen after a suspend cycle.=C2=A0 Is that also what you are
-> seeing?
-
-Nope. I am just referencing it as it contains more details than I see,
-and I wonder what I have to do to get the same amount of extra details
-to provide more useful information for you.
-
-> > An observation from my latest crash:
-> >=20
-> > ```
-> > May 01 01:05:59 steam[223306]: radv/amdgpu: The CS has been
-> > cancelled
-> > because the context is lost. This context is guilty of a soft
-> > recovery.
-> > May 01 01:06:05 steam[223306]: Game Recording - game stopped
-> > [gameid=3D2357570]
-> > May 01 01:06:05 steam[223306]: Removing process 352353 for gameID
-> > 2357570
-> > ```
-> >=20
-> > Is the game launched by steam inheriting that context or could it
-> > really be the steam process triggering it? As 223306 would be
->=20
-> The kernel driver stops accepting commands from a process if it
-> caused
-> a hang unless the process recreates its context.=C2=A0 I'm not really sur=
-e
-> what's going on here based on the limited context, but I suspect the
-> game causes a GPU hang so the recording process stopped because of
-> that.
-
-on the front of the ring timeout bug: I saw that dxvk had at least one
-issue with RDNA4 and ring timeout.
-
-https://github.com/doitsujin/dxvk/issues/4756
-
-So i switched from glorrious eggroll's build to proton experimental
-from valve. I have not seen any more ring timeout bugs since.
-
-Which made me wonder why the context shows a steam binary as the owner
-of the context and now the wine/game process underneath and if this
-could be improved.
-
-hth
-
-   darix
-
---=20
-Always remember:
-  Never accept the world as it appears to be.
-    Dare to see it for what it could be.
-      The world can always use more heroes.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index da0534ff1271..35938090fbae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -2460,9 +2460,8 @@ static int gfx_v7_0_cp_gfx_load_microcode(struct amdgpu_device *adev)
+ static int gfx_v7_0_cp_gfx_start(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ring *ring = &adev->gfx.gfx_ring[0];
+-	const struct cs_section_def *sect = NULL;
+-	const struct cs_extent_def *ext = NULL;
+-	int r, i;
++	u32 csb_size;
++	int r;
+ 
+ 	/* init the CP */
+ 	WREG32(mmCP_MAX_CONTEXT, adev->gfx.config.max_hw_contexts - 1);
+@@ -2471,7 +2470,8 @@ static int gfx_v7_0_cp_gfx_start(struct amdgpu_device *adev)
+ 
+ 	gfx_v7_0_cp_gfx_enable(adev, true);
+ 
+-	r = amdgpu_ring_alloc(ring, gfx_v7_0_get_csb_size(adev) + 8);
++	csb_size = gfx_v7_0_get_csb_size(adev);
++	r = amdgpu_ring_alloc(ring, csb_size + 8);
+ 	if (r) {
+ 		DRM_ERROR("amdgpu: cp failed to lock ring (%d).\n", r);
+ 		return r;
+@@ -2491,17 +2491,7 @@ static int gfx_v7_0_cp_gfx_start(struct amdgpu_device *adev)
+ 	amdgpu_ring_write(ring, 0x80000000);
+ 	amdgpu_ring_write(ring, 0x80000000);
+ 
+-	for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
+-		for (ext = sect->section; ext->extent != NULL; ++ext) {
+-			if (sect->id == SECT_CONTEXT) {
+-				amdgpu_ring_write(ring,
+-						  PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
+-				amdgpu_ring_write(ring, ext->reg_index - PACKET3_SET_CONTEXT_REG_START);
+-				for (i = 0; i < ext->reg_count; i++)
+-					amdgpu_ring_write(ring, ext->extent[i]);
+-			}
+-		}
+-	}
++	amdgpu_gfx_write_csb_to_ring(ring, adev->gfx.rlc.cs_ptr, csb_size);
+ 
+ 	amdgpu_ring_write(ring, PACKET3(PACKET3_SET_CONTEXT_REG, 2));
+ 	amdgpu_ring_write(ring, mmPA_SC_RASTER_CONFIG - PACKET3_SET_CONTEXT_REG_START);
+-- 
+2.47.2
 
