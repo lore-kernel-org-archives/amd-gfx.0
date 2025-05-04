@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F69DC369DC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11F04C3ABB8
 	for <amd-gfx@archiver.kernel.org>; Sun,  4 May 2025 21:48:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B380B10E04D;
-	Sun,  4 May 2025 21:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6579010E034;
+	Sun,  4 May 2025 21:48:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h7P/+PWc";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KJLveLQm";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22B7B10E04D
- for <amd-gfx@lists.freedesktop.org>; Sun,  4 May 2025 21:48:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEB9C10E034
+ for <amd-gfx@lists.freedesktop.org>; Sun,  4 May 2025 21:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,26 +22,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=sg39utf2c1ql4amw9qa2S45jKi6lfkEbW7vvwyilMG8=; b=h7P/+PWcxLHXETSqgRZgmuo9He
- Kl6VhpSCGTkmUy5UucMjGc8o027zPgQRUtKHZwjYrSR3I8PcRi2vyVfaenGVG022P/SJ/eHgHnnd0
- Y9wL4Oaf4XOgS1wsrC9GLpTRUQImGC9zVRn70OC+AvREFfSU9VChNiqL/PIGNLzRqDpOr7niY5ivw
- nfynX7i+xIWORGnPZ+VvMygHBqz32YR+dhvZ96BUcyebNscYSSUXLh+EeiD5czw3nxW22craM1KeE
- DzEI3wvjDqTRyxyAz0BB0fXGdSA4pFsYKdxXU90LTYBQXa9zRZLJB21iSbcm88hbXJchK/uQWEGn7
- jOru0cDA==;
+ bh=N1hLba7vIkWXacy63AXwit4LVRNl38iWbZj3McuVxMI=; b=KJLveLQmLgdBbEbpSzDdq05AVj
+ haFIomp/4LBUCwdXvtG/qbXi1QbrDoS+lVQfuVS4cuaSyEc3DldSrw4wpp+OxfGyTEylS1Mzagpqk
+ bYX4TXU12tPyf/FUCfwJW7VVYmUw5xCFgm8tafQcupC3LLBHImeH2bYh82q+Ct75W2//NJ9E+0xW9
+ t6ruOXh4Odme0oEfglw+iGEgPTHcOxFxWY0G6AHLWNmUH/0HLxdnJ05m8VXoCK9hgpzrjK8dRusjM
+ meax4EaSdpYIZJffLx0yC6IcNOvky0RtoryrabHH1qiiQA2B9NMXk9Fy1or/dt13omT+/LwCA2Dqy
+ 0AJSNksg==;
 Received: from [193.32.248.132] (helo=debian.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uBh9G-003PPH-E2; Sun, 04 May 2025 23:48:17 +0200
+ id 1uBh9E-003PPH-4Z; Sun, 04 May 2025 23:48:15 +0200
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
  Mario Limonciello <mario.limonciello@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 2/6] drm/amd/amdgpu: Avoid re-parser CSB in
- gfx_v7_0_cp_gfx_start
-Date: Sun,  4 May 2025 15:47:35 -0600
-Message-ID: <20250504214801.406245-3-siqueira@igalia.com>
+Subject: [PATCH 1/6] drm/amd/amdgpu: Add a helper to copy the CSB buffer into
+ the ring buffer
+Date: Sun,  4 May 2025 15:47:34 -0600
+Message-ID: <20250504214801.406245-2-siqueira@igalia.com>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250504214801.406245-1-siqueira@igalia.com>
 References: <20250504214801.406245-1-siqueira@igalia.com>
@@ -61,59 +61,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the unnecessary parser of the CSB buffer in the GFX7, and
-directly use the result from "adev->gfx.rlc.cs_ptr".
+In the GFX code, there are multiple parsers of the CSB buffer, which can
+be avoided. This data is parsed via get_csb_buffer() in earlier stages,
+and the result can be checked in "adev->gfx.rlc.cs_ptr". To avoid
+re-parser the CSB buffer, this commit introduces a helper that copies
+the CSB buffer into the ring buffer.
 
 Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 20 +++++---------------
- 1 file changed, 5 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 21 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  4 ++++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index da0534ff1271..35938090fbae 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -2460,9 +2460,8 @@ static int gfx_v7_0_cp_gfx_load_microcode(struct amdgpu_device *adev)
- static int gfx_v7_0_cp_gfx_start(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ring *ring = &adev->gfx.gfx_ring[0];
--	const struct cs_section_def *sect = NULL;
--	const struct cs_extent_def *ext = NULL;
--	int r, i;
-+	u32 csb_size;
-+	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 8f1a2f7b03c1..dfd48670a0bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -2323,6 +2323,27 @@ void amdgpu_gfx_csb_preamble_end(volatile u32 *buffer, u32 count)
+ 	buffer[count++] = cpu_to_le32(0);
+ }
  
- 	/* init the CP */
- 	WREG32(mmCP_MAX_CONTEXT, adev->gfx.config.max_hw_contexts - 1);
-@@ -2471,7 +2470,8 @@ static int gfx_v7_0_cp_gfx_start(struct amdgpu_device *adev)
++/**
++ * amdgpu_gfx_write_csb_to_ring - Write the CSB buffer into the ring
++ *
++ * @ring: Ring reference.
++ * @csb_buffer: CSB buffer.
++ * @csb_size: CSB buffer size.
++ *
++ * Usually, the adev->gfx.rlc.cs_ptr field is filled in earlier stages via
++ * get_csb_buffer(). This function just gets the CSB buffer and fills it in the
++ * ring buffer.
++ */
++void amdgpu_gfx_write_csb_to_ring(struct amdgpu_ring *ring,
++				  volatile u32 *csb_buffer,
++				  u32 csb_size)
++{
++	int i;
++
++	for (i = 0; i < csb_size; i++)
++		amdgpu_ring_write(ring, csb_buffer[i]);
++}
++
+ /*
+  * debugfs for to enable/disable gfx job submission to specific core.
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 08f268dab8f5..ce684c3d3d89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -646,6 +646,10 @@ u32 amdgpu_gfx_csb_preamble_start(volatile u32 *buffer);
+ u32 amdgpu_gfx_csb_data_parser(struct amdgpu_device *adev, volatile u32 *buffer, u32 count);
+ void amdgpu_gfx_csb_preamble_end(volatile u32 *buffer, u32 count);
  
- 	gfx_v7_0_cp_gfx_enable(adev, true);
++void amdgpu_gfx_write_csb_to_ring(struct amdgpu_ring *ring,
++				  volatile u32 *csb_buffer,
++				  u32 csb_size);
++
+ void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
  
--	r = amdgpu_ring_alloc(ring, gfx_v7_0_get_csb_size(adev) + 8);
-+	csb_size = gfx_v7_0_get_csb_size(adev);
-+	r = amdgpu_ring_alloc(ring, csb_size + 8);
- 	if (r) {
- 		DRM_ERROR("amdgpu: cp failed to lock ring (%d).\n", r);
- 		return r;
-@@ -2491,17 +2491,7 @@ static int gfx_v7_0_cp_gfx_start(struct amdgpu_device *adev)
- 	amdgpu_ring_write(ring, 0x80000000);
- 	amdgpu_ring_write(ring, 0x80000000);
- 
--	for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
--		for (ext = sect->section; ext->extent != NULL; ++ext) {
--			if (sect->id == SECT_CONTEXT) {
--				amdgpu_ring_write(ring,
--						  PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
--				amdgpu_ring_write(ring, ext->reg_index - PACKET3_SET_CONTEXT_REG_START);
--				for (i = 0; i < ext->reg_count; i++)
--					amdgpu_ring_write(ring, ext->extent[i]);
--			}
--		}
--	}
-+	amdgpu_gfx_write_csb_to_ring(ring, adev->gfx.rlc.cs_ptr, csb_size);
- 
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_SET_CONTEXT_REG, 2));
- 	amdgpu_ring_write(ring, mmPA_SC_RASTER_CONFIG - PACKET3_SET_CONTEXT_REG_START);
 -- 
 2.47.2
 
