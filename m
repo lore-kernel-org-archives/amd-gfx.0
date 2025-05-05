@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D3D4C3ABB6
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:34:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DD26C3ABBF
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:38:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A5F710E4E5;
-	Mon,  5 May 2025 22:34:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E24110E4FD;
+	Mon,  5 May 2025 22:38:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ReUULI9B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oAsILGlv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9361210E4E5;
- Mon,  5 May 2025 22:34:23 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67C2A10E503;
+ Mon,  5 May 2025 22:38:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C5E294A386;
- Mon,  5 May 2025 22:34:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB6EC4CEE4;
- Mon,  5 May 2025 22:34:21 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 0A423A4CF98;
+ Mon,  5 May 2025 22:33:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4BCC4CEEF;
+ Mon,  5 May 2025 22:38:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746484463;
- bh=+Z8nJzgkLEk+MN5GftpCIrHT+MEi2c7T5NzxCRthY1A=;
+ s=k20201202; t=1746484721;
+ bh=cEw4GRPiyRF77vhM1EytheB+h9yphkcLAo3dRL84tfQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ReUULI9BpFCyHW+VwzKUz8gLq0TSlz7XEzrO1CLyKT1c9DT5qSvJcSZcQFmLKebEZ
- RNyKjaTxzzZXKvYmeN1ldzci8g+MunZKDBS12WZqjU7mJEb41ZSQAxMXN8B0wWdQG4
- eH+wKIqlW9/+3ScEItZ2j7rD3vD3flTTPImFT4eQLnmWQu2OMxT3/3Lmzvl1iPqVJ3
- mhNMNEeLjB0mijDfxd7b5wOvaFcMjE+hpRG7bDfxbSUuzQpNOSrrVYPOUxMvoBg3at
- 1s57OUkxvkz8QuUhlwTiVkA0SyVCbl59fTPBQcaaAXdIw352rmlo4ndAWxVRB/aICe
- XMdYiHfpxio8Q==
+ b=oAsILGlvddD7HPbZiae2mzcOPukdjFg2b0pb1NmSPmEt0K0ybD8GTZjffO+FVvhQj
+ 5ctmWAKWCZv5j8ro6brpd/xqheseCTWsD+suKcmvHlvDLUMakZZGxU1bOJpU6YjwkM
+ nm6OLGgKp1nfGB9/TMfAEmeClF0RAuMrgO5JvEqzYsMJzzGX6iruA5ZBnp0oX66rhy
+ HbjUijeqFfjhOuUhNf6it201udsqTlfsMY6+d5LHfHxGH3aZ+SEHAiuFFfsXoZLl8h
+ Q/aTVga+mIaPpySP1rTcq1GJ5gTsV54aP3A/H0LBUs5CdBzK8rYC42w/uMiiWHuohe
+ +Q0Q8/T/hfpkw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Sasha Levin <sashal@kernel.org>,
- sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, mario.limonciello@amd.com, alex.hung@amd.com,
- chiahsuan.chung@amd.com, sunil.khatri@amd.com, aurabindo.pillai@amd.com,
- Yilin.Chen@amd.com, mwen@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.14 484/642] drm/amd/display/dm: drop hw_support
- check in amdgpu_dm_i2c_xfer()
-Date: Mon,  5 May 2025 18:11:40 -0400
-Message-Id: <20250505221419.2672473-484-sashal@kernel.org>
+Cc: Amber Lin <Amber.Lin@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviwanathan@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, Harish.Kasiviswanathan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.14 627/642] drm/amdkfd: Correct F8_MODE for gfx950
+Date: Mon,  5 May 2025 18:14:03 -0400
+Message-Id: <20250505221419.2672473-627-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250505221419.2672473-1-sashal@kernel.org>
 References: <20250505221419.2672473-1-sashal@kernel.org>
@@ -66,32 +64,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Amber Lin <Amber.Lin@amd.com>
 
-[ Upstream commit 33da70bd1e115d7d73f45fb1c09f5ecc448f3f13 ]
+[ Upstream commit 0c7e053448945e5a4379dc4396c762d7422b11ca ]
 
-DC supports SW i2c as well.  Drop the check.
+Correct F8_MODE setting for gfx950 that was removed
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Fixes: 61972cd93af7 ("drm/amdkfd: Set per-process flags only once for gfx9/10/11/12")
+Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviwanathan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d51dbac3235ca..5f25fe7721c17 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8394,7 +8394,7 @@ static int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	int i;
- 	int result = -EIO;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
+index 3264509408bc8..d85eadaa1e11b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
+@@ -69,8 +69,7 @@ static bool set_cache_memory_policy_v9(struct device_queue_manager *dqm,
+ 		qpd->sh_mem_config |= 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
  
--	if (!ddc_service->ddc_pin || !ddc_service->ddc_pin->hw_info.hw_supported)
-+	if (!ddc_service->ddc_pin)
- 		return result;
+ 	if (KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 4, 3) ||
+-		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 4, 4) ||
+-		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 5, 0))
++		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 4, 4))
+ 		qpd->sh_mem_config |= (1 << SH_MEM_CONFIG__F8_MODE__SHIFT);
  
- 	cmd.payloads = kcalloc(num, sizeof(struct i2c_payload), GFP_KERNEL);
+ 	qpd->sh_mem_ape1_limit = 0;
 -- 
 2.39.5
 
