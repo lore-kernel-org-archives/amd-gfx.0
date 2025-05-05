@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A14C3ABB6
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B99C7C3ABB6
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:24:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0499110E465;
-	Mon,  5 May 2025 22:23:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED5F10E467;
+	Mon,  5 May 2025 22:24:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VGByiNTt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IRQxWFDa";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 892DC10E461;
- Mon,  5 May 2025 22:23:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60D2A10E467;
+ Mon,  5 May 2025 22:24:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 31D21629C1;
- Mon,  5 May 2025 22:22:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559D3C4CEEE;
- Mon,  5 May 2025 22:23:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 92EE845161;
+ Mon,  5 May 2025 22:23:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0699C4CEEE;
+ Mon,  5 May 2025 22:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746483797;
- bh=a1kuSAiEM1EOjK781g5Z7jy7/bRtjex1qwzQ00O5S1Q=;
+ s=k20201202; t=1746483841;
+ bh=qM4WJnGHM1m1fsGvJCRhq94cX/P+bapNYT6XAdoDPVs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VGByiNTtepz7dXzappNf1LO9siiOeGjJ/zAD6jdbdyqlA5NTTW2osPB2XQTTn8Ue9
- fnTMUlAudkrCAO3+tJTiX4mwvh6NAnRqRJB4QvDdfzizYylEqIu5XUxUycPO/uM7FN
- XdtEwaFuhSUEkxa4IBQhFOkiUPPxwGzHCJ//MMcBpQVgJLGoOHW0i9Yh5tX5JNQs7g
- 1Ca3725to/Sjfd1aSZsUqsPaWq59oT3AL3pfWID8hDGVRqhDHm0YCp9C1z9YaDuz9h
- hyIol7N4YuzskCr9ITAKrhmigWDMFFyjkmX4liX/F2WabxT5YBPTAa0OXNJUQrUT5/
- uz6GyXn6aqQPQ==
+ b=IRQxWFDaeiz0LKD/V5mWSaQf0kEXTrpd7we7T+iUc650PL3PfnBF/G980L/EgCSfn
+ gCziogBiQDUhXH6dBLezRmCN87Yw2GX04wnQJnWcVfC4p6FXtEEn/y24lKKR3qb92b
+ INDjZXkE6o1wHEqFu8W30cfgmYC/0HDUrsQGJ7RCiJjCZ1izx5oiAOU83TUOYfXy3q
+ 7ZIGpLseYVQCcT1o4CEikKrk6fVXDoFB2ENpgIGWyGaBjNCLhNgj0aipyRIm68qj1o
+ R54/3FfdSYwt33uJfdo7zFWUh6xeLl5hZClzdbqQgSl0Sx9lQb00yFikSJ6Lr+16t6
+ jZE01u1TJdMxQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Emily Deng <Emily.Deng@amd.com>, Xiaogang Chen <xiaogang.chen@amd.com>,
+Cc: Victor Lu <victorchengchi.lu@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- Felix.Kuehling@amd.com, Philip.Yang@amd.com, amd-gfx@lists.freedesktop.org,
+ Hawking.Zhang@amd.com, tao.zhou1@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.14 222/642] drm/amdgpu: Fix missing drain retry
- fault the last entry
-Date: Mon,  5 May 2025 18:07:18 -0400
-Message-Id: <20250505221419.2672473-222-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.14 246/642] drm/amdgpu: Do not program AGP BAR regs
+ under SRIOV in gfxhub_v1_0.c
+Date: Mon,  5 May 2025 18:07:42 -0400
+Message-Id: <20250505221419.2672473-246-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250505221419.2672473-1-sashal@kernel.org>
 References: <20250505221419.2672473-1-sashal@kernel.org>
@@ -64,53 +64,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Emily Deng <Emily.Deng@amd.com>
+From: Victor Lu <victorchengchi.lu@amd.com>
 
-[ Upstream commit fe2fa3be3d59ba67d6de54a0064441ec233cb50c ]
+[ Upstream commit 057fef20b8401110a7bc1c2fe9d804a8a0bf0d24 ]
 
-While the entry get in svm_range_unmap_from_cpu is the last entry, and
-the entry is page fault, it also need to be dropped. So for equal case,
-it also need to be dropped.
+SRIOV VF does not have write access to AGP BAR regs.
+Skip the writes to avoid a dmesg warning.
 
-v2:
-Only modify the svm_range_restore_pages.
-
-Signed-off-by: Emily Deng <Emily.Deng@amd.com>
-Reviewed-by: Xiaogang Chen<xiaogang.chen@amd.com>
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h | 3 +++
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 2 +-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-index 7d4395a5d8ac9..b0a88f92cd821 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-@@ -78,6 +78,9 @@ struct amdgpu_ih_ring {
- #define amdgpu_ih_ts_after(t1, t2) \
- 		(((int64_t)((t2) << 16) - (int64_t)((t1) << 16)) > 0LL)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+index 0e3ddea7b8e0f..a7bfc9f41d0e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+@@ -92,12 +92,12 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ {
+ 	uint64_t value;
  
-+#define amdgpu_ih_ts_after_or_equal(t1, t2) \
-+		(((int64_t)((t2) << 16) - (int64_t)((t1) << 16)) >= 0LL)
+-	/* Program the AGP BAR */
+-	WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_BASE, 0);
+-	WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
+-	WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
+-
+ 	if (!amdgpu_sriov_vf(adev) || adev->asic_type <= CHIP_VEGA10) {
++		/* Program the AGP BAR */
++		WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_BASE, 0);
++		WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
++		WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
 +
- /* provided by the ih block */
- struct amdgpu_ih_funcs {
- 	/* ring read/write ptr handling, called from interrupt context */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index d1cf9dd352904..47189453b20c3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3024,7 +3024,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 
- 	/* check if this page fault time stamp is before svms->checkpoint_ts */
- 	if (svms->checkpoint_ts[gpuidx] != 0) {
--		if (amdgpu_ih_ts_after(ts,  svms->checkpoint_ts[gpuidx])) {
-+		if (amdgpu_ih_ts_after_or_equal(ts,  svms->checkpoint_ts[gpuidx])) {
- 			pr_debug("draining retry fault, drop fault 0x%llx\n", addr);
- 			r = -EAGAIN;
- 			goto out_unlock_svms;
+ 		/* Program the system aperture low logical page number. */
+ 		WREG32_SOC15_RLC(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR,
+ 			min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
 -- 
 2.39.5
 
