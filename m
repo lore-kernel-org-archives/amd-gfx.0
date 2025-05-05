@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B93C4C3ABB6
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 23:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB261C3ABB9
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 23:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62D5510E5F5;
-	Mon,  5 May 2025 23:12:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F70810E603;
+	Mon,  5 May 2025 23:15:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hj/9Wlgj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N8vArT4S";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C05FD10E5F5;
- Mon,  5 May 2025 23:12:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B639010E602;
+ Mon,  5 May 2025 23:15:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 6061BA4D3A1;
- Mon,  5 May 2025 23:06:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA57C4CEE4;
- Mon,  5 May 2025 23:12:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6746F629CB;
+ Mon,  5 May 2025 23:15:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB06EC4CEE4;
+ Mon,  5 May 2025 23:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746486730;
- bh=vh9+QMtTfFQtALxE6B+h1YKZ4lOs8NdgSXIifjjRR1M=;
+ s=k20201202; t=1746486932;
+ bh=QJfy7XoR3GgHAWIN+riRyxgwzioOkcUWXnWokSKqXwI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Hj/9WlgjyTtro4PPwEfP4yrfGBMIk5OCVwvr6Cq9hdb8FJk7IkGLv2V4gJFS0qotm
- 4zbThTrKQUm12Hwj9CqYOEVqO0TyeaZwv0XP2FerSNUcrU2YPUkJtL6JkgVxblZ+88
- a6EoeT3L584EpT6nj1XSw+m3iDM5XAortKXkviRVLWtcQ8hqCYLr31j0WvNfW0UlS1
- z+FriybuLLX37AfFUzphL82BlclFLLbcd61LCaAQVa/C7NemyRes8gdBwp31fX3yq+
- on7VYWXa4vhZYZ3G6Z2YC4C9m69GSxfEgJeKHZnsW77qfH2c0/GDTvRdv+u6nSXAcp
- LYEny9IgKsN0Q==
+ b=N8vArT4S0/rT/EEA/A5IyqX17q0rBo06GRGAHCiz9AK7SdH8R50Aau6xnt+gz6oc3
+ HQa/vkAqJMmojnoOHyM8oaEpis1DI6owVv62+faozXyR8guL7kkD8i+IIodE7hPH63
+ Y5ZevwereXDhcqo9+YhL18k6YKqz2cqgLnMhHswIVZQVXzWhB93FUV/oL9pcoqKw4P
+ YM8SivlaW3Yv14xrJZO+qDnVmIvGzN2/Iw/1kRRk2SnvqKUbZOVGimXlzTKO1//5qD
+ HLCxyJXWO0UURV8t58yTsJ/O8NTT67+kr6S55xR6pSBhIhhSh8qsXUBH3KrxUcXCPd
+ cwGy2/vBvVD3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Sasha Levin <sashal@kernel.org>,
- sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, mario.limonciello@amd.com, alex.hung@amd.com,
- chiahsuan.chung@amd.com, sunil.khatri@amd.com, aurabindo.pillai@amd.com,
- Yilin.Chen@amd.com, mwen@igalia.com, amd-gfx@lists.freedesktop.org,
+Cc: Victor Lu <victorchengchi.lu@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ tao.zhou1@amd.com, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.1 173/212] drm/amd/display/dm: drop hw_support check
- in amdgpu_dm_i2c_xfer()
-Date: Mon,  5 May 2025 19:05:45 -0400
-Message-Id: <20250505230624.2692522-173-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 066/153] drm/amdgpu: Do not program AGP BAR regs
+ under SRIOV in gfxhub_v1_0.c
+Date: Mon,  5 May 2025 19:11:53 -0400
+Message-Id: <20250505231320.2695319-66-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250505230624.2692522-1-sashal@kernel.org>
-References: <20250505230624.2692522-1-sashal@kernel.org>
+In-Reply-To: <20250505231320.2695319-1-sashal@kernel.org>
+References: <20250505231320.2695319-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.136
+X-stable-base: Linux 5.15.181
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,32 +64,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Victor Lu <victorchengchi.lu@amd.com>
 
-[ Upstream commit 33da70bd1e115d7d73f45fb1c09f5ecc448f3f13 ]
+[ Upstream commit 057fef20b8401110a7bc1c2fe9d804a8a0bf0d24 ]
 
-DC supports SW i2c as well.  Drop the check.
+SRIOV VF does not have write access to AGP BAR regs.
+Skip the writes to avoid a dmesg warning.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7dee02e8ba6fa..4666bbd5483f0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7281,7 +7281,7 @@ static int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	int i;
- 	int result = -EIO;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+index f51fd0688eca7..9b881d8413b14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+@@ -92,12 +92,12 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ {
+ 	uint64_t value;
  
--	if (!ddc_service->ddc_pin || !ddc_service->ddc_pin->hw_info.hw_supported)
-+	if (!ddc_service->ddc_pin)
- 		return result;
- 
- 	cmd.payloads = kcalloc(num, sizeof(struct i2c_payload), GFP_KERNEL);
+-	/* Program the AGP BAR */
+-	WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_BASE, 0);
+-	WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
+-	WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
+-
+ 	if (!amdgpu_sriov_vf(adev) || adev->asic_type <= CHIP_VEGA10) {
++		/* Program the AGP BAR */
++		WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_BASE, 0);
++		WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
++		WREG32_SOC15_RLC(GC, 0, mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
++
+ 		/* Program the system aperture low logical page number. */
+ 		WREG32_SOC15_RLC(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR,
+ 			min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
 -- 
 2.39.5
 
