@@ -4,156 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B58C3ABBC
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 16:03:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9BDBC3ABB0
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 16:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95E4789149;
-	Mon,  5 May 2025 16:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 854B310E358;
+	Mon,  5 May 2025 16:06:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V4Pedi0g";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KmON6WUB";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88DB110E409;
- Mon,  5 May 2025 16:03:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K7rqlGzx1v/j3zgrH5JsbYik5KAEXx/sWxmXwkyeOZbxkzl3dKrw4YOXtP6Dz3aNlCogchTJ4jgmchgqMRDMzQzaqyPnubwL9/dleIOFFKhDnYhXfkhI9W7NpqhNjdJBX3ne/GvPuAJmlCiG6Pat/L8sxibX7+XBwo2ab3D+vWfi/DKbEFii6VhGecMH5UyEK1VynnmW4z/taP6AP4LMDbSEIP8T1Ou2Yh7dVAmt/oYiBsXGlZe3j0LKdS5By01M8+9xLR3iUpex8NxP5U/VBjUVlligIMUc8HWJhGTyO2YhsH0xXAiNPETIg49Op+XsJOHimX/ZF/zENSQpIvl0Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7R6YRpteeFPF3hKyvLflRte6xWGFGucvX0g934PaHgU=;
- b=qVbSxs3fkxr+UiZU+a19QfZ5uj08JQI846ng3FJlUkV8bKvoy4TLk1vLhi7EvKUz6+2H/TApREGvVHjfd+PF9y7nuo2Lm5Wf0WzCuyjxGnK7+AYCWWJ7vCVyLEBDcjunSPfmKdcKEkxY/iIlzx8o68W/m1xqKLOJXZxgAqgAUTIMN4w1FER3yBqRcsbvCCghXQ+USB/X1Uo9WGUist84JpEv62ftF6SI3YnvnRWSB8FvN5ux9rEtuLI4QLujP/YUrep40Fu2gjUExFZzlZ4HTjEKHqf9x+N/4R0Ck8laI3z4GQbvd5lvyHtT/tJz5YWaNlUaQxYjzOFPptx8JelF+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7R6YRpteeFPF3hKyvLflRte6xWGFGucvX0g934PaHgU=;
- b=V4Pedi0gT7VUWUjOv62ZdxcJvOnPwZltSXVWBxkVk2caxAp8Gj9Ou8iNiFAWMoS7qXtceC4mRsuJrIVO2toRMy8lX9nPCXqb+rS5x+ncLxuDHsSEZ1I1r03QNqIQ+MsAirZjuklaD7gzPPdCB1II1AYZfamHEa6qmqJyxGAS3uo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by SJ1PR12MB6098.namprd12.prod.outlook.com (2603:10b6:a03:45f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Mon, 5 May
- 2025 16:03:00 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%5]) with mapi id 15.20.8699.024; Mon, 5 May 2025
- 16:03:00 +0000
-Message-ID: <53d0e162-da9d-4fea-aba3-b96a9da844f2@amd.com>
-Date: Mon, 5 May 2025 10:02:56 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: adds kernel-doc comment for
- dc_stream_remove_writeback()
-To: James Flowers <bold.zone2373@fastmail.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- alvin.lee2@amd.com, zaeem.mohamed@amd.com, skhan@linuxfoundation.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
-References: <20250503211902.70141-1-bold.zone2373@fastmail.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20250503211902.70141-1-bold.zone2373@fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0167.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:7e::23) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00CE910E358
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 May 2025 16:06:14 +0000 (UTC)
+Received: by mail-qt1-f178.google.com with SMTP id
+ d75a77b69052e-476af5479feso55115351cf.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 May 2025 09:06:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746461174; x=1747065974; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RpbgOjAJX7jbsTpPMUVzdHKBXzfH6jk7JN+cSd5Bb10=;
+ b=KmON6WUB/2ZQyg/R3zOkCk9v+LyqZ5ys6GAah6BRG1akqsssz65Elti6pGrtrsr1t5
+ UoBxZAsNrnlfZHsKvjygnnvCQo60LMXGJjMgzPZGK8h48vvcOHu4H9zYPh8oRn1lGwv2
+ Id8Z6irSYQ8jtmWhQFSzyLAmi4YRxW6oEf3M+CWsuRgbkvYt5E12cIXyfZaidQ0PgQyn
+ cQpFwQggb88vgzjm8MNwlP6T8OSGT19zpp+v9ZuoYkN3cZsZlue8P97utcyabA2Mrjhy
+ dYA7Hj4fEHEgEaSawp1PJloloOMAnppAgE2p21o2ZZ/NvkY79/6IDeotLfeM7kxAYc+8
+ I43A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746461174; x=1747065974;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RpbgOjAJX7jbsTpPMUVzdHKBXzfH6jk7JN+cSd5Bb10=;
+ b=qSHYQAZPUf9gAdCgGLCcCzWQ3L4W0QHVyFi8ESzEVaW3lqUBaPCsWXZ9YUpFft3U12
+ Kuf+z6Zzs2OXD9TDWsM+xoy+M9kUJE8eLHSJEAibxiQnmrzgy3Rve4OjmudPAug/IBjW
+ bGlb00LbqOH7Pv3Un1ujfvb6263tecrMkLMD8S5nuFuKvEDlif+4jCsef13VcXqyz8vq
+ 15VK9aAOYXlTPoEcQVN6D/fNmmwJF0d3WXwvEBlGhWXnB6N+FcABbAWJz/VdzbFw0MrQ
+ 6sH8qx8VyLpaXgZcaDU5i7JFvX0jYT9AN6N0RGJzGWED2weoyUI/3twRuOHvD1ixFDdC
+ lWBg==
+X-Gm-Message-State: AOJu0YwEcLFglNl2/o6jaKTCmK9yK+EcmZxGj2Eh/RR1WABbX3+kdIwS
+ B1OYeTDy5Wlf2KHCGKpeC1ibhHgUNbp4tOIV3jvyZ1O88HKI5eCq
+X-Gm-Gg: ASbGncsi53VMUp0R4mVePexTEpqRmeoGWRVRDJiAdLb90GzTgm8TDknUcEqvO+7DNwc
+ kJs0Nlz0wKD/n+U2CtgpzIQDhDJ0+mQTfmXjo1ywoUvXpeuAZQEGd3BpfZl/x4XChIbO/JL2a4S
+ PqPGJ5Jn+9jr7vpGdgzpUnjDknbU70Udpo/hLxAfPZJD8EvLkXpv71d0gY600md6NnbJBmK2K0z
+ uVR+jZKGNlyz5jkNHvSno5BLIlNTfhpTS0ZPMNC7swC/tVbid70jW+1Pe1Zzz+GzyeZuwh7uHAB
+ mBJT/Yt3PQY7Jsz2uX6P4ZSvnJBIL/IeEPWMRoxRdkdrPi6TZA==
+X-Google-Smtp-Source: AGHT+IGvkPtVjw49uhyTD/i4k9rEvDGGskruYSH8ziIWsYe+FzYMRZ/PmNjLuLymxCA5q1nqIaeoDg==
+X-Received: by 2002:a05:6214:2268:b0:6e8:f91a:c5a with SMTP id
+ 6a1803df08f44-6f528c7e576mr122807216d6.22.1746461173488; 
+ Mon, 05 May 2025 09:06:13 -0700 (PDT)
+Received: from [192.168.1.100] ([32.220.111.111])
+ by smtp.googlemail.com with ESMTPSA id
+ 6a1803df08f44-6f50f482ae0sm57228666d6.115.2025.05.05.09.06.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 May 2025 09:06:13 -0700 (PDT)
+Message-ID: <2d3fba88-ed8e-4c3b-8fb4-56633ab0aa08@gmail.com>
+Date: Mon, 5 May 2025 12:06:12 -0400
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SJ1PR12MB6098:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81be442b-3a2a-4a07-7ec8-08dd8bee4ec9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|921020|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bWRGckhnRjl1dDQyM2Fqd3o3TEwwOVJDck9BYlVoQzBQRWpQbnc4UjZMVlFB?=
- =?utf-8?B?aVY3UFdlSXNvTVo1Tm43QkFtQmZPWXBNTytZTFB2N2ZISjdOckdQeThpQ2FH?=
- =?utf-8?B?SFh3RzhXWWU1TlREK1NVeEFtYmZEZ3VqbTk4S3VRMjdLNFVUcHhMem9qY21r?=
- =?utf-8?B?NmI5Q0taZ3g2dHM3cnJCK1lqVmVpbER0aUtIcGRsR0c0ZWI3aGJ2bVVKSXNG?=
- =?utf-8?B?NEcwbmh3MHh1QzV1Qy9pMFFnQ1psekl1SzZBd2pReG1DdDR4UTFmMkk4S3Ar?=
- =?utf-8?B?L3l1SkM3Ymk1RUJ0SHBjTCsvS2JCRlJxZWJVVlZKZFdVckdMV2paVjUwZjc0?=
- =?utf-8?B?WTNmSkxtMWhMNld5UUhHcU85UjJQMUgzMnM1UGJScmpKdWlYSU9oYWJpZmR5?=
- =?utf-8?B?cnlZbHBWK1JqS3hGek1OZU8wWktCUGpyVkZEdFJMMlhFbFZ1T05tV3NlSnJr?=
- =?utf-8?B?aEl0UmcrMUJIM1ppS0FZWjJQdVFqbzNpL2xxQk1saWFGalhtYnZUbE5WU1p5?=
- =?utf-8?B?Vjd2TVhkRHhFck0wcE4rV1VnUzVSQ0RKcGs5QUpFK3dacUJwQmhuL3VuTDRG?=
- =?utf-8?B?MjlUdTg1ZGExQkt0dk5ZTkZ5ekZVU2dyNVB1Vmplc2FqZTdwNXU4MzFZQS9n?=
- =?utf-8?B?VVZIN3pnYzA1T3QwVGppU2U3ZzVsMVNIZFNFeVVXU1hSNHZnS1FiRWZQcG1k?=
- =?utf-8?B?dGlzZ2l6eStIQ2FadE0ySi9heG5sQ1h4T2t1dW01K1B5UUd5UkdXaFdLSDV0?=
- =?utf-8?B?d3JPQTA4WHpkUnh3anlMR3R1YzVUZ0NxL3B2YmowU2VUaTZhTGdqTEF3Vmsr?=
- =?utf-8?B?Q29PaGhuQ0x5WUxrKzFhdW5henV6a0NyQVFsSnpldUFETElSeWNHSHl5Qmlh?=
- =?utf-8?B?NXJkamJKVU9pZXNMQ051K1M5emRIQ0FMdHN5NXZ3Z0JpUmRCMHZ0SGtudDU3?=
- =?utf-8?B?cHUwcVdKTnlENisxZW51QXFLQUxuOTU2SFJWQm1oZlA3OWZYUjRGcHJqRUtJ?=
- =?utf-8?B?NG5xNGYxcHlzVUtzeloyZHFIZXVWQ3ZoWVRpdTRqWjJQUUN6MGZZNWJDVkNa?=
- =?utf-8?B?aXlla3orak9mZFJhVkI0aC93b0tLU1FOeFR6ZDJLdTFvUVNtRDVRaUt1cmFD?=
- =?utf-8?B?bFg0R3VOWkVXL2RYY29GMzhHeW1DZVJFRDFaaXZhZ1NFZis2RTQzY2VGaXdn?=
- =?utf-8?B?aDFOUUZkUjlMUHpQeTlDVnF3WFJJY0xrMjVYRU5PWnpOZEx5dExxVVFZcE1H?=
- =?utf-8?B?TkxMa0gyTlphUHl0Mit1TkdwVkhRZnpOZ0FvcmNHdys0OWxkSFhBUUpIRDNF?=
- =?utf-8?B?WitGLzlXVnVKNm43WWVVeHV2QWY3WDFsZnBIOW0zYUErYWhKOEQ5ZGV4U0ly?=
- =?utf-8?B?WldyVC8yU0swRDJwR0g3NlBiMFN3eDRjY3kvV1Q4Z0xtblRjSHIreW5yckIy?=
- =?utf-8?B?Nm9VQ1NZZkxkd2VsazdTOXpWOXJibGczVFVUTVdJMGdyOS9xSXZqZDAwMUcv?=
- =?utf-8?B?U1VTWXd0eDdQUlkwWDlqTkJ5VmZvOHAyOGlnQ1V3UjdTRFpjbGtORGdIcFVV?=
- =?utf-8?B?UjdyUUtveHpacFpxV3ZqNmkvTk5iSzRWR2pBQXVnTURoekJiOHhpcS9IYTRP?=
- =?utf-8?B?bC9NcnJxV0ZMR2lURUR6UFBrRmtvcTJEM1k4ajR2RE9COW56c2I3ZUE2NGFR?=
- =?utf-8?B?dG5xSnVneTc1SGRYNkVtYXptMEsvbjhkaXRYVE9RKy8xUG8vd2hjdmQ5UVk1?=
- =?utf-8?B?K3BUQVFCc2RLRWNBa0RYdnFzMTIvaGt3QTZLR0FZeldQTEJlMkdETnJyaHEw?=
- =?utf-8?B?cE1DclBGSHVCNFlpR2V1WVNweWdFdmFKUUxodERtWFlITWVtZTlXd1loaEJt?=
- =?utf-8?B?eUdhSmdtTTNzaStOODRDQlBEeGNUQTVwMHkzTTFNelBXWkxva3VEWDdzUytT?=
- =?utf-8?B?TlVHdGIvWVE4Uk9LTGhmb2FJTTJOeWUwNlFzSVNKMGg0bzFkRXJkdDNCQ1ky?=
- =?utf-8?B?TGNpT2piN2JBPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(921020)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ym9CeWJRaTYrait4Q1NDT0w2N3JmeWMwU3ZYZFNiVkx6eXMrMitra3VsbUd0?=
- =?utf-8?B?b2wxN1N6S0EyZW1ZRGN4RDJTRmRKakRBeTFiTHlOVmttVmJVNjFPV0ZSTENE?=
- =?utf-8?B?d1FkNG0vRHBZR2ZtN3p4bVdLSTV6cVczNmJkd3d4ZnM1NTNaNkpUSzF0N0lu?=
- =?utf-8?B?cWM0Yml2WlU3RkY2TWZVdmlNaW9ZUHZXLzNXb3U4MENOSXI3WG41R1REaGhG?=
- =?utf-8?B?STRtNlorZTlyOHNMWnh3MlhrK3B4U0JxOXgrTDU3cEROckhxdFFHd09ObE1B?=
- =?utf-8?B?a1lRYzhScEMza2VPSFRhVjNTWFgraFRsWVFDUXZVRTZvVWp1SVVjZUhjamFR?=
- =?utf-8?B?VkV4L1IzNStuOE8rQndpSUdEb3g2dHhNeFE1cE5KS0svak14WFZUWk5VdUQy?=
- =?utf-8?B?Q2pteEVuTG5JMDZpd0Fxc1lhOGFHR29WNVF4aGN4UmU4UjRXNlo1WUt3aVVz?=
- =?utf-8?B?dU5GNUV3dkxZaXdOMksvQUVTSitWTEp4K25McWhSdEZhZGJKbHRoZmNzbThO?=
- =?utf-8?B?UHIwWXFINzUzK3gzQ1pHQlV2OThKSVViNkNVcVYxUzNnMWc5RGlJWmpiTFBm?=
- =?utf-8?B?Z0pwaUV2SFZJWGRpVVc0cmh1N0g0OGkwem00THg1VkMySjgzOStkbitPb2Z5?=
- =?utf-8?B?bG1CamNOV3Z0MjVPcnpiQXZ6aTJ6TXF2OXI3eWRuSkJXUk5wbGxqSmlmQTU0?=
- =?utf-8?B?M1ZVSHhaVTBuQkRkMkFBdi84a0FodU9HeTQ5eTViWHBwS2ZiOWdreHJnQWZv?=
- =?utf-8?B?TG81Y1J3dE13MnFiYVY4UXJ0Y0FIOE5kWDZWbFZKMUo1cUdPdUE5MVJoNW8w?=
- =?utf-8?B?cUNSTFh3bE1BVEZmdlNSZHlaV2FjaTBTYXJvSkdySUgxRTU1OU03Z3dVMitz?=
- =?utf-8?B?cWFOQXFCamNiWm5EWFJHcWdjSkM1V1pJSE13TTV0VW8rSFFQWTZGT29qVTlD?=
- =?utf-8?B?R25sWTZEZVl1K3FuMG5TcGJTUzYrSUFkN0FXeU0rUkxSQzhUaXFPSmQ5NWRQ?=
- =?utf-8?B?bTU0L0Rtbm9jQjNsNkhYditmdTE5Z1hJdit1a1BleEZzcVpQdUJCbnBXVGth?=
- =?utf-8?B?K0N6NW5nNnBzWDVNNldNZ0JuODg3T3doYWF0OWZhd3V5TksxMitxNklwMzR4?=
- =?utf-8?B?YnhBV25FVXhzQlAyODVBZ21YS1FxVVRHNDNhVTM3dUs3QytrcmlrTnBlekZI?=
- =?utf-8?B?QzlZUldOV01Dc0Z1azhsaVMyTmFVTUs2b3k2NlBwQXpXN1A2S3FRMmhwajVU?=
- =?utf-8?B?M3FyMWFFcVVnTW9nKzRCcnQ0SXpKT3RyUk1vSDFkcTI2Uy9LQnNtNkQvVGhT?=
- =?utf-8?B?NjVVbGIyNSt0S1dWUUZyNGxRVFFmcjliZzVLM2x0S3pEazhDVmtmM3pDc1Nv?=
- =?utf-8?B?TFdJamt1RHZhWWVNb1NTT2o4Q09Oajcwc2VOMVl4QzFWcHFJNlRhMDFmMzNt?=
- =?utf-8?B?b0pmdUlaaGRWQnoxUE1DOUQzcXV3THRvclFPdHV5eEFlZTZ5Tm1vSHFZSGhv?=
- =?utf-8?B?T20wdmsxalF5MTJoQmZqdGx4RVpkdjdkODE5TVJmL2toUGN2YVpTeWx2Nk9E?=
- =?utf-8?B?aDNsNUg3RTE3MDZFVUpRYjFHQjJuZTZVK3FaaURiRlZzeXRCTG55dU5YUjJ6?=
- =?utf-8?B?WW1QVHRKNEc4TmM5Y3FWZUM2ZXo1TXVYK3hPQzVzU2l0dEs0YXprZUFLSytG?=
- =?utf-8?B?dnhkZm9vdXlhOGVoamlBV2sxUmkyVS9ROVJxaEpkWUZsLzdGcUYwd2lZREVk?=
- =?utf-8?B?YjBPWnNwUVlGR1RZQlU0RVFZbnJwekdyUlhRVEI1VmExWmtZcnJPRHBvelhl?=
- =?utf-8?B?R1krWjVzOC9MUVN1NzkzRVlXS3MwRy91VW5SNjY1UnluUGJPQnJ6NCt6MmRm?=
- =?utf-8?B?d0hSUzIreUpxaWZhZjR3MUhIaExuK3YzQlVNZHhIZGowYkM4UlBaZjRHVzFC?=
- =?utf-8?B?OFdvWlBRQU53SzFnZ3NpU0xBRzZ3TmVGbzI2dnlBTlVLeU5JSWd3UUkyOWFM?=
- =?utf-8?B?cW93T1kwNmVGMUxMQlhwWUlXQmk1eTcraElHRUZGdjJtTnMreGVyTnY2Rlls?=
- =?utf-8?B?RGVLeTlEZG5mWGFQeFVtb0drMGl1NDZhL0Q2NmFNei9iZSttQWpDRU1BdHFZ?=
- =?utf-8?Q?/ZD4VDPph988R5VSmdqoaALVM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81be442b-3a2a-4a07-7ec8-08dd8bee4ec9
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 16:02:59.9432 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CJb4RcpvAJ05RkYSnxGU9uk/w2jB1ix+Eo0BW+fXkzM6jl0mfVggH/h8xWZwe7oL/JIh43NMiH4RgD6BTwd75A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6098
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/2] drm/amdgpu/uvd: Ensure vcpu bos are within the
+ uvd segment
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, arunpravin.paneerselvam@amd.com
+References: <20250429112429.5646-1-john.olender@gmail.com>
+ <20250429112429.5646-3-john.olender@gmail.com>
+ <CADnq5_OBUWJj5uqbB78wLkbBAMtoRUy=Nes1O6garEQceCLB3Q@mail.gmail.com>
+ <b09012e2-f361-46b5-afbf-313334fad69a@amd.com>
+ <7efe97e3-adac-417b-8f0d-50ec4b2589e0@gmail.com>
+ <6288c9d8-9a18-4027-ba50-258f837025a3@amd.com>
+Content-Language: en-US
+From: John Olender <john.olender@gmail.com>
+In-Reply-To: <6288c9d8-9a18-4027-ba50-258f837025a3@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,35 +93,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+On 5/5/25 5:02 AM, Christian König wrote:
+>> Simply changing the uvd vcpu bo (and therefore the firmware) to always
+>> be allocated in vram does *not* solve #3851.
+>>
+>> Let me go into a bit of depth about how I arrived at this patch.
+>>
+>> First, what sort of system configuration changes result in the uvd init
+>> failure?  It looks like having a display connected and changing the BAR
+>> size have an impact.  Next, which kernel change reliably triggers the
+>> issue?  The change is the switch to the buddy allocator.
+> 
+> Well that is not a resizable BAR, but rather the "VRAM" is just stolen system memory and we completely bypass the BAR to access it.
+> 
+> But the effect is the same. E.g. you have more memory CPU accessible than otherwise.
+> 
+>>
+>> Now that the issue can be reliably triggered, where does the error code,
+>> -110 / -ETIMEDOUT, come from?  It turns out it's in
+>> amdgpu_uvd_ring_test_ib(), specifically a timeout while waiting on the
+>> ring's fence.
+>>
+>> With that out of the way, what allocator-related change happens when a
+>> display is connected at startup?  The 'stolen_vga_memory' and related
+>> bos are created.  Adding a one page dummy bo to the same place in the
+>> driver can allow a headless configuration to now pass the uvd ring ib test.
+>>
+>> Why does having these extra objects allocated result in a change in
+>> behavior?  Well, the switch to the buddy allocator drastically changes
+>> *where* in vram various objects end up being placed.  What about the BAR
+>> size change?  That ends up influencing where the objects are placed too.
+>>
+>> Which objects related to uvd end up being moved around?  The uvd code
+>> has a function to force its objects into a specific segment after all.
+>> Well, it turns out the vcpu bo doesn't go through this function and is
+>> therefore being moved around.
+> 
+> That function is there because independent buffers (the message and the feedback for example) needs to be in the same 256MB segment.
+> 
+>> When the system configuration results in a ring ib timeout, the uvd vcpu
+>> bo is pinned *outside* the uvd segment.  When uvd init succeeds, the uvd
+>> vcpu bo is pinned *inside* the uvd segment.
+>>
+>> So, it appears there's a relationship between *where* the vcpu bo ends
+>> up and the fence timeout.  But why does the issue manifest as a ring
+>> fence timeout while testing the ib?  Unfortunately, I'm unable to find
+>> something like a datasheet or developer's guide containing the finer
+>> details of uvd.
+> 
+> 
+> Mhm, there must be something wrong with programming bits 28-31 of the VCPU BO base address.
+> 
+> Forcing the VCPU into the first 256 segment just makes those bits zero and so makes it work on your system.
+> 
+> The problem is that this is basically just coincident. On other systems the base address can be completely different.
+> 
+> See function uvd_v4_2_mc_resume() where the mmUVD_LMI_ADDR_EXT and mmUVD_LMI_EXT40_ADDR register is programmed and try to hack those two register writes and see if they really end up in the HW.
+> 
+> I will try to find a Kaveri system which is still working to reproduce the issue.
+> 
+> Thanks,
+> Christian.
+> 
 
-On 5/3/25 15:18, James Flowers wrote:
-> Adds kernel-doc for externally linked dc_stream_remove_writeback function.
-> 
-> Signed-off-by: James Flowers <bold.zone2373@fastmail.com>
-> ---
-> V1 -> V2: Corrected checkpatch warnings and errors
-> 
->   drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> index e6e41678525f..b883fb24fa12 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -569,6 +569,14 @@ bool dc_stream_fc_disable_writeback(struct dc *dc,
->   	return true;
->   }
->   
-> +/**
-> + * dc_stream_remove_writeback() - Disables writeback and removes writeback info.
-> + * @dc: Display core control structure.
-> + * @stream: Display core stream state.
-> + * @dwb_pipe_inst: Display writeback pipe.
-> + *
-> + * Return: returns true on success, false otherwise.
-> + */
->   bool dc_stream_remove_writeback(struct dc *dc,
->   		struct dc_stream_state *stream,
->   		uint32_t dwb_pipe_inst)
+I first saw this issue with a s9150.  I had serious reservations about
+reporting the issue because, in its default configuration, the s9150 has
+no display output.  I needed to figure out that yes, this is a real
+issue, I didn't just shoot myself in the foot by enabling broken display
+hardware.
+
+The issue affects all s9150s in a system, occurs in different slots and
+numa nodes, still occurs when other hardware is added or removed, and
+follows the s9150 from x399 to a significantly newer b650 system.
+
+The Kaveri iGPU, while also impacted, mainly serves to show that yes,
+this issue is happening on more than just some dodgy s9150 setup.
+
+Anyway, hopefully these extra configuration details help narrow down the
+problem.
+
+Thanks,
+John
+
+>>
+>> Well, what seems related in the code?  Where is the ring fence located?
+>> It's placed inside the vcpu bo by amdgpu_fence_driver_start_ring().
+>>
+>> So, does this patch provide the correct solution to the problem?  Maybe
+>> not.  But the solution seems plausible enough to at least send in the
+>> patch for review.
+>>
+>> Thanks,
+>> John
 
