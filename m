@@ -4,74 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22CF0C3ABB0
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 14:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37D22C3ABB0
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 15:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A441C10E2B1;
-	Mon,  5 May 2025 14:46:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA3410E2A1;
+	Mon,  5 May 2025 15:30:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UVoGwsW8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LVMirVp7";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E1110E3FA
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 May 2025 14:46:53 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-301001bc6a8so496279a91.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 May 2025 07:46:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746456413; x=1747061213; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+GAXZpsUcmngHt0/CSRdI+uKfipejSiPDN+4JBvghwQ=;
- b=UVoGwsW8goXxIDqhVQzTA0LBOon2xkODIPwvB6YIA6Y18/nc/GvM0E3nfHjXoCWpjz
- Kg2ttIHPunu/8F7VGQLhfxrrQlJsjESn3H7UIhGx+bp3jNbfrj2ODEIqbNlZF9apZ1MA
- YfT5FqeJcOjtvGVincdt9bnOvo91MvdE3zZTqp5QJKBnKFZs1VgkXDZeCb4r+bjGduEQ
- A+EpBWGpPNM5MvqBUN5FWHkPHeSznM+3vb/02oA+4LbwNjssmaQGWUU3/H1/eMRbIzKD
- VEFP/MBOn6/Yp3kQQCQvrvCpJurlUXe3dptDYXSs0mJie4ApdFxt84eJUGGx1cu9NGy6
- Y+7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746456413; x=1747061213;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+GAXZpsUcmngHt0/CSRdI+uKfipejSiPDN+4JBvghwQ=;
- b=wGppCdb8vNupXXefx1tPUuOS5xBNBmi0KpzCz/gdCHBqumPH6riyE2Kt0QGtQjPxzA
- a3PtUgHhqz0v5TAxdMrHQjA01ik3yfAa3pYrKiR8KwXmJg9ww9UjuP74XWItMmBtVpn6
- HoCl7n0qW8MaAtCFk25aw5/fHRSlA9LjcsD1a3k3fhKuAqHL0PX2r4I19wwiGIWQFVHd
- AuIdJho8sasj2xvqK3mBIrT+T+PpFqcUW+LS4kaoO7+Txf72Ee6TeYVUyjquFzVWIyKW
- ppqPEMdZkALdTfVJeTdc3VmbrV97m8dymasMWCUpiI8V6fnB6wtdEPyjE2bhfcTWzQBy
- VkxQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW4JSuIynnLAmuptfhokZKmCmOE8EneiR9Cyq82OtvIQy3WLR4x0o2IV8A9E4hLlAZV/kZ2F6HD@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyqPpZrQyZjLB5AqbeB3/m65YV1T6SzNp2FwRKldeXLaR2DqGPA
- kveXsvVbHrmUulcjeQAj9Hd17Xo9T/83F/y3IfcP2qcCU5oehFl96U7bX1ZF+9zDcyhRyqevQiI
- SptiRuiEscrKvfRKB1Ne2aMJIyqk=
-X-Gm-Gg: ASbGncvuzCph46bNoXe/4wXfKnan8R6PXFssq8NP2nftgKUuzOagErhsaVUERn9NOwq
- Smm3W6zYpnAFb4N149VEpphUBJFcxNryDo9c0CELAdOgPTQOWyiqhConTW5/ZrXjyAIEVNZmhEx
- 2a99xRex0NBjsIEaeFxm66AQ==
-X-Google-Smtp-Source: AGHT+IFnNTggMv2dr65UUWRJg3W3WcTZjt3IqZp8zFwPDM+0dgzmzDPaakj3HLV4SUgFX/in2AgxP8ca02CsRQ+FgDY=
-X-Received: by 2002:a17:90b:3a89:b0:2ff:7b67:2358 with SMTP id
- 98e67ed59e1d1-30a4e57aeabmr7483083a91.2.1746456412671; Mon, 05 May 2025
- 07:46:52 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B283A10E2FC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 May 2025 15:30:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qxHU+Qw7K1gJtn/NndYW+OoJdElunjEoOFkk0DB+TfLRBJYVPGy9KHjJtXh6QSQTiQ64OV7MqbzQXHxuDZwVkqzgobYXebFtqz4Nx/QjXL7+3TSeo4NrR1NQDTxUzBhN7YvOZNKrxLCWYiexAPgqf2gWv+uNBQcDr41VmqkVVeeBK4EJ0cwbkTqgicvhJp9Yh8Cro0BaYHxxRG94gE4OFoMHqqCbg0L/h3EhVUgjYXGwKyu4Cn7kzopIOoxfGpYFsNOIe2XUKi4MrT+WnfhutmO3dHlVYhR4hI54d0tWI+eSyWzuX900xb5O9MFFxrnZiAWApli038CW4BZeFi9HdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nSgz2/RbucfPpPLwPJloDIYewNXuRkN7Lb0jEn7uvCg=;
+ b=A1/9XaxNPONCvC75+xc2AIIPowHY2mUal8GPFs1xEsrSrUSMmRalasJS4tZjTfG8HM85wzEYWsXYlaQeKhsQPMej22iGsw1CyanHdTE2SCHQDyinGROFF9rLRlTYXXGa0WVua8gYueION7hdSHLVRoLwt0g5KdVxU9ARHD0gxEH6xJUCN+qy1UD8FMkmOK4A3zhkBwT7oTQXyMr2vXhhmFWxVZh+Mz+1rsEvCqNst1sanKrpuZmqHefgge3BgrXlwkkfk/TnYa25xa2tUr32//vgWcPzS4kq6cNGlqCKZugXPKhcoHahCuW7WDjHt32ltef2YhuTjMaTu+mGdGvL8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nSgz2/RbucfPpPLwPJloDIYewNXuRkN7Lb0jEn7uvCg=;
+ b=LVMirVp7XZ32mHSP6PsG+PbhFWpNI1SFr6dCRg3L+797aXaUMu3KN1g5x0/fU4Ts+xCZ75UVfmSbXjn5/4qp3kEANza/ifCOAPPJJon7P6y6ObpYIVazQuhcIiLIvcJIRv05HTjwuJ3L39Rf9/pnqA4fNAEWBkuFQjEo2Y1n0Qw=
+Received: from SJ0PR03CA0038.namprd03.prod.outlook.com (2603:10b6:a03:33e::13)
+ by BL1PR12MB5852.namprd12.prod.outlook.com (2603:10b6:208:397::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.24; Mon, 5 May
+ 2025 15:30:19 +0000
+Received: from MWH0EPF000971E4.namprd02.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::63) by SJ0PR03CA0038.outlook.office365.com
+ (2603:10b6:a03:33e::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.30 via Frontend Transport; Mon,
+ 5 May 2025 15:30:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E4.mail.protection.outlook.com (10.167.243.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8722.18 via Frontend Transport; Mon, 5 May 2025 15:30:18 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 5 May
+ 2025 10:30:18 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: fix pm notifier handling
+Date: Mon, 5 May 2025 11:30:03 -0400
+Message-ID: <20250505153003.2047138-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250505153003.2047138-1-alexander.deucher@amd.com>
+References: <20250505153003.2047138-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <20250503203905.346049-1-siqueira@igalia.com>
- <20250503203905.346049-3-siqueira@igalia.com>
-In-Reply-To: <20250503203905.346049-3-siqueira@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 5 May 2025 10:46:41 -0400
-X-Gm-Features: ATxdqUEtP76MSfco7Mit7MoYbwszoWZV2_10INtfvv9Twtd0B9gKbtd1ef0SaWY
-Message-ID: <CADnq5_MtqdyO=+eWKMBM2nNwb8S7=nU6gdRmcF_uc8Qrce-+mA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] Documentation/gpu: Add new entries to amdgpu
- glossary
-To: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org, 
- kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E4:EE_|BL1PR12MB5852:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4704a31f-c100-459e-6f6d-08dd8be9be12
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YHYuS5VNn7pxDHb8B6Sy9J/n2foLXFWRHO8jH94N3VQUGp5+P51vqzM3DYiR?=
+ =?us-ascii?Q?VBiClVZGT9WZxN44eaLt0MXLH7gvlQeZYOb+qyzaH3lF6ZDE7ub/k+8sgnhZ?=
+ =?us-ascii?Q?D+R/JcYZUvoIefRkN/QWYpR21QNAzW4x4WgeFBIDyoh+8S1NfIALfGo2hNfg?=
+ =?us-ascii?Q?Gm7IDwtRQcVhvuQ46UKLgXUcI3d4HdxdueuS5L/SwLWmZVhSHmeBhCpVbS3C?=
+ =?us-ascii?Q?HylzFIBSQMdxgjSPvLWNTm36QAkdtxKU18w4lVtD4FAL3EItXkhMs0wtHXBt?=
+ =?us-ascii?Q?jkvpiKZbCYRJz8DDLHl7fPhxuLBnCHoZ3It/jBTszhmGKIgYy15KbGG1JHB/?=
+ =?us-ascii?Q?X3DfwoC6XaThUvvsmg9a7vQ3fkjLEn98KGDAG2eODu9sml4LFy4pGprL1v3T?=
+ =?us-ascii?Q?NGc84ME6a+7qmlVJQXSUroAkpR2WOPcuVMCn8Ohx29DXZTrB2KTMLpX33vjD?=
+ =?us-ascii?Q?9Pv986AriAfsSz4coVtdcqZe52a/A70acCc+ZoAurDK8r8OaVu67o2LfuMA8?=
+ =?us-ascii?Q?eEBdS8kQQKOSpXgvdk4K83By1Tw0C9m5D3UUJqClltbF9rgqPKFr2L3M762X?=
+ =?us-ascii?Q?gkgYMqj07zguoNo6+xRVPU7/8HIc8gg9EhrEbWcL53fStoY6JwtSIS8STVRV?=
+ =?us-ascii?Q?0BHB/NIc+Vkt/h/JLvNUZWPfScsjCJYI3Zo29X2P52+1eofzLroPnXu4l6BG?=
+ =?us-ascii?Q?yuSmji0k73rYqtvuwJTytfhB33O1mpbxg6I6eREQVw9thv87EEL0rRtXzQ25?=
+ =?us-ascii?Q?LpLPiN0o878BvR8HyacLSwE7583KDIl9tHv10oTm3h0hmHvYY4kHikoRm09i?=
+ =?us-ascii?Q?eF9JPiqTEqeaYPmXnCO8U2UUvAaopzNgYnB71yY+0UHK2wCzE0KC9gtReb3B?=
+ =?us-ascii?Q?FQdCXZhSto10yyTPeV8yTSVzmUjFvyvLhMPlirvEGc0c9ksEXDQyQK1rChZK?=
+ =?us-ascii?Q?fNHDmiubGnOkgL+VxGPPIDPiwtlCx4eZGZZCi7R5oJ4dxFTU8OKeLdZ0eoQq?=
+ =?us-ascii?Q?GVECZWZR5cexOoqVHSRMEJuu8o8/syhiLeCLc8O7RjnphG3MIit8l7hQqkEz?=
+ =?us-ascii?Q?2i7Nw5zxNy9Yd59ww0DJn+sCOgLQIam5arPTreLsLgAZRWqee+ELiMxh208i?=
+ =?us-ascii?Q?QI0srJVyk1iJ1NcluvN6JJPw2/bRWoMG0o4ayvkjPrNS1KDqeti5D6dUN+z3?=
+ =?us-ascii?Q?+WZCXnmcfbY06hrrd8h2myJs6Gjp96zKLFMqYqElGlrbbERCgya3f1ofjS20?=
+ =?us-ascii?Q?A8XUcQBQztaW+N/9OjnnGN49eI6UIW6Wi0/9tRVjfyzdaa/XNNJs3c2n1BAA?=
+ =?us-ascii?Q?HM9n7O5fFiGDG8aeEvjvTNAjPcRtbUDSaRqd2gVtYlKZkRXeT9xmvBRaAZJ+?=
+ =?us-ascii?Q?cq5SEu3i6gSvK7M8PDUdGSmcItphWyx6Ccm5+qg14IJELFuh+A+3eycqEBhN?=
+ =?us-ascii?Q?gGm5eYiUcBx5NCVSh+GVoz5cdd7u+olpXwyLki50LBfycDYCEhBlpA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 15:30:18.7547 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4704a31f-c100-459e-6f6d-08dd8be9be12
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5852
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,117 +132,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series with some minor tweaks.
+Set the s3/s0ix and s4 flags in the pm notifier so that we can skip
+the resource evictions properly in pm prepare based on whether
+we are suspending or hibernating.  Drop the eviction as processes
+are not frozen at this time, we we can end up getting stuck trying
+to evict VRAM while applications continue to submit work which
+causes the buffers to get pulled back into VRAM.
 
-Alex
+v2: Move suspend flags out of pm notifier (Mario)
 
-On Sat, May 3, 2025 at 4:39=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.co=
-m> wrote:
->
-> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
-> ---
->  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 33 ++++++++++++++++++++
->  1 file changed, 33 insertions(+)
->
-> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation=
-/gpu/amdgpu/amdgpu-glossary.rst
-> index 8e6af7cc76c2..70aceff4bdc6 100644
-> --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> @@ -24,6 +24,9 @@ we have a dedicated glossary for Display Core at
->      CIK
->        Sea Islands
->
-> +    CB
-> +      Color Buffer
-> +
->      CP
->        Command Processor
->
-> @@ -39,6 +42,9 @@ we have a dedicated glossary for Display Core at
->      CU
->        Compute Unit
->
-> +    DB
-> +      Depth Buffer
-> +
->      DFS
->        Digital Frequency Synthesizer
->
-> @@ -63,6 +69,12 @@ we have a dedicated glossary for Display Core at
->      GC
->        Graphics and Compute
->
-> +    GDS
-> +      Global Data Share
-> +
-> +    GE
-> +      Geometry Engine
-> +
->      GMC
->        Graphic Memory Controller
->
-> @@ -128,6 +140,9 @@ we have a dedicated glossary for Display Core at
->      MQD
->        Memory Queue Descriptor
->
-> +    PA
-> +      Primitive Assembler / Physical Address
-> +
->      PFP
->        Pre-Fetch Parser (Graphics)
->
-> @@ -146,6 +161,9 @@ we have a dedicated glossary for Display Core at
->        the GFX block. It's involved in GFX power management and SR-IOV, a=
-mong
->        other things.
->
-> +    SC
-> +      Scan Converter
-> +
->      SDMA
->        System DMA
->
-> @@ -164,6 +182,9 @@ we have a dedicated glossary for Display Core at
->      SMU/SMC
->        System Management Unit / System Management Controller
->
-> +    SPI
-> +      Shader Processor Input
-> +
->      SRLC
->        Save/Restore List Control
->
-> @@ -176,6 +197,9 @@ we have a dedicated glossary for Display Core at
->      SS
->        Spread Spectrum
->
-> +    SX
-> +      Shader Execution / Shader Export
-> +
->      TA
->        Trusted Application
->
-> @@ -185,6 +209,9 @@ we have a dedicated glossary for Display Core at
->      TOC
->        Table of Contents
->
-> +    UMSCH
-> +      User Mode Scheduler
-> +
->      UVD
->        Unified Video Decoder
->
-> @@ -202,3 +229,9 @@ we have a dedicated glossary for Display Core at
->
->      VPE
->        Video Processing Engine
-> +
-> +    XCC
-> +      Accelerator Core Complex
-> +
-> +    XCP
-> +      Accelerator Core Partition
-> --
-> 2.47.2
->
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4178
+Fixes: 2965e6355dcd ("drm/amd: Add Suspend/Hibernate notification callback support")
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 18 +++++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 10 +---------
+ 2 files changed, 6 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 368004b716ba8..5d25db16cb4b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4979,28 +4979,20 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
+  * @data: data
+  *
+  * This function is called when the system is about to suspend or hibernate.
+- * It is used to evict resources from the device before the system goes to
+- * sleep while there is still access to swap.
++ * It is used to set the appropriate flags so that eviction can be optimized
++ * in the pm prepare callback.
+  */
+ static int amdgpu_device_pm_notifier(struct notifier_block *nb, unsigned long mode,
+ 				     void *data)
+ {
+ 	struct amdgpu_device *adev = container_of(nb, struct amdgpu_device, pm_nb);
+-	int r;
+ 
+ 	switch (mode) {
+ 	case PM_HIBERNATION_PREPARE:
+ 		adev->in_s4 = true;
+-		fallthrough;
+-	case PM_SUSPEND_PREPARE:
+-		r = amdgpu_device_evict_resources(adev);
+-		/*
+-		 * This is considered non-fatal at this time because
+-		 * amdgpu_device_prepare() will also fatally evict resources.
+-		 * See https://gitlab.freedesktop.org/drm/amd/-/issues/3781
+-		 */
+-		if (r)
+-			drm_warn(adev_to_drm(adev), "Failed to evict resources, freeze active processes if problems occur: %d\n", r);
++		break;
++	case PM_POST_HIBERNATION:
++		adev->in_s4 = false;
+ 		break;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 8baeaa5d5b119..e0ca9405719e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2643,13 +2643,8 @@ static int amdgpu_pmops_freeze(struct device *dev)
+ static int amdgpu_pmops_thaw(struct device *dev)
+ {
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+-	int r;
+-
+-	r = amdgpu_device_resume(drm_dev, true);
+-	adev->in_s4 = false;
+ 
+-	return r;
++	return amdgpu_device_resume(drm_dev, true);
+ }
+ 
+ static int amdgpu_pmops_poweroff(struct device *dev)
+@@ -2662,9 +2657,6 @@ static int amdgpu_pmops_poweroff(struct device *dev)
+ static int amdgpu_pmops_restore(struct device *dev)
+ {
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+-
+-	adev->in_s4 = false;
+ 
+ 	return amdgpu_device_resume(drm_dev, true);
+ }
+-- 
+2.49.0
+
