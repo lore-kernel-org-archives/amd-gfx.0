@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EA47C3ABB9
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 23:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D7E1C3ABBF
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 23:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBC0710E5B4;
-	Mon,  5 May 2025 23:00:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86EBE10E5BA;
+	Mon,  5 May 2025 23:01:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J/8AmMjX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BHTA1e/q";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13C6010E5B3;
- Mon,  5 May 2025 23:00:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A75EE10E5B8;
+ Mon,  5 May 2025 23:01:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 44BEE5C5AF2;
- Mon,  5 May 2025 22:58:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085A1C4CEE4;
- Mon,  5 May 2025 23:00:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1F572629CF;
+ Mon,  5 May 2025 23:00:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66EB9C4CEE4;
+ Mon,  5 May 2025 23:01:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746486031;
- bh=0oolSqsZ1MAxsLhdbgfd9396bqGOYrEmyGV7kZGgazM=;
+ s=k20201202; t=1746486082;
+ bh=81Zkuae21aluFsGgJBAjlb3jwePP5w3W/o7+Fv9hDH0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J/8AmMjXZJbbt33IFaYj72mIL5eZX2qVFW6SQKbuWFNU/m9kWKTMYy6gwo0/WikFT
- +iq7x7AEza0lt6IOP4l1VTiq9aFhgokGDF3sXgqyTieiG++nDbqjcF0NR5+Lv/Op6M
- dahyWObC+U5TPnjrk2X35vuBxB+rSoaX+A48zvbVOudo52Ki6r3PMGmKhQ8WELCkrb
- EyNyM2RrSZUa//tEB5iaTvPzbzKpiuNX2bahzKKq5AnS0kUd+B5s8Mrut/m4iIpOZw
- NiMfSwEiFHSUJ2uNp1AzmaTKzb/AKDhd4652susVJO4wuWUqwGZ0RIAlYKHLlfZCyh
- 9mV4P3GKLf6Fg==
+ b=BHTA1e/qFoYq+9LM+Etd+FZFptzewArTt31meDVXvTQDBBaJuj0ifY4MjkiPaTaGl
+ N3l5FUbMLV8/x84dh03dkqRBnkaHHQ33AqHJdIW5uiRyJ+R3Fg77oWM0hElmu8uNRx
+ XqLbXTXIihZYDm5C+QfS0gs5J0Zmlv6IwppUNNEnqibxCmLOT08qMp18CufBIcRmQD
+ cXT+YdHL8CkWOBldDjC7DxmEflaz7LEgFFDJF9niFbmrxi9u6QooN1eosrEdw4ES+q
+ ErkxsuCb0pbs0f/eBSjakUpfhgK/a8tY+9joWC1E1HCiAO24bLn2SRB4hmZEmkRSxu
+ uTz5+MWugNwYg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: George Shen <george.shen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+Cc: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com,
- michael.strauss@amd.com, roman.li@amd.com, PeiChen.Huang@amd.com,
- Ausef.Yousof@amd.com, Cruise.Hung@amd.com, amd-gfx@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 119/294] drm/amd/display: Skip checking FRL_MODE
- bit for PCON BW determination
-Date: Mon,  5 May 2025 18:53:39 -0400
-Message-Id: <20250505225634.2688578-119-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 146/294] drm/amdkfd: KFD release_work possible
+ circular locking
+Date: Mon,  5 May 2025 18:54:06 -0400
+Message-Id: <20250505225634.2688578-146-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250505225634.2688578-1-sashal@kernel.org>
 References: <20250505225634.2688578-1-sashal@kernel.org>
@@ -67,68 +64,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: George Shen <george.shen@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-[ Upstream commit 0584bbcf0c53c133081100e4f4c9fe41e598d045 ]
+[ Upstream commit 1b9366c601039d60546794c63fbb83ce8e53b978 ]
 
-[Why/How]
-Certain PCON will clear the FRL_MODE bit despite supporting the link BW
-indicated in the other bits.
+If waiting for gpu reset done in KFD release_work, thers is WARNING:
+possible circular locking dependency detected
 
-Thus, skip checking the FRL_MODE bit when interpreting the
-hdmi_encoded_link_bw struct.
+  #2  kfd_create_process
+        kfd_process_mutex
+          flush kfd release work
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: George Shen <george.shen@amd.com>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+  #1  kfd release work
+        wait for amdgpu reset work
+
+  #0  amdgpu_device_gpu_reset
+        kgd2kfd_pre_reset
+          kfd_process_mutex
+
+  Possible unsafe locking scenario:
+
+        CPU0                    CPU1
+        ----                    ----
+   lock((work_completion)(&p->release_work));
+                  lock((wq_completion)kfd_process_wq);
+                  lock((work_completion)(&p->release_work));
+   lock((wq_completion)amdgpu-reset-dev);
+
+To fix this, KFD create process move flush release work outside
+kfd_process_mutex.
+
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../dc/link/protocols/link_dp_capability.c    | 30 +++++++++----------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index 3d589072fe307..1e621eae9b7da 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -239,21 +239,21 @@ static uint32_t intersect_frl_link_bw_support(
- {
- 	uint32_t supported_bw_in_kbps = max_supported_frl_bw_in_kbps;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index a6d08dee74f6e..93740b8fc3f44 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -812,6 +812,14 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 		return ERR_PTR(-EINVAL);
+ 	}
  
--	// HDMI_ENCODED_LINK_BW bits are only valid if HDMI Link Configuration bit is 1 (FRL mode)
--	if (hdmi_encoded_link_bw.bits.FRL_MODE) {
--		if (hdmi_encoded_link_bw.bits.BW_48Gbps)
--			supported_bw_in_kbps = 48000000;
--		else if (hdmi_encoded_link_bw.bits.BW_40Gbps)
--			supported_bw_in_kbps = 40000000;
--		else if (hdmi_encoded_link_bw.bits.BW_32Gbps)
--			supported_bw_in_kbps = 32000000;
--		else if (hdmi_encoded_link_bw.bits.BW_24Gbps)
--			supported_bw_in_kbps = 24000000;
--		else if (hdmi_encoded_link_bw.bits.BW_18Gbps)
--			supported_bw_in_kbps = 18000000;
--		else if (hdmi_encoded_link_bw.bits.BW_9Gbps)
--			supported_bw_in_kbps = 9000000;
--	}
-+	/* Skip checking FRL_MODE bit, as certain PCON will clear
-+	 * it despite supporting the link BW indicated in the other bits.
++	/* If the process just called exec(3), it is possible that the
++	 * cleanup of the kfd_process (following the release of the mm
++	 * of the old process image) is still in the cleanup work queue.
++	 * Make sure to drain any job before trying to recreate any
++	 * resource for this process.
 +	 */
-+	if (hdmi_encoded_link_bw.bits.BW_48Gbps)
-+		supported_bw_in_kbps = 48000000;
-+	else if (hdmi_encoded_link_bw.bits.BW_40Gbps)
-+		supported_bw_in_kbps = 40000000;
-+	else if (hdmi_encoded_link_bw.bits.BW_32Gbps)
-+		supported_bw_in_kbps = 32000000;
-+	else if (hdmi_encoded_link_bw.bits.BW_24Gbps)
-+		supported_bw_in_kbps = 24000000;
-+	else if (hdmi_encoded_link_bw.bits.BW_18Gbps)
-+		supported_bw_in_kbps = 18000000;
-+	else if (hdmi_encoded_link_bw.bits.BW_9Gbps)
-+		supported_bw_in_kbps = 9000000;
- 
- 	return supported_bw_in_kbps;
- }
++	flush_workqueue(kfd_process_wq);
++
+ 	/*
+ 	 * take kfd processes mutex before starting of process creation
+ 	 * so there won't be a case where two threads of the same process
+@@ -830,14 +838,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 	if (process) {
+ 		pr_debug("Process already found\n");
+ 	} else {
+-		/* If the process just called exec(3), it is possible that the
+-		 * cleanup of the kfd_process (following the release of the mm
+-		 * of the old process image) is still in the cleanup work queue.
+-		 * Make sure to drain any job before trying to recreate any
+-		 * resource for this process.
+-		 */
+-		flush_workqueue(kfd_process_wq);
+-
+ 		process = create_process(thread);
+ 		if (IS_ERR(process))
+ 			goto out;
 -- 
 2.39.5
 
