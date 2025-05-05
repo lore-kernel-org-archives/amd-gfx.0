@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B67C3ABB6
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:47:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67D89C3ABB9
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C17010E546;
-	Mon,  5 May 2025 22:47:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0989610E547;
+	Mon,  5 May 2025 22:48:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="su/4tt43";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JD2ZwO4A";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C04310E546;
- Mon,  5 May 2025 22:47:44 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83D0A10E547;
+ Mon,  5 May 2025 22:48:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A6A47629C2;
- Mon,  5 May 2025 22:47:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E89A4C4CEE4;
- Mon,  5 May 2025 22:47:41 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 29E30A4D09D;
+ Mon,  5 May 2025 22:42:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5B31C4CEE4;
+ Mon,  5 May 2025 22:48:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746485263;
- bh=kPtgYJ1ylrGPtrzBL0qY+5FRkGigw4idpT1KKc/S+MU=;
+ s=k20201202; t=1746485284;
+ bh=fyiu71eYlgW/COF8lDRLJM6UWE/RGqymuevgYT5Uy9I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=su/4tt433OBO4ppA2zdB6X/1gE6MWkcZg9k1czP1k6+Q/icQ9h4SpxPTpH36Q7+Lj
- KDaqrgComQbxTThP7C4HaV3Z7sc/KKqRMv7cJazR3zHr8rOQIgNYOEQKLyLzW0NoOa
- XcbOHj/774OWabM7fVHKRgeBm4KVce3/XEfRkMotfxvMcIAl5n3QC7WXQ/hlNoliCm
- bG04+53UdbeF0k2ssXc2W+KVB6lC3MQceVAvOsEvtZanajtvWPbsnkRDXiQd0IsNES
- q6r9a3NXoaV8iiUzfUiYq7dyb4OHvdCva9elH+Rfy2C/6pjhfY18rkhTPe0RdXEaEz
- t5Fk9yAtCeTkA==
+ b=JD2ZwO4A5iqlMpy/Gk+JUluzICz1az+RPj6Uif2J7JJUzzEvNaln0Xct++t64qlDT
+ uuKcIBN4+pwOG8/kMhbCEgJo4nrx7+CI/X4P6TuipbpQZSZkpoPwBWPUZqWwGQewmb
+ mIREJna03EadSzpS5dvRXMqJAZ75Ub8uUAiHYJwdF9G03m1YSSzcc7vXepGeitE3DH
+ ytCd6nKLvq2EgYq0KqWdutkH5UfJL3AKb9dlmVa28u2kV8mEN4JWEgP8LMbasguRwE
+ p0JqGwC1yH4gQcJ1Qa2FIZPzKvb0V5iAiGqeh/Dt0uWoiDj3SYCOQEE0694OaZ48Ur
+ wilE94LYrwnRw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
+Cc: Yihan Zhu <Yihan.Zhu@amd.com>, Samson Tam <samson.tam@amd.com>,
+ Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.12 241/486] drm/amdkfd: KFD release_work possible
- circular locking
-Date: Mon,  5 May 2025 18:35:17 -0400
-Message-Id: <20250505223922.2682012-241-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, ivlipski@amd.com,
+ nicholas.kazlauskas@amd.com, sungjoon.kim@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.12 252/486] drm/amd/display: handle
+ max_downscale_src_width fail check
+Date: Mon,  5 May 2025 18:35:28 -0400
+Message-Id: <20250505223922.2682012-252-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250505223922.2682012-1-sashal@kernel.org>
 References: <20250505223922.2682012-1-sashal@kernel.org>
@@ -64,78 +67,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Yihan Zhu <Yihan.Zhu@amd.com>
 
-[ Upstream commit 1b9366c601039d60546794c63fbb83ce8e53b978 ]
+[ Upstream commit 02a940da2ccc0cc0299811379580852b405a0ea2 ]
 
-If waiting for gpu reset done in KFD release_work, thers is WARNING:
-possible circular locking dependency detected
+[WHY]
+If max_downscale_src_width check fails, we exit early from TAP calculation and left a NULL
+value to the scaling data structure to cause the zero divide in the DML validation.
 
-  #2  kfd_create_process
-        kfd_process_mutex
-          flush kfd release work
+[HOW]
+Call set default TAP calculation before early exit in get_optimal_number_of_taps due to
+max downscale limit exceed.
 
-  #1  kfd release work
-        wait for amdgpu reset work
-
-  #0  amdgpu_device_gpu_reset
-        kgd2kfd_pre_reset
-          kfd_process_mutex
-
-  Possible unsafe locking scenario:
-
-        CPU0                    CPU1
-        ----                    ----
-   lock((work_completion)(&p->release_work));
-                  lock((wq_completion)kfd_process_wq);
-                  lock((work_completion)(&p->release_work));
-   lock((wq_completion)amdgpu-reset-dev);
-
-To fix this, KFD create process move flush release work outside
-kfd_process_mutex.
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Samson Tam <samson.tam@amd.com>
+Signed-off-by: Yihan Zhu <Yihan.Zhu@amd.com>
+Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 0ec8b457494bd..45923da7709fd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -842,6 +842,14 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
- 		return ERR_PTR(-EINVAL);
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+index 40acebd13e46d..abf439e743f23 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+@@ -425,11 +425,6 @@ bool dpp3_get_optimal_number_of_taps(
+ 	int min_taps_y, min_taps_c;
+ 	enum lb_memory_config lb_config;
  
-+	/* If the process just called exec(3), it is possible that the
-+	 * cleanup of the kfd_process (following the release of the mm
-+	 * of the old process image) is still in the cleanup work queue.
-+	 * Make sure to drain any job before trying to recreate any
-+	 * resource for this process.
-+	 */
-+	flush_workqueue(kfd_process_wq);
-+
- 	/*
- 	 * take kfd processes mutex before starting of process creation
- 	 * so there won't be a case where two threads of the same process
-@@ -860,14 +868,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
- 	if (process) {
- 		pr_debug("Process already found\n");
- 	} else {
--		/* If the process just called exec(3), it is possible that the
--		 * cleanup of the kfd_process (following the release of the mm
--		 * of the old process image) is still in the cleanup work queue.
--		 * Make sure to drain any job before trying to recreate any
--		 * resource for this process.
--		 */
--		flush_workqueue(kfd_process_wq);
+-	if (scl_data->viewport.width > scl_data->h_active &&
+-		dpp->ctx->dc->debug.max_downscale_src_width != 0 &&
+-		scl_data->viewport.width > dpp->ctx->dc->debug.max_downscale_src_width)
+-		return false;
 -
- 		process = create_process(thread);
- 		if (IS_ERR(process))
- 			goto out;
+ 	/*
+ 	 * Set default taps if none are provided
+ 	 * From programming guide: taps = min{ ceil(2*H_RATIO,1), 8} for downscaling
+@@ -467,6 +462,12 @@ bool dpp3_get_optimal_number_of_taps(
+ 	else
+ 		scl_data->taps.h_taps_c = in_taps->h_taps_c;
+ 
++	// Avoid null data in the scl data with this early return, proceed non-adaptive calcualtion first
++	if (scl_data->viewport.width > scl_data->h_active &&
++		dpp->ctx->dc->debug.max_downscale_src_width != 0 &&
++		scl_data->viewport.width > dpp->ctx->dc->debug.max_downscale_src_width)
++		return false;
++
+ 	/*Ensure we can support the requested number of vtaps*/
+ 	min_taps_y = dc_fixpt_ceil(scl_data->ratios.vert);
+ 	min_taps_c = dc_fixpt_ceil(scl_data->ratios.vert_c);
 -- 
 2.39.5
 
