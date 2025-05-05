@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4F6CC3ABB6
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:39:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBEEBC3ABB9
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:40:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F8A010E50A;
-	Mon,  5 May 2025 22:39:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E28710E50E;
+	Mon,  5 May 2025 22:40:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fbD4RZKy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kcVBeJMG";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B9910E50A;
- Mon,  5 May 2025 22:39:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A793110E50E;
+ Mon,  5 May 2025 22:40:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id A9693A4CF31;
- Mon,  5 May 2025 22:33:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3FC7C4CEE4;
- Mon,  5 May 2025 22:39:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CEFD243F0F;
+ Mon,  5 May 2025 22:40:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932D2C4CEE4;
+ Mon,  5 May 2025 22:40:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746484753;
- bh=/lYO5Z2VQkBpDzKHnqmkPOWqqSCovpwFsU3/7ca67KI=;
+ s=k20201202; t=1746484856;
+ bh=xoSZWQSiwfaTe1XlFDSCWnOiLxJZTz5NBROWo3lg3xg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fbD4RZKyUs96mud8xhFSZ9BhxIyn09uZH7GfGK3YW+zxWAMrGOpy1OrWqsNFTLr1/
- XKSPEW6+C9v/7fPJ9FwcMkHmPoB6faU0uoE5c6bNHAnqRwlEScXom/l8igueFdVcZv
- +Jh7oz2oscGaaKW9i0VsOheKEWCr8zZGFOhrVtxtKGHCqSK4BZ1dPlunzNvCfV3DZQ
- Ew7E8gFwAunNkbRwlXlBzEo4UBE2W3i3WHgJb2Oc2o9kdV8sPWJlC/5xc5nkfBPSZr
- m9uF/cQhGSAoTtZaJWcKbXuzjJhWibsgsiWpM8zOyhe0v4Eosdlkmo1kbN5zZJV2oj
- B0tuNOH+i9xWQ==
+ b=kcVBeJMGMZ7dhySQwqsKYBpHKbof8wrNbVEzhes5hVMNhTBzSFtRqX33tYLsfUavD
+ Ixj9uFczJO7KIu1k0IIi6DrbMdDe10v99ig1CpAY/0HW5M34Xm3+XmCrR7LMUGMgLl
+ Urq4rCTvTm+K+l92hJSV/GN8df6mn/+dGKj1n1o9JpxeOWmHFSG/pfgbvUmrmWX7kv
+ 6PyfRkh+22SwDhqHcodAEfzO878zOeAmxMfIIauDjNUa97z0e6fRadTzpNEKhFTy5Y
+ SkJaut4Ct7r0sEyTN0YPEmUE/o/u3vbuBqFW+ehbVlnTEdT1RNCa5b+KPL8Y3sE4iy
+ 5ThcV0qqpOBNg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, srinivasan.shanmugam@amd.com, tvrtko.ursulin@igalia.com,
- mdaenzer@redhat.com, Yunxiang.Li@amd.com, Longlong.Yao@amd.com,
- shane.xiao@amd.com, Philip.Yang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.14 639/642] drm/amdkfd: Fix pasid value leak
-Date: Mon,  5 May 2025 18:14:15 -0400
-Message-Id: <20250505221419.2672473-639-sashal@kernel.org>
+Cc: Flora Cui <flora.cui@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, Hawking.Zhang@amd.com,
+ tim.huang@amd.com, yifan1.zhang@amd.com, lijo.lazar@amd.com, le.ma@amd.com,
+ Mangesh.Gadre@amd.com, pratap.nirujogi@amd.com, victorchengchi.lu@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.12 049/486] drm/amdgpu/discovery: check ip_discovery
+ fw file available
+Date: Mon,  5 May 2025 18:32:05 -0400
+Message-Id: <20250505223922.2682012-49-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250505221419.2672473-1-sashal@kernel.org>
-References: <20250505221419.2672473-1-sashal@kernel.org>
+In-Reply-To: <20250505223922.2682012-1-sashal@kernel.org>
+References: <20250505223922.2682012-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.14.5
+X-stable-base: Linux 6.12.26
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,127 +65,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+From: Flora Cui <flora.cui@amd.com>
 
-[ Upstream commit 10e08943caedfb4b0b95933d248503a6f6b9fef6 ]
+[ Upstream commit 017fbb6690c2245b1b4ef39b66c79d2990fe63dd ]
 
-Curret kfd does not allocate pasid values, instead uses pasid value for each
-vm from graphic driver. So should not prevent graphic driver from releasing
-pasid values since the values are allocated by graphic driver, not kfd driver
-anymore. This patch does not stop graphic driver release pasid values.
-
-Fixes: 8544374c0f82 ("drm/amdkfd: Have kfd driver use same PASID values from graphic driver")
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Flora Cui <flora.cui@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 --
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 21 -------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 14 -------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  5 +----
- 5 files changed, 1 insertion(+), 42 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 31 ++++++++++---------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index a160ffe80b3de..55d5399676951 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -303,8 +303,6 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
- 					struct amdgpu_vm *avm,
- 					void **process_info,
- 					struct dma_fence **ef);
--void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
--					void *drm_priv);
- uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv);
- size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
- 					uint8_t xcp_id);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 0c8129f8d3635..b3c8eae460425 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1578,27 +1578,6 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index ca8091fd3a24f..018240a2ab96a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -111,8 +111,7 @@
+ #include "amdgpu_isp.h"
+ #endif
+ 
+-#define FIRMWARE_IP_DISCOVERY "amdgpu/ip_discovery.bin"
+-MODULE_FIRMWARE(FIRMWARE_IP_DISCOVERY);
++MODULE_FIRMWARE("amdgpu/ip_discovery.bin");
+ 
+ #define mmIP_DISCOVERY_VERSION  0x16A00
+ #define mmRCC_CONFIG_MEMSIZE	0xde3
+@@ -295,21 +294,13 @@ static int amdgpu_discovery_read_binary_from_mem(struct amdgpu_device *adev,
+ 	return ret;
  }
  
--void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
--					    void *drm_priv)
--{
--	struct amdgpu_vm *avm;
--
--	if (WARN_ON(!adev || !drm_priv))
--		return;
--
--	avm = drm_priv_to_vm(drm_priv);
--
--	pr_debug("Releasing process vm %p\n", avm);
--
--	/* The original pasid of amdgpu vm has already been
--	 * released during making a amdgpu vm to a compute vm
--	 * The current pasid is managed by kfd and will be
--	 * released on kfd process destroy. Set amdgpu pasid
--	 * to 0 to avoid duplicate release.
--	 */
--	amdgpu_vm_release_compute(adev, avm);
--}
--
- uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv)
+-static int amdgpu_discovery_read_binary_from_file(struct amdgpu_device *adev, uint8_t *binary)
++static int amdgpu_discovery_read_binary_from_file(struct amdgpu_device *adev,
++							uint8_t *binary,
++							const char *fw_name)
  {
- 	struct amdgpu_vm *avm = drm_priv_to_vm(drm_priv);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index f0d675c0fc69c..21be10d46cf9c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2687,20 +2687,6 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	return r;
+ 	const struct firmware *fw;
+-	const char *fw_name;
+ 	int r;
+ 
+-	switch (amdgpu_discovery) {
+-	case 2:
+-		fw_name = FIRMWARE_IP_DISCOVERY;
+-		break;
+-	default:
+-		dev_warn(adev->dev, "amdgpu_discovery is not set properly\n");
+-		return -EINVAL;
+-	}
+-
+ 	r = request_firmware(&fw, fw_name, adev->dev);
+ 	if (r) {
+ 		dev_err(adev->dev, "can't load firmware \"%s\"\n",
+@@ -402,10 +393,19 @@ static int amdgpu_discovery_verify_npsinfo(struct amdgpu_device *adev,
+ 	return 0;
  }
  
--/**
-- * amdgpu_vm_release_compute - release a compute vm
-- * @adev: amdgpu_device pointer
-- * @vm: a vm turned into compute vm by calling amdgpu_vm_make_compute
-- *
-- * This is a correspondant of amdgpu_vm_make_compute. It decouples compute
-- * pasid from vm. Compute should stop use of vm after this call.
-- */
--void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
--{
--	amdgpu_vm_set_pasid(adev, vm, 0);
--	vm->is_compute_context = false;
--}
--
- static int amdgpu_vm_stats_is_zero(struct amdgpu_vm *vm)
++static const char *amdgpu_discovery_get_fw_name(struct amdgpu_device *adev)
++{
++	if (amdgpu_discovery == 2)
++		return "amdgpu/ip_discovery.bin";
++
++	return NULL;
++}
++
+ static int amdgpu_discovery_init(struct amdgpu_device *adev)
  {
- 	for (int i = 0; i < __AMDGPU_PL_NUM; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 5010a3107bf89..f3ad687125ad6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -489,7 +489,6 @@ int amdgpu_vm_set_pasid(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout);
- int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id);
- int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
--void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
- 		      unsigned int num_fences);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 3f411922534b3..7c0c24732481e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1059,11 +1059,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 		kfd_process_device_destroy_cwsr_dgpu(pdd);
- 		kfd_process_device_destroy_ib_mem(pdd);
+ 	struct table_info *info;
+ 	struct binary_header *bhdr;
++	const char *fw_name;
+ 	uint16_t offset;
+ 	uint16_t size;
+ 	uint16_t checksum;
+@@ -417,9 +417,10 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+ 		return -ENOMEM;
  
--		if (pdd->drm_file) {
--			amdgpu_amdkfd_gpuvm_release_process_vm(
--					pdd->dev->adev, pdd->drm_priv);
-+		if (pdd->drm_file)
- 			fput(pdd->drm_file);
--		}
+ 	/* Read from file if it is the preferred option */
+-	if (amdgpu_discovery == 2) {
++	fw_name = amdgpu_discovery_get_fw_name(adev);
++	if (fw_name != NULL) {
+ 		dev_info(adev->dev, "use ip discovery information from file");
+-		r = amdgpu_discovery_read_binary_from_file(adev, adev->mman.discovery_bin);
++		r = amdgpu_discovery_read_binary_from_file(adev, adev->mman.discovery_bin, fw_name);
  
- 		if (pdd->qpd.cwsr_kaddr && !pdd->qpd.cwsr_base)
- 			free_pages((unsigned long)pdd->qpd.cwsr_kaddr,
+ 		if (r) {
+ 			dev_err(adev->dev, "failed to read ip discovery binary from file\n");
 -- 
 2.39.5
 
