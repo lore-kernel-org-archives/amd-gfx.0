@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45BC9C3ABAA
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 19:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18718C3ABB9
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 19:51:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB80C10E29A;
-	Mon,  5 May 2025 19:51:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0A9710E327;
+	Mon,  5 May 2025 19:51:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VivOEQv5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uSkNNFeF";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D05B910E29A
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 May 2025 19:51:31 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 829B310E327
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 May 2025 19:51:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rdnwqQ0kCKMC2TM/ZS30WPrTkTUfUeLsdheU5r1EFMtI/pIrlBqW/wZ6rIvXJiTypeioj+Js980lBIehFmOFRx6Qg14gzZFpAzvqKh2kRB0ix7ttxteZprr5CyecwaituYd8XgKyeYVLTMDwoqGvBgserJGgqO/k7WuqdhW/QG8M0A4/TnluZxbvL312hriQVGN4tK6OnzyD3/ueXnF7TucLlIhwadr1tsGdFTla9P6u7WiIv/4sP8bSI+9EwHkIf9ZkjEk+CIj2gq7TcdWPgT1atmZa6BXX7zYmqoNgyKW5/GJ7pTXtY8l6N/Mfai5GW8RT1RZmvr2EGuKQU73ZuQ==
+ b=oZXgb6i42c5vp/By06H4fT0/WiKUyFH46u+JrlTzicPPN0EvS6qEWjNs53B7eiup74zS0P+GNC9IOUZac5qxlyMmLRb/K8WVt6l/2HVfYP+CfXA1fSOpG/5KU1biEssCPeKKaiHONe9HSu99+qF5lfHN5AHSpe6hl6MaylRGKvpm8YdoqZ4lKlbP588Pj9dFArT519AwZP5nVjQiBtMd2O0SBr0dF0gtp7mT2VVZ7uZibVHYpTOdjAmGa3MkIhfAgKS/8oRUlfAwHsQJGWRal/MDA/8nz+7h3H0LXW258jeGZXEbD6ofrvFs+8wddoc/z6H8nRjiSFpajykgLTxxag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=phlctkbnyrnIUUL/dw9A4l0X1nn+2r4HPCqZKLQ5CO0=;
- b=kJZGnMEd0b71iTSpoy17LhbkNNQCodhHE7SfVWlVDXsTJhcYQPhue2uO1mFyBpAKPS+dDhnCcOC9BMUCBeN7M5fd5enrW1XOK80cfJ0hvOgPUB+wB73a1p4D1v8AwmGOl7quTbwqhsIwP6jgTpBBFAQTS8WgOej+25IprnyJMPhJL1VK8mtvBCkiOQ2gm6H0pj/znWK4vdnBo7EFbNJujOv7fwMcWJZHvcw0z3X6oZ3UsDWzix4ClkGhzmLoc0tPc608fTLLI5DNd4bsH4Mxw9gFChGEGykOtzEnLW+NwyiCiK3TdHFXFW0RtPkUmdmFD6JNVzOPB9i+B4sirmiwBA==
+ bh=ryVyqnNPe29/NEYVrWXAu5JxCimjhiFnZkUUAiRoaWQ=;
+ b=wtkXCclwD5QnRfnCptMGA/6V+6oM225q+TpC9LTctsoZJoLld/8eiiFODqNKsWl9a52daTcBqfGdgV03H2lXBRWzpWJj/mj4VDl/ntHPV4Jm+iKKidLl78RmaUo0XAnj1aaQAgzX8hmO1wwT5ZkZg53jJsMFQmRyRAL2OAcUiV3dPoosXdeuyDyyff8npKC4HNlU6sWzDCGUZQ0kZYMLzYVk8I4+U8h9eLVt66pu0u2iaJwppKWCPtMt1+gxbTxergTJsloUzzf3IJYl+0paYM4tQeS5T+NKPDZ9r0HK+oE8kEhMaqEiGyV3ROk8SyT/VQtqiR2Vb5ceYjMHswK1DQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=phlctkbnyrnIUUL/dw9A4l0X1nn+2r4HPCqZKLQ5CO0=;
- b=VivOEQv5JQgS7stnb2StdhzC/lAIx294LMWu7gp8PnmBiJCIhJZ4T4Nnwh6dDmoHTJ3Gqom+l318mKNRSBiAtf2jC3mX3VeNZijtHsELDEq4eZ/UKSXVaF0gaRo0ViOFfZ6OgbDfSoS2r8X0RcbSPWRAQKkqeDyPN61jXFp5HFE=
+ bh=ryVyqnNPe29/NEYVrWXAu5JxCimjhiFnZkUUAiRoaWQ=;
+ b=uSkNNFeF55jkcK+8lm8xSUOcF9OgzuUy3I4Qg+QSVEKks6gP7OjsZ7Rod/xpdeOxKHrC47QTBpyuuyqp1ICJDtQPG759/qckQsYUttqhxWcMsRHDlyZsulJ4KM0zVYVVV2h2uYohBArzVNvgfXW56NU91Tzw7LbE15SZ/K46f4k=
 Received: from CY8PR12MB7657.namprd12.prod.outlook.com (2603:10b6:930:9d::14)
  by CH2PR12MB4056.namprd12.prod.outlook.com (2603:10b6:610:a5::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Mon, 5 May
- 2025 19:51:27 +0000
+ 2025 19:51:46 +0000
 Received: from CY8PR12MB7657.namprd12.prod.outlook.com
  ([fe80::dc50:9698:ac9a:b44b]) by CY8PR12MB7657.namprd12.prod.outlook.com
  ([fe80::dc50:9698:ac9a:b44b%5]) with mapi id 15.20.8699.022; Mon, 5 May 2025
- 19:51:27 +0000
+ 19:51:46 +0000
 From: "Gande, Shravan kumar" <Shravankumar.Gande@amd.com>
 To: "Pan, Ellen" <Yunru.Pan@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
@@ -46,107 +46,104 @@ CC: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>, "Rehman, Ahmad"
  <Ahmad.Rehman@amd.com>, "Chan, Hing Pong" <Jeffrey.Chan@amd.com>, "Luo,
  Zhigang" <Zhigang.Luo@amd.com>, "Skvortsov, Victor"
  <Victor.Skvortsov@amd.com>
-Subject: RE: [PATCH 1/4] drm/amdgpu: Add Runtime Bad Page message definitions
- for VFs
-Thread-Topic: [PATCH 1/4] drm/amdgpu: Add Runtime Bad Page message definitions
- for VFs
-Thread-Index: AQHbuU9RuMUTHy5fnkOP2m5azwgtKbPEe1Lg
-Date: Mon, 5 May 2025 19:51:27 +0000
-Message-ID: <CY8PR12MB7657B6E6DACE531D24DCB73B8B8E2@CY8PR12MB7657.namprd12.prod.outlook.com>
-References: <20250429214008.93058-1-yunru.pan@amd.com>
-In-Reply-To: <20250429214008.93058-1-yunru.pan@amd.com>
+Subject: RE: [PATCH 2/4] drm/amdgpu: Implement Runtime Bad Page query for VFs
+Thread-Topic: [PATCH 2/4] drm/amdgpu: Implement Runtime Bad Page query for VFs
+Thread-Index: AQHbuU9de/fdDi0OHEKqEshVobLzR7PEe5iw
+Date: Mon, 5 May 2025 19:51:46 +0000
+Message-ID: <CY8PR12MB7657D40E7B0E698B1EF816198B8E2@CY8PR12MB7657.namprd12.prod.outlook.com>
+References: <20250429214024.93078-1-yunru.pan@amd.com>
+In-Reply-To: <20250429214024.93078-1-yunru.pan@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=84a32dde-25a1-4c59-9c7e-3d0c7582bd12;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=74b5e40a-917e-4b73-a54c-fed232f484d1;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-05-05T19:50:36Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-05-05T19:51:35Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: CY8PR12MB7657:EE_|CH2PR12MB4056:EE_
-x-ms-office365-filtering-correlation-id: ff700c8c-6426-4677-ea0a-08dd8c0e392d
+x-ms-office365-filtering-correlation-id: 1190cb3a-d106-4dee-6a87-08dd8c0e448f
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|366016|376014|1800799024|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?06RbRBMlpjuxp23mfARShP38TDrsi9VKspwdcTfxBN+2a/v/41lZEEmMehLc?=
- =?us-ascii?Q?zqi6hDdjEyykC7MRWCq6eLbvCjGabh6FM7sGuMJVCDJxYVH+/UiAcdhoz+2+?=
- =?us-ascii?Q?lGVU+kpI2DMDXtq5T6hoAT4Dl+7BrvdXK+wMr5ZIwRqOcukESGGM7L22ilJc?=
- =?us-ascii?Q?Cq7A+Eq4buFSpc9yMtKjIrViISXNgSGdPqdgrw/GZw/OMZYlYG5PJ/CG3Baf?=
- =?us-ascii?Q?/KT3Mxt2WPUylaei6DalzzBJajR6gl2u2FFV49cr46ZjtdHYrGz4tyMzLQag?=
- =?us-ascii?Q?blmBwiYU+iURzfKZ06XtMKJwKlH+FmzraxX/Ovma5ggvSTmstW+QbhiI404/?=
- =?us-ascii?Q?gSyxEhVxZCIBvF+i43T5Xl3F1OkrsvXk9lCwhYKIj4KA0tci/cMCKZeBWDjx?=
- =?us-ascii?Q?vLTmi6kv37SAZj/7W4s8+2+POhOm38oZ7zfQnrlLzWnpfI3i8ZJxxLXuSgNA?=
- =?us-ascii?Q?9nFIQR9YAXPmz93vQ99FLaYUSyIPcKZO+FmcBT5uMnHt7WqmSXs+UxojWMgf?=
- =?us-ascii?Q?saYWkHaISHSqG7dJoiD4YweU/amfU2vRPbvbosFZoo1Z1yq9g7eaTaDm84GE?=
- =?us-ascii?Q?dY/8ZRgW3g2nr5xQggKXT3lv+MBlBR7wZYaW7dKgyvUEifkvaYkHW4OVYhMQ?=
- =?us-ascii?Q?jpJEtg8+selsvdGocXYxau7zq9eRwWzLh1nITMab0QjzexhQ95I04Rt/TKiJ?=
- =?us-ascii?Q?pKEo/8/t4A1t4ywLKY11izJ6HqMOx0Wi9k3eNjrqgum4WrzyggC7fKIZ0RCR?=
- =?us-ascii?Q?afzb4AOd4tu2e2lUGOmGuFabwQYP1fQVAbVbcoR0UyZxLPekYDOZXMmUJRm8?=
- =?us-ascii?Q?+FaXFjVKIJrYTQ1+hxhPd05gbALEIx2DTnf5R1l2esBAKeI5NvofKhlWHSve?=
- =?us-ascii?Q?2gQLM4216HfvqAS/CaaPiCWKJ2fUkYM32u/rLa7ASs4F3ObXteTZyYCRLcNS?=
- =?us-ascii?Q?j14Q16tyVfJjeqjXqFAhh1zUX5FArnyNXGij4TqT00CaD6YbjzX4D2mc5ZDS?=
- =?us-ascii?Q?uqdbBrPfHPWtZt2zYvQ69URnxIw28ZcQ5qsfoIBpnbHPkk0dlXyKQ4pAI3sA?=
- =?us-ascii?Q?U11djfm3ppgp6+iCs5y8hlX9dVt5oPKeVHViEk4gUcRP9rscGhT5yvrnOnUg?=
- =?us-ascii?Q?5aDQRSqc7wEgE91XJJKzXRDGiHZf7cibIyjRKzihSlkjzWFHo6SRTP71gZXO?=
- =?us-ascii?Q?OTd4KIntatJsTRikMgfl00CxxMPn4mK+8zrMVRhS69sVHc/UJAjOYi6sF5zk?=
- =?us-ascii?Q?08pu2zDwG9Nb5mXdxGacTNVmp1fqsaXnuuLFUI+TNA4KiGupJEYrFPLahZO/?=
- =?us-ascii?Q?jODdpg+afCITQtF+0b6nkktwwOXAD5xrwNx9ZyZFeP3F1Cr21fwJD6r1eD7J?=
- =?us-ascii?Q?6s14CpuuuQhsq+Heow5PeXekclb1x2e7glVnQD01zIGNuMMhlBYsILFfZ+qD?=
- =?us-ascii?Q?nUN5wEq/0EQpi/yrZzPRBJF8t3HVGQkHHSDPXqGVrizBvJT50V+CIQvCr7Qz?=
- =?us-ascii?Q?rRS/QHGE18vnF08=3D?=
+x-microsoft-antispam-message-info: =?us-ascii?Q?C9CoFFzA3CFa0Xc1LYiwsg15roW8wN9lb47odGUUUsuMU3MaFmiBGea50oRH?=
+ =?us-ascii?Q?6ph4nfcty+rkQDXipr6LdtUTc+I3rCgRUZGswPGrLInT3Meiu/3AWfWY9bJB?=
+ =?us-ascii?Q?jBINyGPcK1nUnrhd4lgRXhKqJtepzm9NL4K6kmYxBW6IHVH+xHMKd9N59hjz?=
+ =?us-ascii?Q?KNzTOKS1ZnC4Pek25A5i9spFqDHtxcjFTtEokJtkW9aMT1IJmKcLxw7XzD4n?=
+ =?us-ascii?Q?fOLrdDEUWdve2yHEI4OBeKrLIr3eLNeQfGICRcl1PR9a+DgsbtqrO9bhX/Yr?=
+ =?us-ascii?Q?3fFpbgJAPZVvJSkMEQmLlfRNVNc86+gxKyUBwf5mZH+YHye3mnxS7CeYM8Iq?=
+ =?us-ascii?Q?PtFPR15pzIc43Yhc7EuhPHlCvf+E/pJp3TfreKJCcFJnQ8ww6B3i0SUiaYzU?=
+ =?us-ascii?Q?EGOQ4cHRc4FLqgQ7cVrfDggk8t0ZNdNZCvYeaq/M64Oavin5606BmJBCDp3P?=
+ =?us-ascii?Q?06zTAvBbujfBFDgUtjleYJomtmvm7c3CBbUQaiEzKIrsrveQnSyFqn4ANtyN?=
+ =?us-ascii?Q?KKIIzt4gn28oOLiFnPX5JXmuYs4Ipe82x1LQ60VcG4b3PbT4fqGTmMwXhrMX?=
+ =?us-ascii?Q?oStug8jlCCYWcJdlIfnlVWdQy9llJ0Rm2QFi4IQWXwQBbn1X03jL7Jd//wmI?=
+ =?us-ascii?Q?rzXJt6aXY+cMxX8i+ePtkr942gRs+0tWgbgqbmsslHpFJyNaoHGFy6khZzWW?=
+ =?us-ascii?Q?ARb4w7SWnHM3cKFH4N+BBLEVRUJAAu5JKm5okEJmBjxRzSJKf68uGjJPk2dS?=
+ =?us-ascii?Q?WosCvdIpd6rH4ZmMmRBxRxUdvyEEodSN+fPsk5CI8i1fYnL5L0J+T7AFOfE9?=
+ =?us-ascii?Q?WhRaXvbbk2nk5ywCxLSJDB4inapsaUJgLmWmt39dnwkZp3wsAQT6Q59xOnW7?=
+ =?us-ascii?Q?hrcMxE+ZPrjmJbW3xutHPNBfLVZ1mR68AZHTJoMBtqtv/RvFazuEpqUPk65H?=
+ =?us-ascii?Q?QD5HWGG8LmWNPOSQNj+onHHirH6Jxunadi369u7IdKqYw+mODxFHnF/+ar0a?=
+ =?us-ascii?Q?nqOnHA5atyehGd73yR5Dv9eQ/7SJrQ3AXW4rsvtOsQDKH7IEzJoQHsi21M/l?=
+ =?us-ascii?Q?qTJ9ZyLEl+qFAHY2vG/CDx2HCjaZBvP9gvtDBdgPJnMHuU096sY26NzbwVHK?=
+ =?us-ascii?Q?LsUlyhYUuYkOFdRsEMYoS5RRkuMBc7jk7KM2IIndmd+JftZVAOjhY2AU4AMQ?=
+ =?us-ascii?Q?z6ykA7YofiHB5kZrPEpsQUYrHx87URwYv1XWAmtQXuiY4IoxKa1KPzfwAqRB?=
+ =?us-ascii?Q?m7HSty7dftNNTJ8gSIGhM4ldUGbv0bF5hKs1L6HJAviQ7sN4StqghYHvmc/9?=
+ =?us-ascii?Q?Ne6v0Wxe8EaRm5qUUVkT90rj9JJzzKwqjwv8airEgr+PnY/rQtSizz5GO8Wb?=
+ =?us-ascii?Q?kVieM/kUKa2mPxQp0y3l0F1CIinX7n0R8gLnNfCqncVlB94bDH5lJSmZvR5K?=
+ =?us-ascii?Q?h29/MP0SJcveiYsa/cCW3zl0a2iQfwj5TCx2pOgaMSR4fmky9eIVVw=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY8PR12MB7657.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uEGhjEDzrt7Rue1pdt7G/6MTmde2M71jUwbqGTa3Bo1/J5PMmSEcYMh7cz5r?=
- =?us-ascii?Q?nL36Pw3Nb4VHnIY+Zn30rn8/tQsEIr9IryP2XKbB9XKEIWW6iizgJzSn/ViX?=
- =?us-ascii?Q?XLbid8qp1waI+ZoM87j33VFvsFRgj2WhNY72Hkrb+wTIKYh3K8W38N3P7GpK?=
- =?us-ascii?Q?JTe90B2t/C5hZi0Wx65Iom0KJo9wsZac821uS6AULCc37Hqc4iRgRHzeYGz6?=
- =?us-ascii?Q?4zxpSUHK3Z1RiNTr6UzZHouBTYuaATp+Y3hGR/RQ2FgJYwIWM9X9SRCACju2?=
- =?us-ascii?Q?0lUyDDB/L38wywlH5U/sPbmxqjY/H4kmq0GRdf+DQIEanK+gnztVqJeyMvaV?=
- =?us-ascii?Q?QJzOpn8zKhK9q/CkRyYjlo2gwvv3LEOQJFueMq6FzHFQVmtWAiNFBxG8++cK?=
- =?us-ascii?Q?X3fsMPUnkpmnOKKVTgFnkJO8xxMxZ5oqBbOYtHqzIyHaghXEqMvTKn9UGhZs?=
- =?us-ascii?Q?5hbHCEsNMo5FNkGmTo3Tc9n/DCrrTI8l2UlOJk7G2Q8mBNfMIh9BIpzhScmc?=
- =?us-ascii?Q?iVULMW9WYtCn+fvoP+UKHKaJjD6L4L+WW8KH3h2zexn+ZfPJPAn9XuPJB9Ix?=
- =?us-ascii?Q?sf8ogYYgEBTmVS1yp3+fGw8NuC+JLuso8/d7S9DX9LFRCRFUkZqIeLZqDB4Z?=
- =?us-ascii?Q?1Axeijw3SDv/CMZnkoBqGFg/rJX7pUtl0GWV4VWO3xy8ejm0bgPAXCWYLyZ+?=
- =?us-ascii?Q?5xyfH2BYCKb4E8g2aW4s3gXphV5J4IBP5aEU2GCa2o8m5jWnYkhRl2WdXaDM?=
- =?us-ascii?Q?SU22Rg1haMCogA6DJFQiahpVfUStBEi26ZNPLkYNgxSJaJ09NOiyuM+pv0i3?=
- =?us-ascii?Q?a9l1GpNaNKA8jMto0SH2YDeP+43D4OvjitoPcc5/OSsSxESbD6xb92MiUIfc?=
- =?us-ascii?Q?dF10StI8URrfP3uLdX29O4ZsAvK5tqpDIg8mBeg44tLC6AncuM8lzTP19vBc?=
- =?us-ascii?Q?g/0M4/d/RhCfomJiUSy2FWSnkK6XXtsaSMDeG2HTC2UjPz3zm2MYSEv/eAaZ?=
- =?us-ascii?Q?3PtCfZDGEwa/sMOA53zCajovDCRI1+8jFZk9OkZIhvdOq+/F3K4EUedj3pjh?=
- =?us-ascii?Q?UT0gdiu3/VQLzZ6jcOwkSTx8MF6aq5C1cEThhN2TtvWrC8r54u7dPxg1fGIv?=
- =?us-ascii?Q?k5/THZU4s/f8KbBlGUOTOH+S9SxfAKSIrr/0+Y3MJXi5zuzIyLg+l6ul65X2?=
- =?us-ascii?Q?uK8Y0CTkQHckNUnDhraH3/UJ3c7vNu0ngaL/2e/MtYc6oMyRTrbqji9OQ48m?=
- =?us-ascii?Q?hNijIPj2Lfsm/eXw6Gj7MRI6zorpb6l3t5+nFrc6xWNhyr1WJP/F04HTp0nR?=
- =?us-ascii?Q?b/5NLX8k4JKzkiGrq1k9vcB20/HxvUsTK4It6ShGbSBc7cJiwB5Dtukzf1jL?=
- =?us-ascii?Q?r2RH/lVC0O1i7aw0Ux1eeG9oZg0P2HuJ6weaZjwC0+zH6ghgq+R/KIsAt3Js?=
- =?us-ascii?Q?Eu2+h54hMX9zCJa05ec/mRELVPXgfPG4NJuLVkfMb3iMELjGAlvf5xIhMm2v?=
- =?us-ascii?Q?btqmf+k+UMbCkgtJPCmFjAb3ghpjYQ9wtTtRuodtPTTWoTOTQ7pt1KTpzV72?=
- =?us-ascii?Q?yV3rhaxa966TRsHF7l0=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UygIUocb3qYJu9Qmyi+FSDDxX9OsNXuJZOXeTHBboCjuCPAF02zvAkpBGpU3?=
+ =?us-ascii?Q?cEFBVVBLxUikQHBDTLNH+miqWt1xjeOrqyjM9WALVZ6WSWSsWnZbtXhRHl28?=
+ =?us-ascii?Q?kcMJgtLY+lCfsTmJ8hU+9MK9a4xXYCL8KlXgZQafbaEexoXdYKRL2W9ILTXF?=
+ =?us-ascii?Q?lB+hwaePRN49AUvJCypb8SqyuwztroOYf/foOuhRQbaGcxI3IAOJFbzFY5wU?=
+ =?us-ascii?Q?vzEOOAXFnogb9hMtr2RY5nvxXtAKIsI5MaodLP7E+Q1l1LoCjrqeYlg2dOfj?=
+ =?us-ascii?Q?x3AmswgFzjDkpi5I/mg7fGVga1Birwzpx+chyHDXdd9Lh4QHQS7yD+hATLIf?=
+ =?us-ascii?Q?MOQyK3fPtlZ4t4U6OzG8hrUCv0o3bthRaZt3V0tFQnpeevUKBKoKkM0Q88GG?=
+ =?us-ascii?Q?6QkONQXsqCPyecfuGdshq2pI7SBOPu7D2kifXCQqu7ZiyQjRbUgkva6dFbPW?=
+ =?us-ascii?Q?t1zbMgr8wRkrwfUP1JfXErGiboAjELjhQj36AaDsq64CaC8g5nHOL2yTp6y3?=
+ =?us-ascii?Q?4NMxWMR9zp0GmD5Y0I2i2ex6K6Y6o0E9IhlMBsMK7uHAZpETugBZRxL6rWeq?=
+ =?us-ascii?Q?SGlsDGPE019tQZoEmLjv3Fu1rmmWaRLe22CqjmeIOpGVpSnzby9N8wrteuOz?=
+ =?us-ascii?Q?/d+7LRkIfYkmPSJYT5D1dChEXrtlLBQEUtyrbNLSxKU3u8ErF4AaxZDt9QAn?=
+ =?us-ascii?Q?qynKntzp+mnjXZI67H5qLGwduhsrlZ7k8Am8KuLm9ok51lM5vPeDcYrb1+vV?=
+ =?us-ascii?Q?qj/+JpEjxTzd7XWms811TQDWD5nkb7bVH0zjqVFBlcSlwmy1H6xRUOU07h6Y?=
+ =?us-ascii?Q?ZpQ2Qs+wbQUATB4+SmtQ2tbnt3L5KNjOujxiDkj7RSwBxoyTbWYJaw/SWhhz?=
+ =?us-ascii?Q?LLH258Mt8VJcVIZyFIhIcUr5x8otYlh2vY8WF2zMbrbzWWeUeSijnQq3HN44?=
+ =?us-ascii?Q?MXeZiFRnVbID5hvf6tTgeynH1isa4mufVQj+6LutaS8Meq35+eH1cyZjlpc2?=
+ =?us-ascii?Q?g7+SBxfVsoOTZ8sXkWI5gckAsfeFGMHRBClEvALiGFNqGcpv8JCFAFZYj2oT?=
+ =?us-ascii?Q?t8DurN0SV8IW2YJs3uIjfdfBNi8L1NLaPMUJfOAHz9Z7VWrM1HHjWZV33Ler?=
+ =?us-ascii?Q?mNjbD6RlHCoD9a1fPRYxO99J8/Zcp7M69Q5Mvpp1LTNdnvLVo5roXABkeEWe?=
+ =?us-ascii?Q?x0N2YiX5MGIjz8UAT111JZhFOO9sdaF49YHX7FxwL1W6Wodyr+k7viTyqFHJ?=
+ =?us-ascii?Q?R24MFVdMs1zljzcbQthN4KBq/7yJQWplnRpZ8vPCB+P5FEb1M/CTIXNGwCmj?=
+ =?us-ascii?Q?2dmx22oPPxTcuO1HnXRcTjEC32YUfilx04P4tZpUkBfDEcOaC8yry4lR8GRH?=
+ =?us-ascii?Q?IjUpmLb+ue1JNXy7vZ3HJRpDzkJskaG/lIay6+WY4am1kno55dOPkDdET5Fp?=
+ =?us-ascii?Q?QYmol8fXWf0YdmgvADRXyKnSsYEPXxLnjg93FEBzHcZcftVzsg+aIYNDmZ24?=
+ =?us-ascii?Q?n3TZTNmNTSr5+dR09pUGNN2Aqgzna35TgK1/0EKT//gchOw/BZnfCl9lXDFN?=
+ =?us-ascii?Q?bOLNaGDgo58zzEz2tXE=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7657.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff700c8c-6426-4677-ea0a-08dd8c0e392d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 May 2025 19:51:27.3128 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1190cb3a-d106-4dee-6a87-08dd8c0e448f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 May 2025 19:51:46.3533 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gaTajEGFoPshaS6jD4lJB65UbhzTrkxzLUViQwxL3N6K3ezltyZdZst5IsZganUL
+X-MS-Exchange-CrossTenant-userprincipalname: UPIzfZ2Dshlqe0ojo++yK8GPfZHopY3lD5j9A92Vi/+z4wtcf4TGQRBCYkg3lOkv
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4056
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -179,49 +176,303 @@ Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>; Rehman, Ahmad <Ahmad.Rehm=
 an@amd.com>; Chan, Hing Pong <Jeffrey.Chan@amd.com>; Gande, Shravan kumar <=
 Shravankumar.Gande@amd.com>; Luo, Zhigang <Zhigang.Luo@amd.com>; Pan, Ellen=
  <Yunru.Pan@amd.com>; Skvortsov, Victor <Victor.Skvortsov@amd.com>
-Subject: [PATCH 1/4] drm/amdgpu: Add Runtime Bad Page message definitions f=
-or VFs
+Subject: [PATCH 2/4] drm/amdgpu: Implement Runtime Bad Page query for VFs
 
-Currently VFs rely on poison consumption interrupt from HW to kick off the =
-bad page retirement process. Part of this process includes a VF reset.
+Host will send a notification when new bad pages are available.
 
-This patch adds the following:
-
-1) Host Bad Pages notification message.
-2) Guest request bad pages message.
-
-When combined, VFs are able to reserve the pages early, and potentially avo=
-id future poison consumption that will disrupt user services from consequen=
-t FLR.
+Uopn guest request, the first 256 bad page addresses will be placed into th=
+e PF2VF region.
+Guest should pause the PF2VF worker thread while the copy is in progress.
 
 Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
 Signed-off-by: Ellen Pan <yunru.pan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 13 +++++++  drivers/gpu/drm/amd=
+/amdgpu/amdgpu_virt.h |  5 +++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c    | 46 ++++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h    |  3 ++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c    | 28 +++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h    |  3 ++
+ 6 files changed, 84 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgv_sriovmsg.h
-index bea724981309..3b0c55f67fe4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-@@ -331,6 +331,7 @@ enum amd_sriov_mailbox_request_message {
-        MB_REQ_MSG_RAS_POISON =3D 202,
-        MB_REQ_RAS_ERROR_COUNT =3D 203,
-        MB_REQ_RAS_CPER_DUMP =3D 204,
-+       MB_REQ_RAS_BAD_PAGES =3D 205,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_virt.c
+index 83f3334b3931..13f0cdeb59c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -1488,3 +1488,16 @@ bool amdgpu_virt_ras_telemetry_block_en(struct amdgp=
+u_device *adev,
+
+        return true;
+ }
++
++/*
++ * amdgpu_virt_request_bad_pages() - request bad pages
++ * @adev: amdgpu device.
++ * Send command to GPU hypervisor to write new bad pages into the
++shared PF2VF region  */ void amdgpu_virt_request_bad_pages(struct
++amdgpu_device *adev) {
++       struct amdgpu_virt *virt =3D &adev->virt;
++
++       if (virt->ops && virt->ops->req_bad_pages)
++               virt->ops->req_bad_pages(adev);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_virt.h
+index b6ec6b7969f0..577c6194db78 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -97,6 +97,7 @@ struct amdgpu_virt_ops {
+        bool (*rcvd_ras_intr)(struct amdgpu_device *adev);
+        int (*req_ras_err_count)(struct amdgpu_device *adev);
+        int (*req_ras_cper_dump)(struct amdgpu_device *adev, u64 vf_rptr);
++       int (*req_bad_pages)(struct amdgpu_device *adev);
  };
 
- /* mailbox message send from host to guest  */ @@ -348,6 +349,8 @@ enum am=
-d_sriov_mailbox_response_message {
-        MB_RES_MSG_GPU_RMA                      =3D 10,
-        MB_RES_MSG_RAS_ERROR_COUNT_READY        =3D 11,
-        MB_REQ_RAS_CPER_DUMP_READY              =3D 14,
-+       MB_RES_MSG_RAS_BAD_PAGES_READY          =3D 15,
-+       MB_RES_MSG_RAS_BAD_PAGES_NOTIFICATION   =3D 16,
-        MB_RES_MSG_TEXT_MESSAGE                 =3D 255
+ /*
+@@ -262,7 +263,10 @@ struct amdgpu_virt {
+        uint32_t                        reg_val_offs;
+        struct amdgpu_irq_src           ack_irq;
+        struct amdgpu_irq_src           rcv_irq;
++
+        struct work_struct              flr_work;
++       struct work_struct              bad_pages_work;
++
+        struct amdgpu_mm_table          mm_table;
+        const struct amdgpu_virt_ops    *ops;
+        struct amdgpu_vf_error_buffer   vf_errors;
+@@ -429,4 +433,5 @@ int amdgpu_virt_req_ras_cper_dump(struct amdgpu_device =
+*adev, bool force_update)  int amdgpu_virt_ras_telemetry_post_reset(struct =
+amdgpu_device *adev);  bool amdgpu_virt_ras_telemetry_block_en(struct amdgp=
+u_device *adev,
+                                        enum amdgpu_ras_block block);
++void amdgpu_virt_request_bad_pages(struct amdgpu_device *adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.c
+index f5411b798e11..f2a74aa76b56 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -274,6 +274,7 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct=
+ *work)  {
+        struct amdgpu_virt *virt =3D container_of(work, struct amdgpu_virt,=
+ flr_work);
+        struct amdgpu_device *adev =3D container_of(virt, struct amdgpu_dev=
+ice, virt);
++       struct amdgpu_reset_context reset_context =3D { 0 };
+
+        amdgpu_virt_fini_data_exchange(adev);
+
+@@ -281,8 +282,6 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct=
+ *work)
+        if (amdgpu_device_should_recover_gpu(adev)
+                && (!amdgpu_device_has_job_running(adev) ||
+                        adev->sdma_timeout =3D=3D MAX_SCHEDULE_TIMEOUT)) {
+-               struct amdgpu_reset_context reset_context;
+-               memset(&reset_context, 0, sizeof(reset_context));
+
+                reset_context.method =3D AMD_RESET_METHOD_NONE;
+                reset_context.reset_req_dev =3D adev;
+@@ -293,6 +292,19 @@ static void xgpu_ai_mailbox_flr_work(struct work_struc=
+t *work)
+        }
+ }
+
++static void xgpu_ai_mailbox_bad_pages_work(struct work_struct *work) {
++       struct amdgpu_virt *virt =3D container_of(work, struct amdgpu_virt,=
+ bad_pages_work);
++       struct amdgpu_device *adev =3D container_of(virt, struct amdgpu_dev=
+ice,
++virt);
++
++       if (down_read_trylock(&adev->reset_domain->sem)) {
++               amdgpu_virt_fini_data_exchange(adev);
++               amdgpu_virt_request_bad_pages(adev);
++               amdgpu_virt_init_data_exchange(adev);
++               up_read(&adev->reset_domain->sem);
++       }
++}
++
+ static int xgpu_ai_set_mailbox_rcv_irq(struct amdgpu_device *adev,
+                                       struct amdgpu_irq_src *src,
+                                       unsigned type,
+@@ -314,24 +326,29 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_devi=
+ce *adev,
+        enum idh_event event =3D xgpu_ai_mailbox_peek_msg(adev);
+
+        switch (event) {
+-               case IDH_FLR_NOTIFICATION:
++       case IDH_RAS_BAD_PAGES_NOTIFICATION:
++               xgpu_ai_mailbox_send_ack(adev);
++               if (amdgpu_sriov_runtime(adev))
++                       schedule_work(&adev->virt.bad_pages_work);
++               break;
++       case IDH_FLR_NOTIFICATION:
+                if (amdgpu_sriov_runtime(adev))
+                        WARN_ONCE(!amdgpu_reset_domain_schedule(adev->reset=
+_domain,
+                                                                &adev->virt=
+.flr_work),
+                                  "Failed to queue work! at %s",
+                                  __func__);
+                break;
+-               case IDH_QUERY_ALIVE:
+-                       xgpu_ai_mailbox_send_ack(adev);
+-                       break;
+-               /* READY_TO_ACCESS_GPU is fetched by kernel polling, IRQ ca=
+n ignore
+-                * it byfar since that polling thread will handle it,
+-                * other msg like flr complete is not handled here.
+-                */
+-               case IDH_CLR_MSG_BUF:
+-               case IDH_FLR_NOTIFICATION_CMPL:
+-               case IDH_READY_TO_ACCESS_GPU:
+-               default:
++       case IDH_QUERY_ALIVE:
++               xgpu_ai_mailbox_send_ack(adev);
++               break;
++       /* READY_TO_ACCESS_GPU is fetched by kernel polling, IRQ can ignore
++        * it byfar since that polling thread will handle it,
++        * other msg like flr complete is not handled here.
++        */
++       case IDH_CLR_MSG_BUF:
++       case IDH_FLR_NOTIFICATION_CMPL:
++       case IDH_READY_TO_ACCESS_GPU:
++       default:
+                break;
+        }
+
+@@ -387,6 +404,7 @@ int xgpu_ai_mailbox_get_irq(struct amdgpu_device *adev)
+        }
+
+        INIT_WORK(&adev->virt.flr_work, xgpu_ai_mailbox_flr_work);
++       INIT_WORK(&adev->virt.bad_pages_work, xgpu_ai_mailbox_bad_pages_wor=
+k);
+
+        return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.h
+index ed57cbc150af..efb452ad1700 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+@@ -40,6 +40,7 @@ enum idh_request {
+        IDH_LOG_VF_ERROR       =3D 200,
+        IDH_READY_TO_RESET      =3D 201,
+        IDH_RAS_POISON  =3D 202,
++       IDH_REQ_RAS_BAD_PAGES =3D 205,
  };
 
+ enum idh_event {
+@@ -54,6 +55,8 @@ enum idh_event {
+        IDH_RAS_POISON_READY,
+        IDH_PF_SOFT_FLR_NOTIFICATION,
+        IDH_RAS_ERROR_DETECTED,
++       IDH_RAS_BAD_PAGES_READY =3D 15,
++       IDH_RAS_BAD_PAGES_NOTIFICATION =3D 16,
+        IDH_TEXT_MESSAGE =3D 255,
+ };
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_nv.c
+index 5aadf24cb202..74a50c0036ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+@@ -187,6 +187,9 @@ static int xgpu_nv_send_access_requests_with_param(stru=
+ct amdgpu_device *adev,
+        case IDH_REQ_RAS_CPER_DUMP:
+                event =3D IDH_RAS_CPER_DUMP_READY;
+                break;
++       case IDH_REQ_RAS_BAD_PAGES:
++               event =3D IDH_RAS_BAD_PAGES_READY;
++               break;
+        default:
+                break;
+        }
+@@ -342,6 +345,19 @@ static void xgpu_nv_mailbox_flr_work(struct work_struc=
+t *work)
+        }
+ }
+
++static void xgpu_nv_mailbox_bad_pages_work(struct work_struct *work) {
++       struct amdgpu_virt *virt =3D container_of(work, struct amdgpu_virt,=
+ bad_pages_work);
++       struct amdgpu_device *adev =3D container_of(virt, struct amdgpu_dev=
+ice,
++virt);
++
++       if (down_read_trylock(&adev->reset_domain->sem)) {
++               amdgpu_virt_fini_data_exchange(adev);
++               amdgpu_virt_request_bad_pages(adev);
++               amdgpu_virt_init_data_exchange(adev);
++               up_read(&adev->reset_domain->sem);
++       }
++}
++
+ static int xgpu_nv_set_mailbox_rcv_irq(struct amdgpu_device *adev,
+                                       struct amdgpu_irq_src *src,
+                                       unsigned type,
+@@ -366,6 +382,11 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_devic=
+e *adev,
+        enum idh_event event =3D xgpu_nv_mailbox_peek_msg(adev);
+
+        switch (event) {
++       case IDH_RAS_BAD_PAGES_NOTIFICATION:
++               xgpu_nv_mailbox_send_ack(adev);
++               if (amdgpu_sriov_runtime(adev))
++                       schedule_work(&adev->virt.bad_pages_work);
++               break;
+        case IDH_FLR_NOTIFICATION:
+                if (amdgpu_sriov_runtime(adev))
+                        WARN_ONCE(!amdgpu_reset_domain_schedule(adev->reset=
+_domain,
+@@ -436,6 +457,7 @@ int xgpu_nv_mailbox_get_irq(struct amdgpu_device *adev)
+        }
+
+        INIT_WORK(&adev->virt.flr_work, xgpu_nv_mailbox_flr_work);
++       INIT_WORK(&adev->virt.bad_pages_work, xgpu_nv_mailbox_bad_pages_wor=
+k);
+
+        return 0;
+ }
+@@ -480,6 +502,11 @@ static int xgpu_nv_req_ras_cper_dump(struct amdgpu_dev=
+ice *adev, u64 vf_rptr)
+                adev, IDH_REQ_RAS_CPER_DUMP, vf_rptr_hi, vf_rptr_lo, 0);  }
+
++static int xgpu_nv_req_ras_bad_pages(struct amdgpu_device *adev) {
++       return xgpu_nv_send_access_requests(adev, IDH_REQ_RAS_BAD_PAGES); }
++
+ const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {
+        .req_full_gpu   =3D xgpu_nv_request_full_gpu_access,
+        .rel_full_gpu   =3D xgpu_nv_release_full_gpu_access,
+@@ -492,4 +519,5 @@ const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {
+        .rcvd_ras_intr =3D xgpu_nv_rcvd_ras_intr,
+        .req_ras_err_count =3D xgpu_nv_req_ras_err_count,
+        .req_ras_cper_dump =3D xgpu_nv_req_ras_cper_dump,
++       .req_bad_pages =3D xgpu_nv_req_ras_bad_pages,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_nv.h
+index 72c9fceb9d79..6d292a537c1b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
+@@ -42,6 +42,7 @@ enum idh_request {
+        IDH_RAS_POISON  =3D 202,
+        IDH_REQ_RAS_ERROR_COUNT =3D 203,
+        IDH_REQ_RAS_CPER_DUMP =3D 204,
++       IDH_REQ_RAS_BAD_PAGES =3D 205,
+ };
+
+ enum idh_event {
+@@ -58,6 +59,8 @@ enum idh_event {
+        IDH_RAS_ERROR_DETECTED,
+        IDH_RAS_ERROR_COUNT_READY =3D 11,
+        IDH_RAS_CPER_DUMP_READY =3D 14,
++       IDH_RAS_BAD_PAGES_READY =3D 15,
++       IDH_RAS_BAD_PAGES_NOTIFICATION =3D 16,
+
+        IDH_TEXT_MESSAGE =3D 255,
+ };
 --
 2.34.1
 
