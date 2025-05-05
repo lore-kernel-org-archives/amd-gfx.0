@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DD26C3ABBF
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C6BC3ABB6
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 22:39:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E24110E4FD;
-	Mon,  5 May 2025 22:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D63110E507;
+	Mon,  5 May 2025 22:39:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oAsILGlv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="foHrwPcv";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67C2A10E503;
- Mon,  5 May 2025 22:38:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBE4610E505;
+ Mon,  5 May 2025 22:39:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 0A423A4CF98;
- Mon,  5 May 2025 22:33:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4BCC4CEEF;
- Mon,  5 May 2025 22:38:39 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 93B82A4CF2F;
+ Mon,  5 May 2025 22:33:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 137E2C4CEE4;
+ Mon,  5 May 2025 22:39:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746484721;
- bh=cEw4GRPiyRF77vhM1EytheB+h9yphkcLAo3dRL84tfQ=;
+ s=k20201202; t=1746484746;
+ bh=PwWSdU0v4ac350M24sNgCGAuAFFzNWKlDyW/Vpiq864=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oAsILGlvddD7HPbZiae2mzcOPukdjFg2b0pb1NmSPmEt0K0ybD8GTZjffO+FVvhQj
- 5ctmWAKWCZv5j8ro6brpd/xqheseCTWsD+suKcmvHlvDLUMakZZGxU1bOJpU6YjwkM
- nm6OLGgKp1nfGB9/TMfAEmeClF0RAuMrgO5JvEqzYsMJzzGX6iruA5ZBnp0oX66rhy
- HbjUijeqFfjhOuUhNf6it201udsqTlfsMY6+d5LHfHxGH3aZ+SEHAiuFFfsXoZLl8h
- Q/aTVga+mIaPpySP1rTcq1GJ5gTsV54aP3A/H0LBUs5CdBzK8rYC42w/uMiiWHuohe
- +Q0Q8/T/hfpkw==
+ b=foHrwPcvuR1z6J1IHfls//0gjk7JsLigB2BXRVTpUD9Jqi/RcAgyAFst5sl66X1J+
+ bHs6iYjZ+qRBYhlEpKKJDgiu1D8VH2iDbwV9kzYOyMHbqjOPZL5zp1q/aXi8phq5oI
+ d6IC/+GlYrMrqOtqaQb5nG6mzlfUumJUcgEgNBbtJ3vtAsEfUm1CgWIc131koct7TX
+ 0KQVKaW8vIyQxkmlE+qZD+9UPV3Uuik+CDvaAcNQ7Ojs4FN8kroU72uBvyeP9AMVIN
+ 1Clk+7mLy+aBQS6BHXywSl/Nd6UttcEm1Mo+ZguYCzMVQllSZH/URiFDe/vXjXaeVr
+ wdl53EF4YAgNg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Amber Lin <Amber.Lin@amd.com>,
- Harish Kasiviswanathan <Harish.Kasiviwanathan@amd.com>,
+Cc: Ovidiu Bunea <Ovidiu.Bunea@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Roman Li <roman.li@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, Harish.Kasiviswanathan@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, Charlene.Liu@amd.com,
+ alvin.lee2@amd.com, chiahsuan.chung@amd.com, jerry.zuo@amd.com,
+ alex.hung@amd.com, Kaitlyn.Tse@amd.com, ryanseto@amd.com,
+ martin.tsai@amd.com, yi-lchen@amd.com, tjakobi@math.uni-bielefeld.de,
+ Sungjoon.Kim@amd.com, michael.strauss@amd.com, Brandon.Syu@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.14 627/642] drm/amdkfd: Correct F8_MODE for gfx950
-Date: Mon,  5 May 2025 18:14:03 -0400
-Message-Id: <20250505221419.2672473-627-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.14 637/642] drm/amd/display: Exit idle optimizations
+ before accessing PHY
+Date: Mon,  5 May 2025 18:14:13 -0400
+Message-Id: <20250505221419.2672473-637-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250505221419.2672473-1-sashal@kernel.org>
 References: <20250505221419.2672473-1-sashal@kernel.org>
@@ -64,35 +69,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Amber Lin <Amber.Lin@amd.com>
+From: Ovidiu Bunea <Ovidiu.Bunea@amd.com>
 
-[ Upstream commit 0c7e053448945e5a4379dc4396c762d7422b11ca ]
+[ Upstream commit c488967488d7eff7b9c527d5469c424c15377502 ]
 
-Correct F8_MODE setting for gfx950 that was removed
+[why & how]
+By default, DCN HW is in idle optimized state which does not allow access
+to PHY registers. If BIOS powers up the DCN, it is fine because they will
+power up everything. Only exit idle optimized state when not taking control
+from VBIOS.
 
-Fixes: 61972cd93af7 ("drm/amdkfd: Set per-process flags only once for gfx9/10/11/12")
-Signed-off-by: Amber Lin <Amber.Lin@amd.com>
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviwanathan@amd.com>
+Fixes: be704e5ef4bd ("Revert "drm/amd/display: Exit idle optimizations before attempt to access PHY"")
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Ovidiu Bunea <Ovidiu.Bunea@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-index 3264509408bc8..d85eadaa1e11b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-@@ -69,8 +69,7 @@ static bool set_cache_memory_policy_v9(struct device_queue_manager *dqm,
- 		qpd->sh_mem_config |= 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 2f5f3e749a1ab..94ceccfc04982 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -1889,6 +1889,7 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
+ 	bool can_apply_edp_fast_boot = false;
+ 	bool can_apply_seamless_boot = false;
+ 	bool keep_edp_vdd_on = false;
++	struct dc_bios *dcb = dc->ctx->dc_bios;
+ 	DC_LOGGER_INIT();
  
- 	if (KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 4, 3) ||
--		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 4, 4) ||
--		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 5, 0))
-+		KFD_GC_VERSION(dqm->dev->kfd) == IP_VERSION(9, 4, 4))
- 		qpd->sh_mem_config |= (1 << SH_MEM_CONFIG__F8_MODE__SHIFT);
  
- 	qpd->sh_mem_ape1_limit = 0;
+@@ -1965,6 +1966,8 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
+ 			hws->funcs.edp_backlight_control(edp_link_with_sink, false);
+ 		}
+ 		/*resume from S3, no vbios posting, no need to power down again*/
++		if (dcb && dcb->funcs && !dcb->funcs->is_accelerated_mode(dcb))
++			clk_mgr_exit_optimized_pwr_state(dc, dc->clk_mgr);
+ 
+ 		power_down_all_hw_blocks(dc);
+ 
+@@ -1977,6 +1980,8 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
+ 		disable_vga_and_power_gate_all_controllers(dc);
+ 		if (edp_link_with_sink && !keep_edp_vdd_on)
+ 			dc->hwss.edp_power_control(edp_link_with_sink, false);
++		if (dcb && dcb->funcs && !dcb->funcs->is_accelerated_mode(dcb))
++			clk_mgr_optimize_pwr_state(dc, dc->clk_mgr);
+ 	}
+ 	bios_set_scratch_acc_mode_change(dc->ctx->dc_bios, 1);
+ }
 -- 
 2.39.5
 
