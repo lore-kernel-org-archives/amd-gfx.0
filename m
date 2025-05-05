@@ -4,119 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB57C3ABAA
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 14:46:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22CF0C3ABB0
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 May 2025 14:46:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B90410E2DC;
-	Mon,  5 May 2025 14:46:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A441C10E2B1;
+	Mon,  5 May 2025 14:46:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gVU7QzoU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UVoGwsW8";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9576D10E2DC
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 May 2025 14:46:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ujFKyHeCmnjIkTGjbrFpwQlS61QyE9DYiZWPWmEsM4W3Zd9E+xJTTC3bRYYBYvf5vTT84IzclwBLBYzuCkncSWGX0FO+bT3clOuczzl4irdwxA+eVaOb7EYdRfrW81U8r8BPZ/5cTVYPwW/zqHaoSXqgppCaDHIvb4uiABPpgU4ZD4thxJ9u3k71iOfpsgZpsxAK4equ7KDBgtC7wOiTpmhzXTZiDudIRDsDhL8sSziCZnjlDylKikOOI6wPKdD+KrMofo483BIMxaztZ7EGcam/+XyEGFmuCIfvEmPx0V9RSaoalfCpmvjfO1VB/LtXhxXA67+WAo05HGpLPaKVoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wv/nqdtQ0wOCGBIwXLq5EAqLr0Q/5P+rnSAGgwzbXXo=;
- b=yDfvUAm6S9q3d0wFBFOAhtpJ99spYyCWoIDKUnN3EKmi9jn6Mt/ydt+BREhpxK83mAuAqVE2CQb+82wByKECCQsQg+UrdJY3HKRZBm1jBI+C/h6xUg4wEQFe+9oEqHi0gcb8Ssat2fXneLwYPz1Sh6UjzXnIBiiJ5PNcu1TudOpGWgIYgvGJVHJJEzEKRAvciCsgQEh0njKSbVn8XXexHEy/wvS2PvNoJt3odm5fwRLCv1SvP9sZLYeew2WvijqD48ohHsvYTTmsjST2OuisiKSyLp6rvDnhBTfDIsPd9Uyt6ae8vIwtjyg4llVT6bipF/8/HgiUl9YZSYumculdow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wv/nqdtQ0wOCGBIwXLq5EAqLr0Q/5P+rnSAGgwzbXXo=;
- b=gVU7QzoUTIG9TNezhBsjQhutegpvycDq5Aqi27pBTnmuTouuimUqfS6CM1c3FYCeMgDrneQfUew9Kwun46Z7oRztgegSUMoBe6vRM7KXxbqNUyhwktYC5NyWjU2UgP7cgH0wCUrBLqJ+HV3OYfmkR4tZZzrjc0JwUF1LGzYLjJ0=
-Received: from CH0PR03CA0294.namprd03.prod.outlook.com (2603:10b6:610:e6::29)
- by IA0PR12MB8907.namprd12.prod.outlook.com (2603:10b6:208:492::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.20; Mon, 5 May
- 2025 14:46:05 +0000
-Received: from CH1PEPF0000AD78.namprd04.prod.outlook.com
- (2603:10b6:610:e6:cafe::c4) by CH0PR03CA0294.outlook.office365.com
- (2603:10b6:610:e6::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.29 via Frontend Transport; Mon,
- 5 May 2025 14:46:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD78.mail.protection.outlook.com (10.167.244.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Mon, 5 May 2025 14:46:05 +0000
-Received: from ruijing-dev0.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 5 May
- 2025 09:46:04 -0500
-From: Ruijing Dong <ruijing.dong@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Saleemkhan.Jamadar@amd.com>
-CC: <alexander.deucher@amd.com>, <Christian.Koenig@amd.com>,
- <leo.liu@amd.com>, <ruijing.dong@amd.com>
-Subject: [PATCH v2] drm/amdgpu/vcn: using separate VCN1_AON_SOC offset
-Date: Mon, 5 May 2025 10:45:49 -0400
-Message-ID: <20250505144549.1263994-1-ruijing.dong@amd.com>
-X-Mailer: git-send-email 2.48.0.rc0.12.gaaf18a9a82
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1E1110E3FA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 May 2025 14:46:53 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-301001bc6a8so496279a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 May 2025 07:46:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746456413; x=1747061213; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+GAXZpsUcmngHt0/CSRdI+uKfipejSiPDN+4JBvghwQ=;
+ b=UVoGwsW8goXxIDqhVQzTA0LBOon2xkODIPwvB6YIA6Y18/nc/GvM0E3nfHjXoCWpjz
+ Kg2ttIHPunu/8F7VGQLhfxrrQlJsjESn3H7UIhGx+bp3jNbfrj2ODEIqbNlZF9apZ1MA
+ YfT5FqeJcOjtvGVincdt9bnOvo91MvdE3zZTqp5QJKBnKFZs1VgkXDZeCb4r+bjGduEQ
+ A+EpBWGpPNM5MvqBUN5FWHkPHeSznM+3vb/02oA+4LbwNjssmaQGWUU3/H1/eMRbIzKD
+ VEFP/MBOn6/Yp3kQQCQvrvCpJurlUXe3dptDYXSs0mJie4ApdFxt84eJUGGx1cu9NGy6
+ Y+7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746456413; x=1747061213;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+GAXZpsUcmngHt0/CSRdI+uKfipejSiPDN+4JBvghwQ=;
+ b=wGppCdb8vNupXXefx1tPUuOS5xBNBmi0KpzCz/gdCHBqumPH6riyE2Kt0QGtQjPxzA
+ a3PtUgHhqz0v5TAxdMrHQjA01ik3yfAa3pYrKiR8KwXmJg9ww9UjuP74XWItMmBtVpn6
+ HoCl7n0qW8MaAtCFk25aw5/fHRSlA9LjcsD1a3k3fhKuAqHL0PX2r4I19wwiGIWQFVHd
+ AuIdJho8sasj2xvqK3mBIrT+T+PpFqcUW+LS4kaoO7+Txf72Ee6TeYVUyjquFzVWIyKW
+ ppqPEMdZkALdTfVJeTdc3VmbrV97m8dymasMWCUpiI8V6fnB6wtdEPyjE2bhfcTWzQBy
+ VkxQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW4JSuIynnLAmuptfhokZKmCmOE8EneiR9Cyq82OtvIQy3WLR4x0o2IV8A9E4hLlAZV/kZ2F6HD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqPpZrQyZjLB5AqbeB3/m65YV1T6SzNp2FwRKldeXLaR2DqGPA
+ kveXsvVbHrmUulcjeQAj9Hd17Xo9T/83F/y3IfcP2qcCU5oehFl96U7bX1ZF+9zDcyhRyqevQiI
+ SptiRuiEscrKvfRKB1Ne2aMJIyqk=
+X-Gm-Gg: ASbGncvuzCph46bNoXe/4wXfKnan8R6PXFssq8NP2nftgKUuzOagErhsaVUERn9NOwq
+ Smm3W6zYpnAFb4N149VEpphUBJFcxNryDo9c0CELAdOgPTQOWyiqhConTW5/ZrXjyAIEVNZmhEx
+ 2a99xRex0NBjsIEaeFxm66AQ==
+X-Google-Smtp-Source: AGHT+IFnNTggMv2dr65UUWRJg3W3WcTZjt3IqZp8zFwPDM+0dgzmzDPaakj3HLV4SUgFX/in2AgxP8ca02CsRQ+FgDY=
+X-Received: by 2002:a17:90b:3a89:b0:2ff:7b67:2358 with SMTP id
+ 98e67ed59e1d1-30a4e57aeabmr7483083a91.2.1746456412671; Mon, 05 May 2025
+ 07:46:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|IA0PR12MB8907:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fa16f18-8870-422e-bc6d-08dd8be390a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?oMzenv1MD+Byl22JDJ0h0ced0z5IPauia0OoSaFcv0Zyup5NvH/ZgTyE1klI?=
- =?us-ascii?Q?j4vyjbr75iuSu4L+S/n2u1hyNxCo6LGzA1hIRGLoH1Ri6tJYcvE/uEp8hidI?=
- =?us-ascii?Q?rmZDzrnSbR7Zkb0KeCTVsIskYUUHY212ooa6y90r9/+6SaQ9HtJRvXPrbPRS?=
- =?us-ascii?Q?XfSqXZJ+93Dxj9wLPU+s06AYpf+8QtCoOOTiosrIW0AYrOBq/f1WIiGoeHkc?=
- =?us-ascii?Q?jLm7Fk3VlVmsODoZHjdlfpGv0rOkPtmrDM6eGWdLDNcPHK8CtSu7h5PmYGKk?=
- =?us-ascii?Q?dV998LThF7emSpyY0SuUMrXL2YFcd1r4HyEGbfflsWTaDuEqdAWG13EDk+yC?=
- =?us-ascii?Q?fHMFAO+b5gGLW9Ejn7ROtWy1US8m45pKft9Rihowqqd1cIIrgr792onPIlAO?=
- =?us-ascii?Q?ujU4U5/wrERbCHLvoaxTV5TfsI2U0dIAp8IPsg/+joVIJyzv2LqJzrcgeogA?=
- =?us-ascii?Q?KK+PAIyY4VQjP6wBDk9KC+Tzf1Yx9HKoAGkqGKliAMnaGfAwu0+hfPcADaGf?=
- =?us-ascii?Q?//4aoDir9H1YA1b1ptcMEEMaqMOjztPpZxhY79hTs+DcXBP1CdDBas3DJ02c?=
- =?us-ascii?Q?eod4jLoG+WShpx/x+nLU3Q7munOzuwt62t8dMOBYyV4vvRj08pwN4Nh7ghQi?=
- =?us-ascii?Q?OwMjpjtGhB0blKlz7IhLcu+B2+eDllqwTwFxCjUxbIfYWhigtWSmyCkuK1VK?=
- =?us-ascii?Q?OM92kF/P5Y2TXLaYK6at3WhpvBsZs3967sbZcN6R2gjCH/4rQPzbqwrqbiCW?=
- =?us-ascii?Q?367bKK0ab9kGvg+jUqbMIwSA2FPKfw1P921dTi8Frw+8xUqTJ2tQS7+RDY9N?=
- =?us-ascii?Q?DjTOHFOezA7j6d3nVD0KSZVkAuf3eQPQclRAeRYSeToO2E/1Ke1cOLrEtTxN?=
- =?us-ascii?Q?tm/0D+LvgS3iEy2HaQzjjRcy1amKzQXYnqutUGlYHruBFMnL8/uGWISOXoWZ?=
- =?us-ascii?Q?QPHjZ+GjqPPOCT7j5IFt5Ha6d0PlWMfSRKi1sk2C6RJLeLf+HU6Zu9Bw/LLm?=
- =?us-ascii?Q?6r7PLhROrZSAIKn/MFM8WaHqeSWkRoDdBkRCw995W7PkIrDU66QBb1aMK3cm?=
- =?us-ascii?Q?pXC6bgFarQxrHVnP4CSnehUk1gQR0yjrjTwvkEmhEP9Q2DZN45YOOBm+w/K/?=
- =?us-ascii?Q?r2BgFWInn6/UCs5I9kuhSPnm4ul6cmGRVh/PGIgLSaGOKFRPPWXoZGwuNpK7?=
- =?us-ascii?Q?72ZF53AMHF+UtJKQpKNv6HvI74D7zQxVyNrv65XdObHqbXAJ9Il7LXK0P5l6?=
- =?us-ascii?Q?TvK4owHKiImNV7I/it7sahzruM96wh0YiV1Yck7J2QwIm86So4NY5RSMsNi+?=
- =?us-ascii?Q?+fpbJ3jyi2V+KDdNbzdFCve8TmFhUUu7m7IvEiDlHopK9Rs8xdXRMIJkA+8K?=
- =?us-ascii?Q?h3NgAxmZ1uLDW9+jvmfFY6pL+dfGRjuOghWHCqwrUXgR7WdhVIomSe9y5+SN?=
- =?us-ascii?Q?JXLaJqq3ZNhizwBab244hYmGsFHROyEYApCwJJym4BM5bpCoEsOkl2nw8snK?=
- =?us-ascii?Q?LSUrgI+O6KlvfJqrcJBhmDjMcox/ER+fISdn?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 14:46:05.6222 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fa16f18-8870-422e-bc6d-08dd8be390a3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD78.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8907
+References: <20250503203905.346049-1-siqueira@igalia.com>
+ <20250503203905.346049-3-siqueira@igalia.com>
+In-Reply-To: <20250503203905.346049-3-siqueira@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 5 May 2025 10:46:41 -0400
+X-Gm-Features: ATxdqUEtP76MSfco7Mit7MoYbwszoWZV2_10INtfvv9Twtd0B9gKbtd1ef0SaWY
+Message-ID: <CADnq5_MtqdyO=+eWKMBM2nNwb8S7=nU6gdRmcF_uc8Qrce-+mA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] Documentation/gpu: Add new entries to amdgpu
+ glossary
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org, 
+ kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,135 +86,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-v1: fix GFX10_ADDR_CONFIG programming for vcn1
-v2: VCN1_AON_SOC_ADDRESS_3_0 offset varies on different
-    VCN generations, the issue in vcn4.0.5 is caused by
-    a different VCN1_AON_SOC_ADDRESS_3_0 offset.
+Applied the series with some minor tweaks.
 
-This patch does the following:
+Alex
 
-    1. use the same offset for other VCN generations.
-    2. use the vcn4.0.5 speical offset
-    3. update vcn_4_0 and vcn_5_0
-
-Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 1 -
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 3 ++-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 2 +-
- 8 files changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index cdcdae7f71ce..83adf81defc7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -66,7 +66,6 @@
- #define VCN_ENC_CMD_REG_WAIT		0x0000000c
- 
- #define VCN_AON_SOC_ADDRESS_2_0 	0x1f800
--#define VCN1_AON_SOC_ADDRESS_3_0 	0x48000
- #define VCN_VID_IP_ADDRESS_2_0		0x0
- #define VCN_AON_IP_ADDRESS_2_0		0x30000
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index 8e7a36f26e9c..b8d835c9e17e 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -39,6 +39,7 @@
- 
- #define VCN_VID_SOC_ADDRESS_2_0					0x1fa00
- #define VCN1_VID_SOC_ADDRESS_3_0				0x48200
-+#define VCN1_AON_SOC_ADDRESS_3_0				0x48000
- 
- #define mmUVD_CONTEXT_ID_INTERNAL_OFFSET			0x1fd
- #define mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET			0x503
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index d716510b8dd6..3eec1b8feaee 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -39,6 +39,7 @@
- 
- #define VCN_VID_SOC_ADDRESS_2_0					0x1fa00
- #define VCN1_VID_SOC_ADDRESS_3_0				0x48200
-+#define VCN1_AON_SOC_ADDRESS_3_0				0x48000
- 
- #define mmUVD_CONTEXT_ID_INTERNAL_OFFSET			0x27
- #define mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET			0x0f
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 22ae1939476f..0b19f0ab4480 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -40,6 +40,7 @@
- 
- #define VCN_VID_SOC_ADDRESS_2_0					0x1fa00
- #define VCN1_VID_SOC_ADDRESS_3_0				0x48200
-+#define VCN1_AON_SOC_ADDRESS_3_0				0x48000
- 
- #define mmUVD_CONTEXT_ID_INTERNAL_OFFSET			0x27
- #define mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET			0x0f
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index c6f6392c1c20..351afec0fc82 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -46,6 +46,7 @@
- 
- #define VCN_VID_SOC_ADDRESS_2_0							0x1fb00
- #define VCN1_VID_SOC_ADDRESS_3_0						0x48300
-+#define VCN1_AON_SOC_ADDRESS_3_0						0x48000
- 
- #define VCN_HARVEST_MMSCH								0
- 
-@@ -614,7 +615,7 @@ static void vcn_v4_0_mc_resume_dpg_mode(struct amdgpu_vcn_inst *vinst,
- 
- 	/* VCN global tiling registers */
- 	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
--		VCN, 0, regUVD_GFX10_ADDR_CONFIG), adev->gfx.config.gb_addr_config, 0, indirect);
-+		VCN, inst_idx, regUVD_GFX10_ADDR_CONFIG), adev->gfx.config.gb_addr_config, 0, indirect);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 139c83bd165e..712e1fba33ce 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -45,6 +45,7 @@
- 
- #define VCN_VID_SOC_ADDRESS_2_0		0x1fb00
- #define VCN1_VID_SOC_ADDRESS_3_0	0x48300
-+#define VCN1_AON_SOC_ADDRESS_3_0	0x48000
- 
- static const struct amdgpu_hwip_reg_entry vcn_reg_list_4_0_3[] = {
- 	SOC15_REG_ENTRY_STR(VCN, 0, regUVD_POWER_STATUS),
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index a8cfc63713ad..558469744f3a 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -46,6 +46,7 @@
- 
- #define VCN_VID_SOC_ADDRESS_2_0						0x1fb00
- #define VCN1_VID_SOC_ADDRESS_3_0					(0x48300 + 0x38000)
-+#define VCN1_AON_SOC_ADDRESS_3_0					(0x48000 + 0x38000)
- 
- #define VCN_HARVEST_MMSCH							0
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index d99d05f42f1d..75c9e7091558 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -533,7 +533,7 @@ static void vcn_v5_0_0_mc_resume_dpg_mode(struct amdgpu_vcn_inst *vinst,
- 
- 	/* VCN global tiling registers */
- 	WREG32_SOC24_DPG_MODE(inst_idx, SOC24_DPG_MODE_OFFSET(
--		VCN, 0, regUVD_GFX10_ADDR_CONFIG), adev->gfx.config.gb_addr_config, 0, indirect);
-+		VCN, inst_idx, regUVD_GFX10_ADDR_CONFIG), adev->gfx.config.gb_addr_config, 0, indirect);
- 
- 	return;
- }
--- 
-2.48.0.rc0.12.gaaf18a9a82
-
+On Sat, May 3, 2025 at 4:39=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.co=
+m> wrote:
+>
+> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> ---
+>  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 33 ++++++++++++++++++++
+>  1 file changed, 33 insertions(+)
+>
+> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation=
+/gpu/amdgpu/amdgpu-glossary.rst
+> index 8e6af7cc76c2..70aceff4bdc6 100644
+> --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> @@ -24,6 +24,9 @@ we have a dedicated glossary for Display Core at
+>      CIK
+>        Sea Islands
+>
+> +    CB
+> +      Color Buffer
+> +
+>      CP
+>        Command Processor
+>
+> @@ -39,6 +42,9 @@ we have a dedicated glossary for Display Core at
+>      CU
+>        Compute Unit
+>
+> +    DB
+> +      Depth Buffer
+> +
+>      DFS
+>        Digital Frequency Synthesizer
+>
+> @@ -63,6 +69,12 @@ we have a dedicated glossary for Display Core at
+>      GC
+>        Graphics and Compute
+>
+> +    GDS
+> +      Global Data Share
+> +
+> +    GE
+> +      Geometry Engine
+> +
+>      GMC
+>        Graphic Memory Controller
+>
+> @@ -128,6 +140,9 @@ we have a dedicated glossary for Display Core at
+>      MQD
+>        Memory Queue Descriptor
+>
+> +    PA
+> +      Primitive Assembler / Physical Address
+> +
+>      PFP
+>        Pre-Fetch Parser (Graphics)
+>
+> @@ -146,6 +161,9 @@ we have a dedicated glossary for Display Core at
+>        the GFX block. It's involved in GFX power management and SR-IOV, a=
+mong
+>        other things.
+>
+> +    SC
+> +      Scan Converter
+> +
+>      SDMA
+>        System DMA
+>
+> @@ -164,6 +182,9 @@ we have a dedicated glossary for Display Core at
+>      SMU/SMC
+>        System Management Unit / System Management Controller
+>
+> +    SPI
+> +      Shader Processor Input
+> +
+>      SRLC
+>        Save/Restore List Control
+>
+> @@ -176,6 +197,9 @@ we have a dedicated glossary for Display Core at
+>      SS
+>        Spread Spectrum
+>
+> +    SX
+> +      Shader Execution / Shader Export
+> +
+>      TA
+>        Trusted Application
+>
+> @@ -185,6 +209,9 @@ we have a dedicated glossary for Display Core at
+>      TOC
+>        Table of Contents
+>
+> +    UMSCH
+> +      User Mode Scheduler
+> +
+>      UVD
+>        Unified Video Decoder
+>
+> @@ -202,3 +229,9 @@ we have a dedicated glossary for Display Core at
+>
+>      VPE
+>        Video Processing Engine
+> +
+> +    XCC
+> +      Accelerator Core Complex
+> +
+> +    XCP
+> +      Accelerator Core Partition
+> --
+> 2.47.2
+>
