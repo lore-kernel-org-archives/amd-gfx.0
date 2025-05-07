@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 760CCC3ABBC
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 00:17:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB10C3ABBC
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 00:17:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEA210E366;
-	Wed,  7 May 2025 00:17:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2281310E6C2;
+	Wed,  7 May 2025 00:17:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="p9+8Uj1X";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SO35GKG2";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C65BA10E363;
- Wed,  7 May 2025 00:17:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAC1410E6C2;
+ Wed,  7 May 2025 00:17:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=IbuYjP40DzstkxlxseSqEOMX3K/zhfcmf78fcNtqo68=; b=p9+8Uj1XX6rri26i3IcNbdivoH
- 8Ev/9Z3vYRphgZ4JqDRSwVnKhDkjNpQThmBjzq3y/Wbsn6s7kP1sLzb8dsZyNx/waYwXp/lzuFdBo
- qoZFGtwjqHpuRGFt8sQ3BR30emGy+hjIYOrXZv3LwYl3sS8UtkM7Go6+uVT8gTNbIyDcXtJ50+JCd
- P8ZTQEwn9ce5Tgs44dgb/Sl7yFwn07Az7lQP92cZJO/FvWyVIwUFNpvrpPO/wmNl6chitwo9zIwSR
- PAqCeVWl6zC0PrUKeqy4G/tytS8rkA9TagmCypfT9AIO/YDKTmWKFyxmtnZ/W/aS0KELjDiWro5n4
- nq1apZ1w==;
+ bh=7O7FaFLSMEDFAPHPxATVbJQy0EyxQB1hjaihkPkHKd4=; b=SO35GKG2EaHGG4iW4xUSUlsOr+
+ hJWNaGjGTGVPh9BwmRCe4wSInmtnnQQOzmECY2+nNXNaTxymaDaHtcbLr+wApVYjqUbSgBwOCL1m6
+ Vk63VfoVpnBOp1x4f3XXL+f8lhVfoE4sINZwmpklByXvaZa44XYX+YoeT2bFCSLL5hteT2CpUgYzW
+ DFHZ5Af3z0O7Z/pRBdRa3O3OqntOSpD3vB1w8bkJmjCQhznVgaUzy0rSFdAQaGqkpeTvrw4q1JWWP
+ bVi6YlDkIkRlEOZPi/yWf3ucPLchP3yCwTxDBHSFjXkEesm8NrRyHSBEVkhU8FzKQFNrKiA/WazoH
+ s0QUiR0A==;
 Received: from [189.6.16.79] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uCSPz-004SNM-5y; Wed, 07 May 2025 02:17:32 +0200
+ id 1uCSPo-004SNM-EZ; Wed, 07 May 2025 02:17:21 +0200
 From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
+ andrzej.hajda@intel.com, christian.koenig@amd.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, mario.limonciello@amd.com,
+ mripard@kernel.org, mwen@igalia.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com,
+ tzimmermann@suse.de
 Cc: Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- Alex Hung <alex.hung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
  Michel Daenzer <michel.daenzer@mailbox.org>,
  dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: [PATCH v2 02/14] drm/amd/display: start using drm_edid helpers to
- parse EDID caps
-Date: Tue,  6 May 2025 21:03:56 -0300
-Message-ID: <20250507001712.120215-3-mwen@igalia.com>
+Subject: [PATCH v2 00/14] drm/amd/display: more drm_edid to AMD display driver
+Date: Tue,  6 May 2025 21:03:54 -0300
+Message-ID: <20250507001712.120215-1-mwen@igalia.com>
 X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250507001712.120215-1-mwen@igalia.com>
-References: <20250507001712.120215-1-mwen@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,62 +63,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Groundwork that allocates a temporary drm_edid from raw edid to take
-advantage of DRM common-code helpers instead of driver-specific code.
+Hi,
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Siqueira and I have been working on a solution to reduce the usage of
+drm_edid_raw in the AMD display driver, since the current guideline in
+the DRM subsystem is to stop handling raw edid data in driver-specific
+implementation and use opaque `drm_edid` object with common-code
+helpers.
+
+In short, this series approaches the issue of maintaining DC as an
+OS-agnostic component by creating a mid layer to isolate `drm_edid`
+helpers that need to be called in the DC code, while allowing other OSes
+to implement their specific implementation. This is an extension of [1].
+
+- Patch 1 addresses a possible leak added by previous migration to
+  drm_edid.
+- Patch 2 allocates a temporary drm_edid from raw edid for parsing.
+- Patches 3-7 use common-code, drm_edid helpers to parse edid
+  capabilities instead of driver-specific solutions. For this, patch 4
+  introduces a new helper that gets monitor name from drm_edid.
+- Patches 8-9 are groundwork to reduce the noise of Linux/DRM specific
+  code in the DC shared code
+- Patch 10 creates a mid layer to make DC embraces different ways of
+  handling EDID by platforms.
+- Patch 11 move open-coded management of raw EDID data to the mid
+  layer created before.
+- Patch 12 introduces a helper that compares EDIDs from two drm_edids.
+- Patch 13 adds drm_edid to dc_sink struct and a mid-layer helper to
+  free `drm_edid`.
+- Patch 14 switch dc_edid to drm_edid across the driver in a way that
+  the DC shared code is little affected by Linux specific stuff.
+
+[v1] https://lore.kernel.org/dri-devel/20250411201333.151335-1-mwen@igalia.com/
+Changes:
+- fix broken approach to get monitor name from eld (Jani)
+  - I introduced a new helper that gets monitor name from drm_edid
+- rename drm_edid_eq to drm_edid_eq_buf and doc fixes (Jani)
+- add NULL edid checks (Jani)
+- fix mishandling of product_id.manufacturer_name (Michel)
+  - I directly set it to manufacturer_id since sparse didn't complain.
+- add Mario's r-b in the first fix patch and fix commit msg typo.
+
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c    | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index d4395b92fb85..5543780f1024 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -108,18 +108,21 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	struct drm_connector *connector = &aconnector->base;
- 	struct drm_device *dev = connector->dev;
- 	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
-+	const struct drm_edid *drm_edid;
- 	struct cea_sad *sads;
- 	int sad_count = -1;
- 	int sadb_count = -1;
- 	int i = 0;
- 	uint8_t *sadb = NULL;
--
- 	enum dc_edid_status result = EDID_OK;
- 
-+
- 	if (!edid_caps || !edid)
- 		return EDID_BAD_INPUT;
- 
--	if (!drm_edid_is_valid(edid_buf))
-+	drm_edid = drm_edid_alloc(edid_buf, EDID_LENGTH * (edid_buf->extensions + 1));
-+
-+	if (!drm_edid_valid(drm_edid))
- 		result = EDID_BAD_CHECKSUM;
- 
- 	edid_caps->manufacturer_id = (uint16_t) edid_buf->mfg_id[0] |
-@@ -139,8 +142,10 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	apply_edid_quirks(dev, edid_buf, edid_caps);
- 
- 	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
--	if (sad_count <= 0)
-+	if (sad_count <= 0) {
-+		drm_edid_free(drm_edid);
- 		return result;
-+	}
- 
- 	edid_caps->audio_mode_count = min(sad_count, DC_MAX_AUDIO_DESC_COUNT);
- 	for (i = 0; i < edid_caps->audio_mode_count; ++i) {
-@@ -166,6 +171,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 
- 	kfree(sads);
- 	kfree(sadb);
-+	drm_edid_free(drm_edid);
- 
- 	return result;
- }
+There are three specific points where we still use drm_edid_raw() in the
+driver:
+1. raw edid data for write EDID checksum in DP_TEST_EDID_CHECKSUM via
+   drm_dp_dpcd_write(), that AFAIK there is no common code solution yet;
+2. open-coded connectivity log for dc link detection, that maybe can be
+   moved to drm (?);
+3. open-coded parser that I suspect is a lot of duplicated code, but
+   needs careful examining.
+
+I suggest to address those points in a next phase for regression control.
+
+[1] https://lore.kernel.org/amd-gfx/20250308142650.35920-1-mwen@igalia.com/
+
+Let me know yours thoughts!
+
+Melissa
+
+Melissa Wen (12):
+  drm/amd/display: make sure drm_edid stored in aconnector doesn't leak
+  drm/amd/display: start using drm_edid helpers to parse EDID caps
+  drm/amd/display: use drm_edid_product_id for parsing EDID product info
+  drm/edid: introduce a helper that gets monitor name from drm_edid
+  drm/amd/display: get panel id with drm_edid helper
+  drm/amd/display: get SAD from drm_eld when parsing EDID caps
+  drm/amd/display: get SADB from drm_eld when parsing EDID caps
+  drm/amd/display: simplify dm_helpers_parse_edid_caps signature
+  drm/amd/display: change DC functions to accept private types for edid
+  drm/edid: introduce a helper that compares edid data from two drm_edid
+  drm/amd/display: add drm_edid to dc_sink
+  drm/amd/display: move dc_sink from dc_edid to drm_edid
+
+Rodrigo Siqueira (2):
+  drm/amd/display: add a mid-layer file to handle EDID in DC
+  drm/amd/display: create a function to fill dc_sink with edid data
+
+ .../gpu/drm/amd/display/amdgpu_dm/Makefile    |  1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 +++----
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 97 ++++++++-----------
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 21 ++--
+ .../gpu/drm/amd/display/amdgpu_dm/dc_edid.c   | 34 +++++++
+ .../gpu/drm/amd/display/amdgpu_dm/dc_edid.h   | 15 +++
+ .../drm/amd/display/dc/core/dc_link_exports.c |  9 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_sink.c |  3 +
+ drivers/gpu/drm/amd/display/dc/dc.h           | 12 ++-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  7 +-
+ drivers/gpu/drm/amd/display/dc/inc/link.h     |  9 +-
+ .../drm/amd/display/dc/link/link_detection.c  | 30 ++----
+ .../drm/amd/display/dc/link/link_detection.h  |  9 +-
+ drivers/gpu/drm/bridge/sil-sii8620.c          |  2 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c |  2 +-
+ drivers/gpu/drm/drm_edid.c                    | 57 ++++++++---
+ include/drm/drm_edid.h                        |  9 +-
+ 17 files changed, 195 insertions(+), 155 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
+
 -- 
 2.47.2
 
