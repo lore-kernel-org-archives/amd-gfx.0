@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEA8EC3ABC0
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 13:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E62FC3ABC5
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 13:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A312610E909;
-	Thu,  8 May 2025 13:02:13 +0000 (UTC)
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28C2B10E7DB
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 13:10:55 +0000 (UTC)
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
- by disroot.org (Postfix) with ESMTP id C412525BEF;
- Wed,  7 May 2025 15:10:53 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id k_f4BkDSiUgk; Wed,  7 May 2025 15:10:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
- t=1746623453; bh=WfOna0qgipSseGCor8cmqiZDQkKFDIjCxDAj9rUOqxo=;
- h=Date:From:To:Cc:Subject;
- b=A3TMBgoCVyygCkWMdgP9DTqPuj45j7FovrgekqUkC8DBsuFcbE1QVG+k0aXPZBdmg
- kFaR/2Aa9+N3B4dH6sAxmGukQRn66bTh2iZsG3/qOJiIPLWyuVR5VKWX6MtAU0u5Ct
- DmtXwj2ZO6TWIOLJzsVDM+w2zTPNTWPpN37MXZYnigiXTdLxTswHMuC/NPCfJgfTs2
- gcFcqYVDBbGN7adqsYrPZdC7r1tE7bQx9ia+zHFIn249ytoxmNMFv0ZAj1sCLmGnTs
- YGbPVmigk4gJKQx+s+z125YMLG9N37f4uC/uX9EPlIX8tvD7XLCoPXyTVSFaOiFkbt
- bEYq5ur37jUbQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id A889010E90D;
+	Thu,  8 May 2025 13:02:19 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="BWrXuOuf";
+	dkim-atps=neutral
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63AD910E869;
+ Wed,  7 May 2025 17:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=mdvcmG+pr6izOQ7iKhUgbPE6Eufkwe+TQMBeVd0mk4o=; b=BWrXuOufb/Y9cgZi
+ +OfTXNNxxg93bzC2uLEpWea9qvrYjUiZnoPMyMolIBNXSFs40EshAI59Rcs3T109JfPXYB+lJVvwt
+ ELBY2IcHnEorneocHCreEe/Y3lnmwJ70AMJ+eKQY7/Y0Kn4wmH9xUbCayAYEndP4iUVSV1Vkmko4b
+ 2eRgNk4oxggzP7wxFS1BAjqJLuyZQJQMVW6/9wNyT7P4C4r/a62JhuMAU9T0rzn2GtBK01vnOim+0
+ ySS4gVUYmmDhJ8uDZrD1LVqDUlxm0ObqlDIVAtkjhXeNJ6ifYA0mvj78x6rOYJu4n2GFBmZHLvykV
+ 8AyT+DVBeS/KNaCXLA==;
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <linux@treblig.org>) id 1uCi9T-002EIU-1I;
+ Wed, 07 May 2025 17:01:47 +0000
+From: linux@treblig.org
+To: alexander.deucher@amd.com, kenneth.feng@amd.com, christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH 2/3] drm/amd/pm: Remove unused smu_mode2_reset_is_support
+Date: Wed,  7 May 2025 18:01:44 +0100
+Message-ID: <20250507170145.102508-3-linux@treblig.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250507170145.102508-1-linux@treblig.org>
+References: <20250507170145.102508-1-linux@treblig.org>
 MIME-Version: 1.0
-Date: Wed, 07 May 2025 15:10:53 +0200
-From: machion@disroot.org
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, christian.koenig@amd.com
-Subject: Unplayable framerates in game but specific kernel versions work,
- maybe amdgpu problem
-Message-ID: <c415d9e0b08bcba068b01700225bf560@disroot.org>
-X-Sender: machion@disroot.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 08 May 2025 13:02:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,41 +56,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello kernel/driver developers,
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-I hope, with my information it's possible to find a bug/problem in the 
-kernel. Otherwise I am sorry, that I disturbed you.
-I only use LTS kernels, but I can narrow it down to a hand full of them, 
-where it works.
+smu_mode2_reset_is_support() was added in 2020 by
+commit 5c03e5843e6b ("drm/amdgpu:add smu mode1/2 support for aldebaran")
+but has remained unused.
 
-The PC: Manjaro Stable/Cinnamon/X11/AMD Ryzen 5 2600/Radeon HD 7790/8GB 
-RAM
-I already asked the Manjaro community, but with no luck.
+See discussion at:
+https://lore.kernel.org/all/DM4PR12MB5165D85BD85BC8FC8BF7A3B48E88A@DM4PR12MB5165.namprd12.prod.outlook.com/
 
-The game: Hellpoint (GOG Linux latest version, Unity3D-Engine v2021), 
-uses vulkan
+Remove it.
 
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 13 -------------
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 -
+ 2 files changed, 14 deletions(-)
 
-I came a long road of kernels. I had many versions of 5.4, 5.10, 5.15, 
-6.1 and 6.6 and and the game was always unplayable, because the frames 
-where around 1fps (performance of PC is not the problem).
-I asked the mesa and cinnamon team for help in the past, but also with 
-no luck.
-It never worked, till on 2025-03-29 when I installed 6.12.19 for the 
-first time and it worked!
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 46cce1d2aaf3..04bbeeac98a3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -3432,19 +3432,6 @@ bool smu_mode1_reset_is_support(struct smu_context *smu)
+ 	return ret;
+ }
+ 
+-bool smu_mode2_reset_is_support(struct smu_context *smu)
+-{
+-	bool ret = false;
+-
+-	if (!smu->pm_enabled)
+-		return false;
+-
+-	if (smu->ppt_funcs && smu->ppt_funcs->mode2_reset_is_support)
+-		ret = smu->ppt_funcs->mode2_reset_is_support(smu);
+-
+-	return ret;
+-}
+-
+ int smu_mode1_reset(struct smu_context *smu)
+ {
+ 	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index dd6d0e7aa242..a5ba37f57650 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -1601,7 +1601,6 @@ int smu_get_power_limit(void *handle,
+ 			enum pp_power_type pp_power_type);
+ 
+ bool smu_mode1_reset_is_support(struct smu_context *smu);
+-bool smu_mode2_reset_is_support(struct smu_context *smu);
+ int smu_mode1_reset(struct smu_context *smu);
+ 
+ extern const struct amd_ip_funcs smu_ip_funcs;
+-- 
+2.49.0
 
-But it only worked with 6.12.19, 6.12.20 and 6.12.21
-When I updated to 6.12.25, it was back to unplayable.
-
-For testing I installed 6.14.4 with the same result. It doesn't work.
-
-I also compared file /proc/config.gz of both kernels (6.12.21 <> 
-6.14.4), but can't seem to see drastic changes to the graphical part.
-
-I presume it has something to do with amdgpu.
-
-If you need more information, I would be happy to help.
-
-Kind regards,
-Marion
