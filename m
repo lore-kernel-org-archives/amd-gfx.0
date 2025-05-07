@@ -4,158 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4CECC3ABBF
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 11:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87F5AC3ABBF
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 11:31:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0D010E16E;
-	Wed,  7 May 2025 11:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E45010E18F;
+	Wed,  7 May 2025 11:31:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0QaQITKr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RN2tGvHL";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2071.outbound.protection.outlook.com [40.107.100.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC2910E16E
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 11:03:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bysMEqdbKRwKzp3K9tQm/VM1AG8URqu0SXUGCZ775wXF3O4s4pi9qR/6nOdghe45pbTiAEO3BrvjXe9luIsNg1vP7KPQhto1T5ZNBxBleZq0gS+ImsWcr6MxZufltxQesygjze+b1YSEqKXGG5rXNKd4DeNsylyyEjpKtcyh+Z6+yWlWP4fdvXZF4q7AA4jcPj8LjKQRGfeQZ+jeZyrR7H1qyx0s1epxxiDscz+hzVx+c7KrZQHr082c4FIg27QLmXGHwesG6WjZ5a3uYVUL46tbYKd4boS4PqpxQU5PsPqPRfF3+GRSKgMo6sXERCBhl0NcOUN75oCFWwmAc0GNWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K/sZu19/sFOoWkokmhrlsLNhnO+TV/2VNZogRcUHM1o=;
- b=CmA+VRO0O9uAD4MrlJaARp+2pmZv0tCaMM3A4NSPl27/y+MXRxc/4bvLrvkSRQHQdy3Yw6cguXUJFvToPctW8AFU2a2btgE0/anmGlw8W8+Zhvp50ZbdGZ/ut0RhTaurVoQjy4KwLZcfvtP/u9XbK2BgPJNqWLx9m9TJ5zUN/y32gUDNeO6PDCHICPDRIpZyjAATUmFut2hGs1Ie7h70DAc1LvRX1ShlKKaVeuackGCTFNuM+EoZNruu2FS5Qhzvb3tjTpaakykKGvDbyL8JJ5hlbEoPplaCKOohd0yg+rOJ5WQRIok6Han5QdkwOJZc+JqEsOBlhGiMxwaiS0mXXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K/sZu19/sFOoWkokmhrlsLNhnO+TV/2VNZogRcUHM1o=;
- b=0QaQITKrx25E7gNG/QDirp8lSJQmA0WZcTIlGm7ze1yaTgx0cCrkJS8z6dS5KdYN0q7FyTSM+ObitfUakZwhFAQVhD0kVaPEbTp8L+1OWP+RFI3giZkfsdq54w3U3J4Vbf7s8o1UZXsPAOnXTd5Rze01TAmiqTJLDuArk0gMUk0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5937.namprd12.prod.outlook.com (2603:10b6:8:68::11) by
- MW3PR12MB4396.namprd12.prod.outlook.com (2603:10b6:303:59::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8699.24; Wed, 7 May 2025 11:03:32 +0000
-Received: from DM4PR12MB5937.namprd12.prod.outlook.com
- ([fe80::c847:70c6:3c78:54ba]) by DM4PR12MB5937.namprd12.prod.outlook.com
- ([fe80::c847:70c6:3c78:54ba%7]) with mapi id 15.20.8722.020; Wed, 7 May 2025
- 11:03:32 +0000
-Message-ID: <13a13f7a-2a6a-42f8-8a06-ebf892bf06f6@amd.com>
-Date: Wed, 7 May 2025 19:03:23 +0800
-User-Agent: Mozilla Thunderbird
-From: Sam <guoqzhan@amd.com>
-Subject: Re: [PATCH v3 1/7] drm/amdgpu: update XGMI physical node id and GMC
- configs on resume
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: "Zhao, Victor" <Victor.Zhao@amd.com>, "Chang, HaiJun"
- <HaiJun.Chang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Zhang, Owen(SRDC)" <Owen.Zhang2@amd.com>, "Ma, Qing (Mark)"
- <Qing.Ma@amd.com>, Jiang Liu <gerry@linux.alibaba.com>
-References: <20250506093629.249792-1-guoqing.zhang@amd.com>
- <354d063e-ba67-469f-a945-d8c6467f6c11@amd.com>
- <DM4PR12MB59371DC0E9B611C568CE395CE588A@DM4PR12MB5937.namprd12.prod.outlook.com>
- <5a80dd63-3dab-4117-afd1-b25a2a8d1725@amd.com>
-Content-Language: en-US
-In-Reply-To: <5a80dd63-3dab-4117-afd1-b25a2a8d1725@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: KU0P306CA0007.MYSP306.PROD.OUTLOOK.COM
- (2603:1096:d10:17::17) To DM4PR12MB5937.namprd12.prod.outlook.com
- (2603:10b6:8:68::11)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B5BB10E18F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 11:31:30 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-7c54a9d3fcaso725707385a.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 May 2025 04:31:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746617489; x=1747222289; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=d7XhJzLl+MDLnzwhXCLzpU7DgZt77aIWs57ZY9lpXQA=;
+ b=RN2tGvHL9fUyTkhSpH4eY+pSbTZDzff73xwuHvU/Grh4veQ/mqLTKkBXBTwqVDGAQx
+ I1ZcoCX4RiUzuNVcite0Dz53Zi6iiGnuXqxtKZMD6rCyIJOtdhjJ+m+3ZcsBXY8x9ZPZ
+ kMvhKMgCE5wy0yHwzmSjrcdzRGYNd8MBkpwhrN6pVCMt1dnlgOlLRSpWkyGhnggbA95w
+ DYs0aCKcdtRIXVvhdG/KO4y2DnO3N/SttOnfXj8oji9HKdVaip3CO9rOCowi6v3pKpX9
+ r8WMyWeZZYpGZ0cFN7J91M2A0TqJh5ao5sI5Hpbb+AK8aUB3xj0JZVD9xV6kUCa926aT
+ HUIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746617489; x=1747222289;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:from:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=d7XhJzLl+MDLnzwhXCLzpU7DgZt77aIWs57ZY9lpXQA=;
+ b=cUQo9CT8mCc1A9QY3gQg906zNvmL+fGC4MrHbVLhB8Pn5tlVg4+DL4uUgijw1AdqFX
+ WHWSuoI2SoXg97X58wVwbNbxlQYRgQvwrD51iDcccBZN7U7nzautMoS8vd/fztYrxqXx
+ 46HqcE1MaqR3UPLSnBthsFmFCicTVIgMVUtHYl6jJHxcvdyUjs9jbIUJDtv541quoY+P
+ NuhEyOtCSYf9WHK0EcvDff0eAmPgq+6sjOedvrB3i+YJNYhWR8tzUH/0WrSFXR2/YGj9
+ /Y3qzAVAiQVcMNkdbJmudfk8UZOBolgbmnn0J/YAUW6z26YXpE+5CY7kNb8k0YcP+aJJ
+ A5ZQ==
+X-Gm-Message-State: AOJu0YyFpwPv+//wSMEXZazrD4+bHx8+E9FwvA2e9DE22NFlSayCcjBr
+ PDfzoB3HtGGgLh8CbR1QbLGo1HOuk65t3ipCaOS44nnrq6YSWj9WFjQk7bZE
+X-Gm-Gg: ASbGncuNVuiT+0VmQwlIpcjvAtQVeHmee1mot6jyaxDHHCgJcQXptqP1WWrNTnEDezc
+ 6rE6RFZOtvcw6O1lMz6eyn7rrmTH98bVFsKjiic47qaomZTl8Q8HCvb5z+IzgBwLFjkKCDUbTBi
+ WNowlLRcxhQHfgMwkYM+hoOiyD8Kw7smwepbnl1JXOPAq2+p+r3NBGJAqL12ZuXQWGPTlcDxSC9
+ ZwIg08/SNxDQF61N/H78pcBKItAbLpVsWoQQJI6Z+WmXPF5pHdWXkihjYxsBWNeTYX3la82//fk
+ cvnDi6QoKDTtmUQ4j9JBBxdJbGCQdGXhSUC36c7b9bNUXFWLqw==
+X-Google-Smtp-Source: AGHT+IGaJ8BdxeTyzJCoMbKgPuaoMkD4r78nZQNKje2oZETTk38mnYud3/YjMXx6jxHQaD3K6/3gtg==
+X-Received: by 2002:a05:620a:2894:b0:7c5:3da2:fc75 with SMTP id
+ af79cd13be357-7caf7387f36mr385120485a.24.1746617478544; 
+ Wed, 07 May 2025 04:31:18 -0700 (PDT)
+Received: from [192.168.1.100] ([32.220.111.111])
+ by smtp.googlemail.com with ESMTPSA id
+ af79cd13be357-7caf75ca831sm140031485a.94.2025.05.07.04.31.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 May 2025 04:31:18 -0700 (PDT)
+Message-ID: <ced428cb-798e-463e-bdc6-4c01f9562c58@gmail.com>
+Date: Wed, 7 May 2025 07:31:17 -0400
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5937:EE_|MW3PR12MB4396:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75d08738-3cb3-4361-b7ca-08dd8d56ce06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bnk4OFAwSTdEZlYrSkdBWk15VSt1c1ozZWpJZ2wyOTl6dFhRTEhaTXNwMW9R?=
- =?utf-8?B?OWptdi9pOTVzNW0xUFppb1JXbGc4cUNwMnIybXVsZHFIQ2RUOExZSGFGL2ZH?=
- =?utf-8?B?U2lzWXZEOWZXQzh0ZjJqQVJDRWVIaTliZzVpL0IwOFdyVmJEUHZhQ0UrNDRP?=
- =?utf-8?B?MER2V24xcm9nR0l4YTRnZGF6bUpncDk4bHU4dXZQS0FodWtSSXVTckUwRTBz?=
- =?utf-8?B?LzBEUG9uQVRPMXBjNGpuWE0vM0dxbDVRS3Noc0lTYTFUVTVnNXFXbE9PdzJi?=
- =?utf-8?B?YzR4QVJQVENqTUtoWHlCbURWQlNlMHQ0ajhuQ24zT0treitITUZjRklBYmRT?=
- =?utf-8?B?UURWUkc5NFE2S1UrQU9CTnVUYWc2L2s3TUZXTDJFOG9GNFBRa3NSMHhkN2pu?=
- =?utf-8?B?WVliM2IrSkExRjVrKzBKTlpEZ3pqWnkra1BIV0FaNXZkelRLSWVMWGxhZ29Y?=
- =?utf-8?B?RXhiUFFteTRJejlZbmhqNDVsd0pJMHppY3I0NTlCblh0U1BDR3kxSFYzTVJn?=
- =?utf-8?B?czZTRFZSVHJpUUJ3dUZ6SUtid3hJSnJONmxnTERPOGk5Y2pwN3FmeDZqb3Fq?=
- =?utf-8?B?K3hLOEtFeW9BcDFXL0x4c2NpRnBIZjRPZXQzWnV2U0ZZMysxeVFQZFgzbnVQ?=
- =?utf-8?B?ZUFHcTUrZDBiTHBYWUN6WVhFY29OcGdLVGVENHJIMmtnMm1Qc01jbzVlVVBQ?=
- =?utf-8?B?MnBSOG4yRmhYRjNiWkw1TklKRGFFVkd6M3g4RlhmS3o1akd5QWxEK3ZYMkUw?=
- =?utf-8?B?VzdodUM1bXVtSHdWY3V4T1cwS2VybU5nK2lGemEvb0ZzMjcyb1VzNHZVUXFa?=
- =?utf-8?B?QmdMRnpXVFhqcHoxeG1yaDlKcEhtU2J6bmhkdUFpNVgydjBLVkNqWGcvdk1R?=
- =?utf-8?B?WFZrQWFQWXNlVjM5N0s5d1NENlo5amtWcC9tYncvcldQRVowM3lxYW9PbEtn?=
- =?utf-8?B?Z1ZRK01JVlJmSDBtTzFxak8vK2I1aUR1Q3c3NitqMDhlT0s5eXpIUVRhNUVx?=
- =?utf-8?B?UGtMek1WTHVqaFUzcXoyc2VVemJIU1NUazlmQmw1L21WYWdoZjRyK293bEVP?=
- =?utf-8?B?Q3BSWjdGTGlaMmJGKzFPU3AyNFhpaEd2N3YyMVRYazAvY3dRL011RlhkUERm?=
- =?utf-8?B?bGlWR2p3RkZ3b0Y4ZjBVZGZ2SkRGMlRnUmNmZGtDUmtndmU0R0p5aS9rTTNx?=
- =?utf-8?B?R1Z0OG84OVlDcW8yK2NIUGgrK3dUdHhVNnlGWDc1cENzSjJ3YzVyZnV1RTJ5?=
- =?utf-8?B?S29HNUFvWVNMblFNR28vajg1Q093NE1UQjhHNzB4akMvd1R5aHpNVm1hOXpX?=
- =?utf-8?B?dWZjOU84SjZRTTY2b1FoWkIwYzY2Yzh3V3ZrcVRpM3VRZ0FNRGlWdlF2elNM?=
- =?utf-8?B?SXFIWWNoWG8xY1FwcU5mcHJVUVduZUc5czVQU1JVMzFiYlJVK2pYdzdyUExH?=
- =?utf-8?B?dEllbVgwOEc1M1ArUGx1SGhFYmowNUxHbXRPQ2tuZk5QOFhyRHprN3plbVBn?=
- =?utf-8?B?dEFYN25RdjQ5Sk1UUHZmSWYzVUw0bHk4QjZXRTcyNUhwZ0hTQzNrUFhPQXhU?=
- =?utf-8?B?NkxQd1BsRXQyRXlMWDR5MFFTV0NwcHM4cUFXWFU3WU5FRzFyZVNBWFRPQUsz?=
- =?utf-8?B?U1JhRU1wY2Q3M1o5K21QL3NFV2plTXF5UFhzTzV1QUNjeHZENDJhMm52blZK?=
- =?utf-8?B?Tm5LWlcxU0x0UXhkcSt4QmxseUtidjZmVEovOXFmQWc4SnBkNXRJRWpnWENG?=
- =?utf-8?B?azZsdTVkdzNGYXVJN3B2bUd3TEFhOFlEQ0NxMWtlckhxZ0NtV2Q0UFVBUERL?=
- =?utf-8?B?TnlVS094cE9Fci9VQlYvb2wvb3hQSDZyY2hJK3AxUVJJd1BISkpHZXNrMEdu?=
- =?utf-8?B?clB5eDA1emI0RUtPMFNlb3E0RlkvNEJSZ3B2NjB6Z2QxRGNybzZ5bXZxQnJ1?=
- =?utf-8?Q?cG0/UzLJw7Y=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5937.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WU15dHROd3R0bXVvSjV0eVU5d3ZkQ3hFT05lck9GcVA4VTUvcVlKZWxsbXpk?=
- =?utf-8?B?L0pVS1lqODBMUXdVZEFRb0JHTDd3WDVmWDcvczNoTVp6MmUrbndWZlFmMnQ2?=
- =?utf-8?B?Z0gyV2tYUlBSSDlpa3ZUdkVER0JURHV4RVBOQkFsamt0T3h4dkc2WEpveEs4?=
- =?utf-8?B?QUptN3JxbTUvMXNWaGw3ZExXQVhXQVBoM1BnbmJsek12ZXIxZVg4bENUdFpU?=
- =?utf-8?B?Si9GR3BNMTc5RlMvZHFOY3JsMFJFT01id3AxT1FLY01mODJXcW94ek85eDlv?=
- =?utf-8?B?b0Fnb3lQaUx4eHJXNzFYTzN0OTNwRGt6WkwzQU5pWmo1T2VUTFlZc1pGeWcv?=
- =?utf-8?B?VmZEVVlJUjBZMmRQaXJuK1RISW15MDZEZzM0VjF2UXZ4OGwxbS9qVGFWKzZ0?=
- =?utf-8?B?emdwSlJsUUVmWVU0c0hWVkx4d3o5MFlvejR1K1M3T2dCMytUYys5YmhYSlNp?=
- =?utf-8?B?R2ZqS3VQZElkTVNDQXBKQzR2Q1lkaFBDbVFwR09OYzQvREZYcU9pQjJBQWN5?=
- =?utf-8?B?bEZxOEZ2MER2Nzg1ZUcvdTVma0JnZGVWL3RuS1poWFZRSDdBZFByL3dqU25Z?=
- =?utf-8?B?S3cxK2pYZVhhNFdxSEMvKzllK2xPMTR4QmhLVXVGM1ZCUXpOLzRsakdidUlC?=
- =?utf-8?B?UHo3ZnduOHIzdE9JQjMwRVpsank2TmQrNnhGdG1MV3IyT1hxWDhHTE9BL3F6?=
- =?utf-8?B?L0hlblhreldUa29yWUNFMDNKQ21ObnhWTjBhVGxBMElsUW1YSW0rZVo5ZDB5?=
- =?utf-8?B?NUdrc2tvcHN6eUY0MlJyVWZaMEFJMTVCKzJ4N1RuRnBGT1NaaFBYU3pjYUJB?=
- =?utf-8?B?dFhsWWpLL25TUHRUWm14bkNNVmRieVNlTlpJSlViUmxnT0R4VTNsWWlZcnI1?=
- =?utf-8?B?WWJqd1VpeTd5UFBuYy9Ucnh6S0o2ZDYvclJuUUZKaE5veFdUYThWM0YrTGJB?=
- =?utf-8?B?d0oza1g0cFRvRkpOTFdybzdPNnRpeHNLQnRGVzVGbEt5ak1WVkZ0MGtjOWk1?=
- =?utf-8?B?TFJCU0o5QkwxbTlKSjkvSUR4Q2dQT2R6VTY1Nmtjc0k5aStmTWlqN3lqL0JV?=
- =?utf-8?B?RlpWd1RISmRQV0IwZk1FK0ZHa3NIK2tZT0JsWEh3bzhuYXJtblNrVDUyVDBt?=
- =?utf-8?B?aCsxeWxBVnRNRnc4ZTcxYXlKR2k3cjJITTZLQndyRWZLRFk0eS9tN01JMDN5?=
- =?utf-8?B?U3lZT1AzZ1VHQTlkUDJKbjZ2Nzh1UnFnTEQzWU9iUjN3bnFnQlYzc3ZDMlRz?=
- =?utf-8?B?UW1aeGk4Z1IxWTE1TlpvcnlZU2I2VldUblc0cm1iSlM5cmdFNjVYS1ZpRjQv?=
- =?utf-8?B?aEdQMkZxb2R2OENuV1hENzVBRTJUWnBrU252ZzlPV0ZjbTdaWXdEQ3d6eVcx?=
- =?utf-8?B?VTJIQXVaR2lrWkRiaTV0QTZRZmtpTENSdys1TGJrY1NrT2ZRUTJac0lRWE14?=
- =?utf-8?B?ZmxvUjNYZnE1L3Fka3NoM2I2ZW00RGN5TkZJOWU1Q2ZlMlRTTEt1M0cvQy9h?=
- =?utf-8?B?bjBqSm9PTDlFUlNJdnJiUHpxMHRGd28za1hkdkZvVzNWMnFMSmZRWkN5cUY4?=
- =?utf-8?B?dGpsRjdJN1czYU10dmQyRjdLVkZwQmpWSWRIWUFVK0kxNEZ5V0FHUWFIWU81?=
- =?utf-8?B?KzJyM3JKa2ZNMHpxcWtrcHdEK041Mm5CTjVtV1BwUWlKc3RrK3VFcWZsdEFr?=
- =?utf-8?B?UnR4aTVlZWJGMXYzcEE3WE1IVVN4RG5QOXpJVFRVamFqYlR2YmRXSk9aQlVU?=
- =?utf-8?B?bmxwYjBaSDFkeC9QdDZyUHhRdFBkVVJiZHhwcTNBWDdQRlVYZXByQS9GTkVB?=
- =?utf-8?B?T3VDOENwL1hUcm5odENpQVlvUG9UWHd3ZXRzWHc4QUlub3dpNkNncDJUakgv?=
- =?utf-8?B?Z1hmd2ZZUGMwL2NBNDd6ek5KcUJ2UUtIekk1MVlEcXBtZ2w5QklFY3NZWi9D?=
- =?utf-8?B?L0VvVEdXNWJ5MDJkMXU3MTRCK0pPYVlFTnNZaUhudmQ1Wm1vbDVDak5hNDRs?=
- =?utf-8?B?WFpHdk50WXZBTjZkVThNUEkxd01NN0VhNEFUTnM1YzJXRmx5Wi9tci9ac01s?=
- =?utf-8?B?cHBoWGF5VjBNZloyMFB0ZjczaHg5SzRzRmN3M2piRU92VVpnVU84bXRVZnhq?=
- =?utf-8?Q?Q0WFbj9k7+qHGwreDKTLQckp4?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75d08738-3cb3-4361-b7ca-08dd8d56ce06
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5937.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 11:03:32.3707 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S1zfFOx7xq27uQT8mEmQC+pHvLglGm0rlZIB+exQsej8bgSMNphRehXjN3thcnL62chCOT+v19JY11MCegczgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4396
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/2] drm/amdgpu/uvd: Ensure vcpu bos are within the
+ uvd segment
+From: John Olender <john.olender@gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, arunpravin.paneerselvam@amd.com
+References: <20250429112429.5646-1-john.olender@gmail.com>
+ <20250429112429.5646-3-john.olender@gmail.com>
+ <CADnq5_OBUWJj5uqbB78wLkbBAMtoRUy=Nes1O6garEQceCLB3Q@mail.gmail.com>
+ <b09012e2-f361-46b5-afbf-313334fad69a@amd.com>
+ <7efe97e3-adac-417b-8f0d-50ec4b2589e0@gmail.com>
+ <6288c9d8-9a18-4027-ba50-258f837025a3@amd.com>
+ <2d3fba88-ed8e-4c3b-8fb4-56633ab0aa08@gmail.com>
+Content-Language: en-US
+In-Reply-To: <2d3fba88-ed8e-4c3b-8fb4-56633ab0aa08@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,189 +94,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2025/5/7 18:03, Lazar, Lijo wrote:
-> On 5/7/2025 11:52 AM, Zhang, GuoQing (Sam) wrote:
->> [AMD Official Use Only - AMD Internal Distribution Only]
->>
->>
->>   
->>
->>> Please keep in mind that this is not the only scenario addressed by the
->>> driver - for ex: a resume sequence is executed after a device reset.
->>> This patch itself introduces unwanted sequences for other commonly used
->>> usecases. Please rework on the series without breaking existing usecases.
->>> Thanks,
->>> Lijo
->>   
->>
->> Hi @Lazar, Lijo<mailto:Lijo.Lazar@amd.com>, Thank you for the feedback.
->>
->>   
->>
->> I also think the new code should be inside a check so that new code is
->> executed only on resume with different VF and do not break existing
->> usecases. Following is the implementation of this approach I can think of.
->>
->> - introduce new field `prev_physical_node_id ` in `struct amdgpu_xgmi `.
->> update the fields on resume.
->>
->> - put new code inside code block `if (prev_physical_node_id  !=
->> physical_node_id )`
->>
->>
-> Can this happen only with XGMI under this condition? Any other method
-> possible like preparing a 'unique signature' and matching it to identify
-> if it resumed on an identically configured system?
-
-Yes, this hibernate-resume with different VF feature is only for devices 
-with XGMI. Detecting XGMI node id change is the only way I can think of 
-to identify the case. It's also a very simple way.
-
-@Koenig, Christian <mailto:Christian.Koenig@amd.com> Are you OK with 
-this approach, adding a check for the new code sequence?
-
-> Regardless, instead of having a direct check, better to wrap it inside
-> something like
-> 	if (amdgpu_virt_need_migration()) or something more appropriate.
-
-Yes, I will do that. Thank you!
-
-Regards
-Sam
-
->   
-> Thanks,
-> Lijo
->
->> Is this approach acceptable? If not, can you suggest a better approach?
->> @Lazar, Lijo<mailto:Lijo.Lazar@amd.com> @Koenig, Christian
->> <mailto:Christian.Koenig@amd.com> Thank you!
->>
->>   
->>
->> Regards
->>
->> Sam
->>
->>   
->>
->> *From: *Lazar, Lijo<Lijo.Lazar@amd.com>
->> *Date: *Tuesday, May 6, 2025 at 19:55
->> *To: *Zhang, GuoQing (Sam)<GuoQing.Zhang@amd.com>, amd-
->> gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
->> *Cc: *Zhao, Victor<Victor.Zhao@amd.com>, Chang, HaiJun
->> <HaiJun.Chang@amd.com>, Koenig, Christian<Christian.Koenig@amd.com>,
->> Deucher, Alexander<Alexander.Deucher@amd.com>, Zhang, Owen(SRDC)
->> <Owen.Zhang2@amd.com>, Ma, Qing (Mark)<Qing.Ma@amd.com>, Jiang Liu
->> <gerry@linux.alibaba.com>
->> *Subject: *Re: [PATCH v3 1/7] drm/amdgpu: update XGMI physical node id
->> and GMC configs on resume
->>
->>
->>
->> On 5/6/2025 3:06 PM, Samuel Zhang wrote:
->>> For virtual machine with vGPUs in SRIOV single device mode and XGMI
->>> is enabled, XGMI physical node ids may change when waking up from
->>> hiberation with different vGPU devices. So update XGMI physical node
->>> ids on resume.
+On 5/5/25 12:06 PM, John Olender wrote:
+> On 5/5/25 5:02 AM, Christian König wrote:
+>>> Simply changing the uvd vcpu bo (and therefore the firmware) to always
+>>> be allocated in vram does *not* solve #3851.
 >>>
->> Please keep in mind that this is not the only scenario addressed by the
->> driver - for ex: a resume sequence is executed after a device reset.
->> This patch itself introduces unwanted sequences for other commonly used
->> usecases. Please rework on the series without breaking existing usecases.
+>>> Let me go into a bit of depth about how I arrived at this patch.
+>>>
+>>> First, what sort of system configuration changes result in the uvd init
+>>> failure?  It looks like having a display connected and changing the BAR
+>>> size have an impact.  Next, which kernel change reliably triggers the
+>>> issue?  The change is the switch to the buddy allocator.
+>>
+>> Well that is not a resizable BAR, but rather the "VRAM" is just stolen system memory and we completely bypass the BAR to access it.
+>>
+>> But the effect is the same. E.g. you have more memory CPU accessible than otherwise.
+>>
+>>>
+>>> Now that the issue can be reliably triggered, where does the error code,
+>>> -110 / -ETIMEDOUT, come from?  It turns out it's in
+>>> amdgpu_uvd_ring_test_ib(), specifically a timeout while waiting on the
+>>> ring's fence.
+>>>
+>>> With that out of the way, what allocator-related change happens when a
+>>> display is connected at startup?  The 'stolen_vga_memory' and related
+>>> bos are created.  Adding a one page dummy bo to the same place in the
+>>> driver can allow a headless configuration to now pass the uvd ring ib test.
+>>>
+>>> Why does having these extra objects allocated result in a change in
+>>> behavior?  Well, the switch to the buddy allocator drastically changes
+>>> *where* in vram various objects end up being placed.  What about the BAR
+>>> size change?  That ends up influencing where the objects are placed too.
+>>>
+>>> Which objects related to uvd end up being moved around?  The uvd code
+>>> has a function to force its objects into a specific segment after all.
+>>> Well, it turns out the vcpu bo doesn't go through this function and is
+>>> therefore being moved around.
+>>
+>> That function is there because independent buffers (the message and the feedback for example) needs to be in the same 256MB segment.
+>>
+>>> When the system configuration results in a ring ib timeout, the uvd vcpu
+>>> bo is pinned *outside* the uvd segment.  When uvd init succeeds, the uvd
+>>> vcpu bo is pinned *inside* the uvd segment.
+>>>
+>>> So, it appears there's a relationship between *where* the vcpu bo ends
+>>> up and the fence timeout.  But why does the issue manifest as a ring
+>>> fence timeout while testing the ib?  Unfortunately, I'm unable to find
+>>> something like a datasheet or developer's guide containing the finer
+>>> details of uvd.
+>>
+>>
+>> Mhm, there must be something wrong with programming bits 28-31 of the VCPU BO base address.
+>>
+>> Forcing the VCPU into the first 256 segment just makes those bits zero and so makes it work on your system.
+>>
+>> The problem is that this is basically just coincident. On other systems the base address can be completely different.
+>>
+>> See function uvd_v4_2_mc_resume() where the mmUVD_LMI_ADDR_EXT and mmUVD_LMI_EXT40_ADDR register is programmed and try to hack those two register writes and see if they really end up in the HW.
+
+Okay, I did a read and compare after each write.
+
+Both writes seem to go through on both the Kaveri and s9150:
+
+Kaveri (512MB UMA Buffer):
+amdgpu 0000:00:01.0: amdgpu: [drm] uvd_v4_2_mc_resume: mmUVD_LMI_ADDR_EXT: gpu_addr=0xF41FA00000, addr=0x00000001, wrote 0x00001001, read 0x00001001 [same]
+amdgpu 0000:00:01.0: amdgpu: [drm] uvd_v4_2_mc_resume: mmUVD_LMI_EXT40_ADDR: gpu_addr=0xF41FA00000, addr=0x000000F4, wrote 0x800900F4, read 0x800900F4 [same]
+
+s9150:
+amdgpu 0000:41:00.0: amdgpu: [drm] uvd_v4_2_mc_resume: mmUVD_LMI_ADDR_EXT: gpu_addr=0xF7FFA00000, addr=0x0000000F, wrote 0x0000F00F, read 0x0000F00F [same]
+amdgpu 0000:41:00.0: amdgpu: [drm] uvd_v4_2_mc_resume: mmUVD_LMI_EXT40_ADDR: gpu_addr=0xF7FFA00000, addr=0x000000F7, wrote 0x800900F7, read 0x800900F7 [same]
+
+Thanks,
+John
+
+>>
+>> I will try to find a Kaveri system which is still working to reproduce the issue.
 >>
 >> Thanks,
->> Lijo
+>> Christian.
 >>
->>> Update GPU memory controller configuration on resume if XGMI physical
->>> node ids are changed.
+> 
+> I first saw this issue with a s9150.  I had serious reservations about
+> reporting the issue because, in its default configuration, the s9150 has
+> no display output.  I needed to figure out that yes, this is a real
+> issue, I didn't just shoot myself in the foot by enabling broken display
+> hardware.
+> 
+> The issue affects all s9150s in a system, occurs in different slots and
+> numa nodes, still occurs when other hardware is added or removed, and
+> follows the s9150 from x399 to a significantly newer b650 system.
+> 
+> The Kaveri iGPU, while also impacted, mainly serves to show that yes,
+> this issue is happening on more than just some dodgy s9150 setup.
+> 
+> Anyway, hopefully these extra configuration details help narrow down the
+> problem.
+> 
+> Thanks,
+> John
+> 
 >>>
->>> Signed-off-by: Jiang Liu<gerry@linux.alibaba.com>
->>> Signed-off-by: Samuel Zhang<guoqing.zhang@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++++++++++++++
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  3 +--
->>>    drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  4 ++++
->>>    3 files changed, 29 insertions(+), 2 deletions(-)
+>>> Well, what seems related in the code?  Where is the ring fence located?
+>>> It's placed inside the vcpu bo by amdgpu_fence_driver_start_ring().
 >>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/
->> drm/amd/amdgpu/amdgpu_device.c
->>> index d477a901af84..e795af5067e5 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -5040,6 +5040,27 @@ int amdgpu_device_suspend(struct drm_device
->> *dev, bool notify_clients)
->>>          return 0;
->>>    }
->>>   
->>> +static int amdgpu_device_update_xgmi_info(struct amdgpu_device *adev)
->>> +{
->>> +     int r;
->>> +     unsigned int prev_physical_node_id;
->>> +
->>> +     /* Get xgmi info again for sriov to detect device changes */
->>> +     if (amdgpu_sriov_vf(adev) &&
->>> +         !(adev->flags & AMD_IS_APU) &&
->>> +         adev->gmc.xgmi.supported &&
->>> +         !adev->gmc.xgmi.connected_to_cpu) {
->>> +             prev_physical_node_id = adev->gmc.xgmi.physical_node_id;
->>> +             r = adev->gfxhub.funcs->get_xgmi_info(adev);
->>> +             if (r)
->>> +                     return r;
->>> +
->>> +             dev_info(adev->dev, "xgmi node, old id %d, new id %d\n",
->>> +                     prev_physical_node_id, adev-
->>> gmc.xgmi.physical_node_id);
->>> +     }
->>> +     return 0;
->>> +}
->>> +
->>>    /**
->>>     * amdgpu_device_resume - initiate device resume
->>>     *
->>> @@ -5059,6 +5080,9 @@ int amdgpu_device_resume(struct drm_device *dev,
->> bool notify_clients)
->>>                  r = amdgpu_virt_request_full_gpu(adev, true);
->>>                  if (r)
->>>                          return r;
->>> +             r = amdgpu_device_update_xgmi_info(adev);
->>> +             if (r)
->>> +                     return r;
->>>          }
->>>   
->>>          if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/
->> drm/amd/amdgpu/amdgpu_gmc.c
->>> index d1fa5e8e3937..a2abddf3c110 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> @@ -1298,8 +1298,7 @@ int amdgpu_gmc_get_nps_memranges(struct
->> amdgpu_device *adev,
->>>          if (!mem_ranges || !exp_ranges)
->>>                  return -EINVAL;
->>>   
->>> -     refresh = (adev->init_lvl->level !=
->> AMDGPU_INIT_LEVEL_MINIMAL_XGMI) &&
->>> -               (adev->gmc.reset_flags & AMDGPU_GMC_INIT_RESET_NPS);
->>> +     refresh = true;
->>>          ret = amdgpu_discovery_get_nps_info(adev, &nps_type, &ranges,
->>>                                              &range_cnt, refresh);
->>>   
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/
->> amd/amdgpu/gmc_v9_0.c
->>> index 59385da80185..1eb451a3743b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>> @@ -2533,6 +2533,10 @@ static int gmc_v9_0_resume(struct
->> amdgpu_ip_block *ip_block)
->>>          struct amdgpu_device *adev = ip_block->adev;
->>>          int r;
->>>   
->>> +     r = gmc_v9_0_mc_init(adev);
->>> +     if (r)
->>> +             return r;
->>> +
->>>          /* If a reset is done for NPS mode switch, read the memory range
->>>           * information again.
->>>           */
+>>> So, does this patch provide the correct solution to the problem?  Maybe
+>>> not.  But the solution seems plausible enough to at least send in the
+>>> patch for review.
+>>>
+>>> Thanks,
+>>> John
+> 
+
