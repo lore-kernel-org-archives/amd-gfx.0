@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0543CC3ABC5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F6C0C3ABC6
 	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 07:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1EE210E75E;
-	Wed,  7 May 2025 07:41:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF10610E75A;
+	Wed,  7 May 2025 07:41:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="JIZ8+56g";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="GA5hGdzJ";
 	dkim-atps=neutral
 Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 041C810E72D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03D4B10E728;
  Wed,  7 May 2025 00:24:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
  ; s=bytemarkmx;
  h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=3Y0u94PWZ6EjfK8NWPzIbKbmqD0SQsUjymovjrrGw64=; b=JIZ8+56gS3ZuYu5l
- 4OzPDqPDvHv8Ka+pcZXt7ggmIxVCZFQK+hDiezsujmKjjPk/CKJFbLsiKKir2M0XvtQdPVj9zgLpK
- MclU/olym7Yu0v00cn26Z+ZNHJsmkoJRp4DqI+Jpwc1IhFeNi+4yy7kHm6aKxe/DuV7B0QTJVeSnX
- RRTjayNNfGga72GCZ1IOVh7IpIDjuT+40X5Wab6l15NHNEODyI8k9KGL+sYBqq1fUConhKxBR5Z2b
- BO5Vdw+pa2He5//wKoLJsksq3DyL4JmibuwPA1gq17JPECGVEsI6CqU3nktld75qUaXxqp9geDdOm
- P1zjS1TbgClNOiewhA==;
+ :Subject; bh=Vt4x2NR9rZy0McKBk09pp7yXo99XRz0SlCyk5eqZpBI=; b=GA5hGdzJ6Oe6wu2y
+ 6GLarlrWVoLlNdhVlOT7/uWxOdVD0cUcX5YsCyD6ImRdYiAPgiXKwj/FIz6aQB2nFHubh4NnpLrAm
+ t5f68xtgKIYW4JKyE8Hbnuzq2J8gUwRAg5f1SNCW24koqGt1hgUdYFJDPcvP/B0MN3rBSKvlZsBjU
+ J49I9bP81lG6KttgJFaRfcXOT7ZU59O6nOmZaGg8dGQUU9v8F52GSb5i1jd0AOAqvt1nznnkQ9vnN
+ ARoX1u4mdevxOiANkraKgtqmdu1NGd7bNwrUp+6V8E6AdMDbF3XTJu4TvO9xmgiiGtM6nS2r6ct9k
+ /TwjAF3T9LPEPn910w==;
 Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
  by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1uCSaJ-0021Kc-0l;
- Wed, 07 May 2025 00:24:27 +0000
+ (envelope-from <linux@treblig.org>) id 1uCSaI-0021Kc-0h;
+ Wed, 07 May 2025 00:24:26 +0000
 From: linux@treblig.org
 To: alexander.deucher@amd.com, kenneth.feng@amd.com, christian.koenig@amd.com
 Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 3/3] drm/amd/pm/smu13: Remove unused smu_v3 functions
-Date: Wed,  7 May 2025 01:24:25 +0100
-Message-ID: <20250507002425.93421-4-linux@treblig.org>
+Subject: [PATCH 1/3] drm/amd/pm/smu7: Remove unused smu7_copy_bytes_from_smc
+Date: Wed,  7 May 2025 01:24:23 +0100
+Message-ID: <20250507002425.93421-2-linux@treblig.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250507002425.93421-1-linux@treblig.org>
 References: <20250507002425.93421-1-linux@treblig.org>
@@ -58,178 +58,80 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-smu_v13_0_display_clock_voltage_request() and
-smu_v13_0_set_min_deep_sleep_dcefclk() were added in 2020 by
-commit c05d1c401572 ("drm/amd/swsmu: add aldebaran smu13 ip support (v3)")
-but have remained unused.
+smu7_copy_bytes_from_smc() was added in 2016 by
+commit 1ff55f465103 ("drm/amd/powerplay: implement smu7_smumgr for asics
+with smu ip version 7.")
 
-Remove them.
+but never used.
 
-smu_v13_0_display_clock_voltage_request() was the only user
-of smu_v13_0_set_hard_freq_limited_range().  Remove it.
+Remove it.
 
 Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  12 ---
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 101 ------------------
- 2 files changed, 113 deletions(-)
+ .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.c | 36 -------------------
+ .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.h |  2 --
+ 2 files changed, 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-index cd03caffe317..6f74783472e5 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-@@ -183,13 +183,6 @@ int smu_v13_0_disable_thermal_alert(struct smu_context *smu);
- 
- int smu_v13_0_get_gfx_vdd(struct smu_context *smu, uint32_t *value);
- 
--int smu_v13_0_set_min_deep_sleep_dcefclk(struct smu_context *smu, uint32_t clk);
--
--int
--smu_v13_0_display_clock_voltage_request(struct smu_context *smu,
--					struct pp_display_clock_request
--					*clock_req);
--
- uint32_t
- smu_v13_0_get_fan_control_mode(struct smu_context *smu);
- 
-@@ -226,11 +219,6 @@ int smu_v13_0_get_dpm_ultimate_freq(struct smu_context *smu, enum smu_clk_type c
- int smu_v13_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_type clk_type,
- 					  uint32_t min, uint32_t max, bool automatic);
- 
--int smu_v13_0_set_hard_freq_limited_range(struct smu_context *smu,
--					  enum smu_clk_type clk_type,
--					  uint32_t min,
--					  uint32_t max);
--
- int smu_v13_0_set_performance_level(struct smu_context *smu,
- 				    enum amd_dpm_forced_level level);
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index ba5a9012dbd5..03242f65e262 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -709,18 +709,6 @@ int smu_v13_0_notify_memory_pool_location(struct smu_context *smu)
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+index 5a010cd38303..baf51cd82a35 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+@@ -46,42 +46,6 @@ static int smu7_set_smc_sram_address(struct pp_hwmgr *hwmgr, uint32_t smc_addr,
  }
  
--int smu_v13_0_set_min_deep_sleep_dcefclk(struct smu_context *smu, uint32_t clk)
--{
--	int ret;
--
--	ret = smu_cmn_send_smc_msg_with_param(smu,
--					      SMU_MSG_SetMinDeepSleepDcefclk, clk, NULL);
--	if (ret)
--		dev_err(smu->adev->dev, "SMU13 attempt to set divider for DCEFCLK Failed!");
--
--	return ret;
--}
--
- int smu_v13_0_set_driver_table_location(struct smu_context *smu)
- {
- 	struct smu_table *driver_table = &smu->smu_table.driver_table;
-@@ -1073,56 +1061,6 @@ int smu_v13_0_get_gfx_vdd(struct smu_context *smu, uint32_t *value)
  
- }
- 
--int
--smu_v13_0_display_clock_voltage_request(struct smu_context *smu,
--					struct pp_display_clock_request
--					*clock_req)
+-int smu7_copy_bytes_from_smc(struct pp_hwmgr *hwmgr, uint32_t smc_start_address, uint32_t *dest, uint32_t byte_count, uint32_t limit)
 -{
--	enum amd_pp_clock_type clk_type = clock_req->clock_type;
--	int ret = 0;
--	enum smu_clk_type clk_select = 0;
--	uint32_t clk_freq = clock_req->clock_freq_in_khz / 1000;
+-	uint32_t data;
+-	uint32_t addr;
+-	uint8_t *dest_byte;
+-	uint8_t i, data_byte[4] = {0};
+-	uint32_t *pdata = (uint32_t *)&data_byte;
 -
--	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) ||
--	    smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT)) {
--		switch (clk_type) {
--		case amd_pp_dcef_clock:
--			clk_select = SMU_DCEFCLK;
--			break;
--		case amd_pp_disp_clock:
--			clk_select = SMU_DISPCLK;
--			break;
--		case amd_pp_pixel_clock:
--			clk_select = SMU_PIXCLK;
--			break;
--		case amd_pp_phy_clock:
--			clk_select = SMU_PHYCLK;
--			break;
--		case amd_pp_mem_clock:
--			clk_select = SMU_UCLK;
--			break;
--		default:
--			dev_info(smu->adev->dev, "[%s] Invalid Clock Type!", __func__);
--			ret = -EINVAL;
--			break;
--		}
+-	PP_ASSERT_WITH_CODE((0 == (3 & smc_start_address)), "SMC address must be 4 byte aligned.", return -EINVAL);
+-	PP_ASSERT_WITH_CODE((limit > (smc_start_address + byte_count)), "SMC address is beyond the SMC RAM area.", return -EINVAL);
 -
--		if (ret)
--			goto failed;
+-	addr = smc_start_address;
 -
--		if (clk_select == SMU_UCLK && smu->disable_uclk_switch)
--			return 0;
+-	while (byte_count >= 4) {
+-		smu7_read_smc_sram_dword(hwmgr, addr, &data, limit);
 -
--		ret = smu_v13_0_set_hard_freq_limited_range(smu, clk_select, clk_freq, 0);
+-		*dest = PP_SMC_TO_HOST_UL(data);
 -
--		if (clk_select == SMU_UCLK)
--			smu->hard_min_uclk_req_from_dal = clk_freq;
+-		dest += 1;
+-		byte_count -= 4;
+-		addr += 4;
 -	}
 -
--failed:
--	return ret;
+-	if (byte_count) {
+-		smu7_read_smc_sram_dword(hwmgr, addr, &data, limit);
+-		*pdata = PP_SMC_TO_HOST_UL(data);
+-	/* Cast dest into byte type in dest_byte.  This way, we don't overflow if the allocated memory is not 4-byte aligned. */
+-		dest_byte = (uint8_t *)dest;
+-		for (i = 0; i < byte_count; i++)
+-			dest_byte[i] = data_byte[i];
+-	}
+-
+-	return 0;
 -}
 -
- uint32_t smu_v13_0_get_fan_control_mode(struct smu_context *smu)
+-
+ int smu7_copy_bytes_to_smc(struct pp_hwmgr *hwmgr, uint32_t smc_start_address,
+ 				const uint8_t *src, uint32_t byte_count, uint32_t limit)
  {
- 	if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_FAN_CONTROL_BIT))
-@@ -1647,45 +1585,6 @@ int smu_v13_0_set_soft_freq_limited_range(struct smu_context *smu,
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.h b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.h
+index e7303dc8c260..63e428ceaee4 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.h
+@@ -53,8 +53,6 @@ struct smu7_smumgr {
+ };
  
--int smu_v13_0_set_hard_freq_limited_range(struct smu_context *smu,
--					  enum smu_clk_type clk_type,
--					  uint32_t min,
--					  uint32_t max)
--{
--	int ret = 0, clk_id = 0;
--	uint32_t param;
--
--	if (min <= 0 && max <= 0)
--		return -EINVAL;
--
--	if (!smu_cmn_clk_dpm_is_enabled(smu, clk_type))
--		return 0;
--
--	clk_id = smu_cmn_to_asic_specific_index(smu,
--						CMN2ASIC_MAPPING_CLK,
--						clk_type);
--	if (clk_id < 0)
--		return clk_id;
--
--	if (max > 0) {
--		param = (uint32_t)((clk_id << 16) | (max & 0xffff));
--		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMaxByFreq,
--						      param, NULL);
--		if (ret)
--			return ret;
--	}
--
--	if (min > 0) {
--		param = (uint32_t)((clk_id << 16) | (min & 0xffff));
--		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinByFreq,
--						      param, NULL);
--		if (ret)
--			return ret;
--	}
--
--	return ret;
--}
--
- int smu_v13_0_set_performance_level(struct smu_context *smu,
- 				    enum amd_dpm_forced_level level)
- {
+ 
+-int smu7_copy_bytes_from_smc(struct pp_hwmgr *hwmgr, uint32_t smc_start_address,
+-				uint32_t *dest, uint32_t byte_count, uint32_t limit);
+ int smu7_copy_bytes_to_smc(struct pp_hwmgr *hwmgr, uint32_t smc_start_address,
+ 			const uint8_t *src, uint32_t byte_count, uint32_t limit);
+ int smu7_program_jump_on_start(struct pp_hwmgr *hwmgr);
 -- 
 2.49.0
 
