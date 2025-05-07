@@ -4,66 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ABAAC3ABBF
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 15:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8728DC3ABC0
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 15:10:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0700710E816;
-	Wed,  7 May 2025 15:01:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF14D10E826;
+	Wed,  7 May 2025 15:10:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gRGaX6sl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gp/FByOw";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 447FE10E816
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 15:01:19 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-30a8831e462so2186a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 May 2025 08:01:19 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0995D10E829;
+ Wed,  7 May 2025 15:10:45 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-30ab2041731so1000a91.2; 
+ Wed, 07 May 2025 08:10:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746630079; x=1747234879; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1746630644; x=1747235444; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nwXt7qPjMzEnLZENNFdjmyIBfnQHTWgdIE7i6G+ZtS8=;
- b=gRGaX6slo3L7/NbELlo6EGoPYgOc6Bzse3QTe7EgFErOQP0E+SNNHIF2TDzvcSIgG8
- sGHsutjRKR3P3rN/st4OKiCmQDRB58m7QNdIrejrgbkJtu0hIS5BvSxPZc9d9JrlKnUn
- 6Y/8KSUw7CdhTWqG/SEjXKkESaxrQyiLBjIEKh1Xg/W58kuAg/KOyQDLydwsS3DDO21k
- 7st+eUd7Q0+LdpZwjX4J/fb7LeG/Jvalf0xDBcIw4g839bJw93OXrPkkOr7Vgqq3JLk3
- AbJtn2mVgsujFF74QBy6EuoKiOndmIFVY4pk12PAnGXmmrTUHDYGqaeTZ8ZMRbScn7IY
- zUxA==
+ bh=Rr7SlBb+Mxic3W0vjBKAoi3hgA/5VfbFQVNl/yBWl2M=;
+ b=Gp/FByOw5lTnUSH6O94DLce2+RaUCnwnD/kGNxit2lFajHV8cHg+NBYGlOCklyGl94
+ 9lhGC3AtuC4Gimneg5IHT6M59PF/iVYy/AHYSZETjIYUBVixQz8mc296cMjS4yiBagKs
+ gCPW6qlbL1wRqdye9JCq+h+IfHDquTgSgYBZh/Dt3vb+zkgT0mSnewFKqIntMAKrPVyH
+ xiPJDiElHj94QGhPnPCJZmz28PefupgbysCST9JTAHtArr1gHUZLXQMkZVdKwXMHBGNi
+ FgpPWhf59vZZMk+A8cHvOb7M2vd+lLFDOM8KkAa9ngoLQPjGMEuG+XQyZ2wHPDCCiH2S
+ dyuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746630079; x=1747234879;
+ d=1e100.net; s=20230601; t=1746630644; x=1747235444;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nwXt7qPjMzEnLZENNFdjmyIBfnQHTWgdIE7i6G+ZtS8=;
- b=ReozIHETPPnTCv6uTwy3tMZffz+aYZC9ElkbE+2GVfFnrxXC0Gz9C8Ald5l/6LuhoP
- trEsKTTATZrFTSUK6BlT6JtdjVPmCucZIQyGKfyhAWXful/uPHZ4fCwUakc4FCmCXqNC
- cQ0VUt26c0GU/RgmRTJPdLV3ND7gmBnApLnL3zTXoWRvQs4pwYGOz1natmAwOvVyYfq7
- OFcffe1NAPK7BEoZ6ucnhFwpJdA7ao+8YayM59tvfIRE5dZ1Ehf9VoQMYePBYmb1nO4Y
- RxVgp/JEZrtYvENrOCHZUphFHd9dY9zOM7QGkZ8EKRFhbbhdsEIO5O6/YrV0T6BvkCPb
- 136A==
-X-Gm-Message-State: AOJu0YzTPnTcovXsmsOxx1ASDLCErO54NZL7htdLMIgM+eALmPUUMBRg
- IhGXQwGWDkkB1kJepllZkMhM6NfM9fqVqMUBt0m9Nz9C9krTl0jk2x6eB+H0PvuyRaYd0viz3kH
- R8UheUrBfkdw76G7aVnLkJKC5SYE=
-X-Gm-Gg: ASbGncvevOOBCRULRVWzEsFtaquLCJRiWjJAPEqz58+Uae18OMMbgMGkmJby03MoUC1
- qbwk/9/RgEKWQNM/naQu0wBBdShhEZtEbkWWi/tIJE9wzbRWYwHeD3eDPPgbNqQBdgL4OvON7LT
- Mf8wnn6F2Te+fOYcdQ1qI71w==
-X-Google-Smtp-Source: AGHT+IGkPqF3OGMpJ+PxJMNh3dsbHUDA4SgKR/wBhns769AEo4illDwMeLT4KayuG1oM4j95Bk6b90gNZ2GIJz8mPtQ=
-X-Received: by 2002:a17:90b:33c1:b0:2ff:5759:549a with SMTP id
- 98e67ed59e1d1-30aac16c2e2mr2271544a91.1.1746630078511; Wed, 07 May 2025
- 08:01:18 -0700 (PDT)
+ bh=Rr7SlBb+Mxic3W0vjBKAoi3hgA/5VfbFQVNl/yBWl2M=;
+ b=o0GDIUhNY5jpG6c/V80NlvcPLc4+vzxFQVuBW9UNsUomKorQ4LhuPVM0PLbWxPdiG+
+ TPBDIHUlv4+bXVboU3LOyDNZXFNYhvXo4D1iuYH3IbpP2RBiTdpEU7TXcO+pGxu9WlU2
+ qOE+Lk7kG1fKzXzzyrWLNOpfigVQX6Vd5m6KHFm1uIjlfsYw3fSF6dA41I7cJSaUIyGe
+ MLWaZBJIN3CbLt0lofeleNQAyBjbzao0yTPI//thAt21EHUrLFutq36HNjG9OgR5dvrY
+ 1XHz0afb9WXXPgmWtsBGtEFnScVLMu+8UmxRBC6GXWLp1TqPFXz6dNHq3x5hifxrId1J
+ aK6w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVBm6EQvj15f/7zYhJ2mSLjRa7EB6AH/8FwwP9efKwXlIHzymyZy4PRWQ9nWfcvtN2PX/KKnfXy@lists.freedesktop.org,
+ AJvYcCX/TidrIu0eClTAJHMQPijrtfwQRf6Z51TKe8dVkNaPZQMvfT2SBz+aw/uDjC8q/+tsJjrt1noLaDQu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwFWhGTC9X/FJ859yuEDZpjBmylz+orexurREU/hUUE9pgRQjzq
+ eDFzggHMJkUSdVVLxlp0PSxVALFjU2gg6CKQft0/bv/Y+g/jJPK6KwlFcJGo0rO6nHiOFlqSj9t
+ lkanuwOZCD7r/D1BHksY2hJnCsQk=
+X-Gm-Gg: ASbGncuWvBPaU2CFU7rxQT9QdnQEnH26ORcN/Vq8tkQuMpI9rYaHHTOYA44W1J5/Dtk
+ 5B6bJoU7tSxMmGLlpX5jc+pyJI/vQ6z45BIWL/KacHTU7obXHVPfLew10Xx1G9+pgDsnQGtgEvv
+ Emr9KJcp3GfdQPxhrXkLorHg==
+X-Google-Smtp-Source: AGHT+IHs751kgovWTS/yqPwWIwj5rYGwaenWwA5o/tymdJxAfSymJ3o5v+LKLXXv/sRdy8BfgThzhohaNXNRvPfXyxM=
+X-Received: by 2002:a17:90b:3882:b0:30a:a51c:5f48 with SMTP id
+ 98e67ed59e1d1-30aac26b85fmr2036308a91.8.1746630644306; Wed, 07 May 2025
+ 08:10:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250506204948.12048-1-mario.limonciello@amd.com>
- <20250506204948.12048-4-mario.limonciello@amd.com>
-In-Reply-To: <20250506204948.12048-4-mario.limonciello@amd.com>
+References: <20250507002425.93421-1-linux@treblig.org>
+ <20250507002425.93421-4-linux@treblig.org>
+In-Reply-To: <20250507002425.93421-4-linux@treblig.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 7 May 2025 11:01:06 -0400
-X-Gm-Features: ATxdqUH6fZKwmqRLBLeF51NJgLXr_fXtjq3vtLFjm5zgtVbLwzvVmSqWtFxfshE
-Message-ID: <CADnq5_PJkqe=ZeTe1XhGsUp3d+HRVo3zXQ=cv_vUYQEpEnpDQQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/amd: Add per-ring reset for vcn v5.0.0 use
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, David.Wu3@amd.com
+Date: Wed, 7 May 2025 11:10:32 -0400
+X-Gm-Features: ATxdqUE3O2iczVjE8Eax_qzR85S_kXa9idjGqD3mrYnEK2wwEG3f3vkjlSdNm00
+Message-ID: <CADnq5_PPpDSY8o6Ru7nrE1q=xaboKJDjG7WiUhDdX8G9Kz00eQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amd/pm/smu13: Remove unused smu_v3 functions
+To: linux@treblig.org
+Cc: alexander.deucher@amd.com, kenneth.feng@amd.com, christian.koenig@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,78 +85,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 6, 2025 at 4:50=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> If there is a problem requiring a reset of the VCN engine, it is better t=
-o
-> reset the VCN engine rather than the entire GPU.
->
-> Add a reset callback for the ring which will stop and start VCN if an
-> issue happens.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Applied the series.  Thanks!
 
-Looks good to me.  Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
+On Tue, May 6, 2025 at 8:33=E2=80=AFPM <linux@treblig.org> wrote:
+>
+> From: "Dr. David Alan Gilbert" <linux@treblig.org>
+>
+> smu_v13_0_display_clock_voltage_request() and
+> smu_v13_0_set_min_deep_sleep_dcefclk() were added in 2020 by
+> commit c05d1c401572 ("drm/amd/swsmu: add aldebaran smu13 ip support (v3)"=
+)
+> but have remained unused.
+>
+> Remove them.
+>
+> smu_v13_0_display_clock_voltage_request() was the only user
+> of smu_v13_0_set_hard_freq_limited_range().  Remove it.
+>
+> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  12 ---
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 101 ------------------
+>  2 files changed, 113 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/am=
-d/amdgpu/vcn_v5_0_0.c
-> index b90da3d3e140..27dcc6f37a73 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -196,9 +196,9 @@ static int vcn_v5_0_0_sw_init(struct amdgpu_ip_block =
-*ip_block)
->                         adev->vcn.inst[i].pause_dpg_mode =3D vcn_v5_0_0_p=
-ause_dpg_mode;
->         }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/d=
+rm/amd/pm/swsmu/inc/smu_v13_0.h
+> index cd03caffe317..6f74783472e5 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> @@ -183,13 +183,6 @@ int smu_v13_0_disable_thermal_alert(struct smu_conte=
+xt *smu);
 >
-> -       /* TODO: Add queue reset mask when FW fully supports it */
->         adev->vcn.supported_reset =3D
->                 amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_e=
-nc[0]);
-> +       adev->vcn.supported_reset |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
+>  int smu_v13_0_get_gfx_vdd(struct smu_context *smu, uint32_t *value);
 >
->         vcn_v5_0_0_alloc_ip_dump(adev);
+> -int smu_v13_0_set_min_deep_sleep_dcefclk(struct smu_context *smu, uint32=
+_t clk);
+> -
+> -int
+> -smu_v13_0_display_clock_voltage_request(struct smu_context *smu,
+> -                                       struct pp_display_clock_request
+> -                                       *clock_req);
+> -
+>  uint32_t
+>  smu_v13_0_get_fan_control_mode(struct smu_context *smu);
 >
-> @@ -1172,6 +1172,20 @@ static void vcn_v5_0_0_unified_ring_set_wptr(struc=
-t amdgpu_ring *ring)
->         }
+> @@ -226,11 +219,6 @@ int smu_v13_0_get_dpm_ultimate_freq(struct smu_conte=
+xt *smu, enum smu_clk_type c
+>  int smu_v13_0_set_soft_freq_limited_range(struct smu_context *smu, enum =
+smu_clk_type clk_type,
+>                                           uint32_t min, uint32_t max, boo=
+l automatic);
+>
+> -int smu_v13_0_set_hard_freq_limited_range(struct smu_context *smu,
+> -                                         enum smu_clk_type clk_type,
+> -                                         uint32_t min,
+> -                                         uint32_t max);
+> -
+>  int smu_v13_0_set_performance_level(struct smu_context *smu,
+>                                     enum amd_dpm_forced_level level);
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index ba5a9012dbd5..03242f65e262 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -709,18 +709,6 @@ int smu_v13_0_notify_memory_pool_location(struct smu=
+_context *smu)
+>         return ret;
 >  }
 >
-> +static int vcn_v5_0_0_ring_reset(struct amdgpu_ring *ring, unsigned int =
-vmid)
-> +{
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[ring->me];
-> +
-> +       if (!(adev->vcn.supported_reset & AMDGPU_RESET_TYPE_PER_QUEUE))
-> +               return -EOPNOTSUPP;
-> +
-> +       vcn_v5_0_0_stop(vinst);
-> +       vcn_v5_0_0_start(vinst);
-> +
-> +       return amdgpu_ring_test_helper(ring);
-> +}
-> +
->  static const struct amdgpu_ring_funcs vcn_v5_0_0_unified_ring_vm_funcs =
-=3D {
->         .type =3D AMDGPU_RING_TYPE_VCN_ENC,
->         .align_mask =3D 0x3f,
-> @@ -1199,6 +1213,7 @@ static const struct amdgpu_ring_funcs vcn_v5_0_0_un=
-ified_ring_vm_funcs =3D {
->         .emit_wreg =3D vcn_v2_0_enc_ring_emit_wreg,
->         .emit_reg_wait =3D vcn_v2_0_enc_ring_emit_reg_wait,
->         .emit_reg_write_reg_wait =3D amdgpu_ring_emit_reg_write_reg_wait_=
-helper,
-> +       .reset =3D vcn_v5_0_0_ring_reset,
->  };
+> -int smu_v13_0_set_min_deep_sleep_dcefclk(struct smu_context *smu, uint32=
+_t clk)
+> -{
+> -       int ret;
+> -
+> -       ret =3D smu_cmn_send_smc_msg_with_param(smu,
+> -                                             SMU_MSG_SetMinDeepSleepDcef=
+clk, clk, NULL);
+> -       if (ret)
+> -               dev_err(smu->adev->dev, "SMU13 attempt to set divider for=
+ DCEFCLK Failed!");
+> -
+> -       return ret;
+> -}
+> -
+>  int smu_v13_0_set_driver_table_location(struct smu_context *smu)
+>  {
+>         struct smu_table *driver_table =3D &smu->smu_table.driver_table;
+> @@ -1073,56 +1061,6 @@ int smu_v13_0_get_gfx_vdd(struct smu_context *smu,=
+ uint32_t *value)
 >
->  /**
+>  }
+>
+> -int
+> -smu_v13_0_display_clock_voltage_request(struct smu_context *smu,
+> -                                       struct pp_display_clock_request
+> -                                       *clock_req)
+> -{
+> -       enum amd_pp_clock_type clk_type =3D clock_req->clock_type;
+> -       int ret =3D 0;
+> -       enum smu_clk_type clk_select =3D 0;
+> -       uint32_t clk_freq =3D clock_req->clock_freq_in_khz / 1000;
+> -
+> -       if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) =
+||
+> -           smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT)) {
+> -               switch (clk_type) {
+> -               case amd_pp_dcef_clock:
+> -                       clk_select =3D SMU_DCEFCLK;
+> -                       break;
+> -               case amd_pp_disp_clock:
+> -                       clk_select =3D SMU_DISPCLK;
+> -                       break;
+> -               case amd_pp_pixel_clock:
+> -                       clk_select =3D SMU_PIXCLK;
+> -                       break;
+> -               case amd_pp_phy_clock:
+> -                       clk_select =3D SMU_PHYCLK;
+> -                       break;
+> -               case amd_pp_mem_clock:
+> -                       clk_select =3D SMU_UCLK;
+> -                       break;
+> -               default:
+> -                       dev_info(smu->adev->dev, "[%s] Invalid Clock Type=
+!", __func__);
+> -                       ret =3D -EINVAL;
+> -                       break;
+> -               }
+> -
+> -               if (ret)
+> -                       goto failed;
+> -
+> -               if (clk_select =3D=3D SMU_UCLK && smu->disable_uclk_switc=
+h)
+> -                       return 0;
+> -
+> -               ret =3D smu_v13_0_set_hard_freq_limited_range(smu, clk_se=
+lect, clk_freq, 0);
+> -
+> -               if (clk_select =3D=3D SMU_UCLK)
+> -                       smu->hard_min_uclk_req_from_dal =3D clk_freq;
+> -       }
+> -
+> -failed:
+> -       return ret;
+> -}
+> -
+>  uint32_t smu_v13_0_get_fan_control_mode(struct smu_context *smu)
+>  {
+>         if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_FAN_CONTROL_BIT)=
+)
+> @@ -1647,45 +1585,6 @@ int smu_v13_0_set_soft_freq_limited_range(struct s=
+mu_context *smu,
+>         return ret;
+>  }
+>
+> -int smu_v13_0_set_hard_freq_limited_range(struct smu_context *smu,
+> -                                         enum smu_clk_type clk_type,
+> -                                         uint32_t min,
+> -                                         uint32_t max)
+> -{
+> -       int ret =3D 0, clk_id =3D 0;
+> -       uint32_t param;
+> -
+> -       if (min <=3D 0 && max <=3D 0)
+> -               return -EINVAL;
+> -
+> -       if (!smu_cmn_clk_dpm_is_enabled(smu, clk_type))
+> -               return 0;
+> -
+> -       clk_id =3D smu_cmn_to_asic_specific_index(smu,
+> -                                               CMN2ASIC_MAPPING_CLK,
+> -                                               clk_type);
+> -       if (clk_id < 0)
+> -               return clk_id;
+> -
+> -       if (max > 0) {
+> -               param =3D (uint32_t)((clk_id << 16) | (max & 0xffff));
+> -               ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetH=
+ardMaxByFreq,
+> -                                                     param, NULL);
+> -               if (ret)
+> -                       return ret;
+> -       }
+> -
+> -       if (min > 0) {
+> -               param =3D (uint32_t)((clk_id << 16) | (min & 0xffff));
+> -               ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetH=
+ardMinByFreq,
+> -                                                     param, NULL);
+> -               if (ret)
+> -                       return ret;
+> -       }
+> -
+> -       return ret;
+> -}
+> -
+>  int smu_v13_0_set_performance_level(struct smu_context *smu,
+>                                     enum amd_dpm_forced_level level)
+>  {
 > --
 > 2.49.0
 >
