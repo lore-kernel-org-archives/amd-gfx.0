@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F6C0C3ABC6
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 07:41:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C108C3ABC0
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 07:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF10610E75A;
-	Wed,  7 May 2025 07:41:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB3B10E75F;
+	Wed,  7 May 2025 07:41:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="GA5hGdzJ";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="Ez1Arzbw";
 	dkim-atps=neutral
 Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03D4B10E728;
- Wed,  7 May 2025 00:24:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3273210E730
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 00:32:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
  ; s=bytemarkmx;
- h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=Vt4x2NR9rZy0McKBk09pp7yXo99XRz0SlCyk5eqZpBI=; b=GA5hGdzJ6Oe6wu2y
- 6GLarlrWVoLlNdhVlOT7/uWxOdVD0cUcX5YsCyD6ImRdYiAPgiXKwj/FIz6aQB2nFHubh4NnpLrAm
- t5f68xtgKIYW4JKyE8Hbnuzq2J8gUwRAg5f1SNCW24koqGt1hgUdYFJDPcvP/B0MN3rBSKvlZsBjU
- J49I9bP81lG6KttgJFaRfcXOT7ZU59O6nOmZaGg8dGQUU9v8F52GSb5i1jd0AOAqvt1nznnkQ9vnN
- ARoX1u4mdevxOiANkraKgtqmdu1NGd7bNwrUp+6V8E6AdMDbF3XTJu4TvO9xmgiiGtM6nS2r6ct9k
- /TwjAF3T9LPEPn910w==;
-Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
- by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1uCSaI-0021Kc-0h;
- Wed, 07 May 2025 00:24:26 +0000
-From: linux@treblig.org
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=zZKq2VYLVrTR55LFDRvI18F3cQXBDBw2Zts2GwPpQLo=; b=Ez1ArzbwxwNsZkGE
+ nE8fA0pstdG60mn+8VJXztq9joAJPqc63XHZQWfOjMdghK/bAMqOWX+Qx3twvJSzshE1noVKjK0+0
+ l+kPmjkwr4tv6bvG6PuiuT9DA/2oNX1qexbqQuMDusYPUcH35GmfzyZSh6nt+A+Uz0wrHD7e35UYd
+ NCtZjYlN15M066FbeqSr+lg0E1ZS6iz0Xe7WYv6fAXyIpTkRLDVXCwD2WQVaPs6nkaEk0wCGoFbmZ
+ MjaqTagqx6Ci1p2IhyxCeDQ0lrQs9SFEZzMr+unQL0Iyq441uOTO2wJHgW9yFolNMMIbWJbdr+HBw
+ AtnMvf2JhXAsRADzCg==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+ (envelope-from <dg@treblig.org>) id 1uCShm-0021Pz-2M;
+ Wed, 07 May 2025 00:32:10 +0000
+Date: Wed, 7 May 2025 00:32:10 +0000
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 To: alexander.deucher@amd.com, kenneth.feng@amd.com, christian.koenig@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 1/3] drm/amd/pm/smu7: Remove unused smu7_copy_bytes_from_smc
-Date: Wed,  7 May 2025 01:24:23 +0100
-Message-ID: <20250507002425.93421-2-linux@treblig.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250507002425.93421-1-linux@treblig.org>
-References: <20250507002425.93421-1-linux@treblig.org>
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: questions about smu_mode2_reset_is_support and
+ smu_v13_0_init_display_count
+Message-ID: <aBqqCmYICO_C0nLT@gallifrey>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-34-amd64 (x86_64)
+X-Uptime: 00:27:05 up 9 days,  8:40,  1 user,  load average: 0.03, 0.04, 0.01
+User-Agent: Mutt/2.2.12 (2023-09-09)
 X-Mailman-Approved-At: Wed, 07 May 2025 07:41:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,82 +56,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+Hi,
+  I noticed two functions that are unused but I wasn't sure what to
+do with them:
 
-smu7_copy_bytes_from_smc() was added in 2016 by
-commit 1ff55f465103 ("drm/amd/powerplay: implement smu7_smumgr for asics
-with smu ip version 7.")
+smu_v13_0_init_display_count() isn't called/wired up, where as the
+v11 version is wired up:
 
-but never used.
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+     3574:	.init_display_count = smu_v11_0_init_display_count,
 
-Remove it.
+so is v13 really unused or should it be wired up in a similar way?
 
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
----
- .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.c | 36 -------------------
- .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.h |  2 --
- 2 files changed, 38 deletions(-)
+secondly, smu_mode2_reset_is_support() is uncalled, but it's
+the only caller through the mode2_reset_is_support() function
+pointer; so if smu_mode2_reset_is_support() was deleted, does
+it then make sense to clean up all of
+  sienna_cichlid_is_mode2_reset_supported,
+  aldebaran_is_mode2_reset_supported,
+  smu_v13_0_6_is_mode2_reset_supported
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-index 5a010cd38303..baf51cd82a35 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-@@ -46,42 +46,6 @@ static int smu7_set_smc_sram_address(struct pp_hwmgr *hwmgr, uint32_t smc_addr,
- }
- 
- 
--int smu7_copy_bytes_from_smc(struct pp_hwmgr *hwmgr, uint32_t smc_start_address, uint32_t *dest, uint32_t byte_count, uint32_t limit)
--{
--	uint32_t data;
--	uint32_t addr;
--	uint8_t *dest_byte;
--	uint8_t i, data_byte[4] = {0};
--	uint32_t *pdata = (uint32_t *)&data_byte;
--
--	PP_ASSERT_WITH_CODE((0 == (3 & smc_start_address)), "SMC address must be 4 byte aligned.", return -EINVAL);
--	PP_ASSERT_WITH_CODE((limit > (smc_start_address + byte_count)), "SMC address is beyond the SMC RAM area.", return -EINVAL);
--
--	addr = smc_start_address;
--
--	while (byte_count >= 4) {
--		smu7_read_smc_sram_dword(hwmgr, addr, &data, limit);
--
--		*dest = PP_SMC_TO_HOST_UL(data);
--
--		dest += 1;
--		byte_count -= 4;
--		addr += 4;
--	}
--
--	if (byte_count) {
--		smu7_read_smc_sram_dword(hwmgr, addr, &data, limit);
--		*pdata = PP_SMC_TO_HOST_UL(data);
--	/* Cast dest into byte type in dest_byte.  This way, we don't overflow if the allocated memory is not 4-byte aligned. */
--		dest_byte = (uint8_t *)dest;
--		for (i = 0; i < byte_count; i++)
--			dest_byte[i] = data_byte[i];
--	}
--
--	return 0;
--}
--
--
- int smu7_copy_bytes_to_smc(struct pp_hwmgr *hwmgr, uint32_t smc_start_address,
- 				const uint8_t *src, uint32_t byte_count, uint32_t limit)
- {
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.h b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.h
-index e7303dc8c260..63e428ceaee4 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.h
-@@ -53,8 +53,6 @@ struct smu7_smumgr {
- };
- 
- 
--int smu7_copy_bytes_from_smc(struct pp_hwmgr *hwmgr, uint32_t smc_start_address,
--				uint32_t *dest, uint32_t byte_count, uint32_t limit);
- int smu7_copy_bytes_to_smc(struct pp_hwmgr *hwmgr, uint32_t smc_start_address,
- 			const uint8_t *src, uint32_t byte_count, uint32_t limit);
- int smu7_program_jump_on_start(struct pp_hwmgr *hwmgr);
+which that function pointer is sett to.
+
+Thanks in advance,
+
+Dave
+
 -- 
-2.49.0
-
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
