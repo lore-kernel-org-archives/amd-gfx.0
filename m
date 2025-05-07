@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 139DCC3ABBF
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 09:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF143C3ABBF
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 09:29:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAB2C10E776;
-	Wed,  7 May 2025 09:28:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E45010E770;
+	Wed,  7 May 2025 09:29:44 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0C5610E776
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 09:28:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8516D10E770
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 09:29:43 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 5479SFfM700574; Wed, 7 May 2025 14:58:15 +0530
+ 5479TZ8w701134; Wed, 7 May 2025 14:59:35 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 5479SFG3700567;
- Wed, 7 May 2025 14:58:15 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 5479TZr1701133;
+ Wed, 7 May 2025 14:59:35 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1] drm/amdgpu: fix the indentation
-Date: Wed,  7 May 2025 14:58:14 +0530
-Message-Id: <20250507092814.700548-1-sunil.khatri@amd.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+ Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH v2] drm/amdgpu: fix the indentation
+Date: Wed,  7 May 2025 14:59:34 +0530
+Message-Id: <20250507092934.701120-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
