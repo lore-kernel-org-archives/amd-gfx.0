@@ -4,148 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B713C3ABC0
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 09:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64271C3ABC0
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 May 2025 09:38:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E65C310E38B;
-	Wed,  7 May 2025 09:35:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 108AD10E76E;
+	Wed,  7 May 2025 09:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UyX/T4ss";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pYR6h5nR";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5244F10E38B
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 09:35:45 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2084.outbound.protection.outlook.com [40.107.102.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F101910E76E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 May 2025 09:38:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tAMr4Zchpk0p+0e3nE47wxbqwejb1XlbSVrwSEjSsyryN1+9uMbmTt3cQwYAEBJrjB17+YHGHVUQVHzFPNt3/oUroscRpDvfSSkOPQYsbLqdTDxbjHadsY8LFywBOGqn0GRpBRX5dwZK3cNzTtL3U2SbAwgjIrqoESOuqf+vTLYniTgesaynCElnvSXCCBFkjrhSvIxPFa4wuVdoHIT8z1RNsxLFaUi71IWOdUS0Bq+XCPPTplW9jHTa7CkD5elYiPEglBbY9ic4WPkYXOaLaKvMCulRKuAAJr4q7iU80uZRIcRUfPj67NYMh148rOV7L19D2ij8jfZtfzYEMb2Whw==
+ b=OSYiIUsFVW+VAz3sTSovOY0IHLXrsgVmeNSGZdDX9lX7nWDe1krf4+2woSizwke8gzAqdzFu5DpbX2lBl4+RYfgl66RN7lQiQdUJggswBUGkOeWZ9FR2jZfs8evuojPX/abW+TmE1e3kMeJMG105dkOokRAmOJX8c5vo+TyMlwoIbP90LX3d+ItGhkvGCmFXPMT5gMBdIDQwxTPi5Pml9qHltSuVicq1kY7A0BsJG1fDLihNixXcefADMsIqyuDVk2NFE1eaazGacG2XAd+N4rTTsWQVvQT9FaLs4X6s6+BQvlvFvzAuOA3zp0WXHCR8Blmb8/MR9+sUoNzIUJvLdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NJV/fVujddYxe7nlOMZ5VeNo0ELex1aMAncHoKLqxZA=;
- b=UN/4Mf3Sy3Z338W08xWfk88wltY4oiVdGU2Dbx6ZHcw270B8UTW1rLfLYl51CMA/2RrMXJLB85MVWL1HuWtyKxCGcfkqQZJPd6P4QHRYNGqSkxI5LZJtSOGbHcSzf+yty9RlhQnz+cw39eLpRjUJJnQV4SuqDlclNvHIkQr0fhxGAUdIBEaD80iXBdmuiAW5K63uzPeTzPk0J8HI9XOjBgH4Jh9pLVTvRRRQPJeCBmfsLsIXsDtYLG9nR7dp7B6tFVJVomhj0i4EQkuxVbeeXauIbyzZi5X8OSw95f/ye2DfJY+okJK6l8D5rJLKy9pKr7djsUgc/DAgjYi6nD72Og==
+ bh=YxVRcHlllpy7OIM4Q030II4XxgnDVu7MSM2hnrwWzmo=;
+ b=e3I1iFbK9SWnOWNOM1XJ9U4pUPsvIK4w9g68OE1av6wkSKZ+dIPHP6YHTszYKfb+3m3koGqw6ZH7VU23JvyJbLhOu0D6oshc0pVQL0gGa0b/ruPbIMY2IodO3iiwBPnM4l2znQPsExo6ICng/vdBHu1pXBEdNoK0DZ4C6a3+ZoWZYJnYD0JAUk4bTBMcg347UK/jdZcDQLwQ13YpZWuCXas/j2O7p0i1trvyRUxgC5vlgMSxBCJw9vJq9gvchrV9wU99r36gOF4UaY/C9omT9R15X5ovU0A4fy0ku/rHRwzBwjMVYtHEoINUbXMXPPz5KGqe241dffTj0oyMPqR0DA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NJV/fVujddYxe7nlOMZ5VeNo0ELex1aMAncHoKLqxZA=;
- b=UyX/T4ssKR0vvxFeudHiTEUt2Zq8OlN7Rl5W1WftPRiSZgvZP7Drv2CPSn5QvAdUyNji56Ibjc++TaGny62LYbTqy+gCJvzFPK046Jh+2C3NjW4LrBxIYkSwLrWGFU4GjVCAxiemPoBjjRCX7bw53vY6+DV1IGP7dXSJs4aH1/I=
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by PH7PR12MB6810.namprd12.prod.outlook.com (2603:10b6:510:1b4::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.22; Wed, 7 May
- 2025 09:35:36 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::2b0e:7fc3:1d21:5d2e]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::2b0e:7fc3:1d21:5d2e%3]) with mapi id 15.20.8699.022; Wed, 7 May 2025
- 09:35:36 +0000
-From: "Khatri, Sunil" <Sunil.Khatri@amd.com>
-To: "Khatri, Sunil" <Sunil.Khatri@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Yadav, Arvind" <Arvind.Yadav@amd.com>
-CC: Dan Carpenter <dan.carpenter@linaro.org>
-Subject: RE: [PATCH v2] drm/amdgpu: fix the indentation
-Thread-Topic: [PATCH v2] drm/amdgpu: fix the indentation
-Thread-Index: AQHbvzKQDm9GCt8tfE2mYM3QGyRMGLPG6EPw
-Date: Wed, 7 May 2025 09:35:36 +0000
-Message-ID: <BL1PR12MB575362E1780D89A61C5324D79388A@BL1PR12MB5753.namprd12.prod.outlook.com>
-References: <20250507092934.701120-1-sunil.khatri@amd.com>
-In-Reply-To: <20250507092934.701120-1-sunil.khatri@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-Mentions: Arvind.Yadav@amd.com
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=b0e0b540-0f16-4cb7-a39f-89062178958a;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-05-07T09:35:11Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
+ bh=YxVRcHlllpy7OIM4Q030II4XxgnDVu7MSM2hnrwWzmo=;
+ b=pYR6h5nRy/V3Y2+oMYU4n356jOjEUbmeiU9nLlpquuFQQeYsQpAS0keKOeHsMZ/4qIYG+F47CRZLWdsC/ltemux7SejgWbnQ9bB42PPZkKbyCfUJtxDycAHJJWkcU9UhWE4Tp9OdEyVszjL6FUR7DwkdzdT3U40dXilw4BVZGX8=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5753:EE_|PH7PR12MB6810:EE_
-x-ms-office365-filtering-correlation-id: b7d10008-b6ea-406f-c06e-08dd8d4a8581
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|8096899003|13003099007|7053199007|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?zu+KubguTOy1tpRawvpjYNuucydPIClEs0sUo9xLp2bDO4FY1Z4ItPALJDaB?=
- =?us-ascii?Q?bhck+5/qNLNtnavxI91OU1X/qPGXvse7+K6gL5g9fnOw9XfVd8BeAg09w2jM?=
- =?us-ascii?Q?LBNQFlYQBLGC76vxN6gIV5fx1HDKhko7rQtZew16pnvKj8umanY+YIg6F5re?=
- =?us-ascii?Q?FBYhgQN4WTAFdMkxC2B1FXjnrwrrzvfikra9WSPO9F4TxRiUaJh8ZjhMfDwF?=
- =?us-ascii?Q?3R9IkXjEWk7q5kUaGm7SOlMxCNi7mJ6d4xcmHMAQUbNiXQzn+mNbHViUgGgw?=
- =?us-ascii?Q?6KcfFgTsQvrBlMKo3uGKHtwfhVbDmY2XQyInUyAaT6TO6OG/50DHZApfSeYe?=
- =?us-ascii?Q?FMUbJdaJ39V8oIJqdwg5hNH9oEIAv0yWHPTKT0/iCBUQfOUWXphVjstSFG0F?=
- =?us-ascii?Q?KQV/a6PdHEprotBb+aHLQoiRr12cHMTeobtUe6W/riucymnE7uTQPU+fWyGb?=
- =?us-ascii?Q?leHYRgZUnlfaw0ldI7j1rm/+oPxnSWiFedlUkusB6iEEzRLUt1zTG2ZL+QgG?=
- =?us-ascii?Q?Gq5WlQxeikEv7XhjE5pZga7XmKVNT5OJC8hXkHUSa647DXhytNtklOIhYOhu?=
- =?us-ascii?Q?BXjVey43uWyMX4INKPA70qmPly1h7x2pfE6rpH2Uhzvl+9ikzsu+eijRMkGq?=
- =?us-ascii?Q?42X5vFffw9jvBU8HPyvnTWTeJKZ+dKfxq065MQvRZU5u/g3K3S+GR0f2X7jG?=
- =?us-ascii?Q?WUCm0Bs+AjqqZPPXWZF1dCmkryWH8Xz61HfjIloIQGIWpEixH4EMv4zFRPrH?=
- =?us-ascii?Q?iJt0SKgw78yfZsAW7zD2PO2gxE11n6a8TqKWMdQ8RUXaScragmP3wDzOAK2Q?=
- =?us-ascii?Q?mUStoFvUvEpgyjL8UWgKqW09X26vU+53o1N7rs48oBZgAaRHrCfn0sG9/QDT?=
- =?us-ascii?Q?Ey1go/Zsspc5LYokZQMEbj11SNr5eBGFVipTi8XmEcI/UIwh0s2wbYfSucGl?=
- =?us-ascii?Q?XJh2kXLDjmctZeBzTGYEVQZ0VVLnvdnZTQcuzzPXuwtPRHxx69MYHlgPn7ic?=
- =?us-ascii?Q?ZlSgA4osg41N8C6eOuWrzPrWKiIEHFyXY6QBN4jBMpMDxtlIAH9E0MyiSxtu?=
- =?us-ascii?Q?NqQVHKPCHnrwZXcyp3Em9awhujlsa7ZE2dUl/ez9AeuoTPx0bmRn0vX+rFkq?=
- =?us-ascii?Q?5iXOnjnliExyO3kEpieceAELV2lPz9pXIVFketwO7gh1j6uCvn0kzjxD5kHz?=
- =?us-ascii?Q?Q8YKsk62ym1Gpw7mZWVCh2YySsO1QnDSIcN/CPizLFx1CEzt938dpAbDjJq4?=
- =?us-ascii?Q?pZBeotKICWFYcnzfgTqdnWBC16Ix/hWsJUfoIrBBoa3Q3cIqTkP1lyBAENfg?=
- =?us-ascii?Q?uC4WeRyjIII6Ze1OK0/8M0VHcBT1rg6c9MkSd9sGRiUTiHMyuoNMI/CaqDML?=
- =?us-ascii?Q?5CApurTMxasbOgxvWyPI7Rc6nauHDevC+MBmwfSzHq3H/5KASJb+OWmLIHnk?=
- =?us-ascii?Q?UKKK61vJKSGQM7SmXTh7/LOWRaAU6sdNHEradaOmRfx5JORhBycKj5VFdGNa?=
- =?us-ascii?Q?uQ5WWarAqjHnf/k=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(13003099007)(7053199007)(38070700018);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rG4abketEhq9Q7rNBmgFP4l5lV7OskI/lllcz5GYuLY1vzkYgnE60w0ptHwq?=
- =?us-ascii?Q?IhaVmlbHlB+sVfdBj5O3PZUf2NkKz36EpALbZugssVy/RwAekRh4MWBwezCg?=
- =?us-ascii?Q?loxai7O/Rs65C+j/FjBave35CNmR0T9TjygYuHOg/fKajWAg16pFJ7xagQ7j?=
- =?us-ascii?Q?EEm838mA3tutBBdYxDZeo4pxen+bk+GcvkREkohICwAb2ESn9gEXCXAXXOjN?=
- =?us-ascii?Q?UXbpyJTqYaLi8FXONG9U3m7fSWCdueBKOLtBPzQCFrXHar1eQDh/2px7bux3?=
- =?us-ascii?Q?WMXVx0cgdUTLHZIFSwo5M4EZZva5nvDQY/Ep68/yC0MjImmqycVa8ljT+4NJ?=
- =?us-ascii?Q?NCWWpWDAjGX6NE8CsxnBZ2wLULQxFiNYuHsbPBIpB4sA4D9SmutU4wOclrgZ?=
- =?us-ascii?Q?dtu7mXrqK8t17pzn8sBwrDriFsO0Ea6/9CErKcDDqSfIi/bW2sNOKHueHTkd?=
- =?us-ascii?Q?ZcfVpVBVhOoN6EUraXI0fwz7nOA4qET6Gehu4D13S3OQNv/djTEw9z3Qaef8?=
- =?us-ascii?Q?icuL8WR1A1Pqu/ah9HHXb30dV10RyCevHKilIrHc8Tl4pqhOEM9H5ya240Vh?=
- =?us-ascii?Q?jIx2zuSc8ukKpDyen2rHKHOeQm+ntv2h1NepP1O7zoB1G2ojnvgZUfpuwMhj?=
- =?us-ascii?Q?xSZiKKGe1QdjnJDa0ztQYKlRJSm04Ma8HsyV45zOrMBciVrPlzNP005O0AZP?=
- =?us-ascii?Q?n7Mr6ZsYhSDGGZB1jVrQe4DJkn+52pygCJKuB2sfFkkTz2RPIj45kIJw0Ip5?=
- =?us-ascii?Q?CWqBmbKmkIT2GaRO/Q4KXa5NGN8qe6Az19/yro+a3tZ6jrdNmK2jicRLhGdv?=
- =?us-ascii?Q?s6gQsemYFUPD0tDAFLYMz8X6Q2nPqr2JuaYCxv6WSdoZWxfy+oe09RxUk7dJ?=
- =?us-ascii?Q?Nwg5yWpkMvb6eLVeKcpLg0u6SPK6O02+yqUAk093LMuJDh7zpzepIPlD5yiS?=
- =?us-ascii?Q?d1OoB135uxxltcHIgiH/gB6i0azfZy16YLe5s0N30JK23IZmMeN3aZVgvqze?=
- =?us-ascii?Q?dg/YMcPELZa5a7iv8bbwW39xC49VwZILPTnRk0o4lR7jVpbajvV3karjJgX9?=
- =?us-ascii?Q?PymXD8lNawRsD6INQsw6/JjWxi75oxuB2EPvSD1AP4xNpevGJoe9JjZt6mQl?=
- =?us-ascii?Q?sfmr8J+Ls52v3kv/iiV/gxFe6k1IrsS2wiRFUb3f12tezPrY1NKNMB7IVSSI?=
- =?us-ascii?Q?PwfduU8pfY9dy02m1MOqxbQQBnYvijRNMrwwqy0ZrKbYqQX2UtRKhOQXz0lI?=
- =?us-ascii?Q?mhsnHVEuqhtuq50uyRlzUfqYVJls3HtJ0ckpQQtDCc4QS5IiF5NKI/pOnwvF?=
- =?us-ascii?Q?LUzN7LM2YAQnHa0TkEgNexCktF5Qtcb3O4sQk5Ddr/7YSXuzhhkALzD0fJm0?=
- =?us-ascii?Q?wdoae/s5VySmdTnD5PDe+cOB+839XfXfOJiv81r1RmN0gYMRu+NwAESvk9u+?=
- =?us-ascii?Q?LzzHsbO9nbYYHAHHgQGHKeHQ4bVVUA2QIaFcWmyc73aclvg0yN9vdPGiSRgE?=
- =?us-ascii?Q?oMtc+JejZNSGwBGtDjsknF0ZHBbiC99vqaf2Ci6llf8nMvImX13yDty5tu99?=
- =?us-ascii?Q?a55uxghxV0YTb1SB5s4=3D?=
+Received: from BN9PR12MB5052.namprd12.prod.outlook.com (2603:10b6:408:135::19)
+ by IA1PR12MB6138.namprd12.prod.outlook.com (2603:10b6:208:3ea::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Wed, 7 May
+ 2025 09:38:17 +0000
+Received: from BN9PR12MB5052.namprd12.prod.outlook.com
+ ([fe80::7714:4f80:f3e1:60cf]) by BN9PR12MB5052.namprd12.prod.outlook.com
+ ([fe80::7714:4f80:f3e1:60cf%5]) with mapi id 15.20.8678.028; Wed, 7 May 2025
+ 09:38:16 +0000
+Subject: Re: [PATCH v2] drm/amdgpu: fix the indentation
+To: "Khatri, Sunil" <Sunil.Khatri@amd.com>,
+ "Yadav, Arvind" <Arvind.Yadav@amd.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20250507092934.701120-1-sunil.khatri@amd.com>
+ <BL1PR12MB575362E1780D89A61C5324D79388A@BL1PR12MB5753.namprd12.prod.outlook.com>
+From: "Yadav, Arvind" <arvyadav@amd.com>
+Message-ID: <b3b1f606-66e7-df95-0282-b0af97fa953c@amd.com>
+Date: Wed, 7 May 2025 15:08:10 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
+In-Reply-To: <BL1PR12MB575362E1780D89A61C5324D79388A@BL1PR12MB5753.namprd12.prod.outlook.com>
 Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB575362E1780D89A61C5324D79388ABL1PR12MB5753namp_"
+ boundary="------------A92C330A8579F29B6B6926E4"
+Content-Language: en-US
+X-ClientProxiedBy: PN4P287CA0122.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b2::11) To BN9PR12MB5052.namprd12.prod.outlook.com
+ (2603:10b6:408:135::19)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5052:EE_|IA1PR12MB6138:EE_
+X-MS-Office365-Filtering-Correlation-Id: 209ac447-c15b-45ee-901f-08dd8d4ae4a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|7053199007|13003099007|8096899003; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YzdVcUExRi8rVmlwUjJIVSt5NmRVNHRHYi9RSWdUclBiMDZpeWgzSEFGL2xO?=
+ =?utf-8?B?eC9XeGJqVk4rZ1ZSeVQ4d1M1a2RmU0J6TkliVEZsTUZTOXloVTMvMFlGbHV5?=
+ =?utf-8?B?ZW52SDZTeDVTM1ZiWE1OZm4vSjVqUnhxRGs0NldtSXJwNmRhdSt0c0Y5TG1U?=
+ =?utf-8?B?RnJNZlNzSS9XY3NvdXJpT0ZQNDBzQmJIbnhQSG40Z0wrcncrMjBmQmx5L00z?=
+ =?utf-8?B?MlBMOWhGQW4yQytmWWZnNkRFMWhoMml4SFg0SmQ4bVliSEtRbVZ6aDQ3UUpL?=
+ =?utf-8?B?TEUzQ1RRZWdhekphb2RCRnlsQXMxWmlqUFZRSTVvY29LVlNSMkRhVytwdE5Z?=
+ =?utf-8?B?ZHE5YTNZeE5YSlZDK3U3ZEttL1RxRk5oZ1Y1RHpwdy9zRHA5NDNTTERyZmds?=
+ =?utf-8?B?dElRcWd2Q0w1VmVFb3FXQ2taSjdabnRRWkJHTGZqclVTd0tFeGRHSUR3WFdn?=
+ =?utf-8?B?dW9vTEpzWW5kdkNyc3kvVHBQVWs4T2c0SFc3WG5VK3dCWkpuWlNMMzRhUGIv?=
+ =?utf-8?B?SGdPUGppbkRscU1yZ0NqNlhjTTNPcnRMRy8zNWlZU2xyWHdNUWRJTmE4WFJr?=
+ =?utf-8?B?WmlCYWoyTm91OGJUcVJHbzVCbVUzKzlrbVc1S1BLcDJlNnhZbnRBaHU4M21O?=
+ =?utf-8?B?MVRLTXQ3TFI5a3RvS0xjZTNxQkdTUWxrMiswdzMwcUp2Tyt5eUo5RFRGclZU?=
+ =?utf-8?B?MnB6TVBaTmhvVERla0JaTEZiRm1QM2R3MG5mRkJPWWpWL29YUjVEbGdaNi9Q?=
+ =?utf-8?B?bW5NV3pPbkpVa0ViSUhkSlFWSmFJZVVCZnhOY2R4bitBNklWdlpqbUEwcmVu?=
+ =?utf-8?B?MzNkTkM1YnF3ZXBad0lRaDNBSS8xQmh5VzJaU3hSdWdrRzhFMmdDN2k5UVls?=
+ =?utf-8?B?WlhMdXNYQmxWS0VBb3J5RGpNbjA5b1ZDKzB5K2d0UjJHVSszNVBWMWhacE1B?=
+ =?utf-8?B?STlza3FlblAzeEhOSUtkenNKL3UvNUt6SXloTDBwSHpHNHlzUGtuK09jSTJx?=
+ =?utf-8?B?UnFTTWlDR3l6SEM1Y3Y0Z0RxWWhEYnROcEZJYnk3emhwRVRRM0xDRGcya1Ra?=
+ =?utf-8?B?WHBxaVRqR0pnWUNJZW5wZGtLK1ZYbGZDMFFRbWN4YklOaUpwV1BkbGlYY1c2?=
+ =?utf-8?B?cisvcjVCa3JuYWx2Nk5rdWJ5RWhoZVVZK0ZNMGprOHBLZWhSamdUaENZRG1p?=
+ =?utf-8?B?SnZidE43SmN3VDBiUi9zUlIzMUE0ODJMZWRkT3liSFZIN01Tb3JXTjNTek9T?=
+ =?utf-8?B?bzAySC9PVVIzVmtuWWVyeWZJR2lLMmRONGYyb1NURlhJNEdtek8zWjBZOEJm?=
+ =?utf-8?B?TENITHo1bXc1a0dIalRobERJQ3NGb0FGN0wrc1ZPRm0rYkIwQTJDN0JMWkl2?=
+ =?utf-8?B?ZW9wamRhZC9SMDI4b004SGpOckFFUGVUbWEvSkx6QVJvRGkxeTEwRkN6UUlr?=
+ =?utf-8?B?T2FNZGprZ1U4ZUtCTmpoNjVMcXdhWEdQNWxkeGh6dmE1eFhjNDl3ZWx4L0dn?=
+ =?utf-8?B?eHZvVEpsaDdoWWNsaHlDWmUvdXNKTzdnMk9GSEsvSy9vTXJaNStJaUlwb3Nu?=
+ =?utf-8?B?TVRNMXZZcmUvbndneWIvRU5UMXgzcXRtUmdXbXVFWENzbFNRSWEvUDZsQ1JK?=
+ =?utf-8?B?QWdRWWpKcVBpOVpRMWkydDdETG54aHE1OTJTckRYNW42TnN6YkdXZjZZVDJB?=
+ =?utf-8?B?b1pjT3Rqb0w4VmJBTVk1amlzTTJIcXJ2K0VPZGdRQm1OZmFhK2I0TGVKQkRI?=
+ =?utf-8?B?TFhLYTNOdnU2UHc4cVZoemdkOUF0QU5QaXViQ1dvYnZmZ0RZbVRiUzcyZVR5?=
+ =?utf-8?B?SmlGZGkvYWVGK2FIYlZvR1hGUENpNy8rQmk0UG1nZnROSzQxWktMelBiV3JJ?=
+ =?utf-8?B?VS9pdk9XT25abmsxSzRaWFhPTGJIZFZBSTZMSDArTWdVQStRS1d0S3FUbjlL?=
+ =?utf-8?Q?nk+7iUL/EP8=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5052.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(13003099007)(8096899003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UFd2MjZSUFdQN0hrb1k5c2h3T2p4Sm52ZUN3SDVYcDMwY0IzbXFEOXlKMERT?=
+ =?utf-8?B?QjNSbE9ZQVpwZnE1d2pWZVhDbmdINnVRYjM2MHFGWk5kM1V5eXFhZ0VwQitK?=
+ =?utf-8?B?bHZGZy81dTBvdEZwS2R0cllGR1BzdElSR2JGZC9MOEtOTXdIU3VKTzJQdVZl?=
+ =?utf-8?B?YkljN09hR00vUytzNUMwTkQvN0lZMFdxT3RXSFRIUzRlaUFRaS8yNXF2ajI0?=
+ =?utf-8?B?VGljLzI0MkZiSDI5Z2pQODliSEoxSTNCTmwraUh3alFsa3kwOWd2ZEdSa2dw?=
+ =?utf-8?B?VjBHOW50QitLUWdoUzJsU1hmdlVaejN1RVFNS2lsa2ZzYk9GQ3VyNld3ak9S?=
+ =?utf-8?B?UHUvOTl5a0l0eU0ybVNJN3VGdW1WKzF3eGdCeDRMTEZyZHVNd1FML1JDM2dE?=
+ =?utf-8?B?bjN0Rk9BMTJzRHYvdFpaWVd3Z2hKT2thaDN0UkZBWmdCcnNlM216a01uSlZq?=
+ =?utf-8?B?OUtPSy95azY4RVIzc1VMak9rZHVtSTVuNEhZaEVPNnBUVHVCT2xnN282d21j?=
+ =?utf-8?B?K0F0UXdWN3Nxb29wdWwxMjI2cUQyTkc0MUVUcURFelVWTy90Z3FZSjhTdHRj?=
+ =?utf-8?B?RTRwSDRLR1FpMmNEOVozZ3FUNU5nSzA3L0JwVWJQRXp1bXkvRS91bEk4YmdR?=
+ =?utf-8?B?aVJpaEgvYmZPSDZBK3hJUTBWY2pVR2kxWGU4REl6eWdjZmlrcEhzang1U0di?=
+ =?utf-8?B?VitjbXBzZGlqbjluZ1hFZUpjUVpnaFFQcHdRWkEvVUxzdWxjL3YySVR5eU9h?=
+ =?utf-8?B?RTRUY3B4ZDVFVFUreDNidHBadkR4dzdvL3MySnZRVk5FYVNDclVyUlNwRWg1?=
+ =?utf-8?B?UEdkcXdMbEVtT3lHekV6NWZNRjU4OTAwbHhTbkMyVldaWm5UTW9uWC9lOWJ1?=
+ =?utf-8?B?Y29zSmxzQmFLK0pMdVRWMHExejMwWjVqZWNTTVliS1E4K2xMTnY4ME9HUllh?=
+ =?utf-8?B?Q1pGNzRXU3NPVWJFcm96MzY3OCtvcDdqdkdzWU1RZUxaOUpCYnVpZXJDcDdq?=
+ =?utf-8?B?UVVzM1FDVm9RNFNHSW9FcnF6UGNZM1RDTTFTRXlkdzBSZlhMR042QmlZZExO?=
+ =?utf-8?B?QmFHZUh6bS9VaThwb1dJb0xFeElqSHVLa1ZuTjhJSGM3WGZiejRKNytkU2Zk?=
+ =?utf-8?B?aW9xTzBnaWxUM0JpcnVtYjRKaElwbUk1bG01cXMrUU51LzIxNG9TQnpTR1Aw?=
+ =?utf-8?B?bjAwNnpvSldkZGFSb1FnV21melZNRmdNM1R0a2VDTlVycy9ickZOQVpEdU11?=
+ =?utf-8?B?ZVEybTN3d3JKTEtuay9MZEpFNUNIM2JDNG80SW1QVW85ZW55VTVTc1VWaWZG?=
+ =?utf-8?B?MVY5cEUreGhFcU9IQ0xxdjhYTmFuaGk0d3hVR21jeHdhZWxpODBOTjFzN0tj?=
+ =?utf-8?B?SWRqYml4SmtsbWdPTEFMSzM5NWErTHEwdXpxalhDSkR6V2ZIM3U2d3dsQlNC?=
+ =?utf-8?B?SUxkTyt6bDJORkI0RWxCTG03L1Bza0VvVGExT1Z4cmNhT3dWckRNWWlFNWtJ?=
+ =?utf-8?B?WGtTa1FIRm9BanExeXZpWUNsZEMzUUFYeUhuWElPSTk0UTdVeXdsWExzVTNF?=
+ =?utf-8?B?ZnpEZEJQK2ZLVUlwYmUyVGJxN3hOWnc3RnJmWDlsRGdVWkxNNDl5WFF5U01x?=
+ =?utf-8?B?MTM3V2VnRC9iNytCcFFCYmxQLzFkdlB4c3orYmVrRWVjUzBzRXRBVTJhLzRF?=
+ =?utf-8?B?OTE4TnRpdVVhUjhPRVgrdlIzRG9YN2hxSzFCcVdTY242VThTS3hTUGhPYjk4?=
+ =?utf-8?B?M3UzYndlcjg1UFpjZUU5QWV0cWQyU01MbGhNUzBhZ0o3aXg5b1p4UHlPbmJI?=
+ =?utf-8?B?SGFYa0RXdWJhR0U0T2FmMDZoUzU3Yi9rWEtwMHVKMkZKeDhhYThMYmRmVGY1?=
+ =?utf-8?B?RVM0ampycTl0K3pJM0FmZFRvQVE5VWJ5RjhBUHFvTkJpdnhwMmdST2FnRVZy?=
+ =?utf-8?B?dFl1TDc4Z2RzeXNsMXlneHE2cmlOZ3hTNXRyTHF2RVNTRHl4bWtOZ3RHWU0z?=
+ =?utf-8?B?dnlCSTd0WHU1Z3cvV3R3Z2swWmRsZlhjRXJPWldTVkg4WEllRnV3MDVhQ3pT?=
+ =?utf-8?B?RGlxWWFxanExalFITXdQaVlOZm9FYnhDUXEvNERaZ3U4SHMzaU5Gb25yZjVV?=
+ =?utf-8?Q?sGBEg4hxwCU2ElnoANBK7FYfl?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 209ac447-c15b-45ee-901f-08dd8d4ae4a8
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5052.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7d10008-b6ea-406f-c06e-08dd8d4a8581
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 May 2025 09:35:36.2832 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9gP0CBH57RyWkDNQIDZboWr/gMGpqRXVZpQHZin0cFPun3/qHnae7GnHQeZHYl7c+G5k/AaR5J488OyVf3w54A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6810
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 09:38:16.1473 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q7EQJlPDKjPvnDzzazVYBCM9ZMczFgF1MXjr9xYMgzpllJGbHhplj5vZ/gbdarNJAt8rurTF2cAN9s3SZKEjeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6138
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,130 +168,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB575362E1780D89A61C5324D79388ABL1PR12MB5753namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--------------A92C330A8579F29B6B6926E4
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Reviewed-by: Arvind Yadav <Arvind.Yadav@amd.com>
 
-
-@Yadav, Arvind<mailto:Arvind.Yadav@amd.com>
-
-
-
------Original Message-----
-From: Sunil Khatri <sunil.khatri@amd.com>
-Sent: Wednesday, May 7, 2025 3:00 PM
-To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@am=
-d.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>; Khatri, Sunil <Sunil.Khatri@a=
-md.com>
-Subject: [PATCH v2] drm/amdgpu: fix the indentation
-
-
-
-fix the indentation
-
-drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:6992 gfx_v11_ip_dump
-
-
-
-compiler: gcc-11 (Debian 11.3.0-12) 11.3.0
-
-| Reported-by: kernel test robot <lkp@intel.com<mailto:lkp@intel.com>>
-
-| Reported-by: Dan Carpenter <dan.carpenter@linaro.org<mailto:dan.carpenter=
-@linaro.org>>
-
-| Closes: https://lore.kernel.org/r/202505071619.7sHTLpNg-lkp@intel.com/
-
-
-
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com<mailto:sunil.khatri@amd.c=
-om>>
-
----
-
-drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 9 ++++++---
-
-1 file changed, 6 insertions(+), 3 deletions(-)
-
-
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c
-
-index 3f4ee4b3b0a4..fe21393e155d 100644
-
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-
-@@ -7094,9 +7094,12 @@ static void gfx_v11_ip_dump(struct amdgpu_ip_block *=
-ip_block)
-
-                                               /* ME0 is for GFX so start f=
-rom 1 for CP */
-
-                                               soc21_grbm_select(adev, adev=
-->gfx.me.num_me + i, j, k, 0);
-
-                                               for (reg =3D 0; reg < reg_co=
-unt; reg++) {
-
--                                                           if (i && gc_cp_=
-reg_list_11[reg].reg_offset =3D=3D regCP_MEC_ME1_HEADER_DUMP)
-
--                                                           adev->gfx.ip_du=
-mp_compute_queues[index + reg] =3D
-
--                                                                       RRE=
-G32(SOC15_REG_OFFSET(GC, 0, regCP_MEC_ME2_HEADER_DUMP));
-
-+                                                          if (i &&
-
-+                                                              gc_cp_reg_li=
-st_11[reg].reg_offset =3D=3D
-
-+                                                                          =
-regCP_MEC_ME1_HEADER_DUMP)
-
-+                                                                      adev=
-->gfx.ip_dump_compute_queues[index + reg] =3D
-
-+                                                                          =
-        RREG32(SOC15_REG_OFFSET(GC, 0,
-
-+                                                                          =
-        regCP_MEC_ME2_HEADER_DUMP));
-
-                                                           else
-
-                                                                       adev=
-->gfx.ip_dump_compute_queues[index + reg] =3D
-
-                                                                           =
-        RREG32(SOC15_REG_ENTRY_OFFSET(
-
---
-
-2.34.1
-
-
-
---_000_BL1PR12MB575362E1780D89A61C5324D79388ABL1PR12MB5753namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 5/7/2025 3:05 PM, Khatri, Sunil wrote:
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+>
+> @Yadav, Arvind <mailto:Arvind.Yadav@amd.com>
+>
+> -----Original Message-----
+> From: Sunil Khatri <sunil.khatri@amd.com>
+> Sent: Wednesday, May 7, 2025 3:00 PM
+> To: amd-gfx@lists.freedesktop.org; Deucher, Alexander 
+> <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+> Cc: Dan Carpenter <dan.carpenter@linaro.org>; Khatri, Sunil 
+> <Sunil.Khatri@amd.com>
+> Subject: [PATCH v2] drm/amdgpu: fix the indentation
+>
+> fix the indentation
+>
+> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:6992 gfx_v11_ip_dump
+>
+> compiler: gcc-11 (Debian 11.3.0-12) 11.3.0
+>
+> | Reported-by: kernel test robot <lkp@intel.com <mailto:lkp@intel.com>>
+>
+> | Reported-by: Dan Carpenter <dan.carpenter@linaro.org 
+> <mailto:dan.carpenter@linaro.org>>
+>
+> | Closes: 
+> https://lore.kernel.org/r/202505071619.7sHTLpNg-lkp@intel.com/ 
+> <https://lore.kernel.org/r/202505071619.7sHTLpNg-lkp@intel.com/>
+>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com 
+> <mailto:sunil.khatri@amd.com>>
+>
+> ---
+>
+> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 9 ++++++---
+>
+> 1 file changed, 6 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c 
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>
+> index 3f4ee4b3b0a4..fe21393e155d 100644
+>
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>
+> @@ -7094,9 +7094,12 @@ static void gfx_v11_ip_dump(struct 
+> amdgpu_ip_block *ip_block)
+>
+> /* ME0 is for GFX so start from 1 for CP */
+>
+> soc21_grbm_select(adev, adev->gfx.me.num_me + i, j, k, 0);
+>
+> for (reg = 0; reg < reg_count; reg++) {
+>
+> - if (i && gc_cp_reg_list_11[reg].reg_offset == regCP_MEC_ME1_HEADER_DUMP)
+>
+> - adev->gfx.ip_dump_compute_queues[index + reg] =
+>
+> - RREG32(SOC15_REG_OFFSET(GC, 0, regCP_MEC_ME2_HEADER_DUMP));
+>
+> + if (i &&
+>
+> +     gc_cp_reg_list_11[reg].reg_offset ==
+>
+> +     regCP_MEC_ME1_HEADER_DUMP)
+>
+> + adev->gfx.ip_dump_compute_queues[index + reg] =
+>
+> +             RREG32(SOC15_REG_OFFSET(GC, 0,
+>
+> +             regCP_MEC_ME2_HEADER_DUMP));
+>
+> else
+>
+> adev->gfx.ip_dump_compute_queues[index + reg] =
+>
+>             RREG32(SOC15_REG_ENTRY_OFFSET(
+>
+> -- 
+>
+> 2.34.1
+>
+
+--------------A92C330A8579F29B6B6926E4
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p>Reviewed-by: Arvind Yadav <a class="moz-txt-link-rfc2396E" href="mailto:Arvind.Yadav@amd.com">&lt;Arvind.Yadav@amd.com&gt;</a><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/7/2025 3:05 PM, Khatri, Sunil
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:BL1PR12MB575362E1780D89A61C5324D79388A@BL1PR12MB5753.namprd12.prod.outlook.com">
+      
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
 /* Font Definitions */
 @font-face
 	{font-family:"Cambria Math";
@@ -302,183 +297,116 @@ span.PlainTextChar
 	mso-style-link:"Plain Text";
 	font-family:"Arial",sans-serif;}
 .MsoChpDefault
-	{mso-style-type:export-only;}
-@page WordSection1
-	{size:8.5in 11.0in;
+	{mso-style-type:export-only;}size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
 </o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoPlainText"><a id=3D"OWAAM0C8A7562085645E28C168F950354517D" h=
-ref=3D"mailto:Arvind.Yadav@amd.com"><span style=3D"font-family:&quot;Arial&=
-quot;,sans-serif;text-decoration:none">@Yadav, Arvind</span></a><o:p></o:p>=
-</p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">-----Original Message-----<br>
-From: Sunil Khatri &lt;sunil.khatri@amd.com&gt; <br>
-Sent: Wednesday, May 7, 2025 3:00 PM<br>
-To: amd-gfx@lists.freedesktop.org; Deucher, Alexander &lt;Alexander.Deucher=
-@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;<br>
-Cc: Dan Carpenter &lt;dan.carpenter@linaro.org&gt;; Khatri, Sunil &lt;Sunil=
-.Khatri@amd.com&gt;<br>
-Subject: [PATCH v2] drm/amdgpu: fix the indentation</p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">fix the indentation<o:p></o:p></p>
-<p class=3D"MsoPlainText">drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:6992 gfx_v=
-11_ip_dump<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">compiler: gcc-11 (Debian 11.3.0-12) 11.3.0<o:p></=
-o:p></p>
-<p class=3D"MsoPlainText">| Reported-by: kernel test robot &lt;<a href=3D"m=
-ailto:lkp@intel.com"><span style=3D"color:windowtext;text-decoration:none">=
-lkp@intel.com</span></a>&gt;<o:p></o:p></p>
-<p class=3D"MsoPlainText">| Reported-by: Dan Carpenter &lt;<a href=3D"mailt=
-o:dan.carpenter@linaro.org"><span style=3D"color:windowtext;text-decoration=
-:none">dan.carpenter@linaro.org</span></a>&gt;<o:p></o:p></p>
-<p class=3D"MsoPlainText">| Closes: <a href=3D"https://lore.kernel.org/r/20=
-2505071619.7sHTLpNg-lkp@intel.com/">
-<span style=3D"color:windowtext;text-decoration:none">https://lore.kernel.o=
-rg/r/202505071619.7sHTLpNg-lkp@intel.com/</span></a><o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">Signed-off-by: Sunil Khatri &lt;<a href=3D"mailto=
-:sunil.khatri@amd.com"><span style=3D"color:windowtext;text-decoration:none=
-">sunil.khatri@amd.com</span></a>&gt;<o:p></o:p></p>
-<p class=3D"MsoPlainText">---<o:p></o:p></p>
-<p class=3D"MsoPlainText">drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 9 ++++++=
----<o:p></o:p></p>
-<p class=3D"MsoPlainText">1 file changed, 6 insertions(+), 3 deletions(-)<o=
-:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0=
-.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<o:p></o:p></p>
-<p class=3D"MsoPlainText">index 3f4ee4b3b0a4..fe21393e155d 100644<o:p></o:p=
-></p>
-<p class=3D"MsoPlainText">--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<o:p>=
-</o:p></p>
-<p class=3D"MsoPlainText">+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<o:p>=
-</o:p></p>
-<p class=3D"MsoPlainText">@@ -7094,9 +7094,12 @@ static void gfx_v11_ip_dum=
-p(struct amdgpu_ip_block *ip_block)<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; /* ME0 is for GFX so start from 1 for CP */<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; soc21_grbm_select(adev, adev-&gt;gfx.me.num_me + i, j, k, 0);<o:p></o:p>=
-</p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; for (reg =3D 0; reg &lt; reg_count; reg++) {<o:p></o:p></p>
-<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- if (i &amp;&amp; gc_cp_reg_list_11[reg].reg_offset =3D=3D regCP_MEC_ME1_HE=
-ADER_DUMP)<o:p></o:p></p>
-<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- adev-&gt;gfx.ip_dump_compute_queues[index + reg] =3D<o:p></o:p></p>
-<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RR=
-EG32(SOC15_REG_OFFSET(GC, 0, regCP_MEC_ME2_HEADER_DUMP));<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (i=
- &amp;&amp;<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp=
-;&nbsp;&nbsp; gc_cp_reg_list_11[reg].reg_offset =3D=3D<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&n=
-bsp;&nbsp; regCP_MEC_ME1_HEADER_DUMP)<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt=
-;gfx.ip_dump_compute_queues[index + reg] =3D<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RREG32(SOC15_REG=
-_OFFSET(GC, 0,<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regCP_MEC_ME2_HE=
-ADER_DUMP));<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-else<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ade=
-v-&gt;gfx.ip_dump_compute_queues[index + reg] =3D<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RREG32(SOC1=
-5_REG_ENTRY_OFFSET(<o:p></o:p></p>
-<p class=3D"MsoPlainText">-- <o:p></o:p></p>
-<p class=3D"MsoPlainText">2.34.1<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-</div>
-</div>
-</body>
+      <p
+style="font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;"
+        align="Left">
+        [AMD Official Use Only - AMD Internal Distribution Only]<br>
+      </p>
+      <br>
+      <div>
+        <div class="WordSection1">
+          <p class="MsoPlainText"><a
+              id="OWAAM0C8A7562085645E28C168F950354517D"
+              href="mailto:Arvind.Yadav@amd.com" moz-do-not-send="true"><span
+style="font-family:&quot;Arial&quot;,sans-serif;text-decoration:none">@Yadav,
+                Arvind</span></a><o:p></o:p></p>
+          <p class="MsoPlainText"><o:p> </o:p></p>
+          <p class="MsoPlainText">-----Original Message-----<br>
+            From: Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a> <br>
+            Sent: Wednesday, May 7, 2025 3:00 PM<br>
+            To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Deucher, Alexander
+            <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Koenig, Christian
+            <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
+            Cc: Dan Carpenter <a class="moz-txt-link-rfc2396E" href="mailto:dan.carpenter@linaro.org">&lt;dan.carpenter@linaro.org&gt;</a>; Khatri,
+            Sunil <a class="moz-txt-link-rfc2396E" href="mailto:Sunil.Khatri@amd.com">&lt;Sunil.Khatri@amd.com&gt;</a><br>
+            Subject: [PATCH v2] drm/amdgpu: fix the indentation</p>
+          <p class="MsoPlainText"><o:p> </o:p></p>
+          <p class="MsoPlainText">fix the indentation<o:p></o:p></p>
+          <p class="MsoPlainText">drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:6992
+            gfx_v11_ip_dump<o:p></o:p></p>
+          <p class="MsoPlainText"><o:p> </o:p></p>
+          <p class="MsoPlainText">compiler: gcc-11 (Debian 11.3.0-12)
+            11.3.0<o:p></o:p></p>
+          <p class="MsoPlainText">| Reported-by: kernel test robot &lt;<a
+              href="mailto:lkp@intel.com" moz-do-not-send="true"><span
+                style="color:windowtext;text-decoration:none">lkp@intel.com</span></a>&gt;<o:p></o:p></p>
+          <p class="MsoPlainText">| Reported-by: Dan Carpenter &lt;<a
+              href="mailto:dan.carpenter@linaro.org"
+              moz-do-not-send="true"><span
+                style="color:windowtext;text-decoration:none">dan.carpenter@linaro.org</span></a>&gt;<o:p></o:p></p>
+          <p class="MsoPlainText">| Closes: <a
+              href="https://lore.kernel.org/r/202505071619.7sHTLpNg-lkp@intel.com/"
+              moz-do-not-send="true">
+              <span style="color:windowtext;text-decoration:none">https://lore.kernel.org/r/202505071619.7sHTLpNg-lkp@intel.com/</span></a><o:p></o:p></p>
+          <p class="MsoPlainText"><o:p> </o:p></p>
+          <p class="MsoPlainText">Signed-off-by: Sunil Khatri &lt;<a
+              href="mailto:sunil.khatri@amd.com" moz-do-not-send="true"><span
+                style="color:windowtext;text-decoration:none">sunil.khatri@amd.com</span></a>&gt;<o:p></o:p></p>
+          <p class="MsoPlainText">---<o:p></o:p></p>
+          <p class="MsoPlainText">drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+            | 9 ++++++---<o:p></o:p></p>
+          <p class="MsoPlainText">1 file changed, 6 insertions(+), 3
+            deletions(-)<o:p></o:p></p>
+          <p class="MsoPlainText"><o:p> </o:p></p>
+          <p class="MsoPlainText">diff --git
+            a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+            b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<o:p></o:p></p>
+          <p class="MsoPlainText">index 3f4ee4b3b0a4..fe21393e155d
+            100644<o:p></o:p></p>
+          <p class="MsoPlainText">---
+            a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<o:p></o:p></p>
+          <p class="MsoPlainText">+++
+            b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<o:p></o:p></p>
+          <p class="MsoPlainText">@@ -7094,9 +7094,12 @@ static void
+            gfx_v11_ip_dump(struct amdgpu_ip_block *ip_block)<o:p></o:p></p>
+          <p class="MsoPlainText">                                              
+            /* ME0 is for GFX so start from 1 for CP */<o:p></o:p></p>
+          <p class="MsoPlainText">                                              
+            soc21_grbm_select(adev, adev-&gt;gfx.me.num_me + i, j, k,
+            0);<o:p></o:p></p>
+          <p class="MsoPlainText">                                              
+            for (reg = 0; reg &lt; reg_count; reg++) {<o:p></o:p></p>
+          <p class="MsoPlainText">-                                                          
+            if (i &amp;&amp; gc_cp_reg_list_11[reg].reg_offset ==
+            regCP_MEC_ME1_HEADER_DUMP)<o:p></o:p></p>
+          <p class="MsoPlainText">-                                                          
+            adev-&gt;gfx.ip_dump_compute_queues[index + reg] =<o:p></o:p></p>
+          <p class="MsoPlainText">-                                                                      
+            RREG32(SOC15_REG_OFFSET(GC, 0, regCP_MEC_ME2_HEADER_DUMP));<o:p></o:p></p>
+          <p class="MsoPlainText">+                                                         
+            if (i &amp;&amp;<o:p></o:p></p>
+          <p class="MsoPlainText">+                                                         
+                gc_cp_reg_list_11[reg].reg_offset ==<o:p></o:p></p>
+          <p class="MsoPlainText">+                                                                     
+                regCP_MEC_ME1_HEADER_DUMP)<o:p></o:p></p>
+          <p class="MsoPlainText">+                                                                     
+            adev-&gt;gfx.ip_dump_compute_queues[index + reg] =<o:p></o:p></p>
+          <p class="MsoPlainText">+                                                                     
+                        RREG32(SOC15_REG_OFFSET(GC, 0,<o:p></o:p></p>
+          <p class="MsoPlainText">+                                                                     
+                        regCP_MEC_ME2_HEADER_DUMP));<o:p></o:p></p>
+          <p class="MsoPlainText">                                                          
+            else<o:p></o:p></p>
+          <p class="MsoPlainText">                                                                      
+            adev-&gt;gfx.ip_dump_compute_queues[index + reg] =<o:p></o:p></p>
+          <p class="MsoPlainText">                                                                      
+                        RREG32(SOC15_REG_ENTRY_OFFSET(<o:p></o:p></p>
+          <p class="MsoPlainText">-- <o:p></o:p></p>
+          <p class="MsoPlainText">2.34.1<o:p></o:p></p>
+          <p class="MsoPlainText"><o:p> </o:p></p>
+        </div>
+      </div>
+    </blockquote>
+  </body>
 </html>
 
---_000_BL1PR12MB575362E1780D89A61C5324D79388ABL1PR12MB5753namp_--
+--------------A92C330A8579F29B6B6926E4--
