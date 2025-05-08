@@ -4,70 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30B55C3ABBE
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 18:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F182FC3ABC6
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 19:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB0ED10E954;
-	Thu,  8 May 2025 18:33:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC8210E967;
+	Thu,  8 May 2025 19:41:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nGBOn+x1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1HGFrFrr";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F0A410E954
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 May 2025 18:33:41 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-7393eab4a75so222430b3a.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 08 May 2025 11:33:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746729221; x=1747334021; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4SmfqSh8LWqaDCs0eEO8C2+dVTovnu4BSWIUsBAqw84=;
- b=nGBOn+x1SwSDMMEGN/++sAglXGSGh531Tb7tJLfG0kW/H/+EN+wGrck4WPyKyP6GPj
- 7rSp/hmtQ+KOCSlRXFIiqgHG/2k+xgqW0w/icLQCU/GqjvKb8WtK3omKpyl7GGHjfP9p
- wiD4+ILT0LPfaJoFh3eq+FQenpA0oUGXW9kI9mv2vvpgaQRd1Fz9FOjMiYRXJ4O6rxh8
- j2STdnNzsf4IIdlDyh/NtzlFhLjWQLPiaH8FZ8DyjE/+RFwaAEXbMimegQpsINMtFQ87
- qTbyvmNnlTU3mn4QBSgTUbPR8nXudAmRTq/w0hlpk50MtF1ahA6eQp/1/Xs9uttgYT+G
- 8LKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746729221; x=1747334021;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4SmfqSh8LWqaDCs0eEO8C2+dVTovnu4BSWIUsBAqw84=;
- b=fVh+SAglj9sCov8NRK4OyXIanzUbVD9eIQqwdo6xQMjbCFr2pXD2BXyWMmdPM3Y9OG
- XF6V9Un/XlM7AermxG+d/u8yaYe0fVXeu9Ft0IAQwWHXI3ZZnxJqhQ/Lnulx0lYX6TPB
- T7Tmf5nuWU7tRd6iczXFIXyXRrjnrysWRHfi8/imtQToH5YFWbx5YcnNpqnyK6ZPWF+N
- C2/g9h4dZke//DIo1W9yVdadv+OiW1xGXPmEtp/iVoYD/Gt31VeCgNdGYTmp4RzYJEuB
- GwvzVZp0f1r5nDWXLiT2SVWA0cdEWzA2Ol8ucLPuZOCayGWyv70CboIWJtug9V5JzBLT
- STTA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXT3hi/LtZ0+8grlMjjXgXFN8xVKhKpba0sRuZrPxwEmfJq6pgbuyHxhxjf6UV8wv5ABdFNmMbd@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YypeMdvKMUZzycaj5bkaksB2hLA6Q8H3UZA1vhjtXroiBhLq/wR
- 8/bFos+CNI9OfOMq3XXBqdfNQf4OVNUGgDSntdM062lFYQk3tu2V3NXS6HVlFm/VdoOhxhxtSKp
- YIsU48GmzeqTRtuXtrl9fr1CLSss=
-X-Gm-Gg: ASbGncuIjz+8GGzi5rnTjq+/A4ff1hOP7HReKX7glJgB2ertNCYOId9oMavGOQBRpuX
- geaXgRDXuFRiPPOiV1IKDG72vPHIHgz3fUAyQSr1iT5cUIeskS+g8gJGVpUNTKlXkOc9Spy6hqj
- JtkFW9RT7WCX1aOYLSXJapFtftz213HXP7
-X-Google-Smtp-Source: AGHT+IFZEaouH0BJJSAiYgLwUUR3P148Y5uScyjm1WtSSVOAA/MdoyyxqHJgmjfltWT4c3VYoLHxSvc+cobBlwOqGQ4=
-X-Received: by 2002:a17:903:1c7:b0:21d:cdb7:876c with SMTP id
- d9443c01a7336-22fc8b0f8a4mr2577135ad.3.1746729220920; Thu, 08 May 2025
- 11:33:40 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F58E10E972;
+ Thu,  8 May 2025 19:41:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rbvAbl7LGFJyHyJ2TPoxHCVxdqHsojEFwyUltz5OjGnr0wg4PigBXQRRx8P2s8wsSyJyItbW2F6RQfKA6Bu7IHsagdrI4OXDZrXadOvDX/zvL6DcVn39pVQEPtan6BvSeKqiOaeQQtSzCmfKxTHTVP53Opir67PqTud3gpj8kCKEx/xiDKMdojB+J7fdH1HTPgop/sG6mmiiuc95xvhwoBL8Exwh8872YlEC1ibwKUXGp1McMaJ6bFzHKV392HD8H2E6CBoKcmEfWNZ0WWdxlVeKk50QY+iLdSgfoennfPJdwyNUM9NCLxaEFowtxAPamxnrE/esL9GkE8iqjV4hhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bYcBo3NMDV5HjpvotO4H1C1GTkAsOBNIUepbNddapys=;
+ b=Bxs+N19+B9wfwfthve8SCTDy5+4xUf0Nf57/m1O7YvHTFp2foXHVhMpw3zsYx/0BaxTxYaKANwDDvO53AjHEkR0CsqWshxYKkYvf9UkIKzjl5/XpfOPrNFJLMF5PkCKBY9JE2BStHEq011fmXDPgEQenZIBSsZkt+naLaGI0rM0NJtTNw8eWLQ4tjjBN7cMc8KbZ86tTgaQkCT3J21PsIo26S4NYkBFlcf+rRXS0ZtOKDJzQDkM2rj5QT9Waw1UQwym2hLv14qFQW6ckMknG/xMeVdEgQJ8zXciXygz4AZ91nqYQWInPuhsHgfTPZ9HOhR/9FUWCweqVQaiRCiPj5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bYcBo3NMDV5HjpvotO4H1C1GTkAsOBNIUepbNddapys=;
+ b=1HGFrFrr6Q4TUvrcdHo171zBX4Zqi2ic9d3d+Xm7UH/QY0CSxDrd8du56u2oZUqoFmqq+1hleWa/w6HLF211czJqO/JISgru+JsBdgJHaCzcmApn2Wa4dYDSu/M3012fkOzVdcG4Z9H5aQUxYnzqgaFgfQfGOMm8o/QCFjc/3ao=
+Received: from SN4PR0501CA0124.namprd05.prod.outlook.com
+ (2603:10b6:803:42::41) by SJ2PR12MB8737.namprd12.prod.outlook.com
+ (2603:10b6:a03:545::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Thu, 8 May
+ 2025 19:41:23 +0000
+Received: from SN1PEPF000252A0.namprd05.prod.outlook.com
+ (2603:10b6:803:42:cafe::94) by SN4PR0501CA0124.outlook.office365.com
+ (2603:10b6:803:42::41) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.18 via Frontend Transport; Thu,
+ 8 May 2025 19:41:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000252A0.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8722.18 via Frontend Transport; Thu, 8 May 2025 19:41:21 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 8 May
+ 2025 14:41:20 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu drm-fixes-6.15
+Date: Thu, 8 May 2025 15:41:02 -0400
+Message-ID: <20250508194102.3242372-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-References: <20250508120502.1467-1-christian.koenig@amd.com>
- <20250508120502.1467-2-christian.koenig@amd.com>
-In-Reply-To: <20250508120502.1467-2-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 8 May 2025 14:33:29 -0400
-X-Gm-Features: ATxdqUFMsab3x7S7wOsCe4r2uZ_sr2W6U2zXZlweS30npjEDE9VGFlxo_7LXM1s
-Message-ID: <CADnq5_NwHQdE6aAR_ca88VGWmjXr9vtDf5_YQrL=DijA-6=UYw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: cleanup amdgpu_vm_flush v7
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: srinivasan.shanmugam@amd.com, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A0:EE_|SJ2PR12MB8737:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a98b633-24f3-4056-23ca-08dd8e684f67
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Yd2z2D9thbelKTa48KXH1YnesJ3EQxawKUsw4F7lcaeISi5uoke5TfMeVbrS?=
+ =?us-ascii?Q?86MT1f8IT0SUmFuMfBfE2v7ZvSsUWwvd2FtQEKFYD0WB+IUWb5MGMiqolqO2?=
+ =?us-ascii?Q?5PjpO0U+C7f1JqK9nsDC0Gglg1BbF9ZSCkvViiTd6VnZnqfvIAAfB0mAupTh?=
+ =?us-ascii?Q?3WO34zqhHxSBuB2DEZFsPVRIaBMJfgVHIOBk+XldV2l/Dv3N4GrSZAz6S54L?=
+ =?us-ascii?Q?fAi/BhNZNQEMDvSX1MGypkF7NiF7DY0JK0+JOMR54zNL0K5CsqgpDw3rVQfp?=
+ =?us-ascii?Q?1QzCyeSaL/u02w7mYlgBWnDvhNE5gYEyP9xWUqh4zUNmXjNtxhwnJE5gebOn?=
+ =?us-ascii?Q?u7pyGhPSn8GAt5voo4/1k66JcDKo9ejiMGscxlu+U8Xu8SAfVDm5S2k69LtA?=
+ =?us-ascii?Q?KMfiYdLwsaJrupEAt7AdZPYqpaA0XGq2HRW0Z5TlZm+Wqc+2cMUuTHwv0eop?=
+ =?us-ascii?Q?SxY8XHcSIjpGDLQzeLaOPvqGXt7xSA81zhFOPBKWw1xcmQtCt8Pbspu1WqZe?=
+ =?us-ascii?Q?OHL+TvNf02Mn/kKVVpdPnv4ArP6MZBHuouMI0uGhoz36mSwNnBxPTSf6q7lS?=
+ =?us-ascii?Q?9W1jFVmjiWoRs3kFA8YMiRUv5bFn1leO0+hRkyfiGxz3ESmfK1/zdlL4//gr?=
+ =?us-ascii?Q?hdHQBKwqoTRkkaNdAyqPBZavSKg7PX851vPLeWdTdB8FGJuifX5zs2cg5oBX?=
+ =?us-ascii?Q?GhhKRjX8o5ZnxonXfBnrtLS1RaRDZnF03MZLX1sFkFhu9YU5Z5T6mW1bG7kJ?=
+ =?us-ascii?Q?E17r9z4rFU9654uNCyT84WQ75xzJrkSYnvEiOqrpMQCAAc3oyAGSQiKpl2Jz?=
+ =?us-ascii?Q?Cw5/OeDfLzQfj3UNU/KiE3SZl+PopSRI+/bf5slL7qxhpN2IDM9v/NiA+Uxm?=
+ =?us-ascii?Q?tS5Xd1FQipr4noq588169DWMDIM10HU/luVeUlsMhbAkwUMbQ9z5eIOF9WSA?=
+ =?us-ascii?Q?jRtTAGnZuPQdpynEIYJbyVIJwWeHywVscf6XqV1aHLaZ4/p/a65IWfCEBIFv?=
+ =?us-ascii?Q?7uauKVqFLvzf3EiLDwSo0FTx4fEoWQUM6izEKsMyk1gK+iizxscm0Ldo6010?=
+ =?us-ascii?Q?1spLCRFNrBBFFYWW/2vfPpr4F6KRpTkq1ZoIPMP95Uc66oZ/SslJxVUzmYK7?=
+ =?us-ascii?Q?evIwfM/wHXzcgdN41avSscrnnyyCs0aPWii2U1PA8DFSqTkMUlC3lDmIlhly?=
+ =?us-ascii?Q?T/8GA1qyDQWzZnP8iV3Yc7GngMCdJcCGyPlFeMrCguiiYLj8aoWJ9qHxnM8O?=
+ =?us-ascii?Q?SLHVrcX296G3A6MdjBpfEuObSGbdJkU5aEWzY+OWNsC7ecI/N8Sr1RDpwe49?=
+ =?us-ascii?Q?LPEhw0zK07rTPb5DysJcprlix6rgAB5QXfpc7OAuF3ftM1f+2RwkPHZVZkWZ?=
+ =?us-ascii?Q?N+knEFsMSphSLkZSo4e3GKgfM4Lpk53rmRaZFYxsY2Y2B7wzH0ne24fa+OsP?=
+ =?us-ascii?Q?239/rsXUSq8L63dCShPKZQd0YhilBA5FXNWl4nfJqdNtawe+mUUZPA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2025 19:41:21.5640 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a98b633-24f3-4056-23ca-08dd8e684f67
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8737
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,306 +130,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 8, 2025 at 8:05=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Check if the cleaner shader should run directly.
->
-> While at it remove amdgpu_vm_need_pipeline_sync(), we also check again
-> if the VMID has seen a GPU reset since last use and the gds switch
-> setiing can be handled more simply as well.
->
-> Also remove some duplicate checks and re-order and document the code.
->
-> v2: restructure the while function
-> v3: fix logic error pointed out by Srini
-> v4: fix typo in comment, fix crash caused by incorrect check
-> v5: once more fix the logic
-> v6: separate cleaner shader checks as suggested by Srini
-> v7: re-order incorrect check
-> v8: separate the revert
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c |   6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 106 ++++++++++---------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |   5 +-
->  3 files changed, 46 insertions(+), 71 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ib.c
-> index 5eab1c1a380c..30b58772598c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -189,10 +189,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, uns=
-igned int num_ibs,
->         }
->
->         need_ctx_switch =3D ring->current_ctx !=3D fence_ctx;
-> -       if (ring->funcs->emit_pipeline_sync && job &&
-> -           ((tmp =3D amdgpu_sync_get_fence(&job->explicit_sync)) ||
-> -            (amdgpu_sriov_vf(adev) && need_ctx_switch) ||
-> -            amdgpu_vm_need_pipeline_sync(ring, job))) {
-> +       if ((job && (tmp =3D amdgpu_sync_get_fence(&job->explicit_sync)))=
- ||
-> +            (amdgpu_sriov_vf(adev) && need_ctx_switch)) {
->                 need_pipe_sync =3D true;
->
->                 if (tmp)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 0a80c011e678..31c423663b54 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -707,37 +707,6 @@ void amdgpu_vm_check_compute_bug(struct amdgpu_devic=
-e *adev)
->         }
->  }
->
-> -/**
-> - * amdgpu_vm_need_pipeline_sync - Check if pipe sync is needed for job.
-> - *
-> - * @ring: ring on which the job will be submitted
-> - * @job: job to submit
-> - *
-> - * Returns:
-> - * True if sync is needed.
-> - */
-> -bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
-> -                                 struct amdgpu_job *job)
-> -{
-> -       struct amdgpu_device *adev =3D ring->adev;
-> -       unsigned vmhub =3D ring->vm_hub;
-> -       struct amdgpu_vmid_mgr *id_mgr =3D &adev->vm_manager.id_mgr[vmhub=
-];
-> -
-> -       if (job->vmid =3D=3D 0)
-> -               return false;
-> -
-> -       if (job->vm_needs_flush || ring->has_compute_vm_bug)
-> -               return true;
-> -
-> -       if (ring->funcs->emit_gds_switch && job->gds_switch_needed)
-> -               return true;
-> -
-> -       if (amdgpu_vmid_had_gpu_reset(adev, &id_mgr->ids[job->vmid]))
-> -               return true;
-> -
-> -       return false;
-> -}
-> -
->  /**
->   * amdgpu_vm_flush - hardware flush the vm
->   *
-> @@ -758,44 +727,52 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struc=
-t amdgpu_job *job,
->         unsigned vmhub =3D ring->vm_hub;
->         struct amdgpu_vmid_mgr *id_mgr =3D &adev->vm_manager.id_mgr[vmhub=
-];
->         struct amdgpu_vmid *id =3D &id_mgr->ids[job->vmid];
-> -       bool spm_update_needed =3D job->spm_update_needed;
-> -       bool gds_switch_needed =3D ring->funcs->emit_gds_switch &&
-> -               job->gds_switch_needed;
-> -       bool vm_flush_needed =3D job->vm_needs_flush;
-> -       bool cleaner_shader_needed =3D false;
-> -       bool pasid_mapping_needed =3D false;
-> -       struct dma_fence *fence =3D NULL;
-> +       bool gds_switch_needed, vm_flush_needed, spm_update_needed,
-> +            cleaner_shader_needed, pasid_mapping_needed;
+Hi Dave, Simona,
 
-Would be good to document what all of these flags are used for.  E.g
+Fixes for 6.15.
 
-/* need_pipe_sync - if set, we wait for the last fence on the ring to
-signal before executing more commands
- * cleaner_shader_needed - if set we emit the cleaner shader to clean
-up GPRs and LDS before a new command is submitted
- * etc.
- */
+The following changes since commit 92a09c47464d040866cf2b4cd052bc60555185fb:
 
-> +       struct dma_fence *fence;
->         unsigned int patch;
->         int r;
->
-> +       /* First of all figure out what needs to be done */
->         if (amdgpu_vmid_had_gpu_reset(adev, id)) {
+  Linux 6.15-rc5 (2025-05-04 13:55:04 -0700)
 
-Please add a comment here to explain why we set all of these to true
-if we had a GPU reset.
+are available in the Git repository at:
 
-> +               need_pipe_sync =3D true;
->                 gds_switch_needed =3D true;
->                 vm_flush_needed =3D true;
->                 pasid_mapping_needed =3D true;
->                 spm_update_needed =3D true;
-> +               cleaner_shader_needed =3D true;
-> +       } else {
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.15-2025-05-08
 
-Would be good to document all of these cases as well.
+for you to fetch changes up to 5a11a2767731139bf87e667331aa2209e33a1d19:
 
-> +               gds_switch_needed =3D job->gds_switch_needed;
-> +               vm_flush_needed =3D job->vm_needs_flush;
-> +               mutex_lock(&id_mgr->lock);
-> +               pasid_mapping_needed =3D id->pasid !=3D job->pasid ||
-> +                       !id->pasid_mapping ||
-> +                       !dma_fence_is_signaled(id->pasid_mapping);
-> +               mutex_unlock(&id_mgr->lock);
-> +               spm_update_needed =3D job->spm_update_needed;
+  drm/amdgpu/hdp7: use memcfg register to post the write for HDP flush (2025-05-08 11:48:12 -0400)
 
-E.g.:
-/* The spearhead marks the first submission from a new client.  We
-need to run the cleaner shader
- * if it is requested by the job and we have a new spearhead so that
-we clean up before it runs.
- */
+----------------------------------------------------------------
+amd-drm-fixes-6.15-2025-05-08:
 
-> +               cleaner_shader_needed =3D job->run_cleaner_shader &&
-> +                       job->base.s_fence && &job->base.s_fence->schedule=
-d =3D=3D
-> +                       isolation->spearhead;
+amdgpu:
+- DC FP fixes
+- Freesync fix
+- DMUB AUX fixes
+- VCN fix
+- Hibernation fixes
+- HDP fixes
 
-E.g.,
-/* This will cause the queue to wait for the current fence on the ring
-to signal before new work executes (wait for idle).
- * This is needed as a workaround for some hardware
-(ring->has_compute_vm_bug), if we are updating
- * the vmid or page tables (vm_flush_needed), if we need to emit the
-cleaner shader (which must execute while the
- * queue is idle), or if the job uses gds and we need to update the
-gds mappings (gds_switch_needed).
- */
+----------------------------------------------------------------
+Alex Deucher (7):
+      Revert "drm/amd: Stop evicting resources on APUs in suspend"
+      drm/amdgpu: fix pm notifier handling
+      drm/amdgpu/hdp4: use memcfg register to post the write for HDP flush
+      drm/amdgpu/hdp5: use memcfg register to post the write for HDP flush
+      drm/amdgpu/hdp5.2: use memcfg register to post the write for HDP flush
+      drm/amdgpu/hdp6: use memcfg register to post the write for HDP flush
+      drm/amdgpu/hdp7: use memcfg register to post the write for HDP flush
 
-> +               need_pipe_sync |=3D ring->has_compute_vm_bug || vm_flush_=
-needed ||
-> +                       cleaner_shader_needed || gds_switch_needed;
->         }
->
-> -       mutex_lock(&id_mgr->lock);
-> -       if (id->pasid !=3D job->pasid || !id->pasid_mapping ||
-> -           !dma_fence_is_signaled(id->pasid_mapping))
-> -               pasid_mapping_needed =3D true;
-> -       mutex_unlock(&id_mgr->lock);
-> -
-> +       /* Then check the pre-requisites */
-> +       need_pipe_sync &=3D !!ring->funcs->emit_pipeline_sync;
->         gds_switch_needed &=3D !!ring->funcs->emit_gds_switch;
->         vm_flush_needed &=3D !!ring->funcs->emit_vm_flush  &&
->                         job->vm_pd_addr !=3D AMDGPU_BO_INVALID_OFFSET;
->         pasid_mapping_needed &=3D adev->gmc.gmc_funcs->emit_pasid_mapping=
- &&
->                 ring->funcs->emit_wreg;
-> -
-> -       cleaner_shader_needed =3D job->run_cleaner_shader &&
-> -               adev->gfx.enable_cleaner_shader &&
-> -               ring->funcs->emit_cleaner_shader && job->base.s_fence &&
-> -               &job->base.s_fence->scheduled =3D=3D isolation->spearhead=
-;
-> +       spm_update_needed &=3D !!adev->gfx.rlc.funcs->update_spm_vmid;
-> +       cleaner_shader_needed &=3D adev->gfx.enable_cleaner_shader &&
-> +               ring->funcs->emit_cleaner_shader;
->
->         if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
-> -           !cleaner_shader_needed)
-> +           !cleaner_shader_needed && !spm_update_needed)
->                 return 0;
->
-> +       /* Then actually prepare the submission frame */
->         amdgpu_ring_ib_begin(ring);
->         if (ring->funcs->init_cond_exec)
->                 patch =3D amdgpu_ring_init_cond_exec(ring,
-> @@ -815,23 +792,34 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struc=
-t amdgpu_job *job,
->         if (pasid_mapping_needed)
->                 amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid=
-);
->
-> -       if (spm_update_needed && adev->gfx.rlc.funcs->update_spm_vmid)
-> +       if (spm_update_needed)
->                 adev->gfx.rlc.funcs->update_spm_vmid(adev, ring, job->vmi=
-d);
->
-> -       if (ring->funcs->emit_gds_switch &&
-> -           gds_switch_needed) {
-> +       if (gds_switch_needed)
->                 amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_bas=
-e,
->                                             job->gds_size, job->gws_base,
->                                             job->gws_size, job->oa_base,
->                                             job->oa_size);
-> -       }
->
->         if (vm_flush_needed || pasid_mapping_needed || cleaner_shader_nee=
-ded) {
->                 r =3D amdgpu_fence_emit(ring, &fence, NULL, 0);
->                 if (r)
->                         return r;
-> +       } else {
-> +               fence =3D NULL;
-> +       }
-> +
-> +       amdgpu_ring_patch_cond_exec(ring, patch);
-> +
-> +       /* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC=
- */
-> +       if (ring->funcs->emit_switch_buffer) {
-> +               amdgpu_ring_emit_switch_buffer(ring);
-> +               amdgpu_ring_emit_switch_buffer(ring);
->         }
->
-> +       amdgpu_ring_ib_end(ring);
-> +
-> +       /* And finally remember what the ring has executed */
->         if (vm_flush_needed) {
->                 mutex_lock(&id_mgr->lock);
->                 dma_fence_put(id->last_flush);
-> @@ -861,16 +849,6 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct=
- amdgpu_job *job,
->                 mutex_unlock(&adev->enforce_isolation_mutex);
->         }
->         dma_fence_put(fence);
-> -
-> -       amdgpu_ring_patch_cond_exec(ring, patch);
-> -
-> -       /* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC=
- */
-> -       if (ring->funcs->emit_switch_buffer) {
-> -               amdgpu_ring_emit_switch_buffer(ring);
-> -               amdgpu_ring_emit_switch_buffer(ring);
-> -       }
-> -
-> -       amdgpu_ring_ib_end(ring);
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.h
-> index f3ad687125ad..c9578b7f670c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -498,7 +498,8 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, st=
-ruct amdgpu_vm *vm,
->                        struct ww_acquire_ctx *ticket,
->                        int (*callback)(void *p, struct amdgpu_bo *bo),
->                        void *param);
-> -int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job, bo=
-ol need_pipe_sync);
-> +int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
-> +                   bool need_pipe_sync);
->  int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
->                           struct amdgpu_vm *vm, bool immediate);
->  int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
-> @@ -559,8 +560,6 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev=
-, uint32_t min_vm_size,
->                            uint32_t fragment_size_default, unsigned max_l=
-evel,
->                            unsigned max_bits);
->  int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file =
-*filp);
-> -bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
-> -                                 struct amdgpu_job *job);
->  void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
->
->  struct amdgpu_task_info *
-> --
-> 2.34.1
->
+Alex Hung (1):
+      drm/amd/display: Remove unnecessary DC_FP_START/DC_FP_END
+
+Aurabindo Pillai (1):
+      drm/amd/display: more liberal vmin/vmax update for freesync
+
+Austin Zheng (1):
+      drm/amd/display: Call FP Protect Before Mode Programming/Mode Support
+
+Roman Li (1):
+      drm/amd/display: Fix invalid context error in dml helper
+
+Ruijing Dong (1):
+      drm/amdgpu/vcn: using separate VCN1_AON_SOC offset
+
+Wayne Lin (5):
+      drm/amd/display: Shift DMUB AUX reply command if necessary
+      drm/amd/display: Fix the checking condition in dmub aux handling
+      drm/amd/display: Remove incorrect checking in dmub aux handler
+      drm/amd/display: Copy AUX read reply data whenever length > 0
+      drm/amd/display: Fix wrong handling for AUX_DEFER case
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  2 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c           | 18 -----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 29 +++++------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 10 +-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h            |  1 -
+ drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c              |  7 ++++-
+ drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c              |  7 ++++-
+ drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c              | 12 +++++++-
+ drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c              |  7 ++++-
+ drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c              |  7 ++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c              |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c              |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c              |  4 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c            |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c            |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c            |  3 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 36 ++++++++++------------
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 28 ++++++++++++++---
+ .../drm/amd/display/dc/dml2/dml21/dml21_wrapper.c  |  8 ++---
+ .../amd/display/dc/dml2/dml2_translation_helper.c  | 14 +++------
+ .../amd/display/dc/resource/dcn32/dcn32_resource.c |  6 ----
+ 22 files changed, 103 insertions(+), 101 deletions(-)
