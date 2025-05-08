@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 086AAC3ABBE
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 10:03:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF92C3ABBE
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 10:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9436A10E397;
-	Thu,  8 May 2025 10:03:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 481EA10E8D0;
+	Thu,  8 May 2025 10:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L3osqiF1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1IAOcnGX";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA7B10E397
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 May 2025 10:03:19 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4567910E8CF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 May 2025 10:03:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m3ahvyWC1C1BO5CuEQmQNRi88Xoyv0ipX8jmyqUMU3QX0QLIQqvCvQ5Wd98VAzazTl+1jEtCWqXwTujZNafG1x/vys99PzDOdnHqr5+Iy6mvEYCW8BvWDdOV0jcnHTmpzGNG/D/z0JBpiw2SlYaB+2j/DqppQgs78Z17zwQgO0Zk4rg/VKsRLQcGYhNV6HYqRXHyKl64fW7pZyVSnbZHGgkj/QyvIm/6KHHcIvzpwbYNLEcTr6RuSdHElS7TPqwnVAveBwFlSRB8nPPETvYZNv1iYkqesIszXaGgey0mPp3LN+QeJKCIl/PJDeeu1IP9OVr7mTbXTaaoBIOa0IRUqA==
+ b=wJeFq5+RhNQ+4uR+2p7MlehmFhyb479kJeK3ywcq0vRAdetYL0cDdNgv4J0XrTSNLwpzhg0/XYbbiWi7738gWkjspFPNRcqzoNDoTP9sG5JxAWDHqyWDdWrVbfpma/gP2jJeaANvsswGxOsIJ8nB7nis122XDkXL1GKMd3Qh3IvMQF01fBfUENocJt61BXn9mCoVsLfYIfRjtuvypeLv+kSfjUUZ8QxDi0JcZJT2G832c0iTQcONBxsLvmecnVSX8S+vsKHNYO3MjP5bym+fZAYbC7zl2Z1tv0fUsCVjSlm+bBq7DFzxNcYIRRXNHTQsag+HkGW47xk5kVsAwH+v4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4DV2BwIK7mUgLsBhgTeHg0dw9SDN+i+zNxfEGvioiBw=;
- b=Nz3KEv72BAuMeGyjPUw/mT1m5wgDzOgJAn5YikECj0MdZVLAlvUUvakeUsFoPbYjRvfP2BvkPPF9oJzFGa6Y3Dv/XqDJ4/hBjPuxe8meGl6JbvrBqBzUHaEkgb7Jirs424nCLuFCsjy+TmqIejgV/kT3tiOcM1x6hd+oDutB/f5/FWHhCucwCiXlFrKRFYvKrWy+C4TcwfxMzqpBFRtyyWw0bEtymElbEVcC/dEYxsD4War8J9Q6HwwoRPWjBBzLz9oe5KLpRRT1KN1ddL7r6HkAoa1Pr+K+uaH4ZdlXdfllzvYVCsqWTuZ5Fn5UlpIuUwc1B5tShe3IrO7KoolEvQ==
+ bh=ArU+a15QHgdBcJxL3KjHEaTNvSjSMh/3nesidUnuGe8=;
+ b=QB2opxav9LN/gBeQ09bGLSO//WZB1LJ/FwjEeNtn9dGwbaJ9w0+XhKQz7SxcQtDsalCQxnOEJ5/lcyxI/kKGvSznkHa1SCRauTX/KmvHZqcB3bC6B+eq3CWvfymZl4K6wkc2i4vFXUjDntIpY+uoXs8bqLhVc1VCAYC5bavetKhSMAvN5d2MM1EQrY6D0mkLQn62rch21TyhPCEu7VKWWxu3Lqjg3vc98vknMO32mu8RCo69eqckZfLBHc1JY68LAOehlMoWuV886SwVRsIhqmTdqN9JG4DDSpvMeRX8zBygcWykDnNcwe8XI7FHcPS09sSSLIHmi7niG7eAJo1F2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4DV2BwIK7mUgLsBhgTeHg0dw9SDN+i+zNxfEGvioiBw=;
- b=L3osqiF1mhXdIVSloRXRIJaShDIk5ZfLP7j9odY/LJ2xouQ5UNEdPdxiK5tnY6FJ8xY0se/q/i3J/hNJtP9bBMZyzZTJ0nxSPn2He06JPsBaun+d/zn8Mjwl2ngMMbJCpWUiG0q+7Hja+HCCbXZOtvQGNh0G3cmbuHL71lD49UM=
+ bh=ArU+a15QHgdBcJxL3KjHEaTNvSjSMh/3nesidUnuGe8=;
+ b=1IAOcnGXzjtJR7b5P1HHZmY5aJSbwUChoWyyxXclqIxsoeZBBYRCYq/+1rq+iNMYsvHxgdhgHlx8N/7Zda6ofcVr6+r2YEZm/E3R9H/rTnWZubPHbMXi3xV3Gf7oNH9NVEYseuQeIYOaSMrc57e1AZaOuU8fIoOmXyqFqH3JqDw=
 Received: from DM4PR12MB5937.namprd12.prod.outlook.com (2603:10b6:8:68::11) by
  CYXPR12MB9386.namprd12.prod.outlook.com (2603:10b6:930:de::20) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8699.26; Thu, 8 May 2025 10:03:13 +0000
+ 15.20.8699.26; Thu, 8 May 2025 10:03:43 +0000
 Received: from DM4PR12MB5937.namprd12.prod.outlook.com
  ([fe80::c847:70c6:3c78:54ba]) by DM4PR12MB5937.namprd12.prod.outlook.com
  ([fe80::c847:70c6:3c78:54ba%7]) with mapi id 15.20.8722.020; Thu, 8 May 2025
- 10:03:13 +0000
+ 10:03:43 +0000
 From: "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, GuoQing (Sam)"
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang, GuoQing (Sam)"
  <GuoQing.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Zhao, Victor" <Victor.Zhao@amd.com>, "Chang, HaiJun"
- <HaiJun.Chang@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Owen(SRDC)"
- <Owen.Zhang2@amd.com>, "Ma, Qing (Mark)" <Qing.Ma@amd.com>, Jiang Liu
- <gerry@linux.alibaba.com>
+ <HaiJun.Chang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Zhang, Owen(SRDC)" <Owen.Zhang2@amd.com>, "Ma, Qing (Mark)"
+ <Qing.Ma@amd.com>, Jiang Liu <gerry@linux.alibaba.com>
 Subject: Re: [PATCH v4 1/7] drm/amdgpu: update XGMI info on resume
 Thread-Topic: [PATCH v4 1/7] drm/amdgpu: update XGMI info on resume
-Thread-Index: AQHbv9d4XpAdzZw0iECS+FEC5WeubLPIYiSAgACkXwA=
-Date: Thu, 8 May 2025 10:03:09 +0000
-Message-ID: <055a2062-699c-4f4c-822c-17fed6c982c5@amd.com>
+Thread-Index: AQHbv9d4XpAdzZw0iECS+FEC5WeubLPIdyoAgACNXIA=
+Date: Thu, 8 May 2025 10:03:36 +0000
+Message-ID: <73cd6a4c-e370-4d1a-b5ae-4bb31293eca8@amd.com>
 References: <20250508050926.228674-1-guoqing.zhang@amd.com>
  <20250508050926.228674-2-guoqing.zhang@amd.com>
- <1aca1130-082e-40df-83fd-eb00fa3ac206@amd.com>
-In-Reply-To: <1aca1130-082e-40df-83fd-eb00fa3ac206@amd.com>
+ <b0ada9c6-c31f-455e-a24f-4106b62647f1@amd.com>
+In-Reply-To: <b0ada9c6-c31f-455e-a24f-4106b62647f1@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -68,80 +67,82 @@ authentication-results: dkim=none (message not signed)
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: DM4PR12MB5937:EE_|CYXPR12MB9386:EE_
-x-ms-office365-filtering-correlation-id: 4590bcc8-8218-401d-5895-08dd8e178b8e
+x-ms-office365-filtering-correlation-id: c8a68fa7-e0a9-43e3-d6f1-08dd8e179d74
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|376014|1800799024|366016|38070700018|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?cROw/0CCsYL7s1cPTNdglmhZsUsAxJIiReEf4nxeFVzvFbXnga5ljH2GKS0X?=
- =?us-ascii?Q?Hzh5GKiAa6Ana4kGEI0ybEeaxTdW2gEOsb5R2wMVRDzosdcmthopEPDf8jdB?=
- =?us-ascii?Q?DVHU2/cpcIN1tyY1VN8jtUHLKITQ1Xvkyc09j9TU21oLx/9W9h1jgxJbkzHd?=
- =?us-ascii?Q?5694fdBl8KNmCplv6cp24x/MgG7KfdRW1E2MFaedzjW3OFEysm6OkCOMFARC?=
- =?us-ascii?Q?QP3AqiEzfzcIA4lKyqtArYRMIHUQybJgDl5bmVfaw8Jrxx86zeTwXnpqFssx?=
- =?us-ascii?Q?gEwbSZH53UnyQk/D2HAtpS8PmuIrZQiHWP6xPhMhOeEQCJ8pFFGmJpb65vMi?=
- =?us-ascii?Q?6COG1sXZnfd+tJdE8ecYTx9YfBi4QO5q3xAN6ZZiDrTTyR+yVgPoCsU+qY2P?=
- =?us-ascii?Q?e5Xwigibu9zyqoVUORDuworABGRMVbRKIFgmLO0FcrFrbjHGQYaKmGxSxJjd?=
- =?us-ascii?Q?G+VpRvOoVYkd6kyRAOCPIeKMwq1+evYokIE1oE/omBzJsm192OdF32UuycV3?=
- =?us-ascii?Q?bRJLE6ooOoL+Fv+Dcu+aCkWEJY43ZFJdfinwy2dZS2NZ9n+4FWAMioxt7fPn?=
- =?us-ascii?Q?I2n9GfxSAalJAzuDKWEATORMlasEKiGL706W4PogJQJwxPhMBWRGEu2LWSng?=
- =?us-ascii?Q?SIZKsbuSWukOVjOXSKcXc4gO1RCBwhOjfLFKYVVpKfwPKGQv2CBS2dNSDlQb?=
- =?us-ascii?Q?v0ABcHC4Y68P2QVUWyE5iQhFsC7VzbN1GnSFcPuyAvnfgjmMh/FXQru2soeT?=
- =?us-ascii?Q?ItbloDIpoJg/59Sc7Uw6666NaFiwTtkvTvl7bHM/nMndDjSShosENqNtjG//?=
- =?us-ascii?Q?PXGu43mrdnEmtrCpIZdYL8cSiR2c+9HPizC29CS7FmdVGuTNYPQH8fBHr+zc?=
- =?us-ascii?Q?n0s47LikBjNFU4sAGJJluAVdm8i2vGz8KccfpSjGzJ419YyYTTlnXqcgPFuV?=
- =?us-ascii?Q?z1LL2NceNTSaVEZAzoTuMdR9ZNrtghTf/vYa1XfWZGIHzpvDg11ONPzhEvXw?=
- =?us-ascii?Q?6UlaAvFOg9iA2zPwabkYXjhip+EdCinHk9HpC6k4ntB2wA9MPnMUWTRQ19h5?=
- =?us-ascii?Q?m3X+PDyMm+KidCbWPK1TNdmIQ43gkxrxahP64Tr4c8L134e7qR4xI/AlTCoD?=
- =?us-ascii?Q?uh3/a7JBhs1dt8OFQN57Di/uZ1pL5EjCcbKnIYWMm1jGJiArMoytOkjLzfIv?=
- =?us-ascii?Q?Xp4trV+1pu2pVCFPnkjjL10AXllatocZ+jN6xjTQAAYcKcbW767eSZ1Sb0wm?=
- =?us-ascii?Q?1g8WbPqQlWgiYaAmdCejWJl/Pt3ffRPgydGoI10vdYJu4r424BdiwJOARIYJ?=
- =?us-ascii?Q?OfLlQfTXyQrhLEIYKprPybRpHNoNPlf2SjMzqK2CPj6hiulGUnfEzlLmt5NQ?=
- =?us-ascii?Q?gBg4AP1HKp/SoRJ75iGIJiikiJ3J0M9TQuSXgKRIepBPnjb4bogB/bqIcW5a?=
- =?us-ascii?Q?xd+lMQbXtJxw1YCEAjwx06LX+Hdor7YOHyhUay/JgDhb+bdjSGGtlQ=3D=3D?=
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?rGgcpMKBPC0qHF1bZ7EM18E7bylW/wvPdjHcQ9TjaT3zFk/iAr//XHhx+i?=
+ =?iso-8859-1?Q?91BBDl2J9+jn4WBM0tXu6j+A1H5MHW4PZMJ6XjqlQ98/r4loKDfPz0lBMm?=
+ =?iso-8859-1?Q?oHdbYdOyWASEFB+P2/lsldAuCGgoa3p3aZB0Y6oU3f++jnck+DbPPElmgW?=
+ =?iso-8859-1?Q?QFh3H0VJc+CsP62MBZ+hLlTvt4owuKEUcKq4fnCgfxOh4eR+Q11BY2G6TY?=
+ =?iso-8859-1?Q?xxzP00MLwbE9Wgd5L3aFvcyTLpfHWg275jkGpcSRf2wjpa6vez7Xubffd/?=
+ =?iso-8859-1?Q?GP0xzjJvhAzPQJtMJRnZ+pqpEqyGXz+HUHCWS6J/Ubl2CdV2/QV+fqj7Cx?=
+ =?iso-8859-1?Q?CcONWW77H142dfWCHgKVKZpni0H3BNf81/QgZqnV1fPD/i0FvFyzOsd+Pr?=
+ =?iso-8859-1?Q?OSNE/SITjndPlnIS4VUzDAZGuVWETjkzxG/9l51nz1+ROgtUeoIEpI+zh8?=
+ =?iso-8859-1?Q?xs67sbfV5GfVseFxMl7wwg539he/ie8KhV0K+O6baulmT2eMX2HHryxCBi?=
+ =?iso-8859-1?Q?jcUN6+f96vKhyTtACOCgghX/1MsYj6l41ipYDfHA3Ej9oBMHl4kWgKuAek?=
+ =?iso-8859-1?Q?J3UmJ/vhv3n4c1mCUsY94Ai+QqbtceS/hUwSX0AeWMZKVWnHx5m5PZ1Xmm?=
+ =?iso-8859-1?Q?bZI04MkzINNajDUa0EScb2hKmvfAyEGnTwt2RZzG9HJokXrpWVFp6d+oUa?=
+ =?iso-8859-1?Q?7bqDQ/p8Lpd/z9RH6LdLRCWCAA4ggBkIjBZnOBqXcl5wWQr+SuwO36ksT1?=
+ =?iso-8859-1?Q?hWJqzHAh9S3aoP1dBtXYJA3fnfMAQVz0UUW+tc0yV7qxKN5EohPHwL9etm?=
+ =?iso-8859-1?Q?NqEsM0ZMIE4GrMU+IgHX92MrpYYzVe4uC6exmgYP3uf7DwDZXtc9CMxNM8?=
+ =?iso-8859-1?Q?0e5Vf75o/kJBY9FA/QpPuJPXPfl2J+oGp6AorS7sZEH4F6vK+bN6s44B8C?=
+ =?iso-8859-1?Q?skT0pZ1FfdhedRAO7RtjnY0lq07Q8r6mvjPIIxXUkvRXVlg91vDa3tj20p?=
+ =?iso-8859-1?Q?ro0Il01zT0zCglBK6rtbJeBgnCZpvWLq4kztmsWra+BEO7AXpTb0N4cIMO?=
+ =?iso-8859-1?Q?ztleush0INjS+lyqnYf0Kl33lrbED8aeeIvoJn7XSfJPqbpRps1fDlEnvW?=
+ =?iso-8859-1?Q?hGaNDyP9YhDKJ3tNO6heMtNcKQ0fxZNQFFMSp9FSY/HwY3H4FdKSG2FHsO?=
+ =?iso-8859-1?Q?nIjswZJ6jmHdmh+BHLF1PpcPF0rOiW6LwOAEZDCAB1PflwN9vVC41n0I4j?=
+ =?iso-8859-1?Q?ByD35CD7LIPFFSiQsNjNMog3kGNagLX+yms/v3pRLd/4se0nuGw0KqGBrn?=
+ =?iso-8859-1?Q?OzVHHxTC23WCIOTJQHRiQK15m9JLYKTKGcAw5mMAOtpmlHA9gaMGfNtK/L?=
+ =?iso-8859-1?Q?gK3ocFywl+g1U8cFeveOCsCVAybnRwkQISObGb4jUhTIBQ1hcE7prW3jzR?=
+ =?iso-8859-1?Q?hxOxfDQb4ubQE71E+gSv7lc8mukQrYaxsYGTEYxSo93DYLBZn7SIE4C5XP?=
+ =?iso-8859-1?Q?qAR1hyzXafggGMW+aUexJlIDCDZ7xCHksZuh5I1rjAxw=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5937.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(1800799024)(366016)(38070700018)(8096899003); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nEYG5Bv5UgkuUl960zMVcRtJAFmK+yGb+g5hZWQPe/QlKM6ZiZp12u1PmXLV?=
- =?us-ascii?Q?M6TL4hk3bRzNR4XX5SFawgnX8GYMIeahDUx6ri96uab6mQFpIosAFTFg3HOt?=
- =?us-ascii?Q?61h6ar8y5IasMGO5TYR0vLig6uJqYsrosOkT+H9+c8V9BV4b/RLGqNVIPvtf?=
- =?us-ascii?Q?8s48KK3uqH5N8rsRzI1KEqkOlS6suuB9fKtHRH43zsnhhxP0eCbanxzzuvoB?=
- =?us-ascii?Q?gW7IMWCnDz0WkCDgqL88VfbRWH3NzbyKbvR6ALzV3BLtr54x85PDK854qRln?=
- =?us-ascii?Q?u6nFBYbE3RyxOL/9qWwG4QLIQcakcnLNet2rZGALa9a3zOOXTSTB9SxJEnI9?=
- =?us-ascii?Q?/DPBGgnNswHlnl8utRpUjBxz5cZZLjVn7rkXPpOnZiB0OgmiG/rNur/+Gqf+?=
- =?us-ascii?Q?Rhk6uppGdVAwNel6NxD4jcP8jyE6ANphXJlhrBxVQ3JXI6h0d1uCTcwFuqr+?=
- =?us-ascii?Q?JbSYxQ2iQhlnjWNiB5hyYOfBlk/sODU0KyEj0makd//ASfzwRvnwmOealdcc?=
- =?us-ascii?Q?U8eU0iZeTNijbctAAzIGAMq3x/fb3WTXsZuBigKc/JiMmmASwCSJHJmnEe/o?=
- =?us-ascii?Q?Jl+my3M8IqIIq0h7GwotpdRCGPc8VfhvOn7PKoMMhDitRPlBfMLs2C8VxelC?=
- =?us-ascii?Q?XfzSRLEvYGJj1IuOxlLIVTZwkorlwl7nkVdnDJSYIh9/kIW3UpY4hRnAviLs?=
- =?us-ascii?Q?btZD3+GFI0G3ur+QQbxbZnxT2o4B+gKr0fQIGelkn+o2wh0FrdGhZpa2qIJk?=
- =?us-ascii?Q?a1LbvtKmn8vBYy5zrn8oD2xthQphPY9WH9l304UfCFPhHAA6DmmDjloemp9j?=
- =?us-ascii?Q?pJyijAZ0UaKjm+oShpO5R29JRgf3FDQJ8X5D24WYX0NdLTYLk2EnJ8Rtv9h9?=
- =?us-ascii?Q?KI9bNcet53wCwhdd/ciqhVGpbnHDWRTURJDokeAp1cOF7jkcAor0IY1mvJXC?=
- =?us-ascii?Q?KyfTzTQua1L/s/bRhlHq3yMqqPeYeHHY9rTQfq+BuiWWTW5XdFeiboCaowV4?=
- =?us-ascii?Q?AzVzGO+GuoEX3+y4vfjajyeQnup+P73JZy52hcqm2P+VWCPwCu2FKX1kIkFF?=
- =?us-ascii?Q?VdKz8YkBPD7DdWmH7AwzIYXHLPsQhdu6Edh2ewJo5DmYTrgMZsWHuh8XK6Lt?=
- =?us-ascii?Q?MLhN7AyDd/8gIEdco+Zs0VxKR5tfdzxnH0zjR7bDWoQ1aGLSi6jLnMtZL4Mg?=
- =?us-ascii?Q?AicZ9Dg0qLOXSHK6mnTJ8ytM/gYnvLgshbfBvOZ2CDjOJZM3rPLesXABOH3T?=
- =?us-ascii?Q?2u9cGJejVAAm/0IyEFQZu4jAxBvg4wdW1EiTAdNphEMbI9qpze+4nsYVBJxl?=
- =?us-ascii?Q?FiLLZhNAIlQfN77N6P3k1IDgq3WMvrIEHgVooEMLmIwZ8kpHHoYXvalaeces?=
- =?us-ascii?Q?EUOe67UPIxNbvC+cYHlPmFFZTxo3wO7iRw1+OiZgnqkrgNxrkutHcklvBZCj?=
- =?us-ascii?Q?dsEnP9i7YmZmSs/sRcRJWit3JWIaaGkA53+UgB1R8kB1uj1xn5Qc19MQsum6?=
- =?us-ascii?Q?3FIw50ybz1ZAPpQEc0RbON5LbV6pK1HvC7VhMd2PP9kscrLOchH05dBrsQHz?=
- =?us-ascii?Q?RuGV523Z0th/XUAmVWvuyKTDJQYaI3l55D5S6xag?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?0SqdfqkHdX3yYWgB+EYCqAdAQDBBKJNTQlw0yAxhIvKUc9eE4Zx3Ge+Rj6?=
+ =?iso-8859-1?Q?KFablFWXQac7/Ae4OnBt9hBSIXh4gj6NgOmbEQMf2P+DczgZKdXQ85xJrA?=
+ =?iso-8859-1?Q?uYlOUOuPb9rw1I8D4De/NJfj5fRAAlS//FRnxaEUm5je4GTBS5EIxJMnsw?=
+ =?iso-8859-1?Q?ifJUP1TS75hQ1xoDx5Sw86BKBw1fYUXKyRBW+SEQjiyD45a+eRBTXlmPmB?=
+ =?iso-8859-1?Q?luIy1ymCM5S85ZtAtOClInWnanqWmPxg9MFK2ajX0dPq17ZIlQJIO2nxIC?=
+ =?iso-8859-1?Q?dvzFh4vqSlI+bvHcEPPfS7a6OpS0qCKe5wfQOlwBrvyHNspl0ZnIzJh4gv?=
+ =?iso-8859-1?Q?uQsy4x2W5A9I4gAj9MRo1/riWt8Jncj+95cSKNnOe55ff0jFfwxd9d7VpF?=
+ =?iso-8859-1?Q?KyzJdW5M3uH8K3awTr/vSoEVGk1dPrX4d2h3nsVWF6HZY2BrgMVg2ULPvH?=
+ =?iso-8859-1?Q?19sCWWjHRiZug7mN97A40VDkiRBzFELBvomkWfP5bbkxwRq1/gOAXCRIqr?=
+ =?iso-8859-1?Q?I+omuZZu8C/SO7vgvSCWI/SS/Y0hgL/vxnMDq6eHxiFj2HCIrBMC2wEW5T?=
+ =?iso-8859-1?Q?82TpVBuGvlLID7hDDOVAvN5eT8QJBhfF5DGRLzbClKE4+YmIB1P9ZLUTBC?=
+ =?iso-8859-1?Q?z5F1YI/cSgWB9X8CCO/f8AGEVLj8R1V36ARX8jMBdxA21lLjl7ASXveD8f?=
+ =?iso-8859-1?Q?RJaevXtEQ+OXPiKp2Xfq806h2QUdrCn08cCb8HXcMEfIZrSTf1hHh7+3Fe?=
+ =?iso-8859-1?Q?tkfhC55WjTNGqTvpWncKkHAY8ZghKrgf8//KxtH6qq4CNzmrfG5TgF+Qqi?=
+ =?iso-8859-1?Q?yAMxyrdVDX6mFQD+ndjGiSz4c6yqX2d4uITJCDSEDgOAOIKhBeMSs2/OFG?=
+ =?iso-8859-1?Q?rFBiDk9gRWg9LuqK5erS7ejm5IBZIknSX4Kl+KbKynWaAeLeupcVi2HLaj?=
+ =?iso-8859-1?Q?i054Xt/G9hMEVaKzzqHjGuxtOoPTqqGFi+gZOIW6YT5rYc5FILqla9/VDl?=
+ =?iso-8859-1?Q?lTpaZPPgOrHsWULCXwTnOIcFQDhZTcEKK1j9ro/1c0/DO2xa76fBGsvZ94?=
+ =?iso-8859-1?Q?kWpjk2O4Vz0ATGUslToUDHsxdquUoeBlnpdOzxwU8oj8QPk2GYQ+FiTika?=
+ =?iso-8859-1?Q?vvyTBjeuDhcWNzEOObM2CH4Y4sROYdI6GtlpRkf9v2y93AtNQWUnsAQVJn?=
+ =?iso-8859-1?Q?389+iz1MoaZKixr3KHsDnmvlxnYXsi+RBdcgB3o6jxmeXVF/7a+jZxOQbD?=
+ =?iso-8859-1?Q?2PJziIf3W8zpW15dmJDsnZ5G4M9Ju/x42tUM8PRSO/YXIJnup4j5Titq9N?=
+ =?iso-8859-1?Q?1nVLjHoxzHZTmgrYP874wyAbw9XZAEUZesGmxASkt/tmeTVXFP72YNbrhG?=
+ =?iso-8859-1?Q?82h6+7SR6drtmZh7QcUTldbCSBqJ9sQABdfMKSOjl3L9wSYKaBbGDtUIJg?=
+ =?iso-8859-1?Q?9zRxDiVdsQFJJ5HvLhS7LgOUJ29pTpbqIHKVOPyqKlHdruOZoxM/HUqSWI?=
+ =?iso-8859-1?Q?hA9ay1JSf4beOm9yh43sfXLOBRFZrRVkrqxTO+PPnC+Tw/vpdcXsGCIo18?=
+ =?iso-8859-1?Q?ubMztRkHh4GXWrtplHVDh9LQQQcEfvps6g7GR27Mp/C8j/rMUfxeBpt9t/?=
+ =?iso-8859-1?Q?htrURbSFntkWLFXuVGvH9qZ7+TuiK8VOIe?=
 Content-Type: multipart/alternative;
- boundary="_000_055a2062699c4f4c822c17fed6c982c5amdcom_"
+ boundary="_000_73cd6a4ce3704d1ab5ae4bb31293eca8amdcom_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5937.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4590bcc8-8218-401d-5895-08dd8e178b8e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2025 10:03:13.2915 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8a68fa7-e0a9-43e3-d6f1-08dd8e179d74
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2025 10:03:43.2920 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hbT/OAhpPVtrC4/7+B9axQa5BC3fVVyh77JZyCI1RHpz3HvpwN1DveBPwfj+ZSynEymYoi9GVENpaygbqmO3Lw==
+X-MS-Exchange-CrossTenant-userprincipalname: e3Yb56+umkKIUD4zboEjy1/W3NeG9M4NfpV4+00PXhPqKL/EWmrX5Irn6CVBUdA068jCHkyCqBD+WlHIrDZkMg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9386
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -157,19 +158,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_055a2062699c4f4c822c17fed6c982c5amdcom_
-Content-Type: text/plain; charset="us-ascii"
+--_000_73cd6a4ce3704d1ab5ae4bb31293eca8amdcom_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 
-On 2025/5/8 16:12, Lazar, Lijo wrote:
-> On 5/8/2025 10:39 AM, Samuel Zhang wrote:
+On 2025/5/8 17:27, Christian K=F6nig wrote:
+>
+> On 5/8/25 07:09, Samuel Zhang wrote:
 >> For virtual machine with vGPUs in SRIOV single device mode and XGMI
 >> is enabled, XGMI physical node ids may change when waking up from
 >> hiberation with different vGPU devices. So update XGMI info on resume.
 >>
->> Signed-off-by: Jiang Liu<gerry@linux.alibaba.com>
->> Signed-off-by: Samuel Zhang<guoqing.zhang@amd.com>
+>> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+>> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
 >> ---
 >>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++++++++++++++
 >>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |  4 ++++
@@ -249,60 +251,26 @@ amd/amdgpu/amdgpu_xgmi.h
 >>   };
 >>
 >> +#define amdgpu_xmgi_is_node_changed(adev) \
-> Typo - xgmi
->
 >> +    (adev->gmc.xgmi.prev_physical_node_id !=3D adev->gmc.xgmi.physical_=
 node_id)
-> Since prev_physical_node_id is updated only for VF, the check should be
-> there here as well.
 >
-> Otherwise, you may have something like below in
-> amdgpu_device_update_xgmi_info()
+> Please drop that function and the related checks.
 >
-> amdgpu_xgmi.node_changed =3D false;
-> if (check_condition) {
->        prev_node =3D adev->gmc.xgmi.physical_node_id;
->        adev->gfxhub.funcs->get_xgmi_info(adev)
->        amdgpu_xgmi.node_changed =3D (prev_node !=3D adev->gmc.xgmi.physic=
-al_node_id);
-> }
->
-> To make it clearer -
->
-> Would still prefer to wrap under amdgpu_virt_migration_xyz() to make it
-> clear that this is done for node migration.
->
-> Ex:
->
-> bool amdgpu_virt_migration_detected()
-> {
->        return amdgpu_xgmi.node_changed; // And any other combination chec=
-ks
-> which could up in future.
-> }
->
-> The check needs to be done for any further changes down the series like
->
-> if (amdgpu_virt_migration_detected())
->        psp_update_gpu_addresses();
+> If this is necessary we want to update the relevant parameters all the ti=
+me and not just when something changed.
 
 
-psp_update_gpu_addresses() and other gpu address updating logic will
-always needed when pdb0 is enabled, not just when detecting xgmi node
-changed. Because when pdb0 is enabled, the returned gpu addr from
-amdgpu_bo_create_reserved() will be in GART aperture, which is not
-compatible with PSP and SMU. They need to updated to FB aperture addr
-using the new `amdgpu_bo_fb_aper_addr()`.
-
-That's reason of the last 4 refactoring patches, to remove the cached
-gpu address completely and convert to local variables.
+Hi @Lazar, Lijo <mailto:Lijo.Lazar@amd.com> and @Koenig, Christian
+<mailto:Christian.Koenig@amd.com>, you have different opinion on if the
+check is needed. Could you align on this? Thank you!
 
 Regards
 Sam
 
 
-> Thanks,
-> Lijo
+>
+> Regards,
+> Christian.
 >
 >> +
 >>   struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *ad=
@@ -332,17 +300,17 @@ de_segment_size;
 >>        * information again.
 >>        */
 
---_000_055a2062699c4f4c822c17fed6c982c5amdcom_
-Content-Type: text/html; charset="us-ascii"
-Content-ID: <E8EA38568EB6064A8BCB98BBCE6B60BF@amdcloud.onmicrosoft.com>
+--_000_73cd6a4ce3704d1ab5ae4bb31293eca8amdcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-ID: <4D71D0F0CF1A6F428601ABB6DC51F9A2@amdcloud.onmicrosoft.com>
 Content-Transfer-Encoding: quoted-printable
 
 <html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
 hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
 fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
 <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
 <style><!--
 /* Font Definitions */
@@ -357,6 +325,10 @@ p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0cm;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;
@@ -368,13 +340,14 @@ div.WordSection1
 	{page:WordSection1;}
 --></style>
 </head>
-<body lang=3D"en-CN" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
+<body lang=3D"en-CN" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
 <div class=3D"WordSection1">
 <div>
 <p class=3D"MsoNormal"><br>
-On 2025/5/8 16:12, Lazar, Lijo wrote:<br>
-&gt; On 5/8/2025 10:39 AM, Samuel Zhang wrote:<br>
+On 2025/5/8 17:27, Christian K=F6nig wrote:<br>
+&gt;<br>
+&gt; On 5/8/25 07:09, Samuel Zhang wrote:<br>
 &gt;&gt; For virtual machine with vGPUs in SRIOV single device mode and XGM=
 I<br>
 &gt;&gt; is enabled, XGMI physical node ids may change when waking up from<=
@@ -382,8 +355,8 @@ br>
 &gt;&gt; hiberation with different vGPU devices. So update XGMI info on res=
 ume.<br>
 &gt;&gt;<br>
-&gt;&gt; Signed-off-by: Jiang Liu&lt;gerry@linux.alibaba.com&gt;<br>
-&gt;&gt; Signed-off-by: Samuel Zhang&lt;guoqing.zhang@amd.com&gt;<br>
+&gt;&gt; Signed-off-by: Jiang Liu &lt;gerry@linux.alibaba.com&gt;<br>
+&gt;&gt; Signed-off-by: Samuel Zhang &lt;guoqing.zhang@amd.com&gt;<br>
 &gt;&gt; ---<br>
 &gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++=
 ++++++++++++++++<br>
@@ -496,66 +469,30 @@ r>
 &gt;&gt;&nbsp;&nbsp; };<br>
 &gt;&gt;&nbsp;&nbsp; <br>
 &gt;&gt; +#define amdgpu_xmgi_is_node_changed(adev) \<br>
-&gt; Typo - xgmi<br>
-&gt;<br>
 &gt;&gt; +&nbsp;&nbsp;&nbsp; (adev-&gt;gmc.xgmi.prev_physical_node_id !=3D =
 adev-&gt;gmc.xgmi.physical_node_id)<br>
-&gt; Since prev_physical_node_id is updated only for VF, the check should b=
-e<br>
-&gt; there here as well.<br>
 &gt;<br>
-&gt; Otherwise, you may have something like below in<br>
-&gt; amdgpu_device_update_xgmi_info()<br>
+&gt; Please drop that function and the related checks.<br>
 &gt;<br>
-&gt; amdgpu_xgmi.node_changed =3D false;<br>
-&gt; if (check_condition) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prev_node =3D adev-&gt;gmc.x=
-gmi.physical_node_id;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfxhub.funcs-&gt;ge=
-t_xgmi_info(adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_xgmi.node_changed =3D=
- (prev_node !=3D adev-&gt;gmc.xgmi.physical_node_id);<br>
-&gt; }<br>
-&gt;<br>
-&gt; To make it clearer -<br>
-&gt;<br>
-&gt; Would still prefer to wrap under amdgpu_virt_migration_xyz() to make i=
-t<br>
-&gt; clear that this is done for node migration.<br>
-&gt;<br>
-&gt; Ex:<br>
-&gt;<br>
-&gt; bool amdgpu_virt_migration_detected()<br>
-&gt; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_xgmi.node_chan=
-ged; // And any other combination checks<br>
-&gt; which could up in future.<br>
-&gt; }<br>
-&gt;<br>
-&gt; The check needs to be done for any further changes down the series lik=
-e<br>
-&gt;<br>
-&gt; if (amdgpu_virt_migration_detected())<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psp_update_gpu_addresses();<=
-br>
+&gt; If this is necessary we want to update the relevant parameters all the=
+ time and not just when something changed.<br>
 <br>
 <br>
-psp_update_gpu_addresses() and other gpu address updating logic will <br>
-always needed when pdb0 is enabled, not just when detecting xgmi node <br>
-changed. Because when pdb0 is enabled, the returned gpu addr from <br>
-amdgpu_bo_create_reserved() will be in GART aperture, which is not <br>
-compatible with PSP and SMU. They need to updated to FB aperture addr <br>
-using the new `amdgpu_bo_fb_aper_addr()`.<br>
+Hi @Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">mailto:Lijo.Lazar=
+@amd.com</a>&gt; and @Koenig, Christian
 <br>
-That's reason of the last 4 refactoring patches, to remove the cached <br>
-gpu address completely and convert to local variables.<br>
+&lt;<a href=3D"mailto:Christian.Koenig@amd.com">mailto:Christian.Koenig@amd=
+.com</a>&gt;, you have different opinion on if the
+<br>
+check is needed. Could you align on this? Thank you!<br>
 <br>
 Regards<br>
 Sam<br>
 <br>
 <br>
-&gt; Thanks,<br>
-&gt; Lijo<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; Christian.<br>
 &gt;<br>
 &gt;&gt; +<br>
 &gt;&gt;&nbsp;&nbsp; struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct a=
@@ -595,4 +532,4 @@ mode switch, read the memory range<br>
 </body>
 </html>
 
---_000_055a2062699c4f4c822c17fed6c982c5amdcom_--
+--_000_73cd6a4ce3704d1ab5ae4bb31293eca8amdcom_--
