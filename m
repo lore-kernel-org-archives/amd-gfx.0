@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 345BDC3ABC0
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 16:44:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789AAC3ABBE
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 16:45:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBE5110E039;
-	Thu,  8 May 2025 16:44:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22B2710E938;
+	Thu,  8 May 2025 16:45:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Os3ox55R";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="USm5qhvL";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB5A510E039
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 May 2025 16:44:30 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-22e560996a5so2424285ad.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 08 May 2025 09:44:30 -0700 (PDT)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA66610E204
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 May 2025 16:45:52 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-30ab2041731so130949a91.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 08 May 2025 09:45:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746722670; x=1747327470; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1746722752; x=1747327552; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TnZDSp59SEoP6Hdrgfj8gUWqgNhqhi4Rs5kL/iHa2EY=;
- b=Os3ox55RyFWiZquA4dRAbVgob6U0g9qcoL6InHOTN1VVJNdoPl4VZj5xXht9nnFdHH
- QC4/81TOtILxxK+PQXWWVtXIClgrQiHjOWKbJzK9goV9IEon62RLmtCMu8+OxGVkwP51
- 5eLloHSiCkSRbUMKwBnlTd7yDmqxqK9dQj0iX4h25lIXDxKjWSca3e5h03F61J34prWv
- n+m08YXOR6RcVsBx9sNdKrY+sOGm9EkfHGBzq7swWyDOAPgjYTBKZMU2JU/6TsWMj+4A
- NS4oT5ZmzdeB9NMYZCpq6D2n1kjADpIOe9Cmnzou7gbxjqPfYNjG/HEWkYafH15KxqUE
- ZQTw==
+ bh=hZmOz3HUVlEdaMoieVI7kqcFT+Dh5grwSeEQoWrGZ1g=;
+ b=USm5qhvLeU9Cj2DHurOC1W5FoJcFqflGlK6hCHIIEHOAIxIV7oKCnqz0+OZ4d1VmbQ
+ NJrkXw+2n9R8GkvrDdfkAAcd1Ff8S7pH9FsbhSjKX9rHnoz1JUR2i/DSw6oAi2e7E5nj
+ a1ALNTQ76BihKSIWhr3eMR6mvjcy27e6SF1moqnYQoW3LDfSowwrlWx1wwGvBnf2q4Zm
+ rd7SORDWuuxaxMKskpSWU5y3N/La+pLw2CAlRRiG1kKMLBUaA3HntKsyOaZhk75jsp2l
+ FMzgk7zMDMCb1iAzsMd3HX3OLNgkcIt4/4YqtjAyGuBV2LQ9V8YaRv19BjTzhD6Ps5bX
+ t9jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746722670; x=1747327470;
+ d=1e100.net; s=20230601; t=1746722752; x=1747327552;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TnZDSp59SEoP6Hdrgfj8gUWqgNhqhi4Rs5kL/iHa2EY=;
- b=WzUFSiRZL44zVFez38xR/YX//rbrrg6bfZEohXsRerjUM2MkyBl/3MhNrZ3P2gXdDC
- 4FQ6C1GxhKf8T+OuXBM/nxzbtQeOhpLfEJBe9bvw95W6WaaK14Xrz+jb0XtyA+HSZDNj
- YDtejA16o1HXeKY/Ef/83I3hSMspVOEsIMFafFBrVUZCxkPk0FgwF0hcKBM6VYMTC2zB
- nEJFsQa/wgudCk10rDNtmuBT4gUFnPDGug8v6wvVTKrF3/+3D3g91XAuM845RKYi4ssf
- afxqeudDLFZddFEFP+cxbudlJWeenUrpWj3cxtRxxImO1YKI0FPehfDBGk1BYuHu9Yux
- 8kZQ==
+ bh=hZmOz3HUVlEdaMoieVI7kqcFT+Dh5grwSeEQoWrGZ1g=;
+ b=W6639d/Kg02Wi86U/wKX0wkR+HVId0xdGhqJWOEaMstDVEgVpx0k2P7ptzJ1VaxKBu
+ WJoibPe1wa9tZoEY/uPM46IoyHGDhg7NgD2l/+farNGAC1huL7M+zXX1oLn5ah/6tyeY
+ fQ+a+iB41KA9MrurhgPg7rEi2TFGr38vTAKoSnFdRql6g3/GWdvj/ZMsi9DTt3LmYKyS
+ 2pyNfjpRrM9GKkNP1J/yvjmbcO4bJqi/gpeI7htbQ5e9JYJTP92OKmvRmoQ080/fDQrf
+ 23MGYiaJKIkwDo4RpUl+2Lep+Cz+aXlegkc9vr+3Gx0m5qMh8gUO4Jh4D35lfNPsnPWf
+ 6cHg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX8TxZMhWuvD3h3LdOWckx1BCJDPnHLUZUNe134Lt+BsxmZnfFgNQ4/CdaBGhfbax8CfEQbik2J@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzI6Zj338bjYGRePFdLduLm2NYVqWKn4ZRhGOFTx3Wl1xh0RGOt
- k/OTSTiqg6hCiU9TpJ9yokaDDxbkGNnflH8MS1aHSeNZgtSkrVV8pXokcQ3odWQespjWmijbQWo
- 8P5iA7Yf6+wfxtwnQLLWJAoNzLMI=
-X-Gm-Gg: ASbGncvdWzcrtplwZdzA7Kth20tzshXLBcIGhTqSIZlSmkYLFvQ/PGqm20Di8+QMX2f
- BjPsZu6fLqawq1dMnVp+XF+lmIGUXnfOBK09CtLknC8JAnHscvVwLsKyokfxm5RtcuPTc2FuebX
- 1MY82z4vhhflz/Ce3IKEu8QA==
-X-Google-Smtp-Source: AGHT+IFzix7ivWxXTCUd/Fx/JX5WuK2M0mCKkiOub+TNkovAq1guqfTV4vvGr7RlnaVXXCuA7hR6YfwZ6JqFBh1ZumU=
-X-Received: by 2002:a17:902:e54f:b0:22f:b00d:fe59 with SMTP id
- d9443c01a7336-22fc8d98a69mr59975ad.9.1746722669691; Thu, 08 May 2025 09:44:29
- -0700 (PDT)
+ AJvYcCVARhiDwGhLAMhmIPSL5NwTWz9wzTSsLDYavH0M6CZ0zP2LrKejcpZtdCNM0G2X2fPXDnTMbIVs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJ46Owrr9O1CgwVmbFZXklhO6a0qiENqZhpoQPjbxmhN0VV/JC
+ Ck+r2zgU3m7a4E4yQFB6Co0pDlWDAW6/NlCqSG0xwWPMIxLSVmm1xxKUxkUbJUrd567NS45z+dY
+ q9bqKx4zAs4K92/g27glpCIzZUkrqY22W
+X-Gm-Gg: ASbGnctN4RRdD9kiKLyv+Q2xIuYnit5OA98aAIZNhGcQFKv6tUb1N0H9+lz1nUNdhQn
+ DUcgn0Izmuqu3EHjWxU1tA6AyoBBlSMoVGQOrtBBDlEiibSWIZnEqC/QGwvRvqd1kwK1n292orE
+ GybMafZnxPLXZ7gjy98zHARw==
+X-Google-Smtp-Source: AGHT+IF/mPuWdyyi2CwlWiw+JUleZjtYBYjOxDo6aOhOlF0XtoS5LVI7UaFuv1FBNv+6Lvlo51NH1SBRn9RlZVPNjHs=
+X-Received: by 2002:a17:90b:1d01:b0:305:5f2c:c580 with SMTP id
+ 98e67ed59e1d1-30c3caf9708mr129302a91.2.1746722752114; Thu, 08 May 2025
+ 09:45:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250506155900.3866874-1-alexander.deucher@amd.com>
- <20250506155900.3866874-3-alexander.deucher@amd.com>
- <DM4PR12MB5152A6774D0989F6ED7582F0E388A@DM4PR12MB5152.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB5152A6774D0989F6ED7582F0E388A@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <20250506155900.3866874-4-alexander.deucher@amd.com>
+ <DS7PR12MB60056C245299450DC5CFE66BFB88A@DS7PR12MB6005.namprd12.prod.outlook.com>
+In-Reply-To: <DS7PR12MB60056C245299450DC5CFE66BFB88A@DS7PR12MB6005.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 8 May 2025 12:44:18 -0400
-X-Gm-Features: ATxdqUFS6d9cdJbaogOvAONpLEfWjMZdwpIM3dVAUOIc5gQr_6eKzFvzC-ueN_s
-Message-ID: <CADnq5_OCFMOdmNBk7Z0=i1w33d7yDvb6a29ZEibJGLoXXYp_Qg@mail.gmail.com>
-Subject: Re: [PATCH 3/7] drm/amdgpu: add mes userq reset callback
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+Date: Thu, 8 May 2025 12:45:40 -0400
+X-Gm-Features: ATxdqUFJoz0CCoxohEvGwWh-x1IVu3PbDfVbtRpvOovqRiKsReo7zH90ilfTmMo
+Message-ID: <CADnq5_Nae5=POjyh0M55zbkvtq3vgMDhF+UT6KAOA6FzjjPH1Q@mail.gmail.com>
+Subject: Re: [PATCH 4/7] drm/amdgpu/userq: add force completion helpers
+To: "Liang, Prike" <Prike.Liang@amd.com>
 Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
  "Koenig, Christian" <Christian.Koenig@amd.com>, "Khatri,
@@ -86,78 +86,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 7, 2025 at 2:55=E2=80=AFAM Zhang, Jesse(Jie) <Jesse.Zhang@amd.c=
-om> wrote:
+On Wed, May 7, 2025 at 2:02=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> w=
+rote:
 >
-> [AMD Official Use Only - AMD Internal Distribution Only]
+> [Public]
 >
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex D=
-eucher
-> Sent: Tuesday, May 6, 2025 11:59 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Ch=
-ristian.Koenig@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
-> Subject: [PATCH 3/7] drm/amdgpu: add mes userq reset callback
->
-> Used to reset a hung queue.
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index d6f50b13e2ba0..650fdb68db127 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -347,9 +347,30 @@ mes_userq_mqd_destroy(struct amdgpu_userq_mgr *uq_mg=
-r,
->         amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);  }
->
-> +static int mes_userq_reset(struct amdgpu_userq_mgr *uq_mgr,
-> +                          struct amdgpu_usermode_queue *queue) {
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       struct mes_reset_queue_input queue_input;
-> +       int r;
-> +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_reset_queue_input));
-> +
-> +       queue_input.doorbell_offset =3D queue->doorbell_index;
-> +       queue_input.queue_type =3D queue->queue_type;
->
-> Do we need to set mqd addr and queue wptr  here ?  like this:
->         queue_input.mqd_addr =3D queue->mqd.gpu_addr;
->         queue_input.wptr_addr =3D queue->wptr_obj.gpu_addr;
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> > Deucher
+> > Sent: Tuesday, May 6, 2025 11:59 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
+> > Subject: [PATCH 4/7] drm/amdgpu/userq: add force completion helpers
+> >
+> > Add support for forcing completion of userq fences.
+> > This is needed for userq resets and asic resets so that we can set the =
+error on the
+> > fence and force completion.
+> >
+> > v2: drop rcu_dereference_protected (Christian)
+> >
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 40 +++++++++++++++++++
+> >  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  1 +
+> >  2 files changed, 41 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> > index 029cb24c28b38..ce0d06a8c4997 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> > @@ -67,6 +67,14 @@ static u64 amdgpu_userq_fence_read(struct
+> > amdgpu_userq_fence_driver *fence_drv)
+> >       return le64_to_cpu(*fence_drv->cpu_addr);
+> >  }
+> >
+> > +static void
+> > +amdgpu_userq_fence_write(struct amdgpu_userq_fence_driver *fence_drv,
+> > +                      u64 seq)
+> > +{
+> > +     if (fence_drv->cpu_addr)
+> > +             *fence_drv->cpu_addr =3D cpu_to_le64(seq); }
+> > +
+> >  int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
+> >                                   struct amdgpu_usermode_queue *userq) =
+ { @@ -
+> > 409,6 +417,38 @@ static void amdgpu_userq_fence_cleanup(struct dma_fenc=
+e
+> > *fence)
+> >       dma_fence_put(fence);
+> >  }
+> >
+> > +static void
+> > +amdgpu_userq_fence_driver_set_error(struct amdgpu_userq_fence *fence,
+> > +                                 int error)
+> > +{
+> > +     struct amdgpu_userq_fence_driver *fence_drv =3D fence->fence_drv;
+> > +     unsigned long flags;
+> > +     struct dma_fence *f;
+> > +
+> > +     spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
+> > +     f =3D &fence->base;
+> > +     if (f && !dma_fence_is_signaled_locked(f))
+> > +             dma_fence_set_error(f, error);
+> > +     spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags); }
+> > +
+> > +void
+> > +amdgpu_userq_fence_driver_force_completion(struct amdgpu_usermode_queu=
+e
+> > +*userq) {
+> > +     struct dma_fence *f =3D userq->last_fence;
+> > +
+> > +     if (f) {
+> > +             struct amdgpu_userq_fence *fence =3D to_amdgpu_userq_fenc=
+e(f);
+> > +             struct amdgpu_userq_fence_driver *fence_drv =3D fence->fe=
+nce_drv;
+> > +             u64 wptr =3D fence->base.seqno;
+> > +
+> > +             amdgpu_userq_fence_driver_set_error(fence, -ECANCELED);
+> As the user queue fence time out in this case, so the fence error here sh=
+ould set as -ETIMEDOUT?
 
-No, those are only valid for kernel queues.
+I chose -ECANCELED to align with what we do for kernel queues and
+because it was the driver that canceled the fence due to a hang.
 
 Alex
 
 >
-> Thanks
-> Jesse
->
-> +
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->reset_hw_queue(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +       if (r)
-> +               dev_err(adev->dev, "Failed to reset queue, err (%d)\n", r=
-);
-> +       return r;
-> +}
-> +
->  const struct amdgpu_userq_funcs userq_mes_funcs =3D {
->         .mqd_create =3D mes_userq_mqd_create,
->         .mqd_destroy =3D mes_userq_mqd_destroy,
->         .unmap =3D mes_userq_unmap,
->         .map =3D mes_userq_map,
-> +       .reset =3D mes_userq_reset,
->  };
-> --
-> 2.49.0
+> Thanks,
+> Prike
+> > +             amdgpu_userq_fence_write(fence_drv, wptr);
+> > +             amdgpu_userq_fence_driver_process(fence_drv);
+> > +
+> > +     }
+> > +}
+> > +
+> >  int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+> >                             struct drm_file *filp)
+> >  {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+> > index 97a125ab8a786..d76add2afc774 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+> > @@ -67,6 +67,7 @@ int amdgpu_userq_fence_driver_alloc(struct
+> > amdgpu_device *adev,
+> >                                   struct amdgpu_usermode_queue *userq);=
+  void
+> > amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq);  v=
+oid
+> > amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver
+> > *fence_drv);
+> > +void amdgpu_userq_fence_driver_force_completion(struct
+> > +amdgpu_usermode_queue *userq);
+> >  void amdgpu_userq_fence_driver_destroy(struct kref *ref);  int
+> > amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+> >                             struct drm_file *filp);
+> > --
+> > 2.49.0
 >
