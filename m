@@ -4,56 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54E17C3ABC0
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 07:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A87C3ABC0
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 May 2025 08:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27B4710E333;
-	Thu,  8 May 2025 07:45:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 068DB10E1D4;
+	Thu,  8 May 2025 08:12:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mOtrNGm8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CBdQ5Fkd";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 591B010E1E3;
- Thu,  8 May 2025 07:45:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mamJr4x6xYUWZ33Aa+RwkqNXvXmrkbAZRU+bQhqbPzs=; b=mOtrNGm8+O5YeGNys6LnNoKWT8
- aElpKAkoTmkEWUPa+yCCCZmjMd/utMCoACHQZydfdMeyoYPCdgmQhUwptZ2bhHx8hy7N81X3W4Eav
- uz6MwFDznf60/jCY4YCB2ngeKfrNVN+I12N9xHygKZQy+XgRffyT4Hiv6vnlSJ/fii1jDrQ/gJKBC
- 3KgUln0PJzi42qT+3XBh5TmvE2ja90qJuw5eoJKvH7ZSQ1kblTrXbAf2agKauVdQcMPaMHVg4cZBJ
- hBlteduxQRVygvryxzryi2FYTYpmg2EGMNRZL+lOe2hdgXs0Cf4b2i9SqrA9zNhMNs+urazjN/Fou
- 9QooKf/Q==;
-Received: from [81.79.92.254] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uCvs5-0055al-0F; Thu, 08 May 2025 09:44:56 +0200
-Message-ID: <95c8c9f2-6106-4bfe-98af-94621c2f81de@igalia.com>
-Date: Thu, 8 May 2025 08:44:55 +0100
-MIME-Version: 1.0
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4970810E1D4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 May 2025 08:12:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QhBeCRFwOtxTU+1jspug5ywPhRsiVFLXOd18SyyxurMbKLWLtyHlilbjRq9gUPN+krQoccM+JmfV2ysrmQGb4Y+FtGCyBzW+JFeVIIvS9lFU0jUElX0rs2dpEUW4InAv9+TB/I+iEEABLEQks6H/d09GDiWStOaTm0VfE8isi7DBDMKWvnoKkTEa8ZDAqUALlVQqiTrRO+X8sCzAe2FUa/j2mc+m7a77+u1DJiOrPoZXnAD+Zgdkn2/74B27mIFJRwgCx+NCyw+nTaY3vgXGJ77UOX/4Zp4PAlm1lVgfZwWFQFobastmmJphaY+2qhzoewLm6H65PfGiG1v3buEw6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CYPwEB8L48r4fSOtg9vJpuDtc8pxEmYfO1jO438pggE=;
+ b=nwwoXFJC71IXSEKg/M5CV5IUT+nOndOsuHNm2SzLW31A6lqpvqkzt+PWd0AlAW/KtqPjPzaq+S3ioZuKCF1IMmMG+oav49VbN9tBvbNWmWgDdEpLficVKIBrOZabDL9qjUrrP3Xu7TUUUatbHLKDjnoJVTBGSIvtIUBLuJF2Vw2ymxaqlAYSfqwxF7jnXOBgbm90Mba8S4vXq7/PbmVHMw5TciHlx2Hpt55lvfE9k7vmCp7E87rCqZ9h4rXIGSFK8ItvKpvRAYXn//Yw2iL3rQM1WEe3K3sKEXSOkYoGDUfWwSBDVQCkNrVgwlbwXd5aOd1RaWLy+CfOd+G1rUT+/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CYPwEB8L48r4fSOtg9vJpuDtc8pxEmYfO1jO438pggE=;
+ b=CBdQ5FkdtOf4oMB3TpMK5wUqNxNQbITOCR66icBKsOuYoADdf+G80GdRzvxhNO20a0mWpQH8nHWPJnpouQ6wWUTDGbgMTiA3l3C8YNX/p/CmWyf5xjjpeM+FT4PYduPIYV2lsbq4YecVdQZk4TxNaxyv6Ps3Bg2xzmRnnr6z0PE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ MW4PR12MB7384.namprd12.prod.outlook.com (2603:10b6:303:22b::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Thu, 8 May
+ 2025 08:12:30 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%6]) with mapi id 15.20.8722.020; Thu, 8 May 2025
+ 08:12:30 +0000
+Message-ID: <1aca1130-082e-40df-83fd-eb00fa3ac206@amd.com>
+Date: Thu, 8 May 2025 13:42:17 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v7 00/23] DRM scheduling cgroup controller
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Leo Liu <Leo.Liu@amd.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Rob Clark <robdclark@gmail.com>, Tejun Heo <tj@kernel.org>
-References: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
- <aBxPReU5lHjx2w6n@lstrano-desk.jf.intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <aBxPReU5lHjx2w6n@lstrano-desk.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 1/7] drm/amdgpu: update XGMI info on resume
+To: Samuel Zhang <guoqing.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: victor.zhao@amd.com, haijun.chang@amd.com, Christian.Koenig@amd.com,
+ Alexander.Deucher@amd.com, Owen.Zhang2@amd.com, Qing.Ma@amd.com,
+ Jiang Liu <gerry@linux.alibaba.com>
+References: <20250508050926.228674-1-guoqing.zhang@amd.com>
+ <20250508050926.228674-2-guoqing.zhang@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20250508050926.228674-2-guoqing.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0016.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25::21) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|MW4PR12MB7384:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96ee3e7e-601a-4b0f-f398-08dd8e0813fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aWhXa05sa0t3a0xkWUVjMjhlbGw2OU1JcmxGYWZNc1Btb0N4bWFDWm8rTUhS?=
+ =?utf-8?B?QTE2OEowdU5WMGkrQ2RKY3BJalFCN1dYaTVOMWI3TER2aEpQUEwvRHJDK25n?=
+ =?utf-8?B?MktJdVp1b3hWR2UwajNrSjBvUTRLczVmRlBHcERBN1NuTllteWlTa1dQMzVR?=
+ =?utf-8?B?Q0NnWHZSbWpmYXA5VDlpZUY2RjJCQW5mS2VJRFBVNllHVkpCUDZsNWdFcVhn?=
+ =?utf-8?B?aHNockoyOXFjaHYxa3Z4bGJLcElqenFveEQvdlg1blpRZkR0eWJqaTJ4WXlM?=
+ =?utf-8?B?RHN5NytCZDI0SWVsMXRhU3ljNTVEdFE2WTF4UWxnNlArYjNRVVJFRUZPZ3hu?=
+ =?utf-8?B?d0pqYVpmRU1kQkxvWE5JVkxxSlR5dG84Rllza0g0VzlmUUJveW9NaDUvV05k?=
+ =?utf-8?B?OVR5b21XdjBOekVGblNXUGFNK29YQVVTeWsyRTcvMUVydU5hZDhaL1IwSU9a?=
+ =?utf-8?B?cUNXRjRFaXYxOFdubExvbTlpRi83bXA5SnlmV2ZHckVoNWpyVjlTYXNtVTd2?=
+ =?utf-8?B?NjlKdVFVcGk3Q3FTSW1ZMndzaWg1RmNDTlg1dEpoU0RKZGkzdTZGeWJLb3VC?=
+ =?utf-8?B?bEhMQ0ZUS0x5cndvVXI0L01COXNlS2FrNmhOWmdvQUk2VHZmc2tUMFRPVktS?=
+ =?utf-8?B?aUtMRS9wVE1uWTRXMlVBUjBhNy9JYjNrTEhHN2lkMDQvVjU1bTVUZXZ6M1VB?=
+ =?utf-8?B?cnZrNmNEVEd4U0JMQTVFclBMYVhtSldaTDBVRmRlUENoWGZLTzBNNW5FaVJ4?=
+ =?utf-8?B?K01xTktUL0oyd0F2ZzhrUy9xWGV1YXltZkhEWTFLcTRTTDVFU0ZMN09rcFFE?=
+ =?utf-8?B?NkdBQXpraGpteXFGYmo1RTAzNHpVZVhWQVZIU0ZJd1d4SEFMUXJDQUVXR3B2?=
+ =?utf-8?B?Q0lsbXRnM2IzODFqYXhUVmZUamh0cnVBekpGNFlRMU14dDVNZzkrVW15dUdK?=
+ =?utf-8?B?OEViWm1LdDF2Q0lDRW1ZY044MHBsNHU5c1dLUnNiM2FaMTRCMVE3ZjJwOTFx?=
+ =?utf-8?B?bnNWakRFQ2p5eE5pRHRKbUVyaGZPaG5Lb0JUSmloK3ZSYTdmQlU2cTFWVnBy?=
+ =?utf-8?B?eFRTQUEyWm5KWDMzOTJQT3crWmNTYjc1MEVJc2VrTVpiMFhLdDBiU0ZkcWx4?=
+ =?utf-8?B?YWtISlB2Vk8wR05IN29NYmpLcWVnbDFJNlFxd0VEMnltRXVOSUNTQTF5Wngy?=
+ =?utf-8?B?cE5JRmhFSHhwakZOVWwwdVdOVlVNakl2ZUF2SWNOVzJEOFcyRjRyV243K2hJ?=
+ =?utf-8?B?TWZ5R25rV3QvNGRqaSttclVJOEVHQStCZmdtdXNMaWFpa1R0VFVPd0dmK1NT?=
+ =?utf-8?B?R0RXcWZJRk1vRWczQnlndmZ6bW9YcWNHby9SaWkzNjdtM2NRVXkxTVBvb1M2?=
+ =?utf-8?B?Y20yaDV4KzIzM2p2THdPSHZVRmVDSHZYSzJjbVl2d0NxTFBmNy9HVE9PTEoy?=
+ =?utf-8?B?UWc1NG84VmE5NkQ0azhlZWYrU2lLdjBqWi85dUI3aVVBTVM0WjhCckxRL2JZ?=
+ =?utf-8?B?MUJCZTk3Nm1JdzNPaEo3SFVtS1VtUWdhNmd6eDJ4WG5CMVZrdHEyME5sTEpF?=
+ =?utf-8?B?SXV3UjFkcVozYnczbjNlVWN4VTlEREsrV0xVdGRQV3hyNmZhS1FWT28rczkw?=
+ =?utf-8?B?cmR4NmZoY3dXTDY4eHNER2hUWFc4VGZEU3hxaUVpOHpuQklMWndwOE5tb2F6?=
+ =?utf-8?B?RXQxQmlSNjNYTkZwblpiNzVOQjFOMndNdGF0eUFTWmRZNkhPZkliTkVGSHVm?=
+ =?utf-8?B?Ykc1MUhNcE9GSVdQVTFKOG1rbU5wQVdFQnliNE9ZK3ZUVUR3N2RmR2JFa3dm?=
+ =?utf-8?B?NHcvakp5OHRTRDlPb21XTkIwc1JBMlkwOUVYd3VZc0JTV1hIMmlXZ0lZSjRt?=
+ =?utf-8?B?eEk0RFVqSlNHTnhlY003aHMrWktVRlM2K3lCVUFsczVueDl4YVpUVkpWY0hN?=
+ =?utf-8?Q?3EJXtgoZb9Q=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OTlVeURzRmZhdUpHODFtcjJRUld6bndzazNCaUpoSGpwU1RmcXNoZjFhT20v?=
+ =?utf-8?B?QysvczFoVnp1eHdwR0dwWEdXS2pTVklyR3FoTk5rYXVpOU1iMzBKbE9hb2x4?=
+ =?utf-8?B?OVYvWWJubTZyVStleHdLc3pkSWNtWmNqNnBma2tqT3VPNHpHSkpZQ1doK2lv?=
+ =?utf-8?B?ak1Wdkd1LzZuclVRQzlKckRYRW9ZcTRNcFRJTkVPQ1pHZTJNMUFNcXNwNnlY?=
+ =?utf-8?B?bE9GNnoxR2prczNFd3NYZk5LY0szUWFyM2hmM1FSNmxJVnliSUdUdzE1VVEw?=
+ =?utf-8?B?QzFNVjRhazJnNXRkRU1TTGMxMnVYcS92ODNZdk1mbFA3d05Bb0MxNDZWR0VS?=
+ =?utf-8?B?REhsamp0UC9uUmREcUZ2MDFjNjk0S0t6bFN2dVorbHZvV2tjSVMwSkFnRFJz?=
+ =?utf-8?B?YWkyMkIxaGZMMDkwV01RUUsxZExROE9WcG9vMVcvdFdzVEJIYytKUlVKY0VK?=
+ =?utf-8?B?OEVNNTFqdkh6RTFvSlJETkRVdzdqLzN3M0ZjY2VhRUlXM0NZUGgzT0NlNTNP?=
+ =?utf-8?B?NEJjRTZVbTdnLzdJeXRtYmFDaGI1MGRLVVhhdkJ0dkV4cXJTZWNRK1NSU1Mv?=
+ =?utf-8?B?QkU5K0d1dVcxSVRUZGhZK3F6SjE2YW9ic0tFdHpBcW5nbi9VeFBwenpZN1hm?=
+ =?utf-8?B?bkNGVGh1Um5yMDZzM2k5T2ZGNzJ3RjZWWmRBdHg2QkZZZFNvV01tSjYvZms1?=
+ =?utf-8?B?WktXaEl6b2hpSHpLZGdUVVpOKzNKdlpOVHJ6ak83enl2TDlsWmlkN3JxbGhz?=
+ =?utf-8?B?R0oxVFRrdXoxK1RJUmpMRFRvSzEwVGxXZ1FIKzJLS3pyMkxWVTFiWDN4ZnI2?=
+ =?utf-8?B?Q1QvdGpoaThQcWpmVmRycWRqbndmNklOaytDZXlCREF5ZXczb1JzUks0SXFH?=
+ =?utf-8?B?dnBLUW83OFp2WE1HRkMrenBnN3JYVk55eUNEN0R1TDNhVS95MVpadGd3Z1Jo?=
+ =?utf-8?B?eU9xdlZEMnB4UC9URFozMVVGaDBGRE5weTNnTVpiYVV2TThJWCs1SE9XeXVv?=
+ =?utf-8?B?aGdWdmNub1cvQ1Fza0hnUWdhNzJ5bTNkSzJ0anlodTVsN2RwVzJzeC9aZzZn?=
+ =?utf-8?B?VVhQNE1zZWFxSG1sTXlURDJIYnlKSGxlT1ppb0h6b3NTejZxSy94VlpSa1A0?=
+ =?utf-8?B?blp4UzYya0xkaHFTaVNYQlJwd2NJOUZWMS9VSWM0NXpwbHVpdXpaemNrNWZm?=
+ =?utf-8?B?MjVjbWNkZ1k3OThaZmp3Vmo0Q1l1OWJMUjdSQVZLaXU2SmtNRGZhTW9uclN5?=
+ =?utf-8?B?dDZzbVJNRzFVUGc5VTVvb204ZGFsUVQ0bEpSa1NqblJiU0dZTEVKczkxRjdT?=
+ =?utf-8?B?UGJ1cXVnbkdrSGZsOUlubEIxbC9JcHY5bnpGQXFYYjJEM2t5Wi83VGljZlp1?=
+ =?utf-8?B?dTExQ3FvWXBPcU1zMzJCNzdXaDVXY2VIVUVUOHgxOGsxaGhTeHg4VmZrTnoy?=
+ =?utf-8?B?YUl2WmZmSEgwR2VCUmVrUmR4a3RESHlsSXBGNmFyVXpmNFNnOWZLZFpyNkVl?=
+ =?utf-8?B?R3VmRDJTL1NOWERXZGFsbm5KRzVsdHZMUmRxc1BRV29YM3JYV3JDOGN3VTJV?=
+ =?utf-8?B?dVhtUXJlaGw4eGptZHpscTBCeXJFa0pXWDQ2WHhkVnlXL0hsNStqNUFXL3FY?=
+ =?utf-8?B?R1BnbDROTm9uUGRpRTdXOTJIQnJVMitwSXVQRGZiamh3SlE2b1RaSUVhQlRE?=
+ =?utf-8?B?a1VsMXZNS3ZHUGYrNmJRTjRiSDIrRVhWeW9nYjVIRE1uSll3YThjeFFLenNv?=
+ =?utf-8?B?ME84YmtBMEQ3a1lNZ0toczEyYVBqeWk5YzhOMXNzK1BaTGRJbEVMR0lNdGJ2?=
+ =?utf-8?B?SDNMNnRueGJXTE1QZktYdU0vVU50UGVJM1JwVmdKTVJCVEJ3RDNkKzZLZkVl?=
+ =?utf-8?B?My9SRVNJWjZrM2ZFL01ZL0dBRkhHcjBSekpWU0RIQUllQnlzS1VHL0w1L0dZ?=
+ =?utf-8?B?eDR4YTRLNUN6aitsQ1Z3bm0yTFFhODJ3VTJwbURuM20vMDJyU0Q3MWdoWUp5?=
+ =?utf-8?B?Ky9VU0VYM0Jhd0lsdnpjYmxRYitFWlBhTEd6UWg1eHJpSDA5YlptajYwcUwr?=
+ =?utf-8?B?RjRFRkVMOWhXbU5VWkt1UldXRE4rZ0dFSmc5WTdTampxNVpaNGQ1ZlZDeU1p?=
+ =?utf-8?Q?xQcjX3FjpwAerqZq2cPHW0PxX?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96ee3e7e-601a-4b0f-f398-08dd8e0813fd
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2025 08:12:30.6193 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f4FAye+goqmzcfyD+gpeiUW3JJJLJkJFCvMbsygmHNzYnqAPqkbiN3xA8PaXTdrz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7384
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,205 +164,144 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 08/05/2025 07:29, Matthew Brost wrote:
-> On Fri, May 02, 2025 at 01:32:33PM +0100, Tvrtko Ursulin wrote:
->> Hi all,
->>
->> This is another respin of this old work^1 but this version is a total rewrite
->> and completely changes how the control is done.
->>
->> This time round the work builds upon the "fair" DRM scheduler work I have posted
->> recently^2. I am including those patches for completeness and because there were
->> some tweaks there.
->>
->> -> It also means people only interested into the cgroup portion probably only
->>     need to look at the last seven patches.
->>
->>     And of those seven the last one is an example how a DRM scheduler based DRM
->>     driver can be wired up with the cgroup controller. So it is quite simple.
->>
->> To illustrate the runtime effects I ran the Unigine Heaven benchmark in
->> parallel with the deferredmultisampling Vulkan demo, each in its own cgroup.
->> First the scheduling weights were the default 100 and 100 respectively, and we
->> look at the GPU utilisation:
->>
->>    https://people.igalia.com/tursulin/drmcgroup-100-100.png
->>
->> It is about equal or therabout since it oscillates at runtime as the benchmark
->> scenes change.
->>
->> Then we change drm.weight of the deferredmultisampling cgroup to 1:
->>
->>    https://people.igalia.com/tursulin/drmcgroup-100-1.png
->>
->> There we see around 75:25 in favour of Unigine Heaven. (Although it also
->> oscillates as explained above).
->>
->> Important to note is that with GPUs the control is still not nowhere as precise
->> and accurate as with the CPU controller and that the fair scheduler is work in
->> progress. But it works and looks useful.
->>
->> Going into the implementation, in this version it is much simpler than before
->> since the mechanism of time budgets and over-budget singalling is completely
->> gone and replaced with notifying clients directly about their assigned relative
->> scheduling weights.
->>
->> This connects really nicely with the fair DRM scheduler RFC since we can simply
->> mix in the scheduling weight with the existing scheduling entity priority based
->> runtime to vruntime scaling factors.
->>
->> It also means there is much less code in the controller itself.
->>
->> Another advantage is that it is really easy to wire up individual drivers which
->> use the DRM scheduler in the hardware scheduling mode (ie. not 1:1 firmware
->> scheduling).
->>
+
+On 5/8/2025 10:39 AM, Samuel Zhang wrote:
+> For virtual machine with vGPUs in SRIOV single device mode and XGMI
+> is enabled, XGMI physical node ids may change when waking up from
+> hiberation with different vGPU devices. So update XGMI info on resume.
 > 
-> Admittedly, I just scanned the series—so it might be easier for you to
-> elaborate on the above point.
+> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |  4 ++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  6 ++++++
+>  3 files changed, 34 insertions(+)
 > 
-> With hardware scheduling mode, the DRM scheduler is essentially just a
-> dependency tracker that hands off scheduling to the hardware. Are you
-> suggesting that this series doesn't affect that mode, or does it have
-> some impact on hardware scheduling (e.g., holding back jobs with
-> resolved dependencies in the KMD)?
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index d477a901af84..843a3b0a9a07 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4478,6 +4478,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  		r = adev->gfxhub.funcs->get_xgmi_info(adev);
+>  		if (r)
+>  			return r;
+> +		adev->gmc.xgmi.prev_physical_node_id = adev->gmc.xgmi.physical_node_id;
+>  	}
+>  
+>  	/* enable PCIE atomic ops */
+> @@ -5040,6 +5041,26 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
+>  	return 0;
+>  }
+>  
+> +static int amdgpu_device_update_xgmi_info(struct amdgpu_device *adev)
+> +{
+> +	int r;
+> +
+> +	/* Get xgmi info again for sriov to detect device changes */
+> +	if (amdgpu_sriov_vf(adev) &&
+> +	    !(adev->flags & AMD_IS_APU) &&
+> +	    adev->gmc.xgmi.supported &&
+> +	    !adev->gmc.xgmi.connected_to_cpu) {
+> +		adev->gmc.xgmi.prev_physical_node_id = adev->gmc.xgmi.physical_node_id;
+> +		r = adev->gfxhub.funcs->get_xgmi_info(adev);
+> +		if (r)
+> +			return r;
+> +
+> +		dev_info(adev->dev, "xgmi node, old id %d, new id %d\n",
+> +			adev->gmc.xgmi.prev_physical_node_id, adev->gmc.xgmi.physical_node_id);
+> +	}
+> +	return 0;
+> +}
+> +
+>  /**
+>   * amdgpu_device_resume - initiate device resume
+>   *
+> @@ -5059,6 +5080,9 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
+>  		r = amdgpu_virt_request_full_gpu(adev, true);
+>  		if (r)
+>  			return r;
+> +		r = amdgpu_device_update_xgmi_info(adev);
+> +		if (r)
+> +			return r;
+>  	}
+>  
+>  	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> index 32dabba4062f..1387901576f1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> @@ -89,6 +89,7 @@ struct amdgpu_xgmi {
+>  	u64 node_segment_size;
+>  	/* physical node (0-3) */
+>  	unsigned physical_node_id;
+> +	unsigned prev_physical_node_id;
+>  	/* number of nodes (0-4) */
+>  	unsigned num_physical_nodes;
+>  	/* gpu list in the same hive */
+> @@ -101,6 +102,9 @@ struct amdgpu_xgmi {
+>  	uint8_t max_width;
+>  };
+>  
+> +#define amdgpu_xmgi_is_node_changed(adev) \
 
-No effect on 1:1 drivers.
+Typo - xgmi
 
-(Ignoring some perhaps minor effects from "drm/sched: Queue all free 
-credits in one worker invocation", or micro effects from removing the 
-run-queues.)
+> +	(adev->gmc.xgmi.prev_physical_node_id != adev->gmc.xgmi.physical_node_id)
 
-> Follow-up question: aren't most modern drivers and hardware trending
-> toward hardware scheduling mode? If so, what is the motivation for
-> making such large changes?
+Since prev_physical_node_id is updated only for VF, the check should be
+there here as well.
 
-If you are asking for the "fair" scheduler itself, that is covered in 
-the cover letter for the respective series (benchmark data included). 
-Goal is to simplify the code base and make it schedule at least as good 
-if not better for all the drivers which are not 1:1.
+Otherwise, you may have something like below in
+amdgpu_device_update_xgmi_info()
 
-If you are asking about the cgroup controller (this combined series), 
-the motivation is in the previous cover letter linked from this one. 
-There is currently no way to externally control DRM scheduling 
-priorities and there are use cases to enable it. For example run 
-something computational in the background and have it compete less for 
-the GPU with the foreground tasks. Or wire with the window manager 
-focused/unfocused window handling to automatically prioritise foreground 
-tasks via cgroups.
+amdgpu_xgmi.node_changed = false;
+if (check_condition) {
+	prev_node = adev->gmc.xgmi.physical_node_id;
+	adev->gfxhub.funcs->get_xgmi_info(adev)
+	amdgpu_xgmi.node_changed = (prev_node != adev->gmc.xgmi.physical_node_id);
+}
 
-The latter concept was also discussed in the scope of the dmem cgroup 
-controller for providing some degree of eviction "protection" to the 
-foreground task. So it all fits nicely into those sort of usage models.
+To make it clearer -
 
-1:1 drivers can still hook into this (as they were able throughout the 
-life of this RFC). How exactly it would be up to individual firmwares. 
-This RFC would notify the driver "this client has this relative 
-scheduling weight" and from there it's up to the driver. Ie. those 
-drivers wouldn't use the drm_sched_cgroup_notify_weight() helper when 
-registering with DRM cgroup controller (which this series provides), but 
-would have to come up with their own.
+Would still prefer to wrap under amdgpu_virt_migration_xyz() to make it
+clear that this is done for node migration.
 
-Regards,
+Ex:
 
-Tvrtko
+bool amdgpu_virt_migration_detected()
+{
+	return amdgpu_xgmi.node_changed; // And any other combination checks
+which could up in future.
+}
 
->> On the userspace interface side of things it is the same as before. We have
->> drm.weight as an interface, taking integers from 1 to 10000, the same as CPU and
->> IO cgroup controllers.
->>
->> About the use cases, it is the same as before. With this we would be able to run
->> a workload in the background and make it compete less with the foreground load.
->> Be it explicitly or when integrating with Desktop Environments some of which
->> already have cgroup support for tracking foreground vs background windows or
->> similar.
->>
->> I would be really interested if people would attempt to try this out, either
->> directly the amdgpu support as provided in the series, or by wiring up other
->> drivers.
->>
->> P.S.
->> About the CC list. It's a large series so I will put most people on Cc only in
->> the cover letter as a ping of a sort. Whoever is interested can for now find the
->> series in the archives.
->>
->> 1)
->> https://lore.kernel.org/dri-devel/20231024160727.282960-1-tvrtko.ursulin@linux.intel.com/
->>
->> 2)
->> https://lore.kernel.org/dri-devel/20250425102034.85133-1-tvrtko.ursulin@igalia.com/
->>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> CC: Leo Liu <Leo.Liu@amd.com>
->> Cc: Maíra Canal <mcanal@igalia.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Michal Koutný <mkoutny@suse.com>
->> Cc: Michel Dänzer <michel.daenzer@mailbox.org>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> Cc: Rob Clark <robdclark@gmail.com>
->> Cc: Tejun Heo <tj@kernel.org>
->>
->> Tvrtko Ursulin (23):
->>    drm/sched: Add some scheduling quality unit tests
->>    drm/sched: Add some more scheduling quality unit tests
->>    drm/sched: De-clutter drm_sched_init
->>    drm/sched: Avoid double re-lock on the job free path
->>    drm/sched: Consolidate drm_sched_job_timedout
->>    drm/sched: Consolidate drm_sched_rq_select_entity_rr
->>    drm/sched: Implement RR via FIFO
->>    drm/sched: Consolidate entity run queue management
->>    drm/sched: Move run queue related code into a separate file
->>    drm/sched: Free all finished jobs at once
->>    drm/sched: Account entity GPU time
->>    drm/sched: Remove idle entity from tree
->>    drm/sched: Add fair scheduling policy
->>    drm/sched: Remove FIFO and RR and simplify to a single run queue
->>    drm/sched: Queue all free credits in one worker invocation
->>    drm/sched: Embed run queue singleton into the scheduler
->>    cgroup: Add the DRM cgroup controller
->>    cgroup/drm: Track DRM clients per cgroup
->>    cgroup/drm: Add scheduling weight callback
->>    cgroup/drm: Introduce weight based scheduling control
->>    drm/sched: Add helper for tracking entities per client
->>    drm/sched: Add helper for DRM cgroup controller weight notifications
->>    drm/amdgpu: Register with the DRM scheduling cgroup controller
->>
->>   Documentation/admin-guide/cgroup-v2.rst       |  22 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       |  13 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h       |   1 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   9 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
->>   drivers/gpu/drm/drm_file.c                    |  11 +
->>   drivers/gpu/drm/scheduler/Makefile            |   2 +-
->>   drivers/gpu/drm/scheduler/sched_entity.c      | 158 ++--
->>   drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
->>   drivers/gpu/drm/scheduler/sched_internal.h    | 126 ++-
->>   drivers/gpu/drm/scheduler/sched_main.c        | 570 +++---------
->>   drivers/gpu/drm/scheduler/sched_rq.c          | 214 +++++
->>   drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
->>   .../gpu/drm/scheduler/tests/tests_scheduler.c | 815 ++++++++++++++++++
->>   include/drm/drm_drv.h                         |  26 +
->>   include/drm/drm_file.h                        |  11 +
->>   include/drm/gpu_scheduler.h                   |  68 +-
->>   include/linux/cgroup_drm.h                    |  29 +
->>   include/linux/cgroup_subsys.h                 |   4 +
->>   init/Kconfig                                  |   5 +
->>   kernel/cgroup/Makefile                        |   1 +
->>   kernel/cgroup/drm.c                           | 446 ++++++++++
->>   27 files changed, 2024 insertions(+), 574 deletions(-)
->>   create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
->>   create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
->>   create mode 100644 include/linux/cgroup_drm.h
->>   create mode 100644 kernel/cgroup/drm.c
->>
->> -- 
->> 2.48.0
->>
+The check needs to be done for any further changes down the series like
+
+if (amdgpu_virt_migration_detected())
+	psp_update_gpu_addresses();
+
+Thanks,
+Lijo
+
+> +
+>  struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev);
+>  void amdgpu_put_xgmi_hive(struct amdgpu_hive_info *hive);
+>  int amdgpu_xgmi_update_topology(struct amdgpu_hive_info *hive, struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 59385da80185..7c0ca2721eb3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -2533,6 +2533,12 @@ static int gmc_v9_0_resume(struct amdgpu_ip_block *ip_block)
+>  	struct amdgpu_device *adev = ip_block->adev;
+>  	int r;
+>  
+> +	if (amdgpu_xmgi_is_node_changed(adev)) {
+> +		adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+> +		adev->vm_manager.vram_base_offset +=
+> +			adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+> +	}
+> +
+>  	/* If a reset is done for NPS mode switch, read the memory range
+>  	 * information again.
+>  	 */
 
