@@ -4,152 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 026C0C3ABC3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 May 2025 12:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2BF2C3ABBC
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 May 2025 12:25:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DD3710E111;
-	Fri,  9 May 2025 12:18:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD1110E27E;
+	Fri,  9 May 2025 12:25:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="36rpSzdT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JwyMqpbH";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8136610E111
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 May 2025 12:18:22 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2063.outbound.protection.outlook.com [40.107.95.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD94710E120
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 May 2025 12:25:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x1YNG82GPK9vRbT6WVpF41kS4m+CRu/aNLT5/T4jbx2RlY+9FE10fv8DA5lUy1jwSnjFywSRzCpaeFs5627ZzIzKbKQw7u/9Z8IyhWprUJKcErJrXVwSh1SR86H3jI6v6LaXmylcqlDgzZO4OC0FFt51ufh+FSkEHC9ipkYo+FwPjyYpfPLMcXc8IeWZuAmsxkNUwZA8daXOHY97q9OmixxNHMoECTNFyJzfyeGSlbwVgqAsCFfagomhLhEvKttP2dqZitEnnhLj2OUC+fjQVYZV543Iq5CAoYFvkaTyiB9vwNR6c4VvNn5NIHa/3eu8lxVcB43LSCgAkx32rTq7qw==
+ b=ToBQoWOm+gSeS3O/+ZYOr7oLwZOKMom/+47tH280zUJZaPPLW+ZJsc6JTQiSAdo/Laix6kNB0f7s7Gvhp3se2pPmK8N7Wx4TRbvK9UQoSqsYnKz2ZHGclyOTkfkuhzz8dktxclaoWMNSlxlQjJLilE71jDRFDaFSlrV9wQ8iBFSeN6i4AVqDPVZnUJNIgnPYFrD7IALAQU7R+s5UgXJ0agyMz+5dMJcbcsfKPBHHuzvlMSvBcPg6Dw0uImeUH2hJVGMfItnuMJcrbxzmP59wQa/PZXAWZbwi1Q/V5pRjLLApfDaw9xMGPZMwVEzCe4cbCO6Z9mVRuXGhPMggI/isTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IAjlYP/3D+MeDVnEbzKKIavpj8acjSN54niB1pNCG2w=;
- b=LChklDDgd/r3h/iRQwyVbddQTzQF3BzLFqgfRRs+5idRbA5hbgkIXulT7W0NG4LbOSFgqbELfHAXbpMbg0+rS18pAer6qwV9ow6CZ5L3m/35UFf8GSRKITBSwbmSXO4r1HsAesAjwmFqLvYv+FDA6sIOH9Jd+r6KB6j2HSMO4zhi4TEtDX3QCt3ADitAQoGMBQrA4heaf+eg5dyiXouHPbUBnKaxSNkF1gw/EkQkZU4l+FCx2hj54Olmuf0xQ5kDfx1tDjhpZfvuAYgfxNfytPu4UMk4SxEid2EDIos7Pq38FU1Szwf7WrKuVj81KCIvxTkE1nTQGlkk4YmVd+xuug==
+ bh=Qz0oZCALh0cLgOAadutNCtuPrVHwO7XAa9stu5R6t58=;
+ b=XCIdJ5Ksbu7xWJKT6YogBtYog3IqypvFwAi1Lt6ChB1PH5YUuhmC4edyWYOMApkQql9+EStwZghaql2XYawAFtEXdD9eEvCD+E7ApyTCXILFKbZsUoTuYGAxKoBzROlRsgOIMK5MaxbUfHkBcWsjvwkVe9Lo0+sPyK+jp3EMCDKL8oglHoVKUQ4kFJUzwtJogsH0z7ttNfJWHJ5Gd+QxGDnL9ODdpzIJaDLLibW/tl1S+kov91TSrYn5bTNDliXUpOhn4KQ5KfLvNtvqi0C81pHSzLiudixd5vS+VKr1SyYzoze6d42YSFVPd3ga3OwZf/yw7mVi9+uoVjKg9vwKlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IAjlYP/3D+MeDVnEbzKKIavpj8acjSN54niB1pNCG2w=;
- b=36rpSzdTNL75T0tk56zlSkix6Rg/QLnjkFvMtXDku0vRlagzfLAt6jn0rC3iI9qxMpIV9+LXqGUtALofsACyOeb01r+9PpFWi8DZM9rHtU5QBrB9KGd7+xEt8tR+D9+FQBg+EaobfiiL4MiM1peO0aEA/JF0Q3tR5C/o8mPOpaw=
+ bh=Qz0oZCALh0cLgOAadutNCtuPrVHwO7XAa9stu5R6t58=;
+ b=JwyMqpbHuOtUQSw79VQYvJxEJ1O3n5ImUu1RJhNtHTlBOp9OUD9od2/f3KDzeV+GtC2pjFKPJWwnibwv47+Kcgc6q5+PSfOdOATp+I30h5piEcwFRFY77KUzBV9J8t6wTFZcvfAAegpA+0ytSR9amc+ZGFTG4KzZ4EPLFrvHZIQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5052.namprd12.prod.outlook.com (2603:10b6:408:135::19)
- by LV2PR12MB5846.namprd12.prod.outlook.com (2603:10b6:408:175::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.25; Fri, 9 May
- 2025 12:18:16 +0000
-Received: from BN9PR12MB5052.namprd12.prod.outlook.com
- ([fe80::7714:4f80:f3e1:60cf]) by BN9PR12MB5052.namprd12.prod.outlook.com
- ([fe80::7714:4f80:f3e1:60cf%5]) with mapi id 15.20.8678.028; Fri, 9 May 2025
- 12:18:16 +0000
-Subject: Re: [PATCH] drm/amdgpu: Fix user queue deadlock by reordering mutex
- locking
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
-Cc: Alexander.Deucher@amd.com, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250509092215.3667971-1-Jesse.Zhang@amd.com>
- <aeed65a7-e422-4f40-b085-6632dacf2562@amd.com>
-From: "Yadav, Arvind" <arvyadav@amd.com>
-Message-ID: <c415a1f1-420f-ee57-ac1b-f2d3b47b8761@amd.com>
-Date: Fri, 9 May 2025 17:48:11 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-In-Reply-To: <aeed65a7-e422-4f40-b085-6632dacf2562@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
+ by DS0PR12MB7850.namprd12.prod.outlook.com (2603:10b6:8:146::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.23; Fri, 9 May
+ 2025 12:25:34 +0000
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::25c8:f399:b2e8:1947]) by SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::25c8:f399:b2e8:1947%5]) with mapi id 15.20.8699.026; Fri, 9 May 2025
+ 12:25:34 +0000
+Content-Type: multipart/alternative;
+ boundary="------------QqfowkRukRAdoXOJf438EclV"
+Message-ID: <ccf98d44-512a-448b-bda6-78a444c4c93b@amd.com>
+Date: Fri, 9 May 2025 08:25:31 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: improve performance with XNACK enable
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org,
+ philip.yang@amd.com
+References: <20250508144651.16745-1-James.Zhu@amd.com>
+ <e741c57a-651e-4acf-9ae6-4268c6540e0e@amd.com>
+ <cf8cb7d6-44a1-4732-a411-1caa7206b4f8@amd.com>
 Content-Language: en-US
-X-ClientProxiedBy: PN4P287CA0066.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:267::7) To BN9PR12MB5052.namprd12.prod.outlook.com
- (2603:10b6:408:135::19)
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <cf8cb7d6-44a1-4732-a411-1caa7206b4f8@amd.com>
+X-ClientProxiedBy: YQBPR0101CA0322.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6c::24) To SJ0PR12MB6760.namprd12.prod.outlook.com
+ (2603:10b6:a03:44c::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5052:EE_|LV2PR12MB5846:EE_
-X-MS-Office365-Filtering-Correlation-Id: c16809d3-049e-4929-331e-08dd8ef393cb
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|DS0PR12MB7850:EE_
+X-MS-Office365-Filtering-Correlation-Id: eaec5f31-a6d1-4181-1fd2-08dd8ef498aa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TExzMEVLaklWVWI2SXNETFB4UlVDbCtHc3M0QnFpRTJIWmNCaEN2dWdicmtL?=
- =?utf-8?B?N1VyWXl4bXQ5WXlya2xmVTI1SVk1enNqRk54cTdjNE9RM2lmTnRYT1puTWh0?=
- =?utf-8?B?QXFxdzZSbE1sOVdQdDJwbnJzL2ZsWkNPNVUzWmVqeTAzRlNCdW9aaHBiWUM5?=
- =?utf-8?B?Y0dHOUI5TlFsVXJ2Vk9iNlpqNVUyNXcyUmdmV1l2RmlJVGlFYURNZ3ZrSDli?=
- =?utf-8?B?WGt2RFg3N0UxZlhHU1dOcm04a1dkeitzVjBRdElyRmhYZEQ5Rk5YTEdLV1E2?=
- =?utf-8?B?VEt1S2ZpcG9meXZLYWIzazViVWFDVENJNURrOTlCcEpSSno4WVlLYWdBOUoz?=
- =?utf-8?B?ZFhiRUJKYWxGUnI5cUttSy8rUDgwbmZLY2hMUlY1a1M1VnZseTZpcXpSaThN?=
- =?utf-8?B?VjN0Rnp5L1IrcU5Yd1l5MXdMUXI5akhqQjRCN3lJQ0Y5eEpJNktFbE5heFNn?=
- =?utf-8?B?QzhvcnM4c3VMN1EzQlRTWDYrY1laUXBQTnQzeFhvdEE2OHcveHRINWFnVlox?=
- =?utf-8?B?SEhBTU9LS2RCQW9STkpXVjhKQm5qa0dqdWFRL3NIaW96UlBoRTlQK2diNW82?=
- =?utf-8?B?YUVDRDNmeU9MeC9Yc1E2OWhyWEpxOTV6UVpQOFlha1o1SUZZOTkvcjU5WGNs?=
- =?utf-8?B?aXJmYlRRV3U0RVRib3dPUWMrY3crSGVDQnFsYlVpZXViUndYWkVxNEhVOU5M?=
- =?utf-8?B?a1RVaTRCOFJDem1jcWQ3dUhiQi9zclp3MGtHQXlLTHRqdU5DK1J3R2hJTnBU?=
- =?utf-8?B?MmtKVnJhdzBRb3A2V0dOQ0FjZDVPT2tsa2dlUnNENTNwdDkrb2hSbXZSSlZ3?=
- =?utf-8?B?RDk1SXd0bVpERU0wZjVaM3JXL2VOZVZmdVl5MTJDL0o3WmN4cmpMYzNLUHVX?=
- =?utf-8?B?SnVBNis1S1Z6NkFFNnVVVXNMV1JmTW9lWGphMHdKWVpXY29VQlU5ZHg0Wk1V?=
- =?utf-8?B?U251d3g5bGlKUXNVYnJyUmRENUNzY3F5ejFpbVNMam1mczROZElpTmYzdW9p?=
- =?utf-8?B?U0FCaUdOS2loelRwd3FKa0puakd5WlpMaVBUYjQwdVR1YUJ4dDFmMGxBNFJK?=
- =?utf-8?B?OWhvRWNOaUVlWWxqNmN5d1RkWmtWS3AyRk1yMmJtVXJZVUh6eml2ZUVjRWsx?=
- =?utf-8?B?QVN2QXJFb2ZzNGUwZ3Byc09XU2g2eXo2b3JmV3k4N2lIaFgvRGZkYng5MS9C?=
- =?utf-8?B?dTd1djBEemZiRC9lL3BOWW9NMndZd1BoRVZPcHV0ZThkdlVFVERYMTRyM3dS?=
- =?utf-8?B?MnpxeWlublhtbnU5RTRVTGcxc1FWUnVEaFB3S0pjcHVjaWFEUC9yWXYyUzBs?=
- =?utf-8?B?OHJYZnd6WklYZ05hckRpMFE1aTRaUVltbzJwT1l2Mk5uMEpJcGZMdEwvYUFx?=
- =?utf-8?B?clNQeStyR3UxeFNFeWxrd2JDRXE1K1BUbzJsZDJGUFV5eDQ0bHlreTJsMlBO?=
- =?utf-8?B?Yjl2NTE3cTN6dlhyeGJON2czMWNrMmY2VTNLLzVnOWVBQ2llMmpnOHpwRFhF?=
- =?utf-8?B?M1NoRGxVaElyM0MrT3Y2cE50N1BhRTZ1S2NkU2xzOWdZL2VWbFVOUnN0SXZT?=
- =?utf-8?B?TFBVZ1Y4Y3FNbHRTV29EbVNucStTTUx1WUxhMTBSMEFJTU1mcEZEL0RkQzU4?=
- =?utf-8?B?cnVoanRPaTA1YjBKeFgwbE5uTDV3dy9yUlRtVXRkTUpLUTB6ODNWUVlNL1Z1?=
- =?utf-8?B?NEpzVW5FZWRTNHQxTW93cXRocXIxck1nWHVlcFNNb0pQc3hOTjlURTR5UU1J?=
- =?utf-8?B?bzhreFM1WHhNdDkyQTJCUEJ5TFVuZWJEVGF1U2tqY215Q0JITlBDQmN5NjdW?=
- =?utf-8?B?eUMvZGtjbkFPV3crV0VHNWFPVEtZeUFUV3NsUEJXeW1tVzNWMkd2UXZ4SEFN?=
- =?utf-8?B?NDJvVnJ1MjgrdFFacVUvQWtYQzZMN3Nuek9rVzRRVStEK1VZNzJUN25ZQ1Ev?=
- =?utf-8?Q?Qm9nq6NnnGQ=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?V0RBUitBeWNHZkxPdHFSTG51SEt1MGJnWHc0T0FsV01BdXdzNmhlTmVFK1p0?=
+ =?utf-8?B?RkE3MzBibWRyK3BqNEYvS2VhMkM3NExobDNEV1VaQ1Z5bER0SkhleXowUVAy?=
+ =?utf-8?B?Z2RiZkZOK3o3UzVRN2FoWUV4enZjTVJXR2ZnUCs0cUdSa3lER1dCaVFzZTF1?=
+ =?utf-8?B?NGpTSUZzbVdkbk5jZmk4akt6UXVxT3Znd252U0RQZXdqUG80M1F0bWxrWGU0?=
+ =?utf-8?B?MzVGSE1VM29Ld3QrZTlqeDZiUTY1S1Q1bGlJQi9iZTJsSVhQbUlOQ3lrVVRB?=
+ =?utf-8?B?RUdpM0NMbmp1RE5nelZsTWVhQ2U5dkF5T3ZRdWcwaE5tbjYrREc1Rzl5NGJZ?=
+ =?utf-8?B?Wi93bHZaSkdBVmczQjZDZ2JLdG83OVFpTURTR3BueVNpUmpTWGNxNHFycTNR?=
+ =?utf-8?B?L0p6MEh4UHR1d0t3YmVBKzlGdXErRXFYRUtmK0lWb3h0d0hqUmM4anJTUzRy?=
+ =?utf-8?B?YTJTYXJ0RmpEc1gxRUI0U0p2TTNQcVFaTUJMaC85MXl0Y3hPNHdHZnNNNzkw?=
+ =?utf-8?B?RGJrMVVXZVBqbTNYN0pqeDNsRWRPeTJ5TnRxblcrV0dGaXdvZExWQjRRbTZr?=
+ =?utf-8?B?dFFPYlpOZVNzL1ZHS25sSG5WVW5IVGwwcHdUU0F1aWtZd3VvR2FFNGhyc2Fi?=
+ =?utf-8?B?b2Y4ZWQrUGtTYWhhVXNqMGlTbmNjd0YxbDUxdzQyME54T2RTQUw1NnM1N25K?=
+ =?utf-8?B?RklGdkNDN3UzQlVuM0YyWUhobktMYUZCRlhUNXRLZjh0dG5RV2R2emcwelhY?=
+ =?utf-8?B?ZHQ1Wjk3dXBtU3h2bVRhYnRidjZ5VVpCekdzTW9oR01QZ0J1ZHI2d0VNREZW?=
+ =?utf-8?B?R3RFZ3lsSm8zc3gwOXhNN3FjQ3ptQlZiZCsvK0I1OVFNZzNXK0w3anArc3dN?=
+ =?utf-8?B?MlU5NlcyOXJoMDZMOGpaT3l5NDhoYjBhbUZnRVkxRktYTHN5UHhEYUpHTUQ5?=
+ =?utf-8?B?eExaQmlrWlFhRzhSMUZISU13MGJYMXRtTG1mZUl4bHp4MFlzVGoyU0h6eVNz?=
+ =?utf-8?B?OFp4OEwvc08ySHExemxZcUhacjU2R0U2M1NjSWEzSXRBaEFTRXhFcXpyTzRo?=
+ =?utf-8?B?UHdHL05RcldscXFJaEtYSTJIQkMxc3c2TDJOOVBKN0ZiK0R0UEpEdmpUbUFo?=
+ =?utf-8?B?ZHV4RWRBNzZGQ2ZnTWwrS1o2S1E5VEo3ZDhXWkMyeHN2Y1g1MEhzbWdEQVF1?=
+ =?utf-8?B?cjFyV0ZTNFQzWUErL2ZRNlpXS2ZzRDB2SWR5ZnhpRWEzVzBjbXJMRVBZem5w?=
+ =?utf-8?B?Mld6dktoc3JlSjVZVVFKaksrRm5ObVRYSkNObFQrNzVkVzZzTm80WVoydmtG?=
+ =?utf-8?B?S3BRRjRZNncyRUx0ZHAwWkpzSlBvWHYxcTFWWXBXTzFmZjdPTkNoNFprNHdZ?=
+ =?utf-8?B?SDd0Q0dsRGV0UnhLeFlCcUxsK3RoMnRubTRJaUxzY3FJaDhYcVBxUnUyeGg0?=
+ =?utf-8?B?bGpqNWdBV0xrRjY3bVhWMVRBL0FobitzMWl5WTVRVnNLamNLU3Q0U1lER0hE?=
+ =?utf-8?B?SHQ4WlczdmlNV0Faa205eTl2OXlReE9PdjA5QVFrY3dYdWMvQUZuSkFGN1Vh?=
+ =?utf-8?B?VXYzQlF6RHBNcnZUMnJIWUxiYVIyWlRZUEZaYU5lNXA0dWhvcm55dEF3aDVI?=
+ =?utf-8?B?RXZ0djRQMkx1YlNrMnlubjRDKzdFN1FXcGVwcU9ZZmZWQXhuL1NpRDBac05Z?=
+ =?utf-8?B?NG5kWmk3WElTakFTczYrZHdBZFMveFArcEdzZHAzTi9NQ0svTW1yUVZSZ1Rh?=
+ =?utf-8?B?ZzRaUnFibjJFTG4rODNCa21BdE5EMGNDUkZKWkp0cEJqSFBZY29Vd3pxc2dD?=
+ =?utf-8?B?TTExVWYyZGNZYzhSdUo4MkJ5a09WZGlLYk9rMGROT0E0K2doRHlvMXZZeFpQ?=
+ =?utf-8?B?QktYcmdjR0UrWG1QYnVuakd5b2RlWjZVenJPWERieWFsb0pHekVNUmVoRFU0?=
+ =?utf-8?Q?KFkTzhSomAE=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5052.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UFU0ZWVGSUkwQVd2c3pGSHF0aWJZSzdZckcrNjNDQkdyOXpvY3FaWEhTMFB0?=
- =?utf-8?B?RnZVK2I2dEN5TWpsOHVPd3F5b1NrOWpoZjBZN1VLWjdydlN3eFVPa0VnNTBy?=
- =?utf-8?B?OE9pZU5BRXB1cFNwVjZ6ZklPSVpGRVEveWoyS0loVVpqcmNsYm9IcDBIYXQ3?=
- =?utf-8?B?N3RYN2diTVJhSnRNbFl0T3FsL0lhcmN1Q092aXhBOExnNUluWHN2Z0hzNkc0?=
- =?utf-8?B?cnVBQStOTkQ2U29aVWoxZ3YxUVhoQXZMUlA0MzZONFBjeHRyR2t6dlZ6aStN?=
- =?utf-8?B?ZnZIN1BmU2RnbmlXOWJTejdSTkJEcnpndkp1aWlsVWVVNVNoU2NhL3pNSklx?=
- =?utf-8?B?UlhuaG1XcmwrSm9xSDVPVzhnNE9VRHA3QTEwSCsvNVhTVnlLL2hLVTU5TTNY?=
- =?utf-8?B?NmFxNloxRlVHbVZDL0hwZzRnQ0preHMwQUZHNmh4Rkl4SEFkcjNMcVZyNU81?=
- =?utf-8?B?Wm5FZ0JsM0RXMjEveXpMS1NWcmhzTXl5OHkyeUpMNjYzMkFuaUNzWVNCclY2?=
- =?utf-8?B?YzV0NklWTkxWN2I3QTRlTFB5Sy9wR09sTElWbk5POFVRTTRnZkZOWGlFYmQw?=
- =?utf-8?B?QXNaQmU2L05aaUhRbFlQb01iak1WN082SVl2L0IrSW54QzF0NUpVVVRyVjB5?=
- =?utf-8?B?cVI2YVVZUnhMSk1zckw4ekNoZnZBZzlnNVNSR2s0M3hLblVENWdSSTNDelhx?=
- =?utf-8?B?eEFQVFVHa1JlSmtNbE9DUEFQc0cxS2hJbGVuZU9EaEdIL1VpTVNnbnZjbTBV?=
- =?utf-8?B?V2l6UTRoUWpqS0g0cTBYMVVlZ0hITWphd1BzNTd5TnF0YVN1azZ0QjNXK2FG?=
- =?utf-8?B?aEd6RWdFRFVDZEJFYzF0QVBldEVEdzNDUVhvc2NpS1N2VVFFSlJ1SHJqZFk3?=
- =?utf-8?B?WHZKTmxqVlFFN2lrUGtqSW5ZQ3A4L1JsK3NDQ2Y4b1p0YkxDL1NsaVJsVVVo?=
- =?utf-8?B?UWdGNGRiMmJtL1RVeVNUOTZrVUpCS0hhOUY5cmQ3SFpUeWMvaVBodGU5clg3?=
- =?utf-8?B?TllQcjVVTGpIYU9VbGxRbDRqZk0vMm5zejhFdWZSMGFkRGNFdW5EOHI0UnJP?=
- =?utf-8?B?TGhhbkx5OWhKZmdBdGVwbnQ4OHJudWhVT0pnSlJhc3NCQkJlUGlueURTcGI5?=
- =?utf-8?B?dy8vc2t4Q0E1NGdKU1liL0hVeUhqK0xUWnBUUlpkMjg0eVBNMkEzK3RLTEJp?=
- =?utf-8?B?RVdRTXVMbzNPMVlMd1hxQ3cxR1BiZ3Y5ZThQVFVZNXFSQlV0MEV6TldlcW9p?=
- =?utf-8?B?Q1R5aTdaRE80aTdPaXVFUGsyNVhCU2VOSVAzQTVzdE1yWkhvRjN1VlhNSnpY?=
- =?utf-8?B?TnRUN0ZsQitjKzV0aVN3emx0eTIwNjJadnp5b1RkSjZHSTVFTWFReXJUSURh?=
- =?utf-8?B?U0N3NGpRL1pQN1Y1OW8wb3orTlZpMVExcTIrQ1pTamVyRHowWXBhblNGa1ZX?=
- =?utf-8?B?NTlQV25GajV0d0hZTVVZYzJ1My93MEpXbWNLckZ6YVpHZjN3eDVMcDdUUzZP?=
- =?utf-8?B?cDl0WHpTUjlpM1UzNXVXaTg1aGpYMGZRdHl5a2kxdTFpKzA0L2N6d0xncFkv?=
- =?utf-8?B?a0ZPb3IrQXlQWm9hdlZkT3dNTjhEUU9va1lSVHR0N1Y0a2lkMkdtb0tjQ3hS?=
- =?utf-8?B?T1ZXcHpLUFYvWGxmOXhCdHovZXIrTlJzU1pLM3M4ZkgwSmxJa0tuTFExRWlu?=
- =?utf-8?B?OGE0WjFlbkFZQWZiY3BxNXpTcE1CMkRjVFlPTHpFY0ZKVm5lWnBSWXlOSlNL?=
- =?utf-8?B?RCsrcGJwbC9FbDBCUlZBR3NhUXJEbzdQcWNjUWFJNWZzaWRueC9pZXJTenQy?=
- =?utf-8?B?b09xckRuS04xMkhXUllDTWFhTW9ON2o4NG4yUzE0TWsxSVNiSUowR0hNdnNQ?=
- =?utf-8?B?eDZSTGpDbFAwOGFvREJ4MXpEdlVjbUNmUE82ckthaVM4d2FRMUQ3QkZaNDVr?=
- =?utf-8?B?RXRvUmFzc2N5T3RKVDZQNlhkUzNOUjJ6MkhERW8zaG5wWFBteEhyblVrNkJj?=
- =?utf-8?B?cXZVVlpMem1tYWlWdmhYMW44VUtlTW8rL3V0YnRMbm96aGlZcW5lQlppVDE0?=
- =?utf-8?B?RmxDSWp1U21iUEs0cmNDMTZQSy9PRGJIOGxUSk5TWk5KZGJ4bzBmL1AxZVVF?=
- =?utf-8?Q?w07KkvLVKMEo5mjb/KsmvMtTw?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWVhaEJTRjd2ZUVtSkpsb05mejlBT2NYUXEzc293KzVBczhJUjRMdzFtUGpw?=
+ =?utf-8?B?WEFESVhoYUUraHlwNDBLK1R5NGR2NHIzNFphQmVoaVNvaTlRVWZ4R2x2eXJ6?=
+ =?utf-8?B?YU14UTFrWFZLRHBPRTZPaFh1ZjhoSDFwODlpSWxyeHhWVGNyYjNnbUtvNkVa?=
+ =?utf-8?B?ZXNjNTRieEV1dmFxMDdwYnB6b0diMjBQVThPQm5PUzJVQWcyV3BQLzdpNnZy?=
+ =?utf-8?B?citTQlEyT3NUd0NIRzAraVRhNUlWNDJQaTl5TGg5Ly9CSFhhR3ZQdWlkRGhU?=
+ =?utf-8?B?VmdSYXJobUtyUHVqL21LZ2R4eEhUNWNCV0xVcDBEZmJhc3h2bFRXYllJK3FE?=
+ =?utf-8?B?bWpCME9PNzJDcHduN1YycmlhbTZOUDN4cGNSckVuZmorSHhGVHFpWDZlWTdU?=
+ =?utf-8?B?UjY0Ym1jb1p5MVlGcFN6L210NEF5SVUwRTJpUklOdEJrMDBhOG42ZlFPQlVu?=
+ =?utf-8?B?OHRZWjEwTlRWWE5JM3I1NDNQSmxyYnNneWdibzkvKzRFRlo3UWJFdnYvVFFX?=
+ =?utf-8?B?VzExZ2dHTTNyNEVuTncrNFVCM25EelhNTU1qaW16bWxRVUJyc1YyWVl4YkJC?=
+ =?utf-8?B?VHdDWlZuNFZHdVZsMWFRWS9tWFN3U0pIUG5FMkpFZUw2NDROZDczSzVwVmZJ?=
+ =?utf-8?B?RFVvci9MdjJrRUgzdStJS2dvQk5DWk1QZ29Rd2tqL0s2cUI3SVZTUVBEKzZE?=
+ =?utf-8?B?bk1LVkxaRFNBcEQ1U0VzSHh5MjQxNldpWnJveUp0S0Y2SGliT1NhU1V2bXR4?=
+ =?utf-8?B?RzVFb2p3KzNjcDA0a3Y3U2hLSUtXQ0NkeDcyL0tEOG14M2I0UjNKYUNnUVFK?=
+ =?utf-8?B?YXYzelEwRTZtTm1iR3lzcDNmY0V2MUYzQlJXaFdmQVdhY0Z1WE9CNUxPOHdS?=
+ =?utf-8?B?cW03cTJYK1YzaVdhTmdkZVhiOUdjK0Nhc2hZaU1XT2F4aXoyakFML2lPVUFO?=
+ =?utf-8?B?Si9Tcld5TjRacVQ3bWJrQmtXV2pNelU5WFI0RVQySlJUUms0TUowU0w4OU4y?=
+ =?utf-8?B?ZEZMUkNGOTE4aFU1RDF1WXdUUzN3cFpoMUdhTFV2bS8zeldUUGpiUlNUOGNm?=
+ =?utf-8?B?SitUejJLRUpCVnRWbWo0c2Z3WHVuVzQwakVMUk9UVlJTNG9uNXd0ZlY5M0xR?=
+ =?utf-8?B?SGtiRGJOQVV1TG5pZ1N3alRDVDVpQmlObU9NdFI4L0xtS3BPTWpubDFVMHFQ?=
+ =?utf-8?B?NElaNnBCMEJxUVRyNlRvVS9pUnplMlRta1ZQYlNGa0EybisvUUlWWURSTi9D?=
+ =?utf-8?B?Q2I4emlTS3V1REVZOHBOWUNjODFVYmdENmxoczVvc2xzYTdKc29TZ3J1YzFa?=
+ =?utf-8?B?QkRPZmlZeXdqd0h6OUlQcnhOazVNK3hQUkF0OWdUbUJIK2ZpNmdFbWZvaXZ4?=
+ =?utf-8?B?dkNWd05QZmFVbTBrRVpRWlh1Tk9NQ1VoWDhYRHMwMUkrSjZOZThNM3RtMlVJ?=
+ =?utf-8?B?eFFEZUJPakdEWFpwNTdjNy9HcDEybFZYMVJwdHhkVjFzOUdVcEJySjlMV0wy?=
+ =?utf-8?B?NXNMUTNGUUFJdVc4b3NUR1lWOFdZK24vdTR0Wm00a29mR3NRSUtzait2K1px?=
+ =?utf-8?B?dWhweDc4UTQzNEt1VjF3RjF3V3VuRHpCQjN1RE9IeFlqbzNlOGVQYlNmbkxz?=
+ =?utf-8?B?NGwyU3pidU5mRXFkdCtYRzI5dE1DemZGU1ZvSkF3SDF5L09sRW9RcXRNVFZl?=
+ =?utf-8?B?dkFoMTRwdk9xakZ0aG50T1BNTFZlNHhCMldSNUhJeE5SdHdrNHd5VkJ2UXBG?=
+ =?utf-8?B?Qmw0cjJDUDJxdUFVMFhUdUNLRTYrZWxlRndoVk9PQWw3eUFKRE15aHEwOWEz?=
+ =?utf-8?B?WldZeXJpaTYweGNvLzBqNnF4b2ZHYkFJdVVsMjVVRUI0TFZxY25CekdWQkh0?=
+ =?utf-8?B?RktlQStlbis5dFJMSEd4N3VLaS9vdFJESmwwRm43Mnprc0lXYjFvWi9vTTM5?=
+ =?utf-8?B?RWN0WUxJY1dYUjdCSHVQZ2cwSEl5NTVUSDFSaG5lZHF1MUEzSWlBRklEdGFk?=
+ =?utf-8?B?YS94ZWFiVzBRWHcrTW5XY09vOU5UaURlSHdUTEc1dUk1cCtHaHRsUysyczhJ?=
+ =?utf-8?B?SmpKYXVTWFZjOVpGNnZqbXluUmZTL1BGTU9VRGJwa0YxM21KWEY2ekdlUGdu?=
+ =?utf-8?Q?ZtTe3SOrRV6rfqxSVI/XVngVr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c16809d3-049e-4929-331e-08dd8ef393cb
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5052.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eaec5f31-a6d1-4181-1fd2-08dd8ef498aa
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2025 12:18:16.5111 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2025 12:25:34.3967 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i3l7ef+MGXBswdCjYprIXV8KeaQD+qNgdm3/vztxxXrcrk3ZX17osMOANuWHXSRiPgLqk9lQvj92WHZksCFezw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5846
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2aLT0q89EJ6wN5CvcG9p+PcFM6AyoA5hCUNOwrHAuvv0ykW/3gc85dri6/ScluWU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7850
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,71 +165,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Arvind Yadav <Arvind.Yadav@amd.com>
+--------------QqfowkRukRAdoXOJf438EclV
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 5/9/2025 4:48 PM, Christian König wrote:
-> On 5/9/25 11:21, Jesse.Zhang wrote:
->> This resolves a deadlock between user queue management and GPU reset
->> paths by enforcing consistent lock ordering.
+
+On 2025-05-08 17:54, Felix Kuehling wrote:
+> On 2025-05-08 10:50, Christian König wrote:
+>> On 5/8/25 16:46, James Zhu wrote:
+>>> When XNACK on, hang or low performance is observed with some test cases.
+>>> The restoring page process has unexpected stuck during evicting/restoring
+>>> if some bo's flag has KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED setting:
+>>> 1. when xnack on, retry pagefault will invoke restoring pages process
+>>> 2. A. if there is enough VRAM space, simply migrating pages from ram to vram
+>>>     B. if there is no enough VRAM space left, searching resource LRU list, and
+>>>        scheduling a new eviction work queue to evict LRU bo from vram to ram
+>>>        first, then resume restoring pages process, or waiting for eviction
+>>>        timeout and try to schedule evicting next LRU bo
+>>> 3. for case 2B, if bo has KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED setting,
+>>>     queue eviction will be triggered.So restoring work queue will be scheduled.
+>>> 4. step 1, restoring pages process will hold one mm->mmap_lock's read until
+>>>     restoring pages is completed
+>>>     step 2B, evictiion work queue process will hold one mm->mmap_lock's read
+>>>     until evicting bo is completed
+>>>     step 3, restoring work queue process is trying to acquire one mm->mmap_lock's
+>>>     write after the above two mm->mmap_lock's read are released, and in the
+>>>     meantime which will block all following mm->mmap_lock's read request.
+>>> 5. in step 2, if the first eviction bo's size is big enough for step 1
+>>>     restoring pages request, everything is fine. if not, which means that the
+>>>     mm->mmap_lock's read step 1 won't be release right the way. In step 3, first
+>>>     eviction bo's restoring work queue will compete for mm->mmap_lock's write,
+>>>     the second and following LRU bo's evictiion work queue will be blocked by
+>>>     tring to acquire mm->mmap_lock's read until timeout. All restoring pages
+>>>     process will be stuck here.
+>>> Using down_write_trylock to replace mmap_write_lock will help not block the
+>>> second and following evictiion work queue process.
+>>>
+>>> Signed-off-by: James Zhu<James.Zhu@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 6 +++++-
+>>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> index 72be6e152e88..5f6ed70559b7 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> @@ -1794,7 +1794,11 @@ svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
+>>>   {
+>>>   retry_flush_work:
+>>>   	flush_work(&svms->deferred_list_work);
+>>> -	mmap_write_lock(mm);
+>>> +        while (true) {
+>>> +                if (down_write_trylock(&(mm->mmap_lock)))
+>>> +                        break;
+>>> +                schedule();
+>>> +        }
+>> Oh, stuff like that is usually an absolutely clear NAK from upstream.
 >>
->> The deadlock occurred when:
+>> As far as I know that is not something we can do so easily.
 >>
->> 1. Process exit path (amdgpu_userq_mgr_fini) would:
->>     - Take uqm->userq_mutex
->>     - Then try to take adev->userq_mutex for list operations
->>
->> 2. GPU reset path (amdgpu_userq_pre_reset) would:
->>     - Take adev->userq_mutex first (for list traversal)
->>     - Then take uqm->userq_mutex
->>
->> The solution establishes a strict top-down locking order:
->> 1. Always take adev->userq_mutex before any uqm->userq_mutex
->> 2. Maintain this order consistently across all code paths
->>
->> Changes made:
->> - Reordered locking in amdgpu_userq_mgr_fini() to take device lock first
->> - Kept existing proper order in amdgpu_userq_pre_reset()
->> - Simplified the fini flow by removing redundant operations
->>
->> This prevents circular dependencies while maintaining thread safety
->> during both normal operation and GPU reset scenarios.
->>
->> Fixes: e274db8c826 ("drm/amdgpu: store userq_managers in a list in adev")
->>
->> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> Reviewed-by: Christian König <christian.koenig@amd.com>
+>> Would it be possible to wait for progress instead of calling schedule() here?
 >
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
+> I could think of a few other higher level mitigations to avoid getting 
+> into this situation in the first place.
+>
+>  1. Give BOs allocated with KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED a
+>     higher LRU priority, to make them less likely to be evicted
+>
+[JZ] Less likely means still exist. we still see hang with this 
+mmap_lock when VRAM under pressure.
+>
+>  1. If that doesn't help, set bp.no_wait_gpu in
+>     svm_range_vram_node_new. This should avoid causing evictions when
+>     trying to migrate data to VRAM in the page fault handler. In this
+>     case, migration should fail and the page fault should map data in
+>     system memory
+>
+[JZ] IIUC, It will sacrifice the performance in GPU computing stage.
+>
+> 1.
+>
+>
+> Regards,
+>   Felix
+>
+>
+>> Regards,
+>> Christian.
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> index 1c0ddec06280..0f1cb6bc63db 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> @@ -879,22 +879,23 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
->>   
->>   	cancel_delayed_work_sync(&userq_mgr->resume_work);
->>   
->> +	mutex_lock(&adev->userq_mutex);
->>   	mutex_lock(&userq_mgr->userq_mutex);
->>   	idr_for_each_entry(&userq_mgr->userq_idr, queue, queue_id) {
->>   		amdgpu_userq_wait_for_last_fence(userq_mgr, queue);
->>   		amdgpu_userq_unmap_helper(userq_mgr, queue);
->>   		amdgpu_userq_cleanup(userq_mgr, queue, queue_id);
->>   	}
->> -	mutex_lock(&adev->userq_mutex);
->> +
->>   	list_for_each_entry_safe(uqm, tmp, &adev->userq_mgr_list, list) {
->>   		if (uqm == userq_mgr) {
->>   			list_del(&uqm->list);
->>   			break;
->>   		}
->>   	}
->> -	mutex_unlock(&adev->userq_mutex);
->>   	idr_destroy(&userq_mgr->userq_idr);
->>   	mutex_unlock(&userq_mgr->userq_mutex);
->> +	mutex_unlock(&adev->userq_mutex);
->>   	mutex_destroy(&userq_mgr->userq_mutex);
->>   }
->>   
+>>>   
+>>>   	if (list_empty(&svms->deferred_range_list))
+>>>   		return;
+--------------QqfowkRukRAdoXOJf438EclV
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2025-05-08 17:54, Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:cf8cb7d6-44a1-4732-a411-1caa7206b4f8@amd.com">
+      
+      On 2025-05-08 10:50, Christian König wrote:<br>
+      <blockquote type="cite" cite="mid:e741c57a-651e-4acf-9ae6-4268c6540e0e@amd.com">
+        <pre class="moz-quote-pre" wrap="">On 5/8/25 16:46, James Zhu wrote:
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">When XNACK on, hang or low performance is observed with some test cases.
+The restoring page process has unexpected stuck during evicting/restoring
+if some bo's flag has KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED setting:
+1. when xnack on, retry pagefault will invoke restoring pages process
+2. A. if there is enough VRAM space, simply migrating pages from ram to vram
+   B. if there is no enough VRAM space left, searching resource LRU list, and
+      scheduling a new eviction work queue to evict LRU bo from vram to ram
+      first, then resume restoring pages process, or waiting for eviction
+      timeout and try to schedule evicting next LRU bo
+3. for case 2B, if bo has KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED setting,
+   queue eviction will be triggered.So restoring work queue will be scheduled.
+4. step 1, restoring pages process will hold one mm-&gt;mmap_lock's read until
+   restoring pages is completed
+   step 2B, evictiion work queue process will hold one mm-&gt;mmap_lock's read
+   until evicting bo is completed
+   step 3, restoring work queue process is trying to acquire one mm-&gt;mmap_lock's
+   write after the above two mm-&gt;mmap_lock's read are released, and in the
+   meantime which will block all following mm-&gt;mmap_lock's read request.
+5. in step 2, if the first eviction bo's size is big enough for step 1
+   restoring pages request, everything is fine. if not, which means that the
+   mm-&gt;mmap_lock's read step 1 won't be release right the way. In step 3, first
+   eviction bo's restoring work queue will compete for mm-&gt;mmap_lock's write,
+   the second and following LRU bo's evictiion work queue will be blocked by
+   tring to acquire mm-&gt;mmap_lock's read until timeout. All restoring pages
+   process will be stuck here.
+Using down_write_trylock to replace mmap_write_lock will help not block the
+second and following evictiion work queue process.
+
+Signed-off-by: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com" moz-do-not-send="true">&lt;James.Zhu@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 72be6e152e88..5f6ed70559b7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1794,7 +1794,11 @@ svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
+ {
+ retry_flush_work:
+ 	flush_work(&amp;svms-&gt;deferred_list_work);
+-	mmap_write_lock(mm);
++        while (true) {
++                if (down_write_trylock(&amp;(mm-&gt;mmap_lock)))
++                        break;
++                schedule();
++        }
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">Oh, stuff like that is usually an absolutely clear NAK from upstream.
+
+As far as I know that is not something we can do so easily.
+
+Would it be possible to wait for progress instead of calling schedule() here?</pre>
+      </blockquote>
+      <p>I could think of a few other higher level mitigations to avoid
+        getting into this situation in the first place.</p>
+      <ol>
+        <li>Give BOs allocated with KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED
+          a higher LRU priority, to make them less likely to be evicted</li>
+      </ol>
+    </blockquote>
+    [JZ] Less likely means still exist. we still see hang with this
+    mmap_lock when VRAM under pressure.<br>
+    <blockquote type="cite" cite="mid:cf8cb7d6-44a1-4732-a411-1caa7206b4f8@amd.com">
+      <ol>
+        <li>If that doesn't help, set bp.no_wait_gpu in
+          svm_range_vram_node_new. This should avoid causing evictions
+          when trying to migrate data to VRAM in the page fault handler.
+          In this case, migration should fail and the page fault should
+          map data in system memory<br>
+        </li>
+      </ol>
+    </blockquote>
+    [JZ] IIUC, It will sacrifice the performance in GPU computing stage.<br>
+    <blockquote type="cite" cite="mid:cf8cb7d6-44a1-4732-a411-1caa7206b4f8@amd.com">
+      <ol>
+        <li> <br>
+        </li>
+      </ol>
+      <p>Regards,<br>
+        &nbsp; Felix</p>
+      <p><br>
+      </p>
+      <blockquote type="cite" cite="mid:e741c57a-651e-4acf-9ae6-4268c6540e0e@amd.com">
+        <pre class="moz-quote-pre" wrap="">Regards,
+Christian.
+
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap=""> 
+ 	if (list_empty(&amp;svms-&gt;deferred_range_list))
+ 		return;
+</pre>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------QqfowkRukRAdoXOJf438EclV--
