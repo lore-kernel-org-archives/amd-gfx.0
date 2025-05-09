@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 445B6C3ABBC
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 May 2025 15:34:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDAD4C3ABBC
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 May 2025 15:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F4F810EA83;
-	Fri,  9 May 2025 15:34:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B04110EA89;
+	Fri,  9 May 2025 15:34:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="T5x5BmvK";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gsz/VDaw";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 646CE10EA7B;
- Fri,  9 May 2025 15:34:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BDAA10EA86;
+ Fri,  9 May 2025 15:34:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=ZweQKa6AfgM5VXc5Xs0L090EODD4U3p5fCC+wID0D+w=; b=T5x5BmvKWzxYipRnZ6ERupZm15
- S6m6OtxvZKvxcahUI5xrM31Aymvp0RgCDtwOzSgCb3Vxdq23K6nuafdMINBc3EXKqIr9s83fQFGAW
- fbq+3FOhofv38EmvPDTxUvWcOt8apHDWqi7svgT4ifFesWAou5/DMWtte9d123J5YcDbvk/yuBR9s
- Yl8fxldsNoy3TKlrBU3awffSs5fScMpHOVQNs598o79BlYoGIqn85FVGDjIp2kKidqw5U/MEzduYK
- TS+d4r6TyaqSQBmxCzzs5HVzFybk6FusrKxepfKlo5RoZ7Yh3alWhTk2YzrI9ljh78WLQ7Z2m8IuI
- I2wal6Xw==;
+ bh=ObiI1Tsci1Wqsl/cJJndA3Qz3YuyNsUysn45CqaBFc0=; b=gsz/VDawIcGFhh9+4gvqZ2RTSC
+ YybIagPa24ZKbNDSgRsietRRz7tn16pHpNx2EfKuK8upx//zn1ER0VTsmUPbsKyrJXYWOUI6orn0Q
+ 2Z5ySw0w6bAVVcUUcMWNSTOeqrZ9aTGrTVa8hceaspg4+tx05F7fARchcqCUk8OcXnejqIsO7IQDp
+ hPgTtu6JzfBTJf51EejPXiWF25ZmrTjCxH2y9cG7WUhsHXL6GPSvzXBbLdPKmX/HsoEifMUNyJloj
+ unIoLHb7zi27dMQIfRElvKUm0fk5Ac70AC4Hxzx0mwljZJFpNz5TtPhWxXs/pxkSgHZ1LExvro/wz
+ 13jeqohQ==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uDPfK-005oF1-FX; Fri, 09 May 2025 17:34:11 +0200
+ id 1uDPfM-005oFL-2z; Fri, 09 May 2025 17:34:12 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Sumit Semwal <sumit.semwal@linaro.org>,
@@ -43,10 +43,10 @@ Cc: Sumit Semwal <sumit.semwal@linaro.org>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC v2 06/13] dma-fence: Use driver and timeline name helpers
- internally
-Date: Fri,  9 May 2025 16:33:45 +0100
-Message-ID: <20250509153352.7187-7-tvrtko.ursulin@igalia.com>
+Subject: [RFC v2 08/13] drm/amdgpu: Use dma-fence driver and timeline name
+ helpers
+Date: Fri,  9 May 2025 16:33:47 +0100
+Message-ID: <20250509153352.7187-9-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250509153352.7187-1-tvrtko.ursulin@igalia.com>
 References: <20250509153352.7187-1-tvrtko.ursulin@igalia.com>
@@ -66,58 +66,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make the implementation use the previously added helper for accessing the
-driver and timeline name. This will enable more coverage later when
-asserts will be added into them.
+Access the dma-fence internals via the previously added helpers.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/dma-buf/dma-fence.c      | 9 +++++----
- include/trace/events/dma_fence.h | 4 ++--
- 2 files changed, 7 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 33661658f684..dc2456f68685 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -538,8 +538,8 @@ void dma_fence_release(struct kref *kref)
- 	if (WARN(!list_empty(&fence->cb_list) &&
- 		 !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags),
- 		 "Fence %s:%s:%llx:%llx released with pending signals!\n",
--		 fence->ops->get_driver_name(fence),
--		 fence->ops->get_timeline_name(fence),
-+		 dma_fence_driver_name(fence),
-+		 dma_fence_timeline_name(fence),
- 		 fence->context, fence->seqno)) {
- 		unsigned long flags;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index 11dd2e0f7979..8e5bf179a6c8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -33,7 +33,7 @@
+ #define TRACE_INCLUDE_FILE amdgpu_trace
  
-@@ -983,8 +983,9 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
- {
- 	seq_printf(seq, "%s %s seq %llu %ssignalled\n",
--		   fence->ops->get_driver_name(fence),
--		   fence->ops->get_timeline_name(fence), fence->seqno,
-+		   dma_fence_driver_name(fence),
-+		   dma_fence_timeline_name(fence),
-+		   fence->seqno,
- 		   dma_fence_is_signaled(fence) ? "" : "un");
- }
- EXPORT_SYMBOL(dma_fence_describe);
-diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
-index a4de3df8500b..84c83074ee81 100644
---- a/include/trace/events/dma_fence.h
-+++ b/include/trace/events/dma_fence.h
-@@ -16,8 +16,8 @@ DECLARE_EVENT_CLASS(dma_fence,
- 	TP_ARGS(fence),
+ #define AMDGPU_JOB_GET_TIMELINE_NAME(job) \
+-	 job->base.s_fence->finished.ops->get_timeline_name(&job->base.s_fence->finished)
++	 dma_fence_timeline_name(&job->base.s_fence->finished)
  
- 	TP_STRUCT__entry(
--		__string(driver, fence->ops->get_driver_name(fence))
--		__string(timeline, fence->ops->get_timeline_name(fence))
-+		__string(driver, dma_fence_driver_name(fence))
-+		__string(timeline, dma_fence_timeline_name(fence))
- 		__field(unsigned int, context)
- 		__field(unsigned int, seqno)
- 	),
+ TRACE_EVENT(amdgpu_device_rreg,
+ 	    TP_PROTO(unsigned did, uint32_t reg, uint32_t value),
 -- 
 2.48.0
 
