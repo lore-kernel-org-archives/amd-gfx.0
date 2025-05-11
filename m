@@ -4,78 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1770C3ABCB
-	for <amd-gfx@archiver.kernel.org>; Sun, 11 May 2025 12:34:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74304C3ABC3
+	for <amd-gfx@archiver.kernel.org>; Sun, 11 May 2025 12:34:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 701FA10E06B;
-	Sun, 11 May 2025 12:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34EDE10E162;
+	Sun, 11 May 2025 12:34:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="TKIdV/Q/";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="DoYDfPaN";
 	dkim-atps=neutral
-Received: from sonic311-26.consmr.mail.ne1.yahoo.com
- (sonic311-26.consmr.mail.ne1.yahoo.com [66.163.188.207])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83E4310E2C6
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 May 2025 14:39:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
- t=1746801545; bh=e4uks5X50H8wn45u1yv8mw6nfQlYxi8FSM3+fNp+tww=;
- h=Date:From:Subject:To:Cc:In-Reply-To:References:From:Subject:Reply-To;
- b=TKIdV/Q/e1tGy5cHrgyPdSsCtK4Ns/JHIRL55D0WOLJfb5Kh2QPHE4Ct6hkgnQqr+rwnOGqPquVcsytmmpaiIOFs+RkWsBy81jdorhqlDZUnX9l/hLp893WbxkEwbs2xX/cuDhCFpE+g57nMmDjmVcP+EuRxHqvIlX/Y7y/R+Hc=
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1746801545; bh=4MTqU5VaiTNvk+zfDuPZ5Sd4CZId1ZOnvUBHtaokT1C=;
- h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
- b=H6/nso1uBwcukIlv+XAvR5nChiklZaLg678dgfctPnLuxSEW0rTF4KPJPCNjPbSgzyO540XXqAIrzzkNm7zIVbrxQBDMEhy6bUPXU+y3haVS9mflaOlZ876OncjZrvXb5kluqXKxTk+USEd3VRkZyH9eDkYczBJnpjjOOAv8IrFXxSDW1+i+zA7eublRZYefyDVSvv9EuiverpV3/D6HGBRRj/IGbAWxS+bEvBs0RhW+H1PqQ/wwynHXeUGGFG9GCNP9EQXhQo/tqNqRnH4M3Up22CYTg7IfqcXa/sp7pnvo6uEhdjo73m+nMolrexS7FJ0ORpfGvnMZ/Ij8LRaxEQ==
-X-YMail-OSG: uxXkQ6YVM1kO8_21GHYFBSG8y9fZmMjHDMQiL1beH..seXd.quZqVBffx0Jt4Yo
- NCEYp4f7uwiQzrOssRkj2ovWRDewETy314yCb9KFS0m4bUYIERt.OdyIZ8a6oTr9FbkQsS6zpsO4
- ffwuFsLUskBSvF1kgiKQijLxubeOF1w_SN3Hlhtl4VAW1FlwueJDdKjkxObtngkg6AnTkO.wYJEY
- 6ysKfBis0SMwjF7YUjlk4JU5CE4Maj4SmsD4VisW2NUPjlFKjHHi4FXFyiU4PBiws.hhlwhk.dY4
- mE1D8xM3e2.C1BwFm2e2pVnoFmc3DNfgaDYFH5Yh8jr.fnW0J79cojDqPW3AEVsnRyf.7vJRFdOu
- T_2.MtBQ0kwGjh5wpYrsjsqoogHjyG5FOkx6D7PUl2KfGrG3UptXulQIoQDFB8QHI4zgFjNSZM2q
- 0DBoaMx289KSgZ4SbfrQ.PJ1A0YQC2ea5phfPIF_f0hbSTWtc0pPEGq84lcy8ZPR84xvo76vuRmA
- .cPwcNU1M.ZsTZSlQm_f84e13JWR3dbZnYDrLAyc5dBNz.3AMvtQvkjRacnIuWgQ5S3YWPCqydui
- JY3ijB4AvQ3GmdmQyxP4k1UUg76TSDW6bfIDqwvAf3PAPd2GtpnLKJu20aoinGPXqx2vPoAIUx9C
- AuBUoZH.YR_EQP5eX_0d020tlbZYIFwbP0Fwl_3TU.DQGxWxIM7vydbVzdCW9YFxoeF4XFQtEEZY
- 9awcWBqVvy_4sVALxIT7bdXxmgJ_yXVuF2ghjF4kFgpkBDFirAWI_.s7FS12TJYkBPcHOSa.GYFB
- o48Y18_FLzdEA_UWQt.XEMIrieDWqRr0PbS8Z3PbtYLj8OIwvWr9EPWPHLqrYwvNyokpXKOx9foi
- jhjz4ZmB4O20916SrVXv1akqlpPOZOUBMQpM2D7WBttjQ2ulcpjVHEPtdv_XpJPO0lCGqpKRfxKo
- qNVi999oXheXS3Z.I71KcVClclFAmx0yeAlk0oJeQnjax5yqw3mCk69_D9JZwTKK954CN2QgVcZs
- IUWLXbhmKCWvhFdHYI6HaJRIPMPfKzgrmLj7aAKZc4Lo.q3EVXHBCweqNixpxuQEkQu2cu5qQ022
- .rkFIH.8LBRWba6wFf704nfikZfQWPP6xUExvjB.x6QXuEBumedetC8uHLmSLiz.UWVCzCc_zeVX
- nHj5LtCBnXoAxyqGZ2U5d6BQr1p48HYQFdi3Hzjgw9vdnMGb1y4999Iz2Y6jxu4hsb_8eEv40tFm
- 2igm0JAAcPTKTecooIe7cIVEAqBRP_W4ll_sNldTjAy0EeqEo3GZ9P5huVd3E3PG33xK3vorwttS
- i3ynAztvSS4Taez_ReO2epmDZ218COaM5VUR7Y2SIAG_sspJJ.nR4uaz1yiksNzR5JZMQLZHehbN
- XMKOaf8kYvM0pO854i18Fia3WC9kO0iiXfPl.oHUmRHInLeuRf_nHn5tKiwTATC0woS2L7WIAx3y
- Y5kfnBSxJElbgAJo0EMofHyysoKb_fJpUXAVxFyGkgHrqOnGCcq1MuiE2wB2a0PNVTFzlFdiGRfs
- lVuCFQvNbyL1Wica734NNGgUizq8m1I5sSYd4qGzEzed.WDghLkbJgM1AQEh1vnVI4Muwo0ju5uS
- i2NUOnZKbvzADHXV.eGbfm.FwjBkzdQBaBUdFB.pfzeBOiM5DoZRaK37XasRUozNdgN_LSE9a6wa
- 4JqvQPH.5t.beVN3fkonUjuI6lJ7Bcue31PRl7IhzXn0n5QopPjqVMon2Ye6BurH1Gb8phMQyfxy
- Xc8O4plTNPmsOIJdjgcq.5tMAYrnbec4bdTd3ssfyC87MC0IxDAitwTyU1OyFeAHlSW8DgUnhrnM
- p8fhYQb.oOWVi0K5hAG3c2JrjuJIK5Mw0GW_xonhnu0l1HSp1HTuT.9EikZMhacOxaSXy6FsGCd6
- O1JBs4Ibq0atrpk0w1p.cT50WK2Ak1Bm20FF3IdNMROgNgm3jMiNQccacuN47IMYx.7YJY0mcL63
- 76h3jHEVPCnIAkrNwAKwxEm_30DJhc.zOJvNb96ceFnCWlsgaAuL_CcP4ptcug3CYpaP0XgdvN4q
- H_Z2Q1Lt7IhDdwYwNzPQBC_BmoeisI8wKfYQnPi3N8vkBW5QmJQY5i_2hHnw_CcKO8gbQ8PjbTlz
- P522pMUpVexiVAuTPUiGZNekZAVFCiTca39ZzX7iaAyCkHcBiAHA1yJt9TGrdwr6DlNFpfSMYNvm
- YTiYnA8VGunit3r7bv.AQIWSGBy9jbG8cAL_FLBmUeW1B8BzN
-X-Sonic-MF: <pheonix.sja@att.net>
-X-Sonic-ID: 82d7a6bf-5614-440d-93cd-4c31009021e6
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic311.consmr.mail.ne1.yahoo.com with HTTP; Fri, 9 May 2025 14:39:05 +0000
-Received: by hermes--production-ne1-9495dc4d7-k9rtt (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID d121195633553f50086309dab9577647; 
- Fri, 09 May 2025 14:39:00 +0000 (UTC)
-Date: Fri, 09 May 2025 10:38:52 -0400
-From: Steven J Abner <pheonix.sja@att.net>
-Subject: Re: Kernels >= 6.3 disable video output
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Message-Id: <SO00WS.37KCGL8UH4LW@att.net>
-In-Reply-To: <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
-References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
- <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
- <GXXZVS.Q1GIIU1M9VBL1@att.net>
- <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
-X-Mailer: geary/40.0
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC1610E033;
+ Sun, 11 May 2025 11:55:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=vGym7rGe1iQ+E2ZmiutxY5zdXmAx4ZiCjyvvFV18j5E=; b=DoYDfPaNJ7XmBIBX
+ UTeAx5Z1k7UqMokYldLbzzVDr61Kdq+VKzxVzl0Y9O3dEODGrWtIVkAP+QpVe1MfxvSeNyGxcfPXj
+ qtIbPeayZ5sC/XkxhI9pCIgOoS7yuDuy8OZKTj97+0QsqasnFwNA5hdwTftXqvaF7dRm9YJb+EKxC
+ ZsHUJ0F8yoc39AYD8sUMWE6sCDp0OzmSlsPqpFV1+e2Cr4ts9FnCOcTefEb0B3gq9u9JDLBTjdhx9
+ z2t5OOxGr5HS4uk70lOoJjhp0Q/tzUb9OsU0/ymu53KSqPZEsZxN3+2NUMBlOm9cpMeh6VxmNPLYY
+ PZGOG5q5/r9Te4BWFQ==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+ (envelope-from <dg@treblig.org>) id 1uE5H8-002sl9-1b;
+ Sun, 11 May 2025 11:55:22 +0000
+Date: Sun, 11 May 2025 11:55:22 +0000
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alexander.deucher@amd.com
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] drm/radeon: Remove unused radeon_doorbell_free
+Message-ID: <aCCQKkg6e3yPZmSU@gallifrey>
+References: <20250418002117.130612-1-linux@treblig.org>
+ <20250418002117.130612-3-linux@treblig.org>
+ <ab85b3c9-46cc-4148-9de5-dcaabea130ea@wanadoo.fr>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <ab85b3c9-46cc-4148-9de5-dcaabea130ea@wanadoo.fr>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-34-amd64 (x86_64)
+X-Uptime: 11:53:32 up 13 days, 20:07, 1 user, load average: 0.00, 0.00, 0.00
+User-Agent: Mutt/2.2.12 (2023-09-09)
 X-Mailman-Approved-At: Sun, 11 May 2025 12:34:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,23 +64,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 9 2025 at 02:05:16 PM +0000, Alex Deucher 
-<alexdeucher@gmail.com> wrote:
-> Can you narrow down where it broke?
+* Christophe JAILLET (christophe.jaillet@wanadoo.fr) wrote:
+> Le 18/04/2025 =E0 02:21, linux@treblig.org a =E9crit=A0:
+> > From: "Dr. David Alan Gilbert" <linux@treblig.org>
+> >=20
+> > radeon_doorbell_free() was added in 2013 by
+> > commit 75efdee11b5d ("drm/radeon: implement simple doorbell page
+> > allocator")
+> > but never used.
+>=20
+> Hi,
+>=20
+> I think than instead of being removed, it should be used in the error
+> handling path of cik_init() and in cik_fini().
 
- Have built kernels from 5.15 thru 6.2.16 (last of the 6.2 series), 
-have no issues, ran Xorg server as test. Kernels 6.13.4 down to 6.3 
-builds, more builds focused in the 6.3 series, have the 70% failure 
-rate of monitor saying "no input", not just the normal blackout you can 
-get from a bad configure setting. Kernel runs of 6.3 thru 6.13.4, on 
-igpu disconnect, will perform the normal console functions of login, 
-password, reboot and message sending via redirect, along with full 
-/var/log files logging up to rebooting.
- Initial build, started with 6.13.4, had this bug detected prior to 
-even install of any other software, Xorg, mesa or gdb. All other 
-kernels had Xorg/mesa added, gdb was added after decided 6.1.137 would 
-be base, cause it works and hopefully not the last LTS that will 
-(6.6.89 fails, 70% blackouts).
-Steve
+OK, here's an RFC that builds; but if I understand correctly only
+some devices run this code, and I'm not sure mine does;
+
+Thoughts?
+
+Dave
+
+=46rom 15b3830b4ee3eb819f86198dcbc596428f9ee0d0 Mon Sep 17 00:00:00 2001
+=46rom: "Dr. David Alan Gilbert" <linux@treblig.org>
+Date: Sun, 11 May 2025 02:35:41 +0100
+Subject: [RFC PATCH] drm/radeon/cik: Clean up doorbells
+
+Free doorbells in the error paths of cik_init and in cik_fini.
+
+Suggested-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+---
+ drivers/gpu/drm/radeon/cik.c | 38 ++++++++++++++++++++++++------------
+ 1 file changed, 26 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index 11a492f21157..3caa5a100f97 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -8548,7 +8548,7 @@ int cik_suspend(struct radeon_device *rdev)
+  */
+ int cik_init(struct radeon_device *rdev)
+ {
+-	struct radeon_ring *ring;
++	struct radeon_ring *ring, *ringCP1, *ringCP2;
+ 	int r;
+=20
+ 	/* Read BIOS */
+@@ -8623,19 +8623,22 @@ int cik_init(struct radeon_device *rdev)
+ 	ring->ring_obj =3D NULL;
+ 	r600_ring_init(rdev, ring, 1024 * 1024);
+=20
+-	ring =3D &rdev->ring[CAYMAN_RING_TYPE_CP1_INDEX];
+-	ring->ring_obj =3D NULL;
+-	r600_ring_init(rdev, ring, 1024 * 1024);
+-	r =3D radeon_doorbell_get(rdev, &ring->doorbell_index);
++	ringCP1 =3D &rdev->ring[CAYMAN_RING_TYPE_CP1_INDEX];
++	ringCP2 =3D &rdev->ring[CAYMAN_RING_TYPE_CP2_INDEX];
++	ringCP1->ring_obj =3D NULL;
++	ringCP2->ring_obj =3D NULL;
++	ringCP1->doorbell_index =3D RADEON_MAX_DOORBELLS;
++	ringCP2->doorbell_index =3D RADEON_MAX_DOORBELLS;
++
++	r600_ring_init(rdev, ringCP1, 1024 * 1024);
++	r =3D radeon_doorbell_get(rdev, &ringCP1->doorbell_index);
+ 	if (r)
+ 		return r;
+=20
+-	ring =3D &rdev->ring[CAYMAN_RING_TYPE_CP2_INDEX];
+-	ring->ring_obj =3D NULL;
+-	r600_ring_init(rdev, ring, 1024 * 1024);
+-	r =3D radeon_doorbell_get(rdev, &ring->doorbell_index);
++	r600_ring_init(rdev, ringCP2, 1024 * 1024);
++	r =3D radeon_doorbell_get(rdev, &ringCP2->doorbell_index);
+ 	if (r)
+-		return r;
++		goto out;
+=20
+ 	ring =3D &rdev->ring[R600_RING_TYPE_DMA_INDEX];
+ 	ring->ring_obj =3D NULL;
+@@ -8653,7 +8656,7 @@ int cik_init(struct radeon_device *rdev)
+=20
+ 	r =3D r600_pcie_gart_init(rdev);
+ 	if (r)
+-		return r;
++		goto out;
+=20
+ 	rdev->accel_working =3D true;
+ 	r =3D cik_startup(rdev);
+@@ -8678,10 +8681,16 @@ int cik_init(struct radeon_device *rdev)
+ 	 */
+ 	if (!rdev->mc_fw && !(rdev->flags & RADEON_IS_IGP)) {
+ 		DRM_ERROR("radeon: MC ucode required for NI+.\n");
+-		return -EINVAL;
++		r =3D -EINVAL;
++		goto out;
+ 	}
+=20
+ 	return 0;
++
++out:
++	radeon_doorbell_free(rdev, ringCP1->doorbell_index);
++	radeon_doorbell_free(rdev, ringCP2->doorbell_index);
++	return r;
+ }
+=20
+ /**
+@@ -8695,6 +8704,7 @@ int cik_init(struct radeon_device *rdev)
+  */
+ void cik_fini(struct radeon_device *rdev)
+ {
++	struct radeon_ring *ring;
+ 	radeon_pm_fini(rdev);
+ 	cik_cp_fini(rdev);
+ 	cik_sdma_fini(rdev);
+@@ -8708,6 +8718,10 @@ void cik_fini(struct radeon_device *rdev)
+ 	radeon_ib_pool_fini(rdev);
+ 	radeon_irq_kms_fini(rdev);
+ 	uvd_v1_0_fini(rdev);
++	ring =3D &rdev->ring[CAYMAN_RING_TYPE_CP1_INDEX];
++	radeon_doorbell_free(rdev, ring->doorbell_index);
++	ring =3D &rdev->ring[CAYMAN_RING_TYPE_CP2_INDEX];
++	radeon_doorbell_free(rdev, ring->doorbell_index);
+ 	radeon_uvd_fini(rdev);
+ 	radeon_vce_fini(rdev);
+ 	cik_pcie_gart_fini(rdev);
+--=20
+2.49.0
 
 
+--=20
+ -----Open up your eyes, open up your mind, open up your code -------  =20
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \=20
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
