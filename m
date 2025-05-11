@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 772C8C3ABC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 07:58:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54E45C3ABBC
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 07:58:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35EE510E2FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA6F810E2FF;
 	Mon, 12 May 2025 07:58:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kIEiIZK0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QxvMXDJm";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F5BA10E101;
- Sun, 11 May 2025 22:48:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE61310E070;
+ Sun, 11 May 2025 22:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=OL4xibm39jmfI8uxvEjCXO513VYShvHZZAZJDGQ0FxA=; b=kIEiIZK0goyXe/TGejy65jY/Ev
- 8KVOOgZoj2VVP0S08JpeRdIA75Qh8F8VmjyZZ9Olbs6vwnqyjuMDzn60yYRY4xU3aPGguWW1G0j0e
- ot0xD9kRItjtUFaPdDOPn4bGXEx2pAKgPds9IaLP4SpoeKgKuDS4J+LE7Cy+ZZAt7osf55InbwQLx
- wC4evhCBlUFVJkZNRGhXlpfeE0RjVBQoTguQruRYy1OLvaxqqqLSG+0PuECF9a1LoUAS8rzbfKU7K
- K31KPZBcLtycQnVIhSEwkmSuJDrqvXzfWnozg8BIEusBTB7UTGFEUZOM9f5EuEpsG/Ma6JEPkQGqN
- eYVlF1zA==;
+ bh=lJX/DnbKx2vqXxOxF0p4mRt/XD3WEMGW5IGNHdLbHaQ=; b=QxvMXDJmIijPGOq1kaMmDSVGru
+ qDW94J5cHKezI7oJ0mxQnduzPX+lL60SvP4ci+vhzFnorDglh8wTJmiiPJvZTkmEOfGBcJZo8q5Fd
+ ym009ed6qz0oTIS53QA/OMTLGEf1fkeIEOoBgQaVHMnS859ClqG9z8vorkQkkWw1dH3obM58gGMEl
+ 3hFuXehOec1hVeA4mk3who7LHgROPvkchXYC+PV1TKLzdc5H1jqF7IyevjDIi1QPhvLBJo+jiVxwV
+ CdlCwhdqfvHXxyk0N9wSXohI89xKGitzY/nHXVmtmGFT6pXuVK1sqH+J3X4q5f8P+RtqWR9Q8GBeq
+ OIIigHkQ==;
 Received: from [191.204.192.64] (helo=localhost.localdomain)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uEFNn-006nqn-Qf; Mon, 12 May 2025 00:48:08 +0200
+ id 1uEFNb-006nqn-TI; Mon, 12 May 2025 00:47:56 +0200
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: "Alex Deucher" <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -43,12 +43,10 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v2 3/3] drm/amdgpu: Make use of drm_wedge_app_info
-Date: Sun, 11 May 2025 19:47:45 -0300
-Message-ID: <20250511224745.834446-4-andrealmeid@igalia.com>
+Subject: [PATCH v2 0/3] drm: Create an app info option for wedge events
+Date: Sun, 11 May 2025 19:47:42 -0300
+Message-ID: <20250511224745.834446-1-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250511224745.834446-1-andrealmeid@igalia.com>
-References: <20250511224745.834446-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -67,77 +65,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To notify userspace about which app (if any) made the device get in a
-wedge state, make use of drm_wedge_app_info parameter, filling it with
-the app PID and name.
+This patchset implements a request made by Xaver Hugl about wedge events:
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
+"I'd really like to have the PID of the client that triggered the GPU
+reset, so that we can kill it if multiple resets are triggered in a
+row (or switch to software rendering if it's KWin itself) and show a
+user-friendly notification about why their app(s) crashed, but that
+can be added later."
+
+From https://lore.kernel.org/dri-devel/CAFZQkGwJ4qgHV8WTp2=svJ_VXhb-+Y8_VNtKB=jLsk6DqMYp9w@mail.gmail.com/
+
+For testing, I've used amdgpu's debug_mask options debug_disable_soft_recovery
+and debug_disable_gpu_ring_reset to test both wedge event paths in the driver.
+To trigger a ring timeout, I've used this app:
+https://gitlab.freedesktop.org/andrealmeid/gpu-timeout
+
+Thanks!
+
+Changelog:
+
+v2:
+  - Rebased on top of drm/drm-next
+  - Added new patch for documentation
+
+
+André Almeida (3):
+  drm: Create an app info option for wedge events
+  drm/doc: Add a section about "App information" for the wedge API
+  drm/amdgpu: Make use of drm_wedge_app_info
+
+ Documentation/gpu/drm-uapi.rst             | 15 +++++++++++++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 +++++++++++++++++--
  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  6 +++++-
- 2 files changed, 22 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_drv.c                  | 16 +++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_reset.c      |  3 ++-
+ drivers/gpu/drm/xe/xe_device.c             |  3 ++-
+ include/drm/drm_device.h                   |  8 ++++++++
+ include/drm/drm_drv.h                      |  3 ++-
+ 8 files changed, 64 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c8a51418d0e7..e6d8f6d0ec47 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6215,8 +6215,23 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 
- 	atomic_set(&adev->reset_domain->reset_res, r);
- 
--	if (!r)
--		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
-+	if (!r) {
-+		struct drm_wedge_app_info aux, *info = NULL;
-+
-+		if (job) {
-+			struct amdgpu_task_info *ti;
-+
-+			ti = amdgpu_vm_get_task_info_pasid(adev, job->pasid);
-+			if (ti) {
-+				aux.pid = ti->pid;
-+				aux.comm = ti->process_name;
-+				info = &aux;
-+				amdgpu_vm_put_task_info(ti);
-+			}
-+		}
-+
-+		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, info);
-+	}
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index a47b2eb301e5..98efa3318ddb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -89,6 +89,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- {
- 	struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
- 	struct amdgpu_job *job = to_amdgpu_job(s_job);
-+	struct drm_wedge_app_info aux, *info = NULL;
- 	struct amdgpu_task_info *ti;
- 	struct amdgpu_device *adev = ring->adev;
- 	int idx;
-@@ -127,6 +128,9 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 		dev_err(adev->dev,
- 			"Process information: process %s pid %d thread %s pid %d\n",
- 			ti->process_name, ti->tgid, ti->task_name, ti->pid);
-+		aux.pid = ti->pid;
-+		aux.comm = ti->process_name;
-+		info = &aux;
- 		amdgpu_vm_put_task_info(ti);
- 	}
- 
-@@ -166,7 +170,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 			if (amdgpu_ring_sched_ready(ring))
- 				drm_sched_start(&ring->sched, 0);
- 			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
--			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
-+			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, info);
- 			goto exit;
- 		}
- 		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
 -- 
 2.49.0
 
