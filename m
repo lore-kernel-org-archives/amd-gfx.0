@@ -4,93 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E42C3ABBC
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 07:58:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82DE8C3ABCC
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 07:58:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B075B10E2F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B47EB10E2F9;
 	Mon, 12 May 2025 07:58:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cYuWbnOA";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SNXSAAyp";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C233510E138;
- Mon, 12 May 2025 07:42:58 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-7410c18bb00so4480007b3a.3; 
- Mon, 12 May 2025 00:42:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747035778; x=1747640578; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=6ixYcQq0rSF0bg9NFU6d5lRXfvmxhdZj5BggjL8hxVE=;
- b=cYuWbnOAxPJ+L4sidzOdV0Dculq16OP3wmMg5z+7vKOfcFYlZNPPWmkWpXhfORo3rU
- 4q2d+VSbuDNchFB049QHMoZzgr+leE3QLOFgnjFFF2rA4Kxxed5GaDEE8k5EhuQ2E1AO
- WQftZGLCfUe91A0e2od7w0YtchxTBCcoupX4ZwfnO8jYvrh9oBknQQWZTAnvslRsU6eF
- mi0wxMv1JfGvlszePKgNzWE+6SlEKHIRVSMTfJDIVcUHLg87x59Z5htLrw7l/Obyp4WX
- MuCF3W+NOGfpuBYnaa9M3A+TzRTQSfG6uaWtZelgrXvXgsbP9AE/2wLKE1+BiU3Vwecp
- GhBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747035778; x=1747640578;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6ixYcQq0rSF0bg9NFU6d5lRXfvmxhdZj5BggjL8hxVE=;
- b=MBSLtKdBktL1r60oA83YZ36FQKQ3pkctwMwVjHMauZcHG9x8k6vdvhhCYDi0sqMhQp
- Fe4+WgZFqpfxTCs6A1xJqli2DznqZTy2reUPlHEaXx6dzv1B98RYCzCsKccX2jAaBRb+
- XDWYn/5M0QABhTWzn6frNv29B9FY9R5a4mMtHVAM1Mi7ChRWcU2mU429XbBnl1PTLq8X
- vpC1edf66NkrtYBZnIPHifgBf4rCEFvE+LgZ11xXm6IYEg4F0oPkFjQL2a9uiTgNlcHq
- adg0HYHpKzBX2Y3qdxncU4vXnBpn+C1AEjmIS2UvWf9q8w1wkJnNN6czmCmObrtUG+2i
- Ow+g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWj1dPwTzC1sDkwvOYDJMDKPWYQ2aIa8Ch5AonflmdIL2pyjUwMdNq0gP0yIeFcFV4VgzIypAkH@lists.freedesktop.org,
- AJvYcCXWsgxRVaECXB2lJ3+F+HnJHL88O3Gnlb5sXkmezrOdOxIgWcahlRGfDfm9t8HdGC7L7H/XByxs5Xbv@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7z8PUu/33mJwzxGlAibJe4mD2cSdawsNwk0LIB+wgqQ4TIuVn
- Xm/2eYZBm77t0xy/jt3ifjWjAgmeZKV+MapDG11QGZFpc6SjCw2Q
-X-Gm-Gg: ASbGncuMuD+wkdJK5DQ31NA6xGL7LYPuokidPMC8Iq/1KBn4K5YANoo591ZshTj7KjO
- FUFCKOGaKGa7gYj5t1rbeVGIM/ir/N7I4Xkm8wN8btSvzUc+L8P9vFZ0lEie9KcgIyXkPCNqxp0
- CKYZgET7fnTXypvbOYfSFI5Trgt+O013Y7p+OCgpKgZIlVB4HphGGgCLTum0176rpWIkZf7DSqW
- L4IY1mz258J9/8GO8cUvgLYk50YyLjUFxc56LIiprIQU9h7hNTiaeGjzlxIpDAMrTnGc0W6J9tk
- TmZRtDqvhJ2pULexUKwgfNnBCeLXF1p25KP0hkb8+yyZL4BnuEM=
-X-Google-Smtp-Source: AGHT+IEM8O9x95BglttkpsX1VYoI4jLWpK+gMFTpf3ZBXg7sxj3iLdI7bWtsrH6IFjYE84LOvjVznA==
-X-Received: by 2002:a05:6a00:190f:b0:740:9a42:a356 with SMTP id
- d2e1a72fcca58-7423bd5544cmr17176473b3a.11.1747035778066; 
- Mon, 12 May 2025 00:42:58 -0700 (PDT)
-Received: from archie.me ([103.124.138.155]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74237a0d007sm5690848b3a.96.2025.05.12.00.42.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 May 2025 00:42:57 -0700 (PDT)
-Received: by archie.me (Postfix, from userid 1000)
- id C0F76420AB0E; Mon, 12 May 2025 14:42:52 +0700 (WIB)
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Documentation <linux-doc@vger.kernel.org>,
- Linux DRI Development <dri-devel@lists.freedesktop.org>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Linux Media Subsystem <linux-media@vger.kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEB0D10E0ED;
+ Sun, 11 May 2025 22:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=fYpjyOd2Yg0wDHzHvbeC5gHS5mcr9oma4AeYk2fvvk4=; b=SNXSAAypcRox5VcXFEfNh8Vt3u
+ 3BnSc4fI441fIniVMtp7T64NYRxvoIVTL9IcRY74H6uoRDJDEHvGHxxlxdHVXOkCyt/M9aKzLaG0j
+ ErV+Uxf03vJFKblKt4FPCHu9MYHBbyFn7KTskk2fDKOz91atkhtH+5BfykKxlBQvDrdjW8a8sxieP
+ wx/+ix3R0ofStJUgrh9AJHc1e2caTqUJDfDlTo+txa68RrJIiMABxA1Ar/X4V86DnIGR2PMhbyZvH
+ sbhNKUPez9y4l/1sPQZuXdY/3Z9Nazsb81+I/EZ7T2kiaOPtByGypMQ5v2WGcowMYNinbY4GGl5gY
+ Lnf1ZVaw==;
+Received: from [191.204.192.64] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uEFNf-006nqn-Sa; Mon, 12 May 2025 00:48:00 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: "Alex Deucher" <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bagas Sanjaya <bagasdotme@gmail.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>
-Subject: [PATCH] Documentation/gpu: Disambiguate SPI term
-Date: Mon, 12 May 2025 14:42:16 +0700
-Message-ID: <20250512074215.40928-2-bagasdotme@gmail.com>
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
+ "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v2 1/3] drm: Create an app info option for wedge events
+Date: Sun, 11 May 2025 19:47:43 -0300
+Message-ID: <20250511224745.834446-2-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250511224745.834446-1-andrealmeid@igalia.com>
+References: <20250511224745.834446-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1452; i=bagasdotme@gmail.com;
- h=from:subject; bh=0Ff/DfdS8SM8W7YuaV5Dll23KaO6sYsRLEZgfh2NHJI=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDBmKSxutzjK83xzJWfo1+rSB1/66S/XV36er3TApzjA81
- P5Q+o1ARykLgxgXg6yYIsukRL6m07uMRC60r3WEmcPKBDKEgYtTACay9wPD/zCXyKlr4lNVHMKL
- ix8lhjNN5fR0bSuV3Kz27HEtX0IMM8P/hPX6hu+LdjKZsbzb95rhbZH7R/+Cnk8pWqH2DAtMGY8
- zAwA=
-X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
- fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 May 2025 07:58:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -107,41 +67,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Documentation/userspace-api/media/glossary.rst:170: WARNING: duplicate term description of SPI, other instance in gpu/amdgpu/amdgpu-glossary
+When a device get wedged, it might be caused by a guilty application.
+For userspace, knowing which app was the cause can be useful for some
+situations, like for implementing a policy, logs or for giving a chance
+for the compositor to let the user know what app caused the problem.
+This is an optional argument, when `PID=-1` there's no information about
+the app caused the problem, or if any app was involved during the hang.
 
-That's because SPI of amdgpu (Shader Processor Input) shares the same
-global glossary term as SPI of media subsystem (which is Serial
-Peripheral Interface Bus). Disambiguate the former from the latter to
-fix the warning.
+Sometimes just the PID isn't enough giving that the app might be already
+dead by the time userspace will try to check what was this PID's name,
+so to make the life easier also notify what's the app's name in the user
+event.
 
-Note that adding context qualifiers in the term is strictly necessary
-in order to make Sphinx happy.
-
-Fixes: dd3d035a7838 ("Documentation/gpu: Add new entries to amdgpu glossary")
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Closes: https://lore.kernel.org/linux-next/20250509185845.60bf5e7b@canb.auug.org.au/
-Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
-Also Cc: media maintainers.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
+ drivers/gpu/drm/drm_drv.c                  | 16 +++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_reset.c      |  3 ++-
+ drivers/gpu/drm/xe/xe_device.c             |  3 ++-
+ include/drm/drm_device.h                   |  8 ++++++++
+ include/drm/drm_drv.h                      |  3 ++-
+ 7 files changed, 29 insertions(+), 8 deletions(-)
 
- Documentation/gpu/amdgpu/amdgpu-glossary.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-index 2040da593b1490..30812d9d53c645 100644
---- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-+++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-@@ -182,7 +182,7 @@ we have a dedicated glossary for Display Core at
-     SMU/SMC
-       System Management Unit / System Management Controller
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7f354cd532dc..c8a51418d0e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6216,7 +6216,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	atomic_set(&adev->reset_domain->reset_res, r);
  
--    SPI
-+    SPI (AMDGPU)
-       Shader Processor Input
+ 	if (!r)
+-		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
++		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
  
-     SRLC
-
-base-commit: afc6053d4c4b0a6be500b9e643aa17221e93a57b
+ 	return r;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index acb21fc8b3ce..a47b2eb301e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -166,7 +166,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 			if (amdgpu_ring_sched_ready(ring))
+ 				drm_sched_start(&ring->sched, 0);
+ 			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
+-			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
++			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
+ 			goto exit;
+ 		}
+ 		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 3dc7acd56b1d..1816ef4251e7 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -542,6 +542,7 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+  * drm_dev_wedged_event - generate a device wedged uevent
+  * @dev: DRM device
+  * @method: method(s) to be used for recovery
++ * @info: optional information about the guilty app
+  *
+  * This generates a device wedged uevent for the DRM device specified by @dev.
+  * Recovery @method\(s) of choice will be sent in the uevent environment as
+@@ -554,13 +555,14 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+  *
+  * Returns: 0 on success, negative error code otherwise.
+  */
+-int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
++int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
++			 struct drm_wedge_app_info *info)
+ {
+ 	const char *recovery = NULL;
+ 	unsigned int len, opt;
+ 	/* Event string length up to 28+ characters with available methods */
+-	char event_string[32];
+-	char *envp[] = { event_string, NULL };
++	char event_string[32], pid_string[15], comm_string[TASK_COMM_LEN];
++	char *envp[] = { event_string, pid_string, comm_string, NULL };
+ 
+ 	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+ 
+@@ -582,6 +584,14 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+ 	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+ 		 "but recovered through reset" : "needs recovery");
+ 
++	if (info) {
++		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
++		snprintf(comm_string, sizeof(comm_string), "APP=%s", info->comm);
++	} else {
++		snprintf(pid_string, sizeof(pid_string), "%s", "PID=-1");
++		snprintf(comm_string, sizeof(comm_string), "%s", "APP=none");
++	}
++
+ 	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+ }
+ EXPORT_SYMBOL(drm_dev_wedged_event);
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index dbdcfe130ad4..ba1d8fdc3c7b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -1448,7 +1448,8 @@ static void intel_gt_reset_global(struct intel_gt *gt,
+ 		kobject_uevent_env(kobj, KOBJ_CHANGE, reset_done_event);
+ 	else
+ 		drm_dev_wedged_event(&gt->i915->drm,
+-				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
++				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
++				     NULL);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index c02c4c4e9412..f329613e061f 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -1168,7 +1168,8 @@ void xe_device_declare_wedged(struct xe_device *xe)
+ 
+ 		/* Notify userspace of wedged device */
+ 		drm_dev_wedged_event(&xe->drm,
+-				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
++				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
++				     NULL);
+ 	}
+ 
+ 	for_each_gt(gt, xe, id)
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index e2f894f1b90a..b87401d5079e 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -30,6 +30,14 @@ struct pci_controller;
+ #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
+ #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
+ 
++/**
++ * struct drm_wedge_app_info - information about the guilty app of a wedge dev
++ */
++struct drm_wedge_app_info {
++	pid_t pid;
++	char *comm;
++};
++
+ /**
+  * enum switch_power_state - power state of drm device
+  */
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index a43d707b5f36..8fc6412a6345 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -482,7 +482,8 @@ void drm_put_dev(struct drm_device *dev);
+ bool drm_dev_enter(struct drm_device *dev, int *idx);
+ void drm_dev_exit(int idx);
+ void drm_dev_unplug(struct drm_device *dev);
+-int drm_dev_wedged_event(struct drm_device *dev, unsigned long method);
++int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
++			 struct drm_wedge_app_info *info);
+ 
+ /**
+  * drm_dev_is_unplugged - is a DRM device unplugged
 -- 
-An old man doll... just what I always wanted! - Clara
+2.49.0
 
