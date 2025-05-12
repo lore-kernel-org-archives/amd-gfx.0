@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E603AC3ABCB
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 18:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB79C3ABC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 18:41:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D66F10E48E;
-	Mon, 12 May 2025 18:34:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8565310E496;
+	Mon, 12 May 2025 18:41:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UTCp+RXB";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TNwVquwn";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1290010E48A;
- Mon, 12 May 2025 18:34:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 186A210E495;
+ Mon, 12 May 2025 18:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
@@ -22,17 +22,17 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=jVzy0ZfKrbqlvuoPhzrT3nrWqzjdWG9wwcy3U555gRw=; b=UTCp+RXBOzqrW85GU1c4+eO6tv
- uQ2cjJpmU/WF6NPoNPn9qHOMbuWfGdNOWyUmqMfCpiN0YMJ8TKZX4oiU3vlbi/RLLqODbDpXtDyYC
- cGlxqaadF629/fItAllhjR4RGOZOnsCJ51a4TlMe3MPDbSO+C1Rk90Ujojuodok03n292fTmHKiUz
- AtQVbqdZapPRd8NS5DNm8sWQQjp8bz9GcITeq50CX9iX2d810CvoPKGc1KsjkojLf1+IUvCq5oZci
- JeGMd9ocFtcXxZdZ+4R1iZlpasKiKT3OT3uC2sxV7o7n/8aZkiVXrH0LMpKaUDlCTAa8eOpQjai5s
- 74O99/2Q==;
+ bh=WCIxobgEHSu93Uzx59vMtfMZ5FfxMa7A3ZFyWfcrtG0=; b=TNwVquwnMfXHZj/pyoEEAEJ4Cy
+ 0km0xE+MBCUGHNuEMWjl1j5H74SuwzitHKOTRdyC0UE82xXJwPEmie1kaEWBtIRcvOT2SovZiW4kv
+ RgiHMVt0Qrk9n+gPQnfh1I7WNSf4IpQfOkdlqSAsmomnjP8kn03xsw3QqmAA+fKXFe9U4Hc0A9IZj
+ DGKcsgOqg1CqxVq/tomGN2u8e55f0U/hObPQppucx6Ppdtd+7CwccLTZN5Pl68tgFw1MzKr6RdoJP
+ RhYewRIA0lM0E0xKgYDOS7WbTr6qvTXfidtWDNIzyf1KTKZAMsLi+1R8tdFuzt+qDIvK6VGdOVnsN
+ 7HdWJo6A==;
 Received: from [189.6.16.79] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uEXtE-007DIZ-Pe; Mon, 12 May 2025 20:34:00 +0200
-Date: Mon, 12 May 2025 15:32:59 -0300
+ id 1uEY0i-007DTu-NH; Mon, 12 May 2025 20:41:44 +0200
+Date: Mon, 12 May 2025 15:41:31 -0300
 From: Melissa Wen <mwen@igalia.com>
 To: Alex Hung <alex.hung@amd.com>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
@@ -47,15 +47,14 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
  chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
  Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH V9 22/43] drm/colorop: define a new macro
- for_each_new_colorop_in_state
-Message-ID: <swezer3bl7lpxetlnjqpjrtlcobrxdqisgvsuzhdfxby3wmpzc@m42wnlgeo77f>
+Subject: Re: [PATCH V9 24/43] drm/amd/display: Add bypass COLOR PIPELINE
+Message-ID: <kot2lflfwjj5cpqtswvoje3eyj7tgef7rdkvtue54qze4u6hty@jmohnbkhtii5>
 References: <20250430011115.223996-1-alex.hung@amd.com>
- <20250430011115.223996-23-alex.hung@amd.com>
+ <20250430011115.223996-25-alex.hung@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250430011115.223996-23-alex.hung@amd.com>
+In-Reply-To: <20250430011115.223996-25-alex.hung@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,50 +70,64 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 04/29, Alex Hung wrote:
-> Create a new macro for_each_new_colorop_in_state to access new
-> drm_colorop_state updated from uapi.
+> From: Harry Wentland <harry.wentland@amd.com>
 > 
-> Reviewed-by: Simon Ser <contact@emersion.fr>
+> Add the default Bypass pipeline and ensure it passes the
+> kms_colorop test plane-XR30-XR30-bypass.
+> 
 > Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > Reviewed-by: Daniel Stone <daniels@collabora.com>
 > ---
->  include/drm/drm_atomic.h | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
 > 
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 4a30ed8ab1a8..4b3bd459a1eb 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -1069,6 +1069,26 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  			      (new_colorop_state) = (__state)->colorops[__i].new_state, 1))
->  
->  
-> +/**
-> + * for_each_new_colorop_in_state - iterate over all colorops in an atomic update
-> + * @__state: &struct drm_atomic_state pointer
-> + * @colorop: &struct drm_colorop iteration cursor
-> + * @new_colorop_state: &struct drm_colorop_state iteration cursor for the new state
-> + * @__i: int iteration cursor, for macro-internal use
-> + *
-> + * This iterates over all colorops in an atomic update, tracking new state. This is
-> + * useful is useful in places where the state delta needs to be considered, for
-
-nit: "is useful" duplication
-
-> + * example in atomic check functions.
-> + */
-> +#define for_each_new_colorop_in_state(__state, colorop, new_colorop_state, __i) \
-> +	for ((__i) = 0;							\
-> +	     (__i) < (__state)->dev->mode_config.num_colorop;	\
-> +	     (__i)++)							\
-> +		for_each_if ((__state)->colorops[__i].ptr &&		\
-> +			     ((colorop) = (__state)->colorops[__i].ptr,	\
-> +			      (void)(colorop) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (new_colorop_state) = (__state)->colorops[__i].new_state, 1))
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 3e0f45f1711c..fb6f07603050 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1784,6 +1784,20 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
+>  }
+>  #endif
+> 
+> +#define MAX_COLOR_PIPELINES 5
 > +
->  /**
->   * for_each_oldnew_plane_in_state - iterate over all planes in an atomic update
->   * @__state: &struct drm_atomic_state pointer
+> +static int
+> +dm_plane_init_colorops(struct drm_plane *plane)
+> +{
+> +	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES];
+> +	int len = 0;
+> +
+> +	/* Create COLOR_PIPELINE property and attach */
+> +	drm_plane_create_color_pipeline_property(plane, pipelines, len);
+> +
+> +	return 0;
+> +}
+> +
+
+This function is unused if AMD_PRIVATE_COLOR (warning).
+I think you can add an #else just before the define MAX_COLOR_PIPELINES
+(replacing the above #endif there, and move the #endif to here to solve
+it.
+
+Melissa
+
+>  static const struct drm_plane_funcs dm_plane_funcs = {
+>  	.update_plane	= drm_atomic_helper_update_plane,
+>  	.disable_plane	= drm_atomic_helper_disable_plane,
+> @@ -1890,7 +1904,12 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>  
+>  #ifdef AMD_PRIVATE_COLOR
+>  	dm_atomic_plane_attach_color_mgmt_properties(dm, plane);
+> +#else
+> +	res = dm_plane_init_colorops(plane);
+> +	if (res)
+> +		return res;
+>  #endif
+> +
+>  	/* Create (reset) the plane state */
+>  	if (plane->funcs->reset)
+>  		plane->funcs->reset(plane);
 > -- 
 > 2.43.0
 > 
