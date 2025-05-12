@@ -4,119 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D88CC3ABBC
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 07:30:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E42C3ABBC
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 07:58:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D9D210E0C8;
-	Mon, 12 May 2025 07:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B075B10E2F2;
+	Mon, 12 May 2025 07:58:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Tc/Jakd7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cYuWbnOA";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ADF510E0C8
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 07:30:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hVZXUmv5s2DvmlkpTfM3/ThTO036ZhSmBaOGizKYvhqlZN6pjLL/yLWg+ZoCvJXiv+D6IpsWXXB51LlQByi7BTXn55wHYvY5Y1OiRLeD3xW0iilVlXVdB1zOvmgwRwnE1alGTDQfMEhDN0MGoyIahF1boGhHk8anqg6k0HoiMgIi60IMyjoqXCdr1MOHhaLQG+lNf1tXwKXvaVEWRaHU41X0Ug+kLAeS07lploL7TlpRRnm6kCIaLx2TX0V9KpjIjqzjsufyrQJIqjUpiuJpMNlNxegus2+U5L/ZDeYSxJbPafQDrD9ITHlA8usB8ygLcaUv7Gx1gKGOB7FRHoxybQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I401rYLT7a/OsQ2b3bEz1xcpzMfuW09M+NZfUwjKMNo=;
- b=eZuM9vfrs+DCxXQuMHK52TYNKDfunFThRSUQtgWzzJUwkGYYoVpaIiNM2OB3UfYAD4tSCovw7x3s9urI2IR1tpL1zqC7I5H75b2Zob0TgaswJxUVNgDZTKruv8S4eb6/PMpsE4y6UXLzzgFcZTBcyOes0V7eHQ4kfCc3duYE4gssYgPi2oKZ8WRC4bF0PLHq9ptIQIBJQ6mLVAbqrgimEKU2paIe1E06sHqRyLYW7/JG26uPH2RO1fbpkXgJq0fJaahuJZWeDjoFYuhvd1ZSsugn2Cq6n6CuPLDjRrj9ri37iavQcWpkIItp0ShET0qIIO8e3zL+aNtAp3rTjkpfQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I401rYLT7a/OsQ2b3bEz1xcpzMfuW09M+NZfUwjKMNo=;
- b=Tc/Jakd7pNDGpKQKT4V3rCjTk90E9fsrO31KY4SLVKz15eXVrNMQSEVrkRcfBw0ARiuCCGCRTijJiUq5bcgOUpXKRGHFf1qrFVuqrmmwTGhFSihlFs0lYAY3MQqU5mdkpdbZ/sA2QYadWteTrpcQyYVrCsCntz+9ArIU1+XQBKQ=
-Received: from BN9PR03CA0782.namprd03.prod.outlook.com (2603:10b6:408:13f::7)
- by CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Mon, 12 May
- 2025 07:30:16 +0000
-Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
- (2603:10b6:408:13f:cafe::90) by BN9PR03CA0782.outlook.office365.com
- (2603:10b6:408:13f::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.33 via Frontend Transport; Mon,
- 12 May 2025 07:30:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Mon, 12 May 2025 07:30:16 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 12 May
- 2025 02:30:13 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
- <Prike.Liang@amd.com>
-Subject: [PATCH] drm/amdgpu: fix userq resource double freed
-Date: Mon, 12 May 2025 15:30:02 +0800
-Message-ID: <20250512073002.401719-1-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C233510E138;
+ Mon, 12 May 2025 07:42:58 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-7410c18bb00so4480007b3a.3; 
+ Mon, 12 May 2025 00:42:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747035778; x=1747640578; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=6ixYcQq0rSF0bg9NFU6d5lRXfvmxhdZj5BggjL8hxVE=;
+ b=cYuWbnOAxPJ+L4sidzOdV0Dculq16OP3wmMg5z+7vKOfcFYlZNPPWmkWpXhfORo3rU
+ 4q2d+VSbuDNchFB049QHMoZzgr+leE3QLOFgnjFFF2rA4Kxxed5GaDEE8k5EhuQ2E1AO
+ WQftZGLCfUe91A0e2od7w0YtchxTBCcoupX4ZwfnO8jYvrh9oBknQQWZTAnvslRsU6eF
+ mi0wxMv1JfGvlszePKgNzWE+6SlEKHIRVSMTfJDIVcUHLg87x59Z5htLrw7l/Obyp4WX
+ MuCF3W+NOGfpuBYnaa9M3A+TzRTQSfG6uaWtZelgrXvXgsbP9AE/2wLKE1+BiU3Vwecp
+ GhBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747035778; x=1747640578;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6ixYcQq0rSF0bg9NFU6d5lRXfvmxhdZj5BggjL8hxVE=;
+ b=MBSLtKdBktL1r60oA83YZ36FQKQ3pkctwMwVjHMauZcHG9x8k6vdvhhCYDi0sqMhQp
+ Fe4+WgZFqpfxTCs6A1xJqli2DznqZTy2reUPlHEaXx6dzv1B98RYCzCsKccX2jAaBRb+
+ XDWYn/5M0QABhTWzn6frNv29B9FY9R5a4mMtHVAM1Mi7ChRWcU2mU429XbBnl1PTLq8X
+ vpC1edf66NkrtYBZnIPHifgBf4rCEFvE+LgZ11xXm6IYEg4F0oPkFjQL2a9uiTgNlcHq
+ adg0HYHpKzBX2Y3qdxncU4vXnBpn+C1AEjmIS2UvWf9q8w1wkJnNN6czmCmObrtUG+2i
+ Ow+g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWj1dPwTzC1sDkwvOYDJMDKPWYQ2aIa8Ch5AonflmdIL2pyjUwMdNq0gP0yIeFcFV4VgzIypAkH@lists.freedesktop.org,
+ AJvYcCXWsgxRVaECXB2lJ3+F+HnJHL88O3Gnlb5sXkmezrOdOxIgWcahlRGfDfm9t8HdGC7L7H/XByxs5Xbv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy7z8PUu/33mJwzxGlAibJe4mD2cSdawsNwk0LIB+wgqQ4TIuVn
+ Xm/2eYZBm77t0xy/jt3ifjWjAgmeZKV+MapDG11QGZFpc6SjCw2Q
+X-Gm-Gg: ASbGncuMuD+wkdJK5DQ31NA6xGL7LYPuokidPMC8Iq/1KBn4K5YANoo591ZshTj7KjO
+ FUFCKOGaKGa7gYj5t1rbeVGIM/ir/N7I4Xkm8wN8btSvzUc+L8P9vFZ0lEie9KcgIyXkPCNqxp0
+ CKYZgET7fnTXypvbOYfSFI5Trgt+O013Y7p+OCgpKgZIlVB4HphGGgCLTum0176rpWIkZf7DSqW
+ L4IY1mz258J9/8GO8cUvgLYk50YyLjUFxc56LIiprIQU9h7hNTiaeGjzlxIpDAMrTnGc0W6J9tk
+ TmZRtDqvhJ2pULexUKwgfNnBCeLXF1p25KP0hkb8+yyZL4BnuEM=
+X-Google-Smtp-Source: AGHT+IEM8O9x95BglttkpsX1VYoI4jLWpK+gMFTpf3ZBXg7sxj3iLdI7bWtsrH6IFjYE84LOvjVznA==
+X-Received: by 2002:a05:6a00:190f:b0:740:9a42:a356 with SMTP id
+ d2e1a72fcca58-7423bd5544cmr17176473b3a.11.1747035778066; 
+ Mon, 12 May 2025 00:42:58 -0700 (PDT)
+Received: from archie.me ([103.124.138.155]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74237a0d007sm5690848b3a.96.2025.05.12.00.42.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 May 2025 00:42:57 -0700 (PDT)
+Received: by archie.me (Postfix, from userid 1000)
+ id C0F76420AB0E; Mon, 12 May 2025 14:42:52 +0700 (WIB)
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Documentation <linux-doc@vger.kernel.org>,
+ Linux DRI Development <dri-devel@lists.freedesktop.org>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
+ Linux Media Subsystem <linux-media@vger.kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bagas Sanjaya <bagasdotme@gmail.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>
+Subject: [PATCH] Documentation/gpu: Disambiguate SPI term
+Date: Mon, 12 May 2025 14:42:16 +0700
+Message-ID: <20250512074215.40928-2-bagasdotme@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1452; i=bagasdotme@gmail.com;
+ h=from:subject; bh=0Ff/DfdS8SM8W7YuaV5Dll23KaO6sYsRLEZgfh2NHJI=;
+ b=owGbwMvMwCX2bWenZ2ig32LG02pJDBmKSxutzjK83xzJWfo1+rSB1/66S/XV36er3TApzjA81
+ P5Q+o1ARykLgxgXg6yYIsukRL6m07uMRC60r3WEmcPKBDKEgYtTACay9wPD/zCXyKlr4lNVHMKL
+ ix8lhjNN5fR0bSuV3Kz27HEtX0IMM8P/hPX6hu+LdjKZsbzb95rhbZH7R/+Cnk8pWqH2DAtMGY8
+ zAwA=
+X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
+ fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|CY8PR12MB7195:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46e2ed6a-eafa-4bef-c911-08dd9126d725
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lCGkECCFua6ihJB21bfT3uKlal6DQZ8IWlHHe0TWPq8F31UjM/nJ8wxA9Odb?=
- =?us-ascii?Q?JeesdnC3qyzojWO1AU8ifzQZ3QaJmhdErSKNkWJbILf8+2RU++b7Ez8irdTt?=
- =?us-ascii?Q?N7swrOMdU0kVH4UKVFtbM3vbABg2PPUlNUunLsB3FHnmcNMaeI3WnUFL5vcf?=
- =?us-ascii?Q?DGk49vTrI1ki2/n5B/NDpKcnUsE9NIi1N/LFLty3v7jQpCNZoTh7ZMZUIYv5?=
- =?us-ascii?Q?dpfLp8+6BALU+mY95PPczmEsowsrADlnZ2WxxlCseKfEJaOEh/d7KDFM/sVZ?=
- =?us-ascii?Q?2jeWWXagjH1qHVWvTWxqX/X2l02VC/iQ8p4HjbRBLatTMZnb/ghT/1tm25ZH?=
- =?us-ascii?Q?1yj4/DzjmBtpN28oaCH8RSFV8AX8JWb4DGsGfuOESHfTEp6ixGdCksVOZN56?=
- =?us-ascii?Q?JqjBCZ8wGJEkPmTVm+dA1JRtNJfjJvz3CfOf8XCj8WWiOEdoRq4fmSQn+2Vd?=
- =?us-ascii?Q?njz8/T+Nw9gHuh9pXrjbQw9c61QrUx4A1Gf5xgR4IE5hOGflrUb58V/Dvo3t?=
- =?us-ascii?Q?mp0gktVMnvebMvwMA5faNuB1Hq4l6Xk3UcJL8g/J7COUkng03GDFZoKiyYq+?=
- =?us-ascii?Q?WoaJMrFFccfEO5rczE8jB2BWX7VPJTny2pbMkNXgeI19ZDboB/srihi+jwxC?=
- =?us-ascii?Q?h6Kxfb4DnZ4P2VKQJR9OnVCpTdTAMR7kgczTGYQP9HOyuvgLH9QKHexsBZ0Z?=
- =?us-ascii?Q?X8YAFF/ehMnRtQe22kBWuUa/8F9exXGADbaTsblk96zZDS/h16vsKwUHaYxl?=
- =?us-ascii?Q?Q5eJN2thkV8x/pFnNXD9gixUOwuWUiKdYK/eUqg5+BCG5OaN8O3LrxkI9AS1?=
- =?us-ascii?Q?AndOZ+0S3ISp86j2xd/C8AE0Bj1igHxrq7qANjyM+wl/lT6SbJ9x1jgp+h5i?=
- =?us-ascii?Q?a3NRZXpinkUHEcMy+MN9xB4nRD4eVR2xaM9U9GND+Imf0U0aKWzAeJvvU7+V?=
- =?us-ascii?Q?K+8cFcw3HT+ICPLuQsiIaHWMcuG3LfXmzSxOO6vOq2/STHutvC4veDTOU44m?=
- =?us-ascii?Q?qzoxv7L33ENfOPSAcGRiJ/PKOiG1IRIGm5BxNL2wvw70PNo2syASc3fcTMOb?=
- =?us-ascii?Q?7u8i7ZuokgyUbkXEEcS0oiNqa7EGHjfWWqpiBvlXxnbDAh2C9o+qhh7uvo1o?=
- =?us-ascii?Q?EnMeSp4vAnNWa73Bx2r1yRHebTFXRvn8Igpq9wAOzrqMzW8Djb5wgISKC6tc?=
- =?us-ascii?Q?HlYLl56ptcto6xVGtTyEL0w3t4HUkAjf9nMB374nNwtFH1O8r5E38OFZv5mB?=
- =?us-ascii?Q?rjE5bwI7cN9qFDj+raOp8UkVyEaGIULpoQXUsfObJ2bDFi+w+YPxpiSpE8nI?=
- =?us-ascii?Q?pEc3FLMqlUboF6U8eGwGf90sLTb4nhkApj8fpufQzcRUBhAx4E8kf4hlLsSS?=
- =?us-ascii?Q?vSl9U77Zuw5re0KzWMoHl+a0TsCvnN/OIkh2ygi8TqB20gSzHr6mCQBmxki4?=
- =?us-ascii?Q?4e3rPzJeKcKTKM3JdsTWuuMxmAB6kqePFgcKHCJpyusz6sUTso3SGoyBMRiM?=
- =?us-ascii?Q?wLufMLaqHLUUsrq6tC/DV1L6Ws5RUdH3lGo4?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2025 07:30:16.0486 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46e2ed6a-eafa-4bef-c911-08dd9126d725
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7195
+X-Mailman-Approved-At: Mon, 12 May 2025 07:58:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,35 +107,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As the userq resource was already freed at the drm_release
-early phase, it should avoid freeing userq resource again
-at the later kms postclose callback.
+Documentation/userspace-api/media/glossary.rst:170: WARNING: duplicate term description of SPI, other instance in gpu/amdgpu/amdgpu-glossary
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+That's because SPI of amdgpu (Shader Processor Input) shares the same
+global glossary term as SPI of media subsystem (which is Serial
+Peripheral Interface Bus). Disambiguate the former from the latter to
+fix the warning.
+
+Note that adding context qualifiers in the term is strictly necessary
+in order to make Sphinx happy.
+
+Fixes: dd3d035a7838 ("Documentation/gpu: Add new entries to amdgpu glossary")
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Closes: https://lore.kernel.org/linux-next/20250509185845.60bf5e7b@canb.auug.org.au/
+Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Also Cc: media maintainers.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 8d4a2aed7231..cf0f35a7daee 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1502,10 +1502,11 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
- 		amdgpu_bo_unreserve(pd);
- 	}
+ Documentation/gpu/amdgpu/amdgpu-glossary.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+index 2040da593b1490..30812d9d53c645 100644
+--- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
++++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+@@ -182,7 +182,7 @@ we have a dedicated glossary for Display Core at
+     SMU/SMC
+       System Management Unit / System Management Controller
  
--	fpriv->evf_mgr.fd_closing = true;
--	amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
--	amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
--
-+	if (!fpriv->evf_mgr.fd_closing) {
-+		fpriv->evf_mgr.fd_closing = true;
-+		amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
-+		amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
-+	}
- 	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
- 	amdgpu_vm_fini(adev, &fpriv->vm);
+-    SPI
++    SPI (AMDGPU)
+       Shader Processor Input
  
+     SRLC
+
+base-commit: afc6053d4c4b0a6be500b9e643aa17221e93a57b
 -- 
-2.34.1
+An old man doll... just what I always wanted! - Clara
 
