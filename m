@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A415C3ABCB
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 18:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E603AC3ABCB
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 18:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93F6410E478;
-	Mon, 12 May 2025 18:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D66F10E48E;
+	Mon, 12 May 2025 18:34:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BwsM1eT3";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UTCp+RXB";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8533D10E46C;
- Mon, 12 May 2025 18:04:55 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 5933EA4B171;
- Mon, 12 May 2025 18:04:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C564C4CEE7;
- Mon, 12 May 2025 18:04:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747073091;
- bh=AESvUlPW8mv9wKVURiU6MMPiaUUCwGT2gGubYF9BAAg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BwsM1eT3Fpb4JXg297t2vWY/GgVkD96ukqHKjeil16HKnUQgCSBHkCnzPMUAxnj6m
- CsRyZ99lmxB9f5yIDS8t9TKbb+KQZcsRF28SOcrvRJwqyRQRaa1cutOdqZno4LrLNN
- MzBFy5TNkZms1X6v71FOup1McLz39aj0so2r70w3vhnRMRYw2Gpetn889nkL8giTPc
- ob8iZSnMlR4qYtSvVZM5YUtLnHoMLxgJ1zSQ2xo1ABd8vFN/+EyKAc7CCn+Ix/e+Ry
- 5i1NdX3iRM+t7dJmGGpHMRSREXjrKaCH+wt5JH+1fCM1eLMBG+hX9FpNyHbrzOFfbf
- x3K9sEl2FGbgg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Austin Zheng <Austin.Zheng@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, dillon.varone@amd.com, aurabindo.pillai@amd.com,
- chenhuacai@kernel.org, george.shen@amd.com, rostrows@amd.com,
- siqueira@igalia.com, jerry.zuo@amd.com, jiapeng.chong@linux.alibaba.com,
- chris.park@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.12 10/11] drm/amd/display: Call FP Protect Before
- Mode Programming/Mode Support
-Date: Mon, 12 May 2025 14:04:25 -0400
-Message-Id: <20250512180426.437627-10-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250512180426.437627-1-sashal@kernel.org>
-References: <20250512180426.437627-1-sashal@kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1290010E48A;
+ Mon, 12 May 2025 18:34:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=jVzy0ZfKrbqlvuoPhzrT3nrWqzjdWG9wwcy3U555gRw=; b=UTCp+RXBOzqrW85GU1c4+eO6tv
+ uQ2cjJpmU/WF6NPoNPn9qHOMbuWfGdNOWyUmqMfCpiN0YMJ8TKZX4oiU3vlbi/RLLqODbDpXtDyYC
+ cGlxqaadF629/fItAllhjR4RGOZOnsCJ51a4TlMe3MPDbSO+C1Rk90Ujojuodok03n292fTmHKiUz
+ AtQVbqdZapPRd8NS5DNm8sWQQjp8bz9GcITeq50CX9iX2d810CvoPKGc1KsjkojLf1+IUvCq5oZci
+ JeGMd9ocFtcXxZdZ+4R1iZlpasKiKT3OT3uC2sxV7o7n/8aZkiVXrH0LMpKaUDlCTAa8eOpQjai5s
+ 74O99/2Q==;
+Received: from [189.6.16.79] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uEXtE-007DIZ-Pe; Mon, 12 May 2025 20:34:00 +0200
+Date: Mon, 12 May 2025 15:32:59 -0300
+From: Melissa Wen <mwen@igalia.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, leo.liu@amd.com, 
+ ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
+ contact@emersion.fr, 
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com, 
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, 
+ quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
+ marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
+ Daniel Stone <daniels@collabora.com>
+Subject: Re: [PATCH V9 22/43] drm/colorop: define a new macro
+ for_each_new_colorop_in_state
+Message-ID: <swezer3bl7lpxetlnjqpjrtlcobrxdqisgvsuzhdfxby3wmpzc@m42wnlgeo77f>
+References: <20250430011115.223996-1-alex.hung@amd.com>
+ <20250430011115.223996-23-alex.hung@amd.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.12.28
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250430011115.223996-23-alex.hung@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,71 +70,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+On 04/29, Alex Hung wrote:
+> Create a new macro for_each_new_colorop_in_state to access new
+> drm_colorop_state updated from uapi.
+> 
+> Reviewed-by: Simon Ser <contact@emersion.fr>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Reviewed-by: Daniel Stone <daniels@collabora.com>
+> ---
+>  include/drm/drm_atomic.h | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+> 
+> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+> index 4a30ed8ab1a8..4b3bd459a1eb 100644
+> --- a/include/drm/drm_atomic.h
+> +++ b/include/drm/drm_atomic.h
+> @@ -1069,6 +1069,26 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
+>  			      (new_colorop_state) = (__state)->colorops[__i].new_state, 1))
+>  
+>  
+> +/**
+> + * for_each_new_colorop_in_state - iterate over all colorops in an atomic update
+> + * @__state: &struct drm_atomic_state pointer
+> + * @colorop: &struct drm_colorop iteration cursor
+> + * @new_colorop_state: &struct drm_colorop_state iteration cursor for the new state
+> + * @__i: int iteration cursor, for macro-internal use
+> + *
+> + * This iterates over all colorops in an atomic update, tracking new state. This is
+> + * useful is useful in places where the state delta needs to be considered, for
 
-[ Upstream commit eba692ca3abca258b3214a6e4126afefad1822f0 ]
+nit: "is useful" duplication
 
-[Why]
-Memory allocation occurs within dml21_validate() for adding phantom planes.
-May cause kernel to be tainted due to usage of FP Start.
-
-[How]
-Move FP start from dml21_validate to before mode programming/mode support.
-Calculations requiring floating point are all done within mode programming
-or mode support.
-
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit fe3250f10819b411808ab9ae1d824c5fc9b59170)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-index e3e4f40bd4123..dcbe327209d5d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-@@ -221,7 +221,9 @@ static bool dml21_mode_check_and_programming(const struct dc *in_dc, struct dc_s
- 	if (!result)
- 		return false;
- 
-+	DC_FP_START();
- 	result = dml2_build_mode_programming(mode_programming);
-+	DC_FP_END();
- 	if (!result)
- 		return false;
- 
-@@ -271,7 +273,9 @@ static bool dml21_check_mode_support(const struct dc *in_dc, struct dc_state *co
- 	mode_support->dml2_instance = dml_init->dml2_instance;
- 	dml21_map_dc_state_into_dml_display_cfg(in_dc, context, dml_ctx);
- 	dml_ctx->v21.mode_programming.dml2_instance->scratch.build_mode_programming_locals.mode_programming_params.programming = dml_ctx->v21.mode_programming.programming;
-+	DC_FP_START();
- 	is_supported = dml2_check_mode_supported(mode_support);
-+	DC_FP_END();
- 	if (!is_supported)
- 		return false;
- 
-@@ -282,16 +286,12 @@ bool dml21_validate(const struct dc *in_dc, struct dc_state *context, struct dml
- {
- 	bool out = false;
- 
--	DC_FP_START();
--
- 	/* Use dml_validate_only for fast_validate path */
- 	if (fast_validate)
- 		out = dml21_check_mode_support(in_dc, context, dml_ctx);
- 	else
- 		out = dml21_mode_check_and_programming(in_dc, context, dml_ctx);
- 
--	DC_FP_END();
--
- 	return out;
- }
- 
--- 
-2.39.5
-
+> + * example in atomic check functions.
+> + */
+> +#define for_each_new_colorop_in_state(__state, colorop, new_colorop_state, __i) \
+> +	for ((__i) = 0;							\
+> +	     (__i) < (__state)->dev->mode_config.num_colorop;	\
+> +	     (__i)++)							\
+> +		for_each_if ((__state)->colorops[__i].ptr &&		\
+> +			     ((colorop) = (__state)->colorops[__i].ptr,	\
+> +			      (void)(colorop) /* Only to avoid unused-but-set-variable warning */, \
+> +			      (new_colorop_state) = (__state)->colorops[__i].new_state, 1))
+> +
+>  /**
+>   * for_each_oldnew_plane_in_state - iterate over all planes in an atomic update
+>   * @__state: &struct drm_atomic_state pointer
+> -- 
+> 2.43.0
+> 
