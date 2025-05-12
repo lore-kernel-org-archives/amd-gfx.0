@@ -4,72 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22EC1C3ABDC
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 08:16:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4537C54754
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 08:16:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41DCD10E546;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F60D10E547;
 	Tue, 13 May 2025 08:16:02 +0000 (UTC)
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
- [205.220.178.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69CD310E2A2;
- Tue, 13 May 2025 01:52:26 +0000 (UTC)
-Received: from pps.filterd (m0250811.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54D196Q8028546;
- Tue, 13 May 2025 01:52:21 GMT
-Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.wrs.com
- [147.11.82.252])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 46hv11jg9p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 13 May 2025 01:52:21 +0000 (GMT)
-Received: from ala-exchng01.corp.ad.wrs.com (147.11.82.252) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Mon, 12 May 2025 18:52:19 -0700
-Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Mon, 12 May 2025 18:52:15 -0700
-From: <jianqi.ren.cn@windriver.com>
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>
-CC: <patches@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <jianqi.ren.cn@windriver.com>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <Jerry.Zuo@amd.com>, <wayne.lin@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <zaeem.mohamed@amd.com>, <daniel.wheeler@amd.com>
-Subject: [PATCH 6.1.y] drm/amd/display: Don't refer to dc_sink in
- is_dsc_need_re_compute
-Date: Tue, 13 May 2025 09:52:14 +0800
-Message-ID: <20250513015214.3360461-1-jianqi.ren.cn@windriver.com>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="g0EbxXk8";
+	dkim-atps=neutral
+Received: from sonic316-24.consmr.mail.ne1.yahoo.com
+ (sonic316-24.consmr.mail.ne1.yahoo.com [66.163.187.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2A6C10E49F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 20:07:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
+ t=1747080460; bh=1N/T8d74Jx+NCpWrd0FKqkJSTab0kL3ts0D27zynN0Q=;
+ h=Date:From:Subject:To:Cc:In-Reply-To:References:From:Subject:Reply-To;
+ b=g0EbxXk8UB4Ss62FNDWPCEa+x2y0QSDFm4T8X9bYnXYaO2MP9+s2AkhYtBLmhd/2z4roqrHQpFklztRZI4+WN3RJYWrWdl14LATsH0XD4aZBDIon6sSeS4rNa3mO4EiWYdgTe8hgeEd2NLX0/hvST2QEKUYxxJYB2AxD6Puggbw=
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1747080460; bh=Z66IBuW9+VKRQ+onHevfzUgDKNKwdfUBjLurPvUrQrN=;
+ h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
+ b=TQMgGu/kWSomrnzBHAQM+mt8+lWAJTUqpo83ZIdzb8XzjBRIAYUHzf6PXoRHD381KJ+2tUrhLrmkyOsoAHCWM4kFifj4ZvXJqlKH4rC6AI9Z9Hgt70nmD8ouusGPRuO2v10c56fhgf8AVycuhodlBT/X4kLJMfIBh3Tx2OCZ+8xorS/9k55cVZsCCqF/SN3OfTayGwQX204LlONR8y3OdiIZ7TDloonYOyyZOPhqgQ5Hud9WrVgEr9l5Px5+dIFTEU7NbMVjFVKuYiWU2vir5a2lkS7aIKv/J2s+D5IY4Y519wEGM1A4bsXnv6gO0XNNa0EqtChQsM7BSLzzhv61iA==
+X-YMail-OSG: SfGStR8VM1kcdjK0BQU9ABoNtJ51dRs8HhVOzF8JkfiHvJZqgzO4msousYo8cl6
+ sOmFx4rQl5ukpuDqJFfm3ggY4hPNiubLOLRtGLZdmoHeRDz2NUZdUfkAgpwXcqzv52dVkQug9tCp
+ IBCCQ_I3_C6e0OHpiIyInC8TQ_0uOsftFqz8ifLaz6HtfmnxY9PW_xyfbXky2PN6C6WVD5fuCNUX
+ jBZI7Mv9L1MnnKKLOGwggdPkerpaF20S0pSSXZbG.XcH.wUryjLrBR.TSvUzE1d7FkFeUQ.Qchpl
+ wyxhEWc2888iatYUnHTxhFnxWUtwl.sBKrxD0ZFXMUYf6gDSGYO6NbzymhrgDRDsLPtJRVviw4es
+ Pm29TBnc2nRbRSvThSJDKe8I8QYzRrKjxTORwnNJbp0oRcm4LkPGNZPgdZRJHKS6Go0_SEXUisNA
+ 8zKA18tDFcRzxT2yoXYfa_YiCU_2AMckD8Rv9KTl9Hay7RhfFgO1WtzpABE3xuhFb_pV9o3nw69c
+ z7SBswJiUbBxRX84LhTbOFQfXMX6qHA_sqfSYOqF4Np.3no8f6Ve1oaAaA8gjSFP.a3wJMRYIlmB
+ qY8Jf4pDN8aljNO7zkbSkWB4_zsiXmat8gihUQT1QwilWQw.4RlQWikoSaTl_QpMco9KqHiojOU7
+ 1_ePff.O0kIzLkQ1Wmev3fMM.tjcdUafEF7jzdmBOguD_qwS4QaWSmKn9TjxfKi06zHjRdr7r3ud
+ Go_FL4wu0JbhqEQlfsWvCo43Onxq.i3roGKvJ73MBIi1e6kKl8APh_2krSKe3q7ljTE8wNdbkw8.
+ Tdwg9NahrVyC9XxFik9qiMJl8fCz8txctf1iZm5hp7xseSuKwlc.MS7dhL2BMFj4r4cp.bhLp1dF
+ DWj3gRqTQksLTzD1CcSqcColOR8L.0CxypV3Lj121fdRtL.Iy4k0DAhgtUDx75w2BqJQh5HCcehP
+ iF9w_KwmRKiqSArmIhGKNsRAqdQFTYIufKiw2UHuES5zpP_.F.C4sgj2OfxYTu3zOA9heBGfnkX1
+ qdVkXrIArkFDpo_5erI8tvKD2xdx7ldTYg9pgm6mi9qW7nNuQdkRiGmSecUWQi_SeyJPB0L7m22I
+ Q_2nGn167lfdA1EGpKOZzMpfPu7FXn6zAhA2YE14HG68WbKAYHTWMfssW2FBBWjLMz8zgRsbvcUc
+ ItEXdma5NFSgOwOkizabLGde9vHhz4uA0GD2.iYPkv8HEPcZvEPMdfRIoJqSNDqWZ22pdJYZoVyy
+ h8OxXJzmU5P9A7Xrr.GTeb8FZ2d6hY6NKmwt7HFqr1OgkSYaidAdgrcJz.XUgYV3oiUT0rIMnrGk
+ 8qzHrRmXzfwsFwdkwz8vCwNRy3K8YL8Ogcag2fzJjv1wG0cJsHSJkEo9Wz4sb4glU3FNTE.JacTr
+ yHSaTdhFXfBsgTTxoLXWrSAVyxffW6B8FGR2B0r1uyOjOW.NWYiDhVZSBCMV7cWNtlowYmdkpUqC
+ r6xitKEQu8u.1nL8TdHdGT7AOS5htxikFM7ehqg3442VwIEKZAmt._o7CPOYvgl1uuj3gs8KxEzO
+ ZP0nRM4X9bJK0wrMtmDF2oIAz0IbNXgEUZu2bApWRRDtOqD3hFTIYc5EotZAv_nm2RkStTh2GEq9
+ 2P9HTbDcMqBhYdJhsWeUhPrT68hX_T5wiC.NQdJjmuzAAvuKI.1S4eAiO70U.fsyCRsg_H.h7RzN
+ mPO4WpyUDpbnH2BiaRJk.uX7BMcgBUFCvDp1NGmaayRFyzhJ87A.VJ0ou_Colw543d0uBaGA2fqv
+ G7vx4Vmv9m.3.NH2eb8VnhBlUcULuWKQIQljodDpJSiUkX2_Vr0YoWDBLf2HqsqnsDCF.ZdWkkCy
+ 0FRr0txuZibkmEZgzI.lyZ33o90cpWjPCqCIf.IwB73PdxuXH2aE06hCpaurdDl6Jed5X5cGiSz6
+ f5b100xLjEgzVEHvzLuCAGT0Zv0ka2MgWT4q_TijAhe0CgGww5pOCAEeIY_aEeqcZZCCqk5GgYcz
+ z4XhcLEuazTwXZv3MXfsL21oemBCxzvxmTTCbFfNDYzzPRqXBgoaV5qUvE9O5SMh8hq9eifpHXwM
+ CXINkepTCOFMT54hyJgIit3NwtWSISTSZtu9YIculSL3EyqjEzRDSXtQaE17_B5ODh0QERK4OEaH
+ L_VI3j_xEBIRFc5Vbdyveyix5Rw2HTcNvpXG0Ir0NtF0PlcHc72kXoHlAuAXRcma_LTutYmnUm2T
+ Ct_oiuIigoBYWsj7BOkH9zdi6VZL4AmJt2SqRCRyt26I-
+X-Sonic-MF: <pheonix.sja@att.net>
+X-Sonic-ID: 4f4440cb-6ae0-401d-ab8d-fc5f8ee83129
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic316.consmr.mail.ne1.yahoo.com with HTTP; Mon, 12 May 2025 20:07:40 +0000
+Received: by hermes--production-bf1-689c4795f-g78fx (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 4a4ca3ada7a93e68209359edaa6dc896; 
+ Mon, 12 May 2025 20:07:34 +0000 (UTC)
+Date: Mon, 12 May 2025 16:07:26 -0400
+From: Steven J Abner <pheonix.sja@att.net>
+Subject: Re: Kernels >= 6.3 disable video output
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-Id: <EWZ5WS.K2DTZM5DEZCL2@att.net>
+In-Reply-To: <1Q10WS.BHBZBX486I3M2@att.net>
+References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
+ <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
+ <GXXZVS.Q1GIIU1M9VBL1@att.net>
+ <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
+ <1Q10WS.BHBZBX486I3M2@att.net>
+X-Mailer: geary/40.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=TZCWtQQh c=1 sm=1 tr=0 ts=6822a5d5 cx=c_pps
- a=/ZJR302f846pc/tyiSlYyQ==:117 a=/ZJR302f846pc/tyiSlYyQ==:17
- a=dt9VzEwgFbYA:10 a=zd2uoN0lAAAA:8 a=t7CeM3EgAAAA:8 a=r8Kla15me-PCpvyDwbMA:9
- a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-GUID: IfsBuhMvJYAouEqq-Dl30CUPGKGNyJ_c
-X-Proofpoint-ORIG-GUID: IfsBuhMvJYAouEqq-Dl30CUPGKGNyJ_c
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTEzMDAxNSBTYWx0ZWRfX7nmkn/8mDoje
- Fu6onx5XJN1H5fJMKinqsKlP5HAFLE1QQasBeElUiF/SbMgJGKkB9hZOr/ew42pm0nDLMWgUI4W
- V/EsSWVwW61Z51laT7w7InyLPRX3xme8ONHquNW6HgbftrO+Cpq7p8OB4vFkT3Gs7ihGYGYfgvD
- ay3+E9SJ1uYKkZAdyQ9wuT7BypwFVkFzrnoyDV+7sBaruPdXAb+PrclKMYMIxbuNmE//HVlRXrG
- P7+iIe/m5uiYzbPoViTrBjuNd8z/mLkzk26QhcRtEccGCgdM3HPV/PbZUPTl71Ym6WTE8J6XXn6
- gL5BhoBsSGlinnrKV4oA/jiFla8R74Q1RpuTdxU71KEZ074FQXflRKan9K2PFUgzRipgTttlKl2
- +tTBEH55Fo4Ca25TQrfddwm4HOBvBbS4uqe8WzGubnhpN3Z5CVEJV3hQNmQvy/kFRNJqOpE4
-X-Sensitive_Customer_Information: Yes
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-12_07,2025-05-09_01,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 bulkscore=0
- phishscore=0 mlxscore=0 adultscore=0 mlxlogscore=999 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
- spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.21.0-2504070000
- definitions=main-2505130015
+Content-Type: text/plain; charset=us-ascii; format=flowed
 X-Mailman-Approved-At: Tue, 13 May 2025 08:15:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,58 +92,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <wayne.lin@amd.com>
+On Fri, May 9 2025 at 03:01:13 PM +0000, Steven J Abner 
+<pheonix.sja@att.net> wrote:
+> On Fri, May 9 2025 at 02:05:16 PM +0000, Alex Deucher 
+> <alexdeucher@gmail.com> wrote:
+>> bisect between 6.2.16 and 6.2.17 to identify the commit which broke
+> 
+> Are you asking for a 'diff' output of drm and amdgpu directories 
+> between 6.2.16 (last of the 6.2 series) and 6.3 (start of the 6.3 
+> series)?
 
-[ Upstream commit fcf6a49d79923a234844b8efe830a61f3f0584e4 ]
+ I'm willing to revert/test code on my machine, problem is I don't know 
+sequence nor what I can safely revert. I haven't messed with video 
+drivers/code since DOS days of having to write ones own graphics 
+routines. I could force? kernel to build with '-g' on drm/amdgpu? and 
+walk it I guess. But don't know what I'm looking for. :(
+Steve
 
-[Why]
-When unplug one of monitors connected after mst hub, encounter null pointer dereference.
-
-It's due to dc_sink get released immediately in early_unregister() or detect_ctx(). When
-commit new state which directly referring to info stored in dc_sink will cause null pointer
-dereference.
-
-[how]
-Remove redundant checking condition. Relevant condition should already be covered by checking
-if dsc_aux is null or not. Also reset dsc_aux to NULL when the connector is disconnected.
-
-Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
-Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[The deleted codes in this fix is introduced by commit b9b5a82c5321
-("drm/amd/display: Fix DSC-re-computing") after 6.11.]
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
-Signed-off-by: He Zhe <zhe.he@windriver.com>
----
-Verified the build test
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 5eb994ed5471..6bb590bc7c19 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -183,6 +183,8 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
- 		dc_sink_release(dc_sink);
- 		aconnector->dc_sink = NULL;
- 		aconnector->edid = NULL;
-+		aconnector->dsc_aux = NULL;
-+		port->passthrough_aux = NULL;
- 	}
- 
- 	aconnector->mst_status = MST_STATUS_DEFAULT;
-@@ -487,6 +489,8 @@ dm_dp_mst_detect(struct drm_connector *connector,
- 		dc_sink_release(aconnector->dc_sink);
- 		aconnector->dc_sink = NULL;
- 		aconnector->edid = NULL;
-+		aconnector->dsc_aux = NULL;
-+		port->passthrough_aux = NULL;
- 
- 		amdgpu_dm_set_mst_status(&aconnector->mst_status,
- 			MST_REMOTE_EDID | MST_ALLOCATE_NEW_PAYLOAD | MST_CLEAR_ALLOCATED_PAYLOAD,
--- 
-2.34.1
 
