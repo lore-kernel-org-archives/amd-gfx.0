@@ -4,58 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 444FDC3ABCB
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 20:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 158A9C3ABC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 20:10:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D140110E1C9;
-	Mon, 12 May 2025 20:02:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0D7710E49F;
+	Mon, 12 May 2025 20:10:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LSBdQCmS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UAOoJLdq";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAC2F10E1C9;
- Mon, 12 May 2025 20:02:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+s+PiCUM+b0NwvbJ+Im+TllGRvAH0CmJ6N1UuNyKKVc=; b=LSBdQCmSU2Bk42iK9Ko370Htr+
- rledE63SN/2wQO44o6G3P1rRlO9D/cfBYoRrSJkG90HaCMyRKm1m9yN53A1qcQA7UHDvNGa0pLUem
- 8mSRsiO+iML+O9jd3OIL6UVDaIv+8Eza33abMJ+jDxJ8/wnUZRjKb9rJbszvl6P07YbCCPNcIgaED
- ss0ctdsy8C0WfTTVvHEG+Ep/oGczM4/RT2RlLPpxrtU34LVt5K8Jm8VtDvkamVuiWFjat9WAQXsth
- Ac3J+2LN4zRX8DuOcUxy8EQjEWvq65oudTCJz2MDAImV0ITTKR+H2S5P4xbuSiIVU7gylG9cC6jMF
- MwPXnvmA==;
-Received: from [189.6.16.79] (helo=[192.168.0.55])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uEZGu-007FO8-4w; Mon, 12 May 2025 22:02:33 +0200
-Message-ID: <eaf332fe-d226-44c7-b397-66352d368ddd@igalia.com>
-Date: Mon, 12 May 2025 17:02:19 -0300
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A769210E49F;
+ Mon, 12 May 2025 20:10:52 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-b1ff8a0a13cso814194a12.0; 
+ Mon, 12 May 2025 13:10:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747080652; x=1747685452; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TNzlrfZxfOGKMDbj14ymw9GdOkMEXSGepdIAXWjXZl0=;
+ b=UAOoJLdqwBMOkNOlM1XXN7f5gaNc+ugoCxn1DkgjApVkNSwFs7NmnM83zFQH5ib1sN
+ qeFlGts0XyK8rxyjL0fFPcKPMSn6rtnYr1GpXMaXJWWY0SDxPZfbnpRo7S2HRYyxgB67
+ bPqIKo3BF+d/4jemu9TOo78RRwVumDhxCqqZiPfnvPK64pkNTNeu1erDJa5zhcuTnqR0
+ V2eRBDF6s4Od9pnopnDltQcTvROaLY6x16E8sLbhXKMSrVPepUaVunhDRlkHzUTCeYEW
+ lkoOpq8nkOOG6nNanIHVvMFkq1xiL5eMLkpxk+/nkreiXXaBKq1j2Eg/Mmx9LBop8fal
+ JS8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747080652; x=1747685452;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TNzlrfZxfOGKMDbj14ymw9GdOkMEXSGepdIAXWjXZl0=;
+ b=nKC6H1Jimz4YL9nwtY18K93fKz30oIR3smXXQbzMQhP0WkF+u6a0IBZhboEGbY27UX
+ Bfln8MRIHe0GJDoDfb7839frVetyDSjHIEjX/E5G7xDSRavh+z8xApSbnW6MKfUppkbC
+ kmzcpSkRlXa/a/BjLmDm2wlewdX3mcHJPOELP54Q4nFqEK6QHWHybQ480crTwOInwvhG
+ 4o1UnFAHO5VJiBqWiNjHlgkR2PkYwlFtGc/UrwUjj6kYIArcfgURxD/dSGrNkklCq9gw
+ GOXLlWM/++psB5aS/vUXSTBvvGdgPKMw/Kc45VNM4BL7yCwd2+FYdeBDqYcmSNx6vJyj
+ CSuw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXydnb2F3o9qF2c0v6AegkHcB9N3RAaMjIbz16V/5jv/RaOgPOIcVFtHUSLDoMhllUFd9zkxbc0sXY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjE1/d066lMwuLMcHhEoA7iPS5bMkD8T8Ghmo2Rv4bhPJzmIIu
+ JiLya/28Hel1KO20fHRn3AXBayaSDBZ02XoveVbBEuL6w3JSuyO3gxk+AdWDmtgQwxkaVZzGRmv
+ Vg1eGbvbQWkc9EFjKVmkTjPysJ7mrh4MM
+X-Gm-Gg: ASbGncuB5hPZSJiholkvOMcS5v6D7HcumIwWWY+LfdU1aPOMKA8q4TvpaTZvlj+X7kA
+ Kp4vGICTVAZydMYhU6ndtZCP/EUMsIIbiBG7fHZ16G4qCqdXZ/c3GsbPv564hw7MfwhyXPAtFxr
+ TVysysDexqKZ1pkhoa6yRxhryhNIdT+n7NytBxOovExws=
+X-Google-Smtp-Source: AGHT+IFY9WwxznwjIs56GtzB24snIWQRo9lN27jIRJJqRwz7p9swzydfVUUHJJf7h067rUUhBH0+CyXauWgdM2Ua75M=
+X-Received: by 2002:a17:902:e94d:b0:22e:6ea8:8a07 with SMTP id
+ d9443c01a7336-22fc9087803mr73172895ad.9.1747080652056; Mon, 12 May 2025
+ 13:10:52 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V9 36/43] drm/colorop: Add mutliplier type
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, contact@emersion.fr, jadahl@redhat.com,
- sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com,
- joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
- uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
- quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
- sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
- louis.chauvet@bootlin.com, Daniel Stone <daniels@collabora.com>
-References: <20250430011115.223996-1-alex.hung@amd.com>
- <20250430011115.223996-37-alex.hung@amd.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20250430011115.223996-37-alex.hung@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
+ <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
+ <GXXZVS.Q1GIIU1M9VBL1@att.net>
+ <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
+ <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
+In-Reply-To: <EWZ5WS.K2DTZM5DEZCL2@att.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 12 May 2025 16:10:40 -0400
+X-Gm-Features: AX0GCFsEFo7fJJ6Kq4sfr7_XIE3CIvTcO2qwnDkAN3SdcTpfdVs26FffhVmYghE
+Message-ID: <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
+Subject: Re: Kernels >= 6.3 disable video output
+To: Steven J Abner <pheonix.sja@att.net>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,189 +85,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, May 12, 2025 at 4:07=E2=80=AFPM Steven J Abner <pheonix.sja@att.net=
+> wrote:
+>
+> On Fri, May 9 2025 at 03:01:13 PM +0000, Steven J Abner
+> <pheonix.sja@att.net> wrote:
+> > On Fri, May 9 2025 at 02:05:16 PM +0000, Alex Deucher
+> > <alexdeucher@gmail.com> wrote:
+> >> bisect between 6.2.16 and 6.2.17 to identify the commit which broke
+> >
+> > Are you asking for a 'diff' output of drm and amdgpu directories
+> > between 6.2.16 (last of the 6.2 series) and 6.3 (start of the 6.3
+> > series)?
+>
+>  I'm willing to revert/test code on my machine, problem is I don't know
+> sequence nor what I can safely revert. I haven't messed with video
+> drivers/code since DOS days of having to write ones own graphics
+> routines. I could force? kernel to build with '-g' on drm/amdgpu? and
+> walk it I guess. But don't know what I'm looking for. :(
 
+See:
+https://docs.kernel.org/admin-guide/bug-bisect.html
+If you know a good and bad point on a particular kernel branch, you
+can use git to bisect the tree and identify the exact commit which
+broke caused your issue.
 
-On 29/04/2025 22:11, Alex Hung wrote:
+Alex
 
-Typo in the commit msg: mutliplier -> multiplier
-> This introduces a new drm_colorop_type: DRM_COLOROP_MULTIPLIER.
+> Steve
 >
-> It's a simple multiplier to all pixel values. The value is
-> specified via a S31.32 fixed point provided via the
-> "MULTIPLIER" property.
 >
-> Reviewed-by: Simon Ser <contact@emersion.fr>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
-> ---
-> V9:
->   - Update function names by _plane_ (Chaitanya Kumar Borah)
->
-> v7:
->   - Modify size_property to lut_size_property
->
->   drivers/gpu/drm/drm_atomic.c      |  3 +++
->   drivers/gpu/drm/drm_atomic_uapi.c |  4 ++++
->   drivers/gpu/drm/drm_colorop.c     | 33 +++++++++++++++++++++++++++++++
->   include/drm/drm_colorop.h         | 16 +++++++++++++++
->   include/uapi/drm/drm_mode.h       | 11 +++++++++++
->   5 files changed, 67 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 1dda90554e46..907ca790689f 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -800,6 +800,9 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
->   	case DRM_COLOROP_CTM_3X4:
->   		drm_printf(p, "\tdata blob id=%d\n", state->data ? state->data->base.id : 0);
->   		break;
-> +	case DRM_COLOROP_MULTIPLIER:
-> +		drm_printf(p, "\tmultiplier=%llu\n", state->multiplier);
-> +		break;
->   	default:
->   		break;
->   	}
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 0cd250db3981..a7f1d75bb4ea 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -739,6 +739,8 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
->   		state->bypass = val;
->   	} else if (property == colorop->curve_1d_type_property) {
->   		state->curve_1d_type = val;
-> +	} else if (property == colorop->multiplier_property) {
-> +		state->multiplier = val;
->   	} else if (property == colorop->data_property) {
->   		return drm_atomic_color_set_data_property(colorop, state,
->   							  property, val);
-> @@ -764,6 +766,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
->   		*val = state->bypass;
->   	} else if (property == colorop->curve_1d_type_property) {
->   		*val = state->curve_1d_type;
-> +	} else if (property == colorop->multiplier_property) {
-> +		*val = state->multiplier;
->   	} else if (property == colorop->lut_size_property) {
->   		*val = colorop->lut_size;
->   	} else if (property == colorop->data_property) {
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 6c87f5b9f7f9..a3cf62c5e263 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -66,6 +66,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
->   	{ DRM_COLOROP_1D_CURVE, "1D Curve" },
->   	{ DRM_COLOROP_1D_LUT, "1D LUT" },
->   	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
-> +	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
->   };
->   
->   static const char * const colorop_curve_1d_type_names[] = {
-> @@ -327,6 +328,37 @@ int drm_plane_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *c
->   }
->   EXPORT_SYMBOL(drm_plane_colorop_ctm_3x4_init);
->   
-> +/**
-> + * drm_plane_colorop_mult_init - Initialize a DRM_COLOROP_MULTIPLIER
-> + *
-> + * @dev: DRM device
-> + * @colorop: The drm_colorop object to initialize
-> + * @plane: The associated drm_plane
-> + * @return zero on success, -E value on failure
-> + */
-> +int drm_plane_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
-> +				struct drm_plane *plane)
-> +{
-> +	struct drm_property *prop;
-> +	int ret;
-> +
-> +	ret = drm_plane_colorop_init(dev, colorop, plane, DRM_COLOROP_MULTIPLIER);
-> +	if (ret)
-> +		return ret;
-> +
-> +	prop = drm_property_create_range(dev, DRM_MODE_PROP_ATOMIC, "MULTIPLIER", 0, U64_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +
-> +	colorop->multiplier_property = prop;
-> +	drm_object_attach_property(&colorop->base, colorop->multiplier_property, 0);
-> +
-> +	drm_colorop_reset(colorop);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_plane_colorop_mult_init);
-> +
->   static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop,
->   							struct drm_colorop_state *state)
->   {
-> @@ -418,6 +450,7 @@ static const char * const colorop_type_name[] = {
->   	[DRM_COLOROP_1D_CURVE] = "1D Curve",
->   	[DRM_COLOROP_1D_LUT] = "1D LUT",
->   	[DRM_COLOROP_CTM_3X4] = "3x4 Matrix",
-> +	[DRM_COLOROP_MULTIPLIER] = "Multiplier",
->   };
->   
->   const char *drm_get_colorop_type_name(enum drm_colorop_type type)
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index 52e965577bd8..888184aef7a0 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -146,6 +146,13 @@ struct drm_colorop_state {
->   	 */
->   	enum drm_colorop_curve_1d_type curve_1d_type;
->   
-> +	/**
-> +	 * @multiplier:
-> +	 *
-> +	 * Multiplier to 'gain' the plane. Format is S31.32 sign-magnitude.
-> +	 */
-> +	uint64_t multiplier;
-> +
->   	/**
->   	 * @data:
->   	 *
-> @@ -273,6 +280,13 @@ struct drm_colorop {
->   	 */
->   	struct drm_property *curve_1d_type_property;
->   
-> +	/**
-> +	 * @multiplier_property:
-> +	 *
-> +	 * Multiplier property for plane gain
-> +	 */
-> +	struct drm_property *multiplier_property;
-> +
->   	/**
->   	 * @lut_size_property:
->   	 *
-> @@ -330,6 +344,8 @@ int drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_color
->   					struct drm_plane *plane, uint32_t lut_size);
->   int drm_plane_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop,
->   				   struct drm_plane *plane);
-> +int drm_plane_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
-> +				struct drm_plane *plane);
->   
->   struct drm_colorop_state *
->   drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index dde250dd7a51..fa5e1ddaf4f0 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -919,6 +919,17 @@ enum drm_colorop_type {
->   	 * | B |   | 8  9  10 12 |   | B |
->   	 */
->   	DRM_COLOROP_CTM_3X4,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_MULTIPLIER:
-> +	 *
-> +	 * enum string "Multiplier"
-> +	 *
-> +	 * A simple multiplier, applied to all color values. The
-> +	 * multiplier is specified as a S31.32 via the MULTIPLIER
-> +	 * property.
-> +	 */
-> +	DRM_COLOROP_MULTIPLIER,
->   };
->   
->   /**
-
