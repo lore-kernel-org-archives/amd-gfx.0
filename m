@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5F71C3ABC9
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 08:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA22C3ABC3
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 08:15:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2E0210E514;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55BC910E4F2;
 	Tue, 13 May 2025 08:15:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=nordisch.org header.i=@nordisch.org header.b="mr+0UuJB";
-	dkim=permerror (0-bit key) header.d=nordisch.org header.i=@nordisch.org header.b="c/Fv6QMh";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="a/Jw4OYW";
 	dkim-atps=neutral
-Received: from tengu.nordisch.org (tengu.nordisch.org [138.201.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17F8010E476
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 18:17:53 +0000 (UTC)
-Received: from [192.168.3.6] (fortress.wg.nordisch.org [192.168.3.6])
- by tengu.nordisch.org (Postfix) with ESMTPSA id 6A0ED75AB1A;
- Mon, 12 May 2025 20:17:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nordisch.org;
- s=tengu_rsa; t=1747073871;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=v7C+IqFAnduKOsEIdx5Dnqcx1MlTmcKCBi2j6bEthGU=;
- b=mr+0UuJBHcfCCms0qMyT9ItFY2i5GrRhRTCLKqQyaw+3/afKyIIPuw4M2/kDypkhTzKjUn
- TVXC0k2aO8zclVmGrM1N9uOVbjQ4nmMsLL2//Yos95lYGrMsTKRkaSvY2rE6RQQGICxm6r
- w1KdC21OdLEj8B62jOe6xZi/nD2Pf5g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=nordisch.org;
- s=tengu_ed25519; t=1747073871;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=v7C+IqFAnduKOsEIdx5Dnqcx1MlTmcKCBi2j6bEthGU=;
- b=c/Fv6QMhaqouGg9DxGWMt4Ab1OC8HZibQcxPLF/dn/qndg41BUEuj6dckqY8ce+XeBT6lv
- +j8q0MteqUdeVODw==
-Message-ID: <e2ee9985cb880f72751a087f91bf21fa31c6fd09.camel@nordisch.org>
-Subject: Re: amdgpu: Reproducible soft lockups when playing games
-From: Marcus =?ISO-8859-1?Q?R=FCckert?= <amd@nordisch.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Borislav Petkov <bp@alien8.de>, amd-gfx@lists.freedesktop.org
-Date: Mon, 12 May 2025 20:17:51 +0200
-In-Reply-To: <45fc722f9b113fe32d29c5f45466b41faff34a59.camel@nordisch.org>
-References: <123e013307ad395b3e26c2dd53fb99594191dda0.camel@nordisch.org>
- <20250429130929.GCaBDPiT_CwyKmHB5o@fat_crate.local>
- <CADnq5_PBjOYV5TH5EDXBVvth1ZX6S_TcpDOKOMrbDJUEDzkTww@mail.gmail.com>
- <688457c1079a5cdbb81a0dd21e6d744e72c89101.camel@nordisch.org>
- <CADnq5_OfudYrLEf2OWqhaC2LWVOc_rGBs+NaizT2MfmxU=sZsA@mail.gmail.com>
- <6023ab4f8c490594a882704fa0e1afeb076c2ad2.camel@nordisch.org>
- <45fc722f9b113fe32d29c5f45466b41faff34a59.camel@nordisch.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.1 
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49A2F10E4AA;
+ Mon, 12 May 2025 20:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=L1LxK4TZQDE52pEV0Jwgeq4wCFdLfv5GHDtN18/XliQ=; b=a/Jw4OYWkUu9i9ligkRfj88aZL
+ Tkyvpy7o7Y2v3Y+3bhlUnJAPwwLtckpSHNV6Ko4NVTD1NoZ15zuAvHzfNw5fAXzgLB+d1NRUXv3fJ
+ Nqg/ydNNwTyQ5kHjfI59Vw8vmN/yuNxvQq6tWdZhgmaTv5MUqFFsSmyCmTfNL4BSnZTui0kKk/CLS
+ ooOAwqcAleCIwxoX5+rPyRa7shbaYKG1ZckAbVvjb1/fHQRVZKg0KD3Mkxb6cWifJtHYf0PVy3JxU
+ bMy+9nN+h1qOM6UXnrdE38EU9GK66CIetCIH4UnBV/8iPA6Cj25hmpSm1wT6Z+SHTJlk0YChLQACC
+ m70PJxkw==;
+Received: from [191.204.192.64] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uEZmW-007G93-4g; Mon, 12 May 2025 22:35:13 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: "Alex Deucher" <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
+ "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v3 2/3] drm/doc: Add a section about "App information" for the
+ wedge API
+Date: Mon, 12 May 2025 17:34:36 -0300
+Message-ID: <20250512203437.989894-3-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250512203437.989894-1-andrealmeid@igalia.com>
+References: <20250512203437.989894-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 13 May 2025 08:15:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,175 +69,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-05-12 at 14:23 +0200, Marcus R=C3=BCckert wrote:
+Add a section about "App information" for the wedge API.
 
-> > I opened a video in clapper to take the browser out of the equation =
-=20
-> > and
-> > started working in a terminal. -> kernel oops. will look into setting
-> > up kdump.
-> >=20
-> > Mesa-25.1+git1019.7c4f501e9-39.1.x86_64
-> > kernel-default-6.15~rc6-1.1.g42f9fa3.x86_64
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
+v3:
+ - Change "app that caused ..." to "app involved ..."
+ - Clarify that devcoredump have more information about what happened
+ - Update that PID and APP will be empty if there's no app info
+---
+ Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-
-actually before the machine crashed it provided some actual debug output!
-
-```
-May 12 14:16:57 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:16:57 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:16:58 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:16:58 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:16:58 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:16:58 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:16:58 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:16:58 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: amdgpu: SMU: I'm not done with=
- your previous command: SMN_C2PMSG_66:0x00000008 SMN_C2PMSG_82:0x00000400
-May 12 14:17:02 kernel: amdgpu 0000:03:00.0: amdgpu: Failed to enable GFXCL=
-K DS!
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: amdgpu: SMU: I'm not done with=
- your previous command: SMN_C2PMSG_66:0x00000008 SMN_C2PMSG_82:0x00000400
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: amdgpu: Failed to set workload=
- mask 0x00000001
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: amdgpu: failed to set default =
-power profile mode
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:06 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:07 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:07 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:07 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:07 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:07 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:07 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:07 kernel: amdgpu 0000:03:00.0: amdgpu: Dumping IP State
-May 12 14:17:08 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:08 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:08 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:08 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:08 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:08 kernel: amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_=
-diagnostic_data: DMCUB error - collecting diagnostic data
-May 12 14:17:11 kernel: amdgpu 0000:03:00.0: amdgpu: SMU: I'm not done with=
- your previous command: SMN_C2PMSG_66:0x00000008 SMN_C2PMSG_82:0x00000400
-May 12 14:17:11 kernel: amdgpu 0000:03:00.0: amdgpu: Failed to disable gfxo=
-ff!
-May 12 14:17:15 kernel: amdgpu 0000:03:00.0: amdgpu: SMU: I'm not done with=
- your previous command: SMN_C2PMSG_66:0x00000008 SMN_C2PMSG_82:0x00000400
-May 12 14:17:15 kernel: amdgpu 0000:03:00.0: amdgpu: Failed to enable GFXCL=
-K DS!
-```
-
-
-
-```
---=20
-Always remember:
-  Never accept the world as it appears to be.
-    Dare to see it for what it could be.
-      The world can always use more heroes.
-
-
-
-
-```
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 69f72e71a96e..3300a928d8ef 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
+ hang is usually the most critical one which can result in consequential hangs or
+ complete wedging.
+ 
++App information
++---------------
++
++The information about which application (if any) was involved in the device
++wedging is useful for userspace if they want to notify the user about what
++happened (e.g. the compositor display a message to the user "The <app name>
++caused a graphical error and the system recovered") or to implement policies
++(e.g. the daemon may "ban" an app that keeps resetting the device). If the app
++information is available, the uevent will display as ``PID=<pid>`` and
++``APP=<task name>``. Otherwise, ``PID`` and ``APP`` will not appear in the event
++string.
++
++The reliability of this information is driver and hardware specific, and should
++be taken with a caution regarding it's precision. To have a big picture of what
++happened, the devcoredump file provides should have much more detailed
++information about the device state and about the event.
++
+ Consumer prerequisites
+ ----------------------
+ 
+-- 
+2.49.0
 
