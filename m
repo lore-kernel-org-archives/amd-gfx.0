@@ -4,67 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD2ACC3ABC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 14:44:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CACEC3ABCB
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 14:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D94610E419;
-	Mon, 12 May 2025 14:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE4310E41E;
+	Mon, 12 May 2025 14:46:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CSezF9av";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A0ZO+HPJ";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD7F910E419
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 14:44:44 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-22eed3b3cabso5244405ad.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 07:44:44 -0700 (PDT)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0A6410E41E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 14:46:33 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-22de5af5e14so4138635ad.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 07:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747061084; x=1747665884; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747061193; x=1747665993; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OdbjFlMBPFZKGNCJqyDTCwgdwUQOWpZ4+F9bKUnh7Uk=;
- b=CSezF9av0kPKcZklOMRH/E8ObEoyfXdQIXv/7Rb+D7EHgnPNAymTpz6MojAkLzvsqL
- iiSOGIy0nzG5uteBzj3Vx6xU4cP6ED8LGA5q0Ky+6dVhkdO34qBuAkO30jueC9atwwGW
- qR4/6rr+9VrNM1atKVwI4wfjPQE0ZZi5N4sLNdvmbmB9ckaUYrQvjhkGSD9ereqMiz7t
- VO1j2lNxtAjvSLvlUHtsTUL7CS3c5ehuYGtZ5Kd3XK2RNKnAhlCWjrp5pwZDKEzdtA1W
- zARj8WSxlxgg8dEdoUmiZTLQe70E1SRPT/+HitBBYlmgWlUREr5LeoFLEINuuHjCiJba
- yeeQ==
+ bh=WLqVwA910Oz+N1ZjLYrP/5SUcf9+/wqVkZckGAFbHSU=;
+ b=A0ZO+HPJAbh1mF1TQuNolFQ9TBriLTycklzxViI0CRSUQTEAY1YRbsdA922vnGuWno
+ pIX7pKcp3IwEiwsAyLIwmpCplLf2bXqintArl+8IK7onUufj1B1lN2+0IK+BMz9nxG65
+ Xigvu7ypY6FdqNkuBV4D99I100NFqxWotpq0iJXq2VhxL6xRjmAkAdg7dEXAu/QJkRq+
+ 0ukGEeFUIvGz7/kC/qSopryEMElt7FECagbcb/uqUtkGt8QI+yg7+CwXDakB1c0GfP2F
+ UVWH58vgnIcik/K9Rvg+g8yphHnieBtDzmhpha3xfNJ2Bt0rRkoOFvijCMRFZ4fJlXkG
+ T6ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747061084; x=1747665884;
+ d=1e100.net; s=20230601; t=1747061193; x=1747665993;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OdbjFlMBPFZKGNCJqyDTCwgdwUQOWpZ4+F9bKUnh7Uk=;
- b=mRK62z69R48kk3L5CNO8r+ELJfAFCuHKsL8qs6o5TFYXQqtmA0hUY4DC/Ii1iOFh+F
- fSg7cles/JzWda5Y8M7zX2yPwJhfyPsBzXngyj4gFgXfBkBShT62YxsYtDCQmhwAPaJf
- 6ckBXDweKdE3Hs1xnTvvZEr9XbJvr6uE6YP02X2JNZfVn1Y8wDMlf9SHhZnh58ItlAHK
- IH8Wl7t1J4G71Y2NHNCmM4zsi9mkgSsbEla3OPeD8qTTKy57/CXqZthv3yk1W5UTsoXZ
- VAe2p7bxfmAvTj7yar9ixChlQjY+FjyGluKeUUvDLePGdsn35GTSgjI1DgWsjtLevPnf
- zkMw==
-X-Gm-Message-State: AOJu0YyUmLBcpwtSayJUmJn1+++HE+k1PG47zjeK5tTkmApgIsX5ICb3
- imcvj17F4LxXPVD41DMZMvejP3NHe8Xp5R6ezF2WadhdWKlw7pJKdz0et7wHz2bgVlzzRuiirhr
- +Y90iYLZwUtIEHnAstoijqTzldpszuA==
-X-Gm-Gg: ASbGncuXUkgSSm0jlEGYSwnP7fyEbnvQ2FgqdUoEpENbw+xDEFnv/vjWC+cB0a/f6EB
- mFyThNdd6fL+ieFFH1Gdc8KpC6gHzs+5yp6OJWqxuKMU+9CUHETTE14C87UiMncN46E5j4pMsIt
- 0tWZyt35KpQh9U1d1NnzDEBNbPGo+UP/CO
-X-Google-Smtp-Source: AGHT+IGWiM641WzwfgdFW8Ei124SZf6clA71i9zVP7upFUzVSy7z4hwwTJqJX9YTu55wJYq/v0CKNYGeICOqP3/Xk40=
-X-Received: by 2002:a17:902:d2c1:b0:215:435d:b41a with SMTP id
- d9443c01a7336-22fc8b0fb2cmr71503245ad.1.1747061084227; Mon, 12 May 2025
- 07:44:44 -0700 (PDT)
+ bh=WLqVwA910Oz+N1ZjLYrP/5SUcf9+/wqVkZckGAFbHSU=;
+ b=ljPD9PCkFJnI6j33gnHWNGmxaQWLOUaj5qjrpy71oQ9aH4eMqaTvqcJrE323UJX27X
+ Cp7UbkRb9z9TOOcYBegfInIfytW0j149NIxLf4dak+rsj8jeOYysDFS3gLjYp+Fo7i5c
+ m8x5LQOkQYUC52oCt2jRl04+sOIRZkTrV4hpBLYFlFmzx94Mb0q8tAGfXybeDc9YtjpR
+ bck5kQweF6XR8OrLnuueMdJl+V9xtQuwNHpyMy639Nj2C+TEnzkdywEFFYb3ekQAsBQb
+ mv8r1ZuczxGXmKcRoL+8vW4jg+T0koH90a4yCLLz/h3QGWtrsI1xWDpK31JPEQJDEvag
+ ilRA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWieFKFMrXVJn5dFnbokuiVcV73MOPXWlTszTx0jJ97GEtmNKgypmX44BcI915ti37KYWEBGCmY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yywg9f5wXylcBlGUYhcPjrWI9AI5GGhdVd8KFOZV6XvOdtcAJzg
+ DJ+0U1q75ibUkzoDJttyxXvhp5I5dRZTCEvWwOY6Js2lNkJd0lQlk442fESluoS9rX5SVlUsLir
+ KjN4zTbSeZb2Yril6SS4qqPgtcts=
+X-Gm-Gg: ASbGncuTKZ2AHHr77ISDK9k6REXqPzW0EhGOS/s9U2VRDXrfWGJIny2LJFiOeLG0XM/
+ DTFFJ6bdaMLYTNfkaJaUV8S8ZqR16hp67c2mVrugPMLtfyLLqvV7WY/9Bi+f0IklbvI9N50ThQO
+ WbAIQngynM93bxvKpQ5yTa1SlSwye8gt7W
+X-Google-Smtp-Source: AGHT+IENnH5CiJy9w5b5F05MU7kzwPLR9EX+eFQG19NegOYS/HTngrIDNEadQ1CCfn3YeLQ6h+DmTNX0hQmZJfYU7KQ=
+X-Received: by 2002:a17:902:d2c7:b0:223:f903:aa86 with SMTP id
+ d9443c01a7336-22fc8b106d0mr76317645ad.1.1747061193179; Mon, 12 May 2025
+ 07:46:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250512011406.5272-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20250512011406.5272-1-Jesse.Zhang@amd.com>
+References: <D97FB92117J2.PXTNFKCIRWAS@linaro.org>
+ <SI2PR06MB5041FB15F8DBB44916FB6430F1BD2@SI2PR06MB5041.apcprd06.prod.outlook.com>
+ <D980Y4WDV662.L4S7QAU72GN2@linaro.org>
+ <CADnq5_NT0syV8wB=MZZRDONsTNSYwNXhGhNg9LOFmn=MJP7d9Q@mail.gmail.com>
+ <SI2PR06MB504138A5BEA1E1B3772E8527F1BC2@SI2PR06MB5041.apcprd06.prod.outlook.com>
+ <CADnq5_M=YiMVvMpGaFhn2T3jRWGY2FrsUwCVPG6HupmTzZCYug@mail.gmail.com>
+ <D9CT4HS7F067.J0GJHAGHI9G9@linaro.org>
+ <CADnq5_ML25QA7xD+bLqNprO3zzTxJYLkiVw-KmeP-N6TqNHRYA@mail.gmail.com>
+ <D9DAIUZXIWH3.1L7CV6GEX4C9M@linaro.org>
+ <CADnq5_NE2M19JdrULtJH-OXwycDpu0hrFHy42YiJA3nMYoP=+w@mail.gmail.com>
+ <D9H0K4EW3XTV.1XO4KO44J1YRE@linaro.org>
+ <CADnq5_PuXu-9MAhr3d7HLGnOqHR7Uo+nJPzrpdJEusvRCE8wbw@mail.gmail.com>
+ <CANgGJDqZptyPK2nn5NR+OCcGHX1H=YF1vUGsqoLz-vYZjf5Htg@mail.gmail.com>
+In-Reply-To: <CANgGJDqZptyPK2nn5NR+OCcGHX1H=YF1vUGsqoLz-vYZjf5Htg@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 12 May 2025 10:44:32 -0400
-X-Gm-Features: AX0GCFvKzH5lROW6f5Yk5etPpgxJOwYi15rr33Ifj9qliGLgS694k0St8CScpIo
-Message-ID: <CADnq5_OXO_aoopjcoOg9C2-+_Db_sNeRgZsmUSgPSawqYeLXzA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add GFX 9.5.0 support for per-queue/pipe reset
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>, lijo.lazar@amd.com, 
- Asad Kamal <asad.kamal@amd.com>
+Date: Mon, 12 May 2025 10:46:21 -0400
+X-Gm-Features: AX0GCFssUsUak1AQ1yrAFKDGy4jdp1x4SO9rABfJG55FF56FGyGeO0hrLajcuUk
+Message-ID: <CADnq5_O77xrMBKX+j-b-ULQi7GJ6=nqfKhU82E7L1oUANXwcuw@mail.gmail.com>
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1JFR1JFU1NJT05dIGFtZGdwdTogYXN5bmMgc3lzdGVtIGVycm9yIA==?=
+ =?UTF-8?B?ZXhjZXB0aW9uIGZyb20gaGRwX3Y1XzBfZmx1c2hfaGRwKCk=?=
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Fugang Duan <fugang.duan@cixtech.com>, 
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "frank.min@amd.com" <frank.min@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "david.belanger@amd.com" <david.belanger@amd.com>, 
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ Peter Chen <peter.chen@cixtech.com>, 
+ cix-kernel-upstream <cix-kernel-upstream@cixtech.com>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,70 +103,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, May 11, 2025 at 9:23=E2=80=AFPM Jesse.Zhang <Jesse.Zhang@amd.com> w=
-rote:
+On Sun, May 11, 2025 at 7:25=E2=80=AFPM Alexey Klimov <alexey.klimov@linaro=
+.org> wrote:
 >
-> This patch enables per-queue and per-pipe reset functionality for
-> GFX IP v9.5.0 when using MEC firmware version 21 (0x15) or later.
+> On Wed, 30 Apr 2025 at 17:55, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > I think I have a better solution.  Please try these patches instead.  T=
+hanks!
+> >
+> > For the RX6600, you only need patch 0003.  The rest of the series
+> > fixes up other chips.
 >
-> This change:
-> 1. Refactors the pipe reset support check in gfx_v9_4_3_pipe_reset_suppor=
-t()
->    to use the compute_supported_reset flags instead of hardcoding
->    version checks.
-> 2. Adds support for GFX9.5.0 (IP 9.5.0) with MEC firmware version >=3D 21
->    to enable per-queue and per-pipe reset capabilities.
->
-> v2: Replaced mec version check with !!(adev->gfx.compute_supported_reset =
-& AMDGPU_RESET_TYPE_PER_PIPE) (Lijo)
->
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> Sorry for the delay.
+> Finally managed to find some time to test it.
+> It seems that patches are merged in the current -rc tree so I just
+> re-tested -rc5.
+> All works. Thank you.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Thanks.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_4_3.c
-> index 9db2bde5c59d..e6d516b1efd9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -1153,6 +1153,12 @@ static int gfx_v9_4_3_sw_init(struct amdgpu_ip_blo=
-ck *ip_block)
->                         adev->gfx.compute_supported_reset |=3D AMDGPU_RES=
-ET_TYPE_PER_PIPE;
->                 }
->                 break;
-> +       case IP_VERSION(9, 5, 0):
-> +               if (adev->gfx.mec_fw_version >=3D 21) {
-> +                       adev->gfx.compute_supported_reset |=3D AMDGPU_RES=
-ET_TYPE_PER_QUEUE;
-> +                       adev->gfx.compute_supported_reset |=3D AMDGPU_RES=
-ET_TYPE_PER_PIPE;
-> +               }
-> +               break;
->         default:
->                 break;
->         }
-> @@ -3452,9 +3458,7 @@ static int gfx_v9_4_3_unmap_done(struct amdgpu_devi=
-ce *adev, uint32_t me,
+> A bit annoying thing is repeating:
+> [drm] Unknown EDID CEA parser results
+> and I also didn't observe such messages before on -rc2 or -rc3:
+> amdgpu 0000:c3:00.0: amdgpu: [drm] amdgpu: DP AUX transfer fail:4
 >
->  static bool gfx_v9_4_3_pipe_reset_support(struct amdgpu_device *adev)
->  {
-> -       /*TODO: Need check gfx9.4.4 mec fw whether supports pipe reset as=
- well.*/
-> -       if (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 3=
-) &&
-> -                       adev->gfx.mec_fw_version >=3D 0x0000009b)
-> +       if (!!(adev->gfx.compute_supported_reset & AMDGPU_RESET_TYPE_PER_=
-PIPE))
->                 return true;
->         else
->                 dev_warn_once(adev->dev, "Please use the latest MEC versi=
-on to see whether support pipe reset\n");
-> --
-> 2.49.0
+> dmesg is in attachment. But I don't think that these are related to
+> hdp_v5_0_flush_hdp() issue.
+
+Correct.  There was a DP AUX fix that also landed that was a bit too
+chatty in some cases.  There will be a patch to quiet that down.
+
+Alex
+
 >
+> Best regards,
+> Alexey
