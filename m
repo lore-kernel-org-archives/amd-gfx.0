@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8334C3ABC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 03:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAAFEC3ABC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 03:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14FBE10E145;
-	Mon, 12 May 2025 03:44:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC7B10E268;
+	Mon, 12 May 2025 03:44:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DE4+BWmJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mqpomQ3g";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0D2310E114
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 03:44:27 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD91810E268
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 03:44:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QJ2uWc5i0dCOcvrkyQwgtAYqrk5Zj2Q21s0AqisqTwkrtViiiqJ5NbjEzyRn26E3B8jzCT69oV+FM3MZiaaxVevZ88UqFyaNncN2x78XPJZYdTQev5P8LzKhWz/ldz0oUWRaFxW3rkvHUvzyseO9ABHd10soYzqfhiiNWtKG/Qcm5bEjkXqCbr5ewRXCXVePrrnL3KoMEUsii6t1zuuKDznoRH8WtdYhExxlCON5FCmEcSLumQwxz2HvGKnaHuWmpt40f9x44u421zol1BJlbabQBHjVp0fk63L9BfBAw+mnVITKzW0xV7rbnIcQ/gQahVNdPxCS5w5NA4CcX3vX6g==
+ b=J/LavplqMmoDLgDX6Zb/cYMH+EN+UasUMz+0mGUXNFw1bcw1IDmDX3jkN2uWvoOgmm5fqC2wOpWoWiekxmW4FkhzdjALD56o+NNMqQifYq77GMJjC//WQyanwMTUXMiIoB3l+klOEk9LWafeaea6oPO5D3cM3HjierpsdnwGWQZVdzrQoy96vxA3FDgqpBJH2JIQsXcZVYFNQ2Cu4nHfKoTNWyL08X8jCVOELR28vtnnDu3BognB7NuIHmceuJGsCduOwGNC2Xea7ldp2NPy7J7abaQdpBn3ZJzgkHG/XMsOgtWm9s/a1XLUTLZTm7Qrtm7FWtdOJixmADGpzvjgHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FRLxCTc/2Sq7fs8JoSNKmc43FYt4c96qgzd4//VFpRw=;
- b=i9bqM5rh25Cfmds3P5BVpDoVEygXnR5shn+TsJCTdqxk63QFvjBn6ncQR1DXuTct+ZvBImMJko3Yt1FUtmnraSBl62IfSHH6+W2RkhOXByLGPUlpUuqD6mE/PjkmeD+mYjWhMIWYpgSdj5j4ys3JdlFAj7FZOwMLuuhWSvHsG3V1JIveJ0mWvjByzjxVuA/IcUFVEiTengKPMdTT1iNPyFZshsc7li8ZO8RHqY+1/XaRVWT8SyAlqto3SriLha39t0tfKrlSHWSo+KA/RBG5l3UEGkoRZLS1HLzjhvc94MbFcAW9YiojuPCqaR79LMblwHHuo09p703CV8zxxf5UQA==
+ bh=hZnPBqAm7PMsTdQ6UE0WAF6EwG+/Di7H47AEyvq9upk=;
+ b=oE+tWS/cN+P1CTifoOlE8ucA4cOvBy9DkLtMfDuQIwJTUqTZK1fxTklC3T2IZa7ZsNyUnqLdfTnzISwCXSuvshO/Ze/Gx3FT9DT1adhuTNXVy3navAxgUYZi0IfxFXM+4ycWWxgSBzguEznlmL7lHyJM9zBhwQgJKmoHkCmewiB8wzsVPU3oxai+rijjYapFKQjAB1WZXM/HzhLy+OlsYr5f2kzy6BMrV0hOW55aO0QCaAyWApFzUqCrgvTSJDUBQXIQQ9Rq7gVgFPw5pyil0380ZaYZRW/bjo0s7mB/WAToIoa6U20UjPkBNR1tEBrDCtrRHMDPkObg7tKuJ2ffDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FRLxCTc/2Sq7fs8JoSNKmc43FYt4c96qgzd4//VFpRw=;
- b=DE4+BWmJqf5vPIPcpMxvVDNYhe9pRDo9x2biWsO+y69IApOykneyI1erd0dHYGxU7H25lsk2T0XCxJbcXeKQia+TDx7+KIAgM/kck7/i80k+/bckUOrK74uUfXkD1faOQ9fRTRPzN81np+xTTXy3mMkPhrf5HLOISFSzOBH5evM=
-Received: from CH0PR03CA0219.namprd03.prod.outlook.com (2603:10b6:610:e7::14)
- by PH7PR12MB6420.namprd12.prod.outlook.com (2603:10b6:510:1fc::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.28; Mon, 12 May
- 2025 03:44:22 +0000
-Received: from CH3PEPF00000010.namprd04.prod.outlook.com
- (2603:10b6:610:e7:cafe::3f) by CH0PR03CA0219.outlook.office365.com
- (2603:10b6:610:e7::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.33 via Frontend Transport; Mon,
- 12 May 2025 03:44:21 +0000
+ bh=hZnPBqAm7PMsTdQ6UE0WAF6EwG+/Di7H47AEyvq9upk=;
+ b=mqpomQ3gXZN51sWUvnWqamEPfLYkr2EUpnkzZuUPpPebVgqsi6cxgIf+MXLWxXOnHqm4V08GmtzorQ2NzUsmtnWqEb1BHtaTYqIiTztYWm80kcflFbYVFE/mmIwwdn+2BRJLIoYjhxr4SNonPcoEUfu5z0Y07HC7uRI3joosCVI=
+Received: from CH0PR07CA0003.namprd07.prod.outlook.com (2603:10b6:610:32::8)
+ by SA1PR12MB8918.namprd12.prod.outlook.com (2603:10b6:806:386::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.29; Mon, 12 May
+ 2025 03:44:25 +0000
+Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
+ (2603:10b6:610:32:cafe::53) by CH0PR07CA0003.outlook.office365.com
+ (2603:10b6:610:32::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.21 via Frontend Transport; Mon,
+ 12 May 2025 03:44:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH3PEPF00000010.mail.protection.outlook.com (10.167.244.41) with Microsoft
+ CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Mon, 12 May 2025 03:44:20 +0000
+ 15.20.8722.18 via Frontend Transport; Mon, 12 May 2025 03:44:25 +0000
 Received: from k-Super-Server.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 11 May
- 2025 22:44:18 -0500
+ 2025 22:44:22 -0500
 From: fanhuang <FangSheng.Huang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
  <Alexander.Deucher@amd.com>
 CC: <Ahmad.Rehman@amd.com>, <Vignesh.Chander@amd.com>, fanhuang
  <FangSheng.Huang@amd.com>
-Subject: [PATCH 1/3] drm/amdgpu/mmsch: Add MMSCH v5_0 support for sriov
-Date: Mon, 12 May 2025 11:44:01 +0800
-Message-ID: <20250512034403.381441-2-FangSheng.Huang@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/jpeg: sriov support for jpeg_v5_0_1
+Date: Mon, 12 May 2025 11:44:03 +0800
+Message-ID: <20250512034403.381441-4-FangSheng.Huang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250512034403.381441-1-FangSheng.Huang@amd.com>
 References: <20250512034403.381441-1-FangSheng.Huang@amd.com>
@@ -74,53 +74,53 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000010:EE_|PH7PR12MB6420:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e3395e7-3455-4c86-d7f0-08dd91074788
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|SA1PR12MB8918:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f259b09-b33a-49fe-57cf-08dd91074a21
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014|43062017; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qtuZ5fUIpyh7yl4xIf5Ri/t7wzLSjonI0Cus1KavezxQdZlbb/CvFkbwJa+k?=
- =?us-ascii?Q?EVRGRKhHGPTglFBtm7f1lOqczLQlF4JZ3WEiNf1v6V4puVrmFO1UbgWA9UnT?=
- =?us-ascii?Q?gIfl3+IBGer2WggQvnyZSY7BoKfqmcaXheQXmiVagych+FJm+u+h4HADZqv9?=
- =?us-ascii?Q?CCZ8Lu5wx7tOtQRBsfFhsJ/caGxhjX+L1xtFTJyN0mwORjhACmAZFXVHtLYo?=
- =?us-ascii?Q?DPg5C6+oPSKf+i+49YywMAU3xjBipqhq0iWK3NdYH+lY0B8YSVAnTd+Y6CKh?=
- =?us-ascii?Q?SOONEdIcAzIaZiaFOv08XsSZqcM/gS7J9Ujl5Tamx9wDXb+VMkY5nJJuNI6a?=
- =?us-ascii?Q?VMuyu2mVhY1aP3JEeZEOcgnY7kcq6+G6bvJecMid86QZ2eEDFerl8HgsrvFL?=
- =?us-ascii?Q?I3jVJUUYh2XkdGEyBxmlpszeExkpjYNCXNw3ofP/0QIuAHbavDbF0aC2oyGG?=
- =?us-ascii?Q?bGQW/NLdNuNCXn3De1i0IXCdBFmOl459eW5THjj1mReGwgmiK0EMJ52Hd6TH?=
- =?us-ascii?Q?FmhtNs5CNQnXwolqCXfENAQ5nMu2+Uen1iYOXjcmb7x1466LCS7NDCPYm+/W?=
- =?us-ascii?Q?2CF/3zSNlCeq89Muv4++/cmHSLURUbdQrFMYBMNVXTpPvKz51NCYguLHOjNU?=
- =?us-ascii?Q?7nwwFUlMk4owj1NifKwNC0kFn6/4GrgvdThWq8HO2mnQXKaVHxBho5IgiFO5?=
- =?us-ascii?Q?gkNT3T0OUnpHHiRVrUzW7b+jWZomMF51h/vxPC1trOEJis+MlKnHRJ7OL4GP?=
- =?us-ascii?Q?ep7GTgqQcPg2ph6pRj+bwfAuIR2GM9EjwymKT7sRNHV7CTThXFTm3wCEd635?=
- =?us-ascii?Q?/Qtlqg0LKQbG/KSx+DdQ+fdfhGQylenASm14MYE65n9BP78gdzLP/7qnrD9v?=
- =?us-ascii?Q?nQMIpzdCXLMDvM8/Opck0VTWmrg5L5K1x7RjbE0mEg/cxH+d4FVU0viJOO/5?=
- =?us-ascii?Q?+MS1f8UCe/qhGVgKu2snSz5BW5KewAO+7q9LfO7ugYA6jEeaBYdAR6y642C5?=
- =?us-ascii?Q?/6rJ0MWLb3RW56TuVnNCpf63B0ibx5yNc+ZePTqFLAJo6gDhM2hZ3GSCaOr2?=
- =?us-ascii?Q?CHXHbqELi9sCgXFikluD5HV7d9JxNgJC17bJNtxjIBdLHpyHySlX6AxUhUsh?=
- =?us-ascii?Q?mg8wWIw9W1ytHEgVRI8Pgav7qQ56wQYdvGaQEBrCEuZroHHi6wS34D02bNRH?=
- =?us-ascii?Q?9rMlUneywdNN3jTXsZYOufY1E05SZ9SMzJIJBf0xkJ36gchMK85OnJYOcjH0?=
- =?us-ascii?Q?6b+5yFFUJW6sqoqs9SzRb6QBl/Hf2AQ5sV2fyxrOstBkL38M6ILDrR+KTTiR?=
- =?us-ascii?Q?TqRaJUEsVru6sadwRFO5rXCeR8rHBtSH5iobFZS0rAHSi0vCbLPxm8+RELGO?=
- =?us-ascii?Q?QqiGEa/MV82rddq7VbMR8z/Q3rPNdTy6ow9J0mvoM0aCKalqE4Kka2ZPn3Tc?=
- =?us-ascii?Q?mFMa+I/bqhBpJJU3A+jmyU0H0VBhmEV/sdAlwU3ZrwXhaRufRyvWZFJi3yrQ?=
- =?us-ascii?Q?O54LhKOmzTCqQ95Y2grONWX0BmakYJ5L/yxKJMC1Xnv//6f0d/L1JV4IWA?=
+ ARA:13230040|376014|36860700013|1800799024|82310400026|43062017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?b5M6YEZr5DSMYACThwd5gEkzJ+2/zq0i6HBFZoUEfufoi330fu6BJ81Ai8bF?=
+ =?us-ascii?Q?Tiw1/42ufq4UCzx4W7spuUIzk+3dqsQGuXgp4o5mhhybGr9KXtw+H/Sq55OD?=
+ =?us-ascii?Q?yBXMskxjbAXgGAE+mqFmDkhGy4WzE2ua+YxE8fohpnsl/JnVNyGUdpXDGel3?=
+ =?us-ascii?Q?kCoHGkx7Nv3DDhYayPpi4xyOHRROzbDQ75vORD15WLxSWpVIpw9CLKVteF9D?=
+ =?us-ascii?Q?DBIFJ3muUCYWoVpMeOM1bOelW6Wjg7M+lkcGcJxo+iAFFmRSCAbMll1uOq3/?=
+ =?us-ascii?Q?SUHPHEPcR2v9nXL/BSt1o7cE8v7n3rWjkZ0rJlhYJO18ZggAAPz8oWIWUZNE?=
+ =?us-ascii?Q?wCK/qP8mRMqxSKVo+rOcOWsMlhyC0cZPaZg3qWsqDRg/7IwQ1GcCf0afHh1B?=
+ =?us-ascii?Q?cWycPcodjhfUTcVuALn77TYKZN/KkAaRQe3jJV2sbgEVOMv0lzDlygCO4C51?=
+ =?us-ascii?Q?wUYiij34vMH2oakfKyH2U+7nHSBifA2syzGmbnZVPVLnsr47xhVyV7uL1lgL?=
+ =?us-ascii?Q?DkdRTWf03UG94yjBEXNd6LlgmUSW9DGE/UQIrznbXqNNw0WX+7nVHd5rvbDr?=
+ =?us-ascii?Q?P/ONBQUCh4gBZSnogi+VAFFoqdVqX9Q8U8i8OAFZFWBeenw+kj828PBNGENq?=
+ =?us-ascii?Q?vG29O09KdMLEkRVGW9sbhvj93ogm5O/LnsMNIrLP+6UYAbmguJ7tO9Raek6B?=
+ =?us-ascii?Q?VCYKQOnTcQfPTzuRuNiYt37yLV0FHPmeyjSN3z0kfCrcBYPjUEgLb444iS5S?=
+ =?us-ascii?Q?WTyW11V8wNfTwks+jTKx8hfg9Ax8CIQ1fyhZVS4lp1wOwtqK8HS6Xh+5QUkh?=
+ =?us-ascii?Q?pJDaT60uAQE/QOsm3U78n7qmBhoLBR+M2BY359P3UOGT6MwAKX+BX/o6dLnn?=
+ =?us-ascii?Q?x7m7TAqmYcPYn8L55uXz1f6HTyxLqEFxH4a3aEkVv46oKFZqXUE1XMa+DxSw?=
+ =?us-ascii?Q?qalxJXzOlbbf2DMyifTtEflddorx3D+q6DlpjTKR4RP6W6yNbywxVnXulNBi?=
+ =?us-ascii?Q?JLcaSWCgp4oN56/bbQgDf2Su9G039zVNY5UAMz7wT3K1uJMFCmMhFeqjkX7i?=
+ =?us-ascii?Q?Lu/6odHt1iQYJir0vlOZmDtShl+FwoTP6vz8+rUoUjWLs0o9UBnNtAHUT1QW?=
+ =?us-ascii?Q?r/P36M0NshIji7JzzNYyOgZo0cvr19bkVL4GD1OwbDQuOWeoQB1gvq7M6HW/?=
+ =?us-ascii?Q?Gk+DsJOWFxps6hL1r04HzTMkLP1AKRnGeqJcPR8ntj2X0aWTYo1CaHfQ9oS4?=
+ =?us-ascii?Q?J/KYm7O9aj/L6+WVFuUUKpmFlVoW0ORNoP0zN9+wh6Z995EWgQ2hQk7jR811?=
+ =?us-ascii?Q?rWiv+SpuFUAHIhW4o+BKKjg8oSMg4C9jPEa5mpmkoCrCxtKhKvMeRF8fnTRE?=
+ =?us-ascii?Q?mFHm05FBysg7cUIv8vWqK79C+crTqIIh5rh0prss+AlTFyr1CTMj23vJH6XA?=
+ =?us-ascii?Q?7BxiritbFExdNn473/zwVXxk+glwWDsQYKaS3WGMUKZhVLqLAfEvCpz5Bj1o?=
+ =?us-ascii?Q?ruHErWq85dAgI0lZpx7wUIKpOVL1DrNhJmKnLbXW0NgqVuBsAWlRiXjBJw?=
  =?us-ascii?Q?=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(43062017);
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026)(43062017);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2025 03:44:20.6892 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e3395e7-3455-4c86-d7f0-08dd91074788
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2025 03:44:25.0432 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f259b09-b33a-49fe-57cf-08dd91074a21
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000010.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6420
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8918
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,166 +135,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These structures are basically ported from MMSCH v4_0
-The structures are the same as v4_0 except for the
-init header
+initialization table handshake with mmsch
 
 Signed-off-by: fanhuang <FangSheng.Huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mmsch_v5_0.h | 144 ++++++++++++++++++++++++
- 1 file changed, 144 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/mmsch_v5_0.h
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c | 142 +++++++++++++++++++++--
+ 1 file changed, 131 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmsch_v5_0.h b/drivers/gpu/drm/amd/amdgpu/mmsch_v5_0.h
-new file mode 100644
-index 000000000000..6f749814929f
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/mmsch_v5_0.h
-@@ -0,0 +1,144 @@
-+/*
-+ * Copyright 2023 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+index 6f73033d78b5..cb94bd71300f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+@@ -28,11 +28,13 @@
+ #include "soc15d.h"
+ #include "jpeg_v4_0_3.h"
+ #include "jpeg_v5_0_1.h"
++#include "mmsch_v5_0.h"
+ 
+ #include "vcn/vcn_5_0_0_offset.h"
+ #include "vcn/vcn_5_0_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+ 
++static int jpeg_v5_0_1_start_sriov(struct amdgpu_device *adev);
+ static void jpeg_v5_0_1_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void jpeg_v5_0_1_set_irq_funcs(struct amdgpu_device *adev);
+ static int jpeg_v5_0_1_set_powergating_state(struct amdgpu_ip_block *ip_block,
+@@ -163,14 +165,9 @@ static int jpeg_v5_0_1_sw_init(struct amdgpu_ip_block *ip_block)
+ 					(adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
+ 					1 + j + 11 * jpeg_inst;
+ 			} else {
+-				if (j < 4)
+-					ring->doorbell_index =
+-						(adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
+-						4 + j + 32 * jpeg_inst;
+-				else
+-					ring->doorbell_index =
+-						(adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
+-						8 + j + 32 * jpeg_inst;
++				ring->doorbell_index =
++					(adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
++					2 + j + 32 * jpeg_inst;
+ 			}
+ 			sprintf(ring->name, "jpeg_dec_%d.%d", adev->jpeg.inst[i].aid_id, j);
+ 			r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst->irq, 0,
+@@ -237,7 +234,10 @@ static int jpeg_v5_0_1_hw_init(struct amdgpu_ip_block *ip_block)
+ 	int i, j, r, jpeg_inst;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+-		/* jpeg_v5_0_1_start_sriov(adev); */
++		r = jpeg_v5_0_1_start_sriov(adev);
++		if (r)
++			return r;
 +
-+#ifndef __MMSCH_V5_0_H__
-+#define __MMSCH_V5_0_H__
+ 		for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+ 			for (j = 0; j < adev->jpeg.num_jpeg_rings; ++j) {
+ 				ring = &adev->jpeg.inst[i].ring_dec[j];
+@@ -291,8 +291,10 @@ static int jpeg_v5_0_1_hw_fini(struct amdgpu_ip_block *ip_block)
+ 
+ 	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+ 
+-	if (adev->jpeg.cur_state != AMD_PG_STATE_GATE)
+-		ret = jpeg_v5_0_1_set_powergating_state(ip_block, AMD_PG_STATE_GATE);
++	if (!amdgpu_sriov_vf(adev)) {
++		if (adev->jpeg.cur_state != AMD_PG_STATE_GATE)
++			ret = jpeg_v5_0_1_set_powergating_state(ip_block, AMD_PG_STATE_GATE);
++	}
+ 
+ 	return ret;
+ }
+@@ -422,6 +424,119 @@ static void jpeg_v5_0_1_init_jrbc(struct amdgpu_ring *ring)
+ 					 reg_offset);
+ }
+ 
++static int jpeg_v5_0_1_start_sriov(struct amdgpu_device *adev)
++{
++	struct amdgpu_ring *ring;
++	uint64_t ctx_addr;
++	uint32_t param, resp, expected;
++	uint32_t tmp, timeout;
 +
-+#include "amdgpu_vcn.h"
-+
-+#define MMSCH_VERSION_MAJOR	5
-+#define MMSCH_VERSION_MINOR	0
-+#define MMSCH_VERSION	(MMSCH_VERSION_MAJOR << 16 | MMSCH_VERSION_MINOR)
-+
-+#define RB_ENABLED (1 << 0)
-+#define RB4_ENABLED (1 << 1)
-+
-+#define MMSCH_VF_ENGINE_STATUS__PASS 0x1
-+
-+#define MMSCH_VF_MAILBOX_RESP__OK                      0x1
-+#define MMSCH_VF_MAILBOX_RESP__INCOMPLETE              0x2
-+#define MMSCH_VF_MAILBOX_RESP__FAILED                  0x3
-+#define MMSCH_VF_MAILBOX_RESP__FAILED_SMALL_CTX_SIZE   0x4
-+#define MMSCH_VF_MAILBOX_RESP__UNKNOWN_CMD             0x5
-+
-+enum mmsch_v5_0_command_type {
-+	MMSCH_COMMAND__DIRECT_REG_WRITE = 0,
-+	MMSCH_COMMAND__DIRECT_REG_POLLING = 2,
-+	MMSCH_COMMAND__DIRECT_REG_READ_MODIFY_WRITE = 3,
-+	MMSCH_COMMAND__INDIRECT_REG_WRITE = 8,
-+	MMSCH_COMMAND__END = 0xf
-+};
-+
-+struct mmsch_v5_0_table_info {
-+	uint32_t init_status;
-+	uint32_t table_offset;
++	struct amdgpu_mm_table *table = &adev->virt.mm_table;
++	uint32_t *table_loc;
 +	uint32_t table_size;
-+};
++	uint32_t size, size_dw, item_offset;
++	uint32_t init_status;
++	int i, j, jpeg_inst;
 +
-+struct mmsch_v5_0_init_header {
-+	uint32_t version;
-+	uint32_t total_size;
-+	struct mmsch_v5_0_table_info vcn0;
-+	struct mmsch_v5_0_table_info mjpegdec0[5];
-+	struct mmsch_v5_0_table_info mjpegdec1[5];
-+};
++	struct mmsch_v5_0_cmd_direct_write
++		direct_wt = { {0} };
++	struct mmsch_v5_0_cmd_end end = { {0} };
++	struct mmsch_v5_0_init_header header;
 +
-+struct mmsch_v5_0_cmd_direct_reg_header {
-+	uint32_t reg_offset   : 28;
-+	uint32_t command_type : 4;
-+};
++	direct_wt.cmd_header.command_type =
++		MMSCH_COMMAND__DIRECT_REG_WRITE;
++	end.cmd_header.command_type =
++		MMSCH_COMMAND__END;
 +
-+struct mmsch_v5_0_cmd_indirect_reg_header {
-+	uint32_t reg_offset    : 20;
-+	uint32_t reg_idx_space : 8;
-+	uint32_t command_type  : 4;
-+};
++	for (i = 0; i < adev->jpeg.num_jpeg_inst; i++) {
++		jpeg_inst = GET_INST(JPEG, i);
 +
-+struct mmsch_v5_0_cmd_direct_write {
-+	struct mmsch_v5_0_cmd_direct_reg_header cmd_header;
-+	uint32_t reg_value;
-+};
++		memset(&header, 0, sizeof(struct mmsch_v5_0_init_header));
++		header.version = MMSCH_VERSION;
++		header.total_size = sizeof(struct mmsch_v5_0_init_header) >> 2;
 +
-+struct mmsch_v5_0_cmd_direct_read_modify_write {
-+	struct mmsch_v5_0_cmd_direct_reg_header cmd_header;
-+	uint32_t write_data;
-+	uint32_t mask_value;
-+};
++		table_loc = (uint32_t *)table->cpu_addr;
++		table_loc += header.total_size;
 +
-+struct mmsch_v5_0_cmd_direct_polling {
-+	struct mmsch_v5_0_cmd_direct_reg_header cmd_header;
-+	uint32_t mask_value;
-+	uint32_t wait_value;
-+};
++		item_offset = header.total_size;
 +
-+struct mmsch_v5_0_cmd_end {
-+	struct mmsch_v5_0_cmd_direct_reg_header cmd_header;
-+};
++		for (j = 0; j < adev->jpeg.num_jpeg_rings; j++) {
++			ring = &adev->jpeg.inst[i].ring_dec[j];
++			table_size = 0;
 +
-+struct mmsch_v5_0_cmd_indirect_write {
-+	struct mmsch_v5_0_cmd_indirect_reg_header cmd_header;
-+	uint32_t reg_value;
-+};
++			tmp = SOC15_REG_OFFSET(JPEG, 0, regUVD_LMI_JRBC_RB_64BIT_BAR_LOW);
++			MMSCH_V5_0_INSERT_DIRECT_WT(tmp, lower_32_bits(ring->gpu_addr));
++			tmp = SOC15_REG_OFFSET(JPEG, 0, regUVD_LMI_JRBC_RB_64BIT_BAR_HIGH);
++			MMSCH_V5_0_INSERT_DIRECT_WT(tmp, upper_32_bits(ring->gpu_addr));
++			tmp = SOC15_REG_OFFSET(JPEG, 0, regUVD_JRBC_RB_SIZE);
++			MMSCH_V5_0_INSERT_DIRECT_WT(tmp, ring->ring_size / 4);
 +
-+#define MMSCH_V5_0_INSERT_DIRECT_RD_MOD_WT(reg, mask, data) { \
-+	size = sizeof(struct mmsch_v5_0_cmd_direct_read_modify_write); \
-+	size_dw = size / 4; \
-+	direct_rd_mod_wt.cmd_header.reg_offset = reg; \
-+	direct_rd_mod_wt.mask_value = mask; \
-+	direct_rd_mod_wt.write_data = data; \
-+	memcpy((void *)table_loc, &direct_rd_mod_wt, size); \
-+	table_loc += size_dw; \
-+	table_size += size_dw; \
++			if (j < 5) {
++				header.mjpegdec0[j].table_offset = item_offset;
++				header.mjpegdec0[j].init_status = 0;
++				header.mjpegdec0[j].table_size = table_size;
++			} else {
++				header.mjpegdec1[j - 5].table_offset = item_offset;
++				header.mjpegdec1[j - 5].init_status = 0;
++				header.mjpegdec1[j - 5].table_size = table_size;
++			}
++			header.total_size += table_size;
++			item_offset += table_size;
++		}
++
++		MMSCH_V5_0_INSERT_END();
++
++		/* send init table to MMSCH */
++		size = sizeof(struct mmsch_v5_0_init_header);
++		table_loc = (uint32_t *)table->cpu_addr;
++		memcpy((void *)table_loc, &header, size);
++
++		ctx_addr = table->gpu_addr;
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_CTX_ADDR_LO, lower_32_bits(ctx_addr));
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_CTX_ADDR_HI, upper_32_bits(ctx_addr));
++
++		tmp = RREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_VMID);
++		tmp &= ~MMSCH_VF_VMID__VF_CTX_VMID_MASK;
++		tmp |= (0 << MMSCH_VF_VMID__VF_CTX_VMID__SHIFT);
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_VMID, tmp);
++
++		size = header.total_size;
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_CTX_SIZE, size);
++
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_MAILBOX_RESP, 0);
++
++		param = 0x00000001;
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_MAILBOX_HOST, param);
++		tmp = 0;
++		timeout = 1000;
++		resp = 0;
++		expected = MMSCH_VF_MAILBOX_RESP__OK;
++		init_status =
++			((struct mmsch_v5_0_init_header *)(table_loc))->mjpegdec0[i].init_status;
++		while (resp != expected) {
++			resp = RREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_MAILBOX_RESP);
++
++			if (resp != 0)
++				break;
++			udelay(10);
++			tmp = tmp + 10;
++			if (tmp >= timeout) {
++				DRM_ERROR("failed to init MMSCH. TIME-OUT after %d usec"\
++					" waiting for regMMSCH_VF_MAILBOX_RESP "\
++					"(expected=0x%08x, readback=0x%08x)\n",
++					tmp, expected, resp);
++				return -EBUSY;
++			}
++		}
++		if (resp != expected && resp != MMSCH_VF_MAILBOX_RESP__INCOMPLETE &&
++				init_status != MMSCH_VF_ENGINE_STATUS__PASS)
++			DRM_ERROR("MMSCH init status is incorrect! readback=0x%08x, header init status for jpeg: %x\n",
++					resp, init_status);
++
++	}
++	return 0;
 +}
 +
-+#define MMSCH_V5_0_INSERT_DIRECT_WT(reg, value) { \
-+	size = sizeof(struct mmsch_v5_0_cmd_direct_write); \
-+	size_dw = size / 4; \
-+	direct_wt.cmd_header.reg_offset = reg; \
-+	direct_wt.reg_value = value; \
-+	memcpy((void *)table_loc, &direct_wt, size); \
-+	table_loc += size_dw; \
-+	table_size += size_dw; \
-+}
+ /**
+  * jpeg_v5_0_1_start - start JPEG block
+  *
+@@ -581,6 +696,11 @@ static int jpeg_v5_0_1_set_powergating_state(struct amdgpu_ip_block *ip_block,
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev)) {
++		adev->jpeg.cur_state = AMD_PG_STATE_UNGATE;
++		return 0;
++	}
 +
-+#define MMSCH_V5_0_INSERT_DIRECT_POLL(reg, mask, wait) { \
-+	size = sizeof(struct mmsch_v5_0_cmd_direct_polling); \
-+	size_dw = size / 4; \
-+	direct_poll.cmd_header.reg_offset = reg; \
-+	direct_poll.mask_value = mask; \
-+	direct_poll.wait_value = wait; \
-+	memcpy((void *)table_loc, &direct_poll, size); \
-+	table_loc += size_dw; \
-+	table_size += size_dw; \
-+}
-+
-+#define MMSCH_V5_0_INSERT_END() { \
-+	size = sizeof(struct mmsch_v5_0_cmd_end); \
-+	size_dw = size / 4; \
-+	memcpy((void *)table_loc, &end, size); \
-+	table_loc += size_dw; \
-+	table_size += size_dw; \
-+}
-+
-+#endif
-+
+ 	if (state == adev->jpeg.cur_state)
+ 		return 0;
+ 
 -- 
 2.34.1
 
