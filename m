@@ -4,56 +4,244 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7B9EC3ABC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 12:44:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FEA6C3ABC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 12:44:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 470C510E3EF;
-	Mon, 12 May 2025 12:44:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D363210E3F1;
+	Mon, 12 May 2025 12:44:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=nordisch.org header.i=@nordisch.org header.b="/z2RDvyI";
-	dkim=pass (1024-bit key; secure) header.d=nordisch.org header.i=@nordisch.org header.b="OeoDqiho";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qRopC9c+";
 	dkim-atps=neutral
-Received: from tengu.nordisch.org (tengu.nordisch.org [138.201.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CE1A10E18F
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 12:03:22 +0000 (UTC)
-Received: from [192.168.3.6] (fortress.wg.nordisch.org [192.168.3.6])
- by tengu.nordisch.org (Postfix) with ESMTPSA id 3F47375B78A;
- Mon, 12 May 2025 14:03:19 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=nordisch.org;
- s=tengu_ed25519; t=1747051399;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=38Rr2DNZcxLRBB37XzWYuZzKyveMda7TtTWRdUIMEo0=;
- b=/z2RDvyInUzdxmwokLB46zf2pG58TFaHfrVNoaYq+UC7DW2wF5QCt6NyEK78k7FSkhBTX5
- nGeaM+oGzMEa8VDg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nordisch.org;
- s=tengu_rsa; t=1747051399;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=38Rr2DNZcxLRBB37XzWYuZzKyveMda7TtTWRdUIMEo0=;
- b=OeoDqihoYC0i5978H4xoUq2nLItE/fS9VpcDZPe5gNQu3qaJttbyqmEbEuoNmeHP+Jr3hJ
- z0gexvzUY7IDeoiD2iJzOTjuXHliP6TIgak6wH48tmWPnmk+IzsqhaoDhA6ink6BoTFpnc
- mO8hhGNbekmcsk2zLivV6vkH/K7TRC4=
-Message-ID: <6023ab4f8c490594a882704fa0e1afeb076c2ad2.camel@nordisch.org>
-Subject: Re: amdgpu: Reproducible soft lockups when playing games
-From: Marcus =?ISO-8859-1?Q?R=FCckert?= <amd@nordisch.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Borislav Petkov <bp@alien8.de>, amd-gfx@lists.freedesktop.org
-Date: Mon, 12 May 2025 14:03:18 +0200
-In-Reply-To: <CADnq5_OfudYrLEf2OWqhaC2LWVOc_rGBs+NaizT2MfmxU=sZsA@mail.gmail.com>
-References: <123e013307ad395b3e26c2dd53fb99594191dda0.camel@nordisch.org>
- <20250429130929.GCaBDPiT_CwyKmHB5o@fat_crate.local>
- <CADnq5_PBjOYV5TH5EDXBVvth1ZX6S_TcpDOKOMrbDJUEDzkTww@mail.gmail.com>
- <688457c1079a5cdbb81a0dd21e6d744e72c89101.camel@nordisch.org>
- <CADnq5_OfudYrLEf2OWqhaC2LWVOc_rGBs+NaizT2MfmxU=sZsA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.1 
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 702D510E348;
+ Mon, 12 May 2025 09:56:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6C6DDA4C9E3;
+ Mon, 12 May 2025 09:56:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20E1C4CEE7;
+ Mon, 12 May 2025 09:55:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747043779;
+ bh=i+C4MquKCE5DzjebZIg1suA7nSkmpPf5qHNeApUsg1A=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=qRopC9c+wx/+YYC0sJ/UvJzWi+Nuq8Af/LOL6TTdw1ObAiA1N4EP+e6QolBr4MpT6
+ p5ltChjlCbyDDYRz89R5OVuaZ83tbLw+pYcksx/XVXGNoBUri07jOIpHu8d097AHB/
+ gSDUJRuD+w/qmayEwLfKcRkm+4e+sfpRcvHaPFTEPbrRTxGpnFsatWWUdcTBd7OQnA
+ w+ym87xDkxssPWo79tPQu/rSntgc4PEKUjTQ4e3C6qaM9CVgjCp/lHxzZltc1AavRM
+ /LPUSo4AklmCrtIuWgWZpLqR0YnBmCrfB22k4a1IjHg5OgJnYBulNV1QgQrtx5KTRE
+ uIiF1y2I3VB1w==
+Message-ID: <a40c0dfc-b531-4cc0-80b2-5b972d9fb65c@kernel.org>
+Date: Mon, 12 May 2025 11:55:32 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/57] irqdomain: Cleanups and Documentation
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: maz@kernel.org, linux-kernel@vger.kernel.org,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alex Shi <alexs@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, =?UTF-8?Q?Alvin_=C5=A0ipraga?=
+ <alsi@bang-olufsen.dk>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ amd-gfx@lists.freedesktop.org, Amit Kucheria <amitk@kernel.org>,
+ Anatolij Gustschin <agust@denx.de>, Andi Shyti <andi.shyti@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Andreas Kemnade <andreas@kemnade.info>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Andrew Lunn <andrew@lunn.ch>,
+ Andy Shevchenko <andy@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Antoine Tenart <atenart@kernel.org>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Anup Patel <anup@brainfault.org>, Arnd Bergmann <arnd@arndb.de>,
+ asahi@lists.linux.dev, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Baruch Siach <baruch@tkos.co.il>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Bharat Kumar Gogada <bharat.kumar.gogada@amd.com>,
+ Bjorn Andersson <andersson@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Borislav Petkov <bp@alien8.de>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Corentin Chary <corentin.chary@gmail.com>,
+ Daire McNamara <daire.mcnamara@microchip.com>,
+ Daniel Golle <daniel@makrotopia.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Daniel Mack <daniel@zonque.org>,
+ Daniel Palmer <daniel@thingy.jp>, Dave Hansen <dave.hansen@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ DENG Qingfang <dqfext@gmail.com>, Dinh Nguyen <dinguyen@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Dongliang Mu <dzm91@hust.edu.cn>, Doug Berger <opendmb@gmail.com>,
+ dri-devel@lists.freedesktop.org, Eddie James <eajames@linux.ibm.com>,
+ Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Geoff Levand <geoff@infradead.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Gregory Clement <gregory.clement@bootlin.com>, Guo Ren <guoren@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Haojian Zhuang <haojian.zhuang@linaro.org>, Heiko Stuebner
+ <heiko@sntech.de>, Herve Codina <herve.codina@bootlin.com>,
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Chen-Yu Tsai <wens@csie.org>, "Chester A. Unal" <chester.a.unal@arinc9.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Chris Zankel <chris@zankel.net>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Imre Kaloz <kaloz@openwrt.org>, Ingo Molnar <mingo@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, James Morse <james.morse@arm.com>,
+ Janne Grunau <j@jannau.net>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Jianjun Wang <jianjun.wang@mediatek.com>, Jiawen Wu
+ <jiawenwu@trustnetic.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ Jim Quinlan <jim2101024@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Joel Stanley <joel@jms.id.au>, Johannes Berg <johannes@sipsolutions.net>,
+ John Crispin <john@phrozen.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Jonas Bonn <jonas@southpole.se>, Jonathan Cameron <jic23@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Jonathan Hunter <jonathanh@nvidia.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Joyce Ooi <joyce.ooi@intel.com>,
+ Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, Keerthy
+ <j-keerthy@ti.com>, Kevin Hilman <khilman@baylibre.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski
+ <krzk@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Lee Jones <lee@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij
+ <linus.walleij@linaro.org>, Linus Walleij <linusw@kernel.org>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-pci@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-remoteproc@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-sh@vger.kernel.org, linux-snps-arc@lists.infradead.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ loongarch@lists.linux.dev, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, "Luke D. Jones" <luke@ljones.dev>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Mark Brown <broonie@kernel.org>, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Max Filippov
+ <jcmvbkbc@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>, Michael Buesch <m@bues.ch>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Simek <michal.simek@amd.com>,
+ Miodrag Dinic <miodrag.dinic@mips.com>, Naveen N Rao <naveen@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>, Nikhil Agarwal
+ <nikhil.agarwal@amd.com>, Nipun Gupta <nipun.gupta@amd.com>,
+ Nishanth Menon <nm@ti.com>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paolo Abeni <pabeni@redhat.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Peter Rosin <peda@axentia.se>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ platform-driver-x86@vger.kernel.org,
+ Prasad Kumpatla <quic_pkumpatl@quicinc.com>, Qiang Zhao
+ <qiang.zhao@nxp.com>, Qin Jian <qinjian@cqplus1.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Ray Jui <rjui@broadcom.com>,
+ Rengarajan Sundararajan <Rengarajan.S@microchip.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Richard Weinberger <richard@nod.at>, Rich Felker <dalias@libc.org>,
+ Rob Clark <robdclark@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>,
+ Robert Richter <rric@kernel.org>, Rob Herring <robh@kernel.org>,
+ Roger Quadros <rogerq@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Ryder Lee <ryder.lee@mediatek.com>,
+ Samuel Holland <samuel@sholland.org>, Santosh Shilimkar
+ <ssantosh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Scott Branden <sbranden@broadcom.com>, Scott Wood <oss@buserror.net>,
+ Sean Paul <sean@poorly.run>, Sean Wang <sean.wang@kernel.org>,
+ Sean Wang <sean.wang@mediatek.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>, Simona Vetter <simona@ffwll.ch>,
+ Stafford Horne <shorne@gmail.com>,
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+ Stephen Boyd <sboyd@kernel.org>, Sven Peter <sven@svenpeter.dev>,
+ Takashi Iwai <tiwai@suse.com>, Talel Shenhar <talel@amazon.com>,
+ Tero Kristo <kristo@kernel.org>,
+ Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Toan Le <toan@os.amperecomputing.com>, Tony Lindgren <tony@atomide.com>,
+ Tony Luck <tony.luck@intel.com>, UNGLinuxDriver@microchip.com,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Vineet Gupta <vgupta@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ WANG Xuerui <kernel@xen0n.name>, Woojung Huh <woojung.huh@microchip.com>,
+ x86@kernel.org, Yanteng Si <si.yanteng@linux.dev>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Zhang Rui <rui.zhang@intel.com>
+References: <20250319092951.37667-1-jirislaby@kernel.org> <874ixxonyy.ffs@tglx>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <874ixxonyy.ffs@tglx>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 12 May 2025 12:44:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,159 +257,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I had another flip_done hang. even with RADV_DEBUG that didnt result in muc=
-h extra details.
+On 06. 05. 25, 15:41, Thomas Gleixner wrote:
+> On Wed, Mar 19 2025 at 10:28, Jiri Slaby wrote:
+> 
+>> Hi,
+>>
+>> tl;dr if patches are agreed upon, I ask subsys maintainers to take the
+>> respective ones via their trees (as they are split per subsys), so that
+>> the IRQ tree can take only the rest. That would minimize churn/conflicts
+>> during merges.
+> 
+> So. It's rc5 by now and I picked up everything
 
-The crash details are below. What I am curious about ... currently I am tes=
-ting if i can also reproduce those flip_done hangs with a single monitor on=
-ly
+Good, thanks.
 
-I had one browser window open with twitch, which was in the background. And=
- another browser window where i was looking something up for a friend.
+> which did not show up in next yet. 
 
-I seriously wonder if the different framerates of the monitor (144Hz vs 480=
-Hz) could have an affect here that could trigger the issue?
-Or could this be a bug related to video in a browser? (vivaldi-stable if th=
-at matters)
- =20
-crash details:
-[Sun May 11 02:29:37 2025] [  T30868] amdgpu 0000:03:00.0: [drm] *ERROR* [C=
-RTC:85:crtc-0] flip_done timed out
+Which is the majority -- routing through subsystems didn't work as well 
+as I anticipated.
 
-nothing happened here until i logged in via ssh. issued a chvt 1 - which to=
-ok 24s to do something.
+I planned to retry with v3 after the next merge window, but you were faster.
 
-[Sun May 11 02:41:10 2025] [   T1915] amdgpu 0000:03:00.0: [drm] *ERROR* fl=
-ip_done timed out
-[Sun May 11 02:41:10 2025] [   T1915] amdgpu 0000:03:00.0: [drm] *ERROR* [C=
-RTC:85:crtc-0] commit wait timed out
-[Sun May 11 02:41:20 2025] [   T1915] amdgpu 0000:03:00.0: [drm] *ERROR* fl=
-ip_done timed out
-[Sun May 11 02:41:20 2025] [   T1915] amdgpu 0000:03:00.0: [drm] *ERROR* [P=
-LANE:82:plane-7] commit wait timed out
-[Sun May 11 02:41:20 2025] [   T1915] ------------[ cut here ]------------
-[Sun May 11 02:41:20 2025] [   T1915] WARNING: CPU: 28 PID: 1915 at drivers=
-/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:8928 amdgpu_dm_atomic_=
-commit_tail+0x3c54/0x3d10 [amdgpu]
-[Sun May 11 02:41:20 2025] [   T1915] Modules linked in: overlay binfmt_mis=
-c nft_masq nft_chain_nat nf_nat nft_reject_inet nf_reject_ipv4 nf_reject_ip=
-v6 nft_reject nf_log_syslog nft_log nft_limit nft_ct nf_conntrack nf_defrag=
-_ipv6 nf_defrag_ipv4 af_packet snd_seq_dummy snd_hrtimer snd_seq wireguard =
-curve25519_x86_64 libcurve25519_generic ip6_udp_tunnel udp_tunnel cfg80211 =
-ext4 mbcache jbd2 nls_iso8859_1 nls_cp437 xfs vfat fat amd_atl intel_rapl_m=
-sr intel_rapl_common snd_hda_codec_hdmi snd_hda_intel snd_intel_dspcfg snd_=
-usb_audio snd_intel_sdw_acpi snd_usbmidi_lib snd_hda_codec snd_ump edac_mce=
-_amd snd_hda_core snd_rawmidi eeepc_wmi snd_hwdep snd_seq_device snd_pcm sp=
-d5118 asus_wmi kvm_amd snd_timer platform_profile raid1 snd battery i2c_pii=
-x4 sparse_keymap kvm atlantic md_mod mc cdc_acm thunderbolt gpio_amdpt joyd=
-ev soundcore rfkill k10temp igc i2c_smbus irqbypass macsec pcspkr wmi_bmof =
-tiny_power_button amd_3d_vcache gpio_generic button acpi_pad nvme_fabrics l=
-oop fuse efi_pstore configfs ip_tables x_tables hid_generic amdgpu dm_crypt=
- essiv
-[Sun May 11 02:41:20 2025] [   T1915]  authenc trusted crc16 usbhid asn1_en=
-coder amdxcp tee i2c_algo_bit ahci drm_ttm_helper libahci polyval_clmulni t=
-tm libata polyval_generic drm_exec sd_mod ghash_clmulni_intel gpu_sched scs=
-i_dh_emc sha512_ssse3 drm_suballoc_helper scsi_dh_rdac sha256_ssse3 drm_pan=
-el_backlight_quirks sha1_ssse3 scsi_dh_alua drm_buddy nvme aesni_intel sg d=
-rm_display_helper xhci_pci ucsi_acpi nvme_core crypto_simd scsi_mod cec xhc=
-i_hcd typec_ucsi nvme_keyring video cryptd scsi_common rc_core roles usbcor=
-e ccp sp5100_tco nvme_auth wmi typec btrfs blake2b_generic xor raid6_pq dm_=
-mod br_netfilter bridge stp llc nf_tables ntsync msr nfnetlink efivarfs dmi=
-_sysfs
-[Sun May 11 02:41:20 2025] [   T1915] CPU: 28 UID: 0 PID: 1915 Comm: system=
-d-logind Not tainted 6.15.0-rc5-2.g1950b5b-default #1 PREEMPT(voluntary) op=
-enSUSE Tumbleweed (unreleased)  d44620964e89a2d766559e3bdc0fcb5e11898016
-[Sun May 11 02:41:20 2025] [   T1915] Hardware name: ASUS System Product Na=
-me/ProArt X870E-CREATOR WIFI, BIOS 1303 04/28/2025
-[Sun May 11 02:41:20 2025] [   T1915] RIP: 0010:amdgpu_dm_atomic_commit_tai=
-l+0x3c54/0x3d10 [amdgpu]
-[Sun May 11 02:41:20 2025] [   T1915] Code: c6 85 30 fe ff ff 00 48 89 85 4=
-0 fe ff ff e9 e9 c9 ff ff 0f 0b e9 f1 f2 ff ff 0f 0b 31 f6 e9 46 c9 ff ff 0=
-f 0b e9 14 ca ff ff <0f> 0b e9 f9 f2 ff ff 48 c7 85 20 fe ff ff 00 00 00 00=
- 48 c7 85 f8
-[Sun May 11 02:41:20 2025] [   T1915] RSP: 0018:ffffd171c26276e8 EFLAGS: 00=
-010086
-[Sun May 11 02:41:20 2025] [   T1915] RAX: 0000000000000001 RBX: 0000000000=
-000286 RCX: ffff8e625d31f118
-[Sun May 11 02:41:20 2025] [   T1915] RDX: 0000000000000001 RSI: 0000000000=
-000297 RDI: ffff8e6263580178
-[Sun May 11 02:41:20 2025] [   T1915] RBP: ffffd171c2627938 R08: ffffd171c2=
-6275dc R09: 0000000000000000
-[Sun May 11 02:41:20 2025] [   T1915] R10: ffffd171c2627640 R11: ffffd171c2=
-627644 R12: 0000000000000000
-[Sun May 11 02:41:20 2025] [   T1915] R13: 0000000000000001 R14: ffff8e6252=
-8bc600 R15: ffff8e625d31f000
-[Sun May 11 02:41:20 2025] [   T1915] FS:  00007fa05523f9c0(0000) GS:ffff8e=
-71dedb0000(0000) knlGS:0000000000000000
-[Sun May 11 02:41:20 2025] [   T1915] CS:  0010 DS: 0000 ES: 0000 CR0: 0000=
-000080050033
-[Sun May 11 02:41:20 2025] [   T1915] CR2: 00007fc0740bb000 CR3: 0000000155=
-4e9000 CR4: 0000000000f50ef0
-[Sun May 11 02:41:20 2025] [   T1915] PKRU: 55555554
-[Sun May 11 02:41:20 2025] [   T1915] Call Trace:
-[Sun May 11 02:41:20 2025] [   T1915]  <TASK>
-[Sun May 11 02:41:20 2025] [   T1915]  commit_tail+0x91/0x130
-[Sun May 11 02:41:20 2025] [   T1915]  drm_atomic_helper_commit+0x11a/0x140
-[Sun May 11 02:41:20 2025] [   T1915]  drm_atomic_commit+0xae/0xe0
-[Sun May 11 02:41:20 2025] [   T1915]  ? __pfx___drm_printfn_info+0x10/0x10
-[Sun May 11 02:41:20 2025] [   T1915]  drm_client_modeset_commit_atomic+0x1=
-e0/0x220
-[Sun May 11 02:41:20 2025] [   T1915]  drm_client_modeset_commit_locked+0x5=
-a/0x160
-[Sun May 11 02:41:20 2025] [   T1915]  ? timerqueue_del+0x2e/0x50
-[Sun May 11 02:41:20 2025] [   T1915]  __drm_fb_helper_restore_fbdev_mode_u=
-nlocked+0x5e/0xd0
-[Sun May 11 02:41:20 2025] [   T1915]  drm_fb_helper_set_par+0x30/0x40
-[Sun May 11 02:41:20 2025] [   T1915]  fb_set_var+0x22e/0x410
-[Sun May 11 02:41:20 2025] [   T1915]  ? update_load_avg+0x80/0x770
-[Sun May 11 02:41:20 2025] [   T1915]  ? update_curr+0x1dc/0x260
-[Sun May 11 02:41:20 2025] [   T1915]  ? place_entity+0x1b/0x130
-[Sun May 11 02:41:20 2025] [   T1915]  ? pick_eevdf+0x15d/0x190
-[Sun May 11 02:41:20 2025] [   T1915]  ? update_curr+0x35/0x260
-[Sun May 11 02:41:20 2025] [   T1915]  ? update_load_avg+0x80/0x770
-[Sun May 11 02:41:20 2025] [   T1915]  fbcon_blank+0x26f/0x330
-[Sun May 11 02:41:20 2025] [   T1915]  do_unblank_screen+0xad/0x150
-[Sun May 11 02:41:20 2025] [   T1915]  complete_change_console+0x54/0x120
-[Sun May 11 02:41:20 2025] [   T1915]  vt_ioctl+0xe55/0x12e0
-[Sun May 11 02:41:20 2025] [   T1915]  ? do_syscall_64+0x8e/0x830
-[Sun May 11 02:41:20 2025] [   T1915]  ? __wake_up+0x44/0x60
-[Sun May 11 02:41:20 2025] [   T1915]  ? evdev_do_ioctl+0x4e0/0xb50
-[Sun May 11 02:41:20 2025] [   T1915]  tty_ioctl+0xe8/0x880
-[Sun May 11 02:41:20 2025] [   T1915]  ? __seccomp_filter+0x37/0x4f0
-[Sun May 11 02:41:20 2025] [   T1915]  __x64_sys_ioctl+0x94/0xc0
-[Sun May 11 02:41:20 2025] [   T1915]  do_syscall_64+0x82/0x830
-[Sun May 11 02:41:20 2025] [   T1915]  ? do_syscall_64+0x8e/0x830
-[Sun May 11 02:41:20 2025] [   T1915]  entry_SYSCALL_64_after_hwframe+0x76/=
-0x7e
-[Sun May 11 02:41:20 2025] [   T1915] RIP: 0033:0x7fa05511916f
-[Sun May 11 02:41:20 2025] [   T1915] Code: 00 48 89 44 24 18 31 c0 48 8d 4=
-4 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b=
-8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 04=
- 25 28 00 00
-[Sun May 11 02:41:20 2025] [   T1915] RSP: 002b:00007ffd5df8d590 EFLAGS: 00=
-000246 ORIG_RAX: 0000000000000010
-[Sun May 11 02:41:20 2025] [   T1915] RAX: ffffffffffffffda RBX: 0000000000=
-000021 RCX: 00007fa05511916f
-[Sun May 11 02:41:20 2025] [   T1915] RDX: 0000000000000001 RSI: 0000000000=
-005605 RDI: 0000000000000021
-[Sun May 11 02:41:20 2025] [   T1915] RBP: 0000000000000000 R08: 00007ffd5d=
-f8d580 R09: 000055a2d16e4cb0
-[Sun May 11 02:41:20 2025] [   T1915] R10: 00007ffd5df8d5d0 R11: 0000000000=
-000246 R12: 00007ffd5df8d670
-[Sun May 11 02:41:20 2025] [   T1915] R13: 00007ffd5df8d668 R14: 000055a2d1=
-6e3c70 R15: 0000000000000006
-[Sun May 11 02:41:20 2025] [   T1915]  </TASK>
-[Sun May 11 02:41:20 2025] [   T1915] ---[ end trace 0000000000000000 ]---
+V3 contains a switch from nodes to dev_fwnode() in some cases. It 
+simplifies the code there. This did not get lost, I will send this 
+separately to maintainers once everything from this series settles in 
+the tree. I.e. likely after the next merge window.
 
-```
---=20
-Always remember:
-  Never accept the world as it appears to be.
-    Dare to see it for what it could be.
-      The world can always use more heroes.
+> @Jiri, I fixed up all your subject prefixes as
+> 
+>    'irqdomain: subsys: Switch to foo()'
+> 
+> does not make any sense at all. These subsystems have their regular
+> prefixes and these changes do not justify made up irqdomain special
+> prefixes at all.
 
+Yes.
 
-
-
-```
-
+thanks,
+-- 
+js
+suse labs
