@@ -4,154 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4725AC3ABC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 06:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E917FC3ABBC
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 07:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E31D610E2CD;
-	Mon, 12 May 2025 06:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD6C10E079;
+	Mon, 12 May 2025 07:01:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b3N7XiWL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KX3qhzcI";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD6910E2CD
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 06:57:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1858A10E079
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 07:01:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KVg7on2WvCu1lHd43EUlY8kRkVLwqyt1IK5YXUCQqilq+tgN3R8V6Xt3mYmDnzRzziZ61P2Y5ZsANyh2Lt98TlcM+woFOrdyhcZ8LBoG3JM4H7HNMG8dnpgsVoDS/JfH/04xQMomElbGY8hbU+5E45ON49eHVZiYk6qYJrlt+m5lko+Fp+0QzZRSL0FgfTUoaFl67PkGiingFr9C1aG49hnrhhFvHmSe26gCxZuGlhnSk/usEbw6EbWH+vLOszACVtuzW4llMhqD9KfKYE0uH4ZYQN/rdjNiQlcqIkmTRyfDBC8YX98MpBI4YADekxcdVB2kbubQ7hB6p+OBqpkNSA==
+ b=Bs8YUwsOlJCamSF9BZzkUw+8G/TxWOP/MEH2S31c5vXvCF9agoXvcCCsDD3idG+O0z68Sox7haZWjHRzYRY0CmjOrVv0wFQ8jZ03qd8vYVooSFmsHyC7AnY0uzmOpQZLtbizJa+5pEYAQs3aki3VvgPY9XILHhObXPE10TO0ecdm12AvgD/E8J0KJaOcGxVE/nYbyfhNSiaCkSuzMemt+rQJoPwLR2GlM7jDfngjJAQ5fYVA0AmhonYO8vUG/Q+6y6+W/w98wZhqOtkgISzkI/DWC3g1wm1wh5pHTAxfj9EgJTI0kn0kh+Pi25CtiajB35g5paJWgFObxvkhQ1PIAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zCqQ6i/RKiUfJWrNTPQvgfBpoV//4cU46ks8LfWm6zM=;
- b=P5dY0Om7xPeXlFzIYz5KD3GMMP3Fd4ORDQB7rQ72/j8uu5TaEyVWToNpp4PWdjPkqU2N8djeEJ0ZU6kUAIc7sf6q/RNq9VonCgxRI5hB0UlP9wFzyHL98jKpcEOakyuEjkgLtwqu0M79Ou3g/nggyqz/LaZfqN1yaR+hE/cZM4ltStYP9ZdI/BARsmrNrDdpN5BAl37V32RsN7uorKzCS0XiXzA4ZHFzIHj0T3nzZoJf2b/lJCwzFFcLH4BvDYgaBiGE+kq07px64do/PSAoGWZ5AB3QSYXD+u7Z7g4VG+UNOp3PRV+M0i2cLLIbB4kVbvgX6HS1a4VVJuQJatKAGw==
+ bh=1plBylcPVIcwcCIpbZGI0T5ZP8Lc8pjeZpQLqQEIMQY=;
+ b=FFXdctzJli+jZ3N7JQPlY+o/GOf0J07BTO0zS6/FLqJYuDv1FZGQiosucZ8tKQNTySTORxbLPyoTfDJNU8H+QulZuHl2mUUw28eZzjBZuZ2kp4HWtRF2ZSthFJOC7QRVWm7Fjx/tfaV105+rCXq6eNkS/Z5X/kZyb4f8rffkBS34C/MaXnZvk/6UiIMfZK1iLuu5/jGgloedFKiz+OCpDnkwh/x8J92BeApLesFPjJAdZPoq7yKZ74IaPc0WxBWJUfvifxuRV5OZVaMp+tGmR7AikrJQwBBfRPjBktRPpfgGrwNjcWgLLQJsp+9t/RzKtAo9bynj0APB5yKgeiyTVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zCqQ6i/RKiUfJWrNTPQvgfBpoV//4cU46ks8LfWm6zM=;
- b=b3N7XiWLp4W5zNyT5hznwtoMBKb4V2VCM8QIkjN+nj35SL0uEvzRnQcQ1MVa0dNhVaxjQbE+OfVHKIhuPSjfNKYML/nNPZ2B7Cz6rCj1YB531xXqP5Bh5v7qJunQW3AWOhMVK350NciiQW6kKlu0vkUpdzuTRR2w6ozrJCHBA1o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BL4PR12MB9533.namprd12.prod.outlook.com (2603:10b6:208:58f::21)
+ bh=1plBylcPVIcwcCIpbZGI0T5ZP8Lc8pjeZpQLqQEIMQY=;
+ b=KX3qhzcIUkQHXZzv+rvZtgxE/NfP1f1VD+dOMRJ2zu1ngUeV+m3wCGR8/WOvd8iI3zT8FQ6lWIuWYUyOWkR/RjnsrX0wzmfPh6DH9Ms/Se2nFX/Hy2zFlHDMzZzgQToZtq3dpz/M5wSNkg6+TNscf6pYAR4SbdvEslv6AInzfMA=
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
+ by SA3PR12MB7782.namprd12.prod.outlook.com (2603:10b6:806:31c::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.25; Mon, 12 May
- 2025 06:57:32 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.027; Mon, 12 May 2025
- 06:57:32 +0000
-Message-ID: <b407264f-58e2-4f7d-b5e7-e758b1edc58b@amd.com>
-Date: Mon, 12 May 2025 08:57:28 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: improve performance with XNACK enable
-To: James Zhu <jamesz@amd.com>, James Zhu <James.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org, philip.yang@amd.com
-Cc: Felix.kuehling@amd.com
-References: <20250508144651.16745-1-James.Zhu@amd.com>
- <e741c57a-651e-4acf-9ae6-4268c6540e0e@amd.com>
- <6466df95-a64d-4894-b148-c153d299599b@amd.com>
- <7563a7d3-a871-490b-b756-11255d0532d9@amd.com>
- <bb06537d-b04e-4657-9893-923a54b8e5a8@amd.com>
- <06caf86d-c29b-4cd9-8105-5624334a79ca@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.28; Mon, 12 May
+ 2025 07:00:59 +0000
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::910f:c354:ea0d:1fd%6]) with mapi id 15.20.8722.021; Mon, 12 May 2025
+ 07:00:59 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Fix the kernel panic caused by RAS records
+ exceed threshold
+Thread-Topic: [PATCH] drm/amdgpu: Fix the kernel panic caused by RAS records
+ exceed threshold
+Thread-Index: AQHbwvyuEbjHPksBs0CSLGoJBd59PbPOdBSQgAAc0/A=
+Date: Mon, 12 May 2025 07:00:59 +0000
+Message-ID: <PH7PR12MB8796967655FB7E97FE94A917B097A@PH7PR12MB8796.namprd12.prod.outlook.com>
+References: <20250512051345.5771-1-cesun102@amd.com>
+ <PH7PR12MB8796BDF79BDA1A76874B2220B097A@PH7PR12MB8796.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB8796BDF79BDA1A76874B2220B097A@PH7PR12MB8796.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <06caf86d-c29b-4cd9-8105-5624334a79ca@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0072.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=b445d8d1-5d67-4fd0-8bdc-57e54f903dba;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-05-12T05:16:33Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|SA3PR12MB7782:EE_
+x-ms-office365-filtering-correlation-id: f014da91-ab8d-427a-4e90-08dd9122c040
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?P4+syUObyrSU6Iz5YSzA9G4Q13DqqCicnG0csJfqDyWOBSNGDMQcjndRJfc4?=
+ =?us-ascii?Q?1fW3+8oDhGVGpcsSH1n3EWiTYtEEdOpzYLCqwrmNMTZpC70s/FWq2c7Nl5jN?=
+ =?us-ascii?Q?HsVXAZLgiqPPJr9Rh36bQn09ejTk0EHI9zQhqcNDEVTdR3apgFdxmcMtF5Jp?=
+ =?us-ascii?Q?DDCyDUZ94SjO7/VDmy14YPRdV/u1Ph+UtVjRNJA6z9pmLkoEQqettxMRQmas?=
+ =?us-ascii?Q?gACH+H1ARPM0DPTWP+6PyFQICTmRZifEOSTOLYihj97YL8RT0mjJEcp2/xfD?=
+ =?us-ascii?Q?XkdTQ89X+olrvnAVhtsS+LFw7BmtN2sYr69NaZZuiHiJ6F3wfJNIMIvJdinT?=
+ =?us-ascii?Q?tLgruxswf5gT44gpUxNh5G1lDpNjgEiZVpJ+vDc9KUv5kmVLAXldloJXpeYw?=
+ =?us-ascii?Q?OWjb3aDiCNLN4lF8cemsiFZlqUkVn1rIzZ0Btsa27ipgWxqkLxp+s0gg/Zhm?=
+ =?us-ascii?Q?LNx6WIObE6eYlmprzNZDXwmM5mbttY1e6srtHx2IFa2aFITxXDbWEPDMj6Cf?=
+ =?us-ascii?Q?MEeLR9WYkiiNHUL8yarLAh+fdmpKIkc0W5Qnn9lmZiuGRM+tL7czkNDpv3b1?=
+ =?us-ascii?Q?ZEdiWyUdYW+8rBhWo2krHPHeHo3objNIXFAQ6XWWEx7pETW7tOn74BretVbl?=
+ =?us-ascii?Q?ij5p5g6bsMZ8h8+qrWO8EipHVbG4XpkDFeZQLFyILpyPAL/KGkp1huThRcBM?=
+ =?us-ascii?Q?HgiX/XqnI+XoKGfGWiPoslnTeye9efq25uELOksKln1B6IQyQuG7hge7vMBL?=
+ =?us-ascii?Q?+NAnQ9Vw/sPleTbgQMOAjzN6uw5t4y3YhCs7FCvBEkeT0MLqTc6J9H+8nsZf?=
+ =?us-ascii?Q?Yq4GxQDv5TDt0LvPBMaZLu2kSQ+Ff9/s3FwFQ0+HMlhaKAcjLLQggTIjpMsa?=
+ =?us-ascii?Q?yV2FLACvzsfWlQG6mwqN0X5wH0psplKlMJCuulDseQxyKqoiOLoFhuKMnD2K?=
+ =?us-ascii?Q?xpw2/U6gYhnDTBAFHRoDctqbmgyLiFK4zIu5iXdzMIipDtAvKMrXXkgjWpXt?=
+ =?us-ascii?Q?dwJCd+zmDkSIbxfQTLR1BBC3NAbpvnS8sZH8cR+0O7C48a8Dhq5lifP2PK26?=
+ =?us-ascii?Q?n1lBRcc8OO87sjgxNl2yc+gkf4fJ9MaxtrQqGtiHQIrYyMZpq6lNpBzbE6u0?=
+ =?us-ascii?Q?CNluxBM0Sno8sZYeiixr9TJUjNIc0pywdeP3X1Oz2EQgGUELLhmIC42BmtYx?=
+ =?us-ascii?Q?U3Jo5zN3or44NoqlXWhMc89lIdbXc/Gpnrbbj1FTSb030E4AQ+oSVifHZpUZ?=
+ =?us-ascii?Q?gtO9lWV8YGZ7nI+JzEyq2KY2dV71Dh1VZIJ2WfULICO8Aoz9RzGPOP/w/wvo?=
+ =?us-ascii?Q?XPfFkNLlS8EP1xZ2by2axbbs0KV6Cs4VRJzzCeLKHXkNDUwPNqrCS+1rUH5Q?=
+ =?us-ascii?Q?xQ4R9BcRMaz0boBtYGuI7xnkpv4EzY+RS9yq5doGvYULnDx9VsT3l9/8G0Zk?=
+ =?us-ascii?Q?dlCJX1lsYzFCQpkZbaOo6TLHot9o6BlU+p+D7g5BzjOBtrjUNpIGV7JZqkfi?=
+ =?us-ascii?Q?+6q57XyAYXx02w8=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KWpD9E6bxwk8LwaHPh/E3StBBw/CmOyu32csJR1Af27drjwYhmloDZ7TIg6/?=
+ =?us-ascii?Q?059oCo++XPGfNZ5LzxRpdy17lLRzyn79CCTzshqQun4+V3wtGEdtdx50qB0t?=
+ =?us-ascii?Q?MMp8oB9rmIDCqJU6sC6ArQYbf/+/amRwdZEdDlaI54tlOGUaZRWABUL3rgD/?=
+ =?us-ascii?Q?Gt8Voctc3xupVIVS+MJYEBD876LjdoM8yGq4mJW6cvqChHVdj8AN/neyJ6o5?=
+ =?us-ascii?Q?PrtXiOL+Iy8HSNolzh/EvuVcu0dQik8jAVOGmSi3/8B8e+jTKOYy7MFM/QdY?=
+ =?us-ascii?Q?9S6QqR17vDGupdDeIiF7soeCKIeeeyeV8ddiPGTVudqPxnRaal/rT3GW8NR8?=
+ =?us-ascii?Q?dB28ZRqPQvSrX3MHBioAISvEpANNDPD9MwRnJlMCxxJcCDnlA3guTcAYW+p/?=
+ =?us-ascii?Q?Hc/rF++2qJqhBbtWQOeyzs3vTGIQLJjD3Tv9bJyiKdOemNCyu52aQS8khKW2?=
+ =?us-ascii?Q?jsvQmZtL6eSzmcUQj5ejDv6dQrJMwpbq+S1bPO+JhE4ke0Eg3qoK0MAOq5kb?=
+ =?us-ascii?Q?2ASV+kdIduBmj0WmxkNMCMSis7SnGWaQUSJUcq+3REKTWizs2Dfw0XvVTOUS?=
+ =?us-ascii?Q?l1P/isYo4RDGcwO85OZJwZ3jkR7/QAn3CX/PsS0ock6K08RySclzeCbFknRF?=
+ =?us-ascii?Q?7bmrPELMJf8/gYzOyd1dVPy8opi391caKCx0bOob/4YEqpsrW+OeF6M2c4Dr?=
+ =?us-ascii?Q?oO18CN1PWto+vDtE6UjviLGxNDVNBlqz+zNSwCKHId8zDUCPiJn3hdsCzzTd?=
+ =?us-ascii?Q?Cv1t8Na47oG7M1zCV6/lGqEaS9YygoeetW4rRC0TQqKPfkM9lo4egbs13gWY?=
+ =?us-ascii?Q?50egyllBjOv5LFziSlK66dL7kGZ3e68Kiq98e55qOB3CPpl3Fu+qMkPo00CP?=
+ =?us-ascii?Q?52z2pj2pFXf8RoYsz91/w460E/wvsD2Jl8ADndGSFio9yUb5QOWBQfuIVNPO?=
+ =?us-ascii?Q?88Ez8kWPFpBFRDlwKtclQKL4d8J+e/ZTQfEjFCyahXTuvG4ZkQqdgmsPxlSJ?=
+ =?us-ascii?Q?zAQYEbGY9jGV5xSXyoA72ZFMb2oCaGWB+hmckv96Tej+dpPX0GS3akODPS75?=
+ =?us-ascii?Q?04A+akogt/3Dv9PzxhCDdYUQG6uIFdZh7VNDHmjaPq86EB3TpXPbEfM+4jJE?=
+ =?us-ascii?Q?gUrxlXN+HIfa57Zve2K3abdjT+G8KMMaHndi+eRNkTTja9fec1H6bsxtttck?=
+ =?us-ascii?Q?4X+XPdWLbxP6UwZCT8Y43ZMeVHlsGxS8g/feCKcdeMxNX3Kj6Nenwwy9O/aE?=
+ =?us-ascii?Q?07HKMr7Uq7Vnrn9scnYrcv5CNnoAxKEqLWO5H7Np1vfWaxzQjdFxrbWhUH7M?=
+ =?us-ascii?Q?I5P9B1C7RaiBCzbIYRPWjoXCsNnX9R32wKWnYDc+yAYbphAtEjcaGAbckd4h?=
+ =?us-ascii?Q?i/c0/mm2oZ0XC7zFtSvHRAjHpLFPs3jqZzXWuOf3tFo7Avk955QtN1Haxrcl?=
+ =?us-ascii?Q?Js7zouwJ83gy79uxZSRIpojqYQSSbU2oMjfF3h3is35yMF7++gC4DrWNdstz?=
+ =?us-ascii?Q?bXdS/Se7fYPx7Pcbhig9XXjHg4BQo30h9KU/SB/sffOTBrA9xjia35JmGa7F?=
+ =?us-ascii?Q?HtNpWZg6cqAofGulNKI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL4PR12MB9533:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e1632f4-4158-418d-f241-08dd9122442f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?S2dRVW1UcjhqNE9ReU16eWw5dUkyWWliODRqcTlrZDJWWmRZUFNudXZDSnQz?=
- =?utf-8?B?MXdXQnpvazdqQ3QwaEFBVG95WUF2NU05dHppL1ZRd0NybTBCTWFRMGlFcHJH?=
- =?utf-8?B?aWdVQ2FjYjRwdDc2aGZaWWFvUDJicDFWaWEzMytzSytBNzB0dWphR3NmY2xR?=
- =?utf-8?B?d3F0STJ1eFFvUHkzaTAxRU5qeGU5M0RqUWN3dExrTitkUG0wdnNwa25tRGZ5?=
- =?utf-8?B?RUpqaEdGUHZiWmQwYXBIZWxDUFgyN0ZmWkZlejhabHMvaW5UNWo5amZHZkVU?=
- =?utf-8?B?WXloRjRjQm5tcHNrQWlaaE8wTkRVQXlxY08wSGE0M1NwUkRDZHNGcUdqaEZB?=
- =?utf-8?B?N2FXNlR0ZFhrZ1ZTY2g3WUVVVEJxYTZ4dHFHWVVxYnZnMlhTZUZMVWtXQVRC?=
- =?utf-8?B?M3JHTzc5aDdVemRPckUwV0trSEh0QjlqUXVXSExPTVFxMm96ajU4cml1VUg0?=
- =?utf-8?B?azdLcCttaXVPWmp4SDQ5NHBNa1VPUDdwd0JpSVA2U2MxaXpPTy81VGIzM2VZ?=
- =?utf-8?B?aFdSOU9OUFVocUxrd2MzRGloUVlCcytoc01OZGVXeXZVTnJOZ2xsYmZIWGVm?=
- =?utf-8?B?VEkzMU9qWWRlNGJ1aWZJYnNoYjYrWGpMYWtkVzRvdk4rY0RqV0pwNjNxek9n?=
- =?utf-8?B?aW5iUkhXNFgybms5ZjRZS0h1NmNTamg5N3BldHd4WjU1ek1oY1NoSHJCb2d0?=
- =?utf-8?B?TXdZTHloVUZmSTBYdUo4UUdScFhYRWw1TWR4OGU4c1VwNklHYUFKUUpsY21C?=
- =?utf-8?B?Q01IZkdIVEhzT3VVZVBwRFFXdktzdWsxQ1psWXJiTGhRd1plMXZxclJoLzF2?=
- =?utf-8?B?djBsZXBFN3RJaFQ3Z3pMRmd1RXorbUpzdEVVaDRYMEowRFR0Ujg1MVk4WUpX?=
- =?utf-8?B?UlhxY0kwQ09Ra0s5S1BCNnJqN0Vra0ZtR1pCU0lDT2FZcktIdm5aQVV5cWZj?=
- =?utf-8?B?T1JrVW1reURJSGtvSW5oc2hkMDhIWWtKelo1eGhjQ1JSRkg5TlJ6emZDcGR2?=
- =?utf-8?B?MHJoT0o2ZGRMTUZlUlk4RjEwL1gvbWg1LzZKL2Q3dUJ4VElJZCtrM3ZxYUZK?=
- =?utf-8?B?ZnRwcHhDV2MwN2dCQ2djZU5EUUFrRkJTVXQ3VnUrUFNOVDh3Wi9KNVk4dE91?=
- =?utf-8?B?N1pKSytFdmZLZUNGVHlqUUN3L2ZYZDk4ZFNzTXRNSFZ4N1plaVNYSnNEUnBx?=
- =?utf-8?B?MDN1THpEaW1xaFk4ZHN2eXVFdVZPbS84TnpRNE12MCs4MXQzSzk0bzFrNzFj?=
- =?utf-8?B?OHEzZStVV2F4cFpjN3JSQkRSNlV1aHVzaTg5VTduL1RqZXYxUXZRdzk1Szdy?=
- =?utf-8?B?VS9Yb29lKzZhWW4wMFlhYWlINE5PcXBrbnloWE9EYjluM1FnM3h6ZEtCUVp2?=
- =?utf-8?B?SUx6Uit3MjNaTjV1VzlvNFdHcWcwc3Buek1BWEpvdW83ckdPQnYrbTZ3VHF3?=
- =?utf-8?B?K1ZWQXcyUjRhZGpjcGtkNHQyblRWeFZQd2NCbEJFdEdRVWdZUStKMUxGTE9i?=
- =?utf-8?B?Sm1XRHg1dDkyNmVHZkxaUTdqalZGRmVFdnIxOHduZTZDR0ZYUE1MMmdIVGRC?=
- =?utf-8?B?TlNvbWcybzh2aURhS3pvdE0yRVlBUm5SWHlTN3QzTFQvS1dDUGxjSVJUdCsw?=
- =?utf-8?B?Z2tlRUtvYUhFa0RxSEQrYlBaaWg1cUJuWjNnN09STWx0TGttTHNwTFJabUhh?=
- =?utf-8?B?bUVKV2dOWUdpYUg5WmhMbnUveVkrT09hL1hGVDdRVzN5djlnMXU2dkgwdTRV?=
- =?utf-8?B?S0FxZFdLb0syZlpGMHQyeGU5eUNiSHdNQVlvbW9hbmJ0K3kxQXlBZTRlbWJI?=
- =?utf-8?B?UWtCRDhpYm43dnJhTk1RYUFNcHQybGRlWUxDT29hME1pSlFjc01mdExYY2wr?=
- =?utf-8?B?NW12TW5MNU5rNnNTeWVIVnIwdTd6V0UyMTluSHpLN0thWjJqVDZtSlpWK2Vm?=
- =?utf-8?Q?gl61lf6nLRY=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGZEL1o4RWV0UzlQNGl0SHhpNTFtdHhZVlU1VTUxUmVkdHM2dFpaaUxPUTJl?=
- =?utf-8?B?eEdMRGFkc3hJQkJsd3l3Z1Z1WWFsNkpnNUxWVHpFMEpHOHc0TU0xZnhObHpE?=
- =?utf-8?B?OWxuQi8vRGc3Q2k2Um9sY0R6Y2M0c3EybUhGakNHUXQzQlhWVGtEOUg5aitO?=
- =?utf-8?B?UGpyOXRVdUw2WnkvZytKMnl2dlZCcVdBc0lWZWR1RGdMRVZsczZ2YWlYZE9i?=
- =?utf-8?B?WXdCaU9OUE96YktjVkFiQ2d3cjBjWXVlT1lDU2o0SjhYMmZTK3lnWlJCL0xj?=
- =?utf-8?B?cTE0WkE1QWRRMHcwbEgvdEFwNWx6VTc4a0FVaG5GTWJ1UTdOck9wTGFXVDk1?=
- =?utf-8?B?SmxLNDQ3TlZHTldLR2xCOXJwM1VGSTZ0ZmljNWh2UlRRT2xWWXBpZDIvWUtx?=
- =?utf-8?B?dTZHOG8weVd2NEFDZ1dadUNaZ0swZU81WlUyNkdQTjhyV0VwcHlhSXdPWjNp?=
- =?utf-8?B?YnZXbDhQK1dJRTZuQnZuTXovakZPSnhLUUZaaWJzU0xvNDRVR25PMmNFTi8z?=
- =?utf-8?B?ZHF4QmRpYUVmcFhIVm9ReXgxMTd2VHJGd21YQzduenpJdTIxQUwvU09VVzFS?=
- =?utf-8?B?WFlWSW5rTSthV29hL1ZvcXVONWhiQldESmhCcTZMenhWWGVwZkpsaW5lUzBF?=
- =?utf-8?B?UlVkWTlCZjIxZ0M3a21iTjNaaGRjNmpWZ3lJa29uZUxZTHBuUFpmMWFJOWQ4?=
- =?utf-8?B?SmthOFpWR3N4ZS9ISWhmRURoSHRheGM5Z2s5dEh5Smhvck5rc0ppYXBsSVFD?=
- =?utf-8?B?cTV0K3BtbyszRjBTbEhNUnlTYTUwTyszc1hhbzhadzdMdmw0NGhPRUZlNkUz?=
- =?utf-8?B?NmRiRjRxMzlTRVVuVTN5Zi9UQUxiNUlwR1ZFemkwZnVERW9XRDRKdUt1SXli?=
- =?utf-8?B?TFBoMjhXTHppR0p2R3lQWFlhRDEvNU9hdHNHMWo0aTlpU3BOYjVnUVc4dE1R?=
- =?utf-8?B?VzBDSm8yL04yYmNzTk9JcnErSEpSc3ZQTm1wSy9PNTlkalpWS0QxRjNrZ0lN?=
- =?utf-8?B?eVNyQ2M3UW5IOEczdWVPUEFLdTJ4WXJkSXFyMXVsbWJuQ2I5aUJXZ0Q5Q21v?=
- =?utf-8?B?dkdoZGFlb2lVS0w1Z2VYMDZhNUJoOGZrMjh5YjJHN3o4N2NLOFIwM1FRNHdy?=
- =?utf-8?B?TEJHUGR3cUNLbTQxZk5ORXQ0OFh4RDErK0pCaDVINmg5QzNsaE1NWURKMDNu?=
- =?utf-8?B?NXZRdWRaUDJUL0NsOC81R2ZRT3hFZHh3Vk5Qb2ZvQTlHcjhrVUNLYkRoQmJ5?=
- =?utf-8?B?YzZkMDJnVnY2SGIwc0U2VDJIbXU5SEUwV1QzMkM2Y2ZuaGQwNnhwTXFGTXln?=
- =?utf-8?B?Nk1Jbyt2QWcwUjVFa3YrSVNxa2dEQmFsZmNUV2k4VXQ5aDhtZzZIWEt2RUln?=
- =?utf-8?B?eXFmck5aYUtzMW5YTU1Id2VpQVN3UDc5eVVMRkVVUFRPdUVGa2pwU3h6MmJ5?=
- =?utf-8?B?Z0FCbFo2Z3VwTFE3TjhLTFllUVpDZ2gzNjJ2bjlCazhMckFqeEJUeE11MDE0?=
- =?utf-8?B?YmNWdG16bFd1N1RyakttK2YxRTNtNnRGSzBrdnFRSm96bTJUTTlTbHFhVWJm?=
- =?utf-8?B?M1FTY2tlYzFjUnlUcGhjayswZEJnbmxWNFRMUTJKSUFDTUZyTktCSXpid1hM?=
- =?utf-8?B?eTJOWlVEZHRXOFFDSWFnWEZPNUxITngwVnRYWjVrbGRxZDhXdFo1ZXZBaHNF?=
- =?utf-8?B?cmJsVEpWZkVvd1ZzZ0xPVUgyOFdkVTdVL3Y1QkNETk9ZaWxmUkpVT1lEWlR6?=
- =?utf-8?B?aHozOXhpQm5PMkxpY2k3OHVMVy83WWV5ckhsT3lMTjc2RGo3SEFQVVdPUmdO?=
- =?utf-8?B?bFdkY2RjWEMwd0FwR004ZU5tenFlbEoxbFJBa3FrWlV4THp3V1AwMzlxNlZO?=
- =?utf-8?B?dm9OdHpXNnBZaUU3dmFjV3o4akI5YzdPeDZZT2ltSGR0dy90MU9BeUNSMnhF?=
- =?utf-8?B?cHpHNks3a1FBOCtKRThLY1RQUVFlanhQTmkvYm9wVGVlUlVnam8zVFNuM3Rh?=
- =?utf-8?B?UFhDZ1piajNXSWtDZ1pQK1BJK1V3M2hJMlJ6WmlJM3NwWE52UFhvSm5XYkdC?=
- =?utf-8?B?S3dORENIM3I4cmUvM01LajhCQXNud2tRM0d4MlZyU1lCc25OMzgxb2FRdTYv?=
- =?utf-8?Q?5RGs=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e1632f4-4158-418d-f241-08dd9122442f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2025 06:57:31.9288 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hjqs/+l4Z9GF07lg7DkOkclOa5PQ8/JH/ufsDhnSN2hG3Z/v3n9GBp6jxI/BcrNO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9533
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f014da91-ab8d-427a-4e90-08dd9122c040
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 May 2025 07:00:59.6571 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: q0K7DXPfjGjbMQjyVDHAxK83s2G2CqEM7kW53c5VRPmkOmL749Hu5e53aaHczOMn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7782
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,95 +160,288 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/9/25 14:45, James Zhu wrote:
-> 
-> On 2025-05-09 02:00, Christian König wrote:
->> On 5/8/25 19:25, James Zhu wrote:
->>> On 2025-05-08 11:20, James Zhu wrote:
->>>> On 2025-05-08 10:50, Christian König wrote:
->>>>> On 5/8/25 16:46, James Zhu wrote:
->>>>>> When XNACK on, hang or low performance is observed with some test cases.
->>>>>> The restoring page process has unexpected stuck during evicting/restoring
->>>>>> if some bo's flag has KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED setting:
->>>>>> 1. when xnack on, retry pagefault will invoke restoring pages process
->>>>>> 2. A. if there is enough VRAM space, simply migrating pages from ram to vram
->>>>>>     B. if there is no enough VRAM space left, searching resource LRU list, and
->>>>>>        scheduling a new eviction work queue to evict LRU bo from vram to ram
->>>>>>        first, then resume restoring pages process, or waiting for eviction
->>>>>>        timeout and try to schedule evicting next LRU bo
->>>>>> 3. for case 2B, if bo has KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED setting,
->>>>>>     queue eviction will be triggered.So restoring work queue will be scheduled.
->>>>>> 4. step 1, restoring pages process will hold one mm->mmap_lock's read until
->>>>>>     restoring pages is completed
->>>>>>     step 2B, evictiion work queue process will hold one mm->mmap_lock's read
->>>>>>     until evicting bo is completed
->>>>>>     step 3, restoring work queue process is trying to acquire one mm->mmap_lock's
->>>>>>     write after the above two mm->mmap_lock's read are released, and in the
->>>>>>     meantime which will block all following mm->mmap_lock's read request.
->>>>>> 5. in step 2, if the first eviction bo's size is big enough for step 1
->>>>>>     restoring pages request, everything is fine. if not, which means that the
->>>>>>     mm->mmap_lock's read step 1 won't be release right the way. In step 3, first
->>>>>>     eviction bo's restoring work queue will compete for mm->mmap_lock's write,
->>>>>>     the second and following LRU bo's evictiion work queue will be blocked by
->>>>>>     tring to acquire mm->mmap_lock's read until timeout. All restoring pages
->>>>>>     process will be stuck here.
->>>>>> Using down_write_trylock to replace mmap_write_lock will help not block the
->>>>>> second and following evictiion work queue process.
->>>>>>
->>>>>> Signed-off-by: James Zhu <James.Zhu@amd.com>
->>>>>> ---
->>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 6 +++++-
->>>>>>   1 file changed, 5 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>>>> index 72be6e152e88..5f6ed70559b7 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>>>> @@ -1794,7 +1794,11 @@ svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
->>>>>>   {
->>>>>>   retry_flush_work:
->>>>>>       flush_work(&svms->deferred_list_work);
->>>>>> -    mmap_write_lock(mm);
->>>>>> +        while (true) {
->>>>>> +                if (down_write_trylock(&(mm->mmap_lock)))
->>>>>> +                        break;
->>>>>> +                schedule();
->>>>>> +        }
->>>>> Oh, stuff like that is usually an absolutely clear NAK from upstream.
->>>>>
->>>>> As far as I know that is not something we can do so easily.
->>>>>
->>>>> Would it be possible to wait for progress instead of calling schedule() here?
->>>> [JZ]  At 1st beginning, I am thinking adding sync with restoring pages done.
->>>>
->>>> but the original restoring work design philosophy is blindly scheduled after certain delay.
->>>>
->>>> the changes with sync may take more time and risk. I would like Felix and Philip give comments
->>>>
->>>> if there is efficient and safe way to fix it. Thanks!
->>> [JZ] BTW, in worse case, mmap_write_lock will fall into rwsem_down_write_slowpath(), schedule_preempt_disabled() and schedule();
->> Yeah, but drivers are not allowed to re-implement or even bypass that logic.
-> 
-> [JZ] here  can take as a new version mmap_write_lock without blocking the following read request and competing for write
-> 
-> lock which means read has higher priority under this case. Logically sync is better way to replace it. In practice, under
-> 
-> current scenery, sync will increase other burdens an risk.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Yeah and exactly that is messing with mutex internals and is an absolutely clear no-go.
+> -----Original Message-----
+> From: Zhou1, Tao
+> Sent: Monday, May 12, 2025 1:51 PM
+> To: Sun, Ce(Overlord) <Ce.Sun@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
+> Subject: RE: [PATCH] drm/amdgpu: Fix the kernel panic caused by RAS recor=
+ds
+> exceed threshold
+>
+>
+>
+> > -----Original Message-----
+> > From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
+> > Sent: Monday, May 12, 2025 1:14 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking
+> > <Hawking.Zhang@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
+> > Subject: [PATCH] drm/amdgpu: Fix the kernel panic caused by RAS
+> > records exceed threshold
+> >
+> > kernel panic caused by RAS records exceeding the threshold when load
+> > driver specifying RMA(bad_page_threshold=3D128) 1.Fix the warnings
+> > caused by disabling the interrupt source before it was enabled 2.xcp
+> > sysfs is not initialized,null pointer appears during fini 3.Fix the
+> > memory leak caused by the device's early exit due to rma
+> >
+> > The first reason:
+> > [ 2744.246650] ------------[ cut here ]------------ [ 2744.246651] WARN=
+ING: CPU: 0
+> PID:
+> > 289 at /tmp/amd.BkfTLqYV/amd/amdgpu/amdgpu_irq.c:635
+> > amdgpu_irq_put.cold+0x42/0x6e [amdgpu] [ 2744.247108] Modules linked in=
+:
+> > amdgpu(OE+) amddrm_ttm_helper(OE) amdttm(OE) amdxcp(OE)
+> > amddrm_buddy(OE) amddrm_exec(OE) amd_sched(OE) amdkcl(OE)
+> xt_conntrack
+> > nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_netlink nf_conntrack
+> > nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user xfrm_algo nft_counter
+> > xt_addrtype nft_compat nf_tables nfnetlink br_netfilter bridge stp llc
+> > overlay binfmt_misc intel_rapl_msr intel_rapl_common i10nm_edac nfit
+> > x86_pkg_temp_thermal intel_powerclamp coretemp ipmi_ssif kvm_intel
+> > nls_iso8859_1 kvm rapl isst_if_mbox_pci isst_if_mmio pmt_telemetry
+> > pmt_crashlog isst_if_common pmt_class mei_me mei acpi_ipmi ipmi_si
+> > ipmi_devintf ipmi_msghandler acpi_power_meter acpi_pad mac_hid
+> > sch_fq_codel dm_multipath scsi_dh_rdac scsi_dh_emc scsi_dh_alua msr
+> > ramoops reed_solomon pstore_blk pstore_zone efi_pstore ip_tables
+> > x_tables autofs4 btrfs blake2b_generic zstd_compress raid10
+> > raid456 async_raid6_recov async_memcpy async_pq async_xor async_tx xor
+> > raid6_pq libcrc32c raid1 raid0 multipath [ 2744.247167]  linear
+> > mlx5_ib ib_uverbs ib_core ast i2c_algo_bit drm_vram_helper
+> > drm_ttm_helper ttm drm_kms_helper crct10dif_pclmul syscopyarea
+> > crc32_pclmul ghash_clmulni_intel mlx5_core sysfillrect sysimgblt
+> > aesni_intel mlxfw fb_sys_fops psample cec crypto_simd cryptd rc_core
+> > i2c_i801 nvme xhci_pci tls intel_pmt drm pci_hyperv_intf nvme_core
+> > i2c_smbus i2c_ismt xhci_pci_renesas wmi pinctrl_emmitsburg
+> > [ 2744.247194] CPU: 0 PID: 289 Comm: kworker/0:1 Tainted: G           O=
+E
+> 5.15.0-
+> > 70-generic #77-Ubuntu
+> > [ 2744.247197] Hardware name: Microsoft C278A/C278A, BIOS
+> > C2789.5.BS.1C23.AG.2 11/21/2024 [ 2744.247198] Workqueue: events
+> > work_for_cpu_fn [ 2744.247206] RIP: 0010:amdgpu_irq_put.cold+0x42/0x6e
+> > [amdgpu] [ 2744.247634] Code: 79 7f ff 44 89 ee 48 c7 c7 4d 5a 42 c2
+> > 89 55 d4 e8
+> > 90 09 bc bf 8b 55 d4 4c 89 e6 4c 89 ff e8 3c 76 7f ff 8b 55 d4 84 c0
+> > 75 07 <0f> 0b e9
+> > 95 79 7f ff 49 03 5c 24 08 f0 ff 0b 75 13 4c 89 e6 4c 89 [ 2744.247636]=
+ RSP:
+> > 0018:ffa0000019e27cb0 EFLAGS: 00010246 [ 2744.247639] RAX:
+> > 0000000000000000 RBX: 0000000000000000 RCX: ff11000150fa87c0 [
+> > 2744.247641] RDX: 0000000000000000 RSI: ffffffffc2222430 RDI:
+> > ff1100019f200000 [ 2744.247642] RBP: ffa0000019e27ce0 R08:
+> > 0000000000000003
+> > R09: ffffffffffe41a08 [ 2744.247643] R10: 0000000000ffff0a R11:
+> > 0000000000000001
+> > R12: ff1100019f22ce60 [ 2744.247644] R13: 0000000000000000 R14:
+> > 00000000ffffffea R15: ff1100019f200000 [ 2744.247645] FS:
+> > 0000000000000000(0000) GS:ff11007e7e400000(0000)
+> > knlGS:0000000000000000 [ 2744.247647] CS:  0010 DS: 0000 ES: 0000 CR0:
+> > 0000000080050033 [ 2744.247649] CR2: 00007f3d2002819c CR3:
+> 0000000006810003 CR4:
+> > 0000000000771ef0 [ 2744.247650] DR0: 0000000000000000 DR1:
+> > 0000000000000000 DR2: 0000000000000000 [ 2744.247651] DR3:
+> > 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400 [
+> > 2744.247652] PKRU: 55555554 [ 2744.247653] Call Trace:
+> > [ 2744.247654]  <TASK>
+> > [ 2744.247656]  sdma_v4_4_2_hw_fini+0x7a/0xc0 [amdgpu] [ 2744.247997]  =
+?
+> > vcn_v4_0_3_hw_fini+0x5f/0xa0 [amdgpu] [ 2744.248336]
+> > amdgpu_ip_block_hw_fini+0x31/0x61 [amdgpu] [ 2744.248776]
+> > amdgpu_device_fini_hw+0x3bb/0x47b [amdgpu] [ 2744.249197]  ?
+> > blocking_notifier_chain_unregister+0x56/0xb0
+> > [ 2744.249202]  amdgpu_driver_unload_kms+0x51/0x60 [amdgpu] [
+> > 2744.249482] amdgpu_driver_load_kms.cold+0x18/0x2e [amdgpu] [
+> > 2744.249913]
+> > amdgpu_pci_probe+0x23e/0x590 [amdgpu] [ 2744.250187]
+> > local_pci_probe+0x48/0x90 [ 2744.250191]  work_for_cpu_fn+0x17/0x30 [
+> > 2744.250196]  process_one_work+0x228/0x3d0 [ 2744.250198]
+> > worker_thread+0x223/0x420 [ 2744.250200]  ?
+> > process_one_work+0x3d0/0x3d0 [ 2744.250201]  kthread+0x127/0x150
+> [ 2744.250204]  ?
+> > set_kthread_struct+0x50/0x50 [ 2744.250207]  ret_from_fork+0x1f/0x30 [
+> > 2744.250212]  </TASK> [ 2744.250213] ---[ end trace 488c997a88508bc3
+> > ]---
+> >
+> > The second reason:
+> > [ 5139.303446] Memory manager not clean during takedown.
+> > [ 5139.303509] WARNING: CPU: 145 PID: 117699 at
+> > drivers/gpu/drm/drm_mm.c:998
+> > drm_mm_takedown+0x27/0x30 [drm] [ 5139.303542] Modules linked in:
+> > amdgpu(OE+) amddrm_ttm_helper(OE) amdttm(OE) amdxcp(OE)
+> > amddrm_buddy(OE) amddrm_exec(OE) amd_sched(OE) amdkcl(OE)
+> xt_conntrack
+> > nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_netlink nf_conntrack
+> > nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user xfrm_algo nft_counter
+> > xt_addrtype nft_compat nf_tables nfnetlink br_netfilter bridge stp llc
+> > overlay intel_rapl_msr intel_rapl_common i10nm_edac nfit
+> > x86_pkg_temp_thermal intel_powerclamp coretemp ipmi_ssif kvm_intel
+> > binfmt_misc kvm nls_iso8859_1 rapl isst_if_mbox_pci pmt_telemetry
+> > pmt_crashlog isst_if_mmio pmt_class isst_if_common mei_me mei
+> > acpi_ipmi ipmi_si ipmi_devintf ipmi_msghandler acpi_pad
+> > acpi_power_meter mac_hid sch_fq_codel dm_multipath scsi_dh_rdac
+> > scsi_dh_emc scsi_dh_alua msr ramoops reed_solomon pstore_blk
+> > pstore_zone efi_pstore ip_tables x_tables autofs4 btrfs
+> > blake2b_generic zstd_compress raid10 raid456 async_raid6_recov
+> > async_memcpy async_pq async_xor async_tx xor raid6_pq libcrc32c raid1
+> > raid0 multipath [ 5139.303572]  linear mlx5_ib ib_uverbs ib_core
+> > crct10dif_pclmul ast crc32_pclmul i2c_algo_bit ghash_clmulni_intel
+> > aesni_intel crypto_simd drm_vram_helper cryptd drm_ttm_helper
+> > mlx5_core ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_f=
+ops cec
+> rc_core mlxfw psample intel_pmt nvme xhci_pci drm tls i2c_i801 pci_hyperv=
+_intf
+> nvme_core i2c_smbus i2c_ismt xhci_pci_renesas wmi pinctrl_emmitsburg [las=
+t
+> unloaded: amdkcl]
+> > [ 5139.303588] CPU: 145 PID: 117699 Comm: modprobe Tainted: G     U    =
+ OE
+> > 5.15.0-70-generic #77-Ubuntu
+> > [ 5139.303590] Hardware name: Microsoft C278A/C278A, BIOS
+> > C2789.5.BS.1C23.AG.2 11/21/2024 [ 5139.303591] RIP:
+> > 0010:drm_mm_takedown+0x27/0x30 [drm] [ 5139.303605] Code: cc 66 90 0f
+> > 1f 44
+> > 00 00 48 8b 47 38 48 83 c7 38 48 39 f8 75 05 c3 cc cc cc cc 55 48 c7
+> > c7 18 d0 10 c0
+> > 48 89 e5 e8 5a bc c3 c1 <0f> 0b 5d c3 cc cc cc cc 90 0f 1f 44 00 00 55
+> > b9 15 00 00
+> > 00 48 89 [ 5139.303607] RSP: 0018:ffa00000325c3940 EFLAGS: 00010286 [
+> > 5139.303608] RAX: 0000000000000000 RBX: ff1100012f5cecb0 RCX:
+> > 0000000000000027 [ 5139.303609] RDX: ff11007e7fa60588 RSI:
+> > 0000000000000001 RDI: ff11007e7fa60580 [ 5139.303610] RBP:
+> > ffa00000325c3940
+> > R08: 0000000000000003 R09: fffffffff00c2b78 [ 5139.303610] R10:
+> > 000000000000002b R11: 0000000000000001 R12: ff1100012f5cec00 [
+> > 5139.303611] R13: ff1100012138f068 R14: 0000000000000000 R15:
+> > ff1100012f5cec90 [ 5139.303611] FS:  00007f42ffca0000(0000)
+> > GS:ff11007e7fa40000(0000) knlGS:0000000000000000 [ 5139.303612] CS:
+> > 0010
+> > DS: 0000 ES: 0000 CR0: 0000000080050033 [ 5139.303613] CR2:
+> > 00007f23d945ab68 CR3: 00000001212ce005 CR4: 0000000000771ee0 [
+> > 5139.303614] DR0: 0000000000000000 DR1: 0000000000000000 DR2:
+> > 0000000000000000 [ 5139.303615] DR3: 0000000000000000 DR6:
+> > 00000000fffe07f0 DR7: 0000000000000400 [ 5139.303615] PKRU: 55555554 [
+> > 5139.303616] Call Trace:
+> > [ 5139.303617]  <TASK>
+> > [ 5139.303619]  amdttm_range_man_fini_nocheck+0xfe/0x1c0 [amdttm] [
+> > 5139.303625]  amdgpu_ttm_fini+0x2ed/0x390 [amdgpu] [ 5139.303800]
+> > amdgpu_bo_fini+0x27/0xc0 [amdgpu] [ 5139.303959]
+> > gmc_v9_0_sw_fini+0x63/0x90 [amdgpu] [ 5139.304144]
+> > amdgpu_device_fini_sw+0x125/0x6a0 [amdgpu] [ 5139.304302]
+> > amdgpu_driver_release_kms+0x16/0x30 [amdgpu] [ 5139.304455]
+> > devm_drm_dev_init_release+0x4a/0x80 [drm] [ 5139.304472]
+> > devm_action_release+0x12/0x20 [ 5139.304476]  release_nodes+0x3d/0xb0
+> > [ 5139.304478]  devres_release_all+0x9b/0xd0 [ 5139.304480]
+> > really_probe+0x11d/0x420 [ 5139.304483]
+> > __driver_probe_device+0x119/0x190 [ 5139.304485]
+> > driver_probe_device+0x23/0xc0 [ 5139.304487]
+> > __driver_attach+0xf7/0x1f0 [ 5139.304489]  ?
+> > __device_attach_driver+0x140/0x140
+> > [ 5139.304491]  bus_for_each_dev+0x7c/0xd0 [ 5139.304493]
+> > driver_attach+0x1e/0x30 [ 5139.304494]  bus_add_driver+0x148/0x220 [
+> > 5139.304496]  driver_register+0x95/0x100 [ 5139.304498]
+> > __pci_register_driver+0x68/0x70 [ 5139.304500]
+> > amdgpu_init+0xbc/0x1000 [amdgpu] [ 5139.304655]  ? 0xffffffffc0b8f000
+> > [ 5139.304657]
+> > do_one_initcall+0x46/0x1e0 [ 5139.304659]  ?
+> > kmem_cache_alloc_trace+0x19e/0x2e0
+> > [ 5139.304663]  do_init_module+0x52/0x260 [ 5139.304665]
+> > load_module+0xb2b/0xbc0 [ 5139.304667]
+> > __do_sys_finit_module+0xbf/0x120 [ 5139.304669]
+> > __x64_sys_finit_module+0x18/0x20 [ 5139.304670]
+> > do_syscall_64+0x59/0xc0 [ 5139.304673]  ?
+> > exit_to_user_mode_prepare+0x37/0xb0
+> > [ 5139.304676]  ? syscall_exit_to_user_mode+0x27/0x50
+> > [ 5139.304678]  ? __x64_sys_mmap+0x33/0x50 [ 5139.304680]  ?
+> > do_syscall_64+0x69/0xc0 [ 5139.304681]
+> > entry_SYSCALL_64_after_hwframe+0x61/0xcb
+> > [ 5139.304684] RIP: 0033:0x7f42ffdbf88d [ 5139.304686] Code: 5b 41 5c
+> > c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa 48 89 f8 48
+> > 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
+> > 01 f0 ff ff 73
+> > 01 c3 48 8b 0d 73 b5 0f 00 f7 d8 64 89 01 48 [ 5139.304687] RSP:
+> > 002b:00007ffcb7427158 EFLAGS: 00000246 ORIG_RAX: 0000000000000139 [
+> > 5139.304688] RAX: ffffffffffffffda RBX: 000055ce8b8f3150 RCX:
+> > 00007f42ffdbf88d [ 5139.304689] RDX: 0000000000000000 RSI:
+> 000055ce8b8f9a70 RDI:
+> > 000000000000000a [ 5139.304690] RBP: 0000000000040000 R08:
+> > 0000000000000000 R09: 0000000000000011 [ 5139.304690] R10:
+> > 000000000000000a R11: 0000000000000246 R12: 000055ce8b8f9a70 [
+> > 5139.304691] R13: 000055ce8b8f2ec0 R14: 000055ce8b8f2ab0 R15:
+> > 000055ce8b8f9aa0 [ 5139.304692]  </TASK> [ 5139.304693] ---[ end trace
+> > 8536b052f7883003 ]---
+> >
+> > Signed-off-by: Ce Sun <cesun102@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 5 +++++
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 ++
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 4 ++--
+> >  3 files changed, 9 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > index 0e890f2785b1..ef9125a696ad 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > @@ -621,6 +621,11 @@ int amdgpu_irq_get(struct amdgpu_device *adev,
+> > struct amdgpu_irq_src *src,  int amdgpu_irq_put(struct amdgpu_device
+> > *adev, struct amdgpu_irq_src *src,
+> >                unsigned int type)
+> >  {
+> > +   struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+> > +
+> > +   if(ras->is_rma)
+> > +           return -EINVAL;
+>
+> [Tao] please add  a comment for the check, with this added, the patch is:
+>
+> Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
-Stuff like that is not allowed, not even remotely.
+[Tao] BTW, please use amdgpu_ras_is_rma to get rma status.
 
-Regards,
-Christian.
-
-> 
->> Regards,
->> Christian.
->>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>>         if (list_empty(&svms->deferred_range_list))
->>>>>>           return;
+>
+> > +
+> >     if (!adev->irq.installed)
+> >             return -ENOENT;
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > index cb7991362b5d..6f24e95c9112 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -2496,6 +2496,8 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+> >     amdgpu_vram_mgr_fini(adev);
+> >     amdgpu_gtt_mgr_fini(adev);
+> >     amdgpu_preempt_mgr_fini(adev);
+> > +   amdgpu_doorbell_fini(adev);
+> > +
+> >     ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_GDS);
+> >     ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_GWS);
+> >     ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_OA); diff --git
+> > a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> > index cd6e4c0b94da..e970a1427fe0 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> > @@ -719,10 +719,10 @@ void amdgpu_xcp_cfg_sysfs_fini(struct
+> > amdgpu_device
+> > *adev)
+> >     struct amdgpu_xcp_cfg *xcp_cfg;
+> >     int i;
+> >
+> > -   if (!adev->xcp_mgr)
+> > +   if (!adev->xcp_mgr || !adev->xcp_mgr->xcp_cfg)
+> >             return;
+> >
+> > -   xcp_cfg =3D  adev->xcp_mgr->xcp_cfg;
+> > +   xcp_cfg =3D adev->xcp_mgr->xcp_cfg;
+> >     for (i =3D 0; i < xcp_cfg->num_res; i++) {
+> >             xcp_res =3D &xcp_cfg->xcp_res[i];
+> >             kobject_put(&xcp_res->kobj);
+> > --
+> > 2.34.1
 
