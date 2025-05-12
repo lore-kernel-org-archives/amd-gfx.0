@@ -4,124 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1E50C3ABCB
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 06:42:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4725AC3ABC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 06:57:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F53210E2D6;
-	Mon, 12 May 2025 06:42:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E31D610E2CD;
+	Mon, 12 May 2025 06:57:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uL9AvLaa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b3N7XiWL";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2079.outbound.protection.outlook.com [40.107.236.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC40110E2DC
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 06:42:24 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD6910E2CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 May 2025 06:57:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=onI/tofA9jCD0s4vVrFZJ0FUZtsaHm8R826K5Oj1jnXd/DdUfASVtI+2HzC7oLL+tAIey7iGR073PULhG0pLwQesM78tA0bVQOltBA2q+svqMcQh82yPkEt6kseKbY7ubgVgrjBkt5gfuJZMhVQ8a99INsQxn2FqsWtBwIrCzQomCY/8di81t4p7YVdjz1ges3Bc8iJh080B9io1ZHBWtiMEcfGxU6FaeUkhxj10GH455WaSMBfAh0hKzhFlVzm3SUbxrLrQ7DGsKhMYhQqo5Xhv4repXxWjmyJ4ghdn9pahiXD7hKVjLMYJZ+DExqUVmjBb4ERbbISZNK1TSTwMYQ==
+ b=KVg7on2WvCu1lHd43EUlY8kRkVLwqyt1IK5YXUCQqilq+tgN3R8V6Xt3mYmDnzRzziZ61P2Y5ZsANyh2Lt98TlcM+woFOrdyhcZ8LBoG3JM4H7HNMG8dnpgsVoDS/JfH/04xQMomElbGY8hbU+5E45ON49eHVZiYk6qYJrlt+m5lko+Fp+0QzZRSL0FgfTUoaFl67PkGiingFr9C1aG49hnrhhFvHmSe26gCxZuGlhnSk/usEbw6EbWH+vLOszACVtuzW4llMhqD9KfKYE0uH4ZYQN/rdjNiQlcqIkmTRyfDBC8YX98MpBI4YADekxcdVB2kbubQ7hB6p+OBqpkNSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zDOUOzPkNhK0CWJZLcjgV2MnQKHy8OJbLYVAfyjEG4Q=;
- b=dHx2ZLmcMeorbjXzs1vWU98pcfQNCRc1nPbORYD6U4sRhf9H0gEXxwt9qBcbpZN5ukOIazPqiHt7j4yIaMaa1JTj2++WI3sbE3gObCFv/PvVUJVAKO365qI5c3wV4Hmd37RhcRyo9cJji6/0pI4Wnpmppm3TdTPUqB9Se2DZD+myhXrtjzS819tn4nut5xmuF7d1TGgdZNFyi1+GHB2Y1fnJ1uQvZ/Jo8Mjw8pF0j+hEVpI9Nu3lN0HRWn4uQkE5XZKdK8hGvPLd/9Mi3Xf2c+0INz/vawWCKjPMPDEk3oiCie6I8P7zomMijNmGkuMGGHC6Pn2czw55O365KPprZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=zCqQ6i/RKiUfJWrNTPQvgfBpoV//4cU46ks8LfWm6zM=;
+ b=P5dY0Om7xPeXlFzIYz5KD3GMMP3Fd4ORDQB7rQ72/j8uu5TaEyVWToNpp4PWdjPkqU2N8djeEJ0ZU6kUAIc7sf6q/RNq9VonCgxRI5hB0UlP9wFzyHL98jKpcEOakyuEjkgLtwqu0M79Ou3g/nggyqz/LaZfqN1yaR+hE/cZM4ltStYP9ZdI/BARsmrNrDdpN5BAl37V32RsN7uorKzCS0XiXzA4ZHFzIHj0T3nzZoJf2b/lJCwzFFcLH4BvDYgaBiGE+kq07px64do/PSAoGWZ5AB3QSYXD+u7Z7g4VG+UNOp3PRV+M0i2cLLIbB4kVbvgX6HS1a4VVJuQJatKAGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zDOUOzPkNhK0CWJZLcjgV2MnQKHy8OJbLYVAfyjEG4Q=;
- b=uL9AvLaaDslWof5uLDQHXX11PGOOE3BIdoC+WqPd6s2iix+28GjAP1bS8JAjyOIc7oGNBnHwLlMsUJI8UA00jU+FrVY3U2IomQgzq7qPBtc4aSd3mg9er3/Ub5ygKjKfNGvEgYXQq27cHpC1HvZ2peeepKD0YktWlffMYHddvOc=
-Received: from CH2PR15CA0005.namprd15.prod.outlook.com (2603:10b6:610:51::15)
- by MW4PR12MB7311.namprd12.prod.outlook.com (2603:10b6:303:227::11)
+ bh=zCqQ6i/RKiUfJWrNTPQvgfBpoV//4cU46ks8LfWm6zM=;
+ b=b3N7XiWLp4W5zNyT5hznwtoMBKb4V2VCM8QIkjN+nj35SL0uEvzRnQcQ1MVa0dNhVaxjQbE+OfVHKIhuPSjfNKYML/nNPZ2B7Cz6rCj1YB531xXqP5Bh5v7qJunQW3AWOhMVK350NciiQW6kKlu0vkUpdzuTRR2w6ozrJCHBA1o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BL4PR12MB9533.namprd12.prod.outlook.com (2603:10b6:208:58f::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.28; Mon, 12 May
- 2025 06:42:19 +0000
-Received: from CH1PEPF0000AD7B.namprd04.prod.outlook.com
- (2603:10b6:610:51:cafe::ad) by CH2PR15CA0005.outlook.office365.com
- (2603:10b6:610:51::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.27 via Frontend Transport; Mon,
- 12 May 2025 06:42:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD7B.mail.protection.outlook.com (10.167.244.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Mon, 12 May 2025 06:42:19 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 12 May
- 2025 01:42:18 -0500
-Received: from hjbog17.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 12 May 2025 01:42:16 -0500
-From: Samuel Zhang <guoqing.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <victor.zhao@amd.com>, <haijun.chang@amd.com>, <guoqing.zhang@amd.com>,
- <Christian.Koenig@amd.com>, <Alexander.Deucher@amd.com>,
- <Owen.Zhang2@amd.com>, <Qing.Ma@amd.com>, Emily Deng <Emily.Deng@amd.com>
-Subject: [PATCH v5 3/4] drm/amdgpu: enable pdb0 for hibernation on SRIOV
-Date: Mon, 12 May 2025 14:41:40 +0800
-Message-ID: <20250512064141.387079-4-guoqing.zhang@amd.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <20250512064141.387079-1-guoqing.zhang@amd.com>
-References: <20250512064141.387079-1-guoqing.zhang@amd.com>
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.25; Mon, 12 May
+ 2025 06:57:32 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.027; Mon, 12 May 2025
+ 06:57:32 +0000
+Message-ID: <b407264f-58e2-4f7d-b5e7-e758b1edc58b@amd.com>
+Date: Mon, 12 May 2025 08:57:28 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: improve performance with XNACK enable
+To: James Zhu <jamesz@amd.com>, James Zhu <James.Zhu@amd.com>,
+ amd-gfx@lists.freedesktop.org, philip.yang@amd.com
+Cc: Felix.kuehling@amd.com
+References: <20250508144651.16745-1-James.Zhu@amd.com>
+ <e741c57a-651e-4acf-9ae6-4268c6540e0e@amd.com>
+ <6466df95-a64d-4894-b148-c153d299599b@amd.com>
+ <7563a7d3-a871-490b-b756-11255d0532d9@amd.com>
+ <bb06537d-b04e-4657-9893-923a54b8e5a8@amd.com>
+ <06caf86d-c29b-4cd9-8105-5624334a79ca@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <06caf86d-c29b-4cd9-8105-5624334a79ca@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: guoqing.zhang@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR2P281CA0072.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7B:EE_|MW4PR12MB7311:EE_
-X-MS-Office365-Filtering-Correlation-Id: 943e18bb-26bd-4a60-a369-08dd91202473
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL4PR12MB9533:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e1632f4-4158-418d-f241-08dd9122442f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4+8TU0woj+B4KygevaEB7n2bxjlgXlWUJYaDCqz7T/xFljavfIe7Hd1N++5Y?=
- =?us-ascii?Q?gpONqou2CF4ggSbOcGDqtYmuSZXBbkNvGEhLurAb376G40zLYs53LMYrB3ai?=
- =?us-ascii?Q?dlJINuj9M5NyY7dvdI+jGpgStWHlELpjJI1/vYiB9QGl/uVmfZ+W2PSFdxcq?=
- =?us-ascii?Q?xLBrNCVUX5sELeWZb39+gZUPDX4BMn5CBz3KMkEAp6dsvbrjp7qCCaHWnJi4?=
- =?us-ascii?Q?WKLlNJ4JjQJXVI4nkKwZpUFClnstEFXXHmU7tQZm8VAGqEJQ5lrxlCeRWuw6?=
- =?us-ascii?Q?XTcFlOEd66t3uGP7pd4RozsYezHqcfGyI7S3jLbBMD+CBGsS3OP/yGm+IiYu?=
- =?us-ascii?Q?4JcgZb4diSni09WvOeQEHKNkVDcXX1oqmfvYZfW68Kj0MgWIEqts2eJgcgyw?=
- =?us-ascii?Q?UByPjT6bqwUfmU/RopnU5J5xPGBgkmza6xkge7V51zX2i4V0eLem/iIFQo2F?=
- =?us-ascii?Q?arW5XhiFJa5xGohkEnakBc67ykk8BWaAjnsD5NUodATDPcJV3XehReVjlsYv?=
- =?us-ascii?Q?5yzoY4tghm8UjQK5QRyUDRYjDPnsbNDtZJcNYLGAwk+MT5aa0or7DqjQkYNA?=
- =?us-ascii?Q?jWOXZd/fZ+vXiEJAhdSdEwbJWzCY1ErmzsDJNUgk7hZXHE6+ll068oqgTrw1?=
- =?us-ascii?Q?r6ZEgOsId62R0M5D7jTYf3kMIiec+23rcAnWSkdOc2DhVeQtLrfjPGyXd2iy?=
- =?us-ascii?Q?7H5BaJFoar0Uarbk2rbTqBkUPSzniMXnW+n6gPlXE9gBskh9sEFkMCOPmJ9u?=
- =?us-ascii?Q?fPxUKfugMWoF+z8+tCERI8vOhyKTuwLLWY1+AV/jYJQVVbxhVahHwwLYq8Bx?=
- =?us-ascii?Q?1G/YLC+r56hkRY3RzjtvYsgPTD2SDRh/zIt06nHnNx7wRfeCZ+jJ+Q4J1TRF?=
- =?us-ascii?Q?G5VYKUYaAenE/91+/+wzJMMgZCdeR9HrCtYACc42VChyBu/BNaDxbCFMpNmP?=
- =?us-ascii?Q?t8BxJIIAnGsaeDjdH1GbavvGWYL3Eu0BQF/7UxP+lqMoeqJUCUYzw/UukmWo?=
- =?us-ascii?Q?1vQI/gmnzR8nBXoOSh3jtTSNsaWJywpTlC/l+zSGBD+noIkK17z7JPnaZGQf?=
- =?us-ascii?Q?DWY+C5lO6SU2uf8oWc2/QKk0/aJcgybhVmKm39UU0dUP3hXHNCDmfEr9AGv4?=
- =?us-ascii?Q?kbhsXg7Vzr0gmsxTXZCRO0nJjgX5gupBTQn//k7uTug/fsmCIU4oLAgR+jV8?=
- =?us-ascii?Q?imht92hysstJce9on7xk9ViQgpCdgpkneoTyci3qBcbDLFt+f6v4Lj3GuGIg?=
- =?us-ascii?Q?145cD6Bg1lKcuQFvH6F1wam9JH+7jVBjJJst1HVQT8gJ8m/9n8Em8y20sd7w?=
- =?us-ascii?Q?Gj/q/jTxKwDPPSFip+PdJLbC236luzv8OjJONKoWUbLsbIQsoPn/f+SDr6Uz?=
- =?us-ascii?Q?RVB3riRi0iC8TKlDxSC7KiYwWu7JZqRsZWPfxre7oSdOO9kx5GAS00Ng+2i5?=
- =?us-ascii?Q?ffnIS0F3HCMG1xozampI3NVlJInOW5p9hSEEYMsjhwnyWIc54uGRf4b0J3as?=
- =?us-ascii?Q?/z/Pjet21dYHg+jPxJsoqnIkR5e9Q0+EQfxJ?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?S2dRVW1UcjhqNE9ReU16eWw5dUkyWWliODRqcTlrZDJWWmRZUFNudXZDSnQz?=
+ =?utf-8?B?MXdXQnpvazdqQ3QwaEFBVG95WUF2NU05dHppL1ZRd0NybTBCTWFRMGlFcHJH?=
+ =?utf-8?B?aWdVQ2FjYjRwdDc2aGZaWWFvUDJicDFWaWEzMytzSytBNzB0dWphR3NmY2xR?=
+ =?utf-8?B?d3F0STJ1eFFvUHkzaTAxRU5qeGU5M0RqUWN3dExrTitkUG0wdnNwa25tRGZ5?=
+ =?utf-8?B?RUpqaEdGUHZiWmQwYXBIZWxDUFgyN0ZmWkZlejhabHMvaW5UNWo5amZHZkVU?=
+ =?utf-8?B?WXloRjRjQm5tcHNrQWlaaE8wTkRVQXlxY08wSGE0M1NwUkRDZHNGcUdqaEZB?=
+ =?utf-8?B?N2FXNlR0ZFhrZ1ZTY2g3WUVVVEJxYTZ4dHFHWVVxYnZnMlhTZUZMVWtXQVRC?=
+ =?utf-8?B?M3JHTzc5aDdVemRPckUwV0trSEh0QjlqUXVXSExPTVFxMm96ajU4cml1VUg0?=
+ =?utf-8?B?azdLcCttaXVPWmp4SDQ5NHBNa1VPUDdwd0JpSVA2U2MxaXpPTy81VGIzM2VZ?=
+ =?utf-8?B?aFdSOU9OUFVocUxrd2MzRGloUVlCcytoc01OZGVXeXZVTnJOZ2xsYmZIWGVm?=
+ =?utf-8?B?VEkzMU9qWWRlNGJ1aWZJYnNoYjYrWGpMYWtkVzRvdk4rY0RqV0pwNjNxek9n?=
+ =?utf-8?B?aW5iUkhXNFgybms5ZjRZS0h1NmNTamg5N3BldHd4WjU1ek1oY1NoSHJCb2d0?=
+ =?utf-8?B?TXdZTHloVUZmSTBYdUo4UUdScFhYRWw1TWR4OGU4c1VwNklHYUFKUUpsY21C?=
+ =?utf-8?B?Q01IZkdIVEhzT3VVZVBwRFFXdktzdWsxQ1psWXJiTGhRd1plMXZxclJoLzF2?=
+ =?utf-8?B?djBsZXBFN3RJaFQ3Z3pMRmd1RXorbUpzdEVVaDRYMEowRFR0Ujg1MVk4WUpX?=
+ =?utf-8?B?UlhxY0kwQ09Ra0s5S1BCNnJqN0Vra0ZtR1pCU0lDT2FZcktIdm5aQVV5cWZj?=
+ =?utf-8?B?T1JrVW1reURJSGtvSW5oc2hkMDhIWWtKelo1eGhjQ1JSRkg5TlJ6emZDcGR2?=
+ =?utf-8?B?MHJoT0o2ZGRMTUZlUlk4RjEwL1gvbWg1LzZKL2Q3dUJ4VElJZCtrM3ZxYUZK?=
+ =?utf-8?B?ZnRwcHhDV2MwN2dCQ2djZU5EUUFrRkJTVXQ3VnUrUFNOVDh3Wi9KNVk4dE91?=
+ =?utf-8?B?N1pKSytFdmZLZUNGVHlqUUN3L2ZYZDk4ZFNzTXRNSFZ4N1plaVNYSnNEUnBx?=
+ =?utf-8?B?MDN1THpEaW1xaFk4ZHN2eXVFdVZPbS84TnpRNE12MCs4MXQzSzk0bzFrNzFj?=
+ =?utf-8?B?OHEzZStVV2F4cFpjN3JSQkRSNlV1aHVzaTg5VTduL1RqZXYxUXZRdzk1Szdy?=
+ =?utf-8?B?VS9Yb29lKzZhWW4wMFlhYWlINE5PcXBrbnloWE9EYjluM1FnM3h6ZEtCUVp2?=
+ =?utf-8?B?SUx6Uit3MjNaTjV1VzlvNFdHcWcwc3Buek1BWEpvdW83ckdPQnYrbTZ3VHF3?=
+ =?utf-8?B?K1ZWQXcyUjRhZGpjcGtkNHQyblRWeFZQd2NCbEJFdEdRVWdZUStKMUxGTE9i?=
+ =?utf-8?B?Sm1XRHg1dDkyNmVHZkxaUTdqalZGRmVFdnIxOHduZTZDR0ZYUE1MMmdIVGRC?=
+ =?utf-8?B?TlNvbWcybzh2aURhS3pvdE0yRVlBUm5SWHlTN3QzTFQvS1dDUGxjSVJUdCsw?=
+ =?utf-8?B?Z2tlRUtvYUhFa0RxSEQrYlBaaWg1cUJuWjNnN09STWx0TGttTHNwTFJabUhh?=
+ =?utf-8?B?bUVKV2dOWUdpYUg5WmhMbnUveVkrT09hL1hGVDdRVzN5djlnMXU2dkgwdTRV?=
+ =?utf-8?B?S0FxZFdLb0syZlpGMHQyeGU5eUNiSHdNQVlvbW9hbmJ0K3kxQXlBZTRlbWJI?=
+ =?utf-8?B?UWtCRDhpYm43dnJhTk1RYUFNcHQybGRlWUxDT29hME1pSlFjc01mdExYY2wr?=
+ =?utf-8?B?NW12TW5MNU5rNnNTeWVIVnIwdTd6V0UyMTluSHpLN0thWjJqVDZtSlpWK2Vm?=
+ =?utf-8?Q?gl61lf6nLRY=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGZEL1o4RWV0UzlQNGl0SHhpNTFtdHhZVlU1VTUxUmVkdHM2dFpaaUxPUTJl?=
+ =?utf-8?B?eEdMRGFkc3hJQkJsd3l3Z1Z1WWFsNkpnNUxWVHpFMEpHOHc0TU0xZnhObHpE?=
+ =?utf-8?B?OWxuQi8vRGc3Q2k2Um9sY0R6Y2M0c3EybUhGakNHUXQzQlhWVGtEOUg5aitO?=
+ =?utf-8?B?UGpyOXRVdUw2WnkvZytKMnl2dlZCcVdBc0lWZWR1RGdMRVZsczZ2YWlYZE9i?=
+ =?utf-8?B?WXdCaU9OUE96YktjVkFiQ2d3cjBjWXVlT1lDU2o0SjhYMmZTK3lnWlJCL0xj?=
+ =?utf-8?B?cTE0WkE1QWRRMHcwbEgvdEFwNWx6VTc4a0FVaG5GTWJ1UTdOck9wTGFXVDk1?=
+ =?utf-8?B?SmxLNDQ3TlZHTldLR2xCOXJwM1VGSTZ0ZmljNWh2UlRRT2xWWXBpZDIvWUtx?=
+ =?utf-8?B?dTZHOG8weVd2NEFDZ1dadUNaZ0swZU81WlUyNkdQTjhyV0VwcHlhSXdPWjNp?=
+ =?utf-8?B?YnZXbDhQK1dJRTZuQnZuTXovakZPSnhLUUZaaWJzU0xvNDRVR25PMmNFTi8z?=
+ =?utf-8?B?ZHF4QmRpYUVmcFhIVm9ReXgxMTd2VHJGd21YQzduenpJdTIxQUwvU09VVzFS?=
+ =?utf-8?B?WFlWSW5rTSthV29hL1ZvcXVONWhiQldESmhCcTZMenhWWGVwZkpsaW5lUzBF?=
+ =?utf-8?B?UlVkWTlCZjIxZ0M3a21iTjNaaGRjNmpWZ3lJa29uZUxZTHBuUFpmMWFJOWQ4?=
+ =?utf-8?B?SmthOFpWR3N4ZS9ISWhmRURoSHRheGM5Z2s5dEh5Smhvck5rc0ppYXBsSVFD?=
+ =?utf-8?B?cTV0K3BtbyszRjBTbEhNUnlTYTUwTyszc1hhbzhadzdMdmw0NGhPRUZlNkUz?=
+ =?utf-8?B?NmRiRjRxMzlTRVVuVTN5Zi9UQUxiNUlwR1ZFemkwZnVERW9XRDRKdUt1SXli?=
+ =?utf-8?B?TFBoMjhXTHppR0p2R3lQWFlhRDEvNU9hdHNHMWo0aTlpU3BOYjVnUVc4dE1R?=
+ =?utf-8?B?VzBDSm8yL04yYmNzTk9JcnErSEpSc3ZQTm1wSy9PNTlkalpWS0QxRjNrZ0lN?=
+ =?utf-8?B?eVNyQ2M3UW5IOEczdWVPUEFLdTJ4WXJkSXFyMXVsbWJuQ2I5aUJXZ0Q5Q21v?=
+ =?utf-8?B?dkdoZGFlb2lVS0w1Z2VYMDZhNUJoOGZrMjh5YjJHN3o4N2NLOFIwM1FRNHdy?=
+ =?utf-8?B?TEJHUGR3cUNLbTQxZk5ORXQ0OFh4RDErK0pCaDVINmg5QzNsaE1NWURKMDNu?=
+ =?utf-8?B?NXZRdWRaUDJUL0NsOC81R2ZRT3hFZHh3Vk5Qb2ZvQTlHcjhrVUNLYkRoQmJ5?=
+ =?utf-8?B?YzZkMDJnVnY2SGIwc0U2VDJIbXU5SEUwV1QzMkM2Y2ZuaGQwNnhwTXFGTXln?=
+ =?utf-8?B?Nk1Jbyt2QWcwUjVFa3YrSVNxa2dEQmFsZmNUV2k4VXQ5aDhtZzZIWEt2RUln?=
+ =?utf-8?B?eXFmck5aYUtzMW5YTU1Id2VpQVN3UDc5eVVMRkVVUFRPdUVGa2pwU3h6MmJ5?=
+ =?utf-8?B?Z0FCbFo2Z3VwTFE3TjhLTFllUVpDZ2gzNjJ2bjlCazhMckFqeEJUeE11MDE0?=
+ =?utf-8?B?YmNWdG16bFd1N1RyakttK2YxRTNtNnRGSzBrdnFRSm96bTJUTTlTbHFhVWJm?=
+ =?utf-8?B?M1FTY2tlYzFjUnlUcGhjayswZEJnbmxWNFRMUTJKSUFDTUZyTktCSXpid1hM?=
+ =?utf-8?B?eTJOWlVEZHRXOFFDSWFnWEZPNUxITngwVnRYWjVrbGRxZDhXdFo1ZXZBaHNF?=
+ =?utf-8?B?cmJsVEpWZkVvd1ZzZ0xPVUgyOFdkVTdVL3Y1QkNETk9ZaWxmUkpVT1lEWlR6?=
+ =?utf-8?B?aHozOXhpQm5PMkxpY2k3OHVMVy83WWV5ckhsT3lMTjc2RGo3SEFQVVdPUmdO?=
+ =?utf-8?B?bFdkY2RjWEMwd0FwR004ZU5tenFlbEoxbFJBa3FrWlV4THp3V1AwMzlxNlZO?=
+ =?utf-8?B?dm9OdHpXNnBZaUU3dmFjV3o4akI5YzdPeDZZT2ltSGR0dy90MU9BeUNSMnhF?=
+ =?utf-8?B?cHpHNks3a1FBOCtKRThLY1RQUVFlanhQTmkvYm9wVGVlUlVnam8zVFNuM3Rh?=
+ =?utf-8?B?UFhDZ1piajNXSWtDZ1pQK1BJK1V3M2hJMlJ6WmlJM3NwWE52UFhvSm5XYkdC?=
+ =?utf-8?B?S3dORENIM3I4cmUvM01LajhCQXNud2tRM0d4MlZyU1lCc25OMzgxb2FRdTYv?=
+ =?utf-8?Q?5RGs=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2025 06:42:19.2477 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 943e18bb-26bd-4a60-a369-08dd91202473
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e1632f4-4158-418d-f241-08dd9122442f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2025 06:57:31.9288 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7311
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hjqs/+l4Z9GF07lg7DkOkclOa5PQ8/JH/ufsDhnSN2hG3Z/v3n9GBp6jxI/BcrNO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9533
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,196 +166,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When switching to new GPU index after hibernation and then resume,
-VRAM offset of each VRAM BO will be changed, and the cached gpu
-addresses needed to updated.
+On 5/9/25 14:45, James Zhu wrote:
+> 
+> On 2025-05-09 02:00, Christian König wrote:
+>> On 5/8/25 19:25, James Zhu wrote:
+>>> On 2025-05-08 11:20, James Zhu wrote:
+>>>> On 2025-05-08 10:50, Christian König wrote:
+>>>>> On 5/8/25 16:46, James Zhu wrote:
+>>>>>> When XNACK on, hang or low performance is observed with some test cases.
+>>>>>> The restoring page process has unexpected stuck during evicting/restoring
+>>>>>> if some bo's flag has KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED setting:
+>>>>>> 1. when xnack on, retry pagefault will invoke restoring pages process
+>>>>>> 2. A. if there is enough VRAM space, simply migrating pages from ram to vram
+>>>>>>     B. if there is no enough VRAM space left, searching resource LRU list, and
+>>>>>>        scheduling a new eviction work queue to evict LRU bo from vram to ram
+>>>>>>        first, then resume restoring pages process, or waiting for eviction
+>>>>>>        timeout and try to schedule evicting next LRU bo
+>>>>>> 3. for case 2B, if bo has KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED setting,
+>>>>>>     queue eviction will be triggered.So restoring work queue will be scheduled.
+>>>>>> 4. step 1, restoring pages process will hold one mm->mmap_lock's read until
+>>>>>>     restoring pages is completed
+>>>>>>     step 2B, evictiion work queue process will hold one mm->mmap_lock's read
+>>>>>>     until evicting bo is completed
+>>>>>>     step 3, restoring work queue process is trying to acquire one mm->mmap_lock's
+>>>>>>     write after the above two mm->mmap_lock's read are released, and in the
+>>>>>>     meantime which will block all following mm->mmap_lock's read request.
+>>>>>> 5. in step 2, if the first eviction bo's size is big enough for step 1
+>>>>>>     restoring pages request, everything is fine. if not, which means that the
+>>>>>>     mm->mmap_lock's read step 1 won't be release right the way. In step 3, first
+>>>>>>     eviction bo's restoring work queue will compete for mm->mmap_lock's write,
+>>>>>>     the second and following LRU bo's evictiion work queue will be blocked by
+>>>>>>     tring to acquire mm->mmap_lock's read until timeout. All restoring pages
+>>>>>>     process will be stuck here.
+>>>>>> Using down_write_trylock to replace mmap_write_lock will help not block the
+>>>>>> second and following evictiion work queue process.
+>>>>>>
+>>>>>> Signed-off-by: James Zhu <James.Zhu@amd.com>
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 6 +++++-
+>>>>>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>>> index 72be6e152e88..5f6ed70559b7 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>>> @@ -1794,7 +1794,11 @@ svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
+>>>>>>   {
+>>>>>>   retry_flush_work:
+>>>>>>       flush_work(&svms->deferred_list_work);
+>>>>>> -    mmap_write_lock(mm);
+>>>>>> +        while (true) {
+>>>>>> +                if (down_write_trylock(&(mm->mmap_lock)))
+>>>>>> +                        break;
+>>>>>> +                schedule();
+>>>>>> +        }
+>>>>> Oh, stuff like that is usually an absolutely clear NAK from upstream.
+>>>>>
+>>>>> As far as I know that is not something we can do so easily.
+>>>>>
+>>>>> Would it be possible to wait for progress instead of calling schedule() here?
+>>>> [JZ]  At 1st beginning, I am thinking adding sync with restoring pages done.
+>>>>
+>>>> but the original restoring work design philosophy is blindly scheduled after certain delay.
+>>>>
+>>>> the changes with sync may take more time and risk. I would like Felix and Philip give comments
+>>>>
+>>>> if there is efficient and safe way to fix it. Thanks!
+>>> [JZ] BTW, in worse case, mmap_write_lock will fall into rwsem_down_write_slowpath(), schedule_preempt_disabled() and schedule();
+>> Yeah, but drivers are not allowed to re-implement or even bypass that logic.
+> 
+> [JZ] here  can take as a new version mmap_write_lock without blocking the following read request and competing for write
+> 
+> lock which means read has higher priority under this case. Logically sync is better way to replace it. In practice, under
+> 
+> current scenery, sync will increase other burdens an risk.
 
-This is to enable pdb0 and switch to use pdb0-based virtual gpu
-address by default in amdgpu_bo_create_reserved(). since the virtual
-addresses do not change, this can avoid the need to update all
-cached gpu addresses all over the codebase.
+Yeah and exactly that is messing with mutex internals and is an absolutely clear no-go.
 
-Signed-off-by: Emily Deng <Emily.Deng@amd.com>
-Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 32 ++++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 16 +++++++++---
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c  |  6 +++--
- 5 files changed, 43 insertions(+), 14 deletions(-)
+Stuff like that is not allowed, not even remotely.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index d1fa5e8e3937..265d6c777af5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -38,6 +38,8 @@
- #include <drm/drm_drv.h>
- #include <drm/ttm/ttm_tt.h>
- 
-+static const u64 four_gb = 0x100000000ULL;
-+
- /**
-  * amdgpu_gmc_pdb0_alloc - allocate vram for pdb0
-  *
-@@ -249,15 +251,24 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc
- {
- 	u64 hive_vram_start = 0;
- 	u64 hive_vram_end = mc->xgmi.node_segment_size * mc->xgmi.num_physical_nodes - 1;
--	mc->vram_start = mc->xgmi.node_segment_size * mc->xgmi.physical_node_id;
--	mc->vram_end = mc->vram_start + mc->xgmi.node_segment_size - 1;
--	mc->gart_start = hive_vram_end + 1;
-+
-+	if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
-+		/* set mc->vram_start to 0 to switch the returned GPU address of
-+		 * amdgpu_bo_create_reserved() from FB aperture to GART aperture.
-+		 */
-+		amdgpu_gmc_vram_location(adev, mc, 0);
-+	} else {
-+		mc->vram_start = mc->xgmi.node_segment_size * mc->xgmi.physical_node_id;
-+		mc->vram_end = mc->vram_start + mc->xgmi.node_segment_size - 1;
-+		dev_info(adev->dev, "VRAM: %lluM 0x%016llX - 0x%016llX (%lluM used)\n",
-+				mc->mc_vram_size >> 20, mc->vram_start,
-+				mc->vram_end, mc->real_vram_size >> 20);
-+	}
-+	/* node_segment_size may not 4GB aligned on SRIOV, align up is needed. */
-+	mc->gart_start = ALIGN(hive_vram_end + 1, four_gb);
- 	mc->gart_end = mc->gart_start + mc->gart_size - 1;
- 	mc->fb_start = hive_vram_start;
- 	mc->fb_end = hive_vram_end;
--	dev_info(adev->dev, "VRAM: %lluM 0x%016llX - 0x%016llX (%lluM used)\n",
--			mc->mc_vram_size >> 20, mc->vram_start,
--			mc->vram_end, mc->real_vram_size >> 20);
- 	dev_info(adev->dev, "GART: %lluM 0x%016llX - 0x%016llX\n",
- 			mc->gart_size >> 20, mc->gart_start, mc->gart_end);
- }
-@@ -276,7 +287,6 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc
- void amdgpu_gmc_gart_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc,
- 			      enum amdgpu_gart_placement gart_placement)
- {
--	const uint64_t four_gb = 0x100000000ULL;
- 	u64 size_af, size_bf;
- 	/*To avoid the hole, limit the max mc address to AMDGPU_GMC_HOLE_START*/
- 	u64 max_mc_address = min(adev->gmc.mc_mask, AMDGPU_GMC_HOLE_START - 1);
-@@ -1068,6 +1078,14 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
- 	flags |= AMDGPU_PTE_FRAG((adev->gmc.vmid0_page_table_block_size + 9*1));
- 	flags |= AMDGPU_PDE_PTE_FLAG(adev);
- 
-+	if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
-+		/* always start from current device so that the GART address can keep
-+		 * consistent when hibernate-resume with different GPUs.
-+		 */
-+		vram_addr = adev->vm_manager.vram_base_offset;
-+		vram_end = vram_addr + vram_size;
-+	}
-+
- 	/* The first n PDE0 entries are used as PTE,
- 	 * pointing to vram
- 	 */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index bd7fc123b8f9..46fac7ca7dfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -307,6 +307,7 @@ struct amdgpu_gmc {
- 	struct amdgpu_bo		*pdb0_bo;
- 	/* CPU kmapped address of pdb0*/
- 	void				*ptr_pdb0;
-+	bool pdb0_enabled;
- 
- 	/* MALL size */
- 	u64 mall_size;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-index cb25f7f0dfc1..e6165f6d0763 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-@@ -180,7 +180,7 @@ gfxhub_v1_2_xcc_init_system_aperture_regs(struct amdgpu_device *adev,
- 		/* In the case squeezing vram into GART aperture, we don't use
- 		 * FB aperture and AGP aperture. Disable them.
- 		 */
--		if (adev->gmc.pdb0_bo) {
-+		if (adev->gmc.pdb0_bo && !amdgpu_virt_xgmi_migrate_enabled(adev)) {
- 			WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_FB_LOCATION_TOP, 0);
- 			WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
- 			WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_AGP_TOP, 0);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 59385da80185..5adb2e455892 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1682,6 +1682,8 @@ static int gmc_v9_0_early_init(struct amdgpu_ip_block *ip_block)
- 		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
- 	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
- 
-+	adev->gmc.pdb0_enabled = adev->gmc.xgmi.connected_to_cpu ||
-+		amdgpu_virt_xgmi_migrate_enabled(adev);
- 	return 0;
- }
- 
-@@ -1726,7 +1728,7 @@ static void gmc_v9_0_vram_gtt_location(struct amdgpu_device *adev,
- 
- 	/* add the xgmi offset of the physical node */
- 	base += adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
--	if (adev->gmc.xgmi.connected_to_cpu) {
-+	if (adev->gmc.pdb0_enabled) {
- 		amdgpu_gmc_sysvm_location(adev, mc);
- 	} else {
- 		amdgpu_gmc_vram_location(adev, mc, base);
-@@ -1841,7 +1843,7 @@ static int gmc_v9_0_gart_init(struct amdgpu_device *adev)
- 		return 0;
- 	}
- 
--	if (adev->gmc.xgmi.connected_to_cpu) {
-+	if (adev->gmc.pdb0_enabled) {
- 		adev->gmc.vmid0_page_table_depth = 1;
- 		adev->gmc.vmid0_page_table_block_size = 12;
- 	} else {
-@@ -1867,7 +1869,7 @@ static int gmc_v9_0_gart_init(struct amdgpu_device *adev)
- 		if (r)
- 			return r;
- 
--		if (adev->gmc.xgmi.connected_to_cpu)
-+		if (adev->gmc.pdb0_enabled)
- 			r = amdgpu_gmc_pdb0_alloc(adev);
- 	}
- 
-@@ -2372,7 +2374,7 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
- {
- 	int r;
- 
--	if (adev->gmc.xgmi.connected_to_cpu)
-+	if (adev->gmc.pdb0_enabled)
- 		amdgpu_gmc_init_pdb0(adev);
- 
- 	if (adev->gart.bo == NULL) {
-@@ -2533,6 +2535,12 @@ static int gmc_v9_0_resume(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
- 
-+	if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
-+		adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
-+		adev->vm_manager.vram_base_offset +=
-+			adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
-+	}
-+
- 	/* If a reset is done for NPS mode switch, read the memory range
- 	 * information again.
- 	 */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-index 84cde1239ee4..18e80aa78aff 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-@@ -45,8 +45,10 @@ static u64 mmhub_v1_8_get_fb_location(struct amdgpu_device *adev)
- 	top &= MC_VM_FB_LOCATION_TOP__FB_TOP_MASK;
- 	top <<= 24;
- 
--	adev->gmc.fb_start = base;
--	adev->gmc.fb_end = top;
-+	if (!amdgpu_virt_xgmi_migrate_enabled(adev)) {
-+		adev->gmc.fb_start = base;
-+		adev->gmc.fb_end = top;
-+	}
- 
- 	return base;
- }
--- 
-2.43.5
+Regards,
+Christian.
+
+> 
+>> Regards,
+>> Christian.
+>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>>>>         if (list_empty(&svms->deferred_range_list))
+>>>>>>           return;
 
