@@ -4,65 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A38EC3ABC9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB8C0C3ABC3
 	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 08:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2712010E4F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55E9810E500;
 	Tue, 13 May 2025 08:15:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BalHoIkP";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lkh8e8+Q";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8507310E492;
- Mon, 12 May 2025 18:37:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747075031; x=1778611031;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=V6/A2+RPCIUIQLcxtTCK7QdC1pnW1hlHvfVaLXm/ky0=;
- b=BalHoIkPstxtSMLRB609bbQKteuCRNWbLje9fO/pSwCNTPKbQQXm/y6X
- cu4edHhgHEVf0YDLTHwIjWf3EzXPJ4IV+rhA+fBwkBiGfvYGTx4KBkPIk
- eT/jYORxhF2HLIgna2iXFICmIIfq0DylTeLFYrNKgdA0PkRLlZ3VK9WWe
- 3MKn6sdhF5MzTv/l5cSRcj2lOm0Oa56zZhfqy0GlAckZNs7gfFgDX+pCI
- ga0HCVCK0sN+FxBiECcsrv/IFFA8wEFGvzVBxM/+HaVb/bSpNDJTRex+i
- 0gn2L3GK8jsYMHTtK7NH9ZylYBS2cKW2SURdZEv2IIywMTPHCogXjHlyP g==;
-X-CSE-ConnectionGUID: VKwcjCNgRfuGf4+UpKQa3g==
-X-CSE-MsgGUID: jYGYM3dHSn2oS1dL9ShRDg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11431"; a="48883941"
-X-IronPort-AV: E=Sophos;i="6.15,282,1739865600"; d="scan'208";a="48883941"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2025 11:37:08 -0700
-X-CSE-ConnectionGUID: OoRlbdaERlSO23xZjhjMJw==
-X-CSE-MsgGUID: yp++5YOQTvyecN9aypMRpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,282,1739865600"; d="scan'208";a="137298516"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2025 11:37:03 -0700
-Date: Mon, 12 May 2025 21:37:00 +0300
-From: Raag Jadav <raag.jadav@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- Xaver Hugl <xaver.hugl@gmail.com>,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2 2/3] drm/doc: Add a section about "App information"
- for the wedge API
-Message-ID: <aCI_zIJXm6rV5RO5@black.fi.intel.com>
-References: <20250511224745.834446-1-andrealmeid@igalia.com>
- <20250511224745.834446-3-andrealmeid@igalia.com>
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55E3210E3E4;
+ Mon, 12 May 2025 12:56:35 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4Zx03h1Yfbz9sp7;
+ Mon, 12 May 2025 14:56:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1747054592; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5+vn4wBMniz8+qAb8MtHnhUqqpqc5Vfhr524jiNGzEI=;
+ b=lkh8e8+Q7iGf7w8HqMI8KpZX4uuUEgD72suYXT9bz3aBoQ3ydB8csPDwPRIZgt8Ffd7t8A
+ 15MZRIwleG3p6xI7Benke9tZdKD+pr8U6fgkJZ5Q00+8azLX4nfuue0eG/ujUCeKPb4f5U
+ yKe+qCMcuP0O2++Faxi3tFWXx1y+Riuxjurv21WV8sRKNLRJq0AF8pSovUsg4s8qTYj0df
+ aJ0Hk+TA36gnoYibxYDRasuAUOOPilBsQxbb1SYmtREc4uUXo3PxOs8kRFpDMkqTd4+cLZ
+ maql/H41jH5BSBCJWyn2AhVFRTwtXhofeVaSRg35ZjD8yN0YOwGW2fHdFRpqrg==
+Message-ID: <be814eed623a1b99f7ec5246fbe177213d763fdf.camel@mailbox.org>
+Subject: Re: [RFC v4 10/16] drm/sched: Free all finished jobs at once
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+Date: Mon, 12 May 2025 14:56:29 +0200
+In-Reply-To: <20250425102034.85133-11-tvrtko.ursulin@igalia.com>
+References: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
+ <20250425102034.85133-11-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250511224745.834446-3-andrealmeid@igalia.com>
+X-MBO-RS-ID: 9c8ffe5342edfec0478
+X-MBO-RS-META: 55b58w93fomsa57rmjzbxwhjukbku44g
 X-Mailman-Approved-At: Tue, 13 May 2025 08:15:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,52 +63,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, May 11, 2025 at 07:47:44PM -0300, André Almeida wrote:
-> Add a section about "App information" for the wedge API.
-> 
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+On Fri, 2025-04-25 at 11:20 +0100, Tvrtko Ursulin wrote:
+> To implement fair scheduling we will need as accurate as possible
+> view
+> into per entity GPU time utilisation. Because sched fence execution
+> time
+> are only adjusted for accuracy in the free worker we need to process
+> completed jobs as soon as possible so the metric is most up to date
+> when
+> view from the submission side of things.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
 > ---
->  Documentation/gpu/drm-uapi.rst | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-> index 69f72e71a96e..826abe265a24 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -446,6 +446,21 @@ telemetry information (devcoredump, syslog). This is useful because the first
->  hang is usually the most critical one which can result in consequential hangs or
->  complete wedging.
->  
-> +App information
-> +---------------
-> +
-> +The information about which application (if any) caused the device to get in the
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 15 ++-------------
+> =C2=A01 file changed, 2 insertions(+), 13 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> b/drivers/gpu/drm/scheduler/sched_main.c
+> index 8950c7705f57..22428a1569dd 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -865,13 +865,12 @@ drm_sched_select_entity(struct
+> drm_gpu_scheduler *sched)
+> =C2=A0 * drm_sched_get_finished_job - fetch the next finished job to be
+> destroyed
+> =C2=A0 *
+> =C2=A0 * @sched: scheduler instance
+> - * @have_more: are there more finished jobs on the list
+> =C2=A0 *
+> =C2=A0 * Returns the next finished job from the pending list (if there is
+> one)
+> =C2=A0 * ready for it to be destroyed.
+> =C2=A0 */
+> =C2=A0static struct drm_sched_job *
+> -drm_sched_get_finished_job(struct drm_gpu_scheduler *sched, bool
+> *have_more)
+> +drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+> =C2=A0{
+> =C2=A0	struct drm_sched_job *job, *next;
+> =C2=A0
+> @@ -886,7 +885,6 @@ drm_sched_get_finished_job(struct
+> drm_gpu_scheduler *sched, bool *have_more)
+> =C2=A0		/* cancel this job's TO timer */
+> =C2=A0		cancel_delayed_work(&sched->work_tdr);
+> =C2=A0
+> -		*have_more =3D false;
+> =C2=A0		next =3D list_first_entry_or_null(&sched-
+> >pending_list,
+> =C2=A0						typeof(*next),
+> list);
+> =C2=A0		if (next) {
+> @@ -896,10 +894,6 @@ drm_sched_get_finished_job(struct
+> drm_gpu_scheduler *sched, bool *have_more)
+> =C2=A0				next->s_fence->scheduled.timestamp =3D
+> =C2=A0					dma_fence_timestamp(&job-
+> >s_fence->finished);
+> =C2=A0
+> -			if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0 &next->s_fence-
+> >finished.flags))
+> -				*have_more =3D true;
+> -
+> =C2=A0			/* start TO timer for next job */
+> =C2=A0			drm_sched_start_timeout(sched);
+> =C2=A0		}
+> @@ -958,14 +952,9 @@ static void drm_sched_free_job_work(struct
+> work_struct *w)
+> =C2=A0	struct drm_gpu_scheduler *sched =3D
+> =C2=A0		container_of(w, struct drm_gpu_scheduler,
+> work_free_job);
+> =C2=A0	struct drm_sched_job *job;
+> -	bool have_more;
+> =C2=A0
+> -	job =3D drm_sched_get_finished_job(sched, &have_more);
+> -	if (job) {
+> +	while ((job =3D drm_sched_get_finished_job(sched)))
+> =C2=A0		sched->ops->free_job(job);
+> -		if (have_more)
+> -			__drm_sched_run_free_queue(sched);
+> -	}
 
-I'm wondering if we should change the wording to "application involved in device
-wedging", or can we guarantee it to be the cause?
+Are there any have_more users left after that?
 
-My limited understanding is that we'd still need the full dump to find the cause,
-if it's possible to also note here.
+Removing here what was added before IMO makes it more questionable
+adding that improvement in the first place.
 
-Raag
+P.
 
-> +wedge state is useful for userspace if they want to notify the user about what
-> +happened (e.g. the compositor display a message to the user "The <app name>
-> +caused a graphical error and the system recovered") or to implement policies
-> +(e.g. the daemon may "ban" an app that keeps resetting the device). If the app
-> +information is not available, the uevent will display as ``PID=-1`` and
-> +``APP=none``. Otherwise, ``PID`` and ``APP`` will advertise about the guilty
-> +app.
-> +
-> +The reliability of this information is driver and hardware specific, and should
-> +be taken with a caution regarding it's precision.
-> +
->  Consumer prerequisites
->  ----------------------
->  
-> -- 
-> 2.49.0
-> 
+> =C2=A0
+> =C2=A0	drm_sched_run_job_queue(sched);
+> =C2=A0}
+
