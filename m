@@ -4,122 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C015EC3ABCB
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 03:20:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED25CC3ABCB
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 03:29:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 411D110E1E8;
-	Tue, 13 May 2025 03:20:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B48410E15A;
+	Tue, 13 May 2025 03:29:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uAMdjpc8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n7dtZMoT";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D66CF10E1E8
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 03:20:50 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2081.outbound.protection.outlook.com [40.107.101.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAF0A10E15A;
+ Tue, 13 May 2025 03:29:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IAaDa9qYqkdxzC3XEbriR/o7hBNVTkx5eFejSoGnKimNybaMQgKzkPcJfAjAVQbhPR3XE/r7smIXJsowPGofj5OXmSjvomAxUIjqRIFWcIWyQWm21gpbwOnOXZLZ4cN1KMSdLgZJGpwl0zsH8BHSzVpMoJTk6s0yZbbGhmnX9cgLyheAzzttigbSySG4IkutQq5OErzuG6jOOVNgSaytFmcJ2b4VCuyMJLA6VPURulJB7pmUTcW+54NfJwzh82pLaNJJM0EEupGAV3TP44AQeeW/Ch4GjwQjfFbiW/to2UQgL1dG+YlaLO6G0Q0J0dKEQzIihdF43nbQAxiVtzdAHQ==
+ b=E1gPDkEAsts5bE8ovsLnLhxhiB+Q8P4tEZgVmwUbrDl+PR3Wwp7LsnGvc2xb+zNu4B1Y5R3gUBXEs7yiGztTp2rGM+2HQsMqtQnbdJF5DGUPTf2DhOoXuZp/ncIjTgqM9wsfTR5WNAJGmE8UVrsgMAFoYO0IYUWHFyyhJDYJS5jIkQxHlx4KCnVp9rxFWWrzP4MsmaQdYMLRVwChkbCcUGz7KzqUHEfJeKrk88QE68OmA/6Ojp9FyMBSWDZnjNsHztQ/Yjz0O4Oe//SkQGqI+X5NduLUEgWttmMz1u9V4mlWuKaYwefa3cUsaTsT3dRIdZ6Obkm9hyZcUHYVexjKqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9nCia4LSlyxLcmzF3bmn313yZhlA1MQqFbk8js91hVo=;
- b=k5TCdmnsTmPaIkN7REDz3HXKsbrIcQul3jqzAk+m17gQRjWv+Hwi4OyZ9DgUrECS9o5RG6Dap3ttKCCYGpS+dGUoEVFI+1AEIPOdgbnUDVyl0J9bTife5Q6YHR9jeo11wx5NtL2iJoNeWcATcL8mz3OkZL5xJYBIz7vmw14zsBIHZHPlAWlwUJVqINMp0Rw6UOeC/iTuTsCJ+jUSR9/5Rc7y8k3mmwCFOdC8yxMyxyHIs1N8XOn7jXvtq45R/yh/8bAvXffvOuBrkXBoFcG3dMoLXCiQrjTdykhmPpmH1N/Wk8d+PA5JxnoWy/IG2gukgXkzWJqc6ge+3xTasc8UFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=47TONf6GaHISN/hnUbEBNwEYfIXkMHj4/n7koUpaI/c=;
+ b=akAbPLY/BfXUPj0KPH6d10pY5qqEt4DnZRDvg0VNGxXpr6yMcnG+NWYMlkMgDxdm/Ew+sFZUePHjNiKgMAYuFwJR86ll2IDDbgZXkwjtXn+/sYGlLZagWTkxcSirYqMy32St8N3ZDg+mn1EhExJwlk5Kcv466p0LcbS6ODARyHZAZBa6hr30W/VmjdBhVBbi4Swy7UmYrzWJLMg7eXUsNP21i0wcUNVcvl+5dQF+ikVYKNr2zTrHqnCW8h4ohepSZzWxC13EJxQi1gPrTgw8vp6nIQkKQSB7O1/tsGz/Y5hD/IPiZjg6ltbfBt2wKVhwWrbORiw8VCKp0XeNk6sAqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9nCia4LSlyxLcmzF3bmn313yZhlA1MQqFbk8js91hVo=;
- b=uAMdjpc8UtHHzrrQcGBRi1vg6RIl+zT6/nhLJUnBp198cdUsXS/CWV/rTd7KghLpVtI+HZ5MYhlZ0FndjAEG0pyp8L7OTQ7tY9FAHSdZpPzhPHoplnPzPZYDpLH5do38Ab7xLszGewOShpu2otCnPZqJUg5uPb2rxxuKTW5CL0Y=
-Received: from DS7PR03CA0098.namprd03.prod.outlook.com (2603:10b6:5:3b7::13)
- by PH7PR12MB6740.namprd12.prod.outlook.com (2603:10b6:510:1ab::7) with
+ bh=47TONf6GaHISN/hnUbEBNwEYfIXkMHj4/n7koUpaI/c=;
+ b=n7dtZMoTEc+WFs5U7Osf513ytJUC8SNieq3WBwYcLRlAZkPPhqGzAMUNG3KVxbPnLO2qXHZsR7pEIfNsLaV2vIJzSa4o887PQYEXP/ZsCqQpTfs+qkrsZfzLU7f929dLuOC2fFQm25K2PGaNSLv++mRgLHZYRd5m6bCetL+f5Ys=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by IA0PR12MB8421.namprd12.prod.outlook.com (2603:10b6:208:40f::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.28; Tue, 13 May
- 2025 03:20:42 +0000
-Received: from CY4PEPF0000EDD0.namprd03.prod.outlook.com
- (2603:10b6:5:3b7:cafe::31) by DS7PR03CA0098.outlook.office365.com
- (2603:10b6:5:3b7::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.24 via Frontend Transport; Tue,
- 13 May 2025 03:20:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD0.mail.protection.outlook.com (10.167.241.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Tue, 13 May 2025 03:20:41 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 12 May
- 2025 22:20:38 -0500
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 12 May 2025 22:20:35 -0500
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Wayne
- Lin" <Wayne.Lin@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] drm/amd/display: Avoid flooding unnecessary info messages
-Date: Tue, 13 May 2025 11:20:24 +0800
-Message-ID: <20250513032026.838036-1-Wayne.Lin@amd.com>
-X-Mailer: git-send-email 2.43.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.29; Tue, 13 May
+ 2025 03:29:16 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8722.027; Tue, 13 May 2025
+ 03:29:16 +0000
+Message-ID: <9ba6b83c-6c29-4149-aa71-bc9f0ea51a7a@amd.com>
+Date: Mon, 12 May 2025 21:29:13 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V9 42/43] drm/amd/display: add 3D LUT colorop
+To: Melissa Wen <mwen@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com,
+ pekka.paalanen@collabora.com, contact@emersion.fr, jadahl@redhat.com,
+ sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com,
+ joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
+ quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
+ sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
+ louis.chauvet@bootlin.com, Daniel Stone <daniels@collabora.com>
+References: <20250430011115.223996-1-alex.hung@amd.com>
+ <20250430011115.223996-43-alex.hung@amd.com>
+ <lyrpq2f7ypi7htircam6o4sd2yfxqnkn4zlre3lbh3ffsbtjcn@onpawcyobyvu>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <lyrpq2f7ypi7htircam6o4sd2yfxqnkn4zlre3lbh3ffsbtjcn@onpawcyobyvu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW2PR16CA0019.namprd16.prod.outlook.com (2603:10b6:907::32)
+ To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: Wayne.Lin@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD0:EE_|PH7PR12MB6740:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef1648c3-4043-49c0-416e-08dd91cd2436
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA0PR12MB8421:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd9ae94a-c322-4528-ff8a-08dd91ce56c1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uIujJGufBZNwGCotSMvDPsOdwSomlSihUhici2dclEc4ZRRPdjCt8wl6Mt1r?=
- =?us-ascii?Q?/+LUpeFx65dkDLNDeIxjgi3o1uiQFJr9Z60vX7CsRgj/bCUbYqpvpNYJsSCI?=
- =?us-ascii?Q?7sZAaDZHYcHPLnwAp+2tDbqQBIqxvysUP+klofiJGO7w9MFArL04W5JertyI?=
- =?us-ascii?Q?AVESXzE8wv7cesIjWWPDSD5Ptcxr0fIDK3ixDy2TpzOKOdBy1BhiKJPKd7QA?=
- =?us-ascii?Q?Xbk3SeG2E6dw28xLbap5U3syF5v8fKa8QuA240FIVVRFdlvq2HSlNFFibd9y?=
- =?us-ascii?Q?ky9gKLbJoCP0Sr60lkmIhwfL1K1Uty5oBZrchL3yrTFbjTiuv8ZFjcg7fuAX?=
- =?us-ascii?Q?g/pybX2+aoixXtE6euBwXQC8K6s0qdJmO/bTSth3y85KzewI7G78lhmXh0DO?=
- =?us-ascii?Q?BaHLPpPw4+LIbj5Y8pz9xeXPZDd/nh0VjtJNoNb/0Zy8vdIeqUbxi9Mqx9jg?=
- =?us-ascii?Q?AAll0hFalguj2n6277B+cgtAq9KmkwAsv6BYXd9wXMluUC6/bPDpnxy6J4L+?=
- =?us-ascii?Q?r5mQ9MAq4GXAvKdIvE0jI3xTZPjGI+ZvnVF8cyrZlTs5lAS/vdyczgxZY0Pa?=
- =?us-ascii?Q?nx8egct0DFOBlQuFoL6q4Vw/ThO3wYJMaT93SdTYBa37hf7F/SwdfTtie8c7?=
- =?us-ascii?Q?Vaof22iwA2vMPkpP8fGjl2Bd0KM16bMPcgiFqefdTuSPVYUvmmsODl9vHgyJ?=
- =?us-ascii?Q?mjrPu5ATjccGLjcEVZsgZndnJ7vYtowNcItiWDq2H17Oy4bWkNw8gJcXqK67?=
- =?us-ascii?Q?2d7SlDkfSNvw9yoqk4etWhHompMw/yVCGTPpf2O4KzefwIxMgvs+dfqbWIsQ?=
- =?us-ascii?Q?lIyfsncvA0U11fPCGVXeV3O2v5IEqB/F3apzdA6nIhYc245j21VSP1OqEukK?=
- =?us-ascii?Q?LEXjnFtznSOkPLJoSeDW/2Mw7ff8MsZS5OGTpQSP2n4HgbLISyeLZeNHwH5o?=
- =?us-ascii?Q?mlGeSgAs4FajSs113bv68rP1WFFK/ms9L1D9i2OCnbGLqzu9bdS7iBRb/ufd?=
- =?us-ascii?Q?Pja02rwmdHqQt4iYHGrH2ymKmv30952OmxijEZheBtKjnYAYyjtLm3pfz+1+?=
- =?us-ascii?Q?lvX5MqDb8Tt8fV3olnu995/EutC2L2PD/h9K2vo9hFeA0VId0jKXl95Zmtjj?=
- =?us-ascii?Q?kRvHVCnudyAUsMDoN5qIPjdWB0nbEWrTSlaKU2zJmwYzo4OseAUd/l4YjC37?=
- =?us-ascii?Q?Hqp5bhP8p5FMjUZFi8zOojipXHadsGgoQlOxqiflAK+2KSo3rxmftYQCKJv5?=
- =?us-ascii?Q?+PTR2ZCSDLKVh03KK24qn/gO72QvHmTsdWF+jrw0/KwXHfS0NZg6dElU5X97?=
- =?us-ascii?Q?KB2q1ZmULxDhhrrNm0SOS11HROeWwuqft/fDjYREZ524UTWvWaqg+ovY1LkW?=
- =?us-ascii?Q?m9t40xIVmSG63dpsI0tRFWdtVFrvmTSdiooxGNQATCJBh43wd09w6Wgso13o?=
- =?us-ascii?Q?sdVaoIZfUpRl+CxiwnfzrTT/RB6mTg47ka0AFaboRTVkOJMiNjmkEj1bicPJ?=
- =?us-ascii?Q?8gdlHkyUph2M9IkVNMCx8ku09kpG7MuD8e2Z?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MldJN0pMVSs3bXFjVCtadythSWxLa2ZXS0dlY3pickphc0VDZWJvR2Z6U3VE?=
+ =?utf-8?B?ZXJhMzdlaGpCVVJsVEk4TkJtWGxPR2xHR2FaRnpzUEV2Q1h5S2hEcHgrK1Q0?=
+ =?utf-8?B?b2ZacnJDdU5JNkdkNTNUbGM2bVZDQW5xQ3d3ZG5GMWVsWW9pWlYrWDkxZFZK?=
+ =?utf-8?B?YTZWWnhIRFlrQm00aS9venV6UFJWOGFnWmN4TTdXUXVsWC9IRDg1QzNJSjVV?=
+ =?utf-8?B?SzdKR0kveWlDRHhkcFg0cXRrbWIxbjlVMnpjZE5kL2twK1h4TVpDNHE2NGo0?=
+ =?utf-8?B?S1BJNjBFL0Q0RFFESTJ0UXg1bWk2N3ErMmRsOHladk4wNGE5djl4ZUIyUWM5?=
+ =?utf-8?B?VHVJUDhDY29TTXFpL3ZZNTFPbFpVNWhjYkE0K1ZTbXdmR28yL0JZTGNpazBs?=
+ =?utf-8?B?YWpIOVVOM0xFU1JDRWtwR2xjejdWNGdlUzJJR0EzWGtNN0E1eFVUdjlWUEcx?=
+ =?utf-8?B?eEdHenBPU3lIY1lvTU9JUGlrczYxRGVXUHpjQXRqWVFQYlBmemNESU5SdjhV?=
+ =?utf-8?B?QVRaQWV1RjBHVjNMOFozN0lWSlJvWXFERkJxaWFTZlZPaUZmUkRUc1Z3c2RI?=
+ =?utf-8?B?ZDIwallKQXIvY2t3TGpsbFFBY0FFemJQZU16VGEwVjZLY2dsbjEzaGFZNGhB?=
+ =?utf-8?B?aGhCb1diVE04emwwVy9oZDFVTzBLNHRLZ2R6SFdWWld0M1h1SndUam9pdVVM?=
+ =?utf-8?B?NGl0R21kVHpjRkZkSmkzY0R4L1J2WnNFSndsdExEbHlxRXVlSDRVVS83NDhp?=
+ =?utf-8?B?aUcxRWlndWZ6WGE5Z3RjaU9QTU1GQjFxK2RvK0VzWXR1U2xqZ2hFZ1dhVDlI?=
+ =?utf-8?B?Z2ZUYmhwV0Zxb1RUbDlxdms2bmZmb3ZKRzV3ejliRkdHRUZibkxZb2hLcTJL?=
+ =?utf-8?B?TTVoOHZFanorcTJ5ODhkN0s1NzZUS2xlK3k4aGUzMEVJZDhDeGxDWEhMa2c2?=
+ =?utf-8?B?L20xMUQyMG10MG9zZHprS3NsaWRhTEtPNTFocEJnZ014MUZNZ090bXlBQktR?=
+ =?utf-8?B?MDM4RWNmU0p6dStSeVlJb3VuMGw2ajRtQmR2Tk9SUS9aODRlTVc4Tm5SaXlU?=
+ =?utf-8?B?Yk8xd3FFZWZFUTFvbEd5MGpVZFVaL2VWeTJPeVBoTlEwMlFyNVJ4eTZCN1Vk?=
+ =?utf-8?B?YU5qc3hpU2dCVHoxVVdLbXFmc1NRUmtHanBJcStxZXdPRXJzNHhOb0M4M051?=
+ =?utf-8?B?c01YTVdEeDU5czdnVHY0eWhEVytUZXVNWGl4cnRza2xCdTAwc2hrZkp0US9o?=
+ =?utf-8?B?eWY0anBtUlY4WWxxV2dzVFo2ejVUK05OR1VlWk9vdW1UMjV1bGdoTHFCN1ZX?=
+ =?utf-8?B?UXRpekZIV0ttRnY2RUxVZzBsbUtSNHFmWlFPdGdVclVPQms3V3RFWEhhTDE3?=
+ =?utf-8?B?Qkh6YzBxTStuRjV0aEYrOVo4VkRkaVp2OElISEdsV1FxWnN3R0s1VGIzMWtE?=
+ =?utf-8?B?dHZHV2VjWTF0RUZOUU8weHpqTzN0d2N6a21UeDJPWGdacCtmd3cra2p1MGJP?=
+ =?utf-8?B?MUtITTlSTjJZeXdHaFkzN1YvODErRlFWOWs1MWt2bW1oMUxFaUgzNWVISmoy?=
+ =?utf-8?B?RCs1SmJla1d5QXA5MlkxTTdsUUlINGU0T3hxTnVPZmFnVVdLblBvQzBHdHUw?=
+ =?utf-8?B?aTBnLzE0UUVBeUVzSkxMeVBibk15WU9zRUQvSkZobHFtTUJQc1dEWXdPNzMz?=
+ =?utf-8?B?MXFQWERQeHdhL3RMVlZLOVg5OGQvay80UHB2WEx4R055Q2Yzd09SZDA1bmJG?=
+ =?utf-8?B?WjUya295azRQbUpBTTBnUjdJR2VqbWJITnB4ay9KbGdPSDd3RGVoQk5hZjRi?=
+ =?utf-8?B?UGdyNjNPZmhSMUV2bWpPcEdHUlJiV09LWlF4bndmbk9lVk04eGZKR2ZoKy96?=
+ =?utf-8?B?a21JcUhyMytGdGlrb0xUNlFWTWJYQ28zNnd5V0hWS3Q3M09oVUdySXd4elpE?=
+ =?utf-8?Q?zMwsO3/FSoI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnZqQzdnNllYUllWUSs3QnhRV0pEOXlJRWFYVUhoWUw3YVkyMWlCdnk3M0Rz?=
+ =?utf-8?B?SDlIQ2p1cHJGUXFPVmhkV2Q3TTE4NE5hUzRGc2d6RjUxZGJkdWdtWFZYUktU?=
+ =?utf-8?B?QUdZK2pENGVtcGxMeUF2emMyQ2lnZnBIa3pZdGh4b0N3dlRLL0NJbWlHWWtI?=
+ =?utf-8?B?c3ZxTkVKM1lwK3JBK3gyV05MSDdrZFB0YTlzTU9oWnBFNGlRdkQ5T1VNVEx5?=
+ =?utf-8?B?ZkVUMnhMV2lpemYvZWIrdEQ1VmYrMllhVFdtNXB6eDJ6WjNuOWVnVHJLa0U2?=
+ =?utf-8?B?dlZ4N1psZ2xiTDZmNUFINXZrUHVXd0VnaHdZMDVQZDF5TVhjL0hBRVc4UVBi?=
+ =?utf-8?B?M0lvaTdCSlJxVVdtRjZWTmFxZDBpVnl2VmU0dngrK3FET0ZmRUxRdUxTV2Fw?=
+ =?utf-8?B?SG83dTkzZXFBWWdJRVZzdE03NkViajVPTmVkalp5NUZ2dFl4bFkvQ21CZGJB?=
+ =?utf-8?B?RVEvOHp4Z3ppSWlrSU1VZWRZclZuL3IxS1VJRGtPQm8yNU05WjZ4MUh6U0F0?=
+ =?utf-8?B?M08rWWJ3MnE3cVJzWWREd094bWZIZEl4cFkrN290SmV1K1VaS2pRVmd5TytB?=
+ =?utf-8?B?NDZmRmN6czFlOVJNN2lDWUtTL2FEWUxtYmYwRlcxMWlaYmhMSVIycTZUbENj?=
+ =?utf-8?B?TFgyeEVyOE1vYi9NMG52VzkxWnU5SmswMDNjVUpHS3lwTm9rZGphU3FLR3RM?=
+ =?utf-8?B?WDMySWtJVmZRcC9hNjNhUTFMZURRcTJPbzF2UkhwUSs4aDJIYTVlS3FzdUN2?=
+ =?utf-8?B?SEJQK2lsa1pGV09yVloxeFpnZkNQaGIzdVcxUkJGc0pqRVo4YVE5R2lncFp0?=
+ =?utf-8?B?Y3MrMkt1ZXc0SzYzQ2QweS90Y2w0ejRmcU9aWjlvUzlpSDlMdW9leVpicWVT?=
+ =?utf-8?B?cjhMZ3dyN2tvc1ZING1tSlUxaEp6VG44dHpGZGU2cmt0S3RaRkhjOFJocXMv?=
+ =?utf-8?B?V2E3aGNMN0JBV29oQ1BpNDlreUptZ3BSclRaak5vbkZ0dUpjSXZReHBINWk4?=
+ =?utf-8?B?OEVyRGNneGFmVWc0bEZWbFlBZFQrdVc1SVh2L0VZMXZmNi85M1JJd2ZUZnBw?=
+ =?utf-8?B?M0VwQnVFY0JIV05wS1dhSGxYWnZtcUZ6cG9WT2k2Z1g2dTcxaFhlNjRpVkJm?=
+ =?utf-8?B?RTAvMzB2dDNQUVFjb1NqYU1YTnRaa2xKaU1WTW12WGdQNnZCV093QU5mRmRJ?=
+ =?utf-8?B?WnFaNnhOSlFUMmQ1VG9lVEF2cHBRTGJJczJOWk14QjBnWVRoV1diQmZDS1gx?=
+ =?utf-8?B?UmF2T1BJNlNGdVNpWm9PQzEwdTBvaDJrK1lNN212RloyU1RaWUUyUkgrUUky?=
+ =?utf-8?B?cmtBeWFtenBRVUFDbVRIVWQ0WGJmeWlaMjlYUzlsQm0wSFpaS0pZR085RXZZ?=
+ =?utf-8?B?Rjg3M1FDVE1WVEFDNUpPR3BrS2I5d2czY0hJUDZTaE83WTg4bnVsM2VCaUk0?=
+ =?utf-8?B?Z0RkcVpybjZVYUdJdElPOHMyQ05BbzBzdCtYL011ZlVtU0hBaFNOdkhUcitO?=
+ =?utf-8?B?UkhWSXpwY2REazVhdXlpSTJPdUNtR1lFSzlMM3kvZ2J1ZitIelczMjFXK1Fk?=
+ =?utf-8?B?eXlQYkFvUjY5YVgrNFFyZ2lIanBhTmI5UHV5cXgvY0FaMytGMmhBUXNQSXUy?=
+ =?utf-8?B?R3VoZE00VDBKb3VLSEczN0I3eXowTk9GQjJBcllRTnE4YWlIVVE2eVUwWU45?=
+ =?utf-8?B?ZGUzRjk3d1dYSEtlY1NpUU5rYWJtNExteDlvRS8vNGR6UU5hYXJMN2p4NFFn?=
+ =?utf-8?B?ZFRIV1ZZVUVTM21MR2NyVmlHQU52d0oyZ1ZGOTR6ajdaOFVnbU9vemFXbUg4?=
+ =?utf-8?B?QnAyNDg2TDVkeWRLd3dZd3FRTXdHSmRrMVpVZXBzbHV4L2xIODFIMERjY3ZV?=
+ =?utf-8?B?SGZHQTBzb3VFcmlqc0VrY1EwczRNRW5IZUp3Y2R2cFpaaEdhWXk1alZqYnox?=
+ =?utf-8?B?MGZnWEx4cGdGSEhYMUplb1dscXFjOWJKMkJzLzJ6NkVudmRBYi9WcHJ1eEpz?=
+ =?utf-8?B?UFgwNERZK0xZaysyTHBFVzBXVHMrRWVrYnJ3NUVadzU2UnNvVlBDWjFJbVNE?=
+ =?utf-8?B?SERJUnpGWmlSTGhCa1JBQkJnZWk1ZXJ0UUdpd0xIamtuYnFCc0YxMW5hMVpE?=
+ =?utf-8?Q?7zWh2wuOA45xeaDMDUmh9yS4a?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2025 03:20:41.7380 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef1648c3-4043-49c0-416e-08dd91cd2436
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd9ae94a-c322-4528-ff8a-08dd91ce56c1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2025 03:29:16.4688 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6740
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IBuZ3pQ4C1zswq0r3xo9GuPSLByZcP5pO/XAbWYHjJo9MYQ4NCMsAuZsBP5h24lari2DLEgGBH99rDt+hA8qVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8421
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,46 +172,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's expected that we'll encounter temporary exceptions
-during aux transactions. Adjust logging from drm_info to
-drm_dbg_dp to prevent flooding with unnecessary log messages.
 
-Fixes: 6285f12bc54c ("drm/amd/display: Fix wrong handling for AUX_DEFER case")
-Cc: stable@vger.kernel.org
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 0d7b72c75802..25e8befbcc47 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -107,7 +107,7 @@ static ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
- 	if (payload.write && result >= 0) {
- 		if (result) {
- 			/*one byte indicating partially written bytes*/
--			drm_info(adev_to_drm(adev), "amdgpu: AUX partially written\n");
-+			drm_dbg_dp(adev_to_drm(adev), "amdgpu: AUX partially written\n");
- 			result = payload.data[0];
- 		} else if (!payload.reply[0])
- 			/*I2C_ACK|AUX_ACK*/
-@@ -133,11 +133,11 @@ static ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
- 			break;
- 		}
- 
--		drm_info(adev_to_drm(adev), "amdgpu: DP AUX transfer fail:%d\n", operation_result);
-+		drm_dbg_dp(adev_to_drm(adev), "amdgpu: DP AUX transfer fail:%d\n", operation_result);
- 	}
- 
- 	if (payload.reply[0])
--		drm_info(adev_to_drm(adev), "amdgpu: AUX reply command not ACK: 0x%02x.",
-+		drm_dbg_dp(adev_to_drm(adev), "amdgpu: AUX reply command not ACK: 0x%02x.",
- 			payload.reply[0]);
- 
- 	return result;
--- 
-2.43.0
+On 5/12/25 18:52, Melissa Wen wrote:
+> On 04/29, Alex Hung wrote:
+>> This adds support for a 3D LUT.
+>>
+>> The color pipeline now consists of the following colorops:
+>> 1. 1D curve colorop
+>> 2. Multiplier
+>> 3. 3x4 CTM
+>> 4. 1D curve colorop
+>> 5. 1D LUT
+>> 6. 3D LUT
+>> 7. 1D curve colorop
+>> 8. 1D LUT
+>>
+>> Signed-off-by: Alex Hung <alex.hung@amd.com>
+>> Reviewed-by: Daniel Stone <daniels@collabora.com>
+>> ---
+>> V9:
+>>   - Return a value in __set_dm_plane_colorop_3dlut
+>>
+>> v8:
+>>   - Set initialized to 0 and return when drm_lut3d_size is 0 (Harry Wentland)
+>>   - Rework tf->type = TF_TYPE_BYPASS for shaper (Harry Wentland & Leo Li)
+>>
+>> v7:
+>>   - Simplify 3D LUT according to drm_colorop changes (Simon Ser)
+>>
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 94 +++++++++++++++++++
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 20 ++++
+>>   2 files changed, 114 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> index 313716f2003f..dfdd3f557570 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> @@ -1293,6 +1293,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+>>   	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
+>>   	const struct drm_color_lut *shaper_lut;
+>>   	struct drm_device *dev = colorop->dev;
+>> +	bool enabled = false;
+>>   	uint32_t shaper_size;
+>>   	int i = 0, ret = 0;
+>>   
+>> @@ -1314,6 +1315,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+>>   		ret = __set_output_tf(tf, 0, 0, false);
+>>   		if (ret)
+>>   			return ret;
+>> +		enabled = true;
+>>   	}
+>>   
+>>   	/* 1D LUT - SHAPER LUT */
+>> @@ -1345,12 +1347,93 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+>>   			ret = __set_output_tf(tf, shaper_lut, shaper_size, false);
+>>   			if (ret)
+>>   				return ret;
+>> +			enabled = true;
+>>   		}
+>>   	}
+>>   
+>> +	if (!enabled)
+>> +		tf->type = TF_TYPE_BYPASS;
+>> +
+>>   	return 0;
+>>   }
+>>   
+>> +/* __set_colorop_3dlut - set DRM 3D LUT to DC stream
+>> + * @drm_lut3d: user 3D LUT
+>> + * @drm_lut3d_size: size of 3D LUT
+>> + * @lut3d: DC 3D LUT
+>> + *
+>> + * Map user 3D LUT data to DC 3D LUT and all necessary bits to program it
+>> + * on DCN accordingly.
+>> + */
+>> +static void __set_colorop_3dlut(const struct drm_color_lut *drm_lut3d,
+>> +				uint32_t drm_lut3d_size,
+>> +				struct dc_3dlut *lut)
+>> +{
+>> +	if (!drm_lut3d_size) {
+>> +		lut->state.bits.initialized = 0;
+>> +		return;
+>> +	}
+>> +
+>> +	/* Only supports 17x17x17 3D LUT (12-bit) now */
+>> +	lut->lut_3d.use_12bits = true;
+>> +	lut->lut_3d.use_tetrahedral_9 = false;
+>> +
+>> +	lut->state.bits.initialized = 1;
+>> +	__drm_3dlut_to_dc_3dlut(drm_lut3d, drm_lut3d_size, &lut->lut_3d,
+>> +				lut->lut_3d.use_tetrahedral_9, 12);
+>> +
+>> +}
+>> +
+>> +static int
+>> +__set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
+>> +			     struct dc_plane_state *dc_plane_state,
+>> +			     struct drm_colorop *colorop)
+>> +{
+>> +	struct drm_colorop *old_colorop;
+>> +	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
+>> +	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
+>> +	struct drm_atomic_state *state = plane_state->state;
+>> +	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
+>> +	const struct drm_device *dev = colorop->dev;
+>> +	const struct drm_color_lut *lut3d;
+>> +	uint32_t lut3d_size;
+>> +	int i = 0, ret = 0;
+>> +
+>> +	/* 3D LUT */
+>> +	old_colorop = colorop;
+>> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+>> +		if (new_colorop_state->colorop == old_colorop &&
+>> +		    new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT) {
+>> +			colorop_state = new_colorop_state;
+>> +			break;
+>> +		}
+>> +	}
+>> +
+>> +	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_3D_LUT) {
+>> +		if (!adev->dm.dc->caps.color.dpp.hw_3d_lut) {
+> 
+> I wonder if this check is no longer accurate in DCN versions with MCM
+> (MPC only) 3D LUT caps, such as DCN 3.2 and DCN 4.01.
+
+The current goal is to validate on specific fixed platforms. We will add 
+more platform-specific implemenation when we enable this on new DCN 
+hardware.
+
+In some case, new hardware may have a different color pipeline. For 
+example, there can be no DRM_COLOROP_3D_LUT colorop in a color pipeline, 
+and it is not necessary to check DCN versions. In other cases, we will 
+need to check different DCN versions or different flags for sure.
+
+> 
+> Also, looking back those patches that introduced shaper and blnd tf and
+> luts, I don't see similar validation, but IIRC shaper caps directly
+> depends on 3d lut, for example. IIRC something around blnd func caps
+> also changed in the above-mentioned DCN versions.
+> 
+> Melissa
+ > >> +			drm_dbg(dev, "3D LUT is not supported by hardware\n");
+>> +			return -EINVAL;
+>> +		}
+>> +
+>> +		drm_dbg(dev, "3D LUT colorop with ID: %d\n", colorop->base.id);
+>> +		lut3d = __extract_blob_lut(colorop_state->data, &lut3d_size);
+>> +		lut3d_size = lut3d != NULL ? lut3d_size : 0;
+>> +		__set_colorop_3dlut(lut3d, lut3d_size, &dc_plane_state->lut3d_func);
+>> +
+>> +		/* 3D LUT requires shaper. If shaper colorop is bypassed, enable shaper curve
+>> +		 * with TRANSFER_FUNCTION_LINEAR
+>> +		 */
+>> +		if (tf->type == TF_TYPE_BYPASS) {
+>> +			tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+>> +			tf->tf = TRANSFER_FUNCTION_LINEAR;
+>> +			tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+>> +			ret = __set_output_tf(tf, NULL, 0, false);
+>> +		}
+
+shaper / 3dlut dependency is checked here.
+
+>> +	}
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>   static int
+>>   __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
+>>   			     struct dc_plane_state *dc_plane_state,
+>> @@ -1522,6 +1605,17 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+>>   	if (!colorop)
+>>   		return -EINVAL;
+>>   
+>> +	/* 3D LUT */
+>> +	colorop = colorop->next;
+>> +	if (!colorop) {
+>> +		drm_dbg(dev, "no 3D LUT colorop found\n");
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	ret = __set_dm_plane_colorop_3dlut(plane_state, dc_plane_state, colorop);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>>   	/* 1D Curve & LUT - BLND TF & LUT */
+>>   	colorop = colorop->next;
+>>   	if (!colorop) {
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+>> index 10b3e3906461..e90774294971 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+>> @@ -49,6 +49,8 @@ const u64 amdgpu_dm_supported_blnd_tfs =
+>>   
+>>   #define MAX_COLOR_PIPELINE_OPS 10
+>>   
+>> +#define LUT3D_SIZE		17
+>> +
+>>   int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
+>>   {
+>>   	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
+>> @@ -145,6 +147,24 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
+>>   
+>>   	i++;
+>>   
+>> +	/* 3D LUT */
+>> +	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+>> +	if (!ops[i]) {
+>> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
+>> +		ret = -ENOMEM;
+>> +		goto cleanup;
+>> +	}
+>> +
+>> +	ret = drm_plane_colorop_3dlut_init(dev, ops[i], plane, LUT3D_SIZE,
+>> +				     DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
+>> +				     DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>> +	if (ret)
+>> +		goto cleanup;
+>> +
+>> +	drm_colorop_set_next_property(ops[i-1], ops[i]);
+>> +
+>> +	i++;
+>> +
+>>   	/* 1D curve - BLND TF */
+>>   	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+>>   	if (!ops[i]) {
+>> -- 
+>> 2.43.0
+>>
 
