@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41699C3ABD8
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 07:45:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B51AC3ABDC
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 07:45:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C25BC10E4EA;
-	Tue, 13 May 2025 07:45:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4875C10E4F9;
+	Tue, 13 May 2025 07:45:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IOuZuxtR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H2TylP34";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 602CA10E4EA;
- Tue, 13 May 2025 07:45:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E3C310E185;
+ Tue, 13 May 2025 07:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=EPZUhcHZz5J18YXZcXSttjeThfGPK4eY4uhnv4dAazA=; b=IOuZuxtRiMUh6m0X/ja4tHsfqn
- dJAaAPjXbioKgFLx890AVTLf3kHTRis5eQkeUSARGMFH4AF0OcLmjgHxNnkFcT1oj1TjV3G7RhIo5
- P8pey/9UuxSOC2rwxZYtckIo67AGxLp6zKLQI4IFx9imNhdwYpRNWsXpE8cKO0SIBlczmIZtBgkPb
- NFlPGuj0VGOsOSdxhdfN6bhLoykTwxRr1V3Jb08kHSbQujylfeYjSrRriqjVDTHFD5T/UW0JHVd5T
- K1Y5kYTrE19kqcjbez52nKO7f6W4HoyuGkoMqYnqO2D27bas4sFIfw1EMIpHCnG9gEnyc796HuI32
- 6+lS4gZA==;
+ bh=9e7tETqdGwTjDVn/3cW86T9D1AMkTV9ErrjiD+38sco=; b=H2TylP34TCVCqdIZxTKz7g0zMc
+ e+4zm5rowYkoWKmzJ5qCeZd0ivWAJXo8VXZgLlkGNOdO8eG3gOicJcRR79rs8ncTaJfrBzLJwtrYp
+ rVUVcnHKAaQxmAYPtRDhvAxr3mz0bAYtnORCMVfjFSTLo0gMpb61MRD21kzwb0n+mQxikuzfOYrnJ
+ iNHrcqupmGYhker4NyVvTE5HCnpefMNZUTvPDs0VC/qyAPMHZBynP+M+kkiGWyJJgk6UEyRGnDkFZ
+ GqZlJoqzLP9w8vKvG/4mWCjb6T8TzsiFGQ0klm2iLVfgKeWqv2+ebhU7a0+qiGtpJ4q9g++gGrvPQ
+ PBvOuF2g==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uEkF1-007Tuw-PW; Tue, 13 May 2025 09:45:26 +0200
+ id 1uEkEz-007Tug-G8; Tue, 13 May 2025 09:45:23 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -43,13 +43,10 @@ Cc: Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC v3 03/10] dma-fence: Add helpers for accessing driver and
- timeline name
-Date: Tue, 13 May 2025 08:45:06 +0100
-Message-ID: <20250513074513.81727-4-tvrtko.ursulin@igalia.com>
+Subject: [RFC v3 00/10] Some (drm_sched_|dma_)fence lifetime issues
+Date: Tue, 13 May 2025 08:45:03 +0100
+Message-ID: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
-References: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -67,84 +64,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some helpers in order to enable preventing dma-fence users accessing
-the implementation details directly and make the implementation itself use
-them.
+Hi all,
 
-This will also enable later adding some asserts to a consolidated
-location.
+tl;dr;
+Xe and probably some other drivers can tear down the internal state referenced
+by an exported sync_file fence which then causes a null pointer derefences on
+accessing said fence.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/dma-buf/dma-fence.c      |  9 +++++----
- include/linux/dma-fence.h        | 10 ++++++++++
- include/trace/events/dma_fence.h |  4 ++--
- 3 files changed, 17 insertions(+), 6 deletions(-)
+IGT that exploits the problem:
+https://patchwork.freedesktop.org/patch/642709/?series=146211&rev=2
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 33661658f684..dc2456f68685 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -538,8 +538,8 @@ void dma_fence_release(struct kref *kref)
- 	if (WARN(!list_empty(&fence->cb_list) &&
- 		 !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags),
- 		 "Fence %s:%s:%llx:%llx released with pending signals!\n",
--		 fence->ops->get_driver_name(fence),
--		 fence->ops->get_timeline_name(fence),
-+		 dma_fence_driver_name(fence),
-+		 dma_fence_timeline_name(fence),
- 		 fence->context, fence->seqno)) {
- 		unsigned long flags;
- 
-@@ -983,8 +983,9 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
- {
- 	seq_printf(seq, "%s %s seq %llu %ssignalled\n",
--		   fence->ops->get_driver_name(fence),
--		   fence->ops->get_timeline_name(fence), fence->seqno,
-+		   dma_fence_driver_name(fence),
-+		   dma_fence_timeline_name(fence),
-+		   fence->seqno,
- 		   dma_fence_is_signaled(fence) ? "" : "un");
- }
- EXPORT_SYMBOL(dma_fence_describe);
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index a34a0dcdc446..c5ac37e10d85 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -377,6 +377,16 @@ bool dma_fence_remove_callback(struct dma_fence *fence,
- 			       struct dma_fence_cb *cb);
- void dma_fence_enable_sw_signaling(struct dma_fence *fence);
- 
-+static inline const char *dma_fence_driver_name(struct dma_fence *fence)
-+{
-+	return fence->ops->get_driver_name(fence);
-+}
-+
-+static inline const char *dma_fence_timeline_name(struct dma_fence *fence)
-+{
-+	return fence->ops->get_timeline_name(fence);
-+}
-+
- /**
-  * dma_fence_is_signaled_locked - Return an indication if the fence
-  *                                is signaled yet.
-diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
-index a4de3df8500b..84c83074ee81 100644
---- a/include/trace/events/dma_fence.h
-+++ b/include/trace/events/dma_fence.h
-@@ -16,8 +16,8 @@ DECLARE_EVENT_CLASS(dma_fence,
- 	TP_ARGS(fence),
- 
- 	TP_STRUCT__entry(
--		__string(driver, fence->ops->get_driver_name(fence))
--		__string(timeline, fence->ops->get_timeline_name(fence))
-+		__string(driver, dma_fence_driver_name(fence))
-+		__string(timeline, dma_fence_timeline_name(fence))
- 		__field(unsigned int, context)
- 		__field(unsigned int, seqno)
- 	),
+It seems there is a consensus this is a known problem with the dma-fence design,
+where internal state shouldn't really be accessed after the fence has been
+signaled. However currently the code is mostly unaware of that hence the use-
+after-free potential.
+
+To fix it, between the option of adding more reference counting and trying to
+"revoke" the fence, suggestion is to focus on the later.
+
+Reference to the recent discussion:
+https://lore.kernel.org/dri-devel/20250418164246.72426-1-tvrtko.ursulin@igalia.com/
+
+This series therefore attempts to implement a solution along those lines.
+
+Most of the description what and how can be found in:
+ "dma-fence: Add safe access helpers and document the rules"
+
+Other than that, the series starts with some cleanups, with the general goal of
+hiding more of the dma-fence implementation details behind explicit API. This
+means adding helpers for access to driver and timeline name, and also moving as
+much as it is easily possible of driver allocated state into the fence object
+itself. Because dma-fence is already reference counted, any state we can embed
+automatically becomes safe.
+
+Having said that, the series only addreses the runtime use-after-free scenarios,
+such as the above explained situation with the xe driver. For now the module
+unload problem is deliberately left for later. (Although again, some of the
+early patches do make it safer, and will make future improvements easier due
+fewer accesses to fence->ops.)
+
+Final patch in the series is the one which makes xe compliant with the rules
+and API proposed earlier in the series. It does so by ensuring there is at least
+one RCU grace period between fences being signaled and driver allocated memory
+accessible from xe fences getting freed. Which couples with the earlier (from
+the series) refactors which added dma_fence_access_begin/end() protection to
+the relevant call sites.
+
+If this approach is acceptable the next steps will be to see if any other
+drivers will need similar changes. And also to discuss whether we want to go a
+step futher and later move to SRCU, so code would be protected against module
+unload as well.
+
+v2:
+ * Dropped module unload handling.
+ * Proposing real API instead of hacks.
+
+v3:
+ * Dropped the dma_fence_is_array|chain ops to flags conversion.
+ * Dropped the i915 cleanup patch which is now independent.
+ * Squashed dma-fence helpers with internal usage patches.
+ * Restored missing hunk in "dma-fence: Use a flag for 64-bit seqnos".
+ * Removed the AMDGPU_JOB_GET_TIMELINE_NAME macro.
+ * Applied some r-b tags.
+
+Tvrtko Ursulin (10):
+  dma-fence: Change signature of __dma_fence_is_later
+  dma-fence: Use a flag for 64-bit seqnos
+  dma-fence: Add helpers for accessing driver and timeline name
+  sync_file: Use dma-fence driver and timeline name helpers
+  drm/amdgpu: Use dma-fence driver and timeline name helpers
+  drm/i915: Use dma-fence driver and timeline name helpers
+  dma-fence: Add safe access helpers and document the rules
+  sync_file: Protect access to driver and timeline name
+  drm/i915: Protect access to driver and timeline name
+  drm/xe: Make dma-fences compliant with the safe access rules
+
+ drivers/dma-buf/dma-fence-chain.c             |  7 +-
+ drivers/dma-buf/dma-fence.c                   | 87 ++++++++++++++++++-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ drivers/dma-buf/sync_file.c                   | 14 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |  9 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ drivers/gpu/drm/i915/gt/intel_gt_requests.c   |  6 +-
+ drivers/gpu/drm/i915/i915_request.c           |  5 +-
+ drivers/gpu/drm/i915/i915_sw_fence.c          |  6 +-
+ drivers/gpu/drm/xe/xe_guc_exec_queue_types.h  |  2 +
+ drivers/gpu/drm/xe/xe_guc_submit.c            |  7 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  5 +-
+ drivers/gpu/drm/xe/xe_sched_job.c             | 14 +--
+ include/linux/dma-fence.h                     | 47 +++++++---
+ include/trace/events/dma_fence.h              |  4 +-
+ 15 files changed, 168 insertions(+), 52 deletions(-)
+
 -- 
 2.48.0
 
