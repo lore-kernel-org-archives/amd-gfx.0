@@ -4,45 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1595C3ABC9
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 21:39:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E4ADC3ABC9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 21:42:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 847A610E0DC;
-	Tue, 13 May 2025 21:39:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1109210E5EF;
+	Tue, 13 May 2025 21:42:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iUIYploe";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LcJpRcHD";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E10010E0DC
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 21:39:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEE0E10E5EF;
+ Tue, 13 May 2025 21:42:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=CD4dSNEeVVLQ5thqpeB76tcDp9ahynS+1fO+Vu/dHZA=; b=iUIYploee+wky6CgMZES8+yZIW
- u1RhmdiZP19MZSsGomFDfcA4+XgCVBDIvg1zVcZrD3r1oW+lRPotK3J/e/1SiK6ZUckb9gdmraXHc
- 2d62Nw8hr+fyye9WfstO5PkJv9fYSAwFiKIme+2paylbr75U1afINw/JCByeavuXc+OBHUWaXK9ko
- uz5LzUCWCuVtp+Rgvjg0Zaa6WHbmyq/JZpDjm88CzIIQDdWGsIoa3N1YOsnFHSRi+qTesHWoyMOFu
- PqUsYt5ikcPIUQaA93Unv6AMLfTys0MN0t5/TX45iNiCn0qmxZpalfD8iY6ZNlafMvHhLtR4lIkWA
- Nv0hflQA==;
-Received: from [189.6.16.79] (helo=killbill.home)
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=L3i1xY5IftZgoA+TCeh2GLXZWsDv12IlheKYJaBb8y8=; b=LcJpRcHD0yIp64bB69HosjgtBz
+ mHxJvlC5y3Ysy7pTh777RowOnfvT5YuNeXproquH4Io+NgmYWgRq5DCkUlPEeRdWaGbsZ6k+3JwRQ
+ d2gBTwxxPwBG0UO28WEvwHMrdv8u15uccU3z8/jTyheH5HfV2D043U2/l1puFVHt6lX/ftH/GYzvK
+ iYp3f3uHqbCE5wY8LPJDHcHYBoG1xIwhN/4mhQZjZT2vjwUk89YcwIpsRh+rRcWOf53CmjCmZeVpx
+ a9h09mIe3jPlp1bZ51qTbJBse2GoeBf5U+RdBG8UrWQvyf5yRnQdsFLNSxRflaMPkrT8nVnqiqdN4
+ 3xe8Z3KA==;
+Received: from [189.6.16.79] (helo=[192.168.0.55])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uExFr-007pb8-Ix; Tue, 13 May 2025 23:39:17 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Alex Hung <alex.hung@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	kernel-dev@igalia.com
-Subject: [PATCH v2] drm/amd/display: only collect data if debug gamut_remap is
- available
-Date: Tue, 13 May 2025 18:38:17 -0300
-Message-ID: <20250513213912.179079-1-mwen@igalia.com>
-X-Mailer: git-send-email 2.47.2
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uExJ1-007piN-EQ; Tue, 13 May 2025 23:42:33 +0200
+Message-ID: <40878305-ca14-41e1-a00a-7952560d6912@igalia.com>
+Date: Tue, 13 May 2025 18:42:25 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/14] drm/edid: introduce a helper that gets monitor
+ name from drm_edid
+To: Jani Nikula <jani.nikula@linux.intel.com>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
+Cc: amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Michel Daenzer <michel.daenzer@mailbox.org>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20250507001712.120215-1-mwen@igalia.com>
+ <20250507001712.120215-5-mwen@igalia.com> <87selftjq2.fsf@intel.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <87selftjq2.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,142 +69,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Color gamut_remap state log may be not avaiable for some hw versions, so
-prevent null pointer dereference by checking if there is a function to
-collect data for this hw version.
 
-v2:
-- initialize is_gamut_remap_available (Alex H)
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 26 +++++++++++++------
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   | 24 ++++++++++++-----
- 2 files changed, 35 insertions(+), 15 deletions(-)
+On 08/05/2025 08:39, Jani Nikula wrote:
+> On Tue, 06 May 2025, Melissa Wen <mwen@igalia.com> wrote:
+>> Original drm_edid_get_monitor_name encapsulates raw edid in drm_edid and
+>> then call get_monitor_name. AMD still stores the display name for
+>> debugging, but it is migrating to drm_edid, on the other hand,
+>> drm_dp_mst_topology and sil-sii8620 still use the raw edid version.
+>>
+>> Split drm_edid_get_monitor_name into two helpers, one that gets monitor
+>> name from raw edid and another from drm_edid.
+> Should mention that this is just a temporary thing, and should be
+> removed later.
+ok
+>
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +-
+>>   drivers/gpu/drm/bridge/sil-sii8620.c          |  2 +-
+>>   drivers/gpu/drm/display/drm_dp_mst_topology.c |  2 +-
+>>   drivers/gpu/drm/drm_edid.c                    | 33 ++++++++++++++-----
+>>   include/drm/drm_edid.h                        |  7 ++--
+>>   5 files changed, 32 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>> index b1085f1195f7..514da4d5d300 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>> @@ -134,7 +134,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+>>   	edid_caps->manufacture_week = product_id.week_of_manufacture;
+>>   	edid_caps->manufacture_year = product_id.year_of_manufacture;
+>>   
+>> -	drm_edid_get_monitor_name(edid_buf,
+>> +	drm_edid_get_monitor_name(drm_edid,
+>>   				  edid_caps->display_name,
+>>   				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
+>>   
+>> diff --git a/drivers/gpu/drm/bridge/sil-sii8620.c b/drivers/gpu/drm/bridge/sil-sii8620.c
+>> index 28a2e1ee04b2..c2d60b9c28fd 100644
+>> --- a/drivers/gpu/drm/bridge/sil-sii8620.c
+>> +++ b/drivers/gpu/drm/bridge/sil-sii8620.c
+>> @@ -505,7 +505,7 @@ static void sii8620_identify_sink(struct sii8620 *ctx)
+>>   	else
+>>   		ctx->sink_type = SINK_DVI;
+>>   
+>> -	drm_edid_get_monitor_name(ctx->edid, sink_name, ARRAY_SIZE(sink_name));
+>> +	drm_edid_raw_get_monitor_name(ctx->edid, sink_name, ARRAY_SIZE(sink_name));
+>>   
+>>   	dev_info(dev, "detected sink(type: %s): %s\n",
+>>   		 sink_str[ctx->sink_type], sink_name);
+>> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+>> index 3a1f1ffc7b55..b17a602516ee 100644
+>> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+>> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+>> @@ -4896,7 +4896,7 @@ static void fetch_monitor_name(struct drm_dp_mst_topology_mgr *mgr,
+>>   	struct edid *mst_edid;
+>>   
+>>   	mst_edid = drm_dp_mst_get_edid(port->connector, mgr, port);
+>> -	drm_edid_get_monitor_name(mst_edid, name, namelen);
+>> +	drm_edid_raw_get_monitor_name(mst_edid, name, namelen);
+>>   	kfree(mst_edid);
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>> index 13bc4c290b17..6e4cffd467f1 100644
+>> --- a/drivers/gpu/drm/drm_edid.c
+>> +++ b/drivers/gpu/drm/drm_edid.c
+>> @@ -5575,27 +5575,23 @@ static int get_monitor_name(const struct drm_edid *drm_edid, char name[13])
+>>   }
+>>   
+>>   /**
+>> - * drm_edid_get_monitor_name - fetch the monitor name from the edid
+>> - * @edid: monitor EDID information
+>> + * drm_edid_get_monitor_name - fetch the monitor name from the drm_edid
+>> + * @drm_edid: EDID
+>>    * @name: pointer to a character array to hold the name of the monitor
+>>    * @bufsize: The size of the name buffer (should be at least 14 chars.)
+>>    *
+>>    */
+>> -void drm_edid_get_monitor_name(const struct edid *edid, char *name, int bufsize)
+>> +void drm_edid_get_monitor_name(const struct drm_edid *drm_edid, char *name, int bufsize)
+>>   {
+>>   	int name_length = 0;
+>>   
+>>   	if (bufsize <= 0)
+>>   		return;
+>>   
+>> -	if (edid) {
+>> +	if (drm_edid->edid) {
+>>   		char buf[13];
+>> -		struct drm_edid drm_edid = {
+>> -			.edid = edid,
+>> -			.size = edid_size(edid),
+>> -		};
+>>   
+>> -		name_length = min(get_monitor_name(&drm_edid, buf), bufsize - 1);
+>> +		name_length = min(get_monitor_name(drm_edid, buf), bufsize - 1);
+>>   		memcpy(name, buf, name_length);
+>>   	}
+>>   
+>> @@ -5603,6 +5599,25 @@ void drm_edid_get_monitor_name(const struct edid *edid, char *name, int bufsize)
+>>   }
+>>   EXPORT_SYMBOL(drm_edid_get_monitor_name);
+>>   
+>> +/**
+>> + * drm_edid_raw_get_monitor_name - fetch the monitor name from raw edid
+>> + * @edid: monitor EDID information
+>> + * @name: pointer to a character array to hold the name of the monitor
+>> + * @bufsize: The size of the name buffer (should be at least 14 chars.)
+>> + *
+> This should mention it's deprecated and all users should switch to
+> drm_edid_get_monitor_name(). Nobody should be using this.
+ok
+>> + */
+>> +void drm_edid_raw_get_monitor_name(const struct edid *edid, char *name, int bufsize)
+>> +{
+>> +	struct drm_edid drm_edid = {
+>> +		.edid = edid,
+>> +		.size = edid ? edid_size(edid) : 0,
+>> +	};
+>> +
+> See drm_edid_legacy_init() and its use in this file. Should switch to
+> that.
+ack. thanks for point it out.
+>
+>> +	drm_edid_get_monitor_name(&drm_edid, name, bufsize);
+>> +}
+>> +EXPORT_SYMBOL(drm_edid_raw_get_monitor_name);
+>> +
+>> +
+>>   static void clear_eld(struct drm_connector *connector)
+>>   {
+>>   	mutex_lock(&connector->eld_mutex);
+>> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+>> index eaac5e665892..ceb522c4f4c2 100644
+>> --- a/include/drm/drm_edid.h
+>> +++ b/include/drm/drm_edid.h
+>> @@ -441,8 +441,11 @@ int drm_add_modes_noedid(struct drm_connector *connector,
+>>   
+>>   int drm_edid_header_is_valid(const void *edid);
+>>   bool drm_edid_is_valid(struct edid *edid);
+>> -void drm_edid_get_monitor_name(const struct edid *edid, char *name,
+>> -			       int buflen);
+>> +void drm_edid_get_monitor_name(const struct drm_edid *drm_edid,
+>> +			       char *name,
+>> +			       int bufsize);
+> Please move this under the section:
+>
+> /* Interface based on struct drm_edid */
+>
+> further down.
+right.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 858288c3b1ac..c277df12c817 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -76,6 +76,7 @@ void dcn20_log_color_state(struct dc *dc,
- {
- 	struct dc_context *dc_ctx = dc->ctx;
- 	struct resource_pool *pool = dc->res_pool;
-+	bool is_gamut_remap_available = false;
- 	int i;
- 
- 	DTN_INFO("DPP:  DGAM mode  SHAPER mode  3DLUT mode  3DLUT bit depth"
-@@ -89,15 +90,15 @@ void dcn20_log_color_state(struct dc *dc,
- 		struct dcn_dpp_state s = {0};
- 
- 		dpp->funcs->dpp_read_state(dpp, &s);
--		dpp->funcs->dpp_get_gamut_remap(dpp, &s.gamut_remap);
-+		if (dpp->funcs->dpp_get_gamut_remap) {
-+			dpp->funcs->dpp_get_gamut_remap(dpp, &s.gamut_remap);
-+			is_gamut_remap_available = true;
-+		}
- 
- 		if (!s.is_enabled)
- 			continue;
- 
--		DTN_INFO("[%2d]:  %8s  %11s  %10s  %15s  %10s  %9s  %12s  "
--			 "%010lld %010lld %010lld %010lld "
--			 "%010lld %010lld %010lld %010lld "
--			 "%010lld %010lld %010lld %010lld",
-+		DTN_INFO("[%2d]:  %8s  %11s  %10s  %15s  %10s  %9s",
- 			dpp->inst,
- 			(s.dgam_lut_mode == 0) ? "Bypass" :
- 			 ((s.dgam_lut_mode == 1) ? "sRGB" :
-@@ -114,10 +115,17 @@ void dcn20_log_color_state(struct dc *dc,
- 			(s.lut3d_bit_depth <= 0) ? "12-bit" : "10-bit",
- 			(s.lut3d_size == 0) ? "17x17x17" : "9x9x9",
- 			(s.rgam_lut_mode == 1) ? "RAM A" :
--			 ((s.rgam_lut_mode == 1) ? "RAM B" : "Bypass"),
-+			 ((s.rgam_lut_mode == 1) ? "RAM B" : "Bypass"));
-+
-+		if (is_gamut_remap_available) {
-+			DTN_INFO("  %12s  "
-+				 "%010lld %010lld %010lld %010lld "
-+				 "%010lld %010lld %010lld %010lld "
-+				 "%010lld %010lld %010lld %010lld",
-+
- 			(s.gamut_remap.gamut_adjust_type == 0) ? "Bypass" :
--			 ((s.gamut_remap.gamut_adjust_type == 1) ? "HW" :
--								   "SW"),
-+				((s.gamut_remap.gamut_adjust_type == 1) ? "HW" :
-+									  "SW"),
- 			s.gamut_remap.temperature_matrix[0].value,
- 			s.gamut_remap.temperature_matrix[1].value,
- 			s.gamut_remap.temperature_matrix[2].value,
-@@ -130,6 +138,8 @@ void dcn20_log_color_state(struct dc *dc,
- 			s.gamut_remap.temperature_matrix[9].value,
- 			s.gamut_remap.temperature_matrix[10].value,
- 			s.gamut_remap.temperature_matrix[11].value);
-+		}
-+
- 		DTN_INFO("\n");
- 	}
- 	DTN_INFO("\n");
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-index e89ebfda4873..37a239219dfe 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-@@ -74,6 +74,7 @@ void dcn30_log_color_state(struct dc *dc,
- {
- 	struct dc_context *dc_ctx = dc->ctx;
- 	struct resource_pool *pool = dc->res_pool;
-+	bool is_gamut_remap_available = false;
- 	int i;
- 
- 	DTN_INFO("DPP:  DGAM ROM  DGAM ROM type  DGAM LUT  SHAPER mode"
-@@ -88,16 +89,16 @@ void dcn30_log_color_state(struct dc *dc,
- 		struct dcn_dpp_state s = {0};
- 
- 		dpp->funcs->dpp_read_state(dpp, &s);
--		dpp->funcs->dpp_get_gamut_remap(dpp, &s.gamut_remap);
-+
-+		if (dpp->funcs->dpp_get_gamut_remap) {
-+			dpp->funcs->dpp_get_gamut_remap(dpp, &s.gamut_remap);
-+			is_gamut_remap_available = true;
-+		}
- 
- 		if (!s.is_enabled)
- 			continue;
- 
--		DTN_INFO("[%2d]:  %7x  %13s  %8s  %11s  %10s  %15s  %10s  %9s"
--			 "  %12s  "
--			 "%010lld %010lld %010lld %010lld "
--			 "%010lld %010lld %010lld %010lld "
--			 "%010lld %010lld %010lld %010lld",
-+		DTN_INFO("[%2d]:  %7x  %13s  %8s  %11s  %10s  %15s  %10s  %9s",
- 			dpp->inst,
- 			s.pre_dgam_mode,
- 			(s.pre_dgam_select == 0) ? "sRGB" :
-@@ -121,7 +122,14 @@ void dcn30_log_color_state(struct dc *dc,
- 			(s.lut3d_size == 0) ? "17x17x17" : "9x9x9",
- 			(s.rgam_lut_mode == 0) ? "Bypass" :
- 			 ((s.rgam_lut_mode == 1) ? "RAM A" :
--						   "RAM B"),
-+						   "RAM B"));
-+
-+		if (is_gamut_remap_available) {
-+			DTN_INFO("  %12s  "
-+				 "%010lld %010lld %010lld %010lld "
-+				 "%010lld %010lld %010lld %010lld "
-+				 "%010lld %010lld %010lld %010lld",
-+
- 			(s.gamut_remap.gamut_adjust_type == 0) ? "Bypass" :
- 				((s.gamut_remap.gamut_adjust_type == 1) ? "HW" :
- 									  "SW"),
-@@ -137,6 +145,8 @@ void dcn30_log_color_state(struct dc *dc,
- 			s.gamut_remap.temperature_matrix[9].value,
- 			s.gamut_remap.temperature_matrix[10].value,
- 			s.gamut_remap.temperature_matrix[11].value);
-+		}
-+
- 		DTN_INFO("\n");
- 	}
- 	DTN_INFO("\n");
--- 
-2.47.2
+Thanks for reviewing
+>
+>> +void drm_edid_raw_get_monitor_name(const struct edid *edid, char *name,
+>> +				   int bufsize);
+>>   struct drm_display_mode *drm_mode_find_dmt(struct drm_device *dev,
+>>   					   int hsize, int vsize, int fresh,
+>>   					   bool rb);
 
