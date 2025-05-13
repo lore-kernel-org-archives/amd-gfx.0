@@ -4,51 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEA1AC3ABC9
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 18:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABEB6C3ABC9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 18:39:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6889710E5D3;
-	Tue, 13 May 2025 18:38:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 472C310E5D9;
+	Tue, 13 May 2025 18:39:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H6cDZAvR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zbsxu8fd";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D10D10E5D3;
- Tue, 13 May 2025 18:38:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QhfAGnuvDJzqnrtxEie7hKmneaYnXiuHS//L4LziLpQ=; b=H6cDZAvRwRYuj37mXVFrm0AZoD
- HbLMDAm14CHCGrYvsqhQdli6XhVy/o/YhnKsGug4tsMb0wevclO5tUQfmQvXj4jqFn0Wf/K+OzUKa
- l0jMlvKu/d24AOXs/dQIYhHXUZKE1japckpkhKWRhbNxNRbAOQ6t+Nn6Ldl/iCsWuy1LXUHBbw4N4
- QlUyltPvZcriVblNzTXZmbADKjbbKZ/GXte2ljIis5DGkVoOosFAPb2kFHU3S0e0Ajc0FfznHL9yp
- P5N+3s4gkJYShBbGKF6agGWyAVynuiaLvPUVFiibQNWZ4OqP5TO8Vd6ODh0ZRbdB7ODsrYobV1Uhr
- tyOhyBew==;
-Received: from [189.6.16.79] (helo=[192.168.0.55])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uEuQl-007ktH-NM; Tue, 13 May 2025 20:38:19 +0200
-Message-ID: <e0460dd3-1e13-4118-857a-a21b2cfb476b@igalia.com>
-Date: Tue, 13 May 2025 15:38:14 -0300
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F116210E5DB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 18:39:29 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-22e4d483627so7613275ad.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 11:39:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747161569; x=1747766369; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KeSFDgZBgYjm3mhWQLfA97pjPHc8r1eeA74RDgLjocA=;
+ b=Zbsxu8fdeiY2WsWSvs43Sc5FBOy9y3lcu22aTVVNzj3zdOMWZhxbINejtBVWRaSzaY
+ YiEeGQRIoNcJOHKntOucHxqagn6NbiWL1TCVL8cIBqQZa4oCJDt4uPwykeoltaVgVLZg
+ VgRGsTM7ulG7RB6r4Xayv5XW7AtkHveIRsGK2ODvCtTS8SNBu9m9fWTls82Oo0VZxwnG
+ vrvqFAb3xh5mDJYsbvaPHzDI1UmlXFo5ZBkPghT/PqqtStGp6Teq6mJpkq0CWcp4m7C2
+ lnod4GGoGQ9NaTs4GzNN3n7Rw7q7DtwhPkjXeEHtrE5aAiY62M5hQO/UagS+8LGgM3Ng
+ n39w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747161569; x=1747766369;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KeSFDgZBgYjm3mhWQLfA97pjPHc8r1eeA74RDgLjocA=;
+ b=MWU6KBu9i8H/lK/NDxLF5whlKRp9UTfmKG9r/n76y93zbzhfAebkL2RR76GjTXXMpS
+ EyLS8Yj2g1s2xvKLLuN3pjCyMDbNgC7tRpOPGimH0vSk9/zVQr3FV3lzq16/M9BDyHmV
+ pSQ2qzPj60nE+uVQDxrlJDDgNLAacKgomf2KF7h8lMoBIeOCm9H5uglGlCu3JcSICn5+
+ bn5lgzKISH9LnJOWC/Z/CdrNO5mS8IdY7CxKpswZ2MVKxoiWjoUblbp+5DzDOhv7PMv5
+ zo17XmgGyeIgArsBud4cBTcrAOZ36UCdQm02WYe/ry3n7Zpu1VkZqsMEq151trWav9Cl
+ cDIg==
+X-Gm-Message-State: AOJu0YwXwfR6ANu+NzpapmbJLZKvFS7toUWbCQf7VPqr5GwTu3yWZLSu
+ lZw63iwvM3/cWc172v69Y3DnigPFAKGhnAPz2+vd+OU90qP1KFmRG6ID/qAQvWdeCMUkYQK8yxs
+ xvLmEfBjZbUrmOGHgHdwxBA8OPU8=
+X-Gm-Gg: ASbGnctFvcFNTSPmaph0xD/sa5aVf/gpSjTbKX2UBLwvXRXModUwypbMzyjoMwtMeJi
+ yGL/02rLi43Ep8p0XXSWwMWRQhZIYXa48/bijPJhfwkNEh/nyw0Mp50DdJoC5c5E4g1dGTWsgyr
+ 1TDaqenc/+1FuQOmz735Gp+yBYsjdEhe9r
+X-Google-Smtp-Source: AGHT+IEJVCK9KIRtAfD8UaJbTZhHDynI0APK1xZ+d876UDrwNh149XBJidFcMewCnee5Sc3YLXDrLw/I5Ox03yA5BVk=
+X-Received: by 2002:a17:903:248:b0:215:435d:b41a with SMTP id
+ d9443c01a7336-231980ce4d3mr2681605ad.1.1747161569573; Tue, 13 May 2025
+ 11:39:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] drm/amd/display: remove code duplication on dcn401
-To: Alex Hung <alex.hung@amd.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, harry.wentland@amd.com,
- simona@ffwll.ch, sunpeng.li@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-References: <20250430142549.829861-1-mwen@igalia.com>
- <c1f3aec6-aa50-4a86-b44c-5db16a37a14d@amd.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <c1f3aec6-aa50-4a86-b44c-5db16a37a14d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250513182307.642953-1-David.Wu3@amd.com>
+In-Reply-To: <20250513182307.642953-1-David.Wu3@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 13 May 2025 14:39:18 -0400
+X-Gm-Features: AX0GCFtd89wE4tDE9Sg1rgrjihi7OvYXBuB8EcJ1TER_zc8KtbZrJNJYjDryxpY
+Message-ID: <CADnq5_PGOb9msPRH=-YzRTQp_wCyONqKnXUJRwfAZOW-Y3O=uw@mail.gmail.com>
+Subject: Re: [PATCH V2 1/2] drm/amdgpu: read back register after written for
+ VCN v4.0.5
+To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com, 
+ alexander.deucher@amd.com, leo.liu@amd.com, sonny.jiang@amd.com, 
+ ruijing.dong@amd.com, stable@vger.kernel.org, 
+ Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,58 +83,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 12/05/2025 14:38, Alex Hung wrote:
-> Hi Melissa,
+On Tue, May 13, 2025 at 2:23=E2=80=AFPM David (Ming Qiang) Wu <David.Wu3@am=
+d.com> wrote:
 >
-> The patchset looks good to me but there is WIP dcn401 code, meaning 
-> dcn20 and dcn401 are different.
+> V2: not to add extra read-back in vcn_v4_0_5_start as there is a
+>     read-back already. New comment for better understanding.
 >
-> I will check how to refactor code so this patchset can fit better.
-
-I see. Let's wait a bit so.
-
-Anyway, thanks for taking a look.
-
-Melissa
-
+> On VCN v4.0.5 there is a race condition where the WPTR is not
+> updated after starting from idle when doorbell is used. The read-back
+> of regVCN_RB1_DB_CTRL register after written is to ensure the
+> doorbell_index is updated before it can work properly.
 >
-> Thanks
+> Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/12528
+> Cc: stable@vger.kernel.org
 >
-> On 4/30/25 08:20, Melissa Wen wrote:
->> Hi,
->>
->> I've been examining dcn401 code to figure out what is causing a wrong
->> cursor gamma on HDR issue reported in [1], and I found unnecessary code
->> duplications during this inspection. I don't have the HW, so I'd
->> appreciate if someone can validate this series (if it makes sense to you
->> ofc).
->>
->> This series basically adds some hooks to dcn20 base functions that are
->> usually used in other hw versions and reuses those functions on dcn401
->> so that we can reduce many lines of code and also increase the coverage
->> of bug fixes by avoiding the kind of issue of [2]. Better for debugging
->> and maintainability too.
->>
->> [1] https://gitlab.freedesktop.org/drm/amd/-/issues/4176
->> [2] 
->> https://lore.kernel.org/amd-gfx/20250430141156.827763-1-mwen@igalia.com/
->>
->> Melissa Wen (5):
->>    drm/amd/display: add hook for program_tg
->>    drm/amd/display: hook up program_tg for dcn401
->>    drm/amd/display: remove duplicated program_front_end_for_ctx code
->>    drm/amd/display: remove duplicated post_unlock_program_front_end code
->>      on dcn401
->>    drm/amd/display: remove duplicated program_pipe code on dcn401
->>
->>   .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  40 +-
->>   .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 436 +-----------------
->>   .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |  10 +-
->>   .../amd/display/dc/hwss/dcn401/dcn401_init.c  |   5 +-
->>   .../drm/amd/display/dc/hwss/hw_sequencer.h    |   4 +
->>   5 files changed, 45 insertions(+), 450 deletions(-)
->>
->
+> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> Tested-by: Mario Limonciello <mario.limonciello@amd.com>
 
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/am=
+d/amdgpu/vcn_v4_0_5.c
+> index ed00d35039c13..e55b76d71367d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> @@ -1034,6 +1034,10 @@ static int vcn_v4_0_5_start_dpg_mode(struct amdgpu=
+_vcn_inst *vinst,
+>                         ring->doorbell_index << VCN_RB1_DB_CTRL__OFFSET__=
+SHIFT |
+>                         VCN_RB1_DB_CTRL__EN_MASK);
+>
+> +       /* Keeping one read-back to ensure all register writes are done, =
+otherwise
+> +        * it may introduce race conditions */
+> +       RREG32_SOC15(VCN, inst_idx, regVCN_RB1_DB_CTRL);
+> +
+>         return 0;
+>  }
+>
+> --
+> 2.34.1
+>
