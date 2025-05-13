@@ -4,55 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2128C3ABC3
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 21:45:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCAC6C3ABC3
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 22:12:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D8610E03C;
-	Tue, 13 May 2025 21:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8D210E5F9;
+	Tue, 13 May 2025 22:12:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="q7g+bsbt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UhbjLkRA";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9554C10E03C;
- Tue, 13 May 2025 21:45:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=6kIAmrpGvtey9S0qYbdF9Cr+lJLr/M2gSFeXdPoHDZ4=; b=q7g+bsbts7qt01Z+DSH6cOdb3R
- YN+kLeb7UezhbP+h2eFzMQlCZDI+IJhrPw8YniAXd9t5ZchVne8lGjhRy4fdlAISwXKF1N4KojoWS
- ubtCFxmV9fWfWkVd6GB3EDhzfvs5niARu8DG8qjIR92vhcCwmZG2nrc2xC5x7mior89JhN4rCMbN+
- kkmYQVht6RcA+e9GfpOvm00II4wMaioJD3ZyrrnBLOuxYyrOc6fLs4j4P4UVbalxeIT+l2oAg0chl
- Bhu1HQ17QlcBb0HfBgBEHqhSUzc+s1+H3KcdVpNadQ0qm6fGM47yAIUTlPYd3FiT4bMteXNed6Klk
- ZeoQjiKw==;
-Received: from [189.6.16.79] (helo=[192.168.0.55])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uExLn-007pmt-W8; Tue, 13 May 2025 23:45:25 +0200
-Message-ID: <cd365059-1889-420b-8d4d-7fd5f675c645@igalia.com>
-Date: Tue, 13 May 2025 18:45:18 -0300
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2059.outbound.protection.outlook.com [40.107.236.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17D0910E5F9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 22:12:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F9uJpv9/28M2cPjB89O9BVAEFaWl9QCS22DOq7+csiiWnGX/DG3zpx9osRJN1zxSNItxXpFRK/FMIBJPrnfwfSp8dAkmy1LmUbhOO29WmfOtM7QYwVL0C0g0WPqtjU3LilHgFfDEz9Zu2hhFOVmXWWPq+x74oS9zGZsEKA7XGvhs7yHjjjQv49tlmEoFmd5CeEOcssb5qrVWzGOhOj+bcy3dyMYarBW8c1YslG5vj861fQLnoSzFL7Os1QffN+6UNpNSirRM0+NALaltUTEyOcw8FFNQKeyqe/jVRii9iYv98Z3FCDW7kxm7bEyhHObdNH6/yNCYAUdQq94wNWmaqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7XsNRlPUzCbxiUZDqmacr3niB+psM9YciK4rH+gi9c4=;
+ b=TYQTtCDYLx7H3gB/UzQw8ItDkJje9BfnjwkJDjsPMlPtnDD+x53eAk9XEr3nVBy+/ZkcSbHrBsBd9hG5UbQjRLttBGmeRIYx46Q3a+gvXtXwMTvgfq2XpNpAXA3T1MxhSx15uAmxd10LOfvnphZaup/E5O5CRyLOvVHSj+Wc9kZ5WIrk75FoqYWH15SjjX3x2sZLVE4nIm4dMVQx4IrOoW7RPYLBXulKJ54VgnNxy9fG0a7AFl5yCYAc8ZIW2W2WFYwAjXPn8gAh8NHQF7KOMvuJOm8fE6x1ppFUB7XzJai6SlR13zeDEtQRJOQmNrpx2JWHkHNkIfy5pvC3yTllaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7XsNRlPUzCbxiUZDqmacr3niB+psM9YciK4rH+gi9c4=;
+ b=UhbjLkRAVpnrltZpHyhXvMlCGablTuVrnU/xyj+GPO+5ejFQ+/ifiaU2LEhZ/bfWPE0EzCpxOQhI2pif8+v0Qi9tkVwssmiL1lAbcn5WGBUlQ107mUY1SYKlUrvIBDnO5tHqFqUsgNMAoUes+9CeWooed2H5A1s9+PP01KqaA/E=
+Received: from SN7PR04CA0169.namprd04.prod.outlook.com (2603:10b6:806:125::24)
+ by MW4PR12MB7120.namprd12.prod.outlook.com (2603:10b6:303:222::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Tue, 13 May
+ 2025 22:12:32 +0000
+Received: from SA2PEPF00001504.namprd04.prod.outlook.com
+ (2603:10b6:806:125:cafe::2d) by SN7PR04CA0169.outlook.office365.com
+ (2603:10b6:806:125::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.16 via Frontend Transport; Tue,
+ 13 May 2025 22:12:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00001504.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8722.18 via Frontend Transport; Tue, 13 May 2025 22:12:31 +0000
+Received: from david-B650-PG-Lightning.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Tue, 13 May 2025 17:12:30 -0500
+From: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Christian.Koenig@amd.com>
+CC: <alexander.deucher@amd.com>, <leo.liu@amd.com>, <sonny.jiang@amd.com>,
+ <ruijing.dong@amd.com>, <stable@vger.kernel.org>, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: [PATCH v4] drm/amdgpu: read back register after written for VCN v4.0.5
+Date: Tue, 13 May 2025 18:12:18 -0400
+Message-ID: <20250513221218.654442-1-David.Wu3@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/14] drm/edid: introduce a helper that compares edid
- data from two drm_edid
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Michel Daenzer <michel.daenzer@mailbox.org>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20250507001712.120215-1-mwen@igalia.com>
- <20250507001712.120215-13-mwen@igalia.com> <87msbntjbw.fsf@intel.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <87msbntjbw.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001504:EE_|MW4PR12MB7120:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8c70ad5-9ed9-4e7d-027b-08dd926b4164
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mziErlgnJ4n8KTfPlwER1i3SRQB8aN9gQFLNWVsSocdqzt3K8Mh41ZQ9ljUc?=
+ =?us-ascii?Q?QA62dk+DZNL92OM7ZtjvVLq4k83GFYY6uM23QuXYISkH28FmxwNz3g9UDPmU?=
+ =?us-ascii?Q?xGibrzIhb0XkoX6JY9wCowmHeSSPXs2Qig1DuOnILnH+Kq1QvA0BSNLfort3?=
+ =?us-ascii?Q?oxRA3HHjNJ1PcZ9aeQS6Cqjgk/WqRXiVKiuddR/QreeBOMayE2v6IvHjlhCP?=
+ =?us-ascii?Q?wA+8vvd2OUjiqy0mZS65bre6e6J0BTGrolCvTdNonhdQg4pFbfpK6cykuTgP?=
+ =?us-ascii?Q?dSTAxO7LU+zYo/ceHCnmWUjnK94qUdquspc+QST1/B3mvAetmVzJKBZp00F2?=
+ =?us-ascii?Q?8bjFOTJGQElhvDauIyB8cyPoO8noQGxC+ZBw+BXNGoQIjfSR+tPRg1GaQe8k?=
+ =?us-ascii?Q?KBFsDeMA4Ta84USWPOy7Tg935PGc+oHZtvdmGhZ1fb8WfzC8xptycfxBBMKL?=
+ =?us-ascii?Q?PWdlf8M61VSdZusEdI2hqnprdDYk+Frt0zphAEftocV2lTBhhfui4RLmJjxY?=
+ =?us-ascii?Q?LuNn3mRi7ofVdSItcWi5BK0CMFepoUzY/EwWQCM4LScP7HU7XiBLJrvMTpAf?=
+ =?us-ascii?Q?bQScGE2eSyrjNHiEEW1qf3DMb8ilXFnm9RVBNWSBAnJibcXNIVrO8/MeSV7O?=
+ =?us-ascii?Q?Of8vloh+YStpd7ctZmu734A29Gx/vW7FgwHc4u/hZ7sqChT+MK1Jp65Ftk8k?=
+ =?us-ascii?Q?LVgHpcEIkGIOiJ8hp6tXUqJMPT8C0Gl3vbMMyT6n98aJbPomuizGkaobPDVj?=
+ =?us-ascii?Q?tKXT2DqYCpxXzAWzAYs8Dg3Aa1a2vUG0ScQh2to9Y7+oChDhw1anHzv5hHVh?=
+ =?us-ascii?Q?cjjpfqBQYBlnQy4p5psi1VuflYOa/kUoSCiogv8X84o7ci/t+byGgjAeUdfO?=
+ =?us-ascii?Q?lgbpEm9URWw6fZPQjWyTY4SrdjFcQYt5WE8gRWh9jjqGjsGQtfNZevA9nREQ?=
+ =?us-ascii?Q?FWX32YFfqHco6XIEYbE5zdrKmJk1fpa6YqcdaVOTXqaECU3FL7jENfsj5fc8?=
+ =?us-ascii?Q?whX8rcQrDab7oRf0wmYnF2jLNQdKCpBDovj2mz6U/5Vj0GJIpSHbjN0wxUHB?=
+ =?us-ascii?Q?t3uOJygyKuLbWtJvmmadcx/U+tFs/cEBKObICdpI/VQuXdkFCEZGuHcc2rvO?=
+ =?us-ascii?Q?K9Qo+KSBnfPvEunJVBQuIF3mZr92CFl2C8sKXxaBVo+Wq1B3pzrg5DE0OLGv?=
+ =?us-ascii?Q?giJrr6XnUIkDEM833+26ccsZUzz7CgC6xRGNu6Uyd2RqKvs4pWqw3WLphsju?=
+ =?us-ascii?Q?RjukoizGTGa56lemGVxGEDRN+5K0eum9VEjUUoX/MIxKNVdArx5MCUXPqzIL?=
+ =?us-ascii?Q?M7B425RzS69tjIrFJyO83WdUHniEKDFQijSctGt4hcNtOflfKe1VTy7JqBiE?=
+ =?us-ascii?Q?6Zh2kk6gHBfUGBBuDt4uKAEBq908cvyHk0jcBN8bk/m2WmTTf7CkNku0v1WV?=
+ =?us-ascii?Q?dBob3Fu+erEyn3bUKCNg3WdY/ZoziXpINzaLhgPj6Yq2Mv/8MWw9gg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2025 22:12:31.1961 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8c70ad5-9ed9-4e7d-027b-08dd926b4164
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001504.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,105 +131,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+V4: add read-back for non-DPG case. This is for protection
+    purpose as it is not used for producton.
 
+On VCN v4.0.5 there is a race condition where the WPTR is not
+updated after starting from idle when doorbell is used. Adding
+register read-back after written at function end is to ensure
+all register writes are done before they can be used.
 
-On 08/05/2025 08:47, Jani Nikula wrote:
-> On Tue, 06 May 2025, Melissa Wen <mwen@igalia.com> wrote:
->> AMD driver has a function used to compare if two edid are the same; this
->> is useful to some of the link detection algorithms implemented by
->> amdgpu. Since the amdgpu function can be helpful for other drivers, this
->           ^
->
-> Theres's a non-breaking space in there I think.
->
->> commit abstracts the AMD function to make it available at the DRM level
->> by wrapping existent drm_edid_eq().
->>
->> v2:
->> - rename drm_edid_eq to drm_edid_eq_buf (jani)
->> - add NULL checks (jani)
->>
->> Co-developed-by: Rodrigo Siqueira <siqueira@igalia.com>
->> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->> ---
->>   drivers/gpu/drm/drm_edid.c | 24 +++++++++++++++++++++---
->>   include/drm/drm_edid.h     |  2 ++
->>   2 files changed, 23 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->> index 6e4cffd467f1..079042ccbc41 100644
->> --- a/drivers/gpu/drm/drm_edid.c
->> +++ b/drivers/gpu/drm/drm_edid.c
->> @@ -1820,8 +1820,8 @@ static bool edid_block_is_zero(const void *edid)
->>   	return mem_is_zero(edid, EDID_LENGTH);
->>   }
->>   
->> -static bool drm_edid_eq(const struct drm_edid *drm_edid,
->> -			const void *raw_edid, size_t raw_edid_size)
->> +static bool drm_edid_eq_buf(const struct drm_edid *drm_edid,
->> +			    const void *raw_edid, size_t raw_edid_size)
->>   {
->>   	bool edid1_present = drm_edid && drm_edid->edid && drm_edid->size;
->>   	bool edid2_present = raw_edid && raw_edid_size;
->> @@ -6918,7 +6918,7 @@ static int _drm_edid_connector_property_update(struct drm_connector *connector,
->>   		const void *old_edid = connector->edid_blob_ptr->data;
->>   		size_t old_edid_size = connector->edid_blob_ptr->length;
->>   
->> -		if (old_edid && !drm_edid_eq(drm_edid, old_edid, old_edid_size)) {
->> +		if (old_edid && !drm_edid_eq_buf(drm_edid, old_edid, old_edid_size)) {
->>   			connector->epoch_counter++;
->>   			drm_dbg_kms(dev, "[CONNECTOR:%d:%s] EDID changed, epoch counter %llu\n",
->>   				    connector->base.id, connector->name,
->> @@ -7523,3 +7523,21 @@ bool drm_edid_is_digital(const struct drm_edid *drm_edid)
->>   		drm_edid->edid->input & DRM_EDID_INPUT_DIGITAL;
->>   }
->>   EXPORT_SYMBOL(drm_edid_is_digital);
->> +
->> +/**
->> + * drm_edid_edid_eq - Check if EDIDs are equal
->> + *
->> + * @drm_edid_old: old drm_edid to compare edid
->> + * @drm_edid_new: new drm_edid to compare edid
-> Comments still refer to old/new, please run kernel-doc.
->
->> + *
->> + * Return true if EDIDs are equal.
->> + */
->> +bool drm_edid_eq(const struct drm_edid *drm_edid_1,
->> +		 const struct drm_edid *drm_edid_2)
->> +{
->> +	const void *edid_1 = drm_edid_1 ? drm_edid_1->edid : NULL;
->> +	size_t edid_1_size = drm_edid_1 ? drm_edid_1->size : 0;
->> +
->> +	return drm_edid_eq_buf(drm_edid_2, edid_1, edid_1_size);
->> +}
->> +EXPORT_SYMBOL(drm_edid_eq);
->> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
->> index ceb522c4f4c2..c0e49c4a32e9 100644
->> --- a/include/drm/drm_edid.h
->> +++ b/include/drm/drm_edid.h
->> @@ -472,6 +472,8 @@ int drm_edid_connector_update(struct drm_connector *connector,
->>   			      const struct drm_edid *edid);
->>   int drm_edid_connector_add_modes(struct drm_connector *connector);
->>   bool drm_edid_is_digital(const struct drm_edid *drm_edid);
->> +bool drm_edid_eq(const struct drm_edid *drm_edid_first,
->> +			 const struct drm_edid *drm_edid_second);
-> Nitpick, parameter names in the declaration differ from the ones in the
-> definition.
->
-> With the above fixed,
->
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/12528
+Cc: stable@vger.kernel.org
 
-Oops. I'll address all comments in the next version.
+Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Tested-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Thanks,
-
-Melissa
->
->
->>   void drm_edid_get_product_id(const struct drm_edid *drm_edid,
->>   			     struct drm_edid_product_id *id);
->>   void drm_edid_print_product_id(struct drm_printer *p,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index ed00d35039c1..a09f9a2dd471 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -1034,6 +1034,10 @@ static int vcn_v4_0_5_start_dpg_mode(struct amdgpu_vcn_inst *vinst,
+ 			ring->doorbell_index << VCN_RB1_DB_CTRL__OFFSET__SHIFT |
+ 			VCN_RB1_DB_CTRL__EN_MASK);
+ 
++	/* Keeping one read-back to ensure all register writes are done, otherwise
++	 * it may introduce race conditions */
++	RREG32_SOC15(VCN, inst_idx, regVCN_RB1_DB_CTRL);
++
+ 	return 0;
+ }
+ 
+@@ -1216,6 +1220,10 @@ static int vcn_v4_0_5_start(struct amdgpu_vcn_inst *vinst)
+ 	WREG32_SOC15(VCN, i, regVCN_RB_ENABLE, tmp);
+ 	fw_shared->sq.queue_mode &= ~(FW_QUEUE_RING_RESET | FW_QUEUE_DPG_HOLD_OFF);
+ 
++	/* Keeping one read-back to ensure all register writes are done, otherwise
++	 * it may introduce race conditions */
++	RREG32_SOC15(VCN, i, regVCN_RB_ENABLE);
++
+ 	return 0;
+ }
+ 
+-- 
+2.34.1
 
