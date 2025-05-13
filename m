@@ -4,57 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F1DC3ABCB
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 00:53:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25770C3ABCB
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 01:59:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F088D10E4BE;
-	Tue, 13 May 2025 00:53:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A229D10E4C3;
+	Tue, 13 May 2025 01:59:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="l022J4n9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QcAY2vFq";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 918B910E273;
- Tue, 13 May 2025 00:53:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=M/2eSaMA5/pbWI55B/URgkofijaNSxk2TTJP3iLiEP8=; b=l022J4n9sAsd5K7wfeiRSvTFxD
- fDCEkpORCFQSYubWWst1Vn/Mlrv1a+DSZb2ivfwjK32hlfIoEvw2cJnxkwwfBkWFDvn4r2hohoWTi
- 6bRvJyCdUIDuaqZTZhia2OuHFtQCLYJpJqaTPp2kan/tJArfiC/s3yMQYyuhyznAV7r8dZz49PJeF
- p/xBucRa4sWBip8HZy+KMKEZ4e/iQfY8/dtpHbB5tQal//fdJd/8rwEtMSB14/wUWkajhao6dt6RW
- UQnlZ0nvUTWGwnURc0Gjma2dNjNIYYRZ8zev9djecCoEyhPFWvTNXeakjTg1Z5YEZvae6XuO5ciGn
- Q0L0g9zA==;
-Received: from [189.6.16.79] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uEdo6-007LzW-TO; Tue, 13 May 2025 02:53:10 +0200
-Date: Mon, 12 May 2025 21:52:54 -0300
-From: Melissa Wen <mwen@igalia.com>
-To: Alex Hung <alex.hung@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, leo.liu@amd.com, 
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
- contact@emersion.fr, 
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com, 
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
- uma.shankar@intel.com, 
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
- Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH V9 42/43] drm/amd/display: add 3D LUT colorop
-Message-ID: <lyrpq2f7ypi7htircam6o4sd2yfxqnkn4zlre3lbh3ffsbtjcn@onpawcyobyvu>
-References: <20250430011115.223996-1-alex.hung@amd.com>
- <20250430011115.223996-43-alex.hung@amd.com>
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2059.outbound.protection.outlook.com [40.107.244.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D24D10E4C3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 01:59:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aC5glE6S2NWFqxLhbZKJhlbEnate2wAzYD60gCNQEx/T885K7loBzvLL34meTVKd3mfFGl+9f3FtBjgMhz5RNrjr0HHCQRAvkpXu4CFgKpCj9maRfly4Qj1AvTi8eZP31abvyk8VpaH4SO4uYbSg97/avXVsWApSvvIi1RVl9UNx6y2UDHoRkiXf1KtSM8whtxAYk8zsJHUwOTm6P6VPcGjfUGILXgXKTSNZdB99HZk0pcYDatqy1HLYK+eKY2BW/ZJQxuKE/f31dz7cZgfJHQjKXzEcveGTukT3JgnNOwsRGTLGCmen4DVX8UPhfAeJXlI5TckmAGS01wM3W1T+Aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ewYxUfMELL9/N8f5xdwBdaVRuilsEjt2q2DuKSDFJ/E=;
+ b=oBx4rA0hfmC3x0ZBdjFe/i0ZD9Ez/MQtJ0/kf+9d4r4EICqVJPzzxBoQMWVl3iOGqDybuMKqDBoF4/HEz92t5MWkmbUg6EmI+3QDRaPgjnQO3sZPX7HpnK2vvFFyjnTU5SzL6+e2hB+zjcpSg6UZ52UBrV6DXTcJF+V6iA7efW/ht1z39xzZ5k3DoOX3ecHMBE0spo11vp214DfnGSr7NmjUrOA6nF/GvIGgEYA22DFgjywws0DM+HOyIX8lcZcU6Inl4tfJ8yLOsYVtRHmc899F+AngxFRKCwYrmLBKdTWIZzdYl484CCJEArakZKkzo6eQ2Ca/bNtcS5+9RnGPWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ewYxUfMELL9/N8f5xdwBdaVRuilsEjt2q2DuKSDFJ/E=;
+ b=QcAY2vFqMD1w/IfFSrGdOg2xD9a2vpcwVcQkfIlXh1KSjoOj3tHiijFNEk7PPwtG+Fcmwjs5uh6DzE2ySp/zpVGZB2vhBvPwb2LsXEWDqps1e3sFER+JK9jMXR6DPq7UOS0Y1EW3W93UENIN2cgwI+WO4lKBncc34BTguQgoiRU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by DS7PR12MB6021.namprd12.prod.outlook.com (2603:10b6:8:87::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8699.26; Tue, 13 May 2025 01:59:29 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.8722.027; Tue, 13 May 2025
+ 01:59:29 +0000
+Message-ID: <d32947b6-5580-46e9-a79b-11fae276ab6e@amd.com>
+Date: Mon, 12 May 2025 20:59:26 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd: Turn off doorbell for vcn 4.0.5
+To: Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org, David.Wu3@amd.com
+References: <20250510190216.3461208-1-superm1@kernel.org>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20250510190216.3461208-1-superm1@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7PR06CA0012.namprd06.prod.outlook.com
+ (2603:10b6:8:2a::22) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250430011115.223996-43-alex.hung@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS7PR12MB6021:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c5e6437-b895-403e-b848-08dd91c1cb9b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UFZQRGJHZzlHckQ2TTg0TWhidVZlbEFncUM2UkIvRWlPUG1kS1ROZW1sWERZ?=
+ =?utf-8?B?U3BNazRLNFFUV2syVXEyUTQzV0E3dlYxVEQrVDVsUWxvci93SUt6aVdkcDdE?=
+ =?utf-8?B?OE5XWHlJcHJLZ3MrM3BGTG45MTg3c1l4ZFhrYXlweTZoSWhnV2s1RFl5T3dM?=
+ =?utf-8?B?djBvOUluTDArbG0wSDdMa3NMUGNaSmdvaitCMTNaZmkxUmFpMzkwUitQekdW?=
+ =?utf-8?B?MlpEdm1VdVFjMG9Xb01tT2NSK0pVRFg2amxxYzRTTFBaT0hwbzBYemxzUm1j?=
+ =?utf-8?B?WFFoRDNrUE50Z2NsZ3I3RWVQOXpGSVZaRU5yRjM3UXJIVFFvN01jVkxkNGZl?=
+ =?utf-8?B?bFM4dVFMVWgvWHRGenJJeG4xMHh1Q3M1aVJpVERqaWpJVkx2ZzJSbjZGUEFR?=
+ =?utf-8?B?R1A0ZVJYQVJqS2dWOGVVeWRnRkwwVTA4V3lVc2hrMnBXaWVUT3pTUzJRZmY5?=
+ =?utf-8?B?Ym94NGdMdFNER1FnaGwycEt2VEFhNGl5aW9Vb3dmS1pCdmI0eTNIS1NhK1Zj?=
+ =?utf-8?B?ZWFKUjduQ0M1UnlpRDFlUG5QOFQxT1hJWFpBZzd1aVpya1ZCS0orTmErL3kw?=
+ =?utf-8?B?WlBGLzk2RUNqbTlrV24rODFEKzl0aURFNVh6THkzSEQ4UkMzMWZVVU1sU2tG?=
+ =?utf-8?B?Z0hwa3N3T2t5YWJ1MythUXViVnZ0OTRGazV1emp1VnR2blIxeWJrMHlMc2tV?=
+ =?utf-8?B?QWJLY1FrRFJlVUxQd05EOWNjU1ZFRzlyUjZIL0lTSjBGQ2VURkFFMkplZnpT?=
+ =?utf-8?B?WklvK1VoRGNLMGdyWXg4SXdRSTlzYzlXSFBVVTlBR2xZczJxK2ZwS1VITE1l?=
+ =?utf-8?B?c1l6Umo2Q05XNHhtMGZWaTFjMEpzZXZKbmF6SEdrMm4yTWFvR245d1ZoeHJK?=
+ =?utf-8?B?K3d1NjRvSThVOHBsZWtkQ3FwbkNhWTk3bWNPNkJEZjU1VlJYbUVjcWJZQnFq?=
+ =?utf-8?B?aG80L1lCdUM5c3M5bWpjenJiTDhOMFc2VUVNdmtOc2Mza2FQRmkvK1l0d29q?=
+ =?utf-8?B?dkNhTjB4YU5IcXFWNUlpbkhTR2Fab2RjYnU3ZnFXWndEaG0zbE9FT1ROWmg4?=
+ =?utf-8?B?N25KZTNrTTRWeVJOc0NwWUdDN0pEdXJqRG5hOHEyVUM4K29obGFucjYzYXAz?=
+ =?utf-8?B?cW9OVzlzUTdlSncvRDg4aTMrbEU0RFoydmh6YnlqenBnMjhOT3VRT2lQTUxK?=
+ =?utf-8?B?dGR0RUNUcDBKL0hMbkZmd2JrNTRFMU5jdHlFWW8zaTkxbVlDQTVqL3pjalk1?=
+ =?utf-8?B?WVcyQkcvT0k0YkVBZGtrV1pKQnlqLzVJRjY1aFM0QUVxZDVYSXNYTjd0Y3pt?=
+ =?utf-8?B?TUV0OHdrN0R5dGNIOUVhOTNNNWFvRXFEdGo5ZkJyMGJQbmw5WUptYVVKNUZ0?=
+ =?utf-8?B?Nk05aWszTjJmZGcwMTJuODFaQkJ2V29wMmMyZ2hXTzZsYTJ3eHBGa1NjVGhi?=
+ =?utf-8?B?TVlGdkNwOEhIZDRTbzZzUzJIZmVZTGJJQmdOU1lFSWYrZjVyc0p4Qnlad3dO?=
+ =?utf-8?B?L2tlMmkwT0VvMERrOFJKRDdiNDh4Sy9uYW5XS0tYVTg0Wk5ia05uK0M1QXBQ?=
+ =?utf-8?B?YTVRUGNIVWg1eVk0b3pxWnd0Y0NtVStSVkNCY2RGVGhZMWt6enJXTjNYR2Fm?=
+ =?utf-8?B?WDc0ekRmOFBOTzVhUEMyZGhzUzhwNzNmcGVqaUtQVjlqNHJ0eVkrUzZ6MUdq?=
+ =?utf-8?B?SlN6VDM2S1pTZVl1Q2RUejU3SGl2RWpHMEVvS3huY3FvQkZHWFNMSWtpazBP?=
+ =?utf-8?B?YXRmNHRwSXJ1TzR0bGhJOXdnWTdCTVJGUlNsZG9jSHJnQmVMNG9EWDdMRWtQ?=
+ =?utf-8?Q?rwiQwhefWtR5eDnK7q06xcw3+pOAwy/C3hPFQ=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUpaWnlsTk1JUHNORU8vMVhZaFdyRVMycG5XQkYwOWxGSlNKMldMRzhvTTRP?=
+ =?utf-8?B?d3VtTUphTzlzbHczTnlOL0d0NVhjdHEwZWFkZXdQVDJXNEVjczBtdHdDRnZP?=
+ =?utf-8?B?Smk0WTBTWDdSd3A5RDgzaTZHcjVUVTF5MW1rb1p2YVI1dUFwK1o1UmJrdHor?=
+ =?utf-8?B?elJOUms3WEpRUnN0R0lyTUNHTlpkNEw4RW9EVHZMMkVxZkZ2TzlwVzZudVA4?=
+ =?utf-8?B?RUhLaFZuYzV0d2VtOEJSb0hhTUZQMDFxSjN0VWhSU3FlMWFSeFJHdGNpbkp2?=
+ =?utf-8?B?cDdsRmpoWm5FbHhpVDdHWnE3SUNkN3UvdnluQmNaRERZUkZ5MnVtVlRkQWIr?=
+ =?utf-8?B?RmFPQUtudEVCWFpLalFlR1p1SURvb1dTVzJTa3BQYUNRRTRPRituaWQ2WW9R?=
+ =?utf-8?B?UHR5QTBxZ25TdUwvcnpuRmFocUs5c0FUa1lMSGdBNnY1c3JTV2lDc0dXYjhz?=
+ =?utf-8?B?bm95dzlXT0RpeVBVYXNZM085U1A4enZIQndCcHlsS1VkT2N3QWswdFF1REJP?=
+ =?utf-8?B?d0dhU1pVeG41WDRVMnNINVI1OUxPZG1oOWpzRTh2LytTU1YzWkxEb290S2U4?=
+ =?utf-8?B?QUtMYkNtdVdZZEdpT3FRcUxyMktEZXdNNFNWOXpjNnhINTZqUWU3cUN1b1Ry?=
+ =?utf-8?B?cWJmdUlFN2Y2NEVkTmFaWUxyNDY3K1J6MnNpTmV0dXJnY2w1VUZMTW1SN2dR?=
+ =?utf-8?B?SjllMnc3NFFseHdZcGk1UUZwTkRRNnZXWElXRkp5ZElRNnA5c0RkSFJWaSt1?=
+ =?utf-8?B?Vm5TMXFSODlnbnBMVEpTTm1vZmRTQWJ0bDVSQVQvZFd1U09XM0pUZzZTUkpx?=
+ =?utf-8?B?NVhMMFg1SGcvWVdmK1hQeE0zSXhlNk9wZGhVa3hTa012cmVpcGZPb1k4c3Vv?=
+ =?utf-8?B?b1kzOGkyM2dTYmpOTlRvQVJQWXB2S1h2VE1mLzJ5YktrQm5SUEJaUG9uU3hm?=
+ =?utf-8?B?dTJnaGE2RmRTYzdOMmp0SGl0R01wNS82WmpudTZBQ2NyYnAxZ3d3UzRxVWlz?=
+ =?utf-8?B?MzNLY2RxalJLTXhhNVZuT0ZvOVRJR2I5RTNnek1QZlhHMHkrRXZzRTZBR0pt?=
+ =?utf-8?B?VENxN2xhS3FtZXpFc1VDdUVVVzVEUyt4ZWtGNTRsWFkzWHNtSEFnb0Z2VTFv?=
+ =?utf-8?B?ZkZ4TEpVaXZVcUZFRFpsV0x3UWcwR1J5cmFUNFNucDQyNHMyQmFoV3BwQ1hv?=
+ =?utf-8?B?Zjczb2tQM3RLV3NqSjlFQ3NVMEwvNW9ET3RvT040Q1JCZlQzVU40ZU5XYzNI?=
+ =?utf-8?B?T1FlcCtvNmU3MEtZSUhLVDRPZjB6SmhCR2JRWGVseWVGeHhIVTZHRWIxVXRD?=
+ =?utf-8?B?M2pJY1RBcGxzeDhVNklyMlR4WEpUZkVHUTg3Y3dOcUFUSFpVSHVnOWdWeGx1?=
+ =?utf-8?B?dzc2djFHcUFrNXdGRXBWbHl6MFhQdzZiTzhOeU5LQmQxNDJGLzVmcGVERVg4?=
+ =?utf-8?B?WnhOc2pxTUZ5eEk3alZQZDlGcERQODR4aWJtVy9hY2JVaTZyLzJoNU9XTWVE?=
+ =?utf-8?B?WFI4aTBTSUQ5eUMzeHA3dDk4S1pzT0lya0dqbXhnSWNaajZmYUt3cVRlcnFs?=
+ =?utf-8?B?YklsN3JZMFZjTGJZVGVuQWU1MTVTRVR6VGwweVlnaFFXV0tpWXl4VDFhb2Zs?=
+ =?utf-8?B?VGEwcFliUGExLzZsK1Njdmgydk50Q3RiUitBT1BmemVFMXYvOGtYQ3RqOGs3?=
+ =?utf-8?B?VkxCWTNOcXZRY2JLM1FZSkJHaTM0dDBJYkdKVW5EbVlURU9vK3ljSDRkZmdN?=
+ =?utf-8?B?dlJPbkpIRlFsVk5rNmNQdlFHZjZHQXk4eHQyKzE4QXlyNFJLcTlJRW9EemhU?=
+ =?utf-8?B?MDAxQ2orVHc3Uit0K0paemhpaTRyczgzai9lRlEvRWxXUmc1a0x5NENPbUly?=
+ =?utf-8?B?bkVDWXNqNnoxMTVKd0FBNGx6c3hBVjlvSXd1aFRCOVhGVSs0eXNjRnlDQnRE?=
+ =?utf-8?B?MEVDZFdOdjRqUWdneTdZc2xMN2h4RlYza09BOWczdkQrSjVxOU54NzJjMTIx?=
+ =?utf-8?B?bVVxVXBZN0Z0RlVWMlc2dTNoaXNncW5vOS9kSjZxbFlQVlZNa0xTM0RKYjFx?=
+ =?utf-8?B?ZWRlRnFEN1RDYlZFZXVqTW5RUmd3Q1hQQ0J5dVExamN5ZzJCQlAzT0FtT1ps?=
+ =?utf-8?Q?kPXYpZ/Fm9I/tx8tlwqh6JM43?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c5e6437-b895-403e-b848-08dd91c1cb9b
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2025 01:59:28.9488 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z4UHZ1vZaCnhf0wq9dFmK5GjNSqKhqgwtPPZw13t6WXe97OLBykeiwKa5MTplDkhIVSiqLoqa0ptRTcUTTZcxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6021
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,217 +158,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 04/29, Alex Hung wrote:
-> This adds support for a 3D LUT.
+On 5/10/2025 2:02 PM, Mario Limonciello wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
 > 
-> The color pipeline now consists of the following colorops:
-> 1. 1D curve colorop
-> 2. Multiplier
-> 3. 3x4 CTM
-> 4. 1D curve colorop
-> 5. 1D LUT
-> 6. 3D LUT
-> 7. 1D curve colorop
-> 8. 1D LUT
+> On VCN 4.0.5 using a doorbell to notify VCN hardware for WPTR changes
+> while dynamic power gating is enabled introduces a timing dependency
+> that can sometimes cause WPTR to not be properly updated. This manifests
+> as a job timeout which will trigger a VCN reset and cause the application
+> that submitted the job to crash.
 > 
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
+> Writing directly to the WPTR register instead of using the doorbell changes
+> the timing enough that the issue doesn't happen. Turn off doorbell use for
+> now while the issue continues to be debugged.
+> 
+> Cc: stable@vger.kernel.org
+> Cc: David.Wu3@amd.com
+> Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/12528
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3909
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
-> V9:
->  - Return a value in __set_dm_plane_colorop_3dlut
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> v8:
->  - Set initialized to 0 and return when drm_lut3d_size is 0 (Harry Wentland)
->  - Rework tf->type = TF_TYPE_BYPASS for shaper (Harry Wentland & Leo Li)
-> 
-> v7:
->  - Simplify 3D LUT according to drm_colorop changes (Simon Ser)
-> 
->  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 94 +++++++++++++++++++
->  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 20 ++++
->  2 files changed, 114 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index 313716f2003f..dfdd3f557570 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -1293,6 +1293,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
->  	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
->  	const struct drm_color_lut *shaper_lut;
->  	struct drm_device *dev = colorop->dev;
-> +	bool enabled = false;
->  	uint32_t shaper_size;
->  	int i = 0, ret = 0;
->  
-> @@ -1314,6 +1315,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
->  		ret = __set_output_tf(tf, 0, 0, false);
->  		if (ret)
->  			return ret;
-> +		enabled = true;
->  	}
->  
->  	/* 1D LUT - SHAPER LUT */
-> @@ -1345,12 +1347,93 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
->  			ret = __set_output_tf(tf, shaper_lut, shaper_size, false);
->  			if (ret)
->  				return ret;
-> +			enabled = true;
->  		}
->  	}
->  
-> +	if (!enabled)
-> +		tf->type = TF_TYPE_BYPASS;
-> +
->  	return 0;
->  }
->  
-> +/* __set_colorop_3dlut - set DRM 3D LUT to DC stream
-> + * @drm_lut3d: user 3D LUT
-> + * @drm_lut3d_size: size of 3D LUT
-> + * @lut3d: DC 3D LUT
-> + *
-> + * Map user 3D LUT data to DC 3D LUT and all necessary bits to program it
-> + * on DCN accordingly.
-> + */
-> +static void __set_colorop_3dlut(const struct drm_color_lut *drm_lut3d,
-> +				uint32_t drm_lut3d_size,
-> +				struct dc_3dlut *lut)
-> +{
-> +	if (!drm_lut3d_size) {
-> +		lut->state.bits.initialized = 0;
-> +		return;
-> +	}
-> +
-> +	/* Only supports 17x17x17 3D LUT (12-bit) now */
-> +	lut->lut_3d.use_12bits = true;
-> +	lut->lut_3d.use_tetrahedral_9 = false;
-> +
-> +	lut->state.bits.initialized = 1;
-> +	__drm_3dlut_to_dc_3dlut(drm_lut3d, drm_lut3d_size, &lut->lut_3d,
-> +				lut->lut_3d.use_tetrahedral_9, 12);
-> +
-> +}
-> +
-> +static int
-> +__set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
-> +			     struct dc_plane_state *dc_plane_state,
-> +			     struct drm_colorop *colorop)
-> +{
-> +	struct drm_colorop *old_colorop;
-> +	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-> +	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
-> +	struct drm_atomic_state *state = plane_state->state;
-> +	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
-> +	const struct drm_device *dev = colorop->dev;
-> +	const struct drm_color_lut *lut3d;
-> +	uint32_t lut3d_size;
-> +	int i = 0, ret = 0;
-> +
-> +	/* 3D LUT */
-> +	old_colorop = colorop;
-> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> +		if (new_colorop_state->colorop == old_colorop &&
-> +		    new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT) {
-> +			colorop_state = new_colorop_state;
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_3D_LUT) {
-> +		if (!adev->dm.dc->caps.color.dpp.hw_3d_lut) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> index ba603b2246e2e..ea9513f65d7e4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> @@ -181,7 +181,7 @@ static int vcn_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+>   			return r;
+>   
+>   		ring = &adev->vcn.inst[i].ring_enc[0];
+> -		ring->use_doorbell = true;
+> +		ring->use_doorbell = false;
+>   		if (amdgpu_sriov_vf(adev))
+>   			ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
+>   						i * (adev->vcn.inst[i].num_enc_rings + 1) + 1;
 
-I wonder if this check is no longer accurate in DCN versions with MCM
-(MPC only) 3D LUT caps, such as DCN 3.2 and DCN 4.01.
+Although this is confirmed to help the issue David found the correct 
+solution.  I expect he'll submit that this week and it will supersede my 
+patch.
 
-Also, looking back those patches that introduced shaper and blnd tf and
-luts, I don't see similar validation, but IIRC shaper caps directly
-depends on 3d lut, for example. IIRC something around blnd func caps
-also changed in the above-mentioned DCN versions.
+https://gitlab.freedesktop.org/-/project/176/uploads/defeac39ec232976c7c82aab151bfe63/0001-drm-amdgpu-read-back-DB_CTRL-register-after-write-fo.patch
 
-Melissa
 
-> +			drm_dbg(dev, "3D LUT is not supported by hardware\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		drm_dbg(dev, "3D LUT colorop with ID: %d\n", colorop->base.id);
-> +		lut3d = __extract_blob_lut(colorop_state->data, &lut3d_size);
-> +		lut3d_size = lut3d != NULL ? lut3d_size : 0;
-> +		__set_colorop_3dlut(lut3d, lut3d_size, &dc_plane_state->lut3d_func);
-> +
-> +		/* 3D LUT requires shaper. If shaper colorop is bypassed, enable shaper curve
-> +		 * with TRANSFER_FUNCTION_LINEAR
-> +		 */
-> +		if (tf->type == TF_TYPE_BYPASS) {
-> +			tf->type = TF_TYPE_DISTRIBUTED_POINTS;
-> +			tf->tf = TRANSFER_FUNCTION_LINEAR;
-> +			tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-> +			ret = __set_output_tf(tf, NULL, 0, false);
-> +		}
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->  static int
->  __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
->  			     struct dc_plane_state *dc_plane_state,
-> @@ -1522,6 +1605,17 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
->  	if (!colorop)
->  		return -EINVAL;
->  
-> +	/* 3D LUT */
-> +	colorop = colorop->next;
-> +	if (!colorop) {
-> +		drm_dbg(dev, "no 3D LUT colorop found\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = __set_dm_plane_colorop_3dlut(plane_state, dc_plane_state, colorop);
-> +	if (ret)
-> +		return ret;
-> +
->  	/* 1D Curve & LUT - BLND TF & LUT */
->  	colorop = colorop->next;
->  	if (!colorop) {
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> index 10b3e3906461..e90774294971 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> @@ -49,6 +49,8 @@ const u64 amdgpu_dm_supported_blnd_tfs =
->  
->  #define MAX_COLOR_PIPELINE_OPS 10
->  
-> +#define LUT3D_SIZE		17
-> +
->  int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
->  {
->  	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
-> @@ -145,6 +147,24 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
->  
->  	i++;
->  
-> +	/* 3D LUT */
-> +	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
-> +	if (!ops[i]) {
-> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
-> +		ret = -ENOMEM;
-> +		goto cleanup;
-> +	}
-> +
-> +	ret = drm_plane_colorop_3dlut_init(dev, ops[i], plane, LUT3D_SIZE,
-> +				     DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
-> +				     DRM_COLOROP_FLAG_ALLOW_BYPASS);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	drm_colorop_set_next_property(ops[i-1], ops[i]);
-> +
-> +	i++;
-> +
->  	/* 1D curve - BLND TF */
->  	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
->  	if (!ops[i]) {
-> -- 
-> 2.43.0
-> 
