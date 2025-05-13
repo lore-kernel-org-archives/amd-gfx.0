@@ -4,61 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD220C3ABC3
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 12:33:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0690C3ABCC
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 12:37:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6135810E594;
-	Tue, 13 May 2025 12:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83C2F10E38D;
+	Tue, 13 May 2025 12:37:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oWHmfKA2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZH5a9KJb";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6206910E16C;
- Tue, 13 May 2025 07:42:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1747122163;
- bh=lfE9Fx0YxcY7+yid9yq30xLGb7KlsukHQPwIvTdg3sk=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=oWHmfKA2raFKnyFoK3lyWorBRxA55B585Yzbh1aCtbgVMXhY93+4VWjcSo8epFozE
- 92KQ9lCcZ/wZMdMqTPwW1aQnetVeIft8lH7WwmTKKYiKGISnfEF61i5jHkKvVzDeTD
- ryw5fI53phe0igoxbTyrm8XObgoxTy3+0HWLeqOxajLywKZQVzjT3/HAsqFuJNZSDG
- +rTPJZMp/uR6MYVfFcl/lUpOJ++Ouqouamcu1T2x4mJeUgvprBH4PXCqUqpO+wRNcv
- PybfxoUMLk+lWxqZ11GVg3J14DE/wVGkoN14SlFhWkjmj6astem0F3YeuMKMabrTj0
- 10HMqbmLghG4g==
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B5E9417E1220;
- Tue, 13 May 2025 09:42:42 +0200 (CEST)
-Date: Tue, 13 May 2025 10:42:12 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Melissa Wen <mwen@igalia.com>
-Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com,
- contact@emersion.fr, jadahl@redhat.com, sebastian.wick@redhat.com,
- shashank.sharma@amd.com, agoins@nvidia.com, joshua@froggi.es,
- mdaenzer@redhat.com, aleixpol@kde.org, xaver.hugl@gmail.com,
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
- quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
- sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
- louis.chauvet@bootlin.com, Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH V9 26/43] drm/amd/display: Add support for sRGB EOTF in
- DEGAM block
-Message-ID: <20250513104213.1c5d905a@eldfell>
-In-Reply-To: <twwndnvjm6rmxdt4cs747fixvplpeuy3yh3ho6d4yq3y3prhub@fag4kafh2xct>
-References: <20250430011115.223996-1-alex.hung@amd.com>
- <20250430011115.223996-27-alex.hung@amd.com>
- <twwndnvjm6rmxdt4cs747fixvplpeuy3yh3ho6d4yq3y3prhub@fag4kafh2xct>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C76FD10E38D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 12:37:46 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-23179999d4aso1317815ad.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 05:37:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747139864; x=1747744664; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UgXUZnJrqELb6WJv8slnNwPAEoBp1ybmjH13rA8LCYY=;
+ b=ZH5a9KJbpVZMet0TGQv8hwmnJ5DBc8OzeAvBwkSB1XcPrQlncR6rPYuNU+ocpgRF44
+ Q56tKjlBmqQR9mo5wWlF64kpC+aCHZ/8cUwobYMHDrpjJgLRmMxk7z49LR7yhEpyIQbS
+ bIIb3K5QL8T64UmPiXHPh+omuF9c38yJStAHSOFsfwqIP/zmfWR0/kU9K5gXdsgQmVyR
+ haCK6JBe86Zg3IYrXpsbGgmEL4oxQZABxbYL/jjjNsDpsZLBsbtmuR67+ASlxV2nBU1+
+ cis7cQ6VnSREQF6yDcyaWA8xc9QCK8xvQAyRYTJViqrD8FriWclqhuaMqiN2MmEs86Xi
+ zpQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747139864; x=1747744664;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UgXUZnJrqELb6WJv8slnNwPAEoBp1ybmjH13rA8LCYY=;
+ b=WC7qr+RHlXPk2Gu6IObMr98vvGYvkEUW2/foIFkva6zMOXU9hdTbxJnQOtEPeMFji7
+ sOtHcklmx+5ME6BllDdzwebvsTGSrKNhfI24UAkL6DEdSPV7z32gUKRYMV40qp2xQnXh
+ VrOAqq159iA1h3Uwjk4deVletylstUk3La5XNuOfuDJ4hajawiTdgqvxWW6ZQBYuqJCu
+ f+46hNHYXwfbOEqYVc9mRCuogmwFIY8aSi/hQ1JtS7tHYakkg9XFpt2Ah1Wj0n7EF+99
+ A/1jan6atE7hc80ggKSKVV2SrNtxzsOZsS5sVrV2ojWDrxIFja5vu48hAOgqXiAIqZa3
+ Y9RA==
+X-Gm-Message-State: AOJu0Ywbj1O87ksJz8BpkXELLFvC5aIjo9dXiD4GA7k73BtQZJAOJKiX
+ HuukQfslWrROJcNP6MHmSMWKgIUY2OIhblM1K7XFo3VUvKDcNT6mlFBqjyVSUtD9fb8NuVBTfnu
+ om3x6lwlVmycXMpD6rjAq86LNyEx58A==
+X-Gm-Gg: ASbGncvtOYPotUl4S4G3deRJaAcZlwiFU8xLam282XLn5RYfQRumcYbYjuQCZj+w/C7
+ 2TXcSQ2rGXj/d6J7md+4ReAooUDpR5SaqBe0Rvo3tJ+HfdYy4Sfkph10OWGkh5VVwfEL5VbaQKo
+ xdsGB34H1YJvGL9//ODI3jWYAaNzGHlfG+
+X-Google-Smtp-Source: AGHT+IGXqPrVWRTuQse/tWr97RYjVGYHVy49EKbzFZn8J+XGj6eryspfICEPDRcE8n8HD7EavK4l8XRs+17SEyinqhY=
+X-Received: by 2002:a17:903:41c7:b0:224:1936:698a with SMTP id
+ d9443c01a7336-22fc8b59833mr95879785ad.5.1747139863710; Tue, 13 May 2025
+ 05:37:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/A0x/3fzY+c_Yy3jqOjxoPnx";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Tue, 13 May 2025 12:33:48 +0000
+References: <20250513032026.838036-1-Wayne.Lin@amd.com>
+In-Reply-To: <20250513032026.838036-1-Wayne.Lin@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 13 May 2025 08:37:32 -0400
+X-Gm-Features: AX0GCFu3j0lM1p8BuPuDkqkhIaFJ4v4zeXAHbwYXKHGN98V6GQH5-a8l3nDRe-8
+Message-ID: <CADnq5_MrUPvFVTkMixCuhFqpEuk+cKQpXJPBBBpaVwqrTashMA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Avoid flooding unnecessary info messages
+To: Wayne Lin <Wayne.Lin@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,207 +81,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/A0x/3fzY+c_Yy3jqOjxoPnx
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Mon, May 12, 2025 at 11:28=E2=80=AFPM Wayne Lin <Wayne.Lin@amd.com> wrot=
+e:
+>
+> It's expected that we'll encounter temporary exceptions
+> during aux transactions. Adjust logging from drm_info to
+> drm_dbg_dp to prevent flooding with unnecessary log messages.
+>
+> Fixes: 6285f12bc54c ("drm/amd/display: Fix wrong handling for AUX_DEFER c=
+ase")
+> Cc: stable@vger.kernel.org
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
 
-On Mon, 12 May 2025 15:50:17 -0300
-Melissa Wen <mwen@igalia.com> wrote:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-> On 04/29, Alex Hung wrote:
-> > Expose one 1D curve colorop with support for
-> > DRM_COLOROP_1D_CURVE_SRGB_EOTF and program HW to perform
-> > the sRGB transform when the colorop is not in bypass.
-> >=20
-> > With this change the following IGT test passes:
-> > kms_colorop --run plane-XR30-XR30-srgb_eotf
-> >=20
-> > The color pipeline now consists of a single colorop:
-> > 1. 1D curve colorop w/ sRGB EOTF
-> >=20
-> > Signed-off-by: Alex Hung <alex.hung@amd.com>
-> > Co-developed-by: Harry Wentland <harry.wentland@amd.com>
-> > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> > Reviewed-by: Daniel Stone <daniels@collabora.com>
-> > ---
-> > V9:
-> >  - Update function names by _plane_ (Chaitanya Kumar Borah)
-> >  - Update replace cleanup code by drm_colorop_pipeline_destroy (Simon S=
-er)
-> >=20
-> > v8:
-> >  - Fix incorrect && by || in __set_colorop_in_tf_1d_curve (Leo Li)
-> >=20
-> > v7:
-> >  - Fix checkpatch warnings
-> >   - Change switch "{ }" position
-> >   - Delete double ";"
-> >   - Delete "{ }" for single-line if-statement
-> >   - Add a new line at EOF
-> >   - Change SPDX-License-Identifier: GPL-2.0+ from // to /* */
-> >=20
-> > v6:
-> >  - cleanup if colorop alloc or init fails
-> >=20
-> >  .../gpu/drm/amd/display/amdgpu_dm/Makefile    |  3 +-
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 86 +++++++++++++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 69 +++++++++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h | 34 ++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 10 +++
-> >  5 files changed, 201 insertions(+), 1 deletion(-)
-> >  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_col=
-orop.c
-> >  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_col=
-orop.h
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/g=
-pu/drm/amd/display/amdgpu_dm/Makefile
-> > index ab2a97e354da..46158d67ab12 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-> > @@ -38,7 +38,8 @@ AMDGPUDM =3D \
-> >  	amdgpu_dm_pp_smu.o \
-> >  	amdgpu_dm_psr.o \
-> >  	amdgpu_dm_replay.o \
-> > -	amdgpu_dm_wb.o
-> > +	amdgpu_dm_wb.o \
-> > +	amdgpu_dm_colorop.o
-> > =20
-> >  ifdef CONFIG_DRM_AMD_DC_FP
-> >  AMDGPUDM +=3D dc_fpu.o
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > index ebabfe3a512f..0b513ab5050f 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > @@ -668,6 +668,18 @@ amdgpu_tf_to_dc_tf(enum amdgpu_transfer_function t=
-f)
-> >  	}
-> >  }
-> > =20
-> > +static enum dc_transfer_func_predefined
-> > +amdgpu_colorop_tf_to_dc_tf(enum drm_colorop_curve_1d_type tf)
-> > +{
-> > +	switch (tf) {
-> > +	case DRM_COLOROP_1D_CURVE_SRGB_EOTF:
-> > +	case DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF:
-> > +		return TRANSFER_FUNCTION_SRGB;
-> > +	default:
-> > +		return TRANSFER_FUNCTION_LINEAR;
-> > +	}
-> > +}
-> > +
-> >  static void __to_dc_lut3d_color(struct dc_rgb *rgb,
-> >  				const struct drm_color_lut lut,
-> >  				int bit_precision)
-> > @@ -1137,6 +1149,59 @@ __set_dm_plane_degamma(struct drm_plane_state *p=
-lane_state,
-> >  	return 0;
-> >  }
-> > =20
-> > +static int
-> > +__set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
-> > +		       struct drm_colorop_state *colorop_state)
-> > +{
-> > +	struct dc_transfer_func *tf =3D &dc_plane_state->in_transfer_func;
-> > +	struct drm_colorop *colorop =3D colorop_state->colorop;
-> > +	struct drm_device *drm =3D colorop->dev;
-> > +
-> > +	if (colorop->type !=3D DRM_COLOROP_1D_CURVE ||
-> > +	    colorop_state->curve_1d_type !=3D DRM_COLOROP_1D_CURVE_SRGB_EOTF)
-> > +		return -EINVAL;
-> > +
-> > +	if (colorop_state->bypass) {
-> > +		tf->type =3D TF_TYPE_BYPASS;
-> > +		tf->tf =3D TRANSFER_FUNCTION_LINEAR;
-> > +		return 0;
-> > +	}
-> > +
-> > +	drm_dbg(drm, "Degamma colorop with ID: %d\n", colorop->base.id);
-> > +
-> > +	tf->type =3D TF_TYPE_PREDEFINED;
-> > +	tf->tf =3D amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int
-> > +__set_dm_plane_colorop_degamma(struct drm_plane_state *plane_state,
-> > +			       struct dc_plane_state *dc_plane_state,
-> > +			       struct drm_colorop *colorop)
-> > +{
-> > +	struct drm_colorop *old_colorop;
-> > +	struct drm_colorop_state *colorop_state =3D NULL, *new_colorop_state;
-> > +	struct drm_atomic_state *state =3D plane_state->state;
-> > +	int i =3D 0;
-> > +
-> > +	old_colorop =3D colorop;
-> > +
-> > +	/* 1st op: 1d curve - degamma */
-> > +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> > +		if (new_colorop_state->colorop =3D=3D old_colorop &&
-> > +		    new_colorop_state->curve_1d_type =3D=3D DRM_COLOROP_1D_CURVE_SRG=
-B_EOTF) {
-> > +			colorop_state =3D new_colorop_state;
-> > +			break;
-> > +		}
-> > +	}
-> > +
-> > +	if (!colorop_state)
-> > +		return -EINVAL;
-> > +
-> > +	return __set_colorop_in_tf_1d_curve(dc_plane_state, colorop_state); =
-=20
->=20
-> I wonder what will happen if plane degamma isn't set, but CRTC degamma
-> LUT or legacy CRTC regamma LUT (with its implicity sRGB degamma) is used
-> together with other plane color ops.
->=20
-> I can imagine the mess, so I think CRTC degamma LUT and legacy CRTC
-> regamma LUT should be somehow entirely disabled (or rejected) if plane
-> color pipeline is in use.
-
-Hi Melissa,
-
-if using a plane color pipeline means that a CRTC LUT cannot be used, it
-will severely limit the usefulness of the whole KMS color processing. In
-Weston's case it would prohibit *all* KMS off-loading when color
-management is in use.
-
-Weston chooses to do composition and blending in an optical space. This
-means that plane color pipelines are required to convert incoming
-pixels into the optical space, and a CRTC LUT (a CRTC color pipeline in
-the future) is required to convert from the optical space to the
-monitor signalling (electrical space).
-
-I don't know what "with its implicity sRGB degamma" means, but there
-cannot be any implicit curves at all. The driver has no knowledge of
-how the framebuffer pixels are encoded, nor about what the blending
-space should be.
-
-
-Thanks,
-pq
-
---Sig_/A0x/3fzY+c_Yy3jqOjxoPnx
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmgi99UACgkQI1/ltBGq
-qqcP7w//e9mBTAMdftuA5HbVW2htz/qP7+y50Sst2XG7y6OdP7NIkq8XRLvN+ug4
-e1+GzFWMn2TunSfuf62SGk26V5jeaU3Uj3QIwZz1WPccHpRI0WE6g+7BkPNbwwnt
-3TFljsw/t8hRZXYJKz02LRrkPb7+ZpgidDyOexIrothMjURtMsHb+wLOBYlmzEqC
-C7hEFU17BertdhQzttiWZDghusZFE9247IBQxQ1qv5DyxZtgkVPrWrRaPvdhPSgX
-U6zKHy6gDPna0528ILfR+Ivqg2Yy4wsIxRkSvHT2BnCqv/l5CxftnB2TyFdmgGlD
-+ctGTr2oTNXKzDar1TKWktNvzZpS9tDbB9/kaoClu/eZYOeR02APVI3ulnsxsWj4
-WwYNnyCQq5eIYgLLZB5n57bs7D61sJKm5cGyyQCH3cCTUyxUIK7mS30qNvmsAnBe
-3XHT6RxjIowYDkh/jkg5D87CRlwJUVF+nARDoCU5jHGE2H/ig1CUXcLuZErrxHeF
-MbYvY5xP4eIkhhfdDgEO5Xlaxjj0KS6B6g89SsRFdC0AjnegMJNevzlGicfhYHp8
-RcYRyR4wVTopkA6onoq2UuGjw6Bh9Vu8JNAdoHh27im5ISsBEenUSV52Scbo2W0Z
-3T8lM6qShNwh9BBhKM+VcOuxO4XxPBE0ttd7tpC90aYVZX0TPV4=
-=TUkI
------END PGP SIGNATURE-----
-
---Sig_/A0x/3fzY+c_Yy3jqOjxoPnx--
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 0d7b72c75802..25e8befbcc47 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -107,7 +107,7 @@ static ssize_t dm_dp_aux_transfer(struct drm_dp_aux *=
+aux,
+>         if (payload.write && result >=3D 0) {
+>                 if (result) {
+>                         /*one byte indicating partially written bytes*/
+> -                       drm_info(adev_to_drm(adev), "amdgpu: AUX partiall=
+y written\n");
+> +                       drm_dbg_dp(adev_to_drm(adev), "amdgpu: AUX partia=
+lly written\n");
+>                         result =3D payload.data[0];
+>                 } else if (!payload.reply[0])
+>                         /*I2C_ACK|AUX_ACK*/
+> @@ -133,11 +133,11 @@ static ssize_t dm_dp_aux_transfer(struct drm_dp_aux=
+ *aux,
+>                         break;
+>                 }
+>
+> -               drm_info(adev_to_drm(adev), "amdgpu: DP AUX transfer fail=
+:%d\n", operation_result);
+> +               drm_dbg_dp(adev_to_drm(adev), "amdgpu: DP AUX transfer fa=
+il:%d\n", operation_result);
+>         }
+>
+>         if (payload.reply[0])
+> -               drm_info(adev_to_drm(adev), "amdgpu: AUX reply command no=
+t ACK: 0x%02x.",
+> +               drm_dbg_dp(adev_to_drm(adev), "amdgpu: AUX reply command =
+not ACK: 0x%02x.",
+>                         payload.reply[0]);
+>
+>         return result;
+> --
+> 2.43.0
+>
