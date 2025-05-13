@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D0E8C3ABC3
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 15:52:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECE87C3ABCC
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 16:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F389B10E08A;
-	Tue, 13 May 2025 15:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7389110E0B4;
+	Tue, 13 May 2025 16:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="B7TRMJ0G";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dQHbYQrB";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68D3F10E08A;
- Tue, 13 May 2025 15:52:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1B1D10E0BD;
+ Tue, 13 May 2025 16:00:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=yexgHyIXenIUtrCo9lMs7KBfMTbOrHO2K/wyqaHX5/w=; b=B7TRMJ0G1qE9aJbNIH5TUpu/ii
- 3RZ8cVe2o9kLradxFsKrShjyitfpSLLSvJmlh9cJUFuhur1I3ha+r1tj5f6XcHrQL/f0q1Zarn09/
- 7lYo4WOoTrjbnYboWHgeAc5DooBod+NMzkVSX4787OZhN34YRNXzHBQumb5nk4eKl2r4md5jW/RMK
- ErquWfx/skDqcgLYOYu0LEC2aFeUz667x/mYON2wE4J8Y1NLjqNL+OgqbkAI3Sg0JxX6cexcAGTjs
- eJNV92JOnA/Jzb0+0KbcN6iCeyJavrRjKJRahUlna/XKJwy6SQghNKU+GW0N+v3KM9uJJIiAtrzIq
- 78hY8kng==;
+ bh=gJIVCwcInRwehnXb2MseJ+x/KJMF2AkpWIP64+9mIeo=; b=dQHbYQrB6A3PFjNgYhUKcjNiKM
+ TGB/lVJSCsBbC2dYYBhLSg/hQKHjrCqve1vS9Whsd3/oJY+AsJ31/kw75Y5F2QkKRHdSopHXU9VYZ
+ Vg7+gUTwCHI6keCOC1axcggrUkhFOEb+8CENS/PRHJI7SNc3olc7r0dgHjoeTUmWRYDR8IA6EiLUe
+ +h8S0q1dNjq+IIxmuR3DhB/JX+WQjJ9QaPyTHxMBEyok4+Q2Uwgdg/ODT5nIYNFhlYY75GN4ayCQw
+ aE2Ck+KCkcx8aPIumFUaWsGBI/PmsD66v9ORo0TJeaGuxJ9d2Kw6PmyPfQHJeGSLCBhsSWCmj6P0D
+ exoBPipg==;
 Received: from [189.6.16.79] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uErqa-007gYY-Vd; Tue, 13 May 2025 17:52:48 +0200
-Date: Tue, 13 May 2025 12:52:33 -0300
+ id 1uErxZ-007giy-Cp; Tue, 13 May 2025 18:00:00 +0200
+Date: Tue, 13 May 2025 12:59:39 -0300
 From: Melissa Wen <mwen@igalia.com>
 To: Alex Hung <alex.hung@amd.com>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
@@ -45,18 +45,16 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  uma.shankar@intel.com, 
  quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
  marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
- Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH V9 42/43] drm/amd/display: add 3D LUT colorop
-Message-ID: <un75jdnneqrvd6jxrivfxd46dkzgcp6yqqwudsqrvbwqesd27i@5gxex2rz7c3x>
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com, 
+ Arthur Grillo <arthurgrillo@riseup.net>
+Subject: Re: [PATCH V9 00/43] Color Pipeline API w/ VKMS
+Message-ID: <y4jxopbjnrq63ovk3rd2gole3nlkvgpm2mordkj5abpp6xyk5j@7s2wvycg4yeu>
 References: <20250430011115.223996-1-alex.hung@amd.com>
- <20250430011115.223996-43-alex.hung@amd.com>
- <lyrpq2f7ypi7htircam6o4sd2yfxqnkn4zlre3lbh3ffsbtjcn@onpawcyobyvu>
- <9ba6b83c-6c29-4149-aa71-bc9f0ea51a7a@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <9ba6b83c-6c29-4149-aa71-bc9f0ea51a7a@amd.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250430011115.223996-1-alex.hung@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,244 +69,321 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 05/12, Alex Hung wrote:
-> 
-> 
-> On 5/12/25 18:52, Melissa Wen wrote:
-> > On 04/29, Alex Hung wrote:
-> > > This adds support for a 3D LUT.
-> > > 
-> > > The color pipeline now consists of the following colorops:
-> > > 1. 1D curve colorop
-> > > 2. Multiplier
-> > > 3. 3x4 CTM
-> > > 4. 1D curve colorop
-> > > 5. 1D LUT
-> > > 6. 3D LUT
-> > > 7. 1D curve colorop
-> > > 8. 1D LUT
-> > > 
-> > > Signed-off-by: Alex Hung <alex.hung@amd.com>
-> > > Reviewed-by: Daniel Stone <daniels@collabora.com>
-> > > ---
-> > > V9:
-> > >   - Return a value in __set_dm_plane_colorop_3dlut
-> > > 
-> > > v8:
-> > >   - Set initialized to 0 and return when drm_lut3d_size is 0 (Harry Wentland)
-> > >   - Rework tf->type = TF_TYPE_BYPASS for shaper (Harry Wentland & Leo Li)
-> > > 
-> > > v7:
-> > >   - Simplify 3D LUT according to drm_colorop changes (Simon Ser)
-> > > 
-> > >   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 94 +++++++++++++++++++
-> > >   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 20 ++++
-> > >   2 files changed, 114 insertions(+)
-> > > 
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > > index 313716f2003f..dfdd3f557570 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > > @@ -1293,6 +1293,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
-> > >   	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
-> > >   	const struct drm_color_lut *shaper_lut;
-> > >   	struct drm_device *dev = colorop->dev;
-> > > +	bool enabled = false;
-> > >   	uint32_t shaper_size;
-> > >   	int i = 0, ret = 0;
-> > > @@ -1314,6 +1315,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
-> > >   		ret = __set_output_tf(tf, 0, 0, false);
-> > >   		if (ret)
-> > >   			return ret;
-> > > +		enabled = true;
-> > >   	}
-> > >   	/* 1D LUT - SHAPER LUT */
-> > > @@ -1345,12 +1347,93 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
-> > >   			ret = __set_output_tf(tf, shaper_lut, shaper_size, false);
-> > >   			if (ret)
-> > >   				return ret;
-> > > +			enabled = true;
-> > >   		}
-> > >   	}
-> > > +	if (!enabled)
-> > > +		tf->type = TF_TYPE_BYPASS;
-> > > +
-> > >   	return 0;
-> > >   }
-> > > +/* __set_colorop_3dlut - set DRM 3D LUT to DC stream
-> > > + * @drm_lut3d: user 3D LUT
-> > > + * @drm_lut3d_size: size of 3D LUT
-> > > + * @lut3d: DC 3D LUT
-> > > + *
-> > > + * Map user 3D LUT data to DC 3D LUT and all necessary bits to program it
-> > > + * on DCN accordingly.
-> > > + */
-> > > +static void __set_colorop_3dlut(const struct drm_color_lut *drm_lut3d,
-> > > +				uint32_t drm_lut3d_size,
-> > > +				struct dc_3dlut *lut)
-> > > +{
-> > > +	if (!drm_lut3d_size) {
-> > > +		lut->state.bits.initialized = 0;
-> > > +		return;
-> > > +	}
-> > > +
-> > > +	/* Only supports 17x17x17 3D LUT (12-bit) now */
-> > > +	lut->lut_3d.use_12bits = true;
-> > > +	lut->lut_3d.use_tetrahedral_9 = false;
-> > > +
-> > > +	lut->state.bits.initialized = 1;
-> > > +	__drm_3dlut_to_dc_3dlut(drm_lut3d, drm_lut3d_size, &lut->lut_3d,
-> > > +				lut->lut_3d.use_tetrahedral_9, 12);
-> > > +
-> > > +}
-> > > +
-> > > +static int
-> > > +__set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
-> > > +			     struct dc_plane_state *dc_plane_state,
-> > > +			     struct drm_colorop *colorop)
-> > > +{
-> > > +	struct drm_colorop *old_colorop;
-> > > +	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-> > > +	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
-> > > +	struct drm_atomic_state *state = plane_state->state;
-> > > +	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
-> > > +	const struct drm_device *dev = colorop->dev;
-> > > +	const struct drm_color_lut *lut3d;
-> > > +	uint32_t lut3d_size;
-> > > +	int i = 0, ret = 0;
-> > > +
-> > > +	/* 3D LUT */
-> > > +	old_colorop = colorop;
-> > > +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> > > +		if (new_colorop_state->colorop == old_colorop &&
-> > > +		    new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT) {
-> > > +			colorop_state = new_colorop_state;
-> > > +			break;
-> > > +		}
-> > > +	}
-> > > +
-> > > +	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_3D_LUT) {
-> > > +		if (!adev->dm.dc->caps.color.dpp.hw_3d_lut) {
-> > 
-> > I wonder if this check is no longer accurate in DCN versions with MCM
-> > (MPC only) 3D LUT caps, such as DCN 3.2 and DCN 4.01.
-> 
-> The current goal is to validate on specific fixed platforms. We will add
-> more platform-specific implemenation when we enable this on new DCN
-> hardware.
-> 
-> In some case, new hardware may have a different color pipeline. For example,
-> there can be no DRM_COLOROP_3D_LUT colorop in a color pipeline, and it is
-> not necessary to check DCN versions. In other cases, we will need to check
-> different DCN versions or different flags for sure.
+On 04/29, Alex Hung wrote:
+> This is an RFC set for a color pipeline API, along with implementations
+> in VKMS and amdgpu. It is tested with a set of IGT tests that can be
+> found at [1]. The IGT tests run a pixel-by-pixel comparison with an
+> allowable delta variation as the goal for these transformations is
+> perceptual correctness, not complete pixel accuracy.
 
-Hi Alex,
+Hi,
 
-So, if this implementation doesn't handle these differences, which
-specific DCN version this plane color pipeline targets?
+Thanks for this work. I found it very solid and well documented.
+The drm colorop implementation looks good to me, but I still have some
+questions about AMD specific bits.
 
-Cover letter says DCN 3 or newer, but once this patch lands, it will
-expose color the same plane color caps on any DCN versions if the
-management of these differences are not managed.
+Patches 1, 3-13, 16, 21-23, 25, 35-41 and 43 are:
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+
+And I dropped some comments and questions to some AMD-specific patches.
 
 > 
-> > 
-> > Also, looking back those patches that introduced shaper and blnd tf and
-> > luts, I don't see similar validation, but IIRC shaper caps directly
-> > depends on 3d lut, for example. IIRC something around blnd func caps
-> > also changed in the above-mentioned DCN versions.
-> > 
-> > Melissa
-> > >> +			drm_dbg(dev, "3D LUT is not supported by hardware\n");
-> > > +			return -EINVAL;
-> > > +		}
-> > > +
-> > > +		drm_dbg(dev, "3D LUT colorop with ID: %d\n", colorop->base.id);
-> > > +		lut3d = __extract_blob_lut(colorop_state->data, &lut3d_size);
-> > > +		lut3d_size = lut3d != NULL ? lut3d_size : 0;
-> > > +		__set_colorop_3dlut(lut3d, lut3d_size, &dc_plane_state->lut3d_func);
-> > > +
-> > > +		/* 3D LUT requires shaper. If shaper colorop is bypassed, enable shaper curve
-> > > +		 * with TRANSFER_FUNCTION_LINEAR
-> > > +		 */
-> > > +		if (tf->type == TF_TYPE_BYPASS) {
-> > > +			tf->type = TF_TYPE_DISTRIBUTED_POINTS;
-> > > +			tf->tf = TRANSFER_FUNCTION_LINEAR;
-> > > +			tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-> > > +			ret = __set_output_tf(tf, NULL, 0, false);
-> > > +		}
+> v5 of this patchset fleshed out documentation for colorops and the
+> various defines that are being introduced.
 > 
-> shaper / 3dlut dependency is checked here.
-
-Right. It handles the dependency when 3D LUT is available, but what I
-expected was that, if `!adev->dm.dc->caps.color.dpp.hw_3dlut`:
-- driver should not expose shaper curve/LUT too; and
-- driver rejects any attempt to program shaper already in that patch
-  that introduced the shaper caps.
-
-Melissa
-
+> v6 addresses a few comments from various reviewers.
 > 
-> > > +	}
-> > > +
-> > > +	return ret;
-> > > +}
-> > > +
-> > >   static int
-> > >   __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
-> > >   			     struct dc_plane_state *dc_plane_state,
-> > > @@ -1522,6 +1605,17 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
-> > >   	if (!colorop)
-> > >   		return -EINVAL;
-> > > +	/* 3D LUT */
-> > > +	colorop = colorop->next;
-> > > +	if (!colorop) {
-> > > +		drm_dbg(dev, "no 3D LUT colorop found\n");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	ret = __set_dm_plane_colorop_3dlut(plane_state, dc_plane_state, colorop);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > >   	/* 1D Curve & LUT - BLND TF & LUT */
-> > >   	colorop = colorop->next;
-> > >   	if (!colorop) {
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> > > index 10b3e3906461..e90774294971 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> > > @@ -49,6 +49,8 @@ const u64 amdgpu_dm_supported_blnd_tfs =
-> > >   #define MAX_COLOR_PIPELINE_OPS 10
-> > > +#define LUT3D_SIZE		17
-> > > +
-> > >   int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
-> > >   {
-> > >   	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
-> > > @@ -145,6 +147,24 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
-> > >   	i++;
-> > > +	/* 3D LUT */
-> > > +	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
-> > > +	if (!ops[i]) {
-> > > +		DRM_ERROR("KMS: Failed to allocate colorop\n");
-> > > +		ret = -ENOMEM;
-> > > +		goto cleanup;
-> > > +	}
-> > > +
-> > > +	ret = drm_plane_colorop_3dlut_init(dev, ops[i], plane, LUT3D_SIZE,
-> > > +				     DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
-> > > +				     DRM_COLOROP_FLAG_ALLOW_BYPASS);
-> > > +	if (ret)
-> > > +		goto cleanup;
-> > > +
-> > > +	drm_colorop_set_next_property(ops[i-1], ops[i]);
-> > > +
-> > > +	i++;
-> > > +
-> > >   	/* 1D curve - BLND TF */
-> > >   	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
-> > >   	if (!ops[i]) {
-> > > -- 
-> > > 2.43.0
-> > > 
+> v7 simplifies 3D LUT and addresses more comments from various reviewers.
+> 
+> v8 fixes typo and errors and address comments from reviewers.
+> 
+> v9 refactors cleanup functions, fixes typo and errors, and addresses
+>    comments from reviewers.
+> 
+> VKMS supports two named transfer function colorops and two matrix
+> colorops.
+> 
+> Amdgpu advertises the following pipeline for GPUs with DCN 3 or newer:
+> 
+> 1. 1D Curve EOTF
+> 2. 3x4 CTM
+> 3. Multiplier
+> 4. 1D Curve Inverse EOTF
+> 5. 1D LUT
+> 6. 3D LUT
+> 7. 1D Curve EOTF
+> 8. 1D LUT
+> 
+> The supported curves for the 1D Curve type are:
+> - sRGB EOTF and its inverse
+> - PQ EOTF, scaled to [0.0, 125.0] and its inverse
+> - BT.2020/BT.709 OETF and its inverse
+> 
+> Note that the 1st and 5th colorops take the EOTF or Inverse
+> OETF while the 3rd colorop takes the Inverse EOTF or OETF.
+> 
+> The 3D LUT is a 17^3 tetrahedrally interpolated LUT but the mechanism
+> exists for other drivers to describe their own 3D LUT capability.
+> 
+> This mirrors the color pipeline used by gamescope and presented by
+> Melissa Wen, with the exception of the DEGAM LUT, which is not currently
+> used. See [1]
+> https://indico.freedesktop.org/event/4/contributions/186/attachments/138/218/xdc2023-TheRainbowTreasureMap-MelissaWen.pdf
+> 
+> At this point we're hoping to see gamescope and kwin implementations
+> take shape. The existing pipeline should be enough to satisfy the
+> gamescope use-cases on the drm_plane.
+> 
+> In order to support YUV we'll need to add COLOR_ENCODING and COLOR_RANGE
+> support to the color pipeline. I have sketched these out already but
+> don't have it all hooked up yet. This should not hinder adoption of this
+> API for gaming use-cases.
+> 
+> We'll also want to advertise IN_FORMATS on a color pipeline as some
+> color pipelines won't be able to work for all IN_FORMATS on a plane.
+> Again, I have a sketch but no full implementation yet. This is not
+> currently required by the AMD color pipeline and could be added after
+> the merge of this set.
+> 
+> VKMS patches could still be improved in a few ways, though the
+> payoff might be limited and I would rather focus on other work
+> at the moment. The most obvious thing to improve would be to
+> eliminate the hard-coded LUTs for identity, and sRGB, and replace
+> them with fixed-point math instead.
+> 
+> There are plenty of things that I would like to see, but they could
+> be added after the merge of this patchset:
+>  - COLOR_ENCODING and COLOR_RANGE
+>  - IN_FORMATS for a color pipeline
+>  - Is it possible to support HW which can't bypass entire pipeline?
+>  - Can we do a LOAD / COMMIT model for LUTs (and other properties)?
+>  - read-only scaling colorop which defines scaling taps and position
+>  - named matrices, for things like converting YUV to RGB
+>  - Add custom LUT colorops to VKMS
+> 
+> IGT tests can be found at [1] or on the igt-dev mailing list. There
+> have been no updates since v5 and rebase on latest main is straight-
+> forward.
+> 
+> A kernel branch can be found at [2].
+> 
+> [1] https://gitlab.freedesktop.org/alex.hung/igt-gpu-tools/-/tree/amd-color-pipeline-v8
+> [2] https://gitlab.freedesktop.org/alex.hung/linux/-/tree/amd-color-pipeline-v9
+> 
+> v9:
+>  - Update RFC documents for 3DLUT and fallback behaviours (Simon Ser)
+>  - Specify colorop function names by _plane_ (Chaitanya Kumar Borah)
+>  - Remove redundant comments (Simon Ser)
+>  - Fix typo in commit description (Shengyu Qu)
+>  - Move destroy and cleanup functions earlier (Simon Ser)
+>  - Move DRM_COLOROP_1D_CURVE_BT2020_* from middle to end (Simon Ser)
+>  - Chagne "bool allow_bypass" to "uint32_t flags" for better extensibility (Simon Ser)
+>  - Return a value in __set_dm_plane_colorop_3dlut
+> 
+> v8:
+>  - Change VKMS config names (Louis Chauvet)
+>  - Remove deprecated function "drm_atomic_get_existing_colorop_state" (Louis Chauvet)
+>  - Remove null check in drm_colorop_set_next_property (Simon Ser)
+>  - Remove MAX_COLOR_PIPELINES in drm (Simon Ser)
+>  - Update kernel docs and documents for DRM_COLOROP_3D_LUT (Simon Ser)
+>  - Add comments for dmr_color_lut (Louis Chauvet)
+>  - Fix typos and replace DRM_ERROR and DRM_WARN_ONCE by drm_err drm_WARN_ONCE (Louis Chauvet)
+>  - Fix incorrect conditions in __set_colorop_in_tf_1d_curve (Leo Li)
+>  - Add DRM_MODE_PROP_ATOMIC to drm_property_create_range (Simon Ser)
+>  - Change "1D Curve Custom LUT" to "1D LUT" (Simon Ser)
+>  - Return error when __set_output_tf fails (Leo Li)
+>  - Return -EINVAL when drm_color_ctm_3x4's size mismatches (Leo Li)
+>  - Set initialized to 0 and return when drm_lut3d_size is 0 (Harry Wentland)
+>  - Rework tf->type = TF_TYPE_BYPASS for shaper (Harry Wentland & Leo Li)
+> 
+> v7:
+>  - Simplify 3D LUT by removing lut_3d_modes and update doc accordingly (Simon Ser)
+>  - Add destroy / cleanup functions when color pipeline initialization
+>    fails (Louis Chauvet)
+>  - Fix checkpatch errors and warning (spaces, long lines, {}, and etc)
+>  - Change lut's size from drm_colorop_state->size to drm_colorop->lut_size
+>    and from size_property to lut_size_property
+>  - Update some kernel updates and commit messagesa (Louis Chauvet)
+>  - Squash "drm/colorop: Add atomic state print for drm_colorop" and
+>    "drm/colorop: Add NEXT to colorop state print" (Simon Ser)
+>  - Add missing MODULE_DESCRIPTION (Jeff Johnson)
+> 
+> v6:
+>  - Eliminate need to include test as .c file (Louis Chauvet)
+>  - some doc updates
+>  - cleanup if colorop alloc or init fails in VKMS and amdgpu (Louis Chauvet)
+>  - couple other small improvements in VKMS, such as rounding (Louis Chauvet)
+>  - take ref for DATA blob in duplicate_state func & fix refcount issues (Xaver Hugl)
+> 
+> v5:
+>  - amdgpu 3D LUT
+>  - Don't require BYPASS
+>  - update RFC docs and add to TOC tree
+>  - add drm_colorop and COLOR_PIPELINE kernel docs (non-RFC)
+>  - add amdgpu color pipeline doc
+>  - define SIZE property similar to drm_crtc's GAMMA_SIZE
+>  - various minor fixes and cleanups
+> 
+> v4:
+>  - Add amdgpu color pipeline (WIP)
+>  - Don't block setting of deprecated properties, instead pass client cap
+>    to atomic check so drivers can ignore these props
+>  - Drop IOCTL definitions (Pekka)
+>  - Use enum property for colorop TYPE (Pekka)
+>  - A few cleanups to the docs (Pekka)
+>  - Rework the TYPE enum to name relation to avoid code duplication (Pekka)
+>  - Add missing function declarations (Chaitanya Kumar Borah)
+>  - Allow setting of NEXT property to NULL in _set_ function (Chaitanya Kumar Borah)
+>  - Add helper for creation of pipeline drm_plane property (Pekka)
+>  - Always create Bypass pipeline (Pekka)
+>  - A bunch of changes to VKMS kunit tests (Pekka)
+>  - Fix index in CTM doc (Pekka)
+> 
+> v3:
+>  - Abandon IOCTLs and discover colorops as clients iterate the pipeline
+>  - Remove need for libdrm
+>  - Add color_pipeline client cap and make mutually exclusive with
+>    COLOR_RANGE and COLOR_ENCODING properties
+>  - add CTM colorop to VKMS
+>  - Use include way for kunit testing static functions (Arthur)
+>  - Make TYPE a range property
+>  - Move enum drm_colorop_type to uapi header
+>  - and a bunch of smaller bits that are highlighted in the relevant commit
+>    description
+> 
+> v2:
+>  - Rebased on drm-misc-next
+>  - Introduce a VKMS Kunit so we can test LUT functionality in vkms_composer
+>  - Incorporate feedback in color_pipeline.rst doc
+>  - Add support for sRGB inverse EOTF
+>  - Add 2nd enumerated TF colorop to VKMS
+>  - Fix LUTs and some issues with applying LUTs in VKMS
+> 
+> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Cc: Simon Ser <contact@emersion.fr>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Jonas Ådahl <jadahl@redhat.com>
+> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> Cc: Shashank Sharma <shashank.sharma@amd.com>
+> Cc: Alexander Goins <agoins@nvidia.com>
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: Michel Dänzer <mdaenzer@redhat.com>
+> Cc: Aleix Pol <aleixpol@kde.org>
+> Cc: Xaver Hugl <xaver.hugl@gmail.com>
+> Cc: Victoria Brekenfeld <victoria@system76.com>
+> Cc: Sima <daniel@ffwll.ch>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Naseer Ahmed <quic_naseer@quicinc.com>
+> Cc: Christopher Braga <quic_cbraga@quicinc.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Arthur Grillo <arthurgrillo@riseup.net>
+> Cc: Hector Martin <marcan@marcan.st>
+> Cc: Liviu Dudau <Liviu.Dudau@arm.com>
+> Cc: Sasha McIntosh <sashamcintosh@google.com>
+> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> 
+> Alex Hung (14):
+>   drm/colorop: Add destroy functions for color pipeline
+>   drm/colorop: define a new macro for_each_new_colorop_in_state
+>   drm/amd/display: Skip color pipeline initialization for cursor plane
+>   drm/amd/display: Add support for sRGB EOTF in DEGAM block
+>   drm/amd/display: Add support for sRGB Inverse EOTF in SHAPER block
+>   drm/amd/display: Add support for sRGB EOTF in BLND block
+>   drm/colorop: Add 1D Curve Custom LUT type
+>   drm/amd/display: add shaper and blend colorops for 1D Curve Custom LUT
+>   drm/amd/display: add 3x4 matrix colorop
+>   drm/colorop: Add mutliplier type
+>   drm/amd/display: add multiplier colorop
+>   drm/amd/display: Swap matrix and multiplier
+>   drm/colorop: Add 3D LUT support to color pipeline
+>   drm/amd/display: add 3D LUT colorop
+> 
+> Harry Wentland (29):
+>   drm: Add helper for conversion from signed-magnitude
+>   drm/vkms: Add kunit tests for VKMS LUT handling
+>   drm/doc/rfc: Describe why prescriptive color pipeline is needed
+>   drm/colorop: Introduce new drm_colorop mode object
+>   drm/colorop: Add TYPE property
+>   drm/colorop: Add 1D Curve subtype
+>   drm/colorop: Add BYPASS property
+>   drm/colorop: Add NEXT property
+>   drm/colorop: Add atomic state print for drm_colorop
+>   drm/plane: Add COLOR PIPELINE property
+>   drm/colorop: Introduce DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+>   Documentation/gpu: document drm_colorop
+>   drm/vkms: Add enumerated 1D curve colorop
+>   drm/vkms: Add kunit tests for linear and sRGB LUTs
+>   drm/colorop: Add 3x4 CTM type
+>   drm/vkms: Use s32 for internal color pipeline precision
+>   drm/vkms: add 3x4 matrix in color pipeline
+>   drm/tests: Add a few tests around drm_fixed.h
+>   drm/vkms: Add tests for CTM handling
+>   drm/colorop: pass plane_color_pipeline client cap to atomic check
+>   drm/amd/display: Ignore deprecated props when plane_color_pipeline set
+>   drm/amd/display: Add bypass COLOR PIPELINE
+>   drm/colorop: Add PQ 125 EOTF and its inverse
+>   drm/amd/display: Enable support for PQ 125 EOTF and Inverse
+>   drm/colorop: add BT2020/BT709 OETF and Inverse OETF
+>   drm/amd/display: Add support for BT.709 and BT.2020 TFs
+>   drm/colorop: Define LUT_1D interpolation
+>   drm/colorop: allow non-bypass colorops
+>   drm/amd/display: Add AMD color pipeline doc
+> 
+>  Documentation/gpu/drm-kms.rst                 |  15 +
+>  Documentation/gpu/rfc/color_pipeline.rst      | 378 ++++++++
+>  Documentation/gpu/rfc/index.rst               |   3 +
+>  drivers/gpu/drm/Makefile                      |   1 +
+>  .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 573 ++++++++++++-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 207 +++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  36 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  32 +
+>  drivers/gpu/drm/drm_atomic.c                  | 170 +++-
+>  drivers/gpu/drm/drm_atomic_helper.c           |  12 +
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |   5 +
+>  drivers/gpu/drm/drm_atomic_uapi.c             | 175 ++++
+>  drivers/gpu/drm/drm_colorop.c                 | 598 +++++++++++++
+>  drivers/gpu/drm/drm_ioctl.c                   |   7 +
+>  drivers/gpu/drm/drm_mode_config.c             |   7 +
+>  drivers/gpu/drm/drm_plane.c                   |  59 ++
+>  drivers/gpu/drm/tests/Makefile                |   3 +-
+>  drivers/gpu/drm/tests/drm_fixp_test.c         |  71 ++
+>  drivers/gpu/drm/vkms/Makefile                 |   4 +-
+>  drivers/gpu/drm/vkms/tests/Makefile           |   2 +-
+>  drivers/gpu/drm/vkms/tests/vkms_color_test.c  | 459 ++++++++++
+>  drivers/gpu/drm/vkms/vkms_colorop.c           | 115 +++
+>  drivers/gpu/drm/vkms/vkms_composer.c          | 134 ++-
+>  drivers/gpu/drm/vkms/vkms_composer.h          |  27 +
+>  drivers/gpu/drm/vkms/vkms_drv.h               |   7 +
+>  drivers/gpu/drm/vkms/vkms_luts.c              | 808 ++++++++++++++++++
+>  drivers/gpu/drm/vkms/vkms_luts.h              |  12 +
+>  drivers/gpu/drm/vkms/vkms_plane.c             |   2 +
+>  include/drm/drm_atomic.h                      | 111 +++
+>  include/drm/drm_atomic_uapi.h                 |   3 +
+>  include/drm/drm_colorop.h                     | 442 ++++++++++
+>  include/drm/drm_file.h                        |   7 +
+>  include/drm/drm_fixed.h                       |  18 +
+>  include/drm/drm_mode_config.h                 |  18 +
+>  include/drm/drm_plane.h                       |  19 +
+>  include/uapi/drm/amdgpu_drm.h                 |   9 -
+>  include/uapi/drm/drm.h                        |  15 +
+>  include/uapi/drm/drm_mode.h                   | 121 +++
+>  40 files changed, 4642 insertions(+), 50 deletions(-)
+>  create mode 100644 Documentation/gpu/rfc/color_pipeline.rst
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
+>  create mode 100644 drivers/gpu/drm/drm_colorop.c
+>  create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
+>  create mode 100644 drivers/gpu/drm/vkms/tests/vkms_color_test.c
+>  create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
+>  create mode 100644 drivers/gpu/drm/vkms/vkms_composer.h
+>  create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
+>  create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
+>  create mode 100644 include/drm/drm_colorop.h
+> 
+> -- 
+> 2.43.0
 > 
