@@ -4,73 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 158A9C3ABC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 May 2025 20:10:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F1DC3ABCB
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 May 2025 00:53:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0D7710E49F;
-	Mon, 12 May 2025 20:10:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F088D10E4BE;
+	Tue, 13 May 2025 00:53:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UAOoJLdq";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="l022J4n9";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A769210E49F;
- Mon, 12 May 2025 20:10:52 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-b1ff8a0a13cso814194a12.0; 
- Mon, 12 May 2025 13:10:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747080652; x=1747685452; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TNzlrfZxfOGKMDbj14ymw9GdOkMEXSGepdIAXWjXZl0=;
- b=UAOoJLdqwBMOkNOlM1XXN7f5gaNc+ugoCxn1DkgjApVkNSwFs7NmnM83zFQH5ib1sN
- qeFlGts0XyK8rxyjL0fFPcKPMSn6rtnYr1GpXMaXJWWY0SDxPZfbnpRo7S2HRYyxgB67
- bPqIKo3BF+d/4jemu9TOo78RRwVumDhxCqqZiPfnvPK64pkNTNeu1erDJa5zhcuTnqR0
- V2eRBDF6s4Od9pnopnDltQcTvROaLY6x16E8sLbhXKMSrVPepUaVunhDRlkHzUTCeYEW
- lkoOpq8nkOOG6nNanIHVvMFkq1xiL5eMLkpxk+/nkreiXXaBKq1j2Eg/Mmx9LBop8fal
- JS8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747080652; x=1747685452;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TNzlrfZxfOGKMDbj14ymw9GdOkMEXSGepdIAXWjXZl0=;
- b=nKC6H1Jimz4YL9nwtY18K93fKz30oIR3smXXQbzMQhP0WkF+u6a0IBZhboEGbY27UX
- Bfln8MRIHe0GJDoDfb7839frVetyDSjHIEjX/E5G7xDSRavh+z8xApSbnW6MKfUppkbC
- kmzcpSkRlXa/a/BjLmDm2wlewdX3mcHJPOELP54Q4nFqEK6QHWHybQ480crTwOInwvhG
- 4o1UnFAHO5VJiBqWiNjHlgkR2PkYwlFtGc/UrwUjj6kYIArcfgURxD/dSGrNkklCq9gw
- GOXLlWM/++psB5aS/vUXSTBvvGdgPKMw/Kc45VNM4BL7yCwd2+FYdeBDqYcmSNx6vJyj
- CSuw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXydnb2F3o9qF2c0v6AegkHcB9N3RAaMjIbz16V/5jv/RaOgPOIcVFtHUSLDoMhllUFd9zkxbc0sXY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjE1/d066lMwuLMcHhEoA7iPS5bMkD8T8Ghmo2Rv4bhPJzmIIu
- JiLya/28Hel1KO20fHRn3AXBayaSDBZ02XoveVbBEuL6w3JSuyO3gxk+AdWDmtgQwxkaVZzGRmv
- Vg1eGbvbQWkc9EFjKVmkTjPysJ7mrh4MM
-X-Gm-Gg: ASbGncuB5hPZSJiholkvOMcS5v6D7HcumIwWWY+LfdU1aPOMKA8q4TvpaTZvlj+X7kA
- Kp4vGICTVAZydMYhU6ndtZCP/EUMsIIbiBG7fHZ16G4qCqdXZ/c3GsbPv564hw7MfwhyXPAtFxr
- TVysysDexqKZ1pkhoa6yRxhryhNIdT+n7NytBxOovExws=
-X-Google-Smtp-Source: AGHT+IFY9WwxznwjIs56GtzB24snIWQRo9lN27jIRJJqRwz7p9swzydfVUUHJJf7h067rUUhBH0+CyXauWgdM2Ua75M=
-X-Received: by 2002:a17:902:e94d:b0:22e:6ea8:8a07 with SMTP id
- d9443c01a7336-22fc9087803mr73172895ad.9.1747080652056; Mon, 12 May 2025
- 13:10:52 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 918B910E273;
+ Tue, 13 May 2025 00:53:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=M/2eSaMA5/pbWI55B/URgkofijaNSxk2TTJP3iLiEP8=; b=l022J4n9sAsd5K7wfeiRSvTFxD
+ fDCEkpORCFQSYubWWst1Vn/Mlrv1a+DSZb2ivfwjK32hlfIoEvw2cJnxkwwfBkWFDvn4r2hohoWTi
+ 6bRvJyCdUIDuaqZTZhia2OuHFtQCLYJpJqaTPp2kan/tJArfiC/s3yMQYyuhyznAV7r8dZz49PJeF
+ p/xBucRa4sWBip8HZy+KMKEZ4e/iQfY8/dtpHbB5tQal//fdJd/8rwEtMSB14/wUWkajhao6dt6RW
+ UQnlZ0nvUTWGwnURc0Gjma2dNjNIYYRZ8zev9djecCoEyhPFWvTNXeakjTg1Z5YEZvae6XuO5ciGn
+ Q0L0g9zA==;
+Received: from [189.6.16.79] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uEdo6-007LzW-TO; Tue, 13 May 2025 02:53:10 +0200
+Date: Mon, 12 May 2025 21:52:54 -0300
+From: Melissa Wen <mwen@igalia.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, leo.liu@amd.com, 
+ ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
+ contact@emersion.fr, 
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com, 
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, 
+ quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
+ marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
+ Daniel Stone <daniels@collabora.com>
+Subject: Re: [PATCH V9 42/43] drm/amd/display: add 3D LUT colorop
+Message-ID: <lyrpq2f7ypi7htircam6o4sd2yfxqnkn4zlre3lbh3ffsbtjcn@onpawcyobyvu>
+References: <20250430011115.223996-1-alex.hung@amd.com>
+ <20250430011115.223996-43-alex.hung@amd.com>
 MIME-Version: 1.0
-References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
- <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
- <GXXZVS.Q1GIIU1M9VBL1@att.net>
- <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
- <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
-In-Reply-To: <EWZ5WS.K2DTZM5DEZCL2@att.net>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 12 May 2025 16:10:40 -0400
-X-Gm-Features: AX0GCFsEFo7fJJ6Kq4sfr7_XIE3CIvTcO2qwnDkAN3SdcTpfdVs26FffhVmYghE
-Message-ID: <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
-Subject: Re: Kernels >= 6.3 disable video output
-To: Steven J Abner <pheonix.sja@att.net>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250430011115.223996-43-alex.hung@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,33 +69,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 12, 2025 at 4:07=E2=80=AFPM Steven J Abner <pheonix.sja@att.net=
-> wrote:
->
-> On Fri, May 9 2025 at 03:01:13 PM +0000, Steven J Abner
-> <pheonix.sja@att.net> wrote:
-> > On Fri, May 9 2025 at 02:05:16 PM +0000, Alex Deucher
-> > <alexdeucher@gmail.com> wrote:
-> >> bisect between 6.2.16 and 6.2.17 to identify the commit which broke
-> >
-> > Are you asking for a 'diff' output of drm and amdgpu directories
-> > between 6.2.16 (last of the 6.2 series) and 6.3 (start of the 6.3
-> > series)?
->
->  I'm willing to revert/test code on my machine, problem is I don't know
-> sequence nor what I can safely revert. I haven't messed with video
-> drivers/code since DOS days of having to write ones own graphics
-> routines. I could force? kernel to build with '-g' on drm/amdgpu? and
-> walk it I guess. But don't know what I'm looking for. :(
+On 04/29, Alex Hung wrote:
+> This adds support for a 3D LUT.
+> 
+> The color pipeline now consists of the following colorops:
+> 1. 1D curve colorop
+> 2. Multiplier
+> 3. 3x4 CTM
+> 4. 1D curve colorop
+> 5. 1D LUT
+> 6. 3D LUT
+> 7. 1D curve colorop
+> 8. 1D LUT
+> 
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Reviewed-by: Daniel Stone <daniels@collabora.com>
+> ---
+> V9:
+>  - Return a value in __set_dm_plane_colorop_3dlut
+> 
+> v8:
+>  - Set initialized to 0 and return when drm_lut3d_size is 0 (Harry Wentland)
+>  - Rework tf->type = TF_TYPE_BYPASS for shaper (Harry Wentland & Leo Li)
+> 
+> v7:
+>  - Simplify 3D LUT according to drm_colorop changes (Simon Ser)
+> 
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 94 +++++++++++++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 20 ++++
+>  2 files changed, 114 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index 313716f2003f..dfdd3f557570 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -1293,6 +1293,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+>  	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
+>  	const struct drm_color_lut *shaper_lut;
+>  	struct drm_device *dev = colorop->dev;
+> +	bool enabled = false;
+>  	uint32_t shaper_size;
+>  	int i = 0, ret = 0;
+>  
+> @@ -1314,6 +1315,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+>  		ret = __set_output_tf(tf, 0, 0, false);
+>  		if (ret)
+>  			return ret;
+> +		enabled = true;
+>  	}
+>  
+>  	/* 1D LUT - SHAPER LUT */
+> @@ -1345,12 +1347,93 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+>  			ret = __set_output_tf(tf, shaper_lut, shaper_size, false);
+>  			if (ret)
+>  				return ret;
+> +			enabled = true;
+>  		}
+>  	}
+>  
+> +	if (!enabled)
+> +		tf->type = TF_TYPE_BYPASS;
+> +
+>  	return 0;
+>  }
+>  
+> +/* __set_colorop_3dlut - set DRM 3D LUT to DC stream
+> + * @drm_lut3d: user 3D LUT
+> + * @drm_lut3d_size: size of 3D LUT
+> + * @lut3d: DC 3D LUT
+> + *
+> + * Map user 3D LUT data to DC 3D LUT and all necessary bits to program it
+> + * on DCN accordingly.
+> + */
+> +static void __set_colorop_3dlut(const struct drm_color_lut *drm_lut3d,
+> +				uint32_t drm_lut3d_size,
+> +				struct dc_3dlut *lut)
+> +{
+> +	if (!drm_lut3d_size) {
+> +		lut->state.bits.initialized = 0;
+> +		return;
+> +	}
+> +
+> +	/* Only supports 17x17x17 3D LUT (12-bit) now */
+> +	lut->lut_3d.use_12bits = true;
+> +	lut->lut_3d.use_tetrahedral_9 = false;
+> +
+> +	lut->state.bits.initialized = 1;
+> +	__drm_3dlut_to_dc_3dlut(drm_lut3d, drm_lut3d_size, &lut->lut_3d,
+> +				lut->lut_3d.use_tetrahedral_9, 12);
+> +
+> +}
+> +
+> +static int
+> +__set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
+> +			     struct dc_plane_state *dc_plane_state,
+> +			     struct drm_colorop *colorop)
+> +{
+> +	struct drm_colorop *old_colorop;
+> +	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
+> +	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
+> +	struct drm_atomic_state *state = plane_state->state;
+> +	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
+> +	const struct drm_device *dev = colorop->dev;
+> +	const struct drm_color_lut *lut3d;
+> +	uint32_t lut3d_size;
+> +	int i = 0, ret = 0;
+> +
+> +	/* 3D LUT */
+> +	old_colorop = colorop;
+> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+> +		if (new_colorop_state->colorop == old_colorop &&
+> +		    new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT) {
+> +			colorop_state = new_colorop_state;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_3D_LUT) {
+> +		if (!adev->dm.dc->caps.color.dpp.hw_3d_lut) {
 
-See:
-https://docs.kernel.org/admin-guide/bug-bisect.html
-If you know a good and bad point on a particular kernel branch, you
-can use git to bisect the tree and identify the exact commit which
-broke caused your issue.
+I wonder if this check is no longer accurate in DCN versions with MCM
+(MPC only) 3D LUT caps, such as DCN 3.2 and DCN 4.01.
 
-Alex
+Also, looking back those patches that introduced shaper and blnd tf and
+luts, I don't see similar validation, but IIRC shaper caps directly
+depends on 3d lut, for example. IIRC something around blnd func caps
+also changed in the above-mentioned DCN versions.
 
-> Steve
->
->
+Melissa
+
+> +			drm_dbg(dev, "3D LUT is not supported by hardware\n");
+> +			return -EINVAL;
+> +		}
+> +
+> +		drm_dbg(dev, "3D LUT colorop with ID: %d\n", colorop->base.id);
+> +		lut3d = __extract_blob_lut(colorop_state->data, &lut3d_size);
+> +		lut3d_size = lut3d != NULL ? lut3d_size : 0;
+> +		__set_colorop_3dlut(lut3d, lut3d_size, &dc_plane_state->lut3d_func);
+> +
+> +		/* 3D LUT requires shaper. If shaper colorop is bypassed, enable shaper curve
+> +		 * with TRANSFER_FUNCTION_LINEAR
+> +		 */
+> +		if (tf->type == TF_TYPE_BYPASS) {
+> +			tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+> +			tf->tf = TRANSFER_FUNCTION_LINEAR;
+> +			tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+> +			ret = __set_output_tf(tf, NULL, 0, false);
+> +		}
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>  static int
+>  __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
+>  			     struct dc_plane_state *dc_plane_state,
+> @@ -1522,6 +1605,17 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+>  	if (!colorop)
+>  		return -EINVAL;
+>  
+> +	/* 3D LUT */
+> +	colorop = colorop->next;
+> +	if (!colorop) {
+> +		drm_dbg(dev, "no 3D LUT colorop found\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = __set_dm_plane_colorop_3dlut(plane_state, dc_plane_state, colorop);
+> +	if (ret)
+> +		return ret;
+> +
+>  	/* 1D Curve & LUT - BLND TF & LUT */
+>  	colorop = colorop->next;
+>  	if (!colorop) {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> index 10b3e3906461..e90774294971 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> @@ -49,6 +49,8 @@ const u64 amdgpu_dm_supported_blnd_tfs =
+>  
+>  #define MAX_COLOR_PIPELINE_OPS 10
+>  
+> +#define LUT3D_SIZE		17
+> +
+>  int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
+>  {
+>  	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
+> @@ -145,6 +147,24 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
+>  
+>  	i++;
+>  
+> +	/* 3D LUT */
+> +	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+> +	if (!ops[i]) {
+> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
+> +		ret = -ENOMEM;
+> +		goto cleanup;
+> +	}
+> +
+> +	ret = drm_plane_colorop_3dlut_init(dev, ops[i], plane, LUT3D_SIZE,
+> +				     DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
+> +				     DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> +	if (ret)
+> +		goto cleanup;
+> +
+> +	drm_colorop_set_next_property(ops[i-1], ops[i]);
+> +
+> +	i++;
+> +
+>  	/* 1D curve - BLND TF */
+>  	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+>  	if (!ops[i]) {
+> -- 
+> 2.43.0
+> 
