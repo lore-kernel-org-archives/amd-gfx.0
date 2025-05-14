@@ -4,46 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 930D5C3ABDA
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 07:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89D2BC3ABDD
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 07:31:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A07010E269;
-	Wed, 14 May 2025 07:31:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B59710E24B;
+	Wed, 14 May 2025 07:31:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gvernon.com header.i=@gvernon.com header.b="mLR97Mkw";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="WgGedhVm";
 	dkim-atps=neutral
-X-Greylist: delayed 406 seconds by postgrey-1.36 at gabe;
- Tue, 13 May 2025 23:39:47 UTC
-Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com
- [95.215.58.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 341A610E21E
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 May 2025 23:39:46 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gvernon.com; s=key1;
- t=1747179170;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=iYcQQzN6vnaXT766TJ+cVQWw0N0NG5qRoAhx0ZwZjFY=;
- b=mLR97Mkwj5zSlLnN/mlvCwd7qeWtalgeS4/J/A3+Sxl+eLFdZrt+OTWS3CmKuJjDYISsCn
- 2CL4jzCj1ldnYYSHqC+CHKCNvTsxb1S6W7+LTxxKwS5he0SzrwnhUBKD18BmcvdHFqwhyj
- 51A6kJmYvqs+h0K6o03t7qf6hxmc1nCewHEkJbFBhN6qDIhmo7mVZmwQUSzpG7sQoIWbU2
- pLJQQqVEvRCAoBTji9ZwD/lOc0M7I+ziOPOxUvcvFGuBBc/ST6JucGO7owcaL5cppkvln+
- GRjhf0rvCs/mlcWCBU5hBpZWsDwIfJm7ca2CVrxM3Rb4lFwF8Bcfx6y1GTa8BA==
-From: George Anthony Vernon <contact@gvernon.com>
-To: airlied@gmail.com,
-	simona@ffwll.ch,
-	skhan@linuxfoundation.org
-Cc: George Anthony Vernon <contact@gvernon.com>, amd-gfx@lists.freedesktop.org,
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE9810E17F;
+ Wed, 14 May 2025 01:16:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=1hs0q+mYysLcaiUGDRGU9TTWH9u5sOR249xe+14mUYE=; b=WgGedhVmEtnihbug
+ SFvkbuRhV8goYYF6lKHH2iKLLNc8rG4SVCmXVxAWsML0+B9VAbNCQ+ToGlPa+bFCPDv5gLjq65LTL
+ wdEjOe6Ih+peKUx/B3FBq5j1yYptpGsrpGL3Fccnlq+FhVTpcj+K+pHpt1g7r+qphZQ3Bjz9c7cd2
+ lxCpD8+tFTksaAJFpsW51xhj0jAaGraa9BYTtT/5xVItG+6TXZC9Tu7vVz+d5tosp6h83Fu9NVfhm
+ 7Y3FxO6XaXXZu929fpm1eHeKo2l7q5TbbL0wFgM5cGU143FyYKYWVODs95f1H4ZaYb6RY1TpeSYld
+ aAPQZz4AiVKysSYc4w==;
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <linux@treblig.org>) id 1uF0jD-003Oxd-2I;
+ Wed, 14 May 2025 01:16:11 +0000
+From: linux@treblig.org
+To: alexander.deucher@amd.com, christophe.jaillet@wanadoo.fr,
+ christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH] drm/amdgpu: Fix docs build warning
-Date: Wed, 14 May 2025 00:31:55 +0100
-Message-ID: <20250513233212.21186-1-contact@gvernon.com>
+ "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH] drm/radeon/cik: Clean up doorbells
+Date: Wed, 14 May 2025 02:16:10 +0100
+Message-ID: <20250514011610.136607-1-linux@treblig.org>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Wed, 14 May 2025 07:31:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,27 +55,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The kerneldoc comment for HGCP locality check debug mask was missing a
-semicolon resulting in a documentation build warning. Correct it.
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-Signed-off-by: George Anthony Vernon <contact@gvernon.com>
+Free doorbells in the error paths of cik_init and in cik_fini.
+
+Build tested only.
+
+Suggested-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
- drivers/gpu/drm/amd/include/amd_shared.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+RFC->v1
+  Renamed ringCP[12]->ring_cp[12]
+  Cleaned up doorbells in cik_startup failure case
 
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 4c95b885d1d0..c8eccee9b023 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -366,7 +366,7 @@ enum DC_DEBUG_MASK {
- 	DC_HDCP_LC_FORCE_FW_ENABLE = 0x80000,
+ drivers/gpu/drm/radeon/cik.c | 42 +++++++++++++++++++++++++-----------
+ 1 file changed, 30 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index 11a492f21157..51a3e0fc2f56 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -8548,7 +8548,7 @@ int cik_suspend(struct radeon_device *rdev)
+  */
+ int cik_init(struct radeon_device *rdev)
+ {
+-	struct radeon_ring *ring;
++	struct radeon_ring *ring, *ring_cp1, *ring_cp2;
+ 	int r;
  
- 	/**
--	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK If set, upon HDCP Locality Check FW
-+	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Check FW
- 	 * path failure, retry using legacy SW path.
+ 	/* Read BIOS */
+@@ -8623,19 +8623,22 @@ int cik_init(struct radeon_device *rdev)
+ 	ring->ring_obj = NULL;
+ 	r600_ring_init(rdev, ring, 1024 * 1024);
+ 
+-	ring = &rdev->ring[CAYMAN_RING_TYPE_CP1_INDEX];
+-	ring->ring_obj = NULL;
+-	r600_ring_init(rdev, ring, 1024 * 1024);
+-	r = radeon_doorbell_get(rdev, &ring->doorbell_index);
++	ring_cp1 = &rdev->ring[CAYMAN_RING_TYPE_CP1_INDEX];
++	ring_cp2 = &rdev->ring[CAYMAN_RING_TYPE_CP2_INDEX];
++	ring_cp1->ring_obj = NULL;
++	ring_cp2->ring_obj = NULL;
++	ring_cp1->doorbell_index = RADEON_MAX_DOORBELLS;
++	ring_cp2->doorbell_index = RADEON_MAX_DOORBELLS;
++
++	r600_ring_init(rdev, ring_cp1, 1024 * 1024);
++	r = radeon_doorbell_get(rdev, &ring_cp1->doorbell_index);
+ 	if (r)
+ 		return r;
+ 
+-	ring = &rdev->ring[CAYMAN_RING_TYPE_CP2_INDEX];
+-	ring->ring_obj = NULL;
+-	r600_ring_init(rdev, ring, 1024 * 1024);
+-	r = radeon_doorbell_get(rdev, &ring->doorbell_index);
++	r600_ring_init(rdev, ring_cp2, 1024 * 1024);
++	r = radeon_doorbell_get(rdev, &ring_cp2->doorbell_index);
+ 	if (r)
+-		return r;
++		goto out;
+ 
+ 	ring = &rdev->ring[R600_RING_TYPE_DMA_INDEX];
+ 	ring->ring_obj = NULL;
+@@ -8653,12 +8656,16 @@ int cik_init(struct radeon_device *rdev)
+ 
+ 	r = r600_pcie_gart_init(rdev);
+ 	if (r)
+-		return r;
++		goto out;
+ 
+ 	rdev->accel_working = true;
+ 	r = cik_startup(rdev);
+ 	if (r) {
+ 		dev_err(rdev->dev, "disabling GPU acceleration\n");
++		radeon_doorbell_free(rdev, ring_cp1->doorbell_index);
++		radeon_doorbell_free(rdev, ring_cp2->doorbell_index);
++		ring_cp1->doorbell_index = RADEON_MAX_DOORBELLS;
++		ring_cp2->doorbell_index = RADEON_MAX_DOORBELLS;
+ 		cik_cp_fini(rdev);
+ 		cik_sdma_fini(rdev);
+ 		cik_irq_fini(rdev);
+@@ -8678,10 +8685,16 @@ int cik_init(struct radeon_device *rdev)
  	 */
- 	DC_HDCP_LC_ENABLE_SW_FALLBACK = 0x100000,
+ 	if (!rdev->mc_fw && !(rdev->flags & RADEON_IS_IGP)) {
+ 		DRM_ERROR("radeon: MC ucode required for NI+.\n");
+-		return -EINVAL;
++		r = -EINVAL;
++		goto out;
+ 	}
+ 
+ 	return 0;
++
++out:
++	radeon_doorbell_free(rdev, ring_cp1->doorbell_index);
++	radeon_doorbell_free(rdev, ring_cp2->doorbell_index);
++	return r;
+ }
+ 
+ /**
+@@ -8695,6 +8708,7 @@ int cik_init(struct radeon_device *rdev)
+  */
+ void cik_fini(struct radeon_device *rdev)
+ {
++	struct radeon_ring *ring;
+ 	radeon_pm_fini(rdev);
+ 	cik_cp_fini(rdev);
+ 	cik_sdma_fini(rdev);
+@@ -8708,6 +8722,10 @@ void cik_fini(struct radeon_device *rdev)
+ 	radeon_ib_pool_fini(rdev);
+ 	radeon_irq_kms_fini(rdev);
+ 	uvd_v1_0_fini(rdev);
++	ring = &rdev->ring[CAYMAN_RING_TYPE_CP1_INDEX];
++	radeon_doorbell_free(rdev, ring->doorbell_index);
++	ring = &rdev->ring[CAYMAN_RING_TYPE_CP2_INDEX];
++	radeon_doorbell_free(rdev, ring->doorbell_index);
+ 	radeon_uvd_fini(rdev);
+ 	radeon_vce_fini(rdev);
+ 	cik_pcie_gart_fini(rdev);
 -- 
 2.49.0
 
