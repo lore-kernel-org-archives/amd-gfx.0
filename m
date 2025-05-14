@@ -4,86 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB517C3ABD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 20:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3DB8C3ABDA
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 20:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8044B10E73A;
-	Wed, 14 May 2025 20:23:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lOl3vN6H";
-	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB72810E63F
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 16:11:17 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-442ec3ce724so117725e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 09:11:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747239076; x=1747843876; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Y2/V4Vh+d+a0nZcON/MiVuUcn+BjyzHoYwdbSHuLjiw=;
- b=lOl3vN6H1JCmQLfrUmDguddFHoxvKhzZAqhUto8+bnJZsHWbw9QGPECXnE9BUVQb6Q
- C6Na6LT8+fEf3yZksMe2ymZTdyWeeBx4doQFz3PNypuwhg9WmMf+sa2D1pF/kNWF5c0V
- 0gI8t5EtWMBaVVd9eck/ITr8yNlGcEwZF7OJ+BcgZwNBh/hR47yXKsPvyGGJKPZytf+q
- zpi0oqH4EIsIwp2KkZG7txmHtdOQDkPrl86qKC07drRMMgCyiiWw4wR4QBGddfhd/L1d
- KO9pt3XOecxPOXlOGkualPDXEXMdXv2gXb3jYVbtq+E485RvBNjyVpUrf2wOF9hFqWMR
- r6qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747239076; x=1747843876;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Y2/V4Vh+d+a0nZcON/MiVuUcn+BjyzHoYwdbSHuLjiw=;
- b=lgq0U5Db4Rc0aweLEPXnGimgqi/9GukLLezC44hZLqp3HKWyzJrM9E+/y/R3QKG546
- PRcyjXc2sllWjcq+g576y/QwoJh7QNh3QMpyeIXyeAW5QJBWZn7S1ZhTifFnV9mfVubG
- 2Mgq+/hwJvtzkKVLl/jKejUg6laAxpIcbXMWXc1loy2IZobyd18ilGHBQIYetVKBvJqm
- kCneRQsQXcKIO/LOKsLhWKbDCr/STrdSzniK8xccQOHlykdigK2ykonSV+Me9pS0maKi
- uXQmZf9ZW7H9D7bzW6IKux5kOFcFqB4Gm4YjBR/aiXNFuf1XGGxPrrDpI9pPtUDyMb0o
- AFsA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV8FD+m4qmKDmBrkbXqrMBy3G5P7miistLnMqKvK1Rzgs0FZ69Dd2O4VdMGDM4PUVhcjuoRLDxW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzqsGFW3RACeWHbAkiy7v0oXV49Bxgiv4duf5Qq7+rUQTWd7htO
- V0rcsL9TIb3v5GFyp0AhTxUlKyl+5ronMnsp0OhnlmBUoXfIPo14
-X-Gm-Gg: ASbGnctn0efqvlJyyLMe58R7HQgtaQyCNo5dT0cUqf3AxpUPCz9HjzYocqaGdvOOYhS
- lQ+99AzlBLmLaqf2lGsAV1M1W44W5VsT+xfEFg7Y8dh1H+8O6wAiLMavChwiwPsJs8czlzVkxP3
- VLO/I5lvr6UUOievG70GCPZQxCLsgKGeq1QTCliz8rfAgnFZKYbdMsEwKKnX5MzEGAsAnLoxSKX
- fQuS7D4ENyg7gzrpvgFMRTjwfl2GJNtMEAhguoEi75vPOLfvrmfeMrB5DmpDnlf/NWMA6jSo059
- 7zx7EZ+W+dRAGVfqpN4FCSV20EKxP17gX7/JpZF3C4VzckQJiR43oZq9s1mY2wc=
-X-Google-Smtp-Source: AGHT+IFGHec//hF81vQxUlFa4erK/ez1voAa+p6UTDP3HcrYgaIZTtF6BiQEOAEJgs3Vbq8qTw4hYQ==
-X-Received: by 2002:a05:600c:348a:b0:43c:fa0e:4713 with SMTP id
- 5b1f17b1804b1-442f20bb25dmr40829335e9.2.1747239074979; 
- Wed, 14 May 2025 09:11:14 -0700 (PDT)
-Received: from [192.168.1.121] ([176.206.99.211])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442f337dbb7sm35500765e9.14.2025.05.14.09.11.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 May 2025 09:11:14 -0700 (PDT)
-Message-ID: <965c9753-f14b-4a87-9f6d-8798e09ad6f5@gmail.com>
-Date: Wed, 14 May 2025 18:11:13 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5350B10E732;
+	Wed, 14 May 2025 20:23:52 +0000 (UTC)
+X-Greylist: delayed 318 seconds by postgrey-1.36 at gabe;
+ Wed, 14 May 2025 08:16:35 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32E7110E3B6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 08:16:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=heusel.eu;
+ s=s1-ionos; t=1747210593; x=1747815393; i=christian@heusel.eu;
+ bh=yp19kCTXAzlQPM0VTZ+xoHXpUu2B4qVH44q0U8wInjk=;
+ h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:References:
+ MIME-Version:Content-Type:In-Reply-To:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=D09Qmo+xZqP6QdJ8VrvrSGWByxxpl/NU6xds75qku4KstCh3EezLoxKhQZ1nKeIn
+ kAlkVGgzfwpwvs9XZAgwBTANliMe/8X+AwYir43LDcW2Slhj5S8eQF2n33GTaqTbC
+ K2T943PBBVjuyizZS5pFbx9Vfok429zi09kJRPbU1Vj5PW+hneRELKociwCGNhXA+
+ fEC9BKBrG+9jwdKdqaVRP03jJg4xd9Kun8IPQ3OJQYAgX3HUhPJo4UuVo/fb4+DhN
+ LMTDDCJnu62V+LNTC5fjlyUHOcCLRjgNlAu2MuFP9AhClSErFktV7y91vd5ohHP66
+ njoIhluSrClBqDfhlA==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from localhost ([129.206.223.183]) by mrelayeu.kundenserver.de
+ (mreue108 [212.227.15.183]) with ESMTPSA (Nemesis) id
+ 1MTiLj-1uPGm30G4r-00Ytic; Wed, 14 May 2025 10:11:02 +0200
+Date: Wed, 14 May 2025 10:11:00 +0200
+From: Christian Heusel <christian@heusel.eu>
+To: Wayne Lin <Wayne.Lin@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/display: Avoid flooding unnecessary info messages
+Message-ID: <90f81e59-1f85-4c2a-9d6e-879898f83fa8@heusel.eu>
+References: <20250513032026.838036-1-Wayne.Lin@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Bug 220110] probably thunderbolt or pci leads to pci usage
- counter underflow
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Yijun Shen
- <Yijun_Shen@dell.com>, David Perry <david.perry@amd.com>,
- Kai-Heng Feng <kaihengf@nvidia.com>, AceLan Kao <acelan.kao@canonical.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- =?UTF-8?Q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20250513194506.GA1155899@bhelgaas>
- <b2f9c88d-59b5-416f-b8d5-2e0fb1fc74fd@amd.com>
-Content-Language: en-US, it-IT, en-US-large
-From: Denis Benato <benato.denis96@gmail.com>
-In-Reply-To: <b2f9c88d-59b5-416f-b8d5-2e0fb1fc74fd@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="5jbs3dkqzer36ufa"
+Content-Disposition: inline
+In-Reply-To: <20250513032026.838036-1-Wayne.Lin@amd.com>
+X-Provags-ID: V03:K1:BmqfP4SKpP6Umy+E17qUujc5PYF8npHNNs8NIAE+FvHJhDNihjl
+ XNhapen9poo0Yb5ZttPs6i3vwNg7GqLL3+DJwUQOZ+KOH+x7ehXV1RbshQp/bLvKJISd3lg
+ j5/iUO2WbY3WZbUkjpDf2uf+LeUxjW9BWF3IV7qEuUBOqwmvPwA2/Jt0dOdubMkC93r3gXn
+ Wwns+MjrnWIkwa+cbXJ0Q==
+UI-OutboundReport: notjunk:1;M01:P0:erzyHcUfyUQ=;fb+UK2eIQfVs9TJYozWeIBZYeuw
+ UoH62B7tdZcDKvrrMVqesyCyw6s1mNfSS+RW7ZNm9sGdpq8Q9LZLzrjaDRpqkDaX35ZuLYfPw
+ 9RmcvJ0xgQdXPdl77P1U8scXzdL9EbQetckKyi5sOKOQtxZ7lj7Uniw0YMB4+pjk3uQrB2VdE
+ r8bAsM54y41ldiHHnO6xEQ30qvlxtDAPp5V8J6GV6jBxGd6d1PbFGEtEskxmfweNiDJH8cGnX
+ Zhgd3nmtPGMZCe4eokOq4UOHRWFx3MbEjBkMbusYvbzz5ls6Mk9TLGVZq3A+cw7OCclb+cxH6
+ TEpUgnX02t8DBHdwK159kXOuMYHhBv1xHoeL7tdqX6vGgRU+vllilCyruP1B6OmJAElbCNACn
+ dgMmFMMoJgjW1uf2VADKrITa0MWE97/9t7O1nvfYfnAV3Z7m3AhseAYBnTyn6A0rnjv6OBRIf
+ B6RmPFFpbaxJ9E7zSTPkn9gxvVsFZDo7junE+8uYCQ+X4FkHldEyotzAsaa6EmBCQRCgk71ha
+ 2jsUOMY38qziC00Gf3wqaVW274tu5ZM/fErMsjrbrha/iGvoWEh+obJURN1vNSrrNAJIq25Su
+ HuG0rRLhN4Owk2f18y1VSaktKOdRnU3UuB8qjwkRT4UinLDdT9uDP9KIEyGzOoTALETc5lR0e
+ MR/FxuW68s+HMDBQbJAU4s7HHD68K2utomN1PPPu19l79jYrmgHN+oz3MjkPEVROZG8t3NbkW
+ KIVWI4HrAdfnms3vSvyQ88aP0MdF46s03dPqs3ZSx6W1Q+oHQ6RsAvc6R9XyUaRXXlsX2TjsM
+ XHq2iaTyQMStRbf6mwbq9pxKNHBbVmTXQgRn4JL3bBUyQMHQdR6qGFKMmb/N4WKKn0xGP7zjr
+ 5XeUZsnE1N2gtAQ1cxUQZI/8zMMRaW5y/11EcN8N6bctZDC6qrrDorTNTVtQJuhsnL95IlQoy
+ 1duhWoGln5O7B2luBqUaqCgOfeDJh9xBybAp30+/NMjkY10l4HYZMOA6AG1fijRrnVY9z7bk7
+ V6nXwhaCtcCwhjgnk5vKSe0PxlJBIbBWXAkjesplIfw39qknvwBhQlzziyIBqoSx2uqeMRXHt
+ gAJ/RTpR2j+paZfJ1UeptTkKJWsTTuEG+zBv6WXvDQ/elGVzTL2pB26ycwbCWMWCLyCS16G1g
+ sB/tj9QcuJMlHycEeOjpTgRMauyS96s7oLczSPZ8sNK71Pzvvm3NkZOcEPSU447dCKcF/ILvn
+ hm/FKbI5pAWC7ZxUCGtEeYlsnJRQAjDh2WX2ge31ePXvSurESkRsSkKD7oiPyhGSxtDcfHb2p
+ RHDimC067J0KbVha5r0HS78g7w3LxvSmiRPnVyUnC1j8E8lm7PBJv28/NW6z/2mXEeOqj3j+7
+ I3a6ULlyMxjprtVxULrb5lu6klq2PrJjxXcYLVzsQ8aMeScf7tj4F1DcTb
 X-Mailman-Approved-At: Wed, 14 May 2025 20:23:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,79 +86,56 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 5/13/25 21:51, Mario Limonciello wrote:
-> On 5/13/2025 2:45 PM, Bjorn Helgaas wrote:
->>  From Denis's report at https://bugzilla.kernel.org/show_bug.cgi?id=220110:
->>
->>> I am having problems with my laptop that has a thunderbolt
->>> controller to which I connected an AMD 6750XT.
->>>
->>> The topology of my system is described in this bug:
->>> https://gitlab.freedesktop.org/drm/amd/-/issues/4014 yet I don't
->>> know if this is related or not.
->>>
->>> I experienced PC attempting to enter s2idle while playing a YT
->>> video; PC has become totally unresponsive to input in any
->>> keyboard/mouse and power button after turning off screens attached
->>> to the AMD card (the built-in screen was off already).
->>>
->>>  From a look at the logs it appears one uncorrectible AER pci error
->>> triggered a pci root reset, and that comes with a bug where the
->>> usage counter assumes a wrong value; this in turn seems to cause all
->>> sorts of weird bugs.
->>>
->>> That however is my interpretation of the attached log, that might be
->>> very wrong.
->>>
->>> This is the first time I experience this bug in a year with this
->>> laptop and I don't know how easy it is to reproduce.
->>>
->>> The kernel has been compiled from sources and it has
->>>
->>>    [PATCH v2] PCI: Explicitly put devices into D0 when initializing
->>>    [PATCH v4] PCI/PM: Put devices to low power state on shutdown
->>>
->>> as I am helping testing things. I find unlikely any of those might
->>> cause these issues especially "PCI: Explicitly put devices into D0
->>> when initializing" that has been there for a few weeks now.
->>>
->>> Thanks in advice to whoever will help me.
->
-> From the logs the system didn't actually enter s2idle, but because of the failure to recover after AER he lost the external GPU.
->
-> I don't expect that "PCI/PM: Put devices to low power state on shutdown" has anything to do with this issue.  This should only affect system shutdown.  (Tangentially related comment; we have another version of this on the linux-pm list now that is more generic [1]).
->
-> How readily can this be reproduced?  Can you try to reproduce once more?
-> Can this reproduce on an unpatched kernel?
->
-I have tried many different of unpatched and patched 6.14.6 for a few hours and I could not get this same bug again.
+--5jbs3dkqzer36ufa
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/amd/display: Avoid flooding unnecessary info messages
+MIME-Version: 1.0
 
-After unsuccessfully attempting to reproduce with the kernel I have been running I decided to test the newest "PM_ Use hibernate flows for system power off" patch [1].
+On 25/05/13 11:20AM, Wayne Lin wrote:
+> It's expected that we'll encounter temporary exceptions
+> during aux transactions. Adjust logging from drm_info to
+> drm_dbg_dp to prevent flooding with unnecessary log messages.
+>=20
+> Fixes: 6285f12bc54c ("drm/amd/display: Fix wrong handling for AUX_DEFER c=
+ase")
+> Cc: stable@vger.kernel.org
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 
-and that patch seems to help quickly poweroff my laptop when combined with the other mentioned patch.
+If it's not already applied it would of course be nice if credit for my
+report could be added to the change:
 
-> To confirm if "PCI: Explicitly put devices into D0 when initializing" is the cause can you compare the PCI state of all devices from sysfs with and without the patch in place after bootup?  Basically run this in patched kernel and unpatched kernel and let's compare.
->
-> $ grep -v foo /sys/bus/pci/devices/*/power_state
->
->
-unpatched: https://pastebin.com/Ym31Vjh6
-patched with just "PCI: Explicitly put devices into D0 when initializing": https://pastebin.com/SSSWLgcs
+Reported-by: Christian Heusel <christian@heusel.eu>
+Link: https://lore.kernel.org/all/32c592ea-0afd-4753-a81d-73021b8e193c@heus=
+el.eu/
 
-diff for easy view: https://www.diffchecker.com/y5GVyEG1/
+Have a nice day everyone!
+Chris
 
+--5jbs3dkqzer36ufa
+Content-Type: application/pgp-signature; name="signature.asc"
 
-two devices were D3hot and two were unknown, while now are recognized as D0.
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCAAdFiEEb3ea3iR6a4oPcswTwEfU8yi1JYUFAmgkUBQACgkQwEfU8yi1
+JYU6SA/9GeRVNamI6JTz/D6bxRsFu94z5RLpIctlu5hzQ9xLgbE5eQeAysRme9DX
+k3Q2wDY/aO9nNKDFQkeZHmFX7nUZh/dgA5nKiOkYoF335WjpZEsZ6W90KF8PJtaS
+DuKdf+bocyc7pzgp+Hd0oIJxD7ZF35FCX7u3p8m+MD6PoTNSdhfcK5iZ9oAMEfD8
+ypmrU2fnLcDfsArm4nHa8AqcfEoUZ64XQxcRv1gn8srr1Sx2XrU7JC+SiEbTEeeI
+kchaJipEwvWVplQ0sLbs3RxEYTms7dtJUIvHiwuGf9ey0xXRK9SRYQPrAxB8WvBc
+VSTgNgvrn0WQmY2/7cxaMsZPmbH0FxQygJ3ERQDSgPJa9e77iSmD5LJ6W851mYbg
+JGkjBICBepDVt5RKpirnYoJiPCOqgPHhgnHMbBOriDHO8HIg/Uvdlj6bcSDzeJ+h
+tMxZcHUS6HJrSBDAyqV3WU1vWhwiCTb5Hn9U8KHrrk3BZl5BQoPdOolWtASL02FS
+70jjKa5qt79ki6fHoij43RhXgqIcYze+qW1qxQijS2yxx1eKzvcT3LvHzqIzAJE6
+ssMxX8OM7jPIi4HuG0/ban1xQQmsLLph1GVaXmkK7L5qzqbuHTycfj4s5aZ61kIq
+seb/DUYf2a1rt0Syp4xR7eASIQH7QEkevRKjbWPzKx9u7UdTGHM=
+=Bfpm
+-----END PGP SIGNATURE-----
 
-Having those two patches together does not seem to cause any harm and I could not reproduce the issue.
-
-I do not believe any of those patches are the cause for the particular crash I experienced, however I do believe there is something wrong going on because on power on the amdgpu on the thunderbolt card sometimes is there sometimes is not and I have to unplug and replug it for it to work.
-
-The only patch that alleviates this particular problem is [2] "[PATCH v3] PCI: Prevent power state transition of erroneous device" but it comes with a regression where I can no longer wake up the laptop properly.
-
-I will write this in detail as a response to that patch given that was not part of the subject here.
-
-[2] https://lore.kernel.org/linux-pci/aCLNe2wHTiKdE5ZO@wunner.de/T/#m90fb151a4ab4af5ec8c667a27eb98bf43a9942dc
-
-> [1] https://lore.kernel.org/linux-pm/20250512212628.2539193-1-superm1@kernel.org/T/#u
+--5jbs3dkqzer36ufa--
