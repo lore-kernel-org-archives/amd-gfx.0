@@ -4,61 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE9DC3ABCC
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 14:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96CDFC3ABD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 15:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED44E89FC9;
-	Wed, 14 May 2025 14:58:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C49910E669;
+	Wed, 14 May 2025 15:32:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="niCy8pGN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AOzq8jlV";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6926589FC9;
- Wed, 14 May 2025 14:58:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CdtrX/G9DhmcNcNluBx2us3yynd+xmt00spTv/+a9o4=; b=niCy8pGNGoiyFD++fPmSpXQLuB
- qhRV4oMp4a51n82n3XWCSTIYHaHJnuFxjlDKGdFihnC49HHFmUjsyRAGZvc9rj0ht4QjDn/uYpMa7
- lBHbIJTJIhAYRHez43USwPSyTRq0UbwCkD1gaynIeOJ50nlXhMJa03wlPz/rQIcc0qItTvjoajh+/
- TH0xI1MGHhr6aq41qG5gIEe0l+retLA8jCmhVe0/p9W/7zevjQc4YRcrMNOHMqIdZCvPycP3ui0uH
- 0FWiExeN62Tw80A+x7XqKpYFl6A6qJavr6c4InxzbEJLmrf+oOMFb+kpaIGTjC/wxen3zOMFLXGPg
- Odhu9JDw==;
-Received: from [81.79.92.254] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uFDTU-008CT8-Hm; Wed, 14 May 2025 16:58:34 +0200
-Message-ID: <3cdf8bf9-1807-496e-baf4-8c069df3fdc1@igalia.com>
-Date: Wed, 14 May 2025 15:58:33 +0100
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B16610E669
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 15:32:49 +0000 (UTC)
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-b2414d565edso382265a12.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 08:32:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747236769; x=1747841569; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uA2uWlTogQ4mlO6szHzy6P82I+tV300mKpLvgOQQ64Q=;
+ b=AOzq8jlVDdovGmUUUvxADswh/TdQmvnggaady5JtojjJsrxH9qm9TnoeboKnyWQgk6
+ Xk3+6q5UmAr2vOgsdMxrE5ARvWSLgPWRFPomCbKk5P/mEGWKNjlg4YGNQHFoGdM1S+qJ
+ eszAkIOvVudLuvx8HIxjTuu+5Mf0enyOEuAObUOrBrF+GmTYUmTAoI2Dblpql4DG0drn
+ K24aY2j1uI62rmruXukXV8ECHRntQHoKD+YkyhyUGUiAMpKOoDzaLW5RzJbD9EVQAgnt
+ PmeydQzwrud5BJPHvCxc0rWeyCGMFRjzrnMFFC7AgZYEckDcGmgF+LA3U3sblplfYSpz
+ R7CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747236769; x=1747841569;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uA2uWlTogQ4mlO6szHzy6P82I+tV300mKpLvgOQQ64Q=;
+ b=bsLYFtdAYGbLxoF3BRIX3uLGtyGgn+0wcf+VDxZOHLUvfIyxqpZj8LJQx2tX3pOQr7
+ i5pxiSRRGIO6pU27o31OfHCpOkmaQOiJOA8P4b8aIWqMqkVrJ4bha6UOmKbo7xd9yhKB
+ Ut138mhzZzxTSyTmOUw3MGfrvSRbcDSODspY4+w6pNoKEmsl7UYvKoaqJr/7wBIngXIZ
+ EPaq5scKu2MP2JporYnvNNYW5h8kPZltUIioe0Ig1ELx9f1ycc7OWe2d2fIWxa5g9K5F
+ zbQKtrumLigmQonStO/+Bw21IT4oOJQBUiyHZGBDdScs1tNyAaaO3zCY0c3bVD2X4KQe
+ 64mg==
+X-Gm-Message-State: AOJu0YyB5iNwKYcR5VWTL0e1//ju6yXqkmAF85eysAk/FXEKAGACV1k9
+ IRGDow1qeqIB/GMBspSXVKQbpRA0WHj/gFWTDkUWd9dXLGYOQrFraTk3kfHVyLtYxFHYOKoNdDJ
+ 2WABbCHWlAvMFV2d/HYnjuouB0FM=
+X-Gm-Gg: ASbGnct6tHIpg3ZKhNASoEu/Di3Bhw070JMa6v/36LzTmkBH7t7CEbp94xayGXGrwnZ
+ Xh45TGUCsi8j70e89ATkVE3BsP96Df89jw9nDtlu6jio8/mb4yS7AzNmzRkZrtv0vj2y1BJtuEu
+ TM8EFC+Y1MbhgZjrJ6slq+ZU2Q2SUX43HD
+X-Google-Smtp-Source: AGHT+IFgQITF5uI5NQsQl4sHyt8Q8R2W7lZ9VF1QYEU450sbMP/AY6liue31FMre7n9iKyQ5k4xxboK8+HF+HoEOO+8=
+X-Received: by 2002:a17:903:986:b0:22f:d4e7:e7ca with SMTP id
+ d9443c01a7336-231980fa693mr23391755ad.6.1747236768816; Wed, 14 May 2025
+ 08:32:48 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 10/13] dma-fence: Add safe access helpers and document
- the rules
-To: Rob Clark <robdclark@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- kernel-dev@igalia.com, Rob Clark <robdclark@chromium.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-References: <20250509153352.7187-1-tvrtko.ursulin@igalia.com>
- <20250509153352.7187-11-tvrtko.ursulin@igalia.com>
- <CAF6AEGuOC4NnSTQexvD5tk8VLfOR_gGq-cqs3gnJcS1qNtMjQg@mail.gmail.com>
- <dddebe25-9fe2-4c3d-89ee-c90168b5a017@igalia.com>
- <CAF6AEGsP2TyjaRVtSXAYyDbNJqZ3NsL-2TCKZ+SAyZaONrJvjA@mail.gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <CAF6AEGsP2TyjaRVtSXAYyDbNJqZ3NsL-2TCKZ+SAyZaONrJvjA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250512022016.395502-1-Prike.Liang@amd.com>
+In-Reply-To: <20250512022016.395502-1-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 14 May 2025 11:32:37 -0400
+X-Gm-Features: AX0GCFs6bk1FNaZHrxqMQUvJ_dl4_HyziNOdQ2DuGUtlJpwPtWjp2P-bhHsmYNQ
+Message-ID: <CADnq5_Oept2rLB4Wi1eVYt_8V-sZzUkM_rSw1-h64kSmHKhMxQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: lock the eviction fence for wq signals it
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,212 +80,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Sun, May 11, 2025 at 10:21=E2=80=AFPM Prike Liang <Prike.Liang@amd.com> =
+wrote:
+>
+> Lock and refer to the eviction fence before the eviction fence
+> schedules work queue tries to signal it.
+>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 
-On 14/05/2025 14:57, Rob Clark wrote:
-> On Wed, May 14, 2025 at 3:01 AM Tvrtko Ursulin
-> <tvrtko.ursulin@igalia.com> wrote:
->>
->>
->> On 13/05/2025 15:16, Rob Clark wrote:
->>> On Fri, May 9, 2025 at 8:34 AM Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
->>>>
->>>> Dma-fence objects currently suffer from a potential use after free problem
->>>> where fences exported to userspace and other drivers can outlive the
->>>> exporting driver, or the associated data structures.
->>>>
->>>> The discussion on how to address this concluded that adding reference
->>>> counting to all the involved objects is not desirable, since it would need
->>>> to be very wide reaching and could cause unloadable drivers if another
->>>> entity would be holding onto a signaled fence reference potentially
->>>> indefinitely.
->>>>
->>>> This patch enables the safe access by introducing and documenting a
->>>> contract between fence exporters and users. It documents a set of
->>>> contraints and adds helpers which a) drivers with potential to suffer from
->>>> the use after free must use and b) users of the dma-fence API must use as
->>>> well.
->>>>
->>>> Premise of the design has multiple sides:
->>>>
->>>> 1. Drivers (fence exporters) MUST ensure a RCU grace period between
->>>> signalling a fence and freeing the driver private data associated with it.
->>>>
->>>> The grace period does not have to follow the signalling immediately but
->>>> HAS to happen before data is freed.
->>>>
->>>> 2. Users of the dma-fence API marked with such requirement MUST contain
->>>> the complete access to the data within a single code block guarded by the
->>>> new dma_fence_access_begin() and dma_fence_access_end() helpers.
->>>>
->>>> The combination of the two ensures that whoever sees the
->>>> DMA_FENCE_FLAG_SIGNALED_BIT not set is guaranteed to have access to a
->>>> valid fence->lock and valid data potentially accessed by the fence->ops
->>>> virtual functions, until the call to dma_fence_access_end().
->>>>
->>>> 3. Module unload (fence->ops) disappearing is for now explicitly not
->>>> handled. That would required a more complex protection, possibly needing
->>>> SRCU instead of RCU to handle callers such as dma_fence_wait_timeout(),
->>>> where race between dma_fence_enable_sw_signaling, signalling, and
->>>> dereference of fence->ops->wait() would need a sleeping SRCU context.
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> ---
->>>>    drivers/dma-buf/dma-fence.c | 69 +++++++++++++++++++++++++++++++++++++
->>>>    include/linux/dma-fence.h   | 32 ++++++++++++-----
->>>>    2 files changed, 93 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->>>> index dc2456f68685..cfe1d7b79c22 100644
->>>> --- a/drivers/dma-buf/dma-fence.c
->>>> +++ b/drivers/dma-buf/dma-fence.c
->>>> @@ -533,6 +533,7 @@ void dma_fence_release(struct kref *kref)
->>>>           struct dma_fence *fence =
->>>>                   container_of(kref, struct dma_fence, refcount);
->>>>
->>>> +       dma_fence_access_begin();
->>>>           trace_dma_fence_destroy(fence);
->>>>
->>>>           if (WARN(!list_empty(&fence->cb_list) &&
->>>> @@ -560,6 +561,8 @@ void dma_fence_release(struct kref *kref)
->>>>                   fence->ops->release(fence);
->>>>           else
->>>>                   dma_fence_free(fence);
->>>> +
->>>> +       dma_fence_access_end();
->>>>    }
->>>>    EXPORT_SYMBOL(dma_fence_release);
->>>>
->>>> @@ -982,11 +985,13 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
->>>>     */
->>>>    void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
->>>>    {
->>>> +       dma_fence_access_begin();
->>>>           seq_printf(seq, "%s %s seq %llu %ssignalled\n",
->>>>                      dma_fence_driver_name(fence),
->>>>                      dma_fence_timeline_name(fence),
->>>>                      fence->seqno,
->>>>                      dma_fence_is_signaled(fence) ? "" : "un");
->>>> +       dma_fence_access_end();
->>>>    }
->>>>    EXPORT_SYMBOL(dma_fence_describe);
->>>>
->>>> @@ -1033,3 +1038,67 @@ dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>>           __set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence->flags);
->>>>    }
->>>>    EXPORT_SYMBOL(dma_fence_init64);
->>>> +
->>>> +/**
->>>> + * dma_fence_driver_name - Access the driver name
->>>> + * @fence: the fence to query
->>>> + *
->>>> + * Returns a driver name backing the dma-fence implementation.
->>>> + *
->>>> + * IMPORTANT CONSIDERATION:
->>>> + * Dma-fence contract stipulates that access to driver provided data (data not
->>>> + * directly embedded into the object itself), such as the &dma_fence.lock and
->>>> + * memory potentially accessed by the &dma_fence.ops functions, is forbidden
->>>> + * after the fence has been signalled. Drivers are allowed to free that data,
->>>> + * and some do.
->>>> + *
->>>> + * To allow safe access drivers are mandated to guarantee a RCU grace period
->>>> + * between signalling the fence and freeing said data.
->>>> + *
->>>> + * As such access to the driver name is only valid inside a RCU locked section.
->>>> + * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
->>>> + * by the &dma_fence_access_being and &dma_fence_access_end pair.
->>>> + */
->>>> +const char *dma_fence_driver_name(struct dma_fence *fence)
->>>> +{
->>>> +       RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->>>> +                        "rcu_read_lock() required for safe access to returned string");
->>>> +
->>>> +       if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>>> +               return fence->ops->get_driver_name(fence);
->>>> +       else
->>>> +               return "detached-driver";
->>>> +}
->>>> +EXPORT_SYMBOL(dma_fence_driver_name);
->>>> +
->>>> +/**
->>>> + * dma_fence_timeline_name - Access the timeline name
->>>> + * @fence: the fence to query
->>>> + *
->>>> + * Returns a timeline name provided by the dma-fence implementation.
->>>> + *
->>>> + * IMPORTANT CONSIDERATION:
->>>> + * Dma-fence contract stipulates that access to driver provided data (data not
->>>> + * directly embedded into the object itself), such as the &dma_fence.lock and
->>>> + * memory potentially accessed by the &dma_fence.ops functions, is forbidden
->>>> + * after the fence has been signalled. Drivers are allowed to free that data,
->>>> + * and some do.
->>>> + *
->>>> + * To allow safe access drivers are mandated to guarantee a RCU grace period
->>>> + * between signalling the fence and freeing said data.
->>>> + *
->>>> + * As such access to the driver name is only valid inside a RCU locked section.
->>>> + * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
->>>> + * by the &dma_fence_access_being and &dma_fence_access_end pair.
->>>> + */
->>>> +const char *dma_fence_timeline_name(struct dma_fence *fence)
->>>> +{
->>>> +       RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->>>> +                        "rcu_read_lock() required for safe access to returned string");
->>>> +
->>>> +       if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>>> +               return fence->ops->get_driver_name(fence);
->>>> +       else
->>>> +               return "signaled-timeline";
->>>
->>> This means that trace_dma_fence_signaled() will get the wrong
->>> timeline/driver name, which probably screws up perfetto and maybe
->>> other tools.
->>
->> Do you think context and seqno are not enough for those tools and they
->> actually rely on the names? It would sound weird if they decided to
->> index anything on the names which are non-standardised between drivers,
->> but I guess anything is possible.
-> 
-> At some point perfetto uses the timeline name to put up a named fence
-> timeline, I'm not sure if it is using the name or context # for
-> subsequent fence events (namely, signalled).  I'd have to check the
-> code and get back to you.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-If you can it would be useful. Presumably it saves the names from the 
-start edge of fence lifetime. But again, who knows.
-
-> There is also gpuvis, which I guess does something similar, but
-> haven't looked into it.  Idk if there are others.
-
-I know GpuVis uses DRM sched tracepoints since Pierre-Eric was 
-explaining me about those in the context of tracing rework he did there. 
-I am not sure about dma-fence tracepoints.
-
-+Pierre-Eric on the off chance you know from the top of your head how 
-much GpuVis depends on them (dma-fence tracepoints).
-
->>> Maybe it would work well enough just to move the
->>> trace_dma_fence_signaled() call ahead of the test_and_set_bit()?  Idk
->>> if some things will start getting confused if they see that trace
->>> multiple times.
->>
->> Another alternative is to make this tracepoint access the names
->> directly. It is under the lock so guaranteed not to get freed with
->> drivers which will be made compliant with the documented rules.
-> 
-> I guess it would have been better if, other than dma_fence_init
-> tracepoint, later tracepoints didn't include the driver/timeline
-> name.. that would have forced the use of the context.  But I guess too
-> late for that.  Perhaps the least bad thing to do is use the locking?
-
-You mean this last alternative I mentioned? I think that will work fine. 
-I'll wait a little bit longer for more potential comments before re-spi 
-ning with that.
-
-Were you able to test the series for your use case? Assuming it is not 
-upstream msm since I don't immediately see a path in msm_fence which 
-gets freed at runtime?
-
-Regards,
-
-Tvrtko
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> index 1a7469543db5..d5f176fef357 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> @@ -108,12 +108,18 @@ amdgpu_eviction_fence_suspend_worker(struct work_st=
+ruct *work)
+>         struct amdgpu_eviction_fence *ev_fence;
+>
+>         mutex_lock(&uq_mgr->userq_mutex);
+> +       spin_lock(&evf_mgr->ev_fence_lock);
+>         ev_fence =3D evf_mgr->ev_fence;
+> -       if (!ev_fence)
+> +       spin_unlock(&evf_mgr->ev_fence_lock);
+> +
+> +       if (ev_fence)
+> +               dma_fence_get(&ev_fence->base);
+> +       else
+>                 goto unlock;
+>
+>         amdgpu_userq_evict(uq_mgr, ev_fence);
+>
+> +       dma_fence_put(&ev_fence->base);
+>  unlock:
+>         mutex_unlock(&uq_mgr->userq_mutex);
+>  }
+> --
+> 2.34.1
+>
