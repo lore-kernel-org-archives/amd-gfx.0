@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1432FC3ABD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 19:34:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547C6C3ABD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 20:22:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF75610E276;
-	Wed, 14 May 2025 19:34:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 375CB10E711;
+	Wed, 14 May 2025 20:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DO6HimHt";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Q+SuDXvX";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27FC210E276
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 19:34:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2DD13A4E173;
- Wed, 14 May 2025 19:34:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0D4C4CEF3;
- Wed, 14 May 2025 19:34:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747251279;
- bh=LB2ONc/3BqVLy79e00jHCVU/mzynv4kwHq33TPW/jAA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DO6HimHtI31Dcm16iw6Zla/z/RpuGxcX0zMJ6uEjmvrljF1ktSnKgCKJfwbtYt5Bb
- lmyc0XfzMriIo2rHrUPGLPKiaSB4Kyk0Nz/+flbXZWKex+vFCsmYw6EQ/fy9eD8M1A
- BiXlGkm6AqsHymRfbyFMgreVS3YaGjUiQotn4ysD1di7Gz1VfBOHo0m+3BnBrum6/h
- jm5cHDNOz+VOUAVzVzEvKScbd3MH2pfD8rXOKIBXEnADMcm5sZx5927dimAuHrp1hx
- tNbGKPoMQt8gInI2K1B/9xFGlGjsr9voeciB+fSDsaaQHfWc45ZmoBIeuMWnziHaic
- cX2qCWAJ8XVuQ==
-From: Mario Limonciello <superm1@kernel.org>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- linux-pm@vger.kernel.org (open list:HIBERNATION (aka Software Suspend,
- aka swsusp)), linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
- linux-kernel@vger.kernel.org (open list),
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4232A10E711;
+ Wed, 14 May 2025 20:21:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=IbuYjP40DzstkxlxseSqEOMX3K/zhfcmf78fcNtqo68=; b=Q+SuDXvX2/Vl4M6Np79NM0SVa4
+ E8+k24VMdn5Qt2BiJNT+7yw4uXBSMByEVJ1jQ/yL8iObMyYKDON8qiVNh2LZN7ZauLCw3xJD0yLRT
+ R/6nk8ZtwPaSq30o+gOvU9aD7CEI75UoBWCVnXXQxE1v8uQmUbyMVgJYP/zQMpdP5dcJ07hE/Ubor
+ NYmmGuacwWibztAKSbvdVHaOJaQIk7rb/F+HeQ+nuPc811Y9WGvFG5Y+LMZnG/82pzGuoanMjKejP
+ 54ZTsH2AlbRurCIkbdkzkc/MY8rH24RIOVQ8Nvbwn5MDgoT4JfkHGsF0BhNKy8u+DMi+8EP3ypv30
+ Skq+rpFQ==;
+Received: from [189.6.16.79] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uFIWI-008Klg-4a; Wed, 14 May 2025 22:21:51 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: Alex Hung <alex.hung@amd.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
- AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- Denis Benato <benato.denis96@gmail.com>,
- =?UTF-8?q?Merthan=20Karaka=C5=9F?= <m3rthn.k@gmail.com>
-Subject: [PATCH v2 3/3] drm/amd: Avoid evicting resources at S5
-Date: Wed, 14 May 2025 14:34:06 -0500
-Message-ID: <20250514193406.3998101-4-superm1@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250514193406.3998101-1-superm1@kernel.org>
-References: <20250514193406.3998101-1-superm1@kernel.org>
+ Rodrigo Siqueira <siqueira@igalia.com>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Michel Daenzer <michel.daenzer@mailbox.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: [PATCH v3 02/14] drm/amd/display: start using drm_edid helpers to
+ parse EDID caps
+Date: Wed, 14 May 2025 17:19:09 -0300
+Message-ID: <20250514202130.291324-3-mwen@igalia.com>
+X-Mailer: git-send-email 2.47.2
+In-Reply-To: <20250514202130.291324-1-mwen@igalia.com>
+References: <20250514202130.291324-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,37 +64,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+Groundwork that allocates a temporary drm_edid from raw edid to take
+advantage of DRM common-code helpers instead of driver-specific code.
 
-Normally resources are evicted on dGPUs at suspend or hibernate and
-on APUs at hibernate.  These steps are unnecessary when using the S4
-callbacks to put the system into S5.
-
-Cc: AceLan Kao <acelan.kao@canonical.com>
-Cc: Kai-Heng Feng <kaihengf@nvidia.com>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: Denis Benato <benato.denis96@gmail.com>
-Cc: Merthan Karakaş <m3rthn.k@gmail.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c    | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 4d1b54f58495a..ea1385b6d894f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4960,6 +4960,10 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
- 	if (!adev->in_s4 && (adev->flags & AMD_IS_APU))
- 		return 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index d4395b92fb85..5543780f1024 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -108,18 +108,21 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	struct drm_connector *connector = &aconnector->base;
+ 	struct drm_device *dev = connector->dev;
+ 	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
++	const struct drm_edid *drm_edid;
+ 	struct cea_sad *sads;
+ 	int sad_count = -1;
+ 	int sadb_count = -1;
+ 	int i = 0;
+ 	uint8_t *sadb = NULL;
+-
+ 	enum dc_edid_status result = EDID_OK;
  
-+	/* No need to evict when going to S5 through S4 callbacks */
-+	if (system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF)
-+		return 0;
 +
- 	ret = amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM);
- 	if (ret)
- 		DRM_WARN("evicting device resources failed\n");
+ 	if (!edid_caps || !edid)
+ 		return EDID_BAD_INPUT;
+ 
+-	if (!drm_edid_is_valid(edid_buf))
++	drm_edid = drm_edid_alloc(edid_buf, EDID_LENGTH * (edid_buf->extensions + 1));
++
++	if (!drm_edid_valid(drm_edid))
+ 		result = EDID_BAD_CHECKSUM;
+ 
+ 	edid_caps->manufacturer_id = (uint16_t) edid_buf->mfg_id[0] |
+@@ -139,8 +142,10 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	apply_edid_quirks(dev, edid_buf, edid_caps);
+ 
+ 	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
+-	if (sad_count <= 0)
++	if (sad_count <= 0) {
++		drm_edid_free(drm_edid);
+ 		return result;
++	}
+ 
+ 	edid_caps->audio_mode_count = min(sad_count, DC_MAX_AUDIO_DESC_COUNT);
+ 	for (i = 0; i < edid_caps->audio_mode_count; ++i) {
+@@ -166,6 +171,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 
+ 	kfree(sads);
+ 	kfree(sadb);
++	drm_edid_free(drm_edid);
+ 
+ 	return result;
+ }
 -- 
-2.43.0
+2.47.2
 
