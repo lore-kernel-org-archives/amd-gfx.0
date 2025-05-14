@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17879C3ABDA
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 19:34:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1432FC3ABD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 19:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2B4210E07F;
-	Wed, 14 May 2025 19:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF75610E276;
+	Wed, 14 May 2025 19:34:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="alXMp7sj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DO6HimHt";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37F3910E07F
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 19:34:39 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27FC210E276
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 19:34:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A9AD0629DA;
+ by nyc.source.kernel.org (Postfix) with ESMTP id 2DD13A4E173;
+ Wed, 14 May 2025 19:34:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0D4C4CEF3;
  Wed, 14 May 2025 19:34:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301E1C4CEED;
- Wed, 14 May 2025 19:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747251278;
- bh=s4QaK/a9MnnNl0w/we4occOHkkx2Oi4zoKvN8gfZ7pg=;
+ s=k20201202; t=1747251279;
+ bh=LB2ONc/3BqVLy79e00jHCVU/mzynv4kwHq33TPW/jAA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=alXMp7sjE7jtJNChcR7w0/J10J2dexexcJwdBkXbO8zOe9mqBS/UpDV6BRltWbTSf
- gOkFNU7urAUVSuWgRz4mtfVa2Ps4qBYp8I2O3NibdgjgOSmyEzxVNLmNsVFLfcQHAo
- krN/SQ5saVEX411pd1Oxn57U+Sr8TPREkN+2g9DikGWpanYIi7/Rj8bsCZ/f/STzLE
- 5salBgqy4CntfsN2QbGVTo94sh2XSzCjJHspdYgMhWzqI31hlLVus/wRhZj4JahNMa
- 67WPaqRUhXu3GQgMZ1vaA230caRH3CEy1pwkG5i1g72aolkv4CHTn2ud1vfH/Px4sA
- iRMxK/wvf7EYQ==
+ b=DO6HimHtI31Dcm16iw6Zla/z/RpuGxcX0zMJ6uEjmvrljF1ktSnKgCKJfwbtYt5Bb
+ lmyc0XfzMriIo2rHrUPGLPKiaSB4Kyk0Nz/+flbXZWKex+vFCsmYw6EQ/fy9eD8M1A
+ BiXlGkm6AqsHymRfbyFMgreVS3YaGjUiQotn4ysD1di7Gz1VfBOHo0m+3BnBrum6/h
+ jm5cHDNOz+VOUAVzVzEvKScbd3MH2pfD8rXOKIBXEnADMcm5sZx5927dimAuHrp1hx
+ tNbGKPoMQt8gInI2K1B/9xFGlGjsr9voeciB+fSDsaaQHfWc45ZmoBIeuMWnziHaic
+ cX2qCWAJ8XVuQ==
 From: Mario Limonciello <superm1@kernel.org>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -43,10 +43,9 @@ Cc: amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  Mark Pearson <mpearson-lenovo@squebb.ca>,
  Denis Benato <benato.denis96@gmail.com>,
  =?UTF-8?q?Merthan=20Karaka=C5=9F?= <m3rthn.k@gmail.com>
-Subject: [PATCH v2 2/3] PCI: Put PCIe ports with downstream devices into D3 at
- hibernate
-Date: Wed, 14 May 2025 14:34:05 -0500
-Message-ID: <20250514193406.3998101-3-superm1@kernel.org>
+Subject: [PATCH v2 3/3] drm/amd: Avoid evicting resources at S5
+Date: Wed, 14 May 2025 14:34:06 -0500
+Message-ID: <20250514193406.3998101-4-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250514193406.3998101-1-superm1@kernel.org>
 References: <20250514193406.3998101-1-superm1@kernel.org>
@@ -69,16 +68,9 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-For the suspend flow PCIe ports that have downstream devices are put into
-the appropriate D3 state when children are not in D0. For the hibernate
-flow, PCIe ports with downstream devices stay in D0 however. This can
-lead to PCIe ports that are remained powered on needlessly during
-hibernate.
-
-Adjust the pci_pm_poweroff_noirq() to follow the same flow as
-pci_pm_suspend_noirq() in that PCIe ports that are power manageable should
-without downstream devices in D0 should be put into their appropriate
-sleep state.
+Normally resources are evicted on dGPUs at suspend or hibernate and
+on APUs at hibernate.  These steps are unnecessary when using the S4
+callbacks to put the system into S5.
 
 Cc: AceLan Kao <acelan.kao@canonical.com>
 Cc: Kai-Heng Feng <kaihengf@nvidia.com>
@@ -87,84 +79,24 @@ Cc: Denis Benato <benato.denis96@gmail.com>
 Cc: Merthan Karakaş <m3rthn.k@gmail.com>
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/pci/pci-driver.c | 39 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 37 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-index 0c5bdb8c2c07b..57eb129d57244 100644
---- a/drivers/pci/pci-driver.c
-+++ b/drivers/pci/pci-driver.c
-@@ -1141,6 +1141,8 @@ static int pci_pm_poweroff(struct device *dev)
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
- 	const struct dev_pm_ops *pm = dev->driver ? dev->driver->pm : NULL;
- 
-+	pci_dev->skip_bus_pm = false;
-+
- 	if (pci_has_legacy_pm_support(pci_dev))
- 		return pci_legacy_suspend(dev, PMSG_HIBERNATE);
- 
-@@ -1204,8 +1206,35 @@ static int pci_pm_poweroff_noirq(struct device *dev)
- 			return error;
- 	}
- 
--	if (!pci_dev->state_saved && !pci_has_subordinate(pci_dev))
--		pci_prepare_to_sleep(pci_dev);
-+	if (!pci_dev->state_saved) {
-+		pci_save_state(pci_dev);
-+
-+		/*
-+		 * If the device is a bridge with a child in D0 below it,
-+		 * it needs to stay in D0, so check skip_bus_pm to avoid
-+		 * putting it into a low-power state in that case.
-+		 */
-+		if (!pci_dev->skip_bus_pm && pci_power_manageable(pci_dev))
-+			pci_prepare_to_sleep(pci_dev);
-+	}
-+
-+	if (pci_dev->current_state == PCI_D0) {
-+		pci_dev->skip_bus_pm = true;
-+		/*
-+		 * Per PCI PM r1.2, table 6-1, a bridge must be in D0 if any
-+		 * downstream device is in D0, so avoid changing the power state
-+		 * of the parent bridge by setting the skip_bus_pm flag for it.
-+		 */
-+		if (pci_dev->bus->self)
-+			pci_dev->bus->self->skip_bus_pm = true;
-+	}
-+
-+	if (pci_dev->skip_bus_pm && pm_suspend_no_platform()) {
-+		pci_dbg(pci_dev, "PCI PM: Skipped\n");
-+		goto Fixup;
-+	}
-+
-+	pci_pm_set_unknown_state(pci_dev);
- 
- 	/*
- 	 * The reason for doing this here is the same as for the analogous code
-@@ -1214,6 +1243,7 @@ static int pci_pm_poweroff_noirq(struct device *dev)
- 	if (pci_dev->class == PCI_CLASS_SERIAL_USB_EHCI)
- 		pci_write_config_word(pci_dev, PCI_COMMAND, 0);
- 
-+Fixup:
- 	pci_fixup_device(pci_fixup_suspend_late, pci_dev);
- 
- 	return 0;
-@@ -1223,10 +1253,15 @@ static int pci_pm_restore_noirq(struct device *dev)
- {
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
- 	const struct dev_pm_ops *pm = dev->driver ? dev->driver->pm : NULL;
-+	pci_power_t prev_state = pci_dev->current_state;
-+	bool skip_bus_pm = pci_dev->skip_bus_pm;
- 
- 	pci_pm_default_resume_early(pci_dev);
- 	pci_fixup_device(pci_fixup_resume_early, pci_dev);
- 
-+	if (!skip_bus_pm && prev_state == PCI_D3cold)
-+		pci_pm_bridge_power_up_actions(pci_dev);
-+
- 	if (pci_has_legacy_pm_support(pci_dev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 4d1b54f58495a..ea1385b6d894f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4960,6 +4960,10 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
+ 	if (!adev->in_s4 && (adev->flags & AMD_IS_APU))
  		return 0;
  
++	/* No need to evict when going to S5 through S4 callbacks */
++	if (system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF)
++		return 0;
++
+ 	ret = amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM);
+ 	if (ret)
+ 		DRM_WARN("evicting device resources failed\n");
 -- 
 2.43.0
 
