@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B73AAC3ABD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 18:06:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB4BC3ABDA
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 May 2025 18:08:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63D6D10E11F;
-	Wed, 14 May 2025 18:06:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB06710E6CB;
+	Wed, 14 May 2025 18:08:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OT4KBBjK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LI/gjv/k";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3F0810E11F
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 18:06:01 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2317f90a931so145765ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 11:06:01 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 203BD10E6CB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 18:08:13 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-22e3ed5ee1cso111205ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 May 2025 11:08:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747245961; x=1747850761; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747246092; x=1747850892; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Pq5j22lbXyS51cYspoXmzIDOaI4qkYOIL9P4rrtgphI=;
- b=OT4KBBjKIYuq0i8Ao3yMrkdH95WJU2NUttNrQJypmKDH/0C+1oSTIO7iJmbi6oEysZ
- kdB8lvl39KjFC89S0Ya14pt3yUufAHbHypYtoi4G9choVjSVEtDNn5C5v/ff1GLM2ocx
- Bckf+YfyakCk9+0zU1pQP3nmj3wHRPN5qYWHvEMgnFBOKEsQlXAmmjPKHsu6vlxnM+An
- vLyvo1gbJMW2ZkDocfX00I14WYhyBDMXXB9ldgG13kRk9PZLhgYdguG1v9HFbyo8z+Na
- ncoM2ipAMT7P0gcH4PR+6drgDJ8ZLuUqoQ5PtyMvsJb1U5xgJ2/+F/xsKkcyCxhZTlB3
- Xxjw==
+ bh=RSLeVpCpyhkdkapiC/6UX9xwclocSb8iuCmyXR/h4w4=;
+ b=LI/gjv/ksHFTWjjXn0biZs62YAVzCAgnxbWrdKZfS1lZBDGfsp3/5tIqym8yRkJVtY
+ +8IvU5E5OTn6PYwzHu/u+/tUBSgrrYYxzuI5pI2rxSOy4VZWxO4siy+aYtn4bXuKiVSo
+ nIMF+Qn9N92ZDCWYnf42MsPQvtkSeXLImJfaGA/PYY7l+fs3J5dMFmKlK6zFqKQ+8sw5
+ ctZsdx0tIHdFBjm6jscTi4+WwBQ1nEqjN79mZovAd1QsG9CMdNsRhlcyivdACjdhq8VY
+ ooNoICpihHCy4rX1pYklxrbgN4a+Hs+0JYakMnHXCwnKTpFmfxR/IBqWaqhaZUdVD0b3
+ lZGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747245961; x=1747850761;
+ d=1e100.net; s=20230601; t=1747246092; x=1747850892;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Pq5j22lbXyS51cYspoXmzIDOaI4qkYOIL9P4rrtgphI=;
- b=pLWH7pjg9XrVPr6wVttGBzb8ApqkwoxAJyM1gPEUk4CRregXROLCXf4ymEgktwu/X9
- 7dzGgcd2htZNgbzdI5J1XMLs1z4wrn7fH87YNvUVWLRJnp0P4SsWrw2SXIXYnNb6I2D7
- 5vGwD5pOhR/xBZj5IZV+xs9BDiNteRXswzJnSc3t1mWetMXauG1+jgJ6UtdwiBWfrWAE
- zU/Pt9CWXoM6kL358LfIf6oZ7CKB3aMc7yfdG5NkyUwy2icMroExz3iZmNjbl0G/V1xn
- rDPfYjbMdO3cUbVz8aQQaFYRj6URnWsNai2bPPxZQts3MPdqrH8cdBfXySkAnJlHJ6xF
- aGng==
-X-Gm-Message-State: AOJu0YzXWVid7oKVJKQ+FWe4FATf6SgKra3Dva1BpOCP9bUwV/Ng6OP8
- pOLNu/xLdnVlaLav8FwzK//AD00uNrWmvuCTZtjtchQeWF+b5SlfPMJuJymkXsQ1DGUH+82NMXo
- hfIEn7Mx50ftBX381XO9Ng4arZieq3Q==
-X-Gm-Gg: ASbGncuTAKlisLiDuR6R/gMRuEWs5lCp/y5DaSL/LOe8QwqRwzTq/YMG1U6AH/XmAkS
- 9p+ORDI241KzGEeOoAKpxsbGzWQAF0CD+0bxN2DeKxKYcSSpqvxp/hwQeAxyzBuaTcKVk20DMJ0
- K+JEbgzK++odXnm9DbNj2T2is26yfdDjCP
-X-Google-Smtp-Source: AGHT+IHmEEcAjSshJ0t21HL8QECbKXW5XNAsPoDEceCs8pDNdTaajN+Kn8wV43DDPrTvbkDw/4RmDnqg1TBQz6A+h3s=
-X-Received: by 2002:a17:903:1252:b0:22e:72fe:5f8c with SMTP id
- d9443c01a7336-231981453admr21006445ad.13.1747245961434; Wed, 14 May 2025
- 11:06:01 -0700 (PDT)
+ bh=RSLeVpCpyhkdkapiC/6UX9xwclocSb8iuCmyXR/h4w4=;
+ b=ZOLvXxmWVvmka8Vgy6d//311/xQ++BRxmwUu2wkrXuJQBfbaZpFyeS9MIUXDcCT8Fb
+ NzpzCXXzos3X7eU7lWqBB7yz6xM6EqhinfmgPG+dYCWsN9A4ZoOQgvzA+9KO+4olVgBf
+ hTxxrfCLkucUVLqkGr8VByvPHyNXEiXYii9hI3HHpXkhNR5kwxr280o7ZA7s76KB/6Jj
+ eDahTSZ8babeLZ2/k/00b3T8/B7kvknPdD3S67sISOIKtiCIyc6ZQlI6OUzkQdBspRrG
+ 0AnEBzRoADTGbWjjOMf7oGHBjafvAOlg7SBPAUf5LV8fR8JtITdNH2POjrsQLK90Hnqh
+ TH1A==
+X-Gm-Message-State: AOJu0YwoXPMx8grRu7uUKNzXB8kMhUC8+09oIa+XORyLwzELJbQY0APl
+ ojy4bbXdb5LFd99R0DMu1JKcZ16HPmLptDQ+rGwWv5sn18NEPW55MsL2nqa1HZY8uq14WPOS3s2
+ jDcDiHSIKOHtvoTqbn+/QUaARv7s=
+X-Gm-Gg: ASbGncsmeIOo/8CHQRWMdtn7oz3clN3c0O/loTIiAAxg+0clVp/yIQJpL73o5e+w53Z
+ 32KYC6uEYphNWvTKZb82ydlzSaExdOuxLjZzRxRWI8tfODaVkjo5udtG0dddxeNERsG4aNY4+ii
+ s1S9LKgBMfWM/euzzLHjYog3Y7Cbgopxx1
+X-Google-Smtp-Source: AGHT+IGwlL1OXndG8B2iNzGzM6obul3P0dd2suqRdTi/JZ149pmoeZhxE15WQFsItXgZwqmZskSOB2mvQQdYOt1UXj0=
+X-Received: by 2002:a17:902:ef06:b0:21b:b115:1dd9 with SMTP id
+ d9443c01a7336-231980d7403mr27261905ad.5.1747246092603; Wed, 14 May 2025
+ 11:08:12 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250514172251.726484-1-David.Wu3@amd.com>
 In-Reply-To: <20250514172251.726484-1-David.Wu3@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 May 2025 14:05:50 -0400
-X-Gm-Features: AX0GCFtnt8wIbX1fT8hBFAEPrBr1I3YNlkzzkWBxEIzEZuNbAtVoUHMx31mrQU0
-Message-ID: <CADnq5_PLdQ7YppO-FREhHHS0EHUe0-GtLKXcejr=BLs1x3Vv_g@mail.gmail.com>
+Date: Wed, 14 May 2025 14:08:00 -0400
+X-Gm-Features: AX0GCFvEXri4EiHcA1Fu1Cb_a1jetO_pXJH7KUWhqjX3bAykKKljwiQWLEZGPXQ
+Message-ID: <CADnq5_M4qx-B0wGtOr8=iyMCvtAmYHgK-Vjv2pVPMcvUEQPy4A@mail.gmail.com>
 Subject: Re: [PATCH v1 0/8] drm/amdgpu: read back register after written
 To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
@@ -91,9 +91,9 @@ d.com> wrote:
 > avoid similar issues. The overhead introduced is negligible.
 >
 
-Just for some background this is standard PCI MMIO behavior.  If you
-want to guarantee that the writes hit the hardware, you need to do a
-read to post the writes.  You only need to do it for cases where you
-care about the writes posting before the next operation.
+May want to update the comments to say something like:
 
-Alex
+/* read back to post the writes so we don't race with the doorbell */
+
+Either way, the series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
