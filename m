@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA00C2D0CD
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 09:34:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC8DAC54754
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 09:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 833D910E02C;
-	Thu, 15 May 2025 09:34:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D73C10E7F1;
+	Thu, 15 May 2025 09:35:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="r44kFZ9x";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="HSfTSCSr";
 	dkim-atps=neutral
-Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch
- [109.224.244.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABF7A10E7DD
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 09:34:11 +0000 (UTC)
+Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch
+ [109.224.244.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88EA610E7F5;
+ Thu, 15 May 2025 09:35:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1747301648; x=1747560848;
+ s=protonmail2; t=1747301731; x=1747560931;
  bh=zRwWsMDd5Kf2yQpedEA3Ka2dLpgNvYvwuOL0uYq4mxY=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=r44kFZ9xu0hrhZ53aNNmfDrHsFX6eamsxWXIyGGB32BeZV3jUcSdK3JDD8appyy6b
- P7//AKLq/LTz8OnlvhdX6vNIioCcBE0IO3NX3cgKxnUsjM+icqRQtx0f9/LkVXRAen
- q8rpYwpcb0a4K/e07HAhmpl9k4NDPEUEgHuZbs6P42NRyCL7eeeZ6+3sMPaKKSLYbY
- EUOVz9b86Qy2S3YBGKgM2zNoD6k6/IqDY5qA1ysNDFLNBaRVxAwiQWbaqSF8eRe1cC
- 4K+vDLRxukAca6SrgIxzvM4a273RO8u+0Hv0/KxmT2AaLKS9jdVNGJhTuWFdTJ6EzB
- 9AkzQkE56o+Og==
-Date: Thu, 15 May 2025 09:34:05 +0000
+ b=HSfTSCSrjYWSk8tu3IKddMgp3MAsnncvk03YeIomkHfZj0pnuGcWpQxhxrL+NJJoq
+ FSJdLbc5YI5Oah95B2MkLjCA/L4Kn5zuZiOUVKkkl77jldu1lRhzR99y/pU5LcTYw7
+ fUbn0+RZ/FN/OYpa/fkxpheTWPvkUXyDOzsSkmw+J7y1NG7UqJ9iiPvnXjC4em+FW3
+ Nuy6+MEeyKRWDXZsjnOZsPA6kaAMbHRgutIumUloIzbNt0b1bc1e+qeakE4QAvAzJt
+ 0fFRkdvMY8QI1AATXXW0A6MLUqvdKS7pw9/ErGDixLXIEUeRPPRSOvbRgwMEgXaXiU
+ pyPLaeJZMzz5Q==
+Date: Thu, 15 May 2025 09:35:25 +0000
 To: Alex Hung <alex.hung@amd.com>
 From: Simon Ser <contact@emersion.fr>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -41,14 +41,14 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
  sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
  louis.chauvet@bootlin.com, Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH V9 13/43] drm/colorop: Add destroy functions for color
- pipeline
-Message-ID: <QQqy1j1ZcCnwkhtJKKhrWISYwrKbJCoi5MbKC3IcDXRqG908_2tQNd96xl-rGslACjXE6A6g0R4hVl-NzAgXHB9DFtXlEy3EnOIpCXO2fLM=@emersion.fr>
-In-Reply-To: <20250430011115.223996-14-alex.hung@amd.com>
+Subject: Re: [PATCH V9 31/43] drm/colorop: add BT2020/BT709 OETF and Inverse
+ OETF
+Message-ID: <8WcvC-UGuZ3awh2w-XE0rIfkC56njPFdb45X_EHJ67Q4Ixv69iXbwIa3mfVtvakUb9DcbFLTYCE0GYh0ZaO-bG3ulwZTNExmRs_kj33GL5I=@emersion.fr>
+In-Reply-To: <20250430011115.223996-32-alex.hung@amd.com>
 References: <20250430011115.223996-1-alex.hung@amd.com>
- <20250430011115.223996-14-alex.hung@amd.com>
+ <20250430011115.223996-32-alex.hung@amd.com>
 Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: b9ee361b5a76871aacc0f0ad8d35d02e98c6264d
+X-Pm-Message-ID: 236e04ddd8f8446f282b44132b4a12eaf589e45e
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
