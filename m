@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECB13C3ABC9
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 09:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA00C2D0CD
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 09:34:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 850A710E207;
-	Thu, 15 May 2025 09:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 833D910E02C;
+	Thu, 15 May 2025 09:34:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="LDuEZ8Qu";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="r44kFZ9x";
 	dkim-atps=neutral
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4365210E220
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 09:30:49 +0000 (UTC)
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch
+ [109.224.244.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABF7A10E7DD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 09:34:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1747301446; x=1747560646;
+ s=protonmail2; t=1747301648; x=1747560848;
  bh=zRwWsMDd5Kf2yQpedEA3Ka2dLpgNvYvwuOL0uYq4mxY=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=LDuEZ8QuNc64e4a2XfphIbyrOwDLWKCIMf9cYvWvw2Jv/E3nUsAyqKsNfim2p9j5l
- DzjGicG10/HBNpor9OsLEy2+CgCM8fxOQKkkBVtwo8vR0ySp/VTSP0fbDpuTdqBBMl
- vGVRl+YJvYNzlU8eTs88T/fl8RcrPQ/9S/eX05Ug0cTJcy3xBWGORQJFSI61+rJ4Bl
- GxF6Z3sZq3VUB92x1Vzux6urF4tI8FdrA5xyboMJc/2jPfaF7jlk+Xg+MzBXdPpGxC
- pauFbNk47nRMkvYM2muzQUZYRRrJSPatNwYmR/xoGd8hvpd+dowe/KTjN8hMvs/NUS
- 43twFNMg+Npmw==
-Date: Thu, 15 May 2025 09:30:41 +0000
+ b=r44kFZ9xu0hrhZ53aNNmfDrHsFX6eamsxWXIyGGB32BeZV3jUcSdK3JDD8appyy6b
+ P7//AKLq/LTz8OnlvhdX6vNIioCcBE0IO3NX3cgKxnUsjM+icqRQtx0f9/LkVXRAen
+ q8rpYwpcb0a4K/e07HAhmpl9k4NDPEUEgHuZbs6P42NRyCL7eeeZ6+3sMPaKKSLYbY
+ EUOVz9b86Qy2S3YBGKgM2zNoD6k6/IqDY5qA1ysNDFLNBaRVxAwiQWbaqSF8eRe1cC
+ 4K+vDLRxukAca6SrgIxzvM4a273RO8u+0Hv0/KxmT2AaLKS9jdVNGJhTuWFdTJ6EzB
+ 9AkzQkE56o+Og==
+Date: Thu, 15 May 2025 09:34:05 +0000
 To: Alex Hung <alex.hung@amd.com>
 From: Simon Ser <contact@emersion.fr>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -40,14 +41,14 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
  sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
  louis.chauvet@bootlin.com, Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH V9 03/43] drm/doc/rfc: Describe why prescriptive color
- pipeline is needed
-Message-ID: <20zKjcJZzrPPBvQPqfSipG5vOLLKux9Rzy8_hJE3Ukfnxzcdrti9S5NPVZN8iM52qD3OEQ-2R5rH_uRvA8XRl1tbPUB-PPZFvTOgYETqbQc=@emersion.fr>
-In-Reply-To: <20250430011115.223996-4-alex.hung@amd.com>
+Subject: Re: [PATCH V9 13/43] drm/colorop: Add destroy functions for color
+ pipeline
+Message-ID: <QQqy1j1ZcCnwkhtJKKhrWISYwrKbJCoi5MbKC3IcDXRqG908_2tQNd96xl-rGslACjXE6A6g0R4hVl-NzAgXHB9DFtXlEy3EnOIpCXO2fLM=@emersion.fr>
+In-Reply-To: <20250430011115.223996-14-alex.hung@amd.com>
 References: <20250430011115.223996-1-alex.hung@amd.com>
- <20250430011115.223996-4-alex.hung@amd.com>
+ <20250430011115.223996-14-alex.hung@amd.com>
 Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 9e5219d5fb00eb9d82d8685d2d340850e56b0be4
+X-Pm-Message-ID: b9ee361b5a76871aacc0f0ad8d35d02e98c6264d
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
