@@ -4,76 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B6F3C3ABC9
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 08:05:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB06BC3ABDD
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 08:05:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F58C10E9DC;
-	Fri, 16 May 2025 08:05:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D53210E9DD;
+	Fri, 16 May 2025 08:05:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="mQHNBCzd";
+	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="GNbbPnoI";
 	dkim-atps=neutral
-Received: from sonic307-12.consmr.mail.ne1.yahoo.com
- (sonic307-12.consmr.mail.ne1.yahoo.com [66.163.190.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DECE210E902
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 16:11:30 +0000 (UTC)
+Received: from sonic303-25.consmr.mail.ne1.yahoo.com
+ (sonic303-25.consmr.mail.ne1.yahoo.com [66.163.188.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F73C10E0C3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 18:42:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
- t=1747325485; bh=O76SHHXQZgA+EpWomFALQCHjcEYdFJfVnrFAlAf4t7w=;
+ t=1747334537; bh=8JAYg8dxHCcjUzVV53KONrb4RuOQKGiIMC3xN42E6lE=;
  h=Date:From:Subject:To:Cc:In-Reply-To:References:From:Subject:Reply-To;
- b=mQHNBCzdlBK3VojoYcIVR7jCtbAn2VSWk8cVQeWgtednz2/ru9MwL+HCQ45hD7qobXCcEwNiaAZQ3uWu6Un5cXjN70vQdwu/wJwwm65Fcn5W3mSVR0Vg7Sh/kLfn5WLpLdKpczubW1glW6nUeMLhch/jwjBo78/q4P/9JcJVWxE=
+ b=GNbbPnoIwGhyBul332jXQidW6isU5N6bU0ImNMgaArxksr79YVfLIuOX09Y7KsDSqY++B7kWLhQQ2XF6vdH5NBhS+MBzAvug3fRwmEg/hHjLz2Dd+q/3z2zMYwg4B8O8AmXSo2flucmmrfcmibTPac7v6NZaWhvHIwCYH3tZR18=
 X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1747325485; bh=HoJ3fQFWk0ELs3ubb6mo58ut2kaYPS6JmQHlupsEMsO=;
+ t=1747334537; bh=3J1NlAHgtzDexSof45kAuPXU+yLcAZfUzhVqDY44kcX=;
  h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
- b=EiQ9yEbK69NZKPTzTokCCwxjQLD9EA7oyOFEpwAfj9Tttq6Mp/h8skX1i5pTpyYTYS/NzZVTgoSCpE++mZflbMzkQkIpQ2aormqe0uQKf/TqJbapmqs743fG+cPofLGE9MeyLWGPT9wIis1KaGRm2d/MYBcK4wS/oTCwphF9M5ZCefMcCxKQDNSED9yx05sz/a4+oL7WN4FX2q1AMke8P17DsCFGr/ssUE9zII1ZWpCNRQomYL2ajwZNo7U1ieduX4lxJAPprRBVGDzf/9a8BHk3tflIwElvUuhQutHHcCWI4G+OtfIl29u7IZopv+Nd0trKDBOffvSLrzNPYFiVOA==
-X-YMail-OSG: ADZlCpAVM1kHtMlANVU4dAY5uHPlE26ysqdYexDs9S2lT9lXJHjL4YSOAR9tdxl
- iOSRt0HoZ1AYP3IBJ12DztmGwm4OKlU1c_pcJZmzFMIrr52AsUFNhpgctzqdDioNr5Hn.L1NuAbp
- 8LTUmSQ7tuztN9IksHSsYri08n8D.snMkMj.41ZRdJzfLc3XyiiBEDHNg2idC0UNHaJBY27wBQLz
- JPyLkp8n0NjIDLKZWTFtlqullSZomRrjO.RceHAK_vSwMKLH_NI2FUf95_1dXGQztwnPB5VgZrXH
- WuffrjKXanA9ZDYZNV_tsZnZlgb44RGBp8VOA7d6V.dARCpkAvW7kuntCm0m.0ofIXV1I1pZyjKO
- Afz0AMm4rPy69KgtkZ4LKi.9mhWh3MB3_zIVGIpXJ5Y9zi5bIl8vPofL2BzVBGyfRW4OHDBa2UP9
- pmj5VBpaHMe3OGYHEgFwXN77f3qdbfqr3WrFsgD4bbs99iK8vIMAw3R88l0GeAPsDRjPM5sivQHR
- jayOl5QKUNuk.jlwzRMB0BHUPNE8723y5et26hnZGhyvdOU73dtzzL_yEKd4pRj83lA8_ElIRvAq
- xCdljtSRZkYwM7qpaRzgagY7pfvuKnlMKnvH6MgMNcmZIPMaMOAjwwJRZt9TM4qYkqpF1_55qUB0
- 1GV_mzBIk0.vESgZvcomFGF64v0GRt9bLnPOV6gU85gFdtZQIE9e2Dra5Pp8E.z12XnmUOeiSotp
- KDF4NO7jAgV2T.s4GjdIAfEjLNnzamEoJALlS.bjFd1u2thghTDm82bq_coK370T4sivvVjosiT4
- pa2LOGO1eO0meT.AXQ8KAYtfLeCQYDIOJ0HbCSNLsdr2fIopD5i.fI56urspWKNAqEPWlvPUVQ1h
- eWoGcpNldCukZ0FPhAimemXDVYPzx2K6mbx1laZ6n4JUfBgxzGRI.U5mQ8MH0aY3nOgKFrVTjGRm
- G0jIvZNnsLEXoH1ORAi_OMVi1tJGRqSWfHG.Sm7DBT9.ibDx1v1.WXkVGMUIlKU6xSBUjvr7o5a4
- Voqd_PIPp_ExuWE0_Ft_ouoH8utR11fm7BiZBYQ7WkryYcxlXo97lp7dpVzTXDA9Csxwx_Fx6es.
- yjjiIAuJHo9kiKIe8vO5IqCviPigi0UA_KHHiJrI1rdd1wsUPN2XPf.xXmhdqwoIa4NEUcZ3EJWD
- 4Y1mD4Xz.fRRoHxr95GUDV7B7ehHWl56Z2MbHP59ucffA_Gw5HeIkykBoIq.CeUlYauIb5w53Yig
- Vc_X6FJDlJ64ncff8r1k8AtekW7XqgrUyrqJOHe5GVLQD4ToBa6LpKhCdb2k5ZmhZK1rHD7xbTy9
- gEAifZN_QnRecfaoeB5dkNmP5SwC6a4nXiAP1LdubBEBMDV5m6a2KVQ.tMpadt1lTDPnDycTgN6G
- uCYOazOiB1qVfamVY0nzuIFJEWhhfufhV7MQ.q7FNmq0.3B4M_PStVSn7XI3H0drG8JC1BnuTGV5
- rqg8_kSVM7HfpBDodHBHeHZVbYC4XhYculfI4812kXoVbjxveKKhqwTp9wWDnsNvJzYVN4UJunLR
- k0Rp40R7PmWOFLiG0NuL6jUt_pp9VzKA9e13G1P03KkOmDTjrk8ZwxZunAvKRlg0faPXSYeD7W53
- 9X5W2upx04_nI9rgbP.HLcylun6qOAl_1aC5AgxTUXB3bJlm1FT1yaCc6FR096DsBGw.LXS5nupA
- HegqwAkid4rkbe0YvK_PodisneChWr9b8zlF.he3tnX6OgmKitn_vpIqLZ51Uu8adRJK24MHf61c
- VzN2GPOtNYv_vSB3e5EQXv7sZOAb_e1He24rq2E0Vy1VRmrPOFpDC1QfzSJkcKqtXJwlmHenFSu8
- dOQXCqj58.3HEeuNqgWOOVWES6nLQ10h.yeJ9abJyYz.1b7zSkDFQqnKiOKefunEeSZlNEcyY3qs
- hFkdjDvNkfDdzKEZFi_PwrOqQw_3G8Do9B_s6mrXZqLo0JePeKdOqgoJAfc2Sq5vdxLCG4UlB7NG
- wp02PgXX5rgL.4_oabtyZzku8ALJVAMozwuReleb_lszixw5s1OeZd2S2FwS.TpKzHt_aHlWx3A9
- nrJ4t3GPYHuQep_Q3F7PeO089oP1YM3Z9D2C1wUP509BKQMjJf.lWvMZOvV2XQruiZZWxGTmcnFq
- DVa1RLqNEKdKX8HvskZYOMdPt
+ b=c8lZOZNuYw+UmHzRJjmym2ooIkb5e2EIZml9SWFpO8OrfQDYz2ASAWssNH694/3eFSQwSLLInj3uqrjz2WJcKgo8u5EB1h1nDJdavC1bLyqxFUM/d9rV/uqHBGAB/UOtOHXKwSRiXK/Sq0w6pGWtE8p6mivoH+zAagQlu31PHRywQs7/Y/O1+CORggMm82AvoQqV9Jw+/xDPnzIFhI34IOGBD+2Il5tOOYFpEMkcNsbr6xcSe+8kW5p+u78pNMV/dVLJ6ElJYq2Q60DexNaJ7vQ3uxkWMnh3pZZhyb3xGw2UzXuoZ7HFXUiQc4y4Or/c+rGxccr8ELGzWKwhGDI19Q==
+X-YMail-OSG: WtWVjhgVM1ldrGUKVnjlfecrOG1YXZ38AzRxp87nHHjyc6Og6V9mfxQ.E83wsfl
+ eKWzFNUsqbuWNi_XTqWbBr85SL3SZCcz0P5j7eQOz8cl2Dv.7RqeE8LZ9JxObcB1EDWlCKe118EA
+ xlC25pf7nVMJaw1uuGzk4RkD6uViRD38n8yA_I6QhC8Zp.3hniV9dxRBWBU40pT6RPW8cmIoaa1I
+ B5C9i3SaZoLNntQej1MAWd7qCKawz.HTKLoKOKZevLD.HumIR8d4E43eQlmd8XKbgnvzC.3JJeRp
+ vZeMErPZ5DqCtfRwwCRmLVd6mFxEJOs2EAsRojsLvHBrvub9k5mInTSrP4SCGthvogU7ID.83XvT
+ pivZvCGb9vP5Z1QrAp2kHiNGBfZVawiYQp.in2jzQbyHT0ZOEL7xDVQVMY.0jgR3Fp1ZoBVxrOAV
+ gyAV3JPlvKLE1YUSabFI1hw19vJ93yUqzNgGS.VGWFoI0WfVGeXAZRvUDpUFPx55KIiW32GWjE6R
+ vKYez.65twTE7yziKG.vBHhxUbziDC.W00s_ICvrdjeu1hV.M0z6ToUqB7X0ODkDN.mnlhF9RZO6
+ NjtkgxuVLwe2VX.Z2YGVX.sjI3YNyzoF0hVg6qnS9lKP3PxXBXYlZpYOUQvqS_Qx_iFz53UhsTrM
+ 1Xk4SEh_MupLrHg5xvYPjxljuDG30ACFxGgZ041FvXLTuyGt64W6xze5kqSINaUQ01Pg65uGF9y.
+ S5Y7lH.W_e6zGcp5EilyFqH6yClwhyrNooHAOmckfYLuXXrRS4X4yc5S8vSIzJWFQuB_HxKjwzHV
+ 57qXiDRghCDhBJKlNcXeAVOiObTv9c2FXIfry8ZY9bfcx8UvM7ye0Q2V05fiFxNYiR9UxL4tXjYq
+ Q0_ykavZXlJ7V78zd3aX9SGxUBs66cfFTC9rXAybRgzVM3jmDZf57l6X_slxEcrWgQu9soaf8cI7
+ JpdD_MzxYyvpr3SPD7KtBWBcOPZ3rKSgclH98A2KSNUrT7mrA6HmKI3EjLR1.id.0fM_.cLkbCVB
+ OBGKj9Lzx4JhUak0Mv2tvouovuwjRwPnGpzWHiHMLuNZan9Dh6pky96aHwlud.hY.Z7adqporCth
+ t800VMsEC.Ucu0EW_M04dcIBLHJB5kgxwzAwAC3W_AmzPtdwYGvdpH5yyEEXzgaF7NJnU6WdB2dW
+ kXAgXmcIgPDYp5HuzmT0OwXOUKdTZjOpRwSv_PKFIX.I1TxgJGD3wUB3_ouwFc3xmXbdHsysgWIY
+ 37VXblTJhwpQSREDsPRuhQjZgGxiaqkWh3sEP3VH3rCCcBaMLYWHLsmAwGr9W_BRoe55oZ2F9gbh
+ 7hM5VWXjpvIdLAzSX0G9FTpb6qR6uUgq.rncpNvspH0.v69pAhJmaxc_J8iiwjxlLuxFp.XNRp4Y
+ V1kMP1C_aXA14b5LnpYU.zqRRrvemR9ZXh459tISnlexjdZdRW.V4ySMnHrjx16xSizIsUL80ZdF
+ rrOcCTRR.hGxvXmg75IxY74J1FgjhdCGqeKrvcm1M_Q_mS0laJqEoaCse_qsmVQsThw21c90_Q0i
+ RHI9nMg9gH.hvlRMS.cOXqqR4AyuekTOnp4p1GGifW1xwFHbj9bUkmeHoPqW42ZM4fHnMYN6ib2e
+ AjvFLAwdmUiZTE_ljRsUAlldTvuJgZMCK1KM.kttWd0qaa8PGNKQddONZOIYKMxTtqCRyb0dfwCi
+ E3_SM5CmEOm84b1QVDW9JpMgSKyXWUDeQcbMV8jnjRVxsd8rawPcC9bX0rkdE3Q17el4I6Z.lLov
+ hAjIt1jJUCENFObQX.LMsfY7VdhN4dXQ2kgK.YAnGd9dDR6cy0fGbC1jDQUeDERwdWkebkKafk.Q
+ 5lOmWU_l_TYRcW0aqXAqnbHskf3hIoQhEGrGwCf3KiJJnK8lsF3klSZZ4_XKPWpwaD5mXOW1WwuT
+ D8vYERX4_RIeL3KOM_fAYuudmoPfyr4QbrYIshbERTOFJVJC7EMPxjU9JRPaFziLcpJKY_OYebSo
+ ECS1yIzAKhZ1.bPGMg5A.ZbH_pzc0Yd3BC6qeMszvu7CqvVb63Fdb1FizA_aG4gecK5i6WitUP3A
+ WBFt0EoNqKEPmwk4b7G0b5LuroOhP6M3G7Mh.Sg7J5n4TvlMIg1lcZxCvfjpbv7jZ4mqT5esEgPD
+ 77yBZoj22FxGdmQgUXRmUkL6QamSL0nEZeA8fsoFNVCRWqotZp.jMGSAitdKRlDTsEajx5PRRSq7
+ JexW_laPmcz2EDwV68mjgT_DGnoecEBOsbIVlfaRU4u9owQ--
 X-Sonic-MF: <pheonix.sja@att.net>
-X-Sonic-ID: 6a98b255-e2ff-4986-b4f1-3fd111e879ca
+X-Sonic-ID: e2b3ded4-8a60-449a-8e96-46dc4b0d8c25
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic307.consmr.mail.ne1.yahoo.com with HTTP; Thu, 15 May 2025 16:11:25 +0000
-Received: by hermes--production-ne1-9495dc4d7-9mdbh (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 43d5d9edef7359cb552bcf57ec7b14fb; 
- Thu, 15 May 2025 16:11:19 +0000 (UTC)
-Date: Thu, 15 May 2025 12:11:12 -0400
+ sonic303.consmr.mail.ne1.yahoo.com with HTTP; Thu, 15 May 2025 18:42:17 +0000
+Received: by hermes--production-bf1-689c4795f-ct644 (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID c936fa76a81cdfd351750cf543112881; 
+ Thu, 15 May 2025 18:42:15 +0000 (UTC)
+Date: Thu, 15 May 2025 14:42:08 -0400
 From: Steven J Abner <pheonix.sja@att.net>
 Subject: Re: Kernels >= 6.3 disable video output
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Message-Id: <OY8BWS.OAO65CCC74TY1@att.net>
-In-Reply-To: <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Message-Id: <8YFBWS.FJ3FQS6VCKB52@att.net>
+In-Reply-To: <df6872b3-1048-416b-82d7-63f732cb6b4d@amd.com>
 References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
  <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
  <GXXZVS.Q1GIIU1M9VBL1@att.net>
  <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
  <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
  <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
+ <OY8BWS.OAO65CCC74TY1@att.net>
+ <CADnq5_NqAQPO1NRbzQJzR+tZnOSqrhTmZj4z-B54X-hRxo3b4w@mail.gmail.com>
+ <df6872b3-1048-416b-82d7-63f732cb6b4d@amd.com>
 X-Mailer: geary/40.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
@@ -92,32 +97,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 12 2025 at 08:10:40 PM +0000, Alex Deucher 
-<alexdeucher@gmail.com> wrote:
-> See:
-> https://docs.kernel.org/admin-guide/bug-bisect.html
-> ... identify the exact commit which broke caused your issue.
+On Thu, May 15 2025 at 05:59:55 PM +0000, Harry Wentland 
+<harry.wentland@amd.com> wrote:
+> Are you able to share the specific TV model?
 
- One heck of a journey! But tested the solution on the first broken 
-kernel 6.3. Too chicken to force revert attempts of 6.12 and 6.6 since 
-I really didn't understand why revert spewed out 'nah-ah' for a one 
-liner. 6.3 passed simple test of no blackouts for 8 in a row boots.
- Firstly let me qualify the revert, cause it's how i got it to work:
-git show c76e483cd9163138e8fc44d829c986819f072d4f | patch --fuzz=999 
--p1 -R
- It seems simple enough of code which appears to set 8 bits of color 
-for rgb as maximum, but with struct changes and me having a 
-'historical' processor :) didn't want to have a non-expert speak that 
-this is the full solution.
- Also note that I didn't 100% follow the bug-bisect guide as mine was 
-apparently a unique situation where it had to first learn to connect to 
-the internet and I don't use intrd images among other oddities. Also 
-did this from last working kernel (6.2.16) to verify it was the last. 
-PS had to patch amdgpu Makefile to allow the 6.2 series to compile with 
-new gcc (-Wno-error).
- If need other info or need me to test actual patched 'upstream' 
-kernel, I'm here.
-Thank you!
+ From TV itself: Sansui S55VAUG. From System info within tv menu: 
+Settings: Device Name: GoogleTV8931 Model: Apollo Premium 4KTV
+ from cat /sys/class/drm/card0/card0-HDMI-A-1/edid:
+binary stuff with words 'AndroidTV' embedded.
+ TV's only about 6 months old and MicroCenter offers them.
 Steve
 
 
