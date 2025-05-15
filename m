@@ -4,121 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D77DBC2D0CD
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 09:48:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF05C3ABC9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 09:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F69610E7F8;
-	Thu, 15 May 2025 09:48:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A228D10E1AF;
+	Thu, 15 May 2025 09:50:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5pxpJr5U";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YS8K1J9h";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2046.outbound.protection.outlook.com [40.107.101.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEC6710E7F8
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 09:48:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FdKf7ELqg9JHiJJ19G7zGVFU0OGc+bEYI29485T268eGmBi/kbuoAwayfA/WLb0+gpurMp/1g49WBubYA+e+054mNGuIqo5P1FiriU38dAfwDrIGT/aPVhDlxmeED5+k9WXcw0+cJ8FWJs3qAffKA8v04P5NQHQk8q8HucI9uiW2t1Nkdyvk5hHyRZ7aa0rGUN94GzFNuP0Yt72I+sZxWOb7GIQPlkfjkXcOjUkWXnAM20YDV+GRq3LwMwYleDukZzpJ6YIUZcCMvNlVhNVsCo8Wh7Bdsgcx/ibdhEl0kYcbjkmnKNKIegK6ejdMTDwvyhi8014NgV1/HA8elevqLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AAS6TpI40myi86MtWLbbWrawiqtO7pAp0BKe+l+8Hfo=;
- b=Durhu4sNMLD0Cu6lUf9AqghxY03hCYp4gxoNo0NMkM1bcn7BYYerfjjeX74B/iar1W+Svg0t6ZmiPBQ5h1ThhF78uy9bp3Zznif3sFeeiXF0FGiUn0k4GzmMzFUCWxfJ5GaOpKYPFr8Je4W0TEqJT//dnBZuzFB+3F/IZY6qqBn/knTqhLMOFN2o75K0H0YcDt3+0SVENuXZzcwfuPtOPfA+xlhDW+Hgl+8X4O199dBOZo7yUIxyfVh/mjx0RosiV1ULG1oX0ri4TcLMqr4fPhdzjldzXjP0+XUVPJLiDiZiaXFKfI9vsRmzCb+OpBKqKSZ9IuWwXDGQesDZwhc+kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AAS6TpI40myi86MtWLbbWrawiqtO7pAp0BKe+l+8Hfo=;
- b=5pxpJr5UzoR2Xy/GQkefV/YQ+WGD2eJygWEpAtwcB6UwJdMzEwd5FGnLnGZ2kkEcNFDYjyKpJbsdLgLtLkd1UHkJHEv3VSBkE3URC+7WpJYO5JOK9tXrEfNPxFYU9qO2SK0NqM7AS6YWh7Y4yU+bQuHbvYu/1nMnQsH0SZ4xkJs=
-Received: from DM6PR03CA0079.namprd03.prod.outlook.com (2603:10b6:5:333::12)
- by BL3PR12MB6404.namprd12.prod.outlook.com (2603:10b6:208:3b4::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.30; Thu, 15 May
- 2025 09:48:01 +0000
-Received: from DS1PEPF0001708E.namprd03.prod.outlook.com
- (2603:10b6:5:333:cafe::8f) by DM6PR03CA0079.outlook.office365.com
- (2603:10b6:5:333::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.25 via Frontend Transport; Thu,
- 15 May 2025 09:48:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF0001708E.mail.protection.outlook.com (10.167.17.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Thu, 15 May 2025 09:48:01 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 15 May
- 2025 04:48:00 -0500
-Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Thu, 15 May 2025 04:47:58 -0500
-From: Jesse.Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Jesse.Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Fix eviction fence worker race during fd close
-Date: Thu, 15 May 2025 17:46:57 +0800
-Message-ID: <20250515094758.501650-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F245610E1AF;
+ Thu, 15 May 2025 09:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=jsDMQb2uBHDc3uiI5lejjVgyjrp0PDqjmbb7PkBzULA=; b=YS8K1J9h/NHmkmWhTIfNwQIkd9
+ c9hjce46iA7QLKY/iQBd2BFUwPdLZVAuALtYOj+W30YHjgKBn1qJ0J5OB3tjloYNOalal05BV1QDj
+ IWThxDRp3L89CkBAiXKiCj1d9X6NUdERZ7L40XygYNqtfWj6IFmyi2BGPWGGx6ezJ2v0Ia1QtJplb
+ Z3RoAxp+nxdyD9r3Rv45BT9VQDN5vY7CC/tF7k50NmYx/uKUvBzS/2SQnabJsPhCZrHKY7mX0JiOI
+ 2Nt2h+DRg4tJdNxdqJn/II922h9OmKKWFRHTidxpoCcW8ToRe7M7XyZ8/1VGztLNnX8vFLzxcySNz
+ Fny5V2mw==;
+Received: from [81.79.92.254] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uFV8P-008ZQj-Ll; Thu, 15 May 2025 11:50:08 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 2/9] dma-fence: Use a flag for 64-bit seqnos
+Date: Thu, 15 May 2025 10:49:57 +0100
+Message-ID: <20250515095004.28318-3-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250515095004.28318-1-tvrtko.ursulin@igalia.com>
+References: <20250515095004.28318-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: Jesse.Zhang@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001708E:EE_|BL3PR12MB6404:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f7516b9-7f6a-479b-b476-08dd939594c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JRjIKOKtOqtxRlXmQJnDiiy0EPST58S+Z0OdsqbiRsF5puYbado8zengv/9V?=
- =?us-ascii?Q?baT9cmZIraObQf+r9Amqj0tW/ZjJJS6hT1dS/wtI6ljA6P4CeZC+HjspudXT?=
- =?us-ascii?Q?zIhX/8PuAInuBEgRRnXWh96HDlM4NRfTfMxdBr2VR4YOulhv4Bh7IAjEYQjm?=
- =?us-ascii?Q?FyvYS6wF5ZjPLvtJeSRFOCaRSKq+TuWbsyVTSO+tIDS3ffz1snanqJ5FiXgN?=
- =?us-ascii?Q?TC04X9Dn3KHAr1QNBdcM57zawCCcF5E9XETv6Rpb+HX3CfEzrenj6EanEi/A?=
- =?us-ascii?Q?ThVheiudBQYvnrmFIMXgFfIt2JCkej4VJgFMhifQg31PRunmKiqcHizIOzCa?=
- =?us-ascii?Q?7R/ww7DvEP8X85G0Hi1BAMaM9LMS6YTh0cQDGJ9RgZGZE9DZEDVUhfjqOdZw?=
- =?us-ascii?Q?FBDyZs4taDDwpnljo/CxraDuJDsoLOSId1tSIXkDTGRLAvVnBoc//hJcPYYb?=
- =?us-ascii?Q?YVmPj2b9tQ7on+8jVlNtcVldhtjsKK8FU82z479FzsLVcCKmb4eWXxtVGWu7?=
- =?us-ascii?Q?s2V1ibuf4Snqgl7WkWwKJ7oaUNA/hB69wBs/1zulXXh8rxsrEwBQIrQpFhJ9?=
- =?us-ascii?Q?W3OjObOE1+BMSuBSf1Uqdss+kW58rh5FWG8owX01FQ7d4PiMwcWAhCBOKNig?=
- =?us-ascii?Q?xcRULAN9L34PESqwPAo/4PnEt+Tq1xeMF+bYlDiimtMpijj8zNeucH98hQe4?=
- =?us-ascii?Q?qRtBrH8SC4D7ErhImsw1PTgNbbT2PCVmJFBGEyl/xyoiJXTZzjpHKIwCLRS+?=
- =?us-ascii?Q?RQ1hwCiBYmpe0tgx6GQno4fnHo3hChxWy9fvKGf+WwWhTt5iU67+mBqAGMeT?=
- =?us-ascii?Q?vWUcPFUdTXAyk2+Awq3DOkmAEM86VeWE98fs82Y2XCpcUtzQz6yLswnO6H9d?=
- =?us-ascii?Q?b0zF2vBMnY9YVvcL3BMWzVv/sFZhqBBokpG7souI1GjW2Lf/eiKbWolhCn/Q?=
- =?us-ascii?Q?94v3mrD+SBa7dyXdICCtMgLvihaWayi7MWjeYiveQMhXYnqRlmg/R9Gynl0D?=
- =?us-ascii?Q?v4Zf0nbI8tn/b9aGqM531p7l4W21kwJwsDSt3dUzX2jxuvFtnkwM6lXEkBux?=
- =?us-ascii?Q?pvqW0b7FSgH55aaFviZdTwpBjiQiqfDSoDRlFNbqCE1miu6NS2XQO9oWWcP8?=
- =?us-ascii?Q?SszAKjfEj35qz15mL4dTCz4IKHV80/klAVmL4z1yiBSozaRvkaaTAfWllqYm?=
- =?us-ascii?Q?/1BnQIVr/tairfW4VlITOGFuFHJrGLlb6z64Iyv7RSh9NMJYcRONCvknYmyq?=
- =?us-ascii?Q?ITInwI85cULbWIZ2LqFmo8aiWtAcp4/zwoi0Dn1DaRB1hpGKj0xap62nRRVO?=
- =?us-ascii?Q?P02gu+VcgtibcNmCGRKSBpjWcdWytYUrWjvI1utE9yYMpJnTbXoA5puK3wTb?=
- =?us-ascii?Q?ZeQRXltW03wve76KV+lez2tRY+4MKWMZwbdkEEYz+CS4N2kFQTV79QF8XT2g?=
- =?us-ascii?Q?1RjncsrJHNmwUCxGbiFakieNVQNM1th1+F/7W1TTEsfblohQdOaSbr1EUYyy?=
- =?us-ascii?Q?YBN3QzQE5aT7Y7RWFwkH/gRUdOnM4QcuXzd0?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2025 09:48:01.0786 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f7516b9-7f6a-479b-b476-08dd939594c0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6404
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,63 +66,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The current cleanup order during file descriptor close can lead to
-a race condition where the eviction fence worker attempts to access
-a destroyed mutex from the user queue manager:
+With the goal of reducing the need for drivers to touch (and dereference)
+fence->ops, we move the 64-bit seqnos flag from struct dma_fence_ops to
+the fence->flags.
 
-[  517.294055] DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-[  517.294060] WARNING: CPU: 8 PID: 2030 at kernel/locking/mutex.c:564
-[  517.294094] Workqueue: events amdgpu_eviction_fence_suspend_worker [amdgpu]
+Drivers which were setting this flag are changed to use new
+dma_fence_init64() instead of dma_fence_init().
 
-The issue occurs because:
-1. We destroy the user queue manager (including its mutex) first
-2. Then try to destroy eviction fences which may have pending work
-3. The eviction fence worker may try to access the already-destroyed mutex
+v2:
+ * Streamlined init and added kerneldoc.
+ * Rebase for amdgpu userq which landed since.
 
-Fix this by reordering the cleanup to:
-1. First mark the fd as closing and destroy eviction fences,
-   which flushes any pending work
-2. Then safely destroy the user queue manager after we're certain
-   no more fence work will be executed
-
-v2: remove the copy in amdgpu_driver_postclose_kms() (Christian)
-
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Reviewed-by: Christian König <christian.koenig@amd.com> # v1
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 5 -----
- 2 files changed, 1 insertion(+), 6 deletions(-)
+ drivers/dma-buf/dma-fence-chain.c             |  5 +-
+ drivers/dma-buf/dma-fence.c                   | 69 ++++++++++++++-----
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ include/linux/dma-fence.h                     | 14 ++--
+ 6 files changed, 64 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 4ddd08ce8885..4db92e0a60da 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2913,8 +2913,8 @@ static int amdgpu_drm_release(struct inode *inode, struct file *filp)
+diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
+index 90424f23fd73..a8a90acf4f34 100644
+--- a/drivers/dma-buf/dma-fence-chain.c
++++ b/drivers/dma-buf/dma-fence-chain.c
+@@ -218,7 +218,6 @@ static void dma_fence_chain_set_deadline(struct dma_fence *fence,
+ }
  
- 	if (fpriv) {
- 		fpriv->evf_mgr.fd_closing = true;
--		amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
- 		amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
-+		amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
+ const struct dma_fence_ops dma_fence_chain_ops = {
+-	.use_64bit_seqno = true,
+ 	.get_driver_name = dma_fence_chain_get_driver_name,
+ 	.get_timeline_name = dma_fence_chain_get_timeline_name,
+ 	.enable_signaling = dma_fence_chain_enable_signaling,
+@@ -262,8 +261,8 @@ void dma_fence_chain_init(struct dma_fence_chain *chain,
+ 			seqno = max(prev->seqno, seqno);
  	}
  
- 	return drm_release(inode, filp);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 9fbb04aee97b..d2ce7d86dbc8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1502,11 +1502,6 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
- 		amdgpu_bo_unreserve(pd);
- 	}
+-	dma_fence_init(&chain->base, &dma_fence_chain_ops,
+-		       &chain->lock, context, seqno);
++	dma_fence_init64(&chain->base, &dma_fence_chain_ops, &chain->lock,
++			 context, seqno);
  
--	if (!fpriv->evf_mgr.fd_closing) {
--		fpriv->evf_mgr.fd_closing = true;
--		amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
--		amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
--	}
- 	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
- 	amdgpu_vm_fini(adev, &fpriv->vm);
+ 	/*
+ 	 * Chaining dma_fence_chain container together is only allowed through
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index f0cdd3e99d36..705b59787731 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -989,24 +989,9 @@ void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
+ }
+ EXPORT_SYMBOL(dma_fence_describe);
  
+-/**
+- * dma_fence_init - Initialize a custom fence.
+- * @fence: the fence to initialize
+- * @ops: the dma_fence_ops for operations on this fence
+- * @lock: the irqsafe spinlock to use for locking this fence
+- * @context: the execution context this fence is run on
+- * @seqno: a linear increasing sequence number for this context
+- *
+- * Initializes an allocated fence, the caller doesn't have to keep its
+- * refcount after committing with this fence, but it will need to hold a
+- * refcount again if &dma_fence_ops.enable_signaling gets called.
+- *
+- * context and seqno are used for easy comparison between fences, allowing
+- * to check which fence is later by simply using dma_fence_later().
+- */
+-void
+-dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+-	       spinlock_t *lock, u64 context, u64 seqno)
++static void
++__dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
++	         spinlock_t *lock, u64 context, u64 seqno, unsigned long flags)
+ {
+ 	BUG_ON(!lock);
+ 	BUG_ON(!ops || !ops->get_driver_name || !ops->get_timeline_name);
+@@ -1017,9 +1002,55 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ 	fence->lock = lock;
+ 	fence->context = context;
+ 	fence->seqno = seqno;
+-	fence->flags = 0UL;
++	fence->flags = flags;
+ 	fence->error = 0;
+ 
+ 	trace_dma_fence_init(fence);
+ }
++
++/**
++ * dma_fence_init - Initialize a custom fence.
++ * @fence: the fence to initialize
++ * @ops: the dma_fence_ops for operations on this fence
++ * @lock: the irqsafe spinlock to use for locking this fence
++ * @context: the execution context this fence is run on
++ * @seqno: a linear increasing sequence number for this context
++ *
++ * Initializes an allocated fence, the caller doesn't have to keep its
++ * refcount after committing with this fence, but it will need to hold a
++ * refcount again if &dma_fence_ops.enable_signaling gets called.
++ *
++ * context and seqno are used for easy comparison between fences, allowing
++ * to check which fence is later by simply using dma_fence_later().
++ */
++void
++dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
++	       spinlock_t *lock, u64 context, u64 seqno)
++{
++	__dma_fence_init(fence, ops, lock, context, seqno, 0UL);
++}
+ EXPORT_SYMBOL(dma_fence_init);
++
++/**
++ * dma_fence_init64 - Initialize a custom fence with 64-bit seqno support.
++ * @fence: the fence to initialize
++ * @ops: the dma_fence_ops for operations on this fence
++ * @lock: the irqsafe spinlock to use for locking this fence
++ * @context: the execution context this fence is run on
++ * @seqno: a linear increasing sequence number for this context
++ *
++ * Initializes an allocated fence, the caller doesn't have to keep its
++ * refcount after committing with this fence, but it will need to hold a
++ * refcount again if &dma_fence_ops.enable_signaling gets called.
++ *
++ * Context and seqno are used for easy comparison between fences, allowing
++ * to check which fence is later by simply using dma_fence_later().
++ */
++void
++dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
++		 spinlock_t *lock, u64 context, u64 seqno)
++{
++	__dma_fence_init(fence, ops, lock, context, seqno,
++			 BIT(DMA_FENCE_FLAG_SEQNO64_BIT));
++}
++EXPORT_SYMBOL(dma_fence_init64);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+index 1a7469543db5..79713421bffe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+@@ -134,7 +134,6 @@ static bool amdgpu_eviction_fence_enable_signaling(struct dma_fence *f)
+ }
+ 
+ static const struct dma_fence_ops amdgpu_eviction_fence_ops = {
+-	.use_64bit_seqno = true,
+ 	.get_driver_name = amdgpu_eviction_fence_get_driver_name,
+ 	.get_timeline_name = amdgpu_eviction_fence_get_timeline_name,
+ 	.enable_signaling = amdgpu_eviction_fence_enable_signaling,
+@@ -160,9 +159,9 @@ amdgpu_eviction_fence_create(struct amdgpu_eviction_fence_mgr *evf_mgr)
+ 	ev_fence->evf_mgr = evf_mgr;
+ 	get_task_comm(ev_fence->timeline_name, current);
+ 	spin_lock_init(&ev_fence->lock);
+-	dma_fence_init(&ev_fence->base, &amdgpu_eviction_fence_ops,
+-		       &ev_fence->lock, evf_mgr->ev_fence_ctx,
+-		       atomic_inc_return(&evf_mgr->ev_fence_seq));
++	dma_fence_init64(&ev_fence->base, &amdgpu_eviction_fence_ops,
++			 &ev_fence->lock, evf_mgr->ev_fence_ctx,
++			 atomic_inc_return(&evf_mgr->ev_fence_seq));
+ 	return ev_fence;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 029cb24c28b3..5e92d00a591f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -239,8 +239,8 @@ static int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
+ 	fence = &userq_fence->base;
+ 	userq_fence->fence_drv = fence_drv;
+ 
+-	dma_fence_init(fence, &amdgpu_userq_fence_ops, &userq_fence->lock,
+-		       fence_drv->context, seq);
++	dma_fence_init64(fence, &amdgpu_userq_fence_ops, &userq_fence->lock,
++			 fence_drv->context, seq);
+ 
+ 	amdgpu_userq_fence_driver_get(fence_drv);
+ 	dma_fence_get(fence);
+@@ -334,7 +334,6 @@ static void amdgpu_userq_fence_release(struct dma_fence *f)
+ }
+ 
+ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
+-	.use_64bit_seqno = true,
+ 	.get_driver_name = amdgpu_userq_fence_get_driver_name,
+ 	.get_timeline_name = amdgpu_userq_fence_get_timeline_name,
+ 	.signaled = amdgpu_userq_fence_signaled,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+index 51cddfa3f1e8..5d26797356a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+@@ -71,7 +71,6 @@ static void amdgpu_tlb_fence_work(struct work_struct *work)
+ }
+ 
+ static const struct dma_fence_ops amdgpu_tlb_fence_ops = {
+-	.use_64bit_seqno = true,
+ 	.get_driver_name = amdgpu_tlb_fence_get_driver_name,
+ 	.get_timeline_name = amdgpu_tlb_fence_get_timeline_name
+ };
+@@ -101,8 +100,8 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm
+ 	INIT_WORK(&f->work, amdgpu_tlb_fence_work);
+ 	spin_lock_init(&f->lock);
+ 
+-	dma_fence_init(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
+-		       vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
++	dma_fence_init64(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
++			 vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
+ 
+ 	/* TODO: We probably need a separate wq here */
+ 	dma_fence_get(&f->base);
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index 48b5202c531d..a34a0dcdc446 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -97,6 +97,7 @@ struct dma_fence {
+ };
+ 
+ enum dma_fence_flag_bits {
++	DMA_FENCE_FLAG_SEQNO64_BIT,
+ 	DMA_FENCE_FLAG_SIGNALED_BIT,
+ 	DMA_FENCE_FLAG_TIMESTAMP_BIT,
+ 	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+@@ -124,14 +125,6 @@ struct dma_fence_cb {
+  *
+  */
+ struct dma_fence_ops {
+-	/**
+-	 * @use_64bit_seqno:
+-	 *
+-	 * True if this dma_fence implementation uses 64bit seqno, false
+-	 * otherwise.
+-	 */
+-	bool use_64bit_seqno;
+-
+ 	/**
+ 	 * @get_driver_name:
+ 	 *
+@@ -262,6 +255,9 @@ struct dma_fence_ops {
+ void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ 		    spinlock_t *lock, u64 context, u64 seqno);
+ 
++void dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
++		      spinlock_t *lock, u64 context, u64 seqno);
++
+ void dma_fence_release(struct kref *kref);
+ void dma_fence_free(struct dma_fence *fence);
+ void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
+@@ -454,7 +450,7 @@ static inline bool __dma_fence_is_later(struct dma_fence *fence, u64 f1, u64 f2)
+ 	 * 32bit sequence numbers. Use a 64bit compare when the driver says to
+ 	 * do so.
+ 	 */
+-	if (fence->ops->use_64bit_seqno)
++	if (test_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence->flags))
+ 		return f1 > f2;
+ 
+ 	return (int)(lower_32_bits(f1) - lower_32_bits(f2)) > 0;
 -- 
-2.49.0
+2.48.0
 
