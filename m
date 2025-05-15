@@ -4,66 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C32C3ABDD
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 08:05:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B6F3C3ABC9
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 08:05:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B83E10E9DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F58C10E9DC;
 	Fri, 16 May 2025 08:05:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aC8j9Jwp";
+	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="mQHNBCzd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF34210E868;
- Fri, 16 May 2025 07:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747379010; x=1778915010;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=yhtrPlJ9qmNyVnIMkIRuxU21wfsbr+ewaXgbpucVwKI=;
- b=aC8j9JwpvDXHGdczQYOhi8gsjWw3+lx2duVDZeRZ79yD7emdbHz7aSBa
- QfkrfQCCW9ZSPQ+kNl3swrO8EBLelm1dP9wQoaRO6KfYI4liMrkPdpEOy
- sx322J6EUXdhtsxKTC4eQXXQVu+rtAosoXh2gKzyXavLFyp0X/sfsiwns
- +Z6wkiBHcAaeYm7A/MhKnM5T+t8EfqifgQBfsZkV7Oj5iGkEThF7jIDia
- C+PdwANMWsAA9SY3jt1RjVGGzjGUCF48y3K3RboMmozrQ/Wm1dLaC1KF3
- NLG1+nMr+i2jg50jaCZBivN0ol32cjb+qgYWfUBOmblFRKkM16b/qjSXO g==;
-X-CSE-ConnectionGUID: DBtY1VIjSAqMddztoUwhpw==
-X-CSE-MsgGUID: h+tDxLQ/R+iWNWYeVCzTCA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11434"; a="49477435"
-X-IronPort-AV: E=Sophos;i="6.15,293,1739865600"; d="scan'208";a="49477435"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2025 00:03:27 -0700
-X-CSE-ConnectionGUID: vXCqJWCVTqKRwiW6nA2nnQ==
-X-CSE-MsgGUID: ZVjwAZNZQ0OfN1RXidy/aw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,293,1739865600"; d="scan'208";a="143724385"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2025 00:03:23 -0700
-Date: Fri, 16 May 2025 10:03:19 +0300
-From: Raag Jadav <raag.jadav@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- Xaver Hugl <xaver.hugl@gmail.com>,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v3 2/3] drm/doc: Add a section about "App information"
- for the wedge API
-Message-ID: <aCbjN9lqP4ZWV_lY@black.fi.intel.com>
-References: <20250512203437.989894-1-andrealmeid@igalia.com>
- <20250512203437.989894-3-andrealmeid@igalia.com>
+Received: from sonic307-12.consmr.mail.ne1.yahoo.com
+ (sonic307-12.consmr.mail.ne1.yahoo.com [66.163.190.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DECE210E902
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 16:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
+ t=1747325485; bh=O76SHHXQZgA+EpWomFALQCHjcEYdFJfVnrFAlAf4t7w=;
+ h=Date:From:Subject:To:Cc:In-Reply-To:References:From:Subject:Reply-To;
+ b=mQHNBCzdlBK3VojoYcIVR7jCtbAn2VSWk8cVQeWgtednz2/ru9MwL+HCQ45hD7qobXCcEwNiaAZQ3uWu6Un5cXjN70vQdwu/wJwwm65Fcn5W3mSVR0Vg7Sh/kLfn5WLpLdKpczubW1glW6nUeMLhch/jwjBo78/q4P/9JcJVWxE=
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1747325485; bh=HoJ3fQFWk0ELs3ubb6mo58ut2kaYPS6JmQHlupsEMsO=;
+ h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
+ b=EiQ9yEbK69NZKPTzTokCCwxjQLD9EA7oyOFEpwAfj9Tttq6Mp/h8skX1i5pTpyYTYS/NzZVTgoSCpE++mZflbMzkQkIpQ2aormqe0uQKf/TqJbapmqs743fG+cPofLGE9MeyLWGPT9wIis1KaGRm2d/MYBcK4wS/oTCwphF9M5ZCefMcCxKQDNSED9yx05sz/a4+oL7WN4FX2q1AMke8P17DsCFGr/ssUE9zII1ZWpCNRQomYL2ajwZNo7U1ieduX4lxJAPprRBVGDzf/9a8BHk3tflIwElvUuhQutHHcCWI4G+OtfIl29u7IZopv+Nd0trKDBOffvSLrzNPYFiVOA==
+X-YMail-OSG: ADZlCpAVM1kHtMlANVU4dAY5uHPlE26ysqdYexDs9S2lT9lXJHjL4YSOAR9tdxl
+ iOSRt0HoZ1AYP3IBJ12DztmGwm4OKlU1c_pcJZmzFMIrr52AsUFNhpgctzqdDioNr5Hn.L1NuAbp
+ 8LTUmSQ7tuztN9IksHSsYri08n8D.snMkMj.41ZRdJzfLc3XyiiBEDHNg2idC0UNHaJBY27wBQLz
+ JPyLkp8n0NjIDLKZWTFtlqullSZomRrjO.RceHAK_vSwMKLH_NI2FUf95_1dXGQztwnPB5VgZrXH
+ WuffrjKXanA9ZDYZNV_tsZnZlgb44RGBp8VOA7d6V.dARCpkAvW7kuntCm0m.0ofIXV1I1pZyjKO
+ Afz0AMm4rPy69KgtkZ4LKi.9mhWh3MB3_zIVGIpXJ5Y9zi5bIl8vPofL2BzVBGyfRW4OHDBa2UP9
+ pmj5VBpaHMe3OGYHEgFwXN77f3qdbfqr3WrFsgD4bbs99iK8vIMAw3R88l0GeAPsDRjPM5sivQHR
+ jayOl5QKUNuk.jlwzRMB0BHUPNE8723y5et26hnZGhyvdOU73dtzzL_yEKd4pRj83lA8_ElIRvAq
+ xCdljtSRZkYwM7qpaRzgagY7pfvuKnlMKnvH6MgMNcmZIPMaMOAjwwJRZt9TM4qYkqpF1_55qUB0
+ 1GV_mzBIk0.vESgZvcomFGF64v0GRt9bLnPOV6gU85gFdtZQIE9e2Dra5Pp8E.z12XnmUOeiSotp
+ KDF4NO7jAgV2T.s4GjdIAfEjLNnzamEoJALlS.bjFd1u2thghTDm82bq_coK370T4sivvVjosiT4
+ pa2LOGO1eO0meT.AXQ8KAYtfLeCQYDIOJ0HbCSNLsdr2fIopD5i.fI56urspWKNAqEPWlvPUVQ1h
+ eWoGcpNldCukZ0FPhAimemXDVYPzx2K6mbx1laZ6n4JUfBgxzGRI.U5mQ8MH0aY3nOgKFrVTjGRm
+ G0jIvZNnsLEXoH1ORAi_OMVi1tJGRqSWfHG.Sm7DBT9.ibDx1v1.WXkVGMUIlKU6xSBUjvr7o5a4
+ Voqd_PIPp_ExuWE0_Ft_ouoH8utR11fm7BiZBYQ7WkryYcxlXo97lp7dpVzTXDA9Csxwx_Fx6es.
+ yjjiIAuJHo9kiKIe8vO5IqCviPigi0UA_KHHiJrI1rdd1wsUPN2XPf.xXmhdqwoIa4NEUcZ3EJWD
+ 4Y1mD4Xz.fRRoHxr95GUDV7B7ehHWl56Z2MbHP59ucffA_Gw5HeIkykBoIq.CeUlYauIb5w53Yig
+ Vc_X6FJDlJ64ncff8r1k8AtekW7XqgrUyrqJOHe5GVLQD4ToBa6LpKhCdb2k5ZmhZK1rHD7xbTy9
+ gEAifZN_QnRecfaoeB5dkNmP5SwC6a4nXiAP1LdubBEBMDV5m6a2KVQ.tMpadt1lTDPnDycTgN6G
+ uCYOazOiB1qVfamVY0nzuIFJEWhhfufhV7MQ.q7FNmq0.3B4M_PStVSn7XI3H0drG8JC1BnuTGV5
+ rqg8_kSVM7HfpBDodHBHeHZVbYC4XhYculfI4812kXoVbjxveKKhqwTp9wWDnsNvJzYVN4UJunLR
+ k0Rp40R7PmWOFLiG0NuL6jUt_pp9VzKA9e13G1P03KkOmDTjrk8ZwxZunAvKRlg0faPXSYeD7W53
+ 9X5W2upx04_nI9rgbP.HLcylun6qOAl_1aC5AgxTUXB3bJlm1FT1yaCc6FR096DsBGw.LXS5nupA
+ HegqwAkid4rkbe0YvK_PodisneChWr9b8zlF.he3tnX6OgmKitn_vpIqLZ51Uu8adRJK24MHf61c
+ VzN2GPOtNYv_vSB3e5EQXv7sZOAb_e1He24rq2E0Vy1VRmrPOFpDC1QfzSJkcKqtXJwlmHenFSu8
+ dOQXCqj58.3HEeuNqgWOOVWES6nLQ10h.yeJ9abJyYz.1b7zSkDFQqnKiOKefunEeSZlNEcyY3qs
+ hFkdjDvNkfDdzKEZFi_PwrOqQw_3G8Do9B_s6mrXZqLo0JePeKdOqgoJAfc2Sq5vdxLCG4UlB7NG
+ wp02PgXX5rgL.4_oabtyZzku8ALJVAMozwuReleb_lszixw5s1OeZd2S2FwS.TpKzHt_aHlWx3A9
+ nrJ4t3GPYHuQep_Q3F7PeO089oP1YM3Z9D2C1wUP509BKQMjJf.lWvMZOvV2XQruiZZWxGTmcnFq
+ DVa1RLqNEKdKX8HvskZYOMdPt
+X-Sonic-MF: <pheonix.sja@att.net>
+X-Sonic-ID: 6a98b255-e2ff-4986-b4f1-3fd111e879ca
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic307.consmr.mail.ne1.yahoo.com with HTTP; Thu, 15 May 2025 16:11:25 +0000
+Received: by hermes--production-ne1-9495dc4d7-9mdbh (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 43d5d9edef7359cb552bcf57ec7b14fb; 
+ Thu, 15 May 2025 16:11:19 +0000 (UTC)
+Date: Thu, 15 May 2025 12:11:12 -0400
+From: Steven J Abner <pheonix.sja@att.net>
+Subject: Re: Kernels >= 6.3 disable video output
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-Id: <OY8BWS.OAO65CCC74TY1@att.net>
+In-Reply-To: <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
+References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
+ <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
+ <GXXZVS.Q1GIIU1M9VBL1@att.net>
+ <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
+ <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
+ <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
+X-Mailer: geary/40.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250512203437.989894-3-andrealmeid@igalia.com>
+Content-Type: text/plain; charset=us-ascii; format=flowed
 X-Mailman-Approved-At: Fri, 16 May 2025 08:05:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,60 +92,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 12, 2025 at 05:34:36PM -0300, André Almeida wrote:
-> Add a section about "App information" for the wedge API.
-> 
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> ---
-> v3:
->  - Change "app that caused ..." to "app involved ..."
->  - Clarify that devcoredump have more information about what happened
->  - Update that PID and APP will be empty if there's no app info
-> ---
->  Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-> index 69f72e71a96e..3300a928d8ef 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
->  hang is usually the most critical one which can result in consequential hangs or
->  complete wedging.
->  
-> +App information
-> +---------------
-> +
-> +The information about which application (if any) was involved in the device
-> +wedging is useful for userspace if they want to notify the user about what
-> +happened (e.g. the compositor display a message to the user "The <app name>
-> +caused a graphical error and the system recovered") or to implement policies
-> +(e.g. the daemon may "ban" an app that keeps resetting the device). If the app
-> +information is available, the uevent will display as ``PID=<pid>`` and
-> +``APP=<task name>``. Otherwise, ``PID`` and ``APP`` will not appear in the event
+On Mon, May 12 2025 at 08:10:40 PM +0000, Alex Deucher 
+<alexdeucher@gmail.com> wrote:
+> See:
+> https://docs.kernel.org/admin-guide/bug-bisect.html
+> ... identify the exact commit which broke caused your issue.
 
-Personally I'd use Linux specific naming for consistency.
+ One heck of a journey! But tested the solution on the first broken 
+kernel 6.3. Too chicken to force revert attempts of 6.12 and 6.6 since 
+I really didn't understand why revert spewed out 'nah-ah' for a one 
+liner. 6.3 passed simple test of no blackouts for 8 in a row boots.
+ Firstly let me qualify the revert, cause it's how i got it to work:
+git show c76e483cd9163138e8fc44d829c986819f072d4f | patch --fuzz=999 
+-p1 -R
+ It seems simple enough of code which appears to set 8 bits of color 
+for rgb as maximum, but with struct changes and me having a 
+'historical' processor :) didn't want to have a non-expert speak that 
+this is the full solution.
+ Also note that I didn't 100% follow the bug-bisect guide as mine was 
+apparently a unique situation where it had to first learn to connect to 
+the internet and I don't use intrd images among other oddities. Also 
+did this from last working kernel (6.2.16) to verify it was the last. 
+PS had to patch amdgpu Makefile to allow the 6.2 series to compile with 
+new gcc (-Wno-error).
+ If need other info or need me to test actual patched 'upstream' 
+kernel, I'm here.
+Thank you!
+Steve
 
-s/APP/TASK
 
-But in any case,
-
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
-
-> +string.
-> +
-> +The reliability of this information is driver and hardware specific, and should
-> +be taken with a caution regarding it's precision. To have a big picture of what
-> +happened,
-
-Nit: what *really* happened
-
-> the devcoredump file provides should have much more detailed
-> +information about the device state and about the event.
-> +
->  Consumer prerequisites
->  ----------------------
->  
-> -- 
-> 2.49.0
-> 
