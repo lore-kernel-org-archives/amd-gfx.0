@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6BF0C3ABC9
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 15:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5252C3DA6D
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 15:00:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C115D10E8E5;
-	Thu, 15 May 2025 15:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C34210E8EA;
+	Thu, 15 May 2025 15:00:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ARIXNIyB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TOn7AFnw";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF2D410E8E5;
- Thu, 15 May 2025 15:00:42 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-441d1ed82dbso10457285e9.0; 
- Thu, 15 May 2025 08:00:42 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6A6B10E8E9;
+ Thu, 15 May 2025 15:00:44 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-442eb5d143eso10489245e9.0; 
+ Thu, 15 May 2025 08:00:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747321241; x=1747926041; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747321243; x=1747926043; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=iqqmgJA8WgQ28xBhyBO+giB0rAYLvAfiThdMBFOCLiA=;
- b=ARIXNIyBERB2FydgrxGI571qv7VrpA0XEbWocBTmLYB1yCmenetpzkqwjRhtX4uVyJ
- EaC1TsnOYDtIAI3CUoA4yYimkFAolz8x6Xafyzvy72BEKh1jkLhqUDECWsCYGcuwNw+/
- GwmozPydRNoq2dlaNqiVDtjgyseYAyFbRSyUtCMHZC/PcLLT+eGhWx0HeiQsPwPZEKiy
- 37A+nnUlkpOCR6o/fFplhpszwPrZUjn0yjFpFcmp/NKGfrJ9LknPVORyFuevjpKnMRkz
- yYqEoa10bejnmK93qIvwa5Nt3mwFr34DPp92g1gbgiLYZ3VTkbUrxFBDIviiQ+3xiNge
- Frrw==
+ :reply-to; bh=kt+ViwGsLDErFkNamffroJIY2ru6XGO1gjR2dC+Kcvo=;
+ b=TOn7AFnwcY57oIn8jxhViHW7upmk1PvOtXzJVJ2hc+Q9zxvV4G5sBUW9bLbuWUj7xF
+ Pyi2u0UbLtn3yRVHbTZ/pYptg93GWWCEFto8uBz3u7qIiO/HSu29K8gamWPjvQ0tkxTj
+ bT2fpvYhDjubB3rL9kW9T79bMxHlt6zKVVg63SQ7Nw56DnDFf+gQ39ZpyO51WaWEeiSW
+ 5jCnK+H4QzG+/IDb4mAHiY5NUN9WzLGCf2yEzy1rUws0pGarFObynt5MXHHzlHtrQObq
+ 28TIRwyJ1d40p6dZBRFsd0PAgMzZomhDTl0nKzgLHCwYNtbN4x42kR0TATWihPsrJF0m
+ FnEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747321241; x=1747926041;
+ d=1e100.net; s=20230601; t=1747321243; x=1747926043;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=iqqmgJA8WgQ28xBhyBO+giB0rAYLvAfiThdMBFOCLiA=;
- b=PQ82n0bZnOK+ihZ5YIgaR+MjtPT2leq0+v4GGG1VAAO6KR0IzkktCmiox4LGoDQlzd
- PxhmW6UfhUAG3xQzWvA9+sjbfee+qrIPRTuHe37cQwafn4XrH6Wd0ZegZHqCplIpMP0K
- Ow0cRj7KTwSjWk1U7vCjlmCpe9SGm5IoIz+57iL1iLHt+4r/qon3Tegf5gMfJGTE1cs3
- C+EhqLQ87d1ec7gRLmqjhSJQ7/nSD5TQuMD962Icsfcs2IbLTS0x+qPko5wB1GWFaX/v
- ijjFL8cWVAKlHNdblIQ2JLpy/9ynEgx+yP5NLvYUrgT2Fu2ZdIUxZLTqFsrVZWMDTJvP
- SPxA==
+ bh=kt+ViwGsLDErFkNamffroJIY2ru6XGO1gjR2dC+Kcvo=;
+ b=JsXnCqVJJBbx4p9lAYesI4uhjLyqW9zS2KhmJEUUtyTKt0HcuP/ncvBKMFq6kwacwJ
+ OnRiGXu8mrcA05wwYZ0VlePeUHIZOBKceX/XNxhCSP8a1lGTvfbz3yHbboi1W4ihwQHg
+ Ok5Jn0YiNPPDJERChPQ3fZVwi7TYl+fDTgDjwNADxpKCnLFvpbTdaIOtxQIfXUZQwD8f
+ kHxSqVqwymdecILXpg+14BtXYOeMLZ8dtp8d70E4xtX44M6tmfOx9NQb4qQh5NPTMuRh
+ J8cZeBXCtoR+hA+l9eF0u4e8fr7LVDeTLqRTewv66Dh4ZlfnGWjRhfBoM1ra3GzdVulu
+ sN0Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWCyjjzkJUK73l/6Mtsk3CHqvZaAB354tKNLSfL4OISnZkfS4aOQFcI5Cs3ckva7pJhLYqYTZQx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxzCRU8fbL2bJIl6CkSh90+PJojykcWWTfmfbzrs5kFRASC0g6i
- YeoZ0Rp6Ep8Nz1VN29tMlOH9IIb+pmvJMcHFvdVBw/evpMCnV/F1IVfGg27J+g==
-X-Gm-Gg: ASbGncsU/FVFjtiq+Iw6gSPGOZ4TS5xqZL/ZTF7r9QAN/SNyvyYzfkwoWVHtMmHqwEY
- bwkcs344R9dzWZa9El55NuApDvp5p21Bfbpz4r6jfpp275wS8EJWvrP1+gnknwCZsxm8ZX4+LRb
- BxKOaU5QDPzSIDIzWFMrNh43dxAsbUOL9y7NrDU3lzlItNJSu5zCkjqbmLA3H5iUUI1bBGh+W6A
- gfCg6NO7KZ9n1IBTm8gooHU/N2lc4PMJx5csPYBUSO2I6i6Hf7SWNTrXpza5hV2/+OH1os83F0G
- rO4rqo83HZHqYL5SOIAAAIIfXtH+tyZUu75kCgHRmTTfImtdW0ce7d4AByWrR2W+
-X-Google-Smtp-Source: AGHT+IGB7hLHeKcjwhuLPMoO1WQJA6nqoH4LyQQ7rWKR3GHFhJM8Zxve5G+HTzx/WguZhlGb6a4qiA==
-X-Received: by 2002:a05:6000:2505:b0:3a0:6c62:8169 with SMTP id
- ffacd0b85a97d-3a35c825afcmr92833f8f.25.1747321241028; 
- Thu, 15 May 2025 08:00:41 -0700 (PDT)
+ AJvYcCVoFLv6ripxHX1m2gXr6jt6jhafMjiybWSV59zD8oppYeb2Gfid91bhDlQjxDKEsg6Fiib3tz8r@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwMTKKVEBtgzwd1Hox3g3FDH+5ryU5uH1neLFBL2fF0/qIadqlh
+ t+XOoZedykaUdd9oMJzjLyd4/ie6W5vcv3Fa/+xq1qHaFq7kgia38hj7og==
+X-Gm-Gg: ASbGncvrJ+YJIK5NhAlip0V2FuKMG3NYUfVfW8+NmLxieIpJh5jfuAlgvYzWT18PP/t
+ UVxQJFs4CrKpck0ZxrNWDH09HCUtzMBLWHuODtAXL111w0+nSvvTJrb7gFDT8qKMsgmzI2vM9Xk
+ 5yT65VBZIht0jCGI4f6tebJ2Id171gfRQAHtnz316eMvXGDa7izQrHg+B+wc3pIO+9d5kd4ZLMH
+ ZA9CNL/I9BpmbIV0FljRV0zkA3aD+Xc1ryLLFlmJJLcBOLXotR0t8cGWmzD+RoY6l1Wa6kDHWmc
+ t84l3ZbNrOZs8QoeMNeFOTqMYfw7mI0dUsPhiuCu9x+uh4poOdT+3qDWJjP2Gtpv
+X-Google-Smtp-Source: AGHT+IH6Tvy4C2I5Lwr4e2VXrloujj+OZiP+MF3mh/tLeKJWa/r7fkB1uHS3eokSFit9Z/Envc4XZQ==
+X-Received: by 2002:a05:600c:3e88:b0:441:d2d8:bd8b with SMTP id
+ 5b1f17b1804b1-442f20e0f2emr73256065e9.8.1747321242353; 
+ Thu, 15 May 2025 08:00:42 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15b1:d600:9d43:bc40:55da:2532])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442f39e8578sm75808185e9.29.2025.05.15.08.00.40
+ 5b1f17b1804b1-442f39e8578sm75808185e9.29.2025.05.15.08.00.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 08:00:40 -0700 (PDT)
+ Thu, 15 May 2025 08:00:42 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: dri-devel@lists.freedesktop.org, phasta@mailbox.org, dakr@kernel.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
-Date: Thu, 15 May 2025 17:00:36 +0200
-Message-Id: <20250515150038.4615-2-christian.koenig@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: fix gang submission error handling
+Date: Thu, 15 May 2025 17:00:38 +0200
+Message-Id: <20250515150038.4615-4-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250515150038.4615-1-christian.koenig@amd.com>
 References: <20250515150038.4615-1-christian.koenig@amd.com>
@@ -88,94 +88,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sometimes drivers need to be able to submit multiple jobs which depend on
-each other to different schedulers at the same time, but using
-drm_sched_job_add_dependency() can't fail any more after the first job is
-initialized.
+For the unlikely case that we ran into an ENOMEM while fixing up the gang
+submission dependencies we can't clean up any more since the gang
+members are already armed.
 
-This function preallocate memory for dependency slots so that no ENOMEM
-can come later while adding dependencies.
-
-v2: rework implementation an documentation
-v3: rework from scratch, use separate function to add preallocated deps
+Fix this by using pre-allocated dependency slots and re-ordering the
+code, also fix a double unref since the fence reference is also dropped
+on error.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 45 ++++++++++++++++++++++++++
- include/drm/gpu_scheduler.h            |  4 +++
- 2 files changed, 49 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 49 +++++++++++++++-----------
+ 1 file changed, 28 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index f7118497e47a..b95e7089aa70 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -858,6 +858,51 @@ void drm_sched_job_arm(struct drm_sched_job *job)
- }
- EXPORT_SYMBOL(drm_sched_job_arm);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 82df06a72ee0..b50a5532f4c6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1282,6 +1282,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ {
+ 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
+ 	struct amdgpu_job *leader = p->gang_leader;
++	u32 fence_slots[AMDGPU_CS_GANG_SIZE];
+ 	struct amdgpu_bo_list_entry *e;
+ 	struct drm_gem_object *gobj;
+ 	unsigned long index;
+@@ -1289,36 +1290,23 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 	uint64_t seq;
+ 	int r;
  
-+/**
-+ * drm_sched_job_prealloc_dependency_slot - avoid ENOMEM on adding dependencies
-+ * @job: scheduler job where dependencies will be added
-+ * @id: id for the allocated slot
-+  *
-+ * Sometimes drivers need to be able to submit multiple jobs which depend on
-+ * each other to different schedulers at the same time, but using
-+ * drm_sched_job_add_dependency() can't fail any more after the first job is
-+ * initialized.
-+ *
-+ * This function preallocate memory for a dependency slot so that no ENOMEM can
-+ * come later while adding dependencies. The index of the preallocated slot is
-+ * returned in @id.
-+ *
-+ * Return:
-+ * 0 on success, or an error on failing to expand the array.
-+ */
-+int drm_sched_job_prealloc_dependency_slot(struct drm_sched_job *job,
-+					   u32 *id)
-+{
-+	return xa_alloc(&job->dependencies, id, NULL, xa_limit_32b, GFP_KERNEL);
-+}
-+EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slot);
-+
-+/**
-+ * drm_sched_job_add_prealloc_dep - add dependency to preallocated slot
-+ * @job: scheduler job where dependencies will be added
-+ * @id: the preallocated slot index
-+ * @fence: the dependency to add
-+ *
-+ * Consumes @fence and adds it to the preallocated slot dependency.
-+ */
-+void drm_sched_job_add_prealloc_dep(struct drm_sched_job *job, u32 id,
-+				    struct dma_fence *fence)
-+{
-+	fence = xa_store(&job->dependencies, id, fence, GFP_ATOMIC);
+-	for (i = 0; i < p->gang_size; ++i)
+-		drm_sched_job_arm(&p->jobs[i]->base);
+-
++	/* Preallocate the memory for the gang dependencies */
+ 	for (i = 0; i < p->gang_size; ++i) {
+-		struct dma_fence *fence;
+-
+-		if (p->jobs[i] == leader)
+-			continue;
+-
+-		fence = &p->jobs[i]->base.s_fence->scheduled;
+-		dma_fence_get(fence);
+-		r = drm_sched_job_add_dependency(&leader->base, fence);
+-		if (r) {
+-			dma_fence_put(fence);
++		r = drm_sched_job_prealloc_dependency_slot(&leader->base,
++							   &fence_slots[i]);
++		if (r)
+ 			return r;
+-		}
+ 	}
+ 
+-	if (p->gang_size > 1) {
+-		for (i = 0; i < p->gang_size; ++i)
+-			amdgpu_job_set_gang_leader(p->jobs[i], leader);
+-	}
+-
+-	/* No memory allocation is allowed while holding the notifier lock.
 +	/*
-+	 * Be defensive just in case driver messed it up and used preallocated
-+	 * slot twice.
-+	 */
-+	if (WARN_ON(fence))
-+		dma_fence_put(fence);
-+}
-+EXPORT_SYMBOL(drm_sched_job_add_prealloc_dep);
++	 * No memory allocation is allowed while holding the notifier lock.
+ 	 * The lock is held until amdgpu_cs_submit is finished and fence is
+ 	 * added to BOs.
+ 	 */
+ 	mutex_lock(&p->adev->notifier_lock);
+ 
+-	/* If userptr are invalidated after amdgpu_cs_parser_bos(), return
++	/*
++	 * If userptr are invalidated after amdgpu_cs_parser_bos(), return
+ 	 * -EAGAIN, drmIoctl in libdrm will restart the amdgpu_cs_ioctl.
+ 	 */
+ 	r = 0;
+@@ -1333,6 +1321,25 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 		return r;
+ 	}
+ 
++	for (i = 0; i < p->gang_size; ++i)
++		drm_sched_job_arm(&p->jobs[i]->base);
 +
- /**
-  * drm_sched_job_add_dependency - adds the fence as a job dependency
-  * @job: scheduler job to add the dependencies to
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index d860db087ea5..0286e0934317 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -632,6 +632,10 @@ int drm_sched_job_init(struct drm_sched_job *job,
- 		       u32 credits, void *owner);
- void drm_sched_job_arm(struct drm_sched_job *job);
- void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
-+int drm_sched_job_prealloc_dependency_slot(struct drm_sched_job *job,
-+					   u32 *id);
-+void drm_sched_job_add_prealloc_dep(struct drm_sched_job *job, u32 id,
-+				    struct dma_fence *fence);
- int drm_sched_job_add_dependency(struct drm_sched_job *job,
- 				 struct dma_fence *fence);
- int drm_sched_job_add_syncobj_dependency(struct drm_sched_job *job,
++	for (i = 0; i < p->gang_size; ++i) {
++		struct dma_fence *fence;
++
++		if (p->jobs[i] == leader)
++			continue;
++
++		fence = dma_fence_get(&p->jobs[i]->base.s_fence->scheduled);
++		drm_sched_job_add_prealloc_dep(&leader->base, fence_slots[i],
++					       fence);
++	}
++
++	if (p->gang_size > 1) {
++		for (i = 0; i < p->gang_size; ++i)
++			amdgpu_job_set_gang_leader(p->jobs[i], leader);
++	}
++
+ 	p->fence = dma_fence_get(&leader->base.s_fence->finished);
+ 	drm_exec_for_each_locked_object(&p->exec, index, gobj) {
+ 
 -- 
 2.34.1
 
