@@ -4,76 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72E6C2D0CD
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 16:16:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC10C3ABC9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 May 2025 16:17:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ECC510E90E;
-	Thu, 15 May 2025 16:16:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 658B910E085;
+	Thu, 15 May 2025 16:17:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DPHtskyH";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="IdC08KrN";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1F510E910;
- Thu, 15 May 2025 16:16:37 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-231ba912ba1so714325ad.2; 
- Thu, 15 May 2025 09:16:37 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7145710E085
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 16:17:30 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-43cfdc2c8c9so6209345e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 09:17:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747325797; x=1747930597; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=opHzyc+p9AwWDvYyqyHVcOPzuMyjwR2ddO/u4T8j3Ok=;
- b=DPHtskyH6g5BdH6B8c7XfekZRZ0XynaXHcAlF75qxdbe2BSObdYV75wjSatgAQFxSl
- DBRfj25Kr9EC8P9MoPGOFtuaVhdKRo8qygMakRC30onkA2k0upevbWhPok3GiTwMGhcw
- ww6JOTpl0f2N/MA5GYWt0i0wmyC3qjXouBV9URYDfYV5/AxwL/wJDnX2FkVR17kj3hXP
- VFrPriMtYtYuvITr1nb/AEWFVXOsAe5JLjh+HzfHQdbxaB4s0OdJCxno44OFayokaA/L
- PRLp4bGCAzpOgQgagosA5ejqbTgiOxyisunkG5V36JMqBufF0TMYlYIknxzrycsJuGNH
- PQBg==
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1747325849; x=1747930649;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=i+Sz/wPLjTyMxHsvfmdAFUak8pThYrdMgG0BLTFvjMo=;
+ b=IdC08KrNpeqMizf2RRaJQHh/zQwMCx3lwdcLKxWCi56I/ub75n+/z+c8pYcQpYkIX1
+ O9Vi0UX1j6A/0x76oa7ta/FULdOh+ZT2UUIV8EKAJ2Weo+RvYnfCZ6qyqZXhaKBcmecT
+ 7CTFkwLnyTrqL/tPfq9F8pRL97PENxQpwtRrSUPN2Vr3+Misqgvf1x4GSaduL56+PCvK
+ kH9ygOqdz3btiapEipTRnBbnHQVaFXWx6JnVown5YZqz4xK6zneLjfQJ5LWORIbub7G3
+ 6L6FL4z3dj7bdiKSShAGrGcd5Rjv610zOMcRg50NZvd4EIM/tGM53Vk6JRSjZ9asj8cp
+ pSEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747325797; x=1747930597;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=opHzyc+p9AwWDvYyqyHVcOPzuMyjwR2ddO/u4T8j3Ok=;
- b=nr58as8AAxyEKirb6Dgc5tfG/5jGuHcGhAIixm6iO8C0VVkvciSB1j074JjE4UoOu2
- jWu+2u5OsjSg9gFRQ16q0u2DyqPqwjCN1H81C4Jl5CfpUW1uP+D7TZ9cjKi/iBomJ2IG
- 0IhEORLUdV0zp2a6hQHfUiuG680zFgquCi+T97KGsSGfTh2M9f34CC5DOrs3j0SQj3VE
- VCa34fCFb4BtOMs5LD3tGZ6NZI7fBYYRhd5P4JZjrWxZGz+HNJ1WtmainF9IZ17fkbi+
- 9WzV/mTq5EJsSfVbiFBBKVjOa5560l7OwLVxdNjG692Nd/WdaKUEHnZ6jqzQegTUA0v8
- +ctg==
+ d=1e100.net; s=20230601; t=1747325849; x=1747930649;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=i+Sz/wPLjTyMxHsvfmdAFUak8pThYrdMgG0BLTFvjMo=;
+ b=tM5mgNf5z08UGsgjdAUNLfCG2cqzBHRO8abawpZt2E1cb3XZWcqNUODHA/Nxw0LUMw
+ 1URVkiNjKrJP0W4zMkqgWDcBYoo6lLbEGt/CFPopDnNIQzgUEGqRr+W1G5WuHjEhkI8l
+ 862KU7c1GPj7pxt8PTcyz883Unb2ksDCbRTljwjNxlNYF+671D8MIN8YCqNV+fOxfmss
+ 39+iNmMAvjMK6CKV/tBiNMKkmI70bQj39xutcsdiAewcSmr4HeNb4EeGQxAipd/kEKgP
+ BBKmK4cIC9LG1NW/4nLuFfTukHJBUM7DXm8toE4FrzTKVnpY8+9Yqeb7i7tH4TWKO+R7
+ DBhg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWz9D9r/6c1/QgpQ/OLMHgHsxAFP7FRkfMYN/rSNsmRwwuCZJJ2/uBtWI1CVr3Rr/lbuYYolUc4Rzs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YznzME400fWNMcd47u6GQhgRA5GA9ApbnFo33HyXI86K9Idlh4K
- vTO6sKo5twoL9UGB/v1EtYlntpLSU11VmZmpq+U9cR6o5Axez7DaTnHxEICNWyXg8EtWSVcluuJ
- ey5lyjMzP2kT3j7rHP9mEq9xr8XITXcB4YA==
-X-Gm-Gg: ASbGncuGod+OvQItD56lQeRCj38sNL6EB/GUXS0gzKw8noJlpJ6tBaW2a3uRiLF00HG
- srkaIwg/qZRfFV+6URP5pLOH9uE7eezbnV0ieW9ig33th/LrN307ZkdtcDkmbvcLYZQ9larHeTG
- TUOp6xo9YGRpPY9G/gBQlwr3gp2N7Uh0iNMQ==
-X-Google-Smtp-Source: AGHT+IGJhEB8jFs1ZxEtEl8o4O0Q2FwLLedJlvYmB2+ScNZBeNOAB8sWUlAd/5O/YRsl+nL1ApZaif7skIokahiZuro=
-X-Received: by 2002:a17:903:230b:b0:21b:b115:1dd9 with SMTP id
- d9443c01a7336-231d43ad454mr609795ad.5.1747325796913; Thu, 15 May 2025
- 09:16:36 -0700 (PDT)
+ AJvYcCXJNGfvf86BNn8hdpbGK2N2VGjK6IluCU19hhSo2GEsNGj8FYB1mxUOUIOtshSdAfb8FASQbHTP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy3aBEfnJ9GOQ/vBoWqXOzMRtxS9g7TekFEre7wD05Dvp6B6uVX
+ pkhnOq1hyRCl9iiXq9417Qe70SF4XvhorLCUn0qRyMiwysJFFd1TTOgr4OvKg15+b34=
+X-Gm-Gg: ASbGncvBltBfw/jln4vg2NA8ou4RW7ZCYZ6agL+4tnTsJx888rimk5BLL1J584pZSI1
+ xyt47p0L1+aRYdZZdmIl1RkeEyj25I5lvhnEEjA9CUybUS9O9irwOYScb6ch0DrKmXg7W1FZrqU
+ S33ocpBRki9gSTRlqouACDzLp+dWtJHtVl0ILnIqloi9m+tzrvFdS5kKACBAcsQG1yC/OUailL6
+ Znl+CzvwAQkOMt8tMCT81xMQZuNSw0cPJHWjc3EDc7L/vhKxkK2aWg+xhsy/cMEENKyOr9h4wGZ
+ zCFKXrMMDh53ncF/bViEt2KYnZlfMaOEoocY0VnXzKQWD0FUTlZvTErtNPpXbtRBBg==
+X-Google-Smtp-Source: AGHT+IFHUu/X4DlP68bFGVXWbvzDTMg+zLRptiiOX/lnXBeH+8YqwAsWA8jCo13PhMvHpzvtSWNisA==
+X-Received: by 2002:a05:600c:c13:b0:43d:79:ae1b with SMTP id
+ 5b1f17b1804b1-442fd627416mr1635965e9.14.1747325848599; 
+ Thu, 15 May 2025 09:17:28 -0700 (PDT)
+Received: from [192.168.0.101] ([81.79.92.254])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442f39ef832sm73288165e9.40.2025.05.15.09.17.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 May 2025 09:17:28 -0700 (PDT)
+Message-ID: <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
+Date: Thu, 15 May 2025 17:17:26 +0100
 MIME-Version: 1.0
-References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
- <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
- <GXXZVS.Q1GIIU1M9VBL1@att.net>
- <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
- <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
- <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
- <OY8BWS.OAO65CCC74TY1@att.net>
-In-Reply-To: <OY8BWS.OAO65CCC74TY1@att.net>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 May 2025 12:16:24 -0400
-X-Gm-Features: AX0GCFuJmjASJSuGCAy5bNVx5Y8yCDEnTwKVcRC9WE4sDRbuvdyPpDmnzF_yIiI
-Message-ID: <CADnq5_NqAQPO1NRbzQJzR+tZnOSqrhTmZj4z-B54X-hRxo3b4w@mail.gmail.com>
-Subject: Re: Kernels >= 6.3 disable video output
-To: Steven J Abner <pheonix.sja@att.net>, "Wentland,
- Harry" <Harry.Wentland@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, phasta@mailbox.org, dakr@kernel.org,
+ amd-gfx@lists.freedesktop.org
+References: <20250515150038.4615-1-christian.koenig@amd.com>
+ <20250515150038.4615-2-christian.koenig@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20250515150038.4615-2-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,37 +91,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Harry
 
-On Thu, May 15, 2025 at 12:11=E2=80=AFPM Steven J Abner <pheonix.sja@att.ne=
-t> wrote:
->
-> On Mon, May 12 2025 at 08:10:40 PM +0000, Alex Deucher
-> <alexdeucher@gmail.com> wrote:
-> > See:
-> > https://docs.kernel.org/admin-guide/bug-bisect.html
-> > ... identify the exact commit which broke caused your issue.
->
->  One heck of a journey! But tested the solution on the first broken
-> kernel 6.3. Too chicken to force revert attempts of 6.12 and 6.6 since
-> I really didn't understand why revert spewed out 'nah-ah' for a one
-> liner. 6.3 passed simple test of no blackouts for 8 in a row boots.
->  Firstly let me qualify the revert, cause it's how i got it to work:
-> git show c76e483cd9163138e8fc44d829c986819f072d4f | patch --fuzz=3D999
-> -p1 -R
->  It seems simple enough of code which appears to set 8 bits of color
-> for rgb as maximum, but with struct changes and me having a
-> 'historical' processor :) didn't want to have a non-expert speak that
-> this is the full solution.
->  Also note that I didn't 100% follow the bug-bisect guide as mine was
-> apparently a unique situation where it had to first learn to connect to
-> the internet and I don't use intrd images among other oddities. Also
-> did this from last working kernel (6.2.16) to verify it was the last.
-> PS had to patch amdgpu Makefile to allow the 6.2 series to compile with
-> new gcc (-Wno-error).
->  If need other info or need me to test actual patched 'upstream'
-> kernel, I'm here.
-> Thank you!
-> Steve
->
->
+On 15/05/2025 16:00, Christian König wrote:
+> Sometimes drivers need to be able to submit multiple jobs which depend on
+> each other to different schedulers at the same time, but using
+> drm_sched_job_add_dependency() can't fail any more after the first job is
+> initialized.
+> 
+> This function preallocate memory for dependency slots so that no ENOMEM
+> can come later while adding dependencies.
+> 
+> v2: rework implementation an documentation
+> v3: rework from scratch, use separate function to add preallocated deps
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/scheduler/sched_main.c | 45 ++++++++++++++++++++++++++
+>   include/drm/gpu_scheduler.h            |  4 +++
+>   2 files changed, 49 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index f7118497e47a..b95e7089aa70 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -858,6 +858,51 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+>   }
+>   EXPORT_SYMBOL(drm_sched_job_arm);
+>   
+> +/**
+> + * drm_sched_job_prealloc_dependency_slot - avoid ENOMEM on adding dependencies
+> + * @job: scheduler job where dependencies will be added
+> + * @id: id for the allocated slot
+> +  *
+> + * Sometimes drivers need to be able to submit multiple jobs which depend on
+> + * each other to different schedulers at the same time, but using
+> + * drm_sched_job_add_dependency() can't fail any more after the first job is
+> + * initialized.
+> + *
+> + * This function preallocate memory for a dependency slot so that no ENOMEM can
+> + * come later while adding dependencies. The index of the preallocated slot is
+> + * returned in @id.
+> + *
+> + * Return:
+> + * 0 on success, or an error on failing to expand the array.
+> + */
+> +int drm_sched_job_prealloc_dependency_slot(struct drm_sched_job *job,
+> +					   u32 *id)
+> +{
+> +	return xa_alloc(&job->dependencies, id, NULL, xa_limit_32b, GFP_KERNEL);
+> +}
+> +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slot);
+> +
+> +/**
+> + * drm_sched_job_add_prealloc_dep - add dependency to preallocated slot
+> + * @job: scheduler job where dependencies will be added
+> + * @id: the preallocated slot index
+> + * @fence: the dependency to add
+> + *
+> + * Consumes @fence and adds it to the preallocated slot dependency.
+> + */
+> +void drm_sched_job_add_prealloc_dep(struct drm_sched_job *job, u32 id,
+> +				    struct dma_fence *fence)
+> +{
+> +	fence = xa_store(&job->dependencies, id, fence, GFP_ATOMIC);
+
+Add assert that the passed id exists (was preallocated) and is NULL?
+
+Also, if someone preallocates and does not consume the slot will that 
+confuse the iteration in drm_sched_job_dependency()?
+
+Regards,
+
+Tvrtko
+
+> +	/*
+> +	 * Be defensive just in case driver messed it up and used preallocated
+> +	 * slot twice.
+> +	 */
+> +	if (WARN_ON(fence))
+> +		dma_fence_put(fence);
+> +}
+> +EXPORT_SYMBOL(drm_sched_job_add_prealloc_dep);
+> +
+>   /**
+>    * drm_sched_job_add_dependency - adds the fence as a job dependency
+>    * @job: scheduler job to add the dependencies to
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index d860db087ea5..0286e0934317 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -632,6 +632,10 @@ int drm_sched_job_init(struct drm_sched_job *job,
+>   		       u32 credits, void *owner);
+>   void drm_sched_job_arm(struct drm_sched_job *job);
+>   void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+> +int drm_sched_job_prealloc_dependency_slot(struct drm_sched_job *job,
+> +					   u32 *id);
+> +void drm_sched_job_add_prealloc_dep(struct drm_sched_job *job, u32 id,
+> +				    struct dma_fence *fence);
+>   int drm_sched_job_add_dependency(struct drm_sched_job *job,
+>   				 struct dma_fence *fence);
+>   int drm_sched_job_add_syncobj_dependency(struct drm_sched_job *job,
+
