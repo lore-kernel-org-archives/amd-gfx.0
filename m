@@ -4,84 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB06BC3ABDD
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 08:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75B55C3ABD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 08:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D53210E9DD;
-	Fri, 16 May 2025 08:05:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42AD410E9E2;
+	Fri, 16 May 2025 08:05:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="GNbbPnoI";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="fqcJMFHj";
 	dkim-atps=neutral
-Received: from sonic303-25.consmr.mail.ne1.yahoo.com
- (sonic303-25.consmr.mail.ne1.yahoo.com [66.163.188.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F73C10E0C3
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 May 2025 18:42:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
- t=1747334537; bh=8JAYg8dxHCcjUzVV53KONrb4RuOQKGiIMC3xN42E6lE=;
- h=Date:From:Subject:To:Cc:In-Reply-To:References:From:Subject:Reply-To;
- b=GNbbPnoIwGhyBul332jXQidW6isU5N6bU0ImNMgaArxksr79YVfLIuOX09Y7KsDSqY++B7kWLhQQ2XF6vdH5NBhS+MBzAvug3fRwmEg/hHjLz2Dd+q/3z2zMYwg4B8O8AmXSo2flucmmrfcmibTPac7v6NZaWhvHIwCYH3tZR18=
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1747334537; bh=3J1NlAHgtzDexSof45kAuPXU+yLcAZfUzhVqDY44kcX=;
- h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
- b=c8lZOZNuYw+UmHzRJjmym2ooIkb5e2EIZml9SWFpO8OrfQDYz2ASAWssNH694/3eFSQwSLLInj3uqrjz2WJcKgo8u5EB1h1nDJdavC1bLyqxFUM/d9rV/uqHBGAB/UOtOHXKwSRiXK/Sq0w6pGWtE8p6mivoH+zAagQlu31PHRywQs7/Y/O1+CORggMm82AvoQqV9Jw+/xDPnzIFhI34IOGBD+2Il5tOOYFpEMkcNsbr6xcSe+8kW5p+u78pNMV/dVLJ6ElJYq2Q60DexNaJ7vQ3uxkWMnh3pZZhyb3xGw2UzXuoZ7HFXUiQc4y4Or/c+rGxccr8ELGzWKwhGDI19Q==
-X-YMail-OSG: WtWVjhgVM1ldrGUKVnjlfecrOG1YXZ38AzRxp87nHHjyc6Og6V9mfxQ.E83wsfl
- eKWzFNUsqbuWNi_XTqWbBr85SL3SZCcz0P5j7eQOz8cl2Dv.7RqeE8LZ9JxObcB1EDWlCKe118EA
- xlC25pf7nVMJaw1uuGzk4RkD6uViRD38n8yA_I6QhC8Zp.3hniV9dxRBWBU40pT6RPW8cmIoaa1I
- B5C9i3SaZoLNntQej1MAWd7qCKawz.HTKLoKOKZevLD.HumIR8d4E43eQlmd8XKbgnvzC.3JJeRp
- vZeMErPZ5DqCtfRwwCRmLVd6mFxEJOs2EAsRojsLvHBrvub9k5mInTSrP4SCGthvogU7ID.83XvT
- pivZvCGb9vP5Z1QrAp2kHiNGBfZVawiYQp.in2jzQbyHT0ZOEL7xDVQVMY.0jgR3Fp1ZoBVxrOAV
- gyAV3JPlvKLE1YUSabFI1hw19vJ93yUqzNgGS.VGWFoI0WfVGeXAZRvUDpUFPx55KIiW32GWjE6R
- vKYez.65twTE7yziKG.vBHhxUbziDC.W00s_ICvrdjeu1hV.M0z6ToUqB7X0ODkDN.mnlhF9RZO6
- NjtkgxuVLwe2VX.Z2YGVX.sjI3YNyzoF0hVg6qnS9lKP3PxXBXYlZpYOUQvqS_Qx_iFz53UhsTrM
- 1Xk4SEh_MupLrHg5xvYPjxljuDG30ACFxGgZ041FvXLTuyGt64W6xze5kqSINaUQ01Pg65uGF9y.
- S5Y7lH.W_e6zGcp5EilyFqH6yClwhyrNooHAOmckfYLuXXrRS4X4yc5S8vSIzJWFQuB_HxKjwzHV
- 57qXiDRghCDhBJKlNcXeAVOiObTv9c2FXIfry8ZY9bfcx8UvM7ye0Q2V05fiFxNYiR9UxL4tXjYq
- Q0_ykavZXlJ7V78zd3aX9SGxUBs66cfFTC9rXAybRgzVM3jmDZf57l6X_slxEcrWgQu9soaf8cI7
- JpdD_MzxYyvpr3SPD7KtBWBcOPZ3rKSgclH98A2KSNUrT7mrA6HmKI3EjLR1.id.0fM_.cLkbCVB
- OBGKj9Lzx4JhUak0Mv2tvouovuwjRwPnGpzWHiHMLuNZan9Dh6pky96aHwlud.hY.Z7adqporCth
- t800VMsEC.Ucu0EW_M04dcIBLHJB5kgxwzAwAC3W_AmzPtdwYGvdpH5yyEEXzgaF7NJnU6WdB2dW
- kXAgXmcIgPDYp5HuzmT0OwXOUKdTZjOpRwSv_PKFIX.I1TxgJGD3wUB3_ouwFc3xmXbdHsysgWIY
- 37VXblTJhwpQSREDsPRuhQjZgGxiaqkWh3sEP3VH3rCCcBaMLYWHLsmAwGr9W_BRoe55oZ2F9gbh
- 7hM5VWXjpvIdLAzSX0G9FTpb6qR6uUgq.rncpNvspH0.v69pAhJmaxc_J8iiwjxlLuxFp.XNRp4Y
- V1kMP1C_aXA14b5LnpYU.zqRRrvemR9ZXh459tISnlexjdZdRW.V4ySMnHrjx16xSizIsUL80ZdF
- rrOcCTRR.hGxvXmg75IxY74J1FgjhdCGqeKrvcm1M_Q_mS0laJqEoaCse_qsmVQsThw21c90_Q0i
- RHI9nMg9gH.hvlRMS.cOXqqR4AyuekTOnp4p1GGifW1xwFHbj9bUkmeHoPqW42ZM4fHnMYN6ib2e
- AjvFLAwdmUiZTE_ljRsUAlldTvuJgZMCK1KM.kttWd0qaa8PGNKQddONZOIYKMxTtqCRyb0dfwCi
- E3_SM5CmEOm84b1QVDW9JpMgSKyXWUDeQcbMV8jnjRVxsd8rawPcC9bX0rkdE3Q17el4I6Z.lLov
- hAjIt1jJUCENFObQX.LMsfY7VdhN4dXQ2kgK.YAnGd9dDR6cy0fGbC1jDQUeDERwdWkebkKafk.Q
- 5lOmWU_l_TYRcW0aqXAqnbHskf3hIoQhEGrGwCf3KiJJnK8lsF3klSZZ4_XKPWpwaD5mXOW1WwuT
- D8vYERX4_RIeL3KOM_fAYuudmoPfyr4QbrYIshbERTOFJVJC7EMPxjU9JRPaFziLcpJKY_OYebSo
- ECS1yIzAKhZ1.bPGMg5A.ZbH_pzc0Yd3BC6qeMszvu7CqvVb63Fdb1FizA_aG4gecK5i6WitUP3A
- WBFt0EoNqKEPmwk4b7G0b5LuroOhP6M3G7Mh.Sg7J5n4TvlMIg1lcZxCvfjpbv7jZ4mqT5esEgPD
- 77yBZoj22FxGdmQgUXRmUkL6QamSL0nEZeA8fsoFNVCRWqotZp.jMGSAitdKRlDTsEajx5PRRSq7
- JexW_laPmcz2EDwV68mjgT_DGnoecEBOsbIVlfaRU4u9owQ--
-X-Sonic-MF: <pheonix.sja@att.net>
-X-Sonic-ID: e2b3ded4-8a60-449a-8e96-46dc4b0d8c25
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic303.consmr.mail.ne1.yahoo.com with HTTP; Thu, 15 May 2025 18:42:17 +0000
-Received: by hermes--production-bf1-689c4795f-ct644 (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID c936fa76a81cdfd351750cf543112881; 
- Thu, 15 May 2025 18:42:15 +0000 (UTC)
-Date: Thu, 15 May 2025 14:42:08 -0400
-From: Steven J Abner <pheonix.sja@att.net>
-Subject: Re: Kernels >= 6.3 disable video output
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Message-Id: <8YFBWS.FJ3FQS6VCKB52@att.net>
-In-Reply-To: <df6872b3-1048-416b-82d7-63f732cb6b4d@amd.com>
-References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
- <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
- <GXXZVS.Q1GIIU1M9VBL1@att.net>
- <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
- <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
- <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
- <OY8BWS.OAO65CCC74TY1@att.net>
- <CADnq5_NqAQPO1NRbzQJzR+tZnOSqrhTmZj4z-B54X-hRxo3b4w@mail.gmail.com>
- <df6872b3-1048-416b-82d7-63f732cb6b4d@amd.com>
-X-Mailer: geary/40.0
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5509610E953;
+ Thu, 15 May 2025 19:59:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1747339165; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=nvlv6xnlJoDgRfLIHOAipOToMF/YSEpecVBgTaLD+kDsN2BVNIDdg2tPTNdGlyt12q+sp2VXef7SHsJmTrJt5wsRfWaMGo9eSTkaK/sksDwfamivDuii1w2WWDZm+sFYRyzAU88uq7RLNxaPj2LPfnvrM00FYbwg2YPAYMPMFDA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1747339165;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=vOSMcnf9uOjbrEUaXsExY71mh+tkMHw3FuQ3PB7hzTs=; 
+ b=cvtX4le/Jb8hAXNerl7bAcJClkHvZPtU8qUUFIvGD/DfR/MjrRtTJxY+JIhpS1VXrdbMyQ9HMnt5uQYQ0PTUQb/caCW2qQF9xAJDWXzh8RwVj+gZdLxp/dJWYpQt+bwiIEZq2UWKMMrzuhJ1e91h9wRh76UcLeb6jlk80vBlRDM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
+ dmarc=pass header.from=<leandro.ribeiro@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747339165; 
+ s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=vOSMcnf9uOjbrEUaXsExY71mh+tkMHw3FuQ3PB7hzTs=;
+ b=fqcJMFHj142HjhPzbIH9Ut71s/atlF+UWShAxVU+LocDoPwEW1QPXEPnyYzbH8uV
+ WPc4J0Y3cSW2Dv8Rsr+P2rFH+M1n5B4xRIQbv0c/aNe9cOhoMoHVAPnxLCex7AsDNhi
+ 6vQncVp1itE8O/kGPP9iULiu0yX4ppHSH/Hm7p44=
+Received: by mx.zohomail.com with SMTPS id 1747339162654100.60362466798995;
+ Thu, 15 May 2025 12:59:22 -0700 (PDT)
+Message-ID: <5921076d-0150-4e0f-a3ef-1b8dec021630@collabora.com>
+Date: Thu, 15 May 2025 16:59:14 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V9 00/43] Color Pipeline API w/ VKMS
+To: Daniel Stone <daniel@fooishbar.org>,
+ Harry Wentland <harry.wentland@amd.com>
+Cc: Simon Ser <contact@emersion.fr>, Alex Hung <alex.hung@amd.com>,
+ Misyl Toad <misyl@froggi.es>, Xaver Hugl <xaver.hugl@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, leo.liu@amd.com,
+ ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
+ mwen@igalia.com, jadahl@redhat.com, sebastian.wick@redhat.com,
+ shashank.sharma@amd.com, agoins@nvidia.com, joshua@froggi.es,
+ mdaenzer@redhat.com, aleixpol@kde.org, victoria@system76.com,
+ daniel@ffwll.ch, uma.shankar@intel.com, quic_naseer@quicinc.com,
+ quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, marcan@marcan.st,
+ Liviu.Dudau@arm.com, sashamcintosh@google.com,
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
+ Arthur Grillo <arthurgrillo@riseup.net>
+References: <20250430011115.223996-1-alex.hung@amd.com>
+ <o4MtjqyDUjuFR4Y9Q1IEZlvVQ7Nkggq0v-KtBcH0aM3pTvEq8UcSoUDxefSBVdTmLj_1_a6GmbjU_mRSFinOb44B4bu1u3mMIckuQhhZWCc=@emersion.fr>
+ <3bbd4bd7-7217-4a14-b7bb-383226f44f55@amd.com>
+ <CAPj87rNUDdDEopPH+iAF-a=Or6eXH4cMRU8eOj81g_40cq8gdA@mail.gmail.com>
+ <f7e9cd32-3e2b-4f06-aa13-049c8b7ba29b@amd.com>
+ <CAPj87rMbcZKy2ARe_tp_-+-tMu3FpS0C9R1BHVzjsUpOsU9M4g@mail.gmail.com>
+Content-Language: en-US
+From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+In-Reply-To: <CAPj87rMbcZKy2ARe_tp_-+-tMu3FpS0C9R1BHVzjsUpOsU9M4g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
+X-ZohoMail-Owner: <5921076d-0150-4e0f-a3ef-1b8dec021630@collabora.com>+zmo_0_leandro.ribeiro@collabora.com
 X-Mailman-Approved-At: Fri, 16 May 2025 08:05:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,15 +85,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 15 2025 at 05:59:55 PM +0000, Harry Wentland 
-<harry.wentland@amd.com> wrote:
-> Are you able to share the specific TV model?
 
- From TV itself: Sansui S55VAUG. From System info within tv menu: 
-Settings: Device Name: GoogleTV8931 Model: Apollo Premium 4KTV
- from cat /sys/class/drm/card0/card0-HDMI-A-1/edid:
-binary stuff with words 'AndroidTV' embedded.
- TV's only about 6 months old and MicroCenter offers them.
-Steve
 
+On 5/15/25 15:39, Daniel Stone wrote:
+> Hi,
+> 
+> On Thu, 15 May 2025 at 19:02, Harry Wentland <harry.wentland@amd.com> wrote:
+>> On 2025-05-15 13:19, Daniel Stone wrote:
+>>> Yeah, the Weston patches are marching on. We've still been doing a
+>>> little bit of cleanup and prep work in the background to land them,
+>>> but we also can't land them until the kernel lands. None of that work
+>>> is material to the uAPI though: as said previously, the uAPI looks
+>>> completely solid and it's something we can definitely beneficially use
+>>> in Weston. (Even if we do need the obvious follow-ons for
+>>> post-blending as well ...)
+>>
+>> We can't merge kernel uAPI without canonical userspace that uses it.
+>> To move forward we'll need a userspace to at least publish a branch
+>> that shows the use of this new uAPI.
+>>
+>> Do you have a public branch for the Weston work for this?
+> 
+> Yeah, https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1702
+> has been around for a little while now. There are some driver bugs
+> that Leandro commented on, but they don't seem material to the uAPI as
+> such?
+
+Hello,
+
+Yes, there's nothing related to the API that is blocking us. It seemed
+very flexible and easy to use. The bugs that I've spotted are probably
+internal to AMD driver.
+
+I'd say that the Weston patches are converging nicely, we just need time
+to get them fully reviewed. We had a few preparation MR's to land
+before !1702, and now there's only one left (!1617).
+
+Thanks,
+Leandro
+> 
+> Cheers,
+> Daniel
 
