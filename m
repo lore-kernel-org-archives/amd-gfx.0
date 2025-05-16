@@ -4,89 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E2AC54754
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66E89C3DA6D
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA4010E325;
-	Mon, 19 May 2025 07:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB5810E1EE;
+	Mon, 19 May 2025 07:15:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YjFfYbE7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S+yUg2IR";
 	dkim-atps=neutral
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D489910E07E;
- Sat, 17 May 2025 11:51:27 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-acb5ec407b1so483902266b.1; 
- Sat, 17 May 2025 04:51:27 -0700 (PDT)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BABDD10EB17;
+ Fri, 16 May 2025 16:13:27 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-5f4d0da2d2cso4228996a12.3; 
+ Fri, 16 May 2025 09:13:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747482686; x=1748087486; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=MCG7UsgmOfTrLfJG+2ZE0hq0MEHcnjnuqiq7V6Le5YE=;
- b=YjFfYbE7XRtUst6ksOwyFz9+9OIkIpheWc6NIedPaILmSqPn0SwRdVTvT7W1xOGUxF
- PA99h1zFbO9no1XkhXIG2+h3zWI+yfJOPEmWSsdPPYn6RVz2OxGUzTsRJHJAYBgeH/7L
- mWeopGgRDvtLxwp8rWSyhR3Rulnjl2ujHJrH21hZD0qm99M8GRpOwa7/TD+0bjtMh+Ae
- hchwRDjDqGxIh9S5B3EtgXGLKs5ANZKo3EYUbh6VXdYniWhTONfaiML1HjKU+TN4wC22
- hJPUmDWcumqAiW5O+rE6t/8yHAYy7azVOi3ZuaVgRUFKxT7k2Rq1XBzwLdzs4sOfit8v
- KSNQ==
+ d=gmail.com; s=20230601; t=1747412006; x=1748016806; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hLJmovg9plUQcWnyMDtPPXJApgKGoEewf0WKlQ2WBJ4=;
+ b=S+yUg2IRCdIldUZxccDCkfEItaoLe5zPvCaYRBJvk2ycbLccW6h+mLa2AewhU0gXU9
+ kpU9IMk6o517n3GVGNrUop2Nsl2a4gKadPlmJG7bL6W3uWJ0ClbN/8DHI8pYZBq4Ht+U
+ csKfQM5+AxjxLw1MS8C4VuXKFxQEFgJgeKYY4gnR/Ph/jmGDB2a4bmf4XFsB5b+FwXbi
+ GbJ4y2ILfb/lSr9V2Mps1neP6lwVwWNk34QVGEQCCVN64uLB4KI45bRu4ENlf0aUHshf
+ TGGzwoJX6pF4UzE1ZGr7NA7u7roB9YHwTDvxIxAtxQXFw8R2Hvnw3+D+0Jb1eZYra8JM
+ nW2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747482686; x=1748087486;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=MCG7UsgmOfTrLfJG+2ZE0hq0MEHcnjnuqiq7V6Le5YE=;
- b=OxbiAiu2Vd943Z//ThEcJfIgSS2gmC3mRZCcZ2hjbySp7n84H1xKfpzu3203C03hl+
- T99GMArcWEjBUGQNzPQhw3hMHhYXx3zZ3mXlTXElDSPluRzXZ78vFVwVoyJM5uU9uk6m
- JrQN/yuuPQ+QgOE4JeqRI5evSLgH217A3SVphv9hndh6NVVvfyv2j2ZuJK8QB3kSN1/M
- jXkTm+RjmXaU8bxtORtCmcr2RgjzTkg1mvOl7lBc7TLi4aXfR6V3cWTL3YUZOIMwTFZt
- ZlzMqmwYjDMWaEqwediQD8D7vYggMaRbCO2ybotqJUwKukUA6NN4V/sQvdZeHkPJc2eA
- NwwA==
+ d=1e100.net; s=20230601; t=1747412006; x=1748016806;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hLJmovg9plUQcWnyMDtPPXJApgKGoEewf0WKlQ2WBJ4=;
+ b=Ll8l9oh8tRnq/PL75REbGxhFtVPVgp9yXRMqh6OgW/Jt6dVh6D61TCXnZIo9sQ/sPD
+ Bs7IJv005x7l0fnoEzrXixqCRh1lx7wxqSf1HnAC2k6ri5HNz5JhmT9zfssLKGzPyrYU
+ v5gKdSxHEfE+tNMpRAb2tgI+OBy4QkhO47WDVmHs+d7ebIp2iL17EtclJTnNp5pqlUaf
+ FgcB6CFZvc1m/B0DVq3fZoi6YVBNrdRnO+eSgWooWBuHFn7vV097FO/p/JKvFnmd7JQq
+ AYx+Z8tgNY4SRI9eKnW3a2jkLsVlcyA9AKdhZz+dSBifQKqkO2mHOzsEVr7jQzZs+Ltm
+ aJRg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU1yxMvkqrzWLl337DoCgDj51+3EZE4xgi7yLRmXpaNiw5SEftMoJvgwWjWyHu8ab3NI65iThCP@lists.freedesktop.org,
- AJvYcCUpDOqy9p0L7L/c7QbIxQJdWJBrwZ+3HC/h4G5ER+/2jmbp6VEUt8ncob4UJdJQB9sz0NiCelJb/5h0@lists.freedesktop.org,
- AJvYcCVSEKodkSUNqbjMZ/3SBfCmnWBjaXzkPjgecLuC9uE3tQCr44DyZwbNWggTtNi062UgIo0XAeNIm8DHLEVoKQ==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZLY/vSVWs+YI6IA9mbpKnHsE3oVsXec7vc+2vlCkZNmDfdySU
- GlHMCB1JWz2S8SKleYHeyY2y603DveTeWRjcWhIg7rmIrW6T8KWOLHyf8lUnRyXDMVNKt4nxz4L
- LdzSxrXCJhy+vfym02QcTjez1JtJx/9U=
-X-Gm-Gg: ASbGncsleYdo0fZ+Z5YvcR9EBBDo0SG80LnL8k9qiV0dzIm87tsZsuqUMnKOZ5d8iU7
- 0RuICDMqCLVTfvoPTI+rPNkRf1dIGX/LLJ76aiZt1uUWK4SGF8rFF0kvsguKTSjy32SC38HO8lC
- 23YQiQSCkAM00fBtj0jSpnCB75SUdJTtLP92sVjKxXugHu6K+/luhstYW8J1tMcQEjVPoasvSM5
- 8Mu
-X-Google-Smtp-Source: AGHT+IFp0bS9J5A+F88R+FnWorgbxFFe6hmX2LBxvbwajivcYeUO3tISkaiUFqp/6TQFSKcyU/+VL1VRjq7PN9sdryI=
-X-Received: by 2002:a17:907:80b:b0:ad2:2fa8:c0a7 with SMTP id
- a640c23a62f3a-ad536b7c43fmr551592066b.21.1747482685976; Sat, 17 May 2025
- 04:51:25 -0700 (PDT)
+ AJvYcCWwsuEYgCy7hgUIQjKgjPpojSSfA8Qm3K2rtFVpQ2zVkoPIx2N3ckXWXc1q17sx5D7C6GTUpI1M@lists.freedesktop.org,
+ AJvYcCXrOBLoO2rCcQBjVkL8dYh3lDqRKKVP4Sr8XYCizB6b36DqiLONtAdR/Z/k6bzGpvnnLKqVLOBUR3/E@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0AKGNJbLlyH3mdABd2kmA7LbEFK6E1uYqt+D3HlpKYLQoLMtH
+ GrLDbRjGRU6hKndFAMy6MdaoFYI7wyY9vf0yA6pxX9lhs0dEeNpHH2rF
+X-Gm-Gg: ASbGncuVhg1d/3lz9dJrAIV4tzii+pZsO42Rl4EN90PKJMYB6FZHDaEx/Bztg5glqI2
+ /6i6pYC5TqQgSiaQjrdE7v17t8mbS17HRqXxfRN+xT6LB/yudpBVO9E2PXfvW6Qv4msAG2utLXb
+ oWFjU3AzTeFBrPwHrsxW7bfqIpHWFIfXIk7sAZ+FE6rril7lGtNA1axyP0QJXJJSGi2q6I0yOfR
+ 4+wAof/nbHJ04ywWSbfxiaoc8B/RlsgNvbPaQbUPUV2fZutjNqK3Y+RGt01xQl8kGQztKvCypjK
+ PSxsscn7n+qMmCgEJnAh7DkUAgkHDfRi4FZ0pIQ=
+X-Google-Smtp-Source: AGHT+IHNN4EPAuY1cd4IMbE8HdxTl2O6RmOg1nWALDwkNAMDfdDvrOuPS2dn2gOhqkvwH1ifaGmjtA==
+X-Received: by 2002:a05:6402:5cd:b0:5f6:4a5b:9305 with SMTP id
+ 4fb4d7f45d1cf-60119cd4192mr2838792a12.33.1747412005973; 
+ Fri, 16 May 2025 09:13:25 -0700 (PDT)
+Received: from pc ([165.51.5.169]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6005ae3888esm1616084a12.65.2025.05.16.09.13.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 May 2025 09:13:25 -0700 (PDT)
+Date: Fri, 16 May 2025 17:13:22 +0100
+From: Salah Triki <salah.triki@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: salah.triki@gmail.com
+Subject: [PATCH] drm/amdgpu: check return value of xa_store()
+Message-ID: <aCdkIkNOQgnA5Pou@pc>
 MIME-Version: 1.0
-References: <20250430011115.223996-1-alex.hung@amd.com>
- <o4MtjqyDUjuFR4Y9Q1IEZlvVQ7Nkggq0v-KtBcH0aM3pTvEq8UcSoUDxefSBVdTmLj_1_a6GmbjU_mRSFinOb44B4bu1u3mMIckuQhhZWCc=@emersion.fr>
- <3bbd4bd7-7217-4a14-b7bb-383226f44f55@amd.com>
- <CAPj87rNUDdDEopPH+iAF-a=Or6eXH4cMRU8eOj81g_40cq8gdA@mail.gmail.com>
- <f7e9cd32-3e2b-4f06-aa13-049c8b7ba29b@amd.com>
- <CAPj87rMbcZKy2ARe_tp_-+-tMu3FpS0C9R1BHVzjsUpOsU9M4g@mail.gmail.com>
- <5921076d-0150-4e0f-a3ef-1b8dec021630@collabora.com>
-In-Reply-To: <5921076d-0150-4e0f-a3ef-1b8dec021630@collabora.com>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Sat, 17 May 2025 13:51:14 +0200
-X-Gm-Features: AX0GCFsRuvAiaNtf2Rr2dvEsOdgNQYtUCZXulXk4PGtG-IFz9IIXobYQS1Dhpgk
-Message-ID: <CAFZQkGymi1XY7m0Ghs8R2HaNRQptE_0NO-5J5Z2c61gDJRho3Q@mail.gmail.com>
-Subject: Re: [PATCH V9 00/43] Color Pipeline API w/ VKMS
-To: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-Cc: Daniel Stone <daniel@fooishbar.org>,
- Harry Wentland <harry.wentland@amd.com>, 
- Simon Ser <contact@emersion.fr>, Alex Hung <alex.hung@amd.com>,
- Misyl Toad <misyl@froggi.es>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, leo.liu@amd.com, 
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com, mwen@igalia.com, 
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com, 
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com, 
- Arthur Grillo <arthurgrillo@riseup.net>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,64 +87,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Do., 15. Mai 2025 um 22:00 Uhr schrieb Leandro Ribeiro
-<leandro.ribeiro@collabora.com>:
->
->
->
-> On 5/15/25 15:39, Daniel Stone wrote:
-> > Hi,
-> >
-> > On Thu, 15 May 2025 at 19:02, Harry Wentland <harry.wentland@amd.com> wrote:
-> >> On 2025-05-15 13:19, Daniel Stone wrote:
-> >>> Yeah, the Weston patches are marching on. We've still been doing a
-> >>> little bit of cleanup and prep work in the background to land them,
-> >>> but we also can't land them until the kernel lands. None of that work
-> >>> is material to the uAPI though: as said previously, the uAPI looks
-> >>> completely solid and it's something we can definitely beneficially use
-> >>> in Weston. (Even if we do need the obvious follow-ons for
-> >>> post-blending as well ...)
-> >>
-> >> We can't merge kernel uAPI without canonical userspace that uses it.
-> >> To move forward we'll need a userspace to at least publish a branch
-> >> that shows the use of this new uAPI.
-> >>
-> >> Do you have a public branch for the Weston work for this?
-> >
-> > Yeah, https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1702
-> > has been around for a little while now. There are some driver bugs
-> > that Leandro commented on, but they don't seem material to the uAPI as
-> > such?
->
-> Hello,
->
-> Yes, there's nothing related to the API that is blocking us. It seemed
-> very flexible and easy to use. The bugs that I've spotted are probably
-> internal to AMD driver.
->
-> I'd say that the Weston patches are converging nicely, we just need time
-> to get them fully reviewed. We had a few preparation MR's to land
-> before !1702, and now there's only one left (!1617).
+xa_store() may fail so check its return value and if error occurred free
+numa_info and return NULL.
 
-I also updated the KWin MR
-(https://invent.kde.org/plasma/kwin/-/merge_requests/6600), it can now
-use all the available properties and I think it's ready. I found two
-issues with the kernel patches though:
-- while attempting to set COLOR_ENCODING and COLOR_RANGE results in
-the atomic commit being rejected, the existing values still get
-applied if you use YCbCr-type buffers. I would've expected the color
-pipeline to operate on the YUV values in that case - and leave
-conversion to RGB up to the compositor adding the relevant matrix to
-the pipeline
-- the interpolation mode drm properties for 1D and 3D LUTs are
-immutable, I think they shouldn't be - to make it less annoying if in
-the future we decide to add modes that userspace can set
+Signed-off-by: Salah Triki <salah.triki@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Other than that, I agree that it's ready to go.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 707e131f89d2..bff82ac651f4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -876,7 +876,7 @@ static inline uint64_t amdgpu_acpi_get_numa_size(int nid)
+ 
+ static struct amdgpu_numa_info *amdgpu_acpi_get_numa_info(uint32_t pxm)
+ {
+-	struct amdgpu_numa_info *numa_info;
++	struct amdgpu_numa_info *numa_info, *old;
+ 	int nid;
+ 
+ 	numa_info = xa_load(&numa_info_xa, pxm);
+@@ -898,7 +898,11 @@ static struct amdgpu_numa_info *amdgpu_acpi_get_numa_info(uint32_t pxm)
+ 		} else {
+ 			numa_info->size = amdgpu_acpi_get_numa_size(nid);
+ 		}
+-		xa_store(&numa_info_xa, numa_info->pxm, numa_info, GFP_KERNEL);
++		old  = xa_store(&numa_info_xa, numa_info->pxm, numa_info, GFP_KERNEL);
++		if (xa_is_err(old)) {
++			kfree(numa_info);
++			return NULL;
++		}
+ 	}
+ 
+ 	return numa_info;
+-- 
+2.43.0
 
-> Thanks,
-> Leandro
-> >
-> > Cheers,
-> > Daniel
->
