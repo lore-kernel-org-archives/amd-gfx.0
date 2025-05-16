@@ -4,59 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B29C3DA6D
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7660AC54795
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9DB010E34B;
-	Mon, 19 May 2025 07:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C01510E364;
+	Mon, 19 May 2025 07:15:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="c2JnYpxL";
+	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="LRo7Z+N9";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7834510EB4B;
- Fri, 16 May 2025 17:16:51 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4ZzYf62p9Tz9t4n;
- Fri, 16 May 2025 19:16:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1747415806; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gnOfrcXuNEntf/5DHZrhzEOfZ1YhnUjH4lLh1wWH9RI=;
- b=c2JnYpxLCWGJFDiDTztK7hDG4vXBq0jtoXKeB3CqV2MNnJaGWBBpFz7Cx3FeD7FDd+mlPZ
- Y5lQdbUf/V7pdK9cAL8hL2+1XSGFi8sfIQZJmhOyU7FWEn4HXjTfQHvdYriJB447olwC8t
- rNyPMWtZ7Tjz/H5U9MrCtz00kPmpk0Zst1E4RQH4oFTw7Yid006UMwN2d7yFwFLqff1Hae
- nWgl2nkEicwJvIekrUmlkDGCR+GgE+UMNvQUt/pDrgFSyai86yYCPHslB0bB15DZHtEfP6
- bT3DzaLMUAId5wRoMSHEpL3er4GZWqwHKG8WzxULtvJ1GRM3/ryb1/DOTR03Eg==
-Message-ID: <a36fdcf31fa0ca7d9e1a24f60ba4c5bf78c7ae87.camel@mailbox.org>
-Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, phasta@kernel.org, Christian
- =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, dakr@kernel.org, 
- amd-gfx@lists.freedesktop.org
-Date: Fri, 16 May 2025 19:16:44 +0200
-In-Reply-To: <01cce810-7303-4c92-b138-d8a647f3dcee@ursulin.net>
-References: <20250515150038.4615-1-christian.koenig@amd.com>
- <20250515150038.4615-2-christian.koenig@amd.com>
- <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
- <5c93f114a58e84796f239b9e0f4a13e9c223e45b.camel@mailbox.org>
- <6e5ab077-77ff-443b-b345-7d99fcd01a73@ursulin.net>
- <6a361f21-1ba2-4084-b85c-0db30c9b01cc@ursulin.net>
- <fc617b712c5937c02be89f7ba068ce0de1512027.camel@mailbox.org>
- <01cce810-7303-4c92-b138-d8a647f3dcee@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sonic317-35.consmr.mail.ne1.yahoo.com
+ (sonic317-35.consmr.mail.ne1.yahoo.com [66.163.184.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A06610EB06
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 15:56:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
+ t=1747411004; bh=pJd+lY0QZkmnnY/vhcMoMvU4wZA08MP/PaZorqMJHbE=;
+ h=Date:From:Subject:To:Cc:In-Reply-To:References:From:Subject:Reply-To;
+ b=LRo7Z+N9QiwM/SgnyegaYlvI5MTNyFVRxFKm/hqRW3LPcKTc0ZcChziYEKvLqK7Ok+BuqFW8miWQAVSk7xjU+PGEoWDOfZLhAksfMB7bSXK+wq0OCMV9b4kVeJh2VnXI+k45JLtM1bI49yAUSsngnayb+snAsracfZ7Or0a/jH4=
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1747411004; bh=wwsdBDx9LcYFBTJMt5ma0hGUOh3lVTAwJ91U7B+omzm=;
+ h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
+ b=klKOLW7q0Qr2vHHrh03Mi62kbGcUvePAREvmyX6le6rsx/RFYeKxp+9K4dsfWX28nf1xHLwDLZ+skdwKYm5kOskaunu6rKTPD5HWJ5iBt4ShtqfJ831kvx4mpb0k3ko2yP/gMKLmJimniS6+62LIxL1RVsc/Z7NpBiogBVrnDofmZVGXztCjohyImwl/G34kmaaTteRCEvulHO+SG2P2tHBHWweCvQyXd5j5OeS84xq44H501Rdu6SC92PD2vx63Ix9SC2Hh3+ujoC8QSybCdMB4ZNULhm5jZraK5D4/WU5nnBRnEuZODMCMCOr7o/D/ieaDH6lJp80CjrrzzN/q8g==
+X-YMail-OSG: qVfEePoVM1mr8U4iNpdI8d3iOmDFssz9k7tg1c9Ekj4kjXFTPz8elmK0UIRKueS
+ FH1BhQyiNy4PZFnGKgIhZ69UAQieHM6XpDTiiGdIMOYzrV5y1NtGKvWoTSj7InAEUAygXOqi5Cw2
+ CzOeD1yBmj8r3cMrMTArRo.lPomDj.JJUz355ivlekn4rip2CoQCJv5uqYMGrQpe8x_v644MpNCt
+ kqYpStNal9UFNsT2wdrE6ut6ekA7O5y771TG0YDPVo1Xp1lqvpNVurN0PdYD3EkqZ.9B.pXMW3r2
+ B5z5Dy1u_OuGv1xf7DJH_wgnJSa_rJWWaA_vE2e7f5qOLwJE_yjtk7i.1529LD8ZHQraaCTjwlyR
+ bDgHAq9UdsvCi5_IRRpm9ij0hnIK7GUTtWXv2zp8uu9f7camVS9kllRtdohpWc5dXxYyMrONwBlh
+ 1.Xdqo_NrmmtUlk3OcQTdd0Yait.4Xv3Y_WRv8Gd1xeV4rIGn4jZyjH3gFa1wkn5DKvRJVBzQVRc
+ tKYjXHJ3UAXTuHlvzTtko_RdhQPl5x.3BhWqfzOyRG8N8QSvcCtPG2HzidNNcH6BO.F7S9iGl7eb
+ lEhwAig_7VgkA6Z3IDwhdEOYrD.NsZpPT_0efhSoibD9csZ1XgSpmySDTJ3C4M17ZEdsI6kmjDxD
+ ElknWo412p05FVBryhDxlWSDD3y3hzq3Bru90OVEywY4cjWxISR8jjVRYclL_xL_aYZ2gpMyQzh4
+ ru6ItMiUKkvFiGCpXHVWAwchcP9_TCRdbjoLpUMYBcXn17pfeFdXbewBLPyLoay_odlGfhiABFj5
+ 9L.HE4IDv4oIA39PObvd4YtMxSIDj_AIOJNtll6lMsUcH6yeZ2_4bnHpwe0c85JoCAq02mtp62dH
+ yspzPMNgBQM67dZF1xfdbYIwAbFY5bfRbMk2.omkq5Q.sI3YtxNDvGHTNvk8HeOWadmkGOAxhjxk
+ zMXYhMWQDkbo9TEpeQF6_a1334Ac0udFsSUeYW0GhaX9wa1b1LsbQ0flA1fLGgpw2Vo07VvTz6XD
+ xzTX7BN2sZ1HSA1O6RFJUvwCfnncYupYhSp44.bt1Ux57P6l5UoCOqN2y9.y_IfxoYAdBtAgYC5c
+ c6wScIx3MzjuS73BssSnAuTVONOPNv5RbXSQ3jYu0TonnZJ66Nh4HqgzxUTPQ1198nQd0Y8VRjom
+ .lAB3kPBXdd.y9eh7YxfD1I6xscYwCszVbzu_QaJqVqxu8hmCeOm77vX364DWtY71VhM0AEEQWVY
+ WDoGJ11cSjUE9cA7xn.8QJfGR5rIrj4rmVo0qk6ULVeqtOD.EP7Pab.iebU7qi1.D2P3jGXSf88M
+ YFf5An91R.dvT7.FvgmMZs55bvxxsVwpNeGcIybpabEmBOpBhOKZvz3kzrnr47bNsVqIhMS6e1eV
+ JFtZz8SKa472JdKG8T53z1wRcWkbP1myPpfVidqBEEfBC.FOYbgl8YleJ0I2b3LZQkA1cNDxUkJq
+ wyQmS5whM7IGov2ixJjRKuimV3EHaowiNGM.TJe_DO1duvnCCrJ9xv4jWZtYUccqI55g4NVemn1z
+ KSgpB1Mld2pdmq3f0mLQwSatV25ICuvcpTbdoMOgRhJd1gpD.UNt6Ms32A448AJdEXIJ6yz1UKlb
+ J8dP_dh.QoAXOi812WbCjMWllupTa1HDE9Xa3f5VBOAtZXoNcD31dlS_L7MSiz77xrxsUeRWXiYh
+ AOeUXyrgQu_7epgfsViZA5iYU8D.ar9ArpVvDsZl_ZL4SBZisg9iQAmFyD1TXLVMCTIymPIiutLn
+ HU445pLGp.X9E03b0pxIGEQIp3PRlj6IJFoB_ZDMIxDceBwGDlG0xKhLjDBUlt7meu6obpDGH8FS
+ X5LAQ6qnrRHX1cBy8Pi.JwMOxm9dj5LQjwdFS5DtB8NuO3eq.I0yiRldPzKhpVgR81tLlEZOuoj2
+ NcXkRoYeeeMNNSxwcykpcyuppwufcryRDSHN5bpHbHrxJoNbUfyPwzXAJF3Z7vjIj6v4xAK_tyzG
+ BVMaPgfnoH_UZvXMMAZvFcalEzTWyeIrg37gDev2_B46m9hky6ib_fS17Cp6gJV2tZXXcYJHHeEl
+ WWOQMbxTSsmXZpizn0l2408skGGWsNL4dkWixyKKTf7w6ZWS4JINS_HyDtIQlhkpevpu6H8s7oaD
+ S21QZEbtx4FOrnrg-
+X-Sonic-MF: <pheonix.sja@att.net>
+X-Sonic-ID: 0f777bca-258c-48d2-89ce-8880a6837499
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic317.consmr.mail.ne1.yahoo.com with HTTP; Fri, 16 May 2025 15:56:44 +0000
+Received: by hermes--production-bf1-689c4795f-fbg4j (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID adf240d91ca2665cd4e84e28aba5d229; 
+ Fri, 16 May 2025 15:56:39 +0000 (UTC)
+Date: Fri, 16 May 2025 11:56:31 -0400
+From: Steven J Abner <pheonix.sja@att.net>
+Subject: Re: Kernels >= 6.3 disable video output
+To: Michel =?iso-8859-1?q?D=E4nzer?= <michel.daenzer@mailbox.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, Alex Deucher
+ <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Message-Id: <7Y2DWS.S2B813X7LPJT3@att.net>
+In-Reply-To: <G32DWS.2C801BL0Y0SE2@att.net>
+References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
+ <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
+ <GXXZVS.Q1GIIU1M9VBL1@att.net>
+ <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
+ <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
+ <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
+ <OY8BWS.OAO65CCC74TY1@att.net>
+ <CADnq5_NqAQPO1NRbzQJzR+tZnOSqrhTmZj4z-B54X-hRxo3b4w@mail.gmail.com>
+ <df6872b3-1048-416b-82d7-63f732cb6b4d@amd.com>
+ <ba97cecf-d820-4ae7-98ae-2cf57db228fb@mailbox.org>
+ <G32DWS.2C801BL0Y0SE2@att.net>
+X-Mailer: geary/40.0
 MIME-Version: 1.0
-X-MBO-RS-ID: d8a859cc94117e1c20d
-X-MBO-RS-META: 5ooyhctdz7gsd8osmdq9mu1fkiktf6gm
+Content-Type: text/plain; charset=us-ascii; format=flowed
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,303 +96,15 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-05-16 at 15:30 +0100, Tvrtko Ursulin wrote:
->=20
-> On 16/05/2025 14:38, Philipp Stanner wrote:
-> > On Fri, 2025-05-16 at 13:10 +0100, Tvrtko Ursulin wrote:
-> > >=20
-> > > On 16/05/2025 12:53, Tvrtko Ursulin wrote:
-> > > >=20
-> > > > On 16/05/2025 08:28, Philipp Stanner wrote:
-> > > > > On Thu, 2025-05-15 at 17:17 +0100, Tvrtko Ursulin wrote:
-> > > > > >=20
-> > > > > > On 15/05/2025 16:00, Christian K=C3=B6nig wrote:
-> > > > > > > Sometimes drivers need to be able to submit multiple jobs
-> > > > > > > which
-> > > > > > > depend on
-> > > > > > > each other to different schedulers at the same time, but
-> > > > > > > using
-> > > > > > > drm_sched_job_add_dependency() can't fail any more after
-> > > > > > > the
-> > > > > > > first
-> > > > > > > job is
-> > > > > > > initialized.
-> > > > > > >=20
-> > > > > > > This function preallocate memory for dependency slots so
-> > > > > > > that
-> > > > > > > no
-> > > > > > > ENOMEM
-> > > > > > > can come later while adding dependencies.
-> > > > > > >=20
-> > > > > > > v2: rework implementation an documentation
-> > > > > > > v3: rework from scratch, use separate function to add
-> > > > > > > preallocated
-> > > > > > > deps
-> > > > >=20
-> > > > > I think we agreed to not put change logs into commit messages
-> > > > > anymore
-> > > > > :)
-> > > > >=20
-> > > > > They aren't useful for any reader. Who needs the changelog
-> > > > > afterwards
-> > > > > can retreive it through the mail thread link that we add.
-> > > > >=20
-> > > > > > >=20
-> > > > > > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com=
->
-> > > > > > > ---
-> > > > > > > =C2=A0=C2=A0=C2=A0 drivers/gpu/drm/scheduler/sched_main.c | 4=
-5
-> > > > > > > ++++++++++++++++++++++++++
-> > > > > > > =C2=A0=C2=A0=C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +++
-> > > > > > > =C2=A0=C2=A0=C2=A0 2 files changed, 49 insertions(+)
-> > > > > > >=20
-> > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > index f7118497e47a..b95e7089aa70 100644
-> > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > @@ -858,6 +858,51 @@ void drm_sched_job_arm(struct
-> > > > > > > drm_sched_job
-> > > > > > > *job)
-> > > > > > > =C2=A0=C2=A0=C2=A0 }
-> > > > > > > =C2=A0=C2=A0=C2=A0 EXPORT_SYMBOL(drm_sched_job_arm);
-> > > > > > > +/**
-> > > > > > > + * drm_sched_job_prealloc_dependency_slot - avoid ENOMEM
-> > > > > > > on
-> > > > > > > adding
-> > > > > > > dependencies
-> > > > > > > + * @job: scheduler job where dependencies will be added
-> > > > > > > + * @id: id for the allocated slot
-> > > > > > > +=C2=A0 *
-> > > > > > > + * Sometimes drivers need to be able to submit multiple
-> > > > > > > jobs
-> > > > > > > which
-> > > > > > > depend on
-> > > > > > > + * each other to different schedulers at the same time,
-> > > > > > > but
-> > > > > > > using
-> > > > > > > + * drm_sched_job_add_dependency() can't fail any more
-> > > > > > > after
-> > > > > > > the
-> > > > > > > first job is
-> > > > > > > + * initialized.
-> > > > > > > + *
-> > > > > > > + * This function preallocate memory for a dependency
-> > > > > > > slot so
-> > > > > > > that
-> > > > > > > no ENOMEM can
-> > > > > > > + * come later while adding dependencies. The index of
-> > > > > > > the
-> > > > > > > preallocated slot is
-> > > > > > > + * returned in @id.
-> > > > > > > + *
-> > > > > > > + * Return:
-> > > > > > > + * 0 on success, or an error on failing to expand the
-> > > > > > > array.
-> > > > > > > + */
-> > > > > > > +int drm_sched_job_prealloc_dependency_slot(struct
-> > > > > > > drm_sched_job
-> > > > > > > *job,
-> > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 u32 *id=
-)
-> > > > > > > +{
-> > > > > > > +=C2=A0=C2=A0=C2=A0 return xa_alloc(&job->dependencies, id, N=
-ULL,
-> > > > > > > xa_limit_32b, GFP_KERNEL);
-> > > > > > > +}
-> > > > > > > +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slot);
-> > > > > > > +
-> > > > > > > +/**
-> > > > > > > + * drm_sched_job_add_prealloc_dep - add dependency to
-> > > > > > > preallocated
-> > > > > > > slot
-> > > > > > > + * @job: scheduler job where dependencies will be added
-> > > > > > > + * @id: the preallocated slot index
-> > > > > > > + * @fence: the dependency to add
-> > > > > > > + *
-> > > > > > > + * Consumes @fence and adds it to the preallocated slot
-> > > > > > > dependency.
-> > > > > > > + */
-> > > > > > > +void drm_sched_job_add_prealloc_dep(struct drm_sched_job
-> > > > > > > *job, u32
-> > > > > > > id,
-> > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 struct dma_fence *fence)
-> > > > > > > +{
-> > > > > > > +=C2=A0=C2=A0=C2=A0 fence =3D xa_store(&job->dependencies, id=
-, fence,
-> > > > > > > GFP_ATOMIC);
-> > > > > >=20
-> > > > > > Add assert that the passed id exists (was preallocated) and
-> > > > > > is
-> > > > > > NULL?
-> > > > >=20
-> > > > > You
-> > > >=20
-> > > > Hm?
-> > > >=20
-> > > > > >=20
-> > > > > > Also, if someone preallocates and does not consume the slot
-> > > > > > will that
-> > > > > > confuse the iteration in drm_sched_job_dependency()?
-> > > > >=20
-> > > > > drm_sched_job_add_dependency() you mean.
-> > > >=20
-> > > > I was actually thinking of drm_sched_job_dependency() because
-> > > > that
-> > > > looked it would skip dependencies upon encountering an
-> > > > unconsumed
-> > > > preallocated slot, but yes, drm_sched_job_add_dependency()
-> > > > could
-> > > > explode
-> > > > even earlier if adding a normal dependency after preallocating
-> > > > a
-> > > > slot.
-> > > >=20
-> > > > > Yes, it would. All operations simply give you NULL for those
-> > > > > slots. So
-> > > > > seems to me you have to check for NULL wherever a
-> > > > > preallocated
-> > > > > slot
-> > > > > might drop out. That would then be a bug.
-> > > > >=20
-> > > > > It's kind of tricky, all that. It's a pity that Wilcox didn't
-> > > > > answer
-> > > > > our questions about the idiomatic way to do it.
-> > > > >=20
-> > > > > Maybe reserving slots with already signaled fences wasn't
-> > > > > such a
-> > > > > bad
-> > > > > idea after all?
-> > > > >=20
-> > > > > If we go for the NULL approach, it's probably the only sane
-> > > > > way
-> > > > > to then
-> > > > > check for NULL wherever dependencies are accessed :(
-> > > > >=20
-> > > > > Opinions?
-> > > >=20
-> > > > Well if the xarray API returns the NULL consistently the
-> > > > approach
-> > > > from
-> > > > this patch is fine I think.
-> > > >=20
-> > > > We just need to add two more checks to the above mentioned
-> > > > functions,
-> > >=20
-> > > I need to correct myself, drm_sched_job_dependency() wouldn't be
-> > > able
-> > > to
-> > > just skip NULLs since it relies on NULL for "no more
-> > > dependencies".
-> > > We
-> > > would need to track something like job->max_dependency and
-> > > terminate
-> > > on
-> > > job->last_dependency > job->max_dependency or so.
-> >=20
-> > Agreed, that would have to be fixed.
-> >=20
-> > I believe we should reconsider Christian's first idea [1].
-> >=20
-> > Thinking about it some more:
-> > =C2=A0 * With the NULL version, suddenly the xarray containing only
-> > valid
-> > =C2=A0=C2=A0=C2=A0 dependencies can sometimes contain NULL entries.
-> > =C2=A0 * If we could create our own tag, entries could be returned that
-> > were
-> > =C2=A0=C2=A0=C2=A0 neither NULL nor valid fences, also requiring checks
-> > 'everywhere'.
-> > =C2=A0 * Only the "signaled fence as prealloc reservation" approach is
-> > fully
-> > =C2=A0=C2=A0=C2=A0 backwards compatible and will never cause anyone to =
-block after
-> > =C2=A0=C2=A0=C2=A0 later reworks.
-> >=20
-> > So maybe it's actually the best idea?
-> >=20
-> > Sorry for the zigg-zagg. No hard requirements intended from my
-> > side,
-> > I'm willing to go with what you guys think.
-> >=20
-> > Just saying, at least now I think that the already-signaled fence
-> > seems
-> > the most elegant solution. And since there's a function
-> > (dma_fence_get_stub()) for that, it seems to be in alignment with
-> > official dma_fence rules.
->=20
-> Potential problem there was dma_fence_is_signaled() and fence
-> signaling=20
-> annotations. In case some driver is holding a lock over the arm+push=20
-> pair. I wish we had a non-signaling is_signaled helper..
->=20
+On Fri, May 16 2025 at 03:38:04 PM +0000, Steven J Abner 
+<pheonix.sja@att.net> wrote:
+> A boot param like 'amd_prefcore=disable' could work
 
-Yes! +1!
+But kinda a band aid. What if you just download a Mainline kernel (as I 
+did to verify not a build/configure issue). Writing bug report to OS 
+provider could take a while for them to figure out what the issue is.
 
-But Christian doesn't like that direction:
-
-https://lore.kernel.org/all/20250409120640.106408-2-phasta@kernel.org/
-
-
-P.
-
->=20
->=20
-
-
->=20
->=20
-> Anyway, I think both options are passable. I even like the NULL entry
-> slightly more since it is simpler in a way and I don't mind some
-> extra=20
-> checks completely hidden in scheduler internals.
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> >=20
-> >=20
-> > Philipp
-> >=20
-> >=20
-> > [1]
-> > https://lore.kernel.org/all/20250318120313.19099-2-christian.koenig@amd=
-.com
-> > /
-> >=20
-> >=20
-> > >=20
-> > > Regards,
-> > >=20
-> > > Tvrtko
-> > >=20
-> > > > some more unit tests probably to make sure, and that should be
-> > > > fine
-> > > > for
-> > > > now.
-> > > >=20
-> > > > On the bikeshedding front I would perhaps suggest:
-> > > >=20
-> > > > =C2=A0=C2=A0=C2=A0- drm_sched_job_preallocate_dependency()
-> > > > =C2=A0=C2=A0=C2=A0- drm_sched_job_replace_dependency()
-> > > >=20
-> > > > Reads a little bit more aligned with the rest of the API and a
-> > > > bit
-> > > > easier on the eyes, to my eyes at least.
-> > > >=20
-> > > > Regards,
-> > > >=20
-> > > > Tvrtko
-> > > >=20
-> > >=20
-> >=20
->=20
 
