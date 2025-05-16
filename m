@@ -4,84 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 243A2C3ABC9
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 14:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBBD4C54754
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 14:58:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05CD410EAE7;
-	Fri, 16 May 2025 14:30:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CA710EAF7;
+	Fri, 16 May 2025 14:58:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="Lc0WVCUe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V6xMM9Jw";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 017F210EAE6
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 14:30:55 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-3a0bd7f4cd5so2034476f8f.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 07:30:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1747405854; x=1748010654;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=c4wvw18aCRTZtC+Q6NWNiH1YReQVKr/g1/5hAXp/LsI=;
- b=Lc0WVCUeLuYhSkcyr8yXIf59lK6UU9EChLaQfXlQK7eyFXJG7FPU2qm26ntA5gynWH
- mu+cHXwKqCeaQkn6Y+haulZAjNLOQlVAFiUVAifcmgIThsFuAs5ltCWOuUXvcVmAWAct
- WpVbZbZlR8lhsapJW4xAUUDN5h9/NiG8ADWMoBoWV6ahgwOanZ/xQH5pVoZ2KRftsUU9
- 8Sv806LJhyRDYPw6Y8xn7NuwVmNXtcGFI+n0Aqy/NalCn7CIOgAKZ6sQA3BGh3RdYW/z
- BP3Ss6kJiJtMeqj1KmqQYlG4zh02YjQQhzQqvYfvp3VheOmpDsl/5hC7sjx5qzFZBWhM
- NSkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747405854; x=1748010654;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=c4wvw18aCRTZtC+Q6NWNiH1YReQVKr/g1/5hAXp/LsI=;
- b=mp60DaY6hM3ExAzoyr/Y6zVa0HNYfP1RAdzCL5bVUYao87IiIRSYQ9qaPnwr82MFpR
- 0kkGFju2I9p8wrln72MiNqJYJozOTk84rb4a9qUGhzoKg9LSIvyqCiNEH2VgWa+SmLH9
- q9eTfVXFkF4OgNBmyzbOLig+RJtIe6dC1YxlrDJVXxblWASIU5U8WSMSWC/8PYOu2AH+
- jgUgfA5Q3kMfTqUpwWKrId0lkP6m4paGy4N7tcWBxempuUJAkkUP30KXscqMhu/mupMq
- iqTvyDHi2n9LuP0jWbEvxMNr0dKY0TtrVQga+8KxJ/YlND40NK4Hq/lXL1kicVxAjpnK
- rVDg==
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF0810EAFA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 14:58:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 8B18CA4E876
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 14:58:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C037C4CEE4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 14:58:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747407525;
+ bh=hDbT6l8Ra4g1YkirifZKoYMzeq+3uNXkWZ7n3nMfPI8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=V6xMM9JwEfvlz1axejebsqy7HHf6Fip3sstL6Sgp+uQ/M+5YQpvGbMSj7tWa7P4Kh
+ gPzHqZct2qk6Jj2jZ3KWGdr9FkAioGUV5xb8O3uhHJ7Ij1OnApX9wR1FaMjGQIx4nQ
+ YXgkij3UEeE8qCfCiEhDzy/O//cmoJT9Bd7Ngfw6xJERTATXOmM8i0ku9jAcgUwWVz
+ vqdk6Bpuf4mnYOm84fkg3qtzwA7+IFO250Y6zuFhXuYq+2M+cxA0HCqPlXwMGYIuJg
+ pM4ZuFeofvURRluv165gKSjhz128QC86DfzOofsfFarLShF7HQr7wX4ybN/17+3L3n
+ Rwgq3d2ir+MNg==
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-73c17c770a7so2383050b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 07:58:45 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUfqEI2pxi696i/6O5iRE/TkecGHNQW/7U/DEghjMQAAr7mCObGBLQWEdPEF3vrfNreJDDZ9pRv@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9snxdmDbo6jVXIXBKX0Q060yAlUPeWHOk9lN5wtbpulfKS4Z4
- Sl5kBgv+DozHMKVbDTXqe3a8Rhq4hN7aedeo3sKNI7yJUtpyKk3YF6Jad2wKhiYthsI=
-X-Gm-Gg: ASbGnctpA2RzMRvuT+fE0PPH73kg5wDYpaismf581oEQMhlUHdTmj2zGvxtIGsTEZc/
- n9L0e0cESRVuO382ZOd5FsB3GQ3qhnhvgUcpxDtOgyJcKNo8HvcF0+hLevvQGPZGh4/ecctBBJY
- FvhGPTplBKKN1lGaXDdXWTv/uKbwvFYqtVI/UErnoZHMZWabcglxyysty52oT0mNSi5PA9FLUcg
- I+sWUFF/Z+Dca2PjIGhNGM51lPLK4yzcMe+nsA2Y/6crLVaKGknF4rg/Taahp0llkQA4jHosluH
- 6ozpxOaDBA920t5y58P49OpKcn4v1jAuBt8fQZhiRZsGxSzRUG1TacAlkvmlpvkbJw==
-X-Google-Smtp-Source: AGHT+IGcBtj5Je8eljzvos0HznnEVfHBZc4FKjI3ImFroFRX6a7GkghigHyWX7YGD43THm0JdYBcdQ==
-X-Received: by 2002:a05:6000:4020:b0:3a3:64c8:1fa7 with SMTP id
- ffacd0b85a97d-3a364c822admr183351f8f.55.1747405854094; 
- Fri, 16 May 2025 07:30:54 -0700 (PDT)
-Received: from [192.168.0.101] ([81.79.92.254])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca889d9sm3032336f8f.77.2025.05.16.07.30.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 07:30:53 -0700 (PDT)
-Message-ID: <01cce810-7303-4c92-b138-d8a647f3dcee@ursulin.net>
-Date: Fri, 16 May 2025 15:30:52 +0100
+ AJvYcCU9sK0cZWy/pj5DOxM4sq+ehvE0hxIbO7/xFM4OzkSG8Oj43LMww40YgHUuhQ1AEvUu/rZs0BaB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxubqNUzVCAA2M+zH61jvs57sMszSL21TZUErIpk+TSuiGSjINg
+ RV96MquYi22zysV+b4atiG0pOSQModmfW4nJL5wrpw/B8C2P/bXQL4EV3iNNXJRqXdP0WHDO+4h
+ WLRAOZTtarUIQTTq7n3/JitayZCjQVpY=
+X-Google-Smtp-Source: AGHT+IF5oHQ3XiAHYu26SgYpqkEnmMVmix54PXMDrlWr+tTbxJJdHTghAEF9U7opguKYaqW8+b2I34wPBroq6Ou90Xg=
+X-Received: by 2002:a05:6820:1792:b0:608:3f1d:bbdb with SMTP id
+ 006d021491bc7-609f37ac4d0mr1916015eaf.8.1747407513779; Fri, 16 May 2025
+ 07:58:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <ckoenig.leichtzumerken@gmail.com>, dri-devel@lists.freedesktop.org,
- dakr@kernel.org, amd-gfx@lists.freedesktop.org
-References: <20250515150038.4615-1-christian.koenig@amd.com>
- <20250515150038.4615-2-christian.koenig@amd.com>
- <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
- <5c93f114a58e84796f239b9e0f4a13e9c223e45b.camel@mailbox.org>
- <6e5ab077-77ff-443b-b345-7d99fcd01a73@ursulin.net>
- <6a361f21-1ba2-4084-b85c-0db30c9b01cc@ursulin.net>
- <fc617b712c5937c02be89f7ba068ce0de1512027.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <fc617b712c5937c02be89f7ba068ce0de1512027.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250514193406.3998101-1-superm1@kernel.org>
+ <20250514193406.3998101-2-superm1@kernel.org>
+In-Reply-To: <20250514193406.3998101-2-superm1@kernel.org>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 16 May 2025 16:58:22 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jifqTP_eZ33nBmKPCuLWrrVF_0jNGf5CpHU6nXuK8qBw@mail.gmail.com>
+X-Gm-Features: AX0GCFvRVOcB0kGKWz9Xrc6Hm7LoXkhsAklO5VHQqK_W1PeYhcRLJ3-5UfSo-D0
+Message-ID: <CAJZ5v0jifqTP_eZ33nBmKPCuLWrrVF_0jNGf5CpHU6nXuK8qBw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] PM: Use hibernate flows for system power off
+To: Mario Limonciello <superm1@kernel.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
+ "open list:HIBERNATION (aka Software Suspend,
+ aka swsusp)" <linux-pm@vger.kernel.org>, 
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ AceLan Kao <acelan.kao@canonical.com>, 
+ Kai-Heng Feng <kaihengf@nvidia.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ =?UTF-8?Q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>, 
+ Denis Benato <benato.denis96@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,238 +82,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, May 14, 2025 at 9:34=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
+rg> wrote:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> When the system is powered off the kernel will call device_shutdown()
+> which will issue callbacks into PCI core to wake up a device and call
+> it's shutdown() callback.  This will leave devices in ACPI D0 which can
+> cause some devices to misbehave with spurious wakeups and also leave some
+> devices on which will consume power needlessly.
+>
+> The issue won't happen if the device is in D3 before system shutdown, so
+> putting device to low power state before shutdown solves the issue.
+>
+> ACPI Spec 6.5, "7.4.2.5 System \_S4 State" says "Devices states are
+> compatible with the current Power Resource states. In other words, all
+> devices are in the D3 state when the system state is S4."
+>
+> The following "7.4.2.6 System \_S5 State (Soft Off)" states "The S5
+> state is similar to the S4 state except that OSPM does not save any
+> context." so it's safe to assume devices should be at D3 for S5.
+>
+> To accomplish this, modify the PM core to call all the device hibernate
+> callbacks when turning off the system when the kernel is compiled with
+> hibernate support. If compiled without hibernate support or hibernate fai=
+ls
+> fall back into the previous shutdown flow.
+>
+> Cc: AceLan Kao <acelan.kao@canonical.com>
+> Cc: Kai-Heng Feng <kaihengf@nvidia.com>
+> Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
+> Cc: Merthan Karaka=C5=9F <m3rthn.k@gmail.com>
+> Tested-by: Denis Benato <benato.denis96@gmail.com>
+> Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limon=
+ciello@amd.com/
+> Link: https://lore.kernel.org/linux-pci/20250506041934.1409302-1-superm1@=
+kernel.org/
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+> v2:
+>  * Handle failures to hibernate (fall back to shutdown)
+>  * Don't use dedicated events
+>  * Only allow under CONFIG_HIBERNATE_CALLBACKS
+> ---
+>  kernel/reboot.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/kernel/reboot.c b/kernel/reboot.c
+> index ec087827c85cd..52f5e6e36a6f8 100644
+> --- a/kernel/reboot.c
+> +++ b/kernel/reboot.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/kexec.h>
+>  #include <linux/kmod.h>
+>  #include <linux/kmsg_dump.h>
+> +#include <linux/pm.h>
+>  #include <linux/reboot.h>
+>  #include <linux/suspend.h>
+>  #include <linux/syscalls.h>
+> @@ -305,6 +306,17 @@ static void kernel_shutdown_prepare(enum system_stat=
+es state)
+>                 (state =3D=3D SYSTEM_HALT) ? SYS_HALT : SYS_POWER_OFF, NU=
+LL);
+>         system_state =3D state;
+>         usermodehelper_disable();
+> +#ifdef CONFIG_HIBERNATE_CALLBACKS
+> +       if (dpm_suspend_start(PMSG_HIBERNATE))
+> +               goto resume_devices;
 
-On 16/05/2025 14:38, Philipp Stanner wrote:
-> On Fri, 2025-05-16 at 13:10 +0100, Tvrtko Ursulin wrote:
->>
->> On 16/05/2025 12:53, Tvrtko Ursulin wrote:
->>>
->>> On 16/05/2025 08:28, Philipp Stanner wrote:
->>>> On Thu, 2025-05-15 at 17:17 +0100, Tvrtko Ursulin wrote:
->>>>>
->>>>> On 15/05/2025 16:00, Christian König wrote:
->>>>>> Sometimes drivers need to be able to submit multiple jobs
->>>>>> which
->>>>>> depend on
->>>>>> each other to different schedulers at the same time, but
->>>>>> using
->>>>>> drm_sched_job_add_dependency() can't fail any more after the
->>>>>> first
->>>>>> job is
->>>>>> initialized.
->>>>>>
->>>>>> This function preallocate memory for dependency slots so that
->>>>>> no
->>>>>> ENOMEM
->>>>>> can come later while adding dependencies.
->>>>>>
->>>>>> v2: rework implementation an documentation
->>>>>> v3: rework from scratch, use separate function to add
->>>>>> preallocated
->>>>>> deps
->>>>
->>>> I think we agreed to not put change logs into commit messages
->>>> anymore
->>>> :)
->>>>
->>>> They aren't useful for any reader. Who needs the changelog
->>>> afterwards
->>>> can retreive it through the mail thread link that we add.
->>>>
->>>>>>
->>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/scheduler/sched_main.c | 45
->>>>>> ++++++++++++++++++++++++++
->>>>>>     include/drm/gpu_scheduler.h            |  4 +++
->>>>>>     2 files changed, 49 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>> index f7118497e47a..b95e7089aa70 100644
->>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>> @@ -858,6 +858,51 @@ void drm_sched_job_arm(struct
->>>>>> drm_sched_job
->>>>>> *job)
->>>>>>     }
->>>>>>     EXPORT_SYMBOL(drm_sched_job_arm);
->>>>>> +/**
->>>>>> + * drm_sched_job_prealloc_dependency_slot - avoid ENOMEM on
->>>>>> adding
->>>>>> dependencies
->>>>>> + * @job: scheduler job where dependencies will be added
->>>>>> + * @id: id for the allocated slot
->>>>>> +  *
->>>>>> + * Sometimes drivers need to be able to submit multiple jobs
->>>>>> which
->>>>>> depend on
->>>>>> + * each other to different schedulers at the same time, but
->>>>>> using
->>>>>> + * drm_sched_job_add_dependency() can't fail any more after
->>>>>> the
->>>>>> first job is
->>>>>> + * initialized.
->>>>>> + *
->>>>>> + * This function preallocate memory for a dependency slot so
->>>>>> that
->>>>>> no ENOMEM can
->>>>>> + * come later while adding dependencies. The index of the
->>>>>> preallocated slot is
->>>>>> + * returned in @id.
->>>>>> + *
->>>>>> + * Return:
->>>>>> + * 0 on success, or an error on failing to expand the array.
->>>>>> + */
->>>>>> +int drm_sched_job_prealloc_dependency_slot(struct
->>>>>> drm_sched_job
->>>>>> *job,
->>>>>> +                       u32 *id)
->>>>>> +{
->>>>>> +    return xa_alloc(&job->dependencies, id, NULL,
->>>>>> xa_limit_32b, GFP_KERNEL);
->>>>>> +}
->>>>>> +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slot);
->>>>>> +
->>>>>> +/**
->>>>>> + * drm_sched_job_add_prealloc_dep - add dependency to
->>>>>> preallocated
->>>>>> slot
->>>>>> + * @job: scheduler job where dependencies will be added
->>>>>> + * @id: the preallocated slot index
->>>>>> + * @fence: the dependency to add
->>>>>> + *
->>>>>> + * Consumes @fence and adds it to the preallocated slot
->>>>>> dependency.
->>>>>> + */
->>>>>> +void drm_sched_job_add_prealloc_dep(struct drm_sched_job
->>>>>> *job, u32
->>>>>> id,
->>>>>> +                    struct dma_fence *fence)
->>>>>> +{
->>>>>> +    fence = xa_store(&job->dependencies, id, fence,
->>>>>> GFP_ATOMIC);
->>>>>
->>>>> Add assert that the passed id exists (was preallocated) and is
->>>>> NULL?
->>>>
->>>> You
->>>
->>> Hm?
->>>
->>>>>
->>>>> Also, if someone preallocates and does not consume the slot
->>>>> will that
->>>>> confuse the iteration in drm_sched_job_dependency()?
->>>>
->>>> drm_sched_job_add_dependency() you mean.
->>>
->>> I was actually thinking of drm_sched_job_dependency() because that
->>> looked it would skip dependencies upon encountering an unconsumed
->>> preallocated slot, but yes, drm_sched_job_add_dependency() could
->>> explode
->>> even earlier if adding a normal dependency after preallocating a
->>> slot.
->>>
->>>> Yes, it would. All operations simply give you NULL for those
->>>> slots. So
->>>> seems to me you have to check for NULL wherever a preallocated
->>>> slot
->>>> might drop out. That would then be a bug.
->>>>
->>>> It's kind of tricky, all that. It's a pity that Wilcox didn't
->>>> answer
->>>> our questions about the idiomatic way to do it.
->>>>
->>>> Maybe reserving slots with already signaled fences wasn't such a
->>>> bad
->>>> idea after all?
->>>>
->>>> If we go for the NULL approach, it's probably the only sane way
->>>> to then
->>>> check for NULL wherever dependencies are accessed :(
->>>>
->>>> Opinions?
->>>
->>> Well if the xarray API returns the NULL consistently the approach
->>> from
->>> this patch is fine I think.
->>>
->>> We just need to add two more checks to the above mentioned
->>> functions,
->>
->> I need to correct myself, drm_sched_job_dependency() wouldn't be able
->> to
->> just skip NULLs since it relies on NULL for "no more dependencies".
->> We
->> would need to track something like job->max_dependency and terminate
->> on
->> job->last_dependency > job->max_dependency or so.
-> 
-> Agreed, that would have to be fixed.
-> 
-> I believe we should reconsider Christian's first idea [1].
-> 
-> Thinking about it some more:
->   * With the NULL version, suddenly the xarray containing only valid
->     dependencies can sometimes contain NULL entries.
->   * If we could create our own tag, entries could be returned that were
->     neither NULL nor valid fences, also requiring checks 'everywhere'.
->   * Only the "signaled fence as prealloc reservation" approach is fully
->     backwards compatible and will never cause anyone to block after
->     later reworks.
-> 
-> So maybe it's actually the best idea?
-> 
-> Sorry for the zigg-zagg. No hard requirements intended from my side,
-> I'm willing to go with what you guys think.
-> 
-> Just saying, at least now I think that the already-signaled fence seems
-> the most elegant solution. And since there's a function
-> (dma_fence_get_stub()) for that, it seems to be in alignment with
-> official dma_fence rules.
+A failure of one device may trigger a cascade of failures when trying
+to resume devices and it is not even necessary to resume the ones that
+have been powered off successfully.
 
-Potential problem there was dma_fence_is_signaled() and fence signaling 
-annotations. In case some driver is holding a lock over the arm+push 
-pair. I wish we had a non-signaling is_signaled helper..
+IMV this should just ignore errors during the processing of devices,
+so maybe introduce PMSG_POWEROFF for it?
 
-Anyway, I think both options are passable. I even like the NULL entry 
-slightly more since it is simpler in a way and I don't mind some extra 
-checks completely hidden in scheduler internals.
+It should also ignore wakeup events that occur while devices are powered of=
+f.
 
-Regards,
+> +       if (dpm_suspend_end(PMSG_HIBERNATE))
+> +               goto resume_devices;
+> +       return;
+> +
+> +resume_devices:
+> +       pr_emerg("Failed to power off devices, using shutdown instead.\n"=
+);
+> +       dpm_resume_end(PMSG_RESTORE);
 
-Tvrtko
+Unfortunately, PMSG_RESTORE is not the right resume action for
+PMSG_HIBERNATE because it may not power-up things (some drivers assume
+that the restore kernel will power-up devices and so they don't do it
+in "restore" callbacks).
 
-> 
-> 
-> Philipp
-> 
-> 
-> [1]https://lore.kernel.org/all/20250318120313.19099-2-christian.koenig@amd.com/
-> 
-> 
->>
->> Regards,
->>
->> Tvrtko
->>
->>> some more unit tests probably to make sure, and that should be fine
->>> for
->>> now.
->>>
->>> On the bikeshedding front I would perhaps suggest:
->>>
->>>    - drm_sched_job_preallocate_dependency()
->>>    - drm_sched_job_replace_dependency()
->>>
->>> Reads a little bit more aligned with the rest of the API and a bit
->>> easier on the eyes, to my eyes at least.
->>>
->>> Regards,
->>>
->>> Tvrtko
->>>
->>
-> 
+I do realize that hibernation uses it to reverse PMSG_HIBERNATE, but
+it should not do that either.  That may be fixed later, though.
 
+> +#endif
+>         device_shutdown();
+>  }
+>  /**
+> --
+
+I'd prefer to get back to this series after the 6.16 merge window
+starts.  It is sort of last minute for 6.16 and it is far from ready
+IMV.
+
+Thanks!
