@@ -4,121 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2F1FC3ABC9
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 20:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF623C3ABD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 20:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A6C110E049;
-	Fri, 16 May 2025 20:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 571DE10EB59;
+	Fri, 16 May 2025 20:58:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tGjIxwpG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y6Fa9LzI";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2083.outbound.protection.outlook.com [40.107.212.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E26110EB9C
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 20:50:58 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C4AE10EB59
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 20:58:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hq6F8idIYt0tYY0lstL5fKO/HWWGvVaGh881Q9lHXzjqnAIdAtk+Ggz/PXzfc7TgwhdSCGMzzft6GfU6RU/45egcE1MQ2jEcvwDdapArRunVqmBXRebJDpyRYblQRL8kqFrHcckFL6SwEnY3bNDL8sdXqB1Aa+5AhPaOdefCpm7YWaduzMOCNbxfJpVL2Z2V4MBQZmUD7jajw/CS9Tb9ufKeGxXo//spB+3zuNxXYEvfh97RVMRpjNasCx7uJMEH7o7NbYck42WUpsu3emGgqoRjT4ZB6ttH2YlS8/BA6lIkdDJoQKwd/K0/imBUS8U/jPZM0HIuuEZ7e0dkmuvW/A==
+ b=bS13nSFciaXEGdYN04Q9nPNCCS6Rwjc+9LaXyCX7/gHHSInNuUpd8hFF0WGeFn5zbu5BJRofgZGfrNe3FIRB4b3rEslOWwwP+5YBE1EDuNuLrTiqyesOH8mCjIMd2AlTxMpkcAgXcexuuwyOgcgU7ZrAjZCt8Fk7ff7I4tT+BBkVbd+9Q1Th/z+Bab0Octyjmz7ZS8EeyxbBOrKckWc6Z5Ou/Ihydrup/JDuT+rP/cZTMo8AV3PsIWQ638EN3stserAoYYMnRb34DE3a//9MQ7HphbgzvTulQjLqbx5i/hvvy8PbW+/4NItzdQx7YpfcKaK+7Ily2nmmtw37fe3ogg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6DmbU4O2ML8BoFA91Mpg5efmlY9xzbO93T5YWHz5L3w=;
- b=icW+o2E+QtkxcStcFe4gTZK3FCJ8O/o/IGTzqq/LFhLsmEf5+e5IjsEYPrBX8Vd99bSUQZi07Z2+U8H/z8qLZrQglkCmj67GMwp8oSG7o5xFxWross6gNt07zlCwezVJLZkZfwnxAir5GPCFsu8tNeVM1C4A1x9GnorL76tgcHqyW/8/wKsTMTlc6aIJFDuHuI5wQmhXEbqmgSbNF55cz43M5RN24Z9vf4j3PqNEDq+Dp05OIxDTGToj3m+PsG3Lg8xD/9VhgEdDAJ+j8qZM62PPFBVTTFl7cFiiUxF9/kZWBgQ3la/VR9omd1C9ReBjHnlC/Lma8rykYbXHib7PwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=whKNGyrYffUj5ItMOOCqbIPS2ZhJnOto01dmW6kD6Dg=;
+ b=OaIN+/gbMfQ9+8ZR9RLXI/Jr3wTUGTYaqp18CI5szovaeExhOKjbCTGZP10DzlT0X/AsWSZIGeuu2+fbyAFkh/pq0WFcNXVwpSf21JbZw4Kn8pJfo3L6x+x4wSITh+OVxuJhEt2hLDuDeUvrPrsYk986dy5mV7OzS4HMBYQv7cT6PpJb9R0tERZ2DX8dEL2K+0KUkAhJ4emq/0VE1iVTERI4H84QJGcxHZLf++PsJca6weAwuW0cukRD4wEwwmcrls5U1q9eTjhh8zBMz0GD76mBWW7kcNPPA5hRu1kj08kv5Z1lOYyMxKr+L5JnATZLn6Cux6Z5WgmGTHuRR3gM2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6DmbU4O2ML8BoFA91Mpg5efmlY9xzbO93T5YWHz5L3w=;
- b=tGjIxwpG6lehXbqyUYczG+xx8Z07gKfTIEufb6Qh/OVUUChpy2u5faZxLtK5uT92X2+cI8cGPCi6CmHDl/6ni43IQv+37zQ7x8jFQRrXtI157ARPzg3cC1hfXMAE030z9cuQNEj4KGZWmU/uBaoTiZyI5RUs3ATfcID8FO+mWR0=
-Received: from MN0P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:52a::34)
- by CH3PR12MB9732.namprd12.prod.outlook.com (2603:10b6:610:253::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.24; Fri, 16 May
- 2025 20:50:56 +0000
-Received: from BL6PEPF0001AB72.namprd02.prod.outlook.com
- (2603:10b6:208:52a:cafe::51) by MN0P221CA0014.outlook.office365.com
- (2603:10b6:208:52a::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.20 via Frontend Transport; Fri,
- 16 May 2025 20:50:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB72.mail.protection.outlook.com (10.167.242.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8746.27 via Frontend Transport; Fri, 16 May 2025 20:50:55 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 May
- 2025 15:50:55 -0500
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 16 May 2025 15:50:55 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Steven J Abner
- <pheonix.sja@att.net>
-Subject: [PATCH] drm/amd/display: Add module param to limit max_bpc
-Date: Fri, 16 May 2025 16:50:50 -0400
-Message-ID: <20250516205050.562938-1-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.49.0
-MIME-Version: 1.0
+ bh=whKNGyrYffUj5ItMOOCqbIPS2ZhJnOto01dmW6kD6Dg=;
+ b=y6Fa9LzIWzmTPf7s7OSOAADrxCzTzq4K+b9C3m3cbeYtFS1/YFGg1uZqWGpT7p8f//bJmuszuieOEIQRt9euXg/8G+eG8JtlDgXJPo1lEyh09IU9pnM5XhTK1rFzP0W56f3+oI8Luw8nnPPDu09MMOYAZ8nXaXXyvvnQCI7m3f0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB6440.namprd12.prod.outlook.com (2603:10b6:8:c8::18) by
+ MW4PR12MB7215.namprd12.prod.outlook.com (2603:10b6:303:228::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8699.23; Fri, 16 May 2025 20:58:29 +0000
+Received: from DS0PR12MB6440.namprd12.prod.outlook.com
+ ([fe80::6576:7d84:1c66:1620]) by DS0PR12MB6440.namprd12.prod.outlook.com
+ ([fe80::6576:7d84:1c66:1620%5]) with mapi id 15.20.8722.027; Fri, 16 May 2025
+ 20:58:28 +0000
+Message-ID: <efd46968-3658-4330-bd55-d56373b96eeb@amd.com>
+Date: Fri, 16 May 2025 16:58:25 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd/amdgpu: Add GPIO resources required for amdisp
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Pratap Nirujogi <pratap.nirujogi@amd.com>, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com, mlimonci@amd.com
+Cc: benjamin.chan@amd.com, bin.du@amd.com, gjorgji.rosikopulos@amd.com,
+ king.li@amd.com, dantony@amd.com
+References: <20250515221656.1516157-1-pratap.nirujogi@amd.com>
+ <05d8be92-4779-46a6-b8f1-71e71c33a258@amd.com>
+Content-Language: en-GB
+From: "Nirujogi, Pratap" <pnirujog@amd.com>
+In-Reply-To: <05d8be92-4779-46a6-b8f1-71e71c33a258@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: harry.wentland@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQBP288CA0046.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9d::19) To DS0PR12MB6440.namprd12.prod.outlook.com
+ (2603:10b6:8:c8::18)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB72:EE_|CH3PR12MB9732:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb733e9f-9ccc-40ec-68a5-08dd94bb5ab8
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6440:EE_|MW4PR12MB7215:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc507cf8-c2b9-4baf-ce5a-08dd94bc6881
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IuIai6vbqB/qh1p4Xg3NDD+8MylY6zd2B73dYXxFTE1H7u18YJoZfHzjWk4y?=
- =?us-ascii?Q?nUkSS4jCSnZgiCgnEtPU+XlguYkNycVwqsIPHjsRIvLXx8jGKEX5fvmHKeUP?=
- =?us-ascii?Q?pLnsyi2xi7zeSLknm9dDmVH5Iyfu3gwqPBolbZOYwHT3ZJO7KsNl81VQuzTS?=
- =?us-ascii?Q?D854L9KFLRdtr0uwF4q7K+nr742eje4j1q9gt0YSgbXL8ve41udgmuA82O25?=
- =?us-ascii?Q?AX+szSZe/oqJl1Lr0qLnDYJe497iyMxp4wvrDUsly1eZ6cwD2qeSgmjXl3Gg?=
- =?us-ascii?Q?/zPov0c+gnlK/p4rlRSiVnrw086pRj1z7ZAOL2YQADBpxfkAgIcKr1FX6QjR?=
- =?us-ascii?Q?thhMEkanRxZTmJcoHszOnX2DWQ3leuoQhQtnepdJtwRpyiyIIkKZAJ5nRJtb?=
- =?us-ascii?Q?B6q9AaoEIcwnkppgFheh3TxLjWT6B33lt+W7KWNhzKG8NrwIKSecrGTkjwb9?=
- =?us-ascii?Q?b6kWcnoc9m2TzrMxaiZpiXLpHr+/6kseh7EFjUDTdiXKwhqlywrvRNTPmgRo?=
- =?us-ascii?Q?TdhnCzBYndYe7UYwitVmTV0xl6L2z3lt0KGHsD7rt6Unxgp4tNvYvDq5r8dl?=
- =?us-ascii?Q?ZAe3HRG/IhsPqvUf4R4nmgRms/BK1l5znASXdZNB2qkxu0G8bkEzBG9boG2O?=
- =?us-ascii?Q?pId/u7GTaPvEkhfa5DdAJPnUwxYBlP88xXAVe/Jb8HvbABgcg2+EvrRpys5s?=
- =?us-ascii?Q?R82VWQVQeIgFPtNb9BB67urMIcC2k15wsiDge745yPUzLRvAAywb+vcem1B/?=
- =?us-ascii?Q?HHh1e4P4hawFN4P5fjl0T8itxjEjN+QBFPuTzffPWZxrkyhPEKzkl1B/ydpb?=
- =?us-ascii?Q?2xaN9X1p6A64eQNv99ynxBqIAEa8W0T2t5SmXLWd1X1x8BeRy5n3/JLnrnzk?=
- =?us-ascii?Q?SHYtOZn8JY1TQdqgMOibR8v7J4zTYSzIBQsvgKkITJg4igGgvOq5TiGZMQ77?=
- =?us-ascii?Q?1MeOnyCcg9gSsmU2G//RpJH/skFA6IndbDjTDUetAqUQxELeqgm6LldE4NAB?=
- =?us-ascii?Q?Ldtl8uJ1pj6/7XqKnHcYdd+q4SqWF0t142dtaUlynMf8ujqc9gBtiqcC62j/?=
- =?us-ascii?Q?oS81CtH5DbHNdMS7lvY7fnXMscsYUG8MFrYpHn62mAgZoZ2fKkDDmz2ryG2j?=
- =?us-ascii?Q?E0W6BRfMA/uS4wXoE8eVHMh8y2ITeaTlbDDqgfUrjlHYXOI1Ux9j9YBHLzxH?=
- =?us-ascii?Q?Z0oYQx9FhayZrrUh05iJkZBpt6p/nzFwb7KDSf5m82M2L0TLS1vslOOftPCS?=
- =?us-ascii?Q?PJziSnGzD2qSUcvrRkeIy3eVKXH2LkhcyWz33SxAGWWbr2sHHXtn9r9SihT+?=
- =?us-ascii?Q?Q+ZwFAxJRyfRiZpCrLa8TKeDlptBotTlk/NQBrt3opV7JQgnuLcdYt96kdT8?=
- =?us-ascii?Q?lboPief+PdqA3a6IR7RHRCuWzNFiFeWU0NoLfBc4Ld7ybRLHghck79GjzGzr?=
- =?us-ascii?Q?09Ux4/QYSNw5qd+9ViSNv4kPF2atzHJECDf8JUI1vVALX7kUsEJ4ef6wIcZM?=
- =?us-ascii?Q?vxWzvFvYY9OtYkCQZYYiLr55Kzu5i8pk+rPO?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QUl4cjRVNEsvdi9LZ3FaQzNPOHJjL2R3U0g5VmhUcTlMNkE1b3BweFUySUJC?=
+ =?utf-8?B?amg0c00xc3JUSVFoUzZWNUlpdi8veUN2VnBjV3p1M1o0R3Q0TlJTMU1XL3pk?=
+ =?utf-8?B?YU9vM0RUb2VIdVRrOXRZYkdRMTE3OVFwbmhzLzArSnd4cE5NQ0JlYVZ5TFpk?=
+ =?utf-8?B?VXBhS3FsZFQ2cjU0cHdRbVpRME9ZWGhPR0s2eDJiOW9zcXlobmtNVjE1SVlm?=
+ =?utf-8?B?MkwxbGJzTlR4STQ5emF3cko2bjdkSUR0UmRUNzhTQ3pkN1QzdFd6NXJpalRT?=
+ =?utf-8?B?MEdwRno1V1ltdUQxZlRXbSsyVFFzdWxSbDBIcWRsRS9xWVhzY1g5VVpmcE55?=
+ =?utf-8?B?cHlvc2RlTFBxOFFlRmVzVzlTRzVxMlhwTzk5Z0ZkVmg0cDJVYk5Pek1zdDFi?=
+ =?utf-8?B?dHlYTG85TlNPOUNFbmhnRkUrVVhLV2dwenA1VHZzcnRYZEt6ZnB2YXZtRjVC?=
+ =?utf-8?B?WDgvWW9pMTU2UUtoL0UrcTBqT05OTExLUXF4Y0Z3czFzdGhON1c0SWVNTTBN?=
+ =?utf-8?B?azVOUkw4dDlNazk0YlBFcXFxMlBKTW5HbzFhZ0lTb3ovaFUvdFRERzBkTXlO?=
+ =?utf-8?B?bVlQKzJEOXYwNExXVUkxOTMzTFpaUENaMFdmV2lrQ2F3dVUxaFdCRTR3OWJt?=
+ =?utf-8?B?TGx3SkEwcFQxOElPT1oyOWZkd1VOU2hPYXBPZGhNbHpvRGdieDBSR3g5cmNn?=
+ =?utf-8?B?ZG16VEp1RVNYc2pGR2trN285N1FJaHplWXJUQy9iVmRFMGRoUklkeWRuQmx1?=
+ =?utf-8?B?R0thYys2WFZzRnRkVFgvS04zUFRjKzM4aStBZjV3RGJQbERuYXZlTnhZaGM5?=
+ =?utf-8?B?V1R4RlVjeVkxbFhHeWdUNENaQUh0cTF4a3dDVGtuM3k1NmxJaHk5Qkx4VmY5?=
+ =?utf-8?B?Vk5qVm4rMERrOFZweVdlQUlCU3dnMjJ0ZzBCdGlBNEU2WFFESGxYNmNJRlVF?=
+ =?utf-8?B?TkpFSFNxZUl6dGF6Ui92b3QyZFRkNU9wbjBLQVZMRFJnNUg3UERYSXIxbmxF?=
+ =?utf-8?B?WFF1Yk9DTWpwdllaakh5YWg1UFJTczJ3MWgxYnVtdnYrV1dYRnZaMGhaR2NH?=
+ =?utf-8?B?UGUyMVFzZWtKaU16cFdHYTVDczhZNnlNWUpZYzAwUFZHSW9hL2ZxS2h5Ymsw?=
+ =?utf-8?B?akRqbWxTT3ZCWFlLbVV4S2YxVXFGRzlIaTlKSkc4ZXZCS1NlbFExRkxzN3ZS?=
+ =?utf-8?B?U2RyRmtZakRlMzdXUUtzRW4xd0JmeUhhdzBBZVlFVWY2L1NLcHVRa1dUc2xK?=
+ =?utf-8?B?eXdCRHVEazl4dGxFaTh5R3Z4WmErTmlpVUl2blhTcHAyQm9Oc205Y2RqbUhy?=
+ =?utf-8?B?MjRkeVVRWVJ2cElsWXZ3dHVyL2ZveEQ5aHlmaWJ5QWtJTnQ2M3hUYlR3SXFL?=
+ =?utf-8?B?b2hVeGVtck1rditLa0FQcWVHSTdOVjFzTlJTOGl3RnM4K0VUVUhWYjVjdERi?=
+ =?utf-8?B?NHNOa0xOUmhOMDF6UEM5VkgvZ3Fkai9obHluNW1lTUtVbDFaRHJHc0k4K0FM?=
+ =?utf-8?B?TVU3VmlOUHdoTFdvU1VTZXFJUGNsbXlLNFZjUXN1RFM5WlVlYmE5d0JFc3pR?=
+ =?utf-8?B?blRhU3JJYlhUTTZsbm9lZFl1WGZ3K0VqeW4xZUJ3bXlEdzl6ZFUzeGNiZC8z?=
+ =?utf-8?B?U1dFd0NGeStvejJDOG5GcTlsWVlKSkMrTFRidzk1TkZiVENlNUZ3bWhaNTdQ?=
+ =?utf-8?B?a0JpTFdhVUdjSU9CbitSd2tMSEhLTTJEenBxM2xHd0owQ0lkYW45UllsZzUz?=
+ =?utf-8?B?SVFCSktoOVg3UC9xandEVitSTGR4TFgydU82QkZiTzFVU1RwZFBQelF1NXVS?=
+ =?utf-8?B?L3JUK29QZ3FGSFBCMVk5eWpNbWh4aWxQSDB1MGNhUHZMOExQZGN2SVl1K2tK?=
+ =?utf-8?B?LzlMTTN2YmdWUEdDazM3Wlpma2gzVHZ4eWlMZytPK1NrdGFXZnllV1hjWGFa?=
+ =?utf-8?Q?GKgaSqTWugw=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6440.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVROcUpDQ1dBUHJROFJwOWVyZGJGb0NPMUhTUk1zOVgrbU5MNnBvUXZOMHlU?=
+ =?utf-8?B?YW53a1A5aTZtRU9NTjBlbXhuRWthY0oyY291V3dXUkVKeE1aV3hqT1MzdkI5?=
+ =?utf-8?B?RzV4YkdtS3dkNlJncTJCUEswUDR1YmlQdFFQdXVLSWhLdlpUbGhESW5BSjZ5?=
+ =?utf-8?B?NTJuTUJrN3FUM3ptZHpWcUpFQWl6RDRkOGorSE4vMHJ0Wmo2WkJIOHdxNnhY?=
+ =?utf-8?B?UUl6RStqNkdjNTBuR3JLTENEUTV6dE9HT0NDTGphN0xoRjVtallVd0kzT3NB?=
+ =?utf-8?B?d2Z3VVJJOHVEYlpCbnVqdWdiUUQrcUxKenk3ZG5COS8zd0lUdzJTelhIQW5E?=
+ =?utf-8?B?dzRLSm54ODE5Skk0SEZCN1dUWXJCYTVHc28xV21UcXBsSkFhNmtVdUhsMGRz?=
+ =?utf-8?B?bjUzT0E4aWFQTyswbWpEckxKMkJORmNUNzFhTzVOa3dYbU4zQ1BEbFU1MG0z?=
+ =?utf-8?B?ci9MQy96aExGMS93dWxuNzIvNDRCMkNuM0VvNEpkMi9pWU50eHNjOC9lOHpw?=
+ =?utf-8?B?N0lLUUhlR2hSdWc5TkQrOFVQMkVuMjZNYUNrVTBNbUxSSlJQZTJCakVvMFZs?=
+ =?utf-8?B?a2E3L3gwM0F4bWlneEk4MGJ2RXgwMTgxTENCWGZvZGxSUlcvQU1IZFE4WFp6?=
+ =?utf-8?B?RURCTnp4Z1JGYUdzTmMwcWoya29jZmlzZmlLWFI5VmJQci93YTNBaDdqdXQy?=
+ =?utf-8?B?TGRiTGczU1oxQ0NkVUVEV2FqdG1UMVVjakVtLzRoamtxTzE0bEpsQzNtVFU4?=
+ =?utf-8?B?dkhMUjR2VzgvMWRRU2JKMldlWGlzM3BsQnlDZDZVWWZwMisvMThUd0prd2gr?=
+ =?utf-8?B?aEs1OTBNQXhuZVhYRHh0QjkyTGRERTdCRGw4RzZSNkRFZmZybTJnVHdkWmEw?=
+ =?utf-8?B?MXBxLzZDVFIxcDdPVHo3VnQxRkdnT01LT1l3ZlBxVXJ0NENKdVdFZCt4bVZ4?=
+ =?utf-8?B?b0lxQUFWNXdKNWUvN1FXcytSUXpxZmY0dmR1S2k2MzREY3o5VFZtRENkWmxu?=
+ =?utf-8?B?L1BWbVZERktmOHZReDVFZGpmaFkvSnNNSDFyWUUvb2pyT1ZYRmMvaE41dkdr?=
+ =?utf-8?B?WmxTYjA3MGxaV1RRRVZLVnFoa3U5NUdUa3dKL1gvMUwrQnNaT0FxV2Y2U1Bn?=
+ =?utf-8?B?TzdCOFlaM0FtcThnVTVTMzRWZUJhTk13YlVVRmxKdkpXL0lGNkRXMEpQdk4z?=
+ =?utf-8?B?ZmhUOW9rZ2pSNHVBSHBuK09JSVYwY3l0SFBtOUY0bHprSCtDck9YRHA1VitL?=
+ =?utf-8?B?ZWRSL3JHRE5wOThqemVZWTNWN3dST0o3VDdweGFmYVlyT2piS2UyeXp0Nnls?=
+ =?utf-8?B?S3ZZT01LT3BnWXZEOGMvbndMNzhlOUQxSXlWU1l1M2x1djFxZUlLSXFEQjF5?=
+ =?utf-8?B?T2hPTWEvankzS1hBcENHcEhFd0Z1NS9XRm9aVG5SYVNLNmx4c1VkZmRYUk5r?=
+ =?utf-8?B?ZW9HME41L1U4ZVZGRGNUdU5xaUErMXVOU3hZR3JEaUlsS1dnZm50dVN0NkhU?=
+ =?utf-8?B?TFZTTHFkRWpxdERCRmUvR0t6VUZNcTNialFNV2QwWEtWNmVObkJSWEw2dzI0?=
+ =?utf-8?B?T1duWFF5VHdJSmtTdy9MbEFieXhPN2lVcXJPeTIyUUVqVDVwREtKczh0NmdP?=
+ =?utf-8?B?U3owYjJUcnpjMGZJajBYMFpzTFRaT1JpR2JIQlhwSjcyMnlUWFF0dVFORzZ2?=
+ =?utf-8?B?VWRvcUpHL1UwWisxWFhwY2VuVjBmYUt1RWhnQ3hNME81aU1Hb0k0M3lDMjZG?=
+ =?utf-8?B?UlNWL1Y2c3RVVlZiMWZDOGJYSGdMZWtkMzhSVlh1QUwzWFZwYjBrL0JSKzBG?=
+ =?utf-8?B?Rk9JUkhUNFp3MlJlWGJncytsQytGb3lLR0w1VE9EUnVoKzlWZW9IWUxEb1Aw?=
+ =?utf-8?B?ck52TjlHemRSQ0ROYlZDKzdlaUdFMU9GdG9WM2hqeURJc0tHMkpsNW1JbHBC?=
+ =?utf-8?B?WW02S25xTzVSUTQwa1FOWC91RDE1dDJCYjB0RDlmcjU5NlU3ZnZuK1BSK2tJ?=
+ =?utf-8?B?dXBvRlRqNk5rVU1rM1N6YzJSSWhYTjZOQ2Z2TmdOVndzTGxUM2RPZjY0cW4w?=
+ =?utf-8?B?MzdkRFFDbldtcjNUZ2xYbzNrWmM5WURvOGRyYVFCUzJYdVR3RVZYUUZQYUFr?=
+ =?utf-8?Q?6q8ueVLhjb/gSqoiC+rfHInZR?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2025 20:50:55.7860 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb733e9f-9ccc-40ec-68a5-08dd94bb5ab8
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc507cf8-c2b9-4baf-ce5a-08dd94bc6881
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6440.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2025 20:58:28.7008 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB72.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9732
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YE5BbrGC6FFDYyA9MKjHs+izYm/oKGuwpVdSOgGHjaqd11XuEbtOcwnxLgZErLMIBYAVH+kVA7uKhTaLjKAxJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7215
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,92 +164,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some users are reporting issues with displays not
-lighting up after we made 16 bpc the default maximum
-for outputs. It's difficult to debug these issues
-when we can't repro them, but it'd be good to give
-people the ability to help themselves.
+Hi Mario,
 
-Introduce a new amdgpu.max_bpc module param that
-can be set to 8, 10, 12, 14, or 16 so users with
-problematic configurations can force the output
-bitdepth to a value that works for them.
+On 5/16/2025 3:42 PM, Mario Limonciello wrote:
+> On 5/15/2025 5:16 PM, Pratap Nirujogi wrote:
+>> ISP is a child device to GFX, and its device specific information
+>> is not available in ACPI. Adding the 2 GPIO resources required for
+>> ISP_v4_1_1 in amdgpu_isp driver.
+>>
+>> - GPIO 0 to allow sensor driver to enable and disable sensor module.
+>> - GPIO 85 to allow ISP driver to enable and disable ISP RGB streaming 
+>> mode.
+>>
+>> Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
+>> ---
+>> Changes v1 -> v2:
+>>
+>> * Use fixed "isp_dev_hid[ACPI_ID_LEN]" instead of allocating using 
+>> devm_kzalloc()
+>> * Instead of "pointer to pointer" use "pointer to array" type arg in 
+>> amdgpu_acpi_get_isp4_dev_hid()
+>> * Include error code in the debug statement
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 ++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 29 ++++++++++++++++++++++
+>>   drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  | 31 ++++++++++++++++++++++++
+>>   3 files changed, 62 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/ 
+>> amd/amdgpu/amdgpu.h
+>> index cc26cf1bd843..2aa7e89a190e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> @@ -1657,10 +1657,12 @@ static inline void 
+>> amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_cap
+>>   bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);
+>>   bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);
+>>   void amdgpu_choose_low_power_state(struct amdgpu_device *adev);
+>> +int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN]);
+>>   #else
+>>   static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device 
+>> *adev) { return false; }
+>>   static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device 
+>> *adev) { return false; }
+>>   static inline void amdgpu_choose_low_power_state(struct 
+>> amdgpu_device *adev) { }
+>> +static int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN]) { }
+>>   #endif
+>>   void amdgpu_register_gpu_instance(struct amdgpu_device *adev);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/ 
+>> drm/amd/amdgpu/amdgpu_acpi.c
+>> index b7f8f2ff143d..c39d3a09cd04 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>> @@ -1551,4 +1551,33 @@ void amdgpu_choose_low_power_state(struct 
+>> amdgpu_device *adev)
+>>           adev->in_s3 = true;
+>>   }
+>> +static const struct acpi_device_id isp_sensor_ids[] = {
+>> +    { "OMNI5C10" },
+>> +    { }
+>> +};
+>> +
+>> +static int isp_match_acpi_device_ids(struct device *dev, const void 
+>> *data)
+>> +{
+>> +    return acpi_match_device(data, dev) ? 1 : 0;
+>> +}
+>> +
+>> +int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN])
+>> +{
+>> +    struct acpi_device *acpi_pdev;
+>> +    struct device *pdev;
+>> +
+>> +    pdev = bus_find_device(&platform_bus_type, NULL, isp_sensor_ids,
+>> +                   isp_match_acpi_device_ids);
+>> +    if (!pdev)
+>> +        return -EINVAL;
+>> +
+>> +    acpi_pdev = ACPI_COMPANION(pdev);
+>> +    if (acpi_pdev)
+>> +        strscpy(*hid, acpi_device_hid(acpi_pdev));
+>> +
+>> +    put_device(pdev);
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   #endif /* CONFIG_SUSPEND */
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/ 
+>> drm/amd/amdgpu/isp_v4_1_1.c
+>> index 69dd92f6e86d..574880d67009 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+>> @@ -25,6 +25,7 @@
+>>    *
+>>    */
+>> +#include <linux/gpio/machine.h>
+>>   #include "amdgpu.h"
+>>   #include "isp_v4_1_1.h"
+>> @@ -39,15 +40,45 @@ static const unsigned int 
+>> isp_4_1_1_int_srcid[MAX_ISP411_INT_SRC] = {
+>>       ISP_4_1__SRCID__ISP_RINGBUFFER_WPT16
+>>   };
+>> +static struct gpiod_lookup_table isp_gpio_table = {
+>> +    .dev_id = "amd_isp_capture",
+>> +    .table = {
+>> +        GPIO_LOOKUP("AMDI0030:00", 85, "enable_isp", GPIO_ACTIVE_HIGH),
+>> +        { }
+>> +    },
+>> +};
+>> +
+>> +static struct gpiod_lookup_table isp_sensor_gpio_table = {
+>> +    .dev_id = "i2c-ov05c10",
+>> +    .table = {
+>> +        GPIO_LOOKUP("amdisp-pinctrl", 0, "enable", GPIO_ACTIVE_HIGH),
+>> +        { }
+>> +    },
+>> +};
+>> +
+>>   static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
+>>   {
+>>       struct amdgpu_device *adev = isp->adev;
+>>       int idx, int_idx, num_res, r;
+>> +    u8 isp_dev_hid[ACPI_ID_LEN];
+> 
+> I don't think this is going to happen in practice, but because this 
+> isn't initialized you have a case that the ACPI_COMPANION() isn't found 
+> and thus amdgpu_acpi_get_isp4_dev_hid() returns 0 and there is garbage 
+> in isp_dev_hid.
+> 
+> I think it's best for amdgpu_acpi_get_isp4_dev_hid() to check acpi_pdev 
+> for being NULL and return -ENODEV to avoid this risk or isp_dev_hid to 
+> be initialized to NULL.
+> 
+sure, will add the check for acpi_pdev to avoid the possibility of 
+accessing invalid isp_dev_hid.
 
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Cc: Steven J Abner <pheonix.sja@att.net>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 15 +++++++++++++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 ++++++++++-
- 3 files changed, 26 insertions(+), 1 deletion(-)
+Thanks,
+Pratap
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 836ea081088a..35d877dabf9c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -272,6 +272,7 @@ extern int amdgpu_rebar;
- 
- extern int amdgpu_wbrf;
- extern int amdgpu_user_queue;
-+extern int amdgpu_max_connector_bpc;
- 
- #define AMDGPU_VM_MAX_NUM_CTX			4096
- #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 4ddd08ce8885..06a889b8216f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -244,6 +244,7 @@ int amdgpu_damage_clips = -1; /* auto */
- int amdgpu_umsch_mm_fwlog;
- int amdgpu_rebar = -1; /* auto */
- int amdgpu_user_queue = -1;
-+int amdgpu_max_connector_bpc = -1; /* auto */
- 
- DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
- 			"DRM_UT_CORE",
-@@ -1126,6 +1127,20 @@ module_param_named(rebar, amdgpu_rebar, int, 0444);
- MODULE_PARM_DESC(user_queue, "Enable user queues (-1 = auto (default), 0 = disable, 1 = enable, 2 = enable UQs and disable KQs)");
- module_param_named(user_queue, amdgpu_user_queue, int, 0444);
- 
-+/**
-+ * DOC: max_bpc (int)
-+ * Set the maximum connector bit-depth in bits per colors. Possible values:
-+ *
-+ * - -1 = auto (ASIC specific default)
-+ * -  8 = 8 bpc
-+ * -  10 = 10 bpc
-+ * -  12 = 12 bpc
-+ * -  14 = 14 bpc
-+ * -  16 = 16 bpc
-+ */
-+MODULE_PARM_DESC(max_bpc, "Set maximum connector bpc (-1 = auto (default), 8 = 8 bpc, 10 = 10 bpc, 12 = 12 bpc, 14 = 14 bpc, 16 = 16 bpc)");
-+module_param_named(max_bpc, amdgpu_max_connector_bpc, int, 0444);
-+
- /* These devices are not supported by amdgpu.
-  * They are supported by the mach64, r128, radeon drivers
-  */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 4b4e9241619f..4d928984c2cd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8393,7 +8393,16 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	if (!aconnector->mst_root)
- 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
- 
--	aconnector->base.state->max_bpc = 16;
-+	if (amdgpu_max_connector_bpc != 8 &&
-+	    amdgpu_max_connector_bpc != 10 &&
-+	    amdgpu_max_connector_bpc != 12 &&
-+	    amdgpu_max_connector_bpc != 14 &&
-+	    amdgpu_max_connector_bpc != 16) {
-+		drm_err(&adev->ddev, "max_bpc connector override of %d is incorrect. Needs to be 8, 10, 12, 14, or 16\n", amdgpu_max_connector_bpc);
-+		amdgpu_max_connector_bpc = -1;
-+	}
-+
-+	aconnector->base.state->max_bpc = amdgpu_max_connector_bpc == -1 ? 16 : amdgpu_max_connector_bpc;
- 	aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
- 
- 	if (connector_type == DRM_MODE_CONNECTOR_HDMIA) {
--- 
-2.49.0
+>>       u64 isp_base;
+>>       if (adev->rmmio_size == 0 || adev->rmmio_size < 0x5289)
+>>           return -EINVAL;
+>> +    r = amdgpu_acpi_get_isp4_dev_hid(&isp_dev_hid);
+>> +    if (r) {
+>> +        drm_dbg(&adev->ddev, "Invalid isp platform detected (%d)", r);
+>> +        /* allow GPU init to progress */
+>> +        return 0;
+>> +    }
+>> +
+>> +    /* add GPIO resources required for OMNI5C10 sensor */
+>> +    if (!strcmp("OMNI5C10", isp_dev_hid)) {
+>> +        gpiod_add_lookup_table(&isp_gpio_table);
+>> +        gpiod_add_lookup_table(&isp_sensor_gpio_table);
+>> +    }
+>> +
+>>       isp_base = adev->rmmio_base;
+>>       isp->isp_cell = kcalloc(3, sizeof(struct mfd_cell), GFP_KERNEL);
+> 
 
