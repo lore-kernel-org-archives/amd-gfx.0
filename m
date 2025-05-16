@@ -4,65 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F39FDC2D0CD
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7AB7C54754
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A57C10E34A;
-	Mon, 19 May 2025 07:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B96C10E336;
+	Mon, 19 May 2025 07:15:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NzjmN4qz";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="iVpZ0tlB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADD4210E012;
- Sun, 18 May 2025 21:26:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747603567; x=1779139567;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=eshD621sTSOzcT215XItxQpbF2o7T4ts7L9YisTnoWk=;
- b=NzjmN4qzRti1tYZBHIPm0WE+Ke6petgE0pwx08iDkRUBw7quvfb6vupf
- 0K1jAo2gikFvuBixpN3TYJByIYHIPC/fTO9A6lLOnm0AlEcaWnfC+zBx8
- 74IjvjqpAxEihrxV4rL3R/8LgBRdapUivrlssPKb1oPCSJEfCdHHz26Vo
- xNDsP2g8lKebedVmGueyxagd4boxJWXnlPgO/g4OY59Iumx7luWagG427
- hWbD7eKclltsZgGU//TJGJHBqD7gEYoCief28jUJdOXnxAE5josh0FEbH
- YoJbkk0H3CQdr8bR8OVfIMUpV8lRUV+JdzmtkIdqO36vJeClL0yFFOvb6 Q==;
-X-CSE-ConnectionGUID: 8TtQsURFTI23HK2MCtUZzw==
-X-CSE-MsgGUID: EhsMYQqqTAuaCjR3VhxFDQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11437"; a="53317166"
-X-IronPort-AV: E=Sophos;i="6.15,299,1739865600"; d="scan'208";a="53317166"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2025 14:26:06 -0700
-X-CSE-ConnectionGUID: qq9Bu7WjQdCuB3SDefeRaw==
-X-CSE-MsgGUID: S40TOqY7Rvik/sdiklA93Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,299,1739865600"; d="scan'208";a="139711497"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2025 14:26:02 -0700
-Date: Mon, 19 May 2025 00:26:00 +0300
-From: Raag Jadav <raag.jadav@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- Xaver Hugl <xaver.hugl@gmail.com>,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v3 1/3] drm: Create an app info option for wedge events
-Message-ID: <aCpQaPzY0Vl5cl8T@black.fi.intel.com>
-References: <20250512203437.989894-1-andrealmeid@igalia.com>
- <20250512203437.989894-2-andrealmeid@igalia.com>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F74D10EABC;
+ Fri, 16 May 2025 13:38:33 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4ZzSpC6pbsz9stp;
+ Fri, 16 May 2025 15:38:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1747402708; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ynZX+jbx5PtIxuVuU724rkfw45EIE4frtPVN1GJr46k=;
+ b=iVpZ0tlBlEallv4txbYxhGkmlzL44dNeJKdwBISKBcQNS0c7BDWUjCBl0ci2nBMTictYW0
+ syCFWVIXq+q8klbInvX7jidz41f3ftltOIEAgIksB1anHcoiCLXYdQMM8zck8iCXG45JA9
+ w4llYeIvRnEXL5+2adU1F4VtKZrJr1p1+8StqJLZdVwV6Z4aTMYfNQoDwBJFdJJ/dJrKmf
+ qlfBe2XUCRuTFkMKKBkFIPZw1+pXLNVzURYHNP6zDpVlxuftT2sdKCWUuamvrijTjwKRdS
+ XcQtKxeKheYbBfns+li0wzgyTITRQBKnJWH2SAVq/kvawjBRr+FH9WzUGNihVg==
+Message-ID: <fc617b712c5937c02be89f7ba068ce0de1512027.camel@mailbox.org>
+Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tursulin@ursulin.net>, phasta@kernel.org, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, dakr@kernel.org, 
+ amd-gfx@lists.freedesktop.org
+Date: Fri, 16 May 2025 15:38:25 +0200
+In-Reply-To: <6a361f21-1ba2-4084-b85c-0db30c9b01cc@ursulin.net>
+References: <20250515150038.4615-1-christian.koenig@amd.com>
+ <20250515150038.4615-2-christian.koenig@amd.com>
+ <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
+ <5c93f114a58e84796f239b9e0f4a13e9c223e45b.camel@mailbox.org>
+ <6e5ab077-77ff-443b-b345-7d99fcd01a73@ursulin.net>
+ <6a361f21-1ba2-4084-b85c-0db30c9b01cc@ursulin.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250512203437.989894-2-andrealmeid@igalia.com>
+X-MBO-RS-ID: 2e758a28f01a70e803f
+X-MBO-RS-META: pg1d3wzd3foequ5mcryf89tos3ns9hq8
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,73 +66,231 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 12, 2025 at 05:34:35PM -0300, André Almeida wrote:
-> When a device get wedged, it might be caused by a guilty application.
-> For userspace, knowing which app was the cause can be useful for some
-> situations, like for implementing a policy, logs or for giving a chance
-> for the compositor to let the user know what app caused the problem.
-> This is an optional argument, when the app info is not available, the
-> PID and APP string won't appear in the event string.
-> 
-> Sometimes just the PID isn't enough giving that the app might be already
-> dead by the time userspace will try to check what was this PID's name,
-> so to make the life easier also notify what's the app's name in the user
-> event.
+On Fri, 2025-05-16 at 13:10 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 16/05/2025 12:53, Tvrtko Ursulin wrote:
+> >=20
+> > On 16/05/2025 08:28, Philipp Stanner wrote:
+> > > On Thu, 2025-05-15 at 17:17 +0100, Tvrtko Ursulin wrote:
+> > > >=20
+> > > > On 15/05/2025 16:00, Christian K=C3=B6nig wrote:
+> > > > > Sometimes drivers need to be able to submit multiple jobs
+> > > > > which
+> > > > > depend on
+> > > > > each other to different schedulers at the same time, but
+> > > > > using
+> > > > > drm_sched_job_add_dependency() can't fail any more after the
+> > > > > first
+> > > > > job is
+> > > > > initialized.
+> > > > >=20
+> > > > > This function preallocate memory for dependency slots so that
+> > > > > no
+> > > > > ENOMEM
+> > > > > can come later while adding dependencies.
+> > > > >=20
+> > > > > v2: rework implementation an documentation
+> > > > > v3: rework from scratch, use separate function to add
+> > > > > preallocated
+> > > > > deps
+> > >=20
+> > > I think we agreed to not put change logs into commit messages
+> > > anymore
+> > > :)
+> > >=20
+> > > They aren't useful for any reader. Who needs the changelog
+> > > afterwards
+> > > can retreive it through the mail thread link that we add.
+> > >=20
+> > > > >=20
+> > > > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > ---
+> > > > > =C2=A0=C2=A0 drivers/gpu/drm/scheduler/sched_main.c | 45
+> > > > > ++++++++++++++++++++++++++
+> > > > > =C2=A0=C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +++
+> > > > > =C2=A0=C2=A0 2 files changed, 49 insertions(+)
+> > > > >=20
+> > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > index f7118497e47a..b95e7089aa70 100644
+> > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > @@ -858,6 +858,51 @@ void drm_sched_job_arm(struct
+> > > > > drm_sched_job
+> > > > > *job)
+> > > > > =C2=A0=C2=A0 }
+> > > > > =C2=A0=C2=A0 EXPORT_SYMBOL(drm_sched_job_arm);
+> > > > > +/**
+> > > > > + * drm_sched_job_prealloc_dependency_slot - avoid ENOMEM on
+> > > > > adding
+> > > > > dependencies
+> > > > > + * @job: scheduler job where dependencies will be added
+> > > > > + * @id: id for the allocated slot
+> > > > > +=C2=A0 *
+> > > > > + * Sometimes drivers need to be able to submit multiple jobs
+> > > > > which
+> > > > > depend on
+> > > > > + * each other to different schedulers at the same time, but
+> > > > > using
+> > > > > + * drm_sched_job_add_dependency() can't fail any more after
+> > > > > the
+> > > > > first job is
+> > > > > + * initialized.
+> > > > > + *
+> > > > > + * This function preallocate memory for a dependency slot so
+> > > > > that
+> > > > > no ENOMEM can
+> > > > > + * come later while adding dependencies. The index of the
+> > > > > preallocated slot is
+> > > > > + * returned in @id.
+> > > > > + *
+> > > > > + * Return:
+> > > > > + * 0 on success, or an error on failing to expand the array.
+> > > > > + */
+> > > > > +int drm_sched_job_prealloc_dependency_slot(struct
+> > > > > drm_sched_job
+> > > > > *job,
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 u32 *id)
+> > > > > +{
+> > > > > +=C2=A0=C2=A0=C2=A0 return xa_alloc(&job->dependencies, id, NULL,
+> > > > > xa_limit_32b, GFP_KERNEL);
+> > > > > +}
+> > > > > +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slot);
+> > > > > +
+> > > > > +/**
+> > > > > + * drm_sched_job_add_prealloc_dep - add dependency to
+> > > > > preallocated
+> > > > > slot
+> > > > > + * @job: scheduler job where dependencies will be added
+> > > > > + * @id: the preallocated slot index
+> > > > > + * @fence: the dependency to add
+> > > > > + *
+> > > > > + * Consumes @fence and adds it to the preallocated slot
+> > > > > dependency.
+> > > > > + */
+> > > > > +void drm_sched_job_add_prealloc_dep(struct drm_sched_job
+> > > > > *job, u32
+> > > > > id,
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 struct dma_fence *fence)
+> > > > > +{
+> > > > > +=C2=A0=C2=A0=C2=A0 fence =3D xa_store(&job->dependencies, id, fe=
+nce,
+> > > > > GFP_ATOMIC);
+> > > >=20
+> > > > Add assert that the passed id exists (was preallocated) and is
+> > > > NULL?
+> > >=20
+> > > You
+> >=20
+> > Hm?
+> >=20
+> > > >=20
+> > > > Also, if someone preallocates and does not consume the slot
+> > > > will that
+> > > > confuse the iteration in drm_sched_job_dependency()?
+> > >=20
+> > > drm_sched_job_add_dependency() you mean.
+> >=20
+> > I was actually thinking of drm_sched_job_dependency() because that=20
+> > looked it would skip dependencies upon encountering an unconsumed=20
+> > preallocated slot, but yes, drm_sched_job_add_dependency() could
+> > explode=20
+> > even earlier if adding a normal dependency after preallocating a
+> > slot.
+> >=20
+> > > Yes, it would. All operations simply give you NULL for those
+> > > slots. So
+> > > seems to me you have to check for NULL wherever a preallocated
+> > > slot
+> > > might drop out. That would then be a bug.
+> > >=20
+> > > It's kind of tricky, all that. It's a pity that Wilcox didn't
+> > > answer
+> > > our questions about the idiomatic way to do it.
+> > >=20
+> > > Maybe reserving slots with already signaled fences wasn't such a
+> > > bad
+> > > idea after all?
+> > >=20
+> > > If we go for the NULL approach, it's probably the only sane way
+> > > to then
+> > > check for NULL wherever dependencies are accessed :(
+> > >=20
+> > > Opinions?
+> >=20
+> > Well if the xarray API returns the NULL consistently the approach
+> > from=20
+> > this patch is fine I think.
+> >=20
+> > We just need to add two more checks to the above mentioned
+> > functions,=20
+>=20
+> I need to correct myself, drm_sched_job_dependency() wouldn't be able
+> to=20
+> just skip NULLs since it relies on NULL for "no more dependencies".
+> We=20
+> would need to track something like job->max_dependency and terminate
+> on=20
+> job->last_dependency > job->max_dependency or so.
 
-...
+Agreed, that would have to be fixed.
 
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 3dc7acd56b1d..e30efa4ac330 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -542,6 +542,7 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
->   * drm_dev_wedged_event - generate a device wedged uevent
->   * @dev: DRM device
->   * @method: method(s) to be used for recovery
-> + * @info: optional information about the guilty app
->   *
->   * This generates a device wedged uevent for the DRM device specified by @dev.
->   * Recovery @method\(s) of choice will be sent in the uevent environment as
-> @@ -554,13 +555,14 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
->   *
->   * Returns: 0 on success, negative error code otherwise.
->   */
-> -int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
-> +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
-> +			 struct drm_wedge_app_info *info)
->  {
->  	const char *recovery = NULL;
->  	unsigned int len, opt;
->  	/* Event string length up to 28+ characters with available methods */
-> -	char event_string[32];
-> -	char *envp[] = { event_string, NULL };
-> +	char event_string[32], pid_string[15] = "", comm_string[TASK_COMM_LEN] = "";
+I believe we should reconsider Christian's first idea [1].
 
-Let's make these into proper defines for consistency,
+Thinking about it some more:
+ * With the NULL version, suddenly the xarray containing only valid
+   dependencies can sometimes contain NULL entries.
+ * If we could create our own tag, entries could be returned that were
+   neither NULL nor valid fences, also requiring checks 'everywhere'.
+ * Only the "signaled fence as prealloc reservation" approach is fully
+   backwards compatible and will never cause anyone to block after
+   later reworks.
 
-#define WEDGE_STR_LEN
-#define PID_LEN
+So maybe it's actually the best idea?
 
-and drop redundant comment.
+Sorry for the zigg-zagg. No hard requirements intended from my side,
+I'm willing to go with what you guys think.
 
-> +	char *envp[] = { event_string, NULL, NULL, NULL };
->  
->  	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
->  
-> @@ -582,6 +584,13 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
->  	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
->  		 "but recovered through reset" : "needs recovery");
->  
-> +	if (info) {
-> +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
-> +		snprintf(comm_string, sizeof(comm_string), "APP=%s", info->comm);
+Just saying, at least now I think that the already-signaled fence seems
+the most elegant solution. And since there's a function
+(dma_fence_get_stub()) for that, it seems to be in alignment with
+official dma_fence rules.
 
-Since this is a core helper, we'd want to make sure these fields are valid
-and not being abused.
 
-Also s/APP/TASK IMHO, but upto you.
+Philipp
 
-Raag
+
+[1]https://lore.kernel.org/all/20250318120313.19099-2-christian.koenig@amd.=
+com/
+
+
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> > some more unit tests probably to make sure, and that should be fine
+> > for=20
+> > now.
+> >=20
+> > On the bikeshedding front I would perhaps suggest:
+> >=20
+> > =C2=A0=C2=A0- drm_sched_job_preallocate_dependency()
+> > =C2=A0=C2=A0- drm_sched_job_replace_dependency()
+> >=20
+> > Reads a little bit more aligned with the rest of the API and a bit=20
+> > easier on the eyes, to my eyes at least.
+> >=20
+> > Regards,
+> >=20
+> > Tvrtko
+> >=20
+>=20
+
