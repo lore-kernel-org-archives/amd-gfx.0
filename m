@@ -4,61 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D01FC3ABD8
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 12:49:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4135C3ABD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 12:54:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC88610EAAB;
-	Fri, 16 May 2025 12:49:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9E7610E045;
+	Fri, 16 May 2025 12:54:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YT+EYV87";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="bAnlNFe/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E4C610EAA9;
- Fri, 16 May 2025 12:49:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747399786; x=1778935786;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=/8f/jSS6gLVAzhPFW0vE1+5UJ8HssoY0+ZN5Yf2qqIo=;
- b=YT+EYV87ciCIXSzUscS3u8E7RWok7mAURlU1/ndu2qfuSlIaHB3ZDs6/
- OVLtyYwXptHa8uv6tkbF6+ZOWSkmP2lNDukT19/SBsz4V75Mm7PmvuHC8
- WWpFhYgy1koRH1393QicwurLKwX4ycappAlFVoB+mqa13ykeRJJZ5fdbd
- sHLDEWnLVgtJ6z2/D+ojsIycVuWAQYwd+s+BZi5U9tOXU+8tDzPNk9FBU
- 6xGpzCBLEop5R1YPa4iVQPob1HUs00SuoaFw3eukF1wh64yQl/H5P2oW5
- weLxaezwiOA4Kfo29MOqHkx5r+g/EnG51r9gNmUmiOALWfYtokJlhrE7w w==;
-X-CSE-ConnectionGUID: BDHlNEy+Qc2ln7wv4txBog==
-X-CSE-MsgGUID: faJ9XtL5Tr6ScFlRcSQyrA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11435"; a="49526764"
-X-IronPort-AV: E=Sophos;i="6.15,293,1739865600"; d="scan'208";a="49526764"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2025 05:49:46 -0700
-X-CSE-ConnectionGUID: vir2mYIiQrOA2wDbVj7+LQ==
-X-CSE-MsgGUID: a070JebaRO+dCo493+BkhQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,293,1739865600"; d="scan'208";a="169623060"
-Received: from lkp-server01.sh.intel.com (HELO 1992f890471c) ([10.239.97.150])
- by orviesa002.jf.intel.com with ESMTP; 16 May 2025 05:49:42 -0700
-Received: from kbuild by 1992f890471c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1uFuVQ-000JLv-0y;
- Fri, 16 May 2025 12:49:40 +0000
-Date: Fri, 16 May 2025 20:48:59 +0800
-From: kernel test robot <lkp@intel.com>
-To: Leonardo Gomes <leonardodasigomes@gmail.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: oe-kbuild-all@lists.linux.dev, derick.william.moraes@gmail.com,
- Leonardo Gomes <leonardodasigomes@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/2 RESEND] drm/amd/display: Adjust get_value function
- with prefix to help in ftrace
-Message-ID: <202505162041.ftJ48E6X-lkp@intel.com>
-References: <20250514174306.82693-1-leonardodasigomes@gmail.com>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1664A10E9A5;
+ Fri, 16 May 2025 07:28:46 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4ZzJbW1VgNz9stM;
+ Fri, 16 May 2025 09:28:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1747380519; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=orENF73Xi5Yr7JxnHNFVGOeZ3oFYGeGfA38jWLh4UA4=;
+ b=bAnlNFe/eXprU433znu6uOvFBglvBtH5NHYg1FqZfumXqhkCPAG6BCQ/MlmgIYwd2gvsEg
+ 4yAApdwKum+NaOtq6PBhqEi7UpoDTEWCmj0hxSL8BoC8dWCwnW+H1qLdC2T4SE9AaeUbd6
+ BxudHr8c9Y0Oik5OPczDVR8+zlXhaifA6p1sgDB59m/izKAtoyjWG1LkeFU/0Goah3yk86
+ 6wo9r/NZWB2WqLs0RpQQRhwPzLPj9soDRVX8yGRA44SmiEZeCzljpEgMhIXRaS4uchktg3
+ 9Gc2NGWnyYm0ffdm5VBWF10CmcCYZYl2LVVerk1gxG9Q3EoXNxsjFt97GworlA==
+Message-ID: <5c93f114a58e84796f239b9e0f4a13e9c223e45b.camel@mailbox.org>
+Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tursulin@ursulin.net>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org,  dakr@kernel.org,
+ amd-gfx@lists.freedesktop.org
+Date: Fri, 16 May 2025 09:28:37 +0200
+In-Reply-To: <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
+References: <20250515150038.4615-1-christian.koenig@amd.com>
+ <20250515150038.4615-2-christian.koenig@amd.com>
+ <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250514174306.82693-1-leonardodasigomes@gmail.com>
+X-MBO-RS-META: s549f7b19mahrq91839xep4hk3d16ye9
+X-MBO-RS-ID: 14e9d31f9e02eb17f78
+X-Mailman-Approved-At: Fri, 16 May 2025 12:54:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,70 +64,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Leonardo,
+On Thu, 2025-05-15 at 17:17 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 15/05/2025 16:00, Christian K=C3=B6nig wrote:
+> > Sometimes drivers need to be able to submit multiple jobs which
+> > depend on
+> > each other to different schedulers at the same time, but using
+> > drm_sched_job_add_dependency() can't fail any more after the first
+> > job is
+> > initialized.
+> >=20
+> > This function preallocate memory for dependency slots so that no
+> > ENOMEM
+> > can come later while adding dependencies.
+> >=20
+> > v2: rework implementation an documentation
+> > v3: rework from scratch, use separate function to add preallocated
+> > deps
 
-kernel test robot noticed the following build errors:
+I think we agreed to not put change logs into commit messages anymore
+:)
 
-[auto build test ERROR on drm-exynos/exynos-drm-next]
-[also build test ERROR on linus/master drm/drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip v6.15-rc6 next-20250515]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+They aren't useful for any reader. Who needs the changelog afterwards
+can retreive it through the mail thread link that we add.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Leonardo-Gomes/drm-amd-display-Adjust-set_value-function-with-prefix-to-help-in-ftrace/20250515-151114
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
-patch link:    https://lore.kernel.org/r/20250514174306.82693-1-leonardodasigomes%40gmail.com
-patch subject: [PATCH 1/2 RESEND] drm/amd/display: Adjust get_value function with prefix to help in ftrace
-config: sparc-allmodconfig (https://download.01.org/0day-ci/archive/20250516/202505162041.ftJ48E6X-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250516/202505162041.ftJ48E6X-lkp@intel.com/reproduce)
+> >=20
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > ---
+> > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c | 45
+> > ++++++++++++++++++++++++++
+> > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +++
+> > =C2=A0 2 files changed, 49 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > b/drivers/gpu/drm/scheduler/sched_main.c
+> > index f7118497e47a..b95e7089aa70 100644
+> > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > @@ -858,6 +858,51 @@ void drm_sched_job_arm(struct drm_sched_job
+> > *job)
+> > =C2=A0 }
+> > =C2=A0 EXPORT_SYMBOL(drm_sched_job_arm);
+> > =C2=A0=20
+> > +/**
+> > + * drm_sched_job_prealloc_dependency_slot - avoid ENOMEM on adding
+> > dependencies
+> > + * @job: scheduler job where dependencies will be added
+> > + * @id: id for the allocated slot
+> > +=C2=A0 *
+> > + * Sometimes drivers need to be able to submit multiple jobs which
+> > depend on
+> > + * each other to different schedulers at the same time, but using
+> > + * drm_sched_job_add_dependency() can't fail any more after the
+> > first job is
+> > + * initialized.
+> > + *
+> > + * This function preallocate memory for a dependency slot so that
+> > no ENOMEM can
+> > + * come later while adding dependencies. The index of the
+> > preallocated slot is
+> > + * returned in @id.
+> > + *
+> > + * Return:
+> > + * 0 on success, or an error on failing to expand the array.
+> > + */
+> > +int drm_sched_job_prealloc_dependency_slot(struct drm_sched_job
+> > *job,
+> > +					=C2=A0=C2=A0 u32 *id)
+> > +{
+> > +	return xa_alloc(&job->dependencies, id, NULL,
+> > xa_limit_32b, GFP_KERNEL);
+> > +}
+> > +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slot);
+> > +
+> > +/**
+> > + * drm_sched_job_add_prealloc_dep - add dependency to preallocated
+> > slot
+> > + * @job: scheduler job where dependencies will be added
+> > + * @id: the preallocated slot index
+> > + * @fence: the dependency to add
+> > + *
+> > + * Consumes @fence and adds it to the preallocated slot
+> > dependency.
+> > + */
+> > +void drm_sched_job_add_prealloc_dep(struct drm_sched_job *job, u32
+> > id,
+> > +				=C2=A0=C2=A0=C2=A0 struct dma_fence *fence)
+> > +{
+> > +	fence =3D xa_store(&job->dependencies, id, fence,
+> > GFP_ATOMIC);
+>=20
+> Add assert that the passed id exists (was preallocated) and is NULL?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202505162041.ftJ48E6X-lkp@intel.com/
+You=20
 
-All errors (new ones prefixed by >>):
+>=20
+> Also, if someone preallocates and does not consume the slot will that
+> confuse the iteration in drm_sched_job_dependency()?
 
->> drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_hpd.c:65:25: error: static declaration of 'dal_hw_gpio_get_value' follows non-static declaration
-      65 | static enum gpio_result dal_hw_gpio_get_value(
-         |                         ^~~~~~~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_hpd.c:30:
-   drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_gpio.h:122:18: note: previous declaration of 'dal_hw_gpio_get_value' with type 'enum gpio_result(const struct hw_gpio_pin *, uint32_t *)' {aka 'enum gpio_result(const struct hw_gpio_pin *, unsigned int *)'}
-     122 | enum gpio_result dal_hw_gpio_get_value(
-         |                  ^~~~~~~~~~~~~~~~~~~~~
+drm_sched_job_add_dependency() you mean.
 
+Yes, it would. All operations simply give you NULL for those slots. So
+seems to me you have to check for NULL wherever a preallocated slot
+might drop out. That would then be a bug.
 
-vim +/dal_hw_gpio_get_value +65 drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_hpd.c
+It's kind of tricky, all that. It's a pity that Wilcox didn't answer
+our questions about the idiomatic way to do it.
 
-    64	
-  > 65	static enum gpio_result dal_hw_gpio_get_value(
-    66		const struct hw_gpio_pin *ptr,
-    67		uint32_t *value)
-    68	{
-    69		struct hw_hpd *hpd = HW_HPD_FROM_BASE(ptr);
-    70		uint32_t hpd_delayed = 0;
-    71	
-    72		/* in Interrupt mode we ask for SENSE bit */
-    73	
-    74		if (ptr->mode == GPIO_MODE_INTERRUPT) {
-    75	
-    76			REG_GET(int_status,
-    77				DC_HPD_SENSE_DELAYED, &hpd_delayed);
-    78	
-    79			*value = hpd_delayed;
-    80			return GPIO_RESULT_OK;
-    81		}
-    82	
-    83		/* in any other modes, operate as normal GPIO */
-    84	
-    85		return dal_hw_gpio_get_value(ptr, value);
-    86	}
-    87	
+Maybe reserving slots with already signaled fences wasn't such a bad
+idea after all?
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+If we go for the NULL approach, it's probably the only sane way to then
+check for NULL wherever dependencies are accessed :(
+
+Opinions?
+
+P.
+
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> > +	/*
+> > +	 * Be defensive just in case driver messed it up and used
+> > preallocated
+> > +	 * slot twice.
+> > +	 */
+> > +	if (WARN_ON(fence))
+> > +		dma_fence_put(fence);
+> > +}
+> > +EXPORT_SYMBOL(drm_sched_job_add_prealloc_dep);
+> > +
+> > =C2=A0 /**
+> > =C2=A0=C2=A0 * drm_sched_job_add_dependency - adds the fence as a job
+> > dependency
+> > =C2=A0=C2=A0 * @job: scheduler job to add the dependencies to
+> > diff --git a/include/drm/gpu_scheduler.h
+> > b/include/drm/gpu_scheduler.h
+> > index d860db087ea5..0286e0934317 100644
+> > --- a/include/drm/gpu_scheduler.h
+> > +++ b/include/drm/gpu_scheduler.h
+> > @@ -632,6 +632,10 @@ int drm_sched_job_init(struct drm_sched_job
+> > *job,
+> > =C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 credits, void *o=
+wner);
+> > =C2=A0 void drm_sched_job_arm(struct drm_sched_job *job);
+> > =C2=A0 void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+> > +int drm_sched_job_prealloc_dependency_slot(struct drm_sched_job
+> > *job,
+> > +					=C2=A0=C2=A0 u32 *id);
+> > +void drm_sched_job_add_prealloc_dep(struct drm_sched_job *job, u32
+> > id,
+> > +				=C2=A0=C2=A0=C2=A0 struct dma_fence *fence);
+> > =C2=A0 int drm_sched_job_add_dependency(struct drm_sched_job *job,
+> > =C2=A0=C2=A0				 struct dma_fence *fence);
+> > =C2=A0 int drm_sched_job_add_syncobj_dependency(struct drm_sched_job
+> > *job,
+>=20
+
