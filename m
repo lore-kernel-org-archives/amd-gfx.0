@@ -4,83 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4722C3ABC9
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 12:10:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D01FC3ABD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 12:49:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6766C10EA81;
-	Fri, 16 May 2025 12:10:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC88610EAAB;
+	Fri, 16 May 2025 12:49:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="Sti35gFT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YT+EYV87";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38AF210EA88
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 12:10:10 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-3a0bd7f4cd5so1874093f8f.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 05:10:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1747397409; x=1748002209;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:references
- :to:from:subject:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LGT2oPWwjoh7rKPwN1d4wn7K3Rnyxcoy16FVWlVVIAs=;
- b=Sti35gFT9LDSUmab2iaWusvJdM1TKPMcqcFQHt6VN0uU4nE18AshogwBz/1G1qTdNK
- lU/+BFoV7dHuXQWukIzXfGyX1vBrky91fzy7GScnmqTbxHUdtWOUSXQyUZ/yQv3FBcWe
- 0kXFE5FQvpMpnedwAzDsZiyeVp/oUdtFuJ59Z4Z3nvt7OoNeRCpifmKbMV+9wuLK5Zxd
- u8peVNBFFRgI1QolUkIwVE2k8ItHMyfImKYTzmBEcMROC3g1ZAEekeNqTKn/IAK+z146
- pABKAXg1FbMPfGliGSSUn6/+4PiyUSbz8NVFgPzKXkE9iVysD+DnP3+PVNWDCA/W5bmG
- 7E3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747397409; x=1748002209;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :to:from:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=LGT2oPWwjoh7rKPwN1d4wn7K3Rnyxcoy16FVWlVVIAs=;
- b=uEVOuATJFi4pT9lbkyN2gq5Mn/XesbVk6uWuZ4tLwtKUu0bNLbUe4fYUkoyZha3kH4
- cSXDdlS1Z5CLIkYidWTTxzdI5iSZFPHjz9ysspzJounx/IAXVbp4vDgXUY/Kxm3I9gzm
- tKbbZQG4kgeITze6lwxs7qCgGnXMs2g2VzNOhzjVJqEG5prLI7gqllIdkX7hVFcqjPpU
- QXeXf4AsPVwKi3JEfBktCVJ0XaD2GOjQ2yqyTvWDwugiK+PpvOB2hR3vgcl0HwMZVVhC
- wrDsrML2EBMo2yJbPGi2wXPTvjNkyks0sWNRYEXx7spQrEGTX126PLpagw0Jlq7wdvwL
- l0tQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUo4AdpD2d01udkIo2aDOA33YXyUrNOWhpp8HEd54XLYpkqdEOLsD6TTQPKstMRjsxvI/w5v2Kh@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3AXQxIJFrKOkWTTJL9RwekNshR0c+AQ4RqZEVDNQfd14SLW/9
- 0aus1AfDGrxcsvf9cSRtYPBWxGnse8EcD/ZHkgFhRzSk15YXRGfEootLYOcGMDOCqNXgB1RYaLc
- ZN4Mn
-X-Gm-Gg: ASbGncv0u3wwFuCJPs0HJkebrujhvPNo132OWGKwthm3PS8bJsxWUAkNajc0Xk9fnFs
- ferGly5ri0WK/fA5PZ6uX+BNwYhJutb3dVFariJbIf8vtPGZmiE2HNLKCiLIplbcZgqxnJfengL
- iXj32zbLovXtOu8NwdXGirOVLb9qpi9I/WRPm5Gia/L636oHieBH6JJJ1o79l+XH9YXz8UMaYTq
- UQDBzhx842FrDirUBrAVE7oFJbG/MfVYbuDCNFX5+JDt8kvefYGV9uwc2rH29CgxUVal+37mAwc
- tdS1C811TXtSM6Qbl4ULinmoM4fEI8b+kPGMbh9f4RP8xLMswq4Ioa8ZIq/cI4LVmg==
-X-Google-Smtp-Source: AGHT+IH1UuoNTQjkC007ANJG1J1jGMaZnBAR0r/hx+FlzP/yWrf4ch5ilPLGeQm2BWA0uwswm/xBnQ==
-X-Received: by 2002:adf:fe85:0:b0:3a3:6143:1100 with SMTP id
- ffacd0b85a97d-3a3614312b9mr1580378f8f.59.1747397408703; 
- Fri, 16 May 2025 05:10:08 -0700 (PDT)
-Received: from [192.168.0.101] ([81.79.92.254])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca5a03fsm2648416f8f.22.2025.05.16.05.10.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 05:10:08 -0700 (PDT)
-Message-ID: <6a361f21-1ba2-4084-b85c-0db30c9b01cc@ursulin.net>
-Date: Fri, 16 May 2025 13:10:07 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E4C610EAA9;
+ Fri, 16 May 2025 12:49:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1747399786; x=1778935786;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/8f/jSS6gLVAzhPFW0vE1+5UJ8HssoY0+ZN5Yf2qqIo=;
+ b=YT+EYV87ciCIXSzUscS3u8E7RWok7mAURlU1/ndu2qfuSlIaHB3ZDs6/
+ OVLtyYwXptHa8uv6tkbF6+ZOWSkmP2lNDukT19/SBsz4V75Mm7PmvuHC8
+ WWpFhYgy1koRH1393QicwurLKwX4ycappAlFVoB+mqa13ykeRJJZ5fdbd
+ sHLDEWnLVgtJ6z2/D+ojsIycVuWAQYwd+s+BZi5U9tOXU+8tDzPNk9FBU
+ 6xGpzCBLEop5R1YPa4iVQPob1HUs00SuoaFw3eukF1wh64yQl/H5P2oW5
+ weLxaezwiOA4Kfo29MOqHkx5r+g/EnG51r9gNmUmiOALWfYtokJlhrE7w w==;
+X-CSE-ConnectionGUID: BDHlNEy+Qc2ln7wv4txBog==
+X-CSE-MsgGUID: faJ9XtL5Tr6ScFlRcSQyrA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11435"; a="49526764"
+X-IronPort-AV: E=Sophos;i="6.15,293,1739865600"; d="scan'208";a="49526764"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 May 2025 05:49:46 -0700
+X-CSE-ConnectionGUID: vir2mYIiQrOA2wDbVj7+LQ==
+X-CSE-MsgGUID: a070JebaRO+dCo493+BkhQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,293,1739865600"; d="scan'208";a="169623060"
+Received: from lkp-server01.sh.intel.com (HELO 1992f890471c) ([10.239.97.150])
+ by orviesa002.jf.intel.com with ESMTP; 16 May 2025 05:49:42 -0700
+Received: from kbuild by 1992f890471c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1uFuVQ-000JLv-0y;
+ Fri, 16 May 2025 12:49:40 +0000
+Date: Fri, 16 May 2025 20:48:59 +0800
+From: kernel test robot <lkp@intel.com>
+To: Leonardo Gomes <leonardodasigomes@gmail.com>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: oe-kbuild-all@lists.linux.dev, derick.william.moraes@gmail.com,
+ Leonardo Gomes <leonardodasigomes@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/2 RESEND] drm/amd/display: Adjust get_value function
+ with prefix to help in ftrace
+Message-ID: <202505162041.ftJ48E6X-lkp@intel.com>
+References: <20250514174306.82693-1-leonardodasigomes@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <ckoenig.leichtzumerken@gmail.com>, dri-devel@lists.freedesktop.org,
- dakr@kernel.org, amd-gfx@lists.freedesktop.org
-References: <20250515150038.4615-1-christian.koenig@amd.com>
- <20250515150038.4615-2-christian.koenig@amd.com>
- <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
- <5c93f114a58e84796f239b9e0f4a13e9c223e45b.camel@mailbox.org>
- <6e5ab077-77ff-443b-b345-7d99fcd01a73@ursulin.net>
-Content-Language: en-GB
-In-Reply-To: <6e5ab077-77ff-443b-b345-7d99fcd01a73@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250514174306.82693-1-leonardodasigomes@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,158 +73,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Leonardo,
 
-On 16/05/2025 12:53, Tvrtko Ursulin wrote:
-> 
-> On 16/05/2025 08:28, Philipp Stanner wrote:
->> On Thu, 2025-05-15 at 17:17 +0100, Tvrtko Ursulin wrote:
->>>
->>> On 15/05/2025 16:00, Christian König wrote:
->>>> Sometimes drivers need to be able to submit multiple jobs which
->>>> depend on
->>>> each other to different schedulers at the same time, but using
->>>> drm_sched_job_add_dependency() can't fail any more after the first
->>>> job is
->>>> initialized.
->>>>
->>>> This function preallocate memory for dependency slots so that no
->>>> ENOMEM
->>>> can come later while adding dependencies.
->>>>
->>>> v2: rework implementation an documentation
->>>> v3: rework from scratch, use separate function to add preallocated
->>>> deps
->>
->> I think we agreed to not put change logs into commit messages anymore
->> :)
->>
->> They aren't useful for any reader. Who needs the changelog afterwards
->> can retreive it through the mail thread link that we add.
->>
->>>>
->>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/scheduler/sched_main.c | 45
->>>> ++++++++++++++++++++++++++
->>>>    include/drm/gpu_scheduler.h            |  4 +++
->>>>    2 files changed, 49 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>> index f7118497e47a..b95e7089aa70 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>> @@ -858,6 +858,51 @@ void drm_sched_job_arm(struct drm_sched_job
->>>> *job)
->>>>    }
->>>>    EXPORT_SYMBOL(drm_sched_job_arm);
->>>> +/**
->>>> + * drm_sched_job_prealloc_dependency_slot - avoid ENOMEM on adding
->>>> dependencies
->>>> + * @job: scheduler job where dependencies will be added
->>>> + * @id: id for the allocated slot
->>>> +  *
->>>> + * Sometimes drivers need to be able to submit multiple jobs which
->>>> depend on
->>>> + * each other to different schedulers at the same time, but using
->>>> + * drm_sched_job_add_dependency() can't fail any more after the
->>>> first job is
->>>> + * initialized.
->>>> + *
->>>> + * This function preallocate memory for a dependency slot so that
->>>> no ENOMEM can
->>>> + * come later while adding dependencies. The index of the
->>>> preallocated slot is
->>>> + * returned in @id.
->>>> + *
->>>> + * Return:
->>>> + * 0 on success, or an error on failing to expand the array.
->>>> + */
->>>> +int drm_sched_job_prealloc_dependency_slot(struct drm_sched_job
->>>> *job,
->>>> +                       u32 *id)
->>>> +{
->>>> +    return xa_alloc(&job->dependencies, id, NULL,
->>>> xa_limit_32b, GFP_KERNEL);
->>>> +}
->>>> +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slot);
->>>> +
->>>> +/**
->>>> + * drm_sched_job_add_prealloc_dep - add dependency to preallocated
->>>> slot
->>>> + * @job: scheduler job where dependencies will be added
->>>> + * @id: the preallocated slot index
->>>> + * @fence: the dependency to add
->>>> + *
->>>> + * Consumes @fence and adds it to the preallocated slot
->>>> dependency.
->>>> + */
->>>> +void drm_sched_job_add_prealloc_dep(struct drm_sched_job *job, u32
->>>> id,
->>>> +                    struct dma_fence *fence)
->>>> +{
->>>> +    fence = xa_store(&job->dependencies, id, fence,
->>>> GFP_ATOMIC);
->>>
->>> Add assert that the passed id exists (was preallocated) and is NULL?
->>
->> You
-> 
-> Hm?
-> 
->>>
->>> Also, if someone preallocates and does not consume the slot will that
->>> confuse the iteration in drm_sched_job_dependency()?
->>
->> drm_sched_job_add_dependency() you mean.
-> 
-> I was actually thinking of drm_sched_job_dependency() because that 
-> looked it would skip dependencies upon encountering an unconsumed 
-> preallocated slot, but yes, drm_sched_job_add_dependency() could explode 
-> even earlier if adding a normal dependency after preallocating a slot.
-> 
->> Yes, it would. All operations simply give you NULL for those slots. So
->> seems to me you have to check for NULL wherever a preallocated slot
->> might drop out. That would then be a bug.
->>
->> It's kind of tricky, all that. It's a pity that Wilcox didn't answer
->> our questions about the idiomatic way to do it.
->>
->> Maybe reserving slots with already signaled fences wasn't such a bad
->> idea after all?
->>
->> If we go for the NULL approach, it's probably the only sane way to then
->> check for NULL wherever dependencies are accessed :(
->>
->> Opinions?
-> 
-> Well if the xarray API returns the NULL consistently the approach from 
-> this patch is fine I think.
-> 
-> We just need to add two more checks to the above mentioned functions, 
+kernel test robot noticed the following build errors:
 
-I need to correct myself, drm_sched_job_dependency() wouldn't be able to 
-just skip NULLs since it relies on NULL for "no more dependencies". We 
-would need to track something like job->max_dependency and terminate on 
-job->last_dependency > job->max_dependency or so.
+[auto build test ERROR on drm-exynos/exynos-drm-next]
+[also build test ERROR on linus/master drm/drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip v6.15-rc6 next-20250515]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Regards,
+url:    https://github.com/intel-lab-lkp/linux/commits/Leonardo-Gomes/drm-amd-display-Adjust-set_value-function-with-prefix-to-help-in-ftrace/20250515-151114
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+patch link:    https://lore.kernel.org/r/20250514174306.82693-1-leonardodasigomes%40gmail.com
+patch subject: [PATCH 1/2 RESEND] drm/amd/display: Adjust get_value function with prefix to help in ftrace
+config: sparc-allmodconfig (https://download.01.org/0day-ci/archive/20250516/202505162041.ftJ48E6X-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250516/202505162041.ftJ48E6X-lkp@intel.com/reproduce)
 
-Tvrtko
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202505162041.ftJ48E6X-lkp@intel.com/
 
-> some more unit tests probably to make sure, and that should be fine for 
-> now.
-> 
-> On the bikeshedding front I would perhaps suggest:
-> 
->   - drm_sched_job_preallocate_dependency()
->   - drm_sched_job_replace_dependency()
-> 
-> Reads a little bit more aligned with the rest of the API and a bit 
-> easier on the eyes, to my eyes at least.
-> 
-> Regards,
-> 
-> Tvrtko
-> 
+All errors (new ones prefixed by >>):
 
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_hpd.c:65:25: error: static declaration of 'dal_hw_gpio_get_value' follows non-static declaration
+      65 | static enum gpio_result dal_hw_gpio_get_value(
+         |                         ^~~~~~~~~~~~~~~~~~~~~
+   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_hpd.c:30:
+   drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_gpio.h:122:18: note: previous declaration of 'dal_hw_gpio_get_value' with type 'enum gpio_result(const struct hw_gpio_pin *, uint32_t *)' {aka 'enum gpio_result(const struct hw_gpio_pin *, unsigned int *)'}
+     122 | enum gpio_result dal_hw_gpio_get_value(
+         |                  ^~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/dal_hw_gpio_get_value +65 drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_hpd.c
+
+    64	
+  > 65	static enum gpio_result dal_hw_gpio_get_value(
+    66		const struct hw_gpio_pin *ptr,
+    67		uint32_t *value)
+    68	{
+    69		struct hw_hpd *hpd = HW_HPD_FROM_BASE(ptr);
+    70		uint32_t hpd_delayed = 0;
+    71	
+    72		/* in Interrupt mode we ask for SENSE bit */
+    73	
+    74		if (ptr->mode == GPIO_MODE_INTERRUPT) {
+    75	
+    76			REG_GET(int_status,
+    77				DC_HPD_SENSE_DELAYED, &hpd_delayed);
+    78	
+    79			*value = hpd_delayed;
+    80			return GPIO_RESULT_OK;
+    81		}
+    82	
+    83		/* in any other modes, operate as normal GPIO */
+    84	
+    85		return dal_hw_gpio_get_value(ptr, value);
+    86	}
+    87	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
