@@ -4,49 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84425C3ABD8
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 08:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C32C3ABDD
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 08:05:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E37A010E9D5;
-	Fri, 16 May 2025 08:05:34 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B447B10E8C4;
- Thu, 15 May 2025 14:18:09 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-01 (Coremail) with SMTP id qwCowADni_yb9yVoS_LMFQ--.6807S2;
- Thu, 15 May 2025 22:18:05 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm: radeon: ci_dpm: Add error handling for
- ci_send_msg_to_smc_with_parameter()
-Date: Thu, 15 May 2025 22:17:40 +0800
-Message-ID: <20250515141740.1324-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B83E10E9DB;
+	Fri, 16 May 2025 08:05:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aC8j9Jwp";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF34210E868;
+ Fri, 16 May 2025 07:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1747379010; x=1778915010;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=yhtrPlJ9qmNyVnIMkIRuxU21wfsbr+ewaXgbpucVwKI=;
+ b=aC8j9JwpvDXHGdczQYOhi8gsjWw3+lx2duVDZeRZ79yD7emdbHz7aSBa
+ QfkrfQCCW9ZSPQ+kNl3swrO8EBLelm1dP9wQoaRO6KfYI4liMrkPdpEOy
+ sx322J6EUXdhtsxKTC4eQXXQVu+rtAosoXh2gKzyXavLFyp0X/sfsiwns
+ +Z6wkiBHcAaeYm7A/MhKnM5T+t8EfqifgQBfsZkV7Oj5iGkEThF7jIDia
+ C+PdwANMWsAA9SY3jt1RjVGGzjGUCF48y3K3RboMmozrQ/Wm1dLaC1KF3
+ NLG1+nMr+i2jg50jaCZBivN0ol32cjb+qgYWfUBOmblFRKkM16b/qjSXO g==;
+X-CSE-ConnectionGUID: DBtY1VIjSAqMddztoUwhpw==
+X-CSE-MsgGUID: h+tDxLQ/R+iWNWYeVCzTCA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11434"; a="49477435"
+X-IronPort-AV: E=Sophos;i="6.15,293,1739865600"; d="scan'208";a="49477435"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 May 2025 00:03:27 -0700
+X-CSE-ConnectionGUID: vXCqJWCVTqKRwiW6nA2nnQ==
+X-CSE-MsgGUID: ZVjwAZNZQ0OfN1RXidy/aw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,293,1739865600"; d="scan'208";a="143724385"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 May 2025 00:03:23 -0700
+Date: Fri, 16 May 2025 10:03:19 +0300
+From: Raag Jadav <raag.jadav@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ Xaver Hugl <xaver.hugl@gmail.com>,
+ "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v3 2/3] drm/doc: Add a section about "App information"
+ for the wedge API
+Message-ID: <aCbjN9lqP4ZWV_lY@black.fi.intel.com>
+References: <20250512203437.989894-1-andrealmeid@igalia.com>
+ <20250512203437.989894-3-andrealmeid@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowADni_yb9yVoS_LMFQ--.6807S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1kKFW5uw4Utw4rJw4kCrg_yoW8KFW8pa
- yxCFyYyrZ5AayrWwsFyw4UAryrAwsrXFWxJrsrKw43Z34ayFyrJF13uryayFW0yryvgFya
- vrn2y3W8Zr4UCF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
- 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
- CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
- nIWIevJa73UjIFyTuYvjfU52NtDUUUU
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ4DA2glvjTL+AAAsz
+In-Reply-To: <20250512203437.989894-3-andrealmeid@igalia.com>
 X-Mailman-Approved-At: Fri, 16 May 2025 08:05:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,67 +79,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The ci_enable_uvd_dpm() calls ci_send_msg_to_smc_with_parameter()
-but does not check the return value. This could lead to the execution
-with potentially invalid data. A proper implementation can be found
-in the ci_fan_ctrl_start_smc_fan_control().
+On Mon, May 12, 2025 at 05:34:36PM -0300, André Almeida wrote:
+> Add a section about "App information" for the wedge API.
+> 
+> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+> ---
+> v3:
+>  - Change "app that caused ..." to "app involved ..."
+>  - Clarify that devcoredump have more information about what happened
+>  - Update that PID and APP will be empty if there's no app info
+> ---
+>  Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+> index 69f72e71a96e..3300a928d8ef 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
+> @@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
+>  hang is usually the most critical one which can result in consequential hangs or
+>  complete wedging.
+>  
+> +App information
+> +---------------
+> +
+> +The information about which application (if any) was involved in the device
+> +wedging is useful for userspace if they want to notify the user about what
+> +happened (e.g. the compositor display a message to the user "The <app name>
+> +caused a graphical error and the system recovered") or to implement policies
+> +(e.g. the daemon may "ban" an app that keeps resetting the device). If the app
+> +information is available, the uevent will display as ``PID=<pid>`` and
+> +``APP=<task name>``. Otherwise, ``PID`` and ``APP`` will not appear in the event
 
-Add a check after calling ci_send_msg_to_smc_with_parameter(), return
--EINVAL if the sending fails.
+Personally I'd use Linux specific naming for consistency.
 
-Fixes: cc8dbbb4f62a ("drm/radeon: add dpm support for CI dGPUs (v2)")
-Cc: stable@vger.kernel.org # v3.12
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/radeon/ci_dpm.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+s/APP/TASK
 
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index abe9d65cc460..3877863c6893 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -3889,6 +3889,7 @@ static int ci_enable_uvd_dpm(struct radeon_device *rdev, bool enable)
- 	struct ci_power_info *pi = ci_get_pi(rdev);
- 	const struct radeon_clock_and_voltage_limits *max_limits;
- 	int i;
-+	PPSMC_Result result;
- 
- 	if (rdev->pm.dpm.ac_power)
- 		max_limits = &rdev->pm.dpm.dyn_state.max_clock_voltage_on_ac;
-@@ -3907,24 +3908,30 @@ static int ci_enable_uvd_dpm(struct radeon_device *rdev, bool enable)
- 			}
- 		}
- 
--		ci_send_msg_to_smc_with_parameter(rdev,
-+		result = ci_send_msg_to_smc_with_parameter(rdev,
- 						  PPSMC_MSG_UVDDPM_SetEnabledMask,
- 						  pi->dpm_level_enable_mask.uvd_dpm_enable_mask);
-+		if (result != PPSMC_Result_OK)
-+			return -EINVAL;
- 
- 		if (pi->last_mclk_dpm_enable_mask & 0x1) {
- 			pi->uvd_enabled = true;
- 			pi->dpm_level_enable_mask.mclk_dpm_enable_mask &= 0xFFFFFFFE;
--			ci_send_msg_to_smc_with_parameter(rdev,
-+			result = ci_send_msg_to_smc_with_parameter(rdev,
- 							  PPSMC_MSG_MCLKDPM_SetEnabledMask,
- 							  pi->dpm_level_enable_mask.mclk_dpm_enable_mask);
-+			if (result != PPSMC_Result_OK)
-+				return -EINVAL;
- 		}
- 	} else {
- 		if (pi->last_mclk_dpm_enable_mask & 0x1) {
- 			pi->uvd_enabled = false;
- 			pi->dpm_level_enable_mask.mclk_dpm_enable_mask |= 1;
--			ci_send_msg_to_smc_with_parameter(rdev,
-+			result = ci_send_msg_to_smc_with_parameter(rdev,
- 							  PPSMC_MSG_MCLKDPM_SetEnabledMask,
- 							  pi->dpm_level_enable_mask.mclk_dpm_enable_mask);
-+			if (result != PPSMC_Result_OK)
-+				return -EINVAL;
- 		}
- 	}
- 
--- 
-2.42.0.windows.2
+But in any case,
 
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+
+> +string.
+> +
+> +The reliability of this information is driver and hardware specific, and should
+> +be taken with a caution regarding it's precision. To have a big picture of what
+> +happened,
+
+Nit: what *really* happened
+
+> the devcoredump file provides should have much more detailed
+> +information about the device state and about the event.
+> +
+>  Consumer prerequisites
+>  ----------------------
+>  
+> -- 
+> 2.49.0
+> 
