@@ -4,121 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52486C3ABD8
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 21:32:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE27BC3ABD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 May 2025 21:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1D9C10EB9C;
-	Fri, 16 May 2025 21:32:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D57D10EB9D;
+	Fri, 16 May 2025 21:38:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b2NJHb/J";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cXZzvEPO";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B27FE10EB9B
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 21:32:02 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7127410EB9D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 21:38:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PTW68dpaSOiHVfyitu4TV8igwYCKtrSkpOQdM8xhfEkV+htsoyIKSUOj5LHArv+HT54oaA98eWabVLuCl8Y5htkvMd/oaw4qs9d9az+bhNXxhcB0yCTfqa7TJNm0nJmZ8QgFVyc1dOvs/nul1LUgJ8v3kDo5Fwd38Q+VF3C+ZgZvy85chDX4sO1R//xHPiAmzR/ylx/0fxjQmItUfSpGHG+kQYRKMJKECIJgm5hOzl/5b/qOUvBaOOqST9QrKVaNzYUEHJ26bH9nWeEUgo24m9gDsdKHHhZYrGjZt8Et6uegoE8765ddnTPkjn4qB5D7Te4vuwnaqNnkIlTLTuO5gg==
+ b=jZNThYcZsxnC5WPLP8DWQl5g8V75Ec3w2lP4/uI6OaBYw9QSgv98VnWl5bkTqVe4FnbXcIDZxLt5DirwJ7pOCu74Ui5d32UcmBmOareMnblECoR2DoGzAIdQgXD0agZ+kv7gZYjjUyxYYvB2k+f0IT3+p6NNdkGLuAMHMgkNFVwdlaGHhHZZpiZrc2HTNokcjNg/7llGQ2gT69nC/kvbgobd5jI7qDfCDpFN/hskYEoP7HBhNcbmbwMz4OENu501xCZ/gTCsIvoyNm353zRZH3yi4XgrFm8YzqW9yLXz/kIKgPGPjOTlod9B+a4VdC1Beho0xWeNSfeiUOS7MJ2KUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FeCz8tds6NtDIh6fsmD7YbPs2KhRApukY/o0VFGdmlA=;
- b=NzYSBfEX43IP/HdkQoWxThiBBXlts1XMktoiZMSfwel72315oQZJ9rTj9C/W/aVxZg4Ppvr1QySb6Ggy2UTbIXkTFd8/pDuf9OYQ70sgU0awcg3eoyxsp1tWUGsM1BliG9vxKIbOTSWCDEX5GNeRKRhdia/FmJBesUkXTafZUhNeo0/QYTBsX0nLsB8z6zNT8IBey18CHscgw1bv+l6gnWxwsw6g4vFJy/45nxNDPlyEF7zDnScCiek5erZ0F8FztRcAgwVQJlz3uCZi0dD8+zlLQGD3+LTSGtwjmiibSLKF0VUXWhwf0g/jMYb770mj4m3nqP7Qw1YlVJyPbo8gng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=CRDpPtdz7xUbp45obWF3pw8wyskyhT5+TVO9xvqaP0M=;
+ b=OWTFbNO6TLl1qeF09Ux7PJ835G8I+allyhe+OVQx3yQWTGOXfALZ3gFcVbUp6/+QIMukwhBRgsAElAWWHOciHFB/Ex9tzdg8K0t9HL61uDS8K//KVHFv7M9VnXGrLUPbHnCrDqkBgQSAjJAATRjFL7Qycr8P+aBfw2N/HxceUNJp8dhJ4hhVy1YZSeQyZakB0hruKw6us5xb87ItYVjmvzGmcw66YUq8qs+WmwqmK4AluZPnrFHLe91InPSjNO59bJg63VP3DUjoFtfhCFRbT8EBdrpg8af5j4iFjO7KgqfwnDP4tLRe0DWfOcBk1KW3q2Oyd08SQ/g9glaAv/rCDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FeCz8tds6NtDIh6fsmD7YbPs2KhRApukY/o0VFGdmlA=;
- b=b2NJHb/JMKwE3JnVOon9fUwCbXB+xnOUb7WcrQiRCurC2aR1hEx9Htk8/qazclWuyLNZGRxTNvAxpQ1EI1/sWUDWN8b0vztLmDq3npDzk+NcsQkRkNAXoWRV+C8ky9/5QrDSjCJeIBrw6oPoT4ti6CPWVptuYMIb3u2pZQ9Fq0M=
-Received: from BYAPR07CA0021.namprd07.prod.outlook.com (2603:10b6:a02:bc::34)
- by PH7PR12MB6935.namprd12.prod.outlook.com (2603:10b6:510:1b9::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.24; Fri, 16 May
- 2025 21:31:57 +0000
-Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a02:bc:cafe::eb) by BYAPR07CA0021.outlook.office365.com
- (2603:10b6:a02:bc::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.33 via Frontend Transport; Fri,
- 16 May 2025 21:31:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8746.27 via Frontend Transport; Fri, 16 May 2025 21:31:57 +0000
-Received: from maple-stxh-linux-10.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 16 May 2025 16:31:55 -0500
-From: Pratap Nirujogi <pratap.nirujogi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <mlimonci@amd.com>
-CC: <benjamin.chan@amd.com>, <bin.du@amd.com>, <gjorgji.rosikopulos@amd.com>, 
- <king.li@amd.com>, <dantony@amd.com>, Pratap Nirujogi
- <pratap.nirujogi@amd.com>
-Subject: [PATCH v3] drm/amd/amdgpu: Add GPIO resources required for amdisp
-Date: Fri, 16 May 2025 17:31:01 -0400
-Message-ID: <20250516213126.1830572-1-pratap.nirujogi@amd.com>
-X-Mailer: git-send-email 2.43.0
+ bh=CRDpPtdz7xUbp45obWF3pw8wyskyhT5+TVO9xvqaP0M=;
+ b=cXZzvEPOoYt7xyGMj6OvRgGfSCTWcuY9SF6h+wdB78ZxlFFu3Tl04DQ0fQYvwr2eo3WeR8qK5gIIEd8Rdu+ilbuwi1HjBIyD+34VriRjUAYtzP6bC1px7xZAfKfV5esv4L+HlmMuErMa9ZLvoKYIWSltmXK8uxuhS1ZRF5trdFM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by DS0PR12MB8815.namprd12.prod.outlook.com (2603:10b6:8:14f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.30; Fri, 16 May
+ 2025 21:38:22 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.8722.027; Fri, 16 May 2025
+ 21:38:21 +0000
+Message-ID: <87136b85-d0b4-44e5-b5be-4b589ccd49b8@amd.com>
+Date: Fri, 16 May 2025 16:38:19 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amd/amdgpu: Add GPIO resources required for amdisp
+To: Pratap Nirujogi <pratap.nirujogi@amd.com>, amd-gfx@lists.freedesktop.org, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, mlimonci@amd.com
+Cc: benjamin.chan@amd.com, bin.du@amd.com, gjorgji.rosikopulos@amd.com,
+ king.li@amd.com, dantony@amd.com
+References: <20250516213126.1830572-1-pratap.nirujogi@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20250516213126.1830572-1-pratap.nirujogi@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN7PR04CA0199.namprd04.prod.outlook.com
+ (2603:10b6:806:126::24) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|PH7PR12MB6935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9645ccf0-a1a6-49c2-85f9-08dd94c115cb
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS0PR12MB8815:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2da200ee-afd8-4838-c4f5-08dd94c1faeb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yRM7c+2/FCDoaPjkgwCbAwqDOsZ2nploPYziIggen+wb+RKBJWoRklogAosJ?=
- =?us-ascii?Q?PmMcShSR4GlNAzcZ/HDXzY7aSa78PypFShwOd4JaXLGkhW/pYunuiIgLbb+m?=
- =?us-ascii?Q?uhaiqtuwMm+crIW1H2nh1hWyJ1ede9AS/Mai5MoeMB4yvln3oBKV3dmujEgI?=
- =?us-ascii?Q?YHb/2Or3wLFO+nIKlGy0yx0sz2t0Eec5M8QohQ+Z3K65Wctevyj2lbGvqYDI?=
- =?us-ascii?Q?ec1wu+ACzV1fmJ2UI8iLCOqHCgyLym2i8T+bfUfaZo0czLQES1tc0zihaxw2?=
- =?us-ascii?Q?CmbWg53hhZZkM3jHV4E8s6QqmX4YEiR8frm69AboJJ/y5nNPxyEgLNmeiCcE?=
- =?us-ascii?Q?vmX2CpDj03z+lRMnB00U66lOYK+49DFzGopaFDapbja2GejYFiYCz2ZQLexE?=
- =?us-ascii?Q?X5H/8RrviTTo0FmKiZsS9+FX0FbFAK+bj53fr/uMG3PXORHzp3LvcXXAo4fC?=
- =?us-ascii?Q?qED0ZQdwnSiszOBjDL5YaiqXreI/MsUMLErXmgzr1gxjXH+NJ0sHrmxpuflr?=
- =?us-ascii?Q?8G1b7CZwFHpUtNDzlVujYuRbtPAI3XVZULJ6X05ycVZZ59M1jHRTkCgv05G0?=
- =?us-ascii?Q?YXzTZ+2PJ7Cb+zEbWbY3cJfs6XJrsZAoi5PjEja6X/82ueT+rNvhl91UuVs1?=
- =?us-ascii?Q?c7WmAvMs1/PLfl7EGv3iajR/S+y9omSq7UKD961F73XN4c48PsWQSSwkl9Y/?=
- =?us-ascii?Q?JPedzhEZ7DsMoZBQet+FkFk3/+3kw30HuZd2wXzHtM9yx5rQOkQNMGq3Vh6j?=
- =?us-ascii?Q?ye04joTIfsKGFMKnwwuQJODfgSFXIdnSK6UMrkoVbYolrBzxx0M9HMWp3B64?=
- =?us-ascii?Q?flTj8GsV83nkrDqK66oHmG+HKaugZ55zT9A3mzmXIgMBGVo5X+H1yGOzbgZT?=
- =?us-ascii?Q?zHPYAKbfWeAl8Nvg1U/Z5VQNfykEPHykdQkJyvaoQh2d0sz17TNhq2DQvfqK?=
- =?us-ascii?Q?HvS4OL0bPMm0VxMSGZuXL/gmwk7QqZrCchoQxLolRunIlt1uKIKVTAVtlFGn?=
- =?us-ascii?Q?OmfqZFmIdXFtd072qKWCp7LgkNv/Ur2LAnMaDKgidDg+IjeWX6tbbuSIJdIp?=
- =?us-ascii?Q?X1AaE9RUSTSG6eoprDQb18x68krWcQ/eja7IeVEa0DO2DYWCvr75NgKab516?=
- =?us-ascii?Q?RVNIcY5ncVJyeAPamNpRIQvxaxGeqIrzvwMN31FN+rwpzTs+UwjWGV3MmlFy?=
- =?us-ascii?Q?M2ul9zq38rNFy/vzFkKcw9OSyVuKDENDNzWCssd5VwdAeq4ImF1ilVqtO6BW?=
- =?us-ascii?Q?Z0EgWslHR9wr7nbCLOhqg9zDceNfOOX+QBhOOPvg+dZrjz/vzmHrYIrTvvC/?=
- =?us-ascii?Q?Ty3wc6rT/4cAn0G9K5mpzRR+B7IVimiZl3Kqln34+3EBb+W4CO3lzDHFvpJj?=
- =?us-ascii?Q?pmahQwQTW88dd38y67cGJaEGnGD4L+7JNIk+qTvFWxrmPXRHKbCEyIJjhrQE?=
- =?us-ascii?Q?do4ByT6FDumzFZm85ATcVXMtvN4/ob/rQESg1dUFyQWldla102a+vExZJ3El?=
- =?us-ascii?Q?iii/XZ44YOZe42WrPAgk0x01vBLWjHfAo+2Y?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UUd0OFVFby81RFlRRitvT2k2NEtqcy9JOUJ4VUZyZXJsWUpRbnNDQ1pqbzc5?=
+ =?utf-8?B?d3ViZ01rTXlYTUR0SXh3YUdJQ1A3MG5PWmJwNWtUekFzMWFhU0ZzaHR1S3Ba?=
+ =?utf-8?B?UW1jY25JTGtsbkF1MkhVS29mSTZTc3VYOTdhZzAzRHA3VHJ2T1Q1WWw1RTh6?=
+ =?utf-8?B?L1FnbU1qUm1rbjJhVmxBMFZUbFVieStCUjhLNzZDZjBrVGlMSU9BVnoyMngv?=
+ =?utf-8?B?aFdWUTIyTXdIdGRFM3VibHBDcEFLTjRqT2dZa2lhZVVha3Y5MFVzdjhPTFVG?=
+ =?utf-8?B?YzNLYWxJbXVoaUlTeHF4MXY0VXpBVEN1N09RVUxhdk9yTEg3aGtMNVFUQXMr?=
+ =?utf-8?B?SHpuYnU2bFBqeXpJdkk0aksvK3FMUjE0cFFwamRjL3p3VHAydDN3dDh0bGdI?=
+ =?utf-8?B?d2RmM0JGL1pjVDFtQXZqbElTYXRiRmxsZ3A0cnVwSFY3Tm1rMjEvMGlxMG93?=
+ =?utf-8?B?TXhlMEgvb1g1dysrcWNhVm1GV1BFTXV2SWltS25IUVFHS2ZIRU5rQjY3MXJz?=
+ =?utf-8?B?azA3WWY1QXlZRzB2TGRkSml3UllGMTJtS0VBSkZ1SlVpNmZUWkw3V0hkWXJW?=
+ =?utf-8?B?ODQzQ1MyTjlhbzA4MTdydjFUSkM0WkJFSjdMSDBWeUx3VnNLV0JNYi9GZEJB?=
+ =?utf-8?B?bDFLSDg2SjVBS1ZZZUhtZ0d6U05CV3d5T1dqdVRGOEFFbm9valFXK05lOWlu?=
+ =?utf-8?B?WkNycklJOU1QOHAvTUo3UnpwbFRjMHB2NElVTy9DTXZodFN5MG94djcveDRl?=
+ =?utf-8?B?Z2FNWmZxcUxFbmo5Ti9YQmZBRGh0U2Y5VzVYbXB4MWt0SW9XK2d6bFdUanI2?=
+ =?utf-8?B?Zkw1dkJpV2xLQ3R4T1V5VWI5ekY1TzBRT0UvWE5POFF5NnJ6VUJzaTc5cXkr?=
+ =?utf-8?B?VVE4S2dYVlZ1WXZxMFFLVSt1bXc4Rkp0dG0xejBla2xpS0JkZE1QbGdEdmZD?=
+ =?utf-8?B?V1FuSjNRWmtnOHl6MkJ6MzdiUjhSR04rY1REbVlBUm5IUFBSUzQySks0RDMw?=
+ =?utf-8?B?dTVoNmxRZ1VUdzVPL2xwb0R4MmdCT2draDNnT1FPeXhmaFlXY3dVcVc4cmVI?=
+ =?utf-8?B?N1dBZTdRVmdBOWxIekNERGdFL1JMbUtUckQyUjZwbStFSWV5TXBaV29kUUUv?=
+ =?utf-8?B?TkNIMFFjL1JwNXBWWlJFbzVnWGgxaUhrRnN5SFdIMU5mZ1Q2U043dWNwWUty?=
+ =?utf-8?B?Z1ZSR3ZjMjRoSkVIOVh0N0Nod3ZIOUVwTDNHaHFrRElNTkFRci8wR1ZpQ3U5?=
+ =?utf-8?B?UjJOQ0NySEV4MmdXRUlKRGJpZ0w4MTRPUGF3d29SUzMzcTMrdDZMcCtRT3Fm?=
+ =?utf-8?B?Rm1MTEhKU21OOXdIeStGY21OaVdBbVoyRUdmQWc4M0plV2NId1djNTdWT0w0?=
+ =?utf-8?B?M043WjZ0SElsSCtYQjdGdk9oYXpremhlZzA0SmlSZm1KNk9ESS9ydmxzRkdI?=
+ =?utf-8?B?VVZOY2cvWXVsbWt3bXNiNkdxTGNRWjVuR1VkZmR1UDM4Z0p3alV5NGFnWERx?=
+ =?utf-8?B?ZFl0YmUxN3FpZDRSNkdSbkxCcXVBZWRvSXRvTjU3R21FVnZwNDd6QWVDMXI1?=
+ =?utf-8?B?VmdzekVBYkNtZU9VcFlVRThwS0RPMnRaeGxRSzVYemxIYklnZHBFYmE0c2d2?=
+ =?utf-8?B?UWN4MmpuS1hPSVlqeEhjelpDdVdpYlF2cXhROHZ6eTgrU3d2a0g0WFJVbHBW?=
+ =?utf-8?B?VC9aczJTKy9IczZaS25QUEZJN29zUCszMGRlS2FzMkVZdjRhb1Q0Zk1ZMzRR?=
+ =?utf-8?B?QWRQTlA3TVZtN3pPU2JuWGZ6U2NZY0VRaUxTL0FTM25KVmhwN0VyTGFjek16?=
+ =?utf-8?B?cmcvTnJsYy9ZdW4rL2lVY3dBMzg2RXB5eHV6YWgvTHJVY0ZSbVNBNG1zUWEw?=
+ =?utf-8?B?VEYzdVIxMXp5VEV0RUU0V0RYOFFRRi9uTko1V3grTk13OWNRSGI3MldiajFw?=
+ =?utf-8?Q?WQaJr/mK9zM=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REhKZ2lhNTR6N0ZhMjRLVjlHWnViakY3NVk5cm9mbWNDcE5Ma292UlNIdzZl?=
+ =?utf-8?B?d2pEeDExMGJwLzE0UGVqbmhOYWhrVksvamJoMURNRlI0c21YbHNBZ0ZVdUxy?=
+ =?utf-8?B?ODZFRlJjVEpkZ0Y1YnVlZk8zeVRud0E5QkFPTTZsdTVCMlF3dUdtc2FqYjV4?=
+ =?utf-8?B?aXpaQ0ZKdVl3MGhiWTV2TGo4RldEOE9ZYy93T1lNNW4rTW9lOVNaVVZXQTZF?=
+ =?utf-8?B?eGpSNVdUMXNValA3VkxTNndBa3dGdDhBS1diN3ZzVytEK0RKUTQ1b1ErY2ds?=
+ =?utf-8?B?S1U5UkIxblgvWlpRWmFLUytadzFMRThGRkE5Yms2WmlMVWFWN1NHYXM4eEtJ?=
+ =?utf-8?B?ZXd0cG9CVm1PYkFnZURkYWFNQ0tqWnM3QWRBZU5xTFNQSEtpbTF5ZGR1dGdl?=
+ =?utf-8?B?K2ZUclphR2RtWUp3bVF0MTBDanVCeEdhZ1ppV2VGRCtkVW1RTlJwUzFvakY5?=
+ =?utf-8?B?NmtEZm9LUVFqYWgvZXVPUzBaaUwzRyt6UXVPM1NBN05ZUXhuUkxPMmZKZGQ2?=
+ =?utf-8?B?bVJsZkN2VUljQ0FUM0JlQWg0cjRpc3hObC9yaWhxQ2Z2UFR0UjVrajhqNnpW?=
+ =?utf-8?B?ZE0wekpuci96Y3lnVUR6aVd1dkh1QUpIUmxkc3FOTGU2OXJnSkZQWjJtQ2FJ?=
+ =?utf-8?B?SUtlQlNmL1Z1QTlrMGFEZlVtbDY4STZoM0svYlJGZS9xYy9RNzBvTGl4VGVv?=
+ =?utf-8?B?TXpWTGl3Q2lWelRoTUVKSWJEbi9jSlEzcURMTkNKaEZEUGJXeDYwN0RCbktE?=
+ =?utf-8?B?R3YwRnNseEkzWXBmbGdTR243d1duOHc0S0VEOGdRbm1TYnpmMW5yVzJUVUoz?=
+ =?utf-8?B?MTZDOGJYcm1EY3lwRlhoOTBQaWUvdWROWmpad1BySHR4cWQycVAwRDZhb2tV?=
+ =?utf-8?B?S0M2RnJXUXFBVTVMb0N5UGZxenFHQ25iUzduOWg5TDhsNWxyMytIWFhZLzh5?=
+ =?utf-8?B?N0ZrNmVGVW53UkJBOER5bGtEemVQMllMV0M2Q1orRlZxZkdrdkg2NUZnLzBG?=
+ =?utf-8?B?Mmp3Q0JSV1RPSUczMnN2b1FYUzNoK3NqTzNEQWkyUk0zWDlScGt4UGJPOVZq?=
+ =?utf-8?B?Wm5Ea0NzWWpzL3VrcWhxbW5BdXRPMkFuTjdxS3hmakEvRDV1bnQ2ZEluMEVT?=
+ =?utf-8?B?RDdBVXQ0SW9vdFdNWitmR1ZsTENnRnBTWGkvLzFUdkxzandCNUNCdEh4Q1dG?=
+ =?utf-8?B?S25XQTMrREQ1UVN5MTVJUTR1T0IwaWZNaFIwR3MwNXRsUHAvNlV3dStkakY2?=
+ =?utf-8?B?RGl0MDRRa1pSTW51UkhiVzhOcnI4bDJBUTRvU3NpdmdSSjhMZmJvSy9aS1RX?=
+ =?utf-8?B?S3AzYXdSc1BJbmwySVE0TDhOYm5hQUxDUVdnem1odDQ3N2NLVWJuYm15b3M5?=
+ =?utf-8?B?OHdNMmc3UndmWWxxVkNVRXNrQWRJWTlSdFR3TVhmbHY4WUFvajV4NkZLM1FR?=
+ =?utf-8?B?cHF1UWxwODByMjNXM1l1U0hjelZVYVlodjJwcS9hUktLK01LNzhJQm1jekI5?=
+ =?utf-8?B?am0xUW0vNEpOUW1rcVdwUFRNd1UwajdrSWFrdk94QUR5b2kwTmcrYWsrU1JY?=
+ =?utf-8?B?M1VFWkthMU50dkdvYU5kQnJuMzlsOWRlRGJiM1lweS9kK3F4TTNhR3VPLzhW?=
+ =?utf-8?B?WlFFay9VMEhWTTlrMUR3OWlkdlN1T0dRZzFpSDNScmxsSUlKcG1zZkRGamNL?=
+ =?utf-8?B?L0FTZVNXOFdpWXovY3VBajYxWVFnUWpIL0Viazg3QkprNjJVRHZDZGhNeVN3?=
+ =?utf-8?B?c2FNWFNwekVlOTl1QkI0MktIRlZheXFRYlg1VHMwNWtUeUF0b1RCZThkM2Vr?=
+ =?utf-8?B?NWFqY2cwRmgybHNLZWlzY3NzYTVDVjNRUVZxTGZyeXpFTldzclFpUkZPUVNt?=
+ =?utf-8?B?d0NaNUJOUzJQVG83NHVzQUpoVnNKMXI2OXpHaEFEQ3BrZXhsYnVpMDFNUDFJ?=
+ =?utf-8?B?akQ2dDBOeFpidmRWL3Yra2ZSVUFHU0UzN2hmOEd0UjFkNU8vcHppUUpXMkhm?=
+ =?utf-8?B?S2NyWldqaThwSk9aT0dPN1RwZlBjZU1wc1BtaHVHalQ5b1o0eEx2eXhqZU9Q?=
+ =?utf-8?B?cmgyeXlpd1E1T0doK0J0QnZUc1RjZDUvUFNXa3FuNWxSQUZvcjFwaEo4TFdh?=
+ =?utf-8?Q?2mLdcA29vmDWqWJPlkF7d330X?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2025 21:31:57.0388 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9645ccf0-a1a6-49c2-85f9-08dd94c115cb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2da200ee-afd8-4838-c4f5-08dd94c1faeb
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2025 21:38:21.8232 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6935
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J6qQWpkJGFhKx5FIWFgQtlwveiZFot+O1JWIacWaFsyMQyD+IJd5K8VEUYSVpwyc/5Fx0LeyT3yIm0iD0uxsKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8815
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,139 +162,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ISP is a child device to GFX, and its device specific information
-is not available in ACPI. Adding the 2 GPIO resources required for
-ISP_v4_1_1 in amdgpu_isp driver.
+On 5/16/2025 4:31 PM, Pratap Nirujogi wrote:
+> ISP is a child device to GFX, and its device specific information
+> is not available in ACPI. Adding the 2 GPIO resources required for
+> ISP_v4_1_1 in amdgpu_isp driver.
+> 
+> - GPIO 0 to allow sensor driver to enable and disable sensor module.
+> - GPIO 85 to allow ISP driver to enable and disable ISP RGB streaming mode.
+> 
+> Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
+> ---
+> Changes v2 -> v3:
+> 
+> * Add NULL check for acpi_device handle in amdgpu_acpi_get_isp4_dev_hid()
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 31 ++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  | 31 ++++++++++++++++++++++++
+>   3 files changed, 64 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index cc26cf1bd843..2aa7e89a190e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1657,10 +1657,12 @@ static inline void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_cap
+>   bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);
+>   bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);
+>   void amdgpu_choose_low_power_state(struct amdgpu_device *adev);
+> +int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN]);
+>   #else
+>   static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev) { return false; }
+>   static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev) { return false; }
+>   static inline void amdgpu_choose_low_power_state(struct amdgpu_device *adev) { }
+> +static int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN]) { }
+>   #endif
+>   
+>   void amdgpu_register_gpu_instance(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> index b7f8f2ff143d..78441d5f3231 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -1551,4 +1551,35 @@ void amdgpu_choose_low_power_state(struct amdgpu_device *adev)
+>   		adev->in_s3 = true;
+>   }
+>   
+> +static const struct acpi_device_id isp_sensor_ids[] = {
+> +	{ "OMNI5C10" },
+> +	{ }
+> +};
+> +
+> +static int isp_match_acpi_device_ids(struct device *dev, const void *data)
+> +{
+> +	return acpi_match_device(data, dev) ? 1 : 0;
+> +}
+> +
+> +int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN])
+> +{
+> +	struct acpi_device *acpi_pdev;
+> +	struct device *pdev;
+> +
+> +	pdev = bus_find_device(&platform_bus_type, NULL, isp_sensor_ids,
+> +			       isp_match_acpi_device_ids);
+> +	if (!pdev)
+> +		return -EINVAL;
+> +
+> +	acpi_pdev = ACPI_COMPANION(pdev);
+> +	if (!acpi_pdev)
+> +		return -ENODEV;
 
-- GPIO 0 to allow sensor driver to enable and disable sensor module.
-- GPIO 85 to allow ISP driver to enable and disable ISP RGB streaming mode.
+There's a slight problem here that put_device() isn't called in this 
+error path.
 
-Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
----
-Changes v2 -> v3:
+Maybe you can use a __free() macro for struct device *pdev?  Otherwise 
+you can jump to a label above the put_device() call below.
 
-* Add NULL check for acpi_device handle in amdgpu_acpi_get_isp4_dev_hid()
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 31 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  | 31 ++++++++++++++++++++++++
- 3 files changed, 64 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index cc26cf1bd843..2aa7e89a190e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1657,10 +1657,12 @@ static inline void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_cap
- bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);
- bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);
- void amdgpu_choose_low_power_state(struct amdgpu_device *adev);
-+int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN]);
- #else
- static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev) { return false; }
- static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev) { return false; }
- static inline void amdgpu_choose_low_power_state(struct amdgpu_device *adev) { }
-+static int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN]) { }
- #endif
- 
- void amdgpu_register_gpu_instance(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index b7f8f2ff143d..78441d5f3231 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -1551,4 +1551,35 @@ void amdgpu_choose_low_power_state(struct amdgpu_device *adev)
- 		adev->in_s3 = true;
- }
- 
-+static const struct acpi_device_id isp_sensor_ids[] = {
-+	{ "OMNI5C10" },
-+	{ }
-+};
-+
-+static int isp_match_acpi_device_ids(struct device *dev, const void *data)
-+{
-+	return acpi_match_device(data, dev) ? 1 : 0;
-+}
-+
-+int amdgpu_acpi_get_isp4_dev_hid(u8 (*hid)[ACPI_ID_LEN])
-+{
-+	struct acpi_device *acpi_pdev;
-+	struct device *pdev;
-+
-+	pdev = bus_find_device(&platform_bus_type, NULL, isp_sensor_ids,
-+			       isp_match_acpi_device_ids);
-+	if (!pdev)
-+		return -EINVAL;
-+
-+	acpi_pdev = ACPI_COMPANION(pdev);
-+	if (!acpi_pdev)
-+		return -ENODEV;
-+
-+	strscpy(*hid, acpi_device_hid(acpi_pdev));
-+
-+	put_device(pdev);
-+
-+	return 0;
-+}
-+
- #endif /* CONFIG_SUSPEND */
-diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-index 69dd92f6e86d..574880d67009 100644
---- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-@@ -25,6 +25,7 @@
-  *
-  */
- 
-+#include <linux/gpio/machine.h>
- #include "amdgpu.h"
- #include "isp_v4_1_1.h"
- 
-@@ -39,15 +40,45 @@ static const unsigned int isp_4_1_1_int_srcid[MAX_ISP411_INT_SRC] = {
- 	ISP_4_1__SRCID__ISP_RINGBUFFER_WPT16
- };
- 
-+static struct gpiod_lookup_table isp_gpio_table = {
-+	.dev_id = "amd_isp_capture",
-+	.table = {
-+		GPIO_LOOKUP("AMDI0030:00", 85, "enable_isp", GPIO_ACTIVE_HIGH),
-+		{ }
-+	},
-+};
-+
-+static struct gpiod_lookup_table isp_sensor_gpio_table = {
-+	.dev_id = "i2c-ov05c10",
-+	.table = {
-+		GPIO_LOOKUP("amdisp-pinctrl", 0, "enable", GPIO_ACTIVE_HIGH),
-+		{ }
-+	},
-+};
-+
- static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
- {
- 	struct amdgpu_device *adev = isp->adev;
- 	int idx, int_idx, num_res, r;
-+	u8 isp_dev_hid[ACPI_ID_LEN];
- 	u64 isp_base;
- 
- 	if (adev->rmmio_size == 0 || adev->rmmio_size < 0x5289)
- 		return -EINVAL;
- 
-+	r = amdgpu_acpi_get_isp4_dev_hid(&isp_dev_hid);
-+	if (r) {
-+		drm_dbg(&adev->ddev, "Invalid isp platform detected (%d)", r);
-+		/* allow GPU init to progress */
-+		return 0;
-+	}
-+
-+	/* add GPIO resources required for OMNI5C10 sensor */
-+	if (!strcmp("OMNI5C10", isp_dev_hid)) {
-+		gpiod_add_lookup_table(&isp_gpio_table);
-+		gpiod_add_lookup_table(&isp_sensor_gpio_table);
-+	}
-+
- 	isp_base = adev->rmmio_base;
- 
- 	isp->isp_cell = kcalloc(3, sizeof(struct mfd_cell), GFP_KERNEL);
--- 
-2.43.0
+> +
+> +	strscpy(*hid, acpi_device_hid(acpi_pdev));
+> +
+> +	put_device(pdev);
+> +
+> +	return 0;
+> +}
+> +
+>   #endif /* CONFIG_SUSPEND */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+> index 69dd92f6e86d..574880d67009 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+> @@ -25,6 +25,7 @@
+>    *
+>    */
+>   
+> +#include <linux/gpio/machine.h>
+>   #include "amdgpu.h"
+>   #include "isp_v4_1_1.h"
+>   
+> @@ -39,15 +40,45 @@ static const unsigned int isp_4_1_1_int_srcid[MAX_ISP411_INT_SRC] = {
+>   	ISP_4_1__SRCID__ISP_RINGBUFFER_WPT16
+>   };
+>   
+> +static struct gpiod_lookup_table isp_gpio_table = {
+> +	.dev_id = "amd_isp_capture",
+> +	.table = {
+> +		GPIO_LOOKUP("AMDI0030:00", 85, "enable_isp", GPIO_ACTIVE_HIGH),
+> +		{ }
+> +	},
+> +};
+> +
+> +static struct gpiod_lookup_table isp_sensor_gpio_table = {
+> +	.dev_id = "i2c-ov05c10",
+> +	.table = {
+> +		GPIO_LOOKUP("amdisp-pinctrl", 0, "enable", GPIO_ACTIVE_HIGH),
+> +		{ }
+> +	},
+> +};
+> +
+>   static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
+>   {
+>   	struct amdgpu_device *adev = isp->adev;
+>   	int idx, int_idx, num_res, r;
+> +	u8 isp_dev_hid[ACPI_ID_LEN];
+>   	u64 isp_base;
+>   
+>   	if (adev->rmmio_size == 0 || adev->rmmio_size < 0x5289)
+>   		return -EINVAL;
+>   
+> +	r = amdgpu_acpi_get_isp4_dev_hid(&isp_dev_hid);
+> +	if (r) {
+> +		drm_dbg(&adev->ddev, "Invalid isp platform detected (%d)", r);
+> +		/* allow GPU init to progress */
+> +		return 0;
+> +	}
+> +
+> +	/* add GPIO resources required for OMNI5C10 sensor */
+> +	if (!strcmp("OMNI5C10", isp_dev_hid)) {
+> +		gpiod_add_lookup_table(&isp_gpio_table);
+> +		gpiod_add_lookup_table(&isp_sensor_gpio_table);
+> +	}
+> +
+>   	isp_base = adev->rmmio_base;
+>   
+>   	isp->isp_cell = kcalloc(3, sizeof(struct mfd_cell), GFP_KERNEL);
 
