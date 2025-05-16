@@ -4,79 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5626C54754
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF63C2D0CD
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 539E210E23C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58B2A10E281;
 	Mon, 19 May 2025 07:15:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TA+R+Nn3";
+	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="vg4IHjs5";
 	dkim-atps=neutral
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47A5710E06D;
- Sat, 17 May 2025 01:23:11 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-acbb85ce788so527722466b.3; 
- Fri, 16 May 2025 18:23:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747444989; x=1748049789; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=25iFNJ5FYOB28Ks45PjA86xu93MkwtBe+kaVmwZePmc=;
- b=TA+R+Nn3UUhA63XkQu7AVVbjgjJ4ozvOpe0o9O2sprlGs14cppd8gzdPTNIBvGGuoe
- xG53YZmCK9e2Uru0khKSdtV4IB6hIsgG3SkzF1Mo98wCoLgMHMPmfhhwYipKga2VurLL
- vyo4y5UOOCyP2UAC/WFz6n/LBFYaFlIeWF6ABkaz7liqJ5ACu0Pz9G8pmvu150bh063w
- 3bPQfYSm8akS1QaRlOyJYWGkkZ5LtO7enP+yiXyUdRNI0xHxolnFAFG60UBMM32l9m5h
- /Z5fhXfE3LCZJC2lKR2FMt1gDUNjnVu9YjjuNjiYq+Sgj+yRLPfxm9HMSaJ8Q1xeeX7H
- M1XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747444989; x=1748049789;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=25iFNJ5FYOB28Ks45PjA86xu93MkwtBe+kaVmwZePmc=;
- b=CSNH0j12WCN6PMJZHFA/ht8S7acYH3bZsuRcmsFoTO9cCvBRLWCJ13Z2LRDcT/pR+/
- ORR1JFgVr+JZe9r4hJDPcy/2E5YQJW6gA606gM9B9oOUL3VDDdZ15wH+rn2B9dqDVsN8
- USGBoQUk/32393q4c2c1gITbzDVVv7BiB+1ssL5nHDXiphs0U6rP1nVQXdCCWLrx3gss
- +QHWR2qohV4xJq8SVakTuXCgyEDEuiMbU261q1YlzLW6VNtFoB6QwxbGDVjZTXgAHjN+
- LF+98p2LXsGUQ3zoFrHMaJ3sxENOur9BhSL5NUCteX/F2l8/nYoxMKZ3pmSYSKH7pveY
- agvg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVmu3C1s3jKju+warmZNeKVsoyTHL2TGE5ry+PrNmIDeJLLHR31ckr8zkiGsLMO+yhQ90l915eQEMhqJYHapQ==@lists.freedesktop.org,
- AJvYcCWPoMe9TXfSE7BXZePhFZ1c7TiQyXmtu1Ypu4zHjZ4zzh4D7fnaS7OO+d0K240rvOk022moVhxZ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+mg7r4e77SZ9D0aWmeN47TEu+x3D6axdHzdybTHVwhpRZEr87
- n1QFKk0FV94Ql7eMkSg9eFnTkpYL0TrFv9uWxvw/zU64ad1YpO+j7m4anRir2OGaXnrKx0PKSUP
- MFDIjuIW0gcPmJpEoybqcV/Qnk0Fd35Q=
-X-Gm-Gg: ASbGncu4gC+j6NQQM36eohMeWE1BBSxXkDy7w7SSrGNwsiM2iebWgZuKxn9AhgIjUxp
- U9ozIzsG3T2ugsou9bbU8oWtQuBBrBIMDSP64xqsui0b7rdoXEJaQ1mrNU52MM/JaUm/Wh3ygm8
- M3yvw7fMhHG6bAgki40yhqMksngI1KXoh2FX4AMymrRehlmrYm99rV1fuo5eRg0q0BXA==
-X-Google-Smtp-Source: AGHT+IGJZZYvjvNgphG6zPo450tizZ0G45jOjPvl7iZI4z2BBNA5YMtn+7uFPFYF8eBndJAzXugGC3fw9GHpEwFqMZ8=
-X-Received: by 2002:a17:907:7ba3:b0:ad4:d0b7:c990 with SMTP id
- a640c23a62f3a-ad52d4df2d5mr472506066b.26.1747444989393; Fri, 16 May 2025
- 18:23:09 -0700 (PDT)
+Received: from sonic307-12.consmr.mail.ne1.yahoo.com
+ (sonic307-12.consmr.mail.ne1.yahoo.com [66.163.190.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD36A10EB02
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 15:38:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
+ t=1747409894; bh=tsbgcq2xbuSCl917S4cl+jz4tu1xX6xbPfDrS4mBe1M=;
+ h=Date:From:Subject:To:Cc:In-Reply-To:References:From:Subject:Reply-To;
+ b=vg4IHjs5i/Q4mAZWSHsdrHiG0gxg34QdionZSnur8ulysSXzzfX/7vh4X2GmAgQpBeL4e+3Bn8oe65KF5ImVOxKD9Gn97Pc2OV17yqcJ+mTCDArKnAFv0jF0XcD7efQ8qaKHY37hx3fPESnWZa6ZhzuRAcoCJENfFXhNIk/kstU=
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1747409894; bh=yU9VRKtiHewTy53GLpAMJfd30l4c1Ovqk8wjq4gvSp/=;
+ h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
+ b=E7p9g9hWKpwcOejN3Y/jlMOVGzprLSsjbci9iaLJwwz9jd+OEKfrdbTe2VzGoaqRniAEZTZONOxT6F5sVqBtomT8TREhtBgHeCmryb00Yz78IhQ/vRCT6DtONjzbm7VBTP/f0SFBacG50+t6oIoX+QOH0u/nnJF+vRSaXRIFW4zBxqqjgWrzvQpPpcI7rnftHyZFeE+pz0PMwWnnZGpxCLnSPoQvf8O1G4oedRB/eJajFSYsBHq2G/tqs+ORa8COp4WD/fL0IIWaPoHE8GynVXRoKmBknuq6P8PpNpkVudB3bMwvbSz6oq38kU2uVAFx9pI6ITEdFEHmRhQCLFcXig==
+X-YMail-OSG: abUlPDcVM1ld1E71JvOew4eZ9ae.edWrZGNNuvB2x3O6NX7qPLWq2qWvajh8TXR
+ o9BEDUgdOgzjM.Jm6SxXsUPEkR1jsU8pwYjLd2iD_paoFf1egDi8dzPbxvXF_.5CyhRolIUh8kBt
+ 6sOMjzDvWIIK4.14AkPbWuyIGESrxGojjhw4sOpQW5Pv.ZAhLG2NRJJmCtd3jM3kmwmLgZ3yxTwr
+ qNzlLVZVDvBuyLdEVtSwOJ239EHNErfHm37hsZSHR8tOelSbEbRYnZS6ubKri62kdePRaRF4I3vI
+ RGzEfNC5K08YvFrcJOy2KrE88loKphcL4czKlpqttdqNjvCUPpT.e2lW3117kuydd9zu3z32DXWu
+ gMD.RqjX1sOAqbD9xOEaaZ3IB8C.b28CjVg.sMjcBPVpxOJKOR3Yc8arr1YywK4qSmvTfdEEHI02
+ n_K5P62BSxgbplfbsrbCk3ZLdza77gDDuMYU6WH_cc_GbX.IVWbUHGudwxfIOuNMjB6shvgfyuYo
+ s504YMJrBvtM.uYOveU8IQJtfAnpqJSEvcv5bggBLR117A6Qld2WKXDt3Nun3l7EY07o0BfAhDh2
+ C1MSehFM_owI0S.9rAioyqNZBjnRIaiuv3nTrBThqd9p0pUqLU4IfmeJ9U1BgKmFgzFuRiL9gf2g
+ 4BYRVWFMCi7b.DHf3KxacDs51s0gGFkOZfHaBzTMEg64dZGy2zgUqD4uJYY8110CsC03gDRKTxfU
+ ShlR_Y3DdeeWl1z4CQLiiNJ.jhTMjW1yVs.ilu4uJYNlLXk5E8Ohz8FHKCnjbT2DtfpcSFEkEH8e
+ tKWeJjrcXrsNxTZ43bnE0egTcyS9rgzGINcK7sLOqWI5X10uXqbVjueUDm6YIS9P1pLXfbcxo3Lx
+ Hib2Qfd_MzvGxSCAM0PxobV8wBStq2.7R0C2j.E3uGjE_n5WAxgq9CWH5_Wz_WlPRSKgvqoTmaM3
+ WM7bmKbp49Cl1Oxg_OFuoCT1ZoMFKJI8l7Dmzo_4C0NW2vrtt86giRp8I4AxnpSu7SvV__PYeJZi
+ UAg8GqSpRiedCsBVLTJCQUhIr75gZb1WI0nXlAPypzYziHz7iP0h2p1lrwlNGd0gBQQX3nT9BFKz
+ d9572G47yGRpp73dlGlJrfaYGFY6PJaHkN8P.MyW85AljYButKb9TD_F4TnTJsluNPQSdl7GTuEI
+ D3K40.3MWzn5GVupk8Wvq3ZCb.B_0VxIlUBQ7jPUBtC9COS2ayZyfgeF_IU_IIRQMSOKXMxGkmby
+ KzsLePixzDu4jzUVoJgh8FmR6bVJ3aGnOpKMzRzaDbakeOQrz2WmlNXU0dxoHb8fnyz8WstCmBzu
+ KtFFw1sFZuzyi10FJcpDu1hoA3kIa0y9G3fLGOmduLG7F.gdckrbzmJAMLaKaUBj07_HUWO5FMOV
+ ebps9d9JBF2TWeI1umCTXMEdNdAl1kg1JIzB_91yabIj7rPdWn4RaUmMFu44_B_ieqyrViUoWMs3
+ CCWHrvJxWI9YBjWh.09g3g496neW4aCTgxdm7gN99XlTIhYBdvibvwcIhKdhYiRQFS0WI5w67ofs
+ zvqFQuVfzaUAuKIcu1b9TZgaRYL5IuTeN8KzHhlYR0LDogzeyJTnSJtTHpi8_Vdquo0WEtAXWPr8
+ z3sN88tPoDGUHGgG6Ru.M0ogWkpu0.OU1Q_5WBgazYAOPaFbnieks.Je70ablWuwKQrcy0FEjowo
+ sv9bL7zQ4uQ2CCXZUjOjoGb1CCHM2eaBu5WL_9BwmnM6fPtsNm9755Yzo64JwbkVGpKanHoLg9OO
+ fCTth38319ne0shedRGAZsQjGYb1.8Rof3VyOw3eII6casoKSsmgpNjAeyfIKshoU5.jqq5tAQPp
+ .aHDX30_RBVNMfLEkoAUMZ1FB1blyipIgIk18Q.iitEXbsLe2qfxftiRVIqUh4eO9xKn.SqiWifB
+ zAARkJo_vLx8tJSPSFRBQWOOTlhi4wyM8FSrWFvIUU6IYzTntCG1d4Q4PZLGcBu0TmFcjPN84FQa
+ oYxvmrrlsK9Wp5gYUdqY5JruoEJp9GHpgTq_n2ktr9GgA7e16t4rX1szWEy__lnlingdpjV1t.j8
+ khv7AMGnxXXFNaTxVNzE4xbVAsnjwF7KjifZR6116.PhuVbNnAgMwfUKntHLS5j6KAHQmWJEK6DZ
+ NzqfMFb44U8DQ.g--
+X-Sonic-MF: <pheonix.sja@att.net>
+X-Sonic-ID: f867e829-4c4a-46b0-a756-74e3233491b5
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic307.consmr.mail.ne1.yahoo.com with HTTP; Fri, 16 May 2025 15:38:14 +0000
+Received: by hermes--production-bf1-689c4795f-vc9qb (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 993a61ddbd564005fb0f4ea87f66bbc2; 
+ Fri, 16 May 2025 15:38:12 +0000 (UTC)
+Date: Fri, 16 May 2025 11:38:04 -0400
+From: Steven J Abner <pheonix.sja@att.net>
+Subject: Re: Kernels >= 6.3 disable video output
+To: Michel =?iso-8859-1?q?D=E4nzer?= <michel.daenzer@mailbox.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, Alex Deucher
+ <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Message-Id: <G32DWS.2C801BL0Y0SE2@att.net>
+In-Reply-To: <ba97cecf-d820-4ae7-98ae-2cf57db228fb@mailbox.org>
+References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
+ <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
+ <GXXZVS.Q1GIIU1M9VBL1@att.net>
+ <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
+ <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
+ <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
+ <OY8BWS.OAO65CCC74TY1@att.net>
+ <CADnq5_NqAQPO1NRbzQJzR+tZnOSqrhTmZj4z-B54X-hRxo3b4w@mail.gmail.com>
+ <df6872b3-1048-416b-82d7-63f732cb6b4d@amd.com>
+ <ba97cecf-d820-4ae7-98ae-2cf57db228fb@mailbox.org>
+X-Mailer: geary/40.0
 MIME-Version: 1.0
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-41-alex.hung@amd.com>
-In-Reply-To: <20250326234748.2982010-41-alex.hung@amd.com>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Sat, 17 May 2025 03:22:58 +0200
-X-Gm-Features: AX0GCFuvD3OsCGzAPf7Ov-LvC6QAawQsojy7fJfqOKgGdwWusDq4JeBH8jLa7d0
-Message-ID: <CAFZQkGwrP39REsvZwQ_Uaq+cHR_pH2EPuv_POXRO7Hxj9u4Xsw@mail.gmail.com>
-Subject: Re: [PATCH V8 40/43] drm/colorop: Add 3D LUT support to color pipeline
-To: Alex Hung <alex.hung@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, leo.liu@amd.com, 
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com, 
- contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com, 
- sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com, 
- joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -93,152 +99,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Do., 27. M=C3=A4rz 2025 um 00:58 Uhr schrieb Alex Hung <alex.hung@amd.co=
-m>:
->
-> It is to be used to enable HDR by allowing userpace to create and pass
-> 3D LUTs to kernel and hardware.
->
-> new drm_colorop_type: DRM_COLOROP_3D_LUT.
->
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> ---
-> v8:
->  - Fix typo in subject (Simon Ser)
->  - Update documentation for DRM_COLOROP_3D_LUT (Simon Ser)
->  - Delete empty lines (Simon Ser)
->
-> v7:
->  - Simplify 3D LUT by removing lut_3d_modes and related functions (Simon =
-Ser)
->
->  drivers/gpu/drm/drm_atomic.c      |  6 +++
->  drivers/gpu/drm/drm_atomic_uapi.c |  6 +++
->  drivers/gpu/drm/drm_colorop.c     | 72 +++++++++++++++++++++++++++++++
->  include/drm/drm_colorop.h         | 21 +++++++++
->  include/uapi/drm/drm_mode.h       | 33 ++++++++++++++
->  5 files changed, 138 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 0efb0ead204a..ef47a06344f3 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -806,6 +806,12 @@ static void drm_atomic_colorop_print_state(struct dr=
-m_printer *p,
->         case DRM_COLOROP_MULTIPLIER:
->                 drm_printf(p, "\tmultiplier=3D%llu\n", state->multiplier)=
-;
->                 break;
-> +       case DRM_COLOROP_3D_LUT:
-> +               drm_printf(p, "\tsize=3D%d\n", colorop->lut_size);
-> +               drm_printf(p, "\tinterpolation=3D%s\n",
-> +                          drm_get_colorop_lut3d_interpolation_name(color=
-op->lut3d_interpolation));
-> +               drm_printf(p, "\tdata blob id=3D%d\n", state->data ? stat=
-e->data->base.id : 0);
-> +               break;
->         default:
->                 break;
->         }
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index 947c18e8bf9b..d5d464b4d0f6 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -719,6 +719,10 @@ static int drm_atomic_color_set_data_property(struct=
- drm_colorop *colorop,
->         case DRM_COLOROP_CTM_3X4:
->                 size =3D sizeof(struct drm_color_ctm_3x4);
->                 break;
-> +       case DRM_COLOROP_3D_LUT:
-> +               size =3D colorop->lut_size * colorop->lut_size * colorop-=
->lut_size *
-> +                      sizeof(struct drm_color_lut);
-> +               break;
->         default:
->                 /* should never get here */
->                 return -EINVAL;
-> @@ -771,6 +775,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *c=
-olorop,
->                 *val =3D state->multiplier;
->         } else if (property =3D=3D colorop->lut_size_property) {
->                 *val =3D colorop->lut_size;
-> +       } else if (property =3D=3D colorop->lut3d_interpolation_property)=
- {
-> +               *val =3D colorop->lut3d_interpolation;
->         } else if (property =3D=3D colorop->data_property) {
->                 *val =3D (state->data) ? state->data->base.id : 0;
->         } else {
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.=
-c
-> index e03706e7179b..224c6be237d2 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -67,6 +67,7 @@ static const struct drm_prop_enum_list drm_colorop_type=
-_enum_list[] =3D {
->         { DRM_COLOROP_1D_LUT, "1D LUT" },
->         { DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
->         { DRM_COLOROP_MULTIPLIER, "Multiplier"},
-> +       { DRM_COLOROP_3D_LUT, "3D LUT"},
->  };
->
->  static const char * const colorop_curve_1d_type_names[] =3D {
-> @@ -82,6 +83,11 @@ static const struct drm_prop_enum_list drm_colorop_lut=
-1d_interpolation_list[] =3D
->         { DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR, "Linear" },
->  };
->
-> +
-> +static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_l=
-ist[] =3D {
-> +       { DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
-> +};
-> +
->  /* Init Helpers */
->
->  static int drm_colorop_init(struct drm_device *dev, struct drm_colorop *=
-colorop,
-> @@ -349,6 +355,51 @@ int drm_colorop_mult_init(struct drm_device *dev, st=
-ruct drm_colorop *colorop,
->  }
->  EXPORT_SYMBOL(drm_colorop_mult_init);
->
-> +int drm_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *c=
-olorop,
-> +                          struct drm_plane *plane,
-> +                          uint32_t lut_size,
-> +                          enum drm_colorop_lut3d_interpolation_type inte=
-rpolation,
-> +                          bool allow_bypass)
-> +{
-> +       struct drm_property *prop;
-> +       int ret;
-> +
-> +       ret =3D drm_colorop_init(dev, colorop, plane, DRM_COLOROP_3D_LUT,=
- allow_bypass);
-> +       if (ret)
-> +               return ret;
-> +
-> +       /* LUT size */
-> +       prop =3D drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE  =
-| DRM_MODE_PROP_ATOMIC,
-> +                                        "SIZE", 0, UINT_MAX);
-> +       if (!prop)
-> +               return -ENOMEM;
-> +
-> +       colorop->lut_size_property =3D prop;
-> +       drm_object_attach_property(&colorop->base, colorop->lut_size_prop=
-erty, lut_size);
-> +       colorop->lut_size =3D lut_size;
-> +
-> +       /* interpolation */
-> +       prop =3D drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE, "=
-LUT3D_INTERPOLATION",
+On Fri, May 16 2025 at 03:02:47 PM +0000, Michel D=E4nzer=20
+<michel.daenzer@mailbox.org> wrote:
+> FWIW, with GNOME the "max bpc" property value can be set
 
-Do we ever expect this to be something with multiple options that
-userspace could select? I think it would be good to keep our options
-open and make this property not immutable (properties that are
-sometimes but not always immutable are more annoying to deal with in
-userspace).
+ Issue is pre-DE, gnome or Xorg. A boot param like=20
+'amd_prefcore=3Ddisable' could work. Issue then becomes putting into=20
+dmesg so can figure its needed. Blacked out console hard to read. A=20
+chroot or mount access to /var/log/... easy to find issue that way.
 
-Same applies to 1D LUTs as well.
+
