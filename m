@@ -4,66 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD4CEC2D0CD
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 061A8C54799
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59F1D10E310;
-	Mon, 19 May 2025 07:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD7310E377;
+	Mon, 19 May 2025 07:15:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=goosey.org header.i=@goosey.org header.b="UKxcsAb4";
-	dkim=temperror (0-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="pIzRQ8td";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="REFTROYa";
 	dkim-atps=neutral
-X-Greylist: delayed 712 seconds by postgrey-1.36 at gabe;
- Sat, 17 May 2025 04:03:45 UTC
-Received: from e240-11.smtp-out.eu-north-1.amazonses.com
- (e240-11.smtp-out.eu-north-1.amazonses.com [23.251.240.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14A8710E107;
- Sat, 17 May 2025 04:03:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=iuunfi4kzpbzwuqjzrd5q2mr652n55fx; d=goosey.org; t=1747453910;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
- bh=4sXPVOrRsEGYyAatiAJkP4kjDL76SnxlQsN94GzYQgU=;
- b=UKxcsAb4h0qG+ttP80y/5w1r2OfIvXDGiLgnqQEgixLk8f2uA0AEyfvbPxhKZhxQ
- 4u7C9FU3ED+IND3pdrmU6MDHeujuXXHl5OyHIsL0WfTqVMSZ81zMu2QVUYvVKyU3ihW
- mAvQ767VLRXA7Jg3WV0ZFRtkbw3kB/SkAsfB9DenmbAvAzBUZW0R+kD5TvsMFK4uuLc
- K/hv8PtcofV8q0eVrZJYdqc2HjyS+NRkaF5Y5kqBsrAA76t69QCF0NUxBAG3mZjPvcM
- e+m7pOI1UPzeVbaUkFcT+jR7qjQDZGSSl2Bw0nWzk0aDJN/d2O7HGllmWASp+LPzroz
- J1yaTwIwBw==
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=bw45wyq3hkghdoq32obql4uyexcghmc7; d=amazonses.com; t=1747453910;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding:Feedback-ID;
- bh=4sXPVOrRsEGYyAatiAJkP4kjDL76SnxlQsN94GzYQgU=;
- b=pIzRQ8tdSyZnhuZKDgYqIqnaf6XVs7PEf0VZgXPrPXbl8/FogQrlEoZ+mVsShOXD
- rrmDSn/Zex5McUP123DpAnNGTfOhZRQBWTX2Nyhja3LsQxXtbaoQV0RyD/a5/agZiR3
- pugPI2dp41WQt4KrYfKUIbEnipgd5Pb74FB1G2EE=
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDA0C10E168;
+ Sat, 17 May 2025 22:32:49 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-ad24b7e0331so485818666b.0; 
+ Sat, 17 May 2025 15:32:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747521168; x=1748125968; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=+Q8GiGwI07IVqiWqNBHYMW+ExmUEnIUfs7vQs+IrKVU=;
+ b=REFTROYahR5M3/sTnl0JBy9NplPBW+UpUlHKEzlGC9MswgT6ByeHmV6MgRdRKQLLlL
+ AeFJv9ro7pmLAOg3zaU8vxyAkmh1Bl8y+dSqhLVMWT5IhoOJTzMhBT6eRMnE/foS4Kcv
+ 73/FYphxPWQgRVOa/ZRG6SM87NP7hLHxI9fwi00bkhOlrlxGCDOvxUxgv9zMbVZyVpv3
+ Vb4eHCumsVJZM+D9jlnO50PfCaq/hFT87O7TWQ2owcvGmxadaRfK0pL7ImvAlQjnGcN8
+ QYHw9QZzPpkI+O7IfwJSW9Zf5/z9Z5O2OpwWByE7822WyOmEqT3nDmHVufaIEEIXB9pF
+ A7Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747521168; x=1748125968;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+Q8GiGwI07IVqiWqNBHYMW+ExmUEnIUfs7vQs+IrKVU=;
+ b=V2gQZ/FirI+UdUtS6hLJx8v0NQuE8ns5i2i8n0iuOKDp3SvkZYeqyahmYdVuIyk5AG
+ eVG89j5L5r0GjLrJSM4BbTPLueQ5Yk2KsjRuHy0PyyiOhRWebf3jwZJgyr7Hv6JSMy2Q
+ 1rq/sdm0QPeX/VuLGg7jW0WB55R4CPgny5CA7CNKJD4IwPDclTDY1KovnZsfY881TF+p
+ xYHug1iMkE/3pCjqlExVfWSGPrKOszsx96C2Afvh/G2nsbFZuVS/QsiW+fb4+NJgCXrZ
+ 5z7nc6CPAvy+m5sFz5UNm2uOAHC37w7lRkVS9mGeaO+7YK9K1mxG06JwdzSzo3Pua75/
+ jk5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVNcXHp5d8vqQ7zNGPPW7J4Bo5HNQS+UOdOuRZRXsvzgGoYgwOggc6iRkcFGb7XGJzJXifGsaYJ@lists.freedesktop.org,
- AJvYcCWe6269Cl+b6HYyhciOSDGL0x+Ph+P8xmC2qvvMEZt6m7R66bzr62bnqSB3+5wXSXXgY6SO6iBxp6DY@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDd0IuPKBRe8IOg/fPPmWvZDRRhTJLYgfxZMXxWGkGvoFuTn65
- xYMSgQoDZNpF4nmzT4jhXwp3zTOUN+dbFGwNzgc5NoXZ6FFb5c/OYgojTSBuz+s37czMtpieM4R
- Ml2uqYbJRfZmqmY1bxK0XijV48yeNux4=
-X-Google-Smtp-Source: AGHT+IHdYrAbBt0QfCgyfrazR//wcX9OoH8u23Dj5OlR9+CGSH+w9e53g0dcAhAPQpKlB6Gp4TkQJw++gY+iqETgcMc=
-X-Received: by 2002:a17:902:c202:b0:231:c89f:4e94 with SMTP id
- d9443c01a7336-231c89f4f9amr81335585ad.21.1747453907763; Fri, 16 May 2025
- 20:51:47 -0700 (PDT)
+ AJvYcCUyCVjOsiDmTLHcnSHIOb72+7DU6FwlWaZTSkDoalBbGTSJdDvG1CiBSFf3QnmFGDp3yDJ6F1lDymmR737YQg==@lists.freedesktop.org,
+ AJvYcCVnLkQTNuTyu0s3ujmMOfqhdI1vU3G1PoUUdr3LA8na2c7pTvYcHwGysKm0289bRb4nPrDCGiecOB4e@lists.freedesktop.org,
+ AJvYcCXAvXWjAyE6xMNyZWsC7d8Vgnrn08hl9DBDN0bTvY8gGPI460gmpirBqduMofYhXWoT3QHEZjbj@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwF2pCxx8WO+wikG+X4AdodXZBn9z5xWa455Wm/wwTLrijquato
+ Ad0znfPfjAwE6g9peK2EYp7o6eGqepsg0aH6w4md4mRcQtBGKbQhNkpmk7Zk8vZ4HFviMih1cLl
+ PZZbhWnrUvHThODY7d8PANdxSPVkI2Rk=
+X-Gm-Gg: ASbGnctK5KDzjGqnhKZTSI3nlG99tNcVD0l+yVaDATTdGFbSI9wQHHC8XXUlqXdVfwp
+ t8GWfk9c2eZpeaLfdSxKb2kQMcpzap4AWmMROdrgfg+fkZ5MxlT+vR/RSDzpgD+iKaC0zUhcPPH
+ TZIdwGEwraqBW/8hfhenva8hgUkVSdHLAXTnuchilQhNdobMMs4AuJEbevxkoO2udqfA==
+X-Google-Smtp-Source: AGHT+IEXUbx9G36j8YjZDly+X1MF9h6MXqkhnX04yMkz2yPALji4nO7eKGCwA+y7c7VXmp77beXLxYpFQwY+qVfkUtc=
+X-Received: by 2002:a17:907:1c11:b0:ac3:f1dc:f3db with SMTP id
+ a640c23a62f3a-ad52d4b2e34mr785164966b.13.1747521168115; Sat, 17 May 2025
+ 15:32:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250517030609.818725-1-jihed.chaibi.dev@gmail.com>
-In-Reply-To: <20250517030609.818725-1-jihed.chaibi.dev@gmail.com>
-From: Ozgur Kara <ozgur@goosey.org>
-Date: Sat, 17 May 2025 03:51:50 +0000
-X-Gmail-Original-Message-ID: <CADvZ6Eq1rFfYriAEscHfyxDHUfJ2pBky-1g-o2aCkDcwcij3yQ@mail.gmail.com>
-X-Gm-Features: AX0GCFuSFDLpAmRI6TzZ3GJsWy23FWQt0gGmV19C8lxqhWmZ5AbnE04-UBbmvaM
-Message-ID: <01100196dc5e9cd7-ab17078f-c664-4ee4-af5b-2bc2e55f8f9b-000000@eu-north-1.amazonses.com>
-Subject: Re: [PATCH 1/2] fixing typo in macro name
-To: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, skhan@linuxfoundation.org, 
- linux-kernel-mentees@lists.linux.dev
+References: <20250326234748.2982010-1-alex.hung@amd.com>
+ <20250326234748.2982010-41-alex.hung@amd.com>
+ <CAFZQkGwrP39REsvZwQ_Uaq+cHR_pH2EPuv_POXRO7Hxj9u4Xsw@mail.gmail.com>
+ <vyX7bdPppc_pDUQBeKeZNyy69WUl_XKExs-I7dfuDJJy6SKXWoBL7B-IRMZKxuktNMQCIg0lP56Xj0qLidKOlBJQJjUYHOQ5Id6yw5k8Q10=@emersion.fr>
+In-Reply-To: <vyX7bdPppc_pDUQBeKeZNyy69WUl_XKExs-I7dfuDJJy6SKXWoBL7B-IRMZKxuktNMQCIg0lP56Xj0qLidKOlBJQJjUYHOQ5Id6yw5k8Q10=@emersion.fr>
+From: Xaver Hugl <xaver.hugl@gmail.com>
+Date: Sun, 18 May 2025 00:32:36 +0200
+X-Gm-Features: AX0GCFtiFMdoRuUqUiuYglljhX7JAPco07x17e8Pk-swDwhD_So_SthsbllaKZ4
+Message-ID: <CAFZQkGxXJe=FGdymMRevbtU+jKre6PdthAu33Qz+kVsR_OVpJg@mail.gmail.com>
+Subject: Re: [PATCH V8 40/43] drm/colorop: Add 3D LUT support to color pipeline
+To: Simon Ser <contact@emersion.fr>
+Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org, 
+ harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com, 
+ pekka.paalanen@collabora.com, mwen@igalia.com, jadahl@redhat.com, 
+ sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com, 
+ joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
+ victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
+ quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
+ marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Feedback-ID: ::1.eu-north-1.jZlAFvO9+f8tc21Z4t7ANdAU3Nw/ALd5VHiFFAqIVOg=:AmazonSES
-X-SES-Outgoing: 2025.05.17-23.251.240.11
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,135 +94,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Jihed Chaibi <jihed.chaibi.dev@gmail.com>, 17 May 2025 Cmt, 06:06
-tarihinde =C5=9Funu yazd=C4=B1:
->
-> "ENABLE" is currently misspelled in SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS
->
-> PS: checkpatch.pl is complaining about the presence of a space at the
-> start of drivers/gpu/drm/amd/include/atomfirmware.h line: 1716
-> This is propably because this file uses (two) spaces and not tabs.
->
+> We can always make the property mutable on drivers that support it in
+> the future, much like the zpos property. I think we should keep it
+> immutable for now.
 
-Hello,
-
-i stared at my screen for a long time to understand what the fix was
-and finally figured it out but i think it also occurs in files
-containing graphic objects.
-it must have changed completely, there must be a macro that calls graph obj=
-ects.
-
-Regards
-
-Ozgur
-
-> Signed-off-by: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h | 2 +-
->  drivers/gpu/drm/amd/include/atombios.h                      | 4 ++--
->  drivers/gpu/drm/amd/include/atomfirmware.h                  | 2 +-
->  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c                  | 2 +-
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c         | 2 +-
->  5 files changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h =
-b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
-> index 813463ffe..cc4670316 100644
-> --- a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
-> +++ b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
-> @@ -424,7 +424,7 @@ struct integrated_info {
->  /*
->   * DFS-bypass flag
->   */
-> -/* Copy of SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS from atombios.h */
-> +/* Copy of SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS from atombios.h */
->  enum {
->         DFS_BYPASS_ENABLE =3D 0x10
->  };
-> diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd=
-/include/atombios.h
-> index b78360a71..a99923b4e 100644
-> --- a/drivers/gpu/drm/amd/include/atombios.h
-> +++ b/drivers/gpu/drm/amd/include/atombios.h
-> @@ -6017,7 +6017,7 @@ typedef struct _ATOM_INTEGRATED_SYSTEM_INFO_V1_7
->  #define SYS_INFO_GPUCAPS__TMDSHDMI_COHERENT_SINGLEPLL_MODE              =
-  0x01
->  #define SYS_INFO_GPUCAPS__DP_SINGLEPLL_MODE                             =
-  0x02
->  #define SYS_INFO_GPUCAPS__DISABLE_AUX_MODE_DETECT                       =
-  0x08
-> -#define SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS                             =
-  0x10
-> +#define SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS                             =
-  0x10
->  //ulGPUCapInfo[16]=3D1 indicate SMC firmware is able to support GNB fast=
- resume function, so that driver can call SMC to program most of GNB regist=
-er during resuming, from ML
->  #define SYS_INFO_GPUCAPS__GNB_FAST_RESUME_CAPABLE                       =
-  0x00010000
->
-> @@ -6460,7 +6460,7 @@ typedef struct _ATOM_INTEGRATED_SYSTEM_INFO_V1_9
->
->  // ulGPUCapInfo
->  #define SYS_INFO_V1_9_GPUCAPSINFO_DISABLE_AUX_MODE_DETECT               =
-          0x08
-> -#define SYS_INFO_V1_9_GPUCAPSINFO_ENABEL_DFS_BYPASS                     =
-          0x10
-> +#define SYS_INFO_V1_9_GPUCAPSINFO_ENABLE_DFS_BYPASS                     =
-          0x10
->  //ulGPUCapInfo[16]=3D1 indicate SMC firmware is able to support GNB fast=
- resume function, so that driver can call SMC to program most of GNB regist=
-er during resuming, from ML
->  #define SYS_INFO_V1_9_GPUCAPSINFO_GNB_FAST_RESUME_CAPABLE               =
-          0x00010000
->  //ulGPUCapInfo[18]=3D1 indicate the IOMMU is not available
-> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm=
-/amd/include/atomfirmware.h
-> index 0160d65f3..52eb3a474 100644
-> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> @@ -1713,7 +1713,7 @@ enum atom_system_vbiosmisc_def{
->
->  // gpucapinfo
->  enum atom_system_gpucapinf_def{
-> -  SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS  =3D 0x10,
-> +  SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS  =3D 0x10,
->  };
->
->  //dpphy_override
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm=
-/amd/pm/legacy-dpm/kv_dpm.c
-> index 59fae668d..34e71727b 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> @@ -2594,7 +2594,7 @@ static int kv_parse_sys_info_table(struct amdgpu_de=
-vice *adev)
->                                 le32_to_cpu(igp_info->info_8.ulNbpStateNC=
-lkFreq[i]);
->                 }
->                 if (le32_to_cpu(igp_info->info_8.ulGPUCapInfo) &
-> -                   SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS)
-> +                   SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS)
->                         pi->caps_enable_dfs_bypass =3D true;
->
->                 sumo_construct_sclk_voltage_mapping_table(adev,
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> index 9d3b33446..9b20076e2 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> @@ -394,7 +394,7 @@ static int smu8_get_system_info_data(struct pp_hwmgr =
-*hwmgr)
->         }
->
->         if (le32_to_cpu(info->ulGPUCapInfo) &
-> -               SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS) {
-> +               SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS) {
->                 phm_cap_set(hwmgr->platform_descriptor.platformCaps,
->                                     PHM_PlatformCaps_EnableDFSBypass);
->         }
-> --
-> 2.39.5
->
->
->
+Sure, but I don't see any reason for immutability with an enum
+property - it can just limit the possible values to what it supports,
+and that can be only one value. Either way, it's not a big issue.
