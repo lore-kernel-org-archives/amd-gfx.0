@@ -4,81 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 061A8C54799
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0919C54754
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD7310E377;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71F5D10E368;
 	Mon, 19 May 2025 07:15:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="REFTROYa";
+	dkim=pass (2048-bit key; unprotected) header.d=goosey.org header.i=@goosey.org header.b="DN+xt3Pf";
+	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.b="HirwGCjt";
 	dkim-atps=neutral
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDA0C10E168;
- Sat, 17 May 2025 22:32:49 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-ad24b7e0331so485818666b.0; 
- Sat, 17 May 2025 15:32:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747521168; x=1748125968; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=+Q8GiGwI07IVqiWqNBHYMW+ExmUEnIUfs7vQs+IrKVU=;
- b=REFTROYahR5M3/sTnl0JBy9NplPBW+UpUlHKEzlGC9MswgT6ByeHmV6MgRdRKQLLlL
- AeFJv9ro7pmLAOg3zaU8vxyAkmh1Bl8y+dSqhLVMWT5IhoOJTzMhBT6eRMnE/foS4Kcv
- 73/FYphxPWQgRVOa/ZRG6SM87NP7hLHxI9fwi00bkhOlrlxGCDOvxUxgv9zMbVZyVpv3
- Vb4eHCumsVJZM+D9jlnO50PfCaq/hFT87O7TWQ2owcvGmxadaRfK0pL7ImvAlQjnGcN8
- QYHw9QZzPpkI+O7IfwJSW9Zf5/z9Z5O2OpwWByE7822WyOmEqT3nDmHVufaIEEIXB9pF
- A7Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747521168; x=1748125968;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+Q8GiGwI07IVqiWqNBHYMW+ExmUEnIUfs7vQs+IrKVU=;
- b=V2gQZ/FirI+UdUtS6hLJx8v0NQuE8ns5i2i8n0iuOKDp3SvkZYeqyahmYdVuIyk5AG
- eVG89j5L5r0GjLrJSM4BbTPLueQ5Yk2KsjRuHy0PyyiOhRWebf3jwZJgyr7Hv6JSMy2Q
- 1rq/sdm0QPeX/VuLGg7jW0WB55R4CPgny5CA7CNKJD4IwPDclTDY1KovnZsfY881TF+p
- xYHug1iMkE/3pCjqlExVfWSGPrKOszsx96C2Afvh/G2nsbFZuVS/QsiW+fb4+NJgCXrZ
- 5z7nc6CPAvy+m5sFz5UNm2uOAHC37w7lRkVS9mGeaO+7YK9K1mxG06JwdzSzo3Pua75/
- jk5g==
+X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
+ Sat, 17 May 2025 03:59:08 UTC
+Received: from e240-10.smtp-out.eu-north-1.amazonses.com
+ (e240-10.smtp-out.eu-north-1.amazonses.com [23.251.240.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B2A10E107;
+ Sat, 17 May 2025 03:59:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=iuunfi4kzpbzwuqjzrd5q2mr652n55fx; d=goosey.org; t=1747454032;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+ bh=Uev6fEYlz5XwC9qWMx8Sr5cx34YcV4H6PxahUjMrGlU=;
+ b=DN+xt3Pf0esUS4LLsJVyhWwK3AUOotJYRPKSCXUWD4rEq2fAHohcjQWAvDluE1sE
+ JEpxBuWTqFQEDUy5nENq4BZhKg0qamEkrF5+OWOV+i5c8vBsJ8xCqNS2CluCYQu1ggy
+ Zj7eQkcQh4Q4S4KhJIJP/baXJUPqj4bvWZYZy0dMNpMOMLc2qkfVrlTdhOEvNnqCsNW
+ VJl8TXu34RKakVRd/4WWwelLdIUu3LGS5RCkiYMprliHEqpMxCybbMuIjucsGz91kug
+ 2kkUxWakJD6tng3E7NVCLoTm84oatwVaNbAFJT5qe7eK1TPhUwnQE7jxhjAUIzj7mYS
+ U+ok18XQYw==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=bw45wyq3hkghdoq32obql4uyexcghmc7; d=amazonses.com; t=1747454032;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding:Feedback-ID;
+ bh=Uev6fEYlz5XwC9qWMx8Sr5cx34YcV4H6PxahUjMrGlU=;
+ b=HirwGCjtyzrEEd7o6JCCLS4dGCLcd6osBBaeLSJQ7M5xRX/SNPSzNzlkyyyQr0Lg
+ W05JdBIEkFyOieYpDNNedDprdtayVqO2LWTXsOvB42nM2+dx0C1I54o0GUmRgu/WgPI
+ scUTaDTDNfSlqeNqx7iviinwo0eYOBya/vcD9TMY=
 X-Forwarded-Encrypted: i=1;
- AJvYcCUyCVjOsiDmTLHcnSHIOb72+7DU6FwlWaZTSkDoalBbGTSJdDvG1CiBSFf3QnmFGDp3yDJ6F1lDymmR737YQg==@lists.freedesktop.org,
- AJvYcCVnLkQTNuTyu0s3ujmMOfqhdI1vU3G1PoUUdr3LA8na2c7pTvYcHwGysKm0289bRb4nPrDCGiecOB4e@lists.freedesktop.org,
- AJvYcCXAvXWjAyE6xMNyZWsC7d8Vgnrn08hl9DBDN0bTvY8gGPI460gmpirBqduMofYhXWoT3QHEZjbj@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwF2pCxx8WO+wikG+X4AdodXZBn9z5xWa455Wm/wwTLrijquato
- Ad0znfPfjAwE6g9peK2EYp7o6eGqepsg0aH6w4md4mRcQtBGKbQhNkpmk7Zk8vZ4HFviMih1cLl
- PZZbhWnrUvHThODY7d8PANdxSPVkI2Rk=
-X-Gm-Gg: ASbGnctK5KDzjGqnhKZTSI3nlG99tNcVD0l+yVaDATTdGFbSI9wQHHC8XXUlqXdVfwp
- t8GWfk9c2eZpeaLfdSxKb2kQMcpzap4AWmMROdrgfg+fkZ5MxlT+vR/RSDzpgD+iKaC0zUhcPPH
- TZIdwGEwraqBW/8hfhenva8hgUkVSdHLAXTnuchilQhNdobMMs4AuJEbevxkoO2udqfA==
-X-Google-Smtp-Source: AGHT+IEXUbx9G36j8YjZDly+X1MF9h6MXqkhnX04yMkz2yPALji4nO7eKGCwA+y7c7VXmp77beXLxYpFQwY+qVfkUtc=
-X-Received: by 2002:a17:907:1c11:b0:ac3:f1dc:f3db with SMTP id
- a640c23a62f3a-ad52d4b2e34mr785164966b.13.1747521168115; Sat, 17 May 2025
- 15:32:48 -0700 (PDT)
+ AJvYcCVSS2tev2DlClAgkbFq4/dbU1bdhqg/tQDZNli2bwThwgfLVHLt2EcDqYR8AK19jJjOtBr7Mw4S/SSA@lists.freedesktop.org,
+ AJvYcCXYYBoBKCVIeW6/vJWXWHckEgxaIrxguGcydqSSR23otIO1PV1wvkIzIhKCNQl7lkhsx9VIccoQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx7Ity+QvcvmpsEIilkkuLpl4tIcMtIcF1iSxg6nU6V+dLx1ef8
+ hcYCq1D/D3Kzb6IZWx42QhheB8kvfNIGgmRONccR9aarOVsq5B3ZrXTbO2mWweBEbDMUI+noEBc
+ E1LDRCaxEvxqih/5mAgp07A6zvKymw8s=
+X-Google-Smtp-Source: AGHT+IHf19z2sbUg7xrM4qsuKOPs/2f9qWqFkx5Ys30i8cc/aKp+R4ErTYpyM5kQDtvy+RMgphYTqVKTkUuG9PdPAhM=
+X-Received: by 2002:a17:902:d484:b0:231:e413:986c with SMTP id
+ d9443c01a7336-231e4139adamr56049165ad.11.1747454030242; Fri, 16 May 2025
+ 20:53:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-41-alex.hung@amd.com>
- <CAFZQkGwrP39REsvZwQ_Uaq+cHR_pH2EPuv_POXRO7Hxj9u4Xsw@mail.gmail.com>
- <vyX7bdPppc_pDUQBeKeZNyy69WUl_XKExs-I7dfuDJJy6SKXWoBL7B-IRMZKxuktNMQCIg0lP56Xj0qLidKOlBJQJjUYHOQ5Id6yw5k8Q10=@emersion.fr>
-In-Reply-To: <vyX7bdPppc_pDUQBeKeZNyy69WUl_XKExs-I7dfuDJJy6SKXWoBL7B-IRMZKxuktNMQCIg0lP56Xj0qLidKOlBJQJjUYHOQ5Id6yw5k8Q10=@emersion.fr>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Sun, 18 May 2025 00:32:36 +0200
-X-Gm-Features: AX0GCFtiFMdoRuUqUiuYglljhX7JAPco07x17e8Pk-swDwhD_So_SthsbllaKZ4
-Message-ID: <CAFZQkGxXJe=FGdymMRevbtU+jKre6PdthAu33Qz+kVsR_OVpJg@mail.gmail.com>
-Subject: Re: [PATCH V8 40/43] drm/colorop: Add 3D LUT support to color pipeline
-To: Simon Ser <contact@emersion.fr>
-Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org, 
- harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com, 
- pekka.paalanen@collabora.com, mwen@igalia.com, jadahl@redhat.com, 
- sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com, 
- joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
+References: <20250517030935.823041-1-jihed.chaibi.dev@gmail.com>
+In-Reply-To: <20250517030935.823041-1-jihed.chaibi.dev@gmail.com>
+From: Ozgur Kara <ozgur@goosey.org>
+Date: Sat, 17 May 2025 03:53:52 +0000
+X-Gmail-Original-Message-ID: <CADvZ6Er=6M4Q9WKyQXSxfQ=KDgZ7rabKER=MUVoirxavukwQjQ@mail.gmail.com>
+X-Gm-Features: AX0GCFtcuNqyH6AItJPisixd0IN5CrGy5hhjrQS6OJ-E5B0yBtGKj1UY3yegyfw
+Message-ID: <01100196dc607b57-e0e7ce8e-910c-4a90-9dfa-71d5a568c6e4-000000@eu-north-1.amazonses.com>
+Subject: Re: [PATCH 2/2] fixing typo in function name
+To: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Feedback-ID: ::1.eu-north-1.jZlAFvO9+f8tc21Z4t7ANdAU3Nw/ALd5VHiFFAqIVOg=:AmazonSES
+X-SES-Outgoing: 2025.05.17-23.251.240.10
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,10 +79,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> We can always make the property mutable on drivers that support it in
-> the future, much like the zpos property. I think we should keep it
-> immutable for now.
+Jihed Chaibi <jihed.chaibi.dev@gmail.com>, 17 May 2025 Cmt, 06:09
+tarihinde =C5=9Funu yazd=C4=B1:
+>
+> "ENABLE" is currently misspelled in SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS
+>
 
-Sure, but I don't see any reason for immutability with an enum
-property - it can just limit the possible values to what it supports,
-and that can be only one value. Either way, it's not a big issue.
+i didnt see this and yes *grph_object_ctrl_defs.h* is exactly what i'm
+talking about, please ignore my previous email.
+
+Regards
+
+Ozgur
+
+> Signed-off-by: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
+> ---
+>  drivers/gpu/drm/radeon/atombios.h | 2 +-
+>  drivers/gpu/drm/radeon/kv_dpm.c   | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/atombios.h b/drivers/gpu/drm/radeon/a=
+tombios.h
+> index 2db407892..b961096a4 100644
+> --- a/drivers/gpu/drm/radeon/atombios.h
+> +++ b/drivers/gpu/drm/radeon/atombios.h
+> @@ -5072,7 +5072,7 @@ typedef struct _ATOM_INTEGRATED_SYSTEM_INFO_V1_7
+>  #define SYS_INFO_GPUCAPS__TMDSHDMI_COHERENT_SINGLEPLL_MODE              =
+  0x01
+>  #define SYS_INFO_GPUCAPS__DP_SINGLEPLL_MODE                             =
+  0x02
+>  #define SYS_INFO_GPUCAPS__DISABLE_AUX_MODE_DETECT                       =
+  0x08
+> -#define SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS                             =
+  0x10
+> +#define SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS                             =
+  0x10
+>
+>  /***********************************************************************=
+***********************************************
+>    ATOM_INTEGRATED_SYSTEM_INFO_V1_7 Description
+> diff --git a/drivers/gpu/drm/radeon/kv_dpm.c b/drivers/gpu/drm/radeon/kv_=
+dpm.c
+> index 55dbf450b..4aa050385 100644
+> --- a/drivers/gpu/drm/radeon/kv_dpm.c
+> +++ b/drivers/gpu/drm/radeon/kv_dpm.c
+> @@ -2329,7 +2329,7 @@ static int kv_parse_sys_info_table(struct radeon_de=
+vice *rdev)
+>                                 le32_to_cpu(igp_info->info_8.ulNbpStateNC=
+lkFreq[i]);
+>                 }
+>                 if (le32_to_cpu(igp_info->info_8.ulGPUCapInfo) &
+> -                   SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS)
+> +                   SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS)
+>                         pi->caps_enable_dfs_bypass =3D true;
+>
+>                 sumo_construct_sclk_voltage_mapping_table(rdev,
+> --
+> 2.39.5
+>
+>
+>
