@@ -4,76 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89EF5C2D0CD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCD74C3DA6D
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 337EA10E2FA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59F8B10E314;
 	Mon, 19 May 2025 07:15:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dJ8/DF1S";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YsuTB9Kj";
 	dkim-atps=neutral
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
- [209.85.217.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBE710E181;
- Sat, 17 May 2025 14:22:07 +0000 (UTC)
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-4c34dcdaf88so1080971137.2; 
- Sat, 17 May 2025 07:22:07 -0700 (PDT)
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDB8610E0F4;
+ Sat, 17 May 2025 03:09:42 +0000 (UTC)
+Received: by mail-qt1-f177.google.com with SMTP id
+ d75a77b69052e-4769f3e19a9so19662771cf.0; 
+ Fri, 16 May 2025 20:09:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747491726; x=1748096526; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747451381; x=1748056181; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=+IvTjJwrU8s7iUyjtPaZ5HJKqtg72p6APhpbESxqvdw=;
- b=dJ8/DF1Ss86GKt6HkKOzt7Tkotm2o5FD49gXy9CyXyGZxpYI58UakjG/B3UIhZ5FNj
- Pdxqlsclea6Hlsm4EmUs5TSp5+RFhNA4OJLTsCDx2XlPF575G0Tg7LklUayZRV1wRDBW
- Y6bcT6M3W8wRFLL+nc2aRJkl4IVW5tetZ1lCf0fVaLMHjaTS6SMldxGB9SLDgowXEgJT
- /qtPPclWtXwMd1dnJ9vUcCbfqCsZnjFeIwb9IIh1IfUWeDk6o98GXjrW3GkrfcKPPCgl
- iCp++5/9dlBP4VEq1Kuv266uCAcQsdODhY5d1hdJAKvJdTdsxmBM0VkWT05EX6y24C6h
- rwaQ==
+ bh=ffCQ/OEpQBGYzhPI44r26h6E9XjNcAQxTXB2Nzg9x64=;
+ b=YsuTB9KjD0ADUIjxaW0Kdrk5xhxnj8mQ5SDebyIwVDme/H/1Y17DVDzUdVWOoxLU4B
+ 9Zq40e8pNlW8lziFvH0F4VABggz0C7V7SbNZ/KlGGjui+Yu6zd9IsTuEZOl44QJNiCxr
+ u7y+9v4eAvFcJTl5A7tkNqJUxH7F9Wu3SfcAtcyUiRpT6Qus9XcyOh7J0z4G0QXklZpK
+ 5T+6SzFYFVom3BxYGMj++y35mA/86JAupDTAQyvVdrQ3o8OL91k0IZ0I/nFkJPXhr3za
+ 3oMl8DXx+nkpaWfGB66n3EiFIFAEgkbSp9E5BiivUcYx4IPRbG4zueJHLX7UMTim8YRx
+ DU8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747491726; x=1748096526;
+ d=1e100.net; s=20230601; t=1747451381; x=1748056181;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=+IvTjJwrU8s7iUyjtPaZ5HJKqtg72p6APhpbESxqvdw=;
- b=hUhTfrVEk/lCShRzB9HdX+RUW/3WEBrJYsj+pk+foKoTxantS1tu3RamSj7j/DXMko
- T3Gc4M7Q2vqnQ6XiAZ1XD627qEF/ZcbQ1RS7+ncMk1njM4yqS4pxJRyuRtK9uCJ0FrN/
- c8SyuOZK9VAFxoxQXDuJi9RT7T093Zc7pPZyj7FF6mJ7veTFlCGVvrSLYsD1t5O6FKiO
- MBUApSBOYhFb5xveysVjKGvRqQhdJ4gZkL0H2dxEY2UqT4lnLYHAcoq3k/9AHTZ7Jit3
- ngc1iFev2IrADnOI+rpU6EYVaOkBzcThgRGeB7e3+WDhFoasL9s3F7n2OZlOQWj+P9I6
- PEJg==
+ bh=ffCQ/OEpQBGYzhPI44r26h6E9XjNcAQxTXB2Nzg9x64=;
+ b=Kag3fIW1Opw2JnMv932V7edkw2yjsW2C/Q84uqIxMh5xlHlkuoqBDpY3uNAqdzQ0Qt
+ 3ZspnbeiaVTXXU6Z2CzIMQhQu38NgzPADZWGoLvwvqsIYqkIg5Ou2v8XWlv//VGtmegg
+ L7cPB0bXYsCQmHrF7rsONkzefuH1kX60K5oeJzFP4avo7ymBtE1gXP5ITxff4x6g5TaS
+ Bt6Gn4o5tmKAWqm8RwBPxyivmAcbN0+W7DoNI+kSWaf7hLgicStNjWTR3GX2yEAHt8q/
+ nnsYoTU4aSxrCGXvrQS84uF3hCOtgwtm0B2H6Df2CXJlafiWhp6KJ3HIHpXVSNVL2+h4
+ BpLg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqHlWzEr9vy3ZuGPkIGJW/oXya0O/Ls/Rxna+KKW+OU32kpkUaYm2tpUGukQlpIyHMmGKu5xby+/fC@lists.freedesktop.org,
- AJvYcCXQu8nmY08I0jDDlCRoqDJGmLHHBF+dnUfnuc/dnswUm5OmmY//23/LUJeAANMOMZPw4ramJSZR@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnupVzNhV83lJ7yKDyV9UAq6a2BpAj8edQuyWe3OlRxYB7qkrV
- c1VfirJJa6lvOmJZqkzRizAm+jGIFx7arv/T1jNG5csj/eVFLAmUtJ+D
-X-Gm-Gg: ASbGncu/3qmzBMBbWS/p9skUi4gaFtE42l0xlnnrI4gb303VTHyXt9q73hqivKV6BvO
- PkAJdUCzq2UiAPeu2QPLV8v2RP+Pm4cawtEuCC3vQl0yMCOCyaigeAdX3DOlXBxx0lX+y8rPSY/
- l8Ahnia4AW+pWwM3ziUa9DUDeGThM6yS3Tyx8IAy+MUP646BDdIm2zmHtH4u1KoDQoOdvxaPTSu
- f2fOEyttZWectVgikIgmfgcKrr8J8WTnk0m5NWXz7409ddna3aZdlShybHmwQk4W+CmMua+dHaH
- Ps9TlpDJ+Bf6pG1UoI5kZF00i2gqEQDdCeATOSX+/ZilBedWhn46uIefTnLxmQnIlS+Kl/7CMM6
- IRtUXS7Ok7g==
-X-Google-Smtp-Source: AGHT+IGG5NhOZRozR2C8EWXYBxU1OmFZROlehFOf2lGzQ3vkREzu72l4NqHjWlxaigokyImy5fawXQ==
-X-Received: by 2002:a05:6102:1512:b0:4d7:9072:1873 with SMTP id
- ada2fe7eead31-4e053c6e238mr6937466137.24.1747491726015; 
- Sat, 17 May 2025 07:22:06 -0700 (PDT)
-Received: from xodo-linux.tailb46509.ts.net
- ([2804:1b1:f983:1b4a:2975:d863:b306:345f])
+ AJvYcCWi9TPlx1XPbd6hNnr9/eeL1MjUaKW5qE0bgTBTK0FaGobJDbske/yHR0ug6px2nsigorCcoC0V13M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzWgDTVK/4gRKwwYCLeo1zCVk7oM1jkMFZ6FG1eVzVTi2t/ewEn
+ WQjijKI27vVEiT0AXMpvtThpbuDG2td+tHznxGEYZeyjEGQN/dnK/Vo=
+X-Gm-Gg: ASbGncuOHbjq3bKZjgsv09d8ELOgGTDVnzXTbN5lTiOCFrJ41Bc6ItZ0LAR/850Kzh1
+ 6hL+SDOo5UddiA+7f8J94Tv7zKl8Yj4ClDaMoqgntwUHf8XCk/m3r5n9wVagF6497HGSFT+LEcA
+ w8O0urpdJb7LyArLoBNj4Ar2b0yMVIxTJd7f6QaPITgljbAgB85CsBkHWw1UY1ScDnLgYbMfg5w
+ Tsfws5nLUMZavEVIIh7gW66pNEpWigid11a2GDZ6PGqbBPnHlPuBEzWOxPmTLZpGa5VdywQsMAC
+ Q27YuwOXWXnSOYuzkufltk790D/WlH0P58RLks4wx7L/M8yKWDYDwp0PBZKIQy1M3ynDQ37Yquo
+ A
+X-Google-Smtp-Source: AGHT+IFAY96+ViAXpFtWvPTpkpmN/e9/h01C8VfuwPJZMxAbErTShgFH39ZlL3cy+dkElD1U1qsPfw==
+X-Received: by 2002:ac8:5c95:0:b0:479:c1:6c21 with SMTP id
+ d75a77b69052e-494ae3509eemr113366961cf.5.1747451381027; 
+ Fri, 16 May 2025 20:09:41 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a0d:e487:156f:5546:ce07:3a5c:a2f1:3741])
  by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-87bec1ef3a8sm3349819241.21.2025.05.17.07.22.02
+ d75a77b69052e-494ae3f8f6fsm19165861cf.30.2025.05.16.20.09.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 May 2025 07:22:05 -0700 (PDT)
-From: Leonardo Gomes <leonardodasigomes@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: derick.william.moraes@gmail.com,
- Leonardo Gomes <leonardodasigomes@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 1/2 RESEND] drm/amd/display: Adjust get_value function with
- prefix to help in ftrace
-Date: Sat, 17 May 2025 11:20:54 -0300
-Message-ID: <20250517142114.140016-1-leonardodasigomes@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Fri, 16 May 2025 20:09:40 -0700 (PDT)
+From: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ skhan@linuxfoundation.org, jihed.chaibi.dev@gmail.com
+Subject: [PATCH 2/2] fixing typo in function name
+Date: Sat, 17 May 2025 05:09:35 +0200
+Message-Id: <20250517030935.823041-1-jihed.chaibi.dev@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
@@ -91,39 +89,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adjust get_value function in hw_hpd.c file to have
-prefix to help in ftrace, the name change from
-'get_value' to 'dal_hw_hpd_get_value'
+"ENABLE" is currently misspelled in SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS
 
-Signed-off-by: Leonardo da Silva Gomes <leonardodasigomes@gmail.com>
-Co-developed-by: Derick Frias <derick.william.moraes@gmail.com>
-Signed-off-by: Derick Frias <derick.william.moraes@gmail.com>
+Signed-off-by: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/atombios.h | 2 +-
+ drivers/gpu/drm/radeon/kv_dpm.c   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
-index 3f13a744d07d..886dd05b012f 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
-@@ -62,7 +62,7 @@ static void dal_hw_hpd_destroy(
- 	*ptr = NULL;
- }
+diff --git a/drivers/gpu/drm/radeon/atombios.h b/drivers/gpu/drm/radeon/atombios.h
+index 2db407892..b961096a4 100644
+--- a/drivers/gpu/drm/radeon/atombios.h
++++ b/drivers/gpu/drm/radeon/atombios.h
+@@ -5072,7 +5072,7 @@ typedef struct _ATOM_INTEGRATED_SYSTEM_INFO_V1_7
+ #define SYS_INFO_GPUCAPS__TMDSHDMI_COHERENT_SINGLEPLL_MODE                0x01
+ #define SYS_INFO_GPUCAPS__DP_SINGLEPLL_MODE                               0x02
+ #define SYS_INFO_GPUCAPS__DISABLE_AUX_MODE_DETECT                         0x08
+-#define SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS                               0x10
++#define SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS                               0x10
  
--static enum gpio_result get_value(
-+static enum gpio_result dal_hw_hpd_get_value(
- 	const struct hw_gpio_pin *ptr,
- 	uint32_t *value)
- {
-@@ -104,7 +104,7 @@ static enum gpio_result set_config(
- static const struct hw_gpio_pin_funcs funcs = {
- 	.destroy = dal_hw_hpd_destroy,
- 	.open = dal_hw_gpio_open,
--	.get_value = get_value,
-+	.get_value = dal_hw_hpd_get_value,
- 	.set_value = dal_hw_gpio_set_value,
- 	.set_config = set_config,
- 	.change_mode = dal_hw_gpio_change_mode,
+ /**********************************************************************************************************************
+   ATOM_INTEGRATED_SYSTEM_INFO_V1_7 Description
+diff --git a/drivers/gpu/drm/radeon/kv_dpm.c b/drivers/gpu/drm/radeon/kv_dpm.c
+index 55dbf450b..4aa050385 100644
+--- a/drivers/gpu/drm/radeon/kv_dpm.c
++++ b/drivers/gpu/drm/radeon/kv_dpm.c
+@@ -2329,7 +2329,7 @@ static int kv_parse_sys_info_table(struct radeon_device *rdev)
+ 				le32_to_cpu(igp_info->info_8.ulNbpStateNClkFreq[i]);
+ 		}
+ 		if (le32_to_cpu(igp_info->info_8.ulGPUCapInfo) &
+-		    SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS)
++		    SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS)
+ 			pi->caps_enable_dfs_bypass = true;
+ 
+ 		sumo_construct_sclk_voltage_mapping_table(rdev,
 -- 
-2.43.0
+2.39.5
 
