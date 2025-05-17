@@ -4,48 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BCF3C54756
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA99C54754
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52FAA10E225;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAA3410E306;
 	Mon, 19 May 2025 07:15:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="Fr3jup6I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EuDAOxH6";
 	dkim-atps=neutral
-Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
- [136.143.188.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 425DD10E242
- for <amd-gfx@lists.freedesktop.org>; Sat, 17 May 2025 09:44:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1747475091; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=bz/Y/h+/MAQKbIPhd/lTkMRTiGkq7OwvMme+xhoEHqugmn2JAkm6qzMUuMXv2JjaKk98PyiebJeHbueruINRscwpTUuqUmi1gHmqxuOdEkmV3ZF/FEyJLr82dFCMi/sIsV/PQYJ3D2k3X6qHyykejqAx1KYu9Sjd67BwxNheoWY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1747475091;
- h=Content-Type:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=78fkDI4HR9qFxJ/YmLUo4iyrOLZ5IO4Y2c1ffGHhH10=; 
- b=B3T3cW06lclZegyhdc7qNK1wM8a08K8XQSGmoXX0j3Pz7elSAidF2QoZCvG06kSuahn+i9kqXcHanSxyZY/Hcyy1Ar+X1han+ULvstv+KZRmlxb3Ms56/TBO3l0wwlYf/p+jO69lQdOXcydfQwEvtZz2j5RyaSVtHyB1lKeZJvA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=mark.filion@collabora.com;
- dmarc=pass header.from=<mark.filion@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747475091; 
- s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:MIME-Version:Message-Id:Reply-To:Cc;
- bh=78fkDI4HR9qFxJ/YmLUo4iyrOLZ5IO4Y2c1ffGHhH10=;
- b=Fr3jup6ImwmKbZTWxC3It1f6B6i5qVhxpk5ZlPNDvjfIH9uV1aVyapmXL7GEbGlO
- mhgTgfZoOSgYDbdT6bk6BiyxcUXheKIA/IlEvOidK5qxCzVY+P6JxqruLevImm/vo0w
- 3lwME6XWquof6akE3DRBGDAzsw0SwfpQozS685vs=
-Received: by mx.zohomail.com with SMTPS id 1747475089479377.89698017949024;
- Sat, 17 May 2025 02:44:49 -0700 (PDT)
-Message-ID: <57d630f3665a8251422ec7a650b9f0af3b4b3833.camel@collabora.com>
-Subject: 2025 X.Org Foundation Election results
-From: Mark Filion <mark.filion@collabora.com>
-To: amd-gfx@lists.freedesktop.org
-Date: Sat, 17 May 2025 11:44:47 +0200
-Content-Type: multipart/alternative; boundary="=-PJNXq+wHnYpqyMFsfqAa"
-User-Agent: Evolution 3.56.1 (3.56.1-1.fc42app2) 
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0A4C10E05D;
+ Sat, 17 May 2025 14:24:36 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-231bf5851b7so22358615ad.0; 
+ Sat, 17 May 2025 07:24:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747491876; x=1748096676; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=RyN54yu+4eZmPFXQlkm/F9Rt9k9KQTZs1dMWtDoUYX0=;
+ b=EuDAOxH6aeszBrG21FT6X9vqbwDcq3iEaz6l9X0bfRZtck5z/ssMHv6S7j99Vt3+8c
+ 3NDeA3e/rSVBqwWCu2P4EUnDL/JP8pAaEvmjrLZSwxUiaj5nvC2HaqcgBvSJ4lHNSvOh
+ 9OmvkXbhGI3SN9znmtcsVGKg7zomj9MdQonC4cSHulaIzAMZm9j+BxSOSGCzUcFCBKj7
+ x4pk8oKbI5drG0C1Sv2c5Kt4lkvIrXgU+viwclCRtArxQzL61P8ee4YE+73fivp6Pu3d
+ yFPFEfjpoMZSS8sFu9POSgwAmohnzXF/4Ggmt9OUq9jp42rcLw4amxsMLQCfF2daUeCW
+ QHNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747491876; x=1748096676;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=RyN54yu+4eZmPFXQlkm/F9Rt9k9KQTZs1dMWtDoUYX0=;
+ b=sqRKUsQbxGSMcpPZxfbXIGfJmt6i4xV72lU3fS7Edpqbt02jRiJEU4HsLKF1fc18lh
+ 8emoF6saDnVURt7pqLvp2qfSyFNHKyW42OsD/RzfptPufnK17rwz8PSkL3mV+aoV2njj
+ mr1rCJ5C1a9VZLJqF78zr6lpzSEkz6ioYYBLLZs75gnRg15v52ySg3g4mXfe8yOG7o2G
+ c+L0Dflk6kfd2j+/e7Nsq5mIKKA0djyDl977DItWobOftZUdj28UsZF419vo28AjoO3G
+ 8T3qXPxE6SIozU0O6hQ2+wl1BLBl5MvcmzO6C+GpG7Kmws15qkD4SbZ9VsMngsEtkRQS
+ 7BTg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUMImboCHtnCzIiE8ka0qUTvI+kELnfqK3pkJD64TW8R/PgL5oDFWfCgO+vqUJNIhS8+Yi8UBDP@lists.freedesktop.org,
+ AJvYcCWQheIjL0ekdBSJU8iGjk9Di0pfpkypFGeJjdhiITAew3/KMSWfZ5PBH5z+SfHwrWGGW6nGsp762IxF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxESfS6ZU0ArLha/HHGtCYwxX5jb9VsTBP6qTIw9A2e2DJ0GEmv
+ hFf6SKpCFWKdOokmsB8aQQnvQuZLrKqY9vTmcQKvTpL/h3zxmSG3mV6qapKUXzWewv9yRg2+2G7
+ SFIeJFPv7js8YL1joHce2sDnrHfXNFxOcqJOdk3szrw==
+X-Gm-Gg: ASbGncsWTnRraqLV1kXD8CsHG7U/bWLr43viJUuXBbATYKLZqBQuz2NvF5NZrq5CVPQ
+ +8r8PWMlIBEu4DigrftbMvD5D0IAT66JxOLMcqFPugyQsDTroZAh8QifBJt2R0lUwGLYgrGgZW4
+ G+KRgk4FgYBDrk2qYSxdv1P95UvO/oHyRUIZ/kT0Jkm8UJ3AgYibCvSNhD+gPtrfkl9g==
+X-Google-Smtp-Source: AGHT+IGT4GPCJWdJXDl6+yZgWrJ0LJqyH+PWDQzzymc57FXF+qCCdn5jGLFHy+6pmAD2rbtKyUefOa011fwdLq49evM=
+X-Received: by 2002:a17:903:2bcb:b0:215:b75f:a1cb with SMTP id
+ d9443c01a7336-231d43d99bamr92758275ad.9.1747491875965; Sat, 17 May 2025
+ 07:24:35 -0700 (PDT)
 MIME-Version: 1.0
-X-ZohoMailClient: External
+References: <20250514174306.82693-1-leonardodasigomes@gmail.com>
+ <CADnq5_OEdpRvpfL9+aCQOfRGUW-vOGzXq3ts5buWXoOTxtHr6Q@mail.gmail.com>
+ <CABtyycTNz7dmir5Ydc=VDiTUsLy0tryBgGmtWCJQZSauuaSJwg@mail.gmail.com>
+ <CADnq5_P7m_a2CToL5JAkDSZDvUgx1LWGaS158CLMBr8xyGtVkw@mail.gmail.com>
+In-Reply-To: <CADnq5_P7m_a2CToL5JAkDSZDvUgx1LWGaS158CLMBr8xyGtVkw@mail.gmail.com>
+From: Leonardo Gomes <leonardodasigomes@gmail.com>
+Date: Sat, 17 May 2025 11:24:24 -0300
+X-Gm-Features: AX0GCFvJD7wbWoEZTBeLCX6ttDEdCVVXx53o8wpIST6mUpWnitjJhFUFRuNEHqY
+Message-ID: <CABtyycR-Etym4gggPEhUYNoTPNNjZJhMAavV29dJ5T8TKaGTwg@mail.gmail.com>
+Subject: Re: [PATCH 1/2 RESEND] drm/amd/display: Adjust get_value function
+ with prefix to help in ftrace
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ derick.william.moraes@gmail.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000083ccea063555a859"
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,121 +88,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---=-PJNXq+wHnYpqyMFsfqAa
+--00000000000083ccea063555a859
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello all,
+Good morning Alex,
 
-The Board of Directors election concluded at 23:59 UTC on 14 May 2025.
-For this election, we had 77 members who could cast a vote. 72 did, so
-the turnout was 92.5%. This is the 3rd highest turnout in the last 10
-elections, with only 2021 (93.8%) and 2016 (98.8%) being higher. It is
-also a 147% increase from last year's turnout (62.9%). Thank you to
-everyone who took the time to vote!
+I just resend the patch with the name I`ve been suggesting, please let me
+know if you have any recommendation.
+And thanks again for your reply =F0=9F=98=84
 
-In the election of the Directors to the Board of the X.Org Foundation,
-the results were that Lyude Paul, Andres Gomez, Arkadiusz Hiler and
-Harry Wentland were elected for two year terms.
+Leonardo Gomes
 
-The old full board is: Erik Faye-Lund, Mark Filion, Neal Gompa,
-Arkadiusz Hiler, Christopher Michael, Lyude Paul, and Simon Ser.
+Em sex., 16 de mai. de 2025 =C3=A0s 13:56, Alex Deucher <alexdeucher@gmail.=
+com>
+escreveu:
 
-The new full board is: Erik Faye-Lund, Mark Filion, Andres Gomez, Neal
-Gompa, Arkadiusz Hiler, Lyude Paul, Simon Ser, and Harry Wentland.
+> On Thu, May 15, 2025 at 9:23=E2=80=AFPM Leonardo Gomes
+> <leonardodasigomes@gmail.com> wrote:
+> >
+> > Thanks for your reply Alex,
+> >
+> > I just realize with your comment that
+> drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c import dal_hw_gpio_get_valu=
+e
+> and dal_hw_gpio_set_value.
+> > So to make those functions inside
+> drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c  more clear what do you thin=
+k
+> to change them to dal_hw_hpd_get_config and dal_hw_hpd_set_config, making
+> clear that this is a function from the file hw_hpd?
+> >
+>
+> Right.  It needs a different name to avoid the conflict with the other
+> function.
+>
+> Alex
+>
+> > Leonardo Gomes
+> >
+> > Em qua., 14 de mai. de 2025 =C3=A0s 18:08, Alex Deucher <
+> alexdeucher@gmail.com> escreveu:
+> >>
+> >> On Wed, May 14, 2025 at 4:48=E2=80=AFPM Leonardo Gomes
+> >> <leonardodasigomes@gmail.com> wrote:
+> >> >
+> >> > Adjust get_value function in hw_hpd.c file to have
+> >> > prefix to help in ftrace, the name change from
+> >> > 'get_value' to 'dal_hw_gpio_get_value'
+> >>
+> >> This won't compile.  dal_hw_gpio_get_value is already defined in
+> >> drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c.
+> >>
+> >> Alex
+> >>
+> >> >
+> >> > Signed-off-by: Leonardo da Silva Gomes <leonardodasigomes@gmail.com>
+> >> > Co-developed-by: Derick Frias <derick.william.moraes@gmail.com>
+> >> > Signed-off-by: Derick Frias <derick.william.moraes@gmail.com>
+> >> > ---
+> >> >  drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c | 4 ++--
+> >> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >> >
+> >> > diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
+> b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
+> >> > index 3f13a744d07d..b11ed1089589 100644
+> >> > --- a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
+> >> > +++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
+> >> > @@ -62,7 +62,7 @@ static void dal_hw_hpd_destroy(
+> >> >         *ptr =3D NULL;
+> >> >  }
+> >> >
+> >> > -static enum gpio_result get_value(
+> >> > +static enum gpio_result dal_hw_gpio_get_value(
+> >> >         const struct hw_gpio_pin *ptr,
+> >> >         uint32_t *value)
+> >> >  {
+> >> > @@ -104,7 +104,7 @@ static enum gpio_result set_config(
+> >> >  static const struct hw_gpio_pin_funcs funcs =3D {
+> >> >         .destroy =3D dal_hw_hpd_destroy,
+> >> >         .open =3D dal_hw_gpio_open,
+> >> > -       .get_value =3D get_value,
+> >> > +       .get_value =3D dal_hw_gpio_get_value,
+> >> >         .set_value =3D dal_hw_gpio_set_value,
+> >> >         .set_config =3D set_config,
+> >> >         .change_mode =3D dal_hw_gpio_change_mode,
+> >> > --
+> >> > 2.43.0
+> >> >
+>
 
-Mark Filion, on behalf of the X.Org elections committee
-
---=-PJNXq+wHnYpqyMFsfqAa
-Content-Type: text/html; charset="utf-8"
+--00000000000083ccea063555a859
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html><head><style>pre,code,address {
-  margin: 0px;
-}
-h1,h2,h3,h4,h5,h6 {
-  margin-top: 0.2em;
-  margin-bottom: 0.2em;
-}
-ol,ul {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-blockquote {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-</style></head><body><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0,=
- 0, 0); font-family: &quot;Adwaita Sans&quot;; font-style: normal; font-var=
-iant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: st=
-art; text-indent: 0px; text-transform: none; white-space: normal; word-spac=
-ing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-str=
-oke-width: 0px; text-decoration: none;">Hello all,</div><div style=3D"caret=
--color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: &quot;Adwaita Sans&=
-quot;; font-style: normal; font-variant-caps: normal; font-weight: 400; let=
-ter-spacing: normal; text-align: start; text-indent: 0px; text-transform: n=
-one; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-color: r=
-gba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none;">=
-<br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); fon=
-t-family: &quot;Adwaita Sans&quot;; font-style: normal; font-variant-caps: =
-normal; font-weight: 400; letter-spacing: normal; text-align: start; text-i=
-ndent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -=
-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: =
-0px; text-decoration: none;">The Board of Directors election concluded at 2=
-3:59 UTC on 14 May 2025. For this election, we had 77 members who could cas=
-t a vote. 72 did, so the turnout was 92.5%. This is the 3rd highest turnout=
- in the last 10 elections, with only 2021 (93.8%) and 2016 (98.8%) being hi=
-gher. It is also a 147% increase from last year's turnout (62.9%). Thank yo=
-u to everyone who took the time to vote!</div><div style=3D"caret-color: rg=
-b(0, 0, 0); color: rgb(0, 0, 0); font-family: &quot;Adwaita Sans&quot;; fon=
-t-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacin=
-g: normal; text-align: start; text-indent: 0px; text-transform: none; white=
--space: normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, =
-0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none;"><br></div>=
-<div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: =
-&quot;Adwaita Sans&quot;; font-style: normal; font-variant-caps: normal; fo=
-nt-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px=
-; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap=
--highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-=
-decoration: none;">In the election of the Directors to the Board of the X.O=
-rg Foundation, the results were that Lyude Paul, Andres Gomez, Arkadiusz Hi=
-ler and Harry Wentland were elected for two year terms.</div><div style=3D"=
-caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: &quot;Adwaita =
-Sans&quot;; font-style: normal; font-variant-caps: normal; font-weight: 400=
-; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
-rm: none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-col=
-or: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: no=
-ne;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0)=
-; font-family: &quot;Adwaita Sans&quot;; font-style: normal; font-variant-c=
-aps: normal; font-weight: 400; letter-spacing: normal; text-align: start; t=
-ext-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0=
-px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-wi=
-dth: 0px; text-decoration: none;">The old full board is: Erik Faye-Lund, Ma=
-rk Filion, Neal Gompa, Arkadiusz Hiler, Christopher Michael, Lyude Paul, an=
-d Simon Ser.</div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0,=
- 0); font-family: &quot;Adwaita Sans&quot;; font-style: normal; font-varian=
-t-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start=
-; text-indent: 0px; text-transform: none; white-space: normal; word-spacing=
-: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke=
--width: 0px; text-decoration: none;"><br></div><div style=3D"caret-color: r=
-gb(0, 0, 0); color: rgb(0, 0, 0); font-family: &quot;Adwaita Sans&quot;; fo=
-nt-style: normal; font-variant-caps: normal; font-weight: 400; letter-spaci=
-ng: normal; text-align: start; text-indent: 0px; text-transform: none; whit=
-e-space: normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0,=
- 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none;">The new f=
-ull board is: Erik Faye-Lund, Mark Filion, Andres Gomez, Neal Gompa, Arkadi=
-usz Hiler, Lyude Paul, Simon Ser, and Harry Wentland.</div><div style=3D"ca=
-ret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: &quot;Adwaita Sa=
-ns&quot;; font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; text-transform=
-: none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-color=
-: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none=
-;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); =
-font-family: &quot;Adwaita Sans&quot;; font-style: normal; font-variant-cap=
-s: normal; font-weight: 400; letter-spacing: normal; text-align: start; tex=
-t-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px=
-; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-widt=
-h: 0px; text-decoration: none;">Mark Filion, on behalf of the X.Org electio=
-ns committee</div><div><span></span></div></body></html>
+<div dir=3D"ltr">Good morning Alex,<br><br>I just resend the patch with the=
+ name I`ve been suggesting, please let me know if you have any recommendati=
+on.=C2=A0<div>And thanks again for your reply=C2=A0=F0=9F=98=84<br><br></di=
+v><div>Leonardo Gomes<br></div></div><br><div class=3D"gmail_quote gmail_qu=
+ote_container"><div dir=3D"ltr" class=3D"gmail_attr">Em sex., 16 de mai. de=
+ 2025 =C3=A0s 13:56, Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.c=
+om">alexdeucher@gmail.com</a>&gt; escreveu:<br></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex">On Thu, May 15, 2025 at 9:23=E2=80=AFPM Leonard=
+o Gomes<br>
+&lt;<a href=3D"mailto:leonardodasigomes@gmail.com" target=3D"_blank">leonar=
+dodasigomes@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Thanks for your reply Alex,<br>
+&gt;<br>
+&gt; I just realize with your comment that drivers/gpu/drm/amd/display/dc/g=
+pio/hw_gpio.c import dal_hw_gpio_get_value and dal_hw_gpio_set_value.<br>
+&gt; So to make those functions inside drivers/gpu/drm/amd/display/dc/gpio/=
+hw_hpd.c=C2=A0 more clear what do you think to change them to dal_hw_hpd_ge=
+t_config and dal_hw_hpd_set_config, making clear that this is a function fr=
+om the file hw_hpd?<br>
+&gt;<br>
+<br>
+Right.=C2=A0 It needs a different name to avoid the conflict with the other=
+ function.<br>
+<br>
+Alex<br>
+<br>
+&gt; Leonardo Gomes<br>
+&gt;<br>
+&gt; Em qua., 14 de mai. de 2025 =C3=A0s 18:08, Alex Deucher &lt;<a href=3D=
+"mailto:alexdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&=
+gt; escreveu:<br>
+&gt;&gt;<br>
+&gt;&gt; On Wed, May 14, 2025 at 4:48=E2=80=AFPM Leonardo Gomes<br>
+&gt;&gt; &lt;<a href=3D"mailto:leonardodasigomes@gmail.com" target=3D"_blan=
+k">leonardodasigomes@gmail.com</a>&gt; wrote:<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Adjust get_value function in hw_hpd.c file to have<br>
+&gt;&gt; &gt; prefix to help in ftrace, the name change from<br>
+&gt;&gt; &gt; &#39;get_value&#39; to &#39;dal_hw_gpio_get_value&#39;<br>
+&gt;&gt;<br>
+&gt;&gt; This won&#39;t compile.=C2=A0 dal_hw_gpio_get_value is already def=
+ined in<br>
+&gt;&gt; drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c.<br>
+&gt;&gt;<br>
+&gt;&gt; Alex<br>
+&gt;&gt;<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Signed-off-by: Leonardo da Silva Gomes &lt;<a href=3D"mailto:=
+leonardodasigomes@gmail.com" target=3D"_blank">leonardodasigomes@gmail.com<=
+/a>&gt;<br>
+&gt;&gt; &gt; Co-developed-by: Derick Frias &lt;<a href=3D"mailto:derick.wi=
+lliam.moraes@gmail.com" target=3D"_blank">derick.william.moraes@gmail.com</=
+a>&gt;<br>
+&gt;&gt; &gt; Signed-off-by: Derick Frias &lt;<a href=3D"mailto:derick.will=
+iam.moraes@gmail.com" target=3D"_blank">derick.william.moraes@gmail.com</a>=
+&gt;<br>
+&gt;&gt; &gt; ---<br>
+&gt;&gt; &gt;=C2=A0 drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c | 4 ++--<b=
+r>
+&gt;&gt; &gt;=C2=A0 1 file changed, 2 insertions(+), 2 deletions(-)<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c b/d=
+rivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c<br>
+&gt;&gt; &gt; index 3f13a744d07d..b11ed1089589 100644<br>
+&gt;&gt; &gt; --- a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c<br>
+&gt;&gt; &gt; +++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c<br>
+&gt;&gt; &gt; @@ -62,7 +62,7 @@ static void dal_hw_hpd_destroy(<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*ptr =3D NULL;<br>
+&gt;&gt; &gt;=C2=A0 }<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; -static enum gpio_result get_value(<br>
+&gt;&gt; &gt; +static enum gpio_result dal_hw_gpio_get_value(<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const struct hw_gpio_pin *pt=
+r,<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t *value)<br>
+&gt;&gt; &gt;=C2=A0 {<br>
+&gt;&gt; &gt; @@ -104,7 +104,7 @@ static enum gpio_result set_config(<br>
+&gt;&gt; &gt;=C2=A0 static const struct hw_gpio_pin_funcs funcs =3D {<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.destroy =3D dal_hw_hpd_dest=
+roy,<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.open =3D dal_hw_gpio_open,<=
+br>
+&gt;&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0.get_value =3D get_value,<br>
+&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0.get_value =3D dal_hw_gpio_get_va=
+lue,<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.set_value =3D dal_hw_gpio_s=
+et_value,<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.set_config =3D set_config,<=
+br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.change_mode =3D dal_hw_gpio=
+_change_mode,<br>
+&gt;&gt; &gt; --<br>
+&gt;&gt; &gt; 2.43.0<br>
+&gt;&gt; &gt;<br>
+</blockquote></div>
 
---=-PJNXq+wHnYpqyMFsfqAa--
+--00000000000083ccea063555a859--
