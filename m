@@ -4,48 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D254CC3DA6D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5626C54754
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4777010E20F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 539E210E23C;
 	Mon, 19 May 2025 07:15:17 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDF3B10E1FC;
- Mon, 19 May 2025 02:41:17 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-03 (Coremail) with SMTP id rQCowAAHGvVEmipoO59DAQ--.10155S2;
- Mon, 19 May 2025 10:41:10 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm: radeon: ci_dpm: Add error handling in ci_enable_vce_dpm()
-Date: Mon, 19 May 2025 10:40:35 +0800
-Message-ID: <20250519024036.1119-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TA+R+Nn3";
+	dkim-atps=neutral
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47A5710E06D;
+ Sat, 17 May 2025 01:23:11 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-acbb85ce788so527722466b.3; 
+ Fri, 16 May 2025 18:23:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747444989; x=1748049789; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=25iFNJ5FYOB28Ks45PjA86xu93MkwtBe+kaVmwZePmc=;
+ b=TA+R+Nn3UUhA63XkQu7AVVbjgjJ4ozvOpe0o9O2sprlGs14cppd8gzdPTNIBvGGuoe
+ xG53YZmCK9e2Uru0khKSdtV4IB6hIsgG3SkzF1Mo98wCoLgMHMPmfhhwYipKga2VurLL
+ vyo4y5UOOCyP2UAC/WFz6n/LBFYaFlIeWF6ABkaz7liqJ5ACu0Pz9G8pmvu150bh063w
+ 3bPQfYSm8akS1QaRlOyJYWGkkZ5LtO7enP+yiXyUdRNI0xHxolnFAFG60UBMM32l9m5h
+ /Z5fhXfE3LCZJC2lKR2FMt1gDUNjnVu9YjjuNjiYq+Sgj+yRLPfxm9HMSaJ8Q1xeeX7H
+ M1XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747444989; x=1748049789;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=25iFNJ5FYOB28Ks45PjA86xu93MkwtBe+kaVmwZePmc=;
+ b=CSNH0j12WCN6PMJZHFA/ht8S7acYH3bZsuRcmsFoTO9cCvBRLWCJ13Z2LRDcT/pR+/
+ ORR1JFgVr+JZe9r4hJDPcy/2E5YQJW6gA606gM9B9oOUL3VDDdZ15wH+rn2B9dqDVsN8
+ USGBoQUk/32393q4c2c1gITbzDVVv7BiB+1ssL5nHDXiphs0U6rP1nVQXdCCWLrx3gss
+ +QHWR2qohV4xJq8SVakTuXCgyEDEuiMbU261q1YlzLW6VNtFoB6QwxbGDVjZTXgAHjN+
+ LF+98p2LXsGUQ3zoFrHMaJ3sxENOur9BhSL5NUCteX/F2l8/nYoxMKZ3pmSYSKH7pveY
+ agvg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVmu3C1s3jKju+warmZNeKVsoyTHL2TGE5ry+PrNmIDeJLLHR31ckr8zkiGsLMO+yhQ90l915eQEMhqJYHapQ==@lists.freedesktop.org,
+ AJvYcCWPoMe9TXfSE7BXZePhFZ1c7TiQyXmtu1Ypu4zHjZ4zzh4D7fnaS7OO+d0K240rvOk022moVhxZ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+mg7r4e77SZ9D0aWmeN47TEu+x3D6axdHzdybTHVwhpRZEr87
+ n1QFKk0FV94Ql7eMkSg9eFnTkpYL0TrFv9uWxvw/zU64ad1YpO+j7m4anRir2OGaXnrKx0PKSUP
+ MFDIjuIW0gcPmJpEoybqcV/Qnk0Fd35Q=
+X-Gm-Gg: ASbGncu4gC+j6NQQM36eohMeWE1BBSxXkDy7w7SSrGNwsiM2iebWgZuKxn9AhgIjUxp
+ U9ozIzsG3T2ugsou9bbU8oWtQuBBrBIMDSP64xqsui0b7rdoXEJaQ1mrNU52MM/JaUm/Wh3ygm8
+ M3yvw7fMhHG6bAgki40yhqMksngI1KXoh2FX4AMymrRehlmrYm99rV1fuo5eRg0q0BXA==
+X-Google-Smtp-Source: AGHT+IGJZZYvjvNgphG6zPo450tizZ0G45jOjPvl7iZI4z2BBNA5YMtn+7uFPFYF8eBndJAzXugGC3fw9GHpEwFqMZ8=
+X-Received: by 2002:a17:907:7ba3:b0:ad4:d0b7:c990 with SMTP id
+ a640c23a62f3a-ad52d4df2d5mr472506066b.26.1747444989393; Fri, 16 May 2025
+ 18:23:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowAAHGvVEmipoO59DAQ--.10155S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1DZr4ruF1fXF43tF4fZrb_yoW8WFW8p3
- yDWFyYyrZ5Aay8WanFyw4DAryruws7JFWxJFsFk345uw4ayFy8JF13XryayFy0vr92gFya
- vrn2k3WkZr4UArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUB014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
- 1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
- 7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
- 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
- 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_Gr1l42xK82IYc2Ij64
- vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
- jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
- x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
- 8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
- 0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUOtC7UUUUU
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgwHA2gqdbeYjQAAsb
+References: <20250326234748.2982010-1-alex.hung@amd.com>
+ <20250326234748.2982010-41-alex.hung@amd.com>
+In-Reply-To: <20250326234748.2982010-41-alex.hung@amd.com>
+From: Xaver Hugl <xaver.hugl@gmail.com>
+Date: Sat, 17 May 2025 03:22:58 +0200
+X-Gm-Features: AX0GCFuvD3OsCGzAPf7Ov-LvC6QAawQsojy7fJfqOKgGdwWusDq4JeBH8jLa7d0
+Message-ID: <CAFZQkGwrP39REsvZwQ_Uaq+cHR_pH2EPuv_POXRO7Hxj9u4Xsw@mail.gmail.com>
+Subject: Re: [PATCH V8 40/43] drm/colorop: Add 3D LUT support to color pipeline
+To: Alex Hung <alex.hung@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, leo.liu@amd.com, 
+ ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com, 
+ contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com, 
+ sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com, 
+ joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
+ victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
+ quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
+ marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,47 +93,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The ci_enable_vce_dpm() calls ci_send_msg_to_smc_with_parameter()
-but does not check the return value. A proper implementation can be
-found in the ci_upload_dpm_level_enable_mask().
+Am Do., 27. M=C3=A4rz 2025 um 00:58 Uhr schrieb Alex Hung <alex.hung@amd.co=
+m>:
+>
+> It is to be used to enable HDR by allowing userpace to create and pass
+> 3D LUTs to kernel and hardware.
+>
+> new drm_colorop_type: DRM_COLOROP_3D_LUT.
+>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> ---
+> v8:
+>  - Fix typo in subject (Simon Ser)
+>  - Update documentation for DRM_COLOROP_3D_LUT (Simon Ser)
+>  - Delete empty lines (Simon Ser)
+>
+> v7:
+>  - Simplify 3D LUT by removing lut_3d_modes and related functions (Simon =
+Ser)
+>
+>  drivers/gpu/drm/drm_atomic.c      |  6 +++
+>  drivers/gpu/drm/drm_atomic_uapi.c |  6 +++
+>  drivers/gpu/drm/drm_colorop.c     | 72 +++++++++++++++++++++++++++++++
+>  include/drm/drm_colorop.h         | 21 +++++++++
+>  include/uapi/drm/drm_mode.h       | 33 ++++++++++++++
+>  5 files changed, 138 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 0efb0ead204a..ef47a06344f3 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -806,6 +806,12 @@ static void drm_atomic_colorop_print_state(struct dr=
+m_printer *p,
+>         case DRM_COLOROP_MULTIPLIER:
+>                 drm_printf(p, "\tmultiplier=3D%llu\n", state->multiplier)=
+;
+>                 break;
+> +       case DRM_COLOROP_3D_LUT:
+> +               drm_printf(p, "\tsize=3D%d\n", colorop->lut_size);
+> +               drm_printf(p, "\tinterpolation=3D%s\n",
+> +                          drm_get_colorop_lut3d_interpolation_name(color=
+op->lut3d_interpolation));
+> +               drm_printf(p, "\tdata blob id=3D%d\n", state->data ? stat=
+e->data->base.id : 0);
+> +               break;
+>         default:
+>                 break;
+>         }
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 947c18e8bf9b..d5d464b4d0f6 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -719,6 +719,10 @@ static int drm_atomic_color_set_data_property(struct=
+ drm_colorop *colorop,
+>         case DRM_COLOROP_CTM_3X4:
+>                 size =3D sizeof(struct drm_color_ctm_3x4);
+>                 break;
+> +       case DRM_COLOROP_3D_LUT:
+> +               size =3D colorop->lut_size * colorop->lut_size * colorop-=
+>lut_size *
+> +                      sizeof(struct drm_color_lut);
+> +               break;
+>         default:
+>                 /* should never get here */
+>                 return -EINVAL;
+> @@ -771,6 +775,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *c=
+olorop,
+>                 *val =3D state->multiplier;
+>         } else if (property =3D=3D colorop->lut_size_property) {
+>                 *val =3D colorop->lut_size;
+> +       } else if (property =3D=3D colorop->lut3d_interpolation_property)=
+ {
+> +               *val =3D colorop->lut3d_interpolation;
+>         } else if (property =3D=3D colorop->data_property) {
+>                 *val =3D (state->data) ? state->data->base.id : 0;
+>         } else {
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.=
+c
+> index e03706e7179b..224c6be237d2 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+> @@ -67,6 +67,7 @@ static const struct drm_prop_enum_list drm_colorop_type=
+_enum_list[] =3D {
+>         { DRM_COLOROP_1D_LUT, "1D LUT" },
+>         { DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
+>         { DRM_COLOROP_MULTIPLIER, "Multiplier"},
+> +       { DRM_COLOROP_3D_LUT, "3D LUT"},
+>  };
+>
+>  static const char * const colorop_curve_1d_type_names[] =3D {
+> @@ -82,6 +83,11 @@ static const struct drm_prop_enum_list drm_colorop_lut=
+1d_interpolation_list[] =3D
+>         { DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR, "Linear" },
+>  };
+>
+> +
+> +static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_l=
+ist[] =3D {
+> +       { DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
+> +};
+> +
+>  /* Init Helpers */
+>
+>  static int drm_colorop_init(struct drm_device *dev, struct drm_colorop *=
+colorop,
+> @@ -349,6 +355,51 @@ int drm_colorop_mult_init(struct drm_device *dev, st=
+ruct drm_colorop *colorop,
+>  }
+>  EXPORT_SYMBOL(drm_colorop_mult_init);
+>
+> +int drm_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *c=
+olorop,
+> +                          struct drm_plane *plane,
+> +                          uint32_t lut_size,
+> +                          enum drm_colorop_lut3d_interpolation_type inte=
+rpolation,
+> +                          bool allow_bypass)
+> +{
+> +       struct drm_property *prop;
+> +       int ret;
+> +
+> +       ret =3D drm_colorop_init(dev, colorop, plane, DRM_COLOROP_3D_LUT,=
+ allow_bypass);
+> +       if (ret)
+> +               return ret;
+> +
+> +       /* LUT size */
+> +       prop =3D drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE  =
+| DRM_MODE_PROP_ATOMIC,
+> +                                        "SIZE", 0, UINT_MAX);
+> +       if (!prop)
+> +               return -ENOMEM;
+> +
+> +       colorop->lut_size_property =3D prop;
+> +       drm_object_attach_property(&colorop->base, colorop->lut_size_prop=
+erty, lut_size);
+> +       colorop->lut_size =3D lut_size;
+> +
+> +       /* interpolation */
+> +       prop =3D drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE, "=
+LUT3D_INTERPOLATION",
 
-Add a check after calling ci_send_msg_to_smc_with_parameter(), return
--EINVAL if the sending fails.
+Do we ever expect this to be something with multiple options that
+userspace could select? I think it would be good to keep our options
+open and make this property not immutable (properties that are
+sometimes but not always immutable are more annoying to deal with in
+userspace).
 
-Fixes: cc8dbbb4f62a ("drm/radeon: add dpm support for CI dGPUs (v2)")
-Cc: stable@vger.kernel.org # v3.12
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/radeon/ci_dpm.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index 3877863c6893..c4faaa16a5c4 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -3945,6 +3945,7 @@ static int ci_enable_vce_dpm(struct radeon_device *rdev, bool enable)
- 	struct ci_power_info *pi = ci_get_pi(rdev);
- 	const struct radeon_clock_and_voltage_limits *max_limits;
- 	int i;
-+	PPSMC_Result result;
- 
- 	if (rdev->pm.dpm.ac_power)
- 		max_limits = &rdev->pm.dpm.dyn_state.max_clock_voltage_on_ac;
-@@ -3962,9 +3963,11 @@ static int ci_enable_vce_dpm(struct radeon_device *rdev, bool enable)
- 			}
- 		}
- 
--		ci_send_msg_to_smc_with_parameter(rdev,
--						  PPSMC_MSG_VCEDPM_SetEnabledMask,
--						  pi->dpm_level_enable_mask.vce_dpm_enable_mask);
-+		result = ci_send_msg_to_smc_with_parameter(rdev,
-+				PPSMC_MSG_VCEDPM_SetEnabledMask,
-+				pi->dpm_level_enable_mask.vce_dpm_enable_mask);
-+		if (result != PPSMC_Result_OK)
-+			return -EINVAL;
- 	}
- 
- 	return (ci_send_msg_to_smc(rdev, enable ?
--- 
-2.42.0.windows.2
-
+Same applies to 1D LUTs as well.
