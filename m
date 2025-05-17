@@ -4,86 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7660AC54795
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47ED2C54756
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C01510E364;
-	Mon, 19 May 2025 07:15:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1E3210E34C;
+	Mon, 19 May 2025 07:15:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=att.net header.i=@att.net header.b="LRo7Z+N9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WeGYfjNF";
 	dkim-atps=neutral
-Received: from sonic317-35.consmr.mail.ne1.yahoo.com
- (sonic317-35.consmr.mail.ne1.yahoo.com [66.163.184.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A06610EB06
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 May 2025 15:56:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
- t=1747411004; bh=pJd+lY0QZkmnnY/vhcMoMvU4wZA08MP/PaZorqMJHbE=;
- h=Date:From:Subject:To:Cc:In-Reply-To:References:From:Subject:Reply-To;
- b=LRo7Z+N9QiwM/SgnyegaYlvI5MTNyFVRxFKm/hqRW3LPcKTc0ZcChziYEKvLqK7Ok+BuqFW8miWQAVSk7xjU+PGEoWDOfZLhAksfMB7bSXK+wq0OCMV9b4kVeJh2VnXI+k45JLtM1bI49yAUSsngnayb+snAsracfZ7Or0a/jH4=
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1747411004; bh=wwsdBDx9LcYFBTJMt5ma0hGUOh3lVTAwJ91U7B+omzm=;
- h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
- b=klKOLW7q0Qr2vHHrh03Mi62kbGcUvePAREvmyX6le6rsx/RFYeKxp+9K4dsfWX28nf1xHLwDLZ+skdwKYm5kOskaunu6rKTPD5HWJ5iBt4ShtqfJ831kvx4mpb0k3ko2yP/gMKLmJimniS6+62LIxL1RVsc/Z7NpBiogBVrnDofmZVGXztCjohyImwl/G34kmaaTteRCEvulHO+SG2P2tHBHWweCvQyXd5j5OeS84xq44H501Rdu6SC92PD2vx63Ix9SC2Hh3+ujoC8QSybCdMB4ZNULhm5jZraK5D4/WU5nnBRnEuZODMCMCOr7o/D/ieaDH6lJp80CjrrzzN/q8g==
-X-YMail-OSG: qVfEePoVM1mr8U4iNpdI8d3iOmDFssz9k7tg1c9Ekj4kjXFTPz8elmK0UIRKueS
- FH1BhQyiNy4PZFnGKgIhZ69UAQieHM6XpDTiiGdIMOYzrV5y1NtGKvWoTSj7InAEUAygXOqi5Cw2
- CzOeD1yBmj8r3cMrMTArRo.lPomDj.JJUz355ivlekn4rip2CoQCJv5uqYMGrQpe8x_v644MpNCt
- kqYpStNal9UFNsT2wdrE6ut6ekA7O5y771TG0YDPVo1Xp1lqvpNVurN0PdYD3EkqZ.9B.pXMW3r2
- B5z5Dy1u_OuGv1xf7DJH_wgnJSa_rJWWaA_vE2e7f5qOLwJE_yjtk7i.1529LD8ZHQraaCTjwlyR
- bDgHAq9UdsvCi5_IRRpm9ij0hnIK7GUTtWXv2zp8uu9f7camVS9kllRtdohpWc5dXxYyMrONwBlh
- 1.Xdqo_NrmmtUlk3OcQTdd0Yait.4Xv3Y_WRv8Gd1xeV4rIGn4jZyjH3gFa1wkn5DKvRJVBzQVRc
- tKYjXHJ3UAXTuHlvzTtko_RdhQPl5x.3BhWqfzOyRG8N8QSvcCtPG2HzidNNcH6BO.F7S9iGl7eb
- lEhwAig_7VgkA6Z3IDwhdEOYrD.NsZpPT_0efhSoibD9csZ1XgSpmySDTJ3C4M17ZEdsI6kmjDxD
- ElknWo412p05FVBryhDxlWSDD3y3hzq3Bru90OVEywY4cjWxISR8jjVRYclL_xL_aYZ2gpMyQzh4
- ru6ItMiUKkvFiGCpXHVWAwchcP9_TCRdbjoLpUMYBcXn17pfeFdXbewBLPyLoay_odlGfhiABFj5
- 9L.HE4IDv4oIA39PObvd4YtMxSIDj_AIOJNtll6lMsUcH6yeZ2_4bnHpwe0c85JoCAq02mtp62dH
- yspzPMNgBQM67dZF1xfdbYIwAbFY5bfRbMk2.omkq5Q.sI3YtxNDvGHTNvk8HeOWadmkGOAxhjxk
- zMXYhMWQDkbo9TEpeQF6_a1334Ac0udFsSUeYW0GhaX9wa1b1LsbQ0flA1fLGgpw2Vo07VvTz6XD
- xzTX7BN2sZ1HSA1O6RFJUvwCfnncYupYhSp44.bt1Ux57P6l5UoCOqN2y9.y_IfxoYAdBtAgYC5c
- c6wScIx3MzjuS73BssSnAuTVONOPNv5RbXSQ3jYu0TonnZJ66Nh4HqgzxUTPQ1198nQd0Y8VRjom
- .lAB3kPBXdd.y9eh7YxfD1I6xscYwCszVbzu_QaJqVqxu8hmCeOm77vX364DWtY71VhM0AEEQWVY
- WDoGJ11cSjUE9cA7xn.8QJfGR5rIrj4rmVo0qk6ULVeqtOD.EP7Pab.iebU7qi1.D2P3jGXSf88M
- YFf5An91R.dvT7.FvgmMZs55bvxxsVwpNeGcIybpabEmBOpBhOKZvz3kzrnr47bNsVqIhMS6e1eV
- JFtZz8SKa472JdKG8T53z1wRcWkbP1myPpfVidqBEEfBC.FOYbgl8YleJ0I2b3LZQkA1cNDxUkJq
- wyQmS5whM7IGov2ixJjRKuimV3EHaowiNGM.TJe_DO1duvnCCrJ9xv4jWZtYUccqI55g4NVemn1z
- KSgpB1Mld2pdmq3f0mLQwSatV25ICuvcpTbdoMOgRhJd1gpD.UNt6Ms32A448AJdEXIJ6yz1UKlb
- J8dP_dh.QoAXOi812WbCjMWllupTa1HDE9Xa3f5VBOAtZXoNcD31dlS_L7MSiz77xrxsUeRWXiYh
- AOeUXyrgQu_7epgfsViZA5iYU8D.ar9ArpVvDsZl_ZL4SBZisg9iQAmFyD1TXLVMCTIymPIiutLn
- HU445pLGp.X9E03b0pxIGEQIp3PRlj6IJFoB_ZDMIxDceBwGDlG0xKhLjDBUlt7meu6obpDGH8FS
- X5LAQ6qnrRHX1cBy8Pi.JwMOxm9dj5LQjwdFS5DtB8NuO3eq.I0yiRldPzKhpVgR81tLlEZOuoj2
- NcXkRoYeeeMNNSxwcykpcyuppwufcryRDSHN5bpHbHrxJoNbUfyPwzXAJF3Z7vjIj6v4xAK_tyzG
- BVMaPgfnoH_UZvXMMAZvFcalEzTWyeIrg37gDev2_B46m9hky6ib_fS17Cp6gJV2tZXXcYJHHeEl
- WWOQMbxTSsmXZpizn0l2408skGGWsNL4dkWixyKKTf7w6ZWS4JINS_HyDtIQlhkpevpu6H8s7oaD
- S21QZEbtx4FOrnrg-
-X-Sonic-MF: <pheonix.sja@att.net>
-X-Sonic-ID: 0f777bca-258c-48d2-89ce-8880a6837499
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic317.consmr.mail.ne1.yahoo.com with HTTP; Fri, 16 May 2025 15:56:44 +0000
-Received: by hermes--production-bf1-689c4795f-fbg4j (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID adf240d91ca2665cd4e84e28aba5d229; 
- Fri, 16 May 2025 15:56:39 +0000 (UTC)
-Date: Fri, 16 May 2025 11:56:31 -0400
-From: Steven J Abner <pheonix.sja@att.net>
-Subject: Re: Kernels >= 6.3 disable video output
-To: Michel =?iso-8859-1?q?D=E4nzer?= <michel.daenzer@mailbox.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Alex Deucher
- <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Message-Id: <7Y2DWS.S2B813X7LPJT3@att.net>
-In-Reply-To: <G32DWS.2C801BL0Y0SE2@att.net>
-References: <6DWYVS.BXJ4YUZ0KN5B3.ref@att.net> <6DWYVS.BXJ4YUZ0KN5B3@att.net>
- <CADnq5_Pk41iOvibFSjt7+Wjj=FXWR--XMt+OCqmkWWveLfU_ig@mail.gmail.com>
- <GXXZVS.Q1GIIU1M9VBL1@att.net>
- <CADnq5_NvoPfgTxOxjBCc-iGR7k8w7oR7VKkXQtWga8VP7vBViQ@mail.gmail.com>
- <1Q10WS.BHBZBX486I3M2@att.net> <EWZ5WS.K2DTZM5DEZCL2@att.net>
- <CADnq5_PbeZCPD7WWO0i5HSVMepka7Ao6byfkx3zHkiBfg4amwg@mail.gmail.com>
- <OY8BWS.OAO65CCC74TY1@att.net>
- <CADnq5_NqAQPO1NRbzQJzR+tZnOSqrhTmZj4z-B54X-hRxo3b4w@mail.gmail.com>
- <df6872b3-1048-416b-82d7-63f732cb6b4d@amd.com>
- <ba97cecf-d820-4ae7-98ae-2cf57db228fb@mailbox.org>
- <G32DWS.2C801BL0Y0SE2@att.net>
-X-Mailer: geary/40.0
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com
+ [209.85.217.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E3C910E18A;
+ Sat, 17 May 2025 14:22:14 +0000 (UTC)
+Received: by mail-vs1-f54.google.com with SMTP id
+ ada2fe7eead31-4e1432aaa68so1167570137.1; 
+ Sat, 17 May 2025 07:22:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747491734; x=1748096534; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ebHBn70fzOohxHKMogpU/QpljeY1CIw36z0/V7swSqU=;
+ b=WeGYfjNFFAccK3G/tP9LyFVV2REd2m7qg2uy8HmVBQEbN6HDFj+4sdvVl7RDb5zVGK
+ Y4jjDAmOkRseB8sZxlsnWyQK9eqJQWgVez7BWfDbvh14WEyx5THV0BLeL7/edYLsiBBD
+ ITgFdkRELNsOHHzQn1CyTGzqotSjQHxOrlqHeMnvNtffcMw+YSrFbKnepeh9LW7Og5yG
+ etnNcD5rKQUvf7OrB01xOwJPJaGANYM3LjngRdknUGp9NXDuVTzfr/hlp2O7KMIA9xlj
+ lLb9vcscMOnRcIsVZXwgD/Q785Pia2w3xyCfyBmSF6JuBWFYBTa0w65NC6h0vOqAabPH
+ rm7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747491734; x=1748096534;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ebHBn70fzOohxHKMogpU/QpljeY1CIw36z0/V7swSqU=;
+ b=Gd291D8UCnYmS9vdi7mdasRb0rC31hgVrKnAOWTVNEAfe14j0kyW0HTMFim28fC9PY
+ N/6M3Yf+FKV2MiiJUWT8CWAE4JNcmYufEolSybM6wb3G5pYoG63EGNGcBBWDHrXBB0ko
+ a1J5DwI1LennnfRcImb2Wjo0ybxr9BeVDgTKzBT3+Nr/CE7nwbz2PjDmZLlrUvsZm2L+
+ P3mW9HgiVPvdb4+Ksu64lVUoVi7ioswu4LmuhLlHb29Yhp+j9HbM1AjqVAo0YyAWRM2b
+ lGqd1XstkzFEa1zrUB7s6kZSPFXGYoZstR+tfJA0Gyj1a2+8bTFS6qSlgrgXsz/D0SlH
+ zvzA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUgDLfNkXECGL4lddrSgOu9YLZ1Ix1roaNTnbcW+ZqnXo5kO/PCOXYR0nc6Ov9MoDVWnP1Xp4ss1iHF@lists.freedesktop.org,
+ AJvYcCXJJSzlTlUj6mmsvSmi/fCHCKa9zSjh4Z5oaBe82UbBDMEq5CB5Fexd28fiCNJnik8gHNMMdvvQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywu7vm502y6/W5T/0Sjm3ZNXUJKEMubhKJtVtkl830HAOmkQ7Qq
+ /8s4IX1noLCXhGGAssojg2rUYU28Nx8yvLeJpVCGMjb10+MXLhPT81HJ
+X-Gm-Gg: ASbGnctIlYRUNxMH1oXdqTvH8vaUye99GS/PfJy79Jk+Fy5oYXY4YpqQCGyqH0oBedT
+ 9Bb/SQQ8tuWHNvlkD5ECP3CeFSFd3OTHqYZrH312/nZPuO6XL9KKkCCqnXbxJZFEvOescLpPggW
+ rYcUgfR6EpXgark7Pa0ZnOgVR7D1qSINS7NdQCzbT87UnBf3yyaImHtjRTBUggFpus7nC0W4eyk
+ 2ozZ7Cv+iipZOyc8etXvyVJrXr7ktwfDUvstu1NjLgKb2YXHnONClLOWfXKiOqfyc+lMMv2XlcB
+ CKNZNMJQIItTEmXV2QJiG9Vr2RPB7Mxxqs9hUoim/q7Z5fmP/JUDnyLho+nkqZl5Psbp0Fwvefg
+ rSR0N3gUDupXLRwdFdLYj
+X-Google-Smtp-Source: AGHT+IHIf5S9A8MU8z6syCw5JmoYSwgXuc/5SluE36UbN0rCFyYsvEe/4oGqwjB2QwnwlNfyZlgqQQ==
+X-Received: by 2002:a05:6102:5e84:b0:4bb:e14a:9451 with SMTP id
+ ada2fe7eead31-4dfa6c7cc25mr8668858137.20.1747491733674; 
+ Sat, 17 May 2025 07:22:13 -0700 (PDT)
+Received: from xodo-linux.tailb46509.ts.net
+ ([2804:1b1:f983:1b4a:2975:d863:b306:345f])
+ by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-87bec1ef3a8sm3349819241.21.2025.05.17.07.22.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 17 May 2025 07:22:13 -0700 (PDT)
+From: Leonardo Gomes <leonardodasigomes@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: derick.william.moraes@gmail.com,
+ Leonardo Gomes <leonardodasigomes@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH 2/2 RESEND] drm/amd/display: Adjust set_value function with
+ prefix to help in ftrace
+Date: Sat, 17 May 2025 11:20:55 -0300
+Message-ID: <20250517142114.140016-2-leonardodasigomes@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250517142114.140016-1-leonardodasigomes@gmail.com>
+References: <20250517142114.140016-1-leonardodasigomes@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,12 +94,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 16 2025 at 03:38:04 PM +0000, Steven J Abner 
-<pheonix.sja@att.net> wrote:
-> A boot param like 'amd_prefcore=disable' could work
+Adjust set_value function in hw_hpd.c file to have
+prefix to help in ftrace, the name change from
+'set_value' to 'dal_hw_hpd_set_value'
 
-But kinda a band aid. What if you just download a Mainline kernel (as I 
-did to verify not a build/configure issue). Writing bug report to OS 
-provider could take a while for them to figure out what the issue is.
+Signed-off-by: Leonardo da Silva Gomes <leonardodasigomes@gmail.com>
+Co-developed-by: Derick Frias <derick.william.moraes@gmail.com>
+Signed-off-by: Derick Frias <derick.william.moraes@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
+index 886dd05b012f..01ec451004f7 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
+@@ -85,7 +85,7 @@ static enum gpio_result dal_hw_hpd_get_value(
+ 	return dal_hw_gpio_get_value(ptr, value);
+ }
+ 
+-static enum gpio_result set_config(
++static enum gpio_result dal_hw_hpd_set_config(
+ 	struct hw_gpio_pin *ptr,
+ 	const struct gpio_config_data *config_data)
+ {
+@@ -106,7 +106,7 @@ static const struct hw_gpio_pin_funcs funcs = {
+ 	.open = dal_hw_gpio_open,
+ 	.get_value = dal_hw_hpd_get_value,
+ 	.set_value = dal_hw_gpio_set_value,
+-	.set_config = set_config,
++	.set_config = dal_hw_hpd_set_config,
+ 	.change_mode = dal_hw_gpio_change_mode,
+ 	.close = dal_hw_gpio_close,
+ };
+-- 
+2.43.0
 
