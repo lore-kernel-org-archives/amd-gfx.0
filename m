@@ -4,74 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66E89C3DA6D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F39FDC2D0CD
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB5810E1EE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A57C10E34A;
 	Mon, 19 May 2025 07:15:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S+yUg2IR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NzjmN4qz";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BABDD10EB17;
- Fri, 16 May 2025 16:13:27 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-5f4d0da2d2cso4228996a12.3; 
- Fri, 16 May 2025 09:13:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747412006; x=1748016806; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=hLJmovg9plUQcWnyMDtPPXJApgKGoEewf0WKlQ2WBJ4=;
- b=S+yUg2IRCdIldUZxccDCkfEItaoLe5zPvCaYRBJvk2ycbLccW6h+mLa2AewhU0gXU9
- kpU9IMk6o517n3GVGNrUop2Nsl2a4gKadPlmJG7bL6W3uWJ0ClbN/8DHI8pYZBq4Ht+U
- csKfQM5+AxjxLw1MS8C4VuXKFxQEFgJgeKYY4gnR/Ph/jmGDB2a4bmf4XFsB5b+FwXbi
- GbJ4y2ILfb/lSr9V2Mps1neP6lwVwWNk34QVGEQCCVN64uLB4KI45bRu4ENlf0aUHshf
- TGGzwoJX6pF4UzE1ZGr7NA7u7roB9YHwTDvxIxAtxQXFw8R2Hvnw3+D+0Jb1eZYra8JM
- nW2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747412006; x=1748016806;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hLJmovg9plUQcWnyMDtPPXJApgKGoEewf0WKlQ2WBJ4=;
- b=Ll8l9oh8tRnq/PL75REbGxhFtVPVgp9yXRMqh6OgW/Jt6dVh6D61TCXnZIo9sQ/sPD
- Bs7IJv005x7l0fnoEzrXixqCRh1lx7wxqSf1HnAC2k6ri5HNz5JhmT9zfssLKGzPyrYU
- v5gKdSxHEfE+tNMpRAb2tgI+OBy4QkhO47WDVmHs+d7ebIp2iL17EtclJTnNp5pqlUaf
- FgcB6CFZvc1m/B0DVq3fZoi6YVBNrdRnO+eSgWooWBuHFn7vV097FO/p/JKvFnmd7JQq
- AYx+Z8tgNY4SRI9eKnW3a2jkLsVlcyA9AKdhZz+dSBifQKqkO2mHOzsEVr7jQzZs+Ltm
- aJRg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWwsuEYgCy7hgUIQjKgjPpojSSfA8Qm3K2rtFVpQ2zVkoPIx2N3ckXWXc1q17sx5D7C6GTUpI1M@lists.freedesktop.org,
- AJvYcCXrOBLoO2rCcQBjVkL8dYh3lDqRKKVP4Sr8XYCizB6b36DqiLONtAdR/Z/k6bzGpvnnLKqVLOBUR3/E@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0AKGNJbLlyH3mdABd2kmA7LbEFK6E1uYqt+D3HlpKYLQoLMtH
- GrLDbRjGRU6hKndFAMy6MdaoFYI7wyY9vf0yA6pxX9lhs0dEeNpHH2rF
-X-Gm-Gg: ASbGncuVhg1d/3lz9dJrAIV4tzii+pZsO42Rl4EN90PKJMYB6FZHDaEx/Bztg5glqI2
- /6i6pYC5TqQgSiaQjrdE7v17t8mbS17HRqXxfRN+xT6LB/yudpBVO9E2PXfvW6Qv4msAG2utLXb
- oWFjU3AzTeFBrPwHrsxW7bfqIpHWFIfXIk7sAZ+FE6rril7lGtNA1axyP0QJXJJSGi2q6I0yOfR
- 4+wAof/nbHJ04ywWSbfxiaoc8B/RlsgNvbPaQbUPUV2fZutjNqK3Y+RGt01xQl8kGQztKvCypjK
- PSxsscn7n+qMmCgEJnAh7DkUAgkHDfRi4FZ0pIQ=
-X-Google-Smtp-Source: AGHT+IHNN4EPAuY1cd4IMbE8HdxTl2O6RmOg1nWALDwkNAMDfdDvrOuPS2dn2gOhqkvwH1ifaGmjtA==
-X-Received: by 2002:a05:6402:5cd:b0:5f6:4a5b:9305 with SMTP id
- 4fb4d7f45d1cf-60119cd4192mr2838792a12.33.1747412005973; 
- Fri, 16 May 2025 09:13:25 -0700 (PDT)
-Received: from pc ([165.51.5.169]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6005ae3888esm1616084a12.65.2025.05.16.09.13.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 May 2025 09:13:25 -0700 (PDT)
-Date: Fri, 16 May 2025 17:13:22 +0100
-From: Salah Triki <salah.triki@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADD4210E012;
+ Sun, 18 May 2025 21:26:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1747603567; x=1779139567;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=eshD621sTSOzcT215XItxQpbF2o7T4ts7L9YisTnoWk=;
+ b=NzjmN4qzRti1tYZBHIPm0WE+Ke6petgE0pwx08iDkRUBw7quvfb6vupf
+ 0K1jAo2gikFvuBixpN3TYJByIYHIPC/fTO9A6lLOnm0AlEcaWnfC+zBx8
+ 74IjvjqpAxEihrxV4rL3R/8LgBRdapUivrlssPKb1oPCSJEfCdHHz26Vo
+ xNDsP2g8lKebedVmGueyxagd4boxJWXnlPgO/g4OY59Iumx7luWagG427
+ hWbD7eKclltsZgGU//TJGJHBqD7gEYoCief28jUJdOXnxAE5josh0FEbH
+ YoJbkk0H3CQdr8bR8OVfIMUpV8lRUV+JdzmtkIdqO36vJeClL0yFFOvb6 Q==;
+X-CSE-ConnectionGUID: 8TtQsURFTI23HK2MCtUZzw==
+X-CSE-MsgGUID: EhsMYQqqTAuaCjR3VhxFDQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11437"; a="53317166"
+X-IronPort-AV: E=Sophos;i="6.15,299,1739865600"; d="scan'208";a="53317166"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2025 14:26:06 -0700
+X-CSE-ConnectionGUID: qq9Bu7WjQdCuB3SDefeRaw==
+X-CSE-MsgGUID: S40TOqY7Rvik/sdiklA93Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,299,1739865600"; d="scan'208";a="139711497"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2025 14:26:02 -0700
+Date: Mon, 19 May 2025 00:26:00 +0300
+From: Raag Jadav <raag.jadav@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: salah.triki@gmail.com
-Subject: [PATCH] drm/amdgpu: check return value of xa_store()
-Message-ID: <aCdkIkNOQgnA5Pou@pc>
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ Xaver Hugl <xaver.hugl@gmail.com>,
+ "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v3 1/3] drm: Create an app info option for wedge events
+Message-ID: <aCpQaPzY0Vl5cl8T@black.fi.intel.com>
+References: <20250512203437.989894-1-andrealmeid@igalia.com>
+ <20250512203437.989894-2-andrealmeid@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250512203437.989894-2-andrealmeid@igalia.com>
 X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,40 +78,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-xa_store() may fail so check its return value and if error occurred free
-numa_info and return NULL.
+On Mon, May 12, 2025 at 05:34:35PM -0300, André Almeida wrote:
+> When a device get wedged, it might be caused by a guilty application.
+> For userspace, knowing which app was the cause can be useful for some
+> situations, like for implementing a policy, logs or for giving a chance
+> for the compositor to let the user know what app caused the problem.
+> This is an optional argument, when the app info is not available, the
+> PID and APP string won't appear in the event string.
+> 
+> Sometimes just the PID isn't enough giving that the app might be already
+> dead by the time userspace will try to check what was this PID's name,
+> so to make the life easier also notify what's the app's name in the user
+> event.
 
-Signed-off-by: Salah Triki <salah.triki@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+...
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 707e131f89d2..bff82ac651f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -876,7 +876,7 @@ static inline uint64_t amdgpu_acpi_get_numa_size(int nid)
- 
- static struct amdgpu_numa_info *amdgpu_acpi_get_numa_info(uint32_t pxm)
- {
--	struct amdgpu_numa_info *numa_info;
-+	struct amdgpu_numa_info *numa_info, *old;
- 	int nid;
- 
- 	numa_info = xa_load(&numa_info_xa, pxm);
-@@ -898,7 +898,11 @@ static struct amdgpu_numa_info *amdgpu_acpi_get_numa_info(uint32_t pxm)
- 		} else {
- 			numa_info->size = amdgpu_acpi_get_numa_size(nid);
- 		}
--		xa_store(&numa_info_xa, numa_info->pxm, numa_info, GFP_KERNEL);
-+		old  = xa_store(&numa_info_xa, numa_info->pxm, numa_info, GFP_KERNEL);
-+		if (xa_is_err(old)) {
-+			kfree(numa_info);
-+			return NULL;
-+		}
- 	}
- 
- 	return numa_info;
--- 
-2.43.0
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 3dc7acd56b1d..e30efa4ac330 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -542,6 +542,7 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+>   * drm_dev_wedged_event - generate a device wedged uevent
+>   * @dev: DRM device
+>   * @method: method(s) to be used for recovery
+> + * @info: optional information about the guilty app
+>   *
+>   * This generates a device wedged uevent for the DRM device specified by @dev.
+>   * Recovery @method\(s) of choice will be sent in the uevent environment as
+> @@ -554,13 +555,14 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+>   *
+>   * Returns: 0 on success, negative error code otherwise.
+>   */
+> -int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+> +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+> +			 struct drm_wedge_app_info *info)
+>  {
+>  	const char *recovery = NULL;
+>  	unsigned int len, opt;
+>  	/* Event string length up to 28+ characters with available methods */
+> -	char event_string[32];
+> -	char *envp[] = { event_string, NULL };
+> +	char event_string[32], pid_string[15] = "", comm_string[TASK_COMM_LEN] = "";
 
+Let's make these into proper defines for consistency,
+
+#define WEDGE_STR_LEN
+#define PID_LEN
+
+and drop redundant comment.
+
+> +	char *envp[] = { event_string, NULL, NULL, NULL };
+>  
+>  	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+>  
+> @@ -582,6 +584,13 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+>  	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+>  		 "but recovered through reset" : "needs recovery");
+>  
+> +	if (info) {
+> +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
+> +		snprintf(comm_string, sizeof(comm_string), "APP=%s", info->comm);
+
+Since this is a core helper, we'd want to make sure these fields are valid
+and not being abused.
+
+Also s/APP/TASK IMHO, but upto you.
+
+Raag
