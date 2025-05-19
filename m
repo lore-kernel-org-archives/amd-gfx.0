@@ -4,87 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5789C3DA6D
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 08:51:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 226E2C3ABD8
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 11:02:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA6C10E2EA;
-	Mon, 19 May 2025 08:51:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1B7910E02D;
+	Mon, 19 May 2025 11:02:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="ge9Cttgo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lD1CHCEO";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEC8B10E222
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 May 2025 08:51:33 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-3a1fb18420aso4177881f8f.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 May 2025 01:51:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1747644692; x=1748249492;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cMzb20Y8K6+m/UrYRO/jRs0gQ6tMsBz2734Y6nD7bV0=;
- b=ge9CttgoDQ3deRK05DQdZqTo03YM5rI8+KctLpNLi+nXUujE8uHLnnJKJKxnOKBs3o
- TH3Dx9yqx6rDKq9kWggZaevMKgUxj3Fo7FrUlfz9c1p5pw2Tj621UiQTjVH9e+kuHWLe
- n0EFeDdkIFv58haimr/9ivm/Uy7kSXR4qsDm6tfElaVQf12iKJMA2oY5IsAPhfkf8lZc
- Ovejn3ZEAX2nOZ1/vXSpteYtFgdAX6SlNJ26lDnslKmLnb4BdB2upPzaH2jOiKgLkhtK
- ECBYkTZFACh6a7myA5fx1Gixlbg90mZwCn7kDuyOpPMNA5T3p9Y94kW+B9siiHEPXDoV
- yeuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747644692; x=1748249492;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cMzb20Y8K6+m/UrYRO/jRs0gQ6tMsBz2734Y6nD7bV0=;
- b=iv00Wl89nKzOeaktrXBSyNisJ+9SWfgDueVnLkqGM860m35hGOf+v8rV1YZDAXu1S7
- sgZsvZ05wn9BjXxCSWLoDSWqepxEteXZeBCalzRjunvix3jiwXvfYstulPmuJedi160h
- OLgMG/EhekfWxm9PScROenMkMqzyYOX744ZKS5nSlLVa6wkviveqNQP/huopCVmzZXrj
- pYq6pJct21BswxvEvQd8/dDGPa7CDnX6eW65z14fGW2skuY5XciWsFC6/1mxvNmJCM8D
- 6PhIe/I+zhDfJe7lMU+4uSqD/8lP3PPvTS27Qe1BL1fK1TnXt80MAYyWq1VKT2hNLLwX
- bZxw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW67KkVgA9kulPv3WMgPiGFnl84Q5WuTQdVA+Hed/JqaFFvkOi9o0I2atELqI9LszkupUJuFa40@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZO0AQPtRlC5zJJcbnS+j8mZmmXf1f4eszXEmekYlmht0GdtKZ
- wpirzWUE+GdDesKrg3vMAvEKbiHqBC+tALJQ/8Jk7KPD3NocZVdRI+KqvCgncs/LPwVW1Gg2IW6
- ZVABp
-X-Gm-Gg: ASbGnctJujqGfFAQzQaZybxSjFjVgg5KPtKR2gRKfKFFLLarwlA2CHtGs2FeY3Z939B
- l3iRcSSqxTdV0LgjE74Sl0AUq+EVlrk3hNAlEDd1Rnv5qzI9QCZjLewXB9J10Ce+tHItCalqum6
- eTSMNaFLwLHmMsqCs+DuWvjRO1uxDINSnMg4YYIcmAYEM63KhSCw62iNormuz249ECqX1C6aWgN
- SaAvr0Tml8K3DmnW9H+pnm7w8FAteCX/fQRWphVlAC3LKXBfFPnE00m+rUzqo087rtDVp5DT7zD
- VmxmrTvxXDTqutqzjRWGHeRJWb6mr0oQCmTqEz/604Z2xuD+h3QFYRfP0ZD2CNhLbA==
-X-Google-Smtp-Source: AGHT+IELwRJfANJRR4EEKpN/qpDuWHqyoEpUZWNEEMYp+zTdFQTyerTcFHqUOxQhC6JH3DgQFBu9OQ==
-X-Received: by 2002:a5d:5988:0:b0:3a3:6a77:3386 with SMTP id
- ffacd0b85a97d-3a36a773752mr3882579f8f.3.1747644691545; 
- Mon, 19 May 2025 01:51:31 -0700 (PDT)
-Received: from [192.168.0.101] ([81.79.92.254])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca4d224sm12358763f8f.12.2025.05.19.01.51.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 May 2025 01:51:31 -0700 (PDT)
-Message-ID: <da8cfddf-6cb9-4ddd-9345-16d065663d4b@ursulin.net>
-Date: Mon, 19 May 2025 09:51:30 +0100
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2049.outbound.protection.outlook.com [40.107.100.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC9F110E02D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 May 2025 11:02:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sWiZHJ3WpXve25UND/b7MtgMNgAexB/YVjBPX+80+4iSr/uGgLQrB2P1HFy83GzEbYxCFLgnZ+/VnDWCN9II4pwldeVGHIP6L3ZFoobuhFb+KX/IIVF14AzmvUfMxgNs4RcKgTaGt8LTPp8ft1hzDXfbp8HVDMQOpcVicUinOxnJf517toZCxz+875XOfP2h/i0lVLYtqi+9fVGTMR8clbKpBhVqeKw9WmflPhAEtZrmhwy58DMbNFmXzGfqVZxqhHBrx6BCOS/RmpM4Cxl+3CBlDtQMWAL1J8Tls4KmwjIFlTWS5vdZIA5ta1bc7YH7VQgyVRgJvOXhSbibe/o5mQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ix/bHXWtl67Mg8BUUgrLWVEgkHWe3r6/2exrVppT+Cc=;
+ b=UcPbU4ob5FlxbiZE1KjAWat3rAAoKqjMsudP04WD1jwT8i6La0K14oHun/0ElptVttTYhr9VzO2hPzRQoZ+KUOC/rVJGq5TfeScJZzSnV6fj34jPUXUVG7astmt/JJOYvx0Ld9zCzRCwIhA5qSzIHIdYLRUlGZ6rHE3Dq1FumlpdZDBZLKn8KEmT2nyvJ32E56FwgAlX2VIWfiDwCLLx5oUs7DEZrcIDTYWsItHPs3K/iI5x6sxUbGJsP8d2WEQlCYz7phUQWapbh07Wxpuy0TGiSlbI5iIJrk6rew0ctVmosfk7BklEr3MYodMT+2c3tD2vV4VuGEUTodjW6yjYIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ix/bHXWtl67Mg8BUUgrLWVEgkHWe3r6/2exrVppT+Cc=;
+ b=lD1CHCEOjYVfGxklIBleg9jt+JLkG75Vl+SWOD3AJJyjolX0skdthcOhxTgynEXiU1MuwM+7zCtkZCKFG7pAQoyS0He0s1PY7PQRtCyp25BzFjhNBJPCgWjeDdg+qpCIuO5ldbjYrQpxko+42KQMmb5aaGZ2h7dBOBS8CT2tL9g=
+Received: from MN2PR05CA0059.namprd05.prod.outlook.com (2603:10b6:208:236::28)
+ by SA3PR12MB7879.namprd12.prod.outlook.com (2603:10b6:806:306::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Mon, 19 May
+ 2025 11:02:10 +0000
+Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
+ (2603:10b6:208:236:cafe::a9) by MN2PR05CA0059.outlook.office365.com
+ (2603:10b6:208:236::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.17 via Frontend Transport; Mon,
+ 19 May 2025 11:02:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8746.27 via Frontend Transport; Mon, 19 May 2025 11:02:10 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 19 May
+ 2025 06:02:07 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Asad.Kamal@amd.com>
+Subject: [PATCH] drm/amd/pm: Use external link order for xgmi data
+Date: Mon, 19 May 2025 16:31:51 +0530
+Message-ID: <20250519110151.507729-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <ckoenig.leichtzumerken@gmail.com>, dri-devel@lists.freedesktop.org,
- dakr@kernel.org, amd-gfx@lists.freedesktop.org
-References: <20250515150038.4615-1-christian.koenig@amd.com>
- <20250515150038.4615-2-christian.koenig@amd.com>
- <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
- <5c93f114a58e84796f239b9e0f4a13e9c223e45b.camel@mailbox.org>
- <6e5ab077-77ff-443b-b345-7d99fcd01a73@ursulin.net>
- <6a361f21-1ba2-4084-b85c-0db30c9b01cc@ursulin.net>
- <fc617b712c5937c02be89f7ba068ce0de1512027.camel@mailbox.org>
- <01cce810-7303-4c92-b138-d8a647f3dcee@ursulin.net>
- <a36fdcf31fa0ca7d9e1a24f60ba4c5bf78c7ae87.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <a36fdcf31fa0ca7d9e1a24f60ba4c5bf78c7ae87.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|SA3PR12MB7879:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cf6b7db-2776-4888-7e59-08dd96c49a2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?o+KTJB8zx2qwz9Z36VfCQiU+tcBJ6Vzcou/yfOmnPkvnMTRKOPkQrvjRDlpL?=
+ =?us-ascii?Q?47aZfwb+IE5LQmGevrOAIJw+kiBGmuXwpxsL79EuNxiTvmqkbg9YwuF72sFO?=
+ =?us-ascii?Q?+zUBrdwmlaKaSaC9yPHh9ndNOKMhwJSHTq3qNLhbSegs4xgzFT3cVUGcHB/n?=
+ =?us-ascii?Q?HLZGu5zu9+7ydSXKooEvy16g8Dz+qPQ02TDYPzGvTHL1bHTWtQffnu87kevk?=
+ =?us-ascii?Q?myFVF8Brp++gk7hKUHNLgsqnQMIz8Db3jO5fHvI/Jo9YuhZIoh/Thps4WYwp?=
+ =?us-ascii?Q?9NxBavHGj997r2qMT4dj5VYsZ399XLfJSaJ2UxBXVC4TmQeNiFXJd6IQfiOK?=
+ =?us-ascii?Q?w4VSTJem/8Fu7/nEunY3/tRWrX20GHEiPdR/s1+v3ywC0EcOyCumRPamrZ1K?=
+ =?us-ascii?Q?GChuTlXE99wU1Nzs3ABx9FdaL0Y1wT+quS6fWg6psw1J6dlOeEKhwoQslpy7?=
+ =?us-ascii?Q?s+uvoAnOHbCTiwNcJbG/OJNHohUHpTm7maSLqbkJUNm09ZZogcVePLDLkQ2W?=
+ =?us-ascii?Q?qBDsnNOsBstrTdnbn+3NJVYPBYNTv0o7I3/xMcEQT/ZkndfZ6RYyU4JmwjU8?=
+ =?us-ascii?Q?SuBCvLeuBtZc3KcD4BHXlkP0HCLnyxFoQvyIu8EFjZqWxB+jgaOCDub48Vib?=
+ =?us-ascii?Q?c49zpSU220mmgk5yHr2eZjAszXdBVMpY6o2I/QnKCc8LlMHl6PoqgBdu471I?=
+ =?us-ascii?Q?NhyjZd4ONFswMGDwxbHjS7I0aCHYjwM4xMA7NO/octs5GNEaOVNOuy3K39yq?=
+ =?us-ascii?Q?SEG8AOsTBAXwMSlGhSf3EoI/FbXmH686AOxjSOIgdCmqp0DNHLR4Psog9sMZ?=
+ =?us-ascii?Q?p0rZNHByKiInq0oyxUjrPJN7AK0YkHKHojC2uu9adn7hftCoFdc2q5KBMxke?=
+ =?us-ascii?Q?HNCp2wqX+UPnzBudlTgsYxfGIp5DPJFAImi+OIHeIw6OSU7EFU1v9owY/uem?=
+ =?us-ascii?Q?Oc+sEANWoToVNdBpWqJZuNlqiRaE3oVf6Iz+SDZlhpU4AvZyUA/ggO6twQd1?=
+ =?us-ascii?Q?usfXUhrlIRUiW0RFsG8777RP245SwuSNIYUrPizljmZNISzbGXgm0/gVkLax?=
+ =?us-ascii?Q?5NUxs6oyHxnRhMFg9q5ZdMb2AML4YvMdSR+6be/u/rqkQVR3nvOP9YuBP7Xp?=
+ =?us-ascii?Q?xFegEEcgx8d0pQZHe7NhAgjRcwdAmFaW5pHRrC2t3aAfattaxVFaZ701JC3U?=
+ =?us-ascii?Q?j+vCXuK1pMjhRnEOaBHVZSDKkSJ9RMF7cfcbKMlLhoC+t7CdRgEQc30mppCE?=
+ =?us-ascii?Q?HP9LE70v7ZdFvJn5DVJmJMH6TxBzPDSFqUyx8BFTj7aeD/zn0rYrr5xbs/gQ?=
+ =?us-ascii?Q?uJCXJdmeRNWa9f71Wkjrwsn5LeOuRix62Eynrtpok26JVsfoMXRYShIae/Xx?=
+ =?us-ascii?Q?2QTxNMBwHYCk++dd+azDd79Ox8zzbCsjRKBCYMiHzx2FCY9i8Y+oS5FliS59?=
+ =?us-ascii?Q?KLmB2eZxahObfu1D8YaDWaXNo8x/gEMjjCU/fvRGJEqntEGdmmwLJuIIcGXg?=
+ =?us-ascii?Q?RLLi0ixYWryLZxszybjJMwHVvDHIKNFhCaeX?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2025 11:02:10.0537 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cf6b7db-2776-4888-7e59-08dd96c49a2e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E65.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7879
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,323 +130,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+xgmi_port_num interface reports external link number for port number. To
+be consistent, use the external link number for reporting other XGMI
+link data also.
 
-On 16/05/2025 18:16, Philipp Stanner wrote:
-> On Fri, 2025-05-16 at 15:30 +0100, Tvrtko Ursulin wrote:
->>
->> On 16/05/2025 14:38, Philipp Stanner wrote:
->>> On Fri, 2025-05-16 at 13:10 +0100, Tvrtko Ursulin wrote:
->>>>
->>>> On 16/05/2025 12:53, Tvrtko Ursulin wrote:
->>>>>
->>>>> On 16/05/2025 08:28, Philipp Stanner wrote:
->>>>>> On Thu, 2025-05-15 at 17:17 +0100, Tvrtko Ursulin wrote:
->>>>>>>
->>>>>>> On 15/05/2025 16:00, Christian König wrote:
->>>>>>>> Sometimes drivers need to be able to submit multiple jobs
->>>>>>>> which
->>>>>>>> depend on
->>>>>>>> each other to different schedulers at the same time, but
->>>>>>>> using
->>>>>>>> drm_sched_job_add_dependency() can't fail any more after
->>>>>>>> the
->>>>>>>> first
->>>>>>>> job is
->>>>>>>> initialized.
->>>>>>>>
->>>>>>>> This function preallocate memory for dependency slots so
->>>>>>>> that
->>>>>>>> no
->>>>>>>> ENOMEM
->>>>>>>> can come later while adding dependencies.
->>>>>>>>
->>>>>>>> v2: rework implementation an documentation
->>>>>>>> v3: rework from scratch, use separate function to add
->>>>>>>> preallocated
->>>>>>>> deps
->>>>>>
->>>>>> I think we agreed to not put change logs into commit messages
->>>>>> anymore
->>>>>> :)
->>>>>>
->>>>>> They aren't useful for any reader. Who needs the changelog
->>>>>> afterwards
->>>>>> can retreive it through the mail thread link that we add.
->>>>>>
->>>>>>>>
->>>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>>>>>> ---
->>>>>>>>      drivers/gpu/drm/scheduler/sched_main.c | 45
->>>>>>>> ++++++++++++++++++++++++++
->>>>>>>>      include/drm/gpu_scheduler.h            |  4 +++
->>>>>>>>      2 files changed, 49 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> index f7118497e47a..b95e7089aa70 100644
->>>>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> @@ -858,6 +858,51 @@ void drm_sched_job_arm(struct
->>>>>>>> drm_sched_job
->>>>>>>> *job)
->>>>>>>>      }
->>>>>>>>      EXPORT_SYMBOL(drm_sched_job_arm);
->>>>>>>> +/**
->>>>>>>> + * drm_sched_job_prealloc_dependency_slot - avoid ENOMEM
->>>>>>>> on
->>>>>>>> adding
->>>>>>>> dependencies
->>>>>>>> + * @job: scheduler job where dependencies will be added
->>>>>>>> + * @id: id for the allocated slot
->>>>>>>> +  *
->>>>>>>> + * Sometimes drivers need to be able to submit multiple
->>>>>>>> jobs
->>>>>>>> which
->>>>>>>> depend on
->>>>>>>> + * each other to different schedulers at the same time,
->>>>>>>> but
->>>>>>>> using
->>>>>>>> + * drm_sched_job_add_dependency() can't fail any more
->>>>>>>> after
->>>>>>>> the
->>>>>>>> first job is
->>>>>>>> + * initialized.
->>>>>>>> + *
->>>>>>>> + * This function preallocate memory for a dependency
->>>>>>>> slot so
->>>>>>>> that
->>>>>>>> no ENOMEM can
->>>>>>>> + * come later while adding dependencies. The index of
->>>>>>>> the
->>>>>>>> preallocated slot is
->>>>>>>> + * returned in @id.
->>>>>>>> + *
->>>>>>>> + * Return:
->>>>>>>> + * 0 on success, or an error on failing to expand the
->>>>>>>> array.
->>>>>>>> + */
->>>>>>>> +int drm_sched_job_prealloc_dependency_slot(struct
->>>>>>>> drm_sched_job
->>>>>>>> *job,
->>>>>>>> +                       u32 *id)
->>>>>>>> +{
->>>>>>>> +    return xa_alloc(&job->dependencies, id, NULL,
->>>>>>>> xa_limit_32b, GFP_KERNEL);
->>>>>>>> +}
->>>>>>>> +EXPORT_SYMBOL(drm_sched_job_prealloc_dependency_slot);
->>>>>>>> +
->>>>>>>> +/**
->>>>>>>> + * drm_sched_job_add_prealloc_dep - add dependency to
->>>>>>>> preallocated
->>>>>>>> slot
->>>>>>>> + * @job: scheduler job where dependencies will be added
->>>>>>>> + * @id: the preallocated slot index
->>>>>>>> + * @fence: the dependency to add
->>>>>>>> + *
->>>>>>>> + * Consumes @fence and adds it to the preallocated slot
->>>>>>>> dependency.
->>>>>>>> + */
->>>>>>>> +void drm_sched_job_add_prealloc_dep(struct drm_sched_job
->>>>>>>> *job, u32
->>>>>>>> id,
->>>>>>>> +                    struct dma_fence *fence)
->>>>>>>> +{
->>>>>>>> +    fence = xa_store(&job->dependencies, id, fence,
->>>>>>>> GFP_ATOMIC);
->>>>>>>
->>>>>>> Add assert that the passed id exists (was preallocated) and
->>>>>>> is
->>>>>>> NULL?
->>>>>>
->>>>>> You
->>>>>
->>>>> Hm?
->>>>>
->>>>>>>
->>>>>>> Also, if someone preallocates and does not consume the slot
->>>>>>> will that
->>>>>>> confuse the iteration in drm_sched_job_dependency()?
->>>>>>
->>>>>> drm_sched_job_add_dependency() you mean.
->>>>>
->>>>> I was actually thinking of drm_sched_job_dependency() because
->>>>> that
->>>>> looked it would skip dependencies upon encountering an
->>>>> unconsumed
->>>>> preallocated slot, but yes, drm_sched_job_add_dependency()
->>>>> could
->>>>> explode
->>>>> even earlier if adding a normal dependency after preallocating
->>>>> a
->>>>> slot.
->>>>>
->>>>>> Yes, it would. All operations simply give you NULL for those
->>>>>> slots. So
->>>>>> seems to me you have to check for NULL wherever a
->>>>>> preallocated
->>>>>> slot
->>>>>> might drop out. That would then be a bug.
->>>>>>
->>>>>> It's kind of tricky, all that. It's a pity that Wilcox didn't
->>>>>> answer
->>>>>> our questions about the idiomatic way to do it.
->>>>>>
->>>>>> Maybe reserving slots with already signaled fences wasn't
->>>>>> such a
->>>>>> bad
->>>>>> idea after all?
->>>>>>
->>>>>> If we go for the NULL approach, it's probably the only sane
->>>>>> way
->>>>>> to then
->>>>>> check for NULL wherever dependencies are accessed :(
->>>>>>
->>>>>> Opinions?
->>>>>
->>>>> Well if the xarray API returns the NULL consistently the
->>>>> approach
->>>>> from
->>>>> this patch is fine I think.
->>>>>
->>>>> We just need to add two more checks to the above mentioned
->>>>> functions,
->>>>
->>>> I need to correct myself, drm_sched_job_dependency() wouldn't be
->>>> able
->>>> to
->>>> just skip NULLs since it relies on NULL for "no more
->>>> dependencies".
->>>> We
->>>> would need to track something like job->max_dependency and
->>>> terminate
->>>> on
->>>> job->last_dependency > job->max_dependency or so.
->>>
->>> Agreed, that would have to be fixed.
->>>
->>> I believe we should reconsider Christian's first idea [1].
->>>
->>> Thinking about it some more:
->>>    * With the NULL version, suddenly the xarray containing only
->>> valid
->>>      dependencies can sometimes contain NULL entries.
->>>    * If we could create our own tag, entries could be returned that
->>> were
->>>      neither NULL nor valid fences, also requiring checks
->>> 'everywhere'.
->>>    * Only the "signaled fence as prealloc reservation" approach is
->>> fully
->>>      backwards compatible and will never cause anyone to block after
->>>      later reworks.
->>>
->>> So maybe it's actually the best idea?
->>>
->>> Sorry for the zigg-zagg. No hard requirements intended from my
->>> side,
->>> I'm willing to go with what you guys think.
->>>
->>> Just saying, at least now I think that the already-signaled fence
->>> seems
->>> the most elegant solution. And since there's a function
->>> (dma_fence_get_stub()) for that, it seems to be in alignment with
->>> official dma_fence rules.
->>
->> Potential problem there was dma_fence_is_signaled() and fence
->> signaling
->> annotations. In case some driver is holding a lock over the arm+push
->> pair. I wish we had a non-signaling is_signaled helper..
->>
-> 
-> Yes! +1!
-> 
-> But Christian doesn't like that direction:
-> 
-> https://lore.kernel.org/all/20250409120640.106408-2-phasta@kernel.org/
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c        | 17 +++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h        |  1 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c   |  9 ++++++---
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c    | 13 ++++++++-----
+ 4 files changed, 32 insertions(+), 8 deletions(-)
 
-Thanks, I read this but ended up uncertain on the conclusion.
-
-For instance Christian at the end comments like this:
-
-"""
-You can test the flag if you know what the fence means to you, that is 
-not a problem at all.
-"""
-
-That was in the context of testing the signaled bit without 
-opportunistic signaling.
-
-For me, from the scheduler dependencies side, that should exactly apply. 
-Scheduler knows it does not need to add a signaled fence to the dep 
-array so AFAICS it is fine to skip it. And it may easily be 
-opportunistic signaling ends up a problem for the scheduler.
-
-So maybe such helper would be okay after all.
-
-Or if the concern is helper might encourage some potentially unsafe 
-usage, in that case it should come with kerneldoc describing. It is not 
-like review is guaranteed to catch someone using test_bit directly 
-anyway so for me, on balance, helper is always better.
-
-Regards,
-
-Tvrtko
-
-
-
-
-> 
-> P.
-> 
->>
->>
-> 
-> 
->>
->>
->> Anyway, I think both options are passable. I even like the NULL entry
->> slightly more since it is simpler in a way and I don't mind some
->> extra
->> checks completely hidden in scheduler internals.
->>
->> Regards,
->>
->> Tvrtko
->>
->>>
->>>
->>> Philipp
->>>
->>>
->>> [1]
->>> https://lore.kernel.org/all/20250318120313.19099-2-christian.koenig@amd.com
->>> /
->>>
->>>
->>>>
->>>> Regards,
->>>>
->>>> Tvrtko
->>>>
->>>>> some more unit tests probably to make sure, and that should be
->>>>> fine
->>>>> for
->>>>> now.
->>>>>
->>>>> On the bikeshedding front I would perhaps suggest:
->>>>>
->>>>>     - drm_sched_job_preallocate_dependency()
->>>>>     - drm_sched_job_replace_dependency()
->>>>>
->>>>> Reads a little bit more aligned with the rest of the API and a
->>>>> bit
->>>>> easier on the eyes, to my eyes at least.
->>>>>
->>>>> Regards,
->>>>>
->>>>> Tvrtko
->>>>>
->>>>
->>>
->>
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index f51ef4cf16e0..b3006ca7fd28 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -294,6 +294,23 @@ static const struct amdgpu_pcs_ras_field xgmi3x16_pcs_ras_fields[] = {
+ 	 SOC15_REG_FIELD(PCS_XGMI3X16_PCS_ERROR_STATUS, RxCMDPktErr)},
+ };
+ 
++int amdgpu_xgmi_get_ext_link(struct amdgpu_device *adev, int link_num)
++{
++	int link_map_6_4_x[8] = { 0, 3, 1, 2, 7, 6, 4, 5 };
++
++	switch (amdgpu_ip_version(adev, XGMI_HWIP, 0)) {
++	case IP_VERSION(6, 4, 0):
++	case IP_VERSION(6, 4, 1):
++		if (link_num < ARRAY_SIZE(link_map_6_4_x))
++			return link_map_6_4_x[link_num];
++		break;
++	default:
++		return -1;
++	}
++
++	return -1;
++}
++
+ static u32 xgmi_v6_4_get_link_status(struct amdgpu_device *adev, int global_link_num)
+ {
+ 	const u32 smn_xgmi_6_4_pcs_state_hist1[2] = { 0x11a00070, 0x11b00070 };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+index 32dabba4062f..f994be985f42 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+@@ -125,6 +125,7 @@ int amdgpu_xgmi_request_nps_change(struct amdgpu_device *adev,
+ 				   int req_nps_mode);
+ int amdgpu_get_xgmi_link_status(struct amdgpu_device *adev,
+ 				int global_link_num);
++int amdgpu_xgmi_get_ext_link(struct amdgpu_device *adev, int link_num);
+ 
+ void amdgpu_xgmi_early_init(struct amdgpu_device *adev);
+ uint32_t amdgpu_xgmi_get_max_bandwidth(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index ac172b21f803..69f92bd35bf2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -472,13 +472,16 @@ ssize_t smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table)
+ 	gpu_metrics->mem_activity_acc = SMUQ10_ROUND(metrics->DramBandwidthUtilizationAcc);
+ 
+ 	for (i = 0; i < NUM_XGMI_LINKS; i++) {
+-		gpu_metrics->xgmi_read_data_acc[i] =
++		j = amdgpu_xgmi_get_ext_link(adev, i);
++		if (j < 0 || j >= NUM_XGMI_LINKS)
++			continue;
++		gpu_metrics->xgmi_read_data_acc[j] =
+ 			SMUQ10_ROUND(metrics->XgmiReadDataSizeAcc[i]);
+-		gpu_metrics->xgmi_write_data_acc[i] =
++		gpu_metrics->xgmi_write_data_acc[j] =
+ 			SMUQ10_ROUND(metrics->XgmiWriteDataSizeAcc[i]);
+ 		ret = amdgpu_get_xgmi_link_status(adev, i);
+ 		if (ret >= 0)
+-			gpu_metrics->xgmi_link_status[i] = ret;
++			gpu_metrics->xgmi_link_status[j] = ret;
+ 	}
+ 
+ 	gpu_metrics->num_partition = adev->xcp_mgr->num_xcps;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 645c2bff3e5f..179b1b16edd1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -2819,13 +2819,16 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 		SMUQ10_ROUND(GET_METRIC_FIELD(DramBandwidthUtilizationAcc, version));
+ 
+ 	for (i = 0; i < NUM_XGMI_LINKS; i++) {
+-		gpu_metrics->xgmi_read_data_acc[i] =
+-			SMUQ10_ROUND(GET_METRIC_FIELD(XgmiReadDataSizeAcc, version)[i]);
+-		gpu_metrics->xgmi_write_data_acc[i] =
+-			SMUQ10_ROUND(GET_METRIC_FIELD(XgmiWriteDataSizeAcc, version)[i]);
++		j = amdgpu_xgmi_get_ext_link(adev, i);
++		if (j < 0 || j >= NUM_XGMI_LINKS)
++			continue;
++		gpu_metrics->xgmi_read_data_acc[j] = SMUQ10_ROUND(
++			GET_METRIC_FIELD(XgmiReadDataSizeAcc, version)[i]);
++		gpu_metrics->xgmi_write_data_acc[j] = SMUQ10_ROUND(
++			GET_METRIC_FIELD(XgmiWriteDataSizeAcc, version)[i]);
+ 		ret = amdgpu_get_xgmi_link_status(adev, i);
+ 		if (ret >= 0)
+-			gpu_metrics->xgmi_link_status[i] = ret;
++			gpu_metrics->xgmi_link_status[j] = ret;
+ 	}
+ 
+ 	gpu_metrics->num_partition = adev->xcp_mgr->num_xcps;
+-- 
+2.25.1
 
