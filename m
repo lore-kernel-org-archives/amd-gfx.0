@@ -4,73 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BAFBC2D0CD
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 14:59:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26A0FC3ABDD
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 16:37:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBAA510E3FD;
-	Mon, 19 May 2025 14:59:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2A7E10E26F;
+	Mon, 19 May 2025 16:37:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QmVbca2U";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="q+MBIw7c";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4CF510E452;
- Mon, 19 May 2025 14:59:37 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-231bfc4600bso4807405ad.1; 
- Mon, 19 May 2025 07:59:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747666777; x=1748271577; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PJbKnQ6THaOIWWHkWKM4XnXv59kQm5WmU7EOv3ddOfo=;
- b=QmVbca2U1FBRmoqC5cfR6Sz5uUookQrWZmo64vyDiMsQ6/8cnvnSpyzcXYCybA/zBW
- 3L79HC0zBb1LGihK4XWFtDUVUY4kpusyJuHVC1QAuWfsf8fQp+kPEnQ0FwBWeFsUO7DE
- Hn9DzWQ4ub7OK3eroQ2xoQDuYT9aKMTZjLHJq/zDrKK6FP7viI5/oePF/gHFwA9QOFs6
- GkJSbpRfH+6m1VwwAhzJSfihnuzkdOeBSQ1xXfa2/RJojQc2weKQzxlEvxKG5tKKtleQ
- ZoYo4whHaB0i71JLKXa6BZKL1nNP+Hcr4UEKt9ROq8sTCAApVbiiRub+s6iCz9fvaGMK
- +sew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747666777; x=1748271577;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PJbKnQ6THaOIWWHkWKM4XnXv59kQm5WmU7EOv3ddOfo=;
- b=XLrOAgtpVpRxvqLpJyMCnP/shNphLDGeKoA3sq+1O2Fytq3KxZuT9ilvGLWWauMLuB
- HBLcEDJZtvdKxv6RyIN3LsGz2/EyB3+6uPxf059Nfb/qrlXOVHVkawk8f26V0nsp+nY4
- tNJzW5Wfni+eVT9F5wUkI93NzNIPcrYCxhwTip0VK/ruRkoI5JewlCk1LjgKqCofn4/o
- P/XPN0Dd+pviDoHc8+6qGErvUcMe8665dv1gYbKd6clIHTI2EJxQ38xpKJVugbWW8DPf
- +9Rqm7nFjp2/WoCTXJZTaeJ/mSMqdVfIwtOBUg0KfHeluGoHHPukehRKiOWA74oqwdWg
- 2Hzw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXRzOcmE23X5YPsgE1fY4YXRUhhk2e83r9FljnC+I55VeaVYeU/AagW7uX8KShBHFpDNCwyDgeW@lists.freedesktop.org,
- AJvYcCXcgk8aUMuZmKdikMBgcn89dqklC8A56uB5QQh87ZfZJquqCgcA/ejxvP+3v9yaAJiYyK1CNchJnhjB@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz64fq2urET7XXHcogK+1wrRGBcfHRz8nTA+eHhsvZFF54i9zUu
- 8ZQbVwLPxf4lCRrf64dpEzpTuODZo14pNNFfl7ZVxLw2ZaAzON+or+oLhj7/cVzGauc5Z8qguns
- gKCimtr95S3R3u9SbGM7P+VLMJVAgE0I=
-X-Gm-Gg: ASbGnctkySpZyl4KNsYvopMxRlgbIjkCVGuU4QXyTXRQKhSKDP0C+TeXQbtrwFj08T8
- 39KGDO7NjXC1vazjdfxg4d5QfkJ79Pscvd4FYmQd7ilg4BvkjBc8Ct7TwPLvwmvLcZ6Md0fnsVq
- qlFbBcauNqMepwaOuahU2Bea2lK7yxJFKIBA==
-X-Google-Smtp-Source: AGHT+IHLS/MC9ULQUfEueaLkKs2Re4yb5qkf2UfVq+r3wklL/AUqeNW5UH4uETMeYpvy3Y7FlPakYzri3fcicI5uAZA=
-X-Received: by 2002:a17:902:cf07:b0:220:e1e6:446e with SMTP id
- d9443c01a7336-231d437f0damr66974215ad.1.1747666777173; Mon, 19 May 2025
- 07:59:37 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B477B10E27E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 May 2025 16:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=QQ1OLJUPbUxvtca6p2kb3gxPzoDW1sxKDaujl6uqOn8=; b=q+MBIw7cg+ZE5sVfrV8G98u4+w
+ 0z3Vhw5ydp7iynvps40HVC4ltrRBPSOClVaCXxGRRxsfhJ5TAuhYcMuyb0ozFHtc9GutzOnDtl6DT
+ 8ynBDmBJ/WN3W8490X5FkS/C9rYZbA6tjdeGoGCK20JID1SspsMOqpk6zErG5eH81EpNVCio1/HFA
+ uj2s7QZN+by9P7uLHoKywPbeX3rLT7N5pR6N9UC0DDLJXfKMcRMewje6ViWjJvlLlJ/z3Qml0hU1u
+ ahH3LLeS8h8cpRdziNIuD76YMl/t0/Pa6/Icv54oWSyjZrfXpQ+Xej86Xpvh+45Jcy98+gEHJxEpu
+ HZQLb0+w==;
+Received: from [81.79.92.254] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uH3UQ-00AKJ2-UI; Mon, 19 May 2025 18:37:23 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [RFC 1/3] drm/amdgpu: Make amdgpu_ctx_mgr_entity_fini static
+Date: Mon, 19 May 2025 17:37:11 +0100
+Message-ID: <20250519163713.11367-2-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250519163713.11367-1-tvrtko.ursulin@igalia.com>
+References: <20250519163713.11367-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-References: <20250517030935.823041-1-jihed.chaibi.dev@gmail.com>
-In-Reply-To: <20250517030935.823041-1-jihed.chaibi.dev@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 19 May 2025 10:59:25 -0400
-X-Gm-Features: AX0GCFsSRi45LP3otZw9uo5k9qEKoUzLkQAZiNfSWJQGWEj7HNf0_zawacqQN8Y
-Message-ID: <CADnq5_PSfZ+jMMAXb427TF1Z0qQBq_kgZVo+3qfrXkFxJTSzRQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] fixing typo in function name
-To: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,58 +60,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, May 17, 2025 at 8:38=E2=80=AFAM Jihed Chaibi <jihed.chaibi.dev@gmai=
-l.com> wrote:
->
-> "ENABLE" is currently misspelled in SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS
->
-> Signed-off-by: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
+Function amdgpu_ctx_mgr_entity_fini() only has a single local caller so
+lets make it local.
 
-Applied.  Thanks!
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index c43d1b6e5d66..4ff8552e872d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -919,7 +919,7 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+ 	return timeout;
+ }
+ 
+-void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
++static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+ {
+ 	struct amdgpu_ctx *ctx;
+ 	struct idr *idp;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 85376baaa92f..090dfe86f75b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -92,7 +92,6 @@ int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
+ 
+ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
+ 			 struct amdgpu_device *adev);
+-void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr);
+ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout);
+ void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr);
+ void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
+-- 
+2.48.0
 
-> ---
->  drivers/gpu/drm/radeon/atombios.h | 2 +-
->  drivers/gpu/drm/radeon/kv_dpm.c   | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/atombios.h b/drivers/gpu/drm/radeon/a=
-tombios.h
-> index 2db407892..b961096a4 100644
-> --- a/drivers/gpu/drm/radeon/atombios.h
-> +++ b/drivers/gpu/drm/radeon/atombios.h
-> @@ -5072,7 +5072,7 @@ typedef struct _ATOM_INTEGRATED_SYSTEM_INFO_V1_7
->  #define SYS_INFO_GPUCAPS__TMDSHDMI_COHERENT_SINGLEPLL_MODE              =
-  0x01
->  #define SYS_INFO_GPUCAPS__DP_SINGLEPLL_MODE                             =
-  0x02
->  #define SYS_INFO_GPUCAPS__DISABLE_AUX_MODE_DETECT                       =
-  0x08
-> -#define SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS                             =
-  0x10
-> +#define SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS                             =
-  0x10
->
->  /***********************************************************************=
-***********************************************
->    ATOM_INTEGRATED_SYSTEM_INFO_V1_7 Description
-> diff --git a/drivers/gpu/drm/radeon/kv_dpm.c b/drivers/gpu/drm/radeon/kv_=
-dpm.c
-> index 55dbf450b..4aa050385 100644
-> --- a/drivers/gpu/drm/radeon/kv_dpm.c
-> +++ b/drivers/gpu/drm/radeon/kv_dpm.c
-> @@ -2329,7 +2329,7 @@ static int kv_parse_sys_info_table(struct radeon_de=
-vice *rdev)
->                                 le32_to_cpu(igp_info->info_8.ulNbpStateNC=
-lkFreq[i]);
->                 }
->                 if (le32_to_cpu(igp_info->info_8.ulGPUCapInfo) &
-> -                   SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS)
-> +                   SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS)
->                         pi->caps_enable_dfs_bypass =3D true;
->
->                 sumo_construct_sclk_voltage_mapping_table(rdev,
-> --
-> 2.39.5
->
