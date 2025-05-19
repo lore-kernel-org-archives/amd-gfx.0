@@ -4,67 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C78D3C54756
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 07:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7430C2D0CD
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 08:21:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7ECC10E35B;
-	Mon, 19 May 2025 07:15:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8419110E20B;
+	Mon, 19 May 2025 08:21:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=froggi.es header.i=misyl@froggi.es header.b="hEOLal4y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KFytf+yJ";
 	dkim-atps=neutral
-X-Greylist: delayed 904 seconds by postgrey-1.36 at gabe;
- Sat, 17 May 2025 17:53:00 UTC
-Received: from sender4-op-o10.zoho.com (sender4-op-o10.zoho.com
- [136.143.188.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A01E810E053;
- Sat, 17 May 2025 17:53:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1747503466; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Nffj33e2YL/ILQZ6iPnLPHW3UV/iGjVUFzIQe6lF5W0NyX7vHDVmDet9/ScN8GEdZ77GFjz3PXrnUbB+kPpFK4U8Y9rgLvNW8s1xMaJFZqAijNo9jo0OWiSoY8tJda3IVbqx5hzOtmn1EuTOAX22DTKr2xDolg50ipBSQcKKxGE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1747503466;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ezkHkwC9s2Z5d6+xKnDQMCu1S8rNkHLf2BEhK46Pwz4=; 
- b=PAHtiedLZA19uRxcuZzlYuY7TvocziaIzhUxqrVbwnNQ+UrHILZZwwk+5Glumu0DIC8/C2h+BsF3srduhaSuAJc0rW6zVkJD1YcVaEkOo2/OqU8ET9kp6ScCs+kLC5h79YguCZ11eANvLk+tl2qj7XFj31HLw+HpyWVyKAbfl7Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=froggi.es;
- spf=pass  smtp.mailfrom=misyl@froggi.es;
- dmarc=pass header.from=<misyl@froggi.es>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747503466; 
- s=mail; d=froggi.es; i=misyl@froggi.es;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=ezkHkwC9s2Z5d6+xKnDQMCu1S8rNkHLf2BEhK46Pwz4=;
- b=hEOLal4yOQqptZ8nbj5icqqzcpfs8yV3uUTQ+665tCVRHo7XojnKBwgNRJMnUYDL
- /irSOgIGlldfnrwDPTKVS2A3r9BWaphNVisWB/Mect8I11xcix8AeHlWm2JfJjVqNu2
- 68ccCjdvhABIRgDKNRgNuiuAmfLBWfVjObiy2GKA=
-Received: by mx.zohomail.com with SMTPS id 1747503462353236.58079519107616;
- Sat, 17 May 2025 10:37:42 -0700 (PDT)
-Message-ID: <c562cd90-fdc4-409d-830c-855f88dbf5d5@froggi.es>
-Date: Sat, 17 May 2025 18:36:28 +0100
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2087.outbound.protection.outlook.com [40.107.243.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB7210E20B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 May 2025 08:21:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L9YQ5o6wgEVDNrIirCQnxVSwTx22M77Q7XGpTFSXU8pBbuGcAqRCIofep5celCZToXHIkCPD2ypACWxYFVR8Us13RTo0UFyyE8Qvew0Nw2fEiriY40wrcRSpSHbxrEJv3vryUlzdqCrlirpUKAaQVPZ44sc71woDE1ZISVPue+ahAv6BcAwQX5plpVF7IliqdcPzwaAvRIe7516AwmHJk5VtrhfuEI90PEy8AJl18ptfwDQYnfKpoGaN8jrgD7J52EPXHeMKrc4Tatdt2USGOphcP5G0e7XCf3xl0HH+DZi7NlAyBOF0QSHf7QPRaypMwCaj12GNlX2wNtplvcLIsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GbHhMCok6IhRhElJPRC80AOWmz0umJcdN6VOr4SEhX8=;
+ b=RZw1NWxV/Iw17/g77S0Yf4Yi4B7TLfRXscsS0jpEP6zuw/RYJ5M2dYnho5E6NUR7Vh+YSemENkWDaT1NFLMnCsL/LMeDTHmBDSJtuePNkD3R+p2azK9bRXo2FsDYIdpuh7Pa7tAH3Ruuy3LRIgursVEqJHXfM5IuCKWBy89jOnhvoUq8qY+wvCUnYMvijm6qJGKByoKQg539GkteA6T/i7EBrLZ2oyxBeMmyVROI9unEXauxO72Bod1OSmCH/zIW+CofFFftV36scRtZlR2BfU1fYcWMqElAecdhd/0AURDlmtHXccwMf3QSUzyoWtjFASHpec8BLWBftVQdEWIu0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GbHhMCok6IhRhElJPRC80AOWmz0umJcdN6VOr4SEhX8=;
+ b=KFytf+yJmGlJ74w/Yde9YUKwK3cRqh/okAxwHkvPPQJViJKCS97cb1XOgPp4FdaNhU4kd6MH+FuA7qUFSRAvfYH2rNMKFlqutFUhJ87z+XXVbLMbWqXV5ksWxEQdW+ZFNa/EpQFRv7GsB+qt/4tgfF31pHTd0/MzE3HCs5G4QhY=
+Received: from SJ0PR03CA0067.namprd03.prod.outlook.com (2603:10b6:a03:331::12)
+ by SN7PR12MB8791.namprd12.prod.outlook.com (2603:10b6:806:32a::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.33; Mon, 19 May
+ 2025 08:21:29 +0000
+Received: from SJ5PEPF000001CB.namprd05.prod.outlook.com
+ (2603:10b6:a03:331:cafe::5f) by SJ0PR03CA0067.outlook.office365.com
+ (2603:10b6:a03:331::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.29 via Frontend Transport; Mon,
+ 19 May 2025 08:21:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001CB.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Mon, 19 May 2025 08:21:28 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 19 May
+ 2025 03:21:27 -0500
+Received: from hjbog-srdc-17.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 19 May 2025 03:21:25 -0500
+From: Samuel Zhang <guoqing.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <victor.zhao@amd.com>, <haijun.chang@amd.com>, <guoqing.zhang@amd.com>,
+ <Christian.Koenig@amd.com>, <Alexander.Deucher@amd.com>,
+ <Owen.Zhang2@amd.com>, <Qing.Ma@amd.com>, <Lijo.Lazar@amd.com>
+Subject: [PATCH v6 0/4] enable xgmi node migration support for hibernate on
+ SRIOV.
+Date: Mon, 19 May 2025 16:20:34 +0800
+Message-ID: <20250519082038.21459-1-guoqing.zhang@amd.com>
+X-Mailer: git-send-email 2.43.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V8 40/43] drm/colorop: Add 3D LUT support to color pipeline
-To: Xaver Hugl <xaver.hugl@gmail.com>, Alex Hung <alex.hung@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, mdaenzer@redhat.com, aleixpol@kde.org,
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-41-alex.hung@amd.com>
- <CAFZQkGwrP39REsvZwQ_Uaq+cHR_pH2EPuv_POXRO7Hxj9u4Xsw@mail.gmail.com>
-Content-Language: en-US
-From: Autumn Ashton <misyl@froggi.es>
-In-Reply-To: <CAFZQkGwrP39REsvZwQ_Uaq+cHR_pH2EPuv_POXRO7Hxj9u4Xsw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Mon, 19 May 2025 07:15:16 +0000
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: guoqing.zhang@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CB:EE_|SN7PR12MB8791:EE_
+X-MS-Office365-Filtering-Correlation-Id: f84d6866-9f1a-415d-e1bc-08dd96ae2760
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?HWav+wYUwfM5SgLs5GeBew7Vm2mjOPcnTqiC/nmVgzBu+Irr2v+RUHhd4B6i?=
+ =?us-ascii?Q?VHkuHyS0M26AsXADmy12mCouFVNcgbuMsjSnYLVIMoqwHIMVcsEwL3DUIViJ?=
+ =?us-ascii?Q?O9Py3C17Lj+GuXtMT2nmULnBMwPyavyztT8Ht1/o8KZZHzeobWq3H4hkCyBf?=
+ =?us-ascii?Q?ymh/ncbdssXZ3fcv301X6nfTfL3jYatTXiabVOwO+lJuFogZlmIZdf8YDc7r?=
+ =?us-ascii?Q?KD13VEqjTn/joJZEtClrcOyFrS6bM4Wi8sEbvSrbzmiZ+4+4UP2k33QEPdQi?=
+ =?us-ascii?Q?fUIEaUhD98jeLWaLDQhhSn0ntJTd/f5aZD6qZX0AqhcZMqnV9mkp14GYlC57?=
+ =?us-ascii?Q?nngKgVOZR2WNdn4cfzQnGVUIcXOObjRmD/gZ286nXq2Fn4X/dnBjoytJQoys?=
+ =?us-ascii?Q?X+7Zp8gayga30RNnjd9sp14w3apfZuUSNSvMT60/pw6HPvDtGDatRn1g8veU?=
+ =?us-ascii?Q?X/8xPdMZIlzHQdKKTKyLJfbEFcyij/JEbGhHBnLqjqS6/K3VLIn7oHi2qI5k?=
+ =?us-ascii?Q?RTIpU14k+/kjcVsV4E8Zu0aD4xC09+Nwst66VYok3c3IwlM2qknAIZUUoIE4?=
+ =?us-ascii?Q?IzyF4UCUoCXPY2MyYFBuEX1Q2h38ECG2/QaBwnbWfI/M3T94G7OW5aTtMDzH?=
+ =?us-ascii?Q?v2TlPPad/ifE3QHulJHrQ9Jf9G4NcR1mlfW2KTiYnPkwPmxWDB4K+kWdrGLP?=
+ =?us-ascii?Q?Ui7t3qr40XV2oHt/FLyXFzwM9JgZOJmD/jI+qBymgrPVzBuBY6erRn5ypH87?=
+ =?us-ascii?Q?EIgaGEuEt+fVPftpeHmNHKUtQ1bdGVinHSYjx3Xuisin3a/xczu0o8rTRAjq?=
+ =?us-ascii?Q?fHFJUr+YGKiRco9E46HFfNNKddXl97fUEL/X07OjUixn5Aa/FI9Wbwrxqz/p?=
+ =?us-ascii?Q?ETpydZr3vn6cHSa4oGcxa25TOQTSx32rEIgDhIVXZzUEJORZuXKIj8M5J10m?=
+ =?us-ascii?Q?g+/yDLafphIFa57cX1rSLZSls5Lgn2qk38TsUndJ9DsWbLzDfiwot9dKGcJh?=
+ =?us-ascii?Q?lZsYdYbvgjdyobqdvSZYsEXAM6696tnc5I+cEUjiJqf0N13PiXxzywrSPgtE?=
+ =?us-ascii?Q?pVaw7UlWS/LtAESK0BhS7DhIcfHnxEhLOkryy7FbLutRzFn97ZDQKDz+UISN?=
+ =?us-ascii?Q?wAUz9S0M7EW2Za1a4uV+AbXoRO8IVdfq1N96GIIrQgcJGZ4NCR1kD0hP6yzh?=
+ =?us-ascii?Q?FEo0B8kRhAHgCW7y3Lz5Uk439QDBBdbUurgiBfi7HpI5RjAVSrTpavFsr+1N?=
+ =?us-ascii?Q?0zAGGjGE3Qkr4SwVQ6q/gLhvenG2cx79+AqaD9wpcUfeTgS/t6UxwgQQLY6W?=
+ =?us-ascii?Q?Gc06v5a4wR7Q0VpOH7XIOm9QY/z8WmCreB24MFJ7WXH8e+BowJUxO2HbN24M?=
+ =?us-ascii?Q?taxtJWhftjou5+7eLblHBTpQFXmeYmB/A21gC7eGPw9iGGjLsmCxVgvX1D6j?=
+ =?us-ascii?Q?MpEGTpwEEz8PKOG7mqcdDSgQFeMu5YtegbiAEdeUaN3hkIl0MMbMV0QTCg6b?=
+ =?us-ascii?Q?7RGZ0IDzCix6e6qDdCsybGU+TnTIHqDIb3+X?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2025 08:21:28.4347 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f84d6866-9f1a-415d-e1bc-08dd96ae2760
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8791
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,151 +135,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On SRIOV and VM environment, customer may need to switch to new vGPU indexes after hibernate and then resume the VM. For GPUs with XGMI, `vram_start` will change in this case, the FB aperture gpu address of VRAM BOs will also change.
+These gpu addresses need to be updated when resume. But these addresses are all over the KMD codebase, updating each of them is error-prone and not acceptable.
 
-On 5/17/25 2:22 AM, Xaver Hugl wrote:
-> Am Do., 27. März 2025 um 00:58 Uhr schrieb Alex Hung <alex.hung@amd.com>:
->> It is to be used to enable HDR by allowing userpace to create and pass
->> 3D LUTs to kernel and hardware.
->>
->> new drm_colorop_type: DRM_COLOROP_3D_LUT.
->>
->> Signed-off-by: Alex Hung <alex.hung@amd.com>
->> ---
->> v8:
->>   - Fix typo in subject (Simon Ser)
->>   - Update documentation for DRM_COLOROP_3D_LUT (Simon Ser)
->>   - Delete empty lines (Simon Ser)
->>
->> v7:
->>   - Simplify 3D LUT by removing lut_3d_modes and related functions (Simon Ser)
->>
->>   drivers/gpu/drm/drm_atomic.c      |  6 +++
->>   drivers/gpu/drm/drm_atomic_uapi.c |  6 +++
->>   drivers/gpu/drm/drm_colorop.c     | 72 +++++++++++++++++++++++++++++++
->>   include/drm/drm_colorop.h         | 21 +++++++++
->>   include/uapi/drm/drm_mode.h       | 33 ++++++++++++++
->>   5 files changed, 138 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
->> index 0efb0ead204a..ef47a06344f3 100644
->> --- a/drivers/gpu/drm/drm_atomic.c
->> +++ b/drivers/gpu/drm/drm_atomic.c
->> @@ -806,6 +806,12 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
->>          case DRM_COLOROP_MULTIPLIER:
->>                  drm_printf(p, "\tmultiplier=%llu\n", state->multiplier);
->>                  break;
->> +       case DRM_COLOROP_3D_LUT:
->> +               drm_printf(p, "\tsize=%d\n", colorop->lut_size);
->> +               drm_printf(p, "\tinterpolation=%s\n",
->> +                          drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolation));
->> +               drm_printf(p, "\tdata blob id=%d\n", state->data ? state->data->base.id : 0);
->> +               break;
->>          default:
->>                  break;
->>          }
->> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
->> index 947c18e8bf9b..d5d464b4d0f6 100644
->> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->> @@ -719,6 +719,10 @@ static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
->>          case DRM_COLOROP_CTM_3X4:
->>                  size = sizeof(struct drm_color_ctm_3x4);
->>                  break;
->> +       case DRM_COLOROP_3D_LUT:
->> +               size = colorop->lut_size * colorop->lut_size * colorop->lut_size *
->> +                      sizeof(struct drm_color_lut);
->> +               break;
->>          default:
->>                  /* should never get here */
->>                  return -EINVAL;
->> @@ -771,6 +775,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
->>                  *val = state->multiplier;
->>          } else if (property == colorop->lut_size_property) {
->>                  *val = colorop->lut_size;
->> +       } else if (property == colorop->lut3d_interpolation_property) {
->> +               *val = colorop->lut3d_interpolation;
->>          } else if (property == colorop->data_property) {
->>                  *val = (state->data) ? state->data->base.id : 0;
->>          } else {
->> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
->> index e03706e7179b..224c6be237d2 100644
->> --- a/drivers/gpu/drm/drm_colorop.c
->> +++ b/drivers/gpu/drm/drm_colorop.c
->> @@ -67,6 +67,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
->>          { DRM_COLOROP_1D_LUT, "1D LUT" },
->>          { DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
->>          { DRM_COLOROP_MULTIPLIER, "Multiplier"},
->> +       { DRM_COLOROP_3D_LUT, "3D LUT"},
->>   };
->>
->>   static const char * const colorop_curve_1d_type_names[] = {
->> @@ -82,6 +83,11 @@ static const struct drm_prop_enum_list drm_colorop_lut1d_interpolation_list[] =
->>          { DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR, "Linear" },
->>   };
->>
->> +
->> +static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] = {
->> +       { DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
->> +};
->> +
->>   /* Init Helpers */
->>
->>   static int drm_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
->> @@ -349,6 +355,51 @@ int drm_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
->>   }
->>   EXPORT_SYMBOL(drm_colorop_mult_init);
->>
->> +int drm_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *colorop,
->> +                          struct drm_plane *plane,
->> +                          uint32_t lut_size,
->> +                          enum drm_colorop_lut3d_interpolation_type interpolation,
->> +                          bool allow_bypass)
->> +{
->> +       struct drm_property *prop;
->> +       int ret;
->> +
->> +       ret = drm_colorop_init(dev, colorop, plane, DRM_COLOROP_3D_LUT, allow_bypass);
->> +       if (ret)
->> +               return ret;
->> +
->> +       /* LUT size */
->> +       prop = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE  | DRM_MODE_PROP_ATOMIC,
->> +                                        "SIZE", 0, UINT_MAX);
->> +       if (!prop)
->> +               return -ENOMEM;
->> +
->> +       colorop->lut_size_property = prop;
->> +       drm_object_attach_property(&colorop->base, colorop->lut_size_property, lut_size);
->> +       colorop->lut_size = lut_size;
->> +
->> +       /* interpolation */
->> +       prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE, "LUT3D_INTERPOLATION",
-> Do we ever expect this to be something with multiple options that
-> userspace could select? I think it would be good to keep our options
-> open and make this property not immutable (properties that are
-> sometimes but not always immutable are more annoying to deal with in
-> userspace).
+The solution is to use pdb0 page table to cover both vram and gart memory and use pdb0 virtual gpu address instead. When gpu indexes change, the virtual gpu address won't change.
 
+For psp and smu, pdb0's gpu address does not work, so the original FB aperture gpu address is used instead. They need to be updated when resume with changed vGPUs.
 
-I don't think so, AFAIK on AMD there is only tetrahedral.
+v2:
+- remove physical_node_id_changed
+- set vram_start to 0 to switch cached gpu addr to gart aperture
+- cleanup pdb0 patch
+v3:
+- remove gmc_v9_0_init_sw_mem_ranges() call
+- remove vram_offset memeber
+- add 4 refactoring patch to remove cached gpu addr
+- cleanup pdb0 patch
+v4:
+- remove gmc_v9_0_mc_init() call and `refresh` update.
+- do not set `fb_start` in mmhub_v1_8_get_fb_location() when pdb0 enabled.
+v5:
+- add amdgpu_virt_xgmi_migrate_enabled() check
+- move vram_base_offset update to pdb0 patch
+- remove 4 refactoring patches to remove cached gpu addr
+- add patch to fix IH not working issue when resume with new VF
+v6:
+- rename amdgpu_device_update_xgmi_info() to amdgpu_virt_resume()
+- merge xgmi node and vram_base_offset update, IH fix into amdgpu_virt_resume()
+- remove 2 unnecessary gpu addr update changes
 
-Other vendors might have that as configurable, but I imagine that's why 
-this is immutable in this instance.
+Samuel Zhang (4):
+  drm/amdgpu: update xgmi info and vram_base_offset on resume
+  drm/amdgpu: update GPU addresses for SMU and PSP
+  drm/amdgpu: enable pdb0 for hibernation on SRIOV
+  drm/amdgpu: fix fence fallback timer expired error
 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 35 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    | 32 +++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 20 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 23 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c  |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  7 +++++
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 10 ++++---
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c    |  6 ++--
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  | 18 +++++++++++
+ 14 files changed, 146 insertions(+), 15 deletions(-)
 
-Whether or not the interpolation mode is tetrahedral or linear would 
-probably affect whether I would use the HW block.
-
-Small (eg. 9x9x9 or 17x17x17) 3D LUTs interpolated as linear cannot 
-apply identity 3D LUTs as identity.
-
-This is why we do manual tetrahedral sampling in Gamescope in our shader 
-path too...
-
-
-- Autumn ✨
-
-
->
-> Same applies to 1D LUTs as well.
+-- 
+2.43.5
 
