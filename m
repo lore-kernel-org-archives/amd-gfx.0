@@ -4,50 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8FC9C3ABDD
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 16:53:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE137C3ABDD
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 18:22:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AEAC10E439;
-	Mon, 19 May 2025 16:53:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74D8910E3BE;
+	Mon, 19 May 2025 18:22:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="YX5NqJwO";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="eFY4E8Qf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fci2iFY+";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45B2910E44C;
- Mon, 19 May 2025 16:53:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1747673494;
- bh=rFGYO5VlgvAFnqh4hYCkTRF
- lXY7iXBH3Jn+O+PlF9/s=; b=YX5NqJwOm/Ig9+N7uduUg6uOtSB5XLPgCfMi3rWYqVPj1LN2XC
- Yv9A1v3N74h6vVPjfsLQwZEsdZlFEF3a7Lykuc04oVvB/3x9Q3O8u83dWbsB252J/LUF5+TQZzE
- /x6dnsRcw0uqMAjbHYfoWTulqku6gO7vdWAc4FJjl8oSH0tmJMKEuyBDIs9g7w3cZebGoj2A0Tc
- DGgv81w6RNacM6j+lpQOTJSIDL3cBTd5aUQfLNS5EKlAAtssGkmIkKurugzFAw7zjfS1cT1pqR+
- 1agSy6lFXyocE6LJ6kctJ3U8CoZ4VhrHs97yl4cPE+nptlI/vQ3/VteaVOhIetFba1w==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1747673494; bh=rFGYO5VlgvAFnqh4hYCkTRF
- lXY7iXBH3Jn+O+PlF9/s=; b=eFY4E8QfnYvBQ3Y1a17b06IN78TymdBRLpLQ8Yp97lx1RisKe2
- U5Hcf51KMTdFjiZgeMtet3RLHMIQD6AgYaAg==;
-Message-ID: <c004f585-389b-4630-827d-e76f52a3d55e@damsy.net>
-Date: Mon, 19 May 2025 18:51:33 +0200
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 944E310E39F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 May 2025 18:22:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jGtkOkST3OCrS0VL8aqHX1l9ouHX+yAEpMH5IkuxRxocRaEE3Y9ASMrKFTJwgOozl0nvR8ISFT5cWrS8+sN5Hi7JVDCSzospyNoUscdoMOXgvkOaFTAhPqJla9dmwWmqFKJE7bEQgE3nGk2VaFHMjSJSPijB1c7gF5Qf4gAkCckOV1pyLwbDp/iehWVvoOtp2+pscvA7yZ7kBXVXEIC+6JyDLTop55YTvuCnXVLzoScN7RkA/YNUKrdP3KwTP8Dv1BSSMOvuWSiJmRoDwMF8GRGjGKpmKDJDnH+2saEwOqYAAH8tenIcEDbRJJNQAZOYHOD2jToms2yEgCW6IukPfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tgCMljaTY7QXqp0u+QjcSlDpAH9+YBq3YFr1UQo14uA=;
+ b=m/lwF87v+JgZzg+KQPXNR4JZ1MlgtTI+vx2waxXx01Vv19ykbjGJ2D0Iphx6FboSusUKMXRtZwB0HAinZ237VaN47ojVrLgdZ0Z8iCpeTKF2c0AI0vWeAu/mtlrAd/Lc7+Yzwo6qDdNqxVO4aI/RzP2zMTCSKSDJEK+BSsf9DnMIOHI7v5MrmDjnGEbCqayBCnxJd5N9P+Q44/vnK6lqv9xIOThx/tBNKxfYWvyiLD585CPLaHX2+cV13tNFsvGaNWvPPbYywXfJMj0AFb16HEMAPquJDCbwUH7vdmMo52byx3npuvZgxXKOgHqlkirXL3tZ9ODM3PjpDKe/DDcLeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tgCMljaTY7QXqp0u+QjcSlDpAH9+YBq3YFr1UQo14uA=;
+ b=fci2iFY+EMAkgLFI7QyvRE3gVYrY0zSiEZZCEF2RoDW/vgeaUeSQOseHwb5K0daHdvtkS2s4eY4QNu4BgzQM0Tq4ZqmPlSAhpbF2bBtpGnyj0MFVEFp+a+iTbf93Gbfz4uw4wsrXKmxtM6NFaI/HjzMas5E9lt4hLnX+M4+dwfY=
+Received: from MW4PR03CA0325.namprd03.prod.outlook.com (2603:10b6:303:dd::30)
+ by CYYPR12MB8921.namprd12.prod.outlook.com (2603:10b6:930:c7::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Mon, 19 May
+ 2025 18:22:23 +0000
+Received: from SJ5PEPF00000209.namprd05.prod.outlook.com
+ (2603:10b6:303:dd:cafe::f9) by MW4PR03CA0325.outlook.office365.com
+ (2603:10b6:303:dd::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.26 via Frontend Transport; Mon,
+ 19 May 2025 18:22:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF00000209.mail.protection.outlook.com (10.167.244.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Mon, 19 May 2025 18:22:23 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 19 May
+ 2025 13:22:22 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 1/8] Revert "drm/amd/amdgpu: add pipe1 hardware support"
+Date: Mon, 19 May 2025 14:22:02 -0400
+Message-ID: <20250519182209.18273-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v4 00/16] Fair DRM scheduler
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Leo Liu <Leo.Liu@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-References: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <20250425102034.85133-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000209:EE_|CYYPR12MB8921:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4974ee83-95e0-4577-606d-08dd970219ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gcUhbNQgZA3pqL6GQ7ebmk3MdbPD4BALbq4v2FmzrizhC5PBvkNfeKX4pSFW?=
+ =?us-ascii?Q?5aBcrAr0RMmirlFOu90ZFRdEP3T72W91alGRt0hLG9zsjaqQ6Opgb9DE4lY/?=
+ =?us-ascii?Q?/8mjseEHt7oPgTw+c2dqdrtA9xZPHgU2ukNAfj5X23uKr7lgW0wx+IGaDdm5?=
+ =?us-ascii?Q?3rfweXVDmhGY5DSZpp6uVy10UzyAP30YGGm5yzgmQJGFIuiQBOCrd28s4/w+?=
+ =?us-ascii?Q?pM794V/7eylscFOpiQtfKEMP+iv3x5locv+3zj5QGPaO1ikh7pO7Gq5YXHkW?=
+ =?us-ascii?Q?70tUcYcnGPipPQao5szoSi/XaIZWUs7D5hslwuwvW6AhQ/k+K7x+9guscC72?=
+ =?us-ascii?Q?NJrev5ZYsqGvjN5tbrSrzcQfnWKA0lmaj+qwTtUIoZU85hTJdwA3ZZT7OVKs?=
+ =?us-ascii?Q?9ct0X5sES1b4+u1eG7idFKqobpk/rtHibULoiM7NCnbM80JVTBXfRS+9yOv6?=
+ =?us-ascii?Q?5Qtqh/L7V7RWc5o3uVRi5yP576OCAh9/M7k9n7xEBBd+sn0HeJYwpMh5ftes?=
+ =?us-ascii?Q?NMzgcdN4+4ABzZSvROTBfu24uk9dTFb0ViVUHzhEU4Cgl9GqgO4FwlFmWzJG?=
+ =?us-ascii?Q?+8StWAqojMcLL8ttgrm4zAkOuEWf374Z5hS7nNa0Ktx40Fn6VanI3AQM8o0x?=
+ =?us-ascii?Q?wNcPJjlCeE8veJ/zZOTgMFpY9M2EJrSNfIErE37V51r9Xh+DpBCQjC5N0ude?=
+ =?us-ascii?Q?lh5nDJ/9KC2qGv/If/4CGyA/WfvxsmWHlqUfZyY91es78laqfWbprqXxLThx?=
+ =?us-ascii?Q?Ax0Uf6BJsYNJ12GSHm0041wVJ/P2SozPBkUYPZd0LHNgZrr9YzvyPPe4psli?=
+ =?us-ascii?Q?WfWH4s6M6VAZ4znSHPsj9EXXajOAnaix9tzqxWLvd37VpzRA+6z8VRDQCgCE?=
+ =?us-ascii?Q?BKI3VyqQxeXNk6bFz+bArdb1twuQZn7wElrGKlblwg+vvFAdJupaMWpx8TV9?=
+ =?us-ascii?Q?8kRAApLJYqz862l8g62kL34XXRD1dkE4t2S1/zzEJZYsPdpP1zRf1+c3yYQq?=
+ =?us-ascii?Q?OQHQH7mUJM8Z2cYE08/logVqc+7AMyZObdeM+ngMRhyogOdO7Kbq6qd8PJgW?=
+ =?us-ascii?Q?xLGKBPR6sstVZXrp9muwXaO7kKAPPZ+cO6vgBiXbpULWgfm3ac6HZLetd3yK?=
+ =?us-ascii?Q?yBNiHHjFMt1znqL+3xNzbwLTZ27OFCCcZpgxf53dZVCp7fBVtZu1r46Xl42C?=
+ =?us-ascii?Q?eP/HZ3RERSOFFDekJFqisPBET+lNJZFmJzpMphs/6HemRosWGHRjSryZnX9v?=
+ =?us-ascii?Q?xSDjcVavAr0bqPHo6Uf03B5K2p1WuZhORVKKf4oa4oOSDgYSR6L351+UPOVT?=
+ =?us-ascii?Q?r6yJxAEsEfNuhrjarH0vYV3sLRZ5X1gMxHk6u7fyNd28niFmDukD1gNwuhjV?=
+ =?us-ascii?Q?mjYaZhzWjrLVX2IRxJJLUaCr4sgFtwFzzo3VDFFuSYodjR3AQ1hFTEbV7hN1?=
+ =?us-ascii?Q?onos1xPdvUpaFiTFmcQmCTUOm3wyZrEHfmDltiNPY48+nwmhJ2cqzw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2025 18:22:23.1560 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4974ee83-95e0-4577-606d-08dd970219ae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000209.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8921
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,236 +129,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+This reverts commit b7a1a0ef12b81957584fef7b61e2d5ec049c7209.
 
-Le 25/04/2025 à 12:20, Tvrtko Ursulin a écrit :
-> V4 is quite different from v3 in that I have replaced the deadline + queue-depth
-> approach with a fair GPU time based approach. This is because Pierre-Eric found
-> a viewperf workload which showed queue-depth based approach regressing and
-> without it there was a regression on one of my synthetic workloads I was not
-> happy with.
+A user reported stuttering under heavy gfx load with this commit.
+I suspect it's due to the fact that the gfx contexts are shared
+between the pipes so if there is alot of load on one pipe, we could
+end up stalling waiting for a context.
 
-I've did some testing with this version and the regression I had is gone.
+On top of that, disabling the second pipe may fix the reliability
+of vmid resets.
 
-This branch performs better than drm-next and a bit worse than my own hacky implementation of a CFS 
-scheduler.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3519
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-For context my test case is: running glxgears and a GPU-heavy Viewperf test, and then monitoring the 
-FPS of glxgears. The closest to 60 Hz glxgears runs, the better because it means the scheduler 
-successfully ran glxgears jobs between the multiple jobs that build a single Viewperf frame.
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 75ea071744eb5..14cbd1f08eb5c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4781,7 +4781,7 @@ static int gfx_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(10, 3, 3):
+ 	case IP_VERSION(10, 3, 7):
+ 		adev->gfx.me.num_me = 1;
+-		adev->gfx.me.num_pipe_per_me = 2;
++		adev->gfx.me.num_pipe_per_me = 1;
+ 		adev->gfx.me.num_queue_per_pipe = 2;
+ 		adev->gfx.mec.num_mec = 2;
+ 		adev->gfx.mec.num_pipe_per_mec = 4;
+-- 
+2.49.0
 
-> 
-> In my experiments the fair scheduler looks solid so lets see how it fares after
-> wider testing.
-> 
-> On the high level main advantages of the series are:
-> 
->   1. Scheduling quality - schedules better than FIFO.
->   2. Code simplification - no more multiple run queues.
-> 
-> First patches add some unit tests which allow for easy evaluation of scheduling
-> behaviour against different client submission patterns. From there onwards it is
-> hopefully a natural progression of cleanups, enablers, adding the fair policy,
-> and finally removing FIFO and RR and simplifying the code base due not more need
-> for multiple run queues.
-> 
-> As a headline result I have tested three simultaneous clients on the Steam Deck:
-> 
-> One instance of a deferredmultisampling Vulkan demo running with low priority,
-> one normal priority instance of the same demo, and the Unigine Heaven benchmark.
-> 
-> With the FIFO scheduler we can see that the low priority client is completely
-> starved and the GPU time distribution between the other two clients is uneven:
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/fifo-starvation.png
-> 
-> Switching to the fair scheduler, GPU time distribution is almost equal and the
-> low priority client does get a small share of the GPU:
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/fair-no-starvation.png
-> 
-> Moving onto the synthetic submission patterns, they are about two simultaneous
-> clients which broadly cover the following categories:
-> 
->   * Deep queue clients
->   * Hogs versus interactive
->   * Priority handling
-> 
-> Lets look at the results:
-> 
-> 1. Two normal priority deep queue clients.
-> 
-> These ones submit one second worth of 8ms jobs. As fast as they can, no
-> dependencies etc. There is no difference in runtime between FIFO and fair but
-> the latter allows both clients to progress with work more evenly:
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/normal-normal.png
-> 
-> (X axis is time, Y is submitted queue-depth, hence lowering of qd corresponds
->    with work progress for both clients, tested with both schedulers separately.)
-> 
-> 2. Same two clients but one is now low priority.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/normal-low.png
-> 
-> Normal priority client is a solid line, low priority dotted. We can see how FIFO
-> completely starves the low priority client until the normal priority is fully
-> done. Only then the low priority client gets any GPU time.
-> 
-> In constrast, fair scheduler allows some GPU time to the low priority client.
-> 
-> 3. Same clients but now high versus normal priority.
-> 
-> Similar behaviour as in the previous one with normal a bit less de-prioritised
-> relative to high, than low was against normal.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/high-normal.png
-> 
-> 4. Heavy load vs interactive client.
-> 
-> Heavy client emits a 75% GPU load in the format of 3x 2.5ms jobs followed by a
-> 2.5ms wait. Interactive client emits a 10% GPU load in the format of 1x 1ms job
-> followed by a 9ms wait.
-> 
-> This simulates an interactive graphical client used on top of a relatively heavy
-> background load but no GPU oversubscription.
-> 
-> Graphs show the interactive client only and from now on, instead of looking at
-> the client's queue depth, we look at its "fps".
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/heavy-interactive.png
-> 
-> We can see that fair scheduler allows a higher fps for the interactive client
-> which is good.
-> 
-> 5. An even heavier load vs interactive client.
-> 
-> This one is oversubscribing the GPU by submitting 4x 50ms jobs and waiting for
-> only one microsecond before repeating the cycle. Interactive client is thje same
-> 10% as above.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/veryheavy-interactive.png
-> 
-> Here the difference is even more dramatic with fair scheduler enabling ~3x the
-> framerate for the interactive client.
-> 
-> 6. Low priority GPU hog versus heavy-interactive.
-> 
-> Low priority client: 3x 2.5ms jobs client followed by a 0.5ms wait.
-> Interactive client: 1x 0.5ms job followed by a 10ms wait.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/lowhog-interactive.png
-> 
-> Slight win for the fair scheduler but could be just noise.
-> 
-> 7. Last set of test scenarios will have three subgroups.
-> 
-> In all cases we have two interactive (synchronous, single job at a time) clients
-> with a 50% "duty cycle" GPU time usage.
-> 
-> Client 1: 1.5ms job + 1.5ms wait (aka short bursty)
-> Client 2: 2.5ms job + 2.5ms wait (aka long bursty)
-> 
-> a) Both normal priority.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/5050-short.png
-> https://people.igalia.com/tursulin/drm-sched-fair/5050-long.png
-> 
-> Both schedulers favour the higher frequency duty cycle with fair giving it a
-> little bit more which should be good for interactivity.
-> 
-> b) Normal vs low priority.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/5050-normal-low-normal.png
-> https://people.igalia.com/tursulin/drm-sched-fair/5050-normal-low-low.png
-> 
-> Fair scheduler gives a bit more GPU time to the normal priority client which is
-> again good.
-> 
-> c) High vs normal priority.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/5050-high-normal-high.png
-> https://people.igalia.com/tursulin/drm-sched-fair/5050-high-normal-normal.png
-> 
-> Again, fair scheduler gives a bit more share to the higher priority client.
-> 
-> On the overall fair looks like a potential improvement in terms of fairness,
-> especially avoiding priority starvation. There do not appear to be any
-> regressions with the tested workloads.
-> 
-> As before, I am looking for feedback, ideas for what kind of submission
-> scenarios to test. Testers on different GPUs would be very welcome too.
-
-There's room for improvement (eg: I believe the scheduler would benefit from having a logic to 
-postpone the entity selection when it detects that one app will oversubscribe the GPU), but
-overall if no regressions are found I think this series is already a solid first step.
-
-Thanks,
-Pierre-Eric
-
-> 
-> And I should probably test round-robin at some point, to see if we are maybe
-> okay to drop unconditionally, it or further work improving fair would be needed
-> if some use cases rely on round-robin.
-> 
-> v2:
->   * Fixed many rebase errors.
->   * Added some new patches.
->   * Dropped single shot dependecy handling.
-> 
-> v3:
->   * Added scheduling quality unit tests.
->   * Refined a tiny bit by adding some fairness.
->   * Dropped a few patches for now.
-> 
-> v4:
->   * Replaced deadline with fair!
->   * Refined scheduling quality unit tests.
->   * Pulled one cleanup patch earlier.
->   * Fixed "drm/sched: Avoid double re-lock on the job free path".
-> 
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> CC: Leo Liu <Leo.Liu@amd.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Cc: Michel Dänzer <michel.daenzer@mailbox.org>
-> 
-> Tvrtko Ursulin (16):
->    drm/sched: Add some scheduling quality unit tests
->    drm/sched: Add some more scheduling quality unit tests
->    drm/sched: De-clutter drm_sched_init
->    drm/sched: Avoid double re-lock on the job free path
->    drm/sched: Consolidate drm_sched_job_timedout
->    drm/sched: Consolidate drm_sched_rq_select_entity_rr
->    drm/sched: Implement RR via FIFO
->    drm/sched: Consolidate entity run queue management
->    drm/sched: Move run queue related code into a separate file
->    drm/sched: Free all finished jobs at once
->    drm/sched: Account entity GPU time
->    drm/sched: Remove idle entity from tree
->    drm/sched: Add fair scheduling policy
->    drm/sched: Remove FIFO and RR and simplify to a single run queue
->    drm/sched: Queue all free credits in one worker invocation
->    drm/sched: Embed run queue singleton into the scheduler
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
->   drivers/gpu/drm/scheduler/Makefile            |   2 +-
->   drivers/gpu/drm/scheduler/sched_entity.c      | 121 +--
->   drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
->   drivers/gpu/drm/scheduler/sched_internal.h    | 114 ++-
->   drivers/gpu/drm/scheduler/sched_main.c        | 570 +++---------
->   drivers/gpu/drm/scheduler/sched_rq.c          | 214 +++++
->   drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
->   .../gpu/drm/scheduler/tests/tests_scheduler.c | 815 ++++++++++++++++++
->   include/drm/gpu_scheduler.h                   |  23 +-
->   15 files changed, 1348 insertions(+), 578 deletions(-)
->   create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
->   create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-> 
