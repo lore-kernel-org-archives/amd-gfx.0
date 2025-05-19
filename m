@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9A9AC2D0CD
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 14:46:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9043DC2D0CD
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 May 2025 14:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AED710E12A;
-	Mon, 19 May 2025 14:46:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7EA510E3BC;
+	Mon, 19 May 2025 14:58:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KopvAeDb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MgIj2IpP";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0325310E12A;
- Mon, 19 May 2025 14:46:41 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-23179999d4aso4606025ad.1; 
- Mon, 19 May 2025 07:46:41 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2AA610E3AC;
+ Mon, 19 May 2025 14:58:11 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-22e19c71070so7547275ad.3; 
+ Mon, 19 May 2025 07:58:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747666001; x=1748270801; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747666691; x=1748271491; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kADBuowxof65udqYDbFHGBx7vhRtqalFqgiYXXItF9w=;
- b=KopvAeDbn9LiaxKfN30xtrDelgcuMrnjjM8WI/+moxlNcLq2J5M6kArHXgc1R+GzKx
- /IgxepTE/wGoZ+V4qriULOCTFOv79nUGak43H3BlnJaJK8pD36XG2IvqIdaRrIsmi9om
- YnowMo+3O/dbGd1IvS+PF/8UI5TlOvJKklpfuKLMjuyrGCnGWnVT2Wh32ujOYyhK/sQh
- kK01HpSknq74B75UaxKCj2TX7TFt7vjFT4d1q06DoKx1qnsxY3qtiO917h61/jBUzAlH
- OxE4f+YFcl/ftD+CeeDJ/fut0WEuKdFUck8B9X5HvAI6JyMgYc6gmpgBXf241uRoOX3T
- fvBg==
+ bh=z5gdvpRaAaLM19UVx/GrdVW5vV6MuRm9rJTVLs3u7oM=;
+ b=MgIj2IpPNrGzne3IWc12R2CT58GTVSB4BIOd6N5e6x+Sf5WpayaQtvLNCiMUGG0O5U
+ zBkDHxUexj3be0DkT8OGLei7cDAnJOuPN4idlFp3NkTcDuNNWJ9cbFj77Tco4i42CE7i
+ ODB1SFnksk2qbKznAoU/3fpH2vvJO2Y2vUc6JiaIoqGvVbPmnezw1V0E54EGQ+hgL/Tm
+ h4lP8L/ACLVowg6v07+pbu7fzy+y3fOKDnO4ggU3CL+R7rIdcKmoyofFJQjjblyT3eC/
+ 9lMCC52uz37mC9ei4U1bHABl3NqJ2oVOYKisiDo4aCW4spy41T8p2LQznrRYHOwZbrwL
+ mV6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747666001; x=1748270801;
+ d=1e100.net; s=20230601; t=1747666691; x=1748271491;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kADBuowxof65udqYDbFHGBx7vhRtqalFqgiYXXItF9w=;
- b=KTpHVRfJxe5c2BjB/aqGvBEVcWyEbGfrWrgOUqorFLz2iZJxfWFYW77Gdxexk2+YNw
- r9cx9QaqlRtGZpeHBoFjCkbqVjprCWaGhNUizcjx8O1vCMG21aoCjWgFspSk8Chv0B0s
- 6qJA9TUVqaYIkLamnJZ9d2LT92Yl5xl7OYJNtmHpta+aCJjzWQd+NpvYoJjXkgff7Bhq
- 5JQP0ellq1Eq7xVZ2RT5JMF0jwiHizQTaTpIjTelT/mjHjq6ERCBM62KuZ5LK9C+L4ZX
- o3MsBCO6SieSp/V8r5xiCf9lJbAFp0pPeVVtv95A55cxV34e9nbQhJ7sl4CTAE6AkKzC
- iyQw==
+ bh=z5gdvpRaAaLM19UVx/GrdVW5vV6MuRm9rJTVLs3u7oM=;
+ b=AQTpsE1uI2KL+RhBAgX38kGtkrgVZpryl8PJ8jhuDmGHYrEzZw/9Rnp1MjY5GF7OQg
+ 7cznVe13sdezmzb5aCg7sDjglzAWEw67DXiP6XsonolszylMDgoe55+B8aZhtmEUpKVx
+ k0/9HEo2cVRA1C3jp28U662mDFaGEUzE/AXT2nbFYhZFKgDZd0BmDaXKDSApf5ygbNEa
+ r6LF6kFcJ7FS+iES2DE/v5994/L2yEA3EFSChXgWq9YfMIfR3lchmNVoxecwXCT/8izR
+ /K7KMJfbU7xO+kJUZkHhKggKBanIsa1t111wXU3zqPVWn1+jTL3VPshaNei2Ng2kWZBs
+ 0hSg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVT6lAbN3gcnmf6PNyOfExKeSBP9aYtFdtXVxS9GtAbel8m4Opejm0/8C5ViEHYVfT1Gek9hLgt@lists.freedesktop.org,
- AJvYcCXgM261ACWTfFVw34px9tdXxpoX+wSHLZ1m+F2v95GyVtb12t/6aTZ5DC67mMEFpQSdkQdjHulVYbfo@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwahQhGTESM5x+zik6pNn9AHwZ+xKWTT6YL9kYMhkFZU83zzi8I
- XuVnSGCZ5H+gNcpLhH5UY6pg1/PhpmHckijkb3VEstM/E7/s7JwtNF8mqwjmFCxb5R9cKn7+1Bq
- 3Oq6LU1FW1QEbeWRUZkQABg0iBMOoIks=
-X-Gm-Gg: ASbGncuwn8mB999MjmjdoNBlBTwGWwFMVpf71s0Nb8cRKFWGA+m3GlgEW0sl6c8btEV
- qrBAKNjhn2HyoM0VvVehFfcIR3WUYLxgYP+pjF/UJf15YpcOQen9nqAJr9nWtB2J+HeQBwv5Tn+
- IhSdLm3lSU4c6xFfk5pD33KdNEJCLBEuGKpA==
-X-Google-Smtp-Source: AGHT+IGxUyLpuIzuYI9yQN7+ja/Sm14SmFPcRyk8rO/gYDn+dKFkO1xwmMC+JwJVaVoj6ptwii1tfKmvJd5SMChDWjw=
-X-Received: by 2002:a17:902:d54c:b0:224:10a2:cad1 with SMTP id
- d9443c01a7336-231d45168bcmr73303035ad.10.1747666000574; Mon, 19 May 2025
- 07:46:40 -0700 (PDT)
+ AJvYcCUkwE9y5LQD5rUe7RnClF6B22Ep0jDg+kAq9y9kTPOLb/ThS6l3ZjrA1mHc8MJTYFIhQZ9uUR9xUjdk@lists.freedesktop.org,
+ AJvYcCXaBhvgMGpoU5EbknyD1yN4UEahsY+AFMNP0C32IIOQUbZ9Tn4/TTCyGkuWZOcyp9mkm0Gyh5XY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy4JN1a5XdTOwyR5K/ig2RLnFH/OobZtxTkdqn/Pad8mqMO5ry4
+ BUN4kooaXGZtJoRXQRYuTlxCr91Wi5aIJyfEzmsl2OTkpU1njtovCnAifTPoAXhtYI+T2tqE2dt
+ mk5HPn4t2EsP7uvoO4TDvjaxl4//XWSBS1A==
+X-Gm-Gg: ASbGncuUqWhF0q2sCyi+jJChXgT/UwnWJPfPVPNvK8k9GcCR4pwYoVFPN661Y1sG0XP
+ iIPTOx4I1d2WSrC2xbT6z2mxj2tVH8eqlYvtP0z7XwLSVHCOAlAqtYW8AEG3627/rFGXIje+Qsk
+ Q+LUOSH7cLpVeh917/fDOKNqG1ECBWGSatxraCC4ZWeeB0
+X-Google-Smtp-Source: AGHT+IFS6lS24Joef5xwSP/U3viHYHqlSjU3heJ3YK/ZdGumYT2oGf+W1cgyzoDIT8SU1Nt1vS15n5viC2uvxxX0zH4=
+X-Received: by 2002:a17:903:2285:b0:223:49ce:67a2 with SMTP id
+ d9443c01a7336-231d4502e3bmr65053865ad.9.1747666690994; Mon, 19 May 2025
+ 07:58:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250516233516.29480-1-daniilryabov4@gmail.com>
-In-Reply-To: <20250516233516.29480-1-daniilryabov4@gmail.com>
+References: <20250517030609.818725-1-jihed.chaibi.dev@gmail.com>
+In-Reply-To: <20250517030609.818725-1-jihed.chaibi.dev@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 19 May 2025 10:46:29 -0400
-X-Gm-Features: AX0GCFsQQ8F-uOPfM0f66pMmiUGhGWImNrxgkYRyjyQpnzmvoHwfqxmPEhSQLO8
-Message-ID: <CADnq5_MObnUtQ+VC+qc1fmdKZ8=XVWRRm5rS88-BmpYTtLZfOg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix typo in comments
-To: Daniil Ryabov <daniilryabov4@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
+Date: Mon, 19 May 2025 10:57:59 -0400
+X-Gm-Features: AX0GCFvc-a8H_zK_oq_ihi9yggKR3zIAwzCZb1xZzKZDlyUyHmFEizJ6vo0AuvE
+Message-ID: <CADnq5_P1jJQGuJkcx-f-SiVWTJk=6Bd3b54djy-Tfb8tCkRO0A@mail.gmail.com>
+Subject: Re: [PATCH 1/2] fixing typo in macro name
+To: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, skhan@linuxfoundation.org, 
+ linux-kernel-mentees@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,88 +87,120 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Sat, May 17, 2025 at 8:38=E2=80=AFAM Daniil Ryabov <daniilryabov4@gmail.=
-com> wrote:
+On Sat, May 17, 2025 at 7:43=E2=80=AFAM Jihed Chaibi <jihed.chaibi.dev@gmai=
+l.com> wrote:
 >
-> Fix double 'u' in 'frequuency'
+> "ENABLE" is currently misspelled in SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS
 >
-> Signed-off-by: Daniil Ryabov <daniilryabov4@gmail.com>
+> PS: checkpatch.pl is complaining about the presence of a space at the
+> start of drivers/gpu/drm/amd/include/atomfirmware.h line: 1716
+> This is propably because this file uses (two) spaces and not tabs.
+>
+> Signed-off-by: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h | 2 +-
+>  drivers/gpu/drm/amd/include/atombios.h                      | 4 ++--
+>  drivers/gpu/drm/amd/include/atomfirmware.h                  | 2 +-
+>  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c                  | 2 +-
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c         | 2 +-
+>  5 files changed, 6 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c b/drivers/=
-gpu/drm/amd/display/dc/basics/dce_calcs.c
-> index 681799468..d897f8a30 100644
-> --- a/drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c
-> +++ b/drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c
-> @@ -1393,7 +1393,7 @@ static void calculate_bandwidth(
->                                                 if ((bw_mtn(data->dram_sp=
-eed_change_margin, bw_int_to_fixed(0)) && bw_ltn(data->dram_speed_change_ma=
-rgin, bw_int_to_fixed(9999)))) {
->                                                         /*determine the m=
-inimum dram clock change margin for each set of clock frequencies*/
->                                                         data->min_dram_sp=
-eed_change_margin[i][j] =3D bw_min2(data->min_dram_speed_change_margin[i][j=
-], data->dram_speed_change_margin);
-> -                                                       /*compute the max=
-imum clock frequuency required for the dram clock change at each set of clo=
-ck frequencies*/
-> +                                                       /*compute the max=
-imum clock frequency required for the dram clock change at each set of cloc=
-k frequencies*/
->                                                         data->dispclk_req=
-uired_for_dram_speed_change_pipe[i][j] =3D bw_max2(bw_div(bw_div(bw_mul(dat=
-a->src_pixels_for_first_output_pixel[k], dceip->display_pipe_throughput_fac=
-tor), dceip->lb_write_pixels_per_dispclk), (bw_sub(bw_sub(bw_sub(data->maxi=
-mum_latency_hiding_with_cursor[k], vbios->nbp_state_change_latency), data->=
-dmif_burst_time[i][j]), data->dram_speed_change_line_source_transfer_time[k=
-][i][j]))), bw_div(bw_div(bw_mul(data->src_pixels_for_last_output_pixel[k],=
- dceip->display_pipe_throughput_factor), dceip->lb_write_pixels_per_dispclk=
-), (bw_add(bw_sub(bw_sub(bw_sub(data->maximum_latency_hiding_with_cursor[k]=
-, vbios->nbp_state_change_latency), data->dmif_burst_time[i][j]), data->dra=
-m_speed_change_line_source_transfer_time[k][i][j]), data->active_time[k])))=
-);
->                                                         if ((bw_ltn(data-=
->dispclk_required_for_dram_speed_change_pipe[i][j], vbios->high_voltage_max=
-_dispclk))) {
->                                                                 data->dis=
-play_pstate_change_enable[k] =3D 1;
-> @@ -1407,7 +1407,7 @@ static void calculate_bandwidth(
->                                                 if ((bw_mtn(data->dram_sp=
-eed_change_margin, bw_int_to_fixed(0)) && bw_ltn(data->dram_speed_change_ma=
-rgin, bw_int_to_fixed(9999)))) {
->                                                         /*determine the m=
-inimum dram clock change margin for each display pipe*/
->                                                         data->min_dram_sp=
-eed_change_margin[i][j] =3D bw_min2(data->min_dram_speed_change_margin[i][j=
-], data->dram_speed_change_margin);
-> -                                                       /*compute the max=
-imum clock frequuency required for the dram clock change at each set of clo=
-ck frequencies*/
-> +                                                       /*compute the max=
-imum clock frequency required for the dram clock change at each set of cloc=
-k frequencies*/
->                                                         data->dispclk_req=
-uired_for_dram_speed_change_pipe[i][j] =3D bw_max2(bw_div(bw_div(bw_mul(dat=
-a->src_pixels_for_first_output_pixel[k], dceip->display_pipe_throughput_fac=
-tor), dceip->lb_write_pixels_per_dispclk), (bw_sub(bw_sub(bw_sub(bw_sub(dat=
-a->maximum_latency_hiding_with_cursor[k], vbios->nbp_state_change_latency),=
- data->dmif_burst_time[i][j]), data->dram_speed_change_line_source_transfer=
-_time[k][i][j]), data->mcifwr_burst_time[i][j]))), bw_div(bw_div(bw_mul(dat=
-a->src_pixels_for_last_output_pixel[k], dceip->display_pipe_throughput_fact=
-or), dceip->lb_write_pixels_per_dispclk), (bw_add(bw_sub(bw_sub(bw_sub(bw_s=
-ub(data->maximum_latency_hiding_with_cursor[k], vbios->nbp_state_change_lat=
-ency), data->dmif_burst_time[i][j]), data->dram_speed_change_line_source_tr=
-ansfer_time[k][i][j]), data->mcifwr_burst_time[i][j]), data->active_time[k]=
-))));
->                                                         if ((bw_ltn(data-=
->dispclk_required_for_dram_speed_change_pipe[i][j], vbios->high_voltage_max=
-_dispclk))) {
->                                                                 data->dis=
-play_pstate_change_enable[k] =3D 1;
+> diff --git a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h =
+b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
+> index 813463ffe..cc4670316 100644
+> --- a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
+> +++ b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
+> @@ -424,7 +424,7 @@ struct integrated_info {
+>  /*
+>   * DFS-bypass flag
+>   */
+> -/* Copy of SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS from atombios.h */
+> +/* Copy of SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS from atombios.h */
+>  enum {
+>         DFS_BYPASS_ENABLE =3D 0x10
+>  };
+> diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd=
+/include/atombios.h
+> index b78360a71..a99923b4e 100644
+> --- a/drivers/gpu/drm/amd/include/atombios.h
+> +++ b/drivers/gpu/drm/amd/include/atombios.h
+> @@ -6017,7 +6017,7 @@ typedef struct _ATOM_INTEGRATED_SYSTEM_INFO_V1_7
+>  #define SYS_INFO_GPUCAPS__TMDSHDMI_COHERENT_SINGLEPLL_MODE              =
+  0x01
+>  #define SYS_INFO_GPUCAPS__DP_SINGLEPLL_MODE                             =
+  0x02
+>  #define SYS_INFO_GPUCAPS__DISABLE_AUX_MODE_DETECT                       =
+  0x08
+> -#define SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS                             =
+  0x10
+> +#define SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS                             =
+  0x10
+>  //ulGPUCapInfo[16]=3D1 indicate SMC firmware is able to support GNB fast=
+ resume function, so that driver can call SMC to program most of GNB regist=
+er during resuming, from ML
+>  #define SYS_INFO_GPUCAPS__GNB_FAST_RESUME_CAPABLE                       =
+  0x00010000
+>
+> @@ -6460,7 +6460,7 @@ typedef struct _ATOM_INTEGRATED_SYSTEM_INFO_V1_9
+>
+>  // ulGPUCapInfo
+>  #define SYS_INFO_V1_9_GPUCAPSINFO_DISABLE_AUX_MODE_DETECT               =
+          0x08
+> -#define SYS_INFO_V1_9_GPUCAPSINFO_ENABEL_DFS_BYPASS                     =
+          0x10
+> +#define SYS_INFO_V1_9_GPUCAPSINFO_ENABLE_DFS_BYPASS                     =
+          0x10
+>  //ulGPUCapInfo[16]=3D1 indicate SMC firmware is able to support GNB fast=
+ resume function, so that driver can call SMC to program most of GNB regist=
+er during resuming, from ML
+>  #define SYS_INFO_V1_9_GPUCAPSINFO_GNB_FAST_RESUME_CAPABLE               =
+          0x00010000
+>  //ulGPUCapInfo[18]=3D1 indicate the IOMMU is not available
+> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm=
+/amd/include/atomfirmware.h
+> index 0160d65f3..52eb3a474 100644
+> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
+> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+> @@ -1713,7 +1713,7 @@ enum atom_system_vbiosmisc_def{
+>
+>  // gpucapinfo
+>  enum atom_system_gpucapinf_def{
+> -  SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS  =3D 0x10,
+> +  SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS  =3D 0x10,
+>  };
+>
+>  //dpphy_override
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm=
+/amd/pm/legacy-dpm/kv_dpm.c
+> index 59fae668d..34e71727b 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> @@ -2594,7 +2594,7 @@ static int kv_parse_sys_info_table(struct amdgpu_de=
+vice *adev)
+>                                 le32_to_cpu(igp_info->info_8.ulNbpStateNC=
+lkFreq[i]);
+>                 }
+>                 if (le32_to_cpu(igp_info->info_8.ulGPUCapInfo) &
+> -                   SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS)
+> +                   SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS)
+>                         pi->caps_enable_dfs_bypass =3D true;
+>
+>                 sumo_construct_sclk_voltage_mapping_table(adev,
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/driver=
+s/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> index 9d3b33446..9b20076e2 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> @@ -394,7 +394,7 @@ static int smu8_get_system_info_data(struct pp_hwmgr =
+*hwmgr)
+>         }
+>
+>         if (le32_to_cpu(info->ulGPUCapInfo) &
+> -               SYS_INFO_GPUCAPS__ENABEL_DFS_BYPASS) {
+> +               SYS_INFO_GPUCAPS__ENABLE_DFS_BYPASS) {
+>                 phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+>                                     PHM_PlatformCaps_EnableDFSBypass);
+>         }
 > --
-> 2.43.0
+> 2.39.5
 >
