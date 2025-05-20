@@ -4,159 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFD26C3ABDD
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 15:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53AD3C3DA6D
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 16:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5355810E4F2;
-	Tue, 20 May 2025 15:28:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B627310E568;
+	Tue, 20 May 2025 16:15:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e7CMR+KC";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="aK7rnonF";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DF3D10E3D1;
- Tue, 20 May 2025 15:28:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ywoP3gTK70YzVp4Ge7Ss5vrED10LhLxAchAD99rqX9IscDH+y5at0ste6GHKpppn9YvoE/9/MDL/XNNlaWT7VM1N3fDGdF5U5pIu6LGdHR/BUCqSQRMx/OuqhU3+l12f3eCeNkO69NkgIhbrVZPOfBm5Kf9IpvGRSvBPWaS0UDy8BUX+5vdoL2wC4tWKKbVybaYVrEYnif4MIho1Gb1OVPMI3S+zI8YkceRClE8JGzQvCjXX+9m0vMv1kIf6k3YZCiocgsPaEWgQ/+WwZ+RQ6EUzC81/vCgcsCy7E8LZ0yc2f4RfUt5zwDZikMfKo4ZYE5cfuYuGHabBk+g+MiCW3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d7H8q5NUAYWuYFyCjn62t03YlBbCt9r8BvmJYcnBxig=;
- b=yYQ7Zggf9ypuzrJnmuGtXWgTwEArLrcZj7gROMMk6rvqz0GOQwpr+VidkcRTlaDaiv79DnNwzq3i/6JjCrVIYfiRkdRmmN8+VY+isq/LI/U/qgR2pIuQ8e7tJWeYuLzpapPXTxSRPLNlnaMlI8JSgAhDrciCLLVjmiPerGWbByv/o5AG/O/eufPelWhEr2vIf5cQ9VcqAtsSZFB/YBmkM3gqX0DGZkpxD35E0zkGbLF4GibBLx4VfwjHI3FK9sCzE9fQkER2Y8icgy+7hUcGTAMV3/h264QavVxT2qlVLDcIZ77i8c/w2KZI0CtNkORIIWQcDHgHdxthWJ5aqAVaQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d7H8q5NUAYWuYFyCjn62t03YlBbCt9r8BvmJYcnBxig=;
- b=e7CMR+KCrq25npQdy4d3z6gRknRXEisuLNEdSpWPtJvKx/XTkr8U299Kp0QFFi5v7suzQimcLlR/vlbrWKaeM2QE7ewT0L5XrOI+KBEjdRAcAMCZpB6iFtqwTRsJe3ruZE9wqlcr6IpK5qookwWaNcOUV3eHhZu8w2kKRiNrgAo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by PH7PR12MB5656.namprd12.prod.outlook.com (2603:10b6:510:13b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Tue, 20 May
- 2025 15:28:14 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%5]) with mapi id 15.20.8746.030; Tue, 20 May 2025
- 15:28:14 +0000
-Message-ID: <9d80b11c-99db-432d-a9ff-d9e2a7b463bb@amd.com>
-Date: Tue, 20 May 2025 09:28:05 -0600
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2DFB10E518
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 16:15:41 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-43edb40f357so48481935e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 09:15:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1747757740; x=1748362540;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=s8CzE081NADV7dJH88t6emjucLeu/93WMG3ve6ghEMo=;
+ b=aK7rnonFoGPqPXvVB6EDM3jaNrIJPNzIRw5+bPQXsVQzFtsJTSZlcOcdAnA+9xoSxz
+ q+bj/X+kG6yGTazaMkDh5r+3JKZXZ56vT9vPfBiVxmv/eRFZuyao5pM0U1fViJH+1Yfd
+ NVfArcN4Yjtj+OvZy9Q4j3YDtFjpmGDv9o0VgAhK9XMz2nCZ65E7QX2qnj9QkgANxGnv
+ PzbXhc22oaUzABGkZvGM2MwnHsSFi3mUcswYgIyLQ4dQgjCrFODumN8WpE1JnOyzNthw
+ OKLj+HsD3A/gWPxOlnPOqzD/YGCZY7Z6msWiNL3n1G3sgyNoqsxVeRTknOD2KYAb+K+t
+ Do5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747757740; x=1748362540;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=s8CzE081NADV7dJH88t6emjucLeu/93WMG3ve6ghEMo=;
+ b=GsYVAOrpNrvVhdQwMi9VmdOSQE87v9zmAQvPgBQfcRQqL6sJFmg1UKO93rlc4PW3Rt
+ uRypJ/Z3qEtdPXEewO7JPBteU6gwTplBhkK4mdnLd3K7SgONpD8WPf01BLNPssOOiVXQ
+ 8wG8N7/nEFsIfJwKHqc8oAT+m/gA4Jls7ikAQfMZfG6TiUtc6GXpXE563p1iH2nBHdaX
+ 9O7XFmA+W5g5/2H43vC9BGlz/0W8RRPZq8gkNVtBnSIQ210FuRz6CKl8393oyWKOHg1H
+ R/CmfYkNyx7l39RjWOXEqIm8zLdY5FTrKf8fhGXFczyS03VPspSK8MEYOE971ENixc2K
+ ScHw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWo8/EbcYat3zWBX0rjO1mjHL/9D2MQBCmZs48jcy7dIgpd4O4hoFF2m0A2GtOOZPqkvKEHx6sG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyimEIA6cLpthKwdJhKpJsYny6vCP+MugDEI4VbKS9nDtpCAPgI
+ wlpnHB+rqOCZ5/pyIP1hUmXSAvJfJ118RXIlP9arVvpB1XCSHoUWBoHlSaF0FMV/9x0=
+X-Gm-Gg: ASbGnctAx0Ctrv/epf+oKYhZNcNVHoftNYsxg6IvmJHX6Ud6lSB2AkxLuXl7j1zEhLF
+ JXtCjgy+V0tM2WBojoXTHZKdb/zQv7iqWANMQ3RqlS+SejU+lDrdORpvZu8t+jDYH6PzAuI6TFV
+ mER8+A0l598RzU+EsQsLq7XAEUN24FwWHhApd3Ilj80qOTqVaRIyVBfnHvswCh9Iogq0vuqabRy
+ 5kOcAeveZs8oE31nUzjFz5UyiQoIXZeyQriRe9aP5RSGP0pFQvI5GnntzSjwYlUtbto+BuK4WVt
+ k3WkkjX3alkMUISOML+/lU5/xHYSJQV+1nKBH5apCWzXCJ78inx2xjjAaO2NQIuwgg==
+X-Google-Smtp-Source: AGHT+IHUXReM0aaWZWNtVQf19kLqYU2YN2wS194+mWwuidtrxnfYosa7PXJImeea4E8/iehtft0Y0w==
+X-Received: by 2002:a05:600c:3e88:b0:43d:94:2d1e with SMTP id
+ 5b1f17b1804b1-442fd627303mr166341735e9.13.1747757739460; 
+ Tue, 20 May 2025 09:15:39 -0700 (PDT)
+Received: from [192.168.0.101] ([81.79.92.254])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442ffaa75cfsm100927495e9.1.2025.05.20.09.15.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 May 2025 09:15:38 -0700 (PDT)
+Message-ID: <8b975d5f-eafd-4b25-8629-69fd71dcd4d9@ursulin.net>
+Date: Tue, 20 May 2025 17:15:38 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: adds kernel-doc comment for
- dc_stream_remove_writeback()
-To: James <bold.zone2373@fastmail.com>,
- Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- airlied@gmail.com, simona@ffwll.ch, alvin.lee2@amd.com,
- zaeem.mohamed@amd.com, Shuah Khan <skhan@linuxfoundation.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
-References: <20250503211902.70141-1-bold.zone2373@fastmail.com>
- <53d0e162-da9d-4fea-aba3-b96a9da844f2@amd.com>
- <458ee98c-872c-44eb-81a4-cb1fabcc4704@app.fastmail.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <458ee98c-872c-44eb-81a4-cb1fabcc4704@app.fastmail.com>
+Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, dri-devel@lists.freedesktop.org,
+ dakr@kernel.org, amd-gfx@lists.freedesktop.org
+References: <20250515150038.4615-1-christian.koenig@amd.com>
+ <20250515150038.4615-2-christian.koenig@amd.com>
+ <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
+ <5c93f114a58e84796f239b9e0f4a13e9c223e45b.camel@mailbox.org>
+ <6e5ab077-77ff-443b-b345-7d99fcd01a73@ursulin.net>
+ <6a361f21-1ba2-4084-b85c-0db30c9b01cc@ursulin.net>
+ <fc617b712c5937c02be89f7ba068ce0de1512027.camel@mailbox.org>
+ <01cce810-7303-4c92-b138-d8a647f3dcee@ursulin.net>
+ <a36fdcf31fa0ca7d9e1a24f60ba4c5bf78c7ae87.camel@mailbox.org>
+ <da8cfddf-6cb9-4ddd-9345-16d065663d4b@ursulin.net>
+ <25363de0e88f750fe70a7b7629113f93f12f47e7.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <25363de0e88f750fe70a7b7629113f93f12f47e7.camel@mailbox.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXPR0101CA0041.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::18) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|PH7PR12MB5656:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcebb660-7902-463a-22cd-08dd97b2efac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7053199007|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bW5nNEtNY1Fkc3JSZ3ZOUUxqSWJ4N3dkdmZBejlOOUtHeXRERDhiamdBRDhW?=
- =?utf-8?B?L0dmc3hMNjJsV0lIOGlPLy9RU3dRSlM3cnpvRXpxVG0wTEsrVWUvbWlLSzZs?=
- =?utf-8?B?OHpIS04wZnFNNmhBOWlMMm5vbWd1Zjk5a1krZXZtUmd1WUp5SHpBR1FzclNy?=
- =?utf-8?B?WTBpNlh2K2RkaHIvdTBTeXVZNHg5QnlaVFlVK1NxdU1HbDZlZURRVlcvc0gx?=
- =?utf-8?B?Tm5meEdweVJSVDJVdGl4MEd5WnRUNFlsZE9NZFJEaE5FYStoRmUyRXdrcGpo?=
- =?utf-8?B?bWd5WHQrc2ZBUmdjdFFSdjU1cGluV2xaWWxZL0xRbmNZaTFaVmpSM3Jadk9V?=
- =?utf-8?B?Ry9UU3ZNbW5uaVpwOHlybWxxdXRpemladVVuaDE0UzZVeHpNaXo3N2xQNGFJ?=
- =?utf-8?B?NDNWREQrMW94NUlJdTVaUGNNWWFvUkdMS0tPMUMydTR5QkwrdWV0WXIvVG5R?=
- =?utf-8?B?TnEvd1FvTVUwcENYU0pUT3ZPNWxwVHd4QVQ1S2lKVG9wRWVLRXlubmV4SDVm?=
- =?utf-8?B?YmFjQ3I2aXNrS2hDSWhLc3B1SW9PVGpZdjEzV3c3d2I4MlF4cUJGTHYxbHYw?=
- =?utf-8?B?dnJxUXJPbThCei9aNFdGa3grNUpmUm1XbmM3bWRwdWR0ektqRk1ab21ZclZL?=
- =?utf-8?B?VkwwTi94Z2lpRVpTY3hUY3lKdU14Ri8vSjJjK3pKRG5NQ1dXV24vYUZiU25O?=
- =?utf-8?B?WW1GQzhKZXFtc0lXSkpZc2kwbTY0d0ZFdldzSjlQUUJqRFRFSFFZMUZDQVpa?=
- =?utf-8?B?ODgvVm1oMzVpNzdqaDNnVG43eFlPUHpTNzhCSkJKVE9BVWVSU0ZselJaVWta?=
- =?utf-8?B?d3hQdERKNkZDVVV4YU8vM0hqcG1NTjBrM2FybE40UXIwR1pZNldmNHlOdXZR?=
- =?utf-8?B?VkFFL3BKUWZpZUFEK1FFMUxzWHNJS0tJSlltNFZGRXE4WkNFSkI0Qkg0aHow?=
- =?utf-8?B?eUhrRTJCSVVQYVlsNDlQcW13Y3hiY1k3a0x3UXJGaXI3M3lWTmNOL3dsQVc5?=
- =?utf-8?B?bEZqbTBOTjIzRUx6TGVCYmJBQldwclVrdnYzYzZKVkp4YWRPVFJTRVN2YmxX?=
- =?utf-8?B?NEExcS9PTFFVNnQySnE0NlRZZzZ5TFF6UnZGSGY3SmtYdWZ1Zm1MeUUvdzBq?=
- =?utf-8?B?MGgrVFk4dDl3bThnMXNsWStReHUybUZ3dWZuUi9NaVNTZGM5MnY0cnVrcUhH?=
- =?utf-8?B?ME53STN3TmNONE5mQXRPSmIrWmxZc3VvT2NFVFlkZUxHeFJoekpUWnhlQ3Zv?=
- =?utf-8?B?UGNpMnJtdFl1emprTFpUSlpUVTN5K295TytHem1pejBPL0hrWCtnOFB6MFBX?=
- =?utf-8?B?SE1nZW1ZZWpwOHpmaG9TbWRqZDE2RFVNdGpVWXZ5ZzNwYlFiTTJwRmFqMllQ?=
- =?utf-8?B?MmlqTno0Y0I4VnVQaUoxaExaUW54Q05USHZWTDhvMFNwWE1GenJJRnRDRklM?=
- =?utf-8?B?VkNmZVl1YWdxS251NjhrdDdWK2hGaWNvK1BOekZGSjIxT0pkUWRYeVZzVU1j?=
- =?utf-8?B?TW55RjVHSk9zT2xoMzd0MUplc0d1eHJINkljcHhlK3VXS1V4NFFlejZndU5q?=
- =?utf-8?B?cVlNRFJjNysxaExDWTdpUmorMXd2eERtZ1VtK1ZvaGtGQWg4YXB5anhUOTBE?=
- =?utf-8?B?V2NIQ3JhRGZhdDVpTG40NkdjRzNMU2o2b20vcUlkTzJlRlp6K3BmTXg5eEhB?=
- =?utf-8?B?MjhjdWROb3crQWJ1eWZ6RWZTR1VaS2xiQWYvakIxUnoxT0dVelBTYU1rSzRU?=
- =?utf-8?B?eWtCM3ovcDZwa0M2OTNlRmMxL001blN2ZkdKRjY0ZlJIMlhMR1RzQXcyZHYz?=
- =?utf-8?B?cE5kQ2lWdlFTNXBxNG9hRVpYQ04zRktwT3BMQlNSK3pZaEdmT0hjMkVBR3B3?=
- =?utf-8?B?bkl3WXVTSmVLSS9RK3B0MFR3K0gxVUdLdG9HRXd6NDhpQXc9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(921020); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHVpc0hEYWV1VlhWZ0tkWERJYXI5RWRsc1NteTUxK25yR21mSTVuSTVKdzZX?=
- =?utf-8?B?UU5VMHhFbnlLWnJkY0VzaVREbEpjKytCb0JGclZ2OUpmZGJwREUwNm1USFJt?=
- =?utf-8?B?SGczL0JpeittempXSmJ2S0UrUnR3T2FJNitGZGhRTS9JZ3BYVWhlRlMvZXMw?=
- =?utf-8?B?andkSjR3Y0FIZy8zK1ErQnYzc0FkWGdFZFM0c0lqQ21vbU1mVzdVK2l2NXpa?=
- =?utf-8?B?SVErbEViOHc0WGNVQk53QTBrcGlkUUtpbDhiYjVBcG1IbmRvZHN6UmxzTHIz?=
- =?utf-8?B?Nkc5cEt5S09lSWZVN3pKMFVjb2hjREUxYm44VVdSU0RyTWFOSUNRWUF5Wmo1?=
- =?utf-8?B?Y0QybmxXbExmcDJ2a1VZWlJ5Vnc3aHl5aEFjUVdwangrZGYrbXRCZXhPd1Vy?=
- =?utf-8?B?RDhnT1grdnZ2aDB0OTlNOFptTlRKOFU2RDBrQ2tlRjNKV1VzcElrOXhMN0do?=
- =?utf-8?B?TEljbnhZYmhOL2lYWE8ySlc3LzlDZXRtREh0Ykw3WEFpajBEdGQ2UkcwL3hr?=
- =?utf-8?B?TGdWdklncHJNQ3hscVVaZTdPSG5oVk5Ca21Nc3hqS1dLZmhyYkJEYzhjM2Jw?=
- =?utf-8?B?aFBDRjRBUFhyUUg5cklwNU80dUVoQlVRZ2J0bjEwMnArMzgrWXNrbkQwVHgw?=
- =?utf-8?B?VFZlbkwyckFta2pFNlpOU3ZobnR4VUU1QlJhc296S0pNK3dwY0lvLzE3SmZZ?=
- =?utf-8?B?T3oxTUlVN1BzbHVLN2ZxNUlhaVVtV2R0YUJNUWZFRHlGTFFaSzZwVnZpUm1z?=
- =?utf-8?B?dFM4L2tIaG54cGNPZ29iWW1yK2VIWFUzbG9OeXhtYmNWT1h6V0k0VVVkcWRM?=
- =?utf-8?B?NHM3WXlxUDJPYkRvL0RMSzd2MmYxbjM5L1EvZlVvNDNXcFFjRytRTGtHaDFz?=
- =?utf-8?B?VGd0UnVVcmgwaU5MOE5lM0JRMVFHODZpOHBibld5dUpDTzBXN21KQkJ2MUxk?=
- =?utf-8?B?VVlJRzllL3h5cU03dmN4bC9DSmQzRVhSRmZNbldrcXRYTzBFeEU4MW45MUZ2?=
- =?utf-8?B?NUQrNVZYUmVzb0YwT2tMOU1vdHRTRHZlVTVTaWJaNlZTTW9YVk5EV3QrUzlU?=
- =?utf-8?B?aGRLcHYwcjI5ZXV4emkxN0VISFdvWFhBK0RNaUVpWGhFakwxb29MdGNZdHZu?=
- =?utf-8?B?ckxBSGR5Z1FUMUU3MFpmM3NiQXlTZzdOdmdBWFIrSU5DVFFNRzgvN1loSEh6?=
- =?utf-8?B?MDZJYTRRL0JrMEd5RERJL2hsUDFOQlAvNnIvRzdkd3ZMT0FvVkE4TncvZGxV?=
- =?utf-8?B?QjRCY3A3NCs4S1JINWl2c2lOQmhxK2FONUNkQmY0Y21HNTNqRHlQc2hoRGFR?=
- =?utf-8?B?aWVHOXp6OUpwb2phSmgwTWFGemJvd28zQ0FWMFRBeHJCYU1XUTZsNzhTKzVL?=
- =?utf-8?B?S1oyKzdJTXJiVUcwR0lPdEtCaDB6ZUg0WDhkbndmS25rQ0p2ZDgrcWw2Skpt?=
- =?utf-8?B?ejQzV3QxTDFEaVNjelhiOHhncEdNdlFxOSs1ckVJVlpHaTZyTlkwQlVCeDRj?=
- =?utf-8?B?dnVIWVVEclhnQ01BL3dtODFwRnZmVlhYSGFXTnV4SE9VSnAyQ1plYkQyNjl5?=
- =?utf-8?B?OWVNNC9LK213N0t6ejZreFJGNjlKcWRyZm5qRGk2YVN3RkxSYVEyNU5oVXpY?=
- =?utf-8?B?TzY5MjNUbFNsR1A2UURRRnA0SW5RQWp0TVVJUW1uLy93b2ZOMmlJcGlkOGhM?=
- =?utf-8?B?M0g0bGN5OTJvOHRMYWlEUElxVk5DcHYrSDNJZHJKeE0xdFRhaWxNWEx3aEJN?=
- =?utf-8?B?YjIrTnhwanpxcFFUcGZNRCtJV1hxdEZjZUZwS0gvZ2F0eUtjVlNhVm5RMEJP?=
- =?utf-8?B?Zkdyc0xmVFNOaXcvWnU2em8yMVMyMU1Cd0ltYXlJNUNoOHI5cUJHaXRmTHBH?=
- =?utf-8?B?Ri8wMWRrTlE4bmZHTi90bWdiMXloYUZ4UlAvRUpmUEMrT3lybjJXdmYwaXVa?=
- =?utf-8?B?dGlGaXU5all6R2ZyWXF2cFZFZENDejhHZ1pLWjZzcC94Z0tKU2FJd1RxZitV?=
- =?utf-8?B?Q2pubWhDdDNuYUE0bk1Gak5XNE9mSzRISFVqa1EwblVqcXNPQ0JtNG9obWRO?=
- =?utf-8?B?OCsweFBtV1FGRHdJa2FtZm5WamlFMmlBTWN0c1FmWTVObFMrMFdNbHl6RWhl?=
- =?utf-8?Q?8NX89dnvuDzYnipF+vVNP7Hyq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcebb660-7902-463a-22cd-08dd97b2efac
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2025 15:28:14.0175 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YCgX0tMob7vOYBIqHarhXotrbHX3Ckc/I0i9hji2PnG0yE05tCnM1Jr0Uq2WZ2uHstGQ5145ZGmEq2hV4KQzPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5656
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,51 +101,308 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-On 5/19/25 20:06, James wrote:
-> 
-> 
-> On Mon, May 5, 2025, at 9:02 AM, Alex Hung wrote:
->> Reviewed-by: Alex Hung <alex.hung@amd.com>
+On 19/05/2025 10:04, Philipp Stanner wrote:
+> On Mon, 2025-05-19 at 09:51 +0100, Tvrtko Ursulin wrote:
 >>
->> On 5/3/25 15:18, James Flowers wrote:
->>> Adds kernel-doc for externally linked dc_stream_remove_writeback function.
->>>
->>> Signed-off-by: James Flowers <bold.zone2373@fastmail.com>
->>> ---
->>> V1 -> V2: Corrected checkpatch warnings and errors
->>>
->>>    drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 8 ++++++++
->>>    1 file changed, 8 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
->>> index e6e41678525f..b883fb24fa12 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
->>> @@ -569,6 +569,14 @@ bool dc_stream_fc_disable_writeback(struct dc *dc,
->>>    	return true;
->>>    }
->>>    
->>> +/**
->>> + * dc_stream_remove_writeback() - Disables writeback and removes writeback info.
->>> + * @dc: Display core control structure.
->>> + * @stream: Display core stream state.
->>> + * @dwb_pipe_inst: Display writeback pipe.
->>> + *
->>> + * Return: returns true on success, false otherwise.
->>> + */
->>>    bool dc_stream_remove_writeback(struct dc *dc,
->>>    		struct dc_stream_state *stream,
->>>    		uint32_t dwb_pipe_inst)
+>> On 16/05/2025 18:16, Philipp Stanner wrote:
+>>> On Fri, 2025-05-16 at 15:30 +0100, Tvrtko Ursulin wrote:
+>>>>
+>>>> On 16/05/2025 14:38, Philipp Stanner wrote:
+>>>>> On Fri, 2025-05-16 at 13:10 +0100, Tvrtko Ursulin wrote:
+>>>>>>
+>>>>>> On 16/05/2025 12:53, Tvrtko Ursulin wrote:
+>>>>>>>
+>>>>>>>
 > 
-> Hi,
+> [snip]
 > 
-> I am just following up on this to see if it’s been applied, or if any adjustments are still needed.
+>>>>>>>>>> +
+>>>>>>>>>> +/**
+>>>>>>>>>> + * drm_sched_job_add_prealloc_dep - add dependency
+>>>>>>>>>> to
+>>>>>>>>>> preallocated
+>>>>>>>>>> slot
+>>>>>>>>>> + * @job: scheduler job where dependencies will be
+>>>>>>>>>> added
+>>>>>>>>>> + * @id: the preallocated slot index
+>>>>>>>>>> + * @fence: the dependency to add
+>>>>>>>>>> + *
+>>>>>>>>>> + * Consumes @fence and adds it to the preallocated
+>>>>>>>>>> slot
+>>>>>>>>>> dependency.
+>>>>>>>>>> + */
+>>>>>>>>>> +void drm_sched_job_add_prealloc_dep(struct
+>>>>>>>>>> drm_sched_job
+>>>>>>>>>> *job, u32
+>>>>>>>>>> id,
+>>>>>>>>>> +                    struct dma_fence *fence)
+>>>>>>>>>> +{
+>>>>>>>>>> +    fence = xa_store(&job->dependencies, id, fence,
+>>>>>>>>>> GFP_ATOMIC);
+>>>>>>>>>
+>>>>>>>>> Add assert that the passed id exists (was preallocated)
+>>>>>>>>> and
+>>>>>>>>> is
+>>>>>>>>> NULL?
+>>>>>>>>
+>>>>>>>> You
+>>>>>>>
+>>>>>>> Hm?
+>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Also, if someone preallocates and does not consume the
+>>>>>>>>> slot
+>>>>>>>>> will that
+>>>>>>>>> confuse the iteration in drm_sched_job_dependency()?
+>>>>>>>>
+>>>>>>>> drm_sched_job_add_dependency() you mean.
+>>>>>>>
+>>>>>>> I was actually thinking of drm_sched_job_dependency()
+>>>>>>> because
+>>>>>>> that
+>>>>>>> looked it would skip dependencies upon encountering an
+>>>>>>> unconsumed
+>>>>>>> preallocated slot, but yes, drm_sched_job_add_dependency()
+>>>>>>> could
+>>>>>>> explode
+>>>>>>> even earlier if adding a normal dependency after
+>>>>>>> preallocating
+>>>>>>> a
+>>>>>>> slot.
+>>>>>>>
+>>>>>>>> Yes, it would. All operations simply give you NULL for
+>>>>>>>> those
+>>>>>>>> slots. So
+>>>>>>>> seems to me you have to check for NULL wherever a
+>>>>>>>> preallocated
+>>>>>>>> slot
+>>>>>>>> might drop out. That would then be a bug.
+>>>>>>>>
+>>>>>>>> It's kind of tricky, all that. It's a pity that Wilcox
+>>>>>>>> didn't
+>>>>>>>> answer
+>>>>>>>> our questions about the idiomatic way to do it.
+>>>>>>>>
+>>>>>>>> Maybe reserving slots with already signaled fences wasn't
+>>>>>>>> such a
+>>>>>>>> bad
+>>>>>>>> idea after all?
+>>>>>>>>
+>>>>>>>> If we go for the NULL approach, it's probably the only
+>>>>>>>> sane
+>>>>>>>> way
+>>>>>>>> to then
+>>>>>>>> check for NULL wherever dependencies are accessed :(
+>>>>>>>>
+>>>>>>>> Opinions?
+>>>>>>>
+>>>>>>> Well if the xarray API returns the NULL consistently the
+>>>>>>> approach
+>>>>>>> from
+>>>>>>> this patch is fine I think.
+>>>>>>>
+>>>>>>> We just need to add two more checks to the above mentioned
+>>>>>>> functions,
+>>>>>>
+>>>>>> I need to correct myself, drm_sched_job_dependency() wouldn't
+>>>>>> be
+>>>>>> able
+>>>>>> to
+>>>>>> just skip NULLs since it relies on NULL for "no more
+>>>>>> dependencies".
+>>>>>> We
+>>>>>> would need to track something like job->max_dependency and
+>>>>>> terminate
+>>>>>> on
+>>>>>> job->last_dependency > job->max_dependency or so.
+>>>>>
+>>>>> Agreed, that would have to be fixed.
+>>>>>
+>>>>> I believe we should reconsider Christian's first idea [1].
+>>>>>
+>>>>> Thinking about it some more:
+>>>>>     * With the NULL version, suddenly the xarray containing only
+>>>>> valid
+>>>>>       dependencies can sometimes contain NULL entries.
+>>>>>     * If we could create our own tag, entries could be returned
+>>>>> that
+>>>>> were
+>>>>>       neither NULL nor valid fences, also requiring checks
+>>>>> 'everywhere'.
+>>>>>     * Only the "signaled fence as prealloc reservation" approach
+>>>>> is
+>>>>> fully
+>>>>>       backwards compatible and will never cause anyone to block
+>>>>> after
+>>>>>       later reworks.
+>>>>>
+>>>>> So maybe it's actually the best idea?
+>>>>>
+>>>>> Sorry for the zigg-zagg. No hard requirements intended from my
+>>>>> side,
+>>>>> I'm willing to go with what you guys think.
+>>>>>
+>>>>> Just saying, at least now I think that the already-signaled
+>>>>> fence
+>>>>> seems
+>>>>> the most elegant solution. And since there's a function
+>>>>> (dma_fence_get_stub()) for that, it seems to be in alignment
+>>>>> with
+>>>>> official dma_fence rules.
+>>>>
+>>>> Potential problem there was dma_fence_is_signaled() and fence
+>>>> signaling
+>>>> annotations. In case some driver is holding a lock over the
+>>>> arm+push
+>>>> pair. I wish we had a non-signaling is_signaled helper..
+>>>>
+>>>
+>>> Yes! +1!
+>>>
+>>> But Christian doesn't like that direction:
+>>>
+>>> https://lore.kernel.org/all/20250409120640.106408-2-phasta@kernel.org/
+>>
+>> Thanks, I read this but ended up uncertain on the conclusion.
+>>
+>> For instance Christian at the end comments like this:
+>>
+>> """
+>> You can test the flag if you know what the fence means to you, that
+>> is
+>> not a problem at all.
+>> """
+>>
+>> That was in the context of testing the signaled bit without
+>> opportunistic signaling.
+>>
+>> For me, from the scheduler dependencies side, that should exactly
+>> apply.
+>> Scheduler knows it does not need to add a signaled fence to the dep
+>> array so AFAICS it is fine to skip it. And it may easily be
+>> opportunistic signaling ends up a problem for the scheduler.
+>>
+>> So maybe such helper would be okay after all.
+> 
+> The thing is that, if I understand him correctly, Christian doesn't
+> want a helper. He wants "us" to just use test_bit().
 
-It's in amd-staging-drm-next: 
-https://gitlab.freedesktop.org/agd5f/linux/-/commit/04abe7201d51a094d0edd3e00399a8afa2cd2d4f
+I suspected it may be only about not renaming into some variant of 
+check_and_signal etc. With which I agree with, that the name should be 
+left alone, because...
 
+> My point is just that dma_fence_is_signaled() is a horrible name.
+
+... as dodgy as it is, and despite me also failing to really understand 
+the reason why it _has_ to be have opportunistic signaling, I think 
+those semantics are by now pretty much ingrained into people dealing 
+with this API so I would leave it as is.
+
+What I was thinking was the double underscore version of the helper and 
+some kerneldoc to say when it is safe to use. For me a helper is better 
+than poking directly.
+
+> The function pci_is_enabled() tells you whether the PCI device is
+> enabled. What it doesn't do is
 > 
-> Best regards,
-> James Flowers
+> bool pci_is_enabled(pdev)
+> {
+>     if (crazy_callback_is_implemented()) {
+>        pci_enable_device();
+>        return true;
+>     }
+> 
+>    ...
+> }
+> 
+> It's not intuitive that a function called "{something}_is_signaled()"
+> does signal that thing. Although I get that the syntactical idea
+> probably is that from the GPUs POV the fence is already signaled when
+> this or that seqno has been reached.
+> 
+> Anyways, judging aside, if a wrapper for test_bit(dma_fence) were
+> acceptable, then it would need to steal dma_fence_is_signaled()'s name,
+> and dma_fence_is_signaled() would have to get a new name. Which is
+> precisely what was rejected, as I see it.
+
+__dma_fence_is_signaled() is what I would do and leave the existing one 
+as is.
+
+Regards,
+
+Tvrtko
+
+>> Or if the concern is helper might encourage some potentially unsafe
+>> usage, in that case it should come with kerneldoc describing. It is
+>> not
+>> like review is guaranteed to catch someone using test_bit directly
+>> anyway so for me, on balance, helper is always better.
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>
+>>
+>>
+>>>
+>>> P.
+>>>
+>>>>
+>>>>
+>>>
+>>>
+>>>>
+>>>>
+>>>> Anyway, I think both options are passable. I even like the NULL
+>>>> entry
+>>>> slightly more since it is simpler in a way and I don't mind some
+>>>> extra
+>>>> checks completely hidden in scheduler internals.
+>>>>
+>>>> Regards,
+>>>>
+>>>> Tvrtko
+>>>>
+>>>>>
+>>>>>
+>>>>> Philipp
+>>>>>
+>>>>>
+>>>>> [1]
+>>>>> https://lore.kernel.org/all/20250318120313.19099-2-christian.koenig@amd.com
+>>>>> /
+>>>>>
+>>>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>>
+>>>>>> Tvrtko
+>>>>>>
+>>>>>>> some more unit tests probably to make sure, and that should
+>>>>>>> be
+>>>>>>> fine
+>>>>>>> for
+>>>>>>> now.
+>>>>>>>
+>>>>>>> On the bikeshedding front I would perhaps suggest:
+>>>>>>>
+>>>>>>>      - drm_sched_job_preallocate_dependency()
+>>>>>>>      - drm_sched_job_replace_dependency()
+>>>>>>>
+>>>>>>> Reads a little bit more aligned with the rest of the API
+>>>>>>> and a
+>>>>>>> bit
+>>>>>>> easier on the eyes, to my eyes at least.
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>>
+>>>>>>> Tvrtko
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+> 
 
