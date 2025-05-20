@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CE2AC5479B
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 04:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0CA0C5479B
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 04:24:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C599710E093;
-	Tue, 20 May 2025 04:23:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61D8210E00A;
+	Tue, 20 May 2025 04:24:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xIhFVdMK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tcN1NoLC";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC51810E093
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 04:23:45 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2489E10E00A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 04:24:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zVo/QvTZyuWIWDCY3lSlG0UFI1NuieIYHS0tkHdwPbZnhE3gI4lSdzkJ1IffB0MWkQzgNHIFSgFAat04F1va3czdN21ywD47ESiRBr9i7expE+mWLHTKeBMfDE5TOZTRz+ZaIvd5DpLADpOkftEout5/Y3puNtDv2pnt1x82jMSnZTxVHPs1NfyQ2lnvshmu4ex3yyOdd9FSQNuHkqxrXc/1VlljepcxNDCZcoEcaLNSB2g9R5U2DlFd4TXaI7LiuJV/MwS4ETVFTGGaDQPLlkHW9244zxon0gJBMQuRb5hLajmXYlcYf/BdRXO2WQ/EBD1D5tF4KSKOmgLnX5uxPw==
+ b=Lj7M8uT91fR6QybNEWiFhqE98b1vqcp3TUBLWTvP4JusKrfPNFSRTRrxS2P/1SZpWsDyy9BtE0frOsJn4C2JYpKusan7WzL0nQC2TEe0yWQzomcB4PMNcy8UmTmXMZGP7ne+FbyhXl/8mDnIL5+QMuo9UPQho68B572AgudL+FMsj+TajJEK7ExexI2vvqlMntRirahEJ9JqhdoH++pN8GLwgju6eyT993g1fabem2C8ihTpw+IdFId7HHMAyB3NeLYSkhz/7C0RACzne0jbTSVmHhyYLUwIe8oUkBdOErQXoWBG+t64icQsRVJ0pPjOT0OfXm9gEBrOt7Gzf/XV3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QIXO1WKbETpVLHDPkWRD6B8U8QEZ2haLKby72VPpYTg=;
- b=T6+emi7D01/buzf7B/KGdb+Rjls/Vzg0gLwI5/PLuxXDfcrk3uDlSy7Rt59I/PwvygTyIYGcvNAIOct+9IaHUES2b/iCKL/AMFoNY0sKQ3pbyZ44b4yhMLr6jwFRIYGo7nqL9jMsG04qw0183F0nHuvf32qIbE4NlC+gU7362dmm7ad6Y0/J5Asnp0IdbhO1D+OVDn0/LD0t7YMV2QKbpHIPZJatNtqvWn7i+BEtYRTF/QQVuD9NA37Efubgl80C5l5K0FWH7o2yqZtWDj8HVPfD8N97A9vVG+F/m7ObhLdJnYZsr65JhndIAMP/pELGe7BIdqSo2LisrL6tjkuVtg==
+ bh=wvtjbu9IlEMgAvwShSjtjJq2h0CqNnV5xt8yf1jntLY=;
+ b=vO70BHQpfLtJuPglZLqj4c/SBoun8DY8bwv/XaMlwrpiZdYtw/q5h68H5AebxUUAqDOyKmEB7tgNow9925pGV9SZ7E8NJifHb5ZAxYB84UsHuepfvv/evOjlk6PO194ZR6JCySGs7TbSMGW3GDy4bYekWEC/YHVW6GW8LD026ZpknDus8se6NhEdoQOqnwQVSTM7WPlFEggZpBFDIDRrmdn/cf8mFmVzQErou6oECdrKCnWNcofFmcECCbS3mRUGGsoSClOBs+3jHPxYueuWRRXI827JDyvtv6d60YKF1K65Yl1iZj67JZuvBKaNXtSaDUFHThVxFPvVdBke56xjmA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QIXO1WKbETpVLHDPkWRD6B8U8QEZ2haLKby72VPpYTg=;
- b=xIhFVdMKcSN84l/0M2xRDnM7etrLAt7lg3Q/qE23uLbFdFO43TxqgxMdxmJyUgTVjaEqXjnYIT2gaFs72Nc7Hs41Bo9G99v8gUhxVO0/a02/w0NXOg30fQGmCeuU3n2ZRx3V/tq5yY+DtQnTvLnaSB5Xedlhs4awy3aoco6LSag=
-Received: from SJ0PR05CA0189.namprd05.prod.outlook.com (2603:10b6:a03:330::14)
- by SN7PR12MB8435.namprd12.prod.outlook.com (2603:10b6:806:2e2::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.23; Tue, 20 May
- 2025 04:23:40 +0000
-Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
- (2603:10b6:a03:330:cafe::47) by SJ0PR05CA0189.outlook.office365.com
- (2603:10b6:a03:330::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.14 via Frontend Transport; Tue,
- 20 May 2025 04:23:39 +0000
+ bh=wvtjbu9IlEMgAvwShSjtjJq2h0CqNnV5xt8yf1jntLY=;
+ b=tcN1NoLCFZ/setc+xT6UP4YMGtGeglrGb7lxDyXyqMtfQ87HcXzTyO1M31EcSdJuIVy+Pp/xPGjDvDeQvXM4wualdG7SYeH4y+s0jknCI2Ru3If+cD6hV//k67ddnOVegBJ9EXs0yNgA/8OorT/cCW+3MvUUnYxFWNV4UC9lTPE=
+Received: from BYAPR01CA0065.prod.exchangelabs.com (2603:10b6:a03:94::42) by
+ CH3PR12MB8307.namprd12.prod.outlook.com (2603:10b6:610:12f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Tue, 20 May
+ 2025 04:24:51 +0000
+Received: from SJ5PEPF000001C8.namprd05.prod.outlook.com
+ (2603:10b6:a03:94:cafe::cf) by BYAPR01CA0065.outlook.office365.com
+ (2603:10b6:a03:94::42) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.26 via Frontend Transport; Tue,
+ 20 May 2025 04:24:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SJ5PEPF000001C8.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Tue, 20 May 2025 04:23:39 +0000
+ 15.20.8769.18 via Frontend Transport; Tue, 20 May 2025 04:24:51 +0000
 Received: from amd-mlse-mangesh.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 19 May
- 2025 23:23:37 -0500
+ 2025 23:24:48 -0500
 From: Mangesh Gadre <Mangesh.Gadre@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
  <Stanley.Yang@amd.com>, <Tao.Zhou1@amd.com>
 CC: Mangesh Gadre <Mangesh.Gadre@amd.com>
-Subject: [PATCH v2 1/5] drm/amdgpu: Add vcn poison status reg
-Date: Tue, 20 May 2025 12:23:12 +0800
-Message-ID: <20250520042312.1606650-1-Mangesh.Gadre@amd.com>
+Subject: [PATCH v2 2/5] drm/amdgpu: Enable RAS for vcn 5.0.1
+Date: Tue, 20 May 2025 12:24:30 +0800
+Message-ID: <20250520042430.1606672-1-Mangesh.Gadre@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,52 +71,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|SN7PR12MB8435:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5eb14659-d077-4f65-73be-08dd975618f2
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C8:EE_|CH3PR12MB8307:EE_
+X-MS-Office365-Filtering-Correlation-Id: a221901c-913a-498b-ecac-08dd975643a3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NZIuXgpl9by5JLmOcRsWi3+Yh6SM0cJOpi62zTDC1rHUJOTDXt7X+0Sw8iHc?=
- =?us-ascii?Q?8h1uPInBvn0qst9Pr3UCtYPbNJBdRHZbrnpv4xUE1Ro8Nx4wdDcrJVaOl2Ek?=
- =?us-ascii?Q?gD9kJ5rt0gseQa+cGVZwyE/rVNu6hVEtMiYUw+SVVBa+LA6G9tmF1afN+d+U?=
- =?us-ascii?Q?2XNk+hhHikACU2nTPfTMByEKHvKamzES0pD3w8zcFDQN4IRq37sj5+pKdtVg?=
- =?us-ascii?Q?I4PaRwgbXCbFlBoxhD+/Pogz2vwFJ6nugFhcFtQ32ERtRCLKiZg0kQ4O8zYV?=
- =?us-ascii?Q?piQSr1hWCRelHBIuO5xQKmfiDz4HfEqFp/VGSQEiDGsvo8iX+WKwqVNkf6jH?=
- =?us-ascii?Q?wY6J1Vj31h/pIfE26BzkPlE1z4U3Xvbo1ZhIwZTpXtq/N5VoKx6HRv4pSo9v?=
- =?us-ascii?Q?blhlvklE9QO5cssEXywQHDQ6koR9rj89b9itISW0ab6tcctqH9ntmoYw72AO?=
- =?us-ascii?Q?LWGXg18GCRTsuodyvcQ/Ter0PmVyE4KiVVsDvB0x1meavhCjxvVEz84FjeHz?=
- =?us-ascii?Q?o0EBvqJdHo/lt6zAZfo9uOnQQ8RtJ5v0FNMJschJ9qL7Clt5uDELHQSl/11U?=
- =?us-ascii?Q?9w2it9vBeeos0w79vtU5MPce1tVqZU3pCvaxEAqvSmczBNdLwTxrGXgfMS8W?=
- =?us-ascii?Q?0ExP3L3rGpY7umdpZuPUQ9M8DrDXtZBreyj/ir3qmaLdpSLk29JzbLG1oaEU?=
- =?us-ascii?Q?dcGcLrfSvG+7D5YpCN/NdTo/pn5woYKqcPG1Cg1jxLqLFssQZoXXZs6shBQU?=
- =?us-ascii?Q?oqpleVvZLb+i8DAq4O1xSl1aWhq35FsmwXo0uHMGnnRouiMhQhZEU+OjiuCQ?=
- =?us-ascii?Q?RoVPQOyvmnL8Ywyd7aTP2aTJGPchdX2U6WDPiy4mI8eOYt2U6t9ZrC/1/uKG?=
- =?us-ascii?Q?Aq1n0ZHi1dYp3Iibb2QWMbuZYj4O7Nv7O/fKWkexdAcLiBCrs6wLToVbLA2y?=
- =?us-ascii?Q?nCqVkZNJbO89PVKlXRM0UtJWY00hwN5qyUbQD0g7nZzWpOoWRotL5vb6ca6j?=
- =?us-ascii?Q?t/gY6shwIAkzxgb3QLoFDIIooSXo4JPj1qtIfbp14BrJ92p8J3psknhU7MnY?=
- =?us-ascii?Q?Jq+uV4zJllz6WPzvHIvzNkvbBgG8WMxEFd0/yz6C0B1dS0tEXUX0n4Fy2XpX?=
- =?us-ascii?Q?jQN0v3fLo9ZaYqefPZgCV0IYLQrsiLa/zPRZEZaeRp+q0mKmbQnFoj78EA4o?=
- =?us-ascii?Q?FMuJeegma6Ho+SRzREfgGR9gSJe1bhWzztWzcsaB1jV+yyLOxrAxgh1uBwUc?=
- =?us-ascii?Q?JCqVZfIfA86fYj8uodMsjkGDwvC+gogbDC2zn1mguGxMmRwDKZos9C8FGtTf?=
- =?us-ascii?Q?BZd3xolm3NhjodgQHIAAV/0fhyOY9LWbw2BvybKBzKiNptTWw7OdTNXEF/ih?=
- =?us-ascii?Q?JOTbRRWcL62PbNGD4gJ+SSUmGCNg4w85E6VWvPf2KsQVZ2UITnAV6bPydOpp?=
- =?us-ascii?Q?hrsRwpkuBqjv5LJRt+rYQf8Olg9gy9NhvsSqNozhcgsWceOFOecYheTjmc4V?=
- =?us-ascii?Q?BznIFQUY3/T6vz7II1+LeW2JsavRr4FsVYLC?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/tjVYASvw3FIRv3ZB1mhPq/dC/03IjZo/RgvydkrRVMj7/6Zq8CYkz10W4Wz?=
+ =?us-ascii?Q?3G/IpTDW3NqAUKJCR/+Myb1XJ0OfjQiKSnJE1eCSff5RxGsIUMLk8vOcSXf1?=
+ =?us-ascii?Q?TE+HU9s9YV9VWdsK/SHwAVFG9teITjK21bTqXs7HW3OxGeUT+xTyjQn0io0V?=
+ =?us-ascii?Q?4bR3OcsulBaPc9xREmev1/BrYXumlot0gdNpEe3zp4zxxLfyr5xeoGO60HP4?=
+ =?us-ascii?Q?ddmBhjLAXS5qWmFqzPALkBRox6Gtjd2aTVnASarSJ5goOaCc7XDayMkeEKm0?=
+ =?us-ascii?Q?aR06LYBABH54y4n6k0V/FU/UmrTgW1udZDcVGyfMasoxUJA6zHNoBORAiDMw?=
+ =?us-ascii?Q?0YDFR8lcBmmUGOqPsjNaFOM2E1uooW92eqC8h8gdW+CzIMI627CrxiiXta6m?=
+ =?us-ascii?Q?8IJ/uWzZxkRTkIYOWJqo4f7hKs4kfhbDT55JJ0LqpsMDzEdlnm+IM3Dfo8n1?=
+ =?us-ascii?Q?KiHjxMz3ptp3lLzeuSq0OJMqzBgLl0Q+qT+SuAVZ0Evgn+fQo0cma2Y3qnAN?=
+ =?us-ascii?Q?VEX+zBrXvVC+wXQxU84gwoUuhrYwoQ2q8QmMmQbk9jeq/tmr52SAPQOAIeEi?=
+ =?us-ascii?Q?IjN6MwOjbdlk2BR7Ki3B38ADaebLxzScgKzHoK8v2qeHYPQ0+qHE5IrJ0QnV?=
+ =?us-ascii?Q?K/6ERTLQXacYam7+lkeUHiTr806gJKCv/Dm15p1pzTJUK3kewQBmw0zZb1dx?=
+ =?us-ascii?Q?vZS2p5jWl4K8ep6PMZP4R1VboJSB40v0Y6UUP67SEMaDzoIUW3MsPHZF3m2z?=
+ =?us-ascii?Q?psmNqfPQq89AhO1OYaw/1wRXnYAp2VhDXzx48O28hvHI2Ft0pLOe0Q+WOsDL?=
+ =?us-ascii?Q?rQ+SeVW395Wv6Jfc2N5Te4HFaxrrQpyDhFIQVBg1jb1sqOVQGupjdpKlPYpQ?=
+ =?us-ascii?Q?cKhKjmC/871VaGAKLm4TB5hjXA3JjhFIqjG3Tzg/U983XJdlMgrI24J7C0Hh?=
+ =?us-ascii?Q?FOKRrGxJVkpKXzVkd84oNsWH4LCmU3j6C2IVKQNQip+zfuEEwUVTYHU0N1Ap?=
+ =?us-ascii?Q?HaPALy8p6uvENErxRw7Dl4Km0waY4TSwUN1cHnwLGh+cAtxusQWTP9hAqJjn?=
+ =?us-ascii?Q?X3PGT9l3XBk181/pVsW2/5dCCVV34j8uu5EgidaDqJZfzlfIuHdS/SKQNiom?=
+ =?us-ascii?Q?l6/WAkes4E+zJod3tUXJaRc4D0T7hGmYdpPsIFBnQ3vii5VWOG88Qb4UyPpM?=
+ =?us-ascii?Q?iYZIAQ4TWz8zJEFNKNAvDe9W99QUIFulHN1TkhxidjBmAFimE5OYIRdF4uE1?=
+ =?us-ascii?Q?h5fYAXBG7PVax06vc01LQ5PUvLfnM5DmD5lLE7Qj7HKK6TWlu44aTYHmQ2Ly?=
+ =?us-ascii?Q?qKIIohCGWWPmIT16YrQcua9808/8XEAEopG3gU/AJk4u4nCK9Vld1bDE5Dvs?=
+ =?us-ascii?Q?nCaDNnlyxfCpnUHNIL5bMhtTL3VM1ASZdjcRmkOkdcQllDSwUTlb0SNysBdd?=
+ =?us-ascii?Q?gKMEo/lfx9/277QY/euGNAD4i4yemrwtK5N8jr7at3eAJLcGvPNoYto7gVMY?=
+ =?us-ascii?Q?zjWwhrxOENxDqFNi3TcmpaKtZeXPfTvqlQE/?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2025 04:23:39.6728 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eb14659-d077-4f65-73be-08dd975618f2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2025 04:24:51.3014 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a221901c-913a-498b-ecac-08dd975643a3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8435
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,45 +131,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-added register to enable vcn ras
+Enable vcn ras posion processing and aca error logging
 
 Signed-off-by: Mangesh Gadre <Mangesh.Gadre@amd.com>
 Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_offset.h | 2 ++
- .../gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_sh_mask.h    | 6 ++++++
- 2 files changed, 8 insertions(+)
+v2: query ras error count legacy callback removed
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_offset.h
-index c4aaa86a95e2..f45155280ff5 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_offset.h
-@@ -1067,6 +1067,8 @@
- #define regVCN_FEATURES_BASE_IDX                                                                        1
- #define regUVD_GPUIOV_STATUS                                                                            0x0055
- #define regUVD_GPUIOV_STATUS_BASE_IDX                                                                   1
-+#define regUVD_RAS_VCPU_VCODEC_STATUS                                                                   0x0057
-+#define regUVD_RAS_VCPU_VCODEC_STATUS_BASE_IDX                                                          1
- #define regUVD_SCRATCH15                                                                                0x005c
- #define regUVD_SCRATCH15_BASE_IDX                                                                       1
- #define regUVD_VERSION                                                                                  0x005d
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_sh_mask.h
-index bd7242e4e9c6..eb8ff9de5826 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_sh_mask.h
-@@ -5714,6 +5714,12 @@
- //UVD_GPUIOV_STATUS
- #define UVD_GPUIOV_STATUS__UVD_GPUIOV_STATUS_VF_ENABLE__SHIFT                                                 0x0
- #define UVD_GPUIOV_STATUS__UVD_GPUIOV_STATUS_VF_ENABLE_MASK                                                   0x00000001L
-+//UVD_RAS_VCPU_VCODEC_STATUS
-+#define UVD_RAS_VCPU_VCODEC_STATUS__POISONED_VF__SHIFT                                                        0x0
-+#define UVD_RAS_VCPU_VCODEC_STATUS__POISONED_PF__SHIFT                                                        0x1f
-+#define UVD_RAS_VCPU_VCODEC_STATUS__POISONED_VF_MASK                                                          0x7FFFFFFFL
-+#define UVD_RAS_VCPU_VCODEC_STATUS__POISONED_PF_MASK                                                          0x80000000L
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c | 165 +++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.h |   7 +
+ 2 files changed, 171 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+index 60ee6e02e6ac..b379d112d7df 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+@@ -44,7 +44,7 @@ static void vcn_v5_0_1_set_irq_funcs(struct amdgpu_device *adev);
+ static int vcn_v5_0_1_set_pg_state(struct amdgpu_vcn_inst *vinst,
+ 				   enum amd_powergating_state state);
+ static void vcn_v5_0_1_unified_ring_set_wptr(struct amdgpu_ring *ring);
+-
++static void vcn_v5_0_1_set_ras_funcs(struct amdgpu_device *adev);
+ /**
+  * vcn_v5_0_1_early_init - set function pointers and load microcode
+  *
+@@ -64,6 +64,7 @@ static int vcn_v5_0_1_early_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	vcn_v5_0_1_set_unified_ring_funcs(adev);
+ 	vcn_v5_0_1_set_irq_funcs(adev);
++	vcn_v5_0_1_set_ras_funcs(adev);
+ 
+ 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+ 		adev->vcn.inst[i].set_pg_state = vcn_v5_0_1_set_pg_state;
+@@ -111,6 +112,10 @@ static int vcn_v5_0_1_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	/* VCN POISON TRAP */
++	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
++		VCN_5_0__SRCID_UVD_POISON, &adev->vcn.inst->ras_poison_irq);
 +
- //UVD_SCRATCH15
- #define UVD_SCRATCH15__SCRATCH15_DATA__SHIFT                                                                  0x0
- #define UVD_SCRATCH15__SCRATCH15_DATA_MASK                                                                    0xFFFFFFFFL
+ 	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+ 		vcn_inst = GET_INST(VCN, i);
+ 
+@@ -247,6 +252,9 @@ static int vcn_v5_0_1_hw_fini(struct amdgpu_ip_block *ip_block)
+ 			vinst->set_pg_state(vinst, AMD_PG_STATE_GATE);
+ 	}
+ 
++	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__VCN))
++		amdgpu_irq_put(adev, &adev->vcn.inst->ras_poison_irq, 0);
++
+ 	return 0;
+ }
+ 
+@@ -1160,10 +1168,24 @@ static int vcn_v5_0_1_process_interrupt(struct amdgpu_device *adev, struct amdgp
+ 	return 0;
+ }
+ 
++static int vcn_v5_0_1_set_ras_interrupt_state(struct amdgpu_device *adev,
++					struct amdgpu_irq_src *source,
++					unsigned int type,
++					enum amdgpu_interrupt_state state)
++{
++	return 0;
++}
++
+ static const struct amdgpu_irq_src_funcs vcn_v5_0_1_irq_funcs = {
+ 	.process = vcn_v5_0_1_process_interrupt,
+ };
+ 
++static const struct amdgpu_irq_src_funcs vcn_v5_0_1_ras_irq_funcs = {
++	.set = vcn_v5_0_1_set_ras_interrupt_state,
++	.process = amdgpu_vcn_process_poison_irq,
++};
++
++
+ /**
+  * vcn_v5_0_1_set_irq_funcs - set VCN block interrupt irq functions
+  *
+@@ -1177,7 +1199,12 @@ static void vcn_v5_0_1_set_irq_funcs(struct amdgpu_device *adev)
+ 
+ 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i)
+ 		adev->vcn.inst->irq.num_types++;
++
+ 	adev->vcn.inst->irq.funcs = &vcn_v5_0_1_irq_funcs;
++
++	adev->vcn.inst->ras_poison_irq.num_types = 1;
++	adev->vcn.inst->ras_poison_irq.funcs = &vcn_v5_0_1_ras_irq_funcs;
++
+ }
+ 
+ static const struct amd_ip_funcs vcn_v5_0_1_ip_funcs = {
+@@ -1209,3 +1236,139 @@ const struct amdgpu_ip_block_version vcn_v5_0_1_ip_block = {
+ 	.rev = 1,
+ 	.funcs = &vcn_v5_0_1_ip_funcs,
+ };
++
++static uint32_t vcn_v5_0_1_query_poison_by_instance(struct amdgpu_device *adev,
++			uint32_t instance, uint32_t sub_block)
++{
++	uint32_t poison_stat = 0, reg_value = 0;
++
++	switch (sub_block) {
++	case AMDGPU_VCN_V5_0_1_VCPU_VCODEC:
++		reg_value = RREG32_SOC15(VCN, instance, regUVD_RAS_VCPU_VCODEC_STATUS);
++		poison_stat = REG_GET_FIELD(reg_value, UVD_RAS_VCPU_VCODEC_STATUS, POISONED_PF);
++		break;
++	default:
++		break;
++	}
++
++	if (poison_stat)
++		dev_info(adev->dev, "Poison detected in VCN%d, sub_block%d\n",
++			instance, sub_block);
++
++	return poison_stat;
++}
++
++static bool vcn_v5_0_1_query_poison_status(struct amdgpu_device *adev)
++{
++	uint32_t inst, sub;
++	uint32_t poison_stat = 0;
++
++	for (inst = 0; inst < adev->vcn.num_vcn_inst; inst++)
++		for (sub = 0; sub < AMDGPU_VCN_V5_0_1_MAX_SUB_BLOCK; sub++)
++			poison_stat +=
++			vcn_v5_0_1_query_poison_by_instance(adev, inst, sub);
++
++	return !!poison_stat;
++}
++
++static const struct amdgpu_ras_block_hw_ops vcn_v5_0_1_ras_hw_ops = {
++	.query_poison_status = vcn_v5_0_1_query_poison_status,
++};
++
++static int vcn_v5_0_1_aca_bank_parser(struct aca_handle *handle, struct aca_bank *bank,
++				      enum aca_smu_type type, void *data)
++{
++	struct aca_bank_info info;
++	u64 misc0;
++	int ret;
++
++	ret = aca_bank_info_decode(bank, &info);
++	if (ret)
++		return ret;
++
++	misc0 = bank->regs[ACA_REG_IDX_MISC0];
++	switch (type) {
++	case ACA_SMU_TYPE_UE:
++		bank->aca_err_type = ACA_ERROR_TYPE_UE;
++		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_UE,
++						     1ULL);
++		break;
++	case ACA_SMU_TYPE_CE:
++		bank->aca_err_type = ACA_ERROR_TYPE_CE;
++		ret = aca_error_cache_log_bank_error(handle, &info, bank->aca_err_type,
++						     ACA_REG__MISC0__ERRCNT(misc0));
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return ret;
++}
++
++/* reference to smu driver if header file */
++static int vcn_v5_0_1_err_codes[] = {
++	14, 15, /* VCN */
++};
++
++static bool vcn_v5_0_1_aca_bank_is_valid(struct aca_handle *handle, struct aca_bank *bank,
++					 enum aca_smu_type type, void *data)
++{
++	u32 instlo;
++
++	instlo = ACA_REG__IPID__INSTANCEIDLO(bank->regs[ACA_REG_IDX_IPID]);
++	instlo &= GENMASK(31, 1);
++
++	if (instlo != mmSMNAID_AID0_MCA_SMU)
++		return false;
++
++	if (aca_bank_check_error_codes(handle->adev, bank,
++				       vcn_v5_0_1_err_codes,
++				       ARRAY_SIZE(vcn_v5_0_1_err_codes)))
++		return false;
++
++	return true;
++}
++
++static const struct aca_bank_ops vcn_v5_0_1_aca_bank_ops = {
++	.aca_bank_parser = vcn_v5_0_1_aca_bank_parser,
++	.aca_bank_is_valid = vcn_v5_0_1_aca_bank_is_valid,
++};
++
++static const struct aca_info vcn_v5_0_1_aca_info = {
++	.hwip = ACA_HWIP_TYPE_SMU,
++	.mask = ACA_ERROR_UE_MASK,
++	.bank_ops = &vcn_v5_0_1_aca_bank_ops,
++};
++
++static int vcn_v5_0_1_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block)
++{
++	int r;
++
++	r = amdgpu_ras_block_late_init(adev, ras_block);
++	if (r)
++		return r;
++
++	r = amdgpu_ras_bind_aca(adev, AMDGPU_RAS_BLOCK__VCN,
++				&vcn_v5_0_1_aca_info, NULL);
++	if (r)
++		goto late_fini;
++
++	return 0;
++
++late_fini:
++	amdgpu_ras_block_late_fini(adev, ras_block);
++
++	return r;
++}
++
++static struct amdgpu_vcn_ras vcn_v5_0_1_ras = {
++	.ras_block = {
++		.hw_ops = &vcn_v5_0_1_ras_hw_ops,
++		.ras_late_init = vcn_v5_0_1_ras_late_init,
++	},
++};
++
++static void vcn_v5_0_1_set_ras_funcs(struct amdgpu_device *adev)
++{
++	adev->vcn.ras = &vcn_v5_0_1_ras;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.h b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.h
+index 8fd90bd10807..b72e4da68317 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.h
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.h
+@@ -27,6 +27,13 @@
+ #define regVCN_RRMT_CNTL                          0x0940
+ #define regVCN_RRMT_CNTL_BASE_IDX                 1
+ 
++
++enum amdgpu_vcn_v5_0_1_sub_block {
++	AMDGPU_VCN_V5_0_1_VCPU_VCODEC = 0,
++
++	AMDGPU_VCN_V5_0_1_MAX_SUB_BLOCK,
++};
++
+ extern const struct amdgpu_ip_block_version vcn_v5_0_1_ip_block;
+ 
+ #endif /* __VCN_v5_0_1_H__ */
 -- 
 2.34.1
 
