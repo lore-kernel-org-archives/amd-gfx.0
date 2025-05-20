@@ -4,147 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86D20C3ABDA
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 05:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C29EC3ABDD
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 07:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AEC210E092;
-	Tue, 20 May 2025 05:10:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 165DC10E147;
+	Tue, 20 May 2025 07:04:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ltdWmdlm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Uvk6jUQH";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32CE510E092
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 05:10:57 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A571B10E0FC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 07:04:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eh5Ge5w/+9PyPVtyV1ojLfTdkVzrnrKsvjUN+PipvVTJqG9heP28oBLkCrYa5hwsc2Gps5drlPtZt8RlnyWiKhngzpdSoM8X3r+LSsqeQlYWLK1dECyUOo0bDbV63cMqbZozmYNbZYkvnOSEFtLYrvjPQ4un8pltxO1X5utfMYk72uWRwrx4w9iixw9ICNDBnDXmMPbhhNlumoAbRtUy3Okt74WR6aJJCWnwbciIa5DeSuKUsZ8VOHC1JkGZRm9CBpeauPCAAenU0QvTJpULwgPLO5HdwL2Xwpc+m8/fIYFRb7XtL+ctkeGxOgGrdnnNIcg3OBKS/lrqRfnd5X92Vg==
+ b=mTqpToGuXeWxgiTmRZLZ2d5iQ8rZ7Sed/gB1vkD78muvdLBdvRTZ4Tt6gbLMSo3/9LYnz3aCb6XYqqUZlq/f9TuMJhD71bA58e2gP3VO2fjgiF5DaQDm1Ccv7HofaCdlgMvYGDd8jLYiW78wtUk859ibBuio0SUAn77oQsgp8iDBQS3rAStx03K3uLLcflqor8TjCWB6+zI4nghVJpwLR80wO8C6eVzf5bqDh/5U3JFPD9fR8NVMBneDTWUsigSMRY5Kn55W+3t5TPEnyhw+S56TOCbObUuXHuA8KCfKk+Xn12qSKujG7hVOd7/RNYmBzLuqkjMHUU1wroZwkGvwCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p0rtJuGvo/JqV0NARBp6iAWPYCVrUP3HRMRgm4eb5RY=;
- b=h3gNpYsGoRyTLILd28aZKlakmwiYTer6HJdsBt6sY8nRU4ExpFvVONP4lQoElrl78DIPISKk+YLSwj14V8bIKKqL8NEi6skp03x/A45/qz8QH7rk+MJBZn53tzfUS3moyyBHqfOeEDXJrT8XoqJ3/YdN6JsqB7+9YyWKGtRZ6Iz66CNWf41OBuOCEFxcc1fJfEVj0JT5n016b8RwSVV5DuX1vwB69Q+JC/dZYCx2Sjeor6wv89oWvWCkaYmm3+uTAUEfPJcIPBfdtLhap09kR7RzOENzPlJAnttmjK6tIzVUrNaGOrahgX6CqVeQUe/lv09wSQKdMyxEUrob1e41IQ==
+ bh=dR95szXDT54CwWzfDt9x4xPXzRjY4EDmc6/0CBRPl2I=;
+ b=SI03r+KgFES+Xb53S45Bzpxs+aZBQgle265bCaqvTWdavwwGt4aRylMXZlU1U3tgKpQ9TXBU4qM3QvR2Ea6j9INJ9T1RlRPbK7PfbFAG1/qMpAoi1v6QDsXZ3EFsMT3kL5bO8RTBzEQdgmKkr3l7ZTy1a0j1I8hdx0E8N5N/OhdT4CtngR5Q2wHrNRpMIFohwjXvsiTZvaHpMFWQxJaxLHFQIzOirBqWkl9Syw6xKI5dH2aD7T9tnFHcZozDnLlR6Sq/lOCB9AHXSja4uQn6SU0eR50Gzc8fPcSaEDBTn2FPv9JTV1aO4aS0rEpTPPA3enEGUOdDlDxOn/Zj8TYemw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p0rtJuGvo/JqV0NARBp6iAWPYCVrUP3HRMRgm4eb5RY=;
- b=ltdWmdlmATv+mbXDG1Ix5snZVsQq6WsoV5Mkr2z5acXul2Y/ts9r5ZOJ795PDTnyBA5Xum8i2L15xp7rT+/pnOr+CYtsX9D2OXSOEo7GPLhIIWK1+IIoeHigso1a3O4e2cylIVhZtu/gm+Voclvgsm/Lqcm2bLmFghl/ZxSEcbk=
-Received: from DM4PR12MB5937.namprd12.prod.outlook.com (2603:10b6:8:68::11) by
- SJ1PR12MB6339.namprd12.prod.outlook.com (2603:10b6:a03:454::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Tue, 20 May
- 2025 05:10:53 +0000
-Received: from DM4PR12MB5937.namprd12.prod.outlook.com
- ([fe80::c847:70c6:3c78:54ba]) by DM4PR12MB5937.namprd12.prod.outlook.com
- ([fe80::c847:70c6:3c78:54ba%7]) with mapi id 15.20.8746.030; Tue, 20 May 2025
- 05:10:53 +0000
-From: "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang, GuoQing (Sam)"
- <GuoQing.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhao, Victor" <Victor.Zhao@amd.com>, "Chang, HaiJun"
- <HaiJun.Chang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Zhang, Owen(SRDC)" <Owen.Zhang2@amd.com>, "Ma, Qing (Mark)"
- <Qing.Ma@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Deng, Emily"
- <Emily.Deng@amd.com>
-Subject: Re: [PATCH v6 3/4] drm/amdgpu: enable pdb0 for hibernation on SRIOV
-Thread-Topic: [PATCH v6 3/4] drm/amdgpu: enable pdb0 for hibernation on SRIOV
-Thread-Index: AQHbyJcs4MJaW6/wr0qotfWV8KGndLPZ+q8AgAGFFAA=
-Date: Tue, 20 May 2025 05:10:46 +0000
-Message-ID: <4f3c7a86-c89a-429d-8ec1-5db7a0d12c6c@amd.com>
-References: <20250519082038.21459-1-guoqing.zhang@amd.com>
- <20250519082038.21459-4-guoqing.zhang@amd.com>
- <e75c26e4-8011-4e49-9e2d-d354dcf7358b@amd.com>
-In-Reply-To: <e75c26e4-8011-4e49-9e2d-d354dcf7358b@amd.com>
+ bh=dR95szXDT54CwWzfDt9x4xPXzRjY4EDmc6/0CBRPl2I=;
+ b=Uvk6jUQHyDkRGJMZ7pzVvSnwYttUIpyzPnXCVy+1d6UhRL1aoceG7ye/xgJmeQGXY/QZqJTAz5YAN9DcnlYjSNF0ui8zovEnqX6wqy1mfccqwfuoYWxauj99CwSuipoR+fj7u85pau/1MnESEQ2ujRRRtfkoEyGk+xnz4iLXTTs=
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
+ by BL1PR12MB5755.namprd12.prod.outlook.com (2603:10b6:208:392::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.29; Tue, 20 May
+ 2025 07:04:48 +0000
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::910f:c354:ea0d:1fd%7]) with mapi id 15.20.8746.030; Tue, 20 May 2025
+ 07:04:48 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Gadre, Mangesh" <Mangesh.Gadre@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>, 
+ "Yang, Stanley" <Stanley.Yang@amd.com>
+Subject: RE: [PATCH v2 5/5] drm/amdgpu: update ras support check
+Thread-Topic: [PATCH v2 5/5] drm/amdgpu: update ras support check
+Thread-Index: AQHbyT+QlB8+3rx4YECpcLlJoZqjWrPbGGBQ
+Date: Tue, 20 May 2025 07:04:48 +0000
+Message-ID: <PH7PR12MB87966CC37477B848D8513D5EB09FA@PH7PR12MB8796.namprd12.prod.outlook.com>
+References: <20250520042730.1606737-1-Mangesh.Gadre@amd.com>
+In-Reply-To: <20250520042730.1606737-1-Mangesh.Gadre@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-ms-exchange-imapappendstamp: DM4PR12MB5937.namprd12.prod.outlook.com
- (15.20.8746.028)
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=875937fa-aced-406d-b6db-1ed9513d2223;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-05-20T07:04:32Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5937:EE_|SJ1PR12MB6339:EE_
-x-ms-office365-filtering-correlation-id: 5ea3b8a9-be60-4550-eabd-08dd975cb1e4
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|BL1PR12MB5755:EE_
+x-ms-office365-filtering-correlation-id: e600ba01-cb7e-4c54-32c4-08dd976c9be9
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700018|8096899003; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?MXggbP96jrWYjIN5yB5TFgasIEqnYgsPlXJycxGKT1xNM4wjP3wSLNyNg9?=
- =?iso-8859-1?Q?6ycMSbltFx2nuO/oikKuR+Xvc0YFVjJ971VLMwc8IEcQfILFrNz8tkmMkf?=
- =?iso-8859-1?Q?daggaHmT5Yi2dyvfu6jDRqlnZCoC4M+gids9dqt1KNHwzoQgtB8we/0l0x?=
- =?iso-8859-1?Q?1ZfaWiS8h3g85F8YjSelWMRBfUGH7SrM6rA5HjLYkhqEAr5sQlDU0J7HBh?=
- =?iso-8859-1?Q?mSlcgjxDs3W8uLDeu5DFl0T4f05x7PX1dV/YByppbeEu/qrvAae6ShwCpa?=
- =?iso-8859-1?Q?i5A8zQUzppXmuo8lBJC7G+zV26z8PL0Zy7jQ2Ibj6CrnLpFf73vt3fTzxX?=
- =?iso-8859-1?Q?x3pZ7rK/3WwjRXmvQYszU69+NiDWC5V44t9Ac4frxE6M/rLPCwNxOK4/TO?=
- =?iso-8859-1?Q?rz/bhu0gGJNfw1D1j9hPAP8u5qFS/4LvJzTEiGWghqfKVC86ZbPqcCp5gV?=
- =?iso-8859-1?Q?OewBKniobsrB3D5gCCO/xRqOUpoA4kPunknDxPWc5vPLSfzX0sLk0Vs/M7?=
- =?iso-8859-1?Q?tnVOaRTown1vYtr1AH2I0syKdQkJccVemC6NSsxj8CcHH9qxXXn3W7SVaT?=
- =?iso-8859-1?Q?XqOhV32nm1A+wRVWFH8XnCZnVIUHReqeXmbcRypJML04rE1n8E59HN2JjF?=
- =?iso-8859-1?Q?OzSKSw0bQfPcbpa5qFqfB15no/EyXaz2+0h9v/fE9Dgzveha9/cUG+GHvJ?=
- =?iso-8859-1?Q?5ORnIEvQ0OXRb1mE+P7Mj7ay8PQPdN6egZo2iO4tlEPkFhVg2+GC0oDste?=
- =?iso-8859-1?Q?bDeSvcItHJwUF3V75mcvyqBDmiyfrvO2WEpo8m4hfz2fiK81WfYGuoqnSH?=
- =?iso-8859-1?Q?DDpUb0+qiL0fE/wrQ1qsUJSJ3jmZDc/CUZ1T4/czz6WQ1ahbUHfxaRmksL?=
- =?iso-8859-1?Q?voOT0eFuvB7C4HCxomeoTD2i370DyYc5gYhGEynwkuyW79wlxi+RjQntX6?=
- =?iso-8859-1?Q?zjPzMydQO8c2MVZj5q73pCE+8YBTz2zNjhKyEKE0gijPY1Eg6qTc8hu9Di?=
- =?iso-8859-1?Q?I18E36eXZ03lNEQ9eiU4J1inD09evWj82ZCm/Aj4YLVgmgOmF1Vj9DPM27?=
- =?iso-8859-1?Q?MhbMEnPlpegFveQXy/9NlU8CDemzNKvpXvmvQTHilsi1AqAXaa0zu9d92A?=
- =?iso-8859-1?Q?l7A7PjMJOSagacu0A0XizL8+oMwMMBgdTDmVMDfdr2ll4ok470NYiF7XW3?=
- =?iso-8859-1?Q?dJXSUTclyx5qZC+z00USxLzrgsyDuR+qoyzaIoqHchzwIreJuocxxJk2JL?=
- =?iso-8859-1?Q?B7hADE8b855XQ1eBUhJwYYBZvPxf3T/iPOpTkZLgybmEetTIKh9u9/1s9V?=
- =?iso-8859-1?Q?hW4F7W0+j0Lze6cJyH5xq9aiM7R3PkilR3eZ8UsuHLWXClXnM+PRSeTvq+?=
- =?iso-8859-1?Q?pfnrnDnCZ5cg656O7EF9kmsIWzg7LRhtxbcfMOZhBT7qgaXkJ/CIhBZVcA?=
- =?iso-8859-1?Q?hPsTMAQPWvW3Ia2ji3Nf1MRXDQNrsvcVHTZe8bA2iIs3DCJNLuqHoV5STP?=
- =?iso-8859-1?Q?SkMhw+mLfib40HBPUtmPz7x3CKNLMoG65FbguPv6/pvA=3D=3D?=
+ ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?ufbUl8YO5JZA0WTMXoBYl2L3kMWZy2pGXV3RkMMYTNOxeBdvaXOYfIugGnqL?=
+ =?us-ascii?Q?oYwM9mq89rcyOmHcKC+nggJCQX6WnLFGc3/iwIeDPbtjv4SxnGZwO3CyjkyR?=
+ =?us-ascii?Q?s14uZtp9tO1Wl6/9oQB3xMXIJadVXPGop3CH3Ce7D5J6f1ivDaYnzXSzUoO8?=
+ =?us-ascii?Q?ZaKO+0agkFv39oGsQk8wGTJhb6lXXxvS5eSxw/Pt7wpBIguJb3BuGkuqNrRv?=
+ =?us-ascii?Q?m4OmhkK2uLCiJTskNXBUt6AshfvxZgGXQKxdP1piAG5MfhwVns/EkvUwYcAI?=
+ =?us-ascii?Q?mhcy3lypFkJX191sj5JTlgCwM44J2CTUHPwfkFATBABzVoXLA8OMqSk883JQ?=
+ =?us-ascii?Q?9LnADcK/xmCiIEnVdcnh2JHW36imhiabd8vIM0o3KQ/KQ54p+hkP21fkcIn9?=
+ =?us-ascii?Q?ngyfbXuI6rCz3mvusX3kuWAAfLkUSHs+SEL/0/B0pz/hPJuprgv1+Ls0zF+A?=
+ =?us-ascii?Q?g7C6nO6s3oGy7JbxrO8ezjzaO4HYmVyN6IdByTQyEKxkAHdH0HnYlMmWRY2j?=
+ =?us-ascii?Q?/Z98Ob9b9i7RZHbiWvrlEb3EiI06fqp6WLKKnYy1GVjbyuX29yAVMvUvSn6b?=
+ =?us-ascii?Q?LWb4QfuxpH8wMeK77YKKwTY0s5s7pVOE5/Q8z11dTSn+dhGtKHkRSth3WNa6?=
+ =?us-ascii?Q?ciVtfoeZJojhZR9BN4PtyCxt5QIaaPuNsC2u8x3ClVy0DRDXm9n3s3Tm6Wip?=
+ =?us-ascii?Q?v0y9xk62cNxc6oVO+aD3YHCvjNsYCBfDofKWm8bxj6e+sZA7t9qRWa+PI9A+?=
+ =?us-ascii?Q?j6G79uWExXwrri9NZ28B90Iui5bIN9HnL+WPahB4KHoAToqn7P2Rv1B51mWJ?=
+ =?us-ascii?Q?GsOef5SljsavY1bhWV3Ufyl4ckW1cslItTrr7k5+zMiLGBiF3R29iqekuBEa?=
+ =?us-ascii?Q?i6DmHR4VhKTd+qb3cxZUc+m2JvWGDMP3xFCHjbg8Xzyw0qF/qDUwIBKzvVSN?=
+ =?us-ascii?Q?q8jDstnjm+cr6OLWrxOhNfCbFcX+h0lS3BWcrJKZGPtg2P7Shq/VhklkMmTY?=
+ =?us-ascii?Q?r2GGbo6U4qQrgZg90yiO3moP3+p5mIMvXZ+AmS2gLyS9yu+eV6B9aY2InJps?=
+ =?us-ascii?Q?8eUhK0O8q02CHzNkBqbe9A6FhY2lUOR50qYrahTWGhM6zMrZ/DyRfxZdkylW?=
+ =?us-ascii?Q?tIf2VmIeh6l8nbIkqTHaZ6Gk72A+0vhGptFfsJeQU3I8eI9jGG4jq/cb0vRx?=
+ =?us-ascii?Q?5K8k0Fp1PbdZ0CNh/YuJi39KR6uXsf4xLsnW2AeK33mNEUu2ueM6m+AttvtF?=
+ =?us-ascii?Q?V5z34kTttDZYHqyIVFXKMElTO+lSAMJLmKstwsRV54WlQPFNMWT9ucAIeepJ?=
+ =?us-ascii?Q?/r0aYHBqmD+8qtcb0bY6kwtzeNuFtilecNotBMuyfvp4m/9ETx08AJPcLy3o?=
+ =?us-ascii?Q?0xGY10eXS573MGtJnQmV8APxYEDsD1oX9IAXyGVBFMrrcuZyTCHJQ+r25TWV?=
+ =?us-ascii?Q?kBL9pE1QCB2iOSagvQeU/M4QuZST8Q9Tr5uq2xJUnXgZa0cXz5rB94wB4khe?=
+ =?us-ascii?Q?4ulgTm/OK4F2mqk=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5937.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(8096899003); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?zSYJtpzs+f2gmWW8JK9u76ThY1C96lYwo/TFR7RoRcv023bLGPel2quy3U?=
- =?iso-8859-1?Q?CGELv1VQYrzSNC9HNXFWGFKClenIaXr6lOm+0nnYtYUm8jrhAFhVqHSeGk?=
- =?iso-8859-1?Q?9GvnSdxIJg6reOxqIsxK0CRYik8CrU+2b6pCX71mRYh5I/Ud4JgJjRMBbL?=
- =?iso-8859-1?Q?rcazvfsx88J5K5n+Y//onEkpoMbwpAOpLkx53A8tUu2TN65mZ0sZzWveF2?=
- =?iso-8859-1?Q?RtgWPMXH05y0lRDSAHy5ugg68qTjb/fN8bmwrpDFw5duMoMKUIttVN6f9d?=
- =?iso-8859-1?Q?yYKL1zToINsVpw/oxuMcu/jTRyWQKxmRlHQ0ub5ZofOogA+eNJLBbhSusC?=
- =?iso-8859-1?Q?WN+uhllp2TK17dyZwZUOurvko05YJMML5RRdPVIF3GtzWnQbWZV/8tUnlN?=
- =?iso-8859-1?Q?RVSvHvcvQ4xM8168Iyc5HcbziM73DNfr3P37IiYby6I/XDpW3KPUoPs1EE?=
- =?iso-8859-1?Q?AmLG0+WH4FRKo59aoOmaJrtRs/aWuxIRL81EhglitFLCUt8SmUIhzV2Sl3?=
- =?iso-8859-1?Q?sMmRmdsz6Ojw3/Q3trzWUgzo2vN+lVaJIICo3hUjIohEJJwwGKbQqI1W0x?=
- =?iso-8859-1?Q?NvaR2CKY8EtfgIUXbVUZgbJqk/trOMcHNm+0xM6PDOAp8erBms5a98Mqsr?=
- =?iso-8859-1?Q?4u1tMtiuxl80+DZBf5EYWxxu0k+b+UuZTizyAOzqi54aOKjzDWmrJPM6wP?=
- =?iso-8859-1?Q?sSOOCz08qq7Ot01cgEgLR0lp4b7LcOrLOWilH7gNHg52LIm0f3DUuF6CYO?=
- =?iso-8859-1?Q?FA0Ga1Ng2j9CXlxk68p2woEgWpPPXGu0Y6HdIR6T01Isfr5AT1DzI0/KsO?=
- =?iso-8859-1?Q?0L/rSZLGcdEhWr2gePyr4wvs1DPBpBQ3+iopB3m9ZC99gBNdsu3A4h3Ed/?=
- =?iso-8859-1?Q?2ktdUZzfjxmGiKf5jqNU+dTG9xJZ9uBb4eDMgCJ4ZFseUz4+BlKMRHvyXP?=
- =?iso-8859-1?Q?Z6jifhJBsdWWB6gXj6WMgapJ1Q/ouhE81Xu7o/XeZ1STa88Rmu+dymuJaU?=
- =?iso-8859-1?Q?8dYz625OcCeaCg9YxP9foPb7ODsMCQp8AURM141b7QHh/gqKFc+9kQlzTT?=
- =?iso-8859-1?Q?apjoclMIb54Ihr8zoCTuGHC7cf63bpIUkV2I0erfvQK7UWuFfxAjHHwLPB?=
- =?iso-8859-1?Q?EB5lzOi/wSVDvWs0XRgI+qQAYKYeBrqtQwNyIzWpZdcxP/D0UHaAZdRY8H?=
- =?iso-8859-1?Q?OmSvm7bm1y6xnTtstn9ELI1ccuw3yGMxAN6oB27uFvGiRt9GFjr6oAVU+V?=
- =?iso-8859-1?Q?5NeeivQOgqI40Vl1AqYKfKi3RgwZir9aKLW64BkumbpgzwxYTO1rSQ1MgA?=
- =?iso-8859-1?Q?XqBFwgtlnrltRGQ92nqAJFJxMEX7m5wBx4sl/kbdEjKkikeuQvHFjSPy/I?=
- =?iso-8859-1?Q?Q9wtr5zSO7jka0prBa0aULgD6j8+2+kRquv8hYrrRd+V/+F4rv1j4pU5aR?=
- =?iso-8859-1?Q?CgpHpbg+7rZbl8TvHUPu2wchWkvXYPq07sqgF7W/urbTTUbjztNEOizKS7?=
- =?iso-8859-1?Q?BywceBTcXdZmCdP+Wp4BSjABm+di58u/nTR/hLWslkVkzGp4xiKIdKUuQe?=
- =?iso-8859-1?Q?KC9OCwx3l4lpthfthZETm61e6GGgjuaXiJ/k9OEreYtUdDLyecYRkcWk5A?=
- =?iso-8859-1?Q?W/nGSZy6/nXUQ=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_4f3c7a86c89a429d8ec15db7a0d12c6camdcom_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EL1OZbRqILnO4lTU8gIVo6/mvTkLQWhZNwz2pSy4H7b2fZTe9b/UPNtJbN5y?=
+ =?us-ascii?Q?dNfDYcR5gg8wavKS1iEs259j2P1oD2w2ZE/HrFu99OnMlLme9GD1CScK0sju?=
+ =?us-ascii?Q?8F4Oi/kCSJuqHSu3DRC4tYSRkeIbDnX9QwMminvjgBVezyZ5uTuIksLW6wBF?=
+ =?us-ascii?Q?BaeaMSNOM9k1+DWEsqtx2XWwqwd5kPfWCUvNzY0eib2GQnwEmOYzl4wAOjXs?=
+ =?us-ascii?Q?8ywJwSBpz0k9Kz3yCsMs6yHA2KyVGr1mAozGPv1S10UtUeULqmO13AqQsqKY?=
+ =?us-ascii?Q?53KjVhUEVYQIMSF0HtgHo7KBqkGs/oeGpalc+jI0jQhRdGYvR4MFurpSlfQZ?=
+ =?us-ascii?Q?29okDOoewrFvhRBqmjsaTemfDscFNM21YBWOzUIb1/ovv1ycqC0ExR2GkZ28?=
+ =?us-ascii?Q?ujkvZ3xkPOvMXBdg0erYA/jRgSEd2ZDOSngtxLY4KW045uUvBcHBBSiNkS64?=
+ =?us-ascii?Q?8XswoEWudSmxRMbZocz1owIR6hB1xvQMTtcvarXnSVYCqqCAEc7RvI7esYKB?=
+ =?us-ascii?Q?7kaWI/UvnpKr7+2PEjiRMskcHQ/NV1sjCZ1va/sK0Gb3ELSx6zrpOm7LWK16?=
+ =?us-ascii?Q?zSLwp/yg31yHFMkLPsO70ywtvHFRP03VyzmhPI/QIh00VO47RRMHVM6xgcbF?=
+ =?us-ascii?Q?lOsZ8ez4o470lxl5TLLFjSpsLjRKLh2AnIVsnI8E6FFypbTYVBKGanIjsVI3?=
+ =?us-ascii?Q?uUcHEH7R7pEp7ihlDIWSlATdLTlwlU+5ivZ0Pi+Z0HAByr+E2oPly/L+Gapw?=
+ =?us-ascii?Q?vVKBb5/9aoiDi6jk3KwRc/LlLxKM0espQJ/uTIZxChwDXcHEYnzx6ASLwkll?=
+ =?us-ascii?Q?TJ6mmdjhx2r/9yXO3/4nDPor8duX9txqYrZbOSaddhCfCIzKM6UUjJpRqIAi?=
+ =?us-ascii?Q?zg3/eAb8Q4NjCLxqv07kVCCo7TmURUUzTlaJn6tMMHa3An0uYpPUalNGu8vd?=
+ =?us-ascii?Q?vZOz4ANtQ/JFV8+DHzz3sGFBSufnNVgZCL6yU6URdOcy6mIA2DK+tNMfI9T3?=
+ =?us-ascii?Q?gEhhMYce0w5WzoUzZxf9Pa4YNSTxhuff2yrJZMcCe8SvJBt+oFRNYXG83+/+?=
+ =?us-ascii?Q?KlBl7mv3Vtbsp3X50JxSZR8/tOmzltTbUucnABSQhdS9gn5LeAMCn+wWgFCv?=
+ =?us-ascii?Q?fPdH0cNQ/yWxuNIsY78qS77sYI272F70fVZDJanwOecgeTNLlDxW5Vzp5WhA?=
+ =?us-ascii?Q?kW81smiaoEsJu56f6UZLaE1YpoPXnLz4emAarURhVt+QSHEzFADwV7bSxfnw?=
+ =?us-ascii?Q?1m+M7MKRFZh3KVD2MaMRby2nGrq65nageaiDnebtbP6O7wm9o5MX9Vmc0XmU?=
+ =?us-ascii?Q?YgiifU5C3Duj+fSIwYWNFXNUtQnLWYQO3AH6TJYS1nYn+9dfXGtgqdVLUYy6?=
+ =?us-ascii?Q?4FmSbhb9rXcW0g0GwRoZLjmwQABgFmA5w2zrMWCQ96j+qdQtzoqCCqV5b0Fs?=
+ =?us-ascii?Q?umrKRMlSu3vBBus2Bk9PGfV/jTHgby8N8ZT4Owi6k06lmqcaM4rhRBKWnMqL?=
+ =?us-ascii?Q?e1vD7QwE1p1mnrzqMDBxAaQE3BoUmDF7regAg37nPkxZxzUi5ocrcx6wuY28?=
+ =?us-ascii?Q?RU8Usc+J+K0qr8LdCfA=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5937.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ea3b8a9-be60-4550-eabd-08dd975cb1e4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2025 05:10:53.3357 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e600ba01-cb7e-4c54-32c4-08dd976c9be9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2025 07:04:48.4385 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: W2SMt6afgL4kZb56jx8NlS3dffwPaW9T4bx4tiGeKwa/CFbkrmXA6/P8dnLelJrfsKi9ucJdthei0v37TECEVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6339
+X-MS-Exchange-CrossTenant-userprincipalname: pXuPt1wNsc9n+GSXnXiWbEQr9ixlBO8ePWysPFJ8EeW4mrUv5PvJF+sNu4ku/Fye
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5755
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,696 +157,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_4f3c7a86c89a429d8ec15db7a0d12c6camdcom_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+[AMD Official Use Only - AMD Internal Distribution Only]
 
+The series is: Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
-On 2025/5/19 21:57, Christian K=F6nig wrote:
-> On 5/19/25 10:20, Samuel Zhang wrote:
->> When switching to new GPU index after hibernation and then resume,
->> VRAM offset of each VRAM BO will be changed, and the cached gpu
->> addresses needed to updated.
->>
->> This is to enable pdb0 and switch to use pdb0-based virtual gpu
->> address by default in amdgpu_bo_create_reserved(). since the virtual
->> addresses do not change, this can avoid the need to update all
->> cached gpu addresses all over the codebase.
->>
->> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
->> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 32 ++++++++++++++++++------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
->>   drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c |  2 +-
->>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 10 +++++---
->>   drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c  |  6 +++--
->>   5 files changed, 37 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_gmc.c
->> index d1fa5e8e3937..265d6c777af5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> @@ -38,6 +38,8 @@
->>   #include <drm/drm_drv.h>
->>   #include <drm/ttm/ttm_tt.h>
->>
->> +static const u64 four_gb =3D 0x100000000ULL;
->> +
->>   /**
->>    * amdgpu_gmc_pdb0_alloc - allocate vram for pdb0
->>    *
->> @@ -249,15 +251,24 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_devic=
-e *adev, struct amdgpu_gmc *mc
->>   {
->>       u64 hive_vram_start =3D 0;
->>       u64 hive_vram_end =3D mc->xgmi.node_segment_size * mc->xgmi.num_ph=
-ysical_nodes - 1;
->> -    mc->vram_start =3D mc->xgmi.node_segment_size * mc->xgmi.physical_n=
-ode_id;
->> -    mc->vram_end =3D mc->vram_start + mc->xgmi.node_segment_size - 1;
->> -    mc->gart_start =3D hive_vram_end + 1;
->> +
->> +    if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
->> +            /* set mc->vram_start to 0 to switch the returned GPU addre=
-ss of
->> +             * amdgpu_bo_create_reserved() from FB aperture to GART ape=
-rture.
->> +             */
->> +            amdgpu_gmc_vram_location(adev, mc, 0);
-> This function does a lot more than just setting mc->vram_start and mc->vr=
-am_end.
->
-> You should probably just update the two setting and not call amdgpu_gmc_v=
-ram_location() at all.
-
-I tried only setting mc->vram_start and mc->vram_end. But KMD load will
-fail with following error logs.
-
-[  329.314346] amdgpu 0000:09:00.0: amdgpu: VRAM: 196288M
-0x0000000000000000 - 0x0000002FEBFFFFFF (196288M used)
-[  329.314348] amdgpu 0000:09:00.0: amdgpu: GART: 512M
-0x0000018000000000 - 0x000001801FFFFFFF
-[  329.314385] [drm] Detected VRAM RAM=3D196288M, BAR=3D262144M
-[  329.314386] [drm] RAM width 8192bits HBM
-[  329.314546] amdgpu 0000:09:00.0: amdgpu: (-22) failed to allocate
-kernel bo
-[  329.315013] [drm:amdgpu_device_init [amdgpu]] *ERROR* sw_init of IP
-block <gmc_v9_0> failed -22
-[  329.315846] amdgpu 0000:09:00.0: amdgpu: amdgpu_device_ip_init failed
-
-
-It seems like setting mc->visible_vram_size and mc->visible_vram_size
-fields are also needed. In this case call amdgpu_gmc_vram_location() is
-better than inline the logic, I think.
-
-
->
->> +    } else {
->> +            mc->vram_start =3D mc->xgmi.node_segment_size * mc->xgmi.ph=
-ysical_node_id;
->> +            mc->vram_end =3D mc->vram_start + mc->xgmi.node_segment_siz=
-e - 1;
->> +            dev_info(adev->dev, "VRAM: %lluM 0x%016llX - 0x%016llX (%ll=
-uM used)\n",
->> +                            mc->mc_vram_size >> 20, mc->vram_start,
->> +                            mc->vram_end, mc->real_vram_size >> 20);
->> +    }
->> +    /* node_segment_size may not 4GB aligned on SRIOV, align up is need=
-ed. */
->> +    mc->gart_start =3D ALIGN(hive_vram_end + 1, four_gb);
->>       mc->gart_end =3D mc->gart_start + mc->gart_size - 1;
->>       mc->fb_start =3D hive_vram_start;
->>       mc->fb_end =3D hive_vram_end;
->> -    dev_info(adev->dev, "VRAM: %lluM 0x%016llX - 0x%016llX (%lluM used)=
-\n",
->> -                    mc->mc_vram_size >> 20, mc->vram_start,
->> -                    mc->vram_end, mc->real_vram_size >> 20);
->>       dev_info(adev->dev, "GART: %lluM 0x%016llX - 0x%016llX\n",
->>                       mc->gart_size >> 20, mc->gart_start, mc->gart_end)=
+> -----Original Message-----
+> From: Gadre, Mangesh <Mangesh.Gadre@amd.com>
+> Sent: Tuesday, May 20, 2025 12:28 PM
+> To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>=
 ;
->>   }
->> @@ -276,7 +287,6 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device =
-*adev, struct amdgpu_gmc *mc
->>   void amdgpu_gmc_gart_location(struct amdgpu_device *adev, struct amdgp=
-u_gmc *mc,
->>                             enum amdgpu_gart_placement gart_placement)
->>   {
->> -    const uint64_t four_gb =3D 0x100000000ULL;
->>       u64 size_af, size_bf;
->>       /*To avoid the hole, limit the max mc address to AMDGPU_GMC_HOLE_S=
-TART*/
->>       u64 max_mc_address =3D min(adev->gmc.mc_mask, AMDGPU_GMC_HOLE_STAR=
-T - 1);
->> @@ -1068,6 +1078,14 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *a=
-dev)
->>       flags |=3D AMDGPU_PTE_FRAG((adev->gmc.vmid0_page_table_block_size =
-+ 9*1));
->>       flags |=3D AMDGPU_PDE_PTE_FLAG(adev);
->>
->> +    if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
->> +            /* always start from current device so that the GART addres=
-s can keep
->> +             * consistent when hibernate-resume with different GPUs.
->> +             */
->> +            vram_addr =3D adev->vm_manager.vram_base_offset;
->> +            vram_end =3D vram_addr + vram_size;
->> +    }
->> +
->>       /* The first n PDE0 entries are used as PTE,
->>        * pointing to vram
->>        */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_gmc.h
->> index bd7fc123b8f9..46fac7ca7dfa 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->> @@ -307,6 +307,7 @@ struct amdgpu_gmc {
->>       struct amdgpu_bo                *pdb0_bo;
->>       /* CPU kmapped address of pdb0*/
->>       void                            *ptr_pdb0;
->> +    bool pdb0_enabled;
-> This isn't needed, just always check (adev->gmc.xgmi.connected_to_cpu || =
-amdgpu_virt_xgmi_migrate_enabled(adev)), make a function for that if necess=
-ary.
-
-Ok, I will update it in the next patch version.
-
-
+> Yang, Stanley <Stanley.Yang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>
+> Cc: Gadre, Mangesh <Mangesh.Gadre@amd.com>
+> Subject: [PATCH v2 5/5] drm/amdgpu: update ras support check
 >
->>
->>       /* MALL size */
->>       u64 mall_size;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/=
-amd/amdgpu/gfxhub_v1_2.c
->> index cb25f7f0dfc1..e6165f6d0763 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
->> @@ -180,7 +180,7 @@ gfxhub_v1_2_xcc_init_system_aperture_regs(struct amd=
-gpu_device *adev,
->>               /* In the case squeezing vram into GART aperture, we don't=
- use
->>                * FB aperture and AGP aperture. Disable them.
->>                */
->> -            if (adev->gmc.pdb0_bo) {
->> +            if (adev->gmc.pdb0_bo && !amdgpu_virt_xgmi_migrate_enabled(=
-adev)) {
->>                       WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_FB_LOCA=
-TION_TOP, 0);
->>                       WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_FB_LOCA=
-TION_BASE, 0x00FFFFFF);
->>                       WREG32_SOC15(GC, GET_INST(GC, i), regMC_VM_AGP_TOP=
-, 0);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gmc_v9_0.c
->> index 59385da80185..04fb99c64b37 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> @@ -1682,6 +1682,8 @@ static int gmc_v9_0_early_init(struct amdgpu_ip_bl=
-ock *ip_block)
->>               adev->gmc.private_aperture_start + (4ULL << 30) - 1;
->>       adev->gmc.noretry_flags =3D AMDGPU_VM_NORETRY_FLAGS_TF;
->>
->> +    adev->gmc.pdb0_enabled =3D adev->gmc.xgmi.connected_to_cpu ||
->> +            amdgpu_virt_xgmi_migrate_enabled(adev);
->>       return 0;
->>   }
->>
->> @@ -1726,7 +1728,7 @@ static void gmc_v9_0_vram_gtt_location(struct amdg=
-pu_device *adev,
->>
->>       /* add the xgmi offset of the physical node */
->>       base +=3D adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_se=
-gment_size;
->> -    if (adev->gmc.xgmi.connected_to_cpu) {
->> +    if (adev->gmc.pdb0_enabled) {
->>               amdgpu_gmc_sysvm_location(adev, mc);
->>       } else {
->>               amdgpu_gmc_vram_location(adev, mc, base);
->> @@ -1841,7 +1843,7 @@ static int gmc_v9_0_gart_init(struct amdgpu_device=
- *adev)
->>               return 0;
->>       }
->>
->> -    if (adev->gmc.xgmi.connected_to_cpu) {
->> +    if (adev->gmc.pdb0_enabled) {
->>               adev->gmc.vmid0_page_table_depth =3D 1;
->>               adev->gmc.vmid0_page_table_block_size =3D 12;
->>       } else {
->> @@ -1867,7 +1869,7 @@ static int gmc_v9_0_gart_init(struct amdgpu_device=
- *adev)
->>               if (r)
->>                       return r;
->>
->> -            if (adev->gmc.xgmi.connected_to_cpu)
->> +            if (adev->gmc.pdb0_enabled)
->>                       r =3D amdgpu_gmc_pdb0_alloc(adev);
->>       }
->>
->> @@ -2372,7 +2374,7 @@ static int gmc_v9_0_gart_enable(struct amdgpu_devi=
-ce *adev)
->>   {
->>       int r;
->>
->> -    if (adev->gmc.xgmi.connected_to_cpu)
->> +    if (adev->gmc.pdb0_enabled)
->>               amdgpu_gmc_init_pdb0(adev);
->>
->>       if (adev->gart.bo =3D=3D NULL) {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/a=
-md/amdgpu/mmhub_v1_8.c
->> index 84cde1239ee4..18e80aa78aff 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
->> @@ -45,8 +45,10 @@ static u64 mmhub_v1_8_get_fb_location(struct amdgpu_d=
-evice *adev)
->>       top &=3D MC_VM_FB_LOCATION_TOP__FB_TOP_MASK;
->>       top <<=3D 24;
->>
->> -    adev->gmc.fb_start =3D base;
->> -    adev->gmc.fb_end =3D top;
->> +    if (!amdgpu_virt_xgmi_migrate_enabled(adev)) {
->> +            adev->gmc.fb_start =3D base;
->> +            adev->gmc.fb_end =3D top;
->> +    }
-> We should probably avoid calling this in the first place.
+> update ras support check for vcn 5.0.1
 >
-> The function gmc_v9_0_vram_gtt_location() should probably be adjusted.
-
-mmhub_v1_8_get_fb_location() is called by the new
-amdgpu_bo_fb_aper_addr() as well, not just gmc_v9_0_vram_gtt_location().
-mmhub_v1_8_get_fb_location() is supposed to be a query api according to
-its name. having such side effect is very surprising.
-
-Another approach is set the right fb_start and fb_end in the new
-amdgpu_virt_resume(), like updating vram_base_offset.
-
-Which approach do you prefer? Or any better suggestions? Thank you.
-
-
-Regards
-Sam
-
-
-
+> Signed-off-by: Mangesh Gadre <Mangesh.Gadre@amd.com>
+> Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> Regards,
-> Christian.
->
->>
->>       return base;
->>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index e641bd57bb6d..071412b8bd55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -3709,7 +3709,8 @@ static void
+> amdgpu_ras_query_ras_capablity_from_vbios(struct amdgpu_device *adev
+>                */
+>               if (amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(=
+2, 6, 0)
+> ||
+>                   amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(=
+4, 0, 0)
+> ||
+> -                 amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(=
+4, 0, 3))
+> +                 amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(=
+4, 0, 3)
+> ||
+> +                 amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(=
+5, 0, 1))
+>                       adev->ras_hw_enabled |=3D (1 <<
+> AMDGPU_RAS_BLOCK__VCN |
+>                                                1 <<
+> AMDGPU_RAS_BLOCK__JPEG);
+>               else
+> --
+> 2.34.1
 
---_000_4f3c7a86c89a429d8ec15db7a0d12c6camdcom_
-Content-Type: text/html; charset="iso-8859-1"
-Content-ID: <B53F8ADD4C87674BADA1E6A02A83C988@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"en-CN" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<div>
-<p class=3D"MsoNormal"><br>
-On 2025/5/19 21:57, Christian K=F6nig wrote:<br>
-&gt; On 5/19/25 10:20, Samuel Zhang wrote:<br>
-&gt;&gt; When switching to new GPU index after hibernation and then resume,=
-<br>
-&gt;&gt; VRAM offset of each VRAM BO will be changed, and the cached gpu<br=
->
-&gt;&gt; addresses needed to updated.<br>
-&gt;&gt;<br>
-&gt;&gt; This is to enable pdb0 and switch to use pdb0-based virtual gpu<br=
->
-&gt;&gt; address by default in amdgpu_bo_create_reserved(). since the virtu=
-al<br>
-&gt;&gt; addresses do not change, this can avoid the need to update all<br>
-&gt;&gt; cached gpu addresses all over the codebase.<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Emily Deng &lt;Emily.Deng@amd.com&gt;<br>
-&gt;&gt; Signed-off-by: Samuel Zhang &lt;guoqing.zhang@amd.com&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c&nbsp; | 32 +++=
-+++++++++++++++------<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h&nbsp; |&nbsp; =
-1 +<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c |&nbsp; 2 +-<=
-br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c&nbsp;&nbsp;&nbsp=
-; | 10 +++++---<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c&nbsp; |&nbsp; =
-6 +++--<br>
-&gt;&gt;&nbsp;&nbsp; 5 files changed, 37 insertions(+), 14 deletions(-)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_gmc.c<br>
-&gt;&gt; index d1fa5e8e3937..265d6c777af5 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
-&gt;&gt; @@ -38,6 +38,8 @@<br>
-&gt;&gt;&nbsp;&nbsp; #include &lt;drm/drm_drv.h&gt;<br>
-&gt;&gt;&nbsp;&nbsp; #include &lt;drm/ttm/ttm_tt.h&gt;<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; +static const u64 four_gb =3D 0x100000000ULL;<br>
-&gt;&gt; +<br>
-&gt;&gt;&nbsp;&nbsp; /**<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; * amdgpu_gmc_pdb0_alloc - allocate vram for pdb0=
-<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&gt; @@ -249,15 +251,24 @@ void amdgpu_gmc_sysvm_location(struct amdgpu=
-_device *adev, struct amdgpu_gmc *mc<br>
-&gt;&gt;&nbsp;&nbsp; {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 hive_vram_start =3D 0;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 hive_vram_end =3D mc-&gt;x=
-gmi.node_segment_size * mc-&gt;xgmi.num_physical_nodes - 1;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; mc-&gt;vram_start =3D mc-&gt;xgmi.node_segment=
-_size * mc-&gt;xgmi.physical_node_id;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; mc-&gt;vram_end =3D mc-&gt;vram_start + mc-&gt=
-;xgmi.node_segment_size - 1;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; mc-&gt;gart_start =3D hive_vram_end + 1;<br>
-&gt;&gt; +<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (amdgpu_virt_xgmi_migrate_enabled(adev)) {<=
-br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; /* set mc-&gt;vram_start to 0 to switch the returned GPU address of<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; * amdgpu_bo_create_reserved() from FB aperture to GART aperture.<br=
->
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; */<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; amdgpu_gmc_vram_location(adev, mc, 0);<br>
-&gt; This function does a lot more than just setting mc-&gt;vram_start and =
-mc-&gt;vram_end.<br>
-&gt;<br>
-&gt; You should probably just update the two setting and not call amdgpu_gm=
-c_vram_location() at all.<br>
-<br>
-I tried only setting mc-&gt;vram_start and mc-&gt;vram_end. But KMD load wi=
-ll <br>
-fail with following error logs.<br>
-<br>
-[&nbsp; 329.314346] amdgpu 0000:09:00.0: amdgpu: VRAM: 196288M <br>
-0x0000000000000000 - 0x0000002FEBFFFFFF (196288M used)<br>
-[&nbsp; 329.314348] amdgpu 0000:09:00.0: amdgpu: GART: 512M <br>
-0x0000018000000000 - 0x000001801FFFFFFF<br>
-[&nbsp; 329.314385] [drm] Detected VRAM RAM=3D196288M, BAR=3D262144M<br>
-[&nbsp; 329.314386] [drm] RAM width 8192bits HBM<br>
-[&nbsp; 329.314546] amdgpu 0000:09:00.0: amdgpu: (-22) failed to allocate <=
-br>
-kernel bo<br>
-[&nbsp; 329.315013] [drm:amdgpu_device_init [amdgpu]] *ERROR* sw_init of IP=
- <br>
-block &lt;gmc_v9_0&gt; failed -22<br>
-[&nbsp; 329.315846] amdgpu 0000:09:00.0: amdgpu: amdgpu_device_ip_init fail=
-ed<br>
-<br>
-<br>
-It seems like setting mc-&gt;visible_vram_size and mc-&gt;visible_vram_size=
- <br>
-fields are also needed. In this case call amdgpu_gmc_vram_location() is <br=
->
-better than inline the logic, I think.<br>
-<br>
-<br>
-&gt;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; } else {<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; mc-&gt;vram_start =3D mc-&gt;xgmi.node_segment_size * mc-&gt;xgmi.physica=
-l_node_id;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; mc-&gt;vram_end =3D mc-&gt;vram_start + mc-&gt;xgmi.node_segment_size - 1=
-;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; dev_info(adev-&gt;dev, &quot;VRAM: %lluM 0x%016llX - 0x%016llX (%lluM use=
-d)\n&quot;,<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; mc-&gt;mc_vram_size &gt;&gt; 20, mc-&gt;vram_start,<=
-br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; mc-&gt;vram_end, mc-&gt;real_vram_size &gt;&gt; 20);=
-<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; /* node_segment_size may not 4GB aligned on SR=
-IOV, align up is needed. */<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; mc-&gt;gart_start =3D ALIGN(hive_vram_end + 1,=
- four_gb);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;gart_end =3D mc-&gt;gar=
-t_start + mc-&gt;gart_size - 1;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;fb_start =3D hive_vram_=
-start;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;fb_end =3D hive_vram_en=
-d;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;VRAM: %lluM 0x%01=
-6llX - 0x%016llX (%lluM used)\n&quot;,<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;mc_vram_size &gt;&=
-gt; 20, mc-&gt;vram_start,<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;vram_end, mc-&gt;r=
-eal_vram_size &gt;&gt; 20);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;G=
-ART: %lluM 0x%016llX - 0x%016llX\n&quot;,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;ga=
-rt_size &gt;&gt; 20, mc-&gt;gart_start, mc-&gt;gart_end);<br>
-&gt;&gt;&nbsp;&nbsp; }<br>
-&gt;&gt; @@ -276,7 +287,6 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_d=
-evice *adev, struct amdgpu_gmc *mc<br>
-&gt;&gt;&nbsp;&nbsp; void amdgpu_gmc_gart_location(struct amdgpu_device *ad=
-ev, struct amdgpu_gmc *mc,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; enum amdgpu_gart_placement gart_placement)<br>
-&gt;&gt;&nbsp;&nbsp; {<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; const uint64_t four_gb =3D 0x100000000ULL;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 size_af, size_bf;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*To avoid the hole, limit the=
- max mc address to AMDGPU_GMC_HOLE_START*/<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 max_mc_address =3D min(ade=
-v-&gt;gmc.mc_mask, AMDGPU_GMC_HOLE_START - 1);<br>
-&gt;&gt; @@ -1068,6 +1078,14 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_dev=
-ice *adev)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags |=3D AMDGPU_PTE_FRAG((ad=
-ev-&gt;gmc.vmid0_page_table_block_size + 9*1));<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags |=3D AMDGPU_PDE_PTE_FLAG=
-(adev);<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (amdgpu_virt_xgmi_migrate_enabled(adev)) {<=
-br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; /* always start from current device so that the GART address can keep<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; * consistent when hibernate-resume with different GPUs.<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; */<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; vram_addr =3D adev-&gt;vm_manager.vram_base_offset;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; vram_end =3D vram_addr + vram_size;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; +<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* The first n PDE0 entries ar=
-e used as PTE,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * pointing to vram<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_gmc.h<br>
-&gt;&gt; index bd7fc123b8f9..46fac7ca7dfa 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
-&gt;&gt; @@ -307,6 +307,7 @@ struct amdgpu_gmc {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; *pdb0_bo;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* CPU kmapped address of pdb0=
-*/<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ptr_pdb0;<br=
->
-&gt;&gt; +&nbsp;&nbsp;&nbsp; bool pdb0_enabled;<br>
-&gt; This isn't needed, just always check (adev-&gt;gmc.xgmi.connected_to_c=
-pu || amdgpu_virt_xgmi_migrate_enabled(adev)), make a function for that if =
-necessary.<br>
-<br>
-Ok, I will update it in the next patch version.<br>
-<br>
-<br>
-&gt;<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* MALL size */<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 mall_size;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gp=
-u/drm/amd/amdgpu/gfxhub_v1_2.c<br>
-&gt;&gt; index cb25f7f0dfc1..e6165f6d0763 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c<br>
-&gt;&gt; @@ -180,7 +180,7 @@ gfxhub_v1_2_xcc_init_system_aperture_regs(stru=
-ct amdgpu_device *adev,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; /* In the case squeezing vram into GART aperture, we don'=
-t use<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; * FB aperture and AGP aperture. Disable them.<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; if (adev-&gt;gmc.pdb0_bo) {<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; if (adev-&gt;gmc.pdb0_bo &amp;&amp; !amdgpu_virt_xgmi_migrate_enabled(ade=
-v)) {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SO=
-C15(GC, GET_INST(GC, i), regMC_VM_FB_LOCATION_TOP, 0);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SO=
-C15(GC, GET_INST(GC, i), regMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SO=
-C15(GC, GET_INST(GC, i), regMC_VM_AGP_TOP, 0);<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/d=
-rm/amd/amdgpu/gmc_v9_0.c<br>
-&gt;&gt; index 59385da80185..04fb99c64b37 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-&gt;&gt; @@ -1682,6 +1682,8 @@ static int gmc_v9_0_early_init(struct amdgpu=
-_ip_block *ip_block)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; adev-&gt;gmc.private_aperture_start + (4ULL &lt;&lt; 30) =
-- 1;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.noretry_flags =3D=
- AMDGPU_VM_NORETRY_FLAGS_TF;<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; adev-&gt;gmc.pdb0_enabled =3D adev-&gt;gmc.xgm=
-i.connected_to_cpu ||<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; amdgpu_virt_xgmi_migrate_enabled(adev);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&gt;&nbsp;&nbsp; }<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; @@ -1726,7 +1728,7 @@ static void gmc_v9_0_vram_gtt_location(struc=
-t amdgpu_device *adev,<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* add the xgmi offset of the =
-physical node */<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; base +=3D adev-&gt;gmc.xgmi.ph=
-ysical_node_id * adev-&gt;gmc.xgmi.node_segment_size;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.connected_to_cpu) {<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.pdb0_enabled) {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; amdgpu_gmc_sysvm_location(adev, mc);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; amdgpu_gmc_vram_location(adev, mc, base);<br>
-&gt;&gt; @@ -1841,7 +1843,7 @@ static int gmc_v9_0_gart_init(struct amdgpu_=
-device *adev)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.connected_to_cpu) {<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.pdb0_enabled) {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; adev-&gt;gmc.vmid0_page_table_depth =3D 1;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; adev-&gt;gmc.vmid0_page_table_block_size =3D 12;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt;&gt; @@ -1867,7 +1869,7 @@ static int gmc_v9_0_gart_init(struct amdgpu_=
-device *adev)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;=
-<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; if (adev-&gt;gmc.xgmi.connected_to_cpu)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; if (adev-&gt;gmc.pdb0_enabled)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amd=
-gpu_gmc_pdb0_alloc(adev);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; @@ -2372,7 +2374,7 @@ static int gmc_v9_0_gart_enable(struct amdgp=
-u_device *adev)<br>
-&gt;&gt;&nbsp;&nbsp; {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.connected_to_cpu)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.pdb0_enabled)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; amdgpu_gmc_init_pdb0(adev);<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gart.bo =3D=3D NU=
-LL) {<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu=
-/drm/amd/amdgpu/mmhub_v1_8.c<br>
-&gt;&gt; index 84cde1239ee4..18e80aa78aff 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c<br>
-&gt;&gt; @@ -45,8 +45,10 @@ static u64 mmhub_v1_8_get_fb_location(struct am=
-dgpu_device *adev)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; top &amp;=3D MC_VM_FB_LOCATION=
-_TOP__FB_TOP_MASK;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; top &lt;&lt;=3D 24;<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; adev-&gt;gmc.fb_start =3D base;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; adev-&gt;gmc.fb_end =3D top;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (!amdgpu_virt_xgmi_migrate_enabled(adev)) {=
-<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; adev-&gt;gmc.fb_start =3D base;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; adev-&gt;gmc.fb_end =3D top;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; }<br>
-&gt; We should probably avoid calling this in the first place.<br>
-&gt;<br>
-&gt; The function gmc_v9_0_vram_gtt_location() should probably be adjusted.=
-<br>
-<br>
-mmhub_v1_8_get_fb_location() is called by the new <br>
-amdgpu_bo_fb_aper_addr() as well, not just gmc_v9_0_vram_gtt_location().<br=
->
-mmhub_v1_8_get_fb_location() is supposed to be a query api according to <br=
->
-its name. having such side effect is very surprising.<br>
-<br>
-Another approach is set the right fb_start and fb_end in the new <br>
-amdgpu_virt_resume(), like updating vram_base_offset.<br>
-<br>
-Which approach do you prefer? Or any better suggestions? Thank you.<br>
-<br>
-<br>
-Regards<br>
-Sam<br>
-<br>
-<br>
-<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt; Christian.<br>
-&gt;<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return base;<br>
-&gt;&gt;&nbsp;&nbsp; }<o:p></o:p></p>
-</div>
-</div>
-</body>
-</html>
-
---_000_4f3c7a86c89a429d8ec15db7a0d12c6camdcom_--
