@@ -4,72 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3791AC3ABDD
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 13:14:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CD8DC3ABDD
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 13:22:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3B1F10E0E3;
-	Tue, 20 May 2025 13:14:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C59C910E0EA;
+	Tue, 20 May 2025 13:22:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tr1nrYgw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yWf/DVq2";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD7A10E0E3
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 13:14:39 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-231c38c9d9eso4707845ad.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 06:14:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747746879; x=1748351679; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=d3Fll2FVKxfx+qeC/g2VSdQVtobn0GEtEO5xtgAUJMo=;
- b=Tr1nrYgwdO9yslPBAm0MLfynVRYOBAzEmpOrQyOmHLwf/ksYfiixd0TxgFaYEs86AX
- DBapsUPyeaJcCx7cG2ODtBSFWNCOWySAAPef2dkF5DWjrIlqObOZrxKqOMCTqxeLt+NO
- F8YizGp3K/xEKsyguvDKfygqcOLV+pcTw1yUzBLT/d/JRaDil9HOBn6UaLIqSP68VGyC
- z40KuPnm5O2AvmvKzB+vSi0XdEV2+D9h70Zxj9KpKsl6cA35A8tDtX+UiEKdeix+u/64
- HvvUJhReDLmSgh4qvcJYCI8OkBFiQRa2R4ow8s140B7yMNSRZFPhJpgc5r3rmq4iHCaJ
- jLbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747746879; x=1748351679;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=d3Fll2FVKxfx+qeC/g2VSdQVtobn0GEtEO5xtgAUJMo=;
- b=fTIQv5WKdgfHjF315gIU+ujmhJcQQ9uxE3+PdmPR1r6U8nCQLGGlTEvntMaxEQRmBs
- scFpfA9+oqt7BpAomdc7176pWguDQUWxX8prhKn/ZQxtP6u2nDuDXEmTCBUVhIbs9ilx
- e5B406Xl1QlX5a2SMTAPQaRiCiE8z9dp1wM0DmSmAq0+fh7gN6JiT1uSMbSpHk0Mzh/L
- vIJym/q4F8jLqzXxRM6WzTz0rG+ORMykJDOiY/nOGzfK14YsKxf9Z8+BUnLiV1pU0tcx
- gDQHs97DyuRtsllkj4uM6BJpB9WTjj9BSddcws98Kx2mp+EK3sCel7LOo270B3POD0oy
- 3KVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXcMcYk4jZwfb9uol7tj0DmAld3AdwSGa/R73IWwGvb/vxUm3KsrjlP/YjEKE/zWbgkndHjmzQr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YywYV1bJ6aWTr9TXB8LeyAOU/50DAnjSNSZzCdzt+oKzfrPGJmh
- hp3EID+sYH0lV+TvdCR5qHIz77MahePYuhsUfNvliRthAXCgXKbQ/fjQSitRMkatKN57kNU0YNg
- fkrMx9okEJffH9tC7Df5OuJIzp29utmU=
-X-Gm-Gg: ASbGnctGp3QIkdNs+cJ6N6EDkVMClQ4fGCuY+9+CGDhxtPl/yxP9H787BIyFpa9CUb0
- msPiO93L6wdqCj+fE+ETj2bjNpS2/2ux0fGbbCfj4YOOsqFjt1UsSA+0kdi2LFanheNVCYCSnwB
- QvTiXMmQlszHvICF/8zTXvJhW61R7JoQ3y0A==
-X-Google-Smtp-Source: AGHT+IFRP2hNZNL8STQ9Lmr+Bpr6j1xoQEkrMF1pBcnljURB+lATKDxhrRYNQWLzXXY9q3tNX/y5dVKpXWc4jVrmReU=
-X-Received: by 2002:a17:902:d54c:b0:224:10a2:cad1 with SMTP id
- d9443c01a7336-231d45168bcmr93096535ad.10.1747746878464; Tue, 20 May 2025
- 06:14:38 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250502161720.1704-1-christian.koenig@amd.com>
- <20250502161720.1704-2-christian.koenig@amd.com>
- <ggm5pb2sgyfe4irgrizjr4dohvxviob5p7ekqvvul4ktqvqlcj@zubqhw3yeuc4>
-In-Reply-To: <ggm5pb2sgyfe4irgrizjr4dohvxviob5p7ekqvvul4ktqvqlcj@zubqhw3yeuc4>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 20 May 2025 09:14:26 -0400
-X-Gm-Features: AX0GCFsptdgviC4_Oj5dKlKkDENwcZ0gUjmrebRh4l1Cg6gUUZue8mQqOJsQQ9Q
-Message-ID: <CADnq5_ODb2REjrFm0A=7Di9R-ebjfhLd9YWEv-ciJKQVcX4P4w@mail.gmail.com>
-Subject: Re: [PATCH 2/5] drm/amdgpu: rework gfx9 queue reset
-To: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F2AC10E0D7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 13:22:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=frw9W79Gl2d7AGRDfI2WIUsfG7pnWiZ2KLDsRwIqfKuyzBecga1RCe85dQHvH2QlCB6KVTcL8g1FM2whbUuE3etcKDeK62q2mEJ71w2/WKqGavkj97ID7+Mvp4bFIL4Q+3PKnoMTevvrcpo08XtIW9htSK/GRujSCHARn+hwFkmHo3ifTO7OyzDnn9BQkllQ898bXwZ4xDsWd4s9BJRe5ei6avKAExARwlfQ0Z8kL2bfOUqTv9uhXdrBltocir2p5Q1Ci0uGiRBvwdzLnmI6KtFgTH1j8XdD8s4HafPbB8/6sTD8jgXn1vOseQk2AT3aEOtLmrHeQgViPM+1KUhebA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H44eA3n4uSsJUW5ARLKvJ3trmlxRNCclQ+X37eDy3RY=;
+ b=sYiucprzvDP5CxsVUYrhFdwc9K4hXfmvFAfwF2uzJtFuF1HOcYy5UCQSvaZwXE0CgBnhRdfwQJ0BQ6Lg159eQBJ7XEnd60Nsbt/WGR/nstpoxe0LI3ek+473yLn4p3TNhw55PaDLu4ipxFOXr27/dc9nq+cSKsBwhYlDAuFDgdYpVLDK/yIVmigdqezxg5QYyahHiEXaQZ7jTjZ9HiNJ84WoLxNjdGGQax65mFpvbgHJc6hZdSELIQ3Qz2uxCKu4bWJS7bMG28XByBeS3B4RQz3O/FTux9PNIgGHEScVBswN4P7OIWQ0Fl0VxIcgxKIpTLeqhuwvFbt1hc0u8WmXAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H44eA3n4uSsJUW5ARLKvJ3trmlxRNCclQ+X37eDy3RY=;
+ b=yWf/DVq27ZgvG1UwwWCGXhgxjDj0VUsE9rLaqG1BSfNfcbY9UCXPxdi+nx/6lpQLAN48XBHRbVQKeBblwHqnhRwldwELJk8/Xxs7hrGORLC/tqXJz3bo9l8Dc0gC6B+8RSm4E1W9aN2sgSOCVPStIu0xvb29DF+JSv7Cw+/Oaao=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ LV8PR12MB9206.namprd12.prod.outlook.com (2603:10b6:408:186::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.31; Tue, 20 May
+ 2025 13:22:12 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6%5]) with mapi id 15.20.8722.027; Tue, 20 May 2025
+ 13:22:12 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
+ Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
+ ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
+ "Wu, Ray" <Ray.Wu@amd.com>, "Hung, Alex" <Alex.Hung@amd.com>
+Subject: RE: [PATCH 00/11] DC Patches May 19 2025
+Thread-Topic: [PATCH 00/11] DC Patches May 19 2025
+Thread-Index: AQHbw/mpZLYwiSn63EGDt393fQashbPbi9KQ
+Date: Tue, 20 May 2025 13:22:12 +0000
+Message-ID: <DS0PR12MB65342A74A39C0C867A020CB29C9FA@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20250513112439.2295366-1-chiahsuan.chung@amd.com>
+In-Reply-To: <20250513112439.2295366-1-chiahsuan.chung@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=f37c7cc8-2cc6-45cb-a0ec-d308609b7eb3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-05-20T13:20:19Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|LV8PR12MB9206:EE_
+x-ms-office365-filtering-correlation-id: 82c6da53-df09-4898-f2ca-08dd97a154e9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?YOPgXZpfeVG3bWSyuJt8eTChCDH8gSRfxIgv95Anlp9w0vVH5x9tfiHrXv?=
+ =?iso-8859-1?Q?WZ75TsnO/OPbsjFdgRdKP82DhohiDc0K+ns6jEBW0GH3gbqe0TK7Ccl9+6?=
+ =?iso-8859-1?Q?aFvZjYZf+wKrDTH8obTMLUmKMfAqxjWTNEZcFaIXwBsSVRLk0F56YNw404?=
+ =?iso-8859-1?Q?x95vKPNgKHZ+NZbb+8L67y5MFND5xukAXtKiipbgrkTnSEVMib2WHaDAmD?=
+ =?iso-8859-1?Q?uVTiYdtvWOULLTqTmB6EiLZuhWdYTU3OCHNL5m1fy35MsLOctLNrmQ6wjA?=
+ =?iso-8859-1?Q?xMRd5bEI1F27tVEO29JHhB4t9wCwtILgMwA2Ui7Bcm6mlf1dtPwevXqKFU?=
+ =?iso-8859-1?Q?P3h4URBQyLlBae/HBu5DwWgmLNRF7BagH6Ju59VL/KdgG5ITIig/51AHKW?=
+ =?iso-8859-1?Q?jom17kYsvsshCpsQO46M17V3wK8lxAFndHxipu6U75B3m2czFsbo8ZdxDc?=
+ =?iso-8859-1?Q?xzGBOCj/G/r6fCDoZgO21X3lsnLmedv/DKJ8q5sevV4LTFAO10FTJsYRJv?=
+ =?iso-8859-1?Q?sgLyTNP35qFxck+YpAznojnp+hvN0krZm1CLuneYMuTEePz5ycHe1xNmbf?=
+ =?iso-8859-1?Q?SBB0hajrl+y8J4yxwQjXa7wfynEqsTTJCpz6X9i/NMWb568uNL9u6NFcfE?=
+ =?iso-8859-1?Q?pMnYgRhjmJIk6IVkCxP2G56s3VpZZlHaL+LmKV94AEfvAwlDzeCzhdwyXX?=
+ =?iso-8859-1?Q?os5yA81WCmMHWpXIuD5utFOGPS2Pvz2aiL3Hl/Qapeuzkg3SiE9abMPIow?=
+ =?iso-8859-1?Q?fcjv+fwdWV0RX6MwUncsFYaS9/7Z/b8Z1qABGAuo3MqlwA9IDrtXN+8+b7?=
+ =?iso-8859-1?Q?RS9H7ZG+M2PFVF1XhYTa5yjY054qTFXj+I9vLZMRDvnJWqYGRQbEVw53s9?=
+ =?iso-8859-1?Q?LRfebJKuDukRJXeC/TRwYZ2/r46xXZxwj5Eghg5WF5UDNK9PRcRy6TrxLZ?=
+ =?iso-8859-1?Q?cnwrWklugjQr6IhZZrzta/1r7zZS91YwcaTgdgr+EZMRdJBWGdjIntIgw3?=
+ =?iso-8859-1?Q?z8wXa7/BR78PlnlKKkDKzt1Bg/UfBGRBJzjIQ0dolSfhhUyGAVGyct4Qyl?=
+ =?iso-8859-1?Q?WQcRgZToqN+K/mFChS2J7NNcWfBPF1DsHN095DeJtr1HigfTmTxegWl0SH?=
+ =?iso-8859-1?Q?JY3ceRxrupLOg8L0CaguaVx0wul2NU3tVetleuZQpUIhi5QSVOBO6VCaNH?=
+ =?iso-8859-1?Q?+t3E2pt0clpWEPCMQeoKwcssOffS5oqek7U6K+bY5aw+qqBHxo363dTzGS?=
+ =?iso-8859-1?Q?7ouwZKkhg0M6RG7kWHwpL/b9z7WjqZveGZUIaJNt/fzAUOAaE6K2JUVfxD?=
+ =?iso-8859-1?Q?Gw0MxcUIFuyEm7tmOrPqJkDGfKHv5hwqP0u0jOIX6BgYkaMQWktetYshgE?=
+ =?iso-8859-1?Q?EkcXGMeee2vBVAIr0Uf+sYz8PhuGdXzYy0SsTiHbBAw/de36LhAJxr55xv?=
+ =?iso-8859-1?Q?P2g2sZlvxqAmfWzfjUQ1La5FHaCNtcfUMphIpG9eB60239ENrH55tdoNem?=
+ =?iso-8859-1?Q?IkC4yuA7u1m64oIOIH5C8A4DJHVP0K5YAeZ82R0iBXZA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?hUj0By/VGxwCAIShTchhxw1UxVl6nLC6C2VqFR5YQeN4lLkiCg5qMgBYk0?=
+ =?iso-8859-1?Q?UkdjNGPbUWuogP5gXRW2lB0/NbAjKgU7IKt628JGXORVBseKmU2ziWKirc?=
+ =?iso-8859-1?Q?fJ1iz0zXrl5rGEzCJ7D70zuiIIp1b2Ski2E5PPg/77WWar49URJ0BNvEsw?=
+ =?iso-8859-1?Q?ztEuTlJ4EX8PtiJ6DrOhJPl+1D1Rb97s0Bk5o7G7FmwZjS9HpqcmGxB+AD?=
+ =?iso-8859-1?Q?Lt8xXnvRmTkONM7mlGFUhZ3f3o6i24F+y9St+8BYfsELYf92ZUHJmsO6yl?=
+ =?iso-8859-1?Q?rSypi2mrcet/Pn0FQUb5NKcwj1i6oh7fdHnN2OrQI8j/2RPVMrnfjNA/WP?=
+ =?iso-8859-1?Q?POhTP+5Di41K0YkTMURT44b57kbCWLKNgSqKCtc95DkTfkk23Wjmj987C/?=
+ =?iso-8859-1?Q?AnyMZIwFMXCO6s8rV3Z5UlD9GC6yC3U/S6rROmAlEnnBRMe/IOqdX38ZMf?=
+ =?iso-8859-1?Q?5D2rxqgyxnkOvdYgWd2WGxnTelni/nyXyFDq7ZuHsOKIJ0WQNdCJQOZjXj?=
+ =?iso-8859-1?Q?12Ye/85HY2R1OfO4JoKUXu7Q9/P3xmaydJMIZuKc4el1NRfu4ej4O3Ne5I?=
+ =?iso-8859-1?Q?E1UGLY4P3/vAg3Nf1pMXjp1AcfM1KMf21YOQmaMOTHpdepMIyUQ1Lyj9ts?=
+ =?iso-8859-1?Q?rXsVQDGl11kog/LDe4zGCOUODBD5BmQTQ3EJ6Jn4xwFjb/hNseH96AfJdU?=
+ =?iso-8859-1?Q?LdO5Jw9fHzXKtGLhIUMG28GtaTiOcqMlaM2LBobpMI1/b1uGLaJ1rwjNn+?=
+ =?iso-8859-1?Q?AKKOO2OWMO4ge6gXPWg+sy6ETbARAxsbPEJLro7WqtrF8vlpRGJVCHQi7b?=
+ =?iso-8859-1?Q?CjBVAoMz+7lyDSA1ST4PIzdOZKXwD7HOID/9GnFLRIMRA2aae2wZAM9bWK?=
+ =?iso-8859-1?Q?1JiP+Ag13l/3+NSAzSALcz2NI7o1NwZPqPCzNfPIBYnuYW/E5RJjKEdKZy?=
+ =?iso-8859-1?Q?jpAxzgkCker3YrVJLgjSffX8kLSIsNVnqTK9S0RYnKgncZ0mpN1vPf/Pl6?=
+ =?iso-8859-1?Q?wB04qnOXufKrBg4A6l8TFYokZnjZWRfXMHNycgSayLEgMebYxsXy/VlIZy?=
+ =?iso-8859-1?Q?qzo3OfdDi0VGX+B1wkl3j8Nh5HV8JxJ7waZIUINFPwqLRqjYphnbjKSPYk?=
+ =?iso-8859-1?Q?OzgU7CT/NhS+OUW3K9QJb/WZor91s/cJ6+n9yvaF/Q8s6NYTyUauo+AyFq?=
+ =?iso-8859-1?Q?r5jqZDLuL0r/iwtSdl1+D3/SAAAh3SWBdLQgm7wIeMt+68yThQpK7FnEy2?=
+ =?iso-8859-1?Q?QI1VLQw4F7Aj07Sbsid+3T/6TkOj2GtYufH66l821xCl1gu6zJPwdn2GHT?=
+ =?iso-8859-1?Q?0xhOHunC9W2hdPyq4ME6p1Q1WpO8ZFloKtTkQJqqDWAJPEumqYXsYNJYWZ?=
+ =?iso-8859-1?Q?i2+otx1jRJPF8oF2t6vpvsCfyxGs4eRYVUidrtOInfx1GlK5/8AJDU8Iep?=
+ =?iso-8859-1?Q?Cw3KJnmwdmd0WRBHrLjT9Ty263LGozl2eSDyg4xSOGM2XaCQRF4UXVJAbl?=
+ =?iso-8859-1?Q?Y3PM7rUXIW8YiSGtEeN4s7hu/V+m6AJWyuDs/AQIw75ZEmtAFPMvgCUHAq?=
+ =?iso-8859-1?Q?s41ZwiEMLdGTmjOLTYLqSGAzX2K7GKLnjGRuQoDnZ4JMh5WfQecIneT1v/?=
+ =?iso-8859-1?Q?ZkOnz/+BxHahA=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82c6da53-df09-4898-f2ca-08dd97a154e9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2025 13:22:12.6277 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /Ct4K65SBD4dWHWK+l9gTQVSLhLWMlLQQBMvCAEy1cXvWMu13H8mBCHyrWWYQK8EfaT3j/jb26tpl1L5NlMU9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,227 +159,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 19, 2025 at 7:59=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
-om> wrote:
->
-> On 05/02, Christian K=C3=B6nig wrote:
-> > Testing this feature turned out that it was a bit unstable. The
-> > CP_VMID_RESET register takes the VMID which all submissions from should
-> > be canceled.
-> >
-> > Unlike Windows Linux uses per process VMIDs instead of per engine VMIDs
-> > for the simple reason that we don't have enough. So resetting one VMID
-> > only killed the submissions of one specific process.
-> >
-> > Fortunately that turned out to be exactly what we want to have.
-> >
-> > So clear the CP_VMID_RESET register between every context switch betwee=
-n
-> > applications when we do the pipeline sync to avoid trouble if multiple
-> > VMIDs are used on the ring right behind each other.
-> >
-> > Use the same pipeline sync function in the reset handler and issue an I=
-B
-> > test instead of a ring test after the queue reset to provide a longer
-> > timeout and additional fence value should there be additional work on
-> > the ring after the one aborted.
-> >
-> > Also drop the soft recovery since that pretty much does the same thing =
-as
-> > CP_VMID_RESET, just on a lower level and with less chance of succeeding=
-.
-> >
-> > This now survives a stress test running over night sending a broken
-> > submission ever 45 seconds and recovering fine from each of them.
-> >
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h   |  1 +
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 47 ++++++++++-----------------
-> >  2 files changed, 19 insertions(+), 29 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu.h
-> > index cc26cf1bd843..c39fe784419b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -278,6 +278,7 @@ extern int amdgpu_user_queue;
-> >  #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS               3000
-> >  #define AMDGPU_MAX_USEC_TIMEOUT                      100000  /* 100 ms=
- */
-> >  #define AMDGPU_FENCE_JIFFIES_TIMEOUT         (HZ / 2)
-> > +#define AMDGPU_QUEUE_RESET_TIMEOUT           (HZ / 10)
-> >  #define AMDGPU_DEBUGFS_MAX_COMPONENTS                32
-> >  #define AMDGPUFB_CONN_LIMIT                  4
-> >  #define AMDGPU_BIOS_NUM_SCRATCH                      16
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_0.c
-> > index d377a7c57d5e..92d9a28c62d3 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > @@ -5565,7 +5565,17 @@ static void gfx_v9_0_ring_emit_pipeline_sync(str=
-uct amdgpu_ring *ring)
-> >       int usepfp =3D (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX);
-> >       uint32_t seq =3D ring->fence_drv.sync_seq;
-> >       uint64_t addr =3D ring->fence_drv.gpu_addr;
-> > +     struct amdgpu_device *adev =3D ring->adev;
-> >
-> > +     amdgpu_ring_emit_reg_wait(ring,
-> > +                               SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET=
-),
-> > +                               0, 0xffff);
-> > +     amdgpu_ring_emit_wreg(ring,
-> > +                           SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET),
-> > +                           0);
-> > +     amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
-> > +                            ring->fence_drv.sync_seq,
-> > +                            AMDGPU_FENCE_FLAG_EXEC);
-> >       gfx_v9_0_wait_reg_mem(ring, usepfp, 1, 0,
-> >                             lower_32_bits(addr), upper_32_bits(addr),
-> >                             seq, 0xffffffff, 4);
-> > @@ -5896,20 +5906,6 @@ static void gfx_v9_0_ring_emit_reg_write_reg_wai=
-t(struct amdgpu_ring *ring,
-> >                                                          ref, mask);
-> >  }
-> >
-> > -static void gfx_v9_0_ring_soft_recovery(struct amdgpu_ring *ring, unsi=
-gned vmid)
-> > -{
-> > -     struct amdgpu_device *adev =3D ring->adev;
-> > -     uint32_t value =3D 0;
-> > -
-> > -     value =3D REG_SET_FIELD(value, SQ_CMD, CMD, 0x03);
-> > -     value =3D REG_SET_FIELD(value, SQ_CMD, MODE, 0x01);
-> > -     value =3D REG_SET_FIELD(value, SQ_CMD, CHECK_VMID, 1);
-> > -     value =3D REG_SET_FIELD(value, SQ_CMD, VM_ID, vmid);
-> > -     amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
-> > -     WREG32_SOC15(GC, 0, mmSQ_CMD, value);
-> > -     amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
-> > -}
-> > -
-> >  static void gfx_v9_0_set_gfx_eop_interrupt_state(struct amdgpu_device =
-*adev,
-> >                                                enum amdgpu_interrupt_st=
-ate state)
-> >  {
-> > @@ -7185,16 +7181,12 @@ static int gfx_v9_0_reset_kgq(struct amdgpu_rin=
-g *ring, unsigned int vmid)
-> >       if (r)
-> >               return r;
-> >
-> > -     if (amdgpu_ring_alloc(ring, 7 + 7 + 5))
-> > +     if (amdgpu_ring_alloc(ring, 7 + 7 + 5 + 7))
->
-> Hi Christian,
->
-> What is the meaning of all of the above additions (7 + 7 + 5 + 7)? I see
-> it in many different parts of the code. Is this some indication of
-> preambles?
+[Public]
 
-It's the number of dwords needed for the operation.  In this case
-gfx_v9_0_ring_emit_pipeline_sync() uses 7 + 7 + 5 + 7.  Actually It
-should be 7 (gfx_v9_0_wait_reg_mem()) + 7
-(amdgpu_ring_emit_reg_wait()) + 5 (amdgpu_ring_emit_wreg()) + 8
-(amdgpu_ring_emit_fence()).  Fixed up locally.
+Hi all,
 
-Alex
+This week this patchset was tested on 4 systems, two dGPU and two APU based=
+, and tested across multiple display and connection types.
 
->
-> Thanks
->
-> >               return -ENOMEM;
-> > -     gfx_v9_0_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
-> > -                              ring->fence_drv.sync_seq, AMDGPU_FENCE_F=
-LAG_EXEC);
-> > -     gfx_v9_0_ring_emit_reg_wait(ring,
-> > -                                 SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RES=
-ET), 0, 0xffff);
-> > -     gfx_v9_0_ring_emit_wreg(ring,
-> > -                             SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RESET),=
- 0);
-> > +     gfx_v9_0_ring_emit_pipeline_sync(ring);
-> > +     amdgpu_ring_commit(ring);
-> >
-> > -     return amdgpu_ring_test_ring(ring);
-> > +     return gfx_v9_0_ring_test_ib(ring, AMDGPU_QUEUE_RESET_TIMEOUT);
-> >  }
-> >
-> >  static int gfx_v9_0_reset_kcq(struct amdgpu_ring *ring,
-> > @@ -7437,7 +7429,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ri=
-ng_funcs_gfx =3D {
-> >       .set_wptr =3D gfx_v9_0_ring_set_wptr_gfx,
-> >       .emit_frame_size =3D /* totally 242 maximum if 16 IBs */
-> >               5 +  /* COND_EXEC */
-> > -             7 +  /* PIPELINE_SYNC */
-> > +             7 + 7 + 5 + 7 +  /* PIPELINE_SYNC */
-> >               SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
-> >               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
-> >               2 + /* VM_FLUSH */
-> > @@ -7475,7 +7467,6 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ri=
-ng_funcs_gfx =3D {
-> >       .emit_wreg =3D gfx_v9_0_ring_emit_wreg,
-> >       .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait,
-> >       .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
-t,
-> > -     .soft_recovery =3D gfx_v9_0_ring_soft_recovery,
-> >       .emit_mem_sync =3D gfx_v9_0_emit_mem_sync,
-> >       .reset =3D gfx_v9_0_reset_kgq,
-> >       .emit_cleaner_shader =3D gfx_v9_0_ring_emit_cleaner_shader,
-> > @@ -7494,7 +7485,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_sw=
-_ring_funcs_gfx =3D {
-> >       .set_wptr =3D amdgpu_sw_ring_set_wptr_gfx,
-> >       .emit_frame_size =3D /* totally 242 maximum if 16 IBs */
-> >               5 +  /* COND_EXEC */
-> > -             7 +  /* PIPELINE_SYNC */
-> > +             7 + 7 + 5 + 7 +  /* PIPELINE_SYNC */
-> >               SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
-> >               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
-> >               2 + /* VM_FLUSH */
-> > @@ -7533,7 +7524,6 @@ static const struct amdgpu_ring_funcs gfx_v9_0_sw=
-_ring_funcs_gfx =3D {
-> >       .emit_wreg =3D gfx_v9_0_ring_emit_wreg,
-> >       .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait,
-> >       .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
-t,
-> > -     .soft_recovery =3D gfx_v9_0_ring_soft_recovery,
-> >       .emit_mem_sync =3D gfx_v9_0_emit_mem_sync,
-> >       .patch_cntl =3D gfx_v9_0_ring_patch_cntl,
-> >       .patch_de =3D gfx_v9_0_ring_patch_de_meta,
-> > @@ -7555,7 +7545,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ri=
-ng_funcs_compute =3D {
-> >               20 + /* gfx_v9_0_ring_emit_gds_switch */
-> >               7 + /* gfx_v9_0_ring_emit_hdp_flush */
-> >               5 + /* hdp invalidate */
-> > -             7 + /* gfx_v9_0_ring_emit_pipeline_sync */
-> > +             7 + 7 + 5 + 7 +  /* PIPELINE_SYNC */
-> >               SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
-> >               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
-> >               8 + 8 + 8 + /* gfx_v9_0_ring_emit_fence x3 for user fence=
-, vm fence */
-> > @@ -7577,7 +7567,6 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ri=
-ng_funcs_compute =3D {
-> >       .emit_wreg =3D gfx_v9_0_ring_emit_wreg,
-> >       .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait,
-> >       .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
-t,
-> > -     .soft_recovery =3D gfx_v9_0_ring_soft_recovery,
-> >       .emit_mem_sync =3D gfx_v9_0_emit_mem_sync,
-> >       .emit_wave_limit =3D gfx_v9_0_emit_wave_limit,
-> >       .reset =3D gfx_v9_0_reset_kcq,
-> > @@ -7598,7 +7587,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ri=
-ng_funcs_kiq =3D {
-> >               20 + /* gfx_v9_0_ring_emit_gds_switch */
-> >               7 + /* gfx_v9_0_ring_emit_hdp_flush */
-> >               5 + /* hdp invalidate */
-> > -             7 + /* gfx_v9_0_ring_emit_pipeline_sync */
-> > +             7 + 7 + 5 + 7 +  /* PIPELINE_SYNC */
-> >               SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
-> >               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
-> >               8 + 8 + 8, /* gfx_v9_0_ring_emit_fence_kiq x3 for user fe=
-nce, vm fence */
-> > --
-> > 2.34.1
-> >
->
-> --
-> Rodrigo Siqueira
+APU
+        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
+, 4k 240hz (Includes USB-C to DP/HDMI adapters)
+        * Thunderbolt -> LG Ultrafine 5k
+        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
+lays, HP Hook G2 with 2x 4k60hz displays
+        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
+ DP and 1x 4k60hz HDMI displays
+        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
+ion supported by the dongle of 4k 120hz YUV420 12bpc.
+        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
+he adapter of 4k 120hz RGB 8bpc.
+
+DGPU
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multiple Display DP -> 4k240hz + 4k144hz
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
+        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
+isplays)
+
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to)
+        * Changing display configurations and settings
+        * Video/Audio playback
+        * Benchmark testing
+        * Suspend/Resume testing
+        * Feature testing (Freesync, HDCP, etc.)
+
+Automated testing includes (but is not limited to)
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
+
+The testing is mainly tested on the following displays, but occasionally th=
+ere are tests with other displays
+        * Samsung G8 Neo 4k240hz
+        * Samsung QN55QN95B 4k 120hz
+        * Acer XV322QKKV 4k144hz
+        * HP U27 4k Wireless 4k60hz
+        * LG 27UD58B 4k60hz
+        * LG 32UN650WA 4k60hz
+        * LG Ultrafine 5k 5k60hz
+        * AU Optronics B140HAN01.1 1080p 60hz eDP
+        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
+
+The patchset consists of the amd-staging-drm-next branch (Head commit - 937=
+31cdc105ab89f796a826b52a524a3be4b6f4d -> drm/amdgpu: implement get_retire_f=
+lip_bits for UMC v12) with new patches added on top of it.
+
+Tested on Ubuntu 24.04.1, on Wayland and X11, using KDE Plasma and Gnome.
+
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Thank you,
+
+Dan Wheeler
+Sr. Technologist  |  AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+Facebook |  Twitter |  amd.com
+
+
+-----Original Message-----
+From: Tom Chung <chiahsuan.chung@amd.com>
+Sent: Tuesday, May 13, 2025 7:24 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
+Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
+uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
+.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; Hung, Alex <Alex.Hung@amd.com>
+Subject: [PATCH 00/11] DC Patches May 19 2025
+
+This DC patchset brings improvements in multiple areas. In summary, we high=
+light:
+
+-Support external tunneling feature
+-Modify DCN401 DMUB reset & halt sequence -Fix the typo in dcn401 Hubp bloc=
+k -Skip backend validation for virtual monitors
+
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+
+
+Chiawen Huang (1):
+  drm/amd/display: Skip backend validation for virtual monitors
+
+Cruise Hung (1):
+  drm/amd/display: Support external tunneling feature
+
+Dillon Varone (1):
+  drm/amd/display: Modify DCN401 DMUB reset & halt sequence
+
+Karthi Kandasamy (1):
+  drm/amd/display: Move mcache allocation programming from DML to
+    resource
+
+Nevenko Stupar (1):
+  drm/amd/display: Fix the typo in dcn401 Hubp block
+
+Ovidiu Bunea (1):
+  drm/amd/display: Add GPINT retries to ips_query_residency_info
+
+Samson Tam (1):
+  drm/amd/display: add support for 2nd sharpening range
+
+Taimur Hassan (2):
+  drm/amd/display: [FW Promotion] Release 0.1.11.0
+  drm/amd/display: Promote DAL to 3.2.334
+
+Tomasz Siemek (1):
+  drm/amd/display: Extend dc_plane_get_status with flags
+
+Yihan Zhu (1):
+  drm/amd/display: init local variable to fix format errors
+
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 10 ++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 13 ++++  .../gpu/drm/amd/d=
+isplay/dc/core/dc_surface.c  |  8 ++-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 14 ++--  drivers/gpu/drm/a=
+md/display/dc/dc_dp_types.h  | 21 ++++++
+ drivers/gpu/drm/amd/display/dc/dc_plane.h     | 10 ++-
+ .../dc/dml2/dml21/dml21_translation_helper.c  |  2 +-  .../dc/dml2/dml21/d=
+ml21_translation_helper.h  |  2 +  .../amd/display/dc/dml2/dml21/dml21_wrap=
+per.c | 40 +++++++++++  .../amd/display/dc/dml2/dml21/dml21_wrapper.h | 64 =
++++++++++++++++++
+ .../drm/amd/display/dc/dml2/dml2_wrapper.h    |  2 +
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  2 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  2 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 16 ++---
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  5 ++
+ drivers/gpu/drm/amd/display/dc/inc/link.h     |  3 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |  8 +++  .../drm/amd/displa=
+y/dc/link/link_detection.c  | 21 ++----
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   |  6 +-
+ .../drm/amd/display/dc/link/link_factory.c    |  1 +
+ .../dc/link/protocols/link_dp_capability.c    |  8 +--
+ .../display/dc/link/protocols/link_dp_dpia.c  | 54 ++++++++++++--  .../dis=
+play/dc/link/protocols/link_dp_dpia.h  |  6 ++
+ .../dc/link/protocols/link_dp_dpia_bw.c       | 70 +++++++------------
+ .../dc/link/protocols/link_dp_dpia_bw.h       |  4 +-
+ .../dc/link/protocols/link_dp_irq_handler.c   |  4 +-
+ .../drm/amd/display/dc/sspl/dc_spl_types.h    |  4 ++
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 34 ++++++++-
+ .../drm/amd/display/dmub/src/dmub_dcn401.c    | 16 ++---
+ 30 files changed, 337 insertions(+), 115 deletions(-)
+
+--
+2.34.1
+
