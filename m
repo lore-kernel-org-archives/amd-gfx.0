@@ -4,79 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E59EC3DA6D
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 16:22:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2690C3DA6D
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 May 2025 16:23:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9FD010E4F5;
-	Tue, 20 May 2025 16:22:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BFC410E561;
+	Tue, 20 May 2025 16:23:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hJTTw54g";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KSvJyocr";
 	dkim-atps=neutral
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
- [209.85.210.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65A3110E4F5;
- Tue, 20 May 2025 16:22:51 +0000 (UTC)
-Received: by mail-ot1-f45.google.com with SMTP id
- 46e09a7af769-72c3b863b8eso4222547a34.2; 
- Tue, 20 May 2025 09:22:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747758170; x=1748362970; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=t0HWhoEGlvH4UanVLpaHgaFj5uaCvcRqQd2jUejSkZk=;
- b=hJTTw54gQMske2ld1YWRWpOfVoixJhH4+ajAUHUiDgbzFn+jCqggKc4C7ysdDnB9Rd
- bOlqOIVIkPBpKMNnk4o9FhzQkGQnczpUHKydKEeOFxaTGI2HbnzGC3zXfrPxVRLuJZP5
- LhpxcLkK1pLnl/vjmcegygh1Zm0X6s7Jag451xyGf2p/vSA801biK0M7SesENio9STv4
- KcdisbYczybybg4SYaldPgLLn002xBYEhYBk5AvHKkGDU3diEGMDF9YvWo0FrGOouiEN
- tsLUPqI1TOTU5DkWn88TKiiEacLTP9LZ5PYDUHaOjtIHvB8kKOoZbstqyZcj9f8MAXuL
- ONfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747758170; x=1748362970;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=t0HWhoEGlvH4UanVLpaHgaFj5uaCvcRqQd2jUejSkZk=;
- b=CYj7pPkMVLUEu3Zg7+u6Xe+umpVacCPujchMW+c8JaKIiHR0VuqNoIRdpJm33ogQwz
- nyXcJECpizTF31kRX371ECwr33CNYdekxr3K1ZWOtNqLG/vAXyjMgzOKpjZgloT68cHp
- /hZCS424hmbIKawIjrhl/RdpZ6NMYVhbRN75lSWcOjcrBGgbpGytxbXS47Th6m99ivbv
- 2wHU7KGQqzx8Ub71a6Qqref/ZvZbZJBkzD550xT3vykwDwj9PbCKLFp7D6+ELLecOP6D
- i0ucN7r7rK2i/jKYEQxi7vCYcc+8oIntow9kEhQR/oLwhSsDa1GXPbV+t611H/5h//PV
- R93Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVusUqvBLDi6aWu3SUQwXVCmhlvDfeJtcwSNCWpwlOUCl+6qIRAaS5iAAEzTnC4BySJqlPw5qHC@lists.freedesktop.org,
- AJvYcCXiL8/Jy5GAwMPyI7AGrslNeWcyad1ISNtcEPx96o4oooi9hvTHOLdj8OTzKXp8xJnkgtafZ4lo4iGR@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy/6t6FCfmEQuwgseveAMvS3xak/zLOCXTUNPr4+tE2f8vwuQ8z
- 8WkKk2wmWFHvUWnTc3hNjC5N2mTJ4jGYaoEqTatSaZ8JyM5XDz/Nt5cP/tBatSHWhfk4yuCZDwP
- PtsfaSKxnf/9j4sTVAKs82As9hNBgt98=
-X-Gm-Gg: ASbGncuJEjUKqjFjmgIaVfiEyyewWFTNIIxCxp+0oQWDvussD1FgBHyZBV85OQO9Z9O
- kvqyRii+DDbflcc+psnUhM7HiJmoMZJpAeP6D2lwTHtuSTITWV9antYa4f/5YHKafMIgxToHkO2
- Ghq3wuT0N69CYf5GLz3+7QVT5srxTSDpbVfJhNaugQIY6A
-X-Google-Smtp-Source: AGHT+IEGazgYcFFYqSWpOSkIHhn1MURd+j+lfv1uzCtxT/F1GutSwFjiAZmJjWp90mPosd+z0UJD6Cc/+Hr809fy1vY=
-X-Received: by 2002:a05:6830:4189:b0:731:cac7:3634 with SMTP id
- 46e09a7af769-734f6ac4e55mr12071806a34.3.1747758170553; Tue, 20 May 2025
- 09:22:50 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E815E10E561
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 May 2025 16:23:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=oTIQb6r7pAb0TwCugJo440l/xBUJzEQmKSkb2STzgjY=; b=KSvJyocr2sD/8VXIdYKRUMdJfM
+ JFeHA94rwsiorWDGBCO9zbJeltAFYCKrUsKXkDh1UB7CJ8EnkIV2oQF6vSg6sz+8HagGiiLz/WXeH
+ DzCdrSoNj3ZmVtW18wITgdmJqM3OupuEE76xF9llWFOTBFzjsy73k5BTYx3Aqhhs7d517BYatfLwM
+ of6C+Ib6wDsr7hh+60yXXPr6ofs08xmxWXmozbMTIlSlrwUx43YyVsTpElxlTgGPf8FsLqB2WD7H6
+ JdNTTUIHWw1VTn5EtY6+fdHVD1W9+DMQkC/R3qLmvgkbZc1Rd3rEwxLRNQzft2evaSC2pBeeKLMZJ
+ j0esYQ8A==;
+Received: from [81.79.92.254] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uHPku-00An36-2K; Tue, 20 May 2025 18:23:52 +0200
+Message-ID: <1047ffa9-46aa-478e-96a0-f26c833b62c5@igalia.com>
+Date: Tue, 20 May 2025 17:23:51 +0100
 MIME-Version: 1.0
-References: <CABXGCsPLAs+rCktbM_ao3bP3VZuaLqXSMpXZt1m-B9nqf91EQw@mail.gmail.com>
- <CH0PR12MB52845B90BB3D7B94473B6FDA8B9FA@CH0PR12MB5284.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB52845B90BB3D7B94473B6FDA8B9FA@CH0PR12MB5284.namprd12.prod.outlook.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 20 May 2025 21:22:39 +0500
-X-Gm-Features: AX0GCFuSeV0_iIfi2B7CrPBZxdbghCyFZ-5JMvI3TU0_KAOUPfiuj1Zu21ABgBM
-Message-ID: <CABXGCsNmsQgvNZL0_pHxnHLKNZS=k_yzmMNoGgfGQqsimTWucQ@mail.gmail.com>
-Subject: Re: 6.15-rc6/regression/bisected - after commit f1c6be3999d2 error
- appeared: *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error
-To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-Cc: "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Wu,
- Ray" <Ray.Wu@amd.com>, 
- "Wheeler, Daniel" <Daniel.Wheeler@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, 
- Linux regressions mailing list <regressions@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 3/3] drm/amdgpu: Add locking to amdgpu_ctx_mgr_entity_fini()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+References: <20250519163713.11367-1-tvrtko.ursulin@igalia.com>
+ <20250519163713.11367-4-tvrtko.ursulin@igalia.com>
+ <71accc22-29d1-47ff-909e-e8eb2bdd528a@amd.com>
+ <03033981-c9bd-46ba-8855-06127c95567c@igalia.com>
+ <3c03620e-43ca-45c8-b099-706b129315bf@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <3c03620e-43ca-45c8-b099-706b129315bf@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,70 +64,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 20, 2025 at 8:06=E2=80=AFPM Pillai, Aurabindo
-<Aurabindo.Pillai@amd.com> wrote:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->
-> Hi Mike,
->
-> Could you more details about your setup, and how you were able to repro i=
-t ?
->
 
-Hi!
+On 20/05/2025 09:40, Christian König wrote:
+> On 5/20/25 09:50, Tvrtko Ursulin wrote:
+>>
+>> On 20/05/2025 08:39, Christian König wrote:
+>>> On 5/19/25 18:37, Tvrtko Ursulin wrote:
+>>>> Amdgpu_ctx_mgr_entity_fini() walks the context IDR unlocked so question is
+>>>> could it in theory see a stale entry and attempt to destroy the
+>>>> drm_sched_entity twice?
+>>>
+>>> No, when this function is called when the file descriptor is freed up.
+>>>
+>>> So there should never ever be any concurrent user of this.
+>>>
+>>>> Problem is I have hit this on a KASAN enabled kernel only _once_ and never
+>>>> since. In that case it reported amdgpu_ctx_ioctl() had freed the entity
+>>>> already which would mean the question is could we possibly go through the
+>>>> mutex_unlock() on one CPU, and another CPU to follow immediately with
+>>>> file->release (DRM postclose) and see the stale entry.
+>>>
+>>> Mhm, it would basically mean that the file descriptor can be closed while some IOCTL on it is still ongoing.
+>>
+>> I know, like if the VFS side of things was broken.
+>>
+>>> I think that this would be extremely ugly and should never ever happen in the first place. Adding the mutex just band aids the issue, but not really fixes it.
+>>
+>> So the part I wasn't sure about was not the ->release() running actually in parallel with ->ioctl(), but straight afterwards, but on a different CPU.
+>>
+>> If there is any chance the missing mutex_lock() before the IDR walk could mean a lacking memory barrier, so the entry that was just removed by ->ioctl() is seen in ->release().
+>>
+>>   Thread A        Thread B
+>>   amdgpu_ctx_ioctl
+>>    -> amdgpu_ctx_free
+>>        mutex_lock
+>>        idr_remove
+>>        mutex_unlock
+>>         fput()        fput()
+>>              ->release()
+>>              amdgpu_ctx_mgr_fini
+>>               -> amdgpu_ctx_mgr_entity_fini
+>>                    idr_for_each_entry
+>>                  stale entry ??? -> BOOM
+>>
+>> Question is does the mutex_unlock() in Thread A ensures that the write into the IDR array would be seen in Thread B, given no mutex_lock() in the latter.
+> 
+> Oh, good question! I have absolutely no idea.
+> 
+> The mutex_unlock() certainly doesn't provide any memory barrier for the other CPU which does the _fini, but the fput() or the ->release code path might.
+> 
+> As far as I know it is rather common to not lock anything in the destroy path. I will try to double check.
 
-Did the probe not include enough information?
-https://linux-hardware.org/?probe=3D4635c5fcb1
+FWIW I tried to provoke this with a freshly made IGT today but failed. I 
+will park it for now since it does not feel a very plausible race.
 
-Anyway, here's the output from inxi:
+Regards,
 
-> inxi -GSC -xx
-System:
-  Host: secondary-ws Kernel: 6.15.0-rc7-a5806cd506af-revert-f1c6be3999d2+
-    arch: x86_64 bits: 64 compiler: gcc v: 15.1.1
-  Desktop: GNOME v: 48.1 tk: GTK v: 3.24.49 wm: gnome-shell dm: GDM
-    Distro: Fedora Linux 43 (Workstation Edition Prerelease)
-CPU:
-  Info: 16-core model: AMD Ryzen 9 7950X bits: 64 type: MT MCP arch: Zen 4
-    rev: 2 cache: L1: 1024 KiB L2: 16 MiB L3: 64 MiB
-  Speed (MHz): avg: 5355 min/max: 425/5883 boost: enabled cores: 1: 5355
-    2: 5355 3: 5355 4: 5355 5: 5355 6: 5355 7: 5355 8: 5355 9: 5355 10: 535=
-5
-    11: 5355 12: 5355 13: 5355 14: 5355 15: 5355 16: 5355 17: 5355 18: 5355
-    19: 5355 20: 5355 21: 5355 22: 5355 23: 5355 24: 5355 25: 5355 26: 5355
-    27: 5355 28: 5355 29: 5355 30: 5355 31: 5355 32: 5355 bogomips: 287444
-  Flags: avx avx2 ht lm nx pae sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 svm
-Graphics:
-  Device-1: Advanced Micro Devices [AMD/ATI] Navi 21 [Radeon RX 6800/6800 X=
-T
-    / 6900 XT] driver: amdgpu v: kernel arch: RDNA-2 pcie: speed: 16 GT/s
-    lanes: 16 ports: active: HDMI-A-1 empty: DP-1, DP-2, DP-3, Writeback-1
-    bus-ID: 03:00.0 chip-ID: 1002:73bf
-  Display: wayland server: X.org v: 1.21.1.16 with: Xwayland v: 24.1.6
-    compositor: gnome-shell driver: X: loaded: amdgpu
-    unloaded: fbdev,modesetting,radeon,vesa dri: radeonsi gpu: amdgpu
-    display-ID: 0
-  Monitor-1: HDMI-A-1 model: LG (GoldStar) TV SSCR2 res: 3840x2160 dpi: 61
-    diag: 1836mm (72.3")
-  API: OpenGL v: 4.6 vendor: amd mesa v: 25.2.0-devel glx-v: 1.4 es-v: 3.2
-    direct-render: yes renderer: AMD Radeon RX 6900 XT (radeonsi navi21 LLV=
-M
-    20.1.3 DRM 3.63 6.15.0-rc7-a5806cd506af-revert-f1c6be3999d2+)
-    device-ID: 1002:73bf display-ID: :0.0
-  API: Vulkan v: 1.4.313 surfaces: N/A device: 0 type: discrete-gpu
-    driver: mesa radv device-ID: 1002:73bf device: 1 type: cpu
-    driver: mesa llvmpipe device-ID: 10005:0000
-  API: EGL Message: EGL data requires eglinfo. Check --recommends.
-  Info: Tools: api: glxinfo,vulkaninfo x11: xdriinfo, xdpyinfo, xprop,
-    xrandr
+Tvrtko
 
-I'm using an LG OLED42C3 TV as a monitor.
+>>   >> Throwing it out there not to forget about it, since I have manage to
+>>>> lose the KASAN trace already..
+>>>
+>>> If you manage to trigger that again please send it to me ASAP.
+>>>
+>>> Thanks,
+>>> Christian.
+>>>
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 2 ++
+>>>>    1 file changed, 2 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>>>> index 85567d0d9545..95b005ed839e 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>>>> @@ -927,6 +927,7 @@ static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>>>>          idp = &mgr->ctx_handles;
+>>>>    +    mutex_lock(&mgr->lock);
+>>>>        idr_for_each_entry(idp, ctx, id) {
+>>>>            if (kref_read(&ctx->refcount) != 1) {
+>>>>                DRM_ERROR("ctx %p is still alive\n", ctx);
+>>>> @@ -945,6 +946,7 @@ static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>>>>                }
+>>>>            }
+>>>>        }
+>>>> +    mutex_unlock(&mgr->lock);
+>>>>    }
+>>>>      void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr)
+>>>
+>>
+> 
 
-Let me know if you need any other details!
-
-
---
-Best Regards,
-Mike Gavrilov.
