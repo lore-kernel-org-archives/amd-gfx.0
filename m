@@ -4,74 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 392DAC54E65
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 11:27:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34D08C54E65
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 11:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D516810E9E2;
-	Wed, 21 May 2025 11:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B988611ACFD;
+	Wed, 21 May 2025 11:45:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fgPWPLGT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hvUyaezL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84AE710E9E2
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:27:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3F2B04A58A
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:27:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA51C4CEF1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747826863;
- bh=aYjz5/seEUrXVor2bEyU7oBZ3j8vrqWOPEqPD8VZzrU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=fgPWPLGTOvxMGGiLFbLld28sdX79VsNRSkxZdUWDKE1TTR3ynnBKJsvp63tsmp8Mi
- ThKWeM9lRIp5U6+yVtY9aAR3jSahN5/B81gujRH1XshBCktYCEMsQtlPS0SU4zwxfW
- /bSQxa+9VU2vcxGrppfoy8FoZSyzuUNTUSsK3+gHRNNxlV/ET+dEHI3Rkz1oFvnxW1
- R6U30jVCIyhUE6u0CxCf1kcePWddAz9XqFvF7APzuquvPWrPn4EdK2kuC9ZWXc8ShM
- XM1tlN1GiBY8AxUh04eUJWW0yyF101d6AfA4MfETfWVDpAGpJvgacCncGU6dhs0hCG
- P5iTn/qMOh3kg==
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-605f7d3215cso3590867eaf.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 04:27:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCV2KgiJZlu6aDSoRD9zRJ2sG2Pt0gnxQRqdNNHvZuo3UNELpwxezLmpTcIL7h5c4Zmq7RtZ9ABb@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj4IgiSNAezFaI48aWYbhXTvbL6U2RacgoP880pedyWhv95pmv
- 6LLnoiKtJGKR4J+IxPbV7zjN1LT+royLXOOzEDT7txuXusewYY1jtrqwWrWKmQ6B43hZV0ptQFi
- noOVb6OoJ/fUrVvg+tS+361CzGnLVDss=
-X-Google-Smtp-Source: AGHT+IEf67uWG+s0dmoXckHNwNhvBK96rzdHQHiTzqfpUpRP3+2APLbezdICnHJMQ0kPkt5kRPsd9b22whF+hm5HWKA=
-X-Received: by 2002:a05:6820:1841:b0:602:7078:df55 with SMTP id
- 006d021491bc7-609f374f802mr12234655eaf.5.1747826862342; Wed, 21 May 2025
- 04:27:42 -0700 (PDT)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2083.outbound.protection.outlook.com [40.107.96.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D50AF11ACE5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:44:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a7ZkZBIui9lSfUvvUPY1hqvC6oA9Od5gDUnzeioYOogz9tf5NjF0PPhFnQlSfbUqUvIZSFC1eTeXXA0K2mxAkzwTwoGvhjUgi/B4qVQO+OYd/rwshNgL2S+9QVP+e74OjkHDr+2I7UtFAoQbMOgRm5ftS0OC4SxxrRTgDtZhidxU8WAcBGptfUNZAy5a2a2Gm4SEx04SR8nPrGFRy/ty5XJHR7ARtHh9xCZ6qWKF56ONkPBJqQwJYiF6vYagycqIeJ/5jEQLV6A6RCV4fCWF+0mYN/N8O0tqQyKukgNi+Zfkbo+08QoWfw6Sz+0cVQxz5dAgSQGISB6284VDiUZVdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QI5BEpoWDeIsxy8fqoBVVFPww+zMErsgEjF/PD7/O64=;
+ b=Zxu7lg7d3RTmONe5uwRNl0Y+aYsRxYCw4VcjIHRY+pNB3yk77f5+qY/C6HzUrml7jhwXj52EjD6TGxwynaE1NtgNipNnKf1nIBwcTVDE3flfH+6vCqYRD21ay4uRAt3Uyqe3YlGJxALlIQ3w0im/cOGuACAxT1ARDkLBK/yQ8PnwCptDehKJHAJvEzkM77ejlzBQ49EsLK/Llg2cPLs9Ej1Ujts4T6FWgMdqL4iR2lEpJlMGn8QWMKhldfOol5nWHgTOU16EGO3xAmbz4osw4I76ij9Wy6QSqoz9muMDI8r682yyot/oUKQs++08p9p65Dgad7VPeWIQ8+WQWtaQBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QI5BEpoWDeIsxy8fqoBVVFPww+zMErsgEjF/PD7/O64=;
+ b=hvUyaezLjsU5iQtrYFykLX41SL6gbzD+8XecNfFrSfppxsWe0D2RwBFQ1mVCz9Ghxt48RZqoUBOt8mk1mWl3HJbTRXcjgVSEJTyKsU1Hs84OPm84zbvvuCyOoKRWBpH6jObArvHs7wpsBIH4bwNvCutezlU+Cbonois7hoGlHkc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB7674.namprd12.prod.outlook.com (2603:10b6:208:434::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.31; Wed, 21 May
+ 2025 11:44:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Wed, 21 May 2025
+ 11:44:52 +0000
+Message-ID: <1ad1b3ea-e825-45d1-ae4d-914f1623d5e2@amd.com>
+Date: Wed, 21 May 2025 13:44:47 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/7] drm/amdgpu: don't report stale vm_fault info in
+ devcoredump
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+References: <20250521094912.6714-1-pierre-eric.pelloux-prayer@amd.com>
+ <20250521094912.6714-2-pierre-eric.pelloux-prayer@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250521094912.6714-2-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN0P222CA0005.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:531::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <aCsK743YSuahPtnH@black.fi.intel.com>
- <85ed0b91-c84f-4d24-8e19-a8cb3ba02b14@gmail.com>
- <aCxP6vQ8Ep9LftPv@black.fi.intel.com>
- <a8c83435-4c91-495c-950c-4d12b955c54c@kernel.org>
- <aCyj9nbnIRet93O-@black.fi.intel.com>
- <552d75b2-2736-419f-887e-ce2692616578@kernel.org>
- <ee1117cf-6367-4e9a-aa85-ccfc6c63125d@gmail.com>
- <6f23d82c-10cc-4d70-9dce-41978b05ec9a@kernel.org>
- <aCzNL9uXGbBSdF2S@black.fi.intel.com>
- <fea86161-2c47-4b0f-ac07-b3f9b0f10a03@kernel.org>
- <aC2UzG-eycjqYQep@black.fi.intel.com>
-In-Reply-To: <aC2UzG-eycjqYQep@black.fi.intel.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Wed, 21 May 2025 13:27:29 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gRFwKhq21ima3kT0zzFLk4=47ivvzJqARksV7nYHTJAQ@mail.gmail.com>
-X-Gm-Features: AX0GCFu3-VrwmffBAWxr3tXBf8i8Ncp98wmJM7kURUjcXyWXYba_x7RizRkpotQ
-Message-ID: <CAJZ5v0gRFwKhq21ima3kT0zzFLk4=47ivvzJqARksV7nYHTJAQ@mail.gmail.com>
-Subject: Re: [PATCH v4] PCI: Prevent power state transition of erroneous device
-To: Raag Jadav <raag.jadav@intel.com>, Mario Limonciello <superm1@kernel.org>
-Cc: Denis Benato <benato.denis96@gmail.com>, rafael@kernel.org,
- mahesh@linux.ibm.com, 
- oohall@gmail.com, bhelgaas@google.com, linux-pci@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- ilpo.jarvinen@linux.intel.com, lukas@wunner.de, 
- aravind.iddamsetty@linux.intel.com, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7674:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d76e9d5-7684-42c1-02d4-08dd985ce63f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QkQ0Zzc2WjNXMEo1VHRpR0R6MHNnSFRUdmVuby9aRHVxakhrOUViWnZpU2FU?=
+ =?utf-8?B?K0dlLzYya29LbERyNGV6eDkybjNGeEU2bkNZa2NYLzBVZGNTbTRlWDFzY1F5?=
+ =?utf-8?B?alRScTJDc1NMc2xCc0NJU2JMV0lIWDRwcGtJeHdoeGM3Q2lldFpXbkZpK08w?=
+ =?utf-8?B?Rlc5YlpES2N0TUFZNGhxRklQVUliNnp3dkRuQjdjU0tMcytRMFdEdHBFalZ0?=
+ =?utf-8?B?cjlRWW1VWkR5K2JxbVVSMmxDYXB1NTZERWlDVHlDUkNwWEtIQ2ZkU29RdVdV?=
+ =?utf-8?B?WFVXZ1dKdEVYY3kzTWpPKzZpU0VCRzdXMjZMOU4waFByOUhrMzE5ZVNGMUVy?=
+ =?utf-8?B?SW8wQzlmWXhhcmt4TEljTEROdjdia0FKRTFuZU5OOEVhQklHcG1GZmZGR281?=
+ =?utf-8?B?S2FQM2lBRzhENk9Kc1o3MVZVV00vaDNoTkExRFJaYUp5L2V1dXhnL05JcGJ2?=
+ =?utf-8?B?OFRBMmdiTkdHbEMxRGxZSmNhYzFpWnFqMTdqOU1OVEI2b05YYkQzS1gzam93?=
+ =?utf-8?B?ZklkdVdZcDNrY0ZwK3ZCTHAxeUcrelZkcmJwaXNPRkxaN2I0b2E5U01SZUdt?=
+ =?utf-8?B?MTA2SmJ0bHp5dW9BZ2V2VHgwODJabjRTa3lIME94ZjJRYjBtdWtuRVEzVGFP?=
+ =?utf-8?B?MGZ0Um5pVnpBWTdzL3BUcEtFWGNPQndtQXJHbXo1c2tSTGczb3RxSUJtUC9E?=
+ =?utf-8?B?M3RobkU0ejdBa3FZa2ZyZEdlbDlaQUZlNFBjSis1Q3Q3dWRqQVJlYnJDKy9B?=
+ =?utf-8?B?WWtDaDZ6RWE5QUI5Zlc2dEJtalFBWVBZUW94QnpldVFTVHpwVW01UDh5YUYw?=
+ =?utf-8?B?eFFXUUNmdlpWYWF1cHdHRlF4N0lFWGpZQmpmN1JRUmdLcDlqYkJ6bWhCRFEy?=
+ =?utf-8?B?cDFKOFYyanhWY1hkOGVCb2tLSzFuRllkMmg5YVIwbDdYYWd6ZTAza3RuaDJy?=
+ =?utf-8?B?WmpCK09rOGFNdzFySmxWczRmTnlYVlZQblRvZDd4V1kzTlUyYXZqS1lXTk51?=
+ =?utf-8?B?MjN5MnhiYkcxWnFBNksvcWZxMjNMSWJadmVnaFhtUWJnOEFuWklNUGJSVjd6?=
+ =?utf-8?B?Z1FDeGdueDlwcHBQV3dQYWZxendCMVFtTWlpWU1FcC9sT1ZidlFJSG95cHRW?=
+ =?utf-8?B?cVhxWUIxMWQ3eVFxQ0hqLzdFS3hteUE0MUxBR1B5cjFkOC9icHVXNmdMMHk5?=
+ =?utf-8?B?Y245cDNCN05IU1ZuWjlsMVlyZTFtQnp3RnRKSDhmdGJPdlQxYy9iR2R5TmQ1?=
+ =?utf-8?B?T1A4MENTSGs1eWpQVy83K1g2Y2c4M244QldZdG5ROWRMbm9qZ0VIUEZ6Z0FF?=
+ =?utf-8?B?ODFOY2RNSmQwTzZQQW9QNmJuRkV6bGNaMHdZbTZDVUxJbXF2REF2VU1oMW56?=
+ =?utf-8?B?K3lBWk1UM01HR2c3RnFSTElHS05MYW1tMGgvNGVVRjBDM2xjcnhiSHdNWUN6?=
+ =?utf-8?B?cG9kSDdFN3ZBQUpQaWJheG9EUkt2ZzdkUytodWpyRVhSVXIrd3YxTWFodHYv?=
+ =?utf-8?B?NXRNNGRzNGlUQWczajUvS0xUbjc2Q2V4Vk80OFpkcHFxUEtxR0o2OVFrV0cz?=
+ =?utf-8?B?WXpCZWdkNTVMN2NpQU0ySWRyYjVaZytYcXZ3MG9oajNPczM3UWJvRlpDWEs3?=
+ =?utf-8?B?ajdTN2FGOWcrYStoT3MvYUxJNTk4OU43STdzc2NoZDhsUm9RMUtadkhnVGhw?=
+ =?utf-8?B?cGtwaUkraGNvYjBnNXRiSUhSQWdXbFRudUFiWnpYd2FvNVZNMmllbVQ1NnJs?=
+ =?utf-8?B?WTRtSUQ5YlBoV05vTUhRbEpBSHpnZmd3MkRNZEVadmw0eVMwUUE3bSszMTRq?=
+ =?utf-8?B?SXV3ejlzNzFCN1RoSUFlTTNQamFHNFFJZm1wQ0FESU14VFdXRjA4VElEQUpI?=
+ =?utf-8?B?eDJqdEh0RW53T0I4K0xxMGN3VUZLSWlac2NjZVh4SmlHZnpzOURqMzVZSFBy?=
+ =?utf-8?Q?58UfwwZf4yw=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RXc1Y3N4T1VXdjdSbzBRRSt3alVEMk4rRVBNQWJ1M1hMRjh2OFZIUFFrRmpt?=
+ =?utf-8?B?eXF4TzkvczZWZktoYkVxdUV6ZUtxZGd1M3BaNVM2ellPMnJmVFBsdWNJbEwy?=
+ =?utf-8?B?dHpUMW5KNCtaeUJrZW16RklXeGRaVlJyNEVKRWd1aVRNR3N6QzJUYTl0ZUU5?=
+ =?utf-8?B?ODhNMVR3enJhL1VuTnNPUGJkSWhQa0hEcWVRUW42eUFNd3N6Mm9FVk4wdlZS?=
+ =?utf-8?B?c1oxY3UwRmVod1lNZGh2ekxVVWUrbUxSL2daZXh3cCtiVzhrZ2hqTHBRVGdH?=
+ =?utf-8?B?VkNtVlM4bWZiTDVScDhtOUdwOFN3Q3FKWkJyQXl1T0V2TGlBRHhFbHZIakF3?=
+ =?utf-8?B?SGZob1JGUkZOU0J1SXJCd0tucGFySVM2YUZUM2g2TllyckFwdGpwNkFtcnVH?=
+ =?utf-8?B?UlpjRFU0S05oTjI2Z0tvZUY1bnBPRVBpcTVsSDluVnlicjEzblEzSXpGZzZR?=
+ =?utf-8?B?R3pVd1hBRzNId3ZHSUpmZVlZbGtoQ0IxQXVLcU5WQUlmOVFML3dtQnRNYTVJ?=
+ =?utf-8?B?NW1UMmFKdXFDaTFrTHczcVJjRUpKZDZxRCtaTDc4MEd6Tnl0Wkprei9pb1Nx?=
+ =?utf-8?B?dGZpWkRFZjF2WmJvLy9ZZDZiTFZzeW5oQ09sVEo1cDVSVW5XUmdOYlc4WENX?=
+ =?utf-8?B?SlNuanBkTXo1M0ZjOHpJR1lSR3NUVWhRUm5XS3NwTDkvRXYvckRvSVZmTUhG?=
+ =?utf-8?B?V1IwKzZVSVEyci9Fa3czcWVkbDBwcDlXVEc2QThLUWxET05mcTB6ZmZYTmY1?=
+ =?utf-8?B?TUJtaEFBR3ptT0JtM2RXNUhVTi9GbDVUWk1vVEY4WTRWMGY1NmpKZCtRZWdy?=
+ =?utf-8?B?UzM0ZFpuZkx2d2FHaWc5QUx3dTJCdGUyVjIxL1hncXhjRWd4RzBGdmZxalpH?=
+ =?utf-8?B?SlFEak9oc1VqUEJJaFpjdGlQaXg2WFhpdW5yZTlxaVcwUG0vcXdOZmt6Z1hG?=
+ =?utf-8?B?ZUNYaDgybElzK0ZseDhMRkxWK3VOOTl3b0I5bVFYRDA3Yy9HNTkvaFptdzRv?=
+ =?utf-8?B?KzJWNHNVamc5VmR3bGZ3UU9NMGZFSTJaUkZkNWlqRmdYK3RBdUdVMnhBS2pG?=
+ =?utf-8?B?NEdWS1RHZ243c2xzVU9QWUk5emVHY1JJeWhVS2Q3SWU3UEt1SlZja2FMdTdZ?=
+ =?utf-8?B?QUlaL2Fqc0E3YkNSWU5YNmpWOFNmSGR5WE9kbnlKWUliYjRZQ0JHWVRyKzN6?=
+ =?utf-8?B?U0RRaGFObU40aWpXeUppcFlnTGdiMHNjUGREdlkweENQNmRhVmRnNE9udDlj?=
+ =?utf-8?B?SXF6RmZDOHpudmY4N00yVklyRGM0cHgvVkFObWhFd0RwRFF6b1RNTWRDNWRZ?=
+ =?utf-8?B?M3pMbFFuMVZLWHZ4b2tCc1NxOTFMd1VoVnNQaVNJUnE5TVcxVUR5RG9rcmM3?=
+ =?utf-8?B?RzdGN0pPVi9nZ2hhZUM2Wk1OV2dVRFVIMW0wQkhmR0RWajh6R0daZEhmVW5R?=
+ =?utf-8?B?aGRVbURUb2Qzbk91YjFHejZCd1hXZVNEY21Wc1FqQjFFTlAzN0RYRU1sM1NY?=
+ =?utf-8?B?Sml4bmNLSDFsTmhYOWsxU0Z5Wk9zRkE2VVBjVVFHdmhsRkVzMnVqbHo1NkFY?=
+ =?utf-8?B?b3Z4emJiU3NXb3FMMHBzdEE4T1VndldQNXNBUVNMenpReFhXZ2R3NzZLeW9o?=
+ =?utf-8?B?YTRUQjFncldoT1ZZOFB1VE1mQ2s5Q0hVaDA4dlJDVDdHNEVSU3J1ekhDOXJE?=
+ =?utf-8?B?c0hONmlYRWVyR2lENGZPdG5CK0cxbVo0ajJRQzJ1SUpMMXVuSUErVlhSdTFn?=
+ =?utf-8?B?OVh4Nk4vOGh2YWpJTWhxZjFBOGcxakU3Y0lUNmsySk5mT3Y2SWkwRGdwbXJI?=
+ =?utf-8?B?UE9XQXVJSjJkMjlRZEZaOEdBUUgxZ3pxenREQkRRejJsMlFXYmUvQk9STGdD?=
+ =?utf-8?B?aDdIRnptUm1ybzVBQXhrSE1uUFUrWEttZlRJRHpkc2EzeTBQT2FLR3pucll2?=
+ =?utf-8?B?YmVwNlBZUU9Id2hFYWxzS2psM2dtOFJKZ3JQY3FJcjRIc0x5M0tmejN3SHp1?=
+ =?utf-8?B?bFV4eHpmVllyenorUHZsdnQyZXpHT1QwRUZ1UE81TTdsMVg0dUhienh5clNs?=
+ =?utf-8?B?Qm0wdHZxUjVxQkc2SXg4clQxZFM0a0hKcjdTdDA2Nm9DdTJkeVhKcXN0Ukw1?=
+ =?utf-8?Q?eQuLxW+3Noh35D0x/u+ANHze8?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d76e9d5-7684-42c1-02d4-08dd985ce63f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2025 11:44:52.6917 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RRHEbjMp6RFslnch7fC3NS9r+Nsyjc4WKTJ+6McJm0pseiesVdAKoHiIiwqNu+bm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7674
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,164 +162,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 21, 2025 at 10:54=E2=80=AFAM Raag Jadav <raag.jadav@intel.com> =
-wrote:
->
-> On Tue, May 20, 2025 at 01:56:28PM -0500, Mario Limonciello wrote:
-> > On 5/20/2025 1:42 PM, Raag Jadav wrote:
-> > > On Tue, May 20, 2025 at 12:39:12PM -0500, Mario Limonciello wrote:
-> > > > On 5/20/2025 12:22 PM, Denis Benato wrote:
-> > > > > On 5/20/25 17:49, Mario Limonciello wrote:
-> > > > > > On 5/20/2025 10:47 AM, Raag Jadav wrote:
-> > > > > > > On Tue, May 20, 2025 at 10:23:57AM -0500, Mario Limonciello w=
-rote:
-> > > > > > > > On 5/20/2025 4:48 AM, Raag Jadav wrote:
-> > > > > > > > > On Mon, May 19, 2025 at 11:42:31PM +0200, Denis Benato wr=
-ote:
-> > > > > > > > > > On 5/19/25 12:41, Raag Jadav wrote:
-> > > > > > > > > > > On Mon, May 19, 2025 at 03:58:08PM +0530, Raag Jadav =
-wrote:
-> > > > > > > > > > > > If error status is set on an AER capable device, mo=
-st likely either the
-> > > > > > > > > > > > device recovery is in progress or has already faile=
-d. Neither of the
-> > > > > > > > > > > > cases are well suited for power state transition of=
- the device, since
-> > > > > > > > > > > > this can lead to unpredictable consequences like re=
-sume failure, or in
-> > > > > > > > > > > > worst case the device is lost because of it. Leave =
-the device in its
-> > > > > > > > > > > > existing power state to avoid such issues.
-> > > > > > > > > > > >
-> > > > > > > > > > > > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-> > > > > > > > > > > > ---
-> > > > > > > > > > > >
-> > > > > > > > > > > > v2: Synchronize AER handling with PCI PM (Rafael)
-> > > > > > > > > > > > v3: Move pci_aer_in_progress() to pci_set_low_power=
-_state() (Rafael)
-> > > > > > > > > > > >         Elaborate "why" (Bjorn)
-> > > > > > > > > > > > v4: Rely on error status instead of device status
-> > > > > > > > > > > >         Condense comment (Lukas)
-> > > > > > > > > > > Since pci_aer_in_progress() is changed I've not inclu=
-ded Rafael's tag with
-> > > > > > > > > > > my understanding of this needing a revisit. If this w=
-as a mistake, please
-> > > > > > > > > > > let me know.
-> > > > > > > > > > >
-> > > > > > > > > > > Denis, Mario, does this fix your issue?
-> > > > > > > > > > >
-> > > > > > > > > > Hello,
-> > > > > > > > > >
-> > > > > > > > > > Unfortunately no, I have prepared a dmesg but had to re=
-move the bootup process because it was too long of a few kb: https://pasteb=
-in.com/1uBEA1FL
-> > > > > > > > >
-> > > > > > > > > Thanks for the test. It seems there's no hotplug event th=
-is time around
-> > > > > > > > > and endpoint device is still intact without any PCI relat=
-ed failure.
-> > > > > > > > >
-> > > > > > > > > Also,
-> > > > > > > > >
-> > > > > > > > > amdgpu 0000:09:00.0: PCI PM: Suspend power state: D3hot
-> > > > > > > > >
-> > > > > > > > > Which means whatever you're facing is either not related =
-to this patch,
-> > > > > > > > > or at best exposed some nasty side-effect that's not hand=
-led correctly
-> > > > > > > > > by the driver.
-> > > > > > > > >
-> > > > > > > > > I'd say amdgpu folks would be of better help for your cas=
-e.
-> > > > > > > > >
-> > > > > > > > > Raag
-> > > > > > > >
-> > > > > > > > So according to the logs Denis shared with v4
-> > > > > > > > (https://pastebin.com/1uBEA1FL) the GPU should have been go=
-ing to BOCO. This
-> > > > > > > > stands for "Bus off Chip Off"
-> > > > > > > >
-> > > > > > > > amdgpu 0000:09:00.0: amdgpu: Using BOCO for runtime pm
-> > > > > > > >
-> > > > > > > > If it's going to D3hot - that's not going to be BOCO, it sh=
-ould be going to
-> > > > > > > > D3cold.
-> > > > > > >
-> > > > > > > Yes, because upstream port is in D0 for some reason (might be=
- this patch
-> > > > > > > but not sure) and so will be the root port.
-> > > > > > >
-> > > > > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D0
-> > > > > > > pcieport 0000:07:00.0: PCI PM: Skipped
-> > > > > > >
-> > > > > > > and my best guess is the driver is not able to cope with the =
-lack of D3cold.
-> > > > > >
-> > > > > > Yes; if the driver is configured to expect BOCO (D3cold) if it =
-doesn't get it, chaos ensues.
-> > > > > >
-> > > > > > I guess let's double check the behavior with CONFIG_PCI_DEBUG t=
-o verify this patch is what is changing that upstream port behavior.
-> > > > >
-> > > > >
-> > > > > This is the very same exact kernel, minus the patch in question: =
- https://pastebin.com/rwMYgG7C
-> > > > >
-> > > > >
-> > > > > Both previous kernel and this one have CONFIG_PCI_DEBUG=3Dy.
-> > > > >
-> > > > > Removed the initial bootup sequence to be able to use pastebin.
-> > > >
-> > > > Thanks - this confirms that the problem is the root port not going =
-to D3.
-> > > > This new log shows:
-> > > >
-> > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D3hot
-> > > >
-> > > > So I feel we should fixate on solving that.
-> > >
-> > > Which means what you're looking for is error flag being set somewhere=
- in
-> > > the hierarchy that is preventing suspend.
-> >
-> > Is the issue perhaps that this is now gated on both correctable and
-> > uncorrectable errors?
-> >
-> > Perhaps should *correctable errors* be emitted with a warning and the
-> > *uncorrectable errors* be fatal?
->
-> That'd be more or less inline with hiding the issue, and it can also race
-> with err_handler callback if driver has registered it.
->
-> > > But regardless of it, my understanding is that root port suspend depe=
-nds
-> > > on a lot of factors (now errors flags being one of them with this pat=
-ch)
-> > > and endpoint driver can't possibly enforce or guarantee it - the best=
- it
-> > > can do is try.
-> > >
-> > > What's probably needed is D3cold failure handling on driver side, but=
- I'm
-> > > no PCI PM expert and perhaps Rafael can comment on it.
-> > >
-> > > Raag
-> >
-> > From the driver perspective it does have expectations that the parts ou=
-tside
-> > the driver did the right thing.  If the driver was expecting the root p=
-ort
-> > to be powered down at suspend and it wasn't there are hardware componen=
-ts
-> > that didn't power cycle and that's what we're seeing here.
->
-> Which means the expectation set by the driver is the opposite of the
-> purpose of this patch, and it's going to fail if any kind of error is
-> detected under root port during suspend.
+On 5/21/25 11:49, Pierre-Eric Pelloux-Prayer wrote:
+> The coredump needs to contain accurate data and reporting a page
+> fault from a previous issue is incorrect.
+> 
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 13 ++++++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c          |  5 +++++
+>  3 files changed, 14 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> index de70747a099d..6fa53e070b50 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> @@ -273,11 +273,13 @@ __amdgpu_devcoredump_read(char *buffer, size_t count, struct amdgpu_coredump_inf
+>  	}
+>  
+>  	/* Add page fault information */
+> -	fault_info = &coredump->adev->vm_manager.fault_info;
+> -	drm_printf(&p, "\n[%s] Page fault observed\n",
+> -		   fault_info->vmhub ? "mmhub" : "gfxhub");
+> -	drm_printf(&p, "Faulty page starting at address: 0x%016llx\n", fault_info->addr);
+> -	drm_printf(&p, "Protection fault status register: 0x%x\n\n", fault_info->status);
+> +	fault_info = &coredump->fault_info;
+> +	if (fault_info->status != 0) {
+> +		drm_printf(&p, "\n[%s] Page fault observed\n",
+> +			   fault_info->vmhub ? "mmhub" : "gfxhub");
+> +		drm_printf(&p, "Faulty page starting at address: 0x%016llx\n", fault_info->addr);
+> +		drm_printf(&p, "Protection fault status register: 0x%x\n\n", fault_info->status);
+> +	}
+>  
+>  	/* dump the ip state for each ip */
+>  	drm_printf(&p, "IP Dump\n");
+> @@ -377,6 +379,7 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
+>  
+>  	coredump->skip_vram_check = skip_vram_check;
+>  	coredump->reset_vram_lost = vram_lost;
+> +	coredump->fault_info = adev->vm_manager.fault_info;
+>  
+>  	if (job && job->pasid) {
+>  		struct amdgpu_task_info *ti;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
+> index 33f2f6fdfcf7..38ccdd3d6213 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
+> @@ -37,6 +37,7 @@ struct amdgpu_coredump_info {
+>  	struct timespec64               reset_time;
+>  	bool                            skip_vram_check;
+>  	bool                            reset_vram_lost;
+> +	struct amdgpu_vm_fault_info	fault_info;
+>  	struct amdgpu_ring              *ring;
+>  	/* Readable form of coredevdump, generate once to speed up
+>  	 * reading it (see drm_coredump_printer's documentation).
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index acb21fc8b3ce..5ee9d2cd74e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -199,6 +199,11 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+>  
+>  exit:
+>  	drm_dev_exit(idx);
+> +
+> +	/* Clear fault info to avoid reporting the same fault. */
+> +	adev->vm_manager.fault_info.status = 0;
+> +	adev->vm_manager.fault_info.addr = 0;
+> +
 
-And IMV this driver's expectation is questionable at least.
+That needs to come much earlier and prefereable while holding a lock.
 
-There is no promise whatsoever that the device will always be put into
-D3cold during system suspend.
+Apart from that looks good to me.
 
-Thanks!
+Christian.
+
+>  	return DRM_GPU_SCHED_STAT_NOMINAL;
+>  }
+>  
+
