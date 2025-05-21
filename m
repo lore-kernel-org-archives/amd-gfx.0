@@ -4,150 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 248A9C54E65
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 11:48:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A20A0C54E65
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 11:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9C311AF40;
-	Wed, 21 May 2025 11:48:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44A2410F8F2;
+	Wed, 21 May 2025 11:56:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vO/Ad0zS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MmMutk+Z";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2074.outbound.protection.outlook.com [40.107.102.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2BCA10F017
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:48:13 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2072.outbound.protection.outlook.com [40.107.236.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3261710F8F2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:56:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vmfizu0d2rD7RKFd+VzhJrWI1/Nb0qBKhwCUY09iYsQ9GjR51hzCwX9ohcgMhpjeLU8L7tLi3W1P1aj+/Pf+Q0dv1xKJmv0+cuZWTbh4dPHPDpHz2ffVK+noa7CsfcyKiSv0WNn4mlnYF42SgapMTJDNHISao4MfQfvQNfacet9bQs9JN5ITaARojXEvbYnyEYQpHUgMcQ1NGnxvt5neofG5SG06nqBrsIpCnPJaIu7AwDRKuIPAh8LHWVmL8BLXpU/RDYDYd7ZgjrAOxKHLnU3y6tRaSCpJ/YOsitma9zKZfAboqa4Jg8TZk8ZbAfwuH3ZdJrbUSYCI/07dARdbOA==
+ b=WL3ykSeli5UDRiifClD9iczx4d/Jg1DjWlYMwQK0UNkaIqvAgp0e0l9I1UjxFYQvekBu/IG7DcoqZGvdQ8j8mIDTQf2RuM3k9srsRRJobMO1pT5Q8S7GrPHP3QJ7rFEGdEs3FVmvtqYWd3UGefYUHTtHC+Dvafe3GJPbHpxVd8k+oY+ekdBHtoS0MJM30ADBSAcqSLQLjaIw+BjmU/dLF82rIyeOHKM6r/xVm8nwlZ2kGOXPKM858c/hwHEfc3ymgoHCqDLd7If5bXUhmH7nkrWdWGWqpFtupa6ZhvHhLjttx1mnlF5NqeXsdzQHwaf27oOg4VEVzzVzXbodPYiXmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5RpKKF09doRLmmqQCXtaJd9efzD5v5tfV4Rr09uVs44=;
- b=Pmr8dNvL3BGBM5R7a1joMTnLAIwLraumRBh9PktSiSv6si1beXpkSBUhJgwmKsGdDnEWiKXbNpRjIJfiuD2MjrQw8uyJTAyJ3PfzyULef45xf767XanaUjrJlYxpr+cO4EOALPNFW680fO7vTUkvVa/Owgc4Hls7txC0h7NH2mL9zjdXl/YTGddx1LoC4lw+wNfHYLfJGAo9JWfb+bE839iUe2zZglxmXqSPl4zrz40sB6bHXt5DDkoTvJrHxzRrUpkCXpPkAWn+fDGYmeXEnNVS4d2OucyYwNMcJMCVwTJen6W7Mq647ub+jzAac2hNN1dhQC691rvdwxcHdfvMzQ==
+ bh=0TSRCw4MRenp2KbQk9pGVWBeviSiC53BnbyslJrTajk=;
+ b=XPfUXpa09Er/pxdUcxViU01zAVC1PHYnAp/FGVUncgmQ1RXilLRcfcgRze8pRh6oc4OJUbWfAcOfWn8hrYwXeNUAKPryTP5a+731n6AhXSIrAAZkxapk/gdLX4l8u3Hm2RIDv3nVcNpbN9nrDnV21y7faH1KfleJK4srurHs3OhvT3LuqSpGjSFoehzH/lNYCpADbdJ8FOqPn017/kD1hzTPrmiGwDrY81TrU5NX9BpGG4ASvUtHXMebcO8qeWQsxr08Wg5RljKsu4krMnhb3nG8JcpG9Usm10wXGsFEIHLMKtO2sdtrbo5kU5GjFmCUZqNhpYnuIC0nYpxxXgcSkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5RpKKF09doRLmmqQCXtaJd9efzD5v5tfV4Rr09uVs44=;
- b=vO/Ad0zSEHwYYCrxG89laZu7M7UcBuj0KtMpvC/vlPQ2B8G8adkVFbgf0fgtu/zWQRvv8B71xap/mndJu0BnWK6ZgAEooKiMlkdW9uiWutgYyBj3xxp2Nxm1BzC99czuQfGiy4ONrsxk2MLvQtYqzHWT/g+RbvWcJqpYNJrBB8Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB5661.namprd12.prod.outlook.com (2603:10b6:a03:422::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Wed, 21 May
- 2025 11:48:09 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Wed, 21 May 2025
- 11:48:09 +0000
-Message-ID: <242bebfb-cd9f-418f-963b-3d9606f2fcf8@amd.com>
-Date: Wed, 21 May 2025 13:48:05 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/7] drm/amdgpu: port some debugfs function to
- drm_printer
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-References: <20250521094912.6714-1-pierre-eric.pelloux-prayer@amd.com>
- <20250521094912.6714-5-pierre-eric.pelloux-prayer@amd.com>
+ bh=0TSRCw4MRenp2KbQk9pGVWBeviSiC53BnbyslJrTajk=;
+ b=MmMutk+ZOSPyEqR7+dLktZlTV/lkOB3RhSMf1guhFvQ4tXnCRclLTo4/AK9FFL2RET628Zsu+ea4zEpXo70BSY7AN+wvAI/Vhfnfh/CtOy7e9nG9qj1X17FgtwOyF13LLNTM3p9n38MpwNK9GnGcJ7XJd37z9w1ryjLImcc8l68=
+Received: from DM4PR12MB5937.namprd12.prod.outlook.com (2603:10b6:8:68::11) by
+ DS0PR12MB8246.namprd12.prod.outlook.com (2603:10b6:8:de::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8746.30; Wed, 21 May 2025 11:55:55 +0000
+Received: from DM4PR12MB5937.namprd12.prod.outlook.com
+ ([fe80::c847:70c6:3c78:54ba]) by DM4PR12MB5937.namprd12.prod.outlook.com
+ ([fe80::c847:70c6:3c78:54ba%7]) with mapi id 15.20.8746.030; Wed, 21 May 2025
+ 11:55:54 +0000
+From: "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang, GuoQing (Sam)"
+ <GuoQing.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhao, Victor" <Victor.Zhao@amd.com>, "Chang, HaiJun"
+ <HaiJun.Chang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Zhang, Owen(SRDC)" <Owen.Zhang2@amd.com>, "Ma, Qing (Mark)"
+ <Qing.Ma@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Deng, Emily"
+ <Emily.Deng@amd.com>
+Subject: Re: [PATCH v6 3/4] drm/amdgpu: enable pdb0 for hibernation on SRIOV
+Thread-Topic: [PATCH v6 3/4] drm/amdgpu: enable pdb0 for hibernation on SRIOV
+Thread-Index: AQHbyJcs4MJaW6/wr0qotfWV8KGndLPZ+q8AgAGFFACAAT1wgIAAxUUA
+Date: Wed, 21 May 2025 11:55:27 +0000
+Message-ID: <8b2ea507-403c-471a-a3d4-db23f3d2f096@amd.com>
+References: <20250519082038.21459-1-guoqing.zhang@amd.com>
+ <20250519082038.21459-4-guoqing.zhang@amd.com>
+ <e75c26e4-8011-4e49-9e2d-d354dcf7358b@amd.com>
+ <4f3c7a86-c89a-429d-8ec1-5db7a0d12c6c@amd.com>
+ <67fc5bc0-e1a7-4074-ab4e-bd7735b60cd1@amd.com>
+In-Reply-To: <67fc5bc0-e1a7-4074-ab4e-bd7735b60cd1@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250521094912.6714-5-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL0PR0102CA0054.prod.exchangelabs.com
- (2603:10b6:208:25::31) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-imapappendstamp: DM4PR12MB5937.namprd12.prod.outlook.com
+ (15.20.8746.028)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5937:EE_|DS0PR12MB8246:EE_
+x-ms-office365-filtering-correlation-id: dad9be50-9105-46a9-5f58-08dd985e711a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|8096899003|38070700018; 
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?/J1BNl//aDe51hQTC0yeMoS54IhUxcxS2QN0RQwDjJKEBVsvfuCpMflohO?=
+ =?iso-8859-1?Q?vFa1Ma84PlrG5GNHh5Gbu6junomd7IohG3f3FkB2tII/rUO/A5fX77qVVc?=
+ =?iso-8859-1?Q?yHXtijb522Hx3Zsyhx1fnoFqiiAZf5Fi4V0dslwXlbdHAm8WRMf5pvJvj4?=
+ =?iso-8859-1?Q?K7mbKWfIp5397udsIiqkBsdJ7xzI2hTXB2cI8vdl3/MxPpkAQaFMPP9Kx9?=
+ =?iso-8859-1?Q?gVDZPZqt1FFPKra7zvrrolhqCOni1qwZy8x1TSB7+8JsfmWCpijWMxFjBt?=
+ =?iso-8859-1?Q?VThdPdy0y8UFcarq9C0SGtQZ1BgfQvBIkyhpmbwYwEUKbiVOsZix7tzVk0?=
+ =?iso-8859-1?Q?Rhva1qCnS69DwxF52V/dEniyxuxNzpwXyVnQSIXMNIeokwzM3f26YLOgEC?=
+ =?iso-8859-1?Q?a+sQa1UCOTnbfzOOGmCCVkrVEODJr7XVrzxVkvSSWazZ8sU22h2QXqInkh?=
+ =?iso-8859-1?Q?gMr3qXrCa4pooOwacMWAz9lHktbWcOlXksqYnsSd/p5iyDA2j2MRtzVjwz?=
+ =?iso-8859-1?Q?luv6bwNQxfsl682FL79tbncARUlusVQJBmfe+2/yrOWws8SzSPgRiytQkA?=
+ =?iso-8859-1?Q?sL/YCzzTIqZW7hR0N4BGEBb5MICkOcGiNJLvPVnaP6M6slBnuTwFp/SIJS?=
+ =?iso-8859-1?Q?r1K88/NRWTOpRYfJ42AKy4nnwzjLBW2iclD6aPEpzxXdvPipxJJ789q1xg?=
+ =?iso-8859-1?Q?0t/0L6Otz0o2kMzdneFK4h9MoUYKXO1Xm4eim7oc9G2Xic8APEziMMd6tG?=
+ =?iso-8859-1?Q?kuz4B1SMNTm+V+lZoxbTtEV0wOid80iCqbEYM0/Xk/BxsD/2QdmhWLE8tw?=
+ =?iso-8859-1?Q?vRCMNFIqRfZ+egh8RTqgSgN/VxTkkFAByY7yxfZ59jLMmze4eIDLrUZmhG?=
+ =?iso-8859-1?Q?riKQK2qbcrivP06LRxLK+hPXFOMRTKcZl8Q3gXkrp68dhdK2bN+qBUHPTv?=
+ =?iso-8859-1?Q?KIqS9Jt3aX5ccuEjQ6oxdufME4xG6EFdJ4VOZJYgsmn9fD8ModUjP+cKDI?=
+ =?iso-8859-1?Q?bv314n3+u8oGvETa7T1Gw3Qs4hYGPbEroo0mQlultsBotzoW9a8ncoHyvX?=
+ =?iso-8859-1?Q?Eol6cjEVloOgRdXp2MkBM/Jp826HYsnLX/8SgGnz+rRbSahvs37g3fcpGm?=
+ =?iso-8859-1?Q?NeDLmud4lI9JtPhWBx5jrLV6xW6uPOjgJoXOhEPvmedAqGPSyGGlNzCPRK?=
+ =?iso-8859-1?Q?OC+SDUHArgLcmZ845DssbMMTEQx6/6N05XXI1b55Wh5IZLFtJwzZr3CTIb?=
+ =?iso-8859-1?Q?+F8I9eAIqv4LhLsh5YV1j6v12UUeYkpjOR25hdK+zYlKOxT0K4UrMshGVv?=
+ =?iso-8859-1?Q?btwxvCDJIQUxQvkpb1HRw7x4l9+AaeFVDhe2mbkHOkCPk/HsAqwUpgGrCE?=
+ =?iso-8859-1?Q?CTTZ8t2YFmUPbxflG0dVbf8SUSd8qvHeFOOleE4NSnXLVumGSiih4WwRg+?=
+ =?iso-8859-1?Q?5wXNL9L2fY7apEk2hW5tFU8MyyEXNWHX41tJXOJiEaujI81lKKuUgERJcX?=
+ =?iso-8859-1?Q?i0hh9aMBZpcQBQvOOG2Lx6C9yOvDS/XF8Z3m2f2ypOTkeRC1fwFBRFZcgo?=
+ =?iso-8859-1?Q?yrXw6sE=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5937.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?8Qa46VEvCtqJa9UxJhuHEf00EL/YXtqhO9nLh23Uk2lhnnxVYXtgEJPs6m?=
+ =?iso-8859-1?Q?lIwXmGhrjg7hV6rlq+0bk2CvJ69eqURHjwWOaeTZ0HrCDLRoMTMuS1RvlK?=
+ =?iso-8859-1?Q?vL6HdwcEMJkQnhZMBKgDFp9VRHlg9Exd5zlIG526RsbIY1Ia0X57H/mtuO?=
+ =?iso-8859-1?Q?gYTjVfZesUl87h1p+g75K2iFCwIVdiZBIc2+cf/Xbw8BXjOUj9nAZWSjBZ?=
+ =?iso-8859-1?Q?z1KvLH1h2OwAV9h8IfvDtm2tkcW1dE7oOEf9FFgvZH4ghsJAvpeYhx69DB?=
+ =?iso-8859-1?Q?UCfavxs1DnxeDauWESFCoHAgHY3huCd/FmfbWJR9t6dBYwjS3CZfnWsOXw?=
+ =?iso-8859-1?Q?S7NmoKOwUHFQUD1EqBLJJLoIV4pcCmjmAkxeRfG2Xxuv+wE3P//4aum64d?=
+ =?iso-8859-1?Q?MM1dvPTc71Gazs+Vz/ChzWhKTwQhu5EtrVq3bVuVWgbS+9h+Mw4zxnkP1i?=
+ =?iso-8859-1?Q?h+qXntKnbv1lUyKXiIgGkwb5RBhXkv4yOMVtVy8NgNfAGRkuXnpfPJFyig?=
+ =?iso-8859-1?Q?Fi4moJR+yr7sFw2QN1wdAiOSDHjBVvWG460r22vIf9jHqDGYpZjKBJTouk?=
+ =?iso-8859-1?Q?5M5X6EOOV3lOZQeAPLz0e1jFb/Z0/WOdVVLO76NJL71NwVWZz4OkwdQzo+?=
+ =?iso-8859-1?Q?npt6tnGBLtCSVam7pxebf3z74YxotYTM7Ufd32LQJqIHj9/pKc+zqEHCPe?=
+ =?iso-8859-1?Q?WT323WkGeWCAMTAVMRufZfju/qiRkeHDzayUUok2hQ/DMqqtIU9Jxt3PEC?=
+ =?iso-8859-1?Q?fzYt70e4KQ3IFJg2Vep+RyfWGDj/fWhZFIlvAmOApFFWrCN2DBf6yyry1g?=
+ =?iso-8859-1?Q?y6lKYLEhDcB7AKrnYKfgpIuP0L1WsehZJKsWpw8HxlAHAevKZ13hGtRv+y?=
+ =?iso-8859-1?Q?pa7vSswMNZ5+ALMGzO7VFowgzPm1C1iUS7YsUweFwgiwL9J6vkKEp7fiAB?=
+ =?iso-8859-1?Q?4XxVU16NRjfwzdSEMVR772p6g/zHtYAg8T5RSc6oRHYZ4PMWsHZ7uxsBUi?=
+ =?iso-8859-1?Q?LsPh+0uPBelepAfRRcIaIMRNs13AxKVtWMQx8kjgNbqVIrgMi/xXGMI0U/?=
+ =?iso-8859-1?Q?XYfMTgJY46idtiqGrtnfd77XqmxOLKr6QyMxlotOqanKxu/fhJuWtC/gOZ?=
+ =?iso-8859-1?Q?RfajEraQ4Zs7kn1gRE+ThTJBP4gnaDPFHIko7DT3cmswNhp7BDcbwj9NSY?=
+ =?iso-8859-1?Q?2GtjAKIX3dviaeRq6CvawIIqdzv2ZKdfoBIIOj1QVhE6xe9frHlwUmFz6I?=
+ =?iso-8859-1?Q?ZU2X39KUS9VTombfdQqNNy3XWGzXSsJz25C13N22JG1ZlprVEp0/d592pE?=
+ =?iso-8859-1?Q?9NqMfxXBzuqVNfLGPwmENTCvEVVJXrxRY+TQ+q452ck8O5ummdqHAi/+SC?=
+ =?iso-8859-1?Q?u+AjBDmAnA3JkjSQ6Rtyc2Ua0GoqK7XRA8MmK2fUEOnjKbC83pDPCi9Pe5?=
+ =?iso-8859-1?Q?2ixt5GsAx784N1QsvCAPlOavUGn8BdIoDoDH9VJ//zNdorFKQmwTbgPFRH?=
+ =?iso-8859-1?Q?deHbCnZ0qDZP49vkJPH6DoM7FoIJKK5jYurjVJh2/YZ3I8XsWdeuFDSSKs?=
+ =?iso-8859-1?Q?J0oJc+VW+VYaCSE2OqLJWXl6MPV0cOUaypKCzq8uX+BTQ/eaC+94WYnZud?=
+ =?iso-8859-1?Q?0ekUMoBfoKuaUDn+cZf24r0RKZryy5P3vL?=
+Content-Type: multipart/alternative;
+ boundary="_000_8b2ea507403c471aa3d4db23f3d2f096amdcom_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB5661:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c8cd1cf-08cc-463f-ff06-08dd985d5ba4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UGt4dzYxVUhOKys4cmY3N3hTL3dSbGtWV3V0eEFYT05aSEhpWTZpNnpqY2U5?=
- =?utf-8?B?K0ZRYk9aOHZ3VTNnVllkK1RFN080b0VUa0VtTE0vcHh5dXU2MU03R3NZZ0RE?=
- =?utf-8?B?TkxXR0t5RG5Xai80ck1xNEtrZFpLMTJuSjhSNjhVc0MzY1h0c0pkUytobVht?=
- =?utf-8?B?cDQ1MDE1aDFaa0ZHVXUxR1oxK1dPbnZPS3VrU2hZOE1RNG5oRnloUExMWkNO?=
- =?utf-8?B?Q3BBLzhYNFFSQ1UzZldyZE83d3IxdTVRVTJUaGZaWWpjc2F4QlZjWEJFR1lN?=
- =?utf-8?B?Y0VmQzB3MzNqRkw4dDUrQ25QMFRjekZGTzZVcjNpMTJKcmVIU0tFYTBOT3RS?=
- =?utf-8?B?OHZuYUcvZWFzalZmYmRsTisyRHhhL3ZKNFFqb2h6MlJ1S3hxZHZ6NlBmdVl1?=
- =?utf-8?B?R094MnRYSnJnYkNrM0tQeFk3b1BMQjBCSUFIcEl6TUMxT1Jvak5HQzdhWmwr?=
- =?utf-8?B?b1NmRk9zQkwxbVhWM0xMbEdHRXM1MmhRYVlobXg2NlpuckZGeFMxU29NZ1Zu?=
- =?utf-8?B?aWlrWWRIWWNwekRnRTJmMEVUdENGbGpwVnF4R3ZGWXVTWkM2dE9yUGhHdm9i?=
- =?utf-8?B?TUh5R2hlUFhGL04vK3ZUWmhJMmlWeWRMeEpIOTNLVThTSUE4V0JEU0lXMVRj?=
- =?utf-8?B?Q3ZnY0gzQVZDZnp6RndpSEpIYUN1WkMweVpsMHBmUk1sYm5EMVRiYjU3eGYv?=
- =?utf-8?B?Rnc2c3A1Z21iSHREQi84R2xnb1lRTHptOGZWRmZ2S0szdFNLNXd0cTloNVh1?=
- =?utf-8?B?NU5uUFlXc2VublE2MU1TZHR3UXhTTXhzbitaZjFyZVhpcDFGMUt3NW41aU42?=
- =?utf-8?B?YzJQY1Y4alBydHFLZlB6T3ZkcG1jZzB6TVQyME0wazNiM1FOV3MvWmEvMHdO?=
- =?utf-8?B?Z1AvSkRHNGphblR6TDhFOSs4WGdwK0t2WHBOT2M4M0lGVUowaXFFcFNQeVl6?=
- =?utf-8?B?RkZOSnp4cWRqaXlQV25CbTZFT3RkYlRYZFB2VFM0cTltajJKRXo4L2RqRmlt?=
- =?utf-8?B?MzcxRWhTdktXZDRSS0RNdEVjTjVKSVM5clc3NTlLNksyckFKMXRRZ2FFYytU?=
- =?utf-8?B?ZTh6UjJ2MVp0QXVFWTFkd0M0ZzdrK01QTStsUWNLcXJ3Qm9TVjFZQU9XbHI1?=
- =?utf-8?B?Mk40RWxiWGJLVlBhM1kxZEkvaVFJNTRoYzZzbTJmWEg3T2VVMC9SbmFBNXdv?=
- =?utf-8?B?WUhTVUxnRmR0YTR5RlErN3FoSno1WkpWZndhSkFYSHB3bXhsZmY1LzAzMzVm?=
- =?utf-8?B?dm85MnBpdVRZUUtLSWFETm1JSloyN2xXeloxZVNoUnVhQXM3NFF2aVRlUlNn?=
- =?utf-8?B?VHliQnBaV0Z2U3NJWmYrZTZRKy9tK3RRU3pnOTROcTdEcHdla1IwcWNkbVdQ?=
- =?utf-8?B?a1NRcGRxQTI0MnZkWlkyNm1kRkM2bDRtNHBBbmk5cWV4c2ZOZXlwS0UrRWtW?=
- =?utf-8?B?emVNR0VQOEc3WDZPa2ZyNnV3a2RSUW1PTDBnczlUV3REZjhZWXpZZW1JY0wy?=
- =?utf-8?B?NFpQWTFxbzgxeXV0cXNxa1VYN2tDVFk0VmtQYkFtNlBqTXVITUpOMGZBcmVL?=
- =?utf-8?B?MDJPS2g1NmtSUVFhdXNDNjVUQ1BuQWVaaUcvNnprcE5sejc2dU1aa2JlY0R4?=
- =?utf-8?B?aGFCS2hEcWZTZFdwVVZoT2hiaThqL0JOdzR4N1BPTE9HeG9lRTErOXpoWUFZ?=
- =?utf-8?B?dFh3bVhpeVhQZXpFUmdyTm5YemNrQk5qZEMzZWpFa1h6cFlNUzFlVEgvUGUx?=
- =?utf-8?B?bkM2Qk9xK0FoYmptK1JVbUhUQ1VuWk9DbXhva1B6UHVqUlcxRlFGazczdC9G?=
- =?utf-8?B?dXJmUVhFZ003SFF2Qk1pYk5nTFBlL0pHVDY2VnNvaUE4VmdoS3k4aCtRYXU4?=
- =?utf-8?B?Z05UZFBMVHU3Qm9LNGdsVWU2c0dsU3ZPU2dJS3lOaDI0UUl5c2VZaGhBNUFI?=
- =?utf-8?Q?ZWIZ8PioC7Y=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0FxdStScGhLWStUZER5a0VqcjJRcHB6Y1FzeWJDaXlwcStDRW12QzZXMWJ0?=
- =?utf-8?B?ZkEzbjVmYUtqN1FKSFFJSTA3eFUxbHVxVTVtTS9EaVZ3bGc4MU5EYjBxMnA5?=
- =?utf-8?B?Y3hkTWRTVm0wUXZoWVFmVENKa1dHTzJuaC8wYm5KV1hpZ3Q4Q0l2V0xpb3Ex?=
- =?utf-8?B?N21yNVFPUDJDRlBqcktMM3hnN01qOXpDc2dOUktQT25aM1cvc1RRN3pRb21F?=
- =?utf-8?B?dlV2Qllhd1R1ak1MbDE0a3VnbkMycXdaTHVzOGFBKytNUjlJemRSdEQzLytw?=
- =?utf-8?B?cjJ1SnpmUzNiYWRqNE1zMFZnYVViSmpZZjc3RmJwclJVcHNsakthVVlnY01U?=
- =?utf-8?B?cFNPVmw4UUQzNXZQWnlmQTFFZTAvVGVXdE8wZEw3RGdWdTBNbitZbVNXVmVk?=
- =?utf-8?B?UHdoRVVTNUV3K0VldVc3SWpJQlIyQ3ZCbGN4UHVjTzQxOWt2N2pwMHlVUTBy?=
- =?utf-8?B?andoZ2tiRndQTklkZHVSQmhodUlnVkxTL0Z6djh5TThvUVUvbHVneUp0QVlX?=
- =?utf-8?B?dm4vSnBaWHhMUVhmOUNhM2pKdi9GczZMbUlQdE5RMnFjWkdEOEJSc1FZcHI2?=
- =?utf-8?B?M3lqRDUrNmlWN0JiTmJ6alpldGRtRzhWOGNRcERLbi85aU9kOFRGeHhQWVZj?=
- =?utf-8?B?WU9ZU1JMTDRMRkl5KzlzMHM4akZBV2J0NzFCWWl0aDdtTnU1VnFMci9idFpM?=
- =?utf-8?B?L09ZODJHOGRWYi95S21WQnk1d096M2ZnRTZUSFV1ellvTHNxWmpqOHlhZlFn?=
- =?utf-8?B?MHhTRUdOak4zRGVBZjZiTjFzYVd3NE4vRkY0b2Q5cVBEdHhJZnRuZ2VaKzcr?=
- =?utf-8?B?ZzJxbkxPK1BIVGlteG1nZEpMdm9mU1JIMkdyL29mME9zaHoxcGUrYWNjN0t2?=
- =?utf-8?B?amcwbU1zdWNZblBudE96WisrejNPbk92UEp4eG1wRll4QnZNdk9DVHJ1WERr?=
- =?utf-8?B?SUIxcnVJcklybVI1bTZkRzZ4ODVTWGREMUJKMU5RSjYzT3Ezam42L2JjU0hv?=
- =?utf-8?B?ZDhRR1VXVlpEeVIrUFIreHFOSFlTRGpTMGM3WWpkcENWS1M1b2loSlg1Vml4?=
- =?utf-8?B?bjJjVWFyKzY3VE5pdGJKQ3ZDQjk0M2VPWUVMcEdpTytpMEVqSEtUZitraGNZ?=
- =?utf-8?B?NkQ4RnlEZ0R2WVBLeXBRMHZha2IyaEJneGpqTFIrd3pYcm16QW9yK0dnM29N?=
- =?utf-8?B?K1V2MHNvZWtKZmlxbGdKcnBJTElYdnBQbk8rL09IbHltQXVzendpQmtZdFdT?=
- =?utf-8?B?UW5ZOUtyMmVnTFVLclBMbklVcWlPNGZFZ0MxemsyWXJMM21HVnNZcWhTREds?=
- =?utf-8?B?TG1paFIvRDY3SDY5MFJ6TFdndTYxWGdsZThFS2J5NHNsSmJzbzI0ZlY0WU9H?=
- =?utf-8?B?RnAwZmVmcEhNbmdnZzFOQjlWanNUbXlqZURwWDc4NGFCeGhaYzE0UUl0TWVz?=
- =?utf-8?B?TlJ4N0hEbDRaNmlmNFRydjF5OEpoZXQvQTF2YWpwSjF4L2lzNC9YRS9DbjVW?=
- =?utf-8?B?N0pzTGY1Y3A4Z3ZrQWpsSjVIQWhaWlVTdEFDRXRCeWtUK2RLVDBhVHIwM3I2?=
- =?utf-8?B?QTJXZThqQVRsNGdNTXMxeE16LzhuZFhDQlYrOTh6dUZJbWVGSWZMaVhrVitK?=
- =?utf-8?B?LytXMWxMNnNKa2VGc0FQTjFiU05lN1RDRElwUHdSTXQvWGdrdGJOcVFLWkpN?=
- =?utf-8?B?U0VzN0VybTVUOHVRTGxuZ2VQTFNTbFBmYi9YV2JmZWZZL0E4TEtORldlaDZa?=
- =?utf-8?B?UHZpTWpwejAydVFQNThWSmR3bFo2OFg0YkZJSFFrdTFMUkpyejlMWFdWQm1n?=
- =?utf-8?B?TU9JRExRYjBtRkpSUWR5MTFIR2NCQjI3RHFneHNwRVRCZEFFZ0lUK1NFdGti?=
- =?utf-8?B?TXEyRjd0MTlqeW90VWhyVFFSK1NTbk5qOVppMjVkTU53TndVZzFTL2g2eFNK?=
- =?utf-8?B?RW52ZEJXVHN5V1N4bTVIZDJrU3BVSEtJTjZ0R2hqMS9yUVZKbW9wa28xVGJo?=
- =?utf-8?B?V0lHaVhQZHhUUDM5Um5XSVNxM2RYeHVrdEFUdlhORmYxQmcrMEh6eEdOdXQ4?=
- =?utf-8?B?YUdUeUsvaUJEaVJyY0liQWhIOThkSEdBWHgxWGkvclQwM2U0VWlqQTBFMVcv?=
- =?utf-8?Q?Ctb+E5WzwofKcEtHWgn3v5t5u?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c8cd1cf-08cc-463f-ff06-08dd985d5ba4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2025 11:48:09.4596 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7lbMQ+FCIetykEtL6Sp9Ky1Hb4cFquf3ZOdzC8k0Av7yptSdWNFP/1YaYBMNb6+E
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5661
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5937.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dad9be50-9105-46a9-5f58-08dd985e711a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2025 11:55:54.5163 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: S6g0wv7rbvNNoZVE08x1YcsO/8GMjQLwMT/WigTnZMtcZrhU+FVvZCY+b67Tgm3FNZANDRASedTRgN4hoYwesg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8246
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,330 +162,453 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/21/25 11:49, Pierre-Eric Pelloux-Prayer wrote:
-> Using the drm_printer interface will allow us to use these functions
-> when generating the coredump.
+--_000_8b2ea507403c471aa3d4db23f3d2f096amdcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
 
-This change in general is harmless, but you must be extremely careful to not grab locks in the core dump which somebody could hold while waiting for a reset to complete.
+On 2025/5/21 16:06, Christian K=F6nig wrote:
+> On 5/20/25 07:10, Zhang, GuoQing (Sam) wrote:
+>>>> +    if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
+>>>> +            /* set mc->vram_start to 0 to switch the returned GPU add=
+ress of
+>>>> +             * amdgpu_bo_create_reserved() from FB aperture to GART a=
+perture.
+>>>> +             */
+>>>> +            amdgpu_gmc_vram_location(adev, mc, 0);
+>>> This function does a lot more than just setting mc->vram_start and mc->=
+vram_end.
+>>>
+>>> You should probably just update the two setting and not call amdgpu_gmc=
+_vram_location() at all.
+>> I tried only setting mc->vram_start and mc->vram_end. But KMD load will
+>> fail with following error logs.
+>>
+>> [  329.314346] amdgpu 0000:09:00.0: amdgpu: VRAM: 196288M
+>> 0x0000000000000000 - 0x0000002FEBFFFFFF (196288M used)
+>> [  329.314348] amdgpu 0000:09:00.0: amdgpu: GART: 512M
+>> 0x0000018000000000 - 0x000001801FFFFFFF
+>> [  329.314385] [drm] Detected VRAM RAM=3D196288M, BAR=3D262144M
+>> [  329.314386] [drm] RAM width 8192bits HBM
+>> [  329.314546] amdgpu 0000:09:00.0: amdgpu: (-22) failed to allocate
+>> kernel bo
+>> [  329.315013] [drm:amdgpu_device_init [amdgpu]] *ERROR* sw_init of IP
+>> block <gmc_v9_0> failed -22
+>> [  329.315846] amdgpu 0000:09:00.0: amdgpu: amdgpu_device_ip_init failed
+>>
+>>
+>> It seems like setting mc->visible_vram_size and mc->visible_vram_size
+>> fields are also needed. In this case call amdgpu_gmc_vram_location() is
+>> better than inline the logic, I think.
+> Yeah, exactly that is not a good idea.
+>
+> The mc->visible_vram_size and mc->real_vram_size should have been initial=
+ized by gmc_v9_0_mc_init(). Why didn't that happen?
 
-For example any BO lock is an absolute no-go.
 
-Regards,
-Christian.
+[Sam] visible_vram_size is set to 0x4000000000 (256G) from
+`pci_resource_len(adev->pdev, 0)` in `gmc_v9_0_mc_init()`.
+It is set to real_vram_size 0x2fec000000(192G) in
+amdgpu_gmc_vram_location().
 
-> 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  5 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     |  5 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 38 +++++++++----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  5 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 42 ++++++++++-----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  5 +--
->  6 files changed, 52 insertions(+), 48 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 8e626f50b362..15ccb0eeb78e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -1773,12 +1773,15 @@ static int amdgpu_debugfs_vm_info_show(struct seq_file *m, void *unused)
->  	struct amdgpu_device *adev = m->private;
->  	struct drm_device *dev = adev_to_drm(adev);
->  	struct drm_file *file;
-> +	struct drm_printer p;
->  	int r;
->  
->  	r = mutex_lock_interruptible(&dev->filelist_mutex);
->  	if (r)
->  		return r;
->  
-> +	p = drm_seq_file_printer(m);
-> +
->  	list_for_each_entry(file, &dev->filelist, lhead) {
->  		struct amdgpu_fpriv *fpriv = file->driver_priv;
->  		struct amdgpu_vm *vm = &fpriv->vm;
-> @@ -1793,7 +1796,7 @@ static int amdgpu_debugfs_vm_info_show(struct seq_file *m, void *unused)
->  		r = amdgpu_bo_reserve(vm->root.bo, true);
->  		if (r)
->  			break;
-> -		amdgpu_debugfs_vm_bo_info(vm, m);
-> +		amdgpu_debugfs_vm_bo_info(vm, &p);
->  		amdgpu_bo_unreserve(vm->root.bo);
->  	}
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 2c68118fe9fd..35457f44a089 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1141,12 +1141,15 @@ static int amdgpu_debugfs_gem_info_show(struct seq_file *m, void *unused)
->  	struct amdgpu_device *adev = m->private;
->  	struct drm_device *dev = adev_to_drm(adev);
->  	struct drm_file *file;
-> +	struct drm_printer p;
->  	int r;
->  
->  	r = mutex_lock_interruptible(&dev->filelist_mutex);
->  	if (r)
->  		return r;
->  
-> +	p = drm_seq_file_printer(m);
-> +
->  	list_for_each_entry(file, &dev->filelist, lhead) {
->  		struct task_struct *task;
->  		struct drm_gem_object *gobj;
-> @@ -1170,7 +1173,7 @@ static int amdgpu_debugfs_gem_info_show(struct seq_file *m, void *unused)
->  		idr_for_each_entry(&file->object_idr, gobj, id) {
->  			struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
->  
-> -			amdgpu_bo_print_info(id, bo, m);
-> +			amdgpu_bo_print_info(id, bo, &p);
->  		}
->  		spin_unlock(&file->table_lock);
->  	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 3339703f40b7..568c2cd95703 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1553,27 +1553,26 @@ uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
->  	return domain;
->  }
->  
-> -#if defined(CONFIG_DEBUG_FS)
-> -#define amdgpu_bo_print_flag(m, bo, flag)		        \
-> +#define amdgpu_bo_print_flag(p, bo, flag)		        \
->  	do {							\
->  		if (bo->flags & (AMDGPU_GEM_CREATE_ ## flag)) {	\
-> -			seq_printf((m), " " #flag);		\
-> +			drm_printf((p), " " #flag);		\
->  		}						\
->  	} while (0)
->  
->  /**
-> - * amdgpu_bo_print_info - print BO info in debugfs file
-> + * amdgpu_bo_print_info - print BO info in printer
->   *
->   * @id: Index or Id of the BO
->   * @bo: Requested BO for printing info
-> - * @m: debugfs file
-> + * @p: drm_printer to use
->   *
->   * Print BO information in debugfs file
->   *
->   * Returns:
->   * Size of the BO in bytes.
->   */
-> -u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
-> +u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct drm_printer *p)
->  {
->  	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->  	struct dma_buf_attachment *attachment;
-> @@ -1623,31 +1622,30 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
->  	}
->  
->  	size = amdgpu_bo_size(bo);
-> -	seq_printf(m, "\t\t0x%08x: %12lld byte %s",
-> -			id, size, placement);
-> +	drm_printf(p, "\t\t0x%08x: %12lld byte %s",
-> +		   id, size, placement);
->  
->  	pin_count = READ_ONCE(bo->tbo.pin_count);
->  	if (pin_count)
-> -		seq_printf(m, " pin count %d", pin_count);
-> +		drm_printf(p, " pin count %d", pin_count);
->  
->  	dma_buf = READ_ONCE(bo->tbo.base.dma_buf);
->  	attachment = READ_ONCE(bo->tbo.base.import_attach);
->  
->  	if (attachment)
-> -		seq_printf(m, " imported from ino:%lu", file_inode(dma_buf->file)->i_ino);
-> +		drm_printf(p, " imported from ino:%lu", file_inode(dma_buf->file)->i_ino);
->  	else if (dma_buf)
-> -		seq_printf(m, " exported as ino:%lu", file_inode(dma_buf->file)->i_ino);
-> +		drm_printf(p, " exported as ino:%lu", file_inode(dma_buf->file)->i_ino);
->  
-> -	amdgpu_bo_print_flag(m, bo, CPU_ACCESS_REQUIRED);
-> -	amdgpu_bo_print_flag(m, bo, NO_CPU_ACCESS);
-> -	amdgpu_bo_print_flag(m, bo, CPU_GTT_USWC);
-> -	amdgpu_bo_print_flag(m, bo, VRAM_CLEARED);
-> -	amdgpu_bo_print_flag(m, bo, VRAM_CONTIGUOUS);
-> -	amdgpu_bo_print_flag(m, bo, VM_ALWAYS_VALID);
-> -	amdgpu_bo_print_flag(m, bo, EXPLICIT_SYNC);
-> +	amdgpu_bo_print_flag(p, bo, CPU_ACCESS_REQUIRED);
-> +	amdgpu_bo_print_flag(p, bo, NO_CPU_ACCESS);
-> +	amdgpu_bo_print_flag(p, bo, CPU_GTT_USWC);
-> +	amdgpu_bo_print_flag(p, bo, VRAM_CLEARED);
-> +	amdgpu_bo_print_flag(p, bo, VRAM_CONTIGUOUS);
-> +	amdgpu_bo_print_flag(p, bo, VM_ALWAYS_VALID);
-> +	amdgpu_bo_print_flag(p, bo, EXPLICIT_SYNC);
->  
-> -	seq_puts(m, "\n");
-> +	drm_puts(p, "\n");
->  
->  	return size;
->  }
-> -#endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> index 375448627f7b..f411a8c3199c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -139,6 +139,8 @@ struct amdgpu_bo_vm {
->  	struct amdgpu_vm_bo_base        entries[];
->  };
->  
-> +struct drm_printer;
-> +
->  static inline struct amdgpu_bo *ttm_to_amdgpu_bo(struct ttm_buffer_object *tbo)
->  {
->  	return container_of(tbo, struct amdgpu_bo, tbo);
-> @@ -345,8 +347,9 @@ void amdgpu_sa_bo_free(struct drm_suballoc **sa_bo,
->  #if defined(CONFIG_DEBUG_FS)
->  void amdgpu_sa_bo_dump_debug_info(struct amdgpu_sa_manager *sa_manager,
->  					 struct seq_file *m);
-> -u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m);
->  #endif
-> +u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct drm_printer *p);
-> +
->  void amdgpu_debugfs_sa_init(struct amdgpu_device *adev);
->  
->  bool amdgpu_bo_support_uswc(u64 bo_flags);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 3911c78f8282..327ce9e883cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2990,16 +2990,15 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->  	return false;
->  }
->  
-> -#if defined(CONFIG_DEBUG_FS)
->  /**
->   * amdgpu_debugfs_vm_bo_info  - print BO info for the VM
->   *
->   * @vm: Requested VM for printing BO info
-> - * @m: debugfs file
-> + * @p: the drm_printer to use
->   *
->   * Print BO information in debugfs file for the VM
->   */
-> -void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
-> +void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct drm_printer *p)
->  {
->  	struct amdgpu_bo_va *bo_va, *tmp;
->  	u64 total_idle = 0;
-> @@ -3017,74 +3016,73 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
->  	unsigned int id = 0;
->  
->  	spin_lock(&vm->status_lock);
-> -	seq_puts(m, "\tIdle BOs:\n");
-> +	drm_puts(p, "\tIdle BOs:\n");
->  	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status) {
->  		if (!bo_va->base.bo)
->  			continue;
-> -		total_idle += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
-> +		total_idle += amdgpu_bo_print_info(id++, bo_va->base.bo, p);
->  	}
->  	total_idle_objs = id;
->  	id = 0;
->  
-> -	seq_puts(m, "\tEvicted BOs:\n");
-> +	drm_puts(p, "\tEvicted BOs:\n");
->  	list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status) {
->  		if (!bo_va->base.bo)
->  			continue;
-> -		total_evicted += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
-> +		total_evicted += amdgpu_bo_print_info(id++, bo_va->base.bo, p);
->  	}
->  	total_evicted_objs = id;
->  	id = 0;
->  
-> -	seq_puts(m, "\tRelocated BOs:\n");
-> +	drm_puts(p, "\tRelocated BOs:\n");
->  	list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status) {
->  		if (!bo_va->base.bo)
->  			continue;
-> -		total_relocated += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
-> +		total_relocated += amdgpu_bo_print_info(id++, bo_va->base.bo, p);
->  	}
->  	total_relocated_objs = id;
->  	id = 0;
->  
-> -	seq_puts(m, "\tMoved BOs:\n");
-> +	drm_puts(p, "\tMoved BOs:\n");
->  	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status) {
->  		if (!bo_va->base.bo)
->  			continue;
-> -		total_moved += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
-> +		total_moved += amdgpu_bo_print_info(id++, bo_va->base.bo, p);
->  	}
->  	total_moved_objs = id;
->  	id = 0;
->  
-> -	seq_puts(m, "\tInvalidated BOs:\n");
-> +	drm_puts(p, "\tInvalidated BOs:\n");
->  	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
->  		if (!bo_va->base.bo)
->  			continue;
-> -		total_invalidated += amdgpu_bo_print_info(id++,	bo_va->base.bo, m);
-> +		total_invalidated += amdgpu_bo_print_info(id++,	bo_va->base.bo, p);
->  	}
->  	total_invalidated_objs = id;
->  	id = 0;
->  
-> -	seq_puts(m, "\tDone BOs:\n");
-> +	drm_puts(p, "\tDone BOs:\n");
->  	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status) {
->  		if (!bo_va->base.bo)
->  			continue;
-> -		total_done += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
-> +		total_done += amdgpu_bo_print_info(id++, bo_va->base.bo, p);
->  	}
->  	spin_unlock(&vm->status_lock);
->  	total_done_objs = id;
->  
-> -	seq_printf(m, "\tTotal idle size:        %12lld\tobjs:\t%d\n", total_idle,
-> +	drm_printf(p, "\tTotal idle size:        %12lld\tobjs:\t%d\n", total_idle,
->  		   total_idle_objs);
-> -	seq_printf(m, "\tTotal evicted size:     %12lld\tobjs:\t%d\n", total_evicted,
-> +	drm_printf(p, "\tTotal evicted size:     %12lld\tobjs:\t%d\n", total_evicted,
->  		   total_evicted_objs);
-> -	seq_printf(m, "\tTotal relocated size:   %12lld\tobjs:\t%d\n", total_relocated,
-> +	drm_printf(p, "\tTotal relocated size:   %12lld\tobjs:\t%d\n", total_relocated,
->  		   total_relocated_objs);
-> -	seq_printf(m, "\tTotal moved size:       %12lld\tobjs:\t%d\n", total_moved,
-> +	drm_printf(p, "\tTotal moved size:       %12lld\tobjs:\t%d\n", total_moved,
->  		   total_moved_objs);
-> -	seq_printf(m, "\tTotal invalidated size: %12lld\tobjs:\t%d\n", total_invalidated,
-> +	drm_printf(p, "\tTotal invalidated size: %12lld\tobjs:\t%d\n", total_invalidated,
->  		   total_invalidated_objs);
-> -	seq_printf(m, "\tTotal done size:        %12lld\tobjs:\t%d\n", total_done,
-> +	drm_printf(p, "\tTotal done size:        %12lld\tobjs:\t%d\n", total_done,
->  		   total_done_objs);
->  }
-> -#endif
->  
->  /**
->   * amdgpu_vm_update_fault_cache - update cached fault into.
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index f3ad687125ad..0bf9ea018eb7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -43,6 +43,7 @@ struct amdgpu_bo_va;
->  struct amdgpu_job;
->  struct amdgpu_bo_list_entry;
->  struct amdgpu_bo_vm;
-> +struct drm_printer;
->  
->  /*
->   * GPUVM handling
-> @@ -598,9 +599,7 @@ void amdgpu_vm_pt_free_work(struct work_struct *work);
->  void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
->  			    struct amdgpu_vm_update_params *params);
->  
-> -#if defined(CONFIG_DEBUG_FS)
-> -void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
-> -#endif
-> +void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct drm_printer *p);
->  
->  int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev, struct amdgpu_vm *vm);
->  
+Should I update the 3 variables inline and not call
+amdgpu_gmc_vram_location()?
 
+         mc->vram_start =3D 0;
+         mc->vram_end =3D mc->vram_start + mc->mc_vram_size - 1;
+         if (mc->real_vram_size < mc->visible_vram_size)
+             mc->visible_vram_size =3D mc->real_vram_size;
+
+
+>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm=
+/amd/amdgpu/mmhub_v1_8.c
+>>>> index 84cde1239ee4..18e80aa78aff 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+>>>> @@ -45,8 +45,10 @@ static u64 mmhub_v1_8_get_fb_location(struct amdgpu=
+_device *adev)
+>>>>         top &=3D MC_VM_FB_LOCATION_TOP__FB_TOP_MASK;
+>>>>         top <<=3D 24;
+>>>>
+>>>> -    adev->gmc.fb_start =3D base;
+>>>> -    adev->gmc.fb_end =3D top;
+>>>> +    if (!amdgpu_virt_xgmi_migrate_enabled(adev)) {
+>>>> +            adev->gmc.fb_start =3D base;
+>>>> +            adev->gmc.fb_end =3D top;
+>>>> +    }
+>>> We should probably avoid calling this in the first place.
+>>>
+>>> The function gmc_v9_0_vram_gtt_location() should probably be adjusted.
+>> mmhub_v1_8_get_fb_location() is called by the new
+>> amdgpu_bo_fb_aper_addr() as well, not just gmc_v9_0_vram_gtt_location().
+> Oh, that is probably a bad idea. The function amdgpu_bo_fb_aper_addr() sh=
+ould only rely on cached data.
+
+
+[Sam] Can I add new `fb_base` field in `struct amdgpu_gmc` to cache the
+value of `get_fb_location()`?
+Using this approach, we don't need to set fb_start and fb_end on resume
+any more, since the reset of the 2 field is caused by
+mmhub_v1_8_get_fb_location() calls from amdgpu_bo_fb_aper_addr().
+Please see the code change below.
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -259,6 +259,7 @@ struct amdgpu_gmc {
+          */
+         u64                     fb_start;
+         u64                     fb_end;
++       u64                     fb_base;
+         unsigned                vram_width;
+         u64                     real_vram_size;
+         int                     vram_mtrr;
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1527,7 +1527,7 @@ u64 amdgpu_bo_fb_aper_addr(struct amdgpu_bo *bo)
+
+         WARN_ON_ONCE(bo->tbo.resource->mem_type !=3D TTM_PL_VRAM);
+
+-       fb_base =3D adev->mmhub.funcs->get_fb_location(adev);
++       fb_base =3D adev->gmc.fb_base;
+         fb_base +=3D adev->gmc.xgmi.physical_node_id *
+adev->gmc.xgmi.node_segment_size;
+         offset =3D (bo->tbo.resource->start << PAGE_SHIFT) + fb_base;
+         return amdgpu_gmc_sign_extend(offset);
+
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1728,6 +1728,7 @@ static void gmc_v9_0_vram_gtt_location(struct
+amdgpu_device *adev,
+                                         struct amdgpu_gmc *mc)
+  {
+         u64 base =3D adev->mmhub.funcs->get_fb_location(adev);
++       mc->fb_base =3D base;
+
+         /* add the xgmi offset of the physical node */
+         base +=3D adev->gmc.xgmi.physical_node_id *
+adev->gmc.xgmi.node_segment_size;
+
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+@@ -45,10 +45,8 @@ static u64 mmhub_v1_8_get_fb_location(struct
+amdgpu_device *adev)
+         top &=3D MC_VM_FB_LOCATION_TOP__FB_TOP_MASK;
+         top <<=3D 24;
+
+-       if (!amdgpu_virt_xgmi_migrate_enabled(adev)) {
+-               adev->gmc.fb_start =3D base;
+-               adev->gmc.fb_end =3D top;
+-       }
++       adev->gmc.fb_start =3D base;
++       adev->gmc.fb_end =3D top;
+
+
+Regards
+Sam
+
+
+>
+>> mmhub_v1_8_get_fb_location() is supposed to be a query api according to
+>> its name. having such side effect is very surprising.
+>>
+>> Another approach is set the right fb_start and fb_end in the new
+>> amdgpu_virt_resume(), like updating vram_base_offset.
+> That is probably better. And skip setting fb_start and fb_end in amdgpu_g=
+mc_sysvm_location() for this use case.
+>
+> That was done only because we re-program those registers on bare metal.
+>
+> Regards,
+> Christian.
+>
+>> Which approach do you prefer? Or any better suggestions? Thank you.
+>>
+>>
+>> Regards
+>> Sam
+>>
+>>
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>>         return base;
+>>>>     }
+
+--_000_8b2ea507403c471aa3d4db23f3d2f096amdcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-ID: <852FC34D6DBB9E4A83422B29C65DFBF3@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style>
+</head>
+<body lang=3D"en-CN" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<div>
+<p class=3D"MsoNormal"><br>
+On 2025/5/21 16:06, Christian K=F6nig wrote:<br>
+&gt; On 5/20/25 07:10, Zhang, GuoQing (Sam) wrote:<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; if (amdgpu_virt_xgmi_migrate_enabled(a=
+dev)) {<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; /* set mc-&gt;vram_start to 0 to switch the returned GPU address =
+of<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; * amdgpu_bo_create_reserved() from FB aperture to GART aper=
+ture.<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; amdgpu_gmc_vram_location(adev, mc, 0);<br>
+&gt;&gt;&gt; This function does a lot more than just setting mc-&gt;vram_st=
+art and mc-&gt;vram_end.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; You should probably just update the two setting and not call a=
+mdgpu_gmc_vram_location() at all.<br>
+&gt;&gt; I tried only setting mc-&gt;vram_start and mc-&gt;vram_end. But KM=
+D load will<br>
+&gt;&gt; fail with following error logs.<br>
+&gt;&gt;<br>
+&gt;&gt; [&nbsp; 329.314346] amdgpu 0000:09:00.0: amdgpu: VRAM: 196288M<br>
+&gt;&gt; 0x0000000000000000 - 0x0000002FEBFFFFFF (196288M used)<br>
+&gt;&gt; [&nbsp; 329.314348] amdgpu 0000:09:00.0: amdgpu: GART: 512M<br>
+&gt;&gt; 0x0000018000000000 - 0x000001801FFFFFFF<br>
+&gt;&gt; [&nbsp; 329.314385] [drm] Detected VRAM RAM=3D196288M, BAR=3D26214=
+4M<br>
+&gt;&gt; [&nbsp; 329.314386] [drm] RAM width 8192bits HBM<br>
+&gt;&gt; [&nbsp; 329.314546] amdgpu 0000:09:00.0: amdgpu: (-22) failed to a=
+llocate<br>
+&gt;&gt; kernel bo<br>
+&gt;&gt; [&nbsp; 329.315013] [drm:amdgpu_device_init [amdgpu]] *ERROR* sw_i=
+nit of IP<br>
+&gt;&gt; block &lt;gmc_v9_0&gt; failed -22<br>
+&gt;&gt; [&nbsp; 329.315846] amdgpu 0000:09:00.0: amdgpu: amdgpu_device_ip_=
+init failed<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; It seems like setting mc-&gt;visible_vram_size and mc-&gt;visible_=
+vram_size<br>
+&gt;&gt; fields are also needed. In this case call amdgpu_gmc_vram_location=
+() is<br>
+&gt;&gt; better than inline the logic, I think.<br>
+&gt; Yeah, exactly that is not a good idea.<br>
+&gt;<br>
+&gt; The mc-&gt;visible_vram_size and mc-&gt;real_vram_size should have bee=
+n initialized by gmc_v9_0_mc_init(). Why didn't that happen?<br>
+<br>
+<br>
+[Sam] visible_vram_size is set to 0x4000000000 (256G) from <br>
+`pci_resource_len(adev-&gt;pdev, 0)` in `gmc_v9_0_mc_init()`.<br>
+It is set to real_vram_size 0x2fec000000(192G) in <br>
+amdgpu_gmc_vram_location().<br>
+<br>
+Should I update the 3 variables inline and not call <br>
+amdgpu_gmc_vram_location()?<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;vram_start =3D 0;<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;vram_end =3D mc-&gt=
+;vram_start + mc-&gt;mc_vram_size - 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mc-&gt;real_vram_size =
+&lt; mc-&gt;visible_vram_size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc=
+-&gt;visible_vram_size =3D mc-&gt;real_vram_size;<br>
+<br>
+<br>
+&gt;<br>
+&gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/dri=
+vers/gpu/drm/amd/amdgpu/mmhub_v1_8.c<br>
+&gt;&gt;&gt;&gt; index 84cde1239ee4..18e80aa78aff 100644<br>
+&gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c<br>
+&gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c<br>
+&gt;&gt;&gt;&gt; @@ -45,8 +45,10 @@ static u64 mmhub_v1_8_get_fb_location(s=
+truct amdgpu_device *adev)<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; top &amp;=3D MC=
+_VM_FB_LOCATION_TOP__FB_TOP_MASK;<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; top &lt;&lt;=3D=
+ 24;<br>
+&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; adev-&gt;gmc.fb_start =3D base;<br>
+&gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; adev-&gt;gmc.fb_end =3D top;<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; if (!amdgpu_virt_xgmi_migrate_enabled(=
+adev)) {<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; adev-&gt;gmc.fb_start =3D base;<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; adev-&gt;gmc.fb_end =3D top;<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; We should probably avoid calling this in the first place.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; The function gmc_v9_0_vram_gtt_location() should probably be a=
+djusted.<br>
+&gt;&gt; mmhub_v1_8_get_fb_location() is called by the new<br>
+&gt;&gt; amdgpu_bo_fb_aper_addr() as well, not just gmc_v9_0_vram_gtt_locat=
+ion().<br>
+&gt; Oh, that is probably a bad idea. The function amdgpu_bo_fb_aper_addr()=
+ should only rely on cached data.<br>
+<br>
+<br>
+[Sam] Can I add new `fb_base` field in `struct amdgpu_gmc` to cache the <br=
+>
+value of `get_fb_location()`?<br>
+Using this approach, we don't need to set fb_start and fb_end on resume <br=
+>
+any more, since the reset of the 2 field is caused by <br>
+mmhub_v1_8_get_fb_location() calls from amdgpu_bo_fb_aper_addr().<br>
+Please see the code change below.<br>
+<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+@@ -259,6 +259,7 @@ struct amdgpu_gmc {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; fb_start;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; fb_end;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; fb_base;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vr=
+am_width;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; real_vram_size;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; vram_mtrr;<br>
+<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+@@ -1527,7 +1527,7 @@ u64 amdgpu_bo_fb_aper_addr(struct amdgpu_bo *bo)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON_ONCE(bo-&gt;tbo.re=
+source-&gt;mem_type !=3D TTM_PL_VRAM);<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fb_base =3D adev-&gt;mmhub.funcs-&gt;=
+get_fb_location(adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fb_base =3D adev-&gt;gmc.fb_base;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fb_base +=3D adev-&gt;gmc.=
+xgmi.physical_node_id * <br>
+adev-&gt;gmc.xgmi.node_segment_size;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset =3D (bo-&gt;tbo.res=
+ource-&gt;start &lt;&lt; PAGE_SHIFT) + fb_base;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_gmc_sign_ext=
+end(offset);<br>
+<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+@@ -1728,6 +1728,7 @@ static void gmc_v9_0_vram_gtt_location(struct <br>
+amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_gmc *mc)<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 base =3D adev-&gt;mmhu=
+b.funcs-&gt;get_fb_location(adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mc-&gt;fb_base =3D base;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* add the xgmi offset of =
+the physical node */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; base +=3D adev-&gt;gmc.xgm=
+i.physical_node_id * <br>
+adev-&gt;gmc.xgmi.node_segment_size;<br>
+<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c<br>
+@@ -45,10 +45,8 @@ static u64 mmhub_v1_8_get_fb_location(struct <br>
+amdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; top &amp;=3D MC_VM_FB_LOCA=
+TION_TOP__FB_TOP_MASK;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; top &lt;&lt;=3D 24;<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_virt_xgmi_migrate_enabled=
+(adev)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;gmc.fb_start =3D base;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;gmc.fb_end =3D top;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.fb_start =3D base;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.fb_end =3D top;<br>
+<br>
+<br>
+Regards<br>
+Sam<br>
+<br>
+<br>
+&gt;<br>
+&gt;&gt; mmhub_v1_8_get_fb_location() is supposed to be a query api accordi=
+ng to<br>
+&gt;&gt; its name. having such side effect is very surprising.<br>
+&gt;&gt;<br>
+&gt;&gt; Another approach is set the right fb_start and fb_end in the new<b=
+r>
+&gt;&gt; amdgpu_virt_resume(), like updating vram_base_offset.<br>
+&gt; That is probably better. And skip setting fb_start and fb_end in amdgp=
+u_gmc_sysvm_location() for this use case.<br>
+&gt;<br>
+&gt; That was done only because we re-program those registers on bare metal=
+.<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt;&gt; Which approach do you prefer? Or any better suggestions? Thank you=
+.<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Regards<br>
+&gt;&gt; Sam<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Regards,<br>
+&gt;&gt;&gt; Christian.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return base;<br=
+>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; }<o:p></o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_8b2ea507403c471aa3d4db23f3d2f096amdcom_--
