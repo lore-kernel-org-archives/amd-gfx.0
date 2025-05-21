@@ -4,77 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D241DC54E65
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 07:40:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F43DC54E65
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 07:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 472A89B301;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF509B298;
 	Thu, 22 May 2025 07:40:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RpKFK8B1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WfzsStLm";
 	dkim-atps=neutral
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
- [209.85.221.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00B5710E156;
- Wed, 21 May 2025 13:59:46 +0000 (UTC)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-5290be1aedcso5311998e0c.1; 
- Wed, 21 May 2025 06:59:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747835986; x=1748440786; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xw9g/u+PTutmpr92tmdCCF0EI8aDcB/IZ4deCZgUTAY=;
- b=RpKFK8B1Ban5njQku7QN3kG+5vSK2vUJD6DSuHb0s5hnCgdRPQ2N56Q3gEd3hAs9UE
- j6A+1ZfaJpCJTSLigX3g25ibVV1tXh5l3TTAjiUhyhHnXiqY+ECEHLB96r2f3tDaBbs1
- wQJ/69rkeJzKclREin3WCsxnwJH4OpLhvfTpPzyiurYWoHMnPSPQJjJ1Nk2VcEeMkcfW
- +YjI76dEfvBkr8ZQgJV8V+CnDfFWJAxhMA3bLLHtdBhNFlOj6DUhg1dI366AJQeqd2KS
- +sx9ja69rx8KIg7vnMMN4f1UpwxrG2mlBTSi2fFC9Ok/piz/FrRN6ysH6kPpTfThZC73
- ZWwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747835986; x=1748440786;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=xw9g/u+PTutmpr92tmdCCF0EI8aDcB/IZ4deCZgUTAY=;
- b=CJCeNzTn6d7VPGmJakiEIw3uRod+oAlsFomNcpnTnQRmBmmPgfR/OAeZEGtTKkM/dQ
- A9c8l7kquSv4UZBvvkLAUoSYGWkp982xzYSkby5+bsWpCGp/xOtuZ5kO/Xqgl6bv7BbG
- wDSeuxYh9tdJqncWb2HvTileJuKIcboppLewGdvZgTIB6HmjnPoW4Cv94f/1goNJU5qv
- SXZP7o/3saL52uo38Boifa7cxKvdEWZkAAxo5wF/tj4kfDT9gt/vI5lc22cewNkH0POp
- Rv7PF0gP47FblhU6gs02SWidZrgl0oy+DvN/aYN4RM5H14g8/KvcY67mKVjiKBYrEFYR
- 10lg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUvVAf2VvXlqYnWsbjDHfe+khnP5z3kwidZO7iyOlXDDVveTIxLttTOhdeMltOBTvxLzVTBCinJ@lists.freedesktop.org,
- AJvYcCVSau4wbFAU420dJC/M1tncIOsgo301w91u9sZd3IZaOD69xpZIY74x5k/714DPOjVj7Lr99YuHFsJw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMNIbYNKlXh3toByEbgigZdIrEqkQAa5ZiMy7rjDVOPMRzPFU4
- i7N2xcRu/R5wh5hsn/YxELRDepYdzmygdlKmtGsnWXs94CLnIk5UpAy9
-X-Gm-Gg: ASbGncuigXZ8aNZm5qy4Dn8diqFyGulJPVWmG2o2KkBo6wTYTq2DqBoyl+/xbiYaF99
- S6SDxiA4SwtPHJsXj12P/NGwtNl1c0AS9HI5Z76fBx6Cc+VcsnpyL9EjX50v+vQq/sFS8I3x7fS
- Nm9nsSoPjCbZgRmnh4a0tKCY8YW44dr/fEM/OJD8aoZz7pPvCmZidWggziHJdYMJl2Dm1/KJgYf
- kVh1yn/e7Z+IsOk2sibf3ZH/zbm/DYTCZygO+FbSKZQWfwqkAcShDG6aBmp65w8eaIsf+6jxB3f
- Hfq9sC5MuDB9qUEHgUJdcdQ6f7aqBpQhggyGuz8P63neru1jbqI9eaG4vSPZ0SIxFB+yFcwpgBj
- gnpK6bQ==
-X-Google-Smtp-Source: AGHT+IGU3Zp/2zebyqDel2Xw4rWlOVSOhsahtwHujXtuc/Itm9qXDr93dFezj+gD4xSXz9L53Jo9sg==
-X-Received: by 2002:a05:6122:2c2f:b0:52d:bcd1:ab55 with SMTP id
- 71dfb90a1353d-52dbcd1aba9mr13953246e0c.2.1747835985890; 
- Wed, 21 May 2025 06:59:45 -0700 (PDT)
-Received: from xodo-linux.tailb46509.ts.net ([143.107.45.1])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-52dba940919sm10156170e0c.17.2025.05.21.06.59.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 06:59:45 -0700 (PDT)
-From: Leonardo Gomes <leonardodasigomes@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: derick.william.moraes@gmail.com,
- Leonardo da Silva Gomes <leonardodasigomes@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH RESEND] drm/amd/display: Adjust prefix of dcn31_apg construct
- function name
-Date: Wed, 21 May 2025 10:58:40 -0300
-Message-ID: <20250521135851.11110-1-leonardodasigomes@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4031110E29A;
+ Wed, 21 May 2025 09:11:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1747818675; x=1779354675;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=AyTlo5MV4RoWb0/jlG7PaHacCmtKMIX6jHJZ5hNGkqo=;
+ b=WfzsStLml9i75yHwjIcOt+3CTxOikjzCnXzWXZek9CVg0IvPD6LtcaSh
+ 8AWNaldt6fcfpNgN6wN5s+ViawYeWpexP7wteCHyka9mduP7xdKZ9ODBJ
+ k3Jcuk1kWYLW96pTYgwCDAXIer2E8xDdGfR4eGHhb0om828Irwvaz2Fd0
+ 8oUIdQdPD+iS1h98Jh7pbPBU0pHigzOZCAHMOzbMjNahMyFtE/ddIDshv
+ HhKk+bivNdx+heFYge3iAljrFWcOHdvOJEWHPWaJMYQwFqbBydTUfDaMH
+ 7H2B4TmVOpRNCPDGZPeOVlvbIEfQCFGfB5GT/yzRj9bx9folWcDcRZyPv g==;
+X-CSE-ConnectionGUID: C9tGTyT8TzKgB7IJypSNqg==
+X-CSE-MsgGUID: MYa/cUv2SXa4vi2BjDt6sQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11439"; a="53595238"
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="53595238"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2025 02:11:14 -0700
+X-CSE-ConnectionGUID: CNu791ZaRYCb5Aog6f/7NQ==
+X-CSE-MsgGUID: QRyvUxAxS/aBYV8nILle/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="140044302"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2025 02:11:10 -0700
+Date: Wed, 21 May 2025 12:11:07 +0300
+From: Raag Jadav <raag.jadav@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ Xaver Hugl <xaver.hugl@gmail.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v5 1/3] drm: Create a task info option for wedge events
+Message-ID: <aC2Yq89IL5tx8MY3@black.fi.intel.com>
+References: <20250520163243.328746-1-andrealmeid@igalia.com>
+ <20250520163243.328746-2-andrealmeid@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250520163243.328746-2-andrealmeid@igalia.com>
 X-Mailman-Approved-At: Thu, 22 May 2025 07:40:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,186 +77,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leonardo da Silva Gomes <leonardodasigomes@gmail.com>
+On Tue, May 20, 2025 at 01:32:41PM -0300, André Almeida wrote:
+> When a device get wedged, it might be caused by a guilty application.
+> For userspace, knowing which task was the cause can be useful for some
+> situations, like for implementing a policy, logs or for giving a chance
+> for the compositor to let the user know what task caused the problem.
+> This is an optional argument, when the task info is not available, the
+> PID and TASK string won't appear in the event string.
+> 
+> Sometimes just the PID isn't enough giving that the task might be already
+> dead by the time userspace will try to check what was this PID's name,
+> so to make the life easier also notify what's the task's name in the user
+> event.
 
-Adjust the dcn31_apg construct function name from
-'apg31_construct' to 'dcn31_apg_construct'.
-This helps the ftrace to detect the file by the function name.
+...
 
-Signed-off-by: Leonardo da Silva Gomes <leonardodasigomes@gmail.com>
-Co-developed-by: Derick Frias <derick.william.moraes@gmail.com>
-Signed-off-by: Derick Frias <derick.william.moraes@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c                | 2 +-
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h                | 2 +-
- drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c  | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c    | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c    | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c    | 2 +-
- drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c    | 2 +-
- drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c  | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c    | 2 +-
- drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c  | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c    | 2 +-
- 12 files changed, 12 insertions(+), 12 deletions(-)
+> -int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+> +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+> +			 struct drm_wedge_task_info *info)
+>  {
+>  	const char *recovery = NULL;
+>  	unsigned int len, opt;
+> -	/* Event string length up to 28+ characters with available methods */
+> -	char event_string[32];
+> -	char *envp[] = { event_string, NULL };
+> +	char event_string[WEDGE_STR_LEN], pid_string[PID_LEN] = "", comm_string[TASK_COMM_LEN] = "";
+> +	char *envp[] = { event_string, NULL, NULL, NULL };
+>  
+>  	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+>  
+> @@ -582,6 +586,13 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+>  	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+>  		 "but recovered through reset" : "needs recovery");
+>  
+> +	if (info && ((info->comm && info->comm[0] != '\0'))) {
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c
-index 05aac3e444b4..d1ccc9a34b2e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c
-@@ -101,7 +101,7 @@ static struct apg_funcs dcn31_apg_funcs = {
- 	.disable_apg			= apg31_disable,
- };
- 
--void apg31_construct(struct dcn31_apg *apg31,
-+void dcn31_apg_construct(struct dcn31_apg *apg31,
- 	struct dc_context *ctx,
- 	uint32_t inst,
- 	const struct dcn31_apg_registers *apg_regs,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h
-index 1b81f6773c53..54c6b62195c2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h
-@@ -100,7 +100,7 @@ struct dcn31_apg {
- 	const struct dcn31_apg_mask *apg_mask;
- };
- 
--void apg31_construct(struct dcn31_apg *apg3,
-+void dcn31_apg_construct(struct dcn31_apg *apg3,
- 	struct dc_context *ctx,
- 	uint32_t inst,
- 	const struct dcn31_apg_registers *apg_regs,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-index dddddbfef85f..b3553ae26d7c 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-@@ -1207,7 +1207,7 @@ static struct apg *dcn31_apg_create(
- 	if (!apg31)
- 		return NULL;
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-index 26becc4cb804..be55a3c36a78 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-@@ -1263,7 +1263,7 @@ static struct apg *dcn31_apg_create(
- 	if (!apg31)
- 		return NULL;
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-index 6c2bb3f63be1..b9847b4bb0f3 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-@@ -1205,7 +1205,7 @@ static struct apg *dcn31_apg_create(
- 	if (!apg31)
- 		return NULL;
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-index 568094827212..b6cf2a296ab4 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-@@ -1200,7 +1200,7 @@ static struct apg *dcn31_apg_create(
- 	if (!apg31)
- 		return NULL;
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 2a59cc61ed8c..66fef6f6000e 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -1187,7 +1187,7 @@ static struct apg *dcn31_apg_create(
- 	apg_regs_init(2),
- 	apg_regs_init(3);
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-index 38d76434683e..9be23da216d0 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-@@ -1170,7 +1170,7 @@ static struct apg *dcn321_apg_create(
- 	apg_regs_init(2),
- 	apg_regs_init(3);
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-index ffd2b816cd02..27affafb14f1 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -1252,7 +1252,7 @@ static struct apg *dcn31_apg_create(
- 	apg_regs_init(2),
- 	apg_regs_init(3);
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-index 98f5bc1b929e..d5341b0d59f3 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -1232,7 +1232,7 @@ static struct apg *dcn31_apg_create(
- 	apg_regs_init(2),
- 	apg_regs_init(3);
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-index b6468573dc33..6fb2261c554d 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-@@ -1233,7 +1233,7 @@ static struct apg *dcn31_apg_create(
- 	apg_regs_init(2),
- 	apg_regs_init(3);
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-index 7436dfbdf927..ef4d758bfb5a 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-@@ -1162,7 +1162,7 @@ static struct apg *dcn401_apg_create(
- 	apg_regs_init(2),
- 	apg_regs_init(3);
- 
--	apg31_construct(apg31, ctx, inst,
-+	dcn31_apg_construct(apg31, ctx, inst,
- 			&apg_regs[inst],
- 			&apg_shift,
- 			&apg_mask);
--- 
-2.43.0
+Thanks for adding this. Should we check if pid > 0?
 
+Also, I was wondering what if the driver only has info on one of the
+given members? Should we allow it to be flagged independently?
+
+> +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
+> +		snprintf(comm_string, sizeof(comm_string), "TASK=%s", info->comm);
+> +		envp[1] = pid_string;
+> +		envp[2] = comm_string;
+> +	}
+> +
+>  	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+>  }
+>  EXPORT_SYMBOL(drm_dev_wedged_event);
+
+...
+
+> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+> index e2f894f1b90a..c13fe85210f2 100644
+> --- a/include/drm/drm_device.h
+> +++ b/include/drm/drm_device.h
+> @@ -30,6 +30,14 @@ struct pci_controller;
+>  #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
+>  #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
+>  
+> +/**
+> + * struct drm_wedge_task_info - information about the guilty app of a wedge dev
+
+s/app/task, missed an instance ;)
+
+> + */
+> +struct drm_wedge_task_info {
+> +	pid_t pid;
+> +	char *comm;
+> +};
+
+Raag
