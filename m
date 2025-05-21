@@ -4,119 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7E40C54E65
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 10:14:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 392DAC54E65
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 11:27:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B35E10E7A0;
-	Wed, 21 May 2025 10:14:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D516810E9E2;
+	Wed, 21 May 2025 11:27:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AmXkJNNP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fgPWPLGT";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2089.outbound.protection.outlook.com [40.107.92.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C840610E7A0
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 10:13:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HTMDbJtOPiXupbGCva9SvYn3+SFpV536j47eqNP7OsHNhH2xj6lXP1/5Yt+sPf5/zFVDGjGwTntJdP5SDsH3llUppMnnwYOAujj24XeXlYPQcZqlIzC6eaMZR6RSXv7tjNL1UdVmw9qpy47ZRq8crvkfqq93Hbk9ay2TQbyWDZTsf4GIWXSLtiaik8SiGV2sOYusjxcRLhbdQrjJalaB+qbPM7Ld5rjHdr9RUDgrF/FIajlMtYrQY03f0geUHhdkSvX/GMWZHGP9bYPhyop/G24Jg5+RTS1qyIj32t5BZkaXfOFLs49DW7+bvQ45PLHZOCT7tqoWAmt1vYyitiI9fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UzWbaFLRNpt6HY+6OLEtk9v8ftqhECR5TfuPxfz+Tco=;
- b=iI2kuuByoACk0yY66gbqw09QqKjVdz0Ipf/HKjR2qqTH0xtYC8Awj9MDJseBYQ2UFBsssPSuNUXHQfiygPG1WxtbjwmiptOcDKUfG5Ao9FyBRa7CY62OYQnr9Ve/5cIeNRlUiRvydwivYLBU4IqfHCGydgSX0c4An9sD4SIfjdfR+Feic+k+GWGB5RxdUtKOqe7tIE49z1Ui7ToF711K5YJP6JpTMXGcUKpkb8OrMqR/RnVoEXsGCcuILqQiZ6uzp1zST01CoyDjgJRz3rXDNwqWoCPE752Ksiyi5sa9J52z3RLI7C4pBYcMOR42LxX3PjOkmHiQzKy/v9WjBqbZWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UzWbaFLRNpt6HY+6OLEtk9v8ftqhECR5TfuPxfz+Tco=;
- b=AmXkJNNPRJ91x9M4E63K7i33+3AGKG7O3qq5JBtb1C7yKSkKYPe6h3lCBRVVsScoMf61+Skl/EQRq1EF2U+89crP7rxUtBA0wZaQx49g3t1hCakC4zle9JEn7PL9aZqm/v3T0sPfuu8M4NoGlwaz+P5urjo4kGrgIKgvstOwT38=
-Received: from BL1PR13CA0261.namprd13.prod.outlook.com (2603:10b6:208:2ba::26)
- by PH0PR12MB7011.namprd12.prod.outlook.com (2603:10b6:510:21c::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.31; Wed, 21 May
- 2025 10:13:53 +0000
-Received: from BL02EPF00029928.namprd02.prod.outlook.com
- (2603:10b6:208:2ba:cafe::e) by BL1PR13CA0261.outlook.office365.com
- (2603:10b6:208:2ba::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.16 via Frontend Transport; Wed,
- 21 May 2025 10:13:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00029928.mail.protection.outlook.com (10.167.249.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Wed, 21 May 2025 10:13:53 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 21 May
- 2025 05:13:51 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <Philip.Yang@amd.com>, Yifan Zhang
- <yifan1.zhang@amd.com>
-Subject: [PATCH] amd/amdkfd: fix a kfd_process ref leak
-Date: Wed, 21 May 2025 18:12:54 +0800
-Message-ID: <20250521101254.831862-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84AE710E9E2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:27:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3F2B04A58A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:27:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA51C4CEF1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 11:27:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747826863;
+ bh=aYjz5/seEUrXVor2bEyU7oBZ3j8vrqWOPEqPD8VZzrU=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=fgPWPLGTOvxMGGiLFbLld28sdX79VsNRSkxZdUWDKE1TTR3ynnBKJsvp63tsmp8Mi
+ ThKWeM9lRIp5U6+yVtY9aAR3jSahN5/B81gujRH1XshBCktYCEMsQtlPS0SU4zwxfW
+ /bSQxa+9VU2vcxGrppfoy8FoZSyzuUNTUSsK3+gHRNNxlV/ET+dEHI3Rkz1oFvnxW1
+ R6U30jVCIyhUE6u0CxCf1kcePWddAz9XqFvF7APzuquvPWrPn4EdK2kuC9ZWXc8ShM
+ XM1tlN1GiBY8AxUh04eUJWW0yyF101d6AfA4MfETfWVDpAGpJvgacCncGU6dhs0hCG
+ P5iTn/qMOh3kg==
+Received: by mail-oo1-f41.google.com with SMTP id
+ 006d021491bc7-605f7d3215cso3590867eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 04:27:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV2KgiJZlu6aDSoRD9zRJ2sG2Pt0gnxQRqdNNHvZuo3UNELpwxezLmpTcIL7h5c4Zmq7RtZ9ABb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxj4IgiSNAezFaI48aWYbhXTvbL6U2RacgoP880pedyWhv95pmv
+ 6LLnoiKtJGKR4J+IxPbV7zjN1LT+royLXOOzEDT7txuXusewYY1jtrqwWrWKmQ6B43hZV0ptQFi
+ noOVb6OoJ/fUrVvg+tS+361CzGnLVDss=
+X-Google-Smtp-Source: AGHT+IEf67uWG+s0dmoXckHNwNhvBK96rzdHQHiTzqfpUpRP3+2APLbezdICnHJMQ0kPkt5kRPsd9b22whF+hm5HWKA=
+X-Received: by 2002:a05:6820:1841:b0:602:7078:df55 with SMTP id
+ 006d021491bc7-609f374f802mr12234655eaf.5.1747826862342; Wed, 21 May 2025
+ 04:27:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00029928:EE_|PH0PR12MB7011:EE_
-X-MS-Office365-Filtering-Correlation-Id: 195488c0-3dbd-4622-9c98-08dd98503058
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WO+cOyzWYjQfFGzOQbv9S/5a/pUPACM8/Bvm0IjSwGjiOzdk8B8/9ZTfpLn0?=
- =?us-ascii?Q?iscXzqS7yokgajVaDuZJolRZSCEdFskM6jeFMeJCYtwbZUZG6rihL6m5MSQJ?=
- =?us-ascii?Q?GrrgA+e/cBhPT+THDirVi7XzQ8LhupOi2/qS9WtKG6/EcxERx8ohEW5fdvgd?=
- =?us-ascii?Q?/tg3/V3kFn1KrwXys4QrRyKViDfcE2Plev5zlr3OIXQBCJCfBy9YdjFDCBiU?=
- =?us-ascii?Q?24s3Y8WHSnfNQxtCDoJ9eDa7IknbgBKR6PlqsG15uVuU7vYUA17WLy/qJNI7?=
- =?us-ascii?Q?NYT59o/3TJxp3vFJ0be7YfCWNRWp0mTftHQRORoMb3TDGfVKvrjVWh/uLWca?=
- =?us-ascii?Q?nNKr0EaelKshxorvynKMcWRAYll3PeQBt4bdpydV2gWA/I6+0aZSU9AzoGGO?=
- =?us-ascii?Q?NCOUuDOLLpDAc2Civdqel3CUuRsWdDqDsm+dC3xMSrbUs6VxMY2rzjPvgSQy?=
- =?us-ascii?Q?GTkPFsGZ0uCI6jG0xU82XBdOipIL1IxjZeVLLAHdMlaQ6vjc/cR+Ih54eFfK?=
- =?us-ascii?Q?EDLAJRzt9YpIR9BpFtOHWCcfaSY9REIPGbmu8Q7mSoHKT3cBa3B7nOR0Hc0j?=
- =?us-ascii?Q?XlsHON2F5zE5EfCE4Ve4s8UTJXo8SR/BTK30DmOUcd2Hvg3iH1piLkBknb4B?=
- =?us-ascii?Q?KrxNV8xkBMzBYIZuNLXdwH8o7l25HA3/+9tkF2bV8HN22l/Df6kk9Rld2cbQ?=
- =?us-ascii?Q?EJksV5VoFQemciUUXW2ufsjXffiJEb/80u9n3jpBqRV7S6tt+XB9/0732TeK?=
- =?us-ascii?Q?PEkfThH4rGY7uRhOaJK85fkDLpsoJFdx8d9KxDBn3RTFoBDmEPtkztg6UTJA?=
- =?us-ascii?Q?+IlskLsAmbBAH8zI1d6DuHv6eV9ZbPI8cQZYffjF7BfeRJedc0a+bzU5RLxa?=
- =?us-ascii?Q?kt9rUYi5Q16XWbkLZmRw1PPIbPmGGvTslJcPES8G97+sD8FMmkCKvAK3EzVq?=
- =?us-ascii?Q?rWcyKTdt69+D3Ip7yCLixJy8LxA8yRJeOp6YZp4SjDVHY+e4tzJ4F2BuidW2?=
- =?us-ascii?Q?k34wF46u/L0iowIdXyig/UgOhm3Pi8Kk2NWi+hIApq+jC9ZUF0Q8TwS/Gv4E?=
- =?us-ascii?Q?SApEpqFxrKVHBvMwIFiy4m7pRRpR6JugUBaEakkhmT8VtTArsuQMGM4ndg9c?=
- =?us-ascii?Q?yKNloimZ5SXD+gv34rIYi2n1j9EmdTPmYSMEj3NN7cpGqGPG5F+HoHhtTvQJ?=
- =?us-ascii?Q?7W3NDwmRE6X3cn29ej0xHu7M0QqgPqvubEUM6iF9lcZYZm1O6cUfrnTjmYgc?=
- =?us-ascii?Q?JjdDs4F8uJZYamqQhKM+cqmrWjpV4gEEQuZ2xz0zcgXKS+xLWfOt8AVMWW+s?=
- =?us-ascii?Q?LrxPMoMV1CrLseuJYBObZgIhMaIP+wO/Oqw7p8t9SoekKrgMMEVY3HLo+rRo?=
- =?us-ascii?Q?eZr52KFkCALmHJK9QCc/U/1VFDgL5cHROT2z9U/P+EBUcFAj4u/AhUKb8BoB?=
- =?us-ascii?Q?4NuSdQrkfwC1N3rUIBf0sdzNGDe8e9LVBjYT4nDgGDJa2BxMLhH6LW9AnTn1?=
- =?us-ascii?Q?l3mK3eHRiqxtx06yO6dEXro+Rotg8D30IRcf?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2025 10:13:53.1973 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 195488c0-3dbd-4622-9c98-08dd98503058
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00029928.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7011
+References: <aCsK743YSuahPtnH@black.fi.intel.com>
+ <85ed0b91-c84f-4d24-8e19-a8cb3ba02b14@gmail.com>
+ <aCxP6vQ8Ep9LftPv@black.fi.intel.com>
+ <a8c83435-4c91-495c-950c-4d12b955c54c@kernel.org>
+ <aCyj9nbnIRet93O-@black.fi.intel.com>
+ <552d75b2-2736-419f-887e-ce2692616578@kernel.org>
+ <ee1117cf-6367-4e9a-aa85-ccfc6c63125d@gmail.com>
+ <6f23d82c-10cc-4d70-9dce-41978b05ec9a@kernel.org>
+ <aCzNL9uXGbBSdF2S@black.fi.intel.com>
+ <fea86161-2c47-4b0f-ac07-b3f9b0f10a03@kernel.org>
+ <aC2UzG-eycjqYQep@black.fi.intel.com>
+In-Reply-To: <aC2UzG-eycjqYQep@black.fi.intel.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Wed, 21 May 2025 13:27:29 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gRFwKhq21ima3kT0zzFLk4=47ivvzJqARksV7nYHTJAQ@mail.gmail.com>
+X-Gm-Features: AX0GCFu3-VrwmffBAWxr3tXBf8i8Ncp98wmJM7kURUjcXyWXYba_x7RizRkpotQ
+Message-ID: <CAJZ5v0gRFwKhq21ima3kT0zzFLk4=47ivvzJqARksV7nYHTJAQ@mail.gmail.com>
+Subject: Re: [PATCH v4] PCI: Prevent power state transition of erroneous device
+To: Raag Jadav <raag.jadav@intel.com>, Mario Limonciello <superm1@kernel.org>
+Cc: Denis Benato <benato.denis96@gmail.com>, rafael@kernel.org,
+ mahesh@linux.ibm.com, 
+ oohall@gmail.com, bhelgaas@google.com, linux-pci@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ ilpo.jarvinen@linux.intel.com, lukas@wunner.de, 
+ aravind.iddamsetty@linux.intel.com, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,25 +86,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is to fix a kfd_prcess ref leak.
+On Wed, May 21, 2025 at 10:54=E2=80=AFAM Raag Jadav <raag.jadav@intel.com> =
+wrote:
+>
+> On Tue, May 20, 2025 at 01:56:28PM -0500, Mario Limonciello wrote:
+> > On 5/20/2025 1:42 PM, Raag Jadav wrote:
+> > > On Tue, May 20, 2025 at 12:39:12PM -0500, Mario Limonciello wrote:
+> > > > On 5/20/2025 12:22 PM, Denis Benato wrote:
+> > > > > On 5/20/25 17:49, Mario Limonciello wrote:
+> > > > > > On 5/20/2025 10:47 AM, Raag Jadav wrote:
+> > > > > > > On Tue, May 20, 2025 at 10:23:57AM -0500, Mario Limonciello w=
+rote:
+> > > > > > > > On 5/20/2025 4:48 AM, Raag Jadav wrote:
+> > > > > > > > > On Mon, May 19, 2025 at 11:42:31PM +0200, Denis Benato wr=
+ote:
+> > > > > > > > > > On 5/19/25 12:41, Raag Jadav wrote:
+> > > > > > > > > > > On Mon, May 19, 2025 at 03:58:08PM +0530, Raag Jadav =
+wrote:
+> > > > > > > > > > > > If error status is set on an AER capable device, mo=
+st likely either the
+> > > > > > > > > > > > device recovery is in progress or has already faile=
+d. Neither of the
+> > > > > > > > > > > > cases are well suited for power state transition of=
+ the device, since
+> > > > > > > > > > > > this can lead to unpredictable consequences like re=
+sume failure, or in
+> > > > > > > > > > > > worst case the device is lost because of it. Leave =
+the device in its
+> > > > > > > > > > > > existing power state to avoid such issues.
+> > > > > > > > > > > >
+> > > > > > > > > > > > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+> > > > > > > > > > > > ---
+> > > > > > > > > > > >
+> > > > > > > > > > > > v2: Synchronize AER handling with PCI PM (Rafael)
+> > > > > > > > > > > > v3: Move pci_aer_in_progress() to pci_set_low_power=
+_state() (Rafael)
+> > > > > > > > > > > >         Elaborate "why" (Bjorn)
+> > > > > > > > > > > > v4: Rely on error status instead of device status
+> > > > > > > > > > > >         Condense comment (Lukas)
+> > > > > > > > > > > Since pci_aer_in_progress() is changed I've not inclu=
+ded Rafael's tag with
+> > > > > > > > > > > my understanding of this needing a revisit. If this w=
+as a mistake, please
+> > > > > > > > > > > let me know.
+> > > > > > > > > > >
+> > > > > > > > > > > Denis, Mario, does this fix your issue?
+> > > > > > > > > > >
+> > > > > > > > > > Hello,
+> > > > > > > > > >
+> > > > > > > > > > Unfortunately no, I have prepared a dmesg but had to re=
+move the bootup process because it was too long of a few kb: https://pasteb=
+in.com/1uBEA1FL
+> > > > > > > > >
+> > > > > > > > > Thanks for the test. It seems there's no hotplug event th=
+is time around
+> > > > > > > > > and endpoint device is still intact without any PCI relat=
+ed failure.
+> > > > > > > > >
+> > > > > > > > > Also,
+> > > > > > > > >
+> > > > > > > > > amdgpu 0000:09:00.0: PCI PM: Suspend power state: D3hot
+> > > > > > > > >
+> > > > > > > > > Which means whatever you're facing is either not related =
+to this patch,
+> > > > > > > > > or at best exposed some nasty side-effect that's not hand=
+led correctly
+> > > > > > > > > by the driver.
+> > > > > > > > >
+> > > > > > > > > I'd say amdgpu folks would be of better help for your cas=
+e.
+> > > > > > > > >
+> > > > > > > > > Raag
+> > > > > > > >
+> > > > > > > > So according to the logs Denis shared with v4
+> > > > > > > > (https://pastebin.com/1uBEA1FL) the GPU should have been go=
+ing to BOCO. This
+> > > > > > > > stands for "Bus off Chip Off"
+> > > > > > > >
+> > > > > > > > amdgpu 0000:09:00.0: amdgpu: Using BOCO for runtime pm
+> > > > > > > >
+> > > > > > > > If it's going to D3hot - that's not going to be BOCO, it sh=
+ould be going to
+> > > > > > > > D3cold.
+> > > > > > >
+> > > > > > > Yes, because upstream port is in D0 for some reason (might be=
+ this patch
+> > > > > > > but not sure) and so will be the root port.
+> > > > > > >
+> > > > > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D0
+> > > > > > > pcieport 0000:07:00.0: PCI PM: Skipped
+> > > > > > >
+> > > > > > > and my best guess is the driver is not able to cope with the =
+lack of D3cold.
+> > > > > >
+> > > > > > Yes; if the driver is configured to expect BOCO (D3cold) if it =
+doesn't get it, chaos ensues.
+> > > > > >
+> > > > > > I guess let's double check the behavior with CONFIG_PCI_DEBUG t=
+o verify this patch is what is changing that upstream port behavior.
+> > > > >
+> > > > >
+> > > > > This is the very same exact kernel, minus the patch in question: =
+ https://pastebin.com/rwMYgG7C
+> > > > >
+> > > > >
+> > > > > Both previous kernel and this one have CONFIG_PCI_DEBUG=3Dy.
+> > > > >
+> > > > > Removed the initial bootup sequence to be able to use pastebin.
+> > > >
+> > > > Thanks - this confirms that the problem is the root port not going =
+to D3.
+> > > > This new log shows:
+> > > >
+> > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D3hot
+> > > >
+> > > > So I feel we should fixate on solving that.
+> > >
+> > > Which means what you're looking for is error flag being set somewhere=
+ in
+> > > the hierarchy that is preventing suspend.
+> >
+> > Is the issue perhaps that this is now gated on both correctable and
+> > uncorrectable errors?
+> >
+> > Perhaps should *correctable errors* be emitted with a warning and the
+> > *uncorrectable errors* be fatal?
+>
+> That'd be more or less inline with hiding the issue, and it can also race
+> with err_handler callback if driver has registered it.
+>
+> > > But regardless of it, my understanding is that root port suspend depe=
+nds
+> > > on a lot of factors (now errors flags being one of them with this pat=
+ch)
+> > > and endpoint driver can't possibly enforce or guarantee it - the best=
+ it
+> > > can do is try.
+> > >
+> > > What's probably needed is D3cold failure handling on driver side, but=
+ I'm
+> > > no PCI PM expert and perhaps Rafael can comment on it.
+> > >
+> > > Raag
+> >
+> > From the driver perspective it does have expectations that the parts ou=
+tside
+> > the driver did the right thing.  If the driver was expecting the root p=
+ort
+> > to be powered down at suspend and it wasn't there are hardware componen=
+ts
+> > that didn't power cycle and that's what we're seeing here.
+>
+> Which means the expectation set by the driver is the opposite of the
+> purpose of this patch, and it's going to fail if any kind of error is
+> detected under root port during suspend.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 1 +
- 1 file changed, 1 insertion(+)
+And IMV this driver's expectation is questionable at least.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index e54e708ed82d..2b294ada3ec0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1350,6 +1350,7 @@ void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid)
- 	user_gpu_id = kfd_process_get_user_gpu_id(p, dev->id);
- 	if (unlikely(user_gpu_id == -EINVAL)) {
- 		WARN_ONCE(1, "Could not get user_gpu_id from dev->id:%x\n", dev->id);
-+		kfd_unref_process(p);
- 		return;
- 	}
- 
--- 
-2.43.0
+There is no promise whatsoever that the device will always be put into
+D3cold during system suspend.
 
+Thanks!
