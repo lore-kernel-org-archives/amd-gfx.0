@@ -4,158 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7CFAC2D0CD
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 12:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E170CC54E71
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 13:07:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B52910E7AE;
-	Wed, 21 May 2025 12:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5607D14B5A5;
+	Wed, 21 May 2025 13:00:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BQK81S2m";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xd3Pf/Pk";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01E2410E78E
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 12:01:07 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2080.outbound.protection.outlook.com [40.107.212.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67CF511A2E4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 12:51:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rn59iUnheWzLRMfpImx6O1/RILach2pRwemG6jSM9PqzWvMtlp7shau+/XsEPr2fb8vMBk/AP5znQTj+INPyOVOyQA0kL8NlWQsLjUYzKlADXygYy++RAWuH/icU+RC/hfGhCydjKDnt/1J/CJ/WviCEiKfDlo949dDoRibiA+Z2PPObZPUWz6VtgzAmHYIFZ7yD30rKLYOmjVB1mdwLyqqYGoIHr7ZEkHBqWsayyedQsS7JJX1QtO4ytYxCRiAH7Kebj+WC/in+MTfqH+BCnC2KCzYl5mXZ3oDxTJ53MQU9/4EThO2x+D3YQjnf6Sk8KN2fGKgAJ97xZzvRTu2veA==
+ b=fCy/fQtnxcEpq8w4QzR5NcwosE8I8bacLnL1ODoB+YtV6Li+jk9ev24c04z4IrTQ5AsQjAQ0PNr78qsSrRTaCinGSQxMwotbngVogzmRwQXLrY8ynw/OufWO/IiKxbcGyqoGihsDOp3j2cwicyitdlArF7X/Se5tw/v9D0C3hgK/pnEkphKH7dvb8+gG6ytulwJWx2c0eEMC6TqtQ9aSgFV0hkJ0pALCggMvsqxdXDAOgYhd8ai06cqaixN/+3JzIrPCwU4l0Jy/Ur8MKyS5Ln7Ky6AZ7+XKWpVxnx0Jh2eghe7UlyjJ1wXxuDnEQE+4jcKmcXBiuONoDW+DvW1UZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V7/eLS+4yAClABoDkNUKh75Q5jz3xRQxd98mEjbBatQ=;
- b=DqcIgVlPj+iU+IKQKnIloGsOAYAWNdWHpN/qQFp4e86Y18W7Eiu2Hl4+Wfjr/dgNWUk99PRm+Po3R+Y3DO4Dbejt6JHDKirsLddDgCvdMh1JPTRQdLxXoxt3CGeik2RRwLCQ9pSOXZ/EiI69EUtWNw9QxCEenTd+zEvdv+dr6Q21/bu6MqJPJ/eOS/ZjEkeZcebFi5pQOP13sjWNkzWMOdcRNPlp6Tpb1oQnyfYV0doi12BuLgGLf+Q6hlJrt1hUqJd5llesajwP1MfEb+49LH8a/stR9jKlxEeCamVmnmJXunxTYs8taoZ0FMSdlIXhiZ04yeu8dNG9Wm71RQkAwQ==
+ bh=qEGRM+qwXVifhXpjW0be+IFBhs8KXEdjTWtt5HETdv8=;
+ b=cTmxGRuEEcbGWa/9zDXMTkecLoiUQbqmmEBKYcCIJs4aiaLN/LhMkji6ImtUM2TffxTxfjQBw+R8H2uobHzpGaY9O/vLZe/YIYxZAf7IWJRZgZzdzMnmSWjd9ri2zlrbGov8xlcUpO1J0pqhELd+c2WgpB43zVIPcBgV4582bV0j00waL2OQhvMuoZuDeW/sWM0pgnjWTLJzzsdsjs5VnmYIlIfvWW2FsySni3L56QVf4jhAzggTZZrmqbXi+fN8LfMfjEEIYj7Zsl/K2a1AYi+vCEnfvnkQyvs7fDvmX0ezhg30yHNVHGD55Fxf17oftziSeDssj65nF/u6pGYXhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V7/eLS+4yAClABoDkNUKh75Q5jz3xRQxd98mEjbBatQ=;
- b=BQK81S2mIqgZT/e3vXebxKtsPBkyetYcDjVTzr+hME1EmQjASkI0sXXNKLAWS5mkTPzSn4U5H7ytSm+kz6CLhxmvWbt7ScTJVOie9nbVFLLD7T9alqDsW4mTaz3Y9XRryF3r+++QSfaanqZZsl4v3+Y7IKtJJDnGk4JCzBhK3pc=
+ bh=qEGRM+qwXVifhXpjW0be+IFBhs8KXEdjTWtt5HETdv8=;
+ b=xd3Pf/PkKfa+t9IQJ4v/PNhH9LmuRdNpT3hxG5uiZKVVPGkJS6AWZhrJuVUCcYWAzxSsppQQnCfpYFbOnbWpfl2pBq+vYxlgFiNTeCGHfW0UK96R8U8zMiJQgBSJ7k2TH1c+WwZrQ36IWs1CN1akZXY/wRPGZWF4Jos2ffOmhgs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB7853.namprd12.prod.outlook.com (2603:10b6:806:348::22)
+ by SJ1PR12MB6195.namprd12.prod.outlook.com (2603:10b6:a03:457::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.20; Wed, 21 May
- 2025 12:01:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.31; Wed, 21 May
+ 2025 12:51:22 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Wed, 21 May 2025
- 12:01:03 +0000
-Message-ID: <938e4e19-c594-427c-bc1f-73dda305fc44@amd.com>
-Date: Wed, 21 May 2025 14:00:57 +0200
+ 12:51:22 +0000
+Message-ID: <e27d1105-9ff7-4bbf-96a5-293c4021a844@amd.com>
+Date: Wed, 21 May 2025 14:51:18 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/4] drm/amdgpu: enable pdb0 for hibernation on SRIOV
-To: "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Zhao, Victor" <Victor.Zhao@amd.com>, "Chang, HaiJun"
- <HaiJun.Chang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Zhang, Owen(SRDC)" <Owen.Zhang2@amd.com>, "Ma, Qing (Mark)"
- <Qing.Ma@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "Deng, Emily" <Emily.Deng@amd.com>
-References: <20250519082038.21459-1-guoqing.zhang@amd.com>
- <20250519082038.21459-4-guoqing.zhang@amd.com>
- <e75c26e4-8011-4e49-9e2d-d354dcf7358b@amd.com>
- <4f3c7a86-c89a-429d-8ec1-5db7a0d12c6c@amd.com>
- <67fc5bc0-e1a7-4074-ab4e-bd7735b60cd1@amd.com>
- <8b2ea507-403c-471a-a3d4-db23f3d2f096@amd.com>
+Subject: Re: [PATCH v1 1/7] drm/amdgpu: make devcoredump reading fast
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+References: <20250521094912.6714-1-pierre-eric.pelloux-prayer@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <8b2ea507-403c-471a-a3d4-db23f3d2f096@amd.com>
+In-Reply-To: <20250521094912.6714-1-pierre-eric.pelloux-prayer@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1P223CA0039.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:5b6::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0046.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cc::9) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7853:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfc4cac3-0ab7-4ff8-bdae-08dd985f2923
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6195:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a264cb8-62e5-4fb1-3682-08dd9866303a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QzFKNGthQXdMTWVqSWRseTZrRWdyd1NFci91aTBwa1ZiVjIzdGdoUmhhSHZV?=
- =?utf-8?B?RHpRSkVrWE1HRmUyWWJpT243aHF0Qms5U2lkeG9tUFdyaE5RS2hNclhPYkov?=
- =?utf-8?B?RFlOdjl6bG9IWXZkOUp2MzFnZVg1MHl6TkNvbW1NQmhkM1ZxQUlYZG9OcEZq?=
- =?utf-8?B?TzdCYUhxRFV2c1BLemdMNUFwZzJwemVzTkZvOElBTnFsWmYrZ3ptK3p0blJY?=
- =?utf-8?B?UHZOdzlIYjVDQU5SZ2FoRDNSc2IzWGhkbGRqcVdMNXBVcENuaSs3WHZ0cDVL?=
- =?utf-8?B?dXhHbmJBdEhYb0ZEOFJPdk9iVC94M1BIcHIrbERuTmpjNkRHcW9lejk2Y05h?=
- =?utf-8?B?bkQvcjgzcTg5YkpYWTdhUzRHcWZ6MzJqNkR2YkR5eWxJN1lPZHZXQ0dBU0ZX?=
- =?utf-8?B?andqQi9yNmRHWEFwTnJCSXBzdVhSZFJGOWlvbGRWMVZZcVI2RVVYWmlZMGZy?=
- =?utf-8?B?Nnl1Yk5MVWkzSVdXeldjZWdLR3p6d1R4dU9IT3ZnZXUwdEtaT05GL1ZSZENV?=
- =?utf-8?B?WkNJL09BNkZOOFRPRCtjWXBLZnBpSzF4cENVaFlJV3lDYUhKQk84RS9iQklT?=
- =?utf-8?B?aTl4RHFFK3NqVEljSE1ETnRXM0dVWk5XM3pjejRURVNaeVlOQi96ZncrS1Zs?=
- =?utf-8?B?eXRFcUFhK2Y5c0g0d0hpQ2pyM0w5WVZ2RzdJb1A3NUFlTTI5bS9paHFBOGRz?=
- =?utf-8?B?VnZKb2NNYzNoYTdPZnVmbzB1WHNTc1kzaEtDMW1qcUdIK3JLbkc1YlAxUi90?=
- =?utf-8?B?eDl6SXBtc2xxTGtwcmdIZWtIS3hXNk9oVGkyS3RoTXlZSE5rMmJnZmYyOHVq?=
- =?utf-8?B?cWI5NXI2dUpWczI4djBlWDYwNkJEc0Uwb2NaVUtFTXY2dHRmendnVXRmSjNJ?=
- =?utf-8?B?Y2RJdXJCby84RGVIbit5d0JabnBGWXh1dGsrd3NuQjZKTGx6emhaNGRJWFJh?=
- =?utf-8?B?ZWtzbmgzTVMxcGE0SGN3SVFCeU9WeUdsaE5FeXlqU2d3bURrVlEyVEdsL2pU?=
- =?utf-8?B?NXp1Yjl0SmVtcUU1a2x5cnJFNjdtU1NTU2xLWUV3Vlp5VW9pVWNBV0pxTEgv?=
- =?utf-8?B?M296b1Y5WFdoWkdiYnNoNlVJSnAwdlJxTkc2b0FCSWVYekJYUTNsdU1BMXVa?=
- =?utf-8?B?dlJGcXVqWmR6dUFCclZncng0YnhTTmFnQW9NM2xhdHdKZmhQM1hJWCtkVDMr?=
- =?utf-8?B?REtCemMwaVI0U2NBWEhmZjJNWVJ1RE4xeGpGOXFFNTh2ZnhabFBUQy9hZElP?=
- =?utf-8?B?bmQ0bENrdkxCUlN3NGNzWFVuMFY1ZGpreCtoSm1Oamxsc2k0TEkyMW9OalQ5?=
- =?utf-8?B?ZlNSYXh4bmgxTFhaUVlQNmFzWHo0dFRhOFV0dmVOeFJTQ0p5UXpVQkZubWFv?=
- =?utf-8?B?M1VmbUtWcGhOR3JHbU9LTjY2cStHbXpxcGk4bUVuK000YUt5azFIdjFFOGM3?=
- =?utf-8?B?MTBsMEg3ZGp1ZDY5cm9ZUzFpc3VjdS81ZGlqTXhsbnprbDlleDNrTy9sckYz?=
- =?utf-8?B?Wk1VL2d0bmYwRHQraGR4T09pK3lXcjArQTQ0ZStJS3FBalcvTGxocmdlNTJY?=
- =?utf-8?B?aGF1d0tOZW5DbFczakZyRjJrRGNxdElsN3J1NWQvRVZRQll5VnlBU1E2WTly?=
- =?utf-8?B?QWlFVnNjOFpuVkRGMyszNis1VXE3T1pLNjR5aUVTOEo2OWcxdEd5TU1QenJY?=
- =?utf-8?B?ak51S3dFdHd5S3NGUVEwdG43Z2VxdUZHWDlVNUwrN0RtRTBOaEtSazFiRFZ2?=
- =?utf-8?B?YzQ3M3FVaVU3OFVPUHBMclZiS0tnSEUxdnlUSjlMUzNFejI2Q3pGNzVrK042?=
- =?utf-8?B?ejNpMm84U3RRZzlVSzduZGJaY240U1d3ZnNGK05CRHRWbnA0V0t3dVZFb1VF?=
- =?utf-8?B?aDFSN24zOU5KWkwyZTNLU0VkTTNiSzd1c1FVTEJYQkNwSlRTNWZqQWtod2ll?=
- =?utf-8?Q?YP/Yk3TnH/k=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SU9Db1pWMVA0N0JUallxQWpXV1NRVWx1c09CTFJQTkU2MWFwTXpGV1dxWWtX?=
+ =?utf-8?B?SGFtZ29IbHBnR0s1MVZyaENVWEI2dTV4RTQxTEN1TUh2UE5pUFdBT2Jnbjdy?=
+ =?utf-8?B?T0FCbUZUcmRYQWs4dWRtbExzYlozZEJuYXBVczgvWjVqbjhlMDRrNjU4OEZF?=
+ =?utf-8?B?OTFaVXJLWFQ1TVExT1dkcHhGbkp4OG0xVnNjTFZVQ0I5OG5ScFF2WmlyS3RJ?=
+ =?utf-8?B?VDJjbTZQcm5tcUl6K2M4RytiQkwvUWV2WkpDYkhBRm5IRjJlMWVaZnUxdlhJ?=
+ =?utf-8?B?ZEhyS094ZUlBY2hVV01hWDFqbE1nRGhxQ0p5WHBVdjdxc3l1ZzBaMGZoem54?=
+ =?utf-8?B?R3htVEE0ZTFUcjgvMitidVRiYVR0ZGdxSERTRHhOOFMwNmxqaXZQRWR1RWtO?=
+ =?utf-8?B?bTlwSDlMblMzdTVWRHMvdHNPTGN3MUtCVkVzNzRCSFM5UVBza1ArNWlSOUdm?=
+ =?utf-8?B?bjVhVTlvS24vdlF3OFZSaWtWWlVJbnZvZmhRZzdaa052dzY3YldDL0VJZDBL?=
+ =?utf-8?B?dnN6U0dKMDI4MzdYVTI5N0EzOTJqK2V4RWphakxpMjY2eTlCWWRZd0dYVy84?=
+ =?utf-8?B?SmVOdSthWEpOZzdOMDk4YUc2bU5HQVVndU1sNERGRlRNOVIyeWVwQzh2NEdu?=
+ =?utf-8?B?bXFPMTVIdFBJMTZXMWNmMngzNXJWUWs2VG5NRi9lWVRUOGt4cC85Q0JOdkdw?=
+ =?utf-8?B?aDkrcGNYNG1XQ1ZNaWsrMHY1a2Q4cW5mbWRGMTBZRHVvc2puTjlBT2V6MUQr?=
+ =?utf-8?B?WU5DeDJ3TjZoS1NjQ3E5RFozejB3R2luT2ovSGVqYzZuZnpwSzhGN1JIeEFi?=
+ =?utf-8?B?T0RZREtlZUE3aHRsRVpzWjBlM0Z6TWNLZTF4MXN5ZS9GSmR4S0lRUVpaQ0t5?=
+ =?utf-8?B?SjdOZU01VXY0YlV5Y21Hcnlja2luaFdHaEZySnZoS0R2RTFjVUZYaGQvMHZK?=
+ =?utf-8?B?dGEvNmtBR0pYc2xNcGV3T1JtZkd4U1lrQXc5NHRvOUZmMzVtQlFZK0NqRmRh?=
+ =?utf-8?B?SU4zZk05MTgrUWVaZE1pOVVYV2I5WGVWQ3EycmVOeVJwYTNqWnRvOVpPeDQ0?=
+ =?utf-8?B?Z0FXdnFZWEMwNUQxamw4aGhjYzNsL3Y3V29rMlVRSVhudzVVZzYrZnRWdzZD?=
+ =?utf-8?B?MFBaRnA3MkdmcDhkbmNpT0V0NXUzL0hjL01iNkV0ekZsYkZESG9ETkNhcWw0?=
+ =?utf-8?B?VHRrbTk3NmRiNFFINTZ5Q3hnbUlndjNrNGorWjJQVnBQVlJQVlk1L0pOWXFC?=
+ =?utf-8?B?cUo1MzU1SU9pVjdNd0QrQnEzR0pyUUJnVUtPSE9ZWTc1cmZrQmpjOXhlN2VR?=
+ =?utf-8?B?Y2QxMEQwbUoyNzB2cS9VTkJXS1ByV1FJbGMwVnBPYzVrc2JXU2dBeXc0eVc2?=
+ =?utf-8?B?ZjEySXhqQlVNUktaRlYxdTh0UHVnUFVZQjRYWi9RUUM0d0xWYzZYWXNwbXR1?=
+ =?utf-8?B?VlphdGFXaE55YjdxVkMxbkVkbC9tZHl1bURPbTZEK1BhUGNaRDhWR1FmT2R5?=
+ =?utf-8?B?L0tsejJWYVBaVkM3QVBJMWJmMThNZmw0akRvanVyQlZMcG9jYW5TZzlucU5U?=
+ =?utf-8?B?R2IyREtLbkYzMUpxQ21FKzRVRTN6SUxJQUl6a0R5cW8zUmRUZmZFMU82bVBL?=
+ =?utf-8?B?Rm1oUjEvY0RkbXcrUy95anJKMDgwanRNREhRZzRWN2hKZVVLSk0xTHdCcEsv?=
+ =?utf-8?B?RGI3SDZoV0VPVXRSZVU3cWF4cGpJWmhJWDBWZ1U5by93QXRGdm81bVZuZlg5?=
+ =?utf-8?B?c0YzNjZnNDFEUnkwTlZKVncwcmJ4MDdYbElEU3V6WmtxOTBNT0RrK1pIVVVK?=
+ =?utf-8?B?S0k4eGFyV3VHeC9ncHh3U2Ftdi8rYm5aVnVqT2NnaUFGcEwxdkoyb1VyNUFl?=
+ =?utf-8?B?VGYwQnlXMkttK0ptc0lJSUNHRVRXUG1kaXRkUTRmZU9JYmo4RlhwVXk5Nzl5?=
+ =?utf-8?Q?lU7AY3Hrdi8=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnJUQ1lMT200cmJMRlA4U1d3aFQ4empxTkpYMEgwS01uV0JDbi9GbkhqZ09q?=
- =?utf-8?B?T3JITS8yZDNESVVsREh3L0ZtSy9nUEZVS1JhdzFnaG0xeVhkSlRHaHZpSE4x?=
- =?utf-8?B?bWIwUHp1UU15THdCR1VENTFQTnZKUHpVMEs2R2h6MkVnaUR4THc1Z3l1OERt?=
- =?utf-8?B?Wk81TWdjQUFIQ294NFNWN3NuTkh0QnRQNHpZRXZJeElBc1NJSVFpVUwxK0lH?=
- =?utf-8?B?UENWd1F2Q0ZORHF3dWpXU2d3UnkzRHBXaUE0YjY0Vjd0TDA2ZW5ZNFAwTTNO?=
- =?utf-8?B?N2dwaklXbVJ6NFZRL2UwT2hxMlZISmxzMkdjNzl4R0xGVXNOZ1pwRlA1Rkhq?=
- =?utf-8?B?MHo0SVNwdkdtT0tsNGdIZUxjSk9icTk4cTNiMkxTeUg3T3kwUGQwM2dSRzFv?=
- =?utf-8?B?VjZxaTNxd0FRNmFQc1I3NGpEN3VJTTlSeUsyNUhLMUJPRlF5MzdLbzhmL0lk?=
- =?utf-8?B?Y0U1TDJBVkExQmJ4QW8vMjFJcjhFS2NyU3FjL3V2Rm1wZlhYL05XdlU4RXNq?=
- =?utf-8?B?emY2M2NmbFVKUU9lYjFWMjZrdHZRQTBSVW92Q3lxUWNwUmxUTHVPdUpMK2hn?=
- =?utf-8?B?SVhNSlYwWm1zU243bEtwRXpXU3RMZ2pLNzBEblY3ektUNWk2b1Y5NGdPQU91?=
- =?utf-8?B?VUhSQzh5Q0Y2Y2YydEZxYUJmSWJZTkU4dUFwRExaSFlFVWZkbHRYQXUzRnhw?=
- =?utf-8?B?U3hMN1dMN04rV0toOFFQTHlrMllRcEx3TFlIUys3NmFxQ1ZCcWJCSW5TL2Nt?=
- =?utf-8?B?RzRKbFVYQjBMRWczTEk3OStQL2FKSWMzWnhFK0VSNmVxUitzNTFNNENReUN5?=
- =?utf-8?B?TU1mbUJHUUVLSXZxY0VOWVhUL2licFUxbnluMWNYc3A2em5MQThoUTJPemxz?=
- =?utf-8?B?cFl2RDA5b2ZCZWRveVFIMVlHd0JGQUVPVWsvcFkwVVFaMy80N1BxWG9JUXIw?=
- =?utf-8?B?SEhQS0x2VHRQRnBmanVzTXM3cWRaQWFYVFNqR1lmOFRBbzZpODJSNDNpM1hN?=
- =?utf-8?B?QWVsRVZld1Q3NCs4MWlRMDYvejI0Y0dzWVIrOUFVVm92cXdvYjloR1dPMkJD?=
- =?utf-8?B?KzM0OWtnclBMOTN3dDVjZGpZb0ZPdjl5QTgrcDZwRmJFMG9BVzJGMWpVRE8w?=
- =?utf-8?B?NUlWVkEzbGhHZWl4WlFLci8yUEVwd0c4dGtiTW1yamYzMm9jMzRtTFJZNjV2?=
- =?utf-8?B?d2NFN0laZGgvY2UyWjh5U0tYWm5wSkJYa2ltVCtZNlBWY3BiaWVmVjdvZDdN?=
- =?utf-8?B?VElmS0JvZFpKTmtlNEc5WFh6Y253aWkxOThFYmZ2OTFQUlA5ZnNhODg4dTZ4?=
- =?utf-8?B?VC9LZjYzUHZXM2Fjdy9jRW9rajNYNDNFOVBpaWtMcWo1WnFKNW1XUm04Q1ho?=
- =?utf-8?B?dHNuWVFEUElGMFNVeTdTWHdsOVhNQUxQR1ZpV2hGc2pTb1cvcEtsL2NkYzZm?=
- =?utf-8?B?L0NUMW4vblNMK0NBYS9SNDVYMGY3bWQwc0k2MmFSN2wvZkxhN1FRSFozcTNu?=
- =?utf-8?B?N0hWUjRjaWUxclRDc2FyM1grcnZhNW9lZ2FQeFNDK1IzbjZnQWFIalFWbTIy?=
- =?utf-8?B?YWdrR0VXNzRsbXFzWVZwV2ZRU0lhL3Bsb2hvOG1PZkJPOVZGdHA0MWFsV2d0?=
- =?utf-8?B?d2xrMlBxVzliOHVGczUydmpoZUdHZElNUmFxb3p5NlNtS3dhMGR2bzRyMnhK?=
- =?utf-8?B?UU5SNzRpVHNZUVFCMVB3a2oyS1NXd1VUV3dYQWhmOFhSeER4dkwwemFPTDli?=
- =?utf-8?B?My9hUzlWdEdJM295QW9xUE9vbFRST0Q0aTBIbmYrdGkyOXVZOXlpT3RMa2VG?=
- =?utf-8?B?dm42KzVaWTAvSEJZc0UwdkZTbzBRem1ISE9BL2VZR0w3TlZtUjRqQUJmWmd0?=
- =?utf-8?B?bHpkZkFmYlhWeE5PbkNRVE9uQnh4QWd3a29ZTXFIUUxiQWt1OGpXR2VDVmYv?=
- =?utf-8?B?QkM4NjdLYmJpZDdPNXhheGhUZUxKL2hIVnpqMDhLY0FPaENpVHNiZll3Zy9y?=
- =?utf-8?B?dFV6cWczdG0rUFZ0Ly9iY25qVm0wSk42bjUyZEdBcXZCZVdhTnJIeUZVQ3VL?=
- =?utf-8?B?TDcyOTNFZkVjdFhmL3plMC9yZ1UwUkIxU0Z0WTFxQ1U0L1pwY3pGMy9JWmpy?=
- =?utf-8?Q?oHPVVAU6tHZjKg0fM1WrT49yS?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2hZZzRpYS9DMzBUcWNzMXpsQUJJOUVhR1hlc0VyVWpndUJoMVA0RkhleDZV?=
+ =?utf-8?B?cmtKUHZsZUxoV0tVcWphRDdKc3N2Qkh0YkNPcHF5UmZZWFo5YzRET0p4NVFR?=
+ =?utf-8?B?RmNMZDlrTXlxN3NqVTA1ODhqT3JMUmlMaGxQYUs4c3UweDhEWnRZeGlBY0xz?=
+ =?utf-8?B?OUtOUW8xS1YweWs4c21ON1M4KzZad0pwc1NzRkpodWFGNlk1NmpIbnVCTlFU?=
+ =?utf-8?B?cXh0MkdFSEpXZVlpZGtLOTR6SDdOR3NHWlBFbjB2R3RXUVovRDVwSkFONFZj?=
+ =?utf-8?B?WFBybkdneml2VDA1ZUtCZzZ1OFFEZFFqaWtpdHlMT0xWSGR5bWdNTkNpZUlL?=
+ =?utf-8?B?Vjl3ZWludnMrNnJPWXEzSzcwM1lqMzVTNW56bVJUZDdDZFEyZHQyNXY3RmJQ?=
+ =?utf-8?B?Tjc3QlRSM1dZcHpIWFk2U3pxV1p1L1ZIc0UwbTVIMUFsVEtDZHJJR3BVVnMw?=
+ =?utf-8?B?U09JNElIWkl2SHlqOENGZzZBWTF0OGg2VHdidkJ3elFUaHl4cXRPbG8wRTRL?=
+ =?utf-8?B?bkVFOE50MVN4Q25RTWozd0UvczRkZ2M0dWJwb0lsT2RGb2lIRUxFL0pDdVBa?=
+ =?utf-8?B?MVFWTXMwKzM1OXIxaldERUtFWG1QeklUWjhWNnJuMVJ0eWpSU1VrQVlXSmtZ?=
+ =?utf-8?B?dDVsV05lQ0N1cjd3SHROc0NZYVNlMW1BVXhWM0Vpa0NZSExidmpsZkNVV0Vl?=
+ =?utf-8?B?TFozZ1RVczFzUnpES3dZYzMybW53WDl2eHJNak5Xd2dGSVVoN0Nydk5yd2M5?=
+ =?utf-8?B?aGx1cGxtTVJXWUpoYlZNUnlVL1VFektZVFlrTXpNckNvVk1VRVVNK3VOaWNS?=
+ =?utf-8?B?b0VTcm40SExNNDBncnJ3YldrT1RqeXExbjhXTnlMMTdOTFBLSDNLRFJVZ2VU?=
+ =?utf-8?B?UXdTcUJYWHU4V1ZMRDl3NWdQSnFFVzRGdnVWajFYRnphTER3d0NvdkNDKzNK?=
+ =?utf-8?B?Z2NXSFBzbDRuQ3lFOVZqNVR2YWVKTVJ2ZG1TQTN6UnM4WG9XRVBTdkhSbWVT?=
+ =?utf-8?B?emUySUNZU2JiRDhGZEdMV1N3RmNwUmY1RERwUjJjSFVKTzBYTUpEbWVkVGV5?=
+ =?utf-8?B?T0p5TjBXNGduK1ZHSGwwUXc3VFY0NEVKYi9rVkVNaWxtYkUzcHZNN05OdHpI?=
+ =?utf-8?B?eWcxWDNsRERIMVVYUTFMK255cnU1bzdiVFZ4a3VqelJHV0s3TUFOK3lYRnhp?=
+ =?utf-8?B?N2R5MjgvSG5ML0RQU1dtemZ3M3BQY0RDc2NtY3VEeXV4YUZ3Z1dnUEJGaUxU?=
+ =?utf-8?B?R3V6c3VsMzhrVXFmLzZzSm84MDhGazNZVEpzclcwWTlLTmUvWGhja0dDR216?=
+ =?utf-8?B?NGZNQlJBS3JuWjdmYmgwbFR6OEU2bldYSG9QZ0VRVXYzUWVMdUNMcEZtM2F5?=
+ =?utf-8?B?SG51Zk9jLytwQTNCalZlMDRSMCs0M2UzMU9yWG1MdkNJTGs1K1ptRmJtaDVz?=
+ =?utf-8?B?NlA5d0ZocEtwaEcrNGpOYXc0ck5zdUUwTTFwRzJxSENrQmZTWFlLZmhJRWlN?=
+ =?utf-8?B?cmE1ZFFqNEhvM05sWDZhUHV5ZmozbndvR1dlQ2tzYi8vNDk2UmxhcG9yb3U0?=
+ =?utf-8?B?U1FLWTdMRU5lWTdYRkFITlpkaXlTdklYQ3JVcHFRNGREcEVrSGFjdzZDMHBh?=
+ =?utf-8?B?R1BBUEE4TWlmSEFrTm9GL0w1b3BLZ3BESzhGbUhRVnR3a2lISEhNY0RpcE9D?=
+ =?utf-8?B?ck94ZTNObGlUVkRJK2ovTUJ6UlIyT1VKYUJaeVBaTnVwSlFBQi9ObWhUNzNi?=
+ =?utf-8?B?Q2o1ZXNXTkZWNWNaVnErSnNZd3RGdGdMVHlHQVhQZ0ptdkczVFNWL2V0a0xj?=
+ =?utf-8?B?aHBPZTM0ZklMWHp0QmxHTk9qcEtyaThNMEdHVWtTdWNrclpsbjRBNzIwTm5D?=
+ =?utf-8?B?cklKc3FWdDludERYd00yM1lzUysxeUk2UTV0azVzclhKaGYvb0tvWGpLU3Nu?=
+ =?utf-8?B?S0l2L0dyb1pheWRrK0M1VWkvRW9QczlCcjRxblFIeElqb1NtUE8yOFI1azRN?=
+ =?utf-8?B?Ym0va0RlUi9zODVYcFVQVTQ3UE1tNVhGOFo1c0hXSHFvMmVWbU5OOUNpOTBq?=
+ =?utf-8?B?bXhMeDh6cGhTR0dOK09ZdnBRNzRhVm9BMmVsazVTOWdSSTNZWXRNOEgzendi?=
+ =?utf-8?Q?OoomRwSqtHuvBuduqYx8EgLrJ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfc4cac3-0ab7-4ff8-bdae-08dd985f2923
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a264cb8-62e5-4fb1-3682-08dd9866303a
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2025 12:01:03.8289 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2025 12:51:22.3199 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hFp6iNWG/LBjLu4olBP7hlRculLn09T/hO3pOx49jQ3BnTdfrhgI1h3B0GFJpOjK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7853
+X-MS-Exchange-CrossTenant-UserPrincipalName: TvaH/hxzLeQsn0f6bYXTjuQEbC25s1ZByAalmYCoBDs+AcW+jeYl1QbjAY1uyBvl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6195
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,180 +160,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/21/25 13:55, Zhang, GuoQing (Sam) wrote:
+On 5/21/25 11:49, Pierre-Eric Pelloux-Prayer wrote:
+> Update the way drm_coredump_printer is used based on its documentation
+> and Xe's code: the main idea is to generate the final version in one go
+> and then use memcpy to return the chunks requested by the caller of
+> amdgpu_devcoredump_read.
 > 
-> On 2025/5/21 16:06, Christian König wrote:
->> On 5/20/25 07:10, Zhang, GuoQing (Sam) wrote:
->>>>> +    if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
->>>>> +            /* set mc->vram_start to 0 to switch the returned GPU address of
->>>>> +             * amdgpu_bo_create_reserved() from FB aperture to GART aperture.
->>>>> +             */
->>>>> +            amdgpu_gmc_vram_location(adev, mc, 0);
->>>> This function does a lot more than just setting mc->vram_start and mc->vram_end.
->>>>
->>>> You should probably just update the two setting and not call amdgpu_gmc_vram_location() at all.
->>> I tried only setting mc->vram_start and mc->vram_end. But KMD load will
->>> fail with following error logs.
->>>
->>> [  329.314346] amdgpu 0000:09:00.0: amdgpu: VRAM: 196288M
->>> 0x0000000000000000 - 0x0000002FEBFFFFFF (196288M used)
->>> [  329.314348] amdgpu 0000:09:00.0: amdgpu: GART: 512M
->>> 0x0000018000000000 - 0x000001801FFFFFFF
->>> [  329.314385] [drm] Detected VRAM RAM=196288M, BAR=262144M
->>> [  329.314386] [drm] RAM width 8192bits HBM
->>> [  329.314546] amdgpu 0000:09:00.0: amdgpu: (-22) failed to allocate
->>> kernel bo
->>> [  329.315013] [drm:amdgpu_device_init [amdgpu]] *ERROR* sw_init of IP
->>> block <gmc_v9_0> failed -22
->>> [  329.315846] amdgpu 0000:09:00.0: amdgpu: amdgpu_device_ip_init failed
->>>
->>>
->>> It seems like setting mc->visible_vram_size and mc->visible_vram_size
->>> fields are also needed. In this case call amdgpu_gmc_vram_location() is
->>> better than inline the logic, I think.
->> Yeah, exactly that is not a good idea.
->>
->> The mc->visible_vram_size and mc->real_vram_size should have been initialized by gmc_v9_0_mc_init(). Why didn't that happen?
-> 
-> 
-> [Sam] visible_vram_size is set to 0x4000000000 (256G) from
-> `pci_resource_len(adev->pdev, 0)` in `gmc_v9_0_mc_init()`.
-> It is set to real_vram_size 0x2fec000000(192G) in
-> amdgpu_gmc_vram_location().
-> 
-> Should I update the 3 variables inline and not call
-> amdgpu_gmc_vram_location()?
-> 
->          mc->vram_start = 0;
->          mc->vram_end = mc->vram_start + mc->mc_vram_size - 1;
->          if (mc->real_vram_size < mc->visible_vram_size)
->              mc->visible_vram_size = mc->real_vram_size;
+> This cuts the time to copy the dump from 40s to ~0s on my machine.
 
-Yeah that seems to make sense.
+Well that indeed strongly sounds like something is going wrong, but I'm pretty sure that copying things into a temporary buffer is not the right solution.
 
-> 
-> 
->>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
->>>>> index 84cde1239ee4..18e80aa78aff 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
->>>>> @@ -45,8 +45,10 @@ static u64 mmhub_v1_8_get_fb_location(struct amdgpu_device *adev)
->>>>>         top &= MC_VM_FB_LOCATION_TOP__FB_TOP_MASK;
->>>>>         top <<= 24;
->>>>>   
->>>>> -    adev->gmc.fb_start = base;
->>>>> -    adev->gmc.fb_end = top;
->>>>> +    if (!amdgpu_virt_xgmi_migrate_enabled(adev)) {
->>>>> +            adev->gmc.fb_start = base;
->>>>> +            adev->gmc.fb_end = top;
->>>>> +    }
->>>> We should probably avoid calling this in the first place.
->>>>
->>>> The function gmc_v9_0_vram_gtt_location() should probably be adjusted.
->>> mmhub_v1_8_get_fb_location() is called by the new
->>> amdgpu_bo_fb_aper_addr() as well, not just gmc_v9_0_vram_gtt_location().
->> Oh, that is probably a bad idea. The function amdgpu_bo_fb_aper_addr() should only rely on cached data.
-> 
-> 
-> [Sam] Can I add new `fb_base` field in `struct amdgpu_gmc` to cache the
-> value of `get_fb_location()`?
+My educated guess is that userspace reads the core dump in chunks of pages (or similar). So we end up generating the same dump over and over again and then returning only like 4k of it at a time.
 
-No, please try to avoid that.
-
-> Using this approach, we don't need to set fb_start and fb_end on resume
-> any more, since the reset of the 2 field is caused by
-> mmhub_v1_8_get_fb_location() calls from amdgpu_bo_fb_aper_addr().
-> Please see the code change below.
-
-What is wrong with setting fb_start and fb_end on resume?
+How do you copy the core dump on your box?
 
 Regards,
 Christian.
 
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> ---
+>  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 43 +++++++++++++++++--
+>  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h  |  7 +++
+>  2 files changed, 46 insertions(+), 4 deletions(-)
 > 
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -259,6 +259,7 @@ struct amdgpu_gmc {
->           */
->          u64                     fb_start;
->          u64                     fb_end;
-> +       u64                     fb_base;
->          unsigned                vram_width;
->          u64                     real_vram_size;
->          int                     vram_mtrr;
-> 
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1527,7 +1527,7 @@ u64 amdgpu_bo_fb_aper_addr(struct amdgpu_bo *bo)
-> 
->          WARN_ON_ONCE(bo->tbo.resource->mem_type != TTM_PL_VRAM);
-> 
-> -       fb_base = adev->mmhub.funcs->get_fb_location(adev);
-> +       fb_base = adev->gmc.fb_base;
->          fb_base += adev->gmc.xgmi.physical_node_id *
-> adev->gmc.xgmi.node_segment_size;
->          offset = (bo->tbo.resource->start << PAGE_SHIFT) + fb_base;
->          return amdgpu_gmc_sign_extend(offset);
-> 
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1728,6 +1728,7 @@ static void gmc_v9_0_vram_gtt_location(struct
-> amdgpu_device *adev,
->                                          struct amdgpu_gmc *mc)
->   {
->          u64 base = adev->mmhub.funcs->get_fb_location(adev);
-> +       mc->fb_base = base;
-> 
->          /* add the xgmi offset of the physical node */
->          base += adev->gmc.xgmi.physical_node_id *
-> adev->gmc.xgmi.node_segment_size;
-> 
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> @@ -45,10 +45,8 @@ static u64 mmhub_v1_8_get_fb_location(struct
-> amdgpu_device *adev)
->          top &= MC_VM_FB_LOCATION_TOP__FB_TOP_MASK;
->          top <<= 24;
-> 
-> -       if (!amdgpu_virt_xgmi_migrate_enabled(adev)) {
-> -               adev->gmc.fb_start = base;
-> -               adev->gmc.fb_end = top;
-> -       }
-> +       adev->gmc.fb_start = base;
-> +       adev->gmc.fb_end = top;
-> 
-> 
-> Regards
-> Sam
-> 
-> 
->>
->>> mmhub_v1_8_get_fb_location() is supposed to be a query api according to
->>> its name. having such side effect is very surprising.
->>>
->>> Another approach is set the right fb_start and fb_end in the new
->>> amdgpu_virt_resume(), like updating vram_base_offset.
->> That is probably better. And skip setting fb_start and fb_end in amdgpu_gmc_sysvm_location() for this use case.
->>
->> That was done only because we re-program those registers on bare metal.
->>
->> Regards,
->> Christian.
->>
->>> Which approach do you prefer? Or any better suggestions? Thank you.
->>>
->>>
->>> Regards
->>> Sam
->>>
->>>
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>   
->>>>>         return base;
->>>>>     }
-> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> index 7b50741dc097..de70747a099d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> @@ -34,6 +34,8 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
+>  }
+>  #else
+>  
+> +#define AMDGPU_CORE_DUMP_SIZE_MAX (256 * 1024 * 1024)
+> +
+>  const char *hw_ip_names[MAX_HWIP] = {
+>  	[GC_HWIP]		= "GC",
+>  	[HDP_HWIP]		= "HDP",
+> @@ -196,11 +198,9 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
+>  }
+>  
+>  static ssize_t
+> -amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+> -			void *data, size_t datalen)
+> +__amdgpu_devcoredump_read(char *buffer, size_t count, struct amdgpu_coredump_info *coredump)
+>  {
+>  	struct drm_printer p;
+> -	struct amdgpu_coredump_info *coredump = data;
+>  	struct drm_print_iterator iter;
+>  	struct amdgpu_vm_fault_info *fault_info;
+>  	struct amdgpu_ip_block *ip_block;
+> @@ -208,7 +208,6 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>  
+>  	iter.data = buffer;
+>  	iter.offset = 0;
+> -	iter.start = offset;
+>  	iter.remain = count;
+>  
+>  	p = drm_coredump_printer(&iter);
+> @@ -321,8 +320,44 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>  	return count - iter.remain;
+>  }
+>  
+> +static ssize_t
+> +amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+> +			void *data, size_t datalen)
+> +{
+> +	struct amdgpu_coredump_info *coredump = data;
+> +	ssize_t byte_copied;
+> +
+> +	if (!coredump)
+> +		return -ENODEV;
+> +
+> +	if (!coredump->read.buffer) {
+> +		/* Do a one-time preparation of the coredump output because
+> +		 * repeatingly calling drm_coredump_printer is very slow.
+> +		 */
+> +		coredump->read.size =
+> +			__amdgpu_devcoredump_read(NULL, AMDGPU_CORE_DUMP_SIZE_MAX, coredump);
+> +		coredump->read.buffer = kvmalloc(coredump->read.size, GFP_USER);
+> +		if (!coredump->read.buffer)
+> +			return -ENODEV;
+> +
+> +		__amdgpu_devcoredump_read(coredump->read.buffer, coredump->read.size, coredump);
+> +	}
+> +
+> +	if (offset >= coredump->read.size)
+> +		return 0;
+> +
+> +	byte_copied = count < coredump->read.size - offset ? count :
+> +		coredump->read.size - offset;
+> +	memcpy(buffer, coredump->read.buffer + offset, byte_copied);
+> +
+> +	return byte_copied;
+> +}
+> +
+>  static void amdgpu_devcoredump_free(void *data)
+>  {
+> +	struct amdgpu_coredump_info *coredump = data;
+> +
+> +	kvfree(coredump->read.buffer);
+>  	kfree(data);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
+> index ef9772c6bcc9..33f2f6fdfcf7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
+> @@ -38,6 +38,13 @@ struct amdgpu_coredump_info {
+>  	bool                            skip_vram_check;
+>  	bool                            reset_vram_lost;
+>  	struct amdgpu_ring              *ring;
+> +	/* Readable form of coredevdump, generate once to speed up
+> +	 * reading it (see drm_coredump_printer's documentation).
+> +	 */
+> +	struct {
+> +		ssize_t size;
+> +		char *buffer;
+> +	} read;
+>  };
+>  #endif
+>  
 
