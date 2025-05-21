@@ -4,69 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2068EC54E65
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 20:24:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C110AC54E65
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 20:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 928B910E708;
-	Wed, 21 May 2025 20:24:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E12910E73B;
+	Wed, 21 May 2025 20:24:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XSEqsp9b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AP0MHI4g";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11F5710E708
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 20:24:07 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-af907e48e00so629396a12.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 13:24:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747859046; x=1748463846; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tTsbmBHwCcfhUnHXjabBsTA6GUACFOgRJoVyhx4P5LA=;
- b=XSEqsp9bwFBKx50jBpDvF6UhmFV9/HfcULh23SWqbFRl0FPz4FGOofLrpUsoBfyoSr
- s/+jGDnWy3bbGFDsUhIoTncTLktyb7v/Wdbz45D+L+o2ptkcMkp09DjRK2w52lcJSLDX
- M4847F8+bLlOjX8AttEXJ414FuW6QUx3Twxsl8AZwsPAKMnldRdqA9MsG/nfbGe6ONDt
- 0elvk9XrNZtKpkt0ezsVFR4Veb14SEvL7uTchPtJ0ZwyyAt+8S/HhX0kDSrKTwqIj50b
- wnlN1IhZrnl/GogwFiK6ToQjl82DYV7+r0Wb+Z0jiTiZBXfvvUqch4/ka9zQwFJKFUj0
- CxLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747859046; x=1748463846;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tTsbmBHwCcfhUnHXjabBsTA6GUACFOgRJoVyhx4P5LA=;
- b=ueiTSMEL2XsK0gUTXMbdVNgytSl3dWIX5UQ3PqXXdkUeA633z8xbx/wR5FnLJiy58w
- 2eiF0NzWTX3ektCRoUiPwpmiootAtwsAjKDIOFenrnp/9lu2l6IZZo0fwJJIgtMMzVPE
- nk8QBo8Niaal8PeLnMR4Pb3qGWF0sjUtZ6CP+NEg/2DmcWxhJ1pq0cSJS2iqJsDdjXrm
- X3Cw1bNZo0bmQViAQ2rbnv2K3w7zDwOTOyGzimQIkSbyusFXYQSoyhfFhzPBZIC+TJOH
- etSLfjRkR1A0xPqQeiUwPS2XSC0XsvfBUou8PvPly7QxHCut0KglfLPot/COt1PNgjuq
- bOaQ==
-X-Gm-Message-State: AOJu0YzDv6AiF5YU5SexIYA6O1XxlHuGLZJCjtIzHwIFwwjc9XiZzkGg
- 3KclFinXNAnosMueueD3AzkWstEEOaCXm7JBgBm/xKlRh+KlwOOGJ2Sl+9Tv1u+qxtpKIjKhez6
- qpcthv3DlrQydPISDghyHqo8yEz7XH8M=
-X-Gm-Gg: ASbGncu5DYwoP3VhLmgwcfrRozpaVo35vKdfS0bTPI2tzUrmchCyV8RCJ7LNXJLNqTm
- dBtdkHHI32LY22OLw3iRDMaeVbN+ApLonuZx+/OMgPBKVqVUIM/vPpcbalrRh3mqigqJKXpjyJ8
- GmCK0aSd82WBcoxLoA0DLb4a0eNUEcNoiMEA==
-X-Google-Smtp-Source: AGHT+IGH937AccKPSSVnI9NMZsKsmdmDi71EXfJ70m2aLWCfzn8p7yOHKjx7wbu4yczhp5YCK6jbboGbdd5Qnw8uOBQ=
-X-Received: by 2002:a17:902:e80c:b0:224:216e:38bd with SMTP id
- d9443c01a7336-231d43b7fb7mr117535015ad.5.1747859046402; Wed, 21 May 2025
- 13:24:06 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8866B10E71C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 20:24:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kc/QOxkltonD7ElQd9OCaQ0BKiacKtae5yavPKGY8CtMqCS0pXBEOjK3HUbbLq1HzbpYwuhADE3fy2RgxC3ketpQWneiyIaQddU/IfODdgQ6HgdwEbHvqq5nysZpxPV//JhTNmct0kaLdOpeF2ogsEjc3GWsMB0/1b0dHMGDUiYcHqHC+3nUvVj+YvfLH4TGlBBWTmZ8DSDTP+OpkbWRDQjEJTG8uMc71j+GGRU0uWJlOgmMesBJlTGlcIYM1e7piO6f2BbvY1pQp0PcL/e1mli0BPuqK0BAJHev3LIuVgu6lEbxs+7I3qroYG5pCGBQFiO6vzfof0eVgBkba/bYnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NIlRkYMawmoW5XOdt+zi/WPzQeY1LThz7u4FaBJitU8=;
+ b=hmxIS+15/+urMcgnQ20Z/ZA7tpak6cW8KuUc+Akdxl7zXepnHKGwY6KJoAkPEklsg5/fCzwK5KeoxxRXz8Ae4/3HW8vJjTXfX8+oP3vI6V7+gwPaDEYkyPGZnjmgk+htPG3pRVW3gsr9tSNGkiYh9w5i9xq4Yz2Ktfkom8epx9QZ9WBcX7rjaiMWfbc+z3PAogXaZ2N2bPOmDfUEhzTggs7qw13xDjksP29p79dIVq9SeClcWavL7Jcr7WF99QviLS9jSoYg7LR5hq66ptpViSOegrlDXSCuCdrE0jqkTJR65ZRd5RTipZ6UMyxieynxI4UDVk2SfYoQqK4UbQ56KQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NIlRkYMawmoW5XOdt+zi/WPzQeY1LThz7u4FaBJitU8=;
+ b=AP0MHI4g0v8W5pLqaOT5nMjF22GH4qWbBTgapJHCZXMLY13BpCS/7iwM7c4EbuRYSIKxfl++WkmtPayyhpBtKUdajvfZfauC8wwVSRq3XEOrvpfujIQ6CClub9vU0PNVGxIQ58eCeCRJnHzC/DcNAF5B4NsrE1f9dEoxRvxyXn8=
+Received: from SA9PR03CA0028.namprd03.prod.outlook.com (2603:10b6:806:20::33)
+ by DM3PR12MB9389.namprd12.prod.outlook.com (2603:10b6:0:46::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8699.35; Wed, 21 May 2025 20:24:29 +0000
+Received: from SA2PEPF00003AEB.namprd02.prod.outlook.com
+ (2603:10b6:806:20:cafe::b3) by SA9PR03CA0028.outlook.office365.com
+ (2603:10b6:806:20::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Wed,
+ 21 May 2025 20:24:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00003AEB.mail.protection.outlook.com (10.167.248.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Wed, 21 May 2025 20:24:29 +0000
+Received: from david-B650-PG-Lightning.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 21 May 2025 15:24:27 -0500
+From: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Christian.Koenig@amd.com>
+CC: <alexander.deucher@amd.com>, <leo.liu@amd.com>, <sonny.jiang@amd.com>,
+ <ruijing.dong@amd.com>
+Subject: [PATCH v3 2/9] drm/amdgpu: read back register after written
+Date: Wed, 21 May 2025 16:24:07 -0400
+Message-ID: <20250521202414.18251-2-David.Wu3@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250521202414.18251-1-David.Wu3@amd.com>
+References: <20250521202414.18251-1-David.Wu3@amd.com>
 MIME-Version: 1.0
-References: <20250521201057.76093-1-aurabindo.pillai@amd.com>
-In-Reply-To: <20250521201057.76093-1-aurabindo.pillai@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 21 May 2025 16:23:54 -0400
-X-Gm-Features: AX0GCFuEMELhYiiRe_fjKQwMOrLuv4es6FAs4eS97CyZtR9inTWDFX246DhN8Eo
-Message-ID: <CADnq5_Ma7sJZnDniaNhiD0VQW37nDhpNOKfgXipjH3-xDqCdaQ@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amd/display: more liberal vmin/vmax update
- for freesync"
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, harry.wentland@amd.com, 
- alex.hung@amd.com, alexander.deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AEB:EE_|DM3PR12MB9389:EE_
+X-MS-Office365-Filtering-Correlation-Id: 519894bc-eefc-4252-9969-08dd98a57d02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VspciuvbQpGNQK28wEvo7xJ6VOUj2kHRg+54eTqzzzBIVfNDI7Z9wvodwdLb?=
+ =?us-ascii?Q?Su5Nre0jtGVxT2E++XCb7VOJYWkziWPpEkKPg9mhdmZc1pr+D8d8zaInVSTY?=
+ =?us-ascii?Q?Rdmy/bJiubZbRpoC//nQhzC7ugyl1xaIOvOsm04qGfJpFKppcV9eKewodJk/?=
+ =?us-ascii?Q?S6Nqb0UfIyltr9PQEAQ+EWRfqejmxN3kBFDUuJ0U7Ftnqb29vRh3+E8LsbRS?=
+ =?us-ascii?Q?sBH9o8aNETH1sWXAfJruS7HEoWJrzNE+7BXi9/RhKELFskKnWVut6I/itSn5?=
+ =?us-ascii?Q?SVX4sbLW0tofkDhh4qP8CgXFLa7oyS/Xa1WsEEoSH5Wv1OGqDj5Oj4XM28sR?=
+ =?us-ascii?Q?mx9F/pOD0aWnUWNQbtjtRLRB6IW4VJ3cghWMDz7+W3EOKF1BBUdb4m3LTqpT?=
+ =?us-ascii?Q?h9KwplAl7eY+9biAR9DOMo6izftpwyT/V4kcdbQ4zAj7RPBO/a3RqL0KNktz?=
+ =?us-ascii?Q?8EIWdfRPgZYzo2+8sHgepnwIIhymMpP0QVHlc21VRAnVs/UKPkpWAz5rkvts?=
+ =?us-ascii?Q?jqdOuAKjX4Km8Nez1B59Embk0gABJPE7q0P4wtBu98MCJa/2QLKc75LnF9Ob?=
+ =?us-ascii?Q?H5K+z01+A7+R8luWT3QPFYNptM6g4thG6ne8xhDYdKNeAo6GB1aC7SQkLALn?=
+ =?us-ascii?Q?s+WzoL50iMaF6glVduYTzXL4QjOZWnmK0PTEe7QNMagaNvJT+Sm287sfOhOu?=
+ =?us-ascii?Q?3sv0znW/rt1Xfqvu3t4uM+z865MXQ7sSW+KwjbDElxgUFCrvVwfylnERwENv?=
+ =?us-ascii?Q?0o5IpfkSnohHn/qPbUzaRxrAS+MIT77DRsa8xAYmbxV4BLjF7yJ3kfkBYn2i?=
+ =?us-ascii?Q?hsIB1Ot907q2oEHcnwbr+TxrfU/1KWBi/U/phATCWcMLkToOxefP0RbK8AAD?=
+ =?us-ascii?Q?HHpSMU9JQ7tqWMdLNelQLPH1AzfJpiYivPTvpRbLSmYPhuUbVy+Z6QwOTxSG?=
+ =?us-ascii?Q?wVnd/qrQa322IQbf2sH5xk14w0w/prejcMZRfOyxcJdnGC4XfOBwAzxjigtm?=
+ =?us-ascii?Q?HF2N/gowaZOQqSyAnJruGsvaoPK8F0tifSpTD9Lm6CgeOmVRxqdiZ2c7Zbot?=
+ =?us-ascii?Q?PU69waCTLipCVIJf6pAPJ/8qqAX0DtiZsnl9ePxjuw9R3oAhCqdeg97rvsxl?=
+ =?us-ascii?Q?HK7VvEd2o5+r2ucbvUepKTgDuS9cZaCyFIB9znOOiYG1Mw2MpkuHfGfuvTu3?=
+ =?us-ascii?Q?ANLQZ/CCJVQWmjJJWkN3PuMdckvDIBlNjrRR3UFHMQELuJWL0pzQdyB6MzjM?=
+ =?us-ascii?Q?6fnBrymOloqQ3cqOgLDs2BvwESLCn/w4R6F3BWUQKJpjC3oezxmXcKnqoCMM?=
+ =?us-ascii?Q?LlQSw7JskciZolM79aK/DwZyaUFDWBqEFyqu0fqQjweZwDrj5QgRzZEqSawz?=
+ =?us-ascii?Q?4gDeAT+i44VRl+JL1l+AKCVKBEUwQTn2WTnlVJfh0aYJHLb6ylKOkDxVH3o3?=
+ =?us-ascii?Q?uDHa5ymaASAGuEAFJDNfeNe8+R3Y9LfVc5898k++d7WHOj/Ojduj8wUvSDF4?=
+ =?us-ascii?Q?TCjC0wKWG64aZl9wCfvtBeYf4ZAWcg+jwOny?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2025 20:24:29.0097 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 519894bc-eefc-4252-9969-08dd98a57d02
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AEB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9389
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,64 +133,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 21, 2025 at 4:22=E2=80=AFPM Aurabindo Pillai
-<aurabindo.pillai@amd.com> wrote:
->
-> This reverts commit 219898d29c438d8ec34a5560fac4ea8f6b8d4f20 since it
-> causes regressions on certain configs. Revert until the issue can be
-> isolated and debugged.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4238
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+The addition of register read-back in VCN v2.0 is intended to prevent
+potential race conditions.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 +++++-----------
->  1 file changed, 5 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 2bb347771aa1..acb5a6baabf4 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -676,21 +676,15 @@ static void dm_crtc_high_irq(void *interrupt_params=
-)
->         spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
->
->         if (acrtc->dm_irq_params.stream &&
-> -               acrtc->dm_irq_params.vrr_params.supported) {
-> -               bool replay_en =3D acrtc->dm_irq_params.stream->link->rep=
-lay_settings.replay_feature_enabled;
-> -               bool psr_en =3D acrtc->dm_irq_params.stream->link->psr_se=
-ttings.psr_feature_enabled;
-> -               bool fs_active_var_en =3D acrtc->dm_irq_params.freesync_c=
-onfig.state =3D=3D VRR_STATE_ACTIVE_VARIABLE;
-> -
-> +           acrtc->dm_irq_params.vrr_params.supported &&
-> +           acrtc->dm_irq_params.freesync_config.state =3D=3D
-> +                   VRR_STATE_ACTIVE_VARIABLE) {
->                 mod_freesync_handle_v_update(adev->dm.freesync_module,
->                                              acrtc->dm_irq_params.stream,
->                                              &acrtc->dm_irq_params.vrr_pa=
-rams);
->
-> -               /* update vmin_vmax only if freesync is enabled, or only =
-if PSR and REPLAY are disabled */
-> -               if (fs_active_var_en || (!fs_active_var_en && !replay_en =
-&& !psr_en)) {
-> -                       dc_stream_adjust_vmin_vmax(adev->dm.dc,
-> -                                       acrtc->dm_irq_params.stream,
-> -                                       &acrtc->dm_irq_params.vrr_params.=
-adjust);
-> -               }
-> +               dc_stream_adjust_vmin_vmax(adev->dm.dc, acrtc->dm_irq_par=
-ams.stream,
-> +                                          &acrtc->dm_irq_params.vrr_para=
-ms.adjust);
->         }
->
->         /*
-> --
-> 2.49.0
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index b8d835c9e17ed..148b651be7ca7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -978,6 +978,12 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_vcn_inst *vinst, bool indirect)
+ 	/* Unstall DPG */
+ 	WREG32_P(SOC15_REG_OFFSET(UVD, 0, mmUVD_POWER_STATUS),
+ 		0, ~UVD_POWER_STATUS__STALL_DPG_POWER_UP_MASK);
++
++	/* Keeping one read-back to ensure all register writes are done,
++	 * otherwise it may introduce race conditions.
++	 */
++	RREG32_SOC15(UVD, 0, mmUVD_STATUS);
++
+ 	return 0;
+ }
+ 
+@@ -1152,6 +1158,11 @@ static int vcn_v2_0_start(struct amdgpu_vcn_inst *vinst)
+ 	WREG32_SOC15(UVD, 0, mmUVD_RB_SIZE2, ring->ring_size / 4);
+ 	fw_shared->multi_queue.encode_lowlatency_queue_mode &= ~FW_QUEUE_RING_RESET;
+ 
++	/* Keeping one read-back to ensure all register writes are done,
++	 * otherwise it may introduce race conditions.
++	 */
++	RREG32_SOC15(UVD, 0, mmUVD_STATUS);
++
+ 	return 0;
+ }
+ 
+@@ -1183,6 +1194,11 @@ static int vcn_v2_0_stop_dpg_mode(struct amdgpu_vcn_inst *vinst)
+ 	WREG32_P(SOC15_REG_OFFSET(UVD, 0, mmUVD_POWER_STATUS), 0,
+ 			~UVD_POWER_STATUS__UVD_PG_MODE_MASK);
+ 
++	/* Keeping one read-back to ensure all register writes are done,
++	 * otherwise it may introduce race conditions.
++	 */
++	RREG32_SOC15(UVD, 0, mmUVD_STATUS);
++
+ 	return 0;
+ }
+ 
+@@ -1248,6 +1264,11 @@ static int vcn_v2_0_stop(struct amdgpu_vcn_inst *vinst)
+ 	vcn_v2_0_enable_clock_gating(vinst);
+ 	vcn_v2_0_enable_static_power_gating(vinst);
+ 
++	/* Keeping one read-back to ensure all register writes are done,
++	 * otherwise it may introduce race conditions.
++	 */
++	RREG32_SOC15(VCN, 0, mmUVD_STATUS);
++
+ power_off:
+ 	if (adev->pm.dpm_enabled)
+ 		amdgpu_dpm_enable_vcn(adev, false, 0);
+-- 
+2.34.1
+
