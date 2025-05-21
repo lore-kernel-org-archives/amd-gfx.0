@@ -4,54 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E498C54E92
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 08:11:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E28C54E65
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 May 2025 08:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA3D10E6B7;
-	Wed, 21 May 2025 08:11:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13A0910E6C1;
+	Wed, 21 May 2025 08:11:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pwvDhLM3";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="FKikR/vx";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC87510E5AB;
- Tue, 20 May 2025 16:33:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=u8hbx2/xCqR/feEv9FrAlg0NzNW9+TcumrI1b32Th4Q=; b=pwvDhLM330CLe9RoW+FQ4a0FSI
- phcoYGuBjPc+8ojjFjU8k+Z+/v75zUGQeMSQ8xXSBPVDLtSSmo3nnRd1JSPU+6QX5B4dw3jzCJoTU
- 1kpt98eJGhF7+xXyzjrNCqEHEGFmVNpkHxhkHU7dN9d/QCJ+NLVgWTzLIk9ofml0c6pn+6OqE4J5K
- Nv082rD7jcD0PS+qVJoWGfTgkhCKg8V88Mehsjj5ILHvCe6W3DfA7hvm7MlT4un0eex6hWMGgUZK/
- RS7bwfc6bye0ow43yPbPibl5R6auzE74hxIq5C+MzCBRfDvceTjPdo5g8PXFbg2T+izeDDuzfk36H
- /khc/c7A==;
-Received: from [191.204.192.64] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uHPtt-00AnEg-C7; Tue, 20 May 2025 18:33:09 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v5 1/3] drm: Create a task info option for wedge events
-Date: Tue, 20 May 2025 13:32:41 -0300
-Message-ID: <20250520163243.328746-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250520163243.328746-1-andrealmeid@igalia.com>
-References: <20250520163243.328746-1-andrealmeid@igalia.com>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E89A10E69D;
+ Wed, 21 May 2025 07:35:09 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4b2NVb2z3rz9sl8;
+ Wed, 21 May 2025 09:35:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1747812903; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6NY0zoUUPANEqEDkUiizEzoJ+FxJPoDDMffZIzxI7P0=;
+ b=FKikR/vx4FERbwsA7/A2o2fAGljiiQfaAZ9C6G+CgvBxwZJ8FiIcgK5WJczcbzhF8xgJf4
+ YBhCBZsVO85ljSgkP0EkykVZ1PVaEmFXTqNfFmPPhkvxbIEFdKQySEyy0jWa3D+zgkMyDD
+ o4UsEzLLVV0FUjBHmH52zVu6AWLe9Dlwhj4AFvqAeyd8W7Pm95HvsaQ0Cq09rGeAirk+kZ
+ CiB6foBUSgOFvpcseVU4WTvUdoT0sRAEwjZctxdWIuCbvr3vdItxvBGVKn70559k5vG/Bw
+ brfDNg358aQF3FQK88fXnU1ZTm/2XfjHI47+RKajeN5cja1ioAof+41W2UByCw==
+Message-ID: <a7b30c595fffd63a5558226a9c372e503fea22d0.camel@mailbox.org>
+Subject: Re: [PATCH 1/3] drm/sched: add drm_sched_prealloc_dependency_slots v3
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tursulin@ursulin.net>, phasta@kernel.org, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, dakr@kernel.org, 
+ amd-gfx@lists.freedesktop.org
+Date: Wed, 21 May 2025 09:35:00 +0200
+In-Reply-To: <8b975d5f-eafd-4b25-8629-69fd71dcd4d9@ursulin.net>
+References: <20250515150038.4615-1-christian.koenig@amd.com>
+ <20250515150038.4615-2-christian.koenig@amd.com>
+ <a5e53b34-c247-4193-b4ab-551693ad089a@ursulin.net>
+ <5c93f114a58e84796f239b9e0f4a13e9c223e45b.camel@mailbox.org>
+ <6e5ab077-77ff-443b-b345-7d99fcd01a73@ursulin.net>
+ <6a361f21-1ba2-4084-b85c-0db30c9b01cc@ursulin.net>
+ <fc617b712c5937c02be89f7ba068ce0de1512027.camel@mailbox.org>
+ <01cce810-7303-4c92-b138-d8a647f3dcee@ursulin.net>
+ <a36fdcf31fa0ca7d9e1a24f60ba4c5bf78c7ae87.camel@mailbox.org>
+ <da8cfddf-6cb9-4ddd-9345-16d065663d4b@ursulin.net>
+ <25363de0e88f750fe70a7b7629113f93f12f47e7.camel@mailbox.org>
+ <8b975d5f-eafd-4b25-8629-69fd71dcd4d9@ursulin.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 4b2d89cee6a20845148
+X-MBO-RS-META: 53fafizi1hz1nxq3nho3js1iur6se3j9
 X-Mailman-Approved-At: Wed, 21 May 2025 08:11:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,179 +73,373 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a device get wedged, it might be caused by a guilty application.
-For userspace, knowing which task was the cause can be useful for some
-situations, like for implementing a policy, logs or for giving a chance
-for the compositor to let the user know what task caused the problem.
-This is an optional argument, when the task info is not available, the
-PID and TASK string won't appear in the event string.
+On Tue, 2025-05-20 at 17:15 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 19/05/2025 10:04, Philipp Stanner wrote:
+> > On Mon, 2025-05-19 at 09:51 +0100, Tvrtko Ursulin wrote:
+> > >=20
+> > > On 16/05/2025 18:16, Philipp Stanner wrote:
+> > > > On Fri, 2025-05-16 at 15:30 +0100, Tvrtko Ursulin wrote:
+> > > > >=20
+> > > > > On 16/05/2025 14:38, Philipp Stanner wrote:
+> > > > > > On Fri, 2025-05-16 at 13:10 +0100, Tvrtko Ursulin wrote:
+> > > > > > >=20
+> > > > > > > On 16/05/2025 12:53, Tvrtko Ursulin wrote:
+> > > > > > > >=20
+> > > > > > > >=20
+> >=20
+> > [snip]
+> >=20
+> > > > > > > > > > > +
+> > > > > > > > > > > +/**
+> > > > > > > > > > > + * drm_sched_job_add_prealloc_dep - add
+> > > > > > > > > > > dependency
+> > > > > > > > > > > to
+> > > > > > > > > > > preallocated
+> > > > > > > > > > > slot
+> > > > > > > > > > > + * @job: scheduler job where dependencies will
+> > > > > > > > > > > be
+> > > > > > > > > > > added
+> > > > > > > > > > > + * @id: the preallocated slot index
+> > > > > > > > > > > + * @fence: the dependency to add
+> > > > > > > > > > > + *
+> > > > > > > > > > > + * Consumes @fence and adds it to the
+> > > > > > > > > > > preallocated
+> > > > > > > > > > > slot
+> > > > > > > > > > > dependency.
+> > > > > > > > > > > + */
+> > > > > > > > > > > +void drm_sched_job_add_prealloc_dep(struct
+> > > > > > > > > > > drm_sched_job
+> > > > > > > > > > > *job, u32
+> > > > > > > > > > > id,
+> > > > > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 struct dma_fence=
+ *fence)
+> > > > > > > > > > > +{
+> > > > > > > > > > > +=C2=A0=C2=A0=C2=A0 fence =3D xa_store(&job->dependen=
+cies, id,
+> > > > > > > > > > > fence,
+> > > > > > > > > > > GFP_ATOMIC);
+> > > > > > > > > >=20
+> > > > > > > > > > Add assert that the passed id exists (was
+> > > > > > > > > > preallocated)
+> > > > > > > > > > and
+> > > > > > > > > > is
+> > > > > > > > > > NULL?
+> > > > > > > > >=20
+> > > > > > > > > You
+> > > > > > > >=20
+> > > > > > > > Hm?
+> > > > > > > >=20
+> > > > > > > > > >=20
+> > > > > > > > > > Also, if someone preallocates and does not consume
+> > > > > > > > > > the
+> > > > > > > > > > slot
+> > > > > > > > > > will that
+> > > > > > > > > > confuse the iteration in
+> > > > > > > > > > drm_sched_job_dependency()?
+> > > > > > > > >=20
+> > > > > > > > > drm_sched_job_add_dependency() you mean.
+> > > > > > > >=20
+> > > > > > > > I was actually thinking of drm_sched_job_dependency()
+> > > > > > > > because
+> > > > > > > > that
+> > > > > > > > looked it would skip dependencies upon encountering an
+> > > > > > > > unconsumed
+> > > > > > > > preallocated slot, but yes,
+> > > > > > > > drm_sched_job_add_dependency()
+> > > > > > > > could
+> > > > > > > > explode
+> > > > > > > > even earlier if adding a normal dependency after
+> > > > > > > > preallocating
+> > > > > > > > a
+> > > > > > > > slot.
+> > > > > > > >=20
+> > > > > > > > > Yes, it would. All operations simply give you NULL
+> > > > > > > > > for
+> > > > > > > > > those
+> > > > > > > > > slots. So
+> > > > > > > > > seems to me you have to check for NULL wherever a
+> > > > > > > > > preallocated
+> > > > > > > > > slot
+> > > > > > > > > might drop out. That would then be a bug.
+> > > > > > > > >=20
+> > > > > > > > > It's kind of tricky, all that. It's a pity that
+> > > > > > > > > Wilcox
+> > > > > > > > > didn't
+> > > > > > > > > answer
+> > > > > > > > > our questions about the idiomatic way to do it.
+> > > > > > > > >=20
+> > > > > > > > > Maybe reserving slots with already signaled fences
+> > > > > > > > > wasn't
+> > > > > > > > > such a
+> > > > > > > > > bad
+> > > > > > > > > idea after all?
+> > > > > > > > >=20
+> > > > > > > > > If we go for the NULL approach, it's probably the
+> > > > > > > > > only
+> > > > > > > > > sane
+> > > > > > > > > way
+> > > > > > > > > to then
+> > > > > > > > > check for NULL wherever dependencies are accessed :(
+> > > > > > > > >=20
+> > > > > > > > > Opinions?
+> > > > > > > >=20
+> > > > > > > > Well if the xarray API returns the NULL consistently
+> > > > > > > > the
+> > > > > > > > approach
+> > > > > > > > from
+> > > > > > > > this patch is fine I think.
+> > > > > > > >=20
+> > > > > > > > We just need to add two more checks to the above
+> > > > > > > > mentioned
+> > > > > > > > functions,
+> > > > > > >=20
+> > > > > > > I need to correct myself, drm_sched_job_dependency()
+> > > > > > > wouldn't
+> > > > > > > be
+> > > > > > > able
+> > > > > > > to
+> > > > > > > just skip NULLs since it relies on NULL for "no more
+> > > > > > > dependencies".
+> > > > > > > We
+> > > > > > > would need to track something like job->max_dependency
+> > > > > > > and
+> > > > > > > terminate
+> > > > > > > on
+> > > > > > > job->last_dependency > job->max_dependency or so.
+> > > > > >=20
+> > > > > > Agreed, that would have to be fixed.
+> > > > > >=20
+> > > > > > I believe we should reconsider Christian's first idea [1].
+> > > > > >=20
+> > > > > > Thinking about it some more:
+> > > > > > =C2=A0=C2=A0=C2=A0 * With the NULL version, suddenly the xarray=
+ containing
+> > > > > > only
+> > > > > > valid
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dependencies can sometimes conta=
+in NULL entries.
+> > > > > > =C2=A0=C2=A0=C2=A0 * If we could create our own tag, entries co=
+uld be
+> > > > > > returned
+> > > > > > that
+> > > > > > were
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 neither NULL nor valid fences, a=
+lso requiring checks
+> > > > > > 'everywhere'.
+> > > > > > =C2=A0=C2=A0=C2=A0 * Only the "signaled fence as prealloc reser=
+vation"
+> > > > > > approach
+> > > > > > is
+> > > > > > fully
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 backwards compatible and will ne=
+ver cause anyone to
+> > > > > > block
+> > > > > > after
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 later reworks.
+> > > > > >=20
+> > > > > > So maybe it's actually the best idea?
+> > > > > >=20
+> > > > > > Sorry for the zigg-zagg. No hard requirements intended from
+> > > > > > my
+> > > > > > side,
+> > > > > > I'm willing to go with what you guys think.
+> > > > > >=20
+> > > > > > Just saying, at least now I think that the already-signaled
+> > > > > > fence
+> > > > > > seems
+> > > > > > the most elegant solution. And since there's a function
+> > > > > > (dma_fence_get_stub()) for that, it seems to be in
+> > > > > > alignment
+> > > > > > with
+> > > > > > official dma_fence rules.
+> > > > >=20
+> > > > > Potential problem there was dma_fence_is_signaled() and fence
+> > > > > signaling
+> > > > > annotations. In case some driver is holding a lock over the
+> > > > > arm+push
+> > > > > pair. I wish we had a non-signaling is_signaled helper..
+> > > > >=20
+> > > >=20
+> > > > Yes! +1!
+> > > >=20
+> > > > But Christian doesn't like that direction:
+> > > >=20
+> > > > https://lore.kernel.org/all/20250409120640.106408-2-phasta@kernel.o=
+rg/
+> > >=20
+> > > Thanks, I read this but ended up uncertain on the conclusion.
+> > >=20
+> > > For instance Christian at the end comments like this:
+> > >=20
+> > > """
+> > > You can test the flag if you know what the fence means to you,
+> > > that
+> > > is
+> > > not a problem at all.
+> > > """
+> > >=20
+> > > That was in the context of testing the signaled bit without
+> > > opportunistic signaling.
+> > >=20
+> > > For me, from the scheduler dependencies side, that should exactly
+> > > apply.
+> > > Scheduler knows it does not need to add a signaled fence to the
+> > > dep
+> > > array so AFAICS it is fine to skip it. And it may easily be
+> > > opportunistic signaling ends up a problem for the scheduler.
+> > >=20
+> > > So maybe such helper would be okay after all.
+> >=20
+> > The thing is that, if I understand him correctly, Christian doesn't
+> > want a helper. He wants "us" to just use test_bit().
+>=20
+> I suspected it may be only about not renaming into some variant of=20
+> check_and_signal etc. With which I agree with, that the name should
+> be=20
+> left alone, because...
+>=20
+> > My point is just that dma_fence_is_signaled() is a horrible name.
+>=20
+> ... as dodgy as it is, and despite me also failing to really
+> understand=20
+> the reason why it _has_ to be have opportunistic signaling, I think=20
+> those semantics are by now pretty much ingrained into people dealing=20
+> with this API so I would leave it as is.
+>=20
+> What I was thinking was the double underscore version of the helper
+> and=20
+> some kerneldoc to say when it is safe to use. For me a helper is
+> better=20
+> than poking directly.
+>=20
+> > The function pci_is_enabled() tells you whether the PCI device is
+> > enabled. What it doesn't do is
+> >=20
+> > bool pci_is_enabled(pdev)
+> > {
+> > =C2=A0=C2=A0=C2=A0 if (crazy_callback_is_implemented()) {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_enable_device();
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return true;
+> > =C2=A0=C2=A0=C2=A0 }
+> >=20
+> > =C2=A0=C2=A0 ...
+> > }
+> >=20
+> > It's not intuitive that a function called
+> > "{something}_is_signaled()"
+> > does signal that thing. Although I get that the syntactical idea
+> > probably is that from the GPUs POV the fence is already signaled
+> > when
+> > this or that seqno has been reached.
+> >=20
+> > Anyways, judging aside, if a wrapper for test_bit(dma_fence) were
+> > acceptable, then it would need to steal dma_fence_is_signaled()'s
+> > name,
+> > and dma_fence_is_signaled() would have to get a new name. Which is
+> > precisely what was rejected, as I see it.
+>=20
+> __dma_fence_is_signaled() is what I would do and leave the existing
+> one=20
+> as is.
 
-Sometimes just the PID isn't enough giving that the task might be already
-dead by the time userspace will try to check what was this PID's name,
-so to make the life easier also notify what's the task's name in the user
-event.
+Fine by me. If you provide a patch for dma_fence, I can do a review.
 
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com> (for i915 and xe)
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
-v5:
- - s/app/task for struct and commit message as well
- - move defines to drm_drv.c
- - validates if comm is not NULL and it's not empty
-v4: s/APP/TASK
-v3: Make comm_string and pid_string empty when there's no app info
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
- drivers/gpu/drm/drm_drv.c                  | 19 +++++++++++++++----
- drivers/gpu/drm/i915/gt/intel_reset.c      |  3 ++-
- drivers/gpu/drm/xe/xe_device.c             |  3 ++-
- include/drm/drm_device.h                   |  8 ++++++++
- include/drm/drm_drv.h                      |  3 ++-
- 7 files changed, 31 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 4d1b54f58495..d27091d5929c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6363,7 +6363,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	atomic_set(&adev->reset_domain->reset_res, r);
- 
- 	if (!r)
--		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-+		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index acb21fc8b3ce..a47b2eb301e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -166,7 +166,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 			if (amdgpu_ring_sched_ready(ring))
- 				drm_sched_start(&ring->sched, 0);
- 			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
--			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-+			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
- 			goto exit;
- 		}
- 		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 3dc7acd56b1d..84e78ce21b65 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -538,10 +538,14 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
- 	}
- }
- 
-+#define WEDGE_STR_LEN 32
-+#define PID_LEN 15
-+
- /**
-  * drm_dev_wedged_event - generate a device wedged uevent
-  * @dev: DRM device
-  * @method: method(s) to be used for recovery
-+ * @info: optional information about the guilty task
-  *
-  * This generates a device wedged uevent for the DRM device specified by @dev.
-  * Recovery @method\(s) of choice will be sent in the uevent environment as
-@@ -554,13 +558,13 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
-  *
-  * Returns: 0 on success, negative error code otherwise.
-  */
--int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
-+int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
-+			 struct drm_wedge_task_info *info)
- {
- 	const char *recovery = NULL;
- 	unsigned int len, opt;
--	/* Event string length up to 28+ characters with available methods */
--	char event_string[32];
--	char *envp[] = { event_string, NULL };
-+	char event_string[WEDGE_STR_LEN], pid_string[PID_LEN] = "", comm_string[TASK_COMM_LEN] = "";
-+	char *envp[] = { event_string, NULL, NULL, NULL };
- 
- 	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
- 
-@@ -582,6 +586,13 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
- 	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
- 		 "but recovered through reset" : "needs recovery");
- 
-+	if (info && ((info->comm && info->comm[0] != '\0'))) {
-+		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
-+		snprintf(comm_string, sizeof(comm_string), "TASK=%s", info->comm);
-+		envp[1] = pid_string;
-+		envp[2] = comm_string;
-+	}
-+
- 	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
- }
- EXPORT_SYMBOL(drm_dev_wedged_event);
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index dbdcfe130ad4..ba1d8fdc3c7b 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -1448,7 +1448,8 @@ static void intel_gt_reset_global(struct intel_gt *gt,
- 		kobject_uevent_env(kobj, KOBJ_CHANGE, reset_done_event);
- 	else
- 		drm_dev_wedged_event(&gt->i915->drm,
--				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
-+				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
-+				     NULL);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index c02c4c4e9412..f329613e061f 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -1168,7 +1168,8 @@ void xe_device_declare_wedged(struct xe_device *xe)
- 
- 		/* Notify userspace of wedged device */
- 		drm_dev_wedged_event(&xe->drm,
--				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
-+				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
-+				     NULL);
- 	}
- 
- 	for_each_gt(gt, xe, id)
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index e2f894f1b90a..c13fe85210f2 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -30,6 +30,14 @@ struct pci_controller;
- #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
- #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
- 
-+/**
-+ * struct drm_wedge_task_info - information about the guilty app of a wedge dev
-+ */
-+struct drm_wedge_task_info {
-+	pid_t pid;
-+	char *comm;
-+};
-+
- /**
-  * enum switch_power_state - power state of drm device
-  */
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index a43d707b5f36..ac45ed855321 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -482,7 +482,8 @@ void drm_put_dev(struct drm_device *dev);
- bool drm_dev_enter(struct drm_device *dev, int *idx);
- void drm_dev_exit(int idx);
- void drm_dev_unplug(struct drm_device *dev);
--int drm_dev_wedged_event(struct drm_device *dev, unsigned long method);
-+int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
-+			 struct drm_wedge_task_info *info);
- 
- /**
-  * drm_dev_is_unplugged - is a DRM device unplugged
--- 
-2.49.0
+P.
+
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> > > Or if the concern is helper might encourage some potentially
+> > > unsafe
+> > > usage, in that case it should come with kerneldoc describing. It
+> > > is
+> > > not
+> > > like review is guaranteed to catch someone using test_bit
+> > > directly
+> > > anyway so for me, on balance, helper is always better.
+> > >=20
+> > > Regards,
+> > >=20
+> > > Tvrtko
+> > >=20
+> > >=20
+> > >=20
+> > >=20
+> > > >=20
+> > > > P.
+> > > >=20
+> > > > >=20
+> > > > >=20
+> > > >=20
+> > > >=20
+> > > > >=20
+> > > > >=20
+> > > > > Anyway, I think both options are passable. I even like the
+> > > > > NULL
+> > > > > entry
+> > > > > slightly more since it is simpler in a way and I don't mind
+> > > > > some
+> > > > > extra
+> > > > > checks completely hidden in scheduler internals.
+> > > > >=20
+> > > > > Regards,
+> > > > >=20
+> > > > > Tvrtko
+> > > > >=20
+> > > > > >=20
+> > > > > >=20
+> > > > > > Philipp
+> > > > > >=20
+> > > > > >=20
+> > > > > > [1]
+> > > > > > https://lore.kernel.org/all/20250318120313.19099-2-christian.ko=
+enig@amd.com
+> > > > > > /
+> > > > > >=20
+> > > > > >=20
+> > > > > > >=20
+> > > > > > > Regards,
+> > > > > > >=20
+> > > > > > > Tvrtko
+> > > > > > >=20
+> > > > > > > > some more unit tests probably to make sure, and that
+> > > > > > > > should
+> > > > > > > > be
+> > > > > > > > fine
+> > > > > > > > for
+> > > > > > > > now.
+> > > > > > > >=20
+> > > > > > > > On the bikeshedding front I would perhaps suggest:
+> > > > > > > >=20
+> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- drm_sched_job_preallocate_d=
+ependency()
+> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- drm_sched_job_replace_depen=
+dency()
+> > > > > > > >=20
+> > > > > > > > Reads a little bit more aligned with the rest of the
+> > > > > > > > API
+> > > > > > > > and a
+> > > > > > > > bit
+> > > > > > > > easier on the eyes, to my eyes at least.
+> > > > > > > >=20
+> > > > > > > > Regards,
+> > > > > > > >=20
+> > > > > > > > Tvrtko
+> > > > > > > >=20
+> > > > > > >=20
+> > > > > >=20
+> > > > >=20
+> > > >=20
+> > >=20
+> >=20
+>=20
 
