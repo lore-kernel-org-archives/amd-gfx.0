@@ -4,54 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0ECC54E65
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 07:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A261BC54756
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 07:40:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECA2395C94;
-	Thu, 22 May 2025 07:40:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1CE29B339;
+	Thu, 22 May 2025 07:40:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="D58eIVlJ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UiV707An";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 230F310E806;
- Wed, 21 May 2025 15:33:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F16318B0F6;
+ Wed, 21 May 2025 15:18:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=g1AFS96Z9JPDmTxa4c4KuWoTuO5ZT6F1LDqypU8z0N8=; b=D58eIVlJLtKEre4gO9w4o1BnOM
- puPirwarCrRabjdCYb2MwRxyYkCjvWlqMHIriMuofK4/tWrcutajtHJUQQvEM8f6ckR7f5Vj2E7Ca
- Q58XfoXqoAknzBhBbGZkIrCWqzULUP4xhOtGfNntKXC82MoDcl60BC9Bh9GYVjdGzNGDluXvH0IRY
- dMFQaipjAtwQS/SSsDVS7Az+Aubk1arl28i5kAuLKjiOHWVGhv7bYDAjBgOjPByds7wpROdBlxuaf
- DKy4hlB0g0H96XjngVQHUm039SXA8fbUyXb5nrfCf7VDoutDcYWSZODFdE1YLZzlu32dTmBoPxSRO
- 5hotiuIQ==;
-Received: from [191.204.192.64] (helo=localhost.localdomain)
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=CvdYKerDHmNMlOHDfBEif1LCoHW5CK6Ve9E47JRA324=; b=UiV707Anfw4FxyUfIIfSuvfglL
+ JSMS9Aus6VK/4DKu9DCBDGzY77I7IpWQTY6mr4faSyyCl46m+5E6rzj4twy8m2pdKy3KsQPvK0QX/
+ p/BJWyplWiHjbCHgg2Hby8t4x5qCkbx2hmPVgc5V8v9lv7K4Fe6RBuVuKYMuEshjyjO+t0wXm6oJB
+ 9zOscoSKevURZBW+VVIR0iLPH1UTLVdLAf5PFPI9B9xuREOHo5I1zM1xMB0nUsDoFx1La2rcu8yq9
+ WumBS8h76eo8tetfe9WEVz+MuSwKB2E4I2krFOPI6SnJJVguGCXGEL6lLV8AxjJejMpHFf/3TkxKk
+ TpeeXeYg==;
+Received: from [191.204.192.64] (helo=[192.168.15.100])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uHlRq-00BGxd-AU; Wed, 21 May 2025 17:33:38 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v6 2/3] drm/doc: Add a section about "Task information" for
- the wedge API
-Date: Wed, 21 May 2025 12:33:22 -0300
-Message-ID: <20250521153323.935974-3-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250521153323.935974-1-andrealmeid@igalia.com>
-References: <20250521153323.935974-1-andrealmeid@igalia.com>
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uHlCg-00BGaE-Qz; Wed, 21 May 2025 17:17:59 +0200
+Message-ID: <39acb89b-c376-4e12-aa86-2b78e8842334@igalia.com>
+Date: Wed, 21 May 2025 12:17:53 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] drm: Create a task info option for wedge events
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ Xaver Hugl <xaver.hugl@gmail.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20250520163243.328746-1-andrealmeid@igalia.com>
+ <20250520163243.328746-2-andrealmeid@igalia.com>
+ <aC2Yq89IL5tx8MY3@black.fi.intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <aC2Yq89IL5tx8MY3@black.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 22 May 2025 07:40:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,52 +70,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a section about "Task information" for the wedge API.
+Em 21/05/2025 06:11, Raag Jadav escreveu:
+> On Tue, May 20, 2025 at 01:32:41PM -0300, André Almeida wrote:
+>> When a device get wedged, it might be caused by a guilty application.
+>> For userspace, knowing which task was the cause can be useful for some
+>> situations, like for implementing a policy, logs or for giving a chance
+>> for the compositor to let the user know what task caused the problem.
+>> This is an optional argument, when the task info is not available, the
+>> PID and TASK string won't appear in the event string.
+>>
+>> Sometimes just the PID isn't enough giving that the task might be already
+>> dead by the time userspace will try to check what was this PID's name,
+>> so to make the life easier also notify what's the task's name in the user
+>> event.
+> 
+> ...
+> 
+>> -int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+>> +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+>> +			 struct drm_wedge_task_info *info)
+>>   {
+>>   	const char *recovery = NULL;
+>>   	unsigned int len, opt;
+>> -	/* Event string length up to 28+ characters with available methods */
+>> -	char event_string[32];
+>> -	char *envp[] = { event_string, NULL };
+>> +	char event_string[WEDGE_STR_LEN], pid_string[PID_LEN] = "", comm_string[TASK_COMM_LEN] = "";
+>> +	char *envp[] = { event_string, NULL, NULL, NULL };
+>>   
+>>   	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+>>   
+>> @@ -582,6 +586,13 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+>>   	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+>>   		 "but recovered through reset" : "needs recovery");
+>>   
+>> +	if (info && ((info->comm && info->comm[0] != '\0'))) {
+> 
+> Thanks for adding this. Should we check if pid > 0?
+> 
 
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
-v5:
- - Change app to task in the text as well
-v4:
- - Change APP to TASK
-v3:
- - Change "app that caused ..." to "app involved ..."
- - Clarify that devcoredump have more information about what happened
- - Update that PID and APP will be empty if there's no app info
----
- Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Ack, added this for the v6.
 
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index 69f72e71a96e..24aa9f320ebc 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
- hang is usually the most critical one which can result in consequential hangs or
- complete wedging.
- 
-+Task information
-+---------------
-+
-+The information about which application (if any) was involved in the device
-+wedging is useful for userspace if they want to notify the user about what
-+happened (e.g. the compositor display a message to the user "The <task name>
-+caused a graphical error and the system recovered") or to implement policies
-+(e.g. the daemon may "ban" an task that keeps resetting the device). If the task
-+information is available, the uevent will display as ``PID=<pid>`` and
-+``TASK=<task name>``. Otherwise, ``PID`` and ``TASK`` will not appear in the
-+event string.
-+
-+The reliability of this information is driver and hardware specific, and should
-+be taken with a caution regarding it's precision. To have a big picture of what
-+really happened, the devcoredump file provides should have much more detailed
-+information about the device state and about the event.
-+
- Consumer prerequisites
- ----------------------
- 
--- 
-2.49.0
+> Also, I was wondering what if the driver only has info on one of the
+> given members? Should we allow it to be flagged independently?
+
+I think we can allow it, but for now I would say that we can wait for a 
+driver that works like that to settle that.
+
+> 
+>> +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
+>> +		snprintf(comm_string, sizeof(comm_string), "TASK=%s", info->comm);
+>> +		envp[1] = pid_string;
+>> +		envp[2] = comm_string;
+>> +	}
+>> +
+>>   	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+>>   }
+>>   EXPORT_SYMBOL(drm_dev_wedged_event);
+> 
+> ...
+> 
+>> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+>> index e2f894f1b90a..c13fe85210f2 100644
+>> --- a/include/drm/drm_device.h
+>> +++ b/include/drm/drm_device.h
+>> @@ -30,6 +30,14 @@ struct pci_controller;
+>>   #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
+>>   #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
+>>   
+>> +/**
+>> + * struct drm_wedge_task_info - information about the guilty app of a wedge dev
+> 
+> s/app/task, missed an instance ;)
+> 
+>> + */
+>> +struct drm_wedge_task_info {
+>> +	pid_t pid;
+>> +	char *comm;
+>> +};
+> 
+> Raag
+> _______________________________________________
+> Kernel-dev mailing list -- kernel-dev@igalia.com
+> To unsubscribe send an email to kernel-dev-leave@igalia.com
 
