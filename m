@@ -4,152 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C56C54756
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 07:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59934C54E65
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 07:40:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 901AB10E8EE;
-	Thu, 22 May 2025 07:08:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26A799B334;
+	Thu, 22 May 2025 07:40:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zKcDTY3O";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K1O65h9i";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45B6510F058
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 May 2025 07:08:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lCV7nZJEpftG9QCDFb7Ggp3hlCeqSQEucffzfbQRNdQh9UmB9jIEvstBYW6BQy2VE8CsLlcwg/aQBGi67U0j3xLhZ7saNqQnIekKALu7ALpGmnhGsLlpxmGwdD6+f9S6qWtZ+tkhpi04IAAYwljY9txdQDmhfmaHEqSzALd/EAoqvWKaBVPLzT7jCr8h77pgOSnKw+EGMO8on2vYI0QRiMnRKkNh8htWI1SCDAkkL8WJJUqx7s/2LFM0pBDloR8NkPFzFUs3dZ/RjIOzzq8DvPGXNfKRxJFME+BpCw6myKKcRtkl0xQj3BxqKH4CaVte0GUnfqvWDM7FMIab1SX+tA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EsG7ExY/mQ7Zskb75bpv6vCKkYo3SRAYP32mK5qvytc=;
- b=X0VZydO4mxuxLA4Rv3LNGZ54+QO1FVYbP4+Tw00IlJ6/m5jA77uXDTy+tyljpZIkw5yziDKJu7KnNWMwUmSd4pnsJHqVDPPbnJ3h2dAfih6xwomYSisAfpzqjvYWHd2p786k60lmHpqXbjxR3FSOoQsWHL2i7xGLgmppb+UibdeJgmq+QqbTSjlYgYfbd+NE8MnSv42tPR9s5mbqb8iwjqiQ31Narj8SceORQ8eIVPGn6k3AcEKGQ1EHEDXR4LCPyRV5ZHzk5IWA+T7c/ksFMPHdVKy+x9CSnc1EPflJafi6KPlqH6sMW82sfNB6dcoBmCBHveeJQTZVjSHZbjnzBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EsG7ExY/mQ7Zskb75bpv6vCKkYo3SRAYP32mK5qvytc=;
- b=zKcDTY3OwuVGD/Azskt9VSqvmVIRbpHEeAPFMfNTMpEjZB9iigc9eCrCxJkH8g0KCSL7HZNaV8gS5QG+ELYJmg0QQlkXTdcoLt8cUdW16+UC4mqpGRNNRIAKohHtfc54bTupA4RWGt2xncwJNFNmCyLfMdqhZudQNkQNXKlDeJ0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- CY5PR12MB6623.namprd12.prod.outlook.com (2603:10b6:930:41::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8769.21; Thu, 22 May 2025 07:07:59 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%6]) with mapi id 15.20.8746.030; Thu, 22 May 2025
- 07:07:58 +0000
-Message-ID: <6955d2b7-2dc0-4161-b97d-5377b6d81a5a@amd.com>
-Date: Thu, 22 May 2025 12:37:51 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/4] drm/amdgpu: update xgmi info and vram_base_offset
- on resume
-To: Samuel Zhang <guoqing.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: victor.zhao@amd.com, haijun.chang@amd.com, Christian.Koenig@amd.com,
- Alexander.Deucher@amd.com, Owen.Zhang2@amd.com, Qing.Ma@amd.com,
- Emily.Deng@amd.com, Jiang Liu <gerry@linux.alibaba.com>
-References: <20250522034350.433219-1-guoqing.zhang@amd.com>
- <20250522034350.433219-2-guoqing.zhang@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20250522034350.433219-2-guoqing.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4PR01CA0056.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:274::17) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03FD110E6D6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 May 2025 08:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1747817683; x=1779353683;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=RRXpTaxMfCR/XYxMZIMKn6YvZ8uobJPW7HJVtW4gMVg=;
+ b=K1O65h9i28Q/jkEKpKHqBHLGvcUC0mLUtOqc/f0R1XZrDgzg6WELfMDG
+ tnUlGhT+uz4KVKWak9/b+Ea6uqW+Q87jzQKZUUqtQWG9ZgENd9YSLHn8M
+ HOnkjU92DX9t3Dw490Mfga9VImnMrLanN433b3UE1exrdwQE16iZi5MZN
+ eZuE1eHo+UB+mjkXkwECRyzlhfLxJm0OjVwOKS9U2fAZ5qwbM/ciFPe6i
+ Yvcpmq+4GxPBc61JZo0Tdj0m4WIc/SE3slO/4Phb1zjQdfosssHPxE0es
+ TNOaSo+nFzZh8hGXD/Jw2Uy4nybFHTKrdxOj8fSoYYEAmtAK0q24uMugy w==;
+X-CSE-ConnectionGUID: hhVgAz9XTl6wqM/5IYuvcQ==
+X-CSE-MsgGUID: q6sZrRBnSCCPYPU61wSO1w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11439"; a="67340286"
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="67340286"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2025 01:54:42 -0700
+X-CSE-ConnectionGUID: p5kv5wEhQXqYHUeaXAVrAw==
+X-CSE-MsgGUID: QK+tNzJXQ4GeEHkr036Mpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="143964583"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2025 01:54:39 -0700
+Date: Wed, 21 May 2025 11:54:36 +0300
+From: Raag Jadav <raag.jadav@intel.com>
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Denis Benato <benato.denis96@gmail.com>, rafael@kernel.org,
+ mahesh@linux.ibm.com, oohall@gmail.com, bhelgaas@google.com,
+ linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
+ lukas@wunner.de, aravind.iddamsetty@linux.intel.com,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH v4] PCI: Prevent power state transition of erroneous device
+Message-ID: <aC2UzG-eycjqYQep@black.fi.intel.com>
+References: <aCsK743YSuahPtnH@black.fi.intel.com>
+ <85ed0b91-c84f-4d24-8e19-a8cb3ba02b14@gmail.com>
+ <aCxP6vQ8Ep9LftPv@black.fi.intel.com>
+ <a8c83435-4c91-495c-950c-4d12b955c54c@kernel.org>
+ <aCyj9nbnIRet93O-@black.fi.intel.com>
+ <552d75b2-2736-419f-887e-ce2692616578@kernel.org>
+ <ee1117cf-6367-4e9a-aa85-ccfc6c63125d@gmail.com>
+ <6f23d82c-10cc-4d70-9dce-41978b05ec9a@kernel.org>
+ <aCzNL9uXGbBSdF2S@black.fi.intel.com>
+ <fea86161-2c47-4b0f-ac07-b3f9b0f10a03@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|CY5PR12MB6623:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5247a485-57c7-4a52-27c5-08dd98ff6208
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NUxPWUNlYVoxNzUrdHEybk9HNWlJTk0yRUI2YnlDTHZCYVdaL3puQnV0V2lD?=
- =?utf-8?B?NHpMUElUNXRHWEVPYkdtNTFPYTh0Y3dIbXJkUmQrSzZLM1ZnZkRaUnhMUDhO?=
- =?utf-8?B?b2F6Z2lKWlM4aEovV2NucENYOGs4TzBuOWVNWGZ4NUU5bUxVMTJTZUYxMHkx?=
- =?utf-8?B?RTVVWUR0TzVyNS83Vjg4cGFPYWFsem9uNGJjTEtpN2h2dXRzaTVEa3FCVnJs?=
- =?utf-8?B?eWZ4c2l5ZmxmT25Ra1ZjLy8rbFVZbXVzbVVLeHdvZjhjV1lzL3pZMkRxRVAz?=
- =?utf-8?B?OGFJQStCK2swSzU1MnlWcG9NblVwNnd3bkVhZ2owM3FUZjhvVEViUWlBTnM3?=
- =?utf-8?B?T3NTeHJaV3JMQmtpRjRoYVlmTU9UOE1NQ2JnRVRvcmVEYVA4S00wMUhJdlp5?=
- =?utf-8?B?ZDZLS2tWbWc5WCtySDlkdFZZWXJ0VlFMdUZBazVnT3dUcElBWFhMNkc1RXRC?=
- =?utf-8?B?dXNRSUg0OUNFUjlUNk9RVDFRMHo2Y0RyUjhZVmRWMy9mNnJJak1jbkN4b1hY?=
- =?utf-8?B?OHU5STBVTG1UZzJ6RWljSUIrcjE4a250S0ZZM3VrQjFNMS85M2dza2o5UGxt?=
- =?utf-8?B?aU9UMXBrNU5zNGJIOS9QR1ZzbXlWZWlsQ2F6NHhHRFE4RUZNOWdyY1RBTjFu?=
- =?utf-8?B?TmpHK3o4b3RML3JJc2tDZlBSdEpuZS80K1FzbzczSHZoU29kbnZQMW5NM1NE?=
- =?utf-8?B?ZGU3VWNPMUpnVlJWRUoranMwOGwxL3A3UEQ4citLVzB2THc4NjZVQ1dJWjln?=
- =?utf-8?B?NnpYeVpYTDVkV1VUdk53V05GVUdsSlZacHprQTVEU2hjRjNvVk5KRE50WFRI?=
- =?utf-8?B?cnBhdUhJV1l0YXBYZ2FNS2x2YkdmTm5ETU9MMk9FYnVnWUNSVW0zaHBBanB5?=
- =?utf-8?B?VDNoU2FJNWRqcVh3NWdWTG9SaDRNNnNLczh1akdXWGVWNXZxMW4xbDdwZkhq?=
- =?utf-8?B?a2E5K0YxVTlMc0RtbW5xR1V6bDRwZlJmYjdLamhtWS95NjVodHVncVBLK1dP?=
- =?utf-8?B?dmtUUnczb0NJcm15SnY3ZVNvODk5YzlmWXJxTitqOG1zVFZSQzV0UHRrYkk3?=
- =?utf-8?B?NjViUUFDN0NjSFQ4c3Bna0owb2NCZVF2YWlpMWNQY1JVK3ZKRGhSVmxsYmVl?=
- =?utf-8?B?bDM5NS9uQ3JWeXNaMFFLYnVBYWh4dGtqejB1emdhT1lEamYvY3dSNHN0dHl4?=
- =?utf-8?B?WE9uL1E4bGYvbHAzQ2ZzU3NXNjNSS1BEWFJRZVhxUWViM0Z3MXBncmV2Wksz?=
- =?utf-8?B?NFdveWZveHgvd2Rtd01XWlV1eTU0UjZxMjdYK2tsNHh3TWtLYWt0ZlR5WnJN?=
- =?utf-8?B?NkdYUlRzVVE4ZHFaTUVUTlV4NkkvUERxbjhUMUZQWitjZExiQjA1Qm9ab1Fh?=
- =?utf-8?B?T2dRU20rNzFtR1NONFNmWGpFUno4SUMwV0ZrRnozbGV2S2tzbFNBVmc2NkFY?=
- =?utf-8?B?WnhYSSs3TmhsYXIvRTVEc3ZHTDZnT3hEN3k2R1d1bDAwa0xhWUltaC8wSjNt?=
- =?utf-8?B?ZTB6NnQvSlJUYzlhU3R5RDh1S3pFWWNjZy9jYVZBcC9ZSXJobHZPSjN1Tmhz?=
- =?utf-8?B?a3hteGU5RFI2aWMvaDZtS1lxVzJHOUpSVVN4RVJSMUo2T2tkM3ltVkZpMlRw?=
- =?utf-8?B?Ynp1TEhYTFN4ckwyYkxxeEp3dUxEZmFoQnRuVU9tVWYrdmk1eU9seCthR0pm?=
- =?utf-8?B?ejBXSVpjS25DdVlWbVM1Wm9lYTNCNmdLcTlDTzR2QVptc3VWQnVST2dxZ0tW?=
- =?utf-8?B?Smo4TGhEYjZPSVAxdjBERFBOeGszZXd2a1R1SVJ4TS9NWlB3Q2lKdDBLMHJk?=
- =?utf-8?B?MFFqN3RmcTljOFpsT2UycXF2dlhIRGo3aVhjcFVJa1RKZ1A1V05heU1lemM4?=
- =?utf-8?B?U0JpTFlzemF0L0lqN3ZEQnEwMlhhdklvanZHQWVlZEtiMFp4WGVjUVlzU2pm?=
- =?utf-8?Q?2dCgZMg9M+I=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGo1RHU0Y1dWY2FUMVdCYXJVZjdRYjV5eHR0S0NTcVJqNmo3dW05RjUwL0pP?=
- =?utf-8?B?Wkg0S3NmbDloMUNlUnJUSTV5ci9NV1Z3SE5STXZRM1g2cXJTNWdrVHNVSGF1?=
- =?utf-8?B?V2t5ZWFaWEJZNnJKM2t1bnJkWXBqeVMwTU9RWHlKS0JVeXFHMzROdW52MVgw?=
- =?utf-8?B?MUowMlFtVk9KZFIvK1ErcEJsV2MwWW92MkVwd2taZit4b1pudy9mcU9FQU1E?=
- =?utf-8?B?QUR2NnVUZDNtcWM5Y1VJNTFFSnplYzBCN25XWXFJY3RVcE93eWh5ZnVzZ2Jh?=
- =?utf-8?B?aGwvUisrODBESEtBTUZBOXlGQTlLSys3b29tdDY0VjZFaXlDVjR0QXY4VG9J?=
- =?utf-8?B?OTNFWEFRaDlERzBHS3BLcFpLOVpGOTA2RmtzcitlU0FkTnBhSVgyeFpTcXJG?=
- =?utf-8?B?NVByeWo1VXQ4WTBFTldmYmlEMVdseVIvU0FETVBoK1JESEU3UUdqVGQzSGZ6?=
- =?utf-8?B?NXBCN3NXWi9VN0ZqYlJUdkdqZ3Q1cVArQ3JvZlhrc04rblBLVk9icW91aitH?=
- =?utf-8?B?VTJOUWN5ZGloODM3SHFGdCtPWmVZUWNoM3FLMmhjRVVsZUdhOVByT3pReGJ1?=
- =?utf-8?B?UnRYT1lGSnVmc0Q4Z3RBb1ZPbWErQUlzMjRYQ205alN5a0I3dkhWaXlzNVgr?=
- =?utf-8?B?L1F0dmhiUHdZdzZmZ2hyUkFQdnBRNGtvRzdaYithSEYrVnlTaEtjQldwTjE5?=
- =?utf-8?B?d3VhOExWZXpHRW93ZFhXNzBRUXJkcGp1UGljSFQ3K2k2bmtPeG9Eek4vMHBO?=
- =?utf-8?B?OEFHRjU2d012NkpGRkE4bTR5S3diTVFCSFcxMnlNdmtlbFpNZXR3d3NGZkJZ?=
- =?utf-8?B?WElYSVRSZnZ0bHVleTR0RCtNSUQyc3RxV2YyTnNyc1NZOUx0bnVDTWUvMEJi?=
- =?utf-8?B?Z2c2OVdhWGp1YTNUc0JkZUJoWFNsR09BQkIvYmhUT2E3NG5GTUp1NnpEUEd2?=
- =?utf-8?B?UVllL2ZIcGRhOThKMkx1UUY5RHROemtFcUt0U2xtRTJBVHZFZTBYK2tLaXV4?=
- =?utf-8?B?NlhhcXIzb01yM0xmS0NraU5iV3NCZEFQRVR0bUJjby9PQkY0clMreXRwdzEz?=
- =?utf-8?B?bTd5dXRtT3NRZDNwaUZMUzBXdThDa0l5T215K2RJalkwRUtSaDVlc1BKWkhO?=
- =?utf-8?B?ZExVQ1J4dFBORlNtZFhZSkRZY01GbTBhZ3Q4aUE4dExtbExDSlBlTWg4SkFZ?=
- =?utf-8?B?S2wwNlNONUFZdUNaalRTOFpvNkJWV1FzcEpvdi9yeUNqeGFXbkRKdzNyVnJo?=
- =?utf-8?B?MHJaNnNQOEZ3cWR3bm5JdnBvTE82elkrTVdJWHVIdW4wbDYvVnpHWVlCaTJj?=
- =?utf-8?B?UWpzQ0hpM3pZUG1Hbno2YWJKaXNXR1ZOdGt2QWlDWGJRc0JTV0tjZWt2Qkt4?=
- =?utf-8?B?OFBhMDBnYjFwZGkzTWh6QjJRa2FsZ3lRSXVHTXpJcmdhU0MyUXBkTDNUbGMw?=
- =?utf-8?B?UzYxS2VuanlMMnNpRURyUDg3STdpUWR2MjVkeVJPbFBFcHFNWnlpSzZxNGU0?=
- =?utf-8?B?SkpBNWM1aWw5Y29FNnZIcHRUazg0Z1IrWTA2dWQxcTBWaEhnZWp1T1lwWFVi?=
- =?utf-8?B?OGNKSGpmeFdIODY0NzRkWlpueUlTbUV6NmJlWlJIWktMbm1HME5xbEVqOEN5?=
- =?utf-8?B?UURWNEZ3NDl5NVhaSUVDUUtFZ2FPZ2tuZmllK0lzb1lzblVXVEpGY2VWN3Fp?=
- =?utf-8?B?VzhTMlVXTlBLNmNYRXJsN21HT0JDZUxHOC9sdHU1UnpaY1BmT0JQTFNzN0Zo?=
- =?utf-8?B?cGFiVVJrNzhZZC9ldUZna1o2UHFXWVVaOXFGTkFNQTh3VnI5M0xsUUlZYzFz?=
- =?utf-8?B?dUQ3bEw1UE4vWkZFV1lSUmoxYWJ1ZFJJOXdvSUxkOVFQSEtBU1dGcWVha2V0?=
- =?utf-8?B?d0JQM256NWU0NDZEMTB4U2J6UXpFZGhOeS81b3hCVWRFYXFqYjhkckFmcDhJ?=
- =?utf-8?B?OW1RN25leElza3l5cndQMU0xVEd4Q015eGoxZUtKR09CQ3E3ZTFmeVgvbnlO?=
- =?utf-8?B?b2lSU1VVenFtM1lKeC9rWXZYTDM4M2FNYzVZYzhBZ3VnYjdhM0NzU2VJaG94?=
- =?utf-8?B?OFhOdzF5cWpJOFh0dklUVFhDbTJIV0pGY2VwUStUU0hPeUNPOFBKREk4eXlL?=
- =?utf-8?Q?VQqH9WZeoi8Y30QDAz1px6R48?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5247a485-57c7-4a52-27c5-08dd98ff6208
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2025 07:07:58.9143 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Yss9QaAphbPJOG2YmZLGxAEx7jJ+Ujp3utSsJZGizmkvkkvWASTQYTZNAVC1w+q4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6623
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fea86161-2c47-4b0f-ac07-b3f9b0f10a03@kernel.org>
+X-Mailman-Approved-At: Thu, 22 May 2025 07:40:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,113 +83,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 5/22/2025 9:13 AM, Samuel Zhang wrote:
-> For SRIOV VM env with XGMI enabled systems, XGMI physical node id may
-> change when hibernate and resume with different VF.
+On Tue, May 20, 2025 at 01:56:28PM -0500, Mario Limonciello wrote:
+> On 5/20/2025 1:42 PM, Raag Jadav wrote:
+> > On Tue, May 20, 2025 at 12:39:12PM -0500, Mario Limonciello wrote:
+> > > On 5/20/2025 12:22 PM, Denis Benato wrote:
+> > > > On 5/20/25 17:49, Mario Limonciello wrote:
+> > > > > On 5/20/2025 10:47 AM, Raag Jadav wrote:
+> > > > > > On Tue, May 20, 2025 at 10:23:57AM -0500, Mario Limonciello wrote:
+> > > > > > > On 5/20/2025 4:48 AM, Raag Jadav wrote:
+> > > > > > > > On Mon, May 19, 2025 at 11:42:31PM +0200, Denis Benato wrote:
+> > > > > > > > > On 5/19/25 12:41, Raag Jadav wrote:
+> > > > > > > > > > On Mon, May 19, 2025 at 03:58:08PM +0530, Raag Jadav wrote:
+> > > > > > > > > > > If error status is set on an AER capable device, most likely either the
+> > > > > > > > > > > device recovery is in progress or has already failed. Neither of the
+> > > > > > > > > > > cases are well suited for power state transition of the device, since
+> > > > > > > > > > > this can lead to unpredictable consequences like resume failure, or in
+> > > > > > > > > > > worst case the device is lost because of it. Leave the device in its
+> > > > > > > > > > > existing power state to avoid such issues.
+> > > > > > > > > > > 
+> > > > > > > > > > > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+> > > > > > > > > > > ---
+> > > > > > > > > > > 
+> > > > > > > > > > > v2: Synchronize AER handling with PCI PM (Rafael)
+> > > > > > > > > > > v3: Move pci_aer_in_progress() to pci_set_low_power_state() (Rafael)
+> > > > > > > > > > >         Elaborate "why" (Bjorn)
+> > > > > > > > > > > v4: Rely on error status instead of device status
+> > > > > > > > > > >         Condense comment (Lukas)
+> > > > > > > > > > Since pci_aer_in_progress() is changed I've not included Rafael's tag with
+> > > > > > > > > > my understanding of this needing a revisit. If this was a mistake, please
+> > > > > > > > > > let me know.
+> > > > > > > > > > 
+> > > > > > > > > > Denis, Mario, does this fix your issue?
+> > > > > > > > > > 
+> > > > > > > > > Hello,
+> > > > > > > > > 
+> > > > > > > > > Unfortunately no, I have prepared a dmesg but had to remove the bootup process because it was too long of a few kb: https://pastebin.com/1uBEA1FL
+> > > > > > > > 
+> > > > > > > > Thanks for the test. It seems there's no hotplug event this time around
+> > > > > > > > and endpoint device is still intact without any PCI related failure.
+> > > > > > > > 
+> > > > > > > > Also,
+> > > > > > > > 
+> > > > > > > > amdgpu 0000:09:00.0: PCI PM: Suspend power state: D3hot
+> > > > > > > > 
+> > > > > > > > Which means whatever you're facing is either not related to this patch,
+> > > > > > > > or at best exposed some nasty side-effect that's not handled correctly
+> > > > > > > > by the driver.
+> > > > > > > > 
+> > > > > > > > I'd say amdgpu folks would be of better help for your case.
+> > > > > > > > 
+> > > > > > > > Raag
+> > > > > > > 
+> > > > > > > So according to the logs Denis shared with v4
+> > > > > > > (https://pastebin.com/1uBEA1FL) the GPU should have been going to BOCO. This
+> > > > > > > stands for "Bus off Chip Off"
+> > > > > > > 
+> > > > > > > amdgpu 0000:09:00.0: amdgpu: Using BOCO for runtime pm
+> > > > > > > 
+> > > > > > > If it's going to D3hot - that's not going to be BOCO, it should be going to
+> > > > > > > D3cold.
+> > > > > > 
+> > > > > > Yes, because upstream port is in D0 for some reason (might be this patch
+> > > > > > but not sure) and so will be the root port.
+> > > > > > 
+> > > > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D0
+> > > > > > pcieport 0000:07:00.0: PCI PM: Skipped
+> > > > > > 
+> > > > > > and my best guess is the driver is not able to cope with the lack of D3cold.
+> > > > > 
+> > > > > Yes; if the driver is configured to expect BOCO (D3cold) if it doesn't get it, chaos ensues.
+> > > > > 
+> > > > > I guess let's double check the behavior with CONFIG_PCI_DEBUG to verify this patch is what is changing that upstream port behavior.
+> > > > 
+> > > > 
+> > > > This is the very same exact kernel, minus the patch in question:  https://pastebin.com/rwMYgG7C
+> > > > 
+> > > > 
+> > > > Both previous kernel and this one have CONFIG_PCI_DEBUG=y.
+> > > > 
+> > > > Removed the initial bootup sequence to be able to use pastebin.
+> > > 
+> > > Thanks - this confirms that the problem is the root port not going to D3.
+> > > This new log shows:
+> > > 
+> > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D3hot
+> > > 
+> > > So I feel we should fixate on solving that.
+> > 
+> > Which means what you're looking for is error flag being set somewhere in
+> > the hierarchy that is preventing suspend.
 > 
-> Update XGMI info and vram_base_offset on resume for gfx444 SRIOV env.
-> Add amdgpu_virt_xgmi_migrate_enabled() as the feature flag.
+> Is the issue perhaps that this is now gated on both correctable and
+> uncorrectable errors?
 > 
-> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
-> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
-> Reviewed-by: Christian KÃ¶nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 ++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  7 +++++
->  2 files changed, 39 insertions(+)
+> Perhaps should *correctable errors* be emitted with a warning and the
+> *uncorrectable errors* be fatal?
+
+That'd be more or less inline with hiding the issue, and it can also race
+with err_handler callback if driver has registered it.
+
+> > But regardless of it, my understanding is that root port suspend depends
+> > on a lot of factors (now errors flags being one of them with this patch)
+> > and endpoint driver can't possibly enforce or guarantee it - the best it
+> > can do is try.
+> > 
+> > What's probably needed is D3cold failure handling on driver side, but I'm
+> > no PCI PM expert and perhaps Rafael can comment on it.
+> > 
+> > Raag
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index d477a901af84..e5bb46effb6c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2732,6 +2732,12 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->  	if (!amdgpu_device_pcie_dynamic_switching_supported(adev))
->  		adev->pm.pp_feature &= ~PP_PCIE_DPM_MASK;
->  
-> +	adev->virt.is_xgmi_node_migrate_enabled = false;
-> +	if (amdgpu_sriov_vf(adev)) {
-> +		adev->virt.is_xgmi_node_migrate_enabled =
-> +			amdgpu_ip_version((adev), GC_HWIP, 0) == IP_VERSION(9, 4, 4);
-> +	}
-> +
->  	total = true;
->  	for (i = 0; i < adev->num_ip_blocks; i++) {
->  		ip_block = &adev->ip_blocks[i];
-> @@ -5040,6 +5046,28 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
->  	return 0;
->  }
->  
-> +static inline int amdgpu_virt_resume(struct amdgpu_device *adev)
-> +{
-> +	int r;
-> +	unsigned int prev_physical_node_id = adev->gmc.xgmi.physical_node_id;
-> +
-> +	if (!amdgpu_virt_xgmi_migrate_enabled(adev))
-> +		return 0;
-> +
-> +	r = adev->gfxhub.funcs->get_xgmi_info(adev);
-> +	if (r)
-> +		return r;
-> +
-> +	dev_info(adev->dev, "xgmi node, old id %d, new id %d\n",
-> +		prev_physical_node_id, adev->gmc.xgmi.physical_node_id);
-> +
-> +	adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
-> +	adev->vm_manager.vram_base_offset +=
-> +		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * amdgpu_device_resume - initiate device resume
->   *
-> @@ -5061,6 +5089,10 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
->  			return r;
->  	}
->  
-> +	r = amdgpu_virt_resume(adev);
+> From the driver perspective it does have expectations that the parts outside
+> the driver did the right thing.  If the driver was expecting the root port
+> to be powered down at suspend and it wasn't there are hardware components
+> that didn't power cycle and that's what we're seeing here.
 
-You may restrict this to VF only for now -
-	if (amdgpu_sriov_vf(adev)) {
-		r = amdgpu_virt_resume(adev);
-		...
-	}
+Which means the expectation set by the driver is the opposite of the
+purpose of this patch, and it's going to fail if any kind of error is
+detected under root port during suspend.
 
-Thanks,
-Lijo
-
-> +	if (r)
-> +		goto exit;
-> +
->  	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
->  		return 0;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> index df03dba67ab8..532b92628171 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> @@ -295,6 +295,9 @@ struct amdgpu_virt {
->  	union amd_sriov_ras_caps ras_telemetry_en_caps;
->  	struct amdgpu_virt_ras ras;
->  	struct amd_sriov_ras_telemetry_error_count count_cache;
-> +
-> +	/* hibernate and resume with different VF feature for xgmi enabled system */
-> +	bool is_xgmi_node_migrate_enabled;
->  };
->  
->  struct amdgpu_video_codec_info;
-> @@ -376,6 +379,10 @@ static inline bool is_virtual_machine(void)
->  	((adev)->virt.gim_feature & AMDGIM_FEATURE_VCN_RB_DECOUPLE)
->  #define amdgpu_sriov_is_mes_info_enable(adev) \
->  	((adev)->virt.gim_feature & AMDGIM_FEATURE_MES_INFO_ENABLE)
-> +
-> +#define amdgpu_virt_xgmi_migrate_enabled(adev) \
-> +	((adev)->virt.is_xgmi_node_migrate_enabled)
-> +
->  bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev);
->  void amdgpu_virt_init_setting(struct amdgpu_device *adev);
->  int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool init);
-
+Raag
+> 
+> 
