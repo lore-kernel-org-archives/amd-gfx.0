@@ -4,59 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BF46C54E65
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 10:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCB7C54E90
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 10:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C0B810EBEC;
-	Thu, 22 May 2025 10:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB3810EC26;
+	Thu, 22 May 2025 10:41:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="pS5xqNMj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SHcGDTKQ";
 	dkim-atps=neutral
-Received: from mail-10624.protonmail.ch (mail-10624.protonmail.ch
- [79.135.106.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CBD310EA28
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 May 2025 10:14:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1747908889; x=1748168089;
- bh=cQqKMifk1yWos+SGTPw5y6zCxoWEk/70UCGIQWRWnqM=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=pS5xqNMjU/lADhtfbTICyk7I78M2zzSzpEB/XVw7ZLOu253jqfFpimOeU3SNtkK9K
- eW7IfyVtSbGBGpOaeSsA6w2agVqiLs6BJ80bFgOmIHDMHeFsUt7ekR3n+yKURN/ijk
- I4ucsj81JDlXmJn/7dxIFEpnkqY3DTiFieXKLDLeXPX9cyLgAI6zOdRETkS/MRkQH1
- dgSfyQ2wZ74ev0HDVZu/giPqyU4se8vEeEJ0rXfbuEu0v3RuWWT2zfxjaqRhvnNPxx
- wkie6NiU0yNSA0MzjWnXPfjjY5kETctdAdnLVuDERXkA4HhFNcp650k/zIsxP8uW7x
- 127Hc1m23Y6sA==
-Date: Thu, 22 May 2025 10:14:44 +0000
-To: Harry Wentland <harry.wentland@amd.com>
-From: Simon Ser <contact@emersion.fr>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, Alex Hung <alex.hung@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, leo.liu@amd.com,
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com
-Subject: Re: [PATCH V8 40/43] drm/colorop: Add 3D LUT support to color pipeline
-Message-ID: <8pzKUkjgb0fIlD3_edy0Wpl9vY-0Uuukcn3texesI1Bl0cLolExOvVoMdUwVv42T5K_o_U_wUY-saxXag2WhjKa7_Rh-EuORqZfWBUDczLo=@emersion.fr>
-In-Reply-To: <f92df258-653d-49ba-b8f6-a1b677744a1e@amd.com>
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-41-alex.hung@amd.com>
- <CAFZQkGwrP39REsvZwQ_Uaq+cHR_pH2EPuv_POXRO7Hxj9u4Xsw@mail.gmail.com>
- <vyX7bdPppc_pDUQBeKeZNyy69WUl_XKExs-I7dfuDJJy6SKXWoBL7B-IRMZKxuktNMQCIg0lP56Xj0qLidKOlBJQJjUYHOQ5Id6yw5k8Q10=@emersion.fr>
- <CAFZQkGxXJe=FGdymMRevbtU+jKre6PdthAu33Qz+kVsR_OVpJg@mail.gmail.com>
- <BqFABawLqkjFjPvuKwfsFBKt2A6KcEIeJU289qnX9Try6dV0nhXeXF3vxJUK_xUP5a1gfARBt3wY0lpOV2Nbmcmj5WXCw6fsZjPNT39KAu4=@emersion.fr>
- <b3bf99cc-f6f4-46ce-aa00-fea74b3179b1@amd.com>
- <f92df258-653d-49ba-b8f6-a1b677744a1e@amd.com>
-Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 5d48259c69c6ca71ce810224cc1f2304598d03c4
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2084.outbound.protection.outlook.com [40.107.101.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1F5F10EC26
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 May 2025 10:41:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nZBHvvKp2s2XOp2z3MSK06qHgPjE1Yjh7rwJ4njKX5nzNSGx5pO6dgI2KNmKoV3qNOaeoejk+Dnqgc62eJ6L6dXb6Hl2B9ZHfZVZuL7GCuTF5GC+9RgM3O6kDSTr1o38u0As0TL3e6SjxycUmR6danwP4OI7eyKo6coni6NmHB9OKlGcDy1FOW/Evatgpznnll54gH23mlAgE8q6aVW5GlsD1g141narGhETT5+2r77FQLwp+R4GF9Rx+oa5Bk+zxvy+NVvCXIcCgIEXigfCYxD7sAmavkxIeu9ECvU7xXwBcbLXbj+KZkpVp0SoTWN+mAbffJAsCeUW7cKwERFVWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xYJrwA/SpUbdtP/s1PgAPMPHkfYe1XIF8m+raYNy5mg=;
+ b=cmCP3JNKIADANTipwrGWntxiSPe82W4kqYciiz48oxEj7SNtIrgViCY2Fpp8A2cZ6iEJQBUb1p+60Bmd8VS/RwqInrg0t+ox7kdkilcXjUzxIn3ezIHDuxj0ECZQD5xuxyvIC3h38wk6xn0/wQgfGeBR+dQx8JeqFbAZBPdA41O6JcUh7lmQ0n25o6AThNRoQGt5xML9Ik3xmHAKpKeyTijyJ9aMZL0WybsHONx3jsHfJuaqR/jSIQYEbZFTmtjJ7NNP5ohJ6WK+1IZ5F9FRJ8V1VRv7bxyTWNa9qitj14qwmk6Z+qQxN/ns2xTEqkqr9S6I4HrHM6sQz9UdrqeQlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xYJrwA/SpUbdtP/s1PgAPMPHkfYe1XIF8m+raYNy5mg=;
+ b=SHcGDTKQ8rzMlZ1hb0/6J0NBi5ds+zBSf5Oq80eUeAoJdv5yMJyBGxWVVYUmxtBffX5d5aC2mjcqYrjcXfT2cnvEaW7CG1AAe2WNOKlvVed56vw1HNwz9N79pIJ/1AbkFDYlkalCat9I0Jm2BmkQ1d35dccItYop+TtUYhtwV20=
+Received: from PH8P220CA0032.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:348::10)
+ by PH0PR12MB5678.namprd12.prod.outlook.com (2603:10b6:510:14e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.33; Thu, 22 May
+ 2025 10:41:01 +0000
+Received: from MWH0EPF000A6730.namprd04.prod.outlook.com
+ (2603:10b6:510:348:cafe::22) by PH8P220CA0032.outlook.office365.com
+ (2603:10b6:510:348::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.21 via Frontend Transport; Thu,
+ 22 May 2025 10:41:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MWH0EPF000A6730.mail.protection.outlook.com (10.167.249.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Thu, 22 May 2025 10:41:00 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 22 May
+ 2025 05:40:59 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 22 May
+ 2025 05:40:59 -0500
+Received: from hjbog-srdc-17.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 22 May 2025 05:40:56 -0500
+From: Samuel Zhang <guoqing.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <victor.zhao@amd.com>, <haijun.chang@amd.com>, <guoqing.zhang@amd.com>,
+ <Christian.Koenig@amd.com>, <Alexander.Deucher@amd.com>,
+ <Owen.Zhang2@amd.com>, <Qing.Ma@amd.com>, <Lijo.Lazar@amd.com>,
+ <Emily.Deng@amd.com>
+Subject: [PATCH v8 0/4] enable xgmi node migration support for hibernate on
+ SRIOV
+Date: Thu, 22 May 2025 18:40:44 +0800
+Message-ID: <20250522104048.569456-1-guoqing.zhang@amd.com>
+X-Mailer: git-send-email 2.43.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6730:EE_|PH0PR12MB5678:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ce5cedd-ff0d-4386-90af-08dd991d24a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eXRLSWhkTUNBeTJQUUM1eVZIam1wM0NmRHRKS3ZmVGp0eVNvQ1grSEdCS3J3?=
+ =?utf-8?B?ZEl2YnQxR24xNjNqNUUxRHlScWRucE85d0o0cFY3RWtPYlNkaXpESzU2a1ht?=
+ =?utf-8?B?SVJPc1pJZXo5a1dWdnV0YXBzUlAxTTFrVllDUTZBcmh6dkphZll3VDAyYUZJ?=
+ =?utf-8?B?S0hpcEV2ZWMxbURsZmhXMGlseWVjaTQ5ckJxaUxMempYWU9zNEp6K0oxU3Bq?=
+ =?utf-8?B?ZUdQUTc0NHE5VlJvL1dXSDJIM3dKTWZyMWZLSG1tVUVsK29QZzJXd0NVYXMr?=
+ =?utf-8?B?M1hnWGtrOU0yNUZmT0E2NXhsTHlnRWYvUjByRFRYTllTUlZPM0hyaWpUWk5a?=
+ =?utf-8?B?eUNxRFZPUzV6dTQ3V3YxQ0ZhUXZNNXdVbGc2U0ZTRDFyY1NEbmF2YUlPUllq?=
+ =?utf-8?B?QjdTci9UVnluY3EzOHBNVEhkTkdjNnEvbnRUaDBEdGw0Z0Jta1VuYWdqVG50?=
+ =?utf-8?B?Wk1kaGtDa3hnczFhNUNtc1REcnhjdUhyUVB3UENpdFc4S25ZVnhIUXZnWUJU?=
+ =?utf-8?B?Tm1ibURBcHRXUlhNTkgrUzVnSDg1NlZXbEZOTEE3OGFIWXhjeVljbWNkVnFi?=
+ =?utf-8?B?L0gybmhwcy9JaU1BN0VTZVNGYlNaWERkVDl3eXAycmxqd3NRblM2UUN5Wit2?=
+ =?utf-8?B?MVpVSG9mVXJIUTBac1BjckI1b3BjS24vL1I0M0JlbEtoSGhIMmZEc0Zla0oz?=
+ =?utf-8?B?SUVDVFpPK1lJMnk0cDg1YWZsSDdmdFVnZ0RJc1pwZGVyRW42ZVc1cnI0dEZu?=
+ =?utf-8?B?bWw0dXhCUHNrMTIwT0lsNWF0dnQ0ZFJxbHBOemFuZ0x6OHFyQkFibUpHSnF5?=
+ =?utf-8?B?NEpSWVhtTmVIOG9vRmRkbEF4SWxxOWM0V2xVZmJCV1diait3VVgrZitDdGlH?=
+ =?utf-8?B?aER4VUFqNnVmSisrWUNjZFpzbzc1STlLZFB2UEJTM2dxZkF4Z0U1NGJUVXZO?=
+ =?utf-8?B?cTBmMXR4K25kWlQ3OHhsaU51TVZRU05KNWg2VFV5di94dUg3U2VnYXg1N3Z2?=
+ =?utf-8?B?UEw3bVZ2WFRndFh2eUN3dVNad0NVN2JGNk5XVCtCTlg2Lyt4M3huYW1wazFn?=
+ =?utf-8?B?MUhYMFJWWEl2TWFvZ2JFbXhaMFI3dWdRb2YvRmgyMldQY3pNL0hYbE5uNklB?=
+ =?utf-8?B?cWhTNmlNbWNIVXVqSVFheWtqQ3AvN000ZGxKaHNHaDQ2YjJ5c3YxREYzNEdI?=
+ =?utf-8?B?VE0vZ0QvYUFkV0FuTmgzVzVad2pYVWNWeEMybzNJMlFib0FQTGZWQ1R5ZmlW?=
+ =?utf-8?B?aVRNdjFFU0tESDI4aWpXZm5rMXhKZFZaalZOZktLczZicWVTRFIrKzE2WkFr?=
+ =?utf-8?B?cVIrV0hGMGRsNzBkYUN3TEZ2V0U4a0N4RW5rSlJEVDdPblpGRnlheGJPSmg2?=
+ =?utf-8?B?aFN5ZFZJQTN3Skh5U2xyTE1wVTF3R1R6b3Y0Q3dhMXo4b1dBNytIbVkzTFZI?=
+ =?utf-8?B?UE9ZRlk2b3NWUENLUkl3MmJkZlFWS3UwYlNybjJNNDM5djZMeFYxc2hGODhG?=
+ =?utf-8?B?UlZWaTQyRHBydElmOGlPNHFKOG5qMEtKSUZIeDZkRWdoeURRS2Z3clFxbXNR?=
+ =?utf-8?B?b1dGaG83bDRadEg0dlJmVjFLcHN6NjlWT1dDMFRQcWdhQmE0ejdYaEVyVS9T?=
+ =?utf-8?B?eURpNzJSaDRPc0NqN2xReWtPZlhVa1pIVDBnTnhwdXFjVS8wZnJLL3VNT1l0?=
+ =?utf-8?B?VHJtMEFucER4Q2FTY25qZlZ4enlyY3BQb1JoandFdU5tRGlKZmdvdlI4bUJX?=
+ =?utf-8?B?VTdKWWVTTlcvOVVWdEQyY2l1Sy9WdnY1Ui81bFNQZVFsK2hmRjd5NStleHlk?=
+ =?utf-8?B?a3E0T2hVN2hhTy8wSTFXM3Z5K2FObHNObEE0anhtY3hXVVAxeC9DWkV5YzJv?=
+ =?utf-8?B?Z2FOazNhT0w2WkcwZjdCekgyWENReUNmRWJScVZmOTJyYmJodVl1OWFnd3Iy?=
+ =?utf-8?B?aTFURThzazJvL2FFT1FPbGlqTnd5SE50dHFLTHFLYnE5U0JydlducUs0cm4y?=
+ =?utf-8?B?WXRvbmx4N0ZGT0N4TG9UUFo4a0E0VE1ZVHR2S0RFSC9ka1QzMTh1c1c0M055?=
+ =?utf-8?Q?Q7b7FC?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2025 10:41:00.3150 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ce5cedd-ff0d-4386-90af-08dd991d24a8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6730.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5678
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,40 +147,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wednesday, May 21st, 2025 at 21:18, Harry Wentland <harry.wentland@amd.c=
-om> wrote:
+On SRIOV and VM environment, customer may need to switch to new vGPU indexes after hibernate and then resume the VM. For GPUs with XGMI, `vram_start` will change in this case, the FB aperture gpu address of VRAM BOs will also change.
+These gpu addresses need to be updated when resume. But these addresses are all over the KMD codebase, updating each of them is error-prone and not acceptable.
 
-> On 2025-05-20 16:13, Harry Wentland wrote:
->=20
-> > On 2025-05-19 19:43, Simon Ser wrote:
-> >=20
-> > > On Sunday, May 18th, 2025 at 00:32, Xaver Hugl xaver.hugl@gmail.com w=
-rote:
-> > >=20
-> > > > > We can always make the property mutable on drivers that support i=
-t in
-> > > >=20
-> > > > > the future, much like the zpos property. I think we should keep i=
-t
-> > > > > immutable for now.
-> > > >=20
-> > > > Sure, but I don't see any reason for immutability with an enum
-> > > > property - it can just limit the possible values to what it support=
-s,
-> > > > and that can be only one value. Either way, it's not a big issue.
-> > >=20
-> > > Immutability is a clear indication that a property has a fixed read-o=
-nly
-> > > value which can't be switched by user-space. That's also the pattern
-> > > used everywhere in the KMS uAPI, so I think it's better to remain
-> > > consistent here.
-> >=20
-> > I was envisioning this to be a driver-caps thing, but I agree
-> > if we make this mutable it can still serve that function but with
-> > different/future HW possibly support other interpolation schemes.
->=20
-> Would changing this enum property from IMMUTABLE to MUTABLE
-> in the future (for drivers that support multiple types) break
-> any userspace that assumes IMMUTABLE?
+The solution is to use pdb0 page table to cover both vram and gart memory and use pdb0 virtual gpu address instead. When gpu indexes change, the virtual gpu address won't change.
 
-I don't think it would, see the zpos property.
+For psp and smu, pdb0's gpu address does not work, so the original FB aperture gpu address is used instead. They need to be updated when resume with changed vGPUs.
+
+v2:
+- remove physical_node_id_changed
+- set vram_start to 0 to switch cached gpu addr to gart aperture
+- cleanup pdb0 patch
+v3:
+- remove gmc_v9_0_init_sw_mem_ranges() call
+- remove vram_offset memeber
+- add 4 refactoring patch to remove cached gpu addr
+- cleanup pdb0 patch
+v4:
+- remove gmc_v9_0_mc_init() call and `refresh` update.
+- do not set `fb_start` in mmhub_v1_8_get_fb_location() when pdb0 enabled.
+v5:
+- add amdgpu_virt_xgmi_migrate_enabled() check
+- move vram_base_offset update to pdb0 patch
+- remove 4 refactoring patches to remove cached gpu addr
+- add patch to fix IH not working issue when resume with new VF
+v6: per Lijo feedback
+- rename amdgpu_device_update_xgmi_info() to amdgpu_virt_resume()
+- merge xgmi node and vram_base_offset update, IH fix into amdgpu_virt_resume()
+- remove 2 unnecessary gpu addr update changes
+v7: per Christian feedback
+- remove pdb0_enabled and add gmc_v9_0_is_pdb0_enabled()
+- remove amdgpu_gmc_vram_location() call in amdgpu_gmc_sysvm_location()
+- remove check in mmhub_v1_8_get_fb_location() and update fb_start/fb_end on resume
+v8:
+- use cached fb_start in amdgpu_bo_fb_aper_addr()
+- remove fb_start/fb_end update in amdgpu_virt_resume() and amdgpu_gmc_sysvm_location()
+- use vram_start to set regVM_CONTEXT0_PAGE_TABLE_START_ADDR_*
+- move check to the callsite of amdgpu_virt_resume()
+- add gmc.xgmi.node_segment_size check in amdgpu_virt_xgmi_migrate_enabled()
+- rename gmc_v9_0_is_pdb0_enabled() to amdgpu_gmc_is_pdb0_enabled()
+
+Samuel Zhang (4):
+  drm/amdgpu: update xgmi info and vram_base_offset on resume
+  drm/amdgpu: update GPU addresses for SMU and PSP
+  drm/amdgpu: enable pdb0 for hibernation on SRIOV
+  drm/amdgpu: fix fence fallback timer expired error
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 38 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    | 28 ++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 20 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 23 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c  |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  7 ++++
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c   |  8 +++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 13 +++++---
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c    |  6 ++--
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  | 18 ++++++++++
+ 13 files changed, 151 insertions(+), 17 deletions(-)
+
+-- 
+2.43.5
+
