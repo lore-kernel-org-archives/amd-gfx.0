@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D33C9C54ED0
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 13:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E04C54E90
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 13:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2EB10EE37;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D64A910EE1A;
 	Thu, 22 May 2025 13:41:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ggs4GHxv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ky7b/C0Y";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8D310EE2F;
- Thu, 22 May 2025 13:41:24 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-6016d401501so10881590a12.2; 
- Thu, 22 May 2025 06:41:23 -0700 (PDT)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4320810EE10;
+ Thu, 22 May 2025 13:41:25 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-601ab204085so8911463a12.1; 
+ Thu, 22 May 2025 06:41:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747921282; x=1748526082; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747921284; x=1748526084; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=oxkKHwFXoioX8JC9ugNSwYvPqb9envWDOnp8CIHvuOo=;
- b=ggs4GHxv7JNwnyLhWgY8c+L23bmLszwQ9+Aaa1MgTfDZaccfL1au5oX10g3AmInhQj
- UKJm9DzzrS5d2inJbPg06dq2kv5fqzbEKMH09MeV4/ZMXJMJ+vUnFHL4OkaJKJ1nCmgs
- iaI3QtlxZei4dxzsBp5Lgpkv1+Md0jRwJs2epsZihFyOFNx1e4LU2e91G6ahAX8UQds/
- MjsPlt8Rmp+CRkF8EtzEBIe1O28gUd/ofEwimzDnIKXz3Rwy5Sx49Ld6U6I+o2BAL0Gi
- Suc5LT6z2/PZYXq8oDMNI0lTGa1o+PqkASUq426UKgizS/JdWU+85owG0JS0wmX4YhOP
- EQsg==
+ :reply-to; bh=rqwkMrM5JL4EFpQh48JAg7ETFNDz+6d5oJlHLbW/gEc=;
+ b=ky7b/C0YOzBK4uqozmbotWdoVa+W2JgkIqkVOpqopduNJYfS7o/9dWv2w8SkyzGNkL
+ j+HWt0kSQPv+tmZiTW+MS7/d904A4UNXCXDAW+7cRUzsivkWuQlR2juwXjT7cxxIlfbj
+ 1YnBZchBX1+3Xtv7YbJEU8qYQFccUzagLaoPAW7/QqQhaCt4bE5XEcvddVkKcbWEiHC9
+ CqBCjsFmWj5r0X0f2me65tTN4ZLyvzwDf+BvQ6TUHGqqPhXgxVh+N5skG6AT8cbI6E5r
+ ufuSjMytS9Jp83/0GZitPNC0L0joejoZYRtP91N+d6R/rdU+QqwwQk0gGh6FVAQdwQsX
+ 62wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747921282; x=1748526082;
+ d=1e100.net; s=20230601; t=1747921284; x=1748526084;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oxkKHwFXoioX8JC9ugNSwYvPqb9envWDOnp8CIHvuOo=;
- b=MmOY8CjKHLG+Oay7E5PBWxvOfz68ZRKjky3q5ZzfzALPJ/RUjbV/8mRd2MFcKU9p4L
- 6Rg6WzWaFH6GpLVh+fwBv8nLN4ltzHFJQxvixHaKNHho4FdOIVn7OiNDVNriCH9uq1rB
- esT4lSh585iD3dHdu+AJlEMNW7L8DhWq9iN3ee6tpAIVP7O70DwRcmeouBEGAvnBGje5
- ypoVvGkwGvgCAzLwfCSiG5Ucw+LAehKF51KPNwMnVF5gJP2GPauva6go7PoV9I4axFcx
- Wf0y3rkQXhSXTlCb08z5g2UfX6DatDH7bptX1GdANbGcSzEB1t4pbh6gWl7PNSt4OvY6
- ZOow==
+ bh=rqwkMrM5JL4EFpQh48JAg7ETFNDz+6d5oJlHLbW/gEc=;
+ b=WqwxnZ8DVRt+FsVkGG4GWw0CBJbbiG7OXEjDbFn8pC1hCYCVwKB/J1DAHcPwOcMVbd
+ AVphC7jFBKGlshXX38KTpC2RC3KFEA0CQIFK7EYwdDRxtvOpDgIB583cAntdzYKuLd2g
+ JEIt8Dc7MGfiK3vAgun0N+1/BREic9R91pQ5OK3qrkBJE3BH38ePTSfj90O3CGuHO/cE
+ KAeQxAJRlO9Otg8erXxsSuZLDhJ6TkZInfutu6rcUVsl61a8dQ1JqEvs1z8EtKkjHqEN
+ p5Il6uG2rpwUJuyQWylTfJiAFk6RrgIvZdoXZRRRhtrilrQbL+p3XQxbdbO6XhQ3w0Pa
+ 4NrQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVzoIpEQQRU14mYNWXcqYyAYq9CdD4jxIAm6GQ7sdhWt4b+12KU7y+cOtW7/Y/BICzhY0n5/dJG@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxo8l4MpWu5nXK7a61q2UyjKkRdxJ3mXS53+sl34ngUSBdfYdOw
- scimFLYV/0BPHjmjYe0HTmzkCU9ZChrLEWDyO85LgvXkPeEka/C8kFoXVbgRgA==
-X-Gm-Gg: ASbGncuxO2C5J9wGkmCc/ue6Q9tge8/ukQAU5r9kMcNj3hDL0XUbH0dII56UHWa0wfu
- 9FcNzmqzJ4bQWi17LcqsedkHc/2TOPwCKBIAHpGsIt3sJ9Axp8AIr29cAXN5CDTy1/i6tBQv8PB
- n8gYybzfZioBAn/DLSaZ13yisJ+YjTr6Hr75YiQpyKPu8ucAmUD0Mqpj++Efg/m596Mo+o209lx
- k7+flAKHYbyW4VA28jKfPq9gqYuq6DRJeF1TunAlwZnpNIOfR4BkeBJfpIK8hIo8B34X5YzJpY/
- qRz/gE5NlQB79s+g84pCGe7FS4xSsANuAgFIwvqIMzsn2izlkuypMDwap6nvm5I=
-X-Google-Smtp-Source: AGHT+IHyQMQUxrO5aUO2wWLzYRP8YJ7AFzH6EZDrxzkAMAe48w2xNQ/VdTsNqjVOs90KhNhlrgsOkQ==
-X-Received: by 2002:a17:907:2d2a:b0:ac7:b368:b193 with SMTP id
- a640c23a62f3a-ad52d4f83ffmr2711227766b.27.1747921282218; 
- Thu, 22 May 2025 06:41:22 -0700 (PDT)
+ AJvYcCUPylvVbOhBo6D39aAtgEWE8d97sgwLmDH8vF+7okVE8XZ2Z2vkvGREiwMYQGU7ejZN0fS5WV1R@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw975WY8LDd/Z0HrFIs5LPd/UKl4l6zn3E6TgPAr431og8HvA9i
+ 80ZpHbkas0MpzMwgllLm0qnWjcgfY4O6mZj4lnbfyycAv6rXsvvBdAY4XO+h2g==
+X-Gm-Gg: ASbGncs7/Zql3KMu7xXEz5LEXrZLLGIzBehSpBBFSffDoSYganPDGOpZ7yuxI+RVDea
+ t+xKO8mRUE67KbmJDbh8vWBFA8QPG+KiuTUYJ9+tQsCyelrF82utOrHgX5g9IuxuhutGoLBOCNQ
+ fXTChKdjsSlt9hPdZZESgF1wL1j7bAjjXdmF9S+14AUijMdN145/lUMs/iAjQx+GQVkCg7XozaZ
+ Sg5SPZ6NvM/AiAkSNA1GoYgbFIHZloGdPVpMqnUweFalETX7+B0aL4+BFZy4xcRDDOqLLb3onkC
+ peqwQpCeMPi2SY3w5PolTHMTwdC4GRDOFiu3Nyr/R/EA5zHYKN4hj2zx12aZznE=
+X-Google-Smtp-Source: AGHT+IGKQcznMRO8eRwQiL0cx5jGegvSLfWKKSFw4emte/WIEiLdu6cRH3nnkD/nOC8PMVKSKLyDaA==
+X-Received: by 2002:a17:907:960a:b0:ad3:e742:69ea with SMTP id
+ a640c23a62f3a-ad52f86c635mr2091109466b.14.1747921283473; 
+ Thu, 22 May 2025 06:41:23 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:1533:800:9db1:9b52:19ec:8c5a])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d04af40sm1082487566b.34.2025.05.22.06.41.21
+ a640c23a62f3a-ad52d04af40sm1082487566b.34.2025.05.22.06.41.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 May 2025 06:41:21 -0700 (PDT)
+ Thu, 22 May 2025 06:41:23 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: dri-devel@lists.freedesktop.org, phasta@mailbox.org, dakr@kernel.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/4] drm/sched: optimize drm_sched_job_add_dependency a bit
-Date: Thu, 22 May 2025 15:41:14 +0200
-Message-Id: <20250522134117.7561-2-christian.koenig@amd.com>
+Subject: [PATCH 3/4] drm/sched: Add a test for prealloced fence slots
+Date: Thu, 22 May 2025 15:41:16 +0200
+Message-Id: <20250522134117.7561-4-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250522134117.7561-1-christian.koenig@amd.com>
 References: <20250522134117.7561-1-christian.koenig@amd.com>
@@ -88,48 +88,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since we already iterated over the xarray we know at which index the new
-entry should be stored. So instead of using xa_alloc use xa_store and
-write into the index directly.
+Just to exercise the functionality.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/scheduler/tests/tests_basic.c | 56 ++++++++++++++++++-
+ 1 file changed, 55 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index f7118497e47a..d2d64bf17c96 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -871,10 +871,8 @@ EXPORT_SYMBOL(drm_sched_job_arm);
- int drm_sched_job_add_dependency(struct drm_sched_job *job,
- 				 struct dma_fence *fence)
- {
-+	unsigned long index = -1;
- 	struct dma_fence *entry;
--	unsigned long index;
--	u32 id = 0;
--	int ret;
+diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
+index 7230057e0594..00dcee298100 100644
+--- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
++++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
+@@ -469,8 +469,62 @@ static struct kunit_suite drm_sched_credits = {
+ 	.test_cases = drm_sched_credits_tests,
+ };
  
- 	if (!fence)
- 		return 0;
-@@ -896,11 +894,13 @@ int drm_sched_job_add_dependency(struct drm_sched_job *job,
- 		return 0;
- 	}
- 
--	ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b, GFP_KERNEL);
--	if (ret != 0)
-+	entry = xa_store(&job->dependencies, index + 1, fence, GFP_KERNEL);
-+	if (xa_is_err(entry))
- 		dma_fence_put(fence);
-+	else
-+		WARN_ON(entry);
- 
--	return ret;
-+	return xa_err(entry);
- }
- EXPORT_SYMBOL(drm_sched_job_add_dependency);
- 
++static void drm_sched_test_prealloc(struct kunit *test)
++{
++	struct dma_fence *stub = dma_fence_get_stub();
++	struct drm_mock_sched_entity *entity;
++	struct drm_mock_scheduler *sched;
++	struct drm_mock_sched_job *job;
++	bool done;
++	int ret;
++
++	/*
++	 * Check if preallocation of dependency slots work
++	 */
++
++	sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
++
++	entity = drm_mock_sched_entity_new(test,
++					   DRM_SCHED_PRIORITY_NORMAL,
++					   sched);
++
++	job = drm_mock_sched_job_new(test, entity);
++
++	ret = drm_sched_job_add_dependency(&job->base, dma_fence_get(stub));
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_sched_job_prealloc_dependency_slots(&job->base, 2);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_sched_job_add_dependency(&job->base, dma_fence_get(stub));
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_sched_job_add_dependency(&job->base, dma_fence_get(stub));
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	drm_mock_sched_job_submit(job);
++
++	done = drm_mock_sched_job_wait_scheduled(job, HZ);
++	KUNIT_ASSERT_TRUE(test, done);
++
++	drm_mock_sched_entity_free(entity);
++	drm_mock_sched_fini(sched);
++	dma_fence_put(stub);
++}
++
++static struct kunit_case drm_sched_prealloc_tests[] = {
++	KUNIT_CASE(drm_sched_test_prealloc),
++	{}
++};
++
++static struct kunit_suite drm_sched_prealloc = {
++	.name = "drm_sched_basic_prealloc_tests",
++	.test_cases = drm_sched_prealloc_tests,
++};
++
+ kunit_test_suites(&drm_sched_basic,
+ 		  &drm_sched_timeout,
+ 		  &drm_sched_priority,
+ 		  &drm_sched_modify_sched,
+-		  &drm_sched_credits);
++		  &drm_sched_credits,
++		  &drm_sched_prealloc);
 -- 
 2.34.1
 
