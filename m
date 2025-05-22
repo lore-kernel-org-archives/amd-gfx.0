@@ -4,72 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A65E5C54E65
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 13:12:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AAAC54ED0
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 May 2025 13:12:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DFBA10E2AB;
-	Thu, 22 May 2025 13:11:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06A8310EC88;
+	Thu, 22 May 2025 13:12:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=goosey.org header.i=@goosey.org header.b="p/OB0m58";
-	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.b="lcQtCm3D";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="YZLoE4I9";
 	dkim-atps=neutral
-X-Greylist: delayed 728 seconds by postgrey-1.36 at gabe;
- Thu, 22 May 2025 12:38:30 UTC
-Received: from e240-8.smtp-out.eu-north-1.amazonses.com
- (e240-8.smtp-out.eu-north-1.amazonses.com [23.251.240.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53AA910E747;
- Thu, 22 May 2025 12:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=iuunfi4kzpbzwuqjzrd5q2mr652n55fx; d=goosey.org; t=1747916772;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
- bh=XTSbICosLaHaU9aRpnsLBowCzYh5rd17I756IGIFYiE=;
- b=p/OB0m58tvobh+L/qgu0pCCau5rR4TWRa0e6kDAgqx1r94eJFvDCv1heZHWH/1MG
- BhzvkwQzDBABFP4xhQv0tKcoFNbV49aEKC8zm5Ajq4dCH1FGUFpgzIh4vOfiCy7fxrg
- Gdf7Sw+uQjn/pppLadzml4dFrY5KJgF27TKWnLKAl5jo6+zGRT+sdFvKA60FR8aeJL5
- g85lGT7Exaa1s0HkKUUqityUZ5Q2kvfnMPLYDalP/0felFqLmRBuk5ArbAhsIrKsazz
- MbwixWPlOEIgDUklwnHtZcyC2T3L8dQBw2jpa3VqVp4xvcO+Lkc+MTivHjWewH9hdOo
- UER6zfO4Gg==
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=bw45wyq3hkghdoq32obql4uyexcghmc7; d=amazonses.com; t=1747916772;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding:Feedback-ID;
- bh=XTSbICosLaHaU9aRpnsLBowCzYh5rd17I756IGIFYiE=;
- b=lcQtCm3Ds/UtIyey1hoqhxcPZTKGd244OpAnsxqwFAtqbssQzz1FfjXNLAFG5IFf
- 1KHxI4sPFUdJnx5tfpRN4OfnFTFE3zCScXmF8abtTA3x9ePTCCDTAKAzB2EEBtSFS1J
- izLsoUEcWAh7c6bAFf97HvyKjUL+XJIO1WjyG2xg=
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2oHS/GfLNLty1p7nwH1DwDYbFByGhkfBnMRol3R0J/w3d01oOIympK4975RMatDrFFNgUbO2kXoTv@lists.freedesktop.org,
- AJvYcCVLBy/bthwVZhgwMEV9EGuRX4r4XGuv342Bbcw3h6RSEPyN7NOFESqct3B8iKKA2A3OzOfC6txR@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzh3ZLcgjXSBOk97Us4M5ClYiM2W/4gkgM0G2K18XTq8UOYYCei
- TE8Qmy+/XpYjjpRB+DXQtJKARi9kYPyatiV5jKkzn2OzXKfk+wPedzYfzqggUwLAb1dz+gyX4G+
- eOH6mvh1atu07uuqnWtHZGoGwQKtVXuo=
-X-Google-Smtp-Source: AGHT+IFnvCMK1Q+jo/7u8pQJvKjn2XW9lqSU5ELyGJ+Q2XTYVSnGqTYm8CaHXI61ZokxmvOk4GpNZP0+EL6XvWTWjQE=
-X-Received: by 2002:a17:903:4b4b:b0:22d:c605:a30c with SMTP id
- d9443c01a7336-231d43d5532mr374201045ad.11.1747916769730; Thu, 22 May 2025
- 05:26:09 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 087ED10ED47;
+ Thu, 22 May 2025 07:58:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1747900676;
+ bh=XoL4gpKlHYJ+sqRIbsFdXMS7BBSJEp74ozw8/DjLDCQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=YZLoE4I9cY/UqsIcAJu93aQl3QDjrLbj4NxjIHRLKR+D0r//5VekljUkuQg3jHoT2
+ ae06ZpzPAf44lZMmrUr6+DghitZcioIdWx0fznBUQfJ4y4w9ky0+PXyWmnM++kblNj
+ uPveNIG7fCFEUhCY3JZQr9XZ9A9LcgcrpoJpiKA1ZaADKT1EzL5qTVeDlElbnERFrE
+ 1kH16R1ndk2JruQolTCI6gqosf8a+GEM3oALA5zVmRp/dJtc9lNYnxLLqlyZ1wTUs2
+ Kt90LF2Q6V67fykRHk7I5YPk0/cidFy0ABB1F28yVrNuR1JRewNR+WpsEcam0WBU32
+ 7ZU8Yz2KlCVJA==
+Received: from eldfell (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E2DEE17E0393;
+ Thu, 22 May 2025 09:57:54 +0200 (CEST)
+Date: Thu, 22 May 2025 10:57:41 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, Leandro Ribeiro
+ <leandro.ribeiro@collabora.com>, Daniel Stone <daniel@fooishbar.org>, Simon
+ Ser <contact@emersion.fr>, Alex Hung <alex.hung@amd.com>, Misyl Toad
+ <misyl@froggi.es>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
+ victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
+ quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
+ quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
+ sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
+ louis.chauvet@bootlin.com, Arthur Grillo <arthurgrillo@riseup.net>
+Subject: Re: [PATCH V9 00/43] Color Pipeline API w/ VKMS
+Message-ID: <20250522105741.6aafc955@eldfell>
+In-Reply-To: <63e934e6-3c27-4128-801b-f1189f12f8f0@amd.com>
+References: <20250430011115.223996-1-alex.hung@amd.com>
+ <o4MtjqyDUjuFR4Y9Q1IEZlvVQ7Nkggq0v-KtBcH0aM3pTvEq8UcSoUDxefSBVdTmLj_1_a6GmbjU_mRSFinOb44B4bu1u3mMIckuQhhZWCc=@emersion.fr>
+ <3bbd4bd7-7217-4a14-b7bb-383226f44f55@amd.com>
+ <CAPj87rNUDdDEopPH+iAF-a=Or6eXH4cMRU8eOj81g_40cq8gdA@mail.gmail.com>
+ <f7e9cd32-3e2b-4f06-aa13-049c8b7ba29b@amd.com>
+ <CAPj87rMbcZKy2ARe_tp_-+-tMu3FpS0C9R1BHVzjsUpOsU9M4g@mail.gmail.com>
+ <5921076d-0150-4e0f-a3ef-1b8dec021630@collabora.com>
+ <CAFZQkGymi1XY7m0Ghs8R2HaNRQptE_0NO-5J5Z2c61gDJRho3Q@mail.gmail.com>
+ <63e934e6-3c27-4128-801b-f1189f12f8f0@amd.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <CABH-8xdaDFjWyQ40Nyo59Gm5kD3Qi5hh76o-uam1yC3wNtJNqQ@mail.gmail.com>
- <01100196f7d63f35-a7b596e2-fbb8-49e5-8645-e67ca6a0048d-000000@eu-north-1.amazonses.com>
- <CABH-8xdDjLv9c+E7OdTFjtoEHT5Q2-oQGouOpygi_5c-W3cyvQ@mail.gmail.com>
- <01100196f7e25204-35c40c23-8070-4aaf-ae45-7ac2625cbf90-000000@eu-north-1.amazonses.com>
- <CABH-8xd1Nr1PpsPJnoNsur1LEEhphX6+WzKE14rc-ub_N7eS7Q@mail.gmail.com>
-In-Reply-To: <CABH-8xd1Nr1PpsPJnoNsur1LEEhphX6+WzKE14rc-ub_N7eS7Q@mail.gmail.com>
-From: Ozgur Kara <ozgur@goosey.org>
-Date: Thu, 22 May 2025 12:26:12 +0000
-X-Gmail-Original-Message-ID: <CADvZ6ErJ+2wFwWpEiORPe+YUFDm3cqMb_r1PVAM3=b75BRYOjg@mail.gmail.com>
-X-Gm-Features: AX0GCFvCJYHUcwI3ftpqsdj2rmbV78za5rhEDeF6HqdDJPjBc_Zajx9EY_uS7UI
-Message-ID: <01100196f7f553bc-1cd7e537-430c-4138-b447-c432eaf77f33-000000@eu-north-1.amazonses.com>
-Subject: Re: Regression: RX 470 fails to boot with amdgpu.dpm=1 on kernel 6.7+
-To: =?UTF-8?Q?Durmu=C5=9F?= <dozaltay@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Tao Zhou <tao.zhou1@amd.com>, 
- Yan Zhen <yanzhen@vivo.com>, Greg KH <gregkh@linuxfoundation.org>, 
- Alper Nebi Yasak <alpernebiyasak@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Feedback-ID: ::1.eu-north-1.jZlAFvO9+f8tc21Z4t7ANdAU3Nw/ALd5VHiFFAqIVOg=:AmazonSES
-X-SES-Outgoing: 2025.05.22-23.251.240.8
+Content-Type: multipart/signed; boundary="Sig_/vC+ojhB1KZ=+fWvDp2G82kU";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Thu, 22 May 2025 13:11:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,173 +80,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Durmu=C5=9F <dozaltay@gmail.com>, 22 May 2025 Per, 15:15 tarihinde =C5=9Fun=
-u yazd=C4=B1:
->
-> I'm using dual monitors. I disconnected the HDMI to test with a single
-> screen, but the result was the same. I also swapped the HDMI ports,
-> but the issue still persisted.
-> I'm not using DisplayPort =E2=80=94 in fact, it's a bit weird: I convert =
-VGA
-> to HDMI and connect it to the graphics card. I'm not an expert of
-> course, but since there were no issues on the LTS kernel and the
-> problems started with kernels after 6.7, it made me think it might be
-> a kernel issue.
-> If needed, I=E2=80=99ll set dpm=3D0 when I install (i don't know when) Li=
-nux
-> again and test it.
-> If I remember correctly, when I added amdgpu.dc=3D0 to GRUB, nothing
-> changed =E2=80=94 the system still froze after GRUB.
->
+--Sig_/vC+ojhB1KZ=+fWvDp2G82kU
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Wed, 21 May 2025 15:48:00 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-i suspect this is related to latest patch rather than a kernel bug so
-i will add Aurabindo because you may be affected after cfb2d41831ee
-commit.
-first of all, is there any chance you can revert this commit and test kerne=
-l?
+> On 2025-05-17 07:51, Xaver Hugl wrote:
+> > Am Do., 15. Mai 2025 um 22:00 Uhr schrieb Leandro Ribeiro
+> > <leandro.ribeiro@collabora.com>: =20
+> >>
+> >>
+> >>
+> >> On 5/15/25 15:39, Daniel Stone wrote: =20
+> >>> Hi,
+> >>>
+> >>> On Thu, 15 May 2025 at 19:02, Harry Wentland <harry.wentland@amd.com>=
+ wrote: =20
+> >>>> On 2025-05-15 13:19, Daniel Stone wrote: =20
+> >>>>> Yeah, the Weston patches are marching on. We've still been doing a
+> >>>>> little bit of cleanup and prep work in the background to land them,
+> >>>>> but we also can't land them until the kernel lands. None of that wo=
+rk
+> >>>>> is material to the uAPI though: as said previously, the uAPI looks
+> >>>>> completely solid and it's something we can definitely beneficially =
+use
+> >>>>> in Weston. (Even if we do need the obvious follow-ons for
+> >>>>> post-blending as well ...) =20
+> >>>>
+> >>>> We can't merge kernel uAPI without canonical userspace that uses it.
+> >>>> To move forward we'll need a userspace to at least publish a branch
+> >>>> that shows the use of this new uAPI.
+> >>>>
+> >>>> Do you have a public branch for the Weston work for this? =20
+> >>>
+> >>> Yeah, https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/=
+1702
+> >>> has been around for a little while now. There are some driver bugs
+> >>> that Leandro commented on, but they don't seem material to the uAPI as
+> >>> such? =20
+> >>
+> >> Hello,
+> >>
+> >> Yes, there's nothing related to the API that is blocking us. It seemed
+> >> very flexible and easy to use. The bugs that I've spotted are probably
+> >> internal to AMD driver.
+> >>
+> >> I'd say that the Weston patches are converging nicely, we just need ti=
+me
+> >> to get them fully reviewed. We had a few preparation MR's to land
+> >> before !1702, and now there's only one left (!1617). =20
+> >=20
+> > I also updated the KWin MR
+> > (https://invent.kde.org/plasma/kwin/-/merge_requests/6600), it can now
+> > use all the available properties and I think it's ready. I found two
+> > issues with the kernel patches though:
+> > - while attempting to set COLOR_ENCODING and COLOR_RANGE results in
+> > the atomic commit being rejected, the existing values still get
+> > applied if you use YCbCr-type buffers. I would've expected the color
+> > pipeline to operate on the YUV values in that case - and leave
+> > conversion to RGB up to the compositor adding the relevant matrix to
+> > the pipeline =20
+>=20
+> AMD HW always operates on RGB values, so there'll always be an
+> implicit conversion of YCbCr-type buffers to RGB.
 
-$ git revert cfb2d41831ee
+Surely the transformation from YCbCr to RGB can be one that maps each
+of Y, Cb and Cr channels to G, B and R ranges [0.0, 1.0]?
 
-So after commit, dmcub ring calls became much higher and some power
-states became unstable i dont know i'm not expert but  these usually
-have to do with things like dmcub firmware and  power gating (gfxoff)
-or post-reset ring buffer access.
-maybe this commit is that  vmin/vmax update call may now be made much
-more frequently and this may cause dmcub to not synchronize properly
-some power states to become unstable or firmware to crash.
+Of course, that's not identity transformation (Cb and Cr have domain
+[-0.5, 0.5] or something like that) and R, B may not handle negative
+values.
 
-we might need to look at the contents of
-/sys/module/amdgpu/parameters/force_vmin_vmax_update but  vmin vmax
-potential call height might be giving an error.
+But if R and B channels can be negative too, then identity mapping
+would be usable.
 
-So I added Aurabindo Pillai, should have added you after 3 different
-bug reports.
+There will need to be a definition of how YCbCr enters the color
+pipeline: the order of the channels and their domains. The rest can be
+just more colorops.
 
-Regards
+We should be careful to allow limited range YUV formats to be
+interpreted as full range to avoid clipping the sub-black and
+super-white signal ranges. The color pipeline can be configured to deal
+with those ranges as necessary.
 
-Ozgur
+> What we should
+> do is reject YCbCr-type buffers with the color pipeline until we
+> implement support for COLOR_ENCODING and COLOR_RANGE as a new
+> CSC colorop.
+
+Rejecting is fine, but is implementing COLOR_ENCODING and COLOR_RANGE
+really a good idea instead of making the color pipelines handle them?
+
+Wasn't the original plan to hide all such legacy plane properties when
+userspace signals color pipeline support?
 
 
-> On Thu, May 22, 2025 at 3:05=E2=80=AFPM Ozgur Kara <ozgur@goosey.org> wro=
-te:
-> >
-> > Durmu=C5=9F <dozaltay@gmail.com>, 22 May 2025 Per, 14:58 tarihinde =C5=
-=9Funu yazd=C4=B1:
-> > >
-> > > Hey, thanks for the reply, but I don't use Linux anymore, so I can't
-> > > provide any logs or test it further. Also, FYI, this bug has been
-> > > around since kernel v6.7. If I install Linux again soon, I'll try to
-> > > test it. Could you please advise what I should do about amdgpu.dpm?
-> > > Should it stay at 0 or be set to 1? When I try booting with 1, the PC
-> > > freezes right after the grub screen. I've used Linux for 2-3 months
-> > > but still don=E2=80=99t really know how to debug these kinds of error=
-s
-> > > properly. Thanks!
-> > >
-> >
-> > Hello,
-> >
-> > not problem maybe we should talk about this separately but kernel
-> > lists are progressing complicated with too many development patch
-> > content that is not very suitable for this.
-> > we can also see it as a problem with kernel, gpus or amd company and
-> > too many firmware and drivers.
-> >
-> > if it is hardware based especially gpu related, kernel doesnt
-> > intervene fully at this point.
-> > the system can be opened with amdgpu.dpm=3D0 but this is not correct an=
-d
-> > you did a very good job reporting it.
-> > maybe by adding amdgpu.dc=3D0 the display core is disabled but this
-> > prevents you from getting 144 mhz.
-> >
-> > we should make sure that there is the correct firmware under
-> > /lib/firmware/amdgpu.
-> > did you use DisplayPort and did you get 144 mhz output?
-> >
-> > $ journalctl -b -1 will give you some information.
-> > $ glxinfo | grep OpenGL can also give you the problem or error.
-> >
-> > So kernel developers and AMD developers should look into this issue
-> > but i think it is most likely a firmware blockage on the AMD side not
-> > a kernel side.
-> >
-> > Regards
-> >
-> > Ozgur
-> >
-> > > On Thu, May 22, 2025 at 2:52=E2=80=AFPM Ozgur Kara <ozgur@goosey.org>=
- wrote:
-> > > >
-> > > > Durmu=C5=9F <dozaltay@gmail.com>, 22 May 2025 Per, 14:27 tarihinde =
-=C5=9Funu yazd=C4=B1:
-> > > > >
-> > > > > Hello,
-> > > > >
-> > > >
-> > > > Hello,
-> > > >
-> > > > did you get a message in dmesg from kernel, for example an error li=
-ke this?
-> > > >
-> > > > https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1106268
-> > > >
-> > > > The dmesg command will give you an output maybe journalctl output o=
-r
-> > > > mesa (glxinfo) output would also be sufficient because we need to k=
-now
-> > > > which upstream it is affected by.
-> > > > and thanks for report.
-> > > >
-> > > > Note: because there are two similar errors i added the necessary
-> > > > maintainers for upstream.
-> > > >
-> > > > Regards
-> > > >
-> > > > Ozgur
-> > > >
-> > > > > I'm experiencing a critical issue on my system with an AMD RX 470=
- GPU.
-> > > > > When booting with recent kernel versions (6.7.x or newer), the sy=
-stem
-> > > > > fails to boot properly unless I explicitly disable Dynamic Power
-> > > > > Management (DPM) via the `amdgpu.dpm=3D0` kernel parameter.
-> > > > >
-> > > > > When DPM is enabled (`amdgpu.dpm=3D1` or omitted, since it's the
-> > > > > default), the system either freezes during early boot or fails to
-> > > > > initialize the display. However, using the LTS kernel (6.6.x),
-> > > > > everything works as expected with DPM enabled.
-> > > > >
-> > > > > This seems to be a regression introduced in kernel 6.7 or later, =
-and
-> > > > > it specifically affects older GCN4 (Polaris) GPUs like the RX 470=
-.
-> > > > > Disabling DPM allows the system to boot, but significantly reduce=
-s GPU
-> > > > > performance.
-> > > > >
-> > > > > Things I=E2=80=99ve tried:
-> > > > > - Confirmed that the latest `linux-firmware` is installed.
-> > > > > - Verified correct firmware files exist under `/lib/firmware/amdg=
-pu/`.
-> > > > > - Tested multiple kernels (mainline and LTS).
-> > > > > - Using Mesa with ACO (Radeon open driver stack).
-> > > > > - System boots fine with LTS kernel (6.6.x) + DPM enabled.
-> > > > >
-> > > > > System info:
-> > > > > - GPU: AMD RX 470 (GCN 4 / Polaris)
-> > > > > - Distro: Arch Linux
-> > > > > - Kernel (working): linux-lts 6.6.x
-> > > > > - Kernel (broken): 6.7.x and newer (currently tested on 6.14.6)
-> > > > >
-> > > > > Thanks in advance,
-> > > > > Durmus Ozaltay
-> > > > >
-> > > > >
-> > > > >
-> > >
-> > >
->
->
+Thanks,
+pq
+
+--Sig_/vC+ojhB1KZ=+fWvDp2G82kU
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmgu2PUACgkQI1/ltBGq
+qqcU5g//QVFAf1F1KLz0X8ehCJa9ilKukLt+PgrlU+PZk55xrvV2K37xgvQdIxa1
+tRaIc0HBs6yzFABh80q86I2TImr5BHG0bgggDYOksIaWB/tfv3JpuE5QlAE7snfH
+geHs4MR9NHtFCxPNAEQ5nYBk1BQnE5p4/DUHrPnBeY1WwjzMCz6Ds6UaZPbucNzy
+P1Qh3ymGQsV088FuChXVfVvZyUPU3QfizLnbpTiwKLFveNArGBt947W3iXC4akn+
+kJJ3GiYgYqPhXRQzD+/23psPBtlIr9RmoLfLN3d+Uh8kjEuYGfE40Q2yTxduwWR9
+8PgYIAMUMaP8EQ+t+6K6VOaGHOv4sW9y4h4K6d3a1OoANPsOH+kioRghQJ1AsW8s
+k1ZTwiPvWkwEp7Mzq2nGF3ifr7DZMfX7Bl+f3ozR3VH66Xs4cFFoxSlFgD3wIsxp
+03nJMmtYHmC+UezVAbDbmqp2+BMXHfB+f4bxLzCUU39hBiQkIk2BOocAX1c/Kq41
+copoh7OiKcG7Hl2ShjnywC+221hrOIhhxTtDXqqRRDL16vDoZGIwp9z/ZaUUMgE6
+kbP5jJZH+rqoZidx1+qOxWeeQMS6egc3NgMtXBjY0irDbORbgAHsMW610xjN5SUi
+ZOn+q7qKaN6yzZ7Rr4rJN3+/GjzFs2/PVhQvsZ71HCgQvg+O7E8=
+=IQkg
+-----END PGP SIGNATURE-----
+
+--Sig_/vC+ojhB1KZ=+fWvDp2G82kU--
