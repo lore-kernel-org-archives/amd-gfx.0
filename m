@@ -4,79 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34BDAC54F2E
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 May 2025 13:50:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1BC3C54ED1
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 May 2025 13:58:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCCB510E7EB;
-	Fri, 23 May 2025 13:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24EDF10E7F5;
+	Fri, 23 May 2025 13:58:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="Lc5/j6H8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EnzxDokn";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED80110E7EB
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 May 2025 13:50:01 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-441d1ed82faso71149525e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 May 2025 06:50:01 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 295B310E7F5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 May 2025 13:58:20 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-b1f2a3bf3c8so910055a12.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 May 2025 06:58:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1748008200; x=1748613000;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=CqbZlLxqudOElbnSUFWVJQWOSiHqoX5MUBKhQqTAI0I=;
- b=Lc5/j6H8CV9AyEyKWgABgpdIvRn/cHVqumikilNFz8isHg/ZrR0/oTScFrq7fQtzg2
- m0XWHhtjEDyoXRBA3FfkoUACAf5owrvizIbTClMdoPrkdS9qwIB96nNB5y/DP+bMhKvl
- IV9B+FlpI/4C+VkOSI2Kp38PxyLTrTaRlGqDxJupiOOvbuCauV32RZ5RFurK6AuwIoj8
- 4drmPuEsb72/OOIZh3GyB7S20Bf5FpXXQ9xMy+5N/2EelBki7d1g7jbe6mzuUeNoIp6t
- rXkvmaJ/OeInO/SHbfsJ1n/hscWMDSjdnB8ioWrJcuYUkxorqVljbO/23zMo+BOp8EH1
- stXA==
+ d=gmail.com; s=20230601; t=1748008694; x=1748613494; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WUAc6RAkva+BAe0jZE8PPHL2N51xoGzgHtzR3zlJ1w4=;
+ b=EnzxDoknheE8xV7L8xeCMY8Aphm7ZTGIq4iPha6nW6sfKslvyZ8nn0sD0ci/Wd4PtB
+ FeZwFMrAWkCpvsZc/jiOKBXfYaXiLtB1FhBpBEIq2Zvek88OsWX55vT/ZccNusYl6q6r
+ Dn1jgbYHOZG8o070Zdp7XOxohBLCKqwBxmxVfBkIOGphR+2ZuyzPwLrfxWLDmQJASTBA
+ CAWNp+v3ooJjq9Wq9EemtljWLogFk1J13zQhqt32h4ayfpeY0hdXSLxAjphaymXKftrw
+ k3ByGfpLkWU0NIw395v3IZaattlk5oWt8xJgwVjSueVXtOTL2HSQd1ZNAf/A4uq6fuc5
+ oNFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748008200; x=1748613000;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CqbZlLxqudOElbnSUFWVJQWOSiHqoX5MUBKhQqTAI0I=;
- b=bEeTmrFdsAxbB+S6kVbK+J3Sj4q296/Fuik7YUzsk7/cHmoRPY0A3NaR0NZeJollu6
- sYlSVb2bDFJzJybiPvNGlhU6SCT6RHTTIpU7K2Sob/TJvI/w0nxhoQbJTH8VlOZ+yjRN
- UXKrh/W67z7y0I6MXUWlsiTg0UpCnIvWEW/V1+J+Ro0cJoFLfrkxc+VPZB+owa7cFGW3
- tPDfJc+soNjR+guDhM3rHm9naBwJ8bYss1m6tTxRxWXw6iHloTibGtLDfo4jkmG7SyXi
- 1IuNJiEg2mUjS45LBXkmZIWGZe42LOnTPtMNz+Q++8oaZAb/f/espZuocvw5I9n9bosm
- IpcQ==
+ d=1e100.net; s=20230601; t=1748008694; x=1748613494;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=WUAc6RAkva+BAe0jZE8PPHL2N51xoGzgHtzR3zlJ1w4=;
+ b=ASMuMNIU5CqOkXgS2rdVd4A5jpwXeTKnbfd9e08pFe3FQIHsgv/0fdCMkQEbkp4poW
+ dvkaGQXPjuWueQImaiB/M0Xc269Pr/TtIF2eAUIDzRR+sb2K0PzVimEB1K5xv2SyJbM+
+ J9abWzWl9sfmGh1zAwjueTRVaaNxtlBBUPTy2HgYGdS4A9gYZ5kpKjH8s6GnzDQ4tfDD
+ zevJGRCsp/eQCSv44ZcOQstUODoi30RfZgul+75G9aY6kTBb17CDOWP0qgbDCjJX15Dx
+ k5pTJxAu01aPDWsJ0E7c/7nePRGpsZ6Q6p7QgOjXIBok6MpNY/2+77H6UuQkoOMapGk3
+ Nsmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVsw4WA5z/wfVKbwULm/poVm97CQKAc0X4KPMBXvvE2zauwnUkFD8xMOFjQMmHM2Yqy6NBZdZ6y@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYysLdluThWCeY70gqtShRPT6t+tb+P9RZhQK1RpO5DXRosMkb
- 1BP8HskHXUSfu5Z5AXNm5Q5xt8f+VWoj/JC8SO29YbhQvdTtasEPuxnnCfFk0t2zPIA=
-X-Gm-Gg: ASbGncvS6MJUnCoHhgr3djonrAHSyPl3L+NSkPjgCNSZ+IvX2Y39aHYx60aBEIDHUfz
- gU3irjdmYWGBgOMKh84nm7gngNuUsRXIz7MbyajZT+hhcV2r2/xqZ/RGgRx1v3jOCVAJZ+N3J7v
- 1tTx6FNhWShIzhAlRMb8ImSNbQwTwXpk3aDwV3D1whiU3cXzdGNZ55lTioY1CzbrfEZ2cRyciE0
- PdBvyU+qHRVZrzXLNkDyuoVeMTK8t5XuZNnIDajLCVM+iEX5kzxzdUZpCccfeW7XZbULOvnCIXL
- XMLgWk2nfjZaT1F73lxnKG1MtAObeYZPPvFsBFTB7hNsGG+lgscIf39OcZiBPBKxpg==
-X-Google-Smtp-Source: AGHT+IFyh7Lwlhi0eEaP5F0H0mD3Q7/UCKuKAqQ074eLg0qBEImHjvk33e02q6x4pQ5C37T/3ihwXw==
-X-Received: by 2002:a5d:64ee:0:b0:3a2:12a:e631 with SMTP id
- ffacd0b85a97d-3a35fe7a46dmr26328780f8f.22.1748008200208; 
- Fri, 23 May 2025 06:50:00 -0700 (PDT)
-Received: from [192.168.0.101] ([81.79.92.254])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca88a13sm26402753f8f.74.2025.05.23.06.49.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 May 2025 06:49:59 -0700 (PDT)
-Message-ID: <3c8aac1b-a220-4f80-8b10-9df1fa5ed63c@ursulin.net>
-Date: Fri, 23 May 2025 14:49:59 +0100
+ AJvYcCXFX1pgsBHgdKSA47RecqoCsrZBbngDGniTklA2X0X4k7Oo3N/7paWrR1IKS8a4kAO3S+woQTjN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZEhV6avPdsPGh0/9kOwNPkxT5n1N02Ts8qgMasrJVpuAHSKyE
+ U4Av4kajb5RbFdgzNS6pWjJl+uN8HBLTTW+BQZiBlOZB8WTltBxtxfUXb2PqE/yroZQrtGbyc7i
+ R9gjbTyqI5ezpIZ7F9XbMKM4mCA/quT8=
+X-Gm-Gg: ASbGncvMyR76KweqMDw20exwWvI3A1GcRfx3c7lq6RHJbUMKq3c6w0yav5pqUE3JOyL
+ kEQ9FvgADCt2MYtXFalN8udH5+M+pzZykcajBuE3Vy903FBSjWlJ9r/xpYBkWp89jBjcqWM+xOf
+ FjAXGQwZBl6WnkJFex3TbO/+0938KWthfnbA==
+X-Google-Smtp-Source: AGHT+IFANpx/ggTRj9An/3hmtxizXXjpeq3zsz16woUQNwAiV94Ajv4s+Car7lyWAQ0pitLCjoZSeSsk6SBVxLA6QK8=
+X-Received: by 2002:a17:902:cf0a:b0:21d:cdb7:876c with SMTP id
+ d9443c01a7336-233f3658f6cmr18197385ad.3.1748008694063; Fri, 23 May 2025
+ 06:58:14 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/sched: optimize drm_sched_job_add_dependency
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- phasta@mailbox.org, dakr@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20250523125643.7540-1-christian.koenig@amd.com>
- <20250523125643.7540-2-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20250523125643.7540-2-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250522215559.14677-1-alexander.deucher@amd.com>
+ <CADnq5_MYYR4c8_QW0jo=Gd7w3dnkCFXpgDZAxnSEuhmRpwqZyw@mail.gmail.com>
+ <c859107d-c09c-404c-8021-75ad3df7d54f@amd.com>
+In-Reply-To: <c859107d-c09c-404c-8021-75ad3df7d54f@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 23 May 2025 09:58:02 -0400
+X-Gm-Features: AX0GCFv9F7VTLgNaw5-AaWv7Yoq-bF4F3dYbzPlGU4UkUbVleps4de9cmGWILu4
+Message-ID: <CADnq5_OWWUjaKXnwugo1-mpYOp9pdpk0pjgD8_sb5QNJOCMZSA@mail.gmail.com>
+Subject: Re: [PATCH V2 00/10] Reset improvements for GC10+
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,108 +83,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, May 23, 2025 at 9:27=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 5/23/25 05:04, Alex Deucher wrote:
+> > On Thu, May 22, 2025 at 5:57=E2=80=AFPM Alex Deucher <alexander.deucher=
+@amd.com> wrote:
+> >>
+> >> This set improves per queue reset support for GC10+.
+> >> This uses vmid resets for GFX.  GFX resets all state
+> >> associated with a vmid and then continues where it
+> >> left off.  Since once the IB uses the vmid, only
+> >> the IB is reset and execution continues after the IB.
+> >> Tested on GC 10 and 11 chips with a game running and
+> >> then running hang tests.  The game pauses when the
+> >> hang happens, then continues after the queue reset.
+> >
+> > After further investigation, this appears to work as expected, but
+> > only by chance.  The ring is reset, but any pipelined content in the
+> > ring after the job is lost.  We either need to limit the ring to one
+> > job or patch in the subsequent packets after resetting.
+>
+> Yeah, I feared that this wouldn't work.
+>
+> Any idea why the VMID based reset isn't working?
 
-On 23/05/2025 13:56, Christian König wrote:
-> It turned out that we can actually massively optimize here.
-> 
-> The previous code was horrible inefficient since it constantly released
-> and re-acquired the lock of the xarray and started each iteration from the
-> base of the array to avoid concurrent modification which in our case
-> doesn't exist.
-> 
-> Additional to that the xas_find() and xas_store() functions are explicitly
-> made in a way so that you can efficiently check entries and if you don't
-> find a match store a new one at the end or replace existing ones.
-> 
-> So use xas_for_each()/xa_store() instead of xa_for_each()/xa_alloc().
-> It's a bit more code, but should be much faster in the end.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/scheduler/sched_main.c | 29 ++++++++++++++++++--------
->   1 file changed, 20 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index f7118497e47a..cf200b1b643e 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -871,10 +871,8 @@ EXPORT_SYMBOL(drm_sched_job_arm);
->   int drm_sched_job_add_dependency(struct drm_sched_job *job,
->   				 struct dma_fence *fence)
->   {
-> +	XA_STATE(xas, &job->dependencies, 0);
->   	struct dma_fence *entry;
-> -	unsigned long index;
-> -	u32 id = 0;
-> -	int ret;
->   
->   	if (!fence)
->   		return 0;
-> @@ -883,24 +881,37 @@ int drm_sched_job_add_dependency(struct drm_sched_job *job,
->   	 * This lets the size of the array of deps scale with the number of
->   	 * engines involved, rather than the number of BOs.
->   	 */
-> -	xa_for_each(&job->dependencies, index, entry) {
-> +	xa_lock(&job->dependencies);
-> +	xas_for_each(&xas, entry, ULONG_MAX) {
->   		if (entry->context != fence->context)
->   			continue;
->   
->   		if (dma_fence_is_later(fence, entry)) {
->   			dma_fence_put(entry);
-> -			xa_store(&job->dependencies, index, fence, GFP_KERNEL);
-> +			xas_store(&xas, fence);
->   		} else {
->   			dma_fence_put(fence);
->   		}
-> -		return 0;
-> +		xa_unlock(&job->dependencies);
-> +		return xas_error(&xas);
->   	}
->   
-> -	ret = xa_alloc(&job->dependencies, &id, fence, xa_limit_32b, GFP_KERNEL);
-> -	if (ret != 0)
-> +retry:
-> +	entry = xas_store(&xas, fence);
-> +	xa_unlock(&job->dependencies);
-> +
-> +	/* There shouldn't be any concurrent add, so no need to loop again */
-> +	if (xas_nomem(&xas, GFP_KERNEL)) {
-> +		xa_lock(&job->dependencies);
-> +		goto retry;
-> +	}
-> +
-> +	if (xas_error(&xas))
->   		dma_fence_put(fence);
-> +	else
-> +		WARN_ON(entry);
+I think it works similarly to the preemption sequence.  E.g., see
+gfx_v9_0_ring_preempt_ib(), but with a reset rather than a preemption,
+but I don't think this will be easily portable to gfx11 and newer as
+they no longer have direct access to the HWS.
 
-Looks good, I cannot spot a high level problem with this approach.
+>
+> On the other hand we could just restart from the ring RPTR again.
 
-Maybe only tail end of this function could be improved with something 
-like this:
+I think that's probably the best option.  I was thinking we could
+mirror the ring frames for each gang and after a reset, we submit the
+unprocessed frames again.  That way we can still do a ring test to
+make sure the ring is functional after the reset and then submit the
+unprocessed work.
 
-...
-if (xas_nomem(&xas, GFP_KERNEL)) {
-	xa_lock(&job->dependencies);
-	goto retry;
-}
+Alex
 
-err = xas_error(&xas);
-if (WARN_ON(!err && entry))
-	dma_fence_put(entry);
-else if (err)
-	dma_fence_put(fence);
-
-return err;
-
-Thoughts?
-
-
->   
-> -	return ret;
-> +	return xas_error(&xas);
->   }
->   EXPORT_SYMBOL(drm_sched_job_add_dependency);
->   
-
+>
+> Regards,
+> Christian.
+>
+> >
+> > Alex
+> >
+> >>
+> >> I tried this same approach and GC8 and 9, but it
+> >> was not as reliable as soft recovery.  I also compared
+> >> this to Christian's reset patches, but I was not
+> >> able to make them work as reliably as this series.
+> >>
+> >> Alex Deucher (9):
+> >>   Revert "drm/amd/amdgpu: add pipe1 hardware support"
+> >>   drm/amdgpu: add AMDGPU_QUEUE_RESET_TIMEOUT
+> >>   drm/amdgpu: set the exec flag on the IB fence
+> >>   drm/amdgpu/gfx11: adjust ring reset sequences
+> >>   drm/amdgpu/gfx11: drop soft recovery
+> >>   drm/amdgpu/gfx12: adjust ring reset sequences
+> >>   drm/amdgpu/gfx12: drop soft recovery
+> >>   drm/amdgpu/gfx10: adjust ring reset sequences
+> >>   drm/amdgpu/gfx10: drop soft recovery
+> >>
+> >> Christian K=C3=B6nig (1):
+> >>   drm/amdgpu: rework queue reset scheduler interaction
+> >>
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  3 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 26 ++++++++--------
+> >>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 41 ++++++++----------------=
+-
+> >>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 35 ++++++---------------
+> >>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 35 ++++++---------------
+> >>  drivers/gpu/drm/amd/amdgpu/nvd.h        |  1 +
+> >>  7 files changed, 50 insertions(+), 92 deletions(-)
+> >>
+> >> --
+> >> 2.49.0
+> >>
+>
