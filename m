@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FDC0C54ED0
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 May 2025 01:41:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A0D3C54ED0
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 May 2025 03:05:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B44E10E059;
-	Fri, 23 May 2025 01:41:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3387A10E1AD;
+	Fri, 23 May 2025 03:05:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rv6vpHa+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DIZH0aSK";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 344FF10E059
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 May 2025 01:41:34 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-231ba912ba1so8786165ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 May 2025 18:41:34 -0700 (PDT)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBE510E1AD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 May 2025 03:05:02 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-3108652400cso456593a91.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 May 2025 20:05:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747964494; x=1748569294; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747969502; x=1748574302; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=v7aykBg3xec0L91zaz1r7hsU3qbDEpEJrcI+TRSqOuY=;
- b=Rv6vpHa+PTMwbE8mevkz8AhZPURpocgoF75Exwy3zQgmnUaaaQpW/1hNr/HpLj37sX
- OeUx7ceJTAYPXkQbu+nKU85Z6HwNc/kyfkZeMp7GehHg85P0yMTIAspKuIZxtnI1MQGX
- LuunUqRpr/9detltgne0562PuzFOmPFbfUlMhaH32+wi8yYji18IUmrNiUeASUhBevQf
- +d1gxmCTJNaQ840DZuGfOCv1GrGEwDa+0oyuO9+k8slKZnvxP8C4C0XlW9YbQue8r0UF
- wtfP0G4/vZFGtz+rhjAQgkVNMQExdpLcHlb7tqtqwvxP4gyg8VTpUWKb0h+LUWBF98DF
- 6Nbw==
+ bh=CinHGX2EMkKJ5ZLbIVRi9//99wmQ+6PLd/UwvIN6/Xk=;
+ b=DIZH0aSKq8uRrf9K0AXeS6JRAufU/VZSCGYED+bB5lkC6ibOIQKYeR+PtLsnOewlub
+ m7h8DN06ikPpiBoccOOJbm1XIzen8cey/ZYmdUMrm66accUtYHuxFXBfaE4oWzTUVEYh
+ kPFAs4onmz7U+P7UaFgyr90qa7o24V4nG3W1KO892uBR5Swg6eZwCI0tqgpNX76DIbu4
+ /Gsmcde4PWEVifo9Ei7OaDDtGFGUr5AHTQrTKzjgmcHxgSyS3hGOSIhmPGHpn9w58KP+
+ YbwazSHAsKTVJya5V48RroXGA4YzGpLpCGc+wX4vqn14IKIFfcJbYFFEQFZF11b6R6HH
+ m9Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747964494; x=1748569294;
+ d=1e100.net; s=20230601; t=1747969502; x=1748574302;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=v7aykBg3xec0L91zaz1r7hsU3qbDEpEJrcI+TRSqOuY=;
- b=lVcG9sgWxVg+BHLKhc/VDcvca96nOwn01Q0zUqkUPdLOIkxTsKwRyI88AbTqg7uHeX
- I2fOA0KBo1mxI2UADZoF3rVRg4Kn5ZE2lTGoNGL1nO0oOKF2I6XOdVBEI60CQE8GKcq0
- dNhsq55P1eB/+4fOdxyXy1uge0etHLHJhUs0CzqOmxAJfcMs3WyrRVYB8fEzamenEWfE
- Ag7QOO01Up+wkBiScsUR1ja9C4zUnvSFgEKSo+Gd8dKGuv80eS7Ev7RpOh8QBt1ZX3/N
- ZpuzOJJ3xC+WB2eEtbUCPuE66MNwmsoxrh08nozo2zsuVVAbt7PLUEzdQLzGAX5AbPm7
- UY8w==
-X-Gm-Message-State: AOJu0Yya6K7OCtV9whGj4Mhtpkmai8+ciAWUDvrxau2RZp/oFRueEI4r
- nC3Rfso/KwkTWcsdAANgasIP5xqVlxcT6MMp44xzeEnrzPhOG5KGwON4evLPbnqw9gaBLOAFZe2
- zNheMZtQz3qPcS07u2MMqnu+79ODigkI=
-X-Gm-Gg: ASbGncuquoF3ysuoqTIxXYQnTvQ2pN5GqM57IncvApsa5kI1XDLQBIgz4ZnPtmEkfjR
- 9o3iWPdZ5nKrwtfbD3VfBUl8f7da0qThnoge41v9u9y3X49MhOakS/kJhPnZH9MNOOyNTC6NX7o
- wX9GMV3O94kwiagpqkkq6wjYqC1+3pf3kZ+w==
-X-Google-Smtp-Source: AGHT+IGhevvp1J+EsUSaJqmQBjlSaAIvRRoyvzjfbmO1g/0Jn+rlv2q1jrNjRTIHWi3zHaW/MkYTt1cup+p3TgOEut8=
-X-Received: by 2002:a17:902:cf0a:b0:216:3dd1:5460 with SMTP id
- d9443c01a7336-233f36587cfmr3866635ad.2.1747964493549; Thu, 22 May 2025
- 18:41:33 -0700 (PDT)
+ bh=CinHGX2EMkKJ5ZLbIVRi9//99wmQ+6PLd/UwvIN6/Xk=;
+ b=lrLCWBf6FzpqTOtFPW6CuFfnH1re7UFwcTLW4iaeJjRZ+31psEi0zlhpZnI/A+q8gC
+ nGLJHs2g5p9SwbpQqIKD9R4r5N5BwFId/UmreZzwNNU7uWZW3uW9LVieZmFJRlaeO7vI
+ lRGgeP2fDC61kJOjKGAS3K5Pu/lAqSCh9AS5ykfo36Y0C/3v6DQGM8YHyp3TG+HIgruu
+ cVbGKvwIB5BBauIJYsYKgYEfn3YLptu1RoR534WV/6GzphcTqJjiBR1NY9uEjGaN4btf
+ rBIjTq/C47Ld7igYPfezJmLg+aM47Q7CaPM5YOt8SIcAzzkUZmI4DIB+FAQWAfIlql0x
+ dkaA==
+X-Gm-Message-State: AOJu0Yz1MREbeAOB8LJfItzM/ovibBmNlFGQwgDXO9v3DV/xTMrdy0J3
+ pKvgkGSCzfqN2uDSGikbTc4u1E+XtEnvJmfmMBe5qUk8vqhz+NvGbgvi9B64kJ3MpI1Y+5kQXyL
+ KkfNd6D8Y5Il0wUmgQbSy4ebuhDapf8I=
+X-Gm-Gg: ASbGnct5uDgBWJXzbTXY9epBVe6BrB1WtNQyQIohbgevmVJ9VIkpFAP+zZDnwZE1aGa
+ /L0U2FvNiLpQcqbpY/FgN3hDwsSKMQcK+T1uJXzoQ8PKgTLzbrog++7qxoNdC2HDu3+1DqtBK9r
+ lY6FSt8A9HFuihYFIJIXzHxmIphojDXPA0Jg==
+X-Google-Smtp-Source: AGHT+IHK4/w3oz+6tweFESbo1vY/grpM+zXm5phyqnccZ0SHLvCHNS43n+tjy+IZzPPzf72KDkxiycN/Ng3QISD6dhY=
+X-Received: by 2002:a17:903:1aec:b0:216:30f9:93c5 with SMTP id
+ d9443c01a7336-233f3667693mr4853195ad.6.1747969501948; Thu, 22 May 2025
+ 20:05:01 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250522215559.14677-1-alexander.deucher@amd.com>
- <20250522215559.14677-5-alexander.deucher@amd.com>
-In-Reply-To: <20250522215559.14677-5-alexander.deucher@amd.com>
+In-Reply-To: <20250522215559.14677-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 22 May 2025 21:41:22 -0400
-X-Gm-Features: AX0GCFuygi6nl7Pa72bPJd1oKbkSvrVyUIi6CHtnnYBpZOOtg7hMFhvH3CFQyO8
-Message-ID: <CADnq5_NsYL6fKLjvQ1it+oi9ZpzcCeq5TVv6RF_SZf4ZQs=Ucw@mail.gmail.com>
-Subject: Re: [PATCH 04/10] drm/amdgpu: set the exec flag on the IB fence
+Date: Thu, 22 May 2025 23:04:50 -0400
+X-Gm-Features: AX0GCFti_M0Fp4mU-1G_pkEbk7lqnTt0avYUz5rqpiAYJyDp6s-Oacp_hg5elPo
+Message-ID: <CADnq5_MYYR4c8_QW0jo=Gd7w3dnkCFXpgDZAxnSEuhmRpwqZyw@mail.gmail.com>
+Subject: Re: [PATCH V2 00/10] Reset improvements for GC10+
 To: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
 Content-Type: text/plain; charset="UTF-8"
@@ -80,42 +79,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ignore this patch.  I meant to drop it when I rebased these patches.
-It's not necessary.
+On Thu, May 22, 2025 at 5:57=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> This set improves per queue reset support for GC10+.
+> This uses vmid resets for GFX.  GFX resets all state
+> associated with a vmid and then continues where it
+> left off.  Since once the IB uses the vmid, only
+> the IB is reset and execution continues after the IB.
+> Tested on GC 10 and 11 chips with a game running and
+> then running hang tests.  The game pauses when the
+> hang happens, then continues after the queue reset.
+
+After further investigation, this appears to work as expected, but
+only by chance.  The ring is reset, but any pipelined content in the
+ring after the job is lost.  We either need to limit the ring to one
+job or patch in the subsequent packets after resetting.
 
 Alex
 
-On Thu, May 22, 2025 at 5:56=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
 >
-> This is to make sure the CP executes this packet in
-> the event of a preemption or reset.
+> I tried this same approach and GC8 and 9, but it
+> was not as reliable as soft recovery.  I also compared
+> this to Christian's reset patches, but I was not
+> able to make them work as reliably as this series.
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Alex Deucher (9):
+>   Revert "drm/amd/amdgpu: add pipe1 hardware support"
+>   drm/amdgpu: add AMDGPU_QUEUE_RESET_TIMEOUT
+>   drm/amdgpu: set the exec flag on the IB fence
+>   drm/amdgpu/gfx11: adjust ring reset sequences
+>   drm/amdgpu/gfx11: drop soft recovery
+>   drm/amdgpu/gfx12: adjust ring reset sequences
+>   drm/amdgpu/gfx12: drop soft recovery
+>   drm/amdgpu/gfx10: adjust ring reset sequences
+>   drm/amdgpu/gfx10: drop soft recovery
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ib.c
-> index 802743efa3b39..d74bd6dffcbd0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -274,7 +274,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsi=
-gned int num_ibs,
->         /* wrap the last IB with fence */
->         if (job && job->uf_addr) {
->                 amdgpu_ring_emit_fence(ring, job->uf_addr, job->uf_sequen=
-ce,
-> -                                      fence_flags | AMDGPU_FENCE_FLAG_64=
-BIT);
-> +                                      fence_flags | AMDGPU_FENCE_FLAG_64=
-BIT |
-> +                                      AMDGPU_FENCE_FLAG_EXEC);
->         }
+> Christian K=C3=B6nig (1):
+>   drm/amdgpu: rework queue reset scheduler interaction
 >
->         if (ring->funcs->emit_gfx_shadow && ring->funcs->init_cond_exec) =
-{
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 26 ++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 41 ++++++++-----------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 35 ++++++---------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 35 ++++++---------------
+>  drivers/gpu/drm/amd/amdgpu/nvd.h        |  1 +
+>  7 files changed, 50 insertions(+), 92 deletions(-)
+>
 > --
 > 2.49.0
 >
