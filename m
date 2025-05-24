@@ -4,48 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E9AC54F30
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9349FC54ED1
 	for <amd-gfx@archiver.kernel.org>; Sat, 24 May 2025 19:20:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 378BB10E216;
-	Sat, 24 May 2025 19:20:05 +0000 (UTC)
-X-Greylist: delayed 530 seconds by postgrey-1.36 at gabe;
- Sat, 24 May 2025 17:00:37 UTC
-Received: from smtp.smtpout.orange.fr (smtp-28.smtpout.orange.fr
- [80.12.242.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3376E10E1A4
- for <amd-gfx@lists.freedesktop.org>; Sat, 24 May 2025 17:00:37 +0000 (UTC)
-Received: from localhost.localdomain
- ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
- by smtp.orange.fr with ESMTPA
- id Is60uQbGt1n9nIs60uXgae; Sat, 24 May 2025 18:51:41 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1748105501;
- bh=3/m2btaSoyNeCIlV4H3OiW8YIofhGOiWjmetp7MzqjU=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=bJC+f2Y0+Km6Z52inhkP0hqQakFaXaHQchhVmoPPNindPDUK+LsBDzXhOItzj0wng
- lGXs0kgZaXgwVES2xLYHqAy35/IF+ezFHaQQMgE10IrqNCdL+N6GabyxUKX1RmqYEK
- wNRrX0brLSDDQRHV99QvAzKTpkWD5qzL7kem7Fwjtv8iRFbtZxIz3VqXwKWOQQaPX2
- lLWdfNJhBpmN9iXAwr+9EduLgncABqi8rinBjp9Q+3QcLneykVebwR38VJE7TRFavm
- NvkpcP4qUS4N2IKu8G3C7ph8agoraaUu3oY7z+qgzo1oBzbhVyTq9yWVdpLrM+22O6
- EK14idepQesOg==
-X-ME-Helo: localhost.localdomain
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sat, 24 May 2025 18:51:41 +0200
-X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40C8E10E231;
+	Sat, 24 May 2025 19:20:09 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=nppct.ru header.i=@nppct.ru header.b="GNxyWPDD";
+	dkim-atps=neutral
+Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8DB10E037
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 May 2025 05:56:22 +0000 (UTC)
+Received: from mail.nppct.ru (localhost [127.0.0.1])
+ by mail.nppct.ru (Postfix) with ESMTP id 8B9241C1189
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 May 2025 08:56:15 +0300 (MSK)
+Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
+ reason="pass (just generated,
+ assumed good)" header.d=nppct.ru
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
+ content-transfer-encoding:mime-version:x-mailer:message-id:date
+ :date:subject:subject:to:from:from; s=dkim; t=1748066170; x=
+ 1748930171; bh=TIAcbocg9y14Fob0XJ0paDnaJ106oWT1NBjEKKkFB2Q=; b=G
+ NxyWPDDEJ9glBzHe/UlkvPvHWN35lVNi+zkiykniX9h3ooE2r0fNLjjK28FU3OGf
+ udzpqOWT+AJkeBFxL1LZb73JSvnALcJCLuJMuJFNfFbf+/limspo3luQ9gA+dbU/
+ 8E6wxr8MAXXUT3KQdu3DO0ORGWHPEXXBh9pgdFXfvY=
+X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
+Received: from mail.nppct.ru ([127.0.0.1])
+ by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id HZF0VY5gz44g for <amd-gfx@lists.freedesktop.org>;
+ Sat, 24 May 2025 08:56:10 +0300 (MSK)
+Received: from localhost.localdomain (unknown [87.249.24.51])
+ by mail.nppct.ru (Postfix) with ESMTPSA id 0F5151C114E;
+ Sat, 24 May 2025 08:55:56 +0300 (MSK)
+From: Alexey Nepomnyashih <sdl@nppct.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alexey Nepomnyashih <sdl@nppct.ru>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Constify struct timing_generator_funcs
-Date: Sat, 24 May 2025 18:51:25 +0200
-Message-ID: <7dd73263342c1093f3e86ae5841a53c1e3739b5e.1748105447.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.49.0
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sunil Khatri <sunil.khatri@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Jiadong Zhu <Jiadong.Zhu@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+ Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: fix NULL dereference in gfx_v9_0_kcq() and
+ kiq_init_queue()
+Date: Sat, 24 May 2025 05:55:43 +0000
+Message-ID: <20250524055546.1001268-1-sdl@nppct.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 24 May 2025 19:20:04 +0000
@@ -63,149 +70,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-'struct timing_generator_funcs' are not modified in these drivers.
+A potential NULL pointer dereference may occur when accessing 
+tmp_mqd->cp_hqd_pq_control without verifying that tmp_mqd is non-NULL.
+This may happen if mqd_backup[mqd_idx] is unexpectedly NULL.
 
-Constifying these structures moves some data to a read-only section, so
-increases overall security, especially when the structure holds some
-function pointers.
+Although a NULL check for mqd_backup[mqd_idx] existed previously, it was
+moved to a position after the dereference in a recent commit, which
+renders it ineffective.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Add an explicit NULL check for tmp_mqd before dereferencing its members.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Cc: stable@vger.kernel.org # v5.13+
+Fixes: a330b52a9e59 ("drm/amdgpu: Init the cp MQD if it's not be initialized before")
+Signed-off-by: Alexey Nepomnyashih <sdl@nppct.ru>
 ---
-This is NOT compile tested, because apparently some .h files are missing on
-my system ("reg_helper.h")
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-However, I've checked how these struct timing_generator_funcs are used.
-They end in "struct optc->base.funcs" which is a
-"const struct timing_generator_funcs", so evething should be fine.
----
- drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c | 2 +-
- drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c | 2 +-
- drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c | 2 +-
- drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c | 2 +-
- 9 files changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-index 81857ce6d68d..e7a90a437fff 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-@@ -502,7 +502,7 @@ void optc2_get_last_used_drr_vtotal(struct timing_generator *optc, uint32_t *ref
- 	REG_GET(OTG_DRR_CONTROL, OTG_V_TOTAL_LAST_USED_BY_DRR, refresh_rate);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index d7db4cb907ae..134cab16a00d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -3817,10 +3817,9 @@ static int gfx_v9_0_kiq_init_queue(struct amdgpu_ring *ring)
+ 	 * check mqd->cp_hqd_pq_control since this value should not be 0
+ 	 */
+ 	tmp_mqd = (struct v9_mqd *)adev->gfx.kiq[0].mqd_backup;
+-	if (amdgpu_in_reset(adev) && tmp_mqd->cp_hqd_pq_control){
++	if (amdgpu_in_reset(adev) && tmp_mqd && tmp_mqd->cp_hqd_pq_control) {
+ 		/* for GPU_RESET case , reset MQD to a clean status */
+-		if (adev->gfx.kiq[0].mqd_backup)
+-			memcpy(mqd, adev->gfx.kiq[0].mqd_backup, sizeof(struct v9_mqd_allocation));
++		memcpy(mqd, adev->gfx.kiq[0].mqd_backup, sizeof(struct v9_mqd_allocation));
  
--static struct timing_generator_funcs dcn20_tg_funcs = {
-+static const struct timing_generator_funcs dcn20_tg_funcs = {
- 		.validate_timing = optc1_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c
-index f2415eebdc09..772a8bfb949c 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c
-@@ -129,7 +129,7 @@ static void optc201_get_optc_source(struct timing_generator *optc,
- 	*num_of_src_opp = 1;
- }
+ 		/* reset ring buffer */
+ 		ring->wptr = 0;
+@@ -3863,7 +3862,7 @@ static int gfx_v9_0_kcq_init_queue(struct amdgpu_ring *ring, bool restore)
+ 	 */
+ 	tmp_mqd = (struct v9_mqd *)adev->gfx.mec.mqd_backup[mqd_idx];
  
--static struct timing_generator_funcs dcn201_tg_funcs = {
-+static const struct timing_generator_funcs dcn201_tg_funcs = {
- 		.validate_timing = optc201_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
-index 78b58a449fa4..ee4665aa49e9 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
-@@ -357,7 +357,7 @@ void optc3_tg_init(struct timing_generator *optc)
- 	optc1_clear_optc_underflow(optc);
- }
+-	if (!restore && (!tmp_mqd->cp_hqd_pq_control ||
++	if (!restore && tmp_mqd && (!tmp_mqd->cp_hqd_pq_control ||
+ 	    (!amdgpu_in_reset(adev) && !adev->in_suspend))) {
+ 		memset((void *)mqd, 0, sizeof(struct v9_mqd_allocation));
+ 		((struct v9_mqd_allocation *)mqd)->dynamic_cu_mask = 0xFFFFFFFF;
+@@ -3874,8 +3873,7 @@ static int gfx_v9_0_kcq_init_queue(struct amdgpu_ring *ring, bool restore)
+ 		soc15_grbm_select(adev, 0, 0, 0, 0, 0);
+ 		mutex_unlock(&adev->srbm_mutex);
  
--static struct timing_generator_funcs dcn30_tg_funcs = {
-+static const struct timing_generator_funcs dcn30_tg_funcs = {
- 		.validate_timing = optc1_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c
-index 65e9089b7f31..38f85bc2681a 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c
-@@ -109,7 +109,7 @@ void optc301_setup_manual_trigger(struct timing_generator *optc)
- 			OTG_TRIGA_CLEAR, 1);
- }
- 
--static struct timing_generator_funcs dcn30_tg_funcs = {
-+static const struct timing_generator_funcs dcn30_tg_funcs = {
- 		.validate_timing = optc1_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
-index ef536f37b4ed..4f1830ba619f 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
-@@ -315,7 +315,7 @@ void optc31_read_otg_state(struct timing_generator *optc,
- 	s->otg_double_buffer_control = REG_READ(OTG_DOUBLE_BUFFER_CONTROL);
- }
- 
--static struct timing_generator_funcs dcn31_tg_funcs = {
-+static const struct timing_generator_funcs dcn31_tg_funcs = {
- 		.validate_timing = optc1_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
-index 0e603bad0d12..4a2caca37255 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
-@@ -192,7 +192,7 @@ static void optc314_set_h_timing_div_manual_mode(struct timing_generator *optc,
- }
- 
- 
--static struct timing_generator_funcs dcn314_tg_funcs = {
-+static const struct timing_generator_funcs dcn314_tg_funcs = {
- 		.validate_timing = optc1_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
-index 2cdd19ba634b..b2b226bcd871 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
-@@ -297,7 +297,7 @@ static void optc32_set_drr(
- 	optc32_setup_manual_trigger(optc);
- }
- 
--static struct timing_generator_funcs dcn32_tg_funcs = {
-+static const struct timing_generator_funcs dcn32_tg_funcs = {
- 		.validate_timing = optc1_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-index 4cfc6c0fa147..72bff94cb57d 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-@@ -428,7 +428,7 @@ static void optc35_set_long_vtotal(
- 	}
- }
- 
--static struct timing_generator_funcs dcn35_tg_funcs = {
-+static const struct timing_generator_funcs dcn35_tg_funcs = {
- 		.validate_timing = optc1_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
-index 382ac18e7854..ff79c38287df 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
-@@ -459,7 +459,7 @@ bool optc401_wait_update_lock_status(struct timing_generator *tg, bool locked)
- 	return true;
- }
- 
--static struct timing_generator_funcs dcn401_tg_funcs = {
-+static const struct timing_generator_funcs dcn401_tg_funcs = {
- 		.validate_timing = optc1_validate_timing,
- 		.program_timing = optc1_program_timing,
- 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+-		if (adev->gfx.mec.mqd_backup[mqd_idx])
+-			memcpy(adev->gfx.mec.mqd_backup[mqd_idx], mqd, sizeof(struct v9_mqd_allocation));
++		memcpy(adev->gfx.mec.mqd_backup[mqd_idx], mqd, sizeof(struct v9_mqd_allocation));
+ 	} else {
+ 		/* restore MQD to a clean status */
+ 		if (adev->gfx.mec.mqd_backup[mqd_idx])
 -- 
-2.49.0
+2.43.0
 
