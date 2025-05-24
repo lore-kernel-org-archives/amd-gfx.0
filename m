@@ -4,47 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C76C3C54EDA
-	for <amd-gfx@archiver.kernel.org>; Sat, 24 May 2025 11:17:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E9AC54F30
+	for <amd-gfx@archiver.kernel.org>; Sat, 24 May 2025 19:20:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D7AB10E028;
-	Sat, 24 May 2025 11:17:17 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OjhpC6Wc";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D97DF10E021;
- Sat, 24 May 2025 11:17:15 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7EA46436A4;
- Sat, 24 May 2025 11:17:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BC8AC4CEE4;
- Sat, 24 May 2025 11:17:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748085435;
- bh=gT+tC+6GvrzwwWH+YFzopHjIki5BkkGoo/QhMIcWSOo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OjhpC6WcpIYjQ96mWxLNh6+M/amk7/V/tlMJZyfsZDwem+QIJaCe7mQU3pUS3LW/f
- EZn6o07RBM3Ejg6duhb/ZZ/+YkOPZz6d+1O7zWG3CRijdIIAFLTSnjpFrgfczC1q6Z
- 8X0Z99MvZgz1UZ/lz+lN0nQaCxfxf7UHImfHT13dsps9lHHIfes6ipAZ23qPNbqDfl
- sDdiatGJaCDuEWof5iKrrE7TcGtznkuywhAqi2uyv/hgCi0sdc7Ub6lHyunQM6FL3e
- Um0EAEMBcbghqQ/S+ykEuZcGLQez8+WiMP5/TYM/dL/UCEDw7X7U+pfJPIKEQ9jo59
- VtVbusoI3Dnsw==
-Date: Sat, 24 May 2025 13:17:11 +0200
-From: Danilo Krummrich <dakr@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: tursulin@ursulin.net, phasta@mailbox.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/4] drm/sched: optimize drm_sched_job_add_dependency
-Message-ID: <aDGqt0jERFlU42J6@pollux.localdomain>
-References: <20250523125643.7540-1-christian.koenig@amd.com>
- <20250523125643.7540-2-christian.koenig@amd.com>
- <aDCCF0JFhO7lR2VJ@cassiopeiae>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 378BB10E216;
+	Sat, 24 May 2025 19:20:05 +0000 (UTC)
+X-Greylist: delayed 530 seconds by postgrey-1.36 at gabe;
+ Sat, 24 May 2025 17:00:37 UTC
+Received: from smtp.smtpout.orange.fr (smtp-28.smtpout.orange.fr
+ [80.12.242.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3376E10E1A4
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 May 2025 17:00:37 +0000 (UTC)
+Received: from localhost.localdomain
+ ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPA
+ id Is60uQbGt1n9nIs60uXgae; Sat, 24 May 2025 18:51:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1748105501;
+ bh=3/m2btaSoyNeCIlV4H3OiW8YIofhGOiWjmetp7MzqjU=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=bJC+f2Y0+Km6Z52inhkP0hqQakFaXaHQchhVmoPPNindPDUK+LsBDzXhOItzj0wng
+ lGXs0kgZaXgwVES2xLYHqAy35/IF+ezFHaQQMgE10IrqNCdL+N6GabyxUKX1RmqYEK
+ wNRrX0brLSDDQRHV99QvAzKTpkWD5qzL7kem7Fwjtv8iRFbtZxIz3VqXwKWOQQaPX2
+ lLWdfNJhBpmN9iXAwr+9EduLgncABqi8rinBjp9Q+3QcLneykVebwR38VJE7TRFavm
+ NvkpcP4qUS4N2IKu8G3C7ph8agoraaUu3oY7z+qgzo1oBzbhVyTq9yWVdpLrM+22O6
+ EK14idepQesOg==
+X-ME-Helo: localhost.localdomain
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 24 May 2025 18:51:41 +0200
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Constify struct timing_generator_funcs
+Date: Sat, 24 May 2025 18:51:25 +0200
+Message-ID: <7dd73263342c1093f3e86ae5841a53c1e3739b5e.1748105447.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aDCCF0JFhO7lR2VJ@cassiopeiae>
+X-Mailman-Approved-At: Sat, 24 May 2025 19:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,18 +63,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 23, 2025 at 04:11:39PM +0200, Danilo Krummrich wrote:
-> On Fri, May 23, 2025 at 02:56:40PM +0200, Christian König wrote:
-> > +	if (xas_nomem(&xas, GFP_KERNEL)) {
-> > +		xa_lock(&job->dependencies);
-> > +		goto retry;
-> 
-> Please don't use a goto here, if we would have failed to allocate memory here,
-> this would be an endless loop until we succeed eventually.
+'struct timing_generator_funcs' are not modified in these drivers.
 
-I think I got confused by xas_nomem() returning true meaning that memory was
-needed and was successfully allocated (which can be a bit counterintuitive).
+Constifying these structures moves some data to a read-only section, so
+increases overall security, especially when the structure holds some
+function pointers.
 
-So, your code here should be correct. However, I'd still remove the goto and
-just call xas_store() again. There's no reason to make this a loop and backwards
-goto is better avoided anyways. :)
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+This is NOT compile tested, because apparently some .h files are missing on
+my system ("reg_helper.h")
+
+However, I've checked how these struct timing_generator_funcs are used.
+They end in "struct optc->base.funcs" which is a
+"const struct timing_generator_funcs", so evething should be fine.
+---
+ drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c | 2 +-
+ 9 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
+index 81857ce6d68d..e7a90a437fff 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
+@@ -502,7 +502,7 @@ void optc2_get_last_used_drr_vtotal(struct timing_generator *optc, uint32_t *ref
+ 	REG_GET(OTG_DRR_CONTROL, OTG_V_TOTAL_LAST_USED_BY_DRR, refresh_rate);
+ }
+ 
+-static struct timing_generator_funcs dcn20_tg_funcs = {
++static const struct timing_generator_funcs dcn20_tg_funcs = {
+ 		.validate_timing = optc1_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c
+index f2415eebdc09..772a8bfb949c 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn201/dcn201_optc.c
+@@ -129,7 +129,7 @@ static void optc201_get_optc_source(struct timing_generator *optc,
+ 	*num_of_src_opp = 1;
+ }
+ 
+-static struct timing_generator_funcs dcn201_tg_funcs = {
++static const struct timing_generator_funcs dcn201_tg_funcs = {
+ 		.validate_timing = optc201_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
+index 78b58a449fa4..ee4665aa49e9 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
+@@ -357,7 +357,7 @@ void optc3_tg_init(struct timing_generator *optc)
+ 	optc1_clear_optc_underflow(optc);
+ }
+ 
+-static struct timing_generator_funcs dcn30_tg_funcs = {
++static const struct timing_generator_funcs dcn30_tg_funcs = {
+ 		.validate_timing = optc1_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c
+index 65e9089b7f31..38f85bc2681a 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn301/dcn301_optc.c
+@@ -109,7 +109,7 @@ void optc301_setup_manual_trigger(struct timing_generator *optc)
+ 			OTG_TRIGA_CLEAR, 1);
+ }
+ 
+-static struct timing_generator_funcs dcn30_tg_funcs = {
++static const struct timing_generator_funcs dcn30_tg_funcs = {
+ 		.validate_timing = optc1_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
+index ef536f37b4ed..4f1830ba619f 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
+@@ -315,7 +315,7 @@ void optc31_read_otg_state(struct timing_generator *optc,
+ 	s->otg_double_buffer_control = REG_READ(OTG_DOUBLE_BUFFER_CONTROL);
+ }
+ 
+-static struct timing_generator_funcs dcn31_tg_funcs = {
++static const struct timing_generator_funcs dcn31_tg_funcs = {
+ 		.validate_timing = optc1_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
+index 0e603bad0d12..4a2caca37255 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
+@@ -192,7 +192,7 @@ static void optc314_set_h_timing_div_manual_mode(struct timing_generator *optc,
+ }
+ 
+ 
+-static struct timing_generator_funcs dcn314_tg_funcs = {
++static const struct timing_generator_funcs dcn314_tg_funcs = {
+ 		.validate_timing = optc1_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
+index 2cdd19ba634b..b2b226bcd871 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
+@@ -297,7 +297,7 @@ static void optc32_set_drr(
+ 	optc32_setup_manual_trigger(optc);
+ }
+ 
+-static struct timing_generator_funcs dcn32_tg_funcs = {
++static const struct timing_generator_funcs dcn32_tg_funcs = {
+ 		.validate_timing = optc1_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+index 4cfc6c0fa147..72bff94cb57d 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+@@ -428,7 +428,7 @@ static void optc35_set_long_vtotal(
+ 	}
+ }
+ 
+-static struct timing_generator_funcs dcn35_tg_funcs = {
++static const struct timing_generator_funcs dcn35_tg_funcs = {
+ 		.validate_timing = optc1_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
+index 382ac18e7854..ff79c38287df 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
+@@ -459,7 +459,7 @@ bool optc401_wait_update_lock_status(struct timing_generator *tg, bool locked)
+ 	return true;
+ }
+ 
+-static struct timing_generator_funcs dcn401_tg_funcs = {
++static const struct timing_generator_funcs dcn401_tg_funcs = {
+ 		.validate_timing = optc1_validate_timing,
+ 		.program_timing = optc1_program_timing,
+ 		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
+-- 
+2.49.0
+
