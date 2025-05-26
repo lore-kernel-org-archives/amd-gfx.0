@@ -4,153 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1325EC5AD49
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 May 2025 11:16:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 853E2C54FB3
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 May 2025 11:36:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8555610E2F3;
-	Mon, 26 May 2025 11:16:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D96D10E322;
+	Mon, 26 May 2025 11:36:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aQ6M06QB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yU2oA5pu";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 882A410E320;
- Mon, 26 May 2025 11:16:43 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2059.outbound.protection.outlook.com [40.107.100.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD8810E31F;
+ Mon, 26 May 2025 11:36:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hhDZY9HU8HiE2YkZH51Vhj9xDSagPIK6EkgGjR4drLuLMRv3/CpiS1Cj7byeQEL/IgrIHxM+47RLadP2ziL6MVgPCkZ42XeTY7zGSz0ejWvo1RzelATPMtJ4S+6SBerBKngooEMavEOz1NcQT+uznwKun/W/B7tmNQhPF+bl3jdLDwYZ0ldVWDfyfInAsCVfRySIYD8389fLwL1t9bY97K0geLCMKIcCr/Xrw4dsHxz7RKzpfvXwyhdkE8zB5Bn2ZUoJ9ZjZ5HdYaIHzaJWiI0spJZuXCoe8RaWBI6UupD+5UKlZum5aYjbRwmxEINpslz2Z6YWL+F334w5qM4X4eQ==
+ b=LWV/zBefkrZgkmqg1ABnd6i0gsbWz2SIGYF6IpQWDPQulad9lJsazFj87ZX9jquOaUL17ww3Q7f0Tt6sp2/7poWfWkgUe7EOf7+OEfsFAkPxY+osgwqw8MxTVnpn/52QaM9MYvYwWbEQtmAgqrlC2uOKwPsso6EarFv1GTZje+zJb7CUSef9fJUmc8joeIwtpEbVPTcia4DX0BJJpwR+wFCajtitqftG90vOgDwBbLzTXhtgyc0H3hScm/wn4dvNVeXr7cmfG4c1r2TlKXkHDgIMCtQYJjfSqOyO8J9DPyrH3Kt79tndyzrpGn23/Jb95Oy312kxd2OxNFWhzY1cOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HqBve8kORN3xDq8By+ORtpgwriKJqwLD4nsFSaTrDQU=;
- b=bqP6pFawhOJld/t1TqHomsO5YR6zPepePOTeZVpZ+WPZfffITlCZOOEiQTHJBhAGPrEnDaJXLw+omeRRGxkzwoNZiNLFlgjVlCCin8+ySuBktrLM1naBY96s9G/t9eKc6Y7LNhznvQ2Hy5wNW8Tc/oRJg+wlKI1+mQp3lBW5TuypPwydk/y24VrcyYWIH447ZjLwnGdAknAikBF5kYn3MqiHwHt4iVZImIX2FuRJuBsmo7gZWZ8V0Yi7QucdEVamBXcg5QocErYPM8GXmkRNmKLNAGJ6PszqhKGhKR0A3enm3MzV26b4SJFAfXJXQ9u544UTq/JRfb0MkUxZedVSCA==
+ bh=EZxUFU/46phmwuZHEjRitL7U6HVuZvygrNCmnOSS3J8=;
+ b=R44ptUJ6iSgfF9t1MN88EJjNP906/n10ATCCpvJFA77J5ItD1fH7GbvYjdrahseVyZ/8LUkP4t/y5WeM/BA/guQF7q+1qoyRnNDSltPz7g6cvxTSW1e42YfvhTD6ujgZ7MLJ4Jxy8Y90ygdeWfqviKK5OfhnJO46g21SWg+HbfQYJNyvwSwa0fYWg/bOtyjZYwMGmG6sVxSKvqFQVvgj8il7OP+WA0vBbRfVRy8qL74khPSFYgtnRcF5Xiqhvjdpkp1FYngBZcPFVlSXqWD2OW7OXPfz+fizZMYdsQMG1ih1AyHa1DcLZmXyVHyOhIr4bxsci6RlbsaNE5LQ161/wA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HqBve8kORN3xDq8By+ORtpgwriKJqwLD4nsFSaTrDQU=;
- b=aQ6M06QBLYW1oW2eZQSoQeJU8RL5RBFIOxViHKg2Hh+iYSLxDa1/+hj3dePGtwQHvbg5L0f0ktSu/KKboPheLF25HrL/QxdRq6MMTiMaO+zmGmiNdZR3xbBSDuIr4Zz3QB14LFgCDvcgQXSYs6Iq7NTUmr1cxj0576xaKTCVJLc=
+ bh=EZxUFU/46phmwuZHEjRitL7U6HVuZvygrNCmnOSS3J8=;
+ b=yU2oA5puJ5qGQwDcx+4tS1iRfCl/H2nmENIbWiAzU7XsLU7pikqFLTI2lKu7h89spmrpkJp1J7j1e70D7z325J9eIEy65GeeqabQz+sXNbiXKHJPwyLAMSqVSxoQFHuKd75MNzyEbqtk7yw9AnNmdA9NizE/QyP52FSwXZxLleg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB5861.namprd12.prod.outlook.com (2603:10b6:8:78::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Mon, 26 May
- 2025 11:16:39 +0000
+ by SN7PR12MB6909.namprd12.prod.outlook.com (2603:10b6:806:263::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.21; Mon, 26 May
+ 2025 11:36:20 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Mon, 26 May 2025
- 11:16:39 +0000
-Message-ID: <74c4b9d8-5e25-438e-97c5-5aa2035fb9bd@amd.com>
-Date: Mon, 26 May 2025 13:16:33 +0200
+ 11:36:20 +0000
+Message-ID: <f9830eac-c491-4702-b74e-f523728bbfd1@amd.com>
+Date: Mon, 26 May 2025 13:36:15 +0200
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/4] drm/sched: optimize drm_sched_job_add_dependency
-To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
-Cc: tursulin@ursulin.net, amd-gfx@lists.freedesktop.org,
+To: Danilo Krummrich <dakr@kernel.org>, Matthew Wilcox <willy@infradead.org>
+Cc: tursulin@ursulin.net, phasta@mailbox.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 References: <20250523125643.7540-1-christian.koenig@amd.com>
  <20250523125643.7540-2-christian.koenig@amd.com>
- <aDCCF0JFhO7lR2VJ@cassiopeiae> <aDCDJ-sK9rRI6wse@cassiopeiae>
- <cd64af4d-f5b3-4f18-9be6-636624833075@amd.com>
- <08bb986281fefb5cbdb35c63a56e1bbd923d9297.camel@mailbox.org>
+ <aDCCF0JFhO7lR2VJ@cassiopeiae> <aDGqt0jERFlU42J6@pollux.localdomain>
+ <9ee10cc3-733b-4d64-b396-28e62c631dc4@amd.com> <aDRNGnPjmFDwzPOR@cassiopeiae>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <08bb986281fefb5cbdb35c63a56e1bbd923d9297.camel@mailbox.org>
+In-Reply-To: <aDRNGnPjmFDwzPOR@cassiopeiae>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR13CA0005.namprd13.prod.outlook.com
- (2603:10b6:208:160::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL0PR0102CA0005.prod.exchangelabs.com
+ (2603:10b6:207:18::18) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB5861:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29b977ed-7411-44fd-9dd3-08dd9c46c941
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6909:EE_
+X-MS-Office365-Filtering-Correlation-Id: 263ba451-79b5-4dda-aa74-08dd9c49891c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZzJFdndabjhOQ2ZEVTZRUVFXWUtycktSUEtSaVZrYVdsR3lmdnFnSjF5c0sw?=
- =?utf-8?B?U0hwdVkxa1pEZVFXdkNoRWk1TEsxVXNpOVlYVHYvWmpXTEZmK1VvZGZoYzZH?=
- =?utf-8?B?cTlPSWhzMzI4TjMySS9jSEdtWGVZeGpBUWE0cFNSY053aWVSbm5pdXZ2aTNC?=
- =?utf-8?B?RzZ3UTZXWDMzSktTK0Uwb3RTejlqdEw4aTlLSEp3aURPcStjajQ4dndEWnhk?=
- =?utf-8?B?UnRZeGRabDg2Q0x1SkJPeTh4aFQ3SVNoYkw2QktRditzUjF6R1hHNmN5Nmxo?=
- =?utf-8?B?QUhQbEk1eTlXSWVxaG96TG14S25nckFSTHg5Um5DR0l5WmJ5T09ydlBUYkxW?=
- =?utf-8?B?ZGUwNXI0YStsZS9md3BodGZQMXRPTEhhSlZpN0hOejVBeS9LL093eExsNlJK?=
- =?utf-8?B?Z0lUNDdjNXM0QWV5V2MxT095YXhLR1hiWit5bk02emx0a2pLNmhyelBaS1dr?=
- =?utf-8?B?TzhVTmpLcTlmSlNXNmFhT2gxa1pTVW9Rdy9majRTc0QxZHlhVWE3bTRIaGdV?=
- =?utf-8?B?OUlQVG0wSnRadjBwb2hiakREdTNVeW1vOXZNaXEwU1VnZndrY0pUNTRJaEtU?=
- =?utf-8?B?UkhIYWJEaVgrbEJLOTIrMGx2eDhaeTBkNS96VjkrL1o5RThlb2xLV0tPbkxj?=
- =?utf-8?B?ZXpMcmNaQWFRdVJmejd1dHdYbGRXalMwaWpkWlFkNkV2WUpaQWpkQVNMZ3A4?=
- =?utf-8?B?Z1FoVVlhcnYzbllVMFcvTGQwaHQ1aXRYZHJtOUhVdE9oWkl5empudEdXYnNn?=
- =?utf-8?B?ZEQ2cFE2N2s0S0k0K3B6QWVsNTVSOTZHekdIMmZZcWdqWjZ5YjdtdXhzMStn?=
- =?utf-8?B?N2YxUmRRR1ducHNrTFB2aHhrNFFkMGhYSlo1cnJRMlM4ZnE4SjIzUHo1aVd4?=
- =?utf-8?B?amkvU09vaVRZT20vU09ZWS91d2EyWEpRTlNELyswbE1HQlF4d1lOUU1sRzNJ?=
- =?utf-8?B?UExsMGhCbU13TmdXK21mRngxdDcrcU5GcWc1T1ROdy8rOWMyMGlLLzRtV2ti?=
- =?utf-8?B?d1hRRXR6MUVkQnJBa3BrYWc5aE1VTmNCL2U0TEZVU2NkV29BNW9nYmV6ZUYw?=
- =?utf-8?B?TTVQYW1QRktkNzRScThaRVozS1BHMTNQQ1BzL0tzd0Z0ZXVOeXhPeUt3RUVa?=
- =?utf-8?B?TUMvUXB4LzJidzU4NjlXOW84cXo2Y0hKVE9kYzFnbzVEbnZzWHcrUFhXajRz?=
- =?utf-8?B?Q0xBd2hMUDFGcnJrWUdxWVJnYXRQRElDWm5kU2FKWE9ySDlTMUc1cXVjSmJk?=
- =?utf-8?B?VUFtVVlFdXV1S3FzRzQ4c0R2ZFhhTnVFNm40UGNqMS9GRnhFMGgxQkViNlc5?=
- =?utf-8?B?cUhVc1BZY3lmNEkyaXl3R1NQYmNxaERvNCtBdVgvcklsbkxhQVN0UmlBcDV3?=
- =?utf-8?B?WnRIeUt0WHZqN3VBNWxPY09ZWnZRTlNyTHl1TlhGN2pycC92eU9vVEZLd2lj?=
- =?utf-8?B?N1AwOVZuNTJwaXA1RjAwZWNSQU1pc0dmV2NnQUZIakV2KzZnRGhVNi9EcTI2?=
- =?utf-8?B?TWg4cmswVFZwaFkyZlo5ZmZmc1hyc25BL3NnYlRCYVVjSTNCRnZzbzhKcnNT?=
- =?utf-8?B?Y3JlaDVZR0U2blB3UUFKU1lhOXZodXZ5NVBLREh2a3ZCRnBHYWRhTmtoWThV?=
- =?utf-8?B?YkVlOWZZMGVsVVNRZ1o1MS8zd2lEU2xvcFYxbW5TZnMxSkYyeU1uWHY1MHFo?=
- =?utf-8?B?ZXBhbnF0ekI0NDRiYm5VS0VBMGJrZjZETHVMakt4WnVmaDk3N3NsR3NGZys4?=
- =?utf-8?B?RjB6MzFnL1hadUFuOVhMbXFUOUMzOGp5RU80L2h5Nk9Xc0dUbnNBZGppTVZr?=
- =?utf-8?B?ZU11UnZNNWRDMW5oa1ErWUprTjZEdDNwVHdEMG01UU4rVlcvdXYvNnowaDRY?=
- =?utf-8?B?bXhvTTY5bHdJWHl1OEpPVHZIWVoxTFJtRXdJbEdMVm1pakdWb3NJVlFlQ1Yz?=
- =?utf-8?Q?q+JqCli3KhQ=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RmM5cVVCTStiZHI2TmVzZjZtWmd2S2dhVVJqQkMvWUQ5dElKNXQ5NzMxeGt6?=
+ =?utf-8?B?anBFTFNzcWF6M3hxblNjWEpINVRPdWx3RzFZcHo1WTJNY2dqN0VnajVPS3Va?=
+ =?utf-8?B?a2dJSVE1Nlc3N3dQZUV5dmQ2S045VjYwdENRQnNXOGpDbTdYQUhLNXVScVph?=
+ =?utf-8?B?K1prcVk0dklvNUhaL1g1WjVkWDloenY5cUtCeWNoODhQbjloVFozZVpKcG5D?=
+ =?utf-8?B?SDJ1Ti9ibmwxWEh4NW00bkZGWVhzV2o2M21EdSt2akJmdHoycXEyVWw4MEdi?=
+ =?utf-8?B?bVJEVGRIL3JheWoyQ0xFNmVXVFZQNVhUakZ3SE1nakdoV2d2RzJZeWc4VWx4?=
+ =?utf-8?B?c00yNUpqWTlpdlBwbXkrUmY2OU5lRThYM2hDdEF1ZFMxd3Q3NnVwSk1yZUw5?=
+ =?utf-8?B?UFRKY3VCZjduZ0RKQnY1d1N5YnpuZWlwMkhkMk93eVpxdm1mSENLSXpnajFC?=
+ =?utf-8?B?Z3R5WFN2akhqMlRjZnNCQ2dTd08ydjFoSjBCSVFrTUxFL1BmcTVZRFdkVDl0?=
+ =?utf-8?B?Vm4rWk9PWUM2dW9iWE9qNFR3aXV3elF5d0VLRDFHME90ckpERXJJenBqVDFl?=
+ =?utf-8?B?ay9FMXhRZzU2NzJBaHJ5cFUrU3hwelJqMDFFWGhSS0FjRFZnNDlhYlFab2Qr?=
+ =?utf-8?B?Yjg1TDYxWDNqWFVhWGlzR05IMzd3VlhtQmRlbTgzNlZXTzc4dENCQ04xbVMz?=
+ =?utf-8?B?NlVXcDkzUVNHZGQyNWJ3dXhaTzNOVHdYV2xoSXhwMFlnZmVKMkxqTHlsOWhi?=
+ =?utf-8?B?THZOY3l1cEd2Y2RBeHdOcEt1YWIweklGUHFzUDNwRzFyUCswU2FoZnBqWGVC?=
+ =?utf-8?B?bkFNOFlJcE1kb1psTVZVTEczbWZyTjhqRUdPa2dXSW15dUFSNjVNYlE4a1F5?=
+ =?utf-8?B?OXJnMGdJaUdVeTB0MlYwSG5XUXlTVWRlSzhkUExCdmhFWVVXaDJOc3VaR2tt?=
+ =?utf-8?B?c1RORXdBR3hCTHhneDFqWlZqaFdCV0laVlRZR3Ixb20xaGhqcG1YWGNzWDJk?=
+ =?utf-8?B?ZnEwanhrUm1nRnFOT1lZeHBUMzgwREJEcmd1VjZCQlNkd3NYNTRkRE9BUGpG?=
+ =?utf-8?B?QTBaWStaMytIVmExSFZQRHJTSVp5VXdGVnpUT1BYRTBaRWFIdlFqdTNld3Zl?=
+ =?utf-8?B?RUdXNG5IRnJOTEZ2cWNuTUR3KzdxTmYvRDl4SjNya2tONlYzcDZ0emVjSlVk?=
+ =?utf-8?B?ZmVQbERQTFVqUE91bUJ3TTgzNXZqTk9sUzB0akl5NXRSS1BCYm4rbGVNZHM3?=
+ =?utf-8?B?dFZDK0VmSUxPSHJCZnREK2s3bEpCSGJFSFdHZ3hMV0ltN3Q5S2czREZZbDVj?=
+ =?utf-8?B?ZEwyV2xoLzhhRHdsbkxNbGZOMzMzeEl3czV6cFJYdEJITXpvaldhbmdHb2dV?=
+ =?utf-8?B?R0NUN05lUks2bTBxM0w4VmlCZlZaNnN2cy9MbEpaRi93YVRmZFJlT2loc2pT?=
+ =?utf-8?B?WWJpajhxZU41TVc1ek1WZjdUeHduMVlTWHZaeTlEVE1XM2R6NlBYUC9QUThj?=
+ =?utf-8?B?dlBVaHdtWHg0MjYrckpjM3k3OWZjbmNRVXZxMTRYODhVcmJrUmgybmhYUWdW?=
+ =?utf-8?B?Y0dTKzlIMnRjemRQckhYd2ZINCtHR3ZBblYzcFNHWEZYLzQzbHVsYnNxMncv?=
+ =?utf-8?B?ZEViUHM1ankvMC9CZmNFY1pwejYzaTVIckp3WEFoVk1JQ3Myc1pKbVQ2ZlRV?=
+ =?utf-8?B?RlRHekFIU3c5WFRyUTdneWRMbUtsaU9wenR0V3ovV0I0ZUdwMFhkOVRRVjgz?=
+ =?utf-8?B?NUI4Q1lmL090TnlSQlZRUlArU2hlV2JicERqR2hQNE1VNDFjZGFWMmFqd3RZ?=
+ =?utf-8?B?bVIyL0l0T0VpK1pCdTRxZlg2eERCTDJycVNrUDZtb2VOVnhxclB3dEM4MEJ3?=
+ =?utf-8?B?RnBiNVdXemo3Y05KaHZOYXRMUDRFTmxNck52emVqRG8rYUc1VERReWhyYnAz?=
+ =?utf-8?Q?+Qgjp+N5SjU=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b3NQOHZNTkRjcUdIV1dlVk5QcnFOanVFSmgxSzBUQTJJbzloUEtGNFczZWMr?=
- =?utf-8?B?TTNMWEFPREdYTXVwQmRleUwwb3RGZTdWYjlpdVpKL0lWNFNJTUljL1V1QXFJ?=
- =?utf-8?B?NFFmWVhrYmtGaHp6cDRHZFNQc1lGalFTZ0xSdzRtQzFucDhlMHJkdnJsK2k3?=
- =?utf-8?B?YWM5TGJZYWplZTRJZHU4by8ydVBkTmQ3V25YS0VCQVRwVUFhbitOZVh4V3JU?=
- =?utf-8?B?aEJNSWNvemlTd09nZ3dhUDRxcUY4V1l0WTFsSDdJU2UvbEVYZGJ4bHdJcGkx?=
- =?utf-8?B?cUY0NUVqdGJMUG9ENmZBQnp2SGs4TjlGc1BlZDFSVmVMc1l0cDdhMTN3cUha?=
- =?utf-8?B?Wjg2Rk16cVhCNHIzWkpjNVFNVXFLOE5QU0xHN3NTUHA5L0dvZ2RJb1VmNktx?=
- =?utf-8?B?VDNIWWtxTHJpcjBSL21tNDhNcEkyM2ltT1FtaTcyMkZDdTFmVTlsOWs4cGpx?=
- =?utf-8?B?Y3A3Z2tSeEVqOFdXcEZVV1Z0ZWxFRkVVanBZa3R0Y0lWTXhmRkRsN3pkdFli?=
- =?utf-8?B?ejArT3dlNHNjVC9MZXUySUZtT1VFWEhMb2VRei9tUy9qdDczYXIzdndnSVVJ?=
- =?utf-8?B?M0pyeFZNOVY1MnRyUzU5aGdxd2FtVmp0MzdldWtVVkRsQmwveFRSRERiMmhn?=
- =?utf-8?B?d21ZVmNCZVhBUEFwRjRPVHMwdjV4WGFJYzhjY0VQeC9qc3BqbDFjWS82aVFN?=
- =?utf-8?B?UlV1bVNsSWJpSC9KblE4Q2RkUDVhZDdEb0JtK2J2b2V4RkFwSmRoaFliTk1m?=
- =?utf-8?B?M2hCcnBPakNKeGJKNXhGRFN2VkZZU3N0VzZIZW8wR2FUeGVzcVFNOENIL2No?=
- =?utf-8?B?Z0FudnFOQ1JMV3VrOE1DNnRMT2U0TG85cy9KK0JQazBWSHdCTjhmQkg3Nml2?=
- =?utf-8?B?UlhLWlEwZHZSaU5NOW5RNWh5emtnVnhVYlh0S3c0a1ZBb1p2WEpMQTRzSW02?=
- =?utf-8?B?QnBpblV2SUJXeVJqaWk0Ulp4SlpOQkdUL0VlYXRrRzRQbzNKNXdyaGVNVkJR?=
- =?utf-8?B?NXRlK2grYStseTFvZnVicGdFSkxPaEJYMXhTRy9zRUhpQ2pvV0JpYlo1VWk1?=
- =?utf-8?B?bStMTmtxSFhkdDFGY2UxcHk5M1Q2ZGdYVERPVE14VW1hcjd3SHBvQlJmd1RJ?=
- =?utf-8?B?ZGtMYUtNenBpbFlmeExtaU8zZWUxanJBaUdyaW16TW5hVi9kQm13Qm5kS0RC?=
- =?utf-8?B?SDN4LzEyK0tXQUEvVGYzOEt4bWt0RGJGSXVlT0h5Q2lRYVRaTU1HYU5Dcy9F?=
- =?utf-8?B?dXh6K1F5b0VRNFhrQnozK0JhdkpHaDFRK1JOb2V6OGZNVDR2Z09tMCtva0VD?=
- =?utf-8?B?bklZamJYZHdOUkR2NzFtSWpySXprM2l2N0FYaS9iT2pXNno2WTUreDliM0F2?=
- =?utf-8?B?Rm5QbjF5dmdvUXJlWFNibjlnNTA3T29Ray9FaXg0OVhPeEgzajdRU3VWMnN1?=
- =?utf-8?B?RVJUNnV4aUxxVXRoUDhoaERnZkV4dCtMRlFxSE0xNkJUTkp6SjduSmVndzZW?=
- =?utf-8?B?KzhZd2lwR0laVWFneSt3d0l4TkhaNU1oZVJwVkxEUWpncnlvdVdnN0xCM2tH?=
- =?utf-8?B?R3NzMzdvU09qWGdwUFBQKzNiSVNJaXRUZy90dGZZcUxxWHZZOEdzTFpyNGdh?=
- =?utf-8?B?b0NrZm5KMmNhSW1QejBoMWloL2RucXNHK3ZyV0x1VnUzejFxRDRUVmZLVXJa?=
- =?utf-8?B?SVVKZWRaQVozSk1kREZMLzFqbCs5eVJEOU5rYmQwWndsUE1uL0RQdTYwQVZq?=
- =?utf-8?B?b1YzV1pzM2dLRkJmV3Vod3ZLY05jKzZZZ2krUTRFR1NEWGYrb1JxcktjYWUz?=
- =?utf-8?B?d0hGRjBxc0pLaC9uSmZHUGRGa0pRdUZ2U0FjRThUWFJLVVg2RUtvSnZZc3dH?=
- =?utf-8?B?aks1UjdDd2FoMmRHa0dqUFE3L3NPWGxUcFI3TUJHYWpiT2FLcjlzZWdKQ0J1?=
- =?utf-8?B?alZ5cHdsNWQvdXl0TGpRSW1BNFpsQ3FGOE9SNmhNTkxERlhyTVZtUlk3Vi9v?=
- =?utf-8?B?cUVzNGVJNTlnK0xrTHV6Y3BadXFZZVlNb05meTc2M3kwaE5Fa1BnL29zYWJL?=
- =?utf-8?B?SkNtZTg3aUhDZWhteWI3MzFDaXMzNnlpbHFzM0Znc0dKbk80SkxDQWt0b295?=
- =?utf-8?Q?VvAE=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFBYbGpVajFJcWxReG4vUmY5b1h3czdINUlKZnh1RTV2YWNVdDd6UHp0bU5J?=
+ =?utf-8?B?ekROSUtocEEwYXhiUUU5dFlSSVM5aDIxQUhpaFBaUUhuNVl6cVkrQ2c4emtt?=
+ =?utf-8?B?NWx6NHA5MFpmN2ZDc1JWa1MvS3I4STF6eG9IdWx1OEN6RFZaelp6VHJTN0xa?=
+ =?utf-8?B?YjNnVXFSeHRPRFBCckdMaWVuaVlRNFY5LzMxdGcvclF3MisvbFJXR1BuU0hF?=
+ =?utf-8?B?NTFHNmF2VTF1YXFWNTBoZmZlNFBoVHFHaXJuWE1zSVd1NmhmYkdkeEp6V3hz?=
+ =?utf-8?B?eU40UnFUSDRzd3NRb3UxUkVxeFVBTEN5NlpYV1dBbFl2WHRYNHpHeU0rT1pD?=
+ =?utf-8?B?TjRKN2dtL0JhSFBDc1RNMEVYTEQwTGxFV0l4QnM1L3lMWjhUM3haQzlrcTFX?=
+ =?utf-8?B?czlmY00zS2xReG40QzRMOFJrZzR6d3Y3SFdwSXAyak9TT0dtS0poUTk3S25E?=
+ =?utf-8?B?UjE2empiK1RJRXM3VHM5UWN5Sms2M0hnY1crN2o3NFZrbHZoOHRMelNia3pR?=
+ =?utf-8?B?RmljVHJkYkx1QzY4ZlJXWDVEUmJ1VlVocnNiR1E2TG5DZXQ3Z0FSbnpmc3RZ?=
+ =?utf-8?B?MjJhUG1GUi9yc0JHSytlSFpwWlZLajVkTWxDZXYzbFZ3cXlCanh5Q21KejZ1?=
+ =?utf-8?B?WjliOVE2amFHNWNXR1Q2Sy9PbGVueFpyNkM2OXREUTJWUlIvOHN3VTQzTjJq?=
+ =?utf-8?B?OVkvdTZWejFURmY0c3RDUnFYQ25pRlFuUGlqQW9yT0M3QWcxU0gyUHZnRGFP?=
+ =?utf-8?B?NWVuVFFBbGdDcnhLRHo5Y1JXbDNyVHRHdXlPbkpGWTNVbFVSTE1OempvZjg5?=
+ =?utf-8?B?MStKMWowQURDb0xZc2t6aEVUeXJFM3lXWmY0WDZiRlFXMk13UEJCMXNCVnZD?=
+ =?utf-8?B?L1lTWnFOU2RqaGhoeHRJb1h1bGh0cngrRXorVndrbkhabHVkV05aZjI2U2hD?=
+ =?utf-8?B?Y1puMHlxcHMrYVdRNjNEdnF1cnJ4UkZFZCtMNW1RZWQ3VEI4ZVVpV08rOFh2?=
+ =?utf-8?B?WGNnUkhuanI1Rk5aeXVQUWIvZVpjTlhUNVNFYkx2WE5ZM21UN0haVkYycFFX?=
+ =?utf-8?B?a2pCQldxK3lIaXJJalVzSmNadE5sNjJ2ajE3b2FKcmRYNTFpYUdSVStRVUpK?=
+ =?utf-8?B?bkY3Q3RLM0hkY25sTzRvWDd6a1pqQi90Y3hITXBBb0Q5V09URnBUcjFMcmY0?=
+ =?utf-8?B?ZzdiUjJLOWFZQ0xEbjRwaDZPalVPOEJ2N2wyQWd3K3BRN001RTBJTG80QklT?=
+ =?utf-8?B?REZvSEJISDFQTmQ2bEZlc1BNbGVzZ2djVEZ2U3A3L0ZtNVFTOXNIR25Kdzc2?=
+ =?utf-8?B?UXd3ZmFSK3FSTkt2WHVadXNNOGtMUVVUVWxmVmxSRXpUQk0rUnovQUNzOUEv?=
+ =?utf-8?B?Z3ljOVhYUCtaZHNzRWNZazBxRFhCWlJvQ0NFYlFQaGtRR256MEJ1eWtCOEls?=
+ =?utf-8?B?NDBzTzJldWFMVDczc2VpZHZKN0lGc0RmTXFIL2l4YVg2a0dXYTJWYm8rVjly?=
+ =?utf-8?B?YndhTHI1Sys5cXpDWlNhOU5SanhSUkdUUEJlbEdHbmJ6U21CTXE3OG9vRDN1?=
+ =?utf-8?B?S3BETXYxcFBDazc2ZkZqYnNObUl4MnBQblR5RWUyNmx6WVVqcjRWRmVNVm1v?=
+ =?utf-8?B?UTJYWm14Y1EwUVl3Q0hvdUd2b01rZnVYaExHVVB1ZVRCNWZBUE1Qa2h3Qlpv?=
+ =?utf-8?B?Q3hqTC9xQzR1Vlp1SHE5cktyaEQ2Yy9pdGl2ZTd2RUZhRmtHdVFpa25jQXNL?=
+ =?utf-8?B?TUJKaXA5UE1MaitKWVlJMG90ZU9jM3gybVQwUTlJd1VwR0JaaWl6QjRQd1hQ?=
+ =?utf-8?B?WlZ2UmF2RDAzZ0pGSzRncmM4UU4vMjk0ODdtUXRYSG16aUNoVGhkZERXc1c3?=
+ =?utf-8?B?Qk9QbThKLzJmNmJ0WFhqMWtZSjBGa2YzVWRLRnFTcm5mTG44eE5JWEdSR1ZZ?=
+ =?utf-8?B?Q052RHN0Rkp0TXhlbmFGRHByYTAwalBZLzdSL3kvZDlZNXhEVWkxcjgzckpE?=
+ =?utf-8?B?TmZYWDlXSlJpa2lMSHV0VWxDaHVZTXo0RWVMT2diVWNCOEliczFYdm1EazZV?=
+ =?utf-8?B?UG1vdVMxR2xWNFp0MHA4RmEyOFhGRWQ0eTc3Y2c5b0tLVnEyMGtJbW5MRkZ4?=
+ =?utf-8?Q?tAKU=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29b977ed-7411-44fd-9dd3-08dd9c46c941
+X-MS-Exchange-CrossTenant-Network-Message-Id: 263ba451-79b5-4dda-aa74-08dd9c49891c
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2025 11:16:39.5795 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2025 11:36:20.5177 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ir/6/EpbNsKGfN/EZvPZcgzo70O6Fpk5WgbpCCvdKmKiDmbbn0YYEygZ8dlcCRnu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5861
+X-MS-Exchange-CrossTenant-UserPrincipalName: PTdCDXO1j96dFMiSk8Ku75oPjJbxJeuq+Bse5BjsxJqUtikkQc1fIwXMX/HK1pea
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6909
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,176 +164,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/26/25 11:34, Philipp Stanner wrote:
-> On Mon, 2025-05-26 at 11:25 +0200, Christian König wrote:
->> On 5/23/25 16:16, Danilo Krummrich wrote:
+On 5/26/25 13:14, Danilo Krummrich wrote:
+> (Cc: Matthew)
+> 
+> Let's get this clarified to not work with assumptions. :)
+> 
+> On Mon, May 26, 2025 at 12:59:41PM +0200, Christian König wrote:
+>> On 5/24/25 13:17, Danilo Krummrich wrote:
 >>> On Fri, May 23, 2025 at 04:11:39PM +0200, Danilo Krummrich wrote:
->>>> On Fri, May 23, 2025 at 02:56:40PM +0200, Christian König wrote:
->>>>> It turned out that we can actually massively optimize here.
->>>>>
->>>>> The previous code was horrible inefficient since it constantly
->>>>> released
->>>>> and re-acquired the lock of the xarray and started each
->>>>> iteration from the
->>>>> base of the array to avoid concurrent modification which in our
->>>>> case
->>>>> doesn't exist.
->>>>>
->>>>> Additional to that the xas_find() and xas_store() functions are
->>>>> explicitly
->>>>> made in a way so that you can efficiently check entries and if
->>>>> you don't
->>>>> find a match store a new one at the end or replace existing
->>>>> ones.
->>>>>
->>>>> So use xas_for_each()/xa_store() instead of
->>>>> xa_for_each()/xa_alloc().
->>>>> It's a bit more code, but should be much faster in the end.
->>>>
->>>> This commit message does neither explain the motivation of the
->>>> commit nor what it
->>>> does. It describes what instead belongs into the changelog
->>>> between versions.
->>>
->>> Sorry, this is wrong. I got confused, the commit message is
->>> perfectly fine. :)
->>>
->>> The rest still applies though.
->>>
->>>> Speaking of versioning of the patch series, AFAIK there were
->>>> previous versions,
->>>> but this series was sent as a whole new series -- why?
->>>>
->>>> Please resend with a proper commit message, version and
->>>> changelog. Thanks!
+>>> So, your code here should be correct. However, I'd still remove the goto and
+>>> just call xas_store() again. There's no reason to make this a loop and backwards
+>>> goto is better avoided anyways. :)
 >>
 >>
->> Well Philip asked to remove the changelog. I'm happy to bring it
->> back, but yeah...
+>> I was considering that as well, but than abandoned this idea. The xarray() sample code and test cases as well as the use cases where I took a look either use a loop or a goto.
+>>
+>> I'm not 100% sure why, my suspicion is that you need the loop when there can be concurrent add/remove operations on the xarray, but I think we should stick with the common approach.
 > 
-> No no no no :D
-> 
-> Philipp asked for the changelog to be removed *from the git commit
-> message*; because it doesn't belong / isn't useful there.
-> 
-> If there's a cover letter, the changelog should be in the cover letter.
-> If there's no cover letter, it should be between the --- separators:
+> I don't think that concurrency is relevant here. xas_nomem() stores the
+> allocated memory in the XA_STATE structure, which is on the stack.
 
-I can live with that, just clearly state what you want.
+Yeah, but it could be that when you have a concurrent remove that this memory isn't sufficient and you need even more.
 
-For DRM the ask is often to keep the changelog in the commit message or remove it entirely.
+> I know that for maple tree a pre-allocation is only valid for the exact state
+> of the tree it was allocated for.
+> 
+> But I think xarray does not have this limitation, i.e. concurrent modification
+> of the xarray does not invalidate an xas_nomem() allocation in terms of being
+> sufficient for a subsequent store.
+> 
+> @Matthew: Can you clarify this please?
+
+While at it: Is it possible to run the xarray without locking?
+
+We have exactly one thread handling the job at all times, so no concurrent accesses whatsoever.
+
+Acquiring and dropping the lock is just additional overhead and without it the memory can also be allocated just with GFP_KERNEL.
 
 Regards,
 Christian.
-
-> 
-> 
-> Signed-off-by: Gordon Freeman <freeman@blackmesa.org>
-> Reviewed-by: Alyx Vance <alyx@vance.edu>
-> ---
-> Changes in v2:
->   - Provide more docu for crowbar-alloc-function.
->   - Use NULL pointers for reserved xarray entries
-> ---
-> <DIFF>
-> 
-> 
-> P.
-> 
-> 
->>
->> Regards,
->> Christian.
->>
->>>>
->>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>>> ---
->>>>>  drivers/gpu/drm/scheduler/sched_main.c | 29
->>>>> ++++++++++++++++++--------
->>>>>  1 file changed, 20 insertions(+), 9 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>>> index f7118497e47a..cf200b1b643e 100644
->>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>>> @@ -871,10 +871,8 @@ EXPORT_SYMBOL(drm_sched_job_arm);
->>>>>  int drm_sched_job_add_dependency(struct drm_sched_job *job,
->>>>>  				 struct dma_fence *fence)
->>>>>  {
->>>>> +	XA_STATE(xas, &job->dependencies, 0);
->>>>>  	struct dma_fence *entry;
->>>>> -	unsigned long index;
->>>>> -	u32 id = 0;
->>>>> -	int ret;
->>>>>  
->>>>>  	if (!fence)
->>>>>  		return 0;
->>>>> @@ -883,24 +881,37 @@ int drm_sched_job_add_dependency(struct
->>>>> drm_sched_job *job,
->>>>>  	 * This lets the size of the array of deps scale with
->>>>> the number of
->>>>>  	 * engines involved, rather than the number of BOs.
->>>>>  	 */
->>>>> -	xa_for_each(&job->dependencies, index, entry) {
->>>>> +	xa_lock(&job->dependencies);
->>>>> +	xas_for_each(&xas, entry, ULONG_MAX) {
->>>>>  		if (entry->context != fence->context)
->>>>>  			continue;
->>>>>  
->>>>>  		if (dma_fence_is_later(fence, entry)) {
->>>>>  			dma_fence_put(entry);
->>>>> -			xa_store(&job->dependencies, index,
->>>>> fence, GFP_KERNEL);
->>>>> +			xas_store(&xas, fence);
->>>>>  		} else {
->>>>>  			dma_fence_put(fence);
->>>>>  		}
->>>>> -		return 0;
->>>>> +		xa_unlock(&job->dependencies);
->>>>> +		return xas_error(&xas);
->>>>>  	}
->>>>>  
->>>>> -	ret = xa_alloc(&job->dependencies, &id, fence,
->>>>> xa_limit_32b, GFP_KERNEL);
->>>>> -	if (ret != 0)
->>>>> +retry:
->>>>> +	entry = xas_store(&xas, fence);
->>>>> +	xa_unlock(&job->dependencies);
->>>>> +
->>>>> +	/* There shouldn't be any concurrent add, so no need
->>>>> to loop again */
->>>>
->>>> Concurrency shouldn't matter, xas_nomem() stores the pre-
->>>> allocated memory in the
->>>> XA_STATE not the xarray. Hence, I think we should remove the
->>>> comment.
->>>>
->>>>> +	if (xas_nomem(&xas, GFP_KERNEL)) {
->>>>> +		xa_lock(&job->dependencies);
->>>>> +		goto retry;
->>>>
->>>> Please don't use a goto here, if we would have failed to allocate
->>>> memory here,
->>>> this would be an endless loop until we succeed eventually. It
->>>> would be equal to:
->>>>
->>>> 	while (!ptr) {
->>>> 		ptr = kmalloc();
->>>> 	}
->>>>
->>>> Instead just take the lock and call xas_store() again.
->>>>
->>>>> +	}
->>>>> +
->>>>> +	if (xas_error(&xas))
->>>>>  		dma_fence_put(fence);
->>>>> +	else
->>>>> +		WARN_ON(entry);
->>>>
->>>> Please don't call WARN_ON() here, this isn't fatal, we only need
->>>> to return the
->>>> error code.
->>
-> 
-
