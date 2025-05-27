@@ -4,74 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B85C3ABB2
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 09:42:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6441C3ABB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 09:43:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A50710E5C4;
-	Wed, 28 May 2025 09:42:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4966F10E5C2;
+	Wed, 28 May 2025 09:43:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c232LBg/";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="WdQcr8A0";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D2310E107;
- Tue, 27 May 2025 10:15:32 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-31149f0393dso1543232a91.1; 
- Tue, 27 May 2025 03:15:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1748340931; x=1748945731; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=lpQsh15suo6L+VuJB8jrpchAgTw+gvlxVYwBK5tV8J4=;
- b=c232LBg/uQl6apLzu4SuNH6+qTkZrfzEjXM/j1W1shOa4SmiLsOLG2aTBDOp+P7SyY
- glRs4wpz1GnKxxOc4UXrhjQaRTNoQwm3eefq3PxMX2Fc27L02fesB4edS2ExGgR2P9ui
- S1iK7hMo0YRjxUARtAT7OqQqpuqYB8jH3VDaIq9Iw/vIDXC8RJts7belw8e+AuReMolf
- xowG83p+lBJhuLdE7hUpj36G/fFpZS2AWVtY0IGdXdUCXEOvUVPUlfrVRUYBKRNlccdQ
- +K4eTZpu5akgdJOv9miFtJuf6TpNZeoRr+x+rp3AIYDLdqCI5vgCO2B1X+gUgPnxNk0K
- TE8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748340931; x=1748945731;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=lpQsh15suo6L+VuJB8jrpchAgTw+gvlxVYwBK5tV8J4=;
- b=MSLOzglSfn0TETKR2ykzvnhiZGDkCipdMwPJzjdZ8LJaFMMNzLq0Ml6uJ9dZhKjHUV
- 7c+cMDif8wnw06vLU02aqDp/LSC8hF/DUkD9y+Lv5ut1d6WOz4blLDRo7kEIFswEMTtc
- vD81UleVywO7OtfHC4agmluRF5f4hWMzxZ96e1npd7KLGlrb5fyiEbj/OrM4ROYGXBg0
- 1FxSpYQjQnK3sUQCYpeyWCf4wXVTo4uE0ryZHQNuwwwWnA+IH6gFKxWEecvRiaUpJvmo
- bkHqe58M5QEcIaHR7m9Aa8zONRS3/MTeHv/Z0g54YW5UzTyp1odONXhk1Iii/V5pDZcP
- 9vfQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU7URxk/uEzX+pwAHRmCnpxKAl2Io5R209JIIATHUqcCSoYUMBPNNDsgvTnh3YC7iWyH4aoQNtF@lists.freedesktop.org,
- AJvYcCXKtjUrA3c3ft3maOuEZ3b+hM4RzF8kULfvvWQvVY/DELsmBA2FemJUqzrV97lCmBx87TTb0YHPXNel@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyO9Err2L+guyDCiMnUNSpNVjzAIvR1wOSwPXuF7KN+HZ6FbCrj
- qPi4fu/MqTpNKAwEEl3mkbfFKHtKDb8Z1Vf8dh++vw2+1klv4KrDSJ8TK26dJglm+wOLJE7PUAB
- JRmdUjcSwiC/AX6GVPnZ0ue5TDH8CgZw=
-X-Gm-Gg: ASbGnct7dAeTLQPr6NdWKupGSrVctQwAUi8YY71F/6834wgJGTAiArq/GFFoRwbA4mz
- fvAJzF8kSWrQvngAam6H+sWiHZyr8lsXYsq1VswO6fkNajEeBdNuOTudYBJyoo179YBXSURHwd4
- Nqh927gBosUhZ/R7ZtIgwrKzA9cgYxGq8EzCWBNoiABcRQm0A1Buw6wSz48kzU+g/RpdGlqMwnp
- Q==
-X-Google-Smtp-Source: AGHT+IEuEg9cgaIC4FO6vszBSjTl9c5OmaynlX/dU3sF8g8aALFDpUtLS+naIoZhi5139cN7d2dH8FQaiwkOt2hE1pM=
-X-Received: by 2002:a17:90a:c2c3:b0:310:8db0:1663 with SMTP id
- 98e67ed59e1d1-311100d865cmr19696229a91.17.1748340930843; Tue, 27 May 2025
- 03:15:30 -0700 (PDT)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD74510E51A;
+ Tue, 27 May 2025 19:50:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1748375427; x=1748980227; i=natalie.vock@gmx.de;
+ bh=yy55+GQV07DU1PlzulpC7ZxEesUJ7cu0Lq4pW8qpSO8=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=WdQcr8A0LSmD6MfHZNZdF4FfJVXtiVxHeeyDC3cPW1oLCtl3ZDYvtneeMFI2Uf/L
+ tgtR4umGX4jOyMEGHyi/iMp1cJUzDoIKUsf2imIqWZag77nUXtQA0Y6ZWpdGb6TXa
+ 6UqmgWy4m8U/Xm9+zN09rYkE7kznXUtXvDYe/SVgEamZlYiASHkxXR/uHYsI65IhR
+ a2doxNGYXj1IWXDBVDwsj+kt2OlNyI6yCBSSiyTqzgbqrI2sSc22TAbK2BhtkDJXZ
+ jU06rKe/PBV0HTuP4jGg3zeCDwNw0gAyWTpvumFX4cizP2+zVIBfP82zF15XI5GGh
+ qWiVGjJdsGzp5epX4g==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from localhost.localdomain ([109.91.201.165]) by mail.gmx.net
+ (mrgmx005 [212.227.17.190]) with ESMTPSA (Nemesis) id
+ 1MMGRA-1ua0wn2Pva-00LF1d; Tue, 27 May 2025 21:44:59 +0200
+From: Natalie Vock <natalie.vock@gmx.de>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>, stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/buddy: Add public helper to dirty blocks
+Date: Tue, 27 May 2025 21:43:52 +0200
+Message-ID: <20250527194353.8023-2-natalie.vock@gmx.de>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250527194353.8023-1-natalie.vock@gmx.de>
+References: <20250527194353.8023-1-natalie.vock@gmx.de>
 MIME-Version: 1.0
-References: <20250521135851.11110-1-leonardodasigomes@gmail.com>
- <f4fa1065-ff9e-4721-9f5f-55a87faeb6c2@amd.com>
-In-Reply-To: <f4fa1065-ff9e-4721-9f5f-55a87faeb6c2@amd.com>
-From: Leonardo Gomes <leonardodasigomes@gmail.com>
-Date: Tue, 27 May 2025 07:15:20 -0300
-X-Gm-Features: AX0GCFulJPqelxHX9oSz6lULC6oFN3TWN-OSzrk9xdgYojRkVVtjjDq-xnHGQtA
-Message-ID: <CABtyycS2O5S_yr5DOKchmZOdC9m7h63ob1xjHQAT_bj18-NUOA@mail.gmail.com>
-Subject: Re: [PATCH RESEND] drm/amd/display: Adjust prefix of dcn31_apg
- construct function name
-To: Alex Hung <alex.hung@amd.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, 
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
- derick.william.moraes@gmail.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000211aab06361b5871"
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:euWBSkH/f7kf5t01BmVT6vYLv/uqhWZUx+ZzS3mguzTWxtVN4Y8
+ GT6j+7qC2TDS2a+S7udASu0bTcRn//gdrL/ailn3KPDRtP2Vpsqk8RmPqf667NtjCMraBPg
+ c9hrBvdBEUaMkoSsEaR+MAPdfkN63yjkna0iPiAXCoQEkH/G2KDHln/5u9rILPH5d56Is/r
+ Ch8Kn64dT8ZIbLj/zsC0A==
+UI-OutboundReport: notjunk:1;M01:P0:vIqfUAby6FI=;E0I2xS6Tp3wmkVLXQzJqEEJDX3+
+ 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
 X-Mailman-Approved-At: Wed, 28 May 2025 09:42:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,512 +116,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000211aab06361b5871
-Content-Type: text/plain; charset="UTF-8"
+Cleared blocks that are handed out to users after allocation cannot be
+presumed to remain cleared. Thus, allocators using drm_buddy need to
+dirty all blocks on the allocation success path. Provide a helper for
+them to use.
 
-Hi Alex,
+Fixes: 96950929eb232 ("drm/buddy: Implement tracking clear page feature")
+Cc: stable@vger.kernel.org
 
-Thanks for your answer!
+Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+=2D--
+ include/drm/drm_buddy.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-On Mon, 26 May 2025 at 23:50 Alex Hung <alex.hung@amd.com> wrote:
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+index 9689a7c5dd36..48628ff1c24f 100644
+=2D-- a/include/drm/drm_buddy.h
++++ b/include/drm/drm_buddy.h
+@@ -142,6 +142,12 @@ drm_buddy_block_size(struct drm_buddy *mm,
+ 	return mm->chunk_size << drm_buddy_block_order(block);
+ }
+=20
++static inline void
++drm_buddy_block_set_dirty(struct drm_buddy_block *block)
++{
++	block->header &=3D ~DRM_BUDDY_HEADER_CLEAR;
++}
++
+ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size);
+=20
+ void drm_buddy_fini(struct drm_buddy *mm);
+=2D-=20
+2.49.0
 
-> Hi Leonardo,
->
-> Thank you for this patch, but unfortunately some unit test suites depend
-> on the names.
->
-> On 5/21/25 07:58, Leonardo Gomes wrote:
-> > From: Leonardo da Silva Gomes <leonardodasigomes@gmail.com>
-> >
-> > Adjust the dcn31_apg construct function name from
-> > 'apg31_construct' to 'dcn31_apg_construct'.
-> > This helps the ftrace to detect the file by the function name.
-> >
-> > Signed-off-by: Leonardo da Silva Gomes <leonardodasigomes@gmail.com>
-> > Co-developed-by: Derick Frias <derick.william.moraes@gmail.com>
-> > Signed-off-by: Derick Frias <derick.william.moraes@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c                | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h                | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c  | 2 +-
-> >   .../gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c    | 2 +-
-> >   .../gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c    | 2 +-
-> >   .../gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c    | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 2 +-
-> >   .../gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c    | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c  | 2 +-
-> >   .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c    | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c  | 2 +-
-> >   .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c    | 2 +-
-> >   12 files changed, 12 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c
-> b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c
-> > index 05aac3e444b4..d1ccc9a34b2e 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c
-> > @@ -101,7 +101,7 @@ static struct apg_funcs dcn31_apg_funcs = {
-> >       .disable_apg                    = apg31_disable,
-> >   };
-> >
-> > -void apg31_construct(struct dcn31_apg *apg31,
-> > +void dcn31_apg_construct(struct dcn31_apg *apg31,
-> >       struct dc_context *ctx,
-> >       uint32_t inst,
-> >       const struct dcn31_apg_registers *apg_regs,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h
-> b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h
-> > index 1b81f6773c53..54c6b62195c2 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h
-> > @@ -100,7 +100,7 @@ struct dcn31_apg {
-> >       const struct dcn31_apg_mask *apg_mask;
-> >   };
-> >
-> > -void apg31_construct(struct dcn31_apg *apg3,
-> > +void dcn31_apg_construct(struct dcn31_apg *apg3,
-> >       struct dc_context *ctx,
-> >       uint32_t inst,
-> >       const struct dcn31_apg_registers *apg_regs,
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-> > index dddddbfef85f..b3553ae26d7c 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-> > @@ -1207,7 +1207,7 @@ static struct apg *dcn31_apg_create(
-> >       if (!apg31)
-> >               return NULL;
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-> > index 26becc4cb804..be55a3c36a78 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-> > @@ -1263,7 +1263,7 @@ static struct apg *dcn31_apg_create(
-> >       if (!apg31)
-> >               return NULL;
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> > index 6c2bb3f63be1..b9847b4bb0f3 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> > @@ -1205,7 +1205,7 @@ static struct apg *dcn31_apg_create(
-> >       if (!apg31)
-> >               return NULL;
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> > index 568094827212..b6cf2a296ab4 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> > @@ -1200,7 +1200,7 @@ static struct apg *dcn31_apg_create(
-> >       if (!apg31)
-> >               return NULL;
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> > index 2a59cc61ed8c..66fef6f6000e 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> > @@ -1187,7 +1187,7 @@ static struct apg *dcn31_apg_create(
-> >       apg_regs_init(2),
-> >       apg_regs_init(3);
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> > index 38d76434683e..9be23da216d0 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> > @@ -1170,7 +1170,7 @@ static struct apg *dcn321_apg_create(
-> >       apg_regs_init(2),
-> >       apg_regs_init(3);
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> > index ffd2b816cd02..27affafb14f1 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> > @@ -1252,7 +1252,7 @@ static struct apg *dcn31_apg_create(
-> >       apg_regs_init(2),
-> >       apg_regs_init(3);
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> > index 98f5bc1b929e..d5341b0d59f3 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> > @@ -1232,7 +1232,7 @@ static struct apg *dcn31_apg_create(
-> >       apg_regs_init(2),
-> >       apg_regs_init(3);
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-> > index b6468573dc33..6fb2261c554d 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-> > @@ -1233,7 +1233,7 @@ static struct apg *dcn31_apg_create(
-> >       apg_regs_init(2),
-> >       apg_regs_init(3);
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
-> > diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-> > index 7436dfbdf927..ef4d758bfb5a 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-> > @@ -1162,7 +1162,7 @@ static struct apg *dcn401_apg_create(
-> >       apg_regs_init(2),
-> >       apg_regs_init(3);
-> >
-> > -     apg31_construct(apg31, ctx, inst,
-> > +     dcn31_apg_construct(apg31, ctx, inst,
-> >                       &apg_regs[inst],
-> >                       &apg_shift,
-> >                       &apg_mask);
->
->
-
---000000000000211aab06361b5871
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Hi Alex,</div><div dir=3D"auto"><br></div><div dir=3D"aut=
-o">Thanks for your answer!</div><div><br><div class=3D"gmail_quote gmail_qu=
-ote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, 26 May 2025 at=
- 23:50 Alex Hung &lt;<a href=3D"mailto:alex.hung@amd.com">alex.hung@amd.com=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Leonardo,<br>
-<br>
-Thank you for this patch, but unfortunately some unit test suites depend <b=
-r>
-on the names.<br>
-<br>
-On 5/21/25 07:58, Leonardo Gomes wrote:<br>
-&gt; From: Leonardo da Silva Gomes &lt;<a href=3D"mailto:leonardodasigomes@=
-gmail.com" target=3D"_blank">leonardodasigomes@gmail.com</a>&gt;<br>
-&gt; <br>
-&gt; Adjust the dcn31_apg construct function name from<br>
-&gt; &#39;apg31_construct&#39; to &#39;dcn31_apg_construct&#39;.<br>
-&gt; This helps the ftrace to detect the file by the function name.<br>
-&gt; <br>
-&gt; Signed-off-by: Leonardo da Silva Gomes &lt;<a href=3D"mailto:leonardod=
-asigomes@gmail.com" target=3D"_blank">leonardodasigomes@gmail.com</a>&gt;<b=
-r>
-&gt; Co-developed-by: Derick Frias &lt;<a href=3D"mailto:derick.william.mor=
-aes@gmail.com" target=3D"_blank">derick.william.moraes@gmail.com</a>&gt;<br=
->
-&gt; Signed-off-by: Derick Frias &lt;<a href=3D"mailto:derick.william.morae=
-s@gmail.com" target=3D"_blank">derick.william.moraes@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resour=
-ce.c=C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0.../gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource=
-.c=C2=A0 =C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0.../gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource=
-.c=C2=A0 =C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0.../gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource=
-.c=C2=A0 =C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resour=
-ce.c=C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0.../gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource=
-.c=C2=A0 =C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resour=
-ce.c=C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0.../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource=
-.c=C2=A0 =C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resour=
-ce.c=C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A0.../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource=
-.c=C2=A0 =C2=A0 | 2 +-<br>
-&gt;=C2=A0 =C2=A012 files changed, 12 insertions(+), 12 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c b/driver=
-s/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c<br>
-&gt; index 05aac3e444b4..d1ccc9a34b2e 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c<br>
-&gt; @@ -101,7 +101,7 @@ static struct apg_funcs dcn31_apg_funcs =3D {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0.disable_apg=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D apg31_disable,<br>
-&gt;=C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -void apg31_construct(struct dcn31_apg *apg31,<br>
-&gt; +void dcn31_apg_construct(struct dcn31_apg *apg31,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct dc_context *ctx,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0const struct dcn31_apg_registers *apg_regs,<=
-br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h b/driver=
-s/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h<br>
-&gt; index 1b81f6773c53..54c6b62195c2 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h<br>
-&gt; @@ -100,7 +100,7 @@ struct dcn31_apg {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0const struct dcn31_apg_mask *apg_mask;<br>
-&gt;=C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -void apg31_construct(struct dcn31_apg *apg3,<br>
-&gt; +void dcn31_apg_construct(struct dcn31_apg *apg3,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct dc_context *ctx,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0const struct dcn31_apg_registers *apg_regs,<=
-br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resou=
-rce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c<br>
-&gt; index dddddbfef85f..b3553ae26d7c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c<b=
-r>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c<b=
-r>
-&gt; @@ -1207,7 +1207,7 @@ static struct apg *dcn31_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!apg31)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return NULL;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_res=
-ource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c<=
-br>
-&gt; index 26becc4cb804..be55a3c36a78 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c=
-<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c=
-<br>
-&gt; @@ -1263,7 +1263,7 @@ static struct apg *dcn31_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!apg31)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return NULL;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_res=
-ource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c<=
-br>
-&gt; index 6c2bb3f63be1..b9847b4bb0f3 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c=
-<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c=
-<br>
-&gt; @@ -1205,7 +1205,7 @@ static struct apg *dcn31_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!apg31)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return NULL;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_res=
-ource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c<=
-br>
-&gt; index 568094827212..b6cf2a296ab4 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c=
-<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c=
-<br>
-&gt; @@ -1200,7 +1200,7 @@ static struct apg *dcn31_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!apg31)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return NULL;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resou=
-rce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c<br>
-&gt; index 2a59cc61ed8c..66fef6f6000e 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c<b=
-r>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c<b=
-r>
-&gt; @@ -1187,7 +1187,7 @@ static struct apg *dcn31_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(2),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(3);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_res=
-ource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c<=
-br>
-&gt; index 38d76434683e..9be23da216d0 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c=
-<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c=
-<br>
-&gt; @@ -1170,7 +1170,7 @@ static struct apg *dcn321_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(2),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(3);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resou=
-rce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c<br>
-&gt; index ffd2b816cd02..27affafb14f1 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c<b=
-r>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c<b=
-r>
-&gt; @@ -1252,7 +1252,7 @@ static struct apg *dcn31_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(2),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(3);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_res=
-ource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c<=
-br>
-&gt; index 98f5bc1b929e..d5341b0d59f3 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c=
-<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c=
-<br>
-&gt; @@ -1232,7 +1232,7 @@ static struct apg *dcn31_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(2),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(3);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resou=
-rce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c<br>
-&gt; index b6468573dc33..6fb2261c554d 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c<b=
-r>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c<b=
-r>
-&gt; @@ -1233,7 +1233,7 @@ static struct apg *dcn31_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(2),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(3);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_res=
-ource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c<=
-br>
-&gt; index 7436dfbdf927..ef4d758bfb5a 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c=
-<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c=
-<br>
-&gt; @@ -1162,7 +1162,7 @@ static struct apg *dcn401_apg_create(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(2),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0apg_regs_init(3);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0apg31_construct(apg31, ctx, inst,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dcn31_apg_construct(apg31, ctx, inst,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_regs[inst],<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_shift,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&amp;apg_mask);<br>
-<br>
-</blockquote></div></div>
-
---000000000000211aab06361b5871--
