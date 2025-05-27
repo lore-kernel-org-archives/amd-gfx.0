@@ -4,48 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75334C54F30
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 May 2025 16:47:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94864C54ED1
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 May 2025 17:06:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 126E910E138;
-	Tue, 27 May 2025 16:47:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BDEA10E2A3;
+	Tue, 27 May 2025 17:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="D5YAKiS3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VwSmDiFE";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99BA810E3FE
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 May 2025 16:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=cNtBCNRcRHaLYKgytVJKz8X6b9dy1RDEH0785S3zd/A=; b=D5YAKiS3TJgtnlpWRRwgUR5f+W
- 2yJsvyxmcNoPc3vsbhLhs99Gy+T0WyjqB981Q77yOYlVfFlaC/Vq7CSD6xAyUx2P71YaFD2Jl4+lg
- JfQ7pMxYXQ9e1YqqWVjN0wku4bDfRm1r8CVT34eGYqedFs2HuAinxW2LO9bmS9tH4QblJRIC4IzsD
- TYFJR62EbabcAbCRnMPpUEdbwgpuELHcdjjhpIEXqei75Vf/qTPS+Qvs2ZjmCoya08RcsCWPfu551
- NV8YKNF5uptkIcylb38nPdIVAckwpEZGu+7hPJQWBRxX9bQly46ivCSKr4HeRHfsWDtNVqeTWSSTL
- rMGLZoyg==;
-Received: from [193.32.248.132] (helo=debian.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uJxSE-00Dr67-39; Tue, 27 May 2025 18:47:06 +0200
-Date: Tue, 27 May 2025 10:47:02 -0600
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
- Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 02/10] drm/amdgpu: rework queue reset scheduler interaction
-Message-ID: <mmoave25vjenpkpt3osch5kin5qnryurqaty5pmtsju7zh37xk@22wccbz47es6>
-References: <20250522215559.14677-1-alexander.deucher@amd.com>
- <20250522215559.14677-3-alexander.deucher@amd.com>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2045.outbound.protection.outlook.com [40.107.236.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23DF310E2A3;
+ Tue, 27 May 2025 17:06:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E0cprirjwPQK8Jk1rg+0XYoClfEY/mpaODjHkFyZN+DNfEZAMTmCLRNkWgDydGzNZjwWviR8HCGHQOZvv+zAtvPKzc1wrB4BEavBiRHaYoIpfe2qKY6wmuVa2B7kiaOI2o8j8jCffACyXLkNuyhd+aUtWRG22QwjcMVbfepa910WFwmuFOwPRZWfHuSi9PKFRzGvgXLL71gpeWD1mZqIjMdZwWvaU+wk5FvjivB4XdBuwa/IXGUgrbtB4sprTYwsaTtdIctDzOgAfWFrT3pdF6SdtgqmPeB87srpdJ1cAh2D4a6oQx/vzp2Hd8XdD+LyM1Xy/3TivgP5BpCPoq6QUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AN4daAlqpyba5VCOdCPSzgu4ZqdGnBEhzDcK5I3M7Io=;
+ b=BI5APjfCB1feioS+cHdhFBeoAiyApLW4OFs8JNMMdMH87soFZKhcoLX/H+QH4opGOA9BtO0VcHHyh9mGccTZIJWN28+3Lb34975bVj90afrVaPYmfSB5c+HQA842qW5ONFjwvNXNUbf/Wv5pOTZ5rncvIPFX6QnSg57sc9kwTUFG3yz4fMhiJwgXluMc7Sqc2Z0FqPLUUq7NrfvA1iSLkzCb20J+YJ+dRcWeTW6nYuV6FYNnsMpGaAalG81NuohSNrwwkXiYo5WI9eD37gp3taxMlcnHgHjkmVRo+JG0f07tnczCQdpmPrhVmThoUpsSorRNakwSanyobAxa/pkoVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AN4daAlqpyba5VCOdCPSzgu4ZqdGnBEhzDcK5I3M7Io=;
+ b=VwSmDiFEaJSNePA0UqQl0ZddVwJtTMxNOSYgPoqiuPGIaoyUqHt1q6Wyqig31m3rGcRomapwy6YWDzLeFZwVvQAhTbaxmPUyDORX/f8WVzfSW/X4rbqhsuPVZqbklDsHL75M38AKYvV0MNNSQbngSOaMbETWBKJHZfnRlqF2kRk=
+Received: from SA0PR13CA0005.namprd13.prod.outlook.com (2603:10b6:806:130::10)
+ by BY5PR12MB4177.namprd12.prod.outlook.com (2603:10b6:a03:201::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.24; Tue, 27 May
+ 2025 17:06:46 +0000
+Received: from SN1PEPF000252A2.namprd05.prod.outlook.com
+ (2603:10b6:806:130:cafe::db) by SA0PR13CA0005.outlook.office365.com
+ (2603:10b6:806:130::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Tue,
+ 27 May 2025 17:06:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000252A2.mail.protection.outlook.com (10.167.242.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Tue, 27 May 2025 17:06:45 +0000
+Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
+ 2025 12:06:43 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <mwen@igalia.com>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <siqueira@igalia.com>, <christian.koenig@amd.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <aurabindo.pillai@amd.com>
+CC: <alex.hung@amd.com>
+Subject: [PATCH] Revert "drm/amd/display: no 3D and blnd LUT as DPP color caps
+ for DCN401"
+Date: Tue, 27 May 2025 11:06:05 -0600
+Message-ID: <20250527170605.1979462-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250522215559.14677-3-alexander.deucher@amd.com>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A2:EE_|BY5PR12MB4177:EE_
+X-MS-Office365-Filtering-Correlation-Id: e925ea6d-e131-44cc-c43b-08dd9d40dc10
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700013|82310400026|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?p4aBl0j7YN/+SAE/VTVXFF7Zvb/rCrT1iGrXJ6m3zDdWhxzMGBFNF9oKwP4r?=
+ =?us-ascii?Q?WKZRBkgCuMFEbUE3tHcotDqZtXS4keR3V1kCCpW9g5heEDGmTEdS+fkcvtk5?=
+ =?us-ascii?Q?5dgqGSPH3iAbumNbvxH2MlHUQmVweGDVuGvPA/GxZ/Q0Pd6/GfrN9nmqiUQU?=
+ =?us-ascii?Q?mvE3IWAfyIg74Qd0nyeNCLJmwXqAfADqm1YswpSYjRUlDtBe1JN23lENtsL4?=
+ =?us-ascii?Q?qSc5c/iWflEEY6owhmpSLY0HV1iudKJhQVaoJ6aWnciZdjBkLAKJji2YFC9e?=
+ =?us-ascii?Q?IHroJq6sm1HhKNfDZtgmZfewtqigtNIu81NEBBa02r7I1LSGNcaxnSw9Lxjb?=
+ =?us-ascii?Q?cokO7bfp+vUOM2uxrSjXJAecZrHqcoOPA3+DiHyZeswte4w5t3E/aIibY7p7?=
+ =?us-ascii?Q?E8JP/78482vCtpl95myZo2bA+mRlZIX/C+ObOpbNfk9nZa0/Z21RLkr+a/Rp?=
+ =?us-ascii?Q?5txPOvyx5K8eM7m3jvPfyKPw4dRSGcGL8Kjf+3HOsMgXneJXEOxKWs43jMrm?=
+ =?us-ascii?Q?VYZpN+ZC0nTlrFBdZSe07AEtaCS8LR2Va8eJuUdBUBg3n3GjxlVQDsYNNcWG?=
+ =?us-ascii?Q?JeyZjZF2I7DCfjzA9kHDtX9Rno54IKzle1RGLu1y70ka6BDNQos4bxnHJTZt?=
+ =?us-ascii?Q?+OCtF9XjNrnJVnkANruC3zS+y/Rpv1blfUv1HzoWyUQKivc7dtnvcAJHhyS+?=
+ =?us-ascii?Q?GUwq8fOiHMQjMQMcFCQ199VXQbf3ylTjGLyuKEf4A8lg8AVDETOjkKFtol3z?=
+ =?us-ascii?Q?VFnaf+8bpMi5lyMY2vi70bWtYfuTVKkXUXtBW53oH48/nmSMIR+dcylmzss6?=
+ =?us-ascii?Q?9ekavLothbGZaHd01m4lBL6A9gfkaPkw82ovbLFncpyuMlwsNL1xDJ2JIfeN?=
+ =?us-ascii?Q?uiRTqSnUCTNzq9w6swRk54ZPIN2svWJK5F1udLSnvf98tC7j8/8+SyFcvguG?=
+ =?us-ascii?Q?OlKDuQAgDfpfcTfWeIUtzm5aeqDucEClqWKAv9M/xv+PCNCADn9aYf0s4i2P?=
+ =?us-ascii?Q?4t50VBxvRu+8p4ZfRspblPseVN53TtnYPiRxcZLCsVPdiQT5XpAq7ZFM4VXh?=
+ =?us-ascii?Q?V2Dx362PvpE2URXBq0JMhmPKCGTssBvWtArGI4buv7uqCSrtCQtalsmYgBbK?=
+ =?us-ascii?Q?FtJqo8Kqe63rKQLG33LxXZk7WHM2fKjL90XzHrdoQpm2/QnFPJMSdcLyVd2/?=
+ =?us-ascii?Q?Slam1KwNmmZsnlsqPKhIXRTiSMjF1tFjrGYL0ZBGaljhQH6N0ZT0Z8dfMydl?=
+ =?us-ascii?Q?j7EN3ZNHnuSNt3UJAyt9hk0B3t/cs5QS2jDIqcEYQpm3iCFSh0CFqSVvkXgV?=
+ =?us-ascii?Q?bu85ZR0NdnRbT7Hfr94gaQ7JpC19dFIfaU3hvyVjhQ9BcmVmO6d16XLrut6Q?=
+ =?us-ascii?Q?PVna4KvQI4RmT84eHZdpbu9DreMQa//feetvTsO9p3Bxs+hfsyfptBGMyiti?=
+ =?us-ascii?Q?geVwMaPmSJ/Ov1wvfw5Koll9oanh9OCK/zZet4WH0n9ihw7jU4Yq6a2WRyos?=
+ =?us-ascii?Q?9hwGUGgO9y6VM5wScdEB/Lf6HPU+AUxjuw3ndpVEpgbdmN31qF8OSdC1Zg?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026)(921020); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2025 17:06:45.1304 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e925ea6d-e131-44cc-c43b-08dd9d40dc10
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4177
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,85 +135,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 05/22, Alex Deucher wrote:
-> From: Christian König <ckoenig.leichtzumerken@gmail.com>
-> 
-> Stopping the scheduler for queue reset is generally a good idea because
-> it prevents any worker from touching the ring buffer.
-> 
-> But using amdgpu_fence_driver_force_completion() before restarting it was
-> a really bad idea because it marked fences as failed while the work was
-> potentially still running.
-> 
-> Stop doing that and cleanup the comment a bit.
-> 
-> v2: keep amdgpu_fence_driver_force_completion() for non-gfx rings
+This reverts commit 46e68dd5066c9831e9695c1756db017bb9c3762c since it
+breaks color enhancement in another OS, indicating these two fields are
+still used by color management in dcn401.
 
-Why keep this amdgpu_fence_driver_force_completion() for non-gfx is ok?
-From the commit descriptions, sounds like we want to avoid
-amdgpu_fence_driver_force_completion() before the driver restarts the
-queue.
+Fixes: 46e68dd5066c ("drm/amd/display: no 3D and blnd LUT as DPP color caps for DCN401")
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c  | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> 
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 26 +++++++++++++------------
->  1 file changed, 14 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index acb21fc8b3ce5..e57401ef85140 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -136,10 +136,12 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->  	} else if (amdgpu_gpu_recovery && ring->funcs->reset) {
->  		bool is_guilty;
->  
-> -		dev_err(adev->dev, "Starting %s ring reset\n", s_job->sched->name);
-> -		/* stop the scheduler, but don't mess with the
-> -		 * bad job yet because if ring reset fails
-> -		 * we'll fall back to full GPU reset.
-> +		dev_err(adev->dev, "Starting %s ring reset\n",
-> +			s_job->sched->name);
-> +
-> +		/*
-> +		 * Stop the scheduler to prevent anybody else from touching the
-> +		 * ring buffer.
->  		 */
->  		drm_sched_wqueue_stop(&ring->sched);
->  
-> @@ -157,19 +159,19 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->  
->  		r = amdgpu_ring_reset(ring, job->vmid);
->  		if (!r) {
-> -			if (amdgpu_ring_sched_ready(ring))
-> -				drm_sched_stop(&ring->sched, s_job);
->  			if (is_guilty) {
->  				atomic_inc(&ring->adev->gpu_reset_counter);
-> -				amdgpu_fence_driver_force_completion(ring);
-> +				if (ring->funcs->type != AMDGPU_RING_TYPE_GFX)
-> +					amdgpu_fence_driver_force_completion(ring);
->  			}
-> -			if (amdgpu_ring_sched_ready(ring))
-> -				drm_sched_start(&ring->sched, 0);
-> -			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
-> -			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-> +			drm_sched_wqueue_start(&ring->sched);
-> +			dev_err(adev->dev, "Ring %s reset succeeded\n",
-> +				ring->sched.name);
-> +			drm_dev_wedged_event(adev_to_drm(adev),
-> +					     DRM_WEDGE_RECOVERY_NONE);
->  			goto exit;
->  		}
-> -		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
-> +		dev_err(adev->dev, "Ring %s reset failed\n", ring->sched.name);
->  	}
->  	dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
->  
-> -- 
-> 2.49.0
-> 
-
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index f420c4dafa03..e0e32975ca34 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -1938,8 +1938,8 @@ static bool dcn401_resource_construct(
+ 	dc->caps.color.dpp.gamma_corr = 1;
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
+ 
+-	dc->caps.color.dpp.hw_3d_lut = 0;
+-	dc->caps.color.dpp.ogam_ram = 0;
++	dc->caps.color.dpp.hw_3d_lut = 1;
++	dc->caps.color.dpp.ogam_ram = 1;
+ 	// no OGAM ROM on DCN2 and later ASICs
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+ 	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
 -- 
-Rodrigo Siqueira
+2.43.0
+
