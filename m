@@ -4,127 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56FE9C54ED1
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 02:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3DE8C54F30
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 02:52:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E765D10E10E;
-	Wed, 28 May 2025 02:52:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2435910E144;
+	Wed, 28 May 2025 02:52:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ju9JRBAn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RBFb/LUP";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2050.outbound.protection.outlook.com [40.107.95.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 723BF10E10D
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 02:52:37 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E5AB10E114
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 02:52:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ub3lbbzsKQNYIm/FBMFQvFuFwLesmlmZjAc0VVPC9fpmSkDSxRKaSZBmxnXljterIafBjXBC2hm5WfzyxdM+En5Fz2W2DR5AOtSKb4vE7PAP0jds+lMgfcOhyBp3vqtqPps0fuIsg1gFiry6cKtruCrtCtXCMkxMN2tXWBYNfCzVNutl8UuJMP8H3c9qT9tJj0oKuQ0Dmwr22jCGZdNA/81HNekzzUSRt3qR74OfYDchi5RbYdSzD3agjJrNVAU+zGSLBQSXL2RgIdUcLP1SEGQY4eNLJxg+zY4/CH7wffOuLomFmXA3kO/tR1R9cqo7VqFsn6bB7p6WpHjvhiJQBw==
+ b=imO8XdatHToxBoL3e4JJ5i6tGy2lP+j31bXE9hrWupAaNaG4UKFq+RkZweH1KCJOrI389+x8Mw0eQDjk1Dp10fwiAK6FcEA2Ni/Kt3ZFy5In7O76ndZSy6xc1SJoiR9Y6ypwDAawsqvRyfl3gbhs3t278MWiVJ/gXsknU8hvJd79XqyQFyWuSnkAsI8N5epExUDZ7uTwWFmrIrdhFgtL3sjSkIzCufiWxJzlO5Cr8cD8IkmknzB+2sLnM2rj02SPTXY2YIyk0aamTUiS6dpCCfTW1VsMzeL1YDyOqtqn8yk8HgTf5NiWmaMkzt4FZc27/xS9kn8DwKpamt1Xk6A5jw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dErhDKmkmTUCU3N8h9TaytOBWEMt4Fd2ewLU2sl/UFU=;
- b=r7246vTiX9cuyhhbD29SvOcD7eFk/0RpEPr0Edkh3kCNoaNqscbKj+I7tWJF632KhuzOHqY8EiPoY/JaTPwyYhaRFMOE1W+xcG0PUzSrcvz27dL7vz28eYshK5Zuq67b2mG8Ffwe1Mn/08lAGCCPINXpWxk0lqSXF0lJg0AIlj2Ji/zmuxRDYeehCz8Vyq2oUNZR/4m95J3GdQsBfvQXzcDt241qT4EOCDZhFxCo/FFiLo7W4OBPLYjDxPmq9BDI4xmrJ1n1L5ovH9pIGt84Dne7mpyhhORw9VLV8nbSQdo1zqxwFMLh0R8mG7Gx+6riKeliVIqwwxvQwZ8rHYDzrQ==
+ bh=01URGGwaXQrePs1FD7Wbxcr/KDo0d/ixIoZ3hLkP25E=;
+ b=EBuhzOQP+OkmBjkph8CfaNnF+t0S3I8k1VcxDgp+U42Ijz/HykYrnjZ4Q8Hijojx7/IV5wEFtHvUPgwBydpsgSmxB0ak555KkMwl42AbhH7nNHb1XjCf6Ood/LvWRzKJy4RAe0i8am1CZyHyLLOiC/Tgx2SvE4Bu7W6BctI/Av1J//K7K2zTYYYmkQDMuIwhpzqIZyGlB5c1r2WEkqWhgoRkVsznZBBMMykSPHYHg7eWEbbe42ME27fLgoouwj3SKdeMy78eGritIPu8e3nO6YtV944DzwOqmDMxN9OePrmnXICrOAC7PjSp+9V9TtwDBhSkYckIWG1jrHMzLvkbVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dErhDKmkmTUCU3N8h9TaytOBWEMt4Fd2ewLU2sl/UFU=;
- b=Ju9JRBAnEPqZLAcNdi1EjQggujAtXj/Ew1/CXsIB7rclOFX+1WaeDrC3h05UACntnLu4Yhhix5JvHRFsCVS2cSMir2LNaoUB4/TVSwQZLEYqfEqEuDpoxAGW1fZsL13eDfbvMLlmkGXvqQRN1SMJHI2Pcj5aKDM56klkq5UhYtY=
-Received: from CH0PR03CA0281.namprd03.prod.outlook.com (2603:10b6:610:e6::16)
- by SA3PR12MB7924.namprd12.prod.outlook.com (2603:10b6:806:313::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=01URGGwaXQrePs1FD7Wbxcr/KDo0d/ixIoZ3hLkP25E=;
+ b=RBFb/LUPpV7Y1UXd5VVK3Rbtbsg+rUQd6THQqpR6zmFeMAFZOepY8dNcjaZ+lfj6M3ovfW5S+vsHS8rtyl2YhH5WIjMYaA6BRYDfX2tbV0HtC20EUxL7YzQY/2wanRuyoASGK0SkwIO+zOY4g+iZ/bw93pJMQW+u5H2FH2pSB/Y=
+Received: from BN8PR04CA0005.namprd04.prod.outlook.com (2603:10b6:408:70::18)
+ by DM4PR12MB6158.namprd12.prod.outlook.com (2603:10b6:8:a9::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Wed, 28 May
- 2025 02:52:32 +0000
-Received: from CH1PEPF0000A348.namprd04.prod.outlook.com (2603:10b6:610:e6::4)
- by CH0PR03CA0281.outlook.office365.com (2603:10b6:610:e6::16) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19
- via Frontend Transport; Wed, 28 May 2025 02:52:32 +0000
+ 2025 02:52:37 +0000
+Received: from BN1PEPF00005FFF.namprd05.prod.outlook.com
+ (2603:10b6:408:70:cafe::51) by BN8PR04CA0005.outlook.office365.com
+ (2603:10b6:408:70::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.26 via Frontend Transport; Wed,
+ 28 May 2025 02:52:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH1PEPF0000A348.mail.protection.outlook.com (10.167.244.4) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00005FFF.mail.protection.outlook.com (10.167.243.231) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 02:52:31 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 02:52:36 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
- 2025 21:52:31 -0500
+ 2025 21:52:36 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 27 May 2025 21:52:26 -0500
+ Transport; Tue, 27 May 2025 21:52:31 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Austin Zheng
- <Austin.Zheng@amd.com>, Alvin Lee <alvin.lee2@amd.com>
-Subject: [PATCH 03/24] drm/amd/display: DML21 Fixes
-Date: Wed, 28 May 2025 10:48:58 +0800
-Message-ID: <20250528025204.79578-4-Wayne.Lin@amd.com>
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Camille Cho
+ <Camille.Cho@amd.com>, Krunoslav Kovac <krunoslav.kovac@amd.com>
+Subject: [PATCH 04/24] drm/amd/display: Support OLED SDR with AMD ABC
+Date: Wed, 28 May 2025 10:48:59 +0800
+Message-ID: <20250528025204.79578-5-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250528025204.79578-1-Wayne.Lin@amd.com>
 References: <20250528025204.79578-1-Wayne.Lin@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: Wayne.Lin@amd.com does not designate
+Received-SPF: None (SATLEXMB04.amd.com: Wayne.Lin@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A348:EE_|SA3PR12MB7924:EE_
-X-MS-Office365-Filtering-Correlation-Id: d108d463-6b62-4607-03d2-08dd9d92b12e
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFF:EE_|DM4PR12MB6158:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03b9cc26-0633-46f4-8b47-08dd9d92b423
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kayBobsys+gVFBxIKtjNudt3ff1qdQpvHSbJodIq2bu4tCot+ce4kaGxTHbQ?=
- =?us-ascii?Q?5iLOX0O1jO+yfQocZjBQ9kwuLMQEE2i2FHNtOXPz3E9X23SUE7UXuvTlS4UM?=
- =?us-ascii?Q?4Au+24VI3UqO2i7e7oiLA5BcBITOpp/lAfbgn8jFFNJzF7T0Q1tnCPpHcZzq?=
- =?us-ascii?Q?WP4PQgYnVpuQt4XrHOmOjK6SVqkoWkn1OZ+v1juNHDvkawN8Jh1fQ+gpj0Wi?=
- =?us-ascii?Q?8guuzh6sGjYhzerYTppArfu9//6z54VIpggQSHH7cOqn91oLURj382fo+/aO?=
- =?us-ascii?Q?9wro3T/HOr1dJgTSAOcOn2eUUq5YaCFt8gOgtiO5hxcWiVSuJK9SqISxLm8f?=
- =?us-ascii?Q?vKcNR/hxlsR+A06m8JlvQwct9bjkk0hfq4JCRm6wyvkbZnMxeNWopmoHBrnV?=
- =?us-ascii?Q?CecTOJ0u/dRiPU0c+YqIfbEi3tYkwHp81jwwAGcJ7ho9ETooiGFUr+7/+TsV?=
- =?us-ascii?Q?7yXE7G9CNwbSL5r55X4kiykQ4+l3jdISxoviWjFs7P6OtBrG6+14dSKbbhsd?=
- =?us-ascii?Q?sLESh2j26TSCWAm8vA/SdKa2/CBBE6PCgmVCvFKV6BhTd1I2lE2l+pVZW7hW?=
- =?us-ascii?Q?odRgpgKWXtIsnR1l5wDsMtt0BAuvDFSW+AO4p8t2OBDtq8MDAeES5WK3FEft?=
- =?us-ascii?Q?VJbk3FymUAvNtWqgC95U2ep3DVaaZe91AEcTFZlQ1IKZKhPz6Loa0isQ59pD?=
- =?us-ascii?Q?xV7/8KfHMa8WYgppsqNS21cwBgBKfYGSGzbW4qo9t+wPt1SbkqHJRZ16y/As?=
- =?us-ascii?Q?vj7gxFVZbw5rHQQ+HqFJ02UZDsrtCjAlmC3s1KySXFuj/5dw1g7JDohAC03r?=
- =?us-ascii?Q?BNGMMNytEjyMjIE68BoQxmmIrECFCaHeiW6dqBNTXcPGQMeZGHHf6D+mFDKt?=
- =?us-ascii?Q?ecv7qmVeycFh08WSJrk86fHFjoTsdgGESxqJfbsNDGWSaycjByj8lkdp9RqG?=
- =?us-ascii?Q?iUzHpjwDWgBN1pfvqp5IguM4nt4TO1kvobDiBMLaImJBm36PKrhRPjr5ydQL?=
- =?us-ascii?Q?g+RGFMyWJ2k5vGNFwPgvfoFN7dhHUxQGVIDYEXl/BVK/UotRaBKdRjhrfDRZ?=
- =?us-ascii?Q?4dEgY1AsK/Uj9yGjKKd6/JGV3Fpryds8eO+5xeoAOzHBkSpqmN9Rf2TKNvNj?=
- =?us-ascii?Q?ALNIeWbwpD/GecpgYGLUbVCu7D0+pZxsWVAPuNLL89fHLNVlOYTBrpjhwrnW?=
- =?us-ascii?Q?lGypTT4Z6ayCLvAwmHJHfc0+jlczfG1/fqFz22aBjxTP/yU6oc+2x9+dA5DI?=
- =?us-ascii?Q?sjks1wdjXR1JxEqDHGM4l5QL/dvH1BRaUnu8xbtg07YRQFTxQ+BAanAlm0NW?=
- =?us-ascii?Q?/yrzKXcRd3Vr85Ykq1xKjjgjOVgXAMFqmK6LP+ykPXdp3YhTxJKdRo4Oqd16?=
- =?us-ascii?Q?vrQDhhD1vNafiyZVXM+7ysIh94sIjtY3sW21I/0fiuk4lbhn0CHNAgz/QUhc?=
- =?us-ascii?Q?IK5+Lh9UGPfPBTfYwPkIAVRLnvv997+kz0MQEn6plaMQ5Rebzg3PXelT8Fqt?=
- =?us-ascii?Q?upu6sCKAQwaeQKNOSdzF995jWL/eRYDnM5/s?=
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?f75CrSE5D5FZamxBFLKAJVqxFUyqbb5cU/Cr5xYA06B+sm5kqtY9arjLAO3o?=
+ =?us-ascii?Q?u6Q0bxE0H40cpl/EtKiXX33tu2BQhhPSZFRC1D5Q9B36mAMI06TonezvefzR?=
+ =?us-ascii?Q?52Fh0BQMMDDRFdJRf2CJS7oWyPV+XWha383Q2COw6weeE9ToPH7oJ/6bLWEo?=
+ =?us-ascii?Q?DDxu0xAvhxlr9biYNlWrFZG8V47h/c4SQGBKJVWOzk7mejMkBeuEIlG7EeK4?=
+ =?us-ascii?Q?sTB9kVGfC0mzSTMXgE3VF990Fp0NKPIiUqWgA3wundQZsb56Z71Y2sZ6VAmD?=
+ =?us-ascii?Q?XH/E98XCfd3wK7zAduAabP7QrtqG79wLVHl4SbAJSHLpP7j9jTHpXTLKXORO?=
+ =?us-ascii?Q?fzeveJOnhcagLXtzk3NKxLph7+OCPnHlHIwP9EZkh7TaOmwkoTrpoxubinON?=
+ =?us-ascii?Q?8lOELHC+09RAbMxQI6MGyOLIyUJzM+QzWI8z9VxYdyTwInKr9faEer2vFef/?=
+ =?us-ascii?Q?MZluaFkzjfioNoD5ODsrjblwIK2Zw1/IN3bMMFxs9E0FWDtlxdNZRcf/ea7u?=
+ =?us-ascii?Q?yJTo5zIF1sv/Y/QkmSPQtX1byXSk88rFcMDwC96UVY0941vlUMxEvi3e9GpU?=
+ =?us-ascii?Q?/ezo7GVKJRNCe7QZVtz839aS0jrJ5cojOUxu1nAOuwEosjmc4qSnbrylKJS+?=
+ =?us-ascii?Q?UD003Wr6Mk8lCKR5ayMw562CJozb8iCzdkURy1X3xYGZiErNovvraTkFB1E2?=
+ =?us-ascii?Q?ptdPzMObI0VtUqlqsSiOsfg1K3AwqMp2Sll+6mox/X8O5kyHn/rJeE26Bblm?=
+ =?us-ascii?Q?pzol6IKfK2DNSK0xDI9uJTUm//R09SsYt5trYxP4SGYNviD/+HknNjkRJTlS?=
+ =?us-ascii?Q?db5lUiYWZwdLtSiNXJMpw+eIkqcBIqq/GfZUGHfakutagh5E4c3Xwilm+tVe?=
+ =?us-ascii?Q?bWnsbZ49n3vX76aY86my3/j8TZqEklvCh4ZnP5e4fJOV4kz2XxBL1KkXfI7Q?=
+ =?us-ascii?Q?2WLyndBK8YnCy7C5mEYXXixOzM7l/TVMuWAc+kTAiyUtAwUJFX817rM0wfvM?=
+ =?us-ascii?Q?ZD1CRRDHT3zeSMdA7dlJDgUMOvp63+ZVKf3yjvNHd18q5b8qBIG4TlDzfinT?=
+ =?us-ascii?Q?RRLpjuSL6BM6sFaDFIA+4xVO20fMLmZpP2JHKPsBg6olFw2oTtW+uVFQcX2F?=
+ =?us-ascii?Q?p6q09aRtqbIfycE96WP2Vj0yeYq21H0NxqZ9WJ8htW1h8jKQNEFCBZ9X0VKb?=
+ =?us-ascii?Q?Khg7+OJRJ8jct0WZ1CYsy5Pe7Nm4iK96cXTbpZPdBqaMBzHqI+5rZBGMDyt7?=
+ =?us-ascii?Q?WbjG/HPfRoMZBGnLXdxKuKLD9FpVQp/26fRdkDOuwJhc9YmL36D9A/00Q3KN?=
+ =?us-ascii?Q?alLa1Hl/4Va3ExR3cqnVhS8yxJ2tQKeP/5bFcpjxmNi/c40cOmE7/G3IREh7?=
+ =?us-ascii?Q?U+vdYZU7oiNuIJyQXOrM8M2PKfvDyi4ecRYTwWQF4IkNjGfXFZmt4nZtlEtH?=
+ =?us-ascii?Q?fYC63qKuh77/PhCMMEGsXDG+f9fpNgz2YlZQXj4hJjem489O4Ovw8Rw3kJN1?=
+ =?us-ascii?Q?OKNnA7/TaacY89uwQnjswEf2oj6KuW5pJqhk?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 02:52:31.9291 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d108d463-6b62-4607-03d2-08dd9d92b12e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 02:52:36.9053 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03b9cc26-0633-46f4-8b47-08dd9d92b423
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A348.namprd04.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFF.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7924
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6158
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,346 +139,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+From: Camille Cho <Camille.Cho@amd.com>
 
-- Store state related info inside mode_lib.
-- Fix bad DCFCLK deep sleep
-- Update FAMS structure in DMUB header
+[Why]
+Nits programming for SDR panel is only supported by VESA ABC.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
+[How]
+1. Loose nits programming for OLED SDR panel with AMD ABC.
+2. We support two ABC methods. Disable one before we program the other
+   in case panel freaks out.
+3. Update HDR judgement in setBR with a solider condition.
+
+Reviewed-by: Krunoslav Kovac <krunoslav.kovac@amd.com>
+Signed-off-by: Camille Cho <Camille.Cho@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../amd/display/dc/dml2/dml21/inc/dml_top.h   |  1 -
- .../display/dc/dml2/dml21/inc/dml_top_types.h | 10 ++-
- .../src/dml2_core/dml2_core_dcn4_calcs.c      |  7 +-
- .../src/dml2_core/dml2_core_shared_types.h    | 82 ++++++++++++++++++-
- .../dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c |  3 -
- .../src/inc/dml2_internal_shared_types.h      | 10 ++-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 18 +++-
- 7 files changed, 116 insertions(+), 15 deletions(-)
+ .../link/protocols/link_edp_panel_control.c   | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top.h b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top.h
-index c047d56527c4..a64ec4dcf11a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top.h
-@@ -43,5 +43,4 @@ bool dml2_build_mode_programming(struct dml2_build_mode_programming_in_out *in_o
-  */
- bool dml2_build_mcache_programming(struct dml2_build_mcache_programming_in_out *in_out);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index da74c2b5854f..035795042a01 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -173,6 +173,15 @@ bool edp_set_backlight_level_nits(struct dc_link *link,
  
--
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_types.h b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_types.h
-index 0dbf886d8926..bcb99a155011 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_types.h
-@@ -279,7 +279,10 @@ struct dml2_per_stream_programming {
- 	} phantom_stream;
+ 		target_luminance = (struct target_luminance_value *)&backlight_millinits;
  
- 	union dmub_cmd_fams2_config fams2_base_params;
--	union dmub_cmd_fams2_config fams2_sub_params;
-+	union {
-+		union dmub_cmd_fams2_config fams2_sub_params;
-+		union dmub_fams2_stream_static_sub_state_v2 fams2_sub_params_v2;
-+	};
- };
- 
- //-----------------
-@@ -674,9 +677,14 @@ struct dml2_display_cfg_programming {
- 		// unlimited # of mcache
- 		struct dml2_mcache_surface_allocation non_optimized_mcache_allocation[DML2_MAX_PLANES];
- 
-+		bool failed_prefetch;
-+		bool failed_uclk_pstate;
- 		bool failed_mcache_validation;
- 		bool failed_dpmm;
- 		bool failed_mode_programming;
-+		bool failed_mode_programming_dcfclk;
-+		bool failed_mode_programming_prefetch;
-+		bool failed_mode_programming_flip;
- 		bool failed_map_watermarks;
- 	} informative;
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index c4dad7164d31..0addef1f844e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -7905,6 +7905,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
- 
- }
- 
++		//make sure we disable AMD ABC first.
++		core_link_read_dpcd(link, DP_SOURCE_BACKLIGHT_CONTROL,
++			&backlight_enable, sizeof(uint8_t));
++		if (backlight_enable) {
++			backlight_enable = 0;
++			core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_CONTROL,
++					&backlight_enable, 1);
++		}
 +
- static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out_params)
- {
- 	struct dml2_core_internal_display_mode_lib *mode_lib = in_out_params->mode_lib;
-@@ -11880,7 +11881,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 		}
+ 		core_link_read_dpcd(link, DP_EDP_BACKLIGHT_MODE_SET_REGISTER,
+ 			&backlight_enable, sizeof(uint8_t));
  
- 		//Maximum Bandwidth Used
--		s->TotalWRBandwidth = 0;
-+		mode_lib->mp.TotalWRBandwidth = 0;
- 		for (k = 0; k < display_cfg->num_streams; ++k) {
- 			s->WRBandwidth = 0;
- 			if (display_cfg->stream_descriptors[k].writeback.active_writebacks_per_stream > 0) {
-@@ -11889,7 +11890,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 					(display_cfg->stream_descriptors[k].timing.h_total * display_cfg->stream_descriptors[k].writeback.writeback_stream[0].input_height
- 						/ ((double)display_cfg->stream_descriptors[k].timing.pixel_clock_khz / 1000))
- 					* (display_cfg->stream_descriptors[k].writeback.writeback_stream[0].pixel_format == dml2_444_32 ? 4.0 : 8.0);
--				s->TotalWRBandwidth = s->TotalWRBandwidth + s->WRBandwidth;
-+				mode_lib->mp.TotalWRBandwidth = mode_lib->mp.TotalWRBandwidth + s->WRBandwidth;
- 			}
- 		}
+@@ -193,10 +202,22 @@ bool edp_set_backlight_level_nits(struct dc_link *link,
+ 		*(uint16_t *)&dpcd_backlight_set.backlight_transition_time_ms = (uint16_t)transition_time_in_ms;
  
-@@ -13243,7 +13244,7 @@ void dml2_core_calcs_get_informative(const struct dml2_core_internal_display_mod
- 		out->informative.misc.DisplayPipeLineDeliveryTimeLumaPrefetch[k] = mode_lib->mp.DisplayPipeLineDeliveryTimeLumaPrefetch[k];
- 		out->informative.misc.DisplayPipeLineDeliveryTimeChromaPrefetch[k] = mode_lib->mp.DisplayPipeLineDeliveryTimeChromaPrefetch[k];
- 
--		out->informative.misc.WritebackRequiredBandwidth = mode_lib->scratch.dml_core_mode_programming_locals.TotalWRBandwidth / 1000.0;
-+		out->informative.misc.WritebackRequiredBandwidth = mode_lib->mp.TotalWRBandwidth / 1000.0;
- 		out->informative.misc.WritebackAllowDRAMClockChangeEndPosition[k] = mode_lib->mp.WritebackAllowDRAMClockChangeEndPosition[k];
- 		out->informative.misc.WritebackAllowFCLKChangeEndPosition[k] = mode_lib->mp.WritebackAllowFCLKChangeEndPosition[k];
- 		out->informative.misc.DSCCLK_calculated[k] = mode_lib->mp.DSCCLK[k];
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared_types.h
-index bdee6ad7bc59..5f5b15b478e3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared_types.h
-@@ -329,6 +329,7 @@ struct dml2_core_internal_mode_support_info {
- 	bool temp_read_or_ppt_support;
- 
- 	struct dml2_core_internal_watermarks watermarks;
-+	bool dcfclk_support;
- };
- 
- struct dml2_core_internal_mode_support {
-@@ -350,9 +351,11 @@ struct dml2_core_internal_mode_support {
- 	double SOCCLK; /// <brief Basically just the clock freq at the min (or given) state
- 	double DCFCLK; /// <brief Basically just the clock freq at the min (or given) state and max combine setting
- 	double GlobalDPPCLK; /// <brief the Max DPPCLK freq out of all pipes
-+	double GlobalDTBCLK; /// <brief the Max DTBCLK freq out of all pipes
- 	double uclk_freq_mhz;
- 	double dram_bw_mbps;
- 	double max_dram_bw_mbps;
-+	double min_available_urgent_bandwidth_MBps; /// <brief Minimum guaranteed available urgent return bandwidth in MBps
- 
- 	double MaxFabricClock; /// <brief Basically just the clock freq at the min (or given) state
- 	double MaxDCFCLK; /// <brief Basically just the clock freq at the min (or given) state and max combine setting
-@@ -473,9 +476,19 @@ struct dml2_core_internal_mode_support {
- 	bool RequiresDSC[DML2_MAX_PLANES];
- 	bool RequiresFEC[DML2_MAX_PLANES];
- 	double OutputBpp[DML2_MAX_PLANES];
-+	double DesiredOutputBpp[DML2_MAX_PLANES];
-+	double PixelClockBackEnd[DML2_MAX_PLANES];
- 	unsigned int DSCDelay[DML2_MAX_PLANES];
- 	enum dml2_core_internal_output_type OutputType[DML2_MAX_PLANES];
- 	enum dml2_core_internal_output_type_rate OutputRate[DML2_MAX_PLANES];
-+	bool TotalAvailablePipesSupportNoDSC;
-+	bool TotalAvailablePipesSupportDSC;
-+	unsigned int NumberOfDPPNoDSC;
-+	unsigned int NumberOfDPPDSC;
-+	enum dml2_odm_mode ODMModeNoDSC;
-+	enum dml2_odm_mode ODMModeDSC;
-+	double RequiredDISPCLKPerSurfaceNoDSC;
-+	double RequiredDISPCLKPerSurfaceDSC;
- 
- 	// Bandwidth Related Info
- 	double BandwidthAvailableForImmediateFlip;
-@@ -538,7 +551,41 @@ struct dml2_core_internal_mode_support {
- 	bool mall_comb_mcache_c[DML2_MAX_PLANES];
- 	bool lc_comb_mcache[DML2_MAX_PLANES];
- 
-+	unsigned int vmpg_width_y[DML2_MAX_PLANES];
-+	unsigned int vmpg_height_y[DML2_MAX_PLANES];
-+	unsigned int vmpg_width_c[DML2_MAX_PLANES];
-+	unsigned int vmpg_height_c[DML2_MAX_PLANES];
+ 		uint8_t backlight_control = isHDR ? 1 : 0;
++		uint8_t backlight_enable = 0;
 +
-+	unsigned int meta_row_height_luma[DML2_MAX_PLANES];
-+	unsigned int meta_row_height_chroma[DML2_MAX_PLANES];
-+	unsigned int meta_row_bytes_per_row_ub_l[DML2_MAX_PLANES];
-+	unsigned int meta_row_bytes_per_row_ub_c[DML2_MAX_PLANES];
-+	unsigned int dpte_row_bytes_per_row_l[DML2_MAX_PLANES];
-+	unsigned int dpte_row_bytes_per_row_c[DML2_MAX_PLANES];
+ 		// OLEDs have no PWM, they can only use AUX
+ 		if (link->dpcd_sink_ext_caps.bits.oled == 1)
+ 			backlight_control = 1;
+ 
++		//make sure we disable VESA ABC first.
++		core_link_read_dpcd(link, DP_EDP_BACKLIGHT_MODE_SET_REGISTER,
++			&backlight_enable, sizeof(uint8_t));
 +
-+	unsigned int pstate_bytes_required_l[DML2_MAX_PLANES];
-+	unsigned int pstate_bytes_required_c[DML2_MAX_PLANES];
-+	unsigned int cursor_bytes_per_chunk[DML2_MAX_PLANES];
-+	unsigned int cursor_bytes_per_line[DML2_MAX_PLANES];
++		if (backlight_enable & DP_EDP_PANEL_LUMINANCE_CONTROL_ENABLE) {
++			backlight_enable &= ~DP_EDP_PANEL_LUMINANCE_CONTROL_ENABLE;
++			core_link_write_dpcd(link, DP_EDP_BACKLIGHT_MODE_SET_REGISTER,
++					&backlight_enable, sizeof(backlight_enable));
++		}
 +
-+	unsigned int MaximumVStartup[DML2_MAX_PLANES];
-+
-+	double HostVMInefficiencyFactor;
-+	double HostVMInefficiencyFactorPrefetch;
-+
-+	unsigned int tdlut_pte_bytes_per_frame[DML2_MAX_PLANES];
-+	unsigned int tdlut_bytes_per_frame[DML2_MAX_PLANES];
-+	double tdlut_opt_time[DML2_MAX_PLANES];
-+	double tdlut_drain_time[DML2_MAX_PLANES];
-+	unsigned int tdlut_bytes_per_group[DML2_MAX_PLANES];
-+
-+	double Tvm_trips_flip[DML2_MAX_PLANES];
-+	double Tr0_trips_flip[DML2_MAX_PLANES];
-+	double Tvm_trips_flip_rounded[DML2_MAX_PLANES];
-+	double Tr0_trips_flip_rounded[DML2_MAX_PLANES];
- 
-+	unsigned int DSTYAfterScaler[DML2_MAX_PLANES];
-+	unsigned int DSTXAfterScaler[DML2_MAX_PLANES];
- };
- 
- /// @brief A mega structure that houses various info for model programming step.
-@@ -548,6 +595,7 @@ struct dml2_core_internal_mode_program {
- 	double FabricClock; /// <brief Basically just the clock freq at the min (or given) state
- 	//double DCFCLK; /// <brief Basically just the clock freq at the min (or given) state and max combine setting
- 	double dram_bw_mbps;
-+	double min_available_urgent_bandwidth_MBps; /// <brief Minimum guaranteed available urgent return bandwidth in MBps
- 	double uclk_freq_mhz;
- 	unsigned int NoOfDPP[DML2_MAX_PLANES];
- 	enum dml2_odm_mode ODMMode[DML2_MAX_PLANES];
-@@ -684,6 +732,38 @@ struct dml2_core_internal_mode_program {
- 	double TCalc;
- 	unsigned int TotImmediateFlipBytes;
- 
-+	unsigned int MaxTotalDETInKByte;
-+	unsigned int NomDETInKByte;
-+	unsigned int MinCompressedBufferSizeInKByte;
-+	double PixelClockBackEnd[DML2_MAX_PLANES];
-+	double OutputBpp[DML2_MAX_PLANES];
-+	bool dsc_enable[DML2_MAX_PLANES];
-+	unsigned int num_dsc_slices[DML2_MAX_PLANES];
-+	unsigned int meta_row_bytes_per_row_ub_l[DML2_MAX_PLANES];
-+	unsigned int meta_row_bytes_per_row_ub_c[DML2_MAX_PLANES];
-+	unsigned int dpte_row_bytes_per_row_l[DML2_MAX_PLANES];
-+	unsigned int dpte_row_bytes_per_row_c[DML2_MAX_PLANES];
-+	unsigned int cursor_bytes_per_chunk[DML2_MAX_PLANES];
-+	unsigned int cursor_bytes_per_line[DML2_MAX_PLANES];
-+	unsigned int MaxVStartupLines[DML2_MAX_PLANES]; /// <brief more like vblank for the plane's OTG
-+	double HostVMInefficiencyFactor;
-+	double HostVMInefficiencyFactorPrefetch;
-+	unsigned int tdlut_pte_bytes_per_frame[DML2_MAX_PLANES];
-+	unsigned int tdlut_bytes_per_frame[DML2_MAX_PLANES];
-+	unsigned int tdlut_groups_per_2row_ub[DML2_MAX_PLANES];
-+	double tdlut_opt_time[DML2_MAX_PLANES];
-+	double tdlut_drain_time[DML2_MAX_PLANES];
-+	unsigned int tdlut_bytes_per_group[DML2_MAX_PLANES];
-+	double Tvm_trips_flip[DML2_MAX_PLANES];
-+	double Tr0_trips_flip[DML2_MAX_PLANES];
-+	double Tvm_trips_flip_rounded[DML2_MAX_PLANES];
-+	double Tr0_trips_flip_rounded[DML2_MAX_PLANES];
-+	bool immediate_flip_required; // any pipes need immediate flip
-+	double SOCCLK; /// <brief Basically just the clock freq at the min (or given) state
-+	double TotalWRBandwidth;
-+	double max_urgent_latency_us;
-+	double df_response_time_us;
-+
- 	// -------------------
- 	// Output
- 	// -------------------
-@@ -697,6 +777,7 @@ struct dml2_core_internal_mode_program {
- 	bool PrefetchModeSupported; // <brief Is the prefetch mode (bandwidth and latency) supported
- 	bool ImmediateFlipSupported;
- 	bool ImmediateFlipSupportedForPipe[DML2_MAX_PLANES];
-+	bool dcfclk_support;
- 
- 	// Clock
- 	double Dcfclk;
-@@ -1028,7 +1109,6 @@ struct dml2_core_calcs_mode_programming_locals {
- 	double dlg_vblank_start;
- 	double LSetup;
- 	double blank_lines_remaining;
--	double TotalWRBandwidth;
- 	double WRBandwidth;
- 	struct dml2_core_internal_DmlPipe myPipe;
- 	double PixelClockBackEndFactor;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
-index f486b090bbfc..22969a533a7b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
-@@ -389,9 +389,6 @@ static bool map_min_clocks_to_dpm(const struct dml2_core_mode_support_result *mo
- 	if (result)
- 		result = round_up_to_next_dpm(&display_cfg->min_clocks.dcn4x.dispclk_khz, &state_table->dispclk);
- 
--	if (result)
--		result = round_up_to_next_dpm(&display_cfg->min_clocks.dcn4x.deepsleep_dcfclk_khz, &state_table->dcfclk);
--
- 	for (i = 0; i < DML2_MAX_DCN_PIPES; i++) {
- 		if (result)
- 			result = round_up_to_next_dpm(&display_cfg->plane_programming[i].min_clocks.dcn4x.dppclk_khz, &state_table->dppclk);
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/inc/dml2_internal_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/inc/dml2_internal_shared_types.h
-index 00688b9f1df4..d52aa82283b3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/inc/dml2_internal_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/inc/dml2_internal_shared_types.h
-@@ -202,6 +202,8 @@ struct dml2_core_mode_support_result {
- 		} active;
- 
- 		unsigned int dispclk_khz;
-+		unsigned int dpprefclk_khz;
-+		unsigned int dtbrefclk_khz;
- 		unsigned int dcfclk_deepsleep_khz;
- 		unsigned int socclk_khz;
- 
-@@ -446,13 +448,17 @@ struct dml2_core_internal_state_intermediates {
- };
- 
- struct dml2_core_mode_support_locals {
--	struct dml2_core_calcs_mode_support_ex mode_support_ex_params;
-+	union {
-+		struct dml2_core_calcs_mode_support_ex mode_support_ex_params;
-+	};
- 	struct dml2_display_cfg svp_expanded_display_cfg;
- 	struct dml2_calculate_mcache_allocation_in_out calc_mcache_allocation_params;
- };
- 
- struct dml2_core_mode_programming_locals {
--	struct dml2_core_calcs_mode_programming_ex mode_programming_ex_params;
-+	union {
-+		struct dml2_core_calcs_mode_programming_ex mode_programming_ex_params;
-+	};
- 	struct dml2_display_cfg svp_expanded_display_cfg;
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 202904af4682..346d843b45bf 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -104,6 +104,14 @@
-  */
- #define DMUB_MAX_FPO_STREAMS 4
- 
-+/* Define to ensure that the "common" members always appear in the same
-+ * order in different structs for back compat purposes
-+ */
-+#define COMMON_STREAM_STATIC_SUB_STATE \
-+    struct dmub_fams2_cmd_legacy_stream_static_state legacy; \
-+    struct dmub_fams2_cmd_subvp_stream_static_state subvp; \
-+    struct dmub_fams2_cmd_drr_stream_static_state drr;
-+
- /* Maximum number of streams on any ASIC. */
- #define DMUB_MAX_STREAMS 6
- 
-@@ -2021,11 +2029,13 @@ union dmub_fams2_stream_static_sub_state {
- }; //v0
- 
- union dmub_fams2_cmd_stream_static_sub_state {
--	struct dmub_fams2_cmd_legacy_stream_static_state legacy;
--	struct dmub_fams2_cmd_subvp_stream_static_state subvp;
--	struct dmub_fams2_cmd_drr_stream_static_state drr;
-+	COMMON_STREAM_STATIC_SUB_STATE
- }; //v1
- 
-+union dmub_fams2_stream_static_sub_state_v2 {
-+	COMMON_STREAM_STATIC_SUB_STATE
-+}; //v2
-+
- struct dmub_fams2_stream_static_state {
- 	enum fams2_stream_type type;
- 	uint32_t otg_vline_time_ns;
-@@ -2091,7 +2101,7 @@ struct dmub_fams2_cmd_stream_static_base_state {
- 
- struct dmub_fams2_stream_static_state_v1 {
- 	struct dmub_fams2_cmd_stream_static_base_state base;
--	union dmub_fams2_cmd_stream_static_sub_state sub_state;
-+	union dmub_fams2_stream_static_sub_state_v2 sub_state;
- }; //v1
- 
- /**
+ 		if (core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_LEVEL,
+ 			(uint8_t *)(&dpcd_backlight_set),
+ 			sizeof(dpcd_backlight_set)) != DC_OK)
 -- 
 2.43.0
 
