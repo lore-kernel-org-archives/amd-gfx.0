@@ -4,78 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1BEC3ABB2
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 13:29:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1891EC3ABB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 13:38:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3999810E5E1;
-	Wed, 28 May 2025 13:29:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8644A10E613;
+	Wed, 28 May 2025 13:38:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PwW8Mmxb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P/XXGkv+";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 320E210E5E1;
- Wed, 28 May 2025 13:29:42 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-31141a8e6c9so601636a91.3; 
- Wed, 28 May 2025 06:29:42 -0700 (PDT)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3155610E60E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 13:38:38 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-311ea13388fso51343a91.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 06:38:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1748438982; x=1749043782; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1748439518; x=1749044318; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XNEGmM0JlP9wq6opyDQ0PfkvRzw7tQOL49la3yXZ13c=;
- b=PwW8MmxbIkMwOrrNZI2B6BTprWmfC9yTE9olQ2vYAZ7+7wYbhfyPVKn7G6XkpBWY7z
- s1xIGZql6GmAJ8COWnNaoT0UgiMl+pu1fjjU7zPvLRWvf42mNaPos8H9RUcFfij9uOWl
- djBO5OQTOsv+Y/QYPDIRoZrF4uNa9Hv2vaTDb9reH3f5OvRulnJccjGlccyJoh9XA4ls
- MaU3aEQQpl+bjMdr1oQCGsswR9crckquB/gxMLNBX7CUkAdHiZ4JSKpptjQQh1F3Vao6
- 5jFzujRXw/1MfUwJeCU4bKho2ZiDVJ21Ij1GJNw0XR9TCTxawnpVfXuOT7HhpIVGvlh/
- rcGg==
+ bh=gzqgGPfdh+pthziS6dfE4aLnbVr+O4BuSUPbDXg8KDc=;
+ b=P/XXGkv+xzgt0lksvbKmItVwEHV41gxaXig8xrTCWgIefStd5kNdRJwBOoJ8j0gZpz
+ pPzbiOX8bs1xU4G0tO62wFWM+HIx8B7vgK/k9pJwFnUlJMBQNgE83i2+FySlNLLYsElf
+ NZfI4HmhX7lfVAMZzIuayF/nOrK0ZV2rQXWAqJ4yh4cB/j+ZKsz6cbzr3+xccz4V5ea3
+ HtlEN046Zk27z3So5PK1r8zUp5VBFmX4dZs/UFSYsNuo3dP8HGACOky1AO68gpPb+B1e
+ 3PERLEPIZ2v1VzcJzdcMLOmfIBWUYpvS4beZr6AMxRfvcLgkq+LMMhnR5J372qmY9uDG
+ UiJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748438982; x=1749043782;
+ d=1e100.net; s=20230601; t=1748439518; x=1749044318;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XNEGmM0JlP9wq6opyDQ0PfkvRzw7tQOL49la3yXZ13c=;
- b=vYYZDHGUToIZA1PLLTwWmkwp/r5xVTzRx67pyfGsin5b3OjXT+szgrmnwygm1xxg3L
- Nr0r8vzGMLRj3li9N+lA1G+Lcg2wGCptsjKLTK+E4MJ9UrbCXV9QmpWFq4McUrXnHKOF
- LGw1li2Qab2V2vhPCjyI+PKSvdAQFDE2mSeL5Z8bBZ0CCiQ1DxwEI6GaUrT6MqP3022U
- jjHAEKAKp2G+2vHj2KDgHPC2IuqWGKl/MpzDDdDHBIhQKIVRygHaRib6jTSeEEJz9ISs
- fjKal0kBUJhREEI6AYIh/JD1LjoCrcKB4KXU4xTW4lBP/yj+6WusoxA4KE2c99we6pIS
- /hCw==
+ bh=gzqgGPfdh+pthziS6dfE4aLnbVr+O4BuSUPbDXg8KDc=;
+ b=V9NO0vLD63Evnd17ybadKo54E8AgvigzRBRtfYKvY9b/3vKdNgXhL1FY+76KKL3wxD
+ bv9Ka5yXuU+n5HL+aSnNE+SsORAJAqHgKSKNNcmMLXfb9LKHwIPdExLNyrAxOGDmqDag
+ w7Hwh43I8lF4D6RMNaCQlFxorJxMQQmZxbyYgBBhpPOQO/37wli8uhAcSKAI5UNr/JTi
+ KCl4RDbRqK+GURFhDdzClcwHXPGTH85iWUaySaIOqIdjnELbUM3nblMBfJx1ZIPM9NjU
+ PY9EuVO4QqkZTzW4k1lSG9fCJr8Kl8jAt0s06O/saDB0KKBMT2JOLgu1U7NCTTLdsClT
+ wRvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWF62x4KjxDq++8AN7bTlx+XUUPBh6LRJl/kSszjzALAFmh8DLpalG4jaAxtR/8n+sE9B5aMSzb@lists.freedesktop.org,
- AJvYcCWtT7kEQEh9cRr4hW/uIHq99k/54VWg+IItcsjneDQRK9WdaUQLcSLAJXFbF014tXeER1kMCS+hdl+W@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywd3q5sC9/63YJC+huyy2OMoQq/hFCuED7/ap+kcmn8vFbYOhvd
- mcMNew3hkO1HFae3yFJjZT3Ri6j/p5YUtbMtUQQ2ul9tEm/QeLk0NytcNggBSlRoLncXlzuvmJe
- th19ZGvozXPk4EYxrcG12ijuEBy/bHJI=
-X-Gm-Gg: ASbGncstMglk3f+pXpbB9BMUvyuDNby9afCY4cpjqDUwL1vIWOM9LZrIZ07S3IgXhgH
- Q8EAsXftnWcZHHoKf2uysTgYv57uN++BWOzUu1T0R77ZsKgReNggmHo/OpFXFRzGx2q3ONFUPeY
- PNbntytvltbH1iWXIye2GRS8WtOxDwaTiUNOTc/Rs/k/bx
-X-Google-Smtp-Source: AGHT+IFp9dYm27ljQ+pduZf1WWWHosCrH20sLdVDsx/JXSdhEjmFWQf5BV8+Te7KPlE4W/cEqV/LeKq9OPOR02v04og=
-X-Received: by 2002:a17:90b:388a:b0:312:639:a06d with SMTP id
- 98e67ed59e1d1-3120639af74mr319796a91.5.1748438981470; Wed, 28 May 2025
- 06:29:41 -0700 (PDT)
+ AJvYcCUrPBeZZ1wHqI/UR5kXWuO30EmlPq0aF1mEG851AI/A367r8+aupuQ0USaUdh/4gGOTYKvumthB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywd7REQCqgITFmCWMBxmtLqbFK9/hk3ZCB5veXdzdSolWpgjwCv
+ Y2f+xzbQYQKfXfD84wKnuSsPtJWE0QcXMWh4C8AvI6o0Gv+4oLPhFd/4heboLqM0i1NLAlPS/CN
+ ZjgV4lEOPPW0MvPNTrs/h/HKjEb5pKaE=
+X-Gm-Gg: ASbGncs8J4px70tsh+9RRNt6pKmypXmseK4ytEeKySUFReg/JPxSKajQp+x9UB+a6Y5
+ tDdIFzzmUulYgQroyPPumYNo4smD+zbc3mBBjI39KpdppdKe5BahvC9UtIka5dvdNDUNZ09wj8w
+ 7Mkwb4lK1Qlsj7AqZbJKle2Fo7MNk3PJVyrQ==
+X-Google-Smtp-Source: AGHT+IFYy3OSQ2ZR6EkNDS/aXElVO3NHPLSkqz385bfOaaSHwS9dQLV/K7H3qcxEGz5XEpE4vfkQIIP4FpGIgwULV9M=
+X-Received: by 2002:a17:90b:4b06:b0:2fe:8fa0:e7a1 with SMTP id
+ 98e67ed59e1d1-3110f0eb80amr10034500a91.2.1748439517477; Wed, 28 May 2025
+ 06:38:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250523125643.7540-1-christian.koenig@amd.com>
- <20250523125643.7540-2-christian.koenig@amd.com>
- <aDCCF0JFhO7lR2VJ@cassiopeiae>
- <aDCDJ-sK9rRI6wse@cassiopeiae> <cd64af4d-f5b3-4f18-9be6-636624833075@amd.com>
- <08bb986281fefb5cbdb35c63a56e1bbd923d9297.camel@mailbox.org>
- <74c4b9d8-5e25-438e-97c5-5aa2035fb9bd@amd.com>
- <cbd3eaa4c228c0d0688745e8a539103eb2278a0b.camel@mailbox.org>
- <aDcB0AbQiHOVUyAU@phenom.ffwll.local>
-In-Reply-To: <aDcB0AbQiHOVUyAU@phenom.ffwll.local>
+References: <20250528041914.5844-1-alexander.deucher@amd.com>
+ <20250528041914.5844-13-alexander.deucher@amd.com>
+ <a85033a1-aea8-47a7-ac43-7e5c4a5d134b@amd.com>
+In-Reply-To: <a85033a1-aea8-47a7-ac43-7e5c4a5d134b@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 May 2025 09:29:30 -0400
-X-Gm-Features: AX0GCFs3uo46gdIA9y3Bj2M5cVK7AM1LzBwrkJUupArrvkW3paxur3TGipTcZ-8
-Message-ID: <CADnq5_NiMOhc95h-GLRjAD7LXyQ=9nb=Uvim1rwX4n9tekLkyA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] drm/sched: optimize drm_sched_job_add_dependency
-To: Simona Vetter <simona.vetter@ffwll.ch>
-Cc: phasta@kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Danilo Krummrich <dakr@kernel.org>, tursulin@ursulin.net,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Wed, 28 May 2025 09:38:24 -0400
+X-Gm-Features: AX0GCFvF5PmxMxcadtsuQqedor11ssCKEo7jrrqiOhwxpto41ntIdDYawUCBm3g
+Message-ID: <CADnq5_M-0ziR25s-FyiiFWi5D_R6ntNkUtB4sTnKnDMNJdGSNA@mail.gmail.com>
+Subject: Re: [PATCH 12/19] drm/amdgpu/gfx10: re-emit unprocessed state on kgq
+ reset
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,246 +84,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 28, 2025 at 8:45=E2=80=AFAM Simona Vetter <simona.vetter@ffwll.=
-ch> wrote:
+On Wed, May 28, 2025 at 7:40=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> On Mon, May 26, 2025 at 01:27:28PM +0200, Philipp Stanner wrote:
-> > On Mon, 2025-05-26 at 13:16 +0200, Christian K=C3=B6nig wrote:
-> > > On 5/26/25 11:34, Philipp Stanner wrote:
-> > > > On Mon, 2025-05-26 at 11:25 +0200, Christian K=C3=B6nig wrote:
-> > > > > On 5/23/25 16:16, Danilo Krummrich wrote:
-> > > > > > On Fri, May 23, 2025 at 04:11:39PM +0200, Danilo Krummrich
-> > > > > > wrote:
-> > > > > > > On Fri, May 23, 2025 at 02:56:40PM +0200, Christian K=C3=B6ni=
-g
-> > > > > > > wrote:
-> > > > > > > > It turned out that we can actually massively optimize here.
-> > > > > > > >
-> > > > > > > > The previous code was horrible inefficient since it
-> > > > > > > > constantly
-> > > > > > > > released
-> > > > > > > > and re-acquired the lock of the xarray and started each
-> > > > > > > > iteration from the
-> > > > > > > > base of the array to avoid concurrent modification which in
-> > > > > > > > our
-> > > > > > > > case
-> > > > > > > > doesn't exist.
-> > > > > > > >
-> > > > > > > > Additional to that the xas_find() and xas_store() functions
-> > > > > > > > are
-> > > > > > > > explicitly
-> > > > > > > > made in a way so that you can efficiently check entries and
-> > > > > > > > if
-> > > > > > > > you don't
-> > > > > > > > find a match store a new one at the end or replace existing
-> > > > > > > > ones.
-> > > > > > > >
-> > > > > > > > So use xas_for_each()/xa_store() instead of
-> > > > > > > > xa_for_each()/xa_alloc().
-> > > > > > > > It's a bit more code, but should be much faster in the end.
-> > > > > > >
-> > > > > > > This commit message does neither explain the motivation of
-> > > > > > > the
-> > > > > > > commit nor what it
-> > > > > > > does. It describes what instead belongs into the changelog
-> > > > > > > between versions.
-> > > > > >
-> > > > > > Sorry, this is wrong. I got confused, the commit message is
-> > > > > > perfectly fine. :)
-> > > > > >
-> > > > > > The rest still applies though.
-> > > > > >
-> > > > > > > Speaking of versioning of the patch series, AFAIK there were
-> > > > > > > previous versions,
-> > > > > > > but this series was sent as a whole new series -- why?
-> > > > > > >
-> > > > > > > Please resend with a proper commit message, version and
-> > > > > > > changelog. Thanks!
-> > > > >
-> > > > >
-> > > > > Well Philip asked to remove the changelog. I'm happy to bring it
-> > > > > back, but yeah...
-> > > >
-> > > > No no no no :D
-> > > >
-> > > > Philipp asked for the changelog to be removed *from the git commit
-> > > > message*; because it doesn't belong / isn't useful there.
-> > > >
-> > > > If there's a cover letter, the changelog should be in the cover
-> > > > letter.
-> > > > If there's no cover letter, it should be between the ---
-> > > > separators:
-> > >
-> > > I can live with that, just clearly state what you want.
+> On 5/28/25 06:19, Alex Deucher wrote:
+> > Re-emit the unprocessed state after resetting the queue.
 > >
-> > Sure thing:
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 19 ++++++++++++-------
+> >  1 file changed, 12 insertions(+), 7 deletions(-)
 > >
-> >  * Patches and patch series's should contain their version identifier
-> >    within the square brackets [PATCH v3]. git format-patch -v3 does
-> >    that automatically.
-> >  * Changelog should be as described above
-> >  * Ideally, cover letters always contain the full changelog, v2, v3 and
-> >    so on, so that new readers get a sense of the evolution of the
-> >    series.
-> >
-> > >
-> > > For DRM the ask is often to keep the changelog in the commit message
-> > > or remove it entirely.
-> >
-> > Yup, I've seen that a few times. I think we, the DRM community, should
-> > stop that. It's just not useful and makes the commit messages larger,
-> > both for the human reader while scrolling, as for the hard drive
-> > regarding storage size
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v10_0.c
+> > index 3193eb88b6889..f6e04cf21abcc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > @@ -9537,6 +9537,7 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ring=
+ *ring, unsigned int vmid)
+> >       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> >       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> >       unsigned long flags;
+> > +     unsigned int i;
+> >       u32 tmp;
+> >       u64 addr;
+> >       int r;
+> > @@ -9571,10 +9572,8 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_rin=
+g *ring, unsigned int vmid)
+> >                                    SOC15_REG_OFFSET(GC, 0, mmCP_VMID_RE=
+SET), 0, 0xffffffff);
+> >       kiq->pmf->kiq_map_queues(kiq_ring, ring);
+> >       amdgpu_ring_commit(kiq_ring);
+> > -
+> > -     spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > -
+> >       r =3D amdgpu_ring_test_ring(kiq_ring);
 >
-> I do occasionally find it useful as a record of different approaches
-> considered, which sometimes people fail to adequately cover in their
-> commit messages. Also useful indicator of how cursed a patch is :-)
->
-> But as long as anything relevant does end up in the commit message and
-> people don't just delete stuff I don't care how it's done at all. It's
-> just that the cost of deleting something that should have been there can
-> be really nasty sometimes, and storage is cheap.
+> I don't think we should do a ring test on the KIQ here That basically doe=
+sn't tells as much and might cause additional problems.
 
-I like them for the same reasons.  Also, even with links, sometimes
-there are forks of the conversation that get missed that a changelog
-provides some insight into.  I find it useful in my own development as
-I can note what I've changed in a patch and can retain that in the
-commit rather than as something I need to track separately and then
-add to the patches when I send them out.
+We need some way to wait for the KIQ submission to complete.  This is
+a simple way to accomplish that.
+
+>
+> > +     spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> >       if (r)
+> >               return r;
+> >
+> > @@ -9584,7 +9583,15 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_rin=
+g *ring, unsigned int vmid)
+> >               return r;
+> >       }
+> >
+> > -     return amdgpu_ring_test_ring(ring);
+> > +     if (amdgpu_ring_alloc(ring, 8 + ring->ring_backup_entries_to_copy=
+))
+> > +             return -ENOMEM;
+> > +     amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+> > +                            ring->ring_backup_seq, 0);
+> > +     for (i =3D 0; i < ring->ring_backup_entries_to_copy; i++)
+> > +             amdgpu_ring_write(ring, ring->ring_backup[i]);
+> > +     amdgpu_ring_commit(ring);
+>
+> I'm not sure if the commands are always relocatable. We should probably j=
+ust instruct the ring to re-start with the original RPTR/WPTR.
+>
+> That would also avoid the need to save/restore the ring content with the =
+CPU.
+
+I tried that originally, but I couldn't make it work for a few reasons:
+1. We need to have enforce isolation enabled otherwise we almost
+always reset the wrong VMID so then when we execute the rest of the
+pipeline, we hang again.
+2. When enforce isolation is enabled, we need to signal the fence
+associated with the guilty job first otherwise we get stuck waiting on
+the pipeline sync when we execute the rest of the pipeline
 
 Alex
 
-> -Sima
 >
-> >
-> >
-> > Thx
-> > P.
-> >
-> >
-> > >
-> > > Regards,
-> > > Christian.
-> > >
-> > > >
-> > > >
-> > > > Signed-off-by: Gordon Freeman <freeman@blackmesa.org>
-> > > > Reviewed-by: Alyx Vance <alyx@vance.edu>
-> > > > ---
-> > > > Changes in v2:
-> > > >   - Provide more docu for crowbar-alloc-function.
-> > > >   - Use NULL pointers for reserved xarray entries
-> > > > ---
-> > > > <DIFF>
-> > > >
-> > > >
-> > > > P.
-> > > >
-> > > >
-> > > > >
-> > > > > Regards,
-> > > > > Christian.
-> > > > >
-> > > > > > >
-> > > > > > > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.c=
-om>
-> > > > > > > > ---
-> > > > > > > >  drivers/gpu/drm/scheduler/sched_main.c | 29
-> > > > > > > > ++++++++++++++++++--------
-> > > > > > > >  1 file changed, 20 insertions(+), 9 deletions(-)
-> > > > > > > >
-> > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > index f7118497e47a..cf200b1b643e 100644
-> > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > @@ -871,10 +871,8 @@ EXPORT_SYMBOL(drm_sched_job_arm);
-> > > > > > > >  int drm_sched_job_add_dependency(struct drm_sched_job
-> > > > > > > > *job,
-> > > > > > > >   struct dma_fence *fence)
-> > > > > > > >  {
-> > > > > > > > + XA_STATE(xas, &job->dependencies, 0);
-> > > > > > > >   struct dma_fence *entry;
-> > > > > > > > - unsigned long index;
-> > > > > > > > - u32 id =3D 0;
-> > > > > > > > - int ret;
-> > > > > > > >
-> > > > > > > >   if (!fence)
-> > > > > > > >   return 0;
-> > > > > > > > @@ -883,24 +881,37 @@ int
-> > > > > > > > drm_sched_job_add_dependency(struct
-> > > > > > > > drm_sched_job *job,
-> > > > > > > >   * This lets the size of the array of deps scale with
-> > > > > > > > the number of
-> > > > > > > >   * engines involved, rather than the number of BOs.
-> > > > > > > >   */
-> > > > > > > > - xa_for_each(&job->dependencies, index, entry) {
-> > > > > > > > + xa_lock(&job->dependencies);
-> > > > > > > > + xas_for_each(&xas, entry, ULONG_MAX) {
-> > > > > > > >   if (entry->context !=3D fence->context)
-> > > > > > > >   continue;
-> > > > > > > >
-> > > > > > > >   if (dma_fence_is_later(fence, entry)) {
-> > > > > > > >   dma_fence_put(entry);
-> > > > > > > > - xa_store(&job->dependencies, index,
-> > > > > > > > fence, GFP_KERNEL);
-> > > > > > > > + xas_store(&xas, fence);
-> > > > > > > >   } else {
-> > > > > > > >   dma_fence_put(fence);
-> > > > > > > >   }
-> > > > > > > > - return 0;
-> > > > > > > > + xa_unlock(&job->dependencies);
-> > > > > > > > + return xas_error(&xas);
-> > > > > > > >   }
-> > > > > > > >
-> > > > > > > > - ret =3D xa_alloc(&job->dependencies, &id, fence,
-> > > > > > > > xa_limit_32b, GFP_KERNEL);
-> > > > > > > > - if (ret !=3D 0)
-> > > > > > > > +retry:
-> > > > > > > > + entry =3D xas_store(&xas, fence);
-> > > > > > > > + xa_unlock(&job->dependencies);
-> > > > > > > > +
-> > > > > > > > + /* There shouldn't be any concurrent add, so no need
-> > > > > > > > to loop again */
-> > > > > > >
-> > > > > > > Concurrency shouldn't matter, xas_nomem() stores the pre-
-> > > > > > > allocated memory in the
-> > > > > > > XA_STATE not the xarray. Hence, I think we should remove the
-> > > > > > > comment.
-> > > > > > >
-> > > > > > > > + if (xas_nomem(&xas, GFP_KERNEL)) {
-> > > > > > > > + xa_lock(&job->dependencies);
-> > > > > > > > + goto retry;
-> > > > > > >
-> > > > > > > Please don't use a goto here, if we would have failed to
-> > > > > > > allocate
-> > > > > > > memory here,
-> > > > > > > this would be an endless loop until we succeed eventually. It
-> > > > > > > would be equal to:
-> > > > > > >
-> > > > > > > while (!ptr) {
-> > > > > > > ptr =3D kmalloc();
-> > > > > > > }
-> > > > > > >
-> > > > > > > Instead just take the lock and call xas_store() again.
-> > > > > > >
-> > > > > > > > + }
-> > > > > > > > +
-> > > > > > > > + if (xas_error(&xas))
-> > > > > > > >   dma_fence_put(fence);
-> > > > > > > > + else
-> > > > > > > > + WARN_ON(entry);
-> > > > > > >
-> > > > > > > Please don't call WARN_ON() here, this isn't fatal, we only
-> > > > > > > need
-> > > > > > > to return the
-> > > > > > > error code.
-> > > > >
-> > > >
-> > >
-> >
+> Regards,
+> Christian.
 >
-> --
-> Simona Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> > +
+> > +     return gfx_v10_0_ring_test_ib(ring, AMDGPU_QUEUE_RESET_TIMEOUT);
+> >  }
+> >
+> >  static int gfx_v10_0_reset_kcq(struct amdgpu_ring *ring,
+> > @@ -9612,9 +9619,8 @@ static int gfx_v10_0_reset_kcq(struct amdgpu_ring=
+ *ring,
+> >       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, RESET_QUEUES,
+> >                                  0, 0);
+> >       amdgpu_ring_commit(kiq_ring);
+> > -     spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > -
+> >       r =3D amdgpu_ring_test_ring(kiq_ring);
+> > +     spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> >       if (r)
+> >               return r;
+> >
+> > @@ -9891,7 +9897,6 @@ static const struct amdgpu_ring_funcs gfx_v10_0_r=
+ing_funcs_gfx =3D {
+> >       .emit_wreg =3D gfx_v10_0_ring_emit_wreg,
+> >       .emit_reg_wait =3D gfx_v10_0_ring_emit_reg_wait,
+> >       .emit_reg_write_reg_wait =3D gfx_v10_0_ring_emit_reg_write_reg_wa=
+it,
+> > -     .soft_recovery =3D gfx_v10_0_ring_soft_recovery,
+> >       .emit_mem_sync =3D gfx_v10_0_emit_mem_sync,
+> >       .reset =3D gfx_v10_0_reset_kgq,
+> >       .emit_cleaner_shader =3D gfx_v10_0_ring_emit_cleaner_shader,
+>
