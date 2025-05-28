@@ -4,61 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD72C5B543
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 12:39:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59BB9C3ABB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 12:59:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A77010E0D1;
-	Wed, 28 May 2025 12:39:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA6C910E1EF;
+	Wed, 28 May 2025 12:59:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="nYKmG6hr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ck6aFnGQ";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39B7A10E273;
- Wed, 28 May 2025 12:39:24 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4b6pwL1xdKz9tMS;
- Wed, 28 May 2025 14:39:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1748435954;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RGlF2J+LXP6mDAjw+NjT5XOIIldRczFgSNzdB+eCv10=;
- b=nYKmG6hre7dyxRWF/cr8UrkQxoeBGWBzUiJ0wiCmXoGWFWOHcWqYxeAF+feIeCOTGktG4b
- rOLM2K/qJMwBMt9GaQcehHErtPVX49+SRAQiZWbZMQMwYin+ZdbVZSyrcWcVBcH3a3E2J7
- VsemUzKFrx2fEv8Ib1y01OQ2w+6hgAZHsXb7lFy9X+lE9IUgzKzf4Huvj99hxpON0EArWH
- iQaA4pagPJFuXYBRvQkI9G0hN3rBqpsDGJlH0zI1iNj4Be8qSMWbgPitkN9XdVet9IInwx
- S0BcWuL1HSDXnvVzujUn925at631VLH7vpuD/7lTLZqX40x0nlPXABwko6BHSg==
-Message-ID: <6cd32fcf-233d-454b-be3d-aabb870b8b4a@mailbox.org>
-Date: Wed, 28 May 2025 14:39:11 +0200
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD6D10E1EF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 12:59:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gf8RA0oZr7Wqis+LodCgbsQA4FNEuhppey9vhjI9FEz2g6IIWeX9oJGCd85zxGdVL31UhUtJwK+0vn6rCu/gWGpOo/9qTMTXgcWsFjWQ4UugTNtNzYEzs/PzF1thCsctyYTXbV8TIPydn7U9qxBk4Q1a4XRYrB+jysrBPa6Ph45BNvjlYNNVSr0zY8zXvnwjxiZCKB/uhvEAoqg9bj9NV6g5KmC7skxX4i4BYZliWMCy6PrVVFGCMQM/HzsYVeftJDCTWeApS7J9PH0jqkx9Lir9pstbytsuXovQIWc19ej8LwxrjqD0R92tHyEUZlusflQPLeGQDc7Sjl2KCWC95g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lzuui1fGEpZeBWgiAGK5GHT7A/lLvokbRAd6r9PBPWE=;
+ b=OB6kZCGTkDOIyjnLND4guI8W5yp/MfdbD736DQzP8E8dAd696KRVPsiXZG2bgt4Ql9WdCp1E4gmahvQCx6FZ7mKmrdSIt+mUBNcJj2aVUg5oTv0et286WfEpAOX38HO6OXtIEE2ub3+Vapp7nmbF5wjfLoLNC895K7MbKdDLlQHhXz4rtHx38SOZ95TA0E4pLRe/y6XalfqzsC21M99+k85RI11O/fziHhM0GCK9S0DoAplNdBIXR+8EUIYHrkUp1xyuAyGlf5n0/80YRzOSwUcf8wotkMUjMm8XcWfvr1vZLCOrJ9i8PwjdfztX/5i4Dc6OlCcjnAQPTepo6oA2pQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lzuui1fGEpZeBWgiAGK5GHT7A/lLvokbRAd6r9PBPWE=;
+ b=Ck6aFnGQDN6doOWHAGb3CRj436/gTV6/RP4RGt5CYAMj/QDksz8CeHDLs9f+HFP/2puoCaxnBlhNEi+q9VB7dGXZyemXTKqD+OnJvngC2o9Gym61in+uyCfiKLdmHl4dTFLlBRRR/NPaLWuQ/OwupHY+F7BMqwwA0tDCEmvJGG0=
+Received: from CH0P223CA0023.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::22)
+ by IA0PR12MB8907.namprd12.prod.outlook.com (2603:10b6:208:492::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.31; Wed, 28 May
+ 2025 12:59:34 +0000
+Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
+ (2603:10b6:610:116:cafe::fb) by CH0P223CA0023.outlook.office365.com
+ (2603:10b6:610:116::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Wed,
+ 28 May 2025 12:59:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 12:59:34 +0000
+Received: from codemachine.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 28 May
+ 2025 07:59:32 -0500
+From: Shiwu Zhang <shiwu.zhang@amd.com>
+To: <Hawking.Zhang@amd.com>, <Likun.Gao@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Enable IFWI update support for PSPv14.0.3
+Date: Wed, 28 May 2025 20:59:20 +0800
+Message-ID: <20250528125920.492831-1-shiwu.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2] drm/amdgpu: Dirty cleared blocks on allocation
-To: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- stable@vger.kernel.org
-References: <20250527194353.8023-1-natalie.vock@gmx.de>
- <20250527194353.8023-3-natalie.vock@gmx.de>
- <89652580-5763-4f1e-abf5-d340119543f3@amd.com>
- <dbbdcada-32ae-4457-af87-1f98362461f1@gmx.de>
- <da44526e-f2b6-4486-8ede-24647869576f@amd.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <da44526e-f2b6-4486-8ede-24647869576f@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: i9i1rih46o4e89puh5pgwzy6nrsf7iwp
-X-MBO-RS-ID: 1d7103a300313c1ac30
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|IA0PR12MB8907:EE_
+X-MS-Office365-Filtering-Correlation-Id: bce330c7-af15-4047-4aad-08dd9de77e78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6wgc7mobl5DfcBIdaGlL6keC2P3yumD21/rkkUIWh+szswNZuQpOni4UXDY7?=
+ =?us-ascii?Q?hMrfNgA2TSKP7UK5CkwZ2XdzLaBUprZJ2NNfdirIpy0a3HaCnrlFv3w/4YFd?=
+ =?us-ascii?Q?JEF++nkM1Jpm+AXcQLW5iqKktFJZNe9/h1N0WyATqN14h8t78nWqDrp2NG29?=
+ =?us-ascii?Q?2RhsgGvmMoUq1WHghoY8uBgRFIu3p/j0LHlwJ7UHLO5nMOTzBYtJvnVcuhdd?=
+ =?us-ascii?Q?YWLZVMoXwAf5D2JIEuzRUO8viKKNPJwZqQmFbHuuYU7apnNIVlcagT55D2i7?=
+ =?us-ascii?Q?vexYY4nltlZJ7jqk5Pm1g5insYtmMTNogLzQf5lzCtxe5RLBphcON+ICCDhe?=
+ =?us-ascii?Q?nLsKhFnBPLDlYJGkdlxbM2sqSpNUD8SvultqLI4aMfectol3LtaIro0HW3t7?=
+ =?us-ascii?Q?AR9L8yS3ya3Ck5KD0gNeNnP3rS+XS0IbFV8fyxPfBuZpM9ePBj7C2HJg1+de?=
+ =?us-ascii?Q?5bswgoaKR82rtAcRvLyS7NS1hp//iC/7tqbCJq40rY5Dws1DZ6DZPhVxmfqy?=
+ =?us-ascii?Q?3tizfce8JqfAiBqNUAKDP9GldTgG86Nem39WnhG7U4Oc/LBWMzx2e0CGpn0i?=
+ =?us-ascii?Q?l4mjs0qpq+M9BOHA4IiQE1xNeGn2DybbYVA44oNPtLeztHNM2a58z7VwtNud?=
+ =?us-ascii?Q?rSJIugt7P3vQ/+PmPfoFs0tCxx2UjizYSfTRWgLqvKyQzlIj07RkbcqcRt5B?=
+ =?us-ascii?Q?XORLERG11VXDdChEf5lTLNVsmg8AflpixawXZrWStdZrqZNG+1O+SStOVVHI?=
+ =?us-ascii?Q?QME9E/WyTVV+bRAscEMtZ/ZTGwvM+661ow15e8gmL0KRQ8LpoPxnTeduck9r?=
+ =?us-ascii?Q?+mi2Kr0QPCtBzJQ/wM98w1BFhyOKjUA4HY18JKRMIGf2lE1pN4GItTzIDU7j?=
+ =?us-ascii?Q?hOMIeUqIzEdnKYVEShG/IbdJWBi2KQPZLm4c6jxXPJkj7tYYQeuvp+/gkdEB?=
+ =?us-ascii?Q?Wfr8Rwh1mllnv0ZG4tf0bmZk7kk/SMAdPcI0a6frKqH4N2Ou4KjZkR/TlkmH?=
+ =?us-ascii?Q?xPkeuQTIoI7xMeBS+aSuoGYgrk+Sf84ZO4XE/BXI0yoLQYgPNy3dQTaV98Mg?=
+ =?us-ascii?Q?wKXNTVQcOQRGFMN4HEPXLo2gtgaGxdHaAwRooHYwpOGEBI5lDnTt1T91uRys?=
+ =?us-ascii?Q?fSdgtV6R6hqySH1xK+pxXAcRal86yWi9GBpUitAJ1buqsLfea/RNbig2IHNM?=
+ =?us-ascii?Q?uLdoIl2S4dzTac1CIwSsDRjSOqiZu1Pwu1dyJIwCMvXPv+9jkqYA4pKaiAFP?=
+ =?us-ascii?Q?vvUu/DHX22whjzypX/q/iNqN5Ris1z0QJ4Og+VmlRbnjWKrQI5FLoMgiJQCO?=
+ =?us-ascii?Q?cgqFgxSdUis4D+XyNfVa+NLoVFTKHItQVcrFCYldF2DAnBrxFB9Zm3Cqupbh?=
+ =?us-ascii?Q?dIpAsnq/TCfjo+8jcokHajo5F4WAl6khIDf3u9TaS8sHGq+Bj1n0HZ/w/GCV?=
+ =?us-ascii?Q?OCNKd8hePTfQ+DFdttsmG7C71g2J1/0+qUn7Hu1NPu9KjCJxmmhuyEbqVOgm?=
+ =?us-ascii?Q?gqTAk8hHkjY8nQc2Wd/borgJUbPSFd3p2awe?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 12:59:34.0758 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bce330c7-af15-4047-4aad-08dd9de77e78
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD79.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8907
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,25 +130,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-05-28 14:14, Paneer Selvam, Arunpravin wrote:
-> On 5/28/2025 2:59 PM, Natalie Vock wrote:
->> On 5/28/25 09:07, Christian König wrote:
->>>
->>> But the problem rather seems to be that we sometimes don't clear the buffers on release for some reason, but still set it as cleared.
->>
->> Yes precisely - "some reason" being the aforementioned clear flags. We do always call amdgpu_clear_buffer on release, but that function will perform the same checks as the clear on allocation does - that means, if a block is marked clear then it will skip emitting any actual clears.
-> 
-> On buffer release [https://elixir.bootlin.com/linux/v6.15/source/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c#L1318], we call amdgpu_fill_buffer() and not amdgpu_clear_buffer() (in amdgpu_bo_release_notify() function), so the buffers are expected to be cleared without fail.
-> 
-> When the user space doesn't set the AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE flag and having only AMDGPU_GEM_CREATE_VRAM_CLEARED, we don't call this amdgpu_fill_buffer() and amdgpu_vram_mgr_set_cleared(), and that's kind of makes sense.
-> I think the problem here is, when we don't clear the buffer during BO release, but the flag remains as cleared and that's why these blocks are skipped during clear on allocation (in amdgpu_bo_create() function).
-> 
-> Therefore, if the release path clear is skipped for any reasons (for example, in case of AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE not set), we should set all buffer to dirty. Somehow, that is missed.
-BTW, I asked this before, but didn't get an answer:
+Make the psp_vbflash and psp_vbflash_status available in sysfs.
 
-Now that VRAM is always cleared before handing it out to user space, does AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE really need to do anything anymore? How can user space access the contents of a destroyed BO?
+Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index dd37264f1ec9..c2f48e1fe964 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -251,7 +251,10 @@ static int psp_early_init(struct amdgpu_ip_block *ip_block)
+ 		psp->boot_time_tmr = false;
+ 		break;
+ 	case IP_VERSION(14, 0, 2):
++		psp_v14_0_set_psp_funcs(psp);
++		break;
+ 	case IP_VERSION(14, 0, 3):
++		adev->psp.sup_ifwi_up = !amdgpu_sriov_vf(adev);
+ 		psp_v14_0_set_psp_funcs(psp);
+ 		break;
+ 	case IP_VERSION(14, 0, 5):
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+2.34.1
+
