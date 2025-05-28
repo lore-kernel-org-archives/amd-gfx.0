@@ -4,155 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC02C5AD49
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 21:14:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4167FC5AD49
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 21:17:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25C1410E167;
-	Wed, 28 May 2025 21:14:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC9D10E0AE;
+	Wed, 28 May 2025 21:17:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iYTYYxq9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZSltXZVW";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2079.outbound.protection.outlook.com [40.107.244.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B94D10E167
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 21:14:50 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2080.outbound.protection.outlook.com [40.107.101.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F07810E642
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 21:17:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BsfyMqJrnwJe+kbsBWDSY/iwdYKO5kJ6Ol0m/rlbSX3PqNa0tP2ixgClvk1zARY94DrvG+UX6rZaXv5VDSNCWk6R+5AqzpVWG8haFc6GzqtXnA3cXZNm7OWmrwe1ecMNDNijjiVyHcGBo0wq2ABfDAtQCE0Vor8OLEYkq15oU0ULqDYlvtrVgz4ZlhiVmGGt5NkpMDU7b/R0oHp9qEZc74ljgdy0qU4BpGwnDoBBLYqfwwpbGoeABSCBKPiK/9te2mlqOYGpO1PD0IaPWTsBMMxysMYlh7dOiberuXiLhpSIrFPyXsjI6ClzHuXsxvv2ZbA+MUWkbPv1L982xFFlLg==
+ b=kwPt1/UZP3pJNE9iJ99qkrCubTy2y0YHs4ssu54RI7lUwiYP0JXoQwey2/HAyxGrLt63cZ5U2fSzn/TiK3B3HfRAy/V9slf6bDMkhouhg4/K+1bnahr90w04OShPxnfVpnu5FaABJzKA662tsTMmkcUOJrPKi79v35a98lwkpaJHNJPiftF/VRztR2bLejGuO1SmZ3ZPJqCjF0oGQj83XaVoBaVl9Wkt4AaWlBmfYn7Y37oPtFbhJKUqr2mIVrIoMrBCu8H6ysRokP0otFWJlFewHcfSgN6AuX91T9AYLMX3Vz7WSY8cDGN6EsaAnbxN21nE40rdMdfNegwXjlq19A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f3nNDPVX4lKnGOsK9tL4cmg7Sh5AXVxyyyEN2Zpfou0=;
- b=QXwsMDz9qGh01OHF3ZVHM7U2RpLP6mfdIxtM887YU2kKJ/fNSHbAQI1QtrOIqhwv+UfAesBxLuavy97Kee1xAcLaqBG55KlmQdiuebKdvdEalx63TJ5F1sGwy3gEikao1jLIS1OUpKSUfWAdBylhy7fmKhyFn4fh2ZT3JezZ2BiSdjk8/7/BibJBC0bPoYBqoyMsB1X14lsrGTy3MeXfWwb8c6YaZCkV/deWsdNeGmnk1lYGikb/ws59BzdOxDzYtRRpkgDSfFxDlKsreRcFdDZ2pejzUY2U/TkDNC/3csSwz2x11inUgbB+7+66/xObAHOd57nxahESb2yLh2fZQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=mFVVM8kFREfBoSgEWZkzqO5vA0x+BYGHQj/Tek0H4Uc=;
+ b=jfvZIIIWCOj319/NHyMCE1cICu4k61tHbpjXsSC+Hd2eXocPWmLafKLzts7gxVxMHPSJStdwmss5kImV+UNXQ29DnVqOCWzMh3N+TwnMYBbw/S9sYdveLj4AbnYVbkBz31IhIXJtBlxJ9y2w6MqR3iiSs9XtGvc3XxOTZKjh+Rph1wyvGEaJXCaN3Xpn6/RGGGtKTqaLkjGk3FxinZfUGXNIXTHTwXoKqJjhwIT4RhqNlMyxWt7uCv+yAVtjj0BDKQTajRfiwINPU/u0U15vdWjG9y9M380iHdzeyrE46EDSU26ZJf7EjzLPCvHkP2WLIckbDyeMQfg0YHz9dn+Ing==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f3nNDPVX4lKnGOsK9tL4cmg7Sh5AXVxyyyEN2Zpfou0=;
- b=iYTYYxq99WbJTFcbZEmqMkNP2JohfLf4sMiHIzs/ewsW8NpZ8ROvjUITSNOMmJggPS3xxbPrrW+WoI5gZo0LTfpXEfHytofVlJYGYev7CXRaxY2t0gjy0OcXLHJduDzaOMsIRyPIizbQcMRvPtX90lYJ6peVCwi965iyPRaEl7Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- CYXPR12MB9277.namprd12.prod.outlook.com (2603:10b6:930:d8::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8769.26; Wed, 28 May 2025 21:14:47 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.8769.022; Wed, 28 May 2025
- 21:14:46 +0000
-Content-Type: multipart/alternative;
- boundary="------------4JpfwWr5colXG9Zr6JXCB1aZ"
-Message-ID: <c00201a6-dbbd-4f10-9501-b7387c1977f2@amd.com>
-Date: Wed, 28 May 2025 16:14:44 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/ttm: Should to return the evict error
-To: "Deng, Emily" <Emily.Deng@amd.com>,
- "Zhang, Owen(SRDC)" <Owen.Zhang2@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20250521035654.17581-1-Emily.Deng@amd.com>
- <PH0PR12MB5417991052F0D5ABED1D99528F99A@PH0PR12MB5417.namprd12.prod.outlook.com>
- <93eec18b-b05f-403b-a6ea-c082efba44ec@amd.com>
- <PH0PR12MB5417AB0F878176D2041900D18F65A@PH0PR12MB5417.namprd12.prod.outlook.com>
- <PH0PR12MB54178912FD347C37BF8915388F67A@PH0PR12MB5417.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <PH0PR12MB54178912FD347C37BF8915388F67A@PH0PR12MB5417.namprd12.prod.outlook.com>
-X-ClientProxiedBy: SA9PR13CA0158.namprd13.prod.outlook.com
- (2603:10b6:806:28::13) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+ bh=mFVVM8kFREfBoSgEWZkzqO5vA0x+BYGHQj/Tek0H4Uc=;
+ b=ZSltXZVWi5kPG+2LLjEtr3J5eg+9AvOgZ1ByDBqzEzRpAuleYipaUrZhisMbrP6a5wJ8DqC3nro3mcfsHwFephfW2EXcmgT1mbRmbv3ZmnynnpW+okjkXBOrn2tyvWbjdEkwFHafNlwiWQm0E5CCAyo2fT7m44jV1g9134l4GBA=
+Received: from CH0PR03CA0380.namprd03.prod.outlook.com (2603:10b6:610:119::8)
+ by IA0PR12MB7626.namprd12.prod.outlook.com (2603:10b6:208:438::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.25; Wed, 28 May
+ 2025 21:16:54 +0000
+Received: from CH2PEPF0000009F.namprd02.prod.outlook.com
+ (2603:10b6:610:119:cafe::d0) by CH0PR03CA0380.outlook.office365.com
+ (2603:10b6:610:119::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Wed,
+ 28 May 2025 21:16:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF0000009F.mail.protection.outlook.com (10.167.244.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 21:16:53 +0000
+Received: from work-495456.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 28 May
+ 2025 16:16:52 -0500
+From: James Zhu <James.Zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <philip.yang@amd.com>
+CC: <Felix.kuehling@amd.com>, <christian.koenig@amd.com>, <jamesz@amd.com>
+Subject: [PATCH v2 2/2] drm/amdkfd: add svm_migrate_successful_pages
+Date: Wed, 28 May 2025 17:16:40 -0400
+Message-ID: <20250528211640.21234-1-James.Zhu@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <49993128-e74d-2c05-fca9-80b511b27537@amd.com>
+References: <49993128-e74d-2c05-fca9-80b511b27537@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|CYXPR12MB9277:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6517c971-0c65-4af6-7d38-08dd9e2cac27
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009F:EE_|IA0PR12MB7626:EE_
+X-MS-Office365-Filtering-Correlation-Id: cccc3e0c-80eb-48f3-95c3-08dd9e2cf825
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|8096899003|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OVVjY0taU09VTXM3NXAxQ2dUTFNSdE5Qd0VEK1NhaE42eGVHTDhPeUtvQXR2?=
- =?utf-8?B?WVJOR2tzTUcvL3FwZ2hlTlVPZHE4VjNWQnZ0LzNXcnU3UlRMTTNxUFd4aWgr?=
- =?utf-8?B?bjhWaTFFQk9acGMzUDFob1BkNGswMnhSQ1d4LzJwbm5SUlZrZ2RZZTBlVllX?=
- =?utf-8?B?YVNJNWdQOXU0THB4ck1YanlHUHNGMGt5aWRLUjIwbGJyd1N3NjdEK1U1SXRx?=
- =?utf-8?B?MmQwM0JnODZzUWgvVURWbXVQaURZUHlPeGFiaUlkK3cwclI2aitIVlZkMHBh?=
- =?utf-8?B?MmNyeWZjeHdWSDlCb0JlQ3J6c0YyVHZBZ2xtRmlYNENqWm1JWUV1VTNmNkhZ?=
- =?utf-8?B?Ny9sQjJVTHNDNW9mV25UZkxFV0pMb0pwMjZ5YzlVejFNMkxIbldvZlRqMTNS?=
- =?utf-8?B?ckswVTRiWFpzZmVnMDNSdlhNbjkyVXRTZkVsM1hLaitydzZmU2FZRzVZKzhz?=
- =?utf-8?B?L1dsRVNIOXJKVG15dmVBWFBjYkd3UU1xZXppYXF6bFBCVnpKSkkzOE5Bcjh6?=
- =?utf-8?B?T2ZkSzhTVjNzdDhGT3NMTWFJbFM1Q0tjNUYxdHd1bXQvUStXN3FPdWZFVDVY?=
- =?utf-8?B?aUVhYmQ4MFQ4aVNZYmdOaGZwSm9ISWdINmI0cExkZVVYMDJaRXVXY0FPNFNV?=
- =?utf-8?B?dEF4VXZpbjJaTkZuNE1OTmhpSndLK0VmYUNXdFByTHd0SnA4S2w4em4yaDRs?=
- =?utf-8?B?a2c5bnFaTi9DL2h0Zk5rQnB3MG44dTVFeHBkZitSelBkUE1aSWRaL2Erdkhp?=
- =?utf-8?B?bTJ0eTJjc21hREZiK3hBcXJaWVA5NmltMC9KZDJac1VSNFlIMHFiRkUxMGVr?=
- =?utf-8?B?M2M1RENsOWJNaE9KVmZraVFrTW1JbUNVWlB5c2YyTE9jazRaOG42TWwzdTVQ?=
- =?utf-8?B?UmRHSkVjN05sZFZ4R1FpeGRZUDZOSTU5WGFrNzlUZksxM3NtS3RkOFpRV0Z5?=
- =?utf-8?B?SXFxSFRJMWZ0cGV3WndTQUliOGdSc2szdWxGdnBSa2ErcjAwZjM0bzIydjlC?=
- =?utf-8?B?WjMrT1FodUJQem54eW5RQ3RiYWk3UHBXd3pkbUl4VElGb094WUh6VzJnMUhx?=
- =?utf-8?B?azZ1VitVR2ZpZDZwVXJpOVQ3aTArRVRMSU9BTmp5SjQ0d1h5SnhMWlYxNXQv?=
- =?utf-8?B?aGkzbFpnWC9aN2Z3MklJWUJvY2lnYWV4cmJmT05id3NtaDVQUC94TG9ITGM0?=
- =?utf-8?B?bndua1lVcXpoK0hKQVdyOGQ4alo1bDIwL3NpYXc3YW1Ganlpd2hKWHNZWVFs?=
- =?utf-8?B?aTBYTVhTOVR4elh4MmRaYzRMVXNWNUNJTU82dFRQU1FaaTBzT2U3SXc2Rng4?=
- =?utf-8?B?NDViY0tRRDlpbEhQOC9ySXBuMWYyZ1NwTHhxMWFoTlM4WlJLNUYzdVFiU1o4?=
- =?utf-8?B?MUFnVm0wVzA3aUJaVlZNOUI4TmppaWdqQXJmOU9qd0VmNW9LMGdLVndmZ0M3?=
- =?utf-8?B?QmFSbzZqN0dSbGZUUW5aTUhOL2IvaWRpNkZOOEhIaXZUd1hzck9VSElEQWJU?=
- =?utf-8?B?UURmZTd2WUEyMEwzbTlEZEdTeW1xTU1xWlhZVlRRWCtTejRFYVpmVFhpTlVG?=
- =?utf-8?B?NWd4NTg4RmY0V2lsMWhXWDVDWnB4TTNCYTlLVi9paXJEa2dZMUtHb3lCMURy?=
- =?utf-8?B?d1BrUmx5MXVBa1lQVExBNHJBVHFZbXYvSWhGdktDcllZUG5mOHJmVjNzMGpj?=
- =?utf-8?B?UHlnOE13NmRISld0bnI4NTVsWDA4TC9Oa0s0dFRiNGx2UmFVbjVkY2V1UGlJ?=
- =?utf-8?B?MXlJL0pSR2RpYUhPbUQ4dkhUSFRrNy8wYUcvbEZhSSsxOThiNDZLbU5PaFRp?=
- =?utf-8?B?OTBWUE5kSU44clRvOFB2cmRyVUNHcXVyVmdvSmt1WmU1SFJVU0lDVWtLNVI3?=
- =?utf-8?B?ZTA0MFA0MUVjYnFFQjRiOGRkMThXT2lzcUpLQ2xGbG85cmEyckYrZ2Z6Wmdy?=
- =?utf-8?Q?Nhl7BzSBJM0=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(7053199007); DIR:OUT;
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?EFsmDWaA7Uv0G+9EsySg0RIxkAcpifISCt6hKrGpAfyeYbYUGDi5OHglNbMi?=
+ =?us-ascii?Q?5pPYXsR4WqOAjS5H/NV+Uuek1DeFI5t0iN8G5IK2x+QRBrdTz3kiJ66ZrOgy?=
+ =?us-ascii?Q?B2UpknJ5kZteZaAV8XLg8aCPRk+Mxr3VgelxOc2eSrkqHzgB519YoAmLiPhl?=
+ =?us-ascii?Q?NP5KjN+k9kGaWoAslx08Ixy5Z2B2g31dCmbf9+oqm3rAUrUwseLgsvdCGxhc?=
+ =?us-ascii?Q?ygklaFILgvJIwsOLvvtlxXgsDs3fqJd/C4JnkPqYmvzZXD006MsTzyUhc50O?=
+ =?us-ascii?Q?HjoyIYs7KBOFoCQHxMicbCmaTYsbe8uRf66G9bicaE1Te5ijYLIemqGhObTi?=
+ =?us-ascii?Q?28L3R8+pmMD7RI4j+0ff3vH3TMsqRsLpcPk94M/U5QFh1bYqtNRRSk/A075B?=
+ =?us-ascii?Q?1UNmgf49lC1eG48WgovnMPOSMkrko29FNcZ/Ye4gwL2CqL0OAmav9VEGZuPW?=
+ =?us-ascii?Q?WYZKqWSh7aVF63KVnOc5lP995HW6000uNIhzJvvKBh5tBwplYi1Xs/MAcpuK?=
+ =?us-ascii?Q?zxUYvsN5+vrR9LYiVGjeYPw20yaZygFGji1jLrN6JjeWc69R1ygReTt6E7hh?=
+ =?us-ascii?Q?O5f9eThFU75gSvqeqKtIFdwlHjRAtiPzE5vbkdQlYJQ2fVy99On991WgUNC8?=
+ =?us-ascii?Q?XJTocOrOYwfALtO2Ih01fYQ+Az+zcWSDnM5lTcTLTuT6AAOnKVIf8Zj6rzhw?=
+ =?us-ascii?Q?9Vjw0dsiizlxxiGIOFq/gXyOL/P60cm3zBmHtlQJvt+VH98KzEi88IySeRN8?=
+ =?us-ascii?Q?SjHYONJkUuedzddKY82+VioUI5QtOyh6Qq5g+335t0nOhUNrgPEFAzReqoVJ?=
+ =?us-ascii?Q?YbuqM4+nUVWYAa4Lm40VYEE7ZMn7pVncAbLZwDMCXROLsgD2gfgS/NPFNAe7?=
+ =?us-ascii?Q?0YFUmfUnmuqurgz/HJ4jl+VM9VjGhEwWWc48EwkCA1vvABpo9sbo64XSEwq3?=
+ =?us-ascii?Q?1RA2R+VVEOMCSnU3oF4FlIXGq3El65/q2IHVFLKB98vUxSAIcugkog3pY85C?=
+ =?us-ascii?Q?eeQR8JTa4lN3lShxfte2TORFX6Hbrvu2+eV3SScji5gnbP6ws3YaVSVUd3B2?=
+ =?us-ascii?Q?yM3TBPMYkFrINMSF8HiCnxGxJzvz/zcpW7sxvoJqOaW4ZR5mChFlJkm/CCpj?=
+ =?us-ascii?Q?jsq/ASJeyuXDub4kRYz0gl5v3Eu5hjlOCuzLfyBaAZrP+i7Z45fB3haGZBkt?=
+ =?us-ascii?Q?aFXtIMw59s85DOFm6uGA8V0j0QYPN40P+MvOg5y1+0FuoBuuoMl+AKAQKZtW?=
+ =?us-ascii?Q?U4Ez+5qJr34f2u9/VitcR493fD+BmyTBybSMXnPH2ZDQ0R+SVTU/ak7GTmh7?=
+ =?us-ascii?Q?+ExrWOGNmJ7dysvrlA5RQgErVnOPJ19YlvQbPgrLh3PHW1VtwPiYEGCL6cA5?=
+ =?us-ascii?Q?Hllwo8eV1eMWLnDamW6CiPoOJe74fnGitpTxyi+bOJTmMW4qUbZkdnPFIhlD?=
+ =?us-ascii?Q?0SRRuM+TOm81r4aVBx2v8t7Y1Zg2MVQY2V+6CjNGY2nTUV7Ls+SXI0CWO3vn?=
+ =?us-ascii?Q?5PyP0rrpQJN45p8iSsiXw5nRcc7NtafJB/Jd?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2lzc25abEtMck9ybVU2RGtmSElJSWFtdXhKZWxwMXh3MW43TXNSdVJ3RG14?=
- =?utf-8?B?WThNc1QvS29kMnNQSFBsbU1EVkhuNGRJRFhFZ0VZL3Q0cUlpVVBMQkRMR2cy?=
- =?utf-8?B?ZzJKV05IY0pJMWFRbk5wb3dQZzBmTEtieUZ4RUJkZTFoWkEyZTd0eElDSUUw?=
- =?utf-8?B?SlRibEFLOU1NaGF5SjFwak5tTDFzM2JIYjdkK0sxZjFlRVlOZm5ZOWFFcnIv?=
- =?utf-8?B?eWlzKzEwT2M1Sko5cWdOYUh1T3ByUFA3VGRQR2dGREk2WEVCTFFMem13dTVO?=
- =?utf-8?B?UjEyNWp2UkhXSi9tSDNPTVRXSVU3YUM1RStPdnUvY2hrYlV5OGN6Y1R0SVJi?=
- =?utf-8?B?UUdMekNOcytnRW9GS1QxMlRFTDhpeEhhRmtzbmxFUW9MRGxpSitKdFJhV2Z4?=
- =?utf-8?B?VmlyL1VUYWlCUGkvS3g0T2s2L0JEZURUbEVuaUFpSjNUVDBsVzBNYVRlYWRE?=
- =?utf-8?B?ckNpekVzTS9CdmF0MXJ2NVl4KzhIeHZ3WGU5bzQ2SGhIY3ZYRGRBL3lIV1FG?=
- =?utf-8?B?R09weWRJWkw3d2NHSFB2SC9ONkQyWEMwME5KdkNUVG0vOXJFeXN4Znk3aXVV?=
- =?utf-8?B?b0ZSY2NvNnpzaVcvT2JOYm40THNDZVoxTGcwaE1acW1vWlRpZzJDMDFTdnZx?=
- =?utf-8?B?ZFBhNmhaUWE0VkkvenFvUXF1Q0FTYUlQb1ZqNkxGc3ZIZEd2Rk9VK2hVWGYz?=
- =?utf-8?B?bXRiNmUxWDVzM2NUWkdwN2UxQVNoUkQwb2ZwSG9wUlpnVndBMEcrSUpmNVJv?=
- =?utf-8?B?Um1ITnhhMmtNd2JsdXZiU0FlbTFKcnB6dGZQK3p5OHg4b01kYVdsaUVTU3Nx?=
- =?utf-8?B?VE5jbnZndUpkcFZEZjUwTFgwdWl0eUJKaTBKNkFJcEpST0x5bzJ1WC9qWFAx?=
- =?utf-8?B?cGFpQjROViszZ3FBUXlHL1htSHF2UHdaRmx4T21XOUlYRXNjMW0zengrd05w?=
- =?utf-8?B?VzZvbWh5YUFhOVhOMXc2SSs1YytwYWZNS0lhRkpqR3ZTVHkwdDZiYmdiSFhq?=
- =?utf-8?B?Ukl2cHNQVXJ0Q2dCc2VQbkxPbGlFTXIxdzBBMGhac0FReTl5WHB6WnI2V3h4?=
- =?utf-8?B?dXhjdWJXcWtoMmt5bEd4cmN4UnNSTlNuNlpBd1FlbFVFMU1LaXo5bEdWMkZC?=
- =?utf-8?B?dEVINDBlZkRSa2RPZDFZYzJYWThSVmQ1blZwVmdJelVScDZyanJEcFBYQUVG?=
- =?utf-8?B?TVNZSlRRb1ZZN0pzSGtOLy9Jbkxqbk9sWXJsaytkeDFlcFQ5MTU2c0drZmkx?=
- =?utf-8?B?dnBSSDFtblFoRVpYTzJqdnZTTzRwT2ZPdlIxcHUzNXloVlViQ0tLK2VMOVB6?=
- =?utf-8?B?bHFqeitEbTFzRHVuSGdzMFV3NTVLZTk1eGhmME15di9UOFlPK1IrYkgzYWNh?=
- =?utf-8?B?dUZFUENrWEVpZllTNEkwWlhHeVNWMGVBL0RuOVF0UmlJelZRMURTK2I3cDNI?=
- =?utf-8?B?cUo4TmhKMEZTU0prVEhlZmFPektDTDdmcHBpam1uaVgyamtpZm9aWGRWcnls?=
- =?utf-8?B?dmNZdzRtc2VTbU9aSnRYWC8wcy9oN3kwRkprT1ZwcDhQUjI4Z1R4OGRpVWs4?=
- =?utf-8?B?Q0hXdTdqUDdyMnJoazliZ3pRT2NCd0pMdWJKMld1U1h3WjhhczVIcjM1V2FB?=
- =?utf-8?B?WjVNbHJ6c0NFdlNqdE1tL2pOeVgwa2ljbDMrVEJhQ0FSRnFGd3hKQVVIVzEr?=
- =?utf-8?B?TzdLSTF0VzAzcm9EM3FsUXdHYWxka0tOTWoyV2NTTWZDL3FGcjdnNkQ0V1F6?=
- =?utf-8?B?bkJ3TDZ0aDZaSzgrOUpDbDl1S2tZTDFQZHRmclAvRnVkaHdZc1ZoZUREc25B?=
- =?utf-8?B?alhydDlOWmtxVUNEampVMWZUak1HU3RiQW9GOGNFTUtqeVBKOTJENldLZ0pO?=
- =?utf-8?B?NFdCalVyRVFzeE5zOTFVQnlkSlJkdlViNDYvTHA5eWJzcXdwRXJXaVdIWWk4?=
- =?utf-8?B?enJuNjd1NnhFVmlsL3RGUnl1NjBhVmczSG9POFE4UkNyclB5Y0Rnc0s0cTZy?=
- =?utf-8?B?SXljK2NNRWRPMFA1UVlQZHR1bldTZm05V0krTnZnci82N2NxbmdVNldZZHd0?=
- =?utf-8?B?MFBiRXl0VHVXRS93SyttUUY1OGw4NGJIZ3FITDhMQ2lTNHJkNXUyZytYTmd1?=
- =?utf-8?Q?HPdY=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6517c971-0c65-4af6-7d38-08dd9e2cac27
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 21:14:46.2284 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 21:16:53.4891 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cccc3e0c-80eb-48f3-95c3-08dd9e2cf825
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K7uyG82M9z+y2+PjJ9bgtddAhkS9VBAMb4domJRFiNgfJ6sr1gFZv+x5Q+2lrf9j
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9277
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7626
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,377 +132,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------4JpfwWr5colXG9Zr6JXCB1aZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+to get migration pages. dst bit MIGRATE_PFN_VALID and src
+bit MIGRATE_PFN_MIGRATE should always be set when success.
 
+-v2 use dst to check MIGRATE_PFN_VALID bit(suggested-by philip)
 
-On 5/28/2025 1:19 AM, Deng, Emily wrote:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->
-> *From:*amd-gfx <amd-gfx-bounces@lists.freedesktop.org> *On Behalf Of 
-> *Deng, Emily
-> *Sent:* Monday, May 26, 2025 9:51 AM
-> *To:* Chen, Xiaogang <Xiaogang.Chen@amd.com>; 
-> amd-gfx@lists.freedesktop.org
-> *Subject:* RE: [PATCH v2] drm/ttm: Should to return the evict error
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> *From:*Chen, Xiaogang <Xiaogang.Chen@amd.com>
-> *Sent:* Friday, May 23, 2025 6:27 AM
-> *To:* Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
-> *Subject:* Re: [PATCH v2] drm/ttm: Should to return the evict error
->
-> On 5/21/2025 9:42 PM, Deng, Emily wrote:
->
->     [AMD Official Use Only - AMD Internal Distribution Only]
->
->     [AMD Official Use Only - AMD Internal Distribution Only]
->
->     Ping......
->
->     Emily Deng
->
->     Best Wishes
->
->         -----Original Message-----
->
->         From: Emily Deng<Emily.Deng@amd.com> <mailto:Emily.Deng@amd.com>
->
->         Sent: Wednesday, May 21, 2025 11:57 AM
->
->         To:amd-gfx@lists.freedesktop.org
->
->         Cc: Deng, Emily<Emily.Deng@amd.com> <mailto:Emily.Deng@amd.com>
->
->         Subject: [PATCH v2] drm/ttm: Should to return the evict error
->
->         For the evict fail case, the evict error should be returned.
->
->         v2: Consider ENOENT case.
->
->         Signed-off-by: Emily Deng<Emily.Deng@amd.com> <mailto:Emily.Deng@amd.com>
->
->         ---
->
->         drivers/gpu/drm/ttm/ttm_resource.c | 8 ++++----
->
->         1 file changed, 4 insertions(+), 4 deletions(-)
->
->         diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
->
->         index 097716bd248a..abf104ae9d35 100644
->
->         --- a/drivers/gpu/drm/ttm/ttm_resource.c
->
->         +++ b/drivers/gpu/drm/ttm/ttm_resource.c
->
->         @@ -511,12 +511,12 @@ int ttm_resource_manager_evict_all(struct ttm_device
->
->         *bdev,
->
->                        .force_alloc = true
->
->                };
->
->                struct dma_fence *fence;
->
->         -      int ret;
->
->         +      int ret, evict_ret = 0;
->
->                do {
->
->         -              ret = ttm_bo_evict_first(bdev, man, &ctx);
->
->         +              evict_ret = ttm_bo_evict_first(bdev, man, &ctx);
->
->                        cond_resched();
->
->         -      } while (!ret);
->
->         +      } while (!evict_ret);
->
->                spin_lock(&man->move_lock);
->
->                fence = dma_fence_get(man->move);
->
->         @@ -529,7 +529,7 @@ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
->
->                                return ret;
->
->                }
->
->         -      return 0;
->
->         +      return (evict_ret == -ENOENT) ? 0 : evict_ret;
->
->         }
->
-> Can you explain why you care ENOENT(No such file or directory) 
-> specifically?
->
-> Regards
->
-> Xiaogang
->
-> For ENOENT, it simply means the resource or file doesn't exist—it 
-> doesn't indicate an error during eviction. We only need to focus on 
-> actual eviction-related errors.
->
-I think I know what you mean. But I have a different view on that. 
-ttm_resource_manager_evict_all release all resources associated with a 
-ttm_resource_manager(man). It is part of memory manager cleanup 
-sequence. Even it fail(no matter what reason is) I think the following 
-memory manager cleanup should still continue going, then the returned 
-error value should not be used to stop following clean up.
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
-I think @Christian König can give judgment on it.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index f0b690d4bb46..a41db1009f58 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -260,17 +260,17 @@ static void svm_migrate_put_sys_page(unsigned long addr)
+ 	put_page(page);
+ }
+ 
+-static unsigned long svm_migrate_unsuccessful_pages(struct migrate_vma *migrate)
++static unsigned long svm_migrate_successful_pages(struct migrate_vma *migrate)
+ {
+-	unsigned long upages = 0;
++	unsigned long mpages = 0;
+ 	unsigned long i;
+ 
+ 	for (i = 0; i < migrate->npages; i++) {
+-		if (migrate->src[i] & MIGRATE_PFN_VALID &&
+-		    !(migrate->src[i] & MIGRATE_PFN_MIGRATE))
+-			upages++;
++		if (migrate->src[i] & MIGRATE_PFN_MIGRATE &&
++			migrate->dst[i] & MIGRATE_PFN_VALID)
++                        mpages++;
+ 	}
+-	return upages;
++	return mpages;
+ }
+ 
+ static int
+@@ -447,7 +447,7 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 	svm_migrate_copy_done(adev, mfence);
+ 	migrate_vma_finalize(&migrate);
+ 
+-	mpages = cpages - svm_migrate_unsuccessful_pages(&migrate);
++	mpages = svm_migrate_successful_pages(&migrate);
+ 	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
+ 			 mpages, cpages, migrate.npages);
+ 
+@@ -688,7 +688,6 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+ {
+ 	struct kfd_process *p = container_of(prange->svms, struct kfd_process, svms);
+ 	uint64_t npages = (end - start) >> PAGE_SHIFT;
+-	unsigned long upages = npages;
+ 	unsigned long cpages = 0;
+ 	unsigned long mpages = 0;
+ 	struct amdgpu_device *adev = node->adev;
+@@ -748,9 +747,9 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+ 				    scratch, npages);
+ 	migrate_vma_pages(&migrate);
+ 
+-	upages = svm_migrate_unsuccessful_pages(&migrate);
+-	pr_debug("unsuccessful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
+-		 upages, cpages, migrate.npages);
++	mpages = svm_migrate_successful_pages(&migrate);
++	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
++		 mpages, cpages, migrate.npages);
+ 
+ 	svm_migrate_copy_done(adev, mfence);
+ 	migrate_vma_finalize(&migrate);
+@@ -764,7 +763,6 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+ 				    node->id, 0, trigger, r);
+ out:
+ 	if (!r && cpages) {
+-		mpages = cpages - upages;
+ 		pdd = svm_range_get_pdd_by_node(prange, node);
+ 		if (pdd)
+ 			WRITE_ONCE(pdd->page_out, pdd->page_out + mpages);
+-- 
+2.34.1
 
-Regards
-
-Xiaogang
-
-> Emily Deng
->
-> Best Wishes
->
->         EXPORT_SYMBOL(ttm_resource_manager_evict_all);
->
->         --
->
->         2.34.1
->
---------------4JpfwWr5colXG9Zr6JXCB1aZ
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 5/28/2025 1:19 AM, Deng, Emily
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:PH0PR12MB54178912FD347C37BF8915388F67A@PH0PR12MB5417.namprd12.prod.outlook.com">
-      
-      <meta name="Generator" content="Microsoft Word 15 (filtered medium)">
-      <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:Aptos;}@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML Preformatted Char";
-	margin:0cm;
-	font-size:10.0pt;
-	font-family:"Courier New";}span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-priority:99;
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;}span.EmailStyle23
-	{mso-style-type:personal-reply;
-	font-family:"Arial",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <p style="font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
-        [AMD Official Use Only - AMD Internal Distribution Only]<br>
-      </p>
-      <br>
-      <div>
-        <div class="WordSection1">
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-          <div style="border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm 4.0pt">
-            <div>
-              <div style="border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm 0cm 0cm">
-                <p class="MsoNormal"><b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
-                    amd-gfx
-                    <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a>
-                    <b>On Behalf Of </b>Deng, Emily<br>
-                    <b>Sent:</b> Monday, May 26, 2025 9:51 AM<br>
-                    <b>To:</b> Chen, Xiaogang
-                    <a class="moz-txt-link-rfc2396E" href="mailto:Xiaogang.Chen@amd.com">&lt;Xiaogang.Chen@amd.com&gt;</a>;
-                    <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                    <b>Subject:</b> RE: [PATCH v2] drm/ttm: Should to
-                    return the evict error<o:p></o:p></span></p>
-              </div>
-            </div>
-            <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-            <p style="margin:5.0pt"><span style="font-size:10.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:blue">[AMD
-                Official Use Only - AMD Internal Distribution Only]<o:p></o:p></span></p>
-            <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-            <div>
-              <p style="margin:5.0pt"><span style="font-size:10.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:blue">[AMD
-                  Official Use Only - AMD Internal Distribution Only]<o:p></o:p></span></p>
-              <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-              <div>
-                <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-                <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-                <div style="border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm 4.0pt">
-                  <div>
-                    <div style="border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm 0cm 0cm">
-                      <p class="MsoNormal"><b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
-                          Chen, Xiaogang &lt;<a href="mailto:Xiaogang.Chen@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">Xiaogang.Chen@amd.com</a>&gt;
-                          <br>
-                          <b>Sent:</b> Friday, May 23, 2025 6:27 AM<br>
-                          <b>To:</b> Deng, Emily &lt;<a href="mailto:Emily.Deng@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">Emily.Deng@amd.com</a>&gt;;
-                          <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a><br>
-                          <b>Subject:</b> Re: [PATCH v2] drm/ttm: Should
-                          to return the evict error<o:p></o:p></span></p>
-                    </div>
-                  </div>
-                  <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-                  <p><o:p>&nbsp;</o:p></p>
-                  <div>
-                    <p class="MsoNormal">On 5/21/2025 9:42 PM, Deng,
-                      Emily wrote:<o:p></o:p></p>
-                  </div>
-                  <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                    <pre>[AMD Official Use Only - AMD Internal Distribution Only]<o:p></o:p></pre>
-                    <pre><o:p>&nbsp;</o:p></pre>
-                    <pre>[AMD Official Use Only - AMD Internal Distribution Only]<o:p></o:p></pre>
-                    <pre><o:p>&nbsp;</o:p></pre>
-                    <pre>Ping......<o:p></o:p></pre>
-                    <pre><o:p>&nbsp;</o:p></pre>
-                    <pre>Emily Deng<o:p></o:p></pre>
-                    <pre>Best Wishes<o:p></o:p></pre>
-                    <pre><o:p>&nbsp;</o:p></pre>
-                    <pre><o:p>&nbsp;</o:p></pre>
-                    <pre><o:p>&nbsp;</o:p></pre>
-                    <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                      <pre>-----Original Message-----<o:p></o:p></pre>
-                      <pre>From: Emily Deng <a href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a><o:p></o:p></pre>
-                      <pre>Sent: Wednesday, May 21, 2025 11:57 AM<o:p></o:p></pre>
-                      <pre>To: <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a><o:p></o:p></pre>
-                      <pre>Cc: Deng, Emily <a href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a><o:p></o:p></pre>
-                      <pre>Subject: [PATCH v2] drm/ttm: Should to return the evict error<o:p></o:p></pre>
-                      <pre><o:p>&nbsp;</o:p></pre>
-                      <pre>For the evict fail case, the evict error should be returned.<o:p></o:p></pre>
-                      <pre><o:p>&nbsp;</o:p></pre>
-                      <pre>v2: Consider ENOENT case.<o:p></o:p></pre>
-                      <pre><o:p>&nbsp;</o:p></pre>
-                      <pre>Signed-off-by: Emily Deng <a href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a><o:p></o:p></pre>
-                      <pre>---<o:p></o:p></pre>
-                      <pre>drivers/gpu/drm/ttm/ttm_resource.c | 8 ++++----<o:p></o:p></pre>
-                      <pre>1 file changed, 4 insertions(+), 4 deletions(-)<o:p></o:p></pre>
-                      <pre><o:p>&nbsp;</o:p></pre>
-                      <pre>diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c<o:p></o:p></pre>
-                      <pre>index 097716bd248a..abf104ae9d35 100644<o:p></o:p></pre>
-                      <pre>--- a/drivers/gpu/drm/ttm/ttm_resource.c<o:p></o:p></pre>
-                      <pre>+++ b/drivers/gpu/drm/ttm/ttm_resource.c<o:p></o:p></pre>
-                      <pre>@@ -511,12 +511,12 @@ int ttm_resource_manager_evict_all(struct ttm_device<o:p></o:p></pre>
-                      <pre>*bdev,<o:p></o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .force_alloc = true<o:p></o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<o:p></o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence *fence;<o:p></o:p></pre>
-                      <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<o:p></o:p></pre>
-                      <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, evict_ret = 0;<o:p></o:p></pre>
-                      <pre><o:p>&nbsp;</o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do {<o:p></o:p></pre>
-                      <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = ttm_bo_evict_first(bdev, man, &amp;ctx);<o:p></o:p></pre>
-                      <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; evict_ret = ttm_bo_evict_first(bdev, man, &amp;ctx);<o:p></o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cond_resched();<o:p></o:p></pre>
-                      <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (!ret);<o:p></o:p></pre>
-                      <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (!evict_ret);<o:p></o:p></pre>
-                      <pre><o:p>&nbsp;</o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;man-&gt;move_lock);<o:p></o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fence = dma_fence_get(man-&gt;move);<o:p></o:p></pre>
-                      <pre>@@ -529,7 +529,7 @@ int ttm_resource_manager_evict_all(struct ttm_device *bdev,<o:p></o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<o:p></o:p></pre>
-                      <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></pre>
-                      <pre><o:p>&nbsp;</o:p></pre>
-                      <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></pre>
-                      <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (evict_ret == -ENOENT) ? 0 : evict_ret;<o:p></o:p></pre>
-                      <pre>}<o:p></o:p></pre>
-                    </blockquote>
-                  </blockquote>
-                  <p>Can you explain why you care ENOENT(No such file or
-                    directory) specifically?<o:p></o:p></p>
-                  <p>Regards<o:p></o:p></p>
-                  <p>Xiaogang<o:p></o:p></p>
-                  <p><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">For
-                      ENOENT, it simply means the resource or file
-                      doesn't exist—it doesn't indicate an error during
-                      eviction. We only need to focus on actual
-                      eviction-related errors.</span></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <p>I think I know what you mean. But I have a different view on
-      that. ttm_resource_manager_evict_all release all resources
-      associated with a ttm_resource_manager(man). It is part of memory
-      manager cleanup sequence. Even it fail(no matter what reason is) I
-      think the following memory manager cleanup should still continue
-      going, then the returned error value should not be used to stop
-      following clean up.</p>
-    <p>I think @Christian König can give judgment on it.</p>
-    <p>Regards</p>
-    <p>Xiaogang<br>
-    </p>
-    <blockquote type="cite" cite="mid:PH0PR12MB54178912FD347C37BF8915388F67A@PH0PR12MB5417.namprd12.prod.outlook.com">
-      <div>
-        <div class="WordSection1">
-          <div style="border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm 4.0pt">
-            <div>
-              <div>
-                <div style="border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm 4.0pt">
-                  <p><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-                  <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-                  <p class="MsoNormal"><span style="font-size:11.0pt;mso-ligatures:standardcontextual">Emily Deng<o:p></o:p></span></p>
-                  <p class="MsoNormal"><span style="font-size:11.0pt;mso-ligatures:standardcontextual">Best Wishes<o:p></o:p></span></p>
-                </div>
-                <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-                <p><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-                <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                  <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                    <pre><o:p>&nbsp;</o:p></pre>
-                    <pre>EXPORT_SYMBOL(ttm_resource_manager_evict_all);<o:p></o:p></pre>
-                    <pre><o:p>&nbsp;</o:p></pre>
-                    <pre>--<o:p></o:p></pre>
-                    <pre>2.34.1<o:p></o:p></pre>
-                  </blockquote>
-                  <pre><o:p>&nbsp;</o:p></pre>
-                </blockquote>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-  </body>
-</html>
-
---------------4JpfwWr5colXG9Zr6JXCB1aZ--
