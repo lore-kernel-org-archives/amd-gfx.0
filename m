@@ -4,69 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A96C5AD49
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 13:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1BEC3ABB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 13:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D158510E2E5;
-	Wed, 28 May 2025 13:26:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3999810E5E1;
+	Wed, 28 May 2025 13:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hRlRCL6G";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PwW8Mmxb";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7323D10E2C3
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 13:26:38 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-b2c43cbce41so242162a12.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 06:26:38 -0700 (PDT)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 320E210E5E1;
+ Wed, 28 May 2025 13:29:42 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-31141a8e6c9so601636a91.3; 
+ Wed, 28 May 2025 06:29:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1748438798; x=1749043598; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1748438982; x=1749043782; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ec8WJJGvEuEPfnnU/CI/Qm+As6MJuB3UmlNhFsvNxqA=;
- b=hRlRCL6GDvDaoDmfOqCQwzccMv6g8/eFgB/u6NtDnAUfe8ckSBwXfIYyDBH0WnNWNK
- 9l+VNqFET35mLYNCI3UNHW2yF8Sptfk2RXyHDz0CW+VL53zWEyOGaJljHWn8mvZbWnWD
- mLc+sW+qcyQ0mufyEsgU95kq2LGO43fAAEXk0AAripToWhPdthpc+HczkD34rjvsLZJt
- xFxx5ZQVFTp4fcH8Cz6DE9O7unRqt7FHJJMkaV/ijJ7F+bUyHwQG60arH6zZWGWNtLas
- DCCGWTSa2v8v5onMx7QpNbBRp4cHnOmtmkQUTqWhT/nFabum7inUwEehjbZ7JZ6kkPV4
- 7Dlg==
+ bh=XNEGmM0JlP9wq6opyDQ0PfkvRzw7tQOL49la3yXZ13c=;
+ b=PwW8MmxbIkMwOrrNZI2B6BTprWmfC9yTE9olQ2vYAZ7+7wYbhfyPVKn7G6XkpBWY7z
+ s1xIGZql6GmAJ8COWnNaoT0UgiMl+pu1fjjU7zPvLRWvf42mNaPos8H9RUcFfij9uOWl
+ djBO5OQTOsv+Y/QYPDIRoZrF4uNa9Hv2vaTDb9reH3f5OvRulnJccjGlccyJoh9XA4ls
+ MaU3aEQQpl+bjMdr1oQCGsswR9crckquB/gxMLNBX7CUkAdHiZ4JSKpptjQQh1F3Vao6
+ 5jFzujRXw/1MfUwJeCU4bKho2ZiDVJ21Ij1GJNw0XR9TCTxawnpVfXuOT7HhpIVGvlh/
+ rcGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748438798; x=1749043598;
+ d=1e100.net; s=20230601; t=1748438982; x=1749043782;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ec8WJJGvEuEPfnnU/CI/Qm+As6MJuB3UmlNhFsvNxqA=;
- b=ZTcLSDDZ4syl0L2+jidtBXmfjr1NiWA0mOBuHSdyLMyjsLn+3cBb5czMhRDhcq9Ct1
- i+/X7AUNt88Ez9bCyqout0tWvoZgcZII//Z8TzRrT34XFvQCTyzujbeT2i1ivtuVpLXb
- 0sfnzb40tYT8udLV1f68MiaxzBszSyWNi3WkB4tch/nPUNLy2BOvKrhRX7ngakAqad6p
- zjOgtGDv2cQOT8sqOP2jBwbRr+HMRMDUOyYzemndJ+l0Xefet6W4VKUlOS5i+pI+xwtw
- tlBrsjoY0REHd//2DDkfxRYg0I8lKiXeyg8e6gIGPwcLQPhQRNwQACSPARan2+CghTfI
- z48A==
+ bh=XNEGmM0JlP9wq6opyDQ0PfkvRzw7tQOL49la3yXZ13c=;
+ b=vYYZDHGUToIZA1PLLTwWmkwp/r5xVTzRx67pyfGsin5b3OjXT+szgrmnwygm1xxg3L
+ Nr0r8vzGMLRj3li9N+lA1G+Lcg2wGCptsjKLTK+E4MJ9UrbCXV9QmpWFq4McUrXnHKOF
+ LGw1li2Qab2V2vhPCjyI+PKSvdAQFDE2mSeL5Z8bBZ0CCiQ1DxwEI6GaUrT6MqP3022U
+ jjHAEKAKp2G+2vHj2KDgHPC2IuqWGKl/MpzDDdDHBIhQKIVRygHaRib6jTSeEEJz9ISs
+ fjKal0kBUJhREEI6AYIh/JD1LjoCrcKB4KXU4xTW4lBP/yj+6WusoxA4KE2c99we6pIS
+ /hCw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXBNYURtV2jBTDxFWUti1AHVrAy8XJDUXWCovDq0JP1GHGN+D6cgydoh76kSWIkhwcSfI2gFPio@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxAW37VEzPA4vayaIFiRJZDSD5YsSe1O9Zn9c7eiP6G3gO+vbWT
- XtIItamABU7serm71kAKMtX8ufw+oszJnHDiiq2p7MWhvXDh6DF/Ze6o2HZg90DXZqY8CTYayGR
- wIb5lYMxrJ7k1BsmTiDqffiomEb+6bQdHpw==
-X-Gm-Gg: ASbGncsmwzL60sZ5s+7WmVO7mtwxZjmCqTDEddnhhFjLM7E9XKNPg0y4o4uysukVI5u
- bmGx+0Dhzr862ZwAuxoVJqKKdB+ci0VUH+NL/plwfOYwu1Cmq9znKdMsZPWs3l3e9ZVQqe6Oj+2
- ArjReBO+K+BaktVgSsV6U+TY1uBu1DJ/DVDA==
-X-Google-Smtp-Source: AGHT+IET+LytuwuyYz8z+RP7MTpMSFMJThrngCut676hTzlTrUxJtc6l3UxiQxTBE2Cj5OSssH+TXMOXiWm4ns5pUFk=
-X-Received: by 2002:a17:903:228f:b0:234:d14c:50ff with SMTP id
- d9443c01a7336-234d14c5265mr14558865ad.6.1748438797809; Wed, 28 May 2025
- 06:26:37 -0700 (PDT)
+ AJvYcCWF62x4KjxDq++8AN7bTlx+XUUPBh6LRJl/kSszjzALAFmh8DLpalG4jaAxtR/8n+sE9B5aMSzb@lists.freedesktop.org,
+ AJvYcCWtT7kEQEh9cRr4hW/uIHq99k/54VWg+IItcsjneDQRK9WdaUQLcSLAJXFbF014tXeER1kMCS+hdl+W@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywd3q5sC9/63YJC+huyy2OMoQq/hFCuED7/ap+kcmn8vFbYOhvd
+ mcMNew3hkO1HFae3yFJjZT3Ri6j/p5YUtbMtUQQ2ul9tEm/QeLk0NytcNggBSlRoLncXlzuvmJe
+ th19ZGvozXPk4EYxrcG12ijuEBy/bHJI=
+X-Gm-Gg: ASbGncstMglk3f+pXpbB9BMUvyuDNby9afCY4cpjqDUwL1vIWOM9LZrIZ07S3IgXhgH
+ Q8EAsXftnWcZHHoKf2uysTgYv57uN++BWOzUu1T0R77ZsKgReNggmHo/OpFXFRzGx2q3ONFUPeY
+ PNbntytvltbH1iWXIye2GRS8WtOxDwaTiUNOTc/Rs/k/bx
+X-Google-Smtp-Source: AGHT+IFp9dYm27ljQ+pduZf1WWWHosCrH20sLdVDsx/JXSdhEjmFWQf5BV8+Te7KPlE4W/cEqV/LeKq9OPOR02v04og=
+X-Received: by 2002:a17:90b:388a:b0:312:639:a06d with SMTP id
+ 98e67ed59e1d1-3120639af74mr319796a91.5.1748438981470; Wed, 28 May 2025
+ 06:29:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250528092021.4049705-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20250528092021.4049705-1-srinivasan.shanmugam@amd.com>
+References: <20250523125643.7540-1-christian.koenig@amd.com>
+ <20250523125643.7540-2-christian.koenig@amd.com>
+ <aDCCF0JFhO7lR2VJ@cassiopeiae>
+ <aDCDJ-sK9rRI6wse@cassiopeiae> <cd64af4d-f5b3-4f18-9be6-636624833075@amd.com>
+ <08bb986281fefb5cbdb35c63a56e1bbd923d9297.camel@mailbox.org>
+ <74c4b9d8-5e25-438e-97c5-5aa2035fb9bd@amd.com>
+ <cbd3eaa4c228c0d0688745e8a539103eb2278a0b.camel@mailbox.org>
+ <aDcB0AbQiHOVUyAU@phenom.ffwll.local>
+In-Reply-To: <aDcB0AbQiHOVUyAU@phenom.ffwll.local>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 May 2025 09:26:25 -0400
-X-Gm-Features: AX0GCFsrfnJ6pUeeZV5issr-Y12b6DezxqzGnaJ35bVw0kpFD9P4QMgDmsoMvSQ
-Message-ID: <CADnq5_M-EaYTiXEEmo3_YaesL=Tvm9=Grv3kNrFHwVHzqYLQvA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx10: Refine Cleaner Shader for GFX10.1.10
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Manu Rastogi <manu.rastogi@amd.com>
+Date: Wed, 28 May 2025 09:29:30 -0400
+X-Gm-Features: AX0GCFs3uo46gdIA9y3Bj2M5cVK7AM1LzBwrkJUupArrvkW3paxur3TGipTcZ-8
+Message-ID: <CADnq5_NiMOhc95h-GLRjAD7LXyQ=9nb=Uvim1rwX4n9tekLkyA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/sched: optimize drm_sched_job_add_dependency
+To: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: phasta@kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Danilo Krummrich <dakr@kernel.org>, tursulin@ursulin.net,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,101 +92,246 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 28, 2025 at 5:30=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
+On Wed, May 28, 2025 at 8:45=E2=80=AFAM Simona Vetter <simona.vetter@ffwll.=
+ch> wrote:
 >
-> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> On Mon, May 26, 2025 at 01:27:28PM +0200, Philipp Stanner wrote:
+> > On Mon, 2025-05-26 at 13:16 +0200, Christian K=C3=B6nig wrote:
+> > > On 5/26/25 11:34, Philipp Stanner wrote:
+> > > > On Mon, 2025-05-26 at 11:25 +0200, Christian K=C3=B6nig wrote:
+> > > > > On 5/23/25 16:16, Danilo Krummrich wrote:
+> > > > > > On Fri, May 23, 2025 at 04:11:39PM +0200, Danilo Krummrich
+> > > > > > wrote:
+> > > > > > > On Fri, May 23, 2025 at 02:56:40PM +0200, Christian K=C3=B6ni=
+g
+> > > > > > > wrote:
+> > > > > > > > It turned out that we can actually massively optimize here.
+> > > > > > > >
+> > > > > > > > The previous code was horrible inefficient since it
+> > > > > > > > constantly
+> > > > > > > > released
+> > > > > > > > and re-acquired the lock of the xarray and started each
+> > > > > > > > iteration from the
+> > > > > > > > base of the array to avoid concurrent modification which in
+> > > > > > > > our
+> > > > > > > > case
+> > > > > > > > doesn't exist.
+> > > > > > > >
+> > > > > > > > Additional to that the xas_find() and xas_store() functions
+> > > > > > > > are
+> > > > > > > > explicitly
+> > > > > > > > made in a way so that you can efficiently check entries and
+> > > > > > > > if
+> > > > > > > > you don't
+> > > > > > > > find a match store a new one at the end or replace existing
+> > > > > > > > ones.
+> > > > > > > >
+> > > > > > > > So use xas_for_each()/xa_store() instead of
+> > > > > > > > xa_for_each()/xa_alloc().
+> > > > > > > > It's a bit more code, but should be much faster in the end.
+> > > > > > >
+> > > > > > > This commit message does neither explain the motivation of
+> > > > > > > the
+> > > > > > > commit nor what it
+> > > > > > > does. It describes what instead belongs into the changelog
+> > > > > > > between versions.
+> > > > > >
+> > > > > > Sorry, this is wrong. I got confused, the commit message is
+> > > > > > perfectly fine. :)
+> > > > > >
+> > > > > > The rest still applies though.
+> > > > > >
+> > > > > > > Speaking of versioning of the patch series, AFAIK there were
+> > > > > > > previous versions,
+> > > > > > > but this series was sent as a whole new series -- why?
+> > > > > > >
+> > > > > > > Please resend with a proper commit message, version and
+> > > > > > > changelog. Thanks!
+> > > > >
+> > > > >
+> > > > > Well Philip asked to remove the changelog. I'm happy to bring it
+> > > > > back, but yeah...
+> > > >
+> > > > No no no no :D
+> > > >
+> > > > Philipp asked for the changelog to be removed *from the git commit
+> > > > message*; because it doesn't belong / isn't useful there.
+> > > >
+> > > > If there's a cover letter, the changelog should be in the cover
+> > > > letter.
+> > > > If there's no cover letter, it should be between the ---
+> > > > separators:
+> > >
+> > > I can live with that, just clearly state what you want.
+> >
+> > Sure thing:
+> >
+> >  * Patches and patch series's should contain their version identifier
+> >    within the square brackets [PATCH v3]. git format-patch -v3 does
+> >    that automatically.
+> >  * Changelog should be as described above
+> >  * Ideally, cover letters always contain the full changelog, v2, v3 and
+> >    so on, so that new readers get a sense of the evolution of the
+> >    series.
+> >
+> > >
+> > > For DRM the ask is often to keep the changelog in the commit message
+> > > or remove it entirely.
+> >
+> > Yup, I've seen that a few times. I think we, the DRM community, should
+> > stop that. It's just not useful and makes the commit messages larger,
+> > both for the human reader while scrolling, as for the hard drive
+> > regarding storage size
 >
-> This patch updates the cleaner shader, which is responsible for
-> initializing GPU resources such as Local Data Share (LDS), Vector
-> General Purpose Registers (VGPRs), and Scalar General Purpose Registers
-> (SGPRs). Changes include adjustments to register clearing and shader
-> configuration.
+> I do occasionally find it useful as a record of different approaches
+> considered, which sometimes people fail to adequately cover in their
+> commit messages. Also useful indicator of how cursed a patch is :-)
 >
-> - Updated GPU resource initialization addresses in the cleaner shader
->   from `be803080` to `be803000`.
-> - Simplified the logic in the SGPR clearing section, ensuring all SGPRs
->   are set to zero.
->
-> Fixes: 25961bad9212 ("drm/amdgpu/gfx10: Add cleaner shader for GFX10.1.10=
-")
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Manu Rastogi <manu.rastogi@amd.com>
-> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> But as long as anything relevant does end up in the commit message and
+> people don't just delete stuff I don't care how it's done at all. It's
+> just that the cost of deleting something that should have been there can
+> be really nasty sometimes, and storage is cheap.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+I like them for the same reasons.  Also, even with links, sometimes
+there are forks of the conversation that get missed that a changelog
+provides some insight into.  I find it useful in my own development as
+I can note what I've changed in a patch and can retain that in the
+commit rather than as something I need to track separately and then
+add to the patches when I send them out.
 
-> ---
->  .../gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h   |  6 +++---
->  .../drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm  | 13 ++++++-------
->  2 files changed, 9 insertions(+), 10 deletions(-)
+Alex
+
+> -Sima
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h b/driv=
-ers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
-> index 5255378af53c..f67569ccf9f6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
-> @@ -43,9 +43,9 @@ static const u32 gfx_10_1_10_cleaner_shader_hex[] =3D {
->         0xd70f6a01, 0x000202ff,
->         0x00000400, 0x80828102,
->         0xbf84fff7, 0xbefc03ff,
-> -       0x00000068, 0xbe803080,
-> -       0xbe813080, 0xbe823080,
-> -       0xbe833080, 0x80fc847c,
-> +       0x00000068, 0xbe803000,
-> +       0xbe813000, 0xbe823000,
-> +       0xbe833000, 0x80fc847c,
->         0xbf84fffa, 0xbeea0480,
->         0xbeec0480, 0xbeee0480,
->         0xbef00480, 0xbef20480,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm b=
-/drivers/gpu/drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm
-> index 9ba3359253c9..54f7ed9e2801 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm
-> @@ -40,7 +40,6 @@ shader main
->    type(CS)
->    wave_size(32)
->  // Note: original source code from SQ team
-> -
->  //
->  // Create 32 waves in a threadgroup (CS waves)
->  // Each allocates 64 VGPRs
-> @@ -71,8 +70,8 @@ label_0005:
->    s_sub_u32     s2, s2, 8
->    s_cbranch_scc0  label_0005
->    //
-> -  s_mov_b32     s2, 0x80000000                     // Bit31 is first_wav=
-e
-> -  s_and_b32     s2, s2, s0                                  // sgpr0 has=
- tg_size (first_wave) term as in ucode only COMPUTE_PGM_RSRC2.tg_size_en is=
- set
-> +  s_mov_b32     s2, 0x80000000                       // Bit31 is first_w=
-ave
-> +  s_and_b32     s2, s2, s1                           // sgpr0 has tg_siz=
-e (first_wave) term as in ucode only COMPUTE_PGM_RSRC2.tg_size_en is set
->    s_cbranch_scc0  label_0023                         // Clean LDS if its=
- first wave of ThreadGroup/WorkGroup
->    // CLEAR LDS
->    //
-> @@ -99,10 +98,10 @@ label_001F:
->  label_0023:
->    s_mov_b32     m0, 0x00000068  // Loop 108/4=3D27 times  (loop unrolled=
- for performance)
->  label_sgpr_loop:
-> -  s_movreld_b32     s0, 0
-> -  s_movreld_b32     s1, 0
-> -  s_movreld_b32     s2, 0
-> -  s_movreld_b32     s3, 0
-> +  s_movreld_b32     s0, s0
-> +  s_movreld_b32     s1, s0
-> +  s_movreld_b32     s2, s0
-> +  s_movreld_b32     s3, s0
->    s_sub_u32         m0, m0, 4
->    s_cbranch_scc0  label_sgpr_loop
+> >
+> >
+> > Thx
+> > P.
+> >
+> >
+> > >
+> > > Regards,
+> > > Christian.
+> > >
+> > > >
+> > > >
+> > > > Signed-off-by: Gordon Freeman <freeman@blackmesa.org>
+> > > > Reviewed-by: Alyx Vance <alyx@vance.edu>
+> > > > ---
+> > > > Changes in v2:
+> > > >   - Provide more docu for crowbar-alloc-function.
+> > > >   - Use NULL pointers for reserved xarray entries
+> > > > ---
+> > > > <DIFF>
+> > > >
+> > > >
+> > > > P.
+> > > >
+> > > >
+> > > > >
+> > > > > Regards,
+> > > > > Christian.
+> > > > >
+> > > > > > >
+> > > > > > > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.c=
+om>
+> > > > > > > > ---
+> > > > > > > >  drivers/gpu/drm/scheduler/sched_main.c | 29
+> > > > > > > > ++++++++++++++++++--------
+> > > > > > > >  1 file changed, 20 insertions(+), 9 deletions(-)
+> > > > > > > >
+> > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > index f7118497e47a..cf200b1b643e 100644
+> > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > @@ -871,10 +871,8 @@ EXPORT_SYMBOL(drm_sched_job_arm);
+> > > > > > > >  int drm_sched_job_add_dependency(struct drm_sched_job
+> > > > > > > > *job,
+> > > > > > > >   struct dma_fence *fence)
+> > > > > > > >  {
+> > > > > > > > + XA_STATE(xas, &job->dependencies, 0);
+> > > > > > > >   struct dma_fence *entry;
+> > > > > > > > - unsigned long index;
+> > > > > > > > - u32 id =3D 0;
+> > > > > > > > - int ret;
+> > > > > > > >
+> > > > > > > >   if (!fence)
+> > > > > > > >   return 0;
+> > > > > > > > @@ -883,24 +881,37 @@ int
+> > > > > > > > drm_sched_job_add_dependency(struct
+> > > > > > > > drm_sched_job *job,
+> > > > > > > >   * This lets the size of the array of deps scale with
+> > > > > > > > the number of
+> > > > > > > >   * engines involved, rather than the number of BOs.
+> > > > > > > >   */
+> > > > > > > > - xa_for_each(&job->dependencies, index, entry) {
+> > > > > > > > + xa_lock(&job->dependencies);
+> > > > > > > > + xas_for_each(&xas, entry, ULONG_MAX) {
+> > > > > > > >   if (entry->context !=3D fence->context)
+> > > > > > > >   continue;
+> > > > > > > >
+> > > > > > > >   if (dma_fence_is_later(fence, entry)) {
+> > > > > > > >   dma_fence_put(entry);
+> > > > > > > > - xa_store(&job->dependencies, index,
+> > > > > > > > fence, GFP_KERNEL);
+> > > > > > > > + xas_store(&xas, fence);
+> > > > > > > >   } else {
+> > > > > > > >   dma_fence_put(fence);
+> > > > > > > >   }
+> > > > > > > > - return 0;
+> > > > > > > > + xa_unlock(&job->dependencies);
+> > > > > > > > + return xas_error(&xas);
+> > > > > > > >   }
+> > > > > > > >
+> > > > > > > > - ret =3D xa_alloc(&job->dependencies, &id, fence,
+> > > > > > > > xa_limit_32b, GFP_KERNEL);
+> > > > > > > > - if (ret !=3D 0)
+> > > > > > > > +retry:
+> > > > > > > > + entry =3D xas_store(&xas, fence);
+> > > > > > > > + xa_unlock(&job->dependencies);
+> > > > > > > > +
+> > > > > > > > + /* There shouldn't be any concurrent add, so no need
+> > > > > > > > to loop again */
+> > > > > > >
+> > > > > > > Concurrency shouldn't matter, xas_nomem() stores the pre-
+> > > > > > > allocated memory in the
+> > > > > > > XA_STATE not the xarray. Hence, I think we should remove the
+> > > > > > > comment.
+> > > > > > >
+> > > > > > > > + if (xas_nomem(&xas, GFP_KERNEL)) {
+> > > > > > > > + xa_lock(&job->dependencies);
+> > > > > > > > + goto retry;
+> > > > > > >
+> > > > > > > Please don't use a goto here, if we would have failed to
+> > > > > > > allocate
+> > > > > > > memory here,
+> > > > > > > this would be an endless loop until we succeed eventually. It
+> > > > > > > would be equal to:
+> > > > > > >
+> > > > > > > while (!ptr) {
+> > > > > > > ptr =3D kmalloc();
+> > > > > > > }
+> > > > > > >
+> > > > > > > Instead just take the lock and call xas_store() again.
+> > > > > > >
+> > > > > > > > + }
+> > > > > > > > +
+> > > > > > > > + if (xas_error(&xas))
+> > > > > > > >   dma_fence_put(fence);
+> > > > > > > > + else
+> > > > > > > > + WARN_ON(entry);
+> > > > > > >
+> > > > > > > Please don't call WARN_ON() here, this isn't fatal, we only
+> > > > > > > need
+> > > > > > > to return the
+> > > > > > > error code.
+> > > > >
+> > > >
+> > >
+> >
 >
 > --
-> 2.34.1
->
+> Simona Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
