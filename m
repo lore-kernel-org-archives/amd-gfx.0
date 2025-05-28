@@ -4,108 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 343D5C3ABB2
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 13:04:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D1D5C5AD49
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 13:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB0F410E273;
-	Wed, 28 May 2025 13:04:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9E5310E2BA;
+	Wed, 28 May 2025 13:11:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="lhzajvsV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gOdehRT2";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D8E510E5D6;
- Wed, 28 May 2025 09:29:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1748424548; x=1749029348; i=natalie.vock@gmx.de;
- bh=wJj6cCWN4z+xlGO0PzShWjcwP9PbCdV1eX0zeAaaS4k=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=lhzajvsV/2bjM0tBLsKMSdK2FvSs8OxPah3gZeOiQe0KQOyxC9aqZ1K9bwO+zZIw
- 4K8NDGUJCuBpAgNA7p/N02+5QGUxX1UOKn5yPZExFQrGnpCKBixu08gl9GgufpZNp
- SzQkzbeKtl/pnjrsL2bvFdYkISPuOFqhXyqQpQKambNRHCe6/DIRR11hhp5NkcAIE
- 1j7rvXkxqf+UoYeGd8R9ko6bWto5OoXrU5qB2Y6DrbduX5afmr9nKz62wmhxfc930
- dEggb23ea3VU4da+rjbdXFlZ5gkgGRG062EcyXs+aTcTKqWgdrn1q6675TN1bj4LU
- gruG7mfIW+da7v+nSw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.0.3] ([109.91.201.165]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MS3mz-1uUuBE43Ux-00SyIf; Wed, 28
- May 2025 11:29:08 +0200
-Message-ID: <dbbdcada-32ae-4457-af87-1f98362461f1@gmx.de>
-Date: Wed, 28 May 2025 11:29:06 +0200
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE6F10E1DE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 13:10:58 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-3108652400cso588063a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 06:10:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1748437858; x=1749042658; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Tn3cqn6Ejdp3PPy1HyfP5x0ZWLjrtcRqoG0l2En86wU=;
+ b=gOdehRT2JsptmoifEjoVGFrqkwr6kGX0rB5nP7+hXinNxMvuOfAkOzy/X/12MAys26
+ 8aKRyh8KrfyJZzWPnjXgL0XN/DVWqOHMBi0O0VSTpX+t+D3wiwjFUYnsEhl48XUq/K7v
+ JzezBUVjgzGO5v45vI+mBXBfCxbEXV6nCCLvTR9FgX00/pWzeFC79grwN+4vjjE4PNrz
+ R4hpSBmQCU6/YH0bvvNawUiFMYs84+1l9YpHjT+7Hdpx+GZhWsStXIzi15O3JRXhrtZS
+ 1RsF0HhDvrvSh/qqi0XUyU6YtHEV/3enAG+/5R9WTC0pqfrXWUyaxl+lxsIIFwpY/RbC
+ v5vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748437858; x=1749042658;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Tn3cqn6Ejdp3PPy1HyfP5x0ZWLjrtcRqoG0l2En86wU=;
+ b=AG33ULXMTenG1hgN/Mn9h8ipSzLH/EmFnTbg8/hxjkfiD44965op7RpQmX76/RplIF
+ kI0hWcIrCVCGLCFvhwez3Emaly9zQlo9GNAyUSkJcJkruRD2jyvemLbUcYYvfHHF/R0g
+ 4YetKmx9CwLTbkjsWsMOM8zafnP3BrEjy/aEAzvb3yM0EXygyr/SqEajOXOVXvFZ7PED
+ wVHWMvQT1GbgI/vt5kGDWx+IpReQQMJH6h8raMPGlKH00tUR0xsFS/AfVcxBrhL8hFqt
+ C546kS3nFRuzDw2ODKFvqsDnZcn4Z9+cw725bfHFIpZVdrZndhaQJbTRie6eXLELHdIC
+ Lu/w==
+X-Gm-Message-State: AOJu0YxP6QH5OyuPuXml+Rt15WCrXys6O7p8OhSwXmF+5mqD/e3poXQE
+ HTTrMFJERSkffc3EEGiYUiRCFsvX/XzX9ujNGIRNr29KlGEAAQjdLHcxCsiHZT5mZF3bDIevZP+
+ fDNoQCjunlB3G9Hd81rCeLrw1FuBBb6UmVg==
+X-Gm-Gg: ASbGncs5m/0HXJ4R+gAn0oA29ySJW7Np1yhPaHypnIRI9CrswBy1/gTBdEHmJvYVTZa
+ dfZ2S9mOd91ZuqlWPc326PxDEBmkkW2KXy/YdOYX4XrIt7RtTMO93lvipd6B2YzRJmqldqDMwdo
+ SK4Mo4boIp8CbKJeJJ8L/7v2Fjrf0PsETgXg==
+X-Google-Smtp-Source: AGHT+IGQfALZ3bTUGOGdgk9doGPdJwPyfRjVS8WLDa6igR9D9pIheoINR3xBDq/w4DZ6Xr/vPlvW1uwtmL4lpJI7RqI=
+X-Received: by 2002:a17:90b:4d12:b0:311:b0ec:135e with SMTP id
+ 98e67ed59e1d1-311b0ec14a2mr3434629a91.2.1748437857819; Wed, 28 May 2025
+ 06:10:57 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Dirty cleared blocks on allocation
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- stable@vger.kernel.org
-References: <20250527194353.8023-1-natalie.vock@gmx.de>
- <20250527194353.8023-3-natalie.vock@gmx.de>
- <89652580-5763-4f1e-abf5-d340119543f3@amd.com>
-Content-Language: en-US
-From: Natalie Vock <natalie.vock@gmx.de>
-In-Reply-To: <89652580-5763-4f1e-abf5-d340119543f3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <20250528083756.847677-1-Prike.Liang@amd.com>
+In-Reply-To: <20250528083756.847677-1-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 28 May 2025 09:10:45 -0400
+X-Gm-Features: AX0GCFvU05nY_qm9CtCFRzu1iSADzRJDD-1NXUgqY-zJ0oFy3v_TtPAqHgbkIjA
+Message-ID: <CADnq5_MRsoGeKDhNHuKZbAbjRM9WNAc20q_T60y8kN1biBL0Lg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: only export available rings to mesa for
+ enabling kq|uq
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian.Koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:2axK+lnGA1Fc2hNrp9g4dehd+SiCYBgai4Yw/yjkZ2uUpsKq5zb
- Cpw3Zxx6FVLeRDMZWmf3ZKx31ePnxVYzCm+7VTgxmmSu+lIfz2YpjbcRdtZmBcvy+4vouyl
- uhc/R3Brm10J6Sk618GICLheuLid8drjXMfgo98QRhN1H3MOvt90C+kADYs5t9MoiyDc2K7
- N9lFBO30+zRmmnNASJPYA==
-UI-OutboundReport: notjunk:1;M01:P0:zugt5dwSbBI=;zTbmlpoMe2/WOz0ZouyeNwzChxg
- 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
- +C+0trX7n9Mka8HOmVwkpfQnYP7PNHCD3SnWXQ==
-X-Mailman-Approved-At: Wed, 28 May 2025 13:04:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,101 +81,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed, May 28, 2025 at 4:38=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+rote:
+>
+> The kernel driver only requires exporting available rings to the mesa
+> when the userq is disabled; otherwise, the userq IP mask will be cleaned
+> up in the mesa.
 
-On 5/28/25 09:07, Christian K=C3=B6nig wrote:
-> On 5/27/25 21:43, Natalie Vock wrote:
->> If we hand out cleared blocks to users, they are expected to write
->> at least some non-zero values somewhere. If we keep the CLEAR bit set o=
-n
->> the block, amdgpu_fill_buffer will assume there is nothing to do and
->> incorrectly skip clearing the block. Ultimately, the (still dirty) bloc=
-k
->> will be reused as if it were cleared, without any wiping of the memory
->> contents.
->>
->> Most severely, this means that any buffer allocated with
->> AMDGPU_GEM_CREATE_VRAM_CLEARED | AMDGPU_GEM_CREATE_WIPE_ON_RELEASE
->> (which is the case for **all userspace buffers**) are neither
->> guaranteed to contain cleared VRAM, nor are they being wiped on
->> release, potentially leaking application memory to arbitrary other
->> applications.
->>
->> Fixes: a68c7eaa7a8ff ("drm/amdgpu: Enable clear page functionality")
->> Cc: stable@vger.kernel.org
->>
->> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3812
->>
->> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 +++++++
->>   1 file changed, 7 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> index 2d7f82e98df9..cecc67d0f0b8 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> @@ -591,6 +591,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource=
-_manager *man,
->>   	list_for_each_entry(block, &vres->blocks, link) {
->>   		unsigned long start;
->>  =20
->> +		/*
->> +		 * Allocated blocks may be dirtied as soon as we return.
->> +		 * Mark all blocks as dirty here, otherwise we might
->> +		 * incorrectly assume the memory is still zeroed.
->> +		 */
->> +		drm_buddy_block_set_dirty(block);
->=20
-> Exactly that makes no sense.
->=20
-> We need the information if it's dirty or not later while clearing the bl=
-ocks. Otherwise we will clear all blocks and completely loose the advantag=
-e of the clear tracking.
+The logic should work correctly as is.  There are three possible states:
+1. KQ only
+2. Both KQ and UQ
+3. UQ only
 
-Right, I missed that separate clear on allocation. I was put a bit=20
-off-track by assuming DRM_BUDDY_ALLOCATE_CLEARED would guarantee cleared=
-=20
-pages, when in reality it's more like a preference.
+Alex
 
->=20
-> So we should set them dirty as soon as we are done with the clearing.
->=20
-> But the problem rather seems to be that we sometimes don't clear the buf=
-fers on release for some reason, but still set it as cleared.
-
-Yes precisely - "some reason" being the aforementioned clear flags. We=20
-do always call amdgpu_clear_buffer on release, but that function will=20
-perform the same checks as the clear on allocation does - that means, if=
-=20
-a block is marked clear then it will skip emitting any actual clears.
-
-If we don't mark the blocks as dirty after allocating, then the=20
-amdgpu_clear_buffer call on release will skip actually performing the=20
-clear like it did during allocation - this is obviously really broken.
-
-After calling amdgpu_clear_buffer, we call amdgpu_vram_mgr_set_cleared=20
-which causes the drm_buddy blocks to be marked as "cleared" when freed.=20
-This part is correct in itself, but obviously breaks if=20
-amdgpu_clear_buffer didn't actually clear the buffer. That's how the=20
-dirty blocks end up in the buddy allocator as cleared ones.
-
-I'm testing a v2 that sets the dirty flags after the initial clear, I'll=
-=20
-send it once I confirmed it works.
-
-Thanks,
-Natalie
-
->=20
-> Regards,
-> Christian.
->=20
->=20
->> +
->>   		start =3D amdgpu_vram_mgr_block_start(block) +
->>   			amdgpu_vram_mgr_block_size(block);
->>   		start >>=3D PAGE_SHIFT;
->=20
-
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 20 ++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index d2ce7d86dbc8..43d86c09d8bb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -409,7 +409,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>                 type =3D AMD_IP_BLOCK_TYPE_GFX;
+>                 for (i =3D 0; i < adev->gfx.num_gfx_rings; i++)
+>                         if (adev->gfx.gfx_ring[i].sched.ready &&
+> -                           !adev->gfx.gfx_ring[i].no_user_submission)
+> +                           adev->gfx.disable_uq)
+>                                 ++num_rings;
+>                 ib_start_alignment =3D 32;
+>                 ib_size_alignment =3D 32;
+> @@ -418,7 +418,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>                 type =3D AMD_IP_BLOCK_TYPE_GFX;
+>                 for (i =3D 0; i < adev->gfx.num_compute_rings; i++)
+>                         if (adev->gfx.compute_ring[i].sched.ready &&
+> -                           !adev->gfx.compute_ring[i].no_user_submission=
+)
+> +                           adev->gfx.disable_uq)
+>                                 ++num_rings;
+>                 ib_start_alignment =3D 32;
+>                 ib_size_alignment =3D 32;
+> @@ -427,7 +427,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>                 type =3D AMD_IP_BLOCK_TYPE_SDMA;
+>                 for (i =3D 0; i < adev->sdma.num_instances; i++)
+>                         if (adev->sdma.instance[i].ring.sched.ready &&
+> -                           !adev->sdma.instance[i].ring.no_user_submissi=
+on)
+> +                               adev->gfx.disable_uq)
+>                                 ++num_rings;
+>                 ib_start_alignment =3D 256;
+>                 ib_size_alignment =3D 4;
+> @@ -439,7 +439,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>                                 continue;
+>
+>                         if (adev->uvd.inst[i].ring.sched.ready &&
+> -                           !adev->uvd.inst[i].ring.no_user_submission)
+> +                           adev->gfx.disable_uq)
+>                                 ++num_rings;
+>                 }
+>                 ib_start_alignment =3D 256;
+> @@ -449,7 +449,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>                 type =3D AMD_IP_BLOCK_TYPE_VCE;
+>                 for (i =3D 0; i < adev->vce.num_rings; i++)
+>                         if (adev->vce.ring[i].sched.ready &&
+> -                           !adev->vce.ring[i].no_user_submission)
+> +                           adev->gfx.disable_uq)
+>                                 ++num_rings;
+>                 ib_start_alignment =3D 256;
+>                 ib_size_alignment =3D 4;
+> @@ -462,7 +462,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>
+>                         for (j =3D 0; j < adev->uvd.num_enc_rings; j++)
+>                                 if (adev->uvd.inst[i].ring_enc[j].sched.r=
+eady &&
+> -                                   !adev->uvd.inst[i].ring_enc[j].no_use=
+r_submission)
+> +                                   adev->gfx.disable_uq)
+>                                         ++num_rings;
+>                 }
+>                 ib_start_alignment =3D 256;
+> @@ -475,7 +475,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>                                 continue;
+>
+>                         if (adev->vcn.inst[i].ring_dec.sched.ready &&
+> -                           !adev->vcn.inst[i].ring_dec.no_user_submissio=
+n)
+> +                           adev->gfx.disable_uq)
+>                                 ++num_rings;
+>                 }
+>                 ib_start_alignment =3D 256;
+> @@ -489,7 +489,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>
+>                         for (j =3D 0; j < adev->vcn.inst[i].num_enc_rings=
+; j++)
+>                                 if (adev->vcn.inst[i].ring_enc[j].sched.r=
+eady &&
+> -                                   !adev->vcn.inst[i].ring_enc[j].no_use=
+r_submission)
+> +                                   adev->gfx.disable_uq)
+>                                         ++num_rings;
+>                 }
+>                 ib_start_alignment =3D 256;
+> @@ -505,7 +505,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>
+>                         for (j =3D 0; j < adev->jpeg.num_jpeg_rings; j++)
+>                                 if (adev->jpeg.inst[i].ring_dec[j].sched.=
+ready &&
+> -                                   !adev->jpeg.inst[i].ring_dec[j].no_us=
+er_submission)
+> +                                   adev->gfx.disable_uq)
+>                                         ++num_rings;
+>                 }
+>                 ib_start_alignment =3D 256;
+> @@ -514,7 +514,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
+ev,
+>         case AMDGPU_HW_IP_VPE:
+>                 type =3D AMD_IP_BLOCK_TYPE_VPE;
+>                 if (adev->vpe.ring.sched.ready &&
+> -                   !adev->vpe.ring.no_user_submission)
+> +                   adev->gfx.disable_uq)
+>                         ++num_rings;
+>                 ib_start_alignment =3D 256;
+>                 ib_size_alignment =3D 4;
+> --
+> 2.34.1
+>
