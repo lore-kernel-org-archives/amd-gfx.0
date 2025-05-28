@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21227C54ED1
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 02:53:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95498C54F30
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 02:53:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE9BF10E1AC;
-	Wed, 28 May 2025 02:53:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A1010E55A;
+	Wed, 28 May 2025 02:53:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="amOwEFiS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S5ZR+NGV";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C011D10E1AC
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 02:53:36 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB0010E559
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 02:53:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aNh9i60XYPPW/1jgnJEszWPAZLo6EoWbcGJ8ovuKIM227nErrsOh90oN2SBI1DOYnHs4dcwp0IV5ODsxpPLfTctLNA1lpDrsUKJ8o+HGwzm7iJzlqSopbyIu/vMikKyvGfuNjeSLljri/ORw9WVVevN+SnsNX7lNCygx6662vA7zhE+oklendA4oPFIR+/vbz3jt7vmEXnGgxGJI3S3aCfTP1H2d1WazR/7rGCPeHQKAsvMiR0woXyVCnGhV/zVndUBPlOsyyF4jHxi57PJNmUg19emMnz0RN2hBivsYlpUuA/yMa6MMghmsLrcVFowiDtWvJeX17Wa/foEU6oL6hw==
+ b=m8cKyGmJt0zPHc8XkdkvD/d+aFXxaAGboNlnI+HztzaU2ZNc5QBpf7B4dgsgazrWS47aUdQx04dQyToMLXz0vt61057XXf7nK5O3kbkVwQXhyza/wJKu4VVwhWoFPyIP3NSbFjIrDUq/CiKDuW9QHJ52L8wLafdQsJhVJnlK84VPsDD/bAIR7YkWsK7KL0EbowIf7xr7DhTBlj41FeQp1Aa+uO4ULrPVw5tm7j+IeA9FO9G8OfBWCnm9GlnZppzka0+tDmrLKD1aW0DhiNeA7Zp4MAWtpEhSJV7fKb7elI8klBmSJV36z8qHMDXp8J6a5JrENeFtaG2L7x/SA4ULow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vt+3+ZVlmp2NvBNkx5IJeZg3JVpg9blR+pQ2zBh7Q6Q=;
- b=q0GN38NbJ7prK0oSHj6I/ASgFLtcTUh3kpgg+cOzMCDBWkbEVqSWM69Cv4Z8pGIoezYTcbNswV9VxuX3oRV4N3fRzgl5GdGbj+z5kpsgoVUr9eq48P5S2Jq2pZ1mvibcLV5zZDrwg3YClthpSXLtW9tKUDiDbkdc1kSXbcaCos1kB6j6UW4Q2wcYvEdwDf/788Q5bUOLh1Hdw1pAtohcy5p7ltZiPRPEclHFLbpUqYnd6Oj1itXge1I9nTGbSVK26rINR8EhlUhH9Bq2+cQbdEV7V4/bKFOYzvjRFZG8hpEXQ+Gs8jQ9EiW6OxvPHv8qIZz1+gnMNS2gEeuNqnbXtA==
+ bh=7PLyzcd00hMdmD0Lea/2KONfGlOrLuwThA3m4PfbBJE=;
+ b=iSZEW+lp/FqN63YrVu5+6TZdSbwHTkXmoQzs/eJwN2k6KCgVU+Fcp0sXr/lN1aPboloYOy0mwpm85JxQ9yeTzgjwAQjob2ZyuUFr717mylgAPQTBm5YNNeIYI4JR7SU9OJcxYDPVxFFULu2cw+duPfE0YX7e6yFq+CSC8ccb8ztfI1bNTJ6qG08j+4w/wLaSFCKAjPbo9TiiokLb6rWVeW2vRZ3hruCVuuxSHJVbBtOHfCXmK614huuLj6SY0iVEr81wO9jhyVDe++bNsQoDw7jMJwEG9XzFIcp6jmpyFn2pyYX3M2w+t4jHPJyoxYDZRBwvJaE4r/5WuuNhIATg+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vt+3+ZVlmp2NvBNkx5IJeZg3JVpg9blR+pQ2zBh7Q6Q=;
- b=amOwEFiSnvl2OQXVHgocCxGaXqHrMWNn9aa8B6ZJyM75/0I8cRbbhSmmSMoWQ0yRqpkqgE/Lu8IR5yL9cxCaaUG+YGrixL7kA6utQYyAQWCUC77uz4I7004DHNmkgTGc5YTUBlPY3qBm3a610G4mOzukd9yYFDxfGjkyJUO1OC8=
-Received: from CH0P223CA0019.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::7)
- by SJ2PR12MB9163.namprd12.prod.outlook.com (2603:10b6:a03:559::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=7PLyzcd00hMdmD0Lea/2KONfGlOrLuwThA3m4PfbBJE=;
+ b=S5ZR+NGVeHY7T6+GAGFoipyfp10JKVv6C+CU104upcT/wisyfNQ4rSoPqtVUO6v0co9/jZPd56hlcqEmk4bpO72Fyjmev5fsJghvYIlgY75upBmb7dgvjKAaKqHWFA9ME+y2EkmFDqH3YbnJLNDncLhF2OhiwmlCO3pWXJiySZs=
+Received: from BN9PR03CA0778.namprd03.prod.outlook.com (2603:10b6:408:13a::33)
+ by MN0PR12MB5857.namprd12.prod.outlook.com (2603:10b6:208:378::10)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.24; Wed, 28 May
- 2025 02:53:32 +0000
-Received: from CH1PEPF0000A346.namprd04.prod.outlook.com
- (2603:10b6:610:116:cafe::1f) by CH0P223CA0019.outlook.office365.com
- (2603:10b6:610:116::7) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 02:53:41 +0000
+Received: from BN1PEPF00005FFC.namprd05.prod.outlook.com
+ (2603:10b6:408:13a:cafe::b1) by BN9PR03CA0778.outlook.office365.com
+ (2603:10b6:408:13a::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Wed,
- 28 May 2025 02:53:31 +0000
+ 28 May 2025 02:53:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH1PEPF0000A346.mail.protection.outlook.com (10.167.244.11) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00005FFC.mail.protection.outlook.com (10.167.243.228) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 02:53:31 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 02:53:41 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
- 2025 21:53:31 -0500
+ 2025 21:53:40 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
- 2025 21:53:30 -0500
+ 2025 21:53:40 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 27 May 2025 21:53:26 -0500
+ Transport; Tue, 27 May 2025 21:53:31 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Samson Tam
- <Samson.Tam@amd.com>, Ilya Bakoulin <ilya.bakoulin@amd.com>
-Subject: [PATCH 14/24] drm/amd/display: Add support for 2nd sharpening range
-Date: Wed, 28 May 2025 10:49:09 +0800
-Message-ID: <20250528025204.79578-15-Wayne.Lin@amd.com>
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 15/24] drm/amd/display: Move vmalloc include to header file
+Date: Wed, 28 May 2025 10:49:10 +0800
+Message-ID: <20250528025204.79578-16-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250528025204.79578-1-Wayne.Lin@amd.com>
 References: <20250528025204.79578-1-Wayne.Lin@amd.com>
@@ -83,52 +82,52 @@ Received-SPF: None (SATLEXMB05.amd.com: Wayne.Lin@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A346:EE_|SJ2PR12MB9163:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5733966-26d2-416c-c6ed-08dd9d92d4c2
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFC:EE_|MN0PR12MB5857:EE_
+X-MS-Office365-Filtering-Correlation-Id: 378c2d22-b17c-422e-c3cb-08dd9d92da6b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0Rs7aCuZjU9B6sYeDSsGOYvSsa1v7m7rM/Hck2U1lY3+SF3intlYD/pBSp8L?=
- =?us-ascii?Q?QXJWsHmkM74mfK33ZE3PW/KceLfqbevu1SNVZ8vcwGVbyuQXdiczxRDYpfZJ?=
- =?us-ascii?Q?+TPA/cOeE+7iflzQb1AL6RGZ6Vbto6mgeS88/P8RClRdyTtjBjLyqQkxMGMJ?=
- =?us-ascii?Q?/vw9N6bT4+jqzMW8uIbY8QIzHNuSWFz4SQxYXtgyoxyiY/q2U0rvRTRKdfyE?=
- =?us-ascii?Q?ZZbiZOsc9eJT787ahglNPF1KWAE50k9/EUyzCjhnviUk/X4h7OAjFGH/qd2K?=
- =?us-ascii?Q?aj9mkOIhFyQJEVtPP3tkXYWWdD3kCwRvILMvEnsAL+ruaiNi88EkKPBDrRgW?=
- =?us-ascii?Q?barVCFTzvLllyjbnUAMdLUCA0OBFGzEZVvV8J+MMPQ1GNhJmJl6KSUnxoHfX?=
- =?us-ascii?Q?G3IbVvbmki8lfDkooY8Km2ZmV1QFdT+uG6G1domKaWUDaNdMzG1pR7avSP2Z?=
- =?us-ascii?Q?bNescDgqL16zXJMxNWxFBEs0dO56YaNruRb31B6bOrot2OeBQxsYKVc7F9zu?=
- =?us-ascii?Q?pLfvdX/Bc5NF2bvh5My9ssbpyr6HNV3QNY8gBUWDaJ/UZmR1IYCvItsMBPCJ?=
- =?us-ascii?Q?yc+ZSTtMQGA/Tye4HRvpxt+faV+nVNXNKm1z70vwu0GRci3wCc9Iwkeysmwf?=
- =?us-ascii?Q?Lfsx0f5Poy2x4cgdnOTGba28YiuFFzAfQM1thmQ/6QNQ5X25t64i7H2k0bC9?=
- =?us-ascii?Q?Gf94Z2xhY1mIG8OYRSVXtx59Vsyq0derWw0xp8mgqoQ3dCb3V9Fbl+Oc65AJ?=
- =?us-ascii?Q?zGyypImmSluIb50F3q6zUIwG/SWBcjqa+KeLcQyn4lpqbbvHzj5f6sHfdqCO?=
- =?us-ascii?Q?W1+FhQNaUtUvLsYqep3KKTdYT/8nEwsiV/UcCG8MRBoAtF2jTG5My6G1H6e/?=
- =?us-ascii?Q?mZlglQ7+ZNGUFh8wZNcOlUbZu2SkN1UDYPO461MDC/ndQKDSlt0CdGomMFRV?=
- =?us-ascii?Q?ZRCGiV1ovf6/C9wN2AjzweqoKYVAQz6zGMuu1aGvR5Si8nDLwGX6GIt5TQJD?=
- =?us-ascii?Q?C4xhZqic2yR820GqclBPLw7yAhbmvxW7gxOQxkYi/ZAu1ig/Vhc1ii8PrDR8?=
- =?us-ascii?Q?fHR7RpabxqjPqFdAd2tpj+NEVkg67UHFsyg2gYO1daX+56nxjKEGUxPnbD1v?=
- =?us-ascii?Q?zzly3/lgz2FMpPGT0UkBe0CzJpTbFDqYVsQbe+D7f3PjB5SCvsPBOl89uvXz?=
- =?us-ascii?Q?s42qedqEN92KDUPTHawzn4L2CN6EV8ITkMw1iVY9JBNw+JL+2jumnTm4Hs8Q?=
- =?us-ascii?Q?u3GItQ00Ch2TP2qxIbpPFcFhy1LTCs9gfEnU9na3GpPGrvOii9LKrRZp6pRX?=
- =?us-ascii?Q?3jvTngT2VUY4aiQQQN84+07TDzJ4/4YxLGD62NKu1S7e4SoZz5wnqLyrNVK8?=
- =?us-ascii?Q?I+AlJME8JUwU+wSybtSwF0mkg7XqlH5w5YXWTvh582GUKzXV6gnhg1ApQKRf?=
- =?us-ascii?Q?xN44TRPHHQ7t/JvkeLFheJNX3OM6q1BhtAhDdIsy+jsnX20882EEKQtUYCLM?=
- =?us-ascii?Q?kEWhNKU0sZEiCPXu1Wz3fVlwolFREphVgGGJ?=
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?1hzdOuXWdhdbD/Z7cz7Ehslw9cwHvVsuK+FkAZCiH0vBtIVZcvmd5d8284pr?=
+ =?us-ascii?Q?TLagfnQG6xTblh8Lmosv99icNRprRmAyCVvHiViNNgak/lCvJaeDwN0gqHAa?=
+ =?us-ascii?Q?as5PJL9TK57rUZnHC2AohUKNPL/J3wIRSQNRCSOZic0smGuTsM9Re3bFAt42?=
+ =?us-ascii?Q?FFn4AZSRr2R2odr7RYmpjxZWVU3e6TykSG41ORt5TLySJagmk7+ZCS0TAICG?=
+ =?us-ascii?Q?jCQKtzm9ZCeaUvjfwhC9Dfh5DxapxOaLGGP3xmMYqUgkdk+/nhlzXfeszjhV?=
+ =?us-ascii?Q?aBZarVzeqpC0qnG9MPHjslWVbjg3C6iUYJ2DDcwFza6rDgKMyo2nhkxvKqPX?=
+ =?us-ascii?Q?90UormjJdWIQDMWDYZK/ZAT7akQrdqifysIgMTSVmlQHn25TIOXw/J9qUE8I?=
+ =?us-ascii?Q?9JQMmRyS8peTWXK+tYP322D0phktcyalY9mvOB8cXzERJCkeFC8KF1Q1z0Fi?=
+ =?us-ascii?Q?qUwio3LNcwirOZx3r1YUzIPVKujQY9sy2fTn7ISPuNz6knIoYrTrfY5+y81R?=
+ =?us-ascii?Q?hxWRso8ge1sUt6ETeKckxOcpyIypLxNJltLn/hRYDTCB1oCxH5l2ejFeDfd0?=
+ =?us-ascii?Q?Px1V+sgW/FaVFAQPjeNxhV9nWx1OMSPZ55mijjEM2SegR3MkZGpgcUlCv376?=
+ =?us-ascii?Q?y4ZG/9m3HidUohWxHl+D3ZjKO1ENpkue2E6+Rk8q3DEhSomZXfMyTtIeLx8l?=
+ =?us-ascii?Q?DlIHaV5RYWVfwl0563a3FrmBfheJ7gzp3Xr4kPGBJzgOfq9VAMhz/LrU3420?=
+ =?us-ascii?Q?S45YkJg9TTAhvcpsJpzi9rbon6KSLifXv3WJWN1QoDLi3SlVDhOGG2JChrHg?=
+ =?us-ascii?Q?cv+iooeg7RChL0hmu9jqsQHg2/7x6hKjV6SEhKTbm179zCepUkUESPxxVHlr?=
+ =?us-ascii?Q?pm2K60ajN9b8SQGi6LsbDw0wu5zktsrYD1DcaJ2gTZMGY7HQJDia5y/cUAZJ?=
+ =?us-ascii?Q?ulH0HS27eOsOJ6UOJ0/mnrOTOZjgqjf9qAtjsNTmKOnAhCHcgYOeypYXMrjL?=
+ =?us-ascii?Q?xM7qg0T7DupcflDs+kve5Z+8p6VIxwuRXwNi8tO1R8fhGbygeydtMW+BY7DT?=
+ =?us-ascii?Q?tDB3rHw3jqwjA9beEOGX/Gl/N8e4+W9MvIYkivcmhGTyg9ZoYULXR1SqCLYf?=
+ =?us-ascii?Q?S9O/bOv1ABE+j4d95lxTknpQkrTxgWRNYvwD7aegP5YWEJKfICIrp9gb1W4L?=
+ =?us-ascii?Q?cD+Uwmryr8r9JFUV65+loD6OTxnqtAgIGvqYIuQQzVw8OClu7bZcSj5Wp2uV?=
+ =?us-ascii?Q?1wpNs7YReZVduMlzGTvKirgPMFAB0doub0X3VDibJP/ZbOnvEKd4GSSAGY33?=
+ =?us-ascii?Q?8c+qdgoieT0d3uUBhUTjJ5aeqA+IIbvhh+sZ5NIP1HS8GznBCd26j5XafVaM?=
+ =?us-ascii?Q?hFcQE47NygTXc+CVwf/W3+0ipiOMkLf8FkQ9FfgHtvk4B80selSctcmb2VoB?=
+ =?us-ascii?Q?VMugG+ROVyrnfbnRfcFe2b1hMwnOIlhOVrnn+wG6tj40Zo8vZIfg4HDIJhB0?=
+ =?us-ascii?Q?9sEUG6tx8DccrF2fC8IHLhl2iAgLB5h/IA+9?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 02:53:31.6238 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5733966-26d2-416c-c6ed-08dd9d92d4c2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 02:53:41.0865 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 378c2d22-b17c-422e-c3cb-08dd9d92da6b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A346.namprd04.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9163
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5857
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,114 +142,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Samson Tam <Samson.Tam@amd.com>
+From: Ray Wu <ray.wu@amd.com>
 
 [Why & How]
-Add support for 2nd sharpening range for cases where we want
-override existing DCN sharpening range
+Move vmalloc.h include code to header file.
 
-Reviewed-by: Ilya Bakoulin <ilya.bakoulin@amd.com>
-Signed-off-by: Samson Tam <Samson.Tam@amd.com>
+Reviewed-by: ChiaHsuan Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Ray Wu <ray.wu@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h           |  6 ++++++
- .../gpu/drm/amd/display/dc/dc_spl_translate.c | 19 +++++++++--------
- .../dc/resource/dcn401/dcn401_resource.c      | 21 +++++++++++++++++++
- 3 files changed, 37 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c        | 2 --
+ drivers/gpu/drm/amd/display/dc/os_types.h                 | 1 +
+ 3 files changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index a63f7fe277fa..6b0471f635f2 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -46,6 +46,8 @@
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
+index 208d3651b6ba..c8e78a8d1539 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
+@@ -2,8 +2,6 @@
+ //
+ // Copyright 2024 Advanced Micro Devices, Inc.
  
- #include "dmub/inc/dmub_cmd.h"
+-#include <linux/vmalloc.h>
+-
+ #include "dml2_internal_types.h"
+ #include "dml_top.h"
+ #include "dml2_core_dcn4_calcs.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
+index 525b7d04bf84..a90aeecd3b50 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
+@@ -24,8 +24,6 @@
+  *
+  */
  
-+#include "sspl/dc_spl_types.h"
-+
- struct abm_save_restore;
+-#include <linux/vmalloc.h>
+-
+ #include "display_mode_core.h"
+ #include "dml2_internal_types.h"
+ #include "dml2_utils.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
+index f2ba76c1e0c0..782316348941 100644
+--- a/drivers/gpu/drm/amd/display/dc/os_types.h
++++ b/drivers/gpu/drm/amd/display/dc/os_types.h
+@@ -31,6 +31,7 @@
+ #include <linux/kgdb.h>
+ #include <linux/delay.h>
+ #include <linux/mm.h>
++#include <linux/vmalloc.h>
  
- /* forward declaration */
-@@ -512,6 +514,8 @@ struct dc_config {
- 	bool set_pipe_unlock_order;
- 	bool enable_dpia_pre_training;
- 	bool unify_link_enc_assignment;
-+	struct spl_sharpness_range dcn_sharpness_range;
-+	struct spl_sharpness_range dcn_override_sharpness_range;
- };
+ #include <asm/byteorder.h>
  
- enum visual_confirm {
-@@ -1420,6 +1424,8 @@ struct dc_plane_state {
- 	int sharpness_level;
- 	enum linear_light_scaling linear_light_scaling;
- 	unsigned int sdr_white_level_nits;
-+	struct spl_sharpness_range sharpness_range;
-+	enum sharpness_range_source sharpness_source;
- };
- 
- struct dc_plane_info {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-index e3a8283b4098..7f57661433eb 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-@@ -156,15 +156,16 @@ void translate_SPL_in_params_from_pipe_ctx(struct pipe_ctx *pipe_ctx, struct spl
- 		spl_in->adaptive_sharpness.enable = true;
- 		spl_in->adaptive_sharpness.sharpness_level = 0;
- 	} else if (sharpness_setting == SHARPNESS_CUSTOM) {
--		spl_in->adaptive_sharpness.sharpness_range.sdr_rgb_min = 0;
--		spl_in->adaptive_sharpness.sharpness_range.sdr_rgb_max = 1750;
--		spl_in->adaptive_sharpness.sharpness_range.sdr_rgb_mid = 750;
--		spl_in->adaptive_sharpness.sharpness_range.sdr_yuv_min = 0;
--		spl_in->adaptive_sharpness.sharpness_range.sdr_yuv_max = 3500;
--		spl_in->adaptive_sharpness.sharpness_range.sdr_yuv_mid = 1500;
--		spl_in->adaptive_sharpness.sharpness_range.hdr_rgb_min = 0;
--		spl_in->adaptive_sharpness.sharpness_range.hdr_rgb_max = 2750;
--		spl_in->adaptive_sharpness.sharpness_range.hdr_rgb_mid = 1500;
-+		/* SAT: read harpness_range from dc_plane_state */
-+		spl_in->adaptive_sharpness.sharpness_range.sdr_rgb_min = plane_state->sharpness_range.sdr_rgb_min;
-+		spl_in->adaptive_sharpness.sharpness_range.sdr_rgb_max = plane_state->sharpness_range.sdr_rgb_max;
-+		spl_in->adaptive_sharpness.sharpness_range.sdr_rgb_mid = plane_state->sharpness_range.sdr_rgb_mid;
-+		spl_in->adaptive_sharpness.sharpness_range.sdr_yuv_min = plane_state->sharpness_range.sdr_yuv_min;
-+		spl_in->adaptive_sharpness.sharpness_range.sdr_yuv_max = plane_state->sharpness_range.sdr_yuv_max;
-+		spl_in->adaptive_sharpness.sharpness_range.sdr_yuv_mid = plane_state->sharpness_range.sdr_yuv_mid;
-+		spl_in->adaptive_sharpness.sharpness_range.hdr_rgb_min = plane_state->sharpness_range.hdr_rgb_min;
-+		spl_in->adaptive_sharpness.sharpness_range.hdr_rgb_max = plane_state->sharpness_range.hdr_rgb_max;
-+		spl_in->adaptive_sharpness.sharpness_range.hdr_rgb_mid = plane_state->sharpness_range.hdr_rgb_mid;
- 
- 		if (force_sharpness_level > 0) {
- 			if (force_sharpness_level > 10)
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-index f420c4dafa03..fbb6db1baaad 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-@@ -1959,6 +1959,27 @@ static bool dcn401_resource_construct(
- 	dc->caps.color.mpc.ocsc = 1;
- 	dc->config.use_spl = true;
- 	dc->config.prefer_easf = true;
-+
-+	dc->config.dcn_sharpness_range.sdr_rgb_min = 0;
-+	dc->config.dcn_sharpness_range.sdr_rgb_max = 1750;
-+	dc->config.dcn_sharpness_range.sdr_rgb_mid = 750;
-+	dc->config.dcn_sharpness_range.sdr_yuv_min = 0;
-+	dc->config.dcn_sharpness_range.sdr_yuv_max = 3500;
-+	dc->config.dcn_sharpness_range.sdr_yuv_mid = 1500;
-+	dc->config.dcn_sharpness_range.hdr_rgb_min = 0;
-+	dc->config.dcn_sharpness_range.hdr_rgb_max = 2750;
-+	dc->config.dcn_sharpness_range.hdr_rgb_mid = 1500;
-+
-+	dc->config.dcn_override_sharpness_range.sdr_rgb_min = 0;
-+	dc->config.dcn_override_sharpness_range.sdr_rgb_max = 3250;
-+	dc->config.dcn_override_sharpness_range.sdr_rgb_mid = 1250;
-+	dc->config.dcn_override_sharpness_range.sdr_yuv_min = 0;
-+	dc->config.dcn_override_sharpness_range.sdr_yuv_max = 3500;
-+	dc->config.dcn_override_sharpness_range.sdr_yuv_mid = 1500;
-+	dc->config.dcn_override_sharpness_range.hdr_rgb_min = 0;
-+	dc->config.dcn_override_sharpness_range.hdr_rgb_max = 2750;
-+	dc->config.dcn_override_sharpness_range.hdr_rgb_mid = 1500;
-+
- 	dc->config.dc_mode_clk_limit_support = true;
- 	dc->config.enable_windowed_mpo_odm = true;
- 	dc->config.set_pipe_unlock_order = true; /* Need to ensure DET gets freed before allocating */
 -- 
 2.43.0
 
