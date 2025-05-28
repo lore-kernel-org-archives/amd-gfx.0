@@ -4,159 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23034C5AD49
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 13:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 343D5C3ABB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 13:04:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABFE310E5EF;
-	Wed, 28 May 2025 13:00:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB0F410E273;
+	Wed, 28 May 2025 13:04:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UHCmTS18";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="lhzajvsV";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C01A610E5FD;
- Wed, 28 May 2025 13:00:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ddT50yHe0JbiUofEhgDOjLvqZp/x0glXRYDW0b3ybdRZUqKbQaMGwRsiWjI/9I6tcndeqOsvGSKNEGMuCXqIP3/x3j3hdXfZJlvpzpCrE3CPp/KCfa5WSWnVAMOUfiQwH3OjEeO1Y5kSo5J++WqLtKoBVbZIDaimlr9MCQM9FvTUo04Ho+HwPuVytldkAeRqHCMjyd7B6oFb9nm/YG1ZAw2PYv3Q2hxK0TeinB3tcN6Q8mQ1xORygLyUsBvcK4wtfIOJyuS4NWZoI0fun1PFLn2ADrExNqC1oPqXCrA+D0E6m8wNIZdKFXmiTh+6lcNWaPKWgMOUdOAz+bIpqJJy4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zmVTMjSWzbWW10cjx5oMXdONT3He2te7urW6yMP+sHQ=;
- b=A52bbgtfpPaGLH3V4gWNi7DL0m2U8T8xf9xaKpmq85rbY9XOTi7wdBc/9DKTkrQDpNSogy+FvHzXV46dLWt8lbnsHgHowRl5JZKovAQ+n7AFrGiEEY8N07n+SBU3noIWqoSVWGlEgFhX9HlRtj7Y4np6mwEECsMmM2TkiVxBrUB9dLSrFaCHe5TaAsI4ty9YH9kU0qMHDQg+N9RhBsvFuDxPZSnC1uNSI8xaJN1hYFFUQTbs/hoCPf3kU+z4Y9HJ7WdWRYM2l2Dizhxhh69iLT9VHGY9k0cEOsJDqQOHBTksmDT37/MldkueY3V1SB1HZpLRwIm8StWPmK92C4qZZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zmVTMjSWzbWW10cjx5oMXdONT3He2te7urW6yMP+sHQ=;
- b=UHCmTS18zddWNVIzHRMCSawH58AX21ahaks+mcui+qAVMfZN4pR+G/snhOpmPVsFscMHI82vU2Aru2XSDwRPWv6iCDjpKucsWot5OHDaR8OoTXRHW+v1Cl9jgTj6giHKkZ+bJ2Gn6X3PrjrcTVnG0aW6wh1PZsEv/iCJyoEI4OU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH2PR12MB9518.namprd12.prod.outlook.com (2603:10b6:610:27e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.29; Wed, 28 May
- 2025 12:59:57 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Wed, 28 May 2025
- 12:59:56 +0000
-Message-ID: <53a43a61-00c1-4bab-a7a3-f0d5da4b0631@amd.com>
-Date: Wed, 28 May 2025 14:59:50 +0200
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D8E510E5D6;
+ Wed, 28 May 2025 09:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1748424548; x=1749029348; i=natalie.vock@gmx.de;
+ bh=wJj6cCWN4z+xlGO0PzShWjcwP9PbCdV1eX0zeAaaS4k=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=lhzajvsV/2bjM0tBLsKMSdK2FvSs8OxPah3gZeOiQe0KQOyxC9aqZ1K9bwO+zZIw
+ 4K8NDGUJCuBpAgNA7p/N02+5QGUxX1UOKn5yPZExFQrGnpCKBixu08gl9GgufpZNp
+ SzQkzbeKtl/pnjrsL2bvFdYkISPuOFqhXyqQpQKambNRHCe6/DIRR11hhp5NkcAIE
+ 1j7rvXkxqf+UoYeGd8R9ko6bWto5OoXrU5qB2Y6DrbduX5afmr9nKz62wmhxfc930
+ dEggb23ea3VU4da+rjbdXFlZ5gkgGRG062EcyXs+aTcTKqWgdrn1q6675TN1bj4LU
+ gruG7mfIW+da7v+nSw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.0.3] ([109.91.201.165]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MS3mz-1uUuBE43Ux-00SyIf; Wed, 28
+ May 2025 11:29:08 +0200
+Message-ID: <dbbdcada-32ae-4457-af87-1f98362461f1@gmx.de>
+Date: Wed, 28 May 2025 11:29:06 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] drm/amdgpu: Dirty cleared blocks on allocation
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
  <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
  stable@vger.kernel.org
 References: <20250527194353.8023-1-natalie.vock@gmx.de>
  <20250527194353.8023-3-natalie.vock@gmx.de>
  <89652580-5763-4f1e-abf5-d340119543f3@amd.com>
- <dbbdcada-32ae-4457-af87-1f98362461f1@gmx.de>
- <da44526e-f2b6-4486-8ede-24647869576f@amd.com>
- <6cd32fcf-233d-454b-be3d-aabb870b8b4a@mailbox.org>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <6cd32fcf-233d-454b-be3d-aabb870b8b4a@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR06CA0001.namprd06.prod.outlook.com
- (2603:10b6:208:23d::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB9518:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23a492e2-1d04-47f8-497a-08dd9de78b8d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RC82V0ZmcTRJK3h6Q3dWTG14ZG4xUWpsVkFTWlQwdGs5dU51d1R4a2FLaWRs?=
- =?utf-8?B?K29UL2QwclVpdTFZckRJenlpbVlqZ00wN3Bhb0FtdEE2SWFKWndFQ1dyalN1?=
- =?utf-8?B?ZEUySG5vU1p6YXBRWi9EOU9lSE85ekVlSCtCYUJ1b0RpK1hZYkJzVTBWYlpI?=
- =?utf-8?B?Z3hWdXJQellWUDU2UlpZb0hwZEpLN0d2L1JrTG9jSWk3am1CTEZsWE5nVjh2?=
- =?utf-8?B?c3QrZDNwR1I1dS9wWnA3TmU3aEZrMmJxS29RMzZYamh6NXZITkFvUWxSY2xV?=
- =?utf-8?B?QlhCZjFRN3lxSjFRSEZ0MVpwcEV3eURTQlpkQ3N3YnFKN25CRUpkV3JIVnZQ?=
- =?utf-8?B?WW1JM3F4MGhQd01ZLzhUWWlRaTJKemtJYkw0WFQ4RElwQ0piUlFjL2kyT0xE?=
- =?utf-8?B?QlJGUC9nbkdOZmlRd09TU1RibkZ4NXdNVE1LbVBNenphelhkNGtkaWpObExv?=
- =?utf-8?B?aDZBVWVWdlhQZm1mMHB4TmNlSDR6RHl4aEdtYTJtSzhhTTVLZERpY2JxaWh5?=
- =?utf-8?B?V29PQ3hsYnMxbGtGZGNDK3BPNHRGYlBpRGhSRmNhUnA2aEtsaWozU0h0T0dE?=
- =?utf-8?B?a2h5SGFKUnU1VDVlMzR1Rm9EbWNqK04wV2xrZUdxell2ZFoya05KVDViQlhr?=
- =?utf-8?B?UXEzZkVnSHp3TEF5bXpMRXdIRVBqR01FeGhaYkdpa2cxTjdLNFUvM1V5cm5H?=
- =?utf-8?B?Nm9vSUZwV05CdFAzekhJbDZVYm1KMzZrVyt5bjNjM2pibFFBRXVGblZoVkUr?=
- =?utf-8?B?TWJPUFpFUmkzRTUvL3dmWUdUanlCOVp2QnVsWDM1ZStiZzNJM244TDRLZTFi?=
- =?utf-8?B?MXNIaFIvenl0c3RNb25SdGs2OFkvU1RXMXcvNmRnZGF6a1N1dkJqYW5NVEM0?=
- =?utf-8?B?NXJ5QW9hRTJWLzk3b2dKcFVicTFwRENmbVd2SXNIVUFVSG5FMC9qM0JaZml5?=
- =?utf-8?B?ZDY1NVRhdWhxMnoySWt2N2t3WjJBZDNaazNzbEJXNG1HWG1QMEE2YVI1em1I?=
- =?utf-8?B?bklYSk91bDZnTEJDeVpjVHR4SzFGSnY5Z1ZFTUc1dXlXcCtsUTFSdWZmUnJU?=
- =?utf-8?B?RVRkazVWaFRHQVJoT3h2Q1YvODBnQUtPTlRGbDdkMTZnSEFDcEx5YzI1ZHA1?=
- =?utf-8?B?SS9xbEptOWx2aW1ZaGZvcnc4UENXOUhMeUROSWdIdGlJSm9HZ1BKbmE0cXMv?=
- =?utf-8?B?bXZOaFBxNnFQRnZ4eHg4RSsxNHpLUHNUZ2dFSW96OFgrSTcwL0l6MFlYdUJH?=
- =?utf-8?B?Z3NWTW01Z2dnZzd4NWk0ZFhyajMrZmlTSHp5clZ0VnYwb2VZMFc2NEpyNVVI?=
- =?utf-8?B?THEzdzVWcGdBQVYwcXYxbTZMUE1Pckk0RW1qYmJwWnFoVmlGNElJaUVSUThx?=
- =?utf-8?B?aXdqbzJ2Y09EN2dLa0d0MUpTNXNyUUlpMnMzYkF4ZTBWMjBiUG4xd1NnN2RO?=
- =?utf-8?B?ajQ4MnZucGhuRkY4WW1TeHY5clNOR29xM2o5N3RCQSswMVFOYnpFcmoyeUhJ?=
- =?utf-8?B?di9yRkZnT1NtY1JGMjcvVGhUSVRuR2tBRHBUbHJ2dzFkMExyajROZjFCU3A3?=
- =?utf-8?B?dHdJRlNRWW82MWwrYkx3MFRwTDQ0YkZMTXNhWGRFejFKeGdHV2M4aE9IclV2?=
- =?utf-8?B?Sisyb2kxWEtCTUNqd09tNm04SmxralB5ZXl6NmVpVEN2dzUyKzVWTEZWc3lX?=
- =?utf-8?B?dDFVL3I1NjVrTWVFOWNzdWY1Tlg2dEYxZVZoQkx0WFRXT3NUSUg1VUR0R0pX?=
- =?utf-8?B?eEl2TUJJc1pkU0ZDSGFYbjlaMjE0dlJPZXBNYk9WNGVvczRWWWtXc2RJU1RZ?=
- =?utf-8?B?aUI5SzJlcVZ1eldLUUY1TGR6VnU3eUxMaFRjWGh0aWRxNUM2ZTQwU05OVnkv?=
- =?utf-8?Q?IlgTdWRs3MwOj?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rjlwcks0cXhtOEU1S1l3d3pENWJqNWxnRDJaV2p6dm5OcGJnTGZiM2IwdEJQ?=
- =?utf-8?B?ZlpERWc0M1Zldk11QnpTb3p5aUNCNU90VE1FeDZqWEZoa2NSa2NXM0dFYUxP?=
- =?utf-8?B?anBPcDBhbis3YnJGN3o0dmpyRWxQOE85T0NiM2pvZWJYaXQ3QjBsVm5wbzND?=
- =?utf-8?B?UCt2aVQ4YlhnaDUvaFRuUFRiWUlyMVRaMmE3bUNkbnBmU00wVFJJMC9mY1hY?=
- =?utf-8?B?bXFXdmI1QWEvTDZ0WkRPcGdLSzRUaSt3eDFZeE9GNjJiZlpUQVJJYlZKUHpp?=
- =?utf-8?B?Uzl6L3dVK3F0ZVQ1NXdmL1pUcnl6cFB3Y3ZHMWs2aUhUMlg2cW9lSnhRWWQ0?=
- =?utf-8?B?SzgyOGRpQVRRT2lvT0dweTFCMkQrVGJVWTdzdittK0RjNU5CZ21EZXdMQnlD?=
- =?utf-8?B?eDBJVmRjTU1kdlZQRlIyRE5yT21hUHpjL0ZMVFB3QnVHYWdkR1RoakYxa1Ar?=
- =?utf-8?B?b0hxTDBMZCtYa2MxWDFoMWYyTkh1MEVmcjQ3MXl3YmVQRnhORjRzMUsvS0J2?=
- =?utf-8?B?QThDODJ5OFZMWFpwdW9wMGN5dHk3di90Y0hhQmRHVnNwQkFJb3Q5aktNMHR2?=
- =?utf-8?B?SSsyOXMwRmFhYnZRaGYzNEhRQy95QzZXcTFTcFh4SkVFSDNlNGxVQjZ1TEtu?=
- =?utf-8?B?ZUVaOUZFQXBtanhXY0Z1R1dMc05mTDlrVk9CWUROOXp1QnB0ZklFbmpYNW1M?=
- =?utf-8?B?VjBLUW5scUk3UTNUeU9zVENUUitmOWU3bW9qenliTWJucmlEN1ZxcGtwRHRa?=
- =?utf-8?B?RzZLa0xZam5iLzJ0Uis5RzNrMHhpM1pXOU1xT2dHeFBRZzBZeXVlalFPN0pu?=
- =?utf-8?B?REp3empTYkNXMzdPN3ZQRExHaFJzWUF4Tm5UNlBqSjMvOTJFTWE1WGdMZDUy?=
- =?utf-8?B?c1pPSjZGc0VtMmhMdnBoRHBBTmM3WWU4YWU0Nm82L28vbXBBdzJyMFU0OFZK?=
- =?utf-8?B?VFI3enVBdG9UbTRhckpzbVFEdDgrVHp5Mk1kZm1zeTE2bWc1VnB3MFlCcVl6?=
- =?utf-8?B?TkhGcGUxbHNYSkx5T0ZOdDZMR0J1QTZtY0ZYWUxqTmc4VDZLUnBZbHVjZDYv?=
- =?utf-8?B?U3JWWUluQzgzYU1kZWVteW9sRWtINEU5RFVWY3FqeEtKSzFCemxCNXVnLzJz?=
- =?utf-8?B?RmpLNEluVGIvSEdUMisyWXJ6L2tmRUFtNHBiK0lTWHhEc3RyWWg2azlCWU1R?=
- =?utf-8?B?MWRSV1RPRFhyV09NR0RrelpnUlpVMUVseUJQeUM1SlI4TWsrUnVUMTNWNXNo?=
- =?utf-8?B?bnU5c1kxVytYckswYi9BYjM0aTRjaEtiYmxOdGF0QWtmcjZnOU9ZN1B2UStZ?=
- =?utf-8?B?OHk5bUdXQ3YzTDBqNnY5bGFUNXdBc25kR2tBLzZndzR1UDhWZ2F5T2QyeTQ1?=
- =?utf-8?B?ZkZvWFJXNEw3MU8vVFNZdEhzMWE4Z2Z4NkRhVm5ETjRZSmxCSmxpbkFrS1Ba?=
- =?utf-8?B?ZEdQajFnZXhQQzE4c1EvSVNCdDZ2TCtmS0ZpaVB6TEhCeGR2U1NESHA1aklO?=
- =?utf-8?B?b0Vpb0kyejBXaWE4WnQ1WHFBZ0s0RGFJc0RXN1Z4VkF2My9NT3B2RTJWdzBC?=
- =?utf-8?B?YThzdktpZlZZWlBCUFNSaGFXQW5ZS0ZnZ2xzZm9OQjlRSEJTTSt4bnhVdFJm?=
- =?utf-8?B?RjdJbzFoMDdGWEZLUjNad3Raa2lZL2pJS2lBL0VYYkJSN2N5MUFYeTlyMDBN?=
- =?utf-8?B?eU1FU0ZHQnF0aVJFdkJ6YURRUFVQSmpDZVJJU2VUSFV4MTlIaHdmb3pwZWta?=
- =?utf-8?B?S3k5eTc5Y2RGL3FwUnVPT0txWVQ3cWJmZTlWMlJZR2J1SEx4elRXMzFnN0Jj?=
- =?utf-8?B?S2hhZGdrL24xRld6NGIzT3hsN0xOMHNHRVlHNTF6dkdjUC9ER2pOMDZRRmtr?=
- =?utf-8?B?dGlncHdDNE92Sm1FN2MwSUNpcUg5SlJhY2c1VW9iaUIvR3NEK01TL00yc0Iz?=
- =?utf-8?B?TkYvLzl6Rm1aOU5PdDZlRDdZRlhrRmJWc1NHa2Y1OXFHNkJ4NEcxY1dWaXZP?=
- =?utf-8?B?ZDF0NWlHeXVadEFOVTBIdGdDaWZXOURJaVFXRUhsbjRVRmRtVjBRaW5rSjcy?=
- =?utf-8?B?c0hjSTNDUFkwWVdTMVB2Qjk1UlBsUTViQWJKaktUMGErSVc5ZnNXb2lxcGln?=
- =?utf-8?Q?ahb5jQgPrSm6dwaHwLewit8R8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23a492e2-1d04-47f8-497a-08dd9de78b8d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 12:59:56.3463 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2i3zZQ1PJ1xEIkvnXj0u8v5/OHX+b7fcgZpWAoTCCbPTeOrJ+MJm+GOqyP7Z7fkO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9518
+From: Natalie Vock <natalie.vock@gmx.de>
+In-Reply-To: <89652580-5763-4f1e-abf5-d340119543f3@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:2axK+lnGA1Fc2hNrp9g4dehd+SiCYBgai4Yw/yjkZ2uUpsKq5zb
+ Cpw3Zxx6FVLeRDMZWmf3ZKx31ePnxVYzCm+7VTgxmmSu+lIfz2YpjbcRdtZmBcvy+4vouyl
+ uhc/R3Brm10J6Sk618GICLheuLid8drjXMfgo98QRhN1H3MOvt90C+kADYs5t9MoiyDc2K7
+ N9lFBO30+zRmmnNASJPYA==
+UI-OutboundReport: notjunk:1;M01:P0:zugt5dwSbBI=;zTbmlpoMe2/WOz0ZouyeNwzChxg
+ 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
+ +C+0trX7n9Mka8HOmVwkpfQnYP7PNHCD3SnWXQ==
+X-Mailman-Approved-At: Wed, 28 May 2025 13:04:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,26 +120,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/28/25 14:39, Michel Dänzer wrote:
-> On 2025-05-28 14:14, Paneer Selvam, Arunpravin wrote:
->> On 5/28/2025 2:59 PM, Natalie Vock wrote:
->>> On 5/28/25 09:07, Christian König wrote:
->>>>
->>>> But the problem rather seems to be that we sometimes don't clear the buffers on release for some reason, but still set it as cleared.
->>>
->>> Yes precisely - "some reason" being the aforementioned clear flags. We do always call amdgpu_clear_buffer on release, but that function will perform the same checks as the clear on allocation does - that means, if a block is marked clear then it will skip emitting any actual clears.
->>
->> On buffer release [https://elixir.bootlin.com/linux/v6.15/source/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c#L1318], we call amdgpu_fill_buffer() and not amdgpu_clear_buffer() (in amdgpu_bo_release_notify() function), so the buffers are expected to be cleared without fail.
->>
->> When the user space doesn't set the AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE flag and having only AMDGPU_GEM_CREATE_VRAM_CLEARED, we don't call this amdgpu_fill_buffer() and amdgpu_vram_mgr_set_cleared(), and that's kind of makes sense.
->> I think the problem here is, when we don't clear the buffer during BO release, but the flag remains as cleared and that's why these blocks are skipped during clear on allocation (in amdgpu_bo_create() function).
->>
->> Therefore, if the release path clear is skipped for any reasons (for example, in case of AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE not set), we should set all buffer to dirty. Somehow, that is missed.
-> BTW, I asked this before, but didn't get an answer:
-> 
-> Now that VRAM is always cleared before handing it out to user space, does AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE really need to do anything anymore? How can user space access the contents of a destroyed BO?
+Hi,
 
-The flag is now used to communicate to the backend that we want to wipe on release. E.g. we still don't do that for kernel allocations or during suspend.
+On 5/28/25 09:07, Christian K=C3=B6nig wrote:
+> On 5/27/25 21:43, Natalie Vock wrote:
+>> If we hand out cleared blocks to users, they are expected to write
+>> at least some non-zero values somewhere. If we keep the CLEAR bit set o=
+n
+>> the block, amdgpu_fill_buffer will assume there is nothing to do and
+>> incorrectly skip clearing the block. Ultimately, the (still dirty) bloc=
+k
+>> will be reused as if it were cleared, without any wiping of the memory
+>> contents.
+>>
+>> Most severely, this means that any buffer allocated with
+>> AMDGPU_GEM_CREATE_VRAM_CLEARED | AMDGPU_GEM_CREATE_WIPE_ON_RELEASE
+>> (which is the case for **all userspace buffers**) are neither
+>> guaranteed to contain cleared VRAM, nor are they being wiped on
+>> release, potentially leaking application memory to arbitrary other
+>> applications.
+>>
+>> Fixes: a68c7eaa7a8ff ("drm/amdgpu: Enable clear page functionality")
+>> Cc: stable@vger.kernel.org
+>>
+>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3812
+>>
+>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> index 2d7f82e98df9..cecc67d0f0b8 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> @@ -591,6 +591,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource=
+_manager *man,
+>>   	list_for_each_entry(block, &vres->blocks, link) {
+>>   		unsigned long start;
+>>  =20
+>> +		/*
+>> +		 * Allocated blocks may be dirtied as soon as we return.
+>> +		 * Mark all blocks as dirty here, otherwise we might
+>> +		 * incorrectly assume the memory is still zeroed.
+>> +		 */
+>> +		drm_buddy_block_set_dirty(block);
+>=20
+> Exactly that makes no sense.
+>=20
+> We need the information if it's dirty or not later while clearing the bl=
+ocks. Otherwise we will clear all blocks and completely loose the advantag=
+e of the clear tracking.
 
-Regards,
-Christian. 
+Right, I missed that separate clear on allocation. I was put a bit=20
+off-track by assuming DRM_BUDDY_ALLOCATE_CLEARED would guarantee cleared=
+=20
+pages, when in reality it's more like a preference.
+
+>=20
+> So we should set them dirty as soon as we are done with the clearing.
+>=20
+> But the problem rather seems to be that we sometimes don't clear the buf=
+fers on release for some reason, but still set it as cleared.
+
+Yes precisely - "some reason" being the aforementioned clear flags. We=20
+do always call amdgpu_clear_buffer on release, but that function will=20
+perform the same checks as the clear on allocation does - that means, if=
+=20
+a block is marked clear then it will skip emitting any actual clears.
+
+If we don't mark the blocks as dirty after allocating, then the=20
+amdgpu_clear_buffer call on release will skip actually performing the=20
+clear like it did during allocation - this is obviously really broken.
+
+After calling amdgpu_clear_buffer, we call amdgpu_vram_mgr_set_cleared=20
+which causes the drm_buddy blocks to be marked as "cleared" when freed.=20
+This part is correct in itself, but obviously breaks if=20
+amdgpu_clear_buffer didn't actually clear the buffer. That's how the=20
+dirty blocks end up in the buddy allocator as cleared ones.
+
+I'm testing a v2 that sets the dirty flags after the initial clear, I'll=
+=20
+send it once I confirmed it works.
+
+Thanks,
+Natalie
+
+>=20
+> Regards,
+> Christian.
+>=20
+>=20
+>> +
+>>   		start =3D amdgpu_vram_mgr_block_start(block) +
+>>   			amdgpu_vram_mgr_block_size(block);
+>>   		start >>=3D PAGE_SHIFT;
+>=20
+
