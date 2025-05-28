@@ -4,76 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FFC4C54ED1
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 02:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 465CCC54ED1
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 May 2025 02:53:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20DAD10E139;
-	Wed, 28 May 2025 02:52:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D06E210E182;
+	Wed, 28 May 2025 02:52:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QKKYOPgn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ENjKWnAV";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2069.outbound.protection.outlook.com [40.107.237.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6E0210E139
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 02:52:51 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2063.outbound.protection.outlook.com [40.107.100.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10E7E10E182
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 May 2025 02:52:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cpk8qtyt9cdr5heno5ETI2PTMKBrGU48BhuJdbGdjwW8KexGjAR9aBCRaGjt3ujEP7nARhQgTOvkkUm5iVeKysw1ACFJjPLTrezc9Rk6OFLaWdoO9aoWQvJE1J+hHlaSNxgp7p0GPTMPAh4xL2YQFXhfYtdJTgruChlDqH17k9o2vGL1SCkDoqZ3oOWWn45kaj81X3oclC1t5ogRHsXzDrrQVQLF5GAhxXF9Ap7istQ802kM0sxJPKkqppG5BqpT6+KqmIu98j5eNsJJJXoyXkgxIA1ifvggA8p+utRymKsF9aqiESMRJTGk1QGyPqUxIW1F40W6zgNGzy8a9Nq6mw==
+ b=M+og+8NDdIMse5OQDOreIuxfMm73TtEsBJkK34ba4niieblxT8LmVrLy6VggnS/I+7JXd8AQQJoylw+kJFpjCamm20S7ZWQ+CDJvX+cR+5E5XLv6WP6DNZk0BKQsZYoH22lqYmR9Oxg2nnencrS6eBsB0kb7rMZlManuFQQG8ePMeKzslvnFaJyz90TPMYbKYHmxtpLfrhlDQj03ppMCGy2tVRDFUdfHnJkXV5uw2tmzEvT68dRWXuJcGWtjKB3b6y+Bb8LVeBxdJKee69yF0hpzbsRHwxwTm8rRhS/XIe9K5IZwwcowrVOkVXUH+Ku7pEdv529+hjrCR6fW1/zU7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+N1aJzwHnHsgtvgRd88fegQu8oorCcWLWgCEm5D/HaM=;
- b=RzaMot2GfBRU84Um3wz8YeM8T/ajWE0WsY6Hy6bE4tH12jhnpwQneVHC//mbhbx3Y4293cV4G2+yH2JYkFr0mPFrLBRTovnqamfBKZzvB6c6ijb7O1yfUTvC0z3DBnEYSmp/COGgXXfGdcI9j9+WCjrGoWViURPYsdxSuo+ViDGVrDSS+P1dKRaOCXjFXfl9foCDZvY9smplviLvHSsrQFSvwez9nYxBvDiJiiP/dwMM71RGCGmt/zwDvjhciOfAkpPon21igYQwO/GGLu/J7WnyB0f+nVLK7/8JVLDPgUQ8yAd5baG4zCP6/k0FwR4VUyNK0SFmpKN1t0fa0g0UUw==
+ bh=ZEq269Qy7Id5i0/m6FEc2GM+c3Bv1Cc1KSK8HaK4FfI=;
+ b=NolJ9zZrCUp+G+VKsSBrs5Kip8m4uXQZ/Nwg5LbH/LREZC5IACVStzimlKt0Unl35eIUERisbwV6EveFyCmQax8u/lCo8C7MpI0KpKFWx7gmV05TXlYP2kxu73EnBzCJNGeLmoaIdpU3X5JWkvnDHVzoaTNmCxNFcL6s1xlSl/fU2D65Z/ZKq8t3nGGZnWI00u3IBEkFxmHhspgLJj7F0LD6mxvZRjuo4ni+E/IQyyBNiiAT2zplk2h4C5a8zrSmcA8Dve6A+/is/b4GrIFOKbhgGE8t6wPLnhuny/pUX0RBoOX22mnXlXrAfwkZr1OVVqLk3oMmNl5G0E8cym3tNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+N1aJzwHnHsgtvgRd88fegQu8oorCcWLWgCEm5D/HaM=;
- b=QKKYOPgn9SpgCYp8NCk/GVgvtAo/9YfjRlCfGUrJtRFLYvX1iguAMmE89fcLo48mgR5fahuVWnmWqaKWcimEaNiw4h1LdUAtImweOUFwP2AEEhvU7WsIh2uv16FT3FSBfgHs30GdfjksPTbvRRrnyKJmdSOXS6800novdY4ysyA=
-Received: from BN9P220CA0007.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::12)
- by MN2PR12MB4254.namprd12.prod.outlook.com (2603:10b6:208:1d0::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.27; Wed, 28 May
- 2025 02:52:46 +0000
-Received: from BN1PEPF00006001.namprd05.prod.outlook.com
- (2603:10b6:408:13e:cafe::d8) by BN9P220CA0007.outlook.office365.com
- (2603:10b6:408:13e::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Wed,
- 28 May 2025 02:52:46 +0000
+ bh=ZEq269Qy7Id5i0/m6FEc2GM+c3Bv1Cc1KSK8HaK4FfI=;
+ b=ENjKWnAV3asovEje05NNbbuO1lklpZ7khQAlzcKAwFlBQxqJSJBRng8YX1IoqgENeh8XEqP+wAsgoQ8UUyrzaKHE92XHrHmejFhFFE9y3XCK4NOwnhLDISK3e+AQfrELg9NHJrj2YjE+57mA0sh4CleNIAg1z9nRNv/1ETkLAOo=
+Received: from CH0PR04CA0033.namprd04.prod.outlook.com (2603:10b6:610:77::8)
+ by SA1PR12MB8094.namprd12.prod.outlook.com (2603:10b6:806:336::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Wed, 28 May
+ 2025 02:52:53 +0000
+Received: from CH1PEPF0000A345.namprd04.prod.outlook.com
+ (2603:10b6:610:77:cafe::e1) by CH0PR04CA0033.outlook.office365.com
+ (2603:10b6:610:77::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.21 via Frontend Transport; Wed,
+ 28 May 2025 02:52:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF00006001.mail.protection.outlook.com (10.167.243.233) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000A345.mail.protection.outlook.com (10.167.244.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 02:52:46 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 02:52:52 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
- 2025 21:52:46 -0500
+ 2025 21:52:51 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
- 2025 21:52:46 -0500
+ 2025 21:52:50 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 27 May 2025 21:52:41 -0500
+ Transport; Tue, 27 May 2025 21:52:46 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Oleh Kuzhylnyi
- <okuzhyln@amd.com>, Alvin Lee <alvin.lee2@amd.com>
-Subject: [PATCH 06/24] drm/amd/display: Indirect buffer transport for FAMS2
- commands
-Date: Wed, 28 May 2025 10:49:01 +0800
-Message-ID: <20250528025204.79578-7-Wayne.Lin@amd.com>
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: [PATCH 07/24] drm/amd/display: Drop unnecessary `amdgpu` prefix
+Date: Wed, 28 May 2025 10:49:02 +0800
+Message-ID: <20250528025204.79578-8-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250528025204.79578-1-Wayne.Lin@amd.com>
 References: <20250528025204.79578-1-Wayne.Lin@amd.com>
@@ -82,52 +81,52 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006001:EE_|MN2PR12MB4254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89908a36-64c9-47cd-84d5-08dd9d92ba10
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A345:EE_|SA1PR12MB8094:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41eda608-af3f-4f43-acba-08dd9d92bd74
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Kz8jWeeis2h1U9a7Hw9vvCQAQjFz2gN9H7/A1hKUv30b/sC73jFI7y3zfP5s?=
- =?us-ascii?Q?TM/deZwmar8kqtwjH7Zajd2som65lnwYpPqXhrj+VvSkkcyKBK+YWti/z0ni?=
- =?us-ascii?Q?Inn5tlHdCTcQvchEP5AihibE1hr8FUhlDtc8UfK6gSwcur1sR80BNfIfk6zL?=
- =?us-ascii?Q?1TrfbjU0V+wYWlavTUjP4mQH/E5r/eHGgZz0H8pImmetd920f96lB9QKsYyT?=
- =?us-ascii?Q?X5WYnQZnY0IjpPcexQ2cVWrOFZIh42agmTBsz4zorykj//xY+I9WDWO8P4C4?=
- =?us-ascii?Q?rD5EgPBCafBS9RdHyV8rb64toS27hT+rWs+ZnAHOwos8x5qPqfXT3oBFSgpn?=
- =?us-ascii?Q?VYGyqvX2bnC6MZhdVz406lIe8WpA0uHGcnG0qlv27qXRVojKVE0wMKDUpHCN?=
- =?us-ascii?Q?RTddBxDghnBTXpwePKMPeTVPvgBoEO44aCV7WLefhDlFhIsucYkhumfqkG8N?=
- =?us-ascii?Q?GIaYmSIM1XH6EU16S7HUSa0/OwSF+hsvY7NkrQJvvAKbvIaZoXcXaHzMMjAi?=
- =?us-ascii?Q?bFNLXOkV/wJzBNCrVHVMED0t2TA+iYiunzWybPFZlVHCJWQJzxQYlmZqm+ZA?=
- =?us-ascii?Q?/eOf+EfSEUu9vzkvZ8tMrC3iQTc2LEAosusfSMWWorPozIPY7B4inluTtyc7?=
- =?us-ascii?Q?er1LYpkvz6BBuw+G4O7zQtiPKEIrIkqlPzGNQ7GD6758fhUZNSxKFcyQB3xo?=
- =?us-ascii?Q?9G6enDSXotFcuxHHCTz2rGKo7ExH8zJTqiVVykc1vpADsyO+Qyq5b4v5mdQx?=
- =?us-ascii?Q?hd9Cn20gEqaLamkBtGNFd9CsPv6CfX9cBVSPlgHfgQ57FKry0oncy9XWrs29?=
- =?us-ascii?Q?EygKbHxi+e2Xh/jt3bHGbn/+vkvG4D4aa7yWeWuuaQAiYXizuGFWPcMoTPK4?=
- =?us-ascii?Q?ijePRFYMMfFORmXT56CgITxO1dDWfo0rYEr+ksXlZhZ0MHsZYu0fpCjUeStf?=
- =?us-ascii?Q?tL0CSd76iDGGeyn8js8n1jCb+C/7HQyFe+ol1E//HhwqzUuCDLnQJyYk7KIf?=
- =?us-ascii?Q?Vqs+xJSykt4+eJeG6pFvnZuwGLVR9vHojubhBAGNlkY4AEl/Ma+Dd2x4f+KQ?=
- =?us-ascii?Q?3XLmQVnSu29IFSzFML75e88J/Cpb39vdOzVL5Zf2KFMBKGSWVHSsMjcE89mH?=
- =?us-ascii?Q?pNropA3+VmeOpRgmJVtj0tiCDCpbvojxHYcSllr+lwTcXbPit6mBVp1thazH?=
- =?us-ascii?Q?EtNRgNwkwfPQoX5WWbclRhVz1hRSpk/v2yYtGDVHgGQYqQSE4lHrBOkckP9k?=
- =?us-ascii?Q?7QZwz7Txc4cm5DfqBI2heuJ8BlqB8rvoQ1iKEE/y3/gxMFw7EX1H5kq/JLZC?=
- =?us-ascii?Q?/Y6nsOhiKDYUfBwDxzkB2HdzjwmkosDwbfo0W4bjKc2b5dGnP01w7bp2HVbl?=
- =?us-ascii?Q?M9asTs7/0m+8nR+ALD0zrgzeX1DSI5wf5OMDtqvL9bi1t84Y+dGw1ZAyW5mk?=
- =?us-ascii?Q?daFNhLoPd9mt3NSRQYX7ehkj9A8mdhJOXziszV9fFYVxdUW44dGxACocXZ4y?=
- =?us-ascii?Q?csCZ4qZA1Yq+mZrvHpNv/KJs97dA8rynHjPu?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?g+gmcQo5ksUvDMr1vl5CxFDU0P+U2ZsA4oLU6JW6qxduJsTpOenw95avmu88?=
+ =?us-ascii?Q?OHrHjmU+gU7s2AJrgGkYhVH2pwe2ByxOGGGn6WHTeEnxyyXhkMRCQQuR3yE0?=
+ =?us-ascii?Q?EEQITfaShHCdFwGb7xaInjuc0SagETpArvMVGEa9+5AAuV4BiXVvY0jf6Son?=
+ =?us-ascii?Q?Pv11jFUpYyrlK5lZhzETIT4NnUIiqlqAlc4KPMTf4KUudCzvmLm2tl6cNLOW?=
+ =?us-ascii?Q?cXd50djRRkHTfCfcC/qy89PynYRwvlh2yKR4xt4DMtVPyrPm4j2XRe3+grWd?=
+ =?us-ascii?Q?66RB/xueIUgQJOlnrlo5LvkcoeN4bPxpBwkoOJnbwtJQI3qHv8RjzEtRH3pM?=
+ =?us-ascii?Q?Pn4A2ISxVhDiFFOa166wGjIPkO7LbC6sYWWbR2Xf5XzIChno3ecWIix5B/xs?=
+ =?us-ascii?Q?jSHIo2hi/mswVQdZp6wEXlXYksKdQAls8G/e+pf1d4zLJvFczwyLtf3xuzw+?=
+ =?us-ascii?Q?79FqqXkvK7s/nARhD3JHWxHfu58Bn3yS7jcEQnBrVkqegAmiDCoIzyfT56JI?=
+ =?us-ascii?Q?ZpZncmnKqR3yvJUlM4jPKJlg23mCxDKM4o/RwQGdY3OICflVqHNHVAbD9MK5?=
+ =?us-ascii?Q?1gVK25JMMasAmFVTncdwSU/8FaYFpA98rZQfyjwhLHcygesUp78SERVFrzbD?=
+ =?us-ascii?Q?cGCraY/bEsonu9h+QRbpSA4/NczHau+FCU2dE6sXxppp8zoU3pji5RtLvY8G?=
+ =?us-ascii?Q?HB0gsZt7KtopPc04OHVLwWbiTfuRoku/y3OEXlYJIquhQvNIavN/pYDgzQnF?=
+ =?us-ascii?Q?LVG4hnDHtWjtcP6ODYnNMJYldZmiVUSshWITKuRMpafTps7jGKUz85fyRNfE?=
+ =?us-ascii?Q?wnHzdReAaS5yUzuxklc+w+iYqssTHjXbX740WSGGAR7AW8vaJbcMTvB7WzdJ?=
+ =?us-ascii?Q?Rx/8/yf1WNCHBGr/Bxra0+NjvOQPNoV55/NaqS9Je5Z7MvjTnL93EAerf/sY?=
+ =?us-ascii?Q?cJ/gQGNEvsacOqVlcs28+/5JyNysN6iI4oDSyxdVu43Dos31U2blmvWBiz3O?=
+ =?us-ascii?Q?Mau5fuj/4szouvdhrDVumol9RZA+cutJfDJBe7tIb7qRsjDIor9QFxxNJ/Hf?=
+ =?us-ascii?Q?CwcW3Qm3WL6Za13BvexcIJ299DCc/+wCk2cUvZUapKYGedV4ojPPqfDFleMA?=
+ =?us-ascii?Q?Z6XaVZrapB3FCuSUV31DYhRrSVObtp7rE4lnFaCMk3YRu0DtzYbKk8Y0jWKt?=
+ =?us-ascii?Q?B66EEbVN28/FNdJZcoO7z5ZPWqp9FcEP8Uw4o4MTNqGK8dVfFfg9unD3rlbC?=
+ =?us-ascii?Q?W7809yL1AqzmUtWOew1rsbEw8hMb++4uDJVo6ExorvnlNNcONoOqpxQmXzge?=
+ =?us-ascii?Q?W69laD4MUf541FS0B4iDMRu6gg0KK8FZzWznTZbL+thaxqKrytTyLDo2WaSQ?=
+ =?us-ascii?Q?e7sj61dzXhSCkalsnti0sGCmRZ3gpb9c/UAf3t1kGZ8eouU7KhvHhIeP3OPK?=
+ =?us-ascii?Q?ZyFDCHclAAN6MTG37xlN7yNTOagu4JS2WFbV4PN+CYztAApj6v/eup+nBA3s?=
+ =?us-ascii?Q?//VgeU9wDw5eNIEfzjdoS1xP+RGh8ZWiO8iI?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 02:52:46.8460 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89908a36-64c9-47cd-84d5-08dd9d92ba10
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 02:52:52.5251 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41eda608-af3f-4f43-acba-08dd9d92bd74
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006001.namprd05.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A345.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,187 +141,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Oleh Kuzhylnyi <okuzhyln@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
 [Why]
-The quantity and duration of FAMS2 commands are set to increase
-in future products. This necessitates the implementation of a new
-mechanism for chaining commands together, allowing all commands
-to be processed within a single transaction.
+The `drm_*()` print macros will handle including the driver in the print
+already.  The extra print of the word `amdgpu` is unnecessary.
 
 [How]
-The indirect buffer acts as a shared buffer on the driver side,
-mapped to DMUB's internal CW7 address. Its source address and
-size are sent through mailbox command to DMUB, triggering the
-transaction.
+Modify all prints to drop `amdgpu: `.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Oleh Kuzhylnyi <okuzhyln@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 59 ++++++++++++++++++-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  2 +
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  9 ++-
- 4 files changed, 69 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 +++++++++----------
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  6 ++--
+ 2 files changed, 19 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1797fa85fac6..8b32e6c1ec6c 100644
+index 8b32e6c1ec6c..afaa98e8ca15 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2404,6 +2404,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_5_TRACEBUFF
- 		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_6_FW_STATE
- 		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_7_SCRATCH_MEM
-+		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_IB_MEM
- 		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_SHARED_STATE
- 	};
- 	int r;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index afbcf866520e..8c52d3fea1d8 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -1656,7 +1656,7 @@ bool dc_wake_and_execute_gpint(const struct dc_context *ctx, enum dmub_gpint_com
- 	return result;
- }
+@@ -1847,7 +1847,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	mutex_init(&adev->dm.audio_lock);
  
--void dc_dmub_srv_fams2_update_config(struct dc *dc,
-+static void dc_dmub_srv_rb_based_fams2_update_config(struct dc *dc,
- 		struct dc_state *context,
- 		bool enable)
- {
-@@ -1722,6 +1722,63 @@ void dc_dmub_srv_fams2_update_config(struct dc *dc,
- 	dm_execute_dmub_cmd_list(dc->ctx, num_cmds, cmd, DM_DMUB_WAIT_TYPE_WAIT);
- }
- 
-+static void dc_dmub_srv_ib_based_fams2_update_config(struct dc *dc,
-+		struct dc_state *context,
-+		bool enable)
-+{
-+	struct dmub_fams2_config_v2 *config = (struct dmub_fams2_config_v2 *)dc->ctx->dmub_srv->dmub->ib_mem_gart.cpu_addr;
-+	union dmub_rb_cmd cmd;
-+	uint32_t i;
-+
-+	memset(config, 0, sizeof(*config));
-+	memset(&cmd, 0, sizeof(cmd));
-+
-+	cmd.ib_fams2_config.header.type = DMUB_CMD__FW_ASSISTED_MCLK_SWITCH;
-+	cmd.ib_fams2_config.header.sub_type = DMUB_CMD__FAMS2_IB_CONFIG;
-+
-+	cmd.ib_fams2_config.ib_data.src.quad_part = dc->ctx->dmub_srv->dmub->ib_mem_gart.gpu_addr;
-+	cmd.ib_fams2_config.ib_data.size = sizeof(*config);
-+
-+	if (enable && context->bw_ctx.bw.dcn.fams2_global_config.features.bits.enable) {
-+		/* copy static feature configuration overrides */
-+		config->global.features.bits.enable_stall_recovery = dc->debug.fams2_config.bits.enable_stall_recovery;
-+		config->global.features.bits.enable_offload_flip = dc->debug.fams2_config.bits.enable_offload_flip;
-+		config->global.features.bits.enable_debug = dc->debug.fams2_config.bits.enable_debug;
-+
-+		/* send global configuration parameters */
-+		memcpy(&config->global, &context->bw_ctx.bw.dcn.fams2_global_config,
-+			sizeof(struct dmub_cmd_fams2_global_config));
-+
-+		/* construct per-stream configs */
-+		for (i = 0; i < context->bw_ctx.bw.dcn.fams2_global_config.num_streams; i++) {
-+			/* copy stream static base state */
-+			memcpy(&config->stream_v1[i].base,
-+				&context->bw_ctx.bw.dcn.fams2_stream_base_params[i],
-+				sizeof(config->stream_v1[i].base));
-+
-+			/* copy stream static sub-state */
-+			memcpy(&config->stream_v1[i].sub_state,
-+				&context->bw_ctx.bw.dcn.fams2_stream_sub_params[i],
-+				sizeof(config->stream_v1[i].sub_state));
-+		}
-+	}
-+
-+	config->global.features.bits.enable_visual_confirm = dc->debug.visual_confirm == VISUAL_CONFIRM_FAMS2;
-+	config->global.features.bits.enable = enable;
-+
-+	dm_execute_dmub_cmd_list(dc->ctx, 1, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
-+}
-+
-+void dc_dmub_srv_fams2_update_config(struct dc *dc,
-+		struct dc_state *context,
-+		bool enable)
-+{
-+	if (dc->debug.fams_version.major == 2)
-+		dc_dmub_srv_rb_based_fams2_update_config(dc, context, enable);
-+	if (dc->debug.fams_version.major == 3)
-+		dc_dmub_srv_ib_based_fams2_update_config(dc, context, enable);
-+}
-+
- void dc_dmub_srv_fams2_drr_update(struct dc *dc,
- 		uint32_t tg_inst,
- 		uint32_t vtotal_min,
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 3f3fa1b6a69e..211486724e84 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -129,6 +129,7 @@ enum dmub_window_id {
- 	DMUB_WINDOW_5_TRACEBUFF,
- 	DMUB_WINDOW_6_FW_STATE,
- 	DMUB_WINDOW_7_SCRATCH_MEM,
-+	DMUB_WINDOW_IB_MEM,
- 	DMUB_WINDOW_SHARED_STATE,
- 	DMUB_WINDOW_TOTAL,
- };
-@@ -539,6 +540,7 @@ struct dmub_srv {
- 	uint32_t fw_version;
- 	bool is_virtual;
- 	struct dmub_fb scratch_mem_fb;
-+	struct dmub_fb ib_mem_gart;
- 	volatile struct dmub_shared_state_feature_block *shared_state;
- 	volatile const struct dmub_fw_state *fw_state;
- 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index acca7943a8c8..5f827104b4f8 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -65,6 +65,9 @@
- /* Default scratch mem size. */
- #define DMUB_SCRATCH_MEM_SIZE (1024)
- 
-+/* Default indirect buffer size. */
-+#define DMUB_IB_MEM_SIZE (1280)
-+
- /* Number of windows in use. */
- #define DMUB_NUM_WINDOWS (DMUB_WINDOW_TOTAL)
- /* Base addresses. */
-@@ -559,6 +562,7 @@ enum dmub_status
- 	window_sizes[DMUB_WINDOW_5_TRACEBUFF] = trace_buffer_size;
- 	window_sizes[DMUB_WINDOW_6_FW_STATE] = fw_state_size;
- 	window_sizes[DMUB_WINDOW_7_SCRATCH_MEM] = DMUB_SCRATCH_MEM_SIZE;
-+	window_sizes[DMUB_WINDOW_IB_MEM] = DMUB_IB_MEM_SIZE;
- 	window_sizes[DMUB_WINDOW_SHARED_STATE] = max(DMUB_FW_HEADER_SHARED_STATE_SIZE, shared_state_size);
- 
- 	out->fb_size =
-@@ -645,6 +649,7 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 	struct dmub_fb *tracebuff_fb = params->fb[DMUB_WINDOW_5_TRACEBUFF];
- 	struct dmub_fb *fw_state_fb = params->fb[DMUB_WINDOW_6_FW_STATE];
- 	struct dmub_fb *scratch_mem_fb = params->fb[DMUB_WINDOW_7_SCRATCH_MEM];
-+	struct dmub_fb *ib_mem_gart = params->fb[DMUB_WINDOW_IB_MEM];
- 	struct dmub_fb *shared_state_fb = params->fb[DMUB_WINDOW_SHARED_STATE];
- 
- 	struct dmub_rb_init_params rb_params, outbox0_rb_params;
-@@ -655,7 +660,7 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 		return DMUB_STATUS_INVALID;
- 
- 	if (!inst_fb || !stack_fb || !data_fb || !bios_fb || !mail_fb ||
--		!tracebuff_fb || !fw_state_fb || !scratch_mem_fb) {
-+		!tracebuff_fb || !fw_state_fb || !scratch_mem_fb || !ib_mem_gart) {
- 		ASSERT(0);
- 		return DMUB_STATUS_INVALID;
+ 	if (amdgpu_dm_irq_init(adev)) {
+-		drm_err(adev_to_drm(adev), "amdgpu: failed to initialize DM IRQ support.\n");
++		drm_err(adev_to_drm(adev), "failed to initialize DM IRQ support.\n");
+ 		goto error;
  	}
-@@ -741,6 +746,8 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
  
- 	dmub->scratch_mem_fb = *scratch_mem_fb;
+@@ -2037,7 +2037,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
  
-+	dmub->ib_mem_gart = *ib_mem_gart;
-+
- 	if (dmub->hw_funcs.setup_windows)
- 		dmub->hw_funcs.setup_windows(dmub, &cw2, &cw3, &cw4, &cw5, &cw6, &region6);
+ 	adev->dm.hpd_rx_offload_wq = hpd_rx_irq_create_workqueue(adev);
+ 	if (!adev->dm.hpd_rx_offload_wq) {
+-		drm_err(adev_to_drm(adev), "amdgpu: failed to create hpd rx offload workqueue.\n");
++		drm_err(adev_to_drm(adev), "failed to create hpd rx offload workqueue.\n");
+ 		goto error;
+ 	}
  
+@@ -2053,7 +2053,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	adev->dm.freesync_module = mod_freesync_create(adev->dm.dc);
+ 	if (!adev->dm.freesync_module) {
+ 		drm_err(adev_to_drm(adev),
+-		"amdgpu: failed to initialize freesync_module.\n");
++		"failed to initialize freesync_module.\n");
+ 	} else
+ 		drm_dbg_driver(adev_to_drm(adev), "amdgpu: freesync_module init done %p.\n",
+ 				adev->dm.freesync_module);
+@@ -2064,7 +2064,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		adev->dm.vblank_control_workqueue =
+ 			create_singlethread_workqueue("dm_vblank_control_workqueue");
+ 		if (!adev->dm.vblank_control_workqueue)
+-			drm_err(adev_to_drm(adev), "amdgpu: failed to initialize vblank_workqueue.\n");
++			drm_err(adev_to_drm(adev), "failed to initialize vblank_workqueue.\n");
+ 	}
+ 
+ 	if (adev->dm.dc->caps.ips_support &&
+@@ -2075,7 +2075,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		adev->dm.hdcp_workqueue = hdcp_create_workqueue(adev, &init_params.cp_psp, adev->dm.dc);
+ 
+ 		if (!adev->dm.hdcp_workqueue)
+-			drm_err(adev_to_drm(adev), "amdgpu: failed to initialize hdcp_workqueue.\n");
++			drm_err(adev_to_drm(adev), "failed to initialize hdcp_workqueue.\n");
+ 		else
+ 			drm_dbg_driver(adev_to_drm(adev), "amdgpu: hdcp_workqueue init done %p.\n", adev->dm.hdcp_workqueue);
+ 
+@@ -2085,20 +2085,20 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		init_completion(&adev->dm.dmub_aux_transfer_done);
+ 		adev->dm.dmub_notify = kzalloc(sizeof(struct dmub_notification), GFP_KERNEL);
+ 		if (!adev->dm.dmub_notify) {
+-			drm_info(adev_to_drm(adev), "amdgpu: fail to allocate adev->dm.dmub_notify");
++			drm_info(adev_to_drm(adev), "fail to allocate adev->dm.dmub_notify");
+ 			goto error;
+ 		}
+ 
+ 		adev->dm.delayed_hpd_wq = create_singlethread_workqueue("amdgpu_dm_hpd_wq");
+ 		if (!adev->dm.delayed_hpd_wq) {
+-			drm_err(adev_to_drm(adev), "amdgpu: failed to create hpd offload workqueue.\n");
++			drm_err(adev_to_drm(adev), "failed to create hpd offload workqueue.\n");
+ 			goto error;
+ 		}
+ 
+ 		amdgpu_dm_outbox_init(adev);
+ 		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_AUX_REPLY,
+ 			dmub_aux_setconfig_callback, false)) {
+-			drm_err(adev_to_drm(adev), "amdgpu: fail to register dmub aux callback");
++			drm_err(adev_to_drm(adev), "fail to register dmub aux callback");
+ 			goto error;
+ 		}
+ 
+@@ -2107,7 +2107,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 
+ 		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_FUSED_IO,
+ 			dmub_aux_fused_io_callback, false)) {
+-			drm_err(adev_to_drm(adev), "amdgpu: fail to register dmub fused io callback");
++			drm_err(adev_to_drm(adev), "fail to register dmub fused io callback");
+ 			goto error;
+ 		}
+ 		/* Enable outbox notification only after IRQ handlers are registered and DMUB is alive.
+@@ -2125,7 +2125,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 
+ 	if (amdgpu_dm_initialize_drm_device(adev)) {
+ 		drm_err(adev_to_drm(adev),
+-		"amdgpu: failed to initialize sw for display support.\n");
++		"failed to initialize sw for display support.\n");
+ 		goto error;
+ 	}
+ 
+@@ -2140,14 +2140,14 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 
+ 	if (drm_vblank_init(adev_to_drm(adev), adev->dm.display_indexes_num)) {
+ 		drm_err(adev_to_drm(adev),
+-		"amdgpu: failed to initialize sw for display support.\n");
++		"failed to initialize sw for display support.\n");
+ 		goto error;
+ 	}
+ 
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ 	amdgpu_dm_crtc_secure_display_create_contexts(adev);
+ 	if (!adev->dm.secure_display_ctx.crtc_ctx)
+-		drm_err(adev_to_drm(adev), "amdgpu: failed to initialize secure display contexts.\n");
++		drm_err(adev_to_drm(adev), "failed to initialize secure display contexts.\n");
+ 
+ 	if (amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(4, 0, 1))
+ 		adev->dm.secure_display_ctx.support_mul_roi = true;
+@@ -2571,7 +2571,7 @@ static int dm_sw_init(struct amdgpu_ip_block *ip_block)
+ 	adev->dm.cgs_device = amdgpu_cgs_create_device(adev);
+ 
+ 	if (!adev->dm.cgs_device) {
+-		drm_err(adev_to_drm(adev), "amdgpu: failed to create cgs device.\n");
++		drm_err(adev_to_drm(adev), "failed to create cgs device.\n");
+ 		return -EINVAL;
+ 	}
+ 
+@@ -4002,19 +4002,19 @@ static int register_hpd_handlers(struct amdgpu_device *adev)
+ 	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
+ 		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD,
+ 			dmub_hpd_callback, true)) {
+-			drm_err(adev_to_drm(adev), "amdgpu: fail to register dmub hpd callback");
++			drm_err(adev_to_drm(adev), "fail to register dmub hpd callback");
+ 			return -EINVAL;
+ 		}
+ 
+ 		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_IRQ,
+ 			dmub_hpd_callback, true)) {
+-			drm_err(adev_to_drm(adev), "amdgpu: fail to register dmub hpd callback");
++			drm_err(adev_to_drm(adev), "fail to register dmub hpd callback");
+ 			return -EINVAL;
+ 		}
+ 
+ 		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_SENSE_NOTIFY,
+ 			dmub_hpd_sense_callback, true)) {
+-			drm_err(adev_to_drm(adev), "amdgpu: fail to register dmub hpd sense callback");
++			drm_err(adev_to_drm(adev), "fail to register dmub hpd sense callback");
+ 			return -EINVAL;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 25e8befbcc47..7187d5aedf0a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -107,7 +107,7 @@ static ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	if (payload.write && result >= 0) {
+ 		if (result) {
+ 			/*one byte indicating partially written bytes*/
+-			drm_dbg_dp(adev_to_drm(adev), "amdgpu: AUX partially written\n");
++			drm_dbg_dp(adev_to_drm(adev), "AUX partially written\n");
+ 			result = payload.data[0];
+ 		} else if (!payload.reply[0])
+ 			/*I2C_ACK|AUX_ACK*/
+@@ -133,11 +133,11 @@ static ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
+ 			break;
+ 		}
+ 
+-		drm_dbg_dp(adev_to_drm(adev), "amdgpu: DP AUX transfer fail:%d\n", operation_result);
++		drm_dbg_dp(adev_to_drm(adev), "DP AUX transfer fail:%d\n", operation_result);
+ 	}
+ 
+ 	if (payload.reply[0])
+-		drm_dbg_dp(adev_to_drm(adev), "amdgpu: AUX reply command not ACK: 0x%02x.",
++		drm_dbg_dp(adev_to_drm(adev), "AUX reply command not ACK: 0x%02x.",
+ 			payload.reply[0]);
+ 
+ 	return result;
 -- 
 2.43.0
 
