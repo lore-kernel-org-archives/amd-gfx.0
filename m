@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73EBEC5AD49
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 May 2025 08:30:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7488C54FB3
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 May 2025 08:30:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 048DB10E23C;
-	Thu, 29 May 2025 08:30:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 647C410E71C;
+	Thu, 29 May 2025 08:30:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QuIMWRCB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y05/JwEr";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 409B210E23C
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0513710E23C
  for <amd-gfx@lists.freedesktop.org>; Thu, 29 May 2025 08:30:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qB6RhvwwwGCp7CPN6llaBfZvQAInzd7/Ic4e/lYzx7qKw5NjSy1fF6NrGWYFMv09S0Pg7EhiV2MfVi888seghlKCedh4cJ4W5CE+Qp0uyAzclAO1BOtoYm+QkbKBAjkC73Xc0H0IqVOrDW2PJt25NDSdOua6vaqYJVzrTvrFhsbT+za89M8oy6tlCsFwFCA2JpnlTeD7e6jyIU5VA+RGaz+qp9VsR12p5u25TCcXIrIY5uUXz3yjJgO4zUiwwhoeF9i4kvpulYBT5Mey+TBItKgProjAPixy1wyu1wH4VZwK/Glnb6sKN/YivRI6RcCxsuVwa+Ig8R2T4FwDIUDEgw==
+ b=aUAzzGo1mnGZTj5Ajofhv4G3b02k/mlTvCVkCvVAGlgbReBok1hdtBOVQKylYUOvPMbAc5Z7J67bfCDOCmXJy2vVQ2cnKl8VU2qIDwHihBcxLFDnG7jAkfXbQW0EnJy/XIrScABKZWSOG+KVoJ5xqm9iAoECn5KM1OPyPuhi+REqxZUgP/l00BVhTwezAcvxc4U4vfq5lxa/fGzHdSNKYmfjyxCmY7L82h/kLzrgUN6zpcxyFMlb7A7S9nAKwZXN6L+cWqU+SIrjk7S/F1SSFjFCYZDYf+w8U33cjayq5FaRXQ57gzWHEChmzcQYji39FteBaxwcw0DsE8bvzt+fKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=deWzeoALfvtHokCkjmqWnQFEElQ1VxRc0kbNAOrnp/w=;
- b=VCx9RxiNe8WxBpFQqupoWwz6xQBpRnRf4nylJcBFODBjVDu/Zea0HCTlS7om7hdyylVJ5IgAT05K8RblT7wkzdzy3TAgEEhNQ3YXI0o/FAsELSeCglCzCfSbS8KcVNv1VVJkh0AMZVWs9LDCI1xwBZwSiJB3bilG+ZMvg4jTgVb9o9Yy4LVjJvduMaAV6OJGlbd87WsUW3QC6fSOA/L22vDiCnG/h3X/JHb9LIhln6cWst1aS0muXB2d/nnyiqYpHyC5p+qw2kas8bZnhWdErD0Y6XF9tfKCnmvcMhvkwa/n3jzrz5+aQtOa4whiRkDnaLp9DNdlg04zDXmSMbXibQ==
+ bh=AsTwACCFnCd08WewZYLbkRwEhk1yokx6rcDhulZ4P4g=;
+ b=q56U9va6VSN3ln3sT+1Kpb4JfgFIk8/KoW641ZsY5EO/oxgGZFVsVXJQ3M8p20SdBrDit2/HYuXB+E6otmt4oTXIzUmxS1v+vXIWSXMo72CGyhVKgJaGnH+bfDj+kwR7Jl+4W76vwbXLargfC7cf71U0CzQTG4+2SoCSZ/sWoo0sdAr9cs7vIKGEZhTTWYUA0NUPtZY6x/O8THQxydQohyQzg45Rn3Bw05BtpxQYlVkGsN1I2rztONJ6e1J1joJLQYU2f68fZaJhRp1Lm4etbRsWfI/zz6NZRWQQIQcjizOjbqXLS16bk55to1Fa/Bg5WBUI18l3TDMVgHiB/zXc2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=deWzeoALfvtHokCkjmqWnQFEElQ1VxRc0kbNAOrnp/w=;
- b=QuIMWRCBUXEiJo4x8rln/BOThmRjBX4WdaAgwAoVv9lRkG8+5wKssxrzZfpszrkrNH1XVq+A6EBop/k71lFTM2v8oUeghRbHQc03CtgxLUNlx8F3RbOepDYvmi/uA1S4vtNq8eg7gMqXbZjCCcDZqDCRcdYrHP6ZEp1sTTxpjQE=
-Received: from CH2PR14CA0022.namprd14.prod.outlook.com (2603:10b6:610:60::32)
- by PH7PR12MB7914.namprd12.prod.outlook.com (2603:10b6:510:27d::13)
+ bh=AsTwACCFnCd08WewZYLbkRwEhk1yokx6rcDhulZ4P4g=;
+ b=Y05/JwErdPXptxXnMmeFq5AJKptZ+PU/GtoZ6+cLy+QuQDYf4J3rpRWoMSg5PDxIEg8JL4RZMS3kn+PNMzEX63wAylKjWPsDjWSYMZbZ9GY3OikBDet/480/+oy7zG3CATdB3BV7RIEPhvsFWDMSUPyjsw1snnSZvO85RU3wJ9M=
+Received: from CH0PR03CA0282.namprd03.prod.outlook.com (2603:10b6:610:e6::17)
+ by CH3PR12MB8260.namprd12.prod.outlook.com (2603:10b6:610:12a::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.29; Thu, 29 May
- 2025 08:30:33 +0000
-Received: from CH1PEPF0000AD81.namprd04.prod.outlook.com
- (2603:10b6:610:60:cafe::8e) by CH2PR14CA0022.outlook.office365.com
- (2603:10b6:610:60::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.22 via Frontend Transport; Thu,
- 29 May 2025 08:30:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Thu, 29 May
+ 2025 08:30:35 +0000
+Received: from CH1PEPF0000AD83.namprd04.prod.outlook.com
+ (2603:10b6:610:e6:cafe::fd) by CH0PR03CA0282.outlook.office365.com
+ (2603:10b6:610:e6::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Thu,
+ 29 May 2025 08:30:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD81.mail.protection.outlook.com (10.167.244.89) with Microsoft
+ CH1PEPF0000AD83.mail.protection.outlook.com (10.167.244.85) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Thu, 29 May 2025 08:30:32 +0000
+ 15.20.8769.18 via Frontend Transport; Thu, 29 May 2025 08:30:34 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 29 May
- 2025 03:30:30 -0500
+ 2025 03:30:32 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
  <Asad.Kamal@amd.com>, <Mangesh.Gadre@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: Check pcie replays reporting support
-Date: Thu, 29 May 2025 14:00:14 +0530
-Message-ID: <20250529083015.589652-1-lijo.lazar@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: Remove nbiov7.9 replay count reporting
+Date: Thu, 29 May 2025 14:00:15 +0530
+Message-ID: <20250529083015.589652-2-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20250529083015.589652-1-lijo.lazar@amd.com>
+References: <20250529083015.589652-1-lijo.lazar@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,52 +73,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD81:EE_|PH7PR12MB7914:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9ffef5f-f270-4b0c-5f05-08dd9e8b13ff
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD83:EE_|CH3PR12MB8260:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70ca4abb-27f4-4c81-e66c-08dd9e8b152f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?w0dhbfs3PKKtcg6XTnb6mjqsdyGBhCiKGdg1m1QfUVn9FPu7CeIVLFO3WLiT?=
- =?us-ascii?Q?SsgFQ4r/hLiOloWvWkcgx8qEhHR/ZGFLCeew+m86iXam5jggVS6+EdyOytb6?=
- =?us-ascii?Q?v0/OTUYitKm/VgrUj9Zgp2RFoSnGGUmDuKbf5jG0+N1pGQXVxJ0Sd8N0cbRV?=
- =?us-ascii?Q?tw9jb5HL11DnJKrzoR9PiPR12UmRGETVnH+ZexhmL7JjRqTXk4Z8YlSztyzx?=
- =?us-ascii?Q?zZmulgc+eRRKrX5Z5c4xXekV2tNFgKgH74Zbb4BSAecUYxZXzTi5FqCYP7C3?=
- =?us-ascii?Q?wVPCz9I3YF7Uh0yBdB2dG7Z/YVtM+2OhQXcOnw/4qBLJNjvnYooKfiS/32IO?=
- =?us-ascii?Q?k7+bvr/B5P5pdACMVXuGGCCT+ajqZuJUZPWcOlKKPJ6T69ggSM/4/kPeAghz?=
- =?us-ascii?Q?Wh9I8wwin1GZRLsWIiIeF2w+N31pSa5nmjBBG7sgq5YJpoaJDRGpZjIjViOU?=
- =?us-ascii?Q?WOaBMPQJ2v63traYAJDNnP0yhVOtmtWAdMjVUpLSbuEm83jzNwJPaBfxL4ux?=
- =?us-ascii?Q?b+op294uH/8bpKQ8ssWJytuLkzJBk/lhJeMyC9WcRP5aQKtknNX6ho726dv7?=
- =?us-ascii?Q?DYAxNHyTkt0KwKtM9UQF3BchpO+aAD1qe3m4/PPgx30amiUYCxGgyrEM8FOs?=
- =?us-ascii?Q?QYaKov11LvMrKwD1SNS+EA5DoTu+RpMs5GWGjcirS5vLhX3HXAlfofRmv+C7?=
- =?us-ascii?Q?hXrR5+3tYGhnnDkrOR1hsNOhzZz86Y5wchSbA72YXLj4a7dv4+NDqlrQz+iB?=
- =?us-ascii?Q?5YsJyGb8YIZebnInRUZbdCxoncPSBq53TqpkETntJ6RozJm3+lDUyG23Hive?=
- =?us-ascii?Q?Oy8+lhKOd/Ch+gSHT+JCA/0Sot7IHRvtg0JAdzCp0xkv+Ml7U0B7pARrKw+Y?=
- =?us-ascii?Q?0gHgJ3yi1V7Ja6ZLlNBLBHUFSlGkSkn5uuyeCjnaIclvTHQwsDcKW8Kiar5Y?=
- =?us-ascii?Q?ZvhrW+VIclw6wUOtfBXKP0Dil1zaSX9H1yDuBba9E6MEG2IQQcmVKG+LkQ1W?=
- =?us-ascii?Q?Tz2G6Ol47sNT0N9cc6suDEWFf9fxYxfzZXHzwsNSU4WAsSkLq95lXEtuVM+M?=
- =?us-ascii?Q?5dFzauAWK7VUEg37C9GGN/5WdARAlwGzYzm2tKQTapi8MoFX3/4YYLqoSkuY?=
- =?us-ascii?Q?Ke/OqyB7xd2BBe9XILX1BnQ+4zJiZJd7yPDKKHZaym1drnEwUX/8LcJTn8gF?=
- =?us-ascii?Q?rBYrfeQf5Zn2NN/xL023Op7sV5CP0T/aVq+575Vawh4SO2Fp93HRlQ51om4K?=
- =?us-ascii?Q?kjxELBi9DOPiojJIz/NJrU/K3uHBzljymm4PM+zIsOR+OZCopN9ZQ0APZ55y?=
- =?us-ascii?Q?db3wKETIntOPPQlSbSYGch2Bxhv+PJfbbr8+aOZIef54v5fGWAHp91ZDOqmt?=
- =?us-ascii?Q?YuEasF4PRjoqTbePCsA34fLZqrWvd4z0ADTW7vEP5nidBR+W5fVkaxVKxvGW?=
- =?us-ascii?Q?CipcJHS2d3cMSoU1vKQwEr5OZ7b4/+szSrpZViMzTNbx3HYiHuuEoopMCOnf?=
- =?us-ascii?Q?2tVhyiFo1UVi41BOLs+PZ5YwbSajpFyfJlFw?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6iwgm7Faj+Ly2B6RsEM7Wglske6r11aOnFnV4A7Wh3VHiTFD9oF0T0AraJfM?=
+ =?us-ascii?Q?bA7xkS4k1JSMgd1eUqZxnuaFnkXUzGofPPdwDfl3kiPOOaRfGOEk/OxNpNGm?=
+ =?us-ascii?Q?LH7MCE4eZSRYG6b0ENSmDQkZd4+fBFGMXhOOKPi++qw+fr/C6LCsUWOgwql+?=
+ =?us-ascii?Q?HyUnc3Eq+RjyjQ9biWYoSlyTpmxhEqocnnvrhr/VAlvPhwLG9wJ1BqNue3k7?=
+ =?us-ascii?Q?RYIkrRLF62kLKOGNIe4VjDoaj5deNRwpVxo83WEKUQNuChfV3YvK7nK6ozuS?=
+ =?us-ascii?Q?rPb6Jti/W8Ux69QHV+J3jdxzY8gQ65CrqGFVZ1kAKNjHgkk+IWqXiMG2Bvqx?=
+ =?us-ascii?Q?mBGsncaA5PLY/sPRp9akD/NIHwY6I880Nz4xa6dsCtkuAYPD71V2+JBtQmui?=
+ =?us-ascii?Q?rIOgx9x/eIPj7YB498vYGJ60VIrpF2Xo/p52ZjvSVu/0B9JTfM9KBZc4evX8?=
+ =?us-ascii?Q?/yok20M4glzYDWd3fKdUldXh8fXk209HrteWRhDO0VuYduO+dVkhqF6944i5?=
+ =?us-ascii?Q?Ry2PqaQ2pztGYheQ+N8yOp403kYZq5bjpSMXE1zxS451y2S3kbtg3gSxOZpc?=
+ =?us-ascii?Q?3HE/LM+0lyBi1/5+XmkUrmVUTrlBP1nb/FpTMRjTzlKOMgEhL12WdJfoUEdc?=
+ =?us-ascii?Q?7qSqCpOvDuh2VXngNdIrsyGpSF40lebQMMi/RG+AcjZ8P9At+Hc4+T4qzonT?=
+ =?us-ascii?Q?uhyzfbZDG24RFAmn9lGBN72nOAPnpk5B/jVgGtdRhA3yUEJONA5WnOpH1z8I?=
+ =?us-ascii?Q?hw0jPsn+JaJisEbj8iNwJruA2JRXfQYxK+DU2F7E7/Ny47fhZC5iqiFziLpa?=
+ =?us-ascii?Q?E53guKYaz0gKOJOVOg52EcyN1+Ccsj/EvXdi+SfUpZanfNlWEYV48SuTjkyb?=
+ =?us-ascii?Q?vaIQkuSHL9EEIu3B9e9gRH+vrenKTTLj/SQZZgiabnYJ2QCHXUi/TAfJ8GYP?=
+ =?us-ascii?Q?e3NqFtteUWriF8uIgaSXYGgMHfbYarFNuvtAmukYm2dwUpdeNxGvzuolCfN9?=
+ =?us-ascii?Q?iYO9kTNOB/IR4W0mXvY9P/vJMlDNNnw7oVxHmY9eny5a/vHrS+MT14HJ4L9X?=
+ =?us-ascii?Q?GvrMqjopRqB1BsoLaRoVdiNsbyp12HCM9P0V8qdV/WJqK5yRsPgmQBRctc5U?=
+ =?us-ascii?Q?kLmSSE2NCSKjLWq2eA5hAUTE/zT4zMF9hGqf0wgjr5vXd1MzKLQ5s61Pessw?=
+ =?us-ascii?Q?5vkUv0aIeCJQ51s5A5x/R/NA2AUCqvHkQRr9BuRarCZPOERqoIYB1BEhXkUl?=
+ =?us-ascii?Q?ZO6Nux/2sszSsDtbqn8V+IV8jfzH04CxwQlM/yEV0kWX2z0CuOC617+o+ukt?=
+ =?us-ascii?Q?VsKlQadnmY86EJ4+V0hOof/A5y3/z/KPlCzP1W4zKwnP5YRNA1ZYVC9hYADH?=
+ =?us-ascii?Q?Njp7YzUb+3huvvcemGZBB2DOvWXZDt/PEcsGHR+5Psv0CYL5k4uX/VrNDG5f?=
+ =?us-ascii?Q?iLkJH/P0Vn1Tdm7mRc2MchD3fRNlKJvIth2fdMYX1kYrUNG8FVtD6oTUx5pL?=
+ =?us-ascii?Q?I13yNQnqrzx50cH8dD8B1Pv1Vj5/TY23FHlw?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2025 08:30:32.9090 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9ffef5f-f270-4b0c-5f05-08dd9e8b13ff
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2025 08:30:34.9054 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70ca4abb-27f4-4c81-e66c-08dd9e8b152f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD81.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD83.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7914
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8260
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,69 +133,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Check if pcie replay count reporting is supported before creating sysfs
-attribute.
+Direct pcie replay count reporting is not available on nbio v7.9.
+Reporting is done through firmware.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c   | 9 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h   | 2 ++
- 3 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 72e41781afb0..9eaee8dacea7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -232,7 +232,7 @@ static int amdgpu_device_attr_sysfs_init(struct amdgpu_device *adev)
+Fixes: 50709d18f4a6 ("drm/amdgpu: Add pci replay count to nbio v7.9")
+---
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 20 --------------------
+ 1 file changed, 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+index a376f072700d..1c22bc11c1f8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+@@ -31,9 +31,6 @@
+ 
+ #define NPS_MODE_MASK 0x000000FFL
+ 
+-/* Core 0 Port 0 counter */
+-#define smnPCIEP_NAK_COUNTER 0x1A340218
+-
+ static void nbio_v7_9_remap_hdp_registers(struct amdgpu_device *adev)
  {
- 	int ret = 0;
- 
--	if (!amdgpu_sriov_vf(adev))
-+	if (amdgpu_nbio_is_replay_cnt_supported(adev))
- 		ret = sysfs_create_file(&adev->dev->kobj,
- 					&dev_attr_pcie_replay_count.attr);
- 
-@@ -241,7 +241,7 @@ static int amdgpu_device_attr_sysfs_init(struct amdgpu_device *adev)
- 
- static void amdgpu_device_attr_sysfs_fini(struct amdgpu_device *adev)
- {
--	if (!amdgpu_sriov_vf(adev))
-+	if (amdgpu_nbio_is_replay_cnt_supported(adev))
- 		sysfs_remove_file(&adev->dev->kobj,
- 				  &dev_attr_pcie_replay_count.attr);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-index d085687a47ea..e56ba93a8df6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-@@ -53,6 +53,15 @@ u64 amdgpu_nbio_get_pcie_replay_count(struct amdgpu_device *adev)
- 	return 0;
+ 	WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
+@@ -467,22 +464,6 @@ static void nbio_v7_9_init_registers(struct amdgpu_device *adev)
+ 	}
  }
  
-+bool amdgpu_nbio_is_replay_cnt_supported(struct amdgpu_device *adev)
-+{
-+	if (amdgpu_sriov_vf(adev) || !adev->asic_funcs->get_pcie_replay_count ||
-+	    (!adev->nbio.funcs || !adev->nbio.funcs->get_pcie_replay_count))
-+		return false;
-+
-+	return true;
-+}
-+
- int amdgpu_nbio_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block)
- {
- 	int r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-index 79c2f807b9fe..b528de6a01f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -119,4 +119,6 @@ int amdgpu_nbio_ras_sw_init(struct amdgpu_device *adev);
- int amdgpu_nbio_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- u64 amdgpu_nbio_get_pcie_replay_count(struct amdgpu_device *adev);
+-static u64 nbio_v7_9_get_pcie_replay_count(struct amdgpu_device *adev)
+-{
+-	u32 val, nak_r, nak_g;
+-
+-	if (adev->flags & AMD_IS_APU)
+-		return 0;
+-
+-	/* Get the number of NAKs received and generated */
+-	val = RREG32_PCIE(smnPCIEP_NAK_COUNTER);
+-	nak_r = val & 0xFFFF;
+-	nak_g = val >> 16;
+-
+-	/* Add the total number of NAKs, i.e the number of replays */
+-	return (nak_r + nak_g);
+-}
+-
+ #define MMIO_REG_HOLE_OFFSET 0x1A000
  
-+bool amdgpu_nbio_is_replay_cnt_supported(struct amdgpu_device *adev);
-+
- #endif
+ static void nbio_v7_9_set_reg_remap(struct amdgpu_device *adev)
+@@ -524,7 +505,6 @@ const struct amdgpu_nbio_funcs nbio_v7_9_funcs = {
+ 	.get_memory_partition_mode = nbio_v7_9_get_memory_partition_mode,
+ 	.is_nps_switch_requested = nbio_v7_9_is_nps_switch_requested,
+ 	.init_registers = nbio_v7_9_init_registers,
+-	.get_pcie_replay_count = nbio_v7_9_get_pcie_replay_count,
+ 	.set_reg_remap = nbio_v7_9_set_reg_remap,
+ };
+ 
 -- 
 2.25.1
 
