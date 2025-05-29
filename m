@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31122C54FB3
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 May 2025 20:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AF3C5AD49
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 May 2025 20:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9FB710E0AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B389710E236;
 	Thu, 29 May 2025 20:08:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S+3UsqHq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="efDqcFcA";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2079.outbound.protection.outlook.com [40.107.244.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A96510E236
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D229210E0AB
  for <amd-gfx@lists.freedesktop.org>; Thu, 29 May 2025 20:08:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ALk/t9rneXX9JWlXefyDFxR1T81/elFbIisIsuVOSM7SJ2h13BvZ2ssVe6GuHwDVgaNhGGyhwUZ2IoBDwgu6k37rkaC2/gSmrIcDKBaDPzf08+eb5LIzueXj9lYTBSy92+mPUMQAAd7JKNrUgVBMVB6R+afib+bz/hAjFUOFOGcFyTZaILsIt+oTJVfqEPnMxqWPQUJ4OhErOqdjf3wOBwvhHBtkjRgF+iWRO8K1X2lgzJhSDcFfw2RWO/4ylPPJNr7NzegdUYAVf5oRZfu4cS0NsCcwp+Dev5Ac6hmIqMcbaOSK5Et6NTqCtBhLpA02qEC3dW2+HTCGT3cvPmuFQA==
+ b=EmqiB8Oa6w3FteoWlZxkBKvirDV5WxTNDnKF+nNcA3/OfW0nNbOZbVytZzUEE6Yxui4X6Vc3jSalH8UaQGtI4EzIhNTAT+2S52ufBdxj9JSoxAjbFINgRXNChET+EzxdlpdsTcKZkbYtDI39iMjELqmrtQCJLXt6Xu1sZZswt/ObmImWbiC/qLgTqTNcQ/PnPT+EwihTNtSL+Raa9jc9DgYiMh1kk2IYor6iiiBu+9Tu3upaPOCTFyeCIetc2E83WelQzt4rXTQgSDO1Fey2lZDpDSezcI8p+sRzjkDr0/8VQyg7p4OWC4FlM+8FENHdpRxSPk3QKYdpaeBDajqKVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bRvvk4eg1JqQ/hxHEg08NFm5v6TaboJLOgZe7TcmrLY=;
- b=kU/k1EoxOKJp3HvuhXBt3J+oH+Ya8XNiVm1VD4ilLREFJ7PqCr600G14T/ZU6XEuxu/6MrI57Nw4A0LeoDMrs5Uq57cl41wLtatbS2cH29eZUL+8+JXXgdLR/bHK9KsH9Kzlwd+OwnCfudbMK9LV9nr802YuZEZTLXU1ehNVI9opivAHoL9CgE4JlJ2bnBSTIEpiXUlsOahV66uarlxOgxg/jrBN7qpd2FFNfwwL2eWrdpbwLL4ibKtN/HKpIUc0a/o3/fhq/oLOkp6QaelMJmJwtqcsvfdE7lhlJ+47o44Q8I+Ehwbb3jgE5RehqE7HHQwD7MHBAw/cNbM5FajG7A==
+ bh=2Sw9GNJmHmNJ/DkBI1dFufj8Qt7hl7zxEiDjwUI/ARE=;
+ b=AWdLhnDaB0O+oCnXkC51Orw2b5w3H85cGIGJbL+ZVdvjWTpWz3zl3gzAes9tvLGQiybheQ5rGZWBKde9aZ3t/fe0GHnUUteb5PoKSrLNmeW92ND1aYvCKMeSYwM/zxMLHM91LvZxkZbyPsQL9ITd5P59rIdbAhT2x2V7tCtyI/DfB7P6DMuiLrfEJE2+u4oNyaKP5TGDlG8gOnA9xKZgCQWXOnmBy7qzApJBowynJIRSlfGWEojrssYpG9yKaXTRT8RYtfi9gYQ7RE4jGZq9VXOiAP2ZOZgiZmrH/n3QkMzbbs4XfXa16Wppru3i+9qunxUyfAisAbWuaquIYLVCrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bRvvk4eg1JqQ/hxHEg08NFm5v6TaboJLOgZe7TcmrLY=;
- b=S+3UsqHqQnUYRKdI971JvRPJoZ4cfblder+3GWpgVcay4QcUxbJCwrdt7PAzt5k0Q4m98Pwq5DgP3UfYfGYs5xaittcINg3PErBYxvVWfhJaGhFnIrcKuuYp8gDCe9nppHMaJi9TTMLRF9flDAoWF/BpcfxzoPMtCBiljJQEXdY=
-Received: from MW4P220CA0015.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::20)
- by MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
+ bh=2Sw9GNJmHmNJ/DkBI1dFufj8Qt7hl7zxEiDjwUI/ARE=;
+ b=efDqcFcAu+fKrEdR/7rm4VN+YPmfBWAfNmL1NLMe9inCmR0P8Z3OHGUPGW0vInqHvCOw6GcTAckimzmslAGC0kVLNDwtkLa3lfegC3wvXTQ/uP26M5Agh12MECa6qkewZ43/6+ZJbj5VDLGSUzU7/twfGsqE7odqnjhg0FCUf10=
+Received: from MW4P220CA0024.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::29)
+ by PH8PR12MB7112.namprd12.prod.outlook.com (2603:10b6:510:22c::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.29; Thu, 29 May
- 2025 20:08:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.21; Thu, 29 May
+ 2025 20:08:18 +0000
 Received: from SJ1PEPF000026C6.namprd04.prod.outlook.com
- (2603:10b6:303:115:cafe::9a) by MW4P220CA0015.outlook.office365.com
- (2603:10b6:303:115::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.22 via Frontend Transport; Thu,
- 29 May 2025 20:08:20 +0000
+ (2603:10b6:303:115:cafe::f6) by MW4P220CA0024.outlook.office365.com
+ (2603:10b6:303:115::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.23 via Frontend Transport; Thu,
+ 29 May 2025 20:08:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,74 +50,81 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ1PEPF000026C6.mail.protection.outlook.com (10.167.244.103) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Thu, 29 May 2025 20:08:20 +0000
+ 15.20.8769.18 via Frontend Transport; Thu, 29 May 2025 20:08:17 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 29 May
- 2025 15:08:17 -0500
+ 2025 15:08:16 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 02/28] drm/amdgpu/gfx7: drop reset_kgq
-Date: Thu, 29 May 2025 16:07:32 -0400
-Message-ID: <20250529200758.6326-3-alexander.deucher@amd.com>
+Subject: [PATCH V5 00/28] Reset improvements for GC10+
+Date: Thu, 29 May 2025 16:07:30 -0400
+Message-ID: <20250529200758.6326-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250529200758.6326-1-alexander.deucher@amd.com>
-References: <20250529200758.6326-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C6:EE_|MN2PR12MB4192:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20054601-59c4-457f-a2ef-08dd9eec8ec8
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C6:EE_|PH8PR12MB7112:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13adb2d6-c440-4a4d-cb72-08dd9eec8d51
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8nG+d98evC6E5Rwd/WzZ63LXNJuRpJTdsFiDieqG8pgxnkA8IPC2b3VSNQXb?=
- =?us-ascii?Q?mYgcdXTmH8zanwAXgoVh+XK9NmNtBVNupqxHVZIJ3FJSaOwEd9PXjzeF3WIi?=
- =?us-ascii?Q?IM/myJ3EUslY7vSUXGUA/jUGk3HOTe2VeTQUAYnLy4kIY6b4mSmo/bC4GRmH?=
- =?us-ascii?Q?2CpaYRg8dX2nLf1UqCFAMoKMe+M9+2+uqTWCzFPf4s9I5WsF0cdm8VWZn7do?=
- =?us-ascii?Q?q4OIgfUMQ/e7zdDBRzRStHjFmT7RvyswNvNxEQ9QDDOL3kgjHwLYPlT+k0zn?=
- =?us-ascii?Q?bF0fwd6PIWBRTWMu4nQqO6X8UZB10cKsJiLI9ZbLTBRPypJTAm22wHdj4EZY?=
- =?us-ascii?Q?fj39L8TSpQrpna4W5+FKc5l5WWymUXAbL22+YfOWYfsoaBQ14eo+X5xhnrBk?=
- =?us-ascii?Q?v24pE9Cn7RgByAEAmPADxHlnX+yhR1uJyBEF6xIv9APlbOwMLMJHeQNPwZ1m?=
- =?us-ascii?Q?CTRwxpruuAQ/S/dPI4B09x54dZJHXYigDAvZXH1mdmf+vwApizIO5i8iSJPT?=
- =?us-ascii?Q?0QfGLqRi3a8CmenJkZ/OPIDTxrLS4JOM2tvSo9+YqsEy4WLL8AhX81k/P75x?=
- =?us-ascii?Q?8iKYuT1Y7OYEP1nHsbx/wHLmxLBZGWw/+IVdUnenSP0utqq/1ucfeyKv3dkE?=
- =?us-ascii?Q?CQg2i8Gbi9qpmdWxoncsyFv0qLoexhKIo0Y66AEoPy39OTuCGfWhlne88SPF?=
- =?us-ascii?Q?s9XaPrp/+0YajJXPmc2zl+tc5CtccDfFarliTQF7Pw6X7Xv3QyAnmIRYiEur?=
- =?us-ascii?Q?lAOeMCR3j+EC0SNpvrIoSXe6ha+zeIcLEsZf1G84Vkom3qGfE5UY2SdaKJ1L?=
- =?us-ascii?Q?D7rSjJZHl9HbV9D7np4WrA9hhO41dspkHqitH6GAm3rsEvyYNXGxDKKdTlIJ?=
- =?us-ascii?Q?SKR/iqOpkqvhj4e09fRuWHMANsvv/URBjQkmByyefPqL7ccH9B/cy2MDxWW1?=
- =?us-ascii?Q?lqIInCu22WVW2gIkXqMoEHpkgVu2NgxmJPNJy+42U7nL+4icP9HgbvFQFxcM?=
- =?us-ascii?Q?J621F6LkJwcj4ktyoMtSr7g4lN/uKz6tCLsxpE1cNYevSkrj+4TTiyzlPuVZ?=
- =?us-ascii?Q?vtHmTK2Gw+qWKbpiVZr9WrlxsyGWFO+4p1fHHK/i9qk4xgM1GBHhSxKLs6Qs?=
- =?us-ascii?Q?iaAsQ/U7MeOdkqXKc/+DBt7ujtjJqg29Dz0kxNh/VQwyByE+kebcPnGSOgXg?=
- =?us-ascii?Q?UWVkJzZQylc3o1byXvaSEez3/M1zx8sO3qmqi2kbuL9IEYufd+WiCh4wCeoI?=
- =?us-ascii?Q?2KGeUmUYPN6MNRYlA3QTP/+DWAxx/hO9/0HvYvao0zNgHkYp78D6dL6bNIZl?=
- =?us-ascii?Q?eg8luZNiY8LfhRSJBi8cZfw/qurGcvL4EDgUCZ3qlrRxlV7HPZyggJ7KEpdt?=
- =?us-ascii?Q?/sHOCO4WOZll53r550b/A5qO3tYA7FDuaUMKZrNWkSAfz3/h13WojYYGmtPP?=
- =?us-ascii?Q?J/r7XPTpw7hkIf7SB1Tgiy2MOWynP6bmCARZGhUrfsyazyHDIEXK6j9M+M6R?=
- =?us-ascii?Q?uKKkZOCJdh4HAkdUaLJa/I734OHSf5N+TnCZ?=
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Ryt4Z200RnVoQS9uTTVpT1QxLzd1UXhmLy8zOHRPS2RoVjJseFo2Ui9iblh4?=
+ =?utf-8?B?QkdQaXdvbm53Rys0Lzk0elZEeG5aSmZPMjRxaUh2dXJlSW5jaDlZWEZMbFNh?=
+ =?utf-8?B?SDQxUVhEaVBSb2tWdlVLTUkxOWV6TmRhL2JLRExDK3FpdmhlSDFtNnl4dUh0?=
+ =?utf-8?B?a1V2OUpZY1hXYmZzVGMxTG5IeDJ6STVnZDMzalpmR21wdjZ4aEVNNStZOGhm?=
+ =?utf-8?B?blVVV3NZZ2k1ZlZjOW1tMUJCOXVCcXJBMklvb0RRSEp5dFZvN094TGExRnZh?=
+ =?utf-8?B?NDQ3ZWhNZU45OVZVMXRzV2ViQU9QT2Y5cnZUUzdnZXJLRWNmdVNabUVXSS9H?=
+ =?utf-8?B?UmoxaTl3QnZCOVloZDhQMnhXYWJlMkIyVXFTZHB6KzdGamJXeEQ1a2drbkx0?=
+ =?utf-8?B?TG9nMnFGd1hld2ltSnBHZFBQaWdXbE5TVDZVOWZhd2JjKzhuL2NzRlhHaVdQ?=
+ =?utf-8?B?alpxVFhhWkZaU3NqUEwzWXV6WlA4TEMxZG8wSnRqUlJHNE1Lc0twZ3hDeXZ5?=
+ =?utf-8?B?eVh5MHRIdFUwMlhLdlZEcVpiWkFBSzlsMHlxRmZQSU9kYUNzODNZSW9IRVFQ?=
+ =?utf-8?B?YnpQdHFuVlNRcWxzTlA2WEU5cDhSdTJ6Vk85NkNXN25uRVE5a1RkSXVBRVlK?=
+ =?utf-8?B?aks5bXZQc202b3pWQ0lJck0yUTVvWjEwZEUvb0pZY210Q2FSR3NaY2t6aWlu?=
+ =?utf-8?B?anNnWTkrb3dNdjhtaGltclYwaXpBOEFSWWJ3cFQwYlFRcFN3N2xnT1lHeEtv?=
+ =?utf-8?B?MkVqMmFDYXNhOFkvVmI4WjNHWTgzV3dndEFvc1FmWFlkQ1BwWUlONENxYVJX?=
+ =?utf-8?B?M0RsR20zTnN6M1ZoMkNGOUp6ZTFkSWJpOXNmTGtUNjZsRWZYSms0Y0VJbFUy?=
+ =?utf-8?B?Sk5vMncwTkhPaW1GbEwyVStCUk93L1poUm5XOWkxZG5kenZvcDA4a0w0K0k2?=
+ =?utf-8?B?WVB1cVdpQTJFbkFMTER1eVVFOEJZQitVZ29ibUs4RnhrVklVYkk4SzF5cVJH?=
+ =?utf-8?B?WUpsajhlaDJyQXRSN3p2S3FzS1VBa3JZS3Jsbm5qcUJld3V2VXFUQmtnRnVv?=
+ =?utf-8?B?WUlHZWpCSDZwUnU0Vzh5cUpvN25Ga2pZcll5azdoS0w4R2lDUW9ocFB2cnZt?=
+ =?utf-8?B?Vm1mUkphbGYyc3c2SHdtZmxuQ1FacnFOUUhSNEg2OUdGRVlRMG9HSjRheTRh?=
+ =?utf-8?B?NlUzYjMyUXp3NmszWVEzTUFnYkpKRitTSVZ6SEowZVdSS1ZwcWVtSnRQMXda?=
+ =?utf-8?B?bnM3V0RSbU1NTnJnK2VmY3l1UlY4T3hBYkFrTmlRRzFvOFFOU0VqTWVvZVFl?=
+ =?utf-8?B?elhZUGlBV2Irb05SbndjSUxCeVcrTzFSaE1IR3ZvRG5ZalVhNHpwSnEwTUhG?=
+ =?utf-8?B?T3Z2bU9veWhjcnZIb0QrdlZkR0gyWDdMZ0VoWVk5L21oUFlZc2RPUnFJODU1?=
+ =?utf-8?B?NFhtSWRwTWR6d1RVcXgxTHAydlJBaDZCK2JoUk1vcjNJTTNrWnlwaHZ2ZXNy?=
+ =?utf-8?B?OU5SUkpVYUVIZE9yT2hqSktTUmw1dm5UeHdmVVF6Y1BmY01ReGI3UnNmbGhs?=
+ =?utf-8?B?cG1iTWdKT1lDNW1DaGlFaWRpZ2JBVHlVYnZzbGFMNnNBM09VQ0VFSjdIVFEz?=
+ =?utf-8?B?eVd2MmFaZ1JrR21DNW80UU9GdXVGdThpODBVaGQ3K0g1TGIwRjQ3ZmxZcmlw?=
+ =?utf-8?B?MEIxeDNtOXZYZXM1KzhHS0Z4MzNMZVNRQ1NWK3pHK1hlRXhIbDRpM1ZaR2FN?=
+ =?utf-8?B?MEFPOFVNMFpwTmFYQXBpMVdZTDVlZnR1aW95TnRzeVdIbDFnOVpodGtYY01H?=
+ =?utf-8?B?NGp6VlRnU0YxQjVKS0g4YzdhblhQbjZaMC9oTyt6Y0Z2dW80a3puUWkxM0Ju?=
+ =?utf-8?B?eGNkWlNKMnorK082TmFVd0xROFlMakowNnhpZ0todEVzcWIyL3NvRDlzNmlt?=
+ =?utf-8?B?S3VEeHpMbzhrM1Fja1YyNXFxdE5kU0VudlR6ZUE5TG5rNU13MCttQSttL0Ja?=
+ =?utf-8?B?N2NYQzVTcm15T2Mxb2JVWE1leFgvcC9BamswUDIzTWZ3TkdUMUgwdXJWMzlt?=
+ =?utf-8?Q?v8WfkA?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2025 20:08:20.0195 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20054601-59c4-457f-a2ef-08dd9eec8ec8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2025 20:08:17.5644 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13adb2d6-c440-4a4d-cb72-08dd9eec8d51
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C6.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4192
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7112
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,103 +139,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It doesn't work reliably and we have soft recover and
-full adapter reset so drop this.
+This set improves per queue reset support for GC10+.
+When we reset the queue, the queue is lost so we need
+to re-emit the unprocessed state from subsequent submissions.
+To that end, in order to make sure we actually restore
+unprocessed state, we need to enable legacy enforce isolation
+so that we can safely re-emit the unprocessed state.  If
+we don't multiple jobs can run in parallel and we may not
+end up resetting the correct one.  This is similar to how
+windows handles queues.  This also gives us correct guilty
+tracking for GC.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 71 ---------------------------
- 1 file changed, 71 deletions(-)
+Tested on GC 10 and 11 chips with a game running and
+then running hang tests.  The game pauses when the
+hang happens, then continues after the queue reset.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index da0534ff1271a..2aa323dab34e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4884,76 +4884,6 @@ static void gfx_v7_0_emit_mem_sync_compute(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, 0x0000000A);	/* poll interval */
- }
- 
--static void gfx_v7_0_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
--				  int mem_space, int opt, uint32_t addr0,
--				  uint32_t addr1, uint32_t ref, uint32_t mask,
--				  uint32_t inv)
--{
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
--	amdgpu_ring_write(ring,
--			  /* memory (1) or register (0) */
--			  (WAIT_REG_MEM_MEM_SPACE(mem_space) |
--			   WAIT_REG_MEM_OPERATION(opt) | /* wait */
--			   WAIT_REG_MEM_FUNCTION(3) |  /* equal */
--			   WAIT_REG_MEM_ENGINE(eng_sel)));
--
--	if (mem_space)
--		BUG_ON(addr0 & 0x3); /* Dword align */
--	amdgpu_ring_write(ring, addr0);
--	amdgpu_ring_write(ring, addr1);
--	amdgpu_ring_write(ring, ref);
--	amdgpu_ring_write(ring, mask);
--	amdgpu_ring_write(ring, inv); /* poll interval */
--}
--
--static void gfx_v7_0_ring_emit_reg_wait(struct amdgpu_ring *ring, uint32_t reg,
--					uint32_t val, uint32_t mask)
--{
--	gfx_v7_0_wait_reg_mem(ring, 0, 0, 0, reg, 0, val, mask, 0x20);
--}
--
--static int gfx_v7_0_reset_kgq(struct amdgpu_ring *ring, unsigned int vmid)
--{
--	struct amdgpu_device *adev = ring->adev;
--	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
--	struct amdgpu_ring *kiq_ring = &kiq->ring;
--	unsigned long flags;
--	u32 tmp;
--	int r;
--
--	if (amdgpu_sriov_vf(adev))
--		return -EINVAL;
--
--	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
--		return -EINVAL;
--
--	spin_lock_irqsave(&kiq->ring_lock, flags);
--
--	if (amdgpu_ring_alloc(kiq_ring, 5)) {
--		spin_unlock_irqrestore(&kiq->ring_lock, flags);
--		return -ENOMEM;
--	}
--
--	tmp = REG_SET_FIELD(0, CP_VMID_RESET, RESET_REQUEST, 1 << vmid);
--	gfx_v7_0_ring_emit_wreg(kiq_ring, mmCP_VMID_RESET, tmp);
--	amdgpu_ring_commit(kiq_ring);
--
--	spin_unlock_irqrestore(&kiq->ring_lock, flags);
--
--	r = amdgpu_ring_test_ring(kiq_ring);
--	if (r)
--		return r;
--
--	if (amdgpu_ring_alloc(ring, 7 + 12 + 5))
--		return -ENOMEM;
--	gfx_v7_0_ring_emit_fence_gfx(ring, ring->fence_drv.gpu_addr,
--				     ring->fence_drv.sync_seq, AMDGPU_FENCE_FLAG_EXEC);
--	gfx_v7_0_ring_emit_reg_wait(ring, mmCP_VMID_RESET, 0, 0xffff);
--	gfx_v7_0_ring_emit_wreg(ring, mmCP_VMID_RESET, 0);
--
--	return amdgpu_ring_test_ring(ring);
--}
--
- static const struct amd_ip_funcs gfx_v7_0_ip_funcs = {
- 	.name = "gfx_v7_0",
- 	.early_init = gfx_v7_0_early_init,
-@@ -5003,7 +4933,6 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_gfx = {
- 	.emit_wreg = gfx_v7_0_ring_emit_wreg,
- 	.soft_recovery = gfx_v7_0_ring_soft_recovery,
- 	.emit_mem_sync = gfx_v7_0_emit_mem_sync,
--	.reset = gfx_v7_0_reset_kgq,
- };
- 
- static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_compute = {
+I tried this same approach and GC8 and 9, but it
+was not as reliable as soft recovery.  As such, I've dropped
+the KGQ reset code for pre-GC10.
+
+The same approach is extended to SDMA and VCN.
+They don't need enforce isolation because those engines
+are single threaded so they always operate serially.
+
+Rework re-emit to signal the seq number of the bad job and
+verify that to verify that the reset worked, then re-emit the
+rest of the non-guilty state.  This way we are not waiting on
+the rest of the state to complete, and if the subsequent state
+also contains a bad job, we'll end up in queue reset again rather
+than adapter reset.
+
+v4: Drop explicit padding patches
+    Drop new timeout macro
+    Rework re-emit sequence
+v5: Add a helper for reemit
+    Convert VCN, JPEG, SDMA to use new helpers
+
+Alex Deucher (27):
+  drm/amdgpu: enable legacy enforce isolation by default
+  drm/amdgpu/gfx7: drop reset_kgq
+  drm/amdgpu/gfx8: drop reset_kgq
+  drm/amdgpu/gfx9: drop reset_kgq
+  drm/amdgpu: move force completion into ring resets
+  drm/amdgpu: track ring state associated with a job
+  drm/amdgpu/gfx10: re-emit unprocessed state on ring reset
+  drm/amdgpu/gfx11: re-emit unprocessed state on ring reset
+  drm/amdgpu/gfx12: re-emit unprocessed state on ring reset
+  drm/amdgpu/gfx9: re-emit unprocessed state on kcq reset
+  drm/amdgpu/gfx9.4.3: re-emit unprocessed state on kcq reset
+  drm/amdgpu/sdma5: re-emit unprocessed state on ring reset
+  drm/amdgpu/sdma5.2: re-emit unprocessed state on ring reset
+  drm/amdgpu/sdma6: re-emit unprocessed state on ring reset
+  drm/amdgpu/sdma7: re-emit unprocessed state on ring reset
+  drm/amdgpu/jpeg2: re-emit unprocessed state on ring reset
+  drm/amdgpu/jpeg2.5: re-emit unprocessed state on ring reset
+  drm/amdgpu/jpeg3: re-emit unprocessed state on ring reset
+  drm/amdgpu/jpeg4: re-emit unprocessed state on ring reset
+  drm/amdgpu/jpeg4.0.3: re-emit unprocessed state on ring reset
+  drm/amdgpu/jpeg5.0.0: add queue reset
+  drm/amdgpu/jpeg5: re-emit unprocessed state on ring reset
+  drm/amdgpu/jpeg5.0.1: re-emit unprocessed state on ring reset
+  drm/amdgpu/vcn4: re-emit unprocessed state on ring reset
+  drm/amdgpu/vcn4.0.3: re-emit unprocessed state on ring reset
+  drm/amdgpu/vcn4.0.5: re-emit unprocessed state on ring reset
+  drm/amdgpu/vcn5: re-emit unprocessed state on ring reset
+
+Christian König (1):
+  drm/amdgpu: rework queue reset scheduler interaction
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 12 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     |  6 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 32 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 46 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  8 +++
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 31 ++--------
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 21 +------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 21 +------
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c      | 71 ----------------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      | 71 ----------------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 51 +---------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |  6 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c     |  3 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c     |  3 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c     |  3 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c     |  3 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c   |  3 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c   | 12 ++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c   |  3 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c   |  4 ++
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c     |  7 ++-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c     |  7 ++-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c     |  6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c     |  6 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c    |  3 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c    |  2 +-
+ 30 files changed, 162 insertions(+), 289 deletions(-)
+
 -- 
 2.49.0
 
