@@ -4,70 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F458C5AD49
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 May 2025 13:13:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B44BC5AD49
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 May 2025 13:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C04810E103;
-	Thu, 29 May 2025 13:13:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A96F10E048;
+	Thu, 29 May 2025 13:57:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CgElWYVO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eRG0wP+Y";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFE710E103
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 May 2025 13:13:57 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-234eaea2e4eso1111615ad.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 May 2025 06:13:57 -0700 (PDT)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E63F10E048
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 May 2025 13:57:06 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-3108652400cso140776a91.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 May 2025 06:57:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1748524437; x=1749129237; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1748527026; x=1749131826; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5jEv+mQ0WOOfmKvTEOwZ2hdYC8JrK8vgAJJDGX4y/oU=;
- b=CgElWYVOTSjGmCbQq7bNIBxIDtmnHhacNT8Np1rzq4bEI3ifojMbWcsGs1EFMjcIvp
- Z3CeNSQtK93p7b6PDvCljd5EkWJs3xBHhvQbZf0lK5q+rOtJmNOijWFIGinOMQWszuSg
- IPxKISwniRsZ1I0QNzC5/txgr9iwABsmq5WusdWIxsh0JAqKw6Zv7BBQKJsklPUOJDpo
- /l/N1yXvFNe9dKLlbVcJUofQfJ+IApQTG9EKo6e1S50utK/DtiabBp7WYCeagVIZph8b
- 4eyR+ztZWQ1b2FpK/6HeKyukAMCUjcFGooExS+rDH/N6szc0nR+uC+S2cYeQqMRDXkXl
- UG9w==
+ bh=V4b4SZZcN0p+Ah0jChIUYcIArY5D2uGTSZVMdeARWCg=;
+ b=eRG0wP+YxNyOsZf0ufYoidGjNeaXCKuLCDJCaCR1eyohtmgXaoRs3OWhbYQwOh8Rm3
+ 0ARZuUe2MOovNM8TgbBJ6q3Q1n/fRTzxUFdbdhIlQQwOOKn6MXXNh/8z+WxTTnj2thOP
+ cluYjyxybtGtivzgo3wS8LJke+8XK+lzkT02mOpIm4mLvEqQvODzxiu40QmW6FPeUT2Z
+ OHUsAfqEY0ubjxhuiX5v9Su3mPmi8MX27RtUib8pJCElNjhunGRMI7sjqyPF3DRZeFvs
+ mvpNqwa7sfaScfDms8BSNN3Yj2fzbkTjj25JwFraJrMzcDIG3gmMiBBCUDSeqdCXQUXW
+ ErHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748524437; x=1749129237;
+ d=1e100.net; s=20230601; t=1748527026; x=1749131826;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5jEv+mQ0WOOfmKvTEOwZ2hdYC8JrK8vgAJJDGX4y/oU=;
- b=Da0DBhe9mYCTxidExzwgbUIKSrqAbAi7qi2OrfN+PR2xGFPBReVmfnUB6MYPXw4u1T
- ms6sUosLbMP+VO3LyBGaKtE/Jj2VgtlxIxoX0pa3VML3REtgDRhfC+CRPLlclp82J5zq
- Eir5FQdKeP5zOF2r9N7n532pqoORsninF9gdXiItL1MjC6N3mzW6wHEfGDb6x7al8K5w
- ytD0qPhgWKu9svkW/YMKUz98MjUjZFwtRAz/NuWIzF4VtJyhUXWiBLz9x3upI5OvPgLe
- WF5LQw28+ZXlKW9LPl8eiWYjne/byx1uNrl/lDCo0Y0eEsVMkjmCqZUCq4pf7ZebqYcR
- 1r+A==
-X-Gm-Message-State: AOJu0YyarDwwNPGiZhmM6DKDXkAa0g+0IWAcnwXO+4J/011IYVkulklQ
- Wi8VRUMt4iFPskXh5+z3scH+Z0h7+TUD84Gma7ykQqr296Vnd0ItJGDE3UWILuHv8XQu+7kQZkZ
- IqH8zkKzMY7eYQRSytRwT/NpavnxhEMU=
-X-Gm-Gg: ASbGncsK24fRRj7hS3cwUUDN8+ATrZ4X+vWEGwX5OjsfywwbO8TX36aWgmWXQ6w+vcZ
- sGJBlYxBsYM/soBqF0z0EIasoWkEiP7Xo0j/4Jp8p83HfWDD920nFmY/dZCfnJO/rkPvxn3VGQu
- atELZr7nFdycOpP74s14tH/PlvwO/kKsr/ag==
-X-Google-Smtp-Source: AGHT+IGuYLWiQXRHT7NrUJ2Y7a7pywxRgVHwVz7IJpGQrDShIWz1EaZhmu7vEXIlPcFoKEBSXei/Uv4Jehv+cEf5U1w=
-X-Received: by 2002:a17:903:228f:b0:234:d14c:50ff with SMTP id
- d9443c01a7336-234d14c5265mr37391825ad.6.1748524436754; Thu, 29 May 2025
- 06:13:56 -0700 (PDT)
+ bh=V4b4SZZcN0p+Ah0jChIUYcIArY5D2uGTSZVMdeARWCg=;
+ b=bBI29CPUYZq7wzItxfjzEniQq1W/945V61XZzyVficQrdlgn49CVxRya2QmKj4DG1s
+ bi2HnPWfahGYLFW6XMCxZk0M9lKqkqvxRRRwKVURMefkx30ktzHdQVfwT3CEgzMAf+bf
+ WGa2RBINLAr115CqgJpfWRcSrJ5ESWBhyyBqD3yv6u7bNTYZ76LQrOg1BKqCPBwxKzYD
+ AmDdLHHlKncU3SP74rRgvZF6TI9cNIB4228TExhkXsprrVYMd8SWzNNqIe68euv75Onx
+ yESPiHfY2fDc2gsuaSmY3hsb+vuwtT6dwPfZDUYixIkNoeYHMS+mpQEfOfu5JhDz9HEC
+ XXPw==
+X-Gm-Message-State: AOJu0Ywjti0iPSBM36iSq6cBKQQDwAvSxnXLC7tXHpMZS1PzPvQ5Ekhn
+ YuLQ1ls/tt3F+FRqUoRqJpTFtf+I1TIZP9M3Zr4SzjgXnXa6QJZd5YIwbFsJ2uXhugKUK2KTySP
+ dRu4CKci8ZBtPg+9gML2MNCVoZ6qVOIY=
+X-Gm-Gg: ASbGnctQl5Ews7Vd2aCfR1g7RYoAeLHfk78O7TEHQuEhR1H1hpxL4KTsJOqoSs+asw/
+ s8IeE2tOcOWa8r1W8UKB+AwIIdztbY2o3MSRgerP9yNfa1yFMH93vXS0wXxQ2ZHOKmL+JLvTwX0
+ X86+p5Hcthb6WF0dStqoVGipGi+/LdxIqzWQ==
+X-Google-Smtp-Source: AGHT+IGrDmiKFxxQjIGy/UiNM8p0FL+RjLhIQof2nSJ+HUbJiZSfi4SiF9TcRxu/+rs32jwNtnYEUAq2WEgiBFeKYN4=
+X-Received: by 2002:a17:90b:38cb:b0:311:b0d3:851 with SMTP id
+ 98e67ed59e1d1-311b0d30b35mr5600382a91.4.1748527025965; Thu, 29 May 2025
+ 06:57:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250528083756.847677-1-Prike.Liang@amd.com>
- <CADnq5_MRsoGeKDhNHuKZbAbjRM9WNAc20q_T60y8kN1biBL0Lg@mail.gmail.com>
- <DS7PR12MB6005CC481C03A04628CD56CFFB66A@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB6005CC481C03A04628CD56CFFB66A@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20250529114655.592455-1-lijo.lazar@amd.com>
+In-Reply-To: <20250529114655.592455-1-lijo.lazar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 May 2025 09:13:45 -0400
-X-Gm-Features: AX0GCFsN_nk1Qk_Qg8RhKrrU91XxZHt-I0J6j9Zf22_Mqxe4s71jD59WXyP6qGA
-Message-ID: <CADnq5_OgcCiJGPFEymQC4+JAvYxAc5j9DfKNV6zYU=zBDReN4Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: only export available rings to mesa for
- enabling kq|uq
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Date: Thu, 29 May 2025 09:56:54 -0400
+X-Gm-Features: AX0GCFtEwO6j155VafxbNd9zfCNOScjO8DBRLabTOWezZLdgsLwKv_KmeGjA_hU
+Message-ID: <CADnq5_PC8bBdfMPenSOa-Uyh=otaskDyy=90GgwoYHPE2Udx0Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add more checks to discovery fetch
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,181 +80,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 28, 2025 at 10:05=E2=80=AFPM Liang, Prike <Prike.Liang@amd.com>=
- wrote:
+On Thu, May 29, 2025 at 7:47=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
 >
-> [Public]
+> Add more checks for valid vram size and log error, if any.
 >
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Wednesday, May 28, 2025 9:11 PM
-> > To: Liang, Prike <Prike.Liang@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.co=
-m>
-> > Subject: Re: [PATCH] drm/amdgpu: only export available rings to mesa fo=
-r enabling
-> > kq|uq
-> >
-> > On Wed, May 28, 2025 at 4:38=E2=80=AFAM Prike Liang <Prike.Liang@amd.co=
-m> wrote:
-> > >
-> > > The kernel driver only requires exporting available rings to the mesa
-> > > when the userq is disabled; otherwise, the userq IP mask will be
-> > > cleaned up in the mesa.
-> >
-> > The logic should work correctly as is.  There are three possible states=
-:
-> > 1. KQ only
-> > 2. Both KQ and UQ
-> > 3. UQ only
->
-> Yeah, but when the kernel driver tries to enable KQ and UQ at the same ti=
-me by setting user_queue=3D1,while kernel driver will report available ring=
-s to Mesa, and Mesa will further clean up the userq mask, which makes user =
-queue enablement fail. Without this change, the userq can only be enabled s=
-uccessfully separate from the kernel queue.
->
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-That needs to be fixed in mesa.  I thought mesa defaulted to KQs if
-both were enabled, but you could test UQ with an env var.  Also, UQs
-can be enabled independently for each engine type so each engine type
-can set no_user_submission independently if it wants to not advertise
-KQs.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-> Thaks,
-> Prike
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
 >
-> > Alex
-> >
-> > >
-> > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 20 ++++++++++----------
-> > >  1 file changed, 10 insertions(+), 10 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > index d2ce7d86dbc8..43d86c09d8bb 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > @@ -409,7 +409,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device
-> > *adev,
-> > >                 type =3D AMD_IP_BLOCK_TYPE_GFX;
-> > >                 for (i =3D 0; i < adev->gfx.num_gfx_rings; i++)
-> > >                         if (adev->gfx.gfx_ring[i].sched.ready &&
-> > > -                           !adev->gfx.gfx_ring[i].no_user_submission=
-)
-> > > +                           adev->gfx.disable_uq)
-> > >                                 ++num_rings;
-> > >                 ib_start_alignment =3D 32;
-> > >                 ib_size_alignment =3D 32; @@ -418,7 +418,7 @@ static =
-int
-> > > amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >                 type =3D AMD_IP_BLOCK_TYPE_GFX;
-> > >                 for (i =3D 0; i < adev->gfx.num_compute_rings; i++)
-> > >                         if (adev->gfx.compute_ring[i].sched.ready &&
-> > > -                           !adev->gfx.compute_ring[i].no_user_submis=
-sion)
-> > > +                           adev->gfx.disable_uq)
-> > >                                 ++num_rings;
-> > >                 ib_start_alignment =3D 32;
-> > >                 ib_size_alignment =3D 32; @@ -427,7 +427,7 @@ static =
-int
-> > > amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >                 type =3D AMD_IP_BLOCK_TYPE_SDMA;
-> > >                 for (i =3D 0; i < adev->sdma.num_instances; i++)
-> > >                         if (adev->sdma.instance[i].ring.sched.ready &=
-&
-> > > -                           !adev->sdma.instance[i].ring.no_user_subm=
-ission)
-> > > +                               adev->gfx.disable_uq)
-> > >                                 ++num_rings;
-> > >                 ib_start_alignment =3D 256;
-> > >                 ib_size_alignment =3D 4; @@ -439,7 +439,7 @@ static i=
-nt
-> > > amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >                                 continue;
-> > >
-> > >                         if (adev->uvd.inst[i].ring.sched.ready &&
-> > > -                           !adev->uvd.inst[i].ring.no_user_submissio=
-n)
-> > > +                           adev->gfx.disable_uq)
-> > >                                 ++num_rings;
-> > >                 }
-> > >                 ib_start_alignment =3D 256; @@ -449,7 +449,7 @@ stati=
-c
-> > > int amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >                 type =3D AMD_IP_BLOCK_TYPE_VCE;
-> > >                 for (i =3D 0; i < adev->vce.num_rings; i++)
-> > >                         if (adev->vce.ring[i].sched.ready &&
-> > > -                           !adev->vce.ring[i].no_user_submission)
-> > > +                           adev->gfx.disable_uq)
-> > >                                 ++num_rings;
-> > >                 ib_start_alignment =3D 256;
-> > >                 ib_size_alignment =3D 4; @@ -462,7 +462,7 @@ static i=
-nt
-> > > amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >
-> > >                         for (j =3D 0; j < adev->uvd.num_enc_rings; j+=
-+)
-> > >                                 if (adev->uvd.inst[i].ring_enc[j].sch=
-ed.ready &&
-> > > -                                   !adev->uvd.inst[i].ring_enc[j].no=
-_user_submission)
-> > > +                                   adev->gfx.disable_uq)
-> > >                                         ++num_rings;
-> > >                 }
-> > >                 ib_start_alignment =3D 256; @@ -475,7 +475,7 @@ stati=
-c
-> > > int amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >                                 continue;
-> > >
-> > >                         if (adev->vcn.inst[i].ring_dec.sched.ready &&
-> > > -                           !adev->vcn.inst[i].ring_dec.no_user_submi=
-ssion)
-> > > +                           adev->gfx.disable_uq)
-> > >                                 ++num_rings;
-> > >                 }
-> > >                 ib_start_alignment =3D 256; @@ -489,7 +489,7 @@ stati=
-c
-> > > int amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >
-> > >                         for (j =3D 0; j < adev->vcn.inst[i].num_enc_r=
-ings; j++)
-> > >                                 if (adev->vcn.inst[i].ring_enc[j].sch=
-ed.ready &&
-> > > -                                   !adev->vcn.inst[i].ring_enc[j].no=
-_user_submission)
-> > > +                                   adev->gfx.disable_uq)
-> > >                                         ++num_rings;
-> > >                 }
-> > >                 ib_start_alignment =3D 256; @@ -505,7 +505,7 @@ stati=
-c
-> > > int amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >
-> > >                         for (j =3D 0; j < adev->jpeg.num_jpeg_rings; =
-j++)
-> > >                                 if (adev->jpeg.inst[i].ring_dec[j].sc=
-hed.ready &&
-> > > -                                   !adev->jpeg.inst[i].ring_dec[j].n=
-o_user_submission)
-> > > +                                   adev->gfx.disable_uq)
-> > >                                         ++num_rings;
-> > >                 }
-> > >                 ib_start_alignment =3D 256; @@ -514,7 +514,7 @@ stati=
-c
-> > > int amdgpu_hw_ip_info(struct amdgpu_device *adev,
-> > >         case AMDGPU_HW_IP_VPE:
-> > >                 type =3D AMD_IP_BLOCK_TYPE_VPE;
-> > >                 if (adev->vpe.ring.sched.ready &&
-> > > -                   !adev->vpe.ring.no_user_submission)
-> > > +                   adev->gfx.disable_uq)
-> > >                         ++num_rings;
-> > >                 ib_start_alignment =3D 256;
-> > >                 ib_size_alignment =3D 4;
-> > > --
-> > > 2.34.1
-> > >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.c
+> index 9e738fae2b74..a0e9bf9b2710 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -270,9 +270,10 @@ static int amdgpu_discovery_read_binary_from_sysmem(=
+struct amdgpu_device *adev,
+>  static int amdgpu_discovery_read_binary_from_mem(struct amdgpu_device *a=
+dev,
+>                                                  uint8_t *binary)
+>  {
+> +       bool sz_valid =3D true;
+>         uint64_t vram_size;
+> -       u32 msg;
+>         int i, ret =3D 0;
+> +       u32 msg;
+>
+>         if (!amdgpu_sriov_vf(adev)) {
+>                 /* It can take up to a second for IFWI init to complete o=
+n some dGPUs,
+> @@ -291,9 +292,13 @@ static int amdgpu_discovery_read_binary_from_mem(str=
+uct amdgpu_device *adev,
+>                 }
+>         }
+>
+> -       vram_size =3D (uint64_t)RREG32(mmRCC_CONFIG_MEMSIZE) << 20;
+> +       vram_size =3D RREG32(mmRCC_CONFIG_MEMSIZE);
+> +       if (!vram_size || vram_size =3D=3D U32_MAX)
+> +               sz_valid =3D false;
+> +       else
+> +               vram_size <<=3D 20;
+>
+> -       if (vram_size) {
+> +       if (sz_valid) {
+>                 uint64_t pos =3D vram_size - DISCOVERY_TMR_OFFSET;
+>                 amdgpu_device_vram_access(adev, pos, (uint32_t *)binary,
+>                                           adev->mman.discovery_tmr_size, =
+false);
+> @@ -301,6 +306,11 @@ static int amdgpu_discovery_read_binary_from_mem(str=
+uct amdgpu_device *adev,
+>                 ret =3D amdgpu_discovery_read_binary_from_sysmem(adev, bi=
+nary);
+>         }
+>
+> +       if (ret)
+> +               dev_err(adev->dev,
+> +                       "failed to read discovery info from memory, vram =
+size read: %llx",
+> +                       vram_size);
+> +
+>         return ret;
+>  }
+>
+> --
+> 2.25.1
+>
