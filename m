@@ -4,77 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6887EC5B549
-	for <amd-gfx@archiver.kernel.org>; Sat, 31 May 2025 16:59:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D86C5AE59
+	for <amd-gfx@archiver.kernel.org>; Sat, 31 May 2025 16:59:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1565310E2C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D810F10E2E8;
 	Sat, 31 May 2025 16:59:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XolpLGhH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mr8JX08o";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C341710E813;
- Fri, 30 May 2025 13:58:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1748613510;
- bh=S8/E7ll4dARKhPnoLH44EgVYxvFxRNTJ8+4nXDAWXb4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=XolpLGhHvWcjAt2uJRg6JGmMx9WyXtSaXRfoftSPFEUQQt1VaVrf6DRYBbZsZYpAZ
- XWpbmOfDrXvy+6NbSF0JI0BUHBd/6CXas5F7/qQoLQ3GNi9717R+r04m6d6ZS0ZRKr
- Tcan2lK5HySGlZPVi+wCCprAW5edRb1X3IkneS0sJppXDlxzhKGJWmXFyg6NIE/WNI
- o2DSm2dAyd4Fi+cKXg2TAFSm1urFxsqmouhKTyDxtesQ1v3Vkqxr/aNzX/QfMHxF9P
- 39lbdt3oahbTQxzU5Sa9+oacjmbpoz9Vb8FPTMm4ku6HcFSzp18fgfwXvMdlrdj1s+
- 8cUZQSYooLnrw==
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1FC1A17E0C37;
- Fri, 30 May 2025 15:58:29 +0200 (CEST)
-Date: Fri, 30 May 2025 16:58:17 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: "Shankar, Uma" <uma.shankar@intel.com>
-Cc: Simon Ser <contact@emersion.fr>, Harry Wentland
- <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E390210E815
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 May 2025 17:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1748625797; x=1780161797;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=LtRRKOvFNPh4KPAIWtI8ZscFptnvxHt2EGEbh94LZIs=;
+ b=mr8JX08oSmjXCHPIcPY6ajO8EJoVrMnJm5ltgcYwGUDh+yEP+u42sVpO
+ MVaL65Ptmr3ygYV3w5y5NIdxXvP0bBZzuZiNHEj/8HVgwG/CYCK/siYOu
+ v2Hu0q3yUHg/zjS8Lj9T5bgvJ21Vb9/ZheZVMKRvmEO+vgD4CihcDpF5t
+ 5pDs7CsOI3QiyJ68jtuaRgp/IL7YGvuIjZPL8ZP4NTWRZNhyXRcThbuEy
+ pQbjOcWF9m1g2h38ap6kPTQpjYbf3uf21MCEe1Rpz1TS2sc1mv3brNPa3
+ smDtk8jHuQeLuTTTtG0g590TyGEjVszCB6aBJ4Wxlxv9xFQ551VhOqokb A==;
+X-CSE-ConnectionGUID: JfkwO+KKRhaMxdVrmwyBsw==
+X-CSE-MsgGUID: tmARxex9TaevymJle9Vl9Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11449"; a="53358154"
+X-IronPort-AV: E=Sophos;i="6.16,196,1744095600"; d="scan'208";a="53358154"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2025 10:23:16 -0700
+X-CSE-ConnectionGUID: mLev60PqRjq57WMIW+1/gw==
+X-CSE-MsgGUID: TXtpvKYOQcS9ic/fGl60qw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,196,1744095600"; d="scan'208";a="143961547"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2025 10:23:12 -0700
+Date: Fri, 30 May 2025 20:23:08 +0300
+From: Raag Jadav <raag.jadav@intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ Denis Benato <benato.denis96@gmail.com>, mahesh@linux.ibm.com,
+ oohall@gmail.com, bhelgaas@google.com, linux-pci@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ilpo.jarvinen@linux.intel.com, lukas@wunner.de,
+ aravind.iddamsetty@linux.intel.com,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, "leo.liu@amd.com" <leo.liu@amd.com>,
- "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
- "pekka.paalanen@collabora.com" <pekka.paalanen@collabora.com>,
- "mwen@igalia.com" <mwen@igalia.com>, "jadahl@redhat.com"
- <jadahl@redhat.com>, "sebastian.wick@redhat.com"
- <sebastian.wick@redhat.com>, "shashank.sharma@amd.com"
- <shashank.sharma@amd.com>, "agoins@nvidia.com" <agoins@nvidia.com>,
- "joshua@froggi.es" <joshua@froggi.es>, "mdaenzer@redhat.com"
- <mdaenzer@redhat.com>, "aleixpol@kde.org" <aleixpol@kde.org>,
- "xaver.hugl@gmail.com" <xaver.hugl@gmail.com>, "victoria@system76.com"
- <victoria@system76.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "quic_naseer@quicinc.com" <quic_naseer@quicinc.com>,
- "quic_cbraga@quicinc.com" <quic_cbraga@quicinc.com>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>, "marcan@marcan.st"
- <marcan@marcan.st>, "Liviu.Dudau@arm.com" <Liviu.Dudau@arm.com>,
- "sashamcintosh@google.com" <sashamcintosh@google.com>, "Borah, Chaitanya
- Kumar" <chaitanya.kumar.borah@intel.com>, "louis.chauvet@bootlin.com"
- <louis.chauvet@bootlin.com>
-Subject: Re: [PATCH V8 32/43] drm/colorop: Add 1D Curve Custom LUT type
-Message-ID: <20250530165818.0e6cb846@eldfell>
-In-Reply-To: <DM4PR11MB6360CE0C5C99FB02CD6CC0BFF499A@DM4PR11MB6360.namprd11.prod.outlook.com>
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-33-alex.hung@amd.com>
- <CY5PR11MB63441E057180C043C51230A3F4B22@CY5PR11MB6344.namprd11.prod.outlook.com>
- <fzuE3KXuocsKA0I9kWXruyw7IVbw3jwH2yeh59SfE0Qb0SGxa29rrj9X_XgNCdmj1vWgxLO619xyJY3r5R3hsZK6ElIkTvbyNfu40x1SiZM=@emersion.fr>
- <CY5PR11MB63449DBA54519766E345CADAF4B22@CY5PR11MB6344.namprd11.prod.outlook.com>
- <3ca1958f-62e0-4a5c-837b-3cd705acc181@amd.com>
- <ZqHOWK3X_Ici9wNgijgeUt9r3asi4jhqw-0-keIfXYAFxbsGLaFTIozGHHR64SnkAzPA4CM-zmc6OwVtrKMKjVyoblti88KpRf9wEu8daP0=@emersion.fr>
- <DM4PR11MB6360CE0C5C99FB02CD6CC0BFF499A@DM4PR11MB6360.namprd11.prod.outlook.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH v4] PCI: Prevent power state transition of erroneous device
+Message-ID: <aDnpfKvLwRZsKxhH@black.fi.intel.com>
+References: <a8c83435-4c91-495c-950c-4d12b955c54c@kernel.org>
+ <aCyj9nbnIRet93O-@black.fi.intel.com>
+ <552d75b2-2736-419f-887e-ce2692616578@kernel.org>
+ <ee1117cf-6367-4e9a-aa85-ccfc6c63125d@gmail.com>
+ <6f23d82c-10cc-4d70-9dce-41978b05ec9a@kernel.org>
+ <aCzNL9uXGbBSdF2S@black.fi.intel.com>
+ <fea86161-2c47-4b0f-ac07-b3f9b0f10a03@kernel.org>
+ <aC2UzG-eycjqYQep@black.fi.intel.com>
+ <CAJZ5v0gRFwKhq21ima3kT0zzFLk4=47ivvzJqARksV7nYHTJAQ@mail.gmail.com>
+ <CAJZ5v0h9--jFVBtQ5F7Gee3Cy8P3TeSLdiHEWykQ=EsZdoffmg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/r7.3hMmy35MS7Y8d+OflcKb";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0h9--jFVBtQ5F7Gee3Cy8P3TeSLdiHEWykQ=EsZdoffmg@mail.gmail.com>
 X-Mailman-Approved-At: Sat, 31 May 2025 16:59:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,78 +84,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/r7.3hMmy35MS7Y8d+OflcKb
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Fri, May 23, 2025 at 05:23:10PM +0200, Rafael J. Wysocki wrote:
+> On Wed, May 21, 2025 at 1:27 PM Rafael J. Wysocki <rafael@kernel.org> wrote:
+> > On Wed, May 21, 2025 at 10:54 AM Raag Jadav <raag.jadav@intel.com> wrote:
+> > > On Tue, May 20, 2025 at 01:56:28PM -0500, Mario Limonciello wrote:
+> > > > On 5/20/2025 1:42 PM, Raag Jadav wrote:
+> > > > > On Tue, May 20, 2025 at 12:39:12PM -0500, Mario Limonciello wrote:
+> > > > > > On 5/20/2025 12:22 PM, Denis Benato wrote:
+> > > > > > > On 5/20/25 17:49, Mario Limonciello wrote:
+> > > > > > > > On 5/20/2025 10:47 AM, Raag Jadav wrote:
+> > > > > > > > > On Tue, May 20, 2025 at 10:23:57AM -0500, Mario Limonciello wrote:
+> > > > > > > > > > On 5/20/2025 4:48 AM, Raag Jadav wrote:
+> > > > > > > > > > > On Mon, May 19, 2025 at 11:42:31PM +0200, Denis Benato wrote:
+> > > > > > > > > > > > On 5/19/25 12:41, Raag Jadav wrote:
+> > > > > > > > > > > > > On Mon, May 19, 2025 at 03:58:08PM +0530, Raag Jadav wrote:
+> > > > > > > > > > > > > > If error status is set on an AER capable device, most likely either the
+> > > > > > > > > > > > > > device recovery is in progress or has already failed. Neither of the
+> > > > > > > > > > > > > > cases are well suited for power state transition of the device, since
+> > > > > > > > > > > > > > this can lead to unpredictable consequences like resume failure, or in
+> > > > > > > > > > > > > > worst case the device is lost because of it. Leave the device in its
+> > > > > > > > > > > > > > existing power state to avoid such issues.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+> > > > > > > > > > > > > > ---
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > v2: Synchronize AER handling with PCI PM (Rafael)
+> > > > > > > > > > > > > > v3: Move pci_aer_in_progress() to pci_set_low_power_state() (Rafael)
+> > > > > > > > > > > > > >         Elaborate "why" (Bjorn)
+> > > > > > > > > > > > > > v4: Rely on error status instead of device status
+> > > > > > > > > > > > > >         Condense comment (Lukas)
+> > > > > > > > > > > > > Since pci_aer_in_progress() is changed I've not included Rafael's tag with
+> > > > > > > > > > > > > my understanding of this needing a revisit. If this was a mistake, please
+> > > > > > > > > > > > > let me know.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Denis, Mario, does this fix your issue?
+> > > > > > > > > > > > >
+> > > > > > > > > > > > Hello,
+> > > > > > > > > > > >
+> > > > > > > > > > > > Unfortunately no, I have prepared a dmesg but had to remove the bootup process because it was too long of a few kb: https://pastebin.com/1uBEA1FL
+> > > > > > > > > > >
+> > > > > > > > > > > Thanks for the test. It seems there's no hotplug event this time around
+> > > > > > > > > > > and endpoint device is still intact without any PCI related failure.
+> > > > > > > > > > >
+> > > > > > > > > > > Also,
+> > > > > > > > > > >
+> > > > > > > > > > > amdgpu 0000:09:00.0: PCI PM: Suspend power state: D3hot
+> > > > > > > > > > >
+> > > > > > > > > > > Which means whatever you're facing is either not related to this patch,
+> > > > > > > > > > > or at best exposed some nasty side-effect that's not handled correctly
+> > > > > > > > > > > by the driver.
+> > > > > > > > > > >
+> > > > > > > > > > > I'd say amdgpu folks would be of better help for your case.
+> > > > > > > > > > >
+> > > > > > > > > > > Raag
+> > > > > > > > > >
+> > > > > > > > > > So according to the logs Denis shared with v4
+> > > > > > > > > > (https://pastebin.com/1uBEA1FL) the GPU should have been going to BOCO. This
+> > > > > > > > > > stands for "Bus off Chip Off"
+> > > > > > > > > >
+> > > > > > > > > > amdgpu 0000:09:00.0: amdgpu: Using BOCO for runtime pm
+> > > > > > > > > >
+> > > > > > > > > > If it's going to D3hot - that's not going to be BOCO, it should be going to
+> > > > > > > > > > D3cold.
+> > > > > > > > >
+> > > > > > > > > Yes, because upstream port is in D0 for some reason (might be this patch
+> > > > > > > > > but not sure) and so will be the root port.
+> > > > > > > > >
+> > > > > > > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D0
+> > > > > > > > > pcieport 0000:07:00.0: PCI PM: Skipped
+> > > > > > > > >
+> > > > > > > > > and my best guess is the driver is not able to cope with the lack of D3cold.
+> > > > > > > >
+> > > > > > > > Yes; if the driver is configured to expect BOCO (D3cold) if it doesn't get it, chaos ensues.
+> > > > > > > >
+> > > > > > > > I guess let's double check the behavior with CONFIG_PCI_DEBUG to verify this patch is what is changing that upstream port behavior.
+> > > > > > >
+> > > > > > >
+> > > > > > > This is the very same exact kernel, minus the patch in question:  https://pastebin.com/rwMYgG7C
+> > > > > > >
+> > > > > > >
+> > > > > > > Both previous kernel and this one have CONFIG_PCI_DEBUG=y.
+> > > > > > >
+> > > > > > > Removed the initial bootup sequence to be able to use pastebin.
+> > > > > >
+> > > > > > Thanks - this confirms that the problem is the root port not going to D3.
+> > > > > > This new log shows:
+> > > > > >
+> > > > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D3hot
+> > > > > >
+> > > > > > So I feel we should fixate on solving that.
+> > > > >
+> > > > > Which means what you're looking for is error flag being set somewhere in
+> > > > > the hierarchy that is preventing suspend.
+> > > >
+> > > > Is the issue perhaps that this is now gated on both correctable and
+> > > > uncorrectable errors?
+> > > >
+> > > > Perhaps should *correctable errors* be emitted with a warning and the
+> > > > *uncorrectable errors* be fatal?
+> > >
+> > > That'd be more or less inline with hiding the issue, and it can also race
+> > > with err_handler callback if driver has registered it.
+> > >
+> > > > > But regardless of it, my understanding is that root port suspend depends
+> > > > > on a lot of factors (now errors flags being one of them with this patch)
+> > > > > and endpoint driver can't possibly enforce or guarantee it - the best it
+> > > > > can do is try.
+> > > > >
+> > > > > What's probably needed is D3cold failure handling on driver side, but I'm
+> > > > > no PCI PM expert and perhaps Rafael can comment on it.
+> > > > >
+> > > > > Raag
+> > > >
+> > > > From the driver perspective it does have expectations that the parts outside
+> > > > the driver did the right thing.  If the driver was expecting the root port
+> > > > to be powered down at suspend and it wasn't there are hardware components
+> > > > that didn't power cycle and that's what we're seeing here.
+> > >
+> > > Which means the expectation set by the driver is the opposite of the
+> > > purpose of this patch, and it's going to fail if any kind of error is
+> > > detected under root port during suspend.
+> >
+> > And IMV this driver's expectation is questionable at least.
+> >
+> > There is no promise whatsoever that the device will always be put into
+> > D3cold during system suspend.
+> 
+> For instance, user space may disable D3cold for any PCI device via the
+> d3cold_allowed attribute in sysfs.
+> 
+> If the driver cannot handle this, it needs to be fixed.
 
-On Thu, 22 May 2025 11:33:00 +0000
-"Shankar, Uma" <uma.shankar@intel.com> wrote:
+Thanks for confirming. So should we consider this patch to be valid
+and worth moving forward?
 
-> One request though: Can we enhance the lut samples from existing 16bits t=
-o 32bits as lut precision is
-> going to be more than 16 in certain hardware. While adding the new UAPI, =
-lets extend this to 32 to make it future proof.
-> Reference: https://patchwork.freedesktop.org/patch/642592/?series=3D12981=
-1&rev=3D4
->=20
-> +/**
-> + * struct drm_color_lut_32 - Represents high precision lut values
-> + *
-> + * Creating 32 bit palette entries for better data
-> + * precision. This will be required for HDR and
-> + * similar color processing usecases.
-> + */
-> +struct drm_color_lut_32 {
-> +	/*
-> +	 * Data for high precision LUTs
-> +	 */
-> +	__u32 red;
-> +	__u32 green;
-> +	__u32 blue;
-> +	__u32 reserved;
-> +};
-
-Hi,
-
-I suppose you need this much precision for optical data? If so,
-floating-point would be much more appropriate and we could probably
-keep 16-bit storage.
-
-What does the "more than 16-bit" hardware actually use? ISTR at least
-AMD having some sort of float'ish point internal pipeline?
-
-This sounds the same thing as non-uniformly distributed taps in a LUT.
-That mimics floating-point input while this feels like floating-point
-output of a LUT.
-
-I've recently decided for myself (and Weston) that I will never store
-optical data in an integer format, because it is far too wasteful. That's
-why the electrical encodings like power-2.2 are so useful, not just for
-emulating a CRT.
-
-
-Thanks,
-pq
-
---Sig_/r7.3hMmy35MS7Y8d+OflcKb
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmg5uXoACgkQI1/ltBGq
-qqejGw/+P66661AgnwMG6hSSGJYd+h7+Hobil42SkBMKhgUEjDG8ux8laMg+3s+t
-y0iu4/1exQhTMZXXDqsSZeRLApYNKOPN6+JWS+YhYUljwo6sANBXGq6yTmjni/tP
-caek1AQDxNRl6WtPVuMMHW9g1Ebp0CtXn0lYPDqyuKtLRWwKzlMNvPcEpaPV+YC1
-5kI4U4az8JsAIXpijzdEUcq21GboFd8Q0GB7wF5HGNmRFtUAzeaWcDHCaSGyXjhJ
-IAnWoFt9uDrT5dnv77hsnb2iP0OtV+X5+YBbmyRnuCr1XgTK0uxfHGggJce37GXm
-vdm0drjkwP/dfUBV40+76bFMKHdIfbCxMR0n4aRwKBGtHuLu6rEXENQcdQ1puzmC
-xiyyZKCo7xSv+cjmB4EcExFk5FgqJzyDqlAhG20b8AwRorGMXpyRT6ed2QyRY1Go
-RvqkQaQhlETAoYdgjjW/aXXoW9f7H/YiUgf99SZdS3xosVPFSVxJsPlynEqv1QyN
-a2zoSElg88+Nwmoqkq3D1JfSGU6I5E8t2VmBvRmhWCIpT3LPfrwwYwvWuh2IwP7e
-4WHc/TD0OLDbP5yRuPPc011AOvA2z+kjXghrxHYsdwlUnikF7XpvlEPsU2aPrN3S
-UH2oexN3XaWoGkRTniY1o/rjPivjDT1PhSU/BjvsoPZKO+4kYyY=
-=sOuM
------END PGP SIGNATURE-----
-
---Sig_/r7.3hMmy35MS7Y8d+OflcKb--
+Raag
