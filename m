@@ -4,72 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D86C5AE59
-	for <amd-gfx@archiver.kernel.org>; Sat, 31 May 2025 16:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F67EC5AE59
+	for <amd-gfx@archiver.kernel.org>; Sat, 31 May 2025 17:18:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D810F10E2E8;
-	Sat, 31 May 2025 16:59:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC7B510E343;
+	Sat, 31 May 2025 17:18:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mr8JX08o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YaJwlKpo";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E390210E815
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 May 2025 17:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1748625797; x=1780161797;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=LtRRKOvFNPh4KPAIWtI8ZscFptnvxHt2EGEbh94LZIs=;
- b=mr8JX08oSmjXCHPIcPY6ajO8EJoVrMnJm5ltgcYwGUDh+yEP+u42sVpO
- MVaL65Ptmr3ygYV3w5y5NIdxXvP0bBZzuZiNHEj/8HVgwG/CYCK/siYOu
- v2Hu0q3yUHg/zjS8Lj9T5bgvJ21Vb9/ZheZVMKRvmEO+vgD4CihcDpF5t
- 5pDs7CsOI3QiyJ68jtuaRgp/IL7YGvuIjZPL8ZP4NTWRZNhyXRcThbuEy
- pQbjOcWF9m1g2h38ap6kPTQpjYbf3uf21MCEe1Rpz1TS2sc1mv3brNPa3
- smDtk8jHuQeLuTTTtG0g590TyGEjVszCB6aBJ4Wxlxv9xFQ551VhOqokb A==;
-X-CSE-ConnectionGUID: JfkwO+KKRhaMxdVrmwyBsw==
-X-CSE-MsgGUID: tmARxex9TaevymJle9Vl9Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11449"; a="53358154"
-X-IronPort-AV: E=Sophos;i="6.16,196,1744095600"; d="scan'208";a="53358154"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2025 10:23:16 -0700
-X-CSE-ConnectionGUID: mLev60PqRjq57WMIW+1/gw==
-X-CSE-MsgGUID: TXtpvKYOQcS9ic/fGl60qw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,196,1744095600"; d="scan'208";a="143961547"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2025 10:23:12 -0700
-Date: Fri, 30 May 2025 20:23:08 +0300
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Mario Limonciello <superm1@kernel.org>,
- Denis Benato <benato.denis96@gmail.com>, mahesh@linux.ibm.com,
- oohall@gmail.com, bhelgaas@google.com, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- ilpo.jarvinen@linux.intel.com, lukas@wunner.de,
- aravind.iddamsetty@linux.intel.com,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH v4] PCI: Prevent power state transition of erroneous device
-Message-ID: <aDnpfKvLwRZsKxhH@black.fi.intel.com>
-References: <a8c83435-4c91-495c-950c-4d12b955c54c@kernel.org>
- <aCyj9nbnIRet93O-@black.fi.intel.com>
- <552d75b2-2736-419f-887e-ce2692616578@kernel.org>
- <ee1117cf-6367-4e9a-aa85-ccfc6c63125d@gmail.com>
- <6f23d82c-10cc-4d70-9dce-41978b05ec9a@kernel.org>
- <aCzNL9uXGbBSdF2S@black.fi.intel.com>
- <fea86161-2c47-4b0f-ac07-b3f9b0f10a03@kernel.org>
- <aC2UzG-eycjqYQep@black.fi.intel.com>
- <CAJZ5v0gRFwKhq21ima3kT0zzFLk4=47ivvzJqARksV7nYHTJAQ@mail.gmail.com>
- <CAJZ5v0h9--jFVBtQ5F7Gee3Cy8P3TeSLdiHEWykQ=EsZdoffmg@mail.gmail.com>
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BECA910E343
+ for <amd-gfx@lists.freedesktop.org>; Sat, 31 May 2025 17:18:26 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-30e5438316bso356153a91.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 31 May 2025 10:18:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1748711905; x=1749316705; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yajKDvmSy3Hd7vmFDhk9At1+60Zej82i09/Vqe3tfGg=;
+ b=YaJwlKpooNZMH8ho8SRZcOvvm/ir1jMJ8xQqpNGUO3kwQH3x/Zjbdrgu5DHMTwdJbn
+ yLzqdwBfhetE8rztAZk7+wLXwvvP1ATUk1/RA3RYS31kAWAuuLZCxoewg5qoY+vyGn3/
+ 6zSFujPgLf9Fhde9Az3cdHwH6EXFuZf6M4F3F+tT+dw3fdJXSqFJBA8I2eqihoy1LVio
+ f1ilS9SkgW2f4VGLJ5RIgT9nuURftZQbx8WJQWKjQq1niUdXPnO+FdITT9XNIhoC2ORh
+ n/y3+kPUVBFPfyHdX5QSPCFgdknoLAGJfv2v7j2IfUDAHjgdMIPUM5LLKyHR5O0O2HjV
+ 2R8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748711905; x=1749316705;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yajKDvmSy3Hd7vmFDhk9At1+60Zej82i09/Vqe3tfGg=;
+ b=Ve3jEusx2PhHU/WUDHcdwKfzyKHyg4skhWWTzHVN2z/Ncq3sJFcJmgceDOdqkvYwNO
+ Rk9pCBQ3aRT9LedQOyDykzlf0l2J9DbCy8TGrt8lPYtSyWVUWQjdiOqoc/05D9eZ/ipB
+ hUii4KLOAI67VS3HGs0tBbhU0hJU8tIsMZuPKuGC12QhWVeiqsczMA0NI0qHOTseCR5C
+ uXqBQfJ/M124SoLaLygjpU/jGiBT15YyPMTXnjAhyLHYRBlzKtzak1qCjA7FaLZxiUh1
+ ykXenf6MyfYUwdMSeeUBsB8BBSW5g3PayLvGld/QfdQq3e+8bPceLZ1xdJvd7tfm+686
+ XY2w==
+X-Gm-Message-State: AOJu0YyWldUqfX7r5SxWJ/2Yw/0+NuEwxhpIFfJRvtV7i95KuC9RUz2J
+ iVH0DBoWrmzP/A7NaXgteetBqVj3KK0ueIbFR72b9RGEqs+Jha/UcJ/VPEdnr+PfSIDaZi9kYMX
+ F7Yd+wE9hDnbcNP6pwC+uw0GYfjMDWmY=
+X-Gm-Gg: ASbGncufTNjiOKuK34nbCbBmRGM5A8hbp81FDFdJWApF3J8PS+tqhhsfYc5wX/nVu1Z
+ G7TviqZYDOxi9W6z55rXNWnQGyHlw55ZoLWZB7AbXHirPZ6WlW1w+PYHsR8SUtt6DyoLmpRhRG4
+ xsdwKhjpK/PjA+CJzjxminzJHQKRm5lw91s5Pty8PXCblL
+X-Google-Smtp-Source: AGHT+IFgmvhyaWQ6RGF/D5p9kNQV0nJxjHcvGRKcpLPBL+3kUAmUvEo7+g2ys7OGhQ9lJTt/GrmCWZWDRSjdV/Y9E8E=
+X-Received: by 2002:a17:90b:180c:b0:312:ec:4116 with SMTP id
+ 98e67ed59e1d1-3124db44ad4mr3885104a91.8.1748711904610; Sat, 31 May 2025
+ 10:18:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0h9--jFVBtQ5F7Gee3Cy8P3TeSLdiHEWykQ=EsZdoffmg@mail.gmail.com>
-X-Mailman-Approved-At: Sat, 31 May 2025 16:59:21 +0000
+References: <20250529200758.6326-1-alexander.deucher@amd.com>
+ <CADnq5_O9AwPJ_mKdLhkWmUEW5uJnb3SA=0wUGEk6562KZYc_Fg@mail.gmail.com>
+In-Reply-To: <CADnq5_O9AwPJ_mKdLhkWmUEW5uJnb3SA=0wUGEk6562KZYc_Fg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Sat, 31 May 2025 13:18:12 -0400
+X-Gm-Features: AX0GCFsbS_AQA1lagtY-JnG2s1xX1YQSg_u3AxcRpw8X4sw4ebC52YHfrwPy1W0
+Message-ID: <CADnq5_P=3v+u9sQNu8UOGohnEUeF5k59BOv0UKvvooZ-Hk0WMA@mail.gmail.com>
+Subject: Re: [PATCH V5 00/28] Reset improvements for GC10+
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,138 +80,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 23, 2025 at 05:23:10PM +0200, Rafael J. Wysocki wrote:
-> On Wed, May 21, 2025 at 1:27 PM Rafael J. Wysocki <rafael@kernel.org> wrote:
-> > On Wed, May 21, 2025 at 10:54 AM Raag Jadav <raag.jadav@intel.com> wrote:
-> > > On Tue, May 20, 2025 at 01:56:28PM -0500, Mario Limonciello wrote:
-> > > > On 5/20/2025 1:42 PM, Raag Jadav wrote:
-> > > > > On Tue, May 20, 2025 at 12:39:12PM -0500, Mario Limonciello wrote:
-> > > > > > On 5/20/2025 12:22 PM, Denis Benato wrote:
-> > > > > > > On 5/20/25 17:49, Mario Limonciello wrote:
-> > > > > > > > On 5/20/2025 10:47 AM, Raag Jadav wrote:
-> > > > > > > > > On Tue, May 20, 2025 at 10:23:57AM -0500, Mario Limonciello wrote:
-> > > > > > > > > > On 5/20/2025 4:48 AM, Raag Jadav wrote:
-> > > > > > > > > > > On Mon, May 19, 2025 at 11:42:31PM +0200, Denis Benato wrote:
-> > > > > > > > > > > > On 5/19/25 12:41, Raag Jadav wrote:
-> > > > > > > > > > > > > On Mon, May 19, 2025 at 03:58:08PM +0530, Raag Jadav wrote:
-> > > > > > > > > > > > > > If error status is set on an AER capable device, most likely either the
-> > > > > > > > > > > > > > device recovery is in progress or has already failed. Neither of the
-> > > > > > > > > > > > > > cases are well suited for power state transition of the device, since
-> > > > > > > > > > > > > > this can lead to unpredictable consequences like resume failure, or in
-> > > > > > > > > > > > > > worst case the device is lost because of it. Leave the device in its
-> > > > > > > > > > > > > > existing power state to avoid such issues.
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-> > > > > > > > > > > > > > ---
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > v2: Synchronize AER handling with PCI PM (Rafael)
-> > > > > > > > > > > > > > v3: Move pci_aer_in_progress() to pci_set_low_power_state() (Rafael)
-> > > > > > > > > > > > > >         Elaborate "why" (Bjorn)
-> > > > > > > > > > > > > > v4: Rely on error status instead of device status
-> > > > > > > > > > > > > >         Condense comment (Lukas)
-> > > > > > > > > > > > > Since pci_aer_in_progress() is changed I've not included Rafael's tag with
-> > > > > > > > > > > > > my understanding of this needing a revisit. If this was a mistake, please
-> > > > > > > > > > > > > let me know.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Denis, Mario, does this fix your issue?
-> > > > > > > > > > > > >
-> > > > > > > > > > > > Hello,
-> > > > > > > > > > > >
-> > > > > > > > > > > > Unfortunately no, I have prepared a dmesg but had to remove the bootup process because it was too long of a few kb: https://pastebin.com/1uBEA1FL
-> > > > > > > > > > >
-> > > > > > > > > > > Thanks for the test. It seems there's no hotplug event this time around
-> > > > > > > > > > > and endpoint device is still intact without any PCI related failure.
-> > > > > > > > > > >
-> > > > > > > > > > > Also,
-> > > > > > > > > > >
-> > > > > > > > > > > amdgpu 0000:09:00.0: PCI PM: Suspend power state: D3hot
-> > > > > > > > > > >
-> > > > > > > > > > > Which means whatever you're facing is either not related to this patch,
-> > > > > > > > > > > or at best exposed some nasty side-effect that's not handled correctly
-> > > > > > > > > > > by the driver.
-> > > > > > > > > > >
-> > > > > > > > > > > I'd say amdgpu folks would be of better help for your case.
-> > > > > > > > > > >
-> > > > > > > > > > > Raag
-> > > > > > > > > >
-> > > > > > > > > > So according to the logs Denis shared with v4
-> > > > > > > > > > (https://pastebin.com/1uBEA1FL) the GPU should have been going to BOCO. This
-> > > > > > > > > > stands for "Bus off Chip Off"
-> > > > > > > > > >
-> > > > > > > > > > amdgpu 0000:09:00.0: amdgpu: Using BOCO for runtime pm
-> > > > > > > > > >
-> > > > > > > > > > If it's going to D3hot - that's not going to be BOCO, it should be going to
-> > > > > > > > > > D3cold.
-> > > > > > > > >
-> > > > > > > > > Yes, because upstream port is in D0 for some reason (might be this patch
-> > > > > > > > > but not sure) and so will be the root port.
-> > > > > > > > >
-> > > > > > > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D0
-> > > > > > > > > pcieport 0000:07:00.0: PCI PM: Skipped
-> > > > > > > > >
-> > > > > > > > > and my best guess is the driver is not able to cope with the lack of D3cold.
-> > > > > > > >
-> > > > > > > > Yes; if the driver is configured to expect BOCO (D3cold) if it doesn't get it, chaos ensues.
-> > > > > > > >
-> > > > > > > > I guess let's double check the behavior with CONFIG_PCI_DEBUG to verify this patch is what is changing that upstream port behavior.
-> > > > > > >
-> > > > > > >
-> > > > > > > This is the very same exact kernel, minus the patch in question:  https://pastebin.com/rwMYgG7C
-> > > > > > >
-> > > > > > >
-> > > > > > > Both previous kernel and this one have CONFIG_PCI_DEBUG=y.
-> > > > > > >
-> > > > > > > Removed the initial bootup sequence to be able to use pastebin.
-> > > > > >
-> > > > > > Thanks - this confirms that the problem is the root port not going to D3.
-> > > > > > This new log shows:
-> > > > > >
-> > > > > > pcieport 0000:07:00.0: PCI PM: Suspend power state: D3hot
-> > > > > >
-> > > > > > So I feel we should fixate on solving that.
-> > > > >
-> > > > > Which means what you're looking for is error flag being set somewhere in
-> > > > > the hierarchy that is preventing suspend.
-> > > >
-> > > > Is the issue perhaps that this is now gated on both correctable and
-> > > > uncorrectable errors?
-> > > >
-> > > > Perhaps should *correctable errors* be emitted with a warning and the
-> > > > *uncorrectable errors* be fatal?
-> > >
-> > > That'd be more or less inline with hiding the issue, and it can also race
-> > > with err_handler callback if driver has registered it.
-> > >
-> > > > > But regardless of it, my understanding is that root port suspend depends
-> > > > > on a lot of factors (now errors flags being one of them with this patch)
-> > > > > and endpoint driver can't possibly enforce or guarantee it - the best it
-> > > > > can do is try.
-> > > > >
-> > > > > What's probably needed is D3cold failure handling on driver side, but I'm
-> > > > > no PCI PM expert and perhaps Rafael can comment on it.
-> > > > >
-> > > > > Raag
-> > > >
-> > > > From the driver perspective it does have expectations that the parts outside
-> > > > the driver did the right thing.  If the driver was expecting the root port
-> > > > to be powered down at suspend and it wasn't there are hardware components
-> > > > that didn't power cycle and that's what we're seeing here.
-> > >
-> > > Which means the expectation set by the driver is the opposite of the
-> > > purpose of this patch, and it's going to fail if any kind of error is
-> > > detected under root port during suspend.
+On Thu, May 29, 2025 at 4:54=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> On Thu, May 29, 2025 at 4:08=E2=80=AFPM Alex Deucher <alexander.deucher@a=
+md.com> wrote:
 > >
-> > And IMV this driver's expectation is questionable at least.
+> > This set improves per queue reset support for GC10+.
+> > When we reset the queue, the queue is lost so we need
+> > to re-emit the unprocessed state from subsequent submissions.
+> > To that end, in order to make sure we actually restore
+> > unprocessed state, we need to enable legacy enforce isolation
+> > so that we can safely re-emit the unprocessed state.  If
+> > we don't multiple jobs can run in parallel and we may not
+> > end up resetting the correct one.  This is similar to how
+> > windows handles queues.  This also gives us correct guilty
+> > tracking for GC.
 > >
-> > There is no promise whatsoever that the device will always be put into
-> > D3cold during system suspend.
-> 
-> For instance, user space may disable D3cold for any PCI device via the
-> d3cold_allowed attribute in sysfs.
-> 
-> If the driver cannot handle this, it needs to be fixed.
+> > Tested on GC 10 and 11 chips with a game running and
+> > then running hang tests.  The game pauses when the
+> > hang happens, then continues after the queue reset.
+> >
+> > I tried this same approach and GC8 and 9, but it
+> > was not as reliable as soft recovery.  As such, I've dropped
+> > the KGQ reset code for pre-GC10.
+> >
+> > The same approach is extended to SDMA and VCN.
+> > They don't need enforce isolation because those engines
+> > are single threaded so they always operate serially.
+> >
+> > Rework re-emit to signal the seq number of the bad job and
+> > verify that to verify that the reset worked, then re-emit the
+> > rest of the non-guilty state.  This way we are not waiting on
+> > the rest of the state to complete, and if the subsequent state
+> > also contains a bad job, we'll end up in queue reset again rather
+> > than adapter reset.
+>
+> git tree available here:
+> https://gitlab.freedesktop.org/agd5f/linux/-/commits/kq_resets?ref_type=
+=3Dheads
 
-Thanks for confirming. So should we consider this patch to be valid
-and worth moving forward?
+I've pushed several fixes since I last sent this and will continue to
+push updates.
 
-Raag
+Alex
+
+>
+> Alex
+>
+> >
+> > v4: Drop explicit padding patches
+> >     Drop new timeout macro
+> >     Rework re-emit sequence
+> > v5: Add a helper for reemit
+> >     Convert VCN, JPEG, SDMA to use new helpers
+> >
+> > Alex Deucher (27):
+> >   drm/amdgpu: enable legacy enforce isolation by default
+> >   drm/amdgpu/gfx7: drop reset_kgq
+> >   drm/amdgpu/gfx8: drop reset_kgq
+> >   drm/amdgpu/gfx9: drop reset_kgq
+> >   drm/amdgpu: move force completion into ring resets
+> >   drm/amdgpu: track ring state associated with a job
+> >   drm/amdgpu/gfx10: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/gfx11: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/gfx12: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/gfx9: re-emit unprocessed state on kcq reset
+> >   drm/amdgpu/gfx9.4.3: re-emit unprocessed state on kcq reset
+> >   drm/amdgpu/sdma5: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/sdma5.2: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/sdma6: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/sdma7: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/jpeg2: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/jpeg2.5: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/jpeg3: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/jpeg4: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/jpeg4.0.3: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/jpeg5.0.0: add queue reset
+> >   drm/amdgpu/jpeg5: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/jpeg5.0.1: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/vcn4: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/vcn4.0.3: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/vcn4.0.5: re-emit unprocessed state on ring reset
+> >   drm/amdgpu/vcn5: re-emit unprocessed state on ring reset
+> >
+> > Christian K=C3=B6nig (1):
+> >   drm/amdgpu: rework queue reset scheduler interaction
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 12 ++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     |  6 ++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 32 +++++-----
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  2 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 46 ++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  8 +++
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 31 ++--------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 21 +------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 21 +------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c      | 71 ----------------------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      | 71 ----------------------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 51 +---------------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |  6 +-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c     |  3 +-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c     |  3 +-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c     |  3 +-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c     |  3 +-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c   |  3 +-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c   | 12 ++++
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c   |  3 +-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c   |  4 ++
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c     |  7 ++-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c     |  7 ++-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c     |  6 +-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c     |  6 +-
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c      |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c    |  3 +-
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c    |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c    |  2 +-
+> >  30 files changed, 162 insertions(+), 289 deletions(-)
+> >
+> > --
+> > 2.49.0
+> >
