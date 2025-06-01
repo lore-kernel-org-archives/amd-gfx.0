@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B87EC54FB3
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5C3BC5B543
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:34:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9CC910E400;
-	Sun,  1 Jun 2025 23:34:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1784610E407;
+	Sun,  1 Jun 2025 23:34:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U54IQ/df";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QVlSpc7y";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA7C910E400;
- Sun,  1 Jun 2025 23:34:08 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2BBE10E406;
+ Sun,  1 Jun 2025 23:34:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0332C6113B;
- Sun,  1 Jun 2025 23:34:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5603C4CEE7;
- Sun,  1 Jun 2025 23:34:03 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id F3231A4F858;
+ Sun,  1 Jun 2025 23:34:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00227C4CEF1;
+ Sun,  1 Jun 2025 23:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748820847;
- bh=EsmjxEt5hccDwCwb8jVnjm1La096jhpigF3VxZ3f5Wg=;
- h=From:To:Cc:Subject:Date:From;
- b=U54IQ/dfCiFAOnY/Q45q6kbAVXnOPnAlkJtaZ24KCh/Hd1PmcnLUXGxRLEwRv5CET
- 2oQn3YIvzMXBoQ4D5tGcxm1YJGVvb505bEYoPAaVTov9yaNQq5W2Krqn965m8ciUPK
- fLDMgUA33kIftzQlP7zJnpKUk5ILWxsswLk01+zgCp7WY7vxkhj18zggw4xN3owk+P
- ZBTWNEFEK4Ub31TIocgtjMTMeWv+3E6RC/ZYOK4lugp8EeZcIvVEMXMW2Vur7o5BWZ
- 7zoj2EhEnenD2qvXlefvQ84SDHOoCIC3cSvPtt83eodMaqcpXBv482YhHt18hmwpTV
- tD5kFrpNT3s2g==
+ s=k20201202; t=1748820852;
+ bh=WBtWz338729X7c73XQLl33q8B9TDmNRhC+XpdvsV1D8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=QVlSpc7ySgM7k4FeelWr42GztV4OmWkBAo2PlU+vVnoMYfVi2BW5GxnaMiePWjjZ2
+ beD+xsqeBPHAbfA2kX4HH5qa+oF8Z+A4Fw9N4kQLdabQMZNe6n3IlTeMDaL4ErN+BH
+ CXhkH8UXl4B1GARkjcKC+lwgZVtVQDUrGw4RkoefJCo1aM6sSojOh5EGJaYEJhYSC0
+ fa/nrlS7ZR2r/nkVBSx3Vw7+Pbft3eJgCU9CFsckFLavPaMMgWTARqjX6LTSw0ta2R
+ l7XRTUQNK1i1aNSNfykjR9faGXDZJvcOP5PUB++PDdc1DQw4PaUsacN7KSucbTA+1Q
+ /Wc/n8pFwR3IQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Charlene Liu <Charlene.Liu@amd.com>, Hansen Dsouza <hansen.dsouza@amd.com>,
- Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, Hansen.Dsouza@amd.com,
- Ahmed.Ahmed@amd.com, hamzamahfooz@linux.microsoft.com,
- Nicholas.Susanto@amd.com, Ovidiu.Bunea@amd.com,
- nicholas.kazlauskas@amd.com, rodrigo.siqueira@amd.com, wenjing.liu@amd.com,
- yihan.zhu@amd.com, tjakobi@math.uni-bielefeld.de, michael.strauss@amd.com,
- alex.hung@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.12 01/93] drm/amd/display: disable DPP RCG before
- DPP CLK enable
-Date: Sun,  1 Jun 2025 19:32:28 -0400
-Message-Id: <20250601233402.3512823-1-sashal@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ sunil.khatri@amd.com, alexandre.f.demers@gmail.com, boyuan.zhang@amd.com,
+ kevinyang.wang@amd.com, mario.limonciello@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.12 03/93] drm/amdgpu/gfx6: fix CSIB handling
+Date: Sun,  1 Jun 2025 19:32:30 -0400
+Message-Id: <20250601233402.3512823-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250601233402.3512823-1-sashal@kernel.org>
+References: <20250601233402.3512823-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -68,281 +65,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit 1bcd679209420305a86833bc357d50021909edaf ]
+[ Upstream commit 8307ebc15c1ea98a8a0b7837af1faa6c01514577 ]
 
-[why]
-DPP CLK enable needs to disable DPPCLK RCG first.
-The DPPCLK_en in dccg should always be enabled when the corresponding
-pipe is enabled.
+We shouldn't return after the last section.
+We need to update the rest of the CSIB.
 
-Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-Based on my analysis of both the commit message and code changes, my
-answer is: **YES** This commit should be backported to stable kernel
-trees for the following reasons: ## Critical Hardware Sequencing Fix The
-commit addresses a fundamental hardware sequencing requirement where DPP
-(Display Pipes and Planes) Root Clock Gating (RCG) must be disabled
-before enabling the DPP clock. This is a critical timing constraint
-that, if violated, can cause severe system issues. ## Specific Code
-Evidence 1. **In `dccg35_update_dpp_dto()`**, the fix adds a crucial
-sequencing step: ```c + dccg35_set_dppclk_rcg(dccg, dpp_inst, false);
-REG_SET_2(DPPCLK_DTO_PARAM[dpp_inst], 0, DPPCLK0_DTO_PHASE, phase,
-DPPCLK0_DTO_MODULO, modulo); dcn35_set_dppclk_enable(dccg, dpp_inst,
-true); ``` This ensures RCG is disabled (false) before enabling the DPP
-clock. 2. **In `dcn35_enable_plane()`**, explicit clock control is
-added: ```c + /*make sure DPPCLK is on*/ +
-dccg->funcs->dccg_root_gate_disable_control(dccg, dpp->inst, true); +
-dpp->funcs->dpp_dppclk_control(dpp, false, true); ``` 3. **Removal of
-problematic init code** in `dcn35_init_hw()`: ```c - if
-(res_pool->dccg->funcs->dccg_root_gate_disable_control) { - for (i = 0;
-i < res_pool->pipe_count; i++) -
-res_pool->dccg->funcs->dccg_root_gate_disable_control(res_pool->dccg, i,
-0); - } ``` ## Similarity to Previous Critical Fixes This commit follows
-the pattern of Similar Commit #1, which also addressed clock gating
-sequencing issues that could cause system hangs. The commit message
-explicitly states this is needed because "DPP CLK enable needs to
-disable DPPCLK RCG first." ## Impact and Risk Assessment - **Bug
-Fixed**: Incorrect clock sequencing that can cause system instability -
-**Scope**: Limited to DCN35 display hardware (recent AMD GPUs) -
-**Complexity**: Small, focused changes with clear purpose - **Risk**:
-Low risk of regression - adds proper sequencing without major
-architectural changes This fix meets all criteria for stable
-backporting: - Fixes a real bug affecting users (system stability) -
-Small and contained changes - No new features or architectural changes -
-Addresses hardware constraints that cannot be worked around The commit
-should be backported to all stable kernels that include DCN35 display
-support to ensure proper display functionality and system stability for
-users with affected AMD GPUs.
+Now let me understand what the bug is. Looking at the original code:
+```c for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
+for (ext = sect->section; ext->extent != NULL; ++ext) { if (sect->id ==
+SECT_CONTEXT) { // process SECT_CONTEXT sections } else { return; //
+BUG: This returns early, skipping remaining code } } } // Important code
+that should always run: buffer[count++] =
+cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, 1)); buffer[count++] =
+cpu_to_le32(mmPA_SC_RASTER_CONFIG - PACKET3_SET_CONTEXT_REG_START); //
+... more important buffer initialization ``` The fix removes the early
+return so that all sections are processed and the important buffer
+initialization at the end always runs. **YES** This commit should be
+backported to stable kernel trees for the following reasons: 1. **Clear
+Bug Fix**: The commit fixes a clear logic error where an early return
+statement prevents critical buffer initialization code from executing.
+The original code would return immediately when encountering a non-
+SECT_CONTEXT section, skipping the important packet commands that should
+always be written to the buffer (PACKET3_SET_CONTEXT_REG,
+PACKET3_PREAMBLE_END_CLEAR_STATE, PACKET3_CLEAR_STATE). 2. **Functional
+Impact**: This bug affects the Clear State Indirect Buffer (CSIB)
+handling in AMD GPU driver for GFX6 hardware. The incomplete buffer
+initialization could lead to: - Incorrect GPU state during graphics
+operations - Potential rendering issues or GPU hangs - Inconsistent
+hardware behavior 3. **Small and Contained Fix**: The fix is minimal -
+it simply removes two lines (the else block with return statement). This
+is a low-risk change that doesn't introduce new functionality or alter
+the architecture. 4. **Hardware-Specific Bug**: This affects real users
+with GFX6 AMD GPUs. The bug prevents proper initialization of the GPU's
+clear state buffer, which is essential for correct GPU operation. 5.
+**Similar to Historical Backports**: Looking at commit 4 in the similar
+commits (marked as YES for backporting), which also fixed preamble
+handling issues in the AMD GPU driver, this follows a similar pattern of
+fixing command buffer handling bugs. The commit message clearly
+indicates this is a bug fix ("We shouldn't return after the last
+section. We need to update the rest of the CSIB"), and the code change
+confirms that critical buffer initialization was being skipped due to
+the premature return.
 
- .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    | 38 ++++++++++++-------
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 21 ++++++----
- 2 files changed, 38 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-index b363f5360818d..ad910065f463f 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-@@ -391,6 +391,7 @@ static void dccg35_set_dppclk_rcg(struct dccg *dccg,
- 
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
- 
-+
- 	if (!dccg->ctx->dc->debug.root_clock_optimization.bits.dpp && enable)
- 		return;
- 
-@@ -411,6 +412,8 @@ static void dccg35_set_dppclk_rcg(struct dccg *dccg,
- 	BREAK_TO_DEBUGGER();
- 		break;
- 	}
-+	//DC_LOG_DEBUG("%s: inst(%d) DPPCLK rcg_disable: %d\n", __func__, inst, enable ? 0 : 1);
-+
- }
- 
- static void dccg35_set_dpstreamclk_rcg(
-@@ -1112,30 +1115,24 @@ static void dcn35_set_dppclk_enable(struct dccg *dccg,
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
- 
-+
- 	switch (dpp_inst) {
- 	case 0:
- 		REG_UPDATE(DPPCLK_CTRL, DPPCLK0_EN, enable);
--		if (dccg->ctx->dc->debug.root_clock_optimization.bits.dpp)
--			REG_UPDATE(DCCG_GATE_DISABLE_CNTL6, DPPCLK0_ROOT_GATE_DISABLE, enable);
- 		break;
- 	case 1:
- 		REG_UPDATE(DPPCLK_CTRL, DPPCLK1_EN, enable);
--		if (dccg->ctx->dc->debug.root_clock_optimization.bits.dpp)
--			REG_UPDATE(DCCG_GATE_DISABLE_CNTL6, DPPCLK1_ROOT_GATE_DISABLE, enable);
- 		break;
- 	case 2:
- 		REG_UPDATE(DPPCLK_CTRL, DPPCLK2_EN, enable);
--		if (dccg->ctx->dc->debug.root_clock_optimization.bits.dpp)
--			REG_UPDATE(DCCG_GATE_DISABLE_CNTL6, DPPCLK2_ROOT_GATE_DISABLE, enable);
- 		break;
- 	case 3:
- 		REG_UPDATE(DPPCLK_CTRL, DPPCLK3_EN, enable);
--		if (dccg->ctx->dc->debug.root_clock_optimization.bits.dpp)
--			REG_UPDATE(DCCG_GATE_DISABLE_CNTL6, DPPCLK3_ROOT_GATE_DISABLE, enable);
- 		break;
- 	default:
- 		break;
- 	}
-+	//DC_LOG_DEBUG("%s: dpp_inst(%d) DPPCLK_EN = %d\n", __func__, dpp_inst, enable);
- 
- }
- 
-@@ -1163,14 +1160,18 @@ static void dccg35_update_dpp_dto(struct dccg *dccg, int dpp_inst,
- 			ASSERT(false);
- 			phase = 0xff;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index 564f0b9336b6a..00d3ce5a6eda6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -2859,8 +2859,6 @@ static void gfx_v6_0_get_csb_buffer(struct amdgpu_device *adev,
+ 				buffer[count++] = cpu_to_le32(ext->reg_index - 0xa000);
+ 				for (i = 0; i < ext->reg_count; i++)
+ 					buffer[count++] = cpu_to_le32(ext->extent[i]);
+-			} else {
+-				return;
+ 			}
  		}
-+		dccg35_set_dppclk_rcg(dccg, dpp_inst, false);
- 
- 		REG_SET_2(DPPCLK_DTO_PARAM[dpp_inst], 0,
- 				DPPCLK0_DTO_PHASE, phase,
- 				DPPCLK0_DTO_MODULO, modulo);
- 
- 		dcn35_set_dppclk_enable(dccg, dpp_inst, true);
--	} else
-+	} else {
- 		dcn35_set_dppclk_enable(dccg, dpp_inst, false);
-+		/*we have this in hwss: disable_plane*/
-+		//dccg35_set_dppclk_rcg(dccg, dpp_inst, true);
-+	}
- 	dccg->pipe_dppclk_khz[dpp_inst] = req_dppclk;
- }
- 
-@@ -1182,6 +1183,7 @@ static void dccg35_set_dppclk_root_clock_gating(struct dccg *dccg,
- 	if (!dccg->ctx->dc->debug.root_clock_optimization.bits.dpp)
- 		return;
- 
-+
- 	switch (dpp_inst) {
- 	case 0:
- 		REG_UPDATE(DCCG_GATE_DISABLE_CNTL6, DPPCLK0_ROOT_GATE_DISABLE, enable);
-@@ -1198,6 +1200,8 @@ static void dccg35_set_dppclk_root_clock_gating(struct dccg *dccg,
- 	default:
- 		break;
  	}
-+	//DC_LOG_DEBUG("%s: dpp_inst(%d) rcg: %d\n", __func__, dpp_inst, enable);
-+
- }
- 
- static void dccg35_get_pixel_rate_div(
-@@ -1521,28 +1525,30 @@ static void dccg35_set_physymclk_root_clock_gating(
- 	switch (phy_inst) {
- 	case 0:
- 		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
--				PHYASYMCLK_ROOT_GATE_DISABLE, enable ? 1 : 0);
-+				PHYASYMCLK_ROOT_GATE_DISABLE, enable ? 0 : 1);
- 		break;
- 	case 1:
- 		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
--				PHYBSYMCLK_ROOT_GATE_DISABLE, enable ? 1 : 0);
-+				PHYBSYMCLK_ROOT_GATE_DISABLE, enable ? 0 : 1);
- 		break;
- 	case 2:
- 		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
--				PHYCSYMCLK_ROOT_GATE_DISABLE, enable ? 1 : 0);
-+				PHYCSYMCLK_ROOT_GATE_DISABLE, enable ? 0 : 1);
- 		break;
- 	case 3:
- 		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
--				PHYDSYMCLK_ROOT_GATE_DISABLE, enable ? 1 : 0);
-+				PHYDSYMCLK_ROOT_GATE_DISABLE, enable ? 0 : 1);
- 		break;
- 	case 4:
- 		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
--				PHYESYMCLK_ROOT_GATE_DISABLE, enable ? 1 : 0);
-+				PHYESYMCLK_ROOT_GATE_DISABLE, enable ? 0 : 1);
- 		break;
- 	default:
- 		BREAK_TO_DEBUGGER();
- 		return;
- 	}
-+	//DC_LOG_DEBUG("%s: dpp_inst(%d) PHYESYMCLK_ROOT_GATE_DISABLE:\n", __func__, phy_inst, enable ? 0 : 1);
-+
- }
- 
- static void dccg35_set_physymclk(
-@@ -1643,6 +1649,8 @@ static void dccg35_dpp_root_clock_control(
- 		return;
- 
- 	if (clock_on) {
-+		dccg35_set_dppclk_rcg(dccg, dpp_inst, false);
-+
- 		/* turn off the DTO and leave phase/modulo at max */
- 		dcn35_set_dppclk_enable(dccg, dpp_inst, 1);
- 		REG_SET_2(DPPCLK_DTO_PARAM[dpp_inst], 0,
-@@ -1654,6 +1662,8 @@ static void dccg35_dpp_root_clock_control(
- 		REG_SET_2(DPPCLK_DTO_PARAM[dpp_inst], 0,
- 			  DPPCLK0_DTO_PHASE, 0,
- 			  DPPCLK0_DTO_MODULO, 1);
-+		/*we have this in hwss: disable_plane*/
-+		//dccg35_set_dppclk_rcg(dccg, dpp_inst, true);
- 	}
- 
- 	dccg->dpp_clock_gated[dpp_inst] = !clock_on;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index ca446e08f6a27..ff247689dd6d5 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -241,11 +241,6 @@ void dcn35_init_hw(struct dc *dc)
- 			dc->res_pool->hubbub->funcs->allow_self_refresh_control(dc->res_pool->hubbub,
- 					!dc->res_pool->hubbub->ctx->dc->debug.disable_stutter);
- 	}
--	if (res_pool->dccg->funcs->dccg_root_gate_disable_control) {
--		for (i = 0; i < res_pool->pipe_count; i++)
--			res_pool->dccg->funcs->dccg_root_gate_disable_control(res_pool->dccg, i, 0);
--	}
--
- 	for (i = 0; i < res_pool->audio_count; i++) {
- 		struct audio *audio = res_pool->audios[i];
- 
-@@ -885,12 +880,18 @@ void dcn35_init_pipes(struct dc *dc, struct dc_state *context)
- void dcn35_enable_plane(struct dc *dc, struct pipe_ctx *pipe_ctx,
- 			       struct dc_state *context)
- {
-+	struct dpp *dpp = pipe_ctx->plane_res.dpp;
-+	struct dccg *dccg = dc->res_pool->dccg;
-+
-+
- 	/* enable DCFCLK current DCHUB */
- 	pipe_ctx->plane_res.hubp->funcs->hubp_clk_cntl(pipe_ctx->plane_res.hubp, true);
- 
- 	/* initialize HUBP on power up */
- 	pipe_ctx->plane_res.hubp->funcs->hubp_init(pipe_ctx->plane_res.hubp);
--
-+	/*make sure DPPCLK is on*/
-+	dccg->funcs->dccg_root_gate_disable_control(dccg, dpp->inst, true);
-+	dpp->funcs->dpp_dppclk_control(dpp, false, true);
- 	/* make sure OPP_PIPE_CLOCK_EN = 1 */
- 	pipe_ctx->stream_res.opp->funcs->opp_pipe_clock_control(
- 			pipe_ctx->stream_res.opp,
-@@ -907,6 +908,7 @@ void dcn35_enable_plane(struct dc *dc, struct pipe_ctx *pipe_ctx,
- 		// Program system aperture settings
- 		pipe_ctx->plane_res.hubp->funcs->hubp_set_vm_system_aperture_settings(pipe_ctx->plane_res.hubp, &apt);
- 	}
-+	//DC_LOG_DEBUG("%s: dpp_inst(%d) =\n", __func__, dpp->inst);
- 
- 	if (!pipe_ctx->top_pipe
- 		&& pipe_ctx->plane_state
-@@ -922,6 +924,8 @@ void dcn35_plane_atomic_disable(struct dc *dc, struct pipe_ctx *pipe_ctx)
- {
- 	struct hubp *hubp = pipe_ctx->plane_res.hubp;
- 	struct dpp *dpp = pipe_ctx->plane_res.dpp;
-+	struct dccg *dccg = dc->res_pool->dccg;
-+
- 
- 	dc->hwss.wait_for_mpcc_disconnect(dc, dc->res_pool, pipe_ctx);
- 
-@@ -939,7 +943,8 @@ void dcn35_plane_atomic_disable(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	hubp->funcs->hubp_clk_cntl(hubp, false);
- 
- 	dpp->funcs->dpp_dppclk_control(dpp, false, false);
--/*to do, need to support both case*/
-+	dccg->funcs->dccg_root_gate_disable_control(dccg, dpp->inst, false);
-+
- 	hubp->power_gated = true;
- 
- 	hubp->funcs->hubp_reset(hubp);
-@@ -951,6 +956,8 @@ void dcn35_plane_atomic_disable(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	pipe_ctx->top_pipe = NULL;
- 	pipe_ctx->bottom_pipe = NULL;
- 	pipe_ctx->plane_state = NULL;
-+	//DC_LOG_DEBUG("%s: dpp_inst(%d)=\n", __func__, dpp->inst);
-+
- }
- 
- void dcn35_disable_plane(struct dc *dc, struct dc_state *state, struct pipe_ctx *pipe_ctx)
 -- 
 2.39.5
 
