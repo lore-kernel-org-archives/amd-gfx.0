@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 440C1C54FB3
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC3BC5B555
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:26:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6BF110E358;
-	Sun,  1 Jun 2025 23:26:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44C2710E371;
+	Sun,  1 Jun 2025 23:26:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GPf4QneH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LRNFJxH8";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE7EE10E35D;
- Sun,  1 Jun 2025 23:26:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D9F10E380;
+ Sun,  1 Jun 2025 23:26:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 413465C55E9;
- Sun,  1 Jun 2025 23:23:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C88B5C4CEE7;
- Sun,  1 Jun 2025 23:25:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C714C61127;
+ Sun,  1 Jun 2025 23:26:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F160C4CEE7;
+ Sun,  1 Jun 2025 23:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748820361;
- bh=EEO5q/anlUp9Wf8k9dVDWiAKdrMGhZ2pHpowvmT+wOg=;
+ s=k20201202; t=1748820368;
+ bh=552MluuP/ynu4s1ABs810FcLa5dFJ3OPifdGt47oVvY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GPf4QneHVad1LykXYma4p4uQHHkyc4yueXriwyJPD7WB9wdc+DyTId1j/wqMip+W5
- gK1VaVpGFLyX+WhDbueq+oRPMIiYPR+/b6rjibMs5PZMfMIn4n+xrqE1aN9FHmoFQ3
- u5Gk68zsYC8JJK9HaWRL7zv4ck9grvt9W5pEObfV2sjUrg+LZ1nf3TD4nmRgseMGTF
- SG0ZMxrdCZlHKg6cvPXkmBMnTifkpFK2hMhhWxYB3ctn6NP8fv+slSBpaWA/PCESLT
- dwRx+YfP6wCXWTEePBK+Gtey1KtV8b/VvvCNrAFEQDjiNyzlpeOtaO+NyQWhW1LBEx
- TIvLJmnYkCBmA==
+ b=LRNFJxH8BNinq9BvnbvzIvkTNODqK6fIgF0RhPYjigroo+8nf7YMRVKKCB0cdmcQc
+ poQQaXWgtVuYOKGHI0ZUlJaK/tZgz7XBIUt7WnKpH9SLR+pF848G+sZOaC7kgWgwb7
+ HL1VRaPXeFsnPkO4ZlLgCdJM3OZQWB+OHKMYva3YBaI77fXMOoLniBP1rCCVZtC6+8
+ zsjPTvari9BiSmYNSweedJkpiV3F4FxfQhv+OePTW0GNZWhoe6DorEFzxhdX6imiow
+ 7457KeMz17jcdKqlA3bqDsEjsou6eZNHorK2Uuk84OHySqaedlRwbq/7AVBDTDd165
+ s7HZa4FLT5dvQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- tao.zhou1@amd.com, ganglxie@amd.com, candice.li@amd.com,
- Stanley.Yang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: [PATCH AUTOSEL 6.15 032/110] drm/amdgpu: Add basic validation for RAS
- header
-Date: Sun,  1 Jun 2025 19:23:14 -0400
-Message-Id: <20250601232435.3507697-32-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, Wayne.Lin@amd.com, ray.wu@amd.com,
+ rodrigo.siqueira@amd.com, mwen@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.15 035/110] drm/amd/display: Do Not Consider DSC if
+ Valid Config Not Found
+Date: Sun,  1 Jun 2025 19:23:17 -0400
+Message-Id: <20250601232435.3507697-35-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250601232435.3507697-1-sashal@kernel.org>
 References: <20250601232435.3507697-1-sashal@kernel.org>
@@ -68,122 +67,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lijo Lazar <lijo.lazar@amd.com>
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
-[ Upstream commit 5df0d6addb7e9b6f71f7162d1253762a5be9138e ]
+[ Upstream commit 146a4429b5674b7520a96aea34233949731c6086 ]
 
-If RAS header read from EEPROM is corrupted, it could result in trying
-to allocate huge memory for reading the records. Add some validation to
-header fields.
+[why]
+In the mode validation, mst dsc is considered for bw calculation after
+common dsc config is determined. Currently it considered common dsc config
+is found if max and min target bpp are non zero which is not accurate. Invalid
+max and min target bpp values would not get max_kbps and min_kbps calculated,
+leading to falsefully pass a mode that does not have valid dsc parameters
+available.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+[how]
+Use the return value of decide_dsc_bandwidth_range() to determine whether valid
+dsc common config is found or not. Prune out modes that do not have valid common
+dsc config determined.
+
+Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-Based on my analysis, here is my assessment: **YES** This commit should
-be backported to stable kernel trees. Here's my extensive analysis: ##
-Security Vulnerability Analysis **Critical Memory Allocation
-Vulnerability:** The commit fixes a serious security vulnerability where
-corrupted RAS (Reliability, Availability, and Serviceability) EEPROM
-header data could cause huge memory allocations. In
-`/home/sasha/linux/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:3011`, the
-code performs: ```c bps = kcalloc(control->ras_num_recs, sizeof(*bps),
-GFP_KERNEL); ``` **Before the fix:** If `control->ras_num_recs` contains
-a corrupted large value (e.g., 0xFFFFFFFF), this would attempt to
-allocate `0xFFFFFFFF 0001-Fix-Clippy-warnings.patch 0002-Enhance-
-inference-prompt-to-utilize-CVEKERNELDIR-whe.patch 0003-Update-to-
-latest-version-of-clap.patch Cargo.lock Cargo.toml LICENSE README.md
-analyze_merge_commit.sh dpp_rcg_backport_analysis.md
-drm_bridge_analysis.txt drm_imagination_register_update_analysis.md
-drm_mediatek_mtk_dpi_refactoring_analysis.md io_uring_analysis.txt
-ksmbd_analysis.txt merge_commit_analysis.txt model prompt src target
-test_gpio_cleanup.txt test_patch.txt verisilicon_av1_4k_analysis.md 24
-bytes` = ~96GB of memory, likely causing: 1. System memory exhaustion 2.
-Denial of service 3. Potential system crash/instability ## Code Changes
-Analysis **1. Version Validation Enhancement:** The fix replaces a
-simple `if/else` with a robust `switch` statement: ```c // Before: Only
-checked for version >= V2_1 if (hdr->version >= RAS_TABLE_VER_V2_1) { //
-After: Explicit validation of known versions switch (hdr->version) {
-case RAS_TABLE_VER_V2_1: case RAS_TABLE_VER_V3: // Future-proofing //
-V2.1+ handling break; case RAS_TABLE_VER_V1: // V1 handling break;
-default: dev_err(adev->dev, "RAS header invalid, unsupported version:
-%u", hdr->version); return -EINVAL; } ``` **2. Record Count Bounds
-Checking:** Critical addition of bounds validation: ```c if
-(control->ras_num_recs > control->ras_max_record_count) {
-dev_err(adev->dev, "RAS header invalid, records in header: %u max
-allowed :%u", control->ras_num_recs, control->ras_max_record_count);
-return -EINVAL; } ``` This prevents the memory allocation attack by
-ensuring `ras_num_recs` cannot exceed reasonable bounds. ## Stable Tree
-Criteria Assessment ✅ **Fixes important security bug:** Prevents DoS via
-memory exhaustion ✅ **Small and contained:** Only adds validation logic,
-no functional changes ✅ **Clear side effects:** None - only adds error
-checking ✅ **No architectural changes:** Pure validation enhancement ✅
-**Touches critical subsystem:** Graphics driver reliability/security ✅
-**Minimal regression risk:** Only adds stricter validation ## Comparison
-with Historical Patterns Looking at the provided similar commits (all
-marked "NO"), they were architectural refactoring changes that: - Split
-functions (`ras_eeprom_init into init and check functions`) - Added new
-infrastructure (`Hook EEPROM table to RAS`) - Wrapped function calls
-(`RAS xfer to read/write`) - Added entirely new features (`Add RAS
-EEPROM table`) In contrast, this commit is a **security hardening fix**
-that adds essential input validation to prevent memory exhaustion
-attacks. ## Impact Assessment **Risk if NOT backported:** - Systems with
-AMD GPUs vulnerable to DoS attacks via corrupted EEPROM data - Potential
-for system instability when corrupted data triggers massive allocations
-- Security exposure in enterprise/server environments using AMD GPUs
-**Risk if backported:** - Minimal: Only adds validation, existing
-correct data will continue to work - Possible rejection of previously
-accepted (but actually corrupted) EEPROM data - this is desired behavior
-This fix addresses a clear security vulnerability with minimal code
-changes and should definitely be backported to stable trees to protect
-users from memory exhaustion attacks via corrupted RAS EEPROM headers.
+**YES** This commit should be backported to stable kernel trees. Here's
+my extensive analysis: ## Analysis of the Bug **1. Nature of the Issue**
+This commit fixes a clear logic bug in the DSC (Display Stream
+Compression) mode validation for MST (Multi-Stream Transport) displays.
+The problem is in the `is_dsc_common_config_possible()` function in
+`drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c`. **2. The
+Bug Details** The current implementation has a flawed detection
+mechanism for valid DSC configurations: ```c // OLD (buggy) code:
+dc_dsc_compute_bandwidth_range(..., bw_range); return
+bw_range->max_target_bpp_x16 && bw_range->min_target_bpp_x16; ``` The
+bug is that it only checks if `max_target_bpp_x16` and
+`min_target_bpp_x16` are non-zero, but these values might be set even
+when the DSC configuration is invalid. The function
+`dc_dsc_compute_bandwidth_range()` returns a boolean indicating whether
+a valid DSC configuration was actually found, but this return value was
+being ignored. **3. The Fix** The fix correctly uses the return value
+from `dc_dsc_compute_bandwidth_range()`: ```c // NEW (fixed) code: bool
+is_dsc_possible; is_dsc_possible = dc_dsc_compute_bandwidth_range(...,
+bw_range); return is_dsc_possible; ``` ## Impact Analysis **1. User-
+Visible Impact** - **Before**: The driver could incorrectly approve
+display modes that don't have valid DSC parameters, leading to display
+failures or poor visual quality - **After**: Only modes with valid DSC
+configurations are approved, preventing display issues **2. Risk
+Assessment** - **Risk of Regression**: Very low - the change makes the
+validation more restrictive, only rejecting modes that shouldn't have
+been approved - **Scope**: Limited to AMD display driver DSC MST
+functionality - **Size**: Very small, contained change (3 lines of code)
+## Comparison with Similar Commits All the provided similar commits were
+marked as "Backport Status: NO" because they were: 1. Feature additions
+(enabling new DSC functionality) 2. Policy improvements (changing
+compression ratios) 3. New algorithm implementations (fair share
+algorithms) 4. API extensions (adding DSC support to PBN calculations)
+This commit is fundamentally different - it's a **pure bug fix** that
+corrects faulty logic without adding new features. ## Stable Tree
+Suitability This commit meets all stable tree criteria: ✅ **Fixes
+important bugs**: Yes - prevents display mode validation failures ✅
+**Small and contained**: Yes - only 3 lines changed in one function ✅
+**No architectural changes**: Yes - uses existing API correctly ✅
+**Minimal regression risk**: Yes - makes validation more conservative ✅
+**Clear side effects**: Yes - only rejects invalid modes that were
+incorrectly approved ✅ **Affects critical subsystem**: Yes - display
+functionality is critical for users ## Technical Verification From
+examining the kernel code, I confirmed that
+`dc_dsc_compute_bandwidth_range()` performs comprehensive validation
+including: 1. Intersection of DSC capabilities between source and sink
+2. DSC configuration setup with timing constraints 3. Bandwidth range
+calculation with `decide_dsc_bandwidth_range()` The old code ignored
+these validation results and only checked if some bandwidth values were
+set, which could happen even with invalid configurations. This is a
+textbook stable tree candidate: a small, low-risk fix for a clear logic
+error that affects user-visible functionality.
 
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 22 ++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 0ea7cfaf3587d..e979a6086178c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -1392,17 +1392,33 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 5cdbc86ef8f5a..25e8befbcc479 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1739,16 +1739,17 @@ static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
+ 					  struct dc_dsc_bw_range *bw_range)
+ {
+ 	struct dc_dsc_policy dsc_policy = {0};
++	bool is_dsc_possible;
  
- 	__decode_table_header_from_buf(hdr, buf);
- 
--	if (hdr->version >= RAS_TABLE_VER_V2_1) {
-+	switch (hdr->version) {
-+	case RAS_TABLE_VER_V2_1:
-+	case RAS_TABLE_VER_V3:
- 		control->ras_num_recs = RAS_NUM_RECS_V2_1(hdr);
- 		control->ras_record_offset = RAS_RECORD_START_V2_1;
- 		control->ras_max_record_count = RAS_MAX_RECORD_COUNT_V2_1;
--	} else {
-+		break;
-+	case RAS_TABLE_VER_V1:
- 		control->ras_num_recs = RAS_NUM_RECS(hdr);
- 		control->ras_record_offset = RAS_RECORD_START;
- 		control->ras_max_record_count = RAS_MAX_RECORD_COUNT;
-+		break;
-+	default:
-+		dev_err(adev->dev,
-+			"RAS header invalid, unsupported version: %u",
-+			hdr->version);
-+		return -EINVAL;
- 	}
--	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
- 
-+	if (control->ras_num_recs > control->ras_max_record_count) {
-+		dev_err(adev->dev,
-+			"RAS header invalid, records in header: %u max allowed :%u",
-+			control->ras_num_recs, control->ras_max_record_count);
-+		return -EINVAL;
-+	}
+ 	dc_dsc_get_policy_for_timing(&stream->timing, 0, &dsc_policy, dc_link_get_highest_encoding_format(stream->link));
+-	dc_dsc_compute_bandwidth_range(stream->sink->ctx->dc->res_pool->dscs[0],
+-				       stream->sink->ctx->dc->debug.dsc_min_slice_height_override,
+-				       dsc_policy.min_target_bpp * 16,
+-				       dsc_policy.max_target_bpp * 16,
+-				       &stream->sink->dsc_caps.dsc_dec_caps,
+-				       &stream->timing, dc_link_get_highest_encoding_format(stream->link), bw_range);
+-
+-	return bw_range->max_target_bpp_x16 && bw_range->min_target_bpp_x16;
++	is_dsc_possible = dc_dsc_compute_bandwidth_range(stream->sink->ctx->dc->res_pool->dscs[0],
++							 stream->sink->ctx->dc->debug.dsc_min_slice_height_override,
++							 dsc_policy.min_target_bpp * 16,
++							 dsc_policy.max_target_bpp * 16,
++							 &stream->sink->dsc_caps.dsc_dec_caps,
++							 &stream->timing, dc_link_get_highest_encoding_format(stream->link), bw_range);
 +
-+	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
- 	control->ras_num_mca_recs = 0;
- 	control->ras_num_pa_recs = 0;
- 	return 0;
++	return is_dsc_possible;
+ }
+ #endif
+ 
 -- 
 2.39.5
 
