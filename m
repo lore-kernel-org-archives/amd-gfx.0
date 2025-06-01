@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EA1CC5B543
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:31:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2ACAC54FB3
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:31:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ACAD10E3E6;
-	Sun,  1 Jun 2025 23:31:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63F6410E3E2;
+	Sun,  1 Jun 2025 23:31:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g6DvQWUL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CAhWCMMZ";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2E3A10E3E7;
- Sun,  1 Jun 2025 23:31:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16D7910E3E7;
+ Sun,  1 Jun 2025 23:31:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2C210A4F583;
- Sun,  1 Jun 2025 23:31:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA5BC4CEE7;
- Sun,  1 Jun 2025 23:31:23 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 55C6AA4F82E;
+ Sun,  1 Jun 2025 23:31:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26478C4CEE7;
+ Sun,  1 Jun 2025 23:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748820684;
- bh=soJEZ5mxRDKL9xLwyQshjuLT9Ti8sKcWhsJ8D95jBZQ=;
+ s=k20201202; t=1748820700;
+ bh=C4PATDvkGXijDLFFu6IpnsM6b8xyYtKVQ83wBCTgetU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=g6DvQWUL6k7S35oHElt41eZ54371iwtWSZXlbqGSXL8ddrPtyAaWnyGPHg/WnWsl9
- LsePGVNoE674wFZXHWJ6/zEFTZ4cdEl2dpH1tRYZF4QZrCuu3t4wK9FRT5ibpQwU47
- j4pf4cbHcZtg2aDMP5EJRpA3RFULK9+5U1zGGPdM6hmcZX24zAPe+MMaZ3a0SQvV4o
- GU2PsN0p/K3r1Uanlk1g4z2VzzoveRC4WeT0XdRmnT5bls3FCmlsW37nOkOFKYRzL8
- jsDZ14k2tNOq7qkwlFwuf/v9B1wrlj8VdGcXSvoEEPQIVCGDuLgcl45YX/AeYxOEg7
- 93LBHZEXQ8dpQ==
+ b=CAhWCMMZvLIQ2IZ8XfUtiVFOsZiBukmYJRGCiwt+EHvwUT5nmLx5X6tLgnHQ3XSmX
+ TzL0y1RE3Hl+gMSEa9/QoGP0mEeNDiJS4fPha9h8juSrirEh29gYcNa18ibvJgN4nP
+ p9kTZ54MjCT++ACEHzg/wNouUwRfyTwNYKULpU3mQy4Gn1wlZiRM6YhRK6sQlDBPjL
+ b2g5pNBpfiNo2xtOZYqRl2pUMbfV2HKZ+YWOr0VVqOS0qEowEisZHSqy56Pmao0JgN
+ g/WVK3bdImIRe++NFB4MSDCqj5/uvUtUXsNPupspXB1n7QyqQOzrB5/GhLnW7ml/q2
+ m9EJYQPTkmdyA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, boyuan.zhang@amd.com, kevinyang.wang@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.14 042/102] drm/amdgpu/gfx7: fix CSIB handling
-Date: Sun,  1 Jun 2025 19:28:34 -0400
-Message-Id: <20250601232937.3510379-42-sashal@kernel.org>
+Cc: Kevin Gao <kevin.gao3@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Roman Li <roman.li@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, Charlene.Liu@amd.com,
+ martin.leung@amd.com, aurabindo.pillai@amd.com,
+ nicholas.kazlauskas@amd.com, chiahsuan.chung@amd.com, alex.hung@amd.com,
+ Nicholas.Susanto@amd.com, Ausef.Yousof@amd.com, sungjoon.kim@amd.com,
+ PeiChen.Huang@amd.com, alvin.lee2@amd.com, ryanseto@amd.com,
+ dillon.varone@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.14 047/102] drm/amd/display: Correct SSC enable
+ detection for DCN351
+Date: Sun,  1 Jun 2025 19:28:39 -0400
+Message-Id: <20250601232937.3510379-47-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250601232937.3510379-1-sashal@kernel.org>
 References: <20250601232937.3510379-1-sashal@kernel.org>
@@ -65,77 +71,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Kevin Gao <kevin.gao3@amd.com>
 
-[ Upstream commit be7652c23d833d1ab2c67b16e173b1a4e69d1ae6 ]
+[ Upstream commit d01a7306e1bec9c02268793f58144e3e42695bf0 ]
 
-We shouldn't return after the last section.
-We need to update the rest of the CSIB.
+[Why]
+Due to very small clock register delta between DCN35 and DCN351, clock
+spread is being checked on the wrong register for DCN351, causing the
+display driver to believe that DPREFCLK downspread to be disabled when
+in some stacks it is enabled. This causes the clock values for audio to
+be incorrect.
 
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+[How]
+Both DCN351 and DCN35 use the same clk_mgr, so we modify the DCN35
+function that checks for SSC enable to read CLK6 instead of CLK5 when
+using DCN351. This allows us to read for DPREFCLK downspread correctly
+so the clock can properly compensate when setting values.
+
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Kevin Gao <kevin.gao3@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 **YES** This commit should be backported to stable kernel trees. Here's
-my detailed analysis: ## Bug Analysis The commit fixes a critical bug in
-the `gfx_v7_0_get_csb_buffer()` function in
-`/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c`. The bug is on lines 3909-3911
-where the function has: ```c } else { return; // BUG: Early return
-prevents completion of CSB buffer } ``` The fix removes the early
-`return` statement, changing it to: ```c } ``` ## What the Bug Does 1.
-**CSB (Clear State Buffer)** is a critical GPU initialization buffer
-that contains register programming sequences needed to properly
-initialize the graphics hardware on GFX7 generation AMD GPUs (Bonaire,
-Kaveri, Kabini, Mullins, Hawaii). 2. **The Bug**: When iterating through
-clear state sections, if the function encounters any section that is NOT
-`SECT_CONTEXT`, it immediately returns, **preventing the completion of
-the CSB buffer initialization**. 3. **Missing Critical Code**: After the
-early return, the function skips: - Setting `PA_SC_RASTER_CONFIG`
-register (lines 3915-3939) - critical for rasterization configuration -
-Adding `PACKET3_PREAMBLE_END_CLEAR_STATE` (lines 3941-3942) - proper
-command stream termination - Adding `PACKET3_CLEAR_STATE` command (lines
-3944-3945) - final clear state execution ## Impact Assessment This is a
-**hardware initialization bug** that affects: - **Affected Hardware**:
-All GFX7 AMD GPUs (Bonaire, Kaveri, Kabini, Mullins, Hawaii chips) -
-**Scope**: Fundamental GPU initialization during driver load -
-**Symptoms**: Incomplete GPU state initialization, potential rendering
-issues, GPU hangs, or system instability ## Why This Should Be
-Backported 1. **Fixes Important Hardware Bug**: This addresses a
-fundamental hardware initialization issue that can cause GPU
-malfunction. 2. **Small, Contained Fix**: The change is minimal
-(removing 2 lines) with no architectural implications. 3. **Clear Bug
-with Clear Fix**: The commit message explains exactly what's wrong ("We
-shouldn't return after the last section. We need to update the rest of
-the CSIB"). 4. **Critical Subsystem**: GPU initialization is a critical
-path that must work correctly for stable system operation. 5. **Matches
-Stable Criteria**: - Important bugfix ✓ - Minimal risk ✓ - Small change
-✓ - No new features ✓ - Confined to one subsystem ✓ 6. **Historical
-Pattern**: Looking at the provided similar commits, the fix pattern
-matches "Similar Commit #4" which was marked as "Backport Status: YES" -
-it fixes a functional bug in AMDGPU command submission handling. 7.
-**User Impact**: Users with GFX7 AMD hardware could experience graphics
-instability or initialization failures due to incomplete CSB
-programming. The fix ensures that the CSB buffer is properly completed
-with all necessary register programming and command stream termination,
-which is essential for stable GPU operation.
+my detailed analysis: ## Bug Fix Classification This is a clear bug fix
+that addresses incorrect register reading for SSC (Spread Spectrum
+Clock) detection in DCN351. The commit fixes a fundamental hardware
+register access issue that causes incorrect audio clock values. ## Issue
+Severity The bug has significant functional impact: - **Audio
+functionality broken**: Incorrect clock values cause audio issues when
+DPREFCLK downspread is enabled - **Hardware-specific regression**:
+Affects DCN351 specifically due to register differences from DCN35 -
+**Silent failure**: The driver believes downspread is disabled when it's
+actually enabled, causing subtle but important timing issues ## Code
+Analysis The fix is minimal and targeted: 1. **New register
+definition**: Adds `mmCLK6_spll_field_8` for DCN351 in
+`dcn351_clk_mgr.c` 2. **Conditional logic**: In `dcn35_clk_mgr.c`, adds
+a DCN version check: ```c if (clk_mgr_base->ctx->dce_version ==
+DCN_VERSION_3_51) { ssc_enable = REG_READ(CLK6_spll_field_8) &
+CLK6_spll_field_8__spll_ssc_en_MASK; } else { ssc_enable =
+REG_READ(CLK5_spll_field_8) & CLK5_spll_field_8__spll_ssc_en_MASK; } ```
+3. **Register addition**: Updates `clk_mgr_internal.h` to include the
+new register ## Risk Assessment - **Low regression risk**: The change is
+conditional based on DCN version, so it only affects DCN351 hardware -
+**Minimal code impact**: Very small, targeted change that doesn't affect
+other subsystems - **Hardware-specific**: Only impacts specific AMD
+DCN351 display hardware ## Comparison with Similar Commits Looking at
+the provided similar commits: - **Similar Commit #2 (YES)**: Also fixes
+incorrect register addresses causing SSC issues - very similar pattern -
+**Similar Commit #3 (YES)**: Addresses dprefclk adjustment with SS
+percentage - related audio timing issue This commit follows the exact
+same pattern as Similar Commit #2, which was marked for backporting and
+addresses nearly identical issues (incorrect register offset for SSC
+functionality). ## Stable Tree Criteria Met ✅ **Fixes important user-
+facing bug** (broken audio on DCN351) ✅ **Small, contained change**
+(minimal lines of code) ✅ **Low regression risk** (hardware-specific,
+conditional logic) ✅ **Clear hardware issue** (register offset
+correction) ✅ **Affects real users** (anyone with DCN351 hardware
+experiencing audio issues) The commit represents a critical hardware
+compatibility fix that should be available in stable kernels to ensure
+proper audio functionality on affected AMD hardware.
 
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 2 --
- 1 file changed, 2 deletions(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn351_clk_mgr.c | 1 +
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 8 +++++++-
+ drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h  | 3 ++-
+ 3 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 84745b2453abe..88ced39786b83 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -3906,8 +3906,6 @@ static void gfx_v7_0_get_csb_buffer(struct amdgpu_device *adev,
- 				buffer[count++] = cpu_to_le32(ext->reg_index - PACKET3_SET_CONTEXT_REG_START);
- 				for (i = 0; i < ext->reg_count; i++)
- 					buffer[count++] = cpu_to_le32(ext->extent[i]);
--			} else {
--				return;
- 			}
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn351_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn351_clk_mgr.c
+index 6a6ae618650b6..4607eff07253c 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn351_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn351_clk_mgr.c
+@@ -65,6 +65,7 @@
+ #define mmCLK1_CLK5_ALLOW_DS 0x16EB1
+ 
+ #define mmCLK5_spll_field_8 0x1B04B
++#define mmCLK6_spll_field_8 0x1B24B
+ #define mmDENTIST_DISPCLK_CNTL 0x0124
+ #define regDENTIST_DISPCLK_CNTL 0x0064
+ #define regDENTIST_DISPCLK_CNTL_BASE_IDX 1
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index 1f47931c2dafc..cc205637e84b2 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -90,6 +90,7 @@
+ #define mmCLK1_CLK5_ALLOW_DS 0x16EB1
+ 
+ #define mmCLK5_spll_field_8 0x1B24B
++#define mmCLK6_spll_field_8 0x1B24B
+ #define mmDENTIST_DISPCLK_CNTL 0x0124
+ #define regDENTIST_DISPCLK_CNTL 0x0064
+ #define regDENTIST_DISPCLK_CNTL_BASE_IDX 1
+@@ -116,6 +117,7 @@
+ #define DENTIST_DISPCLK_CNTL__DENTIST_DPPCLK_WDIVIDER_MASK 0x7F000000L
+ 
+ #define CLK5_spll_field_8__spll_ssc_en_MASK 0x00002000L
++#define CLK6_spll_field_8__spll_ssc_en_MASK 0x00002000L
+ 
+ #define SMU_VER_THRESHOLD 0x5D4A00 //93.74.0
+ #undef FN
+@@ -589,7 +591,11 @@ static bool dcn35_is_spll_ssc_enabled(struct clk_mgr *clk_mgr_base)
+ 
+ 	uint32_t ssc_enable;
+ 
+-	ssc_enable = REG_READ(CLK5_spll_field_8) & CLK5_spll_field_8__spll_ssc_en_MASK;
++	if (clk_mgr_base->ctx->dce_version == DCN_VERSION_3_51) {
++		ssc_enable = REG_READ(CLK6_spll_field_8) & CLK6_spll_field_8__spll_ssc_en_MASK;
++	} else {
++		ssc_enable = REG_READ(CLK5_spll_field_8) & CLK5_spll_field_8__spll_ssc_en_MASK;
++	}
+ 
+ 	return ssc_enable != 0;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+index 221645c023b50..bac8febad69a5 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+@@ -199,6 +199,7 @@ enum dentist_divider_range {
+ 	CLK_SR_DCN35(CLK1_CLK4_ALLOW_DS), \
+ 	CLK_SR_DCN35(CLK1_CLK5_ALLOW_DS), \
+ 	CLK_SR_DCN35(CLK5_spll_field_8), \
++	CLK_SR_DCN35(CLK6_spll_field_8), \
+ 	SR(DENTIST_DISPCLK_CNTL), \
+ 
+ #define CLK_COMMON_MASK_SH_LIST_DCN32(mask_sh) \
+@@ -307,7 +308,7 @@ struct clk_mgr_registers {
+ 	uint32_t CLK1_CLK4_ALLOW_DS;
+ 	uint32_t CLK1_CLK5_ALLOW_DS;
+ 	uint32_t CLK5_spll_field_8;
+-
++	uint32_t CLK6_spll_field_8;
+ };
+ 
+ struct clk_mgr_shift {
 -- 
 2.39.5
 
