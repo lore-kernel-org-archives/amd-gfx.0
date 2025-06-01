@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB11DC5B543
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FD24C54FB3
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:45:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3064210E4B8;
-	Sun,  1 Jun 2025 23:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83F3010E4BD;
+	Sun,  1 Jun 2025 23:45:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uA0vsCXG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k9u34seL";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2D5A10E4B6;
- Sun,  1 Jun 2025 23:45:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C80310E4B9;
+ Sun,  1 Jun 2025 23:45:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 355E75C4AF8;
- Sun,  1 Jun 2025 23:43:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E23C4CEE7;
- Sun,  1 Jun 2025 23:45:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 33D4744696;
+ Sun,  1 Jun 2025 23:45:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630D0C4CEE7;
+ Sun,  1 Jun 2025 23:45:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748821531;
- bh=m0ACIkzqReyiQCNRUCsLGXTeweVoDN4u48KtdKtf8ho=;
+ s=k20201202; t=1748821537;
+ bh=QFvusWPOJs3GzG14D1yTz4rw7YTwnJOfd8skCIvP97Q=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uA0vsCXGjDkiDF8axsLnIc/2d+5VYRTiRHgbl4EdvJXfU9UApB+QforxCI3zkIIeR
- xCfskttxxOCzxvTMOGmrfIgzy8b2ELiphsU5iBXrxvESwmJjo/iV7uWlJpSzOOcH9s
- Wl7wTWhh+wgqe1HOInajZq/LyoSj0dEJ5pqoMyQYmYPfsyYTo6HU3Y3g6uIMc6Yxa8
- zmbSxl/kXcT1F3S/h7KIjImaKfSxnKQ76fJzQ1+BBnubsO1ryQCpja8cXC2WIsMZxD
- Ks7oIqloFnBqyI3SkIyjD0muI6PAconYlW++larXvXGdK72qw7kk7ZhF2Dgmf9dcTY
- 8QdeAonhdnz8A==
+ b=k9u34seLDgus0szNL8cGqT2WX0dLEKUbHUuSMJWg1x4vBPasl+tY092iZTw1fCz+B
+ TOIiWRBzzS3lazoyAIZ7+J1K4Gk9es9C/wE1IBSGlJTIc8gk9u+z/j9vQ1iRJFT41H
+ 7dnGtMl0T+tASMrcKAdnWmMzG5qz72j9jWEVLWoioJNbPUnWJc/YQw2DhbrkDMcY63
+ ik0qK3WBoYqR2Ncjtw/edJZdWu9ucQj/JgMKTAye+qg+XUV7MiMKwjqLdNI0N+/iQn
+ jzOuB5PexC8bmZzsx1V83BEna4gtk53ZeX2bDL+EJOqndK8CtXAjRYa+tsb8Q2+Hzi
+ DS7ymsvFOQDLg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Roman Li <roman.li@amd.com>,
- Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, mario.limonciello@amd.com, Wayne.Lin@amd.com,
- dominik.kaszewski@amd.com, mwen@igalia.com, amd-gfx@lists.freedesktop.org,
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ sunil.khatri@amd.com, srinivasan.shanmugam@amd.com, vitaly.prosyak@amd.com,
+ Jesse.zhang@amd.com, Jiadong.Zhu@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 06/22] drm/amd/display: Add NULL pointer checks in
- dm_force_atomic_commit()
-Date: Sun,  1 Jun 2025 19:44:57 -0400
-Message-Id: <20250601234515.3519309-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 08/22] drm/amdgpu/gfx10: fix CSIB handling
+Date: Sun,  1 Jun 2025 19:44:59 -0400
+Message-Id: <20250601234515.3519309-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250601234515.3519309-1-sashal@kernel.org>
 References: <20250601234515.3519309-1-sashal@kernel.org>
@@ -70,114 +65,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit 3f397cd203f247879c2f1a061e90d4c8d23655de ]
+[ Upstream commit 683308af030cd9b8d3f1de5cbc1ee51788878feb ]
 
-This commit updates the dm_force_atomic_commit function to replace the
-usage of PTR_ERR_OR_ZERO with IS_ERR for checking error states after
-retrieving the Connector (drm_atomic_get_connector_state), CRTC
-(drm_atomic_get_crtc_state), and Plane (drm_atomic_get_plane_state)
-states.
+We shouldn't return after the last section.
+We need to update the rest of the CSIB.
 
-The function utilized PTR_ERR_OR_ZERO for error checking. However, this
-approach is inappropriate in this context because the respective
-functions do not return NULL; they return pointers that encode errors.
-
-This change ensures that error pointers are properly checked using
-IS_ERR before attempting to dereference.
-
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-Based on my analysis, here's my assessment: **YES** This commit should
-be backported to stable kernel trees. Here's my detailed analysis: ##
-Commit Analysis **1. Bug Fix Nature:** This commit fixes a clear
-programming error where `PTR_ERR_OR_ZERO()` was incorrectly used to
-check error pointers returned by `drm_atomic_get_connector_state()`,
-`drm_atomic_get_crtc_state()`, and `drm_atomic_get_plane_state()`. The
-commit message clearly states these functions "do not return NULL; they
-return pointers that encode errors." **2. Specific Code Issues Fixed:**
-- **Before:** Used `PTR_ERR_OR_ZERO(conn_state)` which is inappropriate
-since these functions never return NULL - **After:** Uses
-`IS_ERR(conn_state)` followed by `PTR_ERR(conn_state)` which is the
-correct pattern for error pointer checking **3. Comparison with Similar
-Commits:** Looking at the provided examples, this commit closely matches
-**Similar Commit #4 (Status: YES)** which also: - Adds null pointer
-checks for proper error handling - Fixes potential crashes from
-dereferencing error pointers - Is a small, contained bug fix - Addresses
-static analysis findings (Coverity-style issues) **4. Risk Assessment:**
-- **Low Risk:** The change is minimal and only affects error handling
-paths - **No Architectural Changes:** This is purely a bug fix with no
-feature additions - **Contained Impact:** Only affects the
-`dm_force_atomic_commit()` function in AMD display driver - **Improves
-Stability:** Prevents potential kernel crashes from dereferencing error
-pointers **5. Stable Tree Criteria Met:** - ✅ Fixes an important bug
-(potential crash) - ✅ Small and contained change - ✅ No new features
-introduced - ✅ Minimal regression risk - ✅ Clear fix for incorrect API
-usage **6. Critical System Impact:** The DRM subsystem is critical for
-display functionality, and improper error handling in atomic commits
-could lead to: - Kernel oops/crashes during display mode changes -
-System instability during hotplug events - Potential security
-implications from dereferencing invalid pointers The fix ensures proper
-error propagation in the display driver's atomic commit path, which is
-essential for system stability.
+**YES** This commit should be backported to stable kernel trees. ##
+Detailed Analysis: ### The Bug The commit fixes a critical bug in the
+`gfx_v10_0_get_csb_buffer()` function in
+`/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c`. The function is responsible
+for building a Command Stream Buffer (CSB) for GPU initialization. **The
+problematic code before the fix:** ```c for (sect =
+adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) { for (ext =
+sect->section; ext->extent != NULL; ++ext) { if (sect->id ==
+SECT_CONTEXT) { buffer[count++] =
+cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
+buffer[count++] = cpu_to_le32(ext->reg_index -
+PACKET3_SET_CONTEXT_REG_START); for (i = 0; i < ext->reg_count; i++)
+buffer[count++] = cpu_to_le32(ext->extent[i]); } else { return; // ←
+BUG: Early return prevents rest of buffer initialization } } } ``` **The
+fix removes the early return:** ```c for (sect = adev->gfx.rlc.cs_data;
+sect->section != NULL; ++sect) { for (ext = sect->section; ext->extent
+!= NULL; ++ext) { if (sect->id == SECT_CONTEXT) { buffer[count++] =
+cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
+buffer[count++] = cpu_to_le32(ext->reg_index -
+PACKET3_SET_CONTEXT_REG_START); for (i = 0; i < ext->reg_count; i++)
+buffer[count++] = cpu_to_le32(ext->extent[i]); } // ← Early return
+removed - now continues to process rest of buffer } } ``` ### Why This
+Should Be Backported: 1. **Fixes Important GPU Initialization Bug**:
+This is a clear functional bug that affects AMDGPU GFX10 hardware.
+Looking at the clearstate data structure, I can see that
+`gfx10_cs_data[]` contains only `SECT_CONTEXT` sections, but if any
+future section was not `SECT_CONTEXT`, the early return would prevent
+critical buffer initialization from completing. 2. **Affects Critical
+Hardware Functionality**: The CSB (Command Stream Buffer) is essential
+for proper GPU initialization. An incomplete buffer could lead to: - GPU
+hang during initialization - Incorrect register states - System
+instability - Failed GPU bring-up 3. **Small, Contained Fix**: The fix
+is minimal - it simply removes an erroneous `else { return; }` clause.
+This has very low risk of introducing regressions. 4. **No Architectural
+Changes**: This doesn't change any APIs, interfaces, or architectural
+decisions. It's a pure bugfix. 5. **Follows Stable Tree Criteria**: -
+Important bugfix ✓ - Minimal risk ✓ - Confined to a subsystem ✓ - No new
+features ✓ 6. **Critical GPU Subsystem**: The commit touches GPU command
+submission infrastructure, which is critical for system stability when
+AMD GFX10 hardware is present. 7. **Clear Commit Message**: The commit
+message clearly explains the bug: "We shouldn't return after the last
+section. We need to update the rest of the CSIB." Looking at the
+reference commits, this aligns with "Similar Commit #4" which was marked
+YES for backporting - it's a clear functional bugfix in critical GPU
+subsystem code that prevents proper operation. The missing code after
+the early return includes essential buffer finalization: - Setting
+PA_SC_TILE_STEERING_OVERRIDE register - Adding
+PACKET3_PREAMBLE_END_CLEAR_STATE - Adding PACKET3_CLEAR_STATE command
+Without these, the GPU's clear state buffer would be incomplete,
+potentially causing initialization failures.
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 869b38908b28d..e6aa17052aa1d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6505,16 +6505,20 @@ static int dm_force_atomic_commit(struct drm_connector *connector)
- 	 */
- 	conn_state = drm_atomic_get_connector_state(state, connector);
- 
--	ret = PTR_ERR_OR_ZERO(conn_state);
--	if (ret)
-+	/* Check for error in getting connector state */
-+	if (IS_ERR(conn_state)) {
-+		ret = PTR_ERR(conn_state);
- 		goto out;
-+	}
- 
- 	/* Attach crtc to drm_atomic_state*/
- 	crtc_state = drm_atomic_get_crtc_state(state, &disconnected_acrtc->base);
- 
--	ret = PTR_ERR_OR_ZERO(crtc_state);
--	if (ret)
-+	/* Check for error in getting crtc state */
-+	if (IS_ERR(crtc_state)) {
-+		ret = PTR_ERR(crtc_state);
- 		goto out;
-+	}
- 
- 	/* force a restore */
- 	crtc_state->mode_changed = true;
-@@ -6522,9 +6526,11 @@ static int dm_force_atomic_commit(struct drm_connector *connector)
- 	/* Attach plane to drm_atomic_state */
- 	plane_state = drm_atomic_get_plane_state(state, plane);
- 
--	ret = PTR_ERR_OR_ZERO(plane_state);
--	if (ret)
-+	/* Check for error in getting plane state */
-+	if (IS_ERR(plane_state)) {
-+		ret = PTR_ERR(plane_state);
- 		goto out;
-+	}
- 
- 	/* Call commit internally with the state we just constructed */
- 	ret = drm_atomic_commit(state);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index a84deb3c79a30..44380923b01c8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -944,8 +944,6 @@ static void gfx_v10_0_get_csb_buffer(struct amdgpu_device *adev,
+ 						PACKET3_SET_CONTEXT_REG_START);
+ 				for (i = 0; i < ext->reg_count; i++)
+ 					buffer[count++] = cpu_to_le32(ext->extent[i]);
+-			} else {
+-				return;
+ 			}
+ 		}
+ 	}
 -- 
 2.39.5
 
