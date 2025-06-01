@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C0F6C54FB3
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2032C5B555
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:44:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0005910E4AC;
-	Sun,  1 Jun 2025 23:44:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87E0B10E4AE;
+	Sun,  1 Jun 2025 23:44:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U58y5kUr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AMzp1EbR";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3C910E4AB;
- Sun,  1 Jun 2025 23:44:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8D310E4AE;
+ Sun,  1 Jun 2025 23:44:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 34C934488B;
- Sun,  1 Jun 2025 23:44:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 666BEC4CEE7;
- Sun,  1 Jun 2025 23:44:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 65FE4434EE;
+ Sun,  1 Jun 2025 23:44:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F60C4CEF1;
+ Sun,  1 Jun 2025 23:44:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748821487;
- bh=KTItq0DsSYgp9WDBO3wqGwodIy2r8wlV2FcoeqCUUJI=;
+ s=k20201202; t=1748821494;
+ bh=NVMMi9cVxj8x7knp0suEkmzgcjl3V1xbEuk/59HV+gE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=U58y5kUrdEVEotGSPLl7qOgxycxeT6e6gRu3Nn+cBR4PQfjfXCnqIVIMoyVo2fNyu
- oW9D0oZLjRu1INHNYOKfgcE8BIJaXPBEakkBN9r7kQGT8cI6sjeeCpsY4yw8sdcLej
- 0cRnonqLbPZLg+SMq4dmS+d7XHgbHPZhdaxtbxKSek3afYtbDn6iXp1LrV18XN8bLY
- itiep7BWT5lqFzCXpuHdtg44dRkQXDyHE+x+jRsj4M4pRibPWRJRlt3RVhVIy2iTR6
- X+r+m7vB1xGOE0BWp5foSKX733BMajZFHiM9FrztN/9U/0e8in6TeUxJGJBSzBVoZ1
- +rq0aBZCO3rsA==
+ b=AMzp1EbRsiP1eY1qWJYkUGRSB3OGhEtzKl/NpjTCeuRpk+khu6kA+rKb8QQkENZq4
+ oyj4j3eFKKYz+ZV6lTpBOOZgLbiMlaYSR9vkGjb2v/dUiSl2mKcC5E2v3Yc3g8NAfY
+ hd2gvj9qLKVD9LHzTNs4jA6kENip8gEDLXFkT+atPvrFHG0f/rAQeTSyCf+UtCouNA
+ /5KXuwX6T3KkpcwjCT0llKfr8AS/m33pQ4VIy8OIwD6qrzItkfrwI2k4TX37l+q9MI
+ Dl5eqfxV4WygCJkjv8fN730AtPM8Cfrgo42kBzkAPIgNF17+XT6uKW/YUNmNlu7QVP
+ A33Z3WAWRm/BQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Sasha Levin <sashal@kernel.org>,
+Cc: Amber Lin <Amber.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, Felix.Kuehling@amd.com,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, vitaly.prosyak@amd.com, srinivasan.shanmugam@amd.com,
- Jiadong.Zhu@amd.com, kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 20/34] drm/amdgpu/gfx9: fix CSIB handling
-Date: Sun,  1 Jun 2025 19:43:44 -0400
-Message-Id: <20250601234359.3518595-20-sashal@kernel.org>
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.10 23/34] drm/amdkfd: Set
+ SDMA_RLCx_IB_CNTL/SWITCH_INSIDE_IB
+Date: Sun,  1 Jun 2025 19:43:47 -0400
+Message-Id: <20250601234359.3518595-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250601234359.3518595-1-sashal@kernel.org>
 References: <20250601234359.3518595-1-sashal@kernel.org>
@@ -65,82 +65,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Amber Lin <Amber.Lin@amd.com>
 
-[ Upstream commit a4a4c0ae6742ec7d6bf1548d2c6828de440814a0 ]
+[ Upstream commit ab9fcc6362e0699fc1150aa1d8503c40fce2c1e1 ]
 
-We shouldn't return after the last section.
-We need to update the rest of the CSIB.
+When submitting MQD to CP, set SDMA_RLCx_IB_CNTL/SWITCH_INSIDE_IB bit so
+it'll allow SDMA preemption if there is a massive command buffer of
+long-running SDMA commands.
 
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-Now I'll analyze the specific code changes and provide my backport
-recommendation: **YES** This commit should be backported to stable
-kernel trees. Here's my detailed analysis: ## Code Analysis The commit
-fixes a logic bug in the `gfx_v9_0_get_csb_buffer()` function that
-builds GPU command buffers for AMD GFX9 hardware. Looking at the code
-change: **Before:** ```c if (sect->id == SECT_CONTEXT) { buffer[count++]
-= cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, ext->reg_count));
-buffer[count++] = cpu_to_le32(ext->reg_index -
-PACKET3_SET_CONTEXT_REG_START); for (i = 0; i < ext->reg_count; i++)
-buffer[count++] = cpu_to_le32(ext->extent[i]); } else { return; // ←
-BUGGY early return } ``` **After:** ```c if (sect->id == SECT_CONTEXT) {
-buffer[count++] = cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG,
-ext->reg_count)); buffer[count++] = cpu_to_le32(ext->reg_index -
-PACKET3_SET_CONTEXT_REG_START); for (i = 0; i < ext->reg_count; i++)
-buffer[count++] = cpu_to_le32(ext->extent[i]); } // ← Early return
-removed, execution continues ``` ## Why This Should Be Backported ### 1.
-**Fixes a Clear Logic Bug** The early return prevents the function from
-completing its work. After the loop, the function needs to write
-critical termination packets: ```c buffer[count++] =
-cpu_to_le32(PACKET3(PACKET3_PREAMBLE_CNTL, 0)); buffer[count++] =
-cpu_to_le32(PACKET3_PREAMBLE_END_CLEAR_STATE); buffer[count++] =
-cpu_to_le32(PACKET3(PACKET3_CLEAR_STATE, 0)); buffer[count++] =
-cpu_to_le32(0); ``` ### 2. **Meets Stable Tree Criteria** - **Small and
-contained**: Simple one-line removal with clear intent - **Low
-regression risk**: Removing early return allows proper completion -
-**Important bug fix**: Prevents GPU command buffer corruption - **No
-architectural changes**: Pure bug fix without new features ### 3.
-**Comparison with Historical Examples** Looking at the provided
-historical commits, this fix is similar to commit #3 (marked YES) which
-also fixed preamble handling. Both commits: - Fix logic bugs in AMD GPU
-driver - Have minimal code changes - Address proper command/state
-handling - Are critical for correct driver operation ### 4. **Stability
-Impact** While currently masked because all existing clear state data
-only uses `SECT_CONTEXT` sections, this bug creates: - **Buffer
-corruption risk**: Incomplete command buffers sent to GPU - **Forward
-compatibility issues**: Future hardware might use other section types -
-**Inconsistent state**: Size calculation function has same bug pattern
-### 5. **Hardware Criticality** This affects the GFX9 generation which
-includes widely deployed GPUs like: - Vega series (RX Vega 56/64) -
-Raven Ridge APUs (Ryzen 2000G/3000G series) - Renoir APUs (Ryzen 4000
-series) ### 6. **Clear Commit Message** The commit message explicitly
-states "We need to update the rest of the CSIB" - indicating this fixes
-incomplete processing, exactly what stable backports target.
-**Conclusion**: This is a textbook stable backport candidate - a small,
-contained fix for a clear logic bug in a critical GPU initialization
-path that could lead to hardware instability. The risk/reward ratio
-strongly favors backporting.
+Based on my comprehensive analysis of both the commit and the kernel
+codebase context, here is my assessment: **YES** This commit should be
+backported to stable kernel trees. Here's my extensive analysis: ## Code
+Analysis The commit makes a minimal but important change to
+`drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c` in the
+`update_mqd_sdma()` function: ```c m->sdmax_rlcx_ib_cntl |=
+SDMA0_GFX_IB_CNTL__SWITCH_INSIDE_IB_MASK; ``` ## Why This Should Be
+Backported ### 1. **Fixes a Clear Functional Bug** - The commit
+addresses missing register configuration that prevents proper SDMA
+preemption - Without this bit set, SDMA engines cannot perform context
+switches inside Indirect Buffers (IBs) - This creates a scheduling
+fairness issue where long-running SDMA commands can starve other queues
+### 2. **Minimal Risk, High Confidence Change** - **Single line
+addition**: Only adds one register bit setting - **Well-understood
+hardware feature**: The `SWITCH_INSIDE_IB` bit is a documented hardware
+capability - **Conservative fix**: Simply enables existing hardware
+functionality that should have been enabled - **No API changes**:
+Doesn't modify interfaces or data structures ### 3. **Broad Impact on
+Modern AMD Hardware** - Affects all AMD GPUs with SDMA engines from GCN
+4.0+ (Vega, Navi, RDNA generations) - Impacts compute workloads using
+ROCm, OpenCL, and HIP - The issue affects system responsiveness under
+heavy SDMA usage patterns ### 4. **Consistent with Kernel Patterns**
+From examining similar commits, this follows the pattern of commits
+marked "Backport Status: YES": - **Similar Commit #5** was backported
+for implementing missing register state control in SDMA - Both commits
+involve configuring SDMA control registers that were previously unset -
+Both address functional correctness rather than adding new features ###
+5. **Meets Stable Tree Criteria** - **Important bugfix**: ✅ Fixes SDMA
+scheduling fairness - **Small and contained**: ✅ Single line change in
+one function - **No architectural changes**: ✅ Uses existing register
+and bit definitions - **Minimal regression risk**: ✅ Only enables
+documented hardware feature - **Critical subsystem**: ✅ GPU scheduling
+affects system performance ### 6. **Clear User Impact** The commit
+message explicitly states the problem: "massive command buffer of long-
+running SDMA commands" can cause starvation. This directly impacts: -
+Multi-process compute workloads - Real-time or interactive applications
+that need timely SDMA access - System responsiveness during heavy GPU
+compute usage ### 7. **Evidence from Codebase Analysis** My kernel tree
+analysis revealed: - The `SWITCH_INSIDE_IB` functionality exists across
+all SDMA generations - Other SDMA drivers (amdgpu) properly configure
+this register - KFD was missing this configuration, creating an
+inconsistency - No security implications found - this is purely a
+scheduling correctness issue This commit represents exactly the type of
+targeted bugfix that stable trees are designed to include: it's small,
+safe, fixes a real user-impacting issue, and has minimal risk of
+regression.
 
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 432c24f3c7981..5bd1fcd02396d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1741,8 +1741,6 @@ static void gfx_v9_0_get_csb_buffer(struct amdgpu_device *adev,
- 						PACKET3_SET_CONTEXT_REG_START);
- 				for (i = 0; i < ext->reg_count; i++)
- 					buffer[count++] = cpu_to_le32(ext->extent[i]);
--			} else {
--				return;
- 			}
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index dadeb2013fd9a..dc468dfce391e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -396,6 +396,10 @@ static void update_mqd_sdma(struct mqd_manager *mm, void *mqd,
+ 	m->sdma_engine_id = q->sdma_engine_id;
+ 	m->sdma_queue_id = q->sdma_queue_id;
+ 	m->sdmax_rlcx_dummy_reg = SDMA_RLC_DUMMY_DEFAULT;
++	/* Allow context switch so we don't cross-process starve with a massive
++	 * command buffer of long-running SDMA commands
++	 */
++	m->sdmax_rlcx_ib_cntl |= SDMA0_GFX_IB_CNTL__SWITCH_INSIDE_IB_MASK;
+ 
+ 	q->is_active = QUEUE_IS_ACTIVE(*q);
+ }
 -- 
 2.39.5
 
