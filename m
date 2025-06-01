@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9219FC54FB3
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:29:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D8CC5B543
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jun 2025 23:30:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3138A10E3C0;
-	Sun,  1 Jun 2025 23:29:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6428510E3C1;
+	Sun,  1 Jun 2025 23:30:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UO8ZHrg2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NvAthikN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE55A10E3C0;
- Sun,  1 Jun 2025 23:29:46 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FADA10E3C6;
+ Sun,  1 Jun 2025 23:30:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D56F4A0A8;
- Sun,  1 Jun 2025 23:29:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB35C4CEE7;
- Sun,  1 Jun 2025 23:29:44 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id AB1E9A4F9E0;
+ Sun,  1 Jun 2025 23:30:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A73CC4CEE7;
+ Sun,  1 Jun 2025 23:29:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748820586;
- bh=FIWt5jbaOyjdfg06fWdHAm4ewMsW/2Ts1PRGTSaLuB8=;
+ s=k20201202; t=1748820601;
+ bh=ExUb3XPj01j3N04jN2LbEtnh9g5+U+o43q9FHoAJoR4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UO8ZHrg2n1MIW+tB0fbibxQMX2vFptkCce1UydCLvTm3QRmjUT3JYvIoe1Xn8BWR1
- vytibHboP9wt1s68oND/W0b4JSRrTjOF3t0of2WjT8DTVxDVd88kmrmg2QkqvAMTvr
- 1G42wrkm3xaI2ry55rTwzzp0P9nzGSpmXmRrHbXFR931i8DPY6lNHMqH9dTB02YRNt
- tdqiuy7uVnIqQML6u6KnmXtA+NstEoDPukvks7BrsZNS77slQ3f1/whBrjNoUdFeTr
- Rw2XxBeAs6ITQSXH/KYf+c397oLoUsciad3tIZsJxkbyN+DVw6BBFIXvtE2haSeTzJ
- UNTR+QP+VbvaA==
+ b=NvAthikNj7clStM8Juu50yQ6/oyjWzXAPV1RCeBWS0OwYRQ6w1+xqP8Iz3N8VERWM
+ 3mFVtoYrxdmq7qDaCA0ZrNWeM8w+FWdLZRFMd1AXkTpqNKhcWEM2LY9lYvTEo73OA3
+ 9gE6Ftg1BNqDuMZQObpa0t7TCFPaUpCJk+8zp3angAczX34w3FDKEIGLov7dXEHbMf
+ c+xfb1B6Q4VdWdFxf3WNMaK+zk6XMgPL2bQUH+TuFinzXy54sIsQXr9pTEcuiRSWKg
+ Ak54xNBynvc6oLRwimICoMrUZw6ioDLVCXJbqNnayhowp/PjdmWY3RwwxYdhr/17Eo
+ OuPDEU6KAk8HQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Sasha Levin <sashal@kernel.org>,
+Cc: "Jesse.Zhang" <Jesse.Zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
+ "Shaoyun . liu" <Shaoyun.liu@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, alexandre.f.demers@gmail.com, boyuan.zhang@amd.com,
- kevinyang.wang@amd.com, mario.limonciello@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.14 003/102] drm/amdgpu/gfx6: fix CSIB handling
-Date: Sun,  1 Jun 2025 19:27:55 -0400
-Message-Id: <20250601232937.3510379-3-sashal@kernel.org>
+ sunil.khatri@amd.com, Jack.Xiao@amd.com, srinivasan.shanmugam@amd.com,
+ shaoyun.liu@amd.com, Jiadong.Zhu@amd.com, Hawking.Zhang@amd.com,
+ michael.chen@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.14 008/102] drm/amdgpu: Fix API status offset for
+ MES queue reset
+Date: Sun,  1 Jun 2025 19:28:00 -0400
+Message-Id: <20250601232937.3510379-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250601232937.3510379-1-sashal@kernel.org>
 References: <20250601232937.3510379-1-sashal@kernel.org>
@@ -50,6 +52,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.14.9
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,71 +68,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: "Jesse.Zhang" <Jesse.Zhang@amd.com>
 
-[ Upstream commit 8307ebc15c1ea98a8a0b7837af1faa6c01514577 ]
+[ Upstream commit ad7c088e31f026d71fe87fd09473fafb7d6ed006 ]
 
-We shouldn't return after the last section.
-We need to update the rest of the CSIB.
+The mes_v11_0_reset_hw_queue and mes_v12_0_reset_hw_queue functions were
+using the wrong union type (MESAPI__REMOVE_QUEUE) when getting the offset
+for api_status. Since these functions handle queue reset operations, they
+should use MESAPI__RESET union instead.
 
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+This fixes the polling of API status during hardware queue reset operations
+in the MES for both v11 and v12 versions.
+
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+Reviewed-By: Shaoyun.liu <Shaoyun.liu@amd.com>
+Reviewed-by: Prike Liang <Prike.Liang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-Now let me understand what the bug is. Looking at the original code:
-```c for (sect = adev->gfx.rlc.cs_data; sect->section != NULL; ++sect) {
-for (ext = sect->section; ext->extent != NULL; ++ext) { if (sect->id ==
-SECT_CONTEXT) { // process SECT_CONTEXT sections } else { return; //
-BUG: This returns early, skipping remaining code } } } // Important code
-that should always run: buffer[count++] =
-cpu_to_le32(PACKET3(PACKET3_SET_CONTEXT_REG, 1)); buffer[count++] =
-cpu_to_le32(mmPA_SC_RASTER_CONFIG - PACKET3_SET_CONTEXT_REG_START); //
-... more important buffer initialization ``` The fix removes the early
-return so that all sections are processed and the important buffer
-initialization at the end always runs. **YES** This commit should be
-backported to stable kernel trees for the following reasons: 1. **Clear
-Bug Fix**: The commit fixes a clear logic error where an early return
-statement prevents critical buffer initialization code from executing.
-The original code would return immediately when encountering a non-
-SECT_CONTEXT section, skipping the important packet commands that should
-always be written to the buffer (PACKET3_SET_CONTEXT_REG,
-PACKET3_PREAMBLE_END_CLEAR_STATE, PACKET3_CLEAR_STATE). 2. **Functional
-Impact**: This bug affects the Clear State Indirect Buffer (CSIB)
-handling in AMD GPU driver for GFX6 hardware. The incomplete buffer
-initialization could lead to: - Incorrect GPU state during graphics
-operations - Potential rendering issues or GPU hangs - Inconsistent
-hardware behavior 3. **Small and Contained Fix**: The fix is minimal -
-it simply removes two lines (the else block with return statement). This
-is a low-risk change that doesn't introduce new functionality or alter
-the architecture. 4. **Hardware-Specific Bug**: This affects real users
-with GFX6 AMD GPUs. The bug prevents proper initialization of the GPU's
-clear state buffer, which is essential for correct GPU operation. 5.
-**Similar to Historical Backports**: Looking at commit 4 in the similar
-commits (marked as YES for backporting), which also fixed preamble
-handling issues in the AMD GPU driver, this follows a similar pattern of
-fixing command buffer handling bugs. The commit message clearly
-indicates this is a bug fix ("We shouldn't return after the last
-section. We need to update the rest of the CSIB"), and the code change
-confirms that critical buffer initialization was being skipped due to
-the premature return.
+**YES** This commit should be backported to stable kernel trees based on
+the following analysis: ## Bug Analysis The commit fixes a clear
+functional bug where `mes_v11_0_reset_hw_queue()` and
+`mes_v12_0_reset_hw_queue()` functions were using the wrong union type
+(`MESAPI__REMOVE_QUEUE`) to get the API status offset for polling
+completion. Since these functions handle **reset** operations, they
+should use the `MESAPI__RESET` union instead. ## Code Changes Assessment
+1. **Small and contained**: The fix changes only 2 lines across 2 files:
+- `mes_v11_0.c:480`: `offsetof(union MESAPI__REMOVE_QUEUE, api_status)`
+→ `offsetof(union MESAPI__RESET, api_status)` - `mes_v12_0.c:500`: Same
+change 2. **Logical correctness**: The functions create `union
+MESAPI__RESET mes_reset_queue_pkt` packets but were polling using the
+wrong union offset. This is a clear mismatch that could cause incorrect
+polling behavior. 3. **No architectural changes**: This is purely a bug
+fix that aligns the API status polling with the correct packet type. ##
+Impact Assessment - **Affects GPU queue management**: MES (Micro Engine
+Scheduler) queue reset is a critical operation for AMD GPUs -
+**Potential for silent failures**: Wrong offset polling could lead to
+improper completion detection - **User-visible impact**: Could cause GPU
+hangs or incorrect queue state management - **Low regression risk**: The
+fix aligns the code with its intended design ## Comparison with Similar
+Commits All 5 provided similar commits were marked "NO" for backporting
+because they: - Added new APIs/features (commits #1, #2) - Made
+functional changes to queue reset behavior (commits #3, #4, #5) In
+contrast, this commit: - Fixes an existing bug without adding features -
+Maintains existing behavior while correcting implementation - Follows
+the stable tree rule of "important bugfixes with minimal risk" ## Stable
+Tree Criteria Met ✅ **Important bugfix**: Fixes incorrect API status
+polling in GPU queue reset ✅ **Minimal risk**: Two-line change with
+clear logic ✅ **No new features**: Pure correctness fix ✅ **Contained
+change**: Limited to MES driver subsystem ✅ **Clear side effects**:
+Improves reliability of queue reset operations This commit represents
+exactly the type of focused bug fix that stable trees are designed to
+include.
 
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-index f26e2cdec07a2..e181efd97fa74 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -2863,8 +2863,6 @@ static void gfx_v6_0_get_csb_buffer(struct amdgpu_device *adev,
- 				buffer[count++] = cpu_to_le32(ext->reg_index - 0xa000);
- 				for (i = 0; i < ext->reg_count; i++)
- 					buffer[count++] = cpu_to_le32(ext->extent[i]);
--			} else {
--				return;
- 			}
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 68bb334393bb6..ec7ef8763f932 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -477,7 +477,7 @@ static int mes_v11_0_reset_hw_queue(struct amdgpu_mes *mes,
+ 
+ 	return mes_v11_0_submit_pkt_and_poll_completion(mes,
+ 			&mes_reset_queue_pkt, sizeof(mes_reset_queue_pkt),
+-			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
++			offsetof(union MESAPI__RESET, api_status));
+ }
+ 
+ static int mes_v11_0_map_legacy_queue(struct amdgpu_mes *mes,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+index 6b121c2723d66..53d059a2a42e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+@@ -500,7 +500,7 @@ static int mes_v12_0_reset_hw_queue(struct amdgpu_mes *mes,
+ 
+ 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+ 			&mes_reset_queue_pkt, sizeof(mes_reset_queue_pkt),
+-			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
++			offsetof(union MESAPI__RESET, api_status));
+ }
+ 
+ static int mes_v12_0_map_legacy_queue(struct amdgpu_mes *mes,
 -- 
 2.39.5
 
