@@ -4,75 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D829C61CE5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96C2EC5AD49
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jun 2025 08:19:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF35110E6E0;
-	Tue,  3 Jun 2025 08:18:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDF710E6E4;
+	Tue,  3 Jun 2025 08:18:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="TBUkPCrY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lIu91lNN";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 600B410E564
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 16:22:15 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-451dbe494d6so12918325e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Jun 2025 09:22:15 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED49810E503
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 12:11:13 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb94so46736185e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Jun 2025 05:11:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1748881334; x=1749486134; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=oqfFn1Mp9nAjcQeZ04D2BespZSz7Bz0Bfj7To4SwEHM=;
- b=TBUkPCrYbP5Ir/Hc9o/c46wjFpuIFyjNIPxykm3Ci/b2/OHeDw2pMd88dkvkrKt1jT
- Dvs6UxGBNRYnljMMcxoqaf6zvhzRrya0122847ZLiq5CyEp4Fshn8vz39ohzRIJ021+W
- Vf8bX+bxLd2BsjtP299Mf5duTYYJ6tfnZeRw/C3yxhWkBNIm6qBanXl1yq3jAYspYT3Y
- fpRhgqNkK1RSh71eO9rBiYtUWf23QibWlaDlDDT0zEE53lZeQsECNe14XdjmSzqa2HsW
- Bn5nZG0SKZk9ctRDfjeJK5mEPUMjniBA12Qb417S/aKeeUREHNCwq1wmsQ2+kAmT6tFw
- sRHA==
+ d=gmail.com; s=20230601; t=1748866272; x=1749471072; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=4ZQi45QwPIvCm8H3vloNWdrOa22s7D0xV1Gm7PYGDDc=;
+ b=lIu91lNNBwgxdRxcqE6rfaUg0/5HOMGPz/vmItvsDpehC+ai5iroheWT2kMuP2xsaN
+ EjJCpABQnrmO9jsCzwZ0SDGHsBIrNs2TNrWoDIVnPE1PY5+tcTiM3GKBimgeATraExbn
+ PJFQTZbEV/DyR6r2VbiWQoMuYzwGvnbiGkyTzMSehtYWG98gRFqkO36aTFLvZxJfDsZB
+ nNwe0hK/0sYES3QyMwyEVVe4gMzqIhv2O5Z/ZFN3/GDPQEEANEJP/Ui3nuYzflkIgCka
+ ITjmSVkDyyjmc5xjGpU3il+T3B8hGsIr0Elt1RE6Vh056LUOxLOhlCcZsQ2OcPiEEmjE
+ NBbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748881334; x=1749486134;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oqfFn1Mp9nAjcQeZ04D2BespZSz7Bz0Bfj7To4SwEHM=;
- b=sZOPFtFBPvfPhA08QoWIsKW6+3k6w4zT+iQTn38UfDjquBCDZQZDD6Ij9SHFwa7mJ0
- wLGX5jIbFuSps6BE63CrDWS/Hc09s/kivX7iZWNx5/6GPUjbHBVshOVhY6JPGm/Q76Ey
- iDJ03MRKLEWjo7VopwBBMExHLi8i7pgKHBxCYlBXoD0IMU9930Hjw65EleUfgdQgoW5W
- 5O6kAqvTfyafgcbyqYt1otLPqJrQx6jCvjZbADKVC8/ZuVk1D7D9CiCeIYj6j4AZ4DGn
- XLOudMknPDDW3/kFPvQMk8nS3iHqqbWupmf0qHbSkUTF5jkPIxBTwUTaU8wGb+XduOn+
- vv7A==
-X-Gm-Message-State: AOJu0Yxb9iL0KBkqXSAIFJsXLwkO2cPobbJ+UwRBvD3uim9PbP9rv2Lz
- SE9FYLR9XAMiED33K0NpYRO+NssIlkK2PEMhcfZz/pnt8/SQT4kb3M61eqnyyzu8hKg=
-X-Gm-Gg: ASbGnctK0jgu0XEV5WfoXIkPPRzg1RNPt46HbIpZlza1IaPz3FkulSjzOlvrr5TvM16
- 76dYIdcGlfIjbhdF/0KcdwGfPV2cs7JVyBMFsyBQNXwXIEmigDJeOuhXpXso8DKl8u1K1N03y63
- LqQo1MM2ch475ua1M15YWqIojxmq3IAnlBTx5q0xCitqXxz0vnSLWpZ8ooA/xwXCtx2AwomuWbk
- pZLy7VTuQM1cB+FmU1UyWZ/7U663l6B5LEVVOcnPGpE8ZXz6kP0Vfb9R/1IYYiehHWPEeR/tgxb
- BQO2rh00ZJxMZ5o/Stf9/KfmY41SP3B3wJcNFLJleXTewaQrd909jg==
-X-Google-Smtp-Source: AGHT+IGQVG+9kkgM+Gw/QYtVE3BGrFi5tE9uRyvIoBigGuatn/IymWmr23s7esoleYgMrHZm28xf9g==
-X-Received: by 2002:a05:6000:3106:b0:3a4:f70d:a65e with SMTP id
- ffacd0b85a97d-3a4fe393558mr6030409f8f.37.1748881333706; 
- Mon, 02 Jun 2025 09:22:13 -0700 (PDT)
-Received: from blackdock.suse.cz ([193.86.92.181])
+ d=1e100.net; s=20230601; t=1748866272; x=1749471072;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=4ZQi45QwPIvCm8H3vloNWdrOa22s7D0xV1Gm7PYGDDc=;
+ b=XXCWNX/iof9khSeUuGi+QjUrIW+4lR9LDrEwOUDpFWPmaI+NDI7ojW2zV4SMJU9IBu
+ udR+Kke3fBEnisF7AKsGdh0uhfnE9OgoAZc25tvRlr+OQ9IeArX4exos+zBFJFV2hBGU
+ 1R9toewOyZ2mPt8OynzRUZJFdVd0B+EaVcb2nX8W3wHotPuOvP766+rhsQ7tMv5OzTx4
+ 0WIbYy761rl9oJV2RIhWLQnEs+fiOL9JKdX4KbnlHkB9j7yWLh4IDWcNwhYzWH6PL0zn
+ C/RszaOfzYywR4Zl+S9dXQH46zthTSlnpaimaIYrOAYOjElz9+Pt8yluUvjjh08hPDCi
+ u8DQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVcUgpIbrIKH4AU8L4xhwju38WA2U4Q13spJUeO6KFMHkiK9ccIsl6zyqAFz6HlSmkSZa3M3RVX@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyespU1y2wPgmG/AQydNnHuLlg0UU35khkq8Cs9UiQLdwQyK5ae
+ vWSMNnaynz4JSYC12sDUZvBLe55XbmjFALbAx66kMxJcLCiTgy/s1TjG
+X-Gm-Gg: ASbGncvCO/ayXAESddIfOvOPORLoHC5mqEqOg+2rVcLPZY99Y/hDLusQ842uuUXjbzy
+ j24pOC+VNYvLCZaixRugwB0HN4ZBZ2qicDsBbwe1Lucj1sGbQyRspY4hHI9KNylhJsYTfqwKOOx
+ EeryBiU5EY9DRTj8FFL06M5ja+DELA+L123col+rYkjKPYZ0owWQDWEIhB9ONLcLqR4AVrg7WGr
+ ZxdRcfW4VYCi6N80D+5ajV9xqUuQdDiFuluhI2bK1OaJpExvBhcj+9JrlgdO4+5VSDdPKRo0ayZ
+ lztcqGpbeTRlTjOtdGoltkXyxI5gdX58CHgJfFBJMADkw1FgSvTzj5HB3y9/kwlGY+T3xBA4A3I
+ =
+X-Google-Smtp-Source: AGHT+IGd4MznuEGPipakHbPhL/56L2kw3KoQvFv2K7Y7gKK+W4YBArP/DySHwTMnTNIXSW6/cavRvQ==
+X-Received: by 2002:a05:600c:4747:b0:442:d9f2:c753 with SMTP id
+ 5b1f17b1804b1-451221a1bbfmr56132285e9.26.1748866271971; 
+ Mon, 02 Jun 2025 05:11:11 -0700 (PDT)
+Received: from debian.local ([2a0a:ef40:eaf:3101:2d68:caee:7294:3fe1])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-450d8006613sm132908715e9.28.2025.06.02.09.22.13
+ ffacd0b85a97d-3a4efe6c91fsm14796572f8f.35.2025.06.02.05.11.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Jun 2025 09:22:13 -0700 (PDT)
-Date: Mon, 2 Jun 2025 18:22:11 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@intel.com>, 
- Tejun Heo <tj@kernel.org>
-Subject: Re: [RFC 20/23] cgroup/drm: Introduce weight based scheduling control
-Message-ID: <jlswx5kabjkszrkdmoflcqi7ycbxbfjfflbni3knromz6ucx63@kjwypivu3jpq>
-References: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
- <20250502123256.50540-21-tvrtko.ursulin@igalia.com>
+ Mon, 02 Jun 2025 05:11:11 -0700 (PDT)
+Date: Mon, 2 Jun 2025 13:11:09 +0100
+From: Chris Bainbridge <chris.bainbridge@gmail.com>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Cc: Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Alan Stern <stern@rowland.harvard.edu>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Johan Hovold <johan@kernel.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Jon Hunter <jonathanh@nvidia.com>, Saravana Kannan <saravanak@google.com>,
+ Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v3 2/5] PM: sleep: Suspend async parents after suspending
+ children
+Message-ID: <aD2U3VIhf8vDkl09@debian.local>
+References: <10629535.nUPlyArG6x@rjwysocki.net>
+ <3541233.QJadu78ljV@rjwysocki.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="uwbgl3tifamqbhkd"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250502123256.50540-21-tvrtko.ursulin@igalia.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <3541233.QJadu78ljV@rjwysocki.net>
 X-Mailman-Approved-At: Tue, 03 Jun 2025 08:18:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,550 +96,499 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---uwbgl3tifamqbhkd
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC 20/23] cgroup/drm: Introduce weight based scheduling control
-MIME-Version: 1.0
-
-Hello.
-
-On Fri, May 02, 2025 at 01:32:53PM +0100, Tvrtko Ursulin <tvrtko.ursulin@ig=
-alia.com> wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On Fri, Mar 14, 2025 at 02:13:53PM +0100, Rafael J. Wysocki wrote:
+> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 >=20
-> Similar to CPU and IO scheduling, implement a concept of weight in the DRM
-> cgroup controller.
+> In analogy with the previous change affecting the resume path,
+> make device_suspend() start the async suspend of the device's parent
+> after the device itself has been processed and make dpm_suspend() start
+> processing "async" leaf devices (that is, devices without children)
+> upfront so they don't need to wait for the "sync" devices they don't
+> depend on.
 >=20
-> Individual drivers are now able to register with the controller which will
-> notify them of the relative scheduling weight for each open DRM client.
+> On the Dell XPS13 9360 in my office, this change reduces the total
+> duration of device suspend by approximately 100 ms (over 20%).
 >=20
-> The notifications are triggered on cgroup weight changes and DRM clients
-> appearing and disappearing in/from cgroups. Latter is done because it is
-> handy to ignore the groups with no DRM clients in relative weight
-> calculations.
->=20
-> The notifications are also consolidated by using a delayed worker.
->=20
-> On the userspace API level we use the same range and defaults as the CPU
-> controller - CGROUP_WEIGHT_MIN, CGROUP_WEIGHT_DFL and CGROUP_WEIGHT_MAX.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Michal Koutn=FD <mkoutny@suse.com>
-> Cc: Tejun Heo <tj@kernel.org>
-> ---
->  Documentation/admin-guide/cgroup-v2.rst |  22 ++
->  include/linux/cgroup_drm.h              |   2 +
->  kernel/cgroup/drm.c                     | 313 +++++++++++++++++++++++-
->  3 files changed, 331 insertions(+), 6 deletions(-)
->=20
-> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admi=
-n-guide/cgroup-v2.rst
-> index 1a16ce68a4d7..095b7dee0151 100644
-> --- a/Documentation/admin-guide/cgroup-v2.rst
-> +++ b/Documentation/admin-guide/cgroup-v2.rst
-> @@ -2729,6 +2729,28 @@ HugeTLB Interface Files
->          hugetlb pages of <hugepagesize> in this cgroup.  Only active in
->          use hugetlb pages are included.  The per-node values are in byte=
-s.
-> =20
-> +DRM
-> +---
-> +
-> +The controller allows for configuring of scheduling weights of cgroups r=
-elative
-> +to their siblings.
-> +
-> +NOTE: This is an optional feature into which individual DRM drivers need=
- to
-> +      opt-in if they want to support it.
-> +
-> +NOTE: Only single GPU systems will work as expected in the current
-> +      implementation.
-> +
-> +DRM Interface Files
-> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> +
-> +  drm.weight
-> +        A read-write single value file which exists on non-root cgroups.=
- The
-> +        default is "100".
+> Suggested-by: Saravana Kannan <saravanak@google.com>
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Should this be akin to IO controller and have subkey granularity for
-individual devices? (With special 'default' entry.)
+This commit results in memory corruption on suspend/resume with short
+suspend duration. Laptop appears to hang and crash is logged to pstore.
 
-(Can those devices come and go (hotplug)?)
+To reproduce: `amd_s2idle.py --log log --duration 1 --wait 4 --count 30`
 
-> +
-> +        The weights are in the range [1, 10000] and specify the relative
-> +        scheduling weights for cgroups in relation to their siblings.
-> +
->  Misc
->  ----
-> =20
-> diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
-> index d6a9a2fbdbf5..9961003958b4 100644
-> --- a/include/linux/cgroup_drm.h
-> +++ b/include/linux/cgroup_drm.h
-> @@ -6,6 +6,8 @@
-> =20
->  #include <drm/drm_file.h>
-> =20
-> +#define DRM_CGROUP_WEIGHT_SHIFT 10
-> +
->  #if IS_ENABLED(CONFIG_CGROUP_DRM)
->  void drmcgroup_client_open(struct drm_file *file_priv);
->  void drmcgroup_client_close(struct drm_file *file_priv);
-> diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-> index ea7655edf86a..532702604786 100644
-> --- a/kernel/cgroup/drm.c
-> +++ b/kernel/cgroup/drm.c
-> @@ -13,10 +13,18 @@ struct drm_cgroup_state {
->  	struct cgroup_subsys_state css;
-> =20
->  	struct list_head clients;
-> +	unsigned int num_clients; /* Whole branch */
-> +
-> +	unsigned int sum_children_weights;
-> +
-> +	unsigned int weight;
-> +	unsigned int effective_weight;
+I have reproduced this both with and without Mario's recent suspend fix
+https://lore.kernel.org/amd-gfx/20250602014432.3538345-1-superm1@kernel.org=
+/T/#t
 
-IIUC, this is weight normalized across siblings (and not scaled by
-ancestors)?
+Pstore log (with Mario's fix):
 
-It should be then sufficient to only notify the siblings of modified
-cgroup after the recalculation, shouldn't it?
+<6>[  194.209939] PM: suspend entry (s2idle)
+<6>[  194.409450] Filesystems sync: 0.199 seconds
+<6>[  194.409756] Freezing user space processes
+<6>[  194.411374] Freezing user space processes completed (elapsed 0.001 se=
+conds)
+<6>[  194.411377] OOM killer disabled.
+<6>[  194.411378] Freezing remaining freezable tasks
+<6>[  194.412517] Freezing remaining freezable tasks completed (elapsed 0.0=
+01 seconds)
+<6>[  194.412520] printk: Suspending console(s) (use no_console_suspend to =
+debug)
+<7>[  194.663906] PM: suspend of devices aborted after 0.260 msecs
+<7>[  194.663911] PM: start suspend of devices aborted after 251.365 msecs
+<3>[  194.663913] PM: Some devices failed to suspend, or early wake event d=
+etected
+<4>[  194.663975] i2c i2c-3: Unbalanced pm_runtime_enable!
+<4>[  194.663989] ee1004 3-0050: Attempt to enable runtime PM when it is bl=
+ocked
+Oops#1 Part6
+<4>[  194.663991] ee1004 3-0051: Attempt to enable runtime PM when it is bl=
+ocked
+<4>[  194.663992] CPU: 5 UID: 0 PID: 121 Comm: kworker/u64:10 Not tainted 6=
+=2E15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+<4>[  194.663994] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916,=
+ BIOS F.17 12/18/2024
+<4>[  194.663996] Workqueue: async async_run_entry_fn
+<4>[  194.663998]  slab kmalloc-2k
+<4>[  194.664000]
+<4>[  194.664000]  start ffff99bbe24ac800 pointer offset 408
+<4>[  194.664001] Call Trace:
+<4>[  194.664002]  size 2048
+<3>[  194.664003] list_add corruption. prev->next should be next (ffffffff9=
+da75c60), but was ffff99bbd1d94790. (prev=3Dffff99bbe24ac998).
+<4>[  194.664003]  <TASK>
+<4>[  194.664007]  dump_stack_lvl+0x6e/0x90
+<4>[  194.664011] ------------[ cut here ]------------
+<4>[  194.664011]  pm_runtime_enable.cold+0x28/0x48
+<2>[  194.664011] kernel BUG at lib/list_debug.c:32!
+<4>[  194.664013]  device_resume+0x47/0x200
+<4>[  194.664016] Oops: invalid opcode: 0000 [#1] SMP
+<4>[  194.664017]  async_resume+0x1d/0x30
+<4>[  194.664018] CPU: 2 UID: 0 PID: 2505 Comm: amd_s2idle.py Not tainted 6=
+=2E15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+<4>[  194.664019]  async_run_entry_fn+0x2e/0x130
+<4>[  194.664020] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916,=
+ BIOS F.17 12/18/2024
+<4>[  194.664021] RIP: 0010:__list_add_valid_or_report+0x90/0xa0
+<4>[  194.664022]  process_one_work+0x22b/0x5b0
+<4>[  194.664024] Code: e4 8a ff 0f 0b 48 89 f7 48 89 34 24 e8 49 57 c6 ff =
+48 8b 34 24 48 c7 c7 70 d1 64 9d 48 8b 16 48 89 f1 48 89 de e8 00 e4 8a ff =
+<0f> 0b 90 66 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 41 54
+Oops#1 Part5
+<4>[  194.664025] RSP: 0018:ffffc09a45dafb20 EFLAGS: 00010246
+<4>[  194.664026]  worker_thread+0x1da/0x3d0
+<4>[  194.664027] RAX: 0000000000000075 RBX: ffffffff9da75c60 RCX: 00000000=
+00000027
+<4>[  194.664028] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff99be=
+cd11de40
+<4>[  194.664029] RBP: ffffffff9da74c00 R08: 0000000000000000 R09: 00000000=
+00000000
+<4>[  194.664029] R10: 0000000000000000 R11: 0000000000000003 R12: 00000000=
+00000010
+<4>[  194.664029]  ? bh_worker+0x260/0x260
+<4>[  194.664030] R13: 0000002990e47f3d R14: ffff99bbe24ac998 R15: ffff99bb=
+e0b67620
+<4>[  194.664031] FS:  00007fe534bfc080(0000) GS:ffff99bf2ee50000(0000) knl=
+GS:0000000000000000
+<4>[  194.664031]  kthread+0x10a/0x250
+<4>[  194.664032] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[  194.664033] CR2: 000055fdfaf910b8 CR3: 000000010d4a9000 CR4: 00000000=
+00f50ef0
+<4>[  194.664034]  ? kthreads_online_cpu+0x130/0x130
+<4>[  194.664034] PKRU: 55555554
+<4>[  194.664035] Call Trace:
+<4>[  194.664036]  <TASK>
+<4>[  194.664036]  ret_from_fork+0x31/0x50
+<4>[  194.664037]  dpm_resume+0x139/0x350
+<4>[  194.664039]  ? kthreads_online_cpu+0x130/0x130
+<4>[  194.664041]  dpm_resume_end+0x11/0x20
+<4>[  194.664040]  ret_from_fork_asm+0x11/0x20
+<4>[  194.664042]  suspend_devices_and_enter+0x18e/0x9f0
+<4>[  194.664045]  </TASK>
+<4>[  194.664046]  pm_suspend.cold+0x22f/0x28f
+<4>[  194.664046] CPU: 4 UID: 0 PID: 115 Comm: kworker/u64:4 Not tainted 6.=
+15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+Oops#1 Part4
+<4>[  194.664048]  state_store+0x6c/0xd0
+<4>[  194.664049] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916,=
+ BIOS F.17 12/18/2024
+<4>[  194.664050] Workqueue: async async_run_entry_fn
+<4>[  194.664051]  kernfs_fop_write_iter+0x194/0x250
+<4>[  194.664052] Call Trace:
+<4>[  194.664052]  <TASK>
+<4>[  194.664053]  dump_stack_lvl+0x6e/0x90
+<4>[  194.664054]  vfs_write+0x2ac/0x550
+<4>[  194.664055]  pm_runtime_enable.cold+0x28/0x48
+<4>[  194.664057]  device_resume+0x47/0x200
+<4>[  194.664058]  ksys_write+0x71/0xe0
+<4>[  194.664060]  async_resume+0x1d/0x30
+<4>[  194.664060]  do_syscall_64+0x95/0x1a0
+<4>[  194.664062]  async_run_entry_fn+0x2e/0x130
+<4>[  194.664062]  ? lockdep_sys_exit+0x1e/0x90
+<4>[  194.664064]  process_one_work+0x22b/0x5b0
+<4>[  194.664064]  ? trace_hardirqs_on_prepare+0x77/0xa0
+<4>[  194.664066]  ? syscall_exit_to_user_mode+0xb1/0x280
+<4>[  194.664067]  worker_thread+0x1da/0x3d0
+<4>[  194.664068]  ? __mutex_lock+0xdb/0xed0
+<4>[  194.664070]  ? __mutex_lock+0xafb/0xed0
+<4>[  194.664070]  ? bh_worker+0x260/0x260
+<4>[  194.664072]  ? kernfs_fop_llseek+0x35/0xd0
+<4>[  194.664072]  kthread+0x10a/0x250
+<4>[  194.664073]  ? lock_release+0x1ff/0x2a0
+<4>[  194.664074]  ? kthreads_online_cpu+0x130/0x130
+<4>[  194.664075]  ? lock_acquire+0x270/0x2d0
+<4>[  194.664076]  ret_from_fork+0x31/0x50
+<4>[  194.664077]  ? __mutex_unlock_slowpath+0x3c/0x2c0
+<4>[  194.664078]  ? kthreads_online_cpu+0x130/0x130
+<4>[  194.664079]  ? kernfs_fop_llseek+0x77/0xd0
+<4>[  194.664079]  ret_from_fork_asm+0x11/0x20
+<4>[  194.664081]  ? lockdep_sys_exit+0x1e/0x90
+<4>[  194.664082]  ? trace_hardirqs_on_prepare+0x77/0xa0
+Oops#1 Part3
+<4>[  194.664084]  </TASK>
+<4>[  194.664084]  ? syscall_exit_to_user_mode+0xb1/0x280
+<4>[  194.664086]  ? do_syscall_64+0xa1/0x1a0
+<4>[  194.664086] uvcvideo 1-3:1.0: Unbalanced pm_runtime_enable!
+<4>[  194.664087]  ? do_syscall_64+0xa1/0x1a0
+<4>[  194.664088]  ? do_syscall_64+0xa1/0x1a0
+<4>[  194.664090]  ? switch_fpu_return+0xce/0x100
+<4>[  194.664092]  ? lockdep_sys_exit+0x1e/0x90
+<4>[  194.664093]  ? trace_hardirqs_on_prepare+0x77/0xa0
+<4>[  194.664095]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+<4>[  194.664096] RIP: 0033:0x7fe534d010d0
+<4>[  194.664098] Code: 2d 0e 00 64 c7 00 16 00 00 00 b8 ff ff ff ff c3 66 =
+2e 0f 1f 84 00 00 00 00 00 80 3d 99 af 0e 00 00 74 17 b8 01 00 00 00 0f 05 =
+<48> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
+<4>[  194.664099] RSP: 002b:00007ffeea167ab8 EFLAGS: 00000202 ORIG_RAX: 000=
+0000000000001
+<4>[  194.664101] RAX: ffffffffffffffda RBX: 0000000000a794f0 RCX: 00007fe5=
+34d010d0
+<4>[  194.664101] RDX: 0000000000000003 RSI: 000000002689f620 RDI: 00000000=
+00000004
+<4>[  194.664102] RBP: 00007fe534bfbfe8 R08: 0000000000000000 R09: 00000000=
+00000002
+<4>[  194.664103] R10: 0000000000000007 R11: 0000000000000202 R12: 00000000=
+00000003
+<4>[  194.664103] R13: 0000000000000004 R14: 000000002689f620 R15: 00000000=
+00a4bb48
+<4>[  194.664107]  </TASK>
+<4>[  194.664107] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_=
+seq_device xt_conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_net=
+link nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user
+<4>[  194.664113] btusb 3-3:1.1: Unbalanced pm_runtime_enable!
+<4>[  194.664114]  xfrm_algo xt_addrtype nft_compat nf_tables br_netfilter =
+bridge stp llc ccm overlay
+Oops#1 Part2
+<4>[  194.664120] usb 1-4:1.0: Attempt to enable runtime PM when it is bloc=
+ked
+<4>[  194.664120]  qrtr rfcomm cmac algif_hash algif_skcipher
+<4>[  194.664122] CPU: 7 UID: 0 PID: 2536 Comm: kworker/u64:38 Not tainted =
+6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+<4>[  194.664123]  af_alg bnep binfmt_misc
+<4>[  194.664124] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916,=
+ BIOS F.17 12/18/2024
+<4>[  194.664125]  nls_ascii nls_cp437 vfat fat
+<4>[  194.664126] Workqueue: async async_run_entry_fn
+<4>[  194.664127]  snd_acp3x_pdm_dma snd_soc_dmic
+<4>[  194.664128]
+<4>[  194.664128]  snd_acp3x_rn
+<4>[  194.664129] Call Trace:
+<4>[  194.664129]  snd_sof_amd_rembrandt snd_sof_amd_acp
+<4>[  194.664130]  <TASK>
+<4>[  194.664130]  snd_sof_pci snd_sof_xtensa_dsp snd_sof snd_sof_utils snd=
+_ctl_led
+<4>[  194.664132]  dump_stack_lvl+0x6e/0x90
+<4>[  194.664133]  iwlmvm snd_soc_core snd_hda_codec_realtek snd_hda_codec_=
+generic
+<4>[  194.664135]  pm_runtime_enable.cold+0x28/0x48
+<4>[  194.664135]  snd_compress
+<4>[  194.664136]  snd_pci_ps snd_hda_scodec_component mac80211 snd_hda_cod=
+ec_hdmi
+<4>[  194.664137]  device_resume+0x47/0x200
+<4>[  194.664138]  snd_soc_acpi_amd_match uvcvideo snd_rpl_pci_acp6x snd_hd=
+a_intel videobuf2_vmalloc
+<4>[  194.664140]  async_resume+0x1d/0x30
+<4>[  194.664141]  snd_acp_pci
+<4>[  194.664141]  btusb snd_intel_dspcfg videobuf2_memops
+<4>[  194.664142]  async_run_entry_fn+0x2e/0x130
+<4>[  194.664143]  snd_amd_acpi_mach snd_hda_codec intel_rapl_msr btrtl snd=
+_acp_legacy_common
+<4>[  194.664145]  process_one_work+0x22b/0x5b0
+<4>[  194.664146]  uvc libarc4 intel_rapl_common btintel snd_pci_acp6x snd_=
+hwdep videobuf2_v4l2
+Oops#1 Part1
+<4>[  194.664148]  worker_thread+0x1da/0x3d0
+<4>[  194.664149]  btbcm snd_pci_acp5x snd_hda_core kvm_amd videodev
+<4>[  194.664151]  ? bh_worker+0x260/0x260
+<4>[  194.664152]  btmtk hp_wmi snd_rn_pci_acp3x
+<4>[  194.664153]  kthread+0x10a/0x250
+<4>[  194.664154]  snd_pcm iwlwifi ucsi_acpi kvm
+<4>[  194.664155]  ? kthreads_online_cpu+0x130/0x130
+<4>[  194.664157]  videobuf2_common platform_profile ee1004
+<4>[  194.664158]  ret_from_fork+0x31/0x50
+<4>[  194.664158]  bluetooth snd_acp_config snd_timer
+<4>[  194.664160]  ? kthreads_online_cpu+0x130/0x130
+<4>[  194.664160]  typec_ucsi sparse_keymap mc sg
+<4>[  194.664162]  ret_from_fork_asm+0x11/0x20
+<4>[  194.664163]  cfg80211 sp5100_tco snd_soc_acpi snd rapl roles wmi_bmof=
+ pcspkr
+<4>[  194.664167]  </TASK>
+<4>[  194.664167]  rfkill
+<4>[  194.664167]  watchdog ccp k10temp soundcore snd_pci_acp3x typec ac ba=
+ttery amd_pmc joydev acpi_tad serio_raw evdev msr parport_pc dm_mod ppdev l=
+p parport nvme_fabrics efi_pstore configfs nfnetlink efivarfs ip_tables x_t=
+ables autofs4 crc32c_generic btrfs blake2b_generic xor raid6_pq sd_mod uas =
+usb_storage scsi_mod scsi_common amdgpu drm_client_lib i2c_algo_bit drm_ttm=
+_helper ttm drm_panel_backlight_quirks drm_exec drm_suballoc_helper amdxcp =
+drm_buddy gpu_sched drm_display_helper hid_multitouch drm_kms_helper hid_ge=
+neric nvme xhci_pci xhci_hcd cec nvme_core i2c_hid_acpi ghash_clmulni_intel=
+ usbcore rc_core nvme_keyring i2c_hid i2c_piix4 amd_sfh video sha512_ssse3 =
+usb_common crc16 nvme_auth i2c_smbus drm fan button hid wmi aesni_intel cry=
+pto_simd cryptd
+<4>[  194.664209] ---[ end trace 0000000000000000 ]---
 
->  };
-> =20
->  struct drm_root_cgroup_state {
->  	struct drm_cgroup_state drmcs;
-> +
-> +	struct delayed_work notify_work;
->  };
-> =20
->  static struct drm_root_cgroup_state root_drmcs =3D {
-> @@ -31,7 +39,7 @@ css_to_drmcs(struct cgroup_subsys_state *css)
->  	return container_of(css, struct drm_cgroup_state, css);
->  }
-> =20
-> -static void __maybe_unused
-> +static void
->  drmcs_notify_weight(struct drm_cgroup_state *drmcs)
->  {
->  	struct drm_file *fpriv;
-> @@ -43,16 +51,152 @@ drmcs_notify_weight(struct drm_cgroup_state *drmcs)
->  			fpriv->minor->dev->driver->cg_ops;
-> =20
->  		if (cg_ops && cg_ops->notify_weight)
-> -			cg_ops->notify_weight(fpriv, 0);
-> +			cg_ops->notify_weight(fpriv, drmcs->effective_weight);
->  	}
->  }
-> =20
-> +static void drmcg_update_weights_locked(void)
-> +{
-> +	lockdep_assert_held(&drmcg_mutex);
-> +
-> +	mod_delayed_work(system_wq,
-> +			 &root_drmcs.notify_work,
-> +			 usecs_to_jiffies(1000));
+Another crash log from latest git (without Mario's fix):
 
-This value is little bit magic.
-What is this consolidatiot good for?
-(I guess it's rather because of clients joining/leaving rather than
-cgroup attribute modifications.)
-
-> +}
-> +
-> +static void drmcg_update_weights(void)
-> +{
-> +	mutex_lock(&drmcg_mutex);
-> +	drmcg_update_weights_locked();
-> +	mutex_unlock(&drmcg_mutex);
-> +}
-> +
-> +static u64
-> +drmcs_read_weight(struct cgroup_subsys_state *css, struct cftype *cft)
-> +{
-> +	struct drm_cgroup_state *drmcs =3D css_to_drmcs(css);
-> +
-> +	return drmcs->weight;
-> +}
-> +
-> +static int
-> +drmcs_write_weight(struct cgroup_subsys_state *css, struct cftype *cftyp=
-e,
-> +		   u64 weight)
-> +{
-> +	struct drm_cgroup_state *drmcs =3D css_to_drmcs(css);
-> +	int ret;
-> +
-> +	if (weight < CGROUP_WEIGHT_MIN || weight > CGROUP_WEIGHT_MAX)
-> +		return -ERANGE;
-> +
-> +	ret =3D mutex_lock_interruptible(&drmcg_mutex);
-> +	if (ret)
-> +		return ret;
-> +	drmcs->weight =3D weight;
-> +	drmcg_update_weights_locked();
-> +	mutex_unlock(&drmcg_mutex);
-> +
-> +	return 0;
-> +}
-> +
-> +static void notify_worker(struct work_struct *work)
-> +{
-> +	struct drm_cgroup_state *root =3D &root_drmcs.drmcs;
-> +	struct cgroup_subsys_state *node;
-> +	bool updated;
-> +
-> +	mutex_lock(&drmcg_mutex);
-> +	rcu_read_lock();
-> +
-> +	/*
-> +	 * Always come back later if we race with core cgroup management.
-> +	 */
-> +	updated =3D false;
-> +	if (WARN_ON_ONCE(!css_tryget_online(&root->css)))
-> +		goto out_unlock;
-> +
-> +	css_for_each_descendant_post(node, &root->css) {
-> +		struct drm_cgroup_state *drmcs =3D css_to_drmcs(node);
-> +
-> +		if (!css_tryget_online(node))
-> +			goto out_put;
-> +
-> +		drmcs->sum_children_weights =3D 0;
-> +		css_put(node);
-> +	}
-> +
-> +	css_for_each_descendant_post(node, &root->css) {
-> +		struct drm_cgroup_state *drmcs =3D css_to_drmcs(node);
-> +		struct drm_cgroup_state *parent;
-> +
-> +		if (!css_tryget_online(node))
-> +			goto out_put;
-> +		if (!node->parent || !drmcs->num_clients) {
-> +			css_put(node);
-> +			continue;
-> +		}
-> +		if (!css_tryget_online(node->parent)) {
-> +			css_put(node);
-> +			goto out_put;
-> +		}
-> +
-> +		parent =3D css_to_drmcs(node->parent);
-> +		parent->sum_children_weights +=3D drmcs->weight;
-> +		css_put(node);
-> +		css_put(&parent->css);
-> +	}
-> +
-> +	css_for_each_descendant_pre(node, &root->css) {
-> +		struct drm_cgroup_state *drmcs =3D css_to_drmcs(node);
-> +		struct cgroup_subsys_state *css;
-> +
-> +		if (!css_tryget_online(node))
-> +			goto out_put;
-> +		if (!drmcs->num_clients) {
-> +			css_put(node);
-> +			continue;
-> +		}
-> +
-> +		css_for_each_child(css, &drmcs->css) {
-> +			struct drm_cgroup_state *sibling =3D css_to_drmcs(css);
-> +
-> +			if (!css_tryget_online(css)) {
-> +				css_put(node);
-> +				goto out_put;
-> +			}
-> +			if (!sibling->num_clients) {
-> +				css_put(css);
-> +				continue;
-> +			}
-> +
-> +			sibling->effective_weight =3D
-> +				DIV_ROUND_CLOSEST(sibling->weight <<
-> +						  DRM_CGROUP_WEIGHT_SHIFT,
-> +						  drmcs->sum_children_weights);
-> +			drmcs_notify_weight(sibling);
-> +			css_put(css);
-> +		}
-> +
-> +		css_put(node);
-> +	}
-> +
-> +	updated =3D true;
-> +
-> +out_put:
-> +	css_put(&root->css);
-> +out_unlock:
-> +	rcu_read_unlock();
-> +
-> +	if (!updated)
-> +		drmcg_update_weights_locked();
-> +
-> +	mutex_unlock(&drmcg_mutex);
-> +}
-> +
->  static void drmcs_free(struct cgroup_subsys_state *css)
->  {
-> -	struct drm_cgroup_state *drmcs =3D css_to_drmcs(css);
-> -
-> -	if (drmcs !=3D &root_drmcs.drmcs)
-> -		kfree(drmcs);
-> +	if (css !=3D &root_drmcs.drmcs.css)
-> +		kfree(css_to_drmcs(css));
->  }
-> =20
->  static struct cgroup_subsys_state *
-> @@ -62,6 +206,7 @@ drmcs_alloc(struct cgroup_subsys_state *parent_css)
-> =20
->  	if (!parent_css) {
->  		drmcs =3D &root_drmcs.drmcs;
-> +		INIT_DELAYED_WORK(&root_drmcs.notify_work, notify_worker);
->  	} else {
->  		drmcs =3D kzalloc(sizeof(*drmcs), GFP_KERNEL);
->  		if (!drmcs)
-> @@ -70,9 +215,147 @@ drmcs_alloc(struct cgroup_subsys_state *parent_css)
->  		INIT_LIST_HEAD(&drmcs->clients);
->  	}
-> =20
-> +	drmcs->weight =3D CGROUP_WEIGHT_DFL;
-> +	drmcs->effective_weight =3D (1 << DRM_CGROUP_WEIGHT_SHIFT) / 2;
-> +
->  	return &drmcs->css;
->  }
-> =20
-> +static int drmcs_online(struct cgroup_subsys_state *css)
-> +{
-> +	drmcg_update_weights();
-> +
-> +	return 0;
-> +}
-> +
-> +static void drmcs_offline(struct cgroup_subsys_state *css)
-> +{
-> +	drmcg_update_weights();
-> +}
-> +
-> +static struct drm_cgroup_state *old_drmcs;
-> +
-> +static int drmcs_can_attach(struct cgroup_taskset *tset)
-> +{
-> +	struct cgroup_subsys_state *css;
-> +	struct task_struct *task;
-> +
-> +	task =3D cgroup_taskset_first(tset, &css);
-> +	old_drmcs =3D css_to_drmcs(task_css(task, drm_cgrp_id));
-
-This is similar to cpuset's cpuset_attach_old_cs.
-Beware that when controller is disabled, the migration happens from
-multiple (chilren) csses.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static void __inc_clients(struct drm_cgroup_state *drmcs)
-> +{
-> +	struct cgroup_subsys_state *parent =3D NULL;
-> +
-> +	rcu_read_lock();
-> +	do {
-> +		drmcs->num_clients++;
-> +		WARN_ON_ONCE(!drmcs->num_clients);
-> +
-> +		if (parent)
-> +			css_put(parent);
-> +
-> +		parent =3D drmcs->css.parent;
-> +		if (parent) {
-> +			if (WARN_ON_ONCE(!css_tryget(parent)))
-
-This should be ensured implicitly thanks to css::online_cnt.
-
-> +				break;
-> +
-> +			drmcs =3D css_to_drmcs(parent);
-> +		}
-> +	} while (parent);
-> +	rcu_read_unlock();
-> +}
-> +
-> +static void __dec_clients(struct drm_cgroup_state *drmcs)
-> +{
-> +	struct cgroup_subsys_state *parent =3D NULL;
-> +
-> +	rcu_read_lock();
-> +	do {
-> +		WARN_ON_ONCE(!drmcs->num_clients);
-> +		drmcs->num_clients--;
-> +
-> +		if (parent)
-> +			css_put(parent);
-> +
-> +		parent =3D drmcs->css.parent;
-> +		if (parent) {
-> +			if (WARN_ON_ONCE(!css_tryget(parent)))
-> +				break;
-> +
-> +			drmcs =3D css_to_drmcs(parent);
-> +		}
-> +	} while (parent);
-> +	rcu_read_unlock();
-> +}
-> +
-> +static void drmcs_attach(struct cgroup_taskset *tset)
-> +{
-> +	struct drm_cgroup_state *old =3D old_drmcs;
-> +	struct cgroup_subsys_state *css;
-> +	struct drm_file *fpriv, *next;
-> +	struct drm_cgroup_state *new;
-> +	struct task_struct *task;
-> +	bool migrated =3D false;
-> +
-> +	if (!old)
-> +		return;
-> +
-> +	task =3D cgroup_taskset_first(tset, &css);
-> +	new =3D css_to_drmcs(task_css(task, drm_cgrp_id));
-> +	if (new =3D=3D old)
-> +		return;
-
-Beware here too, it'd be better to use css from
-cgroup_taskset_for_each(task, css, tset) below as the new css.
-
-> +
-> +	mutex_lock(&drmcg_mutex);
-> +
-> +	list_for_each_entry_safe(fpriv, next, &old->clients, clink) {
-> +		cgroup_taskset_for_each(task, css, tset) {
-> +			struct cgroup_subsys_state *old_css;
-> +			struct drm_cgroup_state *old_;
-> +
-> +			if (task->flags & PF_KTHREAD)
-> +				continue;
-> +			if (!thread_group_leader(task))
-> +				continue;
-
-Maybe cgroup_taskset_for_each_leader()
-
-> +
-> +			new =3D css_to_drmcs(task_css(task, drm_cgrp_id));
-> +			if (WARN_ON_ONCE(new =3D=3D old))
-> +				continue;
-> +
-> +			if (rcu_access_pointer(fpriv->pid) !=3D task_tgid(task))
-> +				continue;
-> +
-> +			if (WARN_ON_ONCE(fpriv->__css !=3D &old->css))
-> +				continue;
-> +
-> +			old_css =3D fpriv->__css;
-> +			old_ =3D css_to_drmcs(old_css);
-> +			fpriv->__css =3D &new->css;
-> +			css_get(fpriv->__css);
-> +			list_move_tail(&fpriv->clink, &new->clients);
-> +			__dec_clients(old);
-> +			__inc_clients(new);
-> +			css_put(old_css);
-> +			migrated =3D true;
-> +		}
-> +	}
-> +
-> +	if (migrated)
-> +		drmcg_update_weights_locked();
-> +
-> +	mutex_unlock(&drmcg_mutex);
-> +
-> +	old_drmcs =3D NULL;
-> +}
-> +
-> +static void drmcs_cancel_attach(struct cgroup_taskset *tset)
-> +{
-> +	old_drmcs =3D NULL;
-> +}
-> +
->  void drmcgroup_client_open(struct drm_file *file_priv)
->  {
->  	struct drm_cgroup_state *drmcs;
-> @@ -85,6 +368,8 @@ void drmcgroup_client_open(struct drm_file *file_priv)
->  	mutex_lock(&drmcg_mutex);
->  	file_priv->__css =3D &drmcs->css; /* Keeps the reference. */
->  	list_add_tail(&file_priv->clink, &drmcs->clients);
-> +	__inc_clients(drmcs);
-> +	drmcg_update_weights_locked();
->  	mutex_unlock(&drmcg_mutex);
->  }
->  EXPORT_SYMBOL_GPL(drmcgroup_client_open);
-> @@ -100,7 +385,9 @@ void drmcgroup_client_close(struct drm_file *file_pri=
-v)
-> =20
->  	mutex_lock(&drmcg_mutex);
->  	list_del(&file_priv->clink);
-> +	__dec_clients(drmcs);
->  	file_priv->__css =3D NULL;
-> +	drmcg_update_weights_locked();
->  	mutex_unlock(&drmcg_mutex);
-> =20
->  	css_put(&drmcs->css);
-> @@ -124,6 +411,9 @@ void drmcgroup_client_migrate(struct drm_file *file_p=
-riv)
->  	if (src !=3D dst) {
->  		file_priv->__css =3D &dst->css; /* Keeps the reference. */
->  		list_move_tail(&file_priv->clink, &dst->clients);
-> +		__dec_clients(src);
-> +		__inc_clients(dst);
-> +		drmcg_update_weights_locked();
->  	}
-> =20
->  	mutex_unlock(&drmcg_mutex);
-> @@ -133,12 +423,23 @@ void drmcgroup_client_migrate(struct drm_file *file=
-_priv)
->  EXPORT_SYMBOL_GPL(drmcgroup_client_migrate);
-> =20
->  struct cftype files[] =3D {
-> +	{
-> +		.name =3D "weight",
-> +		.flags =3D CFTYPE_NOT_ON_ROOT,
-> +		.read_u64 =3D drmcs_read_weight,
-> +		.write_u64 =3D drmcs_write_weight,
-> +	},
->  	{ } /* Zero entry terminates. */
->  };
-> =20
->  struct cgroup_subsys drm_cgrp_subsys =3D {
->  	.css_alloc	=3D drmcs_alloc,
->  	.css_free	=3D drmcs_free,
-> +	.css_online	=3D drmcs_online,
-> +	.css_offline	=3D drmcs_offline,
-> +	.can_attach     =3D drmcs_can_attach,
-> +	.attach		=3D drmcs_attach,
-> +	.cancel_attach  =3D drmcs_cancel_attach,
->  	.early_init	=3D false,
->  	.legacy_cftypes	=3D files,
->  	.dfl_cftypes	=3D files,
-> --=20
-> 2.48.0
->=20
-
-
-Regards,
-Michal
-
---uwbgl3tifamqbhkd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTd6mfF2PbEZnpdoAkt3Wney77BSQUCaD3PsQAKCRAt3Wney77B
-SSZdAP97iGN5AQSIIeoxFDYFLrnaUussI2rGjqzM5YCfvzSffgD9GGAwStMZXNaI
-XVOMnNE3aJieaR/h/MpexQlC663uIgk=
-=6twu
------END PGP SIGNATURE-----
-
---uwbgl3tifamqbhkd--
+<6>[  144.858062] PM: suspend entry (s2idle)
+<6>[  145.062853] Filesystems sync: 0.204 seconds
+<6>[  145.064633] Freezing user space processes
+<6>[  145.066592] Freezing user space processes completed (elapsed 0.001 se=
+conds)
+<6>[  145.066598] OOM killer disabled.
+<6>[  145.066600] Freezing remaining freezable tasks
+<6>[  145.067783] Freezing remaining freezable tasks completed (elapsed 0.0=
+01 seconds)
+<6>[  145.067787] printk: Suspending console(s) (use no_console_suspend to =
+debug)
+<7>[  145.333423] PM: suspend of devices aborted after 0.905 msecs
+<7>[  145.333431] PM: start suspend of devices aborted after 265.772 msecs
+<3>[  145.333434] PM: Some devices failed to suspend, or early wake event d=
+etected
+<4>[  145.333608] i2c i2c-3: Unbalanced pm_runtime_enable!
+<4>[  145.333633] ee1004 3-0050: Attempt to enable runtime PM when it is bl=
+ocked
+<4>[  145.333639] CPU: 12 UID: 0 PID: 2375 Comm: kworker/u64:16 Not tainted=
+ 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+<4>[  145.333643] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916,=
+ BIOS F.17 12/18/2024
+<4>[  145.333645] Workqueue: async async_run_entry_fn
+<4>[  145.333650] Call Trace:
+<4>[  145.333651] ee1004 3-0051: Attempt to enable runtime PM when it is bl=
+ocked
+Oops#1 Part7
+<4>[  145.333652]  <TASK>
+<4>[  145.333654]  dump_stack_lvl+0x6e/0x90
+<4>[  145.333659]  pm_runtime_enable.cold+0x14/0x48
+<4>[  145.333662]  device_resume+0xd9/0x570
+<4>[  145.333665]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0x90
+<4>[  145.333668]  ? device_resume+0x570/0x570
+<4>[  145.333670]  async_resume+0x1d/0x30
+<4>[  145.333672]  async_run_entry_fn+0x97/0x4f0
+<4>[  145.333674]  process_one_work+0x849/0x1450
+<4>[  145.333678]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+<4>[  145.333681]  ? assign_work+0x168/0x240
+<4>[  145.333683]  worker_thread+0x5f3/0xfd0
+<4>[  145.333688]  ? process_one_work+0x1450/0x1450
+<4>[  145.333691]  kthread+0x3a2/0x760
+<4>[  145.333694]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333697]  ? ret_from_fork+0x23/0x480
+<4>[  145.333701]  ? lock_release+0xd1/0x2a0
+<4>[  145.333704]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333707]  ret_from_fork+0x387/0x480
+<4>[  145.333709]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333711]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333714]  ret_from_fork_asm+0x11/0x20
+<4>[  145.333720]  </TASK>
+<4>[  145.333722] CPU: 10 UID: 0 PID: 2387 Comm: kworker/u64:28 Not tainted=
+ 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+<4>[  145.333727] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916,=
+ BIOS F.17 12/18/2024
+<4>[  145.333729] Workqueue: async async_run_entry_fn
+<4>[  145.333734] Call Trace:
+<4>[  145.333735]  <TASK>
+<4>[  145.333738]  dump_stack_lvl+0x6e/0x90
+<4>[  145.333743]  pm_runtime_enable.cold+0x14/0x48
+<4>[  145.333747]  device_resume+0xd9/0x570
+<4>[  145.333751]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0x90
+<4>[  145.333756]  ? device_resume+0x570/0x570
+Oops#1 Part6
+<4>[  145.333759]  async_resume+0x1d/0x30
+<4>[  145.333763]  async_run_entry_fn+0x97/0x4f0
+<4>[  145.333768]  process_one_work+0x849/0x1450
+<4>[  145.333775]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+<4>[  145.333780]  ? assign_work+0x168/0x240
+<4>[  145.333784]  worker_thread+0x5f3/0xfd0
+<4>[  145.333790]  ? process_one_work+0x1450/0x1450
+<4>[  145.333793] usb 1-4:1.0: Attempt to enable runtime PM when it is bloc=
+ked
+<4>[  145.333793] uvcvideo 1-3:1.0: Unbalanced pm_runtime_enable!
+<4>[  145.333793]  kthread+0x3a2/0x760
+<4>[  145.333797]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333801]  ? ret_from_fork+0x23/0x480
+<4>[  145.333805]  ? lock_release+0xd1/0x2a0
+<4>[  145.333808]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333809] btusb 3-3:1.1: Unbalanced pm_runtime_enable!
+<4>[  145.333813]  ret_from_fork+0x387/0x480
+<4>[  145.333817]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333820]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333824]  ret_from_fork_asm+0x11/0x20
+<4>[  145.333830]  </TASK>
+<4>[  145.333836] CPU: 12 UID: 0 PID: 2375 Comm: kworker/u64:16 Not tainted=
+ 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+<4>[  145.333840] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916,=
+ BIOS F.17 12/18/2024
+<4>[  145.333843] Workqueue: async async_run_entry_fn
+<4>[  145.333849] Call Trace:
+<4>[  145.333851]  <TASK>
+<4>[  145.333854]  dump_stack_lvl+0x6e/0x90
+<4>[  145.333858]  pm_runtime_enable.cold+0x14/0x48
+<4>[  145.333862]  device_resume+0xd9/0x570
+<4>[  145.333864]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0x90
+<4>[  145.333868]  ? device_resume+0x570/0x570
+<4>[  145.333870]  async_resume+0x1d/0x30
+<4>[  145.333872]  async_run_entry_fn+0x97/0x4f0
+Oops#1 Part5
+<4>[  145.333875]  process_one_work+0x849/0x1450
+<4>[  145.333879]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+<4>[  145.333882]  ? assign_work+0x168/0x240
+<4>[  145.333885]  worker_thread+0x5f3/0xfd0
+<4>[  145.333888]  ? process_one_work+0x1450/0x1450
+<4>[  145.333889]  kthread+0x3a2/0x760
+<4>[  145.333892]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333892]  slab kmalloc-2k
+<4>[  145.333894]  ? ret_from_fork+0x23/0x480
+<4>[  145.333897]  ? lock_release+0xd1/0x2a0
+<4>[  145.333900]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333902]  ret_from_fork+0x387/0x480
+<4>[  145.333902]  start ffff888123152000
+<4>[  145.333905]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333904]  pointer offset 408 size 2048
+<4>[  145.333908]  ? kthread_is_per_cpu+0xc0/0xc0
+<4>[  145.333908]
+<3>[  145.333910] list_add corruption. prev->next should be next (ffffffff9=
+8f75ce0), but was ffff888137fc8790. (prev=3Dffff888123152198).
+<4>[  145.333910]  ret_from_fork_asm+0x11/0x20
+<4>[  145.333914]  </TASK>
+<4>[  145.333924] ------------[ cut here ]------------
+<2>[  145.333925] kernel BUG at lib/list_debug.c:32!
+<4>[  145.333931] Oops: invalid opcode: 0000 [#1] SMP KASAN
+<4>[  145.333934] CPU: 2 UID: 0 PID: 2403 Comm: amd_s2idle.py Not tainted 6=
+=2E15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+<4>[  145.333937] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916,=
+ BIOS F.17 12/18/2024
+<4>[  145.333938] RIP: 0010:__list_add_valid_or_report+0xf5/0x130
+<4>[  145.333942] Code: 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 80 3c 02 =
+00 75 3c 49 8b 55 00 4c 89 e9 48 89 de 48 c7 c7 40 a9 0a 98 e8 eb b7 c1 fe =
+<0f> 0b 4c 89 e7 e8 91 17 7d ff e9 40 ff ff ff 4c 89 ef e8 84 17 7d
+Oops#1 Part4
+<4>[  145.333944] RSP: 0018:ffff888130a87788 EFLAGS: 00010282
+<4>[  145.333946] RAX: 0000000000000075 RBX: ffffffff98f75ce0 RCX: 00000000=
+00000000
+<4>[  145.333948] RDX: 0000000000000075 RSI: 0000000000000004 RDI: ffffed10=
+26150ee3
+<4>[  145.333949] RBP: ffffffff98f714f8 R08: 0000000000000001 R09: ffffed10=
+7a1a5c31
+<4>[  145.333950] R10: ffff8883d0d2e18b R11: 0000000000000000 R12: ffffffff=
+98f75ce8
+<4>[  145.333951] R13: ffff888123152198 R14: ffff888123152198 R15: ffff8881=
+30a877e8
+<4>[  145.333953] FS:  00007f7272279080(0000) GS:ffff888437132000(0000) knl=
+GS:0000000000000000
+<4>[  145.333954] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[  145.333956] CR2: 00007f7271dcfed0 CR3: 000000011eb2f000 CR4: 00000000=
+00f50ef0
+<4>[  145.333957] PKRU: 55555554
+<4>[  145.333958] Call Trace:
+<4>[  145.333960]  <TASK>
+<4>[  145.333961]  dpm_resume+0x2b9/0x760
+<4>[  145.333964]  ? dpm_resume_start+0x30/0x30
+<4>[  145.333967]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0x90
+<4>[  145.333969]  ? ktime_get+0x32/0x150
+<4>[  145.333971]  dpm_resume_end+0x11/0x20
+<4>[  145.333974]  suspend_devices_and_enter+0x349/0x12f0
+<4>[  145.333978]  ? arch_suspend_enable_irqs+0x20/0x20
+<4>[  145.333981]  ? dpm_save_failed_dev.cold+0x36/0x36
+<4>[  145.333984]  ? up_write+0x1a7/0x4e0
+<4>[  145.333987]  pm_suspend.cold+0x3f9/0x466
+<4>[  145.333989]  state_store+0xa3/0x150
+<4>[  145.333992]  ? sysfs_file_ops+0x110/0x110
+<4>[  145.333994]  kernfs_fop_write_iter+0x407/0x630
+<4>[  145.333997]  vfs_write+0x514/0xf60
+<4>[  145.334000]  ? kernel_write+0x5f0/0x5f0
+Oops#1 Part3
+<4>[  145.334003]  ? ptep_set_access_flags+0xea/0x120
+<4>[  145.334005]  ? lruvec_init+0x1e0/0x1e0
+<4>[  145.334008]  ? pgd_free+0x4b0/0x4b0
+<4>[  145.334011]  ksys_write+0xf9/0x1c0
+<4>[  145.334013]  ? __ia32_sys_read+0xb0/0xb0
+<4>[  145.334015]  ? wp_page_reuse+0x160/0x1e0
+<4>[  145.334017]  ? do_wp_page+0x14b9/0x2e70
+<4>[  145.334020]  do_syscall_64+0x97/0x3d0
+<4>[  145.334023]  ? lock_acquire+0x291/0x2e0
+<4>[  145.334024]  ? __vmf_anon_prepare+0x1e0/0x1e0
+<4>[  145.334026]  ? lock_release+0x1ff/0x2a0
+<4>[  145.334028]  ? do_raw_spin_lock+0x12d/0x260
+<4>[  145.334030]  ? __rwlock_init+0x150/0x150
+<4>[  145.334032]  ? set_p4d+0xb0/0xb0
+<4>[  145.334034]  ? __handle_mm_fault+0x147d/0x2010
+<4>[  145.334037]  ? __mutex_lock+0x12a1/0x19f0
+<4>[  145.334040]  ? copy_page_range+0x4190/0x4190
+<4>[  145.334042]  ? lock_acquire+0x291/0x2e0
+<4>[  145.334044]  ? lock_release+0x1ff/0x2a0
+<4>[  145.334047]  ? __count_memcg_events+0x399/0x4c0
+<4>[  145.334049]  ? do_syscall_64+0x155/0x3d0
+<4>[  145.334051]  ? lock_release+0x1ff/0x2a0
+<4>[  145.334052]  ? count_memcg_events.constprop.0+0x4a/0x60
+<4>[  145.334055]  ? handle_mm_fault+0x3d8/0x7d0
+<4>[  145.334057]  ? lock_release+0x1ff/0x2a0
+<4>[  145.334059]  ? do_user_addr_fault+0x4a3/0xa00
+<4>[  145.334061]  ? irqentry_exit_to_user_mode+0x8d/0x270
+<4>[  145.334064]  ? trace_hardirqs_on_prepare+0xd7/0x110
+<4>[  145.334067]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+<4>[  145.334069] RIP: 0033:0x7f727237e0d0
+<4>[  145.334071] Code: 2d 0e 00 64 c7 00 16 00 00 00 b8 ff ff ff ff c3 66 =
+2e 0f 1f 84 00 00 00 00 00 80 3d 99 af 0e 00 00 74 17 b8 01 00 00 00 0f 05 =
+<48> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
+Oops#1 Part2
+<4>[  145.334073] RSP: 002b:00007fff9a1353b8 EFLAGS: 00000202 ORIG_RAX: 000=
+0000000000001
+<4>[  145.334075] RAX: ffffffffffffffda RBX: 0000000000a794f0 RCX: 00007f72=
+7237e0d0
+<4>[  145.334076] RDX: 0000000000000003 RSI: 0000000026d40370 RDI: 00000000=
+00000004
+<4>[  145.334077] RBP: 00007f7272278fe8 R08: 0000000000000000 R09: 00000000=
+00000002
+<4>[  145.334078] R10: 0000000000000007 R11: 0000000000000202 R12: 00000000=
+00000003
+<4>[  145.334079] R13: 0000000000000004 R14: 0000000026d40370 R15: 00000000=
+00a4bb48
+<4>[  145.334083]  </TASK>
+<4>[  145.334084] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_=
+seq_device xt_conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_net=
+link nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user xfrm_algo xt_addr=
+type nft_compat nf_tables br_netfilter bridge stp llc ccm overlay qrtr rfco=
+mm cmac algif_hash algif_skcipher af_alg bnep binfmt_misc snd_soc_dmic snd_=
+acp3x_pdm_dma snd_acp3x_rn snd_sof_amd_rembrandt snd_sof_amd_acp snd_sof_pc=
+i nls_ascii snd_sof_xtensa_dsp nls_cp437 snd_sof vfat fat snd_sof_utils snd=
+_soc_core snd_ctl_led iwlmvm snd_compress snd_hda_codec_realtek snd_pci_ps =
+snd_hda_codec_generic snd_soc_acpi_amd_match btusb mac80211 snd_hda_scodec_=
+component snd_rpl_pci_acp6x snd_hda_codec_hdmi uvcvideo btrtl snd_acp_pci i=
+ntel_rapl_msr videobuf2_vmalloc snd_hda_intel btintel snd_amd_acpi_mach int=
+el_rapl_common videobuf2_memops snd_intel_dspcfg snd_acp_legacy_common snd_=
+hda_codec snd_pci_acp6x btbcm uvc libarc4 snd_pci_acp5x kvm_amd btmtk video=
+buf2_v4l2 snd_hwdep kvm snd_hda_core snd_rn_pci_acp3x iwlwifi
+Oops#1 Part1
+<4>[  145.334149]  videodev ucsi_acpi hp_wmi snd_pcm irqbypass bluetooth sn=
+d_acp_config platform_profile videobuf2_common typec_ucsi ee1004 snd_soc_ac=
+pi mc snd_timer rapl sparse_keymap wmi_bmof sg cfg80211 pcspkr sp5100_tco r=
+oles k10temp snd_pci_acp3x snd battery watchdog ccp rfkill typec soundcore =
+ac amd_pmc acpi_tad joydev evdev serio_raw msr parport_pc ppdev lp dm_mod p=
+arport nvme_fabrics efi_pstore configfs nfnetlink efivarfs ip_tables x_tabl=
+es autofs4 crc32c_cryptoapi sd_mod btrfs blake2b_generic xor raid6_pq uas u=
+sb_storage scsi_mod scsi_common amdgpu drm_client_lib i2c_algo_bit drm_ttm_=
+helper ttm drm_panel_backlight_quirks drm_exec drm_suballoc_helper amdxcp d=
+rm_buddy gpu_sched drm_display_helper hid_multitouch hid_generic drm_kms_he=
+lper xhci_pci nvme cec xhci_hcd nvme_core ghash_clmulni_intel i2c_hid_acpi =
+i2c_piix4 video rc_core nvme_keyring usbcore sha512_ssse3 i2c_hid i2c_smbus=
+ crc16 nvme_auth usb_common amd_sfh fan hid button wmi drm aesni_intel
+<4>[  145.334223] ---[ end trace 0000000000000000 ]---
