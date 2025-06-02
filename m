@@ -4,149 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08592C54FB3
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Jun 2025 14:28:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441B7C54FB3
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Jun 2025 14:29:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8482F10E2DD;
-	Mon,  2 Jun 2025 14:28:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D662810E52B;
+	Mon,  2 Jun 2025 14:29:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BjXBrh/C";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XciGKkvh";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21DE310E2DD
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 14:27:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZuzkH+XgiL6UhSS3gS/Un92eX15WkO2cOlEG+Sp9EAHLWfpLRT4oelSHK90db1d6ROtAWpXLx6YZ5VVKiG/6z86RlqXxxImJkUqkdknNUgpSxQnaY54Ub1tcX9WXiXnk1wPYnws/6Jx4ilyluvLhfxMxzlTlRxjWffu87/m6+FuxJf78Bl6FLYdTo+yW7Nq3QU1T/xhcQli67IgfZEvwsOYN+Ro/1eLI8vhKyZzk4bXN5VyxOJEP2Wmz2SwEGKlvHlKM1EO/hXcHmwcaLyYVtyTvB9EvLXT8zB3hfQQUFGv4NfYjNIPvxu3CVOPTmdvCoxHqiufA0xNFBB2xllOITg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oUP+k9FH+cDBm7nyeSCJ7waurMHmk3tUFH70Ey7+248=;
- b=fVOSDHiAV8wZb9mW80z17I9A7r/B6YMSa2ULcEPXtn1oUv0BaYV3eWAGIqE2cxpyQxFeFgGNi1DkTI+O3jVJRWJZ4mMOZirZAgHE30B78nfU+dwwmTnHbyqw7Re0r0JpSkE+9U39w6WIieIy/YzBoR/SaSxvNa4JOH6QtzXgWXVWI1nulkHx5Nxdum3Ch6kX6hZBW2Ib+Y3hXuZB4nGLNhAK6h9c8YzSCM6Kll+sipZL7bHargTtExi40lV1Dm49unk5ACXze+eLjCczTOhFcVx5Kc6GGmZbvXGcMNaPde8iwk9tti6f8Mom2TNsi7OBueb3BuHRj4aZLVd3vv/hwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oUP+k9FH+cDBm7nyeSCJ7waurMHmk3tUFH70Ey7+248=;
- b=BjXBrh/CEBH0eS0oBlC5rQe04yc7mRsbJbeTbK1z8S0eAgyyVPC93aUw55NxVaMeUdk7ZCaK9d5km/WAdnJGJti2/2nH1JLslHCC0ZH98YKIjWQUWOsYsqD5l9DPKiLB6VVglRhFOEmu8QFJpRVmV5NTgdvvJHeBZ7orBmJUzn0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7612.namprd12.prod.outlook.com (2603:10b6:930:9c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.37; Mon, 2 Jun
- 2025 14:27:54 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Mon, 2 Jun 2025
- 14:27:54 +0000
-Message-ID: <179a37aa-7e6b-4870-848f-c3ee3fd428d4@amd.com>
-Date: Mon, 2 Jun 2025 16:27:49 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/28] drm/amdgpu: track ring state associated with a job
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com
-References: <20250529200758.6326-1-alexander.deucher@amd.com>
- <20250529200758.6326-8-alexander.deucher@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250529200758.6326-8-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0PR05CA0014.namprd05.prod.outlook.com
- (2603:10b6:208:52c::25) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C11010E52B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 14:29:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 16B575C5F52
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 14:27:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50485C4CEF7
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 14:29:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1748874574;
+ bh=XDb4it6G3+fIlU5g+BQpxxxyKpV6yK+JPj8Ly8CcYdk=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=XciGKkvhT3NCk6pqXxRdVO4V65DXkJcqzJ+jyr7H973yO+BOjW4VHyGIAYl4hwIeo
+ YfISU7tQVIZd+/PZsiGquE4Yji8woJFyNMBVfCirYlpRH3VBGKp2gCh8Q4yNSoVrHn
+ U8dfn2GzUXLs+YEXYKp2Jyj+idzX3jpzM+pD0KYFdYKbHa6gUxmxjfq0VynQVU9vzl
+ RjgYP9+eubmoi1MGwf0lWoEWCHb3aNQsfIYp13MHwq0XmU46ePB6kfrf4gvk7XCeQK
+ V90fmOfJPk+SIbtcUHx7JmmEZRulPEWyNbnL99bNJhpbVLx7pR16CfKWIu+q1uG6BL
+ 2lpNDJrrxMyEw==
+Received: by mail-oi1-f169.google.com with SMTP id
+ 5614622812f47-40677f3b919so658350b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Jun 2025 07:29:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXdeK3Egt7XPZoKrb1j0lzo13ie5yNQk2cvHa/RWEHlluKxKBcbUXrz3iia4AZRH5nGV2E3F0oJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy2tnu3As8Zk2MpTWR/afInbU9IASWVAghUyA9mhWV5YMpyRvl/
+ 6+s7fE2RJnCf7JZLBuh6TUIp5S7eMbNN6YS3qqUSRCGIR1iW+932WoAJX6VQcRZ6nVfKnGcoGED
+ RHJw47dKAVZzs08102fJS+Y6pYwPdOQk=
+X-Google-Smtp-Source: AGHT+IFqOj3dIp4c6KW/OWpsuvgYM6YObyeuub8+8P/GAZBvbrCwvpXaEnETZ2QpVq4wAJlX7czDbmn6owkVHFoIzNw=
+X-Received: by 2002:a05:6808:3385:b0:3f8:150b:f55e with SMTP id
+ 5614622812f47-4067e540e0bmr7626837b6e.4.1748874573312; Mon, 02 Jun 2025
+ 07:29:33 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7612:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd32866a-ea78-478a-594b-08dda1e1a959
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?V3RURlhYbEVNbmg0RVRNRlNteWdmcUNieVNnZ2pEZjV5Zk5LOGdpcUJ3MkMr?=
- =?utf-8?B?THpEQ0F0UnpWenA5UHBaUzVZRDBaSmlUaGxxTVZwU09aMkxTMVYyWnVHTVRU?=
- =?utf-8?B?LzBjQWMzQ1EyTk1XVU9oSk9jWGdrbVJvVTVvOVpmNVRHcGxvK0JpR3FsT0NT?=
- =?utf-8?B?NlNLY0t0SGNMY3ZXb2VYN2JITUlvZWZZbTVuWExOdXp5TE1oYmxrZzV1c3BQ?=
- =?utf-8?B?ejAzZUZzVlR5MUJNdG5QYU9Cem81R3FkZG1UUmN3QUcxWWVnMEFBSkswMW5y?=
- =?utf-8?B?YXJubThSaVZnanIxRTRTMzdUWndmZmIrcFMrdkRjc1dEcFN5dVVJbmZ4VUtQ?=
- =?utf-8?B?VnpRR0F2RFkyY3ViZkJIWjcyZmhPZWwyTUpBMmxxRm5lR1I4WFRjZ0tVeC95?=
- =?utf-8?B?VnUxcVFZUXlHdUdnMkZibkNLK25hOTlWcFhtSXd0S3hadnlaOVdtMjRxZzhn?=
- =?utf-8?B?M1hTTTEyaFVDeEpGKzlTMVRWa3l1Sm9yY0JxbzJLRUlpc09rRUp6WFdRNVVj?=
- =?utf-8?B?TStENzZyTnltVWZYcXJrQ3kyVzlBUkFCdEh5b1Q4MEFiZzVZbk9hUFc1YUVO?=
- =?utf-8?B?WndoWTN3R0Mza0NyemVnUjZwcTJQK2J6ZGMxWUtqdTEvb1k5N2h3Vk04RkZ2?=
- =?utf-8?B?WDVRWlNxMFZCbnVMeTN3Z2ZROXlXZzlyc1ArZGdOZytEa2FsTkJHQTc3d2tr?=
- =?utf-8?B?bHBYNGZleEpJWXR2M0pmYmpZYXhWaEpWcFY4RUsxZ1V0M3BFRERQUzBQdGJ1?=
- =?utf-8?B?dGxFQkpPb2ZyWlhnN1I3R1dJY2g4UGtsTkVMb2pqbjRyaTVpTUVvUGE2VzFT?=
- =?utf-8?B?UmEvUlpFd3JEVHFobzBmMmxmU2YxUEZqTUJyS0RiTnVpdmdkV1FFMitzTUpG?=
- =?utf-8?B?RWpTNFFkQ1NwZVJsaEZjeXFoZ3RPTkJOR0RTVm1aUDhTOGdiMm91T3VZWC9i?=
- =?utf-8?B?NWZxUEFZWW8zNVh2aXhqZ05ZQkNjeXVzSXoxT2t5TUQrSnlORVNYNEI0R09Y?=
- =?utf-8?B?clZzVFVtZEhnQ2xlNEZ2U1d3Wm5YQXpBaG9KSjF3MlF3UWhBdmZOWTR2SEtD?=
- =?utf-8?B?KzlTQkpIL0pLQU1WOUxlMzRWRXNtQkFtWDU2R1E5eWkxRTQyNG12MlBhNFBt?=
- =?utf-8?B?cGZFSGwrT2FwODhiOWFOaUNzc08rSGNVWDhoVVpQS2dSNXZCVHVNbHpVb3Qw?=
- =?utf-8?B?UFNvbXAvR3FFaTVCdUVPM2F6bHRPT0xRVFNMbEwxeTA2bFlFSnRVdzBQY1BH?=
- =?utf-8?B?Ui9hTE01L3pKZHhGUmViRm5vam1rOTcrOVpqSURuNXZSQWFyWW8yUEMyUU9F?=
- =?utf-8?B?ZE94bnA2QXNrSFYxaFB0T0RrVjBDV0FxTVB1aVlnV2tybG5UUjB4ZFhaQjk1?=
- =?utf-8?B?R3V2U1NYdmljR3VKWnd2VkpHUGRnZnMxZnlSRS9Fazlxb3FkcGlmMUFJME5I?=
- =?utf-8?B?alpSSFdzaDBPQlRnWmtoR0o3Z2pTZS9TdkJ2UWk3NlJGQ1B4YW1nUi9ESDNC?=
- =?utf-8?B?K1RlbWM1M3NWa0xGcUtTQjdxK3lkZmwwTi80Y0l1c1lSZVNsT1BrMkdta0RK?=
- =?utf-8?B?aGJxMmRybDBmdWVQOVI5OFg2bzRSUCtkNUd2UDJIMlhKdHBNNWt4YVNCak5y?=
- =?utf-8?B?MDdFRVRMd1ZHWmNwOStNZHVnZDU0T3pST1hVU3JVVTFrVGlic0laVmNzN0Uz?=
- =?utf-8?B?dzdQU3N2V0JnNi9rNC9NUWt6N2JPbnhpbjgzNjg4WTVSSUxrd25zWEVsSzdn?=
- =?utf-8?B?c0l6NUpjWDJPU0tObHlvaDY0LzZ1eFpVZ1JRN1c0MTVvRXVOMEx4M0tMNXU0?=
- =?utf-8?B?Skk4N1MzUUhUUnZ3cExVZVNBQTEyR05vNUptU2FsU2FsS0pFUXdneFUyR0N5?=
- =?utf-8?B?UGtpblBMRHZMcitSYXBFQkx3NUZjNzBXNWpYaVdEZG9vNFdMTDdSOVhTNkwz?=
- =?utf-8?Q?0C1w/J8XdkM=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGJUajJkRlRveVo4QkNpbGcweHFOcnRHNXRKdnI2K05zTDBFR1pZcW5nc3Z5?=
- =?utf-8?B?RHZsWURmOC8rS2w3V1B4eXNMeU00OGtLbkpMYmpvTCtrV3R6YW50alhUbzFI?=
- =?utf-8?B?SDNmNGJJZ0hhNGNUR05DT1JpdE1qUHlRY24zbENxdlNQM1FqR2UrWFV4TmJ5?=
- =?utf-8?B?bTd1L0F0dE9Xc2xKcGlMaytyR0RQNVM0MGJlTFM4amhkUTlDd3dUVTR2WHJo?=
- =?utf-8?B?U0pkRCt3ZGF3M0E3dHduM2dtK1JGdGordDltb1ZNVERaakozbjEzbFV0d1pm?=
- =?utf-8?B?SXpHekZwNXVYVjBrT0Y5UzhHNWgzRnpucFZlMXpQeTE3anEybm5TcFc5dkVx?=
- =?utf-8?B?Skl0aWhyVWtadHQ1bVJEQWtWV3gvVGsrWGdHWVRBaURMY3BBOGhIUzFGekhh?=
- =?utf-8?B?bFhOS2x2WUVKK1EzeCtJR0UxeXhUZVgvRkx4MUphd1VhUEVUeDFyWGpTdkIx?=
- =?utf-8?B?MXNtN1AyVDNRSDNsQ0Fydyt2RmlVNWJkd3dlbllqdk8xNlNOWE4xQU5UbGJY?=
- =?utf-8?B?eFdCeFU0YnpNOTlldS90NVkwY1BJeUZJeW5Wak5NMjR1QU8rNzF1d1VtTHN3?=
- =?utf-8?B?Qi9MUGJqY1JxNHdZcVJUdFZOTlhNdzdaV0hiWllXUkZycXJIQ3ZtOVpQcTNm?=
- =?utf-8?B?QXYyeVVzZmpnbk9TWEdhdHhxZHNJRjVQRDFRU0x1b2xGUHV4T040Z1RWd2RS?=
- =?utf-8?B?Z3djRWJycXpEcGoySGdRZkVRNnh1eGVCUHplZlRmbzk0b0o5QjNBZ3ZIOU52?=
- =?utf-8?B?OThGcXMvb3BWak9rRk9kN3djOUJGd3VSa3JoUUtUYlhqS1RvZzV0a003S0hj?=
- =?utf-8?B?RTZDOS8yMTdSRnZ4NVNLTlJKSHVsbXhHT0hsd3RzRytqSGZzZUxPRTBRTHFh?=
- =?utf-8?B?VjNvMHNtcVdjaUk5UUljbXpWUEI2enNYengvQnFJZGN1R0NPRC8vZ1ZKSTQ4?=
- =?utf-8?B?VG00SDBaVUYvbkV4YUlFMHB6QWkvYmxNZ0ljSTBzbkpsMDdEU05jKytEM3pO?=
- =?utf-8?B?MnkrUTROQ3VIeWVPYWVwRmNGQnNXT3JOS0ZZTUtLK2VDTGxaWU1EWmJrTmM3?=
- =?utf-8?B?cmFPSkkvQXNyemJnbnY3NWtWQXhDNVY2ZHBkVVFrdTlMc2w4Lzh4Qys1dnkv?=
- =?utf-8?B?MTc2dkZqQUUrZmVNb0dUQkJ0enJYbUN5YksyTEFITWhJZEZEVXo5S1duTGQ2?=
- =?utf-8?B?dThOWVJ1WEt5N0pLUzR0aDQ3VnRBSWdGWmdtRWd1ZnNFQ3hEQzhBbnFmQmVV?=
- =?utf-8?B?SlI4cFhHZVNtY21RT2ZEaGdpUDd6YTg2bHZ0dXhCS0tsZVFTNHFkMVUyMDA5?=
- =?utf-8?B?TlU2RHRoMXdYblhVUHd6N1hUSEVHYTZlMjR2dWR5VEhjbjE4S2RUbWtvWXg2?=
- =?utf-8?B?clZHNVZkMjliWVo5YmhqRlRRcEdiZ1VqNEp2dlZEOGZFcDhKQ0h5dGVZZGMx?=
- =?utf-8?B?QTZDNjBpUkttOSs5WUhhN2JEemRlVncweWRWNk5jeUl5ZHB2Z1U4ZW5SYThX?=
- =?utf-8?B?dDBtY3NOeWVESVY1WXgzOHRyR1Z2di9kQlVXaHI3RzZaaS9RWHFUSkpUcVFW?=
- =?utf-8?B?WENncWwvT0pXT2RXbEZUeWYzMjJaOGhQaUtBRVZVVHNuU3djYlliUXdKVVUz?=
- =?utf-8?B?V3pKRkJ1K3hUa2ZBbENIWDlYdWpreHFtRzlnVEdtZ2xGQUI2d0UrKzJKaTNE?=
- =?utf-8?B?V3FlU3c2M0pRTmZTS3dublJmalVXKzRESEFDSjhTRnZWSHBTcTFDMEZNblE2?=
- =?utf-8?B?ekJncjZkaHRvY05vd3JvSURXQzNmM0t5bVlKM2h6dFl3VG10OGJpOS9XTzVi?=
- =?utf-8?B?TTdrOFpkQTdBVlVIMms4dkN5U1hqRUp1VFpiVXlqQ2M3WGdHNVdoQmpOSWt3?=
- =?utf-8?B?N1VPMTYzbTBvR1JsUWcvUmg4dFF6bFdXck9zQlphY0g1eE1KOStEMmxPNnVD?=
- =?utf-8?B?Vk1vL0VwRmgrK2ExRTZzT2tZNHF3SmxXVjZjZVRjNDBacWk1SHo1RC9waUNs?=
- =?utf-8?B?MW9ZZDNWQ0hQb3c5RG9DMVR4Qlh3Ui9jZXFDa0xIQ05vQXlXT21Sa3dBOWxM?=
- =?utf-8?B?UlM1eUVJbnBmRCtzS01uQi84V01MRHo4TytwcklpbDc2ZnovNDN6d1dqTzh6?=
- =?utf-8?Q?zoPAVqdzwbl9m+3gA6W17bhmd?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd32866a-ea78-478a-594b-08dda1e1a959
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2025 14:27:54.1759 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Eu29bh7a2asRk7bD7YfT77Lm8yCu5HyEs7w1AJZ6gsO/8UvzFyN+CCdUIR+2On4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7612
+References: <10629535.nUPlyArG6x@rjwysocki.net>
+ <3541233.QJadu78ljV@rjwysocki.net> <aD2U3VIhf8vDkl09@debian.local>
+In-Reply-To: <aD2U3VIhf8vDkl09@debian.local>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Mon, 2 Jun 2025 16:29:18 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0h-nrVamqiAJ957aYjHqaeAZUUW7BRi0WxPgCFc40M5cQ@mail.gmail.com>
+X-Gm-Features: AX0GCFve4JMYFDI8KLoW63Ce0c3fFTxD9uX0k6sdMsXIMh_tl63nVilQD_XOaVY
+Message-ID: <CAJZ5v0h-nrVamqiAJ957aYjHqaeAZUUW7BRi0WxPgCFc40M5cQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] PM: sleep: Suspend async parents after suspending
+ children
+To: Chris Bainbridge <chris.bainbridge@gmail.com>
+Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Linux PM <linux-pm@vger.kernel.org>, 
+ LKML <linux-kernel@vger.kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
+ Ulf Hansson <ulf.hansson@linaro.org>, Johan Hovold <johan@kernel.org>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Jon Hunter <jonathanh@nvidia.com>, 
+ Saravana Kannan <saravanak@google.com>, Mario Limonciello <superm1@kernel.org>,
+ amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,220 +78,513 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/29/25 22:07, Alex Deucher wrote:
-> We need to know the wptr and sequence number associated
-> with a job so that we can re-emit the unprocessed state
-> after a ring reset.  Pre-allocate storage space for
-> the ring buffer contents and add a helper to save off
-> the unprocessed state so that it can be re-emitted
-> after the queue is reset.
-> 
-> Add a helper that ring reset callbacks can use to verify
-> that the ring has reset successfully and to reemit any
-> unprocessed ring contents from subsequent jobs.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 12 ++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c    |  6 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c   |  5 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h   |  2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c  | 46 +++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  |  8 ++++
->  6 files changed, 78 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index 2f24a6aa13bf6..319548ac58820 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -764,6 +764,18 @@ void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring)
->  	amdgpu_fence_process(ring);
->  }
->  
-> +/**
-> + * amdgpu_fence_driver_seq_force_completion - force signal of specified sequence
-> + *
-> + * @ring: fence of the ring to signal
-> + *
-> + */
-> +void amdgpu_fence_driver_seq_force_completion(struct amdgpu_ring *ring, u32 seq)
-> +{
-> +	amdgpu_fence_write(ring, seq);
-> +	amdgpu_fence_process(ring);
-> +}
-> +
->  /*
->   * Common fence implementation
->   */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> index 802743efa3b39..67df82d50a74a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -306,6 +306,12 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->  
->  	amdgpu_ring_ib_end(ring);
->  	amdgpu_ring_commit(ring);
-> +	/* This must be last for resets to work properly
-> +	 * as we need to save the wptr associated with this
-> +	 * job.
-> +	 */
-> +	if (job)
-> +		job->ring_wptr = ring->wptr;
+On Mon, Jun 2, 2025 at 2:11=E2=80=AFPM Chris Bainbridge
+<chris.bainbridge@gmail.com> wrote:
+>
+> On Fri, Mar 14, 2025 at 02:13:53PM +0100, Rafael J. Wysocki wrote:
+> > From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> >
+> > In analogy with the previous change affecting the resume path,
+> > make device_suspend() start the async suspend of the device's parent
+> > after the device itself has been processed and make dpm_suspend() start
+> > processing "async" leaf devices (that is, devices without children)
+> > upfront so they don't need to wait for the "sync" devices they don't
+> > depend on.
+> >
+> > On the Dell XPS13 9360 in my office, this change reduces the total
+> > duration of device suspend by approximately 100 ms (over 20%).
+> >
+> > Suggested-by: Saravana Kannan <saravanak@google.com>
+> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+>
+> This commit results in memory corruption on suspend/resume with short
+> suspend duration.
 
-First of all such state should *absolutely* not be made part of the job. That belongs into the HW fence.
+What do you mean by short?
 
-Then we need to handle the case that one application submitted multiple jobs which potentially depend on each other.
+> Laptop appears to hang and crash is logged to pstore.
 
-I think we should rather put this logic into amdgpu_device_enforce_isolation().
+Interesting that this is only happening on one system.
 
-Regards,
-Christian.
+Thanks for the report anyway, I'll look at this shortly.
 
-
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index a0fab947143b5..f0f752284b925 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -91,6 +91,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->  	struct amdgpu_job *job = to_amdgpu_job(s_job);
->  	struct amdgpu_task_info *ti;
->  	struct amdgpu_device *adev = ring->adev;
-> +	struct dma_fence *fence = &job->hw_fence;
->  	int idx;
->  	int r;
->  
-> @@ -154,8 +155,10 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->  		else
->  			is_guilty = true;
->  
-> -		if (is_guilty)
-> +		if (is_guilty) {
-> +			amdgpu_ring_backup_unprocessed_jobs(ring, job->ring_wptr, fence->seqno);
->  			dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
-> +		}
->  
->  		r = amdgpu_ring_reset(ring, job->vmid);
->  		if (!r) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> index f2c049129661f..c2ed0edb5179d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> @@ -79,6 +79,8 @@ struct amdgpu_job {
->  	/* enforce isolation */
->  	bool			enforce_isolation;
->  	bool			run_cleaner_shader;
-> +	/* wptr for the job for resets */
-> +	uint32_t		ring_wptr;
->  
->  	uint32_t		num_ibs;
->  	struct amdgpu_ib	ibs[];
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index 426834806fbf2..909b121d432cb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -333,6 +333,12 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
->  	/*  Initialize cached_rptr to 0 */
->  	ring->cached_rptr = 0;
->  
-> +	if (!ring->ring_backup) {
-> +		ring->ring_backup = kvzalloc(ring->ring_size, GFP_KERNEL);
-> +		if (!ring->ring_backup)
-> +			return -ENOMEM;
-> +	}
-> +
->  	/* Allocate ring buffer */
->  	if (ring->ring_obj == NULL) {
->  		r = amdgpu_bo_create_kernel(adev, ring->ring_size + ring->funcs->extra_dw, PAGE_SIZE,
-> @@ -342,6 +348,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
->  					    (void **)&ring->ring);
->  		if (r) {
->  			dev_err(adev->dev, "(%d) ring create failed\n", r);
-> +			kvfree(ring->ring_backup);
->  			return r;
->  		}
->  		amdgpu_ring_clear_ring(ring);
-> @@ -385,6 +392,8 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring)
->  	amdgpu_bo_free_kernel(&ring->ring_obj,
->  			      &ring->gpu_addr,
->  			      (void **)&ring->ring);
-> +	kvfree(ring->ring_backup);
-> +	ring->ring_backup = NULL;
->  
->  	dma_fence_put(ring->vmid_wait);
->  	ring->vmid_wait = NULL;
-> @@ -753,3 +762,40 @@ bool amdgpu_ring_sched_ready(struct amdgpu_ring *ring)
->  
->  	return true;
->  }
-> +
-> +void amdgpu_ring_backup_unprocessed_jobs(struct amdgpu_ring *ring,
-> +					 u64 bad_wptr, u32 bad_seq)
-> +{
-> +	unsigned int entries_to_copy = ring->wptr - bad_wptr;
-> +	unsigned int idx, i;
-> +
-> +	for (i = 0; i < entries_to_copy; i++) {
-> +		idx = (bad_wptr + i) & ring->buf_mask;
-> +		ring->ring_backup[i] = ring->ring[idx];
-> +	}
-> +	ring->ring_backup_entries_to_copy = entries_to_copy;
-> +	ring->ring_backup_seq = bad_seq;
-> +}
-> +
-> +int amdgpu_ring_reemit_unprocessed_jobs(struct amdgpu_ring *ring)
-> +{
-> +	unsigned int i;
-> +	int r;
-> +
-> +	/* signal the fence of the bad job */
-> +	amdgpu_fence_driver_seq_force_completion(ring, ring->ring_backup_seq);
-> +	/* verify that the ring is functional */
-> +	r = amdgpu_ring_test_ring(ring);
-> +	if (r)
-> +		return r;
-> +	/* re-emit the unprocessed ring contents */
-> +	if (ring->ring_backup_entries_to_copy) {
-> +		if (amdgpu_ring_alloc(ring, ring->ring_backup_entries_to_copy))
-> +			return -ENOMEM;
-> +		for (i = 0; i < ring->ring_backup_entries_to_copy; i++)
-> +			amdgpu_ring_write(ring, ring->ring_backup[i]);
-> +		amdgpu_ring_commit(ring);
-> +	}
-> +
-> +	return r;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index b95b471107692..fd08449eee33f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -132,6 +132,8 @@ extern const struct drm_sched_backend_ops amdgpu_sched_ops;
->  void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring);
->  void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error);
->  void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
-> +void amdgpu_fence_driver_seq_force_completion(struct amdgpu_ring *ring,
-> +					      u32 seq);
->  
->  int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring);
->  int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
-> @@ -268,6 +270,9 @@ struct amdgpu_ring {
->  
->  	struct amdgpu_bo	*ring_obj;
->  	uint32_t		*ring;
-> +	uint32_t		*ring_backup;
-> +	uint32_t		ring_backup_seq;
-> +	unsigned int		ring_backup_entries_to_copy;
->  	unsigned		rptr_offs;
->  	u64			rptr_gpu_addr;
->  	volatile u32		*rptr_cpu_addr;
-> @@ -534,4 +539,7 @@ int amdgpu_ib_pool_init(struct amdgpu_device *adev);
->  void amdgpu_ib_pool_fini(struct amdgpu_device *adev);
->  int amdgpu_ib_ring_tests(struct amdgpu_device *adev);
->  bool amdgpu_ring_sched_ready(struct amdgpu_ring *ring);
-> +void amdgpu_ring_backup_unprocessed_jobs(struct amdgpu_ring *ring,
-> +					 u64 bad_wptr, u32 bad_seq);
-> +int amdgpu_ring_reemit_unprocessed_jobs(struct amdgpu_ring *ring);
->  #endif
-
+> To reproduce: `amd_s2idle.py --log log --duration 1 --wait 4 --count 30`
+>
+> I have reproduced this both with and without Mario's recent suspend fix
+> https://lore.kernel.org/amd-gfx/20250602014432.3538345-1-superm1@kernel.o=
+rg/T/#t
+>
+> Pstore log (with Mario's fix):
+>
+> <6>[  194.209939] PM: suspend entry (s2idle)
+> <6>[  194.409450] Filesystems sync: 0.199 seconds
+> <6>[  194.409756] Freezing user space processes
+> <6>[  194.411374] Freezing user space processes completed (elapsed 0.001 =
+seconds)
+> <6>[  194.411377] OOM killer disabled.
+> <6>[  194.411378] Freezing remaining freezable tasks
+> <6>[  194.412517] Freezing remaining freezable tasks completed (elapsed 0=
+.001 seconds)
+> <6>[  194.412520] printk: Suspending console(s) (use no_console_suspend t=
+o debug)
+> <7>[  194.663906] PM: suspend of devices aborted after 0.260 msecs
+> <7>[  194.663911] PM: start suspend of devices aborted after 251.365 msec=
+s
+> <3>[  194.663913] PM: Some devices failed to suspend, or early wake event=
+ detected
+> <4>[  194.663975] i2c i2c-3: Unbalanced pm_runtime_enable!
+> <4>[  194.663989] ee1004 3-0050: Attempt to enable runtime PM when it is =
+blocked
+> Oops#1 Part6
+> <4>[  194.663991] ee1004 3-0051: Attempt to enable runtime PM when it is =
+blocked
+> <4>[  194.663992] CPU: 5 UID: 0 PID: 121 Comm: kworker/u64:10 Not tainted=
+ 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+> <4>[  194.663994] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  194.663996] Workqueue: async async_run_entry_fn
+> <4>[  194.663998]  slab kmalloc-2k
+> <4>[  194.664000]
+> <4>[  194.664000]  start ffff99bbe24ac800 pointer offset 408
+> <4>[  194.664001] Call Trace:
+> <4>[  194.664002]  size 2048
+> <3>[  194.664003] list_add corruption. prev->next should be next (fffffff=
+f9da75c60), but was ffff99bbd1d94790. (prev=3Dffff99bbe24ac998).
+> <4>[  194.664003]  <TASK>
+> <4>[  194.664007]  dump_stack_lvl+0x6e/0x90
+> <4>[  194.664011] ------------[ cut here ]------------
+> <4>[  194.664011]  pm_runtime_enable.cold+0x28/0x48
+> <2>[  194.664011] kernel BUG at lib/list_debug.c:32!
+> <4>[  194.664013]  device_resume+0x47/0x200
+> <4>[  194.664016] Oops: invalid opcode: 0000 [#1] SMP
+> <4>[  194.664017]  async_resume+0x1d/0x30
+> <4>[  194.664018] CPU: 2 UID: 0 PID: 2505 Comm: amd_s2idle.py Not tainted=
+ 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+> <4>[  194.664019]  async_run_entry_fn+0x2e/0x130
+> <4>[  194.664020] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  194.664021] RIP: 0010:__list_add_valid_or_report+0x90/0xa0
+> <4>[  194.664022]  process_one_work+0x22b/0x5b0
+> <4>[  194.664024] Code: e4 8a ff 0f 0b 48 89 f7 48 89 34 24 e8 49 57 c6 f=
+f 48 8b 34 24 48 c7 c7 70 d1 64 9d 48 8b 16 48 89 f1 48 89 de e8 00 e4 8a f=
+f <0f> 0b 90 66 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 41 54
+> Oops#1 Part5
+> <4>[  194.664025] RSP: 0018:ffffc09a45dafb20 EFLAGS: 00010246
+> <4>[  194.664026]  worker_thread+0x1da/0x3d0
+> <4>[  194.664027] RAX: 0000000000000075 RBX: ffffffff9da75c60 RCX: 000000=
+0000000027
+> <4>[  194.664028] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff99=
+becd11de40
+> <4>[  194.664029] RBP: ffffffff9da74c00 R08: 0000000000000000 R09: 000000=
+0000000000
+> <4>[  194.664029] R10: 0000000000000000 R11: 0000000000000003 R12: 000000=
+0000000010
+> <4>[  194.664029]  ? bh_worker+0x260/0x260
+> <4>[  194.664030] R13: 0000002990e47f3d R14: ffff99bbe24ac998 R15: ffff99=
+bbe0b67620
+> <4>[  194.664031] FS:  00007fe534bfc080(0000) GS:ffff99bf2ee50000(0000) k=
+nlGS:0000000000000000
+> <4>[  194.664031]  kthread+0x10a/0x250
+> <4>[  194.664032] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> <4>[  194.664033] CR2: 000055fdfaf910b8 CR3: 000000010d4a9000 CR4: 000000=
+0000f50ef0
+> <4>[  194.664034]  ? kthreads_online_cpu+0x130/0x130
+> <4>[  194.664034] PKRU: 55555554
+> <4>[  194.664035] Call Trace:
+> <4>[  194.664036]  <TASK>
+> <4>[  194.664036]  ret_from_fork+0x31/0x50
+> <4>[  194.664037]  dpm_resume+0x139/0x350
+> <4>[  194.664039]  ? kthreads_online_cpu+0x130/0x130
+> <4>[  194.664041]  dpm_resume_end+0x11/0x20
+> <4>[  194.664040]  ret_from_fork_asm+0x11/0x20
+> <4>[  194.664042]  suspend_devices_and_enter+0x18e/0x9f0
+> <4>[  194.664045]  </TASK>
+> <4>[  194.664046]  pm_suspend.cold+0x22f/0x28f
+> <4>[  194.664046] CPU: 4 UID: 0 PID: 115 Comm: kworker/u64:4 Not tainted =
+6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+> Oops#1 Part4
+> <4>[  194.664048]  state_store+0x6c/0xd0
+> <4>[  194.664049] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  194.664050] Workqueue: async async_run_entry_fn
+> <4>[  194.664051]  kernfs_fop_write_iter+0x194/0x250
+> <4>[  194.664052] Call Trace:
+> <4>[  194.664052]  <TASK>
+> <4>[  194.664053]  dump_stack_lvl+0x6e/0x90
+> <4>[  194.664054]  vfs_write+0x2ac/0x550
+> <4>[  194.664055]  pm_runtime_enable.cold+0x28/0x48
+> <4>[  194.664057]  device_resume+0x47/0x200
+> <4>[  194.664058]  ksys_write+0x71/0xe0
+> <4>[  194.664060]  async_resume+0x1d/0x30
+> <4>[  194.664060]  do_syscall_64+0x95/0x1a0
+> <4>[  194.664062]  async_run_entry_fn+0x2e/0x130
+> <4>[  194.664062]  ? lockdep_sys_exit+0x1e/0x90
+> <4>[  194.664064]  process_one_work+0x22b/0x5b0
+> <4>[  194.664064]  ? trace_hardirqs_on_prepare+0x77/0xa0
+> <4>[  194.664066]  ? syscall_exit_to_user_mode+0xb1/0x280
+> <4>[  194.664067]  worker_thread+0x1da/0x3d0
+> <4>[  194.664068]  ? __mutex_lock+0xdb/0xed0
+> <4>[  194.664070]  ? __mutex_lock+0xafb/0xed0
+> <4>[  194.664070]  ? bh_worker+0x260/0x260
+> <4>[  194.664072]  ? kernfs_fop_llseek+0x35/0xd0
+> <4>[  194.664072]  kthread+0x10a/0x250
+> <4>[  194.664073]  ? lock_release+0x1ff/0x2a0
+> <4>[  194.664074]  ? kthreads_online_cpu+0x130/0x130
+> <4>[  194.664075]  ? lock_acquire+0x270/0x2d0
+> <4>[  194.664076]  ret_from_fork+0x31/0x50
+> <4>[  194.664077]  ? __mutex_unlock_slowpath+0x3c/0x2c0
+> <4>[  194.664078]  ? kthreads_online_cpu+0x130/0x130
+> <4>[  194.664079]  ? kernfs_fop_llseek+0x77/0xd0
+> <4>[  194.664079]  ret_from_fork_asm+0x11/0x20
+> <4>[  194.664081]  ? lockdep_sys_exit+0x1e/0x90
+> <4>[  194.664082]  ? trace_hardirqs_on_prepare+0x77/0xa0
+> Oops#1 Part3
+> <4>[  194.664084]  </TASK>
+> <4>[  194.664084]  ? syscall_exit_to_user_mode+0xb1/0x280
+> <4>[  194.664086]  ? do_syscall_64+0xa1/0x1a0
+> <4>[  194.664086] uvcvideo 1-3:1.0: Unbalanced pm_runtime_enable!
+> <4>[  194.664087]  ? do_syscall_64+0xa1/0x1a0
+> <4>[  194.664088]  ? do_syscall_64+0xa1/0x1a0
+> <4>[  194.664090]  ? switch_fpu_return+0xce/0x100
+> <4>[  194.664092]  ? lockdep_sys_exit+0x1e/0x90
+> <4>[  194.664093]  ? trace_hardirqs_on_prepare+0x77/0xa0
+> <4>[  194.664095]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> <4>[  194.664096] RIP: 0033:0x7fe534d010d0
+> <4>[  194.664098] Code: 2d 0e 00 64 c7 00 16 00 00 00 b8 ff ff ff ff c3 6=
+6 2e 0f 1f 84 00 00 00 00 00 80 3d 99 af 0e 00 00 74 17 b8 01 00 00 00 0f 0=
+5 <48> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
+> <4>[  194.664099] RSP: 002b:00007ffeea167ab8 EFLAGS: 00000202 ORIG_RAX: 0=
+000000000000001
+> <4>[  194.664101] RAX: ffffffffffffffda RBX: 0000000000a794f0 RCX: 00007f=
+e534d010d0
+> <4>[  194.664101] RDX: 0000000000000003 RSI: 000000002689f620 RDI: 000000=
+0000000004
+> <4>[  194.664102] RBP: 00007fe534bfbfe8 R08: 0000000000000000 R09: 000000=
+0000000002
+> <4>[  194.664103] R10: 0000000000000007 R11: 0000000000000202 R12: 000000=
+0000000003
+> <4>[  194.664103] R13: 0000000000000004 R14: 000000002689f620 R15: 000000=
+0000a4bb48
+> <4>[  194.664107]  </TASK>
+> <4>[  194.664107] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq sn=
+d_seq_device xt_conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_n=
+etlink nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user
+> <4>[  194.664113] btusb 3-3:1.1: Unbalanced pm_runtime_enable!
+> <4>[  194.664114]  xfrm_algo xt_addrtype nft_compat nf_tables br_netfilte=
+r bridge stp llc ccm overlay
+> Oops#1 Part2
+> <4>[  194.664120] usb 1-4:1.0: Attempt to enable runtime PM when it is bl=
+ocked
+> <4>[  194.664120]  qrtr rfcomm cmac algif_hash algif_skcipher
+> <4>[  194.664122] CPU: 7 UID: 0 PID: 2536 Comm: kworker/u64:38 Not tainte=
+d 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+> <4>[  194.664123]  af_alg bnep binfmt_misc
+> <4>[  194.664124] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  194.664125]  nls_ascii nls_cp437 vfat fat
+> <4>[  194.664126] Workqueue: async async_run_entry_fn
+> <4>[  194.664127]  snd_acp3x_pdm_dma snd_soc_dmic
+> <4>[  194.664128]
+> <4>[  194.664128]  snd_acp3x_rn
+> <4>[  194.664129] Call Trace:
+> <4>[  194.664129]  snd_sof_amd_rembrandt snd_sof_amd_acp
+> <4>[  194.664130]  <TASK>
+> <4>[  194.664130]  snd_sof_pci snd_sof_xtensa_dsp snd_sof snd_sof_utils s=
+nd_ctl_led
+> <4>[  194.664132]  dump_stack_lvl+0x6e/0x90
+> <4>[  194.664133]  iwlmvm snd_soc_core snd_hda_codec_realtek snd_hda_code=
+c_generic
+> <4>[  194.664135]  pm_runtime_enable.cold+0x28/0x48
+> <4>[  194.664135]  snd_compress
+> <4>[  194.664136]  snd_pci_ps snd_hda_scodec_component mac80211 snd_hda_c=
+odec_hdmi
+> <4>[  194.664137]  device_resume+0x47/0x200
+> <4>[  194.664138]  snd_soc_acpi_amd_match uvcvideo snd_rpl_pci_acp6x snd_=
+hda_intel videobuf2_vmalloc
+> <4>[  194.664140]  async_resume+0x1d/0x30
+> <4>[  194.664141]  snd_acp_pci
+> <4>[  194.664141]  btusb snd_intel_dspcfg videobuf2_memops
+> <4>[  194.664142]  async_run_entry_fn+0x2e/0x130
+> <4>[  194.664143]  snd_amd_acpi_mach snd_hda_codec intel_rapl_msr btrtl s=
+nd_acp_legacy_common
+> <4>[  194.664145]  process_one_work+0x22b/0x5b0
+> <4>[  194.664146]  uvc libarc4 intel_rapl_common btintel snd_pci_acp6x sn=
+d_hwdep videobuf2_v4l2
+> Oops#1 Part1
+> <4>[  194.664148]  worker_thread+0x1da/0x3d0
+> <4>[  194.664149]  btbcm snd_pci_acp5x snd_hda_core kvm_amd videodev
+> <4>[  194.664151]  ? bh_worker+0x260/0x260
+> <4>[  194.664152]  btmtk hp_wmi snd_rn_pci_acp3x
+> <4>[  194.664153]  kthread+0x10a/0x250
+> <4>[  194.664154]  snd_pcm iwlwifi ucsi_acpi kvm
+> <4>[  194.664155]  ? kthreads_online_cpu+0x130/0x130
+> <4>[  194.664157]  videobuf2_common platform_profile ee1004
+> <4>[  194.664158]  ret_from_fork+0x31/0x50
+> <4>[  194.664158]  bluetooth snd_acp_config snd_timer
+> <4>[  194.664160]  ? kthreads_online_cpu+0x130/0x130
+> <4>[  194.664160]  typec_ucsi sparse_keymap mc sg
+> <4>[  194.664162]  ret_from_fork_asm+0x11/0x20
+> <4>[  194.664163]  cfg80211 sp5100_tco snd_soc_acpi snd rapl roles wmi_bm=
+of pcspkr
+> <4>[  194.664167]  </TASK>
+> <4>[  194.664167]  rfkill
+> <4>[  194.664167]  watchdog ccp k10temp soundcore snd_pci_acp3x typec ac =
+battery amd_pmc joydev acpi_tad serio_raw evdev msr parport_pc dm_mod ppdev=
+ lp parport nvme_fabrics efi_pstore configfs nfnetlink efivarfs ip_tables x=
+_tables autofs4 crc32c_generic btrfs blake2b_generic xor raid6_pq sd_mod ua=
+s usb_storage scsi_mod scsi_common amdgpu drm_client_lib i2c_algo_bit drm_t=
+tm_helper ttm drm_panel_backlight_quirks drm_exec drm_suballoc_helper amdxc=
+p drm_buddy gpu_sched drm_display_helper hid_multitouch drm_kms_helper hid_=
+generic nvme xhci_pci xhci_hcd cec nvme_core i2c_hid_acpi ghash_clmulni_int=
+el usbcore rc_core nvme_keyring i2c_hid i2c_piix4 amd_sfh video sha512_ssse=
+3 usb_common crc16 nvme_auth i2c_smbus drm fan button hid wmi aesni_intel c=
+rypto_simd cryptd
+> <4>[  194.664209] ---[ end trace 0000000000000000 ]---
+>
+> Another crash log from latest git (without Mario's fix):
+>
+> <6>[  144.858062] PM: suspend entry (s2idle)
+> <6>[  145.062853] Filesystems sync: 0.204 seconds
+> <6>[  145.064633] Freezing user space processes
+> <6>[  145.066592] Freezing user space processes completed (elapsed 0.001 =
+seconds)
+> <6>[  145.066598] OOM killer disabled.
+> <6>[  145.066600] Freezing remaining freezable tasks
+> <6>[  145.067783] Freezing remaining freezable tasks completed (elapsed 0=
+.001 seconds)
+> <6>[  145.067787] printk: Suspending console(s) (use no_console_suspend t=
+o debug)
+> <7>[  145.333423] PM: suspend of devices aborted after 0.905 msecs
+> <7>[  145.333431] PM: start suspend of devices aborted after 265.772 msec=
+s
+> <3>[  145.333434] PM: Some devices failed to suspend, or early wake event=
+ detected
+> <4>[  145.333608] i2c i2c-3: Unbalanced pm_runtime_enable!
+> <4>[  145.333633] ee1004 3-0050: Attempt to enable runtime PM when it is =
+blocked
+> <4>[  145.333639] CPU: 12 UID: 0 PID: 2375 Comm: kworker/u64:16 Not taint=
+ed 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+> <4>[  145.333643] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  145.333645] Workqueue: async async_run_entry_fn
+> <4>[  145.333650] Call Trace:
+> <4>[  145.333651] ee1004 3-0051: Attempt to enable runtime PM when it is =
+blocked
+> Oops#1 Part7
+> <4>[  145.333652]  <TASK>
+> <4>[  145.333654]  dump_stack_lvl+0x6e/0x90
+> <4>[  145.333659]  pm_runtime_enable.cold+0x14/0x48
+> <4>[  145.333662]  device_resume+0xd9/0x570
+> <4>[  145.333665]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0x90
+> <4>[  145.333668]  ? device_resume+0x570/0x570
+> <4>[  145.333670]  async_resume+0x1d/0x30
+> <4>[  145.333672]  async_run_entry_fn+0x97/0x4f0
+> <4>[  145.333674]  process_one_work+0x849/0x1450
+> <4>[  145.333678]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+> <4>[  145.333681]  ? assign_work+0x168/0x240
+> <4>[  145.333683]  worker_thread+0x5f3/0xfd0
+> <4>[  145.333688]  ? process_one_work+0x1450/0x1450
+> <4>[  145.333691]  kthread+0x3a2/0x760
+> <4>[  145.333694]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333697]  ? ret_from_fork+0x23/0x480
+> <4>[  145.333701]  ? lock_release+0xd1/0x2a0
+> <4>[  145.333704]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333707]  ret_from_fork+0x387/0x480
+> <4>[  145.333709]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333711]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333714]  ret_from_fork_asm+0x11/0x20
+> <4>[  145.333720]  </TASK>
+> <4>[  145.333722] CPU: 10 UID: 0 PID: 2387 Comm: kworker/u64:28 Not taint=
+ed 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+> <4>[  145.333727] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  145.333729] Workqueue: async async_run_entry_fn
+> <4>[  145.333734] Call Trace:
+> <4>[  145.333735]  <TASK>
+> <4>[  145.333738]  dump_stack_lvl+0x6e/0x90
+> <4>[  145.333743]  pm_runtime_enable.cold+0x14/0x48
+> <4>[  145.333747]  device_resume+0xd9/0x570
+> <4>[  145.333751]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0x90
+> <4>[  145.333756]  ? device_resume+0x570/0x570
+> Oops#1 Part6
+> <4>[  145.333759]  async_resume+0x1d/0x30
+> <4>[  145.333763]  async_run_entry_fn+0x97/0x4f0
+> <4>[  145.333768]  process_one_work+0x849/0x1450
+> <4>[  145.333775]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+> <4>[  145.333780]  ? assign_work+0x168/0x240
+> <4>[  145.333784]  worker_thread+0x5f3/0xfd0
+> <4>[  145.333790]  ? process_one_work+0x1450/0x1450
+> <4>[  145.333793] usb 1-4:1.0: Attempt to enable runtime PM when it is bl=
+ocked
+> <4>[  145.333793] uvcvideo 1-3:1.0: Unbalanced pm_runtime_enable!
+> <4>[  145.333793]  kthread+0x3a2/0x760
+> <4>[  145.333797]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333801]  ? ret_from_fork+0x23/0x480
+> <4>[  145.333805]  ? lock_release+0xd1/0x2a0
+> <4>[  145.333808]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333809] btusb 3-3:1.1: Unbalanced pm_runtime_enable!
+> <4>[  145.333813]  ret_from_fork+0x387/0x480
+> <4>[  145.333817]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333820]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333824]  ret_from_fork_asm+0x11/0x20
+> <4>[  145.333830]  </TASK>
+> <4>[  145.333836] CPU: 12 UID: 0 PID: 2375 Comm: kworker/u64:16 Not taint=
+ed 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+> <4>[  145.333840] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  145.333843] Workqueue: async async_run_entry_fn
+> <4>[  145.333849] Call Trace:
+> <4>[  145.333851]  <TASK>
+> <4>[  145.333854]  dump_stack_lvl+0x6e/0x90
+> <4>[  145.333858]  pm_runtime_enable.cold+0x14/0x48
+> <4>[  145.333862]  device_resume+0xd9/0x570
+> <4>[  145.333864]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0x90
+> <4>[  145.333868]  ? device_resume+0x570/0x570
+> <4>[  145.333870]  async_resume+0x1d/0x30
+> <4>[  145.333872]  async_run_entry_fn+0x97/0x4f0
+> Oops#1 Part5
+> <4>[  145.333875]  process_one_work+0x849/0x1450
+> <4>[  145.333879]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+> <4>[  145.333882]  ? assign_work+0x168/0x240
+> <4>[  145.333885]  worker_thread+0x5f3/0xfd0
+> <4>[  145.333888]  ? process_one_work+0x1450/0x1450
+> <4>[  145.333889]  kthread+0x3a2/0x760
+> <4>[  145.333892]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333892]  slab kmalloc-2k
+> <4>[  145.333894]  ? ret_from_fork+0x23/0x480
+> <4>[  145.333897]  ? lock_release+0xd1/0x2a0
+> <4>[  145.333900]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333902]  ret_from_fork+0x387/0x480
+> <4>[  145.333902]  start ffff888123152000
+> <4>[  145.333905]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333904]  pointer offset 408 size 2048
+> <4>[  145.333908]  ? kthread_is_per_cpu+0xc0/0xc0
+> <4>[  145.333908]
+> <3>[  145.333910] list_add corruption. prev->next should be next (fffffff=
+f98f75ce0), but was ffff888137fc8790. (prev=3Dffff888123152198).
+> <4>[  145.333910]  ret_from_fork_asm+0x11/0x20
+> <4>[  145.333914]  </TASK>
+> <4>[  145.333924] ------------[ cut here ]------------
+> <2>[  145.333925] kernel BUG at lib/list_debug.c:32!
+> <4>[  145.333931] Oops: invalid opcode: 0000 [#1] SMP KASAN
+> <4>[  145.333934] CPU: 2 UID: 0 PID: 2403 Comm: amd_s2idle.py Not tainted=
+ 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+> <4>[  145.333937] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  145.333938] RIP: 0010:__list_add_valid_or_report+0xf5/0x130
+> <4>[  145.333942] Code: 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 80 3c 0=
+2 00 75 3c 49 8b 55 00 4c 89 e9 48 89 de 48 c7 c7 40 a9 0a 98 e8 eb b7 c1 f=
+e <0f> 0b 4c 89 e7 e8 91 17 7d ff e9 40 ff ff ff 4c 89 ef e8 84 17 7d
+> Oops#1 Part4
+> <4>[  145.333944] RSP: 0018:ffff888130a87788 EFLAGS: 00010282
+> <4>[  145.333946] RAX: 0000000000000075 RBX: ffffffff98f75ce0 RCX: 000000=
+0000000000
+> <4>[  145.333948] RDX: 0000000000000075 RSI: 0000000000000004 RDI: ffffed=
+1026150ee3
+> <4>[  145.333949] RBP: ffffffff98f714f8 R08: 0000000000000001 R09: ffffed=
+107a1a5c31
+> <4>[  145.333950] R10: ffff8883d0d2e18b R11: 0000000000000000 R12: ffffff=
+ff98f75ce8
+> <4>[  145.333951] R13: ffff888123152198 R14: ffff888123152198 R15: ffff88=
+8130a877e8
+> <4>[  145.333953] FS:  00007f7272279080(0000) GS:ffff888437132000(0000) k=
+nlGS:0000000000000000
+> <4>[  145.333954] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> <4>[  145.333956] CR2: 00007f7271dcfed0 CR3: 000000011eb2f000 CR4: 000000=
+0000f50ef0
+> <4>[  145.333957] PKRU: 55555554
+> <4>[  145.333958] Call Trace:
+> <4>[  145.333960]  <TASK>
+> <4>[  145.333961]  dpm_resume+0x2b9/0x760
+> <4>[  145.333964]  ? dpm_resume_start+0x30/0x30
+> <4>[  145.333967]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0x90
+> <4>[  145.333969]  ? ktime_get+0x32/0x150
+> <4>[  145.333971]  dpm_resume_end+0x11/0x20
+> <4>[  145.333974]  suspend_devices_and_enter+0x349/0x12f0
+> <4>[  145.333978]  ? arch_suspend_enable_irqs+0x20/0x20
+> <4>[  145.333981]  ? dpm_save_failed_dev.cold+0x36/0x36
+> <4>[  145.333984]  ? up_write+0x1a7/0x4e0
+> <4>[  145.333987]  pm_suspend.cold+0x3f9/0x466
+> <4>[  145.333989]  state_store+0xa3/0x150
+> <4>[  145.333992]  ? sysfs_file_ops+0x110/0x110
+> <4>[  145.333994]  kernfs_fop_write_iter+0x407/0x630
+> <4>[  145.333997]  vfs_write+0x514/0xf60
+> <4>[  145.334000]  ? kernel_write+0x5f0/0x5f0
+> Oops#1 Part3
+> <4>[  145.334003]  ? ptep_set_access_flags+0xea/0x120
+> <4>[  145.334005]  ? lruvec_init+0x1e0/0x1e0
+> <4>[  145.334008]  ? pgd_free+0x4b0/0x4b0
+> <4>[  145.334011]  ksys_write+0xf9/0x1c0
+> <4>[  145.334013]  ? __ia32_sys_read+0xb0/0xb0
+> <4>[  145.334015]  ? wp_page_reuse+0x160/0x1e0
+> <4>[  145.334017]  ? do_wp_page+0x14b9/0x2e70
+> <4>[  145.334020]  do_syscall_64+0x97/0x3d0
+> <4>[  145.334023]  ? lock_acquire+0x291/0x2e0
+> <4>[  145.334024]  ? __vmf_anon_prepare+0x1e0/0x1e0
+> <4>[  145.334026]  ? lock_release+0x1ff/0x2a0
+> <4>[  145.334028]  ? do_raw_spin_lock+0x12d/0x260
+> <4>[  145.334030]  ? __rwlock_init+0x150/0x150
+> <4>[  145.334032]  ? set_p4d+0xb0/0xb0
+> <4>[  145.334034]  ? __handle_mm_fault+0x147d/0x2010
+> <4>[  145.334037]  ? __mutex_lock+0x12a1/0x19f0
+> <4>[  145.334040]  ? copy_page_range+0x4190/0x4190
+> <4>[  145.334042]  ? lock_acquire+0x291/0x2e0
+> <4>[  145.334044]  ? lock_release+0x1ff/0x2a0
+> <4>[  145.334047]  ? __count_memcg_events+0x399/0x4c0
+> <4>[  145.334049]  ? do_syscall_64+0x155/0x3d0
+> <4>[  145.334051]  ? lock_release+0x1ff/0x2a0
+> <4>[  145.334052]  ? count_memcg_events.constprop.0+0x4a/0x60
+> <4>[  145.334055]  ? handle_mm_fault+0x3d8/0x7d0
+> <4>[  145.334057]  ? lock_release+0x1ff/0x2a0
+> <4>[  145.334059]  ? do_user_addr_fault+0x4a3/0xa00
+> <4>[  145.334061]  ? irqentry_exit_to_user_mode+0x8d/0x270
+> <4>[  145.334064]  ? trace_hardirqs_on_prepare+0xd7/0x110
+> <4>[  145.334067]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> <4>[  145.334069] RIP: 0033:0x7f727237e0d0
+> <4>[  145.334071] Code: 2d 0e 00 64 c7 00 16 00 00 00 b8 ff ff ff ff c3 6=
+6 2e 0f 1f 84 00 00 00 00 00 80 3d 99 af 0e 00 00 74 17 b8 01 00 00 00 0f 0=
+5 <48> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
+> Oops#1 Part2
+> <4>[  145.334073] RSP: 002b:00007fff9a1353b8 EFLAGS: 00000202 ORIG_RAX: 0=
+000000000000001
+> <4>[  145.334075] RAX: ffffffffffffffda RBX: 0000000000a794f0 RCX: 00007f=
+727237e0d0
+> <4>[  145.334076] RDX: 0000000000000003 RSI: 0000000026d40370 RDI: 000000=
+0000000004
+> <4>[  145.334077] RBP: 00007f7272278fe8 R08: 0000000000000000 R09: 000000=
+0000000002
+> <4>[  145.334078] R10: 0000000000000007 R11: 0000000000000202 R12: 000000=
+0000000003
+> <4>[  145.334079] R13: 0000000000000004 R14: 0000000026d40370 R15: 000000=
+0000a4bb48
+> <4>[  145.334083]  </TASK>
+> <4>[  145.334084] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq sn=
+d_seq_device xt_conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_n=
+etlink nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user xfrm_algo xt_ad=
+drtype nft_compat nf_tables br_netfilter bridge stp llc ccm overlay qrtr rf=
+comm cmac algif_hash algif_skcipher af_alg bnep binfmt_misc snd_soc_dmic sn=
+d_acp3x_pdm_dma snd_acp3x_rn snd_sof_amd_rembrandt snd_sof_amd_acp snd_sof_=
+pci nls_ascii snd_sof_xtensa_dsp nls_cp437 snd_sof vfat fat snd_sof_utils s=
+nd_soc_core snd_ctl_led iwlmvm snd_compress snd_hda_codec_realtek snd_pci_p=
+s snd_hda_codec_generic snd_soc_acpi_amd_match btusb mac80211 snd_hda_scode=
+c_component snd_rpl_pci_acp6x snd_hda_codec_hdmi uvcvideo btrtl snd_acp_pci=
+ intel_rapl_msr videobuf2_vmalloc snd_hda_intel btintel snd_amd_acpi_mach i=
+ntel_rapl_common videobuf2_memops snd_intel_dspcfg snd_acp_legacy_common sn=
+d_hda_codec snd_pci_acp6x btbcm uvc libarc4 snd_pci_acp5x kvm_amd btmtk vid=
+eobuf2_v4l2 snd_hwdep kvm snd_hda_core snd_rn_pci_acp3x iwlwifi
+> Oops#1 Part1
+> <4>[  145.334149]  videodev ucsi_acpi hp_wmi snd_pcm irqbypass bluetooth =
+snd_acp_config platform_profile videobuf2_common typec_ucsi ee1004 snd_soc_=
+acpi mc snd_timer rapl sparse_keymap wmi_bmof sg cfg80211 pcspkr sp5100_tco=
+ roles k10temp snd_pci_acp3x snd battery watchdog ccp rfkill typec soundcor=
+e ac amd_pmc acpi_tad joydev evdev serio_raw msr parport_pc ppdev lp dm_mod=
+ parport nvme_fabrics efi_pstore configfs nfnetlink efivarfs ip_tables x_ta=
+bles autofs4 crc32c_cryptoapi sd_mod btrfs blake2b_generic xor raid6_pq uas=
+ usb_storage scsi_mod scsi_common amdgpu drm_client_lib i2c_algo_bit drm_tt=
+m_helper ttm drm_panel_backlight_quirks drm_exec drm_suballoc_helper amdxcp=
+ drm_buddy gpu_sched drm_display_helper hid_multitouch hid_generic drm_kms_=
+helper xhci_pci nvme cec xhci_hcd nvme_core ghash_clmulni_intel i2c_hid_acp=
+i i2c_piix4 video rc_core nvme_keyring usbcore sha512_ssse3 i2c_hid i2c_smb=
+us crc16 nvme_auth usb_common amd_sfh fan hid button wmi drm aesni_intel
+> <4>[  145.334223] ---[ end trace 0000000000000000 ]---
+>
