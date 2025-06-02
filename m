@@ -4,56 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E6FC5AD49
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Jun 2025 15:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088A8C5AD49
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Jun 2025 19:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECB3010E550;
-	Mon,  2 Jun 2025 15:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6B5F10E058;
+	Mon,  2 Jun 2025 19:58:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LYrEefRE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g+086wwQ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F33EA10E550;
- Mon,  2 Jun 2025 15:25:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=VoX6oGPIGUVFSBK81uTmYlV8KraDjQeUpSSWdEZ11r8=; b=LYrEefRENI+GhaJ2x+Vmrzilsc
- WCGly/q9njX6lXfqPF0gaaLTiJCF8wM9ZdZG9YcDkqOzsUU+KtrZWqO2/En9TI+AdTYz8r+MPZlTZ
- I505q5SoMmJ+KhLnyppi4aAQ4v1GEsP3ydKzvS5pIPcTBppnyPHILVRzDzEPF4OUG7EU9vTzuCZWD
- XMbNtaUtq+/G5l9KGVwa84zWXT28tkKSa+6NZFIJPuHgSUGq1bPWYiG2LjGjl5t7q6yoZPIkceeje
- Q+q+K3MFRU1qMCWi9A/besgRWLzw0EL2xRcDDb27vQs3+zGPyzgJUL3ma1Z6QrrhwdQGA0G1MitgA
- EbgDBJuw==;
-Received: from [81.79.92.254] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uM727-00GKHP-Ty; Mon, 02 Jun 2025 17:25:04 +0200
-Message-ID: <d483076a-b12f-4ade-b699-ee488df298ba@igalia.com>
-Date: Mon, 2 Jun 2025 16:25:02 +0100
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83FA210E058
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 19:58:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B91145C6321
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 19:55:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B10C4CEEB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jun 2025 19:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1748894295;
+ bh=N59ept9FoalL6RV5HtK1/zCQknxh/JUgfdfsOpKo2fA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=g+086wwQzkJxrvJnfoYJkqgskMNynpnWl6Y34mK7CBJh8icJjL3RPJQRElY1V/odV
+ puXK0E9QcBoOGd6hW0GIup/RL2U8fzRQ3Y92iB3PkGaY1m7hrGyTDWducnwrL8QX1V
+ 6nC16A7u/RBhRbrARyM/MkPZWhLFHw5FPSWN1fSNOB7pLGC1NmpTOxFzbr24Z64DQn
+ J+6I8I98e7VK6p0h8mJCSeHhkPk+y1FDXF///0llhQJkQhrL4Tfh/MeJvcJ2/rYIqM
+ ZKIZ2r05XRc30bUqdMDm2+/QLlcftexzRTlmx8tUxqTfDLhoI70ANuM2tFzmc15/eN
+ 6Zsp+JFqCS2NQ==
+Received: by mail-oo1-f49.google.com with SMTP id
+ 006d021491bc7-6063462098eso3409213eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Jun 2025 12:58:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWc4fPlxPOyK0RIlVExMnIeVDDuUuPKnBg/vFrkXqRtbr7m8pX+bFfQ7J2RJYZEFKNBcRErgJsf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0Pxhfwvuu77OCAK65UryR1ko8FZH2HrzFvEoPWgfmKVgL4Yli
+ EfTFU//Btn+zlxdaP/MZ3RfNB9A7/TXSdTaGWe6BEoUgf0wz+2Cyu/t8VESERxtDwmVxghcDAx/
+ 7839vvKaA4zYCekNi3Hr3X1wsdsO5UtM=
+X-Google-Smtp-Source: AGHT+IHm58ZKj5yUNPGAYIDALbHplXvWquBSl7iBcWGEJ+6nwt0GtTpMj0CHSYu+Yzx2VxlzTHxi7gAxpcONFxjRKrM=
+X-Received: by 2002:a05:6820:1b13:b0:60e:d57b:ecc3 with SMTP id
+ 006d021491bc7-60ed57c0312mr4449831eaf.0.1748894294380; Mon, 02 Jun 2025
+ 12:58:14 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/9] dma-fence: Use a flag for 64-bit seqnos
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, kernel-dev@igalia.com
-References: <20250515095004.28318-1-tvrtko.ursulin@igalia.com>
- <20250515095004.28318-3-tvrtko.ursulin@igalia.com>
- <c93c05be-b2c8-42a2-84d1-32b90743eb82@amd.com>
- <b59cadff-da9a-409f-a5ed-96aafdfe3f0b@igalia.com>
- <13c5edf6-ccad-4a06-85d4-dccf2afd0c62@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <13c5edf6-ccad-4a06-85d4-dccf2afd0c62@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <10629535.nUPlyArG6x@rjwysocki.net>
+ <3541233.QJadu78ljV@rjwysocki.net> <aD2U3VIhf8vDkl09@debian.local>
+ <CAJZ5v0h-nrVamqiAJ957aYjHqaeAZUUW7BRi0WxPgCFc40M5cQ@mail.gmail.com>
+ <7f0e2865-d35e-4a13-8617-8679afb4b23f@kernel.org>
+In-Reply-To: <7f0e2865-d35e-4a13-8617-8679afb4b23f@kernel.org>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Mon, 2 Jun 2025 21:58:03 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gL3rW8dOxXdPWYjZuq5kAaD8qTa4vZ5++k9+0WniNAdQ@mail.gmail.com>
+X-Gm-Features: AX0GCFtilHy5dpcjMfFseTc03e3VZv8vBdBFyvRoPB3qJwzT8x0Ib2M4MfHCPik
+Message-ID: <CAJZ5v0gL3rW8dOxXdPWYjZuq5kAaD8qTa4vZ5++k9+0WniNAdQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] PM: sleep: Suspend async parents after suspending
+ children
+To: Mario Limonciello <superm1@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Chris Bainbridge <chris.bainbridge@gmail.com>, 
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, Linux PM <linux-pm@vger.kernel.org>, 
+ LKML <linux-kernel@vger.kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
+ Ulf Hansson <ulf.hansson@linaro.org>, Johan Hovold <johan@kernel.org>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Jon Hunter <jonathanh@nvidia.com>, 
+ Saravana Kannan <saravanak@google.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,274 +80,550 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, Jun 2, 2025 at 5:22=E2=80=AFPM Mario Limonciello <superm1@kernel.or=
+g> wrote:
+>
+> On 6/2/2025 9:29 AM, Rafael J. Wysocki wrote:
+> > On Mon, Jun 2, 2025 at 2:11=E2=80=AFPM Chris Bainbridge
+> > <chris.bainbridge@gmail.com> wrote:
+> >>
+> >> On Fri, Mar 14, 2025 at 02:13:53PM +0100, Rafael J. Wysocki wrote:
+> >>> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> >>>
+> >>> In analogy with the previous change affecting the resume path,
+> >>> make device_suspend() start the async suspend of the device's parent
+> >>> after the device itself has been processed and make dpm_suspend() sta=
+rt
+> >>> processing "async" leaf devices (that is, devices without children)
+> >>> upfront so they don't need to wait for the "sync" devices they don't
+> >>> depend on.
+> >>>
+> >>> On the Dell XPS13 9360 in my office, this change reduces the total
+> >>> duration of device suspend by approximately 100 ms (over 20%).
+> >>>
+> >>> Suggested-by: Saravana Kannan <saravanak@google.com>
+> >>> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> >>
+> >> This commit results in memory corruption on suspend/resume with short
+> >> suspend duration.
+> >
+> > What do you mean by short?
+>
+> The tool he used will program a timer to wake up the system.
+> The time he input was programmed for a cycle that was short enough that
+> the suspend entry didn't finish and it triggered an aborted suspend.
 
-On 02/06/2025 15:42, Christian König wrote:
-> On 6/2/25 15:05, Tvrtko Ursulin wrote:
->>
->> Hi,
->>
->> On 15/05/2025 14:15, Christian König wrote:
->>> Hey drm-misc maintainers,
->>>
->>> can you guys please backmerge drm-next into drm-misc-next?
->>>
->>> I want to push this patch here but it depends on changes which are partially in drm-next and partially in drm-misc-next.
->>
->> Looks like the backmerge is still pending?
-> 
-> Yes, @Maarten, @Maxime and @Thomas ping on this.
-> 
->> In the meantime, Christian, any chance you will have some bandwith to think about the tail end of the series? Specifically patch 6 and how that is used onward.
-> 
-> Well the RCU grace period is quite a nifty hack. I wanted to go over it again after merging the first patches from this series.
-> 
-> In general looks like a good idea to me, I just don't like that we explicitely need to expose dma_fence_access_begin() and dma_fence_access_end().
-> 
-> Especially we can't do that while calling fence->ops->release.
+So it crashes during resume when the preceding suspend has been aborted IIU=
+C.
 
-Hm why not? You think something will take offence of the rcu_read_lock()?
+The exact crash mechanism is still unclear to me though.
 
-Regards,
+> >
+> >> Laptop appears to hang and crash is logged to pstore.
+> >
+> > Interesting that this is only happening on one system.
+> >
+> > Thanks for the report anyway, I'll look at this shortly.
+> >
+> >> To reproduce: `amd_s2idle.py --log log --duration 1 --wait 4 --count 3=
+0`
+> >>
+> >> I have reproduced this both with and without Mario's recent suspend fi=
+x
+> >> https://lore.kernel.org/amd-gfx/20250602014432.3538345-1-superm1@kerne=
+l.org/T/#t
+> >>
+> >> Pstore log (with Mario's fix):
+> >>
+> >> <6>[  194.209939] PM: suspend entry (s2idle)
+> >> <6>[  194.409450] Filesystems sync: 0.199 seconds
+> >> <6>[  194.409756] Freezing user space processes
+> >> <6>[  194.411374] Freezing user space processes completed (elapsed 0.0=
+01 seconds)
+> >> <6>[  194.411377] OOM killer disabled.
+> >> <6>[  194.411378] Freezing remaining freezable tasks
+> >> <6>[  194.412517] Freezing remaining freezable tasks completed (elapse=
+d 0.001 seconds)
+> >> <6>[  194.412520] printk: Suspending console(s) (use no_console_suspen=
+d to debug)
+> >> <7>[  194.663906] PM: suspend of devices aborted after 0.260 msecs
+> >> <7>[  194.663911] PM: start suspend of devices aborted after 251.365 m=
+secs
+> >> <3>[  194.663913] PM: Some devices failed to suspend, or early wake ev=
+ent detected
+> >> <4>[  194.663975] i2c i2c-3: Unbalanced pm_runtime_enable!
+> >> <4>[  194.663989] ee1004 3-0050: Attempt to enable runtime PM when it =
+is blocked
+> >> Oops#1 Part6
+> >> <4>[  194.663991] ee1004 3-0051: Attempt to enable runtime PM when it =
+is blocked
+> >> <4>[  194.663992] CPU: 5 UID: 0 PID: 121 Comm: kworker/u64:10 Not tain=
+ted 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+> >> <4>[  194.663994] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/=
+8916, BIOS F.17 12/18/2024
+> >> <4>[  194.663996] Workqueue: async async_run_entry_fn
+> >> <4>[  194.663998]  slab kmalloc-2k
+> >> <4>[  194.664000]
+> >> <4>[  194.664000]  start ffff99bbe24ac800 pointer offset 408
+> >> <4>[  194.664001] Call Trace:
+> >> <4>[  194.664002]  size 2048
+> >> <3>[  194.664003] list_add corruption. prev->next should be next (ffff=
+ffff9da75c60), but was ffff99bbd1d94790. (prev=3Dffff99bbe24ac998).
+> >> <4>[  194.664003]  <TASK>
+> >> <4>[  194.664007]  dump_stack_lvl+0x6e/0x90
+> >> <4>[  194.664011] ------------[ cut here ]------------
+> >> <4>[  194.664011]  pm_runtime_enable.cold+0x28/0x48
+> >> <2>[  194.664011] kernel BUG at lib/list_debug.c:32!
+> >> <4>[  194.664013]  device_resume+0x47/0x200
+> >> <4>[  194.664016] Oops: invalid opcode: 0000 [#1] SMP
+> >> <4>[  194.664017]  async_resume+0x1d/0x30
+> >> <4>[  194.664018] CPU: 2 UID: 0 PID: 2505 Comm: amd_s2idle.py Not tain=
+ted 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+> >> <4>[  194.664019]  async_run_entry_fn+0x2e/0x130
+> >> <4>[  194.664020] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/=
+8916, BIOS F.17 12/18/2024
+> >> <4>[  194.664021] RIP: 0010:__list_add_valid_or_report+0x90/0xa0
+> >> <4>[  194.664022]  process_one_work+0x22b/0x5b0
+> >> <4>[  194.664024] Code: e4 8a ff 0f 0b 48 89 f7 48 89 34 24 e8 49 57 c=
+6 ff 48 8b 34 24 48 c7 c7 70 d1 64 9d 48 8b 16 48 89 f1 48 89 de e8 00 e4 8=
+a ff <0f> 0b 90 66 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 41 54
+> >> Oops#1 Part5
+> >> <4>[  194.664025] RSP: 0018:ffffc09a45dafb20 EFLAGS: 00010246
+> >> <4>[  194.664026]  worker_thread+0x1da/0x3d0
+> >> <4>[  194.664027] RAX: 0000000000000075 RBX: ffffffff9da75c60 RCX: 000=
+0000000000027
+> >> <4>[  194.664028] RDX: 0000000000000000 RSI: 0000000000000001 RDI: fff=
+f99becd11de40
+> >> <4>[  194.664029] RBP: ffffffff9da74c00 R08: 0000000000000000 R09: 000=
+0000000000000
+> >> <4>[  194.664029] R10: 0000000000000000 R11: 0000000000000003 R12: 000=
+0000000000010
+> >> <4>[  194.664029]  ? bh_worker+0x260/0x260
+> >> <4>[  194.664030] R13: 0000002990e47f3d R14: ffff99bbe24ac998 R15: fff=
+f99bbe0b67620
+> >> <4>[  194.664031] FS:  00007fe534bfc080(0000) GS:ffff99bf2ee50000(0000=
+) knlGS:0000000000000000
+> >> <4>[  194.664031]  kthread+0x10a/0x250
+> >> <4>[  194.664032] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> >> <4>[  194.664033] CR2: 000055fdfaf910b8 CR3: 000000010d4a9000 CR4: 000=
+0000000f50ef0
+> >> <4>[  194.664034]  ? kthreads_online_cpu+0x130/0x130
+> >> <4>[  194.664034] PKRU: 55555554
+> >> <4>[  194.664035] Call Trace:
+> >> <4>[  194.664036]  <TASK>
+> >> <4>[  194.664036]  ret_from_fork+0x31/0x50
+> >> <4>[  194.664037]  dpm_resume+0x139/0x350
+> >> <4>[  194.664039]  ? kthreads_online_cpu+0x130/0x130
+> >> <4>[  194.664041]  dpm_resume_end+0x11/0x20
+> >> <4>[  194.664040]  ret_from_fork_asm+0x11/0x20
+> >> <4>[  194.664042]  suspend_devices_and_enter+0x18e/0x9f0
+> >> <4>[  194.664045]  </TASK>
+> >> <4>[  194.664046]  pm_suspend.cold+0x22f/0x28f
+> >> <4>[  194.664046] CPU: 4 UID: 0 PID: 115 Comm: kworker/u64:4 Not taint=
+ed 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+> >> Oops#1 Part4
+> >> <4>[  194.664048]  state_store+0x6c/0xd0
+> >> <4>[  194.664049] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/=
+8916, BIOS F.17 12/18/2024
+> >> <4>[  194.664050] Workqueue: async async_run_entry_fn
+> >> <4>[  194.664051]  kernfs_fop_write_iter+0x194/0x250
+> >> <4>[  194.664052] Call Trace:
+> >> <4>[  194.664052]  <TASK>
+> >> <4>[  194.664053]  dump_stack_lvl+0x6e/0x90
+> >> <4>[  194.664054]  vfs_write+0x2ac/0x550
+> >> <4>[  194.664055]  pm_runtime_enable.cold+0x28/0x48
+> >> <4>[  194.664057]  device_resume+0x47/0x200
+> >> <4>[  194.664058]  ksys_write+0x71/0xe0
+> >> <4>[  194.664060]  async_resume+0x1d/0x30
+> >> <4>[  194.664060]  do_syscall_64+0x95/0x1a0
+> >> <4>[  194.664062]  async_run_entry_fn+0x2e/0x130
+> >> <4>[  194.664062]  ? lockdep_sys_exit+0x1e/0x90
+> >> <4>[  194.664064]  process_one_work+0x22b/0x5b0
+> >> <4>[  194.664064]  ? trace_hardirqs_on_prepare+0x77/0xa0
+> >> <4>[  194.664066]  ? syscall_exit_to_user_mode+0xb1/0x280
+> >> <4>[  194.664067]  worker_thread+0x1da/0x3d0
+> >> <4>[  194.664068]  ? __mutex_lock+0xdb/0xed0
+> >> <4>[  194.664070]  ? __mutex_lock+0xafb/0xed0
+> >> <4>[  194.664070]  ? bh_worker+0x260/0x260
+> >> <4>[  194.664072]  ? kernfs_fop_llseek+0x35/0xd0
+> >> <4>[  194.664072]  kthread+0x10a/0x250
+> >> <4>[  194.664073]  ? lock_release+0x1ff/0x2a0
+> >> <4>[  194.664074]  ? kthreads_online_cpu+0x130/0x130
+> >> <4>[  194.664075]  ? lock_acquire+0x270/0x2d0
+> >> <4>[  194.664076]  ret_from_fork+0x31/0x50
+> >> <4>[  194.664077]  ? __mutex_unlock_slowpath+0x3c/0x2c0
+> >> <4>[  194.664078]  ? kthreads_online_cpu+0x130/0x130
+> >> <4>[  194.664079]  ? kernfs_fop_llseek+0x77/0xd0
+> >> <4>[  194.664079]  ret_from_fork_asm+0x11/0x20
+> >> <4>[  194.664081]  ? lockdep_sys_exit+0x1e/0x90
+> >> <4>[  194.664082]  ? trace_hardirqs_on_prepare+0x77/0xa0
+> >> Oops#1 Part3
+> >> <4>[  194.664084]  </TASK>
+> >> <4>[  194.664084]  ? syscall_exit_to_user_mode+0xb1/0x280
+> >> <4>[  194.664086]  ? do_syscall_64+0xa1/0x1a0
+> >> <4>[  194.664086] uvcvideo 1-3:1.0: Unbalanced pm_runtime_enable!
 
-Tvrtko
+So it looks like this device is resumed even though it has not been suspend=
+ed.
 
->>> On 5/15/25 11:49, Tvrtko Ursulin wrote:
->>>> With the goal of reducing the need for drivers to touch (and dereference)
->>>> fence->ops, we move the 64-bit seqnos flag from struct dma_fence_ops to
->>>> the fence->flags.
->>>>
->>>> Drivers which were setting this flag are changed to use new
->>>> dma_fence_init64() instead of dma_fence_init().
->>>>
->>>> v2:
->>>>    * Streamlined init and added kerneldoc.
->>>>    * Rebase for amdgpu userq which landed since.
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> Reviewed-by: Christian König <christian.koenig@amd.com> # v1
->>>> ---
->>>>    drivers/dma-buf/dma-fence-chain.c             |  5 +-
->>>>    drivers/dma-buf/dma-fence.c                   | 69 ++++++++++++++-----
->>>>    .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 +-
->>>>    .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
->>>>    .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
->>>>    include/linux/dma-fence.h                     | 14 ++--
->>>>    6 files changed, 64 insertions(+), 41 deletions(-)
->>>>
->>>> diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
->>>> index 90424f23fd73..a8a90acf4f34 100644
->>>> --- a/drivers/dma-buf/dma-fence-chain.c
->>>> +++ b/drivers/dma-buf/dma-fence-chain.c
->>>> @@ -218,7 +218,6 @@ static void dma_fence_chain_set_deadline(struct dma_fence *fence,
->>>>    }
->>>>      const struct dma_fence_ops dma_fence_chain_ops = {
->>>> -    .use_64bit_seqno = true,
->>>>        .get_driver_name = dma_fence_chain_get_driver_name,
->>>>        .get_timeline_name = dma_fence_chain_get_timeline_name,
->>>>        .enable_signaling = dma_fence_chain_enable_signaling,
->>>> @@ -262,8 +261,8 @@ void dma_fence_chain_init(struct dma_fence_chain *chain,
->>>>                seqno = max(prev->seqno, seqno);
->>>>        }
->>>>    -    dma_fence_init(&chain->base, &dma_fence_chain_ops,
->>>> -               &chain->lock, context, seqno);
->>>> +    dma_fence_init64(&chain->base, &dma_fence_chain_ops, &chain->lock,
->>>> +             context, seqno);
->>>>          /*
->>>>         * Chaining dma_fence_chain container together is only allowed through
->>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->>>> index f0cdd3e99d36..705b59787731 100644
->>>> --- a/drivers/dma-buf/dma-fence.c
->>>> +++ b/drivers/dma-buf/dma-fence.c
->>>> @@ -989,24 +989,9 @@ void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
->>>>    }
->>>>    EXPORT_SYMBOL(dma_fence_describe);
->>>>    -/**
->>>> - * dma_fence_init - Initialize a custom fence.
->>>> - * @fence: the fence to initialize
->>>> - * @ops: the dma_fence_ops for operations on this fence
->>>> - * @lock: the irqsafe spinlock to use for locking this fence
->>>> - * @context: the execution context this fence is run on
->>>> - * @seqno: a linear increasing sequence number for this context
->>>> - *
->>>> - * Initializes an allocated fence, the caller doesn't have to keep its
->>>> - * refcount after committing with this fence, but it will need to hold a
->>>> - * refcount again if &dma_fence_ops.enable_signaling gets called.
->>>> - *
->>>> - * context and seqno are used for easy comparison between fences, allowing
->>>> - * to check which fence is later by simply using dma_fence_later().
->>>> - */
->>>> -void
->>>> -dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>> -           spinlock_t *lock, u64 context, u64 seqno)
->>>> +static void
->>>> +__dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>> +             spinlock_t *lock, u64 context, u64 seqno, unsigned long flags)
->>>>    {
->>>>        BUG_ON(!lock);
->>>>        BUG_ON(!ops || !ops->get_driver_name || !ops->get_timeline_name);
->>>> @@ -1017,9 +1002,55 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>>        fence->lock = lock;
->>>>        fence->context = context;
->>>>        fence->seqno = seqno;
->>>> -    fence->flags = 0UL;
->>>> +    fence->flags = flags;
->>>>        fence->error = 0;
->>>>          trace_dma_fence_init(fence);
->>>>    }
->>>> +
->>>> +/**
->>>> + * dma_fence_init - Initialize a custom fence.
->>>> + * @fence: the fence to initialize
->>>> + * @ops: the dma_fence_ops for operations on this fence
->>>> + * @lock: the irqsafe spinlock to use for locking this fence
->>>> + * @context: the execution context this fence is run on
->>>> + * @seqno: a linear increasing sequence number for this context
->>>> + *
->>>> + * Initializes an allocated fence, the caller doesn't have to keep its
->>>> + * refcount after committing with this fence, but it will need to hold a
->>>> + * refcount again if &dma_fence_ops.enable_signaling gets called.
->>>> + *
->>>> + * context and seqno are used for easy comparison between fences, allowing
->>>> + * to check which fence is later by simply using dma_fence_later().
->>>> + */
->>>> +void
->>>> +dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>> +           spinlock_t *lock, u64 context, u64 seqno)
->>>> +{
->>>> +    __dma_fence_init(fence, ops, lock, context, seqno, 0UL);
->>>> +}
->>>>    EXPORT_SYMBOL(dma_fence_init);
->>>> +
->>>> +/**
->>>> + * dma_fence_init64 - Initialize a custom fence with 64-bit seqno support.
->>>> + * @fence: the fence to initialize
->>>> + * @ops: the dma_fence_ops for operations on this fence
->>>> + * @lock: the irqsafe spinlock to use for locking this fence
->>>> + * @context: the execution context this fence is run on
->>>> + * @seqno: a linear increasing sequence number for this context
->>>> + *
->>>> + * Initializes an allocated fence, the caller doesn't have to keep its
->>>> + * refcount after committing with this fence, but it will need to hold a
->>>> + * refcount again if &dma_fence_ops.enable_signaling gets called.
->>>> + *
->>>> + * Context and seqno are used for easy comparison between fences, allowing
->>>> + * to check which fence is later by simply using dma_fence_later().
->>>> + */
->>>> +void
->>>> +dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>> +         spinlock_t *lock, u64 context, u64 seqno)
->>>> +{
->>>> +    __dma_fence_init(fence, ops, lock, context, seqno,
->>>> +             BIT(DMA_FENCE_FLAG_SEQNO64_BIT));
->>>> +}
->>>> +EXPORT_SYMBOL(dma_fence_init64);
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
->>>> index 1a7469543db5..79713421bffe 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
->>>> @@ -134,7 +134,6 @@ static bool amdgpu_eviction_fence_enable_signaling(struct dma_fence *f)
->>>>    }
->>>>      static const struct dma_fence_ops amdgpu_eviction_fence_ops = {
->>>> -    .use_64bit_seqno = true,
->>>>        .get_driver_name = amdgpu_eviction_fence_get_driver_name,
->>>>        .get_timeline_name = amdgpu_eviction_fence_get_timeline_name,
->>>>        .enable_signaling = amdgpu_eviction_fence_enable_signaling,
->>>> @@ -160,9 +159,9 @@ amdgpu_eviction_fence_create(struct amdgpu_eviction_fence_mgr *evf_mgr)
->>>>        ev_fence->evf_mgr = evf_mgr;
->>>>        get_task_comm(ev_fence->timeline_name, current);
->>>>        spin_lock_init(&ev_fence->lock);
->>>> -    dma_fence_init(&ev_fence->base, &amdgpu_eviction_fence_ops,
->>>> -               &ev_fence->lock, evf_mgr->ev_fence_ctx,
->>>> -               atomic_inc_return(&evf_mgr->ev_fence_seq));
->>>> +    dma_fence_init64(&ev_fence->base, &amdgpu_eviction_fence_ops,
->>>> +             &ev_fence->lock, evf_mgr->ev_fence_ctx,
->>>> +             atomic_inc_return(&evf_mgr->ev_fence_seq));
->>>>        return ev_fence;
->>>>    }
->>>>    diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> index 029cb24c28b3..5e92d00a591f 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> @@ -239,8 +239,8 @@ static int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
->>>>        fence = &userq_fence->base;
->>>>        userq_fence->fence_drv = fence_drv;
->>>>    -    dma_fence_init(fence, &amdgpu_userq_fence_ops, &userq_fence->lock,
->>>> -               fence_drv->context, seq);
->>>> +    dma_fence_init64(fence, &amdgpu_userq_fence_ops, &userq_fence->lock,
->>>> +             fence_drv->context, seq);
->>>>          amdgpu_userq_fence_driver_get(fence_drv);
->>>>        dma_fence_get(fence);
->>>> @@ -334,7 +334,6 @@ static void amdgpu_userq_fence_release(struct dma_fence *f)
->>>>    }
->>>>      static const struct dma_fence_ops amdgpu_userq_fence_ops = {
->>>> -    .use_64bit_seqno = true,
->>>>        .get_driver_name = amdgpu_userq_fence_get_driver_name,
->>>>        .get_timeline_name = amdgpu_userq_fence_get_timeline_name,
->>>>        .signaled = amdgpu_userq_fence_signaled,
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
->>>> index 51cddfa3f1e8..5d26797356a3 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
->>>> @@ -71,7 +71,6 @@ static void amdgpu_tlb_fence_work(struct work_struct *work)
->>>>    }
->>>>      static const struct dma_fence_ops amdgpu_tlb_fence_ops = {
->>>> -    .use_64bit_seqno = true,
->>>>        .get_driver_name = amdgpu_tlb_fence_get_driver_name,
->>>>        .get_timeline_name = amdgpu_tlb_fence_get_timeline_name
->>>>    };
->>>> @@ -101,8 +100,8 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm
->>>>        INIT_WORK(&f->work, amdgpu_tlb_fence_work);
->>>>        spin_lock_init(&f->lock);
->>>>    -    dma_fence_init(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
->>>> -               vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
->>>> +    dma_fence_init64(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
->>>> +             vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
->>>>          /* TODO: We probably need a separate wq here */
->>>>        dma_fence_get(&f->base);
->>>> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
->>>> index 48b5202c531d..a34a0dcdc446 100644
->>>> --- a/include/linux/dma-fence.h
->>>> +++ b/include/linux/dma-fence.h
->>>> @@ -97,6 +97,7 @@ struct dma_fence {
->>>>    };
->>>>      enum dma_fence_flag_bits {
->>>> +    DMA_FENCE_FLAG_SEQNO64_BIT,
->>>>        DMA_FENCE_FLAG_SIGNALED_BIT,
->>>>        DMA_FENCE_FLAG_TIMESTAMP_BIT,
->>>>        DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
->>>> @@ -124,14 +125,6 @@ struct dma_fence_cb {
->>>>     *
->>>>     */
->>>>    struct dma_fence_ops {
->>>> -    /**
->>>> -     * @use_64bit_seqno:
->>>> -     *
->>>> -     * True if this dma_fence implementation uses 64bit seqno, false
->>>> -     * otherwise.
->>>> -     */
->>>> -    bool use_64bit_seqno;
->>>> -
->>>>        /**
->>>>         * @get_driver_name:
->>>>         *
->>>> @@ -262,6 +255,9 @@ struct dma_fence_ops {
->>>>    void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>>                spinlock_t *lock, u64 context, u64 seqno);
->>>>    +void dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>> +              spinlock_t *lock, u64 context, u64 seqno);
->>>> +
->>>>    void dma_fence_release(struct kref *kref);
->>>>    void dma_fence_free(struct dma_fence *fence);
->>>>    void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
->>>> @@ -454,7 +450,7 @@ static inline bool __dma_fence_is_later(struct dma_fence *fence, u64 f1, u64 f2)
->>>>         * 32bit sequence numbers. Use a 64bit compare when the driver says to
->>>>         * do so.
->>>>         */
->>>> -    if (fence->ops->use_64bit_seqno)
->>>> +    if (test_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence->flags))
->>>>            return f1 > f2;
->>>>          return (int)(lower_32_bits(f1) - lower_32_bits(f2)) > 0;
->>>
->>
-> 
+> >> <4>[  194.664087]  ? do_syscall_64+0xa1/0x1a0
+> >> <4>[  194.664088]  ? do_syscall_64+0xa1/0x1a0
+> >> <4>[  194.664090]  ? switch_fpu_return+0xce/0x100
+> >> <4>[  194.664092]  ? lockdep_sys_exit+0x1e/0x90
+> >> <4>[  194.664093]  ? trace_hardirqs_on_prepare+0x77/0xa0
+> >> <4>[  194.664095]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> >> <4>[  194.664096] RIP: 0033:0x7fe534d010d0
+> >> <4>[  194.664098] Code: 2d 0e 00 64 c7 00 16 00 00 00 b8 ff ff ff ff c=
+3 66 2e 0f 1f 84 00 00 00 00 00 80 3d 99 af 0e 00 00 74 17 b8 01 00 00 00 0=
+f 05 <48> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
+> >> <4>[  194.664099] RSP: 002b:00007ffeea167ab8 EFLAGS: 00000202 ORIG_RAX=
+: 0000000000000001
+> >> <4>[  194.664101] RAX: ffffffffffffffda RBX: 0000000000a794f0 RCX: 000=
+07fe534d010d0
+> >> <4>[  194.664101] RDX: 0000000000000003 RSI: 000000002689f620 RDI: 000=
+0000000000004
+> >> <4>[  194.664102] RBP: 00007fe534bfbfe8 R08: 0000000000000000 R09: 000=
+0000000000002
+> >> <4>[  194.664103] R10: 0000000000000007 R11: 0000000000000202 R12: 000=
+0000000000003
+> >> <4>[  194.664103] R13: 0000000000000004 R14: 000000002689f620 R15: 000=
+0000000a4bb48
+> >> <4>[  194.664107]  </TASK>
+> >> <4>[  194.664107] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq=
+ snd_seq_device xt_conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrac=
+k_netlink nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user
+> >> <4>[  194.664113] btusb 3-3:1.1: Unbalanced pm_runtime_enable!
 
+And same here.
+
+> >> <4>[  194.664114]  xfrm_algo xt_addrtype nft_compat nf_tables br_netfi=
+lter bridge stp llc ccm overlay
+> >> Oops#1 Part2
+> >> <4>[  194.664120] usb 1-4:1.0: Attempt to enable runtime PM when it is=
+ blocked
+> >> <4>[  194.664120]  qrtr rfcomm cmac algif_hash algif_skcipher
+> >> <4>[  194.664122] CPU: 7 UID: 0 PID: 2536 Comm: kworker/u64:38 Not tai=
+nted 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
+> >> <4>[  194.664123]  af_alg bnep binfmt_misc
+> >> <4>[  194.664124] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/=
+8916, BIOS F.17 12/18/2024
+> >> <4>[  194.664125]  nls_ascii nls_cp437 vfat fat
+> >> <4>[  194.664126] Workqueue: async async_run_entry_fn
+> >> <4>[  194.664127]  snd_acp3x_pdm_dma snd_soc_dmic
+> >> <4>[  194.664128]
+> >> <4>[  194.664128]  snd_acp3x_rn
+> >> <4>[  194.664129] Call Trace:
+> >> <4>[  194.664129]  snd_sof_amd_rembrandt snd_sof_amd_acp
+> >> <4>[  194.664130]  <TASK>
+> >> <4>[  194.664130]  snd_sof_pci snd_sof_xtensa_dsp snd_sof snd_sof_util=
+s snd_ctl_led
+> >> <4>[  194.664132]  dump_stack_lvl+0x6e/0x90
+> >> <4>[  194.664133]  iwlmvm snd_soc_core snd_hda_codec_realtek snd_hda_c=
+odec_generic
+> >> <4>[  194.664135]  pm_runtime_enable.cold+0x28/0x48
+> >> <4>[  194.664135]  snd_compress
+> >> <4>[  194.664136]  snd_pci_ps snd_hda_scodec_component mac80211 snd_hd=
+a_codec_hdmi
+> >> <4>[  194.664137]  device_resume+0x47/0x200
+> >> <4>[  194.664138]  snd_soc_acpi_amd_match uvcvideo snd_rpl_pci_acp6x s=
+nd_hda_intel videobuf2_vmalloc
+> >> <4>[  194.664140]  async_resume+0x1d/0x30
+> >> <4>[  194.664141]  snd_acp_pci
+> >> <4>[  194.664141]  btusb snd_intel_dspcfg videobuf2_memops
+> >> <4>[  194.664142]  async_run_entry_fn+0x2e/0x130
+> >> <4>[  194.664143]  snd_amd_acpi_mach snd_hda_codec intel_rapl_msr btrt=
+l snd_acp_legacy_common
+> >> <4>[  194.664145]  process_one_work+0x22b/0x5b0
+> >> <4>[  194.664146]  uvc libarc4 intel_rapl_common btintel snd_pci_acp6x=
+ snd_hwdep videobuf2_v4l2
+> >> Oops#1 Part1
+> >> <4>[  194.664148]  worker_thread+0x1da/0x3d0
+> >> <4>[  194.664149]  btbcm snd_pci_acp5x snd_hda_core kvm_amd videodev
+> >> <4>[  194.664151]  ? bh_worker+0x260/0x260
+> >> <4>[  194.664152]  btmtk hp_wmi snd_rn_pci_acp3x
+> >> <4>[  194.664153]  kthread+0x10a/0x250
+> >> <4>[  194.664154]  snd_pcm iwlwifi ucsi_acpi kvm
+> >> <4>[  194.664155]  ? kthreads_online_cpu+0x130/0x130
+> >> <4>[  194.664157]  videobuf2_common platform_profile ee1004
+> >> <4>[  194.664158]  ret_from_fork+0x31/0x50
+> >> <4>[  194.664158]  bluetooth snd_acp_config snd_timer
+> >> <4>[  194.664160]  ? kthreads_online_cpu+0x130/0x130
+> >> <4>[  194.664160]  typec_ucsi sparse_keymap mc sg
+> >> <4>[  194.664162]  ret_from_fork_asm+0x11/0x20
+> >> <4>[  194.664163]  cfg80211 sp5100_tco snd_soc_acpi snd rapl roles wmi=
+_bmof pcspkr
+> >> <4>[  194.664167]  </TASK>
+> >> <4>[  194.664167]  rfkill
+> >> <4>[  194.664167]  watchdog ccp k10temp soundcore snd_pci_acp3x typec =
+ac battery amd_pmc joydev acpi_tad serio_raw evdev msr parport_pc dm_mod pp=
+dev lp parport nvme_fabrics efi_pstore configfs nfnetlink efivarfs ip_table=
+s x_tables autofs4 crc32c_generic btrfs blake2b_generic xor raid6_pq sd_mod=
+ uas usb_storage scsi_mod scsi_common amdgpu drm_client_lib i2c_algo_bit dr=
+m_ttm_helper ttm drm_panel_backlight_quirks drm_exec drm_suballoc_helper am=
+dxcp drm_buddy gpu_sched drm_display_helper hid_multitouch drm_kms_helper h=
+id_generic nvme xhci_pci xhci_hcd cec nvme_core i2c_hid_acpi ghash_clmulni_=
+intel usbcore rc_core nvme_keyring i2c_hid i2c_piix4 amd_sfh video sha512_s=
+sse3 usb_common crc16 nvme_auth i2c_smbus drm fan button hid wmi aesni_inte=
+l crypto_simd cryptd
+> >> <4>[  194.664209] ---[ end trace 0000000000000000 ]---
+> >>
+> >> Another crash log from latest git (without Mario's fix):
+> >>
+> >> <6>[  144.858062] PM: suspend entry (s2idle)
+> >> <6>[  145.062853] Filesystems sync: 0.204 seconds
+> >> <6>[  145.064633] Freezing user space processes
+> >> <6>[  145.066592] Freezing user space processes completed (elapsed 0.0=
+01 seconds)
+> >> <6>[  145.066598] OOM killer disabled.
+> >> <6>[  145.066600] Freezing remaining freezable tasks
+> >> <6>[  145.067783] Freezing remaining freezable tasks completed (elapse=
+d 0.001 seconds)
+> >> <6>[  145.067787] printk: Suspending console(s) (use no_console_suspen=
+d to debug)
+> >> <7>[  145.333423] PM: suspend of devices aborted after 0.905 msecs
+> >> <7>[  145.333431] PM: start suspend of devices aborted after 265.772 m=
+secs
+> >> <3>[  145.333434] PM: Some devices failed to suspend, or early wake ev=
+ent detected
+> >> <4>[  145.333608] i2c i2c-3: Unbalanced pm_runtime_enable!
+> >> <4>[  145.333633] ee1004 3-0050: Attempt to enable runtime PM when it =
+is blocked
+> >> <4>[  145.333639] CPU: 12 UID: 0 PID: 2375 Comm: kworker/u64:16 Not ta=
+inted 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+> >> <4>[  145.333643] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/=
+8916, BIOS F.17 12/18/2024
+> >> <4>[  145.333645] Workqueue: async async_run_entry_fn
+> >> <4>[  145.333650] Call Trace:
+> >> <4>[  145.333651] ee1004 3-0051: Attempt to enable runtime PM when it =
+is blocked
+> >> Oops#1 Part7
+> >> <4>[  145.333652]  <TASK>
+> >> <4>[  145.333654]  dump_stack_lvl+0x6e/0x90
+> >> <4>[  145.333659]  pm_runtime_enable.cold+0x14/0x48
+
+Now this looks like a direct-complete device that is being resumed
+even though it has not been suspended.
+
+Apparently, the power.is_suspended flag is set for it, or
+device_resume() would not call pm_runtime_enable(), so I'm not sure
+how this can happen.
+
+> >> <4>[  145.333662]  device_resume+0xd9/0x570
+> >> <4>[  145.333665]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0=
+x90
+> >> <4>[  145.333668]  ? device_resume+0x570/0x570
+> >> <4>[  145.333670]  async_resume+0x1d/0x30
+> >> <4>[  145.333672]  async_run_entry_fn+0x97/0x4f0
+> >> <4>[  145.333674]  process_one_work+0x849/0x1450
+> >> <4>[  145.333678]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+> >> <4>[  145.333681]  ? assign_work+0x168/0x240
+> >> <4>[  145.333683]  worker_thread+0x5f3/0xfd0
+> >> <4>[  145.333688]  ? process_one_work+0x1450/0x1450
+> >> <4>[  145.333691]  kthread+0x3a2/0x760
+> >> <4>[  145.333694]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333697]  ? ret_from_fork+0x23/0x480
+> >> <4>[  145.333701]  ? lock_release+0xd1/0x2a0
+> >> <4>[  145.333704]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333707]  ret_from_fork+0x387/0x480
+> >> <4>[  145.333709]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333711]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333714]  ret_from_fork_asm+0x11/0x20
+> >> <4>[  145.333720]  </TASK>
+> >> <4>[  145.333722] CPU: 10 UID: 0 PID: 2387 Comm: kworker/u64:28 Not ta=
+inted 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+> >> <4>[  145.333727] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/=
+8916, BIOS F.17 12/18/2024
+> >> <4>[  145.333729] Workqueue: async async_run_entry_fn
+> >> <4>[  145.333734] Call Trace:
+> >> <4>[  145.333735]  <TASK>
+> >> <4>[  145.333738]  dump_stack_lvl+0x6e/0x90
+> >> <4>[  145.333743]  pm_runtime_enable.cold+0x14/0x48
+> >> <4>[  145.333747]  device_resume+0xd9/0x570
+> >> <4>[  145.333751]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0=
+x90
+> >> <4>[  145.333756]  ? device_resume+0x570/0x570
+> >> Oops#1 Part6
+> >> <4>[  145.333759]  async_resume+0x1d/0x30
+> >> <4>[  145.333763]  async_run_entry_fn+0x97/0x4f0
+> >> <4>[  145.333768]  process_one_work+0x849/0x1450
+> >> <4>[  145.333775]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+> >> <4>[  145.333780]  ? assign_work+0x168/0x240
+> >> <4>[  145.333784]  worker_thread+0x5f3/0xfd0
+> >> <4>[  145.333790]  ? process_one_work+0x1450/0x1450
+> >> <4>[  145.333793] usb 1-4:1.0: Attempt to enable runtime PM when it is=
+ blocked
+> >> <4>[  145.333793] uvcvideo 1-3:1.0: Unbalanced pm_runtime_enable!
+> >> <4>[  145.333793]  kthread+0x3a2/0x760
+> >> <4>[  145.333797]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333801]  ? ret_from_fork+0x23/0x480
+> >> <4>[  145.333805]  ? lock_release+0xd1/0x2a0
+> >> <4>[  145.333808]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333809] btusb 3-3:1.1: Unbalanced pm_runtime_enable!
+> >> <4>[  145.333813]  ret_from_fork+0x387/0x480
+> >> <4>[  145.333817]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333820]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333824]  ret_from_fork_asm+0x11/0x20
+> >> <4>[  145.333830]  </TASK>
+> >> <4>[  145.333836] CPU: 12 UID: 0 PID: 2375 Comm: kworker/u64:16 Not ta=
+inted 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+> >> <4>[  145.333840] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/=
+8916, BIOS F.17 12/18/2024
+> >> <4>[  145.333843] Workqueue: async async_run_entry_fn
+> >> <4>[  145.333849] Call Trace:
+> >> <4>[  145.333851]  <TASK>
+> >> <4>[  145.333854]  dump_stack_lvl+0x6e/0x90
+> >> <4>[  145.333858]  pm_runtime_enable.cold+0x14/0x48
+> >> <4>[  145.333862]  device_resume+0xd9/0x570
+> >> <4>[  145.333864]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0=
+x90
+> >> <4>[  145.333868]  ? device_resume+0x570/0x570
+> >> <4>[  145.333870]  async_resume+0x1d/0x30
+> >> <4>[  145.333872]  async_run_entry_fn+0x97/0x4f0
+> >> Oops#1 Part5
+> >> <4>[  145.333875]  process_one_work+0x849/0x1450
+> >> <4>[  145.333879]  ? pwq_dec_nr_in_flight+0xfb0/0xfb0
+> >> <4>[  145.333882]  ? assign_work+0x168/0x240
+> >> <4>[  145.333885]  worker_thread+0x5f3/0xfd0
+> >> <4>[  145.333888]  ? process_one_work+0x1450/0x1450
+> >> <4>[  145.333889]  kthread+0x3a2/0x760
+> >> <4>[  145.333892]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333892]  slab kmalloc-2k
+> >> <4>[  145.333894]  ? ret_from_fork+0x23/0x480
+> >> <4>[  145.333897]  ? lock_release+0xd1/0x2a0
+> >> <4>[  145.333900]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333902]  ret_from_fork+0x387/0x480
+> >> <4>[  145.333902]  start ffff888123152000
+> >> <4>[  145.333905]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333904]  pointer offset 408 size 2048
+> >> <4>[  145.333908]  ? kthread_is_per_cpu+0xc0/0xc0
+> >> <4>[  145.333908]
+> >> <3>[  145.333910] list_add corruption. prev->next should be next (ffff=
+ffff98f75ce0), but was ffff888137fc8790. (prev=3Dffff888123152198).
+> >> <4>[  145.333910]  ret_from_fork_asm+0x11/0x20
+> >> <4>[  145.333914]  </TASK>
+> >> <4>[  145.333924] ------------[ cut here ]------------
+> >> <2>[  145.333925] kernel BUG at lib/list_debug.c:32!
+> >> <4>[  145.333931] Oops: invalid opcode: 0000 [#1] SMP KASAN
+> >> <4>[  145.333934] CPU: 2 UID: 0 PID: 2403 Comm: amd_s2idle.py Not tain=
+ted 6.15.0-09115-g5e799ddbfdab #388 PREEMPT(voluntary)
+> >> <4>[  145.333937] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/=
+8916, BIOS F.17 12/18/2024
+> >> <4>[  145.333938] RIP: 0010:__list_add_valid_or_report+0xf5/0x130
+> >> <4>[  145.333942] Code: 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 80 3=
+c 02 00 75 3c 49 8b 55 00 4c 89 e9 48 89 de 48 c7 c7 40 a9 0a 98 e8 eb b7 c=
+1 fe <0f> 0b 4c 89 e7 e8 91 17 7d ff e9 40 ff ff ff 4c 89 ef e8 84 17 7d
+> >> Oops#1 Part4
+> >> <4>[  145.333944] RSP: 0018:ffff888130a87788 EFLAGS: 00010282
+> >> <4>[  145.333946] RAX: 0000000000000075 RBX: ffffffff98f75ce0 RCX: 000=
+0000000000000
+> >> <4>[  145.333948] RDX: 0000000000000075 RSI: 0000000000000004 RDI: fff=
+fed1026150ee3
+> >> <4>[  145.333949] RBP: ffffffff98f714f8 R08: 0000000000000001 R09: fff=
+fed107a1a5c31
+> >> <4>[  145.333950] R10: ffff8883d0d2e18b R11: 0000000000000000 R12: fff=
+fffff98f75ce8
+> >> <4>[  145.333951] R13: ffff888123152198 R14: ffff888123152198 R15: fff=
+f888130a877e8
+> >> <4>[  145.333953] FS:  00007f7272279080(0000) GS:ffff888437132000(0000=
+) knlGS:0000000000000000
+> >> <4>[  145.333954] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> >> <4>[  145.333956] CR2: 00007f7271dcfed0 CR3: 000000011eb2f000 CR4: 000=
+0000000f50ef0
+> >> <4>[  145.333957] PKRU: 55555554
+> >> <4>[  145.333958] Call Trace:
+> >> <4>[  145.333960]  <TASK>
+> >> <4>[  145.333961]  dpm_resume+0x2b9/0x760
+> >> <4>[  145.333964]  ? dpm_resume_start+0x30/0x30
+> >> <4>[  145.333967]  ? seqcount_lockdep_reader_access.constprop.0+0x82/0=
+x90
+> >> <4>[  145.333969]  ? ktime_get+0x32/0x150
+> >> <4>[  145.333971]  dpm_resume_end+0x11/0x20
+> >> <4>[  145.333974]  suspend_devices_and_enter+0x349/0x12f0
+> >> <4>[  145.333978]  ? arch_suspend_enable_irqs+0x20/0x20
+> >> <4>[  145.333981]  ? dpm_save_failed_dev.cold+0x36/0x36
+> >> <4>[  145.333984]  ? up_write+0x1a7/0x4e0
+> >> <4>[  145.333987]  pm_suspend.cold+0x3f9/0x466
+> >> <4>[  145.333989]  state_store+0xa3/0x150
+> >> <4>[  145.333992]  ? sysfs_file_ops+0x110/0x110
+> >> <4>[  145.333994]  kernfs_fop_write_iter+0x407/0x630
+> >> <4>[  145.333997]  vfs_write+0x514/0xf60
+> >> <4>[  145.334000]  ? kernel_write+0x5f0/0x5f0
+> >> Oops#1 Part3
+> >> <4>[  145.334003]  ? ptep_set_access_flags+0xea/0x120
+> >> <4>[  145.334005]  ? lruvec_init+0x1e0/0x1e0
+> >> <4>[  145.334008]  ? pgd_free+0x4b0/0x4b0
+> >> <4>[  145.334011]  ksys_write+0xf9/0x1c0
+> >> <4>[  145.334013]  ? __ia32_sys_read+0xb0/0xb0
+> >> <4>[  145.334015]  ? wp_page_reuse+0x160/0x1e0
+> >> <4>[  145.334017]  ? do_wp_page+0x14b9/0x2e70
+> >> <4>[  145.334020]  do_syscall_64+0x97/0x3d0
+> >> <4>[  145.334023]  ? lock_acquire+0x291/0x2e0
+> >> <4>[  145.334024]  ? __vmf_anon_prepare+0x1e0/0x1e0
+> >> <4>[  145.334026]  ? lock_release+0x1ff/0x2a0
+> >> <4>[  145.334028]  ? do_raw_spin_lock+0x12d/0x260
+> >> <4>[  145.334030]  ? __rwlock_init+0x150/0x150
+> >> <4>[  145.334032]  ? set_p4d+0xb0/0xb0
+> >> <4>[  145.334034]  ? __handle_mm_fault+0x147d/0x2010
+> >> <4>[  145.334037]  ? __mutex_lock+0x12a1/0x19f0
+> >> <4>[  145.334040]  ? copy_page_range+0x4190/0x4190
+> >> <4>[  145.334042]  ? lock_acquire+0x291/0x2e0
+> >> <4>[  145.334044]  ? lock_release+0x1ff/0x2a0
+> >> <4>[  145.334047]  ? __count_memcg_events+0x399/0x4c0
+> >> <4>[  145.334049]  ? do_syscall_64+0x155/0x3d0
+> >> <4>[  145.334051]  ? lock_release+0x1ff/0x2a0
+> >> <4>[  145.334052]  ? count_memcg_events.constprop.0+0x4a/0x60
+> >> <4>[  145.334055]  ? handle_mm_fault+0x3d8/0x7d0
+> >> <4>[  145.334057]  ? lock_release+0x1ff/0x2a0
+> >> <4>[  145.334059]  ? do_user_addr_fault+0x4a3/0xa00
+> >> <4>[  145.334061]  ? irqentry_exit_to_user_mode+0x8d/0x270
+> >> <4>[  145.334064]  ? trace_hardirqs_on_prepare+0xd7/0x110
+> >> <4>[  145.334067]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> >> <4>[  145.334069] RIP: 0033:0x7f727237e0d0
+> >> <4>[  145.334071] Code: 2d 0e 00 64 c7 00 16 00 00 00 b8 ff ff ff ff c=
+3 66 2e 0f 1f 84 00 00 00 00 00 80 3d 99 af 0e 00 00 74 17 b8 01 00 00 00 0=
+f 05 <48> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
+> >> Oops#1 Part2
+> >> <4>[  145.334073] RSP: 002b:00007fff9a1353b8 EFLAGS: 00000202 ORIG_RAX=
+: 0000000000000001
+> >> <4>[  145.334075] RAX: ffffffffffffffda RBX: 0000000000a794f0 RCX: 000=
+07f727237e0d0
+> >> <4>[  145.334076] RDX: 0000000000000003 RSI: 0000000026d40370 RDI: 000=
+0000000000004
+> >> <4>[  145.334077] RBP: 00007f7272278fe8 R08: 0000000000000000 R09: 000=
+0000000000002
+> >> <4>[  145.334078] R10: 0000000000000007 R11: 0000000000000202 R12: 000=
+0000000000003
+> >> <4>[  145.334079] R13: 0000000000000004 R14: 0000000026d40370 R15: 000=
+0000000a4bb48
+> >> <4>[  145.334083]  </TASK>
+> >> <4>[  145.334084] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq=
+ snd_seq_device xt_conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrac=
+k_netlink nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user xfrm_algo xt=
+_addrtype nft_compat nf_tables br_netfilter bridge stp llc ccm overlay qrtr=
+ rfcomm cmac algif_hash algif_skcipher af_alg bnep binfmt_misc snd_soc_dmic=
+ snd_acp3x_pdm_dma snd_acp3x_rn snd_sof_amd_rembrandt snd_sof_amd_acp snd_s=
+of_pci nls_ascii snd_sof_xtensa_dsp nls_cp437 snd_sof vfat fat snd_sof_util=
+s snd_soc_core snd_ctl_led iwlmvm snd_compress snd_hda_codec_realtek snd_pc=
+i_ps snd_hda_codec_generic snd_soc_acpi_amd_match btusb mac80211 snd_hda_sc=
+odec_component snd_rpl_pci_acp6x snd_hda_codec_hdmi uvcvideo btrtl snd_acp_=
+pci intel_rapl_msr videobuf2_vmalloc snd_hda_intel btintel snd_amd_acpi_mac=
+h intel_rapl_common videobuf2_memops snd_intel_dspcfg snd_acp_legacy_common=
+ snd_hda_codec snd_pci_acp6x btbcm uvc libarc4 snd_pci_acp5x kvm_amd btmtk =
+videobuf2_v4l2 snd_hwdep kvm snd_hda_core snd_rn_pci_acp3x iwlwifi
+> >> Oops#1 Part1
+> >> <4>[  145.334149]  videodev ucsi_acpi hp_wmi snd_pcm irqbypass bluetoo=
+th snd_acp_config platform_profile videobuf2_common typec_ucsi ee1004 snd_s=
+oc_acpi mc snd_timer rapl sparse_keymap wmi_bmof sg cfg80211 pcspkr sp5100_=
+tco roles k10temp snd_pci_acp3x snd battery watchdog ccp rfkill typec sound=
+core ac amd_pmc acpi_tad joydev evdev serio_raw msr parport_pc ppdev lp dm_=
+mod parport nvme_fabrics efi_pstore configfs nfnetlink efivarfs ip_tables x=
+_tables autofs4 crc32c_cryptoapi sd_mod btrfs blake2b_generic xor raid6_pq =
+uas usb_storage scsi_mod scsi_common amdgpu drm_client_lib i2c_algo_bit drm=
+_ttm_helper ttm drm_panel_backlight_quirks drm_exec drm_suballoc_helper amd=
+xcp drm_buddy gpu_sched drm_display_helper hid_multitouch hid_generic drm_k=
+ms_helper xhci_pci nvme cec xhci_hcd nvme_core ghash_clmulni_intel i2c_hid_=
+acpi i2c_piix4 video rc_core nvme_keyring usbcore sha512_ssse3 i2c_hid i2c_=
+smbus crc16 nvme_auth usb_common amd_sfh fan hid button wmi drm aesni_intel
+> >> <4>[  145.334223] ---[ end trace 0000000000000000 ]---
+> >>
+>
