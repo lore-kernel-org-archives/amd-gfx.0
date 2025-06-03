@@ -4,85 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F0DC5AD49
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jun 2025 11:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E0EC5AD49
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jun 2025 11:38:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1334210E308;
-	Tue,  3 Jun 2025 11:35:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3838710E5E5;
+	Tue,  3 Jun 2025 11:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="Y4T0hNdP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s537sAHx";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36D3710E2B6
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 11:34:57 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-ad8a6c202ffso1063702966b.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Jun 2025 04:34:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1748950496; x=1749555296; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=PFuIusTcNlDtr7ACZcv5YKK7AZMWko4TWKZs3oesbaA=;
- b=Y4T0hNdPLh+yFPxc06PfESFWdLYHQ9f3CbyE2zsyYdex7eJy/4ggbHl22a4lhaDh97
- J8jIOtHX0yukbmowf52TycNtpldr66OFXOF1RKDvZ5gprSDF1PNpVqMo+R4JRyNIxnrH
- fZ0+sPnfAeqNNJyIlm8wRoH6vKkYEx0thZ9Nk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748950496; x=1749555296;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PFuIusTcNlDtr7ACZcv5YKK7AZMWko4TWKZs3oesbaA=;
- b=JBZ5n75vqg5Hg1RV9NcNi+kWxkKJVg5mZltxSaWGnIpjZPjOlPmjBl2FpX7FSGHBRf
- sV5Pio1IYTPpUDlrxTmisQpeYxMnt1sHJhEH3efv0COBnWTTSczdinkPztqXW530sXZa
- i3Xw9d2DOKxGiBQ0+6Oq7+2NIYE3bvXrtCeJ1c2jWmQpAA4uOtplso1q4LgZr8h15z+H
- N9m6WZk9+/gatC1va5/2S8pNbq0ldU3X9p7ms6/0lnJLYMQJWE100hi0PlHu7jXqyc9S
- Uo3maWxzp6+PK+a+c/aqc5mugHvucyCq+XOHyFvlm/L1tOKsPlRh8gutCjWqkFU6t3AS
- qoQg==
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 812FB10E213
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 11:38:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5781C44B95
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 11:38:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 353C7C4CEF3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 11:38:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1748950701;
+ bh=4RRD/9bdJrUID2Ofi+LblmYzXf2AW9lr6cAlAj0OTyQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=s537sAHxRAcEDqCrld9XhzMANCFqi+BIRRAMiOrPmEPM+e8uDth/5/GTWeIPnrM9F
+ CvY4kv0bEbrjlA4RxDzyhMgG8+o+Gfo7LOLuWvJ9UpoNv4sEC60cXIlnYDGYpvChmk
+ 1nZpNTN/VDYlqkOzvoOZLN42DfBzo2W8g/RHJVLRdpudeyO7OkCaNowefifnKay2bB
+ kvrW9kaH7ZSmgsXxAijNCnR3tjopOIMLRBO4vx6O/nObU07hHmhSxI7TuUBzWmLlgT
+ rRrR9R5JMQjyMzuwrOZtIivcdDVTzfE9eE3X4uPxHRmdoebyyXaUU0ZGAJc74jr9rB
+ 0Ceshtny1QN+A==
+Received: by mail-oa1-f53.google.com with SMTP id
+ 586e51a60fabf-2e541e0b974so4081556fac.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Jun 2025 04:38:21 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCWqWsXtmjBcuOiX3CjjqtncP40GwRjaGLsiO79pgUok1m4OPCiNtHiIOTJA8AzIDJFro+K9k8mc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyCufTzF0EnS02x67sr8IL9+9dUWS9/BrGJNNXEfF0yz+yygoIB
- n2g+D0cdlX+VYWR9ItDhyIHWt2OwJ/Y72XrGxIg1JZikWwdSxJymxvKitcNuueNUKqc=
-X-Gm-Gg: ASbGncu+3BaXDm+UUwpLn9ZeVdziC1kZFs4l6jPCXWFhF1he6Fh93Sg2zkVHb13kRHJ
- DPptox6AWUdmaok92S3mfFYOkPRIrGe1vTiIzxF+GSo44KHYuMUkXnEjbreYGgNbCX5XdCKNbB1
- 4eC6jXcr/iuYxp7s1l63SuPd11IdwAb8SiTY0Unky/BJkfpHi+TlC0niPGGwIFnf+3WWKRuY6uE
- Tsxf4XYZMLcamsYfu02YJSOUNVI3N2WknNfsBQz/pkXVPtMg9+8rRr6hcLhYoG7Ca/7c7SFARbH
- +QriXhD5WrWAFFodYi19Dg/6A76alH2kz9MKKZi4BsEQrgSC0L+Yi8rky3Oxxw/c2kZPBgzRCw=
- =
-X-Google-Smtp-Source: AGHT+IHPWtzNUL2u4/jUFXfcGlOj2qM2hFzF0WBNUy3wZrggtO4Ww38E9t7xnP6lMA5OPdTNoCN+zg==
-X-Received: by 2002:a17:907:728d:b0:ad9:16c8:9fee with SMTP id
- a640c23a62f3a-adb493a9b11mr1291087966b.3.1748950495484; 
- Tue, 03 Jun 2025 04:34:55 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ada6ad6ac07sm947772366b.177.2025.06.03.04.34.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Jun 2025 04:34:54 -0700 (PDT)
-Date: Tue, 3 Jun 2025 13:34:53 +0200
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- Simona Vetter <simona.vetter@ffwll.ch>, phasta@kernel.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- tursulin@ursulin.net, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/4] drm/sched: optimize drm_sched_job_add_dependency
-Message-ID: <aD7d3ewxzKAPSWjr@phenom.ffwll.local>
-References: <aDCCF0JFhO7lR2VJ@cassiopeiae> <aDCDJ-sK9rRI6wse@cassiopeiae>
- <cd64af4d-f5b3-4f18-9be6-636624833075@amd.com>
- <08bb986281fefb5cbdb35c63a56e1bbd923d9297.camel@mailbox.org>
- <74c4b9d8-5e25-438e-97c5-5aa2035fb9bd@amd.com>
- <cbd3eaa4c228c0d0688745e8a539103eb2278a0b.camel@mailbox.org>
- <aDcB0AbQiHOVUyAU@phenom.ffwll.local>
- <CADnq5_NiMOhc95h-GLRjAD7LXyQ=9nb=Uvim1rwX4n9tekLkyA@mail.gmail.com>
- <aDcgAG0R-NxT0PaC@pollux> <aDch5McYYa3AVtTV@pollux>
+ AJvYcCVETbGWfRldXDosbWIXti4Zk+/g0gTKA89YFx43OhKLKr6yJ6XMJiukSGyhHQxE8lAoAfTltyHI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAP3/fQXYy6mkLHElE7d8iJlmQjhY0YAexog/u9+2FCxDJjRQY
+ jkETu8Q4HF9EE/uJyyq4MdUKG2U9NIbTT7OsaEH5DtAAflGmoahFC1Tgj7o29domHo9gnMEpnqY
+ blllNvU/5JEpxWGta+R5HZ4EkfvVyM+I=
+X-Google-Smtp-Source: AGHT+IGnbL6Yg0jKhdCGF4THq7aGkIu2aR3cF60fOaQQhvw0n5LcvLT93Hb3IRqonIUkiGMArqewhjYTAxbzV3g47yU=
+X-Received: by 2002:a05:6808:2011:b0:406:769e:e7a9 with SMTP id
+ 5614622812f47-407a66123aamr7405560b6e.35.1748950689878; Tue, 03 Jun 2025
+ 04:38:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aDch5McYYa3AVtTV@pollux>
-X-Operating-System: Linux phenom 6.12.25-amd64 
+References: <10629535.nUPlyArG6x@rjwysocki.net>
+ <3541233.QJadu78ljV@rjwysocki.net> <aD2U3VIhf8vDkl09@debian.local>
+ <CAJZ5v0h-nrVamqiAJ957aYjHqaeAZUUW7BRi0WxPgCFc40M5cQ@mail.gmail.com>
+ <7f0e2865-d35e-4a13-8617-8679afb4b23f@kernel.org>
+ <CAJZ5v0gL3rW8dOxXdPWYjZuq5kAaD8qTa4vZ5++k9+0WniNAdQ@mail.gmail.com>
+ <CAJZ5v0jDZQaR8S6Kn_RoXHBU86+tpjp=qgyxm5h03YEe2S=nPg@mail.gmail.com>
+ <aD7L0RD4HT-mEtBc@debian.local>
+ <CAJZ5v0h65Gt1Fw35vp2k8kKu62+goCD8WF8u-tvhfWW6a7xHxQ@mail.gmail.com>
+ <CAJZ5v0ggPHhYcdNos2o8savvq+-zpPTaQunjOkR36k3VwF3_CA@mail.gmail.com>
+In-Reply-To: <CAJZ5v0ggPHhYcdNos2o8savvq+-zpPTaQunjOkR36k3VwF3_CA@mail.gmail.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Tue, 3 Jun 2025 13:37:58 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gF=ewooE0cUrNfe5_inhnzq6bqw8VTjkFwr56_wrptJQ@mail.gmail.com>
+X-Gm-Features: AX0GCFtvJRJldgZgV_6J-TAl2xlbUFYP5ivr_jqfkdXJefgmF--kbl4IlROujGc
+Message-ID: <CAJZ5v0gF=ewooE0cUrNfe5_inhnzq6bqw8VTjkFwr56_wrptJQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] PM: sleep: Suspend async parents after suspending
+ children
+To: Chris Bainbridge <chris.bainbridge@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, 
+ Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+ Alan Stern <stern@rowland.harvard.edu>, Ulf Hansson <ulf.hansson@linaro.org>, 
+ Johan Hovold <johan@kernel.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>, 
+ Jon Hunter <jonathanh@nvidia.com>, Saravana Kannan <saravanak@google.com>, 
+ amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,69 +85,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 28, 2025 at 04:47:00PM +0200, Danilo Krummrich wrote:
-> On Wed, May 28, 2025 at 04:39:01PM +0200, Danilo Krummrich wrote:
-> > On Wed, May 28, 2025 at 09:29:30AM -0400, Alex Deucher wrote:
-> > > On Wed, May 28, 2025 at 8:45 AM Simona Vetter <simona.vetter@ffwll.ch> wrote:
-> > > > I do occasionally find it useful as a record of different approaches
-> > > > considered, which sometimes people fail to adequately cover in their
-> > > > commit messages. Also useful indicator of how cursed a patch is :-)
+On Tue, Jun 3, 2025 at 12:30=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.or=
+g> wrote:
+>
+> On Tue, Jun 3, 2025 at 12:29=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.=
+org> wrote:
+> >
+> > On Tue, Jun 3, 2025 at 12:17=E2=80=AFPM Chris Bainbridge
+> > <chris.bainbridge@gmail.com> wrote:
+> > >
+> > > On Tue, Jun 03, 2025 at 11:38:37AM +0200, Rafael J. Wysocki wrote:
 > > > >
-> > > > But as long as anything relevant does end up in the commit message and
-> > > > people don't just delete stuff I don't care how it's done at all. It's
-> > > > just that the cost of deleting something that should have been there can
-> > > > be really nasty sometimes, and storage is cheap.
-> > > 
-> > > I like them for the same reasons.  Also, even with links, sometimes
-> > > there are forks of the conversation that get missed that a changelog
-> > > provides some insight into.  I find it useful in my own development as
-> > > I can note what I've changed in a patch and can retain that in the
-> > > commit rather than as something I need to track separately and then
-> > > add to the patches when I send them out.
-> > 
-> > Personally, I don't think it's super useful in the commit message, it still
-> > remains in the patches sent to the mailing list though. And since we put lore
-> > links everywhere, it's easily accessible, *including* the context of why a
-> > change was made from one version to another, i.e. the full conversation.
-> > 
-> > However, if we really want that, we should make it an offical thing, since
-> > currently the kernel's process documentation [1] clearly states otherwise:
-> > 
-> > "Please put this information after the '---' line which separates the changelog
-> > from the rest of the patch. The version information is not part of the changelog
-> > which gets committed to the git tree. It is additional information for the
-> > reviewers. If it's placed above the commit tags, it needs manual interaction to
-> > remove it."
-> > 
-> > Alternatively, it can go into the cover letter.
-> 
-> One additional note:
-> 
-> This is not me trying to be super bureaucratic; instead I think being consistent
-> in the process across the whole kernel results in a better experience for (new)
-> contributors.
+> > > > Chris, please check if the attached patch helps.  I'm going to post=
+ it
+> > > > as a fix anyway later today, but it would be good to verify that it=
+ is
+> > > > sufficient.
+> > >
+> > > This did not fix my test case, pstore crash log was:
+> >
+> > OK, so can you please enable PM debug messages:
+> >
+> > # echo 1 > /sys/power/pm_debug/messages
+>
+> This should be
+>
+> # echo 1 > /sys/power/pm_debug_messages
+>
+> sorry.
+>
+> > and enabled dynamic debug in drivers/base/power/main.c:
+> >
+> > # echo "file drivers/base/power/main.c +p" > /proc/dynamic_debug/contro=
+l
+> >
+> > repeat the test and capture the log?
 
-Yeah I agree with this part, which is why in the past I didn't ask people
-to keep that part, but also won't complain if it's kept. The entire goal
-being "minimal amount to get to a commit message that's hopefully
-complete". I think with b4 this has now also become a bit easier than 10+
-years ago.
+Actually, no need to do this, there is an obvious bug:
+list_splice_init() should be used instead of list_splice() when the
+emptied list is going to be used again.  Ugh.
 
-Also all the kernel fd.o lists are on lore and the archive on fd.o is
-under our control, so hopefully the archive situation shouldn't ever be an
-issue for us.
-
-Anyway no strong opinion from me, but we might want to document that we're
-a bit more relaxed here.
-
-*shrugs*
-
-Cheers, Sima
-
-> 
-> > [1] https://docs.kernel.org/process/submitting-patches.html#commentary
-
--- 
-Simona Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Please check if the attached patch along with the previous one makes
+the issue go away entirely.
