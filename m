@@ -4,68 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC5CC5AD49
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jun 2025 09:38:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A520C5AD49
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jun 2025 10:29:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BBB910E0B0;
-	Tue,  3 Jun 2025 09:38:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB8B210E0CE;
+	Tue,  3 Jun 2025 10:29:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f8hV7sLq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z+xLI4Jd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B13710E0B0
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 09:38:54 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3CE610E0CE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 10:29:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4251F61129
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 09:38:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09F7C4CEF6
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 09:38:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8015D5C55DA
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 10:27:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D6F0C4CEF2
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jun 2025 10:29:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748943532;
- bh=zsOqiWAIopc/I1cVwsBZWObBt0Y47yQMURR5bDsXUYg=;
+ s=k20201202; t=1748946563;
+ bh=P8YsYXgMts88DvllCBJd6Lm/n8X0lqjptdsdiID7qmg=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=f8hV7sLq9dVLu9eKhnwo5tSw0Dw8IwDt02v2MvyslvDfAVU42+xENQ9zq7Q+p3wOf
- HQ00ffSAjlqXmYzOfEkrqiYpANqudsG1JOpc7WL9lP/QcNUvGv2DYb+T7vNRD57Rav
- MiQFUuGkfOxyYroCkqHefdqCp/2fQDDhsL9IUZi2jPWMxISLABM9ATPZlNtpcE9glz
- xwDxk/hEzBd/z4y9fo4t29Bf2FOHEj5KwAIVhPCb7bRKBZ+nUxGBQKe7sHN1d/nNBw
- SD2uRMkySt65GB7nUxgzhxYmeSTjB1NW+orOQMVYhKvvUjU7n8AvUuRuMtcLRZhEnW
- IUGlbmCz5P27w==
-Received: by mail-oo1-f46.google.com with SMTP id
- 006d021491bc7-60d5c665fceso1994662eaf.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Jun 2025 02:38:52 -0700 (PDT)
+ b=Z+xLI4JduvkqN59Z8gSqnVKV5qooRzyeXv5q16fsATEWMTmXSjNiUiIZkzgETeTTN
+ HVV7ch2LASZSLmBNaq1x3lBsdymlXyL3w9otkaexukKufiff0nKi/bBVXWRSVRuzeo
+ SuVpYF6bprveO51R3yO+/dHH/12to/stO0NMLVTj3SLC8NXKwOvH1LvAD3u34dKp+M
+ cf3SXXJ9799RGNLBnRBaJ3sToxSol6NOzWTiMrOsu//cB3WbeqOA1O5vixcVskaihm
+ jYo2O3jmAQneOElQXddTVnrmMBbnAFmG5VAQOWnb5RdIX8Osgvz5DvfntCJU07Xfzf
+ jQCwr9MAKjGhw==
+Received: by mail-oo1-f48.google.com with SMTP id
+ 006d021491bc7-60efc773b5fso409678eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Jun 2025 03:29:22 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsbEUZclROPek6UsFFv+i9Ub2Um7HRHO/c3Xwfh8lYxs4Qsn4XiKhPrcGiigJ0PdsAGTgXR3C9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yys2+q9UTzspPVNkvYumzFZDC1yo/2BwOnJduP/EENZvfWbcWk3
- kTJGVXUG7/KwQeTXZ06X+mrfonbVApq5JJkkPfBCF2FEuBjbru1RB1jijt9V9F9yNHPYEZ9YVtc
- VTd7C0rTNl5DhH9SXBTyAodlAD61MmmI=
-X-Google-Smtp-Source: AGHT+IFBv7uzvOFJHhnyjbs5CZt0M71e7GPGPSE6OPYCGR3YUVFAs1qsFrLaDG4JD9JjifGUJ/sxerZ67J4qjhqhuWk=
-X-Received: by 2002:a05:6820:2783:b0:60b:a8e7:b237 with SMTP id
- 006d021491bc7-60db9ec7b52mr6620888eaf.8.1748943531800; Tue, 03 Jun 2025
- 02:38:51 -0700 (PDT)
+ AJvYcCWZgYJiyV+CeNUQ92DLpj7gUHnB7RSrX94/+JUd/zfR4jV9nqzyIBx5WNT2AoTFs912OkQEEpUk@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzxJgvmRkG+kd2eLEYAgKTuLLGct4nO4nOar+vqDQfGIGKabfYt
+ qzGh25qfwNCrKBWejEuLu6QShCRsLOZS6HDTrwrQOKjeho0PgcMnoJvHav7I0J7DDQIPKKO0x49
+ gjCd7viHYvUxWHKBd8R46sb8bYtyZLQE=
+X-Google-Smtp-Source: AGHT+IFZYcFgL7ZFE4XCsdVYFLz+nyNRjQtw9b+w9ncyhBTQZZUFYPei7dFdcugGnBCY5984F/cnHcNKAh6jtcgzSpw=
+X-Received: by 2002:a4a:ba89:0:b0:60e:b4eb:608c with SMTP id
+ 006d021491bc7-60eb4eb6aa4mr5267832eaf.7.1748946562346; Tue, 03 Jun 2025
+ 03:29:22 -0700 (PDT)
 MIME-Version: 1.0
 References: <10629535.nUPlyArG6x@rjwysocki.net>
  <3541233.QJadu78ljV@rjwysocki.net> <aD2U3VIhf8vDkl09@debian.local>
  <CAJZ5v0h-nrVamqiAJ957aYjHqaeAZUUW7BRi0WxPgCFc40M5cQ@mail.gmail.com>
  <7f0e2865-d35e-4a13-8617-8679afb4b23f@kernel.org>
  <CAJZ5v0gL3rW8dOxXdPWYjZuq5kAaD8qTa4vZ5++k9+0WniNAdQ@mail.gmail.com>
-In-Reply-To: <CAJZ5v0gL3rW8dOxXdPWYjZuq5kAaD8qTa4vZ5++k9+0WniNAdQ@mail.gmail.com>
+ <CAJZ5v0jDZQaR8S6Kn_RoXHBU86+tpjp=qgyxm5h03YEe2S=nPg@mail.gmail.com>
+ <aD7L0RD4HT-mEtBc@debian.local>
+In-Reply-To: <aD7L0RD4HT-mEtBc@debian.local>
 From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Tue, 3 Jun 2025 11:38:37 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jDZQaR8S6Kn_RoXHBU86+tpjp=qgyxm5h03YEe2S=nPg@mail.gmail.com>
-X-Gm-Features: AX0GCFs6073kShWhjpCCxt_P2beN4BqAUhzgFto2bxGO9CdT3q_QdgHtwvF1XHI
-Message-ID: <CAJZ5v0jDZQaR8S6Kn_RoXHBU86+tpjp=qgyxm5h03YEe2S=nPg@mail.gmail.com>
+Date: Tue, 3 Jun 2025 12:29:10 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0h65Gt1Fw35vp2k8kKu62+goCD8WF8u-tvhfWW6a7xHxQ@mail.gmail.com>
+X-Gm-Features: AX0GCFu6KbdnRBKBL9zvFBcys5W22GJYudS54_FaR1d0UDqF7TjNInQZhoGH3Cg
+Message-ID: <CAJZ5v0h65Gt1Fw35vp2k8kKu62+goCD8WF8u-tvhfWW6a7xHxQ@mail.gmail.com>
 Subject: Re: [PATCH v3 2/5] PM: sleep: Suspend async parents after suspending
  children
-To: Mario Limonciello <superm1@kernel.org>,
- Chris Bainbridge <chris.bainbridge@gmail.com>
-Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Linux PM <linux-pm@vger.kernel.org>, 
+To: Chris Bainbridge <chris.bainbridge@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Mario Limonciello <superm1@kernel.org>, 
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, Linux PM <linux-pm@vger.kernel.org>, 
  LKML <linux-kernel@vger.kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
  Ulf Hansson <ulf.hansson@linaro.org>, Johan Hovold <johan@kernel.org>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  Jon Hunter <jonathanh@nvidia.com>, 
  Saravana Kannan <saravanak@google.com>, amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="000000000000f21f990636a7a547"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,236 +83,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000f21f990636a7a547
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Tue, Jun 3, 2025 at 12:17=E2=80=AFPM Chris Bainbridge
+<chris.bainbridge@gmail.com> wrote:
+>
+> On Tue, Jun 03, 2025 at 11:38:37AM +0200, Rafael J. Wysocki wrote:
+> >
+> > Chris, please check if the attached patch helps.  I'm going to post it
+> > as a fix anyway later today, but it would be good to verify that it is
+> > sufficient.
+>
+> This did not fix my test case, pstore crash log was:
 
-On Mon, Jun 2, 2025 at 9:58=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.org=
-> wrote:
->
-> On Mon, Jun 2, 2025 at 5:22=E2=80=AFPM Mario Limonciello <superm1@kernel.=
-org> wrote:
-> >
-> > On 6/2/2025 9:29 AM, Rafael J. Wysocki wrote:
-> > > On Mon, Jun 2, 2025 at 2:11=E2=80=AFPM Chris Bainbridge
-> > > <chris.bainbridge@gmail.com> wrote:
-> > >>
-> > >> On Fri, Mar 14, 2025 at 02:13:53PM +0100, Rafael J. Wysocki wrote:
-> > >>> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> > >>>
-> > >>> In analogy with the previous change affecting the resume path,
-> > >>> make device_suspend() start the async suspend of the device's paren=
-t
-> > >>> after the device itself has been processed and make dpm_suspend() s=
-tart
-> > >>> processing "async" leaf devices (that is, devices without children)
-> > >>> upfront so they don't need to wait for the "sync" devices they don'=
-t
-> > >>> depend on.
-> > >>>
-> > >>> On the Dell XPS13 9360 in my office, this change reduces the total
-> > >>> duration of device suspend by approximately 100 ms (over 20%).
-> > >>>
-> > >>> Suggested-by: Saravana Kannan <saravanak@google.com>
-> > >>> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> > >>
-> > >> This commit results in memory corruption on suspend/resume with shor=
-t
-> > >> suspend duration.
-> > >
-> > > What do you mean by short?
-> >
-> > The tool he used will program a timer to wake up the system.
-> > The time he input was programmed for a cycle that was short enough that
-> > the suspend entry didn't finish and it triggered an aborted suspend.
->
-> So it crashes during resume when the preceding suspend has been aborted I=
-IUC.
->
-> The exact crash mechanism is still unclear to me though.
->
-> > >
-> > >> Laptop appears to hang and crash is logged to pstore.
-> > >
-> > > Interesting that this is only happening on one system.
-> > >
-> > > Thanks for the report anyway, I'll look at this shortly.
-> > >
-> > >> To reproduce: `amd_s2idle.py --log log --duration 1 --wait 4 --count=
- 30`
-> > >>
-> > >> I have reproduced this both with and without Mario's recent suspend =
-fix
-> > >> https://lore.kernel.org/amd-gfx/20250602014432.3538345-1-superm1@ker=
-nel.org/T/#t
-> > >>
-> > >> Pstore log (with Mario's fix):
-> > >>
-> > >> <6>[  194.209939] PM: suspend entry (s2idle)
-> > >> <6>[  194.409450] Filesystems sync: 0.199 seconds
-> > >> <6>[  194.409756] Freezing user space processes
-> > >> <6>[  194.411374] Freezing user space processes completed (elapsed 0=
+OK, so can you please enable PM debug messages:
+
+# echo 1 > /sys/power/pm_debug/messages
+
+and enabled dynamic debug in drivers/base/power/main.c:
+
+# echo "file drivers/base/power/main.c +p" > /proc/dynamic_debug/control
+
+repeat the test and capture the log?
+
+> <6>[  100.690222] Freezing remaining freezable tasks completed (elapsed 0=
 .001 seconds)
-> > >> <6>[  194.411377] OOM killer disabled.
-> > >> <6>[  194.411378] Freezing remaining freezable tasks
-> > >> <6>[  194.412517] Freezing remaining freezable tasks completed (elap=
-sed 0.001 seconds)
-> > >> <6>[  194.412520] printk: Suspending console(s) (use no_console_susp=
-end to debug)
-> > >> <7>[  194.663906] PM: suspend of devices aborted after 0.260 msecs
-> > >> <7>[  194.663911] PM: start suspend of devices aborted after 251.365=
- msecs
-> > >> <3>[  194.663913] PM: Some devices failed to suspend, or early wake =
-event detected
-> > >> <4>[  194.663975] i2c i2c-3: Unbalanced pm_runtime_enable!
-> > >> <4>[  194.663989] ee1004 3-0050: Attempt to enable runtime PM when i=
-t is blocked
-> > >> Oops#1 Part6
-> > >> <4>[  194.663991] ee1004 3-0051: Attempt to enable runtime PM when i=
-t is blocked
-> > >> <4>[  194.663992] CPU: 5 UID: 0 PID: 121 Comm: kworker/u64:10 Not ta=
-inted 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
-> > >> <4>[  194.663994] Hardware name: HP HP Pavilion Aero Laptop 13-be0xx=
-x/8916, BIOS F.17 12/18/2024
-> > >> <4>[  194.663996] Workqueue: async async_run_entry_fn
-> > >> <4>[  194.663998]  slab kmalloc-2k
-> > >> <4>[  194.664000]
-> > >> <4>[  194.664000]  start ffff99bbe24ac800 pointer offset 408
-> > >> <4>[  194.664001] Call Trace:
-> > >> <4>[  194.664002]  size 2048
-> > >> <3>[  194.664003] list_add corruption. prev->next should be next (ff=
-ffffff9da75c60), but was ffff99bbd1d94790. (prev=3Dffff99bbe24ac998).
-> > >> <4>[  194.664003]  <TASK>
-> > >> <4>[  194.664007]  dump_stack_lvl+0x6e/0x90
-> > >> <4>[  194.664011] ------------[ cut here ]------------
-> > >> <4>[  194.664011]  pm_runtime_enable.cold+0x28/0x48
-> > >> <2>[  194.664011] kernel BUG at lib/list_debug.c:32!
-> > >> <4>[  194.664013]  device_resume+0x47/0x200
-> > >> <4>[  194.664016] Oops: invalid opcode: 0000 [#1] SMP
-> > >> <4>[  194.664017]  async_resume+0x1d/0x30
-> > >> <4>[  194.664018] CPU: 2 UID: 0 PID: 2505 Comm: amd_s2idle.py Not ta=
-inted 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
-> > >> <4>[  194.664019]  async_run_entry_fn+0x2e/0x130
-> > >> <4>[  194.664020] Hardware name: HP HP Pavilion Aero Laptop 13-be0xx=
-x/8916, BIOS F.17 12/18/2024
-> > >> <4>[  194.664021] RIP: 0010:__list_add_valid_or_report+0x90/0xa0
-> > >> <4>[  194.664022]  process_one_work+0x22b/0x5b0
-> > >> <4>[  194.664024] Code: e4 8a ff 0f 0b 48 89 f7 48 89 34 24 e8 49 57=
- c6 ff 48 8b 34 24 48 c7 c7 70 d1 64 9d 48 8b 16 48 89 f1 48 89 de e8 00 e4=
- 8a ff <0f> 0b 90 66 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 41 54
-> > >> Oops#1 Part5
-> > >> <4>[  194.664025] RSP: 0018:ffffc09a45dafb20 EFLAGS: 00010246
-> > >> <4>[  194.664026]  worker_thread+0x1da/0x3d0
-> > >> <4>[  194.664027] RAX: 0000000000000075 RBX: ffffffff9da75c60 RCX: 0=
-000000000000027
-> > >> <4>[  194.664028] RDX: 0000000000000000 RSI: 0000000000000001 RDI: f=
-fff99becd11de40
-> > >> <4>[  194.664029] RBP: ffffffff9da74c00 R08: 0000000000000000 R09: 0=
-000000000000000
-> > >> <4>[  194.664029] R10: 0000000000000000 R11: 0000000000000003 R12: 0=
-000000000000010
-> > >> <4>[  194.664029]  ? bh_worker+0x260/0x260
-> > >> <4>[  194.664030] R13: 0000002990e47f3d R14: ffff99bbe24ac998 R15: f=
-fff99bbe0b67620
-> > >> <4>[  194.664031] FS:  00007fe534bfc080(0000) GS:ffff99bf2ee50000(00=
-00) knlGS:0000000000000000
-> > >> <4>[  194.664031]  kthread+0x10a/0x250
-> > >> <4>[  194.664032] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > >> <4>[  194.664033] CR2: 000055fdfaf910b8 CR3: 000000010d4a9000 CR4: 0=
-000000000f50ef0
-> > >> <4>[  194.664034]  ? kthreads_online_cpu+0x130/0x130
-> > >> <4>[  194.664034] PKRU: 55555554
-> > >> <4>[  194.664035] Call Trace:
-> > >> <4>[  194.664036]  <TASK>
-> > >> <4>[  194.664036]  ret_from_fork+0x31/0x50
-> > >> <4>[  194.664037]  dpm_resume+0x139/0x350
-> > >> <4>[  194.664039]  ? kthreads_online_cpu+0x130/0x130
-> > >> <4>[  194.664041]  dpm_resume_end+0x11/0x20
-> > >> <4>[  194.664040]  ret_from_fork_asm+0x11/0x20
-> > >> <4>[  194.664042]  suspend_devices_and_enter+0x18e/0x9f0
-> > >> <4>[  194.664045]  </TASK>
-> > >> <4>[  194.664046]  pm_suspend.cold+0x22f/0x28f
-> > >> <4>[  194.664046] CPU: 4 UID: 0 PID: 115 Comm: kworker/u64:4 Not tai=
-nted 6.15.0-rc1-00006-g032a79431b1c #425 PREEMPT(voluntary)
-> > >> Oops#1 Part4
-> > >> <4>[  194.664048]  state_store+0x6c/0xd0
-> > >> <4>[  194.664049] Hardware name: HP HP Pavilion Aero Laptop 13-be0xx=
-x/8916, BIOS F.17 12/18/2024
-> > >> <4>[  194.664050] Workqueue: async async_run_entry_fn
-> > >> <4>[  194.664051]  kernfs_fop_write_iter+0x194/0x250
-> > >> <4>[  194.664052] Call Trace:
-> > >> <4>[  194.664052]  <TASK>
-> > >> <4>[  194.664053]  dump_stack_lvl+0x6e/0x90
-> > >> <4>[  194.664054]  vfs_write+0x2ac/0x550
-> > >> <4>[  194.664055]  pm_runtime_enable.cold+0x28/0x48
-> > >> <4>[  194.664057]  device_resume+0x47/0x200
-> > >> <4>[  194.664058]  ksys_write+0x71/0xe0
-> > >> <4>[  194.664060]  async_resume+0x1d/0x30
-> > >> <4>[  194.664060]  do_syscall_64+0x95/0x1a0
-> > >> <4>[  194.664062]  async_run_entry_fn+0x2e/0x130
-> > >> <4>[  194.664062]  ? lockdep_sys_exit+0x1e/0x90
-> > >> <4>[  194.664064]  process_one_work+0x22b/0x5b0
-> > >> <4>[  194.664064]  ? trace_hardirqs_on_prepare+0x77/0xa0
-> > >> <4>[  194.664066]  ? syscall_exit_to_user_mode+0xb1/0x280
-> > >> <4>[  194.664067]  worker_thread+0x1da/0x3d0
-> > >> <4>[  194.664068]  ? __mutex_lock+0xdb/0xed0
-> > >> <4>[  194.664070]  ? __mutex_lock+0xafb/0xed0
-> > >> <4>[  194.664070]  ? bh_worker+0x260/0x260
-> > >> <4>[  194.664072]  ? kernfs_fop_llseek+0x35/0xd0
-> > >> <4>[  194.664072]  kthread+0x10a/0x250
-> > >> <4>[  194.664073]  ? lock_release+0x1ff/0x2a0
-> > >> <4>[  194.664074]  ? kthreads_online_cpu+0x130/0x130
-> > >> <4>[  194.664075]  ? lock_acquire+0x270/0x2d0
-> > >> <4>[  194.664076]  ret_from_fork+0x31/0x50
-> > >> <4>[  194.664077]  ? __mutex_unlock_slowpath+0x3c/0x2c0
-> > >> <4>[  194.664078]  ? kthreads_online_cpu+0x130/0x130
-> > >> <4>[  194.664079]  ? kernfs_fop_llseek+0x77/0xd0
-> > >> <4>[  194.664079]  ret_from_fork_asm+0x11/0x20
-> > >> <4>[  194.664081]  ? lockdep_sys_exit+0x1e/0x90
-> > >> <4>[  194.664082]  ? trace_hardirqs_on_prepare+0x77/0xa0
-> > >> Oops#1 Part3
-> > >> <4>[  194.664084]  </TASK>
-> > >> <4>[  194.664084]  ? syscall_exit_to_user_mode+0xb1/0x280
-> > >> <4>[  194.664086]  ? do_syscall_64+0xa1/0x1a0
-> > >> <4>[  194.664086] uvcvideo 1-3:1.0: Unbalanced pm_runtime_enable!
->
-> So it looks like this device is resumed even though it has not been suspe=
-nded.
-
-Or it is resumed for the second time in a row during the same transition.
-
-I think I know what is going on and the bug is not in the commit in questio=
-n.
-
-There is a race between dpm_async_resume_children() and the first loop
-in dpm_resume() which fortunately is only fatal when the preceding
-suspend transition is aborted.  Namely, that loop can call
-dpm_clear_async_state() for a device after dpm_async_with_cleanup()
-has run for it, so power.work_in_progress gets cleared and
-__dpm_async() will allow an async work to be scheduled for the same
-device once again.
-
-Chris, please check if the attached patch helps.  I'm going to post it
-as a fix anyway later today, but it would be good to verify that it is
-sufficient.
-
-Thanks!
-
---000000000000f21f990636a7a547
-Content-Type: text/x-patch; charset="US-ASCII"; name="pm-sleep-fix-async-resume.patch"
-Content-Disposition: attachment; filename="pm-sleep-fix-async-resume.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mbgbsk170>
-X-Attachment-Id: f_mbgbsk170
-
-LS0tCiBkcml2ZXJzL2Jhc2UvcG93ZXIvbWFpbi5jIHwgICAgNyArKysrKysrCiAxIGZpbGUgY2hh
-bmdlZCwgNyBpbnNlcnRpb25zKCspCgotLS0gYS9kcml2ZXJzL2Jhc2UvcG93ZXIvbWFpbi5jCisr
-KyBiL2RyaXZlcnMvYmFzZS9wb3dlci9tYWluLmMKQEAgLTYzOCw2ICs2MzgsMTMgQEAKIHN0YXRp
-YyB2b2lkIGRwbV9hc3luY19yZXN1bWVfY2hpbGRyZW4oc3RydWN0IGRldmljZSAqZGV2LCBhc3lu
-Y19mdW5jX3QgZnVuYykKIHsKIAkvKgorCSAqIFByZXZlbnQgcmFjaW5nIHdpdGggZHBtX2NsZWFy
-X2FzeW5jX3N0YXRlKCkgZHVyaW5nIGluaXRpYWwgbGlzdAorCSAqIHdhbGtzIGluIGRwbV9ub2ly
-cV9yZXN1bWVfZGV2aWNlcygpLCBkcG1fcmVzdW1lX2Vhcmx5KCksIGFuZAorCSAqIGRwbV9yZXN1
-bWUoKS4KKwkgKi8KKwlndWFyZChtdXRleCkoJmRwbV9saXN0X210eCk7CisKKwkvKgogCSAqIFN0
-YXJ0IHByb2Nlc3NpbmcgImFzeW5jIiBjaGlsZHJlbiBvZiB0aGUgZGV2aWNlIHVubGVzcyBpdCdz
-IGJlZW4KIAkgKiBzdGFydGVkIGFscmVhZHkgZm9yIHRoZW0uCiAJICoK
---000000000000f21f990636a7a547--
+> <6>[  100.690392] printk: Suspending console(s) (use no_console_suspend t=
+o debug)
+> <7>[  100.949462] PM: suspend of devices aborted after 1.796 msecs
+> <7>[  100.949469] PM: start suspend of devices aborted after 258.160 msec=
+s
+> <3>[  100.949472] PM: Some devices failed to suspend, or early wake event=
+ detected
+> <4>[  100.949565]  slab kmalloc-cg-4k start ffff916fede97000 pointer offs=
+et 1936 size 4096
+> <3>[  100.949589] list_add corruption. prev->next should be next (fffffff=
+f8f877180), but was ffff916f8ed40998. (prev=3Dffff916fede97790).
+> <4>[  100.949600] ------------[ cut here ]------------
+> <2>[  100.949601] kernel BUG at lib/list_debug.c:32!
+> <4>[  100.949607] Oops: invalid opcode: 0000 [#1] SMP
+> <4>[  100.949610] CPU: 13 UID: 0 PID: 3703 Comm: amd_s2idle.py.o Not tain=
+ted 6.15.0-09119-g98079dc6057f #438 PREEMPT(voluntary)
+> <4>[  100.949613] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/891=
+6, BIOS F.17 12/18/2024
+> <4>[  100.949614] RIP: 0010:__list_add_valid_or_report+0x90/0xa0
+> <4>[  100.949619] Code: 98 8a ff 0f 0b 48 89 f7 48 89 34 24 e8 69 c6 c5 f=
+f 48 8b 34 24 48 c7 c7 30 53 40 8f 48 8b 16 48 89 f1 48 89 de e8 50 98 8a f=
+f <0f> 0b 90 66 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 41 54
+> <4>[  100.949621] RSP: 0018:ffffa0f6c715fb68 EFLAGS: 00010246
+> <4>[  100.949622] RAX: 0000000000000075 RBX: ffffffff8f877180 RCX: 000000=
+0000000027
+> <4>[  100.949623] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff91=
+724689e180
+> <4>[  100.949624] RBP: ffffffff8f876140 R08: 0000000000000001 R09: 000000=
+0000000000
+> <4>[  100.949625] R10: 0000000000000001 R11: 0000000000000006 R12: 000000=
+0000000010
+> Oops#1 Part3
+> <4>[  100.949626] R13: 000000177d0d8fb9 R14: ffff916fede97790 R15: ffff91=
+6f8e564820
+> <4>[  100.949627] FS:  00007f076a109100(0000) GS:ffff9172b67c7000(0000) k=
+nlGS:0000000000000000
+> <4>[  100.949628] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> <4>[  100.949629] CR2: 00007fa8ce10f61c CR3: 00000001b80bb000 CR4: 000000=
+0000f50ef0
+> <4>[  100.949630] PKRU: 55555554
+> <4>[  100.949630] Call Trace:
+> <4>[  100.949631]  <TASK>
+> <4>[  100.949632]  dpm_resume+0x139/0x350
+> <4>[  100.949636]  dpm_resume_end+0x11/0x20
+> <4>[  100.949639]  suspend_devices_and_enter+0x18e/0x9f0
+> <4>[  100.949642]  pm_suspend.cold+0x273/0x2cf
+> <4>[  100.949645]  state_store+0x6c/0xd0
+> <4>[  100.949647]  kernfs_fop_write_iter+0x194/0x250
+> <4>[  100.949650]  vfs_write+0x254/0x550
+> <4>[  100.949654]  ksys_write+0x71/0xe0
+> <4>[  100.949656]  do_syscall_64+0x97/0x3d0
+> <4>[  100.949658]  ? __lock_acquire+0x469/0x2200
+> <4>[  100.949662]  ? __handle_mm_fault+0xaa7/0xf70
+> <4>[  100.949665]  ? lock_acquire+0xc9/0x2d0
+> <4>[  100.949667]  ? find_held_lock+0x2b/0x80
+> <4>[  100.949669]  ? rcu_read_unlock+0x17/0x60
+> <4>[  100.949672]  ? lock_release+0xd1/0x2a0
+> <4>[  100.949674]  ? find_held_lock+0x2b/0x80
+> <4>[  100.949676]  ? exc_page_fault+0x90/0x240
+> <4>[  100.949678]  ? lock_release+0xd1/0x2a0
+> <4>[  100.949681]  ? do_user_addr_fault+0x36e/0x690
+> <4>[  100.949684]  ? lockdep_hardirqs_on_prepare+0xd7/0x170
+> <4>[  100.949686]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> <4>[  100.949688] RIP: 0033:0x7f076a199687
+> <4>[  100.949690] Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 0=
+0 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 0=
+5 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+> Oops#1 Part2
+> <4>[  100.949691] RSP: 002b:00007ffd3a7a3990 EFLAGS: 00000202 ORIG_RAX: 0=
+000000000000001
+> <4>[  100.949693] RAX: ffffffffffffffda RBX: 00007f076a109100 RCX: 00007f=
+076a199687
+> <4>[  100.949694] RDX: 0000000000000003 RSI: 0000000008d3e090 RDI: 000000=
+0000000004
+> <4>[  100.949694] RBP: 0000000000000000 R08: 0000000000000000 R09: 000000=
+0000000000
+> <4>[  100.949695] R10: 0000000000000000 R11: 0000000000000202 R12: 00007f=
+076a109068
+> <4>[  100.949696] R13: 0000000000000004 R14: 0000000000a7e4f0 R15: 000000=
+0000a50af8
+> <4>[  100.949700]  </TASK>
+> <4>[  100.949700] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq sn=
+d_seq_device xt_conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_n=
+etlink nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user xfrm_algo xt_ad=
+drtype nft_compat nf_tables br_netfilter bridge stp llc ccm overlay qrtr rf=
+comm cmac algif_hash algif_skcipher af_alg bnep binfmt_misc ext4 mbcache jb=
+d2 nls_ascii nls_cp437 vfat fat snd_acp3x_rn snd_soc_dmic snd_acp3x_pdm_dma=
+ snd_sof_amd_rembrandt snd_sof_amd_acp snd_sof_pci snd_sof_xtensa_dsp snd_s=
+of snd_sof_utils snd_ctl_led snd_soc_core snd_compress snd_hda_codec_realte=
+k iwlmvm snd_pci_ps snd_hda_codec_generic snd_soc_acpi_amd_match snd_hda_sc=
+odec_component snd_rpl_pci_acp6x snd_hda_codec_hdmi intel_rapl_msr uvcvideo=
+ snd_acp_pci mac80211 btusb snd_hda_intel intel_rapl_common videobuf2_vmall=
+oc snd_amd_acpi_mach btrtl snd_intel_dspcfg videobuf2_memops libarc4 kvm_am=
+d snd_acp_legacy_common btintel snd_hda_codec uvc videobuf2_v4l2 snd_hwdep =
+snd_pci_acp6x btbcm kvm videodev snd_hda_core snd_pci_acp5x btmtk
+> Oops#1 Part1
+> <4>[  100.949738]  iwlwifi snd_rn_pci_acp3x videobuf2_common snd_pcm hp_w=
+mi bluetooth irqbypass sg snd_acp_config mc snd_timer platform_profile rapl=
+ cfg80211 snd_soc_acpi pcspkr sparse_keymap snd wmi_bmof ee1004 snd_pci_acp=
+3x soundcore k10temp ccp rfkill battery ac evdev joydev acpi_tad amd_pmc ms=
+r parport_pc ppdev lp parport nvme_fabrics efi_pstore configfs nfnetlink ef=
+ivarfs ip_tables x_tables autofs4 crc32c_cryptoapi btrfs blake2b_generic xo=
+r raid6_pq dm_crypt dm_mod sd_mod uas usb_storage scsi_mod scsi_common amdg=
+pu drm_client_lib i2c_algo_bit drm_ttm_helper ttm drm_panel_backlight_quirk=
+s drm_exec drm_suballoc_helper amdxcp drm_buddy gpu_sched hid_multitouch dr=
+m_display_helper hid_generic nvme xhci_pci drm_kms_helper ucsi_acpi sp5100_=
+tco typec_ucsi ghash_clmulni_intel cec i2c_hid_acpi nvme_core xhci_hcd watc=
+hdog roles sha512_ssse3 rc_core amd_sfh i2c_hid nvme_keyring usbcore i2c_pi=
+ix4 typec video aesni_intel serio_raw crc16 hid nvme_auth i2c_smbus fan usb=
+_common drm button wmi
+> <4>[  100.949784] ---[ end trace 0000000000000000 ]---
