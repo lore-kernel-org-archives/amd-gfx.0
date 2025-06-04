@@ -4,71 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61721C5AE59
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 08:47:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94727C5B543
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 08:47:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D0C010E84A;
-	Thu,  5 Jun 2025 08:47:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5FA710E8A9;
+	Thu,  5 Jun 2025 08:47:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZMoh8JMq";
+	dkim=pass (1024-bit key; unprotected) header.d=nppct.ru header.i=@nppct.ru header.b="cLPu9zpX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8434610E0CA
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 15:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749051786; x=1780587786;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=KBvw1K5sntUXh/9Sm7OBz9ypq0dkXEpUOjGj1PVTgew=;
- b=ZMoh8JMqCn4N4jYSDyrjCH0+wa6qkZ5J2YvR5Y55HFtZ5Vlp7YvhUVEO
- +QWAGkmglNn6tb+jkxrH5otOX65xyCMJN4CO9PAZPNPtmXoDCQc7pqsoD
- ZM04qicy6OhYzMU79CE/WD2rwdRfxoT3w7Wa94XeoA8pdquAJE2IJEo3a
- VLtBz10bpEOVx0Au2Yuw5ilP8w6bhp92+ArVEoJ3+4HurH1MrPTTTWM5w
- wV/qNi5i2vFlglkaAnfQtWPq1JmsW4sTzGqgE4jbXCOXCgqSnfN7tdtff
- E6NbeA15OzVaHO5JBrQO0Q5Xj9J7bFYl43oP5WYpW8JzQ/5Mnld+uOspB Q==;
-X-CSE-ConnectionGUID: D9VlcAhETqei0ec/62ed5A==
-X-CSE-MsgGUID: NM1sHlMpRKGIS/bwlX3zOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11454"; a="54805235"
-X-IronPort-AV: E=Sophos;i="6.16,209,1744095600"; d="scan'208";a="54805235"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2025 08:43:06 -0700
-X-CSE-ConnectionGUID: Hv+B9f7XStyUfmL40SnJng==
-X-CSE-MsgGUID: mdH1lAQOTdeUENpSGK9z6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,209,1744095600"; d="scan'208";a="145557168"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2025 08:42:50 -0700
-Date: Wed, 4 Jun 2025 18:42:47 +0300
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Mario Limonciello <superm1@kernel.org>,
- Denis Benato <benato.denis96@gmail.com>, mahesh@linux.ibm.com,
- oohall@gmail.com, bhelgaas@google.com, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- ilpo.jarvinen@linux.intel.com, lukas@wunner.de,
- aravind.iddamsetty@linux.intel.com,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH v4] PCI: Prevent power state transition of erroneous device
-Message-ID: <aEBpdwMfxp5M4Hxr@black.fi.intel.com>
-References: <552d75b2-2736-419f-887e-ce2692616578@kernel.org>
- <ee1117cf-6367-4e9a-aa85-ccfc6c63125d@gmail.com>
- <6f23d82c-10cc-4d70-9dce-41978b05ec9a@kernel.org>
- <aCzNL9uXGbBSdF2S@black.fi.intel.com>
- <fea86161-2c47-4b0f-ac07-b3f9b0f10a03@kernel.org>
- <aC2UzG-eycjqYQep@black.fi.intel.com>
- <CAJZ5v0gRFwKhq21ima3kT0zzFLk4=47ivvzJqARksV7nYHTJAQ@mail.gmail.com>
- <CAJZ5v0h9--jFVBtQ5F7Gee3Cy8P3TeSLdiHEWykQ=EsZdoffmg@mail.gmail.com>
- <aDnpfKvLwRZsKxhH@black.fi.intel.com>
- <CAJZ5v0gjA2B4AnaYpfYpaNDo49k4LM2FGSrPFFuOCJ62bCMmkA@mail.gmail.com>
+Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6948210E84C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 20:29:10 +0000 (UTC)
+Received: from mail.nppct.ru (localhost [127.0.0.1])
+ by mail.nppct.ru (Postfix) with ESMTP id DB3731C2AB4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 23:29:03 +0300 (MSK)
+Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
+ reason="pass (just generated,
+ assumed good)" header.d=nppct.ru
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
+ content-transfer-encoding:content-type:content-type:in-reply-to
+ :from:from:content-language:references:to:subject:subject
+ :user-agent:mime-version:date:date:message-id; s=dkim; t=
+ 1749068943; x=1749932944; bh=7Vka/a7srNrY341gvWXRamDvv2uHEGS89KE
+ na72dgGQ=; b=cLPu9zpXZO/nuJfs4r77DnDgv63Fz/JplevuFmtJCi7nDOsWlgN
+ nm5twIHsqq7hK0RHA90UGUU0hQRrjURE3aLOmhBB1yJUIMbMHpThPqdw+BoVshPf
+ hg+nW4fdTcIl8Okhbmp584uCbhPNraWZqQj7BaQTgR7gcdyMQKAgAXHI=
+X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
+Received: from mail.nppct.ru ([127.0.0.1])
+ by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id iajbzCztjCDA for <amd-gfx@lists.freedesktop.org>;
+ Wed,  4 Jun 2025 23:29:03 +0300 (MSK)
+Received: from [192.168.1.67] (unknown [46.72.98.152])
+ by mail.nppct.ru (Postfix) with ESMTPSA id 236421C08AD;
+ Wed,  4 Jun 2025 23:28:55 +0300 (MSK)
+Message-ID: <f4d1268f-bbf3-49c1-be27-6199ec685329@nppct.ru>
+Date: Wed, 4 Jun 2025 23:28:54 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: fix NULL dereference in gfx_v9_0_kcq() and
+ kiq_init_queue()
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sunil Khatri <sunil.khatri@amd.com>, Vitaly Prosyak
+ <vitaly.prosyak@amd.com>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Jiadong Zhu <Jiadong.Zhu@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+ stable@vger.kernel.org
+References: <20250524055546.1001268-1-sdl@nppct.ru>
+ <CADnq5_MyV_C-XJCQEiXKLQhhEGErq7SnvhqFE1AauQPJvt5aYw@mail.gmail.com>
+ <bee381b3-305b-46e5-ae59-d816c491fce5@nppct.ru>
+ <CADnq5_P-1xGEjJpe--HFFQUaz9A=AO7mQwTXNCZJ693UgdaW0w@mail.gmail.com>
+Content-Language: ru
+From: SDL <sdl@nppct.ru>
+In-Reply-To: <CADnq5_P-1xGEjJpe--HFFQUaz9A=AO7mQwTXNCZJ693UgdaW0w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0gjA2B4AnaYpfYpaNDo49k4LM2FGSrPFFuOCJ62bCMmkA@mail.gmail.com>
 X-Mailman-Approved-At: Thu, 05 Jun 2025 08:47:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,47 +78,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 30, 2025 at 07:49:26PM +0200, Rafael J. Wysocki wrote:
-> On Fri, May 30, 2025 at 7:23 PM Raag Jadav <raag.jadav@intel.com> wrote:
-> > On Fri, May 23, 2025 at 05:23:10PM +0200, Rafael J. Wysocki wrote:
-> > > On Wed, May 21, 2025 at 1:27 PM Rafael J. Wysocki <rafael@kernel.org> wrote:
-> > > > On Wed, May 21, 2025 at 10:54 AM Raag Jadav <raag.jadav@intel.com> wrote:
-> > > > > On Tue, May 20, 2025 at 01:56:28PM -0500, Mario Limonciello wrote:
-> > > > > > On 5/20/2025 1:42 PM, Raag Jadav wrote:
-> > > > > > > On Tue, May 20, 2025 at 12:39:12PM -0500, Mario Limonciello wrote:
 
-...
+04.06.2025 22:34, Alex Deucher пишет:
+> On Wed, Jun 4, 2025 at 3:30 PM SDL <sdl@nppct.ru> wrote:
+>>
+>>> On Sat, May 24, 2025 at 2:14 AM Alexey Nepomnyashih <sdl@nppct.ru> wrote:
+>>>> A potential NULL pointer dereference may occur when accessing
+>>>> tmp_mqd->cp_hqd_pq_control without verifying that tmp_mqd is non-NULL.
+>>>> This may happen if mqd_backup[mqd_idx] is unexpectedly NULL.
+>>>>
+>>>> Although a NULL check for mqd_backup[mqd_idx] existed previously, it was
+>>>> moved to a position after the dereference in a recent commit, which
+>>>> renders it ineffective.
+>>> I don't think it's possible for mqd_backup to be NULL at this point.
+>>> We would have failed earlier in init if the mqd backup allocation
+>>> failed.
+>>>
+>>> Alex
+>> In scenarios such as GPU reset or power management resume, there is no
+>> strict
+>> guarantee that amdgpu_gfx_mqd_sw_init() (via ->sw_init()) is invoked before
+>> gfx_v9_0_kiq_init_queue(). As a result, mqd_backup[] may remain
+>> uninitialized,
+>> and dereferencing it without a NULL check can lead to a crash.
+>>
+>> Most other uses of mqd_backup[] in the driver explicitly check for NULL,
+>> indicating that uninitialized entries are an expected condition and
+>> should be handled
+>> accordingly.
+> sw_init() is only called once at driver load time.  everything is
+> allocated at that point.  If that fails, the driver would not have
+> loaded in the first place.  I don't think it's possible for it to be
+> NULL.
+>
+> Alex
+Thanks for the review! I agree with your point.
 
-> > > > > > From the driver perspective it does have expectations that the parts outside
-> > > > > > the driver did the right thing.  If the driver was expecting the root port
-> > > > > > to be powered down at suspend and it wasn't there are hardware components
-> > > > > > that didn't power cycle and that's what we're seeing here.
-> > > > >
-> > > > > Which means the expectation set by the driver is the opposite of the
-> > > > > purpose of this patch, and it's going to fail if any kind of error is
-> > > > > detected under root port during suspend.
-> > > >
-> > > > And IMV this driver's expectation is questionable at least.
-> > > >
-> > > > There is no promise whatsoever that the device will always be put into
-> > > > D3cold during system suspend.
-> > >
-> > > For instance, user space may disable D3cold for any PCI device via the
-> > > d3cold_allowed attribute in sysfs.
-> > >
-> > > If the driver cannot handle this, it needs to be fixed.
-> >
-> > Thanks for confirming. So should we consider this patch to be valid
-> > and worth moving forward?
-> 
-> It doesn't do anything that would be invalid in principle IMV.
-> 
-> You need to consider one more thing, though: It may be necessary to
-> power-cycle the device in order to kick it out of the erroneous state
-> and the patch effectively blocks this if I'm not mistaken.
-> 
-> But admittedly I'm not sure if this really matters.
-
-Wouldn't something like bus reset (SBR) be more predictable?
-
-Raag
+Alexey
