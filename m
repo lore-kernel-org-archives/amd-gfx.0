@@ -4,20 +4,20 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94727C5B543
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 08:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4DB8C5AE59
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 08:47:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5FA710E8A9;
-	Thu,  5 Jun 2025 08:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20BDE10E8E8;
+	Thu,  5 Jun 2025 08:47:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=nppct.ru header.i=@nppct.ru header.b="cLPu9zpX";
+	dkim=pass (1024-bit key; unprotected) header.d=nppct.ru header.i=@nppct.ru header.b="fF3nz9wg";
 	dkim-atps=neutral
 Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6948210E84C
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 20:29:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B57E210E7C5
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:30:53 +0000 (UTC)
 Received: from mail.nppct.ru (localhost [127.0.0.1])
- by mail.nppct.ru (Postfix) with ESMTP id DB3731C2AB4
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 23:29:03 +0300 (MSK)
+ by mail.nppct.ru (Postfix) with ESMTP id AC5011C2AB5
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 22:30:48 +0300 (MSK)
 Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
  reason="pass (just generated,
  assumed good)" header.d=nppct.ru
@@ -25,20 +25,20 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
  content-transfer-encoding:content-type:content-type:in-reply-to
  :from:from:content-language:references:to:subject:subject
  :user-agent:mime-version:date:date:message-id; s=dkim; t=
- 1749068943; x=1749932944; bh=7Vka/a7srNrY341gvWXRamDvv2uHEGS89KE
- na72dgGQ=; b=cLPu9zpXZO/nuJfs4r77DnDgv63Fz/JplevuFmtJCi7nDOsWlgN
- nm5twIHsqq7hK0RHA90UGUU0hQRrjURE3aLOmhBB1yJUIMbMHpThPqdw+BoVshPf
- hg+nW4fdTcIl8Okhbmp584uCbhPNraWZqQj7BaQTgR7gcdyMQKAgAXHI=
+ 1749065448; x=1749929449; bh=Gg4+j6kG5vpIL8UZkk4QRzLW0dUz+cf8IvG
+ GK2ypGtE=; b=fF3nz9wg0GPoDxZEwvly4B9Y8BiiWaWmCPMzN3eTIKv/UwGDxRs
+ sUGAjVl0Fl8oeI8Ug9DcHcVbq9FN9mrsEOOqoBORYb+dXflxlenK8XuYcWZzqHtp
+ Y7pgpguizGqVI3HQ+GJ8wWNxEzQQgqu46JB9Ul28NOKRUymXVFF65ocw=
 X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
 Received: from mail.nppct.ru ([127.0.0.1])
  by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id iajbzCztjCDA for <amd-gfx@lists.freedesktop.org>;
- Wed,  4 Jun 2025 23:29:03 +0300 (MSK)
+ with ESMTP id FBrWrow-g9Wk for <amd-gfx@lists.freedesktop.org>;
+ Wed,  4 Jun 2025 22:30:48 +0300 (MSK)
 Received: from [192.168.1.67] (unknown [46.72.98.152])
- by mail.nppct.ru (Postfix) with ESMTPSA id 236421C08AD;
- Wed,  4 Jun 2025 23:28:55 +0300 (MSK)
-Message-ID: <f4d1268f-bbf3-49c1-be27-6199ec685329@nppct.ru>
-Date: Wed, 4 Jun 2025 23:28:54 +0300
+ by mail.nppct.ru (Postfix) with ESMTPSA id 9DEAA1C0D75;
+ Wed,  4 Jun 2025 22:30:43 +0300 (MSK)
+Message-ID: <bee381b3-305b-46e5-ae59-d816c491fce5@nppct.ru>
+Date: Wed, 4 Jun 2025 22:30:43 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amdgpu: fix NULL dereference in gfx_v9_0_kcq() and
@@ -56,11 +56,9 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  stable@vger.kernel.org
 References: <20250524055546.1001268-1-sdl@nppct.ru>
  <CADnq5_MyV_C-XJCQEiXKLQhhEGErq7SnvhqFE1AauQPJvt5aYw@mail.gmail.com>
- <bee381b3-305b-46e5-ae59-d816c491fce5@nppct.ru>
- <CADnq5_P-1xGEjJpe--HFFQUaz9A=AO7mQwTXNCZJ693UgdaW0w@mail.gmail.com>
 Content-Language: ru
 From: SDL <sdl@nppct.ru>
-In-Reply-To: <CADnq5_P-1xGEjJpe--HFFQUaz9A=AO7mQwTXNCZJ693UgdaW0w@mail.gmail.com>
+In-Reply-To: <CADnq5_MyV_C-XJCQEiXKLQhhEGErq7SnvhqFE1AauQPJvt5aYw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 05 Jun 2025 08:47:02 +0000
@@ -79,39 +77,29 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-04.06.2025 22:34, Alex Deucher пишет:
-> On Wed, Jun 4, 2025 at 3:30 PM SDL <sdl@nppct.ru> wrote:
+> On Sat, May 24, 2025 at 2:14 AM Alexey Nepomnyashih <sdl@nppct.ru> wrote:
+>> A potential NULL pointer dereference may occur when accessing
+>> tmp_mqd->cp_hqd_pq_control without verifying that tmp_mqd is non-NULL.
+>> This may happen if mqd_backup[mqd_idx] is unexpectedly NULL.
 >>
->>> On Sat, May 24, 2025 at 2:14 AM Alexey Nepomnyashih <sdl@nppct.ru> wrote:
->>>> A potential NULL pointer dereference may occur when accessing
->>>> tmp_mqd->cp_hqd_pq_control without verifying that tmp_mqd is non-NULL.
->>>> This may happen if mqd_backup[mqd_idx] is unexpectedly NULL.
->>>>
->>>> Although a NULL check for mqd_backup[mqd_idx] existed previously, it was
->>>> moved to a position after the dereference in a recent commit, which
->>>> renders it ineffective.
->>> I don't think it's possible for mqd_backup to be NULL at this point.
->>> We would have failed earlier in init if the mqd backup allocation
->>> failed.
->>>
->>> Alex
->> In scenarios such as GPU reset or power management resume, there is no
->> strict
->> guarantee that amdgpu_gfx_mqd_sw_init() (via ->sw_init()) is invoked before
->> gfx_v9_0_kiq_init_queue(). As a result, mqd_backup[] may remain
->> uninitialized,
->> and dereferencing it without a NULL check can lead to a crash.
->>
->> Most other uses of mqd_backup[] in the driver explicitly check for NULL,
->> indicating that uninitialized entries are an expected condition and
->> should be handled
->> accordingly.
-> sw_init() is only called once at driver load time.  everything is
-> allocated at that point.  If that fails, the driver would not have
-> loaded in the first place.  I don't think it's possible for it to be
-> NULL.
+>> Although a NULL check for mqd_backup[mqd_idx] existed previously, it was
+>> moved to a position after the dereference in a recent commit, which
+>> renders it ineffective.
+> I don't think it's possible for mqd_backup to be NULL at this point.
+> We would have failed earlier in init if the mqd backup allocation
+> failed.
 >
 > Alex
-Thanks for the review! I agree with your point.
+In scenarios such as GPU reset or power management resume, there is no 
+strict
+guarantee that amdgpu_gfx_mqd_sw_init() (via ->sw_init()) is invoked before
+gfx_v9_0_kiq_init_queue(). As a result, mqd_backup[] may remain 
+uninitialized,
+and dereferencing it without a NULL check can lead to a crash.
+
+Most other uses of mqd_backup[] in the driver explicitly check for NULL,
+indicating that uninitialized entries are an expected condition and 
+should be handled
+accordingly.
 
 Alexey
