@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9872C5B549
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jun 2025 19:42:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B4D0C5B543
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jun 2025 19:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7900010E7A2;
-	Wed,  4 Jun 2025 19:42:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0204A10E7E3;
+	Wed,  4 Jun 2025 19:42:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NozPch+6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F9uMQ/Hb";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2067.outbound.protection.outlook.com [40.107.93.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3EBA10E7A2
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:42:03 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2051.outbound.protection.outlook.com [40.107.102.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7342910E7E3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:42:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kagA1iDj81tr7+ReNgmPfqwOtq01kP7Qhz2qULia+wp+jPPx++Mx7sqng9wtVQ/Ud0+BDAaZGvuEu2ibH7EyUXqi8X/Wk9sVrDnPu7AEKc6FuUy5lUaGjIS17GvGYv4syfcnHnITUjk7cwbmNY+GZtLfuJcMUWkjNmYIwdmkX63AHmXnZ0/hCpyryPb2jz8TNjfwmIqxoCC4fS7BWNsHvMrmjzNtUivBIO2XhMszz0oeMtswaaVLfg698KWOkNsDqZoL3qe39TzNrMyPeDfV0xsx5NqICVaSNZ1A0mNRjPm+EiZFynUsb/vrNt6M+D6xr6iV+BwVnMVWI4TZn9ukfg==
+ b=Zm/xNmilZl25a8OqnTRUbOoAdO9RyOg8u5CnCG+bGrZ19eao63vjyKN7VTCVrLjUpV3bPCcAowAX/4D314/GNksgxHNhVASwgwdRVN11mEaIqKFwdbEy/3scp3Q8SvRyCUeUl/dayKtcHgpkt+b6o8yGTQDSK2uD1u8XoDRoKzTRW6d/J3/KQwcnbvSiF9pb//GvKLVRQOYLvGSbMn6Hrtg+5RRPn9ns7Ev3DdOnYGN9MNJFurJmtEFgB7ZuTp5LbKSosFeMcAQh8qmQW1lLxAXFAsg9+xCmPBZCyF2ZLON1Ilc2peERkXTTsVNcQedQPUpONxRJJLdqnGMpvn4qOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t80qzj/qnhqBY7VAS6WdaZKtgIuKC1TxwB/wXKrqoIg=;
- b=Wz8EC2ZJzH83Npec/wIyGRSVz1j7Fx0Yh0yw4hafNQ6dL45aQEV9U1DVxHfpPYMr/XYilnBBIDfeewRN+2UQ3yNA0pxubF5QSyj70eegL1ZNZcY4kLFrsSgueMzXsHaU9FyWnvNnWmXmoYD/PsMkOGiTzsSHdKFXoRULIuSRpx9UQzoIfBeYRtX670ggLIvd78Ctd592vbMmNYlg8NvspMCc8zhRlO5ucvLM5dim/bBj2Zo0FUJrdq8hE50K43+ftxL/qftJyaGY9E2Ro2O3PUlsl3EbF1J7CvbcNg3Fb+X+/nK/QKZhPZ71N4P6tuleyE1OG00hdxwwIN72pRtwbQ==
+ bh=N147pPdEYXCwTmnBqzRYxnG2mMtgLkI0L3Us0M1lRoY=;
+ b=mBH4HXQ2cvH1FBTLt20K5xQjErEw1bhiFOUk/k8SpF8B7g0SsIAzIpcA0pynGb11DPfWglZZ54fyOXTr2K5laSUFJ8CojRtf+GduJTKtH5PAQe0SdpvFON6IlOdrGkM4/oHM+fq/2NKjSIx2KxEBqJdGix27kFbyhblWPzEeZIpJa6e7LP4oJZIcL48GuzGqDOO1Q7GPam8iIAQ6Dx9pIB/Gf9wWK06TWcsfKPtT4y1WPvSh/T8+2Ab5STadK5pg0RkqT2Ao5SRC/Ui6iN9OrI1nInZSeUQKkqufHcX54Rrs3votrdZut6VJ/HHTVw2RlBJWrwQUMuVql/6+SbILfg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t80qzj/qnhqBY7VAS6WdaZKtgIuKC1TxwB/wXKrqoIg=;
- b=NozPch+6fNxk5mYTiVrFKBVG8lUpcF7zddbKqQJyWTBLdiw3lIpkLWbgDFHxmYAmCiP3Eno1fKv+RefiI6uyA2oG228hYQhByrQUdGBRVVfhYMO3tm/DtJEDHFnnICFLDEvpCntEVO9lSmcwT+rVgYhg1Vryc7tiSrQ2gZofwa0=
-Received: from SJ0P220CA0028.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::11)
- by DS4PR12MB9561.namprd12.prod.outlook.com (2603:10b6:8:282::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Wed, 4 Jun
- 2025 19:42:00 +0000
-Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
- (2603:10b6:a03:41b:cafe::f2) by SJ0P220CA0028.outlook.office365.com
- (2603:10b6:a03:41b::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.19 via Frontend Transport; Wed,
- 4 Jun 2025 19:42:00 +0000
+ bh=N147pPdEYXCwTmnBqzRYxnG2mMtgLkI0L3Us0M1lRoY=;
+ b=F9uMQ/HbZfEvatRDbOEUUlbbyF2ie7WYWJ8eWUDFAGbrofADIQgAKyIICsE+OBgqU7kneL6NarV1b3bbA/yeoPT0f7nj62wk4CDf5X6bhUagravFnVkRWU+IU8ODm6+U9GANby4YHLLrtEkqGp0PQjKHz8iHVdfz/BWchFCE11c=
+Received: from MW4PR03CA0317.namprd03.prod.outlook.com (2603:10b6:303:dd::22)
+ by SN7PR12MB7155.namprd12.prod.outlook.com (2603:10b6:806:2a6::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.27; Wed, 4 Jun
+ 2025 19:42:15 +0000
+Received: from SJ5PEPF000001F5.namprd05.prod.outlook.com
+ (2603:10b6:303:dd:cafe::18) by MW4PR03CA0317.outlook.office365.com
+ (2603:10b6:303:dd::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Wed,
+ 4 Jun 2025 19:42:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,26 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SJ5PEPF000001F5.mail.protection.outlook.com (10.167.242.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 19:42:00 +0000
+ 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 19:42:14 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Jun
- 2025 14:41:57 -0500
+ 2025 14:42:10 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- <stable@vger.kernel.org>
-Subject: [PATCH 21/23] drm/amd/display: Export full brightness range to
- userspace
-Date: Wed, 4 Jun 2025 12:43:32 -0600
-Message-ID: <20250604193659.2462225-22-alex.hung@amd.com>
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH 22/23] drm/amd/display: Fix kernel docs for new struct members
+Date: Wed, 4 Jun 2025 12:43:33 -0600
+Message-ID: <20250604193659.2462225-23-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250604193659.2462225-1-alex.hung@amd.com>
 References: <20250604193659.2462225-1-alex.hung@amd.com>
@@ -79,52 +76,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|DS4PR12MB9561:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2167103-9602-47b2-61a1-08dda39fdf99
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F5:EE_|SN7PR12MB7155:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38ec308e-bb4a-40cc-2a2c-08dda39fe810
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KQWIHTj/adYfrpE2Zvc0JJfEQmDaYS9hwNyJWQAPB07ejhbn9MjFke9q6vHm?=
- =?us-ascii?Q?54mc7nJubsbU0J+Gc0lwqsf4/kkLymfb/krr7FZCeR7ONdfEjjNtK/EKzJn5?=
- =?us-ascii?Q?fsLD7bxYBZ/nClDxs9Lp0aOR6q33QYOVNoU1n7rNLuUsijDc4Mlvbv/GNaQS?=
- =?us-ascii?Q?eDxEghL1YS6n9HOAmG52AWlwFoJCmvzUC2nRcun2QLX47jtMSWyHctuweYOq?=
- =?us-ascii?Q?hLCb6eBPx1LNMBfvBwHGyPYFFpGKfPCnGvjmFtvnFxa7VOgYYi8zPUkh3w7N?=
- =?us-ascii?Q?dMKSSo/CfhA61F1wX7thKqKNvM/wO4E443cKhjCzeBHJ/EpqDmeExdKeYIF6?=
- =?us-ascii?Q?//cHGKItwJ88vmPG1sMJpES3OBoViw+sVOHaqwmqID4tAZIuViXXu5P33BVI?=
- =?us-ascii?Q?Q/c9fCY2mBo+apvVIP95oCDrb/OrUGdg1oLFoG5IjNd0f0FNGKCuqbOetbc0?=
- =?us-ascii?Q?/6BXb3cR702VqGJrECf66QlzHpKzoaaDaJSno/ls50iSKnTrUFC9ivXBtdTY?=
- =?us-ascii?Q?y+BQvsC1fGSNNSNHS6nptWQJsWBm0CxLhEjKl3J7cWZs+n/4gVGYxrKgO4fP?=
- =?us-ascii?Q?QoKx+Hs3nqpuSxsR/xmbQGh4djajdE04Q9qdPBgBmkfi58i4CpMMho6QEmoA?=
- =?us-ascii?Q?DjJcWbGTfRfirkyhiqUcNKZd2bguDdbECNhrZ53BXWP1xKY1FyXy0ne5y+D/?=
- =?us-ascii?Q?r1XY+dFeYn6K57zluKxUcAE0po/y1/8Er6lW4OYkiSBdwOTr3t52wd6wZiwh?=
- =?us-ascii?Q?kzVtmtSTkdjuCJXlETJ3INhANq2yNwVBWQm/k6IYoqd96kvGvJz3qWP10jJT?=
- =?us-ascii?Q?knrHf8zHAUckL9nj3nMCX2zImYRvhLeUdU/HiLCAMQBiNak/3d13d1Kox0yF?=
- =?us-ascii?Q?Qtedoiz2dqo4NFCC07wEetDMeRh+WwjWCcwITerSp1sEKD1gJXUVDpN+6OZI?=
- =?us-ascii?Q?rHLmOOh0JFyRWMYb3fxfpz6SyFr2TijjcJwPHTeUliKzMulRQ6lAiPgyjcv8?=
- =?us-ascii?Q?5RAygZrPK+aFHBmTouXE++kRLzIpFlxgXjQU5MxIfKrzWxiHrkpQ2zmvpJHB?=
- =?us-ascii?Q?OIcljT2R8nFweURUmUGsfuiYRU9oQM0GpynIZCt91J+nl1pCovDWjeVW+zK2?=
- =?us-ascii?Q?bcY/XR6qeqO47JxLsKle67pLHYigsVi+oauKgZtpFtDEpyHArqItStkHifTL?=
- =?us-ascii?Q?51NwkQuViyJmFqc7GzywtWV/eqpbZcZhxVhYRqiPSvcklW6KOj+wG1nr/AS8?=
- =?us-ascii?Q?oIaAkOpGQfF9ShW7IuDRsH8Jxt1XNk8Duh3g7j2afKDbMgrx6QinuS62Zx7V?=
- =?us-ascii?Q?U207QpFSipMkA/hlqJcOFmW6Tx6Nfybv2a4yuH5KmpgPHQNrQLUJ0NS24hzo?=
- =?us-ascii?Q?g58Jx8yzE6Rx7fDXbszL9261st0gWt/ALZNJDn3fkLtqpS9kfMpjG5fZBISP?=
- =?us-ascii?Q?aLBcNora3Lg5squ6g/kfsXHoe0ZHk/wiqTw3sa/GGH6nrgslzw5FqMTkAK+o?=
- =?us-ascii?Q?mW2kRyU7QKxLWY/GGzfEE7/8bEWfHH7b/0g1?=
+ ARA:13230040|82310400026|36860700013|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4QceynvIkzppbVz45ks1swydWB/jhToI6uoyO06j1IzQUQxUiKKWjsvusqA6?=
+ =?us-ascii?Q?bBkZ28+1DGKBpV2pDaeEGXCItsybV/EpaPCByfbn/rsJ4xwE2cA/e3GMUciZ?=
+ =?us-ascii?Q?LtraWdUIqYukptbR5c65p2pGo1uqWK4wN/CLrXAKRmT3HhREQRTCiZJ6QZRv?=
+ =?us-ascii?Q?mmMQXFidfiMAH5Jn7unNOFFxFuOhXVV6LtVPtqJUzJ3jJQidC0dPeK+gYj8v?=
+ =?us-ascii?Q?UcGdB6SfNV7L/xWwg5vkWgOMX7xX/yYcPzmeGKjmBElZMynni8gMc3rThneE?=
+ =?us-ascii?Q?FxHiOxKlZewTb3FJnzn4GtJ/FO6ZxOXdPP2fhMga2/Z30yCh4IREYHPHl/9+?=
+ =?us-ascii?Q?HiEId2g+t/+KxyMAUDxRo+9NR+mdaJded6/VDmF4DUYh9t8T8/0R1fJpb6WY?=
+ =?us-ascii?Q?frWyjFKQ6P7UKz8My42nwUao4MOrkGwA4sC9XNGQ+TUsd2X8mc1+fE4VIOWh?=
+ =?us-ascii?Q?MqZA/e7+cuXT9Hq5oEQa2IfXgWB5i3qczhcxHtaMb3pPC8W1T1zpXoiy6qgA?=
+ =?us-ascii?Q?RKO+8xLrWiCVwhoWXmF7C7dQ+AFpQwYZR82gfPo4O/bzwfJOsucmjIe5PFL/?=
+ =?us-ascii?Q?5NV2dQ2hQxgH8CnXeh6GusqUWFYLpOFb9SZZcO8FVBx6bSHwn2/5PC7uOYzN?=
+ =?us-ascii?Q?Ufo2R9DboHTRCHjQj1HJ7Xg0B/FlpSu04cLr/CJHgfxedq9rYGcUdatLwwxV?=
+ =?us-ascii?Q?xjGTm8srEVT3lyG1gfqGjyf9Ht964N56YK0N9Fa+sMVcaJ9AQJ/gaef11+GC?=
+ =?us-ascii?Q?d8d2gDhk4eVRmvIomLBDyaqupSkiq0AoCpp27GL4IxaMnh2a4b4QtFzGdNFF?=
+ =?us-ascii?Q?8zLszvFt6HxKjb2WWzao87rxK4T45vNcRMD2pSNQr69HrhEBn1WW0Tbg2+oW?=
+ =?us-ascii?Q?WHnOSjtF1lIWT1RR3slrKIjEG0giCL6QK0FduM2s1ElbRy4tkMTKGuN7jDxX?=
+ =?us-ascii?Q?O4ZPC2N8fqEUltS+Ew2M15ZTWe63vr3zURJGeLEj7iaHJ50G0Lfymlt1mvZR?=
+ =?us-ascii?Q?Uj7DEiWjFcMnydKbX4Xs1j2HMbrRWWlTq8bIpZ/XH/9TIv3lIXqltRAb7ijT?=
+ =?us-ascii?Q?Hq+gezWE2Q5Md1ESCe9+zYMv0UmdotuhdLEvxc0qas6zuW5q7HHplL31Kcfd?=
+ =?us-ascii?Q?dawjazFX2Lx5ZABNQRyjp4BVuVePz18jH5F3ipvHtd4a1i6X2DqCGjDI68NI?=
+ =?us-ascii?Q?SHP6lettShmQhKorQx0xaALOw2xKN7wMxJfcGg/Wp/LWlwMRyscfw1t8Pe7x?=
+ =?us-ascii?Q?EFChVsntFiUkx1g6misrMQNSqmpefgDx71PiCscE23wQR5C3m2by/T1Sv5rP?=
+ =?us-ascii?Q?kT54xt8txnZ/TyBeuelf/2aJAQytPqdk3/8FMu7PG1eryr+RUBojXffWbrTw?=
+ =?us-ascii?Q?K175X5vxMMxXLut1sU8ItE0rkNJjQAoNQthcFbXFQaatIz6YffVaXQajuRSL?=
+ =?us-ascii?Q?/8bOthlFvGkm0yGm2HeDSQn9CPij7tYIMi+pLlxiD90ho73akvV9jXP77NTt?=
+ =?us-ascii?Q?4SWHO9mSSPRY0nPbgzJjJztH3GH4kg+22gNe?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 19:42:00.1654 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2167103-9602-47b2-61a1-08dda39fdf99
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 19:42:14.3569 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38ec308e-bb4a-40cc-2a2c-08dda39fe810
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9561
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7155
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,128 +136,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+[WHAT & HOW]
+Add kernel-doc for new struct members for lut3d_caps and mpc_funcs.
 
-[WHY]
-Userspace currently is offered a range from 0-0xFF but the PWM is
-programmed from 0-0xFFFF.  This can be limiting to some software
-that wants to apply greater granularity.
+This fixes the follow warnings from "make htmldocs".
 
-[HOW]
-Convert internally to firmware values only when mapping custom
-brightness curves because these are in 0-0xFF range. Advertise full
-PWM range to userspace.
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1106: warning: Function
+parameter or struct member 'mcm' not described in 'mpc_funcs'
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1106: warning: Function
+parameter or struct member 'rmcm' not described in 'mpc_funcs'
+./drivers/gpu/drm/amd/display/dc/dc.h:249: warning: Function parameter
+or struct member 'mcm_3d_lut_caps' not described in 'mpc_color_caps'
+./drivers/gpu/drm/amd/display/dc/dc.h:249: warning: Function parameter
+or struct member 'rmcm_3d_lut_caps' not described in 'mpc_color_caps'
+./drivers/gpu/drm/amd/display/dc/dc.h:249: warning: Function parameter
+or struct member 'preblend' not described in 'mpc_color_caps'
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Roman Li <roman.li@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 ++++++++++++-------
- 1 file changed, 27 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h         |  3 +++
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 10 ++++++++++
+ 2 files changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 31df545f8c0f..19d38357f508 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4721,9 +4721,23 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 	return 1;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index d57c57cabd4d..74379edcc4b1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -235,6 +235,9 @@ struct lut3d_caps {
+  * @shared_3d_lut: shared 3D LUT flag. Can be either DPP or MPC, but single
+  * instance
+  * @ogam_rom_caps: pre-definied curve caps for regamma 1D LUT
++ * @mcm_3d_lut_caps: HW support cap for MCM LUT memory
++ * @rmcm_3d_lut_caps: HW support cap for RMCM LUT memory
++ * @preblend: whether color manager supports preblend with MPC
+  */
+ struct mpc_color_caps {
+ 	uint16_t gamut_remap : 1;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+index a5510bedca4b..7641439f6ca0 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+@@ -1075,6 +1075,11 @@ struct mpc_funcs {
+ 	*/
+ 	void (*program_3dlut_size)(struct mpc *mpc, bool is_17x17x17, int mpcc_id);
  
-+/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
-+static inline u32 scale_input_to_fw(int min, int max, u64 input)
-+{
-+	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - min);
-+}
-+
-+/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
-+static inline u32 scale_fw_to_input(int min, int max, u64 input)
-+{
-+	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
-+}
-+
- static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
--				      uint32_t *brightness)
-+				      unsigned int min, unsigned int max,
-+				      uint32_t *user_brightness)
- {
-+	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
- 	u8 prev_signal = 0, prev_lum = 0;
- 	int i = 0;
++	/**
++	 * @mcm:
++	 *
++	 * MPC MCM new HW sequential programming functions
++	 */
+ 	struct {
+ 		void (*program_3dlut_size)(struct mpc *mpc, uint32_t width, int mpcc_id);
+ 		void (*program_bias_scale)(struct mpc *mpc, uint16_t bias, uint16_t scale, int mpcc_id);
+@@ -1087,6 +1092,11 @@ struct mpc_funcs {
+ 			bool lut_bank_a, int mpcc_id);
+ 	} mcm;
  
-@@ -4734,7 +4748,7 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
- 		return;
- 
- 	/* choose start to run less interpolation steps */
--	if (caps->luminance_data[caps->data_points/2].input_signal > *brightness)
-+	if (caps->luminance_data[caps->data_points/2].input_signal > brightness)
- 		i = caps->data_points/2;
- 	do {
- 		u8 signal = caps->luminance_data[i].input_signal;
-@@ -4745,17 +4759,18 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
- 		 * brightness < signal: interpolate between previous and current luminance numerator
- 		 * brightness > signal: find next data point
- 		 */
--		if (*brightness > signal) {
-+		if (brightness > signal) {
- 			prev_signal = signal;
- 			prev_lum = lum;
- 			i++;
- 			continue;
- 		}
--		if (*brightness < signal)
-+		if (brightness < signal)
- 			lum = prev_lum + DIV_ROUND_CLOSEST((lum - prev_lum) *
--							   (*brightness - prev_signal),
-+							   (brightness - prev_signal),
- 							   signal - prev_signal);
--		*brightness = DIV_ROUND_CLOSEST(lum * *brightness, 101);
-+		*user_brightness = scale_fw_to_input(min, max,
-+						     DIV_ROUND_CLOSEST(lum * brightness, 101));
- 		return;
- 	} while (i < caps->data_points);
- }
-@@ -4768,11 +4783,10 @@ static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *c
- 	if (!get_brightness_range(caps, &min, &max))
- 		return brightness;
- 
--	convert_custom_brightness(caps, &brightness);
-+	convert_custom_brightness(caps, min, max, &brightness);
- 
--	// Rescale 0..255 to min..max
--	return min + DIV_ROUND_CLOSEST((max - min) * brightness,
--				       AMDGPU_MAX_BL_LEVEL);
-+	// Rescale 0..max to min..max
-+	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
- }
- 
- static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-@@ -4785,8 +4799,8 @@ static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *cap
- 
- 	if (brightness < min)
- 		return 0;
--	// Rescale min..max to 0..255
--	return DIV_ROUND_CLOSEST(AMDGPU_MAX_BL_LEVEL * (brightness - min),
-+	// Rescale min..max to 0..max
-+	return DIV_ROUND_CLOSEST_ULL((u64)max * (brightness - min),
- 				 max - min);
- }
- 
-@@ -4936,11 +4950,10 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 		drm_dbg(drm, "Backlight caps: min: %d, max: %d, ac %d, dc %d\n", min, max,
- 			caps->ac_level, caps->dc_level);
- 	} else
--		props.brightness = AMDGPU_MAX_BL_LEVEL;
-+		props.brightness = props.max_brightness = AMDGPU_MAX_BL_LEVEL;
- 
- 	if (caps->data_points && !(amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE))
- 		drm_info(drm, "Using custom brightness curve\n");
--	props.max_brightness = AMDGPU_MAX_BL_LEVEL;
- 	props.type = BACKLIGHT_RAW;
- 
- 	snprintf(bl_name, sizeof(bl_name), "amdgpu_bl%d",
++	/**
++	 * @rmcm:
++	 *
++	 * MPC RMCM new HW sequential programming functions
++	 */
+ 	struct {
+ 		void (*enable_3dlut_fl)(struct mpc *mpc, bool enable, int mpcc_id);
+ 		void (*update_3dlut_fast_load_select)(struct mpc *mpc, int mpcc_id, int hubp_idx);
 -- 
 2.43.0
 
