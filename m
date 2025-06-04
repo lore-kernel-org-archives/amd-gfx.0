@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4151FC5B543
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jun 2025 19:38:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B22DC5B549
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jun 2025 19:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D991710E79C;
-	Wed,  4 Jun 2025 19:38:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08EDF10E7B8;
+	Wed,  4 Jun 2025 19:38:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c0J4LQbX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NqC74BCF";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2055.outbound.protection.outlook.com [40.107.236.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A9F210E79C
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:38:35 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C008310E7A7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:38:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n4T27zOLAAEDrn/qOgK0dvD/VsYoVkO8fDBUT/lSu2t5DYEs5i+jRBudi347VyjxdIYbHrmtKnD44z5OtDrWouzit0FaJuhCRdfcZJNpOuupQe8dtff08BFH71xSMs41sSx9/+Yy3OnPBCCp9TzoyIuqLS3AqpDjWTFhL8TX8VkUqsyxTi578CnIKcc08RVo2c4ZGPcQ8RPAONperKVJCBzOShGvevoj42h/kupdsEHhf60i+zzR4SLAiZgmK+qtoqmzwQrpkBHIa6xpVg9jEH05znGuwCR0iI0uEJR5368gzSjI7vqiBue1ETszuZSGptIPGiAB8ImmYZfACPMuzQ==
+ b=GNRQDRjpLOuuOZfq64RXDeNRg9t2g+i9lJIpS1FMUYgdsQ/iN7qzoL42AT0XYraIU+/v7XZOcahMDsDwbX3qzy/0i/T1COeM4pPN01/WjlHKNW1G5KtAeSRRXPpWmovY19KcW34G8yqdHDo2RcKpqnV50jpqw/B4EhYoUG39U0HnYcsVhBuf5b5E04a6OmoiSNOJ0zla/c/HrfygxWdHRoErWnzqPfGfA4NESl+/neCbp4UTQcAIqqGjmJD1fG/0iuMiMQlTF+l2x5WBTpTCB4EQGDtXSt9/95udA9uirlkvD89ftQQv5YB+4zin7OhpZJ1xdO3/fNyAlwCDZXyU5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FC0BzCuhIFddkyPv3PmtbW0rhDQuuePMwf/J4VMtZPc=;
- b=Ql0W02egQW5hMirpCThNqq1Oql1CFbAA753U1dZ/bpbgn8a2/LlnetzkgUPrsgnIhu/y8Y5vEX0Q1U8Nt0qn/uSUb93jNANphkG2poh9eBwwydR+JNH06RmaH03jF6oMRt1uQc9KvZkVUVWd5CdyoNIsHXWIcUK6NeF2Fq8qyoVVur8LBU74UV80icvN4MldEWePOu84hMMo5Y62gsOxUU3foPL4jIdePW35ohV/vxjneKmr+xvAAKY12rchlg+/azKkx/VmGdIGXR/qdNVDOA4xHT0H7Xl6YqEy0XKpIQ8XNxaXpjqeJxgABxwfsqUQLm1e8LZhkMg2pacWjBcgcw==
+ bh=7fbiMkROPoHjyk5OD0jSYYcuIdjj60yS2OGPsxhBx0k=;
+ b=JD+j+UV1+2vtYmV3dYt6wDEfBfqT6BkqkWFbzDbjxCC8S7W61H/m/t29d/v2tZfkf2/0xokfEv2ZGuldAKYNgqbTBlz/zFDu1F68deAeGGkpIu04zm76P3en+giHclTBElPtnd6CC8dKSpQCzB9I0vlcI5y6A/pPz0nHdyLVMWex4Ud4wo/Yg8SUVYiqOO/m7J/+D1mYANOqQGoYw7uu5Wm9W0lVLBsdEeP2k5rLS3KT80M+VgVfbNq2IGRUOptj74mHu66llTOnU0q1qEkAD87ie4a6YAdJSH8zvMJOj4e32HkpzYe1Vl4RJ00r6gAD1TcHk/1Nj8mU3Vgi28xVBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FC0BzCuhIFddkyPv3PmtbW0rhDQuuePMwf/J4VMtZPc=;
- b=c0J4LQbXixYwJlQpaTRV/CAiwaIeI3UWQYl4rTNw7LXI38q5QBOSbRz3QJcxQneOSa7F8SH7lSqYfdG6JZXHAzIXOm5kFkuYVKs5XfmSx9NqUO0R/ueQfGBSxkFLwhNX6cyqcggscm3EtiwW8ZVejb1Cd2VHBLulH34xCJTzz5g=
-Received: from CH0PR03CA0253.namprd03.prod.outlook.com (2603:10b6:610:e5::18)
- by LV2PR12MB5824.namprd12.prod.outlook.com (2603:10b6:408:176::19)
+ bh=7fbiMkROPoHjyk5OD0jSYYcuIdjj60yS2OGPsxhBx0k=;
+ b=NqC74BCFzy34rVcLf5ZSez1Fy6JC9Rq1d+qYzonU6sJ9cYQ5PxNX8QqGZPnz/y1TQhQJuXJk53HnsVslC2Yk/Barms0jujPQ/xeL91ibWfBKMIAnCuig+YEkADe49ZXi0UWZQTQI4rSJRpKJlLvr4ua6Ze5x+s7lupZU4Xs8R28=
+Received: from CH2PR19CA0009.namprd19.prod.outlook.com (2603:10b6:610:4d::19)
+ by IA0PR12MB8423.namprd12.prod.outlook.com (2603:10b6:208:3dc::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.33; Wed, 4 Jun
- 2025 19:38:31 +0000
-Received: from DS3PEPF000099DD.namprd04.prod.outlook.com
- (2603:10b6:610:e5:cafe::d1) by CH0PR03CA0253.outlook.office365.com
- (2603:10b6:610:e5::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.37; Wed, 4 Jun
+ 2025 19:38:44 +0000
+Received: from DS3PEPF000099DF.namprd04.prod.outlook.com
+ (2603:10b6:610:4d:cafe::c2) by CH2PR19CA0009.outlook.office365.com
+ (2603:10b6:610:4d::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Wed,
- 4 Jun 2025 19:38:31 +0000
+ 4 Jun 2025 19:38:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,27 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099DD.mail.protection.outlook.com (10.167.17.199) with Microsoft
+ DS3PEPF000099DF.mail.protection.outlook.com (10.167.17.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 19:38:31 +0000
+ 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 19:38:44 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Jun
- 2025 14:38:28 -0500
+ 2025 14:38:42 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Michael Strauss
- <michael.strauss@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, <stable@vger.kernel.org>, "Wenjing
- Liu" <wenjing.liu@amd.com>
-Subject: [PATCH 05/23] drm/amd/display: Get LTTPR IEEE OUI/Device ID From
- Closest LTTPR To Host
-Date: Wed, 4 Jun 2025 12:43:16 -0600
-Message-ID: <20250604193659.2462225-6-alex.hung@amd.com>
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>, Alvin Lee <alvin.lee2@amd.com>
+Subject: [PATCH 06/23] drm/amd/display: Remove dml/dcn401 files and references
+Date: Wed, 4 Jun 2025 12:43:17 -0600
+Message-ID: <20250604193659.2462225-7-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250604193659.2462225-1-alex.hung@amd.com>
 References: <20250604193659.2462225-1-alex.hung@amd.com>
@@ -80,52 +77,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DD:EE_|LV2PR12MB5824:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc947590-e207-4968-3d68-08dda39f6304
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DF:EE_|IA0PR12MB8423:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bfb6599-8755-404c-d57a-08dda39f6adb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8ZR7Pkl3c3hA07+UpwCoImf8zOYTTFlJ0finVpu8GChQ41KyxydyAPNTyRbW?=
- =?us-ascii?Q?gO4w7eClTVp/ZS3lJuxQ4TKZSd5aJrA6TLs6aZL805fY5sOjbkJZAPfq5gD/?=
- =?us-ascii?Q?7vAHaN/2ZiKetLvePv02/SOBLHJILTOEYfJxUClas4IZUNA4V1VZFnJPqXl5?=
- =?us-ascii?Q?9Qp46XXZn7gwmOZV06hUakUasyMkUKCuXjwF/WRwz+yEmHD2pa0xvbFst6ze?=
- =?us-ascii?Q?bEbNe6yjZo0lNF8XMWwYCUWi2u7P3yqkasNCLfGLirhCF6o9+aA2WcLp7lZb?=
- =?us-ascii?Q?T/YZK3RSFkrz67Tt110ugjYjh4OO9JYp9u2RjMprhydFrmw8R+YYIUMlw45K?=
- =?us-ascii?Q?nxeTDPPWeAU4Pkj6NUZdE0CTF6ao/JNiE/wuM9z3w5TEY5Z/3J4DNv5YaZ6H?=
- =?us-ascii?Q?jYTtU5+zv4zSMdtRmO1HCgZIBrzzE6aaWMR1eM1g06mC8YAwC7gR+CKKTfZw?=
- =?us-ascii?Q?6t6/UCz8AFlYSuwgC9hO4ywzG5FzP24OqY11eryJCiSzviCzSXRCvgIAe1nu?=
- =?us-ascii?Q?OCvalYgePZsdplo9vuQBksNDQFs8q/2laf7E9GeZw1PB/6duuGBYK3vcqJwv?=
- =?us-ascii?Q?yNI4mN2f1ZXbLUjTLtcyGNg4srMWtVn4/waLFbC2Lvw9mnFsHeXLg31Mj5FK?=
- =?us-ascii?Q?YlETnZ6/VCF8ZLPMwWvB/Oe7u2H/M3CYMYP5CCtyzryqWF3xO6Fw2nAQdJWa?=
- =?us-ascii?Q?ispK6GN9vcouxP4K5SY13da9kUPfh4vOryzXIlnYB2Q3QbpmeRvfKdD43Fn8?=
- =?us-ascii?Q?JDcrmca7QVmkka1UpkeYgxcDItCLFKndfGLalCf+VRD3AGUYk2oO+KEQRso0?=
- =?us-ascii?Q?3y4cm9NUja+0CC3KFTllu6vY6zNhL4bx5fg890Uu3EfHT9bA+uFEfHZeSUak?=
- =?us-ascii?Q?7GBHvSyTbLxzS6wgVSS5ftpeZ4Bs27iXNIEjBfVEs+kVXPtbt5zQnwF73ERr?=
- =?us-ascii?Q?fO73+lbwiDTxk2yX9BhKxw98FNr4gUvpblW8AktJ+SdTPMh/S968ERAEVHQ8?=
- =?us-ascii?Q?PEZtPARiTX4Q52d7QsjNAGwQPV+pR7CoZMSicQHvD344zjRG1MOGV33eakzM?=
- =?us-ascii?Q?xm+Ay5e6j9nxiFnrwcctpssrhn2m7aZ59An8z0/b9+vbx0HrWhzGVBs/04FQ?=
- =?us-ascii?Q?sCifSLNWSXuhEtHi9mioU5dN5gYvY+0scioVo3+VWy2QfUhmhyiakyILi7zx?=
- =?us-ascii?Q?5TMh6Aqm3esAEv+JXloCoNEC8gx9SOEM2+nOWPRE2wtLjUFadjTyIUh63L9s?=
- =?us-ascii?Q?6z5ybuGK2+2j0UfKyMG1VDQbBYK6bFlp8mk4uEOYGCi20+sjB1x0JnRGpNJQ?=
- =?us-ascii?Q?HVtP2mp+VPyEDChUlizB2LiAePx+CmGXIgFzYRbQIfJ6087Ps+1MxjvWKFPh?=
- =?us-ascii?Q?WPmv0SQtwe3Bg6uoXC7/+mayp6zhSHjcjTcjbwSo87ZJCdxyji/qGCE6LPJP?=
- =?us-ascii?Q?g96H6P4g6gE6+gRin+OyBlozgHAee/Dak4VMzbJm5pUYaMPrgHRR/LOHxH4p?=
- =?us-ascii?Q?HHIeeGSjjcrCH6xQPB5ibYMK3H59nPJA15qk?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bTO+mkuymkQqvbYARnVqS+/859Oiy3JKg2AiX2r1X3spLJk6+9vO5A5aNcE+?=
+ =?us-ascii?Q?F7hwzC94KyNxVFHVm3biwjg84+aEOFgGqwS44wi0HP2a4AAuDYFr94NqWOle?=
+ =?us-ascii?Q?8vafg+usnyfl/a3HV3nrVuxtqzlYyf4IKWdNJnssV9832b/gVTmxIV+hY7A2?=
+ =?us-ascii?Q?7OgFm5bgqnSVGme+3Zz99q8KUjGVPf3xEoYxpxmDLboX6Bof7/G6A+UZDTCx?=
+ =?us-ascii?Q?KKnhWfMWuZ8NykntrSopVTzKwE5INBBmOqO62MFVh/VYREJIfw5+NzOpxgxM?=
+ =?us-ascii?Q?bWx8tb6qEIEcxodQePLbZId78Hv0Bx/u/6KeYVDDwr+kQomNETVGHnZagZrI?=
+ =?us-ascii?Q?6i0IlckoWj326rZo5uyQa1116MKhkQrBSyhKIDHpZ6fUQjKgENx+WyHQ9n7h?=
+ =?us-ascii?Q?36/IukGxm+WG4Rsdkl+u2PrX72ga+W10/t2hC9QeI4SaBs8SwhiBBeZ+NaPv?=
+ =?us-ascii?Q?8fn+sHz5l/d+EOUJGkY16d1bSg4bd/wf1mXKdE3ll69eBdGafSgBbgr1N7Ur?=
+ =?us-ascii?Q?jaP+vsc1NjrvjbcU5pL3SDWfeBgmYd6NAqzDNuTiXtYWfla9rDdpNilfggZ2?=
+ =?us-ascii?Q?iIChde1dWTdHpG7cRjbYBoRffZYOEnuyeD2icFLqWGsoIXTfkF145I6dgy56?=
+ =?us-ascii?Q?DSwEISUUlOtfeRcRoSgTl7g0AGA7KoiX1aibOlAl89aqchrRZmAQdGGonPHp?=
+ =?us-ascii?Q?VEi5vP13ynda0PvdxMfD0N9Pej8UBfdp5//wRjlrsdQTY1NxIS9l2RZvQpOY?=
+ =?us-ascii?Q?H2uTVY/Ctxhd2rg4GUZ+/a69bl7pWKk8W0Alg7MRvCIbGxCW3wQGbIq59ysP?=
+ =?us-ascii?Q?sVzJQspUZ8nhPvCTbthTOgXLmafsFxP9+Z46cMhgI8Lal7Ss40okht0b3jUo?=
+ =?us-ascii?Q?7hk2gKVnBUXdDF9F3E26WjXlfmjUU9+ka+HSxjGZkrXrCGnK0p0Bga9wgvue?=
+ =?us-ascii?Q?9V4WSQ/CuhF3RCZLA46c4Coj2ISIwQNXt2ZBYcVtZQVT7Wj80qZVlqwNFqPG?=
+ =?us-ascii?Q?NtKCvLUEXqskfs3XoDTkWVq/ovo7sj+EL7VSs/jxFazyEvMERuZA8SbWdxse?=
+ =?us-ascii?Q?URrHrtwhdTDttZHNsIpcVcQYaYouMlA8PJjnO04uQZDgG0XklqesaZ5OoaIY?=
+ =?us-ascii?Q?sYE3/mJQEKMqUHgWd5a9qTZ8gAisxwKZhhDiZct3RH/8PL1f0MyqHm/3MCbG?=
+ =?us-ascii?Q?0Ji7C+sr6fZDnYAi+On5Zpig0gQIejCgkOGbN30zO/bIBlV98sHoNhurKlCu?=
+ =?us-ascii?Q?wWLgt/opNqgdXjVtm1kLbz7IVSVfNCG2j0ZCzppSm8oeQpwhT/98WQMfgtV5?=
+ =?us-ascii?Q?/HAWg88bSiCa15wGA5cs9YQ9UuHjfceDJtnnmf89MJ4sB8XajyQTRZdp7UhJ?=
+ =?us-ascii?Q?BaSQYqgKQwxFfwqztx1HUpC2CEnZTgBzmbmFPQoW/VLOGKpWT7+NB7oeKPp7?=
+ =?us-ascii?Q?ecpLmoQgi73pThKiAS0VcKw3Gg7OKdI8W85EhzB42a8/Nu/4B/F5ojEZXg2B?=
+ =?us-ascii?Q?2bZcM1khpRGMyBGEYw6n8V6zbNh50jXVpW+r?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 19:38:31.2018 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc947590-e207-4968-3d68-08dda39f6304
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 19:38:44.3591 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bfb6599-8755-404c-d57a-08dda39f6adb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5824
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8423
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,133 +137,418 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+From: Dillon Varone <dillon.varone@amd.com>
 
-[WHY]
-These fields are read for the explicit purpose of detecting embedded LTTPRs
-(i.e. between host ASIC and the user-facing port), and thus need to
-calculate the correct DPCD address offset based on LTTPR count to target
-the appropriate LTTPR's DPCD register space with these queries.
+[WHY & HOW]
+DCN401 is only supported using DML2.1, so remove unused code and files.
 
-[HOW]
-Cascaded LTTPRs in a link each snoop and increment LTTPR count when queried
-via DPCD read, so an LTTPR embedded in a source device (e.g. USB4 port on a
-laptop) will always be addressible using the max LTTPR count seen by the
-host. Therefore we simply need to use a recently added helper function to
-calculate the correct DPCD address to target potentially embedded LTTPRs
-based on the received LTTPR count.
-
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Dillon Varone <dillon.varone@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  4 +-
- .../dc/link/protocols/link_dp_capability.c    | 38 +++++++++++++++----
- 2 files changed, 33 insertions(+), 9 deletions(-)
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        |  67 +++--
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   |   4 -
+ .../amd/display/dc/dml/dcn401/dcn401_fpu.c    | 239 ------------------
+ .../amd/display/dc/dml/dcn401/dcn401_fpu.h    |  14 -
+ .../dc/resource/dcn401/dcn401_resource.c      |   3 -
+ 5 files changed, 29 insertions(+), 298 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn401/dcn401_fpu.c
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn401/dcn401_fpu.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-index 0bad8304ccf6..d346f8ae1634 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-@@ -1172,8 +1172,8 @@ struct dc_lttpr_caps {
- 	union dp_128b_132b_supported_lttpr_link_rates supported_128b_132b_rates;
- 	union dp_alpm_lttpr_cap alpm;
- 	uint8_t aux_rd_interval[MAX_REPEATER_CNT - 1];
--	uint8_t lttpr_ieee_oui[3];
--	uint8_t lttpr_device_id[6];
-+	uint8_t lttpr_ieee_oui[3]; // Always read from closest LTTPR to host
-+	uint8_t lttpr_device_id[6]; // Always read from closest LTTPR to host
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+index a3b8e3d4a429..13334ee987f7 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+@@ -22,8 +22,6 @@
+ #include "dcn/dcn_4_1_0_offset.h"
+ #include "dcn/dcn_4_1_0_sh_mask.h"
  
- struct dc_dongle_dfp_cap_ext {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index a5127c2d47ef..0f965380a9b4 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -385,9 +385,15 @@ bool dp_is_128b_132b_signal(struct pipe_ctx *pipe_ctx)
- bool dp_is_lttpr_present(struct dc_link *link)
+-#include "dml/dcn401/dcn401_fpu.h"
+-
+ #define DCN_BASE__INST0_SEG1                       0x000000C0
+ 
+ #define mmCLK01_CLK0_CLK_PLL_REQ                        0x16E37
+@@ -183,43 +181,36 @@ static void dcn401_init_single_clock(struct clk_mgr_internal *clk_mgr, PPCLK_e c
+ 
+ static void dcn401_build_wm_range_table(struct clk_mgr *clk_mgr)
  {
- 	/* Some sink devices report invalid LTTPR revision, so don't validate against that cap */
--	return (dp_parse_lttpr_repeater_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt) != 0 &&
-+	uint32_t lttpr_count = dp_parse_lttpr_repeater_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
-+	bool is_lttpr_present = (lttpr_count > 0 &&
- 			link->dpcd_caps.lttpr_caps.max_lane_count > 0 &&
- 			link->dpcd_caps.lttpr_caps.max_lane_count <= 4);
+-	/* legacy */
+-	DC_FP_START();
+-	dcn401_build_wm_range_table_fpu(clk_mgr);
+-	DC_FP_END();
+-
+-	if (clk_mgr->ctx->dc->debug.using_dml21) {
+-		/* For min clocks use as reported by PM FW and report those as min */
+-		uint16_t min_uclk_mhz = clk_mgr->bw_params->clk_table.entries[0].memclk_mhz;
+-		uint16_t min_dcfclk_mhz	= clk_mgr->bw_params->clk_table.entries[0].dcfclk_mhz;
+-
+-		/* Set A - Normal - default values */
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_A].valid = true;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_uclk = min_uclk_mhz;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_uclk = 0xFFFF;
+-
+-		/* Set B - Unused on dcn4 */
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_B].valid = false;
+-
+-		/* Set 1A - Dummy P-State - P-State latency set to "dummy p-state" value */
+-		/* 'DalDummyClockChangeLatencyNs' registry key option set to 0x7FFFFFFF can be used to disable Set C for dummy p-state */
+-		if (clk_mgr->ctx->dc->bb_overrides.dummy_clock_change_latency_ns != 0x7FFFFFFF) {
+-			clk_mgr->bw_params->wm_table.nv_entries[WM_1A].valid = true;
+-			clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.wm_type = WATERMARKS_DUMMY_PSTATE;
+-			clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
+-			clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-			clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.min_uclk = min_uclk_mhz;
+-			clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.max_uclk = 0xFFFF;
+-		} else {
+-			clk_mgr->bw_params->wm_table.nv_entries[WM_1A].valid = false;
+-		}
+-
+-		/* Set 1B - Unused on dcn4 */
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_1B].valid = false;
++	/* For min clocks use as reported by PM FW and report those as min */
++	uint16_t min_uclk_mhz = clk_mgr->bw_params->clk_table.entries[0].memclk_mhz;
++	uint16_t min_dcfclk_mhz	= clk_mgr->bw_params->clk_table.entries[0].dcfclk_mhz;
 +
-+	if (lttpr_count > 0 && !is_lttpr_present)
-+		DC_LOG_ERROR("LTTPR count is nonzero but invalid lane count reported. Assuming no LTTPR present.\n");
++	/* Set A - Normal - default values */
++	clk_mgr->bw_params->wm_table.nv_entries[WM_A].valid = true;
++	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
++	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
++	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_dcfclk = 0xFFFF;
++	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_uclk = min_uclk_mhz;
++	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_uclk = 0xFFFF;
 +
-+	return is_lttpr_present;
++	/* Set B - Unused on dcn4 */
++	clk_mgr->bw_params->wm_table.nv_entries[WM_B].valid = false;
++
++	/* Set 1A - Dummy P-State - P-State latency set to "dummy p-state" value */
++	/* 'DalDummyClockChangeLatencyNs' registry key option set to 0x7FFFFFFF can be used to disable Set C for dummy p-state */
++	if (clk_mgr->ctx->dc->bb_overrides.dummy_clock_change_latency_ns != 0x7FFFFFFF) {
++		clk_mgr->bw_params->wm_table.nv_entries[WM_1A].valid = true;
++		clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.wm_type = WATERMARKS_DUMMY_PSTATE;
++		clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
++		clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.max_dcfclk = 0xFFFF;
++		clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.min_uclk = min_uclk_mhz;
++		clk_mgr->bw_params->wm_table.nv_entries[WM_1A].pmfw_breakdown.max_uclk = 0xFFFF;
++	} else {
++		clk_mgr->bw_params->wm_table.nv_entries[WM_1A].valid = false;
+ 	}
++
++	/* Set 1B - Unused on dcn4 */
++	clk_mgr->bw_params->wm_table.nv_entries[WM_1B].valid = false;
  }
  
- /* in DP compliance test, DPR-120 may have
-@@ -1551,6 +1557,8 @@ enum dc_status dp_retrieve_lttpr_cap(struct dc_link *link)
- 	uint8_t lttpr_dpcd_data[10] = {0};
- 	enum dc_status status;
- 	bool is_lttpr_present;
-+	uint32_t lttpr_count;
-+	uint32_t closest_lttpr_offset;
+ void dcn401_init_clocks(struct clk_mgr *clk_mgr_base)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index e1d500633dfa..b357683b4255 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -114,9 +114,6 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags)
  
- 	/* Logic to determine LTTPR support*/
- 	bool vbios_lttpr_interop = link->dc->caps.vbios_lttpr_aware;
-@@ -1602,20 +1610,22 @@ enum dc_status dp_retrieve_lttpr_cap(struct dc_link *link)
- 			lttpr_dpcd_data[DP_LTTPR_ALPM_CAPABILITIES -
- 							DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn401/dcn401_fpu.o := $(dml_ccflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn401/dcn401_fpu.o := $(dml_rcflags)
+-
+ ifdef CONFIG_DRM_AMD_DC_FP
+ DML += display_mode_lib.o display_rq_dlg_helpers.o dml1_display_rq_dlg_calc.o
+ DML += dcn10/dcn10_fpu.o
+@@ -137,7 +134,6 @@ DML += dcn303/dcn303_fpu.o
+ DML += dcn314/dcn314_fpu.o
+ DML += dcn35/dcn35_fpu.o
+ DML += dcn351/dcn351_fpu.o
+-DML += dcn401/dcn401_fpu.o
+ DML += dsc/rc_calc_fpu.o
+ DML += calcs/dcn_calcs.o calcs/dcn_calc_math.o calcs/dcn_calc_auto.o
+ endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn401/dcn401_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn401/dcn401_fpu.c
+deleted file mode 100644
+index 4fbecb5ff349..000000000000
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn401/dcn401_fpu.c
++++ /dev/null
+@@ -1,239 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-//
+-// Copyright 2024 Advanced Micro Devices, Inc.
+-
+-#include "dcn401_fpu.h"
+-#include "dcn401/dcn401_resource.h"
+-// We need this includes for WATERMARKS_* defines
+-#include "clk_mgr/dcn401/dcn401_smu14_driver_if.h"
+-#include "link.h"
+-
+-#define DC_LOGGER_INIT(logger)
+-
+-void dcn401_build_wm_range_table_fpu(struct clk_mgr *clk_mgr)
+-{
+-	/* defaults */
+-	double pstate_latency_us = clk_mgr->ctx->dc->dml.soc.dram_clock_change_latency_us;
+-	double fclk_change_latency_us = clk_mgr->ctx->dc->dml.soc.fclk_change_latency_us;
+-	double sr_exit_time_us = clk_mgr->ctx->dc->dml.soc.sr_exit_time_us;
+-	double sr_enter_plus_exit_time_us = clk_mgr->ctx->dc->dml.soc.sr_enter_plus_exit_time_us;
+-	/* For min clocks use as reported by PM FW and report those as min */
+-	uint16_t min_uclk_mhz			= clk_mgr->bw_params->clk_table.entries[0].memclk_mhz;
+-	uint16_t min_dcfclk_mhz			= clk_mgr->bw_params->clk_table.entries[0].dcfclk_mhz;
+-	uint16_t setb_min_uclk_mhz		= min_uclk_mhz;
+-	uint16_t dcfclk_mhz_for_the_second_state = clk_mgr->ctx->dc->dml.soc.clock_limits[2].dcfclk_mhz;
+-
+-	dc_assert_fp_enabled();
+-
+-	/* For Set B ranges use min clocks state 2 when available, and report those to PM FW */
+-	if (dcfclk_mhz_for_the_second_state)
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_dcfclk = dcfclk_mhz_for_the_second_state;
+-	else
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_dcfclk = clk_mgr->bw_params->clk_table.entries[0].dcfclk_mhz;
+-
+-	if (clk_mgr->bw_params->clk_table.entries[2].memclk_mhz)
+-		setb_min_uclk_mhz = clk_mgr->bw_params->clk_table.entries[2].memclk_mhz;
+-
+-	/* Set A - Normal - default values */
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].valid = true;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us = pstate_latency_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.fclk_change_latency_us = fclk_change_latency_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.sr_exit_time_us = sr_exit_time_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_uclk = min_uclk_mhz;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_uclk = 0xFFFF;
+-
+-	/* Set B - Performance - higher clocks, using DPM[2] DCFCLK and UCLK */
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].valid = true;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].dml_input.pstate_latency_us = pstate_latency_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].dml_input.fclk_change_latency_us = fclk_change_latency_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].dml_input.sr_exit_time_us = sr_exit_time_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_uclk = setb_min_uclk_mhz;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.max_uclk = 0xFFFF;
+-
+-	/* Set C - Dummy P-State - P-State latency set to "dummy p-state" value */
+-	/* 'DalDummyClockChangeLatencyNs' registry key option set to 0x7FFFFFFF can be used to disable Set C for dummy p-state */
+-	if (clk_mgr->ctx->dc->bb_overrides.dummy_clock_change_latency_ns != 0x7FFFFFFF) {
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].valid = true;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].dml_input.pstate_latency_us = 50;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].dml_input.fclk_change_latency_us = fclk_change_latency_us;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].dml_input.sr_exit_time_us = sr_exit_time_us;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.wm_type = WATERMARKS_DUMMY_PSTATE;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.min_uclk = min_uclk_mhz;
+-		clk_mgr->bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.max_uclk = 0xFFFF;
+-		clk_mgr->bw_params->dummy_pstate_table[0].dram_speed_mts = clk_mgr->bw_params->clk_table.entries[0].memclk_mhz * 16;
+-		clk_mgr->bw_params->dummy_pstate_table[0].dummy_pstate_latency_us = 50;
+-		clk_mgr->bw_params->dummy_pstate_table[1].dram_speed_mts = clk_mgr->bw_params->clk_table.entries[1].memclk_mhz * 16;
+-		clk_mgr->bw_params->dummy_pstate_table[1].dummy_pstate_latency_us = 9;
+-		clk_mgr->bw_params->dummy_pstate_table[2].dram_speed_mts = clk_mgr->bw_params->clk_table.entries[2].memclk_mhz * 16;
+-		clk_mgr->bw_params->dummy_pstate_table[2].dummy_pstate_latency_us = 8;
+-		clk_mgr->bw_params->dummy_pstate_table[3].dram_speed_mts = clk_mgr->bw_params->clk_table.entries[3].memclk_mhz * 16;
+-		clk_mgr->bw_params->dummy_pstate_table[3].dummy_pstate_latency_us = 5;
+-	}
+-	/* Set D - MALL - SR enter and exit time specific to MALL, TBD after bringup or later phase for now use DRAM values / 2 */
+-	/* For MALL DRAM clock change latency is N/A, for watermak calculations use lowest value dummy P state latency */
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].valid = true;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].dml_input.pstate_latency_us = clk_mgr->bw_params->dummy_pstate_table[3].dummy_pstate_latency_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].dml_input.fclk_change_latency_us = fclk_change_latency_us;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].dml_input.sr_exit_time_us = sr_exit_time_us / 2; // TBD
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us / 2; // TBD
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.wm_type = WATERMARKS_MALL;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.min_uclk = min_uclk_mhz;
+-	clk_mgr->bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_uclk = 0xFFFF;
+-}
+-
+-/*
+- * dcn401_update_bw_bounding_box
+- *
+- * This would override some dcn4_01 ip_or_soc initial parameters hardcoded from
+- * spreadsheet with actual values as per dGPU SKU:
+- * - with passed few options from dc->config
+- * - with dentist_vco_frequency from Clk Mgr (currently hardcoded, but might
+- *   need to get it from PM FW)
+- * - with passed latency values (passed in ns units) in dc-> bb override for
+- *   debugging purposes
+- * - with passed latencies from VBIOS (in 100_ns units) if available for
+- *   certain dGPU SKU
+- * - with number of DRAM channels from VBIOS (which differ for certain dGPU SKU
+- *   of the same ASIC)
+- * - clocks levels with passed clk_table entries from Clk Mgr as reported by PM
+- *   FW for different clocks (which might differ for certain dGPU SKU of the
+- *   same ASIC)
+- */
+-void dcn401_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params)
+-{
+-	dc_assert_fp_enabled();
+-
+-	/* Override from passed dc->bb_overrides if available*/
+-	if (dc->bb_overrides.sr_exit_time_ns)
+-		dc->dml2_options.bbox_overrides.sr_exit_latency_us =
+-				dc->bb_overrides.sr_exit_time_ns / 1000.0;
+-
+-	if (dc->bb_overrides.sr_enter_plus_exit_time_ns)
+-		dc->dml2_options.bbox_overrides.sr_enter_plus_exit_latency_us =
+-			dc->bb_overrides.sr_enter_plus_exit_time_ns / 1000.0;
+-
+-	if (dc->bb_overrides.urgent_latency_ns)
+-		dc->dml2_options.bbox_overrides.urgent_latency_us =
+-				dc->bb_overrides.urgent_latency_ns / 1000.0;
+-
+-	if (dc->bb_overrides.dram_clock_change_latency_ns)
+-		dc->dml2_options.bbox_overrides.dram_clock_change_latency_us =
+-			dc->bb_overrides.dram_clock_change_latency_ns / 1000.0;
+-
+-	if (dc->bb_overrides.fclk_clock_change_latency_ns)
+-		dc->dml2_options.bbox_overrides.fclk_change_latency_us =
+-			dc->bb_overrides.fclk_clock_change_latency_ns / 1000;
+-
+-	/* Override from VBIOS if VBIOS bb_info available */
+-	if (dc->ctx->dc_bios->funcs->get_soc_bb_info) {
+-		struct bp_soc_bb_info bb_info = {0};
+-		if (dc->ctx->dc_bios->funcs->get_soc_bb_info(dc->ctx->dc_bios, &bb_info) == BP_RESULT_OK) {
+-			if (bb_info.dram_clock_change_latency_100ns > 0)
+-				dc->dml2_options.bbox_overrides.dram_clock_change_latency_us =
+-					bb_info.dram_clock_change_latency_100ns * 10;
+-
+-			if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
+-				dc->dml2_options.bbox_overrides.sr_enter_plus_exit_latency_us =
+-					bb_info.dram_sr_enter_exit_latency_100ns * 10;
+-
+-			if (bb_info.dram_sr_exit_latency_100ns > 0)
+-				dc->dml2_options.bbox_overrides.sr_exit_latency_us =
+-					bb_info.dram_sr_exit_latency_100ns * 10;
+-		}
+-	}
+-
+-	/* Override from VBIOS for num_chan */
+-	if (dc->ctx->dc_bios->vram_info.num_chans) {
+-		dc->dml2_options.bbox_overrides.dram_num_chan =
+-				dc->ctx->dc_bios->vram_info.num_chans;
+-
+-	}
+-
+-	if (dc->ctx->dc_bios->vram_info.dram_channel_width_bytes)
+-		dc->dml2_options.bbox_overrides.dram_chanel_width_bytes =
+-				dc->ctx->dc_bios->vram_info.dram_channel_width_bytes;
+-
+-	dc->dml2_options.bbox_overrides.disp_pll_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+-	dc->dml2_options.bbox_overrides.xtalclk_mhz = dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency / 1000.0;
+-	dc->dml2_options.bbox_overrides.dchub_refclk_mhz = dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000.0;
+-	dc->dml2_options.bbox_overrides.dprefclk_mhz = dc->clk_mgr->dprefclk_khz / 1000.0;
+-
+-	if (dc->clk_mgr->bw_params->clk_table.num_entries > 1) {
+-		unsigned int i = 0;
+-
+-		dc->dml2_options.bbox_overrides.clks_table.num_states = dc->clk_mgr->bw_params->clk_table.num_entries;
+-
+-		dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_dcfclk_levels =
+-			dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_dcfclk_levels;
+-
+-		dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_fclk_levels =
+-			dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_fclk_levels;
+-
+-		dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_memclk_levels =
+-			dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_memclk_levels;
+-
+-		dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_socclk_levels =
+-			dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_socclk_levels;
+-
+-		dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_dtbclk_levels =
+-			dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_dtbclk_levels;
+-
+-		dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_dispclk_levels =
+-			dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_dispclk_levels;
+-
+-		dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_dppclk_levels =
+-			dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_dppclk_levels;
+-
+-		for (i = 0; i < dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_dcfclk_levels; i++) {
+-			if (dc->clk_mgr->bw_params->clk_table.entries[i].dcfclk_mhz)
+-				dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].dcfclk_mhz =
+-					dc->clk_mgr->bw_params->clk_table.entries[i].dcfclk_mhz;
+-		}
+-
+-		for (i = 0; i < dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_fclk_levels; i++) {
+-			if (dc->clk_mgr->bw_params->clk_table.entries[i].fclk_mhz)
+-				dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].fclk_mhz =
+-					dc->clk_mgr->bw_params->clk_table.entries[i].fclk_mhz;
+-		}
+-
+-		for (i = 0; i < dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_memclk_levels; i++) {
+-			if (dc->clk_mgr->bw_params->clk_table.entries[i].memclk_mhz)
+-				dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].memclk_mhz =
+-					dc->clk_mgr->bw_params->clk_table.entries[i].memclk_mhz;
+-		}
+-
+-		for (i = 0; i < dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_socclk_levels; i++) {
+-			if (dc->clk_mgr->bw_params->clk_table.entries[i].socclk_mhz)
+-				dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].socclk_mhz =
+-					dc->clk_mgr->bw_params->clk_table.entries[i].socclk_mhz;
+-		}
+-
+-		for (i = 0; i < dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_dtbclk_levels; i++) {
+-			if (dc->clk_mgr->bw_params->clk_table.entries[i].dtbclk_mhz)
+-				dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].dtbclk_mhz =
+-					dc->clk_mgr->bw_params->clk_table.entries[i].dtbclk_mhz;
+-		}
+-
+-		for (i = 0; i < dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_dispclk_levels; i++) {
+-			if (dc->clk_mgr->bw_params->clk_table.entries[i].dispclk_mhz) {
+-				dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].dispclk_mhz =
+-					dc->clk_mgr->bw_params->clk_table.entries[i].dispclk_mhz;
+-				dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].dppclk_mhz =
+-					dc->clk_mgr->bw_params->clk_table.entries[i].dispclk_mhz;
+-			}
+-		}
+-	}
+-}
+-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn401/dcn401_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn401/dcn401_fpu.h
+deleted file mode 100644
+index 329f1788843c..000000000000
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn401/dcn401_fpu.h
++++ /dev/null
+@@ -1,14 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-//
+-// Copyright 2024 Advanced Micro Devices, Inc.
+-
+-#ifndef __DCN401_FPU_H__
+-#define __DCN401_FPU_H__
+-
+-#include "clk_mgr.h"
+-
+-void dcn401_build_wm_range_table_fpu(struct clk_mgr *clk_mgr);
+-
+-void dcn401_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params);
+-
+-#endif
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index 1dce22b81c97..aff30274fa96 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -70,7 +70,6 @@
+ #include "dml/dcn30/display_mode_vba_30.h"
+ #include "vm_helper.h"
+ #include "dcn20/dcn20_vmid.h"
+-#include "dml/dcn401/dcn401_fpu.h"
  
-+	lttpr_count = dp_parse_lttpr_repeater_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
-+
- 	/* If this chip cap is set, at least one retimer must exist in the chain
- 	 * Override count to 1 if we receive a known bad count (0 or an invalid value) */
- 	if (((link->chip_caps & AMD_EXT_DISPLAY_PATH_CAPS__EXT_CHIP_MASK) == AMD_EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
--			(dp_parse_lttpr_repeater_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt) == 0)) {
-+			lttpr_count == 0) {
- 		/* If you see this message consistently, either the host platform has FIXED_VS flag
- 		 * incorrectly configured or the sink device is returning an invalid count.
- 		 */
- 		DC_LOG_ERROR("lttpr_caps phy_repeater_cnt is 0x%x, forcing it to 0x80.",
- 			     link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
- 		link->dpcd_caps.lttpr_caps.phy_repeater_cnt = 0x80;
-+		lttpr_count = 1;
- 		DC_LOG_DC("lttpr_caps forced phy_repeater_cnt = %d\n", link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
- 	}
+ #include "dc_state_priv.h"
  
--	/* Attempt to train in LTTPR transparent mode if repeater count exceeds 8. */
- 	is_lttpr_present = dp_is_lttpr_present(link);
+@@ -1622,8 +1621,6 @@ static void dcn401_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *b
  
- 	DC_LOG_DC("is_lttpr_present = %d\n", is_lttpr_present);
-@@ -1623,11 +1633,25 @@ enum dc_status dp_retrieve_lttpr_cap(struct dc_link *link)
- 	if (is_lttpr_present) {
- 		CONN_DATA_DETECT(link, lttpr_dpcd_data, sizeof(lttpr_dpcd_data), "LTTPR Caps: ");
+ 	DC_FP_START();
  
--		core_link_read_dpcd(link, DP_LTTPR_IEEE_OUI, link->dpcd_caps.lttpr_caps.lttpr_ieee_oui, sizeof(link->dpcd_caps.lttpr_caps.lttpr_ieee_oui));
--		CONN_DATA_DETECT(link, link->dpcd_caps.lttpr_caps.lttpr_ieee_oui, sizeof(link->dpcd_caps.lttpr_caps.lttpr_ieee_oui), "LTTPR IEEE OUI: ");
-+		// Identify closest LTTPR to determine if workarounds required for known embedded LTTPR
-+		closest_lttpr_offset = dp_get_closest_lttpr_offset(lttpr_count);
- 
--		core_link_read_dpcd(link, DP_LTTPR_DEVICE_ID, link->dpcd_caps.lttpr_caps.lttpr_device_id, sizeof(link->dpcd_caps.lttpr_caps.lttpr_device_id));
--		CONN_DATA_DETECT(link, link->dpcd_caps.lttpr_caps.lttpr_device_id, sizeof(link->dpcd_caps.lttpr_caps.lttpr_device_id), "LTTPR Device ID: ");
-+		core_link_read_dpcd(link, (DP_LTTPR_IEEE_OUI + closest_lttpr_offset),
-+				link->dpcd_caps.lttpr_caps.lttpr_ieee_oui, sizeof(link->dpcd_caps.lttpr_caps.lttpr_ieee_oui));
-+		core_link_read_dpcd(link, (DP_LTTPR_DEVICE_ID + closest_lttpr_offset),
-+				link->dpcd_caps.lttpr_caps.lttpr_device_id, sizeof(link->dpcd_caps.lttpr_caps.lttpr_device_id));
-+
-+		if (lttpr_count > 1) {
-+			CONN_DATA_DETECT(link, link->dpcd_caps.lttpr_caps.lttpr_ieee_oui, sizeof(link->dpcd_caps.lttpr_caps.lttpr_ieee_oui),
-+					"Closest LTTPR To Host's IEEE OUI: ");
-+			CONN_DATA_DETECT(link, link->dpcd_caps.lttpr_caps.lttpr_device_id, sizeof(link->dpcd_caps.lttpr_caps.lttpr_device_id),
-+					"Closest LTTPR To Host's LTTPR Device ID: ");
-+		} else {
-+			CONN_DATA_DETECT(link, link->dpcd_caps.lttpr_caps.lttpr_ieee_oui, sizeof(link->dpcd_caps.lttpr_caps.lttpr_ieee_oui),
-+					"LTTPR IEEE OUI: ");
-+			CONN_DATA_DETECT(link, link->dpcd_caps.lttpr_caps.lttpr_device_id, sizeof(link->dpcd_caps.lttpr_caps.lttpr_device_id),
-+					"LTTPR Device ID: ");
-+		}
- 	}
- 
- 	return status;
+-	dcn401_update_bw_bounding_box_fpu(dc, bw_params);
+-
+ 	dml2_opt->use_clock_dc_limits = false;
+ 	if (dc->debug.using_dml2 && dc->current_state && dc->current_state->bw_ctx.dml2)
+ 		dml2_reinit(dc, dml2_opt, &dc->current_state->bw_ctx.dml2);
 -- 
 2.43.0
 
