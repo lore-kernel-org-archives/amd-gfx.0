@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66767C5B543
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jun 2025 19:38:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADC61C5B549
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jun 2025 19:38:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B0710E78A;
-	Wed,  4 Jun 2025 19:37:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D8210E7B7;
+	Wed,  4 Jun 2025 19:38:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k4E7Ae6T";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XPulJWKD";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2043.outbound.protection.outlook.com [40.107.212.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD8210E78A
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:37:58 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2045.outbound.protection.outlook.com [40.107.95.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62B0F10E7A9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:38:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rBBax5MG4csR/ijAhpz+rosPX5nvWxJOFu4QKQgsxP8m4GoNSGnVfXpTjfERT4TKDHy/1wxqOC0KjEGwsb09BLqsIxWbNtOI5OhKvuP+plgkFvlS8fDbKxBepNRttaEpJ3+C0mtLKn4OYdk2T3x90lRucF/dYu3npmzn+QVd5A+UtTjpk8RAoxjylZ6c3qEoGXMfTDkphkZHFh5B/3uAjaFcEixCVrscyxoZdSCOTdnGZjdDPB3bV+X7gABntYQpR6HeEmIYZvS8PICkrxz7jyMDJV5pgLpRn570rxrKqZcOrKydlO/p0scpTUR/9y68YGQH5u2TSSyqYpBV8uzVwA==
+ b=U3U+qye1qEj8gGVpAh3Ps3P+60P+bhkXIJNZvJueP63F6mnTlg7QMBf0nx42r9yPR4oZ5pwRFUxAVVbawKZ8jFNFX1QrqMegIZwimTh1uCVp3KW7oOspHNaw8wZk7zQPL9rV7/jfCI+48foimwYz9TjU0+sy2il0+JCo37pURjSc/zTHfDgV2AO5C9K8ZyptiBcIJBBQ3M90ae49Fe5xsoz/mB9v5ND8TGXfKjtvket2Z3uSpOC2Muv9cTgbxGwdBke99jN5mBx/W3zMuiYpiianv9xjncagKgEsm0T34So8dZ7ZnMo+PXHf2TfohyjN3wOilP1bZ08CHkdurMOo+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mRNxu+xVf9DoZc3qOS+cW0bjXSVfZ0Q7ekrf08naWhg=;
- b=JMuw+IiJYdeT9pHwwIzCmu9BiHmNaUj02uxQ+L8AGoUO5cTaUiDks1CE+VAIK7Wqvm+lrJRbFLT9Mem7SD+D94bMYWoeUJwf+yaY6faUk2+grSP5fiD3J62yHg040rnP9dYdKoS7q1kFnAI6uaZtaZtnp5/7oy6cI3/21mOcrsXccR7CNwhkr+MS3zfqSXvPnmfcHxe3zDybMQnS8Q6wkE0+4JFbNfxHgzjtNih5CHe+1jFy3sCFk82jAM6NfNrhn6LNP40Zi8+ffVA+54DpUOWDw8nQ5sbYO1US4aE5uz2Km3i3i1cGKWjx2KY+8ITfzXRpgJjpu51zDwphvovmZw==
+ bh=YRgKZv/y2IUrXkIVgemrVAB0Tf/4HpYTrtFgqbiLsa4=;
+ b=h9EjTgT9Ynv4UPHxpnJdoDPjYImv9Ga/9ZfykRT0PQiOn2M4GYi7QyXtvNRAGJ98m2M2tH0bpKUZmO85F1eRVfXlTFl5BxQDIADOc4+0Zr88tQIotaUquXdHwug2n/wLQ99eqVRoe0OfcqC+ZrkhuXAC+Pd7xxlXF/2I3lUNyeTfP7SR97eOK497qBhhzLswVE25rlISdXPt8m1XMUymIlc//8bvOJSk0NyYkHR3F64Mpm9HbmUqy2n2DhnU35Kqlof1p7g6lwkX5wWdoV5ZJCaBIEe0iMs2u3Y96OexOoNxJukLO/zbdKcqDtN86UkNzLHgoEVje2oaqhMaZhAfYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mRNxu+xVf9DoZc3qOS+cW0bjXSVfZ0Q7ekrf08naWhg=;
- b=k4E7Ae6TIC4LvzPqRmKoT5i1Pg6xRiGWMjZdZjQ4ugsg9WtQSj9t/PRj3+/lr6afpNSL80B/dQz52AxEk7TPvG030TuPdeVYMlkppqoiyelrPqSjAKk2JS5CLDcb0a5+47AQnOEIH7ozxXYblM9jEdhWe9i3FobIHFDiyH7W9CM=
-Received: from CH3P220CA0006.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1e8::34)
- by MW5PR12MB5622.namprd12.prod.outlook.com (2603:10b6:303:198::13)
+ bh=YRgKZv/y2IUrXkIVgemrVAB0Tf/4HpYTrtFgqbiLsa4=;
+ b=XPulJWKDtoC7k6zS+DiA8RR2k63PDZ7NPdsqGbzGsRVW5ZWFn7jCNHOaDveBduuFJ9os2CL968Gu3kzR4SJsxzFjeoMbOhFgjhINTrfIN3QEPepR1BDwbLm+6llleEIOm0oNLROG2BTwX1F7wuwc94x7l7ERRfoCZrTJigUpdKM=
+Received: from CH0PR03CA0253.namprd03.prod.outlook.com (2603:10b6:610:e5::18)
+ by IA0PR12MB7507.namprd12.prod.outlook.com (2603:10b6:208:441::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.36; Wed, 4 Jun
- 2025 19:37:52 +0000
-Received: from DS3PEPF000099E2.namprd04.prod.outlook.com
- (2603:10b6:610:1e8:cafe::7e) by CH3P220CA0006.outlook.office365.com
- (2603:10b6:610:1e8::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.24 via Frontend Transport; Wed,
- 4 Jun 2025 19:37:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Wed, 4 Jun
+ 2025 19:38:05 +0000
+Received: from DS3PEPF000099DD.namprd04.prod.outlook.com
+ (2603:10b6:610:e5:cafe::bf) by CH0PR03CA0253.outlook.office365.com
+ (2603:10b6:610:e5::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Wed,
+ 4 Jun 2025 19:38:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,26 +48,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099E2.mail.protection.outlook.com (10.167.17.201) with Microsoft
+ DS3PEPF000099DD.mail.protection.outlook.com (10.167.17.199) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 19:37:51 +0000
+ 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 19:38:04 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Jun
- 2025 14:37:49 -0500
+ 2025 14:38:02 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Peichen Huang
- <PeiChen.Huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Cruise Hung
- <cruise.hung@amd.com>
-Subject: [PATCH 02/23] drm/amd/display: Add dc cap for dp tunneling
-Date: Wed, 4 Jun 2025 12:43:13 -0600
-Message-ID: <20250604193659.2462225-3-alex.hung@amd.com>
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Cruise Hung
+ <Cruise.Hung@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
+Subject: [PATCH 03/23] drm/amd/display: Add DPIA debug option for zero
+ allocation patch
+Date: Wed, 4 Jun 2025 12:43:14 -0600
+Message-ID: <20250604193659.2462225-4-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250604193659.2462225-1-alex.hung@amd.com>
 References: <20250604193659.2462225-1-alex.hung@amd.com>
@@ -79,52 +78,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E2:EE_|MW5PR12MB5622:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dd1f1b4-1420-4dd9-ff21-08dda39f4b61
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DD:EE_|IA0PR12MB7507:EE_
+X-MS-Office365-Filtering-Correlation-Id: 253e1146-d50d-4043-d7d4-08dda39f5322
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JdogG7KZpkOwrNzSFD8ooF9AL+HAG4d7fT4SgvtOpdixw7NHQnO1DhlKcLwc?=
- =?us-ascii?Q?IbovS+tb3EH0FtzBTdebWeYG98sP9pxr+Df+A39+URNMdlZTTBFkgH9cWOfz?=
- =?us-ascii?Q?Z5chN3ur/xT7bE0HgGs33Wz0HLL+QIXhDcReNzbrLMiNnJkDki3/5howP46L?=
- =?us-ascii?Q?cVZMsfyzGMgxtcpK2M8ZUn3EWJgJ4OfZpQ5wH5qW1vBRSKSQ9rBAbJI8lwYJ?=
- =?us-ascii?Q?uPfgw0GJQAcgzJqhcXeuHPpVPq7iyTJ6qkFI3rLG4SY1G3sVWL72M3caqMlZ?=
- =?us-ascii?Q?hw0zVlb9mgWicyfICf9XpPmZeeWMyC3fXxmFhi77v16KnaPVhlkq6r9cpu/p?=
- =?us-ascii?Q?FwRVyP8yUtxuUPhcyN1C8HJFo+sXTH+PbtfgQ/3+NHPT4XIZx3tItq3eI0pG?=
- =?us-ascii?Q?977fhNH2HI0vdiYItGnvaYzFlXyh1EzOxINfNSvoSy4P5bU1owFHS2DWN48/?=
- =?us-ascii?Q?+FeZCe8aGgc4uAlnPTy+FfvUrf69ox5rgTKckdG9ku8zx59WL47CVCO07BoF?=
- =?us-ascii?Q?6st8nmAqQvziwl7lc90Sw6lqq5kAykc6zLVSYbJl2+6tUgiGni+5spWGu0BV?=
- =?us-ascii?Q?F+OxxtyFbfA8nSaQ7KZVEEthKsSkIWF/VVJIGR1zSk1qDpRCzAccIzv9DnZ5?=
- =?us-ascii?Q?sUSYWy0C8asxQj8eCb0rsuHtHsdGmIuZTkLC8EOSEY/bi+jlJ0GRBL6UBLMX?=
- =?us-ascii?Q?aMwGtiMRCVyWspmuFy/2kbmFoTXe4IpXH9u5VdjYz9WwqHLD88ZfxZi75fQq?=
- =?us-ascii?Q?lRYJHq6YQcoup9ajZA2Alqhk1+igX0FkK6Hach5gHtDerbn8yItugH1FZ+fC?=
- =?us-ascii?Q?uV96XeC1cx948TofhbzcpLYjOdT1uwC1o4quzI9tFsiHA/LQiyF7lGVTPMBq?=
- =?us-ascii?Q?E3kNNp5F05kaffnLkmBY9EIGiAsIsxT4uW5H42+SLbAkYQzM76tpNcKegsui?=
- =?us-ascii?Q?zDPmaYzVuV2vO3tQmh73Cq0cin8yzjlKJ2vB0DROhe5irnUR9mKVrrV8WpML?=
- =?us-ascii?Q?7gQGwKLEQwkeFd4zex3W6osWzy73nBKeqHZx7ihvTIjt/UL5JSOe/He3Ac6j?=
- =?us-ascii?Q?5lwTqIYqmEM10PxG7Zo+S7qt7vgRN53jgYgdOgKiY0dr7d/gcYjaHuHDn2wo?=
- =?us-ascii?Q?2xHHXd++XMiYvXLxgL2njLgWgAfi3R9mMInsyIBNvIZjd++kejKB/2JRfxs7?=
- =?us-ascii?Q?vjX3ojvliLXLbuFMldNHh57cl4ij3B/EZLD/JuYeVLt0rRPi9SVmJxxRIw2R?=
- =?us-ascii?Q?gkMZDqLq37+IfMFMaRSvfLE7t2iBlwjyt/+Io8pPQL1SCKImttso6bJ+vrNp?=
- =?us-ascii?Q?E2gebZjyovAsdq0cO6ECmpLsI6EgfloGfb3BkQDDmVbgyCWeftQyhq/iPZdi?=
- =?us-ascii?Q?E85Vd5khvbkS4fqPossh+9M/4ceWeMqQHDG6pOuKg6DAq4XAlKPm+mBCxDcP?=
- =?us-ascii?Q?a4i8+0BEoeZOPi1c4T+X+L4sfhpdblEjLkpZRJT9Zg46AeVgAcMuSGDuLloE?=
- =?us-ascii?Q?GlFcdaiSKVhavByrXvGELHPfw+abPbPS1qzJ?=
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hbst9B1ts6NlwBGt3sWOYx4HYzZvMhXQYWdUEXgk8jHXBEFzx0ScySs2cIic?=
+ =?us-ascii?Q?k6lBNrJLlLzVtcOah3PNV+i3+mfj3H5AePrhyRIKFqNJ+KDzRSnfHnSJbq68?=
+ =?us-ascii?Q?tEemIu95TuXAgKyORusD92NeycHGxWIBYS5nxgIngGlRxCFgRQpVEQCiu+ew?=
+ =?us-ascii?Q?e5heLRxUjhrdCw7U7cFgO776QrKxeK38VewTvhVKedsd+hLrGaMmP2n6oDuG?=
+ =?us-ascii?Q?VZUhii5LsAxrjfCaTnoDE51GPPP0+JBD2l49GQH/CDSaGKINRRZQJLgMg13r?=
+ =?us-ascii?Q?8qoolof+eRBw0wxyOIJ5MNOJ0aaXmvgDvLs+AlJi/VkB10a0dYxnGv8qVgB+?=
+ =?us-ascii?Q?+Dn/4rBuZkSNnq1jgtGwoGndlW2qh+/bFcg5ZKsm3fyMl7CDvfnZjvA9H4aL?=
+ =?us-ascii?Q?dyuD9sJYVdGzJhflTPos2/NGzeclD7jylNy6Arc+AMVAfn06m+zqxvQwM7XJ?=
+ =?us-ascii?Q?uf2cAhTGdlZqeeVFnrL0ZRw/1cwqoPcdp+Md6GiB/wq1YNbzMOQjYTwJOGXQ?=
+ =?us-ascii?Q?ubu5D32MXpVduyT7I88mHU8/kLMAu5ufVULMwrv07QXgcI+bEUXum4hdQZIv?=
+ =?us-ascii?Q?PnuarPVJCYoPLAIYoRASuf1Ae2Zr5itxyDE0WfZr5OjgPEwitGG9pjYlMrmI?=
+ =?us-ascii?Q?bDmcL6pBak832uKMyvQ2h6D+C8Z9Af9GysFU1HuMi9cjZ8P/GnvZs69k67QN?=
+ =?us-ascii?Q?j5OfZetPknwqdRwVvS7kAW6hdhUXw5D4ycRZoTxXne8nyY9C6h4bH5HeYttn?=
+ =?us-ascii?Q?HS46xutLVxFl16Z5VIezjIeVS5xpjA7pZ1FGgFIiZRiAzTObwBxzJ2ktKsS3?=
+ =?us-ascii?Q?1KOuRQajmeCg0tII0yLXNxcjxlJhf/w13PJY4/3ff3y/ZGJ07VWytPD2Osxe?=
+ =?us-ascii?Q?OifLbEtknFZry6RbgU89nOEg/89vpMeM85fczMFOzqFgbi1i1cWhZBy63VP2?=
+ =?us-ascii?Q?egn2ejfzZKoWy4nlG5z6MsffyeNvqZVpq4HufvOan30QF4gE33ze5AvnN0R3?=
+ =?us-ascii?Q?Z83z5WmrJeqMhhKokKOWT+f3FaLVBkxCtzbd3LoJqm6sPtG4+V4XxOn+PWge?=
+ =?us-ascii?Q?i09fV4cYv/2ZOO/g0uafA/wWjmEWyf3ga0fCcOafgNUxqLJtFwwoBl6MObTF?=
+ =?us-ascii?Q?+sQw3m4FOc5+26FAoXmsDOuQIiwvIGeSxmvixP20g/+Kc3lqNpZvr2Ey7+hw?=
+ =?us-ascii?Q?ZmkTVTYhlZL1dATOdeH04Jxu2lcFmA5TNMCLw77dGaI/8pjcQntiMK7/OHFc?=
+ =?us-ascii?Q?E/zXxVh4mbw/YAPfBbKPm+hLMn9FY/FClQqkTs3wP4/kdRV/+8TAVa9bApOq?=
+ =?us-ascii?Q?NJo3cURnbzqM0ha6eu0jkegd7kfIBkKud40BIF37218c2mj2ob9sZVpMYn1v?=
+ =?us-ascii?Q?jh/Rt5vj5nx3CZRROjqqVXY3t1LDWXfhFCOzXCrnqUstNv9djKbaxK7WRlXe?=
+ =?us-ascii?Q?EUW9b7JkqORoj8wrOEYmdBpgLQZn3OG/UK2QH+T/EHK1LzaoBR3WQ+AZ8XTY?=
+ =?us-ascii?Q?028O/CdwU5xKwdnAMbTzoxE5R7L2Ak1xwyJz?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 19:37:51.5519 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dd1f1b4-1420-4dd9-ff21-08dda39f4b61
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 19:38:04.5592 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 253e1146-d50d-4043-d7d4-08dda39f5322
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DD.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5622
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7507
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,196 +138,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Peichen Huang <PeiChen.Huang@amd.com>
+From: Cruise Hung <Cruise.Hung@amd.com>
 
-[WHAT]
-1. add dc cap for dp tunneling
-2. add function to get index of host router
+[WHY & HOW]
+The BW zero allocation patch is no longer required.
+Add a debug option to enable it in case we encounter an issue.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Cruise Hung <cruise.hung@amd.com>
-Signed-off-by: Peichen Huang <PeiChen.Huang@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Cruise Hung <Cruise.Hung@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 33 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  8 ++++-
- .../dc/resource/dcn31/dcn31_resource.c        |  3 ++
- .../dc/resource/dcn314/dcn314_resource.c      |  3 ++
- .../dc/resource/dcn35/dcn35_resource.c        |  3 ++
- .../dc/resource/dcn351/dcn351_resource.c      |  3 ++
- .../dc/resource/dcn36/dcn36_resource.c        |  3 ++
- 7 files changed, 55 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dc.h            |  3 ++-
+ .../dc/link/protocols/link_dp_dpia_bw.c        | 18 ++++++++++--------
+ 2 files changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 284261cd372f..eaf44e6046b5 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -241,6 +241,7 @@ static bool create_links(
- 	DC_LOG_DC("BIOS object table - end");
- 
- 	/* Create a link for each usb4 dpia port */
-+	dc->lowest_dpia_link_index = MAX_LINKS;
- 	for (i = 0; i < dc->res_pool->usb4_dpia_count; i++) {
- 		struct link_init_data link_init_params = {0};
- 		struct dc_link *link;
-@@ -253,6 +254,9 @@ static bool create_links(
- 
- 		link = dc->link_srv->create_link(&link_init_params);
- 		if (link) {
-+			if (dc->lowest_dpia_link_index > dc->link_count)
-+				dc->lowest_dpia_link_index = dc->link_count;
-+
- 			dc->links[dc->link_count] = link;
- 			link->dc = dc;
- 			++dc->link_count;
-@@ -6378,6 +6382,35 @@ unsigned int dc_get_det_buffer_size_from_state(const struct dc_state *context)
- 	else
- 		return 0;
- }
-+/**
-+ ***********************************************************************************************
-+ * dc_get_host_router_index: Get index of host router from a dpia link
-+ *
-+ * This function return a host router index of the target link. If the target link is dpia link.
-+ *
-+ * @param [in] link: target link
-+ * @param [out] host_router_index: host router index of the target link
-+ *
-+ * @return: true if the host router index is found and valid.
-+ *
-+ ***********************************************************************************************
-+ */
-+bool dc_get_host_router_index(const struct dc_link *link, unsigned int *host_router_index)
-+{
-+	struct dc *dc = link->ctx->dc;
-+
-+	if (link->ep_type != DISPLAY_ENDPOINT_USB4_DPIA)
-+		return false;
-+
-+	if (link->link_index < dc->lowest_dpia_link_index)
-+		return false;
-+
-+	*host_router_index = (link->link_index - dc->lowest_dpia_link_index) / dc->caps.num_of_dpias_per_host_router;
-+	if (*host_router_index < dc->caps.num_of_host_routers)
-+		return true;
-+	else
-+		return false;
-+}
- 
- bool dc_is_cursor_limit_pending(struct dc *dc)
- {
 diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d0839a679901..5c01a535b4fa 100644
+index 5c01a535b4fa..83ee6ddaddb7 100644
 --- a/drivers/gpu/drm/amd/display/dc/dc.h
 +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -68,7 +68,8 @@ struct dmub_notification;
- #define MAX_STREAMS 6
- #define MIN_VIEWPORT_SIZE 12
- #define MAX_NUM_EDP 2
--#define MAX_HOST_ROUTERS_NUM 2
-+#define MAX_HOST_ROUTERS_NUM 3
-+#define MAX_DPIA_PER_HOST_ROUTER 2
- #define MAX_SUPPORTED_FORMATS 7
- 
- /* Display Core Interfaces */
-@@ -338,6 +339,8 @@ struct dc_caps {
- 	/* Conservative limit for DCC cases which require ODM4:1 to support*/
- 	uint32_t dcc_plane_width_limit;
- 	struct dc_scl_caps scl_caps;
-+	uint8_t num_of_host_routers;
-+	uint8_t num_of_dpias_per_host_router;
+@@ -824,7 +824,8 @@ union dpia_debug_options {
+ 		uint32_t disable_mst_dsc_work_around:1; /* bit 3 */
+ 		uint32_t enable_force_tbt3_work_around:1; /* bit 4 */
+ 		uint32_t disable_usb4_pm_support:1; /* bit 5 */
+-		uint32_t reserved:26;
++		uint32_t enable_usb4_bw_zero_alloc_patch:1; /* bit 6 */
++		uint32_t reserved:25;
+ 	} bits;
+ 	uint32_t raw;
  };
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
+index 3af7564a84f1..642feac5a673 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
+@@ -304,14 +304,16 @@ bool link_dpia_enable_usb4_dp_bw_alloc_mode(struct dc_link *link)
+ 			link->dpia_bw_alloc_config.bw_alloc_enabled = true;
+ 			ret = true;
  
- struct dc_bug_wa {
-@@ -1637,6 +1640,7 @@ struct dc {
- 
- 	uint8_t link_count;
- 	struct dc_link *links[MAX_LINKS];
-+	uint8_t lowest_dpia_link_index;
- 	struct link_service *link_srv;
- 
- 	struct dc_state *current_state;
-@@ -2625,6 +2629,8 @@ struct dc_power_profile dc_get_power_profile_for_dc_state(const struct dc_state
- 
- unsigned int dc_get_det_buffer_size_from_state(const struct dc_state *context);
- 
-+bool dc_get_host_router_index(const struct dc_link *link, unsigned int *host_router_index);
-+
- /* DSC Interfaces */
- #include "dc_dsc.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-index 6b6efc2e75c0..2a33c82cfedb 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-@@ -1954,6 +1954,9 @@ static bool dcn31_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.num_of_host_routers = 2;
-+	dc->caps.num_of_dpias_per_host_router = 2;
-+
- 	/* Use pipe context based otg sync logic */
- 	dc->config.use_pipe_ctx_sync_logic = true;
- 	dc->config.disable_hbr_audio_dp2 = true;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-index e84526c51590..cec03e81c6bd 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-@@ -1885,6 +1885,9 @@ static bool dcn314_resource_construct(
- 
- 	dc->caps.max_disp_clock_khz_at_vmin = 650000;
- 
-+	dc->caps.num_of_host_routers = 2;
-+	dc->caps.num_of_dpias_per_host_router = 2;
-+
- 	/* Use pipe context based otg sync logic */
- 	dc->config.use_pipe_ctx_sync_logic = true;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-index 62f6c7abb9c6..1f20069018ca 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -1894,6 +1894,9 @@ static bool dcn35_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.num_of_host_routers = 2;
-+	dc->caps.num_of_dpias_per_host_router = 2;
-+
- 	/* max_disp_clock_khz_at_vmin is slightly lower than the STA value in order
- 	 * to provide some margin.
- 	 * It's expected for furture ASIC to have equal or higher value, in order to
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-index 85a96258bce8..6266fc77c7eb 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -1866,6 +1866,9 @@ static bool dcn351_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.num_of_host_routers = 2;
-+	dc->caps.num_of_dpias_per_host_router = 2;
-+
- 	/* max_disp_clock_khz_at_vmin is slightly lower than the STA value in order
- 	 * to provide some margin.
- 	 * It's expected for furture ASIC to have equal or higher value, in order to
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-index e977866802bf..10d3182b3058 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-@@ -1867,6 +1867,9 @@ static bool dcn36_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.num_of_host_routers = 2;
-+	dc->caps.num_of_dpias_per_host_router = 2;
-+
- 	/* max_disp_clock_khz_at_vmin is slightly lower than the STA value in order
- 	 * to provide some margin.
- 	 * It's expected for furture ASIC to have equal or higher value, in order to
+-			/*
+-			 * During DP tunnel creation, CM preallocates BW and reduces estimated BW of other
+-			 * DPIA. CM release preallocation only when allocation is complete. Do zero alloc
+-			 * to make the CM to release preallocation and update estimated BW correctly for
+-			 * all DPIAs per host router
+-			 */
+-			// TODO: Zero allocation can be removed once the MSFT CM fix has been released
+-			link_dp_dpia_allocate_usb4_bandwidth_for_stream(link, 0);
++			if (link->dc->debug.dpia_debug.bits.enable_usb4_bw_zero_alloc_patch) {
++				/*
++				 * During DP tunnel creation, the CM preallocates BW
++				 * and reduces the estimated BW of other DPIAs.
++				 * The CM releases the preallocation only when the allocation is complete.
++				 * Perform a zero allocation to make the CM release the preallocation
++				 * and correctly update the estimated BW for all DPIAs per host router.
++				 */
++				link_dp_dpia_allocate_usb4_bandwidth_for_stream(link, 0);
++			}
+ 		} else
+ 			DC_LOG_DEBUG("%s:  link[%d] failed to enable DPTX BW allocation mode", __func__, link->link_index);
+ 	}
 -- 
 2.43.0
 
