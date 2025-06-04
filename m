@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D381C5B552
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jun 2025 19:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73D2FC5B543
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jun 2025 19:39:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEC5610E7CD;
-	Wed,  4 Jun 2025 19:39:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12E8D10E7BB;
+	Wed,  4 Jun 2025 19:39:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H8+2Pa/b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yOC3hzcp";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A99D10E7CD
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:39:20 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5248010E7BB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jun 2025 19:39:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XaXrMDZrOZhmLtKBk/NCgd7M9p4qwWgUA7zJS6sUmUACRIkJQSc+TtwV+2wYiZ1Cghqak570idld9hIdmyAPVFmlj6+O+BklJg2iM4L/8PPZZ2w3HBWSOEbPblmJ6scpMFyrnzM+/UNoWI8YAz/RLlxNSrfE4PX7DaPmM40DdIlO50pq/wQkXQZyrtbgIXTyhrvPgc/3aciDVll8YzHox83zIOG4gFIL8AYMVt+ru6IIe0Rnf3iVCs5v+dgzFtzEb0h/Ed0QHBHnC26m0qAnQ6N4fMuQBKgwQfIjHxnLPy6dwD97lWPeDz6Vi24tLHkr7V/4oyjo3IsCHXbMaWsecA==
+ b=iRf2/iyRbbiXkhIxvj83CnUB/2PZCfZ6E1IRZ+6uLJRWBR+AVrLk2tCgS/PE2H9PsVSnPp7G6NILb7AnGFBsipPxt4QQaE/SM0RomVcMpmy/+RwK55VAKytiZYkIzAH5EhVmpEd5QC+jXsjvtKj0PGsKagylgjVjVHMopRZAVsPo+AQM1OfgdrjxgVHPFCuCHs2BaALze+mGauznZ2NJ/jQzxasQtGWRIa3hmiINqKU+dyilFJtY1/h6ErKY/rzDkUplCU+yXSAZucxEX0XTOnmk2voHOxsZanSgJprJ8Jyt2P7vFZB5mMeC0EVvgujWjmCAbUoYBl/56mQrFMoS5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R4v3pAPIK5jeSjGXilL28gO6sXchuckIXdm3Wp5QN7g=;
- b=jGUsuSp+trrL7F7OeRLIsBy0Bs74giSvMiwT7FYweX8EkYCyxwbpZzVKxTTuOknbJ9YPXHSmavPc6bDaaFyvuBiZSFvcdv7YYKjFlHKAQtENVXVErjOW1aOA5PkV+NX0uyU8kuVH9hYhZq8caTRqltjmbZ5MR07y0hFSTQZTafz8/XIgmKXSTn4GOKMrTVYir92llWWSy9V6tRpC5q1NrmQeDCHXiMQ0uwtXHW8ct3bjFwyh4S4IgXIe5bOgBanEf5Te5woTn32Vj09KjU3XlBKZSl/bhSVYL+jAxvTaIFCAys4MX4fNTP3Ldcy7SFspn1RG6SvbG9IgOn81jPpyzQ==
+ bh=hrB3rW5vgxQHmTFZm7eVWmuuPrCDGICqbbouAuU0VM4=;
+ b=IKrLbjyDe0vSC+ib44kPn2HZhlt+djc5+UTfQDFKHVsH4aRMv+7b5MzBFyn/susAG2EIjUuTwS3gVB5mXfRz46ErULT+tb3eWJLS7drmzQ1tIortvbrQIKLQy18XAcOPLtFgiv/vxDPRpg9elROKE/oFSJIjyYSWwy6chbL6JUEOaxUeUAmi+X4rubLsSdMouamtisRw6ZeUSoIHi/shtuuJ0eUyBubzqZNN2Hpdg0iChCk7kKPHr0mBtlzRFtNbynbT/4AagGcl1JqSM/2LLNRKvYzZ1vWOqNIb1X8sNy6n+kWr7D/34YY4M5ay1mn9qUEVfwtyjfSdXHMmpa8Nlw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R4v3pAPIK5jeSjGXilL28gO6sXchuckIXdm3Wp5QN7g=;
- b=H8+2Pa/bGIojXXELFAJa9rUyMEt3PIF7PAghcuNvddv/ue8Ghw1I1qPm74QaosCQoisSmmxIzzIngfv3PaifVPgLo7FigBkU/ZrMsXtkRIZGamLLDsZAOA98fPt864lxD4a7kZQew1OAyh/g+bjrKBDd+NYb2WiuonCEkMAnpWo=
-Received: from DS7PR05CA0099.namprd05.prod.outlook.com (2603:10b6:8:56::20) by
- CH1PPFC908D89D1.namprd12.prod.outlook.com (2603:10b6:61f:fc00::623)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.39; Wed, 4 Jun
- 2025 19:39:11 +0000
+ bh=hrB3rW5vgxQHmTFZm7eVWmuuPrCDGICqbbouAuU0VM4=;
+ b=yOC3hzcp32InkdGID6P+xFpky5VPvJNteUh6v7/YiogQe7TtAWVbdoDyA9c88gafGvgjOKWHdVNaJkVLrQd//VEOoS9dyxPp5F8sBBFQTL12k5ICj+aE/6Nlu5lqMJp6b/qi7ndWjAKoiLJIifYZ1YFH9QUvI7xFAIrtyyMTp3U=
+Received: from DS7PR05CA0096.namprd05.prod.outlook.com (2603:10b6:8:56::28) by
+ IA0PR12MB7627.namprd12.prod.outlook.com (2603:10b6:208:437::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Wed, 4 Jun
+ 2025 19:39:23 +0000
 Received: from DS3PEPF000099DC.namprd04.prod.outlook.com
- (2603:10b6:8:56:cafe::8e) by DS7PR05CA0099.outlook.office365.com
- (2603:10b6:8:56::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.19 via Frontend Transport; Wed,
- 4 Jun 2025 19:39:11 +0000
+ (2603:10b6:8:56:cafe::fc) by DS7PR05CA0096.outlook.office365.com
+ (2603:10b6:8:56::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.33 via Frontend Transport; Wed,
+ 4 Jun 2025 19:39:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,25 +50,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS3PEPF000099DC.mail.protection.outlook.com (10.167.17.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 19:39:10 +0000
+ 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 19:39:23 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Jun
- 2025 14:39:08 -0500
+ 2025 14:39:21 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Duncan Ma
- <duncan.ma@amd.com>
-Subject: [PATCH 08/23] drm/amd/display: Add more checks for DSC / HUBP ONO
- guarantees
-Date: Wed, 4 Jun 2025 12:43:19 -0600
-Message-ID: <20250604193659.2462225-9-alex.hung@amd.com>
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Ryan Seto
+ <ryanseto@amd.com>, Alvin Lee <alvin.lee2@amd.com>
+Subject: [PATCH 09/23] drm/amd/display: Clear DPP 3DLUT Cap
+Date: Wed, 4 Jun 2025 12:43:20 -0600
+Message-ID: <20250604193659.2462225-10-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250604193659.2462225-1-alex.hung@amd.com>
 References: <20250604193659.2462225-1-alex.hung@amd.com>
@@ -80,52 +77,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DC:EE_|CH1PPFC908D89D1:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee76e253-e8a1-4bc7-3e3c-08dda39f7aa4
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DC:EE_|IA0PR12MB7627:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab72b4af-255c-45fe-a0e5-08dda39f8254
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?AtqotKv0wdNMHdMV1qIWpcFDUoyb07Bxf1ojvL5YVrrMHmKgBPiq5N6OT9gS?=
- =?us-ascii?Q?99g+1gNv1c8C6aJJ1rPdUVqrOD1P7n8wvvCS/Zjjm49TJjs6Qh8MjTaIbhGG?=
- =?us-ascii?Q?vocLdpu+IHfx4w+VIh3FGFd3PCJX1L9qc/stn7rTjWWqLn/Fh55qMehtAUD5?=
- =?us-ascii?Q?J2ezj3fwT5JQtYxgQEECt77fLLYUOEfZwZq4oyW4k2Elqs7kyWTxDr4a0PCO?=
- =?us-ascii?Q?0lqupbQM/SbV1mmutEWPKI52GtShXJqtVR1X+ZIUSfEF+pTfw5BiKVN1p1J/?=
- =?us-ascii?Q?5V7yJ1mX8A8KltU1ecRNzOgbFpkLv/iy5pXPk2HWvNy5lvSJwdDKGgcXB9ys?=
- =?us-ascii?Q?+osMEwlOYjgiThZR6KmdLfYxUPq797JYUXEQMfktKNh/1il9ujiUWoyW8nY0?=
- =?us-ascii?Q?s9Lut6sjAcX0YxTmyoitD6ZoGCvQU30RZvl3Qi5zpT0LhULwLlbQe7Du2dzD?=
- =?us-ascii?Q?wGMblBIfFAJFbrzB8emQ1kd1jCpx8DWtbl5pMFlwkDzb5Y6c76PFCFUU00Mx?=
- =?us-ascii?Q?M3YaG7EIHe5pvPkgKRFhi+HB5g2tpboCWDq5Cuf9AsGpl01MmTjUxkaU7d0g?=
- =?us-ascii?Q?fsf8IbFXcdMHpw7LGvxYwQhDpveKLWBIRLkouG6GhvCrSQlOjn8PZmpBgtV+?=
- =?us-ascii?Q?PH3T9kM2atYXa6C6mHjPdMzk4Fe7IXCOcTlxr9pKtkNmTYQNhVLy0nIOG8Ov?=
- =?us-ascii?Q?XlouoM7A5f/ToP9SU1Tu+PlNPQ2ePaFZw5icZ+LxWgyZXH1k8RjUGzNjOJkO?=
- =?us-ascii?Q?fPJi9WpaYFAIFdVT2aa4YinCnmI+p1r7yAsidm0uoAlaLNebzlb9FJhxfktO?=
- =?us-ascii?Q?H6YWiIRTwb8ag0RY4URbHtHondud5+Y7I9z4REs1PZR4C77UDYl6tqgTSCz5?=
- =?us-ascii?Q?MiuQg2Pd3YjxvrdPYpHeSQT7iRHLYWe9jP7kIBn67OmwuDhIMIN/vllAzDsj?=
- =?us-ascii?Q?/Icw2KrPAS5nrf82SzF0p4bnzUjccnbqirEz0VWC/qO4t6kJgP9snT0LOYnx?=
- =?us-ascii?Q?L4xQtjXIyeL2TmrMoNxItCMODd/bDVm//DARsldTCCAaQy3yExToZpXuSBWp?=
- =?us-ascii?Q?IERGb0vLg0+fzoyZQevoXEfu9tJkVLTucots1F9QbAfnn35rKT6tGmqYLqVk?=
- =?us-ascii?Q?Gpt1gdelXjkOy5S5awodlTtr9yYvj6lfOT09iX1QV80To0gZ91oQDDo+6izh?=
- =?us-ascii?Q?TZMwnUaINmh6oyDSra3zF6D607Fns9UfFLW7ck3eQKOguyRcKuUWbl+RvOMW?=
- =?us-ascii?Q?iQ1E+4rF+J10Ou4BADkISBaSkAxpqw7gKEWskNxDegvsqU/NaRXyBg4FEy3Q?=
- =?us-ascii?Q?rCUEyb08NirTLE0NzHfSuiNgv+Di1vklBd90V9K5tYO2vGfA0dgxVia5rRGi?=
- =?us-ascii?Q?VKyVj1ja5Z7Ds556oHhzIszpxBrm/tVIxMsbz0EX+B43JhcujnWPk6PuiymV?=
- =?us-ascii?Q?Yfs0h5chXybKouPbPZ7fqPao4lumL9ds0PDZ49S1a4md/mFXdqRIfxapmkz/?=
- =?us-ascii?Q?akrclFDIlSE0+PsZz0/NP1WUpX/PK0f8zSgi?=
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?opi0Ml6cd8zGTLOqW+visBczv0glajmnW/sPaSmQtxWz/Sh9oY61Gfa6jnm0?=
+ =?us-ascii?Q?mm/EXVwr7hRpbtM8ZCeVwn47Uc/Eeibs8UQNpRw7HxrmzM3Axcy9nHcRZVj8?=
+ =?us-ascii?Q?2tre8HMm+riuJVyYiCPptFL/afKJi/XmVKSL2apQ0G3ere6aKcXoVzASmtm6?=
+ =?us-ascii?Q?WyvjoAkdwR/XsIPOIoTdbfk7GqlQkAbcRFDLpcU50kBAydCwDtT1ThHlF5kH?=
+ =?us-ascii?Q?vABidaJdt4SKfZ0ChBIecPlOPsrycRwzy4DBpkzViCNo3ONkHg1j5kGf/SE7?=
+ =?us-ascii?Q?D82SFqxbtIyZNnoNTWErgQalPThaCyPCzIhpSnUyUu5Hdz9R0UBt7+Nwexm1?=
+ =?us-ascii?Q?PHBkT1cWYJQCqy2stZ605apuWwbr8py36gqWiylGu7i9LTYSDwnJixNHTBwo?=
+ =?us-ascii?Q?UHqjDmDfy3whCm5Qua6Qzsr08uIIDli2JHfuLsGW7nAN8dADeccDBcsIOdb1?=
+ =?us-ascii?Q?0oP650sxloLjpk5EPz6TnoIjBZ+9X2CSzU5OmGj3Z5DQohFadnwKzf6giXKd?=
+ =?us-ascii?Q?KPbmhR0YTGhd/ohtwSKysNwIkjHUmsLJkKClaW48T1STj6Wwf6Xyv4ySqanD?=
+ =?us-ascii?Q?sofFnjkTbXzOQbSd6gBu8QsxjEnPDAvmQip504/3Ccu+bx6PjXmHWQIXBehG?=
+ =?us-ascii?Q?9r8GTBLUBwTSq/tynkgLRtP8AI/vaFhNfxXKEXh4PuE3YkVMEfxZxDOhn1Ye?=
+ =?us-ascii?Q?sihtOrV/nD4X8sUL1OIVrzavYt3aDmYT9JRXgGephn9brDsopQwaCfyy/N+8?=
+ =?us-ascii?Q?BZy8jzJIJ5qyFSmX47qeLkbvgLnRgrSZVmwZnPTkBHwIUr2rsmaI5ZTVxyyD?=
+ =?us-ascii?Q?/i9c2cCXKL/E2kHTXizeL/NhJVY3qEnKEjKV2A1apvxe5mI42aTR238yLNiN?=
+ =?us-ascii?Q?svZCSDymRbAhtBqaPbOgu0STZQJGvl8A0ImW30/71cOu817CbdchXlmHMtFd?=
+ =?us-ascii?Q?2cDoLZSC4nlhFrnwpaqS1aInXJ2Sf/8NeLgv43gGYEffPZvAMAPNPKDZtniP?=
+ =?us-ascii?Q?TNaJY/rqCOsUwYOrVrVVXzRDu773HbJO/ictwgi6vLixzIA7wcmBjMNmjm8Z?=
+ =?us-ascii?Q?mcacMLmUpcgFHBC2/9cYZuaNzN9Dc6MeGlxfffJgtM3Ys82BCAsJjGuuL2wh?=
+ =?us-ascii?Q?O8Mb23UyIkvt1ptfDrYPGDLgUPzU+Zp25kcgCStYD917X82CCXLWy0GELNGQ?=
+ =?us-ascii?Q?fRow1MQyJIf4MwNZ8jmY+UOMmSgmHs/Muj7MOeyGUzou3Zu69uuVUwppiud1?=
+ =?us-ascii?Q?NEb5OBzjf7tt7EmKnVK+8p1TQK4bszA0FWT0bOPnm6Uctv0EwUfX2Uhsx6lA?=
+ =?us-ascii?Q?WSCEt9mt02eiiCs8r3cB5evdy983ysN+t90Lox0EDUnJsqudr0gTDxSlLSQa?=
+ =?us-ascii?Q?5n3lvE0pQMGjMTRejY2h27XGNDzIJJBPj/2HnSE0/3sT8ylX//dRVpMsPERn?=
+ =?us-ascii?Q?gCroeMbgYIx/ioMtC+yMsULmlkrhNLIlgNbp0enC0U4pKaQQTDWU1Dm2CLHj?=
+ =?us-ascii?Q?3Q8QN2FO8LxupoddkiS7HAkcJwlUjbBikkHj?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 19:39:10.8385 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee76e253-e8a1-4bc7-3e3c-08dda39f7aa4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 19:39:23.7385 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab72b4af-255c-45fe-a0e5-08dda39f8254
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DC.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFC908D89D1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7627
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,74 +137,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Ryan Seto <ryanseto@amd.com>
 
-[WHY]
-For non-zero DSC instances it's possible that the HUBP domain required
-to drive it for sequential ONO ASICs isn't met, potentially causing
-the logic to the tile to enter an undefined state leading to a system
-hang.
+[WHY & HOW]
+Clear DPP 3DLUT Cap flag on ASICs that do not use it
 
-[HOW]
-Add more checks to ensure that the HUBP domain matching the DSC instance
-is appropriately powered.
-
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Duncan Ma <duncan.ma@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Ryan Seto <ryanseto@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 28 +++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dc.h                          | 1 +
+ .../gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c   | 3 ++-
+ .../gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c | 5 +++--
+ .../gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c   | 3 ++-
+ .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c | 3 ++-
+ .../gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c   | 3 ++-
+ .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c | 1 +
+ 7 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index c814d957305a..a267f574b619 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -1047,6 +1047,15 @@ void dcn35_calc_blocks_to_gate(struct dc *dc, struct dc_state *context,
- 			if (dc->caps.sequential_ono) {
- 				update_state->pg_pipe_res_update[PG_HUBP][pipe_ctx->stream_res.dsc->inst] = false;
- 				update_state->pg_pipe_res_update[PG_DPP][pipe_ctx->stream_res.dsc->inst] = false;
-+
-+				/* All HUBP/DPP instances must be powered if the DSC inst != HUBP inst */
-+				if (!pipe_ctx->top_pipe && pipe_ctx->plane_res.hubp &&
-+				    pipe_ctx->plane_res.hubp->inst != pipe_ctx->stream_res.dsc->inst) {
-+					for (j = 0; j < dc->res_pool->pipe_count; ++j) {
-+						update_state->pg_pipe_res_update[PG_HUBP][j] = false;
-+						update_state->pg_pipe_res_update[PG_DPP][j] = false;
-+					}
-+				}
- 			}
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index fc36beb66d49..4f162905475d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -245,6 +245,7 @@ struct mpc_color_caps {
+ 	struct rom_curve_caps ogam_rom_caps;
+ 	struct lut3d_caps mcm_3d_lut_caps;
+ 	struct lut3d_caps rmcm_3d_lut_caps;
++	bool preblend;
+ };
  
-@@ -1193,6 +1202,25 @@ void dcn35_calc_blocks_to_ungate(struct dc *dc, struct dc_state *context,
- 		update_state->pg_pipe_res_update[PG_HDMISTREAM][0] = true;
+ /**
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 363e4a094534..d2d321eec221 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -2251,7 +2251,7 @@ static bool dcn32_resource_construct(
+ 	dc->caps.color.dpp.gamma_corr = 1;
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
  
- 	if (dc->caps.sequential_ono) {
-+		for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+			struct pipe_ctx *new_pipe = &context->res_ctx.pipe_ctx[i];
-+
-+			if (new_pipe->stream_res.dsc && !new_pipe->top_pipe &&
-+			    update_state->pg_pipe_res_update[PG_DSC][new_pipe->stream_res.dsc->inst]) {
-+				update_state->pg_pipe_res_update[PG_HUBP][new_pipe->stream_res.dsc->inst] = true;
-+				update_state->pg_pipe_res_update[PG_DPP][new_pipe->stream_res.dsc->inst] = true;
-+
-+				/* All HUBP/DPP instances must be powered if the DSC inst != HUBP inst */
-+				if (new_pipe->plane_res.hubp &&
-+				    new_pipe->plane_res.hubp->inst != new_pipe->stream_res.dsc->inst) {
-+					for (j = 0; j < dc->res_pool->pipe_count; ++j) {
-+						update_state->pg_pipe_res_update[PG_HUBP][j] = true;
-+						update_state->pg_pipe_res_update[PG_DPP][j] = true;
-+					}
-+				}
-+			}
-+		}
-+
- 		for (i = dc->res_pool->pipe_count - 1; i >= 0; i--) {
- 			if (update_state->pg_pipe_res_update[PG_HUBP][i] &&
- 			    update_state->pg_pipe_res_update[PG_DPP][i]) {
+-	dc->caps.color.dpp.hw_3d_lut = 1;
++	dc->caps.color.dpp.hw_3d_lut = 0;
+ 	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
+ 	// no OGAM ROM on DCN2 and later ASICs
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+@@ -2270,6 +2270,7 @@ static bool dcn32_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.pq = 0;
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
++	dc->caps.color.mpc.preblend = true;
+ 
+ 	/* Use pipe context based otg sync logic */
+ 	dc->config.use_pipe_ctx_sync_logic = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+index ae5a58a48d73..c2f12030928f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+@@ -1755,8 +1755,8 @@ static bool dcn321_resource_construct(
+ 	dc->caps.color.dpp.gamma_corr = 1;
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
+ 
+-	dc->caps.color.dpp.hw_3d_lut = 1;
+-	dc->caps.color.dpp.ogam_ram = 1;
++	dc->caps.color.dpp.hw_3d_lut = 0;
++	dc->caps.color.dpp.ogam_ram = 0;
+ 	// no OGAM ROM on DCN2 and later ASICs
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+ 	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
+@@ -1774,6 +1774,7 @@ static bool dcn321_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.pq = 0;
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
++	dc->caps.color.mpc.preblend = true;
+ 
+ 	/* Use pipe context based otg sync logic */
+ 	dc->config.use_pipe_ctx_sync_logic = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index 1f20069018ca..353189ac0d53 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -1874,7 +1874,7 @@ static bool dcn35_resource_construct(
+ 	dc->caps.color.dpp.gamma_corr = 1;
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
+ 
+-	dc->caps.color.dpp.hw_3d_lut = 1;
++	dc->caps.color.dpp.hw_3d_lut = 0;
+ 	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
+ 	// no OGAM ROM on DCN301
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+@@ -1893,6 +1893,7 @@ static bool dcn35_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.pq = 0;
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
++	dc->caps.color.mpc.preblend = true;
+ 
+ 	dc->caps.num_of_host_routers = 2;
+ 	dc->caps.num_of_dpias_per_host_router = 2;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index 6266fc77c7eb..f9fd36567130 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -1846,7 +1846,7 @@ static bool dcn351_resource_construct(
+ 	dc->caps.color.dpp.gamma_corr = 1;
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
+ 
+-	dc->caps.color.dpp.hw_3d_lut = 1;
++	dc->caps.color.dpp.hw_3d_lut = 0;
+ 	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
+ 	// no OGAM ROM on DCN301
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+@@ -1865,6 +1865,7 @@ static bool dcn351_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.pq = 0;
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
++	dc->caps.color.mpc.preblend = true;
+ 
+ 	dc->caps.num_of_host_routers = 2;
+ 	dc->caps.num_of_dpias_per_host_router = 2;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+index 10d3182b3058..37b18575c376 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+@@ -1847,7 +1847,7 @@ static bool dcn36_resource_construct(
+ 	dc->caps.color.dpp.gamma_corr = 1;
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
+ 
+-	dc->caps.color.dpp.hw_3d_lut = 1;
++	dc->caps.color.dpp.hw_3d_lut = 0;
+ 	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
+ 	// no OGAM ROM on DCN301
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+@@ -1866,6 +1866,7 @@ static bool dcn36_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.pq = 0;
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
++	dc->caps.color.mpc.preblend = true;
+ 
+ 	dc->caps.num_of_host_routers = 2;
+ 	dc->caps.num_of_dpias_per_host_router = 2;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index b0cf5c9c1cad..14f478df268a 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -1948,6 +1948,7 @@ static bool dcn401_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.pq = 0;
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
++	dc->caps.color.mpc.preblend = true;
+ 	dc->config.use_spl = true;
+ 	dc->config.prefer_easf = true;
+ 
 -- 
 2.43.0
 
