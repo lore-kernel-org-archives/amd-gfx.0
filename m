@@ -4,151 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F2EC5B543
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 13:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0E10C5B552
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 16:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC7910E9B6;
-	Thu,  5 Jun 2025 13:50:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5EA10E2BC;
+	Thu,  5 Jun 2025 16:12:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fB0HJsdv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U4yrenoe";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17DC210E9BE
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jun 2025 13:50:24 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2052.outbound.protection.outlook.com [40.107.220.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC5A810E0E6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jun 2025 16:12:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IGndN1bkQf6ovalBQUydv7rMwHXhH/GfrcDR9f+pt0O/lKvHUR4Vn1YEXraJcU+PpM3kpeF9cejHoMnGuWNYMrYD7MXtoWDpNWgDz7VSyqotsHc4f8J8tQOSCTbKnvBpvO6vv+BbFrBRezfnLfWrHHsjZcZ67o2BvlOqToR4eONDSUuMTm3dqsDgQsk8mDczFyIMuEhiIEpYZHVdRm0kaTaqqp/w+X3PW0DpfhEBGsBs87HwQxhQMPIBz2eEJ4nfqpfQIurEdSbq3mPkDDsan3/LN6zxVCPQpq8Lo1pAFh8mCgVwE3afDSTH5bDWEtsCpL/veQKUButIk01CeapRQA==
+ b=ryJ58JWgVjsjwKL9qaVjZDF5kLvHPjtL5euIrEdyV7tb9zj9gWSm3I/jTAdRD6ErF8bXdLpZzmYSUhAkMLmAka5plcXGQD5nhGT8qBnx4jwwdOrQwbEJElm12d30SjaDCpYeY/siZmH5Mu/2I5TJZnByi0+Ioad6eeOkOOOxCP1vIT1LQd3k/es90PNGnGpd6vrZbH/BM9LO42XmADP2evO/e8YZ/GIPFqmIcVbHVECYCRINIn89089MFtdM2kruJ+ekPDlCtgv+3D4o1B5LZz6eVjSpB1rJOA0QoDR/vHQpvws6+2bhCWPud+LEuB7oRX1VEVoydo8qy5UFLZUMHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XhIurKhC0RceWHMl15Z1baHd9UxjxnY2YniL11/fptA=;
- b=eU8IkvriTYyoo+ea3/nOiFfZRCM6ltgLL1Daq7m0rCKo4JJpBuVm0D8hGcBi6sVKBhmn9OouoZ86HpmiTv1UFzXkQTx86F23zjNhy8aOHMlQ5bdFH45w7rVJ5PaC59eUroLvlhTrDiWS/jstoRgm7rJ3RiSstAHAmjvRjcNhmx8r2BuyHqxaD8bKOXO6Rxp+us2/rvZQQqiZxFpKsr9NVkbf1SrD985Ttv4OwBn1hh11avq6M3pqMbGojUPR/01RBKABRHQnLcHOJ6MMyQfwgkb1G2O/XOuB4iZci7T9NtJMldGQUB317h5q3DNfq20GJFzrSLTZSsJMA0gcEbygXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=8pkAdIay7lK/eJadwb/wLQcFkAZFxLXXI3/+xksPlNU=;
+ b=r7Kh5WCSPIdBytERyGkrKTkdpV0GGliBAafY/JTyL/UgzlCRFVlf9twqdSkrKxQLGlacTEl0bLvka7qCDMBv15oZt7A+B8yGiT48i0LJ5MsZDTGHW5wF/tz9ySXwSlGPJPJQaKNIw4mPygTEgZbqSD8eRj14mvwUcQ3VeErHylG5cNJoXHdZOASNQ+k0O83QiXKb6vF9gOWNCv9+wHRMq41xnGoFRkZr5ZFKBwXmgEGGfB6nZQN9FrXO6Htg3pPZ7M3T1fS1ee64TmAu0Ek124C2w2bWDBmOFXjmFX4b4hTtkSKf6S3z1GGX/RDnipYfiF+XWcNRPcaFSF41x82ZMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XhIurKhC0RceWHMl15Z1baHd9UxjxnY2YniL11/fptA=;
- b=fB0HJsdv3ZHJnRZ8THVvCANZyn20LNdE49nN6n/F4YRdw5hsgCpPS/xiKr4/072DVRu4MqlvtC5ZjNtOxcSFarGGhwui9q0HW+NTiT297FIsjs0utrweRKz8temui/CxX74FV9MWQXQgfBSvmsAV+i8g6Yt16mz8dLvLTrXYI6U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB8110.namprd12.prod.outlook.com (2603:10b6:a03:4fc::13)
+ bh=8pkAdIay7lK/eJadwb/wLQcFkAZFxLXXI3/+xksPlNU=;
+ b=U4yrenoeRb0co0y6OFDhIlSlysTb4YhEI1vhqWLetP+GxLXCrKoJY+wyXQYnLupF/AQ4xkkbGrfDvSDwjy7y+tMYfFzTwFmECvMjaf3SfOHTBNagXm/kpdDaH5T8RBWsFqgOPD2UamgTKck5BynOEEqt14fYJVpwY9jz+Za/rTs=
+Received: from MW4PR03CA0035.namprd03.prod.outlook.com (2603:10b6:303:8e::10)
+ by MW4PR12MB6998.namprd12.prod.outlook.com (2603:10b6:303:20a::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Thu, 5 Jun
- 2025 13:50:18 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Thu, 5 Jun 2025
- 13:50:18 +0000
-Message-ID: <b6163e9d-f23f-4742-b684-d613dfa03ffb@amd.com>
-Date: Thu, 5 Jun 2025 15:50:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/31] drm/amdgpu: track ring state associated with a job
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250605014602.5915-1-alexander.deucher@amd.com>
- <20250605014602.5915-9-alexander.deucher@amd.com>
- <85f49273-1525-4504-9fc2-e06cefd96b98@amd.com>
- <CADnq5_NqXpm1edeNeFEyGfDyKK52b-PqEpsiS4BS-2dUL7s5bA@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CADnq5_NqXpm1edeNeFEyGfDyKK52b-PqEpsiS4BS-2dUL7s5bA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR20CA0010.namprd20.prod.outlook.com
- (2603:10b6:208:e8::23) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2025 16:12:17 +0000
+Received: from CO1PEPF000042AD.namprd03.prod.outlook.com
+ (2603:10b6:303:8e:cafe::c2) by MW4PR03CA0035.outlook.office365.com
+ (2603:10b6:303:8e::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.19 via Frontend Transport; Thu,
+ 5 Jun 2025 16:12:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000042AD.mail.protection.outlook.com (10.167.243.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8792.29 via Frontend Transport; Thu, 5 Jun 2025 16:12:16 +0000
+Received: from amberlin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
+ 2025 11:12:15 -0500
+From: Amber Lin <Amber.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Amber Lin <Amber.Lin@amd.com>
+Subject: [PATCH] drm/amdgpu: Add chain runlists support to GC9.4.2
+Date: Thu, 5 Jun 2025 12:11:55 -0400
+Message-ID: <20250605161155.1692134-1-Amber.Lin@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8110:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3618547c-97b6-4e10-06a1-08dda437e839
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AD:EE_|MW4PR12MB6998:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1906ae1-c3f8-4d34-6389-08dda44bbdca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SlFKbWNQTFc4ajZsNXRmVFk0bFY3cmhxQ0NzbE5MZXFCdUtKSzBZd2JLRFg1?=
- =?utf-8?B?TlhCbnBRV0ZmRmNNWjlUNjFvQ1RPSno5UVpGU0pRYW5TVDR4WEU0V293cDl0?=
- =?utf-8?B?cElhMWtyL21tb0dpYi95UW03V3YreFVVUktBUVhrV0JVUklmM0tESDZpSFRT?=
- =?utf-8?B?ZktXdk1qKzBRREtDMXQ2UW4wYVZsenhqZkdzeldNSWpJYzluUDk4NGwzS3I1?=
- =?utf-8?B?bE5lQUVBdEQzL0Q2KzdYbWthUTQ3T1MyUXhSdXpHc0ovV2V0cUUyRWMvbnJs?=
- =?utf-8?B?bUpjL1d2UHRPVC83MzZOKzFSZEM0dFRmY1ZiK0VzNzlxVTd4M3B1bjJMZ0l1?=
- =?utf-8?B?WVpPRmZRbE5oeDFteTdrWW5pcVlRNnNUZkdVZERSVVhIQ2ljZ2pJbjJUVEkv?=
- =?utf-8?B?WVNKWnAyeUR0VzhZZ2NucnV1K3VibkR6SFJleUFQNUZPRnF5UkF3NGlNVVV4?=
- =?utf-8?B?QmVhODFuOWRHSVRrSElEdDltTThMTENyWVFQL09icXZpc3p0c1dqZC9ZZ2dP?=
- =?utf-8?B?R1JSK3NFS1Z3ZzJxOERIYmFLcVR6NXdjVWNlT0pScmZibWVRRlU1UW5UMFdh?=
- =?utf-8?B?eERKS3ZzemJKbUhETzA4blJBWUhqajdISC9Nc01EUnk1K0VrSTJONHVCNDgx?=
- =?utf-8?B?VkR1Q3JGM2F6RSs5MnRmZFJMT0ZIekxzVkNnZWN1eWgvSUNBS0krRDdYcFZT?=
- =?utf-8?B?TGF0d05PcmcyQ1ExNkZwN2JsT3QrTWNkOWRXTGJqQWIvcFJjMDNiTmlka0cz?=
- =?utf-8?B?SVQvVnJqMmxFVDRCR2JYQ2ZYeVRSY1IxclJoN2U4czMzVnFZdGwxSldyZU9D?=
- =?utf-8?B?Q3dFaDNMY25Uc0pCRXVYSGJEVkpKRFIxMzBuanlnZUd4QUI4WTdHYVVCWU03?=
- =?utf-8?B?NHFaNVdXbTlFZnhPbmJzK3FaWkl2ZEVhU0o1Tms2d1JUd0YxOXVOSHAycEV4?=
- =?utf-8?B?ZDFxSG00bVo4ZE9IK1MrSVAzMzNqdG5Sdy8wN2lTRG04UHRBTnNqOWxYZUlF?=
- =?utf-8?B?b2xUUVZ2L0FxVjJhN1NjQ2NlTE5sNFZwSW4rU1UwZTNFdTd1eWQwWjhOK01z?=
- =?utf-8?B?VkZXNytaSGpSQ0VjSys1VmVmWDNKa211QzZCUEIvNTQ5ZmUxWDM3aFFQZEJq?=
- =?utf-8?B?QXVrMTZ1ckt3ZnR2bDhkR2w4VFB6Z084aWJ0Tm1oNFhVSWxHb0dIeVNjcktM?=
- =?utf-8?B?SlMrN0laUjNjZVRHak05b0UrQ2hJZURTQmZvRGdyQUFBbEF5UVVVV3kzRGdY?=
- =?utf-8?B?bzZKMURZekxQMm53VmxYNGxqS3Y4VWxpVTc2K2J4a1drZFdRMXNQV3U5dU0y?=
- =?utf-8?B?N0xHM3huTTVYWkVEbmZMWkpzVDFma3A1cUtseXgxcEN5Ni9MaDdxQUM5T3FP?=
- =?utf-8?B?SXJsUUlDb3FGbURyN0N2cnBOaWxtQmlEaHhwaUswblVxV25TOWVLMnpaWHd2?=
- =?utf-8?B?RFh3eEEyK3NIaUo5bXQva3k1bFJvYWt4WW1tekdjSnV2VkUybDNVM1dRcWxI?=
- =?utf-8?B?T3g2YkozNzRUQTNLY2JhQnlaYmVNVkRWaTRUMHVOc1lpOTlHM1FOWGVlZ0Mx?=
- =?utf-8?B?ckdUSU5Ca3lheHhaZ3JVYjRHeldNNC9ZeDF2b255R3BBMVdiUjlvVThEZUUw?=
- =?utf-8?B?YmpuaStSTFYrT09lRFFMd2dpU2hxTlIxVTdtTVJ6Sm1adjFXaUNFMXFRWUxv?=
- =?utf-8?B?cTlYY0RCQTFiRVpHaVlOcXg3ZUI1SWZUazU2Tm4zU0lMVlNqVmQ5MWV6UVhQ?=
- =?utf-8?B?cmFHM3ZQNVV1dFFBdHZoSEkzS2JRdm9XdGJGcGt0KzVnZUxUd2dRZmV2T05X?=
- =?utf-8?B?RFJtYTJLUUVVOEdSek9hcTVEaEplbmRpTVBHN1NHZTVsY2lvK1d5YXJrYWxR?=
- =?utf-8?B?THRMMnlPVTd2ZnBYSFJjUDQwbytQYjBsZUlDVXEzeTdCeG51UXFTMWFES1Ux?=
- =?utf-8?Q?0IbyQ88Y9SM=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjhuY3NLT0ZaR3JMeXU3N2h1K3E5MDRQRHlaaVZtM09YZjBkVDVjajI0T29m?=
- =?utf-8?B?MTBlaTgxSGsrMGgxb1V5a2w3M3RLTFZTb2RnbDRjM21Zc1MzMUlrVVhtWmFo?=
- =?utf-8?B?dEdpUHZUMVZJMzdvNVU3em9SZTV3bjMra2ZYU2poK1UvRDF5Y0MralhQM0Vp?=
- =?utf-8?B?a21FTFQ2YjVpRFh5VkJOOUd1L2RVa3hpbms4SGZ5c0tYeXZCMlFWaXR5NDll?=
- =?utf-8?B?N3lheWl2bzJTcFZOUkVxa05YbkZNYXRzWWE0NlE2TkkzU0x3VlQ1SXRXbTAw?=
- =?utf-8?B?M1BFK2IvR09nNVp5TXFwU1hxT1RIK0xMbUtMYkpSRjI4Y1FCcFNYdGlpd0FZ?=
- =?utf-8?B?UGdzdmpMTEZ4dS8rTzJLK3JpS21FMzlwTzB6d3IvNk9FWVNGK3lIQXdGZ1ZQ?=
- =?utf-8?B?ay9zb0licmxFN0VyQVRlODdSZ2Y2MkRoR1JYOVFQeWQ0RDB6cmV6OU9DZVZz?=
- =?utf-8?B?ZGxZM1pZSDdJOStHMDdvNG1pYmh4TUxVUHoreG9wU2hYRUFsU1FsYVVIU20r?=
- =?utf-8?B?eGorRXVZbERVYjRtTFluSlZlRENJSWw3ZnJvRFRtd2hhaWw4eVY1NjFMMUl3?=
- =?utf-8?B?NU5HYUM5QVp4NUxOUEF5WVQySVZIUUY4Q2l2TzNsM3BWclBReWZDMGNHNGJE?=
- =?utf-8?B?KzgwUWxZMHFhQ3RMeWREN1p0RmpBNFQ0c2FpUGhvZE5tYmg3OFVMK0Y4UFZP?=
- =?utf-8?B?SkdLNWhVRmRhcjVwU2dtYmhiV1RyeGMwSFl5R3ljL0hpbmdPQVUvL2Y1NzJZ?=
- =?utf-8?B?NFNlMlZPUDhYcWZiOVlTK0t3TnZCcVp0Z0FNb1Z3aXAxT0RrbWVmT1ZjOFdX?=
- =?utf-8?B?bXpXcXBKYkU4WnJ3bXhva0JzdVQzblZDdDFjQmMrUllYSkQyakFXazJrUVBy?=
- =?utf-8?B?WDBka1p5QzZ4ZnNPNFNFVWJRcE5RN3hxTFM1QS8yZ0FScE80cFhoQTVyUWJw?=
- =?utf-8?B?YVpKcG4xUkhaNnpCWGt3R3R0cG9SaDcrcC9VZEtYT2F5VG9kMXBaaGNDaWhX?=
- =?utf-8?B?WmsvUG0yMXFXSmw1VEthQ1VjWEc4UW5JRzA3WTJBQ0NTbXVSK3BxT2VQRTd2?=
- =?utf-8?B?RHhKQW1WUnV5b1B5cTkwWC84VHNCSkdoYXB4ZUVWMWV5V2J4R1lvbVJBOElm?=
- =?utf-8?B?b3NSSHZPK0tqV2xxTHdQWkJkd3EvQmpZdWp6UHNTSkZsempMVkxDbkxNWWp6?=
- =?utf-8?B?alh1OXBBY3JwdmViRnlKRXFwNWg0Z3lJQTNwR3ljSzAxMmo5U2JrcFE3YlFK?=
- =?utf-8?B?NHBNNlR3SzRvb0hETjNmVnpFelVRYkk1ZmhwYzNmcUp1Z3VCY1RMdTZpTEds?=
- =?utf-8?B?VGFoTHFtbS9yOVV0STViZGE2ZitSL0U1clZZbWZGcXZ5d1A4eHE4T3ByNG14?=
- =?utf-8?B?M0RZWHJnc2YvcVVneWpGYy91aU5GcVRaZm51TVozL2FYd1FRS1BLZWNlb1Js?=
- =?utf-8?B?b2V3WVBqZEZXMXNUYXJTOWs2ZDNJUmZsTnlIblU4cXRmcXBZUlBQVmVndVZp?=
- =?utf-8?B?N2RkOCthb0ZuMDduVGlUckNEaHZhNzBDOSthVVg5Y2FRU0ZiY0hHQjd6dG1N?=
- =?utf-8?B?SnhtQ25jc21UQzBGL0owSmtiSUZwYmYydHZUcjNENEEvNjVCQU9SbnZDdU5M?=
- =?utf-8?B?bVRTNzA2c1hBekNMYkFrUk1Ec3d0eUtmSlR0d2JDTjc4VWZsNCsxSnRZa0U1?=
- =?utf-8?B?TXhoa2NJamNQMVRkV1JTbU5HTlhXM3FJQ1pRZ1ZPWitNWFdabldzMGk0Qjlr?=
- =?utf-8?B?WnBtRUtuMktoY1d6VVYvQUc0KzVOMG5NNkw4VjdCK0VQc2hqMHBsWWRMV0NZ?=
- =?utf-8?B?ckxrQjBXQy9oL1Zuakx3SGROUzlkajF0cTdFTGtzUVNKUC9acm5PcGQxRnE3?=
- =?utf-8?B?eHhhempoRVVWRFhObWlwamFIRkRPS3RPWGI5ak5aTEpnRVdJR09YeWxXei9j?=
- =?utf-8?B?czYzYzBjbjdVT25wUE1yOGdlT3VCemU2Uy9kcGtHViswWFVBVHFpdEtUcE1v?=
- =?utf-8?B?QnVlcEY4b1hvNUMxVm1vbll6V0pBMTJzWnhhSS85S0t5THkrOVRNbFQzSUhX?=
- =?utf-8?B?QXlXeW5hK0JqTllsYjk3VXdaNmw0eXByYjVVUGY4ekMyMWI1cDFSQ0F3QlVR?=
- =?utf-8?Q?BnMn7XjAWh1UnCvosvCvqrdSO?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qEKWpprS3BWEZcKsKuhNtaiLnNFdQDg74I8oOrPctBfji6XO8kL7Fu78VLJ+?=
+ =?us-ascii?Q?vh0Ix1vfAgoElFXUyxjitx7neQ5nETbUgZ1aN0gpFXW+cPEwEyZWbUb7UusZ?=
+ =?us-ascii?Q?SbLFZcs1lgb1p5nZ0Um/o1SvKYo+uPWvM7eDrqNfTgC93rrOdGf7YP6xrQGX?=
+ =?us-ascii?Q?GCfS4jHoWjvxxHcAVOjXB5PUvMpXhQR5nzsD6LQqKEYuPfl5Rp/bpMGqIvWg?=
+ =?us-ascii?Q?R1B1dLsI6LcZ0TyF1euQxrYKKdycxKkW/z73HWgQ0Yg/ju0SAmwB6xOB3I8I?=
+ =?us-ascii?Q?1Na7O7/kpudvqV2YcGtU3wkjmPQu1GK/GCSKw8qIDn9jbQ1QxcK9zohMsTzA?=
+ =?us-ascii?Q?rxucawHCiIAJXJMo9Ij58nUwTrCT4qNby/VA57we5isd8WrqQAwnlYlpp5+f?=
+ =?us-ascii?Q?ahp5Jk9hy1pvskdB5VPDHqAAFeA6w5TYKIn5XyYWgsY+o2tKyn7mSUASYRyu?=
+ =?us-ascii?Q?3KK2x46DGxpeBG3Jh1nzjqyaiMX5z3WMgbhla1J9CNHiSltsNVeQsoOuM9DC?=
+ =?us-ascii?Q?zvVL4KvAJUO8fTcSQDGrtydUcypuUcoU04AIywCLRDMpckGeNQFRIMYRGw5c?=
+ =?us-ascii?Q?I0ZcYM1f7bjsyGSBijv6TsxUVHdHWVhw/PrB/aBWnO6xOVweVjfSY0+7mD/6?=
+ =?us-ascii?Q?Okg1tT/biopMNNILP36ZqIpAAC1XUD7o6C1AcZJs4bpem+xVsERi9+UKQSeS?=
+ =?us-ascii?Q?bOIbNGjc//z5AzzaZSNUrsH0FOV1kxlzw4dyQB8UwrKCpCvlMfVKtB/PuO0V?=
+ =?us-ascii?Q?ZvSJUzfuEJFVhvUzpf3sOlT84c/uP/nnOvU4Oh7/eZsOULC0LRZKiqvOx8hA?=
+ =?us-ascii?Q?wMmEGGh+U3LA30ohOjvjBMU6ZovtRg8BP0vI9Q94apEOn3AXJJdN4Vg0cHck?=
+ =?us-ascii?Q?jHatM3rdGk+mRShTj/G896mn2AxVhmkB7UulEKLwWbweC4bJmOGg6Rb1wDTV?=
+ =?us-ascii?Q?7QojSPF4IpEiXitD2NY3SJQDM2pZZdxInZGbgSkPpu1rEZ9jArcwXOTcUAYs?=
+ =?us-ascii?Q?5AfDQvPFVrOqDzth+MJe/RGfIoAPiauAF6owlhsDjcng6wPkuOrKCdXggyGN?=
+ =?us-ascii?Q?pW8TQt0mlCQu0WBousWAin0urQbZaws7OT9WIBANriZLx+xy2s5C0Kq4/lsY?=
+ =?us-ascii?Q?sE0ea2Co/UP1aCaaGTL5LE0mU6R5djgGjbKsAP0/AocZeGKIe66CBsK7XzUN?=
+ =?us-ascii?Q?GbxaqnbPJpLJ2wK7K9q4javRfeMPhKjhl2GTfI9G/EPTu2ms2Evpib0r7Cer?=
+ =?us-ascii?Q?pOjNmkVgJrFKkAQjE7cKIPTnzJMheni5iLIdEv+ARxTa9B1pEmJNVbKu9eTG?=
+ =?us-ascii?Q?MHAEHy+WmPm87Ow4Sv/uE5Pu0I0qUN+6McT/1alHkT6gg5I0LYWiGp1LVg8B?=
+ =?us-ascii?Q?3cv+KuXYlbP/+SzjbhqPYJJX34guJKcPvuArKZaqYa1xOsujupoFy6noqfV2?=
+ =?us-ascii?Q?/nTmK8MTFV+ZpgWAnn4/2pfyHYQ/DHj4edEXr0APVYJJvFcGSFN5aq9NUUju?=
+ =?us-ascii?Q?osj6KCjcNJwUbFMyBn67A2UZd9rwjpzvhe79?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3618547c-97b6-4e10-06a1-08dda437e839
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 13:50:18.4116 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 16:12:16.8678 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1906ae1-c3f8-4d34-6389-08dda44bbdca
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r+qYSKGEqD3iOirXkf6Bwoc4V04gs3XZetsvyGB2OsB8s4kH3/J0TTiuXuXGoP1s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8110
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6998
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,133 +130,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/5/25 15:21, Alex Deucher wrote:
->>> +     am_fence->start_ring_wptr = 0;
->>> +     am_fence->end_ring_wptr = 0;
->>
->> Why do we need the start here? I would just keep the end around and then jump from fence to fence while re-submitting them.
-> 
-> I need to know the start and end of the ring contents associated with
-> each fence.  When I re-emit, I just copy over the ring contents for
-> all fences that don't match the bad one.  Also we submit multiple
-> fences per IB depending on whether we do a vm flush.  Those fences are
-> internal to the IB frame so they don't really need a start and end,
-> hence 0.
+Starting from MEC v97, GC 9.4.2 supports chain runlists of XNACK+/XNACK-
+processes.
 
+Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  3 +++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c | 12 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h |  1 +
+ 3 files changed, 16 insertions(+)
 
-What I wanted to do is the following:
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index d377a7c57d5e..dedfc6c7f2cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2629,6 +2629,9 @@ static void gfx_v9_0_init_sq_config(struct amdgpu_device *adev)
+ 				!READ_ONCE(adev->barrier_has_auto_waitcnt));
+ 		WREG32_SOC15(GC, 0, mmSQ_CONFIG, tmp);
+ 		break;
++	case IP_VERSION(9, 4, 2):
++		gfx_v9_4_2_init_sq(adev);
++		break;
+ 	default:
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index c48cd47b531f..6f40f3202f22 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -748,6 +748,18 @@ void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
+ 	}
+ }
+ 
++void gfx_v9_4_2_init_sq(struct amdgpu_device *adev)
++{
++	uint32_t data;
++
++	if (adev->gfx.mec_fw_version >= 97) {
++		adev->gmc.xnack_flags |= AMDGPU_GMC_XNACK_FLAG_CHAIN;
++		data = RREG32_SOC15(GC, 0, regSQ_CONFIG1);
++		data = REG_SET_FIELD(data, SQ_CONFIG1, DISABLE_XNACK_CHECK_IN_RETRY_DISABLE, 1);
++		WREG32_SOC15(GC, 0, regSQ_CONFIG1, data);
++	}
++}
++
+ void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
+ 				uint32_t first_vmid,
+ 				uint32_t last_vmid)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
+index 7584624b641c..a603724c1dfc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
+@@ -28,6 +28,7 @@ void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
+ 				uint32_t first_vmid, uint32_t last_vmid);
+ void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
+ 				      uint32_t die_id);
++void gfx_v9_4_2_init_sq(struct amdgpu_device *adev);
+ void gfx_v9_4_2_set_power_brake_sequence(struct amdgpu_device *adev);
+ int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev);
+ 
+-- 
+2.34.1
 
-ptr = bad_fence->wend_ring_wptr;
-for (i = (bad_fence->seq + 1) & fence_drv->mask; i != bad_fence_seq; ++i &= fence_drv->mask)
-	fence = fence_drv->fences[i]
-	if (dma_fence_is_signaled(fence))
-		break;
-
-	if (!fence->end_ring_wptr)
-		continue;
-
-	if (fence->context != bad_fence->context)
-		backup(ptr, fence->end_ring_wptr);
-
-	ptr = fence->end_ring_wptr;
-}
-
-But could be that it is better to backup start/end explicitly.
-
->>> +void amdgpu_fence_driver_seq_force_completion(struct amdgpu_ring *ring, u32 seq)
->>
->> Better give the full fence structure here.
-> 
-> You mean pass the fence directly?
-
-Yes.
-
-> 
->>
->>> +{
->>> +     amdgpu_fence_write(ring, seq);
->>> +     amdgpu_fence_process(ring);
->>> +}
->>> +
->>>  /*
->>>   * Common fence implementation
->>>   */
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
->>> index 802743efa3b39..636941697a740 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
->>> @@ -126,7 +126,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->>>                      struct dma_fence **f)
->>>  {
->>>       struct amdgpu_device *adev = ring->adev;
->>> +     u64 start_ring_wptr, end_ring_wptr;
->>>       struct amdgpu_ib *ib = &ibs[0];
->>> +     struct amdgpu_fence *am_fence;
->>>       struct dma_fence *tmp = NULL;
->>>       bool need_ctx_switch;
->>>       struct amdgpu_vm *vm;
->>> @@ -138,7 +140,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->>>       int vmid = AMDGPU_JOB_GET_VMID(job);
->>>       bool need_pipe_sync = false;
->>>       unsigned int cond_exec;
->>> -
->>>       unsigned int i;
->>>       int r = 0;
->>>
->>> @@ -187,6 +188,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->>>               dev_err(adev->dev, "scheduling IB failed (%d).\n", r);
->>>               return r;
->>>       }
->>> +     start_ring_wptr = ring->wptr;
->>>
->>>       need_ctx_switch = ring->current_ctx != fence_ctx;
->>>       if (ring->funcs->emit_pipeline_sync && job &&
->>> @@ -306,6 +308,15 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->>>
->>>       amdgpu_ring_ib_end(ring);
->>>       amdgpu_ring_commit(ring);
->>> +     /* This must be last for resets to work properly
->>> +      * as we need to save the wptr associated with this
->>> +      * fence.
->>> +      */
->>> +     end_ring_wptr = ring->wptr;
->>> +     am_fence = container_of(*f, struct amdgpu_fence, base);
->>> +     am_fence->start_ring_wptr = start_ring_wptr;
->>> +     am_fence->end_ring_wptr = end_ring_wptr;
->>
->> The end_ring_wptr variable is superflous and I would put assigning that into a helper in amdgpu_fence.c
-> 
-> I'm not following. I need the start and end wptrs in order to know
-> what ranges of the ring I need to save.
-
-But you have 
-	end_ring_wptr = ring->wptr;
-...
-	am_fence->end_ring_wptr = end_ring_wptr;
-
-start_ring_wptr is available as ring->wptr_old btw.
-
->>> +void amdgpu_ring_backup_unprocessed_jobs(struct amdgpu_ring *ring,
->>> +                                      bool is_guilty,
->>> +                                      struct amdgpu_fence *bad_fence)
->>> +{
->>> +     struct amdgpu_fence *fence;
->>> +     struct dma_fence *old, **ptr;
->>> +     int i;
->>> +
->>> +     ring->ring_backup_entries_to_copy = 0;
->>> +     for (i = 0; i <= ring->fence_drv.num_fences_mask; i++) {
->>
->> That is the wrong order for the fences, you need to start/end at the last submitted one.
-> 
-> I'm not sure I follow.  When I backup the ring contents, I need to go
-> from oldest to newest so the order is correct when I re-emit.
-
-Yeah, but 0 is not the oldest. fence_drv->fences is a ring buffer!
-
-You need to start with something like fence_drv->fences[bad_fence->seq & mask].
-
-Christian.
-
-> 
-> Alex
