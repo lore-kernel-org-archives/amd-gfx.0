@@ -4,71 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79FE1C5B543
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A009EC5AE59
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 13:00:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 575BC10E808;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC7B10E869;
 	Thu,  5 Jun 2025 13:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MUpfduGY";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="jmH0cKtc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAE8210E054
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jun 2025 11:44:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749123894; x=1780659894;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=NzPkbUkN3Txeqet1Im5YkbvnKI7AuzMxCQo+dJH86v4=;
- b=MUpfduGYAw1x0JIDF4qBYE6IVhrt+R485QcyczgCWzjOo2DCrfGKpnqi
- t5/nYQaJJTpHhi4wjtpYdyWckQPrX5Uv7tuEpTPp1JUNZXTypJI1s3pFk
- IDAVDI0q1BMuNeKXOWOg/gaL27bNHAVSLjyfRj/q+ek00z/sz2S+4Jcx+
- rmzKZrW665m1pGde4lzafH4PGcvwqi1gxpl+rq4Z/d0VcwYgBykYX806M
- bcWblCPVxOihwAvg39SFPIz6PeTVIWR3eyKXRn8G4ZOhHnIbnK0oHAnSf
- IOz/Q00KlB0pG+KoL7/IeKM7fDHaMb6b4my9LNMsoaYp2KeunpN6qtKEN w==;
-X-CSE-ConnectionGUID: vtuiXBbmRYy9v31JimRlPw==
-X-CSE-MsgGUID: wlQn0wBaSWWqZdTES8wjzQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11454"; a="51236306"
-X-IronPort-AV: E=Sophos;i="6.16,211,1744095600"; d="scan'208";a="51236306"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2025 04:44:54 -0700
-X-CSE-ConnectionGUID: i+dOHlE1SJqrKaX++mLgSQ==
-X-CSE-MsgGUID: rOi131nVRQSOXbJb9D8/vg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,211,1744095600"; d="scan'208";a="145364817"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2025 04:44:51 -0700
-Date: Thu, 5 Jun 2025 14:44:47 +0300
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Mario Limonciello <superm1@kernel.org>,
- Denis Benato <benato.denis96@gmail.com>, mahesh@linux.ibm.com,
- oohall@gmail.com, bhelgaas@google.com, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- ilpo.jarvinen@linux.intel.com, lukas@wunner.de,
- aravind.iddamsetty@linux.intel.com,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH v4] PCI: Prevent power state transition of erroneous device
-Message-ID: <aEGDL0IF10QX3Abr@black.fi.intel.com>
-References: <6f23d82c-10cc-4d70-9dce-41978b05ec9a@kernel.org>
- <aCzNL9uXGbBSdF2S@black.fi.intel.com>
- <fea86161-2c47-4b0f-ac07-b3f9b0f10a03@kernel.org>
- <aC2UzG-eycjqYQep@black.fi.intel.com>
- <CAJZ5v0gRFwKhq21ima3kT0zzFLk4=47ivvzJqARksV7nYHTJAQ@mail.gmail.com>
- <CAJZ5v0h9--jFVBtQ5F7Gee3Cy8P3TeSLdiHEWykQ=EsZdoffmg@mail.gmail.com>
- <aDnpfKvLwRZsKxhH@black.fi.intel.com>
- <CAJZ5v0gjA2B4AnaYpfYpaNDo49k4LM2FGSrPFFuOCJ62bCMmkA@mail.gmail.com>
- <aEBpdwMfxp5M4Hxr@black.fi.intel.com>
- <CAJZ5v0hhoh0Fqnph6ZcbyZBj1Wp0t8UqnLr27TAVW31ZyKPL3Q@mail.gmail.com>
+X-Greylist: delayed 920 seconds by postgrey-1.36 at gabe;
+ Thu, 05 Jun 2025 12:17:54 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 07C1210E0B5;
+ Thu,  5 Jun 2025 12:17:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=97
+ SPQovFI1r29DqJeMBUwPuY8N3trv6H1t1q8FpPIlQ=; b=jmH0cKtcK5mHrtFwwY
+ 7xHEowa7A98W84PAQ0HY0aRRTZULhYwia+5cQGNp3s2hUsn8FUUEB5KSptVR5wya
+ F6HWuPePuQoo+N5MU4fLEOWkl9Jh484Ip46qNRwVePzl600Dwh2h2PISrD1cBwq9
+ 4tDFP7xJm72NfFSeKFQGYxSfk=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
+ _____wD3n7pOh0FoP_+gGA--.5060S2; 
+ Thu, 05 Jun 2025 20:02:23 +0800 (CST)
+From: luoqing <l1138897701@163.com>
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, luoqing@kylinos.cn
+Subject: [PATCH 2/2] drm/amd/display: ZERO_OR_NULL_PTR Macro overdetection
+Date: Thu,  5 Jun 2025 20:02:22 +0800
+Message-Id: <20250605120222.803462-1-l1138897701@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0hhoh0Fqnph6ZcbyZBj1Wp0t8UqnLr27TAVW31ZyKPL3Q@mail.gmail.com>
+X-CM-TRANSID: _____wD3n7pOh0FoP_+gGA--.5060S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AF1ktr4kCFWDCr45tr47Jwb_yoW8AFWDpr
+ 4rJry5Xw1UZF12q347JF1kuF98K3ZaqFWSkr4jyw1Yq345AFn8J345JFnFqrZrWFWxCaya
+ vFZrW3y7Z3Wqvw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UHT5LUUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: jorrjmiyzxliqr6rljoofrz/1tbiEABjRGhBfqzVgQAAsY
 X-Mailman-Approved-At: Thu, 05 Jun 2025 13:00:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,59 +60,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 04, 2025 at 08:19:34PM +0200, Rafael J. Wysocki wrote:
-> On Wed, Jun 4, 2025 at 5:43 PM Raag Jadav <raag.jadav@intel.com> wrote:
-> > On Fri, May 30, 2025 at 07:49:26PM +0200, Rafael J. Wysocki wrote:
-> > > On Fri, May 30, 2025 at 7:23 PM Raag Jadav <raag.jadav@intel.com> wrote:
-> > > > On Fri, May 23, 2025 at 05:23:10PM +0200, Rafael J. Wysocki wrote:
-> > > > > On Wed, May 21, 2025 at 1:27 PM Rafael J. Wysocki <rafael@kernel.org> wrote:
-> > > > > > On Wed, May 21, 2025 at 10:54 AM Raag Jadav <raag.jadav@intel.com> wrote:
-> > > > > > > On Tue, May 20, 2025 at 01:56:28PM -0500, Mario Limonciello wrote:
-> > > > > > > > On 5/20/2025 1:42 PM, Raag Jadav wrote:
-> > > > > > > > > On Tue, May 20, 2025 at 12:39:12PM -0500, Mario Limonciello wrote:
-> >
-> > ...
-> >
-> > > > > > > > From the driver perspective it does have expectations that the parts outside
-> > > > > > > > the driver did the right thing.  If the driver was expecting the root port
-> > > > > > > > to be powered down at suspend and it wasn't there are hardware components
-> > > > > > > > that didn't power cycle and that's what we're seeing here.
-> > > > > > >
-> > > > > > > Which means the expectation set by the driver is the opposite of the
-> > > > > > > purpose of this patch, and it's going to fail if any kind of error is
-> > > > > > > detected under root port during suspend.
-> > > > > >
-> > > > > > And IMV this driver's expectation is questionable at least.
-> > > > > >
-> > > > > > There is no promise whatsoever that the device will always be put into
-> > > > > > D3cold during system suspend.
-> > > > >
-> > > > > For instance, user space may disable D3cold for any PCI device via the
-> > > > > d3cold_allowed attribute in sysfs.
-> > > > >
-> > > > > If the driver cannot handle this, it needs to be fixed.
-> > > >
-> > > > Thanks for confirming. So should we consider this patch to be valid
-> > > > and worth moving forward?
-> > >
-> > > It doesn't do anything that would be invalid in principle IMV.
-> > >
-> > > You need to consider one more thing, though: It may be necessary to
-> > > power-cycle the device in order to kick it out of the erroneous state
-> > > and the patch effectively blocks this if I'm not mistaken.
-> > >
-> > > But admittedly I'm not sure if this really matters.
-> >
-> > Wouldn't something like bus reset (SBR) be more predictable?
-> 
-> Maybe.
-> 
-> The device state is most likely inconsistent in that case, so it depends.
+From: luoqing <luoqing@kylinos.cn>
 
-My limited understanding is that if SBR doesn't help, at that point all
-bets are off including PMCSR configuration and probably a cold boot is
-needed.
+sizeof(xx) these variable values' return values cannot be 0.
+For memory allocation requests of non-zero length,
+there is no need to check other return values;
+it is sufficient to only verify that it is not null.
 
-Please correct me if I've misunderstood.
+Signed-off-by: luoqing <luoqing@kylinos.cn>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Raag
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index e8bdd7f0c460..518383425c80 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -230,7 +230,7 @@ struct idle_workqueue *idle_create_workqueue(struct amdgpu_device *adev)
+ 	struct idle_workqueue *idle_work;
+ 
+ 	idle_work = kzalloc(sizeof(*idle_work), GFP_KERNEL);
+-	if (ZERO_OR_NULL_PTR(idle_work))
++	if (!idle_work)
+ 		return NULL;
+ 
+ 	idle_work->dm = &adev->dm;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+index c16962256514..1cf2cf7a9a47 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+@@ -735,7 +735,7 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev,
+ 	int i = 0;
+ 
+ 	hdcp_work = kcalloc(max_caps, sizeof(*hdcp_work), GFP_KERNEL);
+-	if (ZERO_OR_NULL_PTR(hdcp_work))
++	if (!hdcp_work)
+ 		return NULL;
+ 
+ 	hdcp_work->srm = kcalloc(PSP_HDCP_SRM_FIRST_GEN_MAX_SIZE,
+-- 
+2.25.1
+
