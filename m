@@ -4,148 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62D5FC5AE59
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 09:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64056C5AE59
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jun 2025 09:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D63C10E852;
-	Thu,  5 Jun 2025 09:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1A8010E85D;
+	Thu,  5 Jun 2025 09:49:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eQEJM3Zp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rTZSrYGj";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2080.outbound.protection.outlook.com [40.107.236.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF1C10E852
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jun 2025 09:34:48 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66E2910E85D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jun 2025 09:49:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c1dK1X11UXV0NH5rLCcYE6r/qXfq2ILen8Q3WivjoDe9/JqXaznBtm416x0WBlVlbBVJQt4PXltvRUWdgPfjLnvDfJ89XIDSPPUG7lB7WGJksCkj2lrLpfj6rI/o0FVdDHMINlEwtwAXihmFkQKylIO93FAaMIhEcs3bht1nj4eKl7M1syBLGJlZjc2vpYzSx3MkRalRKwrmzjppo4OOl7XH0lLD/RgBX5ToWc/v1pQS7zmsP5ahXBdHzR2300OC43+E2Vf/xAw9tgDw2SszWzJufz7hZbkZmzQ6xfM+xrcLZvOs9MBnShKidiitDkX45QI8SA7fZI9W4JRh/UUpuA==
+ b=n2BAS2UW72em77/EUFxTRREj4rz7f8dhqu86lteAv5j9JpfMGSJrz2oMQPWDHiylQ6/+Ip4B++DHnhET5iB7av9a7o4ox240d+awtvBxfOexN3vcgnUtHfa97KG7/W1BHKhPFdO42RvvvPHEt5gP0eUlyQWctlJBI9jFhmmPl7yLiS0qdDzp3Q87JOor6NVMUHwCXiUMnOxprAmWw6DmOzb4Ry696hyPiTUPrrDfd4cwpKmr1ka1qJCnOFgfNbe/ZslEMZpEwvVr0KzumuIzWQjXvKtyL3wDBGg8A5IYC9Bd95f/IW7xDNcmjAQLe0kzHbkPNlvCTl1AAvkS9Veftw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ux0Cn2REYjV5W+XCyE9y1c/rGgi84+PKlXX7TLt8jLs=;
- b=S9R8fOx5LPeRLyfb7+uJmmMoAzcx8TJwd8N52t9XOlEU1IFtQPsk5hGTLIWbYikRqk6a/x14c2koup/tIsqcwAVe91+pTAlKlf4jm/4kI5lzWQQYtLYpWs+Bf3sCdZuc0wxRSmsCQKm0OEvio99LptlXcaDpy52bbw4bFnxKG2EnTRoCFz08nGtR9oK00zqhjIleWktRsSUfN/Yl1wBu1CyCFIWd68Jol2sGYA/7890oRUPDvAB5Rcwi44d8lciX46Fa4eP77Sy4zXSHnZ4GxGBj8rmkxQkczr48c7MXmEedf6zx71Mdo1JkA1jt/B++lsYPkAxegLVPLZanzMPkGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Ri2MlZYZTi/r3MH8uZx3PEY0A91fMo1+99a4xrktvPk=;
+ b=ak/nm997LmhkB9csEiQOqb2gPdSt5Fbqp5rBOSxaegEQIwMV+NSHZZkIIH+AN1lmG6zHuVrJAgau2Ag3q0lc2rCZY7dcU3JhrqI/cMgz3gYEbbu1AfT0op/w/2lQNNDg0b2gnmqgZrngJJg7S6Cdq+5tNvyz8WL9r1jugQDdCJlu2OYUngNcjnHwOC4g7hhvY/xFDDuCbVUPuEyConpbILJCzQzM4ryBXmSMU26hh9KGERQr+siRZb9z04LHQP7hHIFlgHyC/9/B5uImqZmt8kaJ5N1ahPWmdzyIgotzH5r7RgwBpapqx6N1f7d2ZJdXwcdWw7XYROu+kp1nbD6CWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ux0Cn2REYjV5W+XCyE9y1c/rGgi84+PKlXX7TLt8jLs=;
- b=eQEJM3Zp3oHhenYqU6kL+FprR2WLJ1HNPwywq89ycvOp2uSKwA6vaBpTFHstelPB+X9iwdWqa0GzCn+gVI/NfaveweeGXC/v3zpwW+mlLdKfL2KdLSMelnF8lIvBmSrtZNx/5CZNkbN0SVgqABY+RsUDyKsItMyIhL/KUF7RGZ4=
-Received: from LV2PR12MB5774.namprd12.prod.outlook.com (2603:10b6:408:17a::14)
- by CY1PR12MB9675.namprd12.prod.outlook.com (2603:10b6:930:105::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Thu, 5 Jun
- 2025 09:34:42 +0000
-Received: from LV2PR12MB5774.namprd12.prod.outlook.com
- ([fe80::9dda:b8b4:caea:5204]) by LV2PR12MB5774.namprd12.prod.outlook.com
- ([fe80::9dda:b8b4:caea:5204%7]) with mapi id 15.20.8722.027; Thu, 5 Jun 2025
- 09:34:42 +0000
-From: "Zha, YiFan(Even)" <Yifan.Zha@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Li,
- Yunxiang (Teddy)" <Yunxiang.Li@amd.com>
-CC: "Chen, Horace" <Horace.Chen@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>, 
- "Yin, ZhenGuo (Chris)" <ZhenGuo.Yin@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Lock reset domain when VF get host FLR work
- message
-Thread-Topic: [PATCH] drm/amdgpu: Lock reset domain when VF get host FLR work
- message
-Thread-Index: AQHb1SUJE50KLUOtsU+6rR1Vgwsg5LPy4jCAgAFhQ0Q=
-Date: Thu, 5 Jun 2025 09:34:41 +0000
-Message-ID: <LV2PR12MB5774AD3D4052BE9455E89E03F96FA@LV2PR12MB5774.namprd12.prod.outlook.com>
-References: <20250604074715.2229924-1-Yifan.Zha@amd.com>
- <8c1ab1c5-e386-402b-8ade-802939214a18@amd.com>
-In-Reply-To: <8c1ab1c5-e386-402b-8ade-802939214a18@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-06-05T09:34:41.564Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV2PR12MB5774:EE_|CY1PR12MB9675:EE_
-x-ms-office365-filtering-correlation-id: ef7417fb-2b9a-4136-6a1c-08dda4143318
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700018|7053199007|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?9IFHBTeNSQTSRmqfyPsSdnaOrbkKh3Szq3VD3GdM0DoKUCH/qH57BRBh4EqN?=
- =?us-ascii?Q?DeaWqrg/azDWpuuCYy5K/n/zrRUeMhKhXgG2DVYyJ6n7gkbxadX9aU5f4JCk?=
- =?us-ascii?Q?UC/Bn4CUa3UeNHWWS7uu4W6kePxDHG8zH/4BPJvbF+BpXqbj1/VceWrKqMp7?=
- =?us-ascii?Q?fC4ZqYPCaU6bsT1hoNQrh2knsoS1fj+ExalK6HbCU0xbOruXgkijIpNEKY3Y?=
- =?us-ascii?Q?yq4tJUARMl2xGsQc6kl8sq6Zl+oiBGyPReQPHJaeVMHopHOB5XrVxKyjpP7Q?=
- =?us-ascii?Q?cNo37DMNMXRdxoyU8Av7DUZ8Lu0gYSOVeKDrlAByRRJCMa15KtxQ0bM/c6rt?=
- =?us-ascii?Q?5Pj0/8TlJigk6h5i6MAZctmEZXN0/UUq7XNdrgT7XCft7PrgnBXfCC0SYVnm?=
- =?us-ascii?Q?p3tVyxabYozQ7m3a79z0Sa+CViQdw4eYOwg8yD/rhuoRY11LXgTCF+sH85iC?=
- =?us-ascii?Q?mYCI4gzn7a9EsiI79pzPIFBVNqhJmdqd5daJplNOP5sIfRuW1OaAtyI2Jzj/?=
- =?us-ascii?Q?NZLmZ62Pf/FeNiiI4ZTEatrjpC4nfLu0qi9oFUEVX78+Sk7BCJPz69g63CL4?=
- =?us-ascii?Q?fQrVJSjHc8rb9qids04PAdPW2VN8ghnmHPi0xA5L0yFNoJdzaS2JOMkhMl63?=
- =?us-ascii?Q?Sntbma4yhyTuGOGIFTIvG/bilZVYQtnGqSlIXLDHy4qCjhaUgckuoQLdYcx9?=
- =?us-ascii?Q?D13Bns12mWO5i64SomMMhPMrcUowmDLDgvc0gJehiio+IpvY6mrJO2skTSyF?=
- =?us-ascii?Q?icbGQrhPL+wjBEWsbrcs8NrsvIddlQUrxlc7JlgQQaUsjzKQLEQCJRkfEvty?=
- =?us-ascii?Q?I5SHpvTnW3NUL8j/zv6Bw2919a6rbp2i6S0M9Ub2JHuXh30x0+zhLgE8W4It?=
- =?us-ascii?Q?VNUnmSyw0wh2BD3JZZSDD4lLHwqSBuYo22qzVC2tpy1hQeEs9oOjat4ZMwRv?=
- =?us-ascii?Q?mrUpVroG8cAAq203++juwgq7pdXQDx5N5Q5LIE5q794posmtvEbr532Upvj9?=
- =?us-ascii?Q?yIuz7bl+nA517+CH88vZo+98TIsQmVSS7bnfnaJiV/BDjbUX7m9+GIxf63Y2?=
- =?us-ascii?Q?MEcqD34i0VaEMFs2oIB6yf80s2xn4P6xeCX5/1xg5cAMEMb2U/uyKFYsduUS?=
- =?us-ascii?Q?hjYfJbXXpEQo6iwWh/B7RT64tWGvF25IdjyCwWsJ/XXdpbEFN4lTN8WeLDhh?=
- =?us-ascii?Q?5lTuj55iHW3o1axqdMjRNIMWBvBpcn3MMi+8CQOgbVMc263caVs51f8rWLkJ?=
- =?us-ascii?Q?nO3NcfRe3n/KcO84eJjUS7CPwRrpLkIw/arqkmcM+58934qQhzm8bzhXGPUR?=
- =?us-ascii?Q?PmMLxoSWLMzRYXfq+rZmkZljiOk8hWqF2zfUy/7JQYxiiHKcYLpdQkp2CSG0?=
- =?us-ascii?Q?XXiW96Xk3lq2PSfMDxcKZg5zRpiURWKOjV4PJoBvY53vhzC0FinUk1sqSlNZ?=
- =?us-ascii?Q?HPSUZDLpmmnohJlViyAwRWvAxjAG8WJtx6YPiXqkz07jwotWlOsnNg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR12MB5774.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018)(7053199007)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?llP4F1GLhRGYzdCele2attlI2ZZyk0CG/YbkIsu5Wj7D9hOsskZCfBTO2kZT?=
- =?us-ascii?Q?SAHa+xhcRB1FbdM850Tc+fT9p0Bkr6R8zSwPWwXYW8JMNMS32JMag4v6dYFK?=
- =?us-ascii?Q?Xm+KBqzuPRJ/vOn1fHAdV3ybNze66ldB3Bx+Q+mrz0ivI/MZ8KZ/cySYdQ+i?=
- =?us-ascii?Q?WI7xStUan+uyeR9wrLejBiO/8djkylN9oIChyIJwZ1lGgSw3JimLG5ekN9xM?=
- =?us-ascii?Q?X0w0lGGHIwdMVmgUBJoAwtUjK/gz35rvquxMAqP7yTk/IAakAoa7ry50Cpqe?=
- =?us-ascii?Q?LIufTCbhNAhO/M3JYyyX+UZK1fKzh/DIUbJZl1hb1MMi9Y2azKGlIZ8bnT9s?=
- =?us-ascii?Q?89fKZFMY+uJ2MwMfuGGP0wgsdSvsaqqw+2H19Cpx8F+rMiAsTNJksbb+xb4m?=
- =?us-ascii?Q?NjZYeP3GAMDezRnfFrh99W6laNL8tDuOfocQUFKPJhrg30L1xEDNmro2XsB5?=
- =?us-ascii?Q?Wdzk7bjdUCoEURh+5cpD/e1+yZ3k3KtHRc19JgYQYY5K4lxxO9HbK9/m2pXm?=
- =?us-ascii?Q?iL6HrnlgAtLQlel5ZoSC452YcpG0fe/BaDQsjeVg9N2ZJYLjh0atK8+jCGby?=
- =?us-ascii?Q?diVl5aAfEqMLaWtSVs3sDRpBIijQ/5ZKqm9hZ5zdOEPxxd5aH9kGiL29HeDz?=
- =?us-ascii?Q?sMqahzpMdZiWo3VhbKGSqrAKGt5K4h7GqnFZhz7AweaqCcQ3UOhK73cSas/1?=
- =?us-ascii?Q?Z45okCrV8vQHS0OaxiMHCaqLalsCIz9AMEBEOwKYwXNWTiY+/BOaqkepj8bt?=
- =?us-ascii?Q?rKr4aYTyzbsVezs8+RbiiXQqN4Azl+x/q4Hh8dG0BtgfwI1nHyf250tJ2iqn?=
- =?us-ascii?Q?ht3kCDHOSF5gAR3Y9PLTJRlKtDBRe+hIE67g+cwBhpwkz8XmP8vyQsYmQvsD?=
- =?us-ascii?Q?E3x0XVCHmZWJp3cI80P0oUDfhksf7CCOnwSjrYTPUDslksFiH9Qj9ABgofgw?=
- =?us-ascii?Q?FYLCnj8bPxl4nj3nYyzWqATW8R/TXVQS584m9/G9mOC2Evr/ptXX8+v5U6HO?=
- =?us-ascii?Q?m0iAr5fpumuThkS7gOVHj/fnSd46UB+UpdzpQo8W/t1Wa/0uoROXXWuSsWJD?=
- =?us-ascii?Q?SbvEzdbFYv+Yj0xrixocAQd/93Fxpihh83aKWnilVtDASwJEfYp3wHnhXspH?=
- =?us-ascii?Q?7osp1LifqLcXxMMCtZOn3uKV2K8SUEKL8SWdaHX4nI2y9maSkD8XtSZbHgrL?=
- =?us-ascii?Q?RStYE5uC5GUncS3aBTFoEqyYygPAj6Ze97+iI0XDhwHpueKZeENWqbB4n12x?=
- =?us-ascii?Q?I4qK8lbNraD+I5lMurwjRJlM56uH8jWAtvGiOtIcGhTXrDaRKRKS04ZA5EAp?=
- =?us-ascii?Q?R7aioJzOqS4hBBUXCfk4jq82dGwupo4fc4mULNoCC345tBAf/L78JXgvS6C7?=
- =?us-ascii?Q?Ytjf7H2Bhku3rIkOb6X1S6LKYa5wrPwctILTJiQ0tMtDKnSt/WMklkJ5GgIe?=
- =?us-ascii?Q?q1fEdewwlkbT6sIuEfSq0LPtSFaF5afRpXbKNf+Kc9RD5/zOkWUIeAzXr2qm?=
- =?us-ascii?Q?xEPzdvwuwFSimSgIstzhvuSKtuTuM706UsOyPM8I9YhfIi4myJA8v2zZRK5i?=
- =?us-ascii?Q?LTbjBOYIYF0iq35545E=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_LV2PR12MB5774AD3D4052BE9455E89E03F96FALV2PR12MB5774namp_"
+ bh=Ri2MlZYZTi/r3MH8uZx3PEY0A91fMo1+99a4xrktvPk=;
+ b=rTZSrYGjn17iHWBFdiBKmn5nHp7oj5jXf3xK1TgjqDRKmQbp2bYOMMQ1nTPC3PW+kmuj6b3MUrzsuPQpSpdE7wgHntyK/qL+E3e2stg6JyxJ2RP6PXMBlLs4rTLX44IzM9aXh0Pkmuvklx/iwwL5wgdVYvrSamrGJUqNm2z5gbM=
+Received: from DSZP220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:5:280::17) by
+ MW4PR12MB7261.namprd12.prod.outlook.com (2603:10b6:303:229::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.34; Thu, 5 Jun
+ 2025 09:49:26 +0000
+Received: from DS1PEPF00017099.namprd05.prod.outlook.com
+ (2603:10b6:5:280:cafe::78) by DSZP220CA0011.outlook.office365.com
+ (2603:10b6:5:280::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.35 via Frontend Transport; Thu,
+ 5 Jun 2025 09:49:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8792.29 via Frontend Transport; Thu, 5 Jun 2025 09:49:25 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
+ 2025 04:49:23 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Tao.Zhou1@amd.com>, <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, "Ce
+ Sun" <cesun102@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix the gpu recover deadlock issue in abnormal
+ situations
+Date: Thu, 5 Jun 2025 17:49:14 +0800
+Message-ID: <20250605094914.83819-1-cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|MW4PR12MB7261:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9187fbb8-f1dc-4b54-8794-08dda416418e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?F1E985LssCHC6Xy0YWDslyZlhn8telvXwrbJQZwQIPsvWyUJBvtZbns9Zuuz?=
+ =?us-ascii?Q?dMN0gZhgjcZfkNso8V4cH/+oWwuk5eHzf7z+QYjW+ECUevWE7WQn+sZaruvS?=
+ =?us-ascii?Q?wQFy35TO/Xb5GIlDNVzsyo5qMXYXcfF8Km8R5V2c5b8iMV3WkglO6jMH2fVk?=
+ =?us-ascii?Q?CP5ZuQlgubvx+CIhJD/FPkU8LIXGEOkeBcm8o9e9zD/sTqmNZWs1LBCmb3zW?=
+ =?us-ascii?Q?vpyqp124r4IVd0EPO3j7ZexiJCYwQR62qqGRovNMHp/ukidOG5orvdFMwP7q?=
+ =?us-ascii?Q?7/Ll5E9D+5SxtUXY4sgm3F45Lcu8MN0CPwX3LjqMLM9Xbl4CpUgjvL+XTPu8?=
+ =?us-ascii?Q?tGXfcYjWoVM2xwQBMbN9q5qgj9nzPlt5SX6AF5WNiDTvnHUI3u6qYyEX3ZzP?=
+ =?us-ascii?Q?/GLR/KtRoo173HZPxTD8J1sYIO9N+RQxNB58q63iDONzKdKwAaHXD5Kct5yi?=
+ =?us-ascii?Q?nldsvXbYdoc9aUEV5OKr5KWMVrah3uvD+IT37VmF7fZNuoAaxu7rwzWquaAT?=
+ =?us-ascii?Q?SQnlhIw2qFM/D97DVDLTc1L07r/rxE+vrSSuo2EadQVslSKko+TG4rIJKElK?=
+ =?us-ascii?Q?D2yMTaUpH0wZlCWBkSKQX1bqvKgmB4xxfE3Jh0PMVXR5kXa5mzCuM/9cCylD?=
+ =?us-ascii?Q?yLJjGnxHoGMRYMJoCFfXPPWR8EHanKdrKGjYMVpwK7sqHO0kx4rYGq173Ge6?=
+ =?us-ascii?Q?mGlPtJhjrSY/obStcIla4CW+X48bv7JQSLXt746ZkGisRBJEAqEabKcbPh55?=
+ =?us-ascii?Q?cxZ5t19bY9Xkea10nYN29sKvJprHIALQgW+/nGQDIGRtBQoCXa5ZmZvPM26p?=
+ =?us-ascii?Q?4+7gD2IoxpezRTPptE99CbFbZ0TTN10aQM0uJFfqg9kidl0H//Oc4JVa796u?=
+ =?us-ascii?Q?yXkXmdltidkslTvkbbpGE+5C+dqLrUXL57SmjPxiS5Bu6BUVHgpDm3oE0hIo?=
+ =?us-ascii?Q?lRSogCcoXxW/1ggGjxE+LNodnveKgaTfC0jVKoZunFzP19F0ycNwU+NqpivQ?=
+ =?us-ascii?Q?iAvhyqeMSDLFuhjRCY3L+3Eavu3YHrlem2LwGxcbcY6hKS03v5vunbzVFiqA?=
+ =?us-ascii?Q?VSCZdUlgh0Dr/m2VuruieZhzkoVJVw8lF0WwRlyWWDRExAdNyhEJtTASs4A6?=
+ =?us-ascii?Q?qj/kbcBXdfdypCf95sbgtcen1W8qlPIqiS9mmdcJFBUH2D7stoiu57XGDIGC?=
+ =?us-ascii?Q?oTv0rqcwnR9eK5MxC5l/CXsxf3YuCi2gYtaR5UmJyb+gOfnke4QEiqZTO8cK?=
+ =?us-ascii?Q?r9O1MwNHMI8vTT1FX65Q01tTjDw7FvmcX8J+WHZY9VEa32Sm0WUBCpFGbUD4?=
+ =?us-ascii?Q?ORIhCc5MMYA8sCZ9rCuN+3XStnUqvnEfGkktgFBobpbsxsUhsRI0/e1PDHti?=
+ =?us-ascii?Q?F7fxUQnJFbuDq1N8w/i3rW4NTGbXvYnqn58ZdAHwVsMRJ4Q2/NyzU1HvMhwu?=
+ =?us-ascii?Q?r00PrLjWu/oYxeOgHVNH+AhO/fnuSMtqb/JtxdwFmCRBjx8k0mXYI2GaNRBq?=
+ =?us-ascii?Q?f4II6V8jfxixC1G9n6o553doe+PYoLbafOcp?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5774.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef7417fb-2b9a-4136-6a1c-08dda4143318
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2025 09:34:41.9645 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eU6FVq1BwKfdZAPzXl+oMLM/FYXEHC4/igzrcgFCl/og065mzJZ93LEYyBddCDDI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9675
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 09:49:25.1770 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9187fbb8-f1dc-4b54-8794-08dda416418e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017099.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7261
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,432 +132,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_LV2PR12MB5774AD3D4052BE9455E89E03F96FALV2PR12MB5774namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+rma occurred in the RAS records exceed threshold device. When the
+device was performing gpu recover, the reset domain lock was not
+released, resulting in kernel panic
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+[  630.141619] INFO: task umc_page_retire:9472 blocked for more than 122 seconds.
+[  630.157663]       Tainted: G           OE      6.9.0-0_fbk6_brcmrdma11_125_gfecec9d12677 #1
+[  630.176213] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  630.193591] task:umc_page_retire state:D stack:0     pid:9472  tgid:9472  ppid:2      flags:0x00004000
+[  630.214251] Call Trace:
+[  630.219673]  <TASK>
+[  630.224326]  __schedule+0x589/0xad0
+[  630.232070]  schedule+0x67/0xb0
+[  630.239038]  schedule_timeout+0x22/0x100
+[  630.247740]  ? __smp_call_single_queue+0x36/0x100
+[  630.258195]  ? wake_up_process+0x7df/0x1190
+[  630.267477]  ? wait_for_common+0xa4/0x150
+[  630.276371]  wait_for_common+0x99/0x150
+[  630.284881]  __flush_work.llvm.6727378282878825097+0x20a/0x290
+[  630.297826]  ? rcu_work_rcufn+0x20/0x20
+[  630.306338]  amdgpu_ras_page_retirement_thread+0x469/0x4e0 [amdgpu]
+[  630.320344]  ? amdgpu_ras_do_recovery+0x5f0/0x5f0 [amdgpu]
+[  630.332587]  kthread+0xdd/0x120
+[  630.339552]  ? __sched_group_set_shares+0x160/0x160
+[  630.350373]  ret_from_fork+0x2f/0x40
+[  630.358303]  ? __sched_group_set_shares+0x160/0x160
+[  630.369128]  ret_from_fork_asm+0x11/0x20
+[  630.377831]  </TASK>
+[  630.382796] INFO: task kworker/u1536:1:10591 blocked for more than 123 seconds.
+[  630.399018]       Tainted: G           OE      6.9.0-0_fbk6_brcmrdma11_125_gfecec9d12677 #1
+[  630.417554] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  630.434935] task:kworker/u1536:1 state:D stack:0     pid:10591 tgid:10591 ppid:2      flags:0x00004000
+[  630.455594] Workqueue: amdgpu-reset-hive amdgpu_ras_do_recovery [amdgpu]
+[  630.470537] Call Trace:
+[  630.475958]  <TASK>
+[  630.480609]  __schedule+0x589/0xad0
+[  630.488347]  schedule+0x67/0xb0
+[  630.495313]  schedule_preempt_disabled+0xa/0x10
+[  630.505362]  rwsem_down_write_slowpath+0x2ba/0x510
+[  630.515994]  down_write+0x2b/0x30
+[  630.523346]  amdgpu_device_halt_activities+0xef/0x400 [amdgpu]
+[  630.536363]  amdgpu_device_gpu_recover+0x124/0x230 [amdgpu]
+[  630.548797]  amdgpu_ras_do_recovery+0x5af/0x5f0 [amdgpu]
+[  630.560653]  process_scheduled_works+0x184/0x370
+[  630.570900]  worker_thread+0xc6/0x3f0
+[  630.579022]  ? __ipv6_chk_addr_and_flags.llvm.7715710786076949193+0x160/0x160
+[  630.594857]  ? __ipv6_chk_addr_and_flags.llvm.7715710786076949193+0x160/0x160
+[  630.610693]  kthread+0xdd/0x120
+[  630.617660]  ? __sched_group_set_shares+0x160/0x160
+[  630.628483]  ret_from_fork+0x2f/0x40
+[  630.636413]  ? __sched_group_set_shares+0x160/0x160
+[  630.647232]  ret_from_fork_asm+0x11/0x20
 
-Thanks Christian and Teddy for reviewing.
-You are right, it is not good to get reset domain lock earlier.
-The root cause is host driver did not waiting for guest response of FLR. It=
- should be an expected behaviour.
+Signed-off-by: Ce Sun <cesun102@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-We will change our DTP. So please ignore this patch.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 2b84df8da61a..7fee5190fbcd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6305,7 +6305,6 @@ static void amdgpu_device_gpu_resume(struct amdgpu_device *adev,
+ 	tmp_adev = list_first_entry(device_list, struct amdgpu_device,
+ 					    reset_list);
+ 	amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
+-
+ }
+ 
+ 
+@@ -6396,12 +6395,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	}
+ 
+ 	r = amdgpu_device_asic_reset(adev, &device_list, reset_context);
+-	if (r)
+-		goto end_reset;
+ skip_hw_reset:
+ 	r = amdgpu_device_sched_resume(&device_list, reset_context, job_signaled);
+-	if (r)
+-		goto end_reset;
+ skip_sched_resume:
+ 	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ end_reset:
+-- 
+2.34.1
 
-
-Thanks.
-
-
-
-Best regard,
-
-Yifan Zha
-
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Wednesday, June 4, 2025 7:45 PM
-To: Zha, YiFan(Even) <Yifan.Zha@amd.com>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>; andrey.grodzovsky@amd.com <andrey.grodzovsky@=
-amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Chen, Horace <Horace.Chen@amd.com>; Deng, Emily <Emily.Deng@amd.com>; L=
-i, Yunxiang (Teddy) <Yunxiang.Li@amd.com>; Yin, ZhenGuo (Chris) <ZhenGuo.Yi=
-n@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Lock reset domain when VF get host FLR wor=
-k message
-
-
-
-On 6/4/25 09:47, Yifan Zha wrote:
-> [Why]
-> When host detected FLR earlier than guest, it will do HW reset.
-> Under multi process scenario, MES could use hardware resource and failed,
-> if host complete FLR work.
->
-> [How]
-> - Lock reset domain in *mailbox_flr_work
-> - Use AMDGPU_HOST_FLR flag checking in gpu recover to aviod double lockin=
-g
-> - Clear AMDGPU_HOST_FLR bit after recovery completes
->
-> Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 ++++---
->  drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      | 4 ++++
->  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      | 4 ++++
->  drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      | 4 ++++
->  4 files changed, 16 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index e64969d576a6..d59053a2a7e7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5413,7 +5413,6 @@ static int amdgpu_device_reset_sriov(struct amdgpu_=
-device *adev,
->                if (!amdgpu_ras_get_fed_status(adev))
->                        amdgpu_virt_ready_to_reset(adev);
->                amdgpu_virt_wait_reset(adev);
-> -             clear_bit(AMDGPU_HOST_FLR, &reset_context->flags);
->                r =3D amdgpu_virt_request_full_gpu(adev, true);
->        } else {
->                r =3D amdgpu_virt_reset_gpu(adev);
-> @@ -6098,7 +6097,8 @@ static int amdgpu_device_gpu_recover(struct amdgpu_=
-device *adev,
->        /* We need to lock reset domain only once both for XGMI and single=
- device */
->        tmp_adev =3D list_first_entry(device_list_handle, struct amdgpu_de=
-vice,
->                                    reset_list);
-> -     amdgpu_device_lock_reset_domain(tmp_adev->reset_domain);
-> +     if (!test_bit(AMDGPU_HOST_FLR, &reset_context->flags))
-> +             amdgpu_device_lock_reset_domain(tmp_adev->reset_domain);
-
-Clear NAK to that.
-
-As far as I can see the health check and other operations are intentional o=
-utside of the lock.
-
-Regards,
-Christian.
-
-
->
->        /* block all schedulers and reset given job's ring */
->        list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-> @@ -6293,7 +6293,8 @@ static void amdgpu_device_gpu_resume(struct amdgpu_=
-device *adev,
->
->        tmp_adev =3D list_first_entry(device_list, struct amdgpu_device,
->                                            reset_list);
-> -     amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
-> +     if (!test_bit(AMDGPU_HOST_FLR, &reset_context->flags))
-> +             amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
->
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/=
-amdgpu/mxgpu_ai.c
-> index 48101a34e049..f16449fbbc5c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> @@ -287,8 +287,12 @@ static void xgpu_ai_mailbox_flr_work(struct work_str=
-uct *work)
->                reset_context.reset_req_dev =3D adev;
->                clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
->                set_bit(AMDGPU_HOST_FLR, &reset_context.flags);
-> +             amdgpu_device_lock_reset_domain(adev->reset_domain);
->
->                amdgpu_device_gpu_recover(adev, NULL, &reset_context);
-> +
-> +             amdgpu_device_unlock_reset_domain(adev->reset_domain);
-> +             clear_bit(AMDGPU_HOST_FLR, &reset_context.flags);
->        }
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/=
-amdgpu/mxgpu_nv.c
-> index f6d8597452ed..15e6e7cdd1da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> @@ -354,8 +354,12 @@ static void xgpu_nv_mailbox_flr_work(struct work_str=
-uct *work)
->                reset_context.reset_req_dev =3D adev;
->                clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
->                set_bit(AMDGPU_HOST_FLR, &reset_context.flags);
-> +             amdgpu_device_lock_reset_domain(adev->reset_domain);
->
->                amdgpu_device_gpu_recover(adev, NULL, &reset_context);
-> +
-> +             amdgpu_device_unlock_reset_domain(adev->reset_domain);
-> +             clear_bit(AMDGPU_HOST_FLR, &reset_context.flags);
->        }
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/=
-amdgpu/mxgpu_vi.c
-> index e1d63bed84bf..c1b32081e7ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> @@ -524,8 +524,12 @@ static void xgpu_vi_mailbox_flr_work(struct work_str=
-uct *work)
->                reset_context.reset_req_dev =3D adev;
->                clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
->                set_bit(AMDGPU_HOST_FLR, &reset_context.flags);
-> +             amdgpu_device_lock_reset_domain(adev->reset_domain);
->
->                amdgpu_device_gpu_recover(adev, NULL, &reset_context);
-> +
-> +             amdgpu_device_unlock_reset_domain(adev->reset_domain);
-> +             clear_bit(AMDGPU_HOST_FLR, &reset_context.flags);
->        }
->  }
->
-
-
---_000_LV2PR12MB5774AD3D4052BE9455E89E03F96FALV2PR12MB5774namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Thanks Christian and Teddy for reviewing.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-You are right, it is not good to get reset domain lock earlier.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-The root cause is host driver did not waiting for guest response of FLR. It=
- should be an expected behaviour.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-We will change our DTP. So please ignore this patch.</div>
-<div id=3D"Signature" class=3D"elementToProof">
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<p class=3D"elementToProof" style=3D"margin: 0in; font-family: Calibri, san=
-s-serif; font-size: 11pt;">
-Thanks.</p>
-<p class=3D"elementToProof" style=3D"margin: 0in; font-family: Calibri, san=
-s-serif; font-size: 11pt;">
-&nbsp;</p>
-<p class=3D"elementToProof" style=3D"margin: 0in; font-family: Calibri, san=
-s-serif; font-size: 11pt;">
-Best&nbsp;regard,</p>
-<p class=3D"elementToProof" style=3D"margin: 0in; font-family: Calibri, san=
-s-serif; font-size: 11pt;">
-Yifan Zha</p>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
-;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, June 4, 2025 7:45 PM<br>
-<b>To:</b> Zha, YiFan(Even) &lt;Yifan.Zha@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; andrey.grodzovsky@amd.com =
-&lt;andrey.grodzovsky@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher=
-@amd.com&gt;<br>
-<b>Cc:</b> Chen, Horace &lt;Horace.Chen@amd.com&gt;; Deng, Emily &lt;Emily.=
-Deng@amd.com&gt;; Li, Yunxiang (Teddy) &lt;Yunxiang.Li@amd.com&gt;; Yin, Zh=
-enGuo (Chris) &lt;ZhenGuo.Yin@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Lock reset domain when VF get host =
-FLR work message</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-<br>
-On 6/4/25 09:47, Yifan Zha wrote:<br>
-&gt; [Why]<br>
-&gt; When host detected FLR earlier than guest, it will do HW reset.<br>
-&gt; Under multi process scenario, MES could use hardware resource and fail=
-ed,<br>
-&gt; if host complete FLR work.<br>
-&gt; <br>
-&gt; [How]<br>
-&gt; - Lock reset domain in *mailbox_flr_work<br>
-&gt; - Use AMDGPU_HOST_FLR flag checking in gpu recover to aviod double loc=
-king<br>
-&gt; - Clear AMDGPU_HOST_FLR bit after recovery completes<br>
-&gt; <br>
-&gt; Signed-off-by: Yifan Zha &lt;Yifan.Zha@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 ++++---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; | 4 ++++<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; | 4 ++++<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; | 4 ++++<br>
-&gt;&nbsp; 4 files changed, 16 insertions(+), 3 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; index e64969d576a6..d59053a2a7e7 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; @@ -5413,7 +5413,6 @@ static int amdgpu_device_reset_sriov(struct amdg=
-pu_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (!amdgpu_ras_get_fed_status(adev))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-virt_ready_to_reset(adev);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_virt_wait_reset(adev);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; clear_bit(AMDGPU_HOST_FLR, &amp;reset_context-&gt;flags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; r =3D amdgpu_virt_request_full_gpu(adev, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; r =3D amdgpu_virt_reset_gpu(adev);<br>
-&gt; @@ -6098,7 +6097,8 @@ static int amdgpu_device_gpu_recover(struct amdg=
-pu_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* We need to lock reset dom=
-ain only once both for XGMI and single device */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_adev =3D list_first_entr=
-y(device_list_handle, struct amdgpu_device,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reset_list=
-);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_lock_reset_domain(tmp_adev-&gt=
-;reset_domain);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!test_bit(AMDGPU_HOST_FLR, &amp;reset_co=
-ntext-&gt;flags))<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_device_lock_reset_domain(tmp_adev-&gt;reset_domain);<br>
-<br>
-Clear NAK to that.<br>
-<br>
-As far as I can see the health check and other operations are intentional o=
-utside of the lock.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* block all schedulers and =
-reset given job's ring */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(tmp_adev=
-, device_list_handle, reset_list) {<br>
-&gt; @@ -6293,7 +6293,8 @@ static void amdgpu_device_gpu_resume(struct amdg=
-pu_device *adev,<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_adev =3D list_first_entr=
-y(device_list, struct amdgpu_device,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reset_list);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_unlock_reset_domain(tmp_adev-&=
-gt;reset_domain);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!test_bit(AMDGPU_HOST_FLR, &amp;reset_co=
-ntext-&gt;flags))<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_device_unlock_reset_domain(tmp_adev-&gt;reset_domain);<br>
-&gt;&nbsp; <br>
-&gt;&nbsp; }<br>
-&gt;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/a=
-md/amdgpu/mxgpu_ai.c<br>
-&gt; index 48101a34e049..f16449fbbc5c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c<br>
-&gt; @@ -287,8 +287,12 @@ static void xgpu_ai_mailbox_flr_work(struct work_=
-struct *work)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; reset_context.reset_req_dev =3D adev;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; clear_bit(AMDGPU_NEED_FULL_RESET, &amp;reset_context.fl=
-ags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; set_bit(AMDGPU_HOST_FLR, &amp;reset_context.flags);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_device_lock_reset_domain(adev-&gt;reset_domain);<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_device_gpu_recover(adev, NULL, &amp;reset_contex=
-t);<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_device_unlock_reset_domain(adev-&gt;reset_domain);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; clear_bit(AMDGPU_HOST_FLR, &amp;reset_context.flags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp; }<br>
-&gt;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/a=
-md/amdgpu/mxgpu_nv.c<br>
-&gt; index f6d8597452ed..15e6e7cdd1da 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c<br>
-&gt; @@ -354,8 +354,12 @@ static void xgpu_nv_mailbox_flr_work(struct work_=
-struct *work)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; reset_context.reset_req_dev =3D adev;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; clear_bit(AMDGPU_NEED_FULL_RESET, &amp;reset_context.fl=
-ags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; set_bit(AMDGPU_HOST_FLR, &amp;reset_context.flags);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_device_lock_reset_domain(adev-&gt;reset_domain);<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_device_gpu_recover(adev, NULL, &amp;reset_contex=
-t);<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_device_unlock_reset_domain(adev-&gt;reset_domain);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; clear_bit(AMDGPU_HOST_FLR, &amp;reset_context.flags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp; }<br>
-&gt;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/a=
-md/amdgpu/mxgpu_vi.c<br>
-&gt; index e1d63bed84bf..c1b32081e7ab 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c<br>
-&gt; @@ -524,8 +524,12 @@ static void xgpu_vi_mailbox_flr_work(struct work_=
-struct *work)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; reset_context.reset_req_dev =3D adev;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; clear_bit(AMDGPU_NEED_FULL_RESET, &amp;reset_context.fl=
-ags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; set_bit(AMDGPU_HOST_FLR, &amp;reset_context.flags);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_device_lock_reset_domain(adev-&gt;reset_domain);<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_device_gpu_recover(adev, NULL, &amp;reset_contex=
-t);<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_device_unlock_reset_domain(adev-&gt;reset_domain);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; clear_bit(AMDGPU_HOST_FLR, &amp;reset_context.flags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp; }<br>
-&gt;&nbsp; <br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_LV2PR12MB5774AD3D4052BE9455E89E03F96FALV2PR12MB5774namp_--
