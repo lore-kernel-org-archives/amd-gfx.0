@@ -4,147 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29947C5AD49
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jun 2025 15:46:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34618C678DF
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jun 2025 16:00:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C821910EAE6;
-	Fri,  6 Jun 2025 15:46:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4289B10E3B7;
+	Fri,  6 Jun 2025 16:00:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l3nX38Vy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g0lRZFfJ";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA9F10EAE6
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jun 2025 15:46:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fMk2T3ouG24MAhVfdYWSv7H8xy4Oa26KFGWKCnSjOJhR9zaF/Zk+ZQYkxyL/NtkNb/2mAY36ppsdYDIgui8JI9TSGYBUC9QgO/GoANqfVH66WRr1UI8Wudv/H3ZiMmkXoMuGN5iveOZhQf7y7vEU3GITo6gQQ0QOfSFCgW8PtK3KdgEFp6tQ/0hPgGeOzWMMKwPTTE8Hizt/2rEmRSRZm0YHJeDQh3YekREnMFep93xhV+MFZRyY2z6SxVSuMxv6Po9kqVa8RRyWU8vHquE/xxU1h9cVfgMiWi1FK/YLI/7DlEuwllWriowb6ocPhn8iG6Mmgwv0ztFKBC1xrTKCEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xVD0pTK6Wgu/wVp9ED20K/7B8yDzbe6ea91h6rHsk6k=;
- b=rSc5LQqtZSAAeiWvJSsidfFLG/YQ03cz0RKw8lhtLVydlfN6sgKTh0MXOaQgiZ9slkJGAUIbYVayqSa3f76NGGV9rbZJQ1D9HFKDXgBTNTE8GhuJ4zHUuadETJTlyWlIukPn0xgprSAHe63iLIzVkTnHVsm32hVhvK3Dcn3742DcG8aAKulVtOozc8XqUfyYtQ7TCCnlDzS0MpNkSA9sBbdlfiNyME8XBwJ1orRRJKpkAZCCvR+Ry9l+oS/TbjjiM5xq7mDd4yhoh0Za96w8lyQZGBCedvEQCjfdgb2EwXvIibuJSUE4DV184uZbZBFbUwecMoIqy4jOzH2VZuplcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xVD0pTK6Wgu/wVp9ED20K/7B8yDzbe6ea91h6rHsk6k=;
- b=l3nX38VyOkcvlTHwEGfM58ATWNCU0agQdCtMzB0IwmNVnufwUub6wc4mEmV2z6co2HQOFR3ekdhx0B14aRLQr6LBAv6trU0JhjDi0KOa1r5+7tiDDG19awL8ljvtMhG0bAz83Rc30LmTIGWBkkb3DJnCOJAw4Us2swYEH5JQFb4=
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
- by CH1PR12MB9672.namprd12.prod.outlook.com (2603:10b6:610:2b0::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.35; Fri, 6 Jun
- 2025 15:46:36 +0000
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::817c:781e:25f1:8210]) by CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::817c:781e:25f1:8210%6]) with mapi id 15.20.8769.031; Fri, 6 Jun 2025
- 15:46:36 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Joshi, Mukul"
- <Mukul.Joshi@amd.com>
-Subject: RE: [PATCH] drm/amdkfd: fix mes based process evictions
-Thread-Topic: [PATCH] drm/amdkfd: fix mes based process evictions
-Thread-Index: AQHb1KS4XUVnUZftPkq2YPKZ2cAy/rPx8eQAgAAHfZCABE5UgA==
-Date: Fri, 6 Jun 2025 15:46:36 +0000
-Message-ID: <CY8PR12MB743570E2EC5BF1977E6966A4856EA@CY8PR12MB7435.namprd12.prod.outlook.com>
-References: <20250603162934.154349-1-jonathan.kim@amd.com>
- <CY8PR12MB7099B08A13F18F0E620123B38C6DA@CY8PR12MB7099.namprd12.prod.outlook.com>
- <CY8PR12MB743580E8BF4A0D8CA4061848856DA@CY8PR12MB7435.namprd12.prod.outlook.com>
-In-Reply-To: <CY8PR12MB743580E8BF4A0D8CA4061848856DA@CY8PR12MB7435.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=5d511c5a-f9c5-47a9-88e5-131e2d391373;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-06-03T21:16:58Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|CH1PR12MB9672:EE_
-x-ms-office365-filtering-correlation-id: ec406b6b-0810-4ed2-c87b-08dda5115201
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?vkfeoUEH557FbkTavfOAusEDor6y49+NVG1usYFg4Lk0S5hrpBzwp/Ni/9C2?=
- =?us-ascii?Q?pfi6uajFjxKyvyUq/iGvDCiTAdijW4aRhrUVOJ8mIP1ardUwEtUhYiOtdBBI?=
- =?us-ascii?Q?JKTE1ykDs67hR9qF0FVmPYOEXnIw1/b8SeDaw+rVt27jzesB9rlMdpcnQCdk?=
- =?us-ascii?Q?IOVI3rsbv078O/V8855vWmlyzgJb+Ixtv2oby2isIy31G1aqKrGnvO7CK40r?=
- =?us-ascii?Q?3UluV4QT1pl4H64Ann6Tzu7QWIcxo81eWT8zbnRLjVIGxGwDBN0Jq2VpNKF5?=
- =?us-ascii?Q?8EuULQICPwbc9g7/nP2LTUET95vtkVC7922+2vpD8nVR8unMy7LfuitjAUew?=
- =?us-ascii?Q?wsfR0KOcYQKUhOAuCkBVQLn5VY3cZmVy6gp+D7b/kpSCicOtyvn7YiM5Hw/r?=
- =?us-ascii?Q?ntQB0mYjV7UCyDf9WydnU2v5MqaMqJddXEyOxMCFLEIMyq3kFOjzp0sZ7P6S?=
- =?us-ascii?Q?e6Z0EmDk1Sk2DzmFuzWSpPpVynFg87jEFe7u1gfA+BBu2f/SvCYkaNhR9cIt?=
- =?us-ascii?Q?DDhYsyo/MC//Lh9ZyhdvD7JarR2YB7D7Asvs/OildiVQE/GZi0fV6PCHyWvg?=
- =?us-ascii?Q?Ob3TYxE/PGm9Id8357ySAbhzgFRHYd7WNhtVCif1/Nrud5bOjJPPGX+jK1gu?=
- =?us-ascii?Q?E38wfd1HfdqqB746FDSGL38iodl1Sayl1snd2rPLRgllVGySisAg/QLHxsX8?=
- =?us-ascii?Q?LCwpVbfqSqU6/LHqo5aJLwy1DvXZqhJF2w6r6WEkhbfNTYlJ4ZrLZRyXF5w6?=
- =?us-ascii?Q?2C/rcSVVIAcelTXt96103hDD5ApHTxS6UKGtB985gYRArEt9xDwLf4cXyrR5?=
- =?us-ascii?Q?e5XgIDhBx25GPE6jnUlBSROn88ciKHhDJdeCMcR9FbFppovTN25z2BNFKDgj?=
- =?us-ascii?Q?nZUnmnSmeaSlnT8lT7J088X3YQTYCSk0R7y6eTHV40W8q/YcQRs8A4OFhl51?=
- =?us-ascii?Q?blfe4rKMyuCVSNzNT0tXbuWnB7V8zWsGo2OwdP8HD/OoEPkUY+LtBHT7rCIE?=
- =?us-ascii?Q?Y7BYBMI4mlfPVmHUU7hpLhiX4fum++fdvrKuGNU05qTPn8wudhycL9D2buXn?=
- =?us-ascii?Q?X8UJCglS8h994HdLdBOV2AsXQD200gAfbjaolRdK1d9oxyt/6g21s+qH31kl?=
- =?us-ascii?Q?kRDWbpzsCIZrTFgRNvZ/d0ZdoKYevdK7tRCCMKn6jJ+2zCdc0j7enQbj4NSN?=
- =?us-ascii?Q?4fPQqcnlpuZZQHBO0cFARvDil9LyjVGg2/wGBdQcMKfp4p9CsgTvzj/urskG?=
- =?us-ascii?Q?vpa5DQHBnr7/nDbBnEk+etBlDAZrIPZMctObUTxHyIM6TaFIkZZ+RfhnLLae?=
- =?us-ascii?Q?aXk6eXuMjynfnPjX+YtllOtxVQKBaj0P27aFj9isfPxzD44OMK8BE7P4qw0r?=
- =?us-ascii?Q?Fo5G6V65s1nNdcJZ1S6Jr5bdpFVDxuRoczVZNssbKWD3GGei4MWsGUlfu/fJ?=
- =?us-ascii?Q?upPzlEPWvsdaVwYL4cDqlE525InpueHCwx75wVtIF+jrU/nn3Y8GvOMNYPG7?=
- =?us-ascii?Q?vBR7SzVW6u8Prug=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XCJE/E1qJryJPGgxrrMRQw7PuoXlDQYL5aWu/qcXD2eUUPL2d7/KYKOgZfHY?=
- =?us-ascii?Q?mWskWMWu9RN+ovgwNkfhaJIYv27odwI8vHWqG0ZCQuTpK1CfyOv90y9kQYH/?=
- =?us-ascii?Q?zA4CuhVDkuKuCwlkQgMifARlq4NBCsI+7XLCYx/m7plea3lzwShbLSuUHERi?=
- =?us-ascii?Q?BtmgPRvqTib9oEzj+Qa9vZpnbIcvjq6b1v7qhCyO6H/ZewFSlbmbajP2uFzO?=
- =?us-ascii?Q?oSrEv9EfpDsug5FalyQYAJsc9NmngHfSoRtvNapBrGgZDJZa/l+igbWusnvL?=
- =?us-ascii?Q?CKehuJh/FPdyXeneWxWD6HysEDbP8hsXcRIz94M0YcFIW06D3gfDaaWhzjx7?=
- =?us-ascii?Q?Cawn/CgU+1i7x7gTj4m6xyknJZ7Gx0f/MjHWV8Jt/HMQVKQxVRLc8PleJtCl?=
- =?us-ascii?Q?Ou6g5pLdU7Qo6F3/5mCd7R/Dp527heuc2KBRhD698pxeAgNX1VV/wj/Hv6t9?=
- =?us-ascii?Q?A/2/Laoh5zouTPQN255PGulxWN6u/l8xsgdlpAeVRsY5dLjM8Tif4zhYGGVe?=
- =?us-ascii?Q?2ey+naJ/MPBRfML0/5V116/b3OGGxkciCQaWYI3G0Ma13gTymqTxuw84D/dD?=
- =?us-ascii?Q?g3Vljiu2dC6GIN7QMmAmF9MnEpQ4HlfZNWgB1npnAop5tl+FjbXOJiwZdvF1?=
- =?us-ascii?Q?w0uu5qnjPtzQefWUDyv4IoqrccimAQ0JwAs3zKQQd+j9Euj8DDoqDgsR3WcG?=
- =?us-ascii?Q?b437/bgFcv4zOP8nCWnI3bmG+arQAh9Qe7YkIs/0qONsFo7C6IWT0gltqjDB?=
- =?us-ascii?Q?ZWzY36RhhOUerDwZUReIE7ad3IG9h53+tjMOf/gUCjSQcHpcNep3argL9NAD?=
- =?us-ascii?Q?H0UsQ/3TmKCalrEKyGgnU9gOi/dxXPF6BuAwyo2ZczEGVFK/qi6AJFBUeskr?=
- =?us-ascii?Q?ppg3rCC62lOqv1nznLp/rdSfBQnnexxkWjU3aK5Xz1Lk13VrZ2Hr6EFe7GrY?=
- =?us-ascii?Q?qQKh2NRDasCAN3obn0ZZ879a1lxQsJsQzKgUeK0dEEPcRvLP4CVGtgEDFadZ?=
- =?us-ascii?Q?bTLyjk9nmDAoH3SfcHOXqAJefr7yWabhd+3mRW0qaePIVBqmZlgx1zVeqE6f?=
- =?us-ascii?Q?xM9azs69yTgyX65+Oj+7EzaQeIVOWBUtRYw21PApwDKpsx3i/i6WODxklmkO?=
- =?us-ascii?Q?LlsNG5u2AG/7q9p/gBB39QAWmp082W+AX10ZWGBypF3Fg/tqNn6/93IXcH+W?=
- =?us-ascii?Q?Q/yCNqeyBL7Z8a0v5lbd3IqKUlUxGKYDfKKr64jQmGbhHi1U1jAiGMaNrvCK?=
- =?us-ascii?Q?2fLEsn1K0ZFUaRJtuYyVrjYI3k0a7OKSV6wVV3+e5mwF/eLvVIdES4xQ4Kvp?=
- =?us-ascii?Q?iBgltEfntKHsKze+OB8c1aDRhoaQGD4cqUbRspF3E/kJa0Ze2RcuNZhbXVlq?=
- =?us-ascii?Q?YzpPUCtjG4TkbUFiSP9Nbq6lTlugunP4xdYaNhs3UTQzyvrnbnmUpfqajMdx?=
- =?us-ascii?Q?Tur2CDXMAms7C+OVU7+gK6O8I8nWb37UGsWfPn69Kb65wvuq8SqS/LdcNcvr?=
- =?us-ascii?Q?k43F+tKl31m5EzbS2162YEbLCPJygB3nLhgVCDjZJ6LksCa4U7tmWdDiQphj?=
- =?us-ascii?Q?iMfvzeTJVhAiQeESMRc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ABF610E3B7
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jun 2025 16:00:21 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-312cdbc67c9so354828a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jun 2025 09:00:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1749225621; x=1749830421; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=G8sEZ2UIsvANSEv0zqVUQjguOWrTB6aHwKbis9fDzzg=;
+ b=g0lRZFfJdEitMZx00BecHyCxFxa0Dkrr6TKjkDv14jQa7C4FWTpIAh0vqv9iE4DD1M
+ 3g6lmidgfnx1zliWNRdfGjCnEaxsvppbswhBKwNVc91ZOuHkkiHCwEXK/Iz0AOK3Q1ts
+ Y5InXPnQhErEo+heSABuLT8kwRfU90qgRO93Z+pa+acKBsYzgvJcdNXY+Duokvh8+SNw
+ zQYGBYdwwW7Usy2CZFvht0mco5yMPfM+2zd/xQLoCxhH67neOjY4BLlSDOT+8fJgiRgX
+ 0t+WNbjtFfiKLvnjUb3KmhAc9NQ9dD/mv7pEBQbSESOJb/puGrfh2O2AB/SfjJEItp72
+ zIRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749225621; x=1749830421;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=G8sEZ2UIsvANSEv0zqVUQjguOWrTB6aHwKbis9fDzzg=;
+ b=lKUrvCQDVrHxtV/79uFw4HFfOqjMnyrhLANv2rjCMPta465Je1rFbMBXKGdYkrAjOu
+ UsRPUCFpT07VBGkw/LbTWr9jwhPpFSQ6r7YxBQqIMRRy7ZwCLrDcC/K4wE614X7iiRqv
+ Bf5RTGRDHn4nz79euE1DmMJxoflMUUq4qqwcLWffpS+1VbxUpiPhQ/tCytJ2vXUre42r
+ NDJq9aSfolraktJ3iRpX0VPuRkbjAWtINiUmzPQv1VUyFkxnaQL3ML3DO7sjIM2JHJyR
+ yk3JYHJ+Ee4H08KNXv/DaHZWvcHs+E78k6AYmpxps8/pH4TaBpYQPIdOJ52RIhF2Vwgw
+ 4cAw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXk0uQC+ix41945rpR5hzAPG2gjESDHcD6lAiA0WUG/Vv0AR3gNhQdMpKiC1u2RyBZyXx1Wiooc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy4w9/+dpkknaCYtrZ6+R3CjoJ1/Z4UvxsUhagcBa1an7egKIir
+ wJcbeIZPt0J0hI7BGX37NpLPWkQTVoTW101LdKLdbXR2rX9yOAN9wWify4AZEfLPfcgeeBZsxCt
+ iP3UgevOrTw/MEniuhzLrg63dtJrOEvo=
+X-Gm-Gg: ASbGncsOGHS5mfGAU8f/ucl78hCABt8LPdAgrhSx0ZfWjOrKNrJNmypq9fZ3O7khwsR
+ N6J/nqD31ZCsDyl9xFthsJhtvTWNe8FrXPmXsivH4i4jAlsC/zza1jCSu5RlnGCvpZIADZ0G0xj
+ pMSz+eZp/IJCEQxaRiBeNcISKHgNpyE40zrg==
+X-Google-Smtp-Source: AGHT+IEdO0p0DEqCTPnx/p4cgqfMI24lJ4wxBShjOExkIxukftx1teth6Lnpbxj3Aaa/NiESt17Q07TuZf9SvlG2uPY=
+X-Received: by 2002:a17:90b:28c7:b0:312:1d2d:18f8 with SMTP id
+ 98e67ed59e1d1-3134e431456mr1615318a91.7.1749225620463; Fri, 06 Jun 2025
+ 09:00:20 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec406b6b-0810-4ed2-c87b-08dda5115201
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jun 2025 15:46:36.4917 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: K5WetllYQuZ0hh7n+WdKOLY/M1bmOHfvGwTT2Skimx32iAucpAs0M/HQBcVzD2rB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9672
+References: <20250606064354.5858-1-alexander.deucher@amd.com>
+ <20250606064354.5858-7-alexander.deucher@amd.com>
+ <62a1601e-990a-498e-a64b-d96bfa5567e6@amd.com>
+In-Reply-To: <62a1601e-990a-498e-a64b-d96bfa5567e6@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 6 Jun 2025 12:00:07 -0400
+X-Gm-Features: AX0GCFu8qHNThl6lSL1aNN4GqO8Jctn-2nccud5Ddexsg85dufceN_NJqVdZOko
+Message-ID: <CADnq5_NVyLr6O71si=svVJr-Ev6TOGtLs4W32T6fayQPDyfr8Q@mail.gmail.com>
+Subject: Re: [PATCH 06/29] drm/amdgpu: update ring reset function signature
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,213 +83,548 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Fri, Jun 6, 2025 at 7:41=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> On 6/6/25 08:43, Alex Deucher wrote:
+> > Going forward, we'll need more than just the vmid.  Everything
+> > we need in currently in the amdgpu job structure, so just
+> > pass that in.
+>
+> Please don't the job is just a container for the submission, it should no=
+t be part of any reset handling.
+>
+> What information is actually needed here?
 
-Actually, on a second look, transient suspend/resume all seems kind of poin=
-tless for MES process eviction if we're scanning and removing all active qu=
-eues one-by-one anyway.
-From the looks of it, MES has some trouble removing queues that have alread=
-y been suspended.
-Not sure why this got called in the eviction path in the first place.
-We should probably should just remove this transient suspend/resume call to=
-gether from eviction all together.
+We need job->vmid, job->base.s_fence->finished, job->hw_fence.
 
-Jon
+Alex
 
-> -----Original Message-----
-> From: Kim, Jonathan
-> Sent: Tuesday, June 3, 2025 5:53 PM
-> To: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; amd-
-> gfx@lists.freedesktop.org
-> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Joshi, Mukul
-> <Mukul.Joshi@amd.com>
-> Subject: RE: [PATCH] drm/amdkfd: fix mes based process evictions
+>
+> Regards,
+> Christian.
 >
 >
->
-> > -----Original Message-----
-> > From: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-> > Sent: Tuesday, June 3, 2025 5:22 PM
-> > To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
-> > Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Joshi, Mukul
-> > <Mukul.Joshi@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>
-> > Subject: RE: [PATCH] drm/amdkfd: fix mes based process evictions
 > >
-> > [Public]
-> >
-> > So, the code now loops two times over the list of queues. Couple of que=
-stions.
-> >
-> > (1) Isn't it possible to call suspend_all_queues_mes(dqm) before the fi=
-rst
-> > list_for_each_entry()? The first loop only does some housekeeping. That=
- way you
-> > can still do get away with single loop.
->
-> Yeah I guess there's no harm in grabbing the last eviction time stamp pri=
-or to house
-> keeping + queue removal instead of just raw queue removal.
->
-> > (2) Also remove_queue_mes() is called for inactive queues (q-
-> >properties.is_active).
-> > Is that intentional?
->
-> No. That was a lazy copy and paste mistake.  Good catch.
->
-> Jon
->
-> >
-> > Best Regards,
-> > Harish
-> >
-> >
-> >
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jona=
-than
-> > Kim
-> > Sent: Tuesday, June 3, 2025 12:30 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Joshi, Mukul
-> > <Mukul.Joshi@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>
-> > Subject: [PATCH] drm/amdkfd: fix mes based process evictions
-> >
-> > First, MES suspend/resume calls should be consistently held under the
-> > KFD device lock (similar to queue invalidation) so consolidate
-> > MES based eviction logic with F32 HWS based eviction logic.
-> >
-> > Second, save the last eviction timestamp prior to current eviction to
-> > align with F32 HWS timestamp logging behaviour.
-> >
-> > Finally, bail early on failure to remove a single queue as something
-> > has gone really wrong post-suspend and a GPU reset is going to occur
-> > anyway so it's more efficient to just release the device lock.
-> >
-> > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > > ---
-> >  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 73 +++++--------------
-> >  1 file changed, 20 insertions(+), 53 deletions(-)
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 ++--
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |  7 ++++---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 10 ++++++----
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 10 ++++++----
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c   |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c   |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c   |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c   |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  5 +++--
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |  5 +++--
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c    |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c  |  3 ++-
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  |  3 ++-
+> >  22 files changed, 53 insertions(+), 33 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > index 76359c6a3f3a..c1f0207eeb9e 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > @@ -1219,25 +1219,36 @@ static int evict_process_queues_cpsch(struct
-> > device_queue_manager *dqm,
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_job.c
+> > index ddb9d3269357c..80d4dfebde24f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > @@ -155,7 +155,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(=
+struct drm_sched_job *s_job)
+> >               if (is_guilty)
+> >                       dma_fence_set_error(&s_job->s_fence->finished, -E=
+TIME);
 > >
-> >                 q->properties.is_active =3D false;
-> >                 decrement_queue_count(dqm, qpd, q);
-> > +       }
+> > -             r =3D amdgpu_ring_reset(ring, job->vmid);
+> > +             r =3D amdgpu_ring_reset(ring, job);
+> >               if (!r) {
+> >                       if (amdgpu_ring_sched_ready(ring))
+> >                               drm_sched_stop(&ring->sched, s_job);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.h
+> > index e1f25218943a4..ab5402d7ce9c8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -268,7 +268,7 @@ struct amdgpu_ring_funcs {
+> >       void (*patch_cntl)(struct amdgpu_ring *ring, unsigned offset);
+> >       void (*patch_ce)(struct amdgpu_ring *ring, unsigned offset);
+> >       void (*patch_de)(struct amdgpu_ring *ring, unsigned offset);
+> > -     int (*reset)(struct amdgpu_ring *ring, unsigned int vmid);
+> > +     int (*reset)(struct amdgpu_ring *ring, struct amdgpu_job *job);
+> >       void (*emit_cleaner_shader)(struct amdgpu_ring *ring);
+> >       bool (*is_guilty)(struct amdgpu_ring *ring);
+> >  };
+> > @@ -425,7 +425,7 @@ struct amdgpu_ring {
+> >  #define amdgpu_ring_patch_cntl(r, o) ((r)->funcs->patch_cntl((r), (o))=
+)
+> >  #define amdgpu_ring_patch_ce(r, o) ((r)->funcs->patch_ce((r), (o)))
+> >  #define amdgpu_ring_patch_de(r, o) ((r)->funcs->patch_de((r), (o)))
+> > -#define amdgpu_ring_reset(r, v) (r)->funcs->reset((r), (v))
+> > +#define amdgpu_ring_reset(r, j) (r)->funcs->reset((r), (j))
 > >
-> > -               if (dqm->dev->kfd->shared_resources.enable_mes) {
-> > -                       int err;
-> > +       pdd->last_evict_timestamp =3D get_jiffies_64();
-> > +
-> > +       if (dqm->dev->kfd->shared_resources.enable_mes) {
-> > +               retval =3D suspend_all_queues_mes(dqm);
-> > +               if (retval) {
-> > +                       dev_err(dev, "Suspending all queues failed");
-> > +                       goto out;
-> > +               }
-> >
-> > -                       err =3D remove_queue_mes(dqm, q, qpd);
-> > -                       if (err) {
-> > +               list_for_each_entry(q, &qpd->queues_list, list) {
-> > +                       retval =3D remove_queue_mes(dqm, q, qpd);
-> > +                       if (retval) {
-> >                                 dev_err(dev, "Failed to evict queue %d\=
-n",
-> >                                         q->properties.queue_id);
-> > -                               retval =3D err;
-> > +                               goto out;
-> >                         }
-> >                 }
-> > -       }
-> > -       pdd->last_evict_timestamp =3D get_jiffies_64();
-> > -       if (!dqm->dev->kfd->shared_resources.enable_mes)
-> > +
-> > +               retval =3D resume_all_queues_mes(dqm);
-> > +               if (retval)
-> > +                       dev_err(dev, "Resuming all queues failed");
-> > +       } else {
-> >                 retval =3D execute_queues_cpsch(dqm,
-> >                                               qpd->is_debug ?
-> >                                               KFD_UNMAP_QUEUES_FILTER_A=
-LL_QUEUES :
-> >
-> > KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0,
-> >                                               USE_DEFAULT_GRACE_PERIOD)=
-;
-> > +       }
-> >
-> >  out:
-> >         dqm_unlock(dqm);
-> > @@ -3089,61 +3100,17 @@ int kfd_dqm_suspend_bad_queue_mes(struct
-> > kfd_node *knode, u32 pasid, u32 doorbel
-> >         return ret;
+> >  unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type);
+> >  int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned ndw);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v10_0.c
+> > index 75ea071744eb5..c58e7040c732a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > @@ -9522,7 +9522,8 @@ static void gfx_v10_ring_insert_nop(struct amdgpu=
+_ring *ring, uint32_t num_nop)
+> >       amdgpu_ring_insert_nop(ring, num_nop - 1);
 > >  }
 > >
-> > -static int kfd_dqm_evict_pasid_mes(struct device_queue_manager *dqm,
-> > -                                  struct qcm_process_device *qpd)
-> > -{
-> > -       struct device *dev =3D dqm->dev->adev->dev;
-> > -       int ret =3D 0;
-> > -
-> > -       /* Check if process is already evicted */
-> > -       dqm_lock(dqm);
-> > -       if (qpd->evicted) {
-> > -               /* Increment the evicted count to make sure the
-> > -                * process stays evicted before its terminated.
-> > -                */
-> > -               qpd->evicted++;
-> > -               dqm_unlock(dqm);
-> > -               goto out;
-> > -       }
-> > -       dqm_unlock(dqm);
-> > -
-> > -       ret =3D suspend_all_queues_mes(dqm);
-> > -       if (ret) {
-> > -               dev_err(dev, "Suspending all queues failed");
-> > -               goto out;
-> > -       }
-> > -
-> > -       ret =3D dqm->ops.evict_process_queues(dqm, qpd);
-> > -       if (ret) {
-> > -               dev_err(dev, "Evicting process queues failed");
-> > -               goto out;
-> > -       }
-> > -
-> > -       ret =3D resume_all_queues_mes(dqm);
-> > -       if (ret)
-> > -               dev_err(dev, "Resuming all queues failed");
-> > -
-> > -out:
-> > -       return ret;
-> > -}
-> > -
-> >  int kfd_evict_process_device(struct kfd_process_device *pdd)
+> > -static int gfx_v10_0_reset_kgq(struct amdgpu_ring *ring, unsigned int =
+vmid)
+> > +static int gfx_v10_0_reset_kgq(struct amdgpu_ring *ring,
+> > +                            struct amdgpu_job *job)
 > >  {
-> >         struct device_queue_manager *dqm;
-> >         struct kfd_process *p;
-> > -       int ret =3D 0;
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> > @@ -9547,7 +9548,7 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ring=
+ *ring, unsigned int vmid)
 > >
-> >         p =3D pdd->process;
-> >         dqm =3D pdd->dev->dqm;
-> >
-> >         WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
-> >
-> > -       if (dqm->dev->kfd->shared_resources.enable_mes)
-> > -               ret =3D kfd_dqm_evict_pasid_mes(dqm, &pdd->qpd);
-> > -       else
-> > -               ret =3D dqm->ops.evict_process_queues(dqm, &pdd->qpd);
-> > -
-> > -       return ret;
-> > +       return dqm->ops.evict_process_queues(dqm, &pdd->qpd);
+> >       addr =3D amdgpu_bo_gpu_offset(ring->mqd_obj) +
+> >               offsetof(struct v10_gfx_mqd, cp_gfx_hqd_active);
+> > -     tmp =3D REG_SET_FIELD(0, CP_VMID_RESET, RESET_REQUEST, 1 << vmid)=
+;
+> > +     tmp =3D REG_SET_FIELD(0, CP_VMID_RESET, RESET_REQUEST, 1 << job->=
+vmid);
+> >       if (ring->pipe =3D=3D 0)
+> >               tmp =3D REG_SET_FIELD(tmp, CP_VMID_RESET, PIPE0_QUEUES, 1=
+ << ring->queue);
+> >       else
+> > @@ -9579,7 +9580,7 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ring=
+ *ring, unsigned int vmid)
 > >  }
 > >
-> >  int reserve_debug_trap_vmid(struct device_queue_manager *dqm,
-> > --
-> > 2.34.1
+> >  static int gfx_v10_0_reset_kcq(struct amdgpu_ring *ring,
+> > -                            unsigned int vmid)
+> > +                            struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v11_0.c
+> > index afd6d59164bfa..0ee7bdd509741 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > @@ -6806,7 +6806,8 @@ static int gfx_v11_reset_gfx_pipe(struct amdgpu_r=
+ing *ring)
+> >       return 0;
+> >  }
 > >
-
+> > -static int gfx_v11_0_reset_kgq(struct amdgpu_ring *ring, unsigned int =
+vmid)
+> > +static int gfx_v11_0_reset_kgq(struct amdgpu_ring *ring,
+> > +                            struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       int r;
+> > @@ -6814,7 +6815,7 @@ static int gfx_v11_0_reset_kgq(struct amdgpu_ring=
+ *ring, unsigned int vmid)
+> >       if (amdgpu_sriov_vf(adev))
+> >               return -EINVAL;
+> >
+> > -     r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, false=
+);
+> > +     r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, job->vmid, =
+false);
+> >       if (r) {
+> >
+> >               dev_warn(adev->dev, "reset via MES failed and try pipe re=
+set %d\n", r);
+> > @@ -6968,7 +6969,8 @@ static int gfx_v11_0_reset_compute_pipe(struct am=
+dgpu_ring *ring)
+> >       return 0;
+> >  }
+> >
+> > -static int gfx_v11_0_reset_kcq(struct amdgpu_ring *ring, unsigned int =
+vmid)
+> > +static int gfx_v11_0_reset_kcq(struct amdgpu_ring *ring,
+> > +                            struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       int r =3D 0;
+> > @@ -6976,7 +6978,7 @@ static int gfx_v11_0_reset_kcq(struct amdgpu_ring=
+ *ring, unsigned int vmid)
+> >       if (amdgpu_sriov_vf(adev))
+> >               return -EINVAL;
+> >
+> > -     r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, true)=
+;
+> > +     r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, job->vmid, =
+true);
+> >       if (r) {
+> >               dev_warn(adev->dev, "fail(%d) to reset kcq and try pipe r=
+eset\n", r);
+> >               r =3D gfx_v11_0_reset_compute_pipe(ring);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v12_0.c
+> > index 1234c8d64e20d..a26417d53411b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > @@ -5307,7 +5307,8 @@ static int gfx_v12_reset_gfx_pipe(struct amdgpu_r=
+ing *ring)
+> >       return 0;
+> >  }
+> >
+> > -static int gfx_v12_0_reset_kgq(struct amdgpu_ring *ring, unsigned int =
+vmid)
+> > +static int gfx_v12_0_reset_kgq(struct amdgpu_ring *ring,
+> > +                            struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       int r;
+> > @@ -5315,7 +5316,7 @@ static int gfx_v12_0_reset_kgq(struct amdgpu_ring=
+ *ring, unsigned int vmid)
+> >       if (amdgpu_sriov_vf(adev))
+> >               return -EINVAL;
+> >
+> > -     r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, false=
+);
+> > +     r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, job->vmid, =
+false);
+> >       if (r) {
+> >               dev_warn(adev->dev, "reset via MES failed and try pipe re=
+set %d\n", r);
+> >               r =3D gfx_v12_reset_gfx_pipe(ring);
+> > @@ -5421,7 +5422,8 @@ static int gfx_v12_0_reset_compute_pipe(struct am=
+dgpu_ring *ring)
+> >       return 0;
+> >  }
+> >
+> > -static int gfx_v12_0_reset_kcq(struct amdgpu_ring *ring, unsigned int =
+vmid)
+> > +static int gfx_v12_0_reset_kcq(struct amdgpu_ring *ring,
+> > +                            struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       int r;
+> > @@ -5429,7 +5431,7 @@ static int gfx_v12_0_reset_kcq(struct amdgpu_ring=
+ *ring, unsigned int vmid)
+> >       if (amdgpu_sriov_vf(adev))
+> >               return -EINVAL;
+> >
+> > -     r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, true)=
+;
+> > +     r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, job->vmid, =
+true);
+> >       if (r) {
+> >               dev_warn(adev->dev, "fail(%d) to reset kcq  and try pipe =
+reset\n", r);
+> >               r =3D gfx_v12_0_reset_compute_pipe(ring);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v9_0.c
+> > index d50e125fd3e0d..5e650cc5fcb26 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > @@ -7153,7 +7153,7 @@ static void gfx_v9_ring_insert_nop(struct amdgpu_=
+ring *ring, uint32_t num_nop)
+> >  }
+> >
+> >  static int gfx_v9_0_reset_kcq(struct amdgpu_ring *ring,
+> > -                           unsigned int vmid)
+> > +                           struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/=
+amd/amdgpu/gfx_v9_4_3.c
+> > index c233edf605694..a7dadff3dca31 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> > @@ -3552,7 +3552,7 @@ static int gfx_v9_4_3_reset_hw_pipe(struct amdgpu=
+_ring *ring)
+> >  }
+> >
+> >  static int gfx_v9_4_3_reset_kcq(struct amdgpu_ring *ring,
+> > -                             unsigned int vmid)
+> > +                             struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[ring->xcc_id];
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v2_0.c
+> > index 4cde8a8bcc837..6cd3fbe00d6b9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> > @@ -764,7 +764,8 @@ static int jpeg_v2_0_process_interrupt(struct amdgp=
+u_device *adev,
+> >       return 0;
+> >  }
+> >
+> > -static int jpeg_v2_0_ring_reset(struct amdgpu_ring *ring, unsigned int=
+ vmid)
+> > +static int jpeg_v2_0_ring_reset(struct amdgpu_ring *ring,
+> > +                             struct amdgpu_job *job)
+> >  {
+> >       jpeg_v2_0_stop(ring->adev);
+> >       jpeg_v2_0_start(ring->adev);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v2_5.c
+> > index 8b39e114f3be1..8ed41868f6c32 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+> > @@ -643,7 +643,8 @@ static int jpeg_v2_5_process_interrupt(struct amdgp=
+u_device *adev,
+> >       return 0;
+> >  }
+> >
+> > -static int jpeg_v2_5_ring_reset(struct amdgpu_ring *ring, unsigned int=
+ vmid)
+> > +static int jpeg_v2_5_ring_reset(struct amdgpu_ring *ring,
+> > +                             struct amdgpu_job *job)
+> >  {
+> >       jpeg_v2_5_stop_inst(ring->adev, ring->me);
+> >       jpeg_v2_5_start_inst(ring->adev, ring->me);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v3_0.c
+> > index 2f8510c2986b9..3512fbb543301 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+> > @@ -555,7 +555,8 @@ static int jpeg_v3_0_process_interrupt(struct amdgp=
+u_device *adev,
+> >       return 0;
+> >  }
+> >
+> > -static int jpeg_v3_0_ring_reset(struct amdgpu_ring *ring, unsigned int=
+ vmid)
+> > +static int jpeg_v3_0_ring_reset(struct amdgpu_ring *ring,
+> > +                             struct amdgpu_job *job)
+> >  {
+> >       jpeg_v3_0_stop(ring->adev);
+> >       jpeg_v3_0_start(ring->adev);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v4_0.c
+> > index f17ec5414fd69..c8efeaf0a2a69 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+> > @@ -720,7 +720,8 @@ static int jpeg_v4_0_process_interrupt(struct amdgp=
+u_device *adev,
+> >       return 0;
+> >  }
+> >
+> > -static int jpeg_v4_0_ring_reset(struct amdgpu_ring *ring, unsigned int=
+ vmid)
+> > +static int jpeg_v4_0_ring_reset(struct amdgpu_ring *ring,
+> > +                             struct amdgpu_job *job)
+> >  {
+> >       if (amdgpu_sriov_vf(ring->adev))
+> >               return -EINVAL;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm=
+/amd/amdgpu/jpeg_v4_0_3.c
+> > index 79e342d5ab28d..8b07c3651c579 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> > @@ -1143,7 +1143,8 @@ static void jpeg_v4_0_3_core_stall_reset(struct a=
+mdgpu_ring *ring)
+> >       WREG32_SOC15(JPEG, jpeg_inst, regJPEG_CORE_RST_CTRL, 0x00);
+> >  }
+> >
+> > -static int jpeg_v4_0_3_ring_reset(struct amdgpu_ring *ring, unsigned i=
+nt vmid)
+> > +static int jpeg_v4_0_3_ring_reset(struct amdgpu_ring *ring,
+> > +                               struct amdgpu_job *job)
+> >  {
+> >       if (amdgpu_sriov_vf(ring->adev))
+> >               return -EOPNOTSUPP;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm=
+/amd/amdgpu/jpeg_v5_0_1.c
+> > index 3b6f65a256464..0a21a13e19360 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> > @@ -834,7 +834,8 @@ static void jpeg_v5_0_1_core_stall_reset(struct amd=
+gpu_ring *ring)
+> >       WREG32_SOC15(JPEG, jpeg_inst, regJPEG_CORE_RST_CTRL, 0x00);
+> >  }
+> >
+> > -static int jpeg_v5_0_1_ring_reset(struct amdgpu_ring *ring, unsigned i=
+nt vmid)
+> > +static int jpeg_v5_0_1_ring_reset(struct amdgpu_ring *ring,
+> > +                               struct amdgpu_job *job)
+> >  {
+> >       if (amdgpu_sriov_vf(ring->adev))
+> >               return -EOPNOTSUPP;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm=
+/amd/amdgpu/sdma_v4_4_2.c
+> > index 9c169112a5e7b..ffd67d51b335f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> > @@ -1667,7 +1667,8 @@ static bool sdma_v4_4_2_page_ring_is_guilty(struc=
+t amdgpu_ring *ring)
+> >       return sdma_v4_4_2_is_queue_selected(adev, instance_id, true);
+> >  }
+> >
+> > -static int sdma_v4_4_2_reset_queue(struct amdgpu_ring *ring, unsigned =
+int vmid)
+> > +static int sdma_v4_4_2_reset_queue(struct amdgpu_ring *ring,
+> > +                                struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       u32 id =3D GET_INST(SDMA0, ring->me);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v5_0.c
+> > index 9505ae96fbecc..46affee1c2da0 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> > @@ -1538,7 +1538,8 @@ static int sdma_v5_0_soft_reset(struct amdgpu_ip_=
+block *ip_block)
+> >       return 0;
+> >  }
+> >
+> > -static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring, unsigned in=
+t vmid)
+> > +static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       u32 inst_id =3D ring->me;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v5_2.c
+> > index a6e612b4a8928..581e75b7d01a8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > @@ -1451,7 +1451,8 @@ static int sdma_v5_2_wait_for_idle(struct amdgpu_=
+ip_block *ip_block)
+> >       return -ETIMEDOUT;
+> >  }
+> >
+> > -static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring, unsigned in=
+t vmid)
+> > +static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       u32 inst_id =3D ring->me;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v6_0.c
+> > index 5a70ae17be04e..d9866009edbfc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> > @@ -1537,7 +1537,8 @@ static int sdma_v6_0_ring_preempt_ib(struct amdgp=
+u_ring *ring)
+> >       return r;
+> >  }
+> >
+> > -static int sdma_v6_0_reset_queue(struct amdgpu_ring *ring, unsigned in=
+t vmid)
+> > +static int sdma_v6_0_reset_queue(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       int i, r;
+> > @@ -1555,7 +1556,7 @@ static int sdma_v6_0_reset_queue(struct amdgpu_ri=
+ng *ring, unsigned int vmid)
+> >               return -EINVAL;
+> >       }
+> >
+> > -     r =3D amdgpu_mes_reset_legacy_queue(adev, ring, vmid, true);
+> > +     r =3D amdgpu_mes_reset_legacy_queue(adev, ring, job->vmid, true);
+> >       if (r)
+> >               return r;
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v7_0.c
+> > index ad47d0bdf7775..c546e73642296 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> > @@ -802,7 +802,8 @@ static bool sdma_v7_0_check_soft_reset(struct amdgp=
+u_ip_block *ip_block)
+> >       return false;
+> >  }
+> >
+> > -static int sdma_v7_0_reset_queue(struct amdgpu_ring *ring, unsigned in=
+t vmid)
+> > +static int sdma_v7_0_reset_queue(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       int i, r;
+> > @@ -820,7 +821,7 @@ static int sdma_v7_0_reset_queue(struct amdgpu_ring=
+ *ring, unsigned int vmid)
+> >               return -EINVAL;
+> >       }
+> >
+> > -     r =3D amdgpu_mes_reset_legacy_queue(adev, ring, vmid, true);
+> > +     r =3D amdgpu_mes_reset_legacy_queue(adev, ring, job->vmid, true);
+> >       if (r)
+> >               return r;
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/am=
+d/amdgpu/vcn_v4_0.c
+> > index b5071f77f78d2..47a0deceff433 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> > @@ -1967,7 +1967,8 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct=
+ amdgpu_cs_parser *p,
+> >       return 0;
+> >  }
+> >
+> > -static int vcn_v4_0_ring_reset(struct amdgpu_ring *ring, unsigned int =
+vmid)
+> > +static int vcn_v4_0_ring_reset(struct amdgpu_ring *ring,
+> > +                            struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[ring->me];
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/=
+amd/amdgpu/vcn_v4_0_3.c
+> > index 5a33140f57235..d961a824d2098 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> > @@ -1594,7 +1594,8 @@ static void vcn_v4_0_3_unified_ring_set_wptr(stru=
+ct amdgpu_ring *ring)
+> >       }
+> >  }
+> >
+> > -static int vcn_v4_0_3_ring_reset(struct amdgpu_ring *ring, unsigned in=
+t vmid)
+> > +static int vcn_v4_0_3_ring_reset(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_job *job)
+> >  {
+> >       int r =3D 0;
+> >       int vcn_inst;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/=
+amd/amdgpu/vcn_v4_0_5.c
+> > index 16ade84facc78..10bd714592278 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> > @@ -1465,7 +1465,8 @@ static void vcn_v4_0_5_unified_ring_set_wptr(stru=
+ct amdgpu_ring *ring)
+> >       }
+> >  }
+> >
+> > -static int vcn_v4_0_5_ring_reset(struct amdgpu_ring *ring, unsigned in=
+t vmid)
+> > +static int vcn_v4_0_5_ring_reset(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[ring->me];
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/=
+amd/amdgpu/vcn_v5_0_0.c
+> > index f8e3f0b882da5..7e6a7ead9a086 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> > @@ -1192,7 +1192,8 @@ static void vcn_v5_0_0_unified_ring_set_wptr(stru=
+ct amdgpu_ring *ring)
+> >       }
+> >  }
+> >
+> > -static int vcn_v5_0_0_ring_reset(struct amdgpu_ring *ring, unsigned in=
+t vmid)
+> > +static int vcn_v5_0_0_ring_reset(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_job *job)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[ring->me];
+>
