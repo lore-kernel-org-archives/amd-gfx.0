@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0C3AC5B552
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jun 2025 01:59:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85492C5B543
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jun 2025 02:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A25C10E392;
-	Fri,  6 Jun 2025 01:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04B2810EA89;
+	Fri,  6 Jun 2025 02:31:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PSLJJrGg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X29aWVxN";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6C0210E392;
- Fri,  6 Jun 2025 01:59:50 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE1B910EA89
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jun 2025 02:31:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ummpyv+y8qO9eVhbNlDvgEmJdvObH2/SvHMXFL0APjn30MEtsKgOhbF9oy5jdSxmj9Ik1MhO5SHeoagul/MJkudOS1SGb72IRSCHpHGCCBGhoTxAF79Y1mfMZBeExYFMZEcTBYuay4Jy8wj+cVpYJL+nxNI7GYQc+ezuHautpPiqtj+TnH8M582UUfeLK38y5ORAFWqE4JnmlOkjX+Eo4s0X0HwpEmCOKIwaUtCFHn2cv34Ys8h8Pw7jaC265RRWwoo/Tnc5Uwha/h3O3/uZQRvclSS2LdH2qaQPo/Kw7cNGviLWNuxQZMAGHq4bOfHnh6pTHdAeMyMWGQJUb4AEYQ==
+ b=qYlRpDwzGFIzIhT3264MJ+V5JyscXZLT4AQmfErIjKoOdCW3rkZJyouS4lozpgg082ETIisG4hZd5l2Iy0+hIWzniN2CxgSnOheetPzPrB+YIAIJY6FV9fhtUEFHSCHsjS7354sP1gk9mHGn8/j2CbHT0/rBtF5K+YwEp3vqz9HGGmdHASttIwFy0ptuND2FFgcQobBAs48EnOOuivHxBOcSSlDg9Z4GUQK6Z3ScfOJe28Qu5fWwfK90eo/2EWi0gq8pAM7ZHXosrWSL2jd8vd0egg0QmCKrdCVE0xdV4BR9EMGpnNZTq8GOLJUrKg+RKEOm0OusFPjKgAQTVwIKQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m3N2HmrxsT3aP9RKSfYwy8ZcYGm5dMPvpwsWZKyimDI=;
- b=xjcVxjBonEIEXDNOULBZfCcPdPyVXpiAp5wD/nmivcYgEbA/a/yHrEBQQMnuEALHbxHeWT9E6/RGGckLIMOeq8KsSlc6LbmuAfH+wAPBmptLcG0aZNLI88OOUsF/96H0yKmjGBNOi0/G7wgCWaMTI3pTUTki7X9oLMTujDPoZG06KeYS7lvSW8z0PH93JGC/XiIJ9BOXKhgiOb1KQGBIE3xBITSQttGUFzt2kCsdw31ocvq1XSxVdeIsgqtbWYqwVbvRkeMZQCiWDqpkt2d0SWWdPSs0Swwy/Jek42FdtejbGb+JC5FcNWYGBCrhPuOOK1RzMwXR4QAsRXf10WHiFg==
+ bh=3/OcGLJ9ujToGvMIlvTPMbQyf0+ZARSdUgiZLj7CQfw=;
+ b=WtWR0C1dqrs/NQfl5vYVmAAuYAYsL4GcUjkAFAouj04T+OPjUGiwN3rp2NoSaeHQrELmAphWekeZIroaT8kCx74a1vZwfAIYFVJoy+qlBDINPOgKIpFNDxHvyGXHqBlc7c42xjCBAbno5wM6rFrdyzBYtT/7WelbHMVFcTJCISiF2jEXOx0liWFbm87OLXnKVwK3tu5Lw/Fh5NYCg0zAsNNIIt2OAZp7/Q851UCtIy37cFDptJApmKl3LebhxHANVY+RRQ6S8KCMgeQENeBDUeGRy0r3Kvw/BkvUVy0zB6aQzVDmM8+Sht9euB50e7PQOS7SLMfzPT3bCm7oQDBPvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m3N2HmrxsT3aP9RKSfYwy8ZcYGm5dMPvpwsWZKyimDI=;
- b=PSLJJrGggtSz1vUSXK7r8NGHAYsIM92EtrmcUBt1sKCc9+ZCw45UiJdnSskgVj8UnEnTMSOwRY4wXIJnG8QqpDKGz3boipez6YEsZzIoOJ0xk5gYd0RwIZA0JB8w2Q4KfaLlNtOVlnsEyqnR92q57okROWY4nEIvf7uZZXpM8KU=
-Received: from SJ0PR03CA0063.namprd03.prod.outlook.com (2603:10b6:a03:331::8)
- by DS2PR12MB9775.namprd12.prod.outlook.com (2603:10b6:8:2bb::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.38; Fri, 6 Jun
- 2025 01:59:47 +0000
-Received: from SJ5PEPF000001D4.namprd05.prod.outlook.com
- (2603:10b6:a03:331:cafe::1e) by SJ0PR03CA0063.outlook.office365.com
- (2603:10b6:a03:331::8) with Microsoft SMTP Server (version=TLS1_3,
+ bh=3/OcGLJ9ujToGvMIlvTPMbQyf0+ZARSdUgiZLj7CQfw=;
+ b=X29aWVxN08bUPRjT9p+Igf/yA56UgoC4uw++wRJqVVC7+Mi3JYGp2n7/g9DK/YnOyHD4rbHHcBM5rw+/1AL2y1MJ3D+Be+OmMb306Ihk+Jg8Fs9lygfjw5wbUdHp8Ck5KNxjldb8qSBqS8JkBUgTFKgEioj+qRRvE0OSLKCn/q8=
+Received: from SJ0PR13CA0170.namprd13.prod.outlook.com (2603:10b6:a03:2c7::25)
+ by SA1PR12MB5658.namprd12.prod.outlook.com (2603:10b6:806:235::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.35; Fri, 6 Jun
+ 2025 02:31:22 +0000
+Received: from CO1PEPF000044FD.namprd21.prod.outlook.com
+ (2603:10b6:a03:2c7:cafe::71) by SJ0PR13CA0170.outlook.office365.com
+ (2603:10b6:a03:2c7::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Fri,
- 6 Jun 2025 01:59:47 +0000
+ 6 Jun 2025 02:31:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,74 +48,76 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D4.mail.protection.outlook.com (10.167.242.56) with Microsoft
+ CO1PEPF000044FD.mail.protection.outlook.com (10.167.241.203) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Fri, 6 Jun 2025 01:59:47 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.8835.2 via Frontend Transport; Fri, 6 Jun 2025 02:31:22 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
- 2025 20:59:45 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-fixes-6.16
-Date: Thu, 5 Jun 2025 21:59:32 -0400
-Message-ID: <20250606015932.835829-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.49.0
+ 2025 21:31:18 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Tao.Zhou1@amd.com>, <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, "Ce
+ Sun" <cesun102@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix the gpu recover deadlock issue in abnormal
+ situations
+Date: Fri, 6 Jun 2025 10:31:10 +0800
+Message-ID: <20250606023110.144842-1-cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D4:EE_|DS2PR12MB9775:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88bcba52-c188-4b6a-0d99-08dda49dd090
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FD:EE_|SA1PR12MB5658:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc9fb96c-4c9c-4ac0-91bc-08dda4a23a1c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IXeExFRzEooAcU7yfAir614BIfwe6enxCZXmsAfzoUpeHNMoF/Y+2N+Puw8K?=
- =?us-ascii?Q?vGEoRLD4Q94/TIuRvqDiKhkkGDFVl+m5mZkJ4PVa/JwvZZ3JspFDr4Rz4MkQ?=
- =?us-ascii?Q?wAXfvTsOTgemkqBYORv1H8ePhc4w7uiT4fa9cryasmN+beHQfhybn00KpU3d?=
- =?us-ascii?Q?K8KrtNPBO8lwLCWwQQAZs9Y3reHtSkNvUMv4deT2xx0ta3Db5kl3H4YHpz9L?=
- =?us-ascii?Q?ssOKKl01QTvkVMe5MmOrl8Og/ITMEv1SJRHuTaL0/iemWtFXwF++STSO5GKb?=
- =?us-ascii?Q?rN1SIPMIrArdsuRv0uAmx+0XU53S8Gpz7PZ2CtwhnPi3Hr+3aKmnKn/2CWRZ?=
- =?us-ascii?Q?LGVypFk8faIxatDHqVhZQd+nnVPcm810+Q1z1TLZIy+VsQRnbeasJJzuztHu?=
- =?us-ascii?Q?GnPeYi5Exq35ISbKQy9uR65HyckXh1/Ltj45V8uRYKZaPIyatqwFpWxL0Tu/?=
- =?us-ascii?Q?fjmy02FaQmTQJEabUR9AVSTqYs1z3Rqk/9K0kzu7MhpEvF/7u5J2bJpzMTCP?=
- =?us-ascii?Q?7xY17174SRP7/sTKsCDrQl8oS8397le7g4Cwgim1KzCn3aQm3oezm1jkli4I?=
- =?us-ascii?Q?tTufNF33FX1ak2EmtFzXgiG16WPwutWktIejpoEhQm1UuXiPhdkWTl8kaqYC?=
- =?us-ascii?Q?V/+uTHjWzqnZPcsMFZvPERuLKsbPlFo0VPyiJ3bIEjkVpTohUdN959/lskOo?=
- =?us-ascii?Q?cPnZTblfX1FbWC7KmKYuAAmifbVXzh+SEHiRmctV2MdqVAcw4dSq3wf8HW/R?=
- =?us-ascii?Q?dhxIL5COD7ApQBYuc1MXvIb7iLfb+abYSWNGWX50Blw7e67JvTiw3GUuj7th?=
- =?us-ascii?Q?nG1q6WQZtKSmk5357A/Qv74iXNg6uZmOna+2XB3+aTl7hMwbMm/ClKyC0QT0?=
- =?us-ascii?Q?sf4Jr0AP/yossd8N1qN3p8XwcXEWSh79fDIXceG28wS6rjSYZLLcQ35gW7Gc?=
- =?us-ascii?Q?rtjteFM6E2P4FEig66FEMVGn8jKw+zW5pAEYvSRwRrJXYIVbntvo8fJH3hQv?=
- =?us-ascii?Q?raPnbg7xhpaog5olbQ25cWSvUmwuYgvbFmyzNUN7BA4BmdDBFz5nyWc5q4g7?=
- =?us-ascii?Q?5iKOqr3iNUMzj/oe9irm4kRHdN0xB+N10td4WMCEdE66C+HP4d44rV+DPRf2?=
- =?us-ascii?Q?nGYM0gMWC31h4NWbgkjqvL26Q+Liaktyzz+VbaP7f9zSRIj/qYKBvh4VWo81?=
- =?us-ascii?Q?fvL87jAIuJp5IPhzEoIe+StE/N0tD26wtXoEStAlxoBxvb2PUVuhD1yL7I+n?=
- =?us-ascii?Q?jkFtMcsrtwD4PIxtCoL/Pqk74yB33MlaOIRCAiAGtEA2GNrjn81IKHKlPMtW?=
- =?us-ascii?Q?zBr3nW9HI28zVG1syTJlrArjbPFw49cUSoFa3ijOxaycoAOP6Pw2KHUkiB3w?=
- =?us-ascii?Q?+KYRXw2p+df+Zn6UIanZKnaK9V3l364Rfq1A36ou/fwG5d8030MCt/Iwtt5o?=
- =?us-ascii?Q?7HiWmkl2efARW/eP3FV7xYAAtE8Rrt9GmzRnBnMXZjaHnxxwlnJw8A=3D=3D?=
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wYwrBFLy7l7CAcoECX+G84DOmYLREHX5J+hY6SsL/oUlvuLTEdLJP2vlAx8T?=
+ =?us-ascii?Q?Zeyn4jkmFRjVorjIhpa7D5KZkHReuavN3+zn26pd551SS4U0n+wArkCyAE/G?=
+ =?us-ascii?Q?FujLHVbn6GGD+w6Ww1MDvHprtw1a90E7AiGa31Gg6cSknuw7O6jOnzTP9WF7?=
+ =?us-ascii?Q?Dv5/foSWnYTRbLcTS1HXWwz96+ufY+ll6H3MaIa+AEUE8dJq9JNLWaOPUKYZ?=
+ =?us-ascii?Q?YEO0yWcCLw3uns4gjLE+j1435aaz6az6YE6cbSls+yBliZhkONx/SVIWwvQc?=
+ =?us-ascii?Q?rw/SZP1C405Le58IPiOE5EvC/BZKxLE3Kw6u9/FuDm81s4a/1EETb2pUpcXt?=
+ =?us-ascii?Q?ZOmqTDs8O9KwwZaEWfLxyWmFYik1qjyH8tbSIMfoNDYLhKBW52jmnTFQR3d1?=
+ =?us-ascii?Q?XQDAAHUl/9W6JTbBDblUGIxQXx5aWcJg2TxrBZYZqhsjymqMSwHDwUQW2t3I?=
+ =?us-ascii?Q?YkXN9vzlvOafvKLs6elq3Elw2sJs2KYzyrTPotcyRxx6QgFDuGefggCxanay?=
+ =?us-ascii?Q?AjkrEJfQcZeEY0bIqREh6MGnEKHfm+zU0Iiifw3lejVytc92AKRXZ/ZvEk14?=
+ =?us-ascii?Q?Q0o3rGjALGXesadZW3Qs9agzGt6aSxw6vdZTfdCJMa6aawDvfMRiNCwTqM1k?=
+ =?us-ascii?Q?aZvaClR4O5d4aVg2cHiIsRsMRp9AG8fXjUi1X/6/4mFhwwYKApI4e6+x2dRp?=
+ =?us-ascii?Q?Mzu4tozq+mja4PFERfuelB5WwgbIj8H0KKHRRa2gK4ehm5QilSLIOyCSraVx?=
+ =?us-ascii?Q?D6ZPJDU7BmoE09T2eSNDSvDH+/D/z38eV/FT4UTaqhx00Jne65rHMDIkyhW2?=
+ =?us-ascii?Q?w8Lvd5XVakKlSgwb+uQ4CEhE8+wA7V04SmOsnXWBBlxUGKMS5P+6TbNcpCK1?=
+ =?us-ascii?Q?5NnnjTo7ItYjlICdkSXH9wot5cgAbDUb+PqmTINU5Kt6uWRoYyyBAhi+sh35?=
+ =?us-ascii?Q?SxoQMyCNwLaQ9aeJSMQf4nXlejZOXTY7iF6V5GX/s7QTSjA2Dl5ObuAUBZHu?=
+ =?us-ascii?Q?tfL/HycgMK+BC3Oa/xYTcDR/3ZTLrz0Cb2iaP+JaJG4q6BLfoWVaV3wUOBz6?=
+ =?us-ascii?Q?LTGzmtoHNyr/3nfk7N6Oi8zCGe8K4mLCAEz3v4Tqt0bYNZOznJ+DQOr7tu3T?=
+ =?us-ascii?Q?Vsyuq0iVc6fzAqz7GTwJFhJTcExAgmKRK9H7GocaD012NoHaVSfIUd7Mp5t5?=
+ =?us-ascii?Q?19ZsMm/7Rd6jL8k68lRU3GjJj3HHT8QjmnWP8zxChdkpuL6BPGqI+PpsWPFK?=
+ =?us-ascii?Q?uYDTQCDaNJ0n/ZGLtJ+3n6GPEH0h/qtYDpwQGokxfV17+JH1GKDQqR1Uu5qp?=
+ =?us-ascii?Q?Dgz3Z+xchTrVD5ef6vl1yCtxUPT95ZBQmcUwMFqlJ+2JfrRDgHavJSlIBb7R?=
+ =?us-ascii?Q?xuKmGscwf013zfj6C0SL2UruWuuLAc7lDrhTyg8aumI4k2KN4/UlmXZyukkh?=
+ =?us-ascii?Q?yFxQ5vW+5ZwuRD+eM8eySMB1NqEP9nFLGUoBk9a5HgoN0NVcneJnulOLtgE/?=
+ =?us-ascii?Q?NDSmhO6QVpRh5mMIaN71Gi04SeRGHdX05isZ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(13003099007);
- DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 01:59:47.1132 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88bcba52-c188-4b6a-0d99-08dda49dd090
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 02:31:22.1625 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc9fb96c-4c9c-4ac0-91bc-08dda4a23a1c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FD.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9775
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5658
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,84 +132,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+rma occurred in the RAS records exceed threshold device. When the
+device was performing gpu recover, the reset domain lock was not
+released, resulting in kernel panic
 
-Fixes for 6.16.
+[  630.141619] INFO: task umc_page_retire:9472 blocked for more than 122 seconds.
+[  630.157663]       Tainted: G           OE      6.9.0-0_fbk6_brcmrdma11_125_gfecec9d12677 #1
+[  630.176213] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  630.193591] task:umc_page_retire state:D stack:0     pid:9472  tgid:9472  ppid:2      flags:0x00004000
+[  630.214251] Call Trace:
+[  630.219673]  <TASK>
+[  630.224326]  __schedule+0x589/0xad0
+[  630.232070]  schedule+0x67/0xb0
+[  630.239038]  schedule_timeout+0x22/0x100
+[  630.247740]  ? __smp_call_single_queue+0x36/0x100
+[  630.258195]  ? wake_up_process+0x7df/0x1190
+[  630.267477]  ? wait_for_common+0xa4/0x150
+[  630.276371]  wait_for_common+0x99/0x150
+[  630.284881]  __flush_work.llvm.6727378282878825097+0x20a/0x290
+[  630.297826]  ? rcu_work_rcufn+0x20/0x20
+[  630.306338]  amdgpu_ras_page_retirement_thread+0x469/0x4e0 [amdgpu]
+[  630.320344]  ? amdgpu_ras_do_recovery+0x5f0/0x5f0 [amdgpu]
+[  630.332587]  kthread+0xdd/0x120
+[  630.339552]  ? __sched_group_set_shares+0x160/0x160
+[  630.350373]  ret_from_fork+0x2f/0x40
+[  630.358303]  ? __sched_group_set_shares+0x160/0x160
+[  630.369128]  ret_from_fork_asm+0x11/0x20
+[  630.377831]  </TASK>
+[  630.382796] INFO: task kworker/u1536:1:10591 blocked for more than 123 seconds.
+[  630.399018]       Tainted: G           OE      6.9.0-0_fbk6_brcmrdma11_125_gfecec9d12677 #1
+[  630.417554] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  630.434935] task:kworker/u1536:1 state:D stack:0     pid:10591 tgid:10591 ppid:2      flags:0x00004000
+[  630.455594] Workqueue: amdgpu-reset-hive amdgpu_ras_do_recovery [amdgpu]
+[  630.470537] Call Trace:
+[  630.475958]  <TASK>
+[  630.480609]  __schedule+0x589/0xad0
+[  630.488347]  schedule+0x67/0xb0
+[  630.495313]  schedule_preempt_disabled+0xa/0x10
+[  630.505362]  rwsem_down_write_slowpath+0x2ba/0x510
+[  630.515994]  down_write+0x2b/0x30
+[  630.523346]  amdgpu_device_halt_activities+0xef/0x400 [amdgpu]
+[  630.536363]  amdgpu_device_gpu_recover+0x124/0x230 [amdgpu]
+[  630.548797]  amdgpu_ras_do_recovery+0x5af/0x5f0 [amdgpu]
+[  630.560653]  process_scheduled_works+0x184/0x370
+[  630.570900]  worker_thread+0xc6/0x3f0
+[  630.579022]  ? __ipv6_chk_addr_and_flags.llvm.7715710786076949193+0x160/0x160
+[  630.594857]  ? __ipv6_chk_addr_and_flags.llvm.7715710786076949193+0x160/0x160
+[  630.610693]  kthread+0xdd/0x120
+[  630.617660]  ? __sched_group_set_shares+0x160/0x160
+[  630.628483]  ret_from_fork+0x2f/0x40
+[  630.636413]  ? __sched_group_set_shares+0x160/0x160
+[  630.647232]  ret_from_fork_asm+0x11/0x20
 
-The following changes since commit 1c1df79ccf5615a007cb11ff30e997e58a9fa79a:
+Signed-off-by: Ce Sun <cesun102@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-  Merge tag 'amd-drm-fixes-6.16-2025-05-29' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2025-06-02 11:56:06 +1000)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 2b84df8da61a..6b82b5805e3d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6305,7 +6305,6 @@ static void amdgpu_device_gpu_resume(struct amdgpu_device *adev,
+ 	tmp_adev = list_first_entry(device_list, struct amdgpu_device,
+ 					    reset_list);
+ 	amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
+-
+ }
+ 
+ 
+@@ -6396,12 +6395,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	}
+ 
+ 	r = amdgpu_device_asic_reset(adev, &device_list, reset_context);
+-	if (r)
+-		goto end_reset;
+ skip_hw_reset:
+ 	r = amdgpu_device_sched_resume(&device_list, reset_context, job_signaled);
+-	if (r)
+-		goto end_reset;
+ skip_sched_resume:
+ 	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ end_reset:
+@@ -6938,8 +6933,8 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
+ 		if (hive) {
+ 			list_for_each_entry(tmp_adev, &device_list, reset_list)
+ 				amdgpu_device_unset_mp1_state(tmp_adev);
+-			amdgpu_device_unlock_reset_domain(adev->reset_domain);
+ 		}
++		amdgpu_device_unlock_reset_domain(adev->reset_domain);
+ 	}
+ 
+ 	if (hive) {
+-- 
+2.34.1
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.16-2025-06-05
-
-for you to fetch changes up to 8b5f3a229a70d242322b78c8e13744ca00212def:
-
-  drm/amd/display: Fix default DC and AC levels (2025-06-03 15:33:38 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.16-2025-06-05:
-
-amdgpu:
-- IP discovery fix
-- Cleaner shader fix for GC 10.1.x
-- OD fix
-- UserQ fixes
-- Non-OLED panel fix
-- Misc display fixes
-- Brightness fixes
-
-amdkfd:
-- Enable CONFIG_HSA_AMD on RISCV
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu: disable workload profile switching when OD is enabled
-
-Arunpravin Paneer Selvam (1):
-      drm/amdgpu: Add userq fence support to SDMAv7.0
-
-Cruise Hung (1):
-      drm/amd/display: Use DC log instead of using DM error msg
-
-Dan Carpenter (2):
-      drm/amdgpu: Fix integer overflow issues in amdgpu_userq_fence.c
-      drm/amdgpu: Fix integer overflow in amdgpu_gem_add_input_fence()
-
-Lijo Lazar (1):
-      drm/amdgpu: Add more checks to discovery fetch
-
-Mario Limonciello (2):
-      drm/amd/display: Add debugging message for brightness caps
-      drm/amd/display: Fix default DC and AC levels
-
-Vitaly Prosyak (1):
-      drm/amdgpu/gfx10: Refine Cleaner Shader for GFX10.1.10
-
-Xuemei Liu (1):
-      drm/amdkfd: enable kfd on RISCV systems
-
-Zhongwei Zhang (2):
-      drm/amd/display: Correct non-OLED pre_T11_delay.
-      drm/amd/display: Avoid calling blank_stream() twice
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      | 16 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  8 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |  8 +--
- .../gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h  |  6 +-
- .../drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm | 13 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             | 10 +--
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             | 59 +++++++++++------
- drivers/gpu/drm/amd/amdkfd/Kconfig                 |  2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 11 +++-
- .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  | 10 ++-
- .../drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c    | 11 +++-
- .../drm/amd/display/dc/hwss/hw_sequencer_private.h |  1 +
- .../display/dc/link/protocols/link_dp_capability.c |  2 +-
- .../amd/include/ivsrcid/gfx/irqsrcs_gfx_12_0_0.h   | 74 ++++++++++++++++++++++
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c                | 22 +++++++
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |  1 +
- 17 files changed, 205 insertions(+), 51 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/include/ivsrcid/gfx/irqsrcs_gfx_12_0_0.h
