@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 962C5C5B552
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 13:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D272C61CE8
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 13:47:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3719010E362;
-	Mon,  9 Jun 2025 13:46:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D74E810E397;
+	Mon,  9 Jun 2025 13:47:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uK+btAYZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FItY5wN2";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA6F10E38C
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Jun 2025 13:46:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E45C10E397
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Jun 2025 13:47:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 84BC8629CC;
- Mon,  9 Jun 2025 13:46:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FA61C4CEEB;
- Mon,  9 Jun 2025 13:46:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 99B90629CC;
+ Mon,  9 Jun 2025 13:47:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E4DC4CEF0;
+ Mon,  9 Jun 2025 13:47:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749476816;
- bh=uxEGrTNKOr8k7bMHvLlXm7juUzrJN3wXeS1bJ9Ka/m8=;
+ s=k20201202; t=1749476849;
+ bh=HbKVVEbnkk8gbo7YK/Y1ugepkRcYjELGxIZ+UCbmhpI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uK+btAYZ7wCT05dzo2zlQefDJWPlbk4M21NMnOx5nNNkLPWg6x+I/bqFV+I98Ayc1
- fH5XtdxfjdaFsrRW5VGUw/jfkXCXbPhKIxHHe/WrCVIzeO9qVgCl5Fubrv/h90yC5R
- EdU+dwqCveT3pFHGQcIsoAqC11hh6a9mTsCKOTL2HCYfugQwhC0MzSLO7Q6dk+WmLP
- +5v7y+M0l8yssZsNXaH8pyPlbKaiP0zh98Si04HkVKvhu5ar0tZplYqb/oZ/AiOehT
- vGf2aIeV/KuG1l6cpofj2Pk5298lsSyQd1zlR4H6zJahmFwE5z57sP4xsPwfAHcJpD
- P8NloQmcyISeA==
+ b=FItY5wN2rXmOD2InpzX9sAOzTGN+382PsC5o0BEapu7RX1fwCh8y0oiV3LGuAg53p
+ WsIyZ9sVxKdv3RHj+/zIpkAEQZByFfzmuf52olh8QyQiWmMrBYg2O67FmJdjOrRSqx
+ mikVRHx1Ks6z2NJ6gKhQG3aTIWnq/tbUedWEGKVfmTRl7NO3FPpAzYTkrPCvLqH7sy
+ jo5ZxAR1vrMuKZOacgFsK2RLSX+yp8+7qW7K4alIz8IH9U45QV8iz1jxC8rDkexu4c
+ Epo/vf6+MPtdiw8XwO9yftmDtGfbJS3zQ/RVYKF2iJjduKIFDFjiYmHZTSK6Z9Y6on
+ jeEmnZhZzwoIw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
 Cc: Yifan Zhang <yifan1.zhang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 02/18] amd/amdkfd: fix a kfd_process ref leak
-Date: Mon,  9 Jun 2025 09:46:36 -0400
-Message-Id: <20250609134652.1344323-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 02/16] amd/amdkfd: fix a kfd_process ref leak
+Date: Mon,  9 Jun 2025 09:47:11 -0400
+Message-Id: <20250609134725.1344921-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250609134652.1344323-1-sashal@kernel.org>
-References: <20250609134652.1344323-1-sashal@kernel.org>
+In-Reply-To: <20250609134725.1344921-1-sashal@kernel.org>
+References: <20250609134725.1344921-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.93
+X-stable-base: Linux 6.1.141
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,10 +137,10 @@ leak), and doesn't introduce new features or risky changes.
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 0f58be65132fc..2b07c0000df6e 100644
+index 2880ed96ac2e3..80d567ba94846 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1287,6 +1287,7 @@ void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid)
+@@ -1340,6 +1340,7 @@ void kfd_signal_poison_consumed_event(struct kfd_dev *dev, u32 pasid)
  	user_gpu_id = kfd_process_get_user_gpu_id(p, dev->id);
  	if (unlikely(user_gpu_id == -EINVAL)) {
  		WARN_ONCE(1, "Could not get user_gpu_id from dev->id:%x\n", dev->id);
