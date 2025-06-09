@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 969B7C5B552
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 13:44:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8310DC61CE8
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 13:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 284AF10E127;
-	Mon,  9 Jun 2025 13:44:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EEE710E203;
+	Mon,  9 Jun 2025 13:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rrVLdeiq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qMejn/Et";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B2CA10E3A0
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Jun 2025 13:44:07 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 381EE10E203
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Jun 2025 13:45:22 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AF6F5614AE;
- Mon,  9 Jun 2025 13:44:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 733B8C4CEEB;
- Mon,  9 Jun 2025 13:44:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3A9CC5C4A74;
+ Mon,  9 Jun 2025 13:43:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2B0C4CEF0;
+ Mon,  9 Jun 2025 13:45:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749476643;
+ s=k20201202; t=1749476717;
  bh=CzsR/YWJHA63OqV2kX9vqTxOmlDz3/W80JAj7YN2HAI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rrVLdeiqDoBrRTMoM21a0J71VYhz6+9nwnt7wUvsOnh3WIHHhN8e/ohNWFC3rR8ez
- 4GlgGGnvwW63/+jdItMWxKo46DyEOPPNYtQ398gsGh5PbCCgeETfYPmoDQRnJ0Ks56
- d7HXST0qQZb9xVR02oSDGFRHM5ct3andIBqP/c9spZ8iqUT7Sjyok1o7VfDgInaLFc
- Z/p+L9twHmAycZO6igKDKt+A8FlYouNB1AjLAkhZSLVCr+uKmYuKXpvQX28bWunK70
- JPk1+lsBuDTG2ck4YAa3rgap5M3iq74OWQ7KsrIq3HkyV2tKIWA/bGERvzdyFmXCU0
- oYWXpgpqg7Qyg==
+ b=qMejn/Et9Y/g5kmabL3tqz8TpygBqTCsJButZVX3RhJFrsRGm2XKSbzRjTwRb8aX5
+ Sa8DP/FyElcQl/QoeAGLG7TcfzLDD34nGpCwHFIZ8MmY8JWoI4D9CPY5hwCOvlJt1u
+ RRmuVi6MlL/ZHIwwgHqFAtA1VKRc0tGWHvLn2VWpx4hW3Ap/N0gMrMLqiysxJLa2y+
+ ELWaPX9sZFLZXaMGzxREZL8+xZnnskVheCsC/TzNCqjQ6vryV0KTMWdIhFTi+obIRn
+ Hn9wIJIqy01Z10SDYasr7uI2vtcj7bcWAu1/W2CDBEUUSqvIiPOJxTwUXrQwYkopH2
+ wF1kRVqjKbLNA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
 Cc: Yifan Zhang <yifan1.zhang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.15 05/35] amd/amdkfd: fix a kfd_process ref leak
-Date: Mon,  9 Jun 2025 09:43:21 -0400
-Message-Id: <20250609134355.1341953-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.14 04/29] amd/amdkfd: fix a kfd_process ref leak
+Date: Mon,  9 Jun 2025 09:44:45 -0400
+Message-Id: <20250609134511.1342999-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250609134355.1341953-1-sashal@kernel.org>
-References: <20250609134355.1341953-1-sashal@kernel.org>
+In-Reply-To: <20250609134511.1342999-1-sashal@kernel.org>
+References: <20250609134511.1342999-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.15.1
+X-stable-base: Linux 6.14.10
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
