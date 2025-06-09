@@ -4,47 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBEFEC61DB2
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 09:20:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2CD0C677C4
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 11:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77EED10E091;
-	Mon,  9 Jun 2025 09:19:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71BBD10E02E;
+	Mon,  9 Jun 2025 11:03:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=r26.me header.i=@r26.me header.b="mGPh25wP";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="l4Lt+8ws";
 	dkim-atps=neutral
-Received: from mail-244104.protonmail.ch (mail-244104.protonmail.ch
- [109.224.244.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC5B410E032
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Jun 2025 02:34:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r26.me;
- s=protonmail3; t=1749436448; x=1749695648;
- bh=E4/0V+ScOCL1YWcOZGl7HNDKRjUxzVbzYhoKPTQdams=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
- List-Unsubscribe:List-Unsubscribe-Post;
- b=mGPh25wPJfJTplQIWmRv7Nv/GcvxOl5TKzK7dyZXG1+6qY4bot6UP9/vsa1+qA8K/
- xAGRD/ATtBExc2HLBbbkXMOW7V7ESd9jtTjiV7mZLSnLglbXUXC3D5XW5VUCLaHz1h
- 89cY798xsjTf5lQS/sbEEBbCgb2HMFb8SLoFsJ63+NCAWCjeNkub8o8ekvfKaK8umK
- 7bm/fF686Cc95ThQrAPw/1I6hYzKuCM32PXVl5IjZVmfuqUqMNcNR+iNm6TycERDUs
- WLtnNkv1fQ0e03vfnuAlqhvaQewjr2vMs3QhvDXHLWw04+NUdkXZ0RvweXSEjBJY9v
- DamKbrP+eAHIg==
-Date: Mon, 09 Jun 2025 02:34:02 +0000
-To: =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: rio@r26.me
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: [REGRESSION] amdgpu fails to load external RX 580 since PCI: Allow
- relaxed bridge window tail sizing for optional resources
-Message-ID: <o2bL8MtD_40-lf8GlslTw-AZpUPzm8nmfCnJKvS8RQ3NOzOW1uq1dVCEfRpUjJ2i7G2WjfQhk2IWZ7oGp-7G-jXN4qOdtnyOcjRR0PZWK5I=@r26.me>
-Feedback-ID: 77429777:user:proton
-X-Pm-Message-ID: a555cdadbafdaf62f831901f8970a7dd72bc3e2f
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5BAE10E096;
+ Mon,  9 Jun 2025 11:03:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=QAQu03T+0Cw7dpCbcuwxezen/s/XSrGtmte1ESndrNA=; b=l4Lt+8wskp/HEbS1bv9EVJP9e6
+ 8kk4clDkeg070aI7/R5hBrYnxHmrbQFbEyufgh4H9s0YE7Z6XUWKtp9bTdSejR9wOD98QB9P9k5uw
+ EoZ72SBY0mq/VUSkqSV7D0dIdXjJfBuQslj5xtW72txmwBYDYv3u80Cx/9Pm0cMWfTcPML0R/iB8y
+ dhuKZEX7jaGriKpLu7Isj6g68vMZlzmqp9iZ1It8yl/ZypCRi+4zyrs7k7IIQabAPLXHyIg3KaIM7
+ FNEBZV9y97Z0NsWD+vYlFTjKR4fOtMguWFpGglIl3Yg6bMwAfxN47AwKO25KoiiNec8vk1fFE1B3U
+ AqX9vYWA==;
+Received: from [81.79.92.254] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uOaI6-001NxH-EL; Mon, 09 Jun 2025 13:03:46 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH v5 2/4] sync_file: Protect access to driver and timeline name
+Date: Mon,  9 Jun 2025 12:03:28 +0100
+Message-ID: <20250609110330.74705-3-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250609110330.74705-1-tvrtko.ursulin@igalia.com>
+References: <20250609110330.74705-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 09 Jun 2025 09:19:56 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,72 +66,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Protect the access to driver and timeline name which otherwise could be
+freed as dma-fence exported is signalling fences.
 
-I have an external Radeon RX580 on my machine connected via Thunderbolt, an=
-d
-since upgrading from 6.14.1 the setup stopped working. Dmesg showed warning=
- from
-resource sanity check, followed by a stack trace https://pastebin.com/njR55=
-rQW.
-Relevant snippet:
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+---
+ drivers/dma-buf/sync_file.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-[   12.134907] amdgpu 0000:06:00.0: BAR 2 [mem 0x6000000000-0x60001fffff 64=
-bit pref]: releasing
-[   12.134910] [drm:amdgpu_device_resize_fb_bar [amdgpu]] *ERROR* Problem r=
-esizing BAR0 (-16).
-[   12.135456] amdgpu 0000:06:00.0: BAR 2 [mem 0x6000000000-0x60001fffff 64=
-bit pref]: assigned
-[   12.135524] amdgpu 0000:06:00.0: amdgpu: VRAM: 8192M 0x000000F400000000 =
-- 0x000000F5FFFFFFFF (8192M used)
-[   12.135527] amdgpu 0000:06:00.0: amdgpu: GART: 256M 0x000000FF00000000 -=
- 0x000000FF0FFFFFFF
-[   12.135536] resource: resource sanity check: requesting [mem 0x000000000=
-0000000-0xffffffffffffffff], which spans more than PCI Bus 0000:00 [mem 0x0=
-00a0000-0x000bffff window]
-[   12.135542] ------------[ cut here ]------------
-[   12.135543] WARNING: CPU: 6 PID: 599 at arch/x86/mm/pat/memtype.c:721 me=
-mtype_reserve_io+0xfc/0x110
-[   12.135551] Modules linked in: ccm amdgpu(+) snd_hda_codec_realtek ...
-[   12.135652] CPU: 6 UID: 0 PID: 599 Comm: (udev-worker) Tainted: G S     =
-             6.15.0-13743-g8630c59e9936 #16 PREEMPT(full)  3b462c924b3ffd81=
-56fc3b77bcc8ddbf7257fa57
-[   12.135654] Tainted: [S]=3DCPU_OUT_OF_SPEC
-[   12.135655] Hardware name: COPELION INTERNATIONAL INC. ZX Series/ZX Seri=
-es, BIOS 1.07.08TCOP3 03/27/2020
-[   12.135656] RIP: 0010:memtype_reserve_io+0xfc/0x110
-[   12.135659] Code: aa fb ff ff b8 f0 ff ff ff eb 88 8b 54 24 04 4c 89 ee =
-48 89 df e8 04 fe ff ff 85 c0 75 db 8b 54 24 04 41 89 16 e9 69 ff ff ff <0f=
-> 0b e9 4b ff ff ff e8 b8 5c fc 00 0f 1f 84 00 00 00 00 00 90 90
-
-Bisecting the stable branch pointed me to the following commit:
-
-commit 22df32c984be9e9145978acf011642da042a2af3 (HEAD)
-Author: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-Date:   Mon Dec 16 19:56:11 2024 +0200
-
-    PCI: Allow relaxed bridge window tail sizing for optional resources
-   =20
-    [ Upstream commit 67f9085596ee55dd27b540ca6088ba0717ee511c ]
-
-I've tested on stable (as of now 8630c59e99363c4b655788fd01134aef9bcd9264),=
- and
-the issue persists. Reverting the offending commit via `git revert -n
-22df32c984be9e9145978acf011642da042a2af3` allowed amdgpu to load again.
-Dmesg: https://pastebin.com/xd76rDsW.
-
-Additional information
-   - Distribution: Artix
-   - Arch: x86_64
-   - Kernel config: https://pastebin.com/DWSERJL5
-   - eGPU adapter: https://www.adt.link/product/R43SG-TB3.html
-   - Booting with pci=3Drealloc,hpbussize=3D0x33,hpmmiosize=3D256M,hpmmiopr=
-efsize=3D1G
-
-I'm reporting here as these are the contacts from the commit message. Pleas=
-e let me know if there's a more appropriate place for this, as well as any =
-more information I can provide.
-
-Thanks,
-Rio
+diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
+index 212df4b849fe..ad87116baa24 100644
+--- a/drivers/dma-buf/sync_file.c
++++ b/drivers/dma-buf/sync_file.c
+@@ -136,11 +136,13 @@ char *sync_file_get_name(struct sync_file *sync_file, char *buf, int len)
+ 	} else {
+ 		struct dma_fence *fence = sync_file->fence;
+ 
++		dma_fence_access_begin();
+ 		snprintf(buf, len, "%s-%s%llu-%lld",
+ 			 dma_fence_driver_name(fence),
+ 			 dma_fence_timeline_name(fence),
+ 			 fence->context,
+ 			 fence->seqno);
++		dma_fence_access_end();
+ 	}
+ 
+ 	return buf;
+@@ -262,6 +264,8 @@ static long sync_file_ioctl_merge(struct sync_file *sync_file,
+ static int sync_fill_fence_info(struct dma_fence *fence,
+ 				 struct sync_fence_info *info)
+ {
++	dma_fence_access_begin();
++
+ 	strscpy(info->obj_name, dma_fence_timeline_name(fence),
+ 		sizeof(info->obj_name));
+ 	strscpy(info->driver_name, dma_fence_driver_name(fence),
+@@ -273,6 +277,8 @@ static int sync_fill_fence_info(struct dma_fence *fence,
+ 			ktime_to_ns(dma_fence_timestamp(fence)) :
+ 			ktime_set(0, 0);
+ 
++	dma_fence_access_end();
++
+ 	return info->status;
+ }
+ 
+-- 
+2.48.0
 
