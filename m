@@ -4,145 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9834C5B552
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 17:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C28C5B552
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 19:22:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 557A710E0DF;
-	Mon,  9 Jun 2025 17:24:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4920410E433;
+	Mon,  9 Jun 2025 19:22:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WNrJJ5eC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DdLuWxr9";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E335110E0DF
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Jun 2025 17:23:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GznsGSMvEbTRHcv8CZNwxdsx4kpAG+mTHm8Iz8JYMHk8TqxKX7iCetB/G8TFm3OFSdsQeLsiw9KPuaMx54N3T4Yr6+mzTuJkpOcriITShZ49xx4yUJ21wvQCgsb1fl3oQgh5dSUINQb9xdSscjFlPYNhZLmkVmYhKajS6WW0xGOnILG5HcWrL3NGNQC5di9VybMfukEABzju9xURe3TFAGbJth3e2KiydGrH8bLXNly011u9RovZEOlAJ+Ft171bYLbHAohos5+6EvurtJtFtOIBwTFMVac8vmhvWrkg5sItU3eYLSHHcqzK6W0gfAsLraSNHQLTvp38h2CkZJBNNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KECvX7c73nxfW+FD2egcBhw0fGTGtX8+lmBh0dd0bsc=;
- b=oH8Pe0XSCfrVsFP8Qrqh8GeIJBQZlCv2mb8t1YxnPgpLb8k8v0m6s6jx/NcBE4vrFylOusMf+i7WSBDDW+2XjYkEy9hs+AhzbHRTfiMrn/DIBZrDfqv52y01HQsNhF8mBuQbUhBDbiM4Y38i2mQc9krtLfoC3YtCj0IW6O+oJGcId0cM+6KH/3t470Rvxk1qJjsuDngRK+P1S7lwzfI9DPjy5G9bRsTIWyZGdIIU1HRYZrG6lMFA21Q3pvZP2xcHdHUJJHWAmxDExi+efjAx/OPvt8KvuKCear/z393Cg3l/Bx0AUOssW952qgeRwcNyTjL7hoEcBlcjAwn7gpTbHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KECvX7c73nxfW+FD2egcBhw0fGTGtX8+lmBh0dd0bsc=;
- b=WNrJJ5eCSdsNLCJq1LViYVgZZ/FXpau6PZfzAX02ESzwUmc7PB2NQiyOrly+TJnrS9EkdQlmi61VMBst04KQoLLCf4d83ag4fz8eJEVEGb5jofmpxv2vuaSeR7+nb3i43vL4FTvIL5PP8EaGNJ4zl/a6PU2EEu+zwBN4vOc+J/E=
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
- by SA5PPFCB4F033D6.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8e2) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.31; Mon, 9 Jun
- 2025 17:23:55 +0000
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::fec0:2b36:85c1:fc9b]) by CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::fec0:2b36:85c1:fc9b%6]) with mapi id 15.20.8792.035; Mon, 9 Jun 2025
- 17:23:55 +0000
-From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu/mes: add compatibility checks for
- set_hw_resource_1
-Thread-Topic: [PATCH] drm/amdgpu/mes: add compatibility checks for
- set_hw_resource_1
-Thread-Index: AQHb2VP8SAFTa7CKu0ydK636gQ2DDbP7EMyA
-Date: Mon, 9 Jun 2025 17:23:55 +0000
-Message-ID: <CH0PR12MB53728EB1FFAB23EE7789405AF46BA@CH0PR12MB5372.namprd12.prod.outlook.com>
-References: <20250609153410.15977-1-alexander.deucher@amd.com>
-In-Reply-To: <20250609153410.15977-1-alexander.deucher@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=5e2591cd-2b5e-459f-80a2-a63ab1ff3717;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-06-09T17:12:49Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5372:EE_|SA5PPFCB4F033D6:EE_
-x-ms-office365-filtering-correlation-id: 3f4c0775-f291-4ff1-1276-08dda77a698f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?I1S5D4L5wV6+HFmG1E6slXSpJzDjYQFV6kQ+PnQKOvbN3X8eDFp/VoHQBvpk?=
- =?us-ascii?Q?QQ1Gt8Ru3pJQe9i3iSJMMuC5/tazwHhqWBRUyE2jbkbSN9dlDtmOK/Kk/vrO?=
- =?us-ascii?Q?eAnMmp0+ToD6Mw/GUpye1ZPjyUDHjpHtmrZvMtHdK/E2l8hpa0rWi43RqWic?=
- =?us-ascii?Q?BTN5g1eCtqpvae8R6FD/ev8UMdcqtx3T9aEYsQBbDo0xwS/83VDSSV2pJAmF?=
- =?us-ascii?Q?qV7etlN/v5+64kcRMlP4eDCYWSDX6LQxZsUOPszCZgsMQLCnNj9kRNQMX+Ki?=
- =?us-ascii?Q?wbEnSaybQ9ZmukQGcIUlvhDe4nKzd01QlW4wYIg5Xncen4zgaPdKKggpvIaL?=
- =?us-ascii?Q?pFWcgC1QSxulUZdku3c2yHBjchxqyNblK9bnFU0rKGB5Cu0XSe1E9En3aQQ5?=
- =?us-ascii?Q?7/FPt8ksBCMmy2nsDdgrMDKXXJGcgZyyoVGzuu6pQKMzLmF3WpfqH6uE2tHz?=
- =?us-ascii?Q?80LJ0LPQMWXuMxBRO3RSLM7gca+8xH2s2t3ORLc9yECoxquImNX3mTwbRIna?=
- =?us-ascii?Q?GujKUx3XkeFcctmlv+qFg2rUJJMcy8S+Hnd/lq+bUHmOpuuhryMa9MJjCZMd?=
- =?us-ascii?Q?SbYMYKqwvEM6v2RRYbuf91dhz+ehwF0y0LjrbeNHZ6qft1PyhM974JZI9taE?=
- =?us-ascii?Q?rCCS1Pbq4vzW7J0yd9dYjQ0TIRcCalCSLgxTauuQUmaQSjkUCqRufAA77dWT?=
- =?us-ascii?Q?wlcV66dDNau3KPdbPDye3jZGgjDnb6ccem2gZSEuuXZPuvYie0VlnAhoAkZx?=
- =?us-ascii?Q?wiIBrXvB8ocfys2xl/tc7XfmtfsZccswO2+/OuBbACuc/FiO7+6sqQPEo62E?=
- =?us-ascii?Q?QUKlRjXtEtpcSCP4NQpz5aDhx2NN/WREdev5Z6EAhpqQeXsLx2/jg3JVAuMn?=
- =?us-ascii?Q?G7U6Tvw72bGKMHk8hl6RbEB2FTVyNjFlEpUYZzf2DzLnZvVDqOISaKikUzsz?=
- =?us-ascii?Q?+YT8X4ikYPXKS7sPQmzGiOYsULiq9aZkCksXQVYz8TmrQzk3eH8494W7bjQj?=
- =?us-ascii?Q?K4+IFJyIaSgUoyMspRLo+rbsELg0iA7iCk6ALMR5W+tRycv7AYnDS/lcXpOi?=
- =?us-ascii?Q?ZUViMmsSk596B/8RKAeD/lZaLnyVXXfC63gylNNUdGrOeVRbyZ5O0ZW6rEAE?=
- =?us-ascii?Q?3b651ExurU7nayc8Z8tvOWXvQHe8L4XK8RH2zjVWBcnuiEvbPEKOWlTyzfAv?=
- =?us-ascii?Q?kqGMxqXAa0ZxM6dVGoZaQuonhdiwcmADyX13CnTAMHeNqpPIckunTBieSag4?=
- =?us-ascii?Q?84moE/fZLIm/nB9EbPik5hfbBW6DZhauDWgzqfC98f+EqLvYgX683cWTKfRI?=
- =?us-ascii?Q?31I3VfuPphJdUjGlYD7gvBxTaloexWPKZdCKPCD0o4O/hzxjgij54KsOwYcT?=
- =?us-ascii?Q?rHFH3YL59YLu8QSLS/FI165gYM0fKvQD1ZuO2ewplnmA2UmJrVD0I0GQBSzD?=
- =?us-ascii?Q?WqB7Df8f8DU=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HpCOljH81ZAx/OJDR/v1Nsv86wRfy6qvIpndar3pH/NcocCFA93z1tFfpt5Q?=
- =?us-ascii?Q?iuHG00VQw+WVgWMnkLX2TW9BXz9viHeeibHkWOM3tbE3Bjy/sq0EmKfPUA83?=
- =?us-ascii?Q?hfBDVzKzIAMdzAnhfcSY0TEu7DLAh/JTpQGC5cSd53Sdo16RWZUnTTXJwkQs?=
- =?us-ascii?Q?iepbDyFEEjbtDDVwT/pEBF5n7RdH4czpdoPMP20Y7OlmVKPaH7qOrrdQik04?=
- =?us-ascii?Q?dwBBGVl+4nijb9k+ZjZrQrCYGUAx6MS+/n5v0NYO+nbrwnApD97AD31XkfKr?=
- =?us-ascii?Q?ez09dNE+cBRzIDT0vlzok0t7fyCEMfMIIHBTaSxiT4yU3CuTtY3e0JO8iequ?=
- =?us-ascii?Q?zYhKYNnxxyyEOBY9GkoysHkYtaPv+7CJLuYI5qTZHTQHYS8wYdJhcrAmnEiD?=
- =?us-ascii?Q?V6B8TwmOKihwf1ay9xgyfh75O2y0F2C9/yUj9JVZOENAiOkMxMJLbLW/WjJA?=
- =?us-ascii?Q?OTe8QIgTsXsSG//xr33uyv4j1tQbVux0nvYPPjv8u7NI11Y0QNTPQmL6ZRGZ?=
- =?us-ascii?Q?4WTswlhAFla4Ww9YMOMKmwNuMJh5DANw96XtXqiVJeyz1eajSzj6RsALQZ19?=
- =?us-ascii?Q?V6Zhqtp56Wpp1RfcfBxb8PR1k3qeTbeiViVkMUG6ll7wqSst2LAcYoqXZcbw?=
- =?us-ascii?Q?Y5M2/jOPzgZpZYZEZXecX2312zgmz8BZAWnaf+6PMArkNM5vD2fJngdf400H?=
- =?us-ascii?Q?0xRx7kJvki7zIOEQFFryIHe08DsJV0y91kSXU3jCCeUL7DeNjQyvTUSe/5rl?=
- =?us-ascii?Q?Vu63cHz2w1DK7sNz6flok08BBkYpUrLkkEnXO2kVs4987da9LbQHJ4rPs/La?=
- =?us-ascii?Q?hINiuvl7dHAtn40l75XR6hefek9JIQeoojg/8CRUiiubOEB6nGyHidy+lkAZ?=
- =?us-ascii?Q?Yl32s4Yyjq1THYxYepwvADTub+v9keAJ40aYaE+SPeTYltDnG1hcfRonhAWP?=
- =?us-ascii?Q?e5gXaS50rHtotJelH+fotDXv7Uhm4y0UxPep4MQYJR+Vmek15+TaG7nd7dhk?=
- =?us-ascii?Q?sHDJqmOe+d/pRHsiH84N4dTG9qJcx4rV2Nie3DVn8As1hlm6n2tagl9BGLlp?=
- =?us-ascii?Q?kU+WEDE6nKFMrRwyPP20RI76mUyf5AMX47gvo3RTOj6LVRWnJbYIw6n9lU2N?=
- =?us-ascii?Q?NuOB5bdCr+x4/ZQwvZJZCeoJ+4SqFJuN34ujXD4EkotJz8NbqfV351PcdG6w?=
- =?us-ascii?Q?5bI0pS2s2qxYU73OEL3YILb7/E5RQJzJ0Wo2q5drhBKNDv1l4/ovkTYAD7Lm?=
- =?us-ascii?Q?isNkWmWiEdDMsa9j3MRQbBDi7n4ppGuNWAd1LiNdFJQRhpD8bYnhPVWW9+Sz?=
- =?us-ascii?Q?acvosVSvzotrVwz+M3TtYRORp+2Aya8ajAKKRJi+nd7J1QZrGz2OR0QPslwN?=
- =?us-ascii?Q?VqEa2huLN1hZcC7b8pWhEawdRdlCChBi/Lvp4jq5TOgEkdmY7nROAmzu2uL/?=
- =?us-ascii?Q?CExc8ZwNlc2rbhAM3wLsYL0M/1GTZW/qiioLysWW3CFhkBtOmZ5sV3MdJTPR?=
- =?us-ascii?Q?2An0M5zR2bXkpVdwg+bj+og3pzYYMwjnzYHmptyyZAvWjFiYJu416n/cn5pq?=
- =?us-ascii?Q?vlt+XzSDsCcLXTL8ag0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B704310E428;
+ Mon,  9 Jun 2025 19:21:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749496920; x=1781032920;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=avDs50SYN/fcBfGKJ/LZzkZDnFCgRrOy6PXJSnNT1Tk=;
+ b=DdLuWxr9hHBAKwsI/5Stu/zAjV1cFH/X6JBhxbKPjGm5N8ET/zHYZOZB
+ phkOJW4h51kxqIU++SeuxFgo3H/we99tfZHTfoDi6rE0+2QAKCEn392E9
+ eLXtPtOEM5Rc3mAs6y7hYxwKYzcPSIQ0jfgMDfDIPEdokfh8EY1FoHPm4
+ PMnFTaJBpLG/xPgYkTS0eHllCQOXNe44+tEKMHxZyJ/v3cwVxCwprfXjL
+ QQh+BMWvlNAyzKZt/WRK/c7+L6ZRR+Ng6p52/XvZZzZ94fH0K5zfaFI7k
+ oOXjXYqrN/iXkguoEIWns1dQdfC6TfYn+R3rwsVX6H1CXzHx+9f+soOTp g==;
+X-CSE-ConnectionGUID: m1Bg5w4QSVaBe36wWrBmGw==
+X-CSE-MsgGUID: WngJW7cuRyG64KwnFCt6jQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11459"; a="51498036"
+X-IronPort-AV: E=Sophos;i="6.16,223,1744095600"; d="scan'208";a="51498036"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2025 12:21:59 -0700
+X-CSE-ConnectionGUID: IdAq2zzKTtu+KujlTCwsIg==
+X-CSE-MsgGUID: EN0HJMZxTW+bGxfUiXYFTA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,223,1744095600"; d="scan'208";a="183784726"
+Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 09 Jun 2025 12:21:53 -0700
+Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1uOi46-0007LR-28;
+ Mon, 09 Jun 2025 19:21:50 +0000
+Date: Tue, 10 Jun 2025 03:21:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: Markus Elfring <Markus.Elfring@web.de>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Roman Li <roman.li@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ Stylon Wang <stylon.wang@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ LKML <linux-kernel@vger.kernel.org>,
+ kernel-janitors@vger.kernel.org, cocci@inria.fr,
+ Melissa Wen <mwen@igalia.com>
+Subject: Re: [PATCH v2] drm/amd/display: Fix exception handling in
+ dm_validate_stream_and_context()
+Message-ID: <202506100312.Ms4XgAzW-lkp@intel.com>
+References: <da489521-7786-4716-8fb8-d79b3c08d93c@web.de>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f4c0775-f291-4ff1-1276-08dda77a698f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2025 17:23:55.5102 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: khZrAn+TgYmcFaZxutWfUfCrWV4I3kBiRGVYN5AB4w4Vd4MRwIzOeICtuNjblW7zvrflYNVpXsS075y9Iu+Yuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCB4F033D6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <da489521-7786-4716-8fb8-d79b3c08d93c@web.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,80 +86,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi Markus,
 
-Maybe  it's better to use the  MES FW version . Here is what I got from the=
-  MES release.
-For nv3x : 0x50
-For nv4x : 0x4b
+kernel test robot noticed the following build errors:
 
-Regards
-Shaoyun.liu
+[auto build test ERROR on next-20250606]
+[also build test ERROR on v6.16-rc1]
+[cannot apply to drm-exynos/exynos-drm-next linus/master drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm/drm-next drm-misc/drm-misc-next v6.16-rc1 v6.15 v6.15-rc7]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
------Original Message-----
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Monday, June 9, 2025 11:34 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Shaoyun <Shaoyun.L=
-iu@amd.com>
-Subject: [PATCH] drm/amdgpu/mes: add compatibility checks for set_hw_resour=
-ce_1
+url:    https://github.com/intel-lab-lkp/linux/commits/Markus-Elfring/drm-amd-display-Fix-exception-handling-in-dm_validate_stream_and_context/20250609-151039
+base:   next-20250606
+patch link:    https://lore.kernel.org/r/da489521-7786-4716-8fb8-d79b3c08d93c%40web.de
+patch subject: [PATCH v2] drm/amd/display: Fix exception handling in dm_validate_stream_and_context()
+config: x86_64-buildonly-randconfig-005-20250609 (https://download.01.org/0day-ci/archive/20250610/202506100312.Ms4XgAzW-lkp@intel.com/config)
+compiler: clang version 20.1.2 (https://github.com/llvm/llvm-project 58df0ef89dd64126512e4ee27b4ac3fd8ddf6247)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250610/202506100312.Ms4XgAzW-lkp@intel.com/reproduce)
 
-Seems some older MES firmware versions do not properly support this packet.=
-  Add back some the compatibility checks.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202506100312.Ms4XgAzW-lkp@intel.com/
 
-Fixes: f81cd793119e ("drm/amd/amdgpu: Fix MES init sequence")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4295
-Cc: Shaoyun Liu <shaoyun.liu@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 11 +++++++----  drivers/gpu/drm/a=
-md/amdgpu/mes_v12_0.c |  3 ++-
- 2 files changed, 9 insertions(+), 5 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v11_0.c
-index c9eba537de094..8a3e3aa86c5d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1630,10 +1630,13 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block=
- *ip_block)
-        if (r)
-                goto failure;
+>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:7525:2: error: call to undeclared function 'dc_release_state'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    7525 |         dc_release_state(dc_state);
+         |         ^
+   1 error generated.
 
--       r =3D mes_v11_0_set_hw_resources_1(&adev->mes);
--       if (r) {
--               DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=3D%d\n", =
-r);
--               goto failure;
-+       if (amdgpu_sriov_is_mes_info_enable(adev) ||
-+           adev->gfx.enable_cleaner_shader) {
-+               r =3D mes_v11_0_set_hw_resources_1(&adev->mes);
-+               if (r) {
-+                       DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=
-=3D%d\n", r);
-+                       goto failure;
-+               }
-        }
 
-        r =3D mes_v11_0_query_sched_status(&adev->mes);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v12_0.c
-index 68bef36aae3b8..c1311de397f30 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -1736,7 +1736,8 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block *=
-ip_block)
-        if (r)
-                goto failure;
+vim +/dc_release_state +7525 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
 
--       mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_PIPE);
-+       if (adev->enable_uni_mes)
-+               mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_P=
-IPE);
+  7471	
+  7472	static enum dc_status dm_validate_stream_and_context(struct dc *dc,
+  7473							struct dc_stream_state *stream)
+  7474	{
+  7475		enum dc_status dc_result = DC_ERROR_UNEXPECTED;
+  7476		struct dc_plane_state *dc_plane_state;
+  7477		struct dc_state *dc_state;
+  7478	
+  7479		if (!stream)
+  7480			return dc_result;
+  7481	
+  7482		dc_plane_state = dc_create_plane_state(dc);
+  7483		if (!dc_plane_state)
+  7484			return dc_result;
+  7485	
+  7486		dc_state = dc_state_create(dc, NULL);
+  7487		if (!dc_state)
+  7488			goto release_plane_state;
+  7489	
+  7490		/* populate stream to plane */
+  7491		dc_plane_state->src_rect.height  = stream->src.height;
+  7492		dc_plane_state->src_rect.width   = stream->src.width;
+  7493		dc_plane_state->dst_rect.height  = stream->src.height;
+  7494		dc_plane_state->dst_rect.width   = stream->src.width;
+  7495		dc_plane_state->clip_rect.height = stream->src.height;
+  7496		dc_plane_state->clip_rect.width  = stream->src.width;
+  7497		dc_plane_state->plane_size.surface_pitch = ((stream->src.width + 255) / 256) * 256;
+  7498		dc_plane_state->plane_size.surface_size.height = stream->src.height;
+  7499		dc_plane_state->plane_size.surface_size.width  = stream->src.width;
+  7500		dc_plane_state->plane_size.chroma_size.height  = stream->src.height;
+  7501		dc_plane_state->plane_size.chroma_size.width   = stream->src.width;
+  7502		dc_plane_state->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB8888;
+  7503		dc_plane_state->tiling_info.gfx9.swizzle = DC_SW_UNKNOWN;
+  7504		dc_plane_state->rotation = ROTATION_ANGLE_0;
+  7505		dc_plane_state->is_tiling_rotated = false;
+  7506		dc_plane_state->tiling_info.gfx8.array_mode = DC_ARRAY_LINEAR_GENERAL;
+  7507	
+  7508		dc_result = dc_validate_stream(dc, stream);
+  7509		if (dc_result == DC_OK)
+  7510			dc_result = dc_validate_plane(dc, dc_plane_state);
+  7511	
+  7512		if (dc_result == DC_OK)
+  7513			dc_result = dc_state_add_stream(dc, dc_state, stream);
+  7514	
+  7515		if (dc_result == DC_OK && !dc_state_add_plane(
+  7516							dc,
+  7517							stream,
+  7518							dc_plane_state,
+  7519							dc_state))
+  7520			dc_result = DC_FAIL_ATTACH_SURFACES;
+  7521	
+  7522		if (dc_result == DC_OK)
+  7523			dc_result = dc_validate_global_state(dc, dc_state, DC_VALIDATE_MODE_ONLY);
+  7524	
+> 7525		dc_release_state(dc_state);
+  7526	release_plane_state:
+  7527		dc_plane_state_release(dc_plane_state);
+  7528		return dc_result;
+  7529	}
+  7530	
 
-        mes_v12_0_init_aggregated_doorbell(&adev->mes);
-
---
-2.49.0
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
