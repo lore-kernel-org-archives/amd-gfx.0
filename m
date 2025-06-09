@@ -4,55 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E13C61CE8
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 02:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 283FBC61CE7
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 03:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E311410E239;
-	Mon,  9 Jun 2025 02:46:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83B2010E07B;
+	Mon,  9 Jun 2025 03:12:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UZvKR70r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h/zqyiHs";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0A9B10E21E;
- Mon,  9 Jun 2025 02:46:45 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACE410E07B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Jun 2025 03:12:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 979DC4AC4D;
- Mon,  9 Jun 2025 02:46:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18763C4CEF5;
- Mon,  9 Jun 2025 02:46:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 717845C4B3B;
+ Mon,  9 Jun 2025 03:10:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F3AC4CEEE;
+ Mon,  9 Jun 2025 03:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749437205;
- bh=kU6/5PrnoLPvsSRESMinNLoRD724Pj4qIwsER9avoT8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UZvKR70rBdP3dlik5UAP5m+f8VYflYUmi6Tv6l+mEvoC6VJoRyzu72O2599XlVn6o
- lTbUVQVIXEEJ5cIkl8pyOEmdDI0u+JD3VgxZdsCcuspODUmLpVKUQeOYStOAqyfGXi
- 8+hE9sFcPQSXmOwE2dZ7B+78khv437ikXt8MvsaU+SCwJv3ERtK89bUgI8FyUURrln
- 9Z93cSsv/BfCw9XgQWzpUOo3PHl8nMgL9M6EjIAT/aUDdd0bjtam5aFsMD7tA7tN6y
- IrtbehRzta/vL2J+cYTVxEnBuZIm84+eMthlOe9pjxOuqjTjeqSwvMXcScVRtb8dbN
- QdaudT+cjQWow==
+ s=k20201202; t=1749438752;
+ bh=qNz9+cO4IpqiLbCd1Y5xcKWRvmaI7wwyqgez8Lvcd6g=;
+ h=From:To:Cc:Subject:Date:From;
+ b=h/zqyiHss34jtLpLKj1Mt68A1ODUk0ScX8E2Apegc0eoMlj+gG6sgj1XO2Q0r44Xc
+ mQk3yHQpH2m8ofI2kZ2eTM8zyrCDiHC13eTQ3xc2HfW69e6RqQQmmga3zaMjaC1A3x
+ OV9nyzRIB+JtIDfFzTcCJToZzOSjY1jaa8TbDj+GGiQqMk8NmZJnEm4cEzESpanKlE
+ FfNPfF74IcG0zwW0NwIpC7w9kPOh2zwU+5csF+lxaa9mCi0TIhrB0JgqbAxSdJjQcO
+ 7zkhRRSfNR6ltZL0tonFz7c6W0rBsCZ/4niVkVoymvm2mJ+6mF1OKEsWuNRzhMfotN
+ aoe2yoRx80rxw==
 From: Mario Limonciello <superm1@kernel.org>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- linux-pm@vger.kernel.org (open list:HIBERNATION (aka Software Suspend,
- aka swsusp)), linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
- linux-kernel@vger.kernel.org (open list),
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-scsi@vger.kernel.org (open list:SCSI SUBSYSTEM),
- linux-usb@vger.kernel.org (open list:USB SUBSYSTEM),
- Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v3 5/5] usb: sl811-hcd: Add PM_EVENT_POWEROFF into suspend
- callbacks
-Date: Sun,  8 Jun 2025 21:46:19 -0500
-Message-ID: <20250609024619.407257-6-superm1@kernel.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+ Vicki Pfau <vi@endrift.com>
+Subject: [PATCH v2 1/2] drm/amd: Allow printing VanGogh OD SCLK levels without
+ setting dpm to manual
+Date: Sun,  8 Jun 2025 22:12:26 -0500
+Message-ID: <20250609031227.479079-1-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250609024619.407257-1-superm1@kernel.org>
-References: <20250609024619.407257-1-superm1@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,27 +58,81 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-When the ACPI core uses hibernation callbacks for shutdown drivers
-will receive PM_EVENT_POWEROFF and should handle it the same as
-PM_EVENT_HIBERNATE would have been used.
+Several other ASICs allow printing OD SCLK levels without setting DPM
+control to manual.  When OD is disabled it will show the range the
+hardware supports. When OD is enabled it will show what values have
+been programmed. Adjust VanGogh to work the same.
 
+Cc: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
+Reported-by: Vicki Pfau <vi@endrift.com>
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/usb/host/sl811-hcd.c | 1 +
- 1 file changed, 1 insertion(+)
+v1: https://lore.kernel.org/amd-gfx/20250323145316.859797-1-superm1@kernel.org/
+v1 (resend): https://lore.kernel.org/amd-gfx/20250421210639.1138228-1-superm1@kernel.org/
+v2: rebase
+---
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 37 ++++++++-----------
+ 1 file changed, 15 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/usb/host/sl811-hcd.c b/drivers/usb/host/sl811-hcd.c
-index ea3cab99c5d40..5d6dba681e503 100644
---- a/drivers/usb/host/sl811-hcd.c
-+++ b/drivers/usb/host/sl811-hcd.c
-@@ -1748,6 +1748,7 @@ sl811h_suspend(struct platform_device *dev, pm_message_t state)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index a55ea76d73996..2c9869feba610 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -666,7 +666,6 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ {
+ 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
+ 	SmuMetrics_t metrics;
+-	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
+ 	int i, idx, size = 0, ret = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	bool cur_value_match_level = false;
+@@ -682,31 +681,25 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+-		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+-			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+-			(smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
+-			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+-			(smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq);
+-		}
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
++		size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
++		(smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
++		size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
++		(smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq);
  		break;
- 	case PM_EVENT_SUSPEND:
- 	case PM_EVENT_HIBERNATE:
-+	case PM_EVENT_POWEROFF:
- 	case PM_EVENT_PRETHAW:		/* explicitly discard hw state */
- 		port_power(sl811, 0);
+ 	case SMU_OD_CCLK:
+-		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size += sysfs_emit_at(buf, size, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
+-			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+-			(smu->cpu_actual_soft_min_freq > 0) ? smu->cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
+-			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+-			(smu->cpu_actual_soft_max_freq > 0) ? smu->cpu_actual_soft_max_freq : smu->cpu_default_soft_max_freq);
+-		}
++		size += sysfs_emit_at(buf, size, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
++		size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
++		(smu->cpu_actual_soft_min_freq > 0) ? smu->cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
++		size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
++		(smu->cpu_actual_soft_max_freq > 0) ? smu->cpu_actual_soft_max_freq : smu->cpu_default_soft_max_freq);
  		break;
+ 	case SMU_OD_RANGE:
+-		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+-			size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
+-				smu->gfx_default_hard_min_freq, smu->gfx_default_soft_max_freq);
+-			size += sysfs_emit_at(buf, size, "CCLK: %7uMhz %10uMhz\n",
+-				smu->cpu_default_soft_min_freq, smu->cpu_default_soft_max_freq);
+-		}
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
++		size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
++			smu->gfx_default_hard_min_freq, smu->gfx_default_soft_max_freq);
++		size += sysfs_emit_at(buf, size, "CCLK: %7uMhz %10uMhz\n",
++			smu->cpu_default_soft_min_freq, smu->cpu_default_soft_max_freq);
+ 		break;
+ 	case SMU_SOCCLK:
+ 		/* the level 3 ~ 6 of socclk use the same frequency for vangogh */
 -- 
 2.43.0
 
