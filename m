@@ -4,54 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28741C61CE8
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 11:04:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 243EFC61CE8
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 11:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 775B410E1F4;
-	Mon,  9 Jun 2025 11:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17A2110E1B6;
+	Mon,  9 Jun 2025 11:33:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ASaynKsd";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lEvHUZCX";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1ABD10E040;
- Mon,  9 Jun 2025 11:03:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E696C10E052;
+ Mon,  9 Jun 2025 11:33:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=NkRaIaVztUTmzbJTyyUdXGyMdtGxpCFyiDJM76cTkMs=; b=ASaynKsd9rGGXUVPw7d5JjXyZm
- HUf1ewkKgcM1f+p1LfqKB6hGQq35XWtiLpuaLoS+B5EsHsGks3VAQvhnBVz5tO+7xS+pGqCgR7lgA
- 8tQq2UMnOwZIl9GXXCDHuIAzLGyj9R4hoa/6iGPgvjTd0E0AIl0EA9Eq11E2eQaPuZHC3YytHc8M7
- rKcrQwA9+eFfZPKAnzuFM/0v5ohmCrUBbpymIga3Nhq9hgarhPOuM55PS4dQdvqC8ihLEaqriJvgC
- 8YpRI2z7/Pps/ny0aSoQPcrzGBTcmkDcv0r2Cvb0Jowk70HneOkMAZuSGVaJ+BuqYf1+2iL1855Di
- xKzK5hPA==;
+ bh=DoZJ2N2MZYMV1DRnvYZSipfrLzVkQ6dYWSEOtY+yn5M=; b=lEvHUZCX0gDOWMnVUJLKXGSK0h
+ LKJWaWPcUC7rAejZXbeiJ7KDspiwO6Knkqx1YswdlhSy3pV/fazVuLeMNEioSoKD/ZL7cfVePTHqJ
+ lgQAc3YAzENWFOoYzoudz4K2enPtwmqfWTCjKuvxBBbIxPX97kBoLQ67U8WWFUgTakHZfZ8gtgJgb
+ E2uJlTN6XC7N+5twVTlAdylvt5r7xX9tOLt9H3s492Mfppd7BW26p+uvCPWZylJSr4D7Vhvo/w8KE
+ 4anzIeLIiabxht76lauBm4zGb2daaEjUkMYqAYUX+f7/KHnenDJuBA0XO07ZTjxSTuwzKZkxc36CN
+ np/O8ZSA==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uOaI7-001NxJ-6x; Mon, 09 Jun 2025 13:03:47 +0200
+ id 1uOakq-001OdR-Vz; Mon, 09 Jun 2025 13:33:29 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v5 3/4] drm/i915: Protect access to driver and timeline name
-Date: Mon,  9 Jun 2025 12:03:29 +0100
-Message-ID: <20250609110330.74705-4-tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH v3.1 0/7] A few drm_syncobj optimisations
+Date: Mon,  9 Jun 2025 12:33:06 +0100
+Message-ID: <20250609113313.75395-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250609110330.74705-1-tvrtko.ursulin@igalia.com>
-References: <20250609110330.74705-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,105 +58,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Protect the access to driver and timeline name which otherwise could be
-freed as dma-fence exported is signalling fences.
+[All reviewed, sending for more acks.]
 
-Now that the safe access is handled in the dma-fence API, the external
-callers such as sync_file, and our internal code paths, we can drop the
-similar protection from i915_fence_get_timeline_name().
+A small set of drm_syncobj optimisations which should make things a tiny bit
+more efficient on the CPU side of things.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_requests.c |  2 ++
- drivers/gpu/drm/i915/i915_request.c         | 17 +++--------------
- drivers/gpu/drm/i915/i915_sw_fence.c        |  2 ++
- 3 files changed, 7 insertions(+), 14 deletions(-)
+Improvement seems to be around 1.5%* more FPS if observed with "vkgears
+-present-mailbox" on a Steam Deck Plasma desktop, but I am reluctant to make a
+definitive claim on the numbers since there is some run to run variance. But, as
+suggested by Michel Dänzer, I did do a five ~100 second runs on the each kernel
+to be able to show the ministat analysis.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-index ae3557ed6c1e..11fca24c8b5b 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-@@ -251,10 +251,12 @@ void intel_gt_watchdog_work(struct work_struct *work)
- 		if (!i915_request_completed(rq)) {
- 			struct dma_fence *f = &rq->fence;
- 
-+			dma_fence_access_begin();
- 			pr_notice("Fence expiration time out i915-%s:%s:%llx!\n",
- 				  dma_fence_driver_name(f),
- 				  dma_fence_timeline_name(f),
- 				  f->seqno);
-+			dma_fence_access_end();
- 			i915_request_cancel(rq, -EINTR);
- 		}
- 		i915_request_put(rq);
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 4874c4f1e4ab..a8de736ff556 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -66,18 +66,6 @@ static const char *i915_fence_get_timeline_name(struct dma_fence *fence)
- {
- 	const struct i915_gem_context *ctx;
- 
--	/*
--	 * The timeline struct (as part of the ppgtt underneath a context)
--	 * may be freed when the request is no longer in use by the GPU.
--	 * We could extend the life of a context to beyond that of all
--	 * fences, possibly keeping the hw resource around indefinitely,
--	 * or we just give them a false name. Since
--	 * dma_fence_ops.get_timeline_name is a debug feature, the occasional
--	 * lie seems justifiable.
--	 */
--	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
--		return "signaled";
--
- 	ctx = i915_request_gem_context(to_request(fence));
- 	if (!ctx)
- 		return "[" DRIVER_NAME "]";
-@@ -2184,7 +2172,6 @@ void i915_request_show(struct drm_printer *m,
- 		       const char *prefix,
- 		       int indent)
- {
--	const char *name = dma_fence_timeline_name((struct dma_fence *)&rq->fence);
- 	char buf[80] = "";
- 	int x = 0;
- 
-@@ -2220,6 +2207,7 @@ void i915_request_show(struct drm_printer *m,
- 
- 	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
- 
-+	dma_fence_access_begin();
- 	drm_printf(m, "%s%.*s%c %llx:%lld%s%s %s @ %dms: %s\n",
- 		   prefix, indent, "                ",
- 		   queue_status(rq),
-@@ -2228,7 +2216,8 @@ void i915_request_show(struct drm_printer *m,
- 		   fence_status(rq),
- 		   buf,
- 		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
--		   name);
-+		   dma_fence_timeline_name((struct dma_fence *)&rq->fence));
-+	dma_fence_access_end();
- }
- 
- static bool engine_match_ring(struct intel_engine_cs *engine, struct i915_request *rq)
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-index 9edf659d18db..4cdb8dd524f3 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -435,11 +435,13 @@ static void timer_i915_sw_fence_wake(struct timer_list *t)
- 	if (!fence)
- 		return;
- 
-+	dma_fence_access_begin();
- 	pr_notice("Asynchronous wait on fence %s:%s:%llx timed out (hint:%ps)\n",
- 		  dma_fence_driver_name(cb->dma),
- 		  dma_fence_timeline_name(cb->dma),
- 		  cb->dma->seqno,
- 		  i915_sw_fence_debug_hint(fence));
-+	dma_fence_access_end();
- 
- 	i915_sw_fence_set_error_once(fence, -ETIMEDOUT);
- 	i915_sw_fence_complete(fence);
+x before
++ after
++------------------------------------------------------------+
+|                          x         +                       |
+|                   x      x         +                       |
+|                   x      xx      ++++                      |
+|                 x x      xx x    ++++                      |
+|                 x xx   x xx x+   ++++                      |
+|                xxxxx   xxxxxx+   ++++ + +                  |
+|                xxxxxxx xxxxxx+x  ++++ +++                  |
+|              x xxxxxxxxxxx*xx+* x++++++++   ++             |
+|        x x   xxxxxxxxxxxx**x*+*+*++++++++ ++++ +           |
+|       xx x   xxxxxxxxxx*x****+***+**+++++ ++++++           |
+|x     xxx x   xxxxx*x****x***********+*++**+++++++   +  +  +|
+|               |_______A______|                             |
+|                             |______A_______|               |
++------------------------------------------------------------+
+    N           Min           Max        Median           Avg        Stddev
+x 135      21697.58     22809.467     22321.396     22307.707     198.75011
++ 118     22200.746      23277.09       22661.4     22671.442     192.10609
+Difference at 95.0% confidence
+    363.735 +/- 48.3345
+    1.63054% +/- 0.216672%
+    (Student's t, pooled s = 195.681)
+
+Or when tested on Intel Alderlake, KDE Wayland:
+
+x base
++ syncobj
++--------------------------------------------------------------+
+|                                                       +      |
+|                                                       +   +  |
+|                                                       +   +  |
+|                                                       +  ++  |
+|                                                       ++ ++  |
+|                                       x               ++ ++  |
+|                       x               x             + ++ ++  |
+|                       x          xx   xx x x        +++++++  |
+|                       x   x   xx xxx xxxx*xxx      +++++++++ |
+|x       xx x  x    x  xx xxxxxxxxxx*xxx****xxx  +x+ ++++++++++|
+|                      |__________A_M_______|     |____A_M___| |
++--------------------------------------------------------------+
+    N           Min           Max        Median           Avg        Stddev
+x  55      7158.232      8058.753      7803.506     7754.5195     191.69526
++  55       7801.23      8272.271      8172.435     8150.6303     105.84085
+Difference at 95.0% confidence
+    396.111 +/- 57.8717
+    5.10813% +/- 0.746296%
+    (Student's t, pooled s = 154.838)
+
+Scores may seem low but I had to fix to conservative CPU freq to avoid some
+pretty strong thermal throttling causing wild swings within a run. Nevertheless
+the improvement is clearly shown here as well.
+
+v2:
+ * Implemented review feedback - see patch change logs.
+
+v3:
+ * Moved #define DRM_SYNCOBJ_FAST_PATH_ENTRIES one patch earlier for less churn.
+
+ v3.1:
+ * Consolidated testing results.
+
+Cc: Maíra Canal <mcanal@igalia.com>
+
+Tvrtko Ursulin (7):
+  drm/syncobj: Remove unhelpful helper
+  drm/syncobj: Do not allocate an array to store zeros when waiting
+  drm/syncobj: Avoid one temporary allocation in drm_syncobj_array_find
+  drm/syncobj: Use put_user in drm_syncobj_query_ioctl
+  drm/syncobj: Avoid temporary allocation in
+    drm_syncobj_timeline_signal_ioctl
+  drm/syncobj: Add a fast path to drm_syncobj_array_wait_timeout
+  drm/syncobj: Add a fast path to drm_syncobj_array_find
+
+ drivers/gpu/drm/drm_syncobj.c | 286 ++++++++++++++++++----------------
+ 1 file changed, 154 insertions(+), 132 deletions(-)
+
 -- 
 2.48.0
 
