@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCC15C61DB2
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jun 2025 08:30:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15BDCC61DB2
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jun 2025 08:30:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00DCB10E4B8;
-	Tue, 10 Jun 2025 08:30:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D8BE10E4B6;
+	Tue, 10 Jun 2025 08:30:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VaDaBriB";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TXez4ZWe";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B80910E4AA;
- Tue, 10 Jun 2025 08:30:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 791A410E4B5;
+ Tue, 10 Jun 2025 08:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=6Zn5xX5lQkf4T2J1bFqndEIX/CSdFYvmBFIB9IJtSFg=; b=VaDaBriB4VUmwmsVy9o0pI5wlB
- 1RAroJHGrsRaWS644NJc+5stzyDZICm4A2mRTVx1R/EaW8D12uZW5SyxMW7PAX0I2wZW1gViGAvim
- Hg3sn2KHa67Cb6a9ZR7hi1u9bcxbvQhztxXEoQMIoPgWFEmmtRzKYjbe6RP9BVqyWd3/72lnMDXRG
- yFREeIQzoGb0iRPifJIgC2QX0XxCm5q3kKImpmqjdoLgrwcl9SvXsPPHBxYaFuXc5t1vXmUaByUI0
- KLRvJ/Qjz2na1c1f5JyUnhDp2ZiTvi2O672tebNSgU072g+fEHLwwUaJs2wJwATacpTHBwoSJZchK
- FYfzPCSw==;
+ bh=WzS1z4voW7fhDV4sJb6faOgeK7p/qXFcU21ZoQjPoIQ=; b=TXez4ZWeFkHW/YJV+sIg2P1NcM
+ eTBFsC3WpnZb0f6G/1syMQ0IcHNrcVWUACyBZFms0z4/W7r+SopkMbOJ/HCCFTrG/DgrECbTxG0y0
+ 1G5l/UpuMG/WJLKivbnxzyb9ADblXIHNU8XGQsJxqavBFhYmKwh+Aa7VAJieKPg+vdssX7n0thZVD
+ dPO76dMW4Oh1qKPXw1vEWn9gBD6DqsLlYS8vVb2Jia7wdt3Qh8vLJn1BbyvORy1OnqXsbA5kTz5pq
+ uJbN2wr8eMxjmIte8lBWSZ7ayWFjl7pkTwk1zJQb0/BJZ0ohKP5MWUNRZl/U/IO99z7ZwZTg2hbDd
+ GIXx7MoA==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uOuMu-001jmf-U2; Tue, 10 Jun 2025 10:30:05 +0200
+ id 1uOuMx-001jmz-Nv; Tue, 10 Jun 2025 10:30:07 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
@@ -39,9 +39,10 @@ Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
  =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Subject: [PATCH v4 1/6] drm/syncobj: Remove unhelpful helper
-Date: Tue, 10 Jun 2025 09:29:56 +0100
-Message-ID: <20250610083001.4120-2-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 5/6] drm/syncobj: Add a fast path to
+ drm_syncobj_array_wait_timeout
+Date: Tue, 10 Jun 2025 09:30:00 +0100
+Message-ID: <20250610083001.4120-6-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250610083001.4120-1-tvrtko.ursulin@igalia.com>
 References: <20250610083001.4120-1-tvrtko.ursulin@igalia.com>
@@ -62,189 +63,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Helper which fails to consolidate the code and instead just forks into two
-copies of the code based on a boolean parameter is not very helpful or
-readable. Lets just remove it and proof in the pudding is the net smaller
-code.
+Running the Cyberpunk 2077 benchmark we can observe that waiting on DRM
+sycobjs is relatively hot, but the 96% of the calls are for a single
+object. (~4% for two points, and never more than three points. While
+a more trivial workload like vkmark under Plasma is even more skewed
+to single point waits.)
+
+Therefore lets add a fast path to bypass the kcalloc/kfree and use a pre-
+allocated stack array for those cases.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Reviewed-by: Maíra Canal <mcanal@igalia.com>
 ---
 v2:
- * Assign timeout to a local variable.
+ * Document rationale for stack array in a comment.
+
+v3:
+ * Added DRM_SYNCOBJ_FAST_PATH_ENTRIES to avoid hardcoding fast path array
+   size.
 ---
- drivers/gpu/drm/drm_syncobj.c | 100 ++++++++++++++++------------------
- 1 file changed, 46 insertions(+), 54 deletions(-)
+ drivers/gpu/drm/drm_syncobj.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index 636cd83ca29e..e2d97dd6e45b 100644
+index 53bd9b6de518..8ca5331d7b67 100644
 --- a/drivers/gpu/drm/drm_syncobj.c
 +++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -1248,42 +1248,6 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
- }
- EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+@@ -236,6 +236,14 @@ static void
+ syncobj_eventfd_entry_func(struct drm_syncobj *syncobj,
+ 			   struct syncobj_eventfd_entry *entry);
  
--static int drm_syncobj_array_wait(struct drm_device *dev,
--				  struct drm_file *file_private,
--				  struct drm_syncobj_wait *wait,
--				  struct drm_syncobj_timeline_wait *timeline_wait,
--				  struct drm_syncobj **syncobjs, bool timeline,
--				  ktime_t *deadline)
--{
--	signed long timeout = 0;
--	uint32_t first = ~0;
--
--	if (!timeline) {
--		timeout = drm_timeout_abs_to_jiffies(wait->timeout_nsec);
--		timeout = drm_syncobj_array_wait_timeout(syncobjs,
--							 NULL,
--							 wait->count_handles,
--							 wait->flags,
--							 timeout, &first,
--							 deadline);
--		if (timeout < 0)
--			return timeout;
--		wait->first_signaled = first;
--	} else {
--		timeout = drm_timeout_abs_to_jiffies(timeline_wait->timeout_nsec);
--		timeout = drm_syncobj_array_wait_timeout(syncobjs,
--							 u64_to_user_ptr(timeline_wait->points),
--							 timeline_wait->count_handles,
--							 timeline_wait->flags,
--							 timeout, &first,
--							 deadline);
--		if (timeout < 0)
--			return timeout;
--		timeline_wait->first_signaled = first;
--	}
--	return 0;
--}
--
- static int drm_syncobj_array_find(struct drm_file *file_private,
- 				  void __user *user_handles,
- 				  uint32_t count_handles,
-@@ -1346,9 +1310,12 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
- 		       struct drm_file *file_private)
++/*
++ * Empirically vast majority of ioctls pass in a single syncobj (96%) and never
++ * more than three points. Therefore implement a fast path with a small stack
++ * array to avoid going into the allocator sometimes several times per
++ * userspace rendered frame.
++ */
++#define DRM_SYNCOBJ_FAST_PATH_ENTRIES 4
++
+ /**
+  * drm_syncobj_find - lookup and reference a sync object.
+  * @file_private: drm file private pointer
+@@ -1062,6 +1070,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 						  uint32_t *idx,
+ 						  ktime_t *deadline)
  {
- 	struct drm_syncobj_wait *args = data;
-+	ktime_t deadline, *pdeadline = NULL;
-+	u32 count = args->count_handles;
- 	struct drm_syncobj **syncobjs;
- 	unsigned int possible_flags;
--	ktime_t t, *tp = NULL;
-+	u32 first = ~0;
-+	long timeout;
- 	int ret = 0;
++	struct syncobj_wait_entry stack_entries[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
+ 	struct syncobj_wait_entry *entries;
+ 	uint32_t signaled_count, i;
+ 	struct dma_fence *fence;
+@@ -1076,6 +1085,15 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 	if (!entries)
+ 		return -ENOMEM;
  
- 	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
-@@ -1361,27 +1328,38 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
- 	if (args->flags & ~possible_flags)
- 		return -EINVAL;
- 
--	if (args->count_handles == 0)
-+	if (count == 0)
- 		return 0;
- 
- 	ret = drm_syncobj_array_find(file_private,
- 				     u64_to_user_ptr(args->handles),
--				     args->count_handles,
-+				     count,
- 				     &syncobjs);
- 	if (ret < 0)
- 		return ret;
- 
- 	if (args->flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE) {
--		t = ns_to_ktime(args->deadline_nsec);
--		tp = &t;
-+		deadline = ns_to_ktime(args->deadline_nsec);
-+		pdeadline = &deadline;
++	if (count > ARRAY_SIZE(stack_entries)) {
++		entries = kcalloc(count, sizeof(*entries), GFP_KERNEL);
++		if (!entries)
++			return -ENOMEM;
++	} else {
++		memset(stack_entries, 0, sizeof(stack_entries));
++		entries = stack_entries;
++	}
++
+ 	/* Walk the list of sync objects and initialize entries.  We do
+ 	 * this up-front so that we can properly return -EINVAL if there is
+ 	 * a syncobj with a missing fence and then never have the chance of
+@@ -1198,7 +1216,9 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 						  &entries[i].fence_cb);
+ 		dma_fence_put(entries[i].fence);
  	}
- 
--	ret = drm_syncobj_array_wait(dev, file_private,
--				     args, NULL, syncobjs, false, tp);
-+	timeout = drm_timeout_abs_to_jiffies(args->timeout_nsec);
-+	timeout = drm_syncobj_array_wait_timeout(syncobjs,
-+						 NULL,
-+						 count,
-+						 args->flags,
-+						 timeout,
-+						 &first,
-+						 pdeadline);
- 
--	drm_syncobj_array_free(syncobjs, args->count_handles);
-+	drm_syncobj_array_free(syncobjs, count);
- 
--	return ret;
-+	if (timeout < 0)
-+		return timeout;
+-	kfree(entries);
 +
-+	args->first_signaled = first;
-+
-+	return 0;
++	if (entries != stack_entries)
++		kfree(entries);
+ 
+ 	return timeout;
  }
- 
- int
-@@ -1389,9 +1367,12 @@ drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
- 				struct drm_file *file_private)
- {
- 	struct drm_syncobj_timeline_wait *args = data;
-+	ktime_t deadline, *pdeadline = NULL;
-+	u32 count = args->count_handles;
- 	struct drm_syncobj **syncobjs;
- 	unsigned int possible_flags;
--	ktime_t t, *tp = NULL;
-+	u32 first = ~0;
-+	long timeout;
- 	int ret = 0;
- 
- 	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ_TIMELINE))
-@@ -1405,27 +1386,38 @@ drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
- 	if (args->flags & ~possible_flags)
- 		return -EINVAL;
- 
--	if (args->count_handles == 0)
-+	if (count == 0)
- 		return 0;
- 
- 	ret = drm_syncobj_array_find(file_private,
- 				     u64_to_user_ptr(args->handles),
--				     args->count_handles,
-+				     count,
- 				     &syncobjs);
- 	if (ret < 0)
- 		return ret;
- 
- 	if (args->flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE) {
--		t = ns_to_ktime(args->deadline_nsec);
--		tp = &t;
-+		deadline = ns_to_ktime(args->deadline_nsec);
-+		pdeadline = &deadline;
- 	}
- 
--	ret = drm_syncobj_array_wait(dev, file_private,
--				     NULL, args, syncobjs, true, tp);
-+	timeout = drm_timeout_abs_to_jiffies(args->timeout_nsec);
-+	timeout = drm_syncobj_array_wait_timeout(syncobjs,
-+						 u64_to_user_ptr(args->points),
-+						 count,
-+						 args->flags,
-+						 timeout,
-+						 &first,
-+						 pdeadline);
- 
--	drm_syncobj_array_free(syncobjs, args->count_handles);
-+	drm_syncobj_array_free(syncobjs, count);
- 
--	return ret;
-+	if (timeout < 0)
-+		return timeout;
-+
-+	args->first_signaled = first;
-+
-+	return 0;
- }
- 
- static void syncobj_eventfd_entry_fence_func(struct dma_fence *fence,
 -- 
 2.48.0
 
