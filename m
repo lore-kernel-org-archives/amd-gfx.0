@@ -4,73 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB174C7114A
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 16:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E45C71150
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 16:05:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF03A10EA28;
-	Fri, 13 Jun 2025 16:05:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C26510EA2B;
+	Fri, 13 Jun 2025 16:05:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dabbelt-com.20230601.gappssmtp.com header.i=@dabbelt-com.20230601.gappssmtp.com header.b="d84t17wQ";
+	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="pjxKQkns";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4CE310E29B
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jun 2025 21:31:13 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-23633a6ac50so19945255ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jun 2025 14:31:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dabbelt-com.20230601.gappssmtp.com; s=20230601; t=1749763873; x=1750368673;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:to:from:cc
- :in-reply-to:subject:date:from:to:cc:subject:date:message-id
- :reply-to; bh=kAiNH9B1y5rWcHog71i4hUznzWj+jJc4yS7lpSm9QgM=;
- b=d84t17wQUce23BG90h16kh9ux61+9XDB0ZAYgSQ0I2FlkJWoUNPlnfHPjeWbA205Ku
- Vt0qsAgb9rfaatt9WxWYRVmOILRabGD0xvkB7ik5hLyyqCMCyUKpGXKMgd+TEnVqIhyg
- 6uCFwSB1H0NkgkbpobfYimSsubSEn7pQqb3yZT59DJ0kDvl2LD7++Kd2LWi00vu2u6CM
- U6SmnbMyHvAmy5eOImLLyzvykw5gYi9PjeQsiKe9FdNqwVFDQM5cJmGu3NEa0e+9iwZi
- Y0BVxKbkM+OR4ztcBmOgXtGe0eyBN3MlvcWguNezHVCZWslgY9+mDc6dqjvNkL3B6jMg
- NfRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749763873; x=1750368673;
- h=content-transfer-encoding:mime-version:message-id:to:from:cc
- :in-reply-to:subject:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kAiNH9B1y5rWcHog71i4hUznzWj+jJc4yS7lpSm9QgM=;
- b=gjJ/AoshOpRQqHD1f1GnGvNCEAzVDHVlgasWYTjw2q4UXpkN79kpR1YquT5WkYETkI
- TqtEAxcNyzu799XXqa12RPHKk+oAgqmNV39IfIBkgoR6+K8CcPC62MVuBVogPIzHMsZH
- dks1HgBs5VfiBTs9i1CjpMv7iYIR7Z/Dr2bmTo348lViLc+q5H4tllORCkDORTWXKmyN
- amrFxTxlb1zlr88gOobKSMR1mcwQb/fttvOUdumr4lf/JdHacc4FsBSS4WiLBsn8e++e
- Uh55dD92703W/bPlDKSq+eEWcrYVIbLgP7X1en5Odn9xSVGUoTJz4fuw9THsGFLLgsEs
- bo4Q==
-X-Gm-Message-State: AOJu0Yx+OApEEjq+2DToKikLIJRqGN7TxNhEYzT+hSCYiPoDqrP3Y0DP
- yHt2hFqWEl7yER/CMP3b92wjeQ0GVRHYh4L8PPfvICGKq6hNgWkHHzUg9IJUrX03FQ1XsYI10X5
- YzOnZ
-X-Gm-Gg: ASbGnctw/a8osFJG35s9pnjGOZ3vSmlrkoJK8sgXUyJf4qk8q1jNEe0QDKENYwaqcDd
- dAK69uK5bsbCPuVpHOaPlWl6OslslFvQmqB2I5UdEDA4QlhrkMt84j8nvXogkwwag8WHeIg7bmD
- WvAg2/sCp5ZGgEikrPDb0gac99SEhVP83OsvH370WGK6tHMBUzbAuzgD3IjngjObLKV6T+igZcg
- x4Q2Fmiquexbod3Xqn+LC+c1pQz6G9IGoGJq0ba1pSWTyn2efckp+tEJ5Pm3lc2K3QgTis9LZhB
- vU4zooqGr0Vzr+vjAiRCiM88gwYs58DZav4hhWCrZERIzUQjxMPV5pbaNmyFWO7OMSrTuXw=
-X-Google-Smtp-Source: AGHT+IFDnejqr8oRFqr+54M6Q0Qk8od5uIXQThtywqkd6sZvggjsiSEKivHDUfWiTs7aGZTXil9lAQ==
-X-Received: by 2002:a17:902:b185:b0:235:866:9fac with SMTP id
- d9443c01a7336-2365d8a28ecmr5983835ad.2.1749763869384; 
- Thu, 12 Jun 2025 14:31:09 -0700 (PDT)
-Received: from localhost ([2620:10d:c090:500::7:116a])
- by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-2365deca351sm1803855ad.207.2025.06.12.14.31.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Jun 2025 14:31:08 -0700 (PDT)
-Date: Thu, 12 Jun 2025 14:31:08 -0700 (PDT)
-X-Google-Original-Date: Thu, 12 Jun 2025 14:31:05 PDT (-0700)
-Subject: Re: [PATCH] drm/amd/pm: Use pointer type for typecheck()
-In-Reply-To: <20250612122321.801690-1-lijo.lazar@amd.com>
-CC: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com,
- Alexander.Deucher@amd.com, Asad.Kamal@amd.com, kent.russell@amd.com
-From: Palmer Dabbelt <palmer@dabbelt.com>
-To: lijo.lazar@amd.com
-Message-ID: <mhng-51EEFB4C-FC18-4BC2-81E7-094C20719C1A@palmerdabbelt-mac>
-Mime-Version: 1.0 (MHng)
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-Greylist: delayed 54010 seconds by postgrey-1.36 at gabe;
+ Tue, 10 Jun 2025 00:45:37 UTC
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com
+ [162.62.57.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA30610E04A;
+ Tue, 10 Jun 2025 00:45:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1749516329;
+ bh=eh0MKFXwRSKJeN6xSCf1HbT1d8FUKtrqXJ+Dp8MAsIQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=pjxKQknsZV1+5nEsvPA1d38Tjq3RF7JxJuK0VuGzRDfy9w+4QcckJE0KE9Ku/y3kj
+ 0dgkQa97ghkUrObVtFeAVflLLvWnydTXh/Ske8vYeLll+7CcJxuIrCPhTKPSpe7peu
+ 7dG3nDOJWwCKkHGP5+VtJxjXtwm6vskj5/HWzPhk=
+Received: from [192.168.3.19] ([218.4.27.159])
+ by newxmesmtplogicsvrszc16-0.qq.com (NewEsmtp) with SMTP
+ id B4787495; Tue, 10 Jun 2025 08:45:07 +0800
+X-QQ-mid: xmsmtpt1749516307twxekh8mx
+Message-ID: <tencent_1EB006F3EADC43F9710EC002C328BC474B09@qq.com>
+X-QQ-XMAILINFO: MStTOrhA1CLVe8QmYEvkvgVwbij+zYPHXHa/ukbjGk7o/rxjTDwq8lMuHcxyEC
+ ZbPs0GxvKyk5ETXRRnvIKReAnq9O0vHbhyzxBlK/K/LAt1a3skGrvaEo5c31smC9oEevs3jNbLDq
+ lm1ERe1RSzUOBQXs9Fa/d5J/t+BlT4uVb4YbTd2NLQXppUSQYGQgxLLqIpEBsNdoQJauWVblw2ze
+ wLk/m+1euA6o363+TWfPQtrVABlYRCjckiGpIN7MsjDblVpxXoKxVGuLo/k+ogd8WxnzcAwpzct4
+ WboutieCsggDtEISQI8KzA18Gbq/EQ1HacOcFZqcfVDw55xMxNb5xMbB3KxyYZVvzwYrQxqitHkq
+ jyMBqaJbDAVdgqba9GHFOLZUwNdR4ohutnDBsyDmGl1pq2e8vcdtOlp9eJcwQfXcAE2m/HR32v+Z
+ Rz7vEIM+de/FAU60U1EwinndkwEp9iYRQwja5el7eKijAm66f/KLRBdbgvbh7UncJelyHYQRFroV
+ /dOPLnu4BF96cOH2vDILkVEB8DUoXHQ4aDCJ8EP2TUOluqQkwC9l1CS5hdJwEM/2gDrKI6Km3HlC
+ kQRYILYYBRaLE7BpzkmSTTfEfx0umnWkPQq5TxhRR7WlfXtDocNO4W9TuhMrDrDZppnqSjnHs+ph
+ DYQqcQ9zzDgHtetsf46gvwxx21pzgCPIumrAu9RMGeauj+phFxAwYnrxq42Hs7/nxTuZEzWK8/hm
+ fcyaXv7u4/YuuKkPZZrWkDtqpdSH4k0QGuD+HQWpucoHE3DU4bD/nwKXV31aQpM924egN6N0cfXz
+ bAzzBiXXUt/TU/0xtWOKQDAhilgNJ+KTyIZ1qvHtSP3g9qsBJyn111uyz8nEBM12faS3GLiHfard
+ pTdeaR1JNHyJWyZwBIIVus8fZh96QAcqT8234GHp4bQfCwirEcK1DRnQQaDbODN0qulrhMd22tI2
+ +zWNIReNWt9LFE0Po5mkhZq9RFV79G2o2TUjeeYozucxriZWNif4Tnd9ayQDVQeZcgAg3727hpLF
+ N/PL6Gg2bvvO8cCUFFfTfjrCoyR3hiPM93dXA5k3wY59J/cK/qCq6zXgH4xyU=
+X-QQ-XMRINFO: NS+P29fieYNw95Bth2bWPxk=
+X-OQ-MSGID: <f8f78ac6-4fdb-4f75-ba8b-e146ddf58bad@foxmail.com>
+Date: Tue, 10 Jun 2025 08:45:07 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: register HMM dev memory to DMA-able range
+ first
+To: Felix Kuehling <felix.kuehling@amd.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <tencent_03FB073FD3015AE02485DD6839D6571EBC06@qq.com>
+ <560baf50-1bc5-473c-9889-59f7d625ddd9@amd.com>
+Content-Language: en-US
+From: francisco_flynn <francisco_flynn@foxmail.com>
+In-Reply-To: <560baf50-1bc5-473c-9889-59f7d625ddd9@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Jun 2025 16:05:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,82 +78,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 12 Jun 2025 05:23:21 PDT (-0700), lijo.lazar@amd.com wrote:
-> typecheck creates local variables based on the type passed. That could
-> result in stack frame size warnings like below in certain configs:
->
-> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:2885:1: error: the frame size of 8304 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
->
-> Checking against the pointer type is sufficient for the purpose of
-> getting a diagnostic message during build time.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h | 41 +++++++++++++-------------
->  1 file changed, 21 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> index 7473672abd2a..a608cdbdada4 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> @@ -40,28 +40,29 @@
->  #define SMU_IH_INTERRUPT_CONTEXT_ID_FAN_ABNORMAL        0x8
->  #define SMU_IH_INTERRUPT_CONTEXT_ID_FAN_RECOVERY        0x9
->
-> -#define smu_cmn_init_soft_gpu_metrics(ptr, frev, crev)         \
-> -	do {                                                   \
-> -		typecheck(struct gpu_metrics_v##frev##_##crev, \
-> -			  typeof(*(ptr)));                     \
-> -		struct metrics_table_header *header =          \
-> -			(struct metrics_table_header *)(ptr);  \
-> -		memset(header, 0xFF, sizeof(*(ptr)));          \
-> -		header->format_revision = frev;                \
-> -		header->content_revision = crev;               \
-> -		header->structure_size = sizeof(*(ptr));       \
-> +#define smu_cmn_init_soft_gpu_metrics(ptr, frev, crev)                   \
-> +	do {                                                             \
-> +		typecheck(struct gpu_metrics_v##frev##_##crev *, (ptr)); \
-> +		struct gpu_metrics_v##frev##_##crev *tmp = (ptr);        \
-> +		struct metrics_table_header *header =                    \
-> +			(struct metrics_table_header *)tmp;              \
-> +		memset(header, 0xFF, sizeof(*tmp));                      \
-> +		header->format_revision = frev;                          \
-> +		header->content_revision = crev;                         \
-> +		header->structure_size = sizeof(*tmp);                   \
->  	} while (0)
->
-> -#define smu_cmn_init_partition_metrics(ptr, frev, crev)                     \
-> -	do {                                                                \
-> -		typecheck(struct amdgpu_partition_metrics_v##frev##_##crev, \
-> -			  typeof(*(ptr)));                                  \
-> -		struct metrics_table_header *header =                       \
-> -			(struct metrics_table_header *)(ptr);               \
-> -		memset(header, 0xFF, sizeof(*(ptr)));                       \
-> -		header->format_revision = frev;                             \
-> -		header->content_revision = crev;                            \
-> -		header->structure_size = sizeof(*(ptr));                    \
-> +#define smu_cmn_init_partition_metrics(ptr, fr, cr)                        \
-> +	do {                                                               \
-> +		typecheck(struct amdgpu_partition_metrics_v##fr##_##cr *,  \
-> +			  (ptr));                                          \
-> +		struct amdgpu_partition_metrics_v##fr##_##cr *tmp = (ptr); \
-> +		struct metrics_table_header *header =                      \
-> +			(struct metrics_table_header *)tmp;                \
-> +		memset(header, 0xFF, sizeof(*tmp));                        \
-> +		header->format_revision = fr;                              \
-> +		header->content_revision = cr;                             \
-> +		header->structure_size = sizeof(*tmp);                     \
->  	} while (0)
->
->  extern const int link_speed[];
+On 6/9/25 20:46, Felix Kuehling wrote:
+> On 2025-06-09 5:36, francisco_flynn wrote:
+>> HMM device memory is allocated at the top of
+>> iomem_resource, when iomem_resource is larger than
+>> GPU device's dma mask, after devm_memremap_pages,
+>> max_pfn will also be update and exceed device's
+>> dma mask, when there are multiple card on system
+>> need to be init, ttm_device_init would be called
+>> with use_dma32=true, and this is not necessary at
+>> all. let's request dev memory region at DMA-able
+>> range first.
+> That doesn't make sense to me. The addresses allocated here are not DMA addresses. They cannot be accessed by the GPU via DMA. They are purely fictional addresses for the purposes of creating struct pages for device-private memory. There should be no need to limit them by the GPU's DMA mask.
 
-This fixes my build isuses over at 
-https://lore.kernel.org/r/20250610212141.19445-1-palmer@dabbelt.com .  
 
-Reviewed-by: Palmer Dabbelt <palmer@dabbelt.com>
-Tested-by: Palmer Dabbelt <palmer@dabbelt.com>
+yes, this address is used by CPU to access VRAM. The patch is intended 
+to cope with a special case, after checking the latest kernel code, i 
+found this problem has been solved by this commit,
 
-Thanks!
+https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?id=7170130e4c72ce0caa0cb42a1627c635cc262821
 
-[I'm going to stash it on my tester branch until it land somewhere 
-else.]
+thanks for you reply.
+
+Best regards,
+flynn
+
+
+> Regards,
+>    Felix
+>
+>
+>> Signed-off-by: francisco_flynn <francisco_flynn@foxmail.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> index 79251f22b702..3856b9fd2a70 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> @@ -1020,6 +1020,7 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
+>>   	struct amdgpu_kfd_dev *kfddev = &adev->kfd;
+>>   	struct dev_pagemap *pgmap;
+>>   	struct resource *res = NULL;
+>> +	struct resource temp_res = iomem_resource;
+>>   	unsigned long size;
+>>   	void *r;
+>>   
+>> @@ -1042,7 +1043,10 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
+>>   		pgmap->range.end = adev->gmc.aper_base + adev->gmc.aper_size - 1;
+>>   		pgmap->type = MEMORY_DEVICE_COHERENT;
+>>   	} else {
+>> -		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
+>> +		temp_res.end = dma_get_mask(adev->dev);
+>> +		res = devm_request_free_mem_region(adev->dev, &temp_res, size);
+>> +		if (IS_ERR(res))
+>> +			res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
+>>   		if (IS_ERR(res))
+>>   			return PTR_ERR(res);
+>>   		pgmap->range.start = res->start;
+
