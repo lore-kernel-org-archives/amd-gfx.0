@@ -4,149 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 573F4C678DA
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jun 2025 13:05:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D10C678DA
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jun 2025 13:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAA4510E2A6;
-	Tue, 10 Jun 2025 13:05:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66E3810E558;
+	Tue, 10 Jun 2025 13:27:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eBz4M9M8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2naHksbD";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A79DC10E2A6
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jun 2025 13:05:41 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 104BE10E558;
+ Tue, 10 Jun 2025 13:27:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aZvlR/SWHl23L3yh38/qGpF8jGazdRlBQnzbjOLXlruW4BsfAoOTV7pt9faSrj0PE/QgpxX0SHzFkfvl6Slt79JAPjwHSZNdvyVyi0pmuA6/pw+EEKeRDi9Ps/+Pnr/8McdybjBZ3MfV58u7Zuk5LP+oA/qH4J+s/4IQZ5TSoo9ufvGoVFTU9pIpKDR279DMm6pHObg7qKLPtmA94wkm3RTR2xDN5T+2tbHDp/SWcFsJ16WxBqcwCHcEJSzJ9QLPDFr4jZ3uj2i0kMN8Lq9bXHBik8+ysc1QFkHMYXgsM/J/BBzdpK2PZvEy0h7+JFsx2Lp3RgLCYB1c2PR8UXaDjw==
+ b=cno49nr+IzDmyAD9ANPThtRfKG1qbwc77dXttraX45v9Kt7RH6d8TNMJt4xUZD4aIrogbCyNUiLt5sC9tcVXmWr2+1Rg9nXLChKjwmnCLBj9XD65nhBEcMXFWOgR1xCg8hndiYDuC4ip/4er9Ca/cDlK5qNeRRY2ZmH5w37kTbukNgbSfFBEgdIbkV4KR2ccdsWVq0ZFd1kFWfoJBbFNKbQ2mxOgLsGRrAD3UAUSflDajxtW2p3BB1F5SnJHN3ZBGpXqP3IoUMBraMtKtuwu+AQmc48DXWVZklo+v/wd9D9XdlD7Dkz76l2xO2q2SzFq7aFL3Lyh73PEZKh/CV9XcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PoR6JuLhd+7bgGt/nxvy09v3XbN3cAzLHWdBh2ZFFPg=;
- b=a9tvTRKq/YE9PGWQKKzWSocNcCpTH7I35EzguRfUoZfIguZi70IFP4JXxCIi2dXxlgV1CohZfE/4RfB+uOlMVMXr4PGvD0vPN7vV3JeW2PXCz2oEw26InEX6NpHdaRTfRiFafsngJy/SZJf9sUD7HFIQSYuE+dtetlJHIVHT3WZsRCECWu+EYPp25thDyi6fLg8SHHyKo7makvevdm7yaNSOY9aDvNIIodtvNzjpnqZOKMTTlM67aZciW558bIEg8Cw/tmLHXG0ktE1XJlSgnNdnBRnBhnZcxuddnmvqUCSReqef5Dd3l10slPxaiPQW9CqJLVkwQ+uiUvcqgA476Q==
+ bh=m3HsAzFRPiwRiQG8GjJGlZEhZ7xF/5ZkKz0b0dHG0uc=;
+ b=bbbucOLvMjc8gWE28qwsv6bKz29c71khQz6mhK2N8c6Yvm1tX8sTj93yhw1gWJDMKt0d78Yhhsc3uaBpEk1Z0PavTcsmneos8qfdNEpjtYqnj0ZTzYQOFngXy/03Leis/zoZdB2A/RN6j4VGpSM0/rsYPL5KbEeXKyOuWs6AvnihczBGf8V2dQ0wNuvdAjeAn0lh6DgwAU6T24xq9TNxzUhA0Cc38J0plUfbf2901qW1pSDIFDFDzCybiMGIiLNjCSB4jHpD4imCg4XmUJhrSXszHm4QJzAMYt5vD3r9ot6I7aFxzyle50R+8KywtDDpfdKiSgE+xNA5dKY9zduyVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PoR6JuLhd+7bgGt/nxvy09v3XbN3cAzLHWdBh2ZFFPg=;
- b=eBz4M9M8mI0MC88fXf2q8yoWn9fkHZHEaKGaRl0XB/DqaVV7PBjkRtG1wZqL/nsVCwN5dXlFfg6iTevmY/jLvqunBhusXX3IJWyqASQAvHmpe/wGfmlKSmPEK4/C3I9HYMCvt0adXXzl4kg1K9jeNBVgu36g2UQDVM/kbw/Ugsk=
+ bh=m3HsAzFRPiwRiQG8GjJGlZEhZ7xF/5ZkKz0b0dHG0uc=;
+ b=2naHksbDaGpI7hXWu3rFnEy+GuJ3qPMUOgRSOxL1BrfmehVAf/hJcnZrILnLxVNkIUp0tGWJr0Us5sg023+/0/wN3/xgv1N2wVapJzseU+qjwJZ29diCAJdsicNLra4sL70126TMzYCy98W08WeTh8s2jCxlXF5BWJwgoups0E0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB7233.namprd12.prod.outlook.com (2603:10b6:510:204::12)
+ by IA1PR12MB8555.namprd12.prod.outlook.com (2603:10b6:208:44f::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.42; Tue, 10 Jun
- 2025 13:05:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Tue, 10 Jun
+ 2025 13:27:18 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Tue, 10 Jun 2025
- 13:05:38 +0000
-Message-ID: <2cefb0f5-3820-4828-8360-ff8c92e21aa6@amd.com>
-Date: Tue, 10 Jun 2025 15:05:34 +0200
+ 13:27:18 +0000
+Message-ID: <3664bf87-2805-4c77-89f7-cbd1e6645bfd@amd.com>
+Date: Tue, 10 Jun 2025 15:27:12 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/amdgpu: give each kernel job a unique id
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-References: <20250604122827.2191-1-pierre-eric.pelloux-prayer@amd.com>
+Subject: Re: [PATCH v5 1/4] dma-fence: Add safe access helpers and document
+ the rules
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
+ <gustavo@padovan.org>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20250609110330.74705-1-tvrtko.ursulin@igalia.com>
+ <20250609110330.74705-2-tvrtko.ursulin@igalia.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250604122827.2191-1-pierre-eric.pelloux-prayer@amd.com>
+In-Reply-To: <20250609110330.74705-2-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0350.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0012.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::22) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB7233:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c67dd58-b733-497d-c540-08dda81f7e83
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB8555:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcbc1e5a-032f-4ef8-0f31-08dda822858a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZWtYVXg1anRFNzNGNDhzakk2bkpTUFphV3ova3lISmc2K3V0SzlBeWREamlt?=
- =?utf-8?B?QTQ1ODlVTjVlYUt4QWhxL2hiTFE2WUovYUl3N2dDN0dvWUFmU1I2ek5vQWRU?=
- =?utf-8?B?K3FwMmlGemlxeit5UTZZajhjM3VyV2V3OGVvS1BFbDYyNkV0M2VVbUp0N2VM?=
- =?utf-8?B?R28vWnFyZWlRNkNrK1hnbHRoYmQ1MFo3RGJ2UFFvTGg3bDA4dXkwSGUyNjQ2?=
- =?utf-8?B?dTRnU1AvdDJiUmJPdytSRWUzbnlrTkcyVGtkVFpocnpEcDlORlN5ay9hODVT?=
- =?utf-8?B?Zzlselh3cjdoUDdRT1pxaUdwdyttWGl0WG9PT2VZMytvRDRpN2FwUmVOZTFy?=
- =?utf-8?B?SHB2L0F0d2NoMkNtaWhYcDRnZ0dUVEdSd20xdE5GaVF2WnlJamlBckJMcFlx?=
- =?utf-8?B?RDE5OVI5RktOWTBjWHlPRlAxN0JNWFlhVXVmcjA3cSszVjFrbWJqL0NmbnMz?=
- =?utf-8?B?UDdUNk82SmVib2Rrb0R1VVF0N2FrL3NLTlhlNTlUUnRsRXFFNEIvbnh0WTJi?=
- =?utf-8?B?VmpIUmVYbHBBeExzcXNQbUptVERFcTRucHl2dU8zOHp5YllmelgyK0RRa1ln?=
- =?utf-8?B?ajBibk15cXZtWWQ4bm1YcmpPSmNxaUdQdmRKYWxHdEFrUjJtdXpUd0U0WEVm?=
- =?utf-8?B?QkV3UUhteVQ1ektzQkZYck9admtpNGw5cmtYNjdYcVh4ejhIL0w4Skp4S2hC?=
- =?utf-8?B?NnZ6ZmxHN0huWGFTTjRrczF5NXlkOUxrb0xOUHVwN1cyTTB0dmczbStzRDRi?=
- =?utf-8?B?TTZ6ZkZ5T3AzYWJYdWV3eTljVEord1UrQ2RQQWVad3c2blRXdXRxRTEvWUtw?=
- =?utf-8?B?VGJiK3AxRUNCcXU2czdhUWpVV1p2MU5NRHpydm83eGhwRS9BTllEZ2p6Vm90?=
- =?utf-8?B?SXcxUFFmZDJvTW56czkrc21OdWxmdzhUQnJMUmtSYm5ock5aa0lpVjJIcmsx?=
- =?utf-8?B?OFdiVjdSaktiRSt0YUVHTEQxMkZTQlJNS0YyV293bTk1MERXZUZUVlVNSXZF?=
- =?utf-8?B?dXNCeERTdHZzOTlrOE1Gc3RjTU1JTUhxMnZIU0dLS0RKVjRNUWFMT2J5U2R6?=
- =?utf-8?B?WSthbVhjcDgrdzQ5Q24yUUVtZjUrdXlqWkJFVVB6aURRcmk5OTI0TXJRSjN4?=
- =?utf-8?B?WmdjL3Juc01qLzczRWtEeXZyejhqaUJiVUhSd0JWbm8zMGdzeW9QaU80dW4z?=
- =?utf-8?B?VklxUFdYN25keHl3aG1ZQ0FJbFJ1eWFnSEk5V2k0QWQvYnlRRDFVUU9qTGJT?=
- =?utf-8?B?dWE2aWxzYjRJSHBaR21NT3BYai90RWI4UytHNTBlKzhWMU1BRHl2UVJPc1Ns?=
- =?utf-8?B?REtBUjdxMkhLcXJkSzhUdUF0b0pWSk05UTU0ZCtNdGdST0JaK3hUUVBSWFE4?=
- =?utf-8?B?aktXSlM0VG5tbG9hZlE1NDBzT1kxQ25FbFdhMm9LenN3VCtUOXNzTVJYWGRW?=
- =?utf-8?B?L2FOUS9MeC9ReExBV0JwYnRPSHJnVnEvNkZPcHRmakEwcW9JdnlPbk00a29v?=
- =?utf-8?B?TkgxVHlUbFlKcWZpRC9nVWNlWDNOUTNuWEkxbWxZM0k1NFU1YzlQbCtjRDhz?=
- =?utf-8?B?WGNmNUJwSEk0T28zQUJPNzFTd1Q5Slg3N3VaUFk1OEpnR0RTQzl4aENjWWht?=
- =?utf-8?B?WXFscDlwalVvOU5rblV1NDN1andnNjdvYzJtaUJYSC93Zi9CSElySmxISkk0?=
- =?utf-8?B?UmZjRDlsWjVacWJ5cHhlY2hOSEozZGdoeFdURjFFMTNtZTBta3BIV1p0Mkxn?=
- =?utf-8?B?Z0JaT3dxd3dHUDA5di80bmU5UDR0SU9kd2doTk4xSXBERXZ6ZnYwbW1ybXhJ?=
- =?utf-8?B?RmVybDRKMm5EbW5Uek1jd1djSm9oUjdQMU9mR24zdG9mMTM3NVB2ZVQwcjVM?=
- =?utf-8?B?eks5V2lPemNBNFB1QW1BSUN0UTNzVVV5OTUwN2UxY2hZZmEzRGZvME5sTnRO?=
- =?utf-8?Q?+jhrs//Cb3s=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QzB5Yi9tMTlXVGI4ZzhvbW1QNVJJNm1vdEJBSHBES1lSYzBsWDJ5aEpPcE9z?=
+ =?utf-8?B?MVk5eTlnUFFwc0h4eVJkdnZVSzI2UUtxbkRUc2srOGNxdTd3RVFSb0dFcGps?=
+ =?utf-8?B?dDNpWXBlNXpZTCs5QTNBdHRydUwrWUQ3NU1JREdCVkdFSWlDOElEeDRpZG1X?=
+ =?utf-8?B?b24yOERVRGN5Z1FibHFiNit0VjlvenhyUlVYRlhxNXdXYXFPcFVHUnFwcUdm?=
+ =?utf-8?B?dVQydGR2dm1mMFZmd2pGcDlFZkVsZ2JHOHpURndMMDVOQVV3Rm1tYkhjMHp4?=
+ =?utf-8?B?UFlOS1BZTEczQVpIbXV6NzVMNGtnNytTOVdnNU5WSmdObGJQNVJVWk9DQ3Zr?=
+ =?utf-8?B?NlQveHhTTFZhM3ZiVTZndDFaeW5iZVM3Wjh3QlZzVXd5aDR1U0RGd2FPVWdP?=
+ =?utf-8?B?WXhDbFpNbDNnaDVKc1pZbkNGMlJhajR3d0RyekxJMEpGZUlGc0NYVGZtcEwr?=
+ =?utf-8?B?aktTWnRoUEp0RWlhVEF5WTl0QzVJYjhSL0t5NkdNOGJMa1VtR0ZjK3pLWnpL?=
+ =?utf-8?B?Tm1nNVR4UnhjZ1FDazQwZmdWUTVDV3F3NjZpN3NkUjNsZVFVMDh6RXdzeW5v?=
+ =?utf-8?B?OWFpaEJlaWQ0c3o3MEhGUFZFeFZDWGNuM3pXTjNpU2Q5Vi9ObVBaZE11RUZj?=
+ =?utf-8?B?ekpTdWpUQkJhaHBJZGhQNGZQVDMvUjdqQy9hT3E3MENSYVR5ZTRWcjFEaWpq?=
+ =?utf-8?B?OW1rNVRpMDE2YzBWUmxiYTNSVGYwUEtjN0lUUHp1TW9NblRCVlN2RWRvMHBx?=
+ =?utf-8?B?dEFpOVpQM3FZQmJVak52YWYvaGJJQlRHQUpDcEUvSFZaNytHV3U5T1gyOFlz?=
+ =?utf-8?B?SS93V0N0NzVNWUR3MHcrTTM0ZmtqSWcrUmdCVEZBVmNUYTV1b1h0NzVxN3hj?=
+ =?utf-8?B?cGhMY1F2SGN0RmtIS1EyVmplWDRpUlB4TWZnQStuZzl4ZFgwSTZWU2thSHhu?=
+ =?utf-8?B?bHVlTnptQkIxL3dJdmc0a1J5OWVzcU0yWk9MRGJKYkpuQlZNYVBFb0lrTmhj?=
+ =?utf-8?B?NFZ5TVZGL0E0MTRHY2JFUjE2R0JVVGoxZWd2dlYzV016dXdrY3dYdGZRSTRH?=
+ =?utf-8?B?MEVlaEhpaUN1aXdmb0tvS1Vic2ZoTlNkQmNvS3BaSGVkS2F6NEE0L1pvcGxm?=
+ =?utf-8?B?OWJObEpGL29qRmRCVkw5Ylc3K0hpa1VaQlNGK09uMTVuOWVRUjFOMUpyVG91?=
+ =?utf-8?B?WEVNaHAxVEJUdWRBZ25mczRXQWJpUDNqem1WZ013SjJtU0lCMFhpZllka0dC?=
+ =?utf-8?B?eVNDbytBbWpSUHhjNE9wNG1qcW55RmFwRVdObXZyNmY3TTgyRkJCTmNsK3VK?=
+ =?utf-8?B?dWxVWVJDSTRnaDVPUVBaTnNPcmxYYXFpc3dsQ3BtVzJVeitHT1ZRQ25udjhT?=
+ =?utf-8?B?ZnZFVHY4SDNVcmZEdDgxbVBtL2hyenZ6UE8wd2Nzd3NGTHl3Q2FIVENBSFNF?=
+ =?utf-8?B?TVpvc0o0WkROTS9tWVNYS2djMk93djd3Z3lKOHNxbk5zM1ovZjcvL25mT2Ji?=
+ =?utf-8?B?V3BEM0kraVEzQ1BMSklQU0ExZmlwQlRoTGJ5RjdYbDQrZm9IVW9xZkY1UkRY?=
+ =?utf-8?B?UHZmNldTU3dKRWsva05PMytpQWRXR2NmSkJwNUlrWDNrYmJIRnZNck1PbXRJ?=
+ =?utf-8?B?cnBBMmo5dkxtT2NtblRRblJ1ZjJNSlhEdExNQm8xNmtqeFpoRTVJOXpsZXVw?=
+ =?utf-8?B?NW90ZzhIQjFRakxoeHJtd0xLZENDT29zQUIyUHhXdVlYaFZSS2VFMis2QThR?=
+ =?utf-8?B?NGlCZFdOQmY5ZFZBbVNRU09Fa1RKWlNxZFJLbkU5REpCUFJiTVdYcEllNm5Q?=
+ =?utf-8?B?QmNNWTlkNTlZT0VwSjU1aGNweGtvUFkvM1FrY0w1L2FweTVtMHRlTXNDcEFz?=
+ =?utf-8?B?OGNiV3lRSHM0NkZqV2svMVJPUkVOQWV4SUZGYWJzVnJKT3A4K0NhOU0zcXFD?=
+ =?utf-8?Q?yeD/1CGW9Qc=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGg5ZHppck8vNnpQMEJ3WTl0c1NjT1JKdXRiWG96eDZ2cmhpK0w4cDRheWNO?=
- =?utf-8?B?MDlzQ0pXbTdwZFlHbzhoYXBwbjJYMFEzQithUlVyQTNOeUo1T2VrMkxMSk9p?=
- =?utf-8?B?dVJjOVlMNFZIUTZ1Ni9zdjE5b2JEZEtBaldUVS9PditaeTRvMFhtMUkxVHRx?=
- =?utf-8?B?UDVTSTBQcnNtZ0tHbXBIcHJVMjl5ZXZUYlVjQnVHMng0WmpPQ0U0dSt5VzYx?=
- =?utf-8?B?YVdWbHYyVElJWnJwT01abndNOHZyckNCOWxiL3BaYnFxK3NEMFZuNFZsRkpm?=
- =?utf-8?B?WDQrNmtWMFRrNHVkWXVoNTlKczc4L2dCNHVmKzVSSDEzUWNRODZvVklhVFhH?=
- =?utf-8?B?YitNNkdlVno2VU1zb1ZVVWhvc1VlNnYyNnRlZTZWTkpRT21rd3lTNEdMWGlz?=
- =?utf-8?B?K3hCWXVjY01zMk1pRjlHVHJaSS9veHp1bzFOaVp0eTh4ZXJlOGdXK0dQZVE2?=
- =?utf-8?B?Ry8xZHRaT2laNGxvMG9XY3gzS0RoaWlLODVKdThsTlp2NUt6d3VrVnFsN29j?=
- =?utf-8?B?OW5QSENzaGM5OG9VOHZPRE03WkFyL2M4Y0Mxdlc0SDNWSG9UMk5HSzNvejlk?=
- =?utf-8?B?NVRIaGg1UkQ1ZFRvZ2ZxcjNYcDhLUyt0RS9GN2RzZU1sWWZQeEJVMG1SNWI5?=
- =?utf-8?B?Rkdud3NJV0JsK0plbkpLOGRzVDFaQlhrMEs3YnNPbnNKYy8xLytSaTltcU5T?=
- =?utf-8?B?cHdGVDhBT1pKTXQyYVpERFUza05TYkZWcDlwQWJkZ05tSUp0SkR5VG5SVk42?=
- =?utf-8?B?SS9yTXljcE10VWpGQWNVbEVMaFRCdmRuL215WU1Wc05KR0RBSE1pSmszRThP?=
- =?utf-8?B?eDB4Tm85a201L1dSSWZDMTdJOHFxaG5LTmdxS0FzV3gzYTBOZ0tpWXlNblFt?=
- =?utf-8?B?bWlEdW1yajBPUEtUN2Z6WGlQMVliUktmU3JDdnhjUi90SGFZUi9yeThHRzR5?=
- =?utf-8?B?STA4cEVvd01oQXhKL0ZLaGxkUUQzWG9UVWpiUmh1WENPdERxMEJYVWkyOTdU?=
- =?utf-8?B?aGlHOWV4VCtMblUwMjBJV1M1ZEY5K2c4amV5K1ljSTBiS3RMdDJPU0JaMkpq?=
- =?utf-8?B?d3Q1OEk2N1F4NXdkR2hSbDNuUHhJczNwcG11dkppUGdmY0dGOVlSZ0psdEk4?=
- =?utf-8?B?YUhZYlZmb1JEUG5qTmh6VGZrbUFla2dQMXVGYkgwcGE5d1A5TGxLSUMwSFUw?=
- =?utf-8?B?ZnFKNzVXNXdTSDZzNmhGOXE4andqMmhlZ09oc1V4RDRHdlhoVHNwcVpOckJP?=
- =?utf-8?B?Rkh6dEJmRndmTlM2QWc4c2p1bzViRDZvMzZ2cFZ4YnFvdFVOeHpiOFpKcjVr?=
- =?utf-8?B?VytLUEhnUjN6c3FVemdZV0xkZSthZFZpTHB5Sk9HT0dJeFZNdmtLTkc5K1ZH?=
- =?utf-8?B?TmdaNFFvU2h6Z3BSV0NYUnp6bXJtUm04bktMYjJSeTd1MG1kcjQ4Vzc5WVVR?=
- =?utf-8?B?K2owYlB5dk1MaTdkdWVlcXlneUlBYXhOWmR0MHVISktPbE1EV2FSUDE1QkRJ?=
- =?utf-8?B?c2xTNkx4VXJUNkk3RXRoUjB4OW50d0k1VEJ6NGFWMENMZDY2Ri92SUg4dW0w?=
- =?utf-8?B?Qkc1OVZNUCs5bWxDRmYyVnNmZW5HMG1VMHNPUVd4blhDQ0QyaWFmTHBLT3Bh?=
- =?utf-8?B?WWxub2xVNDlFWEZRekI3RWlVeUdpUm80YmhTS1lUOThVRDdvNU04QjJOY1do?=
- =?utf-8?B?d2RKNlpJK3hPMUdEQlk0alk0TEdPTVdSTm54SVR0Q1lORnZzaGgzc2E2UzB6?=
- =?utf-8?B?cXRjcURBM2VrVzZPbnZBWXJWa3AvKzNvdlcxTVBFYVNpMmVPQXdydkJUeDhS?=
- =?utf-8?B?aEJEVm1DdlhoYjI3OU5rY0RDOUIxQkhsZ0hSSkRCc1VmVmlZSjdYSXpISVZ6?=
- =?utf-8?B?SWlOUWl6akduUmRiWEtRK2Y1TTlZbUxTR1JSUTJhbnRoVGllUVhWWi9PTnVz?=
- =?utf-8?B?K3p3R3hBQU96bGwrSTNmUXBPZTBvWmswTEhkZC9QM1MwWkhzVG1reE5ZV21r?=
- =?utf-8?B?TU4zS2pnTmdHWGs2MUNYemcxakkyd2puYVVlYVFqcE92RFdIV1ZTNVFOSURV?=
- =?utf-8?B?MVdZRXB5NHVJeThhRTBuVTgrK2FoZVZnRWk2UWg2eVAwVTd2WkpkSzlvNWd0?=
- =?utf-8?Q?a6/iSBtdzm3YOsN7eVy8Tk/d1?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXFJM0VZSFVVWVRpdW1FdmlCdEkyN0ZiMmF2MzhFeUljRnc4Q2lmRnB4MGl1?=
+ =?utf-8?B?SnYxMjMyQW9qVFUraVl2YVBJcC9pdmdzb1NPcHIvOFJCa0pmbUV5Z3FXZkdm?=
+ =?utf-8?B?M29XaFJwRGJYYVFWQWJGUTdYRW9qNE4xT3RRUHVEOS9mYVJ4TmdxYnFIZU9s?=
+ =?utf-8?B?bTRPOVgxSHlHaWFXUi9sd3BQL3p1SGlXYjNlSnBLb1JuUE54Y3lEU2tQSjVR?=
+ =?utf-8?B?cUM4R1RIdVpWeC80bldwdnJaNTRuWFdBRDAxWnBHRHpVdTlxOHJlUFlCU2tj?=
+ =?utf-8?B?VjR0czJCMkQ5Q0JVcitQdmVkRHJjWmlPa3dQTnE5ZHZDNHU3UlNaZ3Fpd1Zv?=
+ =?utf-8?B?OFFUbnUzb3dMYWEvdjhnOVc2TXY1Q0MxU3FSb014QXNCWnpEVHlFVFJ0Rzhr?=
+ =?utf-8?B?ZHVmSUo3dzlvMWdGTmJBVFBveXNETGJQOUp5bDY4dnIxVFRyRnVhMDVLaTRK?=
+ =?utf-8?B?cnl0ckl5bGZiNWhsNWtqL2NTNnpjRDVtRHJ1aiszaHVQZ21iTmkrUC9BanBm?=
+ =?utf-8?B?bmd2QTNaSDMvRDlBQnVuQXZTaFJHRG5LWTJwV3NUZnRJMGdqKy9qbUo2cElV?=
+ =?utf-8?B?b0xKM0NOdkFtazUwWWpIK2Q5WVdqWUFBbFcvN0FXNUdmYThUNHJ3SUsxb0V0?=
+ =?utf-8?B?Ylo0L1luS0d0K1pXcjVYV3RxWU1aVnZVSU9LK294QzVUby8vdi9sL1E1NzFO?=
+ =?utf-8?B?aEM4b1ArdVJEd3V0a0IwcmNYQUJTZ0h1VzBLVmxjWk1DNG5FSEY0bWk1S1BU?=
+ =?utf-8?B?ZEtBUDA0VUlBRDJ4Wmh1ZlVqbUx6NVo1eGY4bUQvR2FhTDdWVVdLVEs2SFhr?=
+ =?utf-8?B?bXo4UXVtTWVNR0hzTllCb3Q5SDlUbWJMK1U0Tk1ZVjV1U0N6L25mV3E2bnQ0?=
+ =?utf-8?B?cHVIMnlEdGE0SUNLR1N2dUtyOXpjd1hMSEVaUUFHMlZIcnl6b2k2THhxN3hW?=
+ =?utf-8?B?Y1FXUmVuaHFObWxrbzdENndEMFVvQy9XaE5ENmsvUTZMck1VeXpzVVNRMlY0?=
+ =?utf-8?B?Z3JRRDk0OTdzb1Fvb0FkWUdNdVpKU3BvaVc5eC9hdHRrR3preUl3V20zeGtO?=
+ =?utf-8?B?WFFJVVZDRE9Jczd6TGZVZTRlRCsvdzhCZGpkdlZ5WGpRdVFkZm9WcWQvUXdn?=
+ =?utf-8?B?MURYYko4MnZ1SmVScXZBNmxPQ3dBcHhoMXRPcVJwTXhNRGR2VUJlY0NpdjVp?=
+ =?utf-8?B?ZlgwS0Q0VmZRTVdoMzNsZXYwMDJRQXBpcm0xNUU2czhaWk94WUxkcW1Sejdy?=
+ =?utf-8?B?UnppdG4zem9YcmNQbzZCUDVaRmRlRlZ2OVE5Y3FQN3VhaUpyVHlxVmpJQkNP?=
+ =?utf-8?B?SWpxTnQvTitlaVRpblZCVmR3Vk5jQnFoRm90VmNzeEg5SlpQaFJPeDNhMWlY?=
+ =?utf-8?B?UzhWQndDMDRUQzRQbkdwMlFsL0YrQmlzTzVGVG9LYnZ2ZFFLc0lxSHVta1Zx?=
+ =?utf-8?B?anQ4UVkydnBFRnpxMXdtcGpoYXBOUmYwSFB4Uk83Z1Q1K0xLeTB5UHhXZVZD?=
+ =?utf-8?B?YXgrWUl1bEhvYWx2TUlkWXE2VExuWFBveWJ5UmxiUVRYdTY0aWJEQWFIeGl3?=
+ =?utf-8?B?Ry9kbm9keVNRS3FQNzkwVkNPRGRSU0FGRklDUmRaL3c4N2FJbE1VZHJKU2tp?=
+ =?utf-8?B?ak80YndjYmkyZFQ3YUhTbkZLSnNhN3F3dThsamRrNkNVbDkzQWxML3pmNDN5?=
+ =?utf-8?B?aXVkbG9VRkhIK0hVbUcydExtdmtiZWpudDg1VSszUlowY3d4VGZJZy81SXp6?=
+ =?utf-8?B?UTNLSUpVaVI1ZUtOV3V3d1B4VHNUYTZQYnpkY3U2MWdETkUwejhZM3NFdFFW?=
+ =?utf-8?B?OHZTMmRWVjlkV0czK3hiZGRmdjV5Y2M4M0VrOVQrcXhMZXlieDVCTHR3d0Nm?=
+ =?utf-8?B?MlN3WVFXN2o3MEc2bmFkT2FPUXVKMmNRaUFjNkNkT09IZkZPdFpsN0hiYkg1?=
+ =?utf-8?B?RGdrdGZLd3M0d3VtNW55RFVPUnJ3RUd2SFlEUG81Qm5ORG8rWG9rN2tRVnda?=
+ =?utf-8?B?OVJjdjNCcTVkRmdQZm54WWJndVp3aGdKd0YvRVB5QXBZR1NzQUdIV0JDWERq?=
+ =?utf-8?B?TUNSMG42akFmQk00L0s3SkNuYmhxM0xmc3BWb1RDVzFjL0orQytISjBMdjVS?=
+ =?utf-8?Q?uWd2zb8VoFThSvuRkUdERMiXv?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c67dd58-b733-497d-c540-08dda81f7e83
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcbc1e5a-032f-4ef8-0f31-08dda822858a
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2025 13:05:37.9216 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2025 13:27:18.2008 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pzVLUqp3px6CpmOzcQUWEBrcLVHVr7LDGNcSjbfXRbm++GcfWJt0aGKKsMoFAhjU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7233
+X-MS-Exchange-CrossTenant-UserPrincipalName: HxLrEUlw+Y7QOI8qppZ1Iz//h/v8GtFrEGUGaXg0vNVfrEI8Q/bNYmYUdkoHch1I
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8555
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,556 +168,315 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/4/25 14:28, Pierre-Eric Pelloux-Prayer wrote:
-> Userspace jobs have drm_file.client_id as a unique identifier
-> as job's owners. For kernel jobs, we can allocate arbitrary
-> values - the risk of overlap with userspace ids is small (given
-> that it's a u64 value).
-> In the unlikely case the overlap happens, it'll only impact
-> trace events.
+
+
+On 6/9/25 13:03, Tvrtko Ursulin wrote:
+> Dma-fence objects currently suffer from a potential use after free problem
+> where fences exported to userspace and other drivers can outlive the
+> exporting driver, or the associated data structures.
 > 
-> Since this ID is traced in the gpu_scheduler trace events, this
-> allows to determine the source of each job sent to the hardware.
+> The discussion on how to address this concluded that adding reference
+> counting to all the involved objects is not desirable, since it would need
+> to be very wide reaching and could cause unloadable drivers if another
+> entity would be holding onto a signaled fence reference potentially
+> indefinitely.
 > 
-> To make grepping easier, the IDs are defined as they will appear
-> in the trace output.
+> This patch enables the safe access by introducing and documenting a
+> contract between fence exporters and users. It documents a set of
+> contraints and adds helpers which a) drivers with potential to suffer from
+> the use after free must use and b) users of the dma-fence API must use as
+> well.
 > 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Premise of the design has multiple sides:
+> 
+> 1. Drivers (fence exporters) MUST ensure a RCU grace period between
+> signalling a fence and freeing the driver private data associated with it.
+> 
+> The grace period does not have to follow the signalling immediately but
+> HAS to happen before data is freed.
+> 
+> 2. Users of the dma-fence API marked with such requirement MUST contain
+> the complete access to the data within a single code block guarded by the
+> new dma_fence_access_begin() and dma_fence_access_end() helpers.
+> 
+> The combination of the two ensures that whoever sees the
+> DMA_FENCE_FLAG_SIGNALED_BIT not set is guaranteed to have access to a
+> valid fence->lock and valid data potentially accessed by the fence->ops
+> virtual functions, until the call to dma_fence_access_end().
+> 
+> 3. Module unload (fence->ops) disappearing is for now explicitly not
+> handled. That would required a more complex protection, possibly needing
+> SRCU instead of RCU to handle callers such as dma_fence_release() and
+> dma_fence_wait_timeout(), where race between
+> dma_fence_enable_sw_signaling, signalling, and dereference of
+> fence->ops->wait() would need a sleeping SRCU context.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  5 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     | 19 +++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c    |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 28 +++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c     |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c     |  5 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     |  8 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  6 +++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  |  4 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  4 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 12 +++++----
->  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c       |  6 +++--
->  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c       |  6 +++--
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c    |  3 ++-
->  19 files changed, 84 insertions(+), 41 deletions(-)
+>  drivers/dma-buf/dma-fence.c      | 82 +++++++++++++++++++++++++++++++-
+>  include/linux/dma-fence.h        | 32 +++++++++----
+>  include/trace/events/dma_fence.h | 38 +++++++++++++--
+>  3 files changed, 138 insertions(+), 14 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index cf2df7790077..adc151183e83 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1461,7 +1461,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
->  	owner = (void *)(unsigned long)atomic_inc_return(&counter);
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 74f9e4b665e3..36604d68bdc8 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -511,12 +511,20 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
 >  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
-> -				     64, 0, &job);
-> +				     64, 0, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER);
->  	if (r)
->  		goto err;
+>  	dma_fence_enable_sw_signaling(fence);
 >  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index ecb74ccf1d90..66e762c1e43c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -674,7 +674,7 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->  	r = amdgpu_job_alloc_with_ib(ring->adev, &adev->mman.high_pr,
->  				     AMDGPU_FENCE_OWNER_UNDEFINED,
->  				     16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
-> -				     &job);
-> +				     &job, AMDGPU_KERNEL_JOB_ID_FLUSH_GPU_TLB);
->  	if (r)
->  		goto error_alloc;
+> -	trace_dma_fence_wait_start(fence);
+> +	if (trace_dma_fence_wait_start_enabled()) {
+> +		dma_fence_access_begin();
+> +		trace_dma_fence_wait_start(fence);
+> +		dma_fence_access_end();
+> +	}
+>  	if (fence->ops->wait)
+>  		ret = fence->ops->wait(fence, intr, timeout);
+>  	else
+>  		ret = dma_fence_default_wait(fence, intr, timeout);
+> -	trace_dma_fence_wait_end(fence);
+> +	if (trace_dma_fence_wait_end_enabled()) {
+> +		dma_fence_access_begin();
+> +		trace_dma_fence_wait_end(fence);
+> +		dma_fence_access_end();
+> +	}
+>  	return ret;
+>  }
+>  EXPORT_SYMBOL(dma_fence_wait_timeout);
+> @@ -533,6 +541,7 @@ void dma_fence_release(struct kref *kref)
+>  	struct dma_fence *fence =
+>  		container_of(kref, struct dma_fence, refcount);
 >  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 75262ce8db27..9fd5387a0cd4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -230,11 +230,12 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
->  			     struct drm_sched_entity *entity, void *owner,
->  			     size_t size, enum amdgpu_ib_pool_type pool_type,
-> -			     struct amdgpu_job **job)
-> +			     struct amdgpu_job **job, u64 k_job_id)
+> +	dma_fence_access_begin();
+>  	trace_dma_fence_destroy(fence);
+>  
+>  	if (WARN(!list_empty(&fence->cb_list) &&
+> @@ -556,10 +565,13 @@ void dma_fence_release(struct kref *kref)
+>  		spin_unlock_irqrestore(fence->lock, flags);
+>  	}
+>  
+> +	dma_fence_access_end();
+> +
+>  	if (fence->ops->release)
+>  		fence->ops->release(fence);
+>  	else
+>  		dma_fence_free(fence);
+> +
+>  }
+>  EXPORT_SYMBOL(dma_fence_release);
+>  
+> @@ -982,11 +994,13 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
+>   */
+>  void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
 >  {
->  	int r;
+> +	dma_fence_access_begin();
+>  	seq_printf(seq, "%s %s seq %llu %ssignalled\n",
+>  		   dma_fence_driver_name(fence),
+>  		   dma_fence_timeline_name(fence),
+>  		   fence->seqno,
+>  		   dma_fence_is_signaled(fence) ? "" : "un");
+> +	dma_fence_access_end();
+>  }
+>  EXPORT_SYMBOL(dma_fence_describe);
 >  
-> -	r = amdgpu_job_alloc(adev, NULL, entity, owner, 1, job, 0);
-> +	r = amdgpu_job_alloc(adev, NULL, entity, owner, 1, job,
-> +			     k_job_id);
->  	if (r)
->  		return r;
+> @@ -1055,3 +1069,67 @@ dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>  			 BIT(DMA_FENCE_FLAG_SEQNO64_BIT));
+>  }
+>  EXPORT_SYMBOL(dma_fence_init64);
+> +
+> +/**
+> + * dma_fence_driver_name - Access the driver name
+> + * @fence: the fence to query
+> + *
+> + * Returns a driver name backing the dma-fence implementation.
+> + *
+> + * IMPORTANT CONSIDERATION:
+> + * Dma-fence contract stipulates that access to driver provided data (data not
+> + * directly embedded into the object itself), such as the &dma_fence.lock and
+> + * memory potentially accessed by the &dma_fence.ops functions, is forbidden
+> + * after the fence has been signalled. Drivers are allowed to free that data,
+> + * and some do.
+> + *
+> + * To allow safe access drivers are mandated to guarantee a RCU grace period
+> + * between signalling the fence and freeing said data.
+> + *
+> + * As such access to the driver name is only valid inside a RCU locked section.
+> + * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
+> + * by the &dma_fence_access_being and &dma_fence_access_end pair.
+> + */
+> +const char *dma_fence_driver_name(struct dma_fence *fence)
+> +{
+> +	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
+> +			 "dma_fence_access_begin/end() are required for safe access to returned string");
+> +
+> +	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+> +		return fence->ops->get_driver_name(fence);
+> +	else
+> +		return "detached-driver";
+> +}
+> +EXPORT_SYMBOL(dma_fence_driver_name);
+> +
+> +/**
+> + * dma_fence_timeline_name - Access the timeline name
+> + * @fence: the fence to query
+> + *
+> + * Returns a timeline name provided by the dma-fence implementation.
+> + *
+> + * IMPORTANT CONSIDERATION:
+> + * Dma-fence contract stipulates that access to driver provided data (data not
+> + * directly embedded into the object itself), such as the &dma_fence.lock and
+> + * memory potentially accessed by the &dma_fence.ops functions, is forbidden
+> + * after the fence has been signalled. Drivers are allowed to free that data,
+> + * and some do.
+> + *
+> + * To allow safe access drivers are mandated to guarantee a RCU grace period
+> + * between signalling the fence and freeing said data.
+> + *
+> + * As such access to the driver name is only valid inside a RCU locked section.
+> + * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
+> + * by the &dma_fence_access_being and &dma_fence_access_end pair.
+> + */
+> +const char *dma_fence_timeline_name(struct dma_fence *fence)
+> +{
+> +	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
+> +			 "dma_fence_access_begin/end() are required for safe access to returned string");
+> +
+> +	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+> +		return fence->ops->get_driver_name(fence);
+> +	else
+> +		return "signaled-timeline";
+> +}
+> +EXPORT_SYMBOL(dma_fence_timeline_name);
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index 10a849cb2d3f..366da956fb85 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -378,15 +378,31 @@ bool dma_fence_remove_callback(struct dma_fence *fence,
+>  			       struct dma_fence_cb *cb);
+>  void dma_fence_enable_sw_signaling(struct dma_fence *fence);
 >  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> index 5a8bc6342222..6108a6f9dba7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> @@ -44,6 +44,22 @@
->  struct amdgpu_fence;
->  enum amdgpu_ib_pool_type;
+> -static inline const char *dma_fence_driver_name(struct dma_fence *fence)
+> -{
+> -	return fence->ops->get_driver_name(fence);
+> -}
+> +/**
+> + * DOC: Safe external access to driver provided object members
+> + *
+> + * All data not stored directly in the dma-fence object, such as the
+> + * &dma_fence.lock and memory potentially accessed by functions in the
+> + * &dma_fence.ops table, MUST NOT be accessed after the fence has been signalled
+> + * because after that point drivers are allowed to free it.
+> + *
+> + * All code accessing that data via the dma-fence API (or directly, which is
+> + * discouraged), MUST make sure to contain the complete access within a
+> + * &dma_fence_access_begin and &dma_fence_access_end pair.
+> + *
+> + * Some dma-fence API handles this automatically, while other, as for example
+> + * &dma_fence_driver_name and &dma_fence_timeline_name, leave that
+> + * responsibility to the caller.
+> + *
+> + * To enable this scheme to work drivers MUST ensure a RCU grace period elapses
+> + * between signalling the fence and freeing the said data.
+> + *
+> + */
+> +#define dma_fence_access_begin	rcu_read_lock
+> +#define dma_fence_access_end	rcu_read_unlock
+
+Please drop those in a favor of another change and use rcu_read_lock/unlock in the code directly.
+
+But see below.
+
 >  
-> +/* Internal kernel job ids. (decreasing values, starting from U64_MAX). */
-> +#define AMDGPU_KERNEL_JOB_ID_VM_UPDATE              (18446744073709551615ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_VM_UPDATE_PDES         (18446744073709551614ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_VM_UPDATE_RANGE        (18446744073709551613ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR            (18446744073709551612ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_TTM_MAP_BUFFER         (18446744073709551611ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_TTM_ACCESS_MEMORY_SDMA (18446744073709551610ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER        (18446744073709551609ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE       (18446744073709551608ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_MOVE_BLIT              (18446744073709551607ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER       (18446744073709551606ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER         (18446744073709551605ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_FLUSH_GPU_TLB          (18446744073709551604ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_KFD_GART_MAP           (18446744073709551603ULL)
-> +#define AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST          (18446744073709551602ULL)
+> -static inline const char *dma_fence_timeline_name(struct dma_fence *fence)
+> -{
+> -	return fence->ops->get_timeline_name(fence);
+> -}
+> +const char *dma_fence_driver_name(struct dma_fence *fence);
+> +const char *dma_fence_timeline_name(struct dma_fence *fence);
 
-Mhm, reiterating our internal discussion on the mailing list.
+Please declare those as:
 
-I think it would be nicer if we could use negative values for the kernel submissions and positive for userspace. But as discussed internally we would need to adjust the scheduler trace points for that once more.
+const char __rcu *dma_fence_driver_name(struct dma_fence *fence);
+const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
 
-@Philip and @Danilo any opinion on that?
+And then use rcu_dereference() on the return value when calling those functions.
+
+This allows the automated checker to complain when the functions/return value isn't used correctly.
 
 Regards,
 Christian.
 
-
+>  
+>  /**
+>   * dma_fence_is_signaled_locked - Return an indication if the fence
+> diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
+> index 84c83074ee81..4814a65b68dc 100644
+> --- a/include/trace/events/dma_fence.h
+> +++ b/include/trace/events/dma_fence.h
+> @@ -34,14 +34,44 @@ DECLARE_EVENT_CLASS(dma_fence,
+>  		  __entry->seqno)
+>  );
+>  
+> -DEFINE_EVENT(dma_fence, dma_fence_emit,
+> +/*
+> + * Safe only for call sites which are guaranteed to not race with fence
+> + * signaling,holding the fence->lock and having checked for not signaled, or the
+> + * signaling path itself.
+> + */
+> +DECLARE_EVENT_CLASS(dma_fence_unsignaled,
 > +
->  struct amdgpu_job {
->  	struct drm_sched_job    base;
->  	struct amdgpu_vm	*vm;
-> @@ -95,7 +111,8 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
->  			     struct drm_sched_entity *entity, void *owner,
->  			     size_t size, enum amdgpu_ib_pool_type pool_type,
-> -			     struct amdgpu_job **job);
-> +			     struct amdgpu_job **job,
-> +			     u64 k_job_id);
->  void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo *gds,
->  			      struct amdgpu_bo *gws, struct amdgpu_bo *oa);
->  void amdgpu_job_free_resources(struct amdgpu_job *job);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-> index dda29132dfb2..41e083ed0758 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-> @@ -194,7 +194,8 @@ static int amdgpu_jpeg_dec_set_reg(struct amdgpu_ring *ring, uint32_t handle,
->  	int i, r;
+> +	TP_PROTO(struct dma_fence *fence),
+> +
+> +	TP_ARGS(fence),
+> +
+> +	TP_STRUCT__entry(
+> +		__string(driver, fence->ops->get_driver_name(fence))
+> +		__string(timeline, fence->ops->get_timeline_name(fence))
+> +		__field(unsigned int, context)
+> +		__field(unsigned int, seqno)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		__assign_str(driver);
+> +		__assign_str(timeline);
+> +		__entry->context = fence->context;
+> +		__entry->seqno = fence->seqno;
+> +	),
+> +
+> +	TP_printk("driver=%s timeline=%s context=%u seqno=%u",
+> +		  __get_str(driver), __get_str(timeline), __entry->context,
+> +		  __entry->seqno)
+> +);
+> +
+> +DEFINE_EVENT(dma_fence_unsignaled, dma_fence_emit,
 >  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
-> -				     AMDGPU_IB_POOL_DIRECT, &job);
-> +				     AMDGPU_IB_POOL_DIRECT, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
+>  	TP_PROTO(struct dma_fence *fence),
 >  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 0b9987781f76..0ca8f0362354 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1315,7 +1315,8 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
->  	if (r)
->  		goto out;
+>  	TP_ARGS(fence)
+>  );
 >  
-> -	r = amdgpu_fill_buffer(abo, 0, &bo->base._resv, &fence, true);
-> +	r = amdgpu_fill_buffer(abo, 0, &bo->base._resv, &fence, true,
-> +			       AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
->  	if (WARN_ON(r))
->  		goto out;
+> -DEFINE_EVENT(dma_fence, dma_fence_init,
+> +DEFINE_EVENT(dma_fence_unsignaled, dma_fence_init,
 >  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 53b71e9d8076..72db29906c11 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -226,7 +226,8 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
->  	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.high_pr,
->  				     AMDGPU_FENCE_OWNER_UNDEFINED,
->  				     num_dw * 4 + num_bytes,
-> -				     AMDGPU_IB_POOL_DELAYED, &job);
-> +				     AMDGPU_IB_POOL_DELAYED, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_TTM_MAP_BUFFER);
->  	if (r)
->  		return r;
+>  	TP_PROTO(struct dma_fence *fence),
 >  
-> @@ -405,7 +406,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
->  		struct dma_fence *wipe_fence = NULL;
+> @@ -55,14 +85,14 @@ DEFINE_EVENT(dma_fence, dma_fence_destroy,
+>  	TP_ARGS(fence)
+>  );
 >  
->  		r = amdgpu_fill_buffer(abo, 0, NULL, &wipe_fence,
-> -				       false);
-> +				       false, AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
->  		if (r) {
->  			goto error;
->  		} else if (wipe_fence) {
-> @@ -1509,7 +1510,8 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
->  	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.high_pr,
->  				     AMDGPU_FENCE_OWNER_UNDEFINED,
->  				     num_dw * 4, AMDGPU_IB_POOL_DELAYED,
-> -				     &job);
-> +				     &job,
-> +				     AMDGPU_KERNEL_JOB_ID_TTM_ACCESS_MEMORY_SDMA);
->  	if (r)
->  		goto out;
+> -DEFINE_EVENT(dma_fence, dma_fence_enable_signal,
+> +DEFINE_EVENT(dma_fence_unsignaled, dma_fence_enable_signal,
 >  
-> @@ -2159,7 +2161,7 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
->  				  struct dma_resv *resv,
->  				  bool vm_needs_flush,
->  				  struct amdgpu_job **job,
-> -				  bool delayed)
-> +				  bool delayed, u64 k_job_id)
->  {
->  	enum amdgpu_ib_pool_type pool = direct_submit ?
->  		AMDGPU_IB_POOL_DIRECT :
-> @@ -2169,7 +2171,7 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
->  						    &adev->mman.high_pr;
->  	r = amdgpu_job_alloc_with_ib(adev, entity,
->  				     AMDGPU_FENCE_OWNER_UNDEFINED,
-> -				     num_dw * 4, pool, job);
-> +				     num_dw * 4, pool, job, k_job_id);
->  	if (r)
->  		return r;
+>  	TP_PROTO(struct dma_fence *fence),
 >  
-> @@ -2208,7 +2210,8 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
->  	num_loops = DIV_ROUND_UP(byte_count, max_bytes);
->  	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->copy_num_dw, 8);
->  	r = amdgpu_ttm_prepare_job(adev, direct_submit, num_dw,
-> -				   resv, vm_needs_flush, &job, false);
-> +				   resv, vm_needs_flush, &job, false,
-> +				   AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER);
->  	if (r)
->  		return r;
+>  	TP_ARGS(fence)
+>  );
 >  
-> @@ -2243,7 +2246,8 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
->  			       uint64_t dst_addr, uint32_t byte_count,
->  			       struct dma_resv *resv,
->  			       struct dma_fence **fence,
-> -			       bool vm_needs_flush, bool delayed)
-> +			       bool vm_needs_flush, bool delayed,
-> +			       u64 k_job_id)
->  {
->  	struct amdgpu_device *adev = ring->adev;
->  	unsigned int num_loops, num_dw;
-> @@ -2256,7 +2260,7 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
->  	num_loops = DIV_ROUND_UP_ULL(byte_count, max_bytes);
->  	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->fill_num_dw, 8);
->  	r = amdgpu_ttm_prepare_job(adev, false, num_dw, resv, vm_needs_flush,
-> -				   &job, delayed);
-> +				   &job, delayed, k_job_id);
->  	if (r)
->  		return r;
+> -DEFINE_EVENT(dma_fence, dma_fence_signaled,
+> +DEFINE_EVENT(dma_fence_unsignaled, dma_fence_signaled,
 >  
-> @@ -2326,7 +2330,8 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
->  			goto err;
->  
->  		r = amdgpu_ttm_fill_mem(ring, 0, addr, size, resv,
-> -					&next, true, true);
-> +					&next, true, true,
-> +					AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
->  		if (r)
->  			goto err;
->  
-> @@ -2345,7 +2350,8 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->  			uint32_t src_data,
->  			struct dma_resv *resv,
->  			struct dma_fence **f,
-> -			bool delayed)
-> +			bool delayed,
-> +			u64 k_job_id)
->  {
->  	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->  	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-> @@ -2374,7 +2380,7 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->  			goto error;
->  
->  		r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, resv,
-> -					&next, true, delayed);
-> +					&next, true, delayed, k_job_id);
->  		if (r)
->  			goto error;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index 208b7d1d8a27..57a1e0b7c1e9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -180,7 +180,8 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->  			uint32_t src_data,
->  			struct dma_resv *resv,
->  			struct dma_fence **fence,
-> -			bool delayed);
-> +			bool delayed,
-> +			u64 k_job_id);
->  
->  int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
->  void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> index 74758b5ffc6c..5c38f0d30c87 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -1136,7 +1136,8 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
->  	r = amdgpu_job_alloc_with_ib(ring->adev, &adev->uvd.entity,
->  				     AMDGPU_FENCE_OWNER_UNDEFINED,
->  				     64, direct ? AMDGPU_IB_POOL_DIRECT :
-> -				     AMDGPU_IB_POOL_DELAYED, &job);
-> +				     AMDGPU_IB_POOL_DELAYED, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> index b9060bcd4806..ce318f5de047 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> @@ -449,7 +449,7 @@ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
->  	r = amdgpu_job_alloc_with_ib(ring->adev, &ring->adev->vce.entity,
->  				     AMDGPU_FENCE_OWNER_UNDEFINED,
->  				     ib_size_dw * 4, AMDGPU_IB_POOL_DIRECT,
-> -				     &job);
-> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> @@ -540,7 +540,8 @@ static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
->  				     AMDGPU_FENCE_OWNER_UNDEFINED,
->  				     ib_size_dw * 4,
->  				     direct ? AMDGPU_IB_POOL_DIRECT :
-> -				     AMDGPU_IB_POOL_DELAYED, &job);
-> +				     AMDGPU_IB_POOL_DELAYED, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 1991dd3d1056..9fc0f7ff6c53 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -600,7 +600,7 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
->  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
->  				     64, AMDGPU_IB_POOL_DIRECT,
-> -				     &job);
-> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		goto err;
->  
-> @@ -780,7 +780,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
->  				     ib_size_dw * 4, AMDGPU_IB_POOL_DIRECT,
-> -				     &job);
-> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		goto err;
->  
-> @@ -910,7 +910,7 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
->  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
->  				     ib_size_dw * 4, AMDGPU_IB_POOL_DIRECT,
-> -				     &job);
-> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> @@ -977,7 +977,7 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
->  				     ib_size_dw * 4, AMDGPU_IB_POOL_DIRECT,
-> -				     &job);
-> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index ce52b4d75e94..a33b177e1d5f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -965,7 +965,8 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
->  	params.vm = vm;
->  	params.immediate = immediate;
->  
-> -	r = vm->update_funcs->prepare(&params, NULL);
-> +	r = vm->update_funcs->prepare(&params, NULL,
-> +				      AMDGPU_KERNEL_JOB_ID_VM_UPDATE_PDES);
->  	if (r)
->  		goto error;
->  
-> @@ -1134,7 +1135,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  		dma_fence_put(tmp);
->  	}
->  
-> -	r = vm->update_funcs->prepare(&params, sync);
-> +	r = vm->update_funcs->prepare(&params, sync,
-> +				      AMDGPU_KERNEL_JOB_ID_VM_UPDATE_RANGE);
->  	if (r)
->  		goto error_free;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index f3ad687125ad..c1a3257463d9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -309,7 +309,7 @@ struct amdgpu_vm_update_params {
->  struct amdgpu_vm_update_funcs {
->  	int (*map_table)(struct amdgpu_bo_vm *bo);
->  	int (*prepare)(struct amdgpu_vm_update_params *p,
-> -		       struct amdgpu_sync *sync);
-> +		       struct amdgpu_sync *sync, u64 k_job_id);
->  	int (*update)(struct amdgpu_vm_update_params *p,
->  		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
->  		      unsigned count, uint32_t incr, uint64_t flags);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> index 0c1ef5850a5e..22e2e5b47341 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> @@ -40,12 +40,14 @@ static int amdgpu_vm_cpu_map_table(struct amdgpu_bo_vm *table)
->   *
->   * @p: see amdgpu_vm_update_params definition
->   * @sync: sync obj with fences to wait on
-> + * @k_job_id: the id for tracing/debug purposes
->   *
->   * Returns:
->   * Negativ errno, 0 for success.
->   */
->  static int amdgpu_vm_cpu_prepare(struct amdgpu_vm_update_params *p,
-> -				 struct amdgpu_sync *sync)
-> +				 struct amdgpu_sync *sync,
-> +				 u64 k_job_id)
->  {
->  	if (!sync)
->  		return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 30022123b0bf..f794fb1cc06e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -26,6 +26,7 @@
->  #include "amdgpu.h"
->  #include "amdgpu_trace.h"
->  #include "amdgpu_vm.h"
-> +#include "amdgpu_job.h"
->  
->  /*
->   * amdgpu_vm_pt_cursor - state for for_each_amdgpu_vm_pt
-> @@ -395,7 +396,8 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	params.vm = vm;
->  	params.immediate = immediate;
->  
-> -	r = vm->update_funcs->prepare(&params, NULL);
-> +	r = vm->update_funcs->prepare(&params, NULL,
-> +				      AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR);
->  	if (r)
->  		goto exit;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> index 46d9fb433ab2..36805dcfa159 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> @@ -40,7 +40,7 @@ static int amdgpu_vm_sdma_map_table(struct amdgpu_bo_vm *table)
->  
->  /* Allocate a new job for @count PTE updates */
->  static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
-> -				    unsigned int count)
-> +				    unsigned int count, u64 k_job_id)
->  {
->  	enum amdgpu_ib_pool_type pool = p->immediate ? AMDGPU_IB_POOL_IMMEDIATE
->  		: AMDGPU_IB_POOL_DELAYED;
-> @@ -56,7 +56,7 @@ static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
->  	ndw = min(ndw, AMDGPU_VM_SDMA_MAX_NUM_DW);
->  
->  	r = amdgpu_job_alloc_with_ib(p->adev, entity, AMDGPU_FENCE_OWNER_VM,
-> -				     ndw * 4, pool, &p->job);
-> +				     ndw * 4, pool, &p->job, k_job_id);
->  	if (r)
->  		return r;
->  
-> @@ -69,16 +69,17 @@ static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
->   *
->   * @p: see amdgpu_vm_update_params definition
->   * @sync: amdgpu_sync object with fences to wait for
-> + * @k_job_id: identifier of the job, for tracing purpose
->   *
->   * Returns:
->   * Negativ errno, 0 for success.
->   */
->  static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
-> -				  struct amdgpu_sync *sync)
-> +				  struct amdgpu_sync *sync, u64 k_job_id)
->  {
->  	int r;
->  
-> -	r = amdgpu_vm_sdma_alloc_job(p, 0);
-> +	r = amdgpu_vm_sdma_alloc_job(p, 0, k_job_id);
->  	if (r)
->  		return r;
->  
-> @@ -249,7 +250,8 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
->  			if (r)
->  				return r;
->  
-> -			r = amdgpu_vm_sdma_alloc_job(p, count);
-> +			r = amdgpu_vm_sdma_alloc_job(p, count,
-> +						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
->  			if (r)
->  				return r;
->  		}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> index 1c07b701d0e4..ceb94bbb03a4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> @@ -217,7 +217,8 @@ static int uvd_v6_0_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t handle
->  	int i, r;
->  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
-> -				     AMDGPU_IB_POOL_DIRECT, &job);
-> +				     AMDGPU_IB_POOL_DIRECT, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> @@ -281,7 +282,8 @@ static int uvd_v6_0_enc_get_destroy_msg(struct amdgpu_ring *ring,
->  	int i, r;
->  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
-> -				     AMDGPU_IB_POOL_DIRECT, &job);
-> +				     AMDGPU_IB_POOL_DIRECT, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> index 9d237b5937fb..1f8866f3f63c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> @@ -225,7 +225,8 @@ static int uvd_v7_0_enc_get_create_msg(struct amdgpu_ring *ring, u32 handle,
->  	int i, r;
->  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
-> -				     AMDGPU_IB_POOL_DIRECT, &job);
-> +				     AMDGPU_IB_POOL_DIRECT, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> @@ -288,7 +289,8 @@ static int uvd_v7_0_enc_get_destroy_msg(struct amdgpu_ring *ring, u32 handle,
->  	int i, r;
->  
->  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
-> -				     AMDGPU_IB_POOL_DIRECT, &job);
-> +				     AMDGPU_IB_POOL_DIRECT, &job,
-> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
->  	if (r)
->  		return r;
->  
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 79251f22b702..683ff02c45af 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -68,7 +68,8 @@ svm_migrate_gart_map(struct amdgpu_ring *ring, uint64_t npages,
->  				     AMDGPU_FENCE_OWNER_UNDEFINED,
->  				     num_dw * 4 + num_bytes,
->  				     AMDGPU_IB_POOL_DELAYED,
-> -				     &job);
-> +				     &job,
-> +				     AMDGPU_KERNEL_JOB_ID_KFD_GART_MAP);
->  	if (r)
->  		return r;
+>  	TP_PROTO(struct dma_fence *fence),
 >  
 
