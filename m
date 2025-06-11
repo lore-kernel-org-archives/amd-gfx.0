@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB085C71147
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jun 2025 18:41:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8F1BC71149
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jun 2025 18:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8834110E6E1;
-	Wed, 11 Jun 2025 18:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F3DF10E6FD;
+	Wed, 11 Jun 2025 18:41:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nSghpuHN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jvdgBPh9";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2FEC10E6E4
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jun 2025 18:41:25 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D74B10E6E7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jun 2025 18:41:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NgMlWeSPti2di6pHskKDxUJIzkv9GL52SaD6qt2e3GsrOnyhbi7Ku8GyYYWWZnoNEWWeWZfy3CyekLDpzLJGfTU/0wYYQr0uVoSaQZEm0+7JLZUMAXPMguhqNlwsBcrGQDr20p0pfJ1j9ZnRRV61qGp9mhoOO8CHJu9r3LtF0oCxaa3JgmI2nqE0BV9dj1/JcHZo18E3WQ/wP2R2epRiC8BWeG2puKDcH9kMH1zaFFBmy2hBW/quxndjY543WjckHU8R2LnXAyh0TdwVauQDEK7vB76Phgy+5w7Hg90CZejVoiIWMZle/YV0AUEktQoLKSw9eQwNDIzuS0sfucx0mA==
+ b=UdnitWV0jH3MtIBh4RtikUE/SlUEyRq01XF7R8aG77IJyhMH8cAtN5yxw3iD1X2R+Bj/w/WaM8B0N/vHIOswukmdKCFayXl0OBi3KorUSBuVdNrmzy9jH5H7jY6sKfFoeO7Gv0w1GArEZNLL9BpAIfK6D3vn1TH2jfvZqQtWaqZmnPVXLKvhb89ukmnUHQF4ywHQfPaM7F+Kr7NSYwAmRaFtCWgOtDtKsZvBtoCUN1nIfQo9BZsOR+npDq16khWx8mLCHs7NxHVMl/04u0gLXvjGE9UiyCxCJVEEprBsV+FRlFwj6VpZWmcebk+JYt2Ia7PgTgpk/jFSvqdC1b+RqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fwgd6tNP0L6DbXk0kw9EIIZZZOHkJ7RA1v6lzARH6Gs=;
- b=BilAWUfam0RGytO9BOtvRw6ZKdYINKr6ZH26GRl8Ev6ttIqITk5r6avctHR+QaJK62ZdHjzXaf9ZdZ88Td2OasI+xwuWN6VUBPzLyVw0FMgPicpIQEnYuYuRuVpdOVvfnrW/4pGz4x5ANXmgsb4LjlPUIoQIU1cbFQl2RqMLFyShIgkcovyNqSX1FI7rU0kynCSm+gPtIu5PLir/URM/JprX3UxLk/Eq+orQr5Rp8FmptZDrobugFklB9gMg5pl0CpKJEyuAmaDWi5hdoobqyWrupqSxvFRx6BqgUw2YNlljxD3t2YPMdzhm6XT3W5DrgMh80j97HelduNcqjfGYxg==
+ bh=ZStQ6OWawQOjNzXaDFTQgYwv5wXLLETUnsNlTF9utXA=;
+ b=Yh/P3fH/WnGN0oYWBsi9DfAClU61XxgkkW+AjXkzXg6MsDvopgd6J65yevDqyF5mgVWlKoVt8dMje6ix5KYhvUzd6IUnB45EAaAXwrpFbPe/o9gZXoGe+cuXwEw+68GjpmaAxK6ArbmulYr+PCU8jP6ETpCT32XGe7C4vj5SLe+s+tPDvVErmDFfcBJSvIZqQ0LY/hpCF7/aVadNYJp3kVPvUryf9eVdZ8OjJl+GE5iL59nc32yNT7m7QXRnFRueKhWyztzeWsE+fvYtItXlwTnDn3lo6CtfYyoBy5RW7P/muA9X0CKlFcBpj+MBvqb4WiAowcyMC5lHqcj1DeCAQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fwgd6tNP0L6DbXk0kw9EIIZZZOHkJ7RA1v6lzARH6Gs=;
- b=nSghpuHNBytZ94gx8XoE7oS494udCYRPulUAhavvh9YdfCVNzWBulpOsDtJHEhBECuzq9iGD5u/N9Qp6dWrDZgJu9tjph6et554KJn46zsllce0UkJnVVwwnTd+2qAOZsDjcwiwN6DFPaNlPICsgJExgK+K3RtQB6jN/4QKmfe0=
-Received: from BN9PR03CA0620.namprd03.prod.outlook.com (2603:10b6:408:106::25)
- by MN2PR12MB4240.namprd12.prod.outlook.com (2603:10b6:208:1d3::14)
+ bh=ZStQ6OWawQOjNzXaDFTQgYwv5wXLLETUnsNlTF9utXA=;
+ b=jvdgBPh9wyB8JZJ+VFCXHTt2zyZOI7KopZ6uBiOamdHFr+IdVQP+dWBDvEZQVI8a00UiUC0YsZ+w1CECAbJgk0rJslt/TDfahbvxEL7rp7AZLW0L7iPXF0VAjfIjbcWndKsRbOb9dAppvicA4mvDaL3AnfWmrXtpFKP5PMPsMgk=
+Received: from BN8PR04CA0001.namprd04.prod.outlook.com (2603:10b6:408:70::14)
+ by CY8PR12MB7657.namprd12.prod.outlook.com (2603:10b6:930:9d::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.18; Wed, 11 Jun
- 2025 18:41:14 +0000
-Received: from BL6PEPF0001AB77.namprd02.prod.outlook.com
- (2603:10b6:408:106:cafe::dc) by BN9PR03CA0620.outlook.office365.com
- (2603:10b6:408:106::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.29 via Frontend Transport; Wed,
- 11 Jun 2025 18:41:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.39; Wed, 11 Jun
+ 2025 18:41:17 +0000
+Received: from BL02EPF00021F69.namprd02.prod.outlook.com
+ (2603:10b6:408:70:cafe::3a) by BN8PR04CA0001.outlook.office365.com
+ (2603:10b6:408:70::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.24 via Frontend Transport; Wed,
+ 11 Jun 2025 18:41:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB77.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.15 via Frontend Transport; Wed, 11 Jun 2025 18:41:13 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8835.15 via Frontend Transport; Wed, 11 Jun 2025 18:41:16 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Jun
- 2025 13:41:12 -0500
+ 2025 13:41:13 -0500
 Received: from aaurabin-z5-cachy.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Wed, 11 Jun 2025 13:41:12 -0500
+ via Frontend Transport; Wed, 11 Jun 2025 13:41:13 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,66 +66,65 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
  <alex.hung@amd.com>, Yan Li <yan.li@amd.com>, Nicholas Kazlauskas
  <nicholas.kazlauskas@amd.com>, Aric Cyr <aric.cyr@amd.com>
-Subject: [PATCH 01/10] drm/amd/display: apply two different methods to
- validate modes
-Date: Wed, 11 Jun 2025 14:39:51 -0400
-Message-ID: <20250611184111.517494-2-aurabindo.pillai@amd.com>
+Subject: [PATCH 02/10] drm/amd/display: remove use_native_pstate_optimization
+Date: Wed, 11 Jun 2025 14:39:52 -0400
+Message-ID: <20250611184111.517494-3-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250611184111.517494-1-aurabindo.pillai@amd.com>
 References: <20250611184111.517494-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
+Received-SPF: None (SATLEXMB03.amd.com: aurabindo.pillai@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB77:EE_|MN2PR12MB4240:EE_
-X-MS-Office365-Filtering-Correlation-Id: d855780c-6506-414b-8f3f-08dda9178afa
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|CY8PR12MB7657:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3ecc324c-9a9c-4280-d77e-08dda9178cb1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Vxkkcb9SjwGOjlg7U/JMwoA9xhEhdOxyMWFqHQQXNLMrYaPQNJFOL9p8d8Bz?=
- =?us-ascii?Q?mdRIEMSxeG5/KwfOT3pEg86y8S61c5n42QCnNmSuDr5Y9xrgVLTFPKbiYov3?=
- =?us-ascii?Q?ezY2X+yfZ4JOFx1HEHtLscjS8Y4bH3qHpBRJh/hRC7wNvpB4ZH59guXhX/KE?=
- =?us-ascii?Q?80ypi6kk33d/gBjwb//vILWNrtarwVjOUernpCHOd+kWb7t01y3KiP9qc4P8?=
- =?us-ascii?Q?h2vezYJLHlM0zHSqy9K6gnE44YVkfxLVRY2y3tkZD7pi9dFCO3o3yvPBNaOG?=
- =?us-ascii?Q?VNG7q/VFxtM0m171PuHBKtM5uMbaAKll7/4ApGpNGnh1hC6CBPDWlhyNycUI?=
- =?us-ascii?Q?41Kyd9joet7iQLk+pntBK0AEKhS5ifo3VXzyilUYWWFcGAehY9CoIyl5Hn33?=
- =?us-ascii?Q?Pzul73Y6yr/TMZbzVtPYXsqc7AC/vFrzpGo+MMhbj7f+AfAP4Dfx6dAcQDdo?=
- =?us-ascii?Q?LTqAjWjE1uCsqnds973tuRTqmf1MykY4B1kkfHbZpFOpxthlEQHXxg25fGcz?=
- =?us-ascii?Q?clRqc/94WVKJ+ySkI6q5wz0wD3mfieOy1dx9mXtXdYoxId//L53kzeJiz/Ps?=
- =?us-ascii?Q?rh5IVaoazm8d6TuvWP4w+hjgIrGqCEkRMLEu9OZP9xABYq2FPrt7TRb5fsJk?=
- =?us-ascii?Q?hhoQVQYf16IzqpYxY6hEzITIFm9Xk4KcIMRrFtfVSXcN26FeXLaU8x6A5Z/X?=
- =?us-ascii?Q?4qevlK9plDamBMSIBYb9ungMIqarMfxm9drgfRyoYfI33DWlb5V/td/caUZX?=
- =?us-ascii?Q?CAgnlen69fEzAAALi3mD8zHXP8tsWN0nuKRE2DLrLFk8WShu7E5WrO5Wqh8R?=
- =?us-ascii?Q?hXiuY7IhIya6nhADJjgV1WDsfx5ihx1txEHmPgsU9RjqWXl3EJ67MBCg2VYi?=
- =?us-ascii?Q?QsQBdSl2XYlHKk22VUuqG++cra6kR43RJoLqzYCcZ9OeP+gFgmTcL1JYUN0d?=
- =?us-ascii?Q?sGsRCGBueyIeaaKm9Kh02TT+0AcEzLFpgYmFAkNm2m8p940GGRPchfC+1OjH?=
- =?us-ascii?Q?CvDhP9QEWuq+A6JRR5nvWtWrkbpGdqbIBnr47b6CpIKUubdqpfUNpG8CN72E?=
- =?us-ascii?Q?XH6IFtSkZ/xhPDyp6vbEuW+ShbgC5+1e6zjQG0iCmbpItHjS9MNgL4lAk/t1?=
- =?us-ascii?Q?7wrcn107tM/amr/kg52NQYuA9+loHk6+UHKFr1jXsnBuEbTN6sk/7zMk1kPS?=
- =?us-ascii?Q?OwzqwHztzDnBSRKQryZlTgRQq4pUFbIp8lNd4PQ+9RQr7LsndGL5J404dXMi?=
- =?us-ascii?Q?VCWF6oxmNk3P2G57WYGGWmHeV9jOd/IKVo9l0Ejo6CGEqjxq7v3cUI1JJaih?=
- =?us-ascii?Q?0TKoJsgrkE5xXdaQePiAk0RZrsAxptyPLVPZVsHPLHAS5vOf9pThbGE+LmEe?=
- =?us-ascii?Q?V9QM1NDKxCL/pNDT9QRruK2RnVb6GX4PKI3r7xS7pRd4lZGRXA+TnnBCKYl8?=
- =?us-ascii?Q?TKM8X73Db7lX9NlHU4Xvg6Idm45BAkWJIuRI4sexCqaMgiaFF3REylhdVPn7?=
- =?us-ascii?Q?sAVVljm/tWdttggL9Cw51H/6ONGYlipK3Mzi?=
+ ARA:13230040|82310400026|36860700013|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?llp7fC5LyPUmcb/QvfUCqj5dmsiset+ESRlo8bWrEndbdSUaIR0Wh99G9aTR?=
+ =?us-ascii?Q?r7bkYd1HLOcJQrqlmsSuCBgk9h4t4iDggYV2tkto+5bb5LNzYCI9VDtrGxWC?=
+ =?us-ascii?Q?L/WxU6PO9/xX0XzabyVkIROn6WEHJt8gIjRu8UDYQiOW8iv/F6m9QpBnK7so?=
+ =?us-ascii?Q?tL4lKQhnBNDRFMxzuh4PZtUi9I0wv3WTznTEdDVFHRqiwBoNcen0eqJWGMBf?=
+ =?us-ascii?Q?odxGCh2DOc5oy0/UPhmhEa4wXIq/oiCgSE9LdkPwwbI1brH+mSoBiADR3mV6?=
+ =?us-ascii?Q?8O/W54Ib56dCgMlAO0WGrwflok/sKKCnyPiQjCvM9hi1xC+S1AKM9e7DHCt4?=
+ =?us-ascii?Q?sonFSbr5t8D2p2vndRzFx7QaNDDGZY2w0MvS0SJqLM6dH5ABAwcasdnnyWFa?=
+ =?us-ascii?Q?H2Uv0z5+im8iKOr+8XmBXkv+8jitlsaM49UhSHPANG2PTG+YSZust0L6dNfo?=
+ =?us-ascii?Q?AMDRxLZG6ox/YsHIffth7iFptsWX4DFWZ2rjwDRh9ou7WC8ooxZpuIMGFXvQ?=
+ =?us-ascii?Q?w2cQAwfCt0koiHmsLieBsgdBSD/xf8H2fw/5AahvoopX9lXmjwF/LZ3ZTh5h?=
+ =?us-ascii?Q?Srz8xcbFQjy02a6bDsR3TUbW/Br0Mu01HNnIDwbrIh/zWErLy+Jaa7CWRn+x?=
+ =?us-ascii?Q?AtgcHyDhsofJ3pgGCPVN5HvdoxK67MSahlB2Y4IZA0PX8x6iCJA9m1FuspTJ?=
+ =?us-ascii?Q?6h7Ue2oVLO3YBQ8u5O7qMUCIBbGrIHjANRzGNQU5osn/993svo82jX99suTo?=
+ =?us-ascii?Q?dy9iA0D4TkS2d/RI5BfUyViMJNDsXI7Y/tH5d7YNpQ8e38zK/6lAhNSkFNTr?=
+ =?us-ascii?Q?2xA1avOHtjaLGErOrrGMJcP5eGPqmO2b+xzwWyoyqVjd2Sqr/KXrdl+ohy+F?=
+ =?us-ascii?Q?glEV7wibu1HI5wUuM/ILoz5iDzWAQFt48qbq+YskVlTUkKGzLV+10NqFx7O4?=
+ =?us-ascii?Q?+dsrSfMgq+Xu2pUe3RfDZjs3/YiflcYwGMnNUGZLXFeoFyxe1R8u118/soPU?=
+ =?us-ascii?Q?95TvnGqdoRvFt9cy8XgUMyMdjj4rnRRTcvvmNfyn19vlfOJE38oHcygKJFai?=
+ =?us-ascii?Q?UGKXVBvKHtsSUt6FCm7jeSsRxb116zAVyetOk/v8rT3MxRYHs0JJBdSoYGFt?=
+ =?us-ascii?Q?sW9NaI5PPZBz5kdX7c1moLReiyLfFthm8dJYE8LaZyXcf7xpDySjr2EguIdW?=
+ =?us-ascii?Q?h0dfJiJ9wjtCZdCg0KWeV9Ve3VNsqTVNs9DF9xAiBLEQUwiOVmHR+rHBU0gD?=
+ =?us-ascii?Q?MwXOOegwi/kF0mU5anhIDbaUz+fw5M76mwNej+TemBsTmW98NzyF6u7h3sdS?=
+ =?us-ascii?Q?kwTldtdf1+nZx2dP2jK/m3lTVzU8C483mXjF3rfk2v9suY9wqEXqChrTkaSC?=
+ =?us-ascii?Q?2PGC744TgJE5MQ8VCvoIE9sQLX5DLV7FMJvbuY39+SwbixPCg4ViNfOs3Ox8?=
+ =?us-ascii?Q?ERznUtVIrIVszglliccJA++phdPaOTZVfKaDu39+guzwsGdWl0C9sIasuK8K?=
+ =?us-ascii?Q?0VzAv6HkD7f0CHniP+vVxSWBoCY8ilPzQdbA?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2025 18:41:13.7065 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d855780c-6506-414b-8f3f-08dda9178afa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2025 18:41:16.5837 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ecc324c-9a9c-4280-d77e-08dda9178cb1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB77.namprd02.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F69.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4240
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7657
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,286 +142,369 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Yan Li <yan.li@amd.com>
 
 [Why]
-In DML2, the current method to determine a
-mode is supported involves checking the
-voltage levels sequentially from the lowest,
-until one is found that can support the
-mode. It causes cursor lag due to low
-performance.
+In DML2 (not DML2.1), DCN35 and DCN351 have the
+default value for use_native_pstate_optimization
+set to true. The code path where this bit is
+false is not used.
 
 [How]
-We apply two methods for mode validation.
-1) DC_VALIDATE_MODE_ONLY: only the
-maximum voltage level is checked to
-determine whether the mode is supported, which
-improves performance and eliminate cursor lag.
-
-2) DC_VALIDATE_MODE_AND_STATE_INDEX: when
-the optimal voltage level is required, check
-the voltage level from the lowest until
-a suitable one is found found and returns
-its index.
+Remove the bit and the corresponding code path
+when it is set to false.
 
 Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Reviewed-by: Aric Cyr <aric.cyr@amd.com>
 Signed-off-by: Yan Li <yan.li@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../amd/display/dc/dml2/display_mode_core.c   |  2 +-
- .../dc/dml2/display_mode_core_structs.h       |  1 +
- .../drm/amd/display/dc/dml2/dml2_wrapper.c    | 64 ++++++++++++-------
- 3 files changed, 42 insertions(+), 25 deletions(-)
+ .../display/dc/dml2/dml2_translation_helper.c |  19 --
+ .../drm/amd/display/dc/dml2/dml2_wrapper.c    | 198 +-----------------
+ .../dc/resource/dcn32/dcn32_resource.c        |   1 -
+ .../dc/resource/dcn321/dcn321_resource.c      |   1 -
+ .../dc/resource/dcn35/dcn35_resource.c        |   1 -
+ .../dc/resource/dcn351/dcn351_resource.c      |   1 -
+ .../dc/resource/dcn36/dcn36_resource.c        |   1 -
+ .../dc/resource/dcn401/dcn401_resource.c      |   1 -
+ 8 files changed, 3 insertions(+), 220 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-index 7ae9c0ba0c9e..715f9019a33e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-@@ -10189,7 +10189,7 @@ dml_uint_t dml_mode_support_ex(struct dml_mode_support_ex_params_st *in_out_para
- 	result = mode_support_pwr_states(&in_out_params->out_lowest_state_idx,
- 		in_out_params->mode_lib,
- 		in_out_params->in_display_cfg,
--		0,
-+		in_out_params->in_start_state_idx,
- 		in_out_params->mode_lib->states.num_states - 1);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+index 208630754c8a..3b866e876bf4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+@@ -1189,22 +1189,6 @@ static unsigned int map_plane_to_dml_display_cfg(const struct dml2_context *dml2
+ 	return location;
+ }
  
- 	if (result)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-index 0670e4dc4fd9..dbeb08466092 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-@@ -1917,6 +1917,7 @@ struct display_mode_lib_st {
- struct dml_mode_support_ex_params_st {
- 	struct display_mode_lib_st *mode_lib;
- 	const struct dml_display_cfg_st *in_display_cfg;
-+	dml_uint_t in_start_state_idx;
- 	dml_uint_t out_lowest_state_idx;
- 	struct dml_mode_support_info_st *out_evaluation_info;
- };
+-static void apply_legacy_svp_drr_settings(struct dml2_context *dml2, const struct dc_state *state, struct dml_display_cfg_st *dml_dispcfg)
+-{
+-	int i;
+-
+-	if (state->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
+-		ASSERT(state->stream_count == 1);
+-		dml_dispcfg->timing.DRRDisplay[0] = true;
+-	} else if (state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index_valid) {
+-
+-		for (i = 0; i < dml_dispcfg->num_timings; i++) {
+-			if (dml2->v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_stream_id[i] == state->streams[state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index]->stream_id)
+-				dml_dispcfg->timing.DRRDisplay[i] = true;
+-		}
+-	}
+-}
+-
+ static void dml2_populate_pipe_to_plane_index_mapping(struct dml2_context *dml2, struct dc_state *state)
+ {
+ 	unsigned int i;
+@@ -1437,9 +1421,6 @@ void map_dc_state_into_dml_display_cfg(struct dml2_context *dml2, struct dc_stat
+ 			}
+ 		}
+ 	}
+-
+-	if (!dml2->config.use_native_pstate_optimization)
+-		apply_legacy_svp_drr_settings(dml2, context, dml_dispcfg);
+ }
+ 
+ void dml2_update_pipe_ctx_dchub_regs(struct _vcs_dpi_dml_display_rq_regs_st *rq_regs,
 diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-index b8c0ece7bb22..6c7e8aa85e7b 100644
+index 6c7e8aa85e7b..0524a33a88b3 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-@@ -93,12 +93,17 @@ static void map_hw_resources(struct dml2_context *dml2,
- 
- static unsigned int pack_and_call_dml_mode_support_ex(struct dml2_context *dml2,
- 	const struct dml_display_cfg_st *display_cfg,
--	struct dml_mode_support_info_st *evaluation_info)
-+	struct dml_mode_support_info_st *evaluation_info,
-+	enum dc_validate_mode validate_mode)
+@@ -115,10 +115,8 @@ static unsigned int pack_and_call_dml_mode_support_ex(struct dml2_context *dml2,
+ static bool optimize_configuration(struct dml2_context *dml2, struct dml2_wrapper_optimize_configuration_params *p)
  {
- 	struct dml2_wrapper_scratch *s = &dml2->v20.scratch;
+ 	int unused_dpps = p->ip_params->max_num_dpp;
+-	int i, j;
+-	int odms_needed, refresh_rate_hz, dpps_needed, subvp_height, pstate_width_fw_delay_lines, surface_count;
+-	int subvp_timing_to_add, new_timing_index, subvp_surface_to_add, new_surface_index;
+-	float frame_time_sec, max_frame_time_sec;
++	int i;
++	int odms_needed;
+ 	int largest_blend_and_timing = 0;
+ 	bool optimization_done = false;
  
- 	s->mode_support_params.mode_lib = &dml2->v20.dml_core_ctx;
- 	s->mode_support_params.in_display_cfg = display_cfg;
-+	if (validate_mode == DC_VALIDATE_MODE_ONLY)
-+		s->mode_support_params.in_start_state_idx = dml2->v20.dml_core_ctx.states.num_states - 1;
-+	else
-+		s->mode_support_params.in_start_state_idx = 0;
- 	s->mode_support_params.out_evaluation_info = evaluation_info;
+@@ -133,79 +131,6 @@ static bool optimize_configuration(struct dml2_context *dml2, struct dml2_wrappe
+ 	if (p->new_display_config != p->cur_display_config)
+ 		*p->new_display_config = *p->cur_display_config;
  
- 	memset(evaluation_info, 0, sizeof(struct dml_mode_support_info_st));
-@@ -224,7 +229,8 @@ static bool optimize_configuration(struct dml2_context *dml2, struct dml2_wrappe
- 	return optimization_done;
- }
+-	// Optimize P-State Support
+-	if (dml2->config.use_native_pstate_optimization) {
+-		if (p->cur_mode_support_info->DRAMClockChangeSupport[0] == dml_dram_clock_change_unsupported) {
+-			// Find a display with < 120Hz refresh rate with maximal refresh rate that's not already subvp
+-			subvp_timing_to_add = -1;
+-			subvp_surface_to_add = -1;
+-			max_frame_time_sec = 0;
+-			surface_count = 0;
+-			for (i = 0; i < (int) p->cur_display_config->num_timings; i++) {
+-				refresh_rate_hz = (int)div_u64((unsigned long long) p->cur_display_config->timing.PixelClock[i] * 1000 * 1000,
+-					(p->cur_display_config->timing.HTotal[i] * p->cur_display_config->timing.VTotal[i]));
+-				if (refresh_rate_hz < 120) {
+-					// Check its upstream surfaces to see if this one could be converted to subvp.
+-					dpps_needed = 0;
+-				for (j = 0; j < (int) p->cur_display_config->num_surfaces; j++) {
+-					if (p->cur_display_config->plane.BlendingAndTiming[j] == i &&
+-						p->cur_display_config->plane.UseMALLForPStateChange[j] == dml_use_mall_pstate_change_disable) {
+-						dpps_needed += p->cur_mode_support_info->DPPPerSurface[j];
+-						subvp_surface_to_add = j;
+-						surface_count++;
+-					}
+-				}
+-
+-				if (surface_count == 1 && dpps_needed > 0 && dpps_needed <= unused_dpps) {
+-					frame_time_sec = (float)1 / refresh_rate_hz;
+-					if (frame_time_sec > max_frame_time_sec) {
+-						max_frame_time_sec = frame_time_sec;
+-						subvp_timing_to_add = i;
+-						}
+-					}
+-				}
+-			}
+-			if (subvp_timing_to_add >= 0) {
+-				new_timing_index = p->new_display_config->num_timings++;
+-				new_surface_index = p->new_display_config->num_surfaces++;
+-				// Add a phantom pipe reflecting the main pipe's timing
+-				dml2_util_copy_dml_timing(&p->new_display_config->timing, new_timing_index, subvp_timing_to_add);
+-
+-				pstate_width_fw_delay_lines = (int)(((double)(p->config->svp_pstate.subvp_fw_processing_delay_us +
+-					p->config->svp_pstate.subvp_pstate_allow_width_us) / 1000000) *
+-				(p->new_display_config->timing.PixelClock[subvp_timing_to_add] * 1000 * 1000) /
+-				(double)p->new_display_config->timing.HTotal[subvp_timing_to_add]);
+-
+-				subvp_height = p->cur_mode_support_info->SubViewportLinesNeededInMALL[subvp_timing_to_add] + pstate_width_fw_delay_lines;
+-
+-				p->new_display_config->timing.VActive[new_timing_index] = subvp_height;
+-				p->new_display_config->timing.VTotal[new_timing_index] = subvp_height +
+-				p->new_display_config->timing.VTotal[subvp_timing_to_add] - p->new_display_config->timing.VActive[subvp_timing_to_add];
+-
+-				p->new_display_config->output.OutputDisabled[new_timing_index] = true;
+-
+-				p->new_display_config->plane.UseMALLForPStateChange[subvp_surface_to_add] = dml_use_mall_pstate_change_sub_viewport;
+-
+-				dml2_util_copy_dml_plane(&p->new_display_config->plane, new_surface_index, subvp_surface_to_add);
+-				dml2_util_copy_dml_surface(&p->new_display_config->surface, new_surface_index, subvp_surface_to_add);
+-
+-				p->new_display_config->plane.ViewportHeight[new_surface_index] = subvp_height;
+-				p->new_display_config->plane.ViewportHeightChroma[new_surface_index] = subvp_height;
+-				p->new_display_config->plane.ViewportStationary[new_surface_index] = false;
+-
+-				p->new_display_config->plane.UseMALLForStaticScreen[new_surface_index] = dml_use_mall_static_screen_disable;
+-				p->new_display_config->plane.UseMALLForPStateChange[new_surface_index] = dml_use_mall_pstate_change_phantom_pipe;
+-
+-				p->new_display_config->plane.NumberOfCursors[new_surface_index] = 0;
+-
+-				p->new_policy->ImmediateFlipRequirement[new_surface_index] = dml_immediate_flip_not_required;
+-
+-				p->new_display_config->plane.BlendingAndTiming[new_surface_index] = new_timing_index;
+-
+-				optimization_done = true;
+-			}
+-		}
+-	}
  
--static int calculate_lowest_supported_state_for_temp_read(struct dml2_context *dml2, struct dc_state *display_state)
-+static int calculate_lowest_supported_state_for_temp_read(struct dml2_context *dml2, struct dc_state *display_state,
-+		enum dc_validate_mode validate_mode)
- {
- 	struct dml2_calculate_lowest_supported_state_for_temp_read_scratch *s = &dml2->v20.scratch.dml2_calculate_lowest_supported_state_for_temp_read_scratch;
- 	struct dml2_wrapper_scratch *s_global = &dml2->v20.scratch;
-@@ -266,7 +272,8 @@ static int calculate_lowest_supported_state_for_temp_read(struct dml2_context *d
- 			dml2->v20.dml_core_ctx.states.state_array[j].dram_clock_change_latency_us = s_global->dummy_pstate_table[i].dummy_pstate_latency_us;
- 		}
- 
--		dml_result = pack_and_call_dml_mode_support_ex(dml2, &s->cur_display_config, &s->evaluation_info);
-+		dml_result = pack_and_call_dml_mode_support_ex(dml2, &s->cur_display_config, &s->evaluation_info,
-+						validate_mode);
- 
- 		if (dml_result && s->evaluation_info.DRAMClockChangeSupport[0] == dml_dram_clock_change_vactive) {
- 			map_hw_resources(dml2, &s->cur_display_config, &s->evaluation_info);
-@@ -331,7 +338,8 @@ static bool does_configuration_meet_sw_policies(struct dml2_context *ctx, const
- }
- 
- static bool dml_mode_support_wrapper(struct dml2_context *dml2,
--		struct dc_state *display_state)
-+		struct dc_state *display_state,
-+		enum dc_validate_mode validate_mode)
- {
- 	struct dml2_wrapper_scratch *s = &dml2->v20.scratch;
- 	unsigned int result = 0, i;
-@@ -367,7 +375,8 @@ static bool dml_mode_support_wrapper(struct dml2_context *dml2,
- 
- 	result = pack_and_call_dml_mode_support_ex(dml2,
- 		&s->cur_display_config,
--		&s->mode_support_info);
-+		&s->mode_support_info,
-+		validate_mode);
- 
- 	if (result)
- 		result = does_configuration_meet_sw_policies(dml2, &s->cur_display_config, &s->mode_support_info);
-@@ -388,7 +397,8 @@ static bool dml_mode_support_wrapper(struct dml2_context *dml2,
- 			dml2->v20.dml_core_ctx.policy = s->new_policy;
- 			optimized_result = pack_and_call_dml_mode_support_ex(dml2,
- 				&s->new_display_config,
--				&s->mode_support_info);
-+				&s->mode_support_info,
-+				validate_mode);
- 
- 			if (optimized_result)
- 				optimized_result = does_configuration_meet_sw_policies(dml2, &s->new_display_config, &s->mode_support_info);
-@@ -407,7 +417,8 @@ static bool dml_mode_support_wrapper(struct dml2_context *dml2,
- 		if (!optimized_result) {
- 			result = pack_and_call_dml_mode_support_ex(dml2,
- 				&s->cur_display_config,
--				&s->mode_support_info);
-+				&s->mode_support_info,
-+				validate_mode);
- 		}
- 	}
- 
-@@ -432,7 +443,8 @@ static int find_drr_eligible_stream(struct dc_state *display_state)
- 	return -1;
- }
- 
--static bool optimize_pstate_with_svp_and_drr(struct dml2_context *dml2, struct dc_state *display_state)
-+static bool optimize_pstate_with_svp_and_drr(struct dml2_context *dml2, struct dc_state *display_state,
-+		enum dc_validate_mode validate_mode)
- {
- 	struct dml2_wrapper_scratch *s = &dml2->v20.scratch;
- 	bool pstate_optimization_done = false;
-@@ -444,7 +456,7 @@ static bool optimize_pstate_with_svp_and_drr(struct dml2_context *dml2, struct d
- 	display_state->bw_ctx.bw.dcn.clk.fw_based_mclk_switching = false;
- 	display_state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index_valid = false;
- 
--	result = dml_mode_support_wrapper(dml2, display_state);
-+	result = dml_mode_support_wrapper(dml2, display_state, validate_mode);
- 
- 	if (!result) {
- 		pstate_optimization_done = true;
-@@ -456,7 +468,7 @@ static bool optimize_pstate_with_svp_and_drr(struct dml2_context *dml2, struct d
- 	if (display_state->stream_count == 1 && dml2->config.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch(dml2->config.callbacks.dc, display_state)) {
- 			display_state->bw_ctx.bw.dcn.clk.fw_based_mclk_switching = true;
- 
--			result = dml_mode_support_wrapper(dml2, display_state);
-+			result = dml_mode_support_wrapper(dml2, display_state, validate_mode);
- 	} else {
- 		non_svp_streams = display_state->stream_count;
- 
-@@ -471,7 +483,7 @@ static bool optimize_pstate_with_svp_and_drr(struct dml2_context *dml2, struct d
- 
- 
- 			if (result) {
--				result = dml_mode_support_wrapper(dml2, display_state);
-+				result = dml_mode_support_wrapper(dml2, display_state, validate_mode);
- 			} else {
- 				pstate_optimization_done = true;
- 			}
-@@ -496,7 +508,8 @@ static bool optimize_pstate_with_svp_and_drr(struct dml2_context *dml2, struct d
- 						if (dml2_svp_drr_schedulable(dml2, display_state, &display_state->streams[drr_display_index]->timing)) {
- 							display_state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index_valid = true;
- 							display_state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index = drr_display_index;
--							result = dml_mode_support_wrapper(dml2, display_state);
-+							result = dml_mode_support_wrapper(dml2, display_state,
-+										validate_mode);
- 						}
- 
- 						if (result && s->mode_support_info.DRAMClockChangeSupport[0] != dml_dram_clock_change_unsupported) {
-@@ -522,13 +535,13 @@ static bool optimize_pstate_with_svp_and_drr(struct dml2_context *dml2, struct d
- 		dml2_svp_remove_all_phantom_pipes(dml2, display_state);
- 		display_state->bw_ctx.bw.dcn.clk.fw_based_mclk_switching = false;
- 		display_state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index_valid = false;
--		result = dml_mode_support_wrapper(dml2, display_state);
-+		result = dml_mode_support_wrapper(dml2, display_state, validate_mode);
- 	}
- 
+ 	// Optimize Clocks
+ 	if (!optimization_done) {
+@@ -428,119 +353,6 @@ static bool dml_mode_support_wrapper(struct dml2_context *dml2,
  	return result;
  }
  
--static bool call_dml_mode_support_and_programming(struct dc_state *context)
-+static bool call_dml_mode_support_and_programming(struct dc_state *context, enum dc_validate_mode validate_mode)
+-static int find_drr_eligible_stream(struct dc_state *display_state)
+-{
+-	int i;
+-
+-	for (i = 0; i < display_state->stream_count; i++) {
+-		if (dc_state_get_stream_subvp_type(display_state, display_state->streams[i]) == SUBVP_NONE
+-			&& display_state->streams[i]->ignore_msa_timing_param) {
+-			// Use ignore_msa_timing_param flag to identify as DRR
+-			return i;
+-		}
+-	}
+-
+-	return -1;
+-}
+-
+-static bool optimize_pstate_with_svp_and_drr(struct dml2_context *dml2, struct dc_state *display_state,
+-		enum dc_validate_mode validate_mode)
+-{
+-	struct dml2_wrapper_scratch *s = &dml2->v20.scratch;
+-	bool pstate_optimization_done = false;
+-	bool pstate_optimization_success = false;
+-	bool result = false;
+-	int drr_display_index = 0, non_svp_streams = 0;
+-	bool force_svp = dml2->config.svp_pstate.force_enable_subvp;
+-
+-	display_state->bw_ctx.bw.dcn.clk.fw_based_mclk_switching = false;
+-	display_state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index_valid = false;
+-
+-	result = dml_mode_support_wrapper(dml2, display_state, validate_mode);
+-
+-	if (!result) {
+-		pstate_optimization_done = true;
+-	} else if (s->mode_support_info.DRAMClockChangeSupport[0] != dml_dram_clock_change_unsupported && !force_svp) {
+-		pstate_optimization_success = true;
+-		pstate_optimization_done = true;
+-	}
+-
+-	if (display_state->stream_count == 1 && dml2->config.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch(dml2->config.callbacks.dc, display_state)) {
+-			display_state->bw_ctx.bw.dcn.clk.fw_based_mclk_switching = true;
+-
+-			result = dml_mode_support_wrapper(dml2, display_state, validate_mode);
+-	} else {
+-		non_svp_streams = display_state->stream_count;
+-
+-		while (!pstate_optimization_done) {
+-			result = dml_mode_programming(&dml2->v20.dml_core_ctx, s->mode_support_params.out_lowest_state_idx, &s->cur_display_config, true);
+-
+-			// Always try adding SVP first
+-			if (result)
+-				result = dml2_svp_add_phantom_pipe_to_dc_state(dml2, display_state, &s->mode_support_info);
+-			else
+-				pstate_optimization_done = true;
+-
+-
+-			if (result) {
+-				result = dml_mode_support_wrapper(dml2, display_state, validate_mode);
+-			} else {
+-				pstate_optimization_done = true;
+-			}
+-
+-			if (result) {
+-				non_svp_streams--;
+-
+-				if (s->mode_support_info.DRAMClockChangeSupport[0] != dml_dram_clock_change_unsupported) {
+-					if (dml2_svp_validate_static_schedulability(dml2, display_state, s->mode_support_info.DRAMClockChangeSupport[0])) {
+-						pstate_optimization_success = true;
+-						pstate_optimization_done = true;
+-					} else {
+-						pstate_optimization_success = false;
+-						pstate_optimization_done = false;
+-					}
+-				} else {
+-					drr_display_index = find_drr_eligible_stream(display_state);
+-
+-					// If there is only 1 remaining non SubVP pipe that is DRR, check static
+-					// schedulability for SubVP + DRR.
+-					if (non_svp_streams == 1 && drr_display_index >= 0) {
+-						if (dml2_svp_drr_schedulable(dml2, display_state, &display_state->streams[drr_display_index]->timing)) {
+-							display_state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index_valid = true;
+-							display_state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index = drr_display_index;
+-							result = dml_mode_support_wrapper(dml2, display_state,
+-										validate_mode);
+-						}
+-
+-						if (result && s->mode_support_info.DRAMClockChangeSupport[0] != dml_dram_clock_change_unsupported) {
+-							pstate_optimization_success = true;
+-							pstate_optimization_done = true;
+-						} else {
+-							pstate_optimization_success = false;
+-							pstate_optimization_done = false;
+-						}
+-					}
+-
+-					if (pstate_optimization_success) {
+-						pstate_optimization_done = true;
+-					} else {
+-						pstate_optimization_done = false;
+-					}
+-				}
+-			}
+-		}
+-	}
+-
+-	if (!pstate_optimization_success) {
+-		dml2_svp_remove_all_phantom_pipes(dml2, display_state);
+-		display_state->bw_ctx.bw.dcn.clk.fw_based_mclk_switching = false;
+-		display_state->bw_ctx.bw.dcn.legacy_svp_drr_stream_index_valid = false;
+-		result = dml_mode_support_wrapper(dml2, display_state, validate_mode);
+-	}
+-
+-	return result;
+-}
+-
+ static bool call_dml_mode_support_and_programming(struct dc_state *context, enum dc_validate_mode validate_mode)
  {
  	unsigned int result = 0;
- 	unsigned int min_state = 0;
-@@ -542,15 +555,16 @@ static bool call_dml_mode_support_and_programming(struct dc_state *context)
- 	struct dml2_wrapper_scratch *s = &dml2->v20.scratch;
- 
- 	if (!context->streams[0]->sink->link->dc->caps.is_apu) {
--		min_state_for_g6_temp_read = calculate_lowest_supported_state_for_temp_read(dml2, context);
-+		min_state_for_g6_temp_read = calculate_lowest_supported_state_for_temp_read(dml2, context,
-+										validate_mode);
- 
+@@ -561,11 +373,7 @@ static bool call_dml_mode_support_and_programming(struct dc_state *context, enum
  		ASSERT(min_state_for_g6_temp_read >= 0);
  	}
  
- 	if (!dml2->config.use_native_pstate_optimization) {
--		result = optimize_pstate_with_svp_and_drr(dml2, context);
-+		result = optimize_pstate_with_svp_and_drr(dml2, context, validate_mode);
- 	} else {
--		result = dml_mode_support_wrapper(dml2, context);
-+		result = dml_mode_support_wrapper(dml2, context, validate_mode);
- 	}
+-	if (!dml2->config.use_native_pstate_optimization) {
+-		result = optimize_pstate_with_svp_and_drr(dml2, context, validate_mode);
+-	} else {
+-		result = dml_mode_support_wrapper(dml2, context, validate_mode);
+-	}
++	result = dml_mode_support_wrapper(dml2, context, validate_mode);
  
  	/* Upon trying to sett certain frequencies in FRL, min_state_for_g6_temp_read is reported as -1. This leads to an invalid value of min_state causing crashes later on.
-@@ -573,7 +587,8 @@ static bool call_dml_mode_support_and_programming(struct dc_state *context)
- 	return result;
- }
+ 	 * Use the default logic for min_state only when min_state_for_g6_temp_read is a valid value. In other cases, use the value calculated by the DML directly.
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index d2d321eec221..9ffa10189eee 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -2514,7 +2514,6 @@ static bool dcn32_resource_construct(
+ 	}
  
--static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_state *context)
-+static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_state *context,
-+		enum dc_validate_mode validate_mode)
- {
- 	struct dml2_context *dml2 = context->bw_ctx.dml2;
- 	struct dml2_wrapper_scratch *s = &dml2->v20.scratch;
-@@ -609,7 +624,7 @@ static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_s
+ 	dc->dml2_options.dcn_pipe_count = pool->base.pipe_count;
+-	dc->dml2_options.use_native_pstate_optimization = false;
+ 	dc->dml2_options.use_native_soc_bb_construction = true;
+ 	dc->dml2_options.minimize_dispclk_using_odm = true;
  
- 	copy_dummy_pstate_table(s->dummy_pstate_table, in_dc->clk_mgr->bw_params->dummy_pstate_table, 4);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+index c2f12030928f..c53266e16c58 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+@@ -2013,7 +2013,6 @@ static bool dcn321_resource_construct(
+ 	}
  
--	result = call_dml_mode_support_and_programming(context);
-+	result = call_dml_mode_support_and_programming(context, validate_mode);
- 	/* Call map dc pipes to map the pipes based on the DML output. For correctly determining if recalculation
- 	 * is required or not, the resource context needs to correctly reflect the number of active pipes. We would
- 	 * only know the correct number if active pipes after dml2_map_dc_pipes is called.
-@@ -626,7 +641,7 @@ static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_s
- 		need_recalculation = dml2_verify_det_buffer_configuration(dml2, context, &dml2->det_helper_scratch);
- 		if (need_recalculation) {
- 			/* Engage the DML again if recalculation is required. */
--			call_dml_mode_support_and_programming(context);
-+			call_dml_mode_support_and_programming(context, validate_mode);
- 			if (!dml2->config.skip_hw_state_mapping) {
- 				dml2_map_dc_pipes(dml2, context, &s->cur_display_config, &s->dml_to_dc_pipe_mapping, in_dc->current_state);
- 			}
-@@ -682,7 +697,7 @@ static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_s
- 	return result;
- }
+ 	dc->dml2_options.dcn_pipe_count = pool->base.pipe_count;
+-	dc->dml2_options.use_native_pstate_optimization = false;
+ 	dc->dml2_options.use_native_soc_bb_construction = true;
+ 	dc->dml2_options.minimize_dispclk_using_odm = true;
  
--static bool dml2_validate_only(struct dc_state *context)
-+static bool dml2_validate_only(struct dc_state *context, enum dc_validate_mode validate_mode)
- {
- 	struct dml2_context *dml2;
- 	unsigned int result = 0;
-@@ -706,7 +721,8 @@ static bool dml2_validate_only(struct dc_state *context)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index 353189ac0d53..145c66898577 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -2157,7 +2157,6 @@ static bool dcn35_resource_construct(
+ 	dc->dcn_ip->max_num_dpp = pool->base.pipe_count;
  
- 	result = pack_and_call_dml_mode_support_ex(dml2,
- 		&dml2->v20.scratch.cur_display_config,
--		&dml2->v20.scratch.mode_support_info);
-+		&dml2->v20.scratch.mode_support_info,
-+		validate_mode);
+ 	dc->dml2_options.dcn_pipe_count = pool->base.pipe_count;
+-	dc->dml2_options.use_native_pstate_optimization = true;
+ 	dc->dml2_options.use_native_soc_bb_construction = true;
+ 	dc->dml2_options.minimize_dispclk_using_odm = false;
+ 	if (dc->config.EnableMinDispClkODM)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index f9fd36567130..dfd5aa6ba165 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -2129,7 +2129,6 @@ static bool dcn351_resource_construct(
+ 	dc->dcn_ip->max_num_dpp = pool->base.pipe_count;
  
- 	if (result)
- 		result = does_configuration_meet_sw_policies(dml2, &dml2->v20.scratch.cur_display_config, &dml2->v20.scratch.mode_support_info);
-@@ -740,9 +756,9 @@ bool dml2_validate(const struct dc *in_dc, struct dc_state *context, struct dml2
+ 	dc->dml2_options.dcn_pipe_count = pool->base.pipe_count;
+-	dc->dml2_options.use_native_pstate_optimization = true;
+ 	dc->dml2_options.use_native_soc_bb_construction = true;
+ 	dc->dml2_options.minimize_dispclk_using_odm = false;
+ 	if (dc->config.EnableMinDispClkODM)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+index 37b18575c376..beecc0180071 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+@@ -2130,7 +2130,6 @@ static bool dcn36_resource_construct(
+ 	dc->dcn_ip->max_num_dpp = pool->base.pipe_count;
  
- 	/* Use dml_validate_only for DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX path */
- 	if (validate_mode != DC_VALIDATE_MODE_AND_PROGRAMMING)
--		out = dml2_validate_only(context);
-+		out = dml2_validate_only(context, validate_mode);
- 	else
--		out = dml2_validate_and_build_resource(in_dc, context);
-+		out = dml2_validate_and_build_resource(in_dc, context, validate_mode);
+ 	dc->dml2_options.dcn_pipe_count = pool->base.pipe_count;
+-	dc->dml2_options.use_native_pstate_optimization = true;
+ 	dc->dml2_options.use_native_soc_bb_construction = true;
+ 	dc->dml2_options.minimize_dispclk_using_odm = false;
+ 	if (dc->config.EnableMinDispClkODM)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index 14f478df268a..a9d989f20405 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -2208,7 +2208,6 @@ static bool dcn401_resource_construct(
+ 		dc->config.sdpif_request_limit_words_per_umc = 16;
  
- 	DC_FP_END();
- 
+ 	dc->dml2_options.dcn_pipe_count = pool->base.pipe_count;
+-	dc->dml2_options.use_native_pstate_optimization = false;
+ 	dc->dml2_options.use_native_soc_bb_construction = true;
+ 	dc->dml2_options.minimize_dispclk_using_odm = true;
+ 	dc->dml2_options.map_dc_pipes_with_callbacks = true;
 -- 
 2.49.0
 
