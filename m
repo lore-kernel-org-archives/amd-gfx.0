@@ -4,147 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A379C677C4
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jun 2025 14:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A08B3C71131
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jun 2025 14:21:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C569610E68A;
-	Wed, 11 Jun 2025 14:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B68C610E679;
+	Wed, 11 Jun 2025 14:21:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1SgQuBhS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="s9UumqlB";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDBAD10E68A
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jun 2025 14:16:22 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1024510E672;
+ Wed, 11 Jun 2025 14:21:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l15G0HhuB+F8kkh6XbBHmhwZt8eHt5z6fYwGEvk2mw4KhoGe9gTN5WiyvBt+cESPxPMe4fmoKNShON+cyD/NfbUrxFQHmLrgEvMU/ICiCq1Qui9RdCo7C+jglLb4+bqsqIJuwmzAL0mw56mSy+3ch3AYGp2atC41ZZSnzSnn/np1OW6V/NmMn8/8tmihxQeywI0zpX4UTdH17jx1GAMFlxBaawwixvVswPVYmgpukd5S8PzSm4ewOZevxCUtvH6EVute0UEwiYe5mEtjN/R21IZ9Z++bzGCu0r1YKXqiQnVENni0jTf0MbQTJ6DLGCQr4JrZFiYRcXlY6OBgvkSaeg==
+ b=k2Ro94p2ndPziFX74OhkgFeGywues5A9AiQzepzaSRQuIvoV5LhaSRS/YnSMRkZrHb/YBN8dzZ4YhOYFZaEU6vLDYYxI9X9oj1fXzaD4cyBZ3OdCwWtua2hv1OeTYiPsq4xSYxMxH4YqBfxQM25Szb7jWt8xEpJThE2IlQibZCz6kqmcYHkWUdIcUbLrU2bJJzUKwKRpvu9SQ4OETPbxD9mJ2GrdrreTYyYCNsL6VeBJRLiT2zaSc1Bs3KV0a4dFw9TIz7R086Wn4ZIbjE4Jd9LbFbEuu1MMDNtMIOHkPfqm32UqQSRp/U4lHtUASBR8oqKGaf7BsRlbb3zAqWzLpg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HAep8zESQr/ww2Fd6HSjca6sDgoOEiJLo77z/lgHTzo=;
- b=fVjNjmbSSkGMO/7SfUR8qj/Eepg13t7mu5pCxQNo0chEuVHyXDRfuVayy5EWR/GyjDdukqD2hmp+FuCi80E96zz+I1EmBL3F3eb/GmSfP72jHiUjZrZBwVsG36FRybjjoEqBOfByXIGrWpkAlhfwWAxLTLzBYVxZBtF9eu+PylaZDB4NbdQeQo2Rt3IFHLrlQDsGi4YSHTt16DjBtESQvcNERU7ha5j9goc8znrX8Uwuo9hFuIFuTZozzDSxOgZpF0+S1LvlJn7BsgCLFSixsKCZpNq70hjG7bqCK7zCXeJPCLL53eTIzixa6fXeLoEFvwWTa9qMv0J48lQqzYD7ow==
+ bh=oIw2NCRIqzuy2p72AgmpBRZLLuzcO57hWDo4ifr68Kk=;
+ b=nWAu20VgyXliZX45IsHUnSG4ubgCDCGWs4DNY7rPp9jc94EcgPE92bAJbXdXwYBWz0QkFsKgGuXKI5+pqa5BBV+oZ0YeP3SpkkE75LTo8g2jdJuuQHnAk5EBL92FXj+S3WqBX00RJ/NP6bwodEv8gYqrRiYuw9qMmS6FZhQWTrzBL4VNTey+hU82vJcmbkgEJzqLR4zskhSH3Hwm5x55HX12Nu8GKJ2wofk0YBW37R4M5xGTv47DAD9qjmSydPZPxoU7lT6f1fmZFFRwYhxD1Ru0kx5PYE71HAJQzdD2H2WCZUe1j83PAlERiCGKnzV0cT0lc6Ya/3JRa2XrL8g93g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HAep8zESQr/ww2Fd6HSjca6sDgoOEiJLo77z/lgHTzo=;
- b=1SgQuBhSgcVG4R4dIBVpOs0MAe1b+hPIZUUei6tVD1R1Ah54B5c0JU4vMS3kT7SPy+sgOrIG2VbU+x2xhYpqgi7xVoVNkE0e/BDl44wzknBtL75R7Hk6RCYQPSmTgUvFQRCie8/4GZ1nMjkkN/UPmlZZZVMXEA+DTw6iWJvxod4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DS5PPFF8845FFFB.namprd12.prod.outlook.com (2603:10b6:f:fc00::66a)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.29; Wed, 11 Jun
- 2025 14:16:19 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42%5]) with mapi id 15.20.8835.018; Wed, 11 Jun 2025
- 14:16:19 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>, "Kim, Jonathan"
- <Jonathan.Kim@amd.com>, "Zhu, Jiadong" <Jiadong.Zhu@amd.com>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>
-Subject: RE: [v4 3/3] drm/amdgpu: Add soft reset callback to SDMA v4.4.x
-Thread-Topic: [v4 3/3] drm/amdgpu: Add soft reset callback to SDMA v4.4.x
-Thread-Index: AQHb2rhWiDLXKMiAwkG4s5VgejOclrP+ATNw
-Date: Wed, 11 Jun 2025 14:16:19 +0000
-Message-ID: <BL1PR12MB5144C7228A5E3E4DD1B7ACCDF775A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20250611100445.3379455-1-jesse.zhang@amd.com>
- <20250611100445.3379455-3-jesse.zhang@amd.com>
-In-Reply-To: <20250611100445.3379455-3-jesse.zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=c97f0270-0191-44ab-9fb1-6e8994f99e60;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-06-11T14:15:53Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
-authentication-results: dkim=none (message not signed)
+ bh=oIw2NCRIqzuy2p72AgmpBRZLLuzcO57hWDo4ifr68Kk=;
+ b=s9UumqlBgmVj71xtipt5JxBRFLWiIUBRe39q2tR198KTgTs/OuM5OMGIdjiYiPwewTRE5yBhSgEp2tUkIG92UdrPw1NQO6DqtGKZJkz/koMWyKqYuKHvD3wKt9NoQO5rTPMSh0vWBfy2ox7SVlz5tF9rcxgbNvGUks/5zGr215w=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DS5PPFF8845FFFB:EE_
-x-ms-office365-filtering-correlation-id: 219aed64-218b-4b18-f5e0-08dda8f2894f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?FUGPEWQ8c3dyGWHroZVYMmicxlivmK8VLrFalWqM3dBg+hTGCS8etnxuivBk?=
- =?us-ascii?Q?fTxuO4UO3yrGz1p4u+bIQ3L7T/mq0IgBprlLmWB7JvVp3PpfiaNv0fmGN3po?=
- =?us-ascii?Q?koeUYk2D1Nn+ZPUXFk2q21PfDFz2L7xtPm8PaXZrUt+x6BjTm1g2C20drXe2?=
- =?us-ascii?Q?Cistg8ApRjhQlghuGDaMFaMFULbO5mIweuM9R1DkTWT/xQhXsVSoxteIogP7?=
- =?us-ascii?Q?9PznXC8ZIyYV4N/WwfPjz+Zp33aOtToHaXgeOfSsDSP5sA11hVWcNApv85nE?=
- =?us-ascii?Q?C295jHYMHhWyFiZkMrbl/XITmjvd8n94GJAJjd0aGwoC3FZTQp6i2/gNzuLs?=
- =?us-ascii?Q?1B+Cy//YFtcksn7nfnOY9bKABUFqFYmK7EnJi7INfdo5elLcTU9o62vokydd?=
- =?us-ascii?Q?FTLKc0C9K6rKokLlb42CglHD9J6Kt+aLuSQGxKn0lV0rAWMrHJ1tqj0Rgq2x?=
- =?us-ascii?Q?EkZTGAbDqa/BX8cYK5QsS1+rQmIvBKLgwAawCy2SucZUv5qGNwlTU5NRXQm4?=
- =?us-ascii?Q?u6VgnYaEhHMoViVBnS+/+gt6HBFE2enHdwH5GmCI3AUb/wPc6zrAAUwXXP0x?=
- =?us-ascii?Q?d6+6fRJZr4BM/qqYEBFGk0/v+r+GgddNrx9oWr8mmkVGncDH2Ps/02b5d97W?=
- =?us-ascii?Q?XcoL0d50LD1RnTW6Qj1pyovU6RbAqt9dP8pmZnXZocE/zMBPrn6OfiTELIf1?=
- =?us-ascii?Q?QFi65VgLPS9S5T9AxrfSdIl0DDmN6VMxKgLGPXyIYNycgJqEt7bcJ8Pkhx+T?=
- =?us-ascii?Q?BH/wg+c8uHm/oCW/zmGik3PRZqYMyxJynRRu+s5kYHzb+8nIm2wUOA5mcYOV?=
- =?us-ascii?Q?98Ok7eQVouZH5u1kJvmUgV9Jouizax0C9C5jaOG67SYtTb1+QYGm79OJm1yw?=
- =?us-ascii?Q?lEoWjbhckrwggKRSOU5CMiq4d4iBeCB+b6OCdJ6brBZ1uIeiym0KgtG+zbo/?=
- =?us-ascii?Q?eKAFLCoOf64LuAJzbsnr5Wn/+whv1c+Mi8h3N3lOcbMQWnsXsB3wU8W+CjcW?=
- =?us-ascii?Q?YTIEFFGupXX+/gYpN2C2RX/Y4k+IMohEAIudQjC4e19jaxzftVZK3nTYUCON?=
- =?us-ascii?Q?Y94ttD8DJu05cj+jPVWkHCvseTWCtfA4fywsre+zPKqeZfpQolHM5Mn/Emg7?=
- =?us-ascii?Q?6fxfN0Yz6wWftXt6dsaR+ztr3y6DExV88C37HiCf9cDueDwVW4EX0kIihzzQ?=
- =?us-ascii?Q?rDWYwQVmkZMD5oc9bAfdIqOPvCngJTNnQHAWeY0Fp5TqAmF/gf9EfDPYLhsq?=
- =?us-ascii?Q?S2wudUTpOoD8EhwbDeFMm+5lpFqaPHoBiDp2jRIta653Mc92yFJdWQp8He4U?=
- =?us-ascii?Q?N0YfIStjXws6wSp36Vdw9GHbguzSlhpjAqQIYy18hvJK5/6C0I5dOxmCAov+?=
- =?us-ascii?Q?wGMUpIUlvcbPnxIN+Rz1eRI6F3EJBsucnMgl5NGAR40XjaClZi+ngB+CWUTD?=
- =?us-ascii?Q?nO1TVchuCV5WE6aMI+rSvtwZ5HeVI7UnS+wHYKHfmO6c4p+DCWLIJBylRdUm?=
- =?us-ascii?Q?bLRUYZu/zTpMYWY=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XfBPThqmpO58UgbwiGn88O2s5xVQt8Uf3OC9RD0yb2oJfB9+5eBj2YhOTjN9?=
- =?us-ascii?Q?MSn+GKG9N6p2na1hyUlibu+8L3AVdKTYtr7pBfWY2J4YSU5uwnUmSpwEPvLb?=
- =?us-ascii?Q?TbwCjyiWc7wr11+Iu6PF074NeNhqkVUxuKCQx9EO9WbAlZc8mG58GtPgFb6H?=
- =?us-ascii?Q?hR6mleFN/tHrbohWUPqgsrQZxEz3YTAVygrDrfb7TbTG9bxAVE7kp9e7IC7q?=
- =?us-ascii?Q?7UNZMBuD3EK6yIYVBKT33Lwni+YM6XpEy8w7pImSRGWtTy6TiIKxzv6y5y4l?=
- =?us-ascii?Q?Epb32WeJG4AhVn271XhkQ5rf5wtclsRf3eggsUrqRxXPkAuekvMiUWAvUIfF?=
- =?us-ascii?Q?sEg/IWEsqbF2j0g4WkONwfX+1xqVUIDtgqaAQAPZo2ZI6FCglmVcc9mUjokW?=
- =?us-ascii?Q?neCKrwyeXo2NBhwzbMSxDlUQRlijeI1cY4JHTXkOmgJuZl8A52UBUjU4RNGi?=
- =?us-ascii?Q?H2zhN9ydy8xXfcmVqpvwm3T8MO02CwOMKBwqFudG9bjdi9w8ELrshyHTavUU?=
- =?us-ascii?Q?qt/dMVnMOjd3+J/8fd9FoQnZRMvgHFqxS3yEHwTorN1ScIJQ0P8l91yXNnGi?=
- =?us-ascii?Q?tWXq73UdshKowMdHCslcopi/oe23eEuc6V+Q22eywadeBrusQfVYlWfSpR31?=
- =?us-ascii?Q?r8PVxdXwV27U18giE2jqvktlmKPCfiRjgh3IYPfaHSvNQkGb+kljmvEDY6TR?=
- =?us-ascii?Q?mMNmdpLAOxq1fQUFCBnz+Axw0wXv7l3cBgyJ1rSMN7SijhYzI0rNSfIHewX9?=
- =?us-ascii?Q?xt8LVggc8W9jQFXrTubCCnS1XttM7BrRHx1xbIb5AyhgFKKY/JoaAVRIpXsb?=
- =?us-ascii?Q?8mmgqnAeIyrEWPAcJtD+IHd3FdL/djxFjIvKvmAogvr85vxb9MCYs22/KOqr?=
- =?us-ascii?Q?qFmSsyWL7b3jtaQJqFQUPwyAr0i5mwKB+9fqWxJmdUUtOX0PpUPjYwGGRzym?=
- =?us-ascii?Q?ocjLMtHzRmD9teBTCCjPu8Twp89gUBk052h4GZj+NCeP/qcU0uUmbWUoN7Eq?=
- =?us-ascii?Q?BS8EfNANsCUUd4xP+PSRsT1QqN6NqQAyaJZApa6kiYZV3Pyhs7u2ZJfP0UW+?=
- =?us-ascii?Q?yuMHWDD7tLN085qxGW7NLhf+7WTGl2qkdAURAdCij4wM1lXqi+Wzrgts0Up6?=
- =?us-ascii?Q?pTQUU4OdvGu5RVAflrXX5/G7lP6+uYTnhvel8GV32z1FwxbkM4pmQSoLCOfx?=
- =?us-ascii?Q?UEuwVcPhXOBeEzer2SNE7KwaP9ImTl8gUwgV8MHnpYA674S8omoYY46OeTGv?=
- =?us-ascii?Q?EqOc0cU6vCfistmBm1VupmAa1KRNFhO6Ez6YEAapRzpv7GHUGXWCVqFnjdxt?=
- =?us-ascii?Q?PWI2wSgnZe9q05LCTE3qag7PAedDfGBkB24kWRi/eYVHsIbtUewmtbYLjq/q?=
- =?us-ascii?Q?EQxAfqqEPJNYBlwM1rPKP4u38eS/sg1D87GPOEGvqTUJ3PuQWLyp8xH5UoVT?=
- =?us-ascii?Q?PQlckKfsVFUfaSrxYeqb2iE+r0geg/acjvjLeXVnfTC16E2C8hnS4O2s2lUl?=
- =?us-ascii?Q?t4U8/AcajpKTj4jmSkgo2udMnbxlyU0hxau+wCxKnxwKWgA4SuDbyg0SH1R7?=
- =?us-ascii?Q?+TtuhUu0cQf/vzgqg54=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV3PR12MB9167.namprd12.prod.outlook.com (2603:10b6:408:196::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.22; Wed, 11 Jun
+ 2025 14:21:47 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Wed, 11 Jun 2025
+ 14:21:44 +0000
+Message-ID: <b57b6549-7dbe-45fe-ab8e-4232041ec1a5@amd.com>
+Date: Wed, 11 Jun 2025 16:21:39 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 6/6] drm/syncobj: Add a fast path to
+ drm_syncobj_array_find
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, =?UTF-8?Q?Michel_D=C3=A4nzer?=
+ <michel.daenzer@mailbox.org>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>
+References: <20250611140057.27259-1-tvrtko.ursulin@igalia.com>
+ <20250611140057.27259-7-tvrtko.ursulin@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250611140057.27259-7-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR10CA0032.namprd10.prod.outlook.com
+ (2603:10b6:208:120::45) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV3PR12MB9167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86da0afa-f9e2-4cc2-95a8-08dda8f34ab6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NkpQWDBSRWVHb1RyRG9IOHVxeXNOQ0FPZXNoLzhPQjhqOWJUK1l5eEhjRjRC?=
+ =?utf-8?B?ZklFZDRCZTBYR0xoWUIreVlDSjBBdDlvanZHeG5Jb3EvbC9JMDNvazVRQ2ZF?=
+ =?utf-8?B?SitSOGxycTA5ZnYzc2FkZGRhZzRvK0YxWmlZaW1QMFBna1pneG5OOUp0T3RT?=
+ =?utf-8?B?YlhxSVU3bDNPeGovWkdZZ0h3OXczazQrVktYSDlBd0ZnTnpHMURMeTlVaU5p?=
+ =?utf-8?B?RmtSbXZlY2RBR21vTkxlM1ZJRTFzYmJlVFpCRTZxUUIwa28wa25xSjdPK090?=
+ =?utf-8?B?VnFMR2xaQWNiaG1FZ2UxRkNXMlpvOWUyU01tTGJJdWVWblJwRVVGLzFWWG5K?=
+ =?utf-8?B?YVJYbk5IL1FNUWRHMHBla1dVOHRpMzVKN2pTQmF6RmZoNThBajh2aHpVZFl6?=
+ =?utf-8?B?ZFprNDh6RXFzTjZaVXBmdGl3VG1sVURyTWRsMENWdXByREZpdFZuTUdkV2px?=
+ =?utf-8?B?NTZHVlBLZnBKb2FOQWN5c0lmSXRvQ2dmU2txZVRJUUVTemt3eDJEMTc2Sjdn?=
+ =?utf-8?B?eFRyU2VHalRIR1ZPUVVFbTlPY21YNEhNMVp0UHhVWVhwWE9UdGFBMkN2Tjg0?=
+ =?utf-8?B?RDNQYkt2S3YvZXBQb29PdG1wRUt1UWU0bU9La2NSK0loUVlTQVM4b2F3bnZD?=
+ =?utf-8?B?WUJrdkhjZ3ZFT0x2Y0toelpZNmZrTzk0WnJ5NEQzYXlZMlNTemtVanRpYyt3?=
+ =?utf-8?B?Z3VRcjhJa3VmY25qVWhQNHZMMzRoQmVhWkYvUjZmeWNnVjVaMUdaRTRHZUJj?=
+ =?utf-8?B?RUZFbEZ1QlpqM3pGQ3lzVXEwZm5ZL1FqRVl0OXdIcEp1N0RZMFlud2xDMW5r?=
+ =?utf-8?B?NFptMERrVmM2TnNFeXFzNXVnSGhnNFU4Z1g5K1BBcGg5N2orbndLd1lzRUJW?=
+ =?utf-8?B?UzF6Z1UxbWxWMDM4a1ZuYzJ1YzQ1MWlsK3c2NGxtYzhoUjhsNVEyK1hjZVQ4?=
+ =?utf-8?B?L1Zhc3RoaWtYS1dYb2hqSi9WK3VWS1NGSG15Qjc0NUJoeFMvMExGUVQ3MEYy?=
+ =?utf-8?B?OTFZSjVYc3hzb2YxbDRRcEJJZlNxaHZRdHF1dXBWdGNRS1lxenE3RHRkR3NY?=
+ =?utf-8?B?SFRmcUs2YTFjQVlIamo1dTJWYllWZG05Y2l4VUZNUFY2cU9oNWUzSnNSclBJ?=
+ =?utf-8?B?MDFmNEsrL2ZKWjEzb1J6TGxxT2F1THo4RUxvOENES2J2TC9LTmVKb1JFZklq?=
+ =?utf-8?B?YkN2U2hGWnh5WkVkU1RrUUl5Y2x0NlU5a1YyV0NqYmQxeTRIVk9scTF4VS9p?=
+ =?utf-8?B?YnorWmlEc3Jnczc3aFNOQUlFN040ZzVQKzNncXU5S0JlWldTMktncXNibDl1?=
+ =?utf-8?B?NCtRWGR4TzZLcHoxdHVhTWVvME1LREFIOHdOTEprWTFuamdHakZ2ZWV6YXBv?=
+ =?utf-8?B?Tk93aytIQnU5WVBmMG1xMzFBc3hZeWExa1JxaFg2R2Uxc2dLVUhHU2xUSnZM?=
+ =?utf-8?B?VUJ0ZGplMFRvbFlHRWRjb3M0cExOZlNKcmtuUFRPZUhkQ2pYYjkvQlNZSm53?=
+ =?utf-8?B?akJoeS9ydzd2SHFuR25Md0xyUjJ1RTF4aGF1RUZCSnl1YThuTy92V0NrcGRC?=
+ =?utf-8?B?NDdqR3pZU1kzNTJqMFIxUEYvckUwS3F5MnVBRFZVNjhyUjg4c3lLVFY5d3dx?=
+ =?utf-8?B?TG4xQTNoZnd6eXJoUG9WM2V4OGdEVCtrUEFkQ0NSVFJJNnBhOHIyZE9veXFJ?=
+ =?utf-8?B?TTJNNXM4T1BDaERjZlBqMi9ubHlZR1o4Yk9YVktuRlhkNVZWRGtPT2d0R2pM?=
+ =?utf-8?B?NGIxR1V0Ty9RNlNzQWRpZ0o2OVMrS0dmNk9nZmxqTDF2UnY2elBLNm5OZC9P?=
+ =?utf-8?B?b09YTGdzV0pEaFhMaFhya1MydlVpNzJrOG1URjBEcWlWZmxCMUdycFV2OXdw?=
+ =?utf-8?B?ZVZid3FmekNNeTk4RmgyL2Z4Skcremt4NFRIWC8zeUtITzF4YmRiSndmNUxy?=
+ =?utf-8?Q?AcGPfW2NyxE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?and3eTcrb0VQNGsxMlpmNlh1TlliQnZnaEs4azFTQlJoaEFtY05QT0NPbmV2?=
+ =?utf-8?B?VThHZm1zQTNQR1VCQVBMNm5yMUtkdzA1WXhCblRxQUt0OXVQeW1pTzAvMnFW?=
+ =?utf-8?B?SkxOQW5IVVlENENFd1NXMDE0Y0pFbFlHenZxbGlyQi9PcHU2N0svV3d6NllB?=
+ =?utf-8?B?ZDlFNmRtL1h1QnF4WlJsRkFobkd3NCtPblB5RUMxQTMxZnU1U3d3WUYrbzlZ?=
+ =?utf-8?B?UzFuVTI0U1VnU0dwNEZEZjBFc0F6bUtZOHk1NG5JUllZS2hiNUdJSjYvejZS?=
+ =?utf-8?B?VDVFUXAwUkZOSC9JVW5PeWZpWHA2bVN2YlNOWEM2VWZqamZSU1hEdWtaSXVV?=
+ =?utf-8?B?MjJKaDRYQTh5bW1FK2lZNW1sTXAwWGZvMXBaZS8xUzRtVUtHVkJsWXdKR0p1?=
+ =?utf-8?B?VjdKSHNabE1VVUdHOGdEV010NFAwLzhhQ05qK1JuMm5QZ1hVZG9HTGlRMU0v?=
+ =?utf-8?B?T2Ztb3dBZThGejdXK3BQVGpuNnc0YkQvOGIyeng2VlZrYzVQelJySDllcWZR?=
+ =?utf-8?B?NWgrYTZqU29ONHRscW1lMXFrcGp6MkkwQUVuRktFeVVVMVllS25Qbmhkelha?=
+ =?utf-8?B?RTJzNGE0ZDZWWFFxRENCNXdCSkRHQ290RTlHVzN1Qkw2cnV3MGdYKzN6MlVF?=
+ =?utf-8?B?a0JSZ052WUx5Y3YyeWxSY3NSR1duRU12RFhnaE9jd3FReHBVR1UzN2xFNGdD?=
+ =?utf-8?B?V1U4Q2tSUUROTlJSdmUyRGxWdEZtcWUxa1M0SzF4OWVJQVJvODViVG9QYUht?=
+ =?utf-8?B?MmRSMi9ZWEFsMjNBc2xpYUFkNTlnUWxDOUp5bjJ1L2YzeDkvL3hnZktqNmhK?=
+ =?utf-8?B?SzdPeDFpRThXY0RLT1VxQ3kvc1F6Y1BLcEVuNEZaUUViZGxhQ0NXZUVjOSsy?=
+ =?utf-8?B?WVJ3RzBkTkpYN1QrZWlvTHlIMFNlRGJobHVNSWEwSXM4bHFNNGthVlNBdW1k?=
+ =?utf-8?B?VGFmY1hidmh2M0VSREJQZU1NS1ozenA5NllWWnhab01vaGFxYWxEeVdHSkE4?=
+ =?utf-8?B?UTh2b1RsWUFJaEttMTVEZ2NCYU5BMnIvV3JwSlFUZVFMRXd3amdEQk9rWk5x?=
+ =?utf-8?B?RGhJRHMram9NNGNsd3pjS2dIS0V6Y2VXRDRzNWJnV3krOVBUWXBIcVFmWERr?=
+ =?utf-8?B?NXN3UkdyNi9pQWVBQnJmbUl6UlV5Q0lYd2J4SmU1eVFkb3ViRGF1VFRjUWNo?=
+ =?utf-8?B?Wk0wTUg0NXJPQU16WHBZTDNSVUxZa1VIQzRRWTEvUjlEa2hlSTRiR0JlTjZU?=
+ =?utf-8?B?dE8vNmYyVU1PNUt2Ynk2N0Ntdnh3TzBBQ0NXeEdjc2lJendXWmY4c0pVRHVP?=
+ =?utf-8?B?UG1hQVQ0cEh5UUhYUU4waUM0NVRGZjJYRHUwbTV3NCt6MVdHUXFoOWd2djJo?=
+ =?utf-8?B?T3RhR0kvOTBLNmUybjNWZGUxMFhSUWZ5bVhaTlJMYngyTXBHWGFnRWxPVjht?=
+ =?utf-8?B?RE5tUFVrVmhUbG5naTRJQndhcHlTMlNtK1FTTWRhazBmdkkrWUlJN2ppR2dJ?=
+ =?utf-8?B?azd3UFlKaG1TdzhwdWwzenBZNnN1ZG9wUDNaZzduMEZ1ckxGSHFQcWZ1bHhi?=
+ =?utf-8?B?Sks0cmp0aHVkRERMWXpEeENmT1FnL2dqSkNubElyU3laVXdxQkFoeTlJMXQ3?=
+ =?utf-8?B?QUJHdW14N2pKc1c1SEZiWExhR0JQZTRmY1JsWmtzR1dzQzhNZzlwRWpZR2tq?=
+ =?utf-8?B?dnVwbExzZmhKWHNUYTJGc1FOeG1BYUpSeTZxWDR6SitNWURic0JXSjBDNWFR?=
+ =?utf-8?B?b1U1WjdUYmIrVllIRTZocTFCR1hEMEkrU3JzdGdMWGNRYm94RXhQZ0c5aUVl?=
+ =?utf-8?B?UHY1R1pMb1BwQ2g2ZHFKMmpHYU5YellOTy9kK3BCdG9mY29ScCtDY2FJb2xx?=
+ =?utf-8?B?RWdPUFhid3pCTmsxbHN0a2ozeTYvL0tMTzluSDQ4Q3EvMnZaOVdPMTc4RHEw?=
+ =?utf-8?B?WXNjcXZncEZnYnZ3NGd6SG9zdGRIWmlrSzN5aXlRc1dxVDhWNjNBaGRvdUtK?=
+ =?utf-8?B?WS9QVzBWWG9HWHRpcGtiZzJpZzNqUjQySnJXeVA3Vkg1cStweWFmbldvTkgr?=
+ =?utf-8?B?MG5ENmlBTlJranZJZm1rN0FQendFU0UzRWcyZ2huT29oWWU0L0krTDRTL1Nu?=
+ =?utf-8?Q?8Y/Zx9u0XaInIztjEs8/0zrxU?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86da0afa-f9e2-4cc2-95a8-08dda8f34ab6
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 219aed64-218b-4b18-f5e0-08dda8f2894f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jun 2025 14:16:19.5129 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ad+RmvNYZw+uOH2HvY56mu1rzfZNloBT29OgFZ8XJqTd3e4iWPI0B/dTQeMQJMqteYGMmAqSduCXq4xB3W2+og==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFF8845FFFB
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2025 14:21:44.3596 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4xoeE3Wwvsa7jAx/xMbsYRjMkzIxsL69AgbyKcOUvHRcDwDk78NTQmw6ZhUt220n
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9167
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,139 +165,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On 6/11/25 16:00, Tvrtko Ursulin wrote:
+> Running the Cyberpunk 2077 benchmark we can observe that the lookup helper
+> is relatively hot, but the 97% of the calls are for a single object. (~3%
+> for two points, and never more than three points. While a more trivial
+> workload like vkmark under Plasma is even more skewed to single point
+> lookups.)
+> 
+> Therefore lets add a fast path to bypass the kmalloc_array/kfree and use a
+> pre-allocated stack array for those cases.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jesse
-> Zhang
-> Sent: Wednesday, June 11, 2025 6:05 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>; Zhu,
-> Jiadong <Jiadong.Zhu@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-> Subject: [v4 3/3] drm/amdgpu: Add soft reset callback to SDMA v4.4.x
->
-> From: Lijo Lazar <lijo.lazar@amd.com>
->
-> Implement soft reset engine callback for SDMA 4.4.x IPs. This avoids IP v=
-ersion
-> check in generic implementation.
->
-> V2: Correct physical instance ID calculation in soft_reset_engine (Jesse)
-> v4: keep origin comments (Lijo)
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Have you considered using memdup_user()? That's using a separate bucket IIRC and might give similar performance.
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+If that is still not sufficient I'm really wondering if we shouldn't have a macro for doing this. It's a really common use case as far as I can see.
 
+Regards,
+Christian.
 
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Reviewed-by: Maíra Canal <mcanal@igalia.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 34 +++---------------------
-> drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 12 +++++++++
->  2 files changed, 16 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> index 9b54a1ece447..a1e54bcef495 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -534,37 +534,11 @@ bool amdgpu_sdma_is_shared_inv_eng(struct
-> amdgpu_device *adev, struct amdgpu_rin  static int
-> amdgpu_sdma_soft_reset(struct amdgpu_device *adev, u32 instance_id)  {
->       struct amdgpu_sdma_instance *sdma_instance =3D &adev-
-> >sdma.instance[instance_id];
-> -     int r =3D -EOPNOTSUPP;
-> -
-> -     switch (amdgpu_ip_version(adev, SDMA0_HWIP, 0)) {
-> -     case IP_VERSION(4, 4, 2):
-> -     case IP_VERSION(4, 4, 4):
-> -     case IP_VERSION(4, 4, 5):
-> -             /* For SDMA 4.x, use the existing DPM interface for backwar=
-d
-> compatibility,
-> -              * we need to convert the logical instance ID to physical i=
-nstance ID
-> before reset.
-> -              */
-> -             r =3D amdgpu_dpm_reset_sdma(adev, 1 << GET_INST(SDMA0,
-> instance_id));
-> -             break;
-> -     case IP_VERSION(5, 0, 0):
-> -     case IP_VERSION(5, 0, 1):
-> -     case IP_VERSION(5, 0, 2):
-> -     case IP_VERSION(5, 0, 5):
-> -     case IP_VERSION(5, 2, 0):
-> -     case IP_VERSION(5, 2, 2):
-> -     case IP_VERSION(5, 2, 4):
-> -     case IP_VERSION(5, 2, 5):
-> -     case IP_VERSION(5, 2, 6):
-> -     case IP_VERSION(5, 2, 3):
-> -     case IP_VERSION(5, 2, 1):
-> -     case IP_VERSION(5, 2, 7):
-> -             if (sdma_instance->funcs->soft_reset_kernel_queue)
-> -                     r =3D sdma_instance->funcs->soft_reset_kernel_queue=
-(adev,
-> instance_id);
-> -             break;
-> -     default:
-> -             break;
-> -     }
->
-> -     return r;
-> +     if (sdma_instance->funcs->soft_reset_kernel_queue)
-> +             return sdma_instance->funcs->soft_reset_kernel_queue(adev,
-> +instance_id);
+> v2:
+>  * Added comments describing how the fast path arrays were sized.
+>  * Make container freeing criteria clearer by using a boolean.
+> ---
+>  drivers/gpu/drm/drm_syncobj.c | 56 +++++++++++++++++++++++++++--------
+>  1 file changed, 44 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index be5905dca87f..65c301852f0d 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -1259,6 +1259,8 @@ EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+>  static int drm_syncobj_array_find(struct drm_file *file_private,
+>  				  u32 __user *handles,
+>  				  uint32_t count,
+> +				  struct drm_syncobj **stack_syncobjs,
+> +				  u32 stack_count,
+>  				  struct drm_syncobj ***syncobjs_out)
+>  {
+>  	struct drm_syncobj **syncobjs;
+> @@ -1268,9 +1270,13 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>  	if (!access_ok(handles, count * sizeof(*handles)))
+>  		return -EFAULT;
+>  
+> -	syncobjs = kmalloc_array(count, sizeof(*syncobjs), GFP_KERNEL);
+> -	if (!syncobjs)
+> -		return -ENOMEM;
+> +	if (count > stack_count) {
+> +		syncobjs = kmalloc_array(count, sizeof(*syncobjs), GFP_KERNEL);
+> +		if (!syncobjs)
+> +			return -ENOMEM;
+> +	} else {
+> +		syncobjs = stack_syncobjs;
+> +	}
+>  
+>  	for (i = 0; i < count; i++) {
+>  		u32 handle;
+> @@ -1292,25 +1298,31 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>  err_put_syncobjs:
+>  	while (i-- > 0)
+>  		drm_syncobj_put(syncobjs[i]);
+> -	kfree(syncobjs);
 > +
-> +     return -EOPNOTSUPP;
+> +	if (syncobjs != stack_syncobjs)
+> +		kfree(syncobjs);
+>  
+>  	return ret;
 >  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> index 3de125062ee3..35b0a7fb37b9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> @@ -109,6 +109,8 @@ static void sdma_v4_4_2_set_ras_funcs(struct
-> amdgpu_device *adev);  static void sdma_v4_4_2_update_reset_mask(struct
-> amdgpu_device *adev);  static int sdma_v4_4_2_stop_queue(struct amdgpu_ri=
-ng
-> *ring);  static int sdma_v4_4_2_restore_queue(struct amdgpu_ring *ring);
-> +static int sdma_v4_4_2_soft_reset_engine(struct amdgpu_device *adev,
-> +                                      u32 instance_id);
->
->  static u32 sdma_v4_4_2_get_reg_offset(struct amdgpu_device *adev,
->               u32 instance, u32 offset)
-> @@ -1337,6 +1339,7 @@ static bool
-> sdma_v4_4_2_fw_support_paging_queue(struct amdgpu_device *adev)  static
-> const struct amdgpu_sdma_funcs sdma_v4_4_2_sdma_funcs =3D {
->       .stop_kernel_queue =3D &sdma_v4_4_2_stop_queue,
->       .start_kernel_queue =3D &sdma_v4_4_2_restore_queue,
-> +     .soft_reset_kernel_queue =3D &sdma_v4_4_2_soft_reset_engine,
->  };
->
->  static int sdma_v4_4_2_early_init(struct amdgpu_ip_block *ip_block) @@ -=
-1745,6
-> +1748,15 @@ static int sdma_v4_4_2_restore_queue(struct amdgpu_ring *ring=
-)
->       return sdma_v4_4_2_inst_start(adev, inst_mask, true);  }
->
-> +static int sdma_v4_4_2_soft_reset_engine(struct amdgpu_device *adev,
-> +                                      u32 instance_id)
-> +{
-> +     /* For SDMA 4.x, use the existing DPM interface for backward compat=
-ibility
-> +      * we need to convert the logical instance ID to physical instance =
-ID before
-> reset.
-> +      */
-> +     return amdgpu_dpm_reset_sdma(adev, 1 << GET_INST(SDMA0,
-> instance_id));
-> +}
+>  
+>  static void drm_syncobj_array_free(struct drm_syncobj **syncobjs,
+> -				   uint32_t count)
+> +				   uint32_t count,
+> +				   bool free_container)
+>  {
+>  	uint32_t i;
+>  
+>  	for (i = 0; i < count; i++)
+>  		drm_syncobj_put(syncobjs[i]);
+> -	kfree(syncobjs);
 > +
->  static int sdma_v4_4_2_set_trap_irq_state(struct amdgpu_device *adev,
->                                       struct amdgpu_irq_src *source,
->                                       unsigned type,
-> --
-> 2.34.1
+> +	if (free_container)
+> +		kfree(syncobjs);
+>  }
+>  
+>  int
+>  drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
+>  		       struct drm_file *file_private)
+>  {
+> +	struct drm_syncobj *stack_syncobjs[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
+>  	struct drm_syncobj_wait *args = data;
+>  	ktime_t deadline, *pdeadline = NULL;
+>  	u32 count = args->count_handles;
+> @@ -1336,6 +1348,8 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
+>  	ret = drm_syncobj_array_find(file_private,
+>  				     u64_to_user_ptr(args->handles),
+>  				     count,
+> +				     stack_syncobjs,
+> +				     ARRAY_SIZE(stack_syncobjs),
+>  				     &syncobjs);
+>  	if (ret < 0)
+>  		return ret;
+> @@ -1354,7 +1368,7 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
+>  						 &first,
+>  						 pdeadline);
+>  
+> -	drm_syncobj_array_free(syncobjs, count);
+> +	drm_syncobj_array_free(syncobjs, count, syncobjs != stack_syncobjs);
+>  
+>  	if (timeout < 0)
+>  		return timeout;
+> @@ -1368,6 +1382,7 @@ int
+>  drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
+>  				struct drm_file *file_private)
+>  {
+> +	struct drm_syncobj *stack_syncobjs[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
+>  	struct drm_syncobj_timeline_wait *args = data;
+>  	ktime_t deadline, *pdeadline = NULL;
+>  	u32 count = args->count_handles;
+> @@ -1394,6 +1409,8 @@ drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
+>  	ret = drm_syncobj_array_find(file_private,
+>  				     u64_to_user_ptr(args->handles),
+>  				     count,
+> +				     stack_syncobjs,
+> +				     ARRAY_SIZE(stack_syncobjs),
+>  				     &syncobjs);
+>  	if (ret < 0)
+>  		return ret;
+> @@ -1412,7 +1429,7 @@ drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
+>  						 &first,
+>  						 pdeadline);
+>  
+> -	drm_syncobj_array_free(syncobjs, count);
+> +	drm_syncobj_array_free(syncobjs, count, syncobjs != stack_syncobjs);
+>  
+>  	if (timeout < 0)
+>  		return timeout;
+> @@ -1529,6 +1546,7 @@ int
+>  drm_syncobj_reset_ioctl(struct drm_device *dev, void *data,
+>  			struct drm_file *file_private)
+>  {
+> +	struct drm_syncobj *stack_syncobjs[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
+>  	struct drm_syncobj_array *args = data;
+>  	struct drm_syncobj **syncobjs;
+>  	uint32_t i;
+> @@ -1546,6 +1564,8 @@ drm_syncobj_reset_ioctl(struct drm_device *dev, void *data,
+>  	ret = drm_syncobj_array_find(file_private,
+>  				     u64_to_user_ptr(args->handles),
+>  				     args->count_handles,
+> +				     stack_syncobjs,
+> +				     ARRAY_SIZE(stack_syncobjs),
+>  				     &syncobjs);
+>  	if (ret < 0)
+>  		return ret;
+> @@ -1553,7 +1573,8 @@ drm_syncobj_reset_ioctl(struct drm_device *dev, void *data,
+>  	for (i = 0; i < args->count_handles; i++)
+>  		drm_syncobj_replace_fence(syncobjs[i], NULL);
+>  
+> -	drm_syncobj_array_free(syncobjs, args->count_handles);
+> +	drm_syncobj_array_free(syncobjs, args->count_handles,
+> +			       syncobjs != stack_syncobjs);
+>  
+>  	return 0;
+>  }
+> @@ -1562,6 +1583,7 @@ int
+>  drm_syncobj_signal_ioctl(struct drm_device *dev, void *data,
+>  			 struct drm_file *file_private)
+>  {
+> +	struct drm_syncobj *stack_syncobjs[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
+>  	struct drm_syncobj_array *args = data;
+>  	struct drm_syncobj **syncobjs;
+>  	uint32_t i;
+> @@ -1579,6 +1601,8 @@ drm_syncobj_signal_ioctl(struct drm_device *dev, void *data,
+>  	ret = drm_syncobj_array_find(file_private,
+>  				     u64_to_user_ptr(args->handles),
+>  				     args->count_handles,
+> +				     stack_syncobjs,
+> +				     ARRAY_SIZE(stack_syncobjs),
+>  				     &syncobjs);
+>  	if (ret < 0)
+>  		return ret;
+> @@ -1589,7 +1613,8 @@ drm_syncobj_signal_ioctl(struct drm_device *dev, void *data,
+>  			break;
+>  	}
+>  
+> -	drm_syncobj_array_free(syncobjs, args->count_handles);
+> +	drm_syncobj_array_free(syncobjs, args->count_handles,
+> +			       syncobjs != stack_syncobjs);
+>  
+>  	return ret;
+>  }
+> @@ -1598,6 +1623,7 @@ int
+>  drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>  				  struct drm_file *file_private)
+>  {
+> +	struct drm_syncobj *stack_syncobjs[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
+>  	struct drm_syncobj_timeline_array *args = data;
+>  	uint64_t __user *points = u64_to_user_ptr(args->points);
+>  	uint32_t i, j, count = args->count_handles;
+> @@ -1617,6 +1643,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>  	ret = drm_syncobj_array_find(file_private,
+>  				     u64_to_user_ptr(args->handles),
+>  				     count,
+> +				     stack_syncobjs,
+> +				     ARRAY_SIZE(stack_syncobjs),
+>  				     &syncobjs);
+>  	if (ret < 0)
+>  		return ret;
+> @@ -1653,7 +1681,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>  err_chains:
+>  	kfree(chains);
+>  out:
+> -	drm_syncobj_array_free(syncobjs, count);
+> +	drm_syncobj_array_free(syncobjs, count, syncobjs != stack_syncobjs);
+>  
+>  	return ret;
+>  }
+> @@ -1661,6 +1689,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>  int drm_syncobj_query_ioctl(struct drm_device *dev, void *data,
+>  			    struct drm_file *file_private)
+>  {
+> +	struct drm_syncobj *stack_syncobjs[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
+>  	struct drm_syncobj_timeline_array *args = data;
+>  	struct drm_syncobj **syncobjs;
+>  	uint64_t __user *points = u64_to_user_ptr(args->points);
+> @@ -1679,6 +1708,8 @@ int drm_syncobj_query_ioctl(struct drm_device *dev, void *data,
+>  	ret = drm_syncobj_array_find(file_private,
+>  				     u64_to_user_ptr(args->handles),
+>  				     args->count_handles,
+> +				     stack_syncobjs,
+> +				     ARRAY_SIZE(stack_syncobjs),
+>  				     &syncobjs);
+>  	if (ret < 0)
+>  		return ret;
+> @@ -1722,7 +1753,8 @@ int drm_syncobj_query_ioctl(struct drm_device *dev, void *data,
+>  		if (ret)
+>  			break;
+>  	}
+> -	drm_syncobj_array_free(syncobjs, args->count_handles);
+> +	drm_syncobj_array_free(syncobjs, args->count_handles,
+> +			       syncobjs != stack_syncobjs);
+>  
+>  	return ret;
+>  }
 
