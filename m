@@ -4,61 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 244A1C678DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jun 2025 13:32:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD769C678DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jun 2025 14:00:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4DE110E366;
-	Wed, 11 Jun 2025 13:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4B2C10E675;
+	Wed, 11 Jun 2025 14:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j82pf381";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rqwylRKm";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8432C10E366;
- Wed, 11 Jun 2025 13:32:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749648729; x=1781184729;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=eSDv28MuTdwZ6xTMeqLdugHcHec2hDq5By/9GkUZe3g=;
- b=j82pf3812PnnESkwJj9ifMm7vpzhIGaOammCq0koJRM4Jn2icMsLaF/I
- BJEb8gfn8Q4o8xANDg+DmQ2ggrmR1azIbI6/66ATLeUbHA0Ffb1uPgmU7
- 2uEc4XsuUGkANYVPPjR4oywIu1n3GwbrPuNhBafzq4XW5d6sRsHkIIsai
- hCOmNd2ux8ewkIgMgBUKftYaNypgDZpnD3pporl5brXhltF3nVdLG2LJ8
- cL5eK2hPhg+Dp25PaO+PIUM+RwJv0swfWe2Yp/j5xNyvKdeLnuFFrca4l
- qo0F/9q46Eb0pw6p3p8ARpe6AlObdPSd9jF/SbQmUwt+ye/Pn5DpIMd/q w==;
-X-CSE-ConnectionGUID: NSIL5LsOQuu+A7ok3l4eDg==
-X-CSE-MsgGUID: 3U0Y0UTEQ2u1La0VmIneqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11461"; a="51014381"
-X-IronPort-AV: E=Sophos;i="6.16,227,1744095600"; d="scan'208";a="51014381"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2025 06:32:08 -0700
-X-CSE-ConnectionGUID: 071oI+h3Qji4k13VB1TsaA==
-X-CSE-MsgGUID: Q8gjurnuS2eCKUnDRZRfiA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,227,1744095600"; d="scan'208";a="184407810"
-Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 11 Jun 2025 06:31:49 -0700
-Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1uPLYQ-000AVO-28;
- Wed, 11 Jun 2025 13:31:46 +0000
-Date: Wed, 11 Jun 2025 21:30:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, kernel-dev@igalia.com,
- amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>
-Subject: Re: [PATCH v4 2/6] drm/syncobj: Do not allocate an array to store
- zeros when waiting
-Message-ID: <202506112101.YHxD1SCt-lkp@intel.com>
-References: <20250610083001.4120-3-tvrtko.ursulin@igalia.com>
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A74510E67D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jun 2025 14:00:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r21VKatEzSsPfNkGDJWPCwX6BXHfe21f97tt3Sv6ZVUtoGWHiu83WOGiOTtiWrj5gk/NFwicuc9Ijm4mTh5OpoxOr7/lBRdBYUQTA6hORNgLQuhOKMb3dGGEcguDVpLFTplwqIo0EniXDiAgjHfOB73Y6RQOYk0kF4CJwhCUuBd3jYZJBWX4WNKXR9tx239xgAgSmH7Xg9Ur92QU95UKVbjsvFL4o52O9G95kIeIe7GsdWMD4xsHPM/XsBZSHGAAFocB/DWnQrqJBpoiCEAeLk5T2BR7dZOwpkk2KqBXNcf2/71z3LYmb5iCWpsMzm/Ntt5wROSVtUJ/ZQa/tZDhRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fCTEkPAUIxKgIqbXCjCaCD7/UkEZS77RE6GSchOnpvA=;
+ b=dcacEN0aSC6qdxfiSgHT9v2r1g/7+9CNj/nF3JLL2H0/Twyk3+42eyQdBiM09je5K+BgPKjvloVFnqvKlavr5FmK4IRhRtThY+LkJYx1ovEmokacutEcvInjbuVosP7xpskrA9nIlQICfa2snpg4jaAgVNixUvnIszBP49M+8yyRZxQrQ5S/ebm0rhhnUpvCvbtHZXdJNiD+46t60nPR9mtpobAEE2Uqgp/Lk1VtAEeb3/Im6E9VdQkKtPcnJ+y4+Ta3Znh8tzDV7gFIPLCMrNrtebHDobkfRCkZCFDFhFixE4bZoSbT5AhLeNYN40yUXYB1fPhPbh3B2feCEKYzDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fCTEkPAUIxKgIqbXCjCaCD7/UkEZS77RE6GSchOnpvA=;
+ b=rqwylRKm3lO2ig6lifdi/6aQ53jfvQE1BPdKKTht5B4/HQJc0mRvUF37TjniWPXeDsfUpSUhWh7e95GMHbyvZjHv+PQrfF6uwlltvkr+BaWyOcFNrbrLHgyq9rvTah+lpegMj3r6NpLYO+UmM4YXB8wx6RCeKLoyer2hCLNYhM0=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by DM4PR12MB5843.namprd12.prod.outlook.com (2603:10b6:8:66::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.18; Wed, 11 Jun
+ 2025 14:00:03 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42%5]) with mapi id 15.20.8835.018; Wed, 11 Jun 2025
+ 14:00:03 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Mario Limonciello <superm1@kernel.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Pierre-Loup A .
+ Griffais" <pgriffais@valvesoftware.com>, Vicki Pfau <vi@endrift.com>
+Subject: RE: [PATCH v2 1/2] drm/amd: Allow printing VanGogh OD SCLK levels
+ without setting dpm to manual
+Thread-Topic: [PATCH v2 1/2] drm/amd: Allow printing VanGogh OD SCLK levels
+ without setting dpm to manual
+Thread-Index: AQHb2Oxe2Wc9pEqmv0ioLqnXTc3WELP+ACuA
+Date: Wed, 11 Jun 2025 14:00:03 +0000
+Message-ID: <BL1PR12MB5144DB6BC3C6820665EFBC59F775A@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20250609031227.479079-1-superm1@kernel.org>
+In-Reply-To: <20250609031227.479079-1-superm1@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=c45b66fd-28db-4ee9-b51a-40958c9d3a5a;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-06-11T13:59:23Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DM4PR12MB5843:EE_
+x-ms-office365-filtering-correlation-id: 0a4f71fd-ca60-41a9-be04-08dda8f043b0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?v2TS7krpUrwPqG2IZcCZbv1bShcwQJ/L4QsFIkrHIhooCX9dpf+4Yn4zKUr6?=
+ =?us-ascii?Q?sGC4dsxI89mGInup9RNDJY+WSmep0aY4wc6sdz4HZSMBHPVCQA+5gc5MhayC?=
+ =?us-ascii?Q?0fmoVXmchOThdvRpl3jtrANty7Z2cWtO+0WzwXLjzz5Aq8xHCmOmYzqHEFH7?=
+ =?us-ascii?Q?FFAYnhkW/9xsFxJ0uVdHqJzF5k+N/x585ojOII3UFK6LMV//cVmCsybyDIw0?=
+ =?us-ascii?Q?qiG4CJ8fK8V7NKPrj5A9f3ncbM5RD79AFkz7ibAXOYhvsMSMmiuvxIiJxZ1U?=
+ =?us-ascii?Q?IZu4m5fdvOj4k5HGKaWux1jvCfoYrl5KYiWQloWTDeygUvjq3I81KNZqu6xO?=
+ =?us-ascii?Q?vsOYa2ItH32MHQN4JDbZYj62pzKHh8jTbyLeVR8UcWrXKRjdhH35vZyjVxjC?=
+ =?us-ascii?Q?JpTFApLdNAWOkeNsoM44bJe3qqDIW4Q9i4AC2cNwEU3BVaoKrGWb9GeFyoii?=
+ =?us-ascii?Q?XhnxVSP1QvXAlQDwF5+BEhNFfVtIukOuLYPUlQQpYCiv2Qbr22UbEiTusVbY?=
+ =?us-ascii?Q?CGAZbR13pbQ3ZFHxDG5JscEVD4C+xHTeXgKdrnR8A6aYeO86s/hPjSMHPhWu?=
+ =?us-ascii?Q?vgjGPTu+lAfqFoOKH+cljKxzp3/cPuUgF2qwz+7gz7euLbmC9B6eFTw2OUaD?=
+ =?us-ascii?Q?yZdonXBLgONO3mDXHYXTvk+bYU5m/pT62g0I7DUoYnGAGho/IoQAA4jP5PYP?=
+ =?us-ascii?Q?tzNUxD1Ndv/zc4x1uSfJ+KD5smyAo944zEGOtVKN2R2xd6GosNfIGLnfkQMj?=
+ =?us-ascii?Q?9E1xT2aIUn5DEMrknKG42TdM2DSQm6gJPcizXZ2lRHZdPz7kNvE9KnEsMiLg?=
+ =?us-ascii?Q?xV8AbBAemOhm3XA/RsEtb8xs5WzIMCfwcHwGAW6ibBxpmbZayA8BdHodd4z4?=
+ =?us-ascii?Q?o+x5vptD7xaHsNzoNFN5XXrWWAifVRgaCZR2JuU9OKavy4hAsz5Y+O9obvnq?=
+ =?us-ascii?Q?+nPN+1+g+g7Qe5McfscVX7HSJHvBJRzEo9dHOt/D5gBWU9a9dIZ2E6IGSaYu?=
+ =?us-ascii?Q?lu8GMug7/An3sTvqPkx81s3tQRm/e/dqhZORuPXQSs/ksZflsnqLIiBiUxet?=
+ =?us-ascii?Q?up/fh7o6crmRZH2ZQKb64tU0lul0k6IcSdhQaqnDolyEEOSaKvzSBBVLRPGv?=
+ =?us-ascii?Q?jCLU72H9bdh26UoWEtYVsdIeU5ZVayWka7d9c0AYRTsWwhh80trhhO9YOyzx?=
+ =?us-ascii?Q?Ib9qqm32/rKJXteqiliB2QLUVFGtYwoMBf9qOpKs3I+lDtYW4nwcaR/QXxY9?=
+ =?us-ascii?Q?uXlvpYedtL4qXeGARZqX9P2B0/ltwCh5UovtOoR+EO9xaDuw0xvMlnbpH2zu?=
+ =?us-ascii?Q?gAl8G3//JRh6CYpUiFFz0mjYSR8QeRzjM0hKZ4LNz9tv2rIGesFvkY/YuOGE?=
+ =?us-ascii?Q?t5+sACpDnnvZsdrx8DffKyEAeolBKvx5eKjYhtDQk0IKsQ0OoaO86qS2BSCu?=
+ =?us-ascii?Q?/SGslB6/5/u2CzDwRogQngrZhW+Z1MyBFehYuDMHPXnfUPGblqOuULX/Jtnz?=
+ =?us-ascii?Q?py+wghbgcdgPrns=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?sqGTcW38T8I/ltW40nk9vCqEZ73cKrn7mddgDLeMyF7bignkQXQBVol+MPg4?=
+ =?us-ascii?Q?QCtqlCdpAMmpw1C++ZU9Qx/+2X2v2YM5+f5pHuPTH6TNmBJyXXR2C4p5idMX?=
+ =?us-ascii?Q?DLDUPxE82hsbAtoqXZ1jx5gJaUOotwHgDUgnOfww0fPfXK5t1UTalpoIU2rZ?=
+ =?us-ascii?Q?DyU3KLIQQMWHL2Kv5drBroYrhpCnDJBCgAA1EAHMbkXAaKutj2AZpOd6tFzC?=
+ =?us-ascii?Q?c44mzWp7g7LHb/n1YofoAAqWDyWVBsy9zAU9v9AMco1lza+fskO9hzNV6VGc?=
+ =?us-ascii?Q?oKUW4oIFMBAAsbsj3+fDccFTUC/o/GV2rksIYUcV8dh5X4K8JzNUV+oqNO78?=
+ =?us-ascii?Q?Muk6/ei+XZLQB5PkSVCahni1ByihCX8wXGJqKYW61ZoPcYlVpDh0EP2lWHxW?=
+ =?us-ascii?Q?HPf1+m1vPcs2O+/s1bTf+Baavf7evZM/gBRNn8HP55C//NRucUcq3xVTg9nP?=
+ =?us-ascii?Q?JxTLeyL7+wjq/0ojkZyD0Ie3e1u+App4PYsyWaNSa8xT9KkWYIj4B0Kz3Tbt?=
+ =?us-ascii?Q?A9FsAqRmtKzQa8ZZFC0yd6oMUaP0EhwCLi2ad7azxPF/c9lRNaSj22dW09fp?=
+ =?us-ascii?Q?+33I7VZikJ9wL1qMLg5EfDGSPHLAx0p9FFeWYp/uYrzJZMt1iE5V4+az94pP?=
+ =?us-ascii?Q?R8DR3mnuKPE3iR9zGa9SDH2Jc7O/AtDELFW2+tKr+6wx38T0i57Jiw5HhU4K?=
+ =?us-ascii?Q?DgYVv5v12ekCZezIqFCVWM33Skb72WkWSNeiTBCmf3kWkRfpaV1m2mpW5sY3?=
+ =?us-ascii?Q?aZsjiuG9RIXVwOqC2YshGX1oLTC0ax65+UL/b7k0NRb5R4TbRPArsigJguA2?=
+ =?us-ascii?Q?C3qhzpnJ37dKrxUmdBYi0QKhymxoTHvx6HylcaRBDONeTLCMjAdHAO0iKnOz?=
+ =?us-ascii?Q?ciMh0a3kwD5scz/HhRx5/jeJdon2t9E71g96AlmfcpX4lLPQMPtHZRvg3mKV?=
+ =?us-ascii?Q?75ptLcPtpeFNmjvdsYC6+LSkq42L0c/BnPCOSbL7Dbf4/FI4nrS1s6N8CpWi?=
+ =?us-ascii?Q?uTAELW35+NxAfixJyAqY10fIEpEyHE5WHLWz+Ahm8nH8+Xr/AbYyblf85Meq?=
+ =?us-ascii?Q?XgM+heVMYgulbZpLmvu84ZQCQNnDFvzlVtN1iA8VCoKFN9/+2hhUAO8qIWFL?=
+ =?us-ascii?Q?w7sJs40dY/1RHLG0gc9UfsDexxCxsr2Nl3GxNUYfcoH9nJqFaQXSO9r2dSJO?=
+ =?us-ascii?Q?0V3QOBOMp1GSdQ4KMo9Er4XAF1baSVr+LGi2zbie0C7EpvxhvTlE3o/d3W/C?=
+ =?us-ascii?Q?/7dhoFnjI6PjwgcUOzeC7dOKjlX0EYeyrC1oybozjxitABzlMC0K5uBX8ghM?=
+ =?us-ascii?Q?RFmoynXMKvCIF15vdGpXsw/RQusyknFeCFWK8/r/OsURxuxb6KkKDQEpSp9U?=
+ =?us-ascii?Q?sCmVFoX+Lgn7aj+92JfdzsfF5IL2vCGcg5lKYcyuh+fDCqwWv6ouI/CNg24S?=
+ =?us-ascii?Q?FCkq+vXYnvbeqcEBLtIMD14oJH2fO34eVEjUuZQ2BHyGuK68r+/pS3bCvzP9?=
+ =?us-ascii?Q?X/+7f6eezbm1y61bHm/L8fgLr0r3n4UQYX3pwNpRAtz6PWAtLRNr8N5/vEpY?=
+ =?us-ascii?Q?HOOqMQMrjt0xYpI3B8o=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250610083001.4120-3-tvrtko.ursulin@igalia.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a4f71fd-ca60-41a9-be04-08dda8f043b0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jun 2025 14:00:03.7727 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: c/zQQMPImxBfRx4XvfZ9SSNwDN18LnFhbji9PVKPkisx/B7L2Blt8Ku1aJnAGtY6/94H5k4dG3VQ8ZORM00ZAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5843
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,190 +159,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+[Public]
 
-kernel test robot noticed the following build warnings:
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario
+> Limonciello
+> Sent: Sunday, June 8, 2025 11:12 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Pierre-Loup A . Griff=
+ais
+> <pgriffais@valvesoftware.com>; Vicki Pfau <vi@endrift.com>
+> Subject: [PATCH v2 1/2] drm/amd: Allow printing VanGogh OD SCLK levels wi=
+thout
+> setting dpm to manual
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> Several other ASICs allow printing OD SCLK levels without setting DPM con=
+trol to
+> manual.  When OD is disabled it will show the range the hardware supports=
+. When
+> OD is enabled it will show what values have been programmed. Adjust VanGo=
+gh to
+> work the same.
+>
+> Cc: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
+> Reported-by: Vicki Pfau <vi@endrift.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-[auto build test WARNING on drm-exynos/exynos-drm-next]
-[also build test WARNING on linus/master v6.16-rc1 next-20250611]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Tvrtko-Ursulin/drm-syncobj-Remove-unhelpful-helper/20250610-163819
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
-patch link:    https://lore.kernel.org/r/20250610083001.4120-3-tvrtko.ursulin%40igalia.com
-patch subject: [PATCH v4 2/6] drm/syncobj: Do not allocate an array to store zeros when waiting
-config: x86_64-randconfig-121-20250611 (https://download.01.org/0day-ci/archive/20250611/202506112101.YHxD1SCt-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250611/202506112101.YHxD1SCt-lkp@intel.com/reproduce)
+> ---
+> v1: https://lore.kernel.org/amd-gfx/20250323145316.859797-1-
+> superm1@kernel.org/
+> v1 (resend): https://lore.kernel.org/amd-gfx/20250421210639.1138228-1-
+> superm1@kernel.org/
+> v2: rebase
+> ---
+>  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 37 ++++++++-----------
+>  1 file changed, 15 insertions(+), 22 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> index a55ea76d73996..2c9869feba610 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> @@ -666,7 +666,6 @@ static int vangogh_print_clk_levels(struct smu_contex=
+t
+> *smu,  {
+>       DpmClocks_t *clk_table =3D smu->smu_table.clocks_table;
+>       SmuMetrics_t metrics;
+> -     struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
+>       int i, idx, size =3D 0, ret =3D 0;
+>       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
+>       bool cur_value_match_level =3D false;
+> @@ -682,31 +681,25 @@ static int vangogh_print_clk_levels(struct smu_cont=
+ext
+> *smu,
+>
+>       switch (clk_type) {
+>       case SMU_OD_SCLK:
+> -             if (smu_dpm_ctx->dpm_level =3D=3D
+> AMD_DPM_FORCED_LEVEL_MANUAL) {
+> -                     size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_SCL=
+K");
+> -                     size +=3D sysfs_emit_at(buf, size, "0: %10uMhz\n",
+> -                     (smu->gfx_actual_hard_min_freq > 0) ? smu-
+> >gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
+> -                     size +=3D sysfs_emit_at(buf, size, "1: %10uMhz\n",
+> -                     (smu->gfx_actual_soft_max_freq > 0) ? smu-
+> >gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq);
+> -             }
+> +             size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+> +             size +=3D sysfs_emit_at(buf, size, "0: %10uMhz\n",
+> +             (smu->gfx_actual_hard_min_freq > 0) ? smu-
+> >gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
+> +             size +=3D sysfs_emit_at(buf, size, "1: %10uMhz\n",
+> +             (smu->gfx_actual_soft_max_freq > 0) ? smu-
+> >gfx_actual_soft_max_freq :
+> +smu->gfx_default_soft_max_freq);
+>               break;
+>       case SMU_OD_CCLK:
+> -             if (smu_dpm_ctx->dpm_level =3D=3D
+> AMD_DPM_FORCED_LEVEL_MANUAL) {
+> -                     size +=3D sysfs_emit_at(buf, size, "CCLK_RANGE in
+> Core%d:\n",  smu->cpu_core_id_select);
+> -                     size +=3D sysfs_emit_at(buf, size, "0: %10uMhz\n",
+> -                     (smu->cpu_actual_soft_min_freq > 0) ? smu-
+> >cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
+> -                     size +=3D sysfs_emit_at(buf, size, "1: %10uMhz\n",
+> -                     (smu->cpu_actual_soft_max_freq > 0) ? smu-
+> >cpu_actual_soft_max_freq : smu->cpu_default_soft_max_freq);
+> -             }
+> +             size +=3D sysfs_emit_at(buf, size, "CCLK_RANGE in Core%d:\n=
+",
+> smu->cpu_core_id_select);
+> +             size +=3D sysfs_emit_at(buf, size, "0: %10uMhz\n",
+> +             (smu->cpu_actual_soft_min_freq > 0) ? smu-
+> >cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
+> +             size +=3D sysfs_emit_at(buf, size, "1: %10uMhz\n",
+> +             (smu->cpu_actual_soft_max_freq > 0) ? smu-
+> >cpu_actual_soft_max_freq :
+> +smu->cpu_default_soft_max_freq);
+>               break;
+>       case SMU_OD_RANGE:
+> -             if (smu_dpm_ctx->dpm_level =3D=3D
+> AMD_DPM_FORCED_LEVEL_MANUAL) {
+> -                     size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RAN=
+GE");
+> -                     size +=3D sysfs_emit_at(buf, size, "SCLK: %7uMhz
+> %10uMhz\n",
+> -                             smu->gfx_default_hard_min_freq, smu-
+> >gfx_default_soft_max_freq);
+> -                     size +=3D sysfs_emit_at(buf, size, "CCLK: %7uMhz
+> %10uMhz\n",
+> -                             smu->cpu_default_soft_min_freq, smu-
+> >cpu_default_soft_max_freq);
+> -             }
+> +             size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+> +             size +=3D sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n"=
+,
+> +                     smu->gfx_default_hard_min_freq, smu-
+> >gfx_default_soft_max_freq);
+> +             size +=3D sysfs_emit_at(buf, size, "CCLK: %7uMhz %10uMhz\n"=
+,
+> +                     smu->cpu_default_soft_min_freq, smu-
+> >cpu_default_soft_max_freq);
+>               break;
+>       case SMU_SOCCLK:
+>               /* the level 3 ~ 6 of socclk use the same frequency for van=
+gogh */
+> --
+> 2.43.0
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202506112101.YHxD1SCt-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/drm_syncobj.c:1090:47: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void *to @@     got unsigned long long [noderef] [usertype] __user * @@
-   drivers/gpu/drm/drm_syncobj.c:1090:47: sparse:     expected void *to
-   drivers/gpu/drm/drm_syncobj.c:1090:47: sparse:     got unsigned long long [noderef] [usertype] __user *
->> drivers/gpu/drm/drm_syncobj.c:1090:59: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void const [noderef] __user *from @@     got unsigned long long * @@
-   drivers/gpu/drm/drm_syncobj.c:1090:59: sparse:     expected void const [noderef] __user *from
-   drivers/gpu/drm/drm_syncobj.c:1090:59: sparse:     got unsigned long long *
-
-vim +1090 drivers/gpu/drm/drm_syncobj.c
-
-  1056	
-  1057	static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
-  1058							  u64 __user *user_points,
-  1059							  uint32_t count,
-  1060							  uint32_t flags,
-  1061							  signed long timeout,
-  1062							  uint32_t *idx,
-  1063							  ktime_t *deadline)
-  1064	{
-  1065		struct syncobj_wait_entry *entries;
-  1066		uint32_t signaled_count, i;
-  1067		struct dma_fence *fence;
-  1068	
-  1069		if (flags & (DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
-  1070			     DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE)) {
-  1071			might_sleep();
-  1072			lockdep_assert_none_held_once();
-  1073		}
-  1074	
-  1075		entries = kcalloc(count, sizeof(*entries), GFP_KERNEL);
-  1076		if (!entries)
-  1077			return -ENOMEM;
-  1078	
-  1079		/* Walk the list of sync objects and initialize entries.  We do
-  1080		 * this up-front so that we can properly return -EINVAL if there is
-  1081		 * a syncobj with a missing fence and then never have the chance of
-  1082		 * returning -EINVAL again.
-  1083		 */
-  1084		signaled_count = 0;
-  1085		for (i = 0; i < count; ++i) {
-  1086			struct dma_fence *fence;
-  1087	
-  1088			entries[i].task = current;
-  1089			if (user_points &&
-> 1090			    copy_from_user(user_points++, &entries[i].point,
-  1091					   sizeof(*user_points))) {
-  1092				timeout = -EFAULT;
-  1093				goto cleanup_entries;
-  1094			}
-  1095			fence = drm_syncobj_fence_get(syncobjs[i]);
-  1096			if (!fence ||
-  1097			    dma_fence_chain_find_seqno(&fence, entries[i].point)) {
-  1098				dma_fence_put(fence);
-  1099				if (flags & (DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
-  1100					     DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE)) {
-  1101					continue;
-  1102				} else {
-  1103					timeout = -EINVAL;
-  1104					goto cleanup_entries;
-  1105				}
-  1106			}
-  1107	
-  1108			if (fence)
-  1109				entries[i].fence = fence;
-  1110			else
-  1111				entries[i].fence = dma_fence_get_stub();
-  1112	
-  1113			if ((flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE) ||
-  1114			    dma_fence_is_signaled(entries[i].fence)) {
-  1115				if (signaled_count == 0 && idx)
-  1116					*idx = i;
-  1117				signaled_count++;
-  1118			}
-  1119		}
-  1120	
-  1121		if (signaled_count == count ||
-  1122		    (signaled_count > 0 &&
-  1123		     !(flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL)))
-  1124			goto cleanup_entries;
-  1125	
-  1126		/* There's a very annoying laxness in the dma_fence API here, in
-  1127		 * that backends are not required to automatically report when a
-  1128		 * fence is signaled prior to fence->ops->enable_signaling() being
-  1129		 * called.  So here if we fail to match signaled_count, we need to
-  1130		 * fallthough and try a 0 timeout wait!
-  1131		 */
-  1132	
-  1133		if (flags & (DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
-  1134			     DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE)) {
-  1135			for (i = 0; i < count; ++i)
-  1136				drm_syncobj_fence_add_wait(syncobjs[i], &entries[i]);
-  1137		}
-  1138	
-  1139		if (deadline) {
-  1140			for (i = 0; i < count; ++i) {
-  1141				fence = entries[i].fence;
-  1142				if (!fence)
-  1143					continue;
-  1144				dma_fence_set_deadline(fence, *deadline);
-  1145			}
-  1146		}
-  1147	
-  1148		do {
-  1149			set_current_state(TASK_INTERRUPTIBLE);
-  1150	
-  1151			signaled_count = 0;
-  1152			for (i = 0; i < count; ++i) {
-  1153				fence = entries[i].fence;
-  1154				if (!fence)
-  1155					continue;
-  1156	
-  1157				if ((flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE) ||
-  1158				    dma_fence_is_signaled(fence) ||
-  1159				    (!entries[i].fence_cb.func &&
-  1160				     dma_fence_add_callback(fence,
-  1161							    &entries[i].fence_cb,
-  1162							    syncobj_wait_fence_func))) {
-  1163					/* The fence has been signaled */
-  1164					if (flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL) {
-  1165						signaled_count++;
-  1166					} else {
-  1167						if (idx)
-  1168							*idx = i;
-  1169						goto done_waiting;
-  1170					}
-  1171				}
-  1172			}
-  1173	
-  1174			if (signaled_count == count)
-  1175				goto done_waiting;
-  1176	
-  1177			if (timeout == 0) {
-  1178				timeout = -ETIME;
-  1179				goto done_waiting;
-  1180			}
-  1181	
-  1182			if (signal_pending(current)) {
-  1183				timeout = -ERESTARTSYS;
-  1184				goto done_waiting;
-  1185			}
-  1186	
-  1187			timeout = schedule_timeout(timeout);
-  1188		} while (1);
-  1189	
-  1190	done_waiting:
-  1191		__set_current_state(TASK_RUNNING);
-  1192	
-  1193	cleanup_entries:
-  1194		for (i = 0; i < count; ++i) {
-  1195			drm_syncobj_remove_wait(syncobjs[i], &entries[i]);
-  1196			if (entries[i].fence_cb.func)
-  1197				dma_fence_remove_callback(entries[i].fence,
-  1198							  &entries[i].fence_cb);
-  1199			dma_fence_put(entries[i].fence);
-  1200		}
-  1201		kfree(entries);
-  1202	
-  1203		return timeout;
-  1204	}
-  1205	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
