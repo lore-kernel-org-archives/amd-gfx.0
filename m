@@ -4,67 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8973BC71136
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 16:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB174C7114A
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 16:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A42810EA2C;
-	Fri, 13 Jun 2025 16:05:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF03A10EA28;
+	Fri, 13 Jun 2025 16:05:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="crHW6Biq";
+	dkim=pass (2048-bit key; unprotected) header.d=dabbelt-com.20230601.gappssmtp.com header.i=@dabbelt-com.20230601.gappssmtp.com header.b="d84t17wQ";
 	dkim-atps=neutral
-Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
- [209.85.166.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A40010E7DB
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jun 2025 11:39:19 +0000 (UTC)
-Received: by mail-il1-f172.google.com with SMTP id
- e9e14a558f8ab-3da73df6c4eso7597355ab.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jun 2025 04:39:19 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4CE310E29B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jun 2025 21:31:13 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-23633a6ac50so19945255ad.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jun 2025 14:31:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1749728359; x=1750333159; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=PCOz4PfRNVidWG0sb2TX8rQEoecZym1UbMZof1PogXY=;
- b=crHW6BiqRbloz7Qqwgua6Kk88ZLyIu67g+8MqSUwgnM1RwGBTrth/jvRMYUoUC1EAn
- we7rFIHfvSIuFIQMKDQgmWXRfRZNvY4gaZWUxKY0vFiixpBnSa+OAlpX2lgUZTd3gRwK
- nvetNhyI5Op17FsLz08692kPhY1UMRcECCLwbvPEKeL9XsiChsQAuLnr8HY3jp2bHT0A
- iGVSS4iZYEtuFbMg/uq80lvbs+UO6njzS6r9XbrPV83+DMqDGEZYUSY3ckcaXy+RFE+7
- +4nTDXOq5p/5JWAx8V4TmVUOJu+z5Srf7H2YPPbr4kTpR3ueeMPQY+/dYV0PI8hrP4ac
- Yqug==
+ d=dabbelt-com.20230601.gappssmtp.com; s=20230601; t=1749763873; x=1750368673;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:to:from:cc
+ :in-reply-to:subject:date:from:to:cc:subject:date:message-id
+ :reply-to; bh=kAiNH9B1y5rWcHog71i4hUznzWj+jJc4yS7lpSm9QgM=;
+ b=d84t17wQUce23BG90h16kh9ux61+9XDB0ZAYgSQ0I2FlkJWoUNPlnfHPjeWbA205Ku
+ Vt0qsAgb9rfaatt9WxWYRVmOILRabGD0xvkB7ik5hLyyqCMCyUKpGXKMgd+TEnVqIhyg
+ 6uCFwSB1H0NkgkbpobfYimSsubSEn7pQqb3yZT59DJ0kDvl2LD7++Kd2LWi00vu2u6CM
+ U6SmnbMyHvAmy5eOImLLyzvykw5gYi9PjeQsiKe9FdNqwVFDQM5cJmGu3NEa0e+9iwZi
+ Y0BVxKbkM+OR4ztcBmOgXtGe0eyBN3MlvcWguNezHVCZWslgY9+mDc6dqjvNkL3B6jMg
+ NfRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749728359; x=1750333159;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PCOz4PfRNVidWG0sb2TX8rQEoecZym1UbMZof1PogXY=;
- b=KRrihaS8nDIHJZ4NIgBr7FTUJYLVENDbQfuyESSD32vEDhHHKhUHSV7h2zwjedIPfC
- 1nAbVAG4116ptPzDvMf4d/1zLFckpowAikk2PLk5J/UBzTqlIGZY2Dp5p80HuPIPjMlj
- aVmICL19s3Sc0+oGqgJAqQMI5o4IMdXUW31AO7haT6+LMYpEF1n06uuZlNFUPr3Vf8Ir
- Fi4Kb8tcD+IJaVd1scdMw7vSd6Tqpv/w9tu/4xf/S/FlVtmok4t7eAD10Zu7c25iyyNF
- idvBoAmfrUiPuUfO5B21xBKKy/K67qmwBzWysqvbQa8pV6LQqOc/7mM4g4mQoJcLA1Gg
- bbww==
-X-Gm-Message-State: AOJu0Yx/pUbUIejgAkb425klcAC1meFz5HhcLLRXHlc3KNXlS6TAaXwg
- MqS3WqPSAES5bYsiRILzcoL9Vek4dC7S4DWPqpzEyAY8x4R2hCgIyo6W0cS8q2S/E2oPIbfG0Dl
- uk5MP4oGth4tsMi6URHn+VKu0OtjpL4+CCA==
-X-Gm-Gg: ASbGncv/BWxX0gOcl1prsx0XwBZqdHhwKTFkyIoXcJmWvzSEM1XsyETIO5FjvF0uqRv
- nrnH9m03YhcuIBDp6FZMw7QG41GxbBpsLIglScU6qihwu4eATNw0oLwNUQa1ChB4mLvbzx79WKx
- iGnpUWw3Xtp9BE1Eln0V0uZQp/aT9FVr60fyXGGBIhcg==
-X-Google-Smtp-Source: AGHT+IHBKTMeZsDdPYi7Uddixo8364nYgdkyC8Ma2FDPjv2OZyck+9CuW5HbqpIz6hxQdTDDWvZ53GGV4avk3pj7nJU=
-X-Received: by 2002:a05:6e02:1525:b0:3dc:87c7:a5b5 with SMTP id
- e9e14a558f8ab-3ddf42261cbmr80833225ab.3.1749728358766; Thu, 12 Jun 2025
- 04:39:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <CABH-8xf3sg1CiHWM9nN0a3eSRTF9Lc_vkcZDzbvWZAH0f+Gf2g@mail.gmail.com>
- <CADnq5_MYFt1fS4m3gn-TDSbAot2DpXDZtt0f3DFWJKoPXr3-zg@mail.gmail.com>
- <CABH-8xcnpQ65SZDJJxPmqWP1g_2miQ=1R=OUyJXpO-NKkc7JUw@mail.gmail.com>
-In-Reply-To: <CABH-8xcnpQ65SZDJJxPmqWP1g_2miQ=1R=OUyJXpO-NKkc7JUw@mail.gmail.com>
-From: =?UTF-8?Q?Durmu=C5=9F?= <dozaltay@gmail.com>
-Date: Thu, 12 Jun 2025 14:39:08 +0300
-X-Gm-Features: AX0GCFsueeIe4WV6nA2EwbX6mj27FDVXlBRbVEXRfDIcDCrbGrXvnchA0VgsRKI
-Message-ID: <CABH-8xcryfAu+Lkf9bYjE4Vw6ToDN+-A4MRqM6pn+a5kHtGn7g@mail.gmail.com>
-Subject: Re: Regression: RX 470 fails to boot with amdgpu.dpm=1 on kernel 6.7+
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000471ed306375e6116"
+ d=1e100.net; s=20230601; t=1749763873; x=1750368673;
+ h=content-transfer-encoding:mime-version:message-id:to:from:cc
+ :in-reply-to:subject:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kAiNH9B1y5rWcHog71i4hUznzWj+jJc4yS7lpSm9QgM=;
+ b=gjJ/AoshOpRQqHD1f1GnGvNCEAzVDHVlgasWYTjw2q4UXpkN79kpR1YquT5WkYETkI
+ TqtEAxcNyzu799XXqa12RPHKk+oAgqmNV39IfIBkgoR6+K8CcPC62MVuBVogPIzHMsZH
+ dks1HgBs5VfiBTs9i1CjpMv7iYIR7Z/Dr2bmTo348lViLc+q5H4tllORCkDORTWXKmyN
+ amrFxTxlb1zlr88gOobKSMR1mcwQb/fttvOUdumr4lf/JdHacc4FsBSS4WiLBsn8e++e
+ Uh55dD92703W/bPlDKSq+eEWcrYVIbLgP7X1en5Odn9xSVGUoTJz4fuw9THsGFLLgsEs
+ bo4Q==
+X-Gm-Message-State: AOJu0Yx+OApEEjq+2DToKikLIJRqGN7TxNhEYzT+hSCYiPoDqrP3Y0DP
+ yHt2hFqWEl7yER/CMP3b92wjeQ0GVRHYh4L8PPfvICGKq6hNgWkHHzUg9IJUrX03FQ1XsYI10X5
+ YzOnZ
+X-Gm-Gg: ASbGnctw/a8osFJG35s9pnjGOZ3vSmlrkoJK8sgXUyJf4qk8q1jNEe0QDKENYwaqcDd
+ dAK69uK5bsbCPuVpHOaPlWl6OslslFvQmqB2I5UdEDA4QlhrkMt84j8nvXogkwwag8WHeIg7bmD
+ WvAg2/sCp5ZGgEikrPDb0gac99SEhVP83OsvH370WGK6tHMBUzbAuzgD3IjngjObLKV6T+igZcg
+ x4Q2Fmiquexbod3Xqn+LC+c1pQz6G9IGoGJq0ba1pSWTyn2efckp+tEJ5Pm3lc2K3QgTis9LZhB
+ vU4zooqGr0Vzr+vjAiRCiM88gwYs58DZav4hhWCrZERIzUQjxMPV5pbaNmyFWO7OMSrTuXw=
+X-Google-Smtp-Source: AGHT+IFDnejqr8oRFqr+54M6Q0Qk8od5uIXQThtywqkd6sZvggjsiSEKivHDUfWiTs7aGZTXil9lAQ==
+X-Received: by 2002:a17:902:b185:b0:235:866:9fac with SMTP id
+ d9443c01a7336-2365d8a28ecmr5983835ad.2.1749763869384; 
+ Thu, 12 Jun 2025 14:31:09 -0700 (PDT)
+Received: from localhost ([2620:10d:c090:500::7:116a])
+ by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-2365deca351sm1803855ad.207.2025.06.12.14.31.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Jun 2025 14:31:08 -0700 (PDT)
+Date: Thu, 12 Jun 2025 14:31:08 -0700 (PDT)
+X-Google-Original-Date: Thu, 12 Jun 2025 14:31:05 PDT (-0700)
+Subject: Re: [PATCH] drm/amd/pm: Use pointer type for typecheck()
+In-Reply-To: <20250612122321.801690-1-lijo.lazar@amd.com>
+CC: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com,
+ Alexander.Deucher@amd.com, Asad.Kamal@amd.com, kent.russell@amd.com
+From: Palmer Dabbelt <palmer@dabbelt.com>
+To: lijo.lazar@amd.com
+Message-ID: <mhng-51EEFB4C-FC18-4BC2-81E7-094C20719C1A@palmerdabbelt-mac>
+Mime-Version: 1.0 (MHng)
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Jun 2025 16:05:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,142 +87,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000471ed306375e6116
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-i hope you can see the image, i cant on fhe phone. i tried to install arch
-with archinstall script and tried latest zen kernel but result is same. it
-stuck [drm] VCE enabled in VM mode. i tried  to add grub:
-amdgpu.dc=3D0 amdgpu.si_support=3D1 radeon.si_support=3D0 amdgpu.dpm=3D1
-amdgpu.vm_fragment_size=3D9 amd_iommu=3Doff but didn't work
-
-On Thu, Jun 12, 2025, 14:29 Durmu=C5=9F <dozaltay@gmail.com> wrote:
-
+On Thu, 12 Jun 2025 05:23:21 PDT (-0700), lijo.lazar@amd.com wrote:
+> typecheck creates local variables based on the type passed. That could
+> result in stack frame size warnings like below in certain configs:
 >
-> i added debug option and this is where to stuck
+> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:2885:1: error: the frame size of 8304 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
 >
-> On Fri, May 30, 2025, 23:29 Alex Deucher <alexdeucher@gmail.com> wrote:
+> Checking against the pointer type is sufficient for the purpose of
+> getting a diagnostic message during build time.
 >
->> On Thu, May 22, 2025 at 11:10=E2=80=AFAM Durmu=C5=9F <dozaltay@gmail.com=
-> wrote:
->> >
->> > Hello,
->> >
->> > I'm experiencing a critical issue on my system with an AMD RX 470 GPU.
->> > When booting with recent kernel versions (6.7.x or newer), the system
->> > fails to boot properly unless I explicitly disable Dynamic Power
->> > Management (DPM) via the `amdgpu.dpm=3D0` kernel parameter.
->> >
->> > When DPM is enabled (`amdgpu.dpm=3D1` or omitted, since it's the
->> > default), the system either freezes during early boot or fails to
->> > initialize the display. However, using the LTS kernel (6.6.x),
->> > everything works as expected with DPM enabled.
->>
->> Are you still having an issue with newer kernels?  E.g., 6.14 or 6.15?
->>  I haven't seen any problems with polaris boards here.  If 6.6.x
->> works, but 6.7 does not, can you bisect?
->>
->> Alex
->>
->> >
->> > This seems to be a regression introduced in kernel 6.7 or later, and
->> > it specifically affects older GCN4 (Polaris) GPUs like the RX 470.
->> > Disabling DPM allows the system to boot, but significantly reduces GPU
->> > performance.
->> >
->> > Things I=E2=80=99ve tried:
->> > - Confirmed that the latest `linux-firmware` is installed.
->> > - Verified correct firmware files exist under `/lib/firmware/amdgpu/`.
->> > - Tested multiple kernels (mainline and LTS).
->> > - Using Mesa with ACO (Radeon open driver stack).
->> > - System boots fine with LTS kernel (6.6.x) + DPM enabled.
->> >
->> > System info:
->> > - GPU: AMD RX 470 (GCN 4 / Polaris)
->> > - Distro: Arch Linux
->> > - Kernel (working): linux-lts 6.6.x
->> > - Kernel (broken): 6.7.x and newer (currently tested on 6.14.6)
->> >
->> > Thanks in advance,
->> > Durmus Ozaltay
->>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h | 41 +++++++++++++-------------
+>  1 file changed, 21 insertions(+), 20 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> index 7473672abd2a..a608cdbdada4 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> @@ -40,28 +40,29 @@
+>  #define SMU_IH_INTERRUPT_CONTEXT_ID_FAN_ABNORMAL        0x8
+>  #define SMU_IH_INTERRUPT_CONTEXT_ID_FAN_RECOVERY        0x9
+>
+> -#define smu_cmn_init_soft_gpu_metrics(ptr, frev, crev)         \
+> -	do {                                                   \
+> -		typecheck(struct gpu_metrics_v##frev##_##crev, \
+> -			  typeof(*(ptr)));                     \
+> -		struct metrics_table_header *header =          \
+> -			(struct metrics_table_header *)(ptr);  \
+> -		memset(header, 0xFF, sizeof(*(ptr)));          \
+> -		header->format_revision = frev;                \
+> -		header->content_revision = crev;               \
+> -		header->structure_size = sizeof(*(ptr));       \
+> +#define smu_cmn_init_soft_gpu_metrics(ptr, frev, crev)                   \
+> +	do {                                                             \
+> +		typecheck(struct gpu_metrics_v##frev##_##crev *, (ptr)); \
+> +		struct gpu_metrics_v##frev##_##crev *tmp = (ptr);        \
+> +		struct metrics_table_header *header =                    \
+> +			(struct metrics_table_header *)tmp;              \
+> +		memset(header, 0xFF, sizeof(*tmp));                      \
+> +		header->format_revision = frev;                          \
+> +		header->content_revision = crev;                         \
+> +		header->structure_size = sizeof(*tmp);                   \
+>  	} while (0)
+>
+> -#define smu_cmn_init_partition_metrics(ptr, frev, crev)                     \
+> -	do {                                                                \
+> -		typecheck(struct amdgpu_partition_metrics_v##frev##_##crev, \
+> -			  typeof(*(ptr)));                                  \
+> -		struct metrics_table_header *header =                       \
+> -			(struct metrics_table_header *)(ptr);               \
+> -		memset(header, 0xFF, sizeof(*(ptr)));                       \
+> -		header->format_revision = frev;                             \
+> -		header->content_revision = crev;                            \
+> -		header->structure_size = sizeof(*(ptr));                    \
+> +#define smu_cmn_init_partition_metrics(ptr, fr, cr)                        \
+> +	do {                                                               \
+> +		typecheck(struct amdgpu_partition_metrics_v##fr##_##cr *,  \
+> +			  (ptr));                                          \
+> +		struct amdgpu_partition_metrics_v##fr##_##cr *tmp = (ptr); \
+> +		struct metrics_table_header *header =                      \
+> +			(struct metrics_table_header *)tmp;                \
+> +		memset(header, 0xFF, sizeof(*tmp));                        \
+> +		header->format_revision = fr;                              \
+> +		header->content_revision = cr;                             \
+> +		header->structure_size = sizeof(*tmp);                     \
+>  	} while (0)
+>
+>  extern const int link_speed[];
 
---000000000000471ed306375e6116
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This fixes my build isuses over at 
+https://lore.kernel.org/r/20250610212141.19445-1-palmer@dabbelt.com .  
 
-<p dir=3D"ltr">i hope you can see the image, i cant on fhe phone. i tried t=
-o install arch with archinstall script and tried latest zen kernel but resu=
-lt is same. it stuck [drm] VCE enabled in VM mode. i tried=C2=A0 to add gru=
-b:<br>
-amdgpu.dc=3D0 amdgpu.si_support=3D1 radeon.si_support=3D0 amdgpu.dpm=3D1 am=
-dgpu.vm_fragment_size=3D9 amd_iommu=3Doff but didn&#39;t work<br>
-</p>
-<br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Thu, Jun 12, 2025, 14:29 Durmu=C5=9F &lt;<a href=3D"mail=
-to:dozaltay@gmail.com">dozaltay@gmail.com</a>&gt; wrote:<br></div><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc so=
-lid;padding-left:1ex"><div dir=3D"auto"><img style=3D"max-width:100%;height=
-:auto"><br>i added debug option and this is where to stuck</div><br><div cl=
-ass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, May 30, 2=
-025, 23:29 Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com" target=
-=3D"_blank" rel=3D"noreferrer">alexdeucher@gmail.com</a>&gt; wrote:<br></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
-r-left:1px solid rgb(204,204,204);padding-left:1ex">On Thu, May 22, 2025 at=
- 11:10=E2=80=AFAM Durmu=C5=9F &lt;<a href=3D"mailto:dozaltay@gmail.com" rel=
-=3D"noreferrer noreferrer" target=3D"_blank">dozaltay@gmail.com</a>&gt; wro=
-te:<br>
-&gt;<br>
-&gt; Hello,<br>
-&gt;<br>
-&gt; I&#39;m experiencing a critical issue on my system with an AMD RX 470 =
-GPU.<br>
-&gt; When booting with recent kernel versions (6.7.x or newer), the system<=
-br>
-&gt; fails to boot properly unless I explicitly disable Dynamic Power<br>
-&gt; Management (DPM) via the `amdgpu.dpm=3D0` kernel parameter.<br>
-&gt;<br>
-&gt; When DPM is enabled (`amdgpu.dpm=3D1` or omitted, since it&#39;s the<b=
-r>
-&gt; default), the system either freezes during early boot or fails to<br>
-&gt; initialize the display. However, using the LTS kernel (6.6.x),<br>
-&gt; everything works as expected with DPM enabled.<br>
-<br>
-Are you still having an issue with newer kernels?=C2=A0 E.g., 6.14 or 6.15?=
-<br>
-=C2=A0I haven&#39;t seen any problems with polaris boards here.=C2=A0 If 6.=
-6.x<br>
-works, but 6.7 does not, can you bisect?<br>
-<br>
-Alex<br>
-<br>
-&gt;<br>
-&gt; This seems to be a regression introduced in kernel 6.7 or later, and<b=
-r>
-&gt; it specifically affects older GCN4 (Polaris) GPUs like the RX 470.<br>
-&gt; Disabling DPM allows the system to boot, but significantly reduces GPU=
-<br>
-&gt; performance.<br>
-&gt;<br>
-&gt; Things I=E2=80=99ve tried:<br>
-&gt; - Confirmed that the latest `linux-firmware` is installed.<br>
-&gt; - Verified correct firmware files exist under `/lib/firmware/amdgpu/`.=
-<br>
-&gt; - Tested multiple kernels (mainline and LTS).<br>
-&gt; - Using Mesa with ACO (Radeon open driver stack).<br>
-&gt; - System boots fine with LTS kernel (6.6.x) + DPM enabled.<br>
-&gt;<br>
-&gt; System info:<br>
-&gt; - GPU: AMD RX 470 (GCN 4 / Polaris)<br>
-&gt; - Distro: Arch Linux<br>
-&gt; - Kernel (working): linux-lts 6.6.x<br>
-&gt; - Kernel (broken): 6.7.x and newer (currently tested on 6.14.6)<br>
-&gt;<br>
-&gt; Thanks in advance,<br>
-&gt; Durmus Ozaltay<br>
-</blockquote></div>
-</blockquote></div>
+Reviewed-by: Palmer Dabbelt <palmer@dabbelt.com>
+Tested-by: Palmer Dabbelt <palmer@dabbelt.com>
 
---000000000000471ed306375e6116--
+Thanks!
+
+[I'm going to stash it on my tester branch until it land somewhere 
+else.]
