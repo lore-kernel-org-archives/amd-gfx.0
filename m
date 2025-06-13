@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA9BEC7115B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 521E6C71136
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 13:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E22A010E3AA;
-	Mon, 16 Jun 2025 13:10:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 013EC10E3AB;
+	Mon, 16 Jun 2025 13:10:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=disroot.org header.i=@disroot.org header.b="Gi+1hXDu";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Zo6icWzF";
 	dkim-atps=neutral
-X-Greylist: delayed 582 seconds by postgrey-1.36 at gabe;
- Fri, 13 Jun 2025 19:48:45 UTC
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64BAD10E527
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jun 2025 19:48:45 +0000 (UTC)
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
- by disroot.org (Postfix) with ESMTP id BE53B25BCA;
- Fri, 13 Jun 2025 21:38:55 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id x2gpMstsPlUK; Fri, 13 Jun 2025 21:38:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
- t=1749843534; bh=MUCqIXsb+S7YzPUyq8mPW9FKr4yImMHcuHQrdIsfJLs=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=Gi+1hXDujWKWlqYD+hLGFxKAclpjLx4cgJC4JN4ikTAjp2wvSNAiQR0XZkLZZpGty
- etguyCQXQhSbz24Plh+FqdBGNx7uDi7t2gACol9GZuOd8smvXuvX6PDgn8pbk/0rO5
- +kcKS0USLbkhYzzZuyXjwRRZPKCv25kUW0uDy8h7VVUFG5jmboaciWYudP2x0vLoZO
- gjx3TyLjhV2TcSJCZArdk91TNpbtf2EUXDgZ1kR6BMPyA+8piXKFKsIxOn00NXkbM+
- kkCCU89+GlUVlWwY8rCdEqPUj0NCyLDdI/9LQFwVrIXZA9iuXQvk2zg8L0BHJJ/9rE
- aB3/UZGeLe4sg==
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D9C110E9B5;
+ Fri, 13 Jun 2025 18:44:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=5bW97YWvE2WNp84/m7LouGNWv9aZZ0XfiU91U9Q+7L4=; b=Zo6icWzFyINiSyU+TOThbUnoHD
+ HuceCzinkloqBxARJ66WINhSBbJP2LFMdgOYiSlUCXwTwU88uX2LK7B4ojcTb1TQcrtI8fHPAlRaW
+ iSkEz2iAkVkhFfK5St7psyEkI6yQo4XIrkzwENnL+Bw1ik934lyVj11VyUYGWzYBj+jpWEKPalosy
+ GEWVwo5CvxlAZm0BP/n9luvUqT2k+nbZj7CkgR3MYVuNxZ51DG4oI011rNZLixzv6FPaqN6+XkAE9
+ 9Ujzl3O5/YdL764CFRHqTETG4Dq5ARbKQONrO6bgnk2c+G8pxVzkN82UXcF50kgk8lQd+wHJ5TSRN
+ qQzYs9+g==;
+Received: from [191.204.192.64] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uQ9Nn-003AD0-Le; Fri, 13 Jun 2025 20:44:08 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: "Alex Deucher" <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v7 3/5] drm/doc: Add a section about "Task information" for
+ the wedge API
+Date: Fri, 13 Jun 2025 15:43:46 -0300
+Message-ID: <20250613184348.1761020-4-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250613184348.1761020-1-andrealmeid@igalia.com>
+References: <20250613184348.1761020-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
-Date: Fri, 13 Jun 2025 21:38:54 +0200
-From: machion@disroot.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
-Subject: Re: Unplayable framerates in game but specific kernel versions work, 
- maybe amdgpu problem
-In-Reply-To: <CADnq5_PX1dYF2Jd3q7ghaBjpPhNLq9EmFJtN1w6YOSfVo++7sA@mail.gmail.com>
-References: <c415d9e0b08bcba068b01700225bf560@disroot.org>
- <CADnq5_PX1dYF2Jd3q7ghaBjpPhNLq9EmFJtN1w6YOSfVo++7sA@mail.gmail.com>
-Message-ID: <69b5ebaa719355994a383fa026dc3fba@disroot.org>
-X-Sender: machion@disroot.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Jun 2025 13:10:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -65,93 +68,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-sorry for the delay.
-Besides less time, I had to make myself familiar with bisecting and 
-again kernel compiling. Last time I compiled the kernel myself was 
-around 2010 I think.
+Add a section about "Task information" for the wedge API.
 
-Anyway it seems I found the bad commit. The result after bisecting 10 
-commits is:
+Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
+v5:
+ - Change app to task in the text as well
+v4:
+ - Change APP to TASK
+v3:
+ - Change "app that caused ..." to "app involved ..."
+ - Clarify that devcoredump have more information about what happened
+ - Update that PID and APP will be empty if there's no app info
+---
+ Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-a53d959fe660341788cb8dbc3ac3330d90a09ecf is the first bad commit
-commit a53d959fe660341788cb8dbc3ac3330d90a09ecf
-Author: Christian König <christian.koenig@amd.com>
-Date:   Thu Mar 20 14:46:18 2025 +0100
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 4863a4deb0ee..263e5a97c080 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
+ hang is usually the most critical one which can result in consequential hangs or
+ complete wedging.
+ 
++Task information
++---------------
++
++The information about which application (if any) was involved in the device
++wedging is useful for userspace if they want to notify the user about what
++happened (e.g. the compositor display a message to the user "The <task name>
++caused a graphical error and the system recovered") or to implement policies
++(e.g. the daemon may "ban" an task that keeps resetting the device). If the task
++information is available, the uevent will display as ``PID=<pid>`` and
++``TASK=<task name>``. Otherwise, ``PID`` and ``TASK`` will not appear in the
++event string.
++
++The reliability of this information is driver and hardware specific, and should
++be taken with a caution regarding it's precision. To have a big picture of what
++really happened, the devcoredump file provides should have much more detailed
++information about the device state and about the event.
++
+ Consumer prerequisites
+ ----------------------
+ 
+-- 
+2.49.0
 
-     drm/amdgpu: immediately use GTT for new allocations
-
-     commit a755906fb2b8370c43e91ba437ae1b3e228e8b02 upstream.
-
-     Only use GTT as a fallback if we already have a backing store. This
-     prevents evictions when an application constantly allocates and 
-frees new
-     memory.
-
-     Partially fixes
-     https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2833985.
-
-     Signed-off-by: Christian König <christian.koenig@amd.com>
-     Fixes: 216c1282dde3 ("drm/amdgpu: use GTT only as fallback for 
-VRAM|GTT")
-     Acked-by: Alex Deucher <alexander.deucher@amd.com>
-     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-     Cc: stable@vger.kernel.org
-     Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
-  1 file changed, 2 insertions(+), 2 deletions(-)
-
-Marion
-
-
-Am 2025-05-08 15:18, schrieb Alex Deucher:
-> On Thu, May 8, 2025 at 9:13 AM <machion@disroot.org> wrote:
->> 
->> Hello kernel/driver developers,
->> 
->> I hope, with my information it's possible to find a bug/problem in the
->> kernel. Otherwise I am sorry, that I disturbed you.
->> I only use LTS kernels, but I can narrow it down to a hand full of 
->> them,
->> where it works.
->> 
->> The PC: Manjaro Stable/Cinnamon/X11/AMD Ryzen 5 2600/Radeon HD 
->> 7790/8GB
->> RAM
->> I already asked the Manjaro community, but with no luck.
->> 
->> The game: Hellpoint (GOG Linux latest version, Unity3D-Engine v2021),
->> uses vulkan
->> 
->> ---
->> 
->> I came a long road of kernels. I had many versions of 5.4, 5.10, 5.15,
->> 6.1 and 6.6 and and the game was always unplayable, because the frames
->> where around 1fps (performance of PC is not the problem).
->> I asked the mesa and cinnamon team for help in the past, but also with
->> no luck.
->> It never worked, till on 2025-03-29 when I installed 6.12.19 for the
->> first time and it worked!
->> 
->> But it only worked with 6.12.19, 6.12.20 and 6.12.21
->> When I updated to 6.12.25, it was back to unplayable.
-> 
-> Can you bisect to see what fixed it in 6.12.19 or what broke it in
-> 6.12.25?  For example if it was working in 6.12.21 and not working in
-> 6.12.25, you can bisect between 6.12.21 and .25.
-> 
-> Alex
-> 
->> 
->> For testing I installed 6.14.4 with the same result. It doesn't work.
->> 
->> I also compared file /proc/config.gz of both kernels (6.12.21 <>
->> 6.14.4), but can't seem to see drastic changes to the graphical part.
->> 
->> I presume it has something to do with amdgpu.
->> 
->> If you need more information, I would be happy to help.
->> 
->> Kind regards,
->> Marion
