@@ -4,54 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9FB8C61DB2
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 11:48:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47F05C71148
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 14:42:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62FFB10E8DD;
-	Fri, 13 Jun 2025 11:48:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E076B10E9F8;
+	Fri, 13 Jun 2025 14:42:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K5FYjKsR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BtkqRoXw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A636E10E8DD;
- Fri, 13 Jun 2025 11:48:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B008E447DB;
- Fri, 13 Jun 2025 11:48:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F085BC4CEE3;
- Fri, 13 Jun 2025 11:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749815298;
- bh=MOo/4EALMeElSGHB60M5EW6v4K6E+bIxI3ruVPuQUbo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=K5FYjKsRiG0qJWCWD4bxUY8srTZIgsZL7n1OVehhPdIe8hLyAzApcBQoh5FtkeMK1
- W8UfBxM5JwvIgu6m0QntfW9F+cwM66dCJHeOnXqbi47uPe9GvOF/38Yd9KnNWKV2sZ
- TmPXDoUXx9DwrkZBGV59fy9aPkMdNNOzn0I+1echHrkVA+dYDzFchphlJI18z+oB9X
- WijjUIJj+zhFYKSBDbgdAAC+3j3KK9tGL7hshkATJjZsK8ZhthFa+erlLk2TZoyI/z
- 68RZ6a8MqM/cekRRVIPN42GPiaWVa63bq1ZL853cwbjx0eKI66UOaQVUTxG2ldKR3i
- k6paGneoRRA1g==
-Date: Fri, 13 Jun 2025 13:48:14 +0200
-From: Danilo Krummrich <dakr@kernel.org>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- Philipp Stanner <phasta@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v1] drm/amdgpu: give each kernel job a unique id
-Message-ID: <aEwP_kOkRKD9akKt@pollux>
-References: <aEmR9420vj-ISz-W@cassiopeiae>
- <dc661205-1e5b-4697-863b-36a299365219@amd.com>
- <aEmcpsXwS8dLNGUg@cassiopeiae>
- <5f71cfd0-fd38-491c-8255-bdd3e0fb19dc@amd.com>
- <aEtnS6kvh1mssFTb@cassiopeiae>
- <099816b4-0b7b-4ac7-9bb5-22f23b1db7b7@amd.com>
- <aEvitwoc_D6OxXCS@pollux>
- <d205de0c-0c7a-4644-9655-e9ca28cadb57@damsy.net>
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2072.outbound.protection.outlook.com [40.107.102.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D306710E023
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jun 2025 14:42:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qbOg2tGQ2Fhk9FGigUT+okmHDpf617tWlrD0Q108on5+UVqlv5JVr54Zv8tH5nk2U4SlRfSIcwapqWwZDZkp6+AMrK0lzxgT5LNcpu0VtecbyYFmsbcubAenT7KpEgze3EKxDcSRsc8Kw7U400bVX7aTuBlE+skFxU+agABC0EIWu74Qa+10CgPl887N4CiM44r7bFKgAxohWy/sipIZVN1XYpu/bw2gBjMBLD0pTmXjhyAb5yk7ta9jAqpZgKC3aHxKWTx6zPJhjfxuaEZ++09o/6DbLOZdAwBSjtZyO9NftObQVFf6Bxl7q9QZ9e2NmG5yM+YHhEVqsSKBAhcp8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lxGfX6BL+xzVXgn10P1DSZx7Er4l0n0ZGSa4cxJ5e30=;
+ b=STQIf9vjftDmx5iGIF1e+Fx4jGsnpT0kyKQ+AUdSv5V6yf9Cbn75qQv8Td+graVqr5OLHev5u3FvZmwFVmZQbcAqMFHLt9VkvEJxD81PuCWWlS06xzel6oCdKqMU2SloObfegO8r/RKIEAwvVYfFRdMSXtfaB/hkpU9blEkwjrIo+wOHsctjpiUVp7Fj4c+eKfg9s3jh6ttV1zvWAIS25JrSMQZSx6a5wMrKcVYgeSLnMHGC3EYipc2D3/VIj7SkRGqGdEEK3KCKOggjcdUcD8qm9YyHS6CYfFjBwQPOtgs1oq+hFNEYx1UOwSj4/B95ROR6gQ9R9znVz6s/C3fH2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lxGfX6BL+xzVXgn10P1DSZx7Er4l0n0ZGSa4cxJ5e30=;
+ b=BtkqRoXwnDimoM7mLfc9N/1n5Xb60ph0F87G8hMMtDQ+Oe18HOZXMKVHQ94Vi54r7Q09fkEj/HhQBQt5WmeL32NLiMkXNO5zK3R02etOx9kln1WhR5k5a4L0FfmFNHEMnPkbGNsVe96vPMKU6rjSbuGBgWlVTJz/W493LzQPFxg=
+Received: from MW4PR03CA0277.namprd03.prod.outlook.com (2603:10b6:303:b5::12)
+ by MN0PR12MB6149.namprd12.prod.outlook.com (2603:10b6:208:3c7::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Fri, 13 Jun
+ 2025 14:42:15 +0000
+Received: from MWH0EPF000A6731.namprd04.prod.outlook.com
+ (2603:10b6:303:b5:cafe::f5) by MW4PR03CA0277.outlook.office365.com
+ (2603:10b6:303:b5::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.22 via Frontend Transport; Fri,
+ 13 Jun 2025 14:42:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000A6731.mail.protection.outlook.com (10.167.249.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8835.15 via Frontend Transport; Fri, 13 Jun 2025 14:42:14 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
+ 2025 09:42:07 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
+ 2025 09:42:07 -0500
+Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Fri, 13 Jun 2025 09:42:06 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Lijo.Lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+Subject: [PATCH 1/2] drm/amd/pm: move the dpm table setting back after
+ featureenablement
+Date: Fri, 13 Jun 2025 22:42:02 +0800
+Message-ID: <20250613144203.441129-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d205de0c-0c7a-4644-9655-e9ca28cadb57@damsy.net>
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: kenneth.feng@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6731:EE_|MN0PR12MB6149:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fae2985-bd88-49d5-fc8c-08ddaa887d1f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bgCgMW+YB680PcN1Oe5+OIxCcPjG6FpkEwsUmzAcQ1PaqsYSDMcsZIh1gou/?=
+ =?us-ascii?Q?ACaG5k7jAkkenC4pi+LqJyxeHsdl4wOOW1Er3GK9hSVGD3mI5P/Yey5LEIvf?=
+ =?us-ascii?Q?zDwde1AO3bgUFRAsT2o14oN8HQoUpueMyqQVC0C+AiENyXM3dUMy9PPsSb8w?=
+ =?us-ascii?Q?kG6idyInHgv709ei9EVs7v+R9FZR7ZB1A6/JEkHnNSpNKDIg1aw2XHhc8WQJ?=
+ =?us-ascii?Q?vu+b0Q/A7sfI2fGYfPdzkzMTENfTRu9T6lt3IKDYOCsutb2YRrIRo7a5ORUA?=
+ =?us-ascii?Q?QIjkfQnCyXbneNCfIgdjnUSVUmsjx2XyQVsHyDm5zNPWElrj9wBiI3Gkmi6u?=
+ =?us-ascii?Q?tSpKMUlNROXR5HsY/0tbatskTisPYGzQwG/rq3VQbz4tJTC30hyyTwWAXG64?=
+ =?us-ascii?Q?jp2dUH2cWvwnu870rgpDMFTCmTpGfqzrgwruGzmxGNtNO0NuO7dn29VplGES?=
+ =?us-ascii?Q?iOSuj8b76DtPEyyCruU48vF2VYZ4ItoAmrjRV/ncPwkWD9fGaqOWUR2wE8Y9?=
+ =?us-ascii?Q?t7NHy4Fd/Wtjyh8S5KVtjhwY3IGsZ0fOwtwf8BpygOhAUM/1wDzKW9X4SShx?=
+ =?us-ascii?Q?09jyeKol7qgw7cKzJOj1zRNKfjBmrwYcCCqcYx+753Sg07ycyqLqAmcahs+c?=
+ =?us-ascii?Q?EsJbeFN/f1XejwYEQJMqEcDACZY1yJL1t99RRQaDZ1R6EHBAed+njPvGOpGs?=
+ =?us-ascii?Q?ROF09FNDIcty0j2t8v9dRXOnS4P9tWbkoEKonkXaszZJl1mPb7WuDt9Svgfb?=
+ =?us-ascii?Q?xxtrOLgXlGbQ9K4FeYCng8cWtvMOKOlQUvhtePUr5wFGIp8eMgCA6MuhhuBr?=
+ =?us-ascii?Q?AOAefnQlesGUqInWuEW56c65oByjE+PlCK6pwK9nTj82vFLfeZFVYIlJVjsr?=
+ =?us-ascii?Q?KYbD5vGL8Xh+jzXRFixDeuTe/wLEQ3igLZKrODRN5jVxP2gyniGtadDjOx8v?=
+ =?us-ascii?Q?TkDDsUxgI0dteooROGyfk6NiDcmMXYpcfP840Qqr9REIixkUjZ/tZEV8kw8l?=
+ =?us-ascii?Q?gKn7wtK3O8yMdiX4LmsgmVwYWoiT0QGz27dgiHNKd//aZCyf9Wn9xrVa4BTR?=
+ =?us-ascii?Q?6dnvlNafI3zozu8W8QWl90m19NTaKiaoXgY8AWM5/7BE1WG9qsyCEQBZYgBJ?=
+ =?us-ascii?Q?xGSDwUb+TU3lxFCsvDnzAsW18XVodSE2LrKVSQSxVZieuUY9NcPFw1/XSHqy?=
+ =?us-ascii?Q?0lgEPhy+lBielh5DoIMt14R4kLZ34fmT/2jlAWHJMUThBOdr7WGdXDk3J3En?=
+ =?us-ascii?Q?6GNzyj86Kwc06BLgkkZ6C7LvEuDnHQC3T97DMlzxxAtT6USHXwQmLG1q9z0N?=
+ =?us-ascii?Q?/riwofsqmPoDk/E21u1peCb7P2XMOvgryTYeHrrj40w85VNFQpMI6qsbGHyC?=
+ =?us-ascii?Q?NmDOP3ebjfVAE4h8OjeUdNDNa0HxNFZjmBxBrfSYAXojtjRn3bUJxCWeFix4?=
+ =?us-ascii?Q?XqA9wYaqwbJ5fdfuHfxd5go1L74g/sjylNNrAwSbDvHpHSRocirW/sFmILPc?=
+ =?us-ascii?Q?OCZTV+pxbmNQQBNmElBe6rhaE+3FxeDECXjL?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2025 14:42:14.6527 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fae2985-bd88-49d5-fc8c-08ddaa887d1f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6731.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6149
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,43 +137,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 13, 2025 at 11:27:08AM +0200, Pierre-Eric Pelloux-Prayer wrote:
-> Le 13/06/2025 à 10:35, Danilo Krummrich a écrit :
-> > On Fri, Jun 13, 2025 at 10:23:15AM +0200, Christian König wrote:
-> > > > Another option is to just add an interface to get a kernel client_id from the
-> > > > same atomic / IDA.
-> > > 
-> > > That won't give us fixed numbers for in kernel clients.
-> > 
-> > That's fine, then let's come up with an API that reserves fixed numbers.
-> > 
-> > My main concern is that drivers silently rely on DRM API internals, i.e. that
-> > client_id is an u64 atomic, etc.
-> 
-> Let me express the need then: an id that is printed in gpu_scheduler_trace
-> events and this id needs to be mappable by a userspace tool to a semantic.
-> 
-> The current solution implements this need using:
-> * fixed ids which are u64 numbers because drm client id are u64.
-> * hard-coded mapping in the tool between these ids and their meaning
-> ("u64_max - 1" interpreted as "vm_update" and so on).
-> 
-> It doesn't depend on how drm internally manage these ids.
-> 
-> Adding an API to reserve fixed numbers would work but:
-> * if the fixed numbers are chosen by the driver ("drm_reserve_id(u64_max
-> -1)"), I don't see the benefit over the current patch
-> * if the fixed numbers are allocated by drm (drm_reserve_id("vm_update") ->
-> u64), it would then require a way to expose them to userspace (through
-> /sys/kernel/debug/dri/x/clients?)
+move the dpm table setting back after featureenablemend due to dependancy.
 
-Yeah, both is possible, I'm fine with either.
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-The benefit is that this way it becomes an official API, which can (and must)
-be considered should there ever be a change on drm_file::client_id.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 824fcc6dd32a..cf4ac3914b68 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1687,17 +1687,6 @@ static int smu_smc_hw_setup(struct smu_context *smu)
+ 		}
+ 	}
+ 
+-	/*
+-	 * Set initialized values (get from vbios) to dpm tables context such as
+-	 * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
+-	 * type of clks.
+-	 */
+-	ret = smu_set_default_dpm_table(smu);
+-	if (ret) {
+-		dev_err(adev->dev, "Failed to setup default dpm clock tables!\n");
+-		return ret;
+-	}
+-
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5)
+ 		pcie_gen = 4;
+ 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
+@@ -1739,6 +1728,17 @@ static int smu_smc_hw_setup(struct smu_context *smu)
+ 		return ret;
+ 	}
+ 
++	/*
++	 * Set initialized values (get from vbios) to dpm tables context such as
++	 * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
++	 * type of clks.
++	 */
++	ret = smu_set_default_dpm_table(smu);
++	if (ret) {
++		dev_err(adev->dev, "Failed to setup default dpm clock tables!\n");
++		return ret;
++	}
++
+ 	smu_init_xgmi_plpd_mode(smu);
+ 
+ 	ret = smu_feature_get_enabled_mask(smu, &features_supported);
+-- 
+2.34.1
 
-If someone would patch drm_file::client_id to start allocating IDs from high to
-low, your corresponding driver code would silently break, because it relies on
-an implementation detail of something that is not an official API.
-
-Yes, I know that this exact case won't happen, but I guess you get the idea. :-)
