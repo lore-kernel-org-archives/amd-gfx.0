@@ -4,55 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBC4DC71136
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 16:06:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8A44C71136
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 16:08:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F80710EA35;
-	Fri, 13 Jun 2025 16:06:02 +0000 (UTC)
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55ADE10E202;
- Fri, 13 Jun 2025 08:29:41 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4bJXcx3YVtz9v10;
- Fri, 13 Jun 2025 10:29:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1749803377; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tNpSDNdMO+AR7AGKxlxT5hD4CHTTY7xIcpDZwJEt8dc=;
- b=v8gfinIX2Rzitbded0n7JKwEI/NpWg13y6RsTqtEddGvANJCEIJXK1Y9Xgq/7rUTSBWKCW
- d5wpPjSLy5gqIjTqW5LuAJkv9EzO4GjakMAzlph2hIIEArmwM+DPLbzDLYdQ4gOIa40SpC
- oPc5MClt0oQQ+0nYiKIfy2vN4rVJIadJCsTIqMsxEe5c54K4j4a+ChuiFtuVPSq8BLwo3/
- WQPuUTBLiAWfIoXsYWe0HT/V3dgjd+t/pNRqjXWc3r7J8Lzdticw4U7l+Y/IGuiyPwe1Im
- RpgSTw4xNwwmal7pYmrRIAujUIYzfI4YbR6I/2re+xcG2rmSHaOTzoSnXvDhew==
-Message-ID: <a495f31526f19457f44d502cf2de98ab0de33383.camel@mailbox.org>
-Subject: Re: [PATCH v1] drm/amdgpu: give each kernel job a unique id
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo
- Krummrich <dakr@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, 
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, Philipp Stanner
- <phasta@kernel.org>, dri-devel@lists.freedesktop.org
-Date: Fri, 13 Jun 2025 10:29:35 +0200
-In-Reply-To: <099816b4-0b7b-4ac7-9bb5-22f23b1db7b7@amd.com>
-References: <aEmR9420vj-ISz-W@cassiopeiae>
- <dc661205-1e5b-4697-863b-36a299365219@amd.com>
- <aEmcpsXwS8dLNGUg@cassiopeiae>
- <5f71cfd0-fd38-491c-8255-bdd3e0fb19dc@amd.com>
- <aEtnS6kvh1mssFTb@cassiopeiae>
- <099816b4-0b7b-4ac7-9bb5-22f23b1db7b7@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA1B10E296;
+	Fri, 13 Jun 2025 16:08:27 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bXshBAOb";
+	dkim-atps=neutral
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CABD10E296
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jun 2025 16:08:26 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-313862d48e7so405426a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jun 2025 09:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1749830906; x=1750435706; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6vdclgRuRlQH/N+z/oRUGeXg6R7Kna2AN2tXZaf8It8=;
+ b=bXshBAOb+3sppT5oVg8ujH0n8pIDW/HgO/f1wXY++nKnzxSm5S3bYXLoy4vl/Zh8fY
+ OVSz5APplcuwxr9Y0MX7DDUYAk84D86L+ugfDkjdODzEuoyqRiJTp3L8w/ZYJGEjeGGC
+ DaFduWgQqn+utwYDe+TOqscUmmONMFThXsMKujAQxdtwpW3kSPWLk63GhOts6JKrIo2U
+ ZgmJYq9Dh4Fh2g1waG5ffxEXZ87kZnVcnQ0a14aeFsppUne13Quawa1oLrYQRRMdrI35
+ E1ugRLp85hgP509WmKcMsmGGX1l6IWksfVwwefUOUvXLYheL3YcEdFVStY8XaBf6lyyR
+ JmPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749830906; x=1750435706;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6vdclgRuRlQH/N+z/oRUGeXg6R7Kna2AN2tXZaf8It8=;
+ b=kaaqp4AfPKvOzmyJaNR1tL1Sj9VWWwVAtSQl+/T69VR1TxCybCYQ8YSvhife+e7jAu
+ V5ewg+Ty92TpX7aL2UIR6kmQtLrBtYByvnI9OcUsetc3rX/IMpgyzTsosX4wZ85x//pE
+ q95QKj5MvdtMCyVoNHrO7Yo6Dq/LF4almZYM/mr+wp+XkhsNDd2r0fXdJH1JkTH1e713
+ lZbiWdbcX6AHL0i06DEcjqomnac32gJvr2+sRaUHb6JInWvcgFfpSIj3aD1wpQ76RQIV
+ yW3gJ51k8pRPnMS0bKiV7Bk7r+r6zX7x1LUAeum2IGdH7qrig7OeauT/3mVKIgUvC/6C
+ ZYuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXNQdV8f+X8n8dwF+yZpHKr2m7nShAYzoBcaflBWlPthYfRn1mJ8Ttc3x4oe21AAsBkJItXvMU+@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPyVIehurYWpAogaZixJHdF8jUIpkv6voKdqzrydHSEl7FJgof
+ pfZdt2eeLu0E2CoAFDOvf7erkzNUSC+mp4goK/RrSTFiLwt/U4mkHccufBcdSQbrd5K3gSX67C9
+ 0xFPxL6rQN0qensCnGaCKzEngaNrq0es=
+X-Gm-Gg: ASbGncv90dcBgY1ihe6LPpU/yaO1nElQL1ONpCEuSYlca1hl67+Vmjr7K9j+RroO9rg
+ 9I4HvTZenAa2w9XEUnILmeHPV7hfFYROdPuL0z+JRpC2TWlW5Q+17kICF6KluBtzHqQTpzGczyA
+ eAaiwtAPMzUiobbRJXsJQsUwhG7H2GMKPYyB9DSHt9r7WUsdkRN6eDdsw=
+X-Google-Smtp-Source: AGHT+IGiB4GLrRWOvnxdnMdGsJqdVEBz+GBwRBHnzLrmE4MisPvijVL6ksDUBokS7add1jbYj2Bg2I6uq+jcFIFxBA0=
+X-Received: by 2002:a17:90b:540d:b0:312:1d2d:18f8 with SMTP id
+ 98e67ed59e1d1-313f1e50e63mr115127a91.7.1749830905308; Fri, 13 Jun 2025
+ 09:08:25 -0700 (PDT)
+MIME-Version: 1.0
+References: <20250613144203.441129-1-kenneth.feng@amd.com>
+ <CADnq5_PNf903HaK9eieL3w_tWXOfHzY7sQgivfskyvRwh8L4gw@mail.gmail.com>
+ <32b2591e-9629-4f9c-8c3f-233b1bd9ee67@amd.com>
+In-Reply-To: <32b2591e-9629-4f9c-8c3f-233b1bd9ee67@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 13 Jun 2025 12:08:13 -0400
+X-Gm-Features: AX0GCFtCOfsa6Xo566l5B2JEvui08DpBAatNmmYdjqhw9v8oDoaj2Qidg3WCiRg
+Message-ID: <CADnq5_Mh8=J1M+onEfdAq76jH1yHvJdcN9ww64imOHmoB1QYGA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/pm: move the dpm table setting back after
+ featureenablement
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-META: fjsea1z6obwr5iqg6dy18tz7q8adyj98
-X-MBO-RS-ID: 8aa27cae7fe50eeb8a3
-X-Mailman-Approved-At: Fri, 13 Jun 2025 16:05:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,70 +81,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-06-13 at 10:23 +0200, Christian K=C3=B6nig wrote:
-> On 6/13/25 01:48, Danilo Krummrich wrote:
-> > On Thu, Jun 12, 2025 at 09:00:34AM +0200, Christian K=C3=B6nig wrote:
-> > > On 6/11/25 17:11, Danilo Krummrich wrote:
-> > > > > > > Mhm, reiterating our internal discussion on the mailing
-> > > > > > > list.
-> > > > > > >=20
-> > > > > > > I think it would be nicer if we could use negative values
-> > > > > > > for the kernel submissions and positive for userspace.
-> > > > > > > But as discussed internally we would need to adjust the
-> > > > > > > scheduler trace points for that once more.
-> > > > > > >=20
-> > > > > > > @Philip and @Danilo any opinion on that?
-> > > > > >=20
-> > > > > > Both, the U64_MAX and the positive-negative approach, are a
-> > > > > > bit hacky. I wonder
-> > > > > > why we need client_id to be a u64, wouldn't a u32 not be
-> > > > > > enough?
-> > > > >=20
-> > > > > That can trivially overflow on long running boxes.
-> > > >=20
-> > > > I don't know if "trivially" is the word of choice given that
-> > > > the number is
-> > > > 4,294,967,295.
-> > > >=20
-> > > > But I did indeed miss that this is a for ever increasing
-> > > > atomic. Why is it an
-> > > > atomic? Why is it not an IDA?
-> > >=20
-> > > Well IDA has some extra overhead compared to an ever increasing
-> > > atomic, additional to that it might not be the best choice to re-
-> > > use numbers for clients in a trace log.
-> >=20
-> > I think the overhead is not relevant at all, this is called from
-> > drm_file_alloc(). The only path I can see where this is called is
-> > drm_client_init(), which isn't high frequent stuff at all, is it?
->=20
-> I don't think so. But we should really use ida_alloc_cyclic to make
-> sure that numbers are not re-used so quickly.
+On Fri, Jun 13, 2025 at 12:06=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com> w=
+rote:
+>
+>
+>
+> On 6/13/2025 9:31 PM, Alex Deucher wrote:
+> > On Fri, Jun 13, 2025 at 10:42=E2=80=AFAM Kenneth Feng <kenneth.feng@amd=
+.com> wrote:
+> >>
+> >> move the dpm table setting back after featureenablemend due to dependa=
+ncy.
+> >
+> > What is the dependency?  Can you provide more details?
+> >
+>
+> For SMUv13.0.6, there is no pptable. We get all the frequency tables
+> from FW during this callback. Those frequency tables are available
+> through FW metrics and it needs DPM to be enabled.
 
-Shouldn't the xarray be used nowadays for ID allocation? I think
-idr_alloc_cyclic() (ida_alloc_cyclic() doesn't exist) is just a wrapper
-around the xarray anyways.
+Thanks.  Please add that to the commit message.  With that, the patch is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-P.
-
-
->=20
-> >=20
-> > It seems to me that we should probably use IDA here.
-> >=20
-> > > On the other hand using smaller numbers is usually nicer for
-> > > manual inspection.
-> >=20
-> > Another option is to just add an interface to get a kernel
-> > client_id from the
-> > same atomic / IDA.
->=20
-> That won't give us fixed numbers for in kernel clients.
->=20
-> Regards,
-> Christian.
-
+>
+> Thanks,
+> Lijo
+>
+> > Alex
+> >
+> >>
+> >> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+> >> ---
+> >>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 22 +++++++++++-----------
+> >>  1 file changed, 11 insertions(+), 11 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/amdgpu_smu.c
+> >> index 824fcc6dd32a..cf4ac3914b68 100644
+> >> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> >> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> >> @@ -1687,17 +1687,6 @@ static int smu_smc_hw_setup(struct smu_context =
+*smu)
+> >>                 }
+> >>         }
+> >>
+> >> -       /*
+> >> -        * Set initialized values (get from vbios) to dpm tables conte=
+xt such as
+> >> -        * gfxclk, memclk, dcefclk, and etc. And enable the DPM featur=
+e for each
+> >> -        * type of clks.
+> >> -        */
+> >> -       ret =3D smu_set_default_dpm_table(smu);
+> >> -       if (ret) {
+> >> -               dev_err(adev->dev, "Failed to setup default dpm clock =
+tables!\n");
+> >> -               return ret;
+> >> -       }
+> >> -
+> >>         if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5=
+)
+> >>                 pcie_gen =3D 4;
+> >>         else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT=
+_GEN4)
+> >> @@ -1739,6 +1728,17 @@ static int smu_smc_hw_setup(struct smu_context =
+*smu)
+> >>                 return ret;
+> >>         }
+> >>
+> >> +       /*
+> >> +        * Set initialized values (get from vbios) to dpm tables conte=
+xt such as
+> >> +        * gfxclk, memclk, dcefclk, and etc. And enable the DPM featur=
+e for each
+> >> +        * type of clks.
+> >> +        */
+> >> +       ret =3D smu_set_default_dpm_table(smu);
+> >> +       if (ret) {
+> >> +               dev_err(adev->dev, "Failed to setup default dpm clock =
+tables!\n");
+> >> +               return ret;
+> >> +       }
+> >> +
+> >>         smu_init_xgmi_plpd_mode(smu);
+> >>
+> >>         ret =3D smu_feature_get_enabled_mask(smu, &features_supported)=
+;
+> >> --
+> >> 2.34.1
+> >>
+>
