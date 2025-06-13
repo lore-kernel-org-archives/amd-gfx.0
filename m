@@ -4,72 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8A44C71136
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 16:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DD3FC71148
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 17:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA1B10E296;
-	Fri, 13 Jun 2025 16:08:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F24F910E1E8;
+	Fri, 13 Jun 2025 17:43:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bXshBAOb";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Gr3aw5h8";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CABD10E296
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jun 2025 16:08:26 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-313862d48e7so405426a91.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jun 2025 09:08:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1749830906; x=1750435706; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6vdclgRuRlQH/N+z/oRUGeXg6R7Kna2AN2tXZaf8It8=;
- b=bXshBAOb+3sppT5oVg8ujH0n8pIDW/HgO/f1wXY++nKnzxSm5S3bYXLoy4vl/Zh8fY
- OVSz5APplcuwxr9Y0MX7DDUYAk84D86L+ugfDkjdODzEuoyqRiJTp3L8w/ZYJGEjeGGC
- DaFduWgQqn+utwYDe+TOqscUmmONMFThXsMKujAQxdtwpW3kSPWLk63GhOts6JKrIo2U
- ZgmJYq9Dh4Fh2g1waG5ffxEXZ87kZnVcnQ0a14aeFsppUne13Quawa1oLrYQRRMdrI35
- E1ugRLp85hgP509WmKcMsmGGX1l6IWksfVwwefUOUvXLYheL3YcEdFVStY8XaBf6lyyR
- JmPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749830906; x=1750435706;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6vdclgRuRlQH/N+z/oRUGeXg6R7Kna2AN2tXZaf8It8=;
- b=kaaqp4AfPKvOzmyJaNR1tL1Sj9VWWwVAtSQl+/T69VR1TxCybCYQ8YSvhife+e7jAu
- V5ewg+Ty92TpX7aL2UIR6kmQtLrBtYByvnI9OcUsetc3rX/IMpgyzTsosX4wZ85x//pE
- q95QKj5MvdtMCyVoNHrO7Yo6Dq/LF4almZYM/mr+wp+XkhsNDd2r0fXdJH1JkTH1e713
- lZbiWdbcX6AHL0i06DEcjqomnac32gJvr2+sRaUHb6JInWvcgFfpSIj3aD1wpQ76RQIV
- yW3gJ51k8pRPnMS0bKiV7Bk7r+r6zX7x1LUAeum2IGdH7qrig7OeauT/3mVKIgUvC/6C
- ZYuQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXNQdV8f+X8n8dwF+yZpHKr2m7nShAYzoBcaflBWlPthYfRn1mJ8Ttc3x4oe21AAsBkJItXvMU+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPyVIehurYWpAogaZixJHdF8jUIpkv6voKdqzrydHSEl7FJgof
- pfZdt2eeLu0E2CoAFDOvf7erkzNUSC+mp4goK/RrSTFiLwt/U4mkHccufBcdSQbrd5K3gSX67C9
- 0xFPxL6rQN0qensCnGaCKzEngaNrq0es=
-X-Gm-Gg: ASbGncv90dcBgY1ihe6LPpU/yaO1nElQL1ONpCEuSYlca1hl67+Vmjr7K9j+RroO9rg
- 9I4HvTZenAa2w9XEUnILmeHPV7hfFYROdPuL0z+JRpC2TWlW5Q+17kICF6KluBtzHqQTpzGczyA
- eAaiwtAPMzUiobbRJXsJQsUwhG7H2GMKPYyB9DSHt9r7WUsdkRN6eDdsw=
-X-Google-Smtp-Source: AGHT+IGiB4GLrRWOvnxdnMdGsJqdVEBz+GBwRBHnzLrmE4MisPvijVL6ksDUBokS7add1jbYj2Bg2I6uq+jcFIFxBA0=
-X-Received: by 2002:a17:90b:540d:b0:312:1d2d:18f8 with SMTP id
- 98e67ed59e1d1-313f1e50e63mr115127a91.7.1749830905308; Fri, 13 Jun 2025
- 09:08:25 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4440410E1DE;
+ Fri, 13 Jun 2025 17:43:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=57Y23JBtJNE44cM4KB+IAZKhcAQpF0krjbGo4C6KOAY=; b=Gr3aw5h8BT8iJqyh9yRUzwSJTj
+ CzcjqDNaislvMk7a4eT2nABb2htMPO7UczWqUQ8RPIV2PQUJsGFRJq1Y1LhhNxx4DgG52mMU1Olba
+ mqE7LdQjluSLdLLb5XwfluGOib91IrRm564arvkFb+J8usHcyQx/oTMZRs9psgMfqlfRWYgKOkTkG
+ q4xi6lGni52zlY6kbZwmO+JNrhglG+QYdsqKxn5yPmFL1ghPx+7fCkMlO281X647Wz3+rbpUmk1Id
+ 0UIWXJMvDA5vng3BhFZZC9Yjm96O5JHiBRB+Uc72+XtBW1PX1KKQJWihEN2NPkgfQ4LvSW2ltpzgG
+ z12Mtwvw==;
+Received: from [189.6.13.79] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uQ8R4-00398h-0g; Fri, 13 Jun 2025 19:43:26 +0200
+Date: Fri, 13 Jun 2025 14:42:45 -0300
+From: Melissa Wen <mwen@igalia.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Michel Daenzer <michel.daenzer@mailbox.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: Re: [PATCH v4 13/14] drm/amd/display: add drm_edid to dc_sink
+Message-ID: <jau2ceehoydonrbqfsgsdhvgcoltqtxq6ahms3zenwqhlgu3k3@zno3kendzxg6>
+References: <20250613150015.245917-1-mwen@igalia.com>
+ <20250613150015.245917-14-mwen@igalia.com>
+ <e8f4fb73-cb63-4662-b041-4719785c5b37@amd.com>
 MIME-Version: 1.0
-References: <20250613144203.441129-1-kenneth.feng@amd.com>
- <CADnq5_PNf903HaK9eieL3w_tWXOfHzY7sQgivfskyvRwh8L4gw@mail.gmail.com>
- <32b2591e-9629-4f9c-8c3f-233b1bd9ee67@amd.com>
-In-Reply-To: <32b2591e-9629-4f9c-8c3f-233b1bd9ee67@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 13 Jun 2025 12:08:13 -0400
-X-Gm-Features: AX0GCFtCOfsa6Xo566l5B2JEvui08DpBAatNmmYdjqhw9v8oDoaj2Qidg3WCiRg
-Message-ID: <CADnq5_Mh8=J1M+onEfdAq76jH1yHvJdcN9ww64imOHmoB1QYGA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/pm: move the dpm table setting back after
- featureenablement
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Kenneth Feng <kenneth.feng@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e8f4fb73-cb63-4662-b041-4719785c5b37@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,93 +66,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 13, 2025 at 12:06=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com> w=
-rote:
->
->
->
-> On 6/13/2025 9:31 PM, Alex Deucher wrote:
-> > On Fri, Jun 13, 2025 at 10:42=E2=80=AFAM Kenneth Feng <kenneth.feng@amd=
-.com> wrote:
-> >>
-> >> move the dpm table setting back after featureenablemend due to dependa=
-ncy.
-> >
-> > What is the dependency?  Can you provide more details?
-> >
->
-> For SMUv13.0.6, there is no pptable. We get all the frequency tables
-> from FW during this callback. Those frequency tables are available
-> through FW metrics and it needs DPM to be enabled.
+On 06/13, Mario Limonciello wrote:
+> On 6/13/2025 7:58 AM, Melissa Wen wrote:
+> > Add Linux opaque object to dc_sink for storing edid data cross driver,
+> > drm_edid. Also include the Linux call to free this object, the
+> > drm_edid_free()
+> > 
+> > v3:
+> > - remove uneccessary include (jani)
+> > 
+> > Signed-off-by: Melissa Wen <mwen@igalia.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c | 6 ++++++
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h | 1 +
+> >   drivers/gpu/drm/amd/display/dc/core/dc_sink.c   | 3 +++
+> >   drivers/gpu/drm/amd/display/dc/dc.h             | 1 +
+> >   include/drm/drm_edid.h                          | 4 ++--
+> >   5 files changed, 13 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
+> > index a90545b176cc..9e86dc15557b 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
+> > @@ -1,6 +1,7 @@
+> >   // SPDX-License-Identifier: MIT
+> >   #include "amdgpu_dm/dc_edid.h"
+> >   #include "dc.h"
+> > +#include <drm/drm_edid.h>
+> >   bool dc_edid_is_same_edid(struct dc_sink *prev_sink,
+> >   			  struct dc_sink *current_sink)
+> > @@ -25,3 +26,8 @@ void dc_edid_copy_edid_to_dc(struct dc_sink *dc_sink,
+> >   	memmove(dc_sink->dc_edid.raw_edid, edid, len);
+> >   	dc_sink->dc_edid.length = len;
+> >   }
+> > +
+> > +void dc_edid_sink_edid_free(struct dc_sink *sink)
+> > +{
+> > +	drm_edid_free(sink->drm_edid);
+> > +}
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
+> > index f42cd5bbc730..2c76768be459 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
+> > @@ -9,5 +9,6 @@ bool dc_edid_is_same_edid(struct dc_sink *prev_sink,
+> >   			  struct dc_sink *current_sink);
+> >   void dc_edid_copy_edid_to_dc(struct dc_sink *dc_sink,
+> >   			     const void *edid, int len);
+> > +void dc_edid_sink_edid_free(struct dc_sink *sink);
+> >   #endif /* __DC_EDID_H__ */
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
+> > index 455fa5dd1420..3774a3245506 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
+> > @@ -26,6 +26,7 @@
+> >   #include "dm_services.h"
+> >   #include "dm_helpers.h"
+> >   #include "core_types.h"
+> > +#include "dc_edid.h"
+> >   /*******************************************************************************
+> >    * Private functions
+> > @@ -65,6 +66,8 @@ void dc_sink_retain(struct dc_sink *sink)
+> >   static void dc_sink_free(struct kref *kref)
+> >   {
+> >   	struct dc_sink *sink = container_of(kref, struct dc_sink, refcount);
+> > +
+> > +	dc_edid_sink_edid_free(sink);
+> >   	kfree(sink->dc_container_id);
+> >   	kfree(sink);
+> >   }
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> > index 86feef038de6..cf56a0405a4f 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> > @@ -2466,6 +2466,7 @@ struct scdc_caps {
+> >   struct dc_sink {
+> >   	enum signal_type sink_signal;
+> >   	struct dc_edid dc_edid; /* raw edid */
+> > +	const struct drm_edid *drm_edid; /* Linux DRM edid*/
+> 
+> Don't you need a forward declaration for 'struct drm_edid' in dc.h to be
+> able to do this?
 
-Thanks.  Please add that to the commit message.  With that, the patch is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+I understand that, as it's just a pointer (the compiler knows the size)
+and there is no circular dependencies between dc_sink and drm_edid, we
+don't need a forward declaration. So I think we are fine also because
+dc_sink->drm_edid dereference only happens in dc_edid.h that already
+needs to include drm_edid.h for drm_edid helpers... but let me know if
+I'm missing something.
 
->
-> Thanks,
-> Lijo
->
-> > Alex
-> >
-> >>
-> >> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> >> ---
-> >>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 22 +++++++++++-----------
-> >>  1 file changed, 11 insertions(+), 11 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/amdgpu_smu.c
-> >> index 824fcc6dd32a..cf4ac3914b68 100644
-> >> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> >> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> >> @@ -1687,17 +1687,6 @@ static int smu_smc_hw_setup(struct smu_context =
-*smu)
-> >>                 }
-> >>         }
-> >>
-> >> -       /*
-> >> -        * Set initialized values (get from vbios) to dpm tables conte=
-xt such as
-> >> -        * gfxclk, memclk, dcefclk, and etc. And enable the DPM featur=
-e for each
-> >> -        * type of clks.
-> >> -        */
-> >> -       ret =3D smu_set_default_dpm_table(smu);
-> >> -       if (ret) {
-> >> -               dev_err(adev->dev, "Failed to setup default dpm clock =
-tables!\n");
-> >> -               return ret;
-> >> -       }
-> >> -
-> >>         if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5=
-)
-> >>                 pcie_gen =3D 4;
-> >>         else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT=
-_GEN4)
-> >> @@ -1739,6 +1728,17 @@ static int smu_smc_hw_setup(struct smu_context =
-*smu)
-> >>                 return ret;
-> >>         }
-> >>
-> >> +       /*
-> >> +        * Set initialized values (get from vbios) to dpm tables conte=
-xt such as
-> >> +        * gfxclk, memclk, dcefclk, and etc. And enable the DPM featur=
-e for each
-> >> +        * type of clks.
-> >> +        */
-> >> +       ret =3D smu_set_default_dpm_table(smu);
-> >> +       if (ret) {
-> >> +               dev_err(adev->dev, "Failed to setup default dpm clock =
-tables!\n");
-> >> +               return ret;
-> >> +       }
-> >> +
-> >>         smu_init_xgmi_plpd_mode(smu);
-> >>
-> >>         ret =3D smu_feature_get_enabled_mask(smu, &features_supported)=
-;
-> >> --
-> >> 2.34.1
-> >>
->
+> 
+> Also you're missing a space at the end of the comment before the '*/'.
+
+ack. I'll wait for more comments to send it fixed.
+
+Thanks for reviewing.
+
+Melissa
+
+> 
+> >   	struct dc_edid_caps edid_caps; /* parse display caps */
+> >   	struct dc_container_id *dc_container_id;
+> >   	uint32_t dongle_max_pix_clk;
+> > diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+> > index e7a9a4928b97..8617d2285f38 100644
+> > --- a/include/drm/drm_edid.h
+> > +++ b/include/drm/drm_edid.h
+> > @@ -469,8 +469,8 @@ int drm_edid_connector_update(struct drm_connector *connector,
+> >   			      const struct drm_edid *edid);
+> >   int drm_edid_connector_add_modes(struct drm_connector *connector);
+> >   bool drm_edid_is_digital(const struct drm_edid *drm_edid);
+> > -bool drm_edid_eq(const struct drm_edid *drm_edid_first,
+> > -			 const struct drm_edid *drm_edid_second);
+> > +bool drm_edid_eq(const struct drm_edid *drm_edid_1,
+> > +		 const struct drm_edid *drm_edid_2);
+> >   void drm_edid_get_product_id(const struct drm_edid *drm_edid,
+> >   			     struct drm_edid_product_id *id);
+> >   void drm_edid_print_product_id(struct drm_printer *p,
+> 
