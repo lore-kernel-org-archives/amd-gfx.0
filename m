@@ -4,32 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0613EC71135
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 07:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 854CFC7114A
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 07:40:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADB9B10E8D4;
-	Fri, 13 Jun 2025 07:15:48 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15C0810E8D2;
- Fri, 13 Jun 2025 07:15:45 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 55D7FdOQ701596; Fri, 13 Jun 2025 12:45:39 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 55D7Fd01701595;
- Fri, 13 Jun 2025 12:45:39 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 1/2] drm: add debugfs support per client-id
-Date: Fri, 13 Jun 2025 12:45:36 +0530
-Message-Id: <20250613071537.701563-2-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250613071537.701563-1-sunil.khatri@amd.com>
-References: <20250613071537.701563-1-sunil.khatri@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7332B10E8BF;
+	Fri, 13 Jun 2025 07:40:20 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pKtl3N3d";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBDC10E1C5;
+ Fri, 13 Jun 2025 07:40:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=30ezSC5SuiN0IChbbRZASt5M1rZUDx5UAhi1YP6jKF0=; b=pKtl3N3dNtArzKVtv7y/bpuBWj
+ Et87NBgYnRm91BqJx4CM/u0+4pR95JNXUx6cKR+XyLuukbV2oVoWbWer+E2r8ceQDs/lLNJksLy6z
+ j/bW1JXti2NzQ/AMj8ypECl9riVPFyEvp+vZQtb0D53cluiwEw6FHko0fyXaa7dVvZLrTspUmVzeZ
+ UxBBYrOCuFYt/qa61rpkSIPS+/a3mLwo0tN3d90N0o1ocQEny8xTo9WNPgy0sreWTB57wba1rfUu1
+ AkeVh50M+5C3biWbOyMABV8ghv5b1ODheC8TN7/d6LQ5P0oLWW/M5ZIHnHxhu2WnDbZp3K1gvugqp
+ KBTqgMfw==;
+Received: from [81.79.92.254] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uPz1K-002vBD-5Z; Fri, 13 Jun 2025 09:40:14 +0200
+Message-ID: <36c36380-6770-4776-9e85-69299e4ab11a@igalia.com>
+Date: Fri, 13 Jun 2025 08:40:12 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/4] drm/xe: Make dma-fences compliant with the safe
+ access rules
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20250610164226.10817-1-tvrtko.ursulin@igalia.com>
+ <20250610164226.10817-5-tvrtko.ursulin@igalia.com>
+ <lagtnrxxqzwn4akmummmuxd4msqctbzrqbht66debl7ktzgkpm@7xn5yv5ackvl>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <lagtnrxxqzwn4akmummmuxd4msqctbzrqbht66debl7ktzgkpm@7xn5yv5ackvl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,76 +69,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add support to add a directory for each client-id
-per drm node based on drm-file.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/drm_file.c | 11 +++++++++++
- include/drm/drm_file.h     |  7 +++++++
- 2 files changed, 18 insertions(+)
+On 12/06/2025 18:49, Lucas De Marchi wrote:
+> On Tue, Jun 10, 2025 at 05:42:26PM +0100, Tvrtko Ursulin wrote:
+>> Xe can free some of the data pointed to by the dma-fences it exports. 
+>> Most
+>> notably the timeline name can get freed if userspace closes the 
+>> associated
+>> submit queue. At the same time the fence could have been exported to a
+>> third party (for example a sync_fence fd) which will then cause an use-
+>> after-free on subsequent access.
+>>
+>> To make this safe we need to make the driver compliant with the newly
+>> documented dma-fence rules. Driver has to ensure a RCU grace period
+>> between signalling a fence and freeing any data pointed to by said fence.
+>>
+>> For the timeline name we simply make the queue be freed via kfree_rcu and
+>> for the shared lock associated with multiple queues we add a RCU grace
+>> period before freeing the per GT structure holding the lock.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> 
+> 
+> Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> 
+> for merging this through drm-misc tree.
 
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index 06ba6dcbf5ae..7a055fe7d4d5 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -39,6 +39,7 @@
- #include <linux/poll.h>
- #include <linux/slab.h>
- #include <linux/vga_switcheroo.h>
-+#include <linux/debugfs.h>
- 
- #include <drm/drm_client_event.h>
- #include <drm/drm_drv.h>
-@@ -133,6 +134,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
- 	struct drm_device *dev = minor->dev;
- 	struct drm_file *file;
- 	int ret;
-+	char *dir_name;
- 
- 	file = kzalloc(sizeof(*file), GFP_KERNEL);
- 	if (!file)
-@@ -143,6 +145,12 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
- 	rcu_assign_pointer(file->pid, get_pid(task_tgid(current)));
- 	file->minor = minor;
- 
-+	dir_name = kasprintf(GFP_KERNEL, "client-%llu", file->client_id);
-+	if (!dir_name)
-+		return ERR_PTR(-ENOMEM);
-+
-+	file->debugfs_client = debugfs_create_dir(dir_name, minor->debugfs_root);
-+
- 	/* for compatibility root is always authenticated */
- 	file->authenticated = capable(CAP_SYS_ADMIN);
- 
-@@ -237,6 +245,9 @@ void drm_file_free(struct drm_file *file)
- 
- 	drm_events_release(file);
- 
-+	debugfs_remove_recursive(file->debugfs_client);
-+	file->debugfs_client = NULL;
-+
- 	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
- 		drm_fb_release(file);
- 		drm_property_destroy_user_blobs(dev, file);
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 5c3b2aa3e69d..eab7546aad79 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -400,6 +400,13 @@ struct drm_file {
- 	 * @client_name_lock: Protects @client_name.
- 	 */
- 	struct mutex client_name_lock;
-+
-+	/**
-+	 * @debugfs_client:
-+	 *
-+	 * debugfs directory for each client under a drm node.
-+	 */
-+	struct dentry *debugfs_client;
- };
- 
- /**
--- 
-2.34.1
+Thanks!
+
+I've now pushed the series drm-misc-next.
+
+Btw there is also an IGT for xe I wrote ages ago^1, if you want to ping 
+someone to review it or take it over. Might be useful to have permanent 
+verification the UAF keeps being resolved.
+
+
+Regards,
+
+Tvrtko
+
+1) https://patchwork.freedesktop.org/patch/642709/?series=146211&rev=2
 
