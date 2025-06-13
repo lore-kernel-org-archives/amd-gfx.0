@@ -4,125 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47F05C71148
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 14:42:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E26C71136
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 14:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E076B10E9F8;
-	Fri, 13 Jun 2025 14:42:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1675310E9F0;
+	Fri, 13 Jun 2025 14:42:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BtkqRoXw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AT4on3uz";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2072.outbound.protection.outlook.com [40.107.102.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D306710E023
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jun 2025 14:42:17 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14B5F10EA03
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jun 2025 14:42:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qbOg2tGQ2Fhk9FGigUT+okmHDpf617tWlrD0Q108on5+UVqlv5JVr54Zv8tH5nk2U4SlRfSIcwapqWwZDZkp6+AMrK0lzxgT5LNcpu0VtecbyYFmsbcubAenT7KpEgze3EKxDcSRsc8Kw7U400bVX7aTuBlE+skFxU+agABC0EIWu74Qa+10CgPl887N4CiM44r7bFKgAxohWy/sipIZVN1XYpu/bw2gBjMBLD0pTmXjhyAb5yk7ta9jAqpZgKC3aHxKWTx6zPJhjfxuaEZ++09o/6DbLOZdAwBSjtZyO9NftObQVFf6Bxl7q9QZ9e2NmG5yM+YHhEVqsSKBAhcp8w==
+ b=h0vjptoNnbuxUxgRlxdGk8ZfEY+jmCYfLCanxre0WbXHSL/JMLDW8OZbliiSc78805NC+pX6TdXXdYh2R2R6MlO6LNQ0CRcKVmCNc+1qAzm/wcPVCunp4PJ8jqSrJqVrHLXRu5qiKckl4x3idWVZWX0SIUCQzXHRBKIXTMtV875hGZuiPNFDqQ0hTAt7zslQ39Wlk7gona5oXP3kg3TwpnzTXBdl9o0iBLyxptkVyzBhgJweSklNqzSelCY5lEf4C80mk+grqNZ6mJhjl7gKI43/ej9tRe/jdyzj4d0SpZMHbqIOY1x4B33Uzh/USEZuJkog9Bl3aIYPuGJ1TpBARQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lxGfX6BL+xzVXgn10P1DSZx7Er4l0n0ZGSa4cxJ5e30=;
- b=STQIf9vjftDmx5iGIF1e+Fx4jGsnpT0kyKQ+AUdSv5V6yf9Cbn75qQv8Td+graVqr5OLHev5u3FvZmwFVmZQbcAqMFHLt9VkvEJxD81PuCWWlS06xzel6oCdKqMU2SloObfegO8r/RKIEAwvVYfFRdMSXtfaB/hkpU9blEkwjrIo+wOHsctjpiUVp7Fj4c+eKfg9s3jh6ttV1zvWAIS25JrSMQZSx6a5wMrKcVYgeSLnMHGC3EYipc2D3/VIj7SkRGqGdEEK3KCKOggjcdUcD8qm9YyHS6CYfFjBwQPOtgs1oq+hFNEYx1UOwSj4/B95ROR6gQ9R9znVz6s/C3fH2Q==
+ bh=unvitnYnhxCGAUEGMDQeNdkXpkYFKJfcr0Fbz0wg/h0=;
+ b=dr8PPD7c4Xxm5lwTq6LobmfKFE7EtMcaJPv7FQ0dHJVlpWKsxG95qIfE3GX9N4+iO8KeoJlD94QjiRss6AhP9ZvLh5T75wt1mvw9w9lifh5nJZsBfTsvqMb3WabtUux+dhVjhLmeHj28m2DOJJxOSxVXM4betCTdizb+aYPUMgGW0VZ0kjfNzMgoBK9z0TNfxXfl1RqPljZesfdXjmD21glQx4qBidO6V8YuL65e7kPD/iUjXwH2wjemlm5Y67DYxQHZ2WBIvyBhgyPBy3XODUCzSawLCzktCwyLOATb4PCXyp39xn6LvWTVFB834vpgBBrdV8zYv2AdQz4Lc5ZvzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lxGfX6BL+xzVXgn10P1DSZx7Er4l0n0ZGSa4cxJ5e30=;
- b=BtkqRoXwnDimoM7mLfc9N/1n5Xb60ph0F87G8hMMtDQ+Oe18HOZXMKVHQ94Vi54r7Q09fkEj/HhQBQt5WmeL32NLiMkXNO5zK3R02etOx9kln1WhR5k5a4L0FfmFNHEMnPkbGNsVe96vPMKU6rjSbuGBgWlVTJz/W493LzQPFxg=
-Received: from MW4PR03CA0277.namprd03.prod.outlook.com (2603:10b6:303:b5::12)
- by MN0PR12MB6149.namprd12.prod.outlook.com (2603:10b6:208:3c7::22)
+ bh=unvitnYnhxCGAUEGMDQeNdkXpkYFKJfcr0Fbz0wg/h0=;
+ b=AT4on3uzT6pOwTAmAqne08bYh0kcI+STZxbX3sgJPb2E9mXFe6fWJ7xA2irY/l0ktUneg25Dats70Z4SQLLu7vWudTc59Re18z7OyRnS5m9g9eooDK3TNuZbd61xi/UCeqa9PbC+RoNYn4WsEzYx1asNhzyZkQs+FFXiCgdNI7o=
+Received: from BYAPR07CA0044.namprd07.prod.outlook.com (2603:10b6:a03:60::21)
+ by MW4PR12MB7465.namprd12.prod.outlook.com (2603:10b6:303:212::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Fri, 13 Jun
- 2025 14:42:15 +0000
-Received: from MWH0EPF000A6731.namprd04.prod.outlook.com
- (2603:10b6:303:b5:cafe::f5) by MW4PR03CA0277.outlook.office365.com
- (2603:10b6:303:b5::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.22 via Frontend Transport; Fri,
- 13 Jun 2025 14:42:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.23; Fri, 13 Jun
+ 2025 14:42:16 +0000
+Received: from SJ1PEPF00002314.namprd03.prod.outlook.com
+ (2603:10b6:a03:60:cafe::38) by BYAPR07CA0044.outlook.office365.com
+ (2603:10b6:a03:60::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.23 via Frontend Transport; Fri,
+ 13 Jun 2025 14:42:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000A6731.mail.protection.outlook.com (10.167.249.23) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF00002314.mail.protection.outlook.com (10.167.242.168) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.15 via Frontend Transport; Fri, 13 Jun 2025 14:42:14 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8835.15 via Frontend Transport; Fri, 13 Jun 2025 14:42:15 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
- 2025 09:42:07 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2025 09:42:11 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
- 2025 09:42:07 -0500
+ 2025 09:42:10 -0500
 Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Fri, 13 Jun 2025 09:42:06 -0500
+ Frontend Transport; Fri, 13 Jun 2025 09:42:09 -0500
 From: Kenneth Feng <kenneth.feng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Lijo.Lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
-Subject: [PATCH 1/2] drm/amd/pm: move the dpm table setting back after
- featureenablement
-Date: Fri, 13 Jun 2025 22:42:02 +0800
-Message-ID: <20250613144203.441129-1-kenneth.feng@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: set pcie default dpm table when updating pcie
+ dpm parameters
+Date: Fri, 13 Jun 2025 22:42:03 +0800
+Message-ID: <20250613144203.441129-2-kenneth.feng@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250613144203.441129-1-kenneth.feng@amd.com>
+References: <20250613144203.441129-1-kenneth.feng@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: kenneth.feng@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6731:EE_|MN0PR12MB6149:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fae2985-bd88-49d5-fc8c-08ddaa887d1f
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|MW4PR12MB7465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13a23490-e7d5-48f5-cae8-08ddaa887d6d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bgCgMW+YB680PcN1Oe5+OIxCcPjG6FpkEwsUmzAcQ1PaqsYSDMcsZIh1gou/?=
- =?us-ascii?Q?ACaG5k7jAkkenC4pi+LqJyxeHsdl4wOOW1Er3GK9hSVGD3mI5P/Yey5LEIvf?=
- =?us-ascii?Q?zDwde1AO3bgUFRAsT2o14oN8HQoUpueMyqQVC0C+AiENyXM3dUMy9PPsSb8w?=
- =?us-ascii?Q?kG6idyInHgv709ei9EVs7v+R9FZR7ZB1A6/JEkHnNSpNKDIg1aw2XHhc8WQJ?=
- =?us-ascii?Q?vu+b0Q/A7sfI2fGYfPdzkzMTENfTRu9T6lt3IKDYOCsutb2YRrIRo7a5ORUA?=
- =?us-ascii?Q?QIjkfQnCyXbneNCfIgdjnUSVUmsjx2XyQVsHyDm5zNPWElrj9wBiI3Gkmi6u?=
- =?us-ascii?Q?tSpKMUlNROXR5HsY/0tbatskTisPYGzQwG/rq3VQbz4tJTC30hyyTwWAXG64?=
- =?us-ascii?Q?jp2dUH2cWvwnu870rgpDMFTCmTpGfqzrgwruGzmxGNtNO0NuO7dn29VplGES?=
- =?us-ascii?Q?iOSuj8b76DtPEyyCruU48vF2VYZ4ItoAmrjRV/ncPwkWD9fGaqOWUR2wE8Y9?=
- =?us-ascii?Q?t7NHy4Fd/Wtjyh8S5KVtjhwY3IGsZ0fOwtwf8BpygOhAUM/1wDzKW9X4SShx?=
- =?us-ascii?Q?09jyeKol7qgw7cKzJOj1zRNKfjBmrwYcCCqcYx+753Sg07ycyqLqAmcahs+c?=
- =?us-ascii?Q?EsJbeFN/f1XejwYEQJMqEcDACZY1yJL1t99RRQaDZ1R6EHBAed+njPvGOpGs?=
- =?us-ascii?Q?ROF09FNDIcty0j2t8v9dRXOnS4P9tWbkoEKonkXaszZJl1mPb7WuDt9Svgfb?=
- =?us-ascii?Q?xxtrOLgXlGbQ9K4FeYCng8cWtvMOKOlQUvhtePUr5wFGIp8eMgCA6MuhhuBr?=
- =?us-ascii?Q?AOAefnQlesGUqInWuEW56c65oByjE+PlCK6pwK9nTj82vFLfeZFVYIlJVjsr?=
- =?us-ascii?Q?KYbD5vGL8Xh+jzXRFixDeuTe/wLEQ3igLZKrODRN5jVxP2gyniGtadDjOx8v?=
- =?us-ascii?Q?TkDDsUxgI0dteooROGyfk6NiDcmMXYpcfP840Qqr9REIixkUjZ/tZEV8kw8l?=
- =?us-ascii?Q?gKn7wtK3O8yMdiX4LmsgmVwYWoiT0QGz27dgiHNKd//aZCyf9Wn9xrVa4BTR?=
- =?us-ascii?Q?6dnvlNafI3zozu8W8QWl90m19NTaKiaoXgY8AWM5/7BE1WG9qsyCEQBZYgBJ?=
- =?us-ascii?Q?xGSDwUb+TU3lxFCsvDnzAsW18XVodSE2LrKVSQSxVZieuUY9NcPFw1/XSHqy?=
- =?us-ascii?Q?0lgEPhy+lBielh5DoIMt14R4kLZ34fmT/2jlAWHJMUThBOdr7WGdXDk3J3En?=
- =?us-ascii?Q?6GNzyj86Kwc06BLgkkZ6C7LvEuDnHQC3T97DMlzxxAtT6USHXwQmLG1q9z0N?=
- =?us-ascii?Q?/riwofsqmPoDk/E21u1peCb7P2XMOvgryTYeHrrj40w85VNFQpMI6qsbGHyC?=
- =?us-ascii?Q?NmDOP3ebjfVAE4h8OjeUdNDNa0HxNFZjmBxBrfSYAXojtjRn3bUJxCWeFix4?=
- =?us-ascii?Q?XqA9wYaqwbJ5fdfuHfxd5go1L74g/sjylNNrAwSbDvHpHSRocirW/sFmILPc?=
- =?us-ascii?Q?OCZTV+pxbmNQQBNmElBe6rhaE+3FxeDECXjL?=
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?B/GiC2X4YAAa1Jwg228yufdu2yVSGZEf6k3dQoJi5wTMcSGF3zoWLPdZUdp4?=
+ =?us-ascii?Q?NzYoypqkyhI4Qz4c9+GXTBfCbGdsMLfQI6So5BIv9eDsy1hyJM47zU5RSn00?=
+ =?us-ascii?Q?UQdmaHL1gIAzYpBsalB4CSG9bLRY10jo2TWzQ7yTQQImoSxi9LY6Qhy2gqu0?=
+ =?us-ascii?Q?VQWDw2HCBrQmhU0m+ZZ3w9iubYT0UtmYw4NCfzmL1fC9funaeex6wKiyfLgu?=
+ =?us-ascii?Q?t9NGAHoibu22lK9ItJn6AjmSUuPzAOSlIQ4yXBw31jLfhsXsL5bJeHlr9hhA?=
+ =?us-ascii?Q?cZ0cNC4yhib5nx/qS2t27/DD73fmSfFkszXEmYs3j7Day23E8JSPjV+7Sot6?=
+ =?us-ascii?Q?0JlWjQwoQ7UoS8I3MM7Ions+ZmJXwt4fa87wwznGtJGs+0418dq+kKx0kwh5?=
+ =?us-ascii?Q?K1I68nsDaPKGN3lJHWu/obDeVC4zZDxhMTEi89L7JOXqpSPe2IkBgxMY9MHB?=
+ =?us-ascii?Q?Q6CLGcT0dFWTA+K2lIADG8tmxmALpNaSfLgMgBRvlnuzITntyFtQQTcJBQns?=
+ =?us-ascii?Q?gtWMkA1MJOTSam3AVVuuIBZ7JPf8SIPYPEqDevmXKOmEw7n/mMxk+nL4qtPx?=
+ =?us-ascii?Q?eUQ6P00fd9FK8Yd2ZfS8Yp3VXB83gudJAlGcLKQ2oV35BWdCX5KzhUYWM0Et?=
+ =?us-ascii?Q?QC2EGAEmoOVW4EpUGaD2fQTdpAXRvocnJT/qba4R6Gp7MTn+VY/jyd4G9hdj?=
+ =?us-ascii?Q?NN1lVuQu77Okb0INvZ9VNqIICNZ0UKa5Ozhd77xkPaJA0mMHLVzDHZf48pWp?=
+ =?us-ascii?Q?rXu4+nkFqPiXGZLw3/DjzSke2MaBu0XJUk1hDA+tNu7vIqmVeGo3HfB5/JbT?=
+ =?us-ascii?Q?WHORSZWjCsRA/tu8zvjM3ZwjWInLfro3vz+xfV5mWUm5ebJV6CDRvsnTD6ve?=
+ =?us-ascii?Q?jR3G/p7YPfYUit/UcmjCQsUfPH862iBXXao+Sm/x29AjAJsPMcAWxQK+ZF7c?=
+ =?us-ascii?Q?ipYPU65jWS1XBajf7c19z5Kl/Bq4tC555tV1t7K7qcVyl7aKHCfNJxGmdEZv?=
+ =?us-ascii?Q?qQdm2az+gruTvBZ9tZnzqfchKIjA4OUTdh3GBs2k2YJY14fuvrv4uXzs6obe?=
+ =?us-ascii?Q?SUKYPafyzatwF+mGC2fZPABjXAYdLZ7pMef/ZR9ejlEtAoTbt5Zo3KKjZsg9?=
+ =?us-ascii?Q?05yFsazuTht33ipCVe4INVu8Hf2Uv4+mULFdmYjomYkFuvChBmWVWjdvGTaz?=
+ =?us-ascii?Q?sfryuPom4zl3lb4tMV3liHS38VaLL5RI+Kmp9PROkQ/aUhBLg2vIix4GLeBM?=
+ =?us-ascii?Q?9AmeC9TkM/d8lJjV3QzoJNDCnPV2sbpkO2VL3MvbeFpzMRXwiPDHgPfR3WEf?=
+ =?us-ascii?Q?MVgDMXbSobUCoMt1X2Xx+IMOTLdnz5pOcQLVLeXrm/Fpe599KOwZEmzM419C?=
+ =?us-ascii?Q?i1vaOmy9xrJCKKY1N3Ak41sF9eNokZFLsDZi+fHx7BbsvDJxSRmaLzi98eMx?=
+ =?us-ascii?Q?4GjjcE+67UF5iVdSfaDLXIPYNe0UupAtuMh4UipENo0HXSso8aLyi9oN8N98?=
+ =?us-ascii?Q?LgyyNjyx43e5NY0MXsgklHXi/yqBlXrJ70no?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2025 14:42:14.6527 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fae2985-bd88-49d5-fc8c-08ddaa887d1f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2025 14:42:15.1832 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13a23490-e7d5-48f5-cae8-08ddaa887d6d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6731.namprd04.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002314.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6149
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7465
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,53 +137,360 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-move the dpm table setting back after featureenablemend due to dependancy.
+set pcie default dpm table when updating pcie dpm parameters
 
 Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 104 ++++++++++++++----
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 103 +++++++++++++----
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  45 ++++----
+ 3 files changed, 186 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 824fcc6dd32a..cf4ac3914b68 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1687,17 +1687,6 @@ static int smu_smc_hw_setup(struct smu_context *smu)
- 		}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 5a9711e8cf68..257082c03865 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -572,8 +572,6 @@ static int smu_v13_0_0_set_default_dpm_table(struct smu_context *smu)
+ 	PPTable_t *pptable = table_context->driver_pptable;
+ 	SkuTable_t *skutable = &pptable->SkuTable;
+ 	struct smu_13_0_dpm_table *dpm_table;
+-	struct smu_13_0_pcie_table *pcie_table;
+-	uint32_t link_level;
+ 	int ret = 0;
+ 
+ 	/* socclk dpm table setup */
+@@ -689,24 +687,6 @@ static int smu_v13_0_0_set_default_dpm_table(struct smu_context *smu)
+ 		dpm_table->max = dpm_table->dpm_levels[0].value;
  	}
  
--	/*
--	 * Set initialized values (get from vbios) to dpm tables context such as
--	 * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
--	 * type of clks.
--	 */
--	ret = smu_set_default_dpm_table(smu);
--	if (ret) {
--		dev_err(adev->dev, "Failed to setup default dpm clock tables!\n");
--		return ret;
+-	/* lclk dpm table setup */
+-	pcie_table = &dpm_context->dpm_tables.pcie_table;
+-	pcie_table->num_of_link_levels = 0;
+-	for (link_level = 0; link_level < NUM_LINK_LEVELS; link_level++) {
+-		if (!skutable->PcieGenSpeed[link_level] &&
+-		    !skutable->PcieLaneCount[link_level] &&
+-		    !skutable->LclkFreq[link_level])
+-			continue;
+-
+-		pcie_table->pcie_gen[pcie_table->num_of_link_levels] =
+-					skutable->PcieGenSpeed[link_level];
+-		pcie_table->pcie_lane[pcie_table->num_of_link_levels] =
+-					skutable->PcieLaneCount[link_level];
+-		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
+-					skutable->LclkFreq[link_level];
+-		pcie_table->num_of_link_levels++;
 -	}
 -
- 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5)
- 		pcie_gen = 4;
- 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
-@@ -1739,6 +1728,17 @@ static int smu_smc_hw_setup(struct smu_context *smu)
- 		return ret;
- 	}
+ 	/* dcefclk dpm table setup */
+ 	dpm_table = &dpm_context->dpm_tables.dcef_table;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCN_BIT)) {
+@@ -3150,6 +3130,88 @@ static int smu_v13_0_0_set_power_limit(struct smu_context *smu,
+ 	return 0;
+ }
  
-+	/*
-+	 * Set initialized values (get from vbios) to dpm tables context such as
-+	 * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
-+	 * type of clks.
-+	 */
-+	ret = smu_set_default_dpm_table(smu);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to setup default dpm clock tables!\n");
-+		return ret;
++static int smu_v13_0_0_update_pcie_parameters(struct smu_context *smu,
++				     uint8_t pcie_gen_cap,
++				     uint8_t pcie_width_cap)
++{
++	struct smu_13_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
++	struct smu_13_0_pcie_table *pcie_table =
++				&dpm_context->dpm_tables.pcie_table;
++	int num_of_levels;
++	uint32_t smu_pcie_arg;
++	uint32_t link_level;
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *pptable = table_context->driver_pptable;
++	SkuTable_t *skutable = &pptable->SkuTable;
++	int ret = 0;
++	int i;
++
++	pcie_table->num_of_link_levels = 0;
++
++	for (link_level = 0; link_level < NUM_LINK_LEVELS; link_level++) {
++		if (!skutable->PcieGenSpeed[link_level] &&
++		    !skutable->PcieLaneCount[link_level] &&
++		    !skutable->LclkFreq[link_level])
++			continue;
++
++		pcie_table->pcie_gen[pcie_table->num_of_link_levels] =
++					skutable->PcieGenSpeed[link_level];
++		pcie_table->pcie_lane[pcie_table->num_of_link_levels] =
++					skutable->PcieLaneCount[link_level];
++		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
++					skutable->LclkFreq[link_level];
++		pcie_table->num_of_link_levels++;
 +	}
 +
- 	smu_init_xgmi_plpd_mode(smu);
++	num_of_levels = pcie_table->num_of_link_levels;
++	if (!num_of_levels)
++		return 0;
++
++	if (!(smu->adev->pm.pp_feature & PP_PCIE_DPM_MASK)) {
++		if (pcie_table->pcie_gen[num_of_levels - 1] < pcie_gen_cap)
++			pcie_gen_cap = pcie_table->pcie_gen[num_of_levels - 1];
++
++		if (pcie_table->pcie_lane[num_of_levels - 1] < pcie_width_cap)
++			pcie_width_cap = pcie_table->pcie_lane[num_of_levels - 1];
++
++		/* Force all levels to use the same settings */
++		for (i = 0; i < num_of_levels; i++) {
++			pcie_table->pcie_gen[i] = pcie_gen_cap;
++			pcie_table->pcie_lane[i] = pcie_width_cap;
++			smu_pcie_arg = i << 16;
++			smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
++			smu_pcie_arg |= pcie_table->pcie_lane[i];
++
++			ret = smu_cmn_send_smc_msg_with_param(smu,
++								SMU_MSG_OverridePcieParameters,
++								smu_pcie_arg,
++								NULL);
++			if (ret)
++				break;
++		}
++	} else {
++		for (i = 0; i < num_of_levels; i++) {
++			if (pcie_table->pcie_gen[i] > pcie_gen_cap ||
++				pcie_table->pcie_lane[i] > pcie_width_cap) {
++				pcie_table->pcie_gen[i] = pcie_gen_cap;
++				pcie_table->pcie_lane[i] = pcie_width_cap;
++				smu_pcie_arg = i << 16;
++				smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
++				smu_pcie_arg |= pcie_table->pcie_lane[i];
++
++				ret = smu_cmn_send_smc_msg_with_param(smu,
++									SMU_MSG_OverridePcieParameters,
++									smu_pcie_arg,
++									NULL);
++				if (ret)
++					break;
++			}
++		}
++	}
++
++	return ret;
++}
++
+ static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
+ 	.get_allowed_feature_mask = smu_v13_0_0_get_allowed_feature_mask,
+ 	.set_default_dpm_table = smu_v13_0_0_set_default_dpm_table,
+@@ -3179,7 +3241,7 @@ static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
+ 	.feature_is_enabled = smu_cmn_feature_is_enabled,
+ 	.print_clk_levels = smu_v13_0_0_print_clk_levels,
+ 	.force_clk_levels = smu_v13_0_0_force_clk_levels,
+-	.update_pcie_parameters = smu_v13_0_update_pcie_parameters,
++	.update_pcie_parameters = smu_v13_0_0_update_pcie_parameters,
+ 	.get_thermal_temperature_range = smu_v13_0_0_get_thermal_temperature_range,
+ 	.register_irq_handler = smu_v13_0_register_irq_handler,
+ 	.enable_thermal_alert = smu_v13_0_enable_thermal_alert,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index c8f4f6fb4083..e96364856e74 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -579,8 +579,6 @@ static int smu_v13_0_7_set_default_dpm_table(struct smu_context *smu)
+ 	PPTable_t *driver_ppt = smu->smu_table.driver_pptable;
+ 	SkuTable_t *skutable = &driver_ppt->SkuTable;
+ 	struct smu_13_0_dpm_table *dpm_table;
+-	struct smu_13_0_pcie_table *pcie_table;
+-	uint32_t link_level;
+ 	int ret = 0;
  
- 	ret = smu_feature_get_enabled_mask(smu, &features_supported);
+ 	/* socclk dpm table setup */
+@@ -687,24 +685,6 @@ static int smu_v13_0_7_set_default_dpm_table(struct smu_context *smu)
+ 		dpm_table->max = dpm_table->dpm_levels[0].value;
+ 	}
+ 
+-	/* lclk dpm table setup */
+-	pcie_table = &dpm_context->dpm_tables.pcie_table;
+-	pcie_table->num_of_link_levels = 0;
+-	for (link_level = 0; link_level < NUM_LINK_LEVELS; link_level++) {
+-		if (!skutable->PcieGenSpeed[link_level] &&
+-		    !skutable->PcieLaneCount[link_level] &&
+-		    !skutable->LclkFreq[link_level])
+-			continue;
+-
+-		pcie_table->pcie_gen[pcie_table->num_of_link_levels] =
+-					skutable->PcieGenSpeed[link_level];
+-		pcie_table->pcie_lane[pcie_table->num_of_link_levels] =
+-					skutable->PcieLaneCount[link_level];
+-		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
+-					skutable->LclkFreq[link_level];
+-		pcie_table->num_of_link_levels++;
+-	}
+-
+ 	/* dcefclk dpm table setup */
+ 	dpm_table = &dpm_context->dpm_tables.dcef_table;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCN_BIT)) {
+@@ -2739,6 +2719,87 @@ static int smu_v13_0_7_set_power_limit(struct smu_context *smu,
+ 	return 0;
+ }
+ 
++static int smu_v13_0_7_update_pcie_parameters(struct smu_context *smu,
++				     uint8_t pcie_gen_cap,
++				     uint8_t pcie_width_cap)
++{
++	struct smu_13_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
++	struct smu_13_0_pcie_table *pcie_table =
++				&dpm_context->dpm_tables.pcie_table;
++	int num_of_levels;
++	int link_level;
++	uint32_t smu_pcie_arg;
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *pptable = table_context->driver_pptable;
++	SkuTable_t *skutable = &pptable->SkuTable;
++	int ret = 0;
++	int i;
++
++	pcie_table->num_of_link_levels = 0;
++	for (link_level = 0; link_level < NUM_LINK_LEVELS; link_level++) {
++		if (!skutable->PcieGenSpeed[link_level] &&
++		    !skutable->PcieLaneCount[link_level] &&
++		    !skutable->LclkFreq[link_level])
++			continue;
++
++		pcie_table->pcie_gen[pcie_table->num_of_link_levels] =
++					skutable->PcieGenSpeed[link_level];
++		pcie_table->pcie_lane[pcie_table->num_of_link_levels] =
++					skutable->PcieLaneCount[link_level];
++		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
++					skutable->LclkFreq[link_level];
++		pcie_table->num_of_link_levels++;
++	}
++
++	num_of_levels = pcie_table->num_of_link_levels;
++	if (!num_of_levels)
++		return 0;
++
++	if (!(smu->adev->pm.pp_feature & PP_PCIE_DPM_MASK)) {
++		if (pcie_table->pcie_gen[num_of_levels - 1] < pcie_gen_cap)
++			pcie_gen_cap = pcie_table->pcie_gen[num_of_levels - 1];
++
++		if (pcie_table->pcie_lane[num_of_levels - 1] < pcie_width_cap)
++			pcie_width_cap = pcie_table->pcie_lane[num_of_levels - 1];
++
++		/* Force all levels to use the same settings */
++		for (i = 0; i < num_of_levels; i++) {
++			pcie_table->pcie_gen[i] = pcie_gen_cap;
++			pcie_table->pcie_lane[i] = pcie_width_cap;
++			smu_pcie_arg = i << 16;
++			smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
++			smu_pcie_arg |= pcie_table->pcie_lane[i];
++
++			ret = smu_cmn_send_smc_msg_with_param(smu,
++								SMU_MSG_OverridePcieParameters,
++								smu_pcie_arg,
++								NULL);
++			if (ret)
++				break;
++		}
++	} else {
++		for (i = 0; i < num_of_levels; i++) {
++			if (pcie_table->pcie_gen[i] > pcie_gen_cap ||
++				pcie_table->pcie_lane[i] > pcie_width_cap) {
++				pcie_table->pcie_gen[i] = pcie_gen_cap;
++				pcie_table->pcie_lane[i] = pcie_width_cap;
++				smu_pcie_arg = i << 16;
++				smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
++				smu_pcie_arg |= pcie_table->pcie_lane[i];
++
++				ret = smu_cmn_send_smc_msg_with_param(smu,
++									SMU_MSG_OverridePcieParameters,
++									smu_pcie_arg,
++									NULL);
++				if (ret)
++					break;
++			}
++		}
++	}
++
++	return ret;
++}
++
+ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.get_allowed_feature_mask = smu_v13_0_7_get_allowed_feature_mask,
+ 	.set_default_dpm_table = smu_v13_0_7_set_default_dpm_table,
+@@ -2768,7 +2829,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.feature_is_enabled = smu_cmn_feature_is_enabled,
+ 	.print_clk_levels = smu_v13_0_7_print_clk_levels,
+ 	.force_clk_levels = smu_v13_0_7_force_clk_levels,
+-	.update_pcie_parameters = smu_v13_0_update_pcie_parameters,
++	.update_pcie_parameters = smu_v13_0_7_update_pcie_parameters,
+ 	.get_thermal_temperature_range = smu_v13_0_7_get_thermal_temperature_range,
+ 	.register_irq_handler = smu_v13_0_register_irq_handler,
+ 	.enable_thermal_alert = smu_v13_0_enable_thermal_alert,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index d5a4abd60d06..581a4e59130a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -502,8 +502,6 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 	PPTable_t *pptable = table_context->driver_pptable;
+ 	SkuTable_t *skutable = &pptable->SkuTable;
+ 	struct smu_14_0_dpm_table *dpm_table;
+-	struct smu_14_0_pcie_table *pcie_table;
+-	uint32_t link_level;
+ 	int ret = 0;
+ 
+ 	/* socclk dpm table setup */
+@@ -619,27 +617,6 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 		dpm_table->max = dpm_table->dpm_levels[0].value;
+ 	}
+ 
+-	/* lclk dpm table setup */
+-	pcie_table = &dpm_context->dpm_tables.pcie_table;
+-	pcie_table->num_of_link_levels = 0;
+-	for (link_level = 0; link_level < NUM_LINK_LEVELS; link_level++) {
+-		if (!skutable->PcieGenSpeed[link_level] &&
+-		    !skutable->PcieLaneCount[link_level] &&
+-		    !skutable->LclkFreq[link_level])
+-			continue;
+-
+-		pcie_table->pcie_gen[pcie_table->num_of_link_levels] =
+-					skutable->PcieGenSpeed[link_level];
+-		pcie_table->pcie_lane[pcie_table->num_of_link_levels] =
+-					skutable->PcieLaneCount[link_level];
+-		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
+-					skutable->LclkFreq[link_level];
+-		pcie_table->num_of_link_levels++;
+-
+-		if (link_level == 0)
+-			link_level++;
+-	}
+-
+ 	/* dcefclk dpm table setup */
+ 	dpm_table = &dpm_context->dpm_tables.dcef_table;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCN_BIT)) {
+@@ -1487,11 +1464,31 @@ static int smu_v14_0_2_update_pcie_parameters(struct smu_context *smu,
+ 	struct smu_14_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
+ 	struct smu_14_0_pcie_table *pcie_table =
+ 				&dpm_context->dpm_tables.pcie_table;
+-	int num_of_levels = pcie_table->num_of_link_levels;
++	int num_of_levels;
+ 	uint32_t smu_pcie_arg;
++	uint32_t link_level;
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *pptable = table_context->driver_pptable;
++	SkuTable_t *skutable = &pptable->SkuTable;
+ 	int ret = 0;
+ 	int i;
+ 
++	pcie_table->num_of_link_levels = 0;
++	for (link_level = 0; link_level < NUM_LINK_LEVELS; link_level++) {
++		if (!skutable->PcieGenSpeed[link_level] &&
++		    !skutable->PcieLaneCount[link_level] &&
++		    !skutable->LclkFreq[link_level])
++			continue;
++
++		pcie_table->pcie_gen[pcie_table->num_of_link_levels] =
++					skutable->PcieGenSpeed[link_level];
++		pcie_table->pcie_lane[pcie_table->num_of_link_levels] =
++					skutable->PcieLaneCount[link_level];
++		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
++					skutable->LclkFreq[link_level];
++		pcie_table->num_of_link_levels++;
++	}
++	num_of_levels = pcie_table->num_of_link_levels;
+ 	if (!num_of_levels)
+ 		return 0;
+ 
 -- 
 2.34.1
 
