@@ -4,54 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 521E6C71136
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 13:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2CAC71159
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 13:10:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 013EC10E3AB;
-	Mon, 16 Jun 2025 13:10:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEA110E3A8;
+	Mon, 16 Jun 2025 13:10:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Zo6icWzF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZfU2pChh";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D9C110E9B5;
- Fri, 13 Jun 2025 18:44:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=5bW97YWvE2WNp84/m7LouGNWv9aZZ0XfiU91U9Q+7L4=; b=Zo6icWzFyINiSyU+TOThbUnoHD
- HuceCzinkloqBxARJ66WINhSBbJP2LFMdgOYiSlUCXwTwU88uX2LK7B4ojcTb1TQcrtI8fHPAlRaW
- iSkEz2iAkVkhFfK5St7psyEkI6yQo4XIrkzwENnL+Bw1ik934lyVj11VyUYGWzYBj+jpWEKPalosy
- GEWVwo5CvxlAZm0BP/n9luvUqT2k+nbZj7CkgR3MYVuNxZ51DG4oI011rNZLixzv6FPaqN6+XkAE9
- 9Ujzl3O5/YdL764CFRHqTETG4Dq5ARbKQONrO6bgnk2c+G8pxVzkN82UXcF50kgk8lQd+wHJ5TSRN
- qQzYs9+g==;
-Received: from [191.204.192.64] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uQ9Nn-003AD0-Le; Fri, 13 Jun 2025 20:44:08 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v7 3/5] drm/doc: Add a section about "Task information" for
- the wedge API
-Date: Fri, 13 Jun 2025 15:43:46 -0300
-Message-ID: <20250613184348.1761020-4-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250613184348.1761020-1-andrealmeid@igalia.com>
-References: <20250613184348.1761020-1-andrealmeid@igalia.com>
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 400DE10E02A;
+ Sat, 14 Jun 2025 10:37:21 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-3a4f64cdc2dso208369f8f.1; 
+ Sat, 14 Jun 2025 03:37:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1749897440; x=1750502240; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=PLl1qEEwnvWsAvy9J8JIB4fScmcygAgIc7ADndq+ADY=;
+ b=ZfU2pChhZbTD4zV0Q94r01ab1yfbsSjgE3gexMdIacAE+XOIgjeU4xUGzUD2rZxudp
+ 6riKp9CZwonoymqJvTWggGmSpNRNIpO6z+WhJfRxX8xcGMwJkSkrpLY1lQnSHs8PsrGK
+ eJ0M3gKG/IFvY0ONbxno8dTHyHTDtMjHv7cQ0adVjWS02nEEtz6kwki5R8DSnVL/pw+s
+ fgs+WItEDAKWFpmCSNo/aG4UqAvSx1lyK6oF6tDVKGrQi8RNNWBZPYDC4JfhXYJuAdNe
+ UIAv97pdwnTy0RNzZyArd8ivVBx7ITGwN0xSDHWc6F9qIXzRIG5Avku/sqy6KADDtlWy
+ y9iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749897440; x=1750502240;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=PLl1qEEwnvWsAvy9J8JIB4fScmcygAgIc7ADndq+ADY=;
+ b=NANi5ndaaNLhoWHmvUo0HITEqUr5VplZPg2Supe9QvlOeYmS5IPpdlKtvCUSwtna52
+ pjWfLTs/Xip9QkzmeNrAMsYyRIziJQtIS8uaZiz9lqt+Un7xkB8Noj42yUBFuG4glSEa
+ uJG4/SFndBi74cseV0/YL1DS4yYLdNXoNgVGzPatmEbs1I3kNwjpgPeFzrXoV94PmwzB
+ iF1eEHpVVN0zQ8c5Mh12OjF1ACWuttaQiuFa24EdVzgjYyauxdq6wSEtw7FAkNOaFbX3
+ YnjIpSE1bUPDyPIOjeEaSXAAH+Kr2Iiw1lYvrWUZjoTt54JyIeeS0/pWxa3+1ww4ePWG
+ agIA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/r81j/zdxZbvrVaNH+mxVYm7pPqcSA/0SH7Psl4hU0YaWaXGHVMiOaF0nPxXMEiCTkQrJ9+kTMQI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvCxA+i+xrrFDNINBU86pXx94wtiHuZEPjHbn0YFWBn2Qmyku0
+ TkaL25Z/VgJ22mHUV+VrsQhjRTOAjxpub7aDIoIADLcK2SxrtD610L74
+X-Gm-Gg: ASbGncuOu9HW+y76kxs6Damcj5YISXAu63Kbtwtxoa1LbViiQMrT4O5M4q4FfHLbtUd
+ PJvzzofDhEO+UL39OBOSNEqH2J1BRWYnzHnyeiw2XygjEARiF4qCceaGMbAYca2I6waevSCG9CV
+ hGryueGl+sRAD2liWErrdZkvXbLnXBFsLd935cLkHpUks9d/qAww3B11kG/PtKCx/WRjZu9m6Sw
+ xubyyvNiAL8iJQPbv9bchq8xLIFMGLfsQJKGm7AoPAy7wAebctbDYqKYx2Qd9BtTkTw/UWB+7m4
+ 0G6TDaJKeVlbIbbhtfUGKo+2AYVZYwwDjmv1zYM0J28XW/l0wJIrKeUvPvJKHUq5OPWAZtjITDv
+ jiQcYB0h3iP/hg6SJLRDvC7nSM2fuMlmLPg==
+X-Google-Smtp-Source: AGHT+IEO2WJsG7rm3hmH9d2SJMbbIL0GVTNr61YBvUZhyy9Qp55TsFSXVuwBOr+Ocv8M12TzoBRQiA==
+X-Received: by 2002:a05:6000:2f84:b0:3a5:2ee8:ee1d with SMTP id
+ ffacd0b85a97d-3a572e99672mr881171f8f.16.1749897439458; 
+ Sat, 14 Jun 2025 03:37:19 -0700 (PDT)
+Received: from localhost.localdomain ([154.182.223.70])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4532e24420csm78091745e9.20.2025.06.14.03.37.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Jun 2025 03:37:18 -0700 (PDT)
+From: Abdelrahman Fekry <abdelrahmanfekry375@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ skhan@linuxfoundation.com,
+ Abdelrahman Fekry <abdelrahmanfekry375@gmail.com>
+Subject: [PATCH] drm/amd/display: Add kernel-doc for mpc_funcs.mcm and rmcm
+Date: Sat, 14 Jun 2025 13:37:09 +0300
+Message-Id: <20250614103709.72045-1-abdelrahmanfekry375@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Jun 2025 13:10:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,52 +90,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a section about "Task information" for the wedge API.
+This patch fixes documentation build warnings:
+- WARNING: ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1068 
+struct member 'mcm' not described in 'mpc_funcs'
+- WARNING: ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1068
+struct member 'rmcm' not described in 'mpc_funcs'
 
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
+Signed-off-by: Abdelrahman Fekry <abdelrahmanfekry375@gmail.com>
 ---
-v5:
- - Change app to task in the text as well
-v4:
- - Change APP to TASK
-v3:
- - Change "app that caused ..." to "app involved ..."
- - Clarify that devcoredump have more information about what happened
- - Update that PID and APP will be empty if there's no app info
----
- Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index 4863a4deb0ee..263e5a97c080 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
- hang is usually the most critical one which can result in consequential hangs or
- complete wedging.
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+index 6e303b81bfb0..ac2957c9fdd2 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+@@ -1038,6 +1038,16 @@ struct mpc_funcs {
+ 	*/
+ 	void (*program_3dlut_size)(struct mpc *mpc, bool is_17x17x17, int mpcc_id);
  
-+Task information
-+---------------
-+
-+The information about which application (if any) was involved in the device
-+wedging is useful for userspace if they want to notify the user about what
-+happened (e.g. the compositor display a message to the user "The <task name>
-+caused a graphical error and the system recovered") or to implement policies
-+(e.g. the daemon may "ban" an task that keeps resetting the device). If the task
-+information is available, the uevent will display as ``PID=<pid>`` and
-+``TASK=<task name>``. Otherwise, ``PID`` and ``TASK`` will not appear in the
-+event string.
-+
-+The reliability of this information is driver and hardware specific, and should
-+be taken with a caution regarding it's precision. To have a big picture of what
-+really happened, the devcoredump file provides should have much more detailed
-+information about the device state and about the event.
-+
- Consumer prerequisites
- ----------------------
++     /**
++	* @mcm: Multi-Channel Mode configuration operations
++	*
++	* Contains functions for programming Multi-Channel Mode features:
++	* - 3D LUT sizing
++	* - Bias/scale programming
++	* - Bit depth configuration
++	* - LUT read/write control
++	* - LUT population
++	*/
+ 	struct {
+ 		void (*program_3dlut_size)(struct mpc *mpc, uint32_t width, int mpcc_id);
+ 		void (*program_bias_scale)(struct mpc *mpc, uint16_t bias, uint16_t scale, int mpcc_id);
+@@ -1050,6 +1060,11 @@ struct mpc_funcs {
+ 			bool lut_bank_a, int mpcc_id);
+ 	} mcm;
  
++     /**
++	* @rmcm: Remove Multi-Channel Mode configuration operations
++	*
++	* Contains functions for removing or resetting Multi-Channel Mode features
++	*/
+ 	struct {
+ 		void (*enable_3dlut_fl)(struct mpc *mpc, bool enable, int mpcc_id);
+ 		void (*update_3dlut_fast_load_select)(struct mpc *mpc, int mpcc_id, int hubp_idx);
 -- 
-2.49.0
+2.25.1
 
