@@ -4,77 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2CAC71159
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC5F0C7115E
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 13:10:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEA110E3A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A91A110E3AC;
 	Mon, 16 Jun 2025 13:10:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZfU2pChh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MC7Jfqa4";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 400DE10E02A;
- Sat, 14 Jun 2025 10:37:21 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-3a4f64cdc2dso208369f8f.1; 
- Sat, 14 Jun 2025 03:37:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1749897440; x=1750502240; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PLl1qEEwnvWsAvy9J8JIB4fScmcygAgIc7ADndq+ADY=;
- b=ZfU2pChhZbTD4zV0Q94r01ab1yfbsSjgE3gexMdIacAE+XOIgjeU4xUGzUD2rZxudp
- 6riKp9CZwonoymqJvTWggGmSpNRNIpO6z+WhJfRxX8xcGMwJkSkrpLY1lQnSHs8PsrGK
- eJ0M3gKG/IFvY0ONbxno8dTHyHTDtMjHv7cQ0adVjWS02nEEtz6kwki5R8DSnVL/pw+s
- fgs+WItEDAKWFpmCSNo/aG4UqAvSx1lyK6oF6tDVKGrQi8RNNWBZPYDC4JfhXYJuAdNe
- UIAv97pdwnTy0RNzZyArd8ivVBx7ITGwN0xSDHWc6F9qIXzRIG5Avku/sqy6KADDtlWy
- y9iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749897440; x=1750502240;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PLl1qEEwnvWsAvy9J8JIB4fScmcygAgIc7ADndq+ADY=;
- b=NANi5ndaaNLhoWHmvUo0HITEqUr5VplZPg2Supe9QvlOeYmS5IPpdlKtvCUSwtna52
- pjWfLTs/Xip9QkzmeNrAMsYyRIziJQtIS8uaZiz9lqt+Un7xkB8Noj42yUBFuG4glSEa
- uJG4/SFndBi74cseV0/YL1DS4yYLdNXoNgVGzPatmEbs1I3kNwjpgPeFzrXoV94PmwzB
- iF1eEHpVVN0zQ8c5Mh12OjF1ACWuttaQiuFa24EdVzgjYyauxdq6wSEtw7FAkNOaFbX3
- YnjIpSE1bUPDyPIOjeEaSXAAH+Kr2Iiw1lYvrWUZjoTt54JyIeeS0/pWxa3+1ww4ePWG
- agIA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU/r81j/zdxZbvrVaNH+mxVYm7pPqcSA/0SH7Psl4hU0YaWaXGHVMiOaF0nPxXMEiCTkQrJ9+kTMQI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwvCxA+i+xrrFDNINBU86pXx94wtiHuZEPjHbn0YFWBn2Qmyku0
- TkaL25Z/VgJ22mHUV+VrsQhjRTOAjxpub7aDIoIADLcK2SxrtD610L74
-X-Gm-Gg: ASbGncuOu9HW+y76kxs6Damcj5YISXAu63Kbtwtxoa1LbViiQMrT4O5M4q4FfHLbtUd
- PJvzzofDhEO+UL39OBOSNEqH2J1BRWYnzHnyeiw2XygjEARiF4qCceaGMbAYca2I6waevSCG9CV
- hGryueGl+sRAD2liWErrdZkvXbLnXBFsLd935cLkHpUks9d/qAww3B11kG/PtKCx/WRjZu9m6Sw
- xubyyvNiAL8iJQPbv9bchq8xLIFMGLfsQJKGm7AoPAy7wAebctbDYqKYx2Qd9BtTkTw/UWB+7m4
- 0G6TDaJKeVlbIbbhtfUGKo+2AYVZYwwDjmv1zYM0J28XW/l0wJIrKeUvPvJKHUq5OPWAZtjITDv
- jiQcYB0h3iP/hg6SJLRDvC7nSM2fuMlmLPg==
-X-Google-Smtp-Source: AGHT+IEO2WJsG7rm3hmH9d2SJMbbIL0GVTNr61YBvUZhyy9Qp55TsFSXVuwBOr+Ocv8M12TzoBRQiA==
-X-Received: by 2002:a05:6000:2f84:b0:3a5:2ee8:ee1d with SMTP id
- ffacd0b85a97d-3a572e99672mr881171f8f.16.1749897439458; 
- Sat, 14 Jun 2025 03:37:19 -0700 (PDT)
-Received: from localhost.localdomain ([154.182.223.70])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4532e24420csm78091745e9.20.2025.06.14.03.37.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Jun 2025 03:37:18 -0700 (PDT)
-From: Abdelrahman Fekry <abdelrahmanfekry375@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
- skhan@linuxfoundation.com,
- Abdelrahman Fekry <abdelrahmanfekry375@gmail.com>
-Subject: [PATCH] drm/amd/display: Add kernel-doc for mpc_funcs.mcm and rmcm
-Date: Sat, 14 Jun 2025 13:37:09 +0300
-Message-Id: <20250614103709.72045-1-abdelrahmanfekry375@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 339A910E21F;
+ Sun, 15 Jun 2025 11:01:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749985309; x=1781521309;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ShYjDmRhDuyDUBLCl65nzoU7Z7r6ZL6+weJbx9+y4z4=;
+ b=MC7Jfqa46pBrtsnavNf8ue+RGWDh+qmZqZLT8fHguXkz/pJhDF7il7ul
+ mYgooy+xyg3fruvcgVaOlAm7D7WsjCMzgrblh5kTHN91TZ/oLf7f59REP
+ NINWLxqhqgn48s9ZpzIibyRIAhM17yoakj8a18csbv/kt2Cp1JOtAho+j
+ GccD0Z5tS1A+SBxfZrAt4rHchewsCNH5asg7+fSBeWxIP8WKH+QkJ5rWu
+ 0nWCbw0GwHV0LLSpH5qinw/TWRU2f67oZzQpKVeQzi7w9mrUZGbwvVoTQ
+ aWXNFgfEBMs6Hv1g7rLtexsgavUhE482MptyqHXCcX+bVDfRSRRMBWGG2 Q==;
+X-CSE-ConnectionGUID: i2UmzXdSSuWGp2EYJfX34A==
+X-CSE-MsgGUID: TVvN1iFFQ+CtTmlvWRsxcg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11464"; a="52014251"
+X-IronPort-AV: E=Sophos;i="6.16,239,1744095600"; d="scan'208";a="52014251"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2025 04:01:48 -0700
+X-CSE-ConnectionGUID: wRWLPTNqRMGyfMfyD8/7xA==
+X-CSE-MsgGUID: Ss0Zx9mdTaeVePw6WwXenw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,239,1744095600"; d="scan'208";a="152995807"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2025 04:01:43 -0700
+Date: Sun, 15 Jun 2025 14:01:40 +0300
+From: Raag Jadav <raag.jadav@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ Xaver Hugl <xaver.hugl@gmail.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v7 2/5] drm: Create a task info option for wedge events
+Message-ID: <aE6oFOBbQ_3oRwtB@black.fi.intel.com>
+References: <20250613184348.1761020-1-andrealmeid@igalia.com>
+ <20250613184348.1761020-3-andrealmeid@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250613184348.1761020-3-andrealmeid@igalia.com>
 X-Mailman-Approved-At: Mon, 16 Jun 2025 13:10:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,50 +77,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch fixes documentation build warnings:
-- WARNING: ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1068 
-struct member 'mcm' not described in 'mpc_funcs'
-- WARNING: ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1068
-struct member 'rmcm' not described in 'mpc_funcs'
+On Fri, Jun 13, 2025 at 03:43:45PM -0300, André Almeida wrote:
+> When a device get wedged, it might be caused by a guilty application.
+> For userspace, knowing which task was involved can be useful for some
+> situations, like for implementing a policy, logs or for giving a chance
+> for the compositor to let the user know what task was involved in the
+> problem.  This is an optional argument, when the task info is not
+> available, the PID and TASK string won't appear in the event string.
+> 
+> Sometimes just the PID isn't enough giving that the task might be already
+> dead by the time userspace will try to check what was this PID's name,
+> so to make the life easier also notify what's the task's name in the user
+> event.
+> 
+> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com> (for i915 and xe)
+> Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> Reviewed-by: Raag Jadav <raag.jadav@intel.com>
 
-Signed-off-by: Abdelrahman Fekry <abdelrahmanfekry375@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Although I'm okay with this version, a few aesthetic nits below.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-index 6e303b81bfb0..ac2957c9fdd2 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-@@ -1038,6 +1038,16 @@ struct mpc_funcs {
- 	*/
- 	void (*program_3dlut_size)(struct mpc *mpc, bool is_17x17x17, int mpcc_id);
- 
-+     /**
-+	* @mcm: Multi-Channel Mode configuration operations
-+	*
-+	* Contains functions for programming Multi-Channel Mode features:
-+	* - 3D LUT sizing
-+	* - Bias/scale programming
-+	* - Bit depth configuration
-+	* - LUT read/write control
-+	* - LUT population
-+	*/
- 	struct {
- 		void (*program_3dlut_size)(struct mpc *mpc, uint32_t width, int mpcc_id);
- 		void (*program_bias_scale)(struct mpc *mpc, uint16_t bias, uint16_t scale, int mpcc_id);
-@@ -1050,6 +1060,11 @@ struct mpc_funcs {
- 			bool lut_bank_a, int mpcc_id);
- 	} mcm;
- 
-+     /**
-+	* @rmcm: Remove Multi-Channel Mode configuration operations
-+	*
-+	* Contains functions for removing or resetting Multi-Channel Mode features
-+	*/
- 	struct {
- 		void (*enable_3dlut_fl)(struct mpc *mpc, bool enable, int mpcc_id);
- 		void (*update_3dlut_fast_load_select)(struct mpc *mpc, int mpcc_id, int hubp_idx);
--- 
-2.25.1
+> Signed-off-by: André Almeida <andrealmeid@igalia.com>
 
+...
+
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 56dd61f8e05a..eba99a081ec1 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -538,10 +538,15 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+>  	}
+>  }
+>  
+> +#define WEDGE_STR_LEN 32
+> +#define PID_STR_LEN 15
+> +#define COMM_STR_LEN (TASK_COMM_LEN + 5)
+
+Align the values using tabs for readability, and since you're using
+TASK_COMM_LEN here please include sched.h instead of relying on
+intermediate header which may not guarantee it for other archs and
+randconfigs.
+
+> +
+>  /**
+>   * drm_dev_wedged_event - generate a device wedged uevent
+>   * @dev: DRM device
+>   * @method: method(s) to be used for recovery
+> + * @info: optional information about the guilty task
+>   *
+>   * This generates a device wedged uevent for the DRM device specified by @dev.
+>   * Recovery @method\(s) of choice will be sent in the uevent environment as
+> @@ -554,13 +559,13 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+>   *
+>   * Returns: 0 on success, negative error code otherwise.
+>   */
+> -int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+> +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+> +			 struct drm_wedge_task_info *info)
+>  {
+>  	const char *recovery = NULL;
+>  	unsigned int len, opt;
+> -	/* Event string length up to 28+ characters with available methods */
+> -	char event_string[32];
+> -	char *envp[] = { event_string, NULL };
+> +	char event_string[WEDGE_STR_LEN], pid_string[PID_STR_LEN], comm_string[COMM_STR_LEN];
+> +	char *envp[] = { event_string, NULL, NULL, NULL };
+
+Let's make this reverse xmas order and be consistent with other helpers
+in this file.
+
+>  	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+>  
+> @@ -582,6 +587,13 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+>  	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+>  		 "but recovered through reset" : "needs recovery");
+>  
+> +	if (info && (info->comm[0] != '\0') && (info->pid >= 0)) {
+> +		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
+> +		snprintf(comm_string, sizeof(comm_string), "TASK=%s", info->comm);
+> +		envp[1] = pid_string;
+> +		envp[2] = comm_string;
+> +	}
+> +
+>  	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+>  }
+>  EXPORT_SYMBOL(drm_dev_wedged_event);
+
+...
+
+> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+> index e2f894f1b90a..729e1c6da138 100644
+> --- a/include/drm/drm_device.h
+> +++ b/include/drm/drm_device.h
+> @@ -30,6 +30,14 @@ struct pci_controller;
+>  #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
+>  #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
+>  
+> +/**
+> + * struct drm_wedge_task_info - information about the guilty task of a wedge dev
+> + */
+> +struct drm_wedge_task_info {
+> +	pid_t pid;
+> +	char comm[TASK_COMM_LEN];
+
+Ditto for sched.h.
+
+Raag
+
+> +};
+> +
+>  /**
+>   * enum switch_power_state - power state of drm device
+>   */
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index 63b51942d606..3f76a32d6b84 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -487,7 +487,8 @@ void drm_put_dev(struct drm_device *dev);
+>  bool drm_dev_enter(struct drm_device *dev, int *idx);
+>  void drm_dev_exit(int idx);
+>  void drm_dev_unplug(struct drm_device *dev);
+> -int drm_dev_wedged_event(struct drm_device *dev, unsigned long method);
+> +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+> +			 struct drm_wedge_task_info *info);
+>  
+>  /**
+>   * drm_dev_is_unplugged - is a DRM device unplugged
+> -- 
+> 2.49.0
+> 
