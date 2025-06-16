@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5943FC7EE2C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C046CC77B73
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFFA10E674;
-	Tue, 17 Jun 2025 13:02:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1093310E685;
+	Tue, 17 Jun 2025 13:02:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="SvqyFL5h";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aqpsUcWQ";
 	dkim-atps=neutral
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA6510E3BB
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 14:54:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=ImzOJ0Fu7HUWP5Tk98CrEZQ+23QR5aPJDRY8eqZP6s8=; b=SvqyFL5hLq5vK8nQbihAXrkG0G
- hw3+hd/uF1wbC3Yj1e5Zo7ByN+JQTEazFGwTVRGmiAmxCamg2J8mUxLqMC9bn6yfGu3H5UfRPhwtj
- rkVuK3WqM5EEYF/EoVXWs+sS/+i7WjyMX7BjJaaz+m5G3tVceT8LLAMVB+qoCiy/7KdZqRcaEEC3W
- t07vMuQ8Tu3KDNFe+2xXhnERpnb7Z7D8hYXqiwYRJaJ0CS6pFEDHlXd23KAfG+3i4hasHl1K7vHI3
- M9hg5KGCxZP4vMJCeKFZPAue8AGPbyb8b6Vcn9jCqh3+HNJW+8J/ClnXXu1C1KdG8G22Z1wqSrix+
- c3c9Pftw==;
-Received: from
- 2001-1c00-8d82-d000-266e-96ff-fe07-7dcc.cable.dynamic.v6.ziggo.nl
- ([2001:1c00:8d82:d000:266e:96ff:fe07:7dcc]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uRBEM-00000003cMr-2pmi; Mon, 16 Jun 2025 14:54:38 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 5847430D551; Mon, 16 Jun 2025 16:54:37 +0200 (CEST)
-Date: Mon, 16 Jun 2025 16:54:37 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: alexander.deucher@amd.com, Borislav Petkov <bp@alien8.de>,
- amd-gfx@lists.freedesktop.org
-Subject: Re: amdgpu vs kexec
-Message-ID: <20250616145437.GG1613376@noisy.programming.kicks-ass.net>
-References: <20250616093945.GA1613200@noisy.programming.kicks-ass.net>
- <4f5f95ff-b97e-41db-b9fd-5204e6581a30@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78DD810E42D;
+ Mon, 16 Jun 2025 18:15:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=NYH3P+o7dLXcYIY/W8InmFCvnsUko+8af5VEYYapQWY=; b=aqpsUcWQ7via5UPtn4QDc0pU9j
+ aYX1wCqJ0fHiP3RDO1kXtLh9DpcqRzDmKGgXy/JKYGHn1TDo3wn4aCzT1Pj3UOnAmnI4zQ+W9y+3A
+ qFBfz5IZWIBvCM2AfjYkhYiGTPFGd2j4WpV9w29Rk/NrZVLsDbrzEuWmxg+Qxz2ZL4eRN+xOz9Qk9
+ NAJjB6CSbX6PWWaA/geMgZxxI661nEJRshpuvEmhQ7MLSBu4RKiPMTB5fyXNi+tWuCi58jCAYvVz2
+ Mjb64MHC9QM8R0/YDxd46VsJmyCbeLCl51tV0XuhDKiBeymCxTswhQhvG69FlYZ7EEWAh5x81+kZ4
+ IF9KpBvQ==;
+Received: from [191.204.192.64] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uREMp-004Eh6-Tp; Mon, 16 Jun 2025 20:15:36 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: "Alex Deucher" <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v8 5/6] drm: amdgpu: Use struct drm_wedge_task_info inside of
+ struct amdgpu_task_info
+Date: Mon, 16 Jun 2025 15:14:37 -0300
+Message-ID: <20250616181438.2124656-6-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250616181438.2124656-1-andrealmeid@igalia.com>
+References: <20250616181438.2124656-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4f5f95ff-b97e-41db-b9fd-5204e6581a30@amd.com>
-X-Mailman-Approved-At: Tue, 17 Jun 2025 13:02:38 +0000
+X-Mailman-Approved-At: Tue, 17 Jun 2025 13:02:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,33 +68,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 16, 2025 at 01:51:21PM +0200, Christian K�nig wrote:
-> Hi Peter,
-> 
-> On 6/16/25 11:39, Peter Zijlstra wrote:
-> > Hi guys,
-> > 
-> > My (Intel Sapphire Rapids) workstation has a RX 7800 XT and when I kexec
-> > a bunch of times, the amdgpu driver gets upset and barfs on boot.
-> 
-> yeah, that is an "intentional" HW feature and yes you're certainly not
-> the first one to complain about it :(
-> 
-> The PSP (platform security processor IIRC) is designed in such a way
-> that you can initialize it only once after a power cycle / hard reset
-> for security reasons (e.g. to not leak crypto keys used for digital
-> rights management etc..).
-> 
-> On dGPUs we work around that manually by power cycling the ASIC when
-> that situation is detected during amdgpu load, but that unfortunately
-> doesn't work 100% reliable.
+To avoid a cast when calling drm_dev_wedged_event(), replace pid and
+task name inside of struct amdgpu_task_info with struct
+drm_wedge_task_info.
 
-Right.. hence the splats.
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+v7: New patch
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 12 ++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           |  3 +--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c         |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c          |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c      |  8 ++++----
+ 9 files changed, 18 insertions(+), 19 deletions(-)
 
-> On APUs the situation is even worse because the PSP is shared between
-> the GPU and the CPU.
-> 
-> We have forwarded such complains internally for years, but there is
-> not much else Alex and I can do about it.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 8e626f50b362..dac4b926e7be 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1786,7 +1786,7 @@ static int amdgpu_debugfs_vm_info_show(struct seq_file *m, void *unused)
+ 
+ 		ti = amdgpu_vm_get_task_info_vm(vm);
+ 		if (ti) {
+-			seq_printf(m, "pid:%d\tProcess:%s ----------\n", ti->pid, ti->process_name);
++			seq_printf(m, "pid:%d\tProcess:%s ----------\n", ti->task.pid, ti->process_name);
+ 			amdgpu_vm_put_task_info(ti);
+ 		}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index 7b50741dc097..8a026bc9ea44 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -220,10 +220,10 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+ 	drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec,
+ 		   coredump->reset_time.tv_nsec);
+ 
+-	if (coredump->reset_task_info.pid)
++	if (coredump->reset_task_info.task.pid)
+ 		drm_printf(&p, "process_name: %s PID: %d\n",
+ 			   coredump->reset_task_info.process_name,
+-			   coredump->reset_task_info.pid);
++			   coredump->reset_task_info.task.pid);
+ 
+ 	/* SOC Information */
+ 	drm_printf(&p, "\nSOC Information\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 0ecc88df7208..e5e33a68d935 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -329,7 +329,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 
+ 			dev_warn(adev->dev, "validate_and_fence failed: %d\n", r);
+ 			if (ti) {
+-				dev_warn(adev->dev, "pid %d\n", ti->pid);
++				dev_warn(adev->dev, "pid %d\n", ti->task.pid);
+ 				amdgpu_vm_put_task_info(ti);
+ 			}
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 347a55376291..563be579fe09 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -622,7 +622,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 			pr_warn_ratelimited("Evicted user BO is not reserved\n");
+ 			if (ti) {
+-				pr_warn_ratelimited("pid %d\n", ti->pid);
++				pr_warn_ratelimited("pid %d\n", ti->task.pid);
+ 				amdgpu_vm_put_task_info(ti);
+ 			}
+ 
+@@ -2510,11 +2510,11 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
+ 	if (!vm->task_info)
+ 		return;
+ 
+-	if (vm->task_info->pid == current->pid)
++	if (vm->task_info->task.pid == current->pid)
+ 		return;
+ 
+-	vm->task_info->pid = current->pid;
+-	get_task_comm(vm->task_info->task_name, current);
++	vm->task_info->task.pid = current->pid;
++	get_task_comm(vm->task_info->task.comm, current);
+ 
+ 	if (current->group_leader->mm != current->mm)
+ 		return;
+@@ -2777,7 +2777,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 
+ 		dev_warn(adev->dev,
+ 			 "VM memory stats for proc %s(%d) task %s(%d) is non-zero when fini\n",
+-			 ti->process_name, ti->pid, ti->task_name, ti->tgid);
++			 ti->process_name, ti->task.pid, ti->task.comm, ti->tgid);
+ 	}
+ 
+ 	amdgpu_vm_put_task_info(vm->task_info);
+@@ -3166,5 +3166,5 @@ void amdgpu_vm_print_task_info(struct amdgpu_device *adev,
+ 	dev_err(adev->dev,
+ 		" Process %s pid %d thread %s pid %d\n",
+ 		task_info->process_name, task_info->tgid,
+-		task_info->task_name, task_info->pid);
++		task_info->task.comm, task_info->task.pid);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 9ec5d94200aa..fd086efd8457 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -236,9 +236,8 @@ struct amdgpu_vm_pte_funcs {
+ };
+ 
+ struct amdgpu_task_info {
++	struct drm_wedge_task_info task;
+ 	char		process_name[TASK_COMM_LEN];
+-	char		task_name[TASK_COMM_LEN];
+-	pid_t		pid;
+ 	pid_t		tgid;
+ 	struct kref	refcount;
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index 33ed2b158fcd..f38004e6064e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -2187,7 +2187,7 @@ static int sdma_v4_0_print_iv_entry(struct amdgpu_device *adev,
+ 		dev_dbg_ratelimited(adev->dev,
+ 				    " for process %s pid %d thread %s pid %d\n",
+ 				    task_info->process_name, task_info->tgid,
+-				    task_info->task_name, task_info->pid);
++				    task_info->task.comm, task_info->task.pid);
+ 		amdgpu_vm_put_task_info(task_info);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index 9c169112a5e7..bcde34e4e0a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -1884,7 +1884,7 @@ static int sdma_v4_4_2_print_iv_entry(struct amdgpu_device *adev,
+ 	if (task_info) {
+ 		dev_dbg_ratelimited(adev->dev, " for process %s pid %d thread %s pid %d\n",
+ 				    task_info->process_name, task_info->tgid,
+-				    task_info->task_name, task_info->pid);
++				    task_info->task.comm, task_info->task.pid);
+ 		amdgpu_vm_put_task_info(task_info);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index 2b294ada3ec0..82905f3e54dd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -1302,7 +1302,7 @@ void kfd_signal_reset_event(struct kfd_node *dev)
+ 			if (ti) {
+ 				dev_err(dev->adev->dev,
+ 					"Queues reset on process %s tid %d thread %s pid %d\n",
+-					ti->process_name, ti->tgid, ti->task_name, ti->pid);
++					ti->process_name, ti->tgid, ti->task.comm, ti->task.pid);
+ 				amdgpu_vm_put_task_info(ti);
+ 			}
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+index 83d9384ac815..a499449fcb06 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -253,9 +253,9 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
+ 	task_info = amdgpu_vm_get_task_info_pasid(dev->adev, pasid);
+ 	if (task_info) {
+ 		/* Report VM faults from user applications, not retry from kernel */
+-		if (task_info->pid)
++		if (task_info->task.pid)
+ 			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAULT(
+-					  task_info->pid, task_info->task_name));
++					  task_info->task.pid, task_info->task.comm));
+ 		amdgpu_vm_put_task_info(task_info);
+ 	}
+ }
+@@ -359,8 +359,8 @@ void kfd_smi_event_process(struct kfd_process_device *pdd, bool start)
+ 		kfd_smi_event_add(0, pdd->dev,
+ 				  start ? KFD_SMI_EVENT_PROCESS_START :
+ 				  KFD_SMI_EVENT_PROCESS_END,
+-				  KFD_EVENT_FMT_PROCESS(task_info->pid,
+-				  task_info->task_name));
++				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
++				  task_info->task.comm));
+ 		amdgpu_vm_put_task_info(task_info);
+ 	}
+ }
+-- 
+2.49.0
 
-Oh well. Thanks for the info!
