@@ -4,99 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85F07C71155
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 16:09:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73C68C71159
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 17:05:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ACE410E347;
-	Mon, 16 Jun 2025 16:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9A6810E102;
+	Mon, 16 Jun 2025 17:05:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="saAwb6ic";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YWzwOCuD";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ue3TZ7yi";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Gq51MwMk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YLSgzyCM";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5889B10E347
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 16:09:28 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 62C8221215;
- Mon, 16 Jun 2025 16:09:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1750090162; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Bx6i2NZ8BbZBrNkIElY6uzwl2GaqIZIIjwPFKMYv8is=;
- b=saAwb6icJLSPyayJZyeWCYcfF6sLhVl2GprjCYXgMLgkyF76PdevYHAbY6b2wsVkHh7RXX
- giSBC0eCWznrXSpSsga8e93B4x2sLXsZ/5HgLvtwO7AKORufCD8cAh4+cVjkUDBoNXl3hV
- U/9D/dNn7RDXLkvzU5DDb27/YFGW9TE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1750090162;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Bx6i2NZ8BbZBrNkIElY6uzwl2GaqIZIIjwPFKMYv8is=;
- b=YWzwOCuDrVxMk/dZk/+rwM2wTjzFlIUDz2rysRQcXwNQ75zYE6ntpMRIsG7eYDSHIyKag7
- lvj25i3r92pDAODw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ue3TZ7yi;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Gq51MwMk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1750090157; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Bx6i2NZ8BbZBrNkIElY6uzwl2GaqIZIIjwPFKMYv8is=;
- b=ue3TZ7yiQq865YUUlgGbbdCLmNL/TkQTkRUu+r25AlbdBgLa4YQzpe0tfrzpvOup9sbtlR
- BYfzL9tmbJidhZ4TheHub78Avob4IzdeZNgRb8EmAFAFSOf0XHCJSdw+oKV+9wG256GQx3
- 6OQf6f0aFzipYl5300ZFqotgRT/d+E4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1750090157;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Bx6i2NZ8BbZBrNkIElY6uzwl2GaqIZIIjwPFKMYv8is=;
- b=Gq51MwMkyjQs/bLBV9jOh+Av8HGn3aFzXBqBjuNojMHe5NAQaR5Loh0RlR2b/T5FRFX9Yc
- gfVm9DFmFPs+frCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28E0E13A6B;
- Mon, 16 Jun 2025 16:09:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id qAOqCKhBUGi5cQAAD6G6ig
- (envelope-from <tiwai@suse.de>); Mon, 16 Jun 2025 16:09:12 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH RESEND] drm/amd/display: Add sanity checks for drm_edid_raw()
-Date: Mon, 16 Jun 2025 18:08:41 +0200
-Message-ID: <20250616160908.26333-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.49.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D24810E102
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 17:05:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C653F5C5B3C;
+ Mon, 16 Jun 2025 17:03:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF39AC4CEEA;
+ Mon, 16 Jun 2025 17:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1750093532;
+ bh=8poxrPn6RtSfmT8J4YXFs4lsTaXXXGvfDK0dw5BmMAQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=YLSgzyCMvjauZ5iNxqgTfoXuEGRIauYHEvas+SbpGc0MXZx81mWcuELXhAKvcF0Q5
+ JGSn96VYBEis004hvS3NA71pW/ukSkKcsJjIyDjqte+gL1tS2Hb4wLSwaT/Hr87nPS
+ q+CtM3vA2UL9+RynNe7xCI8+FGDSpt9gJnwBdL7draLwl7kOJSgTuotzvBcperyP+a
+ fPvqWd1/bTBsor35K6MUHFQhApYRTU0g/mBD8QubNCrUmGFUGM4sEPiy2myCjWF0o2
+ w/LxujiS1wosRyKjqKeFgSXW2ZW6upuuMyIr/wJcFJSMEYYawkJYYkIVxFYmTml3dF
+ dVs3pz0CW6Uiw==
+Message-ID: <4749ad1c-8af9-4230-b925-c5074e28f898@kernel.org>
+Date: Mon, 16 Jun 2025 12:05:30 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- ASN_FAIL(0.00)[7.9.0.0.4.6.0.0.0.5.1.0.0.1.0.0.4.0.1.0.1.8.2.b.0.4.e.d.7.0.a.2.asn6.rspamd.com:server
- fail]; MIME_TRACE(0.00)[0:+]; RCPT_COUNT_SEVEN(0.00)[7];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,suse.de:email,suse.com:url];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: 62C8221215
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd: Adjust output for discovery error handling
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+References: <20250613214101.4117000-1-superm1@kernel.org>
+ <f1525ee7-9f1d-48ae-81af-f97fb3a00351@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <f1525ee7-9f1d-48ae-81af-f97fb3a00351@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,40 +58,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When EDID is retrieved via drm_edid_raw(), it doesn't guarantee to
-return proper EDID bytes the caller wants: it may be either NULL (that
-leads to an Oops) or with too long bytes over the fixed size raw_edid
-array (that may lead to memory corruption).  The latter was reported
-actually when connected with a bad adapter.
+On 6/13/25 10:27 PM, Lazar, Lijo wrote:
+> 
+> 
+> On 6/14/2025 3:11 AM, Mario Limonciello wrote:
+>> From: Mario Limonciello <mario.limonciello@amd.com>
+>>
+>> commit 017fbb6690c22 ("drm/amdgpu/discovery: check ip_discovery fw file
+>> available") added support for reading an amdgpu IP discovery bin file
+>> for some specific products. If it's not found then it will fallback to
+>> hardcoded values. However if it's not found there is also a lot of noise
+>> about missing files and errors.
+>>
+>> Adjust the error handling to decrease most messages to DEBUG and to show
+>> at most one message to a user about the missing file at INFO level.
+>>
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4312
+>> Fixes: 017fbb6690c22 ("drm/amdgpu/discovery: check ip_discovery fw file available")
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 17 ++++++-----------
+>>   1 file changed, 6 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> index a0e9bf9b27108..8e4526a8c2600 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> @@ -321,10 +321,9 @@ static int amdgpu_discovery_read_binary_from_file(struct amdgpu_device *adev,
+>>   	const struct firmware *fw;
+>>   	int r;
+>>   
+>> -	r = request_firmware(&fw, fw_name, adev->dev);
+>> +	r = firmware_request_nowarn(&fw, fw_name, adev->dev);
+>>   	if (r) {
+>> -		dev_err(adev->dev, "can't load firmware \"%s\"\n",
+>> -			fw_name);
+>> +		drm_info(&adev->ddev, "Optional firmware \"%s\" was not found\n", fw_name);
+>>   		return r;
+>>   	}
+>>   
+>> @@ -459,16 +458,12 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>>   	/* Read from file if it is the preferred option */
+>>   	fw_name = amdgpu_discovery_get_fw_name(adev);
+>>   	if (fw_name != NULL) {
+>> -		dev_info(adev->dev, "use ip discovery information from file");
+>> +		drm_dbg(&adev->ddev, "use ip discovery information from file");
+>>   		r = amdgpu_discovery_read_binary_from_file(adev, adev->mman.discovery_bin, fw_name);
+>> -
+>> -		if (r) {
+>> -			dev_err(adev->dev, "failed to read ip discovery binary from file\n");
+>> -			r = -EINVAL;
+>> +		if (r)
+>>   			goto out;
+>> -		}
+>> -
+>>   	} else {
+>> +		drm_dbg(&adev->ddev, "use ip discovery information from memory");
+>>   		r = amdgpu_discovery_read_binary_from_mem(
+>>   			adev, adev->mman.discovery_bin);
+>>   		if (r)
+>> @@ -1339,7 +1334,7 @@ static int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>>   
+>>   	r = amdgpu_discovery_init(adev);
+>>   	if (r) {
+>> -		DRM_ERROR("amdgpu_discovery_init failed\n");
+>> +		drm_warn(&adev->ddev, "%s failed: %d\n", __func__, r);
+> 
+> This indeed is an error. Rest of the changes are fine.
 
-Add sanity checks for drm_edid_raw() to address the above corner
-cases, and return EDID_BAD_INPUT accordingly.
+How about pushing this down into amdgpu_discovery_set_ip_blocks()?
+I was thinking we can put it in the default case only so that the 
+fallback path doesn't make a lot of noise for vega/raven/arcturus/aldebaran.
 
-Fixes: 48edb2a4256e ("drm/amd/display: switch amdgpu_dm_connector to use struct drm_edid")
-Link: https://bugzilla.suse.com/show_bug.cgi?id=1236415
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
+Something like this:
 
-Just resent, as the previous submission seems overlooked
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c 
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 3877b43d9f863..d5bd105de1b31 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1333,10 +1333,8 @@ static int amdgpu_discovery_reg_base_init(struct 
+amdgpu_device *adev)
+         int r;
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 4 ++++
- 1 file changed, 4 insertions(+)
+         r = amdgpu_discovery_init(adev);
+-       if (r) {
+-               DRM_ERROR("amdgpu_discovery_init failed\n");
++       if (r)
+                 return r;
+-       }
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index d4395b92fb85..9e3e51a2dc49 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -1029,6 +1029,10 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 			return EDID_NO_RESPONSE;
- 
- 		edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
-+		if (!edid ||
-+		    edid->extensions >= sizeof(sink->dc_edid.raw_edid) / EDID_LENGTH)
-+			return EDID_BAD_INPUT;
-+
- 		sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
- 		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
- 
--- 
-2.49.0
+         wafl_ver = 0;
+         adev->gfx.xcc_mask = 0;
+@@ -2574,8 +2572,10 @@ int amdgpu_discovery_set_ip_blocks(struct 
+amdgpu_device *adev)
+                 break;
+         default:
+                 r = amdgpu_discovery_reg_base_init(adev);
+-               if (r)
+-                       return -EINVAL;
++               if (r) {
++                       drm_err(&adev->ddev, "discovery failed: %d\n", ret);
++                       return r;
++               }
+
+                 amdgpu_discovery_harvest_ip(adev);
+                 amdgpu_discovery_get_gfx_info(adev);
+
+
+
+> 
+> Thanks,
+> Lijo
+> 
+>>   		return r;
+>>   	}
+>>   
+> 
 
