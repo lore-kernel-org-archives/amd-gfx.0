@@ -4,58 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E18C77B7F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6354C77B7C
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F36410E677;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25D2A10E673;
 	Tue, 17 Jun 2025 13:02:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="U78h4Hif";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OpaF8pqh";
 	dkim-atps=neutral
-X-Greylist: delayed 499 seconds by postgrey-1.36 at gabe;
- Tue, 17 Jun 2025 08:59:09 UTC
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com
- [162.62.57.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A06010E541;
- Tue, 17 Jun 2025 08:59:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1750150746;
- bh=2gVFkORzM62hZB18JS/222UmlfBatrpXaEZJPo4NBDg=;
- h=From:To:Cc:Subject:Date;
- b=U78h4Hif9dVyWARrO5evDvy7A48bhkzKnkfCSjMtHxjiMtKkyC8yDd9sNp8dc5N6n
- FxyfiYgEtN8dzPGiA2//WaN8w7BkCLJeBaWR6PCUxHxxcwqR4poHv60facdCFS6x+A
- MftwUXYx0t5W3oJ9fwnTKuVRdALcREw7ZOPrqL9c=
-Received: from localhost.localdomain ([116.128.244.169])
- by newxmesmtplogicsvrszb16-1.qq.com (NewEsmtp) with SMTP
- id B67830BE; Tue, 17 Jun 2025 16:45:39 +0800
-X-QQ-mid: xmsmtpt1750149939tfjk0u1ko
-Message-ID: <tencent_24A44EBAE7F05D812288B973A8EC2013BC09@qq.com>
-X-QQ-XMAILINFO: No7DFzN00JnRs2AZ9M9EPgnY/wZEwJNUZpthjcQ9o7AUHD2ySvoAQVE5/Xy5ux
- pNO+Ng4Gwf8TbQ8rbFGQQdm2bVqnVopO+CXLLsY3WW3FHNoG3YJ8BgCT4T5jjL9s/BdbXk9p9BkV
- EFIWskl3v5kGMyqARd18knuJcUDyGiABD09PvMvCpOAZlPBs1zWXfLVoOccv/FlhPLr/KlHnhxnR
- fltVBMktIA+onVZVzcB9Na+SVPwXNoGBxf28LJ7JhqJ1vKYyF3c7fcHS/EnFthMdPjUHLK5Hvqbd
- bQi0j8y30uKNdaqoWAYFZJESb8sT8+XV9QqEINwbCBFFcMr4em0iG7kWj+sDIcYd+YbYsmgyYc01
- RHS/wk6BrfanRSxbBZk/1sHtWPeyBwyE9P71CoA+xRalrUiX2+5GibAAFLzw7w5wYZz+9fGIK0Hg
- sf44RLUPjIhSUy83w55Mxy/6DBTOh+qwNwY4WKe4mxL4Oayi3/jE6JTAUSZS8J90OWN7RDuj3v8a
- sd2jBB3S/INT2pyHKFrxOIFobSl9nQ/ho3qet2mhub1I5hSqRqUeHSZwXmv1K4Gfdqh9krnhzJ5O
- xkdhlOUqnpeENx1DfcDFyCdseEkf6pznxD9PaB2JNqd7rqU7esHu+2xRZAWCGyHCjIB/2+KzAcJ8
- JdlmbOUal6qiOrM8QMOmw5KjwkHKJY7nQZaBZO0pmvccCQASTK/EFLWpIAnHoMNLWqHr4arlc0lb
- pw9saynpmvFp8Xra6ATkhT+PxA1HBs2gC96aLP3DpSf+D6SWC6uEUiAWVTR4NWhL20ZfUPWyMgBj
- BPLvCr/FF+RAcUnchgwdF01OdiOF21iT5SjQ7AgWLki+l0TKMGPNbTVcrHmKPRq2aY433qmj1Fo2
- qMGAwpDC7QA66Ol/dadhDb4wsw9LBOr2vuoDI18QS+0Jpu3AhXZ3r4QaxLVyhWGnFqT77G4amLkK
- yNokzGpNtWkg8VodchsS4j8cQ0a6slvj2wKp8ZJuwW88gKyTxj2YigPTbzcxPJMgNh4H/Afmo=
-X-QQ-XMRINFO: OD9hHCdaPRBwq3WW+NvGbIU=
-From: xiaopeitux@foxmail.com
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH] drm/amd/display: sspl: Use of macro ARRAY_SIZE to calculate
- array size
-Date: Tue, 17 Jun 2025 16:45:38 +0800
-X-OQ-MSGID: <1a2b56dba50b9b4fc4b69ffdf84de6e67e7e3dff.1750148897.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE09D10E425;
+ Mon, 16 Jun 2025 18:15:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=psYij8s9Ia2uYH+3eeL2z0De96IT8g97QGXw+98uT8g=; b=OpaF8pqhsEEyn/YUt8Ls0rCWPP
+ Fex+nlV8DsU7HvGjjEPobjGnW2KFYWfiw0vUnYH9hxr+JYmdsL7YWI/70HX39eTl1+ZfUY2ZOLmYV
+ T0+Hvx6FkVrmAZd114MFj78urHM5fGMqSF/2tB1g+/jWhLvwHezAfsrtUIU+UCv1mPGjbyTOsdi9x
+ S+cpiHUKFnFxwKsVbpWqVrn6uRqVzK3kAOkNCKesMWc5tJMXEzLGEWRLyXsFOW9FN3bR/N9UuSphF
+ IynfJs/xVwMTF8oy6zrenXhytgRCSolV/Rhxhw+LOVeG+75Hm6bUALPZUzOI4QK6fTmcFqb+13o9f
+ vLq32qpg==;
+Received: from [191.204.192.64] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uREMa-004Eh6-4E; Mon, 16 Jun 2025 20:15:20 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: "Alex Deucher" <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
+ "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v8 1/6] drm: amdgpu: Allow NULL pointers at
+ amdgpu_vm_put_task_info()
+Date: Mon, 16 Jun 2025 15:14:33 -0300
+Message-ID: <20250616181438.2124656-2-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250616181438.2124656-1-andrealmeid@igalia.com>
+References: <20250616181438.2124656-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Jun 2025 13:02:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -72,177 +68,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Pei Xiao <xiaopei01@kylinos.cn>
+Allow NULL pointers at amdgpu_vm_put_task_info() as it common practice
+for "put" or "free" functions. This avoid an extra check for NULL for
+callers.
 
-Use of macro ARRAY_SIZE to calculate array size and reduce the number of
-lines of code.
-
-cocci warning:
-drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c:
-	WARNING: Use ARRAY_SIZE
-
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- .../display/dc/sspl/dc_spl_scl_easf_filters.c | 50 +++++++------------
- 1 file changed, 17 insertions(+), 33 deletions(-)
+v8: New patch
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c
-index 0d1bd81ff04a..1b11dc886a7e 100644
---- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c
-+++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: MIT
- //
- // Copyright 2024 Advanced Micro Devices, Inc.
--
-+#include <linux/array_size.h>
- #include "spl_debug.h"
- #include "dc_spl_filters.h"
- #include "dc_spl_scl_filters.h"
-@@ -2409,8 +2409,7 @@ static uint32_t spl_easf_get_scale_ratio_to_reg_value(struct spl_fixed31_32 rati
- uint32_t spl_get_v_bf3_mode(struct spl_fixed31_32 ratio)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 3911c78f8282..dadf5633476c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2447,6 +2447,9 @@ amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
+  */
+ void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info)
  {
- 	uint32_t value;
--	unsigned int num_entries = sizeof(easf_v_bf3_mode_lookup) /
--		sizeof(struct scale_ratio_to_reg_value_lookup);
-+	unsigned int num_entries = ARRAY_SIZE(easf_v_bf3_mode_lookup);
- 	value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 		easf_v_bf3_mode_lookup, num_entries);
- 	return value;
-@@ -2418,8 +2417,7 @@ uint32_t spl_get_v_bf3_mode(struct spl_fixed31_32 ratio)
- uint32_t spl_get_h_bf3_mode(struct spl_fixed31_32 ratio)
- {
- 	uint32_t value;
--	unsigned int num_entries = sizeof(easf_h_bf3_mode_lookup) /
--		sizeof(struct scale_ratio_to_reg_value_lookup);
-+	unsigned int num_entries = ARRAY_SIZE(easf_h_bf3_mode_lookup);
- 	value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 		easf_h_bf3_mode_lookup, num_entries);
- 	return value;
-@@ -2430,13 +2428,11 @@ uint32_t spl_get_reducer_gain6(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
++	if (unlikely(ZERO_OR_NULL_PTR(task_info)))
++		return;
++
+ 	kref_put(&task_info->refcount, amdgpu_vm_destroy_task_info);
+ }
  
- 	if (taps == 4) {
--		num_entries = sizeof(easf_reducer_gain6_4tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_reducer_gain6_4tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_reducer_gain6_4tap_lookup, num_entries);
- 	} else if (taps == 6) {
--		num_entries = sizeof(easf_reducer_gain6_6tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_reducer_gain6_6tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_reducer_gain6_6tap_lookup, num_entries);
- 	} else
-@@ -2449,13 +2445,11 @@ uint32_t spl_get_reducer_gain4(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
- 
- 	if (taps == 4) {
--		num_entries = sizeof(easf_reducer_gain4_4tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_reducer_gain4_4tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_reducer_gain4_4tap_lookup, num_entries);
- 	} else if (taps == 6) {
--		num_entries = sizeof(easf_reducer_gain4_6tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_reducer_gain4_6tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_reducer_gain4_6tap_lookup, num_entries);
- 	} else
-@@ -2468,13 +2462,11 @@ uint32_t spl_get_gainRing6(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
- 
- 	if (taps == 4) {
--		num_entries = sizeof(easf_gain_ring6_4tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_gain_ring6_4tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_gain_ring6_4tap_lookup, num_entries);
- 	} else if (taps == 6) {
--		num_entries = sizeof(easf_gain_ring6_6tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_gain_ring6_6tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_gain_ring6_6tap_lookup, num_entries);
- 	} else
-@@ -2487,13 +2479,11 @@ uint32_t spl_get_gainRing4(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
- 
- 	if (taps == 4) {
--		num_entries = sizeof(easf_gain_ring4_4tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_gain_ring4_4tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_gain_ring4_4tap_lookup, num_entries);
- 	} else if (taps == 6) {
--		num_entries = sizeof(easf_gain_ring4_6tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_gain_ring4_6tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_gain_ring4_6tap_lookup, num_entries);
- 	} else
-@@ -2506,8 +2496,7 @@ uint32_t spl_get_3tap_dntilt_uptilt_offset(int taps, struct spl_fixed31_32 ratio
- 	unsigned int num_entries;
- 
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_dntilt_uptilt_offset_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_dntilt_uptilt_offset_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_dntilt_uptilt_offset_lookup, num_entries);
- 	} else
-@@ -2520,8 +2509,7 @@ uint32_t spl_get_3tap_uptilt_maxval(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
- 
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_uptilt_maxval_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_uptilt_maxval_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_uptilt_maxval_lookup, num_entries);
- 	} else
-@@ -2534,8 +2522,7 @@ uint32_t spl_get_3tap_dntilt_slope(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
- 
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_dntilt_slope_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_dntilt_slope_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_dntilt_slope_lookup, num_entries);
- 	} else
-@@ -2548,8 +2535,7 @@ uint32_t spl_get_3tap_uptilt1_slope(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
- 
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_uptilt1_slope_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_uptilt1_slope_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_uptilt1_slope_lookup, num_entries);
- 	} else
-@@ -2562,8 +2548,7 @@ uint32_t spl_get_3tap_uptilt2_slope(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
- 
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_uptilt2_slope_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_uptilt2_slope_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_uptilt2_slope_lookup, num_entries);
- 	} else
-@@ -2576,8 +2561,7 @@ uint32_t spl_get_3tap_uptilt2_offset(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
- 
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_uptilt2_offset_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_uptilt2_offset_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_uptilt2_offset_lookup, num_entries);
- 	} else
 -- 
-2.25.1
+2.49.0
 
