@@ -4,160 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD52DC71159
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 18:28:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40CC9C71136
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 18:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA0A710E412;
-	Mon, 16 Jun 2025 18:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBEF310E418;
+	Mon, 16 Jun 2025 18:36:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uBR6ZIqd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T3IEgmvY";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2076.outbound.protection.outlook.com [40.107.95.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99ABA10E32A;
- Mon, 16 Jun 2025 18:28:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jIW9tCyLsYQ06lyqUqGM1D2W2T2dXOx12FB0v7oPVhAWQTy4hJVCxG+bMfmkPBD6QX/KKTqOxSrnVpICOQ+cBbKWqFUEiEpSCPbuTutAziMU0e5JDvy9Etw8JSU+/b5HY+eRRetHrXj/PSJ7IfP5OM2lNl0HNOramabXR7Wd6DfXHMXLQrHnsfV79fsmS506EuuNk83vMeXJq4pCoOLDjmWYKWef3hGfMCFGNYGCxPmfufSfShqQnShgK6QtiwqbMA6OZy3y8ZBiOlYq93EFIoa6fhwKIQ0O/tqhSZYkIlfqupLhS5hrNOyT3uKBbNrxFHI/zc7YmKJQzp0ZB8cmsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fe9/hUpfYj1jpLY+IfPVDqYdakg2NZHWOjTf9BMD8RI=;
- b=W9SXkZS1GgR4JmwJ+1h9S/U5q7RVp6rFSNAwwfdQFfyIGFj0j7FCW3ERP6xB1tF6lZ9Tg+1MJ9SYT8ltrSYNsDCxBXS+l0CtbiI2hv7Ab5GU5I1rYTJvUs3AumDY7r1BPUE7VFnaBIowr4+ArK9ocvNAKG7m9tm6izSzAjHzwTo3ujiC310s+w6A5fJh6KnFuZuasy5DxKvQBV98ucjO55YWzd1at1wcJCTN+5eADIwl6RFXSW2si197gAdZpfzEAaePBvz6DqUxtA2Ma7UeROUp1snE0tPhRxBmfWTBUKkBuK2seRmNRyeVhEjjjZReuonLSQ5wpJM0BnUS6x4uiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fe9/hUpfYj1jpLY+IfPVDqYdakg2NZHWOjTf9BMD8RI=;
- b=uBR6ZIqdvJsfgmkn0hmpc+nEyz2isUB6+bfYmTYMDObzTECN4FEajnG/uPGZOwEUrGQzc2qknzg6tM3AuM/kJ2iINoK67MpWf6BzbRWws/23xkuBmjpyRo+GNeLdL6R1LVKCONy2ZtAShGh7Bfh6fNmjiT/lHr92ay67p6Wt3To=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7790.namprd12.prod.outlook.com (2603:10b6:510:289::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Mon, 16 Jun
- 2025 18:28:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Mon, 16 Jun 2025
- 18:28:13 +0000
-Message-ID: <cc3f06c2-12f6-44b5-ab51-4f141a4c6e3e@amd.com>
-Date: Mon, 16 Jun 2025 20:28:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/6] drm: amdgpu: Allow NULL pointers at
- amdgpu_vm_put_task_info()
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, siqueira@igalia.com,
- airlied@gmail.com, simona@ffwll.ch, Raag Jadav <raag.jadav@intel.com>,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- Xaver Hugl <xaver.hugl@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20250616181438.2124656-1-andrealmeid@igalia.com>
- <20250616181438.2124656-2-andrealmeid@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250616181438.2124656-2-andrealmeid@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0309.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f6::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C368810E438
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 18:36:52 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-3138e64fc73so780345a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 11:36:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1750099012; x=1750703812; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cJLwxmC4HTWXhftWF+d9b0oVxKTCkOQyFbai1fwvKoA=;
+ b=T3IEgmvY+i8Rs1eD7ifuY8FFxrxSOR2OmutCCtuue1F6HQdnl/Pj8utdyU3LvjfJ+m
+ FLhZmtZGWUtCw3zpTgdD9YJxFr8oN3xhsSKLQOR1OeEsVnB+63A9bLeN0z3uOC6ZH9ji
+ AJpyFJaNdurwWNVll5sYLCTUbsijkWfLcVmeZLCK7K6FkN5WzmHzFCwg4a0k5YJRwTNs
+ RerDpLU4axATrmDE4AJ3MHE4Sh4QTlf4Dzpp2ePsSVKYjx+8W2qQnsr1Y4pzKn28GnFP
+ plm/JP8x8KeqpmWpwTKsfpZA9G+/I1jX43zM+4/gbnGUM6Vfjm159jwTiahENhWiq/W8
+ tD3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750099012; x=1750703812;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cJLwxmC4HTWXhftWF+d9b0oVxKTCkOQyFbai1fwvKoA=;
+ b=PeP5ho/48ZIYvSdLEAwB+l5cdVHmMVBegBso4DU2GzlE2fGXB+rtoMv/Kjwsec6gDk
+ ixS5b+ZfYiyDNJUlYUaCZMIz+KL7/YUqNpQYFbXwy7QebTqfzmsVmhjQwCt7poRCT+OH
+ CxO79scKgyWhIKEwiJmUTnN8L3uCXZ8YNA6sW5rPScc7gpK2zPOlN4vw16/lJyAHH4XG
+ tT24n1g3LYkhvQ/CLiEgZ/2QxTZuuSxA7U9fiQbiJrnKAwKHot9B0TrZZZk3OkPe+0Uj
+ hWhQf1YcyHWc7yB85VuUO5poqtct/ebBXdqzu1V90tjYaBXISGEnNwPmBVHR5EIGMWXY
+ HT5A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVxEMPq1Sc0GEGojPMqj37uh0mGhmsxTVF+doM5JZ+Zk2ek96L5jy7bi0Serc3gR4WSAAESkf3Z@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYZWxaMliN9MFnMcncsYlyKPmJKjK/mUuXny36XnAR+1Z4yl2L
+ 4plYnkx/bm52Bs53TgNuxSJT6oTeRzXlFoESbh03XVekpsIMJm3hwBAzLH9Sqm+dM9uGvnu8ktS
+ ZbF4c9lzXPtuyljLlFC5JJ8MnA4m0VehGpDE9
+X-Gm-Gg: ASbGncvxADprU3SrO6QNi8Z4V6lnYu8a0v2yu0DmV7KnI47rzGqCEudpAlfZh08fHIv
+ dmJiiJXHcwPZV23oJOQbcT8dClc7O3Sr94zahqtt3njEtj3dAYxZS/Oc78/VhiOU4LIURXQPF+8
+ mRGrVyP/8xWZgQl+WQA2Fpfk+i6tgibx6zlG4xyrltNhw7
+X-Google-Smtp-Source: AGHT+IESzbvOiZevZiutgayak6uDHm2AyWOBHEXlOfQ+si0MFhs6qnHI9zpfgbbEgl8EN0LkHQZx5huni3s+BM9vdmU=
+X-Received: by 2002:a17:90b:39c5:b0:312:e9d:4001 with SMTP id
+ 98e67ed59e1d1-313f1deb5b8mr5995964a91.8.1750099012107; Mon, 16 Jun 2025
+ 11:36:52 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7790:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc36126d-cdeb-466e-b0bc-08ddad038daa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|921020|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ajlWczdPMUVtTEMyczJvUkNPNS9NdjNsZ2piNFRjVGFMc0tDN28vVlVZZ2g0?=
- =?utf-8?B?bklXell6azBSbTZqUVF0d2FBb05nUFJkMktlQTFGdlNhN0xyRWpCK3JhYXZO?=
- =?utf-8?B?VGYyRi9pVDNmK3VuWW9MZlV6OXl3UlU0M09hNjNGdWdZcm9pN1dUdTJEUHFu?=
- =?utf-8?B?UjBUWFduRFN6M2FMMWtpQ0ZBMXNTNUs4aEZPaXM2N3lWdENqK0p4WVRuSE9K?=
- =?utf-8?B?TnFnSE96YVdTZ09qd3YrZVl6eXBhSkxJZ0t4S0RlQ2Nub3V5TU42ODVIcG9E?=
- =?utf-8?B?dVRwUTZZdVRlcHZ2KzVQelNMY2VKNEtmVUdqUk5NV1EwZmcycGpvc3JQSjZO?=
- =?utf-8?B?RWxlZTd0d2hFYjJiSWtacjNvOXd4czB1T2krNHBzaU5VQWt6cHVjVExzN0NM?=
- =?utf-8?B?MUU3Zjc3Ynk2M2xkUTNYb0JlL2o1R2ZsK2xpNVZXVXFxSlVsUjZvTVJ3UVhu?=
- =?utf-8?B?WStFNXFBT0RCR2VlTlhpYjdXZGRmYTYyVHNQUUhyRzkzN0x1WG96cTZrRzF4?=
- =?utf-8?B?V2FXc3NMME9iL1lOWlBLV0ExajFodTJVOSsyei9NODMrNC9UVjk0NG9tTG5H?=
- =?utf-8?B?ZlNUbzVxak4wTDhGNXFZMGt2WWh4N0Jkb2l2QjhiclhadWZmKysvNlpEN2pm?=
- =?utf-8?B?Tk5XaTFPOFFURDFGUFJrWVZyT0RuRy9UZmxoRXNSV2Z2eFBpVnV2dkpQK0lJ?=
- =?utf-8?B?bzZxUStOVGZnem1WbGZmRkdKRi9pUGI0ZlFZZHFzU3l1YnlDemc0VXAwZzVy?=
- =?utf-8?B?ZlU0d3RqZTBNcndhclN6aXcweG9iRXBQTkRXTDQzZ2VrdCtacit3cWVmR0VP?=
- =?utf-8?B?djY4bW12N1dqWXdLM1Y2ZGpQUHhrWXdlSmNxeGFMMk5FKzg3YVRoMmllTDJ4?=
- =?utf-8?B?bFJrU21oV2pNQnRqMm0yRlZCRXBZKzdIbXBCNExFY2wxZ2tZakRsQUFoWnps?=
- =?utf-8?B?OTJRMm44T3ZZOWkrVExpejhSRTJmQml4SW8zU0t2ZXc3REpFSXpkelZPcEQ2?=
- =?utf-8?B?SG5WazJ6OXdKT3dIcnUyYXFWcExQbWJPbnNaTU5iL01GNlZ1VjFxTkh6QVY2?=
- =?utf-8?B?Y2hRNGQ0Zm9MRlhKSmZnVjY3UHJpaTFyenFSZ0J0WWFibVFrNE11cVllTjh5?=
- =?utf-8?B?cFVMemNkZlkxOEMyQk1ZNHFzL0xjQk5KemRWUnlMOTFYMndjVnpsWVVuSmJl?=
- =?utf-8?B?VlRqSysrMTlZVHpTSUNDWG9jN2gwUlJLMFZTcEpTZHpNMWIzOG82YnhXekxx?=
- =?utf-8?B?ZVNjRXZwb0syMVRxN1JTTm1UYm1wQ09RcklyMnkxZ0JNUnhMN1JGc3lmWWtt?=
- =?utf-8?B?a2IrenNZbTg2KzZJZUhFZTFzeHdRRGxwRzVCemVXdTRwZmlMaE45NFR4RkVK?=
- =?utf-8?B?M1N3MVloQXlDNkV3UFNUWHlpb1RjZXRkbi9aYjFmZEV1ZFBQM3dkYzhENnRM?=
- =?utf-8?B?TDZyZUViNFpiRjVGVklqVm05UzdyeGRCVTNaOVNGbW1RNllQbWZENUVIeEkv?=
- =?utf-8?B?aGxpRndtRVBmZVBBOW1QaDhHZnBBUEpGN3kvUlk1a3QyYldzL3hoL2xCclov?=
- =?utf-8?B?bndqTTdhSUdWT0duMUNadlUydXM3V2lsTVgvYmg4TjhIMnNvcWhlMlJmcUhP?=
- =?utf-8?B?K1RFdTVESUljcmo2TnNVTlh1VHVhZTFZQ1VVSnFPb21FM0xqcGZiNURHK0Va?=
- =?utf-8?B?Tk55T2NLU1NJdi9IaE5nay9sMkVCQ0oyL3ZhNUNnanZHYXpTamJtSi9LaXFj?=
- =?utf-8?B?eEhXSUZmWEJpbmZjQTZIZ3M5Uk5PSlBNanlJU2xkZ2k4QmVNc2lQUTY2YkRC?=
- =?utf-8?B?aUpuR0tvVGRjL3hpK2pHdnJtK1VXbGt4RnpFYVVDUjJNOHNqeC9qdEV5aXRY?=
- =?utf-8?B?bTVzTzdzRFBHaHNxWmlyVXlnYXdOOVRVQlBWM2lhUndWRFAvQzZ6bHNjSXMr?=
- =?utf-8?B?ajBObU1YS2ZYV1laalB1VUltbjhyUkZGUTFGWkNDeXlSb1RkdktwRmFBR1Z0?=
- =?utf-8?B?TzlYczhNOFpRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(921020)(7053199007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDh2VTZnT2I1N2FMcjFSQ0RyaG04K3lPaVlLYXRkMTZPOXdIVWkyQzhZMXBa?=
- =?utf-8?B?YTZYSXlYeG5sanAyZHlTK1QwMEFJMFI3WXcrVzRyb2Z3c21wMnJvQmVGVFRm?=
- =?utf-8?B?KzdoRnNCbWpUbS9vVGhzVFZKUXhYK3hNdVZJSjZlaUhVTUxzdGJLcTJPWTNY?=
- =?utf-8?B?T01ISnBNMDJ5RnZIaEJlRFEvTEtZT3Z3a2VhU0ovMENteXVEbzF5dm5valZo?=
- =?utf-8?B?TEpHdU14SDR3L2txeG9MTFZDV0RETHVMbjhhMlZQeXFkdEUzSTRlUEtVWFZj?=
- =?utf-8?B?ZWVuQ1U3QlVVOUJKdGxuQ2ZOYVpZMzFTOFpYVml4SkdVYWtEa2xPTWUwd1B6?=
- =?utf-8?B?R2hNc0xBbXIxZWZlUGc3bUhOeExGenBuTldRaklZRWVQUW95UE0zZitjWG9l?=
- =?utf-8?B?dnZBbUxhNEpwcWRHQ0J6RzRnTGFVSjRiQlcyL2swbDRPdzdVZHBDcFFLamk1?=
- =?utf-8?B?WlE1UmppdFN4d1lJNmRuUVkxWmtSUitJTXhOa2M4SUU0SmJGVXdaYVZrMFdp?=
- =?utf-8?B?SGVUOUR3UUxyMG91Y053eXpmQnZtVzZzSjlsbFdEQjZEYmVWek1Jbk0vM1R6?=
- =?utf-8?B?KzdsUEw3ejFFNzVxczNTQU5nTHhHT3ZEaEYvZGNXMC9yQ2RaL1JiTFB2NE9X?=
- =?utf-8?B?Z0E3U1ZKb21obWVGU0hROFRObXlPQWx3Tnp6TFI4WW1icnhoeHU3Q3BqcGUv?=
- =?utf-8?B?UlBiYTY2VXV1dGZ0cWdtaWxQdHJDWmhMcitGbmZDQzU3d1F1bXBhMmdkUTBy?=
- =?utf-8?B?SWQyRmVKVS91ZVdnRHhYbVNPQXVnTHVFWVNIY09uU3R3RDZ3QW0zcmZTS0pi?=
- =?utf-8?B?UzV3ekRPRjVueXEreHpZSlRkdkVZSmROZVpXZDFLRTdmYlFXby9OUmtUcDZK?=
- =?utf-8?B?Q2VTOEUwVWNnN3hKWGVpVDd6NmRMd3FNMnA5L2xEWTdyekRMTmhSNS9ienRo?=
- =?utf-8?B?Nk5Pb2NZbThmb2lESCtLbngrZFJIRk5DbXJhbnM1RXhoTjJQWHE0MDMzbWNl?=
- =?utf-8?B?TDBhc1ArWDllQWt4N2ZDT2tIV3ZGTXlZVWcydlVDYkdUSTM4QTFrelFYZ21a?=
- =?utf-8?B?R0ZFTFZvaUhBWitCTk0xOU13eHgrU1E0STkwcmQzRFdja2FJNitLaWx4ZVFo?=
- =?utf-8?B?N2M4YWo2eHVDb2d4VDJOWnR2WU0rd0lSaGdxclN3Yjd1bHZtZmxKQUpsUXJk?=
- =?utf-8?B?bTlHMTY2dUZhRE9JWjFJM0lQZ3JHUDdyT0t6ZUozVi9uaTNHU0c5MmJQQlRX?=
- =?utf-8?B?cTZQTUtiVS9nWk9qTmtXdnJGczJ1RHJvZXVRUXhzZlpBcmhoZ25wNDNEMlM2?=
- =?utf-8?B?RnE3dGQ4eFk3MDBXOFkweUwvMW9oODhNWjY4Z0tTOE5wNG54b29vWUV0VXZI?=
- =?utf-8?B?VUNrakVvdTlCUFV0ZWJNZkg1bCtpRU9Pd1VOMHlxallqeHZ5Z2RrakhYYlFB?=
- =?utf-8?B?cG12Q3ZYcFNmb0FSYjdRWCtFT3lDZTdCU3E2MURkdDhsdHBtWitqeDBmTHhs?=
- =?utf-8?B?TjJjSnROd0d1WWtRYWJDbU0vekJmRFkyY2hydTFwc0ZnendmZUlJUTJyUDgw?=
- =?utf-8?B?TDJBMEtEdlpoNGtsT2wvQm02MUorM3lIOGI1UER3M1Jxb2V5Ylpjblh5K0FE?=
- =?utf-8?B?b2VISW1BNW8zekhRYjFvd3I2aitLVFVtQzNXMU5XOWJLSHZXbGoxbEdwOGZ3?=
- =?utf-8?B?eVd3NFVpYUFsWFZKL2ZEVGtWRHRaM3RGUFBpcXc2d3RaSi9UMm85TmcxVXA3?=
- =?utf-8?B?Q3pPL3I3azVkNi9FZTBOSGFHWWlJdElQQlhRanBvaW5Sd1puRzlpajU2cS93?=
- =?utf-8?B?WHpmRkRXT0NjTm1NYTBabzNIaTFTb1VCQjhuRXVFd3Q4elIxOW15b04rTGoy?=
- =?utf-8?B?MG9WTVBLZy9FN3N1Ymc5dUE2TFFJWm5BR1FLSm1WdFRvRGxkUUVVa0tJZVJZ?=
- =?utf-8?B?VGNudXBRMFZXZS96bFZZSDc2Qy9IcjR4Y05sNGxjcmk5QnVYZkh0Q3E1Vk9U?=
- =?utf-8?B?R0dGUXdqdjBPNE9waklHMk9iUjhnK3pReWpIbVVmUFFQNEFSZExmOEdIN0RP?=
- =?utf-8?B?RHAzcStmbVowUVQvbE5EQkR0anlTV2pMem9sR3h0RVB0eTRmMTh4QWxFOUFT?=
- =?utf-8?Q?G3ZurMvge8gPriApHxbvVOPXZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc36126d-cdeb-466e-b0bc-08ddad038daa
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 18:28:13.2695 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UJsg73WiFmKdTNTfZc2ouoHgqz0ThI8pj0d3foN3CBnapoOn1YtuJIa8vB/thP3E
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7790
+References: <20250613214748.5889-1-alexander.deucher@amd.com>
+ <20250613214748.5889-2-alexander.deucher@amd.com>
+ <29965831-bf4c-4a00-b619-9782b8c6afae@amd.com>
+ <CADnq5_PVLAVejzPLbYmpDKYt3qdA_BPb_fhMHXp4hr7WX+m=uQ@mail.gmail.com>
+ <70adb9ab-52fa-4877-a0de-e6399e8aee8f@amd.com>
+In-Reply-To: <70adb9ab-52fa-4877-a0de-e6399e8aee8f@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 16 Jun 2025 14:36:40 -0400
+X-Gm-Features: AX0GCFtmffbnjB9tmewbi3PFt4hOtWSXtDIV57WGvPPRnPeddpB8pTgTf1CdpAE
+Message-ID: <CADnq5_NeVqkYvUVU8_vw=f+MMqF-hstDHz+t3S0UbWe9_5u30w@mail.gmail.com>
+Subject: Re: [PATCH 01/27] drm/amdgpu: switch job hw_fence to amdgpu_fence
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ sasundar@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,45 +86,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, Jun 16, 2025 at 1:45=E2=80=AFPM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 6/16/25 15:47, Alex Deucher wrote:
+> > On Mon, Jun 16, 2025 at 8:16=E2=80=AFAM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >>
+> >> On 6/13/25 23:47, Alex Deucher wrote:
+> >>> Use the amdgpu fence container so we can store additional
+> >>> data in the fence.  This also fixes the start_time handling
+> >>> for MCBP since we were casting the fence to an amdgpu_fence
+> >>> and it wasn't.
+> >>>
+> >>> Fixes: 3f4c175d62d8 ("drm/amdgpu: MCBP based on DRM scheduler (v9)")
+> >>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>> ---
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  2 +-
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 30 +++++--------------=
+--
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     | 12 ++++-----
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     |  2 +-
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    | 16 +++++++++++
+> >>>  6 files changed, 32 insertions(+), 32 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_debugfs.c
+> >>> index 8e626f50b362e..f81608330a3d0 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> >>> @@ -1902,7 +1902,7 @@ static void amdgpu_ib_preempt_mark_partial_job(=
+struct amdgpu_ring *ring)
+> >>>                       continue;
+> >>>               }
+> >>>               job =3D to_amdgpu_job(s_job);
+> >>> -             if (preempted && (&job->hw_fence) =3D=3D fence)
+> >>> +             if (preempted && (&job->hw_fence.base) =3D=3D fence)
+> >>>                       /* mark the job as preempted */
+> >>>                       job->preemption_status |=3D AMDGPU_IB_PREEMPTED=
+;
+> >>>       }
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_device.c
+> >>> index 00174437b01ec..4893f834f4fd4 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >>> @@ -6397,7 +6397,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_dev=
+ice *adev,
+> >>>        *
+> >>>        * job->base holds a reference to parent fence
+> >>>        */
+> >>> -     if (job && dma_fence_is_signaled(&job->hw_fence)) {
+> >>> +     if (job && dma_fence_is_signaled(&job->hw_fence.base)) {
+> >>>               job_signaled =3D true;
+> >>>               dev_info(adev->dev, "Guilty job already signaled, skipp=
+ing HW reset");
+> >>>               goto skip_hw_reset;
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_fence.c
+> >>> index 2f24a6aa13bf6..569e0e5373927 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> >>> @@ -41,22 +41,6 @@
+> >>>  #include "amdgpu_trace.h"
+> >>>  #include "amdgpu_reset.h"
+> >>>
+> >>> -/*
+> >>> - * Fences mark an event in the GPUs pipeline and are used
+> >>> - * for GPU/CPU synchronization.  When the fence is written,
+> >>> - * it is expected that all buffers associated with that fence
+> >>> - * are no longer in use by the associated ring on the GPU and
+> >>> - * that the relevant GPU caches have been flushed.
+> >>> - */
+> >>> -
+> >>> -struct amdgpu_fence {
+> >>> -     struct dma_fence base;
+> >>> -
+> >>> -     /* RB, DMA, etc. */
+> >>> -     struct amdgpu_ring              *ring;
+> >>> -     ktime_t                         start_timestamp;
+> >>> -};
+> >>> -
+> >>>  static struct kmem_cache *amdgpu_fence_slab;
+> >>>
+> >>>  int amdgpu_fence_slab_init(void)
+> >>> @@ -151,12 +135,12 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring,=
+ struct dma_fence **f, struct amd
+> >>>               am_fence =3D kmem_cache_alloc(amdgpu_fence_slab, GFP_AT=
+OMIC);
+> >>>               if (am_fence =3D=3D NULL)
+> >>>                       return -ENOMEM;
+> >>> -             fence =3D &am_fence->base;
+> >>> -             am_fence->ring =3D ring;
+> >>>       } else {
+> >>>               /* take use of job-embedded fence */
+> >>> -             fence =3D &job->hw_fence;
+> >>> +             am_fence =3D &job->hw_fence;
+> >>>       }
+> >>> +     fence =3D &am_fence->base;
+> >>> +     am_fence->ring =3D ring;
+> >>
+> >> I would rather completely drop the job from the parameters and the gen=
+eral fence allocation here.
+> >>
+> >> Instead we should just provide afence as input parameter and submit th=
+at one.
+> >>
+> >> This should make sure that we don't run into such issues again.
+> >
+> > How about doing that as a follow on patch?  It looks like that will be
+> > a much bigger patch for a stable bug fix.  I think we can clean up a
+> > lot of stuff in amdgpu_fence.c with that change.
+>
+> Works for me. I would also suggest to remove the kmem_cache_alloc() and j=
+ust use kmalloc for the rare cases where we need an independent fence.
+>
+> Additional to that the ring and start_time member looks suspicious. We sh=
+ould not have that inside the fence in the first place.
 
+The ring member is used in a number of places to get from the fence to
+get to the fence_drv and the ring name.  The start_time is from MCBP.
+I don't remember the details.  While we are here, I think we can
+remove job->job_run_counter as well?  We don't support resubmission
+anymore.
 
-On 6/16/25 20:14, André Almeida wrote:
-> Allow NULL pointers at amdgpu_vm_put_task_info() as it common practice
-> for "put" or "free" functions. This avoid an extra check for NULL for
-> callers.
-> 
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> ---
-> v8: New patch
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 3911c78f8282..dadf5633476c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2447,6 +2447,9 @@ amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
->   */
->  void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info)
->  {
-> +	if (unlikely(ZERO_OR_NULL_PTR(task_info)))
+Alex
 
-Don't use ZERO_OR_NULL_PTR here, that is slab internal and not valid in this use case.
-
-The usual code fragment used looks something like this
-
-if (ptr)
-	kref_put(&ptr->refcount, func);
-
-See dma_fence_put() for an example.
-
-Regards,
-Christian.
-
-> +		return;
-> +
->  	kref_put(&task_info->refcount, amdgpu_vm_destroy_task_info);
->  }
->  
-
+>
+> Regards,
+> Christian.
+>
+> >
+> > Alex
+> >
+> >>
+> >> Apart from that looks good to me,
+> >> Christian.
+> >>
+> >>>
+> >>>       seq =3D ++ring->fence_drv.sync_seq;
+> >>>       if (job && job->job_run_counter) {
+> >>> @@ -718,7 +702,7 @@ void amdgpu_fence_driver_clear_job_fences(struct =
+amdgpu_ring *ring)
+> >>>                        * it right here or we won't be able to track t=
+hem in fence_drv
+> >>>                        * and they will remain unsignaled during sa_bo=
+ free.
+> >>>                        */
+> >>> -                     job =3D container_of(old, struct amdgpu_job, hw=
+_fence);
+> >>> +                     job =3D container_of(old, struct amdgpu_job, hw=
+_fence.base);
+> >>>                       if (!job->base.s_fence && !dma_fence_is_signale=
+d(old))
+> >>>                               dma_fence_signal(old);
+> >>>                       RCU_INIT_POINTER(*ptr, NULL);
+> >>> @@ -780,7 +764,7 @@ static const char *amdgpu_fence_get_timeline_name=
+(struct dma_fence *f)
+> >>>
+> >>>  static const char *amdgpu_job_fence_get_timeline_name(struct dma_fen=
+ce *f)
+> >>>  {
+> >>> -     struct amdgpu_job *job =3D container_of(f, struct amdgpu_job, h=
+w_fence);
+> >>> +     struct amdgpu_job *job =3D container_of(f, struct amdgpu_job, h=
+w_fence.base);
+> >>>
+> >>>       return (const char *)to_amdgpu_ring(job->base.sched)->name;
+> >>>  }
+> >>> @@ -810,7 +794,7 @@ static bool amdgpu_fence_enable_signaling(struct =
+dma_fence *f)
+> >>>   */
+> >>>  static bool amdgpu_job_fence_enable_signaling(struct dma_fence *f)
+> >>>  {
+> >>> -     struct amdgpu_job *job =3D container_of(f, struct amdgpu_job, h=
+w_fence);
+> >>> +     struct amdgpu_job *job =3D container_of(f, struct amdgpu_job, h=
+w_fence.base);
+> >>>
+> >>>       if (!timer_pending(&to_amdgpu_ring(job->base.sched)->fence_drv.=
+fallback_timer))
+> >>>               amdgpu_fence_schedule_fallback(to_amdgpu_ring(job->base=
+.sched));
+> >>> @@ -845,7 +829,7 @@ static void amdgpu_job_fence_free(struct rcu_head=
+ *rcu)
+> >>>       struct dma_fence *f =3D container_of(rcu, struct dma_fence, rcu=
+);
+> >>>
+> >>>       /* free job if fence has a parent job */
+> >>> -     kfree(container_of(f, struct amdgpu_job, hw_fence));
+> >>> +     kfree(container_of(f, struct amdgpu_job, hw_fence.base));
+> >>>  }
+> >>>
+> >>>  /**
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_job.c
+> >>> index acb21fc8b3ce5..ddb9d3269357c 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>> @@ -272,8 +272,8 @@ void amdgpu_job_free_resources(struct amdgpu_job =
+*job)
+> >>>       /* Check if any fences where initialized */
+> >>>       if (job->base.s_fence && job->base.s_fence->finished.ops)
+> >>>               f =3D &job->base.s_fence->finished;
+> >>> -     else if (job->hw_fence.ops)
+> >>> -             f =3D &job->hw_fence;
+> >>> +     else if (job->hw_fence.base.ops)
+> >>> +             f =3D &job->hw_fence.base;
+> >>>       else
+> >>>               f =3D NULL;
+> >>>
+> >>> @@ -290,10 +290,10 @@ static void amdgpu_job_free_cb(struct drm_sched=
+_job *s_job)
+> >>>       amdgpu_sync_free(&job->explicit_sync);
+> >>>
+> >>>       /* only put the hw fence if has embedded fence */
+> >>> -     if (!job->hw_fence.ops)
+> >>> +     if (!job->hw_fence.base.ops)
+> >>>               kfree(job);
+> >>>       else
+> >>> -             dma_fence_put(&job->hw_fence);
+> >>> +             dma_fence_put(&job->hw_fence.base);
+> >>>  }
+> >>>
+> >>>  void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
+> >>> @@ -322,10 +322,10 @@ void amdgpu_job_free(struct amdgpu_job *job)
+> >>>       if (job->gang_submit !=3D &job->base.s_fence->scheduled)
+> >>>               dma_fence_put(job->gang_submit);
+> >>>
+> >>> -     if (!job->hw_fence.ops)
+> >>> +     if (!job->hw_fence.base.ops)
+> >>>               kfree(job);
+> >>>       else
+> >>> -             dma_fence_put(&job->hw_fence);
+> >>> +             dma_fence_put(&job->hw_fence.base);
+> >>>  }
+> >>>
+> >>>  struct dma_fence *amdgpu_job_submit(struct amdgpu_job *job)
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_job.h
+> >>> index f2c049129661f..931fed8892cc1 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> >>> @@ -48,7 +48,7 @@ struct amdgpu_job {
+> >>>       struct drm_sched_job    base;
+> >>>       struct amdgpu_vm        *vm;
+> >>>       struct amdgpu_sync      explicit_sync;
+> >>> -     struct dma_fence        hw_fence;
+> >>> +     struct amdgpu_fence     hw_fence;
+> >>>       struct dma_fence        *gang_submit;
+> >>>       uint32_t                preamble_status;
+> >>>       uint32_t                preemption_status;
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ring.h
+> >>> index b95b471107692..e1f25218943a4 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> >>> @@ -127,6 +127,22 @@ struct amdgpu_fence_driver {
+> >>>       struct dma_fence                **fences;
+> >>>  };
+> >>>
+> >>> +/*
+> >>> + * Fences mark an event in the GPUs pipeline and are used
+> >>> + * for GPU/CPU synchronization.  When the fence is written,
+> >>> + * it is expected that all buffers associated with that fence
+> >>> + * are no longer in use by the associated ring on the GPU and
+> >>> + * that the relevant GPU caches have been flushed.
+> >>> + */
+> >>> +
+> >>> +struct amdgpu_fence {
+> >>> +     struct dma_fence base;
+> >>> +
+> >>> +     /* RB, DMA, etc. */
+> >>> +     struct amdgpu_ring              *ring;
+> >>> +     ktime_t                         start_timestamp;
+> >>> +};
+> >>> +
+> >>>  extern const struct drm_sched_backend_ops amdgpu_sched_ops;
+> >>>
+> >>>  void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring);
+> >>
+>
