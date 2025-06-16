@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 894CDC71157
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B919BC7115F
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 521A610E644;
-	Tue, 17 Jun 2025 13:02:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8904710E683;
+	Tue, 17 Jun 2025 13:02:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PpKrbbTW";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="O1oOHuAd";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABC8F10E423;
- Mon, 16 Jun 2025 18:15:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52FBE10E427;
+ Mon, 16 Jun 2025 18:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=vDKcW68nzROUj9CbHR0FyUYWXknhrv44YLJ1qPZX0+0=; b=PpKrbbTWxEZovYBMAIrzJBDH+T
- vp7VyvpfLx6c59EjZciDSaNTp3n3mnwVTXfKefVGnm/rRD/r/wdSJl82HwxqY5E2e/oJmqQXo09MM
- ME3kjsugkBIhWb3E4hvHM3+b9TkCFyiOhbVhnRjRQHoGQA1/fSaYMQB/xRLYEU6Xfsc+1wOYUjZRP
- gstaU4CflbOXWQAA6iWXlAxMxRlAXEg1KcyTiEYPZ0K56W3oGqxovS/7gTBLxbREqBpYRKXkqIpZ+
- 3WFugXmi3AV61B7ImMOC7k4A7BDvllYH2065J/Qnw8qF9S5TMkesWWTXDbXzzLfYEx0No3oIyryj9
- myFKVQ8g==;
+ bh=5bW97YWvE2WNp84/m7LouGNWv9aZZ0XfiU91U9Q+7L4=; b=O1oOHuAdwoWhd8ipuTenXU2jCh
+ nr6trAeQZBp/3x1Hwz8eFju84zVLSmyTfcK2HB3FzCVRm6Nc72bTh91m5CKJ9Cdc+obIVYtPOJM3N
+ Hnjwia6VoTmXXYwukEz5UZUmxiW6KesPTrVmDRR5nraAuVBK1GTpaUVEFY8nCF373ht5vTT3JsI/L
+ UB25psvarFYPpTt/JDQdMG69gquiCGdXpnrWN19neZxztQuh7vpXLKOSobyBuLmS3/Z2gMdkQyOOu
+ E+eDe5YVkByBquhC8yGBILb0tEiHnj2NdlFv8at+/li9IHjL1z2fJy6WMPCucCpQZWzWr1nDRZXok
+ vc5w3F6A==;
 Received: from [191.204.192.64] (helo=localhost.localdomain)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uREMW-004Eh6-2G; Mon, 16 Jun 2025 20:15:16 +0200
+ id 1uREMl-004Eh6-VT; Mon, 16 Jun 2025 20:15:32 +0200
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: "Alex Deucher" <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -43,10 +43,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v8 0/6] drm: Create a task info option for wedge events
-Date: Mon, 16 Jun 2025 15:14:32 -0300
-Message-ID: <20250616181438.2124656-1-andrealmeid@igalia.com>
+Subject: [PATCH v8 4/6] drm/doc: Add a section about "Task information" for
+ the wedge API
+Date: Mon, 16 Jun 2025 15:14:36 -0300
+Message-ID: <20250616181438.2124656-5-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250616181438.2124656-1-andrealmeid@igalia.com>
+References: <20250616181438.2124656-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -65,94 +68,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patchset implements a request made by Xaver Hugl about wedge events:
+Add a section about "Task information" for the wedge API.
 
-"I'd really like to have the PID of the client that triggered the GPU
-reset, so that we can kill it if multiple resets are triggered in a
-row (or switch to software rendering if it's KWin itself) and show a
-user-friendly notification about why their app(s) crashed, but that
-can be added later."
-
-From https://lore.kernel.org/dri-devel/CAFZQkGwJ4qgHV8WTp2=svJ_VXhb-+Y8_VNtKB=jLsk6DqMYp9w@mail.gmail.com/
-
-For testing, I've used amdgpu's debug_mask options debug_disable_soft_recovery
-and debug_disable_gpu_ring_reset to test both wedge event paths in the driver.
-To trigger a ring timeout, I've used this app:
-https://gitlab.freedesktop.org/andrealmeid/gpu-timeout
-
-Thanks!
-
-Changelog:
-
-v8:
- - New patch "Allow NULL pointers at amdgpu_vm_put_task_info()"
- - Dropped inline for amdgpu_vm_print_task_info()
- - Code style changes for "Create a task info option for wedge events"
- - Drop check before calling amdgpu_vm_put_task_info()
-
-v7:
- - Change `char *comm` to `char comm[TASK_COMM_LEN]`
- - New patches to encapsulate struct drm_wedge_task_info inside of struct
-   amdgpu_task_info
- - Remove struct cast for struct amdgpu_task_info, now we can use `info =
-   &ti->task`
- - Fix struct lifetime, move amdgpu_vm_put_task_info() after
-   drm_dev_wedged_event() call
-
-v6:
- - Check if PID >= 0 for displaying the task info
- - s/app/task in a comment
-
+Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
 v5:
- - Change from app to task also in structs, commit message and docs
- - Add a check for NULL or empty task name string
-
+ - Change app to task in the text as well
 v4:
- - Change from APP to TASK
- - Add defines for event_string and pid_string length
-
+ - Change APP to TASK
 v3:
- - Make comm_string and pid_string empty when there's no app info
  - Change "app that caused ..." to "app involved ..."
  - Clarify that devcoredump have more information about what happened
+ - Update that PID and APP will be empty if there's no app info
+---
+ Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-v2:
-  - Rebased on top of drm/drm-next
-  - Added new patch for documentation
-
-André Almeida (6):
-  drm: amdgpu: Allow NULL pointers at amdgpu_vm_put_task_info()
-  drm: amdgpu: Create amdgpu_vm_print_task_info()
-  drm: Create a task info option for wedge events
-  drm/doc: Add a section about "Task information" for the wedge API
-  drm: amdgpu: Use struct drm_wedge_task_info inside of struct
-    amdgpu_task_info
-  drm/amdgpu: Make use of drm_wedge_task_info
-
- Documentation/gpu/drm-uapi.rst                | 17 ++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 13 +++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       | 11 +++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 22 ++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  6 +++--
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  5 +----
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  5 +----
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  5 +----
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  4 +---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  5 +----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c   |  8 +++----
- drivers/gpu/drm/drm_drv.c                     | 21 ++++++++++++++----
- drivers/gpu/drm/i915/gt/intel_reset.c         |  3 ++-
- drivers/gpu/drm/xe/xe_device.c                |  3 ++-
- include/drm/drm_device.h                      |  9 ++++++++
- include/drm/drm_drv.h                         |  3 ++-
- 22 files changed, 103 insertions(+), 51 deletions(-)
-
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 4863a4deb0ee..263e5a97c080 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
+ hang is usually the most critical one which can result in consequential hangs or
+ complete wedging.
+ 
++Task information
++---------------
++
++The information about which application (if any) was involved in the device
++wedging is useful for userspace if they want to notify the user about what
++happened (e.g. the compositor display a message to the user "The <task name>
++caused a graphical error and the system recovered") or to implement policies
++(e.g. the daemon may "ban" an task that keeps resetting the device). If the task
++information is available, the uevent will display as ``PID=<pid>`` and
++``TASK=<task name>``. Otherwise, ``PID`` and ``TASK`` will not appear in the
++event string.
++
++The reliability of this information is driver and hardware specific, and should
++be taken with a caution regarding it's precision. To have a big picture of what
++really happened, the devcoredump file provides should have much more detailed
++information about the device state and about the event.
++
+ Consumer prerequisites
+ ----------------------
+ 
 -- 
 2.49.0
 
