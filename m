@@ -4,54 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F00F8C71136
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 19:29:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10EC1C71159
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 20:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B13310E435;
-	Mon, 16 Jun 2025 19:29:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 947D210E35A;
+	Mon, 16 Jun 2025 20:15:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cKoRAp9d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jou9LCd7";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE1A10E435;
- Mon, 16 Jun 2025 19:29:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SwYz+SANGWC7z7laN5WWtz6q1uv+PSD1M3FUpGYW7gk=; b=cKoRAp9dpEgUyYUfpPZCMJpUWK
- W29LKIHBnqHo4FSeh+s8Gah4vL+VpOqzgE489KqgYVfhu6583MJpdy0YQM1hcqTBZgc0GFQgSuELa
- uzb9Epp9x2WnV7p1bgLn8Z+PdQR88+BfO4BLUhQUvdUmioh4s2HHAcTlH9sc5I2+2WDtlEiVl6WVJ
- 5u/6r5JFxZWBZEuGKeJX+pSF2eV8epOpZV7jh3tkq4J9EIEkYHAboUg/f7jlUMqHI9K1S5IMZkXlJ
- L1VWfV/fFHJS2FZRgF4P9AdmcdGPg/fmXrbqOcOg26gHUw8VkpeVAJBksTspFd97UPwrYy3l6XXNK
- R1QIkBrw==;
-Received: from [189.6.13.79] (helo=[192.168.0.55])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uRFWX-004GBr-3y; Mon, 16 Jun 2025 21:29:41 +0200
-Message-ID: <4925aea0-5f6a-46d5-b697-8ee5419c0215@igalia.com>
-Date: Mon, 16 Jun 2025 16:29:34 -0300
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31F7910E35A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 20:15:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4427A629C0;
+ Mon, 16 Jun 2025 20:15:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8853C4CEEA;
+ Mon, 16 Jun 2025 20:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1750104957;
+ bh=QUHb43659WkvsnPZP3NAMLeSsC2Vg10stmli5aEXEaA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Jou9LCd7AS8dWmUDl7lZPdW1c3FNTrqScLFCE4lYZxUEObyiqGrXp74f01T89HioF
+ 330khX36CkINlOpLkRWX0iuT4AYdGbOUSMlm1nEQKyjREjaeoKyRtaNX7NAH+ZoLuz
+ 8fOxcebcqVGhsaWFsIXb3O+25wtYeCjkWYa7wyKFhzloDv7H5LyulYHmGTuXZjWOMh
+ DLE8WW59mcxCZXAT1clxfEd4D1gRM1KgTOAog3oE8FPvCaLt2dnnRzASfpvTWvn8P9
+ z4kAtJWV2bzeW1Ye8B4a/qtCR7M8cFV3uMCSYHMXvhw4KXbVEQ/wgIrmDqnQYD5nix
+ 3n6cR3TBi34AA==
+From: Mario Limonciello <superm1@kernel.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH] drm/amd: Add a sysfs file to detect whether a GPU is an APU
+Date: Mon, 16 Jun 2025 15:15:52 -0500
+Message-ID: <20250616201552.4022366-1-superm1@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/14] drm/amd/display: use drm_edid_product_id for
- parsing EDID product info
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Michel Daenzer <michel.daenzer@mailbox.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20250613150015.245917-1-mwen@igalia.com>
- <20250613150015.245917-4-mwen@igalia.com>
- <0125efb7-85df-4911-a51d-8e6fffd6f648@amd.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <0125efb7-85df-4911-a51d-8e6fffd6f648@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,64 +53,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Mario Limonciello <mario.limonciello@amd.com>
 
+In order to discover whether a GPU is part of a dGPU or APU userspace has
+to do some mental gymnastics or heuristics.  Add a sysfs file that clearly
+indicates to userspace.
 
-On 13/06/2025 15:53, Mario Limonciello wrote:
-> On 6/13/2025 9:58 AM, Melissa Wen wrote:
->> Since [1], we can use drm_edid_product_id to get debug info from
->> drm_edid instead of directly parsing EDID.
->>
->> Link: 
->> https://lore.kernel.org/dri-devel/cover.1712655867.git.jani.nikula@intel.com/ 
->> [1]
->
-> This is a pretty old commit.  It's landed now a while, right?
-> I'd say if you're going to reference it in the changelog it should be 
-> referenced by commit ABC123 ("Foo the bar").
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c     | 16 ++++++++++++++++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h |  1 +
+ 2 files changed, 17 insertions(+)
 
-Makes sense.
-As it was a series, I'll try to find the most relevant commit and 
-replace the reference.
-
->
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->> ---
->>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 15 ++++++++-------
->>   1 file changed, 8 insertions(+), 7 deletions(-)
->>
->> diff --git 
->> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> index 5543780f1024..b1085f1195f7 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> @@ -109,6 +109,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
->>       struct drm_device *dev = connector->dev;
->>       struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : 
->> NULL;
->>       const struct drm_edid *drm_edid;
->> +    struct drm_edid_product_id product_id;
->>       struct cea_sad *sads;
->>       int sad_count = -1;
->>       int sadb_count = -1;
->> @@ -125,13 +126,13 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
->>       if (!drm_edid_valid(drm_edid))
->>           result = EDID_BAD_CHECKSUM;
->>   -    edid_caps->manufacturer_id = (uint16_t) edid_buf->mfg_id[0] |
->> -                    ((uint16_t) edid_buf->mfg_id[1])<<8;
->> -    edid_caps->product_id = (uint16_t) edid_buf->prod_code[0] |
->> -                    ((uint16_t) edid_buf->prod_code[1])<<8;
->> -    edid_caps->serial_number = edid_buf->serial;
->> -    edid_caps->manufacture_week = edid_buf->mfg_week;
->> -    edid_caps->manufacture_year = edid_buf->mfg_year;
->> +    drm_edid_get_product_id(drm_edid, &product_id);
->> +
->> +    edid_caps->manufacturer_id = product_id.manufacturer_name;
->> +    edid_caps->product_id = le16_to_cpu(product_id.product_code);
->> +    edid_caps->serial_number = le32_to_cpu(product_id.serial_number);
->> +    edid_caps->manufacture_week = product_id.week_of_manufacture;
->> +    edid_caps->manufacture_year = product_id.year_of_manufacture;
->>         drm_edid_get_monitor_name(edid_buf,
->>                     edid_caps->display_name,
->
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index edd9895b46c02..4e4c77488e334 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -945,6 +945,21 @@ static ssize_t amdgpu_get_pp_features(struct device *dev,
+ 	return size;
+ }
+ 
++/**
++ * DOC: apu
++ *
++ * Represents whether GPU is on a dGPU (0) or APU (1)
++ */
++static ssize_t amdgpu_get_apu(struct device *dev,
++			      struct device_attribute *attr,
++			      char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	return sysfs_emit(buf, "%d\n", adev->flags & AMD_IS_APU ? 1 : 0);
++}
++
+ /**
+  * DOC: pp_dpm_sclk pp_dpm_mclk pp_dpm_socclk pp_dpm_fclk pp_dpm_dcefclk pp_dpm_pcie
+  *
+@@ -2287,6 +2302,7 @@ static struct amdgpu_device_attr amdgpu_device_attrs[] = {
+ 			      .attr_update = ss_bias_attr_update),
+ 	AMDGPU_DEVICE_ATTR_RO(pm_metrics,				ATTR_FLAG_BASIC,
+ 			      .attr_update = amdgpu_pm_metrics_attr_update),
++	AMDGPU_DEVICE_ATTR_RO(apu,					ATTR_FLAG_BASIC),
+ };
+ 
+ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
+index c12ced32f7808..ffd008c1e6ec2 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
+@@ -78,6 +78,7 @@ enum amdgpu_device_attr_id {
+ 	device_attr_id__smartshift_dgpu_power,
+ 	device_attr_id__smartshift_bias,
+ 	device_attr_id__pm_metrics,
++	device_attr_id__apu,
+ 	device_attr_id__count,
+ };
+ 
+-- 
+2.43.0
 
