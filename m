@@ -4,56 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6354C77B7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5943FC7EE2C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25D2A10E673;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFFA10E674;
 	Tue, 17 Jun 2025 13:02:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OpaF8pqh";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="SvqyFL5h";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE09D10E425;
- Mon, 16 Jun 2025 18:15:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=psYij8s9Ia2uYH+3eeL2z0De96IT8g97QGXw+98uT8g=; b=OpaF8pqhsEEyn/YUt8Ls0rCWPP
- Fex+nlV8DsU7HvGjjEPobjGnW2KFYWfiw0vUnYH9hxr+JYmdsL7YWI/70HX39eTl1+ZfUY2ZOLmYV
- T0+Hvx6FkVrmAZd114MFj78urHM5fGMqSF/2tB1g+/jWhLvwHezAfsrtUIU+UCv1mPGjbyTOsdi9x
- S+cpiHUKFnFxwKsVbpWqVrn6uRqVzK3kAOkNCKesMWc5tJMXEzLGEWRLyXsFOW9FN3bR/N9UuSphF
- IynfJs/xVwMTF8oy6zrenXhytgRCSolV/Rhxhw+LOVeG+75Hm6bUALPZUzOI4QK6fTmcFqb+13o9f
- vLq32qpg==;
-Received: from [191.204.192.64] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uREMa-004Eh6-4E; Mon, 16 Jun 2025 20:15:20 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v8 1/6] drm: amdgpu: Allow NULL pointers at
- amdgpu_vm_put_task_info()
-Date: Mon, 16 Jun 2025 15:14:33 -0300
-Message-ID: <20250616181438.2124656-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250616181438.2124656-1-andrealmeid@igalia.com>
-References: <20250616181438.2124656-1-andrealmeid@igalia.com>
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA6510E3BB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 14:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+ Sender:Reply-To:Content-ID:Content-Description;
+ bh=ImzOJ0Fu7HUWP5Tk98CrEZQ+23QR5aPJDRY8eqZP6s8=; b=SvqyFL5hLq5vK8nQbihAXrkG0G
+ hw3+hd/uF1wbC3Yj1e5Zo7ByN+JQTEazFGwTVRGmiAmxCamg2J8mUxLqMC9bn6yfGu3H5UfRPhwtj
+ rkVuK3WqM5EEYF/EoVXWs+sS/+i7WjyMX7BjJaaz+m5G3tVceT8LLAMVB+qoCiy/7KdZqRcaEEC3W
+ t07vMuQ8Tu3KDNFe+2xXhnERpnb7Z7D8hYXqiwYRJaJ0CS6pFEDHlXd23KAfG+3i4hasHl1K7vHI3
+ M9hg5KGCxZP4vMJCeKFZPAue8AGPbyb8b6Vcn9jCqh3+HNJW+8J/ClnXXu1C1KdG8G22Z1wqSrix+
+ c3c9Pftw==;
+Received: from
+ 2001-1c00-8d82-d000-266e-96ff-fe07-7dcc.cable.dynamic.v6.ziggo.nl
+ ([2001:1c00:8d82:d000:266e:96ff:fe07:7dcc]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1uRBEM-00000003cMr-2pmi; Mon, 16 Jun 2025 14:54:38 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 5847430D551; Mon, 16 Jun 2025 16:54:37 +0200 (CEST)
+Date: Mon, 16 Jun 2025 16:54:37 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, Borislav Petkov <bp@alien8.de>,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: amdgpu vs kexec
+Message-ID: <20250616145437.GG1613376@noisy.programming.kicks-ass.net>
+References: <20250616093945.GA1613200@noisy.programming.kicks-ass.net>
+ <4f5f95ff-b97e-41db-b9fd-5204e6581a30@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 17 Jun 2025 13:02:39 +0000
+In-Reply-To: <4f5f95ff-b97e-41db-b9fd-5204e6581a30@amd.com>
+X-Mailman-Approved-At: Tue, 17 Jun 2025 13:02:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,31 +62,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allow NULL pointers at amdgpu_vm_put_task_info() as it common practice
-for "put" or "free" functions. This avoid an extra check for NULL for
-callers.
+On Mon, Jun 16, 2025 at 01:51:21PM +0200, Christian Kˆnig wrote:
+> Hi Peter,
+> 
+> On 6/16/25 11:39, Peter Zijlstra wrote:
+> > Hi guys,
+> > 
+> > My (Intel Sapphire Rapids) workstation has a RX 7800 XT and when I kexec
+> > a bunch of times, the amdgpu driver gets upset and barfs on boot.
+> 
+> yeah, that is an "intentional" HW feature and yes you're certainly not
+> the first one to complain about it :(
+> 
+> The PSP (platform security processor IIRC) is designed in such a way
+> that you can initialize it only once after a power cycle / hard reset
+> for security reasons (e.g. to not leak crypto keys used for digital
+> rights management etc..).
+> 
+> On dGPUs we work around that manually by power cycling the ASIC when
+> that situation is detected during amdgpu load, but that unfortunately
+> doesn't work 100% reliable.
 
-Signed-off-by: Andr√© Almeida <andrealmeid@igalia.com>
----
-v8: New patch
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 +++
- 1 file changed, 3 insertions(+)
+Right.. hence the splats.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 3911c78f8282..dadf5633476c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2447,6 +2447,9 @@ amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
-  */
- void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info)
- {
-+	if (unlikely(ZERO_OR_NULL_PTR(task_info)))
-+		return;
-+
- 	kref_put(&task_info->refcount, amdgpu_vm_destroy_task_info);
- }
- 
--- 
-2.49.0
+> On APUs the situation is even worse because the PSP is shared between
+> the GPU and the CPU.
+> 
+> We have forwarded such complains internally for years, but there is
+> not much else Alex and I can do about it.
 
+Oh well. Thanks for the info!
