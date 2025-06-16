@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A56C71135
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 09:39:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57ABCC7115A
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 09:39:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB92010E311;
-	Mon, 16 Jun 2025 09:39:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBD4D10E310;
+	Mon, 16 Jun 2025 09:39:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2Mg2H6vA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ELb4rC19";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF7A10E30D
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 09:39:10 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680DF10E311
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 09:39:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Km1WrOHdtRmBKUm6oNtxvF+6rKxdkc1lmCmcE8KhWKpxPf1I2LH6613N5DUZHn8Lj+XKbKVqmaWBrebaLx6DbQfkh+FiQBZ3S2in4FLPBD61Iv0XXKGyBzcRuTfJcdoxsCVQwnPFwLq34U2c+VX3jHuoY64BOsAClb0hLUM5+eyeY4owG4oNOaUhigYgBD/Woxdx3y26cnP4h5hfv3PmjnzVtwPLT8Wg14xiYpuvLyW/usphckK6ajOQX5WBuhXlv+z5WtyEAKBwWPiGvYnVJ5kWes20HMatajrvPCct7ZvXf5P/x97QF6b9JqVS8lagwhjDF+lU7Bj+JCK1mhhoxg==
+ b=C95KDbU4F9Xn9oPBUElzLBKu3j8NyQH2T5dxIdPFpk7HRK8N/0OX19sZC/tu71hYJHOu5K1oo6sRw+EOahbbSCcwJK6a5sl3L97URbgQm2AooGqt/eaHUlEQCG+vC9VhDtbLbHe8j3M8Cjn9R7tP7fJKwo/tn7RZV4iIbHJ3gm0DC4az3lty6mEZX8+lTq2KQm4p5l0l52lYG9mfHTq/5LxM9qx6ndWj6TD0gIIrUNCN+2h3DILZf4Q/RmUwS8e3OzLHuABDg2qnBiZwRZIZcdO2+TWj1JTX5btdLCYVVmRd5w6y7y0mIfTEN8DnGKz0iCr0TtBGJQhF9CyUlhmlzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sFruO3lxujiMxQF+Dk8RINOdpmEZdWd3M5eOYtwATFA=;
- b=jQlaPMw3dpSUiYNU2u/EueSlZDtS8HX7ZJJ8FGdHs86QFgGMsIK727RERo2QSvPbd4QudvscVS7qkfBUIxhG7V9nI5WU/6oWCysQsVBTLhlzSpEqmjCIPsX7sFAl2SKrGzkCBXVAeUsjSpSNBMUHRMPxZTUrSRlIbFN0gUUWUf13MXNdmVs2G0n5fG27nKRHbQPKVKzxIsr/78XqptVsxHSQ2S808J9VnOSFo1/qTBugTbacSQ7QGf7+xAokvWLqvdmpcuZPihIPhrhV220H//MFHmOqG5DcE1puTxXbeLNAMGmyRvgQWh3rmR3ZnIZrng33TwRt5xYA9gL+oaR2BQ==
+ bh=06DbpNUnqb88JEahwjPYkpPKvq61Rnhmt6WdaqylRFg=;
+ b=tTvDr+J4jlhwHX3pYicRFg+zMzY9bkb01Vpjj6japna/1x19wztDMxyTMMFrj5Dcsf0VMWT30zDgzWWYmBKlfg6YbyPtfb2Ds4M3fRPbszNV8+rPMbcmjr7uW1olZCfgLckKZP0Gt22RoFVo10ir/g/63F0E1eQDsPnxIEDxJVeAWCQAME18Y9f5DZNx9LVqKPekjtJIpyH40IhmfcPo2I7RTmA2ZSs987oPFlD/36rLxRd+SKYX7qjj0fwgQ8F7wQnQpfmYbADM182G4akByIesY10Bhv56lpeFCZzBgN+Ic8xzbubyNYt+qTAxM5336KrPB4BRdlrG90cg5Lbe1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sFruO3lxujiMxQF+Dk8RINOdpmEZdWd3M5eOYtwATFA=;
- b=2Mg2H6vAfYh7P2Fq7XG0bOD3PtB688GuxSPqR8rpap8uBbd+SOizkLBzGaPnQ10fTffy+RO20Ag1JezJ++6MxVexmHwjZ+gfPR6EJJBzo4lg0WCmsmYEcffmamFkoj23oiO0vLBC0AeGn/RgaKFe/TKSXHs+vIKnK665dPX30lM=
-Received: from CH5P221CA0017.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1f2::17)
- by MN2PR12MB4358.namprd12.prod.outlook.com (2603:10b6:208:24f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Mon, 16 Jun
- 2025 09:39:06 +0000
-Received: from DS3PEPF0000C37D.namprd04.prod.outlook.com
- (2603:10b6:610:1f2:cafe::b8) by CH5P221CA0017.outlook.office365.com
- (2603:10b6:610:1f2::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.25 via Frontend Transport; Mon,
+ bh=06DbpNUnqb88JEahwjPYkpPKvq61Rnhmt6WdaqylRFg=;
+ b=ELb4rC19m2Kt+mitZva5sPC8zVZLT2ML5CyWQ7VGbRsa1IFmf47uzAv5I+IATMlTT/dKkErt4rZyjE4y1DxxNZzG3E9YtaCYmTlOX+D70w6r2Sa8KtfVw/KIXCJMTo1dFgs5OswgD7Sej1jlZeD93k7xUVyhIiVl7ozmaKzr6kY=
+Received: from DM5PR07CA0109.namprd07.prod.outlook.com (2603:10b6:4:ae::38) by
+ DM3PR12MB9285.namprd12.prod.outlook.com (2603:10b6:0:49::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8835.30; Mon, 16 Jun 2025 09:39:06 +0000
+Received: from DS2PEPF00003441.namprd04.prod.outlook.com
+ (2603:10b6:4:ae:cafe::62) by DM5PR07CA0109.outlook.office365.com
+ (2603:10b6:4:ae::38) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Mon,
  16 Jun 2025 09:39:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -48,22 +48,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF0000C37D.mail.protection.outlook.com (10.167.23.7) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.8835.15 via Frontend Transport; Mon, 16 Jun 2025 09:39:06 +0000
 Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 16 Jun 2025 04:39:04 -0500
+ 15.1.2507.39; Mon, 16 Jun 2025 04:39:01 -0500
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Likun Gao <Likun.Gao@amd.com>, Le Ma
  <Le.Ma@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher
  <alexander.deucher@amd.com>
 CC: Hawking Zhang <Hawking.Zhang@amd.com>
-Subject: [PATCH 05/10] drm/amdgpu: Convert update_supported_modes into a
- common helper
-Date: Mon, 16 Jun 2025 17:37:51 +0800
-Message-ID: <20250616093756.16200-6-Hawking.Zhang@amd.com>
+Subject: [PATCH 04/10] drm/amdgpu: Convert update_partition_sched_list into a
+ common helper v3
+Date: Mon, 16 Jun 2025 17:37:50 +0800
+Message-ID: <20250616093756.16200-5-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20250616093756.16200-1-Hawking.Zhang@amd.com>
 References: <20250616093756.16200-1-Hawking.Zhang@amd.com>
@@ -74,52 +74,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37D:EE_|MN2PR12MB4358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38ae28d8-95b5-4e39-b7cb-08ddacb9a34f
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|DM3PR12MB9285:EE_
+X-MS-Office365-Filtering-Correlation-Id: 200fcd10-aa64-4444-0197-08ddacb9a33e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?nViHkYdQDRfpMDxSnMoNgd/+yJRQeurE8wQcpgzDsm0xvBAX/ir1tbrSwdUX?=
- =?us-ascii?Q?DscEfZvfv1PiXY3bbTdDmpPi8PwTsxxtfJkGtJfYB0cOCh9kfZusu1wbEb/h?=
- =?us-ascii?Q?yWEZBNxEHWzRKA5Jzl3MIdTj2VzAmMWr9jfbIbPxCW58XDdINRQ/dsIOPex7?=
- =?us-ascii?Q?lyXlvjEoffUTjDkd5vZSv8tIpLbHkbwdhENG7qlJyrkJnGKL3qWuRgEOWihN?=
- =?us-ascii?Q?iB+6Q5hkStaQaVu/unVkF8K/KC7XuqyFMsnbtEuhWhOSiaglDubHKJZG8Klf?=
- =?us-ascii?Q?eQJjYC4OAGho6AAIrmpyNo9NF0WLQ/4YFrbw4Y0gInrI/R/roVyyFZRdwhMJ?=
- =?us-ascii?Q?/VixYVNqQsGB8f4y5ThXXlZ81IkCFlYoN5R+hSdgqXS8Nj7/oBFWIyOQT2Tn?=
- =?us-ascii?Q?IZMwWGD0Wf65Ou7kmO0sSc0+W2Ik2cSW6yQlqdXHYSlMsvyLr3RVq5hesEdB?=
- =?us-ascii?Q?Li3nbU/JSLQ7fP7vWzwvHHNIEJH65er48sGkTIu5ofLqaY7NwJ6sy06w4UMj?=
- =?us-ascii?Q?4EQYU7syR3TBNT11CUyW5/fwGj/4ZqLIHv8Bv9E8oGKlF6gRrghSQYjaInBo?=
- =?us-ascii?Q?R2kEvi1sMBVwTpC+yPFFv9mPm+DsO0HrpKRnuD+tC7v0iBuj8LkZ91UJdCSY?=
- =?us-ascii?Q?VNa5C5MitPQ/qQ7mQpOYRBJ3CCkY8wc8IRB/RZPXbZ5+4DRpoKUPY7RY+5Lp?=
- =?us-ascii?Q?pxqQMKGaz2rCz9bcrkH9nVFGNYirFOuFGfGLz48ErNMnxDJlUxJksNE6Druv?=
- =?us-ascii?Q?SnAvTQbTeMzfPrg3VTMPgvjt8sAqIMIPmGE2Om5TBZSG7nk+ZgSkWLce3xJS?=
- =?us-ascii?Q?2/3SeS7rGB8rarneTa6UypxAx3p1oCKkpSmRjvb1l+zfAhJrC1s8CMKS7zki?=
- =?us-ascii?Q?uejvwd8VCvWNW2io7fNj/r/THl97HvncG3IkCZUwMGlaQWYvVYG/cWg3KLKm?=
- =?us-ascii?Q?UFwzIUGmTwVVugcX9GUGUcKl1X0tIehMw35blR/d+fZ9GjTz3n+z4hQWsbKw?=
- =?us-ascii?Q?r4TgQyDWZVXhmcOl3wtxqqX+zPoEFjn3XpKYwm58gzxJHkqRgG6f2S2GiDS9?=
- =?us-ascii?Q?F0U0lMZwcTrvylWymPIboSrqaT2s7CWpc5pyW5HBwKM6cAqZNKyaFiRycyFj?=
- =?us-ascii?Q?1KAYU0G0cJH2ZMz3GgDLVP1fP0TxSZGKcUBrmnrTkrk7gXdN2huMohegDy7O?=
- =?us-ascii?Q?efddFsRnVZqW7XkaLEsW2LQZ4bLVCWWDCs6RGbA3LZARatIsz6ih0d0ggdws?=
- =?us-ascii?Q?GUNUV4KDs2uUoQK5hqdABAe/3rvAWSduJzSLYlqlo3s4D/fR4poQqhIxApau?=
- =?us-ascii?Q?MKLQCf0ckRQlJ/whrfMEws4AH+hEtNayVHbkqUF6FSRv7nyC19vMZFzsMUfY?=
- =?us-ascii?Q?2+jyBFlIdRK66FTB0BarOi73/i68MN9QIyuak4LkQoL3YcVA9UF1YNwD0Aa8?=
- =?us-ascii?Q?I7hkAA4tS59o0EuMN1U7Unlp5HncYG0Vpg/RgkhbSNIiZ2bUBHN9hpF9JCUL?=
- =?us-ascii?Q?PB/yaHp06WHtEOK1O6KcG18ctxa5rK3kkTBA?=
+ ARA:13230040|1800799024|82310400026|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?UH2XTKtUKULjItWghtw+UW5uU0dAG1rWb6D9FnWuNUEuSOz7dHzlZBFkTSeT?=
+ =?us-ascii?Q?c3PmyKtwvUfHUCh92eMriBKkvDYabgN6hW4suD2qtlf2YnR1NTftGyUHV5dL?=
+ =?us-ascii?Q?qPLDMyu1B7LIaObkm91la1UG0/pqPY+/86WTNlQ4svOTZBrKi1YnAPvgbDK2?=
+ =?us-ascii?Q?rRBhOm+/ozq/l8Tsd3/J+E/P3su4mnAh1T1qaqH4KwaiQqd7RIwaeyj/xKSo?=
+ =?us-ascii?Q?NfvPnEpQwxy+HQjacMubsEL3BLR4Umd81sdeGrjcOVSWzFtZc+TA32zH9BY6?=
+ =?us-ascii?Q?2ctmfhhtB9fFhYg3isSBattOx9JbOmlgIWvNFrmVcwkbhwxBH9le6hh5oaHs?=
+ =?us-ascii?Q?8j5rgyrrnDE7uU2++LzjBzRBXJaO8gugNx+cLeDLnSmU83oVARhQIWuEAQzy?=
+ =?us-ascii?Q?HCTtw/l2D+Ykc1amtMVA3wMipI+HPQ3FQxLqIb1H5wpm96R7ad3dLnl1O8L5?=
+ =?us-ascii?Q?2jb40f/FLfNuCOMU0Eq4mmX5a7zMsd4pE25sAvZ9lDZ2aVCSzNTDSU+DC3AJ?=
+ =?us-ascii?Q?WSiZvtwJMze+z52J0lcBQSHCUNh6frzQweVZ/hXThWfUyvmzx+U4t24hg/Oe?=
+ =?us-ascii?Q?um7QC5z+UfguRNCLN8C1j7VnWr1jSXMi4+OJVfj2FJ8Yt6o9rXmV2Lrs6ocA?=
+ =?us-ascii?Q?WPEHSNKyaT0KT9SLxrZ/GoVm4XgFIOwUygLkIS4Z5QM8VIAsNRCNnqNxrZ2l?=
+ =?us-ascii?Q?3rWIQwVCAm1h0KZ2E7FHI7uNFVJod6u2e/rLVH9XDUruU/t4N3nt7nS5+PI1?=
+ =?us-ascii?Q?/V8PkOZ4Mth8k92m6lqbWeOyCdatN8EU9S50EyiIxu4FWyM07xYXJw5YW67e?=
+ =?us-ascii?Q?RXT1IawEOdDGcYYQ4Tnmy9cznUWyFMiqGmDykeF8cFVJzEKdnIdDQ7HMUPjg?=
+ =?us-ascii?Q?XTuLMl0TpCRuq02ejSpI0jjLYJ7sty/1HeH2H/KX0sj8Wgz0oddwLupfQPOa?=
+ =?us-ascii?Q?vwSDodd7i66lh1KY4+t+dhEtoUI1TpTFCmQxVFfVF7fB6u+bLSfjNSfE1tYd?=
+ =?us-ascii?Q?Z4K0L3qF+x/OJwT1jzvqCoLf8ta4Rkc6jLWwRpSsORmo75YQ9O75d0sGHvrU?=
+ =?us-ascii?Q?fsdUU/mke2bEEqje0PVsv8vBpaqTs2qO9h4oO7WrgDXyQvHJNTYpptbGck5q?=
+ =?us-ascii?Q?QwNsnxI7D9q4fnChi6DTU5bGVrAWFP4uiKgwYzw42xi6Djclmv5xuiQuH/Jm?=
+ =?us-ascii?Q?kRjyNCruPPShsSX4us5xatRCREaainbceqYQQ9NNJG+cw8zjZFHB60Yvvl1O?=
+ =?us-ascii?Q?G28fGSLnm5yL6Hwk7//Ce1ljGzUhWU0yGMJFJiptWGZZ+8rkDb+8Z9r/gZt7?=
+ =?us-ascii?Q?Wbiwt2c8L3rfhp/y/wRvlL/fmFkn533bADdKBhf4CmCR2qSJfFa9WPDB2J1m?=
+ =?us-ascii?Q?sYuSc2q/zOCiM3ZjBX18Vjpymaur26Q7hRNNCmwmRYCpPu5xBopgAVCIqoMN?=
+ =?us-ascii?Q?5s/b0pnAgcvZK4eeFKjHdnoBqF5PjyHW++SvXPOMIJQX6OUm2npg7V9Lh1Po?=
+ =?us-ascii?Q?DDF377oz4Ju2pMC9lDB5pS1OgluSv9nbPbDw?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 09:39:06.4501 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38ae28d8-95b5-4e39-b7cb-08ddacb9a34f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 09:39:06.3338 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 200fcd10-aa64-4444-0197-08ddacb9a33e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4358
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9285
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,136 +134,324 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-So it can be used for future products
+The update_partition_sched_list function does not
+need to remain as a soc specific callback. It can
+be reused for future products.
+
+v2: bypass the function if xcp_mgr is not available (Likun)
+
+v3: Let caller check the availability of xcp_mgr (Lijo)
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 37 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |  1 +
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 41 +---------------------
- 3 files changed, 39 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 111 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |   7 +-
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 119 ---------------------
+ 4 files changed, 114 insertions(+), 126 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7c15bd2c8a9c..c401f27a06fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3012,7 +3012,8 @@ static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
+-	amdgpu_xcp_update_partition_sched_list(adev);
++	if (adev->xcp_mgr)
++		amdgpu_xcp_update_partition_sched_list(adev);
+ 
+ 	return 0;
+ }
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index f056c6cf7faf..d2423abac68b 100644
+index 5530166f1b23..f056c6cf7faf 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -594,6 +594,43 @@ int amdgpu_xcp_update_partition_sched_list(struct amdgpu_device *adev)
- 	return amdgpu_xcp_sched_list_update(adev);
+@@ -483,6 +483,117 @@ int amdgpu_xcp_select_scheds(struct amdgpu_device *adev,
+ 	return 0;
  }
  
-+void amdgpu_xcp_update_supported_modes(struct amdgpu_xcp_mgr *xcp_mgr)
++static void amdgpu_set_xcp_id(struct amdgpu_device *adev,
++			      uint32_t inst_idx,
++			      struct amdgpu_ring *ring)
 +{
-+	struct amdgpu_device *adev = xcp_mgr->adev;
++	int xcp_id;
++	enum AMDGPU_XCP_IP_BLOCK ip_blk;
++	uint32_t inst_mask;
 +
-+	xcp_mgr->supp_xcp_modes = 0;
++	ring->xcp_id = AMDGPU_XCP_NO_PARTITION;
++	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)
++		adev->gfx.enforce_isolation[0].xcp_id = ring->xcp_id;
++	if ((adev->xcp_mgr->mode == AMDGPU_XCP_MODE_NONE) ||
++	    (ring->funcs->type == AMDGPU_RING_TYPE_CPER))
++		return;
 +
-+	switch (NUM_XCC(adev->gfx.xcc_mask)) {
-+	case 8:
-+		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_DPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_QPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_CPX_PARTITION_MODE);
-+		break;
-+	case 6:
-+		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_TPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_CPX_PARTITION_MODE);
-+		break;
-+	case 4:
-+		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_DPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_CPX_PARTITION_MODE);
-+		break;
-+	case 2:
-+		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_CPX_PARTITION_MODE);
-+		break;
-+	case 1:
-+		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
-+					  BIT(AMDGPU_CPX_PARTITION_MODE);
-+		break;
++	inst_mask = 1 << inst_idx;
 +
++	switch (ring->funcs->type) {
++	case AMDGPU_HW_IP_GFX:
++	case AMDGPU_RING_TYPE_COMPUTE:
++	case AMDGPU_RING_TYPE_KIQ:
++		ip_blk = AMDGPU_XCP_GFX;
++		break;
++	case AMDGPU_RING_TYPE_SDMA:
++		ip_blk = AMDGPU_XCP_SDMA;
++		break;
++	case AMDGPU_RING_TYPE_VCN_ENC:
++	case AMDGPU_RING_TYPE_VCN_JPEG:
++		ip_blk = AMDGPU_XCP_VCN;
++		break;
 +	default:
-+		break;
++		dev_err(adev->dev, "Not support ring type %d!", ring->funcs->type);
++		return;
 +	}
++
++	for (xcp_id = 0; xcp_id < adev->xcp_mgr->num_xcps; xcp_id++) {
++		if (adev->xcp_mgr->xcp[xcp_id].ip[ip_blk].inst_mask & inst_mask) {
++			ring->xcp_id = xcp_id;
++			dev_dbg(adev->dev, "ring:%s xcp_id :%u", ring->name,
++				ring->xcp_id);
++			if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)
++				adev->gfx.enforce_isolation[xcp_id].xcp_id = xcp_id;
++			break;
++		}
++	}
++}
++
++static void amdgpu_xcp_gpu_sched_update(struct amdgpu_device *adev,
++					struct amdgpu_ring *ring,
++					unsigned int sel_xcp_id)
++{
++	unsigned int *num_gpu_sched;
++
++	num_gpu_sched = &adev->xcp_mgr->xcp[sel_xcp_id]
++			.gpu_sched[ring->funcs->type][ring->hw_prio].num_scheds;
++	adev->xcp_mgr->xcp[sel_xcp_id].gpu_sched[ring->funcs->type][ring->hw_prio]
++			.sched[(*num_gpu_sched)++] = &ring->sched;
++	dev_dbg(adev->dev, "%s :[%d] gpu_sched[%d][%d] = %d",
++		ring->name, sel_xcp_id, ring->funcs->type,
++		ring->hw_prio, *num_gpu_sched);
++}
++
++static int amdgpu_xcp_sched_list_update(struct amdgpu_device *adev)
++{
++	struct amdgpu_ring *ring;
++	int i;
++
++	for (i = 0; i < MAX_XCP; i++) {
++		atomic_set(&adev->xcp_mgr->xcp[i].ref_cnt, 0);
++		memset(adev->xcp_mgr->xcp[i].gpu_sched, 0, sizeof(adev->xcp_mgr->xcp->gpu_sched));
++	}
++
++	if (adev->xcp_mgr->mode == AMDGPU_XCP_MODE_NONE)
++		return 0;
++
++	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
++		ring = adev->rings[i];
++		if (!ring || !ring->sched.ready || ring->no_scheduler)
++			continue;
++
++		amdgpu_xcp_gpu_sched_update(adev, ring, ring->xcp_id);
++
++		/* VCN may be shared by two partitions under CPX MODE in certain
++		 * configs.
++		 */
++		if ((ring->funcs->type == AMDGPU_RING_TYPE_VCN_ENC ||
++		     ring->funcs->type == AMDGPU_RING_TYPE_VCN_JPEG) &&
++		    (adev->xcp_mgr->num_xcps > adev->vcn.num_vcn_inst))
++			amdgpu_xcp_gpu_sched_update(adev, ring, ring->xcp_id + 1);
++	}
++
++	return 0;
++}
++
++int amdgpu_xcp_update_partition_sched_list(struct amdgpu_device *adev)
++{
++	int i;
++
++	for (i = 0; i < adev->num_rings; i++) {
++		struct amdgpu_ring *ring = adev->rings[i];
++
++		if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
++			ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
++			amdgpu_set_xcp_id(adev, ring->xcc_id, ring);
++		else
++			amdgpu_set_xcp_id(adev, ring->me, ring);
++	}
++
++	return amdgpu_xcp_sched_list_update(adev);
 +}
 +
  /*====================== xcp sysfs - configuration ======================*/
  #define XCP_CFG_SYSFS_RES_ATTR_SHOW(_name)                         \
  	static ssize_t amdgpu_xcp_res_sysfs_##_name##_show(        \
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-index 5845dce6b804..98fe270d8437 100644
+index 0ae4f14293bb..5845dce6b804 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-@@ -177,6 +177,7 @@ int amdgpu_xcp_select_scheds(struct amdgpu_device *adev,
+@@ -144,7 +144,6 @@ struct amdgpu_xcp_mgr_funcs {
+ 	int (*suspend)(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id);
+ 	int (*prepare_resume)(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id);
+ 	int (*resume)(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id);
+-	int (*update_partition_sched_list)(struct amdgpu_device *adev);
+ };
+ 
+ int amdgpu_xcp_prepare_suspend(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id);
+@@ -178,14 +177,10 @@ int amdgpu_xcp_select_scheds(struct amdgpu_device *adev,
                               struct amdgpu_fpriv *fpriv,
                               unsigned int *num_scheds,
                               struct drm_gpu_scheduler ***scheds);
-+void amdgpu_xcp_update_supported_modes(struct amdgpu_xcp_mgr *xcp_mgr);
- int amdgpu_xcp_update_partition_sched_list(struct amdgpu_device *adev);
++int amdgpu_xcp_update_partition_sched_list(struct amdgpu_device *adev);
  void amdgpu_xcp_sysfs_init(struct amdgpu_device *adev);
  void amdgpu_xcp_sysfs_fini(struct amdgpu_device *adev);
+ 
+-#define amdgpu_xcp_update_partition_sched_list(adev) \
+-	((adev)->xcp_mgr && (adev)->xcp_mgr->funcs && \
+-	(adev)->xcp_mgr->funcs->update_partition_sched_list ? \
+-	(adev)->xcp_mgr->funcs->update_partition_sched_list(adev) : 0)
+-
+ static inline int amdgpu_xcp_get_num_xcp(struct amdgpu_xcp_mgr *xcp_mgr)
+ {
+ 	if (!xcp_mgr)
 diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-index 86f0eaae5274..2dfffacfc8de 100644
+index 8a74b954855e..86f0eaae5274 100644
 --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
 +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -393,45 +393,6 @@ static int __aqua_vanjaram_post_partition_switch(struct amdgpu_xcp_mgr *xcp_mgr,
- 	return ret;
+@@ -63,123 +63,6 @@ void aqua_vanjaram_doorbell_index_init(struct amdgpu_device *adev)
+ 	adev->doorbell_index.max_assignment = AMDGPU_DOORBELL_LAYOUT1_MAX_ASSIGNMENT << 1;
  }
  
--static void
--__aqua_vanjaram_update_supported_modes(struct amdgpu_xcp_mgr *xcp_mgr)
+-static bool aqua_vanjaram_xcp_vcn_shared(struct amdgpu_device *adev)
 -{
--	struct amdgpu_device *adev = xcp_mgr->adev;
+-	return (adev->xcp_mgr->num_xcps > adev->vcn.num_vcn_inst);
+-}
 -
--	xcp_mgr->supp_xcp_modes = 0;
+-static void aqua_vanjaram_set_xcp_id(struct amdgpu_device *adev,
+-			     uint32_t inst_idx, struct amdgpu_ring *ring)
+-{
+-	int xcp_id;
+-	enum AMDGPU_XCP_IP_BLOCK ip_blk;
+-	uint32_t inst_mask;
 -
--	switch (NUM_XCC(adev->gfx.xcc_mask)) {
--	case 8:
--		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
--					  BIT(AMDGPU_DPX_PARTITION_MODE) |
--					  BIT(AMDGPU_QPX_PARTITION_MODE) |
--					  BIT(AMDGPU_CPX_PARTITION_MODE);
--		break;
--	case 6:
--		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
--					  BIT(AMDGPU_TPX_PARTITION_MODE) |
--					  BIT(AMDGPU_CPX_PARTITION_MODE);
--		break;
--	case 4:
--		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
--					  BIT(AMDGPU_DPX_PARTITION_MODE) |
--					  BIT(AMDGPU_CPX_PARTITION_MODE);
--		break;
--	/* this seems only existing in emulation phase */
--	case 2:
--		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
--					  BIT(AMDGPU_CPX_PARTITION_MODE);
--		break;
--	case 1:
--		xcp_mgr->supp_xcp_modes = BIT(AMDGPU_SPX_PARTITION_MODE) |
--					  BIT(AMDGPU_CPX_PARTITION_MODE);
--		break;
+-	ring->xcp_id = AMDGPU_XCP_NO_PARTITION;
+-	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)
+-		adev->gfx.enforce_isolation[0].xcp_id = ring->xcp_id;
+-	if ((adev->xcp_mgr->mode == AMDGPU_XCP_MODE_NONE) ||
+-	    (ring->funcs->type == AMDGPU_RING_TYPE_CPER))
+-		return;
 -
+-	inst_mask = 1 << inst_idx;
+-
+-	switch (ring->funcs->type) {
+-	case AMDGPU_HW_IP_GFX:
+-	case AMDGPU_RING_TYPE_COMPUTE:
+-	case AMDGPU_RING_TYPE_KIQ:
+-		ip_blk = AMDGPU_XCP_GFX;
+-		break;
+-	case AMDGPU_RING_TYPE_SDMA:
+-		ip_blk = AMDGPU_XCP_SDMA;
+-		break;
+-	case AMDGPU_RING_TYPE_VCN_ENC:
+-	case AMDGPU_RING_TYPE_VCN_JPEG:
+-		ip_blk = AMDGPU_XCP_VCN;
+-		break;
 -	default:
--		break;
+-		DRM_ERROR("Not support ring type %d!", ring->funcs->type);
+-		return;
+-	}
+-
+-	for (xcp_id = 0; xcp_id < adev->xcp_mgr->num_xcps; xcp_id++) {
+-		if (adev->xcp_mgr->xcp[xcp_id].ip[ip_blk].inst_mask & inst_mask) {
+-			ring->xcp_id = xcp_id;
+-			dev_dbg(adev->dev, "ring:%s xcp_id :%u", ring->name,
+-				ring->xcp_id);
+-			if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)
+-				adev->gfx.enforce_isolation[xcp_id].xcp_id = xcp_id;
+-			break;
+-		}
 -	}
 -}
 -
- static void __aqua_vanjaram_update_available_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr)
- {
- 	int mode;
-@@ -588,7 +549,7 @@ static int aqua_vanjaram_xcp_mgr_init(struct amdgpu_device *adev)
- 	if (ret)
- 		return ret;
+-static void aqua_vanjaram_xcp_gpu_sched_update(
+-		struct amdgpu_device *adev,
+-		struct amdgpu_ring *ring,
+-		unsigned int sel_xcp_id)
+-{
+-	unsigned int *num_gpu_sched;
+-
+-	num_gpu_sched = &adev->xcp_mgr->xcp[sel_xcp_id]
+-			.gpu_sched[ring->funcs->type][ring->hw_prio].num_scheds;
+-	adev->xcp_mgr->xcp[sel_xcp_id].gpu_sched[ring->funcs->type][ring->hw_prio]
+-			.sched[(*num_gpu_sched)++] = &ring->sched;
+-	DRM_DEBUG("%s :[%d] gpu_sched[%d][%d] = %d", ring->name,
+-			sel_xcp_id, ring->funcs->type,
+-			ring->hw_prio, *num_gpu_sched);
+-}
+-
+-static int aqua_vanjaram_xcp_sched_list_update(
+-		struct amdgpu_device *adev)
+-{
+-	struct amdgpu_ring *ring;
+-	int i;
+-
+-	for (i = 0; i < MAX_XCP; i++) {
+-		atomic_set(&adev->xcp_mgr->xcp[i].ref_cnt, 0);
+-		memset(adev->xcp_mgr->xcp[i].gpu_sched, 0, sizeof(adev->xcp_mgr->xcp->gpu_sched));
+-	}
+-
+-	if (adev->xcp_mgr->mode == AMDGPU_XCP_MODE_NONE)
+-		return 0;
+-
+-	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
+-		ring = adev->rings[i];
+-		if (!ring || !ring->sched.ready || ring->no_scheduler)
+-			continue;
+-
+-		aqua_vanjaram_xcp_gpu_sched_update(adev, ring, ring->xcp_id);
+-
+-		/* VCN may be shared by two partitions under CPX MODE in certain
+-		 * configs.
+-		 */
+-		if ((ring->funcs->type == AMDGPU_RING_TYPE_VCN_ENC ||
+-		     ring->funcs->type == AMDGPU_RING_TYPE_VCN_JPEG) &&
+-		    aqua_vanjaram_xcp_vcn_shared(adev))
+-			aqua_vanjaram_xcp_gpu_sched_update(adev, ring, ring->xcp_id + 1);
+-	}
+-
+-	return 0;
+-}
+-
+-static int aqua_vanjaram_update_partition_sched_list(struct amdgpu_device *adev)
+-{
+-	int i;
+-
+-	for (i = 0; i < adev->num_rings; i++) {
+-		struct amdgpu_ring *ring = adev->rings[i];
+-
+-		if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
+-			ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
+-			aqua_vanjaram_set_xcp_id(adev, ring->xcc_id, ring);
+-		else
+-			aqua_vanjaram_set_xcp_id(adev, ring->me, ring);
+-	}
+-
+-	return aqua_vanjaram_xcp_sched_list_update(adev);
+-}
+-
+ /* Fixed pattern for smn addressing on different AIDs:
+  *   bit[34]: indicate cross AID access
+  *   bit[33:32]: indicate target AID id
+@@ -691,8 +574,6 @@ struct amdgpu_xcp_mgr_funcs aqua_vanjaram_xcp_funcs = {
+ 	.get_ip_details = &aqua_vanjaram_get_xcp_ip_details,
+ 	.get_xcp_res_info = &aqua_vanjaram_get_xcp_res_info,
+ 	.get_xcp_mem_id = &aqua_vanjaram_get_xcp_mem_id,
+-	.update_partition_sched_list =
+-		&aqua_vanjaram_update_partition_sched_list
+ };
  
--	__aqua_vanjaram_update_supported_modes(adev->xcp_mgr);
-+	amdgpu_xcp_update_supported_modes(adev->xcp_mgr);
- 	/* TODO: Default memory node affinity init */
- 
- 	return ret;
+ static int aqua_vanjaram_xcp_mgr_init(struct amdgpu_device *adev)
 -- 
 2.17.1
 
