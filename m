@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F850C71136
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 09:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CA3C71136
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 09:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB90C10E30D;
-	Mon, 16 Jun 2025 09:39:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6099510E318;
+	Mon, 16 Jun 2025 09:39:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EOuxidQw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g3616bCW";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2068.outbound.protection.outlook.com [40.107.243.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EB5C10E30D
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 09:39:19 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2058.outbound.protection.outlook.com [40.107.94.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEB5E10E318
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 09:39:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IfuxCRsT5SxilXyo/K0Aj3FIYnhstfSKUUHYO/ZbzlpLrUXW0P548Dtdmg8i2Jo1o8wqNfssDmIoDu2uujbGpMAVPCCrVNP7j93T7NYRAgYhHb1Cux6Fkbi1zRjl1YAxaLaCR3AD//eKlzhVaZ0NSYViEFlhF7ANvbDjMUznnBlnBvPplxyigO7lETxjWbeH8ojBMGA6Wd1ENMC40NtgcPhmW/bHgEhaBdccyEodps5ypIH7l5u5ydZCcWDRAVms5Ut30Zm8OsXApPA/lNDQMWqw28Y+WaKGLaoDgJ8SIanV9wsTaHyqM8ALvUrwEK8JL2ShVQaQsHm1KDMkF3GYuQ==
+ b=zCrY3+qo9uZ9RWF/VaV+HmjF2hHf7UGOkJzRmM7vPbeVTc4yQ3Is0VHYV5Zcz7d2yA4qjsc29JLeQrsw2CXjAONPYEv92N5HumiqmBVPpNMtfuaAhz5YzHGsZRgkHkfMpZFPHqbcnwYk75/FkmVQuUPy0Vdc/hLBg0KTgOF5xRwiJFKNVuKeC3xLJwVFutOVU69VDieRZqre+ktwdw20kJgvMFh8q3sqpiJyQgCIvYJihHA69Q/xggSMR+3M5lbXY44QO/3vkYZLis3X4i64DxLbpcK9lXAcBaGyi/Ebsb/qAWdQu/R8LOQKBU2xyBjDikrSjMtUgGvATX5QCc6s8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bp/4rP7LpmO6LT8PcC3FkTU4iBNCCElkMp/W0/Bt9LQ=;
- b=KeSzcCZaIBsLslAQq1DTY5Wi2gyM6waZCSzlxSgcM9wVmlUn/MDmERRm+n6FatbgJQ4L10b37VfRvcovKVbisH3G/jvfkSUxfF4/kf2gDb9YyrLXEkXNNCO1MuF768tTSzWcYcy2GiZ9FN82WaaThyBYLhpZdTfglV5f+Mh4xbqBS6p2ogw8OmtTou2xaQ0WMVyrjB6ZT3B4iL5dxE8+t6a8wL9tYK6CYvPOPNfG85/Wvi8e8M/yPt5b6OlhkV8moK45hhi89e0iAh37pBjnVTJpjLhudho1cRxutM4bbW9XniSnr4+3aXb28hLH/2G6DIzXK3ZsTuxlyopWn8kawA==
+ bh=3mkq3zxFwJnB0jlpL9tbqHyQfEpZ2d0wEB0NWizTn50=;
+ b=hOKHi+9z7UlVd+y4V4Gq1A31zOT4FkETlfH5S1TxsvxBmnwpUPwmoqfxI+YZts/G3LsbIOZ/Im8AX9Dja0m7XBkVAzfmiDCftLi6V1LeoKdBsqT4jji+BpUh8yx/6+YfGtmk6/ZMq9ApnkpTG1zE9+XQJ8DA6sOpy51zCncB9MNN2f6lLSI7ISIEpIZwxY8wDRjAntduztgXUkL1EO2yQQXxrf/bD61oQ5LK6WL50R/jzzj+6rs6Z71a7w9AY/W0VUk7fajXCaa+bRhQXdCIzR/DRkcYxRCr3GCoIoEnl2R4uqSrOEaF0BRLPga+lCFUNzwrjAst1ooOpKFw2PRUAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bp/4rP7LpmO6LT8PcC3FkTU4iBNCCElkMp/W0/Bt9LQ=;
- b=EOuxidQwTrtBjQbIh2SVrBLz6fQqM3Yd7FSaVMQzQnR3XpkPO+HNo2TSzednJuZoAjWJQ7aMJToJ99D0siUDzMUdJKSzAJglXPNyKUyGQjQ9IF3HSWKdrUKSZtIWqKy5Nl70wksKo1NXOg60CTdAwr+F5TbbtRFZZxt9giLdJDA=
-Received: from DM5PR07CA0110.namprd07.prod.outlook.com (2603:10b6:4:ae::39) by
- PH7PR12MB7426.namprd12.prod.outlook.com (2603:10b6:510:201::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.28; Mon, 16 Jun
- 2025 09:39:14 +0000
-Received: from DS2PEPF00003441.namprd04.prod.outlook.com
- (2603:10b6:4:ae:cafe::32) by DM5PR07CA0110.outlook.office365.com
- (2603:10b6:4:ae::39) with Microsoft SMTP Server (version=TLS1_3,
+ bh=3mkq3zxFwJnB0jlpL9tbqHyQfEpZ2d0wEB0NWizTn50=;
+ b=g3616bCWgUNqAi5mW4blUG5+yeCsUTY/EvG55U6xv5oGrunNhBXQoWYn6e8yfm620Bld+H5cqpwmlm74OWbAVaAd8InNA+XVg3ARSrej1TAoxbqX4aI+zlOcgZ0q9lp4y2j9gEciTN393U19H1AgeWLkzPTlssFN+ddqkte3Zyg=
+Received: from DM5PR07CA0090.namprd07.prod.outlook.com (2603:10b6:4:ae::19) by
+ SA3PR12MB8047.namprd12.prod.outlook.com (2603:10b6:806:31b::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8835.27; Mon, 16 Jun 2025 09:39:18 +0000
+Received: from DS2PEPF00003448.namprd04.prod.outlook.com
+ (2603:10b6:4:ae:cafe::eb) by DM5PR07CA0090.outlook.office365.com
+ (2603:10b6:4:ae::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.23 via Frontend Transport; Mon,
- 16 Jun 2025 09:39:14 +0000
+ 16 Jun 2025 09:39:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,22 +48,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
+ DS2PEPF00003448.mail.protection.outlook.com (10.167.17.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.15 via Frontend Transport; Mon, 16 Jun 2025 09:39:14 +0000
+ 15.20.8835.15 via Frontend Transport; Mon, 16 Jun 2025 09:39:17 +0000
 Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 16 Jun 2025 04:39:12 -0500
+ 15.1.2507.39; Mon, 16 Jun 2025 04:39:15 -0500
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Likun Gao <Likun.Gao@amd.com>, Le Ma
  <Le.Ma@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher
  <alexander.deucher@amd.com>
 CC: Hawking Zhang <Hawking.Zhang@amd.com>
-Subject: [PATCH 08/10] drm/amdgpu: Convert query_memory_partition into common
- helpers
-Date: Mon, 16 Jun 2025 17:37:54 +0800
-Message-ID: <20250616093756.16200-9-Hawking.Zhang@amd.com>
+Subject: [PATCH 09/10] drm/amdgpu: Generalize is_multi_chiplet with a common
+ helper v2
+Date: Mon, 16 Jun 2025 17:37:55 +0800
+Message-ID: <20250616093756.16200-10-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20250616093756.16200-1-Hawking.Zhang@amd.com>
 References: <20250616093756.16200-1-Hawking.Zhang@amd.com>
@@ -74,52 +74,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|PH7PR12MB7426:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d5c0899-7146-40c8-1397-08ddacb9a810
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|SA3PR12MB8047:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0feb663-748c-402e-db58-08ddacb9aa0e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NSxTDj7s3BtLZDJdqjv6e+SNguPLQtZtlpMmGaZSvwQUsWFMhiTydgh85s5C?=
- =?us-ascii?Q?uA28khmTnEEcRNdXelqQB78/lIUW8mbzPpchwKbAAbQ+WsNcscC4xN51ycp9?=
- =?us-ascii?Q?1hTFFoNKSKBHh3Sw10qUnvG//OqOls58FR0Ra8VGJLEMxMyQY0qFsTqBev/G?=
- =?us-ascii?Q?yf5EbUlzMSKSVWlLdUC/UjkPhlfZ5a3JB6Ss1hLrJttcuty4cCreEGGBwpco?=
- =?us-ascii?Q?pOBTxPmchQIxGiWbYhmq0xAl40R8ULx+jWxbvAwVcggBUTED5gFgbQLJDmFY?=
- =?us-ascii?Q?V0E5FY+95OW4A8mTeP/iIEFYnpMqdihhfd1b1txvY27MhitOM4X4k0bqaF5r?=
- =?us-ascii?Q?B5ALrwaAampthfDWMk5Gu6eNM5pGUR0C6G9LBS94XEpbXYnx/8ApXVEkQaPH?=
- =?us-ascii?Q?N3zZEKmNgb9So5/bkLVzRoZjfnBc/RQ0zTDSl8KR/8FRrZsa7P6Byvu8e03R?=
- =?us-ascii?Q?rQBT08YhgvTp3uAgzZcMzIWUPNQGSl7NpZB4mdT7WEE8ShIB1rsmvIGN+Hef?=
- =?us-ascii?Q?I2OR8sp+oyTOTftlH3UEzU/ez9dy0or74qtwXFReCR1ukHHRY5F9BqUvZ8u+?=
- =?us-ascii?Q?bfkdmBD9F+1TD/KOnzoeWUmHrqeak5yherrfmnVnCv06YRufkgeioB4RMUyB?=
- =?us-ascii?Q?Gye90nxspeW+Z44n9Xb3zoDvjnY8x1oADSe6n99qGNflEBWya9JebOilwURw?=
- =?us-ascii?Q?PkKRbIVh13j+2WuQXXA1MYdco3g7BuZ/KadswT1fxYuq2+P2GLCDWRKxGT8k?=
- =?us-ascii?Q?5ROyVjX0JHJf4kzb1SLqF97IY6oSHMUDMsTHnBv2Opynnge5YFpaYIyP93hb?=
- =?us-ascii?Q?KcN5n5P15v+8Sjn4T4TyKAPNVALYVBdU/wBdn2zYQrZ6t7LNkzcc17d2pU97?=
- =?us-ascii?Q?sjzPhnF5nghLhPhdb2xEkxedgorcNG+k0SAiW/6NhtCgZnlqZy0WupvMIkRa?=
- =?us-ascii?Q?2K3S/hFFV5auog9LEFkXo9ebLPwvgnrIYJuTMYNj3dZF0pV4hkhDqDIYb6sR?=
- =?us-ascii?Q?ry1pqtwsohV26CoQsZ42Daajpfdayy3uwMMlVrwq9Xnz9XxUIKF47pi4u4E/?=
- =?us-ascii?Q?rIshB77TnWS3jPdMzNs6g7tmHe+99i5Ur2FtKiSJLWkf4MF2I7+qIlDySTCP?=
- =?us-ascii?Q?JRQomNExqNbwnaplN2E8DGVXLvrGWT628nqilLMiNZzNtlJrnTeRnC5b6kQm?=
- =?us-ascii?Q?p7+qDjobGjY1c8q6xhBBJpCMydiVPP9syjqsRYvzRl7WPQWrBKP1S4dziuza?=
- =?us-ascii?Q?LNhmJdAXk4gq0OD3QFgQdEq5EDYfSo89MK09ZcKifeFdotodBP3cHZ+N/MlE?=
- =?us-ascii?Q?CvEtPf6PHsPAl5jwqybF4jpkg7gRzilho/+Gmuz2w8awHHDJaRv7TQZOiMBX?=
- =?us-ascii?Q?1CfilRoW0vv9wtV32dRNDS0FC4kic21z9rk9WK1bBkQxhgV19INqaKUHZfA7?=
- =?us-ascii?Q?kJKVwfGjxnFubcKs1QSKXTTzTeEEuzKs4u1hKynQpzQf4ibTjJOZIJnWviIB?=
- =?us-ascii?Q?T4Af3369EtOLH51RXVttFvuj6tFWi1NOTpHR?=
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FkgHH190V73rhYWrleMYOaNPURsZ/5WhO9jPZmszpesODGxBnzgziXJWQJyi?=
+ =?us-ascii?Q?zLeH26GEDeEOa6KoIAwpAxse8sRl9wQxnsfCDwFD6xwdZVc3rRXipKpZuKyB?=
+ =?us-ascii?Q?nj31MktZuKUec/8GxEty3Axn1h0rfoGcF0aJSIimb7dYDcpQzOUMw59zmWcj?=
+ =?us-ascii?Q?N9WXvYPOCYfQdhtLSyCH9rDQX268zLb6sXm6ZfSkMynArFKKBS7Fe+mYHsKb?=
+ =?us-ascii?Q?jzE9dOh5AUyf1nWt4neuYhnw39muOlY9tDQlkBEqEaIGSbz77GHMkliCGay7?=
+ =?us-ascii?Q?JGBmLHmAjGKuz+cI5qX9aXqzS5Ff2Eu8jukGpRQHnbCdvQxLnNHZlObe4vXX?=
+ =?us-ascii?Q?YRzYonKOJXW3khfmIIrkEHcsOIXVakTwno5ajpwn3ZSaO2MzUHTQday8uEmR?=
+ =?us-ascii?Q?fvz5PRnQm8ijVFwvCMXRuocpN1I6HTCz/sax0Il+hl0msRNPOd5/b5A9izup?=
+ =?us-ascii?Q?lt0GKbgNOiaY2gOf06Sf/Jhg00xv7Qe+6HZ8YbNi/q/zj1oT1CgMlbYN0vF2?=
+ =?us-ascii?Q?gYale6Ri+Ja28iNXp2zcnYqHhOk0ZXA+MLxE3QAzWyx08WEGi59OLfTIT3H4?=
+ =?us-ascii?Q?QSNNYu+uUO9v7LhNJDggzArxPUFHqrXS6qr+DN9gMSZ3yYe+VEVMfYg0sSvn?=
+ =?us-ascii?Q?4NySY1YORVc6liS2CclQJ6rYHhDCQUIlq0ucN68tuMu1vZz1KS7JJg55k509?=
+ =?us-ascii?Q?M25O4yIs6IJDgHTkB9R/Af0EPlUmITNxiH+WfTyyCEjH57Vf+r8rBRhg2pTl?=
+ =?us-ascii?Q?Yepk4ewnyfWLfc2VLbigYzsNBm0LI2VU1p+7VwZieHx636Pp6YUGp8sylzLn?=
+ =?us-ascii?Q?2Hv4jIU2miimWGtZb9lXfpBb7Um/shBsX8FGyrdtvvlCPbLajx5zNwnqB9nh?=
+ =?us-ascii?Q?D8W2Sywrn+ZhPoOAHiGx9ZtwDLgim0MEea5NjBVYklzpItLD1DosUfoJksVa?=
+ =?us-ascii?Q?4onEm/ALpFvV7LpKWFgfUrp7rJufWVBDYwAZqLHpFRavujVEa/qbOZIRbQ61?=
+ =?us-ascii?Q?zQdMlJdtKvST7lRzRMft9DeTMYlrfDcCp8x8U34uKlH2W9tgV8e5alRrcPMV?=
+ =?us-ascii?Q?IzJKubPVqR404voJuZxynBxLcv4LOMfzdQTaa9zlEimhwQUbcikhAU6t6RbD?=
+ =?us-ascii?Q?z0V8Mg9UqzDfdZFocC9iO3annmW77otg+tbC8AJaCFO9mNSHVrOO36uXFF8p?=
+ =?us-ascii?Q?EOUFB7PnKAFhgL6zkq1MYgVD2OH7FyUiGM+pcoMxADycprx4NrmKK8d0F4bZ?=
+ =?us-ascii?Q?jQ+xg6j5AI7Bkmt3FoXBkzVTJn4sluRM+Vu7zRpvfGR8vCiSkDdv1EiRxbnm?=
+ =?us-ascii?Q?2X1PF6SIQvj2/KnFFW6FflodYSrJ1xSuND9mohcNmwwWPLF2gothlnqIpCbn?=
+ =?us-ascii?Q?O6QQcfX9QEAEpCYI05DXcRJUY37xBwSvpIADVTDkjJBGBdH+PQM+BD1kve9D?=
+ =?us-ascii?Q?8TyPRVnilYelFEItThQfLycRvK3wuGe6YodCzy+aJpqDAMNipiv/L//WeU0b?=
+ =?us-ascii?Q?fOf8XYck6G5kQalfKNMssgfkL/jfpCv0x8cJ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 09:39:14.4230 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d5c0899-7146-40c8-1397-08ddacb9a810
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 09:39:17.7683 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0feb663-748c-402e-db58-08ddacb9aa0e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003448.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7426
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8047
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,172 +134,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The query_memory_partition does not need to remain
-as soc specific callbacks. They can be shared across
-multiple products
+It is not necessary to be ip generation specific
+
+v2: rename the helper to is_multi_aid (Lijo)
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 43 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  7 +++-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 48 +++----------------------
- 3 files changed, 53 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h   |  5 +++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 23 +++++++++--------------
+ 2 files changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index c5f06142e892..7e69296cf9ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -1448,3 +1448,46 @@ bool amdgpu_gmc_need_reset_on_init(struct amdgpu_device *adev)
- 
- 	return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 5e2f086d2c99..066532bf5e6e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1337,6 +1337,11 @@ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_device *bdev)
+ 	return container_of(bdev, struct amdgpu_device, mman.bdev);
  }
-+
-+enum amdgpu_memory_partition
-+amdgpu_gmc_get_vf_memory_partition(struct amdgpu_device *adev)
+ 
++static inline bool amdgpu_is_multi_aid(struct amdgpu_device *adev)
 +{
-+	switch (adev->gmc.num_mem_partitions) {
-+	case 0:
-+		return UNKNOWN_MEMORY_PARTITION_MODE;
-+	case 1:
-+		return AMDGPU_NPS1_PARTITION_MODE;
-+	case 2:
-+		return AMDGPU_NPS2_PARTITION_MODE;
-+	case 4:
-+		return AMDGPU_NPS4_PARTITION_MODE;
-+	case 8:
-+		return AMDGPU_NPS8_PARTITION_MODE;
-+	default:
-+		return AMDGPU_NPS1_PARTITION_MODE;
-+	}
++        return !!adev->aid_mask;
 +}
 +
-+enum amdgpu_memory_partition
-+amdgpu_gmc_get_memory_partition(struct amdgpu_device *adev, u32 *supp_modes)
-+{
-+	enum amdgpu_memory_partition mode = UNKNOWN_MEMORY_PARTITION_MODE;
-+
-+	if (adev->nbio.funcs &&
-+	    adev->nbio.funcs->get_memory_partition_mode)
-+		mode = adev->nbio.funcs->get_memory_partition_mode(adev,
-+								   supp_modes);
-+	else
-+		dev_warn(adev->dev, "memory partition mode query is not supported\n");
-+
-+	return mode;
-+}
-+
-+enum amdgpu_memory_partition
-+amdgpu_gmc_query_memory_partition(struct amdgpu_device *adev)
-+{
-+        if (amdgpu_sriov_vf(adev))
-+                return amdgpu_gmc_get_vf_memory_partition(adev);
-+        else
-+                return amdgpu_gmc_get_memory_partition(adev, NULL);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 5aa404390d68..95a68e0eb96e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -458,5 +458,10 @@ int amdgpu_gmc_request_memory_partition(struct amdgpu_device *adev,
- 					int nps_mode);
- void amdgpu_gmc_prepare_nps_mode_change(struct amdgpu_device *adev);
- bool amdgpu_gmc_need_reset_on_init(struct amdgpu_device *adev);
--
-+enum amdgpu_memory_partition
-+amdgpu_gmc_get_vf_memory_partition(struct amdgpu_device *adev);
-+enum amdgpu_memory_partition
-+amdgpu_gmc_get_memory_partition(struct amdgpu_device *adev, u32 *supp_modes);
-+enum amdgpu_memory_partition
-+amdgpu_gmc_query_memory_partition(struct amdgpu_device *adev);
- #endif
+ int amdgpu_device_init(struct amdgpu_device *adev,
+ 		       uint32_t flags);
+ void amdgpu_device_fini_hw(struct amdgpu_device *adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 01b9374134f2..3cc2d5c21f49 100644
+index 3cc2d5c21f49..fa897ced71e6 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1383,46 +1383,6 @@ static unsigned int gmc_v9_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	return size;
- }
- 
--static enum amdgpu_memory_partition
--gmc_v9_0_get_memory_partition(struct amdgpu_device *adev, u32 *supp_modes)
--{
--	enum amdgpu_memory_partition mode = UNKNOWN_MEMORY_PARTITION_MODE;
--
--	if (adev->nbio.funcs->get_memory_partition_mode)
--		mode = adev->nbio.funcs->get_memory_partition_mode(adev,
--								   supp_modes);
--
--	return mode;
--}
--
--static enum amdgpu_memory_partition
--gmc_v9_0_query_vf_memory_partition(struct amdgpu_device *adev)
--{
--	switch (adev->gmc.num_mem_partitions) {
--	case 0:
--		return UNKNOWN_MEMORY_PARTITION_MODE;
--	case 1:
--		return AMDGPU_NPS1_PARTITION_MODE;
--	case 2:
--		return AMDGPU_NPS2_PARTITION_MODE;
--	case 4:
--		return AMDGPU_NPS4_PARTITION_MODE;
--	default:
--		return AMDGPU_NPS1_PARTITION_MODE;
--	}
--
--	return AMDGPU_NPS1_PARTITION_MODE;
--}
--
--static enum amdgpu_memory_partition
--gmc_v9_0_query_memory_partition(struct amdgpu_device *adev)
--{
--	if (amdgpu_sriov_vf(adev))
--		return gmc_v9_0_query_vf_memory_partition(adev);
--
--	return gmc_v9_0_get_memory_partition(adev, NULL);
--}
--
- static bool gmc_v9_0_need_reset_on_init(struct amdgpu_device *adev)
- {
- 	if (adev->nbio.funcs && adev->nbio.funcs->is_nps_switch_requested &&
-@@ -1444,7 +1404,7 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
- 	.get_vm_pte = gmc_v9_0_get_vm_pte,
- 	.override_vm_pte_flags = gmc_v9_0_override_vm_pte_flags,
- 	.get_vbios_fb_size = gmc_v9_0_get_vbios_fb_size,
--	.query_mem_partition_mode = &gmc_v9_0_query_memory_partition,
-+	.query_mem_partition_mode = &amdgpu_gmc_query_memory_partition,
- 	.request_mem_partition_mode = &amdgpu_gmc_request_memory_partition,
- 	.need_reset_on_init = &gmc_v9_0_need_reset_on_init,
+@@ -409,11 +409,6 @@ static const uint32_t ecc_umc_mcumc_ctrl_mask_addrs[] = {
+ 	(0x001d43e0 + 0x00001800),
  };
-@@ -1597,7 +1557,7 @@ static void gmc_v9_0_init_nps_details(struct amdgpu_device *adev)
- 	if (amdgpu_sriov_vf(adev) || (adev->flags & AMD_IS_APU))
- 		return;
  
--	mode = gmc_v9_0_get_memory_partition(adev, &supp_modes);
-+	mode = amdgpu_gmc_get_memory_partition(adev, &supp_modes);
+-static inline bool gmc_v9_0_is_multi_chiplet(struct amdgpu_device *adev)
+-{
+-	return !!adev->aid_mask;
+-}
+-
+ static int gmc_v9_0_ecc_interrupt_state(struct amdgpu_device *adev,
+ 		struct amdgpu_irq_src *src,
+ 		unsigned int type,
+@@ -650,7 +645,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+ 		addr, entry->client_id,
+ 		soc15_ih_clientid_name[entry->client_id]);
  
- 	/* Mode detected by hardware and supported modes available */
- 	if ((mode != UNKNOWN_MEMORY_PARTITION_MODE) && supp_modes) {
-@@ -1889,7 +1849,7 @@ static bool gmc_v9_0_validate_partition_info(struct amdgpu_device *adev)
- 	u32 supp_modes;
- 	bool valid;
+-	if (gmc_v9_0_is_multi_chiplet(adev))
++	if (amdgpu_is_multi_aid(adev))
+ 		dev_err(adev->dev, "  cookie node_id %d fault from die %s%d%s\n",
+ 			node_id, node_id % 4 == 3 ? "RSV" : "AID", node_id / 4,
+ 			node_id % 4 == 1 ? ".XCD0" : node_id % 4 == 2 ? ".XCD1" : "");
+@@ -799,7 +794,7 @@ static bool gmc_v9_0_use_invalidate_semaphore(struct amdgpu_device *adev,
+ 				       uint32_t vmhub)
+ {
+ 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2) ||
+-	    gmc_v9_0_is_multi_chiplet(adev))
++	    amdgpu_is_multi_aid(adev))
+ 		return false;
  
--	mode = gmc_v9_0_get_memory_partition(adev, &supp_modes);
-+	mode = amdgpu_gmc_get_memory_partition(adev, &supp_modes);
+ 	return ((vmhub == AMDGPU_MMHUB0(0) ||
+@@ -1511,7 +1506,7 @@ static void gmc_v9_0_set_mmhub_ras_funcs(struct amdgpu_device *adev)
  
- 	/* Mode detected by hardware not present in supported modes */
- 	if ((mode != UNKNOWN_MEMORY_PARTITION_MODE) &&
-@@ -1973,7 +1933,7 @@ gmc_v9_0_init_sw_mem_ranges(struct amdgpu_device *adev,
- 	u32 start_addr = 0, size;
- 	int i, r, l;
+ static void gmc_v9_0_set_gfxhub_funcs(struct amdgpu_device *adev)
+ {
+-	if (gmc_v9_0_is_multi_chiplet(adev))
++	if (amdgpu_is_multi_aid(adev))
+ 		adev->gfxhub.funcs = &gfxhub_v1_2_funcs;
+ 	else
+ 		adev->gfxhub.funcs = &gfxhub_v1_0_funcs;
+@@ -1593,7 +1588,7 @@ static int gmc_v9_0_early_init(struct amdgpu_ip_block *ip_block)
+ 	 */
+ 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 0) ||
+ 	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 1) ||
+-	    gmc_v9_0_is_multi_chiplet(adev))
++	    amdgpu_is_multi_aid(adev))
+ 		adev->gmc.xgmi.supported = true;
  
--	mode = gmc_v9_0_query_memory_partition(adev);
-+	mode = amdgpu_gmc_query_memory_partition(adev);
+ 	if (amdgpu_ip_version(adev, XGMI_HWIP, 0) == IP_VERSION(6, 1, 0)) {
+@@ -2046,7 +2041,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
  
- 	switch (mode) {
- 	case UNKNOWN_MEMORY_PARTITION_MODE:
+ 	spin_lock_init(&adev->gmc.invalidate_lock);
+ 
+-	if (gmc_v9_0_is_multi_chiplet(adev)) {
++	if (amdgpu_is_multi_aid(adev)) {
+ 		gmc_v9_4_3_init_vram_info(adev);
+ 	} else if (!adev->bios) {
+ 		if (adev->flags & AMD_IS_APU) {
+@@ -2196,7 +2191,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	amdgpu_gmc_get_vbios_allocations(adev);
+ 
+-	if (gmc_v9_0_is_multi_chiplet(adev)) {
++	if (amdgpu_is_multi_aid(adev)) {
+ 		r = gmc_v9_0_init_mem_ranges(adev);
+ 		if (r)
+ 			return r;
+@@ -2225,7 +2220,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	adev->vm_manager.first_kfd_vmid =
+ 		(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 1) ||
+ 		 amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2) ||
+-		 gmc_v9_0_is_multi_chiplet(adev)) ?
++		 amdgpu_is_multi_aid(adev)) ?
+ 			3 :
+ 			8;
+ 
+@@ -2237,7 +2232,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
+-	if (gmc_v9_0_is_multi_chiplet(adev))
++	if (amdgpu_is_multi_aid(adev))
+ 		amdgpu_gmc_sysfs_init(adev);
+ 
+ 	return 0;
+@@ -2247,7 +2242,7 @@ static int gmc_v9_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
+-	if (gmc_v9_0_is_multi_chiplet(adev))
++	if (amdgpu_is_multi_aid(adev))
+ 		amdgpu_gmc_sysfs_fini(adev);
+ 
+ 	amdgpu_gmc_ras_fini(adev);
 -- 
 2.17.1
 
