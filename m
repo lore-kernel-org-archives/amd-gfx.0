@@ -4,149 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE29EC71155
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 12:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE632C71136
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 12:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 557EF10E385;
-	Mon, 16 Jun 2025 12:16:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C6A010E2BD;
+	Mon, 16 Jun 2025 12:25:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WrmMRpAz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v7yXaDJ6";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2068.outbound.protection.outlook.com [40.107.96.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 142CB10E385
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 12:16:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0974E89BA3;
+ Mon, 16 Jun 2025 12:25:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=scgaoPrdjDMiq/Kl3CUviMDjBU1f5SJsdoHmHVveM5scwmN2EsjA7cOWzNLARQmErgalVMKl2o1MBb5qXnQeAwyRVOCiSZDlM+RKR82BWeeEoaQXRpMKg7VAmBEOLk8Dl/eTD6B8whD8fBj2GBLEeZMu+VxCZ1dZZ8ChKip6uZtGrdu8LjAF1VWHCUc6jbWS918+kguYwwMXmhYyS0lkv8zIZrN2QJG0wmQyqJqbUm6GoiROq1Y8TA56N7VgJgfjMuNP4rqPPLxMMcJAB/xkaUzAgMEg4gkIYpfPSq7OrICgRO5u0q3CGBEbi0xEvwEEsjEs2w4nAILDEXyJ0ZQajA==
+ b=jTQKCvxVzc3drJ5ZKAkDVSf2gPFp7/KSXqAChrEcCeHSgWDtNNwEpv5PsbnFymg3jqW6Ok63qluoydj6k9klmWq6wRdhXyoz/z+/fh2bWPaizPgI+/Xw8LmveIHiHOhNw+7QRndT/PJe3kryAOzZZQOf4qywfqmWNq6sgEeHhcmAAb55QdoVWwawH2DD1NHvC20Q/Sz5rc5SyyG73Yn4u7ssd05KSg01E9aVQAFdYBwwcNG3ytisoccJJbwfV+579HdJ0zuqYCKDKhDhFpB5aUOgkXADodMD9Y7qpkO12zUwPDXxeBaD+gqH79ZsXYfQ94bu5m6AV4tbcmVx9sth6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zkc37NAormTeAelmQQ4PBqKZ4oYJ9qNJv61wU39XiGk=;
- b=xFzSUCBBQTpskwKq38aecG7iKdZ9KKMMwHVvJH/MFSuRTo+7RK0YML10GsmrRKQ076sWzTmt/VqKGxWkVx4X5Br4Z0uYbozyoqa5X3kdvYs8BmgQyF3Ez9j3fsk2mCotWUg1tChKWFPe5RBk76mhfohpT/LVWRUVlMRjovKJ/GRJHr1ASwMowSf+ZsoHyVQtv68IVeGWOh6zm9OzgLYJCwBmlI4M8paQXbGRdn32Wl0zxFzctnHXhKrETEfRcy/GiyrR/8o4DnGI0z/Gfs/t8P4r6kEa93k0mkQpmwD6W2nhHT2PSIjYQe3WUJzBvz6fy2o3WWPMFn1kQAoL9QKHsg==
+ bh=4gOp89wSDjGIM7+3/HrG60+l7+GjG6t68SjphxeO6eg=;
+ b=b1w8RIQ9thr4E5qL5FA2rcfB8fpKmryFwBjL0s4dlIS4Q2So7XG0mgStLHRseu81Swv/EuWdjCgwX2ma5SqsfKTLpzrGWfqh4j1B4vkmDGuIJTVn5jr3h+UK2i7H6Gd8oUxYqATeVQ/2QMoKwB2daQDaLAU6stmbAgOLvuwyb/M6kXsPi3XGH02C8whJOlFOBGmn1bRYy6eiIsYRj7gFmzU1sYaN2CBshlgHpKgAjWqS6M8RmuMoh1uPJvHMBvpmT76H2eYt8EGqnefjN9RMM1wi+BGdln6Koa6ye0uwkZ8Gf0Le4bcUBUb/z1Z19wmvoY5de0FpVwmONZ7agMuLMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zkc37NAormTeAelmQQ4PBqKZ4oYJ9qNJv61wU39XiGk=;
- b=WrmMRpAzA+D3Urpt9EHJHj8qrWsdrJvIhUD5Be1d0qPmflitLaZ073yVwFxw0VVducJ36RTi5+GN1FfCvCg29q3okdXww6oUc/R+05gyTnvDax/h2d0aCvOvNK9DLc9ps9wG1bqF3oSdQBjeQ7B85c28Y1Evs5v4Nw8fv0OiaPQ=
+ bh=4gOp89wSDjGIM7+3/HrG60+l7+GjG6t68SjphxeO6eg=;
+ b=v7yXaDJ6o39JkrU2d6YUy8JKItnELOzKl4gXOel/fKmlhVobEHQN9aGJAgTTjx5oy5O1zQuFggluQBLdMyUitU4aYIpdR1s8Bm8fF/+VRzEeBsY138rdZk4nthqHx30lsh/5AMf9Vm1Rep9hLaE2AlJyoB8Q9SbhhVeYXk6oeGo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB6003.namprd12.prod.outlook.com (2603:10b6:208:37f::17)
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by PH7PR12MB6956.namprd12.prod.outlook.com (2603:10b6:510:1b9::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.28; Mon, 16 Jun
- 2025 12:16:10 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8722.031; Mon, 16 Jun 2025
- 12:16:09 +0000
-Message-ID: <29965831-bf4c-4a00-b619-9782b8c6afae@amd.com>
-Date: Mon, 16 Jun 2025 14:16:05 +0200
+ 2025 12:25:25 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::2b0e:7fc3:1d21:5d2e]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::2b0e:7fc3:1d21:5d2e%3]) with mapi id 15.20.8835.026; Mon, 16 Jun 2025
+ 12:25:25 +0000
+Message-ID: <84af6984-bd2e-4378-a5c0-ee2356f96b8f@amd.com>
+Date: Mon, 16 Jun 2025 17:55:20 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/27] drm/amdgpu: switch job hw_fence to amdgpu_fence
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- sasundar@amd.com
-References: <20250613214748.5889-1-alexander.deucher@amd.com>
- <20250613214748.5889-2-alexander.deucher@amd.com>
+Subject: Re: [PATCH v2 2/2] drm: add debugfs support on per client-id basis
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+References: <20250616100503.1204166-1-sunil.khatri@amd.com>
+ <20250616100503.1204166-3-sunil.khatri@amd.com>
+ <3ca35236-377f-4ef0-becd-ba5d22b5edd8@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250613214748.5889-2-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0227.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::22) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <3ca35236-377f-4ef0-becd-ba5d22b5edd8@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0045.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:22::20) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB6003:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d88bfee-ee8e-4017-156d-08ddaccf93f3
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|PH7PR12MB6956:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37561190-dea0-4dd9-f145-08ddacd0def7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZlFncmlsMjNsVzRrR0h5c2FrY25ITnpoaWY5UG5PaVhKY1kxemFpc2dIRmMr?=
- =?utf-8?B?YklFNk0vSEtvMEY0cU5iQ2s4dFppczhoVGZ4UWtXZE02ckxvdUJXLzZNcE5J?=
- =?utf-8?B?dkg0MGJXUzZkRHZRTGZJRHhkT1FZWWdFQ283TEc4dlNTYXQxVXR4NG1PeWs1?=
- =?utf-8?B?ZDBTUk5lSjJSQjFic1l0a0E1YlRYaXFsSWJiQWRyU0FHMUMvV3drMkhHYWxn?=
- =?utf-8?B?Z21VK29QWlJBOFhJSWo1VXFiRCtJVTJndHpIZzhGRnRVNVBxUjBtRmsvYi9X?=
- =?utf-8?B?Wi8wZGRNWC8zL2tFd3hCb0FFNnZ1Yms3TjhxaEQ0L0NEaVJteUdFU09pQTc3?=
- =?utf-8?B?c3VCUUNpT052Z2VEZ3U0dmZ6Qy85b1dSNW5MbGlBS0o0VFNheTUrTVNJa2c0?=
- =?utf-8?B?T3JrdlV2NmVkVVdzMllpN3RQaC9oekQ4WXgrTVU5TDA0UCsyci9nMzh6WWUy?=
- =?utf-8?B?S1NsbHYwaUxVdDJzQy9RQS9ybmZKQkNPSUFmWHl2MmhXejVqbGNoWnJpb0dt?=
- =?utf-8?B?NnJNaThMd216RWd5QWNySDFKMEtMeVQwelhlMHZyV2ZQZi8rc1ozdjZSUVo2?=
- =?utf-8?B?dytCSjA3TmdTSUVkZ0ZtY05zY1Zwd0U0VzBLOHZmSTFPWWpWMnpucEZPU0xB?=
- =?utf-8?B?S0RUejJocXFVYVg2RmZZemR5N1REaTVadXo1dm9MSVphWWRrSk81SEZoNTJ3?=
- =?utf-8?B?UXZCSjZmOXI5VERWWU00aTlZWHluMGIxcUFpVHp1S1U2aFFNcldweWNnanRI?=
- =?utf-8?B?RXdzRjBzdUk1YjVseUltOVRzbllGS0tQYWkwT08vS1MzL1hrSkFhYkpHdFdH?=
- =?utf-8?B?L0s4SEJjZnNMN2h1NzZJYTEzNXJuSWgyN2U2MlIwZUJWS2xZeXkyWUk0MGU5?=
- =?utf-8?B?V3ZybUgwZGJWNmtFLzNZK2M1NURiUzlnODVzWTZVZTVyTWFCckhBRmRRVXJU?=
- =?utf-8?B?Syt1bXA5OFg5OW1HZkk4UERYMHFKT3ZWTGxMQkxPZVlsVUN3b3kwMVZSSHhx?=
- =?utf-8?B?VVROWHFLclNyY29Za0h6SFhxanpYYkRGeVl4ZWtncEtPZ2lHc0xHZnJSVm9V?=
- =?utf-8?B?Z0RLS09idGJNc3hhS2huOU5GUCtwZkNIMVROREhQbTVjeDBlUVU0OUhmdk1L?=
- =?utf-8?B?cjE3L0RwQURRZzhmSVl0WWVveXJGYzdJdEJ5L3cyWDcyYk9yY1ZZdEJxd0ZR?=
- =?utf-8?B?RWpBMUpWZU05V3J1QWF1enR3WkFYNU4wNFdVZ3puU0ZWdGxzNDFVa3N6dzlG?=
- =?utf-8?B?ajNtVmVhSXhmai9zaEh3RVZzYjdsR2xiSUtCNC9QYUdHQ3JQOVlXNVg4cCt1?=
- =?utf-8?B?S2dVaEpBOEZJdkh3dDhDMU5BU205RG02blAyNFJrVEh3ZjVmT1paMUFBaUdD?=
- =?utf-8?B?Nzd1OVJ4VU5icjJmOUh1MllCK0ZpbVpVS1lyZDVtQXlFci9tVkN1QXI3cWx5?=
- =?utf-8?B?UUhoTkZ3bXR4WFMreGsycjZsMGZ5MXlTTSt6U0l3clJ3c3dxTCtLWWhQeHBC?=
- =?utf-8?B?dlhGajZUM2dVRGRxeFZGOE15K1d0YkpGc2x3KzlQZzBZVUdWbnJtdXdXc1ZS?=
- =?utf-8?B?WjJsQkI3NGVnUVJFZjlLNW54WmZLZC9VL09lQkpXQWRzdU9KQkxQOFpKcnVH?=
- =?utf-8?B?TUU1SzVlRXU1SElJODdRRlZSbGVUUVJPUmh5QThBTVFhNDArMFU3TFNWbzlC?=
- =?utf-8?B?VU1yaytTN0xqd014a3FiTVNyRkV2ZGJ6ckhEUHFKSHJialZVd1ZHQUY4SEJO?=
- =?utf-8?B?NjFxNFh2OFRwWlJPV0dJZDhCYXBuWjJoc1dEWVVaUW5sV1pRMlhQZmV1YXc3?=
- =?utf-8?B?U2hiTWJZbXQzK0RZbDdVMWN6VzBXckNldFFXNFhOT2l4VjVvMDZ3L2xKelNy?=
- =?utf-8?B?U3NhTUJaUXA3aWYxb3JhQVJCRktPc3BRaTFKWENlM09SS1FoZ3VkcU9jSU5s?=
- =?utf-8?Q?E1MXzu3i9Zo=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WmFDNmp5bHBiUGxBUnVwNEZPV3krTDZXY3dpVlBVMmx5NnEwOHVIKzJLVmVR?=
+ =?utf-8?B?bGpXTXNzOHZGbmNCU2tGVDdoQkI5LzdMVGM4QVhDYkdQS0dVUVNVa0s2NFZ6?=
+ =?utf-8?B?MUVRRjZ3TDFmTU1qTWNpYXUwUlFteWdaUmdmVkwwVGg3YjJTSDlLeFpJY0Ri?=
+ =?utf-8?B?S3dXSzZKR0xLM0J0djFyU1VjZFQ5ZmdzWWg3WTIvMWRjNHF4WEw4Z3lQUHFi?=
+ =?utf-8?B?Vmo1eUt4RkRkVnJkUmhqTmFzSHlaNDdSNXFrUG5pL2hDWFdTVjdrdnhkcGFI?=
+ =?utf-8?B?cnBnQ3RLdVA0c3F6dEJQazRnS2w0VjZYVU5ZY0NHQVpqbG1zRXBrWHlDK2ZJ?=
+ =?utf-8?B?TkxLdlZIVnN3NmRyR1kzL01hN0JGUk9kb040KzdxS25keTdTMzA3RjRMUisv?=
+ =?utf-8?B?c2hGN2hNUDIrMmlzR1g3L2RqeU83SU9UOEt6MHh2enpoYkJoVDZFN0xodm5n?=
+ =?utf-8?B?dnh3cWhJSEVPYzlVM3pydzN3UU9FTDhEZmYrYis0NG11ekpGb1ZHRFJkU1lI?=
+ =?utf-8?B?akRaYVhFc21saVVqSEE2UkNCcXFaeFlpU1c4RXdjR0xjNXc0VmNEK2dtNVFn?=
+ =?utf-8?B?RnI5WDJPMk92amcyUHNDaGdVdFRtcUlkelV6dFdwZVoxM3hXVGFXdHBlSHV0?=
+ =?utf-8?B?aVpaTkpSelFzR1dIa282OVpzbmJFY0d2UVdkN2IzbGgxb21WYmpIbTg4amMw?=
+ =?utf-8?B?NjYwNmNJTklUdmJWc3NEV2s4cjlqOHVvb3M0UFdaZ3IxbG4ydC85cW5yVXkx?=
+ =?utf-8?B?cXFWR2t4QThyekdRNmo2WVdWOWxiUVpOWXJFUXRGV2JFWEVvN1JHLy91dm1U?=
+ =?utf-8?B?VFBjQm1kN2V4QmJ0ZXF5eW16S2VMSkNHRHR3czhrdEVYL3RjYmsyWDZkS1V6?=
+ =?utf-8?B?OVd6d3V0aU55cGkxcTJWSm5FaDZBMjBUUmQrdmhGczMzSDV3UHl3QXdYdmc5?=
+ =?utf-8?B?Ykx1SitmT1BaVkkvUFJaNWV2djBzZm1WbkNHTUxidE9TYTlkS1IycVNkUDR3?=
+ =?utf-8?B?WUxBTnFjM0Z1YmRiUFdNQ2c1RWkycTBpbHZwU3FuclpOQ0xJTlJXYW92YVpM?=
+ =?utf-8?B?dmhtQU02cDlUTE83NytjMDdJL2R0VjFZSDBEQ29hcmJWWmVCK1o5N0hsZUR0?=
+ =?utf-8?B?V3FEc3IrWWZTV0NwblVoZm4yNGgxMXlJMnZQeW1OL1YzV0dOR2VxVFd2OUFl?=
+ =?utf-8?B?cnNMR2Z2dTBJWE5jUmJ0RFU5N1RHSDVuZXlCaFVsck1KWTlnR2pHZUU5elVv?=
+ =?utf-8?B?cytVTE9SdVBtZVY1RVdUcysrb1B1czhTQ2lUa3ZOaXZnTERZUU5nQ3ZWUU5M?=
+ =?utf-8?B?c1h3U09TK3FpeC9NdnR0OHNoYk1LT3BpZ1RaSE5PNGVqYzZXQkdyVFJEemhJ?=
+ =?utf-8?B?SktuT2lxNG4xQ0l3WHo1TlpvMEFpN1hEeDJZNWc1NDFxeWh5Z3V3aUI0UWtj?=
+ =?utf-8?B?SEhpMWllRU03MnBMck90c1VJdTUxUURKYjBuenRYbHp1a3A4MGJ5VlErQS9x?=
+ =?utf-8?B?OXgvNHI2bmV2ekNySnhkVEZFV0pqOFNRbnMrQVh2TThnaHNkcndxRXArbXFn?=
+ =?utf-8?B?RTdUcFB5RiszRDhhclFXNlVneXhrN3dhTUZUSTlVNVgzTVFUc2sxVXhtUWJY?=
+ =?utf-8?B?bkV4MWZsZkg0S1FlSHFjbTdZU2FMVEFrN2xrWTJOVmpXZzRONDM3Rk5wdkh6?=
+ =?utf-8?B?M3d3TEgyS05pZzJmaU50WklzYjArZnZGLzNMaHRnMUExK1ROTHFqTXh1cUs4?=
+ =?utf-8?B?MEJVMXJ5Qm9zZjdXOHlueUJyL2U3Ym5XcHFzb2o5WlJ5dWIyZkwyK3FINFYy?=
+ =?utf-8?B?b1lZb1M3S01NMU1JNGtLRVlRTE45QXUzTEd6WWRKbGRRZUJWck9IS2Rucm14?=
+ =?utf-8?B?d1dFeUYrVy9YeU5qYmo3OW1WMU05VHBsQ0hpVGhsajY2VUNaRWw0N3l1SnFp?=
+ =?utf-8?Q?7tPnXZP5NI8=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VC9pamovMVZBbVdvak15R0p5U2RiRTRaU2dTWVJCV1U0cm15anRZTzBNQnhS?=
- =?utf-8?B?WVB1ZUtpWEt0SXRQVGU2U1JBNGVhc01NK21Kd1NmcW1pRGpuOWk2UitQRHJO?=
- =?utf-8?B?MGNTdytVc1RIa1hwUXpXYTNlOGNDdjBtV2FBNXlPalRCWE5vZ1JodVkzOHY5?=
- =?utf-8?B?SDBGTXF5aE42T2xnUmxzQTJFOTZDZWxQa21SZ3lrY0poWnI1aGRhV2tuOGFo?=
- =?utf-8?B?SjFZeUhSSUtCbEttbzBmNkxvTUdYRStwaVY1bDdSYkg2VENLaXcwMis0cDFC?=
- =?utf-8?B?SGd4K3lSWmZyRmh2bExFV2JPWERxSEdxaTRhMjNRMWtJWnJDQzNpVjJpajNR?=
- =?utf-8?B?Qm1HTVJVdEZZRVR1SDNtUlM2YXhGV0pvdW9JUkRDVGtURlFHS0RXMGpHQVhY?=
- =?utf-8?B?NlV1bnJwUENKVXpXWEV1UlVRUzdzcGFyRi9vdlhISUV1cC9IYW5GUW1KeFRh?=
- =?utf-8?B?OVBIS2RjemovREZGREdUNWJVTGwzeWFINmdyL09HZzJKMyszSkxUdzF3NnQ0?=
- =?utf-8?B?UWtkWjJUazRJSmpIQW5oSkNYV2hNVXBzdTZ5RFBGekJLVmtMR0FyaVlNdFZG?=
- =?utf-8?B?aGxiem5MLzFHQWlveko0Mk9NNUYvejVYTlhycjBVckxDcURTL2JveStVR2Fa?=
- =?utf-8?B?aUFJWDVoQ2N4aXlEZ01RWit1ZlI1RzlGU0xJb3NLeGYvaVZGK0dVRUJOV3JF?=
- =?utf-8?B?Ny9yc29BWXhJMUFFWGJ1Y0VUbVFpaldHTk5wVjJHK05Jd1Q3NWtxeXpDbDNs?=
- =?utf-8?B?dkYxbXA2QXdvdWVEVWhSemU2a0FPb21ZTHlocFJGbm1PNlYwakpTSnI0U1hx?=
- =?utf-8?B?V0hDVzhQR0tTampvVDF3djRBeTFFNnA3MGFzM2tPM1ppem4xYTVzQ09YMjJr?=
- =?utf-8?B?V1R4SGdlUG9mOUlFOFR4VGpKdzZNYzlNMGlOSjM4SjVjTlhGcDZoaHpKbjhV?=
- =?utf-8?B?eWtnajRtZGIxN2hBbDhHYW9lUHd0akloOFJianRRYTEvRDQvYVlxZ3QrU29q?=
- =?utf-8?B?S2xkOENXb2daWldZeVNTWVRJRUxuNGRnbWVBN3duWVloQWtpZUhQNG1zSC9Q?=
- =?utf-8?B?QWZlUG9kbWFOSFlLejNOQ1RCVWFkSUJGVjRrOXE4ckgzcXErVG5lNEJYNGty?=
- =?utf-8?B?RzA2djNiQ0ZxYzdYUFcxNnBWVm9ya0VwYi9ZbmhIVldGS0pjalNkSktMcllp?=
- =?utf-8?B?bkY5MDUvYjFvQktGVVYvNkhlQms5VUdIRnlZUDJhRTYvNHBNNjZUUWJHcTRo?=
- =?utf-8?B?OUpiZWs1THBHU29NRitsbi9XUTlwMHdLcWpQWGFsdlZUK1RWVDhDM01SU3hi?=
- =?utf-8?B?WTgxeFlBNWtSMXg2ekdqN094WEFaRFJEZXFXZ2dnWlVxdVA5QXB0RDlrTStx?=
- =?utf-8?B?NVpkR2c2VGQ4dEFrKzJuTXVWQVBUM0tTRGl4OU9qT09WYys3dUY5aFpFWE0y?=
- =?utf-8?B?ODJnVjIrOTMxOVlqb25sK0c3MWJvYUVVSk1aR21tRnNOSWhIM1kyeGtvQisx?=
- =?utf-8?B?S1JZSWsxZlBhSW9CcWFVeDdSN0ZZWUw0L1V3SXF0UW1HaHN0NW5MNTBpUVNt?=
- =?utf-8?B?YzFabzRLMG1PR3hlSVgwa2lVSEYxTnFUdWZ4d3p4ZFBIOW8rWVIyM2lHeUNh?=
- =?utf-8?B?SlRZNWtGSFJVdmQ1NUxGcGVzYXVyNmRrOUI5Zit4YXlKUDJMdWxIOWNwdnBP?=
- =?utf-8?B?SXJnMEl0TzVabnVlWSt3R2dZZWxhdEhId2NzNjJXNDVzL1BCVnkxOVgzbjM2?=
- =?utf-8?B?MlFhQlowaVZ2MHViYk1VcDZyeTBDT0pBbjNhdzY4V1dBdzJudWFDMHJKd0M3?=
- =?utf-8?B?VDRCUmxEZkhLMUMwRmtxTG5DNHdnSGlYV1luVzBSQm12VjZJRXZ1MzFESHBs?=
- =?utf-8?B?MlBiZG5yZmF2NFpFV2ZlenY5NUhxVTRBM3NqL3hnM3JjekkzL1FJR3hFT2pK?=
- =?utf-8?B?VjMzR1U5NmpHbjFUWXVzN0JyanFMb3M0a2dKaTJ0TzRkSHZyYm9ibUc4dkt3?=
- =?utf-8?B?d0R6STNpMUFYbUJMMTRVWmtpWHNwYVFUOXV0TUluZlRXc0JicEw3WlZ6YmVw?=
- =?utf-8?B?aGdZQ290REFZWVpTeEdic2FHT0ZqYldKSVIvOTVHRGNQZ0VYR0dxa0tNLzBT?=
- =?utf-8?Q?j2wIHqshEWoTjgbB3B6cymKBS?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFV5MFRXSmw1UTNEY3ZZZlYrU1ZSaWxLbmFtU3QxT3l5UkoxR25wL3FnTkF5?=
+ =?utf-8?B?M2lndFZEYmJ1cU5jcThLbTlwUk5ncXF0ZjVSUzh3THZyR1dsQmxQV2RRTTh2?=
+ =?utf-8?B?VFlWRlB4Q1NYWEwwaUpKNW5XdDNZSy9aVDkycmQ3OGo1NFVYRGtLVmNnZmVR?=
+ =?utf-8?B?L3FTKzliUjM2WG1QcW9MSmR5YmU3NjRPL0NBcklsMThPMWx1SlJ5Q3AwTmJP?=
+ =?utf-8?B?eXZSRjFnZjFNdkhHSTlBK1pXNDJ1OHVkOGNuYUcySGtQcE5HWDMyNlBvdlRx?=
+ =?utf-8?B?aEtXSWlSY1JaaVA2RWZYNktSMnl6dGM0VWFDWWRYSFhNMWVub2hZdE5JcXRT?=
+ =?utf-8?B?dkdTZmkxT25PbTBVb0lCd1BaN1lyZVduaHRvL2tySVM1bm9KOFUwN3lWZ1BF?=
+ =?utf-8?B?V29Oak1neUd0NDl2YlVuSUo0WXc2TzR3QWhWUS9LNXRWM3dIOEhheHFOcFht?=
+ =?utf-8?B?bnRQdVd0ekVCbWcvcVZUcHpYQ3NPN3paSXdtYWszOXh5aG9wbWwrRnYwellr?=
+ =?utf-8?B?eSs0QUttN2Zwc3FLcHl3YmtTUW5qY1FBWnFmQURKN0VpTlZac3FVa2xmQkll?=
+ =?utf-8?B?b050cHVTT3R4WGJkQmlDS2xVYmxXV1J2akx2N2t1V0VJbGZHczZTdEdYNXZu?=
+ =?utf-8?B?Si9NY1ZnTnlFSFpUbU5KOU10WStsUEtBUzJFK0l1UkFXbFFucmtXVEgvZlhF?=
+ =?utf-8?B?ckdzaDNKenlERmpxdUYxZGx5eU1YdlNKVCsvK2pEekxjLzJWcTFScWdGMzBa?=
+ =?utf-8?B?SWYweUY4QUw1NkkrbjF0SDBtWHd5ZjVsbzBSMDJoUnlpczdQK2FPWTIwMHRt?=
+ =?utf-8?B?QzJ4UUh3UmwreVRhUjlZTWlTZENMUzV5K2FDU1hhT3JvZFQ5ajY1ZnZpUTFZ?=
+ =?utf-8?B?d2Z0VHlZR0Jqb0RrNm1NVDhUQXBPeG5ERWVncTg5bHF6UG45TkZXR3Y2c1Nz?=
+ =?utf-8?B?cUYwUXVIR3hXYytnaTk5a28wT0h2Sjlva01RRDhMcGcyWVZPdUJ1LzVEcjRG?=
+ =?utf-8?B?NG9UZThZcjB0RVBVN2wwNlh5dUVwYmN2U1ZCOVpZT3FjUkpONnp5ekxpcVVF?=
+ =?utf-8?B?RkYybFRHMTNvdVVmRjFVUDV6SkduZVBPL1M2eE5DWTdSTFoxWmpYRk9zSU9J?=
+ =?utf-8?B?MllqSjN6K3ZpQ3RHZ2pWSXhoVjdrbWJmMFpzaFlGOG1qRy83anBrVG9IU0I0?=
+ =?utf-8?B?NHAwRWtlbzJub3V0cHcyVjFIV2FMcVJqTzFEMGEycG14WFJRWWpPelFHTnZi?=
+ =?utf-8?B?ZmVtSkQxSlZsWVo1TnhUUUVGZnAxVFNGQWtCYkNSbHJVWXkyTEg0dW5IS3Fs?=
+ =?utf-8?B?OEFhZ1Q0OWhWSXpha2MxdGZiaGxHb08xSHIyaVlNcWdQMW0yQ0tiWWVvYnpQ?=
+ =?utf-8?B?M2pHS1V4aWFEc3hPL1FralgzL01uTFJnNUt5RmpRWTVDQWRsaG1aNUk2Q3pt?=
+ =?utf-8?B?TUFaZHRzNXdBd2o3bHJYaWY2d0NIRDZOa3V0aWlSZ1Z2enorK0pnaFA5eEVv?=
+ =?utf-8?B?N2g3RWl3NXh5UXJuQ2tuU3lNc016WHFHTlI2ZFJucGNZT0dnVzlOczJlVG1R?=
+ =?utf-8?B?eHNES0dBeG1mNlB3QVFCZWwvRzYxYnhZRzNGU0xOdFkvQmZINnRUcjRuTnVT?=
+ =?utf-8?B?MS85TGtkbUp6eW90WkFYcFo0bUtaUEFPeXNHTE1JTlhaVXBETjRnR212K2lG?=
+ =?utf-8?B?QkhhYWpOZE4vVldjNXZQdXlUTzVpbDVzMitpU0YrbTRtZHcrd1pwU2pCN0hm?=
+ =?utf-8?B?WDNiL2FIYmtlME5tcTR2RDNhQTlpTnlHTUV5WDEyakVvc0NjaEViTFByVC8w?=
+ =?utf-8?B?bGFjbCt1VzhhSllCU3IwY0lmN2NFek5DMFZzeGFWUmp4MW90cmx2RXp2RER1?=
+ =?utf-8?B?dnpqTXpPTTM2b242VUsxdk5ieXZVamtwbkN2TmZWaHJZYy9SUjRUQjJBcUky?=
+ =?utf-8?B?UEhNUzBTTjFGYUx1WEhvUHBYbEZRV0pLU2ZrQzd1dVFNYzd1L3hXL0dPNGJW?=
+ =?utf-8?B?a0k3TFhzTFFERlVxVjZzdWR6WnlHWURpcE5EKzlrczhoU2lQWUNUSmZJUHE0?=
+ =?utf-8?B?eGtLRmpqZDJZV04yQkJWN0dlOFJDc05vbUk4Q3dtbWJtYmR1WmhsK0VNVmtL?=
+ =?utf-8?Q?A6iAzEaryP/t4+pQKfUkIMRwM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d88bfee-ee8e-4017-156d-08ddaccf93f3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37561190-dea0-4dd9-f145-08ddacd0def7
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 12:16:09.8636 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 12:25:25.4513 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zjztQr3bj+1SU7/8QZbtSrBY178af/dnaZrKVWAxU9iHXI2VD5PyC2nT1EKGnx+c
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6003
+X-MS-Exchange-CrossTenant-UserPrincipalName: Up7Wep7Rpr69bALzJDqoPWcTxh0KotHWTvnlVFmWznCADfP9PNcFyDoj31dE/BqAQdPU5OfhnCgebpbQoDp1cA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6956
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,217 +163,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/13/25 23:47, Alex Deucher wrote:
-> Use the amdgpu fence container so we can store additional
-> data in the fence.  This also fixes the start_time handling
-> for MCBP since we were casting the fence to an amdgpu_fence
-> and it wasn't.
-> 
-> Fixes: 3f4c175d62d8 ("drm/amdgpu: MCBP based on DRM scheduler (v9)")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 30 +++++----------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     | 12 ++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    | 16 +++++++++++
->  6 files changed, 32 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 8e626f50b362e..f81608330a3d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -1902,7 +1902,7 @@ static void amdgpu_ib_preempt_mark_partial_job(struct amdgpu_ring *ring)
->  			continue;
->  		}
->  		job = to_amdgpu_job(s_job);
-> -		if (preempted && (&job->hw_fence) == fence)
-> +		if (preempted && (&job->hw_fence.base) == fence)
->  			/* mark the job as preempted */
->  			job->preemption_status |= AMDGPU_IB_PREEMPTED;
->  	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 00174437b01ec..4893f834f4fd4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6397,7 +6397,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->  	 *
->  	 * job->base holds a reference to parent fence
->  	 */
-> -	if (job && dma_fence_is_signaled(&job->hw_fence)) {
-> +	if (job && dma_fence_is_signaled(&job->hw_fence.base)) {
->  		job_signaled = true;
->  		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
->  		goto skip_hw_reset;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index 2f24a6aa13bf6..569e0e5373927 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -41,22 +41,6 @@
->  #include "amdgpu_trace.h"
->  #include "amdgpu_reset.h"
->  
-> -/*
-> - * Fences mark an event in the GPUs pipeline and are used
-> - * for GPU/CPU synchronization.  When the fence is written,
-> - * it is expected that all buffers associated with that fence
-> - * are no longer in use by the associated ring on the GPU and
-> - * that the relevant GPU caches have been flushed.
-> - */
-> -
-> -struct amdgpu_fence {
-> -	struct dma_fence base;
-> -
-> -	/* RB, DMA, etc. */
-> -	struct amdgpu_ring		*ring;
-> -	ktime_t				start_timestamp;
-> -};
-> -
->  static struct kmem_cache *amdgpu_fence_slab;
->  
->  int amdgpu_fence_slab_init(void)
-> @@ -151,12 +135,12 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amd
->  		am_fence = kmem_cache_alloc(amdgpu_fence_slab, GFP_ATOMIC);
->  		if (am_fence == NULL)
->  			return -ENOMEM;
-> -		fence = &am_fence->base;
-> -		am_fence->ring = ring;
->  	} else {
->  		/* take use of job-embedded fence */
-> -		fence = &job->hw_fence;
-> +		am_fence = &job->hw_fence;
->  	}
-> +	fence = &am_fence->base;
-> +	am_fence->ring = ring;
 
-I would rather completely drop the job from the parameters and the general fence allocation here.
+On 6/16/2025 5:41 PM, Christian König wrote:
+> On 6/16/25 12:05, Sunil Khatri wrote:
+>> add support to add a directory for each client-id
+>> with root at the dri level. Since the clients are
+>> unique and not just related to one single drm device,
+>> so it makes more sense to add all the client based
+>> nodes with root as dri.
+>>
+>> Also create a symlink back to the parent drm device
+>> from each client.
+>>
+>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>> ---
+>>   drivers/gpu/drm/drm_debugfs.c |  1 +
+>>   drivers/gpu/drm/drm_file.c    | 26 ++++++++++++++++++++++++++
+>>   include/drm/drm_device.h      |  4 ++++
+>>   include/drm/drm_file.h        |  7 +++++++
+>>   4 files changed, 38 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+>> index 2d43bda82887..b4956960ae76 100644
+>> --- a/drivers/gpu/drm/drm_debugfs.c
+>> +++ b/drivers/gpu/drm/drm_debugfs.c
+>> @@ -296,6 +296,7 @@ EXPORT_SYMBOL(drm_debugfs_remove_files);
+>>   void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
+>>   {
+>>   	dev->debugfs_root = debugfs_create_dir(dev->unique, root);
+>> +	dev->drm_debugfs_root = root;
+> We should probably just move drm_debugfs_root into drm_debugfs.c instead of keeping that around per device.
+root node above is needed in the drm_file.c function drm_alloc and there 
+is nothing above drm_device where i can get the root information. that 
+is the reason i mentioned it as drm_debugfs_root as root node of the drm 
+subsystem itself.
+~Sunil
+>
+>>   }
+>>   
+>>   /**
+>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>> index 06ba6dcbf5ae..32012e39dcb4 100644
+>> --- a/drivers/gpu/drm/drm_file.c
+>> +++ b/drivers/gpu/drm/drm_file.c
+>> @@ -39,6 +39,7 @@
+>>   #include <linux/poll.h>
+>>   #include <linux/slab.h>
+>>   #include <linux/vga_switcheroo.h>
+>> +#include <linux/debugfs.h>
+>>   
+>>   #include <drm/drm_client_event.h>
+>>   #include <drm/drm_drv.h>
+>> @@ -133,6 +134,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
+>>   	struct drm_device *dev = minor->dev;
+>>   	struct drm_file *file;
+>>   	int ret;
+>> +	char *dir_name, *drm_name, *symlink;
+>>   
+>>   	file = kzalloc(sizeof(*file), GFP_KERNEL);
+>>   	if (!file)
+>> @@ -143,6 +145,27 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
+>>   	rcu_assign_pointer(file->pid, get_pid(task_tgid(current)));
+>>   	file->minor = minor;
+>>   
+>> +	dir_name = kasprintf(GFP_KERNEL, "client-%llu", file->client_id);
+>> +	if (!dir_name)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	/* Create a debugfs directory for the client in root on drm debugfs */
+>> +	file->debugfs_client = debugfs_create_dir(dir_name, dev->drm_debugfs_root);
+>> +	kfree(dir_name);
+>> +
+>> +	drm_name = kasprintf(GFP_KERNEL, "%d", minor->index);
+>> +	if (!drm_name)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	symlink = kasprintf(GFP_KERNEL, "../%d", minor->index);
+> Better use dev->unique here, minor->index is also only a symlink.
 
-Instead we should just provide afence as input parameter and submit that one.
+Thats a good suggestion and doable. Will update in next version
 
-This should make sure that we don't run into such issues again.
+~Sunil
 
-Apart from that looks good to me,
-Christian.
+>
+>> +	if (!symlink)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	/* Create a link from client_id to the drm device this client id belongs to */
+>> +	debugfs_create_symlink(drm_name, file->debugfs_client, symlink);
+>> +	kfree(drm_name);
+>> +	kfree(symlink);
+>> +
+> Move all that debugfs handling into a function in drm_debugfs.c
+Sure, let me try that and push another patch.
+>
+>>   	/* for compatibility root is always authenticated */
+>>   	file->authenticated = capable(CAP_SYS_ADMIN);
+>>   
+>> @@ -237,6 +260,9 @@ void drm_file_free(struct drm_file *file)
+>>   
+>>   	drm_events_release(file);
+>>   
+>> +	debugfs_remove_recursive(file->debugfs_client);
+>> +	file->debugfs_client = NULL;
+>> +
+> Same here, move to drm_debugfs.c
 
->  
->  	seq = ++ring->fence_drv.sync_seq;
->  	if (job && job->job_run_counter) {
-> @@ -718,7 +702,7 @@ void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring)
->  			 * it right here or we won't be able to track them in fence_drv
->  			 * and they will remain unsignaled during sa_bo free.
->  			 */
-> -			job = container_of(old, struct amdgpu_job, hw_fence);
-> +			job = container_of(old, struct amdgpu_job, hw_fence.base);
->  			if (!job->base.s_fence && !dma_fence_is_signaled(old))
->  				dma_fence_signal(old);
->  			RCU_INIT_POINTER(*ptr, NULL);
-> @@ -780,7 +764,7 @@ static const char *amdgpu_fence_get_timeline_name(struct dma_fence *f)
->  
->  static const char *amdgpu_job_fence_get_timeline_name(struct dma_fence *f)
->  {
-> -	struct amdgpu_job *job = container_of(f, struct amdgpu_job, hw_fence);
-> +	struct amdgpu_job *job = container_of(f, struct amdgpu_job, hw_fence.base);
->  
->  	return (const char *)to_amdgpu_ring(job->base.sched)->name;
->  }
-> @@ -810,7 +794,7 @@ static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
->   */
->  static bool amdgpu_job_fence_enable_signaling(struct dma_fence *f)
->  {
-> -	struct amdgpu_job *job = container_of(f, struct amdgpu_job, hw_fence);
-> +	struct amdgpu_job *job = container_of(f, struct amdgpu_job, hw_fence.base);
->  
->  	if (!timer_pending(&to_amdgpu_ring(job->base.sched)->fence_drv.fallback_timer))
->  		amdgpu_fence_schedule_fallback(to_amdgpu_ring(job->base.sched));
-> @@ -845,7 +829,7 @@ static void amdgpu_job_fence_free(struct rcu_head *rcu)
->  	struct dma_fence *f = container_of(rcu, struct dma_fence, rcu);
->  
->  	/* free job if fence has a parent job */
-> -	kfree(container_of(f, struct amdgpu_job, hw_fence));
-> +	kfree(container_of(f, struct amdgpu_job, hw_fence.base));
->  }
->  
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index acb21fc8b3ce5..ddb9d3269357c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -272,8 +272,8 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
->  	/* Check if any fences where initialized */
->  	if (job->base.s_fence && job->base.s_fence->finished.ops)
->  		f = &job->base.s_fence->finished;
-> -	else if (job->hw_fence.ops)
-> -		f = &job->hw_fence;
-> +	else if (job->hw_fence.base.ops)
-> +		f = &job->hw_fence.base;
->  	else
->  		f = NULL;
->  
-> @@ -290,10 +290,10 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
->  	amdgpu_sync_free(&job->explicit_sync);
->  
->  	/* only put the hw fence if has embedded fence */
-> -	if (!job->hw_fence.ops)
-> +	if (!job->hw_fence.base.ops)
->  		kfree(job);
->  	else
-> -		dma_fence_put(&job->hw_fence);
-> +		dma_fence_put(&job->hw_fence.base);
->  }
->  
->  void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
-> @@ -322,10 +322,10 @@ void amdgpu_job_free(struct amdgpu_job *job)
->  	if (job->gang_submit != &job->base.s_fence->scheduled)
->  		dma_fence_put(job->gang_submit);
->  
-> -	if (!job->hw_fence.ops)
-> +	if (!job->hw_fence.base.ops)
->  		kfree(job);
->  	else
-> -		dma_fence_put(&job->hw_fence);
-> +		dma_fence_put(&job->hw_fence.base);
->  }
->  
->  struct dma_fence *amdgpu_job_submit(struct amdgpu_job *job)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> index f2c049129661f..931fed8892cc1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> @@ -48,7 +48,7 @@ struct amdgpu_job {
->  	struct drm_sched_job    base;
->  	struct amdgpu_vm	*vm;
->  	struct amdgpu_sync	explicit_sync;
-> -	struct dma_fence	hw_fence;
-> +	struct amdgpu_fence	hw_fence;
->  	struct dma_fence	*gang_submit;
->  	uint32_t		preamble_status;
->  	uint32_t                preemption_status;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index b95b471107692..e1f25218943a4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -127,6 +127,22 @@ struct amdgpu_fence_driver {
->  	struct dma_fence		**fences;
->  };
->  
-> +/*
-> + * Fences mark an event in the GPUs pipeline and are used
-> + * for GPU/CPU synchronization.  When the fence is written,
-> + * it is expected that all buffers associated with that fence
-> + * are no longer in use by the associated ring on the GPU and
-> + * that the relevant GPU caches have been flushed.
-> + */
-> +
-> +struct amdgpu_fence {
-> +	struct dma_fence base;
-> +
-> +	/* RB, DMA, etc. */
-> +	struct amdgpu_ring		*ring;
-> +	ktime_t				start_timestamp;
-> +};
-> +
->  extern const struct drm_sched_backend_ops amdgpu_sched_ops;
->  
->  void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring);
+Sure, let me try that if there are not challenges.
 
+~sunil
+
+>
+> Apart from that looks solid to me.
+>
+> Regards,
+> Christian.
+>
+>
+>>   	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+>>   		drm_fb_release(file);
+>>   		drm_property_destroy_user_blobs(dev, file);
+>> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+>> index 6ea54a578cda..ec20b777b3cc 100644
+>> --- a/include/drm/drm_device.h
+>> +++ b/include/drm/drm_device.h
+>> @@ -325,6 +325,10 @@ struct drm_device {
+>>   	 * Root directory for debugfs files.
+>>   	 */
+>>   	struct dentry *debugfs_root;
+>> +	/**
+>> +	 * @drm_debugfs_root;
+>> +	 */
+>> +	struct dentry *drm_debugfs_root;
+>>   };
+>>   
+>>   #endif
+>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+>> index 5c3b2aa3e69d..eab7546aad79 100644
+>> --- a/include/drm/drm_file.h
+>> +++ b/include/drm/drm_file.h
+>> @@ -400,6 +400,13 @@ struct drm_file {
+>>   	 * @client_name_lock: Protects @client_name.
+>>   	 */
+>>   	struct mutex client_name_lock;
+>> +
+>> +	/**
+>> +	 * @debugfs_client:
+>> +	 *
+>> +	 * debugfs directory for each client under a drm node.
+>> +	 */
+>> +	struct dentry *debugfs_client;
+>>   };
+>>   
+>>   /**
