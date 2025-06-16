@@ -4,153 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B2A4C71155
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 14:32:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AE09C71155
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jun 2025 14:40:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13AEE10E3AF;
-	Mon, 16 Jun 2025 14:32:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0647610E3B9;
+	Mon, 16 Jun 2025 14:40:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jyq9fFee";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KiSluUgp";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB90B10E3AF;
- Mon, 16 Jun 2025 14:32:52 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91AB510E3B9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jun 2025 14:40:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oHqdpzqbXyyUuQsWqY2PxIMGQyk2yv/O40lfyM1jaViaPa71jk8LGmHRosRAWxT+i/Nc5zVFQFguM0i9yN6HAOXG6jV7ZtAFMEVA+4XAZxfREn8FSsCZLwgtLwSxd87s7MULolh4AYyu83Bdtg1ev1ODqnyYzbjoSp+Sfc2idQ54Iz6UT3k5uVv6I4f8Rp1+8Bm8QqCxBl0qwOAAzU2hxF7O02YKCbDebTybBa7rgfIwg62KG0QREI0N2NhBagLk4fJNs+rQ5s0EIIaE11fMsDqjjmb8yUY4FbMwQEFl+Bjx3Q/xgvPJfdHxQ++vIrSln9PVCrBEx91MPy7z+XMIzw==
+ b=NbpcdcUCncWzEe0TjGNdYeo+QFtva0BhmFkAbxGG82F8lmqJxQGupmoN1FGCRQElHMgaLv5WqMzBig2V/tfv6UdzI7iabC0geYWH9iGKVuGAjeaHo3pIof7APHvTWHTQWA8N8OD2/hFa9ZAj7+PBYX5yCUeHLgq7qv4SwhORxzWNTswRI04sHxgI7m/40qi04N7k7IBos0wx7yVLtNjgMEVvvoGwe6joezxg2qJa5MXuijuNzg9z5/hetnAJAe02sOqlDwjPND5avcrfzAPdqNqsqiXUsRz96Lr89LoEHGtn+Qd5NfNsqZWhQXtAUndtQNNYowpdGdONF3zRQJWHqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Io2Wb2iJnGDgbVct+c2k4gTjrk5UKMMqZrJGUUoSN8w=;
- b=Y3nI50USTbSq6yQo1fYP6q33uIOjoXRq2RDxR8D0Z00+UnUrDlnnPFlTzCSUu56dZ7cqWVUIlyZOtUL4d0hXlcCEQJk64aaVQWPTgzmJZ4+DoSqlDXQ82BgRfL5v32of2alGiXYj4mqaldD11pFpWvCwPQm68JABk2QzzJz07a9ws/4ntn1sAL/pe9P/SKfmf7U5941TDtQtT+SqAUqI6QwtrTiVYstwevNA0A9bquoC+7NVXXGuIHzO2/+X5uYehhcyS0ux9jkThqycXjus3EknxaBQ2XaOqvGePanuvsqLFQFyyNF59F6DnJcItMaoK41SppFIzvX/mc1OmAli1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ws3gMK2rBeG+Oo0Y0PXKe5xoGlnZPKOYYgNIfxxkDN0=;
+ b=ZSv5RRNBhNrsuZDVpyP1TbDWJaA+G2f+O2qeE5H9G9bp/4fWtzCslGug0tXFYG8PEByOuJbQoG8ZwcOMNljsORhEO4FqJ0BwffXbcgfjXTepFluvRoJTt0ADk7mTvUPUsSoWB3uedJVrQyZC442XKMHY3k9GaoFBYkl9o96OZNUup1m6HoSWV5Q6TcmtW5TaJX2Jg8ewq0VYmzDFPxAufguUvyrcTz23/gUtdsWY9iVE9i0ozqsPt7J7GC1os4dn7QqnKUnPFUqBsH6IfkrPUINItbiOsLSKTk2TZWpIbTe/xzlN84Z4adgjl4aqakD4MMiGv+/Xxx9wnfcXmfVsNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Io2Wb2iJnGDgbVct+c2k4gTjrk5UKMMqZrJGUUoSN8w=;
- b=jyq9fFeeypmz0xIxbPQcdcsGQo/rddTDkb0qeOd/7/ZXQs1v2kd0cd6A41gli6CH/gRE4QMXFLDfd2GLpAhuI5CVUMTuCfvyQVFlqAQAhtPSKxLTpcJcgqqXdl3GuiNuNtMj6PzAeI04wMOUdONcngeNDlkiGp+O3vni03ehhws=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by DM4PR12MB8569.namprd12.prod.outlook.com (2603:10b6:8:18a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.26; Mon, 16 Jun
- 2025 14:32:48 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::2b0e:7fc3:1d21:5d2e]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::2b0e:7fc3:1d21:5d2e%3]) with mapi id 15.20.8835.026; Mon, 16 Jun 2025
- 14:32:47 +0000
-Message-ID: <463e48d0-fdbe-4cd1-9b7e-086adf8b0b3b@amd.com>
-Date: Mon, 16 Jun 2025 20:02:43 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm: add debugfs support on per client-id basis
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-References: <20250616100503.1204166-1-sunil.khatri@amd.com>
- <20250616100503.1204166-3-sunil.khatri@amd.com>
- <3ca35236-377f-4ef0-becd-ba5d22b5edd8@amd.com>
- <84af6984-bd2e-4378-a5c0-ee2356f96b8f@amd.com>
- <cf0e1436-462f-4d63-a7fb-d1201d100bba@amd.com>
-Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <cf0e1436-462f-4d63-a7fb-d1201d100bba@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4PR01CA0023.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26e::17) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+ bh=ws3gMK2rBeG+Oo0Y0PXKe5xoGlnZPKOYYgNIfxxkDN0=;
+ b=KiSluUgpt/TrOfcL+aMvE6j4rDK+hic4zM06Rr5VblMKHuCdsZOtcpN6b1O66O0JaKC7zGiWDP3mSC4U4ExbTeuaMQSE1DsnHKi3B5qltJUVbPVVaWwL7J7a8N16Vlg2ySZ9XhqmYaLUYMNW26qK+obD6p/prXfUg11aoiCo7vw=
+Received: from BN9PR03CA0746.namprd03.prod.outlook.com (2603:10b6:408:110::31)
+ by MN2PR12MB4223.namprd12.prod.outlook.com (2603:10b6:208:1d3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.30; Mon, 16 Jun
+ 2025 14:40:38 +0000
+Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
+ (2603:10b6:408:110:cafe::9b) by BN9PR03CA0746.outlook.office365.com
+ (2603:10b6:408:110::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.19 via Frontend Transport; Mon,
+ 16 Jun 2025 14:40:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8835.15 via Frontend Transport; Mon, 16 Jun 2025 14:40:38 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Jun
+ 2025 09:40:38 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Jun
+ 2025 09:40:37 -0500
+Received: from jessevm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 16 Jun 2025 09:40:31 -0500
+From: Jesse Zhang <jesse.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse Zhang <jesse.zhang@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH V2] drm/amdgpu: Fix SDMA UTC_L1 handling during start/stop
+ sequences
+Date: Mon, 16 Jun 2025 22:40:30 +0800
+Message-ID: <20250616144030.3497914-1-jesse.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|DM4PR12MB8569:EE_
-X-MS-Office365-Filtering-Correlation-Id: d572afa6-9706-488d-d4b0-08ddace2aa22
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|MN2PR12MB4223:EE_
+X-MS-Office365-Filtering-Correlation-Id: 813e2e19-52a9-4603-a9a5-08ddace3c311
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bXorU2JOUzVzcGNsa3VINk5WemdaZWZZL2ZrZFBSdHVoMnVqeTZwMk9qSGNB?=
- =?utf-8?B?QWkzZGVCbXNKeGU2ZFQ3MnExbjRRdUxjSUplU0psY0NxMmpGR25sZEJPYTNC?=
- =?utf-8?B?SUpoa1pDNUk5MkVPQjd6emdNVFFQcWU0cVJ3eTd4dnlDcjV0TkZndXo3VG9D?=
- =?utf-8?B?cGNyS1krTmFCMlVqUmFRekJZSWdyUHZMMUNGVHpQcCtQOWFWZ1lxUnpSeG4z?=
- =?utf-8?B?ZWtMQVQwUUVST1lpVndjVFJXalppOEJSaHpqTkdXWDNvN3R1R01VSHk2Q1ho?=
- =?utf-8?B?SVpUL0g2T0orRW5FTDhzeWx1Y3krVHFwOEN1Ukt1dDRaUU9NS3hxSFozcEs1?=
- =?utf-8?B?Uk1uNnNMYkRadWl3MmV5Q3VzR3VMRVMvc1dyYzJETVNNY0ZsekUwTXRidy9P?=
- =?utf-8?B?UmR5emhmS1hDeWxUS0pLOGErT2NFQnlVeklCYXZjREZTRkQ3eGxLUjNXWHRj?=
- =?utf-8?B?SXRCSkFRR3JpdDJSaTlWYXlqQlVCd1MvU0pjaHhBMlhkRXpPZ2gvWlhXMldr?=
- =?utf-8?B?L3ZsMm1KbDBHcHF1c1VkVlA0a2piRWgvZVR1V2hzdHdmQTZyTjBSd0xwWUVC?=
- =?utf-8?B?QlpraXhITkt5ZnFZT1hFUHBpc2NETUtaL1RlTEdVb016T1crZlc2VGtRUnJn?=
- =?utf-8?B?M09oQm1tY09saXNyMHZGUjNNYkV3UG53cHNLaVZVaE1hMmFLR2pja2VWeXVU?=
- =?utf-8?B?Umw1OHM4SEhWU1c5RDZjbjZtNHhuN05VMk9UQnkxYytPekJEa3lNOGNOYnpX?=
- =?utf-8?B?TDhZN3BWOEh6V1lMd3NiaXFPdHZKS1ZNRTJQTUFRMmx1ZDJZQ3F2NUxjSWNk?=
- =?utf-8?B?YlRjY0krT0gwMjI5SmtwbUNPL2RjM05rVUJENXU4dWQ2SDhGaEpzeEk0VVRO?=
- =?utf-8?B?S3lVNHB0dDZtOVA3N2lvUVFkbG1qandmb3NIdnFha2R2Z2JoMDZrSDUyNW9F?=
- =?utf-8?B?cDBLa2NnT1RBei9NM2JXUnJrM0xxU015UXNtdDNsUVBkK2ZMZHFQOFc0RUJD?=
- =?utf-8?B?OTFpUE92d0xzYlFyOXhBMkxGK2Y4bENUVWpOb2U2K3BQSXRoK1VJWDJxMDg2?=
- =?utf-8?B?ZVdCUzd3SXBkY3hiUjZ3d2ZLY2dBNjFEWXFTSTF4RHVTSkY1Q3RMaEpMWW5X?=
- =?utf-8?B?UE1PUDdvUkpiNlJTbUg1UEpFTzZRQjZGcW4rNUF2V21lVG9NU1Z0cWkwanBD?=
- =?utf-8?B?WmY5THMrUy8vZVVFaXpCQW1ja0lPdXBra0R0cUQ3bUwrY1I2MzdjWUFqbVlX?=
- =?utf-8?B?UzErR3ZiNXRYQkRVQkhKbXI0OE5pMlRuMjNDSnowcWFLRHBkQkdNREtmMGU3?=
- =?utf-8?B?T2hibFA1OFpTRG1wdE5jWUNiK01VQnllZWZNbVYxLzRMSVVDeWtGb3U2eEk1?=
- =?utf-8?B?MXNUeG1ldFRzalVnL0sxL3IzRXE1aFlXcTRHaTllTk14bE9NdlFRNHJVTi9k?=
- =?utf-8?B?cjFRaXQxbWFBL3lFbE1Cd0pEV2t2T0NnT3ArZEpuUEloQ05wQVpiZGN4Wld4?=
- =?utf-8?B?SFg4V1VIYmZXNFFyR05TZGVITC9kYnZhTGs0TFVGdXRtdnhGcTVpYmZ4c0NG?=
- =?utf-8?B?NmVMSG1OZTNVanZ2T0Q0Q2FQZ2pxNGZHUnozTlVBWjhFSHlhL3I2YkhYNFFT?=
- =?utf-8?B?VUR0MzhVa1ZOY0M5YnIvQzZFRDVPZ0ZsS2xQNndEZFczU0dtNnBvck0xZ21C?=
- =?utf-8?B?eHRQdFZjeHM4QnVaSWhBeERoV01kc3FKS3BERWh0QWhqWVhYRDd6MWtZQW40?=
- =?utf-8?B?UDNTVlJTZ3h0RDFUZ1NMTzBrTHNFVlR6MjY0eng0RlJ4TVg3WGw5NUltN3dv?=
- =?utf-8?B?eDZWZndHMHNaay9XUEUwWjhxMXBqbmIrVEZZRm5HYmk2bW4vNzdad0VVVzBo?=
- =?utf-8?B?WVMzYU9wY2VKT1ltOG1yakdESXh4cW4rcmtrQVZGaWRwVkRQS0tWTVlTZzB4?=
- =?utf-8?Q?hZ+DPe4DH6E=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a21ablNGVDRCaERzTGdvRkdUNUphdFM5dDFDN0x2LzlMQ2krUXZiamU2dUFF?=
- =?utf-8?B?R21yV2ZaTk5VOUhzSmRzMERhRkhHU29uVzcvQWsya0xXeGNncDdZQXFFa25L?=
- =?utf-8?B?bnpUTU0wMFFaVDFaZkZoWmE2TTlpWU8xRTIwOXp6ejZBTFpaSzduRUs1aDM4?=
- =?utf-8?B?ZWw3ZFVjY1dnSGpJQXpBWHdCeUpQbzFiTzIzOVVtbDdheEVTTlI5dE8wUGQr?=
- =?utf-8?B?YjlsWGRzeStKY3NWWEZzS1FRNjI5Qys2TzJBdmFadE0xblVLNC9RdnBSaUJ1?=
- =?utf-8?B?ZUdEdDRCTjlHUWEvMkdDQ0Z4d0kxelE0WkVJMGx0R3MzT256WElmM2ZxMjNV?=
- =?utf-8?B?VTRxYW1VblJkWk84T3FnZXVBNVZHSzdlUm4wWGF3bS9PbGd6WHhMSGxlWVVT?=
- =?utf-8?B?ZjRHa0tLZ04vVzhzd1NaTktwRVlhSWYxN1ZkWXlNWEtKbnV4d3Y0dityVjBl?=
- =?utf-8?B?cFlwVFdBQTBHMWQ0TDFDc0dsSUFsM1dSc3FMSUsydDVMcWZTUDA4b3pUQUtY?=
- =?utf-8?B?dHVvNEpMK2k5VHRiR3lGTWtoR3JpNXZDWnVsNmN6d053bFdSYkl1UDZYVXB3?=
- =?utf-8?B?LzFUM0g1aElVOUkzZTY2MmMrS3Bmb2JXTCtubVovSk80bFdlVlNaYjRIaTFz?=
- =?utf-8?B?MWpxTG9tUmJRdEFOam5OSE5ab0lnOXp6alVlMlQ0cThEc3ZoMzgzTVU1OVVo?=
- =?utf-8?B?TjZqNmNnNjVieW1xOUlOTDMzc3JHSktwQzJBdzJ0ZTVuQUJycnRDZDV2RTR5?=
- =?utf-8?B?VHl5dHpUaDUwRnYrOVNmTGFzVkRxcWVjOHJDc2svZlpOcTFHVmR6dVdzcGxq?=
- =?utf-8?B?Wk92eXVDL0pjZ1A3UTlkT3pwOUpkcTNabWZ1Z0RwaDBQWGZXREtDdENRYkRp?=
- =?utf-8?B?dERYbi9CMTA2R1V1UzFQT1NCZGN6cHpGK1gxL3BSRUxHazNGaEUvcWlkVDRM?=
- =?utf-8?B?TDR4Rnl5aEtxMlRKdmh4T3FseGY1bGN3QjRrdHF6SWNhT1MzL2pDWlJGTFBq?=
- =?utf-8?B?RlA0M1pVUFFSeFFGWXl5Rmk2YzBhWFY4ZFlUV1d3VlZjZjlKbmdNWkIrWkNZ?=
- =?utf-8?B?L2pKNFh6RkU0UkRIZVNZcUdmTWZzN0JDa0RzOGR2dktuTnFCNldCTU94ZnU4?=
- =?utf-8?B?elVaMlNBbkFXSTRweHdTbEZ6d2FxeUozeU1hTHBDZzZOMTQ1VkxwS2JzSW1a?=
- =?utf-8?B?eWwycVFxMTg3MEVldXlrNGVsY2x6aDBpT2hRZHkxQjJUS3FMWGsyU093S0Vi?=
- =?utf-8?B?ajhRVzgxWFNlblRBMGthanVTb21DY1ZPcklFSDkzVjRFZ0pBMEcxemhaaFN0?=
- =?utf-8?B?RUpCcXlXNCtCZXh4VTZrMlA5NVlqY2NGd3RkMW9EVTE3alJVaVB1QmxkWlRx?=
- =?utf-8?B?czk3UDZIMW9rTjlUdGRtdE0vRmRDYlpOajRKOFVuSFRzbGdFVS9Edzd5QzlN?=
- =?utf-8?B?NUVTeStQdjI0bmt5WE9zQmdzOXNTb3FnZVh1MGlWVU1wMjNjK2o0YmlFcFNz?=
- =?utf-8?B?WVd5NHNkOFZXMFFRcUVWZUVoanNUY2hWL0dZeXhydisyZUkwSno5RjdjTHpu?=
- =?utf-8?B?TXRpN05XYjN6UkZ6K2pXTU9BVkx6UnY2YlF2SGdBTTZ4V0VGSGFJRU1ENFM4?=
- =?utf-8?B?ckpEVzQ2VHVwYlVzd0wrN0dpS3VQZSt6eWNIZ1R3MDFQakY4ZXFvZ2FNd3E4?=
- =?utf-8?B?Q2g2bVExcDZQbzJSWG9XbXJEVkNrVThJM3RRT0pLTFgyTWpobXJEZnhxSzZT?=
- =?utf-8?B?bVR3c2NMOG44VGlwbjZIQkFrSUNLMkR0bW1taTlqZXFxN2FwRkxWSG5WYU8w?=
- =?utf-8?B?bzcyMW9jQ1VuL0Q1RC9PTTFHcC9OQXk4Ri9aKzJhWHZ5TFFUbnhyNjYyWHY0?=
- =?utf-8?B?YnlUZVZxL01ZR0dxRkFsOG1rZEFQamU0RE0vVE5wVmRJM0xncHpQSExlbXE3?=
- =?utf-8?B?RDB4SGliZE0wMVNjMm5GYjlyeDZYODROa0k3RDE5aVM3K2NUV05xeHNER3VM?=
- =?utf-8?B?cDJvUytQUzQ2WHBZdElYU2wzVEtlV3p3UEtpdGZ6NE4vSkw2UDRyMFBFclhE?=
- =?utf-8?B?YkpOVCtNMVhxKzh4WXBxS3hnYlhkUTYwN2JaRGhIeXQxc3dtVzc1bFJDekVK?=
- =?utf-8?Q?HKQ4I69lGdstHK4nFDLq5JX47?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?N3fr2YXibpdA9UREBrr1T+4UbMrjAwGPhabf8dw/+YKOrA/P/c34/qvRPj9h?=
+ =?us-ascii?Q?jLNsB7YNeRTWmGxq9iVgduHed2D6ZhIeXxsqfv+ZcWJTlcs0YuQNtiHKPa1E?=
+ =?us-ascii?Q?Gz/67jge4bWyaFOjam2SRoFAxLG1rlehziXCYq8Ie2N45pudjoP8sxzmVyqC?=
+ =?us-ascii?Q?fSyqj68A05eRAs0KnEh2CVJNLPpDhYZKDz3HVKWwZCnDyqtLLzlt/L4MSEli?=
+ =?us-ascii?Q?tWwvX8MID5ZRQyUoUEHB+bWMXYFje2El8jkEg5NNK0IXrEA00g6Si6uQzx2D?=
+ =?us-ascii?Q?RM6eRf0oipwwEHsFLJ/zmDRUfImnGkMtkfQ0/jJCjT6V97dwJZterNNNDx9l?=
+ =?us-ascii?Q?2P5knRaOM+1OBw03ItTQRJtGdvKpsLJ2u5MYaC4vVralODKozlrp5P1de9OL?=
+ =?us-ascii?Q?4+FbIuy6G7EfoDmp7h6q2sEnGl2owOFQZNX8O9HFc4mLKTjoOXBdj/1ZdYiv?=
+ =?us-ascii?Q?NFbqE8iXoAb6xBolBjK+1IVmZ8ID/TB1eVWXI/z8IxryhSKq78nmkJ7PaASl?=
+ =?us-ascii?Q?XKwbs4hRDvbgxTIjpK7C+nsLIP5fyPxou9zvTlTl0UDehfRUm7N/JlAY6vZ/?=
+ =?us-ascii?Q?PNrudjhQf7JtJ80vihdN2sk+XGp7gAA1geHGQxTRzTVgQlYawKOftzE8RxTY?=
+ =?us-ascii?Q?F3QnPKGidPHQbLw6jUIQa4OXmAKsw0kGOTNfKqXSq7u76mnTvvOBFdyQpJwR?=
+ =?us-ascii?Q?/PKT8xG1yaHil0mFepAhLjA9IVXwR4n57neBmUi2U+Hkc0imC8cbCBs+30rt?=
+ =?us-ascii?Q?Fa21cwxtIaH6qFGBw1NpgsPNs/3d0dcfh86ylmkawLpO5cDRs1jglqdaa/JJ?=
+ =?us-ascii?Q?EBv5s6bB5NgjO5lcSoD9cI24jw3YM4WVrngobSjlDyB9An4WPN5p3OfzqbMz?=
+ =?us-ascii?Q?ojc4JAIAWMiRbhrmcEaYvOtbaiD22EBu6JAVBiCMpJ5souBGD5HDRdM8Lhkh?=
+ =?us-ascii?Q?NAbxtKPzZVzMr0zLbG8Pb8l6EJoPKGp4iLTQAXqI+a74AjvFdU8/GIRyWzST?=
+ =?us-ascii?Q?sNs53eqMPz8hp9VPrAocv5/8NJOgSitOG0kRGaD3CIe5Bq9v9XpwCOMJyr8K?=
+ =?us-ascii?Q?jpZyZY8sdB3xMRCQa34eZFjGLBQLtKkzs+w1+CjDUjr99GAaYW6X7tfWKFhn?=
+ =?us-ascii?Q?8dbySqbfCHfue3xHZc2TAHWuuysVMRbfltOZFZ2mLZHBWCXpvSxjSnRbjAmx?=
+ =?us-ascii?Q?poo9ObTmzIRCqNZDwxrm8pSorXw/W8G/TG8FOwJ5KbaQPG+ADWMj77fdn0i+?=
+ =?us-ascii?Q?9VblsWK5uC4E48ciUtXiI4AOYHhZRsdHqUr3NVbHtmSl5N1oMnXZO3V4A/qO?=
+ =?us-ascii?Q?+CG2L9pryXhMFe5GXWF/jnhlivB/TzMGs6mABtxcEU8+WsbeS5Wj+Xs1JJsS?=
+ =?us-ascii?Q?gdSLfq9SA1dwh3KGc3KjQHbD1V7kbH4i14+JiUtB7cv/WywLPMvCs2z42WQN?=
+ =?us-ascii?Q?UrOqPYOz/mhxsQQCsahuPISgxi2efXXAPe4cj2M2PzMrXfL/xSS52sKPKkje?=
+ =?us-ascii?Q?DcrCzPcDnpRhSZXh8kIbkSbt+Q91sP9Bsbvl?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d572afa6-9706-488d-d4b0-08ddace2aa22
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 14:32:47.6853 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 14:40:38.6311 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 813e2e19-52a9-4603-a9a5-08ddace3c311
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X9vuILktpCHGB4RuihkOCVbAwxbd23B/dyIRI6PRO5X6h5JnAP3yGTkwEb3foRgeknzRblzfQ1LRnY0smYJe6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8569
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4223
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,170 +137,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This commit makes two key fixes to SDMA v4.4.2 handling:
 
-On 6/16/2025 6:26 PM, Christian König wrote:
-> On 6/16/25 14:25, Khatri, Sunil wrote:
->> On 6/16/2025 5:41 PM, Christian König wrote:
->>> On 6/16/25 12:05, Sunil Khatri wrote:
->>>> add support to add a directory for each client-id
->>>> with root at the dri level. Since the clients are
->>>> unique and not just related to one single drm device,
->>>> so it makes more sense to add all the client based
->>>> nodes with root as dri.
->>>>
->>>> Also create a symlink back to the parent drm device
->>>> from each client.
->>>>
->>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/drm_debugfs.c |  1 +
->>>>    drivers/gpu/drm/drm_file.c    | 26 ++++++++++++++++++++++++++
->>>>    include/drm/drm_device.h      |  4 ++++
->>>>    include/drm/drm_file.h        |  7 +++++++
->>>>    4 files changed, 38 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
->>>> index 2d43bda82887..b4956960ae76 100644
->>>> --- a/drivers/gpu/drm/drm_debugfs.c
->>>> +++ b/drivers/gpu/drm/drm_debugfs.c
->>>> @@ -296,6 +296,7 @@ EXPORT_SYMBOL(drm_debugfs_remove_files);
->>>>    void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
->>>>    {
->>>>        dev->debugfs_root = debugfs_create_dir(dev->unique, root);
->>>> +    dev->drm_debugfs_root = root;
->>> We should probably just move drm_debugfs_root into drm_debugfs.c instead of keeping that around per device.
->> root node above is needed in the drm_file.c function drm_alloc and there is nothing above drm_device where i can get the root information. that is the reason i mentioned it as drm_debugfs_root as root node of the drm subsystem itself.
-> drm_debugfs_root is currently a global variable in drm_drv.c, but if we move it to drm_debugfs.c all functions in that file could use it.
+1. disable UTC_L1 in sdma_cntl register when stopping SDMA engines
+   by reading the current value before modifying UTC_L1_ENABLE bit.
 
-The global variable drm_debugfs_root is global variable in drm_drv.c and 
-a lot of function there are dependent on it. So no matter where we move 
-the variable we need to have a reference of dentry in drm_drv.c too and 
-drm_device is the only thing that is being used in drm_drv.c.
+2. Ensure UTC_L1_ENABLE is consistently managed by:
+   - Adding the missing register write when enabling UTC_L1 during start
+   - Keeping UTC_L1 enabled by default as per hardware requirements
 
-eg:
-drm_core_init is using it and there is no structure there to use to have 
-a reference to this node.
-drm_minor_register also uses the same root to create the device nodes 
-and we cant move all the code from drm_drv.c so we are stuck again how 
-to get the reference in drm_debugfs.c
+Fixes the commit 7f03b1d14d51 ("drm/amdgpu:
+Remove sdma halt/unhalt during frontdoor load") by maintaining proper
+SDMA controller state during initialization sequences.
 
-I am trying to explore if its possible but if there is anything you 
-could suggest appreciate that. What is in the current patch is we have a 
-reference of root in drm_device itself like drm core is parent to every 
-drm device, could use a different name like parent_debugfs or something 
-like that.
+v2: Correct SDMA_CNTL setting (Philip)
 
+Suggested-by: Jonathan Kim <jonathan.kim@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Regards
-Sunil Khatri
->
-> Including the new functions for creating the per-client debugfs directory.
->
-> Regards,
-> Christian.
->
->
->> ~Sunil
->>>>    }
->>>>      /**
->>>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
->>>> index 06ba6dcbf5ae..32012e39dcb4 100644
->>>> --- a/drivers/gpu/drm/drm_file.c
->>>> +++ b/drivers/gpu/drm/drm_file.c
->>>> @@ -39,6 +39,7 @@
->>>>    #include <linux/poll.h>
->>>>    #include <linux/slab.h>
->>>>    #include <linux/vga_switcheroo.h>
->>>> +#include <linux/debugfs.h>
->>>>      #include <drm/drm_client_event.h>
->>>>    #include <drm/drm_drv.h>
->>>> @@ -133,6 +134,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
->>>>        struct drm_device *dev = minor->dev;
->>>>        struct drm_file *file;
->>>>        int ret;
->>>> +    char *dir_name, *drm_name, *symlink;
->>>>          file = kzalloc(sizeof(*file), GFP_KERNEL);
->>>>        if (!file)
->>>> @@ -143,6 +145,27 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
->>>>        rcu_assign_pointer(file->pid, get_pid(task_tgid(current)));
->>>>        file->minor = minor;
->>>>    +    dir_name = kasprintf(GFP_KERNEL, "client-%llu", file->client_id);
->>>> +    if (!dir_name)
->>>> +        return ERR_PTR(-ENOMEM);
->>>> +
->>>> +    /* Create a debugfs directory for the client in root on drm debugfs */
->>>> +    file->debugfs_client = debugfs_create_dir(dir_name, dev->drm_debugfs_root);
->>>> +    kfree(dir_name);
->>>> +
->>>> +    drm_name = kasprintf(GFP_KERNEL, "%d", minor->index);
->>>> +    if (!drm_name)
->>>> +        return ERR_PTR(-ENOMEM);
->>>> +
->>>> +    symlink = kasprintf(GFP_KERNEL, "../%d", minor->index);
->>> Better use dev->unique here, minor->index is also only a symlink.
->> Thats a good suggestion and doable. Will update in next version
->>
->> ~Sunil
->>
->>>> +    if (!symlink)
->>>> +        return ERR_PTR(-ENOMEM);
->>>> +
->>>> +    /* Create a link from client_id to the drm device this client id belongs to */
->>>> +    debugfs_create_symlink(drm_name, file->debugfs_client, symlink);
->>>> +    kfree(drm_name);
->>>> +    kfree(symlink);
->>>> +
->>> Move all that debugfs handling into a function in drm_debugfs.c
->> Sure, let me try that and push another patch.
->>>>        /* for compatibility root is always authenticated */
->>>>        file->authenticated = capable(CAP_SYS_ADMIN);
->>>>    @@ -237,6 +260,9 @@ void drm_file_free(struct drm_file *file)
->>>>          drm_events_release(file);
->>>>    +    debugfs_remove_recursive(file->debugfs_client);
->>>> +    file->debugfs_client = NULL;
->>>> +
->>> Same here, move to drm_debugfs.c
->> Sure, let me try that if there are not challenges.
->>
->> ~sunil
->>
->>> Apart from that looks solid to me.
->>>
->>> Regards,
->>> Christian.
->>>
->>>
->>>>        if (drm_core_check_feature(dev, DRIVER_MODESET)) {
->>>>            drm_fb_release(file);
->>>>            drm_property_destroy_user_blobs(dev, file);
->>>> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
->>>> index 6ea54a578cda..ec20b777b3cc 100644
->>>> --- a/include/drm/drm_device.h
->>>> +++ b/include/drm/drm_device.h
->>>> @@ -325,6 +325,10 @@ struct drm_device {
->>>>         * Root directory for debugfs files.
->>>>         */
->>>>        struct dentry *debugfs_root;
->>>> +    /**
->>>> +     * @drm_debugfs_root;
->>>> +     */
->>>> +    struct dentry *drm_debugfs_root;
->>>>    };
->>>>      #endif
->>>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
->>>> index 5c3b2aa3e69d..eab7546aad79 100644
->>>> --- a/include/drm/drm_file.h
->>>> +++ b/include/drm/drm_file.h
->>>> @@ -400,6 +400,13 @@ struct drm_file {
->>>>         * @client_name_lock: Protects @client_name.
->>>>         */
->>>>        struct mutex client_name_lock;
->>>> +
->>>> +    /**
->>>> +     * @debugfs_client:
->>>> +     *
->>>> +     * debugfs directory for each client under a drm node.
->>>> +     */
->>>> +    struct dentry *debugfs_client;
->>>>    };
->>>>      /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index e6af50c947a1..52157acab55a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -492,7 +492,7 @@ static void sdma_v4_4_2_inst_gfx_stop(struct amdgpu_device *adev,
+ {
+ 	struct amdgpu_ring *sdma[AMDGPU_MAX_SDMA_INSTANCES];
+ 	u32 doorbell_offset, doorbell;
+-	u32 rb_cntl, ib_cntl;
++	u32 rb_cntl, ib_cntl, sdma_cntl;
+ 	int i;
+ 
+ 	for_each_inst(i, inst_mask) {
+@@ -504,6 +504,9 @@ static void sdma_v4_4_2_inst_gfx_stop(struct amdgpu_device *adev,
+ 		ib_cntl = RREG32_SDMA(i, regSDMA_GFX_IB_CNTL);
+ 		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA_GFX_IB_CNTL, IB_ENABLE, 0);
+ 		WREG32_SDMA(i, regSDMA_GFX_IB_CNTL, ib_cntl);
++		sdma_cntl = RREG32_SDMA(i, SDMA_CNTL);
++		sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA_CNTL, UTC_L1_ENABLE, 0);
++		WREG32_SDMA(i, regSDMA_CNTL, sdma_cntl);
+ 
+ 		if (sdma[i]->use_doorbell) {
+ 			doorbell = RREG32_SDMA(i, regSDMA_GFX_DOORBELL);
+@@ -997,6 +1000,7 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device *adev,
+ 		/* set utc l1 enable flag always to 1 */
+ 		temp = RREG32_SDMA(i, regSDMA_CNTL);
+ 		temp = REG_SET_FIELD(temp, SDMA_CNTL, UTC_L1_ENABLE, 1);
++		WREG32_SDMA(i, regSDMA_CNTL, temp);
+ 
+ 		if (amdgpu_ip_version(adev, SDMA0_HWIP, 0) < IP_VERSION(4, 4, 5)) {
+ 			/* enable context empty interrupt during initialization */
+-- 
+2.34.1
+
