@@ -4,141 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F02C71136
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 15:16:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 650DDC71157
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 15:25:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF5A10E2AC;
-	Tue, 17 Jun 2025 15:16:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D3F810E727;
+	Tue, 17 Jun 2025 15:25:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lUnUuTWG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eHrvyrso";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEF0F10E2AC
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 15:16:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gc+KNMRKMINjBFTbMtKnXP3MLIqLDtRtIn6xRkx5Y0tirBYuvi5lk/ZooSkGhSuEsN7ZO1NCjJapSXx2e18MQtvLZHVCQQISBwgF2PYXcThaAcqoqWOwQodk2tJbbI5CBZy++FVQ7ev6rso5zwR+gh+ugClhppStuTgH5ku7kKLfzW2mnjL3fZGmdnQ0WOrJ9HrodBDvzXNqcHfKtICGxH5H+vYwuXMpX/eFdgpn1CLjNsPJrbOz9GBr7wHgkz6LzDAIH+7+ISPLwirIM4MI+lgGF1ZApXdFkaRt1wHMg6RaP8/t1afr0w7xG8ojvYYiWT85+q+bxUNZySDL4JTbCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mmzBQjS8L9iaTGPqZzBvaNPBbPj2cAA6IiJ/3CyOCHQ=;
- b=dFowrvsK+z4SyRVKca6Sr3I84Oyf6AM2ZEAzsrq7hGhdfl23uTxmcA3GzQJ+mQxP+ggYb4hjMTmwgMBJSdpCLbsZvJg8wnpjf6swci/ovKWOQqqq5ATLQK2uToonPwYNAt+DSUTXom5epHYhPP4pfy85MCUBerGBsR3yLMDkCTiIlCkp4Og2wJQoyARq0xdQ/fuk7GWkP8+Z1OZ7kQ+Djf39LfVKENR9vPk2od9mmvkv6/V8Vtmt9vAMpO7qWgCgWCk9aTnvKaS4+bhuu2bE64hDY4g7sxmb7VH0IqgNFjooks/2FQ1pja8nfajczWNHMblP8HWS0RJktRo14XR2iQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mmzBQjS8L9iaTGPqZzBvaNPBbPj2cAA6IiJ/3CyOCHQ=;
- b=lUnUuTWGUrp6ochOYPLSRZa/Z0dXDVLWpzHrK63yaFMAFYQsFpsSy6T8xVWVkCTTqd1/OJy7jP85ejGCMn80oRFWFF5bibiXJ+dgRtufYz8FiCZH1BkHacJKFMFqB8DuniW3afDsMu5gvUiv5z6fAecDSYbKB5npFYCI0aPSTp4=
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
- by DM6PR12MB4106.namprd12.prod.outlook.com (2603:10b6:5:221::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.19; Tue, 17 Jun
- 2025 15:16:15 +0000
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6]) by CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6%5]) with mapi id 15.20.8835.027; Tue, 17 Jun 2025
- 15:16:14 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Cornwall, Jay" <Jay.Cornwall@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Cornwall, Jay" <Jay.Cornwall@amd.com>
-Subject: RE: [PATCH] drm/amdkfd: Fix race in GWS queue scheduling
-Thread-Topic: [PATCH] drm/amdkfd: Fix race in GWS queue scheduling
-Thread-Index: AQHb2uFL+iMq3SaxokyCSAFBUjJJ77QHf6AA
-Date: Tue, 17 Jun 2025 15:16:14 +0000
-Message-ID: <CY8PR12MB70998BEFD1B9DA50A2F1669E8C73A@CY8PR12MB7099.namprd12.prod.outlook.com>
-References: <20250611145806.3919952-1-jay.cornwall@amd.com>
-In-Reply-To: <20250611145806.3919952-1-jay.cornwall@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-06-17T15:16:10.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|DM6PR12MB4106:EE_
-x-ms-office365-filtering-correlation-id: 07442ef5-e9c9-465b-0371-08ddadb1e6c0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?FFk2DSw9JA/MaYBgBdu/DngN1o+nUZua3D+5rX8Qs3kOJzvt8+IkR2iqiJsh?=
- =?us-ascii?Q?MX9tOm5JzKpBBsomucaf5e+/TJNctCDNcZLZLRfeXK7LwiPBBFKkmhUhfcRy?=
- =?us-ascii?Q?ygqHQpe06/KM2lBT6Drksaj+qKiYymy3FwKaNeYXnBGh0Ib5eyapVmtwAvrT?=
- =?us-ascii?Q?zm2BXyaxhPQ9xfZK3v0xSPh+vfJ6UGvK4WOUqtgm4oO2SgKZCvSKXnN4TxYP?=
- =?us-ascii?Q?qp3F4HDa016ojicmh8E7a9rTPb+RAWIN83dusaRUYI8kOnlu+BVO4DJpHzoi?=
- =?us-ascii?Q?DqAjAhvoPr8cfke2DUP/85fu3Vn25jRHZWsu6vLZCyrOwQOADGspyw6QT3lM?=
- =?us-ascii?Q?0EuDVF4tkyRxtRSdFq43MvBaJPpxOZlbLp/lPyimdKV+sqdGT+4jbLc8hiit?=
- =?us-ascii?Q?cWOZOdG0GZj3K/S5Ghg2+XGzmVSAujz90wYZKkJTCp0ZIu+utcl1veXYlbpo?=
- =?us-ascii?Q?/iu5oqm6CoqI3+WjS/RJOCepYzSI6Ogn1lZb+y9MzSpOYpo9Rg532Eb2N9u6?=
- =?us-ascii?Q?n2jItWe4B3iPRfdDx9u/YbspqKfFSoRnx2fLBBblFXZ7gGbhnPabuLeADaKZ?=
- =?us-ascii?Q?5rtWWxqG+rr+1O6ETQ6x4p/G0zSmjTowFwZaRFH0nO87NfOq9P3gH4tYThbf?=
- =?us-ascii?Q?/8yhIrw61nv9nvrnpprVAh3iB5pNL5/o5q4bOHkBYAeTFdkswqWkxBjEyI21?=
- =?us-ascii?Q?SDyP9CVYF7dXxDDSYqieai+zzlFzd8T5Tq48iqa3otCtkt9JwatYyhxFCj8q?=
- =?us-ascii?Q?1+rybMg31o2xP+oyE2OwGKFHQpNcMNbE4GJGiNsoJrIoytieAFoy6BiMw/IU?=
- =?us-ascii?Q?+CILXrxPw9HEKi6M/f43jOGBvSZa5ViwVmQgddus5F5ahhK1vNO+SRDtPylL?=
- =?us-ascii?Q?LGT9+sP4BfNC1hSo+np6nd8S+Y3ABkO+sMOOZVZz0byFNyABiTOuwBBhwFkI?=
- =?us-ascii?Q?nX5LiPv9s7KUWxatpKN7T0/XY7BdwbY08y20uhPQm0jXSh9POwiumW3TyZTI?=
- =?us-ascii?Q?4VioN/6k3zU013okE/JtoWr3Lcc3PmFP02iKne+sOVme/s4PQ8BHpesOQx/G?=
- =?us-ascii?Q?BNO3k3pK/wxV22cH1bm3Yk8M3h2/DKRxV98N63//U22U70XruXuYh7al7M/e?=
- =?us-ascii?Q?/qeudGdkAQYvhFwQ1piBD0OpD1qPpsV27Id8C5jFlQoz84iZDAKw2oPtYtPh?=
- =?us-ascii?Q?v560msuwfHRoO4Lb42C2gFfu/+BMVKPj4tI9n9yBVkPzsxUP9p4tl0N1uTxM?=
- =?us-ascii?Q?AZ4qXaYhUHr3TpBimbXQJJyX+tJuXQnm4TPA4baElnrco5yIVop/YlFadWgV?=
- =?us-ascii?Q?RX9HXOAJbwXBtZZkvP4ApgabINXA9LBdh9qCpnnTIoMmWHUrQXp7RMgPZv8z?=
- =?us-ascii?Q?Iff08otvnIVq4hLdVjGRtw5znqJD3GiZoRa5Qf2w6q+eKcyPwCmcD1MYxPWu?=
- =?us-ascii?Q?SWlNMvyWle+KzyvXxpLfAoe923ngFD6Tfi76FLt0TQCbyAl1nttfeQ=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7oP93RLrvIESnXMLNQDB7ckmVnkZ8Esj9tfdja0dgRRTxwh77DVO/MEwdwxm?=
- =?us-ascii?Q?mHFDQZWAUq7iIG0nGzl8tzfmp3m5rWeDuRGrS+gmYlu6g40PQIRYRDnXcWAx?=
- =?us-ascii?Q?6CfHUC09aqlT5KoeD3D4vBhjM2QWkCk5J2u+JnPzlPVKHxlQi684acEuqS8W?=
- =?us-ascii?Q?qgcYa5HL6D4MJspNQ0UwPYD/CZ19sL8ZQsmVUGP5JOOtT4upbN3vzMp4cgr4?=
- =?us-ascii?Q?wwXQ1Hx5hlKIJgPecpJyuHPpJeTtFi9PERt6lqk4ccDHf7fCJc+qhs8zPfMM?=
- =?us-ascii?Q?KvQiMGwdhrtAk21QpoESI6stT0F0TP9c2/KefzRtQ6MHoG0+y02QlKN97BBL?=
- =?us-ascii?Q?GDB4rMldgWpsobHeJiBdDBvkAS7qxSvC8byoEWFSciuPZHQ8T8dEAwBtl+bH?=
- =?us-ascii?Q?zHwoM7nSt7MlOawX4SMXY/Np+XAzxswq89NXlzu9T38niUHmidqXVNFG5kAr?=
- =?us-ascii?Q?l4zm3TPPPxAhp9dqO5FB2eWJo4UdfNGmNLwS3aiTZPNxf3o9WfOM3Apfj/93?=
- =?us-ascii?Q?H7e7Oxp9NCdWzZlKSv0OF5YnJ+8pIXpaQ/vJ9WsSNvuKH99x8o/aNVYqgoEs?=
- =?us-ascii?Q?gETyLpkfymM6bI7Hyr6Z9kDwednFpPjpMQLaiieAUSyV/PjR111wJlh7mDwR?=
- =?us-ascii?Q?Q0tpmNj010DWJvpKzk9Hc5Olh6GBFwIIsr8U3Qgvyc29IMmsvMihDztdAoBm?=
- =?us-ascii?Q?dFhLdzMj6ttg/rsuaQrsm3G1REY10QdEshMBkyVw7+MvQalLYBjijiQpBYIg?=
- =?us-ascii?Q?96NwH4nQmB50MNjzbc6u4dTWH5W7Bhyviw16dwn68/aTsO1SFHSRYDS6iP83?=
- =?us-ascii?Q?8bKtL4os064OBgAWKG4JPAbcA/ZHKljHpZGFp6+7CHnTY7x2LI1bc2sMiLkU?=
- =?us-ascii?Q?pajvb85IdtfAEWrL5J/Wa6zq08H2tQ4W21OYX49pU8H5sFGs6Tf4MCaBZRoz?=
- =?us-ascii?Q?tQYZgkYi12RPSK1zJ5cM2LPedQzN2o2mPBQyM+OKTXNa8hpQshCNfJdEbd5/?=
- =?us-ascii?Q?K7ojY9MjEdvZcD8doWS90I6I5Ds9pNnUi6hB/tHSoqzBsBW2KJyKRo7TNJay?=
- =?us-ascii?Q?9inYLbT5FCvtad72e1v9aOx9uFAdgxt4TrkxmGnkntqOEeLwIbdvXUMc73Ko?=
- =?us-ascii?Q?eYGYi6CFG8cVqJv6+pIo9avH4Vhmkqx+VelLFG05cRLZ/srQ03MbDgG7fG2K?=
- =?us-ascii?Q?5TUe+hBW7f/L//eEypcXmtWE9Sg45a/5PvzRCyrUC5wr6jfGwTxx1TdMAIDE?=
- =?us-ascii?Q?s/Qf7VgBkh374i4AaZwlUCu4RXXOAsElpne6EWB+roNVXWatsTT1RhUPiW/z?=
- =?us-ascii?Q?sKQXj6ai+ZVuOiBs79FsSEY61DcVMVtyhR/bMD63i02GW9BDucwgk5C9Nu6l?=
- =?us-ascii?Q?fONKFQCgGbLX4XpPStMMw4NuP4JR1wEVix5eYhXrE29bS4oTQGO7g9nosZqC?=
- =?us-ascii?Q?Z35Cb4kvrfo7mrBVbLt/FsAxDN0M3O8aemDCeALjpQAlH+VEIt6RMZz9khVo?=
- =?us-ascii?Q?3qoZGVT5LJiXnoPdBU5jndHDOLA3d8KE3z0f23dBIK4hPm0CJdFNmv7h9BQK?=
- =?us-ascii?Q?j4XsAUccoXJwNeaP5sg=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 121AE10E727
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 15:25:18 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-313fab41fd5so692781a91.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 08:25:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1750173917; x=1750778717; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cnUuBoua5ETiR0n2WBsLjRNpllOt9J7ST7N9YxSN/uw=;
+ b=eHrvyrsoxzsUZhQnKCPxSU4iYRtm1QLRw+MUiTVi8MvJ5rztSmccJpnVlSzQZMHuV6
+ bZREsRuwOGdp0x4QEvVSPoCgLI0N6eVKatyeylyVm0oi0IptyvSzjvJi6eOzip6XUcBw
+ /QS0qVduyETqvdcewTj+sFQLhZhMHsgMdM/8lUfrFG4O2/gAdLwL3IVGlErWdrhsyB1y
+ KjYVeJBeGUQuBbNrSk4/RCNNpqKVrPdDV5Dj3sLrOdaah5+WwaSjK4ZlS8bU/Ui4ell4
+ ahAxYfAwTNllfiZsjgdfBwu1RRsBZdREjIN3dZ8RGQjWzuR+/J6ZarFNzXy54UyzjVcU
+ Bvhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750173917; x=1750778717;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cnUuBoua5ETiR0n2WBsLjRNpllOt9J7ST7N9YxSN/uw=;
+ b=THsKulX7H4M8mQZCR9SENa2/Ati3Arg56KSxrvgrvMe5Ibk7stBdRiANTCLYHbW5B4
+ xXCvYHHNYfYQWMUMAS1mW5PwjkWnoDQDJE8f+qWn229UjPQhwwxbpVvi0Q5pc8PWmjoM
+ 43zrep99a3ZkSBKmU/4ISxP5iHOrYmi0O9gPFbBhGRFxKGspX1SoLIzxgr9z4PswjR94
+ AwCITPsS+2HHh4cQ14u+nWePDonb4Eibm59Pgpvw/bs/3CmSudNLpnKdWT8xCsshU94G
+ tdwB/DsndRtYOvvART4OJk4kY65zAbEJJ5AR910YKim25coSzxznoZp3zx/bzmYj9kLh
+ 5QNA==
+X-Gm-Message-State: AOJu0Ywtc4O5RUA2+W5zqKG3ZR0l5rsxCeVHcsYEWSaNb7NeVoDkFWFs
+ rUqac3o3NWYJ6psSp31Cs8c5Ae5NqyocObdNFXso3DjgcBLwbeDrhTUvISkNCUIb4aPWRaiJMuI
+ TS6uJI9eR09gWp5Tu92FBfqhShbiJAmiCR8VO
+X-Gm-Gg: ASbGncv7ZbQAZWjCMq65mFD4iD22w5a5zvMTY5kbZvzFikzgPY9FhJO7pDyQpjktvTf
+ HJuBxYdrX519rFw7vJwv0Dpr7mzqxclZQ8M2wzfeFEmbjYTl9TfUVKyKgNCouue7ZiIMKItRvKY
+ sY7isxeWStWBrGsfX/jmPPCMNKRNBiilH1DFeYrJ8PaoWv
+X-Google-Smtp-Source: AGHT+IFF3HYpvGfcCQaZZzK8/N2zZvpCXqKcYMFCHaHu+GTS7COBEuRuRJLKPJtCT9Ec3HvXw91am4KgovWPGjzMB3o=
+X-Received: by 2002:a17:90b:1fcd:b0:311:e8cc:4250 with SMTP id
+ 98e67ed59e1d1-313f1d533d2mr7741902a91.3.1750173917385; Tue, 17 Jun 2025
+ 08:25:17 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07442ef5-e9c9-465b-0371-08ddadb1e6c0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2025 15:16:14.8445 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: K31LOX9YU54VosCaS5USBNUHCTyV2FR4UtEN4cyJRzNOVb0M19Kul+3uCnyIod33Iq3BrY2Vq6GVNGyS+M1s4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4106
+References: <20250617080151.1093481-1-Prike.Liang@amd.com>
+ <20250617080151.1093481-4-Prike.Liang@amd.com>
+In-Reply-To: <20250617080151.1093481-4-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Jun 2025 11:25:05 -0400
+X-Gm-Features: AX0GCFsm8fioqI7Ddp48aCCJ9nFlcusxa6AVVCWs8ldJU95AIYHwmcsz35LW8Xo
+Message-ID: <CADnq5_Nc-mC-4XAN4QzKuVZJ--oRuN_HE2Xg-ds2dgaoK1eBXA@mail.gmail.com>
+Subject: Re: [PATCH v2 04/11] drm/amdgpu: validate userq buffer virtual
+ address and size
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian.Koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,48 +82,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Tue, Jun 17, 2025 at 4:27=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+rote:
+>
+> It needs to validate the userq object virtual address whether
+> it is validated in vm mapping.
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 50 +++++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  2 +
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 24 +++++++++++
+>  3 files changed, 74 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index dca0f76c9fce..db47e90b8c83 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -31,6 +31,8 @@
+>  #include "amdgpu_userq.h"
+>  #include "amdgpu_userq_fence.h"
+>
+> +#define amdgpu_userq_va_align(va) (va & AMDGPU_GMC_HOLE_MASK) >> AMDGPU_=
+GPU_PAGE_SHIFT
+> +
+>  u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
+>  {
+>         int i;
+> @@ -44,6 +46,36 @@ u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_d=
+evice *adev)
+>         return userq_ip_mask;
+>  }
+>
+> +int amdgpu_userq_input_va_validate(struct amdgpu_vm *vm, u64 addr,
+> +                               u64 expected_size)
+> +{
+> +       struct amdgpu_bo_va_mapping *va_map;
+> +       u64 user_addr;
+> +       u64 size;
+> +       int r;
+> +
+> +       user_addr =3D amdgpu_userq_va_align(addr);
+> +       size =3D expected_size >> AMDGPU_GPU_PAGE_SHIFT;
+> +
+> +       r =3D amdgpu_bo_reserve(vm->root.bo, false);
+> +       if (r)
+> +               return r;
+> +
+> +       va_map =3D amdgpu_vm_bo_lookup_mapping(vm, user_addr);
+> +       if (!va_map)
+> +               goto out_err;
+> +       /* Only validate the userq whether residen in the VM mapping rang=
+e */
 
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+resident
 
+> +       if (user_addr >=3D  va_map->start &&
+> +                       (size !=3D 0 && user_addr + size - 1 <=3D va_map-=
+>last)) {
 
+indentation here looks off.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jay Corn=
-wall
-Sent: Wednesday, June 11, 2025 10:58 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Cornwall, Jay <Jay.Cornwall@amd.com>
-Subject: [PATCH] drm/amdkfd: Fix race in GWS queue scheduling
+> +               amdgpu_bo_unreserve(vm->root.bo);
+> +               return 0;
+> +       }
+> +
+> +out_err:
+> +       amdgpu_bo_unreserve(vm->root.bo);
+> +       return -EINVAL;
+> +}
+> +
+>  static int
+>  amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_mgr,
+>                           struct amdgpu_usermode_queue *queue)
+> @@ -391,6 +423,14 @@ amdgpu_userq_create(struct drm_file *filp, union drm=
+_amdgpu_userq *args)
+>                 r =3D -EINVAL;
+>                 goto unlock;
+>         }
+> +       /* Validate the userq virtual address.*/
+> +       if (amdgpu_userq_input_va_validate(&fpriv->vm, args->in.queue_va,=
+ args->in.queue_size) ||
+> +                       amdgpu_userq_input_va_validate(&fpriv->vm, args->=
+in.rptr_va, PAGE_SIZE) ||
+> +                       amdgpu_userq_input_va_validate(&fpriv->vm, args->=
+in.wptr_va, PAGE_SIZE)) {
 
-q->gws is not updated atomically with qpd->mapped_gws_queue. If a
-runlist is created between pqm_set_gws and update_queue it will
-contain a queue which uses GWS in a process with no GWS allocated.
-This will result in a scheduler hang.
+indentation here looks off.
 
-Use q->properties.is_gws which is changed while holding the DQM lock.
+> +               drm_file_err(uq_mgr->file, "Usermode queue input virt add=
+ress is invalid\n");
+> +               r =3D -EINVAL;
+> +               goto unlock;
+> +       }
+>
+>         queue =3D kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNE=
+L);
+>         if (!queue) {
+> @@ -501,11 +541,17 @@ static int amdgpu_userq_input_args_validate(struct =
+drm_device *dev,
+>                 }
+>
+>                 if (args->in.queue_va =3D=3D AMDGPU_BO_INVALID_OFFSET ||
+> -                               args->in.queue_size =3D=3D 0) {
+> +                               args->in.queue_size =3D=3D 0 ||
+> +                               !access_ok(u64_to_user_ptr(args->in.queue=
+_va & AMDGPU_GMC_HOLE_MASK),
+> +                                       args->in.queue_size)) {
 
-Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+indentation here looks off.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/g=
-pu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index 8fa6489b6f5d..505036968a77 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -240,7 +240,7 @@ static int pm_map_queues_v9(struct packet_manager *pm, =
-uint32_t *buffer,
+Also, the VAs are GPU virtual addresses not user virtual addresses so
+I don't think this check is valid.
 
-        packet->bitfields2.engine_sel =3D
-                engine_sel__mes_map_queues__compute_vi;
--       packet->bitfields2.gws_control_queue =3D q->gws ? 1 : 0;
-+       packet->bitfields2.gws_control_queue =3D q->properties.is_gws ? 1 :=
- 0;
-        packet->bitfields2.extended_engine_sel =3D
-                extended_engine_sel__mes_map_queues__legacy_engine_sel;
-        packet->bitfields2.queue_type =3D
---
-2.34.1
+>                         drm_file_err(filp, "invalidate userq queue va or =
+size\n");
+>                         return -EINVAL;
+>                 }
+> -               if (!args->in.wptr_va || !args->in.rptr_va) {
+> +               if (!args->in.wptr_va || !args->in.rptr_va ||
+> +                       !access_ok(u64_to_user_ptr(args->in.wptr_va & AMD=
+GPU_GMC_HOLE_MASK),
+> +                                               sizeof(uint64_t)) ||
+> +                       !access_ok(u64_to_user_ptr(args->in.rptr_va & AMD=
+GPU_GMC_HOLE_MASK),
+> +                                               sizeof(uint64_t))) {
 
+Same comment here.
+
+>                         drm_file_err(filp, "invalidate userq queue rptr o=
+r wptr\n");
+>                         return -EINVAL;
+>                 }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.h
+> index ec040c2fd6c9..704935ca0c36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> @@ -132,4 +132,6 @@ int amdgpu_userq_stop_sched_for_enforce_isolation(str=
+uct amdgpu_device *adev,
+>  int amdgpu_userq_start_sched_for_enforce_isolation(struct amdgpu_device =
+*adev,
+>                                                    u32 idx);
+>
+> +int amdgpu_userq_input_va_validate(struct amdgpu_vm *vm, u64 addr,
+> +                       u64 expected_size);
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
+/amd/amdgpu/mes_userqueue.c
+> index c6f7b613e684..6ba051bd3682 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -28,6 +28,8 @@
+>
+>  #define AMDGPU_USERQ_PROC_CTX_SZ PAGE_SIZE
+>  #define AMDGPU_USERQ_GANG_CTX_SZ PAGE_SIZE
+> +#define MQD_SHADOW_BASE_SIZE      73728
+> +#define MQD_FWWORKAREA_SIZE       484
+
+These might be different across IP versions.  Might be better to query
+these from gfx?  there is get_gfx_shadow_info in struct
+amdgpu_gfx_funcs.
+
+Alex
+
+>
+>  static int
+>  mes_userq_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
+> @@ -254,6 +256,13 @@ static int mes_userq_mqd_create(struct amdgpu_userq_=
+mgr *uq_mgr,
+>                         goto free_mqd;
+>                 }
+>
+> +               if (amdgpu_userq_input_va_validate(queue->vm, compute_mqd=
+->eop_va,
+> +                                       max_t(u32, PAGE_SIZE, AMDGPU_GPU_=
+PAGE_SIZE))) {
+> +                       drm_file_err(uq_mgr->file, "EOP VA is invalid\n")=
+;
+> +                       r =3D -EINVAL;
+> +                       goto free_mqd;
+> +               }
+> +
+>                 userq_props->eop_gpu_addr =3D compute_mqd->eop_va;
+>                 userq_props->hqd_pipe_priority =3D AMDGPU_GFX_PIPE_PRIO_N=
+ORMAL;
+>                 userq_props->hqd_queue_priority =3D AMDGPU_GFX_QUEUE_PRIO=
+RITY_MINIMUM;
+> @@ -281,6 +290,14 @@ static int mes_userq_mqd_create(struct amdgpu_userq_=
+mgr *uq_mgr,
+>                 userq_props->csa_addr =3D mqd_gfx_v11->csa_va;
+>                 userq_props->tmz_queue =3D
+>                         mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE=
+_SECURE;
+> +
+> +               if (amdgpu_userq_input_va_validate(queue->vm, mqd_gfx_v11=
+->shadow_va,
+> +                                       MQD_SHADOW_BASE_SIZE)) {
+> +                       drm_file_err(uq_mgr->file, "shadow VA is invalid\=
+n");
+> +                       r =3D -EINVAL;
+> +                       goto free_mqd;
+> +               }
+> +
+>                 kfree(mqd_gfx_v11);
+>         } else if (queue->queue_type =3D=3D AMDGPU_HW_IP_DMA) {
+>                 struct drm_amdgpu_userq_mqd_sdma_gfx11 *mqd_sdma_v11;
+> @@ -298,6 +315,13 @@ static int mes_userq_mqd_create(struct amdgpu_userq_=
+mgr *uq_mgr,
+>                         goto free_mqd;
+>                 }
+>
+> +               if (amdgpu_userq_input_va_validate(queue->vm, mqd_sdma_v1=
+1->csa_va,
+> +                                       MQD_FWWORKAREA_SIZE)) {
+> +                       drm_file_err(uq_mgr->file, "CSA VA is invalid\n")=
+;
+> +                       r =3D -EINVAL;
+> +                       goto free_mqd;
+> +               }
+> +
+>                 userq_props->csa_addr =3D mqd_sdma_v11->csa_va;
+>                 kfree(mqd_sdma_v11);
+>         }
+> --
+> 2.34.1
+>
