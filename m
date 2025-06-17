@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5500C71136
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 906CFC71136
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:47:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1CF10E68A;
-	Tue, 17 Jun 2025 13:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3910410E6EA;
+	Tue, 17 Jun 2025 13:47:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X+RcMI1p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TNleF9tm";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 521D210E68A
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 13:09:20 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-313862d48e7so1032064a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 06:09:20 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B78410E6EA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 13:47:10 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-235db423abdso4407185ad.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 06:47:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750165760; x=1750770560; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1750168030; x=1750772830; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2URo6I/0t9AT9Q3gtq4R+ZtsMtMjiUY3Sc79u/0emBg=;
- b=X+RcMI1pHf9phb2+BntwqiIUr+awEiEu8VVxPrae0E/NaeNRZaO1PAZPDbR/hfdxrx
- xt9ZdRh90C3IwxxW6vOwrKw0rq+UMPr/rcm/XtBd9rVHOK8JhlWzvdayuBV5bAFcBpcT
- GGmfunPj4DGwH1vXXRt8K5iaoHGhTnGY7p+1NwWZqSXo6TKJLz14qbCmn/94I8104zad
- h1UpNuR9LUcFK5XdHiVr1qoos5cHDx5lKRo0V0bTWssGwsqShwKBA4LdTeFlDI8KYf+D
- A5IetndFRM98Xc9FzLtDi2OVAz+640FLdD0rbB/Gz3LcdFF/VehMJVjmDOn6scSUiIKS
- 8dkA==
+ bh=fgPDRtrYSzvbLDKXZje/XRvd15rDYQ3QDUbAAyNvo9Y=;
+ b=TNleF9tmOA4A4Pt6Lz4UHD+YmAy4eKaIqXZMTPMMrqOmCzxKkEhmYSbGagcELXOssc
+ NE1vDND8B2xhT6DMmunK9pTEpFTc5rTfOBmPZ8q9OQYQRqSDUoyOlnc9LJP+atcz3w1N
+ eJIkk9BOz8EOXq3ZtbmjDvVAvpdN2ObNKwGNIfIIfJv3DOSw0UW4KAVSuXIG2P08Wv73
+ TKA8XNm9bU5TwqGdm48oqmU7bFq0VLd3iMypEhle+GzU1mP9yBYHLRgY+9srHXZXJ4/0
+ d69NMnBW+1xgU5LQcXUQGWXf868rSQ+Aykmv23CeyzfAn9vzyrMPV4e9cTkbDJwXAjev
+ +DYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750165760; x=1750770560;
+ d=1e100.net; s=20230601; t=1750168030; x=1750772830;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2URo6I/0t9AT9Q3gtq4R+ZtsMtMjiUY3Sc79u/0emBg=;
- b=A6rLwPEBqOoUIDINuahDOPPt1EtJly8XSrfxc0fpoQCL7qwQ41iM89b6CAeK18o+gD
- O0xHmcWZdiLmyAaXMNvWHNg8m69JBe0Jk+3rXO+FIxA+b+7V4/3iNcePoq7feFkOq3Ty
- u0n5G+BT283LNng26vvrH3iVjz/8y1yloopWOXh59L+Du9k0SB01yfEY6KCepguWi3s7
- mXRvx+fE1V4l9BQ4DR295I9cFUN/U1Xv1VzNEX1DFbJTTy9NIo1gp9fcFelyRPdcOuI3
- 8KvQ68/Uhy0vLkon8QTZTXgFzsb4XUW2aLvtdyawxAtaCMIGO5+1AznyzWIxvd60iCAY
- bstA==
+ bh=fgPDRtrYSzvbLDKXZje/XRvd15rDYQ3QDUbAAyNvo9Y=;
+ b=vleoxZ2Yo4AvtMP//2pfNO222e9BkYCwE83DXJGbwjL3kPQlTJPdj/S0+8q/xsr6rR
+ QUKZs4iEWNgRyOV4VC3gq+w6xdkrMePROEk2WVmvIWve5FWu5L+EOUWKWv0K3aWhxMcP
+ Jz8BmIE0K9dO3WOZdH6KcNZiZrbeXu95LsGlrTijZMGR+LUrV6shmSfCLONqUUG2kxTr
+ ffTi1ygVn16kRxhiHHU9WCACUS87iCVemmofHsrt4nV4zws70pFfAVXsF6VrqSUNaD3o
+ XId3fzK2X99CmTBXY7Hm81/cOXtIMAEGhFuC3iraVUgpU3mjKM0skvzYApbLXv6pE/2I
+ eA0g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVaVPBiWOWTHviiSuWiv+4yYguh4wXvPBWVJoD/YR2a4qnomYuTy/7XUcjoVq5bLaxPj8WNaK80@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw8F+QxkHw624PcfNwwbxHYFjtkNQjwWt3VvZpB1mC4tPv9U69p
- 6myCjeqquuqXaJ/Aryey7ONzDe2VZsTTKEYdP21QU60qXRcHz9275vHpfdNZsaRsDouPHurMwDP
- NFFo7v2RKxZeU1GV4DeFEOZHmePn2RLeiEA==
-X-Gm-Gg: ASbGncslZ9qF+50WvQsRIQVotgjTUc9wEyOPDN5G6r7eH92XKIzLmUzAES079a0MhQ+
- SO7joPyvyRqWRc8LpQvcj35DDRv+fgfVVGr+b6XEWDLQiSajqH1q+vgUgXLDSOAZGsydOMlXlXQ
- nIH79fcl5s9VpxBGUnvBXoFezw5XtDOX4XPz8Cpko6rjoJ
-X-Google-Smtp-Source: AGHT+IFKmwd80XoH4tM1AOVIS6dS4TjwqTcJ6TQeNIu77PlycpKc217qt72d+3CLbcjy6pdQrG8v6P9l1YOhZhn8Jww=
-X-Received: by 2002:a17:90b:1c04:b0:313:14b5:2521 with SMTP id
- 98e67ed59e1d1-313f1df630amr7324519a91.5.1750165759608; Tue, 17 Jun 2025
- 06:09:19 -0700 (PDT)
+ AJvYcCXg3ovh7hk28dpal7+2DzEkQBv0MnxZmxZmch/QXZCyg6D+2rV5Wkm8q8n4zE0OFXjHCHey+nST@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzo9w7ZQw55vww8cZ6pQh/fSKSWOIBOiPaiCAzC0Fva+D/CO/St
+ bXZgEmmoqgrijNds0hW02uwwFZom0QN8RXveSs+gBfhZKX0/Hd7/xlFiSYHFzG0H3Vy2r5ApKje
+ bh06djIZ6Dh3Oo7m4W749+q6v9kSG6Yg=
+X-Gm-Gg: ASbGncv9R9PyelWGQhmAK0Q/gvubXVdk8jEPy/0XWdLRaWvpGEsgnG17Sb1FASHvn0+
+ Mwt+OLgz8h8mpfKfAazUraIYQjMPaHFx0AJlUVRKrXOl3fyeUCdU44GlFDj+k6rO70DX42C+tQ7
+ gN3pH1vjXQUYJE0VbmQWj6upd35DOfyuPmjVWLnL6O7NBW
+X-Google-Smtp-Source: AGHT+IGdjVHFsFo/0fYXUctdyU3vpDQGpDtgmbK3wd0qI4z5I4r+liZHl0lwOv3dJ6VJDkrc6zsDwUNR6ItD8XnwUjc=
+X-Received: by 2002:a17:903:1a67:b0:234:ba37:87a3 with SMTP id
+ d9443c01a7336-2368ec78e52mr21790385ad.3.1750168029550; Tue, 17 Jun 2025
+ 06:47:09 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250617030815.5785-1-alexander.deucher@amd.com>
- <20250617030815.5785-34-alexander.deucher@amd.com>
- <351309f3-eb1e-4601-a2c4-51482bbeedda@amd.com>
- <575d165b-f587-4a58-9610-f40ce6f52017@amd.com>
-In-Reply-To: <575d165b-f587-4a58-9610-f40ce6f52017@amd.com>
+ <20250617030815.5785-3-alexander.deucher@amd.com>
+ <81b40a5b-2747-41ef-ada5-7af0f28b33df@amd.com>
+In-Reply-To: <81b40a5b-2747-41ef-ada5-7af0f28b33df@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Jun 2025 09:09:08 -0400
-X-Gm-Features: AX0GCFv2q-M-wrWVZMeF2hIe5TICoOgBL-WhLWW3Glcwb1faK5utRrHbqcXpbf0
-Message-ID: <CADnq5_M=iU_KaVfN_VmVySN9ZHFAzzHipTz+4cM8FSstAK+nRQ@mail.gmail.com>
-Subject: Re: [PATCH 33/36] drm/amdgpu/vcn: add a helper framework for engine
- resets
-To: "Sundararaju, Sathishkumar" <sasundar@amd.com>
+Date: Tue, 17 Jun 2025 09:46:57 -0400
+X-Gm-Features: AX0GCFvUqQi24-VmyHSAkLYR_KoH2U0uvHgZaakualbswzNbwyDO8XARkA16e7M
+Message-ID: <CADnq5_OTeWFNmB6dWaodyuQhX9VbBLvMBNOjVZ+WpyB0sr5Ajg@mail.gmail.com>
+Subject: Re: [PATCH 02/36] drm/amdgpu: remove job parameter from
+ amdgpu_fence_emit()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- christian.koenig@amd.com
+ sasundar@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,170 +85,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 17, 2025 at 2:10=E2=80=AFAM Sundararaju, Sathishkumar
-<sasundar@amd.com> wrote:
+On Tue, Jun 17, 2025 at 7:57=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> Please ignore my previous comments here, the new helper additions for
-> vcn non unified queues are good.
+> On 6/17/25 05:07, Alex Deucher wrote:
+> > What we actually care about is the amdgpu_fence object
+> > so pass that in explicitly to avoid possible mistakes
+> > in the future.
+> >
+> > The job_run_counter handling can be safely removed at this
+> > point as we no longer support job resubmission.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 36 +++++++++--------------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c    |  5 +++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  |  4 +--
+> >  3 files changed, 20 insertions(+), 25 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_fence.c
+> > index 569e0e5373927..e88848c14491a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -114,14 +114,14 @@ static u32 amdgpu_fence_read(struct amdgpu_ring *=
+ring)
+> >   *
+> >   * @ring: ring the fence is associated with
+> >   * @f: resulting fence object
+> > - * @job: job the fence is embedded in
+> > + * @af: amdgpu fence input
+> >   * @flags: flags to pass into the subordinate .emit_fence() call
+> >   *
+> >   * Emits a fence command on the requested ring (all asics).
+> >   * Returns 0 on success, -ENOMEM on failure.
+> >   */
+> > -int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, =
+struct amdgpu_job *job,
+> > -                   unsigned int flags)
+> > +int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
+> > +                   struct amdgpu_fence *af, unsigned int flags)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct dma_fence *fence;
+> > @@ -130,36 +130,28 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, s=
+truct dma_fence **f, struct amd
+> >       uint32_t seq;
+> >       int r;
+> >
+> > -     if (job =3D=3D NULL) {
+> > -             /* create a sperate hw fence */
+> > +     if (!af) {
+> > +             /* create a separate hw fence */
+> >               am_fence =3D kmem_cache_alloc(amdgpu_fence_slab, GFP_ATOM=
+IC);
+> >               if (am_fence =3D=3D NULL)
+> >                       return -ENOMEM;
 >
-> But one concern, the vinst->reset(vinst) callback must take in ring
-> pointer to handle guilty/non-guilty
-> for appropriate re-emit part, else the guilty ring has to be tracked
-> within the ring structure or identified
-> by some query with in reset.
+> I think we should remove the output parameter as well.
+>
+> An amdgpu_fence can be trivially allocated by the caller.
 
-I wasn't sure if we could handle the reemit properly on these VCN
-chips.  So at least for the first iteration, I just killed all the
-queues.  Is there a way to know which ring caused the hang?  How does
-the VCN firmware handle the rings?
+Is there anything special about amdgpu_job_fence_ops vs
+amdgpu_fence_ops other than the slab handling?  I was worried I was
+missing something about the fence lifetimes with amdgpu_job_{free,
+free_cb}.
 
 Alex
 
 >
+> Apart from that looks good to me.
+>
 > Regards,
-> Sathish
+> Christian.
 >
->
-> On 6/17/2025 10:00 AM, Sundararaju, Sathishkumar wrote:
-> > Hi Alex,
+> >       } else {
+> > -             /* take use of job-embedded fence */
+> > -             am_fence =3D &job->hw_fence;
+> > +             am_fence =3D af;
+> >       }
+> >       fence =3D &am_fence->base;
+> >       am_fence->ring =3D ring;
 > >
-> > Would it be good to have this logic in the reset call back itself ?
+> >       seq =3D ++ring->fence_drv.sync_seq;
+> > -     if (job && job->job_run_counter) {
+> > -             /* reinit seq for resubmitted jobs */
+> > -             fence->seqno =3D seq;
+> > -             /* TO be inline with external fence creation and other dr=
+ivers */
+> > +     if (af) {
+> > +             dma_fence_init(fence, &amdgpu_job_fence_ops,
+> > +                            &ring->fence_drv.lock,
+> > +                            adev->fence_context + ring->idx, seq);
+> > +             /* Against remove in amdgpu_job_{free, free_cb} */
+> >               dma_fence_get(fence);
+> >       } else {
+> > -             if (job) {
+> > -                     dma_fence_init(fence, &amdgpu_job_fence_ops,
+> > -                                    &ring->fence_drv.lock,
+> > -                                    adev->fence_context + ring->idx, s=
+eq);
+> > -                     /* Against remove in amdgpu_job_{free, free_cb} *=
+/
+> > -                     dma_fence_get(fence);
+> > -             } else {
+> > -                     dma_fence_init(fence, &amdgpu_fence_ops,
+> > -                                    &ring->fence_drv.lock,
+> > -                                    adev->fence_context + ring->idx, s=
+eq);
+> > -             }
+> > +             dma_fence_init(fence, &amdgpu_fence_ops,
+> > +                            &ring->fence_drv.lock,
+> > +                            adev->fence_context + ring->idx, seq);
+> >       }
 > >
-> > Adding common vinst->reset stops the flexibility of having separate
-> > reset functionality for enc rings and decode rings,
-> > can selectively handle the drm_sched_wqueue_start/stop and re-emit of
-> > guilty/non-guilty for enc and dec separately.
+> >       amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ib.c
+> > index 802743efa3b39..206b70acb29a0 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> > @@ -128,6 +128,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
+signed int num_ibs,
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       struct amdgpu_ib *ib =3D &ibs[0];
+> >       struct dma_fence *tmp =3D NULL;
+> > +     struct amdgpu_fence *af;
+> >       bool need_ctx_switch;
+> >       struct amdgpu_vm *vm;
+> >       uint64_t fence_ctx;
+> > @@ -154,6 +155,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
+signed int num_ibs,
+> >               csa_va =3D job->csa_va;
+> >               gds_va =3D job->gds_va;
+> >               init_shadow =3D job->init_shadow;
+> > +             af =3D &job->hw_fence;
+> >       } else {
+> >               vm =3D NULL;
+> >               fence_ctx =3D 0;
+> > @@ -161,6 +163,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
+signed int num_ibs,
+> >               csa_va =3D 0;
+> >               gds_va =3D 0;
+> >               init_shadow =3D false;
+> > +             af =3D NULL;
+> >       }
 > >
-> > And the usual vcn_stop() followed by vcn_start() isn't helping in
-> > reset of the engine for vcn3.
+> >       if (!ring->sched.ready) {
+> > @@ -282,7 +285,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
+signed int num_ibs,
+> >               amdgpu_ring_init_cond_exec(ring, ring->cond_exe_gpu_addr)=
+;
+> >       }
 > >
-> > I tried a workaround to pause_dpg and enable static clockgate and
-> > powergate, and then stop()/start() the engine
-> > which is working consistently so far.
-> >
-> > Regards,
-> > Sathish
-> >
-> > On 6/17/2025 8:38 AM, Alex Deucher wrote:
-> >> With engine resets we reset all queues on the engine rather
-> >> than just a single queue.  Add a framework to handle this
-> >> similar to SDMA.
-> >>
-> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 64 +++++++++++++++++++++++=
-++
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  6 ++-
-> >>   2 files changed, 69 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> >> index c8885c3d54b33..075740ed275eb 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> >> @@ -134,6 +134,7 @@ int amdgpu_vcn_sw_init(struct amdgpu_device
-> >> *adev, int i)
-> >> mutex_init(&adev->vcn.inst[i].vcn1_jpeg1_workaround);
-> >>       mutex_init(&adev->vcn.inst[i].vcn_pg_lock);
-> >> +    mutex_init(&adev->vcn.inst[i].engine_reset_mutex);
-> >>       atomic_set(&adev->vcn.inst[i].total_submission_cnt, 0);
-> >>       INIT_DELAYED_WORK(&adev->vcn.inst[i].idle_work,
-> >> amdgpu_vcn_idle_work_handler);
-> >> atomic_set(&adev->vcn.inst[i].dpg_enc_submission_cnt, 0);
-> >> @@ -1451,3 +1452,66 @@ int vcn_set_powergating_state(struct
-> >> amdgpu_ip_block *ip_block,
-> >>         return ret;
-> >>   }
-> >> +
-> >> +/**
-> >> + * amdgpu_vcn_reset_engine - Reset a specific VCN engine
-> >> + * @adev: Pointer to the AMDGPU device
-> >> + * @instance_id: VCN engine instance to reset
-> >> + *
-> >> + * Returns: 0 on success, or a negative error code on failure.
-> >> + */
-> >> +static int amdgpu_vcn_reset_engine(struct amdgpu_device *adev,
-> >> +                   uint32_t instance_id)
-> >> +{
-> >> +    struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[instance_id];
-> >> +    int r, i;
-> >> +
-> >> +    mutex_lock(&vinst->engine_reset_mutex);
-> >> +    /* Stop the scheduler's work queue for the dec and enc rings if
-> >> they are running.
-> >> +     * This ensures that no new tasks are submitted to the queues whi=
-le
-> >> +     * the reset is in progress.
-> >> +     */
-> >> +    drm_sched_wqueue_stop(&vinst->ring_dec.sched);
-> >> +    for (i =3D 0; i < vinst->num_enc_rings; i++)
-> >> + drm_sched_wqueue_stop(&vinst->ring_enc[i].sched);
-> >> +
-> >> +    /* Perform the VCN reset for the specified instance */
-> >> +    r =3D vinst->reset(vinst);
-> >> +    if (r) {
-> >> +        dev_err(adev->dev, "Failed to reset VCN instance %u\n",
-> >> instance_id);
-> >> +    } else {
-> >> +        /* Restart the scheduler's work queue for the dec and enc rin=
-gs
-> >> +         * if they were stopped by this function. This allows new tas=
-ks
-> >> +         * to be submitted to the queues after the reset is complete.
-> >> +         */
-> >> +        drm_sched_wqueue_start(&vinst->ring_dec.sched);
-> >> +        for (i =3D 0; i < vinst->num_enc_rings; i++)
-> >> + drm_sched_wqueue_start(&vinst->ring_enc[i].sched);
-> >> +    }
-> >> +    mutex_unlock(&vinst->engine_reset_mutex);
-> >> +
-> >> +    return r;
-> >> +}
-> >> +
-> >> +/**
-> >> + * amdgpu_vcn_ring_reset - Reset a VCN ring
-> >> + * @ring: ring to reset
-> >> + * @vmid: vmid of guilty job
-> >> + * @guilty_fence: guilty fence
-> >> + *
-> >> + * This helper is for VCN blocks without unified queues because
-> >> + * resetting the engine resets all queues in that case.  With
-> >> + * unified queues we have one queue per engine.
-> >> + * Returns: 0 on success, or a negative error code on failure.
-> >> + */
-> >> +int amdgpu_vcn_ring_reset(struct amdgpu_ring *ring,
-> >> +              unsigned int vmid,
-> >> +              struct amdgpu_fence *guilty_fence)
-> >> +{
-> >> +    struct amdgpu_device *adev =3D ring->adev;
-> >> +
-> >> +    if (adev->vcn.inst[ring->me].using_unified_queue)
-> >> +        return -EINVAL;
-> >> +
-> >> +    return amdgpu_vcn_reset_engine(adev, ring->me);
-> >> +}
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> >> index 83adf81defc71..0bc0a94d7cf0f 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> >> @@ -330,7 +330,9 @@ struct amdgpu_vcn_inst {
-> >>                     struct dpg_pause_state *new_state);
-> >>       int (*set_pg_state)(struct amdgpu_vcn_inst *vinst,
-> >>                   enum amd_powergating_state state);
-> >> +    int (*reset)(struct amdgpu_vcn_inst *vinst);
-> >>       bool using_unified_queue;
-> >> +    struct mutex        engine_reset_mutex;
-> >>   };
-> >>     struct amdgpu_vcn_ras {
-> >> @@ -552,5 +554,7 @@ void amdgpu_debugfs_vcn_sched_mask_init(struct
-> >> amdgpu_device *adev);
-> >>     int vcn_set_powergating_state(struct amdgpu_ip_block *ip_block,
-> >>                     enum amd_powergating_state state);
-> >> -
-> >> +int amdgpu_vcn_ring_reset(struct amdgpu_ring *ring,
-> >> +              unsigned int vmid,
-> >> +              struct amdgpu_fence *guilty_fence);
-> >>   #endif
-> >
+> > -     r =3D amdgpu_fence_emit(ring, f, job, fence_flags);
+> > +     r =3D amdgpu_fence_emit(ring, f, af, fence_flags);
+> >       if (r) {
+> >               dev_err(adev->dev, "failed to emit fence (%d)\n", r);
+> >               if (job && job->vmid)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.h
+> > index e1f25218943a4..9ae522baad8e7 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -157,8 +157,8 @@ void amdgpu_fence_driver_hw_init(struct amdgpu_devi=
+ce *adev);
+> >  void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
+> >  int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);
+> >  void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev);
+> > -int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fen=
+ce, struct amdgpu_job *job,
+> > -                   unsigned flags);
+> > +int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
+> > +                   struct amdgpu_fence *af, unsigned int flags);
+> >  int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
+> >                             uint32_t timeout);
+> >  bool amdgpu_fence_process(struct amdgpu_ring *ring);
 >
