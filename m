@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D978AC7115A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16D25C7115B
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 13:03:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34BA310E81E;
-	Wed, 18 Jun 2025 13:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3EC410E81A;
+	Wed, 18 Jun 2025 13:03:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fheX8NLd";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nBhkDjWB";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FC310E815;
- Wed, 18 Jun 2025 12:39:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2C2910E727;
+ Tue, 17 Jun 2025 14:54:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,18 +22,18 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=llImzjIbhjZJrpdOHyErF1aaIt3Spa/yRg33TxcGabE=; b=fheX8NLdVkqkIqxe97nkmLdrFM
- lbcNCNW+ClOA5yZo3mKOr60il84d7TwCZm7Tluk+9xQ0029jpCSZ92MxM92PmQIUu4QpBZOYW8UZ6
- AS5/gjcWMmUVY2qToLuyGgDwNm9N5lNexQhHIlfzx5Os+rC+LqMhu+m6e/NCxVBQcMTu42vR8ds4l
- R3cLO5pvkCmQ7xjTkidRLakqbPneVuLdpT9q/BRzj902dmn3KXGlObf143mv9OPhrR5v43fJ1KW7F
- bZcQsOBfgSaipj45CqazW1cpkQLYI4uHL/IPAbW1RJmCe66gWk8BhayTie9k1f9dYpuAMzwx38iHH
- dw0Jxf2g==;
+ bh=p5CNKE/MKysCW70lR/MO7TyeEBtlJwj3jdT2nsO0WMA=; b=nBhkDjWBLfpBJuZWGo5Gr/KSQW
+ pA90MzdJjR84y0V0SnSWwGrLBxA2TQuGJwzf2towO4u4tt3F47DPmiVp56pE8jJWVSnOq7l7Rk0g9
+ SjZYzEb7YO86zNLeOutSeytjnsAywlsuqG9bfO+wUf9u33UFTEGFZO+TW5O6tgMJZ9DBBg1ooFo+s
+ 223r5HY0cwpQPa3BiralF/8VzpHGjSRQxNSAKCDFADVZOE7RiOLcQYOl69w3vWSJdHEepfpz7G5rd
+ kMxBYODYH+1cKo6AyHn3LJ574PrA8vSifImtxdFVNVoTOVX/RmcSQJoLkd45QEOuCAXkxEtSQqV54
+ b7OpgK2Q==;
 Received: from [191.204.192.64] (helo=[192.168.15.100])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uRs4Y-00543t-61; Wed, 18 Jun 2025 14:39:22 +0200
-Message-ID: <c62c2994-19e3-4599-9ac9-d49c37845011@igalia.com>
-Date: Wed, 18 Jun 2025 09:39:16 -0300
+ id 1uRXhf-004dZx-3T; Tue, 17 Jun 2025 16:54:23 +0200
+Message-ID: <55ee0276-23c3-4853-b954-09aeccc59b7f@igalia.com>
+Date: Tue, 17 Jun 2025 11:54:18 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v9 6/6] drm/amdgpu: Make use of drm_wedge_task_info
@@ -49,11 +49,9 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 References: <20250617124949.2151549-1-andrealmeid@igalia.com>
  <20250617124949.2151549-7-andrealmeid@igalia.com>
  <5db1dda6-0cd7-4fc7-9a22-8ed57b12ada1@amd.com>
- <63b4fb79-8132-4c05-bcac-3238366899d9@igalia.com>
- <a0f508fd-3277-4839-a4b6-e6bc56546f6c@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <a0f508fd-3277-4839-a4b6-e6bc56546f6c@amd.com>
+In-Reply-To: <5db1dda6-0cd7-4fc7-9a22-8ed57b12ada1@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 18 Jun 2025 13:03:09 +0000
@@ -71,29 +69,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
-
-Em 18/06/2025 04:29, Christian König escreveu:
-> On 6/17/25 15:22, André Almeida wrote:
->> Em 17/06/2025 10:07, Christian König escreveu:
->>> On 6/17/25 14:49, André Almeida wrote:
->>>> To notify userspace about which task (if any) made the device get in a
->>>> wedge state, make use of drm_wedge_task_info parameter, filling it with
->>>> the task PID and name.
->>>>
->>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->>>
->>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>>
->>> Do you have commit right for drm-misc-next?
->>>
+Em 17/06/2025 10:07, Christian König escreveu:
+> On 6/17/25 14:49, André Almeida wrote:
+>> To notify userspace about which task (if any) made the device get in a
+>> wedge state, make use of drm_wedge_task_info parameter, filling it with
+>> the task PID and name.
 >>
->> Thanks for the reviews!
->>
->> I do have access, but if you don't mind, can you push this one?
+>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
 > 
-> Sure, but give me till the end of today.
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> 
+> Do you have commit right for drm-misc-next?
 > 
 
-It was already merged, no worries!
+I've merged the series into drm-misc-next.
+
+Thanks!
+	André
 
