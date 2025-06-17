@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FF78C71136
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97AD8C7115B
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA5B10E65D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8C9E10E66A;
 	Tue, 17 Jun 2025 13:02:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JcUqdXOJ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h7zmWnCh";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E264610E436;
- Mon, 16 Jun 2025 18:15:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 306CF10E644;
+ Tue, 17 Jun 2025 12:50:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=FoIwQaxAIO0K7p8TD2D0AWyvgUziVqQ2Sz3i8pi59yc=; b=JcUqdXOJiWa/rSkviN7ImOOlOe
- fjnkI4g9Bs2DGw/XwoXvm8uq2xdbYbK85lLmd64skK3KDz8986lDdYb0h8l3SM9jm5wuiEzAASKah
- RdFf6g124J8btAn4VZzV8avBYfLm79+cfN1pZOsdC0TQKJ24fo2IC8oifdJj2NAVqORHaIQQdERqM
- F8v0ZCzDjoI3tBzOJaNoFAszW3Ik1pKf6i/LCB4d9q/hZkzdRztccQaFmqYIDwTR3/i5ZhJMFLS9u
- 3uJDcu8RouNorI3SIEAjoMfd38pFT28yU15W0yaQIgW81Hb2W1uW8M8f/7fOemCgobc/nmDU4LPKq
- rJc/edMQ==;
+ bh=5bW97YWvE2WNp84/m7LouGNWv9aZZ0XfiU91U9Q+7L4=; b=h7zmWnChsIeMDopOeedwqXEska
+ 01HbouEu5rpdgMA42JOhgDXEynxTf+R7CHq2EwR4MQlIFxehyhSwtRt9v0udqrkpau8ijYYO2AbRo
+ zk0XnoEXyvN3OoI415lmYQJhROiy7kI5fClkWSPUZt/W7YxytRSwCS6Nx0XGidnucqHCXitNCgmLh
+ /monqQTtPJi48u7ILCk8O7FkezexU0Ev/qwxDgAaByEsd3JAiXDl3oQzE6bQNZrPgpAL6LA+qTkTh
+ 3Y4aaWoXdtvrwsP3ywoNa8ixv6p0c3eLCkk3WlxlPhMe5q7PSLUYyXlJrXue08WjF09q3X+vWsie8
+ uVEiTkWg==;
 Received: from [191.204.192.64] (helo=localhost.localdomain)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uREMe-004Eh6-2X; Mon, 16 Jun 2025 20:15:24 +0200
+ id 1uRVlY-004ans-LF; Tue, 17 Jun 2025 14:50:17 +0200
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: "Alex Deucher" <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -43,12 +43,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v8 2/6] drm: amdgpu: Create amdgpu_vm_print_task_info()
-Date: Mon, 16 Jun 2025 15:14:34 -0300
-Message-ID: <20250616181438.2124656-3-andrealmeid@igalia.com>
+Subject: [PATCH v9 4/6] drm/doc: Add a section about "Task information" for
+ the wedge API
+Date: Tue, 17 Jun 2025 09:49:47 -0300
+Message-ID: <20250617124949.2151549-5-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250616181438.2124656-1-andrealmeid@igalia.com>
-References: <20250616181438.2124656-1-andrealmeid@igalia.com>
+In-Reply-To: <20250617124949.2151549-1-andrealmeid@igalia.com>
+References: <20250617124949.2151549-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -67,146 +68,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To avoid repetitive code in amdgpu, create a function that prints the
-content of struct amdgpu_task_info.
+Add a section about "Task information" for the wedge API.
 
+Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
 Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
-v8: drop the inline
-v7: new patch
+v5:
+ - Change app to task in the text as well
+v4:
+ - Change APP to TASK
+v3:
+ - Change "app that caused ..." to "app involved ..."
+ - Clarify that devcoredump have more information about what happened
+ - Update that PID and APP will be empty if there's no app info
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 9 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  | 3 +++
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 5 +----
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 5 +----
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 5 +----
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 4 +---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 5 +----
- 8 files changed, 18 insertions(+), 22 deletions(-)
+ Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 75262ce8db27..3d887428ca2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -124,9 +124,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 4863a4deb0ee..263e5a97c080 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
+ hang is usually the most critical one which can result in consequential hangs or
+ complete wedging.
  
- 	ti = amdgpu_vm_get_task_info_pasid(ring->adev, job->pasid);
- 	if (ti) {
--		dev_err(adev->dev,
--			"Process information: process %s pid %d thread %s pid %d\n",
--			ti->process_name, ti->tgid, ti->task_name, ti->pid);
-+		amdgpu_vm_print_task_info(adev, ti);
- 		amdgpu_vm_put_task_info(ti);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index dadf5633476c..347a55376291 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -3159,3 +3159,12 @@ bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo *bo)
- {
- 	return bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv;
- }
++Task information
++---------------
 +
-+void amdgpu_vm_print_task_info(struct amdgpu_device *adev,
-+			       struct amdgpu_task_info *task_info)
-+{
-+	dev_err(adev->dev,
-+		" Process %s pid %d thread %s pid %d\n",
-+		task_info->process_name, task_info->tgid,
-+		task_info->task_name, task_info->pid);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index f3ad687125ad..9ec5d94200aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -668,4 +668,7 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
- 				 struct amdgpu_vm *vm,
- 				 struct dma_fence **fence);
- 
-+void amdgpu_vm_print_task_info(struct amdgpu_device *adev,
-+			       struct amdgpu_task_info *task_info);
++The information about which application (if any) was involved in the device
++wedging is useful for userspace if they want to notify the user about what
++happened (e.g. the compositor display a message to the user "The <task name>
++caused a graphical error and the system recovered") or to implement policies
++(e.g. the daemon may "ban" an task that keeps resetting the device). If the task
++information is available, the uevent will display as ``PID=<pid>`` and
++``TASK=<task name>``. Otherwise, ``PID`` and ``TASK`` will not appear in the
++event string.
 +
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index a3e2787501f1..7923f491cf73 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -164,10 +164,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 		entry->src_id, entry->ring_id, entry->vmid, entry->pasid);
- 	task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
- 	if (task_info) {
--		dev_err(adev->dev,
--			" in process %s pid %d thread %s pid %d\n",
--			task_info->process_name, task_info->tgid,
--			task_info->task_name, task_info->pid);
-+		amdgpu_vm_print_task_info(adev, task_info);
- 		amdgpu_vm_put_task_info(task_info);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 72211409227b..f15d691e9a20 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -134,10 +134,7 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
- 			entry->src_id, entry->ring_id, entry->vmid, entry->pasid);
- 		task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
- 		if (task_info) {
--			dev_err(adev->dev,
--				" in process %s pid %d thread %s pid %d)\n",
--				task_info->process_name, task_info->tgid,
--				task_info->task_name, task_info->pid);
-+			amdgpu_vm_print_task_info(adev, task_info);
- 			amdgpu_vm_put_task_info(task_info);
- 		}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index b645d3e6a6c8..de763105fdfd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -127,10 +127,7 @@ static int gmc_v12_0_process_interrupt(struct amdgpu_device *adev,
- 			entry->src_id, entry->ring_id, entry->vmid, entry->pasid);
- 		task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
- 		if (task_info) {
--			dev_err(adev->dev,
--				" in process %s pid %d thread %s pid %d)\n",
--				task_info->process_name, task_info->tgid,
--				task_info->task_name, task_info->pid);
-+			amdgpu_vm_print_task_info(adev, task_info);
- 			amdgpu_vm_put_task_info(task_info);
- 		}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 99ca08e9bdb5..b45fa0cea9d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1458,9 +1458,7 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
- 
- 		task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
- 		if (task_info) {
--			dev_err(adev->dev, " for process %s pid %d thread %s pid %d\n",
--				task_info->process_name, task_info->tgid,
--				task_info->task_name, task_info->pid);
-+			amdgpu_vm_print_task_info(adev, task_info);
- 			amdgpu_vm_put_task_info(task_info);
- 		}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 282197f4ffb1..78f65aea03f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -641,10 +641,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 
- 	task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
- 	if (task_info) {
--		dev_err(adev->dev,
--			" for process %s pid %d thread %s pid %d)\n",
--			task_info->process_name, task_info->tgid,
--			task_info->task_name, task_info->pid);
-+		amdgpu_vm_print_task_info(adev, task_info);
- 		amdgpu_vm_put_task_info(task_info);
- 	}
++The reliability of this information is driver and hardware specific, and should
++be taken with a caution regarding it's precision. To have a big picture of what
++really happened, the devcoredump file provides should have much more detailed
++information about the device state and about the event.
++
+ Consumer prerequisites
+ ----------------------
  
 -- 
 2.49.0
