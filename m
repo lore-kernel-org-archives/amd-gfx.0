@@ -4,87 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F86C71136
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 15:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B911C71136
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 15:35:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEF0610E759;
-	Tue, 17 Jun 2025 15:25:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EE5D10E783;
+	Tue, 17 Jun 2025 15:35:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ww6DvpAe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Akowo7IH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9183A10E759;
- Tue, 17 Jun 2025 15:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750173953; x=1781709953;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=MCjSl+kXEQTeDXa2Liysr1PgVP/E1cw3gWgQrWuIjII=;
- b=Ww6DvpAeN3hWWEw90AHA15D7S27XgVo/VwCqUG3Xjer4uE7qYTIeXuj9
- U5UfeuyVH9UUXXeXvvgFZ7NWIv/uaulXxDq1OijpLisXoC5ZcELb42jDY
- J+NJA9R/jZXuWRH8lLI5TIrDc+axDjHuBXMEcIAiAakUp0q/pAne+H7wt
- AVfahNIYEUNZeG600Z/22Rpg9k6Z4BkYlMc5i9n82hACouCEyAaD+/vev
- bE2pni5A5nXjR9XzVTAYcgJ90GyXpu7qPn+JsECVYuJc3YI1fDHtZFFFo
- CfgQfRmFr28R+Fc9jR1zxrPuXdUxyalMXQPo6PlHrIJ5e0ePeitfBa9Nh g==;
-X-CSE-ConnectionGUID: U8WzqLfYQbqj97Wc1M6xGQ==
-X-CSE-MsgGUID: 4KuAhO3BT1iMPc3I3cA9bQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11467"; a="39964703"
-X-IronPort-AV: E=Sophos;i="6.16,243,1744095600"; d="scan'208";a="39964703"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2025 08:25:40 -0700
-X-CSE-ConnectionGUID: mBpc1KXPRNeg5EZQY+wP9w==
-X-CSE-MsgGUID: PNAkrieySemDO/usG8+nyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,243,1744095600"; d="scan'208";a="154102118"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO stinkbox)
- ([10.245.245.184])
- by orviesa005.jf.intel.com with SMTP; 17 Jun 2025 08:25:31 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 17 Jun 2025 18:25:30 +0300
-Date: Tue, 17 Jun 2025 18:25:30 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
- Alex Hung <alex.hung@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "leo.liu@amd.com" <leo.liu@amd.com>, "mwen@igalia.com" <mwen@igalia.com>,
- "jadahl@redhat.com" <jadahl@redhat.com>,
- "sebastian.wick@redhat.com" <sebastian.wick@redhat.com>,
- "shashank.sharma@amd.com" <shashank.sharma@amd.com>,
- "agoins@nvidia.com" <agoins@nvidia.com>,
- "joshua@froggi.es" <joshua@froggi.es>,
- "mdaenzer@redhat.com" <mdaenzer@redhat.com>,
- "aleixpol@kde.org" <aleixpol@kde.org>,
- "xaver.hugl@gmail.com" <xaver.hugl@gmail.com>,
- "victoria@system76.com" <victoria@system76.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "Shankar, Uma" <uma.shankar@intel.com>,
- "quic_naseer@quicinc.com" <quic_naseer@quicinc.com>,
- "quic_cbraga@quicinc.com" <quic_cbraga@quicinc.com>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- "marcan@marcan.st" <marcan@marcan.st>,
- "Liviu.Dudau@arm.com" <Liviu.Dudau@arm.com>,
- "sashamcintosh@google.com" <sashamcintosh@google.com>,
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>,
- Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH V9 16/43] drm/colorop: Add 3x4 CTM type
-Message-ID: <aFGI6rPrV9OVJCZ9@intel.com>
-References: <20250430011115.223996-1-alex.hung@amd.com>
- <20250430011115.223996-17-alex.hung@amd.com>
- <SJ1PR11MB61298CC231B8739FD48E30E1B970A@SJ1PR11MB6129.namprd11.prod.outlook.com>
- <20250616163212.62361605@eldfell>
- <SJ1PR11MB6129FDD1CBAA6FBFD978054FB973A@SJ1PR11MB6129.namprd11.prod.outlook.com>
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6FAD10E36D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 15:35:19 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-313dc7be67aso748491a91.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 08:35:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1750174519; x=1750779319; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DT7MPDDrbZrR1dO3HUzhcPn2a+QyOU2FbNu8KVIIzQY=;
+ b=Akowo7IHSBsm+rIAVXEA1Efisflkn6G67S/NNg6nnJlE0Y1IV46d8IjPBubP3FBu7P
+ H7K5GzJvSQx7RfvWao5Nx+ohTZ5MzPFtW+W/EH43iXa8+8vMWaGzHFk75PDAqnoVm16t
+ SCrmFhZGtdgvPQoh59s1UXcqEVdE7lwXazi6y2S1/tNF2AK17WNXIopgtwhNLb6RH8YW
+ C+6/bzn4dg3A7hI1WyZnB6QRLS2CzFrosfqzWaVHQxuopYCbsDupIgVc2QLrV60c3WaN
+ kXq3/Du2+T8MbBwgPGtDZkheanKhgmDFz3bs4Eq0Mq8f0UtAOAuys/vjUDS2EspsAh7a
+ u0fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750174519; x=1750779319;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DT7MPDDrbZrR1dO3HUzhcPn2a+QyOU2FbNu8KVIIzQY=;
+ b=JEvjk4Gp84yqLkhj+gGKR40JOS+OecjKqFlWo/poIpfhE/D4GpE3T3PFnVGvPyulaF
+ sFGIbjmdSJkU8KKzgEZdVFje9hhiqEHlOEA4rRRE0UjVEqBZ1xCJXR80gy2YjnCRKvRm
+ RtczjIbwG1oNvTk2kBc80Y7tfubhkqkO8wcpt5p3rxfcVP2B0ci6lMYGraFXODVJst3N
+ M31DZrl3wSHpl/q3d36dIYBk9Y6OzkMyVp/CAb6mBb6uOo4l1OccR5UtOXYwvyMXRE8Q
+ Bhxu1Sv6hgiTjbkSvUH09Opc5zqM9Z+ZK2cP8Qs9A6f+BJIvFF8gCQ6TFloC8dvAzHI+
+ weUA==
+X-Gm-Message-State: AOJu0YzWB65WHAUtmJS9mbHiEje8/wJIZEInVSE/sPMeF4thvJTOe0Bz
+ D3pvwFiEM+KsM5QR5uIhfkNI2yOShKOWcmHd+16GWCLdBYxoxXiimO4ykxKAI1XtpvW+SNuN1GQ
+ l1B9NxCftu8hQ2t5Jb9LT/W7mQyf921ebvQ==
+X-Gm-Gg: ASbGncttRSLKcZ6kptszj+24eyHNqhglX/Ibjf73sJamQf2nhD+y05mxRVDauH3lRUy
+ Mr2deA2IMT8C6+45OAsiya6S8JjUEs1NUqCdc7Jinht8oViUtt79JrOXZ+w7G2LydgTkZu1vSid
+ YjMCnW8pJI5zSS9oRdLoPBUXezoaF7Jqtt35yR6jTdAwuy
+X-Google-Smtp-Source: AGHT+IGUhbRe2fiB/nQJaxUzqsjbRHbrTMIlgN1BmvdOPqQOvTxJszkvwUCz7lNUEkcgzU3kddG+vj9JGUrN9WYq2b0=
+X-Received: by 2002:a17:90a:e7c7:b0:311:a314:c2dd with SMTP id
+ 98e67ed59e1d1-313f1daf4b3mr8711899a91.4.1750174519331; Tue, 17 Jun 2025
+ 08:35:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <SJ1PR11MB6129FDD1CBAA6FBFD978054FB973A@SJ1PR11MB6129.namprd11.prod.outlook.com>
-X-Patchwork-Hint: comment
+References: <20250617080151.1093481-1-Prike.Liang@amd.com>
+ <20250617080151.1093481-5-Prike.Liang@amd.com>
+In-Reply-To: <20250617080151.1093481-5-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Jun 2025 11:35:07 -0400
+X-Gm-Features: AX0GCFuNsVjRyRPffOJv9Zc3-TVUxV7Hk6atFDPvK0-djoMeNyKhrPg41Kg4xNA
+Message-ID: <CADnq5_NqcnA4Adc5fmJVSHADp_NuLnuwn_tqfECb5NL7Gx63Ng@mail.gmail.com>
+Subject: Re: [PATCH v2 05/11] drm/amdgpu: add userq object va track helpers
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian.Koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,91 +81,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 17, 2025 at 05:33:20AM +0000, Borah, Chaitanya Kumar wrote:
-> 
-> 
-> > -----Original Message-----
-> > From: Pekka Paalanen <pekka.paalanen@collabora.com>
-> > Sent: Monday, June 16, 2025 7:02 PM
-> > To: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
-> > Cc: Alex Hung <alex.hung@amd.com>; dri-devel@lists.freedesktop.org; amd-
-> > gfx@lists.freedesktop.org; wayland-devel@lists.freedesktop.org;
-> > harry.wentland@amd.com; leo.liu@amd.com; ville.syrjala@linux.intel.com;
-> > mwen@igalia.com; jadahl@redhat.com; sebastian.wick@redhat.com;
-> > shashank.sharma@amd.com; agoins@nvidia.com; joshua@froggi.es;
-> > mdaenzer@redhat.com; aleixpol@kde.org; xaver.hugl@gmail.com;
-> > victoria@system76.com; daniel@ffwll.ch; Shankar, Uma
-> > <uma.shankar@intel.com>; quic_naseer@quicinc.com;
-> > quic_cbraga@quicinc.com; quic_abhinavk@quicinc.com; marcan@marcan.st;
-> > Liviu.Dudau@arm.com; sashamcintosh@google.com;
-> > louis.chauvet@bootlin.com; Daniel Stone <daniels@collabora.com>
-> > Subject: Re: [PATCH V9 16/43] drm/colorop: Add 3x4 CTM type
-> > 
-> > On Mon, 16 Jun 2025 11:30:23 +0000
-> > "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
-> > 
-> > > > -----Original Message-----
-> > > > From: Alex Hung <alex.hung@amd.com>
-> > > > Sent: Wednesday, April 30, 2025 6:41 AM
-> > > > To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
-> > > > Cc: wayland-devel@lists.freedesktop.org; harry.wentland@amd.com;
-> > > > alex.hung@amd.com; leo.liu@amd.com; ville.syrjala@linux.intel.com;
-> > > > pekka.paalanen@collabora.com; contact@emersion.fr; mwen@igalia.com;
-> > > > jadahl@redhat.com; sebastian.wick@redhat.com;
-> > > > shashank.sharma@amd.com; agoins@nvidia.com; joshua@froggi.es;
-> > > > mdaenzer@redhat.com; aleixpol@kde.org; xaver.hugl@gmail.com;
-> > > > victoria@system76.com; daniel@ffwll.ch; Shankar, Uma
-> > > > <uma.shankar@intel.com>; quic_naseer@quicinc.com;
-> > > > quic_cbraga@quicinc.com; quic_abhinavk@quicinc.com;
-> > > > marcan@marcan.st; Liviu.Dudau@arm.com; sashamcintosh@google.com;
-> > > > Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>;
-> > > > louis.chauvet@bootlin.com; Daniel Stone <daniels@collabora.com>
-> > > > Subject: [PATCH V9 16/43] drm/colorop: Add 3x4 CTM type
-> > > >
-> > > > From: Harry Wentland <harry.wentland@amd.com>
-> > > >
-> > > > This type is used to support a 3x4 matrix in colorops. A 3x4 matrix
-> > > > uses the last column as a "bias" column. Some HW exposes support for
-> > > > 3x4. The calculation looks like:
-> > > >
-> > > >  out   matrix    in
-> > > >  |R|   |0  1  2  3 |   | R |
-> > > >  |G| = |4  5  6  7 | x | G |
-> > > >  |B|   |8  9  10 11|   | B |
-> > > >                        |1.0|
-> > > >
-> > > > This is also the first colorop where we need a blob property to
-> > > > program the property. For that we'll introduce a new DATA property
-> > > > that can be used by all colorop TYPEs requiring a blob. The way a
-> > > > DATA blob is read depends on the TYPE of the colorop.
-> > > >
-> > > > We only create the DATA property for property types that need it.
-> > >
-> > > Is there any value to adding pre-offsets [1] in the uapi?
-> > >
-> > >  |R/Cr|    | c0 c1 c2 |   ( |R/Cr|   |preoff0| )   |postoff0|
-> > >  |G/Y | = | c3 c4 c5 | x ( |G/Y | + |preoff1| ) + |postoff1|
-> > >  |B/Cb|   | c6 c7 c8 |   ( |B/Cb|   |preoff2| )   |postoff2|
-> > >
-> > > Handling limited range values is one use case that I can think of.
-> > 
-> > Hi,
-> > 
-> > in the mathematical sense, no. A pre-offset can always be converted into a
-> > post-offset by multiplying it with the 3x3 matrix (and adding to the existing
-> > post-offset). This can be pre-computed, no need to do it separately for every
-> > pixel.
-> > 
-> > For hardware reasons, I have no idea.
-> 
-> Thank you for the reply, Pekka. Our hardware does allow programming Pre-offsets separately.
-> Currently I can't think of a particular advantage of that if mathematically a post-offset does the job but I will keep this thread posted if I find something out.
+On Tue, Jun 17, 2025 at 4:27=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+rote:
+>
+> Add the userq object virtual address get(),mapped() and put()
+> helpers for tracking the userq obj va address usage.
 
-Just FYI we have three different kinds of hardware:
-- 3x3 matrix
-- 3x3 matrix + programmable pre offsets + hardcoded post offsets for limited range conversion
-- 3x3 matrix + programmable pre and post offsets
+Need to add the other metadata buffers to the tracking.
 
--- 
-Ville Syrjälä
-Intel
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 114 +++++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  11 +++
+>  2 files changed, 124 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index db47e90b8c83..2882ef8fe719 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -76,6 +76,116 @@ int amdgpu_userq_input_va_validate(struct amdgpu_vm *=
+vm, u64 addr,
+>         return -EINVAL;
+>  }
+>
+> +int amdgpu_userq_buffer_va_get(struct amdgpu_vm *vm, u64 addr)
+> +{
+> +       struct amdgpu_bo_va_mapping *mapping;
+> +       u64 user_addr;
+> +       int r;
+> +
+> +       user_addr =3D amdgpu_userq_va_align(addr);
+> +       r =3D amdgpu_bo_reserve(vm->root.bo, false);
+> +       if (r)
+> +               return r;
+> +
+> +       mapping =3D amdgpu_vm_bo_lookup_mapping(vm, user_addr);
+> +       if (!mapping)
+> +               goto out_err;
+> +
+> +       /*
+> +        * Need to unify the following userq va reference.
+> +        *  mqd  bo
+> +        *  rptr bo
+> +        *  wptr bo
+> +        *  eop  bo
+> +        *  doorbell bo
+> +        */
+> +       /*amdgpu_bo_ref(mapping->bo_va->base.bo);*/
+> +       mapping->bo_va->queue_refcount++;
+> +
+> +       amdgpu_bo_unreserve(vm->root.bo);
+> +       return 0;
+> +
+> +out_err:
+> +       amdgpu_bo_unreserve(vm->root.bo);
+> +       return -EINVAL;
+> +}
+> +
+> +bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
+> +{
+> +       struct amdgpu_bo_va_mapping *mapping;
+> +       u64 user_addr;
+> +       bool r;
+> +
+> +       user_addr =3D amdgpu_userq_va_align(addr);
+> +
+> +       if (amdgpu_bo_reserve(vm->root.bo, false))
+> +               return false;
+> +
+> +       mapping =3D amdgpu_vm_bo_lookup_mapping(vm, user_addr);
+> +       if (!IS_ERR_OR_NULL(mapping) && mapping->bo_va->queue_refcount > =
+0)
+> +               r =3D true;
+> +       else
+> +               r =3D false;
+> +       amdgpu_bo_unreserve(vm->root.bo);
+> +
+> +       return r;
+> +}
+> +
+> +bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_vm *vm,
+> +                       struct amdgpu_usermode_queue *queue)
+> +{
+> +
+> +       if (amdgpu_userq_buffer_va_mapped(vm, queue->queue_va) ||
+> +               amdgpu_userq_buffer_va_mapped(vm, queue->rptr_va) ||
+> +               amdgpu_userq_buffer_va_mapped(vm, queue->wptr_va))
+> +               return true;
+> +       else
+> +               return false;
+> +}
+> +
+> +int amdgpu_userq_buffer_va_put(struct amdgpu_vm *vm, u64 addr)
+> +{
+> +       struct amdgpu_bo_va_mapping *mapping;
+> +       u64 user_addr;
+> +       int r;
+> +
+> +       user_addr =3D amdgpu_userq_va_align(addr);
+> +       r =3D amdgpu_bo_reserve(vm->root.bo, false);
+> +       if (r)
+> +               return r;
+> +
+> +       mapping =3D amdgpu_vm_bo_lookup_mapping(vm, user_addr);
+> +       if (!mapping)
+> +               goto out_err;
+> +       /*
+> +        * As the GEM userq bo will be unmapped by amdgpu_vm_bo_unmap() w=
+hich is
+> +        * invoked before destroying userq. So if the user wants to refer=
+ence/dereference
+> +        * the userq vm bo, then ensure the userq vm bo is dereferenced b=
+efore amdgpu_vm_bo_unmap()
+> +        * or unmap the userq bo VA at amdgpu_userq_destroy() directly; o=
+therwise, that results in the
+> +        * userq va BOs being referred to unbalanced and causing the fail=
+ure of amdgpu_vm_bo_unmap().
+> +        */
+
+I don't follow this comment.  Why wouldn't this be balanced?
+
+Alex
+
+> +       /*amdgpu_bo_unref(&mapping->bo_va->base.bo);*/
+> +
+> +       mapping->bo_va->queue_refcount--;
+> +
+> +       amdgpu_bo_unreserve(vm->root.bo);
+> +       return 0;
+> +
+> +out_err:
+> +       amdgpu_bo_unreserve(vm->root.bo);
+> +       return -EINVAL;
+> +}
+> +
+> +int amdgpu_userq_buffer_vas_put(struct amdgpu_vm *vm,
+> +                       struct amdgpu_usermode_queue *queue)
+> +{
+> +       amdgpu_userq_buffer_va_put(vm, queue->queue_va);
+> +       amdgpu_userq_buffer_va_put(vm, queue->rptr_va);
+> +       amdgpu_userq_buffer_va_put(vm, queue->wptr_va);
+> +
+> +       return 0;
+> +}
+> +
+>  static int
+>  amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_mgr,
+>                           struct amdgpu_usermode_queue *queue)
+> @@ -442,6 +552,9 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
+amdgpu_userq *args)
+>         queue->queue_type =3D args->in.ip_type;
+>         queue->vm =3D &fpriv->vm;
+>         queue->priority =3D priority;
+> +       queue->queue_va =3D args->in.queue_va;
+> +       queue->rptr_va =3D args->in.rptr_va;
+> +       queue->wptr_va =3D args->in.wptr_va;
+>
+>         db_info.queue_type =3D queue->queue_type;
+>         db_info.doorbell_handle =3D queue->doorbell_handle;
+> @@ -472,7 +585,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
+amdgpu_userq *args)
+>                 goto unlock;
+>         }
+>
+> -
+>         qid =3D idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ_=
+COUNT, GFP_KERNEL);
+>         if (qid < 0) {
+>                 drm_file_err(uq_mgr->file, "Failed to allocate a queue id=
+\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.h
+> index 704935ca0c36..9543fbab7cc3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> @@ -52,6 +52,10 @@ struct amdgpu_usermode_queue {
+>         enum amdgpu_userq_state state;
+>         uint64_t                doorbell_handle;
+>         uint64_t                doorbell_index;
+> +       uint64_t                queue_va;
+> +       uint64_t                rptr_va;
+> +       uint64_t                wptr_va;
+> +
+>         uint64_t                flags;
+>         struct amdgpu_mqd_prop  *userq_prop;
+>         struct amdgpu_userq_mgr *userq_mgr;
+> @@ -134,4 +138,11 @@ int amdgpu_userq_start_sched_for_enforce_isolation(s=
+truct amdgpu_device *adev,
+>
+>  int amdgpu_userq_input_va_validate(struct amdgpu_vm *vm, u64 addr,
+>                         u64 expected_size);
+> +int amdgpu_userq_buffer_va_get(struct amdgpu_vm *vm, u64 addr);
+> +bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr);
+> +bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_vm *vm,
+> +                       struct amdgpu_usermode_queue *queue);
+> +int amdgpu_userq_buffer_va_put(struct amdgpu_vm *vm, u64 addr);
+> +int amdgpu_userq_buffer_vas_put(struct amdgpu_vm *vm,
+> +                       struct amdgpu_usermode_queue *queue);
+>  #endif
+> --
+> 2.34.1
+>
