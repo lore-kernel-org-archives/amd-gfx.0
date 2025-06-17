@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97AD8C7115B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD43C73C66
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8C9E10E66A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E55EA10E66C;
 	Tue, 17 Jun 2025 13:02:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h7zmWnCh";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lcwt4GNH";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 306CF10E644;
- Tue, 17 Jun 2025 12:50:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3245A10E3C5;
+ Tue, 17 Jun 2025 12:50:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=5bW97YWvE2WNp84/m7LouGNWv9aZZ0XfiU91U9Q+7L4=; b=h7zmWnChsIeMDopOeedwqXEska
- 01HbouEu5rpdgMA42JOhgDXEynxTf+R7CHq2EwR4MQlIFxehyhSwtRt9v0udqrkpau8ijYYO2AbRo
- zk0XnoEXyvN3OoI415lmYQJhROiy7kI5fClkWSPUZt/W7YxytRSwCS6Nx0XGidnucqHCXitNCgmLh
- /monqQTtPJi48u7ILCk8O7FkezexU0Ev/qwxDgAaByEsd3JAiXDl3oQzE6bQNZrPgpAL6LA+qTkTh
- 3Y4aaWoXdtvrwsP3ywoNa8ixv6p0c3eLCkk3WlxlPhMe5q7PSLUYyXlJrXue08WjF09q3X+vWsie8
- uVEiTkWg==;
+ bh=yrfDzOT2kIl7hEsjyNVf8qR8CQoShiARpH5JLckqStg=; b=lcwt4GNHHejK7Yucp1nwlPtmO3
+ /SnV2hmq66V2+D3YE6T7zCdhrmH0mUfx/0SE4//A82ZdqXmiKrouvypINmRZV9ZTcfsJMLzfJWvSg
+ 227qsOh1Z/JqUS7K1i+mMIx0VqUGqY72/8FIpWGhZTrPI1LgCtiAeXik8RytUYmgSNrJufgMf2NWw
+ /CLxsJaxuhNRhpnMS/NK10TimdUqISWeHxR42QEa1bUepFs3xX0QZKWlUDl4BXN8oPONtrZtqECPZ
+ 0L/GX4sSUSspbcxb5ilAHJQABXi964+Sfvcig3bL/zPNw6LB2l+eTAX7ccjStNzjGUGRP5GBM1W8z
+ KSEIqD8g==;
 Received: from [191.204.192.64] (helo=localhost.localdomain)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uRVlY-004ans-LF; Tue, 17 Jun 2025 14:50:17 +0200
+ id 1uRVlM-004ans-Mu; Tue, 17 Jun 2025 14:50:05 +0200
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: "Alex Deucher" <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -43,10 +43,10 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v9 4/6] drm/doc: Add a section about "Task information" for
- the wedge API
-Date: Tue, 17 Jun 2025 09:49:47 -0300
-Message-ID: <20250617124949.2151549-5-andrealmeid@igalia.com>
+Subject: [PATCH v9 1/6] drm: amdgpu: Allow NULL pointers at
+ amdgpu_vm_put_task_info()
+Date: Tue, 17 Jun 2025 09:49:44 -0300
+Message-ID: <20250617124949.2151549-2-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250617124949.2151549-1-andrealmeid@igalia.com>
 References: <20250617124949.2151549-1-andrealmeid@igalia.com>
@@ -68,52 +68,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a section about "Task information" for the wedge API.
+Allow NULL pointers at amdgpu_vm_put_task_info() as it common practice
+for "put" or "free" functions. This avoid an extra check for NULL for
+callers.
 
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
 Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
-v5:
- - Change app to task in the text as well
-v4:
- - Change APP to TASK
-v3:
- - Change "app that caused ..." to "app involved ..."
- - Clarify that devcoredump have more information about what happened
- - Update that PID and APP will be empty if there's no app info
+v9: use if (task) instead of if (ZERO_OR_NULL_PTR(task))
+v8: New patch
 ---
- Documentation/gpu/drm-uapi.rst | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index 4863a4deb0ee..263e5a97c080 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -446,6 +446,23 @@ telemetry information (devcoredump, syslog). This is useful because the first
- hang is usually the most critical one which can result in consequential hangs or
- complete wedging.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 3911c78f8282..de914a39e3f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2447,7 +2447,8 @@ amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
+  */
+ void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info)
+ {
+-	kref_put(&task_info->refcount, amdgpu_vm_destroy_task_info);
++	if (task_info)
++		kref_put(&task_info->refcount, amdgpu_vm_destroy_task_info);
+ }
  
-+Task information
-+---------------
-+
-+The information about which application (if any) was involved in the device
-+wedging is useful for userspace if they want to notify the user about what
-+happened (e.g. the compositor display a message to the user "The <task name>
-+caused a graphical error and the system recovered") or to implement policies
-+(e.g. the daemon may "ban" an task that keeps resetting the device). If the task
-+information is available, the uevent will display as ``PID=<pid>`` and
-+``TASK=<task name>``. Otherwise, ``PID`` and ``TASK`` will not appear in the
-+event string.
-+
-+The reliability of this information is driver and hardware specific, and should
-+be taken with a caution regarding it's precision. To have a big picture of what
-+really happened, the devcoredump file provides should have much more detailed
-+information about the device state and about the event.
-+
- Consumer prerequisites
- ----------------------
- 
+ /**
 -- 
 2.49.0
 
