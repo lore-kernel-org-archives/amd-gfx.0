@@ -4,52 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 761C6C7115A
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E9EC7115F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91A0C10E690;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E606710E699;
 	Tue, 17 Jun 2025 13:02:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=disroot.org header.i=@disroot.org header.b="BBArIcmN";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="BdsvolV7";
 	dkim-atps=neutral
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE9CF10E58F
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 09:42:05 +0000 (UTC)
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
- by disroot.org (Postfix) with ESMTP id 7B0E425F98;
- Tue, 17 Jun 2025 11:42:04 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id DLfz8DzFOpKU; Tue, 17 Jun 2025 11:42:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
- t=1750153323; bh=kEVr5LRDJXI5+NMKIDFQUd9VmCGFm55tC/Y7nPANTt8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=BBArIcmNxHIoKXxCgCBxozEjIHCMN0lxBNp8rZFkzi4cfUkTmHUYZA+btASY+rxE0
- Zk42MC5u/x40Y32dkU6MEq9405EV1UR2DhNI8mtSCelB1EOtsnKjYkm+qNFPmtjFup
- Xnb5iAjftrdy6AcGBVVFQaBW0EP1mU4N9lYhMgc7iOxlUrgDgbvXY2D1MUOe5jtyfo
- 2L7b475uhTOlyAtprlcIMMw06ieRPzrRUOxzGS+MqMwcs3KmWSW4fyv+GhBaLcMd1e
- JOaJEZDqCoT9jxAsG2/W76gPiEMQZcfwYF6W+0HLBSMiUJSVT084pZYKoMKAD6hHlg
- aqi5zH64yEj4Q==
+X-Greylist: delayed 846 seconds by postgrey-1.36 at gabe;
+ Tue, 17 Jun 2025 06:54:39 UTC
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61DA210E059
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 06:54:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1750143267; x=1750748067; i=markus.elfring@web.de;
+ bh=W/eYVUsYjhYNAzlFtlDPOabUz5P88wa8dv8eQF4JdOw=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=BdsvolV7bQyozsWc6AcsCzupRFadsD/7O5fmSEcENfpCfo40Bat/B6/UTB3DGRi5
+ J3swKRGKjZ2vMQ8RRwSQ1obmvL5kEo4bFJ1b7BnvC34YOepN5vx+K0MeX2Ttq2SNm
+ 16QkZyiemjZyWns5sfH77P3b5gsJ1167pQnwUFr+lCyhT05SZ5A63xi0SfVm1dYch
+ TwrbGvjx9qJmkcsUeIbaIw0ZZLF8kDMFbyDqcT7m8kNRfI1i+rR/sLHhBMJpisw7r
+ YTE6Y9yGkoGRlWr+8HQkD1ed73iISc4SXfmQ9QmWLGpOitZrwoDcGQboZb4SMTOAH
+ ANk2cjdu6dOKon3HNQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.29] ([94.31.69.238]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MRk0W-1uLStw45Uo-00L8b0; Tue, 17
+ Jun 2025 08:40:31 +0200
+Message-ID: <f9bffb72-b463-45d0-ac72-9a5ff4daec38@web.de>
+Date: Tue, 17 Jun 2025 08:40:28 +0200
 MIME-Version: 1.0
-Date: Tue, 17 Jun 2025 11:42:03 +0200
-From: machion@disroot.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
-Subject: Re: Unplayable framerates in game but specific kernel versions work, 
- maybe amdgpu problem
-In-Reply-To: <CADnq5_PkOuAHuDjMNXABEcenaZFZgU044G=9pTu=EgMr_grXbw@mail.gmail.com>
-References: <c415d9e0b08bcba068b01700225bf560@disroot.org>
- <CADnq5_PX1dYF2Jd3q7ghaBjpPhNLq9EmFJtN1w6YOSfVo++7sA@mail.gmail.com>
- <69b5ebaa719355994a383fa026dc3fba@disroot.org>
- <CADnq5_PkOuAHuDjMNXABEcenaZFZgU044G=9pTu=EgMr_grXbw@mail.gmail.com>
-Message-ID: <fadf714ecdc2e3bd5bed0c3ee69177a1@disroot.org>
-X-Sender: machion@disroot.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [v3] drm/amd/display: Fix exception handling in
+ dm_validate_stream_and_context()
+To: Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ Roman Li <roman.li@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ Tom Chung <chiahsuan.chung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
+ lkp@intel.com, oe-kbuild-all@lists.linux.dev, llvm@lists.linux.dev,
+ cocci@inria.fr, Melissa Wen <mwen@igalia.com>
+References: <f9303bdc-b1a7-be5e-56c6-dfa8232b8b55@web.de>
+ <e6656c83-ee7a-a253-2028-109138779c94@web.de>
+ <ea0ff67b-3665-db82-9792-67a633ba07f5@web.de>
+ <32674bac-92c2-8fc7-0977-6d2d81b3257f@amd.com>
+ <da489521-7786-4716-8fb8-d79b3c08d93c@web.de>
+ <8684e2ba-b644-44c8-adf7-9f1423a1251d@web.de>
+ <ba89d859-f132-4e7d-ba29-47331e02152a@amd.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <ba89d859-f132-4e7d-ba29-47331e02152a@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:hnrgU48qW8YbbumGxfVVaCQYutIW5tQhAnG2uxaNogCv+Volpoz
+ NtmjNa9mVp1Vuc014Zos4Xx/7c7bXp3juCUjI3normNm47Rk1rswj21iMGDp7AcOX7DblMb
+ KwwbP0mep3lNNqI9JxRT3dxZn3UYBMTSkeenIAn3Ux2HAwTpkF0J6NIhXnlxWYwlkXIwnis
+ mJXovzuulJoDRcs3vcBIQ==
+UI-OutboundReport: notjunk:1;M01:P0:7HxqG3Rx4i8=;wS1c0XkyRDcJGb/QEhbXkR61HhH
+ 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
+ hp6wI9UXaNAT9mu8GKqYltgLf1TikEDXCOnG4A==
 X-Mailman-Approved-At: Tue, 17 Jun 2025 13:02:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,117 +132,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I feared that.
+=E2=80=A6
+>> 1. Thus return directly if
+=E2=80=A6
+> I guess the intention was to reduce goto statements.
+=E2=80=A6
 
-It seems a crazy problem, when many people are affected and in opposite 
-ways.
-This ReBAR/UEFI thing is also new to me, but I don't have this on my 
-system either (using BIOS/MBR).
+Partly, yes.
 
-I hope, it can be fixed for all scenarios.
+See also once more:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/coding-style.rst?h=3Dv6.16-rc2#n532
 
-Marion
-
-Am 2025-06-16 15:29, schrieb Alex Deucher:
-> On Fri, Jun 13, 2025 at 3:38 PM <machion@disroot.org> wrote:
->> 
->> Hi,
->> sorry for the delay.
->> Besides less time, I had to make myself familiar with bisecting and
->> again kernel compiling. Last time I compiled the kernel myself was
->> around 2010 I think.
->> 
->> Anyway it seems I found the bad commit. The result after bisecting 10
->> commits is:
->> 
->> a53d959fe660341788cb8dbc3ac3330d90a09ecf is the first bad commit
->> commit a53d959fe660341788cb8dbc3ac3330d90a09ecf
->> Author: Christian König <christian.koenig@amd.com>
->> Date:   Thu Mar 20 14:46:18 2025 +0100
->> 
->>      drm/amdgpu: immediately use GTT for new allocations
->> 
->>      commit a755906fb2b8370c43e91ba437ae1b3e228e8b02 upstream.
->> 
->>      Only use GTT as a fallback if we already have a backing store. 
->> This
->>      prevents evictions when an application constantly allocates and
->> frees new
->>      memory.
->> 
->>      Partially fixes
->>      
->> https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2833985.
->> 
->>      Signed-off-by: Christian König <christian.koenig@amd.com>
->>      Fixes: 216c1282dde3 ("drm/amdgpu: use GTT only as fallback for
->> VRAM|GTT")
->>      Acked-by: Alex Deucher <alexander.deucher@amd.com>
->>      Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>      Cc: stable@vger.kernel.org
->>      Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->> 
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> Unfortunately reverting that commit will reintroduce a similar
-> performance issue for lots of other uses.  See:
-> https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2827990
-> for a description of the fundemental problem.
-> 
-> Alex
-> 
->> 
->> Marion
->> 
->> 
->> Am 2025-05-08 15:18, schrieb Alex Deucher:
->> > On Thu, May 8, 2025 at 9:13 AM <machion@disroot.org> wrote:
->> >>
->> >> Hello kernel/driver developers,
->> >>
->> >> I hope, with my information it's possible to find a bug/problem in the
->> >> kernel. Otherwise I am sorry, that I disturbed you.
->> >> I only use LTS kernels, but I can narrow it down to a hand full of
->> >> them,
->> >> where it works.
->> >>
->> >> The PC: Manjaro Stable/Cinnamon/X11/AMD Ryzen 5 2600/Radeon HD
->> >> 7790/8GB
->> >> RAM
->> >> I already asked the Manjaro community, but with no luck.
->> >>
->> >> The game: Hellpoint (GOG Linux latest version, Unity3D-Engine v2021),
->> >> uses vulkan
->> >>
->> >> ---
->> >>
->> >> I came a long road of kernels. I had many versions of 5.4, 5.10, 5.15,
->> >> 6.1 and 6.6 and and the game was always unplayable, because the frames
->> >> where around 1fps (performance of PC is not the problem).
->> >> I asked the mesa and cinnamon team for help in the past, but also with
->> >> no luck.
->> >> It never worked, till on 2025-03-29 when I installed 6.12.19 for the
->> >> first time and it worked!
->> >>
->> >> But it only worked with 6.12.19, 6.12.20 and 6.12.21
->> >> When I updated to 6.12.25, it was back to unplayable.
->> >
->> > Can you bisect to see what fixed it in 6.12.19 or what broke it in
->> > 6.12.25?  For example if it was working in 6.12.21 and not working in
->> > 6.12.25, you can bisect between 6.12.21 and .25.
->> >
->> > Alex
->> >
->> >>
->> >> For testing I installed 6.14.4 with the same result. It doesn't work.
->> >>
->> >> I also compared file /proc/config.gz of both kernels (6.12.21 <>
->> >> 6.14.4), but can't seem to see drastic changes to the graphical part.
->> >>
->> >> I presume it has something to do with amdgpu.
->> >>
->> >> If you need more information, I would be happy to help.
->> >>
->> >> Kind regards,
->> >> Marion
+Regards,
+Markus
