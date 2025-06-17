@@ -4,70 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 650DDC71157
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 15:25:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F86C71136
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 15:25:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D3F810E727;
-	Tue, 17 Jun 2025 15:25:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEF0610E759;
+	Tue, 17 Jun 2025 15:25:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eHrvyrso";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ww6DvpAe";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 121AE10E727
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 15:25:18 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-313fab41fd5so692781a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 08:25:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750173917; x=1750778717; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cnUuBoua5ETiR0n2WBsLjRNpllOt9J7ST7N9YxSN/uw=;
- b=eHrvyrsoxzsUZhQnKCPxSU4iYRtm1QLRw+MUiTVi8MvJ5rztSmccJpnVlSzQZMHuV6
- bZREsRuwOGdp0x4QEvVSPoCgLI0N6eVKatyeylyVm0oi0IptyvSzjvJi6eOzip6XUcBw
- /QS0qVduyETqvdcewTj+sFQLhZhMHsgMdM/8lUfrFG4O2/gAdLwL3IVGlErWdrhsyB1y
- KjYVeJBeGUQuBbNrSk4/RCNNpqKVrPdDV5Dj3sLrOdaah5+WwaSjK4ZlS8bU/Ui4ell4
- ahAxYfAwTNllfiZsjgdfBwu1RRsBZdREjIN3dZ8RGQjWzuR+/J6ZarFNzXy54UyzjVcU
- Bvhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750173917; x=1750778717;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cnUuBoua5ETiR0n2WBsLjRNpllOt9J7ST7N9YxSN/uw=;
- b=THsKulX7H4M8mQZCR9SENa2/Ati3Arg56KSxrvgrvMe5Ibk7stBdRiANTCLYHbW5B4
- xXCvYHHNYfYQWMUMAS1mW5PwjkWnoDQDJE8f+qWn229UjPQhwwxbpVvi0Q5pc8PWmjoM
- 43zrep99a3ZkSBKmU/4ISxP5iHOrYmi0O9gPFbBhGRFxKGspX1SoLIzxgr9z4PswjR94
- AwCITPsS+2HHh4cQ14u+nWePDonb4Eibm59Pgpvw/bs/3CmSudNLpnKdWT8xCsshU94G
- tdwB/DsndRtYOvvART4OJk4kY65zAbEJJ5AR910YKim25coSzxznoZp3zx/bzmYj9kLh
- 5QNA==
-X-Gm-Message-State: AOJu0Ywtc4O5RUA2+W5zqKG3ZR0l5rsxCeVHcsYEWSaNb7NeVoDkFWFs
- rUqac3o3NWYJ6psSp31Cs8c5Ae5NqyocObdNFXso3DjgcBLwbeDrhTUvISkNCUIb4aPWRaiJMuI
- TS6uJI9eR09gWp5Tu92FBfqhShbiJAmiCR8VO
-X-Gm-Gg: ASbGncv7ZbQAZWjCMq65mFD4iD22w5a5zvMTY5kbZvzFikzgPY9FhJO7pDyQpjktvTf
- HJuBxYdrX519rFw7vJwv0Dpr7mzqxclZQ8M2wzfeFEmbjYTl9TfUVKyKgNCouue7ZiIMKItRvKY
- sY7isxeWStWBrGsfX/jmPPCMNKRNBiilH1DFeYrJ8PaoWv
-X-Google-Smtp-Source: AGHT+IFF3HYpvGfcCQaZZzK8/N2zZvpCXqKcYMFCHaHu+GTS7COBEuRuRJLKPJtCT9Ec3HvXw91am4KgovWPGjzMB3o=
-X-Received: by 2002:a17:90b:1fcd:b0:311:e8cc:4250 with SMTP id
- 98e67ed59e1d1-313f1d533d2mr7741902a91.3.1750173917385; Tue, 17 Jun 2025
- 08:25:17 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9183A10E759;
+ Tue, 17 Jun 2025 15:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1750173953; x=1781709953;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=MCjSl+kXEQTeDXa2Liysr1PgVP/E1cw3gWgQrWuIjII=;
+ b=Ww6DvpAeN3hWWEw90AHA15D7S27XgVo/VwCqUG3Xjer4uE7qYTIeXuj9
+ U5UfeuyVH9UUXXeXvvgFZ7NWIv/uaulXxDq1OijpLisXoC5ZcELb42jDY
+ J+NJA9R/jZXuWRH8lLI5TIrDc+axDjHuBXMEcIAiAakUp0q/pAne+H7wt
+ AVfahNIYEUNZeG600Z/22Rpg9k6Z4BkYlMc5i9n82hACouCEyAaD+/vev
+ bE2pni5A5nXjR9XzVTAYcgJ90GyXpu7qPn+JsECVYuJc3YI1fDHtZFFFo
+ CfgQfRmFr28R+Fc9jR1zxrPuXdUxyalMXQPo6PlHrIJ5e0ePeitfBa9Nh g==;
+X-CSE-ConnectionGUID: U8WzqLfYQbqj97Wc1M6xGQ==
+X-CSE-MsgGUID: 4KuAhO3BT1iMPc3I3cA9bQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11467"; a="39964703"
+X-IronPort-AV: E=Sophos;i="6.16,243,1744095600"; d="scan'208";a="39964703"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2025 08:25:40 -0700
+X-CSE-ConnectionGUID: mBpc1KXPRNeg5EZQY+wP9w==
+X-CSE-MsgGUID: PNAkrieySemDO/usG8+nyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,243,1744095600"; d="scan'208";a="154102118"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO stinkbox)
+ ([10.245.245.184])
+ by orviesa005.jf.intel.com with SMTP; 17 Jun 2025 08:25:31 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 17 Jun 2025 18:25:30 +0300
+Date: Tue, 17 Jun 2025 18:25:30 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Alex Hung <alex.hung@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "leo.liu@amd.com" <leo.liu@amd.com>, "mwen@igalia.com" <mwen@igalia.com>,
+ "jadahl@redhat.com" <jadahl@redhat.com>,
+ "sebastian.wick@redhat.com" <sebastian.wick@redhat.com>,
+ "shashank.sharma@amd.com" <shashank.sharma@amd.com>,
+ "agoins@nvidia.com" <agoins@nvidia.com>,
+ "joshua@froggi.es" <joshua@froggi.es>,
+ "mdaenzer@redhat.com" <mdaenzer@redhat.com>,
+ "aleixpol@kde.org" <aleixpol@kde.org>,
+ "xaver.hugl@gmail.com" <xaver.hugl@gmail.com>,
+ "victoria@system76.com" <victoria@system76.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "Shankar, Uma" <uma.shankar@intel.com>,
+ "quic_naseer@quicinc.com" <quic_naseer@quicinc.com>,
+ "quic_cbraga@quicinc.com" <quic_cbraga@quicinc.com>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
+ "marcan@marcan.st" <marcan@marcan.st>,
+ "Liviu.Dudau@arm.com" <Liviu.Dudau@arm.com>,
+ "sashamcintosh@google.com" <sashamcintosh@google.com>,
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>,
+ Daniel Stone <daniels@collabora.com>
+Subject: Re: [PATCH V9 16/43] drm/colorop: Add 3x4 CTM type
+Message-ID: <aFGI6rPrV9OVJCZ9@intel.com>
+References: <20250430011115.223996-1-alex.hung@amd.com>
+ <20250430011115.223996-17-alex.hung@amd.com>
+ <SJ1PR11MB61298CC231B8739FD48E30E1B970A@SJ1PR11MB6129.namprd11.prod.outlook.com>
+ <20250616163212.62361605@eldfell>
+ <SJ1PR11MB6129FDD1CBAA6FBFD978054FB973A@SJ1PR11MB6129.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-References: <20250617080151.1093481-1-Prike.Liang@amd.com>
- <20250617080151.1093481-4-Prike.Liang@amd.com>
-In-Reply-To: <20250617080151.1093481-4-Prike.Liang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Jun 2025 11:25:05 -0400
-X-Gm-Features: AX0GCFsm8fioqI7Ddp48aCCJ9nFlcusxa6AVVCWs8ldJU95AIYHwmcsz35LW8Xo
-Message-ID: <CADnq5_Nc-mC-4XAN4QzKuVZJ--oRuN_HE2Xg-ds2dgaoK1eBXA@mail.gmail.com>
-Subject: Re: [PATCH v2 04/11] drm/amdgpu: validate userq buffer virtual
- address and size
-To: Prike Liang <Prike.Liang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian.Koenig@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <SJ1PR11MB6129FDD1CBAA6FBFD978054FB973A@SJ1PR11MB6129.namprd11.prod.outlook.com>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,230 +99,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 17, 2025 at 4:27=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
-rote:
->
-> It needs to validate the userq object virtual address whether
-> it is validated in vm mapping.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 50 +++++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  2 +
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 24 +++++++++++
->  3 files changed, 74 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index dca0f76c9fce..db47e90b8c83 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -31,6 +31,8 @@
->  #include "amdgpu_userq.h"
->  #include "amdgpu_userq_fence.h"
->
-> +#define amdgpu_userq_va_align(va) (va & AMDGPU_GMC_HOLE_MASK) >> AMDGPU_=
-GPU_PAGE_SHIFT
-> +
->  u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
->  {
->         int i;
-> @@ -44,6 +46,36 @@ u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_d=
-evice *adev)
->         return userq_ip_mask;
->  }
->
-> +int amdgpu_userq_input_va_validate(struct amdgpu_vm *vm, u64 addr,
-> +                               u64 expected_size)
-> +{
-> +       struct amdgpu_bo_va_mapping *va_map;
-> +       u64 user_addr;
-> +       u64 size;
-> +       int r;
-> +
-> +       user_addr =3D amdgpu_userq_va_align(addr);
-> +       size =3D expected_size >> AMDGPU_GPU_PAGE_SHIFT;
-> +
-> +       r =3D amdgpu_bo_reserve(vm->root.bo, false);
-> +       if (r)
-> +               return r;
-> +
-> +       va_map =3D amdgpu_vm_bo_lookup_mapping(vm, user_addr);
-> +       if (!va_map)
-> +               goto out_err;
-> +       /* Only validate the userq whether residen in the VM mapping rang=
-e */
+On Tue, Jun 17, 2025 at 05:33:20AM +0000, Borah, Chaitanya Kumar wrote:
+> 
+> 
+> > -----Original Message-----
+> > From: Pekka Paalanen <pekka.paalanen@collabora.com>
+> > Sent: Monday, June 16, 2025 7:02 PM
+> > To: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
+> > Cc: Alex Hung <alex.hung@amd.com>; dri-devel@lists.freedesktop.org; amd-
+> > gfx@lists.freedesktop.org; wayland-devel@lists.freedesktop.org;
+> > harry.wentland@amd.com; leo.liu@amd.com; ville.syrjala@linux.intel.com;
+> > mwen@igalia.com; jadahl@redhat.com; sebastian.wick@redhat.com;
+> > shashank.sharma@amd.com; agoins@nvidia.com; joshua@froggi.es;
+> > mdaenzer@redhat.com; aleixpol@kde.org; xaver.hugl@gmail.com;
+> > victoria@system76.com; daniel@ffwll.ch; Shankar, Uma
+> > <uma.shankar@intel.com>; quic_naseer@quicinc.com;
+> > quic_cbraga@quicinc.com; quic_abhinavk@quicinc.com; marcan@marcan.st;
+> > Liviu.Dudau@arm.com; sashamcintosh@google.com;
+> > louis.chauvet@bootlin.com; Daniel Stone <daniels@collabora.com>
+> > Subject: Re: [PATCH V9 16/43] drm/colorop: Add 3x4 CTM type
+> > 
+> > On Mon, 16 Jun 2025 11:30:23 +0000
+> > "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
+> > 
+> > > > -----Original Message-----
+> > > > From: Alex Hung <alex.hung@amd.com>
+> > > > Sent: Wednesday, April 30, 2025 6:41 AM
+> > > > To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+> > > > Cc: wayland-devel@lists.freedesktop.org; harry.wentland@amd.com;
+> > > > alex.hung@amd.com; leo.liu@amd.com; ville.syrjala@linux.intel.com;
+> > > > pekka.paalanen@collabora.com; contact@emersion.fr; mwen@igalia.com;
+> > > > jadahl@redhat.com; sebastian.wick@redhat.com;
+> > > > shashank.sharma@amd.com; agoins@nvidia.com; joshua@froggi.es;
+> > > > mdaenzer@redhat.com; aleixpol@kde.org; xaver.hugl@gmail.com;
+> > > > victoria@system76.com; daniel@ffwll.ch; Shankar, Uma
+> > > > <uma.shankar@intel.com>; quic_naseer@quicinc.com;
+> > > > quic_cbraga@quicinc.com; quic_abhinavk@quicinc.com;
+> > > > marcan@marcan.st; Liviu.Dudau@arm.com; sashamcintosh@google.com;
+> > > > Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>;
+> > > > louis.chauvet@bootlin.com; Daniel Stone <daniels@collabora.com>
+> > > > Subject: [PATCH V9 16/43] drm/colorop: Add 3x4 CTM type
+> > > >
+> > > > From: Harry Wentland <harry.wentland@amd.com>
+> > > >
+> > > > This type is used to support a 3x4 matrix in colorops. A 3x4 matrix
+> > > > uses the last column as a "bias" column. Some HW exposes support for
+> > > > 3x4. The calculation looks like:
+> > > >
+> > > >  out   matrix    in
+> > > >  |R|   |0  1  2  3 |   | R |
+> > > >  |G| = |4  5  6  7 | x | G |
+> > > >  |B|   |8  9  10 11|   | B |
+> > > >                        |1.0|
+> > > >
+> > > > This is also the first colorop where we need a blob property to
+> > > > program the property. For that we'll introduce a new DATA property
+> > > > that can be used by all colorop TYPEs requiring a blob. The way a
+> > > > DATA blob is read depends on the TYPE of the colorop.
+> > > >
+> > > > We only create the DATA property for property types that need it.
+> > >
+> > > Is there any value to adding pre-offsets [1] in the uapi?
+> > >
+> > >  |R/Cr|    | c0 c1 c2 |   ( |R/Cr|   |preoff0| )   |postoff0|
+> > >  |G/Y | = | c3 c4 c5 | x ( |G/Y | + |preoff1| ) + |postoff1|
+> > >  |B/Cb|   | c6 c7 c8 |   ( |B/Cb|   |preoff2| )   |postoff2|
+> > >
+> > > Handling limited range values is one use case that I can think of.
+> > 
+> > Hi,
+> > 
+> > in the mathematical sense, no. A pre-offset can always be converted into a
+> > post-offset by multiplying it with the 3x3 matrix (and adding to the existing
+> > post-offset). This can be pre-computed, no need to do it separately for every
+> > pixel.
+> > 
+> > For hardware reasons, I have no idea.
+> 
+> Thank you for the reply, Pekka. Our hardware does allow programming Pre-offsets separately.
+> Currently I can't think of a particular advantage of that if mathematically a post-offset does the job but I will keep this thread posted if I find something out.
 
-resident
+Just FYI we have three different kinds of hardware:
+- 3x3 matrix
+- 3x3 matrix + programmable pre offsets + hardcoded post offsets for limited range conversion
+- 3x3 matrix + programmable pre and post offsets
 
-> +       if (user_addr >=3D  va_map->start &&
-> +                       (size !=3D 0 && user_addr + size - 1 <=3D va_map-=
->last)) {
-
-indentation here looks off.
-
-> +               amdgpu_bo_unreserve(vm->root.bo);
-> +               return 0;
-> +       }
-> +
-> +out_err:
-> +       amdgpu_bo_unreserve(vm->root.bo);
-> +       return -EINVAL;
-> +}
-> +
->  static int
->  amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_mgr,
->                           struct amdgpu_usermode_queue *queue)
-> @@ -391,6 +423,14 @@ amdgpu_userq_create(struct drm_file *filp, union drm=
-_amdgpu_userq *args)
->                 r =3D -EINVAL;
->                 goto unlock;
->         }
-> +       /* Validate the userq virtual address.*/
-> +       if (amdgpu_userq_input_va_validate(&fpriv->vm, args->in.queue_va,=
- args->in.queue_size) ||
-> +                       amdgpu_userq_input_va_validate(&fpriv->vm, args->=
-in.rptr_va, PAGE_SIZE) ||
-> +                       amdgpu_userq_input_va_validate(&fpriv->vm, args->=
-in.wptr_va, PAGE_SIZE)) {
-
-indentation here looks off.
-
-> +               drm_file_err(uq_mgr->file, "Usermode queue input virt add=
-ress is invalid\n");
-> +               r =3D -EINVAL;
-> +               goto unlock;
-> +       }
->
->         queue =3D kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNE=
-L);
->         if (!queue) {
-> @@ -501,11 +541,17 @@ static int amdgpu_userq_input_args_validate(struct =
-drm_device *dev,
->                 }
->
->                 if (args->in.queue_va =3D=3D AMDGPU_BO_INVALID_OFFSET ||
-> -                               args->in.queue_size =3D=3D 0) {
-> +                               args->in.queue_size =3D=3D 0 ||
-> +                               !access_ok(u64_to_user_ptr(args->in.queue=
-_va & AMDGPU_GMC_HOLE_MASK),
-> +                                       args->in.queue_size)) {
-
-indentation here looks off.
-
-Also, the VAs are GPU virtual addresses not user virtual addresses so
-I don't think this check is valid.
-
->                         drm_file_err(filp, "invalidate userq queue va or =
-size\n");
->                         return -EINVAL;
->                 }
-> -               if (!args->in.wptr_va || !args->in.rptr_va) {
-> +               if (!args->in.wptr_va || !args->in.rptr_va ||
-> +                       !access_ok(u64_to_user_ptr(args->in.wptr_va & AMD=
-GPU_GMC_HOLE_MASK),
-> +                                               sizeof(uint64_t)) ||
-> +                       !access_ok(u64_to_user_ptr(args->in.rptr_va & AMD=
-GPU_GMC_HOLE_MASK),
-> +                                               sizeof(uint64_t))) {
-
-Same comment here.
-
->                         drm_file_err(filp, "invalidate userq queue rptr o=
-r wptr\n");
->                         return -EINVAL;
->                 }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.h
-> index ec040c2fd6c9..704935ca0c36 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -132,4 +132,6 @@ int amdgpu_userq_stop_sched_for_enforce_isolation(str=
-uct amdgpu_device *adev,
->  int amdgpu_userq_start_sched_for_enforce_isolation(struct amdgpu_device =
-*adev,
->                                                    u32 idx);
->
-> +int amdgpu_userq_input_va_validate(struct amdgpu_vm *vm, u64 addr,
-> +                       u64 expected_size);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index c6f7b613e684..6ba051bd3682 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -28,6 +28,8 @@
->
->  #define AMDGPU_USERQ_PROC_CTX_SZ PAGE_SIZE
->  #define AMDGPU_USERQ_GANG_CTX_SZ PAGE_SIZE
-> +#define MQD_SHADOW_BASE_SIZE      73728
-> +#define MQD_FWWORKAREA_SIZE       484
-
-These might be different across IP versions.  Might be better to query
-these from gfx?  there is get_gfx_shadow_info in struct
-amdgpu_gfx_funcs.
-
-Alex
-
->
->  static int
->  mes_userq_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
-> @@ -254,6 +256,13 @@ static int mes_userq_mqd_create(struct amdgpu_userq_=
-mgr *uq_mgr,
->                         goto free_mqd;
->                 }
->
-> +               if (amdgpu_userq_input_va_validate(queue->vm, compute_mqd=
-->eop_va,
-> +                                       max_t(u32, PAGE_SIZE, AMDGPU_GPU_=
-PAGE_SIZE))) {
-> +                       drm_file_err(uq_mgr->file, "EOP VA is invalid\n")=
-;
-> +                       r =3D -EINVAL;
-> +                       goto free_mqd;
-> +               }
-> +
->                 userq_props->eop_gpu_addr =3D compute_mqd->eop_va;
->                 userq_props->hqd_pipe_priority =3D AMDGPU_GFX_PIPE_PRIO_N=
-ORMAL;
->                 userq_props->hqd_queue_priority =3D AMDGPU_GFX_QUEUE_PRIO=
-RITY_MINIMUM;
-> @@ -281,6 +290,14 @@ static int mes_userq_mqd_create(struct amdgpu_userq_=
-mgr *uq_mgr,
->                 userq_props->csa_addr =3D mqd_gfx_v11->csa_va;
->                 userq_props->tmz_queue =3D
->                         mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE=
-_SECURE;
-> +
-> +               if (amdgpu_userq_input_va_validate(queue->vm, mqd_gfx_v11=
-->shadow_va,
-> +                                       MQD_SHADOW_BASE_SIZE)) {
-> +                       drm_file_err(uq_mgr->file, "shadow VA is invalid\=
-n");
-> +                       r =3D -EINVAL;
-> +                       goto free_mqd;
-> +               }
-> +
->                 kfree(mqd_gfx_v11);
->         } else if (queue->queue_type =3D=3D AMDGPU_HW_IP_DMA) {
->                 struct drm_amdgpu_userq_mqd_sdma_gfx11 *mqd_sdma_v11;
-> @@ -298,6 +315,13 @@ static int mes_userq_mqd_create(struct amdgpu_userq_=
-mgr *uq_mgr,
->                         goto free_mqd;
->                 }
->
-> +               if (amdgpu_userq_input_va_validate(queue->vm, mqd_sdma_v1=
-1->csa_va,
-> +                                       MQD_FWWORKAREA_SIZE)) {
-> +                       drm_file_err(uq_mgr->file, "CSA VA is invalid\n")=
-;
-> +                       r =3D -EINVAL;
-> +                       goto free_mqd;
-> +               }
-> +
->                 userq_props->csa_addr =3D mqd_sdma_v11->csa_va;
->                 kfree(mqd_sdma_v11);
->         }
-> --
-> 2.34.1
->
+-- 
+Ville Syrjälä
+Intel
