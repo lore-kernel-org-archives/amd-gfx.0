@@ -4,70 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8756BC71157
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 15:38:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C6F6C71136
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 16:35:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F46D10E772;
-	Tue, 17 Jun 2025 15:38:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2A7F10E702;
+	Tue, 17 Jun 2025 16:35:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BmBHA4OH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mgFa5Jj1";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0A5910E772
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 15:38:13 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-313336f8438so1185217a91.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 08:38:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750174693; x=1750779493; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3Eew2fnewPuu4kirEWCGmpo02CsjedtZ1Ia05OWlh/M=;
- b=BmBHA4OHcDsR2kQAJjDWP3Ms9i9yIf/7PSWB/XvBVbloSlOMR5aTou3BIV8xEJZSeE
- qohXrFp2cYRg2Sq9LUeTomAA0WID3d4viy+FnAIpcm6nvOEloXUOWoacvBqSyhrDre46
- Z9k7nYjQvkybypYOj495+vrqvpHGaB+7AC8e5AFhPxKtWm/p0A+W0oWDoxWEj9ziFJg9
- 6Pc9bfLCrEKW36zFX3Lh7+B5g8YRmTAEnHb61Bnq/UPi3+gYCnZRf5k80/rfDD7CTe94
- wtw/9LoCDLzbaiz0B0bWho1L3VzS2t8nzo5GHn+ro+pg1BK55ozX5YrAkjSladH1C0Jh
- t6ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750174693; x=1750779493;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3Eew2fnewPuu4kirEWCGmpo02CsjedtZ1Ia05OWlh/M=;
- b=sukMqCWMCofBZfG2bhwQ/+/5oJG2sb1WdpSwZJwyu4Nk+TKKKMXL3n7T6l7KUjDj2K
- O9XKrWwXB2gEUuTCwdESiso3b62W/+Lm/BC/fTBQXWYeav5yc6BVLDqwMsBRA3ifVQew
- ERBq/YZKIbeCRfj2+P1766sR9oejK8CONQJrNQcqybdmb4XMRZ/jwQmjOIKwVNzeQYOa
- CX+h65y3hjepE86dlszc8av+LXzXNkUwOgw/kiK+RybUgiJxFp6/efmenDgJKauHzGiw
- QS1BJaDLhHkqM5glGvQChN+J/CUoxK9c6Mn5gyrixnOMyHE2Wc3C+jCW9a8BVajxuPQ0
- ajcQ==
-X-Gm-Message-State: AOJu0YwXxYinTBFEJVehkjHOx0ixbGLtzgJkEilPRYcjnCH3AE9xhbb8
- UeD7MEJDkvHh/ZPhzfZArM6lIcbbBcHofV6nE0Z3YPGWSk+2iNwdW4mu0jE9vpve3MJjpRSOUH5
- aswOd1uWYkOkAyXd7BburrhyfpR2Gyjg=
-X-Gm-Gg: ASbGncv6y9xzAbwU3k0ARmAAt0Nti8E504aYaa9kuDjEWoKTbSXRu14BHw6UOG6i192
- SUe/kiXprwYJfkkt9mMELpbwTDW7PICSZpDccmD/eMmMQpgyZRqH86iLSW2f6WndYjYtffe9cuG
- ycy671EiDra41apLrq5pbqxo8reTM0n/sfVPYEhLc01Q4r
-X-Google-Smtp-Source: AGHT+IHW8uHgRAG1wq8a0Hp3pFzPVmYh+USakzuXmW3sawGb0aKYCPLqo2lQJWuHE8QXlk6whfnKTRxI3ZKh7DCa4OE=
-X-Received: by 2002:a17:90b:1fcd:b0:311:e8cc:4250 with SMTP id
- 98e67ed59e1d1-313f1d533d2mr7763547a91.3.1750174693063; Tue, 17 Jun 2025
- 08:38:13 -0700 (PDT)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2060.outbound.protection.outlook.com [40.107.102.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D09E310E702
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 16:35:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pbPdOHwEXCeYn/lziV44ux+l1c2u8f2OfASPcF/CdUnneJ0rU56vJDlQ/xWaB0rrceLjfLj2Hm8JhWSmIULKugMbEd0MHbcVyNlKESR5BLiDTVcjlSbduqkip1BT7hGREArPkqFw7S9UZAsDuL7iry8LBhmlrmgHfFgZO4YsdIEUgxlLP+rHET9sErZeq+B6a5DX3c+iKTsmXCvNEZ3boqb/wRt44k5shgubF2PRdvZb9Ilb3sdTTKZ1UQLkCyEEdzik+Q6WSxUq+ssSPpKqrWp2NX2lqevdKXuemSyMCdcXRN5JqBzgGqUCpn1xqDE+uR4H45sG7fWMn9CC5ew4fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FoHk05I1B0iwNMROq5wY0So6wp4x2IeNxcfTH1ILRdc=;
+ b=vZ100jy/8BYlMhL6XYHIXP4mw8UDRPIvhBP1tY0U6ROqJX1pif3IoeqtGLagIlr5odDE5OJUirizKdWCsBhmccdMI1Bjio2iF9RsONnbQc7XlP41Kx6DKY7sqc3E51OuN30UL2+roGytd5ylAB5PJw4PiyZiI6cSqZCMgmtHUPIDqDTk4roII5T/80nRgl4uBTX0Xv0xa5e3dKikpoqr4IK4fEQrRSwXwzdK1X2GnCy0V8oWH2FQZC0YJLNCJ4epTEEp77VTqb8y8dkhiFVrzBPnGlInaDUmTDc+LRr5FfwhtMShvtH+U0eymaM3PAEZ+MCIM6vZNSB9s/wduAppTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FoHk05I1B0iwNMROq5wY0So6wp4x2IeNxcfTH1ILRdc=;
+ b=mgFa5Jj1dPMeg5K72yqptWiW/nu8iIe5n+448J/y98WZmCYBm/PW+CHDKPYAMtIvhfvwSasFZsTEQWYk5H61wE7vvG1RhnO17WEMzEik5QUIrCJJp1l8m4ybkd5fivy7FpTA2L3L6D6Ug9NjvfAKG7AgVHVsxFb4icA9PQ5Ao1E=
+Received: from CH0PR03CA0309.namprd03.prod.outlook.com (2603:10b6:610:118::30)
+ by DS2PR12MB9709.namprd12.prod.outlook.com (2603:10b6:8:276::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Tue, 17 Jun
+ 2025 16:35:49 +0000
+Received: from CH1PEPF0000AD82.namprd04.prod.outlook.com
+ (2603:10b6:610:118:cafe::dc) by CH0PR03CA0309.outlook.office365.com
+ (2603:10b6:610:118::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.35 via Frontend Transport; Tue,
+ 17 Jun 2025 16:35:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD82.mail.protection.outlook.com (10.167.244.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8835.15 via Frontend Transport; Tue, 17 Jun 2025 16:35:48 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Jun
+ 2025 11:35:47 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Shaoyun Liu <shaoyun.liu@amd.com>
+Subject: [PATCH] drm/amdgpu/mes: add compatibility checks for set_hw_resource_1
+Date: Tue, 17 Jun 2025 12:35:34 -0400
+Message-ID: <20250617163534.68610-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-References: <20250617080151.1093481-1-Prike.Liang@amd.com>
- <20250617080151.1093481-6-Prike.Liang@amd.com>
-In-Reply-To: <20250617080151.1093481-6-Prike.Liang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Jun 2025 11:38:01 -0400
-X-Gm-Features: AX0GCFtlny8qVlkjYr5MIjrS2rZ4WGbtaZWtx71zue_bcS1CW91aKkQ1gJXlqo8
-Message-ID: <CADnq5_OC_Hej2okXWu53UtJgYU-=ga+DobZ-reaintt2eCjqjg@mail.gmail.com>
-Subject: Re: [PATCH v2 06/11] drm/amdgpu: track the userq bo va for its obj
- management
-To: Prike Liang <Prike.Liang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian.Koenig@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD82:EE_|DS2PR12MB9709:EE_
+X-MS-Office365-Filtering-Correlation-Id: de5c4cfa-8e62-44d3-8c8c-08ddadbd043d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VXzszSuVcIYoGh8YvfFUhTidh1dYob6J/b8kQ5XUDvN4yZvBMPE4HJJV4tOX?=
+ =?us-ascii?Q?l+dYBRwT1zXZCqUqfJje3YQgCFLsFKtpdBQ4cr2aSNRglaE5wc3Fz4ZVEi95?=
+ =?us-ascii?Q?mES+l2zcnwDrCb4QzngYQegYlBFVhOmrlWBhvNdI5FFq0ZGGiuUlmToq5kn5?=
+ =?us-ascii?Q?ruUho7WqJS3m9fAk5it9bpEjrXq4XiSaWp5egizbzyxbu6iBLcPWemGekSi3?=
+ =?us-ascii?Q?ePe/WJ21GFS+8FuX5kFtUzEmF7qdExDZMErT8NPyNvkGyY1G25M+uvZ5owcX?=
+ =?us-ascii?Q?uM1+VC3Lk/nErxVYK+car1uYyDyUPx0JNpiTv2x6Gk/yZHylZtojil2O/f+I?=
+ =?us-ascii?Q?IRb9Ud0bFtBVSTNZP3iojIUhhSHDhD0VHH0gcVnPuRwbdBwedxhZ35ru8hBC?=
+ =?us-ascii?Q?NAmc5Oi9AiIA1ZoFBibr/RcYHx+hRrnF2niroOboGCuU/WO09DEDI6q8KsJh?=
+ =?us-ascii?Q?zdupe0CuKggzjF2UWGzBnGJq4XWG/yuEVSguccEB14XjKUO+n3wbV7gcv9VS?=
+ =?us-ascii?Q?TZaZr8Swbd5UZe6lnP3uIByyREURoVBXZ2cp9C+6/AXDPAHIMMojYxQwswfG?=
+ =?us-ascii?Q?Qt9vxWJCzG1ANXwZGb7+dQmLDpcBepZ11YRwtiuyvyCZQrPxTOSxqDqHT8nc?=
+ =?us-ascii?Q?y/gSmFAnr0oT18VPVm3aKADtEVhJQVoBUS0DzVva/Bzz9bdi6iWAmQZ8nYqY?=
+ =?us-ascii?Q?d8aUK6bRJuR8o5I8mqoKhMDBLZFDNkw1ODrDafSs+jG3jbY9ldbWZhmVLaSG?=
+ =?us-ascii?Q?RwJ0m49/n9gzwjk4tDnBa3I2t2taHvI6TbDToOf/4eQC5JmPRG1xN8n82d+R?=
+ =?us-ascii?Q?169yWOmrBxmARol/hskXXHMi7sHhGzBFfM2MoQlmg4eOHO1aglrC9mJAvzKa?=
+ =?us-ascii?Q?sTwznieXS4+7HtuwE9jVjPyr+35FYF3qCCV/XzCz8AKZsqsssez9VfZey45J?=
+ =?us-ascii?Q?I8lYgsETTs6dfnANNlWTHWxds36jFSALK7wHR0a1fFr4KukRhKRSta1YIBBj?=
+ =?us-ascii?Q?PKgdeiZEJ80DjPoIyVrTppsZVEHWgGDmuMr8aSiMxFObYAzGlcwE6+Ik8YPF?=
+ =?us-ascii?Q?losWiigBafLRgWfP7f1J1oMivd5B0603uzs7yVFf0hg+ksWW+eyPB62MBOvo?=
+ =?us-ascii?Q?xPNglf9AmVC0YYFJxqM42J69nFG1OJ7YetETMPQHGk5GywErp9lyfy6zA7E/?=
+ =?us-ascii?Q?B8Zov7GYbbv8LRCtvKXOsG9nKB6SKzT505xpyBLP1Z6F6CnrF+kZmpqKdOHd?=
+ =?us-ascii?Q?fxIJqdwBF9LZM7FGcTLAaSE3CcwzHKEt+SsqLWqWIVFpEa2tuwYLw49yZLnp?=
+ =?us-ascii?Q?A2dELi/gytqfm2vzaT4Ho/x5SDQMfZvUYanMTF0McnMy3uGmGaKvm/OjSrfd?=
+ =?us-ascii?Q?YEdC6Y5t9Cijm3+8EGJj8VbHWXi6e2aijgjDCMcbOLuwhF/wMUIPnME2ksPp?=
+ =?us-ascii?Q?5T9cWnPY5ZtsEsKh1hC71BoCEzQg8elVY0S4TxvKb1Og78VEACf+HA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2025 16:35:48.7498 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: de5c4cfa-8e62-44d3-8c8c-08ddadbd043d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD82.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9709
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,77 +129,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 17, 2025 at 4:12=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
-rote:
->
-> The user queue object destroy requires ensuring its
-> VA has been unmapped prior to the queue being destroyed.
-> Otherwise, the kernel driver should report an invalidated
-> error to the user IOCLT request.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 2882ef8fe719..2a7ec7daf3da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -459,12 +459,24 @@ amdgpu_userq_destroy(struct drm_file *filp, int que=
-ue_id)
->                 amdgpu_bo_unpin(queue->db_obj.obj);
->                 amdgpu_bo_unreserve(queue->db_obj.obj);
->         }
-> +
-> +       /*
-> +        * At this point the userq obj va should be unmapped,
-> +        * otherwise will return error to user.
-> +        */
+Seems some older MES firmware versions do not properly support
+this packet.  Add back some the compatibility checks.
 
-I think ideally the queue would remain mapped until after it's
-destroyed.  I.e., on the userspace side:
+v2: switch to fw version check (Shaoyun)
 
-destroy queue
-unmap VAs
-free BOs
+Fixes: f81cd793119e ("drm/amd/amdgpu: Fix MES init sequence")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4295
+Cc: Shaoyun Liu <shaoyun.liu@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 10 ++++++----
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c |  3 ++-
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index c9eba537de094..28eb846280dd4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1630,10 +1630,12 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		goto failure;
+ 
+-	r = mes_v11_0_set_hw_resources_1(&adev->mes);
+-	if (r) {
+-		DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=%d\n", r);
+-		goto failure;
++	if ((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 0x50) {
++		r = mes_v11_0_set_hw_resources_1(&adev->mes);
++		if (r) {
++			DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=%d\n", r);
++			goto failure;
++		}
+ 	}
+ 
+ 	r = mes_v11_0_query_sched_status(&adev->mes);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+index 68bef36aae3b8..4b78e05a4615e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+@@ -1736,7 +1736,8 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		goto failure;
+ 
+-	mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_PIPE);
++	if ((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 0x4b)
++		mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_PIPE);
+ 
+ 	mes_v12_0_init_aggregated_doorbell(&adev->mes);
+ 
+-- 
+2.49.0
 
-> +       if (amdgpu_userq_buffer_vas_mapped(&fpriv->vm, queue)) {
-> +               drm_warn(adev_to_drm(uq_mgr->adev), "the userq obj va sho=
-uldn't be mapped during destroying userq\n");
-> +               r=3D  -EINVAL;
-> +       }
-> +
->         r =3D amdgpu_userq_unmap_helper(uq_mgr, queue);
->         /*TODO: It requires a reset for unmap error*/
->         if (r !=3D AMDGPU_USERQ_STATE_UNMAPPED) {
->                 drm_warn(adev_to_drm(uq_mgr->adev), "trying to destroy a =
-HW mapping userq\n");
->                 r =3D -ETIMEDOUT;
->         }
-> +
-> +       amdgpu_userq_buffer_vas_put(&fpriv->vm, queue);
->         amdgpu_userq_cleanup(uq_mgr, queue, queue_id);
->         mutex_unlock(&uq_mgr->userq_mutex);
->
-> @@ -585,6 +597,11 @@ amdgpu_userq_create(struct drm_file *filp, union drm=
-_amdgpu_userq *args)
->                 goto unlock;
->         }
->
-> +       /* refer to the userq objects vm bo*/
-> +       amdgpu_userq_buffer_va_get(queue->vm, args->in.queue_va);
-> +       amdgpu_userq_buffer_va_get(queue->vm, args->in.rptr_va);
-> +       amdgpu_userq_buffer_va_get(queue->vm, args->in.wptr_va);
-> +
->         qid =3D idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ_=
-COUNT, GFP_KERNEL);
->         if (qid < 0) {
->                 drm_file_err(uq_mgr->file, "Failed to allocate a queue id=
-\n");
-> --
-> 2.34.1
->
