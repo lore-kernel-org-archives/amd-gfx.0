@@ -4,67 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2E5AC71136
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 19:54:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34663C71136
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 20:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D81D10E0FF;
-	Tue, 17 Jun 2025 19:54:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C360910E155;
+	Tue, 17 Jun 2025 20:14:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c3EXRDw7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D/AY7i3k";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0627E10E0FF
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 19:54:38 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-312a806f002so998869a91.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 12:54:38 -0700 (PDT)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C89310E155
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 20:14:47 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-31384c8ba66so1130752a91.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 13:14:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750190077; x=1750794877; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1750191287; x=1750796087; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HCmkpyYyEpdgSWyKPbZqnqqdHmRP9IMDwy/cykTeZYw=;
- b=c3EXRDw7p/l4IPQs+y0OlDraA8uuYe+t13FgOMajzFEbPc5RacLxkgcpwFmv2lfQvw
- COnL8j0GBPex8xgcZ3eempsUDcnjZz4BBY4kEvH/Q8JdKxcVt0NT6wIBWBIi2JK6LodV
- UZ3V3Ey/0Xo6vopI1rgCyd78NZgOliG0+onDjpeBPLmvau+XOFkMHyYxDEDtZ8EXMEaB
- Y0iXLa/Jt+lWGs35zTo00fCsiFx/PhjlWYJ8m/pd/rP8XPKqV1d7OLwXLpHAtwIXpIM8
- HJdEt2qbEwS9IfWrWpPVKoI/1qr/qXPmneAxj5N89vUQbXTBtrIl10gswM5EZ/O6jXMm
- PCuQ==
+ bh=a8aTEevQAWgYaRvxqt27PfCdxy8FCJ+UBGx0ZwoQDI4=;
+ b=D/AY7i3kbb9xepjOYY2SiOkiUVBuPvzsfdmCoIuzoBeQ0DJqEfJZ++xc/bsqM5RS91
+ ZRGiuoZ9eTyUDCjlTUQoZWnx6eKdcB1kjNM+oNt1h3BNYB54AXsGsH3j7N8G+kxgv4eZ
+ PO02ng8kkyYhfbwrb7PMXjv3g/vOH8mrt3oLgjdcySrSRwLfJhadwuVJLmwbmSUjXmbq
+ i76+FdyRqPJ64i/KjF0xnmdksUvaeysvoGgAmqpXr0USKTX0eRf9CjtFZDJWG0KVm6KP
+ iwcUY0Dskjl2vx21LMA6J7MMaIfYJerMUIG2esZWrh96kuYIKI+s7/OmPPXQ9xverWw2
+ lLmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750190077; x=1750794877;
+ d=1e100.net; s=20230601; t=1750191287; x=1750796087;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HCmkpyYyEpdgSWyKPbZqnqqdHmRP9IMDwy/cykTeZYw=;
- b=KU3hypj3qw8MIkMHnxOsUmU4CyVR1psgAYSTVAjCjVffd0DyIA1hHQAjv/B0YMv9J4
- HjkuJ2mgVN6/A81pn6r4a5ts9Y+UqjDL1f/E3199+pBNMIqqHyPwAtjQvgzs5KfTXJSA
- iTbi4sWuwUMDlEvIWiBjiIyfOzK5ZI9lm61ouOlYkXNxYdlHHFnmhru/kpQ98pqbv03O
- 08rxP80h43NTvpon811hTO4MJ7a/KzHF/wnHEn3iueUlqHIaTA19Q0DRvJT+K9+/LgWD
- rTraMXkrVnj7oB/ZWGIL0GXzc7btPMfbY0wARME9fRiWteSySwN8vf3m/sck4u05D9HC
- J62g==
-X-Gm-Message-State: AOJu0YxkV4QmpFLmJLroZ3/WPtS92jorPKSWR1GGHw83caDKB3GBS2nG
- e7ITPRYtWq6D2g2wWwpMSP2Y0feg2m81VAzzKG/WjxzS3hMg4WS6QrnWJ7Z6mLQv/dR36u5pLzg
- m+n5Bdx4I8t6imXeDclpuR3rHhp8BghU=
-X-Gm-Gg: ASbGncsuCsnnoRWOxNaIi/9dsmhT/zhx9pdsv/C49YP7CHaJXYa+zWUlVTGytQHDSAL
- SOnXSKFjkqH4TyssdQcxeoLDV3eHddrnEVOiOoBQrZyVWD4XRGMskYxweJUciTwB7J8i0B7nviO
- Nfnx7N2qIJ8I/mV+5hBYbBoRBgygxyg8IeqbW6K2XdXaCh
-X-Google-Smtp-Source: AGHT+IG+ooesAIZOfMgo3RciObm8f9vA7X7PyW5ZMLF1pdvwgKJa77sP1f47fnS0z0kFjIcVn+NRA2ntApYJYukJ5Ag=
-X-Received: by 2002:a17:90a:ec84:b0:311:e9a6:332e with SMTP id
- 98e67ed59e1d1-313f1b312d5mr8058979a91.0.1750190077366; Tue, 17 Jun 2025
- 12:54:37 -0700 (PDT)
+ bh=a8aTEevQAWgYaRvxqt27PfCdxy8FCJ+UBGx0ZwoQDI4=;
+ b=rzhN/Ai3HXJg2S/j4cGdFbI0JT5v0lm9yUv41pYlK6k1LwsXXlm8jxU1T4g9zvuZMe
+ cqvcetSfnRZirNMd5t6QB/hSlj81THRTFYE9FCD2eAEn1jDg45F1ErJX3O5oRckjtVFA
+ g1uKLAKlvwLzPBaTR7fXG1wEEFi2svyLv0d8Ixl9vkLMWjUx78pmjW/CeG+R2zmYE6qo
+ tis1/N9W8IWFnqLgYwZzXT6RipJdWQfe53jhfQOFrWWJxNrtk8hf8mK8lLB8DDLNTc+o
+ pRuN0zAsC6GRike70RTYWl7yMom4COP+HndSnba9vb/lFNpdfzwPlKhiTPU/UGrBiYr+
+ WHIA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWt6R5MzSLjqHM6YxgiTy10XuDT/Fmicw5ugOsa7rO5fm3hJWHtyeBMwMFqvtHDY6YnFXDuEIby@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyyaMsmVXAXBAC5pvc1TNeRMR0QCHA9WXI4YvcbIYW3c4VIbjr+
+ hCuvy9wg3sdvjK7kFIYGuehey0cCEvSHMxC1wTrfooS8Ko9EvhhrFyz8BCrUTJlx2zcAewUnPFy
+ qnou4DvplPwm0YSnpschj8NjNFxnhW1A=
+X-Gm-Gg: ASbGncuPKtn/yjGz6efL89KyvuFGKt8GONY4zVwNGJaTPveyOZrM6wZvN96SrmJxGWk
+ 8HrKzkYSy86CYpCTZL0yEf7AOTzdeqIIdVZv6LgwFIzqitga91qPgahAGDuypzb6eW1hUdt5B0E
+ GUqTayAHMOG6bwARz6LSEsxqTd5hlSXfKeDSNKth+fjkTJ
+X-Google-Smtp-Source: AGHT+IHZ7VoZv/W4i1xtxid3Ud2J2wPn84Qc1itoJkkZ0bldmWu9zZkOiQycs5vI3MGvIEszRaTuk//l+vzcSQtwGig=
+X-Received: by 2002:a17:90b:2c85:b0:310:8d54:3209 with SMTP id
+ 98e67ed59e1d1-3142562bd6fmr2437849a91.2.1750191286993; Tue, 17 Jun 2025
+ 13:14:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250617183052.1692059-1-superm1@kernel.org>
-In-Reply-To: <20250617183052.1692059-1-superm1@kernel.org>
+References: <20250617030815.5785-1-alexander.deucher@amd.com>
+ <20250617030815.5785-37-alexander.deucher@amd.com>
+ <f8b4bf5b-17ca-442a-a515-7860037a8afd@amd.com>
+In-Reply-To: <f8b4bf5b-17ca-442a-a515-7860037a8afd@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Jun 2025 15:54:26 -0400
-X-Gm-Features: AX0GCFue8U3esnfn-Cat_zGZtVU5sAHnAjRebH6a4if8-npmzKqlwupATnOpMHI
-Message-ID: <CADnq5_M8cMJqAap9OCdJcZOqgTqqcQgE+V1UA2Fo6wkbym=9kQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd: Adjust output for discovery error handling
-To: Mario Limonciello <superm1@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Marcus Seyfarth <m.seyfarth@gmail.com>
+Date: Tue, 17 Jun 2025 16:14:35 -0400
+X-Gm-Features: AX0GCFvVldZ3mrFgJdN52M-CIPUBrS2_9ljyJ2vRvssp7_rN30gt18Mai7sMru8
+Message-ID: <CADnq5_OisducAyYtztD5-L+ib_j8dh6p0HhCN9a3tV63duaDWA@mail.gmail.com>
+Subject: Re: [PATCH 36/36] drm/amdgpu/vcn3: implement ring reset
+To: "Sundararaju, Sathishkumar" <sasundar@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ christian.koenig@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,111 +84,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 17, 2025 at 2:31=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
-rg> wrote:
+On Tue, Jun 17, 2025 at 4:02=E2=80=AFPM Sundararaju, Sathishkumar
+<sasundar@amd.com> wrote:
 >
-> From: Mario Limonciello <mario.limonciello@amd.com>
+> Hi Alex,
 >
-> commit 017fbb6690c22 ("drm/amdgpu/discovery: check ip_discovery fw file
-> available") added support for reading an amdgpu IP discovery bin file
-> for some specific products. If it's not found then it will fallback to
-> hardcoded values. However if it's not found there is also a lot of noise
-> about missing files and errors.
+> On 6/17/2025 8:38 AM, Alex Deucher wrote:
+> > Use the new helpers to handle engine resets for VCN.
+> >
+> > Untested.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 24 ++++++++++++++++++++++++
+> >   1 file changed, 24 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/am=
+d/amdgpu/vcn_v3_0.c
+> > index 9fb0d53805892..ec4d2ab75fc4d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> > @@ -110,6 +110,7 @@ static int vcn_v3_0_set_pg_state(struct amdgpu_vcn_=
+inst *vinst,
+> >                                enum amd_powergating_state state);
+> >   static int vcn_v3_0_pause_dpg_mode(struct amdgpu_vcn_inst *vinst,
+> >                                  struct dpg_pause_state *new_state);
+> > +static int vcn_v3_0_reset(struct amdgpu_vcn_inst *vinst);
+> >
+> >   static void vcn_v3_0_dec_ring_set_wptr(struct amdgpu_ring *ring);
+> >   static void vcn_v3_0_enc_ring_set_wptr(struct amdgpu_ring *ring);
+> > @@ -289,6 +290,7 @@ static int vcn_v3_0_sw_init(struct amdgpu_ip_block =
+*ip_block)
+> >
+> >               if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
+> >                       adev->vcn.inst[i].pause_dpg_mode =3D vcn_v3_0_pau=
+se_dpg_mode;
+> > +             adev->vcn.inst[i].reset =3D vcn_v3_0_reset;
+> >       }
+> >
+> >       if (amdgpu_sriov_vf(adev)) {
+> > @@ -1869,6 +1871,7 @@ static const struct amdgpu_ring_funcs vcn_v3_0_de=
+c_sw_ring_vm_funcs =3D {
+> >       .emit_wreg =3D vcn_dec_sw_ring_emit_wreg,
+> >       .emit_reg_wait =3D vcn_dec_sw_ring_emit_reg_wait,
+> >       .emit_reg_write_reg_wait =3D amdgpu_ring_emit_reg_write_reg_wait_=
+helper,
+> > +     .reset =3D amdgpu_vcn_ring_reset,
 >
-> Adjust the error handling to decrease most messages to DEBUG and to show
-> users less about missing files.
->
-> Reported-by: Marcus Seyfarth <m.seyfarth@gmail.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4312
-> Tested-by: Marcus Seyfarth <m.seyfarth@gmail.com>
-> Fixes: 017fbb6690c22 ("drm/amdgpu/discovery: check ip_discovery fw file a=
-vailable")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> You probably wanted to add reset callback to vcn_v3_0_enc_ring_vm_funcs
+> instead ofvcn_v3_0_dec_sw_ring_vm_funcs.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+I'll fix that up.
 
-> ---
-> v2:
->  * Add tag
->  * Push error message into default flow only
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 25 ++++++++-----------
->  1 file changed, 10 insertions(+), 15 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index a0e9bf9b27108..a29bd807e59f8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -321,10 +321,9 @@ static int amdgpu_discovery_read_binary_from_file(st=
-ruct amdgpu_device *adev,
->         const struct firmware *fw;
->         int r;
+> With that, the vcn and jpeg changes in this series are :-
 >
-> -       r =3D request_firmware(&fw, fw_name, adev->dev);
-> +       r =3D firmware_request_nowarn(&fw, fw_name, adev->dev);
->         if (r) {
-> -               dev_err(adev->dev, "can't load firmware \"%s\"\n",
-> -                       fw_name);
-> +               drm_info(&adev->ddev, "Optional firmware \"%s\" was not f=
-ound\n", fw_name);
->                 return r;
->         }
+> Reviewed-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+> Tested-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+
+You mentioned that the start/stop sequence didn't work for some chips.
+What sequence should I use for those?
+
+Alex
+
 >
-> @@ -459,16 +458,12 @@ static int amdgpu_discovery_init(struct amdgpu_devi=
-ce *adev)
->         /* Read from file if it is the preferred option */
->         fw_name =3D amdgpu_discovery_get_fw_name(adev);
->         if (fw_name !=3D NULL) {
-> -               dev_info(adev->dev, "use ip discovery information from fi=
-le");
-> +               drm_dbg(&adev->ddev, "use ip discovery information from f=
-ile");
->                 r =3D amdgpu_discovery_read_binary_from_file(adev, adev->=
-mman.discovery_bin, fw_name);
-> -
-> -               if (r) {
-> -                       dev_err(adev->dev, "failed to read ip discovery b=
-inary from file\n");
-> -                       r =3D -EINVAL;
-> +               if (r)
->                         goto out;
-> -               }
-> -
->         } else {
-> +               drm_dbg(&adev->ddev, "use ip discovery information from m=
-emory");
->                 r =3D amdgpu_discovery_read_binary_from_mem(
->                         adev, adev->mman.discovery_bin);
->                 if (r)
-> @@ -1338,10 +1333,8 @@ static int amdgpu_discovery_reg_base_init(struct a=
+> Test exceptions: VCN/JPEG 4_0_3 and VCN/JPEG 5_0_1.
+>
+> Regards,
+> Sathish
+>
+> >   };
+> >
+> >   static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p,
+> > @@ -2033,6 +2036,7 @@ static const struct amdgpu_ring_funcs vcn_v3_0_de=
+c_ring_vm_funcs =3D {
+> >       .emit_wreg =3D vcn_v2_0_dec_ring_emit_wreg,
+> >       .emit_reg_wait =3D vcn_v2_0_dec_ring_emit_reg_wait,
+> >       .emit_reg_write_reg_wait =3D amdgpu_ring_emit_reg_write_reg_wait_=
+helper,
+> > +     .reset =3D amdgpu_vcn_ring_reset,
+> >   };
+> >
+> >   /**
+> > @@ -2164,6 +2168,26 @@ static void vcn_v3_0_set_enc_ring_funcs(struct a=
 mdgpu_device *adev)
->         int r;
->
->         r =3D amdgpu_discovery_init(adev);
-> -       if (r) {
-> -               DRM_ERROR("amdgpu_discovery_init failed\n");
-> +       if (r)
->                 return r;
-> -       }
->
->         wafl_ver =3D 0;
->         adev->gfx.xcc_mask =3D 0;
-> @@ -2579,8 +2572,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_d=
-evice *adev)
->                 break;
->         default:
->                 r =3D amdgpu_discovery_reg_base_init(adev);
-> -               if (r)
-> -                       return -EINVAL;
-> +               if (r) {
-> +                       drm_err(&adev->ddev, "discovery failed: %d\n", r)=
+> >       }
+> >   }
+> >
+> > +static int vcn_v3_0_reset(struct amdgpu_vcn_inst *vinst)
+> > +{
+> > +     int i, r;
+> > +
+> > +     vcn_v3_0_stop(vinst);
+> > +     vcn_v3_0_start(vinst);
+> > +     r =3D amdgpu_ring_test_ring(&vinst->ring_dec);
+> > +     if (r)
+> > +             return r;
+> > +     for (i =3D 0; i < vinst->num_enc_rings; i++) {
+> > +             r =3D amdgpu_ring_test_ring(&vinst->ring_enc[i]);
+> > +             if (r)
+> > +                     return r;
+> > +     }
+> > +     amdgpu_fence_driver_force_completion(&vinst->ring_dec);
+> > +     for (i =3D 0; i < vinst->num_enc_rings; i++)
+> > +             amdgpu_fence_driver_force_completion(&vinst->ring_enc[i])=
 ;
-> +                       return r;
-> +               }
->
->                 amdgpu_discovery_harvest_ip(adev);
->                 amdgpu_discovery_get_gfx_info(adev);
-> --
-> 2.43.0
+> > +     return 0;
+> > +}
+> > +
+> >   static bool vcn_v3_0_is_idle(struct amdgpu_ip_block *ip_block)
+> >   {
+> >       struct amdgpu_device *adev =3D ip_block->adev;
 >
