@@ -4,53 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA67AC77B7A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E18C77B7F
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC3C10E67D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F36410E677;
 	Tue, 17 Jun 2025 13:02:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LI2hI0cL";
+	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="U78h4Hif";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5768D10E428;
- Mon, 16 Jun 2025 18:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=egqVkJr89695k6cbqDYsiYNvXLoUZ0Gdt1PL0OlA0Kg=; b=LI2hI0cLn0J6tonsHXHaBZvKsM
- o/pglMdtLc4IWJ/6cH3H7SiRy0YPIMde5JjKVtaguItObhRtpmB0kD2KI0yavgiZuhErOcXCcVBCo
- pzO9xaFVIvQBIHwqsu8YiJcen4F61EHpAF5uSnZRWrFuNoj+26Fz8yzpbCnZD9dFUCB2QjBHSAadt
- sDIS7cvEqfr7BulOP0gbuNH6P6uHkgpGyLGZKtJZfvODoY0ovT2V4LUl9k/qIgNd0o9OSSlDHS2EP
- 3typ0VRjL0Oras0bO3mJZkHf0iGvzQiVE48WVFHPhIs5xnG1KdyqAezbD58k/DdQIS7m1mJcIzAtd
- ZdmsQIIg==;
-Received: from [191.204.192.64] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uREMi-004Eh6-0n; Mon, 16 Jun 2025 20:15:28 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v8 3/6] drm: Create a task info option for wedge events
-Date: Mon, 16 Jun 2025 15:14:35 -0300
-Message-ID: <20250616181438.2124656-4-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250616181438.2124656-1-andrealmeid@igalia.com>
-References: <20250616181438.2124656-1-andrealmeid@igalia.com>
+X-Greylist: delayed 499 seconds by postgrey-1.36 at gabe;
+ Tue, 17 Jun 2025 08:59:09 UTC
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com
+ [162.62.57.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A06010E541;
+ Tue, 17 Jun 2025 08:59:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1750150746;
+ bh=2gVFkORzM62hZB18JS/222UmlfBatrpXaEZJPo4NBDg=;
+ h=From:To:Cc:Subject:Date;
+ b=U78h4Hif9dVyWARrO5evDvy7A48bhkzKnkfCSjMtHxjiMtKkyC8yDd9sNp8dc5N6n
+ FxyfiYgEtN8dzPGiA2//WaN8w7BkCLJeBaWR6PCUxHxxcwqR4poHv60facdCFS6x+A
+ MftwUXYx0t5W3oJ9fwnTKuVRdALcREw7ZOPrqL9c=
+Received: from localhost.localdomain ([116.128.244.169])
+ by newxmesmtplogicsvrszb16-1.qq.com (NewEsmtp) with SMTP
+ id B67830BE; Tue, 17 Jun 2025 16:45:39 +0800
+X-QQ-mid: xmsmtpt1750149939tfjk0u1ko
+Message-ID: <tencent_24A44EBAE7F05D812288B973A8EC2013BC09@qq.com>
+X-QQ-XMAILINFO: No7DFzN00JnRs2AZ9M9EPgnY/wZEwJNUZpthjcQ9o7AUHD2ySvoAQVE5/Xy5ux
+ pNO+Ng4Gwf8TbQ8rbFGQQdm2bVqnVopO+CXLLsY3WW3FHNoG3YJ8BgCT4T5jjL9s/BdbXk9p9BkV
+ EFIWskl3v5kGMyqARd18knuJcUDyGiABD09PvMvCpOAZlPBs1zWXfLVoOccv/FlhPLr/KlHnhxnR
+ fltVBMktIA+onVZVzcB9Na+SVPwXNoGBxf28LJ7JhqJ1vKYyF3c7fcHS/EnFthMdPjUHLK5Hvqbd
+ bQi0j8y30uKNdaqoWAYFZJESb8sT8+XV9QqEINwbCBFFcMr4em0iG7kWj+sDIcYd+YbYsmgyYc01
+ RHS/wk6BrfanRSxbBZk/1sHtWPeyBwyE9P71CoA+xRalrUiX2+5GibAAFLzw7w5wYZz+9fGIK0Hg
+ sf44RLUPjIhSUy83w55Mxy/6DBTOh+qwNwY4WKe4mxL4Oayi3/jE6JTAUSZS8J90OWN7RDuj3v8a
+ sd2jBB3S/INT2pyHKFrxOIFobSl9nQ/ho3qet2mhub1I5hSqRqUeHSZwXmv1K4Gfdqh9krnhzJ5O
+ xkdhlOUqnpeENx1DfcDFyCdseEkf6pznxD9PaB2JNqd7rqU7esHu+2xRZAWCGyHCjIB/2+KzAcJ8
+ JdlmbOUal6qiOrM8QMOmw5KjwkHKJY7nQZaBZO0pmvccCQASTK/EFLWpIAnHoMNLWqHr4arlc0lb
+ pw9saynpmvFp8Xra6ATkhT+PxA1HBs2gC96aLP3DpSf+D6SWC6uEUiAWVTR4NWhL20ZfUPWyMgBj
+ BPLvCr/FF+RAcUnchgwdF01OdiOF21iT5SjQ7AgWLki+l0TKMGPNbTVcrHmKPRq2aY433qmj1Fo2
+ qMGAwpDC7QA66Ol/dadhDb4wsw9LBOr2vuoDI18QS+0Jpu3AhXZ3r4QaxLVyhWGnFqT77G4amLkK
+ yNokzGpNtWkg8VodchsS4j8cQ0a6slvj2wKp8ZJuwW88gKyTxj2YigPTbzcxPJMgNh4H/Afmo=
+X-QQ-XMRINFO: OD9hHCdaPRBwq3WW+NvGbIU=
+From: xiaopeitux@foxmail.com
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>
+Subject: [PATCH] drm/amd/display: sspl: Use of macro ARRAY_SIZE to calculate
+ array size
+Date: Tue, 17 Jun 2025 16:45:38 +0800
+X-OQ-MSGID: <1a2b56dba50b9b4fc4b69ffdf84de6e67e7e3dff.1750148897.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Jun 2025 13:02:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,200 +72,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a device get wedged, it might be caused by a guilty application.
-For userspace, knowing which task was involved can be useful for some
-situations, like for implementing a policy, logs or for giving a chance
-for the compositor to let the user know what task was involved in the
-problem.  This is an optional argument, when the task info is not
-available, the PID and TASK string won't appear in the event string.
+From: Pei Xiao <xiaopei01@kylinos.cn>
 
-Sometimes just the PID isn't enough giving that the task might be already
-dead by the time userspace will try to check what was this PID's name,
-so to make the life easier also notify what's the task's name in the user
-event.
+Use of macro ARRAY_SIZE to calculate array size and reduce the number of
+lines of code.
 
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com> (for i915 and xe)
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
+cocci warning:
+drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c:
+	WARNING: Use ARRAY_SIZE
+
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
-v8: Code style changes (Raag)
-v7:
- - Change `char *comm` to `char comm[TASK_COMM_LEN]`
-v6:
- - s/cause/involved
- - drop string initialization
-v5:
- - s/app/task for struct and commit message as well
- - move defines to drm_drv.c
- - validates if comm is not NULL and it's not empty
-v4: s/APP/TASK
-v3: Make comm_string and pid_string empty when there's no app info
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
- drivers/gpu/drm/drm_drv.c                  | 21 +++++++++++++++++----
- drivers/gpu/drm/i915/gt/intel_reset.c      |  3 ++-
- drivers/gpu/drm/xe/xe_device.c             |  3 ++-
- include/drm/drm_device.h                   |  9 +++++++++
- include/drm/drm_drv.h                      |  3 ++-
- 7 files changed, 34 insertions(+), 9 deletions(-)
+ .../display/dc/sspl/dc_spl_scl_easf_filters.c | 50 +++++++------------
+ 1 file changed, 17 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e1bab6a96cb6..8a0f36f33f13 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6364,7 +6364,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	atomic_set(&adev->reset_domain->reset_res, r);
- 
- 	if (!r)
--		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-+		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 3d887428ca2b..0c1381b527fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -164,7 +164,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 			if (amdgpu_ring_sched_ready(ring))
- 				drm_sched_start(&ring->sched, 0);
- 			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
--			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-+			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
- 			goto exit;
- 		}
- 		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 56dd61f8e05a..a994da9d9233 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -34,6 +34,7 @@
- #include <linux/moduleparam.h>
- #include <linux/mount.h>
- #include <linux/pseudo_fs.h>
-+#include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/sprintf.h>
- #include <linux/srcu.h>
-@@ -538,10 +539,15 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
- 	}
- }
- 
-+#define WEDGE_STR_LEN	32
-+#define PID_STR_LEN	15
-+#define COMM_STR_LEN	(TASK_COMM_LEN + 5)
-+
- /**
-  * drm_dev_wedged_event - generate a device wedged uevent
-  * @dev: DRM device
-  * @method: method(s) to be used for recovery
-+ * @info: optional information about the guilty task
-  *
-  * This generates a device wedged uevent for the DRM device specified by @dev.
-  * Recovery @method\(s) of choice will be sent in the uevent environment as
-@@ -554,13 +560,13 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
-  *
-  * Returns: 0 on success, negative error code otherwise.
-  */
--int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
-+int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
-+			 struct drm_wedge_task_info *info)
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c
+index 0d1bd81ff04a..1b11dc886a7e 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c
++++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_scl_easf_filters.c
+@@ -1,7 +1,7 @@
+ // SPDX-License-Identifier: MIT
+ //
+ // Copyright 2024 Advanced Micro Devices, Inc.
+-
++#include <linux/array_size.h>
+ #include "spl_debug.h"
+ #include "dc_spl_filters.h"
+ #include "dc_spl_scl_filters.h"
+@@ -2409,8 +2409,7 @@ static uint32_t spl_easf_get_scale_ratio_to_reg_value(struct spl_fixed31_32 rati
+ uint32_t spl_get_v_bf3_mode(struct spl_fixed31_32 ratio)
  {
-+	char event_string[WEDGE_STR_LEN], pid_string[PID_STR_LEN], comm_string[COMM_STR_LEN];
-+	char *envp[] = { event_string, NULL, NULL, NULL };
- 	const char *recovery = NULL;
- 	unsigned int len, opt;
--	/* Event string length up to 28+ characters with available methods */
--	char event_string[32];
--	char *envp[] = { event_string, NULL };
+ 	uint32_t value;
+-	unsigned int num_entries = sizeof(easf_v_bf3_mode_lookup) /
+-		sizeof(struct scale_ratio_to_reg_value_lookup);
++	unsigned int num_entries = ARRAY_SIZE(easf_v_bf3_mode_lookup);
+ 	value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 		easf_v_bf3_mode_lookup, num_entries);
+ 	return value;
+@@ -2418,8 +2417,7 @@ uint32_t spl_get_v_bf3_mode(struct spl_fixed31_32 ratio)
+ uint32_t spl_get_h_bf3_mode(struct spl_fixed31_32 ratio)
+ {
+ 	uint32_t value;
+-	unsigned int num_entries = sizeof(easf_h_bf3_mode_lookup) /
+-		sizeof(struct scale_ratio_to_reg_value_lookup);
++	unsigned int num_entries = ARRAY_SIZE(easf_h_bf3_mode_lookup);
+ 	value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 		easf_h_bf3_mode_lookup, num_entries);
+ 	return value;
+@@ -2430,13 +2428,11 @@ uint32_t spl_get_reducer_gain6(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
- 	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+ 	if (taps == 4) {
+-		num_entries = sizeof(easf_reducer_gain6_4tap_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_reducer_gain6_4tap_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_reducer_gain6_4tap_lookup, num_entries);
+ 	} else if (taps == 6) {
+-		num_entries = sizeof(easf_reducer_gain6_6tap_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_reducer_gain6_6tap_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_reducer_gain6_6tap_lookup, num_entries);
+ 	} else
+@@ -2449,13 +2445,11 @@ uint32_t spl_get_reducer_gain4(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
-@@ -582,6 +588,13 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
- 	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
- 		 "but recovered through reset" : "needs recovery");
+ 	if (taps == 4) {
+-		num_entries = sizeof(easf_reducer_gain4_4tap_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_reducer_gain4_4tap_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_reducer_gain4_4tap_lookup, num_entries);
+ 	} else if (taps == 6) {
+-		num_entries = sizeof(easf_reducer_gain4_6tap_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_reducer_gain4_6tap_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_reducer_gain4_6tap_lookup, num_entries);
+ 	} else
+@@ -2468,13 +2462,11 @@ uint32_t spl_get_gainRing6(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
-+	if (info && (info->comm[0] != '\0') && (info->pid >= 0)) {
-+		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
-+		snprintf(comm_string, sizeof(comm_string), "TASK=%s", info->comm);
-+		envp[1] = pid_string;
-+		envp[2] = comm_string;
-+	}
-+
- 	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
- }
- EXPORT_SYMBOL(drm_dev_wedged_event);
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index dbdcfe130ad4..ba1d8fdc3c7b 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -1448,7 +1448,8 @@ static void intel_gt_reset_global(struct intel_gt *gt,
- 		kobject_uevent_env(kobj, KOBJ_CHANGE, reset_done_event);
- 	else
- 		drm_dev_wedged_event(&gt->i915->drm,
--				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
-+				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
-+				     NULL);
- }
+ 	if (taps == 4) {
+-		num_entries = sizeof(easf_gain_ring6_4tap_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_gain_ring6_4tap_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_gain_ring6_4tap_lookup, num_entries);
+ 	} else if (taps == 6) {
+-		num_entries = sizeof(easf_gain_ring6_6tap_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_gain_ring6_6tap_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_gain_ring6_6tap_lookup, num_entries);
+ 	} else
+@@ -2487,13 +2479,11 @@ uint32_t spl_get_gainRing4(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
- /**
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index c02c4c4e9412..f329613e061f 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -1168,7 +1168,8 @@ void xe_device_declare_wedged(struct xe_device *xe)
+ 	if (taps == 4) {
+-		num_entries = sizeof(easf_gain_ring4_4tap_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_gain_ring4_4tap_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_gain_ring4_4tap_lookup, num_entries);
+ 	} else if (taps == 6) {
+-		num_entries = sizeof(easf_gain_ring4_6tap_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_gain_ring4_6tap_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_gain_ring4_6tap_lookup, num_entries);
+ 	} else
+@@ -2506,8 +2496,7 @@ uint32_t spl_get_3tap_dntilt_uptilt_offset(int taps, struct spl_fixed31_32 ratio
+ 	unsigned int num_entries;
  
- 		/* Notify userspace of wedged device */
- 		drm_dev_wedged_event(&xe->drm,
--				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
-+				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
-+				     NULL);
- 	}
+ 	if (taps == 3) {
+-		num_entries = sizeof(easf_3tap_dntilt_uptilt_offset_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_3tap_dntilt_uptilt_offset_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_3tap_dntilt_uptilt_offset_lookup, num_entries);
+ 	} else
+@@ -2520,8 +2509,7 @@ uint32_t spl_get_3tap_uptilt_maxval(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
- 	for_each_gt(gt, xe, id)
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index e2f894f1b90a..08b3b2467c4c 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -5,6 +5,7 @@
- #include <linux/kref.h>
- #include <linux/mutex.h>
- #include <linux/idr.h>
-+#include <linux/sched.h>
+ 	if (taps == 3) {
+-		num_entries = sizeof(easf_3tap_uptilt_maxval_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_3tap_uptilt_maxval_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_3tap_uptilt_maxval_lookup, num_entries);
+ 	} else
+@@ -2534,8 +2522,7 @@ uint32_t spl_get_3tap_dntilt_slope(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
- #include <drm/drm_mode_config.h>
+ 	if (taps == 3) {
+-		num_entries = sizeof(easf_3tap_dntilt_slope_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_3tap_dntilt_slope_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_3tap_dntilt_slope_lookup, num_entries);
+ 	} else
+@@ -2548,8 +2535,7 @@ uint32_t spl_get_3tap_uptilt1_slope(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
-@@ -30,6 +31,14 @@ struct pci_controller;
- #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
- #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
+ 	if (taps == 3) {
+-		num_entries = sizeof(easf_3tap_uptilt1_slope_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_3tap_uptilt1_slope_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_3tap_uptilt1_slope_lookup, num_entries);
+ 	} else
+@@ -2562,8 +2548,7 @@ uint32_t spl_get_3tap_uptilt2_slope(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
-+/**
-+ * struct drm_wedge_task_info - information about the guilty task of a wedge dev
-+ */
-+struct drm_wedge_task_info {
-+	pid_t pid;
-+	char comm[TASK_COMM_LEN];
-+};
-+
- /**
-  * enum switch_power_state - power state of drm device
-  */
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index 63b51942d606..3f76a32d6b84 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -487,7 +487,8 @@ void drm_put_dev(struct drm_device *dev);
- bool drm_dev_enter(struct drm_device *dev, int *idx);
- void drm_dev_exit(int idx);
- void drm_dev_unplug(struct drm_device *dev);
--int drm_dev_wedged_event(struct drm_device *dev, unsigned long method);
-+int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
-+			 struct drm_wedge_task_info *info);
+ 	if (taps == 3) {
+-		num_entries = sizeof(easf_3tap_uptilt2_slope_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_3tap_uptilt2_slope_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_3tap_uptilt2_slope_lookup, num_entries);
+ 	} else
+@@ -2576,8 +2561,7 @@ uint32_t spl_get_3tap_uptilt2_offset(int taps, struct spl_fixed31_32 ratio)
+ 	unsigned int num_entries;
  
- /**
-  * drm_dev_is_unplugged - is a DRM device unplugged
+ 	if (taps == 3) {
+-		num_entries = sizeof(easf_3tap_uptilt2_offset_lookup) /
+-			sizeof(struct scale_ratio_to_reg_value_lookup);
++		num_entries = ARRAY_SIZE(easf_3tap_uptilt2_offset_lookup);
+ 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
+ 			easf_3tap_uptilt2_offset_lookup, num_entries);
+ 	} else
 -- 
-2.49.0
+2.25.1
 
