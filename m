@@ -4,78 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC38C7115A
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 13:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B81BC7115A
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 13:48:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA77710E83C;
-	Wed, 18 Jun 2025 13:46:39 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BUEbOfnr";
-	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7697310E83C
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jun 2025 13:46:39 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-31305ee3281so1187777a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jun 2025 06:46:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750254399; x=1750859199; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=T/+dJG3F08qnun0OMdrTbLgJ5sErhqNPY1uYEI2qzME=;
- b=BUEbOfnrzliG8sfY2/W5SuZq40OXb+nXDjf8voD93Wz7h66uR4Ks5Is+i2/8gDL/pM
- hRoKzKiv+XZmc2Qf1zX91JqhjEmns/9JinZvTsGgk9GqjC47YH2bxpJrx4x/co96+b1H
- F1lCD63aYnMajpQV18tUCCon2c7kESSJ/QnavRL+zf1x4PjD4ozGOtY2xLt98P+wRtb1
- MVZOUcIZwYFqGeGRbVze0DuB8pgbILwq5sEFIakVk73cJcBrmwITwOS1E/6YFAxJgPVi
- 16huqKKSCY3yCEAhpxHODC9IcpE9ZzBBqUzuWLQEMvGAPNKgTvfstv1AtGNhO5NSIwgD
- aqsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750254399; x=1750859199;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=T/+dJG3F08qnun0OMdrTbLgJ5sErhqNPY1uYEI2qzME=;
- b=mntPOPjqSZBXnfGNy8GkENhAteVBFFM2LM7oQyAihKZtFIjMtR3JL1rKqwXUS7ttZh
- gLAEGVJtCLUrBMwz/mF9UrTJ+38SwfDNj+wtPAGmHaeW14EoTtJwauy8lsyCjqL/ZDGI
- Ndo1x2zE/+86GdR05s1bBax/zmmxXQUZ7eTXEkEemCclPuVl+gQCWZacAvrYx+WQyEjm
- T/J2MzYcsaeJi7flk+/GLKHwlAVT/jCcDi8eiCKqutKAS9OO4B8XHMm7cMfx1xEPzFPq
- PLMc180J808yzt9sNP/EvA5y5Kkbv7x1CrftoBsYAZWJF+aTwnbGn0Otujfav4ssStGz
- B2Gw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVI+ozN10NTF8/VMbzhpDqdp6qJWmCiOaegL0l0V4u7kGWww83C6YzOkqnDu1oFEXIRqc0e9Pkq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoBNJjGkIWtSp4w4/lH7IzCMVUAsSqufweJjoEwSIhM3h1A5nr
- JhYNddvRFMUr1CvqULccdWHEkVhqcGRLT3ZWdjnt1jTTskrSwHLsltHKzemzPPhG/9Q+VVlyXXP
- dpV5uDErnA8BEuV0yfIq+Gt+nl+7dr7o=
-X-Gm-Gg: ASbGncu73XIWOe/T0R31PgiSMd5Qy2VY/zGJ2Zh6whDL9UGCcuzwA9VeGdsQqXN6Uk+
- amDuiqy3nllx9QGe6Eu93OMW9+MVPm2ix5ZVgKYNe/wo7NXppzx0DlfYYUVyd44utZJ3imLuvVD
- gtRmqctvdzlyveZNVnDVj5VGyZh2OgGEdGSmE92RNv1UX1
-X-Google-Smtp-Source: AGHT+IEoQW2OeSeAyDRNiJUchBB0CqO0vV5ktvN4tSpL7lf212CO4qGOnDe2Ls8E7g5FqYb9n2fvkPRcXWH3PlsZ3IA=
-X-Received: by 2002:a17:90a:e7c8:b0:312:639:a06d with SMTP id
- 98e67ed59e1d1-313f1daa350mr9845839a91.5.1750254398833; Wed, 18 Jun 2025
- 06:46:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1900110E83D;
+	Wed, 18 Jun 2025 13:48:27 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A82F610E83D;
+ Wed, 18 Jun 2025 13:48:24 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 55IDltp73893219; Wed, 18 Jun 2025 19:17:55 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 55IDltjr3893218;
+ Wed, 18 Jun 2025 19:17:55 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
+ tursulin@ursulin.net, phasta@kernel.org, dakr@kernel.org,
+ Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH v4 3/4] drm/amdgpu: add debugfs support for VM pagetable per
+ client
+Date: Wed, 18 Jun 2025 19:17:46 +0530
+Message-Id: <20250618134747.3893138-3-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250618134747.3893138-1-sunil.khatri@amd.com>
+References: <20250618134747.3893138-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
-References: <20250616093945.GA1613200@noisy.programming.kicks-ass.net>
- <4f5f95ff-b97e-41db-b9fd-5204e6581a30@amd.com>
- <20250616145437.GG1613376@noisy.programming.kicks-ass.net>
- <2bbcc44d-9079-4a73-ba6c-e93fdcb9cf6f@kernel.org>
- <20250618085123.GF1613376@noisy.programming.kicks-ass.net>
- <f474345d-78f6-424b-8c0f-584c5f0c162d@amd.com>
- <83550401-b2ae-4165-84b2-4f9343d3d1ed@kernel.org>
-In-Reply-To: <83550401-b2ae-4165-84b2-4f9343d3d1ed@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 18 Jun 2025 09:46:27 -0400
-X-Gm-Features: AX0GCFthzwPwaWNnNSm3u0xjB-OjoCpV80EBKg2tNkm4wre4xVfxFUZ2xMpsmMU
-Message-ID: <CADnq5_MHFgcZokeyRzK8V1Y0qAz20uafR7dYpGvhCPeVvbwRtw@mail.gmail.com>
-Subject: Re: amdgpu vs kexec
-To: Mario Limonciello <superm1@kernel.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Peter Zijlstra <peterz@infradead.org>, "Lazar, Lijo" <lijo.lazar@amd.com>,
- alexander.deucher@amd.com, 
- Borislav Petkov <bp@alien8.de>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,63 +47,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 18, 2025 at 9:41=E2=80=AFAM Mario Limonciello <superm1@kernel.o=
-rg> wrote:
->
-> On 6/18/2025 4:05 AM, Christian K=C3=B6nig wrote:
-> > On 6/18/25 10:51, Peter Zijlstra wrote:
-> >> On Tue, Jun 17, 2025 at 09:12:12PM -0500, Mario Limonciello wrote:
-> >>
-> >>> How about if we reset before the kexec?  There is a symbol for driver=
-s to
-> >>> use to know they're about to go through kexec to do $THINGS.
-> >>>
-> >>> Something like this:
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>> index 0fc0eeedc6461..2b1216b14d618 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>> @@ -34,6 +34,7 @@
-> >>>
-> >>>   #include <linux/cc_platform.h>
-> >>>   #include <linux/dynamic_debug.h>
-> >>> +#include <linux/kexec.h>
-> >>>   #include <linux/module.h>
-> >>>   #include <linux/mmu_notifier.h>
-> >>>   #include <linux/pm_runtime.h>
-> >>> @@ -2544,6 +2545,9 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
-> >>>                  adev->mp1_state =3D PP_MP1_STATE_UNLOAD;
-> >>>          amdgpu_device_ip_suspend(adev);
-> >>>          adev->mp1_state =3D PP_MP1_STATE_NONE;
-> >>> +
-> >>> +       if (kexec_in_progress)
-> >>> +               amdgpu_asic_reset(adev);
-> >>>   }
-> >>>
-> >>>   static int amdgpu_pmops_prepare(struct device *dev)
-> >>
-> >> I will throw this in the dev kernel... I'll let you know.
-> >
-> > Mhm if the drivers are informed about the kexec
->
-> It looks like PeterZ found the symbol isn't exported; but that's not to
-> say it "can't be" if it fixes this issue.
->
-> > then we could also send the unload/reset packet only to the PSP IIRC.
-> >
-> > That might have a better chance of succeeding than a full ASIC reset.
-> >
-> > Lijo should know more about that.
-> >
-> > Regards,
-> > Christian.
->
-> Another idea is to do a FLR on the way down.
+Each drm node is associated with a unique client-id.
+Create a directory for each drm-file in the dri root
+directory. This directory is unique to hold information
+related to a client id which is unique in the system
+irrespective of how many drm devices are on the system.
 
-I think you want something like:
+Adding root page table base address of the VM under
+the client-id node along with the process information
+in debugfs.
 
-r =3D amdgpu_dpm_set_mp1_state(adev, PP_MP1_STATE_UNLOAD);
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 58 ++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  4 +-
+ 3 files changed, 61 insertions(+), 3 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index d2ce7d86dbc8..aa912168fd68 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1395,7 +1395,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 	if (r)
+ 		goto error_pasid;
+ 
+-	r = amdgpu_vm_init(adev, &fpriv->vm, fpriv->xcp_id);
++	r = amdgpu_vm_init(adev, &fpriv->vm, fpriv->xcp_id, file_priv);
+ 	if (r)
+ 		goto error_pasid;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 3911c78f8282..9e3dd187b597 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2520,12 +2520,67 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
+ 	get_task_comm(vm->task_info->process_name, current->group_leader);
+ }
+ 
++#if defined(CONFIG_DEBUG_FS)
++static int amdgpu_pt_info_read(struct seq_file *m, void *unused)
++{
++	struct drm_file *file;
++	struct amdgpu_fpriv *fpriv;
++	struct pid *pid;
++	struct task_struct *task;
++	struct amdgpu_bo *root_bo;
++	int r;
++
++	file = (struct drm_file *)m->private;
++	if (!file || !file->driver_priv)
++		return -EINVAL;
++
++	fpriv = file->driver_priv;
++	if (!fpriv || !fpriv->vm.root.bo)
++		return -ENODEV;
++
++	root_bo = amdgpu_bo_ref(fpriv->vm.root.bo);
++	r = amdgpu_bo_reserve(root_bo, true);
++	if (r) {
++		amdgpu_bo_unref(&root_bo);
++		return 0;
++	}
++
++	rcu_read_lock();
++	pid = rcu_dereference(file->pid);
++	task = pid_task(pid, PIDTYPE_TGID);
++
++	seq_printf(m, "pid: %d\n", task ? task->pid : 0);
++	seq_printf(m, "comm: %s\n", task ? task->comm : "Unset");
++	seq_printf(m, "pt_base: 0x%llx\n", amdgpu_bo_gpu_offset(fpriv->vm.root.bo));
++
++	rcu_read_unlock();
++	amdgpu_bo_unreserve(root_bo);
++	amdgpu_bo_unref(&root_bo);
++
++	return 0;
++}
++
++static int amdgpu_pt_info_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, amdgpu_pt_info_read, inode->i_private);
++}
++
++static const struct file_operations amdgpu_pt_info_fops = {
++	.owner = THIS_MODULE,
++	.open = amdgpu_pt_info_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++};
++#endif
++
+ /**
+  * amdgpu_vm_init - initialize a vm instance
+  *
+  * @adev: amdgpu_device pointer
+  * @vm: requested vm
+  * @xcp_id: GPU partition selection id
++ * @file: drm_file
+  *
+  * Init @vm fields.
+  *
+@@ -2533,7 +2588,7 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
+  * 0 for success, error for failure.
+  */
+ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-		   int32_t xcp_id)
++		   int32_t xcp_id, struct drm_file *file)
+ {
+ 	struct amdgpu_bo *root_bo;
+ 	struct amdgpu_bo_vm *root;
+@@ -2609,6 +2664,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (r)
+ 		DRM_DEBUG("Failed to create task info for VM\n");
+ 
++	debugfs_create_file("pt_info", 0444, file->debugfs_client, file, &amdgpu_pt_info_fops);
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 	amdgpu_bo_unref(&root_bo);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index f3ad687125ad..555afaf867c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -487,7 +487,9 @@ int amdgpu_vm_set_pasid(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 			u32 pasid);
+ 
+ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout);
+-int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id);
++int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id,
++		   struct drm_file *file);
++
+ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+ int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
+-- 
+2.34.1
+
