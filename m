@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D87C7115B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D37C3C7115A
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 22:19:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7F410E968;
-	Wed, 18 Jun 2025 22:19:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2218910E524;
+	Wed, 18 Jun 2025 22:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WmcWKsy5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q8vs456W";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2067.outbound.protection.outlook.com [40.107.101.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADDAD10E96A
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jun 2025 22:19:54 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 629EC10E524
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jun 2025 22:19:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B9A8XRszKoA8mj0q87ylqKkHmmdDlVyFR2/hgTnWA7ltQfIWT5mgN8dzS31cXOjVGbRrKFSqiAwa881X/wztTi+7KKgiznde/zUTtOJywgT3ASAhc05Tirh3cRcO0hJyhOkpjE8IsjATjohZgIH1HmUS7yr2xWQDVQeb9FTc2h+O+1MVCGIdoYUPWu23j4EvKCl86iIP+4U+5uYOeSwxbgxDjL4Xw14vdBMJLUvMdCjkvVN8h3EYSE8jKNP3DXXU04IHlcMXLTlUqWbRoi3DjWncOfsSJh3GuKrOSc32v9xinRDRtfQZM6G4uS0KKucTJ/BBanQ+0++JrC9L9LngFQ==
+ b=IIEarNHj4cu+XrU0zGKL7nh0iXzPB8EisKuypgYw4w0dq4VifG4KA1JKUBFc6P+D8PXIfI+gOAC5WcuBAWGlA1sATdU+QoMUOYEVaUAN/VDkY4SGhNIEx29egIrG+GjmHrK4cy1PDT1Pz46TLQqqXZ3qZJmVpAfY6dAlSZLlUIVuqsKz1oK5T9pTb2vcywIpbkDQ4SSeLiXsKJCnkxYD9OnFa5coizD4xYjcJ+9wa/MlQPW4hS41VwbELf2BrzQfDABpdMNzB7nkDXcqTYN88RgZB7dg/8Oa4tOH+fs0gf9BpNYEEXbNW/rMsWwOfvPSKBGi4xe1rNNV3ITZTKzAzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LbprKb8OtuspBiQl+M8KI5BydfSZTUUUM19H1BR6WNo=;
- b=IMbXa3Bh4CH/1sAKI+khI5Mv9yQY+eDGfNnhO5k2aPH/LnWcbT+QQ75v+RZizslt+xqjiiR460DkMEN2jHH/gWVAdraFXfyvQKd7iG54Lm6+94eWAVenRRFPFKTHVmcnMn5QfJt2yZx6zfBpovkav0U+F5aAFsJM8+mxRd+BOt5vwsrAA4Akd/M+LMMZjcJMODs8NZMRP1HbVBFrT2m1wmEPPp8OsjUQXk9rxn7SOh3zcQQ3IuFjMk1VDUHRg6J7pUvDpE04WmdmpgbNqKDyJHgWO4MxaOCd4VmTAtgTCXKuCCFFpAd0NVhPrTX11oPwqUc7wLxlshSV/bkUL2ptng==
+ bh=vZ5DEDzd5QUkA9JGbJ5cES5uwh0GE3w5A/9d8A7AYww=;
+ b=EyC2AKD/hvO1EIJHmFi6HHyXI6I9q9Hzt3O4ijrVxrRDKlH9beajKg/cIP/1L2sJKmQskb1q15c6Ur0um+KVodtqt7B14IScFuTYZcJiS/fIZ7JpAZKVh1s5mzEjBFUGjYpjA0DudMvi/hatT1VHhtd7Y/UfgyBqaz2a+gD0FqVUob2ioT/CS6nzbbqBQeM2iK8rALjlA5fNaHZyuVq3a7SKWd5z/cfnDl1ue+BHX/EnF6c9qqWEjxG/JuyQdVFeoQc36S3RrSDvfH1e4XBf5idNf716cPrzRM+deGoQaKZHjsoStFqWSCRn6sIh+5mQ2RFGUVnUG6QXWLrwsO2lhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LbprKb8OtuspBiQl+M8KI5BydfSZTUUUM19H1BR6WNo=;
- b=WmcWKsy5Qy9NpWFi10HKdyFc3ZPaxxgRLyicCSfQM2oG94QQqZmkCcBu8EtVUgsPEsmsdYPKTVhAfXL4bcbwpE20I2Yz/7TDDK77Rcj3Cb1+24m6EJhwVIChOIM5ZkTqKOwtVdDX23RHwKDcw3eDzW6R5dbWxw2kxHf4KCbT8qA=
-Received: from SN7PR04CA0080.namprd04.prod.outlook.com (2603:10b6:806:121::25)
- by CY8PR12MB8315.namprd12.prod.outlook.com (2603:10b6:930:7e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.21; Wed, 18 Jun
- 2025 22:19:52 +0000
-Received: from SA2PEPF00003AE7.namprd02.prod.outlook.com
- (2603:10b6:806:121:cafe::3c) by SN7PR04CA0080.outlook.office365.com
- (2603:10b6:806:121::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.30 via Frontend Transport; Wed,
- 18 Jun 2025 22:19:52 +0000
+ bh=vZ5DEDzd5QUkA9JGbJ5cES5uwh0GE3w5A/9d8A7AYww=;
+ b=q8vs456W7L1BeiP8wt53W+f/wZON2469E8Zj4TASCNf0sR9QqRgQg/EU4TcyhsqhAVnKYo0OYKqmMRYHVq+KhNcA9K2ueAptxCDvNIv2gKg5DzNyp1KwMPCpaOeclTZ88W7wAe4YeRAQ22iYjbTUUlfEmtbkJWvuPLu5DTr8MDw=
+Received: from SA1P222CA0114.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c5::21)
+ by SN7PR12MB7299.namprd12.prod.outlook.com (2603:10b6:806:2af::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Wed, 18 Jun
+ 2025 22:19:46 +0000
+Received: from SA2PEPF00003AE4.namprd02.prod.outlook.com
+ (2603:10b6:806:3c5:cafe::3f) by SA1P222CA0114.outlook.office365.com
+ (2603:10b6:806:3c5::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.33 via Frontend Transport; Wed,
+ 18 Jun 2025 22:19:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00003AE7.mail.protection.outlook.com (10.167.248.7) with Microsoft
+ SA2PEPF00003AE4.mail.protection.outlook.com (10.167.248.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8857.21 via Frontend Transport; Wed, 18 Jun 2025 22:19:52 +0000
+ 15.20.8857.21 via Frontend Transport; Wed, 18 Jun 2025 22:19:46 +0000
 Received: from maple-stxh-linux-10.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 18 Jun 2025 17:19:51 -0500
+ 15.1.2507.39; Wed, 18 Jun 2025 17:19:45 -0500
 From: Pratap Nirujogi <pratap.nirujogi@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <mlimonci@amd.com>, <lijo.lazar@amd.com>, 
  <xiaojian.du@amd.com>, <alexander.deucher@amd.com>,
@@ -62,9 +62,9 @@ To: <amd-gfx@lists.freedesktop.org>, <mlimonci@amd.com>, <lijo.lazar@amd.com>,
 CC: <benjamin.chan@amd.com>, <bin.du@amd.com>, <gjorgji.rosikopulos@amd.com>, 
  <king.li@amd.com>, <dantony@amd.com>, <Phil.Jawich@amd.com>,
  Pratap Nirujogi <pratap.nirujogi@amd.com>
-Subject: [PATCH 4/4] drm/amd/amdgpu: Refine isp_v4_1_1 logging
-Date: Wed, 18 Jun 2025 18:17:25 -0400
-Message-ID: <20250618221923.3944751-5-pratap.nirujogi@amd.com>
+Subject: [PATCH 1/4] drm/amd/pm: Add support to set ISP Power
+Date: Wed, 18 Jun 2025 18:17:22 -0400
+Message-ID: <20250618221923.3944751-2-pratap.nirujogi@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250618221923.3944751-1-pratap.nirujogi@amd.com>
 References: <20250618221923.3944751-1-pratap.nirujogi@amd.com>
@@ -76,52 +76,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE7:EE_|CY8PR12MB8315:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5531727-6c20-482b-e101-08ddaeb63f14
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE4:EE_|SN7PR12MB7299:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42b72a69-5ae6-466c-ba52-08ddaeb63bdc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dgmtq9q+YDamXG30f2AUHEzJ6Ti0pIL4a6W8ufVdnaX2ByUXcgT6IThU4uj1?=
- =?us-ascii?Q?3U3O4sNTfTdAro6qjLFNgp5kKWr3/Xv+mvvcCYanLR3Yc5vUlxOzsxT+3UoU?=
- =?us-ascii?Q?6bjxRIVcQN4oiJu4DFF2h5FQu6ijrf0ug+pxmatyagz2YmCNKeQea41CPtLq?=
- =?us-ascii?Q?07oVpYybbbEraLRllhYsk1KtgFEL8bOodgp07FsPC246Kc++4hst8E2O83wN?=
- =?us-ascii?Q?P+UlBB/OUW7+iMzY1wtxWT1bCIMtGzyhJVxCAdR3LQACGUIEv81neYpiX1jh?=
- =?us-ascii?Q?3MrjKgJJqe2GbxtzKYfOaaRionxulIlFQkXi3GOwb88QJEPiUQ04WiYpzWVa?=
- =?us-ascii?Q?MUwwsTbfeh+zemwhTCLb9Tkfgi+o0V7VTMiqIBa1A/SMCt25aaZ48yk5hA7P?=
- =?us-ascii?Q?i9a1xYqR828D21BdkwdZh9QxjhOrkt/q+tH+yTgCN3LygKSYSUneCmSoTEXp?=
- =?us-ascii?Q?r2U8AHyM5rK46FH+9c+t6YI4ahqDh4XFebF7SGnx7Yk3FOcPuxIXncXkVrP8?=
- =?us-ascii?Q?c5/t1QbZPCVOMRxyqbUbcQgA3+lWu2B0OS4qaKVT5R3nOlGxGON4h9+NuAsW?=
- =?us-ascii?Q?vt12E5vEs4q7yItZv0Rj89RFaE05J5txHelXb16Z4ahAMD5wwwzi42g2pSj9?=
- =?us-ascii?Q?YpTJKp6qmZjnQ/cJyosEOcS5XyLDiAsrF75c7zCd3dmyRTnTDu5TOp0BlVYg?=
- =?us-ascii?Q?3GMgS4CCRteH+i/STj+yh61vmUKAw0yZk8UQ4R23DjwP4E5OEzvLk7S3nQIb?=
- =?us-ascii?Q?P3vLGqQIBIyuorL/p0qIdkSWkPsRfWfaHBetymx/JjmTLtYHt2k8sjoFz5//?=
- =?us-ascii?Q?ITYcIKSzly9e+V3O3UNEBYc09HgbhGHF23VoQQvgu+Bx5pagq5ZQEupAd2uI?=
- =?us-ascii?Q?3TbbPehwKh5pcSltjQehtC4u2rpMHDJiHpdxptmWu1How75kDkmWH+/KTMJY?=
- =?us-ascii?Q?lGjMBgzdro0CwXdUUx+ac8FMQ2ITaO47DIuNEksZEviO4E+qQY78QnaHBeWX?=
- =?us-ascii?Q?9XN3lFZPDLdwU0BhS9zWzbKF7aNIxCQpgmqLHfnm524xdS9yMcjn3Jro0YZ0?=
- =?us-ascii?Q?aOJ6Zww1cJj4qs6HBL42yhzp1tk8gsUai2IzCrNe9Ii4KPilj6VeOtEH6/B2?=
- =?us-ascii?Q?BkLwPKQ1vuuGLIKMaf747L80q1zvcSSamM/vCjeKoFq9Ru5PsLy2jGJwDdmB?=
- =?us-ascii?Q?hMwPXeL2Fjqn7m80lZkCDaKK1W5fhKc/PzVyHzf+/CQCSXXn1Li5Y21jPK4B?=
- =?us-ascii?Q?6bQXk8Q3AljexBE98gg2iC4pPtofDSW1cM+NyDBM4Urh0homm+Yd78LRZRs4?=
- =?us-ascii?Q?9ZmvrudBxIoThu3HcT1Qo+FZfPaSecscPt9Io6CABToJ4QqEpj0ZlPo5CbIY?=
- =?us-ascii?Q?ZGxsBwMLD6TYapaxUBZYwk2nJi8RCpDH7RfPuJlwDWRm7v+PCh4+YKcGQ3dw?=
- =?us-ascii?Q?XhC6Nnw/5HItQucYtLPq9/oSlVcGf9TLQIF+s2munf8PiQU6WWPf9fqBT+yZ?=
- =?us-ascii?Q?mkN7ShLEeOj4guOXOHDMx4RvFTVHc6YH95Bq?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bIKyiC8CQ6V2bTFveGlynuCRZIhxjP6CuBq12A/VwUjQFgMen7rKpdFxhc+U?=
+ =?us-ascii?Q?fwmA37qURD2E0Pu/YMP3dupqN9a5geERo/rt9Tttx1O5yWMxO8CuJ8k+3k6+?=
+ =?us-ascii?Q?g2HX7wlGzL4k0u+7xgrJl3bHCw6eip7aha7tCQg7LFiFbiYFM2tvIfF8BoNa?=
+ =?us-ascii?Q?uR9o/XSAsoz8vtBJnELtJYDB6e1ieKJn0Zpu5g/GRBcPkEoiWvj7ipC5LZOL?=
+ =?us-ascii?Q?mRT4xoFqjx4Wi4CxrvFRbZ8CBNRDYp+4ghTnlO0Ng7TR07BAvsso6gQiz/0J?=
+ =?us-ascii?Q?pDCMZ5s9K4IkCtl8HPtZko0p+zebgzMUaG+b+XQtFylyvmrEdygvC7Yccrp1?=
+ =?us-ascii?Q?pjpwNAq9sHX2ovpH1ERxEWh/+G+GYcAZLT1BGUNTMB7XG/oi5CIkHTvmDmqH?=
+ =?us-ascii?Q?pRXDqeSpG4mKp6gw4xg1NAQUOVdKV6tnAfJZlqpYeVu2WigyFngLm0ql+bD5?=
+ =?us-ascii?Q?/Gr4Pkt48xfyG+ZNlSNupbk3fBQQrhdg3xLRp+c5VW/bz5UJpoGIGr+L6WlU?=
+ =?us-ascii?Q?z1+/zdVhB65GC1fhpu0gcVlXl70j5tFvaqSs0SSBROYHFjvnc/favFriW3mE?=
+ =?us-ascii?Q?a0rTcbJH1iljR2o4bN1GbfPjf/Kvt0NboTo8hjj2anio3tZW6hgpBclvuDQL?=
+ =?us-ascii?Q?t3h8lLOgR3jwy0VWRCEt71PybZtQku5AAPPN5bzevGoYVluUX8Vxe6qA8TaY?=
+ =?us-ascii?Q?w6395oBYxiTa+x3M4a+dvec+FRJThZzH6n3Yr9FsQikyOCOJRDEgy3F1iCWC?=
+ =?us-ascii?Q?uVqkY00t2A83tlTkO9scaEdJ+81Y93zoIoUql6jZRncqnhayWZVKIpesTktK?=
+ =?us-ascii?Q?OP2sNpGRkGBzWE/I8BlQNjQKWy0DbvmkN5tJnHjsJafRQiglQWpJRXTtaVEY?=
+ =?us-ascii?Q?btO0yDbxEoRSxVPYcRZFH3tb/ZtdyhLl1XJ0CJDv0SmizHrtx7MH56QI9Ayh?=
+ =?us-ascii?Q?gsh2eSj3Fi2DhwK1toQ/zrnkMVS0lE83AX3s7ODn8NeuKbTUI6563b6RQBMj?=
+ =?us-ascii?Q?AhNAu+0SWDxRorxUsrHbLKf60AwBH1NOPCaUV24W6RrADl9EpBNKMYU/fDr/?=
+ =?us-ascii?Q?qFxdVTCETyK7i6UeEnkh8Wl41uSbIzXw7dpqYdEXVMZ2++TIbfDmLDIJ9Bn+?=
+ =?us-ascii?Q?dwZksHWMlvjmbr5vHP4N/WIVMul8t0MVEXTfNVrHc8f0exlVsWEG7hZ1JeFl?=
+ =?us-ascii?Q?myLZQLvT33z8Pyc1zb+l0nqD/MqtBzanuGa+LBSKj5MVmc/8pAjdpvCsYtoB?=
+ =?us-ascii?Q?2WTWFZgtFYKdW39k6obd9QfhhLM1DPzmKc492CRhpC9FZ8Xwxc8H4Ma1exqo?=
+ =?us-ascii?Q?x9AQPRimx/sSLJVppckX29YAp+fxYk7ILhxH+kVWaxFhM+0lM3XILhDcZsB3?=
+ =?us-ascii?Q?ZYLOnVYYw/2bQwn9VHGicSV0yQihh7nsVJa6itfi/Z9fAnq+HrMN8Z+dYoW2?=
+ =?us-ascii?Q?N7EMfXAqeFW7npmL7DxynNf1kkZ0of1UKJvy8SBX3xyQkuhitDBg2Um3YWIM?=
+ =?us-ascii?Q?YwHnrQzm6WfOHozDatRVsGVJ1BNJaRihSZLY?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2025 22:19:52.1360 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5531727-6c20-482b-e101-08ddaeb63f14
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2025 22:19:46.7397 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42b72a69-5ae6-466c-ba52-08ddaeb63bdc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8315
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7299
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,77 +136,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace DRM_ERROR with drm_err function and update log
-messages to drop __func__ and print return value.
+Add support to set ISP power for SMU v14.0.0. ISP driver
+uses amdgpu_dpm_set_powergating_by_smu() API to
+enable / disable power via SMU interface than communicating
+with PMFW directly.
 
 Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 27 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  7 +++++
+ .../inc/pmfw_if/smu14_driver_if_v14_0_0.h     |  1 +
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  |  9 +++++++
+ 5 files changed, 45 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-index 753cf3b014e2..f857796f0297 100644
---- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-@@ -220,8 +220,7 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
- 	isp->isp_cell = kcalloc(3, sizeof(struct mfd_cell), GFP_KERNEL);
- 	if (!isp->isp_cell) {
- 		r = -ENOMEM;
--		drm_err(&adev->ddev,
--			"%s: isp mfd cell alloc failed\n", __func__);
-+		drm_err(&adev->ddev, "isp mfd cell alloc failed (%d)\n", r);
- 		goto failure;
- 	}
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index 5c1cbdc122d2..95f1fff442cb 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -98,6 +98,7 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+ 	case AMD_IP_BLOCK_TYPE_GMC:
+ 	case AMD_IP_BLOCK_TYPE_ACP:
+ 	case AMD_IP_BLOCK_TYPE_VPE:
++	case AMD_IP_BLOCK_TYPE_ISP:
+ 		if (pp_funcs && pp_funcs->set_powergating_by_smu)
+ 			ret = (pp_funcs->set_powergating_by_smu(
+ 				(adev)->powerplay.pp_handle, block_type, gate, 0));
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 0c9232009da9..97572fe26ddf 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -307,6 +307,26 @@ static int smu_dpm_set_vpe_enable(struct smu_context *smu,
+ 	return ret;
+ }
  
-@@ -231,16 +230,14 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
- 			       GFP_KERNEL);
- 	if (!isp->isp_res) {
- 		r = -ENOMEM;
--		drm_err(&adev->ddev,
--			"%s: isp mfd res alloc failed\n", __func__);
-+		drm_err(&adev->ddev, "isp mfd resource alloc failed (%d)\n", r);
- 		goto failure;
- 	}
++static int smu_dpm_set_isp_enable(struct smu_context *smu,
++				  bool enable)
++{
++	struct smu_power_context *smu_power = &smu->smu_power;
++	struct smu_power_gate *power_gate = &smu_power->power_gate;
++	int ret;
++
++	if (!smu->ppt_funcs->dpm_set_isp_enable)
++		return 0;
++
++	if (atomic_read(&power_gate->isp_gated) ^ enable)
++		return 0;
++
++	ret = smu->ppt_funcs->dpm_set_isp_enable(smu, enable);
++	if (!ret)
++		atomic_set(&power_gate->isp_gated, !enable);
++
++	return ret;
++}
++
+ static int smu_dpm_set_umsch_mm_enable(struct smu_context *smu,
+ 				   bool enable)
+ {
+@@ -408,6 +428,12 @@ static int smu_dpm_set_power_gate(void *handle,
+ 			dev_err(smu->adev->dev, "Failed to power %s VPE!\n",
+ 				gate ? "gate" : "ungate");
+ 		break;
++	case AMD_IP_BLOCK_TYPE_ISP:
++		ret = smu_dpm_set_isp_enable(smu, !gate);
++		if (ret)
++			dev_err(smu->adev->dev, "Failed to power %s ISP!\n",
++				gate ? "gate" : "ungate");
++		break;
+ 	default:
+ 		dev_err(smu->adev->dev, "Unsupported block type!\n");
+ 		return -EINVAL;
+@@ -1300,6 +1326,7 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_block)
+ 		atomic_set(&smu->smu_power.power_gate.vcn_gated[i], 1);
+ 	atomic_set(&smu->smu_power.power_gate.jpeg_gated, 1);
+ 	atomic_set(&smu->smu_power.power_gate.vpe_gated, 1);
++	atomic_set(&smu->smu_power.power_gate.isp_gated, 1);
+ 	atomic_set(&smu->smu_power.power_gate.umsch_mm_gated, 1);
  
- 	isp->isp_pdata = kzalloc(sizeof(*isp->isp_pdata), GFP_KERNEL);
- 	if (!isp->isp_pdata) {
- 		r = -ENOMEM;
--		drm_err(&adev->ddev,
--			"%s: isp platform data alloc failed\n", __func__);
-+		drm_err(&adev->ddev, "isp platform data alloc failed (%d)\n", r);
- 		goto failure;
- 	}
+ 	smu_init_power_profile(smu);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index 9aacc7bc1c69..41d4a7f93660 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -402,6 +402,7 @@ struct smu_power_gate {
+ 	atomic_t vcn_gated[AMDGPU_MAX_VCN_INSTANCES];
+ 	atomic_t jpeg_gated;
+ 	atomic_t vpe_gated;
++	atomic_t isp_gated;
+ 	atomic_t umsch_mm_gated;
+ };
  
-@@ -278,8 +275,7 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
- 	isp->isp_i2c_res = kcalloc(1, sizeof(struct resource), GFP_KERNEL);
- 	if (!isp->isp_i2c_res) {
- 		r = -ENOMEM;
--		drm_err(&adev->ddev,
--			"%s: isp mfd res alloc failed\n", __func__);
-+		drm_err(&adev->ddev, "isp mfd res alloc failed (%d)\n", r);
- 		goto failure;
- 	}
+@@ -1435,6 +1436,12 @@ struct pptable_funcs {
+ 	 */
+ 	int (*dpm_set_vpe_enable)(struct smu_context *smu, bool enable);
  
-@@ -298,8 +294,7 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
- 	isp->isp_gpio_res = kcalloc(1, sizeof(struct resource), GFP_KERNEL);
- 	if (!isp->isp_gpio_res) {
- 		r = -ENOMEM;
--		drm_err(&adev->ddev,
--			"%s: isp gpio res alloc failed\n", __func__);
-+		drm_err(&adev->ddev, "isp gpio resource alloc failed (%d)\n", r);
- 		goto failure;
- 	}
++	/**
++	 * @dpm_set_isp_enable: Enable/disable ISP engine dynamic power
++	 *                       management.
++	 */
++	int (*dpm_set_isp_enable)(struct smu_context *smu, bool enable);
++
+ 	/**
+ 	 * @dpm_set_umsch_mm_enable: Enable/disable UMSCH engine dynamic power
+ 	 *                       management.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h
+index 1bc30db22f9c..cd44f4254134 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h
+@@ -106,6 +106,7 @@ typedef struct {
+ #define NUM_FCLK_DPM_LEVELS       8
+ #define NUM_MEM_PSTATE_LEVELS     4
  
-@@ -318,8 +313,7 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
- 	/* add only amd_isp_capture and amd_isp_i2c_designware to genpd */
- 	r = mfd_add_hotplug_devices(isp->parent, isp->isp_cell, 2);
- 	if (r) {
--		drm_err(&adev->ddev,
--			"%s: add mfd hotplug device failed\n", __func__);
-+		drm_err(&adev->ddev, "add mfd hotplug device failed (%d)\n", r);
- 		goto failure;
- 	}
++#define  ISP_ALL_TILES_MASK       0x7FF
  
+ typedef struct {
+   uint32_t UClk;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+index 84f9b007b59f..fe4735d5ebd4 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+@@ -1533,6 +1533,14 @@ static int smu_v14_0_0_set_vpe_enable(struct smu_context *smu,
+ 					       0, NULL);
+ }
+ 
++static int smu_v14_0_0_set_isp_enable(struct smu_context *smu,
++				      bool enable)
++{
++	return smu_cmn_send_smc_msg_with_param(smu, enable ?
++				      SMU_MSG_PowerUpIspByTile : SMU_MSG_PowerDownIspByTile,
++				      ISP_ALL_TILES_MASK, NULL);
++}
++
+ static int smu_v14_0_0_set_umsch_mm_enable(struct smu_context *smu,
+ 			      bool enable)
+ {
+@@ -1669,6 +1677,7 @@ static const struct pptable_funcs smu_v14_0_0_ppt_funcs = {
+ 	.set_fine_grain_gfx_freq_parameters = smu_v14_0_common_set_fine_grain_gfx_freq_parameters,
+ 	.set_gfx_power_up_by_imu = smu_v14_0_set_gfx_power_up_by_imu,
+ 	.dpm_set_vpe_enable = smu_v14_0_0_set_vpe_enable,
++	.dpm_set_isp_enable = smu_v14_0_0_set_isp_enable,
+ 	.dpm_set_umsch_mm_enable = smu_v14_0_0_set_umsch_mm_enable,
+ 	.get_dpm_clock_table = smu_v14_0_common_get_dpm_table,
+ 	.set_mall_enable = smu_v14_0_common_set_mall_enable,
 -- 
 2.43.0
 
