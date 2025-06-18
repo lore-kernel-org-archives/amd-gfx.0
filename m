@@ -4,152 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02F8EC71157
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 23:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2C9EC71136
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 02:12:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92ED810E1C7;
-	Tue, 17 Jun 2025 23:42:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8EB10E004;
+	Wed, 18 Jun 2025 02:12:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4cHxXAf/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f8UFP8NM";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0369810E1C7
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 23:42:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qxP0qDwPaQPkPqnVRVZGIu7XATz+Qm3U7Uw9f6PHxE661DeFVp4W9w+OnMKhHu5GD4EYPaM0Iz9sXBOJtjKAZ/v2Pehuddeu/uY61xrXE7A3Z1Q8BulL/Jc/1yf+SPS124U+XpGpktHZAj6l89mCpAcyWTJnHU/8dsxgJySOhLQBTSDFLC8N9e8JUTHC86LbAAAl1VHlw3Y/rnf1upNZPz63c6B7qP9OyRCmzFdCYhczzAAjWPcPQEJqFDoFziaY73ooKa+dARODTilS8Dux1VO8P4wd5/CDlESDfhNBM2Zi9DrXf2M53CfL4hwsb5aOFEYUgUNjliPxCIvLBKHG5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5zIeUlEMXcgmPhqNxH5sUhXwmH4o2o6nxYiAOk4joiM=;
- b=hqeZnNIyiu0zCQnsO+YKjTfIPFnViAkvFMk4WNACBGUYogJ+G4kAJyhIVYg86EWFvKhVGY+a7VCs76H+z/wEv820Q8E4gGDXeYrxycQoflZBdK8Y6dPTW3MkYuZK+4V4k9yDJqfqCE1+Crssxbhi/TtHR2TS3ea+Z06AEf/0DVtRmgLZ4V05cs1KJKZeT90ocwK9K5oMaMxjwDJs8+hyW8mmJ5WQzLY34OhSN25wET4JqTLB6ztPEHtJvdacqk9oBWF85ZdfZeFJhMJcrFsoM7V3vWhYXm0kBaCg8O6KUMXpyDVBN8bvOqFvMbtzYbx3RBrRYRtimM4Mq0UqC+f5Sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5zIeUlEMXcgmPhqNxH5sUhXwmH4o2o6nxYiAOk4joiM=;
- b=4cHxXAf/PITnH8dyrmwGSdWRbLrj7kECXEPYr6Uui75T3SQRXgfmdi7CYCW3zV2m1T/DU1AFc2Ayv+gr/yArx4L2NqmnPBohtHkZAX2TD8UAvzzmhZLZLFRgEOisRxYNAln8HwHbaEcR89XKQqkHhwkLA6/YB4crlKmezWWbfzc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by SA3PR12MB7807.namprd12.prod.outlook.com (2603:10b6:806:304::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.19; Tue, 17 Jun
- 2025 23:42:39 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%5]) with mapi id 15.20.8835.027; Tue, 17 Jun 2025
- 23:42:39 +0000
-Message-ID: <3002633a-5c9e-4baa-b16a-91fdec994e02@amd.com>
-Date: Tue, 17 Jun 2025 17:42:35 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/amd/display: Radeon 840M/860M: bisected suspend
- crash
-To: ggo@tuxedocomputers.com, stable@vger.kernel.org,
- regressions@lists.linux.dev,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Werner Sembach <wse@tuxedocomputers.com>,
- Christoffer Sandberg <cs@tuxedocomputers.com>
-References: <fd10cda4-cd9b-487e-b7c6-83c98c9db3f8@tuxedocomputers.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <fd10cda4-cd9b-487e-b7c6-83c98c9db3f8@tuxedocomputers.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0056.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::28) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D384610E004
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jun 2025 02:12:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4CCE84A1B6;
+ Wed, 18 Jun 2025 02:12:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0399C4CEE3;
+ Wed, 18 Jun 2025 02:12:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1750212734;
+ bh=gzCfwKIwjyGV0QAAoEJ57jwHMzI4KtpqYcqIW3aqJkU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=f8UFP8NMXlQxbjEC+5LX9J1C9uvXewsAtRNW5oXIyWMZraFxR+VsdpuxIRmQD1Nrf
+ PncUUvOIHRm07e+FiOgogGyBoP16jkwJEmscXKXaqFcMzqvOWHcT8RI6xzaFrVoxse
+ r6n2h+LzXFaNJwtinqrvB9HBBPurxbek1pxoonmJo176cc7Su9yIe0bfz8RBeyTlxa
+ pCk4aZTSufHrBBUK9kJRYMSNg6eS3tEoOzOJ1yr7vPilLh13bR3GhWH3VvoInv9Q+t
+ LYpuKvZqy0OltoQ4u8qpGfGqKMLPd735M/u+9/gYqb1XhRIFh4NnlBrvtn5gGPxGzC
+ OrjswNY77eWjA==
+Message-ID: <2bbcc44d-9079-4a73-ba6c-e93fdcb9cf6f@kernel.org>
+Date: Tue, 17 Jun 2025 21:12:12 -0500
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SA3PR12MB7807:EE_
-X-MS-Office365-Filtering-Correlation-Id: f074a88d-23af-4774-0eca-08ddadf8a500
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y3djRkxMVnZGb1ZBNWpQUzcyeUlKQ1J2ZXFteHBQdjRESklmNm0vdmNyS0tF?=
- =?utf-8?B?VGhya052VDZJYi9LdHZUMkIvWVBkYU1LSGFYTFRRSWVXT3laQi9RbmJ1ZUxS?=
- =?utf-8?B?L0JZVWRTeUlmKzNxdXArUDJvSXh4SGtiSFVzTm1YT3drWWMwWmN5SlFZS2pX?=
- =?utf-8?B?TjdYQXFSOUxDT2VnVzFKWjdINnNHRnNIU1BTb0RqRWxnRFhZZkVVeEhha1Fy?=
- =?utf-8?B?Z3p4QU1mdUx1WnErMTcwQU43N2NlZTNwT3VaYXhrMzI0cjRYZEtOeTh6VjJZ?=
- =?utf-8?B?cTF1eElXV21uS2Vrdks3VVdpK0taTkNFK25Mc0MxSXE2VnlzczEzT0ZLdmxl?=
- =?utf-8?B?R0hUTC9jcXpIWVRNb21kNTRoSGM0YzRCeVpDcXlzRVZWVGxBcmtNYWYydG1Q?=
- =?utf-8?B?SmZzUDR3c2d2ZWp0c0JiZ3Q2bGdSMjhFNUFOSGdnZ3lVdEljRTEwNkNuV1p1?=
- =?utf-8?B?NmFoU1AyMmpTbmdwTkQ4ZTRuM3ppS01jSFpxM1pXeVdHd3JienMxM01BbXdx?=
- =?utf-8?B?VTFwbDFsQ1g2dUVWZTRQelRGK2c1a2VMdjNWNElBQjc5RmJsVzd0dW9lNXJQ?=
- =?utf-8?B?ckVkMzltMW9STkk0ZWdqYkNGWDQ0TFNPU2hmcGxxdnhUZVpYWHl6RldOYTRv?=
- =?utf-8?B?VlFTOERHYWdTL0dzV1hWTCtHd3NCYU9iaUhIbXRQdWp0NHVKME5pbUcza3Bi?=
- =?utf-8?B?UUx4bXF6cUkvcVR1YytDUE0zblREaDJzeXhxc1JDak01SU5YbTA3NWRHRVA1?=
- =?utf-8?B?ZHJqZlJRMnRlRFpGY0cvaGZkdWRBNUZVSFhLRmZoYnFWd0tTRjlLYWNuUk4w?=
- =?utf-8?B?RXB6NktFYVlIbE1BM29ucUlQbE9XZTJjOS9iUXo4elVOS1hMekVkbjlUYjMr?=
- =?utf-8?B?bEVUTmtQMGFrNWNYKzVEQXZlMzJQd2lEVFk3Wkp5SXJKN083OHhDZEhQL0lP?=
- =?utf-8?B?TlRUVk5kY0dZaVdBUVB4UkJzd3RUd1ExOEhIWnFieFRiWlhvYW5IWVYzM0dW?=
- =?utf-8?B?czFrTHl5WjZEMU5kVUNBY3UxUVdGN2c2UEZDWHZMaVRoU3V6RkIxUk1kL0RO?=
- =?utf-8?B?UEQ4cWlacm1RTFkrQS9MOGdjaTdhMzMzOW91eDZsYkNxNFFaSWZKOWRDVUZE?=
- =?utf-8?B?a25ISldIR3pQbE5vVG5XSlpObmVFY0hoekJoSGdVd3pkV3EwKzIwNG42VDk2?=
- =?utf-8?B?Q1F6eHZYME9Tc3hCTzRpODlSY0I1UEJILzN0UkQzZVVUMUljRi9hQXNRQWg2?=
- =?utf-8?B?MUwzS0d3TFBJTnA3Q2dYVExmS2diaGV5Sld4c0o2dlBrbGtLZ2RncVdGTDdT?=
- =?utf-8?B?SS84NDY3aVVBY1lJaEJXNkxDck9Bc2dYNnlCUnk4VTNmYXZnSzMrUGpjNmtR?=
- =?utf-8?B?d0g3cVlHV3hCT2FwUHhsaSs3UlBHVVZ3SmZqRHcxSTErMm5oWmZ4bVpoRnAx?=
- =?utf-8?B?N0RnMi9tcUFHTkdjTjVlUEExRVRNcmpBM21mWUVXcEVXdXdBSDQxVE1KN1Vv?=
- =?utf-8?B?QllyMWRUSnBsdHg1Zld1bXlpN2lUcC9KZlBieVZpcUpTemRuYlRKVzhBbUtF?=
- =?utf-8?B?OCs4aTc3T2Z3Qnl1UVcwZDRnUTUzZGlHNFk2OHlpZnh0U1VuaGsxZXEyQ0VC?=
- =?utf-8?B?aGhMM3k3VTd3US9XczZPek9IenlGSzlYUW9rbnJ2S1hWNTJoMEdVUGljM3p6?=
- =?utf-8?B?QUJYSmNFVlZPcm9JN0QzY1BmVTlMYkNKZDdlS1crNDIwWjluQ2RzSzFObk9M?=
- =?utf-8?B?L1NMcThzVDNsbnhIUWdFRXVmQ2Q5eGdIZnhwNWsyWjVjL1VUVGJvaUZlZE1s?=
- =?utf-8?Q?hg0huzr8IZ0Q+IpmA0R9lsOcYefTtLgnmtO7c=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVZKMGxtNlFDUDI2THpmOHNVQXRFTVJDYkV5SlVqNDM5clpjSy9uY1dheElE?=
- =?utf-8?B?U3YrSThsTm1IOFlqQ1hMdFcva3B2UnkwYkpUZmNyb1RoNThTdjlENHhkMzJS?=
- =?utf-8?B?WitnWk03Qkp6UnZnR3VqU2JIdGpGZWE0dXFYMy8vU1Z2eStqRDBWVHpZMTBR?=
- =?utf-8?B?SU95ek05OUZlY3BhTkh0VXV6RGtoSjhMU0xQWFJoekgxVitJdHU2U2c2aTVa?=
- =?utf-8?B?NmZFMXd2alJtVExWNjk5Sjlad1FITnVWejMwMGVvYkJiM3MrSk51NGQxVjJw?=
- =?utf-8?B?VUkxaFhuUjVaYnVFcHM3MW9RLzlVNW04aDBuOGhrKzc1SEJMeXI3RkhYZk0v?=
- =?utf-8?B?MDk1eXhFOWgrUm10VEVhcEJ3RmIyRkZ6NnovRGlQSmFYaWtLKzd2T3k0Wk16?=
- =?utf-8?B?b1I3L3RXdUVVZk00NFN6Z1lmT1ZkTENJVFhvZXdWbitDeWZRTGNMYTM0S3Qv?=
- =?utf-8?B?d1NnVHBDLzJtellhKytaZ1hMRGdtRmRwMWNSeDJ6bHRFVkpIcnpRSmJpcG95?=
- =?utf-8?B?NTFMYXRvdThEY3RyN3E3OTFDMUtqSlVGOTFkNXBwSGUrSG1QS1k2ZDZ6RE5E?=
- =?utf-8?B?QjJFQWZaenVmZjQ0OFQxOVl0TGVuRXFaNzBSMWxrNnV2b2U4WUgwR1ArMjVL?=
- =?utf-8?B?ZlJDN0F4aG45SjdKWmQ2Nk9rSTlSZHUxcHNkZXNOUmo5bmd6eFdoNmhIc1Fu?=
- =?utf-8?B?cnZya25QSitzVTlNY2tWM0kwU0Ntc09RRURaSmVtMlZGTGh5ZWxZaHo5YmMw?=
- =?utf-8?B?OVAzZVVFZlVDdENWa211RFdyc0hYM3pnMkpnRkJPTksrc2RRWGRWOTJqNTcx?=
- =?utf-8?B?Yzh1MG9OWTZZd3hqWDhDL0ZmN0dQRlBuMWpqY3dzTFhvak4vRG9VbWpXUzIx?=
- =?utf-8?B?OStWZ1dWckJsMjJSald3QjMyZ3VnUjIzR2tMc2ZtaE5vY21XR05ibi83Vy83?=
- =?utf-8?B?NzZFaW0yYnhadm44aVJEZEdCV2VQcEVFOHN1UTJ0bHl6LzBQY3R6ZXlUMHE0?=
- =?utf-8?B?Q2NrUzQrTWlMWXV6c29xVEpYNERkV2JBSVhaNkU2WkE5YnZ0eEZjajVjbjdT?=
- =?utf-8?B?amw2aVU3WStVZENRRUZYREJocWx4ZTRUWFZpYWNDODdJZkpHRFBuNkhTdGxr?=
- =?utf-8?B?MXpMdW9JZUdtMXRycm5KY3gwYXo1VlE1cG50c2p3ZnpBaS92aGtGMHE2RkRn?=
- =?utf-8?B?eXIrZE5qa2lzYlUxZDUyb3ZXb0pNcFBNRnVPMTgrWTZ6LzJHbmIrZTNXSnFO?=
- =?utf-8?B?QkxlUzVtM2YxZ25jR24xQ0l6K0tRQ1d2UUU0cXY3VGxRWEhzNHN6ZTlWeXBK?=
- =?utf-8?B?aDZ3QWhJUW9sUGpWQjcxZCs4NE94NGJiam9pT2ViQWxvR1lkTDhXaml5YlRu?=
- =?utf-8?B?Rm1tUEpYczc5M3d3blYvUEZ3eEpIcGRBbDh3elNBU3dqK1Z5OXZyd1JudlZp?=
- =?utf-8?B?VjhsSXJWU1VTRms1dXFxOEhkd0lhRXdPc0lSMkZxMHplVTVZeTUvNVk3WElK?=
- =?utf-8?B?SmZoUzdaSFk4U0xRcVV2bTQrNm1sUkxsSGJZTGJmOTRZbjJtY3A3a254UFBG?=
- =?utf-8?B?SjFqL08xRDhYMzEzbmJFaHoxcEo2NHZWbXVWYm1reEoremU0N1phcFArL3FM?=
- =?utf-8?B?cjVPUy9jaTE2T3ZzdlhDTGMzRjAzRUtDOHRINXQ1T0VISXdjU3VXZWhpUFlo?=
- =?utf-8?B?dy96VjhodFVhY2V2dUxSSmYwZzlIdlVlWnRaTzdLeHdkWVFGQUVoTUtWK1ZW?=
- =?utf-8?B?MEUvYzVpZ082R3BVRjlZa0tVTmN3bDlhQ2JvZDExeUZleGRDVEFJNldDL0c1?=
- =?utf-8?B?NURxWndjUEhGdzk3RHBjbEVIT0MwYzAzRG15OVhsdjZ0TnZKQURwVlJaL0NI?=
- =?utf-8?B?cUVLdk8reHB3dk9iNWFTeWplVkZhZnhZdlRPeEdHUXNudFk5ZVRsWnBPdFM0?=
- =?utf-8?B?QzhFSGxyOS9VSjNkUEhaTWhiTVRpRk5hVXN5L2U5ck5mT1FxK1JleXI3Nnpw?=
- =?utf-8?B?K0wwdy9NWjRkc2FPMEF1b01TUHVZSTJqWVFTUE5ubUhjK1pPU3pscDZTLzZD?=
- =?utf-8?B?KzRHMFhjdG1pQ0J6SGwxbnQ1cXRZWm1NNTM2QmJGVHZHOHZnWVZnUW0wdm9X?=
- =?utf-8?Q?a7ja2HKjixl73EZcpLPpxLgJQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f074a88d-23af-4774-0eca-08ddadf8a500
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2025 23:42:38.9784 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vmCBJZ4+LXQu3cd7dQZyvJjLh28U96csR5BwytnY2EWz2wYGtqR1FrOpdr71E4OH6WS/YZ7GkPPiQGBOk3td9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7807
+User-Agent: Mozilla Thunderbird
+Subject: Re: amdgpu vs kexec
+To: Peter Zijlstra <peterz@infradead.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, Borislav Petkov <bp@alien8.de>,
+ amd-gfx@lists.freedesktop.org
+References: <20250616093945.GA1613200@noisy.programming.kicks-ass.net>
+ <4f5f95ff-b97e-41db-b9fd-5204e6581a30@amd.com>
+ <20250616145437.GG1613376@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20250616145437.GG1613376@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,50 +61,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On 6/16/2025 9:54 AM, Peter Zijlstra wrote:
+> On Mon, Jun 16, 2025 at 01:51:21PM +0200, Christian König wrote:
+>> Hi Peter,
+>>
+>> On 6/16/25 11:39, Peter Zijlstra wrote:
+>>> Hi guys,
+>>>
+>>> My (Intel Sapphire Rapids) workstation has a RX 7800 XT and when I kexec
+>>> a bunch of times, the amdgpu driver gets upset and barfs on boot.
+>>
+>> yeah, that is an "intentional" HW feature and yes you're certainly not
+>> the first one to complain about it :(
+>>
+>> The PSP (platform security processor IIRC) is designed in such a way
+>> that you can initialize it only once after a power cycle / hard reset
+>> for security reasons (e.g. to not leak crypto keys used for digital
+>> rights management etc..).
+>>
+>> On dGPUs we work around that manually by power cycling the ASIC when
+>> that situation is detected during amdgpu load, but that unfortunately
+>> doesn't work 100% reliable.
+> 
+> Right.. hence the splats.
 
-Thanks for reporting. Can you please create a bug at 
-https://gitlab.freedesktop.org/drm/amd/-/issues/ for issue tracking and 
-log collection.
+How about if we reset before the kexec?  There is a symbol for drivers 
+to use to know they're about to go through kexec to do $THINGS.
 
-On 6/12/25 08:08, ggo@tuxedocomputers.com wrote:
-> Hi,
+Something like this:
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 0fc0eeedc6461..2b1216b14d618 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -34,6 +34,7 @@
+
+  #include <linux/cc_platform.h>
+  #include <linux/dynamic_debug.h>
++#include <linux/kexec.h>
+  #include <linux/module.h>
+  #include <linux/mmu_notifier.h>
+  #include <linux/pm_runtime.h>
+@@ -2544,6 +2545,9 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
+                 adev->mp1_state = PP_MP1_STATE_UNLOAD;
+         amdgpu_device_ip_suspend(adev);
+         adev->mp1_state = PP_MP1_STATE_NONE;
++
++       if (kexec_in_progress)
++               amdgpu_asic_reset(adev);
+  }
+
+  static int amdgpu_pmops_prepare(struct device *dev)
+
 > 
-> I have discovered that two small form factor desktops with Ryzen AI 7
-> 350 and Ryzen AI 5 340 crash when woken up from suspend. I can see how
-> the LED on the USB mouse is switched on when I trigger a resume via
-> keyboard button, but the display remains black. The kernel also no
-> longer responds to Magic SysRq keys in this state.
+>> On APUs the situation is even worse because the PSP is shared between
+>> the GPU and the CPU.
+>>
+>> We have forwarded such complains internally for years, but there is
+>> not much else Alex and I can do about it.
 > 
-> The problem affects all kernels after merge b50753547453 (v6.11.0). But
-> this merge only adds PCI_DEVICE_ID_AMD_1AH_M60H_ROOT with commit
-> 59c34008d (necessary to trigger this bug with Ryzen AI CPU).
-> I cherry-picked this commit and continued searching. Which finally led
-> me to commit f6098641d3e - drm/amd/display: fix s2idle entry for DCN3.5+
-> 
-> If I remove the code, which has changed somewhat in the meantime, then
-> the suspend works without any problems. See the following patch.
-> 
-> Regards,
-> Georg
-> 
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index d3100f641ac6..76204ae70acc 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3121,9 +3121,6 @@ static int dm_suspend(struct amdgpu_ip_block
-> *ip_block)
-> 
->   	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
-> 
-> -	if (dm->dc->caps.ips_support && adev->in_s0ix)
-> -		dc_allow_idle_optimizations(dm->dc, true);
-> -
->   	dc_dmub_srv_set_power_state(dm->dc->ctx->dmub_srv,
-> DC_ACPI_CM_POWER_STATE_D3);
-> 
->   	return 0;
+> Oh well. Thanks for the info!
 > 
 
